@@ -1,0 +1,26 @@
+--General
+Vendor Grays is now enabled by default
+Font Size is now 10 by default
+Sticky Frames are now disabled by default (I hope)
+
+--Nameplates
+Health values are now shown by default
+Your debuffs are now shown by default
+
+--Auras
+Number per row is now set in defaults instead of dpe main lua
+
+--Unit Frames
+Smooth bars are now disabled by default
+Frames font size is now 9 by default
+Debuff highliting is now disabled by default
+Smart Raid filter is now disabled by default
+Health bars are now class colored instead ov value colored by default
+Names are now not class colored by default
+
+--Actionbars
+Default positions are now 21 pixel higher
+Stanse bar is now over left chat by default
+
+--Unitframes
+Default positions are now little higher

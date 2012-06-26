@@ -1,0 +1,12 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+	<Include file='altoholic\load_altoholic.xml'/>
+	<Script file='auctionator.lua'/>
+	<Script file='dbm.lua'/>
+	<Script file='dbmopt.lua'/>
+	<Script file='extvendor.lua'/>
+	<Script file='moveanything.lua'/>
+	<Script file='notes.lua'/>
+	<Script file='skada.lua'/>
+	<Script file='tdb.lua'/>
+	<Script file='tellmewhen.lua'/>
+</Ui>

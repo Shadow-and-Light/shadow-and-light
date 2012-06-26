@@ -1,0 +1,9 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+	<Script file='altoholic.lua'/>
+	<Script file='achievements.lua'/>
+	<Script file='agenda.lua'/>
+	<Script file='characters.lua'/>
+	<Script file='grids.lua'/>
+	<Script file='guild.lua'/>
+	<Script file='search.lua'/>
+</Ui>
