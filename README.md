@@ -1,5 +1,5 @@
-ElvUI_DPE
+ElvUI_SLE
 =========
 
-ElvUI Darth Predator&#39;s edit plugin
+Shadow & Light Edit (ElvUI Plugin)
 
