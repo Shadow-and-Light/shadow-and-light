@@ -12,7 +12,7 @@
 
 libs\load_libs.xml
 locales\load_locales.xml
-ElvUI_DPE.lua
+ElvUI_SLE.lua
 core\load_core.xml
 modules\load_modules.xml
 config\load_config.xml
