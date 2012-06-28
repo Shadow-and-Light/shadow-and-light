@@ -235,9 +235,6 @@ L["Darth's Defaults Set"] = true
 L["Repooc's Defaults Set"] = true
 L["Elv's Defaults Set"] = true
 L["Da Edit Options LOL"] = true --Should change this once integrated
-L["Click Me"] = true
-L["Click Me 2"] = true
-
 
 ----------------
 --Raid Utility--
