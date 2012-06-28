@@ -1,5 +1,5 @@
 ﻿local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
---testing for darth's drunk ass
+
 local CURRENT_PAGE = 0
 local MAX_PAGE = 8
 
