@@ -94,7 +94,7 @@ E.Options.args.dpe.args.chat = {
 		header = {
 			order = 1,
 			type = "header",
-			name = L["Chat options"],
+			name = L["Chat Options"],
 		},
 		general = {
 			order = 2,
@@ -106,7 +106,7 @@ E.Options.args.dpe.args.chat = {
 					order = 1,
 					type = "toggle",
 					name = L["Chat Fade"],
-					desc = L["Enable/disable the text fading in the chat window."],
+					desc = L["Enable/Disable the text fading in the chat window."],
 					get = function(info) return E.db.dpe.chat.fade end,
 					set = function(info, value) E.db.dpe.chat.fade = value; CH:FadeUpdate() end, 
 				},
@@ -142,7 +142,7 @@ E.Options.args.dpe.args.chat = {
 				soundenable = {
 					order = 3,
 					type = "toggle",
-					name = L["Enable sound"],
+					name = L["Enable Sound"],
 					desc = L["Play sound when your name is mentioned in chat."],
 					disabled = function() return not E.db.dpe.chat.namehighlight end,
 					get = function(info) return E.db.dpe.chat.sound end,
@@ -161,8 +161,8 @@ E.Options.args.dpe.args.chat = {
 				timer = {
 					order = 5,
 					type = "range",
-					name = L['Timer'],
-					desc = L['Sound will be played only once in this number of seconds.'],
+					name = L["Timer"],
+					desc = L["Sound will be played only once in this number of seconds."],
 					min = 1, max = 20, step = 1,
 					disabled = function() return not E.db.dpe.chat.sound or not E.db.dpe.chat.namehighlight end,
 					get = function(info) return E.private.channelcheck.time end,
@@ -181,16 +181,16 @@ E.Options.args.dpe.args.chat = {
 				addName = {
 					type = 'input',
 					order = 8,
-					name = L['Add Name'],
+					name = L["Add Name"],
 					desc = L["Add a name different from your current character's to be looked for"],
 					disabled = function() return not E.db.dpe.chat.namehighlight end,
 					get = function(info) return "" end,
 					set = function(info, value) 
 						if value:match("^%s*$") then
-							E:Print(L['Invalid name entered!'])
+							E:Print(L["Invalid name entered!"])
 						return
 						elseif E.private['namelist'][value] then
-							E:Print(L['Name already exists!'])
+							E:Print(L["Name already exists!"])
 						return end
 					
 						E.Options.args.dpe.args.chat.args.nameGroup = nil
@@ -226,7 +226,7 @@ E.Options.args.dpe.args.chat = {
 							order = 1,
 							type = "toggle",
 							name = SAY,
-							desc = L["Enable/disable checking of this channel."],
+							desc = L["Enable/Disable checking of this channel."],
 							get = function(info) return E.private.channelcheck.say end,
 							set = function(info, value) E.private.channelcheck.say = value; CH:SetChannelsCheck() end,
 						},
@@ -234,7 +234,7 @@ E.Options.args.dpe.args.chat = {
 							order = 2,
 							type = "toggle",
 							name = YELL,
-							desc = L["Enable/disable checking of this channel."],
+							desc = L["Enable/Disable checking of this channel."],
 							get = function(info) return E.private.channelcheck.yell end,
 							set = function(info, value) E.private.channelcheck.yell = value; CH:SetChannelsCheck() end,
 						},
@@ -242,7 +242,7 @@ E.Options.args.dpe.args.chat = {
 							order = 3,
 							type = "toggle",
 							name = PARTY,
-							desc = L["Enable/disable checking of this channel."],
+							desc = L["Enable/Disable checking of this channel."],
 							get = function(info) return E.private.channelcheck.party end,
 							set = function(info, value) E.private.channelcheck.party = value; CH:SetChannelsCheck() end,
 						},
@@ -250,7 +250,7 @@ E.Options.args.dpe.args.chat = {
 							order = 4,
 							type = "toggle",
 							name = RAID,
-							desc = L["Enable/disable checking of this channel."],
+							desc = L["Enable/Disable checking of this channel."],
 							get = function(info) return E.private.channelcheck.raid end,
 							set = function(info, value) E.private.channelcheck.raid = value; CH:SetChannelsCheck() end,
 						},
@@ -258,7 +258,7 @@ E.Options.args.dpe.args.chat = {
 							order = 5,
 							type = "toggle",
 							name = BATTLEGROUND,
-							desc = L["Enable/disable checking of this channel."],
+							desc = L["Enable/Disable checking of this channel."],
 							get = function(info) return E.private.channelcheck.battleground end,
 							set = function(info, value) E.private.channelcheck.battleground = value; CH:SetChannelsCheck() end,
 						},
@@ -266,7 +266,7 @@ E.Options.args.dpe.args.chat = {
 							order = 6,
 							type = "toggle",
 							name = GUILD,
-							desc = L["Enable/disable checking of this channel."],
+							desc = L["Enable/Disable checking of this channel."],
 							get = function(info) return E.private.channelcheck.guild end,
 							set = function(info, value) E.private.channelcheck.guild = value; CH:SetChannelsCheck() end,
 						},
@@ -274,7 +274,7 @@ E.Options.args.dpe.args.chat = {
 							order = 7,
 							type = "toggle",
 							name = OFFICER,
-							desc = L["Enable/disable checking of this channel."],
+							desc = L["Enable/Disable checking of this channel."],
 							get = function(info) return E.private.channelcheck.officer end,
 							set = function(info, value) E.private.channelcheck.officer = value; CH:SetChannelsCheck() end,
 						},
@@ -282,7 +282,7 @@ E.Options.args.dpe.args.chat = {
 							order = 8,
 							type = "toggle",
 							name = GENERAL,
-							desc = L["Enable/disable checking of this channel."],
+							desc = L["Enable/Disable checking of this channel."],
 							get = function(info) return E.private.channelcheck.general end,
 							set = function(info, value) E.private.channelcheck.general = value; end, 
 						},
@@ -290,7 +290,7 @@ E.Options.args.dpe.args.chat = {
 							order = 9,
 							type = "toggle",
 							name = TRADE,
-							desc = L["Enable/disable checking of this channel."],
+							desc = L["Enable/Disable checking of this channel."],
 							get = function(info) return E.private.channelcheck.trade end,
 							set = function(info, value) E.private.channelcheck.trade = value; end, 
 						},
@@ -298,14 +298,14 @@ E.Options.args.dpe.args.chat = {
 							order = 10,
 							type = "toggle",
 							name = L["Defense"],
-							desc = L["Enable/disable checking of this channel."],
+							desc = L["Enable/Disable checking of this channel."],
 							get = function(info) return E.private.channelcheck.defense end,
 							set = function(info, value) E.private.channelcheck.defense = value; end,
 						},
 						lfg = {
 							order = 11,
 							type = "toggle",
-							name = L['LFG'],
+							name = L["LFG"],
 							desc = L["Enable/disable checking of this channel."],
 							get = function(info) return E.private.channelcheck.lfg end,
 							set = function(info, value) E.private.channelcheck.lfg = value; end,
@@ -318,15 +318,15 @@ E.Options.args.dpe.args.chat = {
 						addChannel = {
 							type = 'input',
 							order = 13,
-							name = L['Add channel'],
+							name = L["Add Channel"],
 							desc = L["Add a custom channel name."],
 							get = function(info) return "" end,
 							set = function(info, value) 
 								if value:match("^%s*$") then
-									E:Print(L['Invalid channel entered!'])
+									E:Print(L["Invalid channel entered!"])
 								return
 								elseif E.private['channellist'][value] then
-									E:Print(L['Channel already exists!'])
+									E:Print(L["Channel already exists!"])
 								return end
 							
 								E.Options.args.dpe.args.chat.args.channelGroup = nil
@@ -339,7 +339,7 @@ E.Options.args.dpe.args.chat = {
 						selectChannel = {
 							order = 14,
 							type = 'select',
-							name = L['Channels list'],
+							name = L["Channels List"],
 							get = function(info) return selectedChannel end,
 							set = function(info, value) selectedChannel = value; UpdateChannel(true) end,							
 							values = function()

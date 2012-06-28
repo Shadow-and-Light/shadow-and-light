@@ -31,7 +31,7 @@ E.Options.args.dpe.args.uibuttons = {
 					order = 1,
 					type = "range",
 					name = L['Size'],
-					desc = L['Sets size of buttons'],
+					desc = L["Sets size of buttons"],
 					min = 12, max = 25, step = 1,
 					get = function(info) return E.db.dpe.uibuttons.size end,
 					set = function(info, value) E.db.dpe.uibuttons.size = value; UB:FrameSize() end,

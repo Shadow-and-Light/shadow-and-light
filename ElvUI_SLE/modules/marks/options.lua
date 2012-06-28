@@ -25,7 +25,7 @@ E.Options.args.dpe.args.marks = {
 			order = 3,
 			type = "range",
 			name = L['Size'],
-			desc = L['Sets size of buttons'],
+			desc = L["Sets size of buttons"],
 			min = 15, max = 30, step = 1,
 			get = function(info) return E.db.dpe.marks.size end,
 			set = function(info, value) E.db.dpe.marks.size = value; RM:FrameButtonsGrowth(); RM:FrameButtonsSize() end,
@@ -34,7 +34,7 @@ E.Options.args.dpe.args.marks = {
 			order = 4,
 			type = "select",
 			name = L["Direction"],
-			desc = L['Change the direction of buttons growth from "skull" mark'],
+			desc = L["Change the direction of buttons growth from the skull mark"],
 			get = function(info) return E.db.dpe.marks.growth end,
 			set = function(info, value) E.db.dpe.marks.growth = value; RM:FrameButtonsGrowth() end,
 			values = {

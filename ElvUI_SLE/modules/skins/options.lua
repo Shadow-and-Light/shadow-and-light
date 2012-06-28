@@ -32,7 +32,7 @@ E.Options.args.dpe.args.skins = {
 					order = 4,
 					type = "toggle",
 					name = L["Skada Backdrop"],
-					desc = L['Show/Hide Skada backdrop.'],
+					desc = L["Show/Hide Skada backdrop."],
 					get = function(info) return E.private.dpe.skadaback end,
 					set = function(info, value) E.private.dpe.skadaback = value; StaticPopup_Show("PRIVATE_RL") end
 				},

@@ -7,7 +7,7 @@ local DPE = E:NewModule('DPE', 'AceHook-3.0', 'AceEvent-3.0');
 function DPE:Initialize()
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "UpdateThings");
 	if E.db.general.loginmessage then
-		print(L['DPE_LOGIN_MSG'])
+		print(L['SLE_LOGIN_MSG'])
 	end
 	E:GetModule('Chat'):SetTimer() --If called before Edit loaded from chat.lua will cause errors
 	E:GetModule('Chat'):SetChannelsCheck() --If called before Edit loaded from chat.lua will cause errors

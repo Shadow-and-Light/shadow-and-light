@@ -19,15 +19,15 @@ local function OnEnter(self)
 	DT:SetupTooltip(self)
 
 	GameTooltip:AddDoubleLine("ElvUI "..L["Version"]..format(": |cff99ff33%s|r",E.version))
-	GameTooltip:AddLine(L["DPE_AUTHOR_INFO"])
+	GameTooltip:AddLine(L["SLE_AUTHOR_INFO"])
 	GameTooltip:AddLine(" ")
-	GameTooltip:AddLine(L['DPE_CONTACTS'])
+	GameTooltip:AddLine(L['SLE_CONTACTS'])
 	
 	GameTooltip:Show()
 end
 
 local function ValueColorUpdate(hex, r, g, b)
-	displayString = string.join("", "%s", hex, "%.2f|r", " : Darth Predator's edit")
+	displayString = string.join("", "%s", hex, "%.2f|r", " : Shadow & Light Edit")
 	
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)

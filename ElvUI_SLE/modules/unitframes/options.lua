@@ -86,7 +86,7 @@ E.Options.args.dpe.args.unitframes = {
 					order = 1,
 					type = "toggle",
 					name = L["PvP text on mouse over"],
-					desc = L['Show PvP text on mouse over player frame.'],
+					desc = L["Show PvP text on mouse over player frame."],
 					get = function(info) return E.db.dpe.pvp.mouse end,
 					set = function(info, value) E.db.dpe.pvp.mouse = value; end,
 				},
@@ -94,7 +94,7 @@ E.Options.args.dpe.args.unitframes = {
 					order = 3,
 					type = "select",
 					name = L["PvP Position"],
-					desc = L['Set the point to show pvp text'],
+					desc = L["Set the point to show pvp text"],
 					get = function(info) return E.db.dpe.pvp.pos end,
 					set = function(info, value) E.db.dpe.pvp.pos = value; end,
 					values = positionValues
@@ -103,7 +103,7 @@ E.Options.args.dpe.args.unitframes = {
 					order = 4,
 					type = "select",
 					name = L["Combat Position"],
-					desc = L['Set the point to show combat icon'],
+					desc = L["Set the point to show combat icon"],
 					get = function(info) return E.db.dpe.combatico.pos end,
 					set = function(info, value) E.db.dpe.combatico.pos = value; UF:Update_CombatIndicator() end,
 					values = positionValues
