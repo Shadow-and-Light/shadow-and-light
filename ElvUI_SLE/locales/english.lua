@@ -9,22 +9,15 @@ end
 
 if not L then return; end
 
-L['DPE_LOGIN_MSG'] = [=[You are using Shadow & Light Edit for ElvUI by the SLE Team.
-If you wish to use the original ElvUI addon, disable this edit's plugin in your Addons manager.
-Have a nice day.]=]
---[[
 L['SLE_LOGIN_MSG'] = [=[You are using Shadow & Light Edit for ElvUI by the SLE Team.
 If you wish to use the original ElvUI addon, disable this edit's plugin in your Addons manager.
 Have a nice day.]=]
-]]
+
 ---------------
 --Main config--
 ---------------
---L["Darth Predator's Edit"] = true
 L["Shadow & Light Edit"] = true
---L["Darth Predator's edit of ElvUI"] = true
 L["Shadow & Light Edit of ElvUI"] = true
---L['DPE_DESC'] = true
 L["SLE_DESC"] = true
 
 
@@ -269,25 +262,8 @@ L["Show/Hide the frame with exact number of your Solar/Lunar energy."] = true
 -----------
 --Credits--
 -----------
---L['ELVUI_DPE_CREDITS'] = "I would like to point out the following people for helping me creating this addon with testing, coding and other stuff."
 L["ELVUI_SLE_CREDITS"] = "I would like to point out the following people for helping me create this addon with testing, coding, and other stuff."
---L['Submodules and coding:'] = true
 L["Submodules and Coding:"] = true
---[[
-L['ELVUI_DPE_CODERS'] = [=[Benik - core of exp/rep bars' text
-Repooc - core of auto release feature, some ideas, testing
-Tukz - helping with oUF
-Elv - for making creation of this edit much easier
-Pvtschlag - Necrotic Strike oUF plugin
-Blazeflack - helping hooking, modules and profiles
-Camealion - teaching me the art of skining
-Swordyy - idea of ui buttons
-Azilroka@US-Daggerspine - core of ExtVendor and Altoholic skins
-Pat - skinning options dropdowns and checkboxes missed by Elv
-Boradan - the idea of classbar movement
-Hydra - basic core of toon name highlight feature
-]=]
-]]
 L["ELVUI_SLE_CODERS"] = [=[Benik - core of exp/rep bars' text
 Repooc - core of auto release feature, some ideas, testing
 Tukz - helping with oUF
@@ -301,20 +277,12 @@ Pat - skinning options dropdowns and checkboxes missed by Elv
 Boradan - the idea of classbar movement
 Hydra - basic core of toon name highlight feature
 ]=]
-L['Other support:'] = true
---L["Other Support:"] = true
-L['ELVUI_DPE_MISC'] = [=[BuG - brining fun to the chat while i was writing this
-TheSamaKutra - some good ideas
-The rest of TukUI community - the existance of community itself
-My guild, Effect(Эффект)@RU-Soulflyer(Свежеватель Душ) - not kicking me out while I was slacking :D
-]=]
---[[
+L["Other Support:"] = true
 L["ELVUI_SLE_MISC"] = [=[BuG - brining fun to the chat while i was writing this
 TheSamaKutra - some good ideas
 The rest of TukUI community - the existance of community itself
 My guild, Effect(Эффект)@RU-Soulflyer(Свежеватель Душ) - not kicking me out while I was slacking :D
 ]=]
-]]
 L["SLE_AUTHOR_INFO"] = "Shadow & Light Edit by Дартпредатор@RU-Свежеватель Душ(Soulflyer) & Repooc@Korialstrasz"
 L["SLE_CONTACTS"] = [=[Bug reports, suggestions and other stuff accepted via:
 - In-game mail
