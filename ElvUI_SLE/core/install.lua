@@ -497,7 +497,7 @@ function E:SetupLayout(layout, noDataReset)
 	DT:LoadDataTexts()
 end
 
-function E:EditSetup() --The function to switch from classic ElvUI settings to ours
+function E:DarthSetup() --The function to switch from classic ElvUI settings to Darth's
 	InstallStepComplete.message = L["Darth's Defaults Set"]
 	InstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
@@ -631,14 +631,19 @@ function E:EditSetup() --The function to switch from classic ElvUI settings to o
 	E:UpdateAll(true)
 end
 
-function E:ElvSetup() --The function to restore defaults. not finished yet lol
-	InstallStepComplete.message = L["Elv's Defaults Set"]
+function E:RepoocSetup() --The function to switch from classic ElvUI settings to Repooc's
+	InstallStepComplete.message = L["Repooc's Defaults Set"]
 	InstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
-	--Actionbars setting up to Elv's defaults
-	E.db.movers.ElvAB_1 = "BOTTOMUIParentBOTTOM04"
-	
+		
 	E:UpdateAll(true)
+end
+
+function E:ElvSetup() --The function to restore defaults. not finished yet lol
+	if not E.db.movers then E.db.movers = {}; end
+	--Move every bar and panel to the defaults.
+	E:ResetUI()
+
 end
 
 local function InstallComplete()
@@ -776,16 +781,19 @@ local function SetPage(PageNum)
 		InstallOption4Button:SetScript('OnClick', function() E.db.layoutSet = nil; E:SetupLayout('dpsCaster') end)
 		InstallOption4Button:SetText(L['Caster DPS'])
 	elseif PageNum == 7 then --The new page
-		f.SubTitle:SetText(L["Da Edit Options LOL"])
+		f.SubTitle:SetText(L["Shadow & Light settings"])
+		f.Desc1:SetText(L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."])
+		f.Desc2:SetText(L["Elv's Defaults button only needs to be clicked if you set one of our configurations and wish to reverse this choise."])
+		f.Desc3:SetText(L["Importance: |cffFF0000Low|r"])
 		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', function() E:EditSetup() end)
-		InstallOption1Button:SetText(L["Darth's Defaults Set"])	
+		InstallOption1Button:SetScript('OnClick', function() E:DarthSetup() end)
+		InstallOption1Button:SetText(L["Darth's Config"])	
 		InstallOption2Button:Show()
-		InstallOption2Button:SetScript('OnClick', function() E:EditSetup() end)
-		InstallOption2Button:SetText(L["Repooc's Defaults Set"])
+		InstallOption2Button:SetScript('OnClick', function() E:RepoocSetup() end)
+		InstallOption2Button:SetText(L["Repooc's Config"])
 		InstallOption3Button:Show()
 		InstallOption3Button:SetScript('OnClick', function() E:ElvSetup() end)
-		InstallOption3Button:SetText(L["Elv's Defaults Set"])	
+		InstallOption3Button:SetText(L["Elv's Defaults"])	
 	elseif PageNum == 8 then
 		f.SubTitle:SetText(L["Installation Complete"])
 		f.Desc1:SetText(L["You are now finished with the installation process. Bonus Hint: If you wish to access blizzard micro menu, middle click on the minimap. If you don't have a middle click button then hold down shift and right click the minimap. If you are in need of technical support please visit us at www.tukui.org."])
