@@ -14,7 +14,7 @@ local m8 = CreateFrame("Button", "M8", Mark_Menu, "SecureActionButtonTemplate")
 
 --Main frame
 function RM:CreateFrame()
-	mark_menu:Point('CENTER', E.UIParent, 'CENTER', 0, 0) --Default positon
+	mark_menu:Point('BOTTOMRIGHT', RightChatTab, 'TOPRIGHT', 2, 40) --Default positon
 	mark_menu:SetFrameStrata('LOW');
 	mark_menu:CreateBackdrop('Default');
 	mark_menu.backdrop:SetAllPoints();
