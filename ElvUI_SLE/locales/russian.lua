@@ -219,6 +219,7 @@ L["You can now choose if you what to use one of authors' set of options. This wi
 L["Elv's Defaults button only needs to be clicked if you set one of our configurations and wish to reverse this choise."] = 'Кнопку "Умолчания ElvUI" требуется нажимать только в том случае, если вы выбрали одну из наших конфигураций и желаете обратить эти изменения.'
 L["Darth's Defaults Set"] = "Установлены настройки Darth'а"
 L["Repooc's Defaults Set"] = "Установлены настройки Repooc'а"
+L["Elv's Defaults Set"] = "Установлены настройки по умолчанию"
 L["Darth's Config"] = "Опции Darth'а"
 L["Repooc's Config"] = "Опции Repooc'а"
 L["Elv's Defaults"] = "Умолчания ElvUI"

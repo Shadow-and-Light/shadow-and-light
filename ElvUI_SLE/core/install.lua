@@ -1,4 +1,5 @@
 ﻿local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local UF = E:GetModule('UnitFrames');
 
 local CURRENT_PAGE = 0
 local MAX_PAGE = 8
@@ -626,7 +627,33 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.arena.castbar.width = 200;		
 	end
 	
+	--Setting player frame
+	E.db.unitframe.units.player.lowmana = 0;
+	E.db.unitframe.units.player.health.position = 'BOTTOMRIGHT';
+	E.db.unitframe.units.player.power.position = 'RIGHT';
 	E.db.unitframe.units.player.name.enable = true;
+	E.db.unitframe.units.player.name.position = 'TOPLEFT';
+	E.db.unitframe.units.player.portrait.enable = true
+	E.db.unitframe.units.player.portrait.camDistanceScale = 1.5;
+	E.db.unitframe.units.player.debuffs.enable = false;
+	E.db.unitframe.units.player.castbar.format = 'CURRENTMAX';
+	--Setting target frame
+	E.db.unitframe.units.target.hideonnpc = false;
+	E.db.unitframe.units.target.health.position = 'BOTTOMRIGHT';
+	E.db.unitframe.units.target.power.position = 'RIGHT';
+	E.db.unitframe.units.target.name.enable = true;
+	E.db.unitframe.units.target.name.position = 'TOPLEFT';
+	E.db.unitframe.units.target.portrait.enable = true
+	E.db.unitframe.units.target.portrait.camDistanceScale = 1.5;
+	E.db.unitframe.units.target.buffs.perrow = 8;
+	E.db.unitframe.units.target.buffs.numrows = 2;
+	E.db.unitframe.units.target.buffs['growth-x'] = 'RIGHT';
+	E.db.unitframe.units.target.buffs.initialAnchor = 'BOTTOMLEFT';
+	E.db.unitframe.units.target.buffs.anchorPoint = 'TOPLEFT';
+	E.db.unitframe.units.target.debuffs.perrow = 8;
+	E.db.unitframe.units.target.debuffs.useFilter = 'DebuffBlacklist';
+	E.db.unitframe.units.target.debuffs.showPlayerOnly = false;
+	E.db.unitframe.units.target.castbar.format = 'CURRENTMAX';
 	
 	E:UpdateAll(true)
 end
@@ -640,9 +667,14 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 end
 
 function E:ElvSetup() --The function to restore defaults. not finished yet lol
+	InstallStepComplete.message = L["Elv's Defaults Set"]
+	InstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
 	--Move every bar and panel to the defaults.
-	E:ResetUI()
+	E:ResetUI() --Reseting positions
+	StaticPopup3Button1:Click() --this is automatic click on confirm for reseting mivers
+	UF:ResetUnitSettings('player');
+	UF:ResetUnitSettings('target');
 
 end
 

@@ -237,6 +237,7 @@ L["You can now choose if you what to use one of authors' set of options. This wi
 L["Elv's Defaults button only needs to be clicked if you set one of our configurations and wish to reverse this choise."] = true
 L["Darth's Defaults Set"] = true
 L["Repooc's Defaults Set"] = true
+L["Elv's Defaults Set"] = true
 L["Darth's Config"] = true
 L["Repooc's Config"] = true
 L["Elv's Defaults"] = true
