@@ -232,10 +232,14 @@ L["Set the texture to use in this frame.  Requirements are the same as the chat 
 ----------------
 --Install Page--
 ----------------
+L["Shadow & Light settings"] = true
+L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."] = true
+L["Elv's Defaults button only needs to be clicked if you set one of our configurations and wish to reverse this choise."] = true
 L["Darth's Defaults Set"] = true
 L["Repooc's Defaults Set"] = true
-L["Elv's Defaults Set"] = true
-L["Da Edit Options LOL"] = true --Should change this once integrated
+L["Darth's Config"] = true
+L["Repooc's Config"] = true
+L["Elv's Defaults"] = true
 
 ----------------
 --Raid Utility--
