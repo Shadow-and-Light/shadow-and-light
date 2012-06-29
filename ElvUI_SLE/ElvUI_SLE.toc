@@ -1,6 +1,6 @@
 ﻿## Interface: 40300
-## Title: |cff1784d1ElvUI |rDarth Predator's Edit
-## Author: Darth Predator
+## Title: |cff1784d1ElvUI |rShadow and Light Edit
+## Author: Darth Predator, Repooc
 ## Version: 0.9
 ## Notes: Plugin that changes |cff1784d1ElvUI|r to fit my preferences.
 ## Notes-ruRU: Плагин, переделывающий |cff1784d1ElvUI|r под мой вкус.
