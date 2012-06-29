@@ -9,7 +9,7 @@ end
 
 if not L then return; end
 
-L['SLE_LOGIN_MSG'] = [=[You are using Shadow & Light Edit for ElvUI by the SLE Team.
+L['SLE_LOGIN_MSG'] = [=[You are using |cff1784d1Shadow & Light Edit|r for ElvUI.
 If you wish to use the original ElvUI addon, disable this edit's plugin in your Addons manager.
 Have a nice day.]=]
 
@@ -18,7 +18,8 @@ Have a nice day.]=]
 ---------------
 L["Shadow & Light Edit"] = true
 L["Shadow & Light Edit of ElvUI"] = true
-L["SLE_DESC"] = true
+L["SLE_DESC"] = [=[This is and edit of ElvUI that adds some functionality to the original addon and changes some previously existed options.
+The edit doesn't change original files in any respect so you can freely disable it any time from youe addon manager without any risk.]=]
 
 
 --LFR Lockdown

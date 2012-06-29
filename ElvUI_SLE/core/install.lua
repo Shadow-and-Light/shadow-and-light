@@ -695,7 +695,7 @@ local function SetPage(PageNum)
 	end
 	
 	InstallTutorialImage:Size(256, 128)
-	InstallTutorialImage:SetTexture('Interface\\AddOns\\ElvUI_DPE\\textures\\logo_elvui_dpe.tga')
+	InstallTutorialImage:SetTexture('Interface\\AddOns\\ElvUI_SLE\\textures\\logo_elvui_dpe.tga')
 	InstallTutorialImage:Show()	
 	
 	if PageNum == 1 then
@@ -779,10 +779,13 @@ local function SetPage(PageNum)
 		f.SubTitle:SetText(L["Da Edit Options LOL"])
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', function() E:EditSetup() end)
-		InstallOption1Button:SetText(L["Click Me"])	
+		InstallOption1Button:SetText(L["Darth's Defaults Set"])	
 		InstallOption2Button:Show()
-		InstallOption2Button:SetScript('OnClick', function() E:ElvSetup() end)
-		InstallOption2Button:SetText(L["Click Me 2"])	
+		InstallOption2Button:SetScript('OnClick', function() E:EditSetup() end)
+		InstallOption2Button:SetText(L["Repooc's Defaults Set"])
+		InstallOption3Button:Show()
+		InstallOption3Button:SetScript('OnClick', function() E:ElvSetup() end)
+		InstallOption3Button:SetText(L["Elv's Defaults Set"])	
 	elseif PageNum == 8 then
 		f.SubTitle:SetText(L["Installation Complete"])
 		f.Desc1:SetText(L["You are now finished with the installation process. Bonus Hint: If you wish to access blizzard micro menu, middle click on the minimap. If you don't have a middle click button then hold down shift and right click the minimap. If you are in need of technical support please visit us at www.tukui.org."])

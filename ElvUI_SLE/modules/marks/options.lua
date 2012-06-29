@@ -34,7 +34,7 @@ E.Options.args.dpe.args.marks = {
 			order = 4,
 			type = "select",
 			name = L["Direction"],
-			desc = L["Change the direction of buttons growth from the skull mark"],
+			desc = L["Change the direction of buttons growth from the skull marker"],
 			get = function(info) return E.db.dpe.marks.growth end,
 			set = function(info, value) E.db.dpe.marks.growth = value; RM:FrameButtonsGrowth() end,
 			values = {
