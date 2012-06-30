@@ -124,7 +124,7 @@ E.Options.args.sle.args.unitframes.args.druid = {
 			order = 1,
 			type = "toggle",
 			name = L["Enable"],
-			desc = L["Show/hide the tetx with exact number of your Solar/Lunar energy on your Classbar."],
+			desc = L["Show/hide the text with exact number of your Solar/Lunar energy on your Classbar."],
 			get = function(info) return E.db.sle.bpenable end,
 			set = function(info, value) E.db.sle.bpenable = value; E:GetModule('SLE'):BPUpdate() end
 		},
