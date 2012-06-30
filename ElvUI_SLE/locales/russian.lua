@@ -60,6 +60,10 @@ L['Set the point to show combat icon'] = "Устанавливает позиц�
 L["Classbar Offset"] = "Отступ полосы класса"
 L["This options will allow you to detach your classbar from player's frame and move it in other location."] = "Эти опции позволят вам открепить полосу класса от рамки игрока и передвинуть ее в другое место."
 
+--Balance Power Text
+L["Balance Power Text"] = "Текст энергии баланса"
+L["Show/hide the text with exact number of your Solar/Lunar energy on your Classbar."] = "Показать/скрыть текст с точным значением Лунной/Солнечной энергии на полосе класса."
+
 ----------------
 --Exp/Rep Text--
 ----------------
@@ -235,14 +239,6 @@ L['X Position'] = "Позиция X"
 L['Sets X position of Raid Utility button.'] = "Задает координаты Управления рейдом по оси X."
 L['Y Position'] = "Позиция Y"
 L['Sets Y position of Raid Utility button.'] = "Задает координаты Управления рейдом по оси Y."
-
------------------------
---Balance Power Frame--
------------------------
-L["Druid"] = "Друид"
-L["Druid spesific options"] = "Настройки для друидов"
-L["Balance Power Frame"] = "Фрейм Энергии Баланса"
-L["Show/hide the frame with exact number of your Solar/Lunar energy."] = "Показать/скрыть фрейм с точным значением Лунной/Солнечной энергии."
 
 -----------
 --Credits--

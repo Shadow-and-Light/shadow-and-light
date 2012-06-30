@@ -64,10 +64,13 @@ L["PvP Position"] = true
 L["Set the point to show pvp text"] = true
 L["Combat Position"] = true
 
-
 --Classbar offset
 L["Classbar Offset"] = true
 L["This options will allow you to detach your classbar from player's frame and move it in other location."] = true
+
+--Balance Power Text
+L["Balance Power Text"] = true
+L["Show/hide the text with exact number of your Solar/Lunar energy on your Classbar."] = true
 
 ----------------
 --Exp/Rep Text--
@@ -253,14 +256,6 @@ L["X Position"] = true
 L["Sets X position of Raid Utility button."] = true
 L["Y Position"] = true
 L["Sets Y position of Raid Utility button."] = true
-
------------------------
---Balance Power Frame--
------------------------
-L["Druid"] = true
-L["Druid spesific options"] = true
-L["Balance Power Frame"] = true
-L["Show/Hide the frame with exact number of your Solar/Lunar energy."] = true
 
 -----------
 --Credits--

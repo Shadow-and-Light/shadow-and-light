@@ -113,6 +113,25 @@ E.Options.args.sle.args.unitframes = {
 	},
 }
 
+if E.myclass == "DRUID" then
+E.Options.args.sle.args.unitframes.args.druid = {
+	order = 7,
+	type = 'group',
+	name = L["Balance Power Text"],
+	guiInline = true,
+	args = {
+		bpenable = {
+			order = 1,
+			type = "toggle",
+			name = L["Enable"],
+			desc = L["Show/hide the tetx with exact number of your Solar/Lunar energy on your Classbar."],
+			get = function(info) return E.db.sle.bpenable end,
+			set = function(info, value) E.db.sle.bpenable = value; E:GetModule('SLE'):BPUpdate() end
+		},
+	},
+}
+end
+
 if E.myclass == "PALADIN" or E.myclass == "WARLOCK" or E.myclass == "DEATHKNIGHT" or E.myclass == "SHAMAN" or E.myclass == "DRUID" then
 E.Options.args.sle.args.unitframes.args.classbar = {
 	order = 6,
