@@ -3,9 +3,9 @@
 -------------------------------------------------
 --Testing line
 local E, L, V, P, G =  unpack(ElvUI); --Engine, Locales, Profile, Global
-local DPE = E:NewModule('DPE', 'AceHook-3.0', 'AceEvent-3.0');
+local SLE = E:NewModule('SLE', 'AceHook-3.0', 'AceEvent-3.0');
 
-function DPE:Initialize()
+function SLE:Initialize()
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "UpdateThings");
 	if E.db.general.loginmessage then
 		print(L['SLE_LOGIN_MSG'])
@@ -15,7 +15,7 @@ function DPE:Initialize()
 end
 
 --Updating things that must be updated only after everything loads
-function DPE:UpdateThings()
+function SLE:UpdateThings()
 	E:GetModule('UnitFrames'):Update_CombatIndicator()
 end
 
@@ -25,7 +25,7 @@ function E:UpdateAll()
 	E:GetModule('DTPanels'):Update()
 	E:GetModule('UnitFrames'):Update_CombatIndicator()
 	E:GetModule('UIButtons'):Start()
-	E:GetModule('DPE'):BPUpdate()
+	E:GetModule('SLE'):BPUpdate()
 end
 
-E:RegisterModule(DPE:GetName())
+E:RegisterModule(SLE:GetName())
