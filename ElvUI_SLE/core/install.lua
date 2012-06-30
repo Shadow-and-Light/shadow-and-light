@@ -502,9 +502,44 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	InstallStepComplete.message = L["Darth's Defaults Set"]
 	InstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
+	--General options
+	E.db.general.vendorGrays = true
+	E.db.general.fontsize = 10
+	E.db.general.stickyFrames = false
+	E.db.general.minimapLocationText = 'SHOW'
+	E.db.general.panelHeight = 227
+	--Nameplates
+	E.db.nameplate.showhealth = true
+	--Datatexts
+	E.db.datatexts.time24 = true
+	E.db.sle.datatext.dp1.enabled = true
+	E.db.sle.datatext.dp2.enabled = true
+	E.db.sle.datatext.top.enabled = true
+	E.db.sle.datatext.dp3.enabled = true
+	E.db.sle.datatext.dp4.enabled = true
+	E.db.sle.datatext.dp5.enabled = true
+	E.db.sle.datatext.bottom.enabled = true
+	E.db.sle.datatext.dp6.enabled = true
+	--Actionbars
+	E.db.actionbar.hotkeytext = false
+	E.db.actionbar.bar1.point = 'TOPLEFT'
+	E.db.actionbar.bar3.point = 'TOPLEFT'
+	E.db.actionbar.bar5.point = 'TOPLEFT'
+	E.db.actionbar.barShapeShift.buttonsize = 25
 	--Actionbars moving up
 	E.db.movers.ElvAB_1 = "BOTTOMUIParentBOTTOM021"
-	
+	E.db.movers.ShiftAB = "TOPLEFTUIParentTOPLEFT0-21"
+		
+	--Unitframes
+	E.db.unitframe.smoothbars = false
+	E.db.unitframe.fontsize = 9
+	E.db.unitframe.debuffHighlighting = false
+	E.db.unitframe.smartRaidFilter = false
+	E.db.unitframe.colors.healthclass = true
+	E.db.unitframe.colors.colorhealthbyvalue = false
+	E.db.unitframe.colors.classNames = false
+	E.db.unitframe.fontoutline = 'OUTLINE'
+
 	layout = E.db.layoutSet --To know if some sort of layout was choosed before
 	
 	--The big block for moving all unitframes stuff up
@@ -637,6 +672,8 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.unitframe.units.player.portrait.camDistanceScale = 1.5;
 	E.db.unitframe.units.player.debuffs.enable = false;
 	E.db.unitframe.units.player.castbar.format = 'CURRENTMAX';
+	E.db.unitframe.units.player.classbar.fill = 'fill'
+	E.db.unitframe.units.player.classbar.height = 8
 	--Setting target frame
 	E.db.unitframe.units.target.hideonnpc = false;
 	E.db.unitframe.units.target.health.position = 'BOTTOMRIGHT';
@@ -655,6 +692,24 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.unitframe.units.target.debuffs.showPlayerOnly = false;
 	E.db.unitframe.units.target.castbar.format = 'CURRENTMAX';
 	
+	--Bags
+	E.db.bags.yOffset = 225
+	--ClassTimers
+	E.db.classtimer.target.enable = false
+	--Raid utility
+	E.db.sle.raidutil.ypos = E.screenheight - 30
+	--Exp/Rep Text
+	E.db.sle.xprepinfo.enabled = true
+	E.db.sle.xprepinfo.xprepdet = true
+	E.db.sle.xprepinfo.xprest = true
+	--PvP text and Combat icon
+	E.db.sle.pvp.pos = 'BOTTOMLEFT'
+	E.db.sle.pvp.mouse = false
+	E.db.sle.combatico.pos = 'TOPRIGHT'
+	--Chat
+	E.db.sle.chat.fade = true
+	E.db.sle.unitframes.reverse.mana = true
+	
 	E:UpdateAll(true)
 end
 
@@ -670,12 +725,24 @@ function E:ElvSetup() --The function to restore defaults. not finished yet lol
 	InstallStepComplete.message = L["Elv's Defaults Set"]
 	InstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
+	--Set to defaults. Every module is listed just in case.
+	E:CopyTable(E.db.general, P.general) --General options
+	E:CopyTable(E.db.nameplate, P.nameplate) --Nameplates
+	E:CopyTable(E.db.datatexts, P.datatexts) --Datatexts
+	E:CopyTable(E.db.actionbar, P.actionbar) --Actionbars
+	E:CopyTable(E.db.tooltip, P.tooltip) --Tooltip
+	E:CopyTable(E.db.unitframe, P.unitframe) --Unitframes
+	E:CopyTable(E.db.skins, P.skins) --Skins
+	E:CopyTable(E.db.bags, P.bags) --Bags
+	E:CopyTable(E.db.classtimer, P.classtimer) --ClassTimers
+	E:CopyTable(E.db.chat, P.chat) --Chat
+	E:CopyTable(E.db.sle, P.sle) --Edit's main defaults
+	E:CopyTable(E.db.microbar, P.microbar) --Microbar
 	--Move every bar and panel to the defaults.
 	E:ResetUI() --Reseting positions
-	StaticPopup3Button1:Click() --this is automatic click on confirm for reseting mivers
-	UF:ResetUnitSettings('player');
-	UF:ResetUnitSettings('target');
-
+	StaticPopup3Button1:Click() --this is automatic click on confirm for reseting movers
+	
+	E:UpdateAll(true)
 end
 
 local function InstallComplete()
