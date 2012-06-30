@@ -174,7 +174,7 @@ function M:UpdateExpBar(event)
 		bar:SetValue(cur - 1 >= 0 and cur - 1 or 0)
 		bar:SetValue(cur)
 		-- enable text
-		if E.db.dpe.xprepinfo.enabled then
+		if E.db.sle.xprepinfo.enabled then
 			M:CreateExpTextString()
 		end
 	end
@@ -234,7 +234,7 @@ function M:UpdateRepBar(event)
 		bar:SetMinMaxValues(min, max)
 		bar:SetValue(value)
 		-- enable text
-		if E.db.dpe.xprepinfo.enabled then
+		if E.db.sle.xprepinfo.enabled then
 			M:CreateRepTextString()
 		end
 	end
@@ -260,7 +260,7 @@ function M:UpdateExpRepBarAnchor()
 
 	if UpperReputationBar then
 		UpperReputationBar:Size(BAR_WIDTH + RBRWidth, BAR_HEIGHT)
-		if E.db.dpe.xprepinfo.enabled then
+		if E.db.sle.xprepinfo.enabled then
 			M:CreateRepTextString()
 		else
 			UpperReputationBar.txt:SetText('')
@@ -269,7 +269,7 @@ function M:UpdateExpRepBarAnchor()
 	
 	if UpperExperienceBar then
 		UpperExperienceBar:Size(BAR_WIDTH + RBRWidth, BAR_HEIGHT)
-		if E.db.dpe.xprepinfo.enabled then
+		if E.db.sle.xprepinfo.enabled then
 			M:CreateExpTextString()
 		else
 			UpperExperienceBar.txt:SetText('')
@@ -293,8 +293,8 @@ function M:CreateExpTextString()
 		UpperExperienceBar.rested:SetValue(0)	
 	end
 	
-	if E.db.general.expRepPos == "TOP_SCREEN" and E.db.dpe.xprepinfo.xprepdet then
-		if E.db.dpe.xprepinfo.xprest and rested and rested > 0 then
+	if E.db.general.expRepPos == "TOP_SCREEN" and E.db.sle.xprepinfo.xprepdet then
+		if E.db.sle.xprepinfo.xprest and rested and rested > 0 then
 			UpperExperienceBar.txt:SetText(LEVEL_ABBR..' '..string.format('%s XP: %d / %d (%d%%)', UnitLevel('player'), cur, max, cur/max * 100)..' + '..L['Rested:']..xprest)
 		else
 			UpperExperienceBar.txt:SetText(LEVEL_ABBR..' '..string.format('%s XP: %d / %d (%d%%)', UnitLevel('player'), cur, max, cur/max * 100))
@@ -310,8 +310,8 @@ function M:CreateRepTextString()
 	if not name then
 		return
 	else
-		if E.db.general.expRepPos == "TOP_SCREEN" and E.db.dpe.xprepinfo.xprepdet then
-			if E.db.dpe.xprepinfo.repreact then
+		if E.db.general.expRepPos == "TOP_SCREEN" and E.db.sle.xprepinfo.xprepdet then
+			if E.db.sle.xprepinfo.repreact then
 				UpperReputationBar.txt:SetText(name..': '..format('%d / %d ('.._G['FACTION_STANDING_LABEL'..reaction]..' '..'%d%%)', value - min, max - min, (value - min) / (max - min) * 100))
 			else
 				UpperReputationBar.txt:SetText(name..': '..format('%d / %d (%d%%)', value - min, max - min, (value - min) / (max - min) * 100))

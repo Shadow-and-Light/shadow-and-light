@@ -6,7 +6,7 @@ local AR = E:NewModule('AutoRelease', 'AceHook-3.0', 'AceEvent-3.0');
 function AR:Releasing()
 	local inInstance, instanceType = IsInInstance()
 	if (inInstance and (instanceType == "pvp")) then
-		if E.db.dpe.pvpautorelease then 
+		if E.db.sle.pvpautorelease then 
 			local soulstone = GetSpellInfo(20707)
 				if ((E.myclass ~= "SHAMAN") and not (soulstone and UnitBuff("player", soulstone))) then
 					RepopMe()
@@ -15,7 +15,7 @@ function AR:Releasing()
 	end
 	
 	-- auto resurrection for world PvP area...when active
-	if E.db.dpe.pvpautorelease then 
+	if E.db.sle.pvpautorelease then 
 		for index = 1, GetNumWorldPVPAreas() do
 			local pvpID, localizedName, isActive, canQueue, startTime, canEnter = GetWorldPVPAreaInfo(index)
 			

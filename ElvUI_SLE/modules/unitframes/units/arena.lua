@@ -7,9 +7,9 @@ local _, ns = ...
 local ElvUF = ns.oUF
 
 --Here and in other units, moving power text to power bar
-UF.Update_ArenaFramesDPE = UF.Update_ArenaFrames
+UF.Update_ArenaFramesSLE = UF.Update_ArenaFrames
 function UF:Update_ArenaFrames(frame, db)
-	self:Update_ArenaFramesDPE(frame, db)
+	self:Update_ArenaFramesSLE(frame, db)
 	
 	local power = frame.Power
 	--Text

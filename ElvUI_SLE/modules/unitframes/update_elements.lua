@@ -17,13 +17,13 @@ function UF:GetInfoText(frame, unit, r, g, b, min, max, reverse, type)
 		if type == 'health' then --Health for Target frames
 			if db[type].text_format == 'current-percent' then
 				if min ~= max then
-					if E.db.dpe.unitframes.reverse.health then
+					if E.db.sle.unitframes.reverse.health then
 						value = format("|cff%02x%02x%02x%.2f%%|r |cffD7BEA5-|r |cffAF5050%s|r", r * 255, g * 255, b * 255, format("%.2f", min / max * 100), min)
 					else
 						value = format("|cff%02x%02x%02x%.2f%%|r |cffD7BEA5-|r |cffAF5050%s|r", r * 255, g * 255, b * 255, format("%.2f", min / max * 100), E:ShortValue(min))
 					end	
 				else
-					if E.db.dpe.unitframes.reverse.health then
+					if E.db.sle.unitframes.reverse.health then
 						value = format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, max)
 					else
 						value = format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, E:ShortValue(max))
@@ -31,20 +31,20 @@ function UF:GetInfoText(frame, unit, r, g, b, min, max, reverse, type)
 				end
 			elseif db[type].text_format == 'current-max' then
 				if min == max then
-					if E.db.dpe.unitframes.reverse.health then
+					if E.db.sle.unitframes.reverse.health then
 						value = format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, max)
 					else
 						value = format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, E:ShortValue(max))
 					end		
 				else
-					if E.db.dpe.unitframes.reverse.health then
+					if E.db.sle.unitframes.reverse.health then
 						value = format("|cff%02x%02x%02x%s|r |cffD7BEA5-|r |cffAF5050%s|r", r * 255, g * 255, b * 255, max, min)
 					else
 						value = format("|cff%02x%02x%02x%s|r |cffD7BEA5-|r |cffAF5050%s|r", r * 255, g * 255, b * 255, E:ShortValue(max), E:ShortValue(min))
 					end	
 				end
 			elseif db[type].text_format == 'current' then
-				if E.db.dpe.unitframes.reverse.health then
+				if E.db.sle.unitframes.reverse.health then
 					value = format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, min)
 				else
 					value = format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, E:ShortValue(min))
@@ -55,7 +55,7 @@ function UF:GetInfoText(frame, unit, r, g, b, min, max, reverse, type)
 				if min == max then
 					value = ""
 				else	
-					if E.db.dpe.unitframes.reverse.health then
+					if E.db.sle.unitframes.reverse.health then
 						value = format("|cffAF5050-|r|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, max - min)
 					else
 						value = format("|cffAF5050-|r|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, E:ShortValue(max - min))
@@ -65,7 +65,7 @@ function UF:GetInfoText(frame, unit, r, g, b, min, max, reverse, type)
 		else --Mana for Player, Boss, Arena, party, raid frames
 			if db[type].text_format == 'current-percent' then --
 				if min ~= max then
-					if E.db.dpe.unitframes.reverse.mana then
+					if E.db.sle.unitframes.reverse.mana then
 						value = format("%.2f%% |cffD7BEA5-|r %s", format("%.2f", min / max * 100), min)
 					else
 						value = format("%.2f%% |cffD7BEA5-|r %s", format("%.2f", min / max * 100), E:ShortValue(min))
@@ -75,20 +75,20 @@ function UF:GetInfoText(frame, unit, r, g, b, min, max, reverse, type)
 				end
 			elseif db[type].text_format == 'current-max' then --
 				if min == max then
-					if E.db.dpe.unitframes.reverse.mana then
+					if E.db.sle.unitframes.reverse.mana then
 						value = format("%s", max)
 					else
 						value = format("%s", E:ShortValue(max))	
 					end
 				else
-					if E.db.dpe.unitframes.reverse.mana then
+					if E.db.sle.unitframes.reverse.mana then
 						value = format("%s |cffD7BEA5-|r %s", max, min)
 					else
 						value = format("%s |cffD7BEA5-|r %s", E:ShortValue(max), E:ShortValue(min))
 					end
 				end
 			elseif db[type].text_format == 'current' then --
-				if E.db.dpe.unitframes.reverse.mana then
+				if E.db.sle.unitframes.reverse.mana then
 					value = format("%s", min)
 				else
 					value = format("%s", E:ShortValue(min))	
@@ -99,7 +99,7 @@ function UF:GetInfoText(frame, unit, r, g, b, min, max, reverse, type)
 				if min == max then
 					value = ""
 				else
-					if E.db.dpe.unitframes.reverse.mana then
+					if E.db.sle.unitframes.reverse.mana then
 						value = format("|cffAF5050-|r%s", max - min)
 					else
 						value = format("|cffAF5050-|r%s", E:ShortValue(max - min))
@@ -111,13 +111,13 @@ function UF:GetInfoText(frame, unit, r, g, b, min, max, reverse, type)
 		if type == 'health' then --Health for player, focus, focus target, target of target, party, boss, arena, raid frames
 			if db[type].text_format == 'current-percent' then
 				if min ~= max then
-					if E.db.dpe.unitframes.normal.health then
+					if E.db.sle.unitframes.normal.health then
 						value = format("|cffAF5050%s|r |cffD7BEA5-|r |cff%02x%02x%02x%.2f%%|r", min, r * 255, g * 255, b * 255, format("%.2f", min / max * 100))
 					else
 						value = format("|cffAF5050%s|r |cffD7BEA5-|r |cff%02x%02x%02x%.2f%%|r", E:ShortValue(min), r * 255, g * 255, b * 255, format("%.2f", min / max * 100))	
 					end	
 				else
-					if E.db.dpe.unitframes.normal.health then
+					if E.db.sle.unitframes.normal.health then
 						value = format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, max)
 					else
 						value = format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, E:ShortValue(max))
@@ -125,20 +125,20 @@ function UF:GetInfoText(frame, unit, r, g, b, min, max, reverse, type)
 				end
 			elseif db[type].text_format == 'current-max' then
 				if min == max then
-					if E.db.dpe.unitframes.normal.health then
+					if E.db.sle.unitframes.normal.health then
 						value = format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, max)					
 					else
 						value = format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, E:ShortValue(max))
 					end
 				else
-					if E.db.dpe.unitframes.normal.health then
+					if E.db.sle.unitframes.normal.health then
 						value = format("|cffAF5050%s|r |cffD7BEA5-|r |cff%02x%02x%02x%s|r", min, r * 255, g * 255, b * 255, max)					
 					else
 						value = format("|cffAF5050%s|r |cffD7BEA5-|r |cff%02x%02x%02x%s|r", E:ShortValue(min), r * 255, g * 255, b * 255, E:ShortValue(max))					
 					end
 				end
 			elseif db[type].text_format == 'current' then
-				if E.db.dpe.unitframes.normal.health then
+				if E.db.sle.unitframes.normal.health then
 					value = format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, min)
 				else
 					value = format("|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, E:ShortValue(min))					
@@ -149,7 +149,7 @@ function UF:GetInfoText(frame, unit, r, g, b, min, max, reverse, type)
 				if min == max then
 					value = ""
 				else
-					if E.db.dpe.unitframes.normal.health then
+					if E.db.sle.unitframes.normal.health then
 						value = format("|cffAF5050-|r|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, max - min)					
 					else
 						value = format("|cffAF5050-|r|cff%02x%02x%02x%s|r", r * 255, g * 255, b * 255, E:ShortValue(max - min))					
@@ -159,13 +159,13 @@ function UF:GetInfoText(frame, unit, r, g, b, min, max, reverse, type)
 		else --Mana for Target of target, focus, focus target
 			if db[type].text_format == 'current-percent' then
 				if min ~= max then
-					if E.db.dpe.unitframes.normal.mana then
+					if E.db.sle.unitframes.normal.mana then
 						value = format("%s |cffD7BEA5-|r %.2f%%", min, format("%.2f", min / max * 100))
 					else
 						value = format("%s |cffD7BEA5-|r %.2f%%", E:ShortValue(min), format("%.2f", min / max * 100))
 					end
 				else
-					if E.db.dpe.unitframes.normal.mana then
+					if E.db.sle.unitframes.normal.mana then
 						value = format("%s", max)
 					else
 						value = format("%s", E:ShortValue(max))
@@ -173,20 +173,20 @@ function UF:GetInfoText(frame, unit, r, g, b, min, max, reverse, type)
 				end
 			elseif db[type].text_format == 'current-max' then
 				if min == max then
-					if E.db.dpe.unitframes.normal.mana then
+					if E.db.sle.unitframes.normal.mana then
 						value = format("%s", max)
 					else
 						value = format("%s", E:ShortValue(max))
 					end
 				else
-					if E.db.dpe.unitframes.normal.mana then
+					if E.db.sle.unitframes.normal.mana then
 						value = format("%s |cffD7BEA5-|r %s", min, max)
 					else
 						value = format("%s |cffD7BEA5-|r %s", E:ShortValue(min), E:ShortValue(max))
 					end
 				end
 			elseif db[type].text_format == 'current' then
-				if E.db.dpe.unitframes.normal.mana then
+				if E.db.sle.unitframes.normal.mana then
 					value = format("%s", min)
 				else
 					value = format("%s", E:ShortValue(min))	
@@ -197,7 +197,7 @@ function UF:GetInfoText(frame, unit, r, g, b, min, max, reverse, type)
 				if min == max then
 					value = ""
 				else
-					if E.db.dpe.unitframes.normal.mana then
+					if E.db.sle.unitframes.normal.mana then
 						value = format("|cffAF5050-|r%s", max - min)
 					else
 						value = format("|cffAF5050-|r%s", E:ShortValue(max - min))
@@ -217,7 +217,7 @@ function UF:UpdatePvPText(frame)
 	local LowManaText = frame.Power.LowManaText
 	local health = frame.Health
 	
-	if E.db.dpe.pvp.mouse then
+	if E.db.sle.pvp.mouse then
 		if PvPText and frame:IsMouseOver() then
 			PvPText:Show()
 				if LowManaText and LowManaText:IsShown() then LowManaText:Hide() end
@@ -270,7 +270,7 @@ function UF:UpdatePvPText(frame)
 		end
 	end
 	
-	local x, y = self:GetPositionOffset(E.db.dpe.pvp.pos)
+	local x, y = self:GetPositionOffset(E.db.sle.pvp.pos)
 	PvPText:ClearAllPoints()
-	PvPText:Point(E.db.dpe.pvp.pos, health, E.db.dpe.pvp.pos, x, y)
+	PvPText:Point(E.db.sle.pvp.pos, health, E.db.sle.pvp.pos, x, y)
 end

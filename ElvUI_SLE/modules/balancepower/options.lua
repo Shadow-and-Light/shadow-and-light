@@ -2,7 +2,7 @@
 		
 --Adds a new option group is character is a druid.
 if E.myclass == "DRUID" then
-E.Options.args.dpe.args.druid = {
+E.Options.args.sle.args.druid = {
 	order = 15,
 	type = 'group',
 	name = L["Druid"],
@@ -24,7 +24,7 @@ E.Options.args.dpe.args.druid = {
 					name = L["Balance Power Frame"],
 					desc = L["Show/hide the frame with exact number of your Solar/Lunar energy."],
 					get = function(info) return E.db.general.bpenable end,
-					set = function(info, value) E.db.general.bpenable = value; E:GetModule('DPE'):BPUpdate() end
+					set = function(info, value) E.db.general.bpenable = value; E:GetModule('SLE'):BPUpdate() end
 				},
 			},
 		},

@@ -2,7 +2,7 @@
 local MB = E:GetModule('Microbar')
 
 --Microbar
-E.Options.args.dpe.args.microbar = {
+E.Options.args.sle.args.microbar = {
 	type = "group",
     name = L["Microbar"],
     get = function(info) return E.db.microbar[ info[#info] ] end,

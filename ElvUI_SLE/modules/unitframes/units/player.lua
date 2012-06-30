@@ -23,14 +23,14 @@ local CAN_HAVE_CLASSBAR = (E.myclass == "PALADIN" or E.myclass == "SHAMAN" or E.
 function UF:Update_CombatIndicator()
 	local CombatText = ElvUF_Player.Combat
 	
-	local x, y = self:GetPositionOffset(E.db.dpe.combatico.pos)
+	local x, y = self:GetPositionOffset(E.db.sle.combatico.pos)
 	CombatText:ClearAllPoints()
-	CombatText:Point(E.db.dpe.combatico.pos, ElvUF_Player.Health, E.db.dpe.combatico.pos, x, x)
+	CombatText:Point(E.db.sle.combatico.pos, ElvUF_Player.Health, E.db.sle.combatico.pos, x, x)
 end
 
-UF.Update_PlayerFrameDPE = UF.Update_PlayerFrame
+UF.Update_PlayerFrameSLE = UF.Update_PlayerFrame
 function UF:Update_PlayerFrame(frame, db)
-	UF:Update_PlayerFrameDPE(frame, db)
+	UF:Update_PlayerFrameSLE(frame, db)
 	
 	local health = frame.Health
 	local power = frame.Power

@@ -3,9 +3,9 @@ local DTP = E:NewModule('DTPanels', 'AceHook-3.0', 'AceEvent-3.0');
 local LO = E:GetModule('Layout');
 
 --Added function to create new panels
-LO.InitializeDPE = LO.Initialize
+LO.InitializeSLE = LO.Initialize
 function LO:Initialize()
-	LO.InitializeDPE(self)
+	LO.InitializeSLE(self)
 	DTP:CreateDataPanels()
 	DTP:Resize()
 	
@@ -86,61 +86,61 @@ function DTP:CreateDataPanels()
 end
 
 function DTP:Resize()
-	DP_5:Size(E.db.dpe.datatext.dp5.width, 20)
-	DP_6:Size(E.db.dpe.datatext.dp6.width, 20)
-	Bottom_Panel:Size(E.db.dpe.datatext.bottom.width, 20)
-	DP_1:Size(E.db.dpe.datatext.dp1.width, 20)
-	DP_4:Size(E.db.dpe.datatext.dp4.width, 20)
-	DP_3:Size(E.db.dpe.datatext.dp3.width, 20)
-	DP_2:Size(E.db.dpe.datatext.dp2.width, 20)
-	Top_Center:Size(E.db.dpe.datatext.top.width, 20)
+	DP_5:Size(E.db.sle.datatext.dp5.width, 20)
+	DP_6:Size(E.db.sle.datatext.dp6.width, 20)
+	Bottom_Panel:Size(E.db.sle.datatext.bottom.width, 20)
+	DP_1:Size(E.db.sle.datatext.dp1.width, 20)
+	DP_4:Size(E.db.sle.datatext.dp4.width, 20)
+	DP_3:Size(E.db.sle.datatext.dp3.width, 20)
+	DP_2:Size(E.db.sle.datatext.dp2.width, 20)
+	Top_Center:Size(E.db.sle.datatext.top.width, 20)
 	E:GetModule('DataTexts'):UpdateAllDimensions()
 end
 
 function DTP:ChatResize()
-	LeftChatDataPanel:Point('TOPRIGHT', LeftChatPanel, 'BOTTOMLEFT', 16 + E.db.dpe.datatext.chatleft.width, -1)
-	RightChatDataPanel:Point('BOTTOMLEFT', RightChatPanel, 'BOTTOMRIGHT', - E.db.dpe.datatext.chatright.width - 16, -21)
+	LeftChatDataPanel:Point('TOPRIGHT', LeftChatPanel, 'BOTTOMLEFT', 16 + E.db.sle.datatext.chatleft.width, -1)
+	RightChatDataPanel:Point('BOTTOMLEFT', RightChatPanel, 'BOTTOMRIGHT', - E.db.sle.datatext.chatright.width - 16, -21)
 end
 
 --Showing panels
 function DTP:ExtraDataBarSetup()
-	if E.db.dpe.datatext.dp1.enabled then
+	if E.db.sle.datatext.dp1.enabled then
 		DP_1:Show()
 	else
 		DP_1:Hide()
 	end
 	
-	if E.db.dpe.datatext.dp2.enabled then
+	if E.db.sle.datatext.dp2.enabled then
 		DP_2:Show()
 	else
 		DP_2:Hide()
 	end
 	
-	if E.db.dpe.datatext.dp3.enabled then
+	if E.db.sle.datatext.dp3.enabled then
 		DP_3:Show()
 	else
 		DP_3:Hide()
 	end
 	
-	if E.db.dpe.datatext.dp4.enabled then
+	if E.db.sle.datatext.dp4.enabled then
 		DP_4:Show()
 	else
 		DP_4:Hide()
 	end
 	
-	if E.db.dpe.datatext.dp5.enabled then
+	if E.db.sle.datatext.dp5.enabled then
 		DP_5:Show()
 	else
 		DP_5:Hide()
 	end
 	
-	if E.db.dpe.datatext.dp6.enabled then
+	if E.db.sle.datatext.dp6.enabled then
 		DP_6:Show()
 	else
 		DP_6:Hide()
 	end
 	
-	if E.db.dpe.datatext.bottom.enabled then
+	if E.db.sle.datatext.bottom.enabled then
 		Bottom_Panel:Show()
 	else
 		Bottom_Panel:Hide()

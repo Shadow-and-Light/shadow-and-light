@@ -139,19 +139,19 @@ function UB:CreateButtons()
 end
 
 function UB:FrameSize()
-	if E.db.dpe.uibuttons.position == "uib_vert" then
-		UIBFrame:SetWidth(E.db.dpe.uibuttons.size + 8)
-		UIBFrame:SetHeight((E.db.dpe.uibuttons.size + 5) * 5 + 3)
+	if E.db.sle.uibuttons.position == "uib_vert" then
+		UIBFrame:SetWidth(E.db.sle.uibuttons.size + 8)
+		UIBFrame:SetHeight((E.db.sle.uibuttons.size + 5) * 5 + 3)
 	else
-		UIBFrame:SetWidth((E.db.dpe.uibuttons.size + 5) * 5 + 3)
-		UIBFrame:SetHeight(E.db.dpe.uibuttons.size + 8)
+		UIBFrame:SetWidth((E.db.sle.uibuttons.size + 5) * 5 + 3)
+		UIBFrame:SetHeight(E.db.sle.uibuttons.size + 8)
 	end
 	
-	Cbutton:Size(E.db.dpe.uibuttons.size)
-	Rbutton:Size(E.db.dpe.uibuttons.size)
-	Mbutton:Size(E.db.dpe.uibuttons.size)
-	Bbutton:Size(E.db.dpe.uibuttons.size)
-	Abutton:Size(E.db.dpe.uibuttons.size)
+	Cbutton:Size(E.db.sle.uibuttons.size)
+	Rbutton:Size(E.db.sle.uibuttons.size)
+	Mbutton:Size(E.db.sle.uibuttons.size)
+	Bbutton:Size(E.db.sle.uibuttons.size)
+	Abutton:Size(E.db.sle.uibuttons.size)
 	
 	UB:Positioning()
 end	
@@ -163,7 +163,7 @@ function UB:Positioning()
 	Bbutton:ClearAllPoints()
 	Abutton:ClearAllPoints()
 	--position check
-	if E.db.dpe.uibuttons.position == "uib_vert" then
+	if E.db.sle.uibuttons.position == "uib_vert" then
 		Cbutton:Point("TOP", UIBFrame, "TOP", 0, -4)
 		Rbutton:Point("TOP", Cbutton, "BOTTOM", 0, -5)
 		Mbutton:Point("TOP", Rbutton, "BOTTOM", 0, -5)
@@ -179,17 +179,17 @@ function UB:Positioning()
 end
 
 function UB:MoverSize()
-	if E.db.dpe.uibuttons.position == "uib_vert" then
-		UIBFrame.mover:SetWidth(E.db.dpe.uibuttons.size + 8)
-		UIBFrame.mover:SetHeight((E.db.dpe.uibuttons.size + 5) * 5 + 3)
+	if E.db.sle.uibuttons.position == "uib_vert" then
+		UIBFrame.mover:SetWidth(E.db.sle.uibuttons.size + 8)
+		UIBFrame.mover:SetHeight((E.db.sle.uibuttons.size + 5) * 5 + 3)
 	else
-		UIBFrame.mover:SetWidth((E.db.dpe.uibuttons.size + 5) * 5 + 3)
-		UIBFrame.mover:SetHeight(E.db.dpe.uibuttons.size + 8)
+		UIBFrame.mover:SetWidth((E.db.sle.uibuttons.size + 5) * 5 + 3)
+		UIBFrame.mover:SetHeight(E.db.sle.uibuttons.size + 8)
 	end
 end
 
 function UB:Start()
-	if E.db.dpe.uibuttons.enable then
+	if E.db.sle.uibuttons.enable then
 		UIBFrame:Show()
 	else
 		UIBFrame:Hide()
@@ -197,7 +197,7 @@ function UB:Start()
 end
 
 function UB:Mouseover()
-	if E.db.dpe.uibuttons.mouse then
+	if E.db.sle.uibuttons.mouse then
 		if (MouseIsOver(UIBFrame)) then
 			UIBFrame:SetAlpha(1)
 		else	

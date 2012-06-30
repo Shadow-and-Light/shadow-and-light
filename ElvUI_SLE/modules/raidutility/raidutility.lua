@@ -7,13 +7,13 @@ E.RaidUtility = RU
 --Moved RU down cause of top datatext panels
 function RU:MoveButton()
 	ShowButton:ClearAllPoints()
-	ShowButton:Point("CENTER", E.UIParent, "BOTTOMLEFT", E.db.dpe.raidutil.xpos, E.db.dpe.raidutil.ypos)
+	ShowButton:Point("CENTER", E.UIParent, "BOTTOMLEFT", E.db.sle.raidutil.xpos, E.db.sle.raidutil.ypos)
 end
 
 --For moving raid utility button
-M.InitializeDPE = M.Initialize
+M.InitializeSLE = M.Initialize
 function M:Initialize()
-	M.InitializeDPE(self)
+	M.InitializeSLE(self)
 
 	RU:MoveButton()
 end

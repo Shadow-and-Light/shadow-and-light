@@ -115,14 +115,14 @@ end
 
 --Setting/updating buttons' size
 function RM:FrameButtonsSize()
-	m1:Size(E.db.dpe.marks.size)
-	m2:Size(E.db.dpe.marks.size)
-	m3:Size(E.db.dpe.marks.size)
-	m4:Size(E.db.dpe.marks.size)
-	m5:Size(E.db.dpe.marks.size)
-	m6:Size(E.db.dpe.marks.size)
-	m7:Size(E.db.dpe.marks.size)
-	m8:Size(E.db.dpe.marks.size)
+	m1:Size(E.db.sle.marks.size)
+	m2:Size(E.db.sle.marks.size)
+	m3:Size(E.db.sle.marks.size)
+	m4:Size(E.db.sle.marks.size)
+	m5:Size(E.db.sle.marks.size)
+	m6:Size(E.db.sle.marks.size)
+	m7:Size(E.db.sle.marks.size)
+	m8:Size(E.db.sle.marks.size)
 end
 
 --Setting growth direction for buttons
@@ -136,9 +136,9 @@ function RM:FrameButtonsGrowth()
 	m7:ClearAllPoints()
 	m8:ClearAllPoints()
 	
-	if E.db.dpe.marks.growth == "RIGHT" then
-		mark_menu:SetWidth(8 * E.db.dpe.marks.size + 11)
-		mark_menu:SetHeight(E.db.dpe.marks.size + 4)
+	if E.db.sle.marks.growth == "RIGHT" then
+		mark_menu:SetWidth(8 * E.db.sle.marks.size + 11)
+		mark_menu:SetHeight(E.db.sle.marks.size + 4)
 		m1:Point('LEFT', Mark_Menu, 'LEFT', 2, 0) 
 		m2:Point('LEFT', m1, 'RIGHT', 1, 0) 
 		m3:Point('LEFT', m2, 'RIGHT', 1, 0) 
@@ -147,9 +147,9 @@ function RM:FrameButtonsGrowth()
 		m6:Point('LEFT', m5, 'RIGHT', 1, 0) 
 		m7:Point('LEFT', m6, 'RIGHT', 1, 0) 
 		m8:Point('LEFT', m7, 'RIGHT', 1, 0) 
-	elseif E.db.dpe.marks.growth == "LEFT" then
-		mark_menu:SetWidth(8 * E.db.dpe.marks.size + 11)
-		mark_menu:SetHeight(E.db.dpe.marks.size + 4)
+	elseif E.db.sle.marks.growth == "LEFT" then
+		mark_menu:SetWidth(8 * E.db.sle.marks.size + 11)
+		mark_menu:SetHeight(E.db.sle.marks.size + 4)
 		m1:Point('RIGHT', Mark_Menu, 'RIGHT', -2, 0) 
 		m2:Point('RIGHT', m1, 'LEFT', -1, 0) 
 		m3:Point('RIGHT', m2, 'LEFT', -1, 0) 
@@ -158,9 +158,9 @@ function RM:FrameButtonsGrowth()
 		m6:Point('RIGHT', m5, 'LEFT', -1, 0) 
 		m7:Point('RIGHT', m6, 'LEFT', -1, 0) 
 		m8:Point('RIGHT', m7, 'LEFT', -1, 0) 
-	elseif E.db.dpe.marks.growth == "UP" then
-		mark_menu:SetHeight(8 * E.db.dpe.marks.size + 11)
-		mark_menu:SetWidth(E.db.dpe.marks.size + 4)
+	elseif E.db.sle.marks.growth == "UP" then
+		mark_menu:SetHeight(8 * E.db.sle.marks.size + 11)
+		mark_menu:SetWidth(E.db.sle.marks.size + 4)
 		m1:Point('BOTTOM', Mark_Menu, 'BOTTOM', 0, 2) 
 		m2:Point('BOTTOM', m1, 'TOP', 0, 1) 
 		m3:Point('BOTTOM', m2, 'TOP', 0, 1) 
@@ -169,9 +169,9 @@ function RM:FrameButtonsGrowth()
 		m6:Point('BOTTOM', m5, 'TOP', 0, 1) 
 		m7:Point('BOTTOM', m6, 'TOP', 0, 1)
 		m8:Point('BOTTOM', m7, 'TOP', 0, 1)
-	elseif E.db.dpe.marks.growth == "DOWN" then
-		mark_menu:SetHeight(8 * E.db.dpe.marks.size + 11)
-		mark_menu:SetWidth(E.db.dpe.marks.size + 4)
+	elseif E.db.sle.marks.growth == "DOWN" then
+		mark_menu:SetHeight(8 * E.db.sle.marks.size + 11)
+		mark_menu:SetWidth(E.db.sle.marks.size + 4)
 		m1:Point('TOP', Mark_Menu, 'TOP', 0, -2) 
 		m2:Point('TOP', m1, 'BOTTOM', 0, -1) 
 		m3:Point('TOP', m2, 'BOTTOM', 0, -1) 
@@ -185,7 +185,7 @@ end
 
 --Visibility/enable check
 function RM:UpdateVisibility()
-	if E.db.dpe.marks.enabled then
+	if E.db.sle.marks.enabled then
 		mark_menu:Show()
 	else
 		mark_menu:Hide()

@@ -56,67 +56,67 @@ end
 
 --Frames Size
 function BG:FramesSize()
-	BGbottom:SetWidth(E.db.dpe.backgrounds.bottom.width)
-	BGbottom:SetHeight(E.db.dpe.backgrounds.bottom.height)
+	BGbottom:SetWidth(E.db.sle.backgrounds.bottom.width)
+	BGbottom:SetHeight(E.db.sle.backgrounds.bottom.height)
 
-	BGleft:SetWidth(E.db.dpe.backgrounds.left.width)
-	BGleft:SetHeight(E.db.dpe.backgrounds.left.height)
+	BGleft:SetWidth(E.db.sle.backgrounds.left.width)
+	BGleft:SetHeight(E.db.sle.backgrounds.left.height)
 
-	BGright:SetWidth(E.db.dpe.backgrounds.right.width)
-	BGright:SetHeight(E.db.dpe.backgrounds.right.height)
+	BGright:SetWidth(E.db.sle.backgrounds.right.width)
+	BGright:SetHeight(E.db.sle.backgrounds.right.height)
 
-	BGaction:SetWidth(E.db.dpe.backgrounds.action.width)
-	BGaction:SetHeight(E.db.dpe.backgrounds.action.height)
+	BGaction:SetWidth(E.db.sle.backgrounds.action.width)
+	BGaction:SetHeight(E.db.sle.backgrounds.action.height)
 end
 
 --Frames points
 function BG:FramesPositions()
-	BGbottom:Point("BOTTOM", E.UIParent, "BOTTOM", 0 + E.db.dpe.backgrounds.bottom.xoffset, 21 + E.db.dpe.backgrounds.bottom.yoffset); 
-	BGleft:Point("BOTTOMRIGHT", E.UIParent, "BOTTOM", -(E.screenwidth/4 + 32)/2 - 1 + E.db.dpe.backgrounds.left.xoffset, 21 + E.db.dpe.backgrounds.left.yoffset); 
-	BGright:Point("BOTTOMLEFT", E.UIParent, "BOTTOM", (E.screenwidth/4 + 32)/2 + 1 + E.db.dpe.backgrounds.right.xoffset, 21 + E.db.dpe.backgrounds.right.yoffset); 
-	BGaction:Point("BOTTOM", E.UIParent, "BOTTOM", 0 + E.db.dpe.backgrounds.action.xoffset, E.screenheight/6 + 9 + E.db.dpe.backgrounds.action.yoffset);
+	BGbottom:Point("BOTTOM", E.UIParent, "BOTTOM", 0 + E.db.sle.backgrounds.bottom.xoffset, 21 + E.db.sle.backgrounds.bottom.yoffset); 
+	BGleft:Point("BOTTOMRIGHT", E.UIParent, "BOTTOM", -(E.screenwidth/4 + 32)/2 - 1 + E.db.sle.backgrounds.left.xoffset, 21 + E.db.sle.backgrounds.left.yoffset); 
+	BGright:Point("BOTTOMLEFT", E.UIParent, "BOTTOM", (E.screenwidth/4 + 32)/2 + 1 + E.db.sle.backgrounds.right.xoffset, 21 + E.db.sle.backgrounds.right.yoffset); 
+	BGaction:Point("BOTTOM", E.UIParent, "BOTTOM", 0 + E.db.sle.backgrounds.action.xoffset, E.screenheight/6 + 9 + E.db.sle.backgrounds.action.yoffset);
 end
 
 --Updating textures
 function BG:UpdateTex()
 	BGbottom.tex:Point('TOPLEFT', BGbottom, 'TOPLEFT', 2, -2)
 	BGbottom.tex:Point('BOTTOMRIGHT', BGbottom, 'BOTTOMRIGHT', -2, 2)
-	BGbottom.tex:SetTexture(E.db.dpe.backgrounds.bottom.texture)
+	BGbottom.tex:SetTexture(E.db.sle.backgrounds.bottom.texture)
 	
 	BGright.tex:Point('TOPLEFT', BGright, 'TOPLEFT', 2, -2)
 	BGright.tex:Point('BOTTOMRIGHT', BGright, 'BOTTOMRIGHT', -2, 2)
-	BGright.tex:SetTexture(E.db.dpe.backgrounds.right.texture)
+	BGright.tex:SetTexture(E.db.sle.backgrounds.right.texture)
 	
 	BGleft.tex:Point('TOPLEFT', BGleft, 'TOPLEFT', 2, -2)
 	BGleft.tex:Point('BOTTOMRIGHT', BGleft, 'BOTTOMRIGHT', -2, 2)
-	BGleft.tex:SetTexture(E.db.dpe.backgrounds.left.texture)
+	BGleft.tex:SetTexture(E.db.sle.backgrounds.left.texture)
 	
 	BGaction.tex:Point('TOPLEFT', BGaction, 'TOPLEFT', 2, -2)
 	BGaction.tex:Point('BOTTOMRIGHT', BGaction, 'BOTTOMRIGHT', -2, 2)
-	BGaction.tex:SetTexture(E.db.dpe.backgrounds.action.texture)
+	BGaction.tex:SetTexture(E.db.sle.backgrounds.action.texture)
 end
 
 --Visibility / Enable check
 function BG:FramesVisibility()
-	if E.db.dpe.backgrounds.bottom.enabled then
+	if E.db.sle.backgrounds.bottom.enabled then
 		BGbottom:Show()
 	else
 		BGbottom:Hide()
 	end
 	
-	if E.db.dpe.backgrounds.left.enabled then
+	if E.db.sle.backgrounds.left.enabled then
 		BGleft:Show()
 	else
 		BGleft:Hide()
 	end
 	
-	if E.db.dpe.backgrounds.right.enabled then
+	if E.db.sle.backgrounds.right.enabled then
 		BGright:Show()
 	else
 		BGright:Hide()
 	end
 	
-	if E.db.dpe.backgrounds.action.enabled then
+	if E.db.sle.backgrounds.action.enabled then
 		BGaction:Show()
 	else
 		BGaction:Hide()

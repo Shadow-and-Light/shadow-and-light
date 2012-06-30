@@ -13,7 +13,7 @@ local positionValues = {
 	BOTTOM = 'BOTTOM',
 };
 
-E.Options.args.dpe.args.unitframes = {
+E.Options.args.sle.args.unitframes = {
 	type = "group",
 	name = L["UnitFrames"],
 	order = 1,
@@ -39,16 +39,16 @@ E.Options.args.dpe.args.unitframes = {
 					type = "toggle",
 					name = L["Full value"],
 					desc = L["Enabling this will show exact hp numbers on player, focus, focus target, target of target, party, boss, arena and raid frames."],
-					get = function(info) return E.db.dpe.unitframes.normal.health end,
-					set = function(info, value) E.db.dpe.unitframes.normal.health = value; UF:Update_AllFrames() end
+					get = function(info) return E.db.sle.unitframes.normal.health end,
+					set = function(info, value) E.db.sle.unitframes.normal.health = value; UF:Update_AllFrames() end
 				},
 				reverse = {
 					order = 2,
 					type = "toggle",
 					name = L["Target full value"],
 					desc = L["Enabling this will show exact hp numbers on target frame."],
-					get = function(info) return E.db.dpe.unitframes.reverse.health end,
-					set = function(info, value) E.db.dpe.unitframes.reverse.health = value; UF:Update_AllFrames() end
+					get = function(info) return E.db.sle.unitframes.reverse.health end,
+					set = function(info, value) E.db.sle.unitframes.reverse.health = value; UF:Update_AllFrames() end
 				},
 			},
 		},
@@ -63,16 +63,16 @@ E.Options.args.dpe.args.unitframes = {
 					type = "toggle",
 					name = L["Normal Frames"],
 					desc = L["Enabling this will show exact power numbers on target of target, focus and focus target frames."],
-					get = function(info) return E.db.dpe.unitframes.normal.mana end,
-					set = function(info, value) E.db.dpe.unitframes.normal.mana = value; UF:Update_AllFrames() end
+					get = function(info) return E.db.sle.unitframes.normal.mana end,
+					set = function(info, value) E.db.sle.unitframes.normal.mana = value; UF:Update_AllFrames() end
 				},
 				reverse = {
 					order = 2,
 					type = "toggle",
 					name = L["Reversed Frames"],
 					desc = L["Enabling this will show exact power numbers on player, boss, arena, party and raid frames."],
-					get = function(info) return E.db.dpe.unitframes.reverse.mana end,
-					set = function(info, value) E.db.dpe.unitframes.reverse.mana = value; UF:Update_AllFrames() end
+					get = function(info) return E.db.sle.unitframes.reverse.mana end,
+					set = function(info, value) E.db.sle.unitframes.reverse.mana = value; UF:Update_AllFrames() end
 				},
 			},
 		},
@@ -87,16 +87,16 @@ E.Options.args.dpe.args.unitframes = {
 					type = "toggle",
 					name = L["PvP text on mouse over"],
 					desc = L["Show PvP text on mouse over player frame."],
-					get = function(info) return E.db.dpe.pvp.mouse end,
-					set = function(info, value) E.db.dpe.pvp.mouse = value; end,
+					get = function(info) return E.db.sle.pvp.mouse end,
+					set = function(info, value) E.db.sle.pvp.mouse = value; end,
 				},
 				pvp = {
 					order = 3,
 					type = "select",
 					name = L["PvP Position"],
 					desc = L["Set the point to show pvp text"],
-					get = function(info) return E.db.dpe.pvp.pos end,
-					set = function(info, value) E.db.dpe.pvp.pos = value; end,
+					get = function(info) return E.db.sle.pvp.pos end,
+					set = function(info, value) E.db.sle.pvp.pos = value; end,
 					values = positionValues
 				},
 				combatico = {
@@ -104,8 +104,8 @@ E.Options.args.dpe.args.unitframes = {
 					type = "select",
 					name = L["Combat Position"],
 					desc = L["Set the point to show combat icon"],
-					get = function(info) return E.db.dpe.combatico.pos end,
-					set = function(info, value) E.db.dpe.combatico.pos = value; UF:Update_CombatIndicator() end,
+					get = function(info) return E.db.sle.combatico.pos end,
+					set = function(info, value) E.db.sle.combatico.pos = value; UF:Update_CombatIndicator() end,
 					values = positionValues
 				},
 			},
@@ -114,7 +114,7 @@ E.Options.args.dpe.args.unitframes = {
 }
 
 if E.myclass == "PALADIN" or E.myclass == "WARLOCK" or E.myclass == "DEATHKNIGHT" or E.myclass == "SHAMAN" or E.myclass == "DRUID" then
-E.Options.args.dpe.args.unitframes.args.classbar = {
+E.Options.args.sle.args.unitframes.args.classbar = {
 	order = 6,
 	type = "group",
 	name = L["Classbar Offset"],

@@ -13,7 +13,7 @@ function A:StyleBuffs(buttonName, index, debuff)
 		icon:Point("TOPLEFT", buff, 2, -2)
 		icon:Point("BOTTOMRIGHT", buff, -2, 2)
 		
-		buff:Size(E.private.dpe.auras.size)
+		buff:Size(E.private.sle.auras.size)
 		--buff:Size(35)
 				
 		duration:ClearAllPoints()
@@ -57,9 +57,9 @@ function addAuraSource(self, func, unit, index, filter)
 	end
 end
 
-A.InitializeDPE = A.Initialize
+A.InitializeSLE = A.Initialize
 function A:Initialize()
-    A.InitializeDPE(self)
+    A.InitializeSLE(self)
 	
 	local funcs = {
 		SetUnitAura = UnitAura,

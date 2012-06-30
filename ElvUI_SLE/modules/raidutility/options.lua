@@ -2,7 +2,7 @@
 local RU = E:GetModule('RaidUtility')
 
 --Raid Utility
-E.Options.args.dpe.args.raidutil = {
+E.Options.args.sle.args.raidutil = {
 	order = 10,
 	type = 'group',
 	name = L["Raid Utility"],
@@ -23,8 +23,8 @@ E.Options.args.dpe.args.raidutil = {
 			name = L["X Position"],
 			desc = L["Sets X position of Raid Utility button."],
 			min = 0, max = E.screenwidth, step = 1,
-			get = function(info) return E.db.dpe.raidutil.xpos end,
-			set = function(info, value) E.db.dpe.raidutil.xpos = value; RU:MoveButton() end,
+			get = function(info) return E.db.sle.raidutil.xpos end,
+			set = function(info, value) E.db.sle.raidutil.xpos = value; RU:MoveButton() end,
 		},
 		ypos = {
 			order = 4,
@@ -32,8 +32,8 @@ E.Options.args.dpe.args.raidutil = {
 			name = L["Y Position"],
 			desc = L["Sets Y position of Raid Utility button."],
 			min = 0, max = E.screenheight, step = 1,
-			get = function(info) return E.db.dpe.raidutil.ypos end,
-			set = function(info, value) E.db.dpe.raidutil.ypos = value; RU:MoveButton() end,
+			get = function(info) return E.db.sle.raidutil.ypos end,
+			set = function(info, value) E.db.sle.raidutil.ypos = value; RU:MoveButton() end,
 		},
 	},
 }

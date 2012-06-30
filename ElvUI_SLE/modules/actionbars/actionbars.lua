@@ -35,7 +35,7 @@ function AB:UpdatePet()
 		end		
 		
 		--DPE. Enable/disable autocast square around buttons
-		if E.db.dpe.petbar.autocast then
+		if E.db.sle.petbar.autocast then
 			if autoCastAllowed then
 				autoCast:Show();
 			else

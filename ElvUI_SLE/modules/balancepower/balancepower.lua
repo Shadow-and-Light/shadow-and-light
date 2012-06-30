@@ -1,7 +1,7 @@
 --Module to create frame with sol/lun energy value. At least untill the time i find the way to place text on actual energy bar
 local E, L, V, P, G =  unpack(ElvUI); --Engine
 local M = E:GetModule('Misc');
-local DPE = E:GetModule('DPE');
+local SLE = E:GetModule('SLE');
 
 --Defaults
 P['general'] = {
@@ -30,11 +30,11 @@ function M:CreateBalancePower()
 	
 	bpower:Hide()
 	
-	DPE:BPUpdate()
+	SLE:BPUpdate()
 end
 
 --Visibility/enable check
-function DPE:BPUpdate()
+function SLE:BPUpdate()
 	if E.db.general.bpenable then
 		bpower:Show()
 	else

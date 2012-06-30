@@ -104,7 +104,7 @@ local function SkinBars(self)
 					name:Point("LEFT", frame, "LEFT", 4, 0)
 					name:SetWidth(165)
 					name:SetHeight(8)
-					name:FontTemplate(nil, E.private.dpe.dbm.size, 'OUTLINE')
+					name:FontTemplate(nil, E.private.sle.dbm.size, 'OUTLINE')
 					name:SetJustifyH("LEFT")
 					name.SetFont = E.noop
 					name.styled=true
@@ -113,7 +113,7 @@ local function SkinBars(self)
 				if not timer.styled then	
 					timer:ClearAllPoints()
 					timer:Point("RIGHT", frame, "RIGHT", -4, 0)
-					timer:FontTemplate(nil, E.private.dpe.dbm.size, 'OUTLINE')
+					timer:FontTemplate(nil, E.private.sle.dbm.size, 'OUTLINE')
 					timer:SetJustifyH("RIGHT")
 					timer.SetFont = E.noop
 					timer.styled=true
@@ -194,7 +194,7 @@ local SkinBoss=function()
 		if not name.styled then
 			name:ClearAllPoints()
 			name:Point("LEFT", bar, "LEFT", 4, 0)
-			name:FontTemplate(nil, E.private.dpe.dbm.size, 'OUTLINE')
+			name:FontTemplate(nil, E.private.sle.dbm.size, 'OUTLINE')
 			name:SetJustifyH("LEFT")
 			name:SetShadowColor(0, 0, 0, 0)
 			name.styled=true
@@ -203,7 +203,7 @@ local SkinBoss=function()
 		if not timer.styled then
 			timer:ClearAllPoints()
 			timer:Point("RIGHT", bar, "RIGHT", -4, 0)
-			timer:FontTemplate(nil, E.private.dpe.dbm.size, 'OUTLINE')
+			timer:FontTemplate(nil, E.private.sle.dbm.size, 'OUTLINE')
 			timer:SetJustifyH("RIGHT")
 			timer:SetShadowColor(0, 0, 0, 0)
 			timer.styled=true

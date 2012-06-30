@@ -2,7 +2,7 @@
 local UB = E:GetModule('UIButtons')
 
 --UI Buttons
-E.Options.args.dpe.args.uibuttons = {
+E.Options.args.sle.args.uibuttons = {
 	type = "group",
 	name = L["UI Buttons"],
 	order = 3,
@@ -17,15 +17,15 @@ E.Options.args.dpe.args.uibuttons = {
 			type = "toggle",
 			name = L["Enable"],
 			desc = L["Show/Hide UI buttons."],
-			get = function(info) return E.db.dpe.uibuttons.enable end,
-			set = function(info, value) E.db.dpe.uibuttons.enable = value; UB:Start() end
+			get = function(info) return E.db.sle.uibuttons.enable end,
+			set = function(info, value) E.db.sle.uibuttons.enable = value; UB:Start() end
 		},
 		options = {
 			type = "group",
 			name = L["General"],
 			order = 4,
 			guiInline = true,
-			disabled = function() return not E.db.dpe.uibuttons.enable end,
+			disabled = function() return not E.db.sle.uibuttons.enable end,
 			args = {
 				size = {
 					order = 1,
@@ -33,16 +33,16 @@ E.Options.args.dpe.args.uibuttons = {
 					name = L['Size'],
 					desc = L["Sets size of buttons"],
 					min = 12, max = 25, step = 1,
-					get = function(info) return E.db.dpe.uibuttons.size end,
-					set = function(info, value) E.db.dpe.uibuttons.size = value; UB:FrameSize() end,
+					get = function(info) return E.db.sle.uibuttons.size end,
+					set = function(info, value) E.db.sle.uibuttons.size = value; UB:FrameSize() end,
 				},
 				mouse = {
 					order = 2,
 					type = "toggle",
 					name = L["Mouse over"],
 					desc = L["Show on mouse over."],
-					get = function(info) return E.db.dpe.uibuttons.mouse end,
-					set = function(info, value) E.db.dpe.uibuttons.mouse = value; end
+					get = function(info) return E.db.sle.uibuttons.mouse end,
+					set = function(info, value) E.db.sle.uibuttons.mouse = value; end
 				},
 				position = {
 					order = 10,
@@ -53,8 +53,8 @@ E.Options.args.dpe.args.uibuttons = {
 						["uib_hor"] = L['Horizontal'],
 						["uib_vert"] = L['Vertical'],
 					},
-					get = function(info) return E.db.dpe.uibuttons.position end,
-					set = function(info, value) E.db.dpe.uibuttons.position = value; UB:Positioning(); UB:MoverSize() end,
+					get = function(info) return E.db.sle.uibuttons.position end,
+					set = function(info, value) E.db.sle.uibuttons.position = value; UB:Positioning(); UB:MoverSize() end,
 				},
 			},
 		},

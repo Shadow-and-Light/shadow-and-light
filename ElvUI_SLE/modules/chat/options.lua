@@ -15,7 +15,7 @@ local function UpdateName(reset)
 		end
 	end
 	
-	E.Options.args.dpe.args.chat.args.nameGroup = {
+	E.Options.args.sle.args.chat.args.nameGroup = {
 		type = 'group',
 		name = selectedName,
 		guiInline = true,
@@ -23,13 +23,13 @@ local function UpdateName(reset)
 		args = {},	
 	}
 	
-	E.Options.args.dpe.args.chat.args.nameGroup.args.info = {
+	E.Options.args.sle.args.chat.args.nameGroup.args.info = {
 		order = 1,
 		type = "description",
 		name = L["You can delete selected name from the list here by clicking the button below"],
 	}
 	
-	E.Options.args.dpe.args.chat.args.nameGroup.args.delete = {
+	E.Options.args.sle.args.chat.args.nameGroup.args.delete = {
 		order = 2,
 		type = "execute",
 		name = L["Remove Name"],
@@ -47,7 +47,7 @@ local function UpdateChannel(reset)
 		end
 	end
 	
-	E.Options.args.dpe.args.chat.args.channelGroup = {
+	E.Options.args.sle.args.chat.args.channelGroup = {
 		type = 'group',
 		name = selectedChannel,
 		guiInline = true,
@@ -55,13 +55,13 @@ local function UpdateChannel(reset)
 		args = {},	
 	}
 	
-	E.Options.args.dpe.args.chat.args.channelGroup.args.info = {
+	E.Options.args.sle.args.chat.args.channelGroup.args.info = {
 		order = 1,
 		type = "description",
 		name = L["You can delete selected channel from the list here by clicking the button below"],
 	}
 	
-	E.Options.args.dpe.args.chat.args.channelGroup.args.delete = {
+	E.Options.args.sle.args.chat.args.channelGroup.args.delete = {
 		order = 2,
 		type = "execute",
 		name = L["Remove Channel"],
@@ -73,7 +73,7 @@ end
 function CH:DeleteName()
 	E.private['namelist'][selectedName] = nil
 	selectedName = nil;
-	E.Options.args.dpe.args.chat.args.nameGroup = nil
+	E.Options.args.sle.args.chat.args.nameGroup = nil
 	UpdateName()
 	CH:NamesListUpdate()
 end
@@ -81,12 +81,12 @@ end
 function CH:DeleteChannel()
 	E.private['channellist'][selectedChannel] = nil
 	selectedChannel = nil;
-	E.Options.args.dpe.args.chat.args.channelGroup = nil
+	E.Options.args.sle.args.chat.args.channelGroup = nil
 	UpdateChannel()
 	CH:ChannelListUpdate()
 end
 
-E.Options.args.dpe.args.chat = {
+E.Options.args.sle.args.chat = {
 	order = 8,
 	type = "group",
 	name = L["Chat"],
@@ -107,8 +107,8 @@ E.Options.args.dpe.args.chat = {
 					type = "toggle",
 					name = L["Chat Fade"],
 					desc = L["Enable/Disable the text fading in the chat window."],
-					get = function(info) return E.db.dpe.chat.fade end,
-					set = function(info, value) E.db.dpe.chat.fade = value; CH:FadeUpdate() end, 
+					get = function(info) return E.db.sle.chat.fade end,
+					set = function(info, value) E.db.sle.chat.fade = value; CH:FadeUpdate() end, 
 				},
 				editboxhistory = {
 					order = 2,
@@ -136,27 +136,27 @@ E.Options.args.dpe.args.chat = {
 					order = 2,
 					type = "toggle",
 					name = L["Enable"],
-					get = function(info) return E.db.dpe.chat.namehighlight end,
-					set = function(info, value) E.db.dpe.chat.namehighlight = value; end
+					get = function(info) return E.db.sle.chat.namehighlight end,
+					set = function(info, value) E.db.sle.chat.namehighlight = value; end
 				},
 				soundenable = {
 					order = 3,
 					type = "toggle",
 					name = L["Enable Sound"],
 					desc = L["Play sound when your name is mentioned in chat."],
-					disabled = function() return not E.db.dpe.chat.namehighlight end,
-					get = function(info) return E.db.dpe.chat.sound end,
-					set = function(info, value) E.db.dpe.chat.sound = value; end
+					disabled = function() return not E.db.sle.chat.namehighlight end,
+					get = function(info) return E.db.sle.chat.sound end,
+					set = function(info, value) E.db.sle.chat.sound = value; end
 				},
 				sound = {
 					type = "select", dialogControl = 'LSM30_Sound',
 					order = 4,
 					name = L["Sound"],
 					desc = L["Sound that will play when your name is mentioned in chat."],
-					disabled = function() return not E.db.dpe.chat.sound or not E.db.dpe.chat.namehighlight end,
+					disabled = function() return not E.db.sle.chat.sound or not E.db.sle.chat.namehighlight end,
 					values = AceGUIWidgetLSMlists.sound,
-					get = function(info) return E.db.dpe.chat.warningsound end,
-					set = function(info, value) E.db.dpe.chat.warningsound = value; end		
+					get = function(info) return E.db.sle.chat.warningsound end,
+					set = function(info, value) E.db.sle.chat.warningsound = value; end		
 				},
 				timer = {
 					order = 5,
@@ -164,7 +164,7 @@ E.Options.args.dpe.args.chat = {
 					name = L["Timer"],
 					desc = L["Sound will be played only once in this number of seconds."],
 					min = 1, max = 20, step = 1,
-					disabled = function() return not E.db.dpe.chat.sound or not E.db.dpe.chat.namehighlight end,
+					disabled = function() return not E.db.sle.chat.sound or not E.db.sle.chat.namehighlight end,
 					get = function(info) return E.private.channelcheck.time end,
 					set = function(info, value) E.private.channelcheck.time = value; end,
 				},
@@ -183,7 +183,7 @@ E.Options.args.dpe.args.chat = {
 					order = 8,
 					name = L["Add Name"],
 					desc = L["Add a name different from your current character's to be looked for"],
-					disabled = function() return not E.db.dpe.chat.namehighlight end,
+					disabled = function() return not E.db.sle.chat.namehighlight end,
 					get = function(info) return "" end,
 					set = function(info, value) 
 						if value:match("^%s*$") then
@@ -193,7 +193,7 @@ E.Options.args.dpe.args.chat = {
 							E:Print(L["Name already exists!"])
 						return end
 					
-						E.Options.args.dpe.args.chat.args.nameGroup = nil
+						E.Options.args.sle.args.chat.args.nameGroup = nil
 						E.private['namelist'][value] = {};	
 						E.private['namelist'][value].enable = true
 						UpdateName()
@@ -206,7 +206,7 @@ E.Options.args.dpe.args.chat = {
 					name = L['Names list'],
 					get = function(info) return selectedName end,
 					set = function(info, value) selectedName = value; UpdateName(true) end,	
-					disabled = function() return not E.db.dpe.chat.namehighlight end,
+					disabled = function() return not E.db.sle.chat.namehighlight end,
 					values = function()
 						names = {}
 						for name in pairs(E.private.namelist) do
@@ -220,7 +220,7 @@ E.Options.args.dpe.args.chat = {
 					type = "group",
 					name = L["Channels"],
 					guiInline = true,
-					disabled = function() return not E.db.dpe.chat.namehighlight end,
+					disabled = function() return not E.db.sle.chat.namehighlight end,
 					args = {
 						say = {
 							order = 1,
@@ -329,7 +329,7 @@ E.Options.args.dpe.args.chat = {
 									E:Print(L["Channel already exists!"])
 								return end
 							
-								E.Options.args.dpe.args.chat.args.channelGroup = nil
+								E.Options.args.sle.args.chat.args.channelGroup = nil
 								E.private['channellist'][value] = {};	
 								E.private['channellist'][value].enable = true
 								UpdateChannel()

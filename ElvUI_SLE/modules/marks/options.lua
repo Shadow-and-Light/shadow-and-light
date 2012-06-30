@@ -2,7 +2,7 @@
 local RM = E:GetModule('RaidMarks')
 
 --Main options group
-E.Options.args.dpe.args.marks = {
+E.Options.args.sle.args.marks = {
 	order = 5,
 	type = "group",
 	name = L["Raid Marks"],
@@ -18,8 +18,8 @@ E.Options.args.dpe.args.marks = {
 			type = "toggle",
 			name = L["Enable"],
 			desc = L["Show/Hide raid marks."],
-			get = function(info) return E.db.dpe.marks.enabled end,
-			set = function(info, value) E.db.dpe.marks.enabled = value; RM:UpdateVisibility() end
+			get = function(info) return E.db.sle.marks.enabled end,
+			set = function(info, value) E.db.sle.marks.enabled = value; RM:UpdateVisibility() end
 		},
 		size = {
 			order = 3,
@@ -27,16 +27,16 @@ E.Options.args.dpe.args.marks = {
 			name = L['Size'],
 			desc = L["Sets size of buttons"],
 			min = 15, max = 30, step = 1,
-			get = function(info) return E.db.dpe.marks.size end,
-			set = function(info, value) E.db.dpe.marks.size = value; RM:FrameButtonsGrowth(); RM:FrameButtonsSize() end,
+			get = function(info) return E.db.sle.marks.size end,
+			set = function(info, value) E.db.sle.marks.size = value; RM:FrameButtonsGrowth(); RM:FrameButtonsSize() end,
 		},
 		growth = {
 			order = 4,
 			type = "select",
 			name = L["Direction"],
 			desc = L["Change the direction of buttons growth from the skull marker"],
-			get = function(info) return E.db.dpe.marks.growth end,
-			set = function(info, value) E.db.dpe.marks.growth = value; RM:FrameButtonsGrowth() end,
+			get = function(info) return E.db.sle.marks.growth end,
+			set = function(info, value) E.db.sle.marks.growth = value; RM:FrameButtonsGrowth() end,
 			values = {
 				['RIGHT'] = L["Right"],
 				['LEFT'] = L["Left"],

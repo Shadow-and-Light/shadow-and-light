@@ -6,9 +6,9 @@ local abs = math.abs
 local _, ns = ...
 local ElvUF = ns.oUF
 
-UF.Update_BossFramesDPE = UF.Update_BossFrames
+UF.Update_BossFramesSLE = UF.Update_BossFrames
 function UF:Update_BossFrames(frame, db)
-	self:Update_BossFramesDPE(frame, db)
+	self:Update_BossFramesSLE(frame, db)
 	
 	local power = frame.Power
 	--Text
