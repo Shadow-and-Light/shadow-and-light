@@ -77,15 +77,15 @@ P['sle'] = {
 			['width'] = E.screenwidth/5,
 		},	
 		['dp5'] = {
-			['enabled'] = true,
+			['enabled'] = false,
 			['width'] = E.screenwidth/4 - 60,
 		},	
 		['bottom'] = {
-			['enabled'] = true,
+			['enabled'] = false,
 			['width'] = E.screenwidth/10 - 4,
 		},
 		['dp6'] = {
-			['enabled'] = true,
+			['enabled'] = false,
 			['width'] = E.screenwidth/4 - 60,
 		},
 		['chatleft'] = {
@@ -101,12 +101,12 @@ P['sle'] = {
 	--Raid Utility
 	['raidutil'] = {
 		['xpos'] = E.screenwidth/3,
-		['ypos'] = E.screenheight - 30,
+		['ypos'] = E.screenheight - 16,
 	},
 	
 	--Exp/Rep info
 	['xprepinfo'] = {
-		['enabled'] = true,
+		['enabled'] = false,
 		['xprepdet'] = false,
 		['repreact'] = false,
 		['xprest'] = false,
@@ -114,13 +114,13 @@ P['sle'] = {
 	
 	--PvP indicator
 	['pvp'] = {
-		['pos'] = 'BOTTOMLEFT',
+		['pos'] = 'CENTER',
 		['mouse'] = true,
 	},
 	
 	--Combat Icon
 	['combatico'] = {
-		['pos'] = 'TOPRIGHT',
+		['pos'] = 'TOP',
 	},
 	
 	--UI Buttons
@@ -150,7 +150,7 @@ P['sle'] = {
 	['unitframes'] = {
 		['reverse'] = {
 			['health'] = false,
-			['mana'] = true,
+			['mana'] = false,
 		},
 		['normal'] = {
 			['health'] = false,
@@ -171,26 +171,21 @@ P['microbar'] = {
 	['yoffset'] = 0,
 }
 
---This is the only settings changed in general options
---[[P.general.vendorGrays = true
-P.general.fontsize = 10
-P.general.stickyFrames = false]]
-
 --For some reason datatext settings refuses to work if there is no general setting block here O_o
 --Core
 P['general'] = {
 	["taingLog"] = false,
 	["autoscale"] = true,
-	["stickyFrames"] = false,
+	["stickyFrames"] = true,
 	['loginmessage'] = true,
 	["interruptAnnounce"] = "NONE",
 	["autoRepair"] = "NONE",
-	['vendorGrays'] = true,
+	['vendorGrays'] = false,
 	['autoAcceptInvite'] = false,
 	
 	-- fonts
-	["fontsize"] = 10,
-	["font"] = "ElvUI Font",
+	["fontsize"] = 11,
+	["font"] = "ElvUI Pixel",
 	
 	--colors
 	["bordercolor"] = { r = 0.1,g = 0.1,b = 0.1 },
@@ -212,14 +207,10 @@ P['general'] = {
 	['raidReminder'] = true,
 	['minimapPanels'] = true,
 	['tinyWorldMap'] = true,
-	['minimapLocationText'] = 'SHOW',
+	['minimapLocationText'] = 'MOUSEOVER',
 };
 
 P.chat.editboxhistory = 5
-
-P.nameplate.showhealth = true
-P.nameplate.trackauras = true
-
 P.auras.perRow = 19
 
 --Datatexts
@@ -271,17 +262,10 @@ P['datatexts'] = {
 		['RightMiniPanel'] = 'Friends',
 	},
 	['localtime'] = true,
-	['time24'] = true,
+	['time24'] = false,
 	['battleground'] = true,
 }
 
-P.unitframe.smoothbars = false
-P.unitframe.fontsize = 9
-P.unitframe.debuffHighlighting = false
-P.unitframe.smartRaidFilter = false
-P.unitframe.colors.healthclass = true
-P.unitframe.colors.colorhealthbyvalue = false
-P.unitframe.colors.classNames = false
 P.unitframe.units.player.classbar.xOffset = 0
 P.unitframe.units.player.classbar.yOffset = 0
 P.unitframe.units.player.classbar.offset = false
