@@ -4,7 +4,7 @@ local AB = E:GetModule('ActionBars')
 local CH = E:GetModule('Chat')
 
 --Main options group
-E.Options.args.dpe = {
+E.Options.args.sle = {
 	type = "group",
 	name = L["Shadow & Light Edit"],
     order = 50,
@@ -39,16 +39,16 @@ E.Options.args.dpe = {
 					name = L["Aura Size"],
 					desc = L["Sets size of auras. This setting is character based."],
 					min = 20, max = 50, step = 1,
-					get = function(info) return E.private.dpe.auras.size end,
-					set = function(info, value) E.private.dpe.auras.size = value; StaticPopup_Show("PRIVATE_RL") end,
+					get = function(info) return E.private.sle.auras.size end,
+					set = function(info, value) E.private.sle.auras.size = value; StaticPopup_Show("PRIVATE_RL") end,
 				},
 				petautocast = {
 					order = 5,
 					type = "toggle",
 					name = L["Pet autocast corners"],
 					desc = L["Show/hide tringles in corners of autocastable buttons."],
-					get = function(info) return E.db.dpe.petbar.autocast end,
-					set = function(info, value) E.db.dpe.petbar.autocast = value; AB:UpdatePet() end
+					get = function(info) return E.db.sle.petbar.autocast end,
+					set = function(info, value) E.db.sle.petbar.autocast = value; AB:UpdatePet() end
 				},
 			},
 		},
@@ -56,7 +56,7 @@ E.Options.args.dpe = {
 }
 
 --Credits
-E.Options.args.dpe.args.credits = {
+E.Options.args.sle.args.credits = {
 	order = 200,
 	type = 'group',
 	name = L["Credits"],

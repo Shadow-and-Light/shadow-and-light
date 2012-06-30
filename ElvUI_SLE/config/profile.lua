@@ -1,6 +1,6 @@
 ﻿local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 
-P['dpe'] = {
+P['sle'] = {
 	--Background frames
 	['backgrounds'] = {
 		['bottom'] = {

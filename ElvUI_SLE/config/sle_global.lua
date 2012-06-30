@@ -18,7 +18,7 @@ V['channelcheck'] = {
 	['time'] = 3,
 }
 
-V['dpe'] = {
+V['sle'] = {
 	--Auras Frame
 	['auras'] = {
 		['size'] = 30,

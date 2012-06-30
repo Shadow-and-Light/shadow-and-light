@@ -5,9 +5,9 @@ local DTP = E:GetModule('DTPanels');
 local PANEL_HEIGHT = 22;
 local SIDE_BUTTON_WIDTH = 16;
 
-LO.ToggleChatPanelsDPE = LO.ToggleChatPanels
+LO.ToggleChatPanelsSLE = LO.ToggleChatPanels
 function LO:ToggleChatPanels()
-	LO.ToggleChatPanelsDPE(self)
+	LO.ToggleChatPanelsSLE(self)
 
 	--I've made replacement only for show both setting. I'm using only those atm. will do more later
 	if E.db.general.panelBackdrop == 'SHOWBOTH' then
@@ -17,8 +17,8 @@ function LO:ToggleChatPanels()
 		RightChatTab:Show()		
 
 		LeftChatDataPanel:Point('BOTTOMLEFT', LeftChatPanel, 'BOTTOMLEFT', SIDE_BUTTON_WIDTH, -21) --lower line of datapanel
-		LeftChatDataPanel:Point('TOPRIGHT', LeftChatPanel, 'BOTTOMLEFT', 16 + E.db.dpe.datatext.chatleft.width, -1) --upper line of datapanel		
-		RightChatDataPanel:Point('BOTTOMLEFT', RightChatPanel, 'BOTTOMRIGHT', - E.db.dpe.datatext.chatright.width - 16, -21) --lower-left corner of right datapanel
+		LeftChatDataPanel:Point('TOPRIGHT', LeftChatPanel, 'BOTTOMLEFT', 16 + E.db.sle.datatext.chatleft.width, -1) --upper line of datapanel		
+		RightChatDataPanel:Point('BOTTOMLEFT', RightChatPanel, 'BOTTOMRIGHT', - E.db.sle.datatext.chatright.width - 16, -21) --lower-left corner of right datapanel
 		RightChatDataPanel:Point('TOPRIGHT', RightChatPanel, 'BOTTOMRIGHT', -SIDE_BUTTON_WIDTH, -1)	--upper-right corner of right datapanel	
 		LeftChatToggleButton:Point('BOTTOMLEFT', LeftChatPanel, 'BOTTOMLEFT', 0, -21)
 		RightChatToggleButton:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -21)
@@ -29,8 +29,8 @@ function LO:ToggleChatPanels()
 		RightChatTab:Hide()		
 		
 		LeftChatDataPanel:Point('BOTTOMLEFT', LeftChatPanel, 'BOTTOMLEFT', SIDE_BUTTON_WIDTH, -21) --lower line of datapanel
-		LeftChatDataPanel:Point('TOPRIGHT', LeftChatPanel, 'BOTTOMLEFT', 16 + E.db.dpe.datatext.chatleft.width, -1) --upper line of datapanel		
-		RightChatDataPanel:Point('BOTTOMLEFT', RightChatPanel, 'BOTTOMRIGHT', - E.db.dpe.datatext.chatright.width - 16, -21) --lower-left corner of right datapanel
+		LeftChatDataPanel:Point('TOPRIGHT', LeftChatPanel, 'BOTTOMLEFT', 16 + E.db.sle.datatext.chatleft.width, -1) --upper line of datapanel		
+		RightChatDataPanel:Point('BOTTOMLEFT', RightChatPanel, 'BOTTOMRIGHT', - E.db.sle.datatext.chatright.width - 16, -21) --lower-left corner of right datapanel
 		RightChatDataPanel:Point('TOPRIGHT', RightChatPanel, 'BOTTOMRIGHT', -SIDE_BUTTON_WIDTH, -1)	--upper-right corner of right datapanel	
 		LeftChatToggleButton:Point('BOTTOMLEFT', LeftChatPanel, 'BOTTOMLEFT', 0, -21)
 		RightChatToggleButton:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -21)
@@ -41,8 +41,8 @@ function LO:ToggleChatPanels()
 		RightChatTab:Hide()
 		
 		LeftChatDataPanel:Point('BOTTOMLEFT', LeftChatPanel, 'BOTTOMLEFT', SIDE_BUTTON_WIDTH, -21) --lower line of datapanel
-		LeftChatDataPanel:Point('TOPRIGHT', LeftChatPanel, 'BOTTOMLEFT', 16 + E.db.dpe.datatext.chatleft.width, -1) --upper line of datapanel		
-		RightChatDataPanel:Point('BOTTOMLEFT', RightChatPanel, 'BOTTOMRIGHT', - E.db.dpe.datatext.chatright.width - 16, -21) --lower-left corner of right datapanel
+		LeftChatDataPanel:Point('TOPRIGHT', LeftChatPanel, 'BOTTOMLEFT', 16 + E.db.sle.datatext.chatleft.width, -1) --upper line of datapanel		
+		RightChatDataPanel:Point('BOTTOMLEFT', RightChatPanel, 'BOTTOMRIGHT', - E.db.sle.datatext.chatright.width - 16, -21) --lower-left corner of right datapanel
 		RightChatDataPanel:Point('TOPRIGHT', RightChatPanel, 'BOTTOMRIGHT', -SIDE_BUTTON_WIDTH, -1)	--upper-right corner of right datapanel	
 		LeftChatToggleButton:Point('BOTTOMLEFT', LeftChatPanel, 'BOTTOMLEFT', 0, -21)
 		RightChatToggleButton:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -21)
@@ -53,8 +53,8 @@ function LO:ToggleChatPanels()
 		RightChatTab:Show()	
 		
 		LeftChatDataPanel:Point('BOTTOMLEFT', LeftChatPanel, 'BOTTOMLEFT', SIDE_BUTTON_WIDTH, -21) --lower line of datapanel
-		LeftChatDataPanel:Point('TOPRIGHT', LeftChatPanel, 'BOTTOMLEFT', 16 + E.db.dpe.datatext.chatleft.width, -1) --upper line of datapanel		
-		RightChatDataPanel:Point('BOTTOMLEFT', RightChatPanel, 'BOTTOMRIGHT', - E.db.dpe.datatext.chatright.width - 16, -21) --lower-left corner of right datapanel
+		LeftChatDataPanel:Point('TOPRIGHT', LeftChatPanel, 'BOTTOMLEFT', 16 + E.db.sle.datatext.chatleft.width, -1) --upper line of datapanel		
+		RightChatDataPanel:Point('BOTTOMLEFT', RightChatPanel, 'BOTTOMRIGHT', - E.db.sle.datatext.chatright.width - 16, -21) --lower-left corner of right datapanel
 		RightChatDataPanel:Point('TOPRIGHT', RightChatPanel, 'BOTTOMRIGHT', -SIDE_BUTTON_WIDTH, -1)	--upper-right corner of right datapanel	
 		LeftChatToggleButton:Point('BOTTOMLEFT', LeftChatPanel, 'BOTTOMLEFT', 0, -21)
 		RightChatToggleButton:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -21)
