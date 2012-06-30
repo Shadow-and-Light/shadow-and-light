@@ -732,7 +732,7 @@ local function SetPage(PageNum)
 	end
 	
 	InstallTutorialImage:Size(256, 128)
-	InstallTutorialImage:SetTexture('Interface\\AddOns\\ElvUI_SLE\\textures\\logo_elvui_dpe.tga')
+	InstallTutorialImage:SetTexture('Interface\\AddOns\\ElvUI_SLE\\textures\\logo_elvui_sle.tga')
 	InstallTutorialImage:Show()	
 	
 	if PageNum == 1 then
