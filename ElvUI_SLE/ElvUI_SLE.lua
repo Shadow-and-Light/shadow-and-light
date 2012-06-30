@@ -25,7 +25,6 @@ function E:UpdateAll()
 	E:GetModule('DTPanels'):Update()
 	E:GetModule('UnitFrames'):Update_CombatIndicator()
 	E:GetModule('UIButtons'):Start()
-	E:GetModule('SLE'):BPUpdate()
 end
 
 E:RegisterModule(SLE:GetName())
