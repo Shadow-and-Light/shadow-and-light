@@ -87,11 +87,11 @@ P['dpe'] = {
 		},
 		['chatleft'] = {
 			['enabled'] = true,
-			['width'] = E.db.general.panelWidth,
+			['width'] = 412,
 		},
 		['chatright'] = {
 			['enabled'] = true,
-			['width'] = E.db.general.panelWidth,
+			['width'] = 412,
 		},
 	},
 	
