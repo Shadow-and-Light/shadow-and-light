@@ -61,9 +61,9 @@ function LO:ToggleChatPanels()
 	end
 end
 
-LO.CreateChatPanelsDPE = LO.CreateChatPanels
+LO.CreateChatPanelsSLE = LO.CreateChatPanels
 function LO:CreateChatPanels()
-	LO.CreateChatPanelsDPE(self)
+	LO.CreateChatPanelsSLE(self)
 	--Left Chat
 	LeftChatPanel:Point('BOTTOMLEFT', E.UIParent, 0, 21)
 	
