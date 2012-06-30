@@ -268,7 +268,6 @@ L["Show/Hide the frame with exact number of your Solar/Lunar energy."] = true
 L["ELVUI_SLE_CREDITS"] = "I would like to point out the following people for helping me create this addon with testing, coding, and other stuff."
 L["Submodules and Coding:"] = true
 L["ELVUI_SLE_CODERS"] = [=[Benik - core of exp/rep bars' text
-Repooc - core of auto release feature, some ideas, testing
 Tukz - helping with oUF
 Elv - for making creation of this edit much easier
 Pvtschlag - Necrotic Strike oUF plugin

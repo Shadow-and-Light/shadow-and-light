@@ -250,7 +250,6 @@ L["Show/hide the frame with exact number of your Solar/Lunar energy."] = "Пок
 L['ELVUI_SLE_CREDITS'] = "Я бы хотел отметить следующих людей, которые помогли мне сделать этот аддон посредством тестирования, кода и прочего."
 L['Submodules and Coding:'] = "Субмодули и кодинг:"
 L['ELVUI_SLE_CODERS'] = [[Benik - ядро функции текста полос опыта/репутации
-Repooc - ядро функции автоматического выхода из тела, несколько идей, тестирование
 Tukz - помощь с oUF
 Elv - значительное облегчение создания редакции
 Pvtschlag - плагин Necrotic Strike для oUF
