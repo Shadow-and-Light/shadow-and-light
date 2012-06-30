@@ -69,6 +69,17 @@ function UF:Update_PlayerFrame(frame, db)
 		power.value:Hide()
 	end
 	
+	--Testing for druid text
+	if E.myclass == "DRUID" then
+		local eclipseBar = frame.EclipseBar
+		local lunarBar = eclipseBar.LunarBar
+
+		local spower = UnitPower( PlayerFrame.unit, SPELL_POWER_ECLIPSE );
+		eclipseBar.powtext = lunarBar:CreateFontString(nil, 'OVERLAY')
+		eclipseBar.powtext:SetPoint("CENTER", eclipseBar, "CENTER")
+		eclipseBar.powtext:SetFont("Fonts\\FRIZQT__.TTF", 10, "OUTLINE")
+	end
+	
 	if not E.db.unitframe.units.player.classbar.offset then return end --Checking for offset option enabled
 	--All this crap is needed to be copied from Elv's player.lua to avoid graphical bugs
 	--Adjust some variables

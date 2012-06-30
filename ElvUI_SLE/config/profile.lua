@@ -48,6 +48,9 @@ P['sle'] = {
 		['size'] = 18,
 	},
 	
+	--Balance text
+	['bpenable'] = false;
+	
 	--Auto release
 	['pvpautorelease'] = true,
 	

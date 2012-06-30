@@ -273,4 +273,14 @@ function UF:UpdatePvPText(frame)
 	local x, y = self:GetPositionOffset(E.db.sle.pvp.pos)
 	PvPText:ClearAllPoints()
 	PvPText:Point(E.db.sle.pvp.pos, health, E.db.sle.pvp.pos, x, y)
+	
+	if E.myclass == "DRUID" then
+		local eclipseBar = ElvUF_Player.EclipseBar
+		local spower = UnitPower( PlayerFrame.unit, SPELL_POWER_ECLIPSE );
+		if E.db.sle.bpenable then
+			eclipseBar.powtext:SetText(spower)
+		else
+			eclipseBar.powtext:SetText('')
+		end
+	end
 end
