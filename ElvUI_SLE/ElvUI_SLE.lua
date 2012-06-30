@@ -19,9 +19,9 @@ function DPE:UpdateThings()
 	E:GetModule('UnitFrames'):Update_CombatIndicator()
 end
 
-E.UpdateAllDPE = E.UpdateAll
+E.UpdateAllSLE = E.UpdateAll
 function E:UpdateAll()
-    E.UpdateAllDPE(self)
+    E.UpdateAllSLE(self)
 	E:GetModule('DTPanels'):Update()
 	E:GetModule('UnitFrames'):Update_CombatIndicator()
 	E:GetModule('UIButtons'):Start()
