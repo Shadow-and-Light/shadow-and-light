@@ -3,7 +3,6 @@
 	<Include file='auras\load_auras.xml'/>
 	<Include file='autorelease\load_autorelease.xml'/>
 	<Include file='backgrounds\load_backgrounds.xml'/>
-	<Include file='balancepower\load_balancepower.xml'/>
 	<Include file='chat\load_chat.xml'/>
 	<Include file='datatexts\load_datatexts.xml'/>
 	<Include file='exprepbar\load_exprepbar.xml'/>
