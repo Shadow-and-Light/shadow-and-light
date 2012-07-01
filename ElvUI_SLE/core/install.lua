@@ -266,6 +266,8 @@ function E:SetupResolution(noDataReset)
 		if not noDataReset then
 			E.db.general.panelWidth = 400
 			E.db.general.panelHeight = 180
+			E.db.sle.datatext.chatleft.width = 384
+			E.db.sle.datatext.chatright.width = 384
 			
 			E:CopyTable(E.db.actionbar, P.actionbar)
 					
@@ -275,7 +277,7 @@ function E:SetupResolution(noDataReset)
 			E.db.actionbar.bar5.enabled = false;
 		end
 		
-		E.db.movers.ElvAB_2 = "CENTERUIParentBOTTOM074.18"
+		E.db.movers.ElvAB_2 = "CENTERUIParentBOTTOM056.18"
 		
 		if not noDataReset then
 			E:CopyTable(E.db.unitframe.units, P.unitframe.units)
@@ -304,39 +306,23 @@ function E:SetupResolution(noDataReset)
 			E.db.unitframe.units.arena.castbar.width = 200;			
 		end
 		
-		E.db.movers.ElvUF_PlayerMover = "BOTTOMUIParentBOTTOM-106151"
-		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMUIParentBOTTOM10696"
-		E.db.movers.ElvUF_TargetMover = "BOTTOMUIParentBOTTOM106151"
-		E.db.movers.ElvUF_PetMover = "BOTTOMUIParentBOTTOM-10696"
+		E.db.movers.ElvUF_PlayerMover = "BOTTOMUIParentBOTTOM-106135"
+		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMUIParentBOTTOM10680"
+		E.db.movers.ElvUF_TargetMover = "BOTTOMUIParentBOTTOM106135"
+		E.db.movers.ElvUF_PetMover = "BOTTOMUIParentBOTTOM-10680"
 		E.db.movers.ElvUF_FocusMover = "BOTTOMUIParentBOTTOM310332"
-		E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTUIParentBOTTOMLEFT0200"
-		E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTUIParentBOTTOMLEFT0200"
-		E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTUIParentBOTTOMLEFT0200"
-		E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTUIParentBOTTOMLEFT0200"
-		--"BOTTOMRIGHT", RightChatTab, "TOPRIGHT", 2, 4
 		
 		E.db.lowresolutionset = true;
 	elseif not noDataReset then
-		if not E.db.movers then E.db.movers = {}; end
 		E.db.general.panelWidth = P.general.panelWidth
 		E.db.general.panelHeight = P.general.panelHeight
 		
 		E:CopyTable(E.db.actionbar, P.actionbar)
 		E:CopyTable(E.db.unitframe.units, P.unitframe.units)
 
-		E.db.movers.ElvUF_PlayerMover = "BOTTOMUIParentBOTTOM-28888"
-		E.db.movers.ElvUF_TargetMover = "BOTTOMUIParentBOTTOM28888"
-		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMUIParentBOTTOM099"
-		E.db.movers.ElvUF_PetMover = "BOTTOMUIParentBOTTOM0136"
-		E.db.movers.ElvUF_FocusMover = "BOTTOMUIParentBOTTOM280332"
-		E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTUIParentBOTTOMLEFT0200"
-		E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTUIParentBOTTOMLEFT0200"
-		E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTUIParentBOTTOMLEFT0200"
-		E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTUIParentBOTTOMLEFT0200"
-		
 		E.db.lowresolutionset = nil;
 	end
-
+	
 	if not noDataReset and E.db.theme then
 		E:SetupTheme(E.db.theme, true)
 	end
@@ -508,27 +494,61 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.general.stickyFrames = false
 	E.db.general.minimapLocationText = 'SHOW'
 	E.db.general.panelHeight = 227
+	if E.db.lowresolutionset then
+		E.db.general.panelWidth = 400
+	else
+		E.db.general.panelWidth = 444
+	end
 	--Nameplates
 	E.db.nameplate.showhealth = true
 	--Datatexts
 	E.db.datatexts.time24 = true
-	E.db.sle.datatext.dp1.enabled = true
-	E.db.sle.datatext.dp2.enabled = true
 	E.db.sle.datatext.top.enabled = true
-	E.db.sle.datatext.dp3.enabled = true
-	E.db.sle.datatext.dp4.enabled = true
-	E.db.sle.datatext.dp5.enabled = true
 	E.db.sle.datatext.bottom.enabled = true
-	E.db.sle.datatext.dp6.enabled = true
+	if E.db.lowresolutionset then
+		E.db.sle.datatext.dp1.enabled = false
+		E.db.sle.datatext.dp2.enabled = false
+		E.db.sle.datatext.dp3.enabled = false
+		E.db.sle.datatext.dp4.enabled = false
+		E.db.sle.datatext.dp5.enabled = false
+		E.db.sle.datatext.dp6.enabled = false
+		E.db.sle.datatext.chatleft.width = 384
+		E.db.sle.datatext.chatright.width = 384
+		E.db.sle.datatext.bottom.width = E.screenwidth/3 + 52
+	else
+		E.db.sle.datatext.dp1.enabled = true
+		E.db.sle.datatext.dp2.enabled = true
+		E.db.sle.datatext.dp3.enabled = true
+		E.db.sle.datatext.dp4.enabled = true
+		E.db.sle.datatext.dp5.enabled = true
+		E.db.sle.datatext.dp6.enabled = true
+		E.db.sle.datatext.chatleft.width = 428
+		E.db.sle.datatext.chatright.width = 428
+		E.db.sle.datatext.bottom.width = E.screenwidth/10 - 4
+	end
 	--Actionbars
 	E.db.actionbar.hotkeytext = false
+	if E.db.lowresolutionset then
+		E.db.movers.ElvAB_2 = "BOTTOMUIParentBOTTOM056" --Need to move up if low resolution is set
+	else
+		E.db.actionbar.bar2.enabled = false; --Don't need to hide that if not
+	end
+	E.db.actionbar.bar4.enabled = false;
 	E.db.actionbar.bar1.point = 'TOPLEFT'
 	E.db.actionbar.bar3.point = 'TOPLEFT'
 	E.db.actionbar.bar5.point = 'TOPLEFT'
 	E.db.actionbar.barShapeShift.buttonsize = 25
+	E.db.actionbar.barPet.point = 'TOPLEFT'
+	E.db.actionbar.barPet.buttonsPerRow = 10
+	E.db.actionbar.barPet.buttonsize = 22
 	--Actionbars moving up
 	E.db.movers.ElvAB_1 = "BOTTOMUIParentBOTTOM021"
 	E.db.movers.ShiftAB = "TOPLEFTUIParentTOPLEFT0-21"
+	if E.db.lowresolutionset then
+		E.db.movers.PetAB = "BOTTOMElvAB_2TOP10"
+	else
+		E.db.movers.PetAB = "BOTTOMElvAB_1TOP10"
+	end
 		
 	--Unitframes
 	E.db.unitframe.smoothbars = false
@@ -597,32 +617,40 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		if E.db.lowresolutionset then
 			E.db.movers.ElvUF_PlayerMover = "BOTTOMUIParentBOTTOM-305256"
 			E.db.movers.ElvUF_TargetMover = "BOTTOMUIParentBOTTOM305256"
-			E.db.movers.ElvUF_Raid40Mover = "BOTTOMUIParentBOTTOM096"
-			E.db.movers.ElvUF_Raid25Mover = "BOTTOMUIParentBOTTOM096"
-			E.db.movers.ElvUF_Raid10Mover = "BOTTOMUIParentBOTTOM096"
+			E.db.movers.ElvUF_Raid40Mover = "BOTTOMUIParentBOTTOM0125"
+			E.db.movers.ElvUF_Raid25Mover = "BOTTOMUIParentBOTTOM0125"
+			E.db.movers.ElvUF_Raid10Mover = "BOTTOMUIParentBOTTOM0125"
 			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMUIParentBOTTOM305203"
-			E.db.movers.ElvUF_PartyMover = "BOTTOMUIParentBOTTOM0120"
+			E.db.movers.ElvUF_PartyMover = "BOTTOMUIParentBOTTOM0159"
 			E.db.movers.ElvUF_PetMover = "BOTTOMUIParentBOTTOM-305203"
 			E.db.movers.ElvUF_FocusMover = "BOTTOMUIParentBOTTOM310432"
+			E.db.actionbar.bar1.heightMult = 1
+			E.db.actionbar.bar2.backdrop = true
 			
 		else
 			E.db.movers.ElvUF_PlayerMover = "BOTTOMLEFTUIParentBOTTOMLEFT464258"
 			E.db.movers.ElvUF_TargetMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-464258"
-			E.db.movers.ElvUF_Raid40Mover = "BOTTOMUIParentBOTTOM066"
-			E.db.movers.ElvUF_Raid25Mover = "BOTTOMUIParentBOTTOM066"
-			E.db.movers.ElvUF_Raid10Mover = "BOTTOMUIParentBOTTOM066"
+			E.db.movers.ElvUF_Raid40Mover = "BOTTOMUIParentBOTTOM095"
+			E.db.movers.ElvUF_Raid25Mover = "BOTTOMUIParentBOTTOM095"
+			E.db.movers.ElvUF_Raid10Mover = "BOTTOMUIParentBOTTOM095"
 			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-464167"
-			E.db.movers.ElvUF_PartyMover = "BOTTOMUIParentBOTTOM090"
+			E.db.movers.ElvUF_PartyMover = "BOTTOMUIParentBOTTOM0120"
 			E.db.movers.ElvUF_PetMover = "BOTTOMLEFTUIParentBOTTOMLEFT464167"
 			E.db.movers.ElvUF_FocusMover = "BOTTOMUIParentBOTTOM280332"
 		end
 	elseif E.db.lowresolutionset then
 		if not E.db.movers then E.db.movers = {}; end
-		E.db.movers.ElvUF_PlayerMover = "BOTTOMUIParentBOTTOM-106151"
-		E.db.movers.ElvUF_TargetMover = "BOTTOMUIParentBOTTOM106151"
-		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMUIParentBOTTOM10696"
-		E.db.movers.ElvUF_PetMover = "BOTTOMUIParentBOTTOM-10696"
-		E.db.movers.ElvUF_FocusMover = "BOTTOMUIParentBOTTOM310332"			
+		E.db.movers.ElvUF_PlayerMover = "BOTTOMUIParentBOTTOM-106180"
+		E.db.movers.ElvUF_TargetMover = "BOTTOMUIParentBOTTOM106180"
+		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMUIParentBOTTOM106125"
+		E.db.movers.ElvUF_PetMover = "BOTTOMUIParentBOTTOM-106125"
+		E.db.movers.ElvUF_FocusMover = "BOTTOMUIParentBOTTOM310332"	
+		E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTUIParentBOTTOMLEFT0249"
+		E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTUIParentBOTTOMLEFT0249"
+		E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTUIParentBOTTOMLEFT0249"
+		E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTUIParentBOTTOMLEFT0249"
+		E.db.actionbar.bar1.heightMult = 1
+		E.db.actionbar.bar2.backdrop = true
 	else
 		--[[if not noDataReset then
 			E:ResetMovers('')
@@ -633,10 +661,11 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMUIParentBOTTOM0120"
 		E.db.movers.ElvUF_PetMover = "BOTTOMUIParentBOTTOM0164"
 		E.db.movers.ElvUF_FocusMover = "BOTTOMUIParentBOTTOM280332"
-		E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTUIParentBOTTOMLEFT0200"
-		E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTUIParentBOTTOMLEFT0200"
-		E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTUIParentBOTTOMLEFT0200"
-		E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTUIParentBOTTOMLEFT0200"
+		E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTUIParentBOTTOMLEFT0249"
+		E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTUIParentBOTTOMLEFT0249"
+		E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTUIParentBOTTOMLEFT0249"
+		E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTUIParentBOTTOMLEFT0249"
+		E.db.movers.ElvAB_1 = "BOTTOMUIParentBOTTOM021"
 	end
 	
 	if E.db.lowresolutionset and not noDataReset then
@@ -691,6 +720,41 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.unitframe.units.target.debuffs.useFilter = 'DebuffBlacklist';
 	E.db.unitframe.units.target.debuffs.showPlayerOnly = false;
 	E.db.unitframe.units.target.castbar.format = 'CURRENTMAX';
+	--Target of Target
+	E.db.unitframe.units.targettarget.debuffs.enable = false
+	--Focus
+	E.db.unitframe.units.focus.health.position = 'BOTTOMRIGHT'
+	E.db.unitframe.units.focus.power.text = true
+	E.db.unitframe.units.focus.power.height = 10
+	E.db.unitframe.units.focus.name.position = 'TOPLEFT'
+	E.db.unitframe.units.focus.debuffs.perrow = 7
+	E.db.unitframe.units.focus.debuffs['growth-y'] = 'UP'
+	E.db.unitframe.units.focus.castbar.format = 'CURRENTMAX'
+	--Arena
+	E.db.unitframe.units.arena.growthDirection = 'DOWN'
+	E.db.unitframe.units.arena.health.position = 'BOTTOMRIGHT'
+	E.db.unitframe.units.arena.name.position = 'TOPLEFT'
+	E.db.unitframe.units.arena.buffs.enable = false
+	E.db.unitframe.units.arena.debuffs.enable = false
+	E.db.unitframe.units.arena.castbar.format = 'CURRENTMAX'
+	if E.db.lowresolutionset then
+		E.db.movers.ArenaHeaderMover = "TOPRIGHTUIParentTOPRIGHT-1-240"
+	else
+		E.db.movers.ArenaHeaderMover = "TOPRIGHTUIParentTOPRIGHT-1-240"
+	end
+	--Boss
+	E.db.unitframe.units.boss.growthDirection = 'DOWN'
+	E.db.unitframe.units.boss.health.position = 'BOTTOMRIGHT'
+	E.db.unitframe.units.boss.power.height = 10
+	E.db.unitframe.units.boss.name.position = 'TOPLEFT'
+	E.db.unitframe.units.boss.buffs.enable = false
+	E.db.unitframe.units.boss.debuffs.enable = false
+	E.db.unitframe.units.boss.castbar.format = 'CURRENTMAX'
+	if E.db.lowresolutionset then
+		E.db.movers.BossHeaderMover = "TOPRIGHTUIParentTOPRIGHT-1-240"
+	else
+		E.db.movers.BossHeaderMover = "TOPRIGHTUIParentTOPRIGHT-1-240"
+	end
 	
 	--Bags
 	E.db.bags.yOffset = 225
@@ -709,7 +773,21 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	--Chat
 	E.db.sle.chat.fade = true
 	E.db.sle.unitframes.reverse.mana = true
-	
+	--UI buttons
+	E.db.sle.uibuttons.enable = true
+	if E.db.lowresolutionset then
+		E.db.movers.UIBFrameMover = "LEFTUIParentLEFT030"
+	end
+	--Minimap and auras
+	E.db.movers.MinimapMover = "TOPRIGHTUIParentTOPRIGHT-1-21"
+	E.db.movers.AurasMover = "TOPRIGHTMMHolderTOPLEFT-10"
+	E.db.movers.BNETMover = "TOPRIGHTArenaHeaderMoverBOTTOMRIGHT0-10"
+	if E.db.lowresolutionset then
+		E.db.movers.WatchFrameMover = "TOPRIGHTUIParentTOPRIGHT-300-210"
+	else
+		E.db.movers.WatchFrameMover = "BOTTOMLEFTUIParentBOTTOMLEFT1500846"
+	end
+
 	E:UpdateAll(true)
 end
 
