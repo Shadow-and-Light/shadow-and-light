@@ -787,6 +787,8 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	else
 		E.db.movers.WatchFrameMover = "BOTTOMLEFTUIParentBOTTOMLEFT1500846"
 	end
+	--Ticket frame
+	E.db.movers.GMMover = "TOPRIGHTBNETMoverBOTTOMRIGHT0-10"
 
 	E:UpdateAll(true)
 end
