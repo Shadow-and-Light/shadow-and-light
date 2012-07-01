@@ -90,11 +90,11 @@ P['sle'] = {
 		},
 		['chatleft'] = {
 			['enabled'] = true,
-			['width'] = 412,
+			['width'] = 396,
 		},
 		['chatright'] = {
 			['enabled'] = true,
-			['width'] = 412,
+			['width'] = 396,
 		},
 	},
 	
@@ -125,7 +125,7 @@ P['sle'] = {
 	
 	--UI Buttons
 	['uibuttons'] = {
-		['enable'] = true,
+		['enable'] = false,
 		['size'] = 17,
 		['mouse'] = false,
 		['position'] = "uib_vert",
