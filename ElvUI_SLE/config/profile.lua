@@ -139,11 +139,8 @@ P['sle'] = {
 	--Chat
 	['chat'] = {
 		['fade'] = false,
-		['namehighlight'] = false,
-		['sound'] = true,
+		['sound'] = false,
 		['warningsound'] = "ElvUI Warning",
-		['name1'] = "",
-		['name2'] = "",
 	},
 	
 	--Unit Frames text formatting

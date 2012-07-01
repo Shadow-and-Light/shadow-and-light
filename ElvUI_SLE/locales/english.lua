@@ -183,34 +183,12 @@ L["Enable/Disable the text fading in the chat window."] = true
 L["Chat Editbox History"] = true
 L["Amount of messages to save. Set to 0 to disable."] = true
 L["Name Highlight"] = true
-L["TOON_DESC"] = [=[The options for highlighting and sound warning if someone mentions your name in chat.
-Names are stored character-based, so you can have different names lists on different characters.
-Your current character's name will be on the list automaticaly.]=]
+L["TOON_DESC"] = [=[Sound options for the ElvUI's keyword coloring feature.]=]
 L["Enable Sound"] = true
-L["Play sound when your name is mentioned in chat."] = true
-L["Sound that will play when your name is mentioned in chat."] = true
+L["Play sound when keyword is mentioned in chat."] = true
+L["Sound that will be played."] = true
 L["Timer"] = true
 L["Sound will be played only once in this number of seconds."] = true
-L["Add Name"] = true
-L["Add a name different from your current character's to be looked for"] = true
-L["Invalid name entered!"] = true
-L["Name already exists!"] = true
-L["Names list"] = true
-L["You can delete selected name from the list here by clicking the button below"] = true
-L["Remove Name"] = true
-L["Delete this name from the list"] = true
-L["Channels"] = true
-L["Enable/Disable checking of this channel."] = true
-L["Defense"] = true
-L["LFG"] = true
-L["Add Channel"] = true
-L["Invalid channel entered!"] = true
-L["Channel already exists!"] = true
-L["Add a custom channel name."] = true
-L["Channels List"] = true
-L["You can delete selected channel from the list here by clicking the button below"] = true
-L["Remove Channel"] = true
-L["Delete this channel from the list"] = true
 
 
 ---------------
@@ -272,7 +250,6 @@ Swordyy - idea of ui buttons
 Azilroka@US-Daggerspine - core of ExtVendor and Altoholic skins
 Pat - skinning options dropdowns and checkboxes missed by Elv
 Boradan - the idea of classbar movement
-Hydra - basic core of toon name highlight feature
 ]=]
 L["Other Support:"] = true
 L["ELVUI_SLE_MISC"] = [=[BuG - brining fun to the chat while i was writing this

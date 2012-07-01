@@ -11,7 +11,6 @@ function SLE:Initialize()
 		print(L['SLE_LOGIN_MSG'])
 	end
 	E:GetModule('Chat'):SetTimer() --If called before Edit loaded from chat.lua will cause errors
-	E:GetModule('Chat'):SetChannelsCheck() --If called before Edit loaded from chat.lua will cause errors
 end
 
 --Updating things that must be updated only after everything loads

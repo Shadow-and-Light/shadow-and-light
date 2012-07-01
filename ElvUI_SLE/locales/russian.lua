@@ -164,38 +164,18 @@ L['Show/Hide Skada backdrop.'] = "Показать/скрыть фон окон 
 --------
 --Chat--
 --------
-L["Chat options"] = "Настройки чата"
+L["Chat Options"] = "Настройки чата"
 L["Chat Fade"] = "Затухание чата"
-L["Enable/disable the text fading in the chat window."] = "Включит/выключить постепенное исчезновение строк чата со временем."
+L["Enable/Disable the text fading in the chat window."] = "Включит/выключить постепенное исчезновение строк чата со временем."
 L["Chat Editbox History"] = "История чата"
 L["Amount of messages to save. Set to 0 to disable."] = "Количество сообщений, введенных вами, которое будет сохранено между сеансами"
 L["Name Highlight"] = "Выделение имени"
-L["TOON_DESC"] = [=[Опции подсветки и звукового предупреждения, если кто-то называет ваше имя в чате. 
-У каждого персонажа индивидуальное хранилище имен, так что вы можете иметь разные наборы на каждом из них.
-Имя вашего текущего персонажа будет отслеживаться автоматически.]=]
-L["Enable sound"] = "Включить звук"
-L["Play sound when your name is mentioned in chat."] = "Проигрывать звук, когда ваше имя появляется в чате"
-L["Sound that will play when your name is mentioned in chat."] = "Звук, который будет проигрываться, когда ваше имя появляется в чате"
+L["TOON_DESC"] = [=[Опции звукового сопровождения окрашивания ключевых слов в ElvUI.]=]
+L["Enable Sound"] = "Включить звук"
+L["Play sound when keyword is mentioned in chat."] = "Проигрывать звук, когда в чате обнаруживается ключевое слово."
+L["Sound that will be played."] = "Звук, который будет проигрываться."
 L['Timer'] = "Таймер"
 L['Sound will be played only once in this number of seconds.'] = "Звук будет проигрываться только единожды за установленный промежуток времени"
-L["Add a name different from your current character's to be looked for"] = "Добавьте в список имя отличное от имени вашего текуущего персонажа для отслеживания в чате."
-L['Invalid name entered!'] = "Неверное имя!"
-L['Name already exists!'] = "Такое имя уже существует!"
-L['Names list'] = "Список имен"
-L["You can delete selected name from the list here by clicking the button below"] = "Здесь вы можете удалить выбранное имя из списка, нажав на кнопку ниже."
-L["Delete this name from the list"] = "Удалить это имя из списка"
-L["Channels"] = "Каналы"
-L["Enable/disable checking of this channel."] = "Включить/выключить проверку этого канала"
-L["Defense"] = "Оборона"
-L['LFG'] = "Поиск спутников"
-L['Add channel'] = "Добавить канал"
-L['Invalid channel entered!'] = "Неверное имя канала!"
-L['Channel already exists!'] = "Такой канал уже существует!"
-L["Add a custom channel name."] = "Добавить имя пользовательского канала."
-L['Channels list'] = "Список каналов"
-L["You can delete selected channel from the list here by clicking the button below"] = "Здесь вы можете удалить выбранный канал из списка, нажав на кнопку ниже."
-L["Remove Channel"] = "Удалить канал"
-L["Delete this channel from the list"] = "Удалить этот канал из списка"
 
 ---------------
 --Backgrounds--
@@ -255,7 +235,6 @@ Swordyy - идея меню интерфейса
 Azilroka@US-Daggerspine - ядро скинов для ExtVendor и Altoholic
 Pat - скины меню и опций, пропущенных Элвом
 Boradan - идея перемещения полос класса
-Hydra - базовый код функции подсветки имени
 ]]
 L['Other Support:'] = "Прочая поддержка:"
 L['ELVUI_SLE_MISC'] = [[BuG - веселье в чате, пока я писал это все
