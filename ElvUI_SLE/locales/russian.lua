@@ -200,7 +200,7 @@ L["Set the texture to use in this frame.  Requirements are the same as the chat 
 ----------------
 L["Shadow & Light settings"] = "Установки Тени и Света"
 L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."] = "Вы можете выбрать использование одного из набора конфигурации от авторов. Это изменит не только расположение ваших рамок и панелей, но и некоторого количества других опций."
-L["Elv's Defaults button only needs to be clicked if you set one of our configurations and wish to reverse this choise."] = 'Кнопку "Умолчания ElvUI" требуется нажимать только в том случае, если вы выбрали одну из наших конфигураций и желаете обратить эти изменения.'
+L["Elv's Defaults button only needs to be clicked if you set one of our configurations and wish to reverse this choise. |cffFF0000Warning:|r this will reset everything to the high resolution normal layout."] = 'Кнопку "Умолчания ElvUI" требуется нажимать только в том случае, если вы выбрали одну из наших конфигураций и желаете обратить эти изменения. |cffFF0000Внимание:|r это действие сбросит все на настройки для нормального расположения высокого разрешения.'
 L["Darth's Defaults Set"] = "Установлены настройки Darth'а"
 L["Repooc's Defaults Set"] = "Установлены настройки Repooc'а"
 L["Elv's Defaults Set"] = "Установлены настройки по умолчанию"

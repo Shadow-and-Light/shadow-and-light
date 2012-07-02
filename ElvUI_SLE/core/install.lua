@@ -962,7 +962,7 @@ local function SetPage(PageNum)
 	elseif PageNum == 7 then --The new page
 		f.SubTitle:SetText(L["Shadow & Light settings"])
 		f.Desc1:SetText(L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."])
-		f.Desc2:SetText(L["Elv's Defaults button only needs to be clicked if you set one of our configurations and wish to reverse this choise."])
+		f.Desc2:SetText(L["Elv's Defaults button only needs to be clicked if you set one of our configurations and wish to reverse this choise. |cffFF0000Warning:|r this will reset everything to the high resolution normal layout."])
 		f.Desc3:SetText(L["Importance: |cffFF0000Low|r"])
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', function() E:DarthSetup() end)

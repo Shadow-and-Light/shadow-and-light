@@ -215,7 +215,7 @@ L["Set the texture to use in this frame.  Requirements are the same as the chat 
 ----------------
 L["Shadow & Light settings"] = true
 L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."] = true
-L["Elv's Defaults button only needs to be clicked if you set one of our configurations and wish to reverse this choise."] = true
+L["Elv's Defaults button only needs to be clicked if you set one of our configurations and wish to reverse this choise. |cffFF0000Warning:|r this will reset everything to the high resolution normal layout."] = true
 L["Darth's Defaults Set"] = true
 L["Repooc's Defaults Set"] = true
 L["Elv's Defaults Set"] = true
