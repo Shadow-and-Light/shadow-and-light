@@ -243,8 +243,8 @@ TheSamaKutra - пара хороших идей
 Соббщество TukUI - просто тем, что оно есть 
 Моя гильдия, Эффект@Свежеватель Душ - не выперли меня пока я нагло слакал :D
 ]]
-L["SLE_AUTHOR_INFO"] = "Редакция от Darth Predator (Дартпредатор@Свежеватель Душ)"
+L["SLE_AUTHOR_INFO"] = 'Редакция "Тень и Свет" от Darth Predator и Repooc'
 L["SLE_CONTACTS"] = [=[При возникновении вопросов, предложений и прочего обращаться:
-- Игровая почта
-- Личное сообщение на форуме TukUI, ник Darth Predator
+- Игровая почта: Дартпредатор@Свежеватель Душ / Darthpred@US-Illidan или Repooc@US-Korialstrasz
+- Личное сообщение на форуме TukUI (tukui.org), ник Darth Predator или Repooc
 - Сайт Shadowmage.ru]=]

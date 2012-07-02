@@ -258,8 +258,8 @@ TheSamaKutra - some good ideas
 The rest of TukUI community - the existance of community itself
 My guild, Effect(Эффект)@RU-Soulflyer(Свежеватель Душ) - not kicking me out while I was slacking :D
 ]=]
-L["SLE_AUTHOR_INFO"] = "Shadow & Light Edit by Дартпредатор@RU-Свежеватель Душ(Soulflyer) & Repooc@Korialstrasz"
+L["SLE_AUTHOR_INFO"] = "Shadow & Light Edit by Darth Predator & Repooc"
 L["SLE_CONTACTS"] = [=[Bug reports, suggestions and other stuff accepted via:
-- In-game mail
-- Private Massage on TukUI.org to Darth Predator
+- In-game mail to Дартпредатор@RU-Свежеватель Душ (Soulflyer) / Darthpred@US-Illidan or Repooc@US-Korialstrasz
+- Private Massage on TukUI.org to Darth Predator or Repooc
 - Shadowmage.ru]=]
