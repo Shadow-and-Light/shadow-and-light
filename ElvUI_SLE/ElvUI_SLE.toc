@@ -1,4 +1,4 @@
-﻿## Interface: 40340
+﻿## Interface: 40300
 ## Title: |cff1784d1ElvUI |rShadow and Light Edit
 ## Author: Darth Predator, Repooc
 ## Version: 0.9
