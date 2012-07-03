@@ -5,8 +5,13 @@ E.Options.args.sle.args.skins = {
 	type = "group",
 	name = L["Skins"],
 	args = {
-		dbm = {
+		header = {
 			order = 1,
+			type = "header",
+			name = L["Skins"],
+		},
+		dbm = {
+			order = 2,
 			type = "group",
 			name = "DBM",
 			guiInline = true,
@@ -23,7 +28,7 @@ E.Options.args.sle.args.skins = {
 			},
 		},
 		skada = {
-			order = 2,
+			order = 3,
 			type = "group",
 			name = "Skada",
 			guiInline = true,
