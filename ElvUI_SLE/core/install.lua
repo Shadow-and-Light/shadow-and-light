@@ -1221,7 +1221,7 @@ local function SetPage(PageNum)
 		InstallOption4Button:SetScript('OnClick', function() E.db.layoutSet = nil; E:SetupLayout('dpsCaster') end)
 		InstallOption4Button:SetText(L['Caster DPS'])
 	elseif PageNum == 7 then --The new page
-		f.SubTitle:SetText(L["Shadow & Light settings"])
+		f.SubTitle:SetText(L["Shadow & Light Settings"])
 		f.Desc1:SetText(L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."])
 		f.Desc2:SetText(L["SLE_Install_Text2"])
 		f.Desc3:SetText(L["Importance: |cffFF0000Low|r"])
