@@ -198,7 +198,7 @@ L["Set the texture to use in this frame.  Requirements are the same as the chat 
 ----------------
 --Install Page--
 ----------------
-L["Shadow & Light settings"] = "Установки Тени и Света"
+L["Shadow & Light Settings"] = "Установки Тени и Света"
 L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."] = "Вы можете выбрать использование одного из набора конфигурации от авторов. Это изменит не только расположение ваших рамок и панелей, но и некоторого количества других опций."
 L["SLE_Install_Text2"] = [=[Кнопку "Умолчания ElvUI" требуется нажимать только в том случае, если вы выбрали одну из наших конфигураций и желаете обратить эти изменения. 
 |cffFF0000Внимание:|r это действие сбросит все на настройки для нормального расположения высокого разрешения.']=]
@@ -245,6 +245,6 @@ TheSamaKutra - пара хороших идей
 ]]
 L["SLE_AUTHOR_INFO"] = 'Редакция "Тень и Свет" от Darth Predator и Repooc'
 L["SLE_CONTACTS"] = [=[При возникновении вопросов, предложений и прочего обращаться:
-- Игровая почта: Дартпредатор@Свежеватель Душ / Darthpred@US-Illidan или Repooc@US-Korialstrasz
+- Github @ http://github.com/repooc/elvui_sle/issues
 - Личное сообщение на форуме TukUI (tukui.org), ник Darth Predator или Repooc
 - Сайт Shadowmage.ru]=]
