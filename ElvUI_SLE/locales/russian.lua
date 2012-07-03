@@ -231,7 +231,7 @@ Tukz - помощь с oUF
 Elv - значительное облегчение создания редакции
 Pvtschlag - плагин Necrotic Strike для oUF
 Blazeflack - помощь с хуками, модулями и профилями
-Camealion - обучение меня созданию скинов
+Camealion - обучение Дарта созданию скинов
 Swordyy - идея меню интерфейса
 Azilroka@US-Daggerspine - ядро скинов для ExtVendor и Altoholic
 Pat - скины меню и опций, пропущенных Элвом
@@ -241,10 +241,8 @@ L['Other Support:'] = "Прочая поддержка:"
 L['ELVUI_SLE_MISC'] = [[BuG - веселье в чате, пока я писал это все
 TheSamaKutra - пара хороших идей
 Соббщество TukUI - просто тем, что оно есть 
-Моя гильдия, Эффект@Свежеватель Душ - не выперли меня пока я нагло слакал :D
 ]]
 L["SLE_AUTHOR_INFO"] = 'Редакция "Тень и Свет" от Darth Predator и Repooc'
 L["SLE_CONTACTS"] = [=[При возникновении вопросов, предложений и прочего обращаться:
-- Github @ http://github.com/repooc/elvui_sle/issues
 - Личное сообщение на форуме TukUI (tukui.org), ник Darth Predator или Repooc
 - Сайт Shadowmage.ru]=]
