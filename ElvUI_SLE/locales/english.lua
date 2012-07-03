@@ -213,7 +213,7 @@ L["Set the texture to use in this frame.  Requirements are the same as the chat 
 ----------------
 --Install Page--
 ----------------
-L["Shadow & Light settings"] = true
+L["Shadow & Light Settings"] = true
 L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."] = true
 L["SLE_Install_Text2"] = [=[Elv's Defaults button only needs to be clicked if you set one of our configurations and wish to reverse this choise. 
 |cffFF0000Warning:|r this will reset everything to the high resolution normal layout.]=]
@@ -246,7 +246,7 @@ Tukz - helping with oUF
 Elv - for making creation of this edit much easier
 Pvtschlag - Necrotic Strike oUF plugin
 Blazeflack - helping hooking, modules and profiles
-Camealion - teaching me the art of skining
+Camealion - teaching Darth Predator the art of skining
 Swordyy - idea of ui buttons
 Azilroka@US-Daggerspine - core of ExtVendor and Altoholic skins
 Pat - skinning options dropdowns and checkboxes missed by Elv
@@ -260,6 +260,6 @@ My guild, Effect(Эффект)@RU-Soulflyer(Свежеватель Душ) - not
 ]=]
 L["SLE_AUTHOR_INFO"] = "Shadow & Light Edit by Darth Predator & Repooc"
 L["SLE_CONTACTS"] = [=[Bug reports, suggestions and other stuff accepted via:
-- In-game mail to Дартпредатор@RU-Свежеватель Душ (Soulflyer) / Darthpred@US-Illidan or Repooc@US-Korialstrasz
+- Github @ http://github.com/repooc/elvui_sle/issues
 - Private Massage on TukUI.org to Darth Predator or Repooc
 - Shadowmage.ru]=]
