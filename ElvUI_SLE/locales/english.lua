@@ -256,10 +256,7 @@ L["Other Support:"] = true
 L["ELVUI_SLE_MISC"] = [=[BuG - brining fun to the chat while i was writing this
 TheSamaKutra - some good ideas
 The rest of TukUI community - the existance of community itself
-My guild, Effect(Эффект)@RU-Soulflyer(Свежеватель Душ) - not kicking me out while I was slacking :D
 ]=]
 L["SLE_AUTHOR_INFO"] = "Shadow & Light Edit by Darth Predator & Repooc"
 L["SLE_CONTACTS"] = [=[Bug reports, suggestions and other stuff accepted via:
-- Github @ http://github.com/repooc/elvui_sle/issues
-- Private Massage on TukUI.org to Darth Predator or Repooc
-- Shadowmage.ru]=]
+- Private Massage on TukUI.org to Darth Predator or Repooc]=]
