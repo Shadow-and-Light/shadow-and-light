@@ -798,51 +798,137 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	InstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
 
-	--General Options
-	E.db.general.vendorGrays = true
-	E.db.general.font = "Accidental Presidency"
-	E.db.general.interruptAnnounce = "RAID"
-	E.db.general.stickyFrames = false
+	--Actionbars
+	E.db.actionbar.fontsize = 12
+	E.db.actionbar.hotkeytext = true
+	E.db.actionbar.macrotext = true
+	E.db.actionbar.bar1.enabled = true
+	E.db.actionbar.bar1.point = 'TOPLEFT'
+	E.db.actionbar.bar2.enabled = true
+	E.db.actionbar.bar2.point = 'TOPLEFT'
+	E.db.actionbar.bar3.point = 'TOPLEFT'
+	E.db.actionbar.bar4.enabled = true
+	E.db.actionbar.bar4.point = 'TOPLEFT'
+	E.db.actionbar.bar5.point = 'TOPLEFT'
+	E.db.actionbar.barShapeShift.buttonsize = 25
+
+	--Chat
+	E.db.sle.chat.fade = true
+	E.db.sle.unitframes.reverse.mana = true
+	E.db.chat.hyperlinkHover = false
+	E.db.chat.font = "Friz Quadrata TT"
+	E.db.chat.fontoutline = "OUTLINE"
+	E.db.scrollDownInterval = 30
+	
+	--Datatexts
+	E.db.sle.datatext.top.enabled = true
 
 	--Datatext Panels
 	E.db.sle.datatext.dp1.enabled = true
 	E.db.sle.datatext.dp2.enabled = true
 	E.db.sle.datatext.dp3.enabled = true
 	E.db.sle.datatext.dp4.enabled = true
+
+	--Exp/Rep Text
+	E.db.sle.xprepinfo.enabled = true
+	E.db.sle.xprepinfo.xprepdet = true
+	E.db.sle.xprepinfo.xprest = true	
+
+	--General Options
+	E.db.general.vendorGrays = true
+	E.db.general.font = "Accidental Presidency"
+	E.db.general.interruptAnnounce = "RAID"
+	E.db.general.autoRepair = "PLAYER"
+	E.db.general.stickyFrames = false
+	E.db.general.panelBackdropNameLeft = "Interface\\textures\\chat_1.tga"
+	E.db.general.panelBackdropNameRight = "Interface\\textures\\chat_1.tga"
+	E.db.general.vendorGrays = true
+	E.db.general.elvnotice = true
+
+	--Movers
+	E.db.movers.ShiftAB = "TOPLEFTUIParentTOPLEFT0-21"
+	--E.db.movers.ShiftAB = "CENTERUIParentBOTTOMLEFT1677984"
+	E.db.movers.MinimapMover = "TOPRIGHTUIParentTOPRIGHT0-21"
+	E.db.movers.AurasMover = "TOPRIGHTUIParentTOPRIGHT-213-21"
+	--E.db.movers.AurasMover = "CENTERUIParentBOTTOMLEFT1425984"
+	
 	
 	--Nameplates
 	E.db.nameplate.showhealth = true
-	
-	--Datatexts
-	E.db.sle.datatext.top.enabled = true
+	E.db.nameplate.width = 110
 
-	--Actionbars
-	E.db.actionbar.hotkeytext = true
-	E.db.actionbar.bar1.enabled = true
-	E.db.actionbar.bar1.point = 'BOTTOMLEFT'
-	E.db.actionbar.bar2.enabled = true
-	E.db.actionbar.bar2.point = 'BOTTOMLEFT'
-	E.db.actionbar.bar3.point = 'BOTTOMLEFT'
-	E.db.actionbar.bar4.enabled = true
-	E.db.actionbar.bar4.point = 'BOTTOMLEFT'
-	E.db.actionbar.bar5.point = 'BOTTOMLEFT'
-	E.db.actionbar.barShapeShift.buttonsize = 25
+	--PvP & Combat Icon
+	E.db.sle.pvp.pos = 'BOTTOMLEFT'
+	E.db.sle.pvp.mouse = false
+	E.db.sle.combatico.pos = 'TOPRIGHT'
+	
+	--Raid utility
+	E.db.sle.raidutil.ypos = E.screenheight - 30
+
+	--Skins
+	E.db.skins.embedRight = "Skada"
+
+	--Themes
+	--E.db.theme = "class"
+
+	--Tooltip
+	E.db.tooltip.anchor = "ANCHOR"
 	
 	--Unitframes
 	E.db.unitframe.smoothbars = false
-	E.db.unitframe.fontsize = 9
+	E.db.unitframe.font = "Accidental Presidency"
+	--E.db.unitframe.units.font = "Accidental Presidency"
+	E.db.unitframe.fontsize = 13
+	--E.db.unitframe.units.fontsize = 13
+	E.db.unitframe.fontoutline = 'NONE'
 	E.db.unitframe.debuffHighlighting = false
 	E.db.unitframe.smartRaidFilter = false
 	E.db.unitframe.colors.healthclass = true
 	E.db.unitframe.colors.colorhealthbyvalue = false
 	E.db.unitframe.colors.classNames = false
-	E.db.unitframe.fontoutline = 'OUTLINE'	
+	E.db.unitframe.statusbar = "TukTex"
 	
+	--Unitframes (Player)
+	E.db.unitframe.units.player.castbar.format = "CURRENTMAX"
+	E.db.unitframe.units.player.classbar.fill = "fill"
+	E.db.unitframe.units.player.classbar.height = 8
+	E.db.unitframe.units.player.debuffs.enable = false
+	E.db.unitframe.units.player.health.position = "BOTTOMRIGHT"
+	E.db.unitframe.units.player.lowmana = 0
+	E.db.unitframe.units.player.name.enable = true
+	E.db.unitframe.units.player.name.position = "BOTTOMRIGHT"
+	E.db.unitframe.units.player.portrait.camDistanceScale = 2.25
+	E.db.unitframe.units.player.portrait.enable = true
+	E.db.unitframe.units.player.portrait.overlay = true
+	E.db.unitframe.units.player.power.offset = 7
+	E.db.unitframe.units.player.power.position = "BOTTOMLEFT"
+	E.db.unitframe.units.player.restIcon = false
+
+	--Unitframes(Target)
+	E.db.unitframe.units.target.buffs.anchorPoint = "TOPLEFT"
+	E.db.unitframe.units.target.buffs['growth-x'] = "RIGHT"
+	E.db.unitframe.units.target.buffs.initialAnchor = "BOTTOMLEFT"
+	E.db.unitframe.units.target.buffs.numrows = 2
+	E.db.unitframe.units.target.buffs.perrow = 8
+	E.db.unitframe.units.target.castbar.format = "CURRENTMAX"
+	E.db.unitframe.units.target.debuffs.perrow = 8
+	E.db.unitframe.units.target.debuffs.showPlayerOnly = false
+	E.db.unitframe.units.target.debuffs.useFilter = "DebuffBlacklist"
+	E.db.unitframe.units.target.health.position = "BOTTOMRIGHT"	
+	E.db.unitframe.units.target.hideonnpc = false
+	E.db.unitframe.units.target.name.enable = true
+	E.db.unitframe.units.target.name.position = "TOPLEFT"
+	E.db.unitframe.units.target.portrait.camDistanceScale = 1.5
+	E.db.unitframe.units.target.portrait.enable = true
+	E.db.unitframe.units.target.portrait.overlay = true
+	E.db.unitframe.units.target.power.position = "RIGHT"
+
 	if E.db.lowresolutionset then
-		--General Options
-		E.db.general.panelHeight = 180
-		E.db.general.panelWidth = 350
-		E.db.general.fontsize = 11
+		--Actionbars
+		E.db.actionbar.bar1.heightMult = 2
+		E.db.actionbar.bar3.enabled = false
+		E.db.actionbar.bar4.buttonsize = 25
+		E.db.actionbar.bar5.enabled = false
 
 		--Datatext Panels
 		E.db.sle.datatext.dp5.enabled = false
@@ -850,19 +936,21 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.sle.datatext.bottom.enabled = false
 		E.db.sle.datatext.chatleft.width = 334
 		E.db.sle.datatext.chatright.width = 334
-
-		--Actionbars
-		E.db.actionbar.bar1.heightMult = 2
-		E.db.actionbar.bar3.enabled = false
-		E.db.actionbar.bar4.buttonsize = 25
-		E.db.actionbar.bar5.enabled = false
+		
+		--General Options
+		E.db.general.panelHeight = 180
+		E.db.general.panelWidth = 350
+		E.db.general.fontsize = 11
 		
 	else
-		--General Options
-		E.db.general.panelHeight = 245
-		E.db.general.panelWidth = 400
-		E.db.general.fontsize = 13
-
+		--Actionbars
+		E.db.actionbar.bar3.enabled = true
+		E.db.actionbar.bar5.enabled = true
+		
+		--Bags
+		E.db.bags.bagCols = 11
+		E.db.bags.yOffset = 215
+		
 		--Datatext Panels
 		E.db.sle.datatext.dp5.enabled = true
 		E.db.sle.datatext.dp5.width = 424
@@ -872,37 +960,19 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.sle.datatext.chatleft.width = 424
 		E.db.sle.datatext.chatright.width = 424
 
-		--Actionbars
-		E.db.actionbar.bar3.enabled = true
-		E.db.actionbar.bar5.enabled = true
-		
-		--Actionbar Movers
+		--General Options
+		E.db.general.panelHeight = 243
+		E.db.general.panelWidth = 400
+		E.db.general.fontsize = 12
+		E.db.general.minimapSize = 181
+
+		--Movers
 		E.db.movers.ElvAB_1 = "BOTTOMUIParentBOTTOM021"
-		
+		E.db.movers.BossButton = "CENTERUIParentBOTTOMLEFT660968"
+		E.db.movers.BNETMover = "TOPRIGHTUIParentTOPRIGHT-2-214"
+
+
 	end
-
-	--Bags
-	E.db.bags.yOffset = 225
-	--ClassTimers
-	E.db.classtimer.target.enable = false
-	--Raid utility
-	E.db.sle.raidutil.ypos = E.screenheight - 30
-	--Exp/Rep Text
-	E.db.sle.xprepinfo.enabled = true
-	E.db.sle.xprepinfo.xprepdet = true
-	E.db.sle.xprepinfo.xprest = true
-	--PvP text and Combat icon
-	E.db.sle.pvp.pos = 'BOTTOMLEFT'
-	E.db.sle.pvp.mouse = false
-	E.db.sle.combatico.pos = 'TOPRIGHT'
-	--Chat
-	E.db.sle.chat.fade = true
-	E.db.sle.unitframes.reverse.mana = true
-
-	--Actionbars moving up
-	E.db.movers.ShiftAB = "TOPLEFTUIParentTOPLEFT0-21"
-	E.db.movers.MinimapMover = "TOPRIGHTUIParentTOPRIGHT0-21"
-	E.db.movers.AurasMover = "TOPRIGHTUIParentTOPRIGHT-213-21"
 
 	layout = E.db.layoutSet --To know if some sort of layout was choosed before
 	
@@ -1026,39 +1096,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.unitframe.units.arena.castbar.width = 200;		
 	end
 
-	--Setting player frame
-	E.db.unitframe.units.player.lowmana = 0;
-	E.db.unitframe.units.player.health.position = 'BOTTOMRIGHT';
-	E.db.unitframe.units.player.power.position = 'RIGHT';
-	E.db.unitframe.units.player.name.enable = true;
-	E.db.unitframe.units.player.name.position = 'TOPLEFT';
-	E.db.unitframe.units.player.portrait.enable = true
-	E.db.unitframe.units.player.portrait.overlay = true
-	E.db.unitframe.units.player.portrait.camDistanceScale = 1.5;
-	E.db.unitframe.units.player.debuffs.enable = false;
-	E.db.unitframe.units.player.castbar.format = 'CURRENTMAX';
-	E.db.unitframe.units.player.classbar.fill = 'fill'
-	E.db.unitframe.units.player.classbar.height = 8
-
-	--Setting target frame
-	E.db.unitframe.units.target.hideonnpc = false;
-	E.db.unitframe.units.target.health.position = 'BOTTOMRIGHT';
-	E.db.unitframe.units.target.power.position = 'RIGHT';
-	E.db.unitframe.units.target.name.enable = true;
-	E.db.unitframe.units.target.name.position = 'TOPLEFT';
-	E.db.unitframe.units.target.portrait.enable = true
-	E.db.unitframe.units.target.portrait.overlay = true
-	E.db.unitframe.units.target.portrait.camDistanceScale = 1.5;
-	E.db.unitframe.units.target.buffs.perrow = 8;
-	E.db.unitframe.units.target.buffs.numrows = 2;
-	E.db.unitframe.units.target.buffs['growth-x'] = 'RIGHT';
-	E.db.unitframe.units.target.buffs.initialAnchor = 'BOTTOMLEFT';
-	E.db.unitframe.units.target.buffs.anchorPoint = 'TOPLEFT';
-	E.db.unitframe.units.target.debuffs.perrow = 8;
-	E.db.unitframe.units.target.debuffs.useFilter = 'DebuffBlacklist';
-	E.db.unitframe.units.target.debuffs.showPlayerOnly = false;
-	E.db.unitframe.units.target.castbar.format = 'CURRENTMAX';
-	
 	E:UpdateAll(true)
 end
 
