@@ -18,6 +18,19 @@ function SLE:UpdateThings()
 	E:GetModule('UnitFrames'):Update_CombatIndicator()
 end
 
+StaticPopupDialogs["VERSION_MISMATCH"] = {
+	text = L["Your version of ElvUI is older than recommended to use with Shadow & Light Edit. Please, download the latest version from tukui.org."],
+	button1 = CLOSE,
+	timeout = 0,
+	whileDead = 1,	
+	preferredIndex = 3,
+}
+
+--Showing warning message about too old versions of ElvUI
+	if tonumber(E.version) < 3.86 then
+		StaticPopup_Show("VERSION_MISMATCH")
+	end
+
 E.UpdateAllSLE = E.UpdateAll
 function E:UpdateAll()
     E.UpdateAllSLE(self)
