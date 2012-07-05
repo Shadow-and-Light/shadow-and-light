@@ -11,6 +11,11 @@ function SLE:Initialize()
 		print(L['SLE_LOGIN_MSG'])
 	end
 	E:GetModule('Chat'):SetTimer() --If called before Edit loaded from chat.lua will cause errors
+	E.db.datatexts.panels.Top_Center = 'Version'
+	if IsAddOnLoaded("ElvUI_LocPlus") and not E:HasMoverBeenMoved('LocationMover') then
+		if not E.db.movers then E.db.movers = {}; end
+		E.db.movers.LocationMover = "TOPUIParentTOP0-18"
+	end
 end
 
 --Updating things that must be updated only after everything loads
@@ -37,6 +42,7 @@ function E:UpdateAll()
 	E:GetModule('DTPanels'):Update()
 	E:GetModule('UnitFrames'):Update_CombatIndicator()
 	E:GetModule('UIButtons'):Start()
+	E.db.datatexts.panels.Top_Center = 'Version'
 end
 
 E:RegisterModule(SLE:GetName())
