@@ -789,11 +789,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	end
 	--Ticket frame
 	E.db.movers.GMMover = "TOPRIGHTBNETMoverBOTTOMRIGHT0-10"
-	
-	--Location Plus Mover >_>
-	if IsAddOnLoaded("ElvUI_LocPlus") then
-		E.db.movers.LocationMover = "TOPUIParentTOP0-18"
-	end
 
 	E:UpdateAll(true)
 end
@@ -1227,10 +1222,6 @@ function E:ElvSetup() --The function to restore defaults. not finished yet lol
 	--Move every bar and panel to the defaults.
 	E:ResetUI() --Reseting positions
 	StaticPopup3Button1:Click() --this is automatic click on confirm for reseting movers
-	if IsAddOnLoaded("ElvUI_LocPlus") then
-		if not E.db.movers then E.db.movers = {}; end
-		E.db.movers.LocationMover = "TOPUIParentTOP0-18"
-	end
 	
 	E:UpdateAll(true)
 end
