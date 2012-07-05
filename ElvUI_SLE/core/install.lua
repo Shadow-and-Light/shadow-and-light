@@ -952,9 +952,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.movers.MinimapMover = "TOPRIGHTUIParentTOPRIGHT0-21"
 		E.db.movers.AurasMover = "TOPRIGHTUIParentTOPRIGHT-213-21"
 		--E.db.movers.AurasMover = "CENTERUIParentBOTTOMLEFT1425984"
-		if IsAddOnLoaded("ElvUI_LocPlus") then
-			E.db.movers.LocationMover = "TOPUIParentTOP0-21"
-		end
 
 	else
 		--Actionbars
