@@ -39,6 +39,7 @@ function E:UpdateAll()
 	E:GetModule('UnitFrames'):Update_CombatIndicator()
 	E:GetModule('UIButtons'):Start()
 	E.db.datatexts.panels.Top_Center = 'Version'
+	E:GetModule('DataTexts'):LoadDataTexts() --Prevents datatexts from not changing on profile switch (Elv's issue)
 end
 
 E:RegisterModule(SLE:GetName())
