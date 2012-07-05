@@ -488,6 +488,9 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	InstallStepComplete.message = L["Darth's Defaults Set"]
 	InstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
+	
+	layout = E.db.layoutSet --To know if some sort of layout was choosed before
+	
 	--General options
 	E.db.general.vendorGrays = true
 	E.db.general.fontsize = 10
@@ -526,6 +529,77 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.sle.datatext.chatright.width = 428
 		E.db.sle.datatext.bottom.width = E.screenwidth/10 - 4
 	end
+	
+	if E.db.lowresolutionset then
+		E.db.datatexts.panels.LeftChatDataPanel.left = 'Bags';
+		E.db.datatexts.panels.LeftChatDataPanel.middle = 'Gold';
+		E.db.datatexts.panels.LeftChatDataPanel.right = 'Durability';
+	else
+		E.db.datatexts.panels.LeftChatDataPanel.right = 'Friends';
+		E.db.datatexts.panels.LeftChatDataPanel.left = 'Call to Arms';
+		E.db.datatexts.panels.LeftChatDataPanel.middle = 'Durability';
+	end
+	E.db.datatexts.panels.LeftMiniPanel = 'Time';
+	E.db.datatexts.panels.RightMiniPanel = 'Guild';
+		
+	if layout == 'tank' then
+		E.db.datatexts.panels.DP_6.left = 'Avoidance';
+		E.db.datatexts.panels.DP_6.middle = 'Attack Power';
+		E.db.datatexts.panels.DP_6.right = 'Expertise';
+		if E.db.lowresolutionset then
+			E.db.datatexts.panels.RightChatDataPanel.left = 'Avoidance';
+			E.db.datatexts.panels.RightChatDataPanel.middle = 'Attack Power';
+			E.db.datatexts.panels.RightChatDataPanel.right = 'Expertise';
+		else
+			E.db.datatexts.panels.RightChatDataPanel.left = 'Hit Rating';
+			E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
+			E.db.datatexts.panels.RightChatDataPanel.right = 'Spec Switch';
+		end
+		E.db.datatexts.panels.DP_5.right = 'Armor';
+	elseif layout == 'healer' then
+		E.db.datatexts.panels.DP_6.left = 'Spell/Heal Power';
+		E.db.datatexts.panels.DP_6.middle = 'Haste';
+		E.db.datatexts.panels.DP_6.right = 'Crit Chance';
+		if E.db.lowresolutionset then
+			E.db.datatexts.panels.RightChatDataPanel.left = 'Spell/Heal Power';
+			E.db.datatexts.panels.RightChatDataPanel.middle = 'Crit Chance';
+			E.db.datatexts.panels.RightChatDataPanel.right = 'Mana Regen';
+		else
+			E.db.datatexts.panels.RightChatDataPanel.left = 'Mana Regen';
+			E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
+			E.db.datatexts.panels.RightChatDataPanel.right = 'Spec Switch';
+		end
+		E.db.datatexts.panels.DP_5.right = 'Armor';
+	elseif layout == 'dpsCaster' then
+		E.db.datatexts.panels.DP_6.left = 'Spell/Heal Power';
+		E.db.datatexts.panels.DP_6.middle = 'Haste';
+		E.db.datatexts.panels.DP_6.right = 'Crit Chance';
+		if E.db.lowresolutionset then
+			E.db.datatexts.panels.RightChatDataPanel.left = 'Spell/Heal Power';
+			E.db.datatexts.panels.RightChatDataPanel.middle = 'Haste';
+			E.db.datatexts.panels.RightChatDataPanel.right = 'Crit Chance';
+		else
+			E.db.datatexts.panels.RightChatDataPanel.left = 'Hit Rating';
+			E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
+			E.db.datatexts.panels.RightChatDataPanel.right = 'Spec Switch';
+		end
+		E.db.datatexts.panels.DP_5.right = 'Armor';
+	else
+		E.db.datatexts.panels.DP_6.left = 'Attack Power';
+		E.db.datatexts.panels.DP_6.middle = 'Haste';
+		E.db.datatexts.panels.DP_6.right = 'Crit Chance';
+		if E.db.lowresolutionset then
+			E.db.datatexts.panels.RightChatDataPanel.left = 'Attack Power';
+			E.db.datatexts.panels.RightChatDataPanel.middle = 'Haste';
+			E.db.datatexts.panels.RightChatDataPanel.right = 'Crit Chance';
+		else
+			E.db.datatexts.panels.RightChatDataPanel.left = 'Hit Rating';
+			E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
+			E.db.datatexts.panels.RightChatDataPanel.right = 'Spec Switch';
+		end
+		E.db.datatexts.panels.DP_5.right = 'Expertise';
+	end
+	
 	--Actionbars
 	E.db.actionbar.hotkeytext = false
 	if E.db.lowresolutionset then
@@ -560,8 +634,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.unitframe.colors.classNames = false
 	E.db.unitframe.fontoutline = 'OUTLINE'
 
-	layout = E.db.layoutSet --To know if some sort of layout was choosed before
-	
 	--The big block for moving all unitframes stuff up
 	if layout == 'healer' then
 		if not noDataReset then
