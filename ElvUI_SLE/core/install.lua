@@ -824,6 +824,34 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.sle.datatext.dp3.enabled = true
 	E.db.sle.datatext.dp4.enabled = true
 
+	--Datatext Panels Presets
+	E.db.datatexts.panels['DP_1']['right'] = ""
+	E.db.datatexts.panels['DP_1']['left'] = ""
+	E.db.datatexts.panels['DP_1']['middle'] = ""
+	E.db.datatexts.panels['DP_2']['right'] = "Altoholic"
+	E.db.datatexts.panels['DP_2']['left'] = "Notes"
+	E.db.datatexts.panels['DP_2']['middle'] = ""
+	E.db.datatexts.panels['DP_3']['right'] = "WIM"
+	E.db.datatexts.panels['DP_3']['left'] = "SocialState"
+	E.db.datatexts.panels['DP_3']['middle'] = ""
+	E.db.datatexts.panels['DP_4']['right'] = "Time"
+	E.db.datatexts.panels['DP_4']['left'] = ""
+	E.db.datatexts.panels['DP_4']['middle'] = ""
+	E.db.datatexts.panels['DP_5']['right'] = "Haste"
+	E.db.datatexts.panels['DP_5']['left'] = "Durability"
+	E.db.datatexts.panels['DP_5']['middle'] = "Crit Chance"
+	E.db.datatexts.panels['DP_6']['right'] = "Skada"
+	E.db.datatexts.panels['DP_6']['left'] = "Spell/Heal Power"
+	E.db.datatexts.panels['DP_6']['middle'] = "Hit Rating"
+	E.db.datatexts.panels['LeftChatDataPanel']['right'] = ""
+	E.db.datatexts.panels['LeftChatDataPanel']['left'] = ""
+	E.db.datatexts.panels['LeftChatDataPanel']['middle'] = ""
+	E.db.datatexts.panels['RightChatDataPanel']['right'] = "Bags"
+	E.db.datatexts.panels['RightChatDataPanel']['left'] = ""
+	E.db.datatexts.panels['RightChatDataPanel']['middle'] = "Gold"
+	E.db.datatexts.panels['Top_Center'] = "Version"
+	E.db.datatexts.panels['Bottom_Panel'] = "System"
+	E.db.datatexts.panels[''] = ""
 	--Exp/Rep Bar
 	E.db.general.expRepPos = "MINIMAP_BOTTOM"
 	E.db.sle.xprepinfo.enabled = true
@@ -952,6 +980,9 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.movers.MinimapMover = "TOPRIGHTUIParentTOPRIGHT0-21"
 		E.db.movers.AurasMover = "TOPRIGHTUIParentTOPRIGHT-213-21"
 		--E.db.movers.AurasMover = "CENTERUIParentBOTTOMLEFT1425984"
+		if IsAddOnLoaded("ElvUI_LocPlus") then
+			E.db.movers.LocationMover = "TOPUIParentTOP0-21"
+		end
 
 	else
 		--Actionbars
@@ -1026,7 +1057,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 
 		--Unitframes (Focus)
 		E.db.unitframe.units.focus.width = 150
-		E.db.unitframe.units.focus.castbar.width = 175
+		E.db.unitframe.units.focus.castbar.width = 150
 		E.db.unitframe.units.focus.castbar.height = 15
 
 		--Unitframes (Player)
