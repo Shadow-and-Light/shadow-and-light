@@ -35,6 +35,7 @@ E.Options.args.sle.args.skins = {
 			args = {
 				skadaback = {
 					order = 4,
+					disabled = function() return not IsAddOnLoaded('Skada') end,
 					type = "toggle",
 					name = L["Skada Backdrop"],
 					desc = L["Show/Hide Skada backdrop."],
