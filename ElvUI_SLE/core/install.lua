@@ -923,7 +923,9 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.datatexts.panels['RightChatDataPanel']['middle'] = "Gold"
 	E.db.datatexts.panels['Top_Center'] = "Version"
 	E.db.datatexts.panels['Bottom_Panel'] = "System"
-	E.db.datatexts.panels[''] = ""
+	E.db.datatexts.panels['LeftMiniPanel'] = ""
+	E.db.datatexts.panels['RightMiniPanel'] = ""
+	
 	--Exp/Rep Bar
 	E.db.general.expRepPos = "MINIMAP_BOTTOM"
 	E.db.sle.xprepinfo.enabled = true
@@ -962,6 +964,9 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	--Tooltip
 	E.db.tooltip.anchor = "ANCHOR"
 	
+	--UIButtons
+	E.db.sle.uibuttons.enable = true
+
 	--Unitframes
 	E.db.unitframe.debuffHighlighting = true
 	E.db.unitframe.smartRaidFilter = true
@@ -1045,16 +1050,12 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.general.panelHeight = 180
 		E.db.general.panelWidth = 350
 		E.db.general.fontsize = 11
+		E.db.general.minimapPanels = true
 
 		--Movers
 		E.db.movers.ShiftAB = "TOPLEFTUIParentTOPLEFT0-21"
-		--E.db.movers.ShiftAB = "CENTERUIParentBOTTOMLEFT1677984"
 		E.db.movers.MinimapMover = "TOPRIGHTUIParentTOPRIGHT0-21"
 		E.db.movers.AurasMover = "TOPRIGHTUIParentTOPRIGHT-213-21"
-		--E.db.movers.AurasMover = "CENTERUIParentBOTTOMLEFT1425984"
-		if IsAddOnLoaded("ElvUI_LocPlus") then
-			E.db.movers.LocationMover = "TOPUIParentTOP0-21"
-		end
 
 	else
 		--Actionbars
@@ -1109,7 +1110,8 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.general.panelWidth = 400
 		E.db.general.fontsize = 12
 		E.db.general.minimapSize = 181
-
+		E.db.general.minimapPanels = false
+		
 		--Marks
 		E.db.sle.marks.size = 15
 
@@ -1126,6 +1128,22 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.movers.BNETMover = "TOPRIGHTUIParentTOPRIGHT-2-214"		
 		E.db.movers.MinimapMover = "TOPRIGHTUIParentTOPRIGHT-1-21"
 		E.db.movers.AurasMover = "TOPRIGHTMMHolderTOPLEFT-10"
+
+		--Unitframes (Arena)
+		E.db.unitframe.units.arena.debuffs.sizeOverride = 45
+		E.db.unitframe.units.arena.width = 200
+		E.db.unitframe.units.arena.buffs.sizeOverride = 45
+		E.db.unitframe.units.arena.buffs.perrow = 4
+		E.db.unitframe.units.arena.castbar.width = 200
+
+		--Unitframes (Boss)
+		E.db.unitframe.units.boss.debuffs.sizeOverride = 45
+		E.db.unitframe.units.boss.width = 200
+		E.db.unitframe.units.boss.height = 45
+		E.db.unitframe.units.boss.buffs.sizeOverride = 45
+		E.db.unitframe.units.boss.buffs.perrow = 4
+		E.db.unitframe.units.boss.castbar.width = 200
+		E.db.unitframe.units.boss.health.position = "TOPLEFT"
 
 		--Unitframes (Focus)
 		E.db.unitframe.units.focus.width = 150
@@ -1151,6 +1169,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.unitframe.units.raid10.health.frequentUpdates = true
 		E.db.unitframe.units.raid10.health.position = "CENTER"
 		E.db.unitframe.units.raid10.health.orientation = "VERTICAL"
+		E.db.unitframe.units.raid10.visibility = "[@raid11,exists] hide;show"
 
 		--Unitframes (Raid25)
 		E.db.unitframe.units.raid25.width = 70
@@ -1322,7 +1341,7 @@ function E:ElvSetup() --The function to restore defaults. not finished yet lol
 	--Move every bar and panel to the defaults.
 	E:ResetUI() --Reseting positions
 	StaticPopup3Button1:Click() --this is automatic click on confirm for reseting movers
-	
+
 	E:UpdateAll(true)
 end
 
@@ -1469,7 +1488,7 @@ local function SetPage(PageNum)
 		InstallOption1Button:SetScript('OnClick', function() E:DarthSetup() end)
 		InstallOption1Button:SetText(L["Darth's Config"])	
 		InstallOption2Button:Show()
-		InstallOption2Button:SetScript('OnClick', function() E:RepoocSetup() end)
+		InstallOption2Button:SetScript('OnClick', function() E:SetupTheme('class'); E:RepoocSetup() end)
 		InstallOption2Button:SetText(L["Repooc's Config"])
 		InstallOption3Button:Show()
 		InstallOption3Button:SetScript('OnClick', function() E:ElvSetup() end)
@@ -1506,6 +1525,7 @@ end
 function E:Install()
 	E.db.datatexts.panels.Top_Center = 'Version'
 	E:GetModule('DataTexts'):LoadDataTexts()
+
 	if not InstallStepComplete then
 		local imsg = CreateFrame("Frame", "InstallStepComplete", E.UIParent)
 		imsg:Size(418, 72)
