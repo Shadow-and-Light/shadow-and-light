@@ -2,6 +2,7 @@ local E, L, V, P, G =  unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, Glob
 local S = E:GetModule('Skins')
 
 local function LoadSkin()
+
 	MAOptions:StripTextures()
 	MAOptions:SetTemplate("Transparent")
 	MANudger:StripTextures()
@@ -13,68 +14,38 @@ local function LoadSkin()
 	S:HandleCheckBox(MAOptionsToggleFrameStack)
 	S:HandleCheckBox(MAOptionsToggleMovers)
 	S:HandleCheckBox(MAOptionsToggleFrameEditors)
+	
 	S:HandleButton(MAOptionsClose, true)
 	S:HandleButton(MAOptionsOpenBlizzardOptions, true)
 	S:HandleButton(MAOptionsSync, true)
 	
+	--Buttons
+	for i = 1, 100 do
+        if _G["MAMove"..i.."Reset"] then S:HandleButton(_G["MAMove"..i.."Reset"], true) end
+        if _G["MAMove"..i.."Reset"] then S:HandleButton(_G["MAMove"..i.."Reset"], true) end
+        if _G["MAMove"..i.."Backdrop"] then _G["MAMove"..i.."Backdrop"]:StripTextures() end
+        if _G["MAMove"..i.."Backdrop"] then _G["MAMove"..i.."Backdrop"]:SetTemplate() end
+        if _G["MAMove"..i.."Move"] then S:HandleCheckBox(_G["MAMove"..i.."Move"]) end
+        if _G["MAMove"..i.."Hide"] then S:HandleCheckBox(_G["MAMove"..i.."Hide"]) end
+    end
+
+	S:HandleButton(MANudger_CenterMe, true)
+	S:HandleButton(MANudger_CenterH, true)
+	S:HandleButton(MANudger_CenterV, true)
+	S:HandleButton(MANudger_NudgeUp, true)
+	S:HandleButton(MANudger_NudgeDown, true)
+	S:HandleButton(MANudger_NudgeLeft, true)
+	S:HandleButton(MANudger_NudgeRight, true)
+	S:HandleButton(MANudger_Detach, true)
+	S:HandleButton(MANudger_Hide, true)
+		
 	S:HandleScrollBar(MAScrollFrameScrollBar)
 	S:HandleEditBox(MA_Search)
-	S:HandleCheckBox(MAMove1Move)
-	S:HandleCheckBox(MAMove1Hide)
-	S:HandleButton(MAMove1Reset, true)
-	S:HandleCheckBox(MAMove2Move)
-	S:HandleCheckBox(MAMove2Hide)
-	S:HandleButton(MAMove2Reset, true)
-	S:HandleCheckBox(MAMove3Move)
-	S:HandleCheckBox(MAMove3Hide)
-	S:HandleButton(MAMove3Reset, true)
-	S:HandleCheckBox(MAMove4Move)
-	S:HandleCheckBox(MAMove4Hide)
-	S:HandleButton(MAMove4Reset, true)
-	S:HandleCheckBox(MAMove5Move)
-	S:HandleCheckBox(MAMove5Hide)
-	S:HandleButton(MAMove5Reset, true)
-	S:HandleCheckBox(MAMove6Move)
-	S:HandleCheckBox(MAMove6Hide)
-	S:HandleButton(MAMove6Reset, true)
-	S:HandleCheckBox(MAMove7Move)
-	S:HandleCheckBox(MAMove7Hide)
-	S:HandleButton(MAMove7Reset, true)
-	S:HandleCheckBox(MAMove8Move)
-	S:HandleCheckBox(MAMove8Hide)
-	S:HandleButton(MAMove8Reset, true)
-	S:HandleCheckBox(MAMove9Move)
-	S:HandleCheckBox(MAMove9Hide)
-	S:HandleButton(MAMove9Reset, true)
-	S:HandleCheckBox(MAMove10Move)
-	S:HandleCheckBox(MAMove10Hide)
-	S:HandleButton(MAMove10Reset, true)
-	S:HandleCheckBox(MAMove11Move)
-	S:HandleCheckBox(MAMove11Hide)
-	S:HandleButton(MAMove11Reset, true)
-	S:HandleCheckBox(MAMove12Move)
-	S:HandleCheckBox(MAMove12Hide)
-	S:HandleButton(MAMove12Reset, true)
-	S:HandleCheckBox(MAMove13Move)
-	S:HandleCheckBox(MAMove13Hide)
-	S:HandleButton(MAMove13Reset, true)
-	S:HandleCheckBox(MAMove14Move)
-	S:HandleCheckBox(MAMove14Hide)
-	S:HandleButton(MAMove14Reset, true)
-	S:HandleCheckBox(MAMove15Move)
-	S:HandleCheckBox(MAMove15Hide)
-	S:HandleButton(MAMove15Reset, true)
-	S:HandleCheckBox(MAMove16Move)
-	S:HandleCheckBox(MAMove16Hide)
-	S:HandleButton(MAMove16Reset, true)
-	S:HandleCheckBox(MAMove17Move)
-	S:HandleCheckBox(MAMove17Hide)
-	S:HandleButton(MAMove17Reset, true)
-	S:HandleCheckBox(MAMove18Move)
-	S:HandleCheckBox(MAMove18Hide)
-	S:HandleButton(MAMove18Reset, true)
-		
+			
 	S:HandleButton(GameMenuButtonMoveAnything, true)
+	GameMenuButtonMoveAnything:CreateBackdrop()
+	GameMenuButtonMoveAnything:ClearAllPoints()
+	GameMenuButtonMoveAnything:Point("TOP", GameMenuFrame, "BOTTOM", 0, -3)
 end
 
 S:RegisterSkin("MoveAnything", LoadSkin)
