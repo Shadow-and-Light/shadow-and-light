@@ -875,7 +875,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.actionbar.hotkeytext = true
 	E.db.actionbar.macrotext = true
 	E.db.actionbar.bar1.enabled = true
-	E.db.actionbar.bar1.point = 'TOPLEFT'
 	E.db.actionbar.bar2.enabled = true
 	E.db.actionbar.bar2.point = 'TOPLEFT'
 
@@ -902,13 +901,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.datatexts.panels['DP_1']['middle'] = ""
 	E.db.datatexts.panels['DP_2']['right'] = "Altoholic"
 	E.db.datatexts.panels['DP_2']['left'] = "Notes"
-	E.db.datatexts.panels['DP_2']['middle'] = ""
-	E.db.datatexts.panels['DP_3']['right'] = "WIM"
-	E.db.datatexts.panels['DP_3']['left'] = "SocialState"
-	E.db.datatexts.panels['DP_3']['middle'] = ""
 	E.db.datatexts.panels['DP_4']['right'] = "Time"
-	E.db.datatexts.panels['DP_4']['left'] = ""
-	E.db.datatexts.panels['DP_4']['middle'] = ""
 	E.db.datatexts.panels['DP_5']['right'] = "Haste"
 	E.db.datatexts.panels['DP_5']['left'] = "Durability"
 	E.db.datatexts.panels['DP_5']['middle'] = "Crit Chance"
@@ -919,8 +912,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.datatexts.panels['LeftChatDataPanel']['left'] = ""
 	E.db.datatexts.panels['LeftChatDataPanel']['middle'] = ""
 	E.db.datatexts.panels['RightChatDataPanel']['right'] = "Bags"
-	E.db.datatexts.panels['RightChatDataPanel']['left'] = ""
-	E.db.datatexts.panels['RightChatDataPanel']['middle'] = "Gold"
 	E.db.datatexts.panels['Top_Center'] = "Version"
 	E.db.datatexts.panels['Bottom_Panel'] = "System"
 	E.db.datatexts.panels['LeftMiniPanel'] = ""
@@ -945,6 +936,14 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	
 	--LFR Lockout
 	E.db.datatexts.lfrshow = true
+
+	--Microbar
+	E.db.microbar.enable = false
+
+	--Movers
+	E.db.movers.ShiftAB = "TOPLEFTUIParentTOPLEFT0-21"
+	E.db.movers.MinimapMover = "TOPRIGHTUIParentTOPRIGHT-1-21"
+	E.db.movers.AurasMover = "TOPRIGHTMMHolderTOPLEFT-10"
 
 	--Nameplates
 	E.db.nameplate.showhealth = true
@@ -973,9 +972,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.smoothbars = true
 	E.db.unitframe.statusbar = "TukTex"
 	E.db.unitframe.font = "Accidental Presidency"
-	--E.db.unitframe.units.font = "Accidental Presidency"
 	E.db.unitframe.fontsize = 13
-	--E.db.unitframe.units.fontsize = 13
 	E.db.unitframe.fontoutline = 'NONE'
 	E.db.unitframe.colors.healthclass = false
 	E.db.unitframe.colors.colorhealthbyvalue = false
@@ -1004,7 +1001,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.player.power.text_format = "current"
 	E.db.unitframe.units.player.restIcon = false
 
-	--Unitframes(Target)
+	--Unitframes (Target)
 	E.db.unitframe.units.target.buffs.anchorPoint = "TOPRIGHT"
 	E.db.unitframe.units.target.buffs['growth-x'] = "LEFT"
 	E.db.unitframe.units.target.buffs.initialAnchor = "BOTTOMRIGHT"
@@ -1028,16 +1025,31 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.target.power.position = "RIGHT"
 	E.db.unitframe.units.target.power.text = true
 	E.db.unitframe.units.target.power.text_format = "current"
+	
+	--Unitframes (Raid10)
+	E.db.unitframe.units.raid10.showSolo = true
+	E.db.unitframe.units.raid10.visibility = "[@raid11,exists] hide;show"
+	E.db.unitframe.units.raid10.power.position = "BOTTOMLEFT"
+	E.db.unitframe.units.raid10.power.width = "spaced"
+	E.db.unitframe.units.raid10.healPrediction = true
+	E.db.unitframe.units.raid10.health.frequentUpdates = true
+
+	--Unitframes (Raid25)
+	E.db.unitframe.units.raid25.healPrediction = true
+	E.db.unitframe.units.raid25.power.width = "spaced"
 
 	if E.db.lowresolutionset then
 		--Actionbars
 		E.db.actionbar.bar1.heightMult = 2
+		E.db.actionbar.bar1.point = 'BOTTOMLEFT'
 		E.db.actionbar.bar3.enabled = false
 		E.db.actionbar.bar4.buttonsize = 25
 		E.db.actionbar.bar4.enabled = true
 		E.db.actionbar.bar4.point = 'TOPLEFT'
+		E.db.actionbar.bar4.buttonsize = 20
 		E.db.actionbar.bar5.enabled = false
-		E.db.actionbar.barShapeShift.buttonsize = 25
+		E.db.actionbar.barShapeShift.buttonsize = 20
+		E.db.actionbar.barPet.buttonsize = 20
 
 		--Datatext Panels
 		E.db.sle.datatext.dp5.enabled = false
@@ -1045,57 +1057,79 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.sle.datatext.bottom.enabled = false
 		E.db.sle.datatext.chatleft.width = 334
 		E.db.sle.datatext.chatright.width = 334
-		
+		E.db.datatexts.panels['DP_2']['middle'] = "Spec Switch"
+		E.db.datatexts.panels['DP_3']['right'] = "Mastery"
+		E.db.datatexts.panels['DP_3']['left'] = "Haste"
+		E.db.datatexts.panels['DP_3']['middle'] = "Crit Chance"
+		E.db.datatexts.panels['DP_4']['left'] = "SocialState"
+		E.db.datatexts.panels['DP_4']['middle'] = "Gold"
+		E.db.datatexts.panels['LeftMiniPanel'] = "WIM"
+		E.db.datatexts.panels['RightMiniPanel'] = "System"
+		E.db.datatexts.panels['RightChatDataPanel']['left'] = "Skada"
+		E.db.datatexts.panels['RightChatDataPanel']['middle'] = "Durability"
+	
 		--General Options
 		E.db.general.panelHeight = 180
 		E.db.general.panelWidth = 350
 		E.db.general.fontsize = 11
 		E.db.general.minimapPanels = true
 
-		--Movers
-		E.db.movers.ShiftAB = "TOPLEFTUIParentTOPLEFT0-21"
-		E.db.movers.MinimapMover = "TOPRIGHTUIParentTOPRIGHT0-21"
-		E.db.movers.AurasMover = "TOPRIGHTUIParentTOPRIGHT-213-21"
+		--Marks Bar
+		E.db.sle.marks.growth = "DOWN"
+		E.db.sle.marks.size = 15
 
+		--Unitframes (Target)
+		E.db.unitframe.units.target.width = 200
+		E.db.unitframe.units.target.height = 50
+		E.db.unitframe.units.target.castbar.width = 200
+		E.db.unitframe.units.target.castbar.height = 18
+		E.db.unitframe.units.target.castbar.format = "CURRENTMAX"
+
+		--Unitframes (Raid10)
+		E.db.unitframe.units.raid10.width = 65
+		E.db.unitframe.units.raid10.health.position = "BOTTOM"
+		E.db.unitframe.units.raid10.health.orientation = "HORIZONTAL"
+
+		--Unitframes (Raid25)
+		E.db.unitframe.units.raid25.width = 65
+		E.db.unitframe.units.raid25.health.orientation = "HORIZONTAL"
+
+		--Unitframes (Raid40)
+		E.db.unitframe.units.raid40.width = 65
 	else
 		--Actionbars
 		E.db.actionbar.bar1.buttonsPerRow = 6
 		E.db.actionbar.bar1.buttonspacing = 3
+		E.db.actionbar.bar1.point = 'TOPLEFT'
 		E.db.actionbar.bar1['paging'][E.myclass] = "[mod:alt] 5;"
-		
 		E.db.actionbar.bar2.backdrop = true
 		E.db.actionbar.bar2.buttonsPerRow = 6
 		E.db.actionbar.bar2.buttonspacing = 3
 		E.db.actionbar.bar2.enable = true
 		E.db.actionbar.bar2.mouseover = true
 		E.db.actionbar.bar2.buttons = 12
-		
 		E.db.actionbar.bar3.buttons = 12
 		E.db.actionbar.bar3.buttonspacing = 3
 		E.db.actionbar.bar3.enabled = true
 		E.db.actionbar.bar3.point = 'TOPLEFT'
-		
 		E.db.actionbar.bar4.enabled = false
 		E.db.actionbar.bar4.point = 'TOPLEFT'
 		E.db.actionbar.bar4.buttonspacing = 3
 		E.db.actionbar.bar4.buttonsPerRow = 12
-		
 		E.db.actionbar.bar5.enabled = true
 		E.db.actionbar.bar5.point = 'TOPLEFT'
 		E.db.actionbar.bar5.buttons = 12
 		E.db.actionbar.bar5.buttonspacing = 3
-
 		E.db.actionbar.barShapeShift.buttonsize = 31
 		E.db.actionbar.barShapeShift.buttonsPerRow = 1
 		E.db.actionbar.barShapeShift.buttonspacing = 5
 		E.db.actionbar.barShapeShift.backdrop = true
-
 		E.db.actionbar.barPet.buttonsize = 21
 
 		--Bags
 		E.db.bags.bagCols = 11
 		E.db.bags.yOffset = 245
-		
+
 		--Datatext Panels
 		E.db.sle.datatext.dp5.enabled = true
 		E.db.sle.datatext.dp5.width = 424
@@ -1104,6 +1138,14 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.sle.datatext.bottom.enabled = true
 		E.db.sle.datatext.chatleft.width = 424
 		E.db.sle.datatext.chatright.width = 424
+		E.db.datatexts.panels['DP_2']['middle'] = ""
+		E.db.datatexts.panels['DP_3']['right'] = "WIM"
+		E.db.datatexts.panels['DP_3']['left'] = "SocialState"
+		E.db.datatexts.panels['DP_3']['middle'] = ""
+		E.db.datatexts.panels['DP_4']['left'] = ""
+		E.db.datatexts.panels['DP_4']['middle'] = ""
+		E.db.datatexts.panels['RightChatDataPanel']['left'] = ""
+		E.db.datatexts.panels['RightChatDataPanel']['middle'] = "Gold"
 
 		--General Options
 		E.db.general.panelHeight = 243
@@ -1111,23 +1153,17 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.general.fontsize = 12
 		E.db.general.minimapSize = 181
 		E.db.general.minimapPanels = false
-		
+
 		--Marks
 		E.db.sle.marks.size = 15
-
-		--Microbar
-		E.db.microbar.enable = false
 
 		--Movers
 		E.db.movers.ElvAB_1 = "BOTTOMUIParentBOTTOM021"
 		E.db.movers.ElvAB_2 = "RIGHTUIParentRIGHT0200"
 		E.db.movers.ElvAB_3 = "RIGHTElvAB_1LEFT00"
 		E.db.movers.ElvAB_5 = "LEFTElvAB_1RIGHT00"
-		E.db.movers.ShiftAB = "TOPLEFTUIParentTOPLEFT0-21"
 		E.db.movers.BossButton = "CENTERUIParentBOTTOMLEFT660968"
 		E.db.movers.BNETMover = "TOPRIGHTUIParentTOPRIGHT-2-214"		
-		E.db.movers.MinimapMover = "TOPRIGHTUIParentTOPRIGHT-1-21"
-		E.db.movers.AurasMover = "TOPRIGHTMMHolderTOPLEFT-10"
 
 		--Unitframes (Arena)
 		E.db.unitframe.units.arena.debuffs.sizeOverride = 45
@@ -1156,30 +1192,23 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.unitframe.units.player.castbar.width = 230
 		E.db.unitframe.units.player.castbar.height = 15
 		E.db.unitframe.units.player.castbar.format = "CURRENTMAX"
-		
+
 		--Unitframes (Party)
 		E.db.unitframe.units.party.enable = false
 
 		--Unitframes (Raid10)
 		E.db.unitframe.units.raid10.showSolo = true
-		E.db.unitframe.units.raid10.power.position = "BOTTOMLEFT"
-		E.db.unitframe.units.raid10.power.width = "spaced"
-		E.db.unitframe.units.raid10.healPrediction = true
 		E.db.unitframe.units.raid10.width = 70
-		E.db.unitframe.units.raid10.health.frequentUpdates = true
 		E.db.unitframe.units.raid10.health.position = "CENTER"
 		E.db.unitframe.units.raid10.health.orientation = "VERTICAL"
-		E.db.unitframe.units.raid10.visibility = "[@raid11,exists] hide;show"
 
 		--Unitframes (Raid25)
 		E.db.unitframe.units.raid25.width = 70
 		E.db.unitframe.units.raid25.health.orientation = "VERTICAL"
-		E.db.unitframe.units.raid25.healPrediction = true
-		E.db.unitframe.units.raid25.power.width = "spaced"
-		
+
 		--Unitframes (Raid40)
 		E.db.unitframe.units.raid40.width = 70
-		
+
 		--Unitframes (Tank)
 		E.db.unitframe.units.tank.enable = false
 
@@ -1193,7 +1222,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	end
 
 	layout = E.db.layoutSet --To know if some sort of layout was choosed before
-	
+
 	--The big block for moving all unitframes stuff up
 	if layout == 'healer' then
 		if not noDataReset then
@@ -1243,46 +1272,61 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 			
 		if not E.db.movers then E.db.movers = {}; end
 		if E.db.lowresolutionset then
-			print("Healer low res selected");
-			E.db.movers.ElvUF_PlayerMover = "LEFTUIParentLEFT-300250"
-			E.db.movers.ElvUF_TargetMover = "BOTTOMUIParentBOTTOM300250"
-			E.db.movers.ElvUF_Raid10Mover = "BOTTOMUIParentBOTTOM0100"
-			E.db.movers.ElvUF_Raid25Mover = "BOTTOMUIParentBOTTOM0100"
-			E.db.movers.ElvUF_Raid40Mover = "BOTTOMUIParentBOTTOM0100"
-			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMUIParentBOTTOM305203"
-			E.db.movers.ElvUF_PartyMover = "BOTTOMUIParentBOTTOM0100"
-			E.db.movers.ElvUF_PetMover = "BOTTOMUIParentBOTTOM-305203"
-			E.db.movers.ElvUF_FocusMover = "BOTTOMUIParentBOTTOM310432"
-			E.db.movers.MarkMover = "BOTTOMUIParentBOTTOM0165"
+			--print("Healer low res selected");
+			E.db.movers.ElvUF_PlayerMover = "BOTTOMUIParentBOTTOM-106135"
+			E.db.movers.ElvUF_TargetMover = "BOTTOMUIParentBOTTOM106135"
+			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMUIParentBOTTOM10680"
+			E.db.movers.ElvUF_PetMover = "BOTTOMUIParentBOTTOM-10680"
+			E.db.movers.ElvUF_FocusMover = "BOTTOMUIParentBOTTOM310332"
+			E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTUIParentBOTTOMLEFT13203"
+			E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTUIParentBOTTOMLEFT13203"
+			E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTUIParentBOTTOMLEFT13203"
+			E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTUIParentBOTTOMLEFT13203"
+			E.db.movers.ElvAB_2 = "CENTERUIParentBOTTOM056.18"
+			E.db.movers.MarkMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-35270"
+			E.db.movers.BossButton = "BOTTOMLEFTUIParentBOTTOMLEFT36285"
+			E.db.movers.BNETMover = "TOPLEFTUIParentTOPLEFT294-22"
+			E.db.movers.BossHeaderMover = "TOPRIGHTUIParentTOPRIGHT-119-262"
+			E.db.movers.ArenaHeaderMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-118218"
 		else
-			print("Healer high res selected");
+			--print("Healer high res selected");
 			E.db.movers.ElvUF_PlayerMover = "BOTTOMUIParentBOTTOM-300265"
 			E.db.movers.ElvUF_TargetMover = "BOTTOMUIParentBOTTOM300265"
+			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-464167"
+			E.db.movers.ElvUF_PetMover = "BOTTOMUIParentBOTTOM-420135"
+			E.db.movers.ElvUF_FocusMover = "BOTTOMLEFTUIParentBOTTOM560265"
 			E.db.movers.ElvUF_PartyMover = "BOTTOMUIParentBOTTOM0105"
 			E.db.movers.ElvUF_Raid10Mover = "BOTTOMUIParentBOTTOM0105"
 			E.db.movers.ElvUF_Raid25Mover = "BOTTOMUIParentBOTTOM0105"
 			E.db.movers.ElvUF_Raid40Mover = "BOTTOMUIParentBOTTOM0105"
-			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-464167"
-			E.db.movers.ElvUF_PetMover = "BOTTOMUIParentBOTTOM-420135"
-			E.db.movers.ElvUF_FocusMover = "BOTTOMLEFTUIParentBOTTOM560265"
 			E.db.movers.MarkMover = "BOTTOMUIParentBOTTOM-285200"
 
 		end
 	elseif E.db.lowresolutionset then
 		if not E.db.movers then E.db.movers = {}; end
-		print("None healer low res selected");
-		E.db.movers.ElvUF_PlayerMover = "BOTTOMUIParentBOTTOM00"
-		E.db.movers.ElvUF_TargetMover = "BOTTOMUIParentBOTTOM106151"
-		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMUIParentBOTTOM10696"
-		E.db.movers.ElvUF_PetMover = "BOTTOMUIParentBOTTOM-10696"
-		E.db.movers.ElvUF_FocusMover = "BOTTOMUIParentBOTTOM310332"			
-	else
+		--print("None healer low res selected");
+		E.db.movers.ElvUF_PlayerMover = "BOTTOMUIParentBOTTOM-106135"
+		E.db.movers.ElvUF_TargetMover = "BOTTOMUIParentBOTTOM106135"
+		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMUIParentBOTTOM10680"
+		E.db.movers.ElvUF_PetMover = "BOTTOMUIParentBOTTOM-10680"
+		E.db.movers.ElvUF_FocusMover = "BOTTOMUIParentBOTTOM310332"
+		E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTUIParentBOTTOMLEFT13203"
+		E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTUIParentBOTTOMLEFT13203"
+		E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTUIParentBOTTOMLEFT13203"
+		E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTUIParentBOTTOMLEFT13203"
+		E.db.movers.ElvAB_2 = "CENTERUIParentBOTTOM056.18"
+		E.db.movers.MarkMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-35270"
+		E.db.movers.BossButton = "BOTTOMLEFTUIParentBOTTOMLEFT36285"
+		E.db.movers.BNETMover = "TOPLEFTUIParentTOPLEFT294-22"
+		E.db.movers.BossHeaderMover = "TOPRIGHTUIParentTOPRIGHT-119-262"
+		E.db.movers.ArenaHeaderMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-118218"
+
+		else
 		--[[if not noDataReset then
 			E:ResetMovers('')
 		end]]
 		if not E.db.movers then E.db.movers = {}; end
-		print("None healer high res selected");
-		--This section appears to be done
+		--print("None healer high res selected");
 		E.db.movers.ElvUF_PlayerMover = "BOTTOMUIParentBOTTOM-185135"
 		E.db.movers.ElvUF_TargetMover = "BOTTOMUIParentBOTTOM185135"
 		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMUIParentBOTTOM0120"
