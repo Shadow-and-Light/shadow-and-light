@@ -166,6 +166,7 @@ P['microbar'] = {
 	['layout'] = "Micro_Hor", --Button layuot format
 	['xoffset'] = 0,
 	['yoffset'] = 0,
+	['symbolic'] = false,
 }
 
 --For some reason datatext settings refuses to work if there is no general setting block here O_o

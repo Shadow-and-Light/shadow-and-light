@@ -20,8 +20,15 @@ E.Options.args.sle.args.microbar = {
 				name = L['Enable'],
 				set = function(info, value) E.db.microbar.enable = value; MB:MenuShow(); end,
 		},
+		symbolic = {
+				order = 3,
+				type = 'toggle',
+				name = L['Symbolic style'],
+				desc = L['Replace icons with just letters'],
+				set = function(info, value) E.db.microbar.symbolic = value; MB:MenuShow(); end,
+		},
 		visibility = {
-			order = 3,
+			order = 4,
 			type = "group",
 			name = L["Visibility"],
 			guiInline = true,
@@ -53,7 +60,7 @@ E.Options.args.sle.args.microbar = {
 					type = "range",
 					name = L["Set Alpha"],
 					desc = L["Sets alpha of the microbar"],
-					min = 0.2, max = 1, step = 0.01,
+					min = 0.3, max = 1, step = 0.01,
 					set = function(info, value) E.db.microbar.alpha = value; end,
 				},
 				scale = {
@@ -68,7 +75,7 @@ E.Options.args.sle.args.microbar = {
 			}
 		},
 		positioning = {
-			order = 4,
+			order = 5,
 			type = "group",
 			name = L["Positioning"],
 			guiInline = true,
