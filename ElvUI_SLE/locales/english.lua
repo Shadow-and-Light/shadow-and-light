@@ -66,12 +66,12 @@ Pvtschlag - Necrotic Strike oUF plugin
 Blazeflack - helping hooking, modules and profiles
 Camealion - teaching Darth Predator the art of skining
 Swordyy - idea of ui buttons
-Azilroka@US-Daggerspine - core of ExtVendor and Altoholic skins
+Azilroka@US-Daggerspine - core of ExtVendor and Altoholic skins, help with MoveAnything skin
 Pat - skinning options dropdowns and checkboxes missed by Elv
 Boradan - the idea of classbar movement
 ]=]
 L["ELVUI_SLE_CREDITS"] = "I would like to point out the following people for helping me create this addon with testing, coding, and other stuff."
-L["ELVUI_SLE_MISC"] = [=[BuG - brining fun to the chat while i was writing this
+L["ELVUI_SLE_MISC"] = [=[BuG - for being french lol
 TheSamaKutra - some good ideas
 The rest of TukUI community - the existance of community itself
 ]=]
@@ -162,7 +162,10 @@ L["Show PvP text on mouse over player frame."] = "Show PvP text on mouse over pl
 L["Skada Backdrop"] = "Skada Backdrop"
 L["SLE_AUTHOR_INFO"] = "Shadow & Light Edit by Darth Predator & Repooc"
 L["SLE_CONTACTS"] = [=[Bug reports, suggestions and other stuff accepted via:
-- Private Massage on TukUI.org to Darth Predator or Repooc]=]
+- Private Massage on TukUI.org to Darth Predator or Repooc
+- AddOn's page/ticket system on curse.com
+- AddOn's thread on tukui.org
+- AddOn's repo github.com]=]
 L["SLE_DESC"] = [=[This is and edit of ElvUI that adds some functionality to the original addon and changes some previously existed options.
 The edit doesn't change original files in any respect so you can freely disable it any time from youe addon manager without any risk.]=]
 L["SLE_Install_Text2"] = [=[Elv's Defaults button only needs to be clicked if you set one of our configurations and wish to reverse this choise. 
