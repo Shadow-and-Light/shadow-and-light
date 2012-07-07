@@ -20,6 +20,7 @@ L["Additional menu with useful buttons"] = "Additional menu with useful buttons"
 L["Additional unit frames options"] = "Additional unit frames options"
 L["AddOns Manager"] = "AddOns Manager"
 L["Amount of messages to save. Set to 0 to disable."] = "Amount of messages to save. Set to 0 to disable."
+L["As Letters"] = "As Letters"
 L["Aura Size"] = "Aura Size"
 L["Automatically release body when killed inside a battleground."] = "Automatically release body when killed inside a battleground."
 L["Backgrounds"] = "Backgrounds"
@@ -115,6 +116,9 @@ L["Raid Utility"] = "Raid Utility"
 L["Raid Utility Coordinates"] = "Raid Utility Coordinates"
 L["Reaction Name"] = "Reaction Name"
 L["Reload UI"] = "Reload UI"
+L[ [=[Replace icons with just letters.
+|cffFF0000Warning:|r this will disable original Blizzard's tooltips for microbar.]=] ] = [=[Replace icons with just letters.
+|cffFF0000Warning:|r this will disable original Blizzard's tooltips for microbar.]=]
 L["Repooc's Config"] = "Repooc's Config"
 L["Repooc's Defaults Set"] = "Repooc's Defaults Set"
 L["Rested Value"] = "Rested Value"

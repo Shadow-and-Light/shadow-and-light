@@ -225,21 +225,31 @@ end
 --Set Scale
 function MB:Scale()
 	microbar:SetScale(E.db.microbar.scale)
+	microbarS:SetScale(E.db.microbar.scale)
 end
 
 --Show/Hide in combat
 function MB:EnterCombat()
 	if E.db.microbar.combat then
 		microbar:Hide()
+		microbarS:Hide()
 	else
-		microbar:Show()
+		if E.db.microbar.symbolic then
+			microbarS:Show()
+		else
+			microbar:Show()
+		end
 	end	
 end
 
 --Show after leaving combat
 function MB:LeaveCombat()
 	if E.db.microbar.enable then
-		microbar:Show()
+		if E.db.microbar.symbolic then
+			microbarS:Show()
+		else
+			microbar:Show()
+		end
 	end
 end
 
@@ -265,7 +275,7 @@ function MB:MicroButtonsPositioning()
 		MenuB:SetPoint("TOPLEFT", EJB, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
 		HelpB:SetPoint("TOPLEFT", MenuB, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
 		--Symbolic
-		CharBS:SetPoint("BOTTOMLEFT", microbarS, "BOTTOMLEFT", 5, 3)
+		CharBS:SetPoint("CENTER", CharB, "CENTER", 0, -14)
 		SpellBS:SetPoint("TOPLEFT", CharBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
 		TalentBS:SetPoint("TOPLEFT", SpellBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
 		AchievBS:SetPoint("TOPLEFT", TalentBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
@@ -290,6 +300,19 @@ function MB:MicroButtonsPositioning()
 		EJB:SetPoint("TOPLEFT", RaidB, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
 		MenuB:SetPoint("TOPLEFT", EJB, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
 		HelpB:SetPoint("TOPLEFT", MenuB, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		--Symbolic
+		CharBS:SetPoint("CENTER", CharB, "CENTER", 0, -14)
+		SpellBS:SetPoint("TOPLEFT", CharBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		TalentBS:SetPoint("TOPLEFT", SpellBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		AchievBS:SetPoint("TOPLEFT", TalentBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		QuestBS:SetPoint("TOPLEFT", AchievBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		GuildBS:SetPoint("TOPLEFT", QuestBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		PVPBS:SetPoint("TOPLEFT", GuildBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		LFDBS:SetPoint("TOPLEFT", PVPBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		RaidBS:SetPoint("TOPLEFT", LFDBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		EJBS:SetPoint("TOPLEFT", RaidBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		MenuBS:SetPoint("TOPLEFT", EJBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		HelpBS:SetPoint("TOPLEFT", MenuBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
 	elseif E.db.microbar.layout == "Micro_26" then --2 in a row
 		CharB:SetPoint("TOPLEFT", microbar, "TOPLEFT", 1,  21)
 		SpellB:SetPoint("TOPLEFT", CharB, "TOPLEFT", 25 + E.db.microbar.xoffset, 0)
@@ -303,6 +326,19 @@ function MB:MicroButtonsPositioning()
 		EJB:SetPoint("TOPLEFT", RaidB, "TOPLEFT", 25 + E.db.microbar.xoffset, 0)
 		MenuB:SetPoint("TOPLEFT", RaidB, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
 		HelpB:SetPoint("TOPLEFT", MenuB, "TOPLEFT", 25 + E.db.microbar.xoffset, 0)
+		--Symbolic
+		CharBS:SetPoint("CENTER", CharB, "CENTER", 0, -14)
+		SpellBS:SetPoint("TOPLEFT", CharBS, "TOPLEFT", 25 + E.db.microbar.xoffset, 0)
+		TalentBS:SetPoint("TOPLEFT", CharBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		AchievBS:SetPoint("TOPLEFT", TalentBS, "TOPLEFT", 25 + E.db.microbar.xoffset, 0)
+		QuestBS:SetPoint("TOPLEFT", TalentBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		GuildBS:SetPoint("TOPLEFT", QuestBS, "TOPLEFT", 25 + E.db.microbar.xoffset, 0)
+		PVPBS:SetPoint("TOPLEFT", QuestBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		LFDBS:SetPoint("TOPLEFT", PVPBS, "TOPLEFT", 25 + E.db.microbar.xoffset, 0)
+		RaidBS:SetPoint("TOPLEFT", PVPBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		EJBS:SetPoint("TOPLEFT", RaidBS, "TOPLEFT", 25 + E.db.microbar.xoffset, 0)
+		MenuBS:SetPoint("TOPLEFT", RaidBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		HelpBS:SetPoint("TOPLEFT", MenuBS, "TOPLEFT", 25 + E.db.microbar.xoffset, 0)
 	elseif E.db.microbar.layout == "Micro_34" then --3 in a row
 		CharB:SetPoint("TOPLEFT", microbar, "TOPLEFT", 1,  20)
 		SpellB:SetPoint("TOPLEFT", CharB, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
@@ -316,6 +352,19 @@ function MB:MicroButtonsPositioning()
 		EJB:SetPoint("TOPLEFT", PVPB, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
 		MenuB:SetPoint("TOPLEFT", EJB, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
 		HelpB:SetPoint("TOPLEFT", MenuB, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		--Symbolic
+		CharBS:SetPoint("CENTER", CharB, "CENTER", 0, -14)
+		SpellBS:SetPoint("TOPLEFT", CharBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		TalentBS:SetPoint("TOPLEFT", SpellBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		AchievBS:SetPoint("TOPLEFT", CharBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		QuestBS:SetPoint("TOPLEFT", AchievBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		GuildBS:SetPoint("TOPLEFT", QuestBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		PVPBS:SetPoint("TOPLEFT", AchievBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		LFDBS:SetPoint("TOPLEFT", PVPBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		RaidBS:SetPoint("TOPLEFT", LFDBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		EJBS:SetPoint("TOPLEFT", PVPBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		MenuBS:SetPoint("TOPLEFT", EJBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		HelpBS:SetPoint("TOPLEFT", MenuBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
 	elseif E.db.microbar.layout == "Micro_43" then --4 in a row
 		CharB:SetPoint("TOPLEFT", microbar, "TOPLEFT", 1,  20)
 		SpellB:SetPoint("TOPLEFT", CharB, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
@@ -329,6 +378,19 @@ function MB:MicroButtonsPositioning()
 		EJB:SetPoint("TOPLEFT", RaidB, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
 		MenuB:SetPoint("TOPLEFT", EJB, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
 		HelpB:SetPoint("TOPLEFT", MenuB, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		--Symbolic
+		CharBS:SetPoint("CENTER", CharB, "CENTER", 0, -14)
+		SpellBS:SetPoint("TOPLEFT", CharBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		TalentBS:SetPoint("TOPLEFT", SpellBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		AchievBS:SetPoint("TOPLEFT", TalentBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		QuestBS:SetPoint("TOPLEFT", CharBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		GuildBS:SetPoint("TOPLEFT", QuestBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		PVPBS:SetPoint("TOPLEFT", GuildBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		LFDBS:SetPoint("TOPLEFT", PVPBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		RaidBS:SetPoint("TOPLEFT", QuestBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		EJBS:SetPoint("TOPLEFT", RaidBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		MenuBS:SetPoint("TOPLEFT", EJBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		HelpBS:SetPoint("TOPLEFT", MenuBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
 	elseif E.db.microbar.layout == "Micro_62" then --6 in a row
 		CharB:SetPoint("TOPLEFT", microbar, "TOPLEFT", 0,  21)
 		SpellB:SetPoint("TOPLEFT", CharB, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
@@ -342,6 +404,19 @@ function MB:MicroButtonsPositioning()
 		EJB:SetPoint("TOPLEFT", RaidB, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
 		MenuB:SetPoint("TOPLEFT", EJB, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
 		HelpB:SetPoint("TOPLEFT", MenuB, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		--Symbolic
+		CharBS:SetPoint("CENTER", CharB, "CENTER", 0, -14)
+		SpellBS:SetPoint("TOPLEFT", CharBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		TalentBS:SetPoint("TOPLEFT", SpellBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		AchievBS:SetPoint("TOPLEFT", TalentBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		QuestBS:SetPoint("TOPLEFT", AchievBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		GuildBS:SetPoint("TOPLEFT", QuestBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		PVPBS:SetPoint("TOPLEFT", CharBS, "TOPLEFT", 0, -33 - E.db.microbar.yoffset)
+		LFDBS:SetPoint("TOPLEFT", PVPBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		RaidBS:SetPoint("TOPLEFT", LFDBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		EJBS:SetPoint("TOPLEFT", RaidBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		MenuBS:SetPoint("TOPLEFT", EJBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
+		HelpBS:SetPoint("TOPLEFT", MenuBS, "TOPLEFT", 25 + E.db.microbar.xoffset,  0)
 	end
 	
 end
@@ -406,15 +481,21 @@ end
 
 --For recreate after portals and so on
 function MB:MenuShow()
-if E.db.microbar.symbolic then
+	if E.db.microbar.symbolic then
 		microbarS:Show()
 	else
 		microbarS:Hide()
 	end
-	if E.db.microbar.enable and not E.db.microbar.symbolic then
-		microbar:Show()
+	if E.db.microbar.enable then
+		if E.db.microbar.symbolic then
+			microbarS:Show()
+			microbar:Hide()
+		else
+			microbar:Show()
+		end
 	else
 		microbar:Hide()
+		microbarS:Hide()
 	end
 	
 	MB:ButtonsSetup();
@@ -448,7 +529,7 @@ function MB:SymbolsCreateFrame()
 	MB:SymbolsCreateButtons()
 end
 
-function MB:SymbolsCreateButtons()
+function MB:SymbolsCreateButtons() --Creating and setting properties to second bar
 	--Character
 	CharBS:Size(20, 28)
 	CharBS:CreateBackdrop()
@@ -466,6 +547,16 @@ function MB:SymbolsCreateButtons()
 		end
 	end)
 	
+	CharBS:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(CharBS, "ANCHOR_RIGHT", 0, 29)
+		GameTooltip:SetText(CHARACTER_BUTTON)
+		GameTooltip:Show()
+	end)
+	
+	CharBS:SetScript("OnLeave", function(self)
+		GameTooltip:Hide()
+	end)
+	
 	--Spellbook
 	SpellBS:Size(20, 28)
 	SpellBS:CreateBackdrop()
@@ -481,6 +572,16 @@ function MB:SymbolsCreateButtons()
 		else
 			ShowUIPanel(SpellBookFrame)
 		end
+	end)
+	
+	SpellBS:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(SpellBS, "ANCHOR_RIGHT", 0, 29)
+		GameTooltip:SetText(SPELLBOOK_ABILITIES_BUTTON)
+		GameTooltip:Show()
+	end)
+	
+	SpellBS:SetScript("OnLeave", function(self)
+		GameTooltip:Hide()
 	end)
 	
 	--Talents
@@ -508,6 +609,16 @@ function MB:SymbolsCreateButtons()
 		end
 	end)
 	
+	TalentBS:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(TalentBS, "ANCHOR_RIGHT", 0, 29)
+		GameTooltip:SetText(TALENTS_BUTTON)
+		GameTooltip:Show()
+	end)
+	
+	TalentBS:SetScript("OnLeave", function(self)
+		GameTooltip:Hide()
+	end)
+	
 	--Achievements
 	AchievBS:Size(20, 28)
 	AchievBS:CreateBackdrop()
@@ -519,6 +630,16 @@ function MB:SymbolsCreateButtons()
 	
 	AchievBS:SetScript("OnClick", function(self)
 		ToggleAchievementFrame()
+	end)
+	
+	AchievBS:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(AchievBS, "ANCHOR_RIGHT", 0, 29)
+		GameTooltip:SetText(ACHIEVEMENT_BUTTON)
+		GameTooltip:Show()
+	end)
+	
+	AchievBS:SetScript("OnLeave", function(self)
+		GameTooltip:Hide()
 	end)
 	
 	--Quests
@@ -536,6 +657,16 @@ function MB:SymbolsCreateButtons()
 		else
 			ShowUIPanel(QuestLogFrame)
 		end
+	end)
+	
+	QuestBS:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(QuestBS, "ANCHOR_RIGHT", 0, 29)
+		GameTooltip:SetText(QUESTLOG_BUTTON)
+		GameTooltip:Show()
+	end)
+	
+	QuestBS:SetScript("OnLeave", function(self)
+		GameTooltip:Hide()
 	end)
 	
 	--Guild
@@ -561,6 +692,16 @@ function MB:SymbolsCreateButtons()
 		end
 	end)
 	
+	GuildBS:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(GuildBS, "ANCHOR_RIGHT", 0, 29)
+		GameTooltip:SetText(GUILD)
+		GameTooltip:Show()
+	end)
+	
+	GuildBS:SetScript("OnLeave", function(self)
+		GameTooltip:Hide()
+	end)
+	
 	--PvP
 	PVPBS:Size(20, 28)
 	PVPBS:CreateBackdrop()
@@ -580,6 +721,16 @@ function MB:SymbolsCreateButtons()
 		end
 	end)
 	
+	PVPBS:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(PVPBS, "ANCHOR_RIGHT", 0, 29)
+		GameTooltip:SetText(PVP_OPTIONS)
+		GameTooltip:Show()
+	end)
+	
+	PVPBS:SetScript("OnLeave", function(self)
+		GameTooltip:Hide()
+	end)
+	
 	--LFD
 	LFDBS:Size(20, 28)
 	LFDBS:CreateBackdrop()
@@ -593,6 +744,16 @@ function MB:SymbolsCreateButtons()
 		ToggleFrame(LFDParentFrame)
 	end)
 	
+	LFDBS:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(LFDBS, "ANCHOR_RIGHT", 0, 29)
+		GameTooltip:SetText(DUNGEONS_BUTTON)
+		GameTooltip:Show()
+	end)
+	
+	LFDBS:SetScript("OnLeave", function(self)
+		GameTooltip:Hide()
+	end)
+	
 	--LFR
 	RaidBS:Size(20, 28)
 	RaidBS:CreateBackdrop()
@@ -604,6 +765,16 @@ function MB:SymbolsCreateButtons()
 	
 	RaidBS:SetScript("OnClick", function(self)
 		ToggleFrame(RaidParentFrame)
+	end)
+	
+	RaidBS:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(RaidBS, "ANCHOR_RIGHT", 0, 29)
+		GameTooltip:SetText(RAID_FINDER)
+		GameTooltip:Show()
+	end)
+	
+	RaidBS:SetScript("OnLeave", function(self)
+		GameTooltip:Hide()
 	end)
 	
 	--Journal
@@ -629,6 +800,16 @@ function MB:SymbolsCreateButtons()
 		end
 	end)
 	
+	EJBS:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(EJBS, "ANCHOR_RIGHT", 0, 29)
+		GameTooltip:SetText(ENCOUNTER_JOURNAL)
+		GameTooltip:Show()
+	end)
+	
+	EJBS:SetScript("OnLeave", function(self)
+		GameTooltip:Hide()
+	end)
+	
 	--Menu
 	MenuBS:Size(20, 28)
 	MenuBS:CreateBackdrop()
@@ -646,6 +827,16 @@ function MB:SymbolsCreateButtons()
 			end
 	end)
 	
+	MenuBS:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(MenuBS, "ANCHOR_RIGHT", 0, 29)
+		GameTooltip:SetText(MAINMENU_BUTTON)
+		GameTooltip:Show()
+	end)
+	
+	MenuBS:SetScript("OnLeave", function(self)
+		GameTooltip:Hide()
+	end)
+	
 	--Help
 	HelpBS:Size(20, 28)
 	HelpBS:CreateBackdrop()
@@ -657,6 +848,16 @@ function MB:SymbolsCreateButtons()
 	
 	HelpBS:SetScript("OnClick", function(self)
 		ToggleHelpFrame()
+	end)
+	
+	HelpBS:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(HelpBS, "ANCHOR_RIGHT", 0, 29)
+		GameTooltip:SetText(HELP_BUTTON)
+		GameTooltip:Show()
+	end)
+	
+	HelpBS:SetScript("OnLeave", function(self)
+		GameTooltip:Hide()
 	end)
 end
 

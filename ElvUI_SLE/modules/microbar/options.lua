@@ -23,8 +23,8 @@ E.Options.args.sle.args.microbar = {
 		symbolic = {
 				order = 3,
 				type = 'toggle',
-				name = L['Symbolic style'],
-				desc = L['Replace icons with just letters'],
+				name = L["As Letters"],
+				desc = L["Replace icons with just letters.\n|cffFF0000Warning:|r this will disable original Blizzard's tooltips for microbar."],
 				set = function(info, value) E.db.microbar.symbolic = value; MB:MenuShow(); end,
 		},
 		visibility = {
@@ -69,7 +69,7 @@ E.Options.args.sle.args.microbar = {
 					name = L["Set Scale"],
 					desc = L["Sets Scale of the microbar"],
 					isPercent = true,
-					min = 0.3, max = 2, step = 0.01,
+					min = 0.2, max = 2, step = 0.01,
 					set = function(info, value) E.db.microbar.scale = value; MB:Scale(); MB:MicroMoverSize(); end,
 				},
 			}

@@ -14,6 +14,7 @@ L["Additional menu with useful buttons"] = "Дополнительное мен�
 L["Additional unit frames options"] = "Дополнительные опции рамок юнитов"
 L["AddOns Manager"] = "Менеджер аддонов"
 L["Amount of messages to save. Set to 0 to disable."] = "Количество сообщений, введенных вами, которое будет сохранено между сеансами"
+L["As Letters"] = "В виде букв"
 L["Aura Size"] = "Размер баффов"
 L["Automatically release body when killed inside a battleground."] = "Автоматически выходить из тела на полях боя."
 L["Backgrounds"] = "Фоновые фреймы"
@@ -109,6 +110,9 @@ L["Raid Utility"] = "Управление рейдом"
 L["Raid Utility Coordinates"] = "Позиция Управления Рейдом"
 L["Reaction Name"] = "Реакция"
 L["Reload UI"] = "Перезагрузить интерфейс"
+L[ [=[Replace icons with just letters.
+|cffFF0000Warning:|r this will disable original Blizzard's tooltips for microbar.]=] ] = [=[Заменяет иконки на латинские буквы.
+|cffFF0000Внимание:|r это действие отключит стандартные подсказки Blizzard для микроменю.]=]
 L["Repooc's Config"] = "Опции Repooc'а"
 L["Repooc's Defaults Set"] = "Установлены настройки Repooc'а"
 L["Rested Value"] = "Бодрость"
