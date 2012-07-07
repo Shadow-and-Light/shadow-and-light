@@ -18,6 +18,7 @@ E.Options.args.sle.args.skins = {
 			args = {		
 				fontsize = {
 					order = 2,
+					disabled = function() return not IsAddOnLoaded('DBM-Core') end,
 					type = "range",
 					name = L['Font Size'],
 					desc = L["Sets font size on DBM bars"],
