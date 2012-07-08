@@ -15,10 +15,10 @@ function S:EmbedSkada()
 			self:EmbedSkadaWindow(skadaWindows[1], E.db.general.panelWidth - widthOffset, E.db.general.panelHeight - 25, "BOTTOMRIGHT", RightChatToggleButton, "TOPRIGHT", -2, 3)
 		elseif #skadaWindows == 2 then
 			self:EmbedSkadaWindow(skadaWindows[1], ((E.db.general.panelWidth - widthOffset) / 2) - (borderWidth + E.mult) + 1, E.db.general.panelHeight - 25,  "BOTTOMRIGHT", RightChatToggleButton, "TOPRIGHT", -2, 3)
-			self:EmbedSkadaWindow(skadaWindows[2], ((E.db.general.panelWidth - widthOffset) / 2) - (borderWidth + E.mult), E.db.general.panelHeight - 25,  "BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 2, 3)
+			self:EmbedSkadaWindow(skadaWindows[2], ((E.db.general.panelWidth - widthOffset) / 2) - (borderWidth + E.mult), E.db.general.panelHeight - 25,  "BOTTOMLEFT", RightChatPanel, "BOTTOMLEFT", 2, 2)
 		elseif #skadaWindows > 2 then
 			self:EmbedSkadaWindow(skadaWindows[1], ((E.db.general.panelWidth - widthOffset) / 2) - (borderWidth + E.mult) + 1, E.db.general.panelHeight - 25,  "BOTTOMRIGHT", RightChatToggleButton, "TOPRIGHT", -2, 3)
-			self:EmbedSkadaWindow(skadaWindows[2], ((E.db.general.panelWidth - widthOffset) / 2) - (borderWidth + E.mult), (E.db.general.panelHeight - 25) / 2 - 3,  "BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 2, 3)
+			self:EmbedSkadaWindow(skadaWindows[2], ((E.db.general.panelWidth - widthOffset) / 2) - (borderWidth + E.mult), (E.db.general.panelHeight - 25) / 2 - 3,  "BOTTOMLEFT", RightChatPanel, "BOTTOMLEFT", 2, 2)
 			self:EmbedSkadaWindow(skadaWindows[3], skadaWindows[2].db.barwidth, (E.db.general.panelHeight - 25) / 2,  "BOTTOMLEFT", skadaWindows[2].bargroup.backdrop, "TOPLEFT", 2, 3)
 		end	
 	else
@@ -26,10 +26,10 @@ function S:EmbedSkada()
 			self:EmbedSkadaWindow(skadaWindows[1], E.db.general.panelWidth - widthOffset, E.db.general.panelHeight - 2, "BOTTOMRIGHT", RightChatToggleButton, "TOPRIGHT", -2, 3)
 		elseif #skadaWindows == 2 then
 			self:EmbedSkadaWindow(skadaWindows[1], ((E.db.general.panelWidth - widthOffset) / 2) - (borderWidth + E.mult) + 1, E.db.general.panelHeight - 2,  "BOTTOMRIGHT", RightChatToggleButton, "TOPRIGHT", -2, 3)
-			self:EmbedSkadaWindow(skadaWindows[2], ((E.db.general.panelWidth - widthOffset) / 2) - (borderWidth + E.mult), E.db.general.panelHeight - 2,  "BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 2, 3)
+			self:EmbedSkadaWindow(skadaWindows[2], ((E.db.general.panelWidth - widthOffset) / 2) - (borderWidth + E.mult) + 1, E.db.general.panelHeight - 2,  "BOTTOMLEFT", RightChatPanel, "BOTTOMLEFT", 2, 2)
 		elseif #skadaWindows > 2 then
 			self:EmbedSkadaWindow(skadaWindows[1], ((E.db.general.panelWidth - widthOffset) / 2) - (borderWidth + E.mult) + 1, E.db.general.panelHeight - 2,  "BOTTOMRIGHT", RightChatToggleButton, "TOPRIGHT", -2, 3)
-			self:EmbedSkadaWindow(skadaWindows[2], ((E.db.general.panelWidth - widthOffset) / 2) - (borderWidth + E.mult), (E.db.general.panelHeight - 2) / 2 - 3,  "BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 2, 3)
+			self:EmbedSkadaWindow(skadaWindows[2], ((E.db.general.panelWidth - widthOffset) / 2) - (borderWidth + E.mult), (E.db.general.panelHeight - 2) / 2 - 3,  "BOTTOMLEFT", RightChatPanel, "BOTTOMLEFT", 2, 2)
 			self:EmbedSkadaWindow(skadaWindows[3], skadaWindows[2].db.barwidth, (E.db.general.panelHeight - 2) / 2,  "BOTTOMLEFT", skadaWindows[2].bargroup.backdrop, "TOPLEFT", 2, 3)
 		end	
 	end
@@ -44,7 +44,7 @@ function S:SetEmbedRight(addon)
 		Recount:LockWindows(true)
 		
 		Recount_MainWindow:ClearAllPoints()
-		Recount_MainWindow:SetPoint("BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 0, 1)
+		Recount_MainWindow:SetPoint("BOTTOMLEFT", RightChatPanel, "BOTTOMLEFT", 0, 0)
 
 		if E.db.general.panelBackdrop == 'SHOWBOTH' or E.db.general.panelBackdrop == 'RIGHT' then
 			Recount_MainWindow:SetWidth(E.db.general.panelWidth)
@@ -96,7 +96,7 @@ function S:SetEmbedRight(addon)
 		end
 		
 		OmenAnchor:ClearAllPoints()
-		OmenAnchor:SetPoint("BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 0, 1)
+		OmenAnchor:SetPoint("BOTTOMLEFT", RightChatPanel, "BOTTOMLEFT", 0, 0)
 		
 		if E.db.general.panelBackdrop == 'SHOWBOTH' or E.db.general.panelBackdrop == 'RIGHT' then
 			OmenAnchor:SetWidth(E.db.general.panelWidth)
