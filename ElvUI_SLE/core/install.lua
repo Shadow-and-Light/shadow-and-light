@@ -1078,12 +1078,12 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.sle.marks.growth = "DOWN"
 		E.db.sle.marks.size = 15
 
-		--Unitframes (Target)
-		E.db.unitframe.units.target.width = 200
-		E.db.unitframe.units.target.height = 50
-		E.db.unitframe.units.target.castbar.width = 200
-		E.db.unitframe.units.target.castbar.height = 18
-		E.db.unitframe.units.target.castbar.format = "CURRENTMAX"
+		--Unitframes (Player)
+		E.db.unitframe.units.player.width = 200
+		E.db.unitframe.units.player.height = 50
+		E.db.unitframe.units.player.castbar.width = 200
+		E.db.unitframe.units.player.castbar.height = 18
+		E.db.unitframe.units.player.castbar.format = "CURRENTMAX"
 
 		--Unitframes (Raid10)
 		E.db.unitframe.units.raid10.width = 65
@@ -1096,6 +1096,14 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 
 		--Unitframes (Raid40)
 		E.db.unitframe.units.raid40.width = 65
+
+		--Unitframes (Target)
+		E.db.unitframe.units.target.width = 200
+		E.db.unitframe.units.target.height = 50
+		E.db.unitframe.units.target.castbar.width = 200
+		E.db.unitframe.units.target.castbar.height = 18
+		E.db.unitframe.units.target.castbar.format = "CURRENTMAX"
+
 	else
 		--Actionbars
 		E.db.actionbar.bar1.buttonsPerRow = 6
