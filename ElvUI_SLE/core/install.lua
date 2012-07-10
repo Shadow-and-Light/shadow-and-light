@@ -779,6 +779,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.unitframe.units.target.hideonnpc = false;
 	E.db.unitframe.units.target.health.position = 'BOTTOMRIGHT';
 	E.db.unitframe.units.target.power.position = 'RIGHT';
+	E.db.unitframe.units.target.power.hideonnpc = false;
 	E.db.unitframe.units.target.name.enable = true;
 	E.db.unitframe.units.target.name.position = 'TOPLEFT';
 	E.db.unitframe.units.target.portrait.enable = true
