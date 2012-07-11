@@ -1,0 +1,7 @@
+v1.01
+- Skada/Recount embedright tweaked
+- Minor install tweaks
+- Added Alphabet layout to Microbar
+
+v1.0
+- Initial Release
