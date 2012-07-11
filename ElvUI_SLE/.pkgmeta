@@ -1,1 +1,4 @@
 package-as: ElvUI_SLE
+manual-changelog:
+    filename: CHANGELOG.txt
+    markup-type: bbcode
