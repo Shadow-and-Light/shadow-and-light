@@ -930,8 +930,8 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.general.interruptAnnounce = "RAID"
 	E.db.general.autoRepair = "PLAYER"
 	E.db.general.stickyFrames = false
-	E.db.general.panelBackdropNameLeft = "Interface\\textures\\chat_1.tga"
-	E.db.general.panelBackdropNameRight = "Interface\\textures\\chat_1.tga"
+	E.db.general.panelBackdropNameLeft = "Interface\\Addons\\ElvUI_SLE\textures\\chat_1.tga"
+	E.db.general.panelBackdropNameRight = "Interface\\Addons\\ElvUI_SLE\textures\\chat_1.tga"
 	E.db.general.vendorGrays = true
 	E.db.general.elvnotice = true
 	
