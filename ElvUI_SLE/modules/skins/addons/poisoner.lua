@@ -1,9 +1,8 @@
 local E, L, V, P, G = unpack(ElvUI);
 local S = E:GetModule('Skins')
 
+-- Credit: Azilroka (As most of our skins are based off his work.)
 local function LoadSkin()
-	
-
 	PoisonerOptions_SettingsFrame:StripTextures()
 	PoisonerOptions_SettingsFrame:SetTemplate("Transparent")
 
@@ -55,7 +54,6 @@ local function LoadSkin()
 	end
 end
 
---Replacing Poisoner Functions
 function Poisoner_CheckQuickButton()
 	if InCombatLockdown() then PoisonerStateHeader.needUpdate = true; return end
 	if (POISONER_CONFIG.Enabled == 1) then
@@ -74,6 +72,7 @@ function Poisoner_CheckQuickButton()
 		Poisoner_QuickButton:Hide();
 	end
 end
+
 function Poisoner_UpdateQuickButton()
 	local btn = Poisoner_QuickButton
 	local icon = Poisoner_QuickButtonIcon
@@ -96,21 +95,5 @@ function Poisoner_UpdateQuickButton()
 	Poisoner_QuickButton_Overlay:SetTemplate("Transparent")	
 	Poisoner_QuickButton:Show();
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 S:RegisterSkin("Poisoner", LoadSkin)
