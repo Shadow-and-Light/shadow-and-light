@@ -1,3 +1,6 @@
+v1.02
+- Updated Repooc install
+
 v1.01
 - Skada/Recount embedright tweaked
 - Minor install tweaks
