@@ -7,6 +7,7 @@
 	<Script file='moveanything.lua'/>
 	<Script file='notes.lua'/>
 	<Script file='oces.lua'/>
+	<Script file='poisoner.lua'/>
 	<Script file='skada.lua'/>
 	<Script file='tdb.lua'/>
 	<Script file='tellmewhen.lua'/>
