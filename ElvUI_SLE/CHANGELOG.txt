@@ -1,7 +1,9 @@
 v1.02
 - Updated Repooc install
 - Added Poisner Skin
+- Added Outfitter skin
 - Fixed Microbar Bug
+- Fixed RaidUtility button not changing position on profile change
 
 v1.01
 - Skada/Recount embedright tweaked
