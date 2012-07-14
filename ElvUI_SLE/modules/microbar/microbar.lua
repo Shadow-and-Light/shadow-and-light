@@ -230,16 +230,22 @@ end
 
 --Show/Hide in combat
 function MB:EnterCombat()
-	if E.db.microbar.combat then
+	if E.db.microbar.enable then
+	
+		if E.db.microbar.combat then
+			microbar:Hide()
+			microbarS:Hide()
+		else
+			if E.db.microbar.symbolic then
+				microbarS:Show()
+			else
+				microbar:Show()
+			end
+		end	
+	else
 		microbar:Hide()
 		microbarS:Hide()
-	else
-		if E.db.microbar.symbolic then
-			microbarS:Show()
-		else
-			microbar:Show()
-		end
-	end	
+	end
 end
 
 --Show after leaving combat
