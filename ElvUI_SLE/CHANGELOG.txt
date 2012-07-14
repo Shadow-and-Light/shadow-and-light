@@ -1,6 +1,7 @@
 v1.02
 - Updated Repooc install
 - Added Poisner Skin
+- Fixed Microbar Bug
 
 v1.01
 - Skada/Recount embedright tweaked
