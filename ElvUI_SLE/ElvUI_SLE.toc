@@ -7,7 +7,7 @@
 ## eMail: darthpred@gmail.com, repooc@tukui.org
 ## URL: http://tukui.org/ 
 ## RequiredDeps: ElvUI
-## OptionalDeps: Skada
+## OptionalDeps: Skada, CoolLine, Poisoner
 ## DefaultState: Enabled
 
 libs\load_libs.xml
