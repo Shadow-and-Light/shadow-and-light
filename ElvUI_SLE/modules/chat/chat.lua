@@ -147,8 +147,8 @@ function CH:PositionChat(override)
 			chat:SetSize(E.db.general.panelWidth - 6, (E.db.general.panelHeight - 27)) -- <<< Changed
 		else
 			chat:ClearAllPoints()
-			chat:Point("BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 1, 3)
-			chat:Size(E.db.general.panelWidth - 11, (E.db.general.panelHeight - 60) - CombatLogQuickButtonFrame_Custom:GetHeight())				
+			chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3)
+			chat:Size(E.db.general.panelWidth - 6, (E.db.general.panelHeight - 27) - CombatLogQuickButtonFrame_Custom:GetHeight())				
 		end
 
 		FCF_SavePositionAndDimensions(chat)			
