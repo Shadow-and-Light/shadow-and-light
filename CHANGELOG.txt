@@ -1,5 +1,7 @@
 v1.03
 - Fixed Combatlog not anchoring correctly in right panel as the only chat window
+- Fixed Micrbar Bug (Leave combat issue)
+
 v1.02
 - Updated Repooc install
 - Added Poisner Skin
