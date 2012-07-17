@@ -231,7 +231,6 @@ end
 --Show/Hide in combat
 function MB:EnterCombat()
 	if E.db.microbar.enable then
-	
 		if E.db.microbar.combat then
 			microbar:Hide()
 			microbarS:Hide()
@@ -256,6 +255,9 @@ function MB:LeaveCombat()
 		else
 			microbar:Show()
 		end
+	else
+		microbar:Hide()
+		microbarS:Hide()
 	end
 end
 
