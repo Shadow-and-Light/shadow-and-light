@@ -12,4 +12,5 @@
 	<Include file='skins\load_skins.xml'/>
 	<Include file='uibuttons\load_uibuttons.xml'/>
 	<Include file='unitframes\load_unitframes.xml'/>
+	<Include file='vengeance\load_vengeance.xml'/>
 </Ui>

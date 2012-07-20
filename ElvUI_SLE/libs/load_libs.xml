@@ -1,1 +1,1 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">	<Script file="oUF_NecroStrike\oUF_NecroStrike.lua"/></Ui>
+<Ui xmlns="http://www.blizzard.com/wow/ui/">	<Script file="oUF_NecroStrike\oUF_NecroStrike.lua"/>	<Script file="oUF_Vengeance\oUF_Vengeance.lua"/></Ui>
