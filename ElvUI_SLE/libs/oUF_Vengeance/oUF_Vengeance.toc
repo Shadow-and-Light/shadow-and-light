@@ -3,6 +3,6 @@
 ## Version: 40200.5
 ## Title: oUF Vengeance
 ## Notes: Vengeance plug-in for oUF
-## RequiredDeps: oUF
+## RequiredDeps: ElvUI_SLE
 
 oUF_Vengeance.lua
