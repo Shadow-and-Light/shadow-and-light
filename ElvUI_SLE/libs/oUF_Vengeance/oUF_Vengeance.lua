@@ -59,7 +59,7 @@ local Vbar = ElvUF_Player.Vengeance
 Vbar:CreateBackdrop("Default")
 Vbar:SetFrameLevel(5)
 Vbar:Point("TOPLEFT", RightChatTab, "TOPLEFT", 0, 0) --2 lines for determining positioning and size
-Vbar:Point("BOTTOMRIGHT", RightChatTab, "BOTTOMRIGHT", 0, 0)
+Vbar:Point("BOTTOMRIGHT", RightChatTab, "BOTTOMRIGHT", 0, 2)
 Vbar:SetStatusBarTexture(E["media"].normTex)
 
 Vbar.Text = Vbar:CreateFontString(nil, 'OVERLAY')	
