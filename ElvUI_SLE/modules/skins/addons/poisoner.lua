@@ -1,8 +1,12 @@
 local E, L, V, P, G = unpack(ElvUI);
 local S = E:GetModule('Skins')
+if not IsAddOnLoaded("Poisoner") then return end
+local SkinPoisoner = CreateFrame("Frame")
+	SkinPoisoner:RegisterEvent( "PLAYER_ENTERING_WORLD" )
+	SkinPoisoner:SetScript( "OnEvent", function(self)
+	--if (UISkinOptions.PoisonerSkin == "Disabled") then return end
 
 -- Credit: Azilroka (As most of our skins are based off his work.)
-local function LoadSkin()
 	PoisonerOptions_SettingsFrame:StripTextures()
 	PoisonerOptions_SettingsFrame:SetTemplate("Transparent")
 
@@ -52,7 +56,11 @@ local function LoadSkin()
 	for i = 1, 5 do
 		S:HandleTab(_G["PoisonerOptions_SettingsFrameTab"..i])
 	end
-end
+
+end)
+
+hooksecurefunc("Poisoner_CheckQuickButton", function() end)
+hooksecurefunc("Poisoner_UpdateQuickButton", function() end)
 
 function Poisoner_CheckQuickButton()
 	if InCombatLockdown() then PoisonerStateHeader.needUpdate = true; return end
@@ -92,7 +100,7 @@ function Poisoner_UpdateQuickButton()
 	Poisoner_QuickButton_Text_TW = "|T"..Poisoner_Poison18.Texture..":0|t |T"..Poisoner_Poison18_SHIFT.Texture..":0|t |T"..Poisoner_Poison18_CTRL.Texture..":0|t |T"..Poisoner_Poison18_ALT.Texture..":0|t "
 	Poisoner_QuickButton_Text_Slots = ""..INVTYPE_WEAPONMAINHAND..": \n"..INVTYPE_WEAPONOFFHAND..": \n"..INVTYPE_THROWN..": "
 	Poisoner_QuickButton_Text_Textures = ""..Poisoner_QuickButton_Text_MH.."\n"..Poisoner_QuickButton_Text_OH.."\n"..Poisoner_QuickButton_Text_TW..""
-	Poisoner_QuickButton_Overlay:SetTemplate("Transparent")	
+	Poisoner_QuickButton_Overlay:SetTemplate("Transparent")
 	Poisoner_QuickButton:Show();
 end
 
