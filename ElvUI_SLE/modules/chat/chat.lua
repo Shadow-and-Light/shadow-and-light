@@ -39,56 +39,6 @@ function CH:ChatEdit_AddHistory(editBox, line)
 	end
 end
 
---------------------------------
---Sounds for Elv's name coloring
---------------------------------
-local SoundPalyed = 0
-function CH:SetTimer()
-	if E.private.channelcheck.time == nil then
-		E.private.channelcheck.time = 3
-	end
-end
-
-
-function CH:CheckKeyword(message)
-	local replaceWords = {};
-
-	for i=1, #{string.split(' ', message)} do
-		local word = select(i, string.split(' ', message));
-		if not word:find('|') then
-			for keyword, _ in pairs(CH.Keywords) do
-				if word:lower() == keyword:lower() then
-					replaceWords[word] = E.media.hexvaluecolor..word..'|r'
-					if E.db.sle.chat.sound then
-					if SoundPalyed == 0 then --Check for sound played
-						PlaySoundFile(LSM:Fetch("sound", E.db.sle.chat.warningsound));
-						SoundPalyed = 1 --Setting sound as played
-						frame.SoundTimer = CH:ScheduleTimer('EnableSound', E.private.channelcheck.time) --Starting Timer
-					end
-				end
-				end	
-			end
-		end
-	end
-	
-	for word, replaceWord in pairs(replaceWords) do
-		if message == word then
-			message = message:gsub(word, replaceWord)
-		elseif message:find(' '..word) then
-			message = message:gsub(' '..word, ' '..replaceWord)
-		elseif message:find(word..' ') then
-			message = message:gsub(word..' ', replaceWord..' ')
-		end
-	end
-	
-	return message
-end
-
---Action at the end of timer
-function CH:EnableSound(frame)
-	SoundPalyed = 0
-end
-
 --Replacement of chat tab position and size function
 function CH:PositionChat(override)
 	if (InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override) then return end

@@ -10,7 +10,6 @@ function SLE:Initialize()
 	if E.db.general.loginmessage then
 		print(L['SLE_LOGIN_MSG'])
 	end
-	E:GetModule('Chat'):SetTimer() --If called before Edit loaded from chat.lua will cause errors
 	E.db.datatexts.panels.Top_Center = 'Version'
 end
 

@@ -42,46 +42,5 @@ E.Options.args.sle.args.chat = {
 				},
 			},
 		},
-		warning = {
-			order = 3,
-			type = "group",
-			name = L["Name Highlight"],
-			guiInline = true,
-			args = {
-				info = {
-					order = 1,
-					type = "description",
-					name = L["TOON_DESC"],
-				},
-				soundenable = {
-					order = 3,
-					type = "toggle",
-					name = L["Enable Sound"],
-					desc = L["Play sound when keyword is mentioned in chat."],
-					get = function(info) return E.db.sle.chat.sound end,
-					set = function(info, value) E.db.sle.chat.sound = value; end
-				},
-				sound = {
-					type = "select", dialogControl = 'LSM30_Sound',
-					order = 4,
-					name = L["Sound"],
-					desc = L["Sound that will be played."],
-					disabled = function() return not E.db.sle.chat.sound end,
-					values = AceGUIWidgetLSMlists.sound,
-					get = function(info) return E.db.sle.chat.warningsound end,
-					set = function(info, value) E.db.sle.chat.warningsound = value; end		
-				},
-				timer = {
-					order = 5,
-					type = "range",
-					name = L["Timer"],
-					desc = L["Sound will be played only once in this number of seconds."],
-					min = 1, max = 20, step = 1,
-					disabled = function() return not E.db.sle.chat.sound end,
-					get = function(info) return E.private.channelcheck.time end,
-					set = function(info, value) E.private.channelcheck.time = value; end,
-				},
-			},
-		},
 	},
 }

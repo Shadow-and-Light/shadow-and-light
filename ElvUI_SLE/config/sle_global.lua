@@ -1,10 +1,5 @@
 ﻿local E, L, V, P, G =  unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, GlobalDB
 
-
-V['channelcheck'] = {
-	['time'] = 3,
-}
-
 V['sle'] = {
 	--Auras Frame
 	['auras'] = {
