@@ -1,21 +1,21 @@
-v1.03
+v1.03 (July 25, 2012)
 - Fixed Combatlog not anchoring correctly in right panel as the only chat window
 - Fixed Microbar Bug (Leave combat issue)
 - Added the vengeance bar for tanks (without options atm)
 - Deleted keywords sounds (Elv has his own)
 - Increased the recommended version number
 
-v1.02
+v1.02 (July 15, 2012)
 - Updated Repooc install
 - Added Poisner Skin
 - Added Outfitter skin
 - Fixed Microbar Bug
 - Fixed RaidUtility button not changing position on profile change
 
-v1.01
+v1.01 (July 11, 2012)
 - Skada/Recount embedright tweaked
 - Minor install tweaks
 - Added Alphabet layout to Microbar
 
-v1.0
-- Initial Release
+v1.0 (July 7, 2012)
+- Inital Release
