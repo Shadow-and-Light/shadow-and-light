@@ -104,7 +104,6 @@ OutfitterShowOutfitBar:Point("TOPLEFT", OutfitterAutoSwitch, "BOTTOMLEFT", 0, -5
 
 	for _, object in pairs(CheckBoxButtons) do
 		S:HandleCheckBox(_G[object])
-		print("pooc test")
 		_G[object]:SetFrameStrata("HIGH")
 		_G[object]:SetFrameLevel(5)
 	end
