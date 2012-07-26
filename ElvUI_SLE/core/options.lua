@@ -46,7 +46,7 @@ E.Options.args.sle = {
 					order = 5,
 					type = "toggle",
 					name = L["Pet autocast corners"],
-					desc = L["Show/hide tringles in corners of autocastable buttons."],
+					desc = L["Show/hide triangles in corners of autocastable buttons."],
 					get = function(info) return E.db.sle.petbar.autocast end,
 					set = function(info, value) E.db.sle.petbar.autocast = value; AB:UpdatePet() end
 				},
