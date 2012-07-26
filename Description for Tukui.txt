@@ -60,7 +60,7 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 - Removed Boss Button Texture
 - Additional skinning of Blizzard's options
 
-Included addons of other authors
+<font color="#3e8ac6"><b>Included Addons:</b></font>
 (if you have any of those the I'd recommend to disable them)
 - <a href="http://www.tukui.org/forums/topic.php?id=21133">XP & Rep Bars mod</a> for ElvUI by <a href="http://www.tukui.org/forums/profile.php?id=16698">Benik</a>
 - <a href="http://www.tukui.org/forums/topic.php?id=21221">Extended Vendor Skin</a> & <a href="http://www.tukui.org/forums/topic.php?id=20692">Altoholic Skin</a> by <a href="http://www.tukui.org/forums/profile.php?id=13475">Azilroka</a>
