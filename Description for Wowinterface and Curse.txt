@@ -14,7 +14,7 @@ Originally this project started as two personal edits of ElvUI bu Darth Predator
 [*][url=https://github.com/Repooc/ElvUI_SLE/issues]Github Ticket System[/url]
 [/list]
 
-[color="#3e8ac6"][b]Can be downloaded at:[/b][/color]
+[color="#3e8ac6"][b]Download Locations:[/b][/color]
 [list][url=http://www.tukui.org/addons/index.php?act=view&id=42]Tukui[/url]
 [*][url=http://www.wowinterface.com/downloads/fileinfo.php?id=20927]Wowinterface[/url]
 [*][url=http://www.curse.com/addons/wow/shadow-and-light-edit]Curse[/url]
