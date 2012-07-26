@@ -47,7 +47,7 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 - Increased number of auras per row near the minimap
 - Altered layout of chat panels
 
-Skins
+<font color="#3e8ac6"><b>Skins:</b></font>
 - <a href="http://www.curse.com/addons/wow/altoholic">Altoholic Skin</a>
 - Minor fix to the ElvUI Auctionator skin
 - <a href="http://www.curse.com/addons/wow/deadly-boss-mods">DBM Options Window Skin</a>
@@ -70,7 +70,7 @@ Included addons of other authors
 
 Did we forget anyone? O_o
 
-<b>Techincal Support</b>
+<font color="red"><b>Techincal Support:</b></font>
 If you have any questions or concerns, we want to hear about it.  You are welcome to post it here as a comment but we have other means of technical support via <a href="https://github.com/Repooc/ElvUI_SLE/issues?state=open">Github</a> & <a href="http://wow.curseforge.com/addons/shadow-and-light-edit/tickets/">Curse</a>.  
 
 Darth Predator and I will do our best to address everyone's concern, we typically need some information from you other than the problem you are having.  Before posting, PLEASE, make sure you are running the latest version of Shadow & Light as well as ElvUI and that you <b>DISABLE ALL</b> addons except for those two and try to reproduce the issue.  It is important that you do that so we can narrow down what is causing the problem in the first place.
@@ -83,6 +83,7 @@ Information to provide when posting:
 5.) Detailed description of the issue on when it happens, how it happens, whatever you did to reproduce it.
 6.) Just to be clear, Disable ALL Addons except for ElvUI and Shadow & Light</blockquote>
 With that said, happy gaming and enjoy the addon!
+
 <table width="100%"><tr><td align="center" colspan="2"><font color="#3e8ac6"><b>Repooc's Install Screenshots</b></font></td></tr>
 <tr><td align="center">Tank/Dps Layout
 <a href="http://www.tukui.org/storage/images/248630Tank-Dps%20High%20Resolution.jpg" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/248630Tank-Dps High Resolution.jpg"></a>
