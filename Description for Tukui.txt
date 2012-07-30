@@ -8,7 +8,7 @@ Originally this project started as two personal edits of ElvUI by Darth Predator
 You'll find Shadow & Light options under it's own configuration category in ElvUI's config section by typing /ec
 
 <font color="#20ff20"><b>Mists of Pandaria Beta Download:</b></font>
-- <a href="https://github.com/downloads/Repooc/ElvUI_SLE-MoP-Beta/ElvUI_SLE-v1.02-MoP%20Beta.zip">Github</a>
+- <a href="https://github.com/Repooc/ElvUI_SLE-MoP-Beta/downloads">Github</a>
 - <a href="http://www.tukui.org/addons/index.php?act=view&id=43">Tukui.org</a>
 
 <font color="#3e8ac6"><b>Suggestions/Concerns:</b></font>
