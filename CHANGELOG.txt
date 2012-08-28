@@ -39,7 +39,3 @@ v1.01 (July 11, 2012)
 
 v1.0 (July 7, 2012)
 - Inital Release
-
-===Things done in beta, not looked at in live yet.===
-- Skinned more of the Blizzard Interface Options (Raid Profiles Section)
-- Skinned additional button in interface options area
