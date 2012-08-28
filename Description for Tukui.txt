@@ -37,7 +37,8 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 - Freely movable Raid Utility menu
 - Caster Name in Auras Tooltip
 - Altered layout of chat panels
-- Movvable Pet Batlle Actionbar
+- Movable Pet Batlle Actionbar
+- Ability to change the position of chat editbox
 
 <font color="#3e8ac6"><b>Skins:</b></font>
 - <a href="http://www.curse.com/addons/wow/notes">Nirriti's Notes Skin</a>
