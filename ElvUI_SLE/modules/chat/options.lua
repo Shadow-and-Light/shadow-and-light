@@ -1,11 +1,4 @@
-﻿local E, L, V, P, G =  unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, GlobalDB
-local CH = E:GetModule('Chat')
-
-local selectedName
-local selectedChannel
-local names
-local channels
-
+﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 
 E.Options.args.sle.args.chat = {
 	order = 8,
@@ -29,7 +22,7 @@ E.Options.args.sle.args.chat = {
 					name = L["Chat Fade"],
 					desc = L["Enable/Disable the text fading in the chat window."],
 					get = function(info) return E.db.sle.chat.fade end,
-					set = function(info, value) E.db.sle.chat.fade = value; CH:FadeUpdate() end, 
+					set = function(info, value) E.db.sle.chat.fade = value;  E:GetModule('Chat'):FadeUpdate() end, 
 				},
 				editboxhistory = {
 					order = 2,
@@ -39,6 +32,18 @@ E.Options.args.sle.args.chat = {
 					min = 0, max = 20, step = 1,
 					get = function(info) return E.db.chat.editboxhistory end,
 					set = function(info, value)	E.db.chat.editboxhistory = value; end,
+				},
+				position = {
+					order = 3,
+					type = "select",
+					name = L["Editbox Position"],
+					desc = L["Select if the editbox will be above or below chat."],
+					get = function(info) return E.db.sle.chat.editbox end,
+					set = function(info, value) E.db.sle.chat.editbox = value; E:GetModule('Layout'):EditboxPos() end,
+					values = {
+						['Down'] = L["Below"],
+						['Up'] = L["Above"],
+					},
 				},
 			},
 		},

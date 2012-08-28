@@ -1,4 +1,4 @@
-local E, L, V, P, G =  unpack(ElvUI); -- Import Functions/Constants, Config, Locales
+local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local RU = E:GetModule('RaidUtility');
 local M = E:GetModule('Misc');
 
@@ -6,8 +6,8 @@ E.RaidUtility = RU
 
 --Moved RU down cause of top datatext panels
 function RU:MoveButton()
-	ShowButton:ClearAllPoints()
-	ShowButton:Point("CENTER", E.UIParent, "BOTTOMLEFT", E.db.sle.raidutil.xpos, E.db.sle.raidutil.ypos)
+	RaidUtility_ShowButton:ClearAllPoints()
+	RaidUtility_ShowButton:Point("CENTER", E.UIParent, "BOTTOMLEFT", E.db.sle.raidutil.xpos, E.db.sle.raidutil.ypos)
 end
 
 --For moving raid utility button
@@ -18,5 +18,13 @@ function M:Initialize()
 	RU:MoveButton()
 end
 
+function RU:ToggleButton()
+	if RaidUtility_ShowButton:IsShown() then
+		RaidUtility_ShowButton:Hide()
+	else
+		RaidUtility_ShowButton:Show()
+	end
+end
 
-ShowButton:RegisterForDrag("") --Unregister any buttons for dragging. 
+
+RaidUtility_ShowButton:RegisterForDrag("") --Unregister any buttons for dragging. 

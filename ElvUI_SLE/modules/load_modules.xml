@@ -1,5 +1,4 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">	
-	<Include file='actionbars\load_actionbars.xml'/>
 	<Include file='auras\load_auras.xml'/>
 	<Include file='autorelease\load_autorelease.xml'/>
 	<Include file='backgrounds\load_backgrounds.xml'/>
@@ -7,7 +6,6 @@
 	<Include file='datatexts\load_datatexts.xml'/>
 	<Include file='exprepbar\load_exprepbar.xml'/>
 	<Include file='marks\load_marks.xml'/>
-	<Include file='microbar\load_microbar.xml'/>
 	<Include file='raidutility\load_raidutility.xml'/>
 	<Include file='skins\load_skins.xml'/>
 	<Include file='uibuttons\load_uibuttons.xml'/>

@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G =  unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, GlobalDB
+﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local RU = E:GetModule('RaidUtility')
 
 --Raid Utility
@@ -35,5 +35,12 @@ E.Options.args.sle.args.raidutil = {
 			get = function(info) return E.db.sle.raidutil.ypos end,
 			set = function(info, value) E.db.sle.raidutil.ypos = value; RU:MoveButton() end,
 		},
+		show = {
+		order = 5,
+		type = "execute",
+		name = L["Show Button"],
+		desc = L["Show/hide Raid Utility button.\nThis option is not permanent. The button will act as normal when joining/leaving groups."],
+		func = function() RU:ToggleButton() end,
+		},	
 	},
 }

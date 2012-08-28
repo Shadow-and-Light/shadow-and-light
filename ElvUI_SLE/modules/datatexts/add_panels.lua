@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G =  unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, GlobalDB
+﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local DTP = E:NewModule('DTPanels', 'AceHook-3.0', 'AceEvent-3.0');
 local LO = E:GetModule('Layout');
 
@@ -9,13 +9,14 @@ function LO:Initialize()
 	DTP:CreateDataPanels()
 	DTP:Resize()
 	
-	E:CreateMover(DP_1, "DP_1_Mover", L["DP_1"])
-	E:CreateMover(DP_2, "DP_2_Mover", L["DP_2"])
-	E:CreateMover(DP_3, "DP_3_Mover", L["DP_3"])
-	E:CreateMover(DP_4, "DP_4_Mover", L["DP_4"])
-	E:CreateMover(DP_5, "DP_5_Mover", L["DP_5"])
-	E:CreateMover(Bottom_Panel, "Bottom_Panel_Mover", L["Bottom_Panel"])
-	E:CreateMover(DP_6, "DP_6_Mover", L["DP_6"])
+	E:CreateMover(DP_1, "DP_1_Mover", L["DP_1"], nil, nil, nil, "ALL,S&L")
+	E:CreateMover(DP_2, "DP_2_Mover", L["DP_2"], nil, nil, nil, "ALL,S&L")
+	E:CreateMover(DP_3, "DP_3_Mover", L["DP_3"], nil, nil, nil, "ALL,S&L")
+	E:CreateMover(DP_4, "DP_4_Mover", L["DP_4"], nil, nil, nil, "ALL,S&L")
+	E:CreateMover(DP_5, "DP_5_Mover", L["DP_5"], nil, nil, nil, "ALL,S&L")
+	E:CreateMover(Bottom_Panel, "Bottom_Panel_Mover", L["Bottom_Panel"], nil, nil, nil, "ALL,S&L")
+	E:CreateMover(DP_6, "DP_6_Mover", L["DP_6"], nil, nil, nil, "ALL,S&L")
+	E:CreateMover(Top_Center, "Top_Center_Mover", L["Top_Center"], nil, nil, nil, "ALL,S&L")
 end
 
 -- New panels
@@ -145,7 +146,12 @@ function DTP:ExtraDataBarSetup()
 	else
 		Bottom_Panel:Hide()
 	end
-Top_Center:Show()
+	
+	if E.db.sle.datatext.top.enabled then
+		Top_Center:Show()
+	else
+		Top_Center:Hide()
+	end
 end
 
 function DTP:Update()

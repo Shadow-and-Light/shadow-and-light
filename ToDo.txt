@@ -1,0 +1,8 @@
+==WTF we need to do==
+Steal Hydra's animation code (STOLEN, now to be implemented ;) )
+Rewrite LFR save function to show MoP instances
+Look for more stuff Elv broken after last update (as always lol)
+
+==What we maybe can do==
+Saw an idea about a dot tracker, saw some coding for it will look at it when have time...
+Maybe add the ability to select amount of datatexts on each panel ranging from 1-3 slots

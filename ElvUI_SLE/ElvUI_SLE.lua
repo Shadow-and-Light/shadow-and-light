@@ -1,16 +1,13 @@
-﻿-------------------------------------------------
---Here be Credits
--------------------------------------------------
---Testing line
-local E, L, V, P, G =  unpack(ElvUI); --Engine, Locales, Profile, Global
+﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local SLE = E:NewModule('SLE', 'AceHook-3.0', 'AceEvent-3.0');
 
-function SLE:Initialize()
-	self:RegisterEvent("PLAYER_REGEN_DISABLED", "UpdateThings");
-	if E.db.general.loginmessage then
-		print(L['SLE_LOGIN_MSG'])
-	end
-	E.db.datatexts.panels.Top_Center = 'Version'
+function SLE:Tutorials() --Additional tutorials
+	table.insert(E.TutorialList, #(E.TutorialList)+1, L["To enable full values of health/power on unitframes in Shadow & Light add \":sl\" to the end of the health/power tag.\nExample: [health:current:sl]."]);
+end
+
+function SLE:ConfigCats() --Additional config groups
+	table.insert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L");
+	E.ConfigModeLocalizedStrings["S&L"] = "S&L"
 end
 
 --Updating things that must be updated only after everything loads
@@ -18,7 +15,7 @@ function SLE:UpdateThings()
 	E:GetModule('UnitFrames'):Update_CombatIndicator()
 end
 
-StaticPopupDialogs["VERSION_MISMATCH"] = {
+E.PopupDialogs["VERSION_MISMATCH"] = {
 	text = L["Your version of ElvUI is older than recommended to use with Shadow & Light Edit. Please, download the latest version from tukui.org."],
 	button1 = CLOSE,
 	timeout = 0,
@@ -27,19 +24,35 @@ StaticPopupDialogs["VERSION_MISMATCH"] = {
 }
 
 --Showing warning message about too old versions of ElvUI
-	if tonumber(E.version) < 3.89 then
-		StaticPopup_Show("VERSION_MISMATCH")
-	end
+if tonumber(E.version) < 4.00 then
+	E:StaticPopup_Show("VERSION_MISMATCH")
+end
 
 E.UpdateAllSLE = E.UpdateAll
 function E:UpdateAll()
     E.UpdateAllSLE(self)
+	E:GetModule('BackGrounds'):UpdateFrames()
 	E:GetModule('DTPanels'):Update()
+	E:GetModule('DTPanels'):DashboardShow()
+	E:GetModule('DTPanels'):DashWidth()
 	E:GetModule('UnitFrames'):Update_CombatIndicator()
-	E:GetModule('UIButtons'):Start()
+	E:GetModule('UIButtons'):UpdateAll()
 	E.db.datatexts.panels.Top_Center = 'Version'
 	E:GetModule('DataTexts'):LoadDataTexts() --Prevents datatexts from not changing on profile switch (Elv's issue)
 	E:GetModule('RaidUtility'):MoveButton()
+end
+
+
+function SLE:Initialize()
+	self:RegisterEvent("PLAYER_REGEN_DISABLED", "UpdateThings");
+	if E.db.general.loginmessage then
+		print(L['SLE_LOGIN_MSG'])
+	end
+	E.db.datatexts.panels.Top_Center = 'Version'
+	E:GetModule('DTPanels'):DashboardShow()
+	E:GetModule('Layout'):EditboxPos()
+	SLE:Tutorials()
+	SLE:ConfigCats()
 end
 
 E:RegisterModule(SLE:GetName())

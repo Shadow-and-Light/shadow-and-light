@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G =  unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, GlobalDB
+﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local DTP = E:GetModule('DTPanels')
 local DT = E:GetModule('DataTexts')
 
@@ -51,6 +51,7 @@ E.Options.args.sle.args.datatext = {
 	type = "group",
 	name = L["Datatext Panels"],
 	order = 6,
+	childGroups = "select",
 	args = {
 		header = {
 			order = 1,
@@ -62,11 +63,28 @@ E.Options.args.sle.args.datatext = {
 			type = "description",
 			name = L["DP_DESC"]
 		},
-		top_left = {
+		dashboard = {
 			order = 3,
+			type = "toggle",
+			name = L["Dashboard"],
+			desc = L["Show/Hide dashboard."],
+			get = function(info) return E.db.sle.datatext.dashboard.enable end,
+			set = function(info, value) E.db.sle.datatext.dashboard.enable = value; DTP:DashboardShow() end
+		},
+		width = {
+			order = 4,
+			type = "range",
+			name = L["Dashboard Panels Width"],
+			desc = L["Sets size of dashboard panels."],
+			disabled = function() return not E.db.sle.datatext.dashboard.enable end,
+			min = 75, max = 200, step = 1,
+			get = function(info) return E.db.sle.datatext.dashboard.width end,
+			set = function(info, value) E.db.sle.datatext.dashboard.width = value; DTP:DashWidth() end,
+		},
+		top_left = {
+			order = 1,
 			type = "group",
 			name = L["DP_1"],
-			guiInline = true,
 			args = {
 				enabled = {
 					order = 1,
@@ -89,10 +107,9 @@ E.Options.args.sle.args.datatext = {
 			},
 		},
 		top_center_left = {
-			order = 4,
+			order = 2,
 			type = "group",
 			name = L["DP_2"],
-			guiInline = true,
 			args = {
 				enabled = {
 					order = 1,
@@ -115,19 +132,17 @@ E.Options.args.sle.args.datatext = {
 			},
 		},
 		top = {
-			order = 5,
+			order = 3,
 			type = "group",
 			name = L["Top_Center"],
-			guiInline = true,
 			args = {
 				enabled = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
 					desc = L["Show/Hide this panel."],
-					disabled = true,
 					get = function(info) return E.db.sle.datatext.top.enabled end,
-					set = function(info, value) E.db.sle.datatext.top.enabled = value; end
+					set = function(info, value) E.db.sle.datatext.top.enabled = value; DTP:ExtraDataBarSetup() end
 				},
 				width = {
 					order = 2,
@@ -141,10 +156,9 @@ E.Options.args.sle.args.datatext = {
 			},
 		},
 		top_center_right = {
-			order = 6,
+			order = 4,
 			type = "group",
 			name = L["DP_3"],
-			guiInline = true,
 			args = {
 				enabled = {
 					order = 1,
@@ -167,10 +181,9 @@ E.Options.args.sle.args.datatext = {
 			},
 		},
 		top_right = {
-			order = 7,
+			order = 5,
 			type = "group",
 			name = L["DP_4"],
-			guiInline = true,
 			args = {
 				enabled = {
 					order = 1,
@@ -193,10 +206,9 @@ E.Options.args.sle.args.datatext = {
 			},
 		},
 		bottom_left = {
-			order = 8,
+			order = 6,
 			type = "group",
 			name = L["DP_5"],
-			guiInline = true,
 			args = {
 				enabled = {
 					order = 1,
@@ -219,10 +231,9 @@ E.Options.args.sle.args.datatext = {
 			},
 		},
 		bottom = {
-			order = 9,
+			order = 7,
 			type = "group",
 			name = L["Bottom_Panel"],
-			guiInline = true,
 			args = {
 				enabled = {
 					order = 1,
@@ -245,10 +256,9 @@ E.Options.args.sle.args.datatext = {
 			},
 		},
 		bottom_right = {
-			order = 10,
+			order = 8,
 			type = "group",
 			name = L["DP_6"],
-			guiInline = true,
 			args = {
 				enabled = {
 					order = 1,
@@ -271,10 +281,9 @@ E.Options.args.sle.args.datatext = {
 			},
 		},
 		chat_left = {
-			order = 11,
+			order = 9,
 			type = "group",
 			name = L["Left Chat"],
-			guiInline = true,
 			args = {
 				enabled = {
 					order = 1,
@@ -298,10 +307,9 @@ E.Options.args.sle.args.datatext = {
 			},
 		},
 		chat_right = {
-			order = 12,
+			order = 10,
 			type = "group",
 			name = L["Right Chat"],
-			guiInline = true,
 			args = {
 				enabled = {
 					order = 1,

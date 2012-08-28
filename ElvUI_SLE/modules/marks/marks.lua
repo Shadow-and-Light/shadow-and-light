@@ -1,5 +1,5 @@
 ﻿--Raid mark bar. Similar to quickmark which just semms to be impossible to skin
-local E, L, V, P, G = unpack(ElvUI); --Engine
+local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local RM = E:NewModule('RaidMarks', 'AceHook-3.0', 'AceEvent-3.0');
 
 local mark_menu = CreateFrame("Frame", "Mark_Menu", E.UIParent)
@@ -14,7 +14,7 @@ local m8 = CreateFrame("Button", "M8", Mark_Menu, "SecureActionButtonTemplate")
 
 --Main frame
 function RM:CreateFrame()
-	mark_menu:Point('BOTTOMRIGHT', RightChatTab, 'TOPRIGHT', 2, 40) --Default positon
+	mark_menu:Point("BOTTOMRIGHT", RightChatTab, "TOPRIGHT", 2, 3) --Default positon
 	mark_menu:SetFrameStrata('LOW');
 	mark_menu:CreateBackdrop('Default');
 	mark_menu.backdrop:SetAllPoints();
@@ -199,7 +199,7 @@ function RM:Initialize()
 	RM:SetButtonAttributes()
 	RM:UpdateVisibility()
 	
-	E:CreateMover(mark_menu, "MarkMover", "RM")
+	E:CreateMover(mark_menu, "MarkMover", "RM", nil, nil, nil, "ALL,S&L")
 end
 
 E:RegisterModule(RM:GetName())

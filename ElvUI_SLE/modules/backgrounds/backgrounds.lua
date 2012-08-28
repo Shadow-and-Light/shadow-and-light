@@ -1,5 +1,4 @@
-﻿--Submodule to create several backgrounds for some elements
-local E, L, V, P, G =  unpack(ElvUI); --Engine
+﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local BG = E:NewModule('BackGrounds', 'AceHook-3.0', 'AceEvent-3.0');
 
 local BGbottom = CreateFrame('Frame', "BottomBG", E.UIParent);
@@ -10,7 +9,7 @@ local BGaction = CreateFrame('Frame', "ActionBG", E.UIParent);
 --Frames setup
 function BG:FramesCreate()
 	--Bottom
-	BGbottom:CreateBackdrop('Default');
+	BGbottom:CreateBackdrop(E.private.sle.backgrounds.bottom.template);
 	BGbottom.backdrop:SetAllPoints();
 	BGbottom:SetFrameLevel(5);
 	BGbottom:SetFrameStrata('BACKGROUND');
@@ -20,7 +19,7 @@ function BG:FramesCreate()
 	BGbottom.tex:SetAlpha(0.5)
 
 	--Left
-	BGleft:CreateBackdrop('Transparent');
+	BGleft:CreateBackdrop(E.private.sle.backgrounds.left.template);
 	BGleft.backdrop:SetAllPoints();
 	BGleft:SetFrameLevel(5);
 	BGleft:SetFrameStrata('BACKGROUND');
@@ -29,7 +28,7 @@ function BG:FramesCreate()
 	BGleft.tex:SetAlpha(E.db.general.backdropfadecolor.a - 0.7 > 0 and E.db.general.backdropfadecolor.a - 0.7 or 0.5)
 
 	--Right
-	BGright:CreateBackdrop('Transparent');
+	BGright:CreateBackdrop(E.private.sle.backgrounds.right.template);
 	BGright.backdrop:SetAllPoints();
 	BGright:SetFrameLevel(5);
 	BGright:SetFrameStrata('BACKGROUND');
@@ -38,7 +37,7 @@ function BG:FramesCreate()
 	BGright.tex:SetAlpha(E.db.general.backdropfadecolor.a - 0.7 > 0 and E.db.general.backdropfadecolor.a - 0.7 or 0.5)	
 
 	--Action
-	BGaction:CreateBackdrop('Default');
+	BGaction:CreateBackdrop(E.private.sle.backgrounds.action.template);
 	BGaction.backdrop:SetAllPoints();
 	BGaction:SetFrameLevel(5);
 	BGaction:SetFrameStrata('BACKGROUND');

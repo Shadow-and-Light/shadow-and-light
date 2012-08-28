@@ -1,0 +1,7 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="dashboard.lua"/>
+	<Script file="datapanels\durability.lua"/>
+	<Script file="datapanels\bags.lua"/>
+	<Script file="datapanels\fps.lua"/>
+	<Script file="datapanels\ms.lua"/>
+</Ui>

@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 
 P['sle'] = {
 	--Background frames
@@ -48,8 +48,14 @@ P['sle'] = {
 		['size'] = 18,
 	},
 	
-	--Balance text
-	['bpenable'] = false;
+	--Exp/Rep Bar
+	['exprep'] = {
+		['explong'] = false,
+		['replong'] = false,
+	},
+	
+	--Power text on classbars
+	['powtext'] = false;
 	
 	--Auto release
 	['pvpautorelease'] = true,
@@ -96,6 +102,10 @@ P['sle'] = {
 			['enabled'] = true,
 			['width'] = 396,
 		},
+		['dashboard'] = {
+			['enable'] = false,
+			['width'] = 100,
+		},
 	},
 	
 	--Raid Utility
@@ -104,22 +114,9 @@ P['sle'] = {
 		['ypos'] = E.screenheight - 16,
 	},
 	
-	--Exp/Rep info
-	['xprepinfo'] = {
-		['enabled'] = false,
-		['xprepdet'] = false,
-		['repreact'] = false,
-		['xprest'] = false,
-	},
-	
-	--PvP indicator
-	['pvp'] = {
-		['pos'] = 'CENTER',
-		['mouse'] = true,
-	},
-	
 	--Combat Icon
 	['combatico'] = {
+		['enable'] = true,
 		['pos'] = 'TOP',
 	},
 	
@@ -131,42 +128,17 @@ P['sle'] = {
 		['position'] = "uib_vert",
 	},
 	
-	--Pet Bar Autocast
-	['petbar'] = {
-		['autocast'] = true,
-	},
-	
 	--Chat
 	['chat'] = {
 		['fade'] = false,
-		['sound'] = false,
-		['warningsound'] = "ElvUI Warning",
+		['editbox'] = "Down",
 	},
 	
-	--Unit Frames text formatting
-	['unitframes'] = {
-		['reverse'] = {
-			['health'] = false,
-			['mana'] = false,
-		},
-		['normal'] = {
-			['health'] = false,
-			['mana'] = false,
-		},
+	['vengeance'] = {
+		['enable'] = true,
+		['width'] = 408,
+		['height'] = 18,
 	},
-}
-
-P['microbar'] = {
-	['enable'] = true,
-	['mouse'] = false, --Mouseover
-    ['backdrop'] = true, --Backdrop
-	['combat'] = false, --Hide in combat
-	['alpha'] = 1, --Transparency
-	['scale'] = 1, --Scale
-	['layout'] = "Micro_Hor", --Button layuot format
-	['xoffset'] = 0,
-	['yoffset'] = 0,
-	['symbolic'] = false,
 }
 
 --For some reason datatext settings refuses to work if there is no general setting block here O_o
@@ -178,34 +150,53 @@ P['general'] = {
 	['loginmessage'] = true,
 	["interruptAnnounce"] = "NONE",
 	["autoRepair"] = "NONE",
+	['autoRoll'] = false,
 	['vendorGrays'] = false,
 	['autoAcceptInvite'] = false,
-	
-	-- fonts
-	["fontsize"] = 11,
-	["font"] = "ElvUI Pixel",
-	
-	--colors
+
+	["fontSize"] = 12,
+	["font"] = "ElvUI Font",
+
 	["bordercolor"] = { r = 0.1,g = 0.1,b = 0.1 },
 	["backdropcolor"] = { r = 0.1,g = 0.1,b = 0.1 },
 	["backdropfadecolor"] = { r = .054,g = .054,b = .054, a = 0.8 },
 	["valuecolor"] = {r = 23/255,g = 132/255,b = 209/255},
-	
-	--panels
-	['panelWidth'] = 412,
-	['panelHeight'] = 180,
-	['panelBackdropNameLeft'] = '',
-	['panelBackdropNameRight'] = '',
-	['panelBackdrop'] = 'SHOWBOTH',
-	['expRepPos'] = 'TOP_SCREEN',
-	
-	--misc
-	['mapTransparency'] = 1,
-	['minimapSize'] = 176,
-	['raidReminder'] = true,
-	['minimapPanels'] = true,
+
+	['mapAlpha'] = 1,
 	['tinyWorldMap'] = true,
-	['minimapLocationText'] = 'MOUSEOVER',
+	
+	['minimap'] = {
+		['size'] = 176,
+		['locationText'] = 'MOUSEOVER',
+	},	
+	
+	['experience'] = {
+		['enable'] = true,
+		['width'] = 475,
+		['height'] = 10,
+		['textFormat'] = 'NONE',
+		['textSize'] = 11,
+	},
+	['reputation'] = {
+		['enable'] = true,
+		['width'] = 475,
+		['height'] = 10,
+		['textFormat'] = 'NONE',
+		['textSize'] = 11,
+	},
+	['threat'] = {
+		['enable'] = true,
+		['position'] = 'RIGHTCHAT',
+		['textSize'] = 12,
+	},
+	['totems'] = {
+		['enable'] = true,
+		['growthDirection'] = 'VERTICAL',
+		['sortDirection'] = 'ASCENDING',
+		['size'] = 40,
+		['spacing'] = 4,
+		['showBackdrop'] = false,
+	}
 };
 
 P.chat.editboxhistory = 5
@@ -214,6 +205,10 @@ P.auras.perRow = 19
 --Datatexts
 if IsAddOnLoaded("ElvUI_LocPlus") then
 P['datatexts'] = {
+	['font'] = 'ElvUI Font',
+	['fontSize'] = 12,
+	['fontOutline'] = 'NONE',
+	
 	['panels'] = {
 		['LeftChatDataPanel'] = {
 			['left'] = 'Armor',
@@ -264,9 +259,14 @@ P['datatexts'] = {
 	['localtime'] = true,
 	['time24'] = false,
 	['battleground'] = true,
+	['minimapPanels'] = true,
 }
 else
 P['datatexts'] = {
+	['font'] = 'ElvUI Font',
+	['fontSize'] = 12,
+	['fontOutline'] = 'NONE',
+	
 	['panels'] = {
 		['LeftChatDataPanel'] = {
 			['left'] = 'Armor',
@@ -315,10 +315,10 @@ P['datatexts'] = {
 	['localtime'] = true,
 	['time24'] = false,
 	['battleground'] = true,
+	['minimapPanels'] = true,
 }
 end
 
 P.unitframe.units.player.classbar.xOffset = 0
 P.unitframe.units.player.classbar.yOffset = 0
 P.unitframe.units.player.classbar.offset = false
-

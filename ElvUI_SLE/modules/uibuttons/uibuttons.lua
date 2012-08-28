@@ -1,4 +1,4 @@
-local E, L, V, P, G =  unpack(ElvUI); --Engine
+local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local UB = E:NewModule('UIButtons', 'AceHook-3.0', 'AceEvent-3.0');
 
 local UIBFrame = CreateFrame('Frame', "UIBFrame", E.UIParent);
@@ -11,7 +11,7 @@ local Abutton = CreateFrame("Button", "Abutton", UIBFrame, "SecureActionButtonTe
 function UB:CreateFrame()
 	UIBFrame:SetFrameLevel(5);
 	UIBFrame:SetFrameStrata('BACKGROUND');
-	UIBFrame:Point("LEFT", E.UIParent, "LEFT", -2, 0); 
+	UIBFrame:Point("LEFT", E.UIParent, "LEFT", -2, 0);
 	
 	UIBFrame:SetScript("OnUpdate", function(self,event,...)
 		UB:Mouseover()
@@ -129,7 +129,7 @@ function UB:CreateButtons()
 	Abutton:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_TOP", 30,0)
 		GameTooltip:AddLine(L["AddOns Manager"], .6, .6, .6, .6, .6, 1)
-		GameTooltip:AddLine(L["Click to toogle the AddOn Managerframe (stAddOnManager or ACP) you have enabled."], 1, 1, 1, 1, 1, 1)
+		GameTooltip:AddLine(L["Click to toogle the AddOn Manager frame (stAddOnManager or ACP) you have enabled."], 1, 1, 1, 1, 1, 1)
 		GameTooltip:Show()
 	end)
 	
@@ -180,11 +180,11 @@ end
 
 function UB:MoverSize()
 	if E.db.sle.uibuttons.position == "uib_vert" then
-		UIBFrame.mover:SetWidth(E.db.sle.uibuttons.size + 8)
-		UIBFrame.mover:SetHeight((E.db.sle.uibuttons.size + 5) * 5 + 3)
+		UIBFrame:SetWidth(E.db.sle.uibuttons.size + 8)
+		UIBFrame:SetHeight((E.db.sle.uibuttons.size + 5) * 5 + 3)
 	else
-		UIBFrame.mover:SetWidth((E.db.sle.uibuttons.size + 5) * 5 + 3)
-		UIBFrame.mover:SetHeight(E.db.sle.uibuttons.size + 8)
+		UIBFrame:SetWidth((E.db.sle.uibuttons.size + 5) * 5 + 3)
+		UIBFrame:SetHeight(E.db.sle.uibuttons.size + 8)
 	end
 end
 
@@ -220,7 +220,7 @@ function UB:Initialize()
 	UB:CreateButtons()
 	UB:Start()
 	
-	E:CreateMover(UIBFrame, "UIBFrameMover", L["UI Buttons"])
+	E:CreateMover(UIBFrame, "UIBFrameMover", L["UI Buttons"], nil, nil, nil, "ALL,S&L")
 	UB:MoverSize()
 end
 

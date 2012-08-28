@@ -9,8 +9,7 @@ LO.ToggleChatPanelsSLE = LO.ToggleChatPanels
 function LO:ToggleChatPanels()
 	LO.ToggleChatPanelsSLE(self)
 
-	--I've made replacement only for show both setting. I'm using only those atm. will do more later
-	if E.db.general.panelBackdrop == 'SHOWBOTH' then
+	if E.db.chat.panelBackdrop == 'SHOWBOTH' then
 		LeftChatPanel.backdrop:Show()
 		LeftChatTab:Show()
 		RightChatPanel.backdrop:Show()
@@ -22,7 +21,7 @@ function LO:ToggleChatPanels()
 		RightChatDataPanel:Point('TOPRIGHT', RightChatPanel, 'BOTTOMRIGHT', -SIDE_BUTTON_WIDTH, -1)	--upper-right corner of right datapanel	
 		LeftChatToggleButton:Point('BOTTOMLEFT', LeftChatPanel, 'BOTTOMLEFT', 0, -21)
 		RightChatToggleButton:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -21)
-	elseif E.db.general.panelBackdrop == 'HIDEBOTH' then
+	elseif E.db.chat.panelBackdrop == 'HIDEBOTH' then
 		LeftChatPanel.backdrop:Hide()
 		LeftChatTab:Hide()
 		RightChatPanel.backdrop:Hide()
@@ -34,7 +33,7 @@ function LO:ToggleChatPanels()
 		RightChatDataPanel:Point('TOPRIGHT', RightChatPanel, 'BOTTOMRIGHT', -SIDE_BUTTON_WIDTH, -1)	--upper-right corner of right datapanel	
 		LeftChatToggleButton:Point('BOTTOMLEFT', LeftChatPanel, 'BOTTOMLEFT', 0, -21)
 		RightChatToggleButton:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -21)
-	elseif E.db.general.panelBackdrop == 'LEFT' then
+	elseif E.db.chat.panelBackdrop == 'LEFT' then
 		LeftChatPanel.backdrop:Show()
 		LeftChatTab:Show()
 		RightChatPanel.backdrop:Hide()
@@ -80,4 +79,20 @@ function LO:CreateChatPanels()
 	--Right Chat Tab
 	RightChatTab:Point('TOPRIGHT', RightChatPanel, 'TOPRIGHT', -2, -2)
 	RightChatTab:Point('BOTTOMLEFT', RightChatPanel, 'TOPLEFT', 2, -PANEL_HEIGHT)
+end
+
+--Repositioning function for editbox
+function LO:EditboxPos()
+	for i = 1, NUM_CHAT_WINDOWS do
+		local editbox = _G["ChatFrame"..i.."EditBox"]
+		local parent
+		if E.db.sle.chat.editbox == "Down" then
+			parent = LeftChatDataPanel
+		else
+			parent = LeftChatTab
+		end
+		editbox:ClearAllPoints()
+		editbox:SetPoint("TOPLEFT", parent, "TOPLEFT")
+		editbox:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT")
+	end
 end

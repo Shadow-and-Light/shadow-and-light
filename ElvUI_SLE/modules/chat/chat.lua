@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G =  unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, GlobalDB
+﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local CH = E:GetModule('Chat')
 local LSM = LibStub("LibSharedMedia-3.0")
 
@@ -9,9 +9,9 @@ function CH:FadeUpdate()
 	end
 end
 
-CH.StyleChatRE = CH.StyleChat
+CH.StyleChatSLE = CH.StyleChat
 function CH:StyleChat(frame)
-	self:StyleChatRE(frame)
+	self:StyleChatSLE(frame)
 	local name = frame:GetName()
 	if E.db.sle.chat.fade then
 		_G[name]:SetFading(true) --Enable chat text fading after some time
@@ -43,8 +43,8 @@ end
 function CH:PositionChat(override)
 	if (InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override) then return end
 	
-	RightChatPanel:Size(E.db.general.panelWidth, E.db.general.panelHeight)
-	LeftChatPanel:Size(E.db.general.panelWidth, E.db.general.panelHeight)	
+	RightChatPanel:Size(E.db.chat.panelWidth, E.db.chat.panelHeight)
+	LeftChatPanel:Size(E.db.chat.panelWidth, E.db.chat.panelHeight)	
 	
 	if E.private.chat.enable ~= true then return end
 	
@@ -94,11 +94,11 @@ function CH:PositionChat(override)
 		if id ~= 2 then
 			chat:ClearAllPoints()
 			chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3) -- <<< Changed
-			chat:SetSize(E.db.general.panelWidth - 6, (E.db.general.panelHeight - 27)) -- <<< Changed
+			chat:SetSize(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - 27)) -- <<< Changed
 		else
 			chat:ClearAllPoints()
-			chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3)
-			chat:Size(E.db.general.panelWidth - 6, (E.db.general.panelHeight - 27) - CombatLogQuickButtonFrame_Custom:GetHeight())				
+			chat:Point("BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 10, 3)
+			chat:Size(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - 27) - CombatLogQuickButtonFrame_Custom:GetHeight())				
 		end
 
 		FCF_SavePositionAndDimensions(chat)			
@@ -106,7 +106,7 @@ function CH:PositionChat(override)
 		tab:SetParent(RightChatPanel)
 		chat:SetParent(tab)
 		
-		if E.db.general.panelBackdrop == 'HIDEBOTH' or E.db.general.panelBackdrop == 'LEFT' then
+		if E.db.chat.panelBackdrop == 'HIDEBOTH' or E.db.chat.panelBackdrop == 'LEFT' then
 			CH:SetupChatTabs(tab, true)
 		else
 			CH:SetupChatTabs(tab, false)
@@ -120,13 +120,13 @@ function CH:PositionChat(override)
 		if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
 			chat:ClearAllPoints()
 			chat:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 1, 3)
-			chat:Size(E.db.general.panelWidth - 6, (E.db.general.panelHeight - 27)) -- <<< Changed
+			chat:Size(E.db.chat.panelWidth - 6, (E.db.chat.panelHeight - 27)) -- <<< Changed
 			FCF_SavePositionAndDimensions(chat)		
 		end
 		chat:SetParent(LeftChatPanel)
 		tab:SetParent(GeneralDockManager)
 		
-		if E.db.general.panelBackdrop == 'HIDEBOTH' or E.db.general.panelBackdrop == 'RIGHT' then
+		if E.db.chat.panelBackdrop == 'HIDEBOTH' or E.db.chat.panelBackdrop == 'RIGHT' then
 			CH:SetupChatTabs(tab, true)
 		else
 			CH:SetupChatTabs(tab, false)

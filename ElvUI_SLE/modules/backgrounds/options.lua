@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G =  unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, GlobalDB
+﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local BG = E:GetModule('BackGrounds')
 
 --Options for additional background frames. Main group
@@ -120,6 +120,18 @@ E.Options.args.sle.args.backgrounds.args.bottom = {
 				BG:UpdateTex()
 			end,
 		},
+		template = {
+			order = 9,
+			type = "select",
+			name = L["Backdrop Template"],
+			desc = L["Change the template used for this backdrop."],
+			get = function(info) return E.private.sle.backgrounds.bottom.template end,
+			set = function(info, value) E.private.sle.backgrounds.bottom.template = value; E:StaticPopup_Show("PRIVATE_RL") end,
+			values = {
+				['Default'] = L["Default"],
+				['Transparent'] = L["Transparent"],
+			},
+		},
 	},
 }
 --Subgroup for 2nd frame
@@ -182,6 +194,18 @@ E.Options.args.sle.args.backgrounds.args.left = {
 				E:UpdateMedia()
 				BG:UpdateTex()
 			end,
+		},
+		template = {
+			order = 9,
+			type = "select",
+			name = L["Backdrop Template"],
+			desc = L["Change the template used for this backdrop."],
+			get = function(info) return E.private.sle.backgrounds.left.template end,
+			set = function(info, value) E.private.sle.backgrounds.left.template = value; E:StaticPopup_Show("PRIVATE_RL") end,
+			values = {
+				['Default'] = L["Default"],
+				['Transparent'] = L["Transparent"],
+			},
 		},
 	},
 }
@@ -246,6 +270,18 @@ E.Options.args.sle.args.backgrounds.args.right = {
 				BG:UpdateTex()
 			end,
 		},
+		template = {
+			order = 9,
+			type = "select",
+			name = L["Backdrop Template"],
+			desc = L["Change the template used for this backdrop."],
+			get = function(info) return E.private.sle.backgrounds.right.template end,
+			set = function(info, value) E.private.sle.backgrounds.right.template = value; E:StaticPopup_Show("PRIVATE_RL") end,
+			values = {
+				['Default'] = L["Default"],
+				['Transparent'] = L["Transparent"],
+			},
+		},
 	},
 }
 --Subgroup for 4th frame
@@ -308,6 +344,18 @@ E.Options.args.sle.args.backgrounds.args.action = {
 				E:UpdateMedia()
 				BG:UpdateTex()
 			end,
+		},
+		template = {
+			order = 9,
+			type = "select",
+			name = L["Backdrop Template"],
+			desc = L["Change the template used for this backdrop."],
+			get = function(info) return E.private.sle.backgrounds.action.template end,
+			set = function(info, value) E.private.sle.backgrounds.action.template = value; E:StaticPopup_Show("PRIVATE_RL") end,
+			values = {
+				['Default'] = L["Default"],
+				['Transparent'] = L["Transparent"],
+			},
 		},
 	},
 }

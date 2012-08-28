@@ -2,6 +2,7 @@
 local UF = E:GetModule('UnitFrames')
 local AB = E:GetModule('ActionBars')
 local CH = E:GetModule('Chat')
+local A = E:GetModule('Auras')
 
 --Main options group
 E.Options.args.sle = {
@@ -32,23 +33,6 @@ E.Options.args.sle = {
 					desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
 					get = function(info) return E.db.datatexts.lfrshow end,
 					set = function(info, value) E.db.datatexts.lfrshow = value; end
-				},
-				aurasize = {
-					order = 3,
-					type = "range",
-					name = L["Aura Size"],
-					desc = L["Sets size of auras. This setting is character based."],
-					min = 20, max = 50, step = 1,
-					get = function(info) return E.private.sle.auras.size end,
-					set = function(info, value) E.private.sle.auras.size = value; StaticPopup_Show("PRIVATE_RL") end,
-				},
-				petautocast = {
-					order = 5,
-					type = "toggle",
-					name = L["Pet autocast corners"],
-					desc = L["Show/hide triangles in corners of autocastable buttons."],
-					get = function(info) return E.db.sle.petbar.autocast end,
-					set = function(info, value) E.db.sle.petbar.autocast = value; AB:UpdatePet() end
 				},
 			},
 		},

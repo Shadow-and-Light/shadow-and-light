@@ -1,3 +1,23 @@
+v1.1 (August 28, 2012)
+- (Backend) Optimize Druid Resource
+- (Backend) Private options now use Elv's popus
+- Added Demonic Fury number on warlock classbar
+- Added debuff resizing
+- Added hiding for combat ico
+- Readded castername in buff/debuff icon due to darth rewriting auras.lua and not doing his job
+- Moved options for auras to its own category
+- Removed some skinning of addons as we are now working with Azilroka on the skinning package.
+- Removed embed right fix due it being removed from ElvUI
+- Fixed the chat text going over the panel's border
+- Options for full values on hp/power text changed due to ElvUI's changes in text formatting. Now you can use tags. Just add a ":sl" at the end of the health or power tag to get full value. Doesn't work with percent.
+- Background frames now have an option for transparancy
+- Exp/Rep bar text options were changed to show full or short values
+- Added an option to move editbox for chat pannels
+- PvP text options were removed, ElvUI now has it's own
+- Removed Skada and DBM skins
+- Removed Pet Autocast option
+- Changed positions of some options
+
 v1.03 (July 25, 2012)
 - Fixed Combatlog not anchoring correctly in right panel as the only chat window
 - Fixed Microbar Bug (Leave combat issue)
@@ -19,3 +39,7 @@ v1.01 (July 11, 2012)
 
 v1.0 (July 7, 2012)
 - Inital Release
+
+===Things done in beta, not looked at in live yet.===
+- Skinned more of the Blizzard Interface Options (Raid Profiles Section)
+- Skinned additional button in interface options area
