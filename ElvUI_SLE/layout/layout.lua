@@ -83,6 +83,7 @@ end
 
 --Repositioning function for editbox
 function LO:EditboxPos()
+	if not E.private.chat.enable then return end
 	for i = 1, NUM_CHAT_WINDOWS do
 		local editbox = _G["ChatFrame"..i.."EditBox"]
 		local parent

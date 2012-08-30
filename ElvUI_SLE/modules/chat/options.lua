@@ -38,6 +38,7 @@ E.Options.args.sle.args.chat = {
 					type = "select",
 					name = L["Editbox Position"],
 					desc = L["Select if the editbox will be above or below chat."],
+					disabled = function() return not E.private.chat.enable end,
 					get = function(info) return E.db.sle.chat.editbox end,
 					set = function(info, value) E.db.sle.chat.editbox = value; E:GetModule('Layout'):EditboxPos() end,
 					values = {
