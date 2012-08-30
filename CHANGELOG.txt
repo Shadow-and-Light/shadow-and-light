@@ -1,3 +1,6 @@
+v1.11 (August 30, 2012)
+- Fixrd editbox positioning when ElvUI chat is disabled
+
 v1.1 (August 28, 2012)
 - (Backend) Optimize Druid Resource
 - (Backend) Private options now use Elv's popus
