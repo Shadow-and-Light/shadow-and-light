@@ -1,3 +1,5 @@
+v1.12 (August 31, 2012)
+- Fixed Time Datatext error
 v1.11 (August 30, 2012)
 - Fixrd editbox positioning when ElvUI chat is disabled
 
