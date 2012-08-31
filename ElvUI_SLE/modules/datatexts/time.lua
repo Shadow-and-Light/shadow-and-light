@@ -100,7 +100,7 @@ end
 
 local function formatResetTime(sec)
 	local d,h,m,s = ChatFrame_TimeBreakDown(floor(sec))
-	if not d or not h or not m or not s then
+	if not type(d) == 'number' or not type(h)== 'number' or not type(m) == 'number' or not type(s) == 'number' then
 		return 'N/A'
 	end
 	
@@ -191,7 +191,7 @@ local function OnEnter(self)
 	local oneraid, lockoutColor
 	for i = 1, GetNumSavedInstances() do
 		local name, _, reset, difficulty, locked, extended, _, isRaid, maxPlayers, _, numEncounters, encounterProgress  = GetSavedInstanceInfo(i)
-		if isRaid and (locked or extended) then
+		if isRaid and (locked or extended) and name then
 			local tr,tg,tb,diff
 			if not oneraid then
 				GameTooltip:AddLine(" ")
@@ -199,7 +199,10 @@ local function OnEnter(self)
 				oneraid = true
 			end
 			if extended then lockoutColor = lockoutColorExtended else lockoutColor = lockoutColorNormal end
-			GameTooltip:AddDoubleLine(format(lockoutInfoFormat, maxPlayers, difficultyInfo[difficulty], name, encounterProgress, numEncounters), formatResetTime(reset), 1,1,1, lockoutColor.r,lockoutColor.g,lockoutColor.b)
+			local formatTime = formatResetTime(reset)
+			if difficultyInfo[difficulty] and encounterProgress and numEncounters and formatTime and lockoutColor then
+				GameTooltip:AddDoubleLine(format(lockoutInfoFormat, maxPlayers, difficultyInfo[difficulty], name, encounterProgress, numEncounters), formatTime, 1,1,1, lockoutColor.r,lockoutColor.g,lockoutColor.b)
+			end
 		end
 	end	
 	
@@ -254,5 +257,4 @@ end
 	onEnterFunc - function to fire OnEnter
 	onLeaveFunc - function to fire OnLeave, if not provided one will be set for you that hides the tooltip.
 ]]
-DT:RegisterDatatext("Time", nil, nil, Update, Click, OnEnter, OnLeave)
-
+DT:RegisterDatatext('Time', nil, nil, Update, Click, OnEnter, OnLeave)
