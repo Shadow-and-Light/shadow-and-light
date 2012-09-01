@@ -230,6 +230,12 @@ function E:SetupTheme(theme, noDisplayMsg)
 		E.db.general.valuecolor = E:GetColor(.09, .819, .513)
 	end
 
+	--[[
+	Elv Has This... Why aren't we coping it over?
+	if not noDisplayMsg then
+		E:UpdateAll(true)
+	end
+	]]
 	E:UpdateAll(true)
 
 	InstallStatus:SetStatusBarColor(unpack(E['media'].rgbvaluecolor))
@@ -484,6 +490,46 @@ function E:SetupLayout(layout, noDataReset)
 	local DT = E:GetModule('DataTexts')
 	DT:LoadDataTexts()
 end
+
+
+local function SetupAuras(useAuraBars)
+	E:CopyTable(E.db.unitframe.units.player.buffs, P.unitframe.units.player.buffs)
+	E:CopyTable(E.db.unitframe.units.player.debuffs, P.unitframe.units.player.debuffs)
+	E:CopyTable(E.db.unitframe.units.player.aurabar, P.unitframe.units.player.aurabar)
+	
+	E:CopyTable(E.db.unitframe.units.target.buffs, P.unitframe.units.target.buffs)
+	E:CopyTable(E.db.unitframe.units.target.debuffs, P.unitframe.units.target.debuffs)	
+	E:CopyTable(E.db.unitframe.units.target.aurabar, P.unitframe.units.target.aurabar)
+	E.db.unitframe.units.target.smartAuraDisplay = P.unitframe.units.target.smartAuraDisplay
+	
+	E:CopyTable(E.db.unitframe.units.focus.buffs, P.unitframe.units.focus.buffs)
+	E:CopyTable(E.db.unitframe.units.focus.debuffs, P.unitframe.units.focus.debuffs)	
+	E:CopyTable(E.db.unitframe.units.focus.aurabar, P.unitframe.units.focus.aurabar)
+	E.db.unitframe.units.focus.smartAuraDisplay = P.unitframe.units.focus.smartAuraDisplay		
+	
+	if not useAuraBars then
+		--PLAYER
+		E.db.unitframe.units.player.buffs.enable = true;
+		E.db.unitframe.units.player.buffs.attachTo = 'FRAME';
+		E.db.unitframe.units.player.buffs.noDuration = 'NONE';
+		
+		E.db.unitframe.units.player.debuffs.attachTo = 'BUFFS';
+
+		E.db.unitframe.units.player.aurabar.enable = false;
+		
+		--TARGET
+		E.db.unitframe.units.target.smartAuraDisplay = 'DISABLED';
+		E.db.unitframe.units.target.debuffs.enable = true;
+		E.db.unitframe.units.target.aurabar.enable = false;
+	end
+
+	E:GetModule('UnitFrames'):Update_AllFrames()	
+	if InstallStepComplete then
+		InstallStepComplete.message = L["Auras Set"]
+		InstallStepComplete:Show()		
+	end	
+end
+
 
 function E:DarthSetup() --The function to switch from classic ElvUI settings to Darth's
 	InstallStepComplete.message = L["Darth's Defaults Set"]
@@ -1437,6 +1483,8 @@ local function ResetAll()
 end
 
 local function SetPage(PageNum)
+	--Elv Has
+	--CURRENT_PAGE = PageNum
 	ResetAll()
 	InstallStatus:SetValue(PageNum)
 
@@ -1529,7 +1577,18 @@ local function SetPage(PageNum)
 		InstallOption4Button:Show()
 		InstallOption4Button:SetScript('OnClick', function() E.db.layoutSet = nil; E:SetupLayout('dpsCaster') end)
 		InstallOption4Button:SetText(L['Caster DPS'])
-	elseif PageNum == 7 then --The new page
+	elseif PageNum == 7 then
+		f.SubTitle:SetText(L["Auras System"])
+		f.Desc1:SetText(L["Select the type of aura system you want to use with ElvUI's unitframes. The integrated system utilizes both aura-bars and aura-icons. The icons only system will display only icons and aurabars won't be used."])
+		f.Desc2:SetText(L["If you have an icon or aurabar that you don't want to display simply hold down shift and right click the icon for it to disapear."])
+		f.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript('OnClick', function() SetupAuras(true) end)
+		InstallOption1Button:SetText(L['Integrated'])
+		InstallOption2Button:Show()
+		InstallOption2Button:SetScript('OnClick', function() SetupAuras() end)
+		InstallOption2Button:SetText(L['Icons Only'])
+	elseif PageNum == 8 then --The new page
 		f.SubTitle:SetText(L["Shadow & Light Settings"])
 		f.Desc1:SetText(L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."])
 		f.Desc2:SetText(L["SLE_Install_Text2"])
@@ -1544,7 +1603,7 @@ local function SetPage(PageNum)
 		InstallOption3Button:Show()
 		InstallOption3Button:SetScript('OnClick', function() E:ElvSetup() end)
 		InstallOption3Button:SetText(L["Elv's Defaults"])
-	elseif PageNum == 8 and IsAddOnLoaded("ElvUI_Hud") then --Hud's page if enabled
+	elseif PageNum == 9 and IsAddOnLoaded("ElvUI_Hud") then --Hud's page if enabled
 		f.SubTitle:SetText("ElvUI Hud")
 		f.Desc1:SetText(L["Thank you for using ElvUI Hud!"])
 		f.Desc2:SetText(L["Here you can choose between the simple layout (only player health and power) or the default layout for the hud"])
@@ -1556,7 +1615,7 @@ local function SetPage(PageNum)
 		InstallOption2Button:Show()
 		InstallOption2Button:SetScript('OnClick', function() E:HudDefault() end)
 		InstallOption2Button:SetText(L["Default Layout"])
-	elseif PageNum == 8 and not IsAddOnLoaded("ElvUI_Hud") then --Finish install if Hud disabled
+	elseif PageNum == 9 and not IsAddOnLoaded("ElvUI_Hud") then --Finish install if Hud disabled
 		f.SubTitle:SetText(L["Installation Complete"])
 		f.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
 		f.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])
@@ -1565,7 +1624,7 @@ local function SetPage(PageNum)
 		InstallOption1Button:SetScript("OnClick", InstallComplete)
 		InstallOption1Button:SetText(L["Finished"])				
 		ElvUIInstallFrame:Size(550, 350)
-	elseif PageNum == 9 then --Finish install if Hud enabled
+	elseif PageNum == 10 then --Finish install if Hud enabled
 		f.SubTitle:SetText(L["Installation Complete"])
 		f.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
 		f.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])	
@@ -1593,6 +1652,7 @@ end
 
 --Install UI
 function E:Install()
+	--ElvUI don't have this?
 	MaxPages()
 	if not InstallStepComplete then
 		local imsg = CreateFrame("Frame", "InstallStepComplete", E.UIParent)
@@ -1650,6 +1710,8 @@ function E:Install()
 	--Create Frame
 	if not ElvUIInstallFrame then
 		local f = CreateFrame("Button", "ElvUIInstallFrame", E.UIParent)
+		--ElvUI Has
+		--f.SetPage = SetPage
 		f:Size(550, 400)
 		f:SetTemplate("Transparent")
 		f:CreateShadow("Default")
