@@ -1,4 +1,4 @@
-v1.13
+v1.13 (September 1, 2012)
 - Fixed Combat Icon Error when ElvUI Unitframes were disabled.
 - Updated Install file to ElvUI additions
 
