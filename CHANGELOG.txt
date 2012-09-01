@@ -1,5 +1,10 @@
+v1.13
+- Fixed Combat Icon Error when ElvUI Unitframes were disabled.
+- Updated Install file to ElvUI additions
+
 v1.12 (August 31, 2012)
 - Fixed Time Datatext error
+
 v1.11 (August 30, 2012)
 - Fixrd editbox positioning when ElvUI chat is disabled
 
