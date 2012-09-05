@@ -491,7 +491,7 @@ function E:SetupLayout(layout, noDataReset)
 end
 
 
-local function SetupAuras(useAuraBars)
+local function SetupAuras(style)
 	E:CopyTable(E.db.unitframe.units.player.buffs, P.unitframe.units.player.buffs)
 	E:CopyTable(E.db.unitframe.units.player.debuffs, P.unitframe.units.player.debuffs)
 	E:CopyTable(E.db.unitframe.units.player.aurabar, P.unitframe.units.player.aurabar)
@@ -506,7 +506,7 @@ local function SetupAuras(useAuraBars)
 	E:CopyTable(E.db.unitframe.units.focus.aurabar, P.unitframe.units.focus.aurabar)
 	E.db.unitframe.units.focus.smartAuraDisplay = P.unitframe.units.focus.smartAuraDisplay		
 	
-	if not useAuraBars then
+	if not style then
 		--PLAYER
 		E.db.unitframe.units.player.buffs.enable = true;
 		E.db.unitframe.units.player.buffs.attachTo = 'FRAME';
@@ -520,6 +520,12 @@ local function SetupAuras(useAuraBars)
 		E.db.unitframe.units.target.smartAuraDisplay = 'DISABLED';
 		E.db.unitframe.units.target.debuffs.enable = true;
 		E.db.unitframe.units.target.aurabar.enable = false;
+	elseif style == 'classic' then
+		--seriosly is this fucking hard??
+		E.db.unitframe.units.target.smartAuraDisplay = 'DISABLED';
+		E.db.unitframe.units.target.buffs.playerOnly = 'NONE';
+		E.db.unitframe.units.target.debuffs.enable = true;
+		E.db.unitframe.units.target.aurabar.attachTo = 'DEBUFFS';
 	end
 
 	E:GetModule('UnitFrames'):Update_AllFrames()	
@@ -1510,15 +1516,18 @@ local function SetPage(PageNum)
 		InstallOption4Button:SetText(L['Caster DPS'])
 	elseif PageNum == 7 then
 		f.SubTitle:SetText(L["Auras System"])
-		f.Desc1:SetText(L["Select the type of aura system you want to use with ElvUI's unitframes. The integrated system utilizes both aura-bars and aura-icons. The icons only system will display only icons and aurabars won't be used."])
+		f.Desc1:SetText(L["Select the type of aura system you want to use with ElvUI's unitframes. The integrated system utilizes both aura-bars and aura-icons. The icons only system will display only icons and aurabars won't be used. The classic system will configure your auras to how they were pre-v4."])
 		f.Desc2:SetText(L["If you have an icon or aurabar that you don't want to display simply hold down shift and right click the icon for it to disapear."])
 		f.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', function() SetupAuras(true) end)
+		InstallOption1Button:SetScript('OnClick', function() SetupAuras('integrated') end)
 		InstallOption1Button:SetText(L['Integrated'])
 		InstallOption2Button:Show()
 		InstallOption2Button:SetScript('OnClick', function() SetupAuras() end)
 		InstallOption2Button:SetText(L['Icons Only'])
+		InstallOption3Button:Show()
+		InstallOption3Button:SetScript('OnClick', function() SetupAuras('classic') end)
+		InstallOption3Button:SetText(L['Classic'])	
 	elseif PageNum == 8 then --The new page
 		f.SubTitle:SetText(L["Shadow & Light Settings"])
 		f.Desc1:SetText(L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."])
