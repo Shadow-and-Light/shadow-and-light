@@ -1,3 +1,6 @@
+v1.15 (DATE NOT SET)
+- Fix Curse Ticket #3
+
 v1.14 (September 5, 2012)
 - Updated Install to catch up with ElvUI
 - Updated Repooc Settings to more current setup
