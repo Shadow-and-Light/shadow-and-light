@@ -12,7 +12,9 @@ end
 
 --Updating things that must be updated only after everything loads
 function SLE:UpdateThings()
-	E:GetModule('UnitFrames'):Update_CombatIndicator()
+	if E.private.unitframe.enable then
+		E:GetModule('UnitFrames'):Update_CombatIndicator()
+	end
 end
 
 E.PopupDialogs["VERSION_MISMATCH"] = {
@@ -35,7 +37,9 @@ function E:UpdateAll()
 	E:GetModule('DTPanels'):Update()
 	E:GetModule('DTPanels'):DashboardShow()
 	E:GetModule('DTPanels'):DashWidth()
-	E:GetModule('UnitFrames'):Update_CombatIndicator()
+	if E.private.unitframe.enable then
+		E:GetModule('UnitFrames'):Update_CombatIndicator()
+	end
 	E:GetModule('UIButtons'):UpdateAll()
 	E.db.datatexts.panels.Top_Center = 'Version'
 	E:GetModule('DataTexts'):LoadDataTexts() --Prevents datatexts from not changing on profile switch (Elv's issue)
