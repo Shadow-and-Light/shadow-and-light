@@ -1055,6 +1055,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	if not E.db.movers then E.db.movers = {}; end
 	layout = E.db.layoutSet  --Pull which layout was selected if any.
 
+--	P.sle.auras.castername = true
 	--General Options
 	E.db.general.autoRepair = "PLAYER"  --Checked
 	E.db.general.backdropcolor = {
@@ -1077,7 +1078,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	}  --Checked
 	E.db.general.health_backdrop = {
 	}  --Checked
-	E.db.hideTutorial = 1  --Checked Sorta
 	E.db.general.interruptAnnounce = "RAID"  --Checked
 	E.db.general.stickyFrames = true  --Checked
 	E.db.general.tapped = {
@@ -1097,12 +1097,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	--Bags
 	E.db.bags.bagCols = 13  --Checked
 	E.db.bags.yOffset = 208  --Checked
-	
-	--Auras--
-	--E.db.auras.font = "ElvUI Font"
-	--E.db.auras.fontOutline = "OUTLINE"
-	--E.db.auras.wrapAfter = 18
-	
+
 	--Chat
 	E.db.sle.chat.fade = true  --Checked
 	E.db.chat.hyperlinkHover = false  --Checked
@@ -1128,7 +1123,9 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	
 	--UIButtons
 	E.db.sle.uibuttons.enable = true  --Checked
-	
+
+	--Nameplate
+	E.db.nameplate.healthtext = "CURRENT_MAX_PERCENT"  --Checked
 	--Actionbars
 	E.db.actionbar.font = "Accidental Presidency"  --Checked
 	E.db.actionbar.fontsize = 13  --Checked
@@ -1205,11 +1202,11 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.datatexts.panels['DP_5']['middle'] = ""  --Checked
 	E.db.datatexts.panels['DP_5']['right'] = ""  --Checked
 	E.db.datatexts.panels['DP_6']['left'] = ""  --Checked
-	E.db.datatexts.panels['DP_6']['middle'] = "Skada"  --Checked
-	E.db.datatexts.panels['DP_6']['right'] = "DPS"  --Checked
+	E.db.datatexts.panels['DP_6']['middle'] = ""  --Checked
+	E.db.datatexts.panels['DP_6']['right'] = "Bags"  --Checked
 	E.db.datatexts.panels['LeftChatDataPanel']['left'] = "BugSack"  --Checked
-	E.db.datatexts.panels['LeftChatDataPanel']['middle'] = "Durability"  --Checked
-	E.db.datatexts.panels['LeftChatDataPanel']['right'] = "Bags"  --Checked
+	E.db.datatexts.panels['LeftChatDataPanel']['middle'] = "AtlasLoot"  --Checked
+	E.db.datatexts.panels['LeftChatDataPanel']['right'] = "Durability"  --Checked
 	E.db.datatexts.panels['RightChatDataPanel']['left'] = "WIM"  --Checked
 	E.db.datatexts.panels['RightChatDataPanel']['middle'] = "SocialState"  --Checked
 	E.db.datatexts.panels['RightChatDataPanel']['right'] = "Time"  --Checked
@@ -1224,25 +1221,28 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.datatexts.panels.DP_5.middle = '';  --Checked
 		E.db.datatexts.panels.DP_5.right = '';  --Checked
 		E.db.datatexts.panels.DP_6.left = '';  --Checked
+		E.db.datatexts.panels.DP_6.middle = '';  --Checked
 	elseif layout == 'healer' then
 		E.db.datatexts.panels.DP_5.left = '';  --Checked
 		E.db.datatexts.panels.DP_5.middle = 'Crit Chance';  --Checked
 		E.db.datatexts.panels.DP_5.right = 'Spell/Heal Power';  --Checked
 		E.db.datatexts.panels.DP_6.left = 'Haste';  --Checked
+		E.db.datatexts.panels.DP_6.middle = '';  --Checked
 	elseif layout == 'dpsCaster' then
 		E.db.datatexts.panels.DP_5.left = 'Hit Rating';  --Checked
 		E.db.datatexts.panels.DP_5.middle = 'Crit Chance';  --Checked
 		E.db.datatexts.panels.DP_5.right = 'Spell/Heal Power';  --Checked
 		E.db.datatexts.panels.DP_6.left = 'Haste';  --Checked
+		E.db.datatexts.panels.DP_6.middle = 'DPS';  --Checked
 	else
 		E.db.datatexts.panels.DP_5.left = '';  --Checked
 		E.db.datatexts.panels.DP_5.middle = 'Crit Chance';  --Checked
 		E.db.datatexts.panels.DP_5.right = '';  --Checked
 		E.db.datatexts.panels.DP_6.left = 'Haste';  --Checked
+		E.db.datatexts.panels.DP_6.middle = 'DPS';  --Checked
 	end
 
 	--Unitframes
-	E.db.unitframe.colors.colorhealthbyvalue = false  --Checked
 	E.db.unitframe.colors.colorhealthbyvalue = false  --Checked
 	E.db.unitframe.colors.customhealthbackdrop = true  --Checked
 	E.db.unitframe.colors.health = {
@@ -1345,7 +1345,13 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.movers.ElvAB_2 = "BOTTOMLEFTElvUIParentBOTTOMLEFT85621"  --Checked
 		E.db.movers.ElvAB_3 = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-80222"  --Checked
 		E.db.movers.ElvAB_5 = "BOTTOMLEFTElvUIParentBOTTOMLEFT80222"  --Checked
-	end	
+	end
+
+	for i = 1, NUM_CHAT_WINDOWS do
+		local frame = _G[format("ChatFrame%s", i)]
+		FCF_SetChatWindowFontSize(nil, frame, 14)		
+	end
+
 	E:UpdateAll(true)
 end
 
@@ -1538,7 +1544,7 @@ local function SetPage(PageNum)
 		InstallOption1Button:SetScript('OnClick', function() E:DarthSetup() end)
 		InstallOption1Button:SetText(L["Darth's Config"])	
 		InstallOption2Button:Show()
-		InstallOption2Button:SetScript('OnClick', function() E:SetupTheme('class'); E:RepoocSetup() end)
+		InstallOption2Button:SetScript('OnClick', function() E:RepoocSetup() end)
 		InstallOption2Button:SetText(L["Repooc's Config"])
 		InstallOption3Button:Show()
 		InstallOption3Button:SetScript('OnClick', function() E:ElvSetup() end)
