@@ -1,4 +1,4 @@
-v1.15 (DATE NOT SET)
+v1.15 (September 7, 2012)
 - Fix Curse Ticket #3
 
 v1.14 (September 5, 2012)
