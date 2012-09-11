@@ -59,8 +59,6 @@ L["Transparent"] = "Прозрачный"
 
 --Chat--
 L["Chat Options"] = "Настройки чата"
-L["Chat Fade"] = "Затухание чата"
-L["Enable/Disable the text fading in the chat window."] = "Включит/выключить постепенное исчезновение строк чата со временем."
 L["Chat Editbox History"] = "История чата"
 L["Amount of messages to save. Set to 0 to disable."] = "Количество сообщений, введенных вами, которое будет сохранено между сеансами"
 L["Editbox Position"] = "Позиция поля ввода"
