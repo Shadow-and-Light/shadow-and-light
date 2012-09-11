@@ -2,12 +2,6 @@
 local CH = E:GetModule('Chat')
 local LSM = LibStub("LibSharedMedia-3.0")
 
-CH.StyleChatSLE = CH.StyleChat
-function CH:StyleChat(frame)
-	self:StyleChatSLE(frame)
-	local name = frame:GetName()
-end
-
 function CH:ChatEdit_AddHistory(editBox, line)
 	if line:find("/rl") then return; end
 
