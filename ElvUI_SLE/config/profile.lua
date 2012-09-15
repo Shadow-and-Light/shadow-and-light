@@ -130,7 +130,6 @@ P['sle'] = {
 	
 	--Chat
 	['chat'] = {
-		['fade'] = false,
 		['editbox'] = "Down",
 	},
 	
@@ -195,7 +194,6 @@ P['general'] = {
 		['sortDirection'] = 'ASCENDING',
 		['size'] = 40,
 		['spacing'] = 4,
-		['showBackdrop'] = false,
 	}
 };
 

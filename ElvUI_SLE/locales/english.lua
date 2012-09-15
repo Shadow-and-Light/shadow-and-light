@@ -59,8 +59,6 @@ L["Transparent"] = true
 
 --Chat--
 L["Chat Options"] = true
-L["Chat Fade"] = true
-L["Enable/Disable the text fading in the chat window."] = true
 L["Chat Editbox History"] = true
 L["Amount of messages to save. Set to 0 to disable."] = true
 L["Editbox Position"] = true

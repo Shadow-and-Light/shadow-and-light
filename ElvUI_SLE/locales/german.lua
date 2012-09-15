@@ -60,8 +60,6 @@ L["Transparent"] = "Transparent"
 
 --Chat--
 L["Chat Options"] = "Chat Optionen"
-L["Chat Fade"] = "Chat verblassen"
-L["Enable/Disable the text fading in the chat window."] = "Aktiviere/Deaktiviere das Text verblassen für das Chat Fenster."
 L["Chat Editbox History"] = "Chat Editbox History"
 L["Amount of messages to save. Set to 0 to disable."] = "Anzahl der Nachrichten die gespeichert werden. Wähle 0 zum deaktivieren."
 L["Editbox Position"] = "Editbox Position"

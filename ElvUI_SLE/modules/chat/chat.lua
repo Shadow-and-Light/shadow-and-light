@@ -2,24 +2,6 @@
 local CH = E:GetModule('Chat')
 local LSM = LibStub("LibSharedMedia-3.0")
 
-function CH:FadeUpdate()
-	for _, frameName in pairs(CHAT_FRAMES) do
-		local frame = _G[frameName]
-	CH:StyleChat(frame)
-	end
-end
-
-CH.StyleChatSLE = CH.StyleChat
-function CH:StyleChat(frame)
-	self:StyleChatSLE(frame)
-	local name = frame:GetName()
-	if E.db.sle.chat.fade then
-		_G[name]:SetFading(true) --Enable chat text fading after some time
-	else
-		_G[name]:SetFading(false) --Disable chat text fading after some time
-	end
-end
-
 function CH:ChatEdit_AddHistory(editBox, line)
 	if line:find("/rl") then return; end
 

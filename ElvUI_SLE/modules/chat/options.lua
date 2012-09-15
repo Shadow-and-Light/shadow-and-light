@@ -16,14 +16,6 @@ E.Options.args.sle.args.chat = {
 			name = L["General"],
 			guiInline = true,
 			args = {
-				chatwindowfade = {
-					order = 1,
-					type = "toggle",
-					name = L["Chat Fade"],
-					desc = L["Enable/Disable the text fading in the chat window."],
-					get = function(info) return E.db.sle.chat.fade end,
-					set = function(info, value) E.db.sle.chat.fade = value;  E:GetModule('Chat'):FadeUpdate() end, 
-				},
 				editboxhistory = {
 					order = 2,
 					type = "range",
