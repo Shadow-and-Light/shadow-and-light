@@ -123,6 +123,10 @@ L["Show/hide Raid Utility button.\nThis option is not permanent. The button will
 --Skins--
 L["This options require Azilroka's skin pack to work."] = true
 L["Sets font size on DBM bars"] = true
+L["Ground"] = true
+L["Flying"] = true
+L["Flying & Ground"] = true
+L["Swimming"] = true
 
 --UI buttons--
 L["UI Buttons"] = true

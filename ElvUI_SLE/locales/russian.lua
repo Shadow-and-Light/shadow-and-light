@@ -123,6 +123,10 @@ L["Show/hide Raid Utility button.\nThis option is not permanent. The button will
 --Skins--
 L["This options require Azilroka's skin pack to work."] = "Эти опции требуют наличие пака скинов от Azilroka для работы"
 L["Sets font size on DBM bars"] = "Устанавливает размер текста на полосах DBM"
+L["Ground"] = "Наземные"
+L["Flying"] = "Летающие"
+L["Flying & Ground"] = "Наземные и Летающие"
+L["Swimming"] = "Водные"
 
 --UI buttons--
 L["UI Buttons"] = "Меню интерфейса"
