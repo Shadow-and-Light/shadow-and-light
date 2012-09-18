@@ -1,5 +1,6 @@
 v1.16 (Unreleased)
 - Added Search Feature for Mount Window by p3lim
+- Fixed lua error about missing locale for ElvUI Hud during install process(It was mistyped)
 
 v1.15 (September 7, 2012)
 - Fix Curse Ticket #3

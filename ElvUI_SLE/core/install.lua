@@ -1390,7 +1390,7 @@ end
 
 function E:HudDefault()
 	local H = E:GetModule('HUD')
-	InstallStepComplete.message = L["Default Layout Set"]
+	InstallStepComplete.message = L["Default Layout"]
 	InstallStepComplete:Show()
 	E:CopyTable(E.db.hud,P.hud)
 	H:UpdateAllFrames()
