@@ -714,7 +714,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.player.pvp.text_format = "||cFFB04F4F[pvptimer]||r"
 		E.db.unitframe.units.player.pvp.position = "BOTTOMLEFT"
 		E.db.unitframe.units.player.portrait.enable = true
-		E.db.unitframe.units.player.portrait.style = "3D"
 		E.db.unitframe.units.player.portrait.camDistanceScale = 1.5;
 		E.db.unitframe.units.player.debuffs.enable = false;
 		E.db.unitframe.units.player.castbar.format = 'CURRENTMAX';
@@ -739,7 +738,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.target.name.text_format = "[name:medium] [smartlevel] [shortclassification]";
 		E.db.unitframe.units.target.name.position = 'TOPLEFT';
 		E.db.unitframe.units.target.portrait.enable = true
-		E.db.unitframe.units.target.portrait.style = "3D"
 		E.db.unitframe.units.target.portrait.camDistanceScale = 1.5;
 		E.db.unitframe.units.target.buffs.perrow = 9;
 		E.db.unitframe.units.target.buffs.numrows = 2;
