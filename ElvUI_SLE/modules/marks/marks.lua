@@ -28,7 +28,7 @@ function RM:SetButtonAttributes()
 	m1:CreateBackdrop('Default');
 	m1.backdrop:SetAllPoints();
 	m1:SetAttribute("type", "macro");
-	m1:SetAttribute("macrotext",  '/script SetRaidTarget("target",8)');
+	m1:SetAttribute("macrotext",  '/script SetRaidTargetIcon("target",8)');
 	--texture
 	m1.tex = m1:CreateTexture(nil, 'OVERLAY')
 	m1.tex:Point('TOPLEFT', m1, 'TOPLEFT', 2, -2)
@@ -39,7 +39,7 @@ function RM:SetButtonAttributes()
 	m2:CreateBackdrop('Default');
 	m2.backdrop:SetAllPoints();
 	m2:SetAttribute("type", "macro");
-	m2:SetAttribute("macrotext",  '/script SetRaidTarget("target",7)');
+	m2:SetAttribute("macrotext",  '/script SetRaidTargetIcon("target",7)');
 	--texture
 	m2.tex = m2:CreateTexture(nil, 'OVERLAY')
 	m2.tex:Point('TOPLEFT', m2, 'TOPLEFT', 2, -2)
@@ -50,7 +50,7 @@ function RM:SetButtonAttributes()
 	m3:CreateBackdrop('Default');
 	m3.backdrop:SetAllPoints();
 	m3:SetAttribute("type", "macro");
-	m3:SetAttribute("macrotext",  '/script SetRaidTarget("target",6)');
+	m3:SetAttribute("macrotext",  '/script SetRaidTargetIcon("target",6)');
 	--texture
 	m3.tex = m3:CreateTexture(nil, 'OVERLAY')
 	m3.tex:Point('TOPLEFT', m3, 'TOPLEFT', 2, -2)
@@ -61,7 +61,7 @@ function RM:SetButtonAttributes()
 	m4:CreateBackdrop('Default');
 	m4.backdrop:SetAllPoints();
 	m4:SetAttribute("type", "macro");
-	m4:SetAttribute("macrotext",  '/script SetRaidTarget("target",5)');
+	m4:SetAttribute("macrotext",  '/script SetRaidTargetIcon("target",5)');
 	--texture
 	m4.tex = m4:CreateTexture(nil, 'OVERLAY')
 	m4.tex:Point('TOPLEFT', m4, 'TOPLEFT', 2, -2)
@@ -72,7 +72,7 @@ function RM:SetButtonAttributes()
 	m5:CreateBackdrop('Default');
 	m5.backdrop:SetAllPoints();
 	m5:SetAttribute("type", "macro");
-	m5:SetAttribute("macrotext",  '/script SetRaidTarget("target",4)');
+	m5:SetAttribute("macrotext",  '/script SetRaidTargetIcon("target",4)');
 	--texture
 	m5.tex = m5:CreateTexture(nil, 'OVERLAY')
 	m5.tex:Point('TOPLEFT', m5, 'TOPLEFT', 2, -2)
@@ -83,7 +83,7 @@ function RM:SetButtonAttributes()
 	m6:CreateBackdrop('Default');
 	m6.backdrop:SetAllPoints();
 	m6:SetAttribute("type", "macro");
-	m6:SetAttribute("macrotext",  '/script SetRaidTarget("target",3)');
+	m6:SetAttribute("macrotext",  '/script SetRaidTargetIcon("target",3)');
 	--texture
 	m6.tex = m6:CreateTexture(nil, 'OVERLAY')
 	m6.tex:Point('TOPLEFT', m6, 'TOPLEFT', 2, -2)
@@ -94,7 +94,7 @@ function RM:SetButtonAttributes()
 	m7:CreateBackdrop('Default');
 	m7.backdrop:SetAllPoints();
 	m7:SetAttribute("type", "macro");
-	m7:SetAttribute("macrotext",  '/script SetRaidTarget("target",2)');
+	m7:SetAttribute("macrotext",  '/script SetRaidTargetIcon("target",2)');
 	--texture
 	m7.tex = m7:CreateTexture(nil, 'OVERLAY')
 	m7.tex:Point('TOPLEFT', m7, 'TOPLEFT', 2, -2)
@@ -105,7 +105,7 @@ function RM:SetButtonAttributes()
 	m8:CreateBackdrop('Default');
 	m8.backdrop:SetAllPoints();
 	m8:SetAttribute("type", "macro");
-	m8:SetAttribute("macrotext",  '/script SetRaidTarget("target",1)');
+	m8:SetAttribute("macrotext",  '/script SetRaidTargetIcon("target",1)');
 	--texture
 	m8.tex = m8:CreateTexture(nil, 'OVERLAY')
 	m8.tex:Point('TOPLEFT', m8, 'TOPLEFT', 2, -2)
