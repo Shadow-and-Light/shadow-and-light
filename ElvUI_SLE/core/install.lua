@@ -747,11 +747,13 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.target.buffs.playerOnly = "NONE";
 		E.db.unitframe.units.target.buffs.noDuration = "NONE";
 		E.db.unitframe.units.target.buffs.anchorPoint = 'TOPLEFT';
+		E.db.unitframe.units.target.buffs.clickThrough = false
 		E.db.unitframe.units.target.buffs.noConsolidated = "NONE"
 		E.db.unitframe.units.target.debuffs.perrow = 9;
 		E.db.unitframe.units.target.debuffs.useBlacklis = "NONE";
 		E.db.unitframe.units.target.debuffs.playerOnly = "NONE";
 		E.db.unitframe.units.target.debuffs.enable = true
+		E.db.unitframe.units.target.debuffs.clickThrough = false
 		E.db.unitframe.units.target.castbar.format = 'CURRENTMAX';
 		E.db.unitframe.units.target.castbar.color = {
 								["r"] = 0.8274509803921568,
