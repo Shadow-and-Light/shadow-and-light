@@ -559,10 +559,14 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.general.totems.size = 24
 
 	--Bags--
-	E.db.bags.bagCols = 18
-	E.db.bags.bankCols = 18
-	E.db.bags.sortOrientation = 'TOP-BOTTOM'
+	E.db.bags.bagSize = 25
+	E.db.bags.bankSize = 25
+	E.db.bags.sortInverted = false
+	E.db.bags.alignToChat = false
+	E.db.bags.bagWidth = 633
+	E.db.bags.bankWidth = 633
 	E.db.bags.yOffset = 225
+	E.db.bags.currencyFormat = "ICON"
 	E.db.bags.growthDirection = "HORIZONTAL"
 
 	--NamePlate--
@@ -725,8 +729,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 							}
 		E.db.unitframe.units.player.classbar.fill = 'fill'
 		E.db.unitframe.units.player.classbar.height = 8
-		E.db.unitframe.units.player.aurabar.noConsolidated = "NONE"
-		E.db.unitframe.units.player.aurabar.noDuration = "NONE"
+		E.db.unitframe.units.player.aurabar.enable = false
 		--Setting target frame
 		E.db.unitframe.units.target.width = 200
 		E.db.unitframe.units.target.smartAuraDisplay = "DISABLED"
@@ -760,11 +763,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		else
 			E.db.unitframe.units.target.castbar.width = 200
 		end
-		E.db.unitframe.units.player.aurabar.noConsolidated = "NONE"
-		E.db.unitframe.units.player.aurabar.noDuration = "NONE"
-		E.db.unitframe.units.player.aurabar.useBlacklist = "NONE"
-		E.db.unitframe.units.player.aurabar.playerOnly = "ENEMY"
-		E.db.unitframe.units.player.aurabar.attachTo = "DEBUFFS"
+		E.db.unitframe.units.player.target.enable = false
 		--Target of Target
 		E.db.unitframe.units.targettarget.height = 26
 		if layout == "healer" then
@@ -825,6 +824,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.unitframe.units.party.height = 52
 			E.db.unitframe.units.party.healPrediction = true
 			E.db.unitframe.units.party.health.text_format = "[healthcolor][health:deficit]"
+			E.db.unitframe.units.party.health.position = "CENTER"
 			E.db.unitframe.units.party.health.frequentUpdates = true
 			E.db.unitframe.units.party.health.orientation = "VERTICAL"
 		else
@@ -836,13 +836,14 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.party.power.height = 8
 		E.db.unitframe.units.party.power.text_format = ""
 		E.db.unitframe.units.party.health.position = "BOTTOMLEFT"
-		E.db.unitframe.units.party.name.position = "TOPLEFT"
+		E.db.unitframe.units.party.name.position = "TOP"
 		E.db.unitframe.units.party.name.text_format = "[name:medium] [difficultycolor][smartlevel]"
 		--Raid 10
 		if layout == "healer" then
 			E.db.unitframe.units.raid10.health.frequentUpdates = true
 			E.db.unitframe.units.raid10.health.text_format = "[healthcolor][health:dificit]"
 			E.db.unitframe.units.raid10.health.orientation = "VERTICAL"
+			E.db.unitframe.units.raid10.health.position = "CENTER"
 		else
 			E.db.unitframe.units.raid10.health.text_format = "[healthcolor][health:current]"
 			E.db.unitframe.units.raid10.columnAnchorPoint = "LEFT"
@@ -860,6 +861,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.unitframe.units.raid25.health.text_format = "[healthcolor][health:deficit]"
 			E.db.unitframe.units.raid25.health.frequentUpdates = true
 			E.db.unitframe.units.raid25.health.orientation = "VERTICAL"
+			E.db.unitframe.units.raid25.health.position = "CENTER"
 		else
 			E.db.unitframe.units.raid25.point = "TOP"
 			E.db.unitframe.units.raid25.columnAnchorPoint = "LEFT"
@@ -870,11 +872,10 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.raid25.rdebuffs.size = 22
 		E.db.unitframe.units.raid25.power.height = 8
 		E.db.unitframe.units.raid25.power.text_format = ""
-
 		--Raid 40
 		if layout == "healer" then
 			E.db.unitframe.units.raid40.health.frequentUpdates = true
-			E.db.unitframe.units.raid40.health.text_format = "[healthcolor][health:current]"
+			E.db.unitframe.units.raid40.health.text_format = ""
 			E.db.unitframe.units.raid40.health.orientation = "VERTICAL"
 		else
 			E.db.unitframe.units.raid40.health.text_format = ""
@@ -915,7 +916,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.boss.width = 200
 		E.db.unitframe.units.boss.height = 40
 		E.db.unitframe.units.boss.growthDirection = 'DOWN'
-		E.db.unitframe.units.boss.health.position = 'BOTTOMLEFT'
+		E.db.unitframe.units.boss.health.position = 'BOTTOMRIGHT'
 		E.db.unitframe.units.boss.health.text_format = "[healthcolor][health:current-percent]"
 		E.db.unitframe.units.boss.power.height = 10
 		E.db.unitframe.units.boss.power.text_format = "[powercolor][power:current:sl]"
@@ -1034,7 +1035,8 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.movers.ArenaHeaderMover = "TOPRIGHTUIParentTOPRIGHT0-233"
 	E.db.movers.PetBattleABMover = "BOTTOMLEFTUIParentBOTTOMLEFT76921"
 	E.db.movers.ShiftAB = "BOTTOMLEFTUIParentBOTTOMLEFT79121"
-	E.db.movers.ExperienceBarMover = "TOPLEFTUIParentTOPLEFT722-21"
+	E.db.movers.ExperienceBarMover = "TOPElvUIParentTOP0-32"
+	E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-21"
 	E.db.movers.MarkMover = "BOTTOMLEFTUIParentBOTTOMLEFT882146"
 	E.db.movers.MicrobarMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT0248"
 	E.db.movers.LootFrameMover = "TOPLEFTUIParentTOPLEFT60-360"
