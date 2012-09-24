@@ -1049,6 +1049,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.movers.BNETMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT0481"
 	E.db.movers.ElvUF_FocusMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-636103"
 	E.db.movers.ElvUF_FocusTargetMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-63634"
+	E.db.movers.VehicleSeatMover = "TOPLEFTElvUIParentTOPLEFT187-21"
 
 	E:UpdateAll(true)
 end
