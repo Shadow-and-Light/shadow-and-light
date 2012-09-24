@@ -1,4 +1,4 @@
-v1.16 (Unreleased)
+v1.16 (September 24, 2012)
 - Added Search Feature for Mount Window by p3lim
 - Fixed lua error about missing locale for ElvUI Hud during install process(It was mistyped)
 - Fixed Raid Marker not toggling off
