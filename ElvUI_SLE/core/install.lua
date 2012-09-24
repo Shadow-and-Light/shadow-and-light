@@ -763,7 +763,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		else
 			E.db.unitframe.units.target.castbar.width = 200
 		end
-		E.db.unitframe.units.player.target.enable = false
+		E.db.unitframe.units.target.aurabar.enable = false
 		--Target of Target
 		E.db.unitframe.units.targettarget.height = 26
 		if layout == "healer" then
