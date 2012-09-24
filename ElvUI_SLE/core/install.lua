@@ -830,12 +830,12 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		else
 			E.db.unitframe.units.party.debuffs.perrow = 4
 			E.db.unitframe.units.party.roleIcon.position = "TOPRIGHT"
+			E.db.unitframe.units.party.health.position = "BOTTOMLEFT"
 		end
 		E.db.unitframe.units.party.debuffs.sizeOverride = 26
 		E.db.unitframe.units.party.buffIndicator.colorIcons = false
 		E.db.unitframe.units.party.power.height = 8
 		E.db.unitframe.units.party.power.text_format = ""
-		E.db.unitframe.units.party.health.position = "BOTTOMLEFT"
 		E.db.unitframe.units.party.name.position = "TOP"
 		E.db.unitframe.units.party.name.text_format = "[name:medium] [difficultycolor][smartlevel]"
 		--Raid 10
