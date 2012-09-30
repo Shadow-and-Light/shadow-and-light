@@ -1,12 +1,9 @@
 [color="red"][b]Please Note:[/b][/color] This addon will not function without ElvUI installed.  You can download it at [url=http://www.tukui.org/dl.php]http://www.tukui.org[/url].
 
-Shadow & Light is an external edit of ElvUI.  Which means it wasn't made by changing of ElvUI's files directly.  What this means to you, is that any time ElvUI has an update, you will not have to worry about it overwriting our edited version of ElvUI.  It also means if we push an update it will not mess with any ElvUI files.  This addon can not be used without ElvUI installed and enabled.  
+Shadow & Light is an external edit of ElvUI, meaning it isn't made by changing of ElvUI's files directly.  What this means to you, is that any time ElvUI gets updated, you will not have to worry about it overwriting our edited version of ElvUI.  It also means if we push an update it will not mess with any ElvUI files.  This addon can not be used without ElvUI installed and enabled.
 
-Originally this project started as two personal edits of ElvUI by Darth Predator and I.  For technical support reasons and other reasons as well, we have moved to a combine effort on this external edit of the ElvUI.  Shadow & Light does not disable or hinder the normal function of ElvUI but does add additional features that are not yet implemented or will not be added to ElvUI.  You'll find Shadow & Light options under it's own configuration category in ElvUI's config section by typing /ec
-
-[color="#20ff20"][b]Mists of Pandaria Beta Download:[/b][/color]
-[list][url=https://github.com/Repooc/ElvUI_SLE-MoP-Beta/downloads]Github[/url]
-[*][url=http://www.tukui.org/addons/index.php?act=view&id=43]Tukui.org[/url][/list]
+Originally this project started as two personal edits of ElvUI by Darth Predator and I.  For technical support reasons and other reasons as well, we have moved to a combine effort on this external edit of the ElvUI.  Shadow & Light does not disable or hinder the normal function of ElvUI but does add additional features that are not yet implemented or will not be added to ElvUI.
+You'll find Shadow & Light options under it's own configuration category in ElvUI's config section by typing /ec
 
 [color="#3e8ac6"][b]Suggestions/Concerns:[/b][/color]
 [list]Private Massage on [url=http://www.tukui.org/]TukUI.org[/url] to [url=http://www.tukui.org/forums/?pm=new/sdp]Darth Predator[/url] or [url=http://www.tukui.org/forums/?pm=new/repooc]Repooc[/url]
@@ -18,56 +15,80 @@ Originally this project started as two personal edits of ElvUI by Darth Predator
 [list][url=http://www.tukui.org/addons/index.php?act=view&id=42]Tukui[/url]
 [*][url=http://www.wowinterface.com/downloads/fileinfo.php?id=20927]Wowinterface[/url]
 [*][url=http://www.curse.com/addons/wow/shadow-and-light-edit]Curse[/url]
-[*][url=https://github.com/Repooc/ElvUI_SLE/downloads]Github[/url]
+[*][url=https://github.com/Repooc/ElvUI_SLE/downloads]Github[/url] ([color="FF0000"][b]Warning:[/b][/color] This is our development area and is consider the latest Alpha and may contain bugs.)
 [/list]
 
 [color="#3e8ac6"][b]Features:[/b][/color]
-[list]Ability to show full value for hp/mana on unitframes
+[list]Ability to set text on exp/rep bar to full values.
+[*]Ability to show full values for HP/Mana on unitframes. (Tags: [health:current:sl])
+[*]Added search feature for Mounts.
 [*]Additional background panels that can be customized to your liking.
-[*]Additional Datatext Panels (Can be moved/resized.)
-[*]Additional options for DBM and Skada skins
-[*]Balance Druid power value text on ClassBar
-[*]Buffs/Debuffs now show caster name in the tooltip.
-[*]Chat Datatext Panels altered to fit with the additional panels.
-[*]Chat fading
-[*]Chat History (Customize history amount of last typed messages.)
+[*]Additional datatext panels that can be moved and resized.
+[*]Additional options for DBM skins. (Not enabled atm.)
+[*]Balance Druid and Demonoligy Warlock power value text on Classbar.
+[*]Can display caster name in auras tooltip.
+[*]Chat Datatext Panels altered to fit with the additional datatext panels module of Shadow & Light.
+[*]Chat History Modifications (Edit amount of lines for history to store and relocated chat textbox.)
 [*]Classbar offset
-[*]Combat Indicator (Set position on player frame.)
-[*]Compacted Exp/Rep Bar
-[*]Custom UI Button (Quickly access ElvUI Config, ReloadUI, Toggle Move Anchors, Boss mod config/options, Addon Managers)
-[*]Customizable size of auras near the minimap
-[*]Dragon Soul LFR progression in Time Datatext
-[*]Increased number of auras per row near the minimap
-[*]Installation Process Modified(Includes settings that each of the authors play with.)
-[*]Micromenu Bar
-[*]Movable Raid Utility menu
+[*]Customize Combat Icon position on player unitframe.
+[*]Dragon Soul LFR progression in Time Datatext.
+[*]Misc Custom UI Button (Quickly access ElvUI Config, ReloadUI, Toggle Move Anchors, Boss mod config/options (DBM, DXE, or Bigwigs), Addons Manager (stAddOnManager or ACP)
+[*]Modified Installation Process (Includes settings that each of the authors play with.)
+[*]Movable Pet Battle Actionbar
+[*]Movable Raid Utility menu.
 [*]PvP Auto Release
-[*]PvP Indicator (Set position/visibility on player frame.)
-[*]Raid Marker Bar
-[*]Tweaked visuals for pet autocastable abilities
-[*]Vengeance Bar added for tanks. (No Options at the moment.)
+[*]Skinned Raid Marker Bar
 [/list]
 
 [color="#3e8ac6"][b]Skins:[/b][/color]
-[list]Additional skinning of Blizzard's options
-[*][url=http://www.curse.com/addons/wow/altoholic]Altoholic[/url] Skin
-[*]Auctionator Skin tweaked a little.
-[*]Boss Button Texture Removed
-[*][url=http://www.curse.com/addons/wow/deadly-boss-mods]DBM[/url] Options Window Skin
-[*][url=http://www.wowinterface.com/downloads/info20568-ExtendedVendorUI.html]Extended Vendor[/url] Skin
-[*][url=http://www.curse.com/addons/wow/move-anything]MoveAnything[/url] Skin
+[list]Boss Button Texture Removed
 [*][url=http://www.curse.com/addons/wow/notes]Nirriti's Notes[/url] Skin
 [*][url=http://www.curse.com/addons/wow/oces]OneClickEnchantScroll[/url] Skin
-[*][url=http://www.curse.com/addons/wow/]Outfitter[/url] Skin
-[*][url=http://www.curse.com/addons/wow/]Poisner[/url] Skin
 [*][url=http://www.curse.com/addons/wow/rbtabbed-browser]Tabbed Dungeon Browser[/url] Skin
-[*][url=http://www.curse.com/addons/wow/tellmewhen]TellMeWhen[/url] Options Window Skin
 [/list]
 
 [color="#3e8ac6"][b]Included Addons:[/b][/color]
-[list][url=http://www.tukui.org/forums/topic.php?id=21133]XP & Rep Bars mod[/url] for ElvUI by [url=http://www.tukui.org/forums/profile.php?id=16698]Benik[/url]
-[*][url=http://www.tukui.org/forums/topic.php?id=21221]Extended Vendor Skin[/url] & [url=http://www.tukui.org/forums/topic.php?id=20692]Altoholic Skin[/url] by [url=http://www.tukui.org/forums/profile.php?id=13475]Azilroka[/url]
-[*]The idea of Classbar offset was taken from [url=http://www.tukui.org/forums/topic.php?id=21398]Boradan's guide on tukui.org[/url]. He released his own addon of the same function - [url=http://www.curse.com/addons/wow/elvui-classbar]ElvUI Classbar[/url]. 
+[list]The idea of Classbar offset was taken from [url=http://www.tukui.org/forums/topic.php?id=21398]Boradan's guide on tukui.org[/url]. He released his own addon of the same function - [url=http://www.curse.com/addons/wow/elvui-classbar]ElvUI Classbar[/url]. 
 [*][url=http://www.tukui.org/forums/topic.php?id=21378]Blizzard additional skins[/url] by [url=http://www.tukui.org/forums/profile.php?id=1109]Pat[/url]
 [*]UI buttons idea by [url=http://www.tukui.org/forums/profile.php?id=7616]Swordyy[/url]
 [/list]
+
+Did we forget anyone? O_o
+
+[color="#ff0000"][b]Technical Support:[/b][/color]
+If you have any questions or concerns, we want to hear about it.  You are welcome to post it via [url=https://github.com/Repooc/ElvUI_SLE/issues?state=open]Github[/url] & [url=http://wow.curseforge.com/addons/shadow-and-light-edit/tickets/]Curse[/url] & [url=http://www.tukui.org/forums/forum.php?id=182]Tukui.org[/url] (Make sure to have addon title in subject field). 
+
+Darth Predator and I will do our best to address everyone's concern, we typically need some information from you other than the problem you are having.  Before posting, PLEASE, make sure you are running the latest version of Shadow & Light as well as ElvUI and that you <b>DISABLE ALL</b> addons except for those two and try to reproduce the issue.  It is important that you do that so we can narrow down what is causing the problem in the first place.
+
+Information to provide when posting:
+1.) Shadow & Light Version
+2.) ElvUI Version
+3.) Provide lua errors
+4.) Provide a screenshot if possible
+5.) Detailed description of the issue on when it happens, how it happens, whatever you did to reproduce it.
+6.) Just to be clear, Disable ALL Addons except for ElvUI and Shadow & Light
+With that said, happy gaming and enjoy the addon!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

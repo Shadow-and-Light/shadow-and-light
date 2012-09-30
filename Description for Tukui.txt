@@ -16,35 +16,35 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 - <a href="http://www.tukui.org/addons/index.php?act=view&id=42">Tukui</a>
 - <a href="http://www.wowinterface.com/downloads/info20927-ShadowLightEdit.html">Wowinterface</a>
 - <a href="http://www.curse.com/addons/wow/shadow-and-light-edit">Curse</a>
-- <a href="https://github.com/Repooc/ElvUI_SLE/downloads">Github</a>
+- <a href="https://github.com/Repooc/ElvUI_SLE/downloads">Github</a> (<font color="FF0000"><b>Warning:</b></font> This is our development area and is consider the latest Alpha and may contain bugs.)
 
 <font color="#3e8ac6"><b>Features:</b></font>
-- Modified Installation Process (Includes settings that each of the authors play with.)
-- Dragon Soul LFR progression in Time Datatext
-- PvP Auto Release
-- Ability to show full value for hp/mana on unitframes
-- Customize Combat Icon position on player unitframe
-- Classbar offset
-- Balance Druid and DEmonoligy Warlock power value text on ClassBar
-- Ability to set text on exp/rep bar to full values
-- Misc Custom UI Button (Quickly access ElvUI Config, ReloadUI, Toggle Move Anchors, Boss mod config/options (DBM, DXE, or Bigwigs), Addons Manager (stAddOnManager or ACP)
-- Skinned Raid Marker Bar
-- Additional datatext panels that can be moved
-- Additional options for DBM skin
-- Chat fading
-- Customizable size of chat history stored
-- Additional background panels that can be customized to your liking.
-- Freely movable Raid Utility menu
-- Caster Name in Auras Tooltip
-- Altered layout of chat panels
-- Movable Pet Batlle Actionbar
 - Ability to change the position of chat editbox
+- Ability to set text on exp/rep bar to full values.
+- Ability to show full values for HP/Mana on unitframes. (Tags: [health:current:sl])
+- Added search feature for Mounts.
+- Additional background panels that can be customized to your liking.
+- Additional datatext panels that can be moved and resized.
+- Additional options for DBM skins. (Not enabled atm.)
+- Balance Druid and Demonoligy Warlock power value text on Classbar.
+- Can display caster name in auras tooltip.
+- Chat Datatext Panels altered to fit with the additional datatext panels module of Shadow & Light.
+- Classbar offset
+- Customizable size of chat history stored
+- Customize Combat Icon position on player unitframe.
+- Dragon Soul LFR progression in Time Datatext.
+- Misc Custom UI Button (Quickly access ElvUI Config, ReloadUI, Toggle Move Anchors, Boss mod config/options (DBM, DXE, or Bigwigs), Addons Manager (stAddOnManager or ACP)
+- Modified Installation Process (Includes settings that each of the authors play with.)
+- Movable Pet Battle Actionbar
+- Movable Raid Utility menu.
+- PvP Auto Release
+- Skinned Raid Marker Bar
 
 <font color="#3e8ac6"><b>Skins:</b></font>
+- Boss Button Texture Removed
 - <a href="http://www.curse.com/addons/wow/notes">Nirriti's Notes Skin</a>
 - <a href="http://www.curse.com/addons/wow/oces">OneClickEnchantScroll Skin</a>
 - <a href="http://www.curse.com/addons/wow/rbtabbed-browser">Tabbed Dungeon Browser Skin</a>
-- Removed Boss Button Texture
 
 <font color="#3e8ac6"><b>Included Addons:</b></font>
 (if you have any of those the I'd recommend to disable them)
@@ -55,7 +55,7 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 Did we forget anyone? O_o
 
 <font color="red"><b>Techincal Support:</b></font>
-If you have any questions or concerns, we want to hear about it.  You are welcome to post it here as a comment but we have other means of technical support via <a href="https://github.com/Repooc/ElvUI_SLE/issues?state=open">Github</a> & <a href="http://wow.curseforge.com/addons/shadow-and-light-edit/tickets/">Curse</a>.  
+If you have any questions or concerns, we want to hear about it.  You are welcome to post it via <a href="https://github.com/Repooc/ElvUI_SLE/issues?state=open">Github</a> & <a href="http://wow.curseforge.com/addons/shadow-and-light-edit/tickets/">Curse</a> & <a href="http://www.tukui.org/forums/forum.php?id=182">Tukui.org</a> (Make sure to have addon title in subject field).  
 
 Darth Predator and I will do our best to address everyone's concern, we typically need some information from you other than the problem you are having.  Before posting, PLEASE, make sure you are running the latest version of Shadow & Light as well as ElvUI and that you <b>DISABLE ALL</b> addons except for those two and try to reproduce the issue.  It is important that you do that so we can narrow down what is causing the problem in the first place.
 
