@@ -132,6 +132,14 @@ E.Options.args.sle.args.backgrounds.args.bottom = {
 				['Transparent'] = L["Transparent"],
 			},
 		},
+		pethide = {
+			order = 10,
+			type = "toggle",
+			name = L["Hide in Pet Batlle"],
+			desc = L["Show/Hide this frame during Pet Battles."],
+			get = function(info) return E.db.sle.backgrounds.bottom.pethide end,
+			set = function(info, value) E.db.sle.backgrounds.bottom.pethide = value; end
+		},
 	},
 }
 --Subgroup for 2nd frame
@@ -206,6 +214,14 @@ E.Options.args.sle.args.backgrounds.args.left = {
 				['Default'] = L["Default"],
 				['Transparent'] = L["Transparent"],
 			},
+		},
+		pethide = {
+			order = 10,
+			type = "toggle",
+			name = L["Hide in Pet Batlle"],
+			desc = L["Show/Hide this frame during Pet Battles."],
+			get = function(info) return E.db.sle.backgrounds.left.pethide end,
+			set = function(info, value) E.db.sle.backgrounds.left.pethide = value; end
 		},
 	},
 }
@@ -282,6 +298,14 @@ E.Options.args.sle.args.backgrounds.args.right = {
 				['Transparent'] = L["Transparent"],
 			},
 		},
+		pethide = {
+			order = 10,
+			type = "toggle",
+			name = L["Hide in Pet Batlle"],
+			desc = L["Show/Hide this frame during Pet Battles."],
+			get = function(info) return E.db.sle.backgrounds.right.pethide end,
+			set = function(info, value) E.db.sle.backgrounds.right.pethide = value; end
+		},
 	},
 }
 --Subgroup for 4th frame
@@ -356,6 +380,14 @@ E.Options.args.sle.args.backgrounds.args.action = {
 				['Default'] = L["Default"],
 				['Transparent'] = L["Transparent"],
 			},
+		},
+		pethide = {
+			order = 10,
+			type = "toggle",
+			name = L["Hide in Pet Batlle"],
+			desc = L["Show/Hide this frame during Pet Battles."],
+			get = function(info) return E.db.sle.backgrounds.action.pethide end,
+			set = function(info, value) E.db.sle.backgrounds.action.pethide = value; end
 		},
 	},
 }

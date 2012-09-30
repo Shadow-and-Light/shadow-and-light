@@ -12,7 +12,6 @@ function BG:FramesCreate()
 	BGbottom:CreateBackdrop(E.private.sle.backgrounds.bottom.template);
 	BGbottom.backdrop:SetAllPoints();
 	BGbottom:SetFrameLevel(BGbottom:GetFrameLevel() - 1)
-	--BGbottom:SetFrameLevel(5);
 	BGbottom:SetFrameStrata('BACKGROUND');
 	BGbottom:EnableMouse(true)
 	--Texture
@@ -138,12 +137,34 @@ function E:UpdateAll()
 	BG:UpdateFrames()
 end
 
+function BG:PET_BATTLE_OPENING_START()
+	if E.db.sle.backgrounds.bottom.enabled and E.db.sle.backgrounds.bottom.pethide then 
+	BGbottom:Hide()
+	end
+	if E.db.sle.backgrounds.left.enabled and E.db.sle.backgrounds.left.pethide then 
+	BGleft:Hide()
+	end
+	if E.db.sle.backgrounds.right.enabled and E.db.sle.backgrounds.right.pethide then 
+	BGright:Hide()
+	end
+	if E.db.sle.backgrounds.right.enabled and E.db.sle.backgrounds.action.pethide then 
+	BGaction:Hide()
+	end
+end
+
+function BG:PET_BATTLE_OVER()
+	BG:FramesVisibility()
+end
+
 function BG:Initialize()
 	BG:FramesPositions()
 	BG:FramesSize()
 	BG:FramesCreate()
 	BG:FramesVisibility()
 	BG:UpdateTex()
+	
+	BG:RegisterEvent("PET_BATTLE_OPENING_START")
+	BG:RegisterEvent("PET_BATTLE_OVER")
 end
 
 E:RegisterModule(BG:GetName())

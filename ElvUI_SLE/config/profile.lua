@@ -11,6 +11,7 @@ P['sle'] = {
 			['height'] = E.screenheight/6 - 13,
 			['xoffset'] = 0,
 			['yoffset'] = 0,
+			['pethide'] = true,
 		},
 		['left'] = {
 			['enabled'] = false,
@@ -20,6 +21,7 @@ P['sle'] = {
 			['height'] = E.screenheight/5 + 11,
 			['xoffset'] = 0,
 			['yoffset'] = 0,
+			['pethide'] = true,
 		},
 		['right'] = {
 			['enabled'] = false,
@@ -29,6 +31,7 @@ P['sle'] = {
 			['height'] = E.screenheight/5 + 11,
 			['xoffset'] = 0,
 			['yoffset'] = 0,
+			['pethide'] = true,
 		},
 		['action'] = {
 			['enabled'] = false,
@@ -38,6 +41,7 @@ P['sle'] = {
 			['height'] = E.screenheight/20 + 5,
 			['xoffset'] = 0,
 			['yoffset'] = 0,
+			['pethide'] = true,
 		},
 	},
 	
@@ -143,7 +147,7 @@ P['sle'] = {
 --For some reason datatext settings refuses to work if there is no general setting block here O_o
 --Core
 P['general'] = {
-	["taingLog"] = false,
+	["taintLog"] = false,
 	["autoscale"] = true,
 	["stickyFrames"] = true,
 	['loginmessage'] = true,

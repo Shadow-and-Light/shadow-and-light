@@ -56,6 +56,8 @@ L["Backdrop Template"] = true
 L["Change the template used for this backdrop."] = true
 L["Default"] = true
 L["Transparent"] = true
+L["Hide in Pet Batlle"] = true
+L["Show/Hide this frame during Pet Battles."] = true
 
 --Chat--
 L["Chat Options"] = true
