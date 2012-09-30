@@ -1,3 +1,7 @@
+v1.17 (Unreleased)
+- Fixed Mount Search bug when skinning was disabled.
+- Fixed Background Panels & Pet Battle Bar having frame level issues.
+
 v1.16 (September 24, 2012)
 - Added Search Feature for Mount Window by p3lim
 - Fixed lua error about missing locale for ElvUI Hud during install process(It was mistyped)
