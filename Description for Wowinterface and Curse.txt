@@ -68,27 +68,3 @@ Information to provide when posting:
 5.) Detailed description of the issue on when it happens, how it happens, whatever you did to reproduce it.
 6.) Just to be clear, Disable ALL Addons except for ElvUI and Shadow & Light
 With that said, happy gaming and enjoy the addon!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
