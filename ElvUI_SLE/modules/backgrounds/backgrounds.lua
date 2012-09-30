@@ -11,7 +11,8 @@ function BG:FramesCreate()
 	--Bottom
 	BGbottom:CreateBackdrop(E.private.sle.backgrounds.bottom.template);
 	BGbottom.backdrop:SetAllPoints();
-	BGbottom:SetFrameLevel(5);
+	BGbottom:SetFrameLevel(BGbottom:GetFrameLevel() - 1)
+	--BGbottom:SetFrameLevel(5);
 	BGbottom:SetFrameStrata('BACKGROUND');
 	BGbottom:EnableMouse(true)
 	--Texture
@@ -21,7 +22,7 @@ function BG:FramesCreate()
 	--Left
 	BGleft:CreateBackdrop(E.private.sle.backgrounds.left.template);
 	BGleft.backdrop:SetAllPoints();
-	BGleft:SetFrameLevel(5);
+	BGleft:SetFrameLevel(BGleft:GetFrameLevel() - 1)
 	BGleft:SetFrameStrata('BACKGROUND');
 	--Texture
 	BGleft.tex = BGleft:CreateTexture(nil, 'OVERLAY')
@@ -30,7 +31,7 @@ function BG:FramesCreate()
 	--Right
 	BGright:CreateBackdrop(E.private.sle.backgrounds.right.template);
 	BGright.backdrop:SetAllPoints();
-	BGright:SetFrameLevel(5);
+	BGright:SetFrameLevel(BGright:GetFrameLevel() - 1)
 	BGright:SetFrameStrata('BACKGROUND');
 	--Texture
 	BGright.tex = BGright:CreateTexture(nil, 'OVERLAY')
@@ -39,7 +40,7 @@ function BG:FramesCreate()
 	--Action
 	BGaction:CreateBackdrop(E.private.sle.backgrounds.action.template);
 	BGaction.backdrop:SetAllPoints();
-	BGaction:SetFrameLevel(5);
+	BGaction:SetFrameLevel(BGaction:GetFrameLevel() - 1)
 	BGaction:SetFrameStrata('BACKGROUND');
 	BGaction:EnableMouse(true)
 	--Texture
