@@ -192,11 +192,7 @@ function E:SetupTheme(theme, noDisplayMsg)
 		E.db.unitframe.colors.healthclass = false
 		E.db.unitframe.colors.health = E:GetColor(.31, .31, .31)
 		E.db.unitframe.colors.auraBarBuff = E:GetColor(.31, .31, .31)
-		E.db.unitframe.units.player.castbar.color = E:GetColor(.31, .31, .31)
-		E.db.unitframe.units.target.castbar.color = E:GetColor(.31, .31, .31)
-		E.db.unitframe.units.focus.castbar.color = E:GetColor(.31, .31, .31)
-		E.db.unitframe.units.boss.castbar.color = E:GetColor(.31, .31, .31)
-		E.db.unitframe.units.arena.castbar.color = E:GetColor(.31, .31, .31)
+		E.db.unitframe.colors.castColor = E:GetColor(.31, .31, .31)
 		
 	elseif theme == "class" then
 		E.db.general.bordercolor = E:GetColor(classColor.r, classColor.b, classColor.g)
@@ -204,11 +200,7 @@ function E:SetupTheme(theme, noDisplayMsg)
 		E.db.general.backdropfadecolor = E:GetColor(.06, .06, .06, .8)
 		E.db.unitframe.colors.auraBarBuff = E:GetColor(classColor.r, classColor.b, classColor.g)
 		E.db.unitframe.colors.healthclass = true
-		E.db.unitframe.units.player.castbar.color = E:GetColor(classColor.r, classColor.b, classColor.g)
-		E.db.unitframe.units.target.castbar.color = E:GetColor(classColor.r, classColor.b, classColor.g)
-		E.db.unitframe.units.focus.castbar.color = E:GetColor(classColor.r, classColor.b, classColor.g)
-		E.db.unitframe.units.boss.castbar.color = E:GetColor(classColor.r, classColor.b, classColor.g)
-		E.db.unitframe.units.arena.castbar.color = E:GetColor(classColor.r, classColor.b, classColor.g)
+		E.db.unitframe.colors.castColor = E:GetColor(classColor.r, classColor.b, classColor.g)
 	else
 		E.db.general.bordercolor = E:GetColor(.1, .1, .1)
 		E.db.general.backdropcolor = E:GetColor(.1, .1, .1)
@@ -216,11 +208,7 @@ function E:SetupTheme(theme, noDisplayMsg)
 		E.db.unitframe.colors.auraBarBuff = E:GetColor(.1, .1, .1)
 		E.db.unitframe.colors.healthclass = false
 		E.db.unitframe.colors.health = E:GetColor(.1, .1, .1)
-		E.db.unitframe.units.player.castbar.color = E:GetColor(.1, .1, .1)
-		E.db.unitframe.units.target.castbar.color = E:GetColor(.1, .1, .1)
-		E.db.unitframe.units.focus.castbar.color = E:GetColor(.1, .1, .1)
-		E.db.unitframe.units.boss.castbar.color = E:GetColor(.1, .1, .1)
-		E.db.unitframe.units.arena.castbar.color = E:GetColor(.1, .1, .1)	
+		E.db.unitframe.colors.castColor = E:GetColor(.1, .1, .1)
 	end
 	
 	--Value Color
@@ -230,13 +218,10 @@ function E:SetupTheme(theme, noDisplayMsg)
 		E.db.general.valuecolor = E:GetColor(.09, .819, .513)
 	end
 	
-	--Elv Has This... Why aren't we coping it over?
 	if not noDisplayMsg then
 		E:UpdateAll(true)
 	end
 	
-	--E:UpdateAll(true)
-
 	InstallStatus:SetStatusBarColor(unpack(E['media'].rgbvaluecolor))
 	
 	if InstallStepComplete and not noDisplayMsg then
@@ -694,6 +679,11 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.unitframe.font = "ElvUI Font"
 	E.db.unitframe.fontsize = 9
 	E.db.unitframe.fontOutline = 'OUTLINE'
+	E.db.unitframe.colors.castColor = {
+								["b"] = 0.3098039215686275,
+								["g"] = 0.792156862745098,
+								["r"] = 0.8274509803921568,
+							}
 	UF:Update_AllFrames()
 	if layout == "healer" then
 		E.db.unitframe.debuffHighlighting = true
@@ -722,11 +712,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.player.debuffs.enable = false;
 		E.db.unitframe.units.player.castbar.format = 'CURRENTMAX';
 		E.db.unitframe.units.player.castbar.width = 237
-		E.db.unitframe.units.player.castbar.color = {
-								["b"] = 0.3098039215686275,
-								["g"] = 0.792156862745098,
-								["r"] = 0.8274509803921568,
-							}
 		E.db.unitframe.units.player.classbar.fill = 'fill'
 		E.db.unitframe.units.player.classbar.height = 8
 		E.db.unitframe.units.player.aurabar.enable = false
@@ -755,11 +740,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.target.debuffs.enable = true
 		E.db.unitframe.units.target.debuffs.clickThrough = false
 		E.db.unitframe.units.target.castbar.format = 'CURRENTMAX';
-		E.db.unitframe.units.target.castbar.color = {
-								["r"] = 0.8274509803921568,
-								["g"] = 0.792156862745098,
-								["b"] = 0.3098039215686275,
-							}
 		if layout == "healer" then
 			E.db.unitframe.units.target.castbar.width = 237
 		else
@@ -788,11 +768,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.focus.debuffs.anchorPoint = "TOPLEFT"
 		E.db.unitframe.units.focus.castbar.format = 'CURRENTMAX'
 		E.db.unitframe.units.focus.castbar.width = 179
-		E.db.unitframe.units.focus.castbar.color = {
-								["r"] = 0.8274509803921568,
-								["g"] = 0.792156862745098,
-								["b"] = 0.3098039215686275,
-							}
 		--Focus Target
 		E.db.unitframe.units.focustarget.name.text_format = "[name:medium]"
 		E.db.unitframe.units.focustarget.enable = true
@@ -974,8 +949,10 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 
 	--Background Frames--
 	E.db.sle.backgrounds.right.enabled = true
+	E.db.sle.backgrounds.right.pethide = false
 	E.db.sle.backgrounds.right.xoffset = 70
 	E.db.sle.backgrounds.left.enabled = true
+	E.db.sle.backgrounds.leftt.pethide = false
 	E.db.sle.backgrounds.left.xoffset = -70
 
 	--Raid utility--
