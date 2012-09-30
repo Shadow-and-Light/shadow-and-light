@@ -952,7 +952,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.sle.backgrounds.right.pethide = false
 	E.db.sle.backgrounds.right.xoffset = 70
 	E.db.sle.backgrounds.left.enabled = true
-	E.db.sle.backgrounds.leftt.pethide = false
+	E.db.sle.backgrounds.left.pethide = false
 	E.db.sle.backgrounds.left.xoffset = -70
 
 	--Raid utility--
