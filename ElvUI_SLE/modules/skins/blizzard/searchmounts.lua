@@ -65,7 +65,7 @@ frame:SetScript("OnEvent", function(self, event, addon)
 				MountJournal.MountDisplay.NoMounts:Show()
 				MountJournal.selectedSpellID = 0
 				MountJournal_UpdateMountDisplay()
-				MountJournal.MountCount:SetText(0)
+				--MountJournal.MountCount:SetText(0)
 				MountJournal.MountButton:SetEnabled(false)
 				return
 			else
@@ -106,7 +106,9 @@ frame:SetScript("OnEvent", function(self, event, addon)
 					if MountJournal.selectedSpellID == spell then
 						button.selected = true
 						button.selectedTexture:Show()
-						if E.private.skins.blizzard.enable == true then
+						--if E.private.skins.blizzard.mounts == true then
+						--if E.private.skins.blizzard.enable == true then
+						if E.private.skins.blizzard.mounts == true and E.private.skins.blizzard.enable == true then
 							button.name:SetTextColor(1, 1, 0)
 							button.backdrop:SetBackdropBorderColor(1, 1, 0)
 							--Need Help with border being nil
@@ -115,7 +117,7 @@ frame:SetScript("OnEvent", function(self, event, addon)
 					else
 						button.selected = false
 						button.selectedTexture:Hide()
-						if E.private.skins.blizzard.enable == true then
+						if E.private.skins.blizzard.mounts == true and E.private.skins.blizzard.enable == true then
 							button.name:SetTextColor(1, 1, 1)
 							button.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
 							--Need Help with border being nil
@@ -204,7 +206,7 @@ frame:SetScript("OnEvent", function(self, event, addon)
 			ToggleDropDownMenu(1, nil, FilterDropDown, MountFilter, 74, 15)
 		end)
 
-		if E.private.skins.blizzard.enable == true then
+		if E.private.skins.blizzard.mounts == true and E.private.skins.blizzard.enable == true then
 			S:HandleEditBox(Search)
 			Search:SetHeight(18)
 			Filter:StripTextures(true)
