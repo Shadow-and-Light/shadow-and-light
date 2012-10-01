@@ -44,6 +44,8 @@ frame:SetScript("OnEvent", function(self, event, addon)
 					mounts[index] = "ground"
 				elseif flag == 31 then
 					mounts[index] = "combined"
+				elseif flag == 23 then
+					mounts[index] = "combined"
 				end
 
 				if id == 34187 then
