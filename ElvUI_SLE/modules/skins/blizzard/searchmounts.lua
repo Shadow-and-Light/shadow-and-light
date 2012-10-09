@@ -42,9 +42,7 @@ frame:SetScript("OnEvent", function(self, event, addon)
 					mounts[index] = "flying"
 				elseif flag == 29 then
 					mounts[index] = "ground"
-				elseif flag == 31 then
-					mounts[index] = "combined"
-				elseif flag == 23 then
+				elseif flag == 31 or flag == 23 then
 					mounts[index] = "combined"
 				end
 
