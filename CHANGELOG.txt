@@ -1,3 +1,6 @@
+v1.18 (October 9, 2012)
+- Fixed red flying could not showing in the mount list
+
 v1.17 (September 30, 2012)
 - Fixed Mount Search bug when skinning was disabled.
 - Fixed Background Panels & Pet Battle Bar having frame level issues.
