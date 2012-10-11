@@ -1,3 +1,6 @@
+v1.19 (UNRELEASED)
+- Code catch up with ElvUI
+
 v1.18 (October 9, 2012)
 - Fixed red flying could not showing in the mount list
 
