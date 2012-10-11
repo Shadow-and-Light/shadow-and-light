@@ -25,4 +25,7 @@ V['sle'] = {
 			['template'] = "Default",
 		},
 	},
+	
+	--Error messages
+	['errors'] = false
 }

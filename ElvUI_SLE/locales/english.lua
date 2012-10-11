@@ -13,6 +13,8 @@ L["LFR Lockdown"] = true
 L["Show/Hide LFR lockdown info in time datatext's tooltip."] = true
 L["PvP Auto Release"] = true
 L["Automatically release body when killed inside a battleground."] = true
+L["Errors in combat"] = true
+L["Show/hide error messages in combat."] = true
 L["Pet autocast corners"] = true
 L["Show/hide triangles in corners of autocastable buttons."] = true
 L["SLE_LOGIN_MSG"] = [=[You are using |cff1784d1Shadow & Light Edit|r for ElvUI.
