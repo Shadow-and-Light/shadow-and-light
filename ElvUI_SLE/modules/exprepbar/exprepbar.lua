@@ -98,19 +98,19 @@ function M:UpdateReputation(event)
 		
 		if E.db.sle.exprep.replong then
 			if textFormat == 'PERCENT' then
-				text = string.format('%d%% [%s]', value / max * 100, _G['FACTION_STANDING_LABEL'..ID])
+				text = string.format('%d%% [%s]', ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
 			elseif textFormat == 'CURMAX' then
 				text = string.format('%s - %s [%s]', value, max, _G['FACTION_STANDING_LABEL'..ID])
 			elseif textFormat == 'CURPERC' then
-				text = string.format('%s - %d%% [%s]', value, value / max * 100, _G['FACTION_STANDING_LABEL'..ID])
+				text = string.format('%s - %d%% [%s]', value, ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
 			end		
 		else
 			if textFormat == 'PERCENT' then
-				text = string.format('%d%% [%s]', value / max * 100, _G['FACTION_STANDING_LABEL'..ID])
+				text = string.format('%d%% [%s]', ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
 			elseif textFormat == 'CURMAX' then
 				text = string.format('%s - %s [%s]', E:ShortValue(value), E:ShortValue(max), _G['FACTION_STANDING_LABEL'..ID])
 			elseif textFormat == 'CURPERC' then
-				text = string.format('%s - %d%% [%s]', E:ShortValue(value), value / max * 100, _G['FACTION_STANDING_LABEL'..ID])
+				text = string.format('%s: %s - %d%% [%s]', name, E:ShortValue(value), ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
 			end	
 		end
 		
