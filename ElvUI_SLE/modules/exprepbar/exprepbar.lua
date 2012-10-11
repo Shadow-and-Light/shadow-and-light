@@ -85,8 +85,8 @@ function M:UpdateReputation(event)
 		local color = FACTION_BAR_COLORS[reaction]
 		bar.statusBar:SetStatusBarColor(color.r, color.g, color.b)	
 
-		bar.statusBar:SetMinMaxValues(min, max)
-		bar.statusBar:SetValue(value)
+		bar.statusBar:SetMinMaxValues(0, max - min)
+		bar.statusBar:SetValue(value - min)
 		
 		for i=1, numFactions do
 			local factionName, _, standingID = GetFactionInfo(i);
@@ -100,17 +100,17 @@ function M:UpdateReputation(event)
 			if textFormat == 'PERCENT' then
 				text = string.format('%d%% [%s]', ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
 			elseif textFormat == 'CURMAX' then
-				text = string.format('%s - %s [%s]', value, max, _G['FACTION_STANDING_LABEL'..ID])
+				text = string.format('%s - %s [%s]', value - min, max - min, _G['FACTION_STANDING_LABEL'..ID])
 			elseif textFormat == 'CURPERC' then
-				text = string.format('%s - %d%% [%s]', value, ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
+				text = string.format('%s - %d%% [%s]', value - min, ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
 			end		
 		else
 			if textFormat == 'PERCENT' then
 				text = string.format('%d%% [%s]', ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
 			elseif textFormat == 'CURMAX' then
-				text = string.format('%s - %s [%s]', E:ShortValue(value), E:ShortValue(max), _G['FACTION_STANDING_LABEL'..ID])
+				text = string.format('%s - %s [%s]', E:ShortValue(value - min), E:ShortValue(max - min), _G['FACTION_STANDING_LABEL'..ID])
 			elseif textFormat == 'CURPERC' then
-				text = string.format('%s: %s - %d%% [%s]', name, E:ShortValue(value), ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
+				text = string.format('%s: %s - %d%% [%s]', name, E:ShortValue(value - min), ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
 			end	
 		end
 		
