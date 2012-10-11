@@ -17,3 +17,15 @@ E.Options.args.sle.args.general.args.errors = {
 	get = function(info) return E.private.sle.errors end,
 	set = function(info, value) E.private.sle.errors = value; E:StaticPopup_Show("PRIVATE_RL") end
 }
+
+--This is basics for the loot history show/hide option
+--[[
+function :LootShow() --Needs to be run on PLAYER_ENTERING_WORLD event = loading screen ends. Also need a module assinged.
+	local inInstance, instanceType = IsInInstance()
+	if (inInstance and (instanceType == "party" or "raid") and E.db.sle.autoloot) then
+		LootHistoryFrame:Show()
+	else
+		LootHistoryFrame:Hide()
+	end
+end
+]]
