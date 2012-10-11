@@ -17,27 +17,3 @@ E.Options.args.sle.args.general.args.errors = {
 	get = function(info) return E.private.sle.errors end,
 	set = function(info, value) E.private.sle.errors = value; E:StaticPopup_Show("PRIVATE_RL") end
 }
-
-
-
---[[E.Options.args.sle.args.auras = {
-	type = "group",
-	name = L["],
-	order = 5,
-	guiInline = true,
-	args = {
-		info = {
-			order = 1,
-			type = "description",
-			name = L["Options for customizing auras near the minimap."],
-		},
-		enable = {
-			order = 2,
-			type = "toggle",
-			name = L["Caster Name"],
-			desc = L["Enabling this will show caster name in the buffs and debuff icons."],
-			get = function(info) return E.private.sle.auras.castername end,
-			set = function(info, value) E.private.sle.auras.castername = value; E:StaticPopup_Show("PRIVATE_RL") end,
-		},
-	},
-}]]
