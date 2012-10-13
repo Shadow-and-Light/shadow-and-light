@@ -3,19 +3,6 @@ if not E.private.unitframe.enable then return end
 local UF = E:GetModule('UnitFrames');
 local LSM = LibStub("LibSharedMedia-3.0");
 
-function UF:DefOffsetSetting()
-	if E.db.unitframe.units.player.classbar.xOffset == nil then
-		E.db.unitframe.units.player.classbar.xOffset = 0
-	end
-	if E.db.unitframe.units.player.classbar.yOffset == nil then
-		E.db.unitframe.units.player.classbar.yOffset = 0
-	end
-	--This is for enable/disable option.
-	if E.db.unitframe.units.player.classbar.offset == nil then
-		E.db.unitframe.units.player.classbar.offset = false
-	end
-end
-
 --Setting the variable for using classbar. Elv's function.
 local CAN_HAVE_CLASSBAR = (E.myclass == "PALADIN" or E.myclass == "DRUID" or E.myclass == "DEATHKNIGHT" or E.myclass == "WARLOCK" or E.myclass == "PRIEST" or E.myclass == "MONK" or E.myclass == 'MAGE')
 
@@ -147,10 +134,10 @@ function UF:Update_PlayerFrame(frame, db)
 		
 		if USE_MINI_CLASSBAR then
 			CLASSBAR_WIDTH = CLASSBAR_WIDTH * (MAX_HOLY_POWER - 1) / MAX_HOLY_POWER
-			bars:Point("CENTER", frame.Health.backdrop, "TOP", db.classbar.xOffset -(BORDER*3 + 6), db.classbar.yOffset)
+			bars:Point("CENTER", frame.Health.backdrop, "TOP", (db.classbar.xOffset or 0) -(BORDER*3 + 6), (db.classbar.yOffset or 0))
 			bars:SetFrameStrata("MEDIUM")
 		else
-			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", db.classbar.xOffset +BORDER, db.classbar.yOffset +BORDER +SPACING)
+			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) +BORDER, (db.classbar.yOffset or 0) +BORDER +SPACING)
 			bars:SetFrameStrata("LOW")
 		end
 		bars:Width(CLASSBAR_WIDTH)
@@ -160,10 +147,10 @@ function UF:Update_PlayerFrame(frame, db)
 		bars:ClearAllPoints()
 		if USE_MINI_CLASSBAR then
 			CLASSBAR_WIDTH = CLASSBAR_WIDTH * (PRIEST_BAR_NUM_ORBS - 1) / PRIEST_BAR_NUM_ORBS
-			bars:Point("CENTER", frame.Health.backdrop, "TOP", db.classbar.xOffset -(BORDER*3 + 6), db.classbar.yOffset)
+			bars:Point("CENTER", frame.Health.backdrop, "TOP", (db.classbar.xOffset or 0) -(BORDER*3 + 6), (db.classbar.yOffset or 0))
 			bars:SetFrameStrata("MEDIUM")
 		else
-			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", db.classbar.xOffset +BORDER, db.classbar.yOffset +BORDER+SPACING)
+			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) +BORDER, (db.classbar.yOffset or 0) +BORDER+SPACING)
 			bars:SetFrameStrata("LOW")
 		end
 			
@@ -208,10 +195,10 @@ function UF:Update_PlayerFrame(frame, db)
 		bars:ClearAllPoints()
 		if USE_MINI_CLASSBAR then
 			CLASSBAR_WIDTH = CLASSBAR_WIDTH * (UF['classMaxResourceBar'][E.myclass] - 1) / UF['classMaxResourceBar'][E.myclass]
-			bars:Point("CENTER", frame.Health.backdrop, "TOP", db.classbar.xOffset -(BORDER*4 + 10), db.classbar.yOffset)
+			bars:Point("CENTER", frame.Health.backdrop, "TOP", (db.classbar.xOffset or 0) -(BORDER*4 + 10), (db.classbar.yOffset or 0))
 			bars:SetFrameStrata("MEDIUM")
 		else
-			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", db.classbar.xOffset +BORDER, db.classbar.yOffset +BORDER+SPACING)
+			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) +BORDER, (db.classbar.yOffset or 0) +BORDER+SPACING)
 			bars:SetFrameStrata("LOW")
 		end
 			
@@ -254,10 +241,10 @@ function UF:Update_PlayerFrame(frame, db)
 		bars:ClearAllPoints()
 		if USE_MINI_CLASSBAR then
 			CLASSBAR_WIDTH = CLASSBAR_WIDTH * 2 / 3
-			bars:Point("CENTER", frame.Health.backdrop, "TOP", db.classbar.xOffset -(BORDER*3 + 6), db.classbar.yOffset -SPACING)
+			bars:Point("CENTER", frame.Health.backdrop, "TOP", (db.classbar.xOffset or 0) -(BORDER*3 + 6), (db.classbar.yOffset or 0) -SPACING)
 			bars:SetFrameStrata("MEDIUM")
 		else
-			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", db.classbar.xOffset +BORDER, db.classbar.yOffset +BORDER +SPACING)
+			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) +BORDER, (db.classbar.yOffset or 0) +BORDER +SPACING)
 			bars:SetFrameStrata("LOW")
 		end
 		bars:Width(CLASSBAR_WIDTH)
@@ -271,10 +258,10 @@ function UF:Update_PlayerFrame(frame, db)
 		local bars = frame.Harmony
 		bars:ClearAllPoints()
 		if USE_MINI_CLASSBAR then
-			bars:Point("CENTER", frame.Health.backdrop, "TOP",db.classbar.xOffset -(BORDER*3 + 6), db.classbar.yOffset)
+			bars:Point("CENTER", frame.Health.backdrop, "TOP",(db.classbar.xOffset or 0) -(BORDER*3 + 6), (db.classbar.yOffset or 0))
 			bars:SetFrameStrata("MEDIUM")	
 		else
-			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", db.classbar.xOffset +BORDER, db.classbar.yOffset +BORDER+SPACING)
+			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) +BORDER, (db.classbar.yOffset or 0) +BORDER+SPACING)
 			bars:SetFrameStrata("LOW")
 		end
 		bars:Width(CLASSBAR_WIDTH)
@@ -298,10 +285,10 @@ function UF:Update_PlayerFrame(frame, db)
 		runes:ClearAllPoints()
 		if USE_MINI_CLASSBAR then
 			CLASSBAR_WIDTH = CLASSBAR_WIDTH * 4/5
-			runes:Point("CENTER", frame.Health.backdrop, "TOP", db.classbar.xOffset -(BORDER*3 + 8), db.classbar.yOffset -SPACING)
+			runes:Point("CENTER", frame.Health.backdrop, "TOP", (db.classbar.xOffset or 0) -(BORDER*3 + 8), (db.classbar.yOffset or 0) -SPACING)
 			runes:SetFrameStrata("MEDIUM")
 		else
-			runes:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", db.classbar.xOffset +BORDER, db.classbar.yOffset +BORDER +SPACING)
+			runes:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) +BORDER, (db.classbar.yOffset or 0) +BORDER +SPACING)
 			runes:SetFrameStrata("LOW")
 		end
 		runes:Width(CLASSBAR_WIDTH)
@@ -310,12 +297,12 @@ function UF:Update_PlayerFrame(frame, db)
 		local eclipseBar = frame.EclipseBar
 			eclipseBar:ClearAllPoints()
 		if not USE_MINI_CLASSBAR then
-			eclipseBar:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", db.classbar.xOffset +BORDER, db.classbar.yOffset +BORDER +SPACING)
+			eclipseBar:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) +BORDER, (db.classbar.yOffset or 0) +BORDER +SPACING)
 			eclipseBar:SetFrameStrata("LOW")
 		else		
 			CLASSBAR_WIDTH = CLASSBAR_WIDTH * 3/2 --Multiply by reciprocal to reset previous setting
 			CLASSBAR_WIDTH = CLASSBAR_WIDTH * 2/3
-			eclipseBar:Point("LEFT", frame.Health.backdrop, "TOPLEFT", db.classbar.xOffset +(BORDER*2 + 4), db.classbar.yOffset)
+			eclipseBar:Point("LEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) +(BORDER*2 + 4), (db.classbar.yOffset or 0))
 			eclipseBar:SetFrameStrata("MEDIUM")						
 		end
 			eclipseBar:Width(CLASSBAR_WIDTH)
@@ -426,4 +413,3 @@ if E.myclass == "WARLOCK" then
 	ShardBar.powtext = dfbar:CreateFontString(nil, 'OVERLAY')
 	ShardBar.powtext:SetFont("Fonts\\FRIZQT__.TTF", 10, "OUTLINE")
 end
-UF:DefOffsetSetting()
