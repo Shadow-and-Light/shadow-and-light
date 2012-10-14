@@ -142,6 +142,9 @@ P['sle'] = {
 		['width'] = 408,
 		['height'] = 18,
 	},
+
+	--Autoloot
+	['autoloot'] = false,
 }
 
 --For some reason datatext settings refuses to work if there is no general setting block here O_o
