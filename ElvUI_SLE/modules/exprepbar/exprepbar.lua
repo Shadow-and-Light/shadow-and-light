@@ -24,11 +24,11 @@ function M:UpdateExperience(event)
 			
 			if E.db.sle.exprep.explong then
 				if textFormat == 'PERCENT' then
-					text = string.format('%d%% '..L['Rested:']..' %d%%', cur / max * 100, rested / max * 100)
+					text = string.format('%d%%  '..L['Rested:']..' %d%%', cur / max * 100, rested / max * 100)
 				elseif textFormat == 'CURMAX' then
-					text = string.format('%s - %s '..L['Rested:']..' %s', cur, max, rested)
+					text = string.format('%s - %s  '..L['Rested:']..' %s', cur, max, rested)
 				elseif textFormat == 'CURPERC' then
-					text = string.format('%s - %d%% '..L['Rested:']..' [%d%%]', cur, cur / max * 100, rested, rested / max * 100)
+					text = string.format('%s - %d%%  '..L['Rested:']..' %s [%d%%]', cur, cur / max * 100, rested, rested / max * 100)
 				end
 			else
 				if textFormat == 'PERCENT' then
