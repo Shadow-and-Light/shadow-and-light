@@ -30,12 +30,12 @@ E.Options.args.sle.args.general.args.autoloot = {
 function AL:LootShow() --Needs to be run on PLAYER_ENTERING_WORLD event = loading screen ends. Also need a module assinged.
 	local inInstance, instanceType = IsInInstance()
 	--local isDungeon = (instanceType == "party")
-	if (inInstance and (instanceType == "party" or "raid") and E.db.sle.autoloot) then
+	if (inInstance and (instanceType == "party" or "raid") and E.db.sle.autoloot) then --in instance with option enabled
 		LootHistoryFrame:Show()
-		print("Loot Window Show")
-	else
+	elseif (inInstance and (instanceType == "party" or "raid") and not E.db.sle.autoloot) then --in instance with option disabled
+	elseif (not inInstance and E.db.sle.autoloot) then--out of instance with option enabled
 		LootHistoryFrame:Hide()
-		print("Loot Window Hide")
+	else --out of instance with option disabled
 	end
 end
 
