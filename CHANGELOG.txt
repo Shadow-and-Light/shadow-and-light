@@ -2,6 +2,7 @@ v1.19 (UNRELEASED)
 - Code catch up with ElvUI
 - Added show/hide option for errors in combat (out of LoS, on cooldown, etc)
 - Changed the way reputation is shown on bar
+- Added Ampere Addon Control Panel to UI Buttons
 
 v1.18 (October 9, 2012)
 - Fixed red flying could not showing in the mount list
