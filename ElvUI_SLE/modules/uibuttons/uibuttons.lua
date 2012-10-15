@@ -116,6 +116,9 @@ function UB:CreateButtons()
 	if IsAddOnLoaded("ACP") then
 		Abutton:SetAttribute("type1", "macro")
 		Abutton:SetAttribute("macrotext1", "/acp")
+	elseif IsAddOnLoaded("Ampere") then
+		Abutton:SetAttribute("type1", "macro")
+		Abutton:SetAttribute("macrotext1", "/ampere")
 	else
 		Abutton:SetAttribute("type1", "macro")
 		Abutton:SetAttribute("macrotext1", "/stam")
