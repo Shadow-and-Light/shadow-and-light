@@ -4,6 +4,7 @@ v1.19 (UNRELEASED)
 - Changed the way reputation is shown on bar
 - Added Ampere Addon Control Panel to UI Buttons
 - Fixed wrong rested percent with cur-percent mode of experience bar
+- Added new options for loot history frame
 
 v1.18 (October 9, 2012)
 - Fixed red flying could not showing in the mount list
