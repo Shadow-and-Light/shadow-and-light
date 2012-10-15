@@ -18,8 +18,8 @@ L["Show/hide error messages in combat."] = "Показать/скрыть соо
 L["Pet autocast corners"] = "Автокаст питомца"
 L["Show/hide triangles in corners of autocastable buttons."] = "Показать/скрыть треугольники в углах кнопок с автоматически применяемыми заклинаниями питомца."
 L["Loot History"] = "История добычи"
-L["Auto show/hide"] = "Автопоказ"
-L["Automaticaly show Blizzard loot histroy frame when in instance and hide it when out"] = "Автоматически показывать окно истории добычи Blizzard в подземельях и скрывать вне их"
+L["Auto hide"] = "Автоматически скрывать"
+L["Automaticaly hide Blizzard loot histroy frame when leaving the instance."] = "Автоматически скрывать окно истории добычи Blizzard при выходе из подземелья."
 L["Sets alpha of loot histroy frame."] = "Устанавливает прозрачность окна истории добычи"
 L["SLE_LOGIN_MSG"] = [=[Вы используете редакцию ElvUI под названием |cff1784d1"Тень и Свет"|r.
 Если вы хотите использовать оригинальный ElvUI, просто отключите плагин этой редакции в вашем менеджере аддонов.
