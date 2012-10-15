@@ -17,6 +17,10 @@ L["Errors in combat"] = true
 L["Show/hide error messages in combat."] = true
 L["Pet autocast corners"] = true
 L["Show/hide triangles in corners of autocastable buttons."] = true
+L["Loot History"] = true
+L["Auto show/hide"] = true
+L["Automaticaly show Blizzard loot histroy frame when in instance and hide it when out"] = true
+L["Sets alpha of loot histroy frame."] = true
 L["SLE_LOGIN_MSG"] = [=[You are using |cff1784d1Shadow & Light Edit|r for ElvUI.
 If you wish to use the original ElvUI addon, disable this edit's plugin in your Addons manager.
 Have a nice day.]=]

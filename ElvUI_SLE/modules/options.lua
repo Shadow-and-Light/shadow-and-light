@@ -47,7 +47,7 @@ E.Options.args.sle = {
 					order = 1,
 					type = "toggle",
 					name = L["Auto show/hide"],
-					desc = L["Automaticaly show loot histroy frame when in instance and hide it when out"],
+					desc = L["Automaticaly show Blizzard loot histroy frame when in instance and hide it when out"],
 					get = function(info) return E.db.sle.lootwin end,
 					set = function(info, value) E.db.sle.lootwin = value; SLE:LootShow() end
 				},
