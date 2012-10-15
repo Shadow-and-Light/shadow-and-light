@@ -14,7 +14,7 @@ libs\load_libs.xml
 locales\load_locales.xml
 media\load_media.xml
 ElvUI_SLE.lua
-core\load_core.xml
 modules\load_modules.xml
+skins\load_skins.xml
 config\load_config.xml
 layout\layout.lua

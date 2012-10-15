@@ -144,7 +144,7 @@ P['sle'] = {
 	},
 
 	--Autoloot
-	['autoloot'] = false,
+	['lootwin'] = false,
 }
 
 --For some reason datatext settings refuses to work if there is no general setting block here O_o

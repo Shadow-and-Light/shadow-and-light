@@ -1,5 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
-	<Script file='install.lua'/>
+	<Script file='errors.lua'/>
 	<Script file='options.lua'/>
-	<Script file='test.lua'/>
 </Ui>

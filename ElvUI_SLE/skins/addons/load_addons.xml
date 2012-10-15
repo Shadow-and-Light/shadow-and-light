@@ -1,5 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
 	<Script file='notes.lua'/>
 	<Script file='oces.lua'/>
-	<Script file='tdb.lua'/>
 </Ui>

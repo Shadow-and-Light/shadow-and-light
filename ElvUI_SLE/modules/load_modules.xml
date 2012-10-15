@@ -1,13 +1,16 @@
-﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file='install.lua'/>
+	<Script file='options.lua'/>
 	<Include file='auras\load_auras.xml'/>
 	<Include file='autorelease\load_autorelease.xml'/>
 	<Include file='backgrounds\load_backgrounds.xml'/>
 	<Include file='chat\load_chat.xml'/>
 	<Include file='datatexts\load_datatexts.xml'/>
+	<Include file='errors\load_errors.xml'/>
 	<Include file='exprepbar\load_exprepbar.xml'/>
 	<Include file='marks\load_marks.xml'/>
 	<Include file='raidutility\load_raidutility.xml'/>
-	<Include file='skins\load_skins.xml'/>
 	<Include file='uibuttons\load_uibuttons.xml'/>
 	<Include file='unitframes\load_unitframes.xml'/>
+	<Script file='test.lua'/>
 </Ui>

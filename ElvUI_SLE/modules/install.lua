@@ -1088,8 +1088,8 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.chat.font = "Accidental Presidency"  --Checked
 	E.db.chat.fontOutline = "OUTLINE"
 	E.db.chat.panelHeight = "209"  --Checked
-	E.db.chat.panelBackdropNameLeft = "Interface\\addons\\ElvUI_SLE\\textures\\chat_1.tga"  --Checked
-	E.db.chat.panelBackdropNameRight = "Interface\\addons\\ElvUI_SLE\\textures\\chat_1.tga"  --Checked
+	E.db.chat.panelBackdropNameLeft = "Interface\\addons\\ElvUI_SLE\\media\\textures\\chat_1.tga"  --Checked
+	E.db.chat.panelBackdropNameRight = "Interface\\addons\\ElvUI_SLE\\media\\textures\\chat_1.tga"  --Checked
 	E.db.chat.panelWidth = 440  --Checked
 	E.db.chat.tabFont = "Morpheus"  --Checked
 	E.db.chat.tabFontOutline = "OUTLINE"  --Checked
@@ -1762,7 +1762,7 @@ function E:Install()
 		
 		f.tutorialImage = f:CreateTexture('InstallTutorialImage', 'OVERLAY')
 		f.tutorialImage:Size(256, 128)
-		f.tutorialImage:SetTexture('Interface\\AddOns\\ElvUI_SLE\\textures\\logo_elvui_sle.tga')
+		f.tutorialImage:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\logo_elvui_sle.tga')
 		f.tutorialImage:Point('BOTTOM', 0, 70)
 
 	end

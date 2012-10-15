@@ -17,6 +17,18 @@ function SLE:UpdateThings()
 	end
 end
 
+function SLE:LootShow() --Needs to be run on PLAYER_ENTERING_WORLD event = loading screen ends. Also need a module assinged.
+	local inInstance, instanceType = IsInInstance()
+	--local isDungeon = (instanceType == "party")
+	if (inInstance and (instanceType == "party" or "raid") and E.db.sle.lootwin) then --in instance with option enabled
+		LootHistoryFrame:Show()
+	elseif (inInstance and (instanceType == "party" or "raid") and not E.db.sle.lootwin) then --in instance with option disabled
+	elseif (not inInstance and E.db.sle.autoloot) then--out of instance with option enabled
+		LootHistoryFrame:Hide()
+	else --out of instance with option disabled
+	end
+end
+
 E.PopupDialogs["VERSION_MISMATCH"] = {
 	text = L["Your version of ElvUI is older than recommended to use with Shadow & Light Edit. Please, download the latest version from tukui.org."],
 	button1 = CLOSE,
@@ -26,7 +38,7 @@ E.PopupDialogs["VERSION_MISMATCH"] = {
 }
 
 --Showing warning message about too old versions of ElvUI
-if tonumber(E.version) < 4.00 then
+if tonumber(E.version) < 4.50 then
 	E:StaticPopup_Show("VERSION_MISMATCH")
 end
 
@@ -49,6 +61,7 @@ end
 
 function SLE:Initialize()
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "UpdateThings");
+	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
 	if E.db.general.loginmessage then
 		print(L['SLE_LOGIN_MSG'])
 	end
