@@ -17,27 +17,10 @@ function SLE:UpdateThings()
 	end
 end
 
---[[
-function SLE:LootShow() --Needs to be run on PLAYER_ENTERING_WORLD event = loading screen ends. Also need a module assinged.
-	local inInstance, instanceType = IsInInstance()
-	LootHistoryFrame:SetAlpha(E.db.sle.lootalpha or 1)
-	--local isDungeon = (instanceType == "party")
-	if (inInstance and (instanceType == "party" or "raid") and E.db.sle.lootwin) then --in instance with option enabled
-		LootHistoryFrame:Show()
-	elseif (inInstance and (instanceType == "party" or "raid") and not E.db.sle.lootwin) then --in instance with option disabled
-	elseif (not inInstance and E.db.sle.autoloot) then--out of instance with option enabled
-		LootHistoryFrame:Hide()
-	else --out of instance with option disabled
-	end
-end
-]]
 function SLE:LootShow()
-	local inInstance, instanceType = IsInInstance()
-	local isDungeon = (instanceType == "party")
-	
 	LootHistoryFrame:SetAlpha(E.db.sle.lootalpha or 1)
 
-	if (not inInstance and E.db.sle.lootwin) then
+	if (not IsInInstance() and E.db.sle.lootwin) then
 		LootHistoryFrame:Hide()
 	end
 end
