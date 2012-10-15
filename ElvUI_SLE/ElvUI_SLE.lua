@@ -19,6 +19,7 @@ end
 
 function SLE:LootShow() --Needs to be run on PLAYER_ENTERING_WORLD event = loading screen ends. Also need a module assinged.
 	local inInstance, instanceType = IsInInstance()
+	LootHistoryFrame:SetAlpha(E.db.sle.lootalpha or 1)
 	--local isDungeon = (instanceType == "party")
 	if (inInstance and (instanceType == "party" or "raid") and E.db.sle.lootwin) then --in instance with option enabled
 		LootHistoryFrame:Show()

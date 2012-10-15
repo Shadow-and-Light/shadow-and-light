@@ -3,6 +3,7 @@ local UF = E:GetModule('UnitFrames')
 local AB = E:GetModule('ActionBars')
 local CH = E:GetModule('Chat')
 local A = E:GetModule('Auras')
+local SLE = E:GetModule('SLE')
 
 --Main options group
 E.Options.args.sle = {
@@ -34,13 +35,30 @@ E.Options.args.sle = {
 					get = function(info) return E.db.datatexts.lfrshow end,
 					set = function(info, value) E.db.datatexts.lfrshow = value; end
 				},
-				lootwindow = {
-					order = 4,
+			},
+		},
+		lootwindow = {
+			order = 4,
+			type = "group",
+			name = L["Loot History"],
+			guiInline = true,
+			args = {
+				window = {
+					order = 1,
 					type = "toggle",
-					name = "Autoloot",
-					desc = "Enable/Disable Autoloot window",
+					name = L["Auto show/hide"],
+					desc = L["Automaticaly show loot histroy frame when in instance and hide it when out"],
 					get = function(info) return E.db.sle.lootwin end,
-					set = function(info, value) E.db.sle.lootwin = value; end
+					set = function(info, value) E.db.sle.lootwin = value; SLE:LootShow() end
+				},
+				alpha = {
+					order = 2,
+					type = "range",
+					name = L['Alpha'],
+					desc = L["Sets alpha of loot histroy frame."],
+					min = 0.2, max = 1, step = 0.1,
+					get = function(info) return E.db.sle.lootalpha end,
+					set = function(info, value) E.db.sle.lootalpha = value; SLE:LootShow() end,
 				},
 			},
 		},
