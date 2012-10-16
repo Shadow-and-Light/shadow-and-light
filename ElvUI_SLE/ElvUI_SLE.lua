@@ -18,9 +18,10 @@ function SLE:UpdateThings()
 end
 
 function SLE:LootShow()
+	local instance = IsInInstance()
 	LootHistoryFrame:SetAlpha(E.db.sle.lootalpha or 1)
 
-	if (not IsInInstance() and E.db.sle.lootwin) then
+	if (not instance and E.db.sle.lootwin) then
 		LootHistoryFrame:Hide()
 	end
 end
