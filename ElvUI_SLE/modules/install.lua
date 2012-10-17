@@ -362,10 +362,15 @@ function E:SetupResolution(noDataReset)
 			E.db.unitframe.units.arena.castbar.width = 200;			
 		end
 		
-		E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-106135"
-		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM10680"
-		E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM106135"
-		E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM-10680"
+		local isPixel = E.private.general.pixelPerfect
+		local xOffset = isPixel and 103 or 106;
+		local yOffset = isPixel and 125 or 135;
+		local yOffsetSmall = isPixel and 76 or 80;
+		
+		E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM"..-xOffset..""..yOffset
+		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM"..xOffset..""..yOffsetSmall
+		E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM"..xOffset..""..yOffset
+		E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM"..-xOffset..""..yOffsetSmall
 		E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM310332"
 		
 		E.db.lowresolutionset = true;
@@ -376,10 +381,20 @@ function E:SetupResolution(noDataReset)
 		E:CopyTable(E.db.actionbar, P.actionbar)
 		E:CopyTable(E.db.unitframe.units, P.unitframe.units)
 
+		if E.private.general.pixelPerfect then
+			if not E.db.movers then E.db.movers = {}; end
+			
+			E.db.movers["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM0104"
+			E.db.movers["AurasMover"] = "TOPRIGHTElvUIParentTOPRIGHT-221-5"
+			E.db.movers["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM064"
+			E.db.movers["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-27865"
+			E.db.movers["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM27864"
+		end
+
 		E.db.auras.wrapAfter = P.auras.wrapAfter;	
 		E.db.general.reputation.width = P.general.reputation.width
 		E.db.general.experience.width = P.general.experience.width
-		
+
 		E.db.lowresolutionset = nil;
 	end
 	
