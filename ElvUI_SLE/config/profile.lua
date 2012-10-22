@@ -49,6 +49,7 @@ P['sle'] = {
 	['marks'] = {
 		['enabled'] = true,
 		['growth'] = "RIGHT",
+		['showinside'] = false,
 		['size'] = 18,
 	},
 	

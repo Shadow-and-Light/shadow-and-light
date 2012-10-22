@@ -185,8 +185,16 @@ end
 
 --Visibility/enable check
 function RM:UpdateVisibility()
+	local inInstance, instanceType = IsInInstance()
+	
 	if E.db.sle.marks.enabled then
-		mark_menu:Show()
+		if inInstance and E.db.sle.marks.showinside then
+			mark_menu:Show()
+		elseif not inInstance and E.db.sle.marks.showinside then
+			mark_menu:Hide()
+		elseif not E.db.sle.marks.showinside then
+			mark_menu:Show()
+		end
 	else
 		mark_menu:Hide()
 	end
@@ -198,7 +206,8 @@ function RM:Initialize()
 	RM:FrameButtonsGrowth()
 	RM:SetButtonAttributes()
 	RM:UpdateVisibility()
-	
+	self:RegisterEvent("PLAYER_ENTERING_WORLD", "UpdateVisibility");
+
 	E:CreateMover(mark_menu, "MarkMover", "RM", nil, nil, nil, "ALL,S&L")
 end
 
