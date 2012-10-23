@@ -23,7 +23,7 @@ end
 
 --Replacement of chat tab position and size function
 function CH:PositionChat(override)
-	if (InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override) then return end
+	if not self.db.lockPositions or ((InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override)) then return end
 	
 	RightChatPanel:Size(E.db.chat.panelWidth, E.db.chat.panelHeight)
 	LeftChatPanel:Size(E.db.chat.panelWidth, E.db.chat.panelHeight)	
@@ -51,6 +51,10 @@ function CH:PositionChat(override)
 	CreatedFrames = id
 	
 	for i=1, CreatedFrames do
+		local BASE_OFFSET = 60
+		if E.PixelMode then
+			BASE_OFFSET = BASE_OFFSET - 3
+		end
 		chat = _G[format("ChatFrame%d", i)]
 		chatbg = format("ChatFrame%dBackground", i)
 		button = _G[format("ButtonCF%d", i)]
@@ -73,15 +77,21 @@ function CH:PositionChat(override)
 		if not chat.isInitialized then return end
 		
 		if point == "BOTTOMRIGHT" and chat:IsShown() and not (id > NUM_CHAT_WINDOWS) and id == self.RightChatWindowID then
-		if id ~= 2 then
+		
 			chat:ClearAllPoints()
-			chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3) -- <<< Changed
-			chat:SetSize(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - 27)) -- <<< Changed
-		else
-			chat:ClearAllPoints()
-			chat:Point("BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 10, 3)
-			chat:Size(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - 27) - CombatLogQuickButtonFrame_Custom:GetHeight())				
-		end
+			if E.db.datatexts.rightChatPanel then
+				chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3) -- <<< Changed
+			
+			else
+				BASE_OFFSET = BASE_OFFSET - 24
+				chat:Point("BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 4, 3)
+			end
+		
+			if id ~= 2 then
+				chat:SetSize(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - 27)) -- <<< Changed
+			else
+				chat:Size(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - 27) - CombatLogQuickButtonFrame_Custom:GetHeight())	
+			end
 
 		FCF_SavePositionAndDimensions(chat)			
 		
@@ -101,7 +111,12 @@ function CH:PositionChat(override)
 	else
 		if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
 			chat:ClearAllPoints()
-			chat:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 5, 3)
+			if E.db.datatexts.leftChatPanel then
+				chat:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 5, 3)
+			else
+				BASE_OFFSET = BASE_OFFSET - 24
+				chat:Point("BOTTOMLEFT", LeftChatToggleButton, "BOTTOMLEFT", 5, 1)
+			end
 			chat:Size(E.db.chat.panelWidth - 6, (E.db.chat.panelHeight - 27)) -- <<< Changed
 			FCF_SavePositionAndDimensions(chat)		
 		end

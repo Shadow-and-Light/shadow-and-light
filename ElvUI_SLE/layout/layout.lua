@@ -64,7 +64,7 @@ LO.CreateChatPanelsSLE = LO.CreateChatPanels
 function LO:CreateChatPanels()
 	LO.CreateChatPanelsSLE(self)
 	--Left Chat
-	LeftChatPanel:Point('BOTTOMLEFT', E.UIParent, 0, 21)
+	--LeftChatPanel:Point('BOTTOMLEFT', E.UIParent, 0, 21) --Prevents chat from moving
 	
 	--Left Chat Tab
 	LeftChatTab:Point('TOPLEFT', LeftChatPanel, 'TOPLEFT', 2, -2)
@@ -74,7 +74,7 @@ function LO:CreateChatPanels()
 	ChatFrame1EditBox:Hide()
 	
 	--Right Chat
-	RightChatPanel:Point('BOTTOMRIGHT', E.UIParent, 0, 21)
+	--RightChatPanel:Point('BOTTOMRIGHT', E.UIParent, 0, 21) --Prevents chat from moving
 	
 	--Right Chat Tab
 	RightChatTab:Point('TOPRIGHT', RightChatPanel, 'TOPRIGHT', -2, -2)
