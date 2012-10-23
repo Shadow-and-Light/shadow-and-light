@@ -112,6 +112,8 @@ L["Changes the way text is shown on rep bar."] = "Изменяет отобра�
 --Marks--
 L["Raid Marks"] = "Рейдовые Метки"
 L["Show/Hide raid marks."] = "Показать/скрыть фрейм рейдовых меток."
+L["Show only in instances"] = "Только в подземельях"
+L["Selecting this option will have the Raid Markers appear only while in a raid or dungeon."] = "При активации будет отображать полосу меток только в подземельях и рейдах."
 L["Sets size of buttons"] = "Устанавливает размер кнопок" --Also used in UI buttons
 L["Direction"] = "Направление"
 L["Change the direction of buttons growth from the skull marker"] = "Изменяет направление роста кнопок от метки \"череп\"."

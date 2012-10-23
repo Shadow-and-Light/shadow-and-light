@@ -112,6 +112,8 @@ L["Changes the way text is shown on rep bar."] = true
 --Marks--
 L["Raid Marks"] = true
 L["Show/Hide raid marks."] = true
+L["Show only in instances"] = true
+L["Selecting this option will have the Raid Markers appear only while in a raid or dungeon."] = true
 L["Sets size of buttons"] = true --Also used in UI buttons
 L["Direction"] = true
 L["Change the direction of buttons growth from the skull marker"] = true
