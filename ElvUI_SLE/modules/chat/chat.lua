@@ -79,7 +79,6 @@ function CH:PositionChat(override)
 			chat:ClearAllPoints()
 			if E.db.datatexts.rightChatPanel then
 				chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3) -- <<< Changed
-			
 			else
 				BASE_OFFSET = BASE_OFFSET - 24
 				chat:Point("BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 4, 3)
@@ -116,7 +115,7 @@ function CH:PositionChat(override)
 					chat:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 5, 3)
 				else
 					BASE_OFFSET = BASE_OFFSET - 24
-					chat:Point("BOTTOMLEFT", LeftChatToggleButton, "BOTTOMLEFT", 5, 1)
+					chat:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 5, 3)
 				end
 				chat:Size(E.db.chat.panelWidth - 6, (E.db.chat.panelHeight - 27)) -- <<< Changed
 				FCF_SavePositionAndDimensions(chat)		
