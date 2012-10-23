@@ -188,7 +188,7 @@ function RM:UpdateVisibility()
 	local inInstance, instanceType = IsInInstance()
 	
 	if E.db.sle.marks.enabled then
-		if inInstance and E.db.sle.marks.showinside then
+		if (inInstance and instanceType ~= "pvp") and E.db.sle.marks.showinside then
 			mark_menu:Show()
 		elseif not inInstance and E.db.sle.marks.showinside then
 			mark_menu:Hide()
