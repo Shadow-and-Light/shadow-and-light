@@ -23,8 +23,8 @@ E.Options.args.sle.args.marks = {
 		showinside = {
 			order = 3,
 			type = "toggle",
-			name = "Show in an instance only.",
-			desc = "Selecting this option will have the Raid Markers appear only while in a raid or dungeon.",
+			name = L["Show only in instances"],
+			desc = L["Selecting this option will have the Raid Markers appear only while in a raid or dungeon."],
 			get = function(info) return E.db.sle.marks.showinside end,
 			set = function(info, value) E.db.sle.marks.showinside = value; RM:UpdateVisibility() end
 		},
