@@ -59,7 +59,7 @@ function E:UpdateAll()
 		E:SetMoversPositions()
 	end
 	
-	if not E:HasMoverBeenMoved("RightChatMover") and E.db.datatexts.rightChatPanelthen then
+	if not E:HasMoverBeenMoved("RightChatMover") and E.db.datatexts.rightChatPanel then
 		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
 		E:SetMoversPositions()
 	end
@@ -82,7 +82,7 @@ function SLE:Initialize()
 		E:SetMoversPositions()
 	end
 	
-	if not E:HasMoverBeenMoved("RightChatMover") and E.db.datatexts.rightChatPanelthen then
+	if not E:HasMoverBeenMoved("RightChatMover") and E.db.datatexts.rightChatPanel then
 		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
 		E:SetMoversPositions()
 	end
