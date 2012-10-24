@@ -53,6 +53,16 @@ function E:UpdateAll()
 	E.db.datatexts.panels.Top_Center = 'Version'
 	E:GetModule('DataTexts'):LoadDataTexts() --Prevents datatexts from not changing on profile switch (Elv's issue)
 	E:GetModule('RaidUtility'):MoveButton()
+	
+	if not E:HasMoverBeenMoved("LeftChatMover") and E.db.datatexts.leftChatPanel then
+		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021"
+		E:SetMoversPositions()
+	end
+	
+	if not E:HasMoverBeenMoved("RightChatMover") and E.db.datatexts.rightChatPanelthen then
+		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
+		E:SetMoversPositions()
+	end
 end
 
 
@@ -67,6 +77,15 @@ function SLE:Initialize()
 	E:GetModule('Layout'):EditboxPos()
 	SLE:Tutorials()
 	SLE:ConfigCats()
+	if not E:HasMoverBeenMoved("LeftChatMover") and E.db.datatexts.leftChatPanel then
+		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021"
+		E:SetMoversPositions()
+	end
+	
+	if not E:HasMoverBeenMoved("RightChatMover") and E.db.datatexts.rightChatPanelthen then
+		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
+		E:SetMoversPositions()
+	end
 end
 
 E:RegisterModule(SLE:GetName())
