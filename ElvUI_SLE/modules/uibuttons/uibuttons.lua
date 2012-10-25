@@ -1,12 +1,14 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local UB = E:NewModule('UIButtons', 'AceHook-3.0', 'AceEvent-3.0');
+local Btemplate = "SecureActionButtonTemplate"
+local db = E.db.sle.uibuttons
 
 local UIBFrame = CreateFrame('Frame', "UIBFrame", E.UIParent);
-local Cbutton = CreateFrame("Button", "ConfigUIButton", UIBFrame, "SecureActionButtonTemplate")
-local Rbutton = CreateFrame("Button", "ReloadUIButton", UIBFrame, "SecureActionButtonTemplate")
-local Mbutton = CreateFrame("Button", "MoveUIButton", UIBFrame, "SecureActionButtonTemplate")
-local Bbutton = CreateFrame("Button", "Bbutton", UIBFrame, "SecureActionButtonTemplate")
-local Abutton = CreateFrame("Button", "Abutton", UIBFrame, "SecureActionButtonTemplate")
+local Cbutton = CreateFrame("Button", "ConfigUIButton", UIBFrame, Btemplate)
+local Rbutton = CreateFrame("Button", "ReloadUIButton", UIBFrame, Btemplate)
+local Mbutton = CreateFrame("Button", "MoveUIButton", UIBFrame, Btemplate)
+local Bbutton = CreateFrame("Button", "Bbutton", UIBFrame, Btemplate)
+local Abutton = CreateFrame("Button", "Abutton", UIBFrame, Btemplate)
 
 function UB:CreateFrame()
 	UIBFrame:SetFrameLevel(5);
@@ -18,140 +20,76 @@ function UB:CreateFrame()
 	end)
 end
 
-function UB:CreateButtons()
-	--Config
-	Cbutton:CreateBackdrop()
-	Cbutton:SetAttribute("type1", "macro")
-	Cbutton:SetAttribute("macrotext1", "/ec")
-		
-	local Cbutton_text = Cbutton:CreateFontString(nil, 'OVERLAY')
-	Cbutton_text:SetFont(E["media"].normFont, 10)
-	Cbutton_text:SetText("C")
-	Cbutton_text:SetPoint("CENTER", Cbutton, "CENTER")
-	
-	Cbutton:SetScript("OnEnter", function(self)
-		GameTooltip:SetOwner(self, "ANCHOR_TOP", 30,0)
-		GameTooltip:AddLine(L["ElvUI Config"], .6, .6, .6, .6, .6, 1)
-		GameTooltip:AddLine(L["Click to toggle config window"], 1, 1, 1, 1, 1, 1)
-		GameTooltip:Show()
-	end)
-	
-	Cbutton:SetScript("OnLeave", function(self) 
-		GameTooltip:Hide() 
-	end)
-	
-	--Reload
-	Rbutton:CreateBackdrop()
-	Rbutton:SetAttribute("type1", "macro")
-	Rbutton:SetAttribute("macrotext1", "/rl")
-		
-	local Rbutton_text = Rbutton:CreateFontString(nil, 'OVERLAY')
-	Rbutton_text:SetFont(E["media"].normFont, 10)
-	Rbutton_text:SetText("R")
-	Rbutton_text:SetPoint("CENTER", Rbutton, "CENTER")
-	
-	Rbutton:SetScript("OnEnter", function(self)
-		GameTooltip:SetOwner(self, "ANCHOR_TOP", 30,0)
-		GameTooltip:AddLine(L["Reload UI"], .6, .6, .6, .6, .6, 1)
-		GameTooltip:AddLine(L["Click to reload your interface"], 1, 1, 1, 1, 1, 1)
-		GameTooltip:Show()
-	end)
-	
-	Rbutton:SetScript("OnLeave", function(self) 
-		GameTooltip:Hide() 
-	end)
-	
-	--Move UI
-	Mbutton:CreateBackdrop()
-	Mbutton:SetAttribute("type1", "macro")
-	Mbutton:SetAttribute("macrotext1", "/moveui")
-		
-	local Mbutton_text = Mbutton:CreateFontString(nil, 'OVERLAY')
-	Mbutton_text:SetFont(E["media"].normFont, 10)
-	Mbutton_text:SetText("M")
-	Mbutton_text:SetPoint("CENTER", Mbutton, "CENTER")
-	
-	Mbutton:SetScript("OnEnter", function(self)
-		GameTooltip:SetOwner(self, "ANCHOR_TOP", 30,0)
-		GameTooltip:AddLine(L["Move UI"], .6, .6, .6, .6, .6, 1)
-		GameTooltip:AddLine(L["Click to unlock moving ElvUI elements"], 1, 1, 1, 1, 1, 1)
-		GameTooltip:Show()
-	end)
-	
-	Mbutton:SetScript("OnLeave", function(self) 
-		GameTooltip:Hide() 
-	end)
-	
-	--Boss Mod
-	Bbutton:CreateBackdrop()
-	if IsAddOnLoaded("DXE_Loader") then
-		Bbutton:SetAttribute("type1", "macro")
-		Bbutton:SetAttribute("macrotext1", "/dxe config")
-	elseif IsAddOnLoaded("Bigwigs") then
-		Bbutton:SetAttribute("type1", "macro")
-		Bbutton:SetAttribute("macrotext1", "/bigwigs")
-	elseif IsAddOnLoaded("DBM-Core") then
-		Bbutton:SetAttribute("type1", "macro")
-		Bbutton:SetAttribute("macrotext1", "/dbm options")
-	end
-		
-	local Bbutton_text = Bbutton:CreateFontString(nil, 'OVERLAY')
-	Bbutton_text:SetFont(E["media"].normFont, 10)
-	Bbutton_text:SetText("B")
-	Bbutton_text:SetPoint("CENTER", Bbutton, "CENTER")
-	
-	Bbutton:SetScript("OnEnter", function(self)
-		GameTooltip:SetOwner(self, "ANCHOR_TOP", 30,0)
-		GameTooltip:AddLine(L["Boss Mod"], .6, .6, .6, .6, .6, 1)
-		GameTooltip:AddLine(L["Click to toogle the Configuration/Option Window from the Bossmod (DXE, DBM or Bigwigs) you have enabled."], 1, 1, 1, 1, 1, 1)
-		GameTooltip:Show()
-	end)
-	
-	Bbutton:SetScript("OnLeave", function(self) 
-		GameTooltip:Hide() 
-	end)
-		
-	--Addon Manager
-	Abutton:CreateBackdrop()
-	if IsAddOnLoaded("ACP") then
-		Abutton:SetAttribute("type1", "macro")
-		Abutton:SetAttribute("macrotext1", "/acp")
+function UB:Create(button, symbol, text, name, desc)
+	button:CreateBackdrop()
+	local button_text = button:CreateFontString(nil, 'OVERLAY')
+	button_text:SetFont(E["media"].normFont, 10)
+	button_text:SetText(symbol)
+	button_text:SetPoint("CENTER", button, "CENTER")
+	button:SetAttribute("type1", "macro")
+	if button == Bbutton then
+		if IsAddOnLoaded("DXE_Loader") then
+			button:SetAttribute("macrotext1", "/dxe config")
+		elseif IsAddOnLoaded("Bigwigs") then
+			button:SetAttribute("macrotext1", "/bigwigs")
+		elseif IsAddOnLoaded("DBM-Core") then
+			button:SetAttribute("macrotext1", "/dbm options")
+		end
+	elseif button == Abutton then
+		if IsAddOnLoaded("ACP") then
+			button:SetAttribute("macrotext1", "/acp")
+		elseif IsAddOnLoaded("Ampere") then
+			button:SetAttribute("macrotext1", "/ampere")
+		else
+			button:SetAttribute("macrotext1", "/stam")
+		end
 	else
-		Abutton:SetAttribute("type1", "macro")
-		Abutton:SetAttribute("macrotext1", "/stam")
+		button:SetAttribute("macrotext1", text)
 	end
-		
-	local Abutton_text = Mbutton:CreateFontString(nil, 'OVERLAY')
-	Abutton_text:SetFont(E["media"].normFont, 10)
-	Abutton_text:SetText("A")
-	Abutton_text:SetPoint("CENTER", Abutton, "CENTER")
 	
-	Abutton:SetScript("OnEnter", function(self)
+	button:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_TOP", 30,0)
-		GameTooltip:AddLine(L["AddOns Manager"], .6, .6, .6, .6, .6, 1)
-		GameTooltip:AddLine(L["Click to toogle the AddOn Manager frame (stAddOnManager or ACP) you have enabled."], 1, 1, 1, 1, 1, 1)
+		GameTooltip:AddLine(name, .6, .6, .6, .6, .6, 1)
+		GameTooltip:AddLine(desc, 1, 1, 1, 1, 1, 1)
 		GameTooltip:Show()
 	end)
 	
-	Abutton:SetScript("OnLeave", function(self) 
+	button:SetScript("OnLeave", function(self) 
 		GameTooltip:Hide() 
 	end)
 end
 
+function UB:CreateButtons()
+	--Config
+	self:Create(Cbutton, "C", "/ec", L["ElvUI Config"], L["Click to toggle config window"])
+	
+	--Reload
+	self:Create(Rbutton, "R", "/rl", L["Reload UI"], L["Click to reload your interface"])
+
+	--Move UI
+	self:Create(Mbutton, "M", "/moveui", L["Move UI"], L["Click to unlock moving ElvUI elements"])
+
+	--Boss Mod
+	self:Create(Bbutton, "B", nil, L["Boss Mod"], L["Click to toogle the Configuration/Option Window from the Bossmod (DXE, DBM or Bigwigs) you have enabled."])
+		
+	--Addon Manager
+	self:Create(Abutton, "A", nil, L["AddOns Manager"], L["Click to toogle the AddOn Manager frame (stAddOnManager or ACP) you have enabled."])
+end
+
 function UB:FrameSize()
-	if E.db.sle.uibuttons.position == "uib_vert" then
-		UIBFrame:SetWidth(E.db.sle.uibuttons.size + 8)
-		UIBFrame:SetHeight((E.db.sle.uibuttons.size + 5) * 5 + 3)
+	if db.position == "uib_vert" then
+		UIBFrame:SetWidth(db.size + 8)
+		UIBFrame:SetHeight((db.size + 5) * 5 + 3)
 	else
-		UIBFrame:SetWidth((E.db.sle.uibuttons.size + 5) * 5 + 3)
-		UIBFrame:SetHeight(E.db.sle.uibuttons.size + 8)
+		UIBFrame:SetWidth((db.size + 5) * 5 + 3)
+		UIBFrame:SetHeight(db.size + 8)
 	end
 	
-	Cbutton:Size(E.db.sle.uibuttons.size)
-	Rbutton:Size(E.db.sle.uibuttons.size)
-	Mbutton:Size(E.db.sle.uibuttons.size)
-	Bbutton:Size(E.db.sle.uibuttons.size)
-	Abutton:Size(E.db.sle.uibuttons.size)
+	Cbutton:Size(db.size)
+	Rbutton:Size(db.size)
+	Mbutton:Size(db.size)
+	Bbutton:Size(db.size)
+	Abutton:Size(db.size)
 	
 	UB:Positioning()
 end	
@@ -163,7 +101,7 @@ function UB:Positioning()
 	Bbutton:ClearAllPoints()
 	Abutton:ClearAllPoints()
 	--position check
-	if E.db.sle.uibuttons.position == "uib_vert" then
+	if db.position == "uib_vert" then
 		Cbutton:Point("TOP", UIBFrame, "TOP", 0, -4)
 		Rbutton:Point("TOP", Cbutton, "BOTTOM", 0, -5)
 		Mbutton:Point("TOP", Rbutton, "BOTTOM", 0, -5)
@@ -179,17 +117,17 @@ function UB:Positioning()
 end
 
 function UB:MoverSize()
-	if E.db.sle.uibuttons.position == "uib_vert" then
-		UIBFrame:SetWidth(E.db.sle.uibuttons.size + 8)
-		UIBFrame:SetHeight((E.db.sle.uibuttons.size + 5) * 5 + 3)
+	if db.position == "uib_vert" then
+		UIBFrame:SetWidth(db.size + 8)
+		UIBFrame:SetHeight((db.size + 5) * 5 + 3)
 	else
-		UIBFrame:SetWidth((E.db.sle.uibuttons.size + 5) * 5 + 3)
-		UIBFrame:SetHeight(E.db.sle.uibuttons.size + 8)
+		UIBFrame:SetWidth((db.size + 5) * 5 + 3)
+		UIBFrame:SetHeight(db.size + 8)
 	end
 end
 
 function UB:Start()
-	if E.db.sle.uibuttons.enable then
+	if db.enable then
 		UIBFrame:Show()
 	else
 		UIBFrame:Hide()
@@ -197,7 +135,7 @@ function UB:Start()
 end
 
 function UB:Mouseover()
-	if E.db.sle.uibuttons.mouse then
+	if db.mouse then
 		if (MouseIsOver(UIBFrame)) then
 			UIBFrame:SetAlpha(1)
 		else	
