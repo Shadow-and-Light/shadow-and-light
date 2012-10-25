@@ -9,7 +9,8 @@ local function LoadSkin()
 		f.ActiveAlly,
 		f.ActiveEnemy
 	}
-
+	S:HandleCloseButton(FloatingBattlePetTooltip.CloseButton)
+	
 	-- TOP FRAMES
 	f:StripTextures()
 
@@ -190,6 +191,7 @@ end)
 	f.TopVersusText:SetPoint("TOP", f, "TOP", 0, -56) --Versus text
 
 	-- TOOLTIPS SKINNING
+--[[
 	PetBattlePrimaryAbilityTooltip.Background:SetTexture(nil)
 	PetBattlePrimaryAbilityTooltip.Delimiter1:SetTexture(nil)
 	PetBattlePrimaryAbilityTooltip.Delimiter2:SetTexture(nil)
@@ -214,6 +216,29 @@ end)
 	PetBattlePrimaryUnitTooltip.BorderBottomRight:SetTexture(nil)
 	PetBattlePrimaryUnitTooltip.BorderBottomLeft:SetTexture(nil)
 	PetBattlePrimaryUnitTooltip:SetTemplate("Transparent")
+	]]
+	local function SkinPetTooltip(tt)
+		tt.Background:SetTexture(nil)
+		if tt.Delimiter1 then
+			tt.Delimiter1:SetTexture(nil)
+			tt.Delimiter2:SetTexture(nil)
+		end
+		tt.BorderTop:SetTexture(nil)
+		tt.BorderTopLeft:SetTexture(nil)
+		tt.BorderTopRight:SetTexture(nil)
+		tt.BorderLeft:SetTexture(nil)
+		tt.BorderRight:SetTexture(nil)
+		tt.BorderBottom:SetTexture(nil)
+		tt.BorderBottomRight:SetTexture(nil)
+		tt.BorderBottomLeft:SetTexture(nil)
+		tt:SetTemplate("Transparent")	
+	end
+
+	SkinPetTooltip(PetBattlePrimaryAbilityTooltip)
+	SkinPetTooltip(PetBattlePrimaryUnitTooltip)
+	SkinPetTooltip(BattlePetTooltip)
+	SkinPetTooltip(FloatingBattlePetTooltip)
+	SkinPetTooltip(FloatingPetBattleAbilityTooltip)
 		
 	-- TOOLTIP DEFAULT POSITION
 	hooksecurefunc("PetBattleAbilityTooltip_Show", function()
