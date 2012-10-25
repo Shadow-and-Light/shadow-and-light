@@ -191,32 +191,6 @@ end)
 	f.TopVersusText:SetPoint("TOP", f, "TOP", 0, -56) --Versus text
 
 	-- TOOLTIPS SKINNING
---[[
-	PetBattlePrimaryAbilityTooltip.Background:SetTexture(nil)
-	PetBattlePrimaryAbilityTooltip.Delimiter1:SetTexture(nil)
-	PetBattlePrimaryAbilityTooltip.Delimiter2:SetTexture(nil)
-	PetBattlePrimaryAbilityTooltip.BorderTop:SetTexture(nil)
-	PetBattlePrimaryAbilityTooltip.BorderTopLeft:SetTexture(nil)
-	PetBattlePrimaryAbilityTooltip.BorderTopRight:SetTexture(nil)
-	PetBattlePrimaryAbilityTooltip.BorderLeft:SetTexture(nil)
-	PetBattlePrimaryAbilityTooltip.BorderRight:SetTexture(nil)
-	PetBattlePrimaryAbilityTooltip.BorderBottom:SetTexture(nil)
-	PetBattlePrimaryAbilityTooltip.BorderBottomRight:SetTexture(nil)
-	PetBattlePrimaryAbilityTooltip.BorderBottomLeft:SetTexture(nil)
-	PetBattlePrimaryAbilityTooltip:SetTemplate("Transparent")
-
-	PetBattlePrimaryUnitTooltip.Delimiter:SetTexture(nil)
-	PetBattlePrimaryUnitTooltip.Background:SetTexture(nil)
-	PetBattlePrimaryUnitTooltip.BorderTop:SetTexture(nil)
-	PetBattlePrimaryUnitTooltip.BorderTopLeft:SetTexture(nil)
-	PetBattlePrimaryUnitTooltip.BorderTopRight:SetTexture(nil)
-	PetBattlePrimaryUnitTooltip.BorderLeft:SetTexture(nil)
-	PetBattlePrimaryUnitTooltip.BorderRight:SetTexture(nil)
-	PetBattlePrimaryUnitTooltip.BorderBottom:SetTexture(nil)
-	PetBattlePrimaryUnitTooltip.BorderBottomRight:SetTexture(nil)
-	PetBattlePrimaryUnitTooltip.BorderBottomLeft:SetTexture(nil)
-	PetBattlePrimaryUnitTooltip:SetTemplate("Transparent")
-	]]
 	local function SkinPetTooltip(tt)
 		tt.Background:SetTexture(nil)
 		if tt.Delimiter1 then
