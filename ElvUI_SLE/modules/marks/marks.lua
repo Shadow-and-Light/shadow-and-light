@@ -1,198 +1,126 @@
 ﻿--Raid mark bar. Similar to quickmark which just semms to be impossible to skin
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local RM = E:NewModule('RaidMarks', 'AceHook-3.0', 'AceEvent-3.0');
+local Mtemplate = "SecureActionButtonTemplate"
 
 local mark_menu = CreateFrame("Frame", "Mark_Menu", E.UIParent)
-local m1 = CreateFrame("Button", "M1", Mark_Menu, "SecureActionButtonTemplate")
-local m2 = CreateFrame("Button", "M2", Mark_Menu, "SecureActionButtonTemplate")
-local m3 = CreateFrame("Button", "M3", Mark_Menu, "SecureActionButtonTemplate")
-local m4 = CreateFrame("Button", "M4", Mark_Menu, "SecureActionButtonTemplate")
-local m5 = CreateFrame("Button", "M5", Mark_Menu, "SecureActionButtonTemplate")
-local m6 = CreateFrame("Button", "M6", Mark_Menu, "SecureActionButtonTemplate")
-local m7 = CreateFrame("Button", "M7", Mark_Menu, "SecureActionButtonTemplate")
-local m8 = CreateFrame("Button", "M8", Mark_Menu, "SecureActionButtonTemplate")
+local m1 = CreateFrame("Button", "M1", Mark_Menu, Mtemplate)
+local m2 = CreateFrame("Button", "M2", Mark_Menu, Mtemplate)
+local m3 = CreateFrame("Button", "M3", Mark_Menu, Mtemplate)
+local m4 = CreateFrame("Button", "M4", Mark_Menu, Mtemplate)
+local m5 = CreateFrame("Button", "M5", Mark_Menu, Mtemplate)
+local m6 = CreateFrame("Button", "M6", Mark_Menu, Mtemplate)
+local m7 = CreateFrame("Button", "M7", Mark_Menu, Mtemplate)
+local m8 = CreateFrame("Button", "M8", Mark_Menu, Mtemplate)
+
+local MarkB = {
+m1,
+m2,
+m3,
+m4,
+m5,
+m6,
+m7,
+m8,
+}
 
 --Main frame
 function RM:CreateFrame()
 	mark_menu:Point("BOTTOMRIGHT", RightChatTab, "TOPRIGHT", 2, 3) --Default positon
 	mark_menu:SetFrameStrata('LOW');
-	mark_menu:CreateBackdrop('Default');
+	mark_menu:CreateBackdrop();
 	mark_menu.backdrop:SetAllPoints();
 	
 	mark_menu:Hide()
 end
 
+function RM:SetupButton(button, mark)
+	button:CreateBackdrop()
+	button.backdrop:SetAllPoints()
+	button:SetAttribute("type", "macro")
+	button:SetAttribute("macrotext",  '/script SetRaidTargetIcon("target",'..mark..')')
+	
+	button.tex = button:CreateTexture(nil, 'OVERLAY')
+	button.tex:Point('TOPLEFT', button, 'TOPLEFT', 2, -2)
+	button.tex:Point('BOTTOMRIGHT', button, 'BOTTOMRIGHT', -2, 2)
+	button.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_"..mark)
+end
+
 --Buttons creation
-function RM:SetButtonAttributes()
-	--Skull
-	m1:CreateBackdrop('Default');
-	m1.backdrop:SetAllPoints();
-	m1:SetAttribute("type", "macro");
-	m1:SetAttribute("macrotext",  '/script SetRaidTargetIcon("target",8)');
-	--texture
-	m1.tex = m1:CreateTexture(nil, 'OVERLAY')
-	m1.tex:Point('TOPLEFT', m1, 'TOPLEFT', 2, -2)
-	m1.tex:Point('BOTTOMRIGHT', m1, 'BOTTOMRIGHT', -2, 2)
-	m1.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_8")
-
-	--Cross
-	m2:CreateBackdrop('Default');
-	m2.backdrop:SetAllPoints();
-	m2:SetAttribute("type", "macro");
-	m2:SetAttribute("macrotext",  '/script SetRaidTargetIcon("target",7)');
-	--texture
-	m2.tex = m2:CreateTexture(nil, 'OVERLAY')
-	m2.tex:Point('TOPLEFT', m2, 'TOPLEFT', 2, -2)
-	m2.tex:Point('BOTTOMRIGHT', m2, 'BOTTOMRIGHT', -2, 2)
-	m2.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_7")
-
-	--Square
-	m3:CreateBackdrop('Default');
-	m3.backdrop:SetAllPoints();
-	m3:SetAttribute("type", "macro");
-	m3:SetAttribute("macrotext",  '/script SetRaidTargetIcon("target",6)');
-	--texture
-	m3.tex = m3:CreateTexture(nil, 'OVERLAY')
-	m3.tex:Point('TOPLEFT', m3, 'TOPLEFT', 2, -2)
-	m3.tex:Point('BOTTOMRIGHT', m3, 'BOTTOMRIGHT', -2, 2)
-	m3.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_6")
-
-	--Moon
-	m4:CreateBackdrop('Default');
-	m4.backdrop:SetAllPoints();
-	m4:SetAttribute("type", "macro");
-	m4:SetAttribute("macrotext",  '/script SetRaidTargetIcon("target",5)');
-	--texture
-	m4.tex = m4:CreateTexture(nil, 'OVERLAY')
-	m4.tex:Point('TOPLEFT', m4, 'TOPLEFT', 2, -2)
-	m4.tex:Point('BOTTOMRIGHT', m4, 'BOTTOMRIGHT', -2, 2)
-	m4.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_5")
-
-	--Triangle
-	m5:CreateBackdrop('Default');
-	m5.backdrop:SetAllPoints();
-	m5:SetAttribute("type", "macro");
-	m5:SetAttribute("macrotext",  '/script SetRaidTargetIcon("target",4)');
-	--texture
-	m5.tex = m5:CreateTexture(nil, 'OVERLAY')
-	m5.tex:Point('TOPLEFT', m5, 'TOPLEFT', 2, -2)
-	m5.tex:Point('BOTTOMRIGHT', m5, 'BOTTOMRIGHT', -3, 2)
-	m5.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_4")
-
-	--Diamond
-	m6:CreateBackdrop('Default');
-	m6.backdrop:SetAllPoints();
-	m6:SetAttribute("type", "macro");
-	m6:SetAttribute("macrotext",  '/script SetRaidTargetIcon("target",3)');
-	--texture
-	m6.tex = m6:CreateTexture(nil, 'OVERLAY')
-	m6.tex:Point('TOPLEFT', m6, 'TOPLEFT', 2, -2)
-	m6.tex:Point('BOTTOMRIGHT', m6, 'BOTTOMRIGHT', -2, 2)
-	m6.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_3")
-
-	--Circle
-	m7:CreateBackdrop('Default');
-	m7.backdrop:SetAllPoints();
-	m7:SetAttribute("type", "macro");
-	m7:SetAttribute("macrotext",  '/script SetRaidTargetIcon("target",2)');
-	--texture
-	m7.tex = m7:CreateTexture(nil, 'OVERLAY')
-	m7.tex:Point('TOPLEFT', m7, 'TOPLEFT', 2, -2)
-	m7.tex:Point('BOTTOMRIGHT', m7, 'BOTTOMRIGHT', -2, 2)
-	m7.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_2")
-
-	--Star
-	m8:CreateBackdrop('Default');
-	m8.backdrop:SetAllPoints();
-	m8:SetAttribute("type", "macro");
-	m8:SetAttribute("macrotext",  '/script SetRaidTargetIcon("target",1)');
-	--texture
-	m8.tex = m8:CreateTexture(nil, 'OVERLAY')
-	m8.tex:Point('TOPLEFT', m8, 'TOPLEFT', 2, -2)
-	m8.tex:Point('BOTTOMRIGHT', m8, 'BOTTOMRIGHT', -2, 2)
-	m8.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_1")
+function RM:CreateButtons()
+	for i = 1, 8 do
+		RM:SetupButton(MarkB[i], 9 - i)
+	end
 end
 
 --Setting/updating buttons' size
 function RM:FrameButtonsSize()
-	m1:Size(E.db.sle.marks.size)
-	m2:Size(E.db.sle.marks.size)
-	m3:Size(E.db.sle.marks.size)
-	m4:Size(E.db.sle.marks.size)
-	m5:Size(E.db.sle.marks.size)
-	m6:Size(E.db.sle.marks.size)
-	m7:Size(E.db.sle.marks.size)
-	m8:Size(E.db.sle.marks.size)
+	for i = 1, 8 do
+		MarkB[i]:Size(E.db.sle.marks.size)
+	end
 end
 
 --Setting growth direction for buttons
 function RM:FrameButtonsGrowth()
-	m1:ClearAllPoints()
-	m2:ClearAllPoints()
-	m3:ClearAllPoints()
-	m4:ClearAllPoints()
-	m5:ClearAllPoints()
-	m6:ClearAllPoints()
-	m7:ClearAllPoints()
-	m8:ClearAllPoints()
+	local db = E.db.sle.marks
+	local size = db.size
+	local width, height, x, y, anchor, point
+	for i = 1, 8 do
+		MarkB[i]:ClearAllPoints()
+	end
 	
-	if E.db.sle.marks.growth == "RIGHT" then
-		mark_menu:SetWidth(8 * E.db.sle.marks.size + 11)
-		mark_menu:SetHeight(E.db.sle.marks.size + 4)
-		m1:Point('LEFT', Mark_Menu, 'LEFT', 2, 0) 
-		m2:Point('LEFT', m1, 'RIGHT', 1, 0) 
-		m3:Point('LEFT', m2, 'RIGHT', 1, 0) 
-		m4:Point('LEFT', m3, 'RIGHT', 1, 0) 
-		m5:Point('LEFT', m4, 'RIGHT', 1, 0) 
-		m6:Point('LEFT', m5, 'RIGHT', 1, 0) 
-		m7:Point('LEFT', m6, 'RIGHT', 1, 0) 
-		m8:Point('LEFT', m7, 'RIGHT', 1, 0) 
-	elseif E.db.sle.marks.growth == "LEFT" then
-		mark_menu:SetWidth(8 * E.db.sle.marks.size + 11)
-		mark_menu:SetHeight(E.db.sle.marks.size + 4)
-		m1:Point('RIGHT', Mark_Menu, 'RIGHT', -2, 0) 
-		m2:Point('RIGHT', m1, 'LEFT', -1, 0) 
-		m3:Point('RIGHT', m2, 'LEFT', -1, 0) 
-		m4:Point('RIGHT', m3, 'LEFT', -1, 0) 
-		m5:Point('RIGHT', m4, 'LEFT', -1, 0) 
-		m6:Point('RIGHT', m5, 'LEFT', -1, 0) 
-		m7:Point('RIGHT', m6, 'LEFT', -1, 0) 
-		m8:Point('RIGHT', m7, 'LEFT', -1, 0) 
-	elseif E.db.sle.marks.growth == "UP" then
-		mark_menu:SetHeight(8 * E.db.sle.marks.size + 11)
-		mark_menu:SetWidth(E.db.sle.marks.size + 4)
-		m1:Point('BOTTOM', Mark_Menu, 'BOTTOM', 0, 2) 
-		m2:Point('BOTTOM', m1, 'TOP', 0, 1) 
-		m3:Point('BOTTOM', m2, 'TOP', 0, 1) 
-		m4:Point('BOTTOM', m3, 'TOP', 0, 1) 
-		m5:Point('BOTTOM', m4, 'TOP', 0, 1) 
-		m6:Point('BOTTOM', m5, 'TOP', 0, 1) 
-		m7:Point('BOTTOM', m6, 'TOP', 0, 1)
-		m8:Point('BOTTOM', m7, 'TOP', 0, 1)
-	elseif E.db.sle.marks.growth == "DOWN" then
-		mark_menu:SetHeight(8 * E.db.sle.marks.size + 11)
-		mark_menu:SetWidth(E.db.sle.marks.size + 4)
-		m1:Point('TOP', Mark_Menu, 'TOP', 0, -2) 
-		m2:Point('TOP', m1, 'BOTTOM', 0, -1) 
-		m3:Point('TOP', m2, 'BOTTOM', 0, -1) 
-		m4:Point('TOP', m3, 'BOTTOM', 0, -1) 
-		m5:Point('TOP', m4, 'BOTTOM', 0, -1) 
-		m6:Point('TOP', m5, 'BOTTOM', 0, -1) 
-		m7:Point('TOP', m6, 'BOTTOM', 0, -1)
-		m8:Point('TOP', m7, 'BOTTOM', 0, -1)
+	if db.growth == "RIGHT" then
+		width = 8 * size + 11
+		height = size + 4
+		anchor = "LEFT"
+		point = "RIGHT"
+		x = 1
+		y = 0
+	elseif db.growth == "LEFT" then
+		width = 8 * size + 11
+		height = size + 4
+		anchor = "RIGHT"
+		point = "LEFT"
+		x = -1
+		y = 0
+	elseif db.growth == "UP" then
+		width = size + 4
+		height = 8 * size + 11
+		anchor = "BOTTOM"
+		point = "TOP"
+		x = 0
+		y = 1
+	elseif db.growth == "DOWN" then
+		width = size + 4
+		height = 8 * size + 11
+		anchor = "TOP"
+		point = "BOTTOM"
+		x = 0
+		y = -1
+	end
+
+	mark_menu:SetWidth(width)
+	mark_menu:SetHeight(height)
+
+	for i = 1, 8 do
+		if i == 1 then
+			MarkB[i]:Point(anchor, Mark_Menu, anchor, 2 * x, 2 * y)
+		else
+			MarkB[i]:Point(anchor, MarkB[i-1], point, x, y)
+		end
 	end
 end
 
 --Visibility/enable check
 function RM:UpdateVisibility()
 	local inInstance, instanceType = IsInInstance()
-	
-	if E.db.sle.marks.enabled then
-		if (inInstance and instanceType ~= "pvp") and E.db.sle.marks.showinside then
+	local db = E.db.sle.marks
+	if db.enabled then
+		if (inInstance and instanceType ~= "pvp") and db.showinside then
 			mark_menu:Show()
-		elseif not inInstance and E.db.sle.marks.showinside then
+		elseif not inInstance and db.showinside then
 			mark_menu:Hide()
-		elseif not E.db.sle.marks.showinside then
+		elseif not db.showinside then
 			mark_menu:Show()
 		end
 	else
@@ -204,7 +132,7 @@ function RM:Initialize()
 	RM:CreateFrame()
 	RM:FrameButtonsSize()
 	RM:FrameButtonsGrowth()
-	RM:SetButtonAttributes()
+	RM:CreateButtons()
 	RM:UpdateVisibility()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "UpdateVisibility");
 
