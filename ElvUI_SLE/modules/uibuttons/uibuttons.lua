@@ -1,7 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local UB = E:NewModule('UIButtons', 'AceHook-3.0', 'AceEvent-3.0');
 local Btemplate = "SecureActionButtonTemplate"
-local db = E.db.sle.uibuttons
 
 local UIBFrame = CreateFrame('Frame', "UIBFrame", E.UIParent);
 local Cbutton = CreateFrame("Button", "ConfigUIButton", UIBFrame, Btemplate)
@@ -77,6 +76,7 @@ function UB:CreateButtons()
 end
 
 function UB:FrameSize()
+	local db = E.db.sle.uibuttons
 	if db.position == "uib_vert" then
 		UIBFrame:SetWidth(db.size + 8)
 		UIBFrame:SetHeight((db.size + 5) * 5 + 3)
@@ -95,6 +95,7 @@ function UB:FrameSize()
 end	
 
 function UB:Positioning()
+	local db = E.db.sle.uibuttons
 	Cbutton:ClearAllPoints()
 	Rbutton:ClearAllPoints()
 	Mbutton:ClearAllPoints()
@@ -117,6 +118,7 @@ function UB:Positioning()
 end
 
 function UB:MoverSize()
+	local db = E.db.sle.uibuttons
 	if db.position == "uib_vert" then
 		UIBFrame:SetWidth(db.size + 8)
 		UIBFrame:SetHeight((db.size + 5) * 5 + 3)
@@ -127,7 +129,7 @@ function UB:MoverSize()
 end
 
 function UB:Start()
-	if db.enable then
+	if E.db.sle.uibuttons.enable then
 		UIBFrame:Show()
 	else
 		UIBFrame:Hide()
@@ -135,7 +137,7 @@ function UB:Start()
 end
 
 function UB:Mouseover()
-	if db.mouse then
+	if E.db.sle.uibuttons.mouse then
 		if (MouseIsOver(UIBFrame)) then
 			UIBFrame:SetAlpha(1)
 		else	
