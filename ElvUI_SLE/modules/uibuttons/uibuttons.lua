@@ -1,6 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local UB = E:NewModule('UIButtons', 'AceHook-3.0', 'AceEvent-3.0');
 local Btemplate = "SecureActionButtonTemplate"
+local NumBut = 5
 
 local UIBFrame = CreateFrame('Frame', "UIBFrame", E.UIParent);
 local Cbutton = CreateFrame("Button", "ConfigUIButton", UIBFrame, Btemplate)
@@ -8,6 +9,10 @@ local Rbutton = CreateFrame("Button", "ReloadUIButton", UIBFrame, Btemplate)
 local Mbutton = CreateFrame("Button", "MoveUIButton", UIBFrame, Btemplate)
 local Bbutton = CreateFrame("Button", "Bbutton", UIBFrame, Btemplate)
 local Abutton = CreateFrame("Button", "Abutton", UIBFrame, Btemplate)
+if IsAddOnLoaded("iFilger_ConfigUI") then
+	local Fbutton = CreateFrame("Button", "Fbutton", UIBFrame, Btemplate)
+	NumBut = 6
+end
 
 function UB:CreateFrame()
 	UIBFrame:SetFrameLevel(5);
@@ -64,15 +69,18 @@ function UB:CreateButtons()
 	UB:Create(Mbutton, "M", "/moveui", L["Move UI"], L["Click to unlock moving ElvUI elements"]) --Move UI
 	UB:Create(Bbutton, "B", nil, L["Boss Mod"], L["Click to toogle the Configuration/Option Window from the Bossmod (DXE, DBM or Bigwigs) you have enabled."])--Boss Mod
 	UB:Create(Abutton, "A", nil, L["AddOns Manager"], L["Click to toogle the AddOn Manager frame (stAddOnManager or ACP) you have enabled."])--Addon Manager
+	if Fbutton then
+		UB:Create(Fbutton, "F", "/ifilger", "iFilger", "Click to toogle iFilger's config UI")
+	end
 end
 
 function UB:FrameSize()
 	local db = E.db.sle.uibuttons
 	if db.position == "uib_vert" then
 		UIBFrame:SetWidth(db.size + 8)
-		UIBFrame:SetHeight((db.size + 5) * 5 + 3)
+		UIBFrame:SetHeight((db.size + 5) * NumBut + 3)
 	else
-		UIBFrame:SetWidth((db.size + 5) * 5 + 3)
+		UIBFrame:SetWidth((db.size + 5) * NumBut + 3)
 		UIBFrame:SetHeight(db.size + 8)
 	end
 	
@@ -81,6 +89,9 @@ function UB:FrameSize()
 	Mbutton:Size(db.size)
 	Bbutton:Size(db.size)
 	Abutton:Size(db.size)
+	if Fbutton then
+		Fbutton:Size(db.size)
+	end
 	
 	UB:Positioning()
 end	
@@ -92,6 +103,9 @@ function UB:Positioning()
 	Mbutton:ClearAllPoints()
 	Bbutton:ClearAllPoints()
 	Abutton:ClearAllPoints()
+	if Fbutton then
+		Fbutton:ClearAllPoints()
+	end
 	--position check
 	if db.position == "uib_vert" then
 		Cbutton:Point("TOP", UIBFrame, "TOP", 0, -4)
@@ -99,12 +113,18 @@ function UB:Positioning()
 		Mbutton:Point("TOP", Rbutton, "BOTTOM", 0, -5)
 		Bbutton:Point("TOP", Mbutton, "BOTTOM", 0, -5)
 		Abutton:Point("TOP", Bbutton, "BOTTOM", 0, -5)
+		if Fbutton then
+			Fbutton:Point("TOP", Abutton, "BOTTOM", 0, -5)
+		end
 	else
 		Cbutton:Point("LEFT", UIBFrame, "LEFT", 4, 0)
 		Rbutton:Point("LEFT", Cbutton, "RIGHT", 5, 0)
 		Mbutton:Point("LEFT", Rbutton, "RIGHT", 5, 0)
 		Bbutton:Point("LEFT", Mbutton, "RIGHT", 5, 0)
 		Abutton:Point("LEFT", Bbutton, "RIGHT", 5, 0)
+		if Fbutton then
+			Fbutton:Point("LEFT", Abutton, "RIGHT", 5, 0)
+		end
 	end
 end
 
@@ -112,9 +132,9 @@ function UB:MoverSize()
 	local db = E.db.sle.uibuttons
 	if db.position == "uib_vert" then
 		UIBFrame:SetWidth(db.size + 8)
-		UIBFrame:SetHeight((db.size + 5) * 5 + 3)
+		UIBFrame:SetHeight((db.size + 5) * NumBut + 3)
 	else
-		UIBFrame:SetWidth((db.size + 5) * 5 + 3)
+		UIBFrame:SetWidth((db.size + 5) * NumBut + 3)
 		UIBFrame:SetHeight(db.size + 8)
 	end
 end
