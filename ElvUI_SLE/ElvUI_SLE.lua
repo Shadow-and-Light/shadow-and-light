@@ -26,6 +26,20 @@ function SLE:LootShow()
 	end
 end
 
+function SLE:ChatPos()
+	if not E:HasMoverBeenMoved("LeftChatMover") and E.db.datatexts.leftChatPanel then
+		if not E.db.movers then E.db.movers = {}; end
+		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021"
+		E:SetMoversPositions()
+	end
+	
+	if not E:HasMoverBeenMoved("RightChatMover") and E.db.datatexts.rightChatPanel then
+		if not E.db.movers then E.db.movers = {}; end
+		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
+		E:SetMoversPositions()
+	end
+end
+
 E.PopupDialogs["VERSION_MISMATCH"] = {
 	text = L["Your version of ElvUI is older than recommended to use with Shadow & Light Edit. Please, download the latest version from tukui.org."],
 	button1 = CLOSE,
@@ -53,18 +67,7 @@ function E:UpdateAll()
 	E.db.datatexts.panels.Top_Center = 'Version'
 	E:GetModule('DataTexts'):LoadDataTexts() --Prevents datatexts from not changing on profile switch (Elv's issue)
 	E:GetModule('RaidUtility'):MoveButton()
-	
-	if not E:HasMoverBeenMoved("LeftChatMover") and E.db.datatexts.leftChatPanel then
-		if not E.db.movers then E.db.movers = {}; end
-		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021"
-		E:SetMoversPositions()
-	end
-	
-	if not E:HasMoverBeenMoved("RightChatMover") and E.db.datatexts.rightChatPanel then
-		if not E.db.movers then E.db.movers = {}; end
-		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
-		E:SetMoversPositions()
-	end
+	SLE:ChatPos()
 end
 
 
@@ -79,17 +82,7 @@ function SLE:Initialize()
 	E:GetModule('Layout'):EditboxPos()
 	SLE:Tutorials()
 	SLE:ConfigCats()
-	if not E:HasMoverBeenMoved("LeftChatMover") and E.db.datatexts.leftChatPanel then
-		if not E.db.movers then E.db.movers = {}; end
-		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021"
-		E:SetMoversPositions()
-	end
-	
-	if not E:HasMoverBeenMoved("RightChatMover") and E.db.datatexts.rightChatPanel then
-		if not E.db.movers then E.db.movers = {}; end
-		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
-		E:SetMoversPositions()
-	end
+	SLE:ChatPos()
 end
 
 E:RegisterModule(SLE:GetName())
