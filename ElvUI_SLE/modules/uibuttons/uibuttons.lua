@@ -59,20 +59,11 @@ function UB:Create(button, symbol, text, name, desc)
 end
 
 function UB:CreateButtons()
-	--Config
-	self:Create(Cbutton, "C", "/ec", L["ElvUI Config"], L["Click to toggle config window"])
-	
-	--Reload
-	self:Create(Rbutton, "R", "/rl", L["Reload UI"], L["Click to reload your interface"])
-
-	--Move UI
-	self:Create(Mbutton, "M", "/moveui", L["Move UI"], L["Click to unlock moving ElvUI elements"])
-
-	--Boss Mod
-	self:Create(Bbutton, "B", nil, L["Boss Mod"], L["Click to toogle the Configuration/Option Window from the Bossmod (DXE, DBM or Bigwigs) you have enabled."])
-		
-	--Addon Manager
-	self:Create(Abutton, "A", nil, L["AddOns Manager"], L["Click to toogle the AddOn Manager frame (stAddOnManager or ACP) you have enabled."])
+	UB:Create(Cbutton, "C", "/ec", L["ElvUI Config"], L["Click to toggle config window"]) --Config
+	UB:Create(Rbutton, "R", "/rl", L["Reload UI"], L["Click to reload your interface"]) --Reload
+	UB:Create(Mbutton, "M", "/moveui", L["Move UI"], L["Click to unlock moving ElvUI elements"]) --Move UI
+	UB:Create(Bbutton, "B", nil, L["Boss Mod"], L["Click to toogle the Configuration/Option Window from the Bossmod (DXE, DBM or Bigwigs) you have enabled."])--Boss Mod
+	UB:Create(Abutton, "A", nil, L["AddOns Manager"], L["Click to toogle the AddOn Manager frame (stAddOnManager or ACP) you have enabled."])--Addon Manager
 end
 
 function UB:FrameSize()
