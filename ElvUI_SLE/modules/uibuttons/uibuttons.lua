@@ -76,7 +76,7 @@ function UB:CreateButtons()
 	UB:Create(Rbutton, "R", "/rl", L["Reload UI"], L["Click to reload your interface"]) --Reload
 	UB:Create(Mbutton, "M", "/moveui", L["Move UI"], L["Click to unlock moving ElvUI elements"]) --Move UI
 	UB:Create(Bbutton, "B", nil, L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod (DXE, DBM or Bigwigs) you have enabled."])--Boss Mod
-	UB:Create(Abutton, "A", nil, L["AddOns Manager"], L["Click to toggle the AddOn Manager frame (stAddOnManager or ACP) you have enabled."])--Addon Manager
+	UB:Create(Abutton, "A", nil, L["AddOns Manager"], L["Click to toggle the AddOn Manager frame (stAddOnManager, Ampere or ACP) you have enabled."])--Addon Manager
 	if Fbutton then
 		UB:Create(Fbutton, "F", "/ifilger", "iFilger", L["Click to toggle iFilger's config UI"])
 	end
