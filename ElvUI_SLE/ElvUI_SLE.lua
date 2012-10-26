@@ -55,11 +55,13 @@ function E:UpdateAll()
 	E:GetModule('RaidUtility'):MoveButton()
 	
 	if not E:HasMoverBeenMoved("LeftChatMover") and E.db.datatexts.leftChatPanel then
+		if not E.db.movers then E.db.movers = {}; end
 		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021"
 		E:SetMoversPositions()
 	end
 	
 	if not E:HasMoverBeenMoved("RightChatMover") and E.db.datatexts.rightChatPanel then
+		if not E.db.movers then E.db.movers = {}; end
 		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
 		E:SetMoversPositions()
 	end
@@ -78,11 +80,13 @@ function SLE:Initialize()
 	SLE:Tutorials()
 	SLE:ConfigCats()
 	if not E:HasMoverBeenMoved("LeftChatMover") and E.db.datatexts.leftChatPanel then
+		if not E.db.movers then E.db.movers = {}; end
 		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021"
 		E:SetMoversPositions()
 	end
 	
 	if not E:HasMoverBeenMoved("RightChatMover") and E.db.datatexts.rightChatPanel then
+		if not E.db.movers then E.db.movers = {}; end
 		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
 		E:SetMoversPositions()
 	end
