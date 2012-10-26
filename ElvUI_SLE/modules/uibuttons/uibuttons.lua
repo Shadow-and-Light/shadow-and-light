@@ -14,6 +14,14 @@ if IsAddOnLoaded("iFilger_ConfigUI") then
 	NumBut = 6
 end
 
+local ButtonTable = {
+Cbutton,
+Rbutton,
+Mbutton,
+Bbutton,
+Abutton,
+}
+
 function UB:CreateFrame()
 	UIBFrame:SetFrameLevel(5);
 	UIBFrame:SetFrameStrata('BACKGROUND');
@@ -76,19 +84,11 @@ end
 
 function UB:FrameSize()
 	local db = E.db.sle.uibuttons
-	if db.position == "uib_vert" then
-		UIBFrame:SetWidth(db.size + 8)
-		UIBFrame:SetHeight((db.size + 5) * NumBut + 3)
-	else
-		UIBFrame:SetWidth((db.size + 5) * NumBut + 3)
-		UIBFrame:SetHeight(db.size + 8)
-	end
+	UB:MoverSize()
 	
-	Cbutton:Size(db.size)
-	Rbutton:Size(db.size)
-	Mbutton:Size(db.size)
-	Bbutton:Size(db.size)
-	Abutton:Size(db.size)
+	for i = 1, 5 do
+		ButtonTable[i]:Size(db.size)
+	end
 	if Fbutton then
 		Fbutton:Size(db.size)
 	end
@@ -98,11 +98,9 @@ end
 
 function UB:Positioning()
 	local db = E.db.sle.uibuttons
-	Cbutton:ClearAllPoints()
-	Rbutton:ClearAllPoints()
-	Mbutton:ClearAllPoints()
-	Bbutton:ClearAllPoints()
-	Abutton:ClearAllPoints()
+	for i = 1, 5 do
+		ButtonTable[i]:ClearAllPoints()
+	end
 	if Fbutton then
 		Fbutton:ClearAllPoints()
 	end
@@ -161,7 +159,6 @@ end
 
 function UB:UpdateAll()
 	UB:FrameSize()
-	UB:MoverSize()
 	UB:Start()
 end
 
