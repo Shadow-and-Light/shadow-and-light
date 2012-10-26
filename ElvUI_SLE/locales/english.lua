@@ -156,6 +156,7 @@ L["Move UI"] = true
 L["Reload UI"] = true
 L["AddOns Manager"] = true
 L["Boss Mod"] = true
+L["Click to toggle iFilger's config UI"] = true
 
 --Unitframes--
 L["Additional unit frames options"] = true

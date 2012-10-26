@@ -156,6 +156,7 @@ L["Move UI"] = "Разблокировать элементы"
 L["Reload UI"] = "Перезагрузить интерфейс"
 L["AddOns Manager"] = "Менеджер аддонов"
 L["Boss Mod"] = "Босс мод"
+L["Click to toggle iFilger's config UI"] = "Нажмите для отображения настроек iFilger"
 
 --Unitframes--
 L["Additional unit frames options"] = "Дополнительные опции рамок юнитов"

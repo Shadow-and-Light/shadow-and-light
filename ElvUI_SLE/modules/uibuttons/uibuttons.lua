@@ -78,7 +78,7 @@ function UB:CreateButtons()
 	UB:Create(Bbutton, "B", nil, L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod (DXE, DBM or Bigwigs) you have enabled."])--Boss Mod
 	UB:Create(Abutton, "A", nil, L["AddOns Manager"], L["Click to toggle the AddOn Manager frame (stAddOnManager or ACP) you have enabled."])--Addon Manager
 	if Fbutton then
-		UB:Create(Fbutton, "F", "/ifilger", "iFilger", "Click to toggle iFilger's config UI")
+		UB:Create(Fbutton, "F", "/ifilger", "iFilger", L["Click to toggle iFilger's config UI"])
 	end
 end
 
