@@ -75,6 +75,9 @@ L["Select if the editbox will be above or below chat."] = true
 --Datatexts--
 L["LFR Dragon Soul"] = true
 L["LFR Mogu'shan Vaults"] = true
+L["LFR Heart of Fear"] = true
+L["LFR Terrace of Endless Spring"] = true
+L["Bosses killed: "] = true
 L["SLE_AUTHOR_INFO"] = "Shadow & Light Edit by Darth Predator & Repooc"
 L["SLE_CONTACTS"] = [=[Bug reports, suggestions and other stuff accepted via:
 - Private Massage on TukUI.org to Darth Predator or Repooc

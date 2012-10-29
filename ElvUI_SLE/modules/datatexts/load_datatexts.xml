@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file='lfr.lua'/>
 	<Script file='version.lua'/>
 	<Script file='time.lua'/>
 	<Script file='add_panels.lua'/>
