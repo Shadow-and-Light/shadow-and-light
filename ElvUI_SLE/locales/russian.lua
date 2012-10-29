@@ -74,6 +74,7 @@ L["Select if the editbox will be above or below chat."] = "Определяет 
 
 --Datatexts--
 L["LFR Dragon Soul"] = "Душа Дракона ЛФР"
+L["LFR Mogu'shan Vaults"] = "Подземелья Могу'шан ЛФР"
 L["SLE_AUTHOR_INFO"] = "Редакция \"Тень и Свет\" от Darth Predator и Repooc"
 L["SLE_CONTACTS"] = [=[При возникновении вопросов, предложений и прочего обращаться:
 - Личное сообщение на форуме TukUI (tukui.org), ник Darth Predator или Repooc

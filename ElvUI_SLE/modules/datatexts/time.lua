@@ -124,6 +124,60 @@ local function OnLeave(self)
 	enteredFrame = false;
 end
 
+local function DragonSoul()
+	local dungeonId1 = 416
+	local dungeonId2 = 417
+	GameTooltip:AddLine(" ")
+	GameTooltip:AddLine(L["LFR Dragon Soul"]) --Instance name
+	for i =1,4 do --1st part
+		bossName, texture, isKilled, isIneligible = GetLFGDungeonEncounterInfo(dungeonId1, i);
+		if ( isKilled ) then
+			GameTooltip:AddDoubleLine(bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+		 elseif ( isIneligible ) then
+			GameTooltip:AddDoubleLine(bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		 else
+			GameTooltip:AddDoubleLine(bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		end
+	end
+	for i =5,8 do --2nd part
+		bossName, texture, isKilled, isIneligible = GetLFGDungeonEncounterInfo(dungeonId2, i);
+		if ( isKilled ) then
+			GameTooltip:AddDoubleLine(bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+		 elseif ( isIneligible ) then
+			GameTooltip:AddDoubleLine(bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		 else
+			GameTooltip:AddDoubleLine(bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		end
+	end
+end
+
+local function Mogushan()
+	local dungeonId1 = 527
+	local dungeonId2 = 528
+	GameTooltip:AddLine(" ")
+	GameTooltip:AddLine(L["LFR Mogu'shan Vaults"]) --Instance name
+	for i =1,3 do --1st part
+		bossName, texture, isKilled, isIneligible = GetLFGDungeonEncounterInfo(dungeonId1, i);
+		if ( isKilled ) then
+			GameTooltip:AddDoubleLine(bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+		 elseif ( isIneligible ) then
+			GameTooltip:AddDoubleLine(bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		 else
+			GameTooltip:AddDoubleLine(bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		end
+	end
+	for i =4,6 do --2nd part
+		bossName, texture, isKilled, isIneligible = GetLFGDungeonEncounterInfo(dungeonId2, i);
+		if ( isKilled ) then
+			GameTooltip:AddDoubleLine(bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+		 elseif ( isIneligible ) then
+			GameTooltip:AddDoubleLine(bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		 else
+			GameTooltip:AddDoubleLine(bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		end
+	end
+end
+
 local function OnEnter(self)
 	DT:SetupTooltip(self)
 	enteredFrame = true;
@@ -161,29 +215,11 @@ local function OnEnter(self)
 	
 	if E.db.datatexts.lfrshow then
 	--LFR lockout text
-	local dungeonId1 = 416
-	local dungeonId2 = 417
-	GameTooltip:AddLine(" ")
-	GameTooltip:AddLine(L["LFR Dragon Soul"]) --Instance name
-	for i =1,4 do --1st part
-		bossName, texture, isKilled, isIneligible = GetLFGDungeonEncounterInfo(dungeonId1, i);
-		if ( isKilled ) then
-			GameTooltip:AddDoubleLine(bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
-		 elseif ( isIneligible ) then
-			GameTooltip:AddDoubleLine(bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
-		 else
-			GameTooltip:AddDoubleLine(bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
-		end
-	end
-	for i =5,8 do --2nd part
-		bossName, texture, isKilled, isIneligible = GetLFGDungeonEncounterInfo(dungeonId2, i);
-		if ( isKilled ) then
-			GameTooltip:AddDoubleLine(bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
-		 elseif ( isIneligible ) then
-			GameTooltip:AddDoubleLine(bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
-		 else
-			GameTooltip:AddDoubleLine(bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
-		end
+	local lvl = UnitLevel("player")
+	if lvl >= 80 and lvl < 86 then
+		DragonSoul()
+	elseif lvl >= 86 then
+		Mogushan()
 	end
 	--LFR lockout end
 	end
