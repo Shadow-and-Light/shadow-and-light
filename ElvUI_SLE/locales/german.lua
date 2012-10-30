@@ -62,8 +62,6 @@ L["Transparent"] = "Transparent"
 L["Chat Options"] = "Chat Optionen"
 L["Chat Editbox History"] = "Chat Editbox History"
 L["Amount of messages to save. Set to 0 to disable."] = "Anzahl der Nachrichten die gespeichert werden. Wähle 0 zum deaktivieren."
-L["Editbox Position"] = "Editbox Position"
-L["Select if the editbox will be above or below chat."] = "Wähle ob die Editbox über oder unter dem Chat angezeigt wird."
 
 --Datatexts--
 L["LFR Dragon Soul"] = "LFR Drachenseele"

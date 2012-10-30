@@ -69,8 +69,6 @@ L["Show/Hide this frame during Pet Battles."] = true
 L["Chat Options"] = true
 L["Chat Editbox History"] = true
 L["Amount of messages to save. Set to 0 to disable."] = true
-L["Editbox Position"] = true
-L["Select if the editbox will be above or below chat."] = true
 
 --Datatexts--
 L["LFR Dragon Soul"] = true

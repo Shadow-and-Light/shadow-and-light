@@ -133,11 +133,6 @@ P['sle'] = {
 		['position'] = "uib_vert",
 	},
 	
-	--Chat
-	['chat'] = {
-		['editbox'] = "Down",
-	},
-	
 	['vengeance'] = {
 		['enable'] = true,
 		['width'] = 408,

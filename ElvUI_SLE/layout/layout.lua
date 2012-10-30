@@ -75,20 +75,3 @@ function LO:CreateChatPanels()
 	RightChatTab:Point('TOPRIGHT', RightChatPanel, 'TOPRIGHT', -2, -2)
 	RightChatTab:Point('BOTTOMLEFT', RightChatPanel, 'TOPLEFT', 2, -PANEL_HEIGHT)
 end
-
---Repositioning function for editbox
-function LO:EditboxPos()
-	if not E.private.chat.enable then return end
-	for i = 1, NUM_CHAT_WINDOWS do
-		local editbox = _G["ChatFrame"..i.."EditBox"]
-		local parent
-		if E.db.sle.chat.editbox == "Down" then
-			parent = LeftChatDataPanel
-		else
-			parent = LeftChatTab
-		end
-		editbox:ClearAllPoints()
-		editbox:SetPoint("TOPLEFT", parent, "TOPLEFT")
-		editbox:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT")
-	end
-end
