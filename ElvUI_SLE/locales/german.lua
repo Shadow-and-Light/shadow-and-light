@@ -65,6 +65,10 @@ L["Amount of messages to save. Set to 0 to disable."] = "Anzahl der Nachrichten 
 
 --Datatexts--
 L["LFR Dragon Soul"] = "LFR Drachenseele"
+L["LFR Mogu'shan Vaults"] = true
+L["LFR Heart of Fear"] = true
+L["LFR Terrace of Endless Spring"] = true
+L["Bosses killed: "] = true
 L["SLE_AUTHOR_INFO"] = "Schatten & Licht Edit von Darth Predator & Repooc"
 L["SLE_CONTACTS"] = [=[Bug berichte, Vorschläge und andere Sachen akzeptiert via:
 - Privat Nachricht auf TukUI.org zu Darth Predator oder Repooc
