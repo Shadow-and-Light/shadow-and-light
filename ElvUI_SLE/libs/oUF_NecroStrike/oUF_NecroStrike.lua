@@ -22,7 +22,11 @@ local function GetNecroticAbsorb(unit)
 			NecroticStrikeTooltip:ClearLines()
 			NecroticStrikeTooltip:SetUnitDebuff(unit, i)
 			--NecroticStrikeTooltip:SetUnitBuff(unit, i)  --Debug for testing with holy pally mastery
-			return tonumber(string.match(_G[NecroticStrikeTooltip:GetName() .. "TextLeft2"]:GetText(), "(%d+%s?) .*"))
+			if (GetLocale() == "ruRU") then
+				return tonumber(string.match(_G[NecroticStrikeTooltip:GetName() .. "TextLeft2"]:GetText(), "(%d+%s?) .*"))
+			else
+				return tonumber(string.match(_G[NecroticStrikeTooltip:GetName() .. "TextLeft2"]:GetText(), ".* (%d+%s?) .*"))
+			end
 		end
 		i = i + 1
 	end
