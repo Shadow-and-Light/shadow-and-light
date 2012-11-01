@@ -168,6 +168,8 @@ function UB:Initialize()
 	UB:CreateButtons()
 	UB:Start()
 	
+	E.FrameLocks['UIBFrame'] = true
+	
 	E:CreateMover(UIBFrame, "UIBFrameMover", L["UI Buttons"], nil, nil, nil, "ALL,S&L")
 	UB:MoverSize()
 end
