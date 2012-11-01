@@ -56,9 +56,11 @@ for i = 1, 4 do
 end
 
 function DTP:DashboardShow()
-	if E.db.sle.datatext.dashboard.enable then	
+	if E.db.sle.datatext.dashboard.enable then
+		E.FrameLocks['BoardsHolder'] = true
 		BoardsHolder:Show()
 	else
+		E.FrameLocks['BoardsHolder'] = nil
 		BoardsHolder:Hide()
 	end
 end

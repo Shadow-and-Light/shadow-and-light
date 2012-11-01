@@ -1,4 +1,4 @@
-﻿--Russian localization
+--Russian localization
 local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
 local L = AceLocale:NewLocale("ElvUI", "ruRU")
 
