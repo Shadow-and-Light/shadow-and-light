@@ -136,6 +136,8 @@ function RM:Initialize()
 	RM:UpdateVisibility()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "UpdateVisibility");
 
+	E:FrameLocks['Mark_Menu'] = true
+	
 	E:CreateMover(mark_menu, "MarkMover", "RM", nil, nil, nil, "ALL,S&L")
 end
 
