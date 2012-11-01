@@ -79,7 +79,6 @@ function SLE:Initialize()
 	end
 	E.db.datatexts.panels.Top_Center = 'Version'
 	E:GetModule('DTPanels'):DashboardShow()
-	E:GetModule('Layout'):EditboxPos()
 	SLE:Tutorials()
 	SLE:ConfigCats()
 	SLE:ChatPos()
