@@ -1,3 +1,8 @@
+v1.20 (November 1, 2012)
+- Code catch up with ElvUI
+- Some code restructure to reduce memory
+- Small fixes/tweaks
+
 v1.19 (October 24, 2012)
 - Code catch up with ElvUI
 - Added show/hide option for errors in combat (out of LoS, on cooldown, etc)
