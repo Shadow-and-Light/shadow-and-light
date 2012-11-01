@@ -117,13 +117,17 @@ function RM:UpdateVisibility()
 	local db = E.db.sle.marks
 	if db.enabled then
 		if (inInstance and instanceType ~= "pvp") and db.showinside then
+			E:FrameLocks['Mark_Menu'] = true -- Because theyre thinking of adding battle pets to raids
 			mark_menu:Show()
 		elseif not inInstance and db.showinside then
+			E:FrameLocks['Mark_Menu'] = nil
 			mark_menu:Hide()
 		elseif not db.showinside then
+			E:FrameLocks['Mark_Menu'] = true
 			mark_menu:Show()
 		end
 	else
+		E:FrameLocks['Mark_Menu'] = nil
 		mark_menu:Hide()
 	end
 end
@@ -136,8 +140,6 @@ function RM:Initialize()
 	RM:UpdateVisibility()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "UpdateVisibility");
 
-	E:FrameLocks['Mark_Menu'] = true
-	
 	E:CreateMover(mark_menu, "MarkMover", "RM", nil, nil, nil, "ALL,S&L")
 end
 
