@@ -19,7 +19,6 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 - <a href="https://github.com/Repooc/ElvUI_SLE/downloads">Github</a> (<font color="FF0000"><b>Warning:</b></font> This is our development area and is consider the latest Alpha and may contain bugs.)
 
 <font color="#3e8ac6"><b>Features:</b></font>
-- Ability to change the position of chat editbox
 - Ability to set text on exp/rep bar to full values.
 - Ability to show full values for HP/Mana on unitframes. (Tags: [health:current:sl])
 - Added search feature for Mounts.
