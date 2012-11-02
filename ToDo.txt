@@ -1,6 +1,7 @@
 ==WTF we need to do==
 Steal Hydra's animation code (STOLEN, now to be implemented ;) )
 Look for more stuff Elv broken after last update (as always lol)
+Rewrite background hiding during pet battles using Elv's function (I didn't know bout it lol)
 
 ==What we maybe can do==
 Saw an idea about a dot tracker, saw some coding for it will look at it when have time...
