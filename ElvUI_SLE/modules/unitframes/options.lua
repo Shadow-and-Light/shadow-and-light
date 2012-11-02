@@ -12,6 +12,7 @@ local positionValues = {
 	CENTER = 'CENTER',
 	TOP = 'TOP',
 	BOTTOM = 'BOTTOM',
+	NONE = L['Hide']
 };
 
 E.Options.args.sle.args.unitframes = {
@@ -35,14 +36,6 @@ E.Options.args.sle.args.unitframes = {
 			name = L["Player Frame Indicators"],
 			guiInline = true,
 			args = {
-				combatico = {
-					order = 5,
-					type = "toggle",
-					name = L["Combat Icon"],
-					desc = L["Show/Hide combat icon on player frame."],
-					get = function(info) return E.db.sle.combatico.enable end,
-					set = function(info, value) E.db.sle.combatico.enable = value; end,
-				},
 				combaticopos = {
 					order = 6,
 					type = "select",
