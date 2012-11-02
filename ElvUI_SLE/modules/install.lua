@@ -666,7 +666,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	else
 		E.db.chat.panelWidth = 444
 	end
-	E.db.sle.chat.fade = true
 
 	--Datatexts--
 	E.db.datatexts.font = "ElvUI Pixel"
@@ -1173,7 +1172,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.bags.yOffset = 208  --Checked
 
 	--Chat
-	E.db.sle.chat.fade = true  --Checked
 	E.db.chat.hyperlinkHover = false  --Checked
 	E.db.chat.font = "Accidental Presidency"  --Checked
 	E.db.chat.fontOutline = "OUTLINE"
