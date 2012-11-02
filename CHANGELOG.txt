@@ -1,3 +1,9 @@
+v1.22 (not released)
+- Fixed our settings packs in installation
+- You will be able to see your castbar and other stuff while in vehicle again (apparently it was there for ages and noone reported that o_O)
+- The option to hide cambat indicator was removed. You can choose to hide it in it's positioning dropdown list now.
+- Fixed some issues with loading that resulted in disappearing of S&L mover group in config mode.
+
 v1.21 (November 1, 2012)
 - Fixed small error
 
