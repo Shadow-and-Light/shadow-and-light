@@ -68,7 +68,9 @@ end
 
 function SLE:Initialize()
 	DTP = E:GetModule('DTPanels')
-	self:RegisterEvent("PLAYER_REGEN_DISABLED", UF.Update_CombatIndicator);
+	if E.private.unitframe.enable then
+		self:RegisterEvent("PLAYER_REGEN_DISABLED", UF.Update_CombatIndicator);
+	end
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
 	if E.db.general.loginmessage then
 		print(L['SLE_LOGIN_MSG'])
