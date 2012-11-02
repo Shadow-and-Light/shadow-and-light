@@ -626,7 +626,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.general.vendorGrays = true
 	E.db.general.fontsize = 10
 	E.db.general.minimap.locationText = 'SHOW'
-	E.db.general.experience.textFormat = 'CURMAX'
+	E.db.general.experience.textFormat = 'CURPERC'
 	E.db.general.experience.textSize = 10
 	E.db.general.reputation.textFormat = 'CURMAX'
 	E.db.general.reputation.textSize = 10	
