@@ -121,7 +121,6 @@ P['sle'] = {
 	
 	--Combat Icon
 	['combatico'] = {
-		['enable'] = true,
 		['pos'] = 'TOP',
 	},
 	
