@@ -1,23 +1,24 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 if not E.private.unitframe.enable then return end
 local UF = E:GetModule('UnitFrames');
+local SLE = E:GetModule('SLE');
 local LSM = LibStub("LibSharedMedia-3.0");
+
 
 --Setting the variable for using classbar. Elv's function.
 local CAN_HAVE_CLASSBAR = (E.myclass == "PALADIN" or E.myclass == "DRUID" or E.myclass == "DEATHKNIGHT" or E.myclass == "WARLOCK" or E.myclass == "PRIEST" or E.myclass == "MONK" or E.myclass == 'MAGE')
 
-ElvUF_Player:SetScript("OnUpdate", function()
-	if not E.db.sle.combatico.enable then
-		ElvUF_Player.Combat:Hide()
-	end
-end)
 --Function to move damn combat indicator to topright part of the frame. Maybe i should create an option to make it placeble everywhere.
 function UF:Update_CombatIndicator()
 	local CombatText = ElvUF_Player.Combat
-	
-	local x, y = self:GetPositionOffset(E.db.sle.combatico.pos)
-	CombatText:ClearAllPoints()
-	CombatText:Point(E.db.sle.combatico.pos, ElvUF_Player.Health, E.db.sle.combatico.pos, x, x)
+	if E.db.sle.combatico.pos == "NONE" then
+		CombatText:ClearAllPoints()
+	else	
+		local x, y = UF:GetPositionOffset(E.db.sle.combatico.pos)
+		CombatText:ClearAllPoints()
+		CombatText:Point(E.db.sle.combatico.pos, ElvUF_Player.Health, E.db.sle.combatico.pos, x, x)
+	end
+	SLE:UnregisterEvent("PLAYER_REGEN_DISABLED")
 end
 
 UF.Update_PlayerFrameSLE = UF.Update_PlayerFrame
