@@ -1,3 +1,6 @@
+v1.21 (November 1, 2012)
+- Fixed small error
+
 v1.20 (November 1, 2012)
 - Code catch up with ElvUI
 - Some code restructure to reduce memory
