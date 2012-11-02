@@ -1,6 +1,7 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local SLE = E:NewModule('SLE', 'AceHook-3.0', 'AceEvent-3.0');
 local UF = E:GetModule('UnitFrames');
+local DTP
 
 function SLE:Tutorials() --Additional tutorials
 	table.insert(E.TutorialList, #(E.TutorialList)+1, L["To enable full values of health/power on unitframes in Shadow & Light add \":sl\" to the end of the health/power tag.\nExample: [health:current:sl]."]);
@@ -51,9 +52,9 @@ E.UpdateAllSLE = E.UpdateAll
 function E:UpdateAll()
     E.UpdateAllSLE(self)
 	E:GetModule('BackGrounds'):UpdateFrames()
-	E:GetModule('DTPanels'):Update()
-	E:GetModule('DTPanels'):DashboardShow()
-	E:GetModule('DTPanels'):DashWidth()
+	DTP:Update()
+	DTP:DashboardShow()
+	DTP:DashWidth()
 	if E.private.unitframe.enable then
 		UF:Update_CombatIndicator()
 	end
@@ -66,13 +67,14 @@ end
 
 
 function SLE:Initialize()
+	DTP = E:GetModule('DTPanels')
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", UF.Update_CombatIndicator);
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
 	if E.db.general.loginmessage then
 		print(L['SLE_LOGIN_MSG'])
 	end
 	E.db.datatexts.panels.Top_Center = 'Version'
-	E:GetModule('DTPanels'):DashboardShow()
+	DTP:DashboardShow()
 	SLE:Tutorials()
 	SLE:ConfigCats()
 	SLE:ChatPos()
