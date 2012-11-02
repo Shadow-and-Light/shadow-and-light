@@ -1,6 +1,5 @@
 ==WTF we need to do==
 Steal Hydra's animation code (STOLEN, now to be implemented ;) )
-Rewrite LFR save function to show MoP instances
 Look for more stuff Elv broken after last update (as always lol)
 
 ==What we maybe can do==
