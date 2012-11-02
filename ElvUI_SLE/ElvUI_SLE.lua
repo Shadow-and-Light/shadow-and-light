@@ -1,5 +1,6 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local SLE = E:NewModule('SLE', 'AceHook-3.0', 'AceEvent-3.0');
+local UF = E:GetModule('UnitFrames');
 
 function SLE:Tutorials() --Additional tutorials
 	table.insert(E.TutorialList, #(E.TutorialList)+1, L["To enable full values of health/power on unitframes in Shadow & Light add \":sl\" to the end of the health/power tag.\nExample: [health:current:sl]."]);
@@ -8,13 +9,6 @@ end
 function SLE:ConfigCats() --Additional config groups
 	table.insert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L");
 	E.ConfigModeLocalizedStrings["S&L"] = "S&L"
-end
-
---Updating things that must be updated only after everything loads
-function SLE:UpdateThings()
-	if E.private.unitframe.enable then
-		E:GetModule('UnitFrames'):Update_CombatIndicator()
-	end
 end
 
 function SLE:LootShow()
@@ -61,7 +55,7 @@ function E:UpdateAll()
 	E:GetModule('DTPanels'):DashboardShow()
 	E:GetModule('DTPanels'):DashWidth()
 	if E.private.unitframe.enable then
-		E:GetModule('UnitFrames'):Update_CombatIndicator()
+		UF:Update_CombatIndicator()
 	end
 	E:GetModule('UIButtons'):UpdateAll()
 	E.db.datatexts.panels.Top_Center = 'Version'
@@ -72,7 +66,7 @@ end
 
 
 function SLE:Initialize()
-	self:RegisterEvent("PLAYER_REGEN_DISABLED", "UpdateThings");
+	self:RegisterEvent("PLAYER_REGEN_DISABLED", UF.Update_CombatIndicator);
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
 	if E.db.general.loginmessage then
 		print(L['SLE_LOGIN_MSG'])
