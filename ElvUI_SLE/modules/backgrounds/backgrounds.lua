@@ -14,6 +14,7 @@ function BG:FramesCreate()
 	BGbottom:SetFrameLevel(BGbottom:GetFrameLevel() - 1)
 	BGbottom:SetFrameStrata('BACKGROUND');
 	BGbottom:EnableMouse(true)
+	BGbottom:SetScript("OnShow", function() BGbottom:SetFrameStrata('BACKGROUND') end)
 	--Texture
 	BGbottom.tex = BGbottom:CreateTexture(nil, 'OVERLAY')
 	BGbottom.tex:SetAlpha(0.5)
@@ -23,6 +24,7 @@ function BG:FramesCreate()
 	BGleft.backdrop:SetAllPoints();
 	BGleft:SetFrameLevel(BGleft:GetFrameLevel() - 1)
 	BGleft:SetFrameStrata('BACKGROUND');
+	BGleft:SetScript("OnShow", function() BGleft:SetFrameStrata('BACKGROUND') end)
 	--Texture
 	BGleft.tex = BGleft:CreateTexture(nil, 'OVERLAY')
 	BGleft.tex:SetAlpha(E.db.general.backdropfadecolor.a - 0.7 > 0 and E.db.general.backdropfadecolor.a - 0.7 or 0.5)
@@ -32,6 +34,7 @@ function BG:FramesCreate()
 	BGright.backdrop:SetAllPoints();
 	BGright:SetFrameLevel(BGright:GetFrameLevel() - 1)
 	BGright:SetFrameStrata('BACKGROUND');
+	BGright:SetScript("OnShow", function() BGright:SetFrameStrata('BACKGROUND') end)
 	--Texture
 	BGright.tex = BGright:CreateTexture(nil, 'OVERLAY')
 	BGright.tex:SetAlpha(E.db.general.backdropfadecolor.a - 0.7 > 0 and E.db.general.backdropfadecolor.a - 0.7 or 0.5)	
@@ -42,6 +45,7 @@ function BG:FramesCreate()
 	BGaction:SetFrameLevel(BGaction:GetFrameLevel() - 1)
 	BGaction:SetFrameStrata('BACKGROUND');
 	BGaction:EnableMouse(true)
+	BGaction:SetScript("OnShow", function() BGaction:SetFrameStrata('BACKGROUND') end)
 	--Texture
 	BGaction.tex = BGaction:CreateTexture(nil, 'OVERLAY')
 	BGaction.tex:SetAlpha(E.db.general.backdropfadecolor.a - 0.7 > 0 and E.db.general.backdropfadecolor.a - 0.7 or 0.5)
@@ -137,23 +141,27 @@ function E:UpdateAll()
 	BG:UpdateFrames()
 end
 
-function BG:PET_BATTLE_OPENING_START()
-	if E.db.sle.backgrounds.bottom.enabled and E.db.sle.backgrounds.bottom.pethide then 
-	BGbottom:Hide()
+function BG:RegisterHide()
+	if E.db.sle.backgrounds.bottom.pethide then
+		E.FrameLocks['BottomBG'] = true
+	else
+		E.FrameLocks['BottomBG'] = nil
 	end
-	if E.db.sle.backgrounds.left.enabled and E.db.sle.backgrounds.left.pethide then 
-	BGleft:Hide()
+	if E.db.sle.backgrounds.left.pethide then
+		E.FrameLocks['LeftBG'] = true
+	else
+		E.FrameLocks['LeftBG'] = nil
 	end
-	if E.db.sle.backgrounds.right.enabled and E.db.sle.backgrounds.right.pethide then 
-	BGright:Hide()
+	if E.db.sle.backgrounds.right.pethide then
+		E.FrameLocks['RightBG'] = true
+	else
+		E.FrameLocks['RightBG'] = nil
 	end
-	if E.db.sle.backgrounds.right.enabled and E.db.sle.backgrounds.action.pethide then 
-	BGaction:Hide()
+	if E.db.sle.backgrounds.action.pethide then
+		E.FrameLocks['ActionBG'] = true
+	else
+		E.FrameLocks['ActionBG'] = nil
 	end
-end
-
-function BG:PET_BATTLE_OVER()
-	BG:FramesVisibility()
 end
 
 function BG:Initialize()
@@ -162,9 +170,7 @@ function BG:Initialize()
 	BG:FramesCreate()
 	BG:FramesVisibility()
 	BG:UpdateTex()
-	
-	BG:RegisterEvent("PET_BATTLE_OPENING_START")
-	BG:RegisterEvent("PET_BATTLE_OVER")
+	BG:RegisterHide()
 end
 
 E:RegisterModule(BG:GetName())

@@ -138,7 +138,7 @@ E.Options.args.sle.args.backgrounds.args.bottom = {
 			name = L["Hide in Pet Batlle"],
 			desc = L["Show/Hide this frame during Pet Battles."],
 			get = function(info) return E.db.sle.backgrounds.bottom.pethide end,
-			set = function(info, value) E.db.sle.backgrounds.bottom.pethide = value; end
+			set = function(info, value) E.db.sle.backgrounds.bottom.pethide = value; BG:RegisterHide() end
 		},
 	},
 }
@@ -221,7 +221,7 @@ E.Options.args.sle.args.backgrounds.args.left = {
 			name = L["Hide in Pet Batlle"],
 			desc = L["Show/Hide this frame during Pet Battles."],
 			get = function(info) return E.db.sle.backgrounds.left.pethide end,
-			set = function(info, value) E.db.sle.backgrounds.left.pethide = value; end
+			set = function(info, value) E.db.sle.backgrounds.left.pethide = value; BG:RegisterHide() end
 		},
 	},
 }
@@ -304,7 +304,7 @@ E.Options.args.sle.args.backgrounds.args.right = {
 			name = L["Hide in Pet Batlle"],
 			desc = L["Show/Hide this frame during Pet Battles."],
 			get = function(info) return E.db.sle.backgrounds.right.pethide end,
-			set = function(info, value) E.db.sle.backgrounds.right.pethide = value; end
+			set = function(info, value) E.db.sle.backgrounds.right.pethide = value; BG:RegisterHide() end
 		},
 	},
 }
@@ -387,7 +387,7 @@ E.Options.args.sle.args.backgrounds.args.action = {
 			name = L["Hide in Pet Batlle"],
 			desc = L["Show/Hide this frame during Pet Battles."],
 			get = function(info) return E.db.sle.backgrounds.action.pethide end,
-			set = function(info, value) E.db.sle.backgrounds.action.pethide = value; end
+			set = function(info, value) E.db.sle.backgrounds.action.pethide = value; BG:RegisterHide() end
 		},
 	},
 }
