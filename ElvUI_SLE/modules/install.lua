@@ -1560,7 +1560,7 @@ local function SetPage(PageNum)
 		InstallOption3Button:SetText(CLASS)
 		InstallOption4Button:Show()
 		InstallOption4Button:SetScript('OnClick', function() E:SetupTheme('pixelPerfect') end)
-		InstallOption4Button:SetText(L['Pixel Perfect'])
+		InstallOption4Button:SetText(L['Pixel Perfect'])		
 	elseif PageNum == 5 then
 		f.SubTitle:SetText(L["Resolution"])
 		f.Desc1:SetText(format(L["Your current resolution is %s, this is considered a %s resolution."], E.resolution, E.lowversion == true and L["low"] or L["high"]))
@@ -1639,8 +1639,7 @@ local function SetPage(PageNum)
 	elseif PageNum == 9 and not IsAddOnLoaded("ElvUI_Hud") then --Finish install if Hud disabled
 		f.SubTitle:SetText(L["Installation Complete"])
 		f.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
-		f.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])
-		
+		f.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])			
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript("OnClick", InstallComplete)
 		InstallOption1Button:SetText(L["Finished"])				
@@ -1648,8 +1647,7 @@ local function SetPage(PageNum)
 	elseif PageNum == 10 then --Finish install if Hud enabled
 		f.SubTitle:SetText(L["Installation Complete"])
 		f.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
-		f.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])	
-		
+		f.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])			
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript("OnClick", InstallComplete)
 		InstallOption1Button:SetText(L["Finished"])				
