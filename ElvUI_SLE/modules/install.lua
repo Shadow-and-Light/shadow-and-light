@@ -380,7 +380,7 @@ function E:SetupResolution(noDataReset)
 		
 		E:CopyTable(E.db.actionbar, P.actionbar)
 		E:CopyTable(E.db.unitframe.units, P.unitframe.units)
-
+		
 		if E.private.general.pixelPerfect then
 			if not E.db.movers then E.db.movers = {}; end
 			
@@ -394,7 +394,7 @@ function E:SetupResolution(noDataReset)
 		E.db.auras.wrapAfter = P.auras.wrapAfter;	
 		E.db.general.reputation.width = P.general.reputation.width
 		E.db.general.experience.width = P.general.experience.width
-
+		
 		E.db.lowresolutionset = nil;
 	end
 	
@@ -1681,7 +1681,7 @@ end
 function E:Install()
 	--ElvUI don't have this?
 	MaxPages()
-	if not InstallStepComplete then
+if not InstallStepComplete then
 		local imsg = CreateFrame("Frame", "InstallStepComplete", E.UIParent)
 		imsg:Size(418, 72)
 		imsg:Point("TOP", 0, -190)
@@ -1740,7 +1740,6 @@ function E:Install()
 		f.SetPage = SetPage
 		f:Size(550, 400)
 		f:SetTemplate("Transparent")
-		f:CreateShadow("Default")
 		f:SetPoint("CENTER")
 		f:SetFrameStrata('TOOLTIP')
 		
