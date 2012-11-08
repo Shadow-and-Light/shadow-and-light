@@ -444,7 +444,7 @@ function E:SetupLayout(layout, noDataReset)
 			E.db.unitframe.units.party.health.position = 'BOTTOM';
 			E.db.unitframe.units.party.health.orientation = 'VERTICAL';
 			E.db.unitframe.units.party.name.position = 'TOP';
-			E.db.unitframe.units.party.name.length = "SHORT";
+			E.db.unitframe.units.party.name.text_format = "[namecolor][name:medium]";
 			E.db.unitframe.units.party.debuffs.anchorPoint = 'BOTTOMLEFT';
 			E.db.unitframe.units.party.debuffs.initialAnchor = 'TOPLEFT';
 			E.db.unitframe.units.party.debuffs.useFilter = 'Blacklist';
@@ -502,6 +502,14 @@ function E:SetupLayout(layout, noDataReset)
 	else
 		if not noDataReset then
 			E:ResetMovers('')
+			if E.private.general.pixelPerfect then
+				if not E.db.movers then E.db.movers = {}; end
+				E.db.movers["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM0104"
+				E.db.movers["AurasMover"] = "TOPRIGHTElvUIParentTOPRIGHT-221-5"
+				E.db.movers["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM064"
+				E.db.movers["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-27865"
+				E.db.movers["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM27864"		
+			end			
 		end
 	end
 	
