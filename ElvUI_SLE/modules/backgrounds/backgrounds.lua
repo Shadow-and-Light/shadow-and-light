@@ -15,53 +15,26 @@ local Fr = {
 
 --Frames setup
 function BG:FramesCreate()
-	--Bottom
-	BGb:CreateBackdrop(E.private.sle.backgrounds.bottom.template);
-	BGb.backdrop:SetAllPoints();
-	BGb:SetFrameLevel(BGb:GetFrameLevel() - 1)
-	BGb:SetFrameStrata('BACKGROUND');
-	BGb:EnableMouse(true)
-	BGb:SetScript("OnShow", function() BGb:SetFrameStrata('BACKGROUND') end)
-	--Texture
-	BGb.tex = BGb:CreateTexture(nil, 'OVERLAY')
-	BGb.tex:SetAlpha(0.5)
-
-	--Left
-	BGl:CreateBackdrop(E.private.sle.backgrounds.left.template);
-	BGl.backdrop:SetAllPoints();
-	BGl:SetFrameLevel(BGl:GetFrameLevel() - 1)
-	BGl:SetFrameStrata('BACKGROUND');
-	BGl:SetScript("OnShow", function() BGl:SetFrameStrata('BACKGROUND') end)
-	--Texture
-	BGl.tex = BGl:CreateTexture(nil, 'OVERLAY')
+	local pr = E.private.sle.backgrounds
+	for _,v in pairs(Fr) do
+		v[1]:CreateBackdrop(pr[v[2]].template);
+		v[1].backdrop:SetAllPoints();
+		v[1]:SetFrameLevel(v[1]:GetFrameLevel() - 1)
+		v[1]:SetScript("OnShow", function() v[1]:SetFrameStrata('BACKGROUND') end)
+		v[1].tex = v[1]:CreateTexture(nil, 'OVERLAY')
+		v[1]:Hide()
+	end
+	
+	BGb:EnableMouse(true) --Maybe add an option to actually allow change this click catching?
+	BGb.tex:SetAlpha(0.5) 
+	--Also the problem. As long as bottom bg can be transparent it's no good in keeping fixed transparency for the texture.
+	--Maybe add an option to change this from using Elv's trnsparency to additional user-set one?
 	BGl.tex:SetAlpha(E.db.general.backdropfadecolor.a - 0.7 > 0 and E.db.general.backdropfadecolor.a - 0.7 or 0.5)
 
-	--Right
-	BGr:CreateBackdrop(E.private.sle.backgrounds.right.template);
-	BGr.backdrop:SetAllPoints();
-	BGr:SetFrameLevel(BGr:GetFrameLevel() - 1)
-	BGr:SetFrameStrata('BACKGROUND');
-	BGr:SetScript("OnShow", function() BGr:SetFrameStrata('BACKGROUND') end)
-	--Texture
-	BGr.tex = BGr:CreateTexture(nil, 'OVERLAY')
 	BGr.tex:SetAlpha(E.db.general.backdropfadecolor.a - 0.7 > 0 and E.db.general.backdropfadecolor.a - 0.7 or 0.5)	
 
-	--Action
-	BGa:CreateBackdrop(E.private.sle.backgrounds.action.template);
-	BGa.backdrop:SetAllPoints();
-	BGa:SetFrameLevel(BGa:GetFrameLevel() - 1)
-	BGa:SetFrameStrata('BACKGROUND');
 	BGa:EnableMouse(true)
-	BGa:SetScript("OnShow", function() BGa:SetFrameStrata('BACKGROUND') end)
-	--Texture
-	BGa.tex = BGa:CreateTexture(nil, 'OVERLAY')
 	BGa.tex:SetAlpha(E.db.general.backdropfadecolor.a - 0.7 > 0 and E.db.general.backdropfadecolor.a - 0.7 or 0.5)
-	
-	--Hiding
-	BGb:Hide()
-	BGl:Hide()
-	BGr:Hide()
-	BGa:Hide()
 end
 
 --Frames Size
