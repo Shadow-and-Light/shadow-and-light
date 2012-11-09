@@ -3,7 +3,7 @@ local BG = E:NewModule('BackGrounds', 'AceHook-3.0', 'AceEvent-3.0');
 
 local BGb = CreateFrame('Frame', "BottomBG", E.UIParent);
 local BGl = CreateFrame('Frame', "LeftBG", E.UIParent);
-local BGright = CreateFrame('Frame', "RightBG", E.UIParent);
+local BGr = CreateFrame('Frame', "RightBG", E.UIParent);
 local BGaction = CreateFrame('Frame', "ActionBG", E.UIParent);
 
 --Frames setup
@@ -30,14 +30,14 @@ function BG:FramesCreate()
 	BGl.tex:SetAlpha(E.db.general.backdropfadecolor.a - 0.7 > 0 and E.db.general.backdropfadecolor.a - 0.7 or 0.5)
 
 	--Right
-	BGright:CreateBackdrop(E.private.sle.backgrounds.right.template);
-	BGright.backdrop:SetAllPoints();
-	BGright:SetFrameLevel(BGright:GetFrameLevel() - 1)
-	BGright:SetFrameStrata('BACKGROUND');
-	BGright:SetScript("OnShow", function() BGright:SetFrameStrata('BACKGROUND') end)
+	BGr:CreateBackdrop(E.private.sle.backgrounds.right.template);
+	BGr.backdrop:SetAllPoints();
+	BGr:SetFrameLevel(BGr:GetFrameLevel() - 1)
+	BGr:SetFrameStrata('BACKGROUND');
+	BGr:SetScript("OnShow", function() BGr:SetFrameStrata('BACKGROUND') end)
 	--Texture
-	BGright.tex = BGright:CreateTexture(nil, 'OVERLAY')
-	BGright.tex:SetAlpha(E.db.general.backdropfadecolor.a - 0.7 > 0 and E.db.general.backdropfadecolor.a - 0.7 or 0.5)	
+	BGr.tex = BGr:CreateTexture(nil, 'OVERLAY')
+	BGr.tex:SetAlpha(E.db.general.backdropfadecolor.a - 0.7 > 0 and E.db.general.backdropfadecolor.a - 0.7 or 0.5)	
 
 	--Action
 	BGaction:CreateBackdrop(E.private.sle.backgrounds.action.template);
@@ -53,7 +53,7 @@ function BG:FramesCreate()
 	--Hiding
 	BGb:Hide()
 	BGl:Hide()
-	BGright:Hide()
+	BGr:Hide()
 	BGaction:Hide()
 end
 
@@ -65,8 +65,8 @@ function BG:FramesSize()
 	BGl:SetWidth(E.db.sle.backgrounds.left.width)
 	BGl:SetHeight(E.db.sle.backgrounds.left.height)
 
-	BGright:SetWidth(E.db.sle.backgrounds.right.width)
-	BGright:SetHeight(E.db.sle.backgrounds.right.height)
+	BGr:SetWidth(E.db.sle.backgrounds.right.width)
+	BGr:SetHeight(E.db.sle.backgrounds.right.height)
 
 	BGaction:SetWidth(E.db.sle.backgrounds.action.width)
 	BGaction:SetHeight(E.db.sle.backgrounds.action.height)
@@ -76,7 +76,7 @@ end
 function BG:FramesPositions()
 	BGb:Point("BOTTOM", E.UIParent, "BOTTOM", 0 + E.db.sle.backgrounds.bottom.xoffset, 21 + E.db.sle.backgrounds.bottom.yoffset); 
 	BGl:Point("BOTTOMRIGHT", E.UIParent, "BOTTOM", -(E.screenwidth/4 + 32)/2 - 1 + E.db.sle.backgrounds.left.xoffset, 21 + E.db.sle.backgrounds.left.yoffset); 
-	BGright:Point("BOTTOMLEFT", E.UIParent, "BOTTOM", (E.screenwidth/4 + 32)/2 + 1 + E.db.sle.backgrounds.right.xoffset, 21 + E.db.sle.backgrounds.right.yoffset); 
+	BGr:Point("BOTTOMLEFT", E.UIParent, "BOTTOM", (E.screenwidth/4 + 32)/2 + 1 + E.db.sle.backgrounds.right.xoffset, 21 + E.db.sle.backgrounds.right.yoffset); 
 	BGaction:Point("BOTTOM", E.UIParent, "BOTTOM", 0 + E.db.sle.backgrounds.action.xoffset, E.screenheight/6 + 9 + E.db.sle.backgrounds.action.yoffset);
 end
 
@@ -86,9 +86,9 @@ function BG:UpdateTex()
 	BGb.tex:Point('BOTTOMRIGHT', BGb, 'BOTTOMRIGHT', -2, 2)
 	BGb.tex:SetTexture(E.db.sle.backgrounds.bottom.texture)
 	
-	BGright.tex:Point('TOPLEFT', BGright, 'TOPLEFT', 2, -2)
-	BGright.tex:Point('BOTTOMRIGHT', BGright, 'BOTTOMRIGHT', -2, 2)
-	BGright.tex:SetTexture(E.db.sle.backgrounds.right.texture)
+	BGr.tex:Point('TOPLEFT', BGr, 'TOPLEFT', 2, -2)
+	BGr.tex:Point('BOTTOMRIGHT', BGr, 'BOTTOMRIGHT', -2, 2)
+	BGr.tex:SetTexture(E.db.sle.backgrounds.right.texture)
 	
 	BGl.tex:Point('TOPLEFT', BGl, 'TOPLEFT', 2, -2)
 	BGl.tex:Point('BOTTOMRIGHT', BGl, 'BOTTOMRIGHT', -2, 2)
@@ -114,9 +114,9 @@ function BG:FramesVisibility()
 	end
 	
 	if E.db.sle.backgrounds.right.enabled then
-		BGright:Show()
+		BGr:Show()
 	else
-		BGright:Hide()
+		BGr:Hide()
 	end
 	
 	if E.db.sle.backgrounds.action.enabled then
