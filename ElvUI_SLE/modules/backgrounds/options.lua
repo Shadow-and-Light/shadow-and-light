@@ -76,7 +76,7 @@ for k,v in pairs(drop) do
 		disabled = function() return not E.db.sle.backgrounds[v[1]].enabled end,
 		args = {
 			width = { --setting width (obviously)
-				order = 3,
+				order = 1,
 				type = "range",
 				name = L['Width'],
 				desc = L["Sets width of the frame"],
@@ -84,7 +84,7 @@ for k,v in pairs(drop) do
 				set = function(info, value) E.db.sle.backgrounds[v[1]].width = value; BG:FramesSize() end,
 			},
 			height = {
-				order = 4,
+				order = 2,
 				type = "range",
 				name = L['Height'],
 				desc = L["Sets height of the frame"],
@@ -92,12 +92,12 @@ for k,v in pairs(drop) do
 				set = function(info, value) E.db.sle.backgrounds[v[1]].height = value; BG:FramesSize() end,
 			},
 			spacer = { --Empty slot for making sliders move to next line
-				order = 5,
+				order = 3,
 				type = "description",
 				name = "",
 			},
 			xoffset = {
-				order = 6,
+				order = 4,
 				type = "range",
 				name = L['X Offset'],
 				desc = L["Sets X offset of the frame"],
@@ -105,7 +105,7 @@ for k,v in pairs(drop) do
 				set = function(info, value) E.db.sle.backgrounds[v[1]].xoffset = value; BG:FramesPositions() end,
 			},
 			yoffset = {
-				order = 7,
+				order = 5,
 				type = "range",
 				name = L['Y Offset'],
 				desc = L["Sets Y offset of the frame"],
@@ -114,7 +114,7 @@ for k,v in pairs(drop) do
 			},
 			--Setting custom texture for those who like it
 			texture = {
-				order = 8,
+				order = 6,
 				type = 'input',
 				width = 'full',
 				name = L["Texture"],
@@ -126,7 +126,7 @@ for k,v in pairs(drop) do
 				end,
 			},
 			template = {
-				order = 9,
+				order = 7,
 				type = "select",
 				name = L["Backdrop Template"],
 				desc = L["Change the template used for this backdrop."],
@@ -138,7 +138,7 @@ for k,v in pairs(drop) do
 				},
 			},
 			pethide = {
-				order = 10,
+				order = 8,
 				type = "toggle",
 				name = L["Hide in Pet Batlle"],
 				desc = L["Show/Hide this frame during Pet Battles."],
