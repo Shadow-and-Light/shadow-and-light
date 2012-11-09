@@ -157,11 +157,8 @@ function BG:RegisterHide()
 end
 
 function BG:Initialize()
-	BG:FramesPositions()
-	BG:FramesSize()
 	BG:FramesCreate()
-	BG:FramesVisibility()
-	BG:UpdateTex()
+	BG:UpdateFrames()
 	BG:RegisterHide()
 end
 
