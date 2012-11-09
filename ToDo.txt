@@ -2,6 +2,7 @@
 Steal Hydra's animation code (STOLEN, now to be implemented ;) )
 Look for more stuff Elv broken after last update (as always lol)
 Do something with switching between to Darth's from Repocc's settings. Everything continues to be so transparent o_O
+So as pixel perfect is now default theme: optimize everything for this mode. (yeah yeah, a huge amount of work >_< wtb help)
 
 ==What we maybe can do==
 Saw an idea about a dot tracker, saw some coding for it will look at it when have time...
