@@ -59,17 +59,18 @@ end
 
 --Frames Size
 function BG:FramesSize()
-	BGb:SetWidth(E.db.sle.backgrounds.bottom.width)
-	BGb:SetHeight(E.db.sle.backgrounds.bottom.height)
+	local db = E.db.sle.backgrounds
+	BGb:SetWidth(db.bottom.width)
+	BGb:SetHeight(db.bottom.height)
 
-	BGl:SetWidth(E.db.sle.backgrounds.left.width)
-	BGl:SetHeight(E.db.sle.backgrounds.left.height)
+	BGl:SetWidth(db.left.width)
+	BGl:SetHeight(db.left.height)
 
-	BGr:SetWidth(E.db.sle.backgrounds.right.width)
-	BGr:SetHeight(E.db.sle.backgrounds.right.height)
+	BGr:SetWidth(db.right.width)
+	BGr:SetHeight(db.right.height)
 
-	BGa:SetWidth(E.db.sle.backgrounds.action.width)
-	BGa:SetHeight(E.db.sle.backgrounds.action.height)
+	BGa:SetWidth(db.action.width)
+	BGa:SetHeight(db.action.height)
 end
 
 --Frames points
