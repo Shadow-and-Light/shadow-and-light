@@ -7,10 +7,10 @@ local BGr = CreateFrame('Frame', "RightBG", E.UIParent);
 local BGa = CreateFrame('Frame', "ActionBG", E.UIParent);
 
 local Fr = {
-	b = {BGb,"bottom"},
-	l = {BGl,"left"},
-	r = {BGr,"right"},
-	a = {BGa,"action"},
+	BottomBG = {BGb,"bottom"},
+	LeftBG = {BGl,"left"},
+	RightBG = {BGr,"right"},
+	ActionBG = {BGa,"action"},
 }
 
 --Frames setup
@@ -83,25 +83,13 @@ function BG:UpdateFrames()
 end
 
 function BG:RegisterHide()
-	if E.db.sle.backgrounds.bottom.pethide then
-		E.FrameLocks['BottomBG'] = true
-	else
-		E.FrameLocks['BottomBG'] = nil
-	end
-	if E.db.sle.backgrounds.left.pethide then
-		E.FrameLocks['LeftBG'] = true
-	else
-		E.FrameLocks['LeftBG'] = nil
-	end
-	if E.db.sle.backgrounds.right.pethide then
-		E.FrameLocks['RightBG'] = true
-	else
-		E.FrameLocks['RightBG'] = nil
-	end
-	if E.db.sle.backgrounds.action.pethide then
-		E.FrameLocks['ActionBG'] = true
-	else
-		E.FrameLocks['ActionBG'] = nil
+	local db = E.db.sle.backgrounds
+	for k,v in pairs(Fr) do
+		if db[v[2]].pethide then
+			E.FrameLocks[k] = true
+		else
+			E.FrameLocks[k] = nil
+		end
 	end
 end
 
