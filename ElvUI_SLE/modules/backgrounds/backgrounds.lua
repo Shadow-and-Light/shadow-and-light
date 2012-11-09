@@ -6,6 +6,13 @@ local BGl = CreateFrame('Frame', "LeftBG", E.UIParent);
 local BGr = CreateFrame('Frame', "RightBG", E.UIParent);
 local BGa = CreateFrame('Frame', "ActionBG", E.UIParent);
 
+local Fr = {
+	b = {BGb,"bottom"},
+	l = {BGl,"left"},
+	r = {BGr,"right"},
+	a = {BGa,"action"},
+}
+
 --Frames setup
 function BG:FramesCreate()
 	--Bottom
@@ -60,17 +67,10 @@ end
 --Frames Size
 function BG:FramesSize()
 	local db = E.db.sle.backgrounds
-	BGb:SetWidth(db.bottom.width)
-	BGb:SetHeight(db.bottom.height)
-
-	BGl:SetWidth(db.left.width)
-	BGl:SetHeight(db.left.height)
-
-	BGr:SetWidth(db.right.width)
-	BGr:SetHeight(db.right.height)
-
-	BGa:SetWidth(db.action.width)
-	BGa:SetHeight(db.action.height)
+	for k,v in pairs(Fr) do
+		v[1]:SetWidth(db[v[2]].width)
+		v[1]:SetHeight(db[v[2]].height)
+	end
 end
 
 --Frames points
