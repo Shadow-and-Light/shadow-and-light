@@ -83,21 +83,12 @@ end
 
 --Updating textures
 function BG:UpdateTex()
-	BGb.tex:Point('TOPLEFT', BGb, 'TOPLEFT', 2, -2)
-	BGb.tex:Point('BOTTOMRIGHT', BGb, 'BOTTOMRIGHT', -2, 2)
-	BGb.tex:SetTexture(E.db.sle.backgrounds.bottom.texture)
-	
-	BGr.tex:Point('TOPLEFT', BGr, 'TOPLEFT', 2, -2)
-	BGr.tex:Point('BOTTOMRIGHT', BGr, 'BOTTOMRIGHT', -2, 2)
-	BGr.tex:SetTexture(E.db.sle.backgrounds.right.texture)
-	
-	BGl.tex:Point('TOPLEFT', BGl, 'TOPLEFT', 2, -2)
-	BGl.tex:Point('BOTTOMRIGHT', BGl, 'BOTTOMRIGHT', -2, 2)
-	BGl.tex:SetTexture(E.db.sle.backgrounds.left.texture)
-	
-	BGa.tex:Point('TOPLEFT', BGa, 'TOPLEFT', 2, -2)
-	BGa.tex:Point('BOTTOMRIGHT', BGa, 'BOTTOMRIGHT', -2, 2)
-	BGa.tex:SetTexture(E.db.sle.backgrounds.action.texture)
+	local db = E.db.sle.backgrounds
+	for k,v in pairs(Fr) do
+		v[1].tex:Point('TOPLEFT', v[1], 'TOPLEFT', 2, -2)
+		v[1].tex:Point('BOTTOMRIGHT', v[1], 'BOTTOMRIGHT', -2, 2)
+		v[1].tex:SetTexture(db[v[2]].texture)
+	end
 end
 
 --Visibility / Enable check
