@@ -68,8 +68,7 @@ end
 function BG:FramesSize()
 	local db = E.db.sle.backgrounds
 	for k,v in pairs(Fr) do
-		v[1]:SetWidth(db[v[2]].width)
-		v[1]:SetHeight(db[v[2]].height)
+		v[1]:SetSize(db[v[2]].width, db[v[2]].height)
 	end
 end
 
