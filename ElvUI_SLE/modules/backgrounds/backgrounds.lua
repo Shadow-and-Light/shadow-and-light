@@ -92,28 +92,13 @@ end
 
 --Visibility / Enable check
 function BG:FramesVisibility()
-	if E.db.sle.backgrounds.bottom.enabled then
-		BGb:Show()
-	else
-		BGb:Hide()
-	end
-	
-	if E.db.sle.backgrounds.left.enabled then
-		BGl:Show()
-	else
-		BGl:Hide()
-	end
-	
-	if E.db.sle.backgrounds.right.enabled then
-		BGr:Show()
-	else
-		BGr:Hide()
-	end
-	
-	if E.db.sle.backgrounds.action.enabled then
-		BGa:Show()
-	else
-		BGa:Hide()
+	local db = E.db.sle.backgrounds
+	for k,v in pairs(Fr) do
+		if db[v[2]].enabled then
+			v[1]:Show()
+		else
+			v[1]:Hide()
+		end
 	end
 end
 
