@@ -142,6 +142,7 @@ E.Options.args.sle.args.backgrounds.args.left = {
 	order = 2,
 	type = "group",
 	name = L["Left BG"],
+	get = function(info) return E.db.sle.backgrounds.left[ info[#info] ] end,
 	disabled = function() return not E.db.sle.backgrounds.left.enabled end,
 	args = {
 		width = {
@@ -150,7 +151,6 @@ E.Options.args.sle.args.backgrounds.args.left = {
 			name = L['Width'],
 			desc = L["Sets width of the frame"],
 			min = 150, max = E.screenwidth, step = 1,
-			get = function(info) return E.db.sle.backgrounds.left.width end,
 			set = function(info, value) E.db.sle.backgrounds.left.width = value; BG:FramesSize() end,
 		},
 		height = {
@@ -159,7 +159,6 @@ E.Options.args.sle.args.backgrounds.args.left = {
 			name = L['Height'],
 			desc = L["Sets height of the frame"],
 			min = 50, max = E.screenheight/2, step = 1,
-			get = function(info) return E.db.sle.backgrounds.left.height end,
 			set = function(info, value) E.db.sle.backgrounds.left.height = value; BG:FramesSize() end,
 		},
 		spacer = {
@@ -173,7 +172,6 @@ E.Options.args.sle.args.backgrounds.args.left = {
 			name = L['X Offset'],
 			desc = L["Sets X offset of the frame"],
 			min = -E.screenwidth/2, max = E.screenwidth/2, step = 1,
-			get = function(info) return E.db.sle.backgrounds.left.xoffset end,
 			set = function(info, value) E.db.sle.backgrounds.left.xoffset = value; BG:FramesPositions() end,
 		},
 		yoffset = {
@@ -182,7 +180,6 @@ E.Options.args.sle.args.backgrounds.args.left = {
 			name = L['Y Offset'],
 			desc = L["Sets Y offset of the frame"],
 			min = -21, max = E.screenheight, step = 1,
-			get = function(info) return E.db.sle.backgrounds.left.yoffset end,
 			set = function(info, value) E.db.sle.backgrounds.left.yoffset = value; BG:FramesPositions() end,
 		},
 		texture = {
@@ -191,7 +188,6 @@ E.Options.args.sle.args.backgrounds.args.left = {
 			width = 'full',
 			name = L["Texture"],
 			desc = L["Set the texture to use in this frame.  Requirements are the same as the chat textures."],
-			get = function(info) return E.db.sle.backgrounds.left.texture end,
 			set = function(info, value) 
 				E.db.sle.backgrounds.left.texture = value
 				E:UpdateMedia()
@@ -215,7 +211,6 @@ E.Options.args.sle.args.backgrounds.args.left = {
 			type = "toggle",
 			name = L["Hide in Pet Batlle"],
 			desc = L["Show/Hide this frame during Pet Battles."],
-			get = function(info) return E.db.sle.backgrounds.left.pethide end,
 			set = function(info, value) E.db.sle.backgrounds.left.pethide = value; BG:RegisterHide() end
 		},
 	},
