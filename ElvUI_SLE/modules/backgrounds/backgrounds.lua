@@ -133,14 +133,6 @@ function BG:UpdateFrames()
     BG:UpdateTex()
 end
 
---Hook to updating during profile change
-E.UpdateAllHUD = E.UpdateAll
-function E:UpdateAll()
-    E.UpdateAllHUD(self)
-	
-	BG:UpdateFrames()
-end
-
 function BG:RegisterHide()
 	if E.db.sle.backgrounds.bottom.pethide then
 		E.FrameLocks['BottomBG'] = true
