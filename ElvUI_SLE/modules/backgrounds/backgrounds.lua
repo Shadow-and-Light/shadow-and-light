@@ -4,7 +4,7 @@ local BG = E:NewModule('BackGrounds', 'AceHook-3.0', 'AceEvent-3.0');
 local BGb = CreateFrame('Frame', "BottomBG", E.UIParent);
 local BGl = CreateFrame('Frame', "LeftBG", E.UIParent);
 local BGr = CreateFrame('Frame', "RightBG", E.UIParent);
-local BGaction = CreateFrame('Frame', "ActionBG", E.UIParent);
+local BGa = CreateFrame('Frame', "ActionBG", E.UIParent);
 
 --Frames setup
 function BG:FramesCreate()
@@ -40,21 +40,21 @@ function BG:FramesCreate()
 	BGr.tex:SetAlpha(E.db.general.backdropfadecolor.a - 0.7 > 0 and E.db.general.backdropfadecolor.a - 0.7 or 0.5)	
 
 	--Action
-	BGaction:CreateBackdrop(E.private.sle.backgrounds.action.template);
-	BGaction.backdrop:SetAllPoints();
-	BGaction:SetFrameLevel(BGaction:GetFrameLevel() - 1)
-	BGaction:SetFrameStrata('BACKGROUND');
-	BGaction:EnableMouse(true)
-	BGaction:SetScript("OnShow", function() BGaction:SetFrameStrata('BACKGROUND') end)
+	BGa:CreateBackdrop(E.private.sle.backgrounds.action.template);
+	BGa.backdrop:SetAllPoints();
+	BGa:SetFrameLevel(BGa:GetFrameLevel() - 1)
+	BGa:SetFrameStrata('BACKGROUND');
+	BGa:EnableMouse(true)
+	BGa:SetScript("OnShow", function() BGa:SetFrameStrata('BACKGROUND') end)
 	--Texture
-	BGaction.tex = BGaction:CreateTexture(nil, 'OVERLAY')
-	BGaction.tex:SetAlpha(E.db.general.backdropfadecolor.a - 0.7 > 0 and E.db.general.backdropfadecolor.a - 0.7 or 0.5)
+	BGa.tex = BGa:CreateTexture(nil, 'OVERLAY')
+	BGa.tex:SetAlpha(E.db.general.backdropfadecolor.a - 0.7 > 0 and E.db.general.backdropfadecolor.a - 0.7 or 0.5)
 	
 	--Hiding
 	BGb:Hide()
 	BGl:Hide()
 	BGr:Hide()
-	BGaction:Hide()
+	BGa:Hide()
 end
 
 --Frames Size
@@ -68,8 +68,8 @@ function BG:FramesSize()
 	BGr:SetWidth(E.db.sle.backgrounds.right.width)
 	BGr:SetHeight(E.db.sle.backgrounds.right.height)
 
-	BGaction:SetWidth(E.db.sle.backgrounds.action.width)
-	BGaction:SetHeight(E.db.sle.backgrounds.action.height)
+	BGa:SetWidth(E.db.sle.backgrounds.action.width)
+	BGa:SetHeight(E.db.sle.backgrounds.action.height)
 end
 
 --Frames points
@@ -77,7 +77,7 @@ function BG:FramesPositions()
 	BGb:Point("BOTTOM", E.UIParent, "BOTTOM", 0 + E.db.sle.backgrounds.bottom.xoffset, 21 + E.db.sle.backgrounds.bottom.yoffset); 
 	BGl:Point("BOTTOMRIGHT", E.UIParent, "BOTTOM", -(E.screenwidth/4 + 32)/2 - 1 + E.db.sle.backgrounds.left.xoffset, 21 + E.db.sle.backgrounds.left.yoffset); 
 	BGr:Point("BOTTOMLEFT", E.UIParent, "BOTTOM", (E.screenwidth/4 + 32)/2 + 1 + E.db.sle.backgrounds.right.xoffset, 21 + E.db.sle.backgrounds.right.yoffset); 
-	BGaction:Point("BOTTOM", E.UIParent, "BOTTOM", 0 + E.db.sle.backgrounds.action.xoffset, E.screenheight/6 + 9 + E.db.sle.backgrounds.action.yoffset);
+	BGa:Point("BOTTOM", E.UIParent, "BOTTOM", 0 + E.db.sle.backgrounds.action.xoffset, E.screenheight/6 + 9 + E.db.sle.backgrounds.action.yoffset);
 end
 
 --Updating textures
@@ -94,9 +94,9 @@ function BG:UpdateTex()
 	BGl.tex:Point('BOTTOMRIGHT', BGl, 'BOTTOMRIGHT', -2, 2)
 	BGl.tex:SetTexture(E.db.sle.backgrounds.left.texture)
 	
-	BGaction.tex:Point('TOPLEFT', BGaction, 'TOPLEFT', 2, -2)
-	BGaction.tex:Point('BOTTOMRIGHT', BGaction, 'BOTTOMRIGHT', -2, 2)
-	BGaction.tex:SetTexture(E.db.sle.backgrounds.action.texture)
+	BGa.tex:Point('TOPLEFT', BGa, 'TOPLEFT', 2, -2)
+	BGa.tex:Point('BOTTOMRIGHT', BGa, 'BOTTOMRIGHT', -2, 2)
+	BGa.tex:SetTexture(E.db.sle.backgrounds.action.texture)
 end
 
 --Visibility / Enable check
@@ -120,9 +120,9 @@ function BG:FramesVisibility()
 	end
 	
 	if E.db.sle.backgrounds.action.enabled then
-		BGaction:Show()
+		BGa:Show()
 	else
-		BGaction:Hide()
+		BGa:Hide()
 	end
 end
 
