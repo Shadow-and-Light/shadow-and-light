@@ -67,7 +67,7 @@ end
 --Frames Size
 function BG:FramesSize()
 	local db = E.db.sle.backgrounds
-	for k,v in pairs(Fr) do
+	for _,v in pairs(Fr) do
 		v[1]:SetSize(db[v[2]].width, db[v[2]].height)
 	end
 end
@@ -83,7 +83,7 @@ end
 --Updating textures
 function BG:UpdateTex()
 	local db = E.db.sle.backgrounds
-	for k,v in pairs(Fr) do
+	for _,v in pairs(Fr) do
 		v[1].tex:Point('TOPLEFT', v[1], 'TOPLEFT', 2, -2)
 		v[1].tex:Point('BOTTOMRIGHT', v[1], 'BOTTOMRIGHT', -2, 2)
 		v[1].tex:SetTexture(db[v[2]].texture)
@@ -93,7 +93,7 @@ end
 --Visibility / Enable check
 function BG:FramesVisibility()
 	local db = E.db.sle.backgrounds
-	for k,v in pairs(Fr) do
+	for _,v in pairs(Fr) do
 		if db[v[2]].enabled then
 			v[1]:Show()
 		else
