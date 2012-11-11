@@ -30,7 +30,7 @@ L["Your version of ElvUI is older than recommended to use with Shadow & Light Ed
 L["Shadow & Light Settings"] = true
 L["You can now choose if you what to use one of authors' set of options. This will change the positioning of most elements but also change a bunch of other options within ElvUI's config."] = true
 L["SLE_Install_Text2"] = [=[This step is optional and only to be used if you are wanting to use one of our configurations. 
-|cffFF0000Warning:|r Please not that the authors' may or may not use any of the layout/theme you have selected as they may not have utilized the options.]=]
+|cffFF0000Warning:|r Please note that the authors' may or may not use any of the layout/theme you have selected as they may not have utilized the options.]=]
 L["Darth's Config"] = true
 L["Darth's Defaults Set"] = true
 L["Elv's Defaults"] = true

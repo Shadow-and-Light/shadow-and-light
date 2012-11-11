@@ -28,9 +28,9 @@ L["Your version of ElvUI is older than recommended to use with Shadow & Light Ed
 
 --Install--
 L["Shadow & Light Settings"] = "Установки Тени и Света"
-L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."] = "Вы можете выбрать использование одного из набора конфигурации от авторов. Это изменит не только расположение ваших рамок и панелей, но и некоторого количества других опций."
-L["SLE_Install_Text2"] = [=[Кнопку "Умолчания ElvUI" требуется нажимать только в том случае, если вы выбрали одну из наших конфигураций и желаете обратить эти изменения. 
-|cffFF0000Внимание:|r это действие сбросит все на настройки для нормального расположения высокого разрешения.']=]
+L["You can now choose if you what to use one of authors' set of options. This will change the positioning of most elements but also change a bunch of other options within ElvUI's config."] = "Вы можете выбрать использование одного из набора конфигурации от авторов. Это изменит не только расположение ваших рамок и панелей, но и некоторого количества других опций."
+L["SLE_Install_Text2"] = [=[Этот шаг опционален и должен использоваться только в случае, если Вы хотите использовать одну из наших конфигураций. 
+|cffFF0000Внимание:|r Пожалуйста помните, что авторы могут не использовать тему/роль, которую вы выбрали, и потому результат не всегда будет хорошим.]=]
 L["Darth's Config"] = "Опции Darth'а"
 L["Darth's Defaults Set"] = "Установлены настройки Darth'а"
 L["Elv's Defaults"] = "Умолчания ElvUI"
