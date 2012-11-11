@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local UF = E:GetModule('UnitFrames');
 
 local CURRENT_PAGE = 0
@@ -1435,29 +1435,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E:UpdateAll(true)
 end
 
-function E:ElvSetup() --The function to restore defaults. not finished yet lol
-	InstallStepComplete.message = L["Elv's Defaults Set"]
-	InstallStepComplete:Show()
-	if not E.db.movers then E.db.movers = {}; end
-	--Set to defaults. Every module is listed just in case.
-	E:CopyTable(E.db.general, P.general) --General options
-	E:CopyTable(E.db.nameplate, P.nameplate) --Nameplates
-	E:CopyTable(E.db.datatexts, P.datatexts) --Datatexts
-	E:CopyTable(E.db.actionbar, P.actionbar) --Actionbars
-	E:CopyTable(E.db.tooltip, P.tooltip) --Tooltip
-	E:CopyTable(E.db.unitframe, P.unitframe) --Unitframes
-	E:CopyTable(E.db.skins, P.skins) --Skins
-	E:CopyTable(E.db.bags, P.bags) --Bags
-	E:CopyTable(E.db.chat, P.chat) --Chat
-	E:CopyTable(E.db.sle, P.sle) --Edit's main defaults
-	E:CopyTable(E.db.microbar, P.microbar) --Microbar
-	--Move every bar and panel to the defaults.
-	E:ResetUI() --Reseting positions
-	StaticPopup3Button1:Click() --this is automatic click on confirm for reseting movers
-
-	E:UpdateAll(true)
-end
-
 function E:HudSimple()
 	local H = E:GetModule('HUD')
 	InstallStepComplete.message = L["Simple Layout Set"]
@@ -1507,7 +1484,6 @@ local function ResetAll()
 end
 
 local function SetPage(PageNum)
-	--Elv Has
 	CURRENT_PAGE = PageNum
 	ResetAll()
 	InstallStatus:SetValue(PageNum)
@@ -1629,9 +1605,6 @@ local function SetPage(PageNum)
 		InstallOption2Button:Show()
 		InstallOption2Button:SetScript('OnClick', function() E:RepoocSetup() end)
 		InstallOption2Button:SetText(L["Repooc's Config"])
-		InstallOption3Button:Show()
-		InstallOption3Button:SetScript('OnClick', function() E:ElvSetup() end)
-		InstallOption3Button:SetText(L["Elv's Defaults"])
 	elseif PageNum == 9 and IsAddOnLoaded("ElvUI_Hud") then --Hud's page if enabled
 		f.SubTitle:SetText("ElvUI Hud")
 		f.Desc1:SetText(L["Thank you for using ElvUI Hud!"])
