@@ -33,8 +33,6 @@ L["SLE_Install_Text2"] = [=[This step is optional and only to be used if you are
 |cffFF0000Warning:|r Please note that the authors' may or may not use any of the layout/theme you have selected as they may not have utilized the options.]=]
 L["Darth's Config"] = true
 L["Darth's Defaults Set"] = true
-L["Elv's Defaults"] = true
-L["Elv's Defaults Set"] = true
 L["Repooc's Config"] = true
 L["Repooc's Defaults Set"] = true
 

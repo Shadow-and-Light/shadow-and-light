@@ -33,8 +33,6 @@ L["SLE_Install_Text2"] = [=[Этот шаг опционален и должен
 |cffFF0000Внимание:|r Пожалуйста помните, что авторы могут не использовать тему/роль, которую вы выбрали, и потому результат не всегда будет хорошим.]=]
 L["Darth's Config"] = "Опции Darth'а"
 L["Darth's Defaults Set"] = "Установлены настройки Darth'а"
-L["Elv's Defaults"] = "Умолчания ElvUI"
-L["Elv's Defaults Set"] = "Установлены настройки по умолчанию"
 L["Repooc's Config"] = "Опции Repooc'а"
 L["Repooc's Defaults Set"] = "Установлены настройки Repooc'а"
 
