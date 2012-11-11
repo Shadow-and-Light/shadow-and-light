@@ -52,6 +52,7 @@ E.UpdateAllSLE = E.UpdateAll
 function E:UpdateAll()
     E.UpdateAllSLE(self)
 	E:GetModule('BackGrounds'):UpdateFrames()
+	E:GetModule('BackGrounds'):RegisterHide()
 	DTP:Update()
 	DTP:DashboardShow()
 	DTP:DashWidth()
