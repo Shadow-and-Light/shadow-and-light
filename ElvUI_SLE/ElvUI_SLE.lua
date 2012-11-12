@@ -24,13 +24,21 @@ end
 function SLE:ChatPos()
 	if not E:HasMoverBeenMoved("LeftChatMover") and E.db.datatexts.leftChatPanel then
 		if not E.db.movers then E.db.movers = {}; end
-		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021"
+		if E.PixelMode then
+			E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT019"
+		else
+			E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021"
+		end
 		E:SetMoversPositions()
 	end
 	
 	if not E:HasMoverBeenMoved("RightChatMover") and E.db.datatexts.rightChatPanel then
 		if not E.db.movers then E.db.movers = {}; end
-		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
+		if E.PixelMode then
+			E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT019"
+		else
+			E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
+		end
 		E:SetMoversPositions()
 	end
 end
