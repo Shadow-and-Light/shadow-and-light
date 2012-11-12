@@ -106,22 +106,22 @@ function UB:Positioning()
 	end
 	--position check
 	if db.position == "uib_vert" then
-		Cbutton:Point("TOP", UIBFrame, "TOP", 0, -2)
-		Rbutton:Point("TOP", Cbutton, "BOTTOM", 0, -5)
-		Mbutton:Point("TOP", Rbutton, "BOTTOM", 0, -5)
-		Bbutton:Point("TOP", Mbutton, "BOTTOM", 0, -5)
-		Abutton:Point("TOP", Bbutton, "BOTTOM", 0, -5)
+		Cbutton:Point("TOP", UIBFrame, "TOP", 0, (E.PixelMode and -1 or -2))
+		Rbutton:Point("TOP", Cbutton, "BOTTOM", 0, (E.PixelMode and -3 or -5))
+		Mbutton:Point("TOP", Rbutton, "BOTTOM", 0, (E.PixelMode and -3 or -5))
+		Bbutton:Point("TOP", Mbutton, "BOTTOM", 0, (E.PixelMode and -3 or -5))
+		Abutton:Point("TOP", Bbutton, "BOTTOM", 0, (E.PixelMode and -3 or -5))
 		if Fbutton then
-			Fbutton:Point("TOP", Abutton, "BOTTOM", 0, -5)
+			Fbutton:Point("TOP", Abutton, "BOTTOM", 0, (E.PixelMode and -3 or -5))
 		end
 	else
-		Cbutton:Point("LEFT", UIBFrame, "LEFT", 2, 0)
-		Rbutton:Point("LEFT", Cbutton, "RIGHT", 5, 0)
-		Mbutton:Point("LEFT", Rbutton, "RIGHT", 5, 0)
-		Bbutton:Point("LEFT", Mbutton, "RIGHT", 5, 0)
-		Abutton:Point("LEFT", Bbutton, "RIGHT", 5, 0)
+		Cbutton:Point("LEFT", UIBFrame, "LEFT", (E.PixelMode and 1 or 2), 0)
+		Rbutton:Point("LEFT", Cbutton, "RIGHT", (E.PixelMode and 3 or 5), 0)
+		Mbutton:Point("LEFT", Rbutton, "RIGHT", (E.PixelMode and 3 or 5), 0)
+		Bbutton:Point("LEFT", Mbutton, "RIGHT", (E.PixelMode and 3 or 5), 0)
+		Abutton:Point("LEFT", Bbutton, "RIGHT", (E.PixelMode and 3 or 5), 0)
 		if Fbutton then
-			Fbutton:Point("LEFT", Abutton, "RIGHT", 5, 0)
+			Fbutton:Point("LEFT", Abutton, "RIGHT", (E.PixelMode and 3 or 5), 0)
 		end
 	end
 end
@@ -129,11 +129,11 @@ end
 function UB:MoverSize()
 	local db = E.db.sle.uibuttons
 	if db.position == "uib_vert" then
-		UIBFrame:SetWidth(db.size + 4)
-		UIBFrame:SetHeight((db.size + 5) * NumBut -1)
+		UIBFrame:SetWidth(db.size + (E.PixelMode and 2 or 4))
+		UIBFrame:SetHeight((db.size + (E.PixelMode and 3 or 5)) * NumBut -1)
 	else
-		UIBFrame:SetWidth((db.size + 5) * NumBut - 1)
-		UIBFrame:SetHeight(db.size + 4)
+		UIBFrame:SetWidth((db.size + (E.PixelMode and 3 or 5)) * NumBut - 1)
+		UIBFrame:SetHeight(db.size + (E.PixelMode and 2 or 4))
 	end
 end
 
