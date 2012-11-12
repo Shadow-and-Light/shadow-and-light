@@ -106,7 +106,7 @@ function UB:Positioning()
 	end
 	--position check
 	if db.position == "uib_vert" then
-		Cbutton:Point("TOP", UIBFrame, "TOP", 0, -4)
+		Cbutton:Point("TOP", UIBFrame, "TOP", 0, -2)
 		Rbutton:Point("TOP", Cbutton, "BOTTOM", 0, -5)
 		Mbutton:Point("TOP", Rbutton, "BOTTOM", 0, -5)
 		Bbutton:Point("TOP", Mbutton, "BOTTOM", 0, -5)
@@ -115,7 +115,7 @@ function UB:Positioning()
 			Fbutton:Point("TOP", Abutton, "BOTTOM", 0, -5)
 		end
 	else
-		Cbutton:Point("LEFT", UIBFrame, "LEFT", 4, 0)
+		Cbutton:Point("LEFT", UIBFrame, "LEFT", 2, 0)
 		Rbutton:Point("LEFT", Cbutton, "RIGHT", 5, 0)
 		Mbutton:Point("LEFT", Rbutton, "RIGHT", 5, 0)
 		Bbutton:Point("LEFT", Mbutton, "RIGHT", 5, 0)
@@ -129,11 +129,11 @@ end
 function UB:MoverSize()
 	local db = E.db.sle.uibuttons
 	if db.position == "uib_vert" then
-		UIBFrame:SetWidth(db.size + 8)
-		UIBFrame:SetHeight((db.size + 5) * NumBut + 3)
+		UIBFrame:SetWidth(db.size + 4)
+		UIBFrame:SetHeight((db.size + 5) * NumBut -1)
 	else
-		UIBFrame:SetWidth((db.size + 5) * NumBut + 3)
-		UIBFrame:SetHeight(db.size + 8)
+		UIBFrame:SetWidth((db.size + 5) * NumBut - 1)
+		UIBFrame:SetHeight(db.size + 4)
 	end
 end
 
