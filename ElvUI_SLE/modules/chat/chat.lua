@@ -85,9 +85,9 @@ function CH:PositionChat(override)
 			end
 		
 			if id ~= 2 then
-				chat:SetSize(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - 27)) -- <<< Changed
+				chat:SetSize(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - (E.PixelMode and 31 or 27))) -- <<< Changed
 			else
-				chat:Size(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - 27) - CombatLogQuickButtonFrame_Custom:GetHeight())	
+				chat:Size(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - (E.PixelMode and 31 or 27)) - CombatLogQuickButtonFrame_Custom:GetHeight())	
 			end
 			
 			FCF_SavePositionAndDimensions(chat)			
@@ -117,7 +117,7 @@ function CH:PositionChat(override)
 					BASE_OFFSET = BASE_OFFSET - 24
 					chat:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 5, 3)
 				end
-				chat:Size(E.db.chat.panelWidth - 6, (E.db.chat.panelHeight - 27)) -- <<< Changed
+				chat:Size(E.db.chat.panelWidth - 6, (E.db.chat.panelHeight - (E.PixelMode and 31 or 27))) -- <<< Changed
 				FCF_SavePositionAndDimensions(chat)		
 			end
 			chat:SetParent(LeftChatPanel)
