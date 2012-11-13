@@ -260,8 +260,6 @@ function E:SetupTheme(theme, noDisplayMsg, noPopup)
 			E.db.movers["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM064"
 			E.db.movers["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-27865"
 			E.db.movers["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM27864"
-			--E.db.movers["DP_5_Mover"] = "
-			--E.db.movers["DP_6_Mover"] = "
 		end
 	elseif theme == "classic" then
 		E.db.general.bottomPanel = false;
