@@ -180,7 +180,7 @@ end
 
 function E:SetupTheme(theme, noDisplayMsg, noPopup)
 	local classColor = RAID_CLASS_COLORS[E.myclass]
-	E.db.theme = theme
+	E.private.theme = theme
 
 	if not noPopup and ((not E.PixelMode and theme == 'pixelPerfect') or (E.PixelMode and theme ~= 'pixelPerfect')) then
 		E:StaticPopup_Show('PIXELPERFECT_CHANGED')
@@ -204,7 +204,7 @@ function E:SetupTheme(theme, noDisplayMsg, noPopup)
 	if theme == 'pixelPerfect' then
 		E.global.newThemePrompt = true;
 		E.private.general.pixelPerfect = true;
-		E.db.general.bordercolor = E:GetColor(0, 0, 0)
+		--E.db.general.bordercolor = E:GetColor(.1, .1, .1)
 		E.db.general.backdropcolor = E:GetColor(.1, .1, .1)
 		E.db.general.backdropfadecolor = E:GetColor(.06, .06, .06, .8)
 		
@@ -300,7 +300,7 @@ function E:SetupTheme(theme, noDisplayMsg, noPopup)
 	if InstallStatus then
 		InstallStatus:SetStatusBarColor(unpack(E['media'].rgbvaluecolor))
 		
-		if InstallStepComplete and not noDisplayMsg then
+		if InstallStepComplete and not noDisplayMsg and not noPopup then
 			InstallStepComplete.message = L["Theme Set"]
 			InstallStepComplete:Show()		
 		end	
@@ -398,8 +398,8 @@ function E:SetupResolution(noDataReset)
 		E.db.lowresolutionset = nil;
 	end
 	
-	if not noDataReset and E.db.theme then
-		E:SetupTheme(E.db.theme, true)
+	if not noDataReset and E.private.theme then
+		E:SetupTheme(E.private.theme, true)
 	end
 
 	E:UpdateAll(true)
@@ -566,8 +566,8 @@ function E:SetupLayout(layout, noDataReset)
 	
 	E.db.layoutSet = layout
 	
-	if not noDataReset and E.db.theme then
-		E:SetupTheme(E.db.theme, true)
+	if not noDataReset and E.private.theme then
+		E:SetupTheme(E.private.theme, true)
 	end	
 	
 	E:UpdateAll(true)
