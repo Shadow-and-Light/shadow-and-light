@@ -138,10 +138,10 @@ function UF:Update_PlayerFrame(frame, db)
 		
 		if USE_MINI_CLASSBAR then
 			CLASSBAR_WIDTH = CLASSBAR_WIDTH * (MAX_HOLY_POWER - 1) / MAX_HOLY_POWER		
-			bars:Point("CENTER", frame.Health.backdrop, "TOP", -(BORDER*3 + 6), 0)
+			bars:Point("CENTER", frame.Health.backdrop, "TOP", (db.classbar.xOffset or 0) -(BORDER*3 + 6), 0)
 			bars:SetFrameStrata("MEDIUM")
 		else
-			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", BORDER, (E.PixelMode and 0 or (BORDER + SPACING)))
+			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) + BORDER, (E.PixelMode and 0 or (BORDER + SPACING)))
 			bars:SetFrameStrata("LOW")
 		end
 		bars:Width(CLASSBAR_WIDTH)
@@ -188,10 +188,10 @@ function UF:Update_PlayerFrame(frame, db)
 		bars:ClearAllPoints()
 		if USE_MINI_CLASSBAR then
 			CLASSBAR_WIDTH = CLASSBAR_WIDTH * (PRIEST_BAR_NUM_ORBS - 1) / PRIEST_BAR_NUM_ORBS
-			bars:Point("CENTER", frame.Health.backdrop, "TOP", -(BORDER*3 + 6), 0)
+			bars:Point("CENTER", frame.Health.backdrop, "TOP", (db.classbar.xOffset or 0) -(BORDER*3 + 6), 0)
 			bars:SetFrameStrata("MEDIUM")
 		else
-			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", BORDER, (E.PixelMode and 0 or (BORDER + SPACING)))
+			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) +BORDER, (E.PixelMode and 0 or (BORDER + SPACING)))
 			bars:SetFrameStrata("LOW")
 		end
 			
@@ -238,10 +238,10 @@ function UF:Update_PlayerFrame(frame, db)
 		bars:ClearAllPoints()
 		if USE_MINI_CLASSBAR then
 			CLASSBAR_WIDTH = CLASSBAR_WIDTH * (UF['classMaxResourceBar'][E.myclass] - 1) / UF['classMaxResourceBar'][E.myclass]
-			bars:Point("CENTER", frame.Health.backdrop, "TOP", -(BORDER*3 + 12), 0)
+			bars:Point("CENTER", frame.Health.backdrop, "TOP", (db.classbar.xOffset or 0) -(BORDER*3 + 12), 0)
 			bars:SetFrameStrata("MEDIUM")
 		else
-			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", BORDER, (E.PixelMode and 0 or (BORDER + SPACING)))
+			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) +BORDER, (E.PixelMode and 0 or (BORDER + SPACING)))
 			bars:SetFrameStrata("LOW")
 		end
 			
@@ -288,10 +288,10 @@ function UF:Update_PlayerFrame(frame, db)
 		bars:ClearAllPoints()
 		if USE_MINI_CLASSBAR then
 			CLASSBAR_WIDTH = CLASSBAR_WIDTH * 2 / 3
-			bars:Point("CENTER", frame.Health.backdrop, "TOP", -(BORDER*3 + 6), 0)
+			bars:Point("CENTER", frame.Health.backdrop, "TOP", (db.classbar.xOffset or 0) -(BORDER*3 + 6), 0)
 			bars:SetFrameStrata("MEDIUM")
 		else
-			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", BORDER, (E.PixelMode and 0 or (BORDER + SPACING)))
+			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) +BORDER, (E.PixelMode and 0 or (BORDER + SPACING)))
 			bars:SetFrameStrata("LOW")
 		end
 		bars:Width(CLASSBAR_WIDTH)
@@ -314,10 +314,10 @@ function UF:Update_PlayerFrame(frame, db)
 		frame.ClassBar = bars
 		bars:ClearAllPoints()
 		if USE_MINI_CLASSBAR then
-			bars:Point("CENTER", frame.Health.backdrop, "TOP", -(BORDER*3 + 6), 0)
+			bars:Point("CENTER", frame.Health.backdrop, "TOP", (db.classbar.xOffset or 0) -(BORDER*3 + 6), 0)
 			bars:SetFrameStrata("MEDIUM")			
 		else
-			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", BORDER, (E.PixelMode and 0 or (BORDER + SPACING)))
+			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) +BORDER, (E.PixelMode and 0 or (BORDER + SPACING)))
 			bars:SetFrameStrata("LOW")
 		end
 		bars:Width(CLASSBAR_WIDTH)
@@ -342,10 +342,10 @@ function UF:Update_PlayerFrame(frame, db)
 		runes:ClearAllPoints()
 		if USE_MINI_CLASSBAR then
 			CLASSBAR_WIDTH = CLASSBAR_WIDTH * 4/5
-			runes:Point("CENTER", frame.Health.backdrop, "TOP", -(BORDER*3 + 8), 0)
+			runes:Point("CENTER", frame.Health.backdrop, "TOP", (db.classbar.xOffset or 0) -(BORDER*3 + 8), 0)
 			runes:SetFrameStrata("MEDIUM")
 		else
-			runes:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", BORDER, (E.PixelMode and 0 or (BORDER + SPACING)))
+			runes:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) +BORDER, (E.PixelMode and 0 or (BORDER + SPACING)))
 			runes:SetFrameStrata("LOW")
 		end
 		runes:Width(CLASSBAR_WIDTH)
@@ -400,11 +400,11 @@ function UF:Update_PlayerFrame(frame, db)
 		frame.ClassBar = eclipseBar
 		eclipseBar:ClearAllPoints()
 		if not USE_MINI_CLASSBAR then
-			eclipseBar:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", BORDER, (E.PixelMode and 0 or (BORDER + SPACING)))
+			eclipseBar:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) +BORDER, (E.PixelMode and 0 or (BORDER + SPACING)))
 			eclipseBar:SetFrameStrata("LOW")
 		else		
 			CLASSBAR_WIDTH = CLASSBAR_WIDTH * 2/3			
-			eclipseBar:Point("LEFT", frame.Health.backdrop, "TOPLEFT", (BORDER*2 + 4), 0)
+			eclipseBar:Point("LEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) +(BORDER*2 + 4), 0)
 			eclipseBar:SetFrameStrata("MEDIUM")						
 		end
 			eclipseBar:Width(CLASSBAR_WIDTH)
