@@ -28,11 +28,12 @@ function UF:Update_PlayerFrame(frame, db)
 	local health = frame.Health
 	local power = frame.Power
 	
-	local BORDER = E:Scale(2)
-	local SPACING = E:Scale(1)
+	local BORDER = E.Border
+	local SPACING = E.Spacing
+	local SHADOW_SPACING = E.PixelMode and 3 or 4
 	local UNIT_WIDTH = db.width
 	local UNIT_HEIGHT = db.height
-	
+
 	local USE_POWERBAR = db.power.enable
 	local USE_MINI_POWERBAR = db.power.width ~= 'fill' and USE_POWERBAR
 	local USE_POWERBAR_OFFSET = db.power.offset ~= 0 and USE_POWERBAR
