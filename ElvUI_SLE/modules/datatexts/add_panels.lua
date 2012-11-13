@@ -73,7 +73,7 @@ function DTP:CreateDataPanels()
 	local top_bar = CreateFrame('Frame', 'DP_5', E.UIParent)
 	top_bar:SetTemplate('Default', true)
 	top_bar:SetFrameStrata('LOW')
-	top_bar:Point("RIGHT", Bottom_Panel, "LEFT", -1, 0); 
+	top_bar:Point("RIGHT", Bottom_Panel, "LEFT", (E.PixelMode and 0 or -1), 0); 
 	E:GetModule('DataTexts'):RegisterPanel(DP_5, 3, 'ANCHOR_BOTTOM', 0, -4)
 	top_bar:Hide()
 	
@@ -81,7 +81,7 @@ function DTP:CreateDataPanels()
 	local bottom_bar = CreateFrame('Frame', "DP_6", E.UIParent)
 	bottom_bar:SetTemplate('Default', true)
 	bottom_bar:SetFrameStrata('LOW')
-	bottom_bar:Point("LEFT", Bottom_Panel, "RIGHT", 1, 0); 
+	bottom_bar:Point("LEFT", Bottom_Panel, "RIGHT", (E.PixelMode and 0 or 1), 0); 
 	E:GetModule('DataTexts'):RegisterPanel(DP_6, 3, 'ANCHOR_BOTTOM', 0, -4)
 	bottom_bar:Hide()
 end
@@ -99,8 +99,8 @@ function DTP:Resize()
 end
 
 function DTP:ChatResize()
-	LeftChatDataPanel:Point('TOPRIGHT', LeftChatPanel, 'BOTTOMLEFT', 16 + E.db.sle.datatext.chatleft.width, (E.PixelMode and 1 or -1))
-	RightChatDataPanel:Point('BOTTOMLEFT', RightChatPanel, 'BOTTOMRIGHT', - E.db.sle.datatext.chatright.width - 16, (E.PixelMode and -19 or -21))
+	LeftChatDataPanel:Point('TOPRIGHT', LeftChatPanel, 'BOTTOMLEFT', 16 + E.db.sle.datatext.chatleft.width, -1)
+	RightChatDataPanel:Point('BOTTOMLEFT', RightChatPanel, 'BOTTOMRIGHT', - E.db.sle.datatext.chatright.width - 16, -21)
 end
 
 --Showing panels

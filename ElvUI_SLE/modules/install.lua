@@ -194,7 +194,8 @@ function E:SetupTheme(theme, noDisplayMsg, noPopup)
 		E:CopyTable(E.db.nameplate, P.nameplate)
 		E:CopyTable(E.db.bags, P.bags)
 		E:CopyTable(E.private.auras, V.auras)
-		
+		E:CopyTable(E.db.sle.datatext, P.sle.datatext)
+
 		if E.db.movers then
 			E.db.movers.AurasMover = nil;
 		end
@@ -234,6 +235,10 @@ function E:SetupTheme(theme, noDisplayMsg, noPopup)
 		E.db.actionbar.bar5.buttonsize = 32;
 		E.db.actionbar.stanceBar.buttonsize = 32;
 		E.db.actionbar.barPet.buttonsize = 32;
+
+		E.db.sle.datatext.top.width = (E.screenwidth/5);
+		E.db.sle.datatext.dp5.width = (E.screenwidth/4 - 26);
+		E.db.sle.datatext.dp6.width = (E.screenwidth/4 - 26);
 		
 		E.db.unitframe.units.player.classbar.fill = 'fill';
 		E.db.unitframe.units.target.combobar.fill = 'fill';
@@ -254,7 +259,9 @@ function E:SetupTheme(theme, noDisplayMsg, noPopup)
 			E.db.movers["AurasMover"] = "TOPRIGHTElvUIParentTOPRIGHT-221-5"
 			E.db.movers["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM064"
 			E.db.movers["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-27865"
-			E.db.movers["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM27864"		
+			E.db.movers["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM27864"
+			--E.db.movers["DP_5_Mover"] = "
+			--E.db.movers["DP_6_Mover"] = "
 		end
 	elseif theme == "classic" then
 		E.db.general.bottomPanel = false;
