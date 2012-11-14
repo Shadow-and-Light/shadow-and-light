@@ -237,9 +237,12 @@ function E:SetupTheme(theme, noDisplayMsg, noPopup)
 		E.db.actionbar.barPet.buttonsize = 32;
 
 		E.db.sle.datatext.top.width = (E.screenwidth/5);
-		E.db.sle.datatext.dp5.width = (E.screenwidth/4 - 26);
-		E.db.sle.datatext.dp6.width = (E.screenwidth/4 - 26);
-		
+		E.db.sle.datatext.dp5.width = (E.screenwidth/4 - 57);
+		E.db.sle.datatext.dp6.width = (E.screenwidth/4 - 57);
+		E.db.sle.backgrounds.left.xoffset = 1;
+		E.db.sle.backgrounds.right.xoffset = -1;
+		E.db.sle.backgrounds.bottom.height = (E.screenheight/6 - 12);
+
 		E.db.unitframe.units.player.classbar.fill = 'fill';
 		E.db.unitframe.units.target.combobar.fill = 'fill';
 		
