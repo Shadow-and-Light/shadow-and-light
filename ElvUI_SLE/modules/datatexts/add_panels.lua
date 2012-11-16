@@ -1,12 +1,28 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local DTP = E:NewModule('DTPanels', 'AceHook-3.0', 'AceEvent-3.0');
+local DT = E:GetModule('DataTexts');
 local LO = E:GetModule('Layout');
+
+local panels = {
+	--Panel = short, name, point, x, slot
+	DP_1 = {"dp1", "DP_1", "TOPLEFT", 0},
+	DP_2 = {"dp2", "DP_2", "TOP", -(E.screenwidth/5)},
+	Top_Center = {"top", "Top_Center", "TOP", 0},
+	DP_3 = {"dp3", "DP_3", "TOP", (E.screenwidth/5)},
+	DP_4 = {"dp4", "DP_4", "TOPRIGHT", 0},
+	DP_5 = {"dp5", "DP_5", "BOTTOM", -(E.screenwidth/6 - 15)},
+	Bottom_Panel = {"bottom", "Bottom_Panel", "BOTTOM", 0},
+	DP_6 = {"dp6", "DP_6", "BOTTOM", (E.screenwidth/6 - 15)},
+}
 
 --Added function to create new panels
 LO.InitializeSLE = LO.Initialize
 function LO:Initialize()
 	LO.InitializeSLE(self)
-	DTP:CreateDataPanels()
+	for k,v in pairs(panels) do
+		DTP:CreateDataPanels(v[1], v[2], v[3], v[4])
+	end
+	DTP:Register()
 	DTP:Resize()
 	
 	E:CreateMover(DP_1, "DP_1_Mover", L["DP_1"], nil, nil, nil, "ALL,S&L")
@@ -20,70 +36,23 @@ function LO:Initialize()
 end
 
 -- New panels
-function DTP:CreateDataPanels()
-	--Top Left Panel
-	local top_left_bar = CreateFrame('Frame', "DP_1", E.UIParent)
-	top_left_bar:SetTemplate('Default', true)
-	top_left_bar:SetFrameStrata('LOW')
-	top_left_bar:Point("TOPLEFT", E.UIParent, "TOPLEFT", 0, 0); 
-	E:GetModule('DataTexts'):RegisterPanel(DP_1, 3, 'ANCHOR_BOTTOM', 0, -4)
-	top_left_bar:Hide()
+function DTP:CreateDataPanels(panel, name, point, x)
+	local panel = CreateFrame('Frame', name, E.UIParent)
+	panel:SetTemplate('Default', true)
+	panel:SetFrameStrata('LOW')
+	panel:Point(point, E.UIParent, point, x, 0); 
+	panel:Hide()
+end
 
-	--Top Left Center Panel
-	local top_center_left_bar = CreateFrame('Frame', "DP_2", E.UIParent)
-	top_center_left_bar:SetTemplate('Default', true)
-	top_center_left_bar:SetFrameStrata('LOW')
-	top_center_left_bar:Point("TOP", E.UIParent, "TOP", -(E.screenwidth/5), 0)
-	E:GetModule('DataTexts'):RegisterPanel(DP_2, 3, 'ANCHOR_BOTTOM', 0, -4)
-	top_center_left_bar:Hide()
-
-	--Top Center Panel
-	local top_center_bar = CreateFrame('Frame', "Top_Center", E.UIParent)
-	top_center_bar:SetTemplate('Default', true)
-	top_center_bar:SetFrameStrata('LOW')
-	top_center_bar:Point("TOP", E.UIParent, "TOP", 0, 0); 
-	E:GetModule('DataTexts'):RegisterPanel(Top_Center, 1, 'ANCHOR_BOTTOM', 0, -4)
-	top_center_bar:Hide()
-
-	--Top Right Center Panel
-	local top_center_right_bar = CreateFrame('Frame', "DP_3", E.UIParent)
-	top_center_right_bar:SetTemplate('Default', true)
-	top_center_right_bar:SetFrameStrata('LOW')
-	top_center_right_bar:Point("TOP", E.UIParent, "TOP", E.screenwidth/5, 0); 
-	E:GetModule('DataTexts'):RegisterPanel(DP_3, 3, 'ANCHOR_BOTTOM', 0, -4)
-	top_center_right_bar:Hide()
-	
-	--Top Right Panel
-	local top_right_bar = CreateFrame('Frame', "DP_4", E.UIParent)
-	top_right_bar:SetTemplate('Default', true)
-	top_right_bar:SetFrameStrata('LOW')
-	top_right_bar:Point("TOPRIGHT", E.UIParent, "TOPRIGHT", 0, 0); 
-	E:GetModule('DataTexts'):RegisterPanel(DP_4, 3, 'ANCHOR_BOTTOM', 0, -4)
-	top_right_bar:Hide()
-	
-	--Bottom Center Panel
-	local map = CreateFrame('Frame', 'Bottom_Panel', E.UIParent)
-	map:SetTemplate('Default', true)
-	map:SetFrameStrata('LOW')
-	map:Point("BOTTOM", E.UIParent, "BOTTOM", 0, 0); 
-	E:GetModule('DataTexts'):RegisterPanel(Bottom_Panel, 1, 'ANCHOR_BOTTOM', 0, -4)
-	map:Hide()
-	
-	--Bottom Left Center Panel
-	local top_bar = CreateFrame('Frame', 'DP_5', E.UIParent)
-	top_bar:SetTemplate('Default', true)
-	top_bar:SetFrameStrata('LOW')
-	top_bar:Point("RIGHT", Bottom_Panel, "LEFT", (E.PixelMode and 0 or -1), 0); 
-	E:GetModule('DataTexts'):RegisterPanel(DP_5, 3, 'ANCHOR_BOTTOM', 0, -4)
-	top_bar:Hide()
-	
-	--Bottom Right Center Panel
-	local bottom_bar = CreateFrame('Frame', "DP_6", E.UIParent)
-	bottom_bar:SetTemplate('Default', true)
-	bottom_bar:SetFrameStrata('LOW')
-	bottom_bar:Point("LEFT", Bottom_Panel, "RIGHT", (E.PixelMode and 0 or 1), 0); 
-	E:GetModule('DataTexts'):RegisterPanel(DP_6, 3, 'ANCHOR_BOTTOM', 0, -4)
-	bottom_bar:Hide()
+function DTP:Register(dtp, slot)
+	DT:RegisterPanel(DP_1, 3, 'ANCHOR_BOTTOM', 0, -4)
+	DT:RegisterPanel(DP_2, 3, 'ANCHOR_BOTTOM', 0, -4)
+	DT:RegisterPanel(Top_Center, 1, 'ANCHOR_BOTTOM', 0, -4)
+	DT:RegisterPanel(DP_3, 3, 'ANCHOR_BOTTOM', 0, -4)
+	DT:RegisterPanel(DP_4, 3, 'ANCHOR_BOTTOM', 0, -4)
+	DT:RegisterPanel(DP_5, 3, 'ANCHOR_BOTTOM', 0, -4)
+	DT:RegisterPanel(Bottom_Panel, 1, 'ANCHOR_BOTTOM', 0, -4)
+	DT:RegisterPanel(DP_6, 3, 'ANCHOR_BOTTOM', 0, -4)
 end
 
 function DTP:Resize()
