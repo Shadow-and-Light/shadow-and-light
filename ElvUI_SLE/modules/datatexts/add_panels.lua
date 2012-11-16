@@ -27,12 +27,12 @@ local panels = {
 LO.InitializeSLE = LO.Initialize
 function LO:Initialize()
 	LO.InitializeSLE(self)
-	for k,v in pairs(panels) do
+	for _,v in pairs(panels) do
 		DTP:CreateDataPanels(v[5], v[2], v[3], v[4], v[6])
 	end
 	DTP:Resize()
 	
-	for k,v in pairs(panels) do
+	for _,v in pairs(panels) do
 		E:CreateMover(v[5], v[2].."_Mover", L[v[2]], nil, nil, nil, "ALL,S&L")
 	end
 end
@@ -48,7 +48,7 @@ end
 
 function DTP:Resize()
 	local db = E.db.sle.datatext
-	for k,v in pairs(panels) do
+	for _,v in pairs(panels) do
 		v[5]:Size(db[v[1]].width, 20)
 	end
 	DT:UpdateAllDimensions()
@@ -62,7 +62,7 @@ end
 --Showing panels
 function DTP:ExtraDataBarSetup()
 	local db = E.db.sle.datatext
-	for k,v in pairs(panels) do
+	for _,v in pairs(panels) do
 		if db[v[1]].enabled then
 			v[5]:Show()
 		else
