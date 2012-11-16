@@ -644,12 +644,15 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.general.minimap.locationText = 'SHOW'
 	E.db.general.experience.textFormat = 'CURPERC'
 	E.db.general.experience.textSize = 10
+	E.db.general.experience.height = 12
 	E.db.general.reputation.textFormat = 'CURMAX'
-	E.db.general.reputation.textSize = 10	
+	E.db.general.reputation.textSize = 10
+	E.db.general.reputation.height = 12	
 	E.db.general.threat.enable = false
 	E.db.general.totems.spacing = 2
 	E.db.general.totems.growthDirection = "HORIZONTAL"
 	E.db.general.totems.size = 24
+	E.db.general.bottomPanel = false
 
 	--Bags--
 	E.db.bags.bagSize = 25
@@ -658,7 +661,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.bags.alignToChat = false
 	E.db.bags.bagWidth = 633
 	E.db.bags.bankWidth = 633
-	E.db.bags.yOffset = 225
+	E.db.bags.yOffset = 221
 	E.db.bags.currencyFormat = "ICON"
 	E.db.bags.growthDirection = "HORIZONTAL"
 
@@ -666,7 +669,12 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.nameplate.healthtext = 'CURRENT_PERCENT'
 	E.db.nameplate.lowHealthWarning = 'NONE'
 	E.db.nameplate.lowHealthWarningThreshold = .20
-
+	E.db.nameplate.width = 112
+	E.db.nameplate.fontSize = 8
+	E.db.nameplate.fontOutline = "OUTLINE"
+	E.db.nameplate.font = "ElvUI Font"
+	E.db.nameplate.height = 8
+	
 	--Auras--
 	E.db.auras.font = "ElvUI Font"
 	E.db.auras.fontOutline = "OUTLINE"
@@ -680,7 +688,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	if E.db.lowresolutionset then
 		E.db.chat.panelWidth = 400
 	else
-		E.db.chat.panelWidth = 444
+		E.db.chat.panelWidth = 446
 	end
 
 	--Datatexts--
@@ -701,14 +709,19 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.sle.datatext.bottom.width = E.screenwidth/3 + 52
 	else
 		E.db.sle.datatext.dp1.enabled = true
+		E.db.sle.datatext.dp1.width = E.screenwidth/5 + 1
 		E.db.sle.datatext.dp2.enabled = true
 		E.db.sle.datatext.dp3.enabled = true
 		E.db.sle.datatext.dp4.enabled = true
+		E.db.sle.datatext.dp4.width = E.screenwidth/5 + 1
 		E.db.sle.datatext.dp5.enabled = true
+		E.db.sle.datatext.dp5.width = E.screenwidth/4 - 60
 		E.db.sle.datatext.dp6.enabled = true
-		E.db.sle.datatext.chatleft.width = 428
-		E.db.sle.datatext.chatright.width = 428
-		E.db.sle.datatext.bottom.width = E.screenwidth/10 - 4
+		E.db.sle.datatext.dp6.width = E.screenwidth/4 - 60
+		E.db.sle.datatext.chatleft.width = 430
+		E.db.sle.datatext.chatright.width = 430
+		E.db.sle.datatext.bottom.width = E.screenwidth/10
+		E.db.sle.datatext.top.width = E.screenwidth/5 + 2
 	end
 
 	if E.db.lowresolutionset then
@@ -818,7 +831,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.player.portrait.camDistanceScale = 1.5;
 		E.db.unitframe.units.player.debuffs.enable = false;
 		E.db.unitframe.units.player.castbar.format = 'CURRENTMAX';
-		E.db.unitframe.units.player.castbar.width = 237
+		E.db.unitframe.units.player.castbar.width = 238
 		E.db.unitframe.units.player.classbar.fill = 'fill'
 		E.db.unitframe.units.player.classbar.height = 8
 		E.db.unitframe.units.player.aurabar.enable = false
@@ -848,7 +861,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.target.debuffs.clickThrough = false
 		E.db.unitframe.units.target.castbar.format = 'CURRENTMAX';
 		if layout == "healer" then
-			E.db.unitframe.units.target.castbar.width = 237
+			E.db.unitframe.units.target.castbar.width = 238
 		else
 			E.db.unitframe.units.target.castbar.width = 200
 		end
@@ -916,6 +929,9 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.unitframe.units.party.roleIcon.position = "TOPRIGHT"
 			E.db.unitframe.units.party.health.position = "BOTTOMLEFT"
 		end
+		E.db.unitframe.units.party.xOffset = 1
+		E.db.unitframe.units.party.yOffset = -1
+		E.db.unitframe.units.party.columnSpacing = 1
 		E.db.unitframe.units.party.debuffs.sizeOverride = 26
 		E.db.unitframe.units.party.buffIndicator.colorIcons = false
 		E.db.unitframe.units.party.power.height = 8
@@ -933,24 +949,30 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.unitframe.units.raid10.columnAnchorPoint = "LEFT"
 			E.db.unitframe.units.raid10.point = "TOP"
 		end
+		E.db.unitframe.units.raid10.xOffset = 1
+		E.db.unitframe.units.raid10.yOffset = -1
+		E.db.unitframe.units.raid10.columnSpacing = 1
 		E.db.unitframe.units.raid10.name.text_format = "[name:medium]"
 		E.db.unitframe.units.raid10.buffIndicator.colorIcons = false
 		E.db.unitframe.units.raid10.rdebuffs.size = 22
 		E.db.unitframe.units.raid10.power.height = 8
 		E.db.unitframe.units.raid10.power.text_format = ""
 		E.db.unitframe.units.raid10.health.position = "BOTTOMLEFT"
-		E.db.unitframe.units.raid10.health.text_format = "[healthcolor][health:current]"
 		--Raid 25
 		if layout == "healer" then
 			E.db.unitframe.units.raid25.health.text_format = "[healthcolor][health:deficit]"
 			E.db.unitframe.units.raid25.health.frequentUpdates = true
 			E.db.unitframe.units.raid25.health.orientation = "VERTICAL"
 			E.db.unitframe.units.raid25.health.position = "CENTER"
+			E.db.unitframe.units.raid25.height = 36
 		else
 			E.db.unitframe.units.raid25.point = "TOP"
 			E.db.unitframe.units.raid25.columnAnchorPoint = "LEFT"
 			E.db.unitframe.units.raid25.health.text_format = ""
 		end
+		E.db.unitframe.units.raid25.xOffset = 1
+		E.db.unitframe.units.raid25.yOffset = -1
+		E.db.unitframe.units.raid25.columnSpacing = 1
 		E.db.unitframe.units.raid25.buffIndicator.colorIcons = false
 		E.db.unitframe.units.raid25.name.text_format = "[name:medium]"
 		E.db.unitframe.units.raid25.rdebuffs.size = 22
@@ -964,6 +986,10 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		else
 			E.db.unitframe.units.raid40.health.text_format = ""
 		end
+		E.db.unitframe.units.raid40.height = 26
+		E.db.unitframe.units.raid40.xOffset = 1
+		E.db.unitframe.units.raid40.yOffset = -1
+		E.db.unitframe.units.raid40.columnSpacing = 1
 		E.db.unitframe.units.raid40.name.text_format = "[name:short]"
 		E.db.unitframe.units.raid40.buffIndicator.colorIcons = false
 
@@ -971,6 +997,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		if layout == "healer" then
 			E.db.unitframe.units.tank.enable = true
 			E.db.unitframe.units.tank.targetsGroup.enable = false
+			E.db.unitframe.units.tank.height = 24
 		else
 			E.db.unitframe.units.tank.enable = false
 		end
@@ -1025,6 +1052,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.actionbar.bar1.point = "TOPLEFT"
 	E.db.actionbar.bar1.buttonsPerRow = 3
 	E.db.actionbar.bar1.buttonsize = 26
+	E.db.actionbar.bar1.backdrop = true
 	E.db.actionbar.bar2.enabled = true
 	E.db.actionbar.bar2.point = "TOPLEFT"
 	E.db.actionbar.bar2.backdrop = true
@@ -1036,8 +1064,14 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.actionbar.bar3.buttonsPerRow = 3
 	E.db.actionbar.bar3.visibility = "[petbattle] hide; show"
 	E.db.actionbar.bar3.buttonsize = 26
+	E.db.actionbar.bar3.backdrop = true
 	E.db.actionbar.bar4.enabled = false
-	E.db.actionbar.bar5.enabled = false
+	--E.db.actionbar.bar5.enabled = true
+	E.db.actionbar.bar5.buttons = 12
+	E.db.actionbar.bar5.buttonspacing = 2
+	E.db.actionbar.bar5.mouseover = true
+	E.db.actionbar.bar5.buttonsize = 24
+	E.db.actionbar.bar5.backdrop = true
 	E.db.actionbar.microbar.enabled = true
 	E.db.actionbar.microbar.buttonsPerRow = 2
 	E.db.actionbar.microbar.alpha = 0.2
@@ -1058,12 +1092,14 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.sle.backgrounds.right.enabled = true
 	E.db.sle.backgrounds.right.pethide = false
 	E.db.sle.backgrounds.right.xoffset = 70
+	E.db.sle.backgrounds.right.yoffset = -2
 	E.db.sle.backgrounds.left.enabled = true
 	E.db.sle.backgrounds.left.pethide = false
 	E.db.sle.backgrounds.left.xoffset = -70
+	E.db.sle.backgrounds.left.yoffset = -2
 
 	--Raid utility--
-	E.db.sle.raidutil.ypos = 1050
+	E.db.sle.raidutil.ypos = 1052
 
 	--Exp/Rep Bars--
 	E.db.sle.exprep.explong = true
@@ -1072,68 +1108,70 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	--Combat icon--
 	E.db.sle.combatico.pos = 'TOPRIGHT'
 
-	--UI buttons--
-	E.db.sle.uibuttons.enable = true
-	E.db.sle.uibuttons.size = 14
-	E.db.sle.uibuttons.position = "uib_hor"
-
 	--Moving stuff--
 	if layout == "healer" then
-		E.db.movers.PetAB = "BOTTOMLEFTUIParentBOTTOMLEFT633141"
-		E.db.movers.ElvUF_Raid10Mover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-754215"
-		E.db.movers.ElvUF_Raid25Mover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-754215"
-		E.db.movers.ExperienceBarMover = "TOPLEFTUIParentTOPLEFT722-21"
-		E.db.movers.ElvUF_TargetMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-549249"
-		E.db.movers.ElvUF_Raid40Mover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-754215"
-		E.db.movers.ElvUF_PetMover = "BOTTOMLEFTUIParentBOTTOMLEFT634212"
-		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-634222"
-		E.db.movers.ElvUF_PetTargetMover = "BOTTOMLEFTUIParentBOTTOMLEFT634185"
-		E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMLEFTUIParentBOTTOMLEFT841169"
-		E.db.movers.ElvUF_TankMover = "BOTTOMLEFTUIParentBOTTOMLEFT428249"
-		E.db.movers.ElvUF_PlayerMover = "BOTTOMLEFTUIParentBOTTOMLEFT549249"
-		E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT750251"
-		E.db.movers.ElvUF_TargetCastbarMover = "BOTTOMLEFTUIParentBOTTOMLEFT841192"
-		E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT547302"
+		E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-313245"
+		E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM0177"
+		E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM313245"
+		E.db.movers.ElvUF_TargetCastbarMover = "BOTTOMElvUIParentBOTTOM0196"
+		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM271220"
+		E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM-270210"
+		E.db.movers.ElvUF_PetTargetMover = "BOTTOMElvUIParentBOTTOM-270185"
+		E.db.movers.PetAB = "BOTTOMElvUIParentBOTTOM-275143"
+		E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT547298"
+		E.db.movers.TempEnchantMover = "BOTTOMElvUIParentBOTTOM-241298"
+		E.db.movers.ElvUF_PartyMover = "BOTTOMElvUIParentBOTTOM0251"
+		E.db.movers.ElvUF_Raid10Mover = "BOTTOMElvUIParentBOTTOM0215"
+		E.db.movers.ElvUF_Raid25Mover = "BOTTOMElvUIParentBOTTOM0215"
+		E.db.movers.ElvUF_Raid40Mover = "BOTTOMElvUIParentBOTTOM0215"
+		E.db.movers.ElvUF_TankMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT428245"
+		E.db.movers.BossButton = "BOTTOMLEFTElvUIParentBOTTOMLEFT326268"
 	else
-		E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-841212"
-		E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTUIParentBOTTOMLEFT4249"
-		E.db.movers.ElvUF_PetTargetMover = "BOTTOMLEFTUIParentBOTTOMLEFT835169"
-		E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTUIParentBOTTOMLEFT4249"
-		E.db.movers.ElvUF_TargetMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-634194"
-		E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTUIParentBOTTOMLEFT4249"
-		E.db.movers.PetAB = "BOTTOMLEFTUIParentBOTTOMLEFT633114"
-		E.db.movers.ElvUF_TargetCastbarMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-634171"
-		E.db.movers.ElvUF_PlayerMover = "BOTTOMLEFTUIParentBOTTOMLEFT634194"
-		E.db.movers.ElvUF_PetMover = "BOTTOMLEFTUIParentBOTTOMLEFT634157"
-		E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTUIParentBOTTOMLEFT4249"
+		E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-228192"
+		E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM0194"
+		E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM228192"
+		E.db.movers.ElvUF_TargetCastbarMover = "BOTTOMElvUIParentBOTTOM228169"
 		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-835169"
-		E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT632247"
+		E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM-264157"
+		E.db.movers.ElvUF_PetTargetMover = "BOTTOMLEFTUIParentBOTTOMLEFT835169"
+		E.db.movers.PetAB = "BOTTOMElvUIParentBOTTOM-275115"
+		E.db.movers.TotemBarMover = "BOTTOMElvUIParentBOTTOM-275245"
+		E.db.movers.TempEnchantMover = "BOTTOMElvUIParentBOTTOM-156245"
+		E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0245"
+		E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0245"
+		E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0245"
+		E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0245"	
+		E.db.movers.BossButton = "BOTTOMElvUIParentBOTTOM0237"
 	end
-	E.db.movers.ElvAB_1 = "BOTTOMLEFTUIParentBOTTOMLEFT91321"
-	E.db.movers.ElvAB_2 = "BOTTOMRIGHTUIParentBOTTOMRIGHT-81821"
+	E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM019"
+	E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM8519"
+	E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM-8519"
 	E.db.movers.ElvAB_4 = "TOPRIGHTUIParentTOPRIGHT-311-319"
-	E.db.movers.ElvAB_3 = "BOTTOMLEFTUIParentBOTTOMLEFT81821"
-	E.db.movers.ElvAB_5 = "BOTTOMLEFTUIParentBOTTOMLEFT549479"
-	E.db.movers.MinimapMover = "TOPRIGHTUIParentTOPRIGHT0-21"
-	E.db.movers.UIBFrameMover = "BOTTOMLEFTUIParentBOTTOMLEFT63421"
+	E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-24919"
+	E.db.movers.MinimapMover = "TOPRIGHTElvUIParentTOPRIGHT2-18"
+	E.db.movers.UIBFrameMover = "TOPLEFTElvUIParentTOPLEFT0-451"
 	E.db.movers.WatchFrameMover = "TOPRIGHTUIParentTOPRIGHT-237-231"
-	E.db.movers.BossHeaderMover = "TOPRIGHTUIParentTOPRIGHT0-233"
-	E.db.movers.ArenaHeaderMover = "TOPRIGHTUIParentTOPRIGHT0-233"
-	E.db.movers.PetBattleABMover = "BOTTOMLEFTUIParentBOTTOMLEFT76921"
-	E.db.movers.ShiftAB = "BOTTOMLEFTUIParentBOTTOMLEFT79121"
-	E.db.movers.ExperienceBarMover = "TOPElvUIParentTOP0-32"
-	E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-21"
-	E.db.movers.MarkMover = "BOTTOMLEFTUIParentBOTTOMLEFT882146"
-	E.db.movers.MicrobarMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT0248"
+	E.db.movers.BossHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-1-217"
+	E.db.movers.ArenaHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-1-217"
+	E.db.movers.PetBattleABMover = "BOTTOMElvUIParentBOTTOM019"
+	E.db.movers.ShiftAB = "BOTTOMElvUIParentBOTTOM-14019"
+	E.db.movers.ExperienceBarMover = "TOPElvUIParentTOP0-19"
+	E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-30"
+	E.db.movers.MarkMover = "BOTTOMElvUIParentBOTTOM0132"
+	E.db.movers.MicrobarMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT2244"
 	E.db.movers.LootFrameMover = "TOPLEFTUIParentTOPLEFT60-360"
-	E.db.movers.AurasMover = "TOPRIGHTUIParentTOPRIGHT-214-21"
-	E.db.movers.BagsMover = "TOPLEFTUIParentTOPLEFT0-21"
-	E.db.movers.GMMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT0456"
-	E.db.movers.BossButton = "BOTTOMLEFTUIParentBOTTOMLEFT66846"
-	E.db.movers.BNETMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT0481"
-	E.db.movers.ElvUF_FocusMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-636103"
-	E.db.movers.ElvUF_FocusTargetMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-63634"
-	E.db.movers.VehicleSeatMover = "TOPLEFTElvUIParentTOPLEFT187-21"
+	E.db.movers.AurasMover = "TOPRIGHTElvUIParentTOPRIGHT-208-19"
+	E.db.movers.BagsMover = "TOPLEFTUIParentTOPLEFT0-19"
+	E.db.movers.GMMover = "TOPLEFTElvUIParentTOPLEFT402-19"
+	E.db.movers.BNETMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0479"
+	E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM239103"
+	E.db.movers.ElvUF_FocusTargetMover = "BOTTOMElvUIParentBOTTOM23934"
+	E.db.movers.VehicleSeatMover = "TOPLEFTElvUIParentTOPLEFT185-38"
+	E.db.movers.DP_5_Mover = "BOTTOMElvUIParentBOTTOM-3050"
+	E.db.movers.DP_6_Mover = "BOTTOMElvUIParentBOTTOM3050"
+	E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT019"
+	E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT019"
+	E.db.movers.Dashboard = "TOPLEFTElvUIParentTOPLEFT0-19"
 
 	E:UpdateAll(true)
 end
