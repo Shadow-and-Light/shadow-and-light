@@ -2,17 +2,25 @@
 local DTP = E:NewModule('DTPanels', 'AceHook-3.0', 'AceEvent-3.0');
 local DT = E:GetModule('DataTexts');
 local LO = E:GetModule('Layout');
+local dp1 = CreateFrame('Frame', "DP_1", E.UIParent)
+local dp2 = CreateFrame('Frame', "DP_2", E.UIParent)
+local top = CreateFrame('Frame', "Top_Center", E.UIParent)
+local dp3 = CreateFrame('Frame', "DP_3", E.UIParent)
+local dp4 = CreateFrame('Frame', "DP_4", E.UIParent)
+local dp5 = CreateFrame('Frame', "DP_5", E.UIParent)
+local bottom = CreateFrame('Frame', "Bottom_Panel", E.UIParent)
+local dp6 = CreateFrame('Frame', "DP_6", E.UIParent)
 
 local panels = {
-	--Panel = short, name, point, x, slot
-	DP_1 = {"dp1", "DP_1", "TOPLEFT", 0},
-	DP_2 = {"dp2", "DP_2", "TOP", -(E.screenwidth/5)},
-	Top_Center = {"top", "Top_Center", "TOP", 0},
-	DP_3 = {"dp3", "DP_3", "TOP", (E.screenwidth/5)},
-	DP_4 = {"dp4", "DP_4", "TOPRIGHT", 0},
-	DP_5 = {"dp5", "DP_5", "BOTTOM", -(E.screenwidth/6 - 15)},
-	Bottom_Panel = {"bottom", "Bottom_Panel", "BOTTOM", 0},
-	DP_6 = {"dp6", "DP_6", "BOTTOM", (E.screenwidth/6 - 15)},
+	--Panel = short, name, point, x, panel, slot
+	DP_1 = {"dp1", "DP_1", "TOPLEFT", 0, DP_1, 3},
+	DP_2 = {"dp2", "DP_2", "TOP", -(E.screenwidth/5), DP_2, 3},
+	Top_Center = {"top", "Top_Center", "TOP", 0, Top_Center, 1},
+	DP_3 = {"dp3", "DP_3", "TOP", (E.screenwidth/5), DP_3, 3},
+	DP_4 = {"dp4", "DP_4", "TOPRIGHT", 0, DP_4, 3},
+	DP_5 = {"dp5", "DP_5", "BOTTOM", -(E.screenwidth/6 - 15), DP_5, 3},
+	Bottom_Panel = {"bottom", "Bottom_Panel", "BOTTOM", 0, Bottom_Panel, 1},
+	DP_6 = {"dp6", "DP_6", "BOTTOM", (E.screenwidth/6 - 15), DP_6, 3},
 }
 
 --Added function to create new panels
@@ -20,9 +28,8 @@ LO.InitializeSLE = LO.Initialize
 function LO:Initialize()
 	LO.InitializeSLE(self)
 	for k,v in pairs(panels) do
-		DTP:CreateDataPanels(v[1], v[2], v[3], v[4])
+		DTP:CreateDataPanels(v[5], v[2], v[3], v[4], v[6])
 	end
-	DTP:Register()
 	DTP:Resize()
 	
 	E:CreateMover(DP_1, "DP_1_Mover", L["DP_1"], nil, nil, nil, "ALL,S&L")
@@ -36,23 +43,12 @@ function LO:Initialize()
 end
 
 -- New panels
-function DTP:CreateDataPanels(panel, name, point, x)
-	local panel = CreateFrame('Frame', name, E.UIParent)
+function DTP:CreateDataPanels(panel, name, point, x, slot)
 	panel:SetTemplate('Default', true)
 	panel:SetFrameStrata('LOW')
 	panel:Point(point, E.UIParent, point, x, 0); 
+	DT:RegisterPanel(panel, slot, 'ANCHOR_BOTTOM', 0, -4)
 	panel:Hide()
-end
-
-function DTP:Register(dtp, slot)
-	DT:RegisterPanel(DP_1, 3, 'ANCHOR_BOTTOM', 0, -4)
-	DT:RegisterPanel(DP_2, 3, 'ANCHOR_BOTTOM', 0, -4)
-	DT:RegisterPanel(Top_Center, 1, 'ANCHOR_BOTTOM', 0, -4)
-	DT:RegisterPanel(DP_3, 3, 'ANCHOR_BOTTOM', 0, -4)
-	DT:RegisterPanel(DP_4, 3, 'ANCHOR_BOTTOM', 0, -4)
-	DT:RegisterPanel(DP_5, 3, 'ANCHOR_BOTTOM', 0, -4)
-	DT:RegisterPanel(Bottom_Panel, 1, 'ANCHOR_BOTTOM', 0, -4)
-	DT:RegisterPanel(DP_6, 3, 'ANCHOR_BOTTOM', 0, -4)
 end
 
 function DTP:Resize()
