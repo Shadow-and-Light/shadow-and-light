@@ -61,52 +61,13 @@ end
 
 --Showing panels
 function DTP:ExtraDataBarSetup()
-	if E.db.sle.datatext.dp1.enabled then
-		DP_1:Show()
-	else
-		DP_1:Hide()
-	end
-	
-	if E.db.sle.datatext.dp2.enabled then
-		DP_2:Show()
-	else
-		DP_2:Hide()
-	end
-	
-	if E.db.sle.datatext.dp3.enabled then
-		DP_3:Show()
-	else
-		DP_3:Hide()
-	end
-	
-	if E.db.sle.datatext.dp4.enabled then
-		DP_4:Show()
-	else
-		DP_4:Hide()
-	end
-	
-	if E.db.sle.datatext.dp5.enabled then
-		DP_5:Show()
-	else
-		DP_5:Hide()
-	end
-	
-	if E.db.sle.datatext.dp6.enabled then
-		DP_6:Show()
-	else
-		DP_6:Hide()
-	end
-	
-	if E.db.sle.datatext.bottom.enabled then
-		Bottom_Panel:Show()
-	else
-		Bottom_Panel:Hide()
-	end
-	
-	if E.db.sle.datatext.top.enabled then
-		Top_Center:Show()
-	else
-		Top_Center:Hide()
+	local db = E.db.sle.datatext
+	for k,v in pairs(panels) do
+		if db[v[1]].enabled then
+			v[5]:Show()
+		else
+			v[5]:Hide()
+		end
 	end
 end
 
