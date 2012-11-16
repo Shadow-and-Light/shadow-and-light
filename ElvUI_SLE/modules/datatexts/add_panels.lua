@@ -32,14 +32,9 @@ function LO:Initialize()
 	end
 	DTP:Resize()
 	
-	E:CreateMover(DP_1, "DP_1_Mover", L["DP_1"], nil, nil, nil, "ALL,S&L")
-	E:CreateMover(DP_2, "DP_2_Mover", L["DP_2"], nil, nil, nil, "ALL,S&L")
-	E:CreateMover(DP_3, "DP_3_Mover", L["DP_3"], nil, nil, nil, "ALL,S&L")
-	E:CreateMover(DP_4, "DP_4_Mover", L["DP_4"], nil, nil, nil, "ALL,S&L")
-	E:CreateMover(DP_5, "DP_5_Mover", L["DP_5"], nil, nil, nil, "ALL,S&L")
-	E:CreateMover(Bottom_Panel, "Bottom_Panel_Mover", L["Bottom_Panel"], nil, nil, nil, "ALL,S&L")
-	E:CreateMover(DP_6, "DP_6_Mover", L["DP_6"], nil, nil, nil, "ALL,S&L")
-	E:CreateMover(Top_Center, "Top_Center_Mover", L["Top_Center"], nil, nil, nil, "ALL,S&L")
+	for k,v in pairs(panels) do
+		E:CreateMover(v[5], v[2].."_Mover", L[v[2]], nil, nil, nil, "ALL,S&L")
+	end
 end
 
 -- New panels
