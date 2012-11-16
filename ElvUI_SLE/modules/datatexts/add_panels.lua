@@ -47,15 +47,11 @@ function DTP:CreateDataPanels(panel, name, point, x, slot)
 end
 
 function DTP:Resize()
-	DP_5:Size(E.db.sle.datatext.dp5.width, 20)
-	DP_6:Size(E.db.sle.datatext.dp6.width, 20)
-	Bottom_Panel:Size(E.db.sle.datatext.bottom.width, 20)
-	DP_1:Size(E.db.sle.datatext.dp1.width, 20)
-	DP_4:Size(E.db.sle.datatext.dp4.width, 20)
-	DP_3:Size(E.db.sle.datatext.dp3.width, 20)
-	DP_2:Size(E.db.sle.datatext.dp2.width, 20)
-	Top_Center:Size(E.db.sle.datatext.top.width, 20)
-	E:GetModule('DataTexts'):UpdateAllDimensions()
+	local db = E.db.sle.datatext
+	for k,v in pairs(panels) do
+		v[5]:Size(db[v[1]].width, 20)
+	end
+	DT:UpdateAllDimensions()
 end
 
 function DTP:ChatResize()
