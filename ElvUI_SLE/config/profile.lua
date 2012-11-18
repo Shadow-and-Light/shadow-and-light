@@ -131,12 +131,6 @@ P['sle'] = {
 		['mouse'] = false,
 		['position'] = "uib_vert",
 	},
-	
-	['vengeance'] = {
-		['enable'] = true,
-		['width'] = 408,
-		['height'] = 18,
-	},
 
 	--Autoloot
 	['lootwin'] = false,
