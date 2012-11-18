@@ -291,7 +291,7 @@ function UF:Update_PlayerFrame(frame, db)
 			bars:Point("CENTER", frame.Health.backdrop, "TOP", (db.classbar.xOffset or 0) -(BORDER*3 + 6), (db.classbar.yOffset or 0))
 			bars:SetFrameStrata("MEDIUM")
 		else
-			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) +BORDER, (E.PixelMode and 0 or (BORDER + SPACING)))
+			bars:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", (db.classbar.xOffset or 0) +BORDER, (db.classbar.yOffset or 0) + (E.PixelMode and 0 or (BORDER + SPACING)))
 			bars:SetFrameStrata("LOW")
 		end
 		bars:Width(CLASSBAR_WIDTH)
