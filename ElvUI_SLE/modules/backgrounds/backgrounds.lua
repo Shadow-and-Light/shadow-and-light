@@ -17,7 +17,7 @@ local Fr = {
 function BG:FramesCreate()
 	local pr = E.private.sle.backgrounds
 	for _,v in pairs(Fr) do
-		v[1]:CreateBackdrop(pr[v[2]].template);
+		v[1]:CreateBackdrop(pr[v[2]].template, true);
 		v[1].backdrop:SetAllPoints();
 		v[1]:SetFrameLevel(v[1]:GetFrameLevel() - 1)
 		v[1]:SetScript("OnShow", function() v[1]:SetFrameStrata('BACKGROUND') end)
