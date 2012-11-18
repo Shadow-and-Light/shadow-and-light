@@ -640,6 +640,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.chat.emotionIcons = false
 	E.db.chat.whisperSound = 'None'
 	E.db.chat.panelHeight = 227
+	E.db.chat.panelTabBackdrop = false
 	if E.db.lowresolutionset then
 		E.db.chat.panelWidth = 400
 	else
@@ -1062,6 +1063,13 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 
 	--Combat icon--
 	E.db.sle.combatico.pos = 'TOPRIGHT'
+	
+	--Loot History--
+	E.db.sle.lootwin = true
+	E.db.sle.lootalpha = 0.5
+	
+	--UI Buttons--
+	E.db.sle.uibuttons.enable = true
 
 	--Moving stuff--
 	if layout == "healer" then
