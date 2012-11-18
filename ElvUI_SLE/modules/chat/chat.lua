@@ -6,16 +6,16 @@ function CH:ChatEdit_AddHistory(editBox, line)
 	if line:find("/rl") then return; end
 
 	if ( strlen(line) > 0 ) then
-		for i, text in pairs(ElvCharacterData.ChatEditHistory) do
+		for i, text in pairs(ElvCharacterDB.ChatEditHistory) do
 			if text == line then
 				return
 			end
 		end
 
-		table.insert(ElvCharacterData.ChatEditHistory, #ElvCharacterData.ChatEditHistory + 1, line)
-		if #ElvCharacterData.ChatEditHistory > E.db.chat.editboxhistory then
-			for i=1,(#ElvCharacterData.ChatEditHistory - E.db.chat.editboxhistory) do
-				table.remove(ElvCharacterData.ChatEditHistory, 1)
+		table.insert(ElvCharacterDB.ChatEditHistory, #ElvCharacterDB.ChatEditHistory + 1, line)
+		if #ElvCharacterDB.ChatEditHistory > E.db.chat.editboxhistory then
+			for i=1,(#ElvCharacterDB.ChatEditHistory - E.db.chat.editboxhistory) do
+				table.remove(ElvCharacterDB.ChatEditHistory, 1)
 			end
 		end
 	end
