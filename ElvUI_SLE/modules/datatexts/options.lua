@@ -15,6 +15,7 @@ local drop = {
 	["DP_6"] = {"dp6", 8, 3},
 }
 local chatT = {
+	--Group name = {short name, order, elv's varible, chat panel(used to call functions)}
 	["Left Chat"] = {"chatleft", 9, "leftChatPanel", "LeftChat"},
 	["Right Chat"] = {"chatright", 10, "rightChatPanel", "RightChat"},
 }
