@@ -3,6 +3,22 @@ local DTP = E:GetModule('DTPanels')
 local DT = E:GetModule('DataTexts')
 
 local datatexts = {}
+local drop = {
+	--Group name = {short name, order, slot}
+	["DP_1"] = {"dp1", 1, 3},
+	["DP_2"] = {"dp2", 2, 3},
+	["Top_Center"] = {"top", 3, 1},
+	["DP_3"] = {"dp3", 4, 3},
+	["DP_4"] = {"dp4", 5, 3},
+	["DP_5"] = {"dp5", 6, 3},
+	["Bottom_Panel"] = {"bottom", 7, 1},
+	["DP_6"] = {"dp6", 8, 3},
+}
+local chatT = {
+	["Left Chat"] = {"chatleft", 9, "leftChatPanel", "LeftChat"},
+	["Right Chat"] = {"chatright", 10, "rightChatPanel", "RightChat"},
+}
+
 
 function DT:PanelLayoutOptions()	
 	for name, _ in pairs(DT.RegisteredDataTexts) do
@@ -81,256 +97,69 @@ E.Options.args.sle.args.datatext = {
 			get = function(info) return E.db.sle.datatext.dashboard.width end,
 			set = function(info, value) E.db.sle.datatext.dashboard.width = value; DTP:DashWidth() end,
 		},
-		top_left = {
+	},
+}
+
+for k,v in pairs(drop) do
+E.Options.args.sle.args.datatext.args[v[1]] = {
+	order = v[2],
+	type = "group",
+	name = L[k],
+	get = function(info) return E.db.sle.datatext[v[1]][ info[#info] ] end,
+	args = {
+		enabled = {
 			order = 1,
-			type = "group",
-			name = L["DP_1"],
-			args = {
-				enabled = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					desc = L["Show/Hide this panel."],
-					get = function(info) return E.db.sle.datatext.dp1.enabled end,
-					set = function(info, value) E.db.sle.datatext.dp1.enabled = value; DTP:ExtraDataBarSetup() end
-				},
-				width = {
-					order = 2,
-					type = "range",
-					name = L['Width'],
-					desc = L["Sets size of this panel"],
-					disabled = function() return not E.db.sle.datatext.dp1.enabled end,
-					min = 300, max = E.screenwidth/2, step = 1,
-					get = function(info) return E.db.sle.datatext.dp1.width end,
-					set = function(info, value) E.db.sle.datatext.dp1.width = value; DTP:Resize() end,
-				},
-			},
+			type = "toggle",
+			name = L["Enable"],
+			desc = L["Show/Hide this panel."],
+			set = function(info, value) E.db.sle.datatext[v[1]].enabled = value; DTP:ExtraDataBarSetup() end
 		},
-		top_center_left = {
+		width = {
 			order = 2,
-			type = "group",
-			name = L["DP_2"],
-			args = {
-				enabled = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					desc = L["Show/Hide this panel."],
-					get = function(info) return E.db.sle.datatext.dp2.enabled end,
-					set = function(info, value) E.db.sle.datatext.dp2.enabled = value; DTP:ExtraDataBarSetup() end
-				},
-				width = {
-					order = 2,
-					type = "range",
-					name = L['Width'],
-					desc = L["Sets size of this panel"],
-					disabled = function() return not E.db.sle.datatext.dp2.enabled end,
-					min = 300, max = E.screenwidth/2, step = 1,
-					get = function(info) return E.db.sle.datatext.dp2.width end,
-					set = function(info, value) E.db.sle.datatext.dp2.width = value; DTP:Resize() end,
-				},
-			},
-		},
-		top = {
-			order = 3,
-			type = "group",
-			name = L["Top_Center"],
-			args = {
-				enabled = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					desc = L["Show/Hide this panel."],
-					get = function(info) return E.db.sle.datatext.top.enabled end,
-					set = function(info, value) E.db.sle.datatext.top.enabled = value; DTP:ExtraDataBarSetup() end
-				},
-				width = {
-					order = 2,
-					type = "range",
-					name = L['Width'],
-					desc = L["Sets size of this panel"],
-					min = 100, max = E.screenwidth/2, step = 1,
-					get = function(info) return E.db.sle.datatext.top.width end,
-					set = function(info, value) E.db.sle.datatext.top.width = value; DTP:Resize() end,
-				},
-			},
-		},
-		top_center_right = {
-			order = 4,
-			type = "group",
-			name = L["DP_3"],
-			args = {
-				enabled = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					desc = L["Show/Hide this panel."],
-					get = function(info) return E.db.sle.datatext.dp3.enabled end,
-					set = function(info, value) E.db.sle.datatext.dp3.enabled = value; DTP:ExtraDataBarSetup() end
-				},
-				width = {
-					order = 2,
-					type = "range",
-					name = L['Width'],
-					desc = L["Sets size of this panel"],
-					disabled = function() return not E.db.sle.datatext.dp3.enabled end,
-					min = 300, max = E.screenwidth/2, step = 1,
-					get = function(info) return E.db.sle.datatext.dp3.width end,
-					set = function(info, value) E.db.sle.datatext.dp3.width = value; DTP:Resize() end,
-				},
-			},
-		},
-		top_right = {
-			order = 5,
-			type = "group",
-			name = L["DP_4"],
-			args = {
-				enabled = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					desc = L["Show/Hide this panel."],
-					get = function(info) return E.db.sle.datatext.dp4.enabled end,
-					set = function(info, value) E.db.sle.datatext.dp4.enabled = value; DTP:ExtraDataBarSetup() end
-				},
-				width = {
-					order = 2,
-					type = "range",
-					name = L['Width'],
-					desc = L["Sets size of this panel"],
-					disabled = function() return not E.db.sle.datatext.dp4.enabled end,
-					min = 300, max = E.screenwidth/2, step = 1,
-					get = function(info) return E.db.sle.datatext.dp4.width end,
-					set = function(info, value) E.db.sle.datatext.dp4.width = value; DTP:Resize() end,
-				},
-			},
-		},
-		bottom_left = {
-			order = 6,
-			type = "group",
-			name = L["DP_5"],
-			args = {
-				enabled = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					desc = L["Show/Hide this panel."],
-					get = function(info) return E.db.sle.datatext.dp5.enabled end,
-					set = function(info, value) E.db.sle.datatext.dp5.enabled = value; DTP:ExtraDataBarSetup() end
-				},
-				width = {
-					order = 2,
-					type = "range",
-					name = L['Width'],
-					desc = L["Sets size of this panel"],
-					disabled = function() return not E.db.sle.datatext.dp5.enabled end,
-					min = 300, max = E.screenwidth/2, step = 1,
-					get = function(info) return E.db.sle.datatext.dp5.width end,
-					set = function(info, value) E.db.sle.datatext.dp5.width = value; DTP:Resize() end,
-				},
-			},
-		},
-		bottom = {
-			order = 7,
-			type = "group",
-			name = L["Bottom_Panel"],
-			args = {
-				enabled = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					desc = L["Show/Hide this panel."],
-					get = function(info) return E.db.sle.datatext.bottom.enabled end,
-					set = function(info, value) E.db.sle.datatext.bottom.enabled = value; DTP:ExtraDataBarSetup() end
-				},
-				width = {
-					order = 2,
-					type = "range",
-					name = L['Width'],
-					desc = L["Sets size of this panel"],
-					disabled = function() return not E.db.sle.datatext.bottom.enabled end,
-					min = 100, max = E.screenwidth/2, step = 1,
-					get = function(info) return E.db.sle.datatext.bottom.width end,
-					set = function(info, value) E.db.sle.datatext.bottom.width = value; DTP:Resize() end,
-				},
-			},
-		},
-		bottom_right = {
-			order = 8,
-			type = "group",
-			name = L["DP_6"],
-			args = {
-				enabled = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					desc = L["Show/Hide this panel."],
-					get = function(info) return E.db.sle.datatext.dp6.enabled end,
-					set = function(info, value) E.db.sle.datatext.dp6.enabled = value; DTP:ExtraDataBarSetup() end
-				},
-				width = {
-					order = 2,
-					type = "range",
-					name = L['Width'],
-					desc = L["Sets size of this panel"],
-					disabled = function() return not E.db.sle.datatext.dp6.enabled end,
-					min = 300, max = E.screenwidth/2, step = 1,
-					get = function(info) return E.db.sle.datatext.dp6.width end,
-					set = function(info, value) E.db.sle.datatext.dp6.width = value; DTP:Resize() end,
-				},
-			},
-		},
-		chat_left = {
-			order = 9,
-			type = "group",
-			name = L["Left Chat"],
-			args = {
-				enabled = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					desc = L["Show/Hide this panel."],
-					disabled = true,
-					get = function(info) return E.db.sle.datatext.chatleft.enabled end,
-					set = function(info, value) E.db.sle.datatext.chatleft.enabled = value; end
-				},
-				width = {
-					order = 2,
-					type = "range",
-					name = L['Width'],
-					desc = L["Sets size of this panel"],
-					disabled = function() return not E.db.sle.datatext.chatleft.enabled end,
-					min = 300, max = E.screenwidth/2, step = 1,
-					get = function(info) return E.db.sle.datatext.chatleft.width end,
-					set = function(info, value) E.db.sle.datatext.chatleft.width = value; DTP:ChatResize() end,
-				},
-			},
-		},
-		chat_right = {
-			order = 10,
-			type = "group",
-			name = L["Right Chat"],
-			args = {
-				enabled = {
-					order = 1,
-					type = "toggle",
-					name = L["Enable"],
-					desc = L["Show/Hide this panel."],
-					disabled = true,
-					get = function(info) return E.db.sle.datatext.chatright.enabled end,
-					set = function(info, value) E.db.sle.datatext.chatright.enabled = value; end
-				},
-				width = {
-					order = 2,
-					type = "range",
-					name = L['Width'],
-					desc = L["Sets size of this panel"],
-					disabled = function() return not E.db.sle.datatext.chatright.enabled end,
-					min = 300, max = E.screenwidth/2, step = 1,
-					get = function(info) return E.db.sle.datatext.chatright.width end,
-					set = function(info, value) E.db.sle.datatext.chatright.width = value; DTP:ChatResize() end,
-				},
-			},
+			type = "range",
+			name = L['Width'],
+			desc = L["Sets size of this panel"],
+			disabled = function() return not E.db.sle.datatext[v[1]].enabled end,
+			min = 100 * v[3], max = E.screenwidth/2, step = 1,
+			set = function(info, value) E.db.sle.datatext[v[1]].width = value; DTP:Resize() end,
 		},
 	},
 }
+end
+
+for k,v in pairs(chatT) do
+E.Options.args.sle.args.datatext.args[v[1]] = {
+	order = v[2],
+	type = "group",
+	name = L[k],
+	args = {
+		enabled = {
+			order = 1,
+			type = "toggle",
+			name = L["Enable"],
+			desc = L["Show/Hide this panel."],
+			get = function(info) return E.db.datatexts[v[3]] end,
+			set = function(info, value) 
+				E.db.datatexts[v[3]] = value;
+				if E.db[v[4].."PanelFaded"] then
+					E.db[v[4].."PanelFaded"] = true;
+					Hide[v[4]]()
+				end
+				E:GetModule('Chat'):UpdateAnchors()
+				E:GetModule('Layout'):ToggleChatPanels()
+				E:GetModule('Bags'):PositionBagFrames()
+			end
+		},
+		width = {
+			order = 2,
+			type = "range",
+			name = L['Width'],
+			desc = L["Sets size of this panel"],
+			disabled = function() return not E.db.datatexts[v[3]] end,
+			min = 150, max = E.screenwidth/2, step = 1,
+			get = function(info) return E.db.sle.datatext[v[1]].width end,
+			set = function(info, value) E.db.sle.datatext[v[1]].width = value; DTP:ChatResize() end,
+		},
+	},
+}
+end
