@@ -7,3 +7,6 @@ So as pixel perfect is now default theme: optimize everything for this mode. (ye
 ==What we maybe can do==
 Saw an idea about a dot tracker, saw some coding for it will look at it when have time...
 Maybe add the ability to select amount of datatexts on each panel ranging from 1-3 slots
+
+==Testing Github Branches==
+--PTR Branch
