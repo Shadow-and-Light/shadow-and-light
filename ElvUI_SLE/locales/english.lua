@@ -101,6 +101,8 @@ L["Dashboard Panels Width"] = true
 L["Sets size of dashboard panels."] = true
 L["Show/Hide this panel."] = true
 L["Sets size of this panel"] = true
+L['Hide panel background'] = true
+L["Don't show this panel, only datatexts assinged to it"] = true
 
 --Exp/Rep Bar--
 L["Xp-Rep Text"] = true

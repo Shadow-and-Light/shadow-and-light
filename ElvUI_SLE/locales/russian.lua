@@ -101,6 +101,8 @@ L["Dashboard Panels Width"] = "Ширина панелей"
 L["Sets size of dashboard panels."] = "Устанавливает размер полос панели состояния."
 L["Show/Hide this panel."] = "Показать/скрыть эту панель."
 L["Sets size of this panel"] = "Установить ширину панели"
+L['Hide panel background'] = "Скрыть фон панели"
+L["Don't show this panel, only datatexts assinged to it"] = "Не показывать саму панель, а только назначенные на нее инфо-тексты"
 
 --Exp/Rep Bar--
 L["Xp-Rep Text"] = "Текст Опыта/Репутации"

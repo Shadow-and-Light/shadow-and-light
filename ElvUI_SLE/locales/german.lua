@@ -96,6 +96,8 @@ L["Dashboard Panels Width"] = "Dashboard Leisten Breite"
 L["Sets size of dashboard panels."] = "Wähle die Größe der dashboard Leisten."
 L["Show/Hide this panel."] = "Zeige/Verstecke diese Leiste."
 L["Sets size of this panel"] = "Wähle die Größe dieser Leiste"
+L['Hide panel background'] = true
+L["Don't show this panel, only datatexts assinged to it"] = true
 
 --Exp/Rep Bar--
 L["Xp-Rep Text"] = "Xp-Rruf Text"
