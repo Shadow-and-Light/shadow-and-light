@@ -125,7 +125,7 @@ L["Show Button"] = "Zeige taste"
 L["Show/hide Raid Utility button.\nThis option is not permanent. The button will act as normal when joining/leaving groups."] = "Zeige/Verstecke die Raid Utility Taste.\nDiese Option ist nicht permanent. Diese Taste wird normal angezeigt wenn man einer Gruppe beitritt oder verlässt."
 
 --Skins--
-L["This options require Azilroka's skin pack to work."] = "Diese Option benötigt Azilroka's Skin Packet zum funktionieren."
+L["This options require ElvUI AddOnSkins pack to work."] = "Diese Option benötigt ElvUI AddOnSkins Packet zum funktionieren."
 L["Sets font size on DBM bars"] = "Wähle die Schriftgröße der DBM Leisten"
 
 --UI buttons--

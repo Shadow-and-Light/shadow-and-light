@@ -131,7 +131,7 @@ L["Show Button"] = "Показать кнопку"
 L["Show/hide Raid Utility button.\nThis option is not permanent. The button will act as normal when joining/leaving groups."] = "Показать/скрыть кнопку управления рейдом.\nОпция не постоянная. Кнопка быдет действовать в соответствии с нормлй при вступлении в группу, а также при выходе из нее."
 
 --Skins--
-L["This options require Azilroka's skin pack to work."] = "Эти опции требуют наличие пака скинов от Azilroka для работы"
+L["This options require ElvUI AddOnSkins pack to work."] = "Эти опции требуют наличие пака ElvUI AddOnSkins для работы"
 L["Sets font size on DBM bars"] = "Устанавливает размер текста на полосах DBM"
 L["Ground"] = "Наземные"
 L["Flying"] = "Летающие"

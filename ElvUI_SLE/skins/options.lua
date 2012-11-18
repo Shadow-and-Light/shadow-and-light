@@ -9,7 +9,7 @@ E.Options.args.sle.args.skins = {
 		info = {
 			order = 1,
 			type = "description",
-			name = L["This options require Azilroka's skin pack to work."],
+			name = L["This options require ElvUI AddOnSkins pack to work."],
 		},
 		dbm = {
 			order = 2,

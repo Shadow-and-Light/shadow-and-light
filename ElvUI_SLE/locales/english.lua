@@ -131,7 +131,7 @@ L["Show Button"] = true
 L["Show/hide Raid Utility button.\nThis option is not permanent. The button will act as normal when joining/leaving groups."] = true
 
 --Skins--
-L["This options require Azilroka's skin pack to work."] = true
+L["This options require ElvUI AddOnSkins pack to work."] = true
 L["Sets font size on DBM bars"] = true
 L["Ground"] = true
 L["Flying"] = true
