@@ -28,7 +28,7 @@ LO.InitializeSLE = LO.Initialize
 function LO:Initialize()
 	LO.InitializeSLE(self)
 	for _,v in pairs(panels) do
-		DTP:CreateDataPanels(v[5], v[2], v[3], v[4], v[6])
+		DTP:CreateDataPanels(v[5], v[2], v[3], v[4], v[6], v[1])
 	end
 	DTP:Resize()
 	
@@ -38,8 +38,10 @@ function LO:Initialize()
 end
 
 -- New panels
-function DTP:CreateDataPanels(panel, name, point, x, slot)
-	panel:SetTemplate('Default', true)
+function DTP:CreateDataPanels(panel, name, point, x, slot, short)
+	if not E.private.sle.datatext[short.."hide"] then
+		panel:SetTemplate('Default', true)
+	end
 	panel:SetFrameStrata('LOW')
 	panel:Point(point, E.UIParent, point, x, 0); 
 	DT:RegisterPanel(panel, slot, 'ANCHOR_BOTTOM', 0, -4)

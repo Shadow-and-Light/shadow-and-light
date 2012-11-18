@@ -124,6 +124,15 @@ E.Options.args.sle.args.datatext.args[v[1]] = {
 			min = 100 * v[3], max = E.screenwidth/2, step = 1,
 			set = function(info, value) E.db.sle.datatext[v[1]].width = value; DTP:Resize() end,
 		},
+		hide = {
+			order = 3,
+			type = "toggle",
+			name = L['Hide panel background'],
+			desc = L["Don't show this panel, only datatexts assinged to it"],
+			disabled = function() return not E.db.sle.datatext[v[1]].enabled end,
+			get = function(info) return E.private.sle.datatext[v[1].."hide"] end,
+			set = function(info, value) E.private.sle.datatext[v[1].."hide"] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+		},
 	},
 }
 end
