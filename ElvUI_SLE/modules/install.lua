@@ -233,7 +233,7 @@ function E:SetupPixelPerfect(enabled, noMsg)
 	E.PixelMode = enabled
 end
 
-function E:SetupTheme(theme, noDisplayMsg, noPopup)
+function E:SetupTheme(theme, noDisplayMsg)
 	local classColor = RAID_CLASS_COLORS[E.myclass]
 	E.private.theme = theme
 
