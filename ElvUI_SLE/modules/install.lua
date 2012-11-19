@@ -634,6 +634,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.auras.font = "ElvUI Font"
 	E.db.auras.fontOutline = "OUTLINE"
 	E.db.auras.wrapAfter = 18
+	E.db.sle.castername = true
 
 	--Chat--
 	E.db.chat.editboxhistory = 10
