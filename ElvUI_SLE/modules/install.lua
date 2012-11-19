@@ -646,6 +646,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	else
 		E.db.chat.panelWidth = 446
 	end
+	E.db.chat.timeStampFormat = "%H:%M:%S "
 
 	--Datatexts--
 	E.db.datatexts.font = "ElvUI Pixel"
@@ -805,14 +806,29 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.target.portrait.camDistanceScale = 1.5;
 		E.db.unitframe.units.target.buffs.perrow = 9;
 		E.db.unitframe.units.target.buffs.numrows = 2;
-		E.db.unitframe.units.target.buffs.playerOnly = "NONE";
-		E.db.unitframe.units.target.buffs.noDuration = "NONE";
 		E.db.unitframe.units.target.buffs.anchorPoint = 'TOPLEFT';
 		E.db.unitframe.units.target.buffs.clickThrough = false
-		E.db.unitframe.units.target.buffs.noConsolidated = "NONE"
+		E.db.unitframe.units.target.buffs.playerOnly.friendly = false
+		E.db.unitframe.units.target.buffs.playerOnly.enemy = false
+		E.db.unitframe.units.target.buffs.useBlacklist.friendly = false
+		E.db.unitframe.units.target.buffs.useBlacklist.enemy = false
+		E.db.unitframe.units.target.buffs.useWhitelist.friendly = false
+		E.db.unitframe.units.target.buffs.useWhitelist.enemy = false
+		E.db.unitframe.units.target.buffs.noDuration.friendly = false
+		E.db.unitframe.units.target.buffs.noDuration.enemy = false
+		E.db.unitframe.units.target.buffs.onlyDispellable.friendly = false
+		E.db.unitframe.units.target.buffs.onlyDispellable.enemy = false
 		E.db.unitframe.units.target.debuffs.perrow = 9;
-		E.db.unitframe.units.target.debuffs.useBlacklis = "NONE";
-		E.db.unitframe.units.target.debuffs.playerOnly = "NONE";
+		E.db.unitframe.units.target.debuffs.playerOnly.friendly = false
+		E.db.unitframe.units.target.debuffs.playerOnly.enemy = false
+		E.db.unitframe.units.target.debuffs.useBlacklist.friendly = false
+		E.db.unitframe.units.target.debuffs.useBlacklist.enemy = false
+		E.db.unitframe.units.target.debuffs.useWhitelist.friendly = false
+		E.db.unitframe.units.target.debuffs.useWhitelist.enemy = false
+		E.db.unitframe.units.target.debuffs.noDuration.friendly = false
+		E.db.unitframe.units.target.debuffs.noDuration.enemy = false
+		E.db.unitframe.units.target.debuffs.onlyDispellable.friendly = false
+		E.db.unitframe.units.target.debuffs.onlyDispellable.enemy = false
 		E.db.unitframe.units.target.debuffs.enable = true
 		E.db.unitframe.units.target.debuffs.clickThrough = false
 		E.db.unitframe.units.target.castbar.format = 'CURRENTMAX';
