@@ -1,7 +1,6 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file='install.lua'/>
 	<Script file='options.lua'/>
-	<Include file='auras\load_auras.xml'/>
 	<Include file='autorelease\load_autorelease.xml'/>
 	<Include file='backgrounds\load_backgrounds.xml'/>
 	<Include file='chat\load_chat.xml'/>
