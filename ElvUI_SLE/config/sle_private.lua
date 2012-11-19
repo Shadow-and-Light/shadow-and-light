@@ -1,11 +1,6 @@
 ﻿local E, L, V, P, G, _ =  unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, GlobalDB
 
 V['sle'] = {
-	--Auras Frame
-	['auras'] = {
-		['castername'] = false,
-	},
-	
 	['dbm'] = {
 		['size'] = 10,
 	},

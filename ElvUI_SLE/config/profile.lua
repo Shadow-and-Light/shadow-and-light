@@ -44,6 +44,9 @@ P['sle'] = {
 			['pethide'] = true,
 		},
 	},
+
+	--Caster Name
+	['castername'] = false,
 	
 	--Raid marks
 	['marks'] = {

@@ -1,9 +1,8 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local A = E:GetModule('Auras');
 
 E.Options.args.sle.args.auras = {
 	type = "group",
-	name = L["Auras"],
+	name = L["Tooltip"],
 	order = 5,
 	guiInline = true,
 	args = {
@@ -17,8 +16,8 @@ E.Options.args.sle.args.auras = {
 			type = "toggle",
 			name = L["Caster Name"],
 			desc = L["Enabling this will show caster name in the buffs and debuff icons."],
-			get = function(info) return E.private.sle.auras.castername end,
-			set = function(info, value) E.private.sle.auras.castername = value; E:StaticPopup_Show("PRIVATE_RL") end,
+			get = function(info) return E.db.sle.castername end,
+			set = function(info, value) E.db.sle.castername = value; end,
 		},
 	},
 }
