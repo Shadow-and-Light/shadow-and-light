@@ -15,6 +15,19 @@ local positionValues = {
 	NONE = L['Hide']
 };
 
+local fixUn = {
+	player = {"Player Frame", 2, "player"},
+	target = {"Target Frame", 3, "target"},
+	targettarget = {"TargetTarget Frame", 4, "targettarget"},
+	focus = {"Focus Frame", 5, "focus"},
+}
+
+local fixGr = {
+	arena = {"Arena Frames", 6, "arena", 5},
+	boss = {"Boss Frames", 7, "boss", MAX_BOSS_FRAMES},
+}
+
+
 E.Options.args.sle.args.unitframes = {
 	type = "group",
 	name = L["UnitFrames"],
@@ -47,8 +60,49 @@ E.Options.args.sle.args.unitframes = {
 				},
 			},
 		},
+		fix = {
+			order = 8,
+			type = "group",
+			name = "Power Text Position",
+			guiInline = true,
+			args = {
+				intro = {
+					order = 1,
+					type = "description",
+					name = "Position power text on this bar of chosen frame",
+				},
+			},
+		},
 	},
 }
+
+for k,v in pairs(fixUn) do
+E.Options.args.sle.args.unitframes.args.fix.args[v[3]] = {
+	order = v[2],
+	type = "select",
+	name = L[v[1]],
+	get = function(info) return E.db.unitframe.units[v[3]].fixTo end,
+	set = function(info, value) E.db.unitframe.units[v[3]].fixTo = value; UF:CreateAndUpdateUF(v[3]) end,
+	values = {
+		['health'] = L["Health"],
+		['power'] = L["Power"],
+	},
+}
+end
+
+for k,v in pairs(fixGr) do
+E.Options.args.sle.args.unitframes.args.fix.args[v[3]] = {
+	order = v[2],
+	type = "select",
+	name = L[v[1]],
+	get = function(info) return E.db.unitframe.units[v[3]].fixTo end,
+	set = function(info, value) E.db.unitframe.units[v[3]].fixTo = value; UF:CreateAndUpdateUFGroup(v[3], v[4]) end,
+	values = {
+		['health'] = L["Health"],
+		['power'] = L["Power"],
+	},
+}
+end
 
 if E.myclass == "DRUID" or E.myclass == "WARLOCK" then
 E.Options.args.sle.args.unitframes.args.druid = {
