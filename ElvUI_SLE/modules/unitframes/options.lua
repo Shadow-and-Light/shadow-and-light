@@ -63,13 +63,13 @@ E.Options.args.sle.args.unitframes = {
 		fix = {
 			order = 8,
 			type = "group",
-			name = "Power Text Position",
+			name = L["Power Text Position"],
 			guiInline = true,
 			args = {
 				intro = {
 					order = 1,
 					type = "description",
-					name = "Position power text on this bar of chosen frame",
+					name = L["Position power text on this bar of chosen frame"],
 				},
 			},
 		},

@@ -172,6 +172,8 @@ L["Classbar Energy"] = true
 L["Show/hide the text with exact number of energy (Solar/Lunar or Demonic Fury) on your Classbar."] = true
 L["Classbar Offset"] = true
 L["This options will allow you to detach your classbar from player's frame and move it in other location."] = true
+L["Power Text Position"] = true
+L["Position power text on this bar of chosen frame"] = true
 
 --Credits--
 L["ELVUI_SLE_CREDITS"] = "We would like to point out the following people for helping us create this addon with testing, coding, and other stuff."
