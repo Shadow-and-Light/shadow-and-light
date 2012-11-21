@@ -14,34 +14,32 @@ end
 M.InitializeSLE = M.Initialize
 function M:Initialize()
 	M.InitializeSLE(self)
-	E:CreateMover(RaidUtility_ShowButton, "RaidUtility_Mover", "Raid Utility", nil, nil, nil, "ALL,S&L")
+	E:CreateMover(RaidUtility_ShowButton, "RaidUtility_Mover", "Raid Utility", nil, nil, nil, "ALL,GENERAL,S&L")
 	local mover = RaidUtility_Mover
+	local frame = RaidUtility_ShowButton
 	
 	mover:HookScript("OnDragStart", function(self) 
-		local frame = RaidUtility_ShowButton
 		frame:ClearAllPoints()
-			frame:SetPoint("CENTER", self)
+		frame:SetPoint("CENTER", self)
 	end)
 	
-	mover:HookScript("OnDragStop", function(self) 
-		local point, anchor, point2, x, y = self:GetPoint()
-		local frame = RaidUtility_ShowButton
-		frame:ClearAllPoints()
-		if string.find(point, "BOTTOM") then
-			frame:SetPoint(point, anchor, point2, x, y)
-		else
-			frame:SetPoint(point, anchor, point2, x, y)		
-		end
-	end)
-	
-	do
+	local function dropfix()
 		local point, anchor, point2, x, y = mover:GetPoint()
-		local frame = RaidUtility_ShowButton
+		frame:ClearAllPoints()
 		if string.find(point, "BOTTOM") then
 			frame:SetPoint(point, anchor, point2, x, y)
 		else
 			frame:SetPoint(point, anchor, point2, x, y)		
 		end
+	end
+	
+	mover:HookScript("OnDragStop", dropfix)
+	
+	if E.db.movers.RaidUtility_Mover == nil then
+		frame:ClearAllPoints()
+		frame:SetPoint("TOP", E.UIParent, "TOP", -400, E.Border)
+	else
+		dropfix()
 	end
 end
 
@@ -55,4 +53,3 @@ end
 
 
 RaidUtility_ShowButton:RegisterForDrag("") --Unregister any buttons for dragging. 
-
