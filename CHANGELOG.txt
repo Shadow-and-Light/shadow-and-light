@@ -4,6 +4,7 @@ v1.23 (Not released, patch 5.1 stuff)
 - Some adjustions for pixel perfect mode to make things look good
 - Caster name in auras' tooltips is now profile based option
 - An option added to chosee if you want your power text to be on power bar or health bar (power by default)
+- Raid Utility options removed. Now it's fully movable with it's own mover
 
 
 v1.22 (November 8, 2012)
