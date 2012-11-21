@@ -10,12 +10,14 @@ UF.Update_FocusFrameSLE = UF.Update_FocusFrame
 function UF:Update_FocusFrame(frame, db)
 	self:Update_FocusFrameSLE(frame, db)
 	
-	local power = frame.Power
-	--Text
-	local x, y = self:GetPositionOffset(db.power.position)
-	power.value:ClearAllPoints()
-	power.value:Point(db.power.position, frame.Power, db.power.position, x, y)		
-	frame:Tag(power.value, db.power.text_format)
+	if E.db.unitframe.units.focus.fixTo == "power" then
+		local power = frame.Power
+		--Text
+		local x, y = self:GetPositionOffset(db.power.position)
+		power.value:ClearAllPoints()
+		power.value:Point(db.power.position, frame.Power, db.power.position, x, y)		
+		frame:Tag(power.value, db.power.text_format)
+	end
 	
 	frame:UpdateAllElements()
 end

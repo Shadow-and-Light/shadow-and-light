@@ -53,10 +53,12 @@ function UF:Update_PlayerFrame(frame, db)
 	local unit = self.unit
 	
 	--Power Text
+	if E.db.unitframe.units.player.fixTo == "power" then
 		local x, y = self:GetPositionOffset(db.power.position)
 		power.value:ClearAllPoints()
 		power.value:Point(db.power.position, frame.Power, db.power.position, x, y)		
 		frame:Tag(power.value, db.power.text_format)
+	end
 	
 	if not E.db.unitframe.units.player.classbar.offset then return end --Checking for offset option enabled
 	--All this crap is needed to be copied from Elv's player.lua to avoid graphical bugs
