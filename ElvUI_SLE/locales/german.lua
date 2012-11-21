@@ -114,18 +114,6 @@ L["Sets size of buttons"] = "Wähle die größe der Tasten" --Also used in UI bu
 L["Direction"] = "Richtung"
 L["Change the direction of buttons growth from the skull marker"] = "Wähle die Richtung des Tasten wachstums von der Totenkopf Markierung"
 
---Raid Utility--
-L["Raid Utility"] = "Raid Utility"
-L["Raid Utility Coordinates"] = "Raid Utility Koordinaten"
-L["RU_DESC"] = [=[Diese Konfigurations Gruppe lässt dich die Raid Utility Taste positionieren.
-Bewege Raid Utility mit Maus ist deaktiviert.  Benutze die Regler um die Taste zum bewegen.]=]
-L["X Position"] = "X Position"
-L["Y Position"] = "Y Position"
-L["Sets X position of Raid Utility button."] = "Wähle die X position der Raid Utility Taste."
-L["Sets Y position of Raid Utility button."] = "Wähle die Y position der Raid Utility Taste."
-L["Show Button"] = "Zeige taste"
-L["Show/hide Raid Utility button.\nThis option is not permanent. The button will act as normal when joining/leaving groups."] = "Zeige/Verstecke die Raid Utility Taste.\nDiese Option ist nicht permanent. Diese Taste wird normal angezeigt wenn man einer Gruppe beitritt oder verlässt."
-
 --Skins--
 L["This options require ElvUI AddOnSkins pack to work."] = "Diese Option benötigt ElvUI AddOnSkins Packet zum funktionieren."
 L["Sets font size on DBM bars"] = "Wähle die Schriftgröße der DBM Leisten"

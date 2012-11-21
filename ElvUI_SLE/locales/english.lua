@@ -120,18 +120,6 @@ L["Sets size of buttons"] = true --Also used in UI buttons
 L["Direction"] = true
 L["Change the direction of buttons growth from the skull marker"] = true
 
---Raid Utility--
-L["Raid Utility"] = true
-L["Raid Utility Coordinates"] = true
-L["RU_DESC"] = [=[This config group allows you to freely move your Raid Utility button starting position.
-Moving Raid Utility with mouse is disabled.  Use the sliders to move the button around.]=]
-L["X Position"] = true
-L["Y Position"] = true
-L["Sets X position of Raid Utility button."] = true
-L["Sets Y position of Raid Utility button."] = true
-L["Show Button"] = true
-L["Show/hide Raid Utility button.\nThis option is not permanent. The button will act as normal when joining/leaving groups."] = true
-
 --Skins--
 L["This options require ElvUI AddOnSkins pack to work."] = true
 L["Sets font size on DBM bars"] = true
