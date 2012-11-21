@@ -1,4 +1,3 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
 	<Script file='raidutility.lua'/>
-	<Script file='options.lua'/>
 </Ui>
