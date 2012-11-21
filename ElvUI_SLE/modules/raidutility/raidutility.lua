@@ -14,8 +14,35 @@ end
 M.InitializeSLE = M.Initialize
 function M:Initialize()
 	M.InitializeSLE(self)
-
-	RU:MoveButton()
+	E:CreateMover(RaidUtility_ShowButton, "RaidUtility_Mover", "Raid Utility", nil, nil, nil, "ALL,S&L")
+	local mover = RaidUtility_Mover
+	
+	mover:HookScript("OnDragStart", function(self) 
+		local frame = RaidUtility_ShowButton
+		frame:ClearAllPoints()
+			frame:SetPoint("CENTER", self)
+	end)
+	
+	mover:HookScript("OnDragStop", function(self) 
+		local point, anchor, point2, x, y = self:GetPoint()
+		local frame = RaidUtility_ShowButton
+		frame:ClearAllPoints()
+		if string.find(point, "BOTTOM") then
+			frame:SetPoint(point, anchor, point2, x, y)
+		else
+			frame:SetPoint(point, anchor, point2, x, y)		
+		end
+	end)
+	
+	do
+		local point, anchor, point2, x, y = mover:GetPoint()
+		local frame = RaidUtility_ShowButton
+		if string.find(point, "BOTTOM") then
+			frame:SetPoint(point, anchor, point2, x, y)
+		else
+			frame:SetPoint(point, anchor, point2, x, y)		
+		end
+	end
 end
 
 function RU:ToggleButton()
@@ -28,3 +55,4 @@ end
 
 
 RaidUtility_ShowButton:RegisterForDrag("") --Unregister any buttons for dragging. 
+
