@@ -610,8 +610,8 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.general.bottomPanel = false
 
 	--Bags--
-	E.db.bags.bagSize = 25
-	E.db.bags.bankSize = 25
+	E.db.bags.bagSize = 22
+	E.db.bags.bankSize = 22
 	E.db.bags.sortInverted = false
 	E.db.bags.alignToChat = false
 	E.db.bags.bagWidth = 633
