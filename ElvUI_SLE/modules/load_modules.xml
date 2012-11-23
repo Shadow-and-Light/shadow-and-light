@@ -1,6 +1,7 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file='install.lua'/>
 	<Script file='options.lua'/>
+	<Script file='pvpmover\pvpmover.lua'/>
 	<Include file='autorelease\load_autorelease.xml'/>
 	<Include file='backgrounds\load_backgrounds.xml'/>
 	<Include file='chat\load_chat.xml'/>
