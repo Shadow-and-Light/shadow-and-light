@@ -1153,8 +1153,17 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.movers.ArenaHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-1-217"
 	E.db.movers.PetBattleABMover = "BOTTOMElvUIParentBOTTOM019"
 	E.db.movers.ShiftAB = "BOTTOMElvUIParentBOTTOM-14019"
-	E.db.movers.ExperienceBarMover = "TOPElvUIParentTOP0-19"
-	E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-30"
+	if UnitLevel('player') == 90 then
+		E.db.movers.ExperienceBarMover = "TOPElvUIParentTOP0-19"
+		E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-19"
+		E.db.movers.PvPMover = "TOPElvUIParentTOP-5-50"
+		E.db.movers.LocationMover = "TOPElvUIParentTOP0-30"
+	else
+		E.db.movers.ExperienceBarMover = "TOPElvUIParentTOP0-19"
+		E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-30"
+		E.db.movers.LocationMover = "TOPElvUIParentTOP0-41"
+		E.db.movers.PvPMover = "TOPElvUIParentTOP-5-61"
+	end
 	E.db.movers.MarkMover = "BOTTOMElvUIParentBOTTOM0132"
 	E.db.movers.MicrobarMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT2244"
 	E.db.movers.LootFrameMover = "TOPLEFTUIParentTOPLEFT60-360"
