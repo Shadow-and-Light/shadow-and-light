@@ -1084,9 +1084,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.sle.backgrounds.left.xoffset = -70
 	E.db.sle.backgrounds.left.yoffset = -2
 
-	--Raid utility--
-	E.db.sle.raidutil.ypos = 1052
-
 	--Exp/Rep Bars--
 	E.db.sle.exprep.explong = true
 	E.db.sle.exprep.replong = true
@@ -1246,9 +1243,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 
 	--LFR Lockout
 	E.db.datatexts.lfrshow = true  --Checked
-	
-	--Raid utility
-	E.db.sle.raidutil.ypos = E.screenheight - 30  --Checked
 	
 	--PvP & Combat Icon
 	E.db.sle.combatico.pos = 'TOP'  --Checked

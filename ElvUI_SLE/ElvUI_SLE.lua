@@ -72,7 +72,6 @@ function E:UpdateAll()
 	E:GetModule('UIButtons'):UpdateAll()
 	E.db.datatexts.panels.Top_Center = 'Version'
 	E:GetModule('DataTexts'):LoadDataTexts() --Prevents datatexts from not changing on profile switch (Elv's issue)
-	E:GetModule('RaidUtility'):MoveButton()
 	SLE:ChatPos()
 end
 
