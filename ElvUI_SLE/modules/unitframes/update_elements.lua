@@ -80,7 +80,7 @@ if E.myclass == "WARLOCK" then
 		
 		for i = 1, maxBars do
 			self[i]:SetHeight(self:GetHeight())	
-			self[i]:SetWidth(E:Scale(self:GetWidth() - 2)/maxBars)	
+			self[i]:SetWidth((self:GetWidth() - (maxBars - 1)) / maxBars)
 			self[i]:ClearAllPoints()
 			if i == 1 then
 				self[i]:SetPoint("LEFT", self)
