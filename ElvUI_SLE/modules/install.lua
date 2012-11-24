@@ -537,9 +537,11 @@ function E:SetupLayout(layout, noDataReset)
 		E:SetupTheme(E.private.theme, true)
 	end	
 	
-	E:CopyTable(E.db.sle.marks, P.sle.marks)
-	E:CopyTable(E.db.sle.backgrounds, P.sle.backgrounds)
-	E:CopyTable(E.db.sle.uibuttons, P.sle.uibuttons)
+	if not noDataReset then
+		E:CopyTable(E.db.sle.marks, P.sle.marks)
+		E:CopyTable(E.db.sle.backgrounds, P.sle.backgrounds)
+		E:CopyTable(E.db.sle.uibuttons, P.sle.uibuttons)
+	end
 
 	E:UpdateAll(true)
 	local DT = E:GetModule('DataTexts')
