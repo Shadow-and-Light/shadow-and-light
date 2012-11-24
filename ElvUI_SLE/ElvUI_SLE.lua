@@ -76,13 +76,14 @@ end
 
 
 function SLE:Initialize()
+	SLE.version = GetAddOnMetadata("ElvUI_SLE", "Version")
 	DTP = E:GetModule('DTPanels')
 	if E.private.unitframe.enable then
 		self:RegisterEvent("PLAYER_REGEN_DISABLED", UF.Update_CombatIndicator);
 	end
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
 	if E.db.general.loginmessage then
-		print(L['SLE_LOGIN_MSG'])
+		print(format(L['SLE_LOGIN_MSG'], E["media"].hexvaluecolor, SLE.version))
 	end
 	E.db.datatexts.panels.Top_Center = 'Version'
 	DTP:DashboardShow()
