@@ -21,7 +21,7 @@ L["Loot History"] = "История добычи"
 L["Auto hide"] = "Автоматически скрывать"
 L["Automaticaly hide Blizzard loot histroy frame when leaving the instance."] = "Автоматически скрывать окно истории добычи Blizzard при выходе из подземелья."
 L["Sets alpha of loot histroy frame."] = "Устанавливает прозрачность окна истории добычи"
-L["SLE_LOGIN_MSG"] = [=[Вы используете редакцию ElvUI под названием |cff1784d1"Тень и Свет"|r.
+L["SLE_LOGIN_MSG"] = [=[Вы используете редакцию ElvUI под названием |cff1784d1"Тень и Свет"|r версия |cff1784d1%s%s|r.
 Если вы хотите использовать оригинальный ElvUI, просто отключите плагин этой редакции в вашем менеджере аддонов.
 Приятной игры.]=]
 L["Your version of ElvUI is older than recommended to use with Shadow & Light Edit. Please, download the latest version from tukui.org."] = "Ваша версия ElvUI старее, чем рекомендованная для использования с редакцией Тень и Свет. Пожалуйста, скачайте последнюю версию с tukui.org."
