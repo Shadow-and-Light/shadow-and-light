@@ -78,7 +78,7 @@ L["SLE_AUTHOR_INFO"] = "Shadow & Light Edit by Darth Predator & Repooc"
 L["SLE_CONTACTS"] = [=[Bug reports, suggestions and other stuff accepted via:
 - Private Massage on TukUI.org to Darth Predator or Repooc
 - AddOn's page/ticket system on curse.com
-- AddOn's thread on tukui.org
+- Forums on tukui.org, Addons/Help section
 - AddOn's repo github.com]=]
 L["DP_1"] = "DT Panel 1"
 L["DP_2"] = "DT Panel 2"

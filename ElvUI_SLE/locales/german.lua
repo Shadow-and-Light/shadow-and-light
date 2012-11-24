@@ -73,7 +73,6 @@ L["SLE_AUTHOR_INFO"] = "Schatten & Licht Edit von Darth Predator & Repooc"
 L["SLE_CONTACTS"] = [=[Bug berichte, Vorschläge und andere Sachen akzeptiert via:
 - Privat Nachricht auf TukUI.org zu Darth Predator oder Repooc
 - AddOn's Seite/ticket system auf curse.com
-- AddOn's Beitrag auf tukui.org
 - AddOn's repo github.com]=]
 L["DP_1"] = "Infotext Leiste 1"
 L["DP_2"] = "Infotext Leiste 2"

@@ -78,7 +78,7 @@ L["SLE_AUTHOR_INFO"] = "Редакция \"Тень и Свет\" от Darth Pre
 L["SLE_CONTACTS"] = [=[При возникновении вопросов, предложений и прочего обращаться:
 - Личное сообщение на форуме TukUI (tukui.org), ник Darth Predator или Repooc
 - Страница/система тикетов на curse.com
-- Тема аддона на tukui.org
+- Форумы tukui.org, раздел Addons/Help
 - Репозиторий проекта на github.com]=]
 L["DP_1"] = "Панель 1"
 L["DP_2"] = "Панель 2"
