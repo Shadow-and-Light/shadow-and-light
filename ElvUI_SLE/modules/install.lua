@@ -1153,10 +1153,12 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-19"
 		E.db.movers.PvPMover = "TOPElvUIParentTOP-5-50"
 		E.db.movers.LocationMover = "TOPElvUIParentTOP0-30"
+		E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-32"
 	else
 		E.db.movers.ExperienceBarMover = "TOPElvUIParentTOP0-19"
 		E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-30"
 		E.db.movers.LocationMover = "TOPElvUIParentTOP0-41"
+		E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-43"
 		E.db.movers.PvPMover = "TOPElvUIParentTOP-5-61"
 	end
 	E.db.movers.MarkMover = "BOTTOMElvUIParentBOTTOM0132"
@@ -1174,7 +1176,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT019"
 	E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT019"
 	E.db.movers.Dashboard = "TOPLEFTElvUIParentTOPLEFT0-19"
-	E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-32"
 
 	E:UpdateAll(true)
 end
