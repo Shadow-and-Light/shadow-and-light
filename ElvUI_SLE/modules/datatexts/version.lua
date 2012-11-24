@@ -1,6 +1,7 @@
 ﻿--Version datatext. Only in Russian for now.
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local DT = E:GetModule('DataTexts')
+local SLE = E:GetModule('SLE')
 
 local displayString = '';
 local lastPanel;
@@ -27,7 +28,7 @@ local function OnEnter(self)
 end
 
 local function ValueColorUpdate(hex, r, g, b)
-	displayString = string.join("", "%s", hex, "%.2f|r", " : Shadow & Light Edit")
+	displayString = string.join("", "%s", hex, "%.2f|r", " : Shadow & Light Edit v"..SLE.version)
 	
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)
