@@ -291,8 +291,6 @@ function E:SetupResolution(noDataReset)
 	if not noDataReset then
 		E:ResetMovers('')
 	end
-
-	E:CopyTable(E.db.sle, P.sle)
 	
 	if self == 'low' then
 		if not E.db.movers then E.db.movers = {}; end
