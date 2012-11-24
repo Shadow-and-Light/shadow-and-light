@@ -781,6 +781,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.player.health.position = 'BOTTOMRIGHT';
 		E.db.unitframe.units.player.health.text_format = "[healthcolor][health:current-percent:sl]"
 		E.db.unitframe.units.player.power.text_format = "[powercolor][power:current:sl]";
+		E.db.unitframe.units.player.fixTo = "power"
 		E.db.unitframe.units.player.name.text_format = "[name:medium]";
 		E.db.unitframe.units.player.name.position = 'TOPLEFT';
 		E.db.unitframe.units.player.pvp.text_format = "||cFFB04F4F[pvptimer]||r"
@@ -801,6 +802,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.target.power.position = 'RIGHT';
 		E.db.unitframe.units.target.power.hideonnpc = false;
 		E.db.unitframe.units.target.power.text_format = "[powercolor][power:current:sl]"
+		E.db.unitframe.units.target.fixTo = "power"
 		E.db.unitframe.units.target.name.text_format = "[name:medium] [smartlevel] [shortclassification]";
 		E.db.unitframe.units.target.name.position = 'TOPLEFT';
 		E.db.unitframe.units.target.portrait.enable = true
@@ -854,6 +856,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.focus.health.position = 'BOTTOMRIGHT'
 		E.db.unitframe.units.focus.health.text_format = "[healthcolor][health:current-percent:sl]"
 		E.db.unitframe.units.focus.power.text_format = "[powercolor][power:current:sl]"
+		E.db.unitframe.units.focus.fixTo = "power"
 		E.db.unitframe.units.focus.power.position = "RIGHT"
 		E.db.unitframe.units.focus.name.text_format = "[name:medium]"
 		E.db.unitframe.units.focus.name.position = 'TOPLEFT'
@@ -984,6 +987,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.arena.health.position = 'BOTTOMRIGHT'
 		E.db.unitframe.units.arena.health.text_format = "[healthcolor][health:current-percent:sl]"
 		E.db.unitframe.units.arena.power.text_format = "[powercolor][power:current:sl]"
+		E.db.unitframe.units.arena.fixTo = "power"
 		E.db.unitframe.units.arena.name.text_format = "[name:long]"
 		E.db.unitframe.units.arena.name.position = 'TOPLEFT'
 		E.db.unitframe.units.arena.buffs.enable = false
@@ -1004,6 +1008,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.unitframe.units.boss.health.text_format = "[healthcolor][health:current-percent]"
 		E.db.unitframe.units.boss.power.height = 10
 		E.db.unitframe.units.boss.power.text_format = "[powercolor][power:current:sl]"
+		E.db.unitframe.units.boss.fixTo = "power"
 		E.db.unitframe.units.boss.name.text_format = "[name:long]"
 		E.db.unitframe.units.boss.name.position = 'TOPLEFT'
 		E.db.unitframe.units.boss.buffs.enable = false
