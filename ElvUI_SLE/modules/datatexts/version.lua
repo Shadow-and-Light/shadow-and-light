@@ -9,7 +9,7 @@ local self = lastPanel
 E.version = GetAddOnMetadata("ElvUI", "Version");
 
 local function OnEvent(self, event, ...)
-	self.text:SetFormattedText(displayString, 'ElvUI v', E.version);
+	self.text:SetFormattedText(displayString, 'ElvUI v', E.version, SLE.version);
 end
 
 local function Click()
@@ -28,7 +28,7 @@ local function OnEnter(self)
 end
 
 local function ValueColorUpdate(hex, r, g, b)
-	displayString = string.join("", "%s", hex, "%.2f|r", " : Shadow & Light Edit v"..SLE.version)
+	displayString = string.join("", "%s", hex, "%.2f|r", " : Shadow & Light Edit v", hex, "%.2f|r")
 	
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)
