@@ -20,7 +20,7 @@ local function OnEnter(self)
 	DT:SetupTooltip(self)
 
 	GameTooltip:AddDoubleLine("ElvUI "..L["Version"]..format(": |cff99ff33%s|r",E.version))
-	GameTooltip:AddLine(L["SLE_AUTHOR_INFO"])
+	GameTooltip:AddLine(L["SLE_AUTHOR_INFO"]..". "..L["Version"]..format(": |cff99ff33%s|r",SLE.version))
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddLine(L['SLE_CONTACTS'])
 	
