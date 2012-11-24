@@ -14,7 +14,7 @@ E.Options.args.sle = {
 		header = {
 			order = 1,
 			type = "header",
-			name = L["Shadow & Light Edit of ElvUI"],
+			name = L["Shadow & Light Edit of ElvUI"]..format(": |cff99ff33%s|r", SLE.version),
 		},
 		info = {
 			order = 2,

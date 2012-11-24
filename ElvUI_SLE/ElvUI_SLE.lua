@@ -3,6 +3,8 @@ local SLE = E:NewModule('SLE', 'AceHook-3.0', 'AceEvent-3.0');
 local UF = E:GetModule('UnitFrames');
 local DTP
 
+SLE.version = GetAddOnMetadata("ElvUI_SLE", "Version")
+
 function SLE:Tutorials() --Additional tutorials
 	table.insert(E.TutorialList, #(E.TutorialList)+1, L["To enable full values of health/power on unitframes in Shadow & Light add \":sl\" to the end of the health/power tag.\nExample: [health:current:sl]."]);
 end
@@ -76,7 +78,6 @@ end
 
 
 function SLE:Initialize()
-	SLE.version = GetAddOnMetadata("ElvUI_SLE", "Version")
 	DTP = E:GetModule('DTPanels')
 	if E.private.unitframe.enable then
 		self:RegisterEvent("PLAYER_REGEN_DISABLED", UF.Update_CombatIndicator);
