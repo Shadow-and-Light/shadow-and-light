@@ -2,7 +2,7 @@
 local M = E:GetModule('Misc')
 
 function M:ErrorFrameToggle(event)
-	if event == 'PLAYER_REGEN_DISABLED' and not E.private.sle.errors then
+	if event == 'PLAYER_REGEN_DISABLED' and not E.db.sle.errors then
 		UIErrorsFrame:UnregisterEvent('UI_ERROR_MESSAGE')
 	else
 		UIErrorsFrame:RegisterEvent('UI_ERROR_MESSAGE')

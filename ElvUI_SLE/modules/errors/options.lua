@@ -5,6 +5,6 @@ E.Options.args.sle.args.general.args.errors = {
 	type = "toggle",
 	name = L["Errors in combat"],
 	desc = L["Show/hide error messages in combat."],
-	get = function(info) return E.private.sle.errors end,
-	set = function(info, value) E.private.sle.errors = value; E:StaticPopup_Show("PRIVATE_RL") end
+	get = function(info) return E.db.sle.errors end,
+	set = function(info, value) E.db.sle.errors = value; end
 }

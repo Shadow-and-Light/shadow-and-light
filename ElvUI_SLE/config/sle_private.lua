@@ -21,9 +21,6 @@ V['sle'] = {
 		},
 	},
 	
-	--Error messages
-	['errors'] = false,
-	
 	["datatext"] = {
 		["dp1hide"] = false,
 		["dp2hide"] = false,

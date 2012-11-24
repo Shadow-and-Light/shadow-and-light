@@ -138,6 +138,9 @@ P['sle'] = {
 	--Autoloot
 	['lootwin'] = false,
 	['lootalpha'] = 1,
+	
+	--Error messages
+	['errors'] = false,
 }
 
 --For some reason datatext settings refuses to work if there is no general setting block here O_o
