@@ -87,14 +87,14 @@ function UF:Update_PlayerFrame(frame, db)
 	
 	health:ClearAllPoints()
 	health:Point("TOPRIGHT", frame, "TOPRIGHT", -BORDER, -BORDER)
-		if USE_POWERBAR_OFFSET then
-			health:Point("TOPRIGHT", frame, "TOPRIGHT", -(BORDER+POWERBAR_OFFSET), -BORDER)
-			health:Point("BOTTOMLEFT", frame, "BOTTOMLEFT", BORDER, BORDER+POWERBAR_OFFSET)
-		elseif USE_MINI_POWERBAR then
-			health:Point("BOTTOMLEFT", frame, "BOTTOMLEFT", BORDER, BORDER + (POWERBAR_HEIGHT/2))
-		else
-			health:Point("BOTTOMLEFT", frame, "BOTTOMLEFT", BORDER, BORDER + POWERBAR_HEIGHT)
-		end
+	if USE_POWERBAR_OFFSET then
+		health:Point("TOPRIGHT", frame, "TOPRIGHT", -(BORDER+POWERBAR_OFFSET), -BORDER)
+		health:Point("BOTTOMLEFT", frame, "BOTTOMLEFT", BORDER, BORDER+POWERBAR_OFFSET)
+	elseif USE_MINI_POWERBAR then
+		health:Point("BOTTOMLEFT", frame, "BOTTOMLEFT", BORDER, BORDER + (POWERBAR_HEIGHT/2))
+	else
+		health:Point("BOTTOMLEFT", frame, "BOTTOMLEFT", BORDER, BORDER + POWERBAR_HEIGHT)
+	end
 	
 	health.bg:ClearAllPoints()
 		if not USE_PORTRAIT_OVERLAY then
@@ -114,7 +114,7 @@ function UF:Update_PlayerFrame(frame, db)
 		if USE_MINI_CLASSBAR then
 			DEPTH = -(BORDER+(CLASSBAR_HEIGHT/2))
 		else
-			DEPTH = -(BORDER)
+			DEPTH = -(BORDER+CLASSBAR_HEIGHT+SPACING)
 		end
 		
 		if USE_POWERBAR_OFFSET then
@@ -124,10 +124,6 @@ function UF:Update_PlayerFrame(frame, db)
 		end
 		
 		health:Point("TOPLEFT", frame, "TOPLEFT", PORTRAIT_WIDTH+BORDER, DEPTH)
-	end
-	
-	if USE_POWERBAR_OFFSET then
-		CLASSBAR_WIDTH = CLASSBAR_WIDTH - POWERBAR_OFFSET
 	end
 	
 	--Classbars	
