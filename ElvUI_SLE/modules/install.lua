@@ -1090,6 +1090,9 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.sle.lootwin = true
 	E.db.sle.lootalpha = 0.5
 	
+	--Errors--
+	E.db.sle.errors = true
+	
 	--UI Buttons--
 	E.db.sle.uibuttons.enable = true
 
