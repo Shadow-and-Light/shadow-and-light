@@ -292,6 +292,8 @@ function E:SetupResolution(noDataReset)
 		E:ResetMovers('')
 	end
 
+	E:CopyTable(E.db.sle, P.sle)
+	
 	if self == 'low' then
 		if not E.db.movers then E.db.movers = {}; end
 		if not noDataReset then
@@ -384,6 +386,7 @@ function E:SetupLayout(layout, noDataReset)
 	--Unitframes
 	if not noDataReset then
 		E:CopyTable(E.db.unitframe.units, P.unitframe.units)
+		E:CopyTable(E.db.sle.combatico, P.sle.combatico)
 	end
 	if layout == 'healer' then
 		if not IsAddOnLoaded('Clique') then
@@ -510,6 +513,7 @@ function E:SetupLayout(layout, noDataReset)
 	--Datatexts
 	if not noDataReset then
 		E:CopyTable(E.db.datatexts.panels, P.datatexts.panels)
+		E:CopyTable(E.db.sle.datatext, P.sle.datatext)
 		if layout == 'tank' then
 			E.db.datatexts.panels.LeftChatDataPanel.left = 'Armor';
 			E.db.datatexts.panels.LeftChatDataPanel.right = 'Avoidance';
@@ -532,6 +536,10 @@ function E:SetupLayout(layout, noDataReset)
 	if not noDataReset and E.private.theme then
 		E:SetupTheme(E.private.theme, true)
 	end	
+	
+	E:CopyTable(E.db.sle.marks, P.sle.marks)
+	E:CopyTable(E.db.sle.backgrounds, P.sle.backgrounds)
+	E:CopyTable(E.db.sle.uibuttons, P.sle.uibuttons)
 
 	E:UpdateAll(true)
 	local DT = E:GetModule('DataTexts')
