@@ -116,12 +116,6 @@ P['sle'] = {
 		},
 	},
 	
-	--Raid Utility
-	['raidutil'] = {
-		['xpos'] = E.screenwidth/3,
-		['ypos'] = E.screenheight - 16,
-	},
-	
 	--Combat Icon
 	['combatico'] = {
 		['pos'] = 'TOP',
