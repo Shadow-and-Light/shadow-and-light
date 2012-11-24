@@ -1,5 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local P = E:NewModule('PvPMover', 'AceHook-3.0', 'AceEvent-3.0');
+local holder = CreateFrame("Frame", "SLE_PvP", E.UIParent)
+
 
 local function update()
 	if WorldStateCaptureBar1 then
@@ -12,8 +14,12 @@ local function update()
 end
 
 function P:Initialize()
+	holder:SetSize(10, 58)
+	holder:SetPoint("TOP", E.UIParent, "TOP", -5, -15)
+	WorldStateAlwaysUpFrame:ClearAllPoints()
+	WorldStateAlwaysUpFrame:SetPoint("CENTER", holder)
 	self:RegisterEvent("UPDATE_WORLD_STATES", update)
-	E:CreateMover(WorldStateAlwaysUpFrame, "PvPMover", "PvP", nil, nil, nil, "ALL,S&L")
+	E:CreateMover(holder, "PvPMover", "PvP", nil, nil, nil, "ALL,S&L")
 end
 
 E:RegisterModule(P:GetName())
