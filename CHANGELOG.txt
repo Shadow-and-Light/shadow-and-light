@@ -3,9 +3,11 @@ v1.23 (Not released, patch 5.1 stuff)
 - Mount serach was deleted, Blizzard added that themselves
 - Some adjustions for pixel perfect mode to make things look good
 - Caster name in auras' tooltips is now profile based option
-- An option added to chosee if you want your power text to be on power bar or health bar (power by default)
+- An option added to chosee if you want your power text to be on power bar or health bar (health by default)
 - Raid Utility options removed. Now it's fully movable with it's own mover
-
+- Added a mover for world/BG pvp score(hellfire towers, AV reinforcements, AB resources, etc)
+- Capture bar is now docked to the bottom of a new mover
+- Show errors in combat is now profile based option
 
 v1.22 (November 8, 2012)
 - Fixed our settings packs in installation
