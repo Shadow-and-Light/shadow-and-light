@@ -191,3 +191,117 @@ L["To enable full values of health/power on unitframes in Shadow & Light add \":
 
 --Movers--
 L["Pet Battle AB"] = true
+
+
+--Changelog--
+L["Changelog"] = true
+L["CHANGE_LOG"] = [=[|cff1784d1v1.3|r (Not released, patch 5.1 stuff)
+- Authors' layouts have been changed
+- Mount serach was deleted, Blizzard added that themselves
+- Some adjustions for pixel perfect mode to make things look good
+- Caster name in auras' tooltips is now profile based option
+- An option added to chosee if you want your power text to be on power bar or health bar (health by default as in normal ElvUI)
+- Raid Utility options removed. Now it's fully movable with it's own mover
+- Added a mover for world/BG pvp score - Hellfire towers, AV reinforcements, AB resources, etc. (Darth grow tired of using MoveAnything)
+- Capture bar is now docked to the bottom of a new mover
+- Show errors in combat is now profile based option
+- Added S&L version number to version datatext, login message and config
+- Buttons for resetting all S&L options or just desired group's options have been added
+- You can now see changelog in game
+
+|cff1784d1v1.22|r (November 8, 2012)
+- Fixed our settings packs in installation
+- You will be able to see your castbar and other stuff while in vehicle again (apparently it was there for ages and no one reported that o_O)
+- The option to hide combat indicator was removed. You can choose to hide it in it's positioning dropdown list now.
+- Fixed some issues with loading that resulted in disappearing of S&L mover group in config mode.
+
+|cff1784d1v1.21|r (November 1, 2012)
+- Fixed small error
+
+|cff1784d1v1.20|r (November 1, 2012)
+- Code catch up with ElvUI
+- Some code restructure to reduce memory
+- Small fixes/tweaks
+
+|cff1784d1v1.19|r (October 24, 2012)
+- Code catch up with ElvUI
+- Added show/hide option for errors in combat (out of LoS, on cooldown, etc)
+- Changed the way reputation is shown on bar
+- Added Ampere Addon Control Panel to UI Buttons
+- Fixed wrong rested percent with cur-percent mode of experience bar (195000000% of rested? Easy)
+- Added new options for loot history frame
+- Add ability to show Raid Markers only in the instance.
+
+|cff1784d1v1.18|r (October 9, 2012)
+- Fixed red flying could not showing in the mount list
+
+|cff1784d1v1.17|r (September 30, 2012)
+- Fixed Mount Search bug when skinning was disabled.
+- Fixed Background Panels & Pet Battle Bar having frame level issues.
+- Fixed left chat being to close to the edge of the frame.
+- Added ability to show/hide background panels during pet battles
+
+|cff1784d1v1.16|r (September 24, 2012)
+- Added Search Feature for Mount Window by p3lim
+- Fixed lua error about missing locale for ElvUI Hud during install process(It was mistyped)
+- Fixed Raid Marker not toggling off
+
+|cff1784d1v1.15|r (September 7, 2012)
+- Fix Curse Ticket #3
+
+|cff1784d1v1.14|r (September 5, 2012)
+- Updated Install to catch up with ElvUI
+- Updated Repooc Settings to more current setup
+
+|cff1784d1v1.13|r (September 1, 2012)
+- Fixed Combat Icon Error when ElvUI Unitframes were disabled.
+- Updated Install file to ElvUI additions
+
+|cff1784d1v1.12|r (August 31, 2012)
+- Fixed Time Datatext error
+
+|cff1784d1v1.11|r (August 30, 2012)
+- Fixrd editbox positioning when ElvUI chat is disabled
+
+|cff1784d1v1.1|r (August 28, 2012)
+- (Backend) Optimize Druid Resource
+- (Backend) Private options now use Elv's popus
+- Added Demonic Fury number on warlock classbar
+- Added debuff resizing
+- Added hiding for combat ico
+- Readded castername in buff/debuff icon due to darth rewriting auras.lua and not doing his job
+- Moved options for auras to its own category
+- Removed some skinning of addons as we are now working with Azilroka on the skinning package.
+- Removed embed right fix due it being removed from ElvUI
+- Fixed the chat text going over the panel's border
+- Options for full values on hp/power text changed due to ElvUI's changes in text formatting. Now you can use tags. Just add a ":sl" at the end of the health or power tag to get full value. Doesn't work with percent.
+- Background frames now have an option for transparancy
+- Exp/Rep bar text options were changed to show full or short values
+- Added an option to move editbox for chat pannels
+- PvP text options were removed, ElvUI now has it's own
+- Removed Skada and DBM skins
+- Removed Pet Autocast option
+- Changed positions of some options
+
+|cff1784d1v1.03|r (July 25, 2012)
+- Fixed Combatlog not anchoring correctly in right panel as the only chat window
+- Fixed Microbar Bug (Leave combat issue)
+- Added the vengeance bar for tanks (without options atm)
+- Deleted keywords sounds (Elv has his own)
+- Increased the recommended version number
+
+|cff1784d1v1.02|r (July 15, 2012)
+- Updated Repooc install
+- Added Poisner Skin
+- Added Outfitter skin
+- Fixed Microbar Bug
+- Fixed RaidUtility button not changing position on profile change
+
+|cff1784d1v1.01|r (July 11, 2012)
+- Skada/Recount embedright tweaked
+- Minor install tweaks
+- Added Alphabet layout to Microbar
+
+|cff1784d1v1.0|r (July 7, 2012)
+- Inital Release
+]=]
