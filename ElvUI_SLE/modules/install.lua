@@ -659,419 +659,426 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.chat.timeStampFormat = "%H:%M:%S "
 
 	--Datatexts--
-	E.db.datatexts.font = "ElvUI Pixel"
-	E.db.datatexts.fontSize = 11
-	E.db.datatexts.time24 = true
-	E.db.sle.datatext.top.enabled = true
-	E.db.sle.datatext.bottom.enabled = true
-	if E.db.lowresolutionset then
-		E.db.sle.datatext.dp1.enabled = false
-		E.db.sle.datatext.dp2.enabled = false
-		E.db.sle.datatext.dp3.enabled = false
-		E.db.sle.datatext.dp4.enabled = false
-		E.db.sle.datatext.dp5.enabled = false
-		E.db.sle.datatext.dp6.enabled = false
-		E.db.sle.datatext.chatleft.width = 384
-		E.db.sle.datatext.chatright.width = 384
-		E.db.sle.datatext.bottom.width = E.screenwidth/3 + 52
-	else
-		E.db.sle.datatext.dp1.enabled = true
-		E.db.sle.datatext.dp1.width = E.screenwidth/5 + 1
-		E.db.sle.datatext.dp2.enabled = true
-		E.db.sle.datatext.dp3.enabled = true
-		E.db.sle.datatext.dp4.enabled = true
-		E.db.sle.datatext.dp4.width = E.screenwidth/5 + 1
-		E.db.sle.datatext.dp5.enabled = true
-		E.db.sle.datatext.dp5.width = E.screenwidth/4 - 60
-		E.db.sle.datatext.dp6.enabled = true
-		E.db.sle.datatext.dp6.width = E.screenwidth/4 - 60
-		E.db.sle.datatext.chatleft.width = 430
-		E.db.sle.datatext.chatright.width = 430
-		E.db.sle.datatext.bottom.width = E.screenwidth/10
-		E.db.sle.datatext.top.width = E.screenwidth/5 + 2
-	end
-
-	if E.db.lowresolutionset then
-		E.db.datatexts.panels.LeftChatDataPanel.left = 'Bags';
-		E.db.datatexts.panels.LeftChatDataPanel.middle = 'Gold';
-		E.db.datatexts.panels.LeftChatDataPanel.right = 'Durability';
-	else
-		E.db.datatexts.panels.LeftChatDataPanel.right = 'Friends';
-		E.db.datatexts.panels.LeftChatDataPanel.left = 'Call to Arms';
-		E.db.datatexts.panels.LeftChatDataPanel.middle = 'Durability';
-	end
-	E.db.datatexts.panels.LeftMiniPanel = 'Time';
-	E.db.datatexts.panels.RightMiniPanel = 'Guild';
-
-	if layout == 'tank' then
-		E.db.datatexts.panels.DP_6.left = 'Avoidance';
-		E.db.datatexts.panels.DP_6.middle = 'Vengeance';
-		E.db.datatexts.panels.DP_6.right = 'Expertise';
+	do
+		E.db.datatexts.font = "ElvUI Pixel"
+		E.db.datatexts.fontSize = 11
+		E.db.datatexts.time24 = true
+		E.db.sle.datatext.top.enabled = true
+		E.db.sle.datatext.bottom.enabled = true
 		if E.db.lowresolutionset then
-			E.db.datatexts.panels.RightChatDataPanel.left = 'Avoidance';
-			E.db.datatexts.panels.RightChatDataPanel.middle = 'Vengeance';
-			E.db.datatexts.panels.RightChatDataPanel.right = 'Expertise';
+			E.db.sle.datatext.dp1.enabled = false
+			E.db.sle.datatext.dp2.enabled = false
+			E.db.sle.datatext.dp3.enabled = false
+			E.db.sle.datatext.dp4.enabled = false
+			E.db.sle.datatext.dp5.enabled = false
+			E.db.sle.datatext.dp6.enabled = false
+			E.db.sle.datatext.chatleft.width = 384
+			E.db.sle.datatext.chatright.width = 384
+			E.db.sle.datatext.bottom.width = E.screenwidth/3 + 52
 		else
-			E.db.datatexts.panels.RightChatDataPanel.left = 'Hit Rating';
-			E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
-			E.db.datatexts.panels.RightChatDataPanel.right = 'Spec Switch';
+			E.db.sle.datatext.dp1.enabled = true
+			E.db.sle.datatext.dp1.width = E.screenwidth/5 + 1
+			E.db.sle.datatext.dp2.enabled = true
+			E.db.sle.datatext.dp3.enabled = true
+			E.db.sle.datatext.dp4.enabled = true
+			E.db.sle.datatext.dp4.width = E.screenwidth/5 + 1
+			E.db.sle.datatext.dp5.enabled = true
+			E.db.sle.datatext.dp5.width = E.screenwidth/4 - 60
+			E.db.sle.datatext.dp6.enabled = true
+			E.db.sle.datatext.dp6.width = E.screenwidth/4 - 60
+			E.db.sle.datatext.chatleft.width = 430
+			E.db.sle.datatext.chatright.width = 430
+			E.db.sle.datatext.bottom.width = E.screenwidth/10
+			E.db.sle.datatext.top.width = E.screenwidth/5 + 2
 		end
-		E.db.datatexts.panels.DP_5.right = 'Armor';
-	elseif layout == 'healer' then
-		E.db.datatexts.panels.DP_6.left = 'Spell/Heal Power';
-		E.db.datatexts.panels.DP_6.middle = 'Haste';
-		E.db.datatexts.panels.DP_6.right = 'Crit Chance';
+	
 		if E.db.lowresolutionset then
-			E.db.datatexts.panels.RightChatDataPanel.left = 'Spell/Heal Power';
-			E.db.datatexts.panels.RightChatDataPanel.middle = 'Crit Chance';
-			E.db.datatexts.panels.RightChatDataPanel.right = 'Mana Regen';
+			E.db.datatexts.panels.LeftChatDataPanel.left = 'Bags';
+			E.db.datatexts.panels.LeftChatDataPanel.middle = 'Gold';
+			E.db.datatexts.panels.LeftChatDataPanel.right = 'Durability';
 		else
-			E.db.datatexts.panels.RightChatDataPanel.left = 'Mana Regen';
-			E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
-			E.db.datatexts.panels.RightChatDataPanel.right = 'Spec Switch';
+			E.db.datatexts.panels.LeftChatDataPanel.right = 'Friends';
+			E.db.datatexts.panels.LeftChatDataPanel.left = 'Call to Arms';
+			E.db.datatexts.panels.LeftChatDataPanel.middle = 'Durability';
 		end
-		E.db.datatexts.panels.DP_5.right = 'Armor';
-	elseif layout == 'dpsCaster' then
-		E.db.datatexts.panels.DP_6.left = 'Spell/Heal Power';
-		E.db.datatexts.panels.DP_6.middle = 'Haste';
-		E.db.datatexts.panels.DP_6.right = 'Crit Chance';
-		if E.db.lowresolutionset then
-			E.db.datatexts.panels.RightChatDataPanel.left = 'Spell/Heal Power';
-			E.db.datatexts.panels.RightChatDataPanel.middle = 'Haste';
-			E.db.datatexts.panels.RightChatDataPanel.right = 'Crit Chance';
+		E.db.datatexts.panels.LeftMiniPanel = 'Time';
+		E.db.datatexts.panels.RightMiniPanel = 'Guild';
+	
+		if layout == 'tank' then
+			E.db.datatexts.panels.DP_6.left = 'Avoidance';
+			E.db.datatexts.panels.DP_6.middle = 'Vengeance';
+			E.db.datatexts.panels.DP_6.right = 'Expertise';
+			if E.db.lowresolutionset then
+				E.db.datatexts.panels.RightChatDataPanel.left = 'Avoidance';
+				E.db.datatexts.panels.RightChatDataPanel.middle = 'Vengeance';
+				E.db.datatexts.panels.RightChatDataPanel.right = 'Expertise';
+			else
+				E.db.datatexts.panels.RightChatDataPanel.left = 'Hit Rating';
+				E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
+				E.db.datatexts.panels.RightChatDataPanel.right = 'Spec Switch';
+			end
+			E.db.datatexts.panels.DP_5.right = 'Armor';
+		elseif layout == 'healer' then
+			E.db.datatexts.panels.DP_6.left = 'Spell/Heal Power';
+			E.db.datatexts.panels.DP_6.middle = 'Haste';
+			E.db.datatexts.panels.DP_6.right = 'Crit Chance';
+			if E.db.lowresolutionset then
+				E.db.datatexts.panels.RightChatDataPanel.left = 'Spell/Heal Power';
+				E.db.datatexts.panels.RightChatDataPanel.middle = 'Crit Chance';
+				E.db.datatexts.panels.RightChatDataPanel.right = 'Mana Regen';
+			else
+				E.db.datatexts.panels.RightChatDataPanel.left = 'Mana Regen';
+				E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
+				E.db.datatexts.panels.RightChatDataPanel.right = 'Spec Switch';
+			end
+			E.db.datatexts.panels.DP_5.right = 'Armor';
+		elseif layout == 'dpsCaster' then
+			E.db.datatexts.panels.DP_6.left = 'Spell/Heal Power';
+			E.db.datatexts.panels.DP_6.middle = 'Haste';
+			E.db.datatexts.panels.DP_6.right = 'Crit Chance';
+			if E.db.lowresolutionset then
+				E.db.datatexts.panels.RightChatDataPanel.left = 'Spell/Heal Power';
+				E.db.datatexts.panels.RightChatDataPanel.middle = 'Haste';
+				E.db.datatexts.panels.RightChatDataPanel.right = 'Crit Chance';
+			else
+				E.db.datatexts.panels.RightChatDataPanel.left = 'Hit Rating';
+				E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
+				E.db.datatexts.panels.RightChatDataPanel.right = 'Spec Switch';
+			end
+			E.db.datatexts.panels.DP_5.right = 'Armor';
 		else
-			E.db.datatexts.panels.RightChatDataPanel.left = 'Hit Rating';
-			E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
-			E.db.datatexts.panels.RightChatDataPanel.right = 'Spec Switch';
+			E.db.datatexts.panels.DP_6.left = 'Attack Power';
+			E.db.datatexts.panels.DP_6.middle = 'Haste';
+			E.db.datatexts.panels.DP_6.right = 'Crit Chance';
+			if E.db.lowresolutionset then
+				E.db.datatexts.panels.RightChatDataPanel.left = 'Attack Power';
+				E.db.datatexts.panels.RightChatDataPanel.middle = 'Haste';
+				E.db.datatexts.panels.RightChatDataPanel.right = 'Crit Chance';
+			else
+				E.db.datatexts.panels.RightChatDataPanel.left = 'Hit Rating';
+				E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
+				E.db.datatexts.panels.RightChatDataPanel.right = 'Spec Switch';
+			end
+			E.db.datatexts.panels.DP_5.right = 'Expertise';
 		end
-		E.db.datatexts.panels.DP_5.right = 'Armor';
-	else
-		E.db.datatexts.panels.DP_6.left = 'Attack Power';
-		E.db.datatexts.panels.DP_6.middle = 'Haste';
-		E.db.datatexts.panels.DP_6.right = 'Crit Chance';
-		if E.db.lowresolutionset then
-			E.db.datatexts.panels.RightChatDataPanel.left = 'Attack Power';
-			E.db.datatexts.panels.RightChatDataPanel.middle = 'Haste';
-			E.db.datatexts.panels.RightChatDataPanel.right = 'Crit Chance';
-		else
-			E.db.datatexts.panels.RightChatDataPanel.left = 'Hit Rating';
-			E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
-			E.db.datatexts.panels.RightChatDataPanel.right = 'Spec Switch';
-		end
-		E.db.datatexts.panels.DP_5.right = 'Expertise';
 	end
 
 	--Unitframes--
-	E.db.unitframe.smoothbars = false
-	E.db.unitframe.font = "ElvUI Font"
-	E.db.unitframe.fontsize = 9
-	E.db.unitframe.fontOutline = 'OUTLINE'
-	E.db.unitframe.colors.castColor = {
-								["b"] = 0.3098039215686275,
-								["g"] = 0.792156862745098,
-								["r"] = 0.8274509803921568,
-							}
-	UF:Update_AllFrames()
-	if layout == "healer" then
-		E.db.unitframe.debuffHighlighting = true
-	else
-		E.db.unitframe.debuffHighlighting = false
-	end
-	E.db.unitframe.smartRaidFilter = false
-	E.db.unitframe.colors.healthclass = true
-	E.db.unitframe.colors.colorhealthbyvalue = false
-		--Setting player frame
-		E.db.unitframe.units.player.width = 200
+	do
+		E.db.unitframe.smoothbars = false
+		E.db.unitframe.font = "ElvUI Font"
+		E.db.unitframe.fontsize = 9
+		E.db.unitframe.fontOutline = 'OUTLINE'
+		E.db.unitframe.colors.castColor = {
+									["b"] = 0.3098039215686275,
+									["g"] = 0.792156862745098,
+									["r"] = 0.8274509803921568,
+								}
+		UF:Update_AllFrames()
 		if layout == "healer" then
-			E.db.unitframe.units.player.lowmana = 30;
+			E.db.unitframe.debuffHighlighting = true
 		else
-			E.db.unitframe.units.player.lowmana = 0;
+			E.db.unitframe.debuffHighlighting = false
 		end
-		E.db.unitframe.units.player.health.position = 'BOTTOMRIGHT';
-		E.db.unitframe.units.player.health.text_format = "[healthcolor][health:current-percent:sl]"
-		E.db.unitframe.units.player.power.text_format = "[powercolor][power:current:sl]";
-		E.db.unitframe.units.player.fixTo = "power"
-		E.db.unitframe.units.player.name.text_format = "[name:medium]";
-		E.db.unitframe.units.player.name.position = 'TOPLEFT';
-		E.db.unitframe.units.player.pvp.text_format = "||cFFB04F4F[pvptimer]||r"
-		E.db.unitframe.units.player.pvp.position = "BOTTOMLEFT"
-		E.db.unitframe.units.player.portrait.enable = true
-		E.db.unitframe.units.player.portrait.camDistanceScale = 1.5;
-		E.db.unitframe.units.player.debuffs.enable = false;
-		E.db.unitframe.units.player.castbar.format = 'CURRENTMAX';
-		E.db.unitframe.units.player.castbar.width = 238
-		E.db.unitframe.units.player.classbar.fill = 'fill'
-		E.db.unitframe.units.player.classbar.height = 8
-		E.db.unitframe.units.player.aurabar.enable = false
-		--Setting target frame
-		E.db.unitframe.units.target.width = 200
-		E.db.unitframe.units.target.smartAuraDisplay = "DISABLED"
-		E.db.unitframe.units.target.hideonnpc = false;
-		E.db.unitframe.units.target.health.position = 'BOTTOMRIGHT';
-		E.db.unitframe.units.target.power.position = 'RIGHT';
-		E.db.unitframe.units.target.power.hideonnpc = false;
-		E.db.unitframe.units.target.power.text_format = "[powercolor][power:current:sl]"
-		E.db.unitframe.units.target.fixTo = "power"
-		E.db.unitframe.units.target.name.text_format = "[name:medium] [smartlevel] [shortclassification]";
-		E.db.unitframe.units.target.name.position = 'TOPLEFT';
-		E.db.unitframe.units.target.portrait.enable = true
-		E.db.unitframe.units.target.portrait.camDistanceScale = 1.5;
-		E.db.unitframe.units.target.buffs.perrow = 9;
-		E.db.unitframe.units.target.buffs.numrows = 2;
-		E.db.unitframe.units.target.buffs.anchorPoint = 'TOPLEFT';
-		E.db.unitframe.units.target.buffs.clickThrough = false
-		E.db.unitframe.units.target.buffs.playerOnly.friendly = false
-		E.db.unitframe.units.target.buffs.playerOnly.enemy = false
-		E.db.unitframe.units.target.buffs.useBlacklist.friendly = false
-		E.db.unitframe.units.target.buffs.useBlacklist.enemy = false
-		E.db.unitframe.units.target.buffs.useWhitelist.friendly = false
-		E.db.unitframe.units.target.buffs.useWhitelist.enemy = false
-		E.db.unitframe.units.target.buffs.noDuration.friendly = false
-		E.db.unitframe.units.target.buffs.noDuration.enemy = false
-		E.db.unitframe.units.target.buffs.onlyDispellable.friendly = false
-		E.db.unitframe.units.target.buffs.onlyDispellable.enemy = false
-		E.db.unitframe.units.target.debuffs.perrow = 9;
-		E.db.unitframe.units.target.debuffs.playerOnly.friendly = false
-		E.db.unitframe.units.target.debuffs.playerOnly.enemy = false
-		E.db.unitframe.units.target.debuffs.useBlacklist.friendly = false
-		E.db.unitframe.units.target.debuffs.useBlacklist.enemy = false
-		E.db.unitframe.units.target.debuffs.useWhitelist.friendly = false
-		E.db.unitframe.units.target.debuffs.useWhitelist.enemy = false
-		E.db.unitframe.units.target.debuffs.noDuration.friendly = false
-		E.db.unitframe.units.target.debuffs.noDuration.enemy = false
-		E.db.unitframe.units.target.debuffs.onlyDispellable.friendly = false
-		E.db.unitframe.units.target.debuffs.onlyDispellable.enemy = false
-		E.db.unitframe.units.target.debuffs.enable = true
-		E.db.unitframe.units.target.debuffs.clickThrough = false
-		E.db.unitframe.units.target.castbar.format = 'CURRENTMAX';
-		if layout == "healer" then
-			E.db.unitframe.units.target.castbar.width = 238
-		else
-			E.db.unitframe.units.target.castbar.width = 200
-		end
-		E.db.unitframe.units.target.aurabar.enable = false
-		--Target of Target
-		E.db.unitframe.units.targettarget.height = 26
-		if layout == "healer" then
-			E.db.unitframe.units.targettarget.width = 115
-		else
-			E.db.unitframe.units.targettarget.width = 120
-		end
-		E.db.unitframe.units.targettarget.name.text_format = "[name:medium]"
-		E.db.unitframe.units.targettarget.debuffs.enable = false
-		--Focus
-		E.db.unitframe.units.focus.height = 42
-		E.db.unitframe.units.focus.width = 179
-		E.db.unitframe.units.focus.health.position = 'BOTTOMRIGHT'
-		E.db.unitframe.units.focus.health.text_format = "[healthcolor][health:current-percent:sl]"
-		E.db.unitframe.units.focus.power.text_format = "[powercolor][power:current:sl]"
-		E.db.unitframe.units.focus.fixTo = "power"
-		E.db.unitframe.units.focus.power.position = "RIGHT"
-		E.db.unitframe.units.focus.name.text_format = "[name:medium]"
-		E.db.unitframe.units.focus.name.position = 'TOPLEFT'
-		E.db.unitframe.units.focus.debuffs.perrow = 8
-		E.db.unitframe.units.focus.debuffs.anchorPoint = "TOPLEFT"
-		E.db.unitframe.units.focus.castbar.format = 'CURRENTMAX'
-		E.db.unitframe.units.focus.castbar.width = 179
-		--Focus Target
-		E.db.unitframe.units.focustarget.name.text_format = "[name:medium]"
-		E.db.unitframe.units.focustarget.enable = true
-		E.db.unitframe.units.focustarget.height = 34
-		E.db.unitframe.units.focustarget.width = 179
-		--Pet
-		E.db.unitframe.units.pet.name.text_format = "[name:medium]"
-		if layout == "healer" then
-			E.db.unitframe.units.pet.width = 115
-		else
-			E.db.unitframe.units.pet.width = 128
-		end
-		--Pet Target
-		E.db.unitframe.units.pettarget.name.text_format = "[name:medium]"
-		E.db.unitframe.units.pettarget.enable = true
-		if layout == "healer" then
-			E.db.unitframe.units.pettarget.width = 115
-		else
-			E.db.unitframe.units.pettarget.width = 119
-		end
-		--Party
-		if layout == "healer" then
-			E.db.unitframe.units.party.point = "LEFT"
-			E.db.unitframe.units.party.xOffset = 5
-			E.db.unitframe.units.party.debuffs.perrow = 3
-			E.db.unitframe.units.party.debuffs.anchorPoint = "BOTTOMLEFT"
-			E.db.unitframe.units.party.debuffs.useFilter = "Blacklist"
-			E.db.unitframe.units.party.debuffs.initialAnchor = "TOPLEFT"
-			E.db.unitframe.units.party.roleIcon.position = "RIGHT"
-			E.db.unitframe.units.party.width = 80
-			E.db.unitframe.units.party.height = 52
-			E.db.unitframe.units.party.healPrediction = true
-			E.db.unitframe.units.party.health.text_format = "[healthcolor][health:deficit]"
-			E.db.unitframe.units.party.health.position = "CENTER"
-			E.db.unitframe.units.party.health.frequentUpdates = true
-			E.db.unitframe.units.party.health.orientation = "VERTICAL"
-		else
-			E.db.unitframe.units.party.debuffs.perrow = 4
-			E.db.unitframe.units.party.roleIcon.position = "TOPRIGHT"
-			E.db.unitframe.units.party.health.position = "BOTTOMLEFT"
-		end
-		E.db.unitframe.units.party.xOffset = 1
-		E.db.unitframe.units.party.yOffset = -1
-		E.db.unitframe.units.party.columnSpacing = 1
-		E.db.unitframe.units.party.debuffs.sizeOverride = 26
-		E.db.unitframe.units.party.buffIndicator.colorIcons = false
-		E.db.unitframe.units.party.power.height = 8
-		E.db.unitframe.units.party.power.text_format = ""
-		E.db.unitframe.units.party.name.position = "TOP"
-		E.db.unitframe.units.party.name.text_format = "[name:medium] [difficultycolor][smartlevel]"
-		--Raid 10
-		if layout == "healer" then
-			E.db.unitframe.units.raid10.health.frequentUpdates = true
-			E.db.unitframe.units.raid10.health.text_format = "[healthcolor][health:dificit]"
-			E.db.unitframe.units.raid10.health.orientation = "VERTICAL"
-			E.db.unitframe.units.raid10.health.position = "CENTER"
-		else
-			E.db.unitframe.units.raid10.health.text_format = "[healthcolor][health:current]"
-			E.db.unitframe.units.raid10.columnAnchorPoint = "LEFT"
-			E.db.unitframe.units.raid10.point = "TOP"
-		end
-		E.db.unitframe.units.raid10.xOffset = 1
-		E.db.unitframe.units.raid10.yOffset = -1
-		E.db.unitframe.units.raid10.columnSpacing = 1
-		E.db.unitframe.units.raid10.name.text_format = "[name:medium]"
-		E.db.unitframe.units.raid10.buffIndicator.colorIcons = false
-		E.db.unitframe.units.raid10.rdebuffs.size = 22
-		E.db.unitframe.units.raid10.power.height = 8
-		E.db.unitframe.units.raid10.power.text_format = ""
-		E.db.unitframe.units.raid10.health.position = "BOTTOMLEFT"
-		--Raid 25
-		if layout == "healer" then
-			E.db.unitframe.units.raid25.health.text_format = "[healthcolor][health:deficit]"
-			E.db.unitframe.units.raid25.health.frequentUpdates = true
-			E.db.unitframe.units.raid25.health.orientation = "VERTICAL"
-			E.db.unitframe.units.raid25.health.position = "CENTER"
-			E.db.unitframe.units.raid25.height = 36
-		else
-			E.db.unitframe.units.raid25.point = "TOP"
-			E.db.unitframe.units.raid25.columnAnchorPoint = "LEFT"
-			E.db.unitframe.units.raid25.health.text_format = ""
-		end
-		E.db.unitframe.units.raid25.xOffset = 1
-		E.db.unitframe.units.raid25.yOffset = -1
-		E.db.unitframe.units.raid25.columnSpacing = 1
-		E.db.unitframe.units.raid25.buffIndicator.colorIcons = false
-		E.db.unitframe.units.raid25.name.text_format = "[name:medium]"
-		E.db.unitframe.units.raid25.rdebuffs.size = 22
-		E.db.unitframe.units.raid25.power.height = 8
-		E.db.unitframe.units.raid25.power.text_format = ""
-		--Raid 40
-		if layout == "healer" then
-			E.db.unitframe.units.raid40.health.frequentUpdates = true
-			E.db.unitframe.units.raid40.health.text_format = ""
-			E.db.unitframe.units.raid40.health.orientation = "VERTICAL"
-		else
-			E.db.unitframe.units.raid40.health.text_format = ""
-		end
-		E.db.unitframe.units.raid40.height = 26
-		E.db.unitframe.units.raid40.xOffset = 1
-		E.db.unitframe.units.raid40.yOffset = -1
-		E.db.unitframe.units.raid40.columnSpacing = 1
-		E.db.unitframe.units.raid40.name.text_format = "[name:short]"
-		E.db.unitframe.units.raid40.buffIndicator.colorIcons = false
+		E.db.unitframe.smartRaidFilter = false
+		E.db.unitframe.colors.healthclass = true
+		E.db.unitframe.colors.colorhealthbyvalue = false
+			--Setting player frame
+			E.db.unitframe.units.player.width = 200
+			if layout == "healer" then
+				E.db.unitframe.units.player.lowmana = 30;
+			else
+				E.db.unitframe.units.player.lowmana = 0;
+			end
+			E.db.unitframe.units.player.health.position = 'BOTTOMRIGHT';
+			E.db.unitframe.units.player.health.text_format = "[healthcolor][health:current-percent:sl]"
+			E.db.unitframe.units.player.power.text_format = "[powercolor][power:current:sl]";
+			E.db.unitframe.units.player.fixTo = "power"
+			E.db.unitframe.units.player.name.text_format = "[name:medium]";
+			E.db.unitframe.units.player.name.position = 'TOPLEFT';
+			E.db.unitframe.units.player.pvp.text_format = "||cFFB04F4F[pvptimer]||r"
+			E.db.unitframe.units.player.pvp.position = "BOTTOMLEFT"
+			E.db.unitframe.units.player.portrait.enable = true
+			E.db.unitframe.units.player.portrait.camDistanceScale = 1.5;
+			E.db.unitframe.units.player.debuffs.enable = false;
+			E.db.unitframe.units.player.castbar.format = 'CURRENTMAX';
+			E.db.unitframe.units.player.castbar.width = 238
+			E.db.unitframe.units.player.classbar.fill = 'fill'
+			E.db.unitframe.units.player.classbar.height = 8
+			E.db.unitframe.units.player.aurabar.enable = false
+			--Setting target frame
+			E.db.unitframe.units.target.width = 200
+			E.db.unitframe.units.target.smartAuraDisplay = "DISABLED"
+			E.db.unitframe.units.target.hideonnpc = false;
+			E.db.unitframe.units.target.health.position = 'BOTTOMRIGHT';
+			E.db.unitframe.units.target.power.position = 'RIGHT';
+			E.db.unitframe.units.target.power.hideonnpc = false;
+			E.db.unitframe.units.target.power.text_format = "[powercolor][power:current:sl]"
+			E.db.unitframe.units.target.fixTo = "power"
+			E.db.unitframe.units.target.name.text_format = "[name:medium] [smartlevel] [shortclassification]";
+			E.db.unitframe.units.target.name.position = 'TOPLEFT';
+			E.db.unitframe.units.target.portrait.enable = true
+			E.db.unitframe.units.target.portrait.camDistanceScale = 1.5;
+			E.db.unitframe.units.target.buffs.perrow = 9;
+			E.db.unitframe.units.target.buffs.numrows = 2;
+			E.db.unitframe.units.target.buffs.anchorPoint = 'TOPLEFT';
+			E.db.unitframe.units.target.buffs.clickThrough = false
+			E.db.unitframe.units.target.buffs.playerOnly.friendly = false
+			E.db.unitframe.units.target.buffs.playerOnly.enemy = false
+			E.db.unitframe.units.target.buffs.useBlacklist.friendly = false
+			E.db.unitframe.units.target.buffs.useBlacklist.enemy = false
+			E.db.unitframe.units.target.buffs.useWhitelist.friendly = false
+			E.db.unitframe.units.target.buffs.useWhitelist.enemy = false
+			E.db.unitframe.units.target.buffs.noDuration.friendly = false
+			E.db.unitframe.units.target.buffs.noDuration.enemy = false
+			E.db.unitframe.units.target.buffs.onlyDispellable.friendly = false
+			E.db.unitframe.units.target.buffs.onlyDispellable.enemy = false
+			E.db.unitframe.units.target.debuffs.perrow = 9;
+			E.db.unitframe.units.target.debuffs.playerOnly.friendly = false
+			E.db.unitframe.units.target.debuffs.playerOnly.enemy = false
+			E.db.unitframe.units.target.debuffs.useBlacklist.friendly = false
+			E.db.unitframe.units.target.debuffs.useBlacklist.enemy = false
+			E.db.unitframe.units.target.debuffs.useWhitelist.friendly = false
+			E.db.unitframe.units.target.debuffs.useWhitelist.enemy = false
+			E.db.unitframe.units.target.debuffs.noDuration.friendly = false
+			E.db.unitframe.units.target.debuffs.noDuration.enemy = false
+			E.db.unitframe.units.target.debuffs.onlyDispellable.friendly = false
+			E.db.unitframe.units.target.debuffs.onlyDispellable.enemy = false
+			E.db.unitframe.units.target.debuffs.enable = true
+			E.db.unitframe.units.target.debuffs.clickThrough = false
+			E.db.unitframe.units.target.castbar.format = 'CURRENTMAX';
+			if layout == "healer" then
+				E.db.unitframe.units.target.castbar.width = 238
+			else
+				E.db.unitframe.units.target.castbar.width = 200
+			end
+			E.db.unitframe.units.target.aurabar.enable = false
+			--Target of Target
+			E.db.unitframe.units.targettarget.height = 26
+			if layout == "healer" then
+				E.db.unitframe.units.targettarget.width = 115
+			else
+				E.db.unitframe.units.targettarget.width = 120
+			end
+			E.db.unitframe.units.targettarget.name.text_format = "[name:medium]"
+			E.db.unitframe.units.targettarget.debuffs.enable = false
+			--Focus
+			E.db.unitframe.units.focus.height = 42
+			E.db.unitframe.units.focus.width = 179
+			E.db.unitframe.units.focus.health.position = 'BOTTOMRIGHT'
+			E.db.unitframe.units.focus.health.text_format = "[healthcolor][health:current-percent:sl]"
+			E.db.unitframe.units.focus.power.text_format = "[powercolor][power:current:sl]"
+			E.db.unitframe.units.focus.fixTo = "power"
+			E.db.unitframe.units.focus.power.position = "RIGHT"
+			E.db.unitframe.units.focus.name.text_format = "[name:medium]"
+			E.db.unitframe.units.focus.name.position = 'TOPLEFT'
+			E.db.unitframe.units.focus.debuffs.perrow = 8
+			E.db.unitframe.units.focus.debuffs.anchorPoint = "TOPLEFT"
+			E.db.unitframe.units.focus.castbar.format = 'CURRENTMAX'
+			E.db.unitframe.units.focus.castbar.width = 179
+			--Focus Target
+			E.db.unitframe.units.focustarget.name.text_format = "[name:medium]"
+			E.db.unitframe.units.focustarget.enable = true
+			E.db.unitframe.units.focustarget.height = 34
+			E.db.unitframe.units.focustarget.width = 179
+			--Pet
+			E.db.unitframe.units.pet.name.text_format = "[name:medium]"
+			if layout == "healer" then
+				E.db.unitframe.units.pet.width = 115
+			else
+				E.db.unitframe.units.pet.width = 128
+			end
+			--Pet Target
+			E.db.unitframe.units.pettarget.name.text_format = "[name:medium]"
+			E.db.unitframe.units.pettarget.enable = true
+			if layout == "healer" then
+				E.db.unitframe.units.pettarget.width = 115
+			else
+				E.db.unitframe.units.pettarget.width = 119
+			end
+			--Party
+			if layout == "healer" then
+				E.db.unitframe.units.party.point = "LEFT"
+				E.db.unitframe.units.party.xOffset = 5
+				E.db.unitframe.units.party.debuffs.perrow = 3
+				E.db.unitframe.units.party.debuffs.anchorPoint = "BOTTOMLEFT"
+				E.db.unitframe.units.party.debuffs.useFilter = "Blacklist"
+				E.db.unitframe.units.party.debuffs.initialAnchor = "TOPLEFT"
+				E.db.unitframe.units.party.roleIcon.position = "RIGHT"
+				E.db.unitframe.units.party.width = 80
+				E.db.unitframe.units.party.height = 52
+				E.db.unitframe.units.party.healPrediction = true
+				E.db.unitframe.units.party.health.text_format = "[healthcolor][health:deficit]"
+				E.db.unitframe.units.party.health.position = "CENTER"
+				E.db.unitframe.units.party.health.frequentUpdates = true
+				E.db.unitframe.units.party.health.orientation = "VERTICAL"
+			else
+				E.db.unitframe.units.party.debuffs.perrow = 4
+				E.db.unitframe.units.party.roleIcon.position = "TOPRIGHT"
+				E.db.unitframe.units.party.health.position = "BOTTOMLEFT"
+			end
+			E.db.unitframe.units.party.xOffset = 1
+			E.db.unitframe.units.party.yOffset = -1
+			E.db.unitframe.units.party.columnSpacing = 1
+			E.db.unitframe.units.party.debuffs.sizeOverride = 26
+			E.db.unitframe.units.party.buffIndicator.colorIcons = false
+			E.db.unitframe.units.party.power.height = 8
+			E.db.unitframe.units.party.power.text_format = ""
+			E.db.unitframe.units.party.name.position = "TOP"
+			E.db.unitframe.units.party.name.text_format = "[name:medium] [difficultycolor][smartlevel]"
+			--Raid 10
+			if layout == "healer" then
+				E.db.unitframe.units.raid10.health.frequentUpdates = true
+				E.db.unitframe.units.raid10.health.text_format = "[healthcolor][health:dificit]"
+				E.db.unitframe.units.raid10.health.orientation = "VERTICAL"
+				E.db.unitframe.units.raid10.health.position = "CENTER"
+			else
+				E.db.unitframe.units.raid10.health.text_format = "[healthcolor][health:current]"
+				E.db.unitframe.units.raid10.columnAnchorPoint = "LEFT"
+				E.db.unitframe.units.raid10.point = "TOP"
+			end
+			E.db.unitframe.units.raid10.xOffset = 1
+			E.db.unitframe.units.raid10.yOffset = -1
+			E.db.unitframe.units.raid10.columnSpacing = 1
+			E.db.unitframe.units.raid10.name.text_format = "[name:medium]"
+			E.db.unitframe.units.raid10.buffIndicator.colorIcons = false
+			E.db.unitframe.units.raid10.rdebuffs.size = 22
+			E.db.unitframe.units.raid10.power.height = 8
+			E.db.unitframe.units.raid10.power.text_format = ""
+			E.db.unitframe.units.raid10.health.position = "BOTTOMLEFT"
+			--Raid 25
+			if layout == "healer" then
+				E.db.unitframe.units.raid25.health.text_format = "[healthcolor][health:deficit]"
+				E.db.unitframe.units.raid25.health.frequentUpdates = true
+				E.db.unitframe.units.raid25.health.orientation = "VERTICAL"
+				E.db.unitframe.units.raid25.health.position = "CENTER"
+				E.db.unitframe.units.raid25.height = 36
+			else
+				E.db.unitframe.units.raid25.point = "TOP"
+				E.db.unitframe.units.raid25.columnAnchorPoint = "LEFT"
+				E.db.unitframe.units.raid25.health.text_format = ""
+			end
+			E.db.unitframe.units.raid25.xOffset = 1
+			E.db.unitframe.units.raid25.yOffset = -1
+			E.db.unitframe.units.raid25.columnSpacing = 1
+			E.db.unitframe.units.raid25.buffIndicator.colorIcons = false
+			E.db.unitframe.units.raid25.name.text_format = "[name:medium]"
+			E.db.unitframe.units.raid25.rdebuffs.size = 22
+			E.db.unitframe.units.raid25.power.height = 8
+			E.db.unitframe.units.raid25.power.text_format = ""
+			--Raid 40
+			if layout == "healer" then
+				E.db.unitframe.units.raid40.health.frequentUpdates = true
+				E.db.unitframe.units.raid40.health.text_format = ""
+				E.db.unitframe.units.raid40.health.orientation = "VERTICAL"
+			else
+				E.db.unitframe.units.raid40.health.text_format = ""
+			end
+			E.db.unitframe.units.raid40.height = 26
+			E.db.unitframe.units.raid40.xOffset = 1
+			E.db.unitframe.units.raid40.yOffset = -1
+			E.db.unitframe.units.raid40.columnSpacing = 1
+			E.db.unitframe.units.raid40.name.text_format = "[name:short]"
+			E.db.unitframe.units.raid40.buffIndicator.colorIcons = false
+	
+			--Tank
+			if layout == "healer" then
+				E.db.unitframe.units.tank.enable = true
+				E.db.unitframe.units.tank.targetsGroup.enable = false
+				E.db.unitframe.units.tank.height = 24
+			else
+				E.db.unitframe.units.tank.enable = false
+			end
+			--Assist
+			E.db.unitframe.units.assist.enable = false
+	
+			--Arena
+			E.db.unitframe.units.arena.width = 200
+			E.db.unitframe.units.arena.height = 40
+			E.db.unitframe.units.arena.growthDirection = 'DOWN'
+			E.db.unitframe.units.arena.health.position = 'BOTTOMRIGHT'
+			E.db.unitframe.units.arena.health.text_format = "[healthcolor][health:current-percent:sl]"
+			E.db.unitframe.units.arena.power.text_format = "[powercolor][power:current:sl]"
+			E.db.unitframe.units.arena.fixTo = "power"
+			E.db.unitframe.units.arena.name.text_format = "[name:long]"
+			E.db.unitframe.units.arena.name.position = 'TOPLEFT'
+			E.db.unitframe.units.arena.buffs.enable = false
+			E.db.unitframe.units.arena.debuffs.enable = false
+			E.db.unitframe.units.arena.castbar.format = 'CURRENTMAX'
+			E.db.unitframe.units.arena.castbar.height = 15
+			E.db.unitframe.units.arena.castbar.width = 200
+			E.db.unitframe.units.arena.castbar.color = {
+									["r"] = 0.8274509803921568,
+									["g"] = 0.792156862745098,
+									["b"] = 0.3098039215686275,
+								}
+			--Boss
+			E.db.unitframe.units.boss.width = 200
+			E.db.unitframe.units.boss.height = 40
+			E.db.unitframe.units.boss.growthDirection = 'DOWN'
+			E.db.unitframe.units.boss.health.position = 'BOTTOMRIGHT'
+			E.db.unitframe.units.boss.health.text_format = "[healthcolor][health:current-percent]"
+			E.db.unitframe.units.boss.power.height = 10
+			E.db.unitframe.units.boss.power.text_format = "[powercolor][power:current:sl]"
+			E.db.unitframe.units.boss.fixTo = "power"
+			E.db.unitframe.units.boss.name.text_format = "[name:long]"
+			E.db.unitframe.units.boss.name.position = 'TOPLEFT'
+			E.db.unitframe.units.boss.buffs.enable = false
+			E.db.unitframe.units.boss.debuffs.enable = false
+			E.db.unitframe.units.boss.castbar.format = 'CURRENTMAX'
+			E.db.unitframe.units.boss.castbar.height = 15
+			E.db.unitframe.units.boss.castbar.width = 200
+			E.db.unitframe.units.boss.castbar.color = {
+									["r"] = 0.8274509803921568,
+									["g"] = 0.792156862745098,
+									["b"] = 0.3098039215686275,
+								}
+			--Power text
+			E.db.sle.powtext = true
 
-		--Tank
-		if layout == "healer" then
-			E.db.unitframe.units.tank.enable = true
-			E.db.unitframe.units.tank.targetsGroup.enable = false
-			E.db.unitframe.units.tank.height = 24
-		else
-			E.db.unitframe.units.tank.enable = false
-		end
-		--Assist
-		E.db.unitframe.units.assist.enable = false
-
-		--Arena
-		E.db.unitframe.units.arena.width = 200
-		E.db.unitframe.units.arena.height = 40
-		E.db.unitframe.units.arena.growthDirection = 'DOWN'
-		E.db.unitframe.units.arena.health.position = 'BOTTOMRIGHT'
-		E.db.unitframe.units.arena.health.text_format = "[healthcolor][health:current-percent:sl]"
-		E.db.unitframe.units.arena.power.text_format = "[powercolor][power:current:sl]"
-		E.db.unitframe.units.arena.fixTo = "power"
-		E.db.unitframe.units.arena.name.text_format = "[name:long]"
-		E.db.unitframe.units.arena.name.position = 'TOPLEFT'
-		E.db.unitframe.units.arena.buffs.enable = false
-		E.db.unitframe.units.arena.debuffs.enable = false
-		E.db.unitframe.units.arena.castbar.format = 'CURRENTMAX'
-		E.db.unitframe.units.arena.castbar.height = 15
-		E.db.unitframe.units.arena.castbar.width = 200
-		E.db.unitframe.units.arena.castbar.color = {
-								["r"] = 0.8274509803921568,
-								["g"] = 0.792156862745098,
-								["b"] = 0.3098039215686275,
-							}
-		--Boss
-		E.db.unitframe.units.boss.width = 200
-		E.db.unitframe.units.boss.height = 40
-		E.db.unitframe.units.boss.growthDirection = 'DOWN'
-		E.db.unitframe.units.boss.health.position = 'BOTTOMRIGHT'
-		E.db.unitframe.units.boss.health.text_format = "[healthcolor][health:current-percent]"
-		E.db.unitframe.units.boss.power.height = 10
-		E.db.unitframe.units.boss.power.text_format = "[powercolor][power:current:sl]"
-		E.db.unitframe.units.boss.fixTo = "power"
-		E.db.unitframe.units.boss.name.text_format = "[name:long]"
-		E.db.unitframe.units.boss.name.position = 'TOPLEFT'
-		E.db.unitframe.units.boss.buffs.enable = false
-		E.db.unitframe.units.boss.debuffs.enable = false
-		E.db.unitframe.units.boss.castbar.format = 'CURRENTMAX'
-		E.db.unitframe.units.boss.castbar.height = 15
-		E.db.unitframe.units.boss.castbar.width = 200
-		E.db.unitframe.units.boss.castbar.color = {
-								["r"] = 0.8274509803921568,
-								["g"] = 0.792156862745098,
-								["b"] = 0.3098039215686275,
-							}
-		--Power text
-		E.db.sle.powtext = true
-
+	end	
+		
 	--Actionbars
-	E.db.actionbar.hotkeytext = false
-	E.db.actionbar.keyDown = false
-	E.db.actionbar.bar1.point = "TOPLEFT"
-	E.db.actionbar.bar1.buttonsPerRow = 3
-	E.db.actionbar.bar1.buttonsize = 26
-	E.db.actionbar.bar1.backdrop = true
-	E.db.actionbar.bar2.enabled = true
-	E.db.actionbar.bar2.point = "TOPLEFT"
-	E.db.actionbar.bar2.backdrop = true
-	E.db.actionbar.bar2.buttonsPerRow = 3
-	E.db.actionbar.bar2.buttonsize = 26
-	E.db.actionbar.bar2.visibility = "[petbattle] hide; show"
-	E.db.actionbar.bar3.point = "TOPLEFT"
-	E.db.actionbar.bar3.buttons = 12
-	E.db.actionbar.bar3.buttonsPerRow = 3
-	E.db.actionbar.bar3.visibility = "[petbattle] hide; show"
-	E.db.actionbar.bar3.buttonsize = 26
-	E.db.actionbar.bar3.backdrop = true
-	E.db.actionbar.bar4.enabled = false
-	--E.db.actionbar.bar5.enabled = true
-	E.db.actionbar.bar5.buttons = 12
-	E.db.actionbar.bar5.buttonspacing = 2
-	E.db.actionbar.bar5.mouseover = true
-	E.db.actionbar.bar5.buttonsize = 24
-	E.db.actionbar.bar5.backdrop = true
-	E.db.actionbar.microbar.enabled = true
-	E.db.actionbar.microbar.buttonsPerRow = 2
-	E.db.actionbar.microbar.alpha = 0.2
-	E.db.actionbar.stanceBar.buttonspacing = 2
-	E.db.actionbar.stanceBar.backdrop = true
-	E.db.actionbar.stanceBar.buttonsPerRow = 1
-	E.db.actionbar.stanceBar.buttonsize = 22
-	E.db.actionbar.barPet.point = "TOPLEFT"
-	E.db.actionbar.barPet.buttonspacing = 1
-	E.db.actionbar.barPet.backdrop = false
-	E.db.actionbar.barPet.buttonsPerRow = 5
-	E.db.actionbar.barPet.buttonsize = 20
-
+	do
+		E.db.actionbar.hotkeytext = false
+		E.db.actionbar.keyDown = false
+		E.db.actionbar.bar1.point = "TOPLEFT"
+		E.db.actionbar.bar1.buttonsPerRow = 3
+		E.db.actionbar.bar1.buttonsize = 26
+		E.db.actionbar.bar1.backdrop = true
+		E.db.actionbar.bar2.enabled = true
+		E.db.actionbar.bar2.point = "TOPLEFT"
+		E.db.actionbar.bar2.backdrop = true
+		E.db.actionbar.bar2.buttonsPerRow = 3
+		E.db.actionbar.bar2.buttonsize = 26
+		E.db.actionbar.bar2.visibility = "[petbattle] hide; show"
+		E.db.actionbar.bar3.point = "TOPLEFT"
+		E.db.actionbar.bar3.buttons = 12
+		E.db.actionbar.bar3.buttonsPerRow = 3
+		E.db.actionbar.bar3.visibility = "[petbattle] hide; show"
+		E.db.actionbar.bar3.buttonsize = 26
+		E.db.actionbar.bar3.backdrop = true
+		E.db.actionbar.bar4.enabled = false
+		--E.db.actionbar.bar5.enabled = true
+		E.db.actionbar.bar5.buttons = 12
+		E.db.actionbar.bar5.buttonspacing = 2
+		E.db.actionbar.bar5.mouseover = true
+		E.db.actionbar.bar5.buttonsize = 24
+		E.db.actionbar.bar5.backdrop = true
+		E.db.actionbar.microbar.enabled = true
+		E.db.actionbar.microbar.buttonsPerRow = 2
+		E.db.actionbar.microbar.alpha = 0.2
+		E.db.actionbar.stanceBar.buttonspacing = 2
+		E.db.actionbar.stanceBar.backdrop = true
+		E.db.actionbar.stanceBar.buttonsPerRow = 1
+		E.db.actionbar.stanceBar.buttonsize = 22
+		E.db.actionbar.barPet.point = "TOPLEFT"
+		E.db.actionbar.barPet.buttonspacing = 1
+		E.db.actionbar.barPet.backdrop = false
+		E.db.actionbar.barPet.buttonsPerRow = 5
+		E.db.actionbar.barPet.buttonsize = 20
+	end
+	
 	--Raid marks--
 	E.db.sle.marks.growth = "LEFT"
 
@@ -1096,6 +1103,9 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.sle.lootwin = true
 	E.db.sle.lootalpha = 0.5
 	
+	--LFR--
+	E.db.datatexts.lfrshow = true
+	
 	--Errors--
 	E.db.sle.errors = true
 	
@@ -1103,81 +1113,83 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.sle.uibuttons.enable = true
 
 	--Moving stuff--
-	if layout == "healer" then
-		E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-313245"
-		E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM0177"
-		E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM313245"
-		E.db.movers.ElvUF_TargetCastbarMover = "BOTTOMElvUIParentBOTTOM0196"
-		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM271220"
-		E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM-270210"
-		E.db.movers.ElvUF_PetTargetMover = "BOTTOMElvUIParentBOTTOM-270185"
-		E.db.movers.PetAB = "BOTTOMElvUIParentBOTTOM-275143"
-		E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT547298"
-		E.db.movers.TempEnchantMover = "BOTTOMElvUIParentBOTTOM-241298"
-		E.db.movers.ElvUF_PartyMover = "BOTTOMElvUIParentBOTTOM0251"
-		E.db.movers.ElvUF_Raid10Mover = "BOTTOMElvUIParentBOTTOM0215"
-		E.db.movers.ElvUF_Raid25Mover = "BOTTOMElvUIParentBOTTOM0215"
-		E.db.movers.ElvUF_Raid40Mover = "BOTTOMElvUIParentBOTTOM0215"
-		E.db.movers.ElvUF_TankMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT428245"
-		E.db.movers.BossButton = "BOTTOMLEFTElvUIParentBOTTOMLEFT326268"
-	else
-		E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-228192"
-		E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM0194"
-		E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM228192"
-		E.db.movers.ElvUF_TargetCastbarMover = "BOTTOMElvUIParentBOTTOM228169"
-		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-835169"
-		E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM-264157"
-		E.db.movers.ElvUF_PetTargetMover = "BOTTOMLEFTUIParentBOTTOMLEFT835169"
-		E.db.movers.PetAB = "BOTTOMElvUIParentBOTTOM-275115"
-		E.db.movers.TotemBarMover = "BOTTOMElvUIParentBOTTOM-275245"
-		E.db.movers.TempEnchantMover = "BOTTOMElvUIParentBOTTOM-156245"
-		E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0245"
-		E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0245"
-		E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0245"
-		E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0245"	
-		E.db.movers.BossButton = "BOTTOMElvUIParentBOTTOM0237"
+	do
+		if layout == "healer" then
+			E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-313245"
+			E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM0177"
+			E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM313245"
+			E.db.movers.ElvUF_TargetCastbarMover = "BOTTOMElvUIParentBOTTOM0196"
+			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM271220"
+			E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM-270210"
+			E.db.movers.ElvUF_PetTargetMover = "BOTTOMElvUIParentBOTTOM-270185"
+			E.db.movers.PetAB = "BOTTOMElvUIParentBOTTOM-275143"
+			E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT547298"
+			E.db.movers.TempEnchantMover = "BOTTOMElvUIParentBOTTOM-241298"
+			E.db.movers.ElvUF_PartyMover = "BOTTOMElvUIParentBOTTOM0251"
+			E.db.movers.ElvUF_Raid10Mover = "BOTTOMElvUIParentBOTTOM0215"
+			E.db.movers.ElvUF_Raid25Mover = "BOTTOMElvUIParentBOTTOM0215"
+			E.db.movers.ElvUF_Raid40Mover = "BOTTOMElvUIParentBOTTOM0215"
+			E.db.movers.ElvUF_TankMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT428245"
+			E.db.movers.BossButton = "BOTTOMLEFTElvUIParentBOTTOMLEFT326268"
+		else
+			E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-228192"
+			E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM0194"
+			E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM228192"
+			E.db.movers.ElvUF_TargetCastbarMover = "BOTTOMElvUIParentBOTTOM228169"
+			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-835169"
+			E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM-264157"
+			E.db.movers.ElvUF_PetTargetMover = "BOTTOMLEFTUIParentBOTTOMLEFT835169"
+			E.db.movers.PetAB = "BOTTOMElvUIParentBOTTOM-275115"
+			E.db.movers.TotemBarMover = "BOTTOMElvUIParentBOTTOM-275245"
+			E.db.movers.TempEnchantMover = "BOTTOMElvUIParentBOTTOM-156245"
+			E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0245"
+			E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0245"
+			E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0245"
+			E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0245"	
+			E.db.movers.BossButton = "BOTTOMElvUIParentBOTTOM0237"
+		end
+		E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM019"
+		E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM8519"
+		E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM-8519"
+		E.db.movers.ElvAB_4 = "TOPRIGHTUIParentTOPRIGHT-311-319"
+		E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-24919"
+		E.db.movers.MinimapMover = "TOPRIGHTElvUIParentTOPRIGHT2-18"
+		E.db.movers.UIBFrameMover = "TOPLEFTElvUIParentTOPLEFT0-451"
+		E.db.movers.WatchFrameMover = "TOPRIGHTUIParentTOPRIGHT-237-231"
+		E.db.movers.BossHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-1-217"
+		E.db.movers.ArenaHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-1-217"
+		E.db.movers.PetBattleABMover = "BOTTOMElvUIParentBOTTOM019"
+		E.db.movers.ShiftAB = "BOTTOMElvUIParentBOTTOM-14019"
+		if UnitLevel('player') == 90 then
+			E.db.movers.ExperienceBarMover = "TOPElvUIParentTOP0-19"
+			E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-19"
+			E.db.movers.PvPMover = "TOPElvUIParentTOP-5-50"
+			E.db.movers.LocationMover = "TOPElvUIParentTOP0-30"
+			E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-32"
+		else
+			E.db.movers.ExperienceBarMover = "TOPElvUIParentTOP0-19"
+			E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-30"
+			E.db.movers.LocationMover = "TOPElvUIParentTOP0-41"
+			E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-43"
+			E.db.movers.PvPMover = "TOPElvUIParentTOP-5-61"
+		end
+		E.db.movers.MarkMover = "BOTTOMElvUIParentBOTTOM0132"
+		E.db.movers.MicrobarMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT2244"
+		E.db.movers.LootFrameMover = "TOPLEFTUIParentTOPLEFT60-360"
+		E.db.movers.AurasMover = "TOPRIGHTElvUIParentTOPRIGHT-208-19"
+		E.db.movers.BagsMover = "TOPLEFTUIParentTOPLEFT0-19"
+		E.db.movers.GMMover = "TOPLEFTElvUIParentTOPLEFT402-19"
+		E.db.movers.BNETMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0479"
+		E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM239103"
+		E.db.movers.ElvUF_FocusTargetMover = "BOTTOMElvUIParentBOTTOM23934"
+		E.db.movers.VehicleSeatMover = "TOPLEFTElvUIParentTOPLEFT185-38"
+		E.db.movers.DP_5_Mover = "BOTTOMElvUIParentBOTTOM-3050"
+		E.db.movers.DP_6_Mover = "BOTTOMElvUIParentBOTTOM3050"
+		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT019"
+		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT019"
+		E.db.movers.Dashboard = "TOPLEFTElvUIParentTOPLEFT0-19"
 	end
-	E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM019"
-	E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM8519"
-	E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM-8519"
-	E.db.movers.ElvAB_4 = "TOPRIGHTUIParentTOPRIGHT-311-319"
-	E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-24919"
-	E.db.movers.MinimapMover = "TOPRIGHTElvUIParentTOPRIGHT2-18"
-	E.db.movers.UIBFrameMover = "TOPLEFTElvUIParentTOPLEFT0-451"
-	E.db.movers.WatchFrameMover = "TOPRIGHTUIParentTOPRIGHT-237-231"
-	E.db.movers.BossHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-1-217"
-	E.db.movers.ArenaHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-1-217"
-	E.db.movers.PetBattleABMover = "BOTTOMElvUIParentBOTTOM019"
-	E.db.movers.ShiftAB = "BOTTOMElvUIParentBOTTOM-14019"
-	if UnitLevel('player') == 90 then
-		E.db.movers.ExperienceBarMover = "TOPElvUIParentTOP0-19"
-		E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-19"
-		E.db.movers.PvPMover = "TOPElvUIParentTOP-5-50"
-		E.db.movers.LocationMover = "TOPElvUIParentTOP0-30"
-		E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-32"
-	else
-		E.db.movers.ExperienceBarMover = "TOPElvUIParentTOP0-19"
-		E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-30"
-		E.db.movers.LocationMover = "TOPElvUIParentTOP0-41"
-		E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-43"
-		E.db.movers.PvPMover = "TOPElvUIParentTOP-5-61"
-	end
-	E.db.movers.MarkMover = "BOTTOMElvUIParentBOTTOM0132"
-	E.db.movers.MicrobarMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT2244"
-	E.db.movers.LootFrameMover = "TOPLEFTUIParentTOPLEFT60-360"
-	E.db.movers.AurasMover = "TOPRIGHTElvUIParentTOPRIGHT-208-19"
-	E.db.movers.BagsMover = "TOPLEFTUIParentTOPLEFT0-19"
-	E.db.movers.GMMover = "TOPLEFTElvUIParentTOPLEFT402-19"
-	E.db.movers.BNETMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0479"
-	E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM239103"
-	E.db.movers.ElvUF_FocusTargetMover = "BOTTOMElvUIParentBOTTOM23934"
-	E.db.movers.VehicleSeatMover = "TOPLEFTElvUIParentTOPLEFT185-38"
-	E.db.movers.DP_5_Mover = "BOTTOMElvUIParentBOTTOM-3050"
-	E.db.movers.DP_6_Mover = "BOTTOMElvUIParentBOTTOM3050"
-	E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT019"
-	E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT019"
-	E.db.movers.Dashboard = "TOPLEFTElvUIParentTOPLEFT0-19"
-
+	
 	E:UpdateAll(true)
 end
 
