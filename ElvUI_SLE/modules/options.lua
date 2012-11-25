@@ -71,16 +71,7 @@ E.Options.args.sle = {
 		},
 	},
 }
---[[
-E.Options.args.sle.args.general.args.autoloot = {
-	order = 2,
-	type = "toggle",
-	name = "Autoloot",
-	desc = "Enable/Disable Autoloot window",
-	get = function(info) return E.db.sle.autoloot end,
-	set = function(info, value) E.db.sle.autoloot = value; end
-}
-]]
+
 --Credits
 E.Options.args.sle.args.credits = {
 	order = 200,
