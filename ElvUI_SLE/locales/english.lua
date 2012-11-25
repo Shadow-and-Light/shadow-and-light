@@ -177,6 +177,7 @@ Boradan
 Camealion
 Pvtschlag
 Sinaris
+Sortokk
 Swordyy
 ]=]
 L["Other Support:"] = true

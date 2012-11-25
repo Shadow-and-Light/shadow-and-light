@@ -163,6 +163,7 @@ Boradan
 Camealion
 Pvtschlag
 Sinaris
+Sortokk
 Swordyy
 ]=]
 L["Other Support:"] = "Anderer Support:"
