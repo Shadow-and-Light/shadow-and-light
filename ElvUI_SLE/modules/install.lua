@@ -385,6 +385,7 @@ function E:SetupLayout(layout, noDataReset)
 	if not noDataReset then
 		E:CopyTable(E.db.unitframe.units, P.unitframe.units)
 		E:CopyTable(E.db.sle.combatico, P.sle.combatico)
+		E.db.sle.powtext = false
 	end
 	if layout == 'healer' then
 		if not IsAddOnLoaded('Clique') then
