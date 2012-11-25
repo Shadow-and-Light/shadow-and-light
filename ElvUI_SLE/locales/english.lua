@@ -208,6 +208,7 @@ L["CHANGE_LOG"] = [=[|cff1784d1v1.3|r (Not released, patch 5.1 stuff)
 - Added S&L version number to version datatext, login message and config
 - Buttons for resetting all S&L options or just desired group's options have been added
 - You can now see changelog in game
+- Added alternative mene regen datatext called "MP5". It shows an "mp5" title instead of "mana regen"
 
 |cff1784d1v1.22|r (November 8, 2012)
 - Fixed our settings packs in installation
