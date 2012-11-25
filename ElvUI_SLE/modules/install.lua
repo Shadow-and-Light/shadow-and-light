@@ -725,9 +725,9 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			if E.db.lowresolutionset then
 				E.db.datatexts.panels.RightChatDataPanel.left = 'Spell/Heal Power';
 				E.db.datatexts.panels.RightChatDataPanel.middle = 'Crit Chance';
-				E.db.datatexts.panels.RightChatDataPanel.right = 'Mana Regen';
+				E.db.datatexts.panels.RightChatDataPanel.right = 'MP5';
 			else
-				E.db.datatexts.panels.RightChatDataPanel.left = 'Mana Regen';
+				E.db.datatexts.panels.RightChatDataPanel.left = 'MP5';
 				E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
 				E.db.datatexts.panels.RightChatDataPanel.right = 'Spec Switch';
 			end
