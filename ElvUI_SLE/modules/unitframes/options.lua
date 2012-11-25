@@ -46,7 +46,7 @@ E.Options.args.sle.args.unitframes = {
 		Reset = {
 			order = 3,
 			type = 'execute',
-			name = L["Reset"],
+			name = L['Restore Defaults'],
 			desc = L["Reset these options to defaults"],
 			func = function() E:GetModule('SLE'):Reset(nil, true) end,
 		},
