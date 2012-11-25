@@ -25,6 +25,9 @@ L["SLE_LOGIN_MSG"] = [=[You are using |cff1784d1Shadow & Light Edit|r version |c
 If you wish to use the original ElvUI addon, disable this edit's plugin in your Addons manager.
 Have a nice day.]=]
 L["Your version of ElvUI is older than recommended to use with Shadow & Light Edit. Please, download the latest version from tukui.org."] = true
+L["Reset All"] = true
+L["Reset all Shadow & Light options and movers to their defaults"] = true
+L["Reset these options to defaults"] = true
 
 --Install--
 L["Shadow & Light Settings"] = true
