@@ -43,6 +43,13 @@ E.Options.args.sle.args.unitframes = {
 			type = "description",
 			name = L["Options for customizing unit frames. Please don't change these setting when ElvUI's testing frames for bosses and arena teams are shown. That will make them invisible until retoggling."],
 		},
+		Reset = {
+			order = 3,
+			type = 'execute',
+			name = L["Reset"],
+			desc = L["Reset these options to defaults"],
+			func = function() E:GetModule('SLE'):Reset(nil, true) end,
+		},
 		indicators = {
 			order = 5,
 			type = "group",

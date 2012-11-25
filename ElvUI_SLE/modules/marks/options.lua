@@ -20,8 +20,20 @@ E.Options.args.sle.args.marks = {
 			get = function(info) return E.db.sle.marks.enabled end,
 			set = function(info, value) E.db.sle.marks.enabled = value; RM:UpdateVisibility() end
 		},
-		showinside = {
+		Reset = {
 			order = 3,
+			type = 'execute',
+			name = L["Reset"],
+			desc = L["Reset these options to defaults"],
+			func = function() E:GetModule('SLE'):Reset(nil, nil, nil, nil, true) end,
+		},
+		spacer = {
+			order = 4,
+			type = 'description',
+			name = "",
+		},
+		showinside = {
+			order = 5,
 			type = "toggle",
 			name = L["Show only in instances"],
 			desc = L["Selecting this option will have the Raid Markers appear only while in a raid or dungeon."],
@@ -29,7 +41,7 @@ E.Options.args.sle.args.marks = {
 			set = function(info, value) E.db.sle.marks.showinside = value; RM:UpdateVisibility() end
 		},
 		size = {
-			order = 4,
+			order = 6,
 			type = "range",
 			name = L['Size'],
 			desc = L["Sets size of buttons"],
@@ -38,7 +50,7 @@ E.Options.args.sle.args.marks = {
 			set = function(info, value) E.db.sle.marks.size = value; RM:FrameButtonsGrowth(); RM:FrameButtonsSize() end,
 		},
 		growth = {
-			order = 5,
+			order = 7,
 			type = "select",
 			name = L["Direction"],
 			desc = L["Change the direction of buttons growth from the skull marker"],

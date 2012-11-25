@@ -80,8 +80,20 @@ E.Options.args.sle.args.datatext = {
 			type = "description",
 			name = L["DP_DESC"]
 		},
-		dashboard = {
+		Reset = {
 			order = 3,
+			type = 'execute',
+			name = L["Reset"],
+			desc = L["Reset these options to defaults"],
+			func = function() E:GetModule('SLE'):Reset(nil, nil, true) end,
+		},
+		spacer = {
+			order = 4,
+			type = 'description',
+			name = "",
+		},
+		dashboard = {
+			order = 5,
 			type = "toggle",
 			name = L["Dashboard"],
 			desc = L["Show/Hide dashboard."],
@@ -89,7 +101,7 @@ E.Options.args.sle.args.datatext = {
 			set = function(info, value) E.db.sle.datatext.dashboard.enable = value; DTP:DashboardShow() end
 		},
 		width = {
-			order = 4,
+			order = 6,
 			type = "range",
 			name = L["Dashboard Panels Width"],
 			desc = L["Sets size of dashboard panels."],

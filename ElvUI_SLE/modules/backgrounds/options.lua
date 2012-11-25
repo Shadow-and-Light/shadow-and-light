@@ -26,8 +26,20 @@ E.Options.args.sle.args.backgrounds = {
 			type = "description",
 			name = L["BG_DESC"]
 		},
-		bottom_enabled = {
+		Reset = {
 			order = 3,
+			type = 'execute',
+			name = L["Reset"],
+			desc = L["Reset these options to defaults"],
+			func = function() E:GetModule('SLE'):Reset(nil, nil, nil, true) end,
+		},
+		spacerreset = {
+			order = 4,
+			type = 'description',
+			name = "",
+		},
+		bottom_enabled = {
+			order = 5,
 			type = "toggle",
 			name = L["Bottom BG"],
 			desc = L["Show/Hide this frame."],
@@ -35,7 +47,7 @@ E.Options.args.sle.args.backgrounds = {
 			set = function(info, value) E.db.sle.backgrounds.bottom.enabled = value; BG:FramesVisibility() end
 		},
 		left_enabled = {
-			order = 4,
+			order = 6,
 			type = "toggle",
 			name = L["Left BG"],
 			desc = L["Show/Hide this frame."],
@@ -43,12 +55,12 @@ E.Options.args.sle.args.backgrounds = {
 			set = function(info, value) E.db.sle.backgrounds.left.enabled = value; BG:FramesVisibility() end
 		},
 		spacer = {
-			order = 5,
+			order = 7,
 			type = "description",
 			name = "",
 		},
 		right_enabled = {
-			order = 6,
+			order = 8,
 			type = "toggle",
 			name = L["Right BG"],
 			desc = L["Show/Hide this frame."],
@@ -56,7 +68,7 @@ E.Options.args.sle.args.backgrounds = {
 			set = function(info, value) E.db.sle.backgrounds.right.enabled = value; BG:FramesVisibility() end
 		},
 		action_enabled = {
-			order = 7,
+			order = 9,
 			type = "toggle",
 			name = L["Actionbar BG"],
 			desc = L["Show/Hide this frame."],

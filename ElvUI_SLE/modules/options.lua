@@ -21,6 +21,13 @@ E.Options.args.sle = {
 			type = "description",
 			name = L["SLE_DESC"],
 		},
+		Reset = {
+			order = 3,
+			type = 'execute',
+			name = L["Reset All"],
+			desc = L["Reset all Shadow & Light options and movers to their defaults"],
+			func = function() SLE:Reset(true) end,
+		},
 		general = {
 			order = 3,
 			type = "group",
