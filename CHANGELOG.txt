@@ -8,6 +8,8 @@ v1.23 (Not released, patch 5.1 stuff)
 - Added a mover for world/BG pvp score(hellfire towers, AV reinforcements, AB resources, etc)
 - Capture bar is now docked to the bottom of a new mover
 - Show errors in combat is now profile based option
+- Added S&L version number to version datatext, login message and config
+- Buttons for resetting all S&L options or just desired group's options have been added
 
 v1.22 (November 8, 2012)
 - Fixed our settings packs in installation
