@@ -11,6 +11,7 @@ function M:Initialize()
 	E:CreateMover(RaidUtility_ShowButton, "RaidUtility_Mover", "Raid Utility", nil, nil, nil, "ALL,GENERAL,S&L")
 	local mover = RaidUtility_Mover
 	local frame = RaidUtility_ShowButton
+	if E.db.movers == nil then E.db.movers = {} end
 	
 	mover:HookScript("OnDragStart", function(self) 
 		frame:ClearAllPoints()
