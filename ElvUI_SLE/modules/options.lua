@@ -90,3 +90,21 @@ E.Options.args.sle.args.credits = {
 		},
 	},
 }
+
+E.Options.args.sle.args.changelog = {
+	order = 500,
+	type = 'group',
+	name = L["Changelog"],
+	args = {
+		logheader = {
+			order = 1,
+			type = "header",
+			name = L["Changelog"],
+		},
+		log = {
+			order = 2,
+			type = "description",
+			name = L["CHANGE_LOG"],
+		},
+	},
+}
