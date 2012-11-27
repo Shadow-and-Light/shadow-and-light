@@ -1190,6 +1190,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT019"
 		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT019"
 		E.db.movers.Dashboard = "TOPLEFTElvUIParentTOPLEFT0-19"
+		E.db.movers.RaidUtility_Mover = "TOPElvUIParentTOP-283-19"
 	end
 	
 	E:UpdateAll(true)
