@@ -93,7 +93,7 @@ function CH:PositionChat(override)
 			FCF_SavePositionAndDimensions(chat)			
 			
 			tab:SetParent(RightChatPanel)
-			chat:SetParent(tab)
+			chat:SetParent(RightChatPanel)
 			
 			if chat:IsMovable() then
 				chat:SetUserPlaced(true)
@@ -104,8 +104,8 @@ function CH:PositionChat(override)
 				CH:SetupChatTabs(tab, false)
 			end
 		elseif not isDocked and chat:IsShown() then
-			tab:SetParent(E.UIParent)
-			chat:SetParent(E.UIParent)
+			tab:SetParent(UIParent)
+			chat:SetParent(UIParent)
 			
 			CH:SetupChatTabs(tab, true)
 		else
@@ -121,7 +121,11 @@ function CH:PositionChat(override)
 				FCF_SavePositionAndDimensions(chat)		
 			end
 			chat:SetParent(LeftChatPanel)
-			tab:SetParent(GeneralDockManager)
+			if i > 2 then
+				tab:SetParent(GeneralDockManagerScrollFrameChild)
+			else
+				tab:SetParent(GeneralDockManager)
+			end
 			if chat:IsMovable() then
 				chat:SetUserPlaced(true)
 			end
