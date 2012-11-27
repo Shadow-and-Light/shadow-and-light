@@ -1200,48 +1200,47 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	InstallStepComplete.message = L["Repooc's Defaults Set"]
 	InstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
+	
 	layout = E.db.layoutSet  --Pull which layout was selected if any.
 
---	P.sle.auras.castername = true
 	--General Options
-	E.db.general.autoRepair = "PLAYER"  --Checked
-	E.db.general.backdropcolor = {
-		["b"] = 0.2509803921568627,
-		["g"] = 0.2509803921568627,
-		["r"] = 0.2509803921568627,
-	}  --Checked
+	E.db.general.bottomPanel = true
+	E.db.general.topPanel = true
 	E.db.general.backdropfadecolor = {
-		["a"] = 0.3500000238418579,
-		["b"] = 0.2980392156862745,
-		["g"] = 0.2980392156862745,
-		["r"] = 0.2980392156862745,
-	}  --Checked
-	E.db.general.bordercolor = {
-		["b"] = 0,
-		["g"] = 0,
+		["b"] = 0.06,
+		["g"] = 0.06,
+		["r"] = 0.06,
+	}
+	E.db.general.valuecolor = {
+		["b"] = 0.59,
+		["g"] = 1,
 		["r"] = 0,
-	}  --Checked
-	E.db.general.health = {
-	}  --Checked
-	E.db.general.health_backdrop = {
-	}  --Checked
-	E.db.general.interruptAnnounce = "RAID"  --Checked
-	E.db.general.stickyFrames = true  --Checked
+	}
+	E.db.general.vendorGrays = true
+	E.db.general.bordercolor = {
+		["b"] = 0.31,
+		["g"] = 0.31,
+		["r"] = 0.31,
+	}
+	E.db.general.experience.enable = true
+	E.db.general.reputation.enbale = true
+	E.db.general.interruptAnnounce = "RAID"
+	
+	--Bags
+	E.db.bags.xOffset = 3
+	
+	
+	
+	
+--[[
 	E.db.general.tapped = {
 	}  --Checked
 	E.db.general.threat.enable = true  --Checked
 	E.db.general.totems.growthDirection = "HORIZONTAL"  --Checked
 	E.db.general.totems.size = 30  --Checked
-	E.db.general.valuecolor = {
-		["a"] = 1,
-		["b"] = 1,
-		["g"] = 1,
-		["r"] = 1,
-	}  --Checked
-	E.db.general.vendorGrays = true  --Checked
-	E.db.hideTutorial = 1  --Checked
 
-	--Bags
+
+	E.db.hideTutorial = 1  --Checked	--Bags
 	E.db.bags.bagCols = 13  --Checked
 	E.db.bags.yOffset = 208  --Checked
 
@@ -1489,7 +1488,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.movers.ElvAB_3 = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-80222"  --Checked
 		E.db.movers.ElvAB_5 = "BOTTOMLEFTElvUIParentBOTTOMLEFT80222"  --Checked
 	end
-
+]]
 	for i = 1, NUM_CHAT_WINDOWS do
 		local frame = _G[format("ChatFrame%s", i)]
 		FCF_SetChatWindowFontSize(nil, frame, 14)		
