@@ -195,7 +195,7 @@ L["Pet Battle AB"] = true
 
 --Changelog--
 L["Changelog"] = true
-L["CHANGE_LOG"] = [=[|cff1784d1v1.3|r (Not released, patch 5.1 stuff)
+L["CHANGE_LOG"] = [=[|cff1784d1v1.3|r (November 27, 2012)
 - Authors' layouts have been changed
 - Mount serach was deleted, Blizzard added that themselves
 - Some adjustions for pixel perfect mode to make things look good
