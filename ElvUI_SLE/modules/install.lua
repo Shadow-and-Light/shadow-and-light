@@ -796,7 +796,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.unitframe.units.player.health.text_format = "[healthcolor][health:current-percent:sl]"
 			E.db.unitframe.units.player.power.text_format = "[powercolor][power:current:sl]";
 			E.db.unitframe.units.player.fixTo = "power"
-			E.db.unitframe.units.player.name.text_format = "[name:medium]";
+			E.db.unitframe.units.player.name.text_format = "[name:medium] [level]";
 			E.db.unitframe.units.player.name.position = 'TOPLEFT';
 			E.db.unitframe.units.player.pvp.text_format = "||cFFB04F4F[pvptimer]||r"
 			E.db.unitframe.units.player.pvp.position = "BOTTOMLEFT"
@@ -817,7 +817,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.unitframe.units.target.power.hideonnpc = false;
 			E.db.unitframe.units.target.power.text_format = "[powercolor][power:current:sl]"
 			E.db.unitframe.units.target.fixTo = "power"
-			E.db.unitframe.units.target.name.text_format = "[name:medium] [smartlevel] [shortclassification]";
+			E.db.unitframe.units.target.name.text_format = "[name:medium] [level] [shortclassification]";
 			E.db.unitframe.units.target.name.position = 'TOPLEFT';
 			E.db.unitframe.units.target.portrait.enable = true
 			E.db.unitframe.units.target.portrait.camDistanceScale = 1.5;
