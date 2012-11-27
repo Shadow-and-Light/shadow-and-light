@@ -638,6 +638,8 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.nameplate.fontOutline = "OUTLINE"
 	E.db.nameplate.font = "ElvUI Font"
 	E.db.nameplate.height = 8
+	E.db.nameplate.auraFont = "ElvUI Font"
+	E.db.nameplate.auraFontOutline = "OUTLINE"
 	
 	--Auras--
 	E.db.auras.font = "ElvUI Font"
