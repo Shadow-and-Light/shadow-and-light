@@ -1228,270 +1228,277 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	
 	--Bags
 	E.db.bags.xOffset = 3
-	
-	
-	
-	
---[[
-	E.db.general.tapped = {
-	}  --Checked
-	E.db.general.threat.enable = true  --Checked
-	E.db.general.totems.growthDirection = "HORIZONTAL"  --Checked
-	E.db.general.totems.size = 30  --Checked
 
-
-	E.db.hideTutorial = 1  --Checked	--Bags
-	E.db.bags.bagCols = 13  --Checked
-	E.db.bags.yOffset = 208  --Checked
+	E.db.hideTutorial = 1
 
 	--Chat
-	E.db.chat.hyperlinkHover = false  --Checked
-	E.db.chat.font = "Accidental Presidency"  --Checked
+	E.db.chat.hyperlinkHover = false
+	E.db.chat.editBoxPosition = "ABOVE_CHAT"
 	E.db.chat.fontOutline = "OUTLINE"
-	E.db.chat.panelHeight = "209"  --Checked
-	E.db.chat.panelBackdropNameLeft = "Interface\\addons\\ElvUI_SLE\\media\\textures\\chat_1.tga"  --Checked
-	E.db.chat.panelBackdropNameRight = "Interface\\addons\\ElvUI_SLE\\media\\textures\\chat_1.tga"  --Checked
-	E.db.chat.panelWidth = 440  --Checked
-	E.db.chat.tabFont = "Morpheus"  --Checked
-	E.db.chat.tabFontOutline = "OUTLINE"  --Checked
-	E.db.chat.tabFontSize = 14  --Checked
-	E.db.scrollDownInterval = 30  --Checked
+	E.db.chat.panelBackdropNameLeft = "Interface\\AddOns\\ElvUI_SLE\\media\\textures\\logo_elvui_sle.tga"
+	E.db.chat.panelBackdropNameRight = "Interface\\AddOns\\ElvUI_SLE\\media\\textures\\logo_elvui_sle.tga"
+	E.db.chat.panelTabBackdrop = false
+	E.db.chat.panelWidth = 433
+	E.db.chat.tabFontSize = 11
+	E.db.chat.timeStampFormat = "%I:%M %p "
 
-	--LFR Lockout
-	E.db.datatexts.lfrshow = true  --Checked
-	
-	--PvP & Combat Icon
-	E.db.sle.combatico.pos = 'TOP'  --Checked
-	
-	--UIButtons
-	E.db.sle.uibuttons.enable = true  --Checked
+	--Tooltip
+	E.db.tooltip.count = false
+	E.db.tooltip.spellid = false
 
-	--Nameplate
-	E.db.nameplate.healthtext = "CURRENT_MAX_PERCENT"  --Checked
-	--Actionbars
-	E.db.actionbar.font = "Accidental Presidency"  --Checked
-	E.db.actionbar.fontsize = 13  --Checked
-	E.db.actionbar.fontOutline = "OUTLINE"  --Checked
-	E.db.actionbar.hotkeytext = true  --Checked
-	E.db.actionbar.macrotext = true  --Checked
-	--Bar 1
-	E.db.actionbar.bar1.enabled = true  --Checked
-	E.db.actionbar.bar1.backdrop = true  --Checked
-	E.db.actionbar.bar1.buttons = 12  --Checked
-	E.db.actionbar.bar1.buttonsPerRow = 6  --Checked
-	--Bar 2
-	E.db.actionbar.bar2.enabled = true  --Checked
-	E.db.actionbar.bar2.backdrop = true  --Checked
-	E.db.actionbar.bar2.buttons = 12  --Checked
-	E.db.actionbar.bar2.buttonsPerRow = 6  --Checked
-	--Bar 3
-	E.db.actionbar.bar3.enabled = true  --Checked
-	E.db.actionbar.bar3.backdrop = false  --Checked
-	E.db.actionbar.bar3.buttons = 12  --Checked
-	E.db.actionbar.bar3.buttonsize = 20  --Checked
-	E.db.actionbar.bar3.buttonsPerRow = 2  --Checked
-	--Bar 4
-	E.db.actionbar.bar4.enabled = true  --Checked
-	E.db.actionbar.bar4.backdrop = true  --Checked
-	E.db.actionbar.bar4.buttons = 12  --Checked
-	E.db.actionbar.bar4.buttonsize = 25  --Checked
-	E.db.actionbar.bar4.buttonsPerRow = 1  --Checked
-	--Bar 5
-	E.db.actionbar.bar5.enabled = true  --Checked
-	E.db.actionbar.bar5.backdrop = false  --Checked
-	E.db.actionbar.bar5.buttons = 12  --Checked
-	E.db.actionbar.bar5.buttonsize = 20  --Checked
-	E.db.actionbar.bar5.buttonsPerRow = 2  --Checked
-	--Stance Bar
-	--E.db.actionbar.stanceBar.buttonsize = 31
-	--E.db.actionbar.stanceBar.buttonsPerRow = 1
-	--E.db.actionbar.stanceBar.buttonspacing = 5
-	--E.db.actionbar.stanceBar.backdrop = true
-	--Pet Bar
-	E.db.actionbar.barPet.buttonsize = 25  --Checked	
+	--Datatext
+	do
+		E.db.datatexts.minimapPanels = false
+		E.db.datatexts.fontOutline = "OUTLINE"
+		E.db.datatexts.lfrshow = true
 
-	--Datatext Panels Settings
-	E.db.datatexts.font = "Accidental Presidency"  --Checked
-	E.db.datatexts.fontOutline = "OUTLINE"  --Checked
-	E.db.datatexts.fontSize = 15  --Checked
-	E.db.sle.datatext.bottom.enabled = true  --Checked
-	E.db.sle.datatext.chatleft.width = 424 --Checked
-	E.db.sle.datatext.chatright.width = 424  --Checked
-	E.db.sle.datatext.dp1.enabled = false  --Checked
-	E.db.sle.datatext.dp2.enabled = false  --Checked
-	E.db.sle.datatext.dp3.enabled = false  --Checked
-	E.db.sle.datatext.dp4.enabled = false  --Checked
-	E.db.sle.datatext.dp5.enabled = true  --Checked
-	E.db.sle.datatext.dp5.width = 424  --Checked
-	E.db.sle.datatext.dp6.enabled = true  --Checked
-	E.db.sle.datatext.dp6.width = 424  --Checked
-	E.db.sle.datatext.top.enabled = false  --Checked
+		E.db.sle.datatext.bottom.enabled = true  --Checked
+		E.private.sle.datatext.bottomhide = true
+		E.db.sle.datatext.chatleft.width = 417
+		E.db.sle.datatext.chatright.width = 417
+		E.db.sle.datatext.dp1.enabled = false
+		E.db.sle.datatext.dp2.enabled = false
+		E.db.sle.datatext.dp3.enabled = false
+		E.db.sle.datatext.dp4.enabled = false
+		E.db.sle.datatext.dp5.enabled = true
+		E.db.sle.datatext.dp5.width = 433
+		E.private.sle.datatext.dp5hide = true
+		E.db.sle.datatext.dp6.enabled = true
+		E.db.sle.datatext.dp6.width = 433
+		E.private.sle.datatext.dp6hide = true
+		E.db.sle.datatext.top.enabled = true
+		E.private.sle.datatext.tophide = true
 
-	--Datatext Panels Presets
-	E.db.datatexts.panels['DP_1']['left'] = ""  --Checked
-	E.db.datatexts.panels['DP_1']['middle'] = ""  --Checked
-	E.db.datatexts.panels['DP_1']['righ'] = ""  --Checked
-	E.db.datatexts.panels['DP_2']['left'] = ""  --Checked
-	E.db.datatexts.panels['DP_2']['middle'] = ""  --Checked
-	E.db.datatexts.panels['DP_2']['right'] = ""  --Checked
-	E.db.datatexts.panels['DP_3']['left'] = ""  --Checked
-	E.db.datatexts.panels['DP_3']['middle'] = ""  --Checked
-	E.db.datatexts.panels['DP_3']['right'] = ""  --Checked
-	E.db.datatexts.panels['DP_4']['left'] = ""  --Checked
-	E.db.datatexts.panels['DP_4']['middle'] = ""  --Checked
-	E.db.datatexts.panels['DP_4']['right'] = ""  --Checked
-	E.db.datatexts.panels['DP_5']['left'] = ""  --Checked
-	E.db.datatexts.panels['DP_5']['middle'] = ""  --Checked
-	E.db.datatexts.panels['DP_5']['right'] = ""  --Checked
-	E.db.datatexts.panels['DP_6']['left'] = ""  --Checked
-	E.db.datatexts.panels['DP_6']['middle'] = ""  --Checked
-	E.db.datatexts.panels['DP_6']['right'] = "Bags"  --Checked
-	E.db.datatexts.panels['LeftChatDataPanel']['left'] = "BugSack"  --Checked
-	E.db.datatexts.panels['LeftChatDataPanel']['middle'] = "AtlasLoot"  --Checked
-	E.db.datatexts.panels['LeftChatDataPanel']['right'] = "Durability"  --Checked
-	E.db.datatexts.panels['RightChatDataPanel']['left'] = "WIM"  --Checked
-	E.db.datatexts.panels['RightChatDataPanel']['middle'] = "SocialState"  --Checked
-	E.db.datatexts.panels['RightChatDataPanel']['right'] = "Time"  --Checked
-	E.db.datatexts.panels['Top_Center'] = "Version"  --Checked
-	E.db.datatexts.panels['Bottom_Panel'] = "System"  --Checked
-	E.db.datatexts.panels['LeftMiniPanel'] = "Gold"  --Checked
-	E.db.datatexts.panels['RightMiniPanel'] = "Spec Switch"  --Checked
+		--Datatext Panels Presets
+		E.db.datatexts.panels['DP_1']['left'] = ""
+		E.db.datatexts.panels['DP_1']['middle'] = ""
+		E.db.datatexts.panels['DP_1']['righ'] = ""
+		E.db.datatexts.panels['DP_2']['left'] = ""
+		E.db.datatexts.panels['DP_2']['middle'] = ""
+		E.db.datatexts.panels['DP_2']['right'] = ""
+		E.db.datatexts.panels['DP_3']['left'] = ""
+		E.db.datatexts.panels['DP_3']['middle'] = ""
+		E.db.datatexts.panels['DP_3']['right'] = ""
+		E.db.datatexts.panels['DP_4']['left'] = ""
+		E.db.datatexts.panels['DP_4']['middle'] = ""
+		E.db.datatexts.panels['DP_4']['right'] = ""
+		E.db.datatexts.panels['DP_5']['left'] = "Durability"
+		E.db.datatexts.panels['DP_5']['middle'] = ""
+		E.db.datatexts.panels['DP_5']['right'] = ""
+		E.db.datatexts.panels['DP_6']['left'] = ""
+		E.db.datatexts.panels['DP_6']['middle'] = ""
+		E.db.datatexts.panels['DP_6']['right'] = ""
+		E.db.datatexts.panels['LeftChatDataPanel']['left'] = "Bags"
+		E.db.datatexts.panels['LeftChatDataPanel']['middle'] = ""
+		E.db.datatexts.panels['LeftChatDataPanel']['right'] = ""
+		E.db.datatexts.panels['RightChatDataPanel']['left'] = ""
+		E.db.datatexts.panels['RightChatDataPanel']['middle'] = "Gold"
+		E.db.datatexts.panels['RightChatDataPanel']['right'] = "Time"
+		E.db.datatexts.panels['Top_Center'] = "Version"
+		E.db.datatexts.panels['Bottom_Panel'] = "System"
+		E.db.datatexts.panels['LeftMiniPanel'] = ""
+		E.db.datatexts.panels['RightMiniPanel'] = ""
 
-	--Datatext Panels Spec Specific
-	if layout == 'tank' then
-		E.db.datatexts.panels.DP_5.left = '';  --Checked
-		E.db.datatexts.panels.DP_5.middle = '';  --Checked
-		E.db.datatexts.panels.DP_5.right = '';  --Checked
-		E.db.datatexts.panels.DP_6.left = '';  --Checked
-		E.db.datatexts.panels.DP_6.middle = '';  --Checked
-	elseif layout == 'healer' then
-		E.db.datatexts.panels.DP_5.left = '';  --Checked
-		E.db.datatexts.panels.DP_5.middle = 'Crit Chance';  --Checked
-		E.db.datatexts.panels.DP_5.right = 'Spell/Heal Power';  --Checked
-		E.db.datatexts.panels.DP_6.left = 'Haste';  --Checked
-		E.db.datatexts.panels.DP_6.middle = '';  --Checked
-	elseif layout == 'dpsCaster' then
-		E.db.datatexts.panels.DP_5.left = 'Hit Rating';  --Checked
-		E.db.datatexts.panels.DP_5.middle = 'Crit Chance';  --Checked
-		E.db.datatexts.panels.DP_5.right = 'Spell/Heal Power';  --Checked
-		E.db.datatexts.panels.DP_6.left = 'Haste';  --Checked
-		E.db.datatexts.panels.DP_6.middle = 'DPS';  --Checked
-	else
-		E.db.datatexts.panels.DP_5.left = '';  --Checked
-		E.db.datatexts.panels.DP_5.middle = 'Crit Chance';  --Checked
-		E.db.datatexts.panels.DP_5.right = '';  --Checked
-		E.db.datatexts.panels.DP_6.left = 'Haste';  --Checked
-		E.db.datatexts.panels.DP_6.middle = 'DPS';  --Checked
+		--Datatext Panels Spec Specific
+		if layout == 'tank' then
+			E.db.datatexts.panels.DP_5.middle = ""
+			E.db.datatexts.panels.DP_5.right = ""
+			E.db.datatexts.panels.DP_6.left = ""
+			E.db.datatexts.panels.DP_6.middle = ""
+		elseif layout == 'healer' then
+			E.db.datatexts.panels.DP_5.middle = "MP5"
+			E.db.datatexts.panels.DP_5.right = "Spell/Heal Power"
+			E.db.datatexts.panels.DP_6.left = "Haste"
+			E.db.datatexts.panels.DP_6.middle = "Crit Chance"
+		elseif layout == 'dpsCaster' then
+			E.db.datatexts.panels.DP_5.middle = ""
+			E.db.datatexts.panels.DP_5.right = ""
+			E.db.datatexts.panels.DP_6.left = ""
+			E.db.datatexts.panels.DP_6.middle = ""
+		else
+			E.db.datatexts.panels.DP_5.middle = ""
+			E.db.datatexts.panels.DP_5.right = ""
+			E.db.datatexts.panels.DP_6.left = ""
+			E.db.datatexts.panels.DP_6.middle = ""
+		end
 	end
 
 	--Unitframes
-	E.db.unitframe.colors.colorhealthbyvalue = false  --Checked
-	E.db.unitframe.colors.customhealthbackdrop = true  --Checked
-	E.db.unitframe.colors.health = {
-		["b"] = 0.3764705882352941,
-		["g"] = 0.3764705882352941,
-		["r"] = 0.3764705882352941,
-	}  --Checked
-	E.db.unitframe.colors.health_backdrop = {
-		["b"] = 0,
-		["g"] = 0,
-		["r"] = 0.8784313725490196,
-	}  --Checked
-	E.db.unitframe.font = "Accidental Presidency"  --Checked
-	E.db.unitframe.fontSize = 13  --Checked
-	E.db.unitframe.fontOutline = 'THICKOUTLINE'  --Checked
+	do
+		--Raid10
+		E.db.unitframe.units.raid10.xOffset = 2
+		E.db.unitframe.units.raid10.columnSpacing = 2
+		E.db.unitframe.units.raid10.healPrediction = true
+		E.db.unitframe.units.raid10.width = 79
 
-	--Unitframes (Player)
-	E.db.unitframe.units.player.castbar.height = 15  --Checked
-	E.db.unitframe.units.player.castbar.width = 308  --Checked
-	E.db.unitframe.units.player.classbar.fill = "fill"  --Checked
-	E.db.unitframe.units.player.health.position = "BOTTOMLEFT"  --Checked
-	E.db.unitframe.units.player.health.text_format = "[healthcolor][health:current-percent:sl]"  --Checked
-	E.db.unitframe.units.player.height = 54  --Checked
-	E.db.unitframe.units.player.name.position = "BOTTOMRIGHT"  --Checked
-	E.db.unitframe.units.player.name.text_format = "[namecolor][name:medium]"  --Checked
-	E.db.unitframe.units.player.portrait.camDistanceScale = 2  --Checked
-	E.db.unitframe.units.player.portrait.enable = true  --Checked
-	E.db.unitframe.units.player.portrait.overlay = true  --Checked
-	E.db.unitframe.units.player.power.offset = 20  --Checked
-	E.db.unitframe.units.player.power.position = "BOTTOMLEFT"  --Checked
-	E.db.unitframe.units.player.power.text_format = "[powercolor][power:current:sl]"  --Checked
-	E.db.unitframe.units.player.pvp.text_format = "||cFFB04F4F[pvptimer]||r"  --Checked
-	E.db.unitframe.units.player.restIcon = false  --Checked
-	E.db.unitframe.units.player.width = 270  --Checked
+		--Target
+		E.db.unitframe.units.target.aurabar.attachTo = "BUFFS"
+		E.db.unitframe.units.target.smartAuraDisplay = "SHOW_DEBUFFS_ON_FRIENDLIES"
+		E.db.unitframe.units.target.buffs.playerOnly.friendly = true
+		E.db.unitframe.units.target.debuffs.enable = false
+		E.db.unitframe.units.target.power.position = "BOTTOMLEFT"
+		E.db.unitframe.units.target.power.hideonnpc = false
+		E.db.unitframe.units.target.health.position = "LEFT"
+		
+		--Party
+		E.db.unitframe.units.party.columnAnchorPoint = "LEFT"
+		E.db.unitframe.units.party.healPrediction = true
+		E.db.unitframe.units.party.height = 52
+		E.db.unitframe.units.party.point = "LEFT"
+		E.db.unitframe.units.party.width = 80
+		E.db.unitframe.units.party.xOffset = 5
 
-	--Unitframes (Target)
-	E.db.unitframe.units.target.castbar.height = 25  --Checked
-	E.db.unitframe.units.target.castbar.width = 308  --Checked
-	E.db.unitframe.units.target.healPrediction = true  --Checked
-	E.db.unitframe.units.target.health.position = "BOTTOMRIGHT"  --Checked
-	E.db.unitframe.units.target.health.text = true  --Checked
-	E.db.unitframe.units.target.name.enable = true  --Checked
-	E.db.unitframe.units.target.name.position = "BOTTOMLEFT"  --Checked
-	E.db.unitframe.units.target.portrait.camDistanceScale = 2  --Checked
-	E.db.unitframe.units.target.portrait.enable = true  --Checked
-	E.db.unitframe.units.target.portrait.overlay = true  --Checked
-	E.db.unitframe.units.target.power.hideonnpc = false  --Checked
-	E.db.unitframe.units.target.power.offset = 20  --Checked
-	E.db.unitframe.units.target.power.position = "BOTTOMRIGHT"  --Checked
-	E.db.unitframe.units.target.power.hideonnpc = false  --Checked
+		E.db.unitframe.units.party.debuffs.anchorPoint = "BOTTOMLEFT"
+		E.db.unitframe.units.party.debuffs.initialAnchor = "TOPLEFT"
+		E.db.unitframe.units.party.debuffs.sizeOverride = 0
+		E.db.unitframe.units.party.debuffs.useFilter = "Blacklist"
 
-	--Unitframes (Raid10)
-	E.db.unitframe.units.raid10.health.orientation = "VERTICAL"  --Checked
-	E.db.unitframe.units.raid10.width = 69  --Checked
+		E.db.unitframe.units.party.health.frequentUpdates = true
+		E.db.unitframe.units.party.health.orientation = "VERTICAL"
+		E.db.unitframe.units.party.health.position = "BOTTOM"
+		E.db.unitframe.units.party.health.text_format = "[healthcolor][health:deficit]"
 
-	--Unitframes (Raid25)
-	E.db.unitframe.units.raid25.healPrediction = true  --Checked
-	E.db.unitframe.units.raid25.width = 69  --Checked
-	E.db.unitframe.units.raid25.health.orientation = "VERTICAL"  --Checked
-	E.db.unitframe.units.raid25.height = 39  --Checked
+		E.db.unitframe.units.party.targetsGroup.anchorPoint = "TOP"
+		E.db.unitframe.units.party.targetsGroup.initialAnchor = "BOTTOM"
+		E.db.unitframe.units.party.targetsGroup.width = 80
+		E.db.unitframe.units.party.targetsGroup.xOffset = 0
+		E.db.unitframe.units.party.targetsGroup.yOffset = 1
 
-	--Unitframes (Raid40)
-	E.db.unitframe.units.raid40.width = 69  --Checked
+		E.db.unitframe.units.party.name.position = "TOP"
+		E.db.unitframe.units.party.name.text_format = "[namecolor][name:medium]"
 
-	if layout == "healer" then			
-		E.db.movers.ElvUF_PlayerMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT489332"  --Checked
-		E.db.movers.ElvUF_TargetMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-492332"  --Checked
-		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-789347"  --Checked
-		E.db.movers.ElvUF_PetMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT489294"  --Checked
-		E.db.movers.ElvUF_FocusMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-260342"  --Checked
-		E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTUIParentBOTTOMLEFT44379"  --Checked
-		E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT806170"  --Checked
-		E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT44379"  --Checked
-		E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT44323"  --Checked
-		E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT44323"  --Checked
-		E.db.movers.ElvUF_TargetCastbarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT806193"  --Checked
-		E.db.movers.MarkMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT883229"  --Checked
-		E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT552232"  --Checked
-		E.db.movers.UIBFrameMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-44222"  --Checked
-		E.db.movers.ElvAB_1 = "BOTTOMLEFTElvUIParentBOTTOMLEFT85695"  --Checked
-		E.db.movers.ElvAB_2 = "BOTTOMLEFTElvUIParentBOTTOMLEFT85621"  --Checked
-		E.db.movers.ElvAB_3 = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-80222"  --Checked
-		E.db.movers.ElvAB_5 = "BOTTOMLEFTElvUIParentBOTTOMLEFT80222"  --Checked
-	else
-		E.db.movers.ElvUF_PlayerMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT489332"  --Checked
-		E.db.movers.ElvUF_TargetMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-492332"  --Checked
-		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-789347"  --Checked
-		E.db.movers.ElvUF_PetMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT489294"  --Checked
-		E.db.movers.ElvUF_FocusMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-260342"  --Checked
-		E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTUIParentBOTTOMLEFT44379"  --Checked
-		E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT806170"  --Checked
-		E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT44379"  --Checked
-		E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT44323"  --Checked
-		E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT44323"  --Checked
-		E.db.movers.ElvUF_TargetCastbarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT806193"  --Checked
-		E.db.movers.MarkMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT883229"  --Checked
-		E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT552232"  --Checked
-		E.db.movers.UIBFrameMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-44222"  --Checked
-		E.db.movers.ElvAB_1 = "BOTTOMLEFTElvUIParentBOTTOMLEFT85695"  --Checked
-		E.db.movers.ElvAB_2 = "BOTTOMLEFTElvUIParentBOTTOMLEFT85621"  --Checked
-		E.db.movers.ElvAB_3 = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-80222"  --Checked
-		E.db.movers.ElvAB_5 = "BOTTOMLEFTElvUIParentBOTTOMLEFT80222"  --Checked
+		E.db.unitframe.units.party.petsGroup.anchorPoint = "TOP"
+		E.db.unitframe.units.party.petsGroup.enable = true
+		E.db.unitframe.units.party.petsGroup.initialAnchor = "BOTTOM"
+		E.db.unitframe.units.party.petsGroup.width = 80
+		E.db.unitframe.units.party.petsGroup.xOffset = 0
+		E.db.unitframe.units.party.petsGroup.yOffset = 1
+		
+		--Raid25
+		E.db.unitframe.units.raid25.columnSpacing = 2
+		E.db.unitframe.units.raid25.customTexts = {}
+		E.db.unitframe.units.raid25.healPrediction = true
+		E.db.unitframe.units.raid25.health.frequentUpdates = true
+		E.db.unitframe.units.raid25.health.orientation = "VERTICAL"
+		E.db.unitframe.units.raid25.width = 79
+		E.db.unitframe.units.raid25.xOffset = 2
+		
+		--Raid40
+		E.db.unitframe.units.raid40.columnSpacing = 2
+		E.db.unitframe.units.raid40.healPrediction = true
+		E.db.unitframe.units.raid40.health.frequentUpdates = true
+		E.db.unitframe.units.raid40.health.text = true
+		E.db.unitframe.units.raid40.health.orientation = "VERTICAL"
+		E.db.unitframe.units.raid40.height = 36
+		E.db.unitframe.units.raid40.name.position = "TOP"
+		E.db.unitframe.units.raid40.roleIcon.enable = true
+		E.db.unitframe.units.raid40.width = 79
+		E.db.unitframe.units.raid40.xOffset = 2
+		
+		--Arena
+		E.db.unitframe.units.arena.castbar.width = 200
+		E.db.unitframe.units.arena.width = 200
+		
+		--Player
+		E.db.unitframe.units.player.health.position = "TOPRIGHT"
+		E.db.unitframe.units.player.power.position = "BOTTOMRIGHT"
+
+		--Boss
+		E.db.unitframe.units.boss.width = 200
+		E.db.unitframe.units.boss.castbar.width = 200
+
+		E.db.unitframe.colors.healthclass = true
+		E.db.unitframe.colors.auraBarBuff = {
+			["b"] = 0.59,
+			["g"] = 1,
+			["r"] = 0,
+		}
+		E.db.unitframe.colors.castColor = {
+			["b"] = 0.59,
+			["g"] = 1,
+			["r"] = 0,
+		}
 	end
-]]
-	for i = 1, NUM_CHAT_WINDOWS do
-		local frame = _G[format("ChatFrame%s", i)]
-		FCF_SetChatWindowFontSize(nil, frame, 14)		
+
+	--Actionbars
+	--Bar 2
+	E.db.actionbar.bar2.enabled = true
+	--Bar 3
+	E.db.actionbar.bar3.enabled = false
+	--Bar 4
+	E.db.actionbar.bar4.enabled = true
+	E.db.actionbar.bar4.backdrop = false
+	E.db.actionbar.bar4.buttonsize = 28
+	E.db.actionbar.bar4.buttonspacing = 1
+	--Bar 5
+	E.db.actionbar.bar5.enabled = false
+	
+	--UIButtons
+	E.db.sle.uibuttons.enable = true
+	E.db.sle.uibuttons.position = "uib_hor"	
+	
+	--SLE Tooltip
+	E.db.sle.castername = true
+
+	do
+		if layout == "healer" then			
+			E.db.movers.ElvUF_PlayerMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT460187"
+			E.db.movers.ElvUF_TargetMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-460187"
+			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-460129"
+			E.db.movers.ElvUF_PetMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT460129"
+			E.db.movers.ElvUF_FocusMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-50052"
+			E.db.movers.ElvUF_PartyMover = "BOTTOMElvUIParentBOTTOM074"
+			E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT460166"
+			E.db.movers.ElvUF_Raid10Mover = "BOTTOMElvUIParentBOTTOM091"
+			E.db.movers.ElvUF_Raid25Mover = "BOTTOMElvUIParentBOTTOM091"
+			E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT13202"
+			E.db.movers.ElvUF_TargetCastbarMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-460166"
+			E.db.movers.UIBFrameMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT329175"
+			E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM021"
+			E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM055"
+			E.db.movers.ElvAB_4 = "TOPRIGHTElvUIParentTOPRIGHT-4-185"
+			E.db.movers.ElvUF_FocusCastbarMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-50031"
+			E.db.movers.DP_6_Mover = "BOTTOMElvUIParentBOTTOM3110"
+			E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT019"
+			E.db.movers.DP_5_Mover = "BOTTOMElvUIParentBOTTOM-3100"
+			E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-21"
+			E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-43"
+			E.db.movers.WatchFrameMover = "TOPLEFTElvUIParentTOPLEFT115-123"
+			E.db.movers.LootFrameMover = "TOPRIGHTElvUIParentTOPRIGHT-140-356"
+			E.db.movers.RaidUtility_Mover = "TOPLEFTElvUIParentTOPLEFT524-4"
+			E.db.movers.BossHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-91-210"
+			E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT019"
+			E.db.movers.ExperienceBarMover = "TOPElvUIParentTOP0-32"
+
+		else
+			E.db.movers.ElvUF_PlayerMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT460187"
+			E.db.movers.ElvUF_TargetMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-460187"
+			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-460129"
+			E.db.movers.ElvUF_PetMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT460129"
+			E.db.movers.ElvUF_FocusMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-50052"
+			E.db.movers.ElvUF_PartyMover = "BOTTOMElvUIParentBOTTOM074"
+			E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT460166"
+			E.db.movers.ElvUF_Raid10Mover = "BOTTOMElvUIParentBOTTOM091"
+			E.db.movers.ElvUF_Raid25Mover = "BOTTOMElvUIParentBOTTOM091"
+			E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT13202"
+			E.db.movers.ElvUF_TargetCastbarMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-460166"
+			E.db.movers.UIBFrameMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT329175"
+			E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM021"
+			E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM055"
+			E.db.movers.ElvAB_4 = "TOPRIGHTElvUIParentTOPRIGHT-4-185"
+			E.db.movers.ElvUF_FocusCastbarMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-50031"
+			E.db.movers.DP_6_Mover = "BOTTOMElvUIParentBOTTOM3110"
+			E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT019"
+			E.db.movers.DP_5_Mover = "BOTTOMElvUIParentBOTTOM-3100"
+			E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-21"
+			E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-43"
+			E.db.movers.WatchFrameMover = "TOPLEFTElvUIParentTOPLEFT115-123"
+			E.db.movers.LootFrameMover = "TOPRIGHTElvUIParentTOPRIGHT-140-356"
+			E.db.movers.RaidUtility_Mover = "TOPLEFTElvUIParentTOPLEFT524-4"
+			E.db.movers.BossHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-91-210"
+			E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT019"
+			E.db.movers.ExperienceBarMover = "TOPElvUIParentTOP0-32"
+		end
 	end
 
 	E:UpdateAll(true)
