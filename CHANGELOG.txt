@@ -1,3 +1,6 @@
+v1.31 (November 27, 2012)
+- Repooc config updated
+
 v1.3 (November 27, 2012)
 - Authors' layouts have been changed
 - Mount serach was deleted, Blizzard added that themselves
