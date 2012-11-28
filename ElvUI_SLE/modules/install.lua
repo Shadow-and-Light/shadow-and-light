@@ -86,7 +86,8 @@ local function SetupChat()
 	ChatFrame_AddMessageGroup(ChatFrame1, "BN_WHISPER")
 	ChatFrame_AddMessageGroup(ChatFrame1, "BN_CONVERSATION")
 	ChatFrame_AddMessageGroup(ChatFrame1, "BN_INLINE_TOAST_ALERT")
-	
+	ChatFrame_AddMessageGroup(ChatFrame1, "INSTANCE_CHAT")
+	ChatFrame_AddMessageGroup(ChatFrame1, "INSTANCE_CHAT_LEADER")
 
 	ChatFrame_RemoveAllMessageGroups(ChatFrame3)	
 	ChatFrame_AddMessageGroup(ChatFrame3, "COMBAT_FACTION_CHANGE")
@@ -132,6 +133,8 @@ local function SetupChat()
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL9")
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL10")
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL11")
+	ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT")
+	ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT_LEADER")
 	
 	--Adjust Chat Colors
 	--General
@@ -1223,7 +1226,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		["r"] = 0.31,
 	}
 	E.db.general.experience.enable = true
-	E.db.general.reputation.enbale = true
+	E.db.general.reputation.enable = true
 	E.db.general.interruptAnnounce = "RAID"
 	
 	--Bags
@@ -1339,7 +1342,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.unitframe.units.target.power.position = "BOTTOMLEFT"
 		E.db.unitframe.units.target.power.hideonnpc = false
 		E.db.unitframe.units.target.health.position = "LEFT"
-		
+
 		--Party
 		E.db.unitframe.units.party.columnAnchorPoint = "LEFT"
 		E.db.unitframe.units.party.healPrediction = true
@@ -1347,26 +1350,21 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.unitframe.units.party.point = "LEFT"
 		E.db.unitframe.units.party.width = 80
 		E.db.unitframe.units.party.xOffset = 5
-
 		E.db.unitframe.units.party.debuffs.anchorPoint = "BOTTOMLEFT"
 		E.db.unitframe.units.party.debuffs.initialAnchor = "TOPLEFT"
 		E.db.unitframe.units.party.debuffs.sizeOverride = 0
 		E.db.unitframe.units.party.debuffs.useFilter = "Blacklist"
-
 		E.db.unitframe.units.party.health.frequentUpdates = true
 		E.db.unitframe.units.party.health.orientation = "VERTICAL"
 		E.db.unitframe.units.party.health.position = "BOTTOM"
 		E.db.unitframe.units.party.health.text_format = "[healthcolor][health:deficit]"
-
 		E.db.unitframe.units.party.targetsGroup.anchorPoint = "TOP"
 		E.db.unitframe.units.party.targetsGroup.initialAnchor = "BOTTOM"
 		E.db.unitframe.units.party.targetsGroup.width = 80
 		E.db.unitframe.units.party.targetsGroup.xOffset = 0
 		E.db.unitframe.units.party.targetsGroup.yOffset = 1
-
 		E.db.unitframe.units.party.name.position = "TOP"
 		E.db.unitframe.units.party.name.text_format = "[namecolor][name:medium]"
-
 		E.db.unitframe.units.party.petsGroup.anchorPoint = "TOP"
 		E.db.unitframe.units.party.petsGroup.enable = true
 		E.db.unitframe.units.party.petsGroup.initialAnchor = "BOTTOM"
