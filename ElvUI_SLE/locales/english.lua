@@ -195,7 +195,13 @@ L["Pet Battle AB"] = true
 
 --Changelog--
 L["Changelog"] = true
-L["CHANGE_LOG"] = [=[|cff1784d1v1.3|r (November 27, 2012)
+L["CHANGE_LOG"] = [=[|cff1784d1v1.32|r (November 27, 2012)
+- Config updated
+
+|cff1784d1v1.31|r (November 27, 2012)
+- Repooc config updated
+
+|cff1784d1v1.3|r (November 27, 2012)
 - Authors' layouts have been changed
 - Mount serach was deleted, Blizzard added that themselves
 - Some adjustions for pixel perfect mode to make things look good
@@ -209,13 +215,4 @@ L["CHANGE_LOG"] = [=[|cff1784d1v1.3|r (November 27, 2012)
 - Buttons for resetting all S&L options or just desired group's options have been added
 - You can now see changelog in game
 - Added alternative mene regen datatext called "MP5". It shows an "mp5" title instead of "mana regen"
-
-|cff1784d1v1.22|r (November 8, 2012)
-- Fixed our settings packs in installation
-- You will be able to see your castbar and other stuff while in vehicle again (apparently it was there for ages and no one reported that o_O)
-- The option to hide combat indicator was removed. You can choose to hide it in it's positioning dropdown list now.
-- Fixed some issues with loading that resulted in disappearing of S&L mover group in config mode.
-
-|cff1784d1v1.21|r (November 1, 2012)
-- Fixed small error
 ]=]
