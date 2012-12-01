@@ -195,7 +195,11 @@ L["Pet Battle AB"] = true
 
 --Changelog--
 L["Changelog"] = true
-L["CHANGE_LOG"] = [=[|cff1784d1v1.32|r (November 27, 2012)
+L["CHANGE_LOG"] = [=[cff1784d1v1.33|r (December 1, 2012)
+- Fixed errors on auras tooltips
+- Fixed health bar height with classbar offset enabled
+
+|cff1784d1v1.32|r (November 27, 2012)
 - Config updated
 
 |cff1784d1v1.31|r (November 27, 2012)
