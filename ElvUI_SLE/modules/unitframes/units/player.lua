@@ -114,7 +114,7 @@ function UF:Update_PlayerFrame(frame, db)
 		if USE_MINI_CLASSBAR then
 			DEPTH = -(BORDER+(CLASSBAR_HEIGHT/2))
 		else
-			DEPTH = -(BORDER+CLASSBAR_HEIGHT+SPACING)
+			DEPTH = -(BORDER+SPACING)
 		end
 		
 		if USE_POWERBAR_OFFSET then
