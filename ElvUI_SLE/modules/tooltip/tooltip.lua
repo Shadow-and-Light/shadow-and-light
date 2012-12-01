@@ -7,6 +7,7 @@ function TT:Initialize()
 
 	hooksecurefunc(GameTooltip, "SetUnitBuff", function(self,...)
 		local srcUnit = select(8,UnitBuff(...))
+		if not srcUnit then return end
 		local src = GetUnitName(srcUnit, true)
 
 		if srcUnit == "pet" or srcUnit == "vehicle" then
@@ -31,6 +32,7 @@ function TT:Initialize()
 
 	hooksecurefunc(GameTooltip, "SetUnitDebuff", function(self,...)
 		local srcUnit = select(8,UnitDebuff(...))
+		if not srcUnit then return end
 		local src = GetUnitName(srcUnit, true)
 
 		if srcUnit == "pet" or srcUnit == "vehicle" then
@@ -55,6 +57,7 @@ function TT:Initialize()
 
 	hooksecurefunc(GameTooltip, "SetUnitAura", function(self,...)
 		local srcUnit = select(8,UnitAura(...))
+		if not srcUnit then return end
 		local src = GetUnitName(srcUnit, true)
 
 		if srcUnit == "pet" or srcUnit == "vehicle" then
