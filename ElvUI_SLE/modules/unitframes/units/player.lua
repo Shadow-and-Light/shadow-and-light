@@ -84,28 +84,6 @@ function UF:Update_PlayerFrame(frame, db)
 			POWERBAR_WIDTH = POWERBAR_WIDTH / 2
 		end
 	end
-	
-	health:ClearAllPoints()
-	health:Point("TOPRIGHT", frame, "TOPRIGHT", -BORDER, -BORDER)
-	if USE_POWERBAR_OFFSET then
-		health:Point("TOPRIGHT", frame, "TOPRIGHT", -(BORDER+POWERBAR_OFFSET), -BORDER)
-		health:Point("BOTTOMLEFT", frame, "BOTTOMLEFT", BORDER, BORDER+POWERBAR_OFFSET)
-	elseif USE_MINI_POWERBAR then
-		health:Point("BOTTOMLEFT", frame, "BOTTOMLEFT", BORDER, BORDER + (POWERBAR_HEIGHT/2))
-	else
-		health:Point("BOTTOMLEFT", frame, "BOTTOMLEFT", BORDER, BORDER + POWERBAR_HEIGHT)
-	end
-	
-	health.bg:ClearAllPoints()
-		if not USE_PORTRAIT_OVERLAY then
-			health:Point("TOPLEFT", PORTRAIT_WIDTH+BORDER, -BORDER)		
-			health.bg:SetParent(health)
-			health.bg:SetAllPoints()
-		else
-			health.bg:Point('BOTTOMLEFT', health:GetStatusBarTexture(), 'BOTTOMRIGHT')
-			health.bg:Point('TOPRIGHT', health)		
-			health.bg:SetParent(frame.Portrait.overlay)			
-		end
 	--End of needed copy.
 	
 	--Classbar positioning
