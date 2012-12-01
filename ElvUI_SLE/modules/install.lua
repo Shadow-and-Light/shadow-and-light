@@ -1170,11 +1170,13 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-19"
 			E.db.movers.PvPMover = "TOPElvUIParentTOP-5-50"
 			E.db.movers.LocationMover = "TOPElvUIParentTOP0-30"
+			E.db.movers.LocationLiteMover = "TOPElvUIParentTOP0-30"
 			E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-32"
 		else
 			E.db.movers.ExperienceBarMover = "TOPElvUIParentTOP0-19"
 			E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-30"
 			E.db.movers.LocationMover = "TOPElvUIParentTOP0-41"
+			E.db.movers.LocationLiteMover = "TOPElvUIParentTOP0-41"
 			E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-43"
 			E.db.movers.PvPMover = "TOPElvUIParentTOP-5-61"
 		end
