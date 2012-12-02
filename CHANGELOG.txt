@@ -1,4 +1,4 @@
-v1.33 (December 1, 2012)
+v1.33 (December 2, 2012)
 - Fixed errors on auras tooltips
 - Fixed health bar height with classbar offset enabled
 
