@@ -1,3 +1,6 @@
+v1.34
+Fixed rune bar error when using classbar offset
+
 v1.33 (December 2, 2012)
 - Fixed errors on auras tooltips
 - Fixed health bar height with classbar offset enabled

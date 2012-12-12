@@ -195,17 +195,20 @@ L["Pet Battle AB"] = true
 
 --Changelog--
 L["Changelog"] = true
-L["CHANGE_LOG"] = [=[cff1784d1v1.33|r (December 1, 2012)
+L["CHANGE_LOG"] = [=[cff1784d1v1.34|r
+Fixed rune bar error when using classbar offset
+
+cff1784d1v1.33|r
 - Fixed errors on auras tooltips
 - Fixed health bar height with classbar offset enabled
 
-|cff1784d1v1.32|r (November 27, 2012)
+|cff1784d1v1.32|r
 - Config updated
 
-|cff1784d1v1.31|r (November 27, 2012)
+|cff1784d1v1.31|r
 - Repooc config updated
 
-|cff1784d1v1.3|r (November 27, 2012)
+|cff1784d1v1.3|r
 - Authors' layouts have been changed
 - Mount serach was deleted, Blizzard added that themselves
 - Some adjustions for pixel perfect mode to make things look good
