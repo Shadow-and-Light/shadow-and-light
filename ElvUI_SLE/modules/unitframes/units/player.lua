@@ -359,7 +359,8 @@ function UF:Update_PlayerFrame(frame, db)
 		else
 			runes.backdrop:Hide()
 		end		
-			if USE_CLASSBAR and not frame:IsElementEnabled('Runes') then
+		
+		if USE_CLASSBAR and not frame:IsElementEnabled('Runes') then
 			frame:EnableElement('Runes')
 			runes:Show()
 		elseif not USE_CLASSBAR and frame:IsElementEnabled('Runes') then
@@ -369,7 +370,7 @@ function UF:Update_PlayerFrame(frame, db)
 			RuneFrame:Hide()				
 		end			
 		if runes.UpdateAllRuneTypes then
-			runes:UpdateAllRuneTypes() --colors update
+			runes.UpdateAllRuneTypes(frame) --colors update
 		end
 	elseif E.myclass == "DRUID" then
 		local eclipseBar = frame.EclipseBar
