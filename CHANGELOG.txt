@@ -1,5 +1,5 @@
-v1.34
-Fixed rune bar error when using classbar offset
+v1.34 (December 12, 2012)
+- Fixed rune bar error when using classbar offset
 
 v1.33 (December 2, 2012)
 - Fixed errors on auras tooltips
