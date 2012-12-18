@@ -151,15 +151,25 @@ local function OnEnter(self)
 	if E.db.datatexts.lfrshow then
 	--LFR lockout text
 	local lvl = UnitLevel("player")
+	local ilvl = GetAverageItemLevel()
 	GameTooltip:AddLine(" ")
-	if lvl >= 80 and lvl < 86 then
+	if lvl == 85 and ilvl >= 372 then
 		DT:DragonSoul(416, 417)
-	elseif lvl >= 86 then
-		DT:Mogushan(527, 528)
-		GameTooltip:AddLine(" ")
-		DT:HoF(529, 530)
-		GameTooltip:AddLine(" ")
-		DT:ToES(526)
+	elseif lvl == 90 then
+		if ilvl >= 460 then
+			DT:Mogushan(527, 528)
+			GameTooltip:AddLine(" ")
+		end
+		if ilvl >= 470 then
+			DT:HoF(529, 530)
+			GameTooltip:AddLine(" ")
+			DT:ToES(526)
+		end
+		if ilvl < 460 then
+			GameTooltip:AddLine("No LFR is available for your lever/gear.")
+		end
+	else
+		GameTooltip:AddLine("No LFR is available for your lever/gear.")
 	end
 	--LFR lockout end
 	end
