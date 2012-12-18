@@ -934,7 +934,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			--Raid 10
 			if layout == "healer" then
 				E.db.unitframe.units.raid10.health.frequentUpdates = true
-				E.db.unitframe.units.raid10.health.text_format = "[healthcolor][health:dificit]"
+				E.db.unitframe.units.raid10.health.text_format = "[healthcolor][health:deficit]"
 				E.db.unitframe.units.raid10.health.orientation = "VERTICAL"
 				E.db.unitframe.units.raid10.health.position = "CENTER"
 			else
