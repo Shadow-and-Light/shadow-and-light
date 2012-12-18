@@ -140,3 +140,62 @@ function CH:PositionChat(override)
 	
 	self.initialMove = true;
 end
+
+local specialIcons = {
+	["Свежеватель Душ"] = {
+		["Дартпредатор"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t",
+		["Алея"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t",
+		["Ваззули"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t",
+		["Сиаранна"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t",
+		["Джатон"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t",
+		["Фикстер"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t",
+		["Киландра"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t",
+		["Нарджо"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t",
+		["Верзук"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t",
+		["Крениг"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t"
+	},
+	["Вечная Песня"] = {
+		["Киландра"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t",
+		["Леани"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t",
+		["Равенор"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t",
+		["Налкас"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t",
+		["Ваззули"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t"
+	},
+	["Illidan"] = {
+		["Darthpred"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t",
+	},
+}
+
+CH.AddMessageSLE = CH.AddMessage
+function CH:AddMessage()
+	CH.AddMessageSLE(self)
+	
+	for i=1, self:GetNumRegions() do
+		local region = select(i, self:GetRegions())
+		if region:GetObjectType() == "FontString" and not region.hooked then
+			local text = region:GetText();
+			if specialIcons[E.myrealm] then
+				for character, texture in pairs(specialIcons[E.myrealm]) do
+					text = text:gsub('|Hplayer:'..character..':', texture..'|Hplayer:'..character..':')
+				end
+				
+				for realm, _ in pairs(specialIcons) do
+					if realm ~= E.myrealm then
+						for character, texture in pairs(specialIcons[realm]) do
+							text = text:gsub("|Hplayer:"..character.."%-"..realm, texture.."|Hplayer:"..character.."%-"..realm)
+						end
+					end
+				end			
+			else
+				for realm, _ in pairs(specialIcons) do
+					for character, texture in pairs(specialIcons[realm]) do
+						text = text:gsub("|Hplayer:"..character.."%-"..realm, texture.."|Hplayer:"..character.."%-"..realm)
+					end
+				end		
+			end
+			
+			region:SetText(text)
+			CH.timeOverride = nil;
+		end
+	end
+end
