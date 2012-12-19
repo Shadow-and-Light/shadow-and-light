@@ -2,6 +2,43 @@
 local CH = E:GetModule('Chat')
 local LSM = LibStub("LibSharedMedia-3.0")
 
+local specialChatIcons = {
+	["Kil'jaeden"] = {
+		["Elvz"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t"
+	},
+	["Illidan"] = {
+		["Affinichi"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\Bathrobe_Chat_Logo.blp:15:15|t",
+		["Uplift"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\Bathrobe_Chat_Logo.blp:15:15|t",
+		["Affinitii"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\Bathrobe_Chat_Logo.blp:15:15|t",
+		["Affinity"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\Bathrobe_Chat_Logo.blp:15:15|t",
+		--Darth's toon
+		["Darthpred"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t"
+	},
+	["Свежеватель Душ"] = {
+		--Darth's toons
+		["Дартпредатор"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		["Алея"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		["Ваззули"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		["Сиаранна"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		["Джатон"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		["Фикстер"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		["Киландра"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		["Нарджо"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		["Верзук"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		["Большойгном"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		["Крениг"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t"
+	},
+	["Вечная Песня"] = {
+		--Darth's toons
+		["Киландра"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		["Равенор"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		["Налкас"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		["Ваззули"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		--Darth's friends
+		["Леани"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t"
+	},
+}
+
 function CH:ChatEdit_AddHistory(editBox, line)
 	if line:find("/rl") then return; end
 
@@ -141,35 +178,62 @@ function CH:PositionChat(override)
 	self.initialMove = true;
 end
 
-local specialIcons = {
-	["Свежеватель Душ"] = {
-		--Darth's toons
-		["Дартпредатор"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
-		["Алея"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
-		["Ваззули"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
-		["Сиаранна"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
-		["Джатон"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
-		["Фикстер"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
-		["Киландра"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
-		["Нарджо"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
-		["Верзук"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
-		["Крениг"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t"
-	},
-	["Вечная Песня"] = {
-		--Darth's toons
-		["Киландра"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
-		["Равенор"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
-		["Налкас"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
-		["Ваззули"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
-		--Darth's friends
-		["Леани"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t"
-	},
-	["Illidan"] = {
-		["Darthpred"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
-	},
-}
+function CH:AddMessage(text, ...)
+	if type(text) == "string" then		
+		if CH.db.shortChannels then
+			text = text:gsub("|Hchannel:(.-)|h%[(.-)%]|h", CH.ShortChannel)
+			text = text:gsub('CHANNEL:', '')
+			text = text:gsub("^(.-|h) "..L['whispers'], "%1")
+			text = text:gsub("^(.-|h) "..L['says'], "%1")
+			text = text:gsub("^(.-|h) "..L['yells'], "%1")
+			text = text:gsub("<"..AFK..">", "[|cffFF0000"..L['AFK'].."|r] ")
+			text = text:gsub("<"..DND..">", "[|cffE7E716"..L['DND'].."|r] ")
+			text = text:gsub("^%["..RAID_WARNING.."%]", '['..L['RW']..']')	
+			text = text:gsub("%[BN_CONVERSATION:", '%['..L["BN:"])
+		end
 
-CH.AddMessageSLE = CH.AddMessage
+		local timeStamp
+		if CHAT_TIMESTAMP_FORMAT ~= nil then
+			timeStamp = BetterDate(CHAT_TIMESTAMP_FORMAT, time());
+			text = text:gsub(timeStamp, '')
+		end
+		
+		--Add Timestamps
+		if ( CH.db.timeStampFormat and CH.db.timeStampFormat ~= 'NONE' ) then
+			timeStamp = BetterDate(CH.db.timeStampFormat, CH.timeOverride or time());
+			timeStamp = timeStamp:gsub(' ', '')
+			timeStamp = timeStamp:gsub('AM', ' AM')
+			timeStamp = timeStamp:gsub('PM', ' PM')
+			text = '|cffB3B3B3['..timeStamp..'] |r'..text
+		end
+		
+		if specialChatIcons[E.myrealm] then
+			for character, texture in pairs(specialChatIcons[E.myrealm]) do
+				text = text:gsub('|Hplayer:'..character..':', texture..'|Hplayer:'..character..':')
+			end
+			
+			for realm, _ in pairs(specialChatIcons) do
+				if realm ~= E.myrealm then
+					for character, texture in pairs(specialChatIcons[realm]) do
+						text = text:gsub("|Hplayer:"..character.."%-"..realm, texture.."|Hplayer:"..character.."%-"..realm)
+					end
+				end
+			end			
+		else
+			for realm, _ in pairs(specialChatIcons) do
+				for character, texture in pairs(specialChatIcons[realm]) do
+					text = text:gsub("|Hplayer:"..character.."%-"..realm, texture.."|Hplayer:"..character.."%-"..realm)
+				end
+			end		
+		end
+		
+		CH.timeOverride = nil;
+	end
+
+	self.OldAddMessage(self, text, ...)
+end
+
+--[[CH.AddMessageSLE = CH.AddMessage
 function CH:AddMessage()
 	CH.AddMessageSLE(self)
 	
@@ -201,4 +265,4 @@ function CH:AddMessage()
 			CH.timeOverride = nil;
 		end
 	end
-end
+end]]
