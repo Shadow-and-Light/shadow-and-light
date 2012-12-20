@@ -123,6 +123,9 @@ L["Sets size of buttons"] = "Устанавливает размер кнопо�
 L["Direction"] = "Направление"
 L["Change the direction of buttons growth from the skull marker"] = "Изменяет направление роста кнопок от метки \"череп\"."
 
+--Raid Utility--
+L["Raid Utility"] = "Управление рейдом"
+
 --Skins--
 L["This options require ElvUI AddOnSkins pack to work."] = "Эти опции требуют наличие пака ElvUI AddOnSkins для работы"
 L["Sets font size on DBM bars"] = "Устанавливает размер текста на полосах DBM"

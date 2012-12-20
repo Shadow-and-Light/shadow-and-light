@@ -8,7 +8,7 @@ E.RaidUtility = RU
 M.InitializeSLE = M.Initialize
 function M:Initialize()
 	M.InitializeSLE(self)
-	E:CreateMover(RaidUtility_ShowButton, "RaidUtility_Mover", "Raid Utility", nil, nil, nil, "ALL,GENERAL,S&L")
+	E:CreateMover(RaidUtility_ShowButton, "RaidUtility_Mover", L["Raid Utility"], nil, nil, nil, "ALL,GENERAL,S&L")
 	local mover = RaidUtility_Mover
 	local frame = RaidUtility_ShowButton
 	if E.db.movers == nil then E.db.movers = {} end

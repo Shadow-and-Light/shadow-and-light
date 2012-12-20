@@ -123,6 +123,9 @@ L["Sets size of buttons"] = true --Also used in UI buttons
 L["Direction"] = true
 L["Change the direction of buttons growth from the skull marker"] = true
 
+--Raid Utility--
+L["Raid Utility"] = true
+
 --Skins--
 L["This options require ElvUI AddOnSkins pack to work."] = true
 L["Sets font size on DBM bars"] = true
