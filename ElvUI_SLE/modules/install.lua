@@ -1334,7 +1334,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	do
 		--Raid10
 		E.db.unitframe.units.raid10.xOffset = 2
-		E.db.unitframe.units.raid10.columnSpacing = 2
+		--E.db.unitframe.units.raid10.columnSpacing = 2
 		E.db.unitframe.units.raid10.healPrediction = true
 		E.db.unitframe.units.raid10.width = 79
 
@@ -1377,7 +1377,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.unitframe.units.party.petsGroup.yOffset = 1
 		
 		--Raid25
-		E.db.unitframe.units.raid25.columnSpacing = 2
+		--E.db.unitframe.units.raid25.columnSpacing = 2
 		E.db.unitframe.units.raid25.customTexts = {}
 		E.db.unitframe.units.raid25.healPrediction = true
 		E.db.unitframe.units.raid25.health.frequentUpdates = true
@@ -1386,7 +1386,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.unitframe.units.raid25.xOffset = 2
 		
 		--Raid40
-		E.db.unitframe.units.raid40.columnSpacing = 2
+		--E.db.unitframe.units.raid40.columnSpacing = 2
 		E.db.unitframe.units.raid40.healPrediction = true
 		E.db.unitframe.units.raid40.health.frequentUpdates = true
 		E.db.unitframe.units.raid40.health.text = true
