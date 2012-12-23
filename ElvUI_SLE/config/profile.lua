@@ -199,6 +199,67 @@ P.chat.editboxhistory = 5
 P.auras.perRow = 19
 
 --Datatexts
+if IsAddOnLoaded("ElvUI_LocPlus") then
+P['datatexts'] = {
+	['font'] = 'ElvUI Font',
+	['fontSize'] = 12,
+	['fontOutline'] = 'NONE',
+	
+	['panels'] = {
+		['LeftChatDataPanel'] = {
+			['left'] = 'Armor',
+			['middle'] = 'Durability',
+			['right'] = 'Avoidance',
+		},
+		['RightChatDataPanel'] = {
+			['left'] = 'System',
+			['middle'] = 'Time',	
+			['right'] = 'Gold',
+		},
+		['DP_1'] = {
+			['left'] = 'Swatter',
+			['middle'] = 'Skada',
+			['right'] = 'MrtWoo',
+		},
+		['DP_2'] = {
+			['left'] = 'Altoholic',
+			['middle'] = 'TellMeWhen',
+			['right'] = 'AtlasLoot',
+		},
+		['DP_3'] = {
+			['left'] = 'Notes',
+			['middle'] = 'DBM-LDB',
+			['right'] = 'WIM',
+		},
+		['DP_4'] = {
+			['left'] = '',
+			['middle'] = '',
+			['right'] = '',
+		},
+		['DP_5'] = {
+			['left'] = 'Bags',
+			['middle'] = 'Gold',
+			['right'] = 'Armor',
+		},
+		['DP_6'] = {
+			['left'] = 'Spell/Heal Power',
+			['middle'] = 'Haste',
+			['right'] = 'Crit Chance',
+		},
+		['Bottom_Panel'] = 'System',
+		['LeftMiniPanel'] = 'Guild',
+		['RightMiniPanel'] = 'Friends',
+		['RightCoordDtPanel'] = 'System', --LocPlus
+		['LeftCoordDtPanel'] = 'Durability', --LocPlus
+	},
+	['localtime'] = true,
+	['time24'] = false,
+	['battleground'] = true,
+	['minimapPanels'] = true,
+	['leftChatPanel'] = true,
+	['rightChatPanel'] = true,
+}
+else
 P['datatexts'] = {
 	['font'] = 'ElvUI Font',
 	['fontSize'] = 12,
@@ -256,6 +317,7 @@ P['datatexts'] = {
 	['leftChatPanel'] = true,
 	['rightChatPanel'] = true,
 }
+end
 
 P.unitframe.units.player.classbar.xOffset = 0
 P.unitframe.units.player.classbar.yOffset = 0
