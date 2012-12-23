@@ -643,6 +643,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.nameplate.height = 8
 	E.db.nameplate.auraFont = "ElvUI Font"
 	E.db.nameplate.auraFontOutline = "OUTLINE"
+	E.db.nameplate.classIcons = false
 	
 	--Auras--
 	E.db.auras.font = "ElvUI Font"
@@ -914,7 +915,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.party.height = 52
 				E.db.unitframe.units.party.healPrediction = true
 				E.db.unitframe.units.party.health.text_format = "[healthcolor][health:deficit]"
-				E.db.unitframe.units.party.health.position = "CENTER"
+				E.db.unitframe.units.party.health.position = "BOTTOM"
 				E.db.unitframe.units.party.health.frequentUpdates = true
 				E.db.unitframe.units.party.health.orientation = "VERTICAL"
 			else
@@ -936,7 +937,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.raid10.health.frequentUpdates = true
 				E.db.unitframe.units.raid10.health.text_format = "[healthcolor][health:dificit]"
 				E.db.unitframe.units.raid10.health.orientation = "VERTICAL"
-				E.db.unitframe.units.raid10.health.position = "CENTER"
+				E.db.unitframe.units.raid10.health.position = "BOTTOM"
 			else
 				E.db.unitframe.units.raid10.health.text_format = "[healthcolor][health:current]"
 				E.db.unitframe.units.raid10.columnAnchorPoint = "LEFT"
@@ -956,7 +957,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.raid25.health.text_format = "[healthcolor][health:deficit]"
 				E.db.unitframe.units.raid25.health.frequentUpdates = true
 				E.db.unitframe.units.raid25.health.orientation = "VERTICAL"
-				E.db.unitframe.units.raid25.health.position = "CENTER"
+				E.db.unitframe.units.raid25.health.position = "BOTTOM"
 				E.db.unitframe.units.raid25.height = 36
 			else
 				E.db.unitframe.units.raid25.point = "TOP"
@@ -1004,6 +1005,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.unitframe.units.arena.health.position = 'BOTTOMRIGHT'
 			E.db.unitframe.units.arena.health.text_format = "[healthcolor][health:current-percent:sl]"
 			E.db.unitframe.units.arena.power.text_format = "[powercolor][power:current:sl]"
+			E.db.unitframe.units.arena.power.position = 'RIGHT'
 			E.db.unitframe.units.arena.fixTo = "power"
 			E.db.unitframe.units.arena.name.text_format = "[name:long]"
 			E.db.unitframe.units.arena.name.position = 'TOPLEFT'
@@ -1025,6 +1027,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.unitframe.units.boss.health.text_format = "[healthcolor][health:current-percent]"
 			E.db.unitframe.units.boss.power.height = 10
 			E.db.unitframe.units.boss.power.text_format = "[powercolor][power:current:sl]"
+			E.db.unitframe.units.boss.power.position = 'RIGHT'
 			E.db.unitframe.units.boss.fixTo = "power"
 			E.db.unitframe.units.boss.name.text_format = "[name:long]"
 			E.db.unitframe.units.boss.name.position = 'TOPLEFT'
@@ -1045,6 +1048,8 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		
 	--Actionbars
 	do
+		E.db.actionbar.font = "ElvUI Font"
+		E.db.actionbar.fontOutline = 'OUTLINE'
 		E.db.actionbar.hotkeytext = false
 		E.db.actionbar.keyDown = false
 		E.db.actionbar.bar1.point = "TOPLEFT"
