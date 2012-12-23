@@ -924,7 +924,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.party.health.position = "BOTTOMLEFT"
 			end
 			E.db.unitframe.units.party.xOffset = 1
-			E.db.unitframe.units.party.yOffset = -1
+			E.db.unitframe.units.party.yOffset = 1
 			E.db.unitframe.units.party.debuffs.sizeOverride = 26
 			E.db.unitframe.units.party.buffIndicator.colorIcons = false
 			E.db.unitframe.units.party.power.height = 8
@@ -943,7 +943,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.raid10.point = "TOP"
 			end
 			E.db.unitframe.units.raid10.xOffset = 1
-			E.db.unitframe.units.raid10.yOffset = -1
+			E.db.unitframe.units.raid10.yOffset = 1
 			E.db.unitframe.units.raid10.name.text_format = "[name:medium]"
 			E.db.unitframe.units.raid10.buffIndicator.colorIcons = false
 			E.db.unitframe.units.raid10.rdebuffs.size = 22
@@ -963,7 +963,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.raid25.health.text_format = ""
 			end
 			E.db.unitframe.units.raid25.xOffset = 1
-			E.db.unitframe.units.raid25.yOffset = -1
+			E.db.unitframe.units.raid25.yOffset = 1
 			E.db.unitframe.units.raid25.buffIndicator.colorIcons = false
 			E.db.unitframe.units.raid25.name.text_format = "[name:medium]"
 			E.db.unitframe.units.raid25.rdebuffs.size = 22
@@ -979,7 +979,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			end
 			E.db.unitframe.units.raid40.height = 26
 			E.db.unitframe.units.raid40.xOffset = 1
-			E.db.unitframe.units.raid40.yOffset = -1
+			E.db.unitframe.units.raid40.yOffset = 1
 			E.db.unitframe.units.raid40.name.text_format = "[name:short]"
 			E.db.unitframe.units.raid40.buffIndicator.colorIcons = false
 	
