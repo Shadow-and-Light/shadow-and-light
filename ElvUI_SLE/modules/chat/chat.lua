@@ -12,7 +12,9 @@ local specialChatIcons = {
 		["Affinitii"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\Bathrobe_Chat_Logo.blp:15:15|t",
 		["Affinity"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\Bathrobe_Chat_Logo.blp:15:15|t",
 		--Darth's toon
-		["Darthpred"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t"
+		["Darthpred"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		--Repooc's Toon
+		["Repooc"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t"
 	},
 	["Свежеватель Душ"] = {
 		--Darth's toons
@@ -36,6 +38,16 @@ local specialChatIcons = {
 		["Ваззули"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
 		--Darth's friends
 		["Леани"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t"
+	},
+	["Korialstrasz"] = {
+		["Sifupooc"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		["Repooc"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		["Cursewordz"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t"
+	},
+	["Andorhal"] = {
+		["Dapooc"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		["Rovert"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t",
+		["Sliceoflife"] = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t"
 	},
 }
 
