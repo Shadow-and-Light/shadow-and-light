@@ -1,3 +1,6 @@
+v1.35 (December 28, 2008)
+- Fixed compatibility with full Location Plus version
+
 v1.34 (December 12, 2012)
 - Fixed rune bar error when using classbar offset
 

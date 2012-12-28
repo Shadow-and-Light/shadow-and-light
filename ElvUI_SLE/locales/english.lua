@@ -198,10 +198,13 @@ L["Pet Battle AB"] = true
 
 --Changelog--
 L["Changelog"] = true
-L["CHANGE_LOG"] = [=[cff1784d1v1.34|r
+L["CHANGE_LOG"] = [=[|cff1784d1v1.35|r
+- Fixed compatibility with full Location Plus version
+
+|cff1784d1v1.34|r
 Fixed rune bar error when using classbar offset
 
-cff1784d1v1.33|r
+|cff1784d1v1.33|r
 - Fixed errors on auras tooltips
 - Fixed health bar height with classbar offset enabled
 
