@@ -21,7 +21,6 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 <font color="#3e8ac6"><b>Features:</b></font>
 - Ability to set text on exp/rep bar to full values.
 - Ability to show full values for HP/Mana on unitframes. (Tags: [health:current:sl])
-- Added search feature for Mounts.
 - Additional background panels that can be customized to your liking.
 - Additional datatext panels that can be moved and resized.
 - Additional options for DBM skins. (Not enabled atm.)
@@ -31,7 +30,7 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 - Classbar offset
 - Customizable size of chat history stored
 - Customize Combat Icon position on player unitframe.
-- Dragon Soul LFR progression in Time Datatext.
+- LFR progression in Time Datatext.
 - Misc Custom UI Button (Quickly access ElvUI Config, ReloadUI, Toggle Move Anchors, Boss mod config/options (DBM, DXE, or Bigwigs), Addons Manager (stAddOnManager or ACP)
 - Modified Installation Process (Includes settings that each of the authors play with.)
 - Movable Pet Battle Actionbar
@@ -43,7 +42,6 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 - Boss Button Texture Removed
 - <a href="http://www.curse.com/addons/wow/notes">Nirriti's Notes Skin</a>
 - <a href="http://www.curse.com/addons/wow/oces">OneClickEnchantScroll Skin</a>
-- <a href="http://www.curse.com/addons/wow/rbtabbed-browser">Tabbed Dungeon Browser Skin</a>
 
 <font color="#3e8ac6"><b>Included Addons:</b></font>
 (if you have any of those the I'd recommend to disable them)

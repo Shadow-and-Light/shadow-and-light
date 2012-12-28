@@ -21,17 +21,16 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 [color="#3e8ac6"][b]Features:[/b][/color]
 [list]Ability to set text on exp/rep bar to full values.
 [*]Ability to show full values for HP/Mana on unitframes. (Tags: [health:current:sl])
-[*]Added search feature for Mounts.
 [*]Additional background panels that can be customized to your liking.
 [*]Additional datatext panels that can be moved and resized.
 [*]Additional options for DBM skins. (Not enabled atm.)
 [*]Balance Druid and Demonoligy Warlock power value text on Classbar.
 [*]Can display caster name in auras tooltip.
 [*]Chat Datatext Panels altered to fit with the additional datatext panels module of Shadow & Light.
-[*]Chat History Modifications (Edit amount of lines for history to store and relocated chat textbox.)
+[*]Chat History Modifications
 [*]Classbar offset
 [*]Customize Combat Icon position on player unitframe.
-[*]Dragon Soul LFR progression in Time Datatext.
+[*]LFR progression in Time Datatext.
 [*]Misc Custom UI Button (Quickly access ElvUI Config, ReloadUI, Toggle Move Anchors, Boss mod config/options (DBM, DXE, or Bigwigs), Addons Manager (stAddOnManager or ACP)
 [*]Modified Installation Process (Includes settings that each of the authors play with.)
 [*]Movable Pet Battle Actionbar
@@ -44,7 +43,6 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 [list]Boss Button Texture Removed
 [*][url=http://www.curse.com/addons/wow/notes]Nirriti's Notes[/url] Skin
 [*][url=http://www.curse.com/addons/wow/oces]OneClickEnchantScroll[/url] Skin
-[*][url=http://www.curse.com/addons/wow/rbtabbed-browser]Tabbed Dungeon Browser[/url] Skin
 [/list]
 
 [color="#3e8ac6"][b]Included Addons:[/b][/color]
