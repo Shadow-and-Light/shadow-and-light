@@ -244,37 +244,3 @@ function CH:AddMessage(text, ...)
 
 	self.OldAddMessage(self, text, ...)
 end
-
---[[CH.AddMessageSLE = CH.AddMessage
-function CH:AddMessage()
-	CH.AddMessageSLE(self)
-	
-	for i=1, self:GetNumRegions() do
-		local region = select(i, self:GetRegions())
-		if region:GetObjectType() == "FontString" and not region.hooked then
-			local text = region:GetText();
-			if specialIcons[E.myrealm] then
-				for character, texture in pairs(specialIcons[E.myrealm]) do
-					text = text:gsub('|Hplayer:'..character..':', texture..'|Hplayer:'..character..':')
-				end
-				
-				for realm, _ in pairs(specialIcons) do
-					if realm ~= E.myrealm then
-						for character, texture in pairs(specialIcons[realm]) do
-							text = text:gsub("|Hplayer:"..character.."%-"..realm, texture.."|Hplayer:"..character.."%-"..realm)
-						end
-					end
-				end			
-			else
-				for realm, _ in pairs(specialIcons) do
-					for character, texture in pairs(specialIcons[realm]) do
-						text = text:gsub("|Hplayer:"..character.."%-"..realm, texture.."|Hplayer:"..character.."%-"..realm)
-					end
-				end		
-			end
-			
-			region:SetText(text)
-			CH.timeOverride = nil;
-		end
-	end
-end]]
