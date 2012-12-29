@@ -663,6 +663,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.chat.panelWidth = 446
 	end
 	E.db.chat.timeStampFormat = "%H:%M:%S "
+	E.db.chat.whisperSound = "Whisper Alert"
 
 	--Datatexts--
 	do
