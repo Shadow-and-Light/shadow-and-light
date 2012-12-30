@@ -38,6 +38,12 @@ local IconTable = {
 		--Darth's friends
 		["Леани"] = "SLEFRIEND"
 	},
+	["Ревущий фьорд"] = {
+		["Рыжая"] = "SLEFRIEND",
+		["Рыжа"] = "SLEFRIEND",
+				--Some people
+		["Брэгар"] = "SLETEST"
+	},
 	["Korialstrasz"] = {
 		["Sifupooc"] = "SLEAUTHOR",
 		["Repooc"] = "SLEAUTHOR",
