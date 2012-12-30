@@ -4,7 +4,9 @@ local LSM = LibStub("LibSharedMedia-3.0")
 
 --Textures for chat
 CHAT_FLAG_SLEAUTHOR = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t"
-CHAT_FLAG_SLEFRIEND = ""
+CHAT_FLAG_SLERPG = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_RPG:13:35|t"
+CHAT_FLAG_SLEFRIEND = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Friend:13:13|t"
+CHAT_FLAG_SLETEST = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Test:13:13|t"
 --Toon table
 local IconTable = {
 	["Illidan"] = {
@@ -25,7 +27,7 @@ local IconTable = {
 		["Нарджо"] = "SLEAUTHOR",
 		["Верзук"] = "SLEAUTHOR",
 		["Крениг"] = "SLEAUTHOR",
-		["Большойгном"] = "SLEAUTHOR" --Testing toon
+		["Большойгном"] = "SLETEST" --Testing toon
 	},
 	["Вечная Песня"] = {
 		--Darth's toons
