@@ -608,7 +608,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.general.autoRepair = "PLAYER"
 	E.db.general.vendorGrays = true
 	E.db.general.fontsize = 10
-	E.db.general.minimap.locationText = 'SHOW'
+	E.db.general.minimap.locationText = 'HIDE'
 	E.db.general.experience.textFormat = 'CURPERC'
 	E.db.general.experience.textSize = 10
 	E.db.general.experience.height = 12
