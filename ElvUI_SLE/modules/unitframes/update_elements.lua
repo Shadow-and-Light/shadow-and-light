@@ -32,9 +32,9 @@ function E:GetFormattedTextSLE(style, min, max)
 	elseif style == 'CURRENT_MAX' then
 			return format(useStyle, min, max)
 	elseif style == 'CURRENT_PERCENT' then
-			return format(useStyle, min, percentValue)
+			return format(useStyle, min, format("%.0f", min / max * 100))
 	elseif style == 'CURRENT_MAX_PERCENT' then
-			return format(useStyle, min, max, percentValue)
+			return format(useStyle, min, max, format("%.0f", min / max * 100))
 	end
 end
 
