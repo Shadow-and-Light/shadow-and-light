@@ -10,6 +10,7 @@ P['datatexts'] = {
 local format = string.format
 local join = string.join
 local floor = math.floor
+local wipe = table.wipe
 
 local APM = { TIMEMANAGER_PM, TIMEMANAGER_AM }
 local europeDisplayFormat = '';
@@ -18,78 +19,52 @@ local europeDisplayFormat_nocolor = join("", "%02d", ":|r%02d")
 local ukDisplayFormat_nocolor = join("", "", "%d", ":|r%02d", " %s|r")
 local timerLongFormat = "%d:%02d:%02d"
 local timerShortFormat = "%d:%02d"
-local lockoutInfoFormat = "|cffcccccc[%d%s]|r %s |cfff04000(%s/%s)|r"
+local lockoutInfoFormat = "%s%s |cffaaaaaa(%s, %s/%s)"
+local lockoutInfoFormatNoEnc = "%s%s |cffaaaaaa(%s)"
 local formatBattleGroundInfo = "%s: "
 local lockoutColorExtended, lockoutColorNormal = { r=0.3,g=1,b=0.3 }, { r=.8,g=.8,b=.8 }
-local difficultyInfo = { "N", "N", "H", "H" }
 local lockoutFormatString = { "%dd %02dh %02dm", "%dd %dh %02dm", "%02dh %02dm", "%dh %02dm", "%dh %02dm", "%dm" }
 local curHr, curMin, curAmPm
 local enteredFrame = false;
 
 local Update, lastPanel; -- UpValue
+local localizedName, isActive, canQueue, startTime, canEnter
+local name, reset, locked, extended, isRaid, maxPlayers, difficulty, numEncounters, encounterProgress
+local quests = {}
+local updateQuestTable = false
+
 local function ValueColorUpdate(hex, r, g, b)
 	europeDisplayFormat = join("", "%02d", hex, ":|r%02d")
 	ukDisplayFormat = join("", "", "%d", hex, ":|r%02d", hex, " %s|r")
+	
 	if lastPanel ~= nil then
 		Update(lastPanel, 20000)
 	end
 end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
-local function CalculateTimeValues(tt)
-	local Hr, Min, AmPm
-	if tt and tt == true then
-		if E.db.datatexts.localtime == true then
-			Hr, Min = GetGameTime()
-			if E.db.datatexts.time24 == true then
-				return Hr, Min, -1
-			else
-				if Hr>=12 then
-					if Hr>12 then Hr = Hr - 12 end
-					AmPm = 1
-				else
-					if Hr == 0 then Hr = 12 end
-					AmPm = 2
-				end
-				return Hr, Min, AmPm
-			end			
-		else
-			local Hr24 = tonumber(date("%H"))
-			Hr = tonumber(date("%I"))
-			Min = tonumber(date("%M"))
-			if E.db.datatexts.time24 == true then
-				return Hr24, Min, -1
-			else
-				if Hr24>=12 then AmPm = 1 else AmPm = 2 end
-				return Hr, Min, AmPm
-			end
-		end
+local function ConvertTime(h, m)
+	local AmPm
+	if E.db.datatexts.time24 == true then
+		return h, m, -1
 	else
-		if E.db.datatexts.localtime == true then
-			local Hr24 = tonumber(date("%H"))
-			Hr = tonumber(date("%I"))
-			Min = tonumber(date("%M"))
-			if E.db.datatexts.time24 == true then
-				return Hr24, Min, -1
-			else
-				if Hr24>=12 then AmPm = 1 else AmPm = 2 end
-				return Hr, Min, AmPm
-			end
+		if h >= 12 then
+			if h > 12 then h = h - 12 end
+			AmPm = 1
 		else
-			Hr, Min = GetGameTime()
-			if E.db.datatexts.time24 == true then
-				return Hr, Min, -1
-			else
-				if Hr>=12 then
-					if Hr>12 then Hr = Hr - 12 end
-					AmPm = 1
-				else
-					if Hr == 0 then Hr = 12 end
-					AmPm = 2
-				end
-				return Hr, Min, AmPm
-			end
-		end	
+			if h == 0 then h = 12 end
+			AmPm = 2
+		end
+	end
+	return h, m, AmPm
+end
+
+local function CalculateTimeValues(tooltip)
+	if (tooltip and E.db.datatexts.localtime) or (not tooltip and not E.db.datatexts.localtime) then
+		return ConvertTime(GetGameTime())
+	else
+		local	dateTable =	date("*t")
+		return ConvertTime(dateTable["hour"], dateTable["min"])
 	end
 end
 
@@ -118,6 +93,16 @@ local function formatResetTime(sec)
 	end
 end
 
+local function OnEvent(self, event)
+	if event == "QUEST_COMPLETE" then
+		updateQuestTable = true
+	elseif (event == "QUEST_LOG_UPDATE" and updateQuestTable) or event == "ELVUI_FORCE_RUN" then
+		wipe(quests)
+		quests = GetQuestsCompleted()
+		updateQuestTable = false
+	end
+end
+
 local function Click()
 	GameTimeFrame:Click();
 end
@@ -130,8 +115,8 @@ end
 local function OnEnter(self)
 	DT:SetupTooltip(self)
 	enteredFrame = true;
+	
 	GameTooltip:AddLine(VOICE_CHAT_BATTLEGROUND);
-	local localizedName, isActive, canQueue, startTime, canEnter
 	for i = 1, GetNumWorldPVPAreas() do
 		_, localizedName, isActive, canQueue, startTime, canEnter = GetWorldPVPAreaInfo(i)
 		if canEnter then
@@ -140,46 +125,46 @@ local function OnEnter(self)
 			elseif startTime == nil then
 				startTime = QUEUE_TIME_UNAVAILABLE
 			else
-				local hour, min, sec = CalculateTimeLeft(startTime)
-				if hour > 0 then 
-					startTime = format(timerLongFormat, hour, min, sec)
+				local h, m, s = CalculateTimeLeft(startTime)
+				if h > 0 then 
+					startTime = format(timerLongFormat, h, m, s) 
 				else 
-					startTime = format(timerShortFormat, min, sec)
+					startTime = format(timerShortFormat, m, s)
 				end
 			end
 			GameTooltip:AddDoubleLine(format(formatBattleGroundInfo, localizedName), startTime, 1, 1, 1, lockoutColorNormal.r, lockoutColorNormal.g, lockoutColorNormal.b)	
 		end
 	end	
-
-	if E.db.datatexts.lfrshow then
-	--LFR lockout text
-	local lvl = UnitLevel("player")
-	local ilvl = GetAverageItemLevel()
-	GameTooltip:AddLine(" ")
-	if lvl == 85 and ilvl >= 372 then
-		DT:DragonSoul(416, 417)
-	elseif lvl == 90 then
-		if ilvl >= 460 then
-			DT:Mogushan(527, 528)
-			GameTooltip:AddLine(" ")
-		end
-		if ilvl >= 470 then
-			DT:HoF(529, 530)
-			GameTooltip:AddLine(" ")
-			DT:ToES(526)
-		end
-		if ilvl < 460 then
-			GameTooltip:AddLine(L["No LFR is available for your lever/gear."])
-		end
-	else
-		GameTooltip:AddLine(L["No LFR is available for your lever/gear."])
-	end
-	--LFR lockout end
-	end
 	
+	if E.db.datatexts.lfrshow then
+		--LFR lockout text
+		local lvl = UnitLevel("player")
+		local ilvl = GetAverageItemLevel()
+		GameTooltip:AddLine(" ")
+		if lvl == 85 and ilvl >= 372 then
+			DT:DragonSoul(416, 417)
+		elseif lvl == 90 then
+			if ilvl >= 460 then
+				DT:Mogushan(527, 528)
+				GameTooltip:AddLine(" ")
+			end
+			if ilvl >= 470 then
+				DT:HoF(529, 530)
+				GameTooltip:AddLine(" ")
+				DT:ToES(526)
+			end
+			if ilvl < 460 then
+				GameTooltip:AddLine("No LFR is available for your lever/gear.")
+			end
+		else
+			GameTooltip:AddLine("No LFR is available for your lever/gear.")
+		end
+		--LFR lockout end
+	end
+
 	local oneraid, lockoutColor
 	for i = 1, GetNumSavedInstances() do
-		local name, _, reset, difficulty, locked, extended, _, isRaid, maxPlayers, _, numEncounters, encounterProgress  = GetSavedInstanceInfo(i)
+		name, _, reset, _, locked, extended, _, isRaid, maxPlayers, difficulty, numEncounters, encounterProgress  = GetSavedInstanceInfo(i)
 		if isRaid and (locked or extended) and name then
 			local tr,tg,tb,diff
 			if not oneraid then
@@ -188,36 +173,37 @@ local function OnEnter(self)
 				oneraid = true
 			end
 			if extended then lockoutColor = lockoutColorExtended else lockoutColor = lockoutColorNormal end
-			local formatTime = formatResetTime(reset)
-			if difficultyInfo[difficulty] and encounterProgress and numEncounters and formatTime and lockoutColor then
-				GameTooltip:AddDoubleLine(format(lockoutInfoFormat, maxPlayers, difficultyInfo[difficulty], name, encounterProgress, numEncounters), formatTime, 1,1,1, lockoutColor.r,lockoutColor.g,lockoutColor.b)
+			
+			if (numEncounters and numEncounters > 0) and (encounterProgress and encounterProgress > 0) then
+				GameTooltip:AddDoubleLine(format(lockoutInfoFormat, maxPlayers, (difficulty:match("Normal") and "N" or "H"), name, encounterProgress, numEncounters), formatResetTime(reset), 1,1,1, lockoutColor.r,lockoutColor.g,lockoutColor.b)
+			else
+				GameTooltip:AddDoubleLine(format(lockoutInfoFormatNoEnc, maxPlayers, (difficulty:match("Normal") and "N" or "H"), name), formatResetTime(reset), 1,1,1, lockoutColor.r,lockoutColor.g,lockoutColor.b)
 			end
 		end
 	end	
 	
 	GameTooltip:AddLine(" ")
-	GameTooltip:AddLine(L["World Boss(s)"])
-	local quests = GetQuestsCompleted();
-	local shaKilled, galleonKilled = quests[32099], quests[32098]
-	GameTooltip:AddDoubleLine(L['Sha of Anger']..':', shaKilled and L['Defeated'] or L['Undefeated'], 1, 1, 1, 0.8, 0.8, 0.8)
-	GameTooltip:AddDoubleLine(L['Galleon']..':', galleonKilled and L['Defeated'] or L['Undefeated'], 1, 1, 1, 0.8, 0.8, 0.8)
-
-
+	GameTooltip:AddLine(L["World Boss(s)"])	
+	GameTooltip:AddDoubleLine(L['Sha of Anger']..':', quests[32099] and L['Defeated'] or L['Undefeated'], 1, 1, 1, 0.8, 0.8, 0.8)
+	GameTooltip:AddDoubleLine(L['Galleon']..':', quests[32098] and L['Defeated'] or L['Undefeated'], 1, 1, 1, 0.8, 0.8, 0.8)
+	
+	
 	local timeText
 	local Hr, Min, AmPm = CalculateTimeValues(true)
 
 	GameTooltip:AddLine(" ")
-	timeText = E.db.datatexts.localtime and TIMEMANAGER_TOOLTIP_REALMTIME or TIMEMANAGER_TOOLTIP_LOCALTIME
 	if AmPm == -1 then
-		GameTooltip:AddDoubleLine(timeText, format(europeDisplayFormat_nocolor, Hr, Min), 1, 1, 1, lockoutColorNormal.r, lockoutColorNormal.g, lockoutColorNormal.b)
+		GameTooltip:AddDoubleLine(E.db.datatexts.localtime and TIMEMANAGER_TOOLTIP_REALMTIME or TIMEMANAGER_TOOLTIP_LOCALTIME, 
+			format(europeDisplayFormat_nocolor, Hr, Min), 1, 1, 1, lockoutColorNormal.r, lockoutColorNormal.g, lockoutColorNormal.b)
 	else
-		GameTooltip:AddDoubleLine(timeText, format(ukDisplayFormat_nocolor, Hr, Min, APM[AmPm]), 1, 1, 1, lockoutColorNormal.r, lockoutColorNormal.g, lockoutColorNormal.b)
-	end
+		GameTooltip:AddDoubleLine(E.db.datatexts.localtime and TIMEMANAGER_TOOLTIP_REALMTIME or TIMEMANAGER_TOOLTIP_LOCALTIME,
+			format(ukDisplayFormat_nocolor, Hr, Min, APM[AmPm]), 1, 1, 1, lockoutColorNormal.r, lockoutColorNormal.g, lockoutColorNormal.b)
+	end	
 	
 	GameTooltip:Show()
 end
 
-local int = 1
+local int = 3
 function Update(self, t)
 	int = int - t
 	
@@ -237,7 +223,7 @@ function Update(self, t)
 
 	-- no update quick exit
 	if (Hr == curHr and Min == curMin and AmPm == curAmPm) and not (int < -15000) then
-		int = 2
+		int = 5
 		return
 	end
 	
@@ -251,7 +237,7 @@ function Update(self, t)
 		self.text:SetFormattedText(ukDisplayFormat, Hr, Min, APM[AmPm])
 	end
 	lastPanel = self
-	int = 2
+	int = 5
 end
 
 --[[
@@ -265,4 +251,4 @@ end
 	onEnterFunc - function to fire OnEnter
 	onLeaveFunc - function to fire OnLeave, if not provided one will be set for you that hides the tooltip.
 ]]
-DT:RegisterDatatext('Time', nil, nil, Update, Click, OnEnter, OnLeave)
+DT:RegisterDatatext('Time', { "QUEST_COMPLETE", "QUEST_LOG_UPDATE" }, OnEvent, Update, Click, OnEnter, OnLeave)
