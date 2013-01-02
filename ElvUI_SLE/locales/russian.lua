@@ -76,6 +76,7 @@ L["LFR Dragon Soul"] = "Душа Дракона ЛФР"
 L["LFR Mogu'shan Vaults"] = "Подземелья Могу'шан ЛФР"
 L["LFR Heart of Fear"] = "Сердце Страха ЛФР"
 L["LFR Terrace of Endless Spring"] = "Терраса Вечной Весны ЛФР"
+L["No LFR is available for your lever/gear."] = "Нет ЛФР под ваш уровень/экиперовку"
 L["Bosses killed: "] = "Боссов убито: "
 L["SLE_AUTHOR_INFO"] = "Редакция \"Тень и Свет\" от Darth Predator и Repooc"
 L["SLE_CONTACTS"] = [=[При возникновении вопросов, предложений и прочего обращаться:
