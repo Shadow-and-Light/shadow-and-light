@@ -1,7 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 if not E.private.unitframe.enable then return end
 local UF = E:GetModule('UnitFrames');
-local LSM = LibStub("LibSharedMedia-3.0");
 
 --Replacement of text formats on unitframes.
 local styles = {
@@ -20,24 +19,22 @@ function E:GetFormattedTextSLE(style, min, max)
 	if max == 0 then max = 1 end
 	
 	local useStyle = styles[style]
-	
-	local percentValue = E:TrimFloatingPoint(min / max * 100)
 
 	if style == 'DEFICIT' then
 		local deficit = max - min
 		if deficit <= 0 then
 			return ''
 		else
-			return string.format(useStyle, deficit)
+			return format(useStyle, deficit)
 		end
 	elseif style == 'CURRENT' or ((style == 'CURRENT_MAX' or style == 'CURRENT_MAX_PERCENT' or style == 'CURRENT_PERCENT') and min == max) then
-			return string.format(styles['CURRENT'], min)
+			return format(styles['CURRENT'], min)
 	elseif style == 'CURRENT_MAX' then
-			return string.format(useStyle, min, max)
+			return format(useStyle, min, max)
 	elseif style == 'CURRENT_PERCENT' then
-			return string.format(useStyle, min, percentValue)
+			return format(useStyle, min, percentValue)
 	elseif style == 'CURRENT_MAX_PERCENT' then
-			return string.format(useStyle, min, max, percentValue)
+			return format(useStyle, min, max, percentValue)
 	end
 end
 
@@ -73,11 +70,7 @@ if E.myclass == "WARLOCK" then
 			end
 		end
 		
-		local SPACING = 1
-		if db.classbar.fill == 'spaced' then
-			SPACING = 13
-		end
-		
+		local SPACING = db.classbar.fill == 'spaced' and 13 or 1
 		for i = 1, maxBars do
 			self[i]:SetHeight(self:GetHeight())	
 			self[i]:SetWidth((self:GetWidth() - (maxBars - 1)) / maxBars)

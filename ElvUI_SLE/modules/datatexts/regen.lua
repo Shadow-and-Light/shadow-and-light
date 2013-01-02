@@ -3,21 +3,21 @@ local DT = E:GetModule('DataTexts')
 
 local displayNumberString = ''
 local lastPanel;
+local join = string.join
 
 local function OnEvent(self, event, unit)
-	if event == "UNIT_AURA" and unit ~= 'player' then return end
-	lastPanel = self
-	
 	local baseMR, castingMR = GetManaRegen()
 	if InCombatLockdown() then
 		self.text:SetFormattedText(displayNumberString, "MP5", castingMR*5)
 	else
 		self.text:SetFormattedText(displayNumberString, "MP5", baseMR*5)
 	end
+	
+	lastPanel = self
 end
 
 local function ValueColorUpdate(hex, r, g, b)
-	displayNumberString = string.join("", "%s: ", hex, "%.2f|r")
+	displayNumberString = join("", "%s: ", hex, "%.2f|r")
 	
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)

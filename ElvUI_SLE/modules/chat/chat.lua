@@ -66,10 +66,10 @@ function CH:ChatEdit_AddHistory(editBox, line)
 			end
 		end
 
-		table.insert(ElvCharacterDB.ChatEditHistory, #ElvCharacterDB.ChatEditHistory + 1, line)
+		tinsert(ElvCharacterDB.ChatEditHistory, #ElvCharacterDB.ChatEditHistory + 1, line)
 		if #ElvCharacterDB.ChatEditHistory > E.db.chat.editboxhistory then
 			for i=1,(#ElvCharacterDB.ChatEditHistory - E.db.chat.editboxhistory) do
-				table.remove(ElvCharacterDB.ChatEditHistory, 1)
+				tremove(ElvCharacterDB.ChatEditHistory, 1)
 			end
 		end
 	end
@@ -118,9 +118,7 @@ function CH:PositionChat(override)
 		isDocked = chat.isDocked
 		
 		if id > NUM_CHAT_WINDOWS then
-			if point == nil then
-				point = select(1, chat:GetPoint())
-			end
+			point = point or select(1, chat:GetPoint());
 			if select(2, tab:GetPoint()):GetName() ~= bg then
 				isDocked = true
 			else

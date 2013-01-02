@@ -6,6 +6,7 @@ local SLE = E:GetModule('SLE')
 local displayString = '';
 local lastPanel;
 local self = lastPanel
+local join = string.join
 E.version = GetAddOnMetadata("ElvUI", "Version");
 
 local function OnEvent(self, event, ...)
@@ -28,7 +29,7 @@ local function OnEnter(self)
 end
 
 local function ValueColorUpdate(hex, r, g, b)
-	displayString = string.join("", "%s", hex, "%.2f|r", " : Shadow & Light Edit v", hex, "%.2f|r")
+	displayString = join("", "%s", hex, "%.2f|r", " : Shadow & Light Edit v", hex, "%.2f|r")
 	
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)
