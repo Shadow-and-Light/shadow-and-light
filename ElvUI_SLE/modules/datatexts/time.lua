@@ -154,10 +154,10 @@ local function OnEnter(self)
 				DT:ToES(526)
 			end
 			if ilvl < 460 then
-				GameTooltip:AddLine("No LFR is available for your lever/gear.")
+				GameTooltip:AddLine(L["No LFR is available for your lever/gear."])
 			end
 		else
-			GameTooltip:AddLine("No LFR is available for your lever/gear.")
+			GameTooltip:AddLine(L["No LFR is available for your lever/gear."])
 		end
 		--LFR lockout end
 	end
