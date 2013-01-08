@@ -2,7 +2,6 @@ local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Pr
 if not E.private.unitframe.enable then return end
 local UF = E:GetModule('UnitFrames');
 local SLE = E:GetModule('SLE');
---local LSM = LibStub("LibSharedMedia-3.0");
 
 
 --Setting the variable for using classbar. Elv's function.
