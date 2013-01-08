@@ -200,6 +200,7 @@ L["Pet Battle AB"] = true
 --Changelog--
 L["Changelog"] = true
 L["CHANGE_LOG"] = [=[|cff1784d1v1.37|r
+- Decimals are once again shown for hp/power texts on unit frames
 
 |cff1784d1v1.36|r
 - Some tweaks to better work with ElvUI 5.20
