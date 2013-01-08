@@ -1,7 +1,7 @@
-v1.36 ()
+v1.36 (January 8, 2013)
 - Some tweaks to better work with ElvUI 5.20
 
-v1.35 (December 28, 2008)
+v1.35 (December 28, 2012)
 - Fixed compatibility with full Location Plus version
 
 v1.34 (December 12, 2012)
