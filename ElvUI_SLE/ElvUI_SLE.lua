@@ -54,7 +54,7 @@ E.PopupDialogs["VERSION_MISMATCH"] = {
 }
 
 --Showing warning message about too old versions of ElvUI
-if tonumber(E.version) < 5.19 then
+if tonumber(E.version) < 5.2 then
 	E:StaticPopup_Show("VERSION_MISMATCH")
 end
 
