@@ -1,3 +1,6 @@
+v1.37 (January 8, 2013)
+- Decimals are once again shown for hp/power texts on unit frames
+
 v1.36 (January 8, 2013)
 - Some tweaks to better work with ElvUI 5.20
 

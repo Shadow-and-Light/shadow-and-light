@@ -199,7 +199,12 @@ L["Pet Battle AB"] = true
 
 --Changelog--
 L["Changelog"] = true
-L["CHANGE_LOG"] = [=[|cff1784d1v1.35|r
+L["CHANGE_LOG"] = [=[|cff1784d1v1.37|r
+
+|cff1784d1v1.36|r
+- Some tweaks to better work with ElvUI 5.20
+
+|cff1784d1v1.35|r
 - Fixed compatibility with full Location Plus version
 
 |cff1784d1v1.34|r
