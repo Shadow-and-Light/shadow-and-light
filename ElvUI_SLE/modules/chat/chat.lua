@@ -198,30 +198,33 @@ end
 local function SLEfilter(self, event, message, author, arg3, arg4, arg5, arg6, ...)
     local returnTex = arg6
 	
-	if IconTable[E.myrealm] then
-		for character, flag in pairs(IconTable[E.myrealm]) do
-			if author == character and flag then
-				returnTex = flag..arg6
-			end							
-		end
+	if(strlen(arg6) > 0) then
+	else
+		if IconTable[E.myrealm] then
+			for character, flag in pairs(IconTable[E.myrealm]) do
+				if author == character and flag then
+					returnTex = flag..arg6
+				end							
+			end
 					
-		for realm, _ in pairs(IconTable) do
-			if realm ~= E.myrealm then
+			for realm, _ in pairs(IconTable) do
+				if realm ~= E.myrealm then
+					for character, flag in pairs(IconTable[realm]) do
+						if author == character.."%-"..realm and flag then
+							returnTex = flag..arg6
+						end			
+					end
+				end
+			end			
+		else
+			for realm, _ in pairs(IconTable) do
 				for character, flag in pairs(IconTable[realm]) do
 					if author == character.."%-"..realm and flag then
 						returnTex = flag..arg6
-					end			
+					end		
 				end
-			end
-		end			
-	else
-		for realm, _ in pairs(IconTable) do
-			for character, flag in pairs(IconTable[realm]) do
-				if author == character.."%-"..realm and flag then
-					returnTex = flag..arg6
-				end		
-			end
-		end		
+			end		
+		end
 	end
     
     return false, message, author, arg3, arg4, arg5, returnTex, ...
