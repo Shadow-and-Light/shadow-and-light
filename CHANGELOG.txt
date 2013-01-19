@@ -1,5 +1,6 @@
 v1.39 (January 19, 2013)
 - Fixed stack overflow on pet battles
+- Fixed overlooked missing english locale
 
 v1.38 (January 18, 2013)
 - Fixed to work with ElvUI 5.26 
