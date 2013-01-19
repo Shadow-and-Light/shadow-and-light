@@ -47,7 +47,7 @@ L["Enabling this will show caster name in the buffs and debuff icons."] = true
 --Backgroungds--
 L["Backgrounds"] = true
 L["Additional Background Panels"] = true
-L["BG_DESC"] = true
+L["BG_DESC"] = "Module for creating additional frames that can be used as backgrounds for anything."
 L["Bottom BG"] = true
 L["Left BG"] = true
 L["Right BG"] = true
