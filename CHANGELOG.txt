@@ -1,3 +1,6 @@
+v1.4 (January 21, 2013)
+- Fix for LFR info not available on toltip for tim datatext
+
 v1.39 (January 19, 2013)
 - Fixed stack overflow on pet battles
 - Fixed overlooked missing english locale
