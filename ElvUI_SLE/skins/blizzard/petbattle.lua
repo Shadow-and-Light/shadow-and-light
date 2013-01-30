@@ -266,8 +266,8 @@ end)
 	bar:SetFrameLevel(0)
 	bar:SetFrameStrata('BACKGROUND')
 	bar.backdropTexture:SetDrawLayer('BACKGROUND', 0)
-	ElvUIPetBattleActionBar:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 4) --Defaultg position
-	E:CreateMover(ElvUIPetBattleActionBar, "PetBattleABMover", L["Pet Battle AB"], nil, nil, nil, "ALL,S&L") --Mover
+	ElvUIPetBattleActionBar:Hide()
+	E:CreateMover(bar, "PetBattleABMover", L["Pet Battle AB"], nil, nil, nil, "ALL,S&L") --Mover
 	bar:SetScript('OnShow', function(self)
 		if not self.initialShow then
 			self.initialShow = true;
