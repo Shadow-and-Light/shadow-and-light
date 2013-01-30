@@ -1,3 +1,6 @@
+v.1.4a
+- Fix for pet battle actionbar detached from the mover
+
 v1.4 (January 21, 2013)
 - Fix for LFR info not available on toltip for time datatext
 
