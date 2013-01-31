@@ -1,4 +1,7 @@
-v.1.4a
+v1.41 (February 1, 2013)
+- Fixed version datatext error 
+
+v.1.4a (January 30, 2013)
 - Fix for pet battle actionbar detached from the mover
 
 v1.4 (January 21, 2013)
