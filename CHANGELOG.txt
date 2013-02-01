@@ -1,4 +1,7 @@
-v1.41 (February 1, 2013)
+v1.42 (January 31, 2013)
+- Curse being stupid and fixed changelog b/c darth dont realize there are 31 days in Jan.
+
+v1.41 (January 31, 2013)
 - Fixed version datatext error 
 
 v.1.4a (January 30, 2013)
