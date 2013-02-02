@@ -1300,7 +1300,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.datatexts.panels['LeftChatDataPanel']['left'] = "Bags"
 		E.db.datatexts.panels['LeftChatDataPanel']['middle'] = ""
 		E.db.datatexts.panels['LeftChatDataPanel']['right'] = ""
-		E.db.datatexts.panels['RightChatDataPanel']['left'] = ""
+		E.db.datatexts.panels['RightChatDataPanel']['left'] = "SocialState"
 		E.db.datatexts.panels['RightChatDataPanel']['middle'] = "Gold"
 		E.db.datatexts.panels['RightChatDataPanel']['right'] = "Time"
 		E.db.datatexts.panels['Top_Center'] = "Version"
@@ -1379,7 +1379,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.unitframe.units.party.petsGroup.yOffset = 1
 		
 		--Raid25
-		--E.db.unitframe.units.raid25.columnSpacing = 2
 		E.db.unitframe.units.raid25.customTexts = {}
 		E.db.unitframe.units.raid25.healPrediction = true
 		E.db.unitframe.units.raid25.health.frequentUpdates = true
@@ -1388,7 +1387,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.unitframe.units.raid25.xOffset = 2
 		
 		--Raid40
-		--E.db.unitframe.units.raid40.columnSpacing = 2
 		E.db.unitframe.units.raid40.healPrediction = true
 		E.db.unitframe.units.raid40.health.frequentUpdates = true
 		E.db.unitframe.units.raid40.health.text = true
@@ -1411,7 +1409,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.unitframe.units.boss.width = 200
 		E.db.unitframe.units.boss.castbar.width = 200
 
-		E.db.unitframe.colors.healthclass = true
+		E.db.unitframe.colors.healthclass = false
 		E.db.unitframe.colors.auraBarBuff = {
 			["b"] = 0.59,
 			["g"] = 1,
