@@ -1334,11 +1334,12 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 
 	--Unitframes
 	do
-		--Raid10
-		E.db.unitframe.units.raid10.xOffset = 2
-		--E.db.unitframe.units.raid10.columnSpacing = 2
-		E.db.unitframe.units.raid10.healPrediction = true
-		E.db.unitframe.units.raid10.width = 79
+		--Player
+		E.db.unitframe.units.player.health.position = "TOPRIGHT"
+		E.db.unitframe.units.player.portrait.overlay = true
+		E.db.unitframe.units.player.portrait.enable = true
+		E.db.unitframe.units.player.portrait.camDistanceScale = 3
+		E.db.unitframe.units.player.power.position = "BOTTOMRIGHT"
 
 		--Target
 		E.db.unitframe.units.target.aurabar.attachTo = "BUFFS"
@@ -1348,6 +1349,9 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.unitframe.units.target.power.position = "BOTTOMLEFT"
 		E.db.unitframe.units.target.power.hideonnpc = false
 		E.db.unitframe.units.target.health.position = "LEFT"
+		E.db.unitframe.units.target.portrait.overlay = true
+		E.db.unitframe.units.target.portrait.enable = true
+		E.db.unitframe.units.target.portrait.camDistanceScale = 3
 
 		--Party
 		E.db.unitframe.units.party.columnAnchorPoint = "LEFT"
@@ -1377,6 +1381,11 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.unitframe.units.party.petsGroup.width = 80
 		E.db.unitframe.units.party.petsGroup.xOffset = 0
 		E.db.unitframe.units.party.petsGroup.yOffset = 1
+
+		--Raid10
+		E.db.unitframe.units.raid10.xOffset = 2
+		E.db.unitframe.units.raid10.healPrediction = true
+		E.db.unitframe.units.raid10.width = 79
 		
 		--Raid25
 		E.db.unitframe.units.raid25.customTexts = {}
@@ -1400,14 +1409,14 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		--Arena
 		E.db.unitframe.units.arena.castbar.width = 200
 		E.db.unitframe.units.arena.width = 200
-		
-		--Player
-		E.db.unitframe.units.player.health.position = "TOPRIGHT"
-		E.db.unitframe.units.player.power.position = "BOTTOMRIGHT"
 
 		--Boss
 		E.db.unitframe.units.boss.width = 200
 		E.db.unitframe.units.boss.castbar.width = 200
+
+		--Main Tank & Assist
+		E.db.unitframe.units.tank.enable = false
+		E.db.unitframe.units.assist.enable = false
 
 		E.db.unitframe.colors.healthclass = false
 		E.db.unitframe.colors.auraBarBuff = {
@@ -1449,7 +1458,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-460129"
 			E.db.movers.ElvUF_PetMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT460129"
 			E.db.movers.ElvUF_FocusMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-50052"
-			E.db.movers.ElvUF_PartyMover = "BOTTOMElvUIParentBOTTOM074"
+			E.db.movers.ElvUF_PartyMover = "BOTTOMElvUIParentBOTTOM091"
 			E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT460166"
 			E.db.movers.ElvUF_Raid10Mover = "BOTTOMElvUIParentBOTTOM091"
 			E.db.movers.ElvUF_Raid25Mover = "BOTTOMElvUIParentBOTTOM091"
@@ -1458,7 +1467,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 			E.db.movers.UIBFrameMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT329175"
 			E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM021"
 			E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM055"
-			E.db.movers.ElvAB_4 = "TOPRIGHTElvUIParentTOPRIGHT-4-185"
 			E.db.movers.ElvUF_FocusCastbarMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-50031"
 			E.db.movers.DP_6_Mover = "BOTTOMElvUIParentBOTTOM3110"
 			E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT019"
@@ -1478,7 +1486,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-460129"
 			E.db.movers.ElvUF_PetMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT460129"
 			E.db.movers.ElvUF_FocusMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-50052"
-			E.db.movers.ElvUF_PartyMover = "BOTTOMElvUIParentBOTTOM074"
+			E.db.movers.ElvUF_PartyMover = "BOTTOMElvUIParentBOTTOM091"
 			E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT460166"
 			E.db.movers.ElvUF_Raid10Mover = "BOTTOMElvUIParentBOTTOM091"
 			E.db.movers.ElvUF_Raid25Mover = "BOTTOMElvUIParentBOTTOM091"
@@ -1487,7 +1495,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 			E.db.movers.UIBFrameMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT329175"
 			E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM021"
 			E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM055"
-			E.db.movers.ElvAB_4 = "TOPRIGHTElvUIParentTOPRIGHT-4-185"
 			E.db.movers.ElvUF_FocusCastbarMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-50031"
 			E.db.movers.DP_6_Mover = "BOTTOMElvUIParentBOTTOM3110"
 			E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT019"
@@ -1501,6 +1508,8 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 			E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT019"
 			E.db.movers.ExperienceBarMover = "TOPElvUIParentTOP0-32"
 		end
+		E.db.movers.BossButton = "BOTTOMElvUIParentBOTTOM559200"
+		E.db.movers.ElvAB_4 = "TOPRIGHTElvUIParentTOPRIGHT0-200"
 	end
 
 	E:UpdateAll(true)
