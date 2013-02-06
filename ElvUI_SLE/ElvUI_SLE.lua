@@ -52,7 +52,17 @@ E.PopupDialogs["VERSION_MISMATCH"] = {
 	whileDead = 1,	
 	preferredIndex = 3,
 }
-
+E.PopupDialogs["ELVUI_SLE_REPOOC"] = {
+	text = L["Repooc configuration requires PixelPerfect to be enabled. Hit accept to enable Pixel Perfect, hit cancel to not use Repooc's Config."],
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	OnAccept = function(self)
+		E:SetupPixelPerfect(true)
+		E:RepoocSetup()
+	end,
+	timeout = 0,
+	whileDead = 1,
+}
 --Showing warning message about too old versions of ElvUI
 if tonumber(E.version) < 5.26 then
 	E:StaticPopup_Show("VERSION_MISMATCH")

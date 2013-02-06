@@ -1211,7 +1211,8 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	if not E.db.movers then E.db.movers = {}; end
 	
 	layout = E.db.layoutSet  --Pull which layout was selected if any.
-
+	pixel = E.PixelMode  --Pull PixelMode
+	--print(pixel);
 	--General Options
 	E.db.general.bottomPanel = true
 	E.db.general.topPanel = true
@@ -1232,7 +1233,10 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		["r"] = 0.31,
 	}
 	E.db.general.experience.enable = true
+	E.db.general.experience.textFormat = "CURPERC"
+	E.db.general.experience.textSize = 10
 	E.db.general.reputation.enable = true
+	E.db.general.reputation.textFormat = "CURPERC"
 	E.db.general.interruptAnnounce = "RAID"
 	
 	--Bags
@@ -1432,10 +1436,18 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	end
 
 	--Actionbars
+	--Bar 1
+	E.db.actionbar.bar1.enabled = true
+	E.db.actionbar.bar1.backdrop = false
+	E.db.actionbar.bar1.buttonspacing = 2
 	--Bar 2
 	E.db.actionbar.bar2.enabled = true
+	E.db.actionbar.bar2.backdrop = false
+	E.db.actionbar.bar2.buttonspacing = 2
 	--Bar 3
 	E.db.actionbar.bar3.enabled = false
+	E.db.actionbar.bar3.backdrop = false
+	E.db.actionbar.bar3.buttonspacing = 2
 	--Bar 4
 	E.db.actionbar.bar4.enabled = true
 	E.db.actionbar.bar4.backdrop = false
@@ -1443,6 +1455,11 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.actionbar.bar4.buttonspacing = 1
 	--Bar 5
 	E.db.actionbar.bar5.enabled = false
+	E.db.actionbar.bar5.backdrop = false
+	E.db.actionbar.bar5.buttonspacing = 2
+
+	--Stance Bar
+	E.db.actionbar.stanceBar.buttonspacing = 2
 	
 	--UIButtons
 	E.db.sle.uibuttons.enable = true
@@ -1450,6 +1467,10 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	
 	--SLE Tooltip
 	E.db.sle.castername = true
+
+	--Exp & Rep
+	E.db.sle.exprep.explong = true
+	
 
 	do
 		if layout == "healer" then			
@@ -1692,8 +1713,15 @@ local function SetPage(PageNum)
 		InstallOption1Button:SetScript('OnClick', function() E:DarthSetup() end)
 		InstallOption1Button:SetText(L["Darth's Config"])	
 		InstallOption2Button:Show()
-		InstallOption2Button:SetScript('OnClick', function() E:RepoocSetup() end)
-		InstallOption2Button:SetText(L["Repooc's Config"])
+pixel = E.PixelMode
+		print(pixel);
+		if pixel then
+			InstallOption2Button:SetScript('OnClick', function() E:RepoocSetup() end)
+			InstallOption2Button:SetText(L["Repooc's Config"])
+		else
+			InstallOption2Button:SetScript('OnClick', function() E:StaticPopup_Show("ELVUI_SLE_REPOOC") end)
+			InstallOption2Button:SetText(L["Repooc's Config"])
+		end
 	elseif PageNum == 10 and IsAddOnLoaded("ElvUI_Hud") then --Hud's page if enabled
 		f.SubTitle:SetText("ElvUI Hud")
 		f.Desc1:SetText(L["Thank you for using ElvUI Hud!"])
