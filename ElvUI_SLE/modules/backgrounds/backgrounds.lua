@@ -94,6 +94,7 @@ function BG:RegisterHide()
 end
 
 function BG:Initialize()
+	if not E.private.sle.module.backgrounds then return end
 	BG:FramesCreate()
 	BG:UpdateFrames()
 	BG:RegisterHide()
