@@ -152,6 +152,10 @@ local function OnEnter(self)
 				DT:HoF(529, 530)
 				DT.tooltip:AddLine(" ")
 				DT:ToES(526)
+				DT.tooltip:AddLine(" ")
+			end
+			if ilvl >= 480 then
+				DT:ToT(610, 611, 612, 613)
 			end
 			if ilvl < 460 then
 				DT.tooltip:AddLine(L["No LFR is available for your level/gear."])
