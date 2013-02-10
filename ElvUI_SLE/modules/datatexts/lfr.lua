@@ -235,7 +235,7 @@ function DT:ToES(id)
 end
 
 function DT:ToT(id1, id2, id3, id4)
-	DT.tooltip:AddLine(L["Throne of Thunder"])
+	DT.tooltip:AddLine(L["LFR Throne of Thunder"])
 	if IsShiftKeyDown() then
 		DT:TwelveShift(id1, id2, id3, id4)
 	else

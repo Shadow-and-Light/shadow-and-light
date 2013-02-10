@@ -76,6 +76,7 @@ L["LFR Dragon Soul"] = true
 L["LFR Mogu'shan Vaults"] = true
 L["LFR Heart of Fear"] = true
 L["LFR Terrace of Endless Spring"] = true
+L["LFR Throne of Thunder"] = true
 L["Bosses killed: "] = true
 L["No LFR is available for your level/gear."] = true
 L["SLE_AUTHOR_INFO"] = "Shadow & Light Edit by Darth Predator & Repooc"
