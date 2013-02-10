@@ -154,10 +154,10 @@ local function OnEnter(self)
 				DT:ToES(526)
 			end
 			if ilvl < 460 then
-				DT.tooltip:AddLine(L["No LFR is available for your lever/gear."])
+				DT.tooltip:AddLine(L["No LFR is available for your level/gear."])
 			end
 		else
-			DT.tooltip:AddLine(L["No LFR is available for your lever/gear."])
+			DT.tooltip:AddLine(L["No LFR is available for your level/gear."])
 		end
 		--LFR lockout end
 	end
