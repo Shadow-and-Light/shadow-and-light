@@ -26,52 +26,63 @@ E.Options.args.sle.args.backgrounds = {
 			type = "description",
 			name = L["BG_DESC"]
 		},
-		Reset = {
+		enabled = {
 			order = 3,
+			type = "toggle",
+			name = L["Enable"],
+			get = function(info) return E.private.sle.module.backgrounds end,
+			set = function(info, value) E.private.sle.module.backgrounds = value; E:StaticPopup_Show("PRIVATE_RL") end
+		},
+		Reset = {
+			order = 4,
 			type = 'execute',
 			name = L['Restore Defaults'],
 			desc = L["Reset these options to defaults"],
 			func = function() E:GetModule('SLE'):Reset(nil, nil, nil, true) end,
 		},
 		spacerreset = {
-			order = 4,
+			order = 5,
 			type = 'description',
 			name = "",
 		},
 		bottom_enabled = {
-			order = 5,
+			order = 6,
 			type = "toggle",
 			name = L["Bottom BG"],
 			desc = L["Show/Hide this frame."],
+			disabled = function() return not E.private.sle.module.backgrounds end,
 			get = function(info) return E.db.sle.backgrounds.bottom.enabled end,
 			set = function(info, value) E.db.sle.backgrounds.bottom.enabled = value; BG:FramesVisibility() end
 		},
 		left_enabled = {
-			order = 6,
+			order = 7,
 			type = "toggle",
 			name = L["Left BG"],
 			desc = L["Show/Hide this frame."],
+			disabled = function() return not E.private.sle.module.backgrounds end,
 			get = function(info) return E.db.sle.backgrounds.left.enabled end,
 			set = function(info, value) E.db.sle.backgrounds.left.enabled = value; BG:FramesVisibility() end
 		},
 		spacer = {
-			order = 7,
+			order = 8,
 			type = "description",
 			name = "",
 		},
 		right_enabled = {
-			order = 8,
+			order = 9,
 			type = "toggle",
 			name = L["Right BG"],
 			desc = L["Show/Hide this frame."],
+			disabled = function() return not E.private.sle.module.backgrounds end,
 			get = function(info) return E.db.sle.backgrounds.right.enabled end,
 			set = function(info, value) E.db.sle.backgrounds.right.enabled = value; BG:FramesVisibility() end
 		},
 		action_enabled = {
-			order = 9,
+			order = 10,
 			type = "toggle",
 			name = L["Actionbar BG"],
 			desc = L["Show/Hide this frame."],
+			disabled = function() return not E.private.sle.module.backgrounds end,
 			get = function(info) return E.db.sle.backgrounds.action.enabled end,
 			set = function(info, value) E.db.sle.backgrounds.action.enabled = value; BG:FramesVisibility() end
 		},
@@ -85,7 +96,7 @@ for k,v in pairs(drop) do
 		name = L[k],
 		order = v[2],
 		get = function(info) return E.db.sle.backgrounds[v[1]][ info[#info] ] end,
-		disabled = function() return not E.db.sle.backgrounds[v[1]].enabled end,
+		disabled = function() return (not E.private.sle.module.backgrounds or not E.db.sle.backgrounds[v[1]].enabled) end,
 		args = {
 			width = { --setting width (obviously)
 				order = 1,
