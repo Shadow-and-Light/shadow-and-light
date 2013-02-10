@@ -1,10 +1,6 @@
 ﻿local E, L, V, P, G, _ =  unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, GlobalDB
 
 V['sle'] = {
-	['module'] = {
-		['backgrounds'] = false,
-		
-	},
 	['dbm'] = {
 		['size'] = 10,
 	},
