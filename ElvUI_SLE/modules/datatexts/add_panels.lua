@@ -39,11 +39,11 @@ end
 
 -- New panels
 function DTP:CreateDataPanels(panel, name, point, x, slot, short)
-	if E.db.sle.datatext[short.."transparent"] then
-		panel:SetTemplate("Transparent")
-	else
-		panel:SetTemplate("Default", true)
-	end
+	--if E.db.sle.datatext[short.."transparent"] then
+	--	panel:SetTemplate("Transparent")
+	--else
+	--	panel:SetTemplate("Default", true)
+	--end
 	panel:SetFrameStrata('LOW')
 	panel:Point(point, E.UIParent, point, x, 0); 
 	DT:RegisterPanel(panel, slot, 'ANCHOR_BOTTOM', 0, -4)
@@ -71,6 +71,11 @@ function DTP:ExtraDataBarSetup()
 			v[5]:Show()
 		else
 			v[5]:Hide()
+		end
+		if db[v[1]].transparent then
+			v[5]:SetTemplate("Transparent")
+		else
+			v[5]:SetTemplate("Default", true)
 		end
 	end
 end
