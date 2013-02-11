@@ -39,8 +39,10 @@ end
 
 -- New panels
 function DTP:CreateDataPanels(panel, name, point, x, slot, short)
-	if not E.private.sle.datatext[short.."hide"] then
-		panel:SetTemplate(E.db.datatexts.panelTransparency and 'Transparent' or 'Default', true)
+	if E.db.sle.datatext[short.."transparent"] then
+		panel:SetTemplate("Transparent")
+	else
+		panel:SetTemplate("Default", true)
 	end
 	panel:SetFrameStrata('LOW')
 	panel:Point(point, E.UIParent, point, x, 0); 
@@ -72,6 +74,40 @@ function DTP:ExtraDataBarSetup()
 		end
 	end
 end
+
+
+--function DTP:SetDataPanelStyle()
+--	local db = E.db.sle.datatext
+--	for _,v in pairs(panels) do
+--		if db[v[1]].transparent then
+--		
+--		else
+--		
+--		end
+--	end
+--end
+
+
+--[[
+function DTP:SetDataPanelStyle()
+	if E.db.datatexts.panelTransparency then
+		LeftChatDataPanel:SetTemplate("Transparent")
+		LeftChatToggleButton:SetTemplate("Transparent")
+		LeftMiniPanel:SetTemplate("Transparent")
+		RightChatDataPanel:SetTemplate("Transparent")
+		RightChatToggleButton:SetTemplate("Transparent")
+		RightMiniPanel:SetTemplate("Transparent")		
+		ElvConfigToggle:SetTemplate("Transparent")
+	else
+		LeftChatDataPanel:SetTemplate("Default", true)
+		LeftChatToggleButton:SetTemplate("Default", true)
+		LeftMiniPanel:SetTemplate("Default", true)
+		RightChatDataPanel:SetTemplate("Default", true)
+		RightChatToggleButton:SetTemplate("Default", true)
+		RightMiniPanel:SetTemplate("Default", true)		
+		ElvConfigToggle:SetTemplate("Default", true)	
+	end
+end]]
 
 function DTP:Update()
 	DTP:ExtraDataBarSetup()

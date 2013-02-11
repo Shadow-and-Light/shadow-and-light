@@ -145,6 +145,13 @@ E.Options.args.sle.args.datatext.args[v[1]] = {
 			get = function(info) return E.private.sle.datatext[v[1].."hide"] end,
 			set = function(info, value) E.private.sle.datatext[v[1].."hide"] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 		},
+		transparent = {
+			order = 4,
+			name = L['Panel Transparency'],
+			type = 'toggle',
+			get = function(info) return E.db.sle.datatext[v[1].."transparent"] end,
+			set = function(info, value) E.db.sle.datatext[v[1].."transparent"] = value; E:StaticPopup_Show("PRIVATE_RL") end,				
+		},
 	},
 }
 end

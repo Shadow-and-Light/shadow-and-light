@@ -73,34 +73,42 @@ P['sle'] = {
 		['dp1'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/5,
+			['transparent'] = false,
 		},	
 		['dp2'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/5,
+			['transparent'] = false,
 		},
 		['top'] = {
 			['enabled'] = true,
 			['width'] = E.screenwidth/5 - 4,
+			['transparent'] = false,
 		},
 		['dp3'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/5,
+			['transparent'] = false,
 		},
 		['dp4'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/5,
-		},	
+			['transparent'] = false,
+		},
 		['dp5'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/4 - 60,
+			['transparent'] = false,
 		},	
 		['bottom'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/10 - 4,
+			['transparent'] = false,
 		},
 		['dp6'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/4 - 60,
+			['transparent'] = false,
 		},
 		['chatleft'] = {
 			['enabled'] = true,
