@@ -40,7 +40,7 @@ end
 -- New panels
 function DTP:CreateDataPanels(panel, name, point, x, slot, short)
 	if not E.private.sle.datatext[short.."hide"] then
-		panel:SetTemplate('Default', true)
+		panel:SetTemplate(E.db.datatexts.panelTransparency and 'Transparent' or 'Default', true)
 	end
 	panel:SetFrameStrata('LOW')
 	panel:Point(point, E.UIParent, point, x, 0); 
