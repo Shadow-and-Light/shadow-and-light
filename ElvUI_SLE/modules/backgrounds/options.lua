@@ -108,22 +108,22 @@ for k,v in pairs(drop) do
 				type = "description",
 				name = "",
 			},
-			xoffset = {
-				order = 4,
-				type = "range",
-				name = L['X Offset'],
-				desc = L["Sets X offset of the frame"],
-				min = -E.screenwidth/2, max = E.screenwidth/2, step = 1,
-				set = function(info, value) E.db.sle.backgrounds[v[1]].xoffset = value; BG:FramesPositions() end,
-			},
-			yoffset = {
-				order = 5,
-				type = "range",
-				name = L['Y Offset'],
-				desc = L["Sets Y offset of the frame"],
-				min = -21, max = E.screenheight, step = 1,
-				set = function(info, value) E.db.sle.backgrounds[v[1]].yoffset = value; BG:FramesPositions() end,
-			},
+			--xoffset = {
+			--	order = 4,
+			--	type = "range",
+			--	name = L['X Offset'],
+			--	desc = L["Sets X offset of the frame"],
+			--	min = -E.screenwidth/2, max = E.screenwidth/2, step = 1,
+			--	set = function(info, value) E.db.sle.backgrounds[v[1]].xoffset = value; BG:FramesPositions() end,
+			--},
+			--yoffset = {
+			--	order = 5,
+			--	type = "range",
+			--	name = L['Y Offset'],
+			--	desc = L["Sets Y offset of the frame"],
+			--	min = -21, max = E.screenheight, step = 1,
+			--	set = function(info, value) E.db.sle.backgrounds[v[1]].yoffset = value; BG:FramesPositions() end,
+			--},
 			--Setting custom texture for those who like it
 			texture = {
 				order = 6,
