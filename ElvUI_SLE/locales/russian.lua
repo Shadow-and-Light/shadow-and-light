@@ -65,6 +65,7 @@ L["Default"] = "Обычный"
 L["Transparent"] = "Прозрачный"
 L["Hide in Pet Batlle"] = "Прятать в битвах питомцев"
 L["Show/Hide this frame during Pet Battles."] = "Показать/скрыть этот фрейм в битвах питомцев"
+L["S&L Backgrounds"] = "Фоны S&L"
 
 --Chat--
 L["Chat Options"] = "Настройки чата"

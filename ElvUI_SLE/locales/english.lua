@@ -65,6 +65,7 @@ L["Default"] = true
 L["Transparent"] = true
 L["Hide in Pet Batlle"] = true
 L["Show/Hide this frame during Pet Battles."] = true
+L["S&L Backgrounds"] = true
 
 --Chat--
 L["Chat Options"] = true
