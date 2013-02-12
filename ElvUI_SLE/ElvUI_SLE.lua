@@ -12,6 +12,8 @@ end
 function SLE:ConfigCats() --Additional config groups
 	table.insert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L");
 	E.ConfigModeLocalizedStrings["S&L"] = "S&L"
+	table.insert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L BG");
+	E.ConfigModeLocalizedStrings["S&L BG"] = L["S&L Backgrounds"]
 end
 
 function SLE:LootShow()
