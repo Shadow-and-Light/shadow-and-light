@@ -1796,8 +1796,7 @@ local function SetPage(PageNum)
 		InstallOption1Button:SetScript('OnClick', function() E:DarthSetup() end)
 		InstallOption1Button:SetText(L["Darth's Config"])	
 		InstallOption2Button:Show()
-pixel = E.PixelMode
-		print(pixel);
+	local pixel = E.PixelMode
 		if pixel then
 			InstallOption2Button:SetScript('OnClick', function() E:RepoocSetup() end)
 			InstallOption2Button:SetText(L["Repooc's Config"])
