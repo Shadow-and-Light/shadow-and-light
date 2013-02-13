@@ -9,9 +9,6 @@ CHAT_FLAG_SLEFRIEND = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Fri
 CHAT_FLAG_SLETEST = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Test:13:13|t"
 --Toon table
 local IconTable = {
-	["Anasterian(US)"] = {
-		["Dapooc"] = "SLEAUTHOR"
-	},
 	["Illidan"] = {
 		--Darth's toon
 		["Darthpred"] = "SLEAUTHOR",
@@ -202,7 +199,6 @@ local function SLEfilter(self, event, message, author, arg3, arg4, arg5, arg6, .
     local returnTex = arg6
 	local myRealm = E.myrealm
 	myRealm = myRealm:gsub(' ', '')
-	print(myRealm)
 	if(strlen(arg6) > 0) then
 	else
 		if IconTable[myRealm] then
