@@ -267,7 +267,7 @@ end)
 	bar:SetFrameStrata('BACKGROUND')
 	bar.backdropTexture:SetDrawLayer('BACKGROUND', 0)
 	ElvUIPetBattleActionBar:Hide()
-	E:CreateMover(bar, "PetBattleABMover", L["Pet Battle AB"], nil, nil, nil, "ALL,S&L") --Mover
+	E:CreateMover(bar, "PetBattleABMover", L["Pet Battle AB"], nil, nil, nil, "S&L,S&L M") --Mover
 	bar:SetScript('OnShow', function(self)
 		if not self.initialShow then
 			self.initialShow = true;
