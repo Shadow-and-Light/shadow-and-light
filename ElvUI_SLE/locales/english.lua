@@ -65,7 +65,6 @@ L["Default"] = true
 L["Transparent"] = true
 L["Hide in Pet Batlle"] = true
 L["Show/Hide this frame during Pet Battles."] = true
-L["S&L Backgrounds"] = true
 
 --Chat--
 L["Chat Options"] = true
@@ -125,6 +124,11 @@ L["Selecting this option will have the Raid Markers appear only while in a raid 
 L["Sets size of buttons"] = true --Also used in UI buttons
 L["Direction"] = true
 L["Change the direction of buttons growth from the skull marker"] = true
+
+--Mover groups
+L["S&L: All"] = true
+L["S&L: Datatexts"] = true
+L["S&L: Backgrounds"] = true
 
 --Raid Utility--
 L["Raid Utility"] = true
