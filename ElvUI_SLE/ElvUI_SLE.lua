@@ -11,11 +11,11 @@ end
 
 function SLE:ConfigCats() --Additional config groups
 	table.insert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L");
-	E.ConfigModeLocalizedStrings["S&L"] = L["S&L All"]
+	E.ConfigModeLocalizedStrings["S&L"] = L["S&L: All"]
 	table.insert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L DT");
-	E.ConfigModeLocalizedStrings["S&L DT"] = L["S&L Datatexts"]
+	E.ConfigModeLocalizedStrings["S&L DT"] = L["S&L: Datatexts"]
 	table.insert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L BG");
-	E.ConfigModeLocalizedStrings["S&L BG"] = L["S&L Backgrounds"]
+	E.ConfigModeLocalizedStrings["S&L BG"] = L["S&L: Backgrounds"]
 end
 
 function SLE:LootShow()
