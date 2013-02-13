@@ -66,7 +66,7 @@ function RM:FrameButtonsGrowth()
 	local db = E.db.sle.marks
 	local size = db.size
 	local width, height, x, y, anchor, point
-	local t = {8 * size + 11,size + 4,"LEFT","RIGHT","TOP","BOTTOM",1,0,-1}
+	local t = {8*size+11,size+4,"LEFT","RIGHT","TOP","BOTTOM",1,0,-1}
 	for i = 1, 8 do
 		MarkB[i]:ClearAllPoints()
 	end
@@ -114,12 +114,16 @@ function RM:UpdateVisibility()
 	end
 end
 
-function RM:Initialize()
-	RM:CreateFrame()
+function RM:Update()
 	RM:FrameButtonsSize()
 	RM:FrameButtonsGrowth()
-	RM:CreateButtons()
 	RM:UpdateVisibility()
+end
+
+function RM:Initialize()
+	RM:CreateFrame()
+	RM:Update()
+	RM:CreateButtons()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "UpdateVisibility");
 
 	E:CreateMover(mark_menu, "MarkMover", "RM", nil, nil, nil, "S&L,S&L M")
