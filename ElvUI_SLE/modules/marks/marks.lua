@@ -126,7 +126,7 @@ function RM:Initialize()
 	RM:CreateButtons()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "UpdateVisibility");
 
-	E:CreateMover(mark_menu, "MarkMover", "RM", nil, nil, nil, "S&L,S&L M")
+	E:CreateMover(mark_menu, "MarkMover", "RM", nil, nil, nil, "ALL,S&L,S&L MISC")
 end
 
 E:RegisterModule(RM:GetName())

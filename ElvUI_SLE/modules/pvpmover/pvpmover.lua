@@ -19,7 +19,7 @@ function P:Initialize()
 	WorldStateAlwaysUpFrame:ClearAllPoints()
 	WorldStateAlwaysUpFrame:SetPoint("CENTER", holder)
 	self:RegisterEvent("UPDATE_WORLD_STATES", update)
-	E:CreateMover(holder, "PvPMover", "PvP", nil, nil, nil, "S&L,S&L M")
+	E:CreateMover(holder, "PvPMover", "PvP", nil, nil, nil, "ALL,S&L,S&L MISC")
 end
 
 E:RegisterModule(P:GetName())

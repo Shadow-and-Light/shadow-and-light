@@ -16,8 +16,8 @@ function SLE:ConfigCats() --Additional mover groups
 	E.ConfigModeLocalizedStrings["S&L DT"] = L["S&L: Datatexts"]
 	table.insert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L BG");
 	E.ConfigModeLocalizedStrings["S&L BG"] = L["S&L: Backgrounds"]
-	table.insert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L M");
-	E.ConfigModeLocalizedStrings["S&L M"] = L["S&L: Misc"]
+	table.insert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L MISC");
+	E.ConfigModeLocalizedStrings["S&L MISC"] = L["S&L: Misc"]
 end
 
 function SLE:LootShow()

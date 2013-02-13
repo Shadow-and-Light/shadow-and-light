@@ -98,10 +98,10 @@ function BG:Initialize()
 	BG:UpdateFrames()
 	BG:RegisterHide()
 	
-	E:CreateMover(BottomBG, "BottomBG_Mover", L["Bottom BG"], nil, nil, nil, "S&L,S&L BG")
-	E:CreateMover(LeftBG, "LeftBG_Mover", L["Left BG"], nil, nil, nil, "S&L,S&L BG")
-	E:CreateMover(RightBG, "RightBG_Mover", L["Right BG"], nil, nil, nil, "S&L,S&L BG")
-	E:CreateMover(ActionBG, "ActionBG_Mover", L["Actionbar BG"], nil, nil, nil, "S&L,S&L BG")
+	E:CreateMover(BottomBG, "BottomBG_Mover", L["Bottom BG"], nil, nil, nil, "ALL,S&L,S&L BG")
+	E:CreateMover(LeftBG, "LeftBG_Mover", L["Left BG"], nil, nil, nil, "ALL,S&L,S&L BG")
+	E:CreateMover(RightBG, "RightBG_Mover", L["Right BG"], nil, nil, nil, "ALL,S&L,S&L BG")
+	E:CreateMover(ActionBG, "ActionBG_Mover", L["Actionbar BG"], nil, nil, nil, "ALL,S&L,S&L BG")
 end
 
 E:RegisterModule(BG:GetName())
