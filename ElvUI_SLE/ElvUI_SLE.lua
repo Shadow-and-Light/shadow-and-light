@@ -102,6 +102,10 @@ function SLE:Reset(all, uf, dt, bg, mark)
 		E:ResetMovers("PvP")
 		E:ResetMovers('RM')
 		E:ResetMovers(L["UI Buttons"])
+		E:ResetMovers(L["Bottom BG"])
+		E:ResetMovers(L["Left BG"])
+		E:ResetMovers(L["Right BG"])
+		E:ResetMovers(L["Actionbar BG"])
 	end
 	if uf then
 		E.db.sle.combatico.pos = 'TOP'
@@ -128,6 +132,10 @@ function SLE:Reset(all, uf, dt, bg, mark)
 	end
 	if bg then
 		E:CopyTable(E.db.sle.backgrounds, P.sle.backgrounds)
+		E:ResetMovers(L["Bottom BG"])
+		E:ResetMovers(L["Left BG"])
+		E:ResetMovers(L["Right BG"])
+		E:ResetMovers(L["Actionbar BG"])
 	end
 	if mark then
 		E:CopyTable(E.db.sle.marks, P.sle.marks)
