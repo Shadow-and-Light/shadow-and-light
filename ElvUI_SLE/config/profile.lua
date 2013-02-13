@@ -9,8 +9,6 @@ P['sle'] = {
 			['texture'] = "",
 			['width'] = E.screenwidth/4 + 32,
 			['height'] = E.screenheight/6 - 13,
-			['xoffset'] = 0,
-			['yoffset'] = 0,
 			['pethide'] = true,
 		},
 		['left'] = {
@@ -19,8 +17,6 @@ P['sle'] = {
 			['texture'] = "",
 			['width'] = E.screenwidth/10 - 4,
 			['height'] = E.screenheight/5 + 11,
-			['xoffset'] = 0,
-			['yoffset'] = 0,
 			['pethide'] = true,
 		},
 		['right'] = {
@@ -29,8 +25,6 @@ P['sle'] = {
 			['texture'] = "",
 			['width'] = E.screenwidth/10 - 4,
 			['height'] = E.screenheight/5 + 11,
-			['xoffset'] = 0,
-			['yoffset'] = 0,
 			['pethide'] = true,
 		},
 		['action'] = {
@@ -39,8 +33,6 @@ P['sle'] = {
 			['texture'] = "",
 			['width'] = E.screenwidth/4 + 32,
 			['height'] = E.screenheight/20 + 5,
-			['xoffset'] = 0,
-			['yoffset'] = 0,
 			['pethide'] = true,
 		},
 	},
