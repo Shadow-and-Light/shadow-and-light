@@ -46,6 +46,7 @@ P['sle'] = {
 		['growth'] = "RIGHT",
 		['showinside'] = false,
 		['size'] = 18,
+		['backdrop'] = true,
 	},
 	
 	--Exp/Rep Bar

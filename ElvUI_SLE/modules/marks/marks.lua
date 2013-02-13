@@ -105,10 +105,19 @@ function RM:UpdateVisibility()
 	end
 end
 
+function RM:Backdrop()
+	if E.db.sle.marks.backdrop then
+		mark_menu.backdrop:Show()
+	else
+		mark_menu.backdrop:Hide()
+	end
+end
+
 function RM:Update()
 	RM:FrameButtonsSize()
 	RM:FrameButtonsGrowth()
 	RM:UpdateVisibility()
+	RM:Backdrop()
 end
 
 function RM:Initialize()
