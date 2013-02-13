@@ -24,6 +24,7 @@ m7,
 m8,
 }
 
+
 --Main frame
 function RM:CreateFrame()
 	mark_menu:Point("BOTTOMRIGHT", RightChatTab, "TOPRIGHT", 2, 3) --Default positon
@@ -65,38 +66,19 @@ function RM:FrameButtonsGrowth()
 	local db = E.db.sle.marks
 	local size = db.size
 	local width, height, x, y, anchor, point
+	local t = {8 * size + 11,size + 4,"LEFT","RIGHT","TOP","BOTTOM",1,0,-1}
 	for i = 1, 8 do
 		MarkB[i]:ClearAllPoints()
 	end
 	
 	if db.growth == "RIGHT" then
-		width = 8 * size + 11
-		height = size + 4
-		anchor = "LEFT"
-		point = "RIGHT"
-		x = 1
-		y = 0
+		width, height, anchor, point, _, _, x, y = unpack(t)
 	elseif db.growth == "LEFT" then
-		width = 8 * size + 11
-		height = size + 4
-		anchor = "RIGHT"
-		point = "LEFT"
-		x = -1
-		y = 0
+		width, height, point, anchor, _, _, _, y, x = unpack(t)
 	elseif db.growth == "UP" then
-		width = size + 4
-		height = 8 * size + 11
-		anchor = "BOTTOM"
-		point = "TOP"
-		x = 0
-		y = 1
+		height, width, _, _, point, anchor, y, x = unpack(t)
 	elseif db.growth == "DOWN" then
-		width = size + 4
-		height = 8 * size + 11
-		anchor = "TOP"
-		point = "BOTTOM"
-		x = 0
-		y = -1
+		height, width, _, _, anchor, point, _, x, y = unpack(t)
 	end
 
 	mark_menu:SetWidth(width)
