@@ -86,6 +86,7 @@ function E:UpdateAll()
 		UF:Update_CombatIndicator()
 	end
 	E:GetModule('UIButtons'):UpdateAll()
+	E:GetModule('RaidMarks'):Update()
 	E.db.datatexts.panels.Top_Center = 'Version'
 	SLE:ChatPos()
 end
