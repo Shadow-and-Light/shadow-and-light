@@ -129,6 +129,7 @@ L["Change the direction of buttons growth from the skull marker"] = true
 L["S&L: All"] = true
 L["S&L: Datatexts"] = true
 L["S&L: Backgrounds"] = true
+L["S&L: Misc"] = true
 
 --Raid Utility--
 L["Raid Utility"] = true
