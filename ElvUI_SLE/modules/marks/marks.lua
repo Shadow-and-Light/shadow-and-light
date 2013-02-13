@@ -140,7 +140,7 @@ function RM:Initialize()
 	RM:UpdateVisibility()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "UpdateVisibility");
 
-	E:CreateMover(mark_menu, "MarkMover", "RM", nil, nil, nil, "ALL,S&L")
+	E:CreateMover(mark_menu, "MarkMover", "RM", nil, nil, nil, "S&L,S&L M")
 end
 
 E:RegisterModule(RM:GetName())
