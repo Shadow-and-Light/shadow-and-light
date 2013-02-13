@@ -21,7 +21,7 @@ local bholder = CreateFrame("Frame", "BoardsHolder", E.UIParent)
 bholder:Point('TOPLEFT', E.UIParent, 'TOPLEFT', 0, -21)
 bholder:Size(((DTPANELS_WIDTH*4)+(PANEL_SPACING*3)), DTPANELS_HEIGHT)
 
-E:CreateMover(BoardsHolder, "Dashboard", L["Dashboard"], nil, nil, nil, "ALL,S&L")
+E:CreateMover(BoardsHolder, "Dashboard", L["Dashboard"], nil, nil, nil, "S&L,S&L M")
 
 local board = CreateFrame('frame', 'board', BoardsHolder)
 	
