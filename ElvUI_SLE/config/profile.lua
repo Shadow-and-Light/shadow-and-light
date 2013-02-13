@@ -219,18 +219,18 @@ P['datatexts'] = {
 		},
 		['DP_1'] = {
 			['left'] = 'Swatter',
-			['middle'] = 'Skada',
+			['middle'] = 'AtlasLoot',
 			['right'] = 'MrtWoo',
 		},
 		['DP_2'] = {
 			['left'] = 'Altoholic',
-			['middle'] = 'TellMeWhen',
-			['right'] = 'AtlasLoot',
+			['middle'] = 'Skada',
+			['right'] = 'Guild',
 		},
 		['DP_3'] = {
-			['left'] = 'Notes',
+			['left'] = 'Time',
 			['middle'] = 'DBM-LDB',
-			['right'] = 'WIM',
+			['right'] = 'Notes',
 		},
 		['DP_4'] = {
 			['left'] = '',
@@ -279,18 +279,18 @@ P['datatexts'] = {
 		},
 		['DP_1'] = {
 			['left'] = 'Swatter',
-			['middle'] = 'Skada',
+			['middle'] = 'AtlasLoot',
 			['right'] = 'MrtWoo',
 		},
 		['DP_2'] = {
 			['left'] = 'Altoholic',
-			['middle'] = 'TellMeWhen',
-			['right'] = 'AtlasLoot',
+			['middle'] = 'Skada',
+			['right'] = 'Guild',
 		},
 		['DP_3'] = {
-			['left'] = 'Notes',
+			['left'] = 'Time',
 			['middle'] = 'DBM-LDB',
-			['right'] = 'WIM',
+			['right'] = 'Notes',
 		},
 		['DP_4'] = {
 			['left'] = '',
