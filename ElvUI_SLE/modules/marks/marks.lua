@@ -13,16 +13,7 @@ local m6 = CreateFrame("Button", "M6", Mark_Menu, Mtemplate)
 local m7 = CreateFrame("Button", "M7", Mark_Menu, Mtemplate)
 local m8 = CreateFrame("Button", "M8", Mark_Menu, Mtemplate)
 
-local MarkB = {
-m1,
-m2,
-m3,
-m4,
-m5,
-m6,
-m7,
-m8,
-}
+local MarkB = {m1,m2,m3,m4,m5,m6,m7,m8}
 
 
 --Main frame
