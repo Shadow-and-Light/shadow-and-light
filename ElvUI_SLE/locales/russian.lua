@@ -65,7 +65,6 @@ L["Default"] = "Обычный"
 L["Transparent"] = "Прозрачный"
 L["Hide in Pet Batlle"] = "Прятать в битвах питомцев"
 L["Show/Hide this frame during Pet Battles."] = "Показать/скрыть этот фрейм в битвах питомцев"
-L["S&L Backgrounds"] = "Фоны S&L"
 
 --Chat--
 L["Chat Options"] = "Настройки чата"
@@ -125,6 +124,12 @@ L["Selecting this option will have the Raid Markers appear only while in a raid 
 L["Sets size of buttons"] = "Устанавливает размер кнопок" --Also used in UI buttons
 L["Direction"] = "Направление"
 L["Change the direction of buttons growth from the skull marker"] = "Изменяет направление роста кнопок от метки \"череп\"."
+
+--Mover groups
+L["S&L: All"] = "S&L: Все"
+L["S&L: Datatexts"] = "S&L: Инфо-тексты"
+L["S&L: Backgrounds"] = "S&L: Фоновые фреймы"
+L["S&L: Misc"] = "S&L: Прочее"
 
 --Raid Utility--
 L["Raid Utility"] = "Управление рейдом"
