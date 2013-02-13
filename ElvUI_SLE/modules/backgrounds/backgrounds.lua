@@ -77,7 +77,6 @@ end
 
 function BG:UpdateFrames()
 	BG:FramesSize()
-	BG:FramesPositions()
 	BG:FramesVisibility()
     BG:UpdateTex()
 end
@@ -95,6 +94,7 @@ end
 
 function BG:Initialize()
 	BG:FramesCreate()
+	BG:FramesPositions()
 	BG:UpdateFrames()
 	BG:RegisterHide()
 	
