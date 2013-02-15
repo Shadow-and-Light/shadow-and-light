@@ -9,6 +9,8 @@ P['sle'] = {
 			['texture'] = "",
 			['width'] = E.screenwidth/4 + 32,
 			['height'] = E.screenheight/6 - 13,
+			['xoffset'] = 0,
+			['yoffset'] = 0,
 			['pethide'] = true,
 		},
 		['left'] = {
@@ -17,6 +19,8 @@ P['sle'] = {
 			['texture'] = "",
 			['width'] = E.screenwidth/10 - 4,
 			['height'] = E.screenheight/5 + 11,
+			['xoffset'] = 0,
+			['yoffset'] = 0,
 			['pethide'] = true,
 		},
 		['right'] = {
@@ -25,6 +29,8 @@ P['sle'] = {
 			['texture'] = "",
 			['width'] = E.screenwidth/10 - 4,
 			['height'] = E.screenheight/5 + 11,
+			['xoffset'] = 0,
+			['yoffset'] = 0,
 			['pethide'] = true,
 		},
 		['action'] = {
@@ -33,20 +39,37 @@ P['sle'] = {
 			['texture'] = "",
 			['width'] = E.screenwidth/4 + 32,
 			['height'] = E.screenheight/20 + 5,
+			['xoffset'] = 0,
+			['yoffset'] = 0,
 			['pethide'] = true,
 		},
 	},
 
 	--Caster Name
 	['castername'] = false,
-	
+
+	--Character Frame Options
+	['characterframeoptions'] = {
+		['itemlevel'] = {
+			['enable'] = true,
+			["font"] = "ElvUI Font",
+			["fontSize"] = 12,
+			["fontOutline"] = "OUTLINE",
+		},
+		['itemdurability'] = {
+			['enable'] = true,
+			["font"] = "ElvUI Font",
+			["fontSize"] = 12,
+			["fontOutline"] = "OUTLINE",
+		},
+	},
+
 	--Raid marks
 	['marks'] = {
 		['enabled'] = true,
 		['growth'] = "RIGHT",
 		['showinside'] = false,
 		['size'] = 18,
-		['backdrop'] = true,
 	},
 	
 	--Exp/Rep Bar
@@ -66,42 +89,34 @@ P['sle'] = {
 		['dp1'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/5,
-			['transparent'] = false,
 		},	
 		['dp2'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/5,
-			['transparent'] = false,
 		},
 		['top'] = {
 			['enabled'] = true,
 			['width'] = E.screenwidth/5 - 4,
-			['transparent'] = false,
 		},
 		['dp3'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/5,
-			['transparent'] = false,
 		},
 		['dp4'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/5,
-			['transparent'] = false,
-		},
+		},	
 		['dp5'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/4 - 60,
-			['transparent'] = false,
 		},	
 		['bottom'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/10 - 4,
-			['transparent'] = false,
 		},
 		['dp6'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/4 - 60,
-			['transparent'] = false,
 		},
 		['chatleft'] = {
 			['enabled'] = true,
@@ -219,18 +234,18 @@ P['datatexts'] = {
 		},
 		['DP_1'] = {
 			['left'] = 'Swatter',
-			['middle'] = 'AtlasLoot',
+			['middle'] = 'Skada',
 			['right'] = 'MrtWoo',
 		},
 		['DP_2'] = {
 			['left'] = 'Altoholic',
-			['middle'] = 'Skada',
-			['right'] = 'Guild',
+			['middle'] = 'TellMeWhen',
+			['right'] = 'AtlasLoot',
 		},
 		['DP_3'] = {
-			['left'] = 'Time',
+			['left'] = 'Notes',
 			['middle'] = 'DBM-LDB',
-			['right'] = 'Notes',
+			['right'] = 'WIM',
 		},
 		['DP_4'] = {
 			['left'] = '',
@@ -278,19 +293,19 @@ P['datatexts'] = {
 			['right'] = 'Gold',
 		},
 		['DP_1'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
+			['left'] = 'Swatter',
+			['middle'] = 'Skada',
+			['right'] = 'MrtWoo',
 		},
 		['DP_2'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
+			['left'] = 'Altoholic',
+			['middle'] = 'TellMeWhen',
+			['right'] = 'AtlasLoot',
 		},
 		['DP_3'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
+			['left'] = 'Notes',
+			['middle'] = 'DBM-LDB',
+			['right'] = 'WIM',
 		},
 		['DP_4'] = {
 			['left'] = '',
@@ -298,14 +313,14 @@ P['datatexts'] = {
 			['right'] = '',
 		},
 		['DP_5'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
+			['left'] = 'Bags',
+			['middle'] = 'Gold',
+			['right'] = 'Armor',
 		},
 		['DP_6'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
+			['left'] = 'Spell/Heal Power',
+			['middle'] = 'Haste',
+			['right'] = 'Crit Chance',
 		},
 		['Bottom_Panel'] = 'System',
 		['LeftMiniPanel'] = 'Guild',

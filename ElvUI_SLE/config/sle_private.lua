@@ -20,6 +20,11 @@ V['sle'] = {
 			['template'] = "Default",
 		},
 	},
+
+	--Character Frame Options
+	['characterframeoptions'] = {
+		["enable"] = true,
+	},
 	
 	["datatext"] = {
 		["dp1hide"] = false,
