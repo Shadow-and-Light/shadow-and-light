@@ -7,7 +7,6 @@ function CFO:ToggleCFO()
 end
 
 function CFO:Initialize()
-	self.db = E.db.sle.characterframeoptions
 	if not E.private.sle.characterframeoptions.enable then return; end
 	self:LoadDurability()
 	self:LoadItemLevel()

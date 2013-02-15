@@ -38,7 +38,7 @@ function CFO:UpdateItemLevel()
 				frame.ItemLevel:SetFormattedText("|cffffff99%i|r", actualItemLevel)
 			end
 		end
-		if not self.db.itemlevel.enable then
+		if not E.db.sle.characterframeoptions.itemlevel.enable then
 			frame.ItemLevel:Hide()
 		else
 			frame.ItemLevel:Show()
@@ -50,7 +50,7 @@ function CFO:UpdateItemLevelFont()
 	local frame
 	for i = 1, #ilvlSlots do
 		frame = _G[("Character%s"):format(ilvlSlots[i])]
-		frame.ItemLevel:FontTemplate(LSM:Fetch("font", self.db.itemlevel.font), self.db.itemlevel.fontSize, self.db.itemlevel.fontOutline)
+		frame.ItemLevel:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemlevel.font), E.db.sle.characterframeoptions.itemlevel.fontSize, E.db.sle.characterframeoptions.itemlevel.fontOutline)
 	end
 end
 
@@ -67,6 +67,6 @@ function CFO:LoadItemLevel()
 		frame = _G[("Character%s"):format(ilvlSlots[i])]
 		frame.ItemLevel = frame:CreateFontString(nil, "OVERLAY")
 		frame.ItemLevel:SetPoint("TOP", frame, "TOP", 0, -3)
-		frame.ItemLevel:FontTemplate(LSM:Fetch("font", self.db.itemlevel.font), self.db.itemlevel.fontSize, self.db.itemlevel.fontOutline)
+		frame.ItemLevel:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemlevel.font), E.db.sle.characterframeoptions.itemlevel.fontSize, E.db.sle.characterframeoptions.itemlevel.fontOutline)
 	end
 end

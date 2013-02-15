@@ -22,7 +22,7 @@ function CFO:UpdateItemDurability()
 			r, g, b = E:ColorGradient((current / maximum), 1, 0, 0, 1, 1, 0, 0, 1, 0)
 			frame.ItemDurability:SetFormattedText("%s%.0f%%|r", E:RGBToHex(r, g, b), (current / maximum) * 100)
 		end
-		if not self.db.itemdurability.enable then
+		if not E.db.sle.characterframeoptions.itemdurability.enable then
 			frame.ItemDurability:Hide()
 		else
 			frame.ItemDurability:Show()
@@ -34,7 +34,7 @@ function CFO:UpdateItemDurabilityFont()
 	local frame
 	for i = 1, #durabilitySlots do
 		frame = _G[("Character%s"):format(durabilitySlots[i])]
-		frame.ItemDurability:FontTemplate(LSM:Fetch("font", self.db.itemdurability.font), self.db.itemdurability.fontSize, self.db.itemdurability.fontOutline)
+		frame.ItemDurability:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemdurability.font), E.db.sle.characterframeoptions.itemdurability.fontSize, E.db.sle.characterframeoptions.itemdurability.fontOutline)
 	end
 end
 
@@ -50,6 +50,6 @@ function CFO:LoadDurability()
 		frame = _G[("Character%s"):format(durabilitySlots[i])]
 		frame.ItemDurability = frame:CreateFontString(nil, "OVERLAY")
 		frame.ItemDurability:SetPoint("BOTTOM", frame, "BOTTOM", 2, 2)
-		frame.ItemDurability:FontTemplate(LSM:Fetch("font", self.db.itemdurability.font), self.db.itemdurability.fontSize, self.db.itemdurability.fontOutline)
+		frame.ItemDurability:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemdurability.font), E.db.sle.characterframeoptions.itemdurability.fontSize, E.db.sle.characterframeoptions.itemdurability.fontOutline)
 	end
 end
