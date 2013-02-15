@@ -263,8 +263,8 @@ P['datatexts'] = {
 			['right'] = '',
 		},
 		['Bottom_Panel'] = '',
-		['LeftMiniPanel'] = '',
-		['RightMiniPanel'] = '',
+		['LeftMiniPanel'] = 'Guild',
+		['RightMiniPanel'] = 'Friends',
 		['RightCoordDtPanel'] = '', --LocPlus
 		['LeftCoordDtPanel'] = '', --LocPlus
 	},
@@ -323,8 +323,8 @@ P['datatexts'] = {
 			['right'] = '',
 		},
 		['Bottom_Panel'] = '',
-		['LeftMiniPanel'] = '',
-		['RightMiniPanel'] = '',
+		['LeftMiniPanel'] = 'Guild',
+		['RightMiniPanel'] = 'Friends',
 	},
 	['localtime'] = true,
 	['time24'] = false,
