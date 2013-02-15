@@ -66,7 +66,7 @@ function CFO:LoadItemLevel()
 	for i = 1, #ilvlSlots do
 		frame = _G[("Character%s"):format(ilvlSlots[i])]
 		frame.ItemLevel = frame:CreateFontString(nil, "OVERLAY")
-		frame.ItemLevel:SetPoint("TOP", frame, "TOP", 0, -3)
+		frame.ItemLevel:SetPoint("TOP", frame, "TOP", 2, -3)
 		frame.ItemLevel:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemlevel.font), E.db.sle.characterframeoptions.itemlevel.fontSize, E.db.sle.characterframeoptions.itemlevel.fontOutline)
 	end
 end
