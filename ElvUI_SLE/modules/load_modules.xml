@@ -4,6 +4,7 @@
 	<Script file='pvpmover\pvpmover.lua'/>
 	<Include file='autorelease\load_autorelease.xml'/>
 	<Include file='backgrounds\load_backgrounds.xml'/>
+	<Include file='characterframe\load_characterframe.xml'/>
 	<Include file='chat\load_chat.xml'/>
 	<Include file='datatexts\load_datatexts.xml'/>
 	<Include file='errors\load_errors.xml'/>

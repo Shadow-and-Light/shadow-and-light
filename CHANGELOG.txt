@@ -6,6 +6,9 @@ vWTF
 - Movers created by S&L now don't appear in ElvUI's normall "All" group. Now all our movers are visible only in own groups to prevent overpopulation of the screen
 - Raid Marks now properly update setting on profile change
 - Raid Marks module now has an option to hide backdrop for it's main panel
+- Added Item Level overlay on item slots
+- Added Item Durability overlay on item slots
+- Added Font customization for Item Level & Item Durability overlays
 
 v1.42 (January 31, 2013)
 - Curse being stupid and fixed changelog b/c darth dont realize there are 31 days in Jan.

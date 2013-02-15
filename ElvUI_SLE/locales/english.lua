@@ -66,6 +66,22 @@ L["Transparent"] = true
 L["Hide in Pet Batlle"] = true
 L["Show/Hide this frame during Pet Battles."] = true
 
+--Character Frame Options
+L["CFO_DESC"] = "This section will added different options/features to the character sheet.  Here you can show item level and durability of your items for a quick glance."
+L["Character Frame Options"] = true
+L["Enable/Disable Character Frame Options"] = true
+L["Item Level"] = true
+L["Show/Hide Item Levels"] = true
+L['Font'] = true  --L['Fonts'] is localized in elvui but not Font
+L["The font that the item level will use."] = true
+L["Set the font size that the item level will use."] = true
+L["Set the font outline that the item level will use."] = true
+L["Item Durability"] = true
+L["Show/Hide Item Durability"] = true
+L["The font that the item durability will use."] = true
+L["Set the font size that the item durability will use."] = true
+L["Set the font outline that the item durability will use."] = true
+
 --Chat--
 L["Chat Options"] = true
 L["Chat Editbox History"] = true
@@ -76,9 +92,8 @@ L["LFR Dragon Soul"] = true
 L["LFR Mogu'shan Vaults"] = true
 L["LFR Heart of Fear"] = true
 L["LFR Terrace of Endless Spring"] = true
-L["LFR Throne of Thunder"] = true
 L["Bosses killed: "] = true
-L["No LFR is available for your level/gear."] = true
+L["No LFR is available for your lever/gear."] = true
 L["SLE_AUTHOR_INFO"] = "Shadow & Light Edit by Darth Predator & Repooc"
 L["SLE_CONTACTS"] = [=[Bug reports, suggestions and other stuff accepted via:
 - Private Massage on TukUI.org to Darth Predator or Repooc
@@ -124,12 +139,6 @@ L["Selecting this option will have the Raid Markers appear only while in a raid 
 L["Sets size of buttons"] = true --Also used in UI buttons
 L["Direction"] = true
 L["Change the direction of buttons growth from the skull marker"] = true
-
---Mover groups
-L["S&L: All"] = true
-L["S&L: Datatexts"] = true
-L["S&L: Backgrounds"] = true
-L["S&L: Misc"] = true
 
 --Raid Utility--
 L["Raid Utility"] = true
