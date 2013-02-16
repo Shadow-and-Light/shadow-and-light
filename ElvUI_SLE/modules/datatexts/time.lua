@@ -141,6 +141,7 @@ local function OnEnter(self)
 		local lvl = UnitLevel("player")
 		local ilvl = GetAverageItemLevel()
 		DT.tooltip:AddLine(" ")
+		DT.tooltip:AddLine(RAID_FINDER)
 		if lvl == 85 and ilvl >= 372 then
 			DT:DragonSoul(416, 417)
 		elseif lvl == 90 then
