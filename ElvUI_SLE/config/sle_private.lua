@@ -23,7 +23,7 @@ V['sle'] = {
 
 	--Character Frame Options
 	['characterframeoptions'] = {
-		["enable"] = true,
+		["enable"] = false,
 	},
 	
 	["datatext"] = {
