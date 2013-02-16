@@ -9,6 +9,7 @@
 	<Include file='datatexts\load_datatexts.xml'/>
 	<Include file='errors\load_errors.xml'/>
 	<Include file='exprepbar\load_exprepbar.xml'/>
+	<Include file='farm\load_farm.xml'/>
 	<Include file='marks\load_marks.xml'/>
 	<Include file='raidutility\load_raidutility.xml'/>
 	<Include file='tooltip\load_tooltip.xml'/>
