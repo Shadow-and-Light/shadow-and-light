@@ -111,7 +111,7 @@ E.Options.args.sle.args.characterframeoptions = {
 					args = {
 						font = {
 							type = "select", dialogControl = 'LSM30_Font',
-							order = 2,
+							order = 1,
 							name = L["Font"],
 							desc = L["The font that the item durability will use."],
 							values = AceGUIWidgetLSMlists.font,	
