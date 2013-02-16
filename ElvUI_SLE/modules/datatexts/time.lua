@@ -2,11 +2,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local DT = E:GetModule('DataTexts')
 
---Defeault setting for LFR show
-P['datatexts'] = {
-	['lfrshow'] = 0,
-}
-
 local format = string.format
 local join = string.join
 local floor = math.floor
@@ -136,15 +131,16 @@ local function OnEnter(self)
 		end
 	end	
 	
-	if E.db.datatexts.lfrshow then
+	if E.db.sle.lfrshow.enabled then
 		--LFR lockout text
 		local lvl = UnitLevel("player")
 		local ilvl = GetAverageItemLevel()
 		DT.tooltip:AddLine(" ")
 		DT.tooltip:AddLine(RAID_FINDER)
-		if lvl == 85 and ilvl >= 372 then
+		--if lvl == 85 and ilvl >= 372 then
 			DT:DragonSoul(416, 417)
-		elseif lvl == 90 then
+		--else
+		if lvl == 90 then
 			if ilvl >= 460 then
 				DT:Mogushan(527, 528)
 				DT.tooltip:AddLine(" ")

@@ -1,6 +1,16 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 
 P['sle'] = {
+	--LFR options
+	['lfrshow'] = {
+		['enabled'] = false,
+		['ds'] = false,
+		['mv'] = false,
+		['hof'] = false,
+		['toes'] = false,
+		['tot'] = false,
+	},
+
 	--Background frames
 	['backgrounds'] = {
 		['bottom'] = {
