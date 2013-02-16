@@ -34,14 +34,6 @@ E.Options.args.sle = {
 			name = L["General"],
 			guiInline = true,
 			args = {
-				lfrshow = {
-					order = 1,
-					type = "toggle",
-					name = L["LFR Lockout"],
-					desc = L["Show/Hide LFR lockout info in the time datatext's tooltip."],
-					get = function(info) return E.db.datatexts.lfrshow end,
-					set = function(info, value) E.db.datatexts.lfrshow = value; end
-				},
 			},
 		},
 		lootwindow = {
