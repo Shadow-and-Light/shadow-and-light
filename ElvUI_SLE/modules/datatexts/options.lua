@@ -206,54 +206,56 @@ E.Options.args.sle.args.timedt = {
 			type = "toggle",
 			name = L["LFR Lockdown"],
 			desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
-			get = function(info) return E.db.datatexts.lfrshow end,
-			set = function(info, value) E.db.datatexts.lfrshow = value; end
+			get = function(info) return E.db.sle.lfrshow.enabled end,
+			set = function(info, value) E.db.sle.lfrshow.enabled = value; end
 		},
 		instances = {
 			order = 2,
 			type = "group",
 			name = L["Loot History"],
 			guiInline = true,
+			get = function(info) return E.db.sle.lfrshow[ info[#info] ] end,
+			set = function(info, value) E.db.sle.lfrshow[ info[#info] ] = value; end,
 			args = {
 				ds = {
 					order = 1,
 					type = "toggle",
 					name = GetMapNameByID(824),
 					desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
-					get = function(info) return E.db.datatexts.lfrshow end,
-					set = function(info, value) E.db.datatexts.lfrshow = value; end
+					--get = function(info) return E.db.datatexts.lfrshow.ds end,
+					--set = function(info, value) E.db.datatexts.lfrshow.ds = value; end
 				},
 				mv = {
 					order = 2,
 					type = "toggle",
 					name = GetMapNameByID(896),
 					desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
-					get = function(info) return E.db.datatexts.lfrshow end,
-					set = function(info, value) E.db.datatexts.lfrshow = value; end
+					--get = function(info) return E.db.datatexts.lfrshow.mv end,
+					--set = function(info, value) E.db.datatexts.lfrshow.mv = value; end
 				},
 				hof = {
 					order = 3,
 					type = "toggle",
 					name = GetMapNameByID(897),
 					desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
-					get = function(info) return E.db.datatexts.lfrshow end,
-					set = function(info, value) E.db.datatexts.lfrshow = value; end
+					--get = function(info) return E.db.datatexts.lfrshow end,
+					--set = function(info, value) E.db.datatexts.lfrshow = value; end
 				},
 				toes = {
 					order = 4,
 					type = "toggle",
 					name = GetMapNameByID(886),
 					desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
-					get = function(info) return E.db.datatexts.lfrshow end,
-					set = function(info, value) E.db.datatexts.lfrshow = value; end
+					--get = function(info) return E.db.datatexts.lfrshow end,
+					--set = function(info, value) E.db.datatexts.lfrshow = value; end
 				},
 				tot = {
 					order = 5,
 					type = "toggle",
 					name = GetMapNameByID(930),
 					desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
-					get = function(info) return E.db.datatexts.lfrshow end,
-					set = function(info, value) E.db.datatexts.lfrshow = value; end
+					--get = function(info) return E.db.datatexts.lfrshow end,
+					--set = function(info, value) E.db.datatexts.lfrshow = value; end
 				},
 			},
 		},
