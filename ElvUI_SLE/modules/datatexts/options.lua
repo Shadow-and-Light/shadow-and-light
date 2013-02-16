@@ -191,5 +191,71 @@ E.Options.args.sle.args.datatext.args[v[1]] = {
 			set = function(info, value) E.db.sle.datatext[v[1]].width = value; DTP:ChatResize() end,
 		},
 	},
+	
 }
 end
+
+--Time datatext
+E.Options.args.sle.args.timedt = {
+	type = "group",
+	name = RAID_FINDER,
+	order = 6,
+	args = {
+		lfrshow = {
+			order = 1,
+			type = "toggle",
+			name = L["LFR Lockdown"],
+			desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
+			get = function(info) return E.db.datatexts.lfrshow end,
+			set = function(info, value) E.db.datatexts.lfrshow = value; end
+		},
+		instances = {
+			order = 2,
+			type = "group",
+			name = L["Loot History"],
+			guiInline = true,
+			args = {
+				ds = {
+					order = 1,
+					type = "toggle",
+					name = GetMapNameByID(824),
+					desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
+					get = function(info) return E.db.datatexts.lfrshow end,
+					set = function(info, value) E.db.datatexts.lfrshow = value; end
+				},
+				mv = {
+					order = 2,
+					type = "toggle",
+					name = GetMapNameByID(896),
+					desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
+					get = function(info) return E.db.datatexts.lfrshow end,
+					set = function(info, value) E.db.datatexts.lfrshow = value; end
+				},
+				hof = {
+					order = 3,
+					type = "toggle",
+					name = GetMapNameByID(897),
+					desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
+					get = function(info) return E.db.datatexts.lfrshow end,
+					set = function(info, value) E.db.datatexts.lfrshow = value; end
+				},
+				toes = {
+					order = 4,
+					type = "toggle",
+					name = GetMapNameByID(886),
+					desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
+					get = function(info) return E.db.datatexts.lfrshow end,
+					set = function(info, value) E.db.datatexts.lfrshow = value; end
+				},
+				tot = {
+					order = 5,
+					type = "toggle",
+					name = GetMapNameByID(930),
+					desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
+					get = function(info) return E.db.datatexts.lfrshow end,
+					set = function(info, value) E.db.datatexts.lfrshow = value; end
+				},
+			},
+		},
+	},
+}
