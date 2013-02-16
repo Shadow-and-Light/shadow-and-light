@@ -72,11 +72,6 @@ L["Chat Editbox History"] = "История чата"
 L["Amount of messages to save. Set to 0 to disable."] = "Количество сообщений, введенных вами, которое будет сохранено между сеансами"
 
 --Datatexts--
-L["LFR Dragon Soul"] = "Душа Дракона ЛФР"
-L["LFR Mogu'shan Vaults"] = "Подземелья Могу'шан ЛФР"
-L["LFR Heart of Fear"] = "Сердце Страха ЛФР"
-L["LFR Terrace of Endless Spring"] = "Терраса Вечной Весны ЛФР"
-L["LFR Throne of Thunder"] = "Престол Гроз ЛФР"
 L["No LFR is available for your level/gear."] = "Нет ЛФР под ваш уровень/экипировку"
 L["Bosses killed: "] = "Боссов убито: "
 L["SLE_AUTHOR_INFO"] = "Редакция \"Тень и Свет\" от Darth Predator и Repooc"

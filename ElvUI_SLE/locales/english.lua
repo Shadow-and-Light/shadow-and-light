@@ -88,10 +88,6 @@ L["Chat Editbox History"] = true
 L["Amount of messages to save. Set to 0 to disable."] = true
 
 --Datatexts--
-L["LFR Dragon Soul"] = true
-L["LFR Mogu'shan Vaults"] = true
-L["LFR Heart of Fear"] = true
-L["LFR Terrace of Endless Spring"] = true
 L["Bosses killed: "] = true
 L["No LFR is available for your lever/gear."] = true
 L["SLE_AUTHOR_INFO"] = "Shadow & Light Edit by Darth Predator & Repooc"
