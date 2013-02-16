@@ -72,7 +72,7 @@ L["Chat Editbox History"] = "История чата"
 L["Amount of messages to save. Set to 0 to disable."] = "Количество сообщений, введенных вами, которое будет сохранено между сеансами"
 
 --Datatexts--
-L["No LFR is available for your level/gear."] = "Нет ЛФР под ваш уровень/экипировку"
+L["This LFR isn't available for your lever/gear."] = "Это подземелье не доступно для Вашего уровня или экипировки."
 L["Bosses killed: "] = "Боссов убито: "
 L["SLE_AUTHOR_INFO"] = "Редакция \"Тень и Свет\" от Darth Predator и Repooc"
 L["SLE_CONTACTS"] = [=[При возникновении вопросов, предложений и прочего обращаться:

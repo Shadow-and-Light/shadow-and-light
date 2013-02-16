@@ -248,7 +248,7 @@ function DT:LFRShow()
 		if lvl == 85 and ilvl >= 372 then
 			DT:DragonSoul(416, 417)
 		else
-			DT.tooltip:AddLine(" "..L["No LFR is available for your level/gear."])
+			DT.tooltip:AddLine(" "..L["This LFR isn't available for your lever/gear."])
 		end
 		DT.tooltip:AddLine(" ")
 	end
@@ -257,7 +257,7 @@ function DT:LFRShow()
 		if lvl == 90 and ilvl >= 460 then
 			DT:Mogushan(527, 528)
 		else
-			DT.tooltip:AddLine(" "..L["No LFR is available for your level/gear."])
+			DT.tooltip:AddLine(" "..L["This LFR isn't available for your lever/gear."])
 		end
 		DT.tooltip:AddLine(" ")
 	end
@@ -267,7 +267,7 @@ function DT:LFRShow()
 		if lvl == 90 and ilvl >= 470 then
 			DT:HoF(529, 530)
 		else
-			DT.tooltip:AddLine(" "..L["No LFR is available for your level/gear."])
+			DT.tooltip:AddLine(" "..L["This LFR isn't available for your lever/gear."])
 		end
 		DT.tooltip:AddLine(" ")
 	end
@@ -277,7 +277,7 @@ function DT:LFRShow()
 		if lvl == 90 and ilvl >= 470 then
 			DT:ToES(526)
 		else
-			DT.tooltip:AddLine(" "..L["No LFR is available for your level/gear."])
+			DT.tooltip:AddLine(" "..L["This LFR isn't available for your lever/gear."])
 		end
 		DT.tooltip:AddLine(" ")
 	end
@@ -287,8 +287,11 @@ function DT:LFRShow()
 		if lvl == 90 and ilvl >= 480 then
 			DT:ToT(610, 611, 612, 613)
 		else
-			DT.tooltip:AddLine(" "..L["No LFR is available for your level/gear."])
+			DT.tooltip:AddLine(" "..L["This LFR isn't available for your lever/gear."])
 		end
 		DT.tooltip:AddLine(" ")
+	end
+	if not E.db.sle.lfrshow.ds and not E.db.sle.lfrshow.mv and not E.db.sle.lfrshow.hof and not E.db.sle.lfrshow.toes and not E.db.sle.lfrshow.tot then
+		DT.tooltip:AddLine(" "..L["You didn't select any instance to track."])
 	end
 end
