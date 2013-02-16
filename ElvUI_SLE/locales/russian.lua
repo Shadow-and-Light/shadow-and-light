@@ -66,14 +66,31 @@ L["Transparent"] = "Прозрачный"
 L["Hide in Pet Batlle"] = "Прятать в битвах питомцев"
 L["Show/Hide this frame during Pet Battles."] = "Показать/скрыть этот фрейм в битвах питомцев"
 
+--Character Frame Options--
+L["CFO_DESC"] = "Дополнительные опции окна персонажа.  Вы можете включить отображение уровня и прочности предметов."
+L["Character Frame Options"] = "Настройки окна персонажа"
+--L["Enable/Disable Character Frame Options"] = true
+--L["Item Level"] = "Уровень предметов"
+--L["Show/Hide Item Levels"] = true
+L['Font'] = "Шрифт"  --L['Fonts'] is localized in elvui but not Font
+L["The font that the item level will use."] = "Шрифт уровня предметов."
+L["Set the font size that the item level will use."] = "Размер шрифта уровня предметов."
+L["Set the font outline that the item level will use."] = "Граница шрифта уровня предметов."
+--L["Item Durability"] = true
+--L["Show/Hide Item Durability"] = true
+L["The font that the item durability will use."] = "Шрифт прочности предметов."
+L["Set the font size that the item durability will use."] = "Размер шрифта прочности предметов."
+L["Set the font outline that the item durability will use."] = "Граница шрифта прочности предметов."
+
 --Chat--
 L["Chat Options"] = "Настройки чата"
 L["Chat Editbox History"] = "История чата"
 L["Amount of messages to save. Set to 0 to disable."] = "Количество сообщений, введенных вами, которое будет сохранено между сеансами"
 
 --Datatexts--
-L["This LFR isn't available for your lever/gear."] = "Это подземелье не доступно для Вашего уровня или экипировки."
 L["Bosses killed: "] = "Боссов убито: "
+L["You didn't select any instance to track."] = "Вы не выбрали подземелья для отслеживания"
+L["This LFR isn't available for your lever/gear."] = "Это подземелье не доступно для Вашего уровня или экипировки."
 L["SLE_AUTHOR_INFO"] = "Редакция \"Тень и Свет\" от Darth Predator и Repooc"
 L["SLE_CONTACTS"] = [=[При возникновении вопросов, предложений и прочего обращаться:
 - Личное сообщение на форуме TukUI (tukui.org), ник Darth Predator или Repooc

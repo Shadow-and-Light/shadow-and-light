@@ -69,15 +69,15 @@ L["Show/Hide this frame during Pet Battles."] = true
 --Character Frame Options
 L["CFO_DESC"] = "This section will added different options/features to the character sheet.  Here you can show item level and durability of your items for a quick glance."
 L["Character Frame Options"] = true
-L["Enable/Disable Character Frame Options"] = true
-L["Item Level"] = true
-L["Show/Hide Item Levels"] = true
+--L["Enable/Disable Character Frame Options"] = true
+--L["Item Level"] = true
+--L["Show/Hide Item Levels"] = true
 L['Font'] = true  --L['Fonts'] is localized in elvui but not Font
 L["The font that the item level will use."] = true
 L["Set the font size that the item level will use."] = true
 L["Set the font outline that the item level will use."] = true
-L["Item Durability"] = true
-L["Show/Hide Item Durability"] = true
+--L["Item Durability"] = true
+--L["Show/Hide Item Durability"] = true
 L["The font that the item durability will use."] = true
 L["Set the font size that the item durability will use."] = true
 L["Set the font outline that the item durability will use."] = true
@@ -89,6 +89,7 @@ L["Amount of messages to save. Set to 0 to disable."] = true
 
 --Datatexts--
 L["Bosses killed: "] = true
+L["You didn't select any instance to track."] = true
 L["This LFR isn't available for your lever/gear."] = true
 L["SLE_AUTHOR_INFO"] = "Shadow & Light Edit by Darth Predator & Repooc"
 L["SLE_CONTACTS"] = [=[Bug reports, suggestions and other stuff accepted via:

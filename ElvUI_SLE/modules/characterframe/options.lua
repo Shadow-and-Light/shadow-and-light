@@ -27,7 +27,8 @@ E.Options.args.sle.args.characterframeoptions = {
 		},
 		itemlevel = {
 			type = "group",
-			name = L["Item Level"],
+			--name = L["Item Level"],
+			name = STAT_AVERAGE_ITEM_LEVEL,
 			order = 4,
 			guiInline = true,
 			disabled = function() return not E.private.sle.characterframeoptions.enable end,
@@ -36,7 +37,7 @@ E.Options.args.sle.args.characterframeoptions = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					desc = L["Show/Hide Item Levels"],
+					--desc = L["Show/Hide Item Levels"],
 					get = function(info) return E.db.sle.characterframeoptions.itemlevel.enable end,
 					set = function(info, value) E.db.sle.characterframeoptions.itemlevel.enable = value; CFO:ToggleCFO() end
 				},
@@ -50,7 +51,8 @@ E.Options.args.sle.args.characterframeoptions = {
 						font = {
 							type = "select", dialogControl = 'LSM30_Font',
 							order = 1,
-							name = L["Fonts"],
+							--name = L["Fonts"],
+							name = L["Font"],
 							desc = L["The font that the item level will use."],
 							values = AceGUIWidgetLSMlists.font,	
 							get = function(info) return E.db.sle.characterframeoptions.itemlevel.font end,
@@ -86,7 +88,8 @@ E.Options.args.sle.args.characterframeoptions = {
 		},
 		itemdurabilty = {
 			type = "group",
-			name = L["Item Durability"],
+			--name = L["Item Durability"],
+			name = DURABILITY,
 			order = 5,
 			guiInline = true,
 			disabled = function() return not E.private.sle.characterframeoptions.enable end,
@@ -95,7 +98,7 @@ E.Options.args.sle.args.characterframeoptions = {
 					order = 1,
 					type = "toggle",
 					name = L["Enable"],
-					desc = L["Show/Hide Item Durability"],
+					--desc = L["Show/Hide Item Durability"],
 					get = function(info) return E.db.sle.characterframeoptions.itemdurability.enable end,
 					set = function(info, value) E.db.sle.characterframeoptions.itemdurability.enable = value; CFO:ToggleCFO() end,
 				},
