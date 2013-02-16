@@ -10,7 +10,7 @@ L["Shadow & Light Edit of ElvUI"] = true
 L["SLE_DESC"] = [=[This is and edit of ElvUI that adds some functionality to the original addon and changes some previously existed options.
 The edit doesn't change original files in any respect so you can freely disable it any time from your addon manager without any risk.]=]
 L["LFR Lockout"] = true
-L["Show/Hide LFR lockdown info in time datatext's tooltip."] = true
+L["Show/Hide LFR lockout info in the time datatext's tooltip."] = true
 L["PvP Auto Release"] = true
 L["Automatically release body when killed inside a battleground."] = true
 L["Errors in combat"] = true

@@ -9,7 +9,7 @@ L["Shadow & Light Edit of ElvUI"] = "Schatten & Licht Edit von ElvUI"
 L["SLE_DESC"] = [=[Das ist ein Edit von ElvUI das einige Funktionen zum Original Addon hinzufügt und bereits existierende Optionen ändert.
 Der Edit ändert in keiner Hinsicht Originale Dateien so das du es ohne Probleme aus deinem Addon Manager deaktivieren kannst.]=]
 L["LFR Lockout"] = "LFR Abklingzeiten"
-L["Show/Hide LFR lockdown info in time datatext's tooltip."] = "Zeige/Verstecke die LFR Abklingzeiten Info im Zeit Infotext Tooltip."
+L["Show/Hide LFR lockout info in the time datatext's tooltip."] = "Zeige/Verstecke die LFR Abklingzeiten Info im Zeit Infotext Tooltip."
 L["PvP Auto Release"] = "PvP Auto Freilassen"
 L["Automatically release body when killed inside a battleground."] = "Geist automatisch freilassen wenn man innerhalb eines Schlachtfeldes stirbt."
 L["Pet autocast corners"] = "Begleiter autozauber Ecken"
