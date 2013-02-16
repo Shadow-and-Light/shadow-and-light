@@ -29,7 +29,7 @@ E.Options.args.sle = {
 			func = function() SLE:Reset(true) end,
 		},
 		general = {
-			order = 3,
+			order = 4,
 			type = "group",
 			name = L["General"],
 			guiInline = true,
@@ -45,7 +45,7 @@ E.Options.args.sle = {
 			},
 		},
 		lootwindow = {
-			order = 4,
+			order = 5,
 			type = "group",
 			name = L["Loot History"],
 			guiInline = true,

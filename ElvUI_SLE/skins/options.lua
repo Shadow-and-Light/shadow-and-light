@@ -1,7 +1,7 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 
 E.Options.args.sle.args.skins = {
-	order = 7,
+	order = 8,
 	type = "group",
 	name = L["Skins"],
 	guiInline = true,
