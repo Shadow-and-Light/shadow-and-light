@@ -137,28 +137,54 @@ local function OnEnter(self)
 		local ilvl = GetAverageItemLevel()
 		DT.tooltip:AddLine(" ")
 		DT.tooltip:AddLine(RAID_FINDER)
-		--if lvl == 85 and ilvl >= 372 then
-			DT:DragonSoul(416, 417)
-		--else
-		if lvl == 90 then
-			if ilvl >= 460 then
+		if E.db.sle.lfrshow.ds then
+			DT.tooltip:AddLine(" "..GetMapNameByID(824))
+			if lvl == 85 and ilvl >= 372 then
+				DT:DragonSoul(416, 417)
+			else
+				DT.tooltip:AddLine(" "..L["No LFR is available for your level/gear."])
+			end
+			DT.tooltip:AddLine(" ")
+		end
+
+		if E.db.sle.lfrshow.mv then
+			DT.tooltip:AddLine(" "..GetMapNameByID(896))
+			if lvl == 90 and ilvl >= 460 then
 				DT:Mogushan(527, 528)
-				DT.tooltip:AddLine(" ")
+			else
+				DT.tooltip:AddLine(" "..L["No LFR is available for your level/gear."])
 			end
-			if ilvl >= 470 then
+			DT.tooltip:AddLine(" ")
+		end
+		
+		if E.db.sle.lfrshow.hof then
+				DT.tooltip:AddLine(" "..GetMapNameByID(897))
+			if lvl == 90 and ilvl >= 470 then
 				DT:HoF(529, 530)
-				DT.tooltip:AddLine(" ")
+			else
+				DT.tooltip:AddLine(" "..L["No LFR is available for your level/gear."])
+			end
+			DT.tooltip:AddLine(" ")
+		end
+		
+		if E.db.sle.lfrshow.toes then
+			DT.tooltip:AddLine(" "..GetMapNameByID(886))
+			if lvl == 90 and ilvl >= 470 then
 				DT:ToES(526)
-				DT.tooltip:AddLine(" ")
+			else
+				DT.tooltip:AddLine(" "..L["No LFR is available for your level/gear."])
 			end
-			if ilvl >= 480 then
+			DT.tooltip:AddLine(" ")
+		end
+		
+		if E.db.sle.lfrshow.tot then
+			DT.tooltip:AddLine(" "..GetMapNameByID(930))
+			if lvl == 90 and ilvl >= 480 then
 				DT:ToT(610, 611, 612, 613)
+			else
+				DT.tooltip:AddLine(" "..L["No LFR is available for your level/gear."])
 			end
-			if ilvl < 460 then
-				DT.tooltip:AddLine(L["No LFR is available for your level/gear."])
-			end
-		else
-			DT.tooltip:AddLine(L["No LFR is available for your level/gear."])
+			DT.tooltip:AddLine(" ")
 		end
 		--LFR lockout end
 	end

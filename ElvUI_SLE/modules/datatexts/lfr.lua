@@ -199,7 +199,6 @@ function DT:TwelveShift(id1, id2, id3, id4)
 end
 
 function DT:DragonSoul(id1, id2)
-	DT.tooltip:AddLine(" "..GetMapNameByID(824)) --Instance name
 	if IsShiftKeyDown() then
 		DT:EightShift(id1, id2)
 	else
@@ -208,7 +207,6 @@ function DT:DragonSoul(id1, id2)
 end
 
 function DT:Mogushan(id1, id2)
-	DT.tooltip:AddLine(" "..GetMapNameByID(896)) --Instance name
 	if IsShiftKeyDown() then
 		DT:SixShift(id1, id2)
 	else
@@ -217,7 +215,6 @@ function DT:Mogushan(id1, id2)
 end
 
 function DT:HoF(id1, id2)
-	DT.tooltip:AddLine(" "..GetMapNameByID(897)) --Instance name
 	if IsShiftKeyDown() then
 		DT:SixShift(id1, id2)
 	else
@@ -226,7 +223,6 @@ function DT:HoF(id1, id2)
 end
 
 function DT:ToES(id)
-	DT.tooltip:AddLine(" "..GetMapNameByID(886)) --Instance name
 	if IsShiftKeyDown() then
 		DT:FourShift(id)
 	else
@@ -235,7 +231,6 @@ function DT:ToES(id)
 end
 
 function DT:ToT(id1, id2, id3, id4)
-	DT.tooltip:AddLine(" "..GetMapNameByID(930))
 	if IsShiftKeyDown() then
 		DT:TwelveShift(id1, id2, id3, id4)
 	else
