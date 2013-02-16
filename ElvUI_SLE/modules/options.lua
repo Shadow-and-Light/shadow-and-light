@@ -37,7 +37,7 @@ E.Options.args.sle = {
 				lfrshow = {
 					order = 1,
 					type = "toggle",
-					name = L["LFR Lockdown"],
+					name = L["LFR Lockout"],
 					desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
 					get = function(info) return E.db.datatexts.lfrshow end,
 					set = function(info, value) E.db.datatexts.lfrshow = value; end
