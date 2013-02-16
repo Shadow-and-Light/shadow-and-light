@@ -69,15 +69,10 @@ L["Show/Hide this frame during Pet Battles."] = true
 --Character Frame Options
 L["CFO_DESC"] = "This section will added different options/features to the character sheet.  Here you can show item level and durability of your items for a quick glance."
 L["Character Frame Options"] = true
---L["Enable/Disable Character Frame Options"] = true
---L["Item Level"] = true
---L["Show/Hide Item Levels"] = true
-L['Font'] = true  --L['Fonts'] is localized in elvui but not Font
+L['Font'] = true
 L["The font that the item level will use."] = true
 L["Set the font size that the item level will use."] = true
 L["Set the font outline that the item level will use."] = true
---L["Item Durability"] = true
---L["Show/Hide Item Durability"] = true
 L["The font that the item durability will use."] = true
 L["Set the font size that the item durability will use."] = true
 L["Set the font outline that the item durability will use."] = true
