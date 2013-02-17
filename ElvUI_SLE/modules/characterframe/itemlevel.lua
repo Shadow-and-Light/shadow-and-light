@@ -25,7 +25,7 @@ function CFO:UpdateItemLevel()
 				["457"]=8,["458"]=0,["459"]=4,["460"]=8,["461"]=12,["462"]=16}
 			local baseLevel = select(4,GetItemInfo(itemlink))
 			local upgrade = itemlink:match(":(%d+)\124h%[")
-			if baseLevel and upgrade then
+			if baseLevel and upgrade and levelAdjust[upgrade] ~= nil then
 				actualItemLevel = baseLevel + levelAdjust[upgrade]
 			else
 				actualItemLevel = baseLevel
