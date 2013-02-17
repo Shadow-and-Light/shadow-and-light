@@ -3,6 +3,7 @@ local F = E:GetModule('Farm')
 
 E.Options.args.sle.args.farm = {
 	type = 'group',
+	order = 7,
 	name = L['Farm'],
 	args = {
 		intro = {
