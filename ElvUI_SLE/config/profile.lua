@@ -161,6 +161,11 @@ P['sle'] = {
 	
 	--Error messages
 	['errors'] = false,
+	
+	['farm'] = {
+		['active'] = true,
+		['size'] = 30,
+	},
 }
 
 --For some reason datatext settings refuses to work if there is no general setting block here O_o

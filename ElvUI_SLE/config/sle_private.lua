@@ -36,4 +36,5 @@ V['sle'] = {
 		["bottomhide"] = false,
 		["dp6hide"] = false,
 	},
+	['farm'] = false,
 }
