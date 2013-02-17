@@ -123,6 +123,12 @@ L["Changes the way text is shown on exp bar."] = true
 L["Full value on Rep Bar"] = true
 L["Changes the way text is shown on rep bar."] = true
 
+--Farm--
+L['Farm'] = true
+L["FARM_DESC"] = true
+L['Only active buttons'] = true
+L['Only show the buttons for the seeds, portals, tools you have in your bags.'] = true
+
 --Marks--
 L["Raid Marks"] = true
 L["Show/Hide raid marks."] = true
