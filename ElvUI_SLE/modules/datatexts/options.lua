@@ -23,9 +23,7 @@ local chatT = {
 
 function DT:PanelLayoutOptions()	
 	for name, _ in pairs(DT.RegisteredDataTexts) do
-		if name ~= 'Version' then
 			datatexts[name] = name
-		end
 	end
 	datatexts[''] = ''
 	

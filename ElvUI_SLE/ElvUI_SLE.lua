@@ -87,7 +87,6 @@ function E:UpdateAll()
 	end
 	E:GetModule('UIButtons'):UpdateAll()
 	E:GetModule('RaidMarks'):Update()
-	E.db.datatexts.panels.Top_Center = 'Version'
 	SLE:ChatPos()
 end
 
@@ -158,7 +157,6 @@ function SLE:Initialize()
 	if E.db.general.loginmessage then
 		print(format(L['SLE_LOGIN_MSG'], E["media"].hexvaluecolor, SLE.version))
 	end
-	E.db.datatexts.panels.Top_Center = 'Version'
 	DTP:DashboardShow()
 	SLE:Tutorials()
 	SLE:ConfigCats()
