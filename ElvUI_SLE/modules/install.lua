@@ -1630,6 +1630,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 
 	E.db.general.autoAcceptInvite = true
 	E.db.general.autoRepair = "GUILD"
+	E.db.general.bottomPanel = false
 	E.db.general.backdropfadecolor = {
 		["r"] = 0.06,
 		["g"] = 0.06,
@@ -1918,9 +1919,9 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		E.db.datatexts.panels['DP_5']['left'] = ""
 		E.db.datatexts.panels['DP_5']['middle'] = ""
 		E.db.datatexts.panels['DP_5']['right'] = ""
-		E.db.datatexts.panels['DP_6']['left'] = ""
-		E.db.datatexts.panels['DP_6']['middle'] = ""
-		E.db.datatexts.panels['DP_6']['right'] = ""
+		E.db.datatexts.panels['DP_6']['left'] = "System"
+		E.db.datatexts.panels['DP_6']['middle'] = "Time"
+		E.db.datatexts.panels['DP_6']['right'] = "Gold"
 		E.db.datatexts.panels['LeftChatDataPanel']['left'] = ""
 		E.db.datatexts.panels['LeftChatDataPanel']['middle'] = ""
 		E.db.datatexts.panels['LeftChatDataPanel']['right'] = ""
@@ -1929,8 +1930,8 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		E.db.datatexts.panels['RightChatDataPanel']['right'] = "WeakAuras"
 		E.db.datatexts.panels['Top_Center'] = "Spec Switch"
 		E.db.datatexts.panels['Bottom_Panel'] = "Bags"
-		E.db.datatexts.panels['LeftMiniPanel'] = ""
-		E.db.datatexts.panels['RightMiniPanel'] = ""
+		E.db.datatexts.panels['LeftMiniPanel'] = "Guild"
+		E.db.datatexts.panels['RightMiniPanel'] = "Friends"
 
 		--Datatext Panels Spec Specific
 		if layout == 'tank' then
