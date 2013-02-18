@@ -76,7 +76,7 @@ P['sle'] = {
 
 	--Raid marks
 	['marks'] = {
-		['enabled'] = true,
+		['enabled'] = false,
 		['growth'] = "RIGHT",
 		['showinside'] = false,
 		['size'] = 18,
@@ -163,7 +163,7 @@ P['sle'] = {
 	['errors'] = false,
 	
 	['farm'] = {
-		['active'] = true,
+		['active'] = false,
 		['size'] = 30,
 	},
 }
