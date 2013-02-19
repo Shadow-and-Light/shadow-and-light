@@ -163,7 +163,7 @@ P['sle'] = {
 	['errors'] = false,
 	
 	['farm'] = {
-		['active'] = false,
+		['active'] = true,
 		['size'] = 30,
 	},
 }
