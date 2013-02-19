@@ -146,10 +146,18 @@ function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 	local count = 0
 	size = E.db.sle.farm.size
 	seedBar:ClearAllPoints()
-	if category == 1 then
+	--_G[("FarmSeedBar%d"):format(i)
+	--[[if category == 1 then
 		seedBar:Point("TOPLEFT", anchor, "TOPLEFT", (E.PixelMode and 0 or -2), 0)
 	else
 		seedBar:Point("TOPLEFT", anchor, "TOPLEFT", (category-1)*(size+(E.PixelMode and 2 or 1))-(E.PixelMode and 0 or 2), 0)
+	end]]
+	print(category)
+	if category == 1 then
+		seedBar:Point("TOPLEFT", anchor, "TOPLEFT", (E.PixelMode and 0 or -2), 0)
+	else
+		print(_G[("FarmSeedBar%d"):format(category-1)]:GetName())
+		seedBar:Point("TOPLEFT", _G[("FarmSeedBar%d"):format(category-1)], "TOPRIGHT", (E.PixelMode and 0 or 2), 0) --(size+(E.PixelMode and 2 or 1))-(E.PixelMode and 0 or 2), 0)
 	end
 	
 	for i, button in ipairs(buttons) do
@@ -164,16 +172,20 @@ function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 		end
 	end
 	
-	seedBar:Width(size+2)
-	seedBar:Height(1)
+	if count ~= 0 then
+		seedBar:Width(size+2)
+	else
+		seedBar:Width(1)
+	end
+	seedBar:Height(100) --(count*(size+2))
 	return count
 end
 
 function F:UpdateBar(bar, layoutfunc, zonecheck, anchor, buttons, category)
 	bar:Show()
 	
-	local count = layoutfunc(self, bar, anchor, buttons, category)
-	if (E.private.sle.farm and count > 0 and zonecheck(self) and not InCombatLockdown()) then
+	local layout = layoutfunc(self, bar, anchor, buttons, category)
+	if (E.private.sle.farm and zonecheck(self) and not InCombatLockdown()) then
 		bar:Show()
 	else
 		bar:Hide()
@@ -288,6 +300,7 @@ function F:CreateFrames()
 
 	for i = 1, 5 do
 		local seedBar = CreateFrame("Frame", ("FarmSeedBar%d"):format(i), UIParent)
+		--seedBar:CreateBackdrop("Transparent")
 		seedBar:SetFrameStrata("BACKGROUND")
 		seedBar:SetPoint("CENTER", SeedAnchor, "CENTER", 0, 0)
 
