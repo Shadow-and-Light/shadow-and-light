@@ -1631,20 +1631,16 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.general.autoAcceptInvite = true
 	E.db.general.autoRepair = "GUILD"
 	E.db.general.bottomPanel = false
+	E.db.general.topPanel = false
 	E.db.general.backdropfadecolor = {
-		["r"] = 0.06,
-		["g"] = 0.06,
-		["b"] = 0.06,
+		["r"] = 0.054,
+		["g"] = 0.054,
+		["b"] = 0.054,
 	}
 	E.db.general.valuecolor = {
 		["r"] = 0.09,
 		["g"] = 0.513,
 		["b"] = 0.819,
-	}
-	E.db.general.bordercolor = {
-		["r"] = 0.31,
-		["g"] = 0.31,
-		["b"] = 0.31,
 	}
 	E.db.general.health = {
 	}
@@ -1662,7 +1658,21 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	--Unitframes
 	E.db.unitframe.fontOutline = "OUTLINE"
 	E.db.unitframe.statusbar = "Polished Wood"
-
+	E.db.unitframe.colors.auraBarBuff = {
+		["r"] = 0.3098039215686275,
+		["g"] = 0.07843137254901961,
+		["b"] = 0.09411764705882353,
+	}
+	E.db.unitframe.colors.castColor = {
+		["r"] = 0.1,
+		["g"] = 0.1,
+		["b"] = 0.1,
+	}
+	E.db.unitframe.colors.health = {
+		["r"] = 0.2352941176470588,
+		["g"] = 0.2352941176470588,
+		["b"] = 0.2352941176470588,
+	}
 	E.db.unitframe.units.tank.enable = false
 
 	E.db.unitframe.units.assist.enable = false
@@ -1698,6 +1708,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.target.power.offset = 11
 
 	E.db.unitframe.units.party.columnAnchorPoint = "BOTTOM"
+	E.db.unitframe.units.party.buffIndicator.size = 10
 	E.db.unitframe.units.party.point = "RIGHT"
 	E.db.unitframe.units.party.xOffset = -1
 	E.db.unitframe.units.party.yOffset = 1
@@ -1705,7 +1716,6 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.party.power.text_format = ""
 	E.db.unitframe.units.party.buffIndicator.size = 10
 	E.db.unitframe.units.party.roleIcon.enable = false
-	E.db.unitframe.units.party.roleIcon.position = "BOTTOMRIGHT"
 	E.db.unitframe.units.party.GPSArrow.size = 40
 	E.db.unitframe.units.party.positionOverride = "BOTTOMRIGHT"
 	E.db.unitframe.units.party.healPrediction = true
@@ -1718,7 +1728,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.party.name.position = "TOP"
 	E.db.unitframe.units.party.debuffs.xOffset = -4
 	E.db.unitframe.units.party.debuffs.yOffset = -7
-	E.db.unitframe.units.party.debuffs.anchorPoint = "TOPRIGHT"
+	E.db.unitframe.units.party.debuffs.anchorPoint = "TOPLEFT"
 	E.db.unitframe.units.party.debuffs.sizeOverride = 16
 	E.db.unitframe.units.party.buffs.noConsolidated = false
 	E.db.unitframe.units.party.buffs.enable = true
@@ -1737,12 +1747,14 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.party.raidicon.xOffset = 9
 	E.db.unitframe.units.party.raidicon.size = 13
 	E.db.unitframe.units.party.raidicon.yOffset = 0
+	E.db.unitframe.units.party.targetsGroup.anchorPoint = "BOTTOM"
 
 	E.db.unitframe.units.raid10.columnAnchorPoint = "BOTTOM"
+	E.db.unitframe.units.raid10.height = 45
 	E.db.unitframe.units.raid10.point = "RIGHT"
 	E.db.unitframe.units.raid10.rdebuffs.enable = false
 	E.db.unitframe.units.raid10.yOffset = 4
-	E.db.unitframe.units.raid10.xOffset = -1
+	E.db.unitframe.units.raid10.xOffset = -1  -- yOffset is 1 as dps layout
 	E.db.unitframe.units.raid10.roleIcon.enable = false
 	E.db.unitframe.units.raid10.power.offset = 5
 	E.db.unitframe.units.raid10.positionOverride = "BOTTOMRIGHT"
@@ -1816,6 +1828,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid40.raidicon.xOffset = 9
 	E.db.unitframe.units.raid40.raidicon.yOffset = 0
 	E.db.unitframe.units.raid40.raidicon.size = 13
+	E.db.unitframe.units.raid40.raidicon.attachTo = "LEFT"
 	E.db.unitframe.units.raid40.rdebuffs.size = 26
 	E.db.unitframe.units.raid40.name.position = "TOP"
 	E.db.unitframe.units.raid40.buffIndicator.fontSize = 11
@@ -1830,6 +1843,8 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid40.debuffs.clickThrough = true
 	E.db.unitframe.units.raid40.debuffs.xOffset = -4
 	E.db.unitframe.units.raid40.debuffs.yOffset = -9
+	E.db.unitframe.units.raid40.debuffs.useBlacklist = false
+	E.db.unitframe.units.raid40.debuffs.useFilter = "Blacklist"
 	E.db.unitframe.units.raid40.buffs.xOffset = 21
 	E.db.unitframe.units.raid40.buffs.yOffset = 25
 	E.db.unitframe.units.raid40.buffs.anchorPoint = "BOTTOMLEFT"
@@ -1901,24 +1916,14 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		E.db.sle.datatext.dp6.width = 410
 		E.db.sle.datatext.bottom.width = 104
 		E.db.sle.datatext.top.width = 104
-		--E.db.sle.datatext.chatleft.width = 417
-		--E.db.sle.datatext.chatright.width = 417
+		if GetScreenWidth() < 1920 then
+			E.db.sle.datatext.chatleft.width = 364
+			E.db.sle.datatext.chatright.width = 364
+		else
+			E.db.sle.datatext.chatleft.width = 412
+			E.db.sle.datatext.chatright.width = 412
+		end
 
-		E.db.datatexts.panels['DP_1']['left'] = ""
-		E.db.datatexts.panels['DP_1']['middle'] = ""
-		E.db.datatexts.panels['DP_1']['righ'] = ""
-		E.db.datatexts.panels['DP_2']['left'] = ""
-		E.db.datatexts.panels['DP_2']['middle'] = ""
-		E.db.datatexts.panels['DP_2']['right'] = ""
-		E.db.datatexts.panels['DP_3']['left'] = ""
-		E.db.datatexts.panels['DP_3']['middle'] = ""
-		E.db.datatexts.panels['DP_3']['right'] = ""
-		E.db.datatexts.panels['DP_4']['left'] = ""
-		E.db.datatexts.panels['DP_4']['middle'] = ""
-		E.db.datatexts.panels['DP_4']['right'] = ""
-		E.db.datatexts.panels['DP_5']['left'] = ""
-		E.db.datatexts.panels['DP_5']['middle'] = ""
-		E.db.datatexts.panels['DP_5']['right'] = ""
 		E.db.datatexts.panels['DP_6']['left'] = "System"
 		E.db.datatexts.panels['DP_6']['middle'] = "Time"
 		E.db.datatexts.panels['DP_6']['right'] = "Gold"
@@ -1953,29 +1958,30 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		end
 	end
 	do
-	E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-278200" --check
-	E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM0100" --check
-	E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM278200" --check
-	E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM0190" --check
-	E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM310432" --check
-	E.db.movers.ElvUF_PartyMover = "BOTTOMElvUIParentBOTTOM"..xOffset.."450" --Need to change offset
-	E.db.movers.ElvUF_Raid10Mover = "BOTTOMRIGHTElvUIParentBOTTOMLEFT"..xOffset.."450" --Need to change offset
-	E.db.movers.ElvUF_Raid25Mover = "BOTTOMRIGHTElvUIParentBOTTOMLEFT"..xOffset.."450" --Need to change offset
-	E.db.movers.ElvUF_Raid40Mover = "BOTTOMRIGHTElvUIParentBOTTOMLEFT"..xOffset.."450" --Need to change offset
-	E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM0230" --check
-	E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM062" --check
-	E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM028" --check
-	E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM26028" --check xoffset for this
-	E.db.movers.ElvAB_4 = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-206200" -- check this pls
-	E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-26028"  --check xoffset for this
-	E.db.movers.DP_6_Mover = "BOTTOMElvUIParentBOTTOM04"  --check
-	E.db.movers.Top_Center_Mover = "BOTTOMElvUIParentBOTTOM-2604" --check
-	E.db.movers.Bottom_Panel_Mover = "BOTTOMElvUIParentBOTTOM2604" --check
-	E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021" --check
-	E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021" --check
-	E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT41825" --check
-	E.db.movers.PetAB = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT0200"
+		E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-278200" --check
+		E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM0100" --check
+		E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM278200" --check
+		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM0190" --check
+		E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM310432" --check
+		E.db.movers.ElvUF_PartyMover = "BOTTOMRIGHTElvUIParentCENTER-213-90" --Need to change offset
+		E.db.movers.ElvUF_Raid10Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90" --Need to change offset
+		E.db.movers.ElvUF_Raid25Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90" --Need to change offset
+		E.db.movers.ElvUF_Raid40Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90" --Need to change offset
+		E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM0230" --check
+		E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM062" --check
+		E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM028" --check
+		E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM26028" --check xoffset for this
+		E.db.movers.ElvAB_4 = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-206200" -- check this pls
+		E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-26028"  --check xoffset for this
+		E.db.movers.DP_6_Mover = "BOTTOMElvUIParentBOTTOM04"  --check
+		E.db.movers.Top_Center_Mover = "BOTTOMElvUIParentBOTTOM-2604" --check
+		E.db.movers.Bottom_Panel_Mover = "BOTTOMElvUIParentBOTTOM2604" --check
+		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021" --check
+		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021" --check
+		E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT41825" --check
+		E.db.movers.PetAB = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT0200"
 	end
+
 	E:UpdateAll(true)
 end
 function E:HudSimple()
