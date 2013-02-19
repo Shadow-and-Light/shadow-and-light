@@ -7,7 +7,6 @@ local SeedAnchor, ToolAnchor, PortalAnchor
 local tsort = table.sort
 local farmzones = { BL["Sunsong Ranch"], BL["The Halfhill Market"] }
 local size
-local unreg = 0
 
 local seedButtons = {}
 local toolButtons = {}
@@ -150,7 +149,7 @@ function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 	if category == 1 then
 		seedBar:Point("TOPLEFT", anchor, "TOPLEFT", (E.PixelMode and 0 or -2), 0)
 	else
-		seedBar:Point("TOPLEFT", anchor, "TOPLEFT", (category - 1)*(size+(E.PixelMode and 2 or 1))-(E.PixelMode and 0 or 2), 0)
+		seedBar:Point("TOPLEFT", anchor, "TOPLEFT", (category-1)*(size+(E.PixelMode and 2 or 1))-(E.PixelMode and 0 or 2), 0)
 	end
 	
 	for i, button in ipairs(buttons) do
@@ -181,7 +180,7 @@ function F:UpdateBar(bar, layoutfunc, zonecheck, anchor, buttons, category)
 	end
 end
 
-function F:UpdateLayout(event)
+function F:UpdateLayout()
 	if InCombatLockdown() then return end
 	for i=1, 5 do
 		F:UpdateBar(_G[("FarmSeedBar%d"):format(i)], F.UpdateSeedBarLayout, F.InSeedZone, SeedAnchor, seedButtons[i], i)
@@ -190,6 +189,7 @@ function F:UpdateLayout(event)
 	F:UpdateBar(_G["FarmPortalBar"], F.UpdateBarLayout, F.InFarmZone, PortalAnchor, portalButtons)
 	F:ResizeFrames()
 end
+
 
 function F:CreateFarmButton(index, owner, buttonType, name, texture, allowDrop)
 	size = E.db.sle.farm.size
@@ -326,6 +326,10 @@ function F:CreateFrames()
 	F:RegisterEvent("BAG_UPDATE", "FarmerInventoryUpdate")
 end
 
+function F:OnLoadDelay()
+	E:Delay(5, F.UpdateLayout)
+end
+
 function F:StartFarmBarLoader()
 	F:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
@@ -344,6 +348,7 @@ function F:StartFarmBarLoader()
 		E:Delay(5, F.StartFarmBarLoader)
 	else
 		F.CreateFrames()
+		E:Delay(1, F.OnLoadDelay)
 	end
 end
 
