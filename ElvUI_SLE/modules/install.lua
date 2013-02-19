@@ -1982,8 +1982,8 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 			E.db.sle.datatext.chatleft.width = 364
 			E.db.sle.datatext.chatright.width = 364
 		else
-			E.db.sle.datatext.chatleft.width = 412
-			E.db.sle.datatext.chatright.width = 412
+			E.db.sle.datatext.chatleft.width = 396
+			E.db.sle.datatext.chatright.width = 396
 		end
 		E.db.datatexts.panels['DP_6']['left'] = "System"
 		E.db.datatexts.panels['DP_6']['middle'] = "Time"
