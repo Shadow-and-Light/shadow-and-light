@@ -194,9 +194,8 @@ function E:SetupPixelPerfect(enabled, noMsg)
 	end
 
 	if noMsg then
+		if not E.db.movers then E.db.movers = {}; end
 		if enabled then
-			if not E.db.movers then E.db.movers = {}; end
-			
 			E.db.movers["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM0104"
 			E.db.movers["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM064"
 			E.db.movers["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-27865"
@@ -1627,7 +1626,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	--can try * .135417 for ab 3 and 5 positions or do xoffset - blah blah
 	layout = E.db.layoutSet  --Pull which layout was selected if any.
 	pixel = E.PixelMode  --Pull PixelMode
-
+	E.private.general.pixelPerfect = true
 	E.db.general.autoAcceptInvite = true
 	E.db.general.autoRepair = "GUILD"
 	E.db.general.bottomPanel = false
@@ -1654,6 +1653,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.private.skins.addons.AlwaysTrue = true
 	E.db.gridSize = 110
 	E.db.hideTutorial = 1
+	E.db.unitframe.colors.healthclass = false
 
 	--Chat
 	E.db.chat.editBoxPosition = "ABOVE_CHAT"
@@ -1948,7 +1948,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.actionbar.bar4.buttonspacing = 2
 	E.db.actionbar.bar4.buttonsPerRow = 6
 	E.db.actionbar.bar4.mouseover = true
-	E.db.actionbar.bar4.point = "BOTTOMRIGHT"
+	E.db.actionbar.bar4.point = "BOTTOMLEFT"
 	--Bar 5
 	E.db.actionbar.bar5.enabled = true
 	E.db.actionbar.bar5.backdrop = true
@@ -1959,8 +1959,8 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	--Stance Bar
 	E.db.actionbar.stanceBar.buttonsPerRow = 1
 	--Pet Bar
-	E.db.actionbar.barPet.point = "BOTTOMLEFT"
-	E.db.actionbar.barPet.buttonsPerRow = 10
+	E.db.actionbar.barPet.point = "RIGHT"
+	E.db.actionbar.barPet.buttonsPerRow = 1
 
 	--Datatext
 	do
@@ -2032,18 +2032,21 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM062" --check
 		E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM028" --check
 		E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM26028" --check xoffset for this
-		E.db.movers.ElvAB_4 = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-206200" -- check this pls
 		E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-26028"  --check xoffset for this
 		E.db.movers.DP_6_Mover = "BOTTOMElvUIParentBOTTOM04"  --check
 		E.db.movers.Top_Center_Mover = "BOTTOMElvUIParentBOTTOM-2604" --check
 		E.db.movers.Bottom_Panel_Mover = "BOTTOMElvUIParentBOTTOM2604" --check
 		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021" --check
 		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021" --check
-		E.db.movers.PetAB = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT0200"
+		E.db.movers.PetAB = "RIGHTElvUIParentRIGHT00"
 		if GetScreenWidth() < 1920 then
+			E.db.movers.ElvAB_4 = "BOTTOMLEFTElvUIParentBOTTOMRIGHT-380200" -- check this pls
 			E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT38221" --check
+			E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT38221"
 		else
+			E.db.movers.ElvAB_4 = "BOTTOMLEFTElvUIParentBOTTOMRIGHT-412200" -- check this pls
 			E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT41421" --check
+			E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT41421"
 		end
 	end
 
@@ -2234,11 +2237,10 @@ local function SetPage(PageNum)
 		local pixel = E.PixelMode
 		if pixel then
 			InstallOption3Button:SetScript('OnClick', function() E:RepoocSetup() end)
-			InstallOption3Button:SetText(L["Repooc's Config"])
 		else
 			InstallOption3Button:SetScript('OnClick', function() E:StaticPopup_Show("ELVUI_SLE_REPOOC") end)
-			InstallOption3Button:SetText(L["Repooc's Config"])
 		end
+		InstallOption3Button:SetText(L["Repooc's Config"])
 	elseif PageNum == 10 and IsAddOnLoaded("ElvUI_Hud") then --Hud's page if enabled
 		f.SubTitle:SetText("ElvUI Hud")
 		f.Desc1:SetText(L["Thank you for using ElvUI Hud!"])
