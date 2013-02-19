@@ -1648,21 +1648,25 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	}
 	E.db.general.vendorGrays = true
 	E.db.general.autoRoll = true
+	E.private.general.normTex = "Polished Wood"
+	E.private.general.glossTex = "Polished Wood"
+	E.private.skins.addons.EmbedSkada = true
+	E.private.skins.addons.AlwaysTrue = true
 	E.db.gridSize = 110
 	E.db.hideTutorial = 1
 
 	--Chat
 	E.db.chat.editBoxPosition = "ABOVE_CHAT"
 	E.db.chat.emotionIcons = false
+	if GetScreenWidth() < 1920 then
+		E.db.chat.panelWidth = 380
+	else
+		E.db.chat.panelWidth = 412
+	end
 
 	--Unitframes
 	E.db.unitframe.fontOutline = "OUTLINE"
 	E.db.unitframe.statusbar = "Polished Wood"
-	E.db.unitframe.colors.auraBarBuff = {
-		["r"] = 0.3098039215686275,
-		["g"] = 0.07843137254901961,
-		["b"] = 0.09411764705882353,
-	}
 	E.db.unitframe.colors.castColor = {
 		["r"] = 0.1,
 		["g"] = 0.1,
@@ -1709,6 +1713,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 
 	E.db.unitframe.units.party.columnAnchorPoint = "BOTTOM"
 	E.db.unitframe.units.party.buffIndicator.size = 10
+	E.db.unitframe.units.party.buffIndicator.fontSize = 11
 	E.db.unitframe.units.party.point = "RIGHT"
 	E.db.unitframe.units.party.xOffset = -1
 	E.db.unitframe.units.party.yOffset = 1
@@ -1719,20 +1724,13 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.party.GPSArrow.size = 40
 	E.db.unitframe.units.party.positionOverride = "BOTTOMRIGHT"
 	E.db.unitframe.units.party.healPrediction = true
-	E.db.unitframe.units.party.width = 80
-	E.db.unitframe.units.party.height = 45
 	E.db.unitframe.units.party.health.frequentUpdates = true
 	E.db.unitframe.units.party.health.text_format = "[healthcolor][health:deficit]"
 	E.db.unitframe.units.party.health.position = "BOTTOM"
 	E.db.unitframe.units.party.name.text_format = "[namecolor][name:short] [difficultycolor][smartlevel]"
 	E.db.unitframe.units.party.name.position = "TOP"
-	E.db.unitframe.units.party.debuffs.xOffset = -4
-	E.db.unitframe.units.party.debuffs.yOffset = -7
-	E.db.unitframe.units.party.debuffs.anchorPoint = "TOPLEFT"
-	E.db.unitframe.units.party.debuffs.sizeOverride = 16
 	E.db.unitframe.units.party.buffs.noConsolidated = false
 	E.db.unitframe.units.party.buffs.enable = true
-	E.db.unitframe.units.party.buffs.yOffset = 28
 	E.db.unitframe.units.party.buffs.anchorPoint = "BOTTOMLEFT"
 	E.db.unitframe.units.party.buffs.clickThrough = true
 	E.db.unitframe.units.party.buffs.useBlacklist = false
@@ -1740,17 +1738,49 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.party.buffs.playerOnly = false
 	E.db.unitframe.units.party.buffs.perrow = 1
 	E.db.unitframe.units.party.buffs.useFilter = "TurtleBuffs"
-	E.db.unitframe.units.party.buffs.sizeOverride = 22
-	E.db.unitframe.units.party.buffs.xOffset = 30
 	E.db.unitframe.units.party.petsGroup.anchorPoint = "BOTTOM"
 	E.db.unitframe.units.party.raidicon.attachTo = "LEFT"
 	E.db.unitframe.units.party.raidicon.xOffset = 9
 	E.db.unitframe.units.party.raidicon.size = 13
 	E.db.unitframe.units.party.raidicon.yOffset = 0
 	E.db.unitframe.units.party.targetsGroup.anchorPoint = "BOTTOM"
+	if layout == "healer" then
+		E.db.unitframe.units.party.width = 80
+		E.db.unitframe.units.party.height = 45
+		E.db.unitframe.units.party.debuffs.xOffset = -4
+		E.db.unitframe.units.party.debuffs.yOffset = -7
+		E.db.unitframe.units.party.debuffs.anchorPoint = "TOPLEFT"
+		E.db.unitframe.units.party.debuffs.sizeOverride = 16
+		E.db.unitframe.units.party.buffs.yOffset = 28
+		E.db.unitframe.units.party.buffs.xOffset = 30
+		E.db.unitframe.units.party.buffs.sizeOverride = 22
+		E.db.unitframe.colors.auraBarBuff = {
+			["r"] = 0.3098039215686275,
+			["g"] = 0.07843137254901961,
+			["b"] = 0.09411764705882353,
+		}
+	else
+		E.db.unitframe.units.party.width = 82
+		E.db.unitframe.units.party.height = 43
+		E.db.unitframe.units.party.debuffs.xOffset = -14
+		E.db.unitframe.units.party.debuffs.yOffset = -9
+		E.db.unitframe.units.party.debuffs.anchorPoint = "TOPRIGHT"
+		E.db.unitframe.units.party.debuffs.sizeOverride = 17
+		E.db.unitframe.units.party.debuffs.clickThrough = true
+		E.db.unitframe.units.party.debuffs.useBlacklist = false
+		E.db.unitframe.units.party.debuffs.useFilter = "Blacklist"
+		E.db.unitframe.units.party.buffs.yOffset = 25
+		E.db.unitframe.units.party.buffs.xOffset = 38
+		E.db.unitframe.units.party.buffs.sizeOverride = 17
+		E.db.unitframe.colors.auraBarBuff = {
+			["r"] = 0.1,
+			["g"] = 0.1,
+			["b"] = 0.1,
+		}
+	end
 
 	E.db.unitframe.units.raid10.columnAnchorPoint = "BOTTOM"
-	E.db.unitframe.units.raid10.height = 45
+	E.db.unitframe.units.raid10.buffIndicator.fontSize = 11
 	E.db.unitframe.units.raid10.point = "RIGHT"
 	E.db.unitframe.units.raid10.rdebuffs.enable = false
 	E.db.unitframe.units.raid10.yOffset = 4
@@ -1760,15 +1790,10 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid10.positionOverride = "BOTTOMRIGHT"
 	E.db.unitframe.units.raid10.healPrediction = true
 	E.db.unitframe.units.raid10.health.frequentUpdates = true
-	E.db.unitframe.units.raid10.debuffs.xOffset = -4
-	E.db.unitframe.units.raid10.debuffs.yOffset = -7
-	E.db.unitframe.units.raid10.debuffs.anchorPoint = "TOPRIGHT"
-	E.db.unitframe.units.raid10.debuffs.sizeOverride = 16
 	E.db.unitframe.units.raid10.debuffs.enable = true
-	E.db.unitframe.units.raid10.height = 45
-	E.db.unitframe.units.raid10.buffs.noConsolidated = false
+	E.db.unitframe.units.raid10.debuffs.anchorPoint = "TOPRIGHT"
 	E.db.unitframe.units.raid10.buffs.enable = true
-	E.db.unitframe.units.raid10.buffs.yOffset = 28
+	E.db.unitframe.units.raid10.buffs.noConsolidated = false
 	E.db.unitframe.units.raid10.buffs.anchorPoint = "BOTTOMLEFT"
 	E.db.unitframe.units.raid10.buffs.clickThrough = true
 	E.db.unitframe.units.raid10.buffs.useBlacklist = false
@@ -1776,17 +1801,37 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid10.buffs.playerOnly = false
 	E.db.unitframe.units.raid10.buffs.perrow = 1
 	E.db.unitframe.units.raid10.buffs.useFilter = "TurtleBuffs"
-	E.db.unitframe.units.raid10.buffs.sizeOverride = 22
-	E.db.unitframe.units.raid10.buffs.xOffset = 30
 	E.db.unitframe.units.raid10.raidicon.attachTo = "LEFT"
 	E.db.unitframe.units.raid10.raidicon.xOffset = 9
 	E.db.unitframe.units.raid10.raidicon.size = 13
 	E.db.unitframe.units.raid10.raidicon.yOffset = 0
-	
+	if layout == "healer" then
+		E.db.unitframe.units.raid10.debuffs.sizeOverride = 16
+		E.db.unitframe.units.raid10.debuffs.xOffset = -4
+		E.db.unitframe.units.raid10.debuffs.yOffset = -7
+		E.db.unitframe.units.raid10.height = 45
+		E.db.unitframe.units.raid10.width = 80
+		E.db.unitframe.units.raid10.buffs.yOffset = 28
+		E.db.unitframe.units.raid10.buffs.xOffset = 30
+		E.db.unitframe.units.raid10.buffs.sizeOverride = 22
+	else
+		E.db.unitframe.units.raid10.debuffs.sizeOverride = 20
+		E.db.unitframe.units.raid10.debuffs.useBlacklist = false
+		E.db.unitframe.units.raid10.debuffs.xOffset = -10
+		E.db.unitframe.units.raid10.debuffs.yOffset = -9
+		E.db.unitframe.units.raid10.debuffs.useFilter = "Blacklist"
+		E.db.unitframe.units.raid10.debuffs.clickThrough = true
+		E.db.unitframe.units.raid10.height = 43
+		E.db.unitframe.units.raid10.height = 82
+		E.db.unitframe.units.raid10.buffs.yOffset = 25
+		E.db.unitframe.units.raid10.buffs.xOffset = 38
+		E.db.unitframe.units.raid10.buffs.sizeOverride = 17
+	end
+
 	E.db.unitframe.units.raid25.columnAnchorPoint = "RIGHT"
+	E.db.unitframe.units.raid25.buffIndicator.fontSize = 11
 	E.db.unitframe.units.raid25.point = "BOTTOM"
 	E.db.unitframe.units.raid25.rdebuffs.enable = false
-	E.db.unitframe.units.raid25.yOffset = 4
 	E.db.unitframe.units.raid25.xOffset = 1
 	E.db.unitframe.units.raid25.roleIcon.enable = false
 	E.db.unitframe.units.raid25.power.offset = 5
@@ -1794,19 +1839,14 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid25.positionOverride = "BOTTOMRIGHT"
 	E.db.unitframe.units.raid25.healPrediction = true
 	E.db.unitframe.units.raid25.health.frequentUpdates = true
-	E.db.unitframe.units.raid25.debuffs.xOffset = -4
-	E.db.unitframe.units.raid25.debuffs.yOffset = -7
 	E.db.unitframe.units.raid25.debuffs.anchorPoint = "TOPRIGHT"
-	E.db.unitframe.units.raid25.debuffs.sizeOverride = 16
 	E.db.unitframe.units.raid25.debuffs.enable = true
-	E.db.unitframe.units.raid25.height = 45
 	E.db.unitframe.units.raid25.raidicon.attachTo = "LEFT"
 	E.db.unitframe.units.raid25.raidicon.xOffset = 9
 	E.db.unitframe.units.raid25.raidicon.yOffset = 0
 	E.db.unitframe.units.raid25.raidicon.size = 13
 	E.db.unitframe.units.raid25.buffs.noConsolidated = false
 	E.db.unitframe.units.raid25.buffs.enable = true
-	E.db.unitframe.units.raid25.buffs.yOffset = 28
 	E.db.unitframe.units.raid25.buffs.anchorPoint = "BOTTOMLEFT"
 	E.db.unitframe.units.raid25.buffs.clickThrough = true
 	E.db.unitframe.units.raid25.buffs.useBlacklist = false
@@ -1814,8 +1854,30 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid25.buffs.playerOnly = false
 	E.db.unitframe.units.raid25.buffs.perrow = 1
 	E.db.unitframe.units.raid25.buffs.useFilter = "TurtleBuffs"
-	E.db.unitframe.units.raid25.buffs.sizeOverride = 22
-	E.db.unitframe.units.raid25.buffs.xOffset = 30
+	if layout == "healer" then
+		E.db.unitframe.units.raid25.yOffset = 4
+		E.db.unitframe.units.raid25.width = 80
+		E.db.unitframe.units.raid25.height = 45
+		E.db.unitframe.units.raid25.debuffs.xOffset = -4
+		E.db.unitframe.units.raid25.debuffs.yOffset = -7
+		E.db.unitframe.units.raid25.debuffs.sizeOverride = 16
+		E.db.unitframe.units.raid25.buffs.yOffset = 28
+		E.db.unitframe.units.raid25.buffs.xOffset = 30
+		E.db.unitframe.units.raid25.buffs.sizeOverride = 22
+	else
+		E.db.unitframe.units.raid25.yOffset = 1
+		E.db.unitframe.units.raid25.width = 82
+		E.db.unitframe.units.raid25.height = 43
+		E.db.unitframe.units.raid25.debuffs.xOffset = -10
+		E.db.unitframe.units.raid25.debuffs.yOffset = -9
+		E.db.unitframe.units.raid25.debuffs.sizeOverride = 20
+		E.db.unitframe.units.raid25.debuffs.useBlacklist = false
+		E.db.unitframe.units.raid25.debuffs.useFilter = "Blacklist"
+		E.db.unitframe.units.raid25.debuffs.clickThrough = true
+		E.db.unitframe.units.raid25.buffs.yOffset = 25
+		E.db.unitframe.units.raid25.buffs.xOffset = 38
+		E.db.unitframe.units.raid25.buffs.sizeOverride = 17
+	end
 
 	E.db.unitframe.units.raid40.columnAnchorPoint = "RIGHT"
 	E.db.unitframe.units.raid40.point = "BOTTOM"
@@ -1923,7 +1985,6 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 			E.db.sle.datatext.chatleft.width = 412
 			E.db.sle.datatext.chatright.width = 412
 		end
-
 		E.db.datatexts.panels['DP_6']['left'] = "System"
 		E.db.datatexts.panels['DP_6']['middle'] = "Time"
 		E.db.datatexts.panels['DP_6']['right'] = "Gold"
@@ -1978,8 +2039,12 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		E.db.movers.Bottom_Panel_Mover = "BOTTOMElvUIParentBOTTOM2604" --check
 		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021" --check
 		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021" --check
-		E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT41825" --check
 		E.db.movers.PetAB = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT0200"
+		if GetScreenWidth() < 1920 then
+			E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT38221" --check
+		else
+			E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT41421" --check
+		end
 	end
 
 	E:UpdateAll(true)
