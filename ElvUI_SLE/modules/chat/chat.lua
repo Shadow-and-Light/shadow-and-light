@@ -15,7 +15,7 @@ local IconTable = {
 		--Repooc's Toon
 		["Repooc"] = "SLEAUTHOR"
 	},
-	["Свежеватель Душ"] = {
+	["СвежевательДуш"] = {
 		--Darth's toons
 		["Дартпредатор"] = "SLEAUTHOR",
 		["Алея"] = "SLEAUTHOR",
@@ -29,7 +29,7 @@ local IconTable = {
 		["Крениг"] = "SLEAUTHOR",
 		["Большойгном"] = "SLETEST" --Testing toon
 	},
-	["Вечная Песня"] = {
+	["ВечнаяПесня"] = {
 		--Darth's toons
 		["Киландра"] = "SLEAUTHOR",
 		["Равенор"] = "SLEAUTHOR",
@@ -38,7 +38,7 @@ local IconTable = {
 		--Darth's friends
 		["Леани"] = "SLEFRIEND"
 	},
-	["Ревущий фьорд"] = {
+	["Ревущийфьорд"] = {
 		["Рыжая"] = "SLEFRIEND",
 		["Рыжа"] = "SLEFRIEND",
 				--Some people
