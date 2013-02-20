@@ -283,7 +283,7 @@ function F:ResizeFrames()
 end
 
 function F:FramesPosition()
-	SeedAnchor:Point("LEFT", E.UIParent, "LEFT", 4, -200)
+	SeedAnchor:Point("LEFT", E.UIParent, "LEFT", 24, -160)
 	ToolAnchor:Point("BOTTOMLEFT", SeedAnchor, "TOPLEFT", 0, E.PixelMode and 1 or 5)
 	PortalAnchor:Point("BOTTOMLEFT", ToolAnchor, "TOPLEFT", 0, E.PixelMode and 1 or 5)
 end				
