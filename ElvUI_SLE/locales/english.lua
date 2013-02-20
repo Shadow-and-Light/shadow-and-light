@@ -128,6 +128,12 @@ L['Farm'] = true
 L["FARM_DESC"] = true
 L['Only active buttons'] = true
 L['Only show the buttons for the seeds, portals, tools you have in your bags.'] = true
+L["Seed Bars"] = true
+L["Auto Planting"] = true
+L["Automatically plant seeds to the nearest tilled soil if one is not already selected."] = true
+L["Farm Seed Bars"] = true
+L["Farm Tool Bar"] = true
+L["Farm Portal Bar"] = true
 L["Tilled Soil"] = true
 
 --Marks--

@@ -288,9 +288,9 @@ function F:CreateFrames()
 	F:ResizeFrames()
 	F:FramesPosition()
 	
-	E:CreateMover(SeedAnchor, "FarmSeedAnchor", "Farmer Seed Bar")
-	E:CreateMover(ToolAnchor, "FarmToolAnchor", "Farmer Tool Bar")
-	E:CreateMover(PortalAnchor, "FarmPortalAnchor", "Farmer Portal Bar")
+	E:CreateMover(SeedAnchor, "FarmSeedAnchor", L["Farm Seed Bars"])
+	E:CreateMover(ToolAnchor, "FarmToolAnchor", L["Farm Tool Bar"])
+	E:CreateMover(PortalAnchor, "FarmPortalAnchor", L["Farm Portal Bar"])
 	
 	for id, v in pairs(seeds) do
 		seeds[id] = { v[1], GetItemInfo(id) }	

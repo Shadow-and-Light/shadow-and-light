@@ -36,5 +36,21 @@ E.Options.args.sle.args.farm = {
 			get = function(info) return E.db.sle.farm.size end,
 			set = function(info, value) E.db.sle.farm.size = value; F:UpdateLayout() end,
 		},
+		seedbar = {
+			type = "group",
+			order = 5,
+			name = L["Seed Bars"],
+			guiInline = true,
+			args = {
+				autotarget = {
+					type = "toggle",
+					order = 1,
+					name = L["Auto Planting"],
+					desc = L["Automatically plant seeds to the nearest tilled soil if one is not already selected."],
+					get = function(info) return E.db.sle.farm.autotarget end,
+					set = function(info, value) E.db.sle.farm.autotarget = value; end
+				},
+			},
+		},
 	},
 }
