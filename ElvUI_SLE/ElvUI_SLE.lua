@@ -148,6 +148,16 @@ function SLE:Reset(all, uf, dt, bg, mark)
 	E:UpdateAll()
 end
 
+function SLE:BagSearch(itemId)
+	for container = 0, NUM_BAG_SLOTS do
+		for slot = 1, GetContainerNumSlots(container) do
+			if itemId == GetContainerItemID(container, slot) then
+				return container, slot
+			end
+		end
+	end
+end
+
 function SLE:Initialize()
 	DTP = E:GetModule('DTPanels')
 	if E.private.unitframe.enable then
