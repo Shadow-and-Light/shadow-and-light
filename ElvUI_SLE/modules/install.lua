@@ -2045,7 +2045,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 			E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT38221"
 		else
 			E.db.movers.ElvAB_4 = "BOTTOMLEFTElvUIParentBOTTOMRIGHT-412200" -- check this pls
-			E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT41421" --check  testing
+			E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT41421" --check
 			E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT41421"
 		end
 	end
