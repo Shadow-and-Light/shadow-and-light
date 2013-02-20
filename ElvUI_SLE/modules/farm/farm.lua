@@ -149,12 +149,6 @@ function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 	size = db.size
 	local seedor = db.seedor
 	seedBar:ClearAllPoints()
-	--_G[("FarmSeedBar%d"):format(i)
-	--[[if category == 1 then
-		seedBar:Point("TOPLEFT", anchor, "TOPLEFT", (E.PixelMode and 0 or -2), 0)
-	else
-		seedBar:Point("TOPLEFT", anchor, "TOPLEFT", (category-1)*(size+(E.PixelMode and 2 or 1))-(E.PixelMode and 0 or 2), 0)
-	end]]
 	if category == 1 then
 		if seedor == "TOP" or seedor == "BOTTOM" then
 			seedBar:Point(seedor.."LEFT", anchor, (E.PixelMode and 0 or -2), seedor == "TOP" and 0 or (E.PixelMode and 2 or 0))
@@ -297,7 +291,6 @@ end
 function F:CreateFrames()
 	size = E.db.sle.farm.size
 	SeedAnchor = CreateFrame("Frame", "SeedAnchor", E.UIParent)
-	SeedAnchor:CreateBackdrop("Transparent")
 	SeedAnchor:SetFrameStrata("BACKGROUND")
 
 	ToolAnchor = CreateFrame("Frame", "ToolAnchor", E.UIParent)
@@ -327,7 +320,6 @@ function F:CreateFrames()
 
 	for i = 1, 5 do
 		local seedBar = CreateFrame("Frame", ("FarmSeedBar%d"):format(i), UIParent)
-		--seedBar:CreateBackdrop("Transparent")
 		seedBar:Width(size+2)
 		seedBar:Height(size+2)
 		seedBar:SetFrameStrata("BACKGROUND")
