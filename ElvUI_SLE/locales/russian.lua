@@ -133,6 +133,7 @@ L['Farm'] = "Ферма"
 L["FARM_DESC"] = true
 L['Only active buttons'] = "Только активные"
 L['Only show the buttons for the seeds, portals, tools you have in your bags.'] = "Отображать только кнопки для тех семян/инструментов/деревьев, которые есть у Вас в сумках."
+L["Tilled Soil"] = "Возделанная земля"
 
 --Marks--
 L["Raid Marks"] = "Рейдовые Метки"

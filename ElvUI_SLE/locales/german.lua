@@ -109,6 +109,9 @@ L["Changes the way text is shown on exp bar."] = "Ändert die Art der Anzeige f�
 L["Full value on Rep Bar"] = "Voller Wert auf Ruf Leiste"
 L["Changes the way text is shown on rep bar."] = "Ändert die Art der Anzeige für die Ruf Leiste."
 
+--Farm--
+L["Tilled Soil"] = 'Gepflügtes Erdreich'
+
 --Marks--
 L["Raid Marks"] = "Schlachtzugs Markierungen"
 L["Show/Hide raid marks."] = "Zeige/Verstecke Schlachtzugs Markierungen"

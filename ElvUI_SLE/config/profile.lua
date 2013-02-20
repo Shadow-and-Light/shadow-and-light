@@ -165,6 +165,7 @@ P['sle'] = {
 	['farm'] = {
 		['active'] = true,
 		['size'] = 30,
+		['autotarget'] = true,
 	},
 }
 

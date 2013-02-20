@@ -2,6 +2,7 @@
 local B = LibStub("LibBabble-SubZone-3.0")
 local BL = B:GetLookupTable()
 local F = E:NewModule('Farm', 'AceHook-3.0', 'AceEvent-3.0');
+local SLE = E:GetModule('SLE');
 
 local SeedAnchor, ToolAnchor, PortalAnchor
 local tsort = table.sort
@@ -200,10 +201,17 @@ function F:UpdateLayout()
 	F:ResizeFrames()
 end
 
+function F:AutoTarget(button)
+	local container, slot = SLE:BagSearch(button.itemId)
+	if container and slot then
+		button:SetAttribute("type", "macro")
+		button:SetAttribute("macrotext", format("/targetexact %s \n/use %s %s", L["Tilled Soil"], container, slot))
+	end
+end
 
-function F:CreateFarmButton(index, owner, buttonType, name, texture, allowDrop)
+function F:CreateFarmButton(index, owner, buttonType, name, texture, allowDrop, id)
 	size = E.db.sle.farm.size
-	local button = CreateFrame("Button", ("FarmerButton%d"):format(index), owner, "SecureActionButtonTemplate")
+	local button = CreateFrame("Button", ("FarmButton%d"):format(index), owner, "SecureActionButtonTemplate")
 	button:Size(size, size)
 	button:SetTemplate()
 
@@ -237,16 +245,16 @@ function F:CreateFarmButton(index, owner, buttonType, name, texture, allowDrop)
 		if mousebutton == "LeftButton" then
 			button:SetAttribute("type", buttonType)
 			button:SetAttribute(buttonType, name)
+
+			if id and id ~= 2 and id ~= 4 and E.db.sle.farm.autotarget and UnitName("target") ~= L["Tilled Soil"] then
+				F:AutoTarget(button)
+			end
 		elseif mousebutton == "RightButton" and allowDrop then
 			button:SetAttribute("type", "click")
-			for container = 0, 4 do
-				for slot = 1, GetContainerNumSlots(container) do
-					if button.itemId == GetContainerItemID(container, slot) then
-						PickupContainerItem(container, slot)
-						DeleteCursorItem()
-						return
-					end
-				end
+			local container, slot = SLE:BagSearch(button.itemId)
+			if container and slot then
+				PickupContainerItem(container, slot)
+				DeleteCursorItem()
 			end			
 		end
 	end)
@@ -306,7 +314,7 @@ function F:CreateFrames()
 				
 		for id, v in pairs(seeds) do
 			if v[1] == i then
-				tinsert(seedButtons[i], F:CreateFarmButton(id, seedBar, "item", v[2], v[11], false))
+				tinsert(seedButtons[i], F:CreateFarmButton(id, seedBar, "item", v[2], v[11], false, i))
 			end
 			tsort(seedButtons[i], function(a, b) return a.sortname < b.sortname end)
 		end
@@ -316,7 +324,7 @@ function F:CreateFrames()
 	toolBar:SetFrameStrata("BACKGROUND")
 	toolBar:SetPoint("CENTER", ToolAnchor, "CENTER", 0, 0)
 	for id, v in pairs(tools) do
-		tinsert(toolButtons, F:CreateFarmButton(id, toolBar, "item", v[1], v[10], true))
+		tinsert(toolButtons, F:CreateFarmButton(id, toolBar, "item", v[1], v[10], true, nil))
 	end
 	
 	local portalBar = CreateFrame("Frame", "FarmPortalBar", UIParent)
@@ -325,7 +333,7 @@ function F:CreateFrames()
 	local playerFaction = UnitFactionGroup('player')
 	for id, v in pairs(portals) do
 		if v[1] == playerFaction then
-			tinsert(portalButtons, F:CreateFarmButton(id, portalBar, "item", v[2], v[11], false))
+			tinsert(portalButtons, F:CreateFarmButton(id, portalBar, "item", v[2], v[11], false, nil))
 		end
 	end
 	

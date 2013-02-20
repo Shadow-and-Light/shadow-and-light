@@ -128,6 +128,7 @@ L['Farm'] = true
 L["FARM_DESC"] = true
 L['Only active buttons'] = true
 L['Only show the buttons for the seeds, portals, tools you have in your bags.'] = true
+L["Tilled Soil"] = true
 
 --Marks--
 L["Raid Marks"] = true
