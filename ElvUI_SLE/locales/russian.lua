@@ -69,15 +69,10 @@ L["Show/Hide this frame during Pet Battles."] = "Показать/скрыть �
 --Character Frame Options--
 L["CFO_DESC"] = "Дополнительные опции окна персонажа.  Вы можете включить отображение уровня и прочности предметов."
 L["Character Frame Options"] = "Настройки окна персонажа"
---L["Enable/Disable Character Frame Options"] = true
---L["Item Level"] = "Уровень предметов"
---L["Show/Hide Item Levels"] = true
 L['Font'] = "Шрифт"  --L['Fonts'] is localized in elvui but not Font
 L["The font that the item level will use."] = "Шрифт уровня предметов."
 L["Set the font size that the item level will use."] = "Размер шрифта уровня предметов."
 L["Set the font outline that the item level will use."] = "Граница шрифта уровня предметов."
---L["Item Durability"] = true
---L["Show/Hide Item Durability"] = true
 L["The font that the item durability will use."] = "Шрифт прочности предметов."
 L["Set the font size that the item durability will use."] = "Размер шрифта прочности предметов."
 L["Set the font outline that the item durability will use."] = "Граница шрифта прочности предметов."
