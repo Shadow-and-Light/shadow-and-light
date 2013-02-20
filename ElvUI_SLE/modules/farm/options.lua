@@ -15,15 +15,15 @@ E.Options.args.sle.args.farm = {
 			type = "toggle",
 			order = 2,
 			name = L['Enable'],
-			get = function(info) return E.private.sle.farm end,
-			set = function(info, value) E.private.sle.farm = value; E:StaticPopup_Show("PRIVATE_RL") end
+			get = function(info) return E.private.sle.farm.enable end,
+			set = function(info, value) E.private.sle.farm.enable = value; E:StaticPopup_Show("PRIVATE_RL") end
 		},
 		active = {
 			order = 3,
 			type = 'toggle',
 			name = L['Only active buttons'],
 			desc = L['Only show the buttons for the seeds, portals, tools you have in your bags.'],
-			disabled = function() return not E.private.sle.farm end,
+			disabled = function() return not E.private.sle.farm.enable end,
 			get = function(info) return E.db.sle.farm.active end,
 			set = function(info, value) E.db.sle.farm.active = value F:UpdateLayout() end,
 		},
@@ -31,7 +31,7 @@ E.Options.args.sle.args.farm = {
 			order = 4,
 			type = "range",
 			name = L["Button Size"],
-			disabled = function() return not E.private.sle.farm end,
+			disabled = function() return not E.private.sle.farm.enable end,
 			min = 15, max = 60, step = 1,
 			get = function(info) return E.db.sle.farm.size end,
 			set = function(info, value) E.db.sle.farm.size = value; F:UpdateLayout() end,
@@ -40,6 +40,7 @@ E.Options.args.sle.args.farm = {
 			type = "group",
 			order = 5,
 			name = L["Seed Bars"],
+			disabled = function() return not E.private.sle.farm.enable end,
 			guiInline = true,
 			args = {
 				autotarget = {
@@ -49,6 +50,14 @@ E.Options.args.sle.args.farm = {
 					desc = L["Automatically plant seeds to the nearest tilled soil if one is not already selected."],
 					get = function(info) return E.db.sle.farm.autotarget end,
 					set = function(info, value) E.db.sle.farm.autotarget = value; end
+				},
+				trash = {
+					type = "toggle",
+					order = 1,
+					name = L["Drop Seeds"],
+					desc = L["Allow seeds to be destroyed from seed bars."],
+					get = function(info) return E.private.sle.farm.seedtrash end,
+					set = function(info, value) E.private.sle.farm.seedtrash = value; E:StaticPopup_Show("PRIVATE_RL") end
 				},
 				growth = {
 					order = 8,

@@ -196,7 +196,7 @@ function F:UpdateBar(bar, layoutfunc, zonecheck, anchor, buttons, category)
 	bar:Show()
 	
 	local count = layoutfunc(self, bar, anchor, buttons, category)
-	if (E.private.sle.farm and count > 0 and zonecheck(self) and not InCombatLockdown()) then
+	if (E.private.sle.farm.enable and count > 0 and zonecheck(self) and not InCombatLockdown()) then
 		bar:Show()
 	else
 		bar:Hide()
@@ -331,7 +331,7 @@ function F:CreateFrames()
 				
 		for id, v in pairs(seeds) do
 			if v[1] == i then
-				tinsert(seedButtons[i], F:CreateFarmButton(id, seedBar, "item", v[2], v[11], false, i))
+				tinsert(seedButtons[i], F:CreateFarmButton(id, seedBar, "item", v[2], v[11], E.private.sle.farm.seedtrash, i))
 			end
 			tsort(seedButtons[i], function(a, b) return a.sortname < b.sortname end)
 		end
@@ -389,7 +389,7 @@ function F:StartFarmBarLoader()
 end
 
 function F:Initialize()
-	if not E.private.sle.farm then return end
+	if not E.private.sle.farm.enable then return end
 	
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "StartFarmBarLoader")
 end
