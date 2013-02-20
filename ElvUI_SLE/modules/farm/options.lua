@@ -50,6 +50,21 @@ E.Options.args.sle.args.farm = {
 					get = function(info) return E.db.sle.farm.autotarget end,
 					set = function(info, value) E.db.sle.farm.autotarget = value; end
 				},
+				growth = {
+					order = 8,
+					type = "select",
+					name = L["Direction"],
+					desc = L["Change the direction of buttons growth from the skull marker"],
+					disabled = function() return not E.private.sle.farm end,
+					get = function(info) return E.db.sle.farm.seedor end,
+					set = function(info, value) E.db.sle.farm.seedor = value; F:UpdateLayout() end,
+					values = {
+						['RIGHT'] = L["Right"],
+						['LEFT'] = L["Left"],
+						['BOTTOM'] = L["Up"],
+						['TOP'] = L["Down"],
+					},
+				},
 			},
 		},
 	},

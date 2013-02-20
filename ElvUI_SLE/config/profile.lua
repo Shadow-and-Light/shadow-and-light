@@ -166,6 +166,7 @@ P['sle'] = {
 		['active'] = true,
 		['size'] = 30,
 		['autotarget'] = false,
+		['seedor'] = "TOP",
 	},
 }
 
