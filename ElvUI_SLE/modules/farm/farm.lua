@@ -185,6 +185,9 @@ function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 			button:Hide()
 		end
 	end
+	
+	seedBar:Width(size+2)
+	seedBar:Height(size+2)
 
 	return count
 end
@@ -320,8 +323,6 @@ function F:CreateFrames()
 
 	for i = 1, 5 do
 		local seedBar = CreateFrame("Frame", ("FarmSeedBar%d"):format(i), UIParent)
-		seedBar:Width(size+2)
-		seedBar:Height(size+2)
 		seedBar:SetFrameStrata("BACKGROUND")
 		
 		seedBar:SetPoint("CENTER", SeedAnchor, "CENTER", 0, 0)
