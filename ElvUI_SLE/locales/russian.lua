@@ -134,7 +134,7 @@ L["Automatically plant seeds to the nearest tilled soil if one is not already se
 L["Drop Seeds"] = "Удалять семена"
 L["Allow seeds to be destroyed from seed bars."] = "Позволить удаление семян при помощи панелей."
 L["Quest Glow"] = "Свечение заданий"
-L["Show glowing border and exclamation mark on seeds needed for any quest in your log."] = "Показывать восклицательный знак и светящуюся границу на семенах, необходимых на какое-либо из взятых заданий из Вашего журнала."
+L["Show glowing border on seeds needed for any quest in your log."] = "Показывать светящуюся границу на семенах, необходимых на какое-либо из взятых заданий из Вашего журнала."
 L["Dock Buttons To"] = "Прикрепить кнопки к"
 L["Change the position from where seed bars will grow."] = "Изменить сторону, с которой будут расти панели семян."
 L["Bottom"] = "Низ"

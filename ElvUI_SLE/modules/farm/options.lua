@@ -63,7 +63,7 @@ E.Options.args.sle.args.farm = {
 					type = "toggle",
 					order = 3,
 					name = L["Quest Glow"],
-					desc = L["Show glowing border and exclamation mark on seeds needed for any quest in your log."],
+					desc = L["Show glowing border on seeds needed for any quest in your log."],
 					get = function(info) return E.db.sle.farm.quest end,
 					set = function(info, value) E.db.sle.farm.quest = value; if SeedAnchor then F:UpdateLayout() end end
 				},

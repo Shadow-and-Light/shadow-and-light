@@ -134,7 +134,7 @@ L["Automatically plant seeds to the nearest tilled soil if one is not already se
 L["Drop Seeds"] = true
 L["Allow seeds to be destroyed from seed bars."] = true
 L["Quest Glow"] = true
-L["Show glowing border and exclamation mark on seeds needed for any quest in your log."] = true
+L["Show glowing border on seeds needed for any quest in your log."] = true
 L["Dock Buttons To"] = true
 L["Change the position from where seed bars will grow."] = true
 L["Bottom"] = true
