@@ -158,6 +158,7 @@ function F:UpdateBarLayout(bar, anchor, buttons)
 		else
 			button:Hide()
 		end
+		button.quest:Hide()
 	end
 	
 	bar:Width(1)
@@ -256,11 +257,12 @@ function F:UpdateLayout(event)
 	if event == "UNIT_QUEST_LOG_CHANGED" then E:Delay(1, F.UpdateLayout) end --For updating borders after quest was complited. for some reason events fires before quest disappeares from log
 	if InCombatLockdown() then return end
 	F:ResizeFrames()
+	F:UpdateBar(_G["FarmToolBar"], F.UpdateBarLayout, F.InFarmZone, ToolAnchor, toolButtons)
+	F:UpdateBar(_G["FarmPortalBar"], F.UpdateBarLayout, F.InFarmZone, PortalAnchor, portalButtons)
 	for i=1, 5 do
 		F:UpdateBar(_G[("FarmSeedBar%d"):format(i)], F.UpdateSeedBarLayout, F.InSeedZone, SeedAnchor, seedButtons[i], i)
 	end
-	F:UpdateBar(_G["FarmToolBar"], F.UpdateBarLayout, F.InFarmZone, ToolAnchor, toolButtons)
-	F:UpdateBar(_G["FarmPortalBar"], F.UpdateBarLayout, F.InFarmZone, PortalAnchor, portalButtons)
+	
 end
 
 function F:AutoTarget(button)
