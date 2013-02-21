@@ -53,11 +53,19 @@ E.Options.args.sle.args.farm = {
 				},
 				trash = {
 					type = "toggle",
-					order = 1,
+					order = 2,
 					name = L["Drop Seeds"],
 					desc = L["Allow seeds to be destroyed from seed bars."],
 					get = function(info) return E.private.sle.farm.seedtrash end,
 					set = function(info, value) E.private.sle.farm.seedtrash = value; E:StaticPopup_Show("PRIVATE_RL") end
+				},
+				quest = {
+					type = "toggle",
+					order = 3,
+					name = L["Quest Glow"],
+					desc = L["Show glowing border and exclamation mark on seeds needed for any quest in your log."],
+					get = function(info) return E.db.sle.farm.quest end,
+					set = function(info, value) E.db.sle.farm.quest = value; F:UpdateLayout() end
 				},
 				growth = {
 					order = 8,

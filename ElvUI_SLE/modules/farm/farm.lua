@@ -78,6 +78,12 @@ local portals = {
 }
 
 local quests = {
+--Thrillers counsil
+[31945] = {80591, 84783}, -- Jeena, Scallion
+[31946] = {80590, 84782}, -- Mun-Mun, Juicycrunch Carrot
+[31947] = {79102, 80809}, -- Farmer Fun, Green Cabbage
+[31949] = {89326, 89847}, -- Nana, Witchberry
+[30527] = {89329, 89849}, -- Haohan, Striped Melon
 --Farmer Yoon
 [31943] = {89326, 89847}, -- Witchberry
 [31942] = {89329, 89849}, -- Striped Melon
@@ -88,6 +94,7 @@ local quests = {
 [31673] = {80593, 85158}, -- Red Blossom Leek
 [31674] = {80594, 85162}, -- Pink Turnip
 [31675] = {80595, 85163}, -- White Turnip
+[31671] = {80591, 84783}, -- Scallion
 --Work Orders
 [32645] = {89326, 89847}, -- Witchberry
 [32653] = {89329, 89849}, -- Striped Melon
@@ -98,6 +105,7 @@ local quests = {
 [32642] = {80593, 85158}, -- Red Blossom Leek
 --[31674] = {80594, 85162}, -- Pink Turnip
 [32647] = {80595, 85163}, -- White Turnip
+--[31671] = {80591, 84783}, -- Scallion
 }
 
 function F:InSeedZone()
@@ -227,9 +235,14 @@ function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 		else
 			button:Hide()
 		end
-		if id == seed or id == bag then
-			button.quest:Show()
-			ActionButton_ShowOverlayGlow(button)
+		if E.db.sle.farm.quest then
+			if id == seed or id == bag then
+				button.quest:Show()
+				ActionButton_ShowOverlayGlow(button)
+			else
+				button.quest:Hide()
+				ActionButton_HideOverlayGlow(button)
+			end
 		else
 			button.quest:Hide()
 			ActionButton_HideOverlayGlow(button)

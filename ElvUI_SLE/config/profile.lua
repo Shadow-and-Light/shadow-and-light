@@ -167,6 +167,7 @@ P['sle'] = {
 		['size'] = 30,
 		['autotarget'] = false,
 		['seedor'] = "TOP",
+		['quest'] = false,
 	},
 }
 
