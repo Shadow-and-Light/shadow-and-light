@@ -41,4 +41,12 @@ V['sle'] = {
 		['enable'] = false,
 		['seedtrash'] = false,
 	},
+	
+	['specswitch'] = {
+		['enable'] = false,
+		['primary'] = "",
+		['secondary'] = "",
+		['instance'] = "",
+		['pvp'] = "",
+	},
 }
