@@ -1717,7 +1717,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.party.point = "RIGHT"
 	E.db.unitframe.units.party.xOffset = -1
 	E.db.unitframe.units.party.yOffset = 1
-	E.db.unitframe.units.party.power.offset = 5
+	E.db.unitframe.units.party.power.offset = 7
 	E.db.unitframe.units.party.power.text_format = ""
 	E.db.unitframe.units.party.buffIndicator.size = 10
 	E.db.unitframe.units.party.roleIcon.enable = false
@@ -1786,7 +1786,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid10.yOffset = 4
 	E.db.unitframe.units.raid10.xOffset = -1  -- yOffset is 1 as dps layout
 	E.db.unitframe.units.raid10.roleIcon.enable = false
-	E.db.unitframe.units.raid10.power.offset = 5
+	E.db.unitframe.units.raid10.power.offset = 7
 	E.db.unitframe.units.raid10.positionOverride = "BOTTOMRIGHT"
 	E.db.unitframe.units.raid10.healPrediction = true
 	E.db.unitframe.units.raid10.health.frequentUpdates = true
@@ -1834,7 +1834,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid25.rdebuffs.enable = false
 	E.db.unitframe.units.raid25.xOffset = 1
 	E.db.unitframe.units.raid25.roleIcon.enable = false
-	E.db.unitframe.units.raid25.power.offset = 5
+	E.db.unitframe.units.raid25.power.offset = 7
 	E.db.unitframe.units.raid25.power.height = 5
 	E.db.unitframe.units.raid25.positionOverride = "BOTTOMRIGHT"
 	E.db.unitframe.units.raid25.healPrediction = true
@@ -1895,7 +1895,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid40.name.position = "TOP"
 	E.db.unitframe.units.raid40.buffIndicator.fontSize = 11
 	E.db.unitframe.units.raid40.power.enable = true
-	E.db.unitframe.units.raid40.power.offset = 5
+	E.db.unitframe.units.raid40.power.offset = 7
 	E.db.unitframe.units.raid40.health.text_format = "[healthcolor][health:deficit]"
 	E.db.unitframe.units.raid40.health.frequentUpdates = true
 	E.db.unitframe.units.raid40.debuffs.sizeOverride = 17
