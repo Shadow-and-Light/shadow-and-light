@@ -131,6 +131,10 @@ L['Only show the buttons for the seeds, portals, tools you have in your bags.'] 
 L["Seed Bars"] = true
 L["Auto Planting"] = true
 L["Automatically plant seeds to the nearest tilled soil if one is not already selected."] = true
+L["Drop Seeds"] = true
+L["Allow seeds to be destroyed from seed bars."] = true
+L["Quest Glow"] = true
+L["Show glowing border and exclamation mark on seeds needed for any quest in your log."] = true
 L["Dock Buttons To"] = true
 L["Change the position from where seed bars will grow."] = true
 L["Bottom"] = true
