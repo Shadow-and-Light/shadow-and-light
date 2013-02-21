@@ -25,7 +25,7 @@ E.Options.args.sle.args.farm = {
 			desc = L['Only show the buttons for the seeds, portals, tools you have in your bags.'],
 			disabled = function() return not E.private.sle.farm.enable end,
 			get = function(info) return E.db.sle.farm.active end,
-			set = function(info, value) E.db.sle.farm.active = value F:UpdateLayout() end,
+			set = function(info, value) E.db.sle.farm.active = value; if SeedAnchor then F:UpdateLayout() end end,
 		},
 		size = {
 			order = 4,
@@ -65,7 +65,7 @@ E.Options.args.sle.args.farm = {
 					name = L["Quest Glow"],
 					desc = L["Show glowing border and exclamation mark on seeds needed for any quest in your log."],
 					get = function(info) return E.db.sle.farm.quest end,
-					set = function(info, value) E.db.sle.farm.quest = value; F:UpdateLayout() end
+					set = function(info, value) E.db.sle.farm.quest = value; if SeedAnchor then F:UpdateLayout() end end
 				},
 				growth = {
 					order = 8,
@@ -74,7 +74,7 @@ E.Options.args.sle.args.farm = {
 					desc = L["Change the position from where seed bars will grow."],
 					disabled = function() return not E.private.sle.farm end,
 					get = function(info) return E.db.sle.farm.seedor end,
-					set = function(info, value) E.db.sle.farm.seedor = value; F:UpdateLayout() end,
+					set = function(info, value) E.db.sle.farm.seedor = value; if SeedAnchor then F:UpdateLayout() end end,
 					values = {
 						['RIGHT'] = L["Right"],
 						['LEFT'] = L["Left"],
