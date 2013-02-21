@@ -227,9 +227,11 @@ function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 			button:Hide()
 		end
 		if id == seed or id == bag then
-			button:SetBackdropBorderColor(1.0, 0.3, 0.3)
+			button.quest:Show()
+			ActionButton_ShowOverlayGlow(button)
 		else
-			button:SetBackdropBorderColor(0, 0, 0)
+			button.quest:Hide()
+			ActionButton_HideOverlayGlow(button)
 		end
 	end
 	
@@ -286,6 +288,11 @@ function F:CreateFarmButton(index, owner, buttonType, name, texture, allowDrop, 
 	button.text = button:CreateFontString(nil, "OVERLAY")
 	button.text:SetFont(E.media.normFont, 12, "OUTLINE")
 	button.text:SetPoint("BOTTOMRIGHT", button, 1, 2)
+	
+	button.quest = button:CreateTexture(nil, 'OVERLAY')
+	button.quest:SetInside()
+	button.quest:SetTexture(TEXTURE_ITEM_QUEST_BANG);
+	button.quest:SetTexCoord(unpack(E.TexCoords))
 		
 	button:SetScript("OnEnter", function()
 		GameTooltip:SetOwner(button, 'ANCHOR_TOPLEFT', 2, 4)
