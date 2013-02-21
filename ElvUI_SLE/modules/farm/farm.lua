@@ -166,7 +166,6 @@ function F:UpdateBarLayout(bar, anchor, buttons)
 		else
 			button:Hide()
 		end
-		button.quest:Hide()
 	end
 	
 	bar:Width(1)
@@ -175,18 +174,18 @@ function F:UpdateBarLayout(bar, anchor, buttons)
 	return count
 end
 
-function F:QuestItems()
-	local id = 0
+function F:QuestItems(itemID)
 	for i = 1, GetNumQuestLogEntries() do
-		id = select(9,GetQuestLogTitle(i))
 		for qid, sid in pairs(quests) do
-			if qid == id then
-				return sid[1], sid[2]
+			if qid == select(9,GetQuestLogTitle(i)) then
+				if itemID == sid[1] or itemID == sid[2] then
+					return true
+				end
 			end
 		end
 	end
 	
-	return id
+	return false
 end
 
 function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
@@ -215,7 +214,6 @@ function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 		end
 	end
 	
-	local seed, bag = F:QuestItems()
 	
 	for i, button in ipairs(buttons) do
 		id = button:GetName():gsub("FarmButton", "")
@@ -236,15 +234,12 @@ function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 			button:Hide()
 		end
 		if E.db.sle.farm.quest then
-			if id == seed or id == bag then
-				button.quest:Show()
+			if F:QuestItems(id) then
 				ActionButton_ShowOverlayGlow(button)
 			else
-				button.quest:Hide()
 				ActionButton_HideOverlayGlow(button)
 			end
 		else
-			button.quest:Hide()
 			ActionButton_HideOverlayGlow(button)
 		end
 	end
@@ -303,11 +298,6 @@ function F:CreateFarmButton(index, owner, buttonType, name, texture, allowDrop, 
 	button.text = button:CreateFontString(nil, "OVERLAY")
 	button.text:SetFont(E.media.normFont, 12, "OUTLINE")
 	button.text:SetPoint("BOTTOMRIGHT", button, 1, 2)
-	
-	button.quest = button:CreateTexture(nil, 'OVERLAY')
-	button.quest:SetInside()
-	button.quest:SetTexture(TEXTURE_ITEM_QUEST_BANG);
-	button.quest:SetTexCoord(unpack(E.TexCoords))
 		
 	button:SetScript("OnEnter", function()
 		GameTooltip:SetOwner(button, 'ANCHOR_TOPLEFT', 2, 4)
