@@ -78,15 +78,26 @@ local portals = {
 }
 
 local quests = {
-[31943] = 89326,
-[31942] = 89329,
-[31941] = 89328,
-[31669] = 79102,
-[31670] = 80590,
-[31672] = 80592,
-[31673] = 80593,
-[31674] = 80594,
-[31675] = 80595,
+--Farmer Yoon
+[31943] = {89326, 89847}, -- Witchberry
+[31942] = {89329, 89849}, -- Striped Melon
+[31941] = {89328, 89848}, -- Jade Squash
+[31669] = {79102, 80809}, -- Green Cabbage
+[31670] = {80590, 84782}, -- Juicycrunch Carrot
+[31672] = {80592, 85153}, -- Mogu Pumpkin
+[31673] = {80593, 85158}, -- Red Blossom Leek
+[31674] = {80594, 85162}, -- Pink Turnip
+[31675] = {80595, 85163}, -- White Turnip
+--Work Orders
+[32645] = {89326, 89847}, -- Witchberry
+[32653] = {89329, 89849}, -- Striped Melon
+--[31941] = {89328, 89848}, -- Jade Squash
+[32649] = {79102, 80809}, -- Green Cabbage
+--[31670] = {80590, 84782}, -- Juicycrunch Carrot
+[32658] = {80592, 85153}, -- Mogu Pumpkin
+[32642] = {80593, 85158}, -- Red Blossom Leek
+--[31674] = {80594, 85162}, -- Pink Turnip
+[32647] = {80595, 85163}, -- White Turnip
 }
 
 function F:InSeedZone()
@@ -161,7 +172,7 @@ function F:QuestItems()
 		id = select(9,GetQuestLogTitle(i))
 		for qid, sid in pairs(quests) do
 			if qid == id then
-				return sid
+				return sid[1], sid[2]
 			end
 		end
 	end
@@ -195,6 +206,8 @@ function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 		end
 	end
 	
+	local seed, bag = F:QuestItems()
+	
 	for i, button in ipairs(buttons) do
 		id = button:GetName():gsub("FarmButton", "")
 		id = tonumber(id)
@@ -213,7 +226,7 @@ function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 		else
 			button:Hide()
 		end
-		if id == F:QuestItems() then
+		if id == seed or id == bag then
 			button:SetBackdropBorderColor(1.0, 0.3, 0.3)
 		else
 			button:SetBackdropBorderColor(0, 0, 0)
