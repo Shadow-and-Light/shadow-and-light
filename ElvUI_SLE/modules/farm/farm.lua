@@ -77,6 +77,18 @@ local portals = {
 	[91866] = { "Alliance" }, -- Exodar Portal Shard
 }
 
+local quests = {
+[31943] = 89326,
+[31942] = 89329,
+[31941] = 89328,
+[31669] = 79102,
+[31670] = 80590,
+[31672] = 80592,
+[31673] = 80593,
+[31674] = 80594,
+[31675] = 80595,
+}
+
 function F:InSeedZone()
 	local subzone = GetSubZoneText()
 	for _, zone in ipairs(farmzones) do
@@ -143,11 +155,26 @@ function F:UpdateBarLayout(bar, anchor, buttons)
 	return count
 end
 
+function F:QuestItems()
+	local id = 0
+	for i = 1, GetNumQuestLogEntries() do
+		id = select(9,GetQuestLogTitle(i))
+		for qid, sid in pairs(quests) do
+			if qid == id then
+				return sid
+			end
+		end
+	end
+	
+	return id
+end
+
 function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 	local count = 0
 	local db = E.db.sle.farm
 	size = db.size
 	local seedor = db.seedor
+	local id
 	seedBar:ClearAllPoints()
 	if category == 1 then
 		if seedor == "TOP" or seedor == "BOTTOM" then
@@ -169,6 +196,8 @@ function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 	end
 	
 	for i, button in ipairs(buttons) do
+		id = button:GetName():gsub("FarmButton", "")
+		id = tonumber(id)
 		button:ClearAllPoints()
 		if not E.db.sle.farm.active or button.items > 0 then
 			if seedor == "TOP" or seedor == "BOTTOM" then
@@ -183,6 +212,11 @@ function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 			count = count + 1
 		else
 			button:Hide()
+		end
+		if id == F:QuestItems() then
+			button:SetBackdropBorderColor(1.0, 0.3, 0.3)
+		else
+			button:SetBackdropBorderColor(0, 0, 0)
 		end
 	end
 	
@@ -203,7 +237,8 @@ function F:UpdateBar(bar, layoutfunc, zonecheck, anchor, buttons, category)
 	end
 end
 
-function F:UpdateLayout()
+function F:UpdateLayout(event)
+	if event == "UNIT_QUEST_LOG_CHANGED" then E:Delay(1, F.UpdateLayout) end --For updating borders after quest was complited. for some reason events fires before quest disappeares from log
 	if InCombatLockdown() then return end
 	F:ResizeFrames()
 	for i=1, 5 do
@@ -225,7 +260,7 @@ function F:CreateFarmButton(index, owner, buttonType, name, texture, allowDrop, 
 	size = E.db.sle.farm.size
 	local button = CreateFrame("Button", ("FarmButton%d"):format(index), owner, "SecureActionButtonTemplate")
 	button:Size(size, size)
-	button:SetTemplate()
+	button:SetTemplate('Default', true)
 
 	button.sortname = name
 	button.itemId = index
@@ -360,6 +395,7 @@ function F:CreateFrames()
 	F:RegisterEvent("ZONE_CHANGED", "UpdateLayout")
 	F:RegisterEvent("PLAYER_REGEN_ENABLED", "UpdateLayout")
 	F:RegisterEvent("BAG_UPDATE", "FarmerInventoryUpdate")
+	F:RegisterEvent("UNIT_QUEST_LOG_CHANGED", "UpdateLayout")
 end
 
 function F:OnLoadDelay()
