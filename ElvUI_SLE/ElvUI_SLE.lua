@@ -70,7 +70,7 @@ E.PopupDialogs["ELVUI_SLE_REPOOC"] = {
 	whileDead = 1,
 }
 --Showing warning message about too old versions of ElvUI
-if tonumber(E.version) < 5.26 then
+if tonumber(E.version) < 5.32 then
 	E:StaticPopup_Show("VERSION_MISMATCH")
 end
 
