@@ -96,13 +96,13 @@ local quests = {
 [31675] = {80595, 85163}, -- White Turnip
 [31671] = {80591, 84783}, -- Scallion
 --Work Orders
-[32645] = {89326, 89847}, -- Witchberry
+[32645] = {89326, 89847}, -- Witchberry (Alliance Only)
 [32653] = {89329, 89849}, -- Striped Melon
 --[31941] = {89328, 89848}, -- Jade Squash
 [32649] = {79102, 80809}, -- Green Cabbage
 --[31670] = {80590, 84782}, -- Juicycrunch Carrot
 [32658] = {80592, 85153}, -- Mogu Pumpkin
-[32642] = {80593, 85158}, -- Red Blossom Leek
+[32642] = {80593, 85158}, -- Red Blossom Leek (Horde Only)
 --[31674] = {80594, 85162}, -- Pink Turnip
 [32647] = {80595, 85163}, -- White Turnip
 --[31671] = {80591, 84783}, -- Scallion
