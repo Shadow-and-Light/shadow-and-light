@@ -362,9 +362,9 @@ function F:CreateFrames()
 	F:ResizeFrames()
 	F:FramesPosition()
 	
-	E:CreateMover(SeedAnchor, "FarmSeedAnchor", L["Farm Seed Bars"])
-	E:CreateMover(ToolAnchor, "FarmToolAnchor", L["Farm Tool Bar"])
-	E:CreateMover(PortalAnchor, "FarmPortalAnchor", L["Farm Portal Bar"])
+	E:CreateMover(SeedAnchor, "FarmSeedAnchor", L["Farm Seed Bars"], nil, nil, nil, "ALL,S&L,S&L MISC")
+	E:CreateMover(ToolAnchor, "FarmToolAnchor", L["Farm Tool Bar"], nil, nil, nil, "ALL,S&L,S&L MISC")
+	E:CreateMover(PortalAnchor, "FarmPortalAnchor", L["Farm Portal Bar"], nil, nil, nil, "ALL,S&L,S&L MISC")
 	
 	for id, v in pairs(seeds) do
 		seeds[id] = { v[1], GetItemInfo(id) }	
