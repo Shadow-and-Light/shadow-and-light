@@ -87,6 +87,8 @@ function E:UpdateAll()
 	end
 	E:GetModule('UIButtons'):UpdateAll()
 	E:GetModule('RaidMarks'):Update()
+	E:GetModule('Farm'):UpdateLayout()
+	E:GetModule('Farm'):UpdateLayout()
 	SLE:ChatPos()
 end
 

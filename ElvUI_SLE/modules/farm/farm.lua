@@ -262,6 +262,7 @@ function F:UpdateBar(bar, layoutfunc, zonecheck, anchor, buttons, category)
 end
 
 function F:UpdateLayout(event)
+	if not SeedAnchor then return end
 	if event == "UNIT_QUEST_LOG_CHANGED" then E:Delay(1, F.UpdateLayout) end --For updating borders after quest was complited. for some reason events fires before quest disappeares from log
 	if InCombatLockdown() then return end
 	F:ResizeFrames()
