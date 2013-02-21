@@ -78,10 +78,10 @@ local portals = {
 }
 
 local quests = {
---Thrillers counsil
-[31945] = {80591, 84783}, -- Jeena, Scallion
-[31946] = {80590, 84782}, -- Mun-Mun, Juicycrunch Carrot
-[31947] = {79102, 80809}, -- Farmer Fun, Green Cabbage
+--Tillers counsil
+[31945] = {80591, 84783}, -- Gina, Scallion
+[31946] = {80590, 84782}, -- Mung-Mung, Juicycrunch Carrot
+[31947] = {79102, 80809}, -- Farmer Fung, Green Cabbage
 [31949] = {89326, 89847}, -- Nana, Witchberry
 [30527] = {89329, 89849}, -- Haohan, Striped Melon
 --Farmer Yoon
