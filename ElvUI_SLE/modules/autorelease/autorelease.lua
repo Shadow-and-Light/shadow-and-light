@@ -17,7 +17,7 @@ function AR:Releasing()
 	-- auto resurrection for world PvP area...when active
 	if E.db.sle.pvpautorelease then 
 		for index = 1, GetNumWorldPVPAreas() do
-			local pvpID, localizedName, isActive, canQueue, startTime, canEnter = GetWorldPVPAreaInfo(index)
+			local _, localizedName, isActive = GetWorldPVPAreaInfo(index)
 			
 			if (GetRealZoneText() == localizedName and isActive) then
 				RepopMe()
