@@ -62,7 +62,6 @@ L["Set the texture to use in this frame.  Requirements are the same as the chat 
 L["Backdrop Template"] = "Тип фона"
 L["Change the template used for this backdrop."] = "Измените шаблон, используемый при создании этого фона"
 L["Default"] = "Обычный"
-L["Transparent"] = "Прозрачный"
 L["Hide in Pet Batlle"] = "Прятать в битвах питомцев"
 L["Show/Hide this frame during Pet Battles."] = "Показать/скрыть этот фрейм в битвах питомцев"
 
