@@ -1,5 +1,5 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
-
+local function configTable()
 E.Options.args.sle.args.general.args.errors = {
 	order = 3,
 	type = "toggle",
@@ -8,3 +8,6 @@ E.Options.args.sle.args.general.args.errors = {
 	get = function(info) return E.db.sle.errors end,
 	set = function(info, value) E.db.sle.errors = value; end
 }
+end
+
+table.insert(E.SLEConfigs, configTable)

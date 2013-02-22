@@ -1,5 +1,6 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local M = E:GetModule('Misc')
+local function configTable()
 
 --Options for Exp/Rep text
 E.Options.args.sle.args.exprep = {
@@ -26,3 +27,6 @@ E.Options.args.sle.args.exprep = {
 		},
 	},
 }
+end
+
+table.insert(E.SLEConfigs, configTable)

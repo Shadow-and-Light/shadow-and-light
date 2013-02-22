@@ -4,6 +4,7 @@ local AB = E:GetModule('ActionBars')
 local CH = E:GetModule('Chat')
 local A = E:GetModule('Auras')
 local SLE = E:GetModule('SLE')
+local function configTable()
 
 --Main options group
 E.Options.args.sle = {
@@ -100,3 +101,6 @@ E.Options.args.sle.args.changelog = {
 		},
 	},
 }
+end
+
+table.insert(E.SLEConfigs, configTable)

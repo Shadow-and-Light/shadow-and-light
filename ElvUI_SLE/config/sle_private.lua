@@ -1,5 +1,7 @@
 ﻿local E, L, V, P, G, _ =  unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, GlobalDB
-
+V['skins']['addons'] = {
+	['EmbedSkada'] = true,
+}
 V['sle'] = {
 	['dbm'] = {
 		['size'] = 10,

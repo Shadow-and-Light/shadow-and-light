@@ -1,6 +1,6 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local BG = E:GetModule('BackGrounds')
-
+local function configTable()
 local drop = {
 	--Group name = {short name, order, minimum width}
 	["Bottom BG"] = {"bottom", 1, 200},
@@ -143,3 +143,6 @@ for k,v in pairs(drop) do
 		},
 	}
 end
+end
+
+table.insert(E.SLEConfigs, configTable)

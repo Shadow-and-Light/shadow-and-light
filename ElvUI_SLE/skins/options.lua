@@ -1,5 +1,5 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-
+local function configTable()
 E.Options.args.sle.args.skins = {
 	order = 8,
 	type = "group",
@@ -31,3 +31,6 @@ E.Options.args.sle.args.skins = {
 		},
 	},
 }
+end
+
+table.insert(E.SLEConfigs, configTable)

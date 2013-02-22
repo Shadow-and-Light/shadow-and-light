@@ -1,6 +1,7 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local UF = E:GetModule('UnitFrames')
 local CAN_HAVE_CLASSBAR = (E.myclass == "PALADIN" or E.myclass == "DRUID" or E.myclass == "DEATHKNIGHT" or E.myclass == "WARLOCK" or E.myclass == "PRIEST" or E.myclass == "MONK" or E.myclass == 'MAGE')
+local function configTable()
 
 local positionValues = {
 	TOPLEFT = 'TOPLEFT',
@@ -170,3 +171,6 @@ E.Options.args.sle.args.unitframes.args.classbar = {
 	},
 }
 end
+end
+
+table.insert(E.SLEConfigs, configTable)

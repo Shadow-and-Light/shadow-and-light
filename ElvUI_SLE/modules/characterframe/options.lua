@@ -1,5 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local CFO = E:GetModule('CharacterFrameOptions')
+local function configTable()
 
 --UI Buttons
 E.Options.args.sle.args.characterframeoptions = {
@@ -148,3 +149,6 @@ E.Options.args.sle.args.characterframeoptions = {
 		},
 	},
 }
+end
+
+table.insert(E.SLEConfigs, configTable)

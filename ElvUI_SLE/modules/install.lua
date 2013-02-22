@@ -1,6 +1,5 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local UF = E:GetModule('UnitFrames');
-
 local CURRENT_PAGE = 0
 local MAX_PAGE
 
@@ -1665,6 +1664,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	end
 
 	--Unitframes
+	E.db.unitframe.font = "DorisPP"
 	E.db.unitframe.fontOutline = "OUTLINE"
 	E.db.unitframe.statusbar = "Polished Wood"
 	E.db.unitframe.colors.castColor = {
@@ -1727,7 +1727,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.party.health.frequentUpdates = true
 	E.db.unitframe.units.party.health.text_format = "[healthcolor][health:deficit]"
 	E.db.unitframe.units.party.health.position = "BOTTOM"
-	E.db.unitframe.units.party.name.text_format = "[namecolor][name:short] [difficultycolor][smartlevel]"
+	E.db.unitframe.units.party.name.text_format = "[namecolor][name:veryshort] [difficultycolor][smartlevel]"
 	E.db.unitframe.units.party.name.position = "TOP"
 	E.db.unitframe.units.party.buffs.noConsolidated = false
 	E.db.unitframe.units.party.buffs.enable = true
@@ -1805,6 +1805,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid10.raidicon.xOffset = 9
 	E.db.unitframe.units.raid10.raidicon.size = 13
 	E.db.unitframe.units.raid10.raidicon.yOffset = 0
+	E.db.unitframe.units.raid10.name.text_format = "[namecolor][name:veryshort]"
 	if layout == "healer" then
 		E.db.unitframe.units.raid10.debuffs.sizeOverride = 16
 		E.db.unitframe.units.raid10.debuffs.xOffset = -4
@@ -1854,6 +1855,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid25.buffs.playerOnly = false
 	E.db.unitframe.units.raid25.buffs.perrow = 1
 	E.db.unitframe.units.raid25.buffs.useFilter = "TurtleBuffs"
+	E.db.unitframe.units.raid25.name.text_format = "[namecolor][name:veryshort]"
 	if layout == "healer" then
 		E.db.unitframe.units.raid25.yOffset = 4
 		E.db.unitframe.units.raid25.width = 80
@@ -1918,6 +1920,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid40.buffs.sizeOverride = 17
 	E.db.unitframe.units.raid40.buffs.useBlacklist = false
 	E.db.unitframe.units.raid40.buffs.enable = true
+	E.db.unitframe.units.raid40.name.text_format = "[namecolor][name:veryshort]"
 
 	--Actionbars
 	--Bar 1

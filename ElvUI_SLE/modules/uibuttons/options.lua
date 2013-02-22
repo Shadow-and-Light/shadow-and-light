@@ -1,5 +1,6 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local UB = E:GetModule('UIButtons')
+local function configTable()
 
 --UI Buttons
 E.Options.args.sle.args.uibuttons = {
@@ -60,3 +61,6 @@ E.Options.args.sle.args.uibuttons = {
 		},
 	},
 }
+end
+
+table.insert(E.SLEConfigs, configTable)

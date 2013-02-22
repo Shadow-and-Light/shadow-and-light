@@ -3,6 +3,7 @@ local DTP = E:GetModule('DTPanels')
 local DT = E:GetModule('DataTexts')
 
 local datatexts = {}
+local function configTable()
 local drop = {
 	--Group name = {short name, order, slot}
 	["DP_1"] = {"dp1", 1, 3},
@@ -208,3 +209,6 @@ E.Options.args.sle.args.timedt = {
 		},
 	},
 }
+end
+
+table.insert(E.SLEConfigs, configTable)
