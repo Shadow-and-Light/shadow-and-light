@@ -131,7 +131,7 @@ L["Equip this set when switching to primary talents."] = true
 L["Equip this set when switching to secondary talents."] =true
 L["Equip this set after entering dungeons or raids."] = true
 L["Equip this set after entering battlegrounds or arens."] = true
-L["If enabled, removes chat spam from talents learned or unlearned during spec change."] = true
+L["Removes the spam from chat stating what talents were learned or unlearned during spec change."] = true
 
 --Farm--
 L['Farm'] = true
