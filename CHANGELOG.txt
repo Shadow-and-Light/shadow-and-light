@@ -9,6 +9,8 @@ vWTF
 - Added Item Level overlay on item slots
 - Added Item Durability overlay on item slots
 - Added Font customization for Item Level & Item Durability overlays
+- Added Equipment Manager per spec/zone
+- Added Farmer module to make farming easier.
 
 v1.42 (January 31, 2013)
 - Curse being stupid and fixed changelog b/c darth dont realize there are 31 days in Jan.
