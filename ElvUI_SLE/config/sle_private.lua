@@ -44,11 +44,12 @@ V['sle'] = {
 		['seedtrash'] = false,
 	},
 	
-	['specswitch'] = {
+	['equip'] = {
 		['enable'] = false,
-		['primary'] = "",
-		['secondary'] = "",
-		['instance'] = "",
-		['pvp'] = "",
+		['spam'] = false,
+		['primary'] = "NONE",
+		['secondary'] = "NONE",
+		['instance'] = "NONE",
+		['pvp'] = "NONE",
 	},
 }
