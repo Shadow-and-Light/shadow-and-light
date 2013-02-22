@@ -1750,7 +1750,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		E.db.unitframe.units.party.debuffs.xOffset = -4
 		E.db.unitframe.units.party.debuffs.yOffset = -7
 		E.db.unitframe.units.party.debuffs.anchorPoint = "TOPLEFT"
-		E.db.unitframe.units.party.debuffs.sizeOverride = 16
+		E.db.unitframe.units.party.debuffs.sizeOverride = 21
 		E.db.unitframe.units.party.buffs.yOffset = 28
 		E.db.unitframe.units.party.buffs.xOffset = 30
 		E.db.unitframe.units.party.buffs.sizeOverride = 22
@@ -1765,7 +1765,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		E.db.unitframe.units.party.debuffs.xOffset = -14
 		E.db.unitframe.units.party.debuffs.yOffset = -9
 		E.db.unitframe.units.party.debuffs.anchorPoint = "TOPRIGHT"
-		E.db.unitframe.units.party.debuffs.sizeOverride = 17
+		E.db.unitframe.units.party.debuffs.sizeOverride = 21
 		E.db.unitframe.units.party.debuffs.clickThrough = true
 		E.db.unitframe.units.party.debuffs.useBlacklist = false
 		E.db.unitframe.units.party.debuffs.useFilter = "Blacklist"
@@ -1807,7 +1807,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid10.raidicon.yOffset = 0
 	E.db.unitframe.units.raid10.name.text_format = "[namecolor][name:veryshort]"
 	if layout == "healer" then
-		E.db.unitframe.units.raid10.debuffs.sizeOverride = 16
+		E.db.unitframe.units.raid10.debuffs.sizeOverride = 21
 		E.db.unitframe.units.raid10.debuffs.xOffset = -4
 		E.db.unitframe.units.raid10.debuffs.yOffset = -7
 		E.db.unitframe.units.raid10.height = 45
@@ -1816,7 +1816,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		E.db.unitframe.units.raid10.buffs.xOffset = 30
 		E.db.unitframe.units.raid10.buffs.sizeOverride = 22
 	else
-		E.db.unitframe.units.raid10.debuffs.sizeOverride = 20
+		E.db.unitframe.units.raid10.debuffs.sizeOverride = 21
 		E.db.unitframe.units.raid10.debuffs.useBlacklist = false
 		E.db.unitframe.units.raid10.debuffs.xOffset = -10
 		E.db.unitframe.units.raid10.debuffs.yOffset = -9
@@ -1862,7 +1862,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		E.db.unitframe.units.raid25.height = 45
 		E.db.unitframe.units.raid25.debuffs.xOffset = -4
 		E.db.unitframe.units.raid25.debuffs.yOffset = -7
-		E.db.unitframe.units.raid25.debuffs.sizeOverride = 16
+		E.db.unitframe.units.raid25.debuffs.sizeOverride = 21
 		E.db.unitframe.units.raid25.buffs.yOffset = 28
 		E.db.unitframe.units.raid25.buffs.xOffset = 30
 		E.db.unitframe.units.raid25.buffs.sizeOverride = 22
@@ -1872,7 +1872,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		E.db.unitframe.units.raid25.height = 43
 		E.db.unitframe.units.raid25.debuffs.xOffset = -10
 		E.db.unitframe.units.raid25.debuffs.yOffset = -9
-		E.db.unitframe.units.raid25.debuffs.sizeOverride = 20
+		E.db.unitframe.units.raid25.debuffs.sizeOverride = 21
 		E.db.unitframe.units.raid25.debuffs.useBlacklist = false
 		E.db.unitframe.units.raid25.debuffs.useFilter = "Blacklist"
 		E.db.unitframe.units.raid25.debuffs.clickThrough = true
@@ -1900,7 +1900,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid40.power.offset = 7
 	E.db.unitframe.units.raid40.health.text_format = "[healthcolor][health:deficit]"
 	E.db.unitframe.units.raid40.health.frequentUpdates = true
-	E.db.unitframe.units.raid40.debuffs.sizeOverride = 17
+	E.db.unitframe.units.raid40.debuffs.sizeOverride = 21
 	E.db.unitframe.units.raid40.debuffs.enable = true
 	E.db.unitframe.units.raid40.debuffs.perrow = 2
 	E.db.unitframe.units.raid40.debuffs.anchorPoint = "TOPRIGHT"
