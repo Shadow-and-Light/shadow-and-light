@@ -6,7 +6,7 @@ local function configTable()
 E.Options.args.sle.args.equipmanager = {
 	type = 'group',
 	order = 2,
-	name = L['Equipment manager'],
+	name = L['Equipment Manager'],
 	args = {
 		intro = {
 			order = 1,
@@ -24,6 +24,7 @@ E.Options.args.sle.args.equipmanager = {
 			type = "toggle",
 			order = 3,
 			name = L['Spam Throttling'],
+			desc = L["Removes the spam from chat stating what talents were learned or unlearned during spec change."],
 			disabled = function() return not E.private.sle.equip.enable end,
 			get = function(info) return E.private.sle.equip.spam end,
 			set = function(info, value) E.private.sle.equip.spam = value; EM:SpamThrottle() end

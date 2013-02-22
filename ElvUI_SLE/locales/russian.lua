@@ -123,9 +123,10 @@ L["Full value on Rep Bar"] = "Полное значение репутации"
 L["Changes the way text is shown on rep bar."] = "Изменяет отображение значений репутации на полосе."
 
 --Equip Manager--
-L['Equipment manager'] = "Менеджер экипировки"
+L['Equipment Manager'] = "Менеджер экипировки"
 L["EM_DESC"] = "Этот модуль предоставляет различные опции для автоматической смены комплектов экипировки при переключении набора талантов или попадании в определенную локацию."
 L['Spam Throttling'] = "Подавление спама"
+L["Removes the spam from chat stating what talents were learned or unlearned during spec change."] = "Удаляет спам об изученных/забытых заклинаниях при смене талантов."
 L["Here you can choose what equipment sets to use in different situations."] = "Здесь Вы можете выбрать какие комплекты экипировки использовать в различных случаях."
 L["Equip this set when switching to primary talents."] = "Надеть этот набор при переключении на основной набор талантов."
 L["Equip this set when switching to secondary talents."] = "Надеть этот набор при переключении на дополнительный набор талантов."

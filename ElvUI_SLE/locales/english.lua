@@ -126,12 +126,13 @@ L["Changes the way text is shown on rep bar."] = true
 L['Equipment Manager'] = true
 L["EM_DESC"] = "This module provides different options to automatically change your equipment sets on spec change or entering certain locations."
 L['Spam Throttling'] = true
+L["Removes the spam from chat stating what talents were learned or unlearned during spec change."] = true
 L["Here you can choose what equipment sets to use in different situations."] = true
 L["Equip this set when switching to primary talents."] = true
 L["Equip this set when switching to secondary talents."] =true
 L["Equip this set after entering dungeons or raids."] = true
 L["Equip this set after entering battlegrounds or arens."] = true
-L["Removes the spam from chat stating what talents were learned or unlearned during spec change."] = true
+
 
 --Farm--
 L['Farm'] = true
