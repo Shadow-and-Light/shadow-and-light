@@ -75,9 +75,9 @@ function EM:SpamThrottle()
 end
 
 function EM:Initialize()
+	EM:SpamThrottle()
 	if not E.private.sle.equip.enable then return end
 	EM:FillTable()
-	EM:SpamThrottle()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "Equip")
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "Equip")
 	self:RegisterEvent("PLAYER_TALENT_UPDATE", "Equip")
