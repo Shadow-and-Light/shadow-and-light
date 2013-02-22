@@ -123,9 +123,20 @@ L["Changes the way text is shown on exp bar."] = true
 L["Full value on Rep Bar"] = true
 L["Changes the way text is shown on rep bar."] = true
 
+--Equip Manager--
+L['Equipment manager'] = true
+L["EM_DESC"] = "This module provides different options to automatically change your equipment sets on spec change or entering certain locations."
+L['Spam Throttling'] = true
+L["Here you can choose what equipment sets to use in different situations."] = true
+L["Equip this set when switching to primary talents."] = true
+L["Equip this set when switching to secondary talents."] =true
+L["Equip this set after entering dungeons or raids."] = true
+L["Equip this set after entering battlegrounds or arens."] = true
+
 --Farm--
 L['Farm'] = true
-L["FARM_DESC"] = true
+L["FARM_DESC"] = [[Additional actionbars for the Sunsong Ranch containing seeds, tools and portals.
+They will appear only if you are on the Ranch or The Halfhill Market.]]
 L['Only active buttons'] = true
 L['Only show the buttons for the seeds, portals, tools you have in your bags.'] = true
 L["Seed Bars"] = true
