@@ -1,10 +1,9 @@
 ﻿--Raid mark bar. Similar to quickmark which just semms to be impossible to skin
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local SS = E:NewModule('SpecSwitch', 'AceHook-3.0', 'AceEvent-3.0');
+local EM = E:NewModule('EquipManager', 'AceHook-3.0', 'AceEvent-3.0');
 
-function SS:Equip(event)
-	print("1")
-	SS:EnableSpecSwitcherSpamFilter()
+function EM:Equip(event)
+	EM:EnableSpecSwitcherSpamFilter()
 	local primary = GetSpecialization()
 	if primary ~= nil then
 		local inInstance, instanceType = IsInInstance()
@@ -24,7 +23,7 @@ function SS:Equip(event)
 	end
 end
 
-function SS:SpecSwitcherSpamFilter(event, msg, ...)
+function EM:SpecSwitcherSpamFilter(event, msg, ...)
 	if strfind(msg, string.gsub(ERR_LEARN_ABILITY_S:gsub('%.', '%.'), '%%s', '(.*)')) then
 		return true
 	elseif strfind(msg, string.gsub(ERR_LEARN_SPELL_S:gsub('%.', '%.'), '%%s', '(.*)')) then
@@ -38,20 +37,21 @@ function SS:SpecSwitcherSpamFilter(event, msg, ...)
 	return false, msg, ...
 end
 
-function SS:EnableSpecSwitcherSpamFilter()
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", SS.SpecSwitcherSpamFilter)
+function EM:EnableSpecSwitcherSpamFilter()
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", EM.SpecSwitcherSpamFilter)
 end
 
-function SS:DisableSpecSwitcherSpamFilter()
-	ChatFrame_RemoveMessageEventFilter("CHAT_MSG_SYSTEM", SpecSwitcherSpamFilter)
+function EM:DisableSpecSwitcherSpamFilter()
+	ChatFrame_RemoveMessageEventFilter("CHAT_MSG_SYSTEM", EM.SpecSwitcherSpamFilter)
 end
 
 
-function SS:Initialize()
+function EM:Initialize()
+	print("stuff")
 	if not E.private.sle.specswitch.enable then return end
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "Equip")
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "Equip")
 	self:RegisterEvent("PLAYER_TALENT_UPDATE", "Equip")
 end
 
-E:RegisterModule(SS:GetName())
+E:RegisterModule(EM:GetName())

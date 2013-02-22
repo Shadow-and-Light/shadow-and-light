@@ -7,12 +7,12 @@
 	<Include file='characterframe\load_characterframe.xml'/>
 	<Include file='chat\load_chat.xml'/>
 	<Include file='datatexts\load_datatexts.xml'/>
+	<Include file='equipmanager\load_equipmanager.xml'/>
 	<Include file='errors\load_errors.xml'/>
 	<Include file='exprepbar\load_exprepbar.xml'/>
 	<Include file='farm\load_farm.xml'/>
 	<Include file='marks\load_marks.xml'/>
 	<Include file='raidutility\load_raidutility.xml'/>
-	<Include file='specswitch\load_specswitch.xml'/>
 	<Include file='tooltip\load_tooltip.xml'/>
 	<Include file='uibuttons\load_uibuttons.xml'/>
 	<Include file='unitframes\load_unitframes.xml'/>
