@@ -1736,7 +1736,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	end
 
 	--Unitframes
-	E.db.unitframe.font = "DorisPP"
+	E.db.unitframe.font = "Doris PP"
 	E.db.unitframe.fontOutline = "OUTLINE"
 	E.db.unitframe.statusbar = "Polished Wood"
 	E.db.unitframe.colors.castColor = {
