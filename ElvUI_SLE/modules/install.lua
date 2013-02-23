@@ -1799,7 +1799,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 
 	E.db.unitframe.units.party.columnAnchorPoint = "BOTTOM"
 	E.db.unitframe.units.party.buffIndicator.size = 10
-	E.db.unitframe.units.party.buffIndicator.fontSize = 11
+	E.db.unitframe.units.party.buffIndicator.fontSize = 10
 	E.db.unitframe.units.party.point = "RIGHT"
 	E.db.unitframe.units.party.xOffset = -1
 	E.db.unitframe.units.party.yOffset = 1
