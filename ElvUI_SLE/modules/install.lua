@@ -752,7 +752,11 @@ end
 function E:DarthSetup() --The function to switch from classic ElvUI settings to Darth's
 	InstallStepComplete.message = L["Darth's Defaults Set"]
 	InstallStepComplete:Show()
+	E:CopyTable(E.db, P)
+	E:CopyTable(E.db.sle, P.sle)
 	if not E.db.movers then E.db.movers = {}; end
+	if not E.db.datatexts.lfrshow then E.db.datatexts.lfrshow = {} end
+	if not E.db.loclite then E.db.loclite = {} end
 
 	layout = E.db.layoutSet --To know if some sort of layout was choosed before
 
@@ -1257,12 +1261,11 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.sle.farm.seedor = "BOTTOM"
 	
 	--LocationLite--
-	if not E.db.loclite then E.db.loclite = {} end
-	E.db.loclite.lpfontsize = 10,
-	E.db.loclite.lpfontflags = "OUTLINE",
-	E.db.loclite.lpwidth = 300,
-	E.db.loclite.dig = false,
-	E.db.loclite.lpauto = false,
+	E.db.loclite.lpfontsize = 10
+	E.db.loclite.lpfontflags = "OUTLINE"
+	E.db.loclite.lpwidth = 300
+	E.db.loclite.dig = false
+	E.db.loclite.lpauto = false
 	E.db.loclite.trans = true
 
 	--Moving stuff--
