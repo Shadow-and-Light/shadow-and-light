@@ -1816,47 +1816,28 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.party.raidicon.size = 13
 	E.db.unitframe.units.party.raidicon.yOffset = 0
 	E.db.unitframe.units.party.targetsGroup.anchorPoint = "BOTTOM"
-	if layout == "healer" then
-		E.db.unitframe.units.party.width = 80
-		E.db.unitframe.units.party.height = 45
-		E.db.unitframe.units.party.debuffs.xOffset = -4
-		E.db.unitframe.units.party.debuffs.yOffset = -7
-		E.db.unitframe.units.party.debuffs.anchorPoint = "TOPLEFT"
-		E.db.unitframe.units.party.debuffs.sizeOverride = 21
-		E.db.unitframe.units.party.buffs.yOffset = 28
-		E.db.unitframe.units.party.buffs.xOffset = 30
-		E.db.unitframe.units.party.buffs.sizeOverride = 22
-		E.db.unitframe.colors.auraBarBuff = {
-			["r"] = 0.3098039215686275,
-			["g"] = 0.07843137254901961,
-			["b"] = 0.09411764705882353,
-		}
-	else
-		E.db.unitframe.units.party.width = 82
-		E.db.unitframe.units.party.height = 43
-		E.db.unitframe.units.party.debuffs.xOffset = -14
-		E.db.unitframe.units.party.debuffs.yOffset = -9
-		E.db.unitframe.units.party.debuffs.anchorPoint = "TOPRIGHT"
-		E.db.unitframe.units.party.debuffs.sizeOverride = 21
-		E.db.unitframe.units.party.debuffs.clickThrough = true
-		E.db.unitframe.units.party.debuffs.useBlacklist = false
-		E.db.unitframe.units.party.debuffs.useFilter = "Blacklist"
-		E.db.unitframe.units.party.buffs.yOffset = 25
-		E.db.unitframe.units.party.buffs.xOffset = 38
-		E.db.unitframe.units.party.buffs.sizeOverride = 17
-		E.db.unitframe.colors.auraBarBuff = {
-			["r"] = 0.1,
-			["g"] = 0.1,
-			["b"] = 0.1,
-		}
-	end
+	E.db.unitframe.units.party.width = 80
+	E.db.unitframe.units.party.height = 45
+	E.db.unitframe.units.party.debuffs.xOffset = -4
+	E.db.unitframe.units.party.debuffs.yOffset = -7
+	E.db.unitframe.units.party.debuffs.anchorPoint = "TOPLEFT"
+	E.db.unitframe.units.party.debuffs.sizeOverride = 21
+	E.db.unitframe.units.party.buffs.yOffset = 28
+	E.db.unitframe.units.party.buffs.xOffset = 30
+	E.db.unitframe.units.party.buffs.sizeOverride = 22
+	E.db.unitframe.colors.auraBarBuff = {
+		["r"] = 0.3098039215686275,
+		["g"] = 0.07843137254901961,
+		["b"] = 0.09411764705882353,
+	}
+
 
 	E.db.unitframe.units.raid10.columnAnchorPoint = "BOTTOM"
 	E.db.unitframe.units.raid10.buffIndicator.fontSize = 11
 	E.db.unitframe.units.raid10.point = "RIGHT"
 	E.db.unitframe.units.raid10.rdebuffs.enable = false
 	E.db.unitframe.units.raid10.yOffset = 4
-	E.db.unitframe.units.raid10.xOffset = -1  -- yOffset is 1 as dps layout
+	E.db.unitframe.units.raid10.xOffset = -1
 	E.db.unitframe.units.raid10.roleIcon.enable = false
 	E.db.unitframe.units.raid10.power.offset = 7
 	E.db.unitframe.units.raid10.positionOverride = "BOTTOMRIGHT"
@@ -1878,28 +1859,14 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid10.raidicon.size = 13
 	E.db.unitframe.units.raid10.raidicon.yOffset = 0
 	E.db.unitframe.units.raid10.name.text_format = "[namecolor][name:veryshort]"
-	if layout == "healer" then
-		E.db.unitframe.units.raid10.debuffs.sizeOverride = 21
-		E.db.unitframe.units.raid10.debuffs.xOffset = -4
-		E.db.unitframe.units.raid10.debuffs.yOffset = -7
-		E.db.unitframe.units.raid10.height = 45
-		E.db.unitframe.units.raid10.width = 80
-		E.db.unitframe.units.raid10.buffs.yOffset = 28
-		E.db.unitframe.units.raid10.buffs.xOffset = 30
-		E.db.unitframe.units.raid10.buffs.sizeOverride = 22
-	else
-		E.db.unitframe.units.raid10.debuffs.sizeOverride = 21
-		E.db.unitframe.units.raid10.debuffs.useBlacklist = false
-		E.db.unitframe.units.raid10.debuffs.xOffset = -10
-		E.db.unitframe.units.raid10.debuffs.yOffset = -9
-		E.db.unitframe.units.raid10.debuffs.useFilter = "Blacklist"
-		E.db.unitframe.units.raid10.debuffs.clickThrough = true
-		E.db.unitframe.units.raid10.height = 43
-		E.db.unitframe.units.raid10.height = 82
-		E.db.unitframe.units.raid10.buffs.yOffset = 25
-		E.db.unitframe.units.raid10.buffs.xOffset = 38
-		E.db.unitframe.units.raid10.buffs.sizeOverride = 17
-	end
+	E.db.unitframe.units.raid10.debuffs.sizeOverride = 21
+	E.db.unitframe.units.raid10.debuffs.xOffset = -4
+	E.db.unitframe.units.raid10.debuffs.yOffset = -7
+	E.db.unitframe.units.raid10.height = 45
+	E.db.unitframe.units.raid10.width = 80
+	E.db.unitframe.units.raid10.buffs.yOffset = 28
+	E.db.unitframe.units.raid10.buffs.xOffset = 30
+	E.db.unitframe.units.raid10.buffs.sizeOverride = 22
 
 	E.db.unitframe.units.raid25.columnAnchorPoint = "RIGHT"
 	E.db.unitframe.units.raid25.buffIndicator.fontSize = 11
@@ -1928,30 +1895,15 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid25.buffs.perrow = 1
 	E.db.unitframe.units.raid25.buffs.useFilter = "TurtleBuffs"
 	E.db.unitframe.units.raid25.name.text_format = "[namecolor][name:veryshort]"
-	if layout == "healer" then
-		E.db.unitframe.units.raid25.yOffset = 4
-		E.db.unitframe.units.raid25.width = 80
-		E.db.unitframe.units.raid25.height = 45
-		E.db.unitframe.units.raid25.debuffs.xOffset = -4
-		E.db.unitframe.units.raid25.debuffs.yOffset = -7
-		E.db.unitframe.units.raid25.debuffs.sizeOverride = 21
-		E.db.unitframe.units.raid25.buffs.yOffset = 28
-		E.db.unitframe.units.raid25.buffs.xOffset = 30
-		E.db.unitframe.units.raid25.buffs.sizeOverride = 22
-	else
-		E.db.unitframe.units.raid25.yOffset = 1
-		E.db.unitframe.units.raid25.width = 82
-		E.db.unitframe.units.raid25.height = 43
-		E.db.unitframe.units.raid25.debuffs.xOffset = -10
-		E.db.unitframe.units.raid25.debuffs.yOffset = -9
-		E.db.unitframe.units.raid25.debuffs.sizeOverride = 21
-		E.db.unitframe.units.raid25.debuffs.useBlacklist = false
-		E.db.unitframe.units.raid25.debuffs.useFilter = "Blacklist"
-		E.db.unitframe.units.raid25.debuffs.clickThrough = true
-		E.db.unitframe.units.raid25.buffs.yOffset = 25
-		E.db.unitframe.units.raid25.buffs.xOffset = 38
-		E.db.unitframe.units.raid25.buffs.sizeOverride = 17
-	end
+	E.db.unitframe.units.raid25.yOffset = 4
+	E.db.unitframe.units.raid25.width = 80
+	E.db.unitframe.units.raid25.height = 45
+	E.db.unitframe.units.raid25.debuffs.xOffset = -4
+	E.db.unitframe.units.raid25.debuffs.yOffset = -7
+	E.db.unitframe.units.raid25.debuffs.sizeOverride = 21
+	E.db.unitframe.units.raid25.buffs.yOffset = 28
+	E.db.unitframe.units.raid25.buffs.xOffset = 30
+	E.db.unitframe.units.raid25.buffs.sizeOverride = 22
 
 	E.db.unitframe.units.raid40.columnAnchorPoint = "RIGHT"
 	E.db.unitframe.units.raid40.point = "BOTTOM"
@@ -2094,33 +2046,43 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		end
 	end
 	do
-		E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-278200" --check
-		E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM0100" --check
-		E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM278200" --check
-		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM0190" --check
-		E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM310432" --check
-		E.db.movers.ElvUF_PartyMover = "BOTTOMRIGHTElvUIParentCENTER-213-90" --Need to change offset
-		E.db.movers.ElvUF_Raid10Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90" --Need to change offset
-		E.db.movers.ElvUF_Raid25Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90" --Need to change offset
-		E.db.movers.ElvUF_Raid40Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90" --Need to change offset
-		E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM0230" --check
-		E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM062" --check
-		E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM028" --check
-		E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM26028" --check xoffset for this
-		E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-26028"  --check xoffset for this
-		E.db.movers.DP_6_Mover = "BOTTOMElvUIParentBOTTOM04"  --check
-		E.db.movers.Top_Center_Mover = "BOTTOMElvUIParentBOTTOM-2604" --check
-		E.db.movers.Bottom_Panel_Mover = "BOTTOMElvUIParentBOTTOM2604" --check
-		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021" --check
-		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021" --check
+		E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-278200"
+		E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM0100"
+		E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM278200"
+		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM0190"
+		E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM310432"
+		E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM0230"
+		E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM062"
+		E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM028"
+		E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM26028"
+		E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-26028"
+		E.db.movers.DP_6_Mover = "BOTTOMElvUIParentBOTTOM04"
+		E.db.movers.Top_Center_Mover = "BOTTOMElvUIParentBOTTOM-2604"
+		E.db.movers.Bottom_Panel_Mover = "BOTTOMElvUIParentBOTTOM2604"
+		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021"
+		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
 		E.db.movers.PetAB = "RIGHTElvUIParentRIGHT00"
+		if layout == 'dpsCaster' or layout == 'dpsMelee' or layout == 'tank' then
+			E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4200"
+			E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4200"
+			E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4200"
+			E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4200"
+			E.db.movers["BossButton"] = "CENTERElvUIParentCENTER-413183"
+		else
+			E.db.movers.ElvUF_PartyMover = "BOTTOMRIGHTElvUIParentCENTER-213-90"
+			E.db.movers.ElvUF_Raid10Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90"
+			E.db.movers.ElvUF_Raid25Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90"
+			E.db.movers.ElvUF_Raid40Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90"
+			E.db.movers["BossButton"] = "CENTERElvUIParentCENTER-413183"
+		end
+		
 		if GetScreenWidth() < 1920 then
-			E.db.movers.ElvAB_4 = "BOTTOMLEFTElvUIParentBOTTOMRIGHT-380200" -- check this pls
-			E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT38221" --check
+			E.db.movers.ElvAB_4 = "BOTTOMLEFTElvUIParentBOTTOMRIGHT-380200"
+			E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT38221"
 			E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT38221"
 		else
-			E.db.movers.ElvAB_4 = "BOTTOMLEFTElvUIParentBOTTOMRIGHT-412200" -- check this pls
-			E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT41421" --check
+			E.db.movers.ElvAB_4 = "BOTTOMLEFTElvUIParentBOTTOMRIGHT-413200"
+			E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT41421"
 			E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT41421"
 		end
 	end
