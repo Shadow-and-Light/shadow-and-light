@@ -2279,7 +2279,7 @@ local function SetPage(PageNum)
 		f.Desc3:SetText(L["Importance: |cffFF0000Low|r"])
 
 		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', function() E:DarthSetup() end)
+		InstallOption1Button:SetScript('OnClick', function() E:StaticPopup_Show("ELVUI_SLE_DARTH") end)
 		InstallOption1Button:SetText(L["Darth's Config"])	
 
 		InstallOption2Button:Show()

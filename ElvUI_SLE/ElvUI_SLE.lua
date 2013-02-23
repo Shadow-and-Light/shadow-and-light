@@ -81,6 +81,22 @@ E.PopupDialogs["ELVUI_SLE_REPOOC"] = {
 	timeout = 0,
 	whileDead = 1,
 }
+
+E.PopupDialogs["ELVUI_SLE_DARTH"] = {
+	text = L["Do you want to also apply character based settings?"],
+	button1 = YES,
+	button2 = NO,
+	OnAccept = function(self)
+		E:DarthSetup(true)
+	end,
+	OnCancel = function(self)
+		E:DarthSetup(false)
+	end,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = false,
+}
+
 --Showing warning message about too old versions of ElvUI
 if tonumber(E.version) < 5.32 then
 	E:StaticPopup_Show("VERSION_MISMATCH")
