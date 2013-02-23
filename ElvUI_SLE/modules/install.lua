@@ -2016,13 +2016,22 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		E.db.sle.datatext.dp6.enabled = true
 		E.db.sle.datatext.top.enabled = true
 		E.db.sle.datatext.bottom.enabled = true
-		E.db.sle.datatext.dp6.width = 410
-		E.db.sle.datatext.bottom.width = 104
-		E.db.sle.datatext.top.width = 104
 		if GetScreenWidth() < 1920 then
+			E.db.sle.datatext.dp6.width = 410
+			E.db.sle.datatext.bottom.width = 104
+			E.db.sle.datatext.top.width = 104
 			E.db.sle.datatext.chatleft.width = 364
 			E.db.sle.datatext.chatright.width = 364
+		elseif GetScreenWidth() > 1920 then
+			E.db.sle.datatext.dp6.width = 402
+			E.db.sle.datatext.bottom.width = 102
+			E.db.sle.datatext.top.width = 102
+			E.db.sle.datatext.chatleft.width = 396
+			E.db.sle.datatext.chatright.width = 396
 		else
+			E.db.sle.datatext.dp6.width = 410
+			E.db.sle.datatext.bottom.width = 104
+			E.db.sle.datatext.top.width = 104
 			E.db.sle.datatext.chatleft.width = 396
 			E.db.sle.datatext.chatright.width = 396
 		end
@@ -2032,9 +2041,9 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		E.db.datatexts.panels['LeftChatDataPanel']['left'] = ""
 		E.db.datatexts.panels['LeftChatDataPanel']['middle'] = ""
 		E.db.datatexts.panels['LeftChatDataPanel']['right'] = ""
-		E.db.datatexts.panels['RightChatDataPanel']['left'] = ""
-		E.db.datatexts.panels['RightChatDataPanel']['middle'] = ""
-		E.db.datatexts.panels['RightChatDataPanel']['right'] = ""
+		E.db.datatexts.panels['RightChatDataPanel']['left'] = "Skada"
+		E.db.datatexts.panels['RightChatDataPanel']['middle'] = "BigWigs"
+		E.db.datatexts.panels['RightChatDataPanel']['right'] = "WeakAuras"
 		E.db.datatexts.panels['Top_Center'] = "Durability"
 		E.db.datatexts.panels['Bottom_Panel'] = "Bags"
 		E.db.datatexts.panels['LeftMiniPanel'] = "Guild"
@@ -2048,9 +2057,11 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 			--E.db.datatexts.panels.DP_6.middle = ""
 		elseif layout == 'healer' then
 			E.db.datatexts.panels['LeftChatDataPanel']['left'] = "Spell/Heal Power"
+			E.db.datatexts.panels['LeftChatDataPanel']['middle'] = "Durability"
 			E.db.datatexts.panels['LeftChatDataPanel']['right'] = "Haste"
 		elseif layout == 'dpsCaster' then
 			E.db.datatexts.panels['LeftChatDataPanel']['left'] = "Spell/Heal Power"
+			E.db.datatexts.panels['LeftChatDataPanel']['middle'] = "Durability"
 			E.db.datatexts.panels['LeftChatDataPanel']['right'] = "Haste"
 		else
 			--E.db.datatexts.panels.DP_5.middle = ""
@@ -2060,19 +2071,26 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		end
 	end
 	do
+		if GetScreenWidth() > 1920 then
+			E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM25427"
+			E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-25427"
+			E.db.movers.Bottom_Panel_Mover = "BOTTOMElvUIParentBOTTOM2544"
+			E.db.movers.Top_Center_Mover = "BOTTOMElvUIParentBOTTOM-2544"
+		else
+			E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM26027"
+			E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-26027"
+			E.db.movers.Bottom_Panel_Mover = "BOTTOMElvUIParentBOTTOM2604"
+			E.db.movers.Top_Center_Mover = "BOTTOMElvUIParentBOTTOM-2604"
+		end
 		E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-278200"
 		E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM0100"
 		E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM278200"
 		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM0190"
 		E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM310432"
 		E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM0230"
-		E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM062"
-		E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM028"
-		E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM26028"
-		E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-26028"
+		E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM060"
+		E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM027"
 		E.db.movers.DP_6_Mover = "BOTTOMElvUIParentBOTTOM04"
-		E.db.movers.Top_Center_Mover = "BOTTOMElvUIParentBOTTOM-2604"
-		E.db.movers.Bottom_Panel_Mover = "BOTTOMElvUIParentBOTTOM2604"
 		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021"
 		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
 		E.db.movers.PetAB = "RIGHTElvUIParentRIGHT00"
