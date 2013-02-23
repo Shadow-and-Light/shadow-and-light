@@ -77,7 +77,7 @@ local function configTable()
 						get = function(info) return E.db.sle.minimap.buttons.anchor end,
 						set = function(info, value) E.db.sle.minimap.buttons.anchor = value; E:GetModule('SquareMinimapButtons'):UpdateLayout() end,
 						values = {
-							['NOANCHOR'] = L['Minimap'],
+							['NOANCHOR'] = MINIMAP_LABEL,
 							['HORIZONTAL'] = L['Horizontal Bar'],
 							['VERTICAL'] = L['Vertical Bar'],
 						},
