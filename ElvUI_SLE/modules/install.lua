@@ -749,13 +749,12 @@ local function SetupAuras(style)
 end
 
 
-function E:DarthSetup() --The function to switch from classic ElvUI settings to Darth's
+function E:DarthSetup(private) --The function to switch from classic ElvUI settings to Darth's
 	InstallStepComplete.message = L["Darth's Defaults Set"]
 	InstallStepComplete:Show()
 	E:CopyTable(E.db, P)
 	E:CopyTable(E.db.sle, P.sle)
 	if not E.db.movers then E.db.movers = {}; end
-	if not E.db.datatexts.lfrshow then E.db.datatexts.lfrshow = {} end
 	if not E.db.loclite then E.db.loclite = {} end
 
 	layout = E.db.layoutSet --To know if some sort of layout was choosed before
@@ -825,7 +824,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	do
 		E.db.datatexts.fontSize = 10
 		E.db.datatexts.time24 = true
-		E.db.datatexts.lfrshow.enabled = true
+		E.db.sle.lfrshow.enabled = true
 		E.db.datatexts.minimapPanels = false
 		E.db.datatexts.panelTransparency = true
 		E.db.datatexts.fontOutline = "OUTLINE"
@@ -1267,6 +1266,19 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.loclite.dig = false
 	E.db.loclite.lpauto = false
 	E.db.loclite.trans = true
+	
+	--Loading private settings--
+	if private then
+		E.private.sle.farm.enable = true
+		E.private.sle.farm.seedtrash = true
+		E.private.sle.equip.spam = true
+		E.private.sle.characterframeoptions.enable = true
+		E.private.auras.size = 22
+		E.private.skins.addons.DBMSkinHalf = true
+		E.private.skins.addons.EmbedSkada = true
+		E.private.skins.addons.EmbedOoC = true
+		E.private.skins.addons.AlwaysTrue = true
+	end
 
 	--Moving stuff--
 	do
