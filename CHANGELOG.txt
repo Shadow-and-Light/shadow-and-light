@@ -1,16 +1,17 @@
-vWTF
+v1.5
 - Authors' layouts updated
 - Some typos fixed
 - Datatext panels can now be transparent
 - Background frames no longer have offset options, now they have own movers
-- Movers created by S&L now don't appear in ElvUI's normall "All" group. Now all our movers are visible only in own groups to prevent overpopulation of the screen
+- Movers created by S&L now are grouped by own categories just like in ElvUI itself
 - Raid Marks now properly update setting on profile change
 - Raid Marks module now has an option to hide backdrop for it's main panel
 - Added Item Level overlay on item slots
 - Added Item Durability overlay on item slots
-- Added Font customization for Item Level & Item Durability overlays
 - Added Equipment Manager per spec/zone
 - Added Farmer module to make farming easier.
+- Added skinning of minimap buttons
+- Added coordinates to the minimap
 
 v1.42 (January 31, 2013)
 - Curse being stupid and fixed changelog b/c darth dont realize there are 31 days in Jan.
