@@ -2047,10 +2047,10 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 			--E.db.datatexts.panels.DP_6.left = ""
 			--E.db.datatexts.panels.DP_6.middle = ""
 		elseif layout == 'healer' then
-			E.db.datatexts.panels['LeftChatDataPanel']['left'] = "Spell/HealPower"
+			E.db.datatexts.panels['LeftChatDataPanel']['left'] = "Spell/Heal Power"
 			E.db.datatexts.panels['LeftChatDataPanel']['right'] = "Haste"
 		elseif layout == 'dpsCaster' then
-			E.db.datatexts.panels['LeftChatDataPanel']['left'] = "Spell/HealPower"
+			E.db.datatexts.panels['LeftChatDataPanel']['left'] = "Spell/Heal Power"
 			E.db.datatexts.panels['LeftChatDataPanel']['right'] = "Haste"
 		else
 			--E.db.datatexts.panels.DP_5.middle = ""
