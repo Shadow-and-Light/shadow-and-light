@@ -1,15 +1,12 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 
 P['sle'] = {
-	--LFR options
-	['lfrshow'] = {
-		['enabled'] = false,
-		['ds'] = false,
-		['mv'] = false,
-		['hof'] = false,
-		['toes'] = false,
-		['tot'] = false,
-	},
+	--Autoloot
+	['lootwin'] = false,
+	['lootalpha'] = 1,
+
+	--Auto release
+	['pvpautorelease'] = true,
 
 	--Background frames
 	['backgrounds'] = {
@@ -74,26 +71,11 @@ P['sle'] = {
 		},
 	},
 
-	--Raid marks
-	['marks'] = {
-		['enabled'] = false,
-		['growth'] = "RIGHT",
-		['showinside'] = false,
-		['size'] = 18,
+	--Combat Icon
+	['combatico'] = {
+		['pos'] = 'TOP',
 	},
-	
-	--Exp/Rep Bar
-	['exprep'] = {
-		['explong'] = false,
-		['replong'] = false,
-	},
-	
-	--Power text on classbars
-	['powtext'] = false;
-	
-	--Auto release
-	['pvpautorelease'] = true,
-	
+
 	--Datatexts panels
 	['datatext'] = {
 		['dp1'] = {
@@ -141,33 +123,59 @@ P['sle'] = {
 			['width'] = 100,
 		},
 	},
-	
-	--Combat Icon
-	['combatico'] = {
-		['pos'] = 'TOP',
-	},
-	
-	--UI Buttons
-	['uibuttons'] = {
-		['enable'] = false,
-		['size'] = 17,
-		['mouse'] = false,
-		['position'] = "uib_vert",
-	},
-
-	--Autoloot
-	['lootwin'] = false,
-	['lootalpha'] = 1,
-	
 	--Error messages
 	['errors'] = false,
-	
+
+	--Exp/Rep Bar
+	['exprep'] = {
+		['explong'] = false,
+		['replong'] = false,
+	},
+
+	--Farm Module
 	['farm'] = {
 		['active'] = true,
 		['size'] = 30,
 		['autotarget'] = false,
 		['seedor'] = "TOP",
 		['quest'] = false,
+	},
+
+	--LFR options
+	['lfrshow'] = {
+		['enabled'] = false,
+		['ds'] = false,
+		['mv'] = false,
+		['hof'] = false,
+		['toes'] = false,
+		['tot'] = false,
+	},
+
+	--Minimap Module
+	['minimap'] = {
+		['enable'] = false,
+		['coords'] = {
+			['display'] = "SHOW",
+		},
+	},
+
+	--Power text on classbars
+	['powtext'] = false;
+
+	--Raid marks
+	['marks'] = {
+		['enabled'] = false,
+		['growth'] = "RIGHT",
+		['showinside'] = false,
+		['size'] = 18,
+	},
+
+	--UI Buttons
+	['uibuttons'] = {
+		['enable'] = false,
+		['size'] = 17,
+		['mouse'] = false,
+		['position'] = "uib_vert",
 	},
 }
 
