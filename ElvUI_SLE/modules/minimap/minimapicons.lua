@@ -139,7 +139,7 @@ function SMB:UpdateLayout()
 			end
 
 			frame:ClearAllPoints()
-			frame:SetSize(24, 24)
+			frame:Size(E.db.sle.minimap.buttons.size)
 			frame:SetPoint(frame.original.Point, frame.original.relativeTo, frame.original.relativePoint, frame.original.xOfs, frame.original.yOfs)
 			frame:SetFrameStrata(frame.original.FrameStrata)
 			frame:SetMovable(true)

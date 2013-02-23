@@ -60,8 +60,18 @@ local function configTable()
 						get = function(info) return E.private.sle.minimap.buttons.enable end,
 						set = function(info, value) E.private.sle.minimap.buttons.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
-					anchor = {
+					size = {
 						order = 2,
+						type = 'range',
+						name = L['Button Size'],
+						desc = L['The size of the minimap buttons when not anchored to the minimap.'],
+						min = 16, max = 40, step = 1,
+						get = function(info) return E.db.sle.minimap.buttons.size end,
+						set = function(info, value) E.db.sle.minimap.buttons.size = value; E:GetModule('SquareMinimapButtons'):UpdateLayout() end,
+						disabled = function() return not E.private.sle.minimap.buttons.enable end,
+					},
+					anchor = {
+						order = 3,
 						type = 'select',
 						name = L['Anchor Setting'],
 						desc = L['Anchor mode for displaying the minimap buttons are skinned.'],
@@ -73,16 +83,6 @@ local function configTable()
 							['VERTICAL'] = L['Vertical Bar'],
 						},
 						disabled = function() return not E.private.sle.minimap.buttons.enable end,
-					},
-					size = {
-						order = 3,
-						type = 'range',
-						name = L['Button Size'],
-						desc = L['The size of the minimap buttons when not anchored to the minimap.'],
-						min = 16, max = 40, step = 1,
-						get = function(info) return E.db.sle.minimap.buttons.size end,
-						set = function(info, value) E.db.sle.minimap.buttons.size = value; E:GetModule('SquareMinimapButtons'):UpdateLayout() end,
-						disabled = function() return not E.private.sle.minimap.buttons.enable or E.db.sle.minimap.buttons.anchor == 'NOANCHOR' end,
 					},
 					mouseover = {
 						order = 4,
