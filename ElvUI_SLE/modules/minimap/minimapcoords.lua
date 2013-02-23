@@ -38,12 +38,12 @@ local function CreateCoordsFrame()
 	ypos.text:FontTemplate(E.media.font, 12, "OUTLINE")
 	ypos.text:SetAllPoints(ypos)
 	Minimap:HookScript('OnEnter', function(self)
-		if E.db.general.minimap.locationText ~= 'MOUSEOVER' or not E.private.general.minimap.enable then return; end
+		if E.db.sle.minimap.coords.display ~= 'MOUSEOVER' or not E.private.general.minimap.enable or not E.db.sle.minimap.enable then return; end
 		panel:Show()
 	end)
 
 	Minimap:HookScript('OnLeave', function(self)
-		if E.db.general.minimap.locationText ~= 'MOUSEOVER' or not E.private.general.minimap.enable then return; end
+		if E.db.sle.minimap.coords.display ~= 'MOUSEOVER' or not E.private.general.minimap.enable or not E.db.sle.minimap.enable then return; end
 		panel:Hide()
 	end)	
 	framescreated = true
@@ -60,7 +60,7 @@ function M:UpdateSettings()
 	panel:SetPoint('BOTTOM', Minimap, 'BOTTOM', 0, -(E.PixelMode and 1 or 2))
 	panel:Size(E.MinimapSize, 22)
 	panel:SetScript('OnUpdate', UpdateCoords)
-	if E.db.general.minimap.locationText ~= 'SHOW' or not E.private.general.minimap.enable then
+	if E.db.sle.minimap.coords.display ~= 'SHOW' or not E.private.general.minimap.enable or not E.db.sle.minimap.enable then
 		panel:Hide()
 	else
 		panel:Show()
