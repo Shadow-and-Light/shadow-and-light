@@ -1179,36 +1179,46 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.actionbar.fontOutline = 'OUTLINE'
 		E.db.actionbar.hotkeytext = false
 		E.db.actionbar.keyDown = false
+		
 		E.db.actionbar.bar1.point = "TOPLEFT"
 		E.db.actionbar.bar1.buttonsPerRow = 3
-		E.db.actionbar.bar1.buttonsize = 26
-		E.db.actionbar.bar1.backdrop = true
+		E.db.actionbar.bar1.buttonspacing = 1
+		E.db.actionbar.bar1.buttonsize = 23
+
 		E.db.actionbar.bar2.enabled = true
 		E.db.actionbar.bar2.point = "TOPLEFT"
-		E.db.actionbar.bar2.backdrop = true
 		E.db.actionbar.bar2.buttonsPerRow = 3
-		E.db.actionbar.bar2.buttonsize = 26
-		E.db.actionbar.bar2.visibility = "[petbattle] hide; show"
+		E.db.actionbar.bar2.buttonspacing = 1
+		E.db.actionbar.bar2.buttonsize = 23
+		E.db.actionbar.bar2.visibility = "[overridebar] hide; [petbattle] hide; show"
+		
 		E.db.actionbar.bar3.point = "TOPLEFT"
 		E.db.actionbar.bar3.buttons = 12
 		E.db.actionbar.bar3.buttonsPerRow = 3
-		E.db.actionbar.bar3.visibility = "[petbattle] hide; show"
-		E.db.actionbar.bar3.buttonsize = 26
-		E.db.actionbar.bar3.backdrop = true
-		E.db.actionbar.bar4.enabled = false
-		--E.db.actionbar.bar5.enabled = true
+		E.db.actionbar.bar3.buttonspacing = 1
+		E.db.actionbar.bar3.buttonsize = 23
+		E.db.actionbar.bar3.visibility = "[overridebar] hide; [petbattle] hide; show"
+		
+		E.db.actionbar.bar4.point = "TOPLEFT"
+		E.db.actionbar.bar4.buttonsPerRow = 6
+		E.db.actionbar.bar4.buttonspacing = 1
+		E.db.actionbar.bar4.buttonsize = 23
+		E.db.actionbar.bar4.visibility = "[overridebar] hide; [petbattle] hide; show"
+		E.db.actionbar.bar4.backdrop = false
+		
+		E.db.actionbar.bar5.point = "TOPLEFT"
 		E.db.actionbar.bar5.buttons = 12
-		E.db.actionbar.bar5.buttonspacing = 2
-		E.db.actionbar.bar5.mouseover = true
-		E.db.actionbar.bar5.buttonsize = 24
-		E.db.actionbar.bar5.backdrop = true
+		E.db.actionbar.bar5.buttonspacing = 1
+		E.db.actionbar.bar5.buttonsize = 23
+		E.db.actionbar.bar5.visibility = "[overridebar] hide; [petbattle] hide; show"
+		
 		E.db.actionbar.microbar.enabled = true
-		E.db.actionbar.microbar.buttonsPerRow = 2
-		E.db.actionbar.microbar.alpha = 0.2
-		E.db.actionbar.stanceBar.buttonspacing = 2
-		E.db.actionbar.stanceBar.backdrop = true
-		E.db.actionbar.stanceBar.buttonsPerRow = 1
-		E.db.actionbar.stanceBar.buttonsize = 22
+		E.db.actionbar.microbar.buttonsPerRow = 6
+		E.db.actionbar.microbar.mouseover = true
+		
+		E.db.actionbar.stanceBar.buttonspacing = 1
+		E.db.actionbar.stanceBar.buttonsize = 16
+		
 		E.db.actionbar.barPet.point = "TOPLEFT"
 		E.db.actionbar.barPet.buttonspacing = 1
 		E.db.actionbar.barPet.backdrop = false
@@ -1217,17 +1227,10 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	end
 
 	--Raid marks--
+	E.db.sle.marks.enabled = true
 	E.db.sle.marks.growth = "LEFT"
-
-	--Background Frames--
-	E.db.sle.backgrounds.right.enabled = true
-	E.db.sle.backgrounds.right.pethide = false
-	E.db.sle.backgrounds.right.xoffset = 70
-	E.db.sle.backgrounds.right.yoffset = -2
-	E.db.sle.backgrounds.left.enabled = true
-	E.db.sle.backgrounds.left.pethide = false
-	E.db.sle.backgrounds.left.xoffset = -70
-	E.db.sle.backgrounds.left.yoffset = -2
+	E.db.sle.marks.backdrop = false
+	E.db.sle.marks.size = 16
 
 	--Exp/Rep Bars--
 	E.db.sle.exprep.explong = true
@@ -1238,94 +1241,117 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 
 	--Loot History--
 	E.db.sle.lootwin = true
-	E.db.sle.lootalpha = 0.5
+	E.db.sle.lootalpha = 0.9
 
 	--Errors--
 	E.db.sle.errors = true
 
 	--UI Buttons--
 	E.db.sle.uibuttons.enable = true
+	E.db.sle.uibuttons.mouse = true
+	
+	--Farm--
+	E.db.sle.farm.size = 23
+	E.db.sle.farm.autotarget = true
+	E.db.sle.farm.quest = true
+	E.db.sle.farm.seedor = "BOTTOM"
+	
+	--LocationLite--
+	if not E.db.loclite then E.db.loclite = {} end
+	E.db.loclite.lpfontsize = 10,
+	E.db.loclite.lpfontflags = "OUTLINE",
+	E.db.loclite.lpwidth = 300,
+	E.db.loclite.dig = false,
+	E.db.loclite.lpauto = false,
+	E.db.loclite.trans = true
 
 	--Moving stuff--
 	do
 		if layout == "healer" then
-			E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-313245"
-			E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM0177"
-			E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM313245"
-			E.db.movers.ElvUF_TargetCastbarMover = "BOTTOMElvUIParentBOTTOM0196"
-			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM271220"
-			E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM-270210"
-			E.db.movers.ElvUF_PetTargetMover = "BOTTOMElvUIParentBOTTOM-270185"
-			E.db.movers.PetAB = "BOTTOMElvUIParentBOTTOM-275143"
-			E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT547298"
-			E.db.movers.TempEnchantMover = "BOTTOMElvUIParentBOTTOM-243309"
-			E.db.movers.ElvUF_PartyMover = "BOTTOMElvUIParentBOTTOM0251"
-			E.db.movers.ElvUF_Raid10Mover = "BOTTOMElvUIParentBOTTOM0215"
-			E.db.movers.ElvUF_Raid25Mover = "BOTTOMElvUIParentBOTTOM0215"
-			E.db.movers.ElvUF_Raid40Mover = "BOTTOMElvUIParentBOTTOM0215"
-			E.db.movers.ElvUF_TankMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT428245"
-			E.db.movers.BossButton = "BOTTOMLEFTElvUIParentBOTTOMLEFT326268"
+			E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-308176"
+			E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM-102135"
+			E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM308176"
+			E.db.movers.ElvUF_TargetCastbarMover = "BOTTOMElvUIParentBOTTOM102135"
+			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-446190"
+			E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM308118"
+			E.db.movers.ElvUF_FocusTargetMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-445126"
+			E.db.movers.ElvUF_PetMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT547147"
+			E.db.movers.ElvUF_PetTargetMover = "BOTTOMElvUIParentBOTTOM-254147"
+			E.db.movers.PetAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT547105"
+			E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT438199"
+			E.db.movers.TempEnchantMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT474164"
+			E.db.movers.ElvUF_PartyMover = "BOTTOMElvUIParentBOTTOM0183"
+			E.db.movers.ElvUF_Raid10Mover = "BOTTOMElvUIParentBOTTOM0156"
+			E.db.movers.ElvUF_Raid25Mover = "BOTTOMElvUIParentBOTTOM0156"
+			E.db.movers.ElvUF_Raid40Mover = "BOTTOMElvUIParentBOTTOM0156"
+			E.db.movers.ElvUF_TankMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT428228"
+			E.db.movers.BossButton = "BOTTOMElvUIParentBOTTOM2389"
+			E.db.movers.BNETMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-42743"
 		else
-			E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-228192"
-			E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM0194"
-			E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM228192"
-			E.db.movers.ElvUF_TargetCastbarMover = "BOTTOMElvUIParentBOTTOM228169"
-			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT-835169"
-			E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM-264157"
-			E.db.movers.ElvUF_PetTargetMover = "BOTTOMLEFTUIParentBOTTOMLEFT835169"
-			E.db.movers.PetAB = "BOTTOMElvUIParentBOTTOM-275115"
-			E.db.movers.TotemBarMover = "BOTTOMElvUIParentBOTTOM-275245"
-			E.db.movers.TempEnchantMover = "BOTTOMElvUIParentBOTTOM-158255"
-			E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0245"
-			E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0245"
-			E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0245"
-			E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0245"	
-			E.db.movers.BossButton = "BOTTOMElvUIParentBOTTOM0237"
+			E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-214158"
+			E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM0135"
+			E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM214158"
+			E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM17497"
+			E.db.movers.ElvUF_FocusMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-448158"
+			E.db.movers.ElvUF_FocusTargetMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-450106"
+			E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM-266129"
+			E.db.movers.ElvUF_PetTargetMover = "BOTTOMElvUIParentBOTTOM-161129"
+			E.db.movers.PetAB = "BOTTOMElvUIParentBOTTOM-26685"
+			E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT613100"
+			E.db.movers.TempEnchantMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT540174"
+			E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0212"
+			E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0212"
+			E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0212"
+			E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0212"	
+			E.db.movers.BossButton = "BOTTOMElvUIParentBOTTOM0195"
+			E.db.movers.BNETMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-42753"
 		end
-		E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM019"
-		E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM8519"
-		E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM-8519"
-		E.db.movers.ElvAB_4 = "TOPRIGHTUIParentTOPRIGHT-311-319"
-		E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-24919"
-		E.db.movers.MinimapMover = "TOPRIGHTElvUIParentTOPRIGHT2-18"
-		E.db.movers.UIBFrameMover = "TOPLEFTElvUIParentTOPLEFT0-451"
-		E.db.movers.WatchFrameMover = "TOPRIGHTUIParentTOPRIGHT-237-231"
-		E.db.movers.BossHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-1-217"
-		E.db.movers.ArenaHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-1-217"
+		E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM020"
+		E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM7320"
+		E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM-7320"
+		E.db.movers.ElvAB_4 = "BOTTOMElvUIParentBOTTOM-18220"
+		E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM18220"
+		E.db.movers.MinimapMover = "TOPRIGHTElvUIParentTOPRIGHT2-19"
+		E.db.movers.UIBFrameMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-426112"
+		E.db.movers.WatchFrameMover = "TOPRIGHTElvUIParentTOPRIGHT-219-208"
+		E.db.movers.BossHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-2-199"
+		E.db.movers.ArenaHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-2-200"
 		E.db.movers.PetBattleABMover = "BOTTOMElvUIParentBOTTOM019"
-		E.db.movers.ShiftAB = "BOTTOMElvUIParentBOTTOM-14019"
+		E.db.movers.ShiftAB = "BOTTOMElvUIParentBOTTOM-16168"
 		if UnitLevel('player') == 90 then
 			E.db.movers.ExperienceBarMover = "TOPElvUIParentTOP0-19"
 			E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-19"
-			E.db.movers.PvPMover = "TOPElvUIParentTOP-5-50"
-			E.db.movers.LocationMover = "TOPElvUIParentTOP0-30"
-			E.db.movers.LocationLiteMover = "TOPElvUIParentTOP0-30"
-			E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-32"
+			E.db.movers.PvPMover = "TOPElvUIParentTOP0-48"
+			E.db.movers.LocationMover = "TOPElvUIParentTOP0-28"
+			E.db.movers.LocationLiteMover = "TOPElvUIParentTOP0-28"
+			E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-105"
 		else
 			E.db.movers.ExperienceBarMover = "TOPElvUIParentTOP0-19"
-			E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-30"
-			E.db.movers.LocationMover = "TOPElvUIParentTOP0-41"
-			E.db.movers.LocationLiteMover = "TOPElvUIParentTOP0-41"
-			E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-43"
-			E.db.movers.PvPMover = "TOPElvUIParentTOP-5-61"
+			E.db.movers.ReputationBarMover = "TOPElvUIParentTOP0-28"
+			E.db.movers.LocationMover = "TOPElvUIParentTOP0-37"
+			E.db.movers.LocationLiteMover = "TOPElvUIParentTOP0-37"
+			E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-113"
+			E.db.movers.PvPMover = "TOPElvUIParentTOP0-57"
 		end
-		E.db.movers.MarkMover = "BOTTOMElvUIParentBOTTOM0132"
-		E.db.movers.MicrobarMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT2244"
-		E.db.movers.LootFrameMover = "TOPLEFTUIParentTOPLEFT60-360"
-		E.db.movers.AurasMover = "TOPRIGHTElvUIParentTOPRIGHT-208-19"
-		E.db.movers.BagsMover = "TOPLEFTUIParentTOPLEFT0-19"
-		E.db.movers.GMMover = "TOPLEFTElvUIParentTOPLEFT402-19"
-		E.db.movers.BNETMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT0479"
-		E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM239103"
-		E.db.movers.ElvUF_FocusTargetMover = "BOTTOMElvUIParentBOTTOM23934"
-		E.db.movers.VehicleSeatMover = "TOPLEFTElvUIParentTOPLEFT185-38"
-		E.db.movers.DP_5_Mover = "BOTTOMElvUIParentBOTTOM-3050"
-		E.db.movers.DP_6_Mover = "BOTTOMElvUIParentBOTTOM3050"
+		E.db.movers.MarkMover = "BOTTOMElvUIParentBOTTOM0115"
+		E.db.movers.MicrobarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT55620"
+		E.db.movers.LootFrameMover = "TOPLEFTElvUIParentTOPLEFT238-329"
+		E.db.movers.AurasMover = "TOPRIGHTElvUIParentTOPRIGHT-201-18"
+		E.db.movers.GMMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT0454"
+		E.db.movers.VehicleSeatMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT42419"
+		E.db.movers.DP_1_Mover = "TOPLEFTElvUIParentTOPLEFT00"
+		E.db.movers.DP_2_Mover = "TOPLEFTElvUIParentTOPLEFT3850"
+		E.db.movers.DP_3_Mover = "TOPRIGHTElvUIParentTOPRIGHT-3850"
+		E.db.movers.DP_4_Mover = "TOPRIGHTElvUIParentTOPRIGHT00"
+		E.db.movers.DP_5_Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4110"
+		E.db.movers.DP_6_Mover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-4110"
+		E.db.movers.Bottom_Panel_Mover = "BOTTOMElvUIParentBOTTOM00"
 		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT019"
 		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT019"
-		E.db.movers.Dashboard = "TOPLEFTElvUIParentTOPLEFT0-19"
-		E.db.movers.RaidUtility_Mover = "TOPElvUIParentTOP-283-19"
-		E.db.movers.AltPowerBarMover = "TOPElvUIParentTOP0-135"
+		E.db.movers.RaidUtility_Mover = "TOPElvUIParentTOP-305-19"
+		E.db.movers.AltPowerBarMover = "TOPElvUIParentTOP0-238"
+		E.db.movers.FarmSeedAnchor = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-300211"
+		E.db.movers.FarmToolAnchor = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-175211"
 	end
 
 	E:UpdateAll(true)
