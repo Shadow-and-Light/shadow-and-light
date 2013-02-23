@@ -1729,6 +1729,8 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	--Chat
 	E.db.chat.editBoxPosition = "ABOVE_CHAT"
 	E.db.chat.emotionIcons = false
+	E.db.chat.panelBackdropNameLeft = "Interface\\AddOns\\ElvUI_SLE\\media\\textures\\bl_logo.tga"
+	E.db.chat.panelBackdropNameRight = "Interface\\AddOns\\ElvUI_SLE\\media\\textures\\bl_logo.tga"
 	if GetScreenWidth() < 1920 then
 		E.db.chat.panelWidth = 380
 	else
