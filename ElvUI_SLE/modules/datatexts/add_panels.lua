@@ -33,7 +33,7 @@ function LO:Initialize()
 	DTP:Resize()
 	
 	for _,v in pairs(panels) do
-		E:CreateMover(v[5], v[2].."_Mover", L[v[2]], nil, nil, nil, "ALL,S&L,S&L DT")
+		E:CreateMover(v[5], v[2].."_Mover", L[v[2]], nil, nil, nil, "S&L,S&L DT")
 	end
 end
 
