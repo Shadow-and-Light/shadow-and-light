@@ -38,6 +38,17 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 - PvP Auto Release
 - Skinned Raid Marker Bar
 
+<font color="#3e8ac6"><b>Affinitii's WeakAura Pastebin</b></font>
+- <a href="http://pastebin.com/e5w4XqYp">All-in-One Pastebin</a>
+- <a href="http://pastebin.com/wMHNGRv8">Monk Related</a>
+- <a href="http://pastebin.com/BmphMbuj">Druid Mainbar</a>
+- <a href="http://pastebin.com/E7LxNmPU">Paladin Mainbar</a>
+- <a href="http://pastebin.com/uMPJjsK9">Priest Mainbar</a>
+- <a href="http://pastebin.com/nFUtDkBN">Shaman Mainbar</a>
+- <a href="http://pastebin.com/Q6Jfbr7s">Debuffs</a>
+- <a href="http://pastebin.com/Nz5ZaaLZ">Misc Stuff</a>
+- <a href="http://pastebin.com/FXGHbmwj">Rapture Group</a>
+
 <font color="#3e8ac6"><b>Skins:</b></font>
 - Boss Button Texture Removed
 - <a href="http://www.curse.com/addons/wow/notes">Nirriti's Notes Skin</a>
