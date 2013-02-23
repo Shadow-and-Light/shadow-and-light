@@ -4,36 +4,50 @@ local M = E:GetModule('Minimap')
 local GetPlayerMapPosition = GetPlayerMapPosition
 local framescreated = false
 local panel, xpos, ypos
+local middle
 
 local function UpdateCoords(self, elapsed)
 	panel.elapsed = (panel.elapsed or 0) + elapsed
 	if panel.elapsed < .1 then return end
 
 	xpos.pos, ypos.pos = GetPlayerMapPosition('player')
-	xpos.text:SetFormattedText('%.2f', xpos.pos * 100)
+	xpos.text:SetFormattedText(E.db.sle.minimap.middle and '%.2f/' or '%.2f', xpos.pos * 100)
 	ypos.text:SetFormattedText('%.2f', ypos.pos * 100)
 
 	panel.elapsed = 0
 end
 
-local function CreateCoordsFrame()
+local function UpdatePosition(middle)
+	xpos:ClearAllPoints()
+	ypos:ClearAllPoints()
+	if middle then
+		xpos:Point('BOTTOMRIGHT', panel, 'BOTTOM',10, 0)
+	else
+		xpos:Point('LEFT', panel, 'LEFT', 2, 0)
+	end
+	if middle then
+		ypos:Point('BOTTOMLEFT', panel, 'BOTTOM', 0, 0)
+	else
+		ypos:Point('RIGHT', panel, 'RIGHT', 2, 0)
+	end
+end
+
+local function CreateCoordsFrame(middle)
 	panel = CreateFrame('Frame', 'EnhancedLocationPanel', E.UIParent)
 	panel:SetFrameStrata("MEDIUM")
 	panel:Point("CENTER", Minimap, "CENTER", 0, 0)
 	panel:Size(E.MinimapSize, 22)
 
 	xpos = CreateFrame('Frame', "MapCoordinatesX", panel)
-	xpos:Point('LEFT', panel, 'LEFT', 2, 0)
 	xpos:Size(40, 22)
-	
+
 	xpos.text = xpos:CreateFontString(nil, "OVERLAY")
 	xpos.text:FontTemplate(E.media.font, 12, "OUTLINE")
 	xpos.text:SetAllPoints(xpos)
 
 	ypos = CreateFrame('Frame', "MapCoordinatesY", panel)
-	ypos:Point('RIGHT', panel, 'RIGHT', -2, 0)
 	ypos:Size(40, 22)
-
+	
 	ypos.text = ypos:CreateFontString(nil, "OVERLAY")
 	ypos.text:FontTemplate(E.media.font, 12, "OUTLINE")
 	ypos.text:SetAllPoints(ypos)
@@ -47,19 +61,23 @@ local function CreateCoordsFrame()
 		panel:Hide()
 	end)	
 	framescreated = true
+	
+	UpdatePosition(middle)
 end
 
 M.UpdateSettingsSLE = M.UpdateSettings
 function M:UpdateSettings()
 	M.UpdateSettingsSLE(self)
+	middle = E.db.sle.minimap.middle
 
 	if not framescreated then
-		CreateCoordsFrame()
+		CreateCoordsFrame(middle)
 	end
 
 	panel:SetPoint('BOTTOM', Minimap, 'BOTTOM', 0, -(E.PixelMode and 1 or 2))
 	panel:Size(E.MinimapSize, 22)
 	panel:SetScript('OnUpdate', UpdateCoords)
+	UpdatePosition(middle)
 	if E.db.sle.minimap.coords.display ~= 'SHOW' or not E.private.general.minimap.enable or not E.db.sle.minimap.enable then
 		panel:Hide()
 	else

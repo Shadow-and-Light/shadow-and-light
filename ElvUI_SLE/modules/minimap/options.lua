@@ -43,6 +43,15 @@ local function configTable()
 						},
 						disabled = function() return not E.db.sle.minimap.enable end,
 					},
+					middle = {
+						order = 3,
+						type = "toggle",
+						name = L["Coords in the middle"],
+						desc = L['If enabled will show coordinates in the center of minimaps lower border. Otherwise in the lower corners.'],
+						disabled = function() return not E.db.sle.minimap.enable end,
+						get = function(info) return E.db.sle.minimap.middle end,
+						set = function(info, value) E.db.sle.minimap.middle = value; E:GetModule('Minimap'):UpdateSettings() end,
+					},
 				},
 			},
 			buttons = {

@@ -156,6 +156,7 @@ P['sle'] = {
 		['enable'] = false,
 		['coords'] = {
 			['display'] = "SHOW",
+			['middle'] = false,
 		},
 		['buttons'] = {
 			['anchor'] = "NOANCHOR",
