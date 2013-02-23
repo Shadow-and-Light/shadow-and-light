@@ -1743,8 +1743,6 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	--Chat
 	E.db.chat.editBoxPosition = "ABOVE_CHAT"
 	E.db.chat.emotionIcons = false
-	E.db.chat.panelBackdropNameLeft = "Interface\\AddOns\\ElvUI_SLE\\media\\textures\\bl_logo.tga"
-	E.db.chat.panelBackdropNameRight = "Interface\\AddOns\\ElvUI_SLE\\media\\textures\\bl_logo.tga"
 	if GetScreenWidth() < 1920 then
 		E.db.chat.panelWidth = 380
 	else
@@ -1849,7 +1847,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 
 
 	E.db.unitframe.units.raid10.columnAnchorPoint = "BOTTOM"
-	E.db.unitframe.units.raid10.buffIndicator.fontSize = 11
+	E.db.unitframe.units.raid10.buffIndicator.fontSize = 10
 	E.db.unitframe.units.raid10.point = "RIGHT"
 	E.db.unitframe.units.raid10.rdebuffs.enable = false
 	E.db.unitframe.units.raid10.yOffset = 4
@@ -1885,7 +1883,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid10.buffs.sizeOverride = 22
 
 	E.db.unitframe.units.raid25.columnAnchorPoint = "RIGHT"
-	E.db.unitframe.units.raid25.buffIndicator.fontSize = 11
+	E.db.unitframe.units.raid25.buffIndicator.fontSize = 10
 	E.db.unitframe.units.raid25.point = "BOTTOM"
 	E.db.unitframe.units.raid25.rdebuffs.enable = false
 	E.db.unitframe.units.raid25.xOffset = 1
@@ -1935,7 +1933,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid40.raidicon.attachTo = "LEFT"
 	E.db.unitframe.units.raid40.rdebuffs.size = 26
 	E.db.unitframe.units.raid40.name.position = "TOP"
-	E.db.unitframe.units.raid40.buffIndicator.fontSize = 11
+	E.db.unitframe.units.raid40.buffIndicator.fontSize = 10
 	E.db.unitframe.units.raid40.power.enable = true
 	E.db.unitframe.units.raid40.power.offset = 7
 	E.db.unitframe.units.raid40.health.text_format = "[healthcolor][health:deficit]"
