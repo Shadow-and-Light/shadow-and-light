@@ -3,7 +3,7 @@ local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Pr
 local function configTable()
 	E.Options.args.sle.args.minimap = {
 		type = "group",
-		name = L["Minimap"],
+		name = MINIMAP_LABEL,
 		order = 2,
 		args = {
 			header = {
@@ -27,7 +27,6 @@ local function configTable()
 						order = 1,
 						type = "toggle",
 						name = L["Enable"],
-						desc = L["Enable/Disable Minimap Coords"],
 						get = function(info) return E.db.sle.minimap.enable end,
 						set = function(info, value) E.db.sle.minimap.enable = value; E:GetModule('Minimap'):UpdateSettings() end,
 					},
