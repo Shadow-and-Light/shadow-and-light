@@ -165,6 +165,25 @@ L["Sets size of buttons"] = true --Also used in UI buttons
 L["Direction"] = true
 L["Change the direction of buttons growth from the skull marker"] = true
 
+--Minimap--
+L["Minimap"] = true
+L["Minimap Options"] = true
+L['MINIMAP_DESC'] = "These options effect various aspects of the minimap.  Some options may not work if you disable minimap in the General section of ElvUI config."
+L["Enable/Disable Minimap Coords"] = true
+L["Minimap Coordinates"] = true
+L['Coords Display'] = true
+L['Change settings for the display of the coordinates that are on the minimap.'] = true
+L['Hide'] = true
+L["Minimap Buttons"] = true
+L['Enable/Disable minimap button skinning.'] = true
+L['Anchor Setting'] = true
+L['Anchor mode for displaying the minimap buttons are skinned.'] = true
+L['Horizontal Bar'] = true
+L['Vertical Bar'] = true
+L['Button Size'] = true
+L['The size of the minimap buttons when not anchored to the minimap.'] = true
+L['Show minimap buttons on mouseover.'] = true
+
 --Raid Utility--
 L["Raid Utility"] = true
 

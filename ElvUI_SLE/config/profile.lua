@@ -157,6 +157,11 @@ P['sle'] = {
 		['coords'] = {
 			['display'] = "SHOW",
 		},
+		['buttons'] = {
+			['anchor'] = "NOANCHOR",
+			['size'] = 24,
+			['mouseover'] = false,
+		},
 	},
 
 	--Power text on classbars

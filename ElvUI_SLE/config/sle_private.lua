@@ -52,4 +52,11 @@ V['sle'] = {
 		['instance'] = "NONE",
 		['pvp'] = "NONE",
 	},
+
+	--Minimap Moduel
+	['minimap'] = {
+		['buttons'] = {
+			['enable'] = true,
+		},
+	},
 }
