@@ -33,7 +33,7 @@ local function UpdatePosition(middle)
 end
 
 local function CreateCoordsFrame(middle)
-	panel = CreateFrame('Frame', 'EnhancedLocationPanel', E.UIParent)
+	panel = CreateFrame('Frame', 'CoordsPanel', E.UIParent)
 	panel:SetFrameStrata("MEDIUM")
 	panel:Point("CENTER", Minimap, "CENTER", 0, 0)
 	panel:Size(E.MinimapSize, 22)
