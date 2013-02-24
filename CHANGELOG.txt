@@ -3,7 +3,7 @@ v1.5
 - Some typos fixed
 - Datatext panels can now be transparent
 - Background frames no longer have offset options, now they have own movers
-- Movers created by S&L now are grouped by own categories just like in ElvUI itself (Note: background fremes' movers are available ONLY in those groups)
+- Movers created by S&L now are grouped by own categories just like in ElvUI itself (Note: background frames' movers are available ONLY in those groups)
 - Raid Marks now properly update setting on profile change
 - Raid Marks module now has an option to hide backdrop for it's main panel
 - Added Item Level overlay on item slots
