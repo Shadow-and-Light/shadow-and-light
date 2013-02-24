@@ -11,7 +11,7 @@ local function UpdateCoords(self, elapsed)
 	if panel.elapsed < .1 then return end
 
 	xpos.pos, ypos.pos = GetPlayerMapPosition('player')
-	xpos.text:SetFormattedText(E.db.sle.minimap.middle and '%.2f/' or '%.2f', xpos.pos * 100)
+	xpos.text:SetFormattedText(E.db.sle.minimap.middle == "CENTER" and '%.2f/' or '%.2f', xpos.pos * 100)
 	ypos.text:SetFormattedText('%.2f', ypos.pos * 100)
 
 	panel.elapsed = 0
@@ -20,12 +20,12 @@ end
 local function UpdatePosition(middle)
 	xpos:ClearAllPoints()
 	ypos:ClearAllPoints()
-	if middle then
+	if middle == "CENTER" then
 		xpos:Point('BOTTOMRIGHT', panel, 'BOTTOM',10, 0)
 	else
 		xpos:Point('LEFT', panel, 'LEFT', 2, 0)
 	end
-	if middle then
+	if middle == "CENTER" then
 		ypos:Point('BOTTOMLEFT', panel, 'BOTTOM', 0, 0)
 	else
 		ypos:Point('RIGHT', panel, 'RIGHT', 2, 0)
