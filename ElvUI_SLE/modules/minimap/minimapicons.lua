@@ -173,7 +173,7 @@ function SMB:UpdateLayout()
 		lastFrame = frame
 	end
 	
-	if E.db.sle.minimap.buttons.anchor ~= 'NOANCHOR' then
+	if E.db.sle.minimap.buttons.anchor ~= 'NOANCHOR' and #moveButtons > 0 then
 		if E.db.sle.minimap.buttons.anchor == "HORIZONTAL" then
 			minimapButtonBar:Width((E.db.sle.minimap.buttons.size * #moveButtons) + (2 * #moveButtons + 1) + 1)
 		else
