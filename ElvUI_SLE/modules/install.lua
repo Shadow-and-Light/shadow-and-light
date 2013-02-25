@@ -1839,12 +1839,12 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.party.buffs.yOffset = 28
 	E.db.unitframe.units.party.buffs.xOffset = 30
 	E.db.unitframe.units.party.buffs.sizeOverride = 22
+	E.db.unitframe.units.party.groupBy = "GROUP"
 	E.db.unitframe.colors.auraBarBuff = {
 		["r"] = 0.3098039215686275,
 		["g"] = 0.07843137254901961,
 		["b"] = 0.09411764705882353,
 	}
-
 
 	E.db.unitframe.units.raid10.columnAnchorPoint = "BOTTOM"
 	E.db.unitframe.units.raid10.buffIndicator.fontSize = 10
@@ -1881,6 +1881,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid10.buffs.yOffset = 28
 	E.db.unitframe.units.raid10.buffs.xOffset = 30
 	E.db.unitframe.units.raid10.buffs.sizeOverride = 22
+	E.db.unitframe.units.raid10.groupBy = "GROUP"
 
 	E.db.unitframe.units.raid25.columnAnchorPoint = "RIGHT"
 	E.db.unitframe.units.raid25.buffIndicator.fontSize = 10
@@ -1918,6 +1919,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid25.buffs.yOffset = 28
 	E.db.unitframe.units.raid25.buffs.xOffset = 30
 	E.db.unitframe.units.raid25.buffs.sizeOverride = 22
+	E.db.unitframe.units.raid25.groupBy = "GROUP"
 
 	E.db.unitframe.units.raid40.columnAnchorPoint = "RIGHT"
 	E.db.unitframe.units.raid40.point = "BOTTOM"
@@ -1959,6 +1961,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid40.buffs.useBlacklist = false
 	E.db.unitframe.units.raid40.buffs.enable = true
 	E.db.unitframe.units.raid40.name.text_format = "[namecolor][name:veryshort]"
+	E.db.unitframe.units.raid40.groupBy = "GROUP"
 
 	--Actionbars
 	--Bar 1
@@ -2042,7 +2045,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		E.db.datatexts.panels['LeftChatDataPanel']['middle'] = ""
 		E.db.datatexts.panels['LeftChatDataPanel']['right'] = ""
 		E.db.datatexts.panels['RightChatDataPanel']['left'] = "Skada"
-		E.db.datatexts.panels['RightChatDataPanel']['middle'] = "BigWigs"
+		E.db.datatexts.panels['RightChatDataPanel']['middle'] = "Combat Time"
 		E.db.datatexts.panels['RightChatDataPanel']['right'] = "WeakAuras"
 		E.db.datatexts.panels['Top_Center'] = "Durability"
 		E.db.datatexts.panels['Bottom_Panel'] = "Bags"
