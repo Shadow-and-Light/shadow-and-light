@@ -2047,7 +2047,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		E.db.datatexts.panels['RightChatDataPanel']['left'] = "Skada"
 		E.db.datatexts.panels['RightChatDataPanel']['middle'] = "Combat Time"
 		E.db.datatexts.panels['RightChatDataPanel']['right'] = "WeakAuras"
-		E.db.datatexts.panels['Top_Center'] = "Durability"
+		E.db.datatexts.panels['Top_Center'] = "Spec Switch"
 		E.db.datatexts.panels['Bottom_Panel'] = "Bags"
 		E.db.datatexts.panels['LeftMiniPanel'] = "Guild"
 		E.db.datatexts.panels['RightMiniPanel'] = "Friends"
