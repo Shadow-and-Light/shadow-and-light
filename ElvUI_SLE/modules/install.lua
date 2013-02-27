@@ -1953,6 +1953,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid40.buffs.yOffset = 25
 	E.db.unitframe.units.raid40.buffs.anchorPoint = "BOTTOMLEFT"
 	E.db.unitframe.units.raid40.buffs.clickThrough = true
+	E.db.unitframe.units.raid40.buffs.noConsolidated = false
 	E.db.unitframe.units.raid40.buffs.noDuration = false
 	E.db.unitframe.units.raid40.buffs.playerOnly = false
 	E.db.unitframe.units.raid40.buffs.perrow = 1
