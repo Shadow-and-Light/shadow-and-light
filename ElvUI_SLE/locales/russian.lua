@@ -154,6 +154,7 @@ L["Farm Seed Bars"] = "Панели семян"
 L["Farm Tool Bar"] = "Панель инструментов"
 L["Farm Portal Bar"] = "Панель порталов"
 L["Tilled Soil"] = "Возделанная земля"
+L['Right-click to drop the item.'] = "ПКМ для уничтожения предмета."
 
 --Marks--
 L["Raid Marks"] = "Рейдовые Метки"

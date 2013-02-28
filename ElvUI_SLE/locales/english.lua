@@ -155,6 +155,7 @@ L["Farm Seed Bars"] = true
 L["Farm Tool Bar"] = true
 L["Farm Portal Bar"] = true
 L["Tilled Soil"] = true
+L['Right-click to drop the item.'] = true
 
 --Marks--
 L["Raid Marks"] = true
