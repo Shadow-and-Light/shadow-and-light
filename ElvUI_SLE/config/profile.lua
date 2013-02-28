@@ -254,14 +254,14 @@ P['datatexts'] = {
 	
 	['panels'] = {
 		['LeftChatDataPanel'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
+			['left'] = 'Armor',
+			['middle'] = 'Durability',
+			['right'] = 'Avoidance',
 		},
 		['RightChatDataPanel'] = {
-			['left'] = '',
-			['middle'] = '',	
-			['right'] = '',
+			['left'] = 'System',
+			['middle'] = 'Time',	
+			['right'] = 'Gold',
 		},
 		['DP_1'] = {
 			['left'] = '',
@@ -315,14 +315,14 @@ P['datatexts'] = {
 	
 	['panels'] = {
 		['LeftChatDataPanel'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
+			['left'] = 'Armor',
+			['middle'] = 'Durability',
+			['right'] = 'Avoidance',
 		},
 		['RightChatDataPanel'] = {
-			['left'] = '',
-			['middle'] = '',	
-			['right'] = '',
+			['left'] = 'System',
+			['middle'] = 'Time',	
+			['right'] = 'Gold',
 		},
 		['DP_1'] = {
 			['left'] = '',
