@@ -870,7 +870,7 @@ function E:DarthSetup(private) --The function to switch from classic ElvUI setti
 		E.db.datatexts.panels.DP_3.left = 'Time';
 		E.db.datatexts.panels.DP_4.right = '';
 		E.db.datatexts.panels.DP_4.middle = '';
-		E.db.datatexts.panels.DP_4.left = '';
+		E.db.datatexts.panels.DP_4.left = 'Combat Time';
 		E.db.datatexts.panels.DP_5.middle = 'Gold';
 		E.db.datatexts.panels.DP_5.left = 'Bags';
 
