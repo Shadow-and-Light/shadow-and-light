@@ -364,7 +364,7 @@ function F:CreateFarmButton(index, owner, buttonType, name, texture, allowDrop, 
 	button.itemId = index
 	button.allowDrop = allowDrop
 	button.buttonType = buttonType
-	button.id = index
+	button.id = id
 	
 	button.icon = button:CreateTexture(nil, "OVERLAY")
 	button.icon:SetTexture(texture)
