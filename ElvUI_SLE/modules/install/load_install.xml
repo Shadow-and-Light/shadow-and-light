@@ -1,0 +1,9 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file='installer.lua'/>
+	<Script file='install.lua'/>
+	<Script file='BigWigs.lua'/>
+	<Script file='BigWigsFights.lua'/>
+	<Script file='BigWigsIcon.lua'/>
+	<Script file='Hermes.lua'/>
+	<Script file='xCT+.lua'/>
+</Ui>

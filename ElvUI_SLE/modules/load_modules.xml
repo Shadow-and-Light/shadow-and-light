@@ -1,5 +1,5 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file='install.lua'/>
+	<Include file='install\load_install.xml'/>
 	<Script file='options.lua'/>
 	<Script file='pvpmover\pvpmover.lua'/>
 	<Include file='autorelease\load_autorelease.xml'/>

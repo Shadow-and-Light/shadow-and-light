@@ -1,5 +1,7 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local UF = E:GetModule('UnitFrames');
+local AI = E:GetModule('AddonInstaller');
+
 local CURRENT_PAGE = 0
 local MAX_PAGE
 
@@ -1703,7 +1705,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E:UpdateAll(true)
 end
 
-function E:AffinitiiSetup() --The function to switch from class ElvUI settings to Affinitii's
+function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI settings to Affinitii's
 	InstallStepComplete.message = L["Affiniti's Defaults Set"]
 	InstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
@@ -1834,7 +1836,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.party.height = 45
 	E.db.unitframe.units.party.debuffs.xOffset = -4
 	E.db.unitframe.units.party.debuffs.yOffset = -7
-	E.db.unitframe.units.party.debuffs.anchorPoint = "TOPLEFT"
+	E.db.unitframe.units.party.debuffs.anchorPoint = "TOPRIGHT"
 	E.db.unitframe.units.party.debuffs.sizeOverride = 21
 	E.db.unitframe.units.party.buffs.yOffset = 28
 	E.db.unitframe.units.party.buffs.xOffset = 30
@@ -2103,13 +2105,13 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 			E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4200"
 			E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4200"
 			E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4200"
-			E.db.movers["BossButton"] = "CENTERElvUIParentCENTER-413183"
+			E.db.movers["BossButton"] = "CENTERElvUIParentCENTER-413188"
 		else
 			E.db.movers.ElvUF_PartyMover = "BOTTOMRIGHTElvUIParentCENTER-213-90"
 			E.db.movers.ElvUF_Raid10Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90"
 			E.db.movers.ElvUF_Raid25Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90"
 			E.db.movers.ElvUF_Raid40Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90"
-			E.db.movers["BossButton"] = "CENTERElvUIParentCENTER-413183"
+			E.db.movers["BossButton"] = "CENTERElvUIParentCENTER-413188"
 		end
 		
 		if GetScreenWidth() < 1920 then
@@ -2123,6 +2125,10 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		end
 	end
 
+	if loadAddons then
+		print("attempt to load addons")
+		AI:LoadAddons("Affinitii, All")
+	end
 	E:UpdateAll(true)
 end
 function E:HudSimple()
@@ -2303,7 +2309,7 @@ local function SetPage(PageNum)
 		InstallOption1Button:SetText(L["Darth's Config"])	
 
 		InstallOption2Button:Show()
-		InstallOption2Button:SetScript('OnClick', function() E:AffinitiiSetup() end)
+		InstallOption2Button:SetScript('OnClick', function() E:StaticPopup_Show("ELVUI_SLE_AFFINITII") end)
 		InstallOption2Button:SetText(L["Affinitii's Config"])
 
 		InstallOption3Button:Show()

@@ -81,7 +81,20 @@ E.PopupDialogs["ELVUI_SLE_REPOOC"] = {
 	timeout = 0,
 	whileDead = 1,
 }
-
+E.PopupDialogs["ELVUI_SLE_AFFINITII"] = {
+	text = L["Would you like to load Affinitii's additional addon settings? Note: This will add a new profile in the addons that he has settings for and set your current profile to the newly made profile."],
+	button1 = YES,
+	button2 = NO,
+	OnAccept = function(self)
+		E:AffinitiiSetup(true)
+	end,
+	OnCancel = function(self)
+		E:AffinitiiSetup(false)
+	end,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = false,
+}
 E.PopupDialogs["ELVUI_SLE_DARTH"] = {
 	text = L["Do you want to also apply character based settings?"],
 	button1 = YES,

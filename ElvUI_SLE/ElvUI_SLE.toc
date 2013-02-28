@@ -3,11 +3,11 @@
 ## Author: Darth Predator, Repooc
 ## Version: 1.42
 ## Notes: Plugin-edit for |cff1784d1ElvUI|r.
-## Notes-ruRU: Плагин-редакция для |cff1784d1ElvUI|r.
+## Notes-ruRU: Плагин-редакци�? дл�? |cff1784d1ElvUI|r.
 ## eMail: darthpred@gmail.com, repooc@tukui.org
 ## URL: http://tukui.org/ 
 ## RequiredDeps: ElvUI
-## OptionalDeps: iFilger_ConfigUI
+## OptionalDeps: iFilger_ConfigUI, BigWigs, Hermes, xCT+
 ## DefaultState: Enabled
 
 libs\load_libs.xml
