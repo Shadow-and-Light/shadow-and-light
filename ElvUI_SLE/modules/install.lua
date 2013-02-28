@@ -1365,8 +1365,8 @@ function E:DarthSetup(private) --The function to switch from classic ElvUI setti
 		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT019"
 		E.db.movers.RaidUtility_Mover = "TOPElvUIParentTOP-305-19"
 		E.db.movers.AltPowerBarMover = "TOPElvUIParentTOP0-238"
-		E.db.movers.FarmSeedAnchor = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-300211"
-		E.db.movers.FarmToolAnchor = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-175211"
+		E.db.movers.FarmSeedMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-300211"
+		E.db.movers.FarmToolMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-175211"
 	end
 
 	E:UpdateAll(true)
