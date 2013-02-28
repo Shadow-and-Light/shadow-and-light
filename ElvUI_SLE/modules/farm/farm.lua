@@ -315,8 +315,8 @@ local function onClick(self, mousebutton)
 	if mousebutton == "LeftButton" then
 		self:SetAttribute("type", self.buttonType)
 		self:SetAttribute(self.buttonType, self.sortname)
-		if id and id ~= 2 and id ~= 4 and E.db.sle.farm.autotarget and UnitName("target") ~= L["Tilled Soil"] then
-			F:AutoTarget(button)
+		if self.id and self.id ~= 2 and self.id ~= 4 and E.db.sle.farm.autotarget and UnitName("target") ~= L["Tilled Soil"] then
+			F:AutoTarget(self)
 		end
 		if self.cooldown then 
 			self.cooldown:SetCooldown(GetItemCooldown(self.itemId))
@@ -364,6 +364,7 @@ function F:CreateFarmButton(index, owner, buttonType, name, texture, allowDrop, 
 	button.itemId = index
 	button.allowDrop = allowDrop
 	button.buttonType = buttonType
+	button.id = index
 	
 	button.icon = button:CreateTexture(nil, "OVERLAY")
 	button.icon:SetTexture(texture)
