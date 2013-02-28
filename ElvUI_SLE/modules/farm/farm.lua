@@ -264,13 +264,17 @@ end
 function F:UpdateLayout(event)
 	if not SeedAnchor then return end
 	if event == "UNIT_QUEST_LOG_CHANGED" then E:Delay(1, F.UpdateLayout) end --For updating borders after quest was complited. for some reason events fires before quest disappeares from log
-	if InCombatLockdown() then return end
+	if InCombatLockdown() then
+		F:RegisterEvent("PLAYER_REGEN_ENABLED", "UpdateLayout")
+		return
+	end
 	F:UpdateBar(_G["FarmToolBar"], F.UpdateBarLayout, F.InFarmZone, ToolAnchor, toolButtons)
 	F:UpdateBar(_G["FarmPortalBar"], F.UpdateBarLayout, F.InFarmZone, PortalAnchor, portalButtons)
 	for i=1, 5 do
 		F:UpdateBar(_G[("FarmSeedBar%d"):format(i)], F.UpdateSeedBarLayout, F.InSeedZone, SeedAnchor, seedButtons[i], i)
 	end
 	F:ResizeFrames()
+	F:UnregisterEvent("PLAYER_REGEN_ENABLED")
 end
 
 function F:AutoTarget(button)
@@ -418,7 +422,6 @@ function F:CreateFrames()
 	F:UpdateLayout()
 	
 	F:RegisterEvent("ZONE_CHANGED", "UpdateLayout")
-	F:RegisterEvent("PLAYER_REGEN_ENABLED", "UpdateLayout")
 	F:RegisterEvent("BAG_UPDATE", "FarmerInventoryUpdate")
 	F:RegisterEvent("UNIT_QUEST_LOG_CHANGED", "UpdateLayout")
 end
