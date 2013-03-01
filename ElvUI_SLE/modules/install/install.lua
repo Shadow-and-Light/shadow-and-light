@@ -751,7 +751,7 @@ local function SetupAuras(style)
 end
 
 
-function E:DarthSetup(private) --The function to switch from classic ElvUI settings to Darth's
+function E:DarthSetup(loadAddons) --The function to switch from classic ElvUI settings to Darth's
 	InstallStepComplete.message = L["Darth's Defaults Set"]
 	InstallStepComplete:Show()
 	E:CopyTable(E.db, P)
@@ -1272,7 +1272,7 @@ function E:DarthSetup(private) --The function to switch from classic ElvUI setti
 	E.db.loclite.trans = true
 	
 	--Loading private settings--
-	if private then
+		E.private.general.dmgfont = "ElvUI Font"
 		E.private.sle.farm.enable = true
 		E.private.sle.farm.seedtrash = true
 		E.private.sle.equip.spam = true
@@ -1282,7 +1282,6 @@ function E:DarthSetup(private) --The function to switch from classic ElvUI setti
 		E.private.skins.addons.EmbedSkada = true
 		E.private.skins.addons.EmbedOoC = true
 		E.private.skins.addons.AlwaysTrue = true
-	end
 
 	--Moving stuff--
 	do
@@ -1373,6 +1372,10 @@ function E:DarthSetup(private) --The function to switch from classic ElvUI setti
 		E.db.movers.FarmToolMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-175211"
 	end
 
+	if loadAddons then
+		AI:LoadAddons("Darth, All")
+	end
+	
 	E:UpdateAll(true)
 end
 
