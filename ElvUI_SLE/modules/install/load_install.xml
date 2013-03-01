@@ -5,6 +5,7 @@
 	<Script file='BigWigsFights.lua'/>
 	<Script file='BigWigsIcon.lua'/>
 	<Script file='Clique.lua'/>
+	<Script file='ElvUIFilters.lua'/>
 	<Script file='Hermes.lua'/>
 	<Script file='xCT+.lua'/>
 </Ui>
