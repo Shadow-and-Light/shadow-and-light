@@ -7,7 +7,7 @@
 ## eMail: darthpred@gmail.com, repooc@tukui.org
 ## URL: http://tukui.org/ 
 ## RequiredDeps: ElvUI
-## OptionalDeps: iFilger_ConfigUI, BigWigs, Hermes, xCT+
+## OptionalDeps: iFilger_ConfigUI, BigWigs, Clique, Hermes, xCT+
 ## DefaultState: Enabled
 
 libs\load_libs.xml

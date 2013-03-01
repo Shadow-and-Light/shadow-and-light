@@ -373,9 +373,3 @@ end
 P.unitframe.units.player.classbar.xOffset = 0
 P.unitframe.units.player.classbar.yOffset = 0
 P.unitframe.units.player.classbar.offset = false
-P.unitframe.units.player.fixTo = "health"
-P.unitframe.units.target.fixTo = "health"
-P.unitframe.units.targettarget.fixTo = "health"
-P.unitframe.units.focus.fixTo = "health"
-P.unitframe.units.arena.fixTo = "health"
-P.unitframe.units.boss.fixTo = "health"

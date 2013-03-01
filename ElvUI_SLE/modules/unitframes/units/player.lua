@@ -1,5 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 if not E.private.unitframe.enable then return end
+
 local UF = E:GetModule('UnitFrames');
 local SLE = E:GetModule('SLE');
 
@@ -34,7 +35,9 @@ function UF:Update_PlayerFrame(frame, db)
 	local UNIT_HEIGHT = db.height
 
 	local USE_POWERBAR = db.power.enable
-	local USE_MINI_POWERBAR = db.power.width ~= 'fill' and USE_POWERBAR
+	--local USE_MINI_POWERBAR = db.power.width ~= 'fill' and USE_POWERBAR
+	local USE_INSET_POWERBAR = db.power.width == 'inset' and USE_POWERBAR
+	local USE_MINI_POWERBAR = db.power.width == 'spaced' and USE_POWERBAR
 	local USE_POWERBAR_OFFSET = db.power.offset ~= 0 and USE_POWERBAR
 	local POWERBAR_OFFSET = db.power.offset
 	local POWERBAR_HEIGHT = db.power.height
@@ -50,7 +53,7 @@ function UF:Update_PlayerFrame(frame, db)
 	local PORTRAIT_WIDTH = db.portrait.width
 	
 	local unit = self.unit
-	
+	--[[
 	--Power Text
 	if E.db.unitframe.units.player.fixTo == "power" then
 		local x, y = self:GetPositionOffset(db.power.position)
@@ -58,7 +61,7 @@ function UF:Update_PlayerFrame(frame, db)
 		power.value:Point(db.power.position, frame.Power, db.power.position, x, y)		
 		frame:Tag(power.value, db.power.text_format)
 	end
-	
+	]]
 	if not E.db.unitframe.units.player.classbar.offset then return end --Checking for offset option enabled
 	--All this crap is needed to be copied from Elv's player.lua to avoid graphical bugs
 	--Adjust some variables

@@ -156,12 +156,6 @@ function SLE:Reset(all, uf, dt, bg, mark)
 	if uf then
 		E.db.sle.combatico.pos = 'TOP'
 		E:CopyTable(E.db.unitframe.units.player.classbar, P.unitframe.units.player.classbar)
-		E.db.unitframe.units.player.fixTo = "health"
-		E.db.unitframe.units.target.fixTo = "health"
-		E.db.unitframe.units.targettarget.fixTo = "health"
-		E.db.unitframe.units.focus.fixTo = "health"
-		E.db.unitframe.units.arena.fixTo = "health"
-		E.db.unitframe.units.boss.fixTo = "health"
 		E.db.sle.powtext = false
 	end
 	if dt then
