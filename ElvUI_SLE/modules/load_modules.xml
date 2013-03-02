@@ -17,5 +17,4 @@
 	<Include file='tooltip\load_tooltip.xml'/>
 	<Include file='uibuttons\load_uibuttons.xml'/>
 	<Include file='unitframes\load_unitframes.xml'/>
-	<Script file='test.lua'/>
 </Ui>
