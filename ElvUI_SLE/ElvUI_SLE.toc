@@ -18,3 +18,4 @@ modules\load_modules.xml
 skins\load_skins.xml
 config\load_config.xml
 layout\layout.lua
+dev\load_dev.xml
