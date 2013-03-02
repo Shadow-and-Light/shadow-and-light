@@ -2219,9 +2219,9 @@ function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI 
 		end
 	end
 
-	if loadAddons then
-		AI:LoadAddons("Affinitii, All")
-	end
+	--if loadAddons then
+	--	AI:LoadAddons("Affinitii, All")
+	--end
 	E:UpdateAll(true)
 end
 function E:HudSimple()
@@ -2402,7 +2402,7 @@ local function SetPage(PageNum)
 		InstallOption1Button:SetText(L["Darth's Config"])	
 
 		InstallOption2Button:Show()
-		InstallOption2Button:SetScript('OnClick', function() E:StaticPopup_Show("ELVUI_SLE_AFFINITII") end)
+		InstallOption2Button:SetScript('OnClick', function() E:AffinitiiSetup() end)
 		InstallOption2Button:SetText(L["Affinitii's Config"])
 
 		InstallOption3Button:Show()

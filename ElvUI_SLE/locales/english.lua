@@ -157,6 +157,9 @@ L["Farm Portal Bar"] = true
 L["Tilled Soil"] = true
 L['Right-click to drop the item.'] = true
 
+--Import Section
+L["SLE_IMPORTS"] = "|cffFF0000Note:|r Use the filter imports with caution as these will overwrite any custom ones made!\nImporting a class filter will overwrite any modifications you have made to that class filter."
+
 --Marks--
 L["Raid Marks"] = true
 L["Show/Hide raid marks."] = true
