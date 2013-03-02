@@ -9,9 +9,9 @@ local tsort = table.sort
 local farmzones = { BL["Sunsong Ranch"], BL["The Halfhill Market"] }
 local size
 
-local seedButtons = {}
-local toolButtons = {}
-local portalButtons = {}
+FseedButtons = {}
+FtoolButtons = {}
+FportalButtons = {}
 
 local seeds = {
 	--Seeds general
@@ -126,7 +126,7 @@ function F:InventoryUpdate()
 	if InCombatLockdown() then return end
 	
 	for i = 1, 5 do
-		for _, button in ipairs(seedButtons[i]) do
+		for _, button in ipairs(FseedButtons[i]) do
 			button.items = GetItemCount(button.itemId, nil, true)
 			button.text:SetText(button.items)
 			button.icon:SetDesaturated(button.items == 0)
@@ -134,13 +134,13 @@ function F:InventoryUpdate()
 		end
 	end
 	
-	for _, button in ipairs(toolButtons) do
+	for _, button in ipairs(FtoolButtons) do
 		button.items = GetItemCount(button.itemId)
 		button.icon:SetDesaturated(button.items == 0)
 		button.icon:SetAlpha(button.items == 0 and .25 or 1)
 	end
 	
-	for _, button in ipairs(portalButtons) do
+	for _, button in ipairs(FportalButtons) do
 		button.items = GetItemCount(button.itemId)
 		button.text:SetText(button.items)
 		button.icon:SetDesaturated(button.items == 0)
@@ -196,14 +196,14 @@ end
 
 function F:UpdateCooldown()
 	for i = 1, 5 do
-		for _, button in ipairs(seedButtons[i]) do
+		for _, button in ipairs(FseedButtons[i]) do
 			F:UpdateButtonCooldown(button)
 		end
 	end
-	for _, button in ipairs(toolButtons) do
+	for _, button in ipairs(FtoolButtons) do
 		F:UpdateButtonCooldown(button)
 	end
-	for _, button in ipairs(portalButtons) do
+	for _, button in ipairs(FportalButtons) do
 		F:UpdateButtonCooldown(button)
 	end
 end
@@ -301,10 +301,10 @@ function F:UpdateLayout(event)
 		F:RegisterEvent("PLAYER_REGEN_ENABLED", "UpdateLayout")
 		return
 	end
-	F:UpdateBar(_G["FarmToolBar"], F.UpdateBarLayout, F.OnFarm, ToolAnchor, toolButtons)
-	F:UpdateBar(_G["FarmPortalBar"], F.UpdateBarLayout, F.OnFarm, PortalAnchor, portalButtons)
+	F:UpdateBar(_G["FarmToolBar"], F.UpdateBarLayout, F.OnFarm, ToolAnchor, FtoolButtons)
+	F:UpdateBar(_G["FarmPortalBar"], F.UpdateBarLayout, F.OnFarm, PortalAnchor, FportalButtons)
 	for i=1, 5 do
-		F:UpdateBar(_G[("FarmSeedBar%d"):format(i)], F.UpdateSeedBarLayout, F.CanSeed, SeedAnchor, seedButtons[i], i)
+		F:UpdateBar(_G[("FarmSeedBar%d"):format(i)], F.UpdateSeedBarLayout, F.CanSeed, SeedAnchor, FseedButtons[i], i)
 	end
 	F:ResizeFrames()
 	
@@ -440,13 +440,13 @@ function F:CreateFrames()
 		
 		seedBar:SetPoint("CENTER", SeedAnchor, "CENTER", 0, 0)
 
-		seedButtons[i] = seedButtons[i] or {}
+		FseedButtons[i] = FseedButtons[i] or {}
 				
 		for id, v in pairs(seeds) do
 			if v[1] == i then
-				tinsert(seedButtons[i], F:CreateFarmButton(id, seedBar, "item", v[2], v[11], E.private.sle.farm.seedtrash, i))
+				tinsert(FseedButtons[i], F:CreateFarmButton(id, seedBar, "item", v[2], v[11], E.private.sle.farm.seedtrash, i))
 			end
-			tsort(seedButtons[i], function(a, b) return a.sortname < b.sortname end)
+			tsort(FseedButtons[i], function(a, b) return a.sortname < b.sortname end)
 		end
 	end
 	
@@ -454,7 +454,7 @@ function F:CreateFrames()
 	toolBar:SetFrameStrata("BACKGROUND")
 	toolBar:SetPoint("CENTER", ToolAnchor, "CENTER", 0, 0)
 	for id, v in pairs(tools) do
-		tinsert(toolButtons, F:CreateFarmButton(id, toolBar, "item", v[1], v[10], true, nil))
+		tinsert(FtoolButtons, F:CreateFarmButton(id, toolBar, "item", v[1], v[10], true, nil))
 	end
 	
 	local portalBar = CreateFrame("Frame", "FarmPortalBar", UIParent)
@@ -463,7 +463,7 @@ function F:CreateFrames()
 	local playerFaction = UnitFactionGroup('player')
 	for id, v in pairs(portals) do
 		if v[1] == playerFaction then
-			tinsert(portalButtons, F:CreateFarmButton(id, portalBar, "item", v[2], v[11], false, nil))
+			tinsert(FportalButtons, F:CreateFarmButton(id, portalBar, "item", v[2], v[11], false, nil))
 		end
 	end
 	
