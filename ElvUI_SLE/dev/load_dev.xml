@@ -1,1 +1,1 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">		<Script file='test.lua'/></Ui>
+<Ui xmlns="http://www.blizzard.com/wow/ui/">	<Script file='elvprot.lua'/>		<Script file='test.lua'/>	<Script file='staticpopups.lua'/></Ui>

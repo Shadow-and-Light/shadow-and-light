@@ -1,5 +1,6 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local CH = E:GetModule('Chat')
+local SLE = E:GetModule('SLE');
 local LSM = LibStub("LibSharedMedia-3.0")
 
 --Textures for chat
@@ -27,7 +28,9 @@ local IconTable = {
 		["Нарджо"] = "SLEAUTHOR",
 		["Верзук"] = "SLEAUTHOR",
 		["Крениг"] = "SLEAUTHOR",
-		["Большойгном"] = "SLETEST" --Testing toon
+		["Большойгном"] = "SLETEST", --Testing toon
+		--Da tester lol
+		["Фергесон"] = "SLETEST" 
 	},
 	["ВечнаяПесня"] = {
 		--Darth's toons
@@ -36,7 +39,9 @@ local IconTable = {
 		["Налкас"] = "SLEAUTHOR",
 		["Ваззули"] = "SLEAUTHOR",
 		--Darth's friends
-		["Леани"] = "SLEFRIEND"
+		["Леани"] = "SLEFRIEND",
+		--Da tester lol
+		["Харореанн"] = "SLETEST"
 	},
 	["Ревущийфьорд"] = {
 		["Рыжая"] = "SLEFRIEND",
@@ -55,6 +60,20 @@ local IconTable = {
 		["Sliceoflife"] = "SLEAUTHOR"
 	},
 }
+
+function SLE:Auth()
+	local myRealm = E.myrealm
+	local myName = E.myname
+	myRealm = myRealm:gsub(' ', '')
+	if IconTable[myRealm] then
+		for character, flag in pairs(IconTable[myRealm]) do
+			if character == myName and flag == "SLEAUTHOR" then
+				return true
+			end
+		end
+	end
+	return false
+end
 
 function CH:ChatEdit_AddHistory(editBox, line)
 	if line:find("/rl") then return; end
