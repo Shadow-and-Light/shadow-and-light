@@ -1739,13 +1739,17 @@ function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI 
 	}
 	E.db.general.vendorGrays = true
 	E.db.general.autoRoll = true
+	E.db.general.threat.position = "LEFTCHAT"
+
 	E.private.general.normTex = "Polished Wood"
 	E.private.general.glossTex = "Polished Wood"
 	E.private.skins.addons.EmbedSkada = true
 	E.private.skins.addons.AlwaysTrue = true
+
 	E.db.gridSize = 110
 	E.db.hideTutorial = 1
-	E.db.unitframe.colors.healthclass = false
+
+	E.db.tooltip.style = "inset"
 
 	--Chat
 	E.db.chat.editBoxPosition = "ABOVE_CHAT"
@@ -1760,39 +1764,56 @@ function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI 
 	E.db.unitframe.font = "Doris PP"
 	E.db.unitframe.fontOutline = "OUTLINE"
 	E.db.unitframe.statusbar = "Polished Wood"
+	E.db.unitframe.colors.healthclass = false
 	E.db.unitframe.colors.castColor = {
 		["r"] = 0.1,
 		["g"] = 0.1,
 		["b"] = 0.1,
 	}
-	E.db.unitframe.colors.health = {
+	E.db.unitframe.colors.health = {--
 		["r"] = 0.2352941176470588,
 		["g"] = 0.2352941176470588,
 		["b"] = 0.2352941176470588,
 	}
+	E.db.unitframe.colors.auraBarBuff = {
+		["b"] = 0.09411764705882353,
+		["g"] = 0.07843137254901961,
+		["r"] = 0.3098039215686275,
+	}
+	E.db.unitframe.colors.transparentPower = true
+	E.db.unitframe.colors.transparentHealth = true
+
 	E.db.unitframe.units.tank.enable = false
 
 	E.db.unitframe.units.assist.enable = false
 	E.db.unitframe.units.assist.targetsGroup.enable = false
 
-	E.db.unitframe.units.arena.power.offset = 7
+	E.db.unitframe.units.arena.power.width = "inset"
+	E.db.unitframe.units.arena.power.offset = 0
 
-	E.db.unitframe.units.targettarget.power.offset = 7
+	E.db.unitframe.units.targettarget.power.width = "inset"
+	E.db.unitframe.units.targettarget.power.offset = 0
 
-	E.db.unitframe.units.pet.power.offset = 7
+	E.db.unitframe.units.pet.power.width = "inset"
+	E.db.unitframe.units.pet.power.offset = 0
+
+	E.db.unitframe.units.pettarget.power.width = "inset"
 
 	E.db.unitframe.units.boss.portrait.enable = true
 	E.db.unitframe.units.boss.portrait.overlay = true
-	E.db.unitframe.units.boss.power.offset = 11
+	E.db.unitframe.units.boss.power.width = "inset"
+	E.db.unitframe.units.boss.power.offset = 0
 
-	E.db.unitframe.units.focus.power.offset = 7
+	E.db.unitframe.units.focus.power.width = "inset"
+	E.db.unitframe.units.focus.power.offset = 0
 
 	E.db.unitframe.units.player.debuffs.attachTo = "BUFFS"
 	E.db.unitframe.units.player.portrait.overlay = true
 	E.db.unitframe.units.player.portrait.enable = true
 	E.db.unitframe.units.player.classbar.enable = false
 	E.db.unitframe.units.player.aurabar.enable = false
-	E.db.unitframe.units.player.power.offset = 11
+	E.db.unitframe.units.player.power.width = "inset"
+	E.db.unitframe.units.player.power.offset = 0
 	E.db.unitframe.units.player.buffs.enable = true
 	E.db.unitframe.units.player.buffs.attachTo = "FRAME"
 	E.db.unitframe.units.player.buffs.noDuration = false
@@ -1802,15 +1823,29 @@ function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI 
 	E.db.unitframe.units.target.portrait.enable = true
 	E.db.unitframe.units.target.portrait.overlay = true
 	E.db.unitframe.units.target.aurabar.enable = false
-	E.db.unitframe.units.target.power.offset = 11
+	E.db.unitframe.units.target.power.width = "inset"
+	E.db.unitframe.units.target.power.offset = 0
 
+	E.db.unitframe.units.focustarget.power.width = "inset"
+
+	E.db.unitframe.units.party.customTexts["Health Text"]["font"] = "Doris PP"
+	E.db.unitframe.units.party.customTexts["Health Text"]["justifyH"] = "CENTER"
+	E.db.unitframe.units.party.customTexts["Health Text"]["fontOutline"] = "OUTLINE"
+	E.db.unitframe.units.party.customTexts["Health Text"]["xOffset"] = 0
+	E.db.unitframe.units.party.customTexts["Health Text"]["size"] = 10
+	E.db.unitframe.units.party.customTexts["Health Text"]["text_format"] = "[healthcolor][health:deficit]"
+	E.db.unitframe.units.party.customTexts["Health Text"]["yOffset"] = -7
+	E.db.unitframe.units.party.debuffs.xOffset = -4
+	E.db.unitframe.units.party.debuffs.yOffset = -7
+	E.db.unitframe.units.party.debuffs.anchorPoint = "TOPRIGHT"
+	E.db.unitframe.units.party.debuffs.sizeOverride = 21
 	E.db.unitframe.units.party.columnAnchorPoint = "BOTTOM"
 	E.db.unitframe.units.party.buffIndicator.size = 10
-	E.db.unitframe.units.party.buffIndicator.fontSize = 10
 	E.db.unitframe.units.party.point = "RIGHT"
 	E.db.unitframe.units.party.xOffset = -1
 	E.db.unitframe.units.party.yOffset = 1
-	E.db.unitframe.units.party.power.offset = 7
+	E.db.unitframe.units.party.power.width = "inset"
+	E.db.unitframe.units.party.power.offset = 0
 	E.db.unitframe.units.party.power.text_format = ""
 	E.db.unitframe.units.party.buffIndicator.size = 10
 	E.db.unitframe.units.party.roleIcon.enable = false
@@ -1818,7 +1853,7 @@ function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI 
 	E.db.unitframe.units.party.positionOverride = "BOTTOMRIGHT"
 	E.db.unitframe.units.party.healPrediction = true
 	E.db.unitframe.units.party.health.frequentUpdates = true
-	E.db.unitframe.units.party.health.text_format = "[healthcolor][health:deficit]"
+	E.db.unitframe.units.party.health.text_format = ""
 	E.db.unitframe.units.party.health.position = "BOTTOM"
 	E.db.unitframe.units.party.name.text_format = "[namecolor][name:veryshort] [difficultycolor][smartlevel]"
 	E.db.unitframe.units.party.name.position = "TOP"
@@ -1831,6 +1866,9 @@ function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI 
 	E.db.unitframe.units.party.buffs.playerOnly = false
 	E.db.unitframe.units.party.buffs.perrow = 1
 	E.db.unitframe.units.party.buffs.useFilter = "TurtleBuffs"
+	E.db.unitframe.units.party.buffs.yOffset = 28
+	E.db.unitframe.units.party.buffs.xOffset = 30
+	E.db.unitframe.units.party.buffs.sizeOverride = 22
 	E.db.unitframe.units.party.petsGroup.anchorPoint = "BOTTOM"
 	E.db.unitframe.units.party.raidicon.attachTo = "LEFT"
 	E.db.unitframe.units.party.raidicon.xOffset = 9
@@ -1839,20 +1877,15 @@ function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI 
 	E.db.unitframe.units.party.targetsGroup.anchorPoint = "BOTTOM"
 	E.db.unitframe.units.party.width = 80
 	E.db.unitframe.units.party.height = 45
-	E.db.unitframe.units.party.debuffs.xOffset = -4
-	E.db.unitframe.units.party.debuffs.yOffset = -7
-	E.db.unitframe.units.party.debuffs.anchorPoint = "TOPRIGHT"
-	E.db.unitframe.units.party.debuffs.sizeOverride = 21
-	E.db.unitframe.units.party.buffs.yOffset = 28
-	E.db.unitframe.units.party.buffs.xOffset = 30
-	E.db.unitframe.units.party.buffs.sizeOverride = 22
 	E.db.unitframe.units.party.groupBy = "GROUP"
-	E.db.unitframe.colors.auraBarBuff = {
-		["r"] = 0.3098039215686275,
-		["g"] = 0.07843137254901961,
-		["b"] = 0.09411764705882353,
-	}
 
+	E.db.unitframe.units.raid10.customTexts["Health Text"]["font"] = "Doris PP"
+	E.db.unitframe.units.raid10.customTexts["Health Text"]["justifyH"] = "CENTER"
+	E.db.unitframe.units.raid10.customTexts["Health Text"]["fontOutline"] = "OUTLINE"
+	E.db.unitframe.units.raid10.customTexts["Health Text"]["xOffset"] = 0
+	E.db.unitframe.units.raid10.customTexts["Health Text"]["size"] = 10
+	E.db.unitframe.units.raid10.customTexts["Health Text"]["text_format"] = "[healthcolor][health:deficit]"
+	E.db.unitframe.units.raid10.customTexts["Health Text"]["yOffset"] = -7
 	E.db.unitframe.units.raid10.columnAnchorPoint = "BOTTOM"
 	E.db.unitframe.units.raid10.buffIndicator.fontSize = 10
 	E.db.unitframe.units.raid10.point = "RIGHT"
@@ -1860,10 +1893,12 @@ function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI 
 	E.db.unitframe.units.raid10.yOffset = 4
 	E.db.unitframe.units.raid10.xOffset = -1
 	E.db.unitframe.units.raid10.roleIcon.enable = false
-	E.db.unitframe.units.raid10.power.offset = 7
+	E.db.unitframe.units.raid10.power.width = "inset"
+	E.db.unitframe.units.raid10.power.offset = 0
 	E.db.unitframe.units.raid10.positionOverride = "BOTTOMRIGHT"
 	E.db.unitframe.units.raid10.healPrediction = true
 	E.db.unitframe.units.raid10.health.frequentUpdates = true
+	E.db.unitframe.units.raid10.health.text_format = ""
 	E.db.unitframe.units.raid10.debuffs.enable = true
 	E.db.unitframe.units.raid10.debuffs.anchorPoint = "TOPRIGHT"
 	E.db.unitframe.units.raid10.buffs.enable = true
@@ -1890,19 +1925,33 @@ function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI 
 	E.db.unitframe.units.raid10.buffs.sizeOverride = 22
 	E.db.unitframe.units.raid10.groupBy = "GROUP"
 
+	E.db.unitframe.units.raid25.customTexts["Health Text"]["font"] = "Doris PP"
+	E.db.unitframe.units.raid25.customTexts["Health Text"]["justifyH"] = "CENTER"
+	E.db.unitframe.units.raid25.customTexts["Health Text"]["fontOutline"] = "OUTLINE"
+	E.db.unitframe.units.raid25.customTexts["Health Text"]["xOffset"] = 0
+	E.db.unitframe.units.raid25.customTexts["Health Text"]["size"] = 10
+	E.db.unitframe.units.raid25.customTexts["Health Text"]["text_format"] = "[healthcolor][health:deficit]"
+	E.db.unitframe.units.raid25.customTexts["Health Text"]["yOffset"] = -7
 	E.db.unitframe.units.raid25.columnAnchorPoint = "RIGHT"
 	E.db.unitframe.units.raid25.buffIndicator.fontSize = 10
 	E.db.unitframe.units.raid25.point = "BOTTOM"
 	E.db.unitframe.units.raid25.rdebuffs.enable = false
 	E.db.unitframe.units.raid25.xOffset = 1
 	E.db.unitframe.units.raid25.roleIcon.enable = false
-	E.db.unitframe.units.raid25.power.offset = 7
-	E.db.unitframe.units.raid25.power.height = 5
+	E.db.unitframe.units.raid25.power.offset = 0
+	E.db.unitframe.units.raid25.power.width = "inset"
+	E.db.unitframe.units.raid25.power.position = "CENTER"
 	E.db.unitframe.units.raid25.positionOverride = "BOTTOMRIGHT"
 	E.db.unitframe.units.raid25.healPrediction = true
 	E.db.unitframe.units.raid25.health.frequentUpdates = true
+	E.db.unitframe.units.raid25.health.text_format = ""
 	E.db.unitframe.units.raid25.debuffs.anchorPoint = "TOPRIGHT"
 	E.db.unitframe.units.raid25.debuffs.enable = true
+	E.db.unitframe.units.raid25.debuffs.xOffset = -4
+	E.db.unitframe.units.raid25.debuffs.yOffset = -7
+	E.db.unitframe.units.raid25.debuffs.sizeOverride = 21
+	E.db.unitframe.units.raid25.debuffs.countFontSize = 12
+	E.db.unitframe.units.raid25.debuffs.fontSize = 9
 	E.db.unitframe.units.raid25.raidicon.attachTo = "LEFT"
 	E.db.unitframe.units.raid25.raidicon.xOffset = 9
 	E.db.unitframe.units.raid25.raidicon.yOffset = 0
@@ -1920,14 +1969,18 @@ function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI 
 	E.db.unitframe.units.raid25.yOffset = 4
 	E.db.unitframe.units.raid25.width = 80
 	E.db.unitframe.units.raid25.height = 45
-	E.db.unitframe.units.raid25.debuffs.xOffset = -4
-	E.db.unitframe.units.raid25.debuffs.yOffset = -7
-	E.db.unitframe.units.raid25.debuffs.sizeOverride = 21
 	E.db.unitframe.units.raid25.buffs.yOffset = 28
 	E.db.unitframe.units.raid25.buffs.xOffset = 30
 	E.db.unitframe.units.raid25.buffs.sizeOverride = 22
 	E.db.unitframe.units.raid25.groupBy = "GROUP"
 
+	E.db.unitframe.units.raid40.customTexts["Health Text"]["font"] = "Doris PP"
+	E.db.unitframe.units.raid40.customTexts["Health Text"]["justifyH"] = "CENTER"
+	E.db.unitframe.units.raid40.customTexts["Health Text"]["fontOutline"] = "OUTLINE"
+	E.db.unitframe.units.raid40.customTexts["Health Text"]["xOffset"] = 0
+	E.db.unitframe.units.raid40.customTexts["Health Text"]["size"] = 10
+	E.db.unitframe.units.raid40.customTexts["Health Text"]["text_format"] = "[healthcolor][health:deficit]"
+	E.db.unitframe.units.raid40.customTexts["Health Text"]["yOffset"] = -7
 	E.db.unitframe.units.raid40.columnAnchorPoint = "RIGHT"
 	E.db.unitframe.units.raid40.point = "BOTTOM"
 	E.db.unitframe.units.raid40.xOffset = 1
@@ -1944,8 +1997,9 @@ function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI 
 	E.db.unitframe.units.raid40.name.position = "TOP"
 	E.db.unitframe.units.raid40.buffIndicator.fontSize = 10
 	E.db.unitframe.units.raid40.power.enable = true
-	E.db.unitframe.units.raid40.power.offset = 7
-	E.db.unitframe.units.raid40.health.text_format = "[healthcolor][health:deficit]"
+	E.db.unitframe.units.raid40.power.offset = 0
+	E.db.unitframe.units.raid40.power.width = "inset"
+	E.db.unitframe.units.raid40.power.position = "CENTER"
 	E.db.unitframe.units.raid40.health.frequentUpdates = true
 	E.db.unitframe.units.raid40.debuffs.sizeOverride = 21
 	E.db.unitframe.units.raid40.debuffs.enable = true
@@ -2097,7 +2151,8 @@ function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI 
 		E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM0100"
 		E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM278200"
 		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM0190"
-		E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM310432"
+		--E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM310432"
+		E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM-63436"
 		E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM0230"
 		E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM060"
 		E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM027"
@@ -2105,6 +2160,8 @@ function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI 
 		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021"
 		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
 		E.db.movers.PetAB = "RIGHTElvUIParentRIGHT00"
+		E.db.movers.ArenaHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-210-410"
+		E.db.movers.BossHeaderMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-210435"
 		if layout == 'dpsCaster' or layout == 'dpsMelee' or layout == 'tank' then
 			E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4200"
 			E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4200"
