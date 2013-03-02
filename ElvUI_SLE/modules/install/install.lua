@@ -1828,13 +1828,21 @@ function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI 
 
 	E.db.unitframe.units.focustarget.power.width = "inset"
 
-	E.db.unitframe.units.party.customTexts["Health Text"]["font"] = "Doris PP"
-	E.db.unitframe.units.party.customTexts["Health Text"]["justifyH"] = "CENTER"
-	E.db.unitframe.units.party.customTexts["Health Text"]["fontOutline"] = "OUTLINE"
-	E.db.unitframe.units.party.customTexts["Health Text"]["xOffset"] = 0
-	E.db.unitframe.units.party.customTexts["Health Text"]["size"] = 10
-	E.db.unitframe.units.party.customTexts["Health Text"]["text_format"] = "[healthcolor][health:deficit]"
-	E.db.unitframe.units.party.customTexts["Health Text"]["yOffset"] = -7
+	if not E.db.unitframe.units.party.customTexts then
+		E.db.unitframe.units.party.customTexts = {};
+		if not E.db.unitframe.units.party.customTexts["Health Text"] then
+			E.db.unitframe.units.party.customTexts["Health Text"] = {};
+		end
+	end
+	E.db.unitframe.units.party.customTexts["Health Text"] = {
+		["font"] = "Doris PP",
+		["justifyH"] = "CENTER",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 0,
+		["size"] = 10,
+		["text_format"] = "[healthcolor][health:deficit]",
+		["yOffset"] = -7,
+	}
 	E.db.unitframe.units.party.debuffs.xOffset = -4
 	E.db.unitframe.units.party.debuffs.yOffset = -7
 	E.db.unitframe.units.party.debuffs.anchorPoint = "TOPRIGHT"
@@ -1879,13 +1887,21 @@ function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI 
 	E.db.unitframe.units.party.height = 45
 	E.db.unitframe.units.party.groupBy = "GROUP"
 
-	E.db.unitframe.units.raid10.customTexts["Health Text"]["font"] = "Doris PP"
-	E.db.unitframe.units.raid10.customTexts["Health Text"]["justifyH"] = "CENTER"
-	E.db.unitframe.units.raid10.customTexts["Health Text"]["fontOutline"] = "OUTLINE"
-	E.db.unitframe.units.raid10.customTexts["Health Text"]["xOffset"] = 0
-	E.db.unitframe.units.raid10.customTexts["Health Text"]["size"] = 10
-	E.db.unitframe.units.raid10.customTexts["Health Text"]["text_format"] = "[healthcolor][health:deficit]"
-	E.db.unitframe.units.raid10.customTexts["Health Text"]["yOffset"] = -7
+	if not E.db.unitframe.units.raid10.customTexts then
+		E.db.unitframe.units.raid10.customTexts = {};
+		if not E.db.unitframe.units.raid10.customTexts["Health Text"] then
+			E.db.unitframe.units.raid10.customTexts["Health Text"] = {};
+		end
+	end
+	E.db.unitframe.units.raid10.customTexts["Health Text"] = {
+		["font"] = "Doris PP",
+		["justifyH"] = "CENTER",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 0,
+		["size"] = 10,
+		["text_format"] = "[healthcolor][health:deficit]",
+		["yOffset"] = -7,
+	}
 	E.db.unitframe.units.raid10.columnAnchorPoint = "BOTTOM"
 	E.db.unitframe.units.raid10.buffIndicator.fontSize = 10
 	E.db.unitframe.units.raid10.point = "RIGHT"
@@ -1925,13 +1941,21 @@ function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI 
 	E.db.unitframe.units.raid10.buffs.sizeOverride = 22
 	E.db.unitframe.units.raid10.groupBy = "GROUP"
 
-	E.db.unitframe.units.raid25.customTexts["Health Text"]["font"] = "Doris PP"
-	E.db.unitframe.units.raid25.customTexts["Health Text"]["justifyH"] = "CENTER"
-	E.db.unitframe.units.raid25.customTexts["Health Text"]["fontOutline"] = "OUTLINE"
-	E.db.unitframe.units.raid25.customTexts["Health Text"]["xOffset"] = 0
-	E.db.unitframe.units.raid25.customTexts["Health Text"]["size"] = 10
-	E.db.unitframe.units.raid25.customTexts["Health Text"]["text_format"] = "[healthcolor][health:deficit]"
-	E.db.unitframe.units.raid25.customTexts["Health Text"]["yOffset"] = -7
+	if not E.db.unitframe.units.raid25.customTexts then
+		E.db.unitframe.units.raid25.customTexts = {};
+		if not E.db.unitframe.units.raid25.customTexts["Health Text"] then
+			E.db.unitframe.units.raid25.customTexts["Health Text"] = {};
+		end
+	end
+	E.db.unitframe.units.raid25.customTexts["Health Text"] = {
+		["font"] = "Doris PP",
+		["justifyH"] = "CENTER",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 0,
+		["size"] = 10,
+		["text_format"] = "[healthcolor][health:deficit]",
+		["yOffset"] = -7,
+	}
 	E.db.unitframe.units.raid25.columnAnchorPoint = "RIGHT"
 	E.db.unitframe.units.raid25.buffIndicator.fontSize = 10
 	E.db.unitframe.units.raid25.point = "BOTTOM"
@@ -1974,13 +1998,21 @@ function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI 
 	E.db.unitframe.units.raid25.buffs.sizeOverride = 22
 	E.db.unitframe.units.raid25.groupBy = "GROUP"
 
-	E.db.unitframe.units.raid40.customTexts["Health Text"]["font"] = "Doris PP"
-	E.db.unitframe.units.raid40.customTexts["Health Text"]["justifyH"] = "CENTER"
-	E.db.unitframe.units.raid40.customTexts["Health Text"]["fontOutline"] = "OUTLINE"
-	E.db.unitframe.units.raid40.customTexts["Health Text"]["xOffset"] = 0
-	E.db.unitframe.units.raid40.customTexts["Health Text"]["size"] = 10
-	E.db.unitframe.units.raid40.customTexts["Health Text"]["text_format"] = "[healthcolor][health:deficit]"
-	E.db.unitframe.units.raid40.customTexts["Health Text"]["yOffset"] = -7
+	if not E.db.unitframe.units.raid40.customTexts then
+		E.db.unitframe.units.raid40.customTexts = {};
+		if not E.db.unitframe.units.raid40.customTexts["Health Text"] then
+			E.db.unitframe.units.raid40.customTexts["Health Text"] = {};
+		end
+	end
+	E.db.unitframe.units.raid40.customTexts["Health Text"] = {
+		["font"] = "Doris PP",
+		["justifyH"] = "CENTER",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 0,
+		["size"] = 10,
+		["text_format"] = "[healthcolor][health:deficit]",
+		["yOffset"] = -7,
+	}
 	E.db.unitframe.units.raid40.columnAnchorPoint = "RIGHT"
 	E.db.unitframe.units.raid40.point = "BOTTOM"
 	E.db.unitframe.units.raid40.xOffset = 1
