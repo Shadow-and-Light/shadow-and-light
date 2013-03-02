@@ -63,10 +63,7 @@ function SLE:ChatPos()
 	end
 end
 
---Showing warning message about too old versions of ElvUI
-if tonumber(E.version) < 5.32 then
-	E:StaticPopup_Show("VERSION_MISMATCH")
-end
+
 
 E.UpdateAllSLE = E.UpdateAll
 function E:UpdateAll()
@@ -192,6 +189,10 @@ function E:BeginFoolsDayEvent()
 end
 
 function SLE:Initialize()
+	--Showing warning message about too old versions of ElvUI
+	if tonumber(E.version) < 5.32 then
+		E:StaticPopup_Show("VERSION_MISMATCH")
+	end
 	DTP = E:GetModule('DTPanels')
 	if E.private.unitframe.enable then
 		self:RegisterEvent("PLAYER_REGEN_DISABLED", UF.Update_CombatIndicator);
