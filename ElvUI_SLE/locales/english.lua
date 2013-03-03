@@ -278,7 +278,6 @@ L["Pet Battle AB"] = true
 --Changelog--
 L["Changelog"] = true
 L["CHANGE_LOG"] = [=[|cff1784d1v1.5|r
-- Authors' layouts updated
 - Some typos fixed
 - Datatext panels can now be transparent
 - Background frames no longer have offset options, now they have own movers
@@ -295,4 +294,6 @@ L["CHANGE_LOG"] = [=[|cff1784d1v1.5|r
 - LFR Lockout tracking in time datatext now has options to choose what daungeons you want to show there
 - Top datapanel info can now be changed by user
 - You will now receive chat message if someone in your group/raid has newer version of S&L
+- Add Affinitii's (Blood Legion) UI Layout
+- Darth's Layout Modified
 ]=]
