@@ -1,5 +1,4 @@
 v1.5
-- Authors' layouts updated
 - Some typos fixed
 - Datatext panels can now be transparent
 - Background frames no longer have offset options, now they have own movers
