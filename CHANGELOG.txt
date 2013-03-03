@@ -3,15 +3,20 @@ v1.5
 - Some typos fixed
 - Datatext panels can now be transparent
 - Background frames no longer have offset options, now they have own movers
+- Background frames template doesn't require reload and is a profile based option
 - Movers created by S&L now are grouped by own categories just like in ElvUI itself (Note: background frames' movers are available ONLY in those groups)
 - Raid Marks now properly update setting on profile change
 - Raid Marks module now has an option to hide backdrop for it's main panel
 - Added Item Level overlay on item slots
 - Added Item Durability overlay on item slots
 - Added Equipment Manager per spec/zone
-- Added Farmer module to make farming easier.
+- Added Farm module to make farming easier.
 - Added skinning of minimap buttons
 - Added coordinates to the minimap
+- LFR Lockout tracking in time datatext now has options to choose what daungeons you want to show there
+- Top datapanel info can now be changed by user
+- You will now receive chat message if someone in your group/raid has newer version of S&L
+
 
 v1.42 (January 31, 2013)
 - Curse being stupid and fixed changelog b/c darth dont realize there are 31 days in Jan.
