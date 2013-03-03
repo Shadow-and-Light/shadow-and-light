@@ -751,7 +751,7 @@ local function SetupAuras(style)
 end
 
 
-function E:DarthSetup(loadAddons) --The function to switch from classic ElvUI settings to Darth's
+function E:DarthSetup() --The function to switch from classic ElvUI settings to Darth's
 	InstallStepComplete.message = L["Darth's Defaults Set"]
 	InstallStepComplete:Show()
 	E:CopyTable(E.db, P)
@@ -1370,10 +1370,6 @@ function E:DarthSetup(loadAddons) --The function to switch from classic ElvUI se
 		E.db.movers.AltPowerBarMover = "TOPElvUIParentTOP0-238"
 		E.db.movers.FarmSeedMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-300211"
 		E.db.movers.FarmToolMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-175211"
-	end
-
-	if loadAddons then
-		AI:LoadAddons("Darth, All")
 	end
 	
 	E:UpdateAll(true)
@@ -2398,7 +2394,7 @@ local function SetPage(PageNum)
 		f.Desc3:SetText(L["Importance: |cffFF0000Low|r"])
 
 		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', function() E:StaticPopup_Show("ELVUI_SLE_DARTH") end)
+		InstallOption1Button:SetScript('OnClick', function() E:DarthSetup() end)
 		InstallOption1Button:SetText(L["Darth's Config"])	
 
 		InstallOption2Button:Show()
