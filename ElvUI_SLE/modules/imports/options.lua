@@ -209,19 +209,19 @@ local function UpdateAuthor()
 					BigWigs = {
 						type = 'execute',
 						order = 3,
-						name = L['Big Wigs'],
+						name = "Big Wigs",
 						func = function(info, value) AI:LoadAddons("Affinitii, BigWigs"); ReloadUI(); end,
 					},
 					Hermes = {
 						type = 'execute',
 						order = 4,
-						name = L['Hermes'],
+						name = "Hermes",
 						func = function(info, value) AI:LoadAddons("Affinitii, Hermes"); ReloadUI(); end,
 					},
 					xCT = {
 						type = 'execute',
 						order = 5,
-						name = L['xCT+'],
+						name = "xCT+",
 						func = function(info, value) AI:LoadAddons("Affinitii, xCT+"); ReloadUI(); end,
 					},
 				},
@@ -340,19 +340,19 @@ local function UpdateAuthor()
 					BigWigs = {
 						type = 'execute',
 						order = 2,
-						name = L['Big Wigs'],
+						name = "Big Wigs",
 						func = function(info, value) AI:LoadAddons("Affinitii, BigWigs"); end,
 					},
 					Hermes = {
 						type = 'execute',
 						order = 2,
-						name = L['Hermes'],
+						name = "Hermes",
 						func = function(info, value) AI:LoadAddons("Affinitii, Hermes"); end,
 					},
 					xCT = {
 						type = 'execute',
 						order = 2,
-						name = L['xCT+'],
+						name = "xCT+",
 						func = function(info, value) AI:LoadAddons("Affinitii, xCT+"); end,
 					},]]
 				},
@@ -465,7 +465,7 @@ local function UpdateAuthor()
 					xCT = {
 						type = 'execute',
 						order = 2,
-						name = L['xCT+'],
+						name = "xCT+",
 						func = function(info, value) AI:LoadAddons("Darth, xCT+"); end,
 					},
 				},

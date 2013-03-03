@@ -28,6 +28,7 @@ L["Your version of ElvUI is older than recommended to use with Shadow & Light Ed
 L["Reset All"] = "Сбросить все"
 L["Reset all Shadow & Light options and movers to their defaults"] = "Сбросить все настройки и фиксаторы редакции на умолчания"
 L["Reset these options to defaults"] = "Восстановить умолчания для этих опций"
+L["Your version of ElvUI S&L is out of date. You can download the latest version from http://www.tukui.org"] = "Ваша версия ElvUI S&L устарела. Вы можете скачать последнюю версию на http://www.tukui.org"
 
 --Install--
 L["Shadow & Light Settings"] = "Установки Тени и Света"
@@ -38,6 +39,8 @@ L["Darth's Config"] = "Опции Darth'а"
 L["Darth's Defaults Set"] = "Установлены настройки Darth'а"
 L["Repooc's Config"] = "Опции Repooc'а"
 L["Repooc's Defaults Set"] = "Установлены настройки Repooc'а"
+L["Affinitii's Config"] = "Опции  Affinitii"
+L["Affinitii's Defaults Set"] = "Установлены настройки Affinitii"
 
 --Auras--
 L["Options for customizing auras near the minimap."] = "Опции для настройки аур около миникарты"
@@ -165,6 +168,17 @@ L["Sets size of buttons"] = "Устанавливает размер кнопо�
 L["Direction"] = "Направление"
 L["Change the direction of buttons growth from the skull marker"] = "Изменяет направление роста кнопок от метки \"череп\"."
 
+--Import Section
+L["SLE_IMPORTS"] = "|cffFF0000Важно:|r Используйте импортирование фильтров осторожно, так как они удалят ваши собсвенные фильтры!\nИмпортирование классового фильтра перезапишет любые изменения, которые Вы в него вносили."
+L["Import Options"] = "Импорт Настроек"
+L["Author Specific Imports"] = "Импорт специфических настроек авторов"
+L['Select Author'] = "Выберите автора"
+L["Please be aware that importing any of the filters will require a reload of the UI for the settings to take effect.\nOnce you click a filter button, your screen will reload automatically."] = "Пожалуйста, учтите, что импортирование любого фильтра потребует перезагрузки интерфейса для вступления в силу.\nКак только вы нажмете на кнопку, Ваш интерфейс перезагрузится автоматически."
+L["Import"] = "Импорт"
+L["This will import non class specific filters from this author."] = "Это импортирует не привязанные к классу фильтры этого автора."
+L["This will import All Class specific filters from this author."] = "Это импортирует все классовые фильтры этого автора."
+L['Import All'] = "Импорт всего"
+
 --Minimap--
 L["Minimap Options"] = "Опции миникарты"
 L['MINIMAP_DESC'] = "Эти опции влияют на различные функции миникарты.  Некоторые опции погут не работать, если вы отключите миникарты в основных настройках ElvUI."
@@ -242,6 +256,7 @@ L["ELVUI_SLE_CREDITS"] = "Мы бы хотели отметить следующ
 L["Submodules and Coding:"] = "Субмодули и кодинг:"
 L["ELVUI_SLE_CODERS"] = [=[Elv
 Tukz
+Affinitii
 Azilroka
 Blazeflack
 Boradan
