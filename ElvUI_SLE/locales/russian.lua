@@ -87,7 +87,7 @@ L["Amount of messages to save. Set to 0 to disable."] = "Количество с
 --Datatexts--
 L["Bosses killed: "] = "Боссов убито: "
 L["You didn't select any instance to track."] = "Вы не выбрали подземелья для отслеживания"
-L["This LFR isn't available for your lever/gear."] = "Это подземелье не доступно для Вашего уровня или экипировки."
+L["This LFR isn't available for your level/gear."] = "Это подземелье не доступно для Вашего уровня или экипировки."
 L["SLE_AUTHOR_INFO"] = "Редакция \"Тень и Свет\" от Darth Predator и Repooc"
 L["SLE_CONTACTS"] = [=[При возникновении вопросов, предложений и прочего обращаться:
 - Личное сообщение на форуме TukUI (tukui.org), ник Darth Predator или Repooc

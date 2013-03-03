@@ -87,7 +87,7 @@ L["Amount of messages to save. Set to 0 to disable."] = true
 --Datatexts--
 L["Bosses killed: "] = true
 L["You didn't select any instance to track."] = true
-L["This LFR isn't available for your lever/gear."] = true
+L["This LFR isn't available for your level/gear."] = true
 L["SLE_AUTHOR_INFO"] = "Shadow & Light Edit by Darth Predator & Repooc"
 L["SLE_CONTACTS"] = [=[Bug reports, suggestions and other stuff accepted via:
 - Private Massage on TukUI.org to Darth Predator or Repooc
