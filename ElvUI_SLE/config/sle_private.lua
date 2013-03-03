@@ -7,22 +7,6 @@ V['sle'] = {
 		['size'] = 10,
 	},
 	
-	--Backgrounds
-	['backgrounds'] = {
-		['bottom'] = {
-			['template'] = "Default",
-		},
-		['left'] = {
-			['template'] = "Default",
-		},
-		['right'] = {
-			['template'] = "Default",
-		},
-		['action'] = {
-			['template'] = "Default",
-		},
-	},
-
 	--Character Frame Options
 	['characterframeoptions'] = {
 		["enable"] = false,
