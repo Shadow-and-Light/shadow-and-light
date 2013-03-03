@@ -48,8 +48,8 @@ local function configTable()
 						type = "select",
 						name = L["Coords Location"],
 						desc = L['This will determine where the coords are shown on the minimap.'],
-						get = function(info) return E.db.sle.minimap.middle end,
-						set = function(info, value) E.db.sle.minimap.middle = value; E:GetModule('Minimap'):UpdateSettings() end,
+						get = function(info) return E.db.sle.minimap.coords.middle end,
+						set = function(info, value) E.db.sle.minimap.coords.middle = value; E:GetModule('Minimap'):UpdateSettings() end,
 						values = {
 							['CORNERS'] = L['Bottom Corners'],
 							['CENTER'] = L['Bottom Center'],
