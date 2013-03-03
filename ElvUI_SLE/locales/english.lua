@@ -28,6 +28,7 @@ L["Your version of ElvUI is older than recommended to use with Shadow & Light Ed
 L["Reset All"] = true
 L["Reset all Shadow & Light options and movers to their defaults"] = true
 L["Reset these options to defaults"] = true
+L["Your version of ElvUI S&L is out of date. You can download the latest version from http://www.tukui.org"] = true
 
 --Install--
 L["Shadow & Light Settings"] = true
@@ -156,9 +157,6 @@ L["Farm Tool Bar"] = true
 L["Farm Portal Bar"] = true
 L["Tilled Soil"] = true
 L['Right-click to drop the item.'] = true
-
---Import Section
-L["SLE_IMPORTS"] = "|cffFF0000Note:|r Use the filter imports with caution as these will overwrite any custom ones made!\nImporting a class filter will overwrite any modifications you have made to that class filter."
 
 --Marks--
 L["Raid Marks"] = true
