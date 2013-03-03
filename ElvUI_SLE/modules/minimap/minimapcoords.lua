@@ -11,7 +11,7 @@ local function UpdateCoords(self, elapsed)
 	if panel.elapsed < .1 then return end
 
 	xpos.pos, ypos.pos = GetPlayerMapPosition('player')
-	xpos.text:SetFormattedText(E.db.sle.minimap.middle == "CENTER" and '%.2f/' or '%.2f', xpos.pos * 100)
+	xpos.text:SetFormattedText(E.db.sle.minimap.coords.middle == "CENTER" and '%.2f/' or '%.2f', xpos.pos * 100)
 	ypos.text:SetFormattedText('%.2f', ypos.pos * 100)
 
 	panel.elapsed = 0
@@ -68,7 +68,7 @@ end
 M.UpdateSettingsSLE = M.UpdateSettings
 function M:UpdateSettings()
 	M.UpdateSettingsSLE(self)
-	middle = E.db.sle.minimap.middle
+	middle = E.db.sle.minimap.coords.middle
 
 	if not framescreated then
 		CreateCoordsFrame(middle)
