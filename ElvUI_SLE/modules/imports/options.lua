@@ -200,23 +200,29 @@ local function UpdateAuthor()
 				order = 15,
 				guiInline = true,
 				args = {
-					BigWigs = {
+					AllAddons = {
 						type = 'execute',
 						order = 2,
+						name = L['Import All'],
+						func = function(info, value) AI:LoadAddons("Affinitii, All"); ReloadUI(); end,
+					},
+					BigWigs = {
+						type = 'execute',
+						order = 3,
 						name = L['Big Wigs'],
-						func = function(info, value) AI:LoadAddons("Affinitii, BigWigs"); end,
+						func = function(info, value) AI:LoadAddons("Affinitii, BigWigs"); ReloadUI(); end,
 					},
 					Hermes = {
 						type = 'execute',
-						order = 2,
+						order = 4,
 						name = L['Hermes'],
-						func = function(info, value) AI:LoadAddons("Affinitii, Hermes"); end,
+						func = function(info, value) AI:LoadAddons("Affinitii, Hermes"); ReloadUI(); end,
 					},
 					xCT = {
 						type = 'execute',
-						order = 2,
+						order = 5,
 						name = L['xCT+'],
-						func = function(info, value) AI:LoadAddons("Affinitii, xCT+"); end,
+						func = function(info, value) AI:LoadAddons("Affinitii, xCT+"); ReloadUI(); end,
 					},
 				},
 			}
