@@ -195,6 +195,8 @@ function F:UpdateButtonCooldown(button)
 end
 
 function F:UpdateCooldown()
+	if not F:CanSeed() then return end
+
 	for i = 1, 5 do
 		for _, button in ipairs(FseedButtons[i]) do
 			F:UpdateButtonCooldown(button)
