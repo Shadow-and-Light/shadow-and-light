@@ -144,6 +144,10 @@ function SLE:BagSearch(itemId)
 	end
 end
 
+function SLE:Print(msg)
+	print(E["media"].hexvaluecolor..'S&L:|r', msg)
+end
+
 E.BeginFoolsDayEventSLE = E.BeginFoolsDayEvent
 function E:BeginFoolsDayEvent()
 	E.BeginFoolsDayEventSLE(self)
@@ -205,6 +209,7 @@ function SLE:Initialize()
 	SLE:Tutorials()
 	SLE:ConfigCats()
 	SLE:ChatPos()
+	SLE:RegisterCommands()
 end
 
 E:RegisterModule(SLE:GetName())

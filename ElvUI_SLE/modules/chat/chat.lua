@@ -75,6 +75,39 @@ function SLE:Auth()
 	return false
 end
 
+function SLE:CrossAuth(sender)
+	local myRealm = E.myrealm
+	local myName = E.myname
+	myRealm = myRealm:gsub(' ', '')
+	if IconTable[myRealm] then
+		for character, flag in pairs(IconTable[myRealm]) do
+			if sender == character and flag == "SLEAUTHOR" and sender ~= myName then
+				return true
+			end							
+		end
+				
+		for realm, _ in pairs(IconTable) do
+			if realm ~= myRealm then
+				for character, flag in pairs(IconTable[realm]) do
+					if sender == character.."-"..realm and flag == "SLEAUTHOR" then
+						return true
+					end			
+				end
+			end
+		end			
+	else
+		for realm, _ in pairs(IconTable) do
+			for character, flag in pairs(IconTable[realm]) do
+				if sender == character.."-"..realm and flag == "SLEAUTHOR" then
+					return true
+				end		
+			end
+		end		
+	end
+	return false
+end
+
+
 function CH:ChatEdit_AddHistory(editBox, line)
 	if line:find("/rl") then return; end
 
