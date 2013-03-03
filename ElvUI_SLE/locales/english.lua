@@ -277,40 +277,22 @@ L["Pet Battle AB"] = true
 
 --Changelog--
 L["Changelog"] = true
-L["CHANGE_LOG"] = [=[|cff1784d1v1.37|r
-- Decimals are once again shown for hp/power texts on unit frames
-
-|cff1784d1v1.36|r
-- Some tweaks to better work with ElvUI 5.20
-
-|cff1784d1v1.35|r
-- Fixed compatibility with full Location Plus version
-
-|cff1784d1v1.34|r
-Fixed rune bar error when using classbar offset
-
-|cff1784d1v1.33|r
-- Fixed errors on auras tooltips
-- Fixed health bar height with classbar offset enabled
-
-|cff1784d1v1.32|r
-- Config updated
-
-|cff1784d1v1.31|r
-- Repooc config updated
-
-|cff1784d1v1.3|r
-- Authors' layouts have been changed
-- Mount serach was deleted, Blizzard added that themselves
-- Some adjustions for pixel perfect mode to make things look good
-- Caster name in auras' tooltips is now profile based option
-- An option added to chosee if you want your power text to be on power bar or health bar (health by default as in normal ElvUI)
-- Raid Utility options removed. Now it's fully movable with it's own mover
-- Added a mover for world/BG pvp score - Hellfire towers, AV reinforcements, AB resources, etc. (Darth grow tired of using MoveAnything)
-- Capture bar is now docked to the bottom of a new mover
-- Show errors in combat is now profile based option
-- Added S&L version number to version datatext, login message and config
-- Buttons for resetting all S&L options or just desired group's options have been added
-- You can now see changelog in game
-- Added alternative mene regen datatext called "MP5". It shows an "mp5" title instead of "mana regen"
+L["CHANGE_LOG"] = [=[|cff1784d1v1.5|r
+- Authors' layouts updated
+- Some typos fixed
+- Datatext panels can now be transparent
+- Background frames no longer have offset options, now they have own movers
+- Background frames template doesn't require reload and is a profile based option
+- Movers created by S&L now are grouped by own categories just like in ElvUI itself (Note: background frames' movers are available ONLY in those groups)
+- Raid Marks now properly update setting on profile change
+- Raid Marks module now has an option to hide backdrop for it's main panel
+- Added Item Level overlay on item slots
+- Added Item Durability overlay on item slots
+- Added Equipment Manager per spec/zone
+- Added Farm module to make farming easier.
+- Added skinning of minimap buttons
+- Added coordinates to the minimap
+- LFR Lockout tracking in time datatext now has options to choose what daungeons you want to show there
+- Top datapanel info can now be changed by user
+- You will now receive chat message if someone in your group/raid has newer version of S&L
 ]=]
