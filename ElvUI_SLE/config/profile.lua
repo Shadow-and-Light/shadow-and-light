@@ -19,6 +19,7 @@ P['sle'] = {
 			['xoffset'] = 0,
 			['yoffset'] = 0,
 			['pethide'] = true,
+			['template'] = "Default",
 		},
 		['left'] = {
 			['enabled'] = false,
@@ -29,6 +30,7 @@ P['sle'] = {
 			['xoffset'] = 0,
 			['yoffset'] = 0,
 			['pethide'] = true,
+			['template'] = "Default",
 		},
 		['right'] = {
 			['enabled'] = false,
@@ -39,6 +41,7 @@ P['sle'] = {
 			['xoffset'] = 0,
 			['yoffset'] = 0,
 			['pethide'] = true,
+			['template'] = "Default",
 		},
 		['action'] = {
 			['enabled'] = false,
@@ -49,6 +52,7 @@ P['sle'] = {
 			['xoffset'] = 0,
 			['yoffset'] = 0,
 			['pethide'] = true,
+			['template'] = "Default",
 		},
 	},
 

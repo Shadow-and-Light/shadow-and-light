@@ -126,8 +126,8 @@ for k,v in pairs(drop) do
 				type = "select",
 				name = L["Backdrop Template"],
 				desc = L["Change the template used for this backdrop."],
-				get = function(info) return E.private.sle.backgrounds[v[1]].template end,
-				set = function(info, value) E.private.sle.backgrounds[v[1]].template = value; E:StaticPopup_Show("PRIVATE_RL") end,
+				get = function(info) return E.db.sle.backgrounds[v[1]].template end,
+				set = function(info, value) E.db.sle.backgrounds[v[1]].template = value; BG:UpdateFrames() end,
 				values = {
 					['Default'] = L["Default"],
 					['Transparent'] = L["Transparent"],

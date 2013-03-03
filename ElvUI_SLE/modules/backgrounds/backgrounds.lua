@@ -15,10 +15,7 @@ local Fr = {
 
 --Frames setup
 function BG:FramesCreate()
-	local pr = E.private.sle.backgrounds
 	for _,v in pairs(Fr) do
-		v[1]:CreateBackdrop(pr[v[2]].template, true);
-		v[1].backdrop:SetAllPoints();
 		v[1]:SetFrameLevel(v[1]:GetFrameLevel() - 1)
 		v[1]:SetScript("OnShow", function() v[1]:SetFrameStrata('BACKGROUND') end)
 		v[1].tex = v[1]:CreateTexture(nil, 'OVERLAY')
@@ -76,6 +73,10 @@ function BG:FramesVisibility()
 end
 
 function BG:UpdateFrames()
+	local db = E.db.sle.backgrounds
+	for _,v in pairs(Fr) do
+				v[1]:SetTemplate(db[v[2]].template, true)
+	end
 	BG:FramesSize()
 	BG:FramesVisibility()
     BG:UpdateTex()
