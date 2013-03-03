@@ -10,6 +10,7 @@ local options = {
 	Addons = "Addons",
 }
 local classes = {
+	AllClasses = "All Classes",
 	Priest = "Priest",
 	Druid = "Druid",
 	Paladin = "Paladin",
@@ -20,9 +21,77 @@ local classes = {
 	Warrior = "Warrior",
 	Deathknight = "Deathknight",
 }
-local addons = {
-	
-}
+local function buffWatch(filter)
+	if filter == "AllClasses" and selectedAuthor == "Affinitii" then
+		E.global.unitframe.buffwatch["PRIEST"] = {
+			{["point"] = "LEFT",["displayText"] = true,["yOffset"] = 2,["style"] = "NONE",["textColor"] = {["g"] = 0,["b"] = 0,},},
+			{["point"] = "TOPRIGHT",["style"] = "texturedIcon",},
+			{["enabled"] = false,},{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["style"] = "NONE",},nil,
+			{["enabled"] = false,},{["enabled"] = false,},{["enabled"] = false,},
+			{["enabled"] = true,["anyUnit"] = false,["point"] = "BOTTOMLEFT",["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["textThreshold"] = -1,["yOffset"] = 8,["style"] = "NONE",["id"] = 47753,},
+			{["enabled"] = true,["anyUnit"] = false,["point"] = "BOTTOMRIGHT",["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["textThreshold"] = -1,["yOffset"] = 8,["style"] = "NONE",["id"] = 114908,},
+		}
+		E.global.unitframe.buffwatch["DRUID"] = {
+			{["point"] = "TOPLEFT",["displayText"] = true,["style"] = "NONE",}, -- [1]
+			{["displayText"] = true,["yOffset"] = 8,["style"] = "NONE",
+			},{["point"] = "BOTTOMRIGHT",["displayText"] = true,["textThreshold"] = 5,["yOffset"] = 12,["style"] = "texturedIcon",},
+			{["point"] = "TOPRIGHT",["displayText"] = true,["textThreshold"] = 3,["style"] = "texturedIcon",},
+		}
+		E.global.unitframe.buffwatch["MONK"] = {
+			{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["style"] = "NONE",},{["enabled"] = false,},
+			{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["yOffset"] = 8,["style"] = "NONE",},
+			{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["yOffset"] = 8,["style"] = "NONE",},
+			{["enabled"] = true,["anyUnit"] = false,["point"] = "TOPRIGHT",["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,
+			},["id"] = 115175,["displayText"] = false,["style"] = "texturedIcon",["yOffset"] = 0,},
+		}
+		E.global.unitframe.buffwatch["SHAMAN"] = {
+			{["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["style"] = "NONE",},
+			{["point"] = "BOTTOMRIGHT",["yOffset"] = 10,["style"] = "texturedIcon",},
+			{["point"] = "TOPLEFT",["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["style"] = "NONE",},
+		}
+		ReloadUI();
+	elseif selectedAuthor == "Affintii" then
+		if filter == "Priest" then
+			E.global.unitframe.buffwatch["PRIEST"] = {
+				{["point"] = "LEFT",["displayText"] = true,["yOffset"] = 2,["style"] = "NONE",["textColor"] = {["g"] = 0,["b"] = 0,},},
+				{["point"] = "TOPRIGHT",["style"] = "texturedIcon",},
+				{["enabled"] = false,},{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["style"] = "NONE",},nil,
+				{["enabled"] = false,},{["enabled"] = false,},{["enabled"] = false,},
+				{["enabled"] = true,["anyUnit"] = false,["point"] = "BOTTOMLEFT",["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["textThreshold"] = -1,["yOffset"] = 8,["style"] = "NONE",["id"] = 47753,},
+				{["enabled"] = true,["anyUnit"] = false,["point"] = "BOTTOMRIGHT",["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["textThreshold"] = -1,["yOffset"] = 8,["style"] = "NONE",["id"] = 114908,},
+			}
+			ReloadUI();
+		elseif filter == "Druid" then
+			E.global.unitframe.buffwatch["DRUID"] = {
+				{["point"] = "TOPLEFT",["displayText"] = true,["style"] = "NONE",}, -- [1]
+				{["displayText"] = true,["yOffset"] = 8,["style"] = "NONE",
+				},{["point"] = "BOTTOMRIGHT",["displayText"] = true,["textThreshold"] = 5,["yOffset"] = 12,["style"] = "texturedIcon",},
+				{["point"] = "TOPRIGHT",["displayText"] = true,["textThreshold"] = 3,["style"] = "texturedIcon",},
+			}
+			ReloadUI();
+		elseif filter == "Monk" then
+			E.global.unitframe.buffwatch["MONK"] = {
+				{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["style"] = "NONE",},{["enabled"] = false,},
+				{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["yOffset"] = 8,["style"] = "NONE",},
+				{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["yOffset"] = 8,["style"] = "NONE",},
+				{["enabled"] = true,["anyUnit"] = false,["point"] = "TOPRIGHT",["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,
+				},["id"] = 115175,["displayText"] = false,["style"] = "texturedIcon",["yOffset"] = 0,},
+			}
+			ReloadUI();
+		elseif filter == "Shaman" then
+			E.global.unitframe.buffwatch["SHAMAN"] = {
+				{["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["style"] = "NONE",},
+				{["point"] = "BOTTOMRIGHT",["yOffset"] = 10,["style"] = "texturedIcon",},
+				{["point"] = "TOPLEFT",["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["style"] = "NONE",},
+			}
+			ReloadUI();
+		else
+			print("There is no filter for the class specified.")
+		end
+	else
+		print("This author doesn't have a filter import for that option.")
+	end
+end
 
 local function UpdateAuthor()
 	if selectedAuthor == 'Affinitii' then
@@ -59,6 +128,7 @@ local function UpdateAuthor()
 		}
 		if not selectedOption or selectedOption == '' then
 			E.Options.args.sle.args.importing.args.optionGroup = nil
+			selectedClass = nil
 			return
 		end
 		
@@ -69,22 +139,33 @@ local function UpdateAuthor()
 				order = 15,
 				guiInline = true,
 				args = {
+					description = {
+						order = 2,
+						type = "description",
+						name = L["Please be aware that importing any of the filters will require a reload of the UI for the settings to take effect.\nOnce you click a filter button, your screen will reload automatically."],
+					},
 					selectClass = {
-						name = L["Select Class"],
+						name = L["Select Filter"],
 						type = 'select',
-						order = 1,
+						order = 4,
 						guiInline = true,
 						get = function(info) return selectedClass end,
 						set = function(info, value) selectedClass = value; UpdateAuthor(); end,							
 						values = function()
 							local class = {}
 							class[''] = NONE
-							for k in pairs(classes) do
-								class[k] = k
+							class['1Filter'] = "General Filters"
+							for k, v in pairs(classes) do
+								class[k] = v
 							end
 
 							return class
 						end,
+					},
+					spacer = {
+						order = 6,
+						type = 'description',
+						name = '',
 					},
 				},
 			}
@@ -94,64 +175,25 @@ local function UpdateAuthor()
 			end
 			E.Options.args.sle.args.importing.args.optionGroup.args.class = {
 				type = 'execute',
-				order = 2,
-				name = L["Import"]..' '..selectedClass,
-				func = function(info, value)
-				if selectedClass == "Monk" then
-					E.global.unitframe.buffwatch.MONK = {
-						{
-							["color"] = {
-								["r"] = 1,
-								["g"] = 1,
-								["b"] = 1,
-							},
-							["displayText"] = true,
-							["style"] = "NONE",
-						}, -- [1]
-						{
-							["enabled"] = false,
-						}, -- [2]
-						{
-							["color"] = {
-								["r"] = 1,
-								["g"] = 1,
-								["b"] = 1,
-							},
-							["displayText"] = true,
-							["yOffset"] = 8,
-							["style"] = "NONE",
-						}, -- [3]
-						{
-							["color"] = {
-								["r"] = 1,
-								["g"] = 1,
-								["b"] = 1,
-							},
-							["displayText"] = true,
-							["yOffset"] = 8,
-							["style"] = "NONE",
-						}, -- [4]
-						{
-							["enabled"] = true,
-							["anyUnit"] = false,
-							["point"] = "TOPRIGHT",
-							["color"] = {
-								["b"] = 1,
-								["g"] = 1,
-								["r"] = 1,
-							},
-							["id"] = 115175,
-							["displayText"] = false,
-							["style"] = "texturedIcon",
-							["yOffset"] = 0,
-						}, -- [5]
-					}
-					else
-						print("class not monk")
-					end
-				end,
+				order = 5,
+				name = L["Import"],
+				func = function(info, value) buffWatch(selectedClass) end,
 			}
+			if selectedClass == '1Filter' then
+				E.Options.args.sle.args.importing.args.optionGroup.args.filterInfo = {
+					type = "description",
+					order = 7,
+					name = L["This will import non class specific filters from this author."],
+				}
+			elseif selectedClass == 'AllClasses' then
+				E.Options.args.sle.args.importing.args.optionGroup.args.filterInfo = {
+					type = "description",
+					order = 7,
+					name = L["This will import All Class specific filters from this author."],
+				}
+			end
 		elseif selectedOption == 'Addons' then
+			selectedClass = nil
 			E.Options.args.sle.args.importing.args.optionGroup = {
 				type = "group",
 				name = selectedOption,
@@ -223,22 +265,33 @@ local function UpdateAuthor()
 				order = 15,
 				guiInline = true,
 				args = {
+					description = {
+						order = 2,
+						type = "description",
+						name = L["Please be aware that importing any of the filters will require a reload of the UI for the settings to take effect.\nOnce you click a filter button, your screen will reload automatically."],
+					},
 					selectClass = {
-						name = L["Select Class"],
+						name = L["Select Filter"],
 						type = 'select',
-						order = 1,
+						order = 4,
 						guiInline = true,
 						get = function(info) return selectedClass end,
 						set = function(info, value) selectedClass = value; UpdateAuthor(); end,							
 						values = function()
 							local class = {}
 							class[''] = NONE
-							for k in pairs(classes) do
-								class[k] = k
+							class['1Filter'] = "General Filters"
+							for k, v in pairs(classes) do
+								class[k] = v
 							end
 
 							return class
 						end,
+					},
+					spacer = {
+						order = 6,
+						type = 'description',
+						name = '',
 					},
 				},
 			}
@@ -248,10 +301,23 @@ local function UpdateAuthor()
 			end
 			E.Options.args.sle.args.importing.args.optionGroup.args.class = {
 				type = 'execute',
-				order = 2,
-				name = L["Import"]..' '..selectedClass,
-				func = function(info, value) --[[UF:Update_AllFrames()]] end,
+				order = 5,
+				name = L["Import"],
+				func = function(info, value) buffWatch(selectedClass) end,
 			}
+			if selectedClass == '1Filter' then
+				E.Options.args.sle.args.importing.args.optionGroup.args.filterInfo = {
+					type = "description",
+					order = 7,
+					name = L["This will import non class specific filters from this author."],
+				}
+			elseif selectedClass == 'AllClasses' then
+				E.Options.args.sle.args.importing.args.optionGroup.args.filterInfo = {
+					type = "description",
+					order = 7,
+					name = L["This will import All Class specific filters from this author."],
+				}
+			end
 		elseif selectedOption == 'Addons' then
 			E.Options.args.sle.args.importing.args.optionGroup = {
 				type = "group",
@@ -259,6 +325,12 @@ local function UpdateAuthor()
 				order = 15,
 				guiInline = true,
 				args = {
+					repoocinfo = {
+						type = "description",
+						order = 2,
+						name = selectedAuthor..' '..L["has no data for this selected option."],
+					},
+				--[[
 					BigWigs = {
 						type = 'execute',
 						order = 2,
@@ -276,7 +348,7 @@ local function UpdateAuthor()
 						order = 2,
 						name = L['xCT+'],
 						func = function(info, value) AI:LoadAddons("Affinitii, xCT+"); end,
-					},
+					},]]
 				},
 			}
 		end
@@ -324,22 +396,33 @@ local function UpdateAuthor()
 				order = 15,
 				guiInline = true,
 				args = {
+					description = {
+						order = 2,
+						type = "description",
+						name = L["Please be aware that importing any of the filters will require a reload of the UI for the settings to take effect.\nOnce you click a filter button, your screen will reload automatically."],
+					},
 					selectClass = {
-						name = L["Select Class"],
+						name = L["Select Filter"],
 						type = 'select',
-						order = 1,
+						order = 4,
 						guiInline = true,
 						get = function(info) return selectedClass end,
 						set = function(info, value) selectedClass = value; UpdateAuthor(); end,							
 						values = function()
 							local class = {}
 							class[''] = NONE
-							for k in pairs(classes) do
-								class[k] = k
+							class['1Filter'] = "General Filters"
+							for k, v in pairs(classes) do
+								class[k] = v
 							end
 
 							return class
 						end,
+					},
+					spacer = {
+						order = 6,
+						type = 'description',
+						name = '',
 					},
 				},
 			}
@@ -349,10 +432,23 @@ local function UpdateAuthor()
 			end
 			E.Options.args.sle.args.importing.args.optionGroup.args.class = {
 				type = 'execute',
-				order = 2,
-				name = L["Import"]..' '..selectedClass,
-				func = function(info, value) --[[UF:Update_AllFrames()]] end,
+				order = 5,
+				name = L["Import"],
+				func = function(info, value) buffWatch(selectedClass) end,
 			}
+			if selectedClass == '1Filter' then
+				E.Options.args.sle.args.importing.args.optionGroup.args.filterInfo = {
+					type = "description",
+					order = 7,
+					name = L["This will import non class specific filters from this author."],
+				}
+			elseif selectedClass == 'AllClasses' then
+				E.Options.args.sle.args.importing.args.optionGroup.args.filterInfo = {
+					type = "description",
+					order = 7,
+					name = L["This will import All Class specific filters from this author."],
+				}
+			end
 		elseif selectedOption == 'Addons' then
 			E.Options.args.sle.args.importing.args.optionGroup = {
 				type = "group",
@@ -360,23 +456,11 @@ local function UpdateAuthor()
 				order = 15,
 				guiInline = true,
 				args = {
-					BigWigs = {
-						type = 'execute',
-						order = 2,
-						name = L['Big Wigs'],
-						func = function(info, value) AI:LoadAddons("Affinitii, BigWigs"); end,
-					},
-					Hermes = {
-						type = 'execute',
-						order = 2,
-						name = L['Hermes'],
-						func = function(info, value) AI:LoadAddons("Affinitii, Hermes"); end,
-					},
 					xCT = {
 						type = 'execute',
 						order = 2,
 						name = L['xCT+'],
-						func = function(info, value) AI:LoadAddons("Affinitii, xCT+"); end,
+						func = function(info, value) AI:LoadAddons("Darth, xCT+"); end,
 					},
 				},
 			}
@@ -393,7 +477,7 @@ end
 local function configTable()
 	E.Options.args.sle.args.importing = {
 		type = 'group',
-		name = L['Extra Importing'],
+		name = L['Import Options'],
 		order = 199,
 		args = {
 			header = {
@@ -410,8 +494,8 @@ local function configTable()
 				order = 3,
 				type = 'select',
 				name = L['Select Author'],
-				get = function(info) return selectedAuthor end,
-				set = function(info, value) if value == '' then selectedAuthor = value; selectedClass = nil; selectedOption = nil; else selectedAuthor = value end; UpdateAuthor() end,							
+				get = function(info) if selectedAuthor == nil then return 'None' else return selectedAuthor end end,
+				set = function(info, value) if value == '' then selectedAuthor = nil; selectedClass = nil; selectedOption = nil; else selectedAuthor = value; selectedOption = nil; selectedClass = nil; end; UpdateAuthor() end,							
 				values = function()
 					local authors = {}
 					authors[''] = NONE
