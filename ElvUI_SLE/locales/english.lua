@@ -40,6 +40,8 @@ L["Darth's Defaults Set"] = true
 L["Repooc's Config"] = true
 L["Repooc's Defaults Set"] = true
 
+
+
 --Auras--
 L["Options for customizing auras near the minimap."] = true
 L["Caster Name"] = true
@@ -91,7 +93,7 @@ L["SLE_CONTACTS"] = [=[Bug reports, suggestions and other stuff accepted via:
 - Private Massage on TukUI.org to Darth Predator or Repooc
 - AddOn's page/ticket system on curse.com
 - Forums on tukui.org, Addons/Help section
-- AddOn's repo github.com]=]
+- AddOn's repo on github.com]=]
 L["DP_1"] = "DT Panel 1"
 L["DP_2"] = "DT Panel 2"
 L["DP_3"] = "DT Panel 3"
@@ -157,6 +159,18 @@ L["Farm Tool Bar"] = true
 L["Farm Portal Bar"] = true
 L["Tilled Soil"] = true
 L['Right-click to drop the item.'] = true
+
+--Import Section
+L["SLE_IMPORTS"] = "|cffFF0000Note:|r Use the filter imports with caution as these will overwrite any custom ones made!\nImporting a class filter will overwrite any modifications you have made to that class filter."
+L["Import Options"] = true
+L["Author Specific Imports"] = true
+L['Select Author'] = true
+L["Please be aware that importing any of the filters will require a reload of the UI for the settings to take effect.\nOnce you click a filter button, your screen will reload automatically."] = true
+L["Import"] = true
+L["This will import non class specific filters from this author."] = true
+L["This will import All Class specific filters from this author."] = true
+L['Import All'] = true
+
 
 --Marks--
 L["Raid Marks"] = true
@@ -237,6 +251,7 @@ L["ELVUI_SLE_CREDITS"] = "We would like to point out the following people for he
 L["Submodules and Coding:"] = true
 L["ELVUI_SLE_CODERS"] = [=[Elv
 Tukz
+Affinitii
 Azilroka
 Blazeflack
 Boradan
