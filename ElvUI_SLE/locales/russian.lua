@@ -39,6 +39,8 @@ L["Darth's Config"] = "Опции Darth'а"
 L["Darth's Defaults Set"] = "Установлены настройки Darth'а"
 L["Repooc's Config"] = "Опции Repooc'а"
 L["Repooc's Defaults Set"] = "Установлены настройки Repooc'а"
+L["Affinitii's Config"] = "Опции  Affinitii"
+L["Affinitii's Defaults Set"] = "Установлены настройки Affinitii"
 
 --Auras--
 L["Options for customizing auras near the minimap."] = "Опции для настройки аур около миникарты"

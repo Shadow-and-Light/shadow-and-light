@@ -1707,7 +1707,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 end
 
 function E:AffinitiiSetup(loadAddons) --The function to switch from class ElvUI settings to Affinitii's
-	InstallStepComplete.message = L["Affiniti's Defaults Set"]
+	InstallStepComplete.message = L["Affinitii's Defaults Set"]
 	InstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
 	local xOffset = GetScreenWidth() * 0.34375

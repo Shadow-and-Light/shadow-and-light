@@ -39,8 +39,8 @@ L["Darth's Config"] = true
 L["Darth's Defaults Set"] = true
 L["Repooc's Config"] = true
 L["Repooc's Defaults Set"] = true
-
-
+L["Affinitii's Config"] = true
+L["Affinitii's Defaults Set"] = true
 
 --Auras--
 L["Options for customizing auras near the minimap."] = true
