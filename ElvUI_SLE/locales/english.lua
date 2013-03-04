@@ -174,7 +174,7 @@ L['Import All'] = true
 --Loot--
 L['Loot Announcer'] = true
 L["LOOT_DESC"] = [[This module will announce loot dropped when you open the loot window.
-This will work only if you are master looter or if you hold left control key while looting to manually announce the items in chat.]]
+This will work only if you are raid leadedr, assist or master looter or if you hold left control key while looting to manually announce the items in chat.]]
 L["Auto Announce"] = true
 L["Automatically announce in selected chat channel."] = true
 L["Loot Quality"] = true
