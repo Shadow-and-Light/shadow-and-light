@@ -43,4 +43,8 @@ V['sle'] = {
 			['enable'] = true,
 		},
 	},
+	
+	['loot'] = {
+		['enable'] = false,
+	},
 }

@@ -12,6 +12,7 @@
 	<Include file='exprepbar\load_exprepbar.xml'/>
 	<Include file='farm\load_farm.xml'/>
 	<Include file='imports\load_imports.xml'/>
+	<Include file='loot\load_loot.xml'/>
 	<Include file='marks\load_marks.xml'/>
 	<Include file='minimap\load_minimap.xml'/>
 	<Include file='raidutility\load_raidutility.xml'/>

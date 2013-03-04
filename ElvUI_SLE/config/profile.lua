@@ -187,6 +187,13 @@ P['sle'] = {
 		['mouse'] = false,
 		['position'] = "uib_vert",
 	},
+	
+	--Loot
+	['loot'] = {
+		['quality'] = "EPIC",
+		['chat'] = "RAID",
+		['auto'] = true,
+	},
 }
 
 --For some reason datatext settings refuses to work if there is no general setting block here O_o
