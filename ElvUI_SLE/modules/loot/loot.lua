@@ -5,6 +5,22 @@ local check = false
 local t = 0
 local loottemp = {}
 
+function LT:Check()
+	local name, rank, isML
+	for x = 1, GetNumGroupMembers() do
+		name, rank, _, _, _, _, _, _, _, _, isML = GetRaidRosterInfo(x)
+		print(name, rank, isML)
+		if name == UnitName("player") and isML then
+			return true
+		elseif name == UnitName("player") and rank == 1 then
+			return true
+		elseif name == UnitName("player") and rank == 2 then
+			return true
+		end
+	end
+	return false
+end
+
 function LT:Announce()
 	local name = {}
 	local loot = {}
@@ -15,8 +31,7 @@ function LT:Announce()
 	local inGroup, inRaid, inPartyLFG = IsInGroup(), IsInRaid(), IsPartyLFG()
 	local p, chat
 	if not inGroup then return end -- not in group, exit.
-	local masterlooterRaidID = select(3, GetLootMethod())
-	if (masterlooterRaidID ~= nil and UnitName("raid"..masterlooterRaidID) == UnitName("player") and E.db.sle.loot.auto) or (IsLeftControlKeyDown() and (IsInGroup() or IsInRaid())) then
+	if (LT:Check() and E.db.sle.loot.auto) or (IsLeftControlKeyDown() and (IsInGroup() or IsInRaid())) then
 		for i = 1, GetNumLootItems() do
 			if GetLootSlotType(i) == 1 then
 				for j = 1, t do

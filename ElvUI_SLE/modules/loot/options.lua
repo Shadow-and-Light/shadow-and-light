@@ -30,6 +30,7 @@ E.Options.args.sle.args.loot = {
 			type = "toggle",
 			name = L["Auto Announce"],
 			desc = L["Automatically announce when loot window opens (Master Looter Only)."],
+			disabled = function() return not E.private.sle.loot.enable end,
 			get = function(info) return E.db.sle.loot.auto end,
 			set = function(info, value) E.db.sle.loot.auto = value; end
 		},
