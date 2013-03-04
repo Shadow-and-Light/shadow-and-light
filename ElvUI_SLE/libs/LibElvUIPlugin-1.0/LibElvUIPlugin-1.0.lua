@@ -142,7 +142,6 @@ function lib:GeneratePluginList()
 			  list = list .. L[" (Newest: "] .. plugin.newversion .. ")"
 			end
 			list = list .. "|r\n"
-			E:Print(L["Your version of "] .. Pname .. L[" is out of date. You can download the latest version from http://www.tukui.org"])
 		end
 	end
 	return list
