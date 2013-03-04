@@ -88,7 +88,8 @@ function lib:SetupVersionCheck(plugin)
 				if plugin.version ~= 'BETA' and tonumber(message) ~= nil and tonumber(message) > tonumber(plugin.version) then
 					plugin.old = true
 					plugin.newversion = tonumber(message)
-					E:Print(L["Your version of "] .. plugin.name .. L[" is out of date. You can download the latest version from http://www.tukui.org"])
+					local Pname = GetAddOnMetadata(plugin.name, "Title")
+					E:Print(L["Your version of "] .. Pname .. L[" is out of date. You can download the latest version from http://www.tukui.org"])
 					E[plugin.name.."recievedOutOfDateMessage"] = true
 				end
 			end
@@ -132,14 +133,16 @@ function lib:GeneratePluginList()
 			local author = GetAddOnMetadata(plugin.name, "Author")
 			local Pname = GetAddOnMetadata(plugin.name, "Title")
 			local color = plugin.old and E:RGBToHex(1,0,0) or E:RGBToHex(0,1,0)
-			list = list .. color .. Pname ..  " " ..L["Version"].." " .. plugin.version
+			list = list .. Pname 
 			if author then
 			  list = list .. " "..L["by"].." " .. author
 			end
+			list = list .. color .. " - " ..L["Version"].." " .. plugin.version
 			if plugin.old then
 			  list = list .. L[" (Newest: "] .. plugin.newversion .. ")"
 			end
 			list = list .. "|r\n"
+			E:Print(L["Your version of "] .. Pname .. L[" is out of date. You can download the latest version from http://www.tukui.org"])
 		end
 	end
 	return list
