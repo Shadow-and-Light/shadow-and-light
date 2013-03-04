@@ -6,12 +6,12 @@ local function configTable()
 E.Options.args.sle.args.loot = {
 	order = 5,
 	type = "group",
-	name = L['Loot Annouce'],
+	name = L['Loot Announcer'],
 	args = {
 		marksheader = {
 			order = 1,
 			type = "header",
-			name = L['Loot Annouce'],
+			name = L['Loot Announcer'],
 		},
 		info = {
 			order = 2,
@@ -28,8 +28,8 @@ E.Options.args.sle.args.loot = {
 		auto = {
 			order = 4,
 			type = "toggle",
-			name = L["Autoannounce"],
-			desc = L["Automatically announce in selected chat channel."],
+			name = L["Auto Announce"],
+			desc = L["Automatically announce when loot window opens (Master Looter Only)."],
 			get = function(info) return E.db.sle.loot.auto end,
 			set = function(info, value) E.db.sle.loot.auto = value; end
 		},
@@ -41,8 +41,8 @@ E.Options.args.sle.args.loot = {
 		quality = {
 			order = 6,
 			type = "select",
-			name = L["Minimum quality"],
-			desc = L["Minimum quality of an item to announce it."],
+			name = L["Loot Quality"],
+			desc = L["Set the minimum quality of an item to announce."],
 			disabled = function() return not E.private.sle.loot.enable end,
 			get = function(info) return E.db.sle.loot.quality end,
 			set = function(info, value) E.db.sle.loot.quality = value;  end,
@@ -56,7 +56,7 @@ E.Options.args.sle.args.loot = {
 			order = 7,
 			type = "select",
 			name = L["Chat"],
-			desc = L["The chat channel to announce to."],
+			desc = L["Announce loot to the selected channel."],
 			disabled = function() return not E.private.sle.loot.enable end,
 			get = function(info) return E.db.sle.loot.chat end,
 			set = function(info, value) E.db.sle.loot.chat = value;  end,

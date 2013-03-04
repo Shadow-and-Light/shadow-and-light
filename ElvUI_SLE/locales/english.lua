@@ -172,14 +172,14 @@ L["This will import All Class specific filters from this author."] = true
 L['Import All'] = true
 
 --Loot--
-L['Loot Annouce'] = true
-L["LOOT_DESC"] = [[This module will announce loot dropped when you open loot window.
-This will work only if you are master looter or if you hold left control key during loot opening to force announce.]]
-L["Autoannounce"] = true
+L['Loot Announcer'] = true
+L["LOOT_DESC"] = [[This module will announce loot dropped when you open the loot window.
+This will work only if you are master looter or if you hold left control key while looting to manually announce the items in chat.]]
+L["Auto Announce"] = true
 L["Automatically announce in selected chat channel."] = true
-L["Minimum quality"] = true
-L["Minimum quality of an item to announce it."] = true
-L["The chat channel to announce to."] = true
+L["Loot Quality"] = true
+L["Set the minimum quality of an item to announce."] = true
+L["Announce loot to the selected channel."] = true
 
 --Marks--
 L["Raid Marks"] = true
