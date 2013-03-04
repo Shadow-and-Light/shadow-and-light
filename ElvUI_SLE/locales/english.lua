@@ -180,6 +180,7 @@ L["Automatically announce in selected chat channel."] = true
 L["Loot Quality"] = true
 L["Set the minimum quality of an item to announce."] = true
 L["Announce loot to the selected channel."] = true
+L["Loot Dropped:"] = true
 
 --Marks--
 L["Raid Marks"] = true
@@ -305,4 +306,5 @@ L["CHANGE_LOG"] = [=[|cff1784d1v1.5|r
 - You will now receive chat message if someone in your group/raid has newer version of S&L
 - Add Affinitii's (Blood Legion) UI Layout
 - Darth's Layout Modified
+- Added loot announce function
 ]=]

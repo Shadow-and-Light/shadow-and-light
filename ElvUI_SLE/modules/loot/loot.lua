@@ -9,7 +9,6 @@ function LT:Check()
 	local name, rank, isML
 	for x = 1, GetNumGroupMembers() do
 		name, rank, _, _, _, _, _, _, _, _, isML = GetRaidRosterInfo(x)
-		print(name, rank, isML)
 		if name == UnitName("player") and isML then
 			return true
 		elseif name == UnitName("player") and rank == 1 then

@@ -17,6 +17,7 @@ v1.5
 - You will now receive chat message if someone in your group/raid has newer version of S&L
 - Add Affinitii's (Blood Legion) UI Layout
 - Darth's Layout Modified
+- Added loot announce function
 
 
 v1.42 (January 31, 2013)
