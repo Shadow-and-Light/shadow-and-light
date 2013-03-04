@@ -6,5 +6,6 @@
 	<Script file='BigWigsIcon.lua'/>
 	<Script file='Clique.lua'/>
 	<Script file='Hermes.lua'/>
+	<Script file='Skada.lua'/>
 	<Script file='xCT+.lua'/>
 </Ui>
