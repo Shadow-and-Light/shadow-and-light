@@ -1,0 +1,9 @@
+## Interface: 50100
+## LoadOnDemand: 1
+## Title: Lib: LibElvUIPlugin-1.0
+## Notes: 
+## Author: Sortokk
+
+locales\load_locales.xml
+LibStub.lua
+LibElvUIPlugin-1.0.lua

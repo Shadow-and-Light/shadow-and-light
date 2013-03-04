@@ -2,20 +2,11 @@
 local SLE = E:NewModule('SLE', 'AceHook-3.0', 'AceEvent-3.0');
 local UF = E:GetModule('UnitFrames');
 local DTP
+local EP = LibStub("LibElvUIPlugin-1.0")
+local addon = ...
 
 SLE.version = GetAddOnMetadata("ElvUI_SLE", "Version")
 E.SLEConfigs = {}
-
-local f = CreateFrame("Frame")
-f:RegisterEvent("ADDON_LOADED")
-f:SetScript("OnEvent", function(self, event, addon)
-	if addon == "ElvUI_Config" then
-		for _, func in pairs(E.SLEConfigs) do
-			func()
-		end	
-		self:UnregisterEvent("ADDON_LOADED")
-	end
-end)
 
 function SLE:Tutorials() --Additional tutorials
 	table.insert(E.TutorialList, #(E.TutorialList)+1, L["To enable full values of health/power on unitframes in Shadow & Light add \":sl\" to the end of the health/power tag.\nExample: [health:current:sl]."]);
@@ -148,11 +139,18 @@ function SLE:Print(msg)
 	print(E["media"].hexvaluecolor..'S&L:|r', msg)
 end
 
+function SLE:GetOptions()
+	for _, func in pairs(E.SLEConfigs) do
+		func()
+	end	
+end
+
 function SLE:Initialize()
 	--Showing warning message about too old versions of ElvUI
 	if tonumber(E.version) < 5.32 then
 		E:StaticPopup_Show("VERSION_MISMATCH")
 	end
+	EP:RegisterPlugin(addon,SLE.GetOptions)
 	DTP = E:GetModule('DTPanels')
 	if E.private.unitframe.enable then
 		self:RegisterEvent("PLAYER_REGEN_DISABLED", UF.Update_CombatIndicator);

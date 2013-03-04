@@ -28,7 +28,6 @@ L["Your version of ElvUI is older than recommended to use with Shadow & Light Ed
 L["Reset All"] = "Сбросить все"
 L["Reset all Shadow & Light options and movers to their defaults"] = "Сбросить все настройки и фиксаторы редакции на умолчания"
 L["Reset these options to defaults"] = "Восстановить умолчания для этих опций"
-L["Your version of ElvUI S&L is out of date. You can download the latest version from http://www.tukui.org"] = "Ваша версия ElvUI S&L устарела. Вы можете скачать последнюю версию на http://www.tukui.org"
 
 --Install--
 L["Shadow & Light Settings"] = "Установки Тени и Света"
