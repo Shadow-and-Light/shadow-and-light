@@ -2,6 +2,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local DT = E:GetModule('DataTexts')
 local SLE = E:GetModule('SLE')
+local ACD = LibStub("AceConfigDialog-3.0")
 
 local displayString = '';
 local lastPanel;
@@ -15,6 +16,7 @@ end
 
 local function Click()
 	ElvConfigToggle:Click();
+	ACD:SelectGroup("ElvUI", "sle")
 end
 
 local function OnEnter(self)
