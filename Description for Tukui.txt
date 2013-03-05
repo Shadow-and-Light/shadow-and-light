@@ -90,16 +90,26 @@ Information to provide when posting:
 6.) Just to be clear, Disable ALL Addons except for ElvUI and Shadow & Light</blockquote>
 With that said, happy gaming and enjoy the addon!
 
-<table width="100%"><tr><td align="center" colspan="2"><font color="#3e8ac6"><b>Repooc's Install Screenshots</b></font></td></tr>
+<table width="100%">
+<tr><td align="center" colspan="2">
+<font color="#3e8ac6"><b>Repooc's Layout</b></font></td></tr>
 <tr><td align="center">Tank/Dps Layout
-<a href="http://www.tukui.org/storage/images/248630Tank-Dps%20High%20Resolution.jpg" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/248630Tank-Dps High Resolution.jpg"></a>
+<a href="http://www.tukui.org/storage/images/540914Repooc-DPSLayout.png" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/540914Repooc-DPSLayout.png"></a>
 </td>
 <td align="center">Healer Layout
-<a href="http://www.tukui.org/storage/images/39082Healer%20High%20Resolution.jpg" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/39082Healer High Resolution.jpg"></a>
+<a href="http://www.tukui.org/storage/images/238390Repooc-HealerLayout.png" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/238390Repooc-HealerLayout.png"></a>
 </td></tr>
 <tr><td align="center" colspan="2">
-<font color="#3e8ac6"><b>Darth Predator's Install Screenshot</b></font></td></tr>
+<font color="#3e8ac6"><b>Darth Predator's Layout</b></font></td></tr>
 <tr><td align="center" colspan="2">
 <a href="http://www.tukui.org/storage/images/335018Darth_Setup_high.jpg" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/335018Darth_Setup_high.jpg"></a>
+</td></tr>
+<tr><td align="center" colspan="2">
+<font color="#3e8ac6"><b>Affinitii's Layout</b></font></td></tr>
+<tr><td align="center">Tank/Dps Layout
+<a href="http://www.tukui.org/storage/images/196539Affinitii-DPSLayout.png" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/196539Affinitii-DPSLayout.png"></a>
+</td>
+<td align="center">Healer Layout
+<a href="http://www.tukui.org/storage/images/766034Affinitii-HealerLayout.png" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/766034Affinitii-HealerLayout.png"></a>
 </td></tr>
 </table>
