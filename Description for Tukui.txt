@@ -8,17 +8,17 @@ Originally this project started as two personal edits of ElvUI by Darth Predator
 You'll find Shadow & Light options under it's own configuration category in ElvUI's config section by typing /ec
 
 <font color="#3e8ac6"><b>Suggestions/Concerns:</b></font>
-- Private Massage on <a href="http://www.tukui.org/">TukUI.org</a> to <a href="http://www.tukui.org/forums/?pm=new/sdp>Darth Predator</a> or <a href="http://www.tukui.org/forums/?pm=new/repooc>Repooc</a>
 - <a href="http://wow.curseforge.com/addons/shadow-and-light-edit/tickets/">Curse Ticket System</a>
 - <a href="https://github.com/Repooc/ElvUI_SLE/issues">Github Ticket System</a>
 
-<font color="#3e8ac6"><b>Downloaded Locations:</b></font>
+<font color="#3e8ac6"><b>Download Locations:</b></font>
 - <a href="http://www.tukui.org/addons/index.php?act=view&id=42">Tukui</a>
 - <a href="http://www.wowinterface.com/downloads/info20927-ShadowLightEdit.html">Wowinterface</a>
 - <a href="http://www.curse.com/addons/wow/shadow-and-light-edit">Curse</a>
 - <a href="https://github.com/Repooc/ElvUI_SLE/downloads">Github</a> (<font color="FF0000"><b>Warning:</b></font> This is our development area and is consider the latest Alpha and may contain bugs.)
 
 <font color="#3e8ac6"><b>Features:</b></font>
+- Ability to display coordinates on minimap
 - Ability to set text on exp/rep bar to full values.
 - Ability to show full values for HP/Mana on unitframes. (Tags: [health:current:sl])
 - Additional background panels that can be customized to your liking.
@@ -30,24 +30,38 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 - Classbar offset
 - Customizable size of chat history stored
 - Customize Combat Icon position on player unitframe.
+- Display Item Durability on Character Frame
+- Display Item Level on Character Frame
+- Equipment Manager for ability to swap equipment sets based on zone/instance/spec.
+- Farmer Module for easier farm management.
 - LFR progression in Time Datatext.
+- Loot Announcer module adds ability to announce loot to selected channel
 - Misc Custom UI Button (Quickly access ElvUI Config, ReloadUI, Toggle Move Anchors, Boss mod config/options (DBM, DXE, or Bigwigs), Addons Manager (stAddOnManager or ACP)
-- Modified Installation Process (Includes settings that each of the authors play with.)
+- Modified Installation Process (Includes settings that each of the authors play with and now includes Affinitii's UI.)
 - Movable Pet Battle Actionbar
 - Movable Raid Utility menu.
 - PvP Auto Release
+- Skinned Minimap buttons
 - Skinned Raid Marker Bar
 
+As of 5.2, we have included Affinitii's UI in our install process to make installing his UI a lot easier and more streamlined for people.  One thing that you will need to do manually is install his weak aura profiles as we have not included that will the install as they may change a lot through out the expansion.
+If you have questions on how to import these into weak auras, you may contact us through the ticket system or try asking in his stream located at his <a href="http://twitch.tv/affinitiibl/">Twitch TV</a> account.
 <font color="#3e8ac6"><b>Affinitii's WeakAura Pastebin</b></font>
-- <a href="http://pastebin.com/e5w4XqYp">All-in-One Pastebin</a>
-- <a href="http://pastebin.com/wMHNGRv8">Monk Related</a>
-- <a href="http://pastebin.com/BmphMbuj">Druid Mainbar</a>
-- <a href="http://pastebin.com/E7LxNmPU">Paladin Mainbar</a>
-- <a href="http://pastebin.com/uMPJjsK9">Priest Mainbar</a>
-- <a href="http://pastebin.com/nFUtDkBN">Shaman Mainbar</a>
+- <a href="http://pastebin.com/aWCPFXYj">Consolidated Pastebin List</a>
+- <a href="http://pastebin.com/HuHbPA9A">Monk Bar</a>
+- <a href="http://pastebin.com/CGjRcEmg">Monk Bar 2</a>
+- <a href="http://pastebin.com/bF69Dfi2">Monk DPS Bar</a>
+- <a href="http://pastebin.com/fdbHQ9n3">Chi Bar</a>
+- <a href="http://pastebin.com/qwdnVNYe">Renewing Mist Tracker</a>
+- <a href="http://pastebin.com/XEY3bLf9">Druid Mainbar</a>
+- <a href="http://pastebin.com/UmFVbAC0">Paladin Bar</a>
+- <a href="http://pastebin.com/x6RyELSW">Paladin Holy Power Bar</a>
+- <a href="http://pastebin.com/Nt8JKhZA">Priest Bar</a>
+- <a href="http://pastebin.com/Nt8JKhZA">Priest Rapture Tracker</a>
+- <a href="http://pastebin.com/H4LgmpqH">Shaman Bar</a>
 - <a href="http://pastebin.com/Q6Jfbr7s">Debuffs</a>
-- <a href="http://pastebin.com/Nz5ZaaLZ">Misc Stuff</a>
-- <a href="http://pastebin.com/FXGHbmwj">Rapture Group</a>
+- <a href="http://pastebin.com/sKGGSxsX">Misc Bar</a>
+- <a href="http://pastebin.com/73Hg2FRU">T14 Debuffs</a>
 
 <font color="#3e8ac6"><b>Skins:</b></font>
 - Boss Button Texture Removed
