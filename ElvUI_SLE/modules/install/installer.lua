@@ -138,14 +138,15 @@ function AI:LoadAddons(args)
 	else  -- Load a specific set of addons 
 		for _, name in pairs(ListArgs) do                 -- we need to figure out which addons to load
 			local entryList = self.addons[name]
-
-			-- Check for addon name
-			if entry then
-				for _, entry in pairs(entryList) do           -- Loop through all the entries
-					LoadAddon(entry, profileName)
+			for _, entry in pairs(entryList) do
+				-- Check for addon name
+				if entry then
+					for _, entry in pairs(entryList) do           -- Loop through all the entries
+						LoadAddon(entry, profileName)
+					end
+				else
+					E:Print("  |cffFF0000ERROR:|r No Addon named '"..name.."' was found in the SLE addon configs.")
 				end
-			else
-				E:Print("  |cffFF0000ERROR:|r No Addon named '"..name.."' was found in the SLE addon configs.")
 			end
 		end
 	end
