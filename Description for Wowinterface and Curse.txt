@@ -6,8 +6,7 @@ Originally this project started as two personal edits of ElvUI by Darth Predator
 You'll find Shadow & Light options under it's own configuration category in ElvUI's config section by typing /ec
 
 [color="#3e8ac6"][b]Suggestions/Concerns:[/b][/color]
-[list]Private Massage on [url=http://www.tukui.org/]TukUI.org[/url] to [url=http://www.tukui.org/forums/?pm=new/sdp]Darth Predator[/url] or [url=http://www.tukui.org/forums/?pm=new/repooc]Repooc[/url]
-[*][url=http://wow.curseforge.com/addons/shadow-and-light-edit/tickets/]Curse Ticket System[/url]
+[list][url=http://wow.curseforge.com/addons/shadow-and-light-edit/tickets/]Curse Ticket System[/url]
 [*][url=https://github.com/Repooc/ElvUI_SLE/issues]Github Ticket System[/url]
 [/list]
 
@@ -19,7 +18,8 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 [/list]
 
 [color="#3e8ac6"][b]Features:[/b][/color]
-[list]Ability to set text on exp/rep bar to full values.
+[list]Ability to display coordinates on minimap
+[*]Ability to set text on exp/rep bar to full values.
 [*]Ability to show full values for HP/Mana on unitframes. (Tags: [health:current:sl])
 [*]Additional background panels that can be customized to your liking.
 [*]Additional datatext panels that can be moved and resized.
@@ -27,16 +27,42 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 [*]Balance Druid and Demonoligy Warlock power value text on Classbar.
 [*]Can display caster name in auras tooltip.
 [*]Chat Datatext Panels altered to fit with the additional datatext panels module of Shadow & Light.
-[*]Chat History Modifications
 [*]Classbar offset
+[*]Customizable size of chat history stored
 [*]Customize Combat Icon position on player unitframe.
+[*]Display Item Durability on Character Frame
+[*]Display Item Level on Character Frame
+[*]Equipment Manager for ability to swap equipment sets based on zone/instance/spec.
+[*]Farmer Module for easier farm management.
 [*]LFR progression in Time Datatext.
+[*]Loot Announcer module adds ability to announce loot to selected channel
 [*]Misc Custom UI Button (Quickly access ElvUI Config, ReloadUI, Toggle Move Anchors, Boss mod config/options (DBM, DXE, or Bigwigs), Addons Manager (stAddOnManager or ACP)
-[*]Modified Installation Process (Includes settings that each of the authors play with.)
+[*]Modified Installation Process (Includes settings that each of the authors play with and now includes Affinitii's UI.)
 [*]Movable Pet Battle Actionbar
 [*]Movable Raid Utility menu.
 [*]PvP Auto Release
+[*]Skinned Minimap buttons
 [*]Skinned Raid Marker Bar
+[/list]
+
+As of 5.2, we have included Affinitii's UI in our install process to make installing his UI a lot easier and more streamlined for people.  One thing that you will need to do manually is install his weak aura profiles as we have not included that will the install as they may change a lot through out the expansion.
+If you have questions on how to import these into weak auras, you may contact us through the ticket system or try asking in his stream located at his <a href="http://twitch.tv/affinitiibl/">Twitch TV</a> account.
+<font color="#3e8ac6"><b>Affinitii's WeakAura Pastebin</b></font>
+[list][url=http://pastebin.com/aWCPFXYj]Consolidated Pastebin List[/url]
+[*][url=http://pastebin.com/HuHbPA9A]Monk Bar[/url]
+[*][url=http://pastebin.com/CGjRcEmg]Monk Bar 2[/url]
+[*][url=http://pastebin.com/bF69Dfi2]Monk DPS Bar[/url]
+[*][url=http://pastebin.com/fdbHQ9n3]Chi Bar[/url]
+[*][url=http://pastebin.com/qwdnVNYe]Renewing Mist Tracker[/url]
+[*][url=http://pastebin.com/XEY3bLf9]Druid Mainbar[/url]
+[*][url=http://pastebin.com/UmFVbAC0]Paladin Bar[/url]
+[*][url=http://pastebin.com/x6RyELSW]Paladin Holy Power Bar[/url]
+[*][url=http://pastebin.com/Nt8JKhZA]Priest Bar[/url]
+[*][url=http://pastebin.com/Nt8JKhZA]Priest Rapture Tracker[/url]
+[*][url=http://pastebin.com/H4LgmpqH]Shaman Bar[/url]
+[*][url=http://pastebin.com/Q6Jfbr7s]Debuffs[/url]
+[*][url=http://pastebin.com/sKGGSxsX]Misc Bar[/url]
+[*][url=http://pastebin.com/73Hg2FRU]T14 Debuffs[/url]
 [/list]
 
 [color="#3e8ac6"][b]Skins:[/b][/color]
