@@ -1922,11 +1922,11 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.movers.UIBFrameMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT315178"
 		E.db.movers.WatchFrameMover = "TOPLEFTElvUIParentTOPLEFT47-239"
 		if layout == 'dpsCaster' or layout == 'dpsMelee' or layout == 'tank' then
-			E.db.movers.ElvUF_PartyMover = "BOTTOMElvUIParentBOTTOM7200"
+			E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT7200"
 			E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT7200"
-			E.db.movers.ElvUF_Raid25Mover = "BOTTOMElvUIParentBOTTOM7200"
+			E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT7200"
 			--E.db.movers.ElvUF_Raid25Mover = "BOTTOMRIGHTElvUIParentBOTTOMLEFT1162121"
-			E.db.movers.ElvUF_Raid40Mover = "BOTTOMElvUIParentBOTTOM7200"
+			E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT7200"
 		else
 			E.db.movers.ElvUF_PartyMover = "BOTTOMElvUIParentBOTTOM0121"
 			E.db.movers.ElvUF_Raid10Mover = "BOTTOMElvUIParentBOTTOM0121"
