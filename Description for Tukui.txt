@@ -44,7 +44,7 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 - Skinned Minimap buttons
 - Skinned Raid Marker Bar
 
-<center><h2>Affinitii's UI Now Available</h2></center>
+<center><h1>Affinitii's UI Now Available</h1></center>
 As of 5.2, we have included Affinitii's UI in our install process to make installing his UI a lot easier and more streamlined for people.  One thing that you will need to do manually is install his weak aura profiles as we have not included that will the install as they may change a lot through out the expansion.
 If you have questions on how to import these into weak auras, you may contact us through the ticket system or try asking in his stream located at his <a href="http://twitch.tv/affinitiibl/">Twitch TV</a> account.
 
