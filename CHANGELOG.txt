@@ -1,5 +1,8 @@
+v1.52 March 6, 2013
+- Fixed farm bar seed bag count not updating on use
+
 v1.51 March 6, 2013
-Fixed compatibility issue with Location Plus pligin. Hopefuly forever
+Fixed compatibility issue with Location Plus pligin. Hopefully forever
 
 v1.5 March 5, 2013
 - Some typos fixed
