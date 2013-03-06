@@ -122,7 +122,7 @@ function F:OnFarm()
 	return GetSubZoneText() == farmzones[1]
 end
 
-function F:InventoryUpdate()
+function F:InventoryUpdate(event)
 	if InCombatLockdown() then return end
 	
 	for i = 1, 5 do
@@ -147,7 +147,9 @@ function F:InventoryUpdate()
 		button.icon:SetAlpha(button.items == 0 and .25 or 1)
 	end	
 	
-	self:UpdateLayout()
+	if event == "BAG_UPDATE" then
+		self:UpdateLayout()
+	end
 end
 
 function F:UpdateBarLayout(bar, anchor, buttons)
