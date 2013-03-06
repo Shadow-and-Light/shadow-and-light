@@ -196,191 +196,44 @@ P['sle'] = {
 	},
 }
 
---For some reason datatext settings refuses to work if there is no general setting block here O_o
---Core
-P['general'] = {
-	["taintLog"] = false,
-	["stickyFrames"] = true,
-	['loginmessage'] = true,
-	["interruptAnnounce"] = "NONE",
-	["autoRepair"] = "NONE",
-	['autoRoll'] = false,
-	['vendorGrays'] = false,
-	['autoAcceptInvite'] = false,
-	['bottomPanel'] = true,
-
-	["fontSize"] = 12,
-	["font"] = "ElvUI Font",
-
-	["bordercolor"] = { r = 0.1,g = 0.1,b = 0.1 },
-	["backdropcolor"] = { r = 0.1,g = 0.1,b = 0.1 },
-	["backdropfadecolor"] = { r = .06,g = .06,b = .06, a = 0.8 },
-	["valuecolor"] = {r = 23/255,g = 132/255,b = 209/255},
-	
-	['mapAlpha'] = 1,
-	['tinyWorldMap'] = true,
-	
-	['minimap'] = {
-		['size'] = 176,
-		['locationText'] = 'MOUSEOVER',
-	},	
-	
-	['experience'] = {
-		['enable'] = true,
-		['width'] = 475,
-		['height'] = 10,
-		['textFormat'] = 'NONE',
-		['textSize'] = 11,
-		['mouseover'] = true,
-	},
-	['reputation'] = {
-		['enable'] = true,
-		['width'] = 475,
-		['height'] = 10,
-		['textFormat'] = 'NONE',
-		['textSize'] = 11,
-		['mouseover'] = true,
-	},
-	['threat'] = {
-		['enable'] = true,
-		['position'] = 'RIGHTCHAT',
-		['textSize'] = 12,
-	},
-	['totems'] = {
-		['enable'] = true,
-		['growthDirection'] = 'VERTICAL',
-		['sortDirection'] = 'ASCENDING',
-		['size'] = 40,
-		['spacing'] = 4,
-	}
-};
-
 P.chat.editboxhistory = 5
 P.auras.perRow = 19
 
 --Datatexts
-if IsAddOnLoaded("ElvUI_LocPlus") then
-P['datatexts'] = {
-	['font'] = 'ElvUI Font',
-	['fontSize'] = 12,
-	['fontOutline'] = 'NONE',
-	
-	['panels'] = {
-		['LeftChatDataPanel'] = {
-			['left'] = 'Armor',
-			['middle'] = 'Durability',
-			['right'] = 'Avoidance',
-		},
-		['RightChatDataPanel'] = {
-			['left'] = 'System',
-			['middle'] = 'Time',	
-			['right'] = 'Gold',
-		},
-		['DP_1'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
-		},
-		['DP_2'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
-		},
-		['DP_3'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
-		},
-		['DP_4'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
-		},
-		['DP_5'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
-		},
-		['DP_6'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
-		},
-		['Top_Center'] = 'Version',
-		['Bottom_Panel'] = '',
-		['LeftMiniPanel'] = 'Guild',
-		['RightMiniPanel'] = 'Friends',
-		['RightCoordDtPanel'] = '', --LocPlus
-		['LeftCoordDtPanel'] = '', --LocPlus
-	},
-	['localtime'] = true,
-	['time24'] = false,
-	['battleground'] = true,
-	['minimapPanels'] = true,
-	['leftChatPanel'] = true,
-	['rightChatPanel'] = true,
+P.datatexts.panels.DP_1 = {
+	['left'] = '',
+	['middle'] = '',
+	['right'] = '',
 }
-else
-P['datatexts'] = {
-	['font'] = 'ElvUI Font',
-	['fontSize'] = 12,
-	['fontOutline'] = 'NONE',
-	
-	['panels'] = {
-		['LeftChatDataPanel'] = {
-			['left'] = 'Armor',
-			['middle'] = 'Durability',
-			['right'] = 'Avoidance',
-		},
-		['RightChatDataPanel'] = {
-			['left'] = 'System',
-			['middle'] = 'Time',	
-			['right'] = 'Gold',
-		},
-		['DP_1'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
-		},
-		['DP_2'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
-		},
-		['DP_3'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
-		},
-		['DP_4'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
-		},
-		['DP_5'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
-		},
-		['DP_6'] = {
-			['left'] = '',
-			['middle'] = '',
-			['right'] = '',
-		},
-		['Top_Center'] = 'Version',
-		['Bottom_Panel'] = '',
-		['LeftMiniPanel'] = 'Guild',
-		['RightMiniPanel'] = 'Friends',
-	},
-	['localtime'] = true,
-	['time24'] = false,
-	['battleground'] = true,
-	['minimapPanels'] = true,
-	['leftChatPanel'] = true,
-	['rightChatPanel'] = true,
+P.datatexts.panels.DP_2 = {
+	['left'] = '',
+	['middle'] = '',
+	['right'] = '',
 }
-end
+P.datatexts.panels.DP_3 = {
+	['left'] = '',
+	['middle'] = '',
+	['right'] = '',
+}
+P.datatexts.panels.DP_4 = {
+	['left'] = '',
+	['middle'] = '',
+	['right'] = '',
+}
+P.datatexts.panels.DP_5 = {
+	['left'] = '',
+	['middle'] = '',
+	['right'] = '',
+}
+P.datatexts.panels.DP_6 = {
+	['left'] = '',
+	['middle'] = '',
+	['right'] = '',
+}
+P.datatexts.panels.Top_Center = 'Version'
+P.datatexts.panels.Bottom_Panel = ''
 
+--Unitframes
 P.unitframe.units.player.classbar.xOffset = 0
 P.unitframe.units.player.classbar.yOffset = 0
 P.unitframe.units.player.classbar.offset = false
