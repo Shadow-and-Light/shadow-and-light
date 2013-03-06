@@ -283,10 +283,15 @@ function F:UpdateBar(bar, layoutfunc, zonecheck, anchor, buttons, category)
 	end
 end
 
+function F:BAG_UPDATE_COOLDOWN()
+	F:InventoryUpdate()
+	F:UpdateCooldown()
+end
+
 function F:Zone()
 	if F:CanSeed() then
 		F:RegisterEvent("BAG_UPDATE", "InventoryUpdate")
-		F:RegisterEvent("BAG_UPDATE_COOLDOWN", "UpdateCooldown")
+		F:RegisterEvent("BAG_UPDATE_COOLDOWN")
 
 		F:InventoryUpdate()
 	else
