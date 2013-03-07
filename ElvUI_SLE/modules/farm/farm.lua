@@ -124,7 +124,7 @@ end
 
 function F:InventoryUpdate(event)
 	if InCombatLockdown() then return end
-
+	
 	for i = 1, 5 do
 		for _, button in ipairs(FseedButtons[i]) do
 			button.items = GetItemCount(button.itemId, nil, true)
@@ -490,6 +490,7 @@ end
 
 function F:OnLoadDelay()
 	E:Delay(5, F.UpdateLayout)
+	E:Delay(5, F.InventoryUpdate)
 end
 
 function F:StartFarmBarLoader()
