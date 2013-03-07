@@ -124,7 +124,7 @@ end
 
 function F:InventoryUpdate(event)
 	if InCombatLockdown() then return end
-	
+
 	for i = 1, 5 do
 		for _, button in ipairs(FseedButtons[i]) do
 			button.items = GetItemCount(button.itemId, nil, true)
@@ -294,11 +294,13 @@ function F:Zone()
 	if F:CanSeed() then
 		F:RegisterEvent("BAG_UPDATE", "InventoryUpdate")
 		F:RegisterEvent("BAG_UPDATE_COOLDOWN")
+		F:RegisterEvent("UNIT_QUEST_LOG_CHANGED", "UpdateLayout")
 
 		F:InventoryUpdate()
 	else
 		F:UnregisterEvent("BAG_UPDATE")
 		F:UnregisterEvent("BAG_UPDATE_COOLDOWN")
+		F:UnregisterEvent("UNIT_QUEST_LOG_CHANGED")
 	end
 	F:UpdateLayout()
 end
