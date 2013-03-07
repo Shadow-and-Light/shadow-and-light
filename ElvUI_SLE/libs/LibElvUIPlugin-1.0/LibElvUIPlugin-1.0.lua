@@ -1,6 +1,6 @@
 if not ElvUI then return end
 
-local MAJOR, MINOR = "LibElvUIPlugin-1.0", 7
+local MAJOR, MINOR = "LibElvUIPlugin-1.0", 8
 local lib, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 
 
@@ -82,7 +82,7 @@ function lib:SetupVersionCheck(plugin)
 	RegisterAddonMessagePrefix(prefix)
 	local function SendRecieve(self, event, mprefix, message, channel, sender)
 		if event == "CHAT_MSG_ADDON" then
-			if sender == E.myname or not sender or mprefix ~= prefix then return end
+			if sender == E.myname or not sender or mprefix ~= prefix  or plugin.name == MAJOR then return end
 			
 			if not E[plugin.name.."recievedOutOfDateMessage"] then
 				if plugin.version ~= 'BETA' and tonumber(message) ~= nil and tonumber(message) > tonumber(plugin.version) then

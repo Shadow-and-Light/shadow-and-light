@@ -1,6 +1,5 @@
--- English localization file for enUS and enGB.
 local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
-local L = AceLocale:NewLocale("ElvUI", "enUS", true);
+local L = AceLocale:NewLocale("ElvUI", "itIT");
 if not L then return; end
 L[" - Plugins Loaded  (Green means you have current version, Red means out of date)"] = true
 L["Plugins"] = true
