@@ -490,7 +490,7 @@ end
 
 function F:OnLoadDelay()
 	E:Delay(5, F.UpdateLayout)
-	E:Delay(5, F.InventoryUpdate)
+	E:Delay(5, F.Zone)
 end
 
 function F:StartFarmBarLoader()
