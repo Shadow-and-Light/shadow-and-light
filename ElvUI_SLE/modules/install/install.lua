@@ -1431,6 +1431,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.general.autoRepair = "GUILD"
 	E.db.general.bottomPanel = false
 	E.db.general.topPanel = false
+	E.db.general.interruptAnnounce = "RAID"
 	E.db.general.backdropfadecolor = {
 		["r"] = 0.054,
 		["g"] = 0.054,
@@ -1468,6 +1469,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.chat.editBoxPosition = "ABOVE_CHAT"
 	E.db.chat.emotionIcons = true
 	E.db.chat.panelTabTransparency = true
+	E.db.chat.hyperlinkHover = false
 	if GetScreenWidth() < 1920 then
 		E.db.chat.panelWidth = 380
 	else
@@ -1475,6 +1477,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	end
 
 	--Unitframes
+	E.db.unitframe.smartRaidFilter = true
 	E.db.unitframe.font = "KGSmallTownSouthernGirl"
 	E.db.unitframe.fontOutline = "OUTLINE"
 	E.db.unitframe.fontSize = 12
@@ -1537,6 +1540,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 
 	E.db.unitframe.units.player.debuffs.attachTo = "FRAME" --CHECK?
 	E.db.unitframe.units.player.debuffs.sizeOverride = 25
+	E.db.unitframe.units.player.debuffs.yOffset = 2
 	E.db.unitframe.units.player.portrait.overlay = true
 	E.db.unitframe.units.player.portrait.enable = true
 	E.db.unitframe.units.player.classbar.enable = false
@@ -1552,6 +1556,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.player.buffs.attachTo = "FRAME"
 	E.db.unitframe.units.player.buffs.noDuration = false
 	E.db.unitframe.units.player.buffs.yOffset = 4
+	E.db.unitframe.units.player.buffs.xOffset = -2
 	E.db.unitframe.units.player.buffs.anchorPoint = "LEFT"
 	E.db.unitframe.units.player.buffs.numrows = 3
 	E.db.unitframe.units.player.buffs.perrow = 3
@@ -1570,6 +1575,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.target.power.position = "RIGHT"
 	E.db.unitframe.units.target.debuffs.sizeOverride = 25
 	E.db.unitframe.units.target.debuffs.attachTo = "FRAME"
+	E.db.unitframe.units.target.debuffs.yOffset = 2
 	E.db.unitframe.units.target.castbar.height = 20
 	E.db.unitframe.units.target.castbar.width = 404
 	E.db.unitframe.units.target.width = 404
@@ -1580,6 +1586,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.target.buffs.numrows = 3
 	E.db.unitframe.units.target.buffs.perrow = 3
 	E.db.unitframe.units.target.buffs.yOffset = 4
+	E.db.unitframe.units.target.buffs.xOffset = 2
 
 	E.db.unitframe.units.focustarget.power.width = "inset"
 	E.db.unitframe.units.focustarget.power.offset = 0
@@ -1614,7 +1621,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.party.roleIcon.enable = false
 	E.db.unitframe.units.party.roleIcon.position = "BOTTOMRIGHT"
 	E.db.unitframe.units.party.GPSArrow.size = 40
-	E.db.unitframe.units.party.positionOverride = "BOTTOMRIGHT"
+	E.db.unitframe.units.party.growthDirection = "LEFT_UP"
 	E.db.unitframe.units.party.healPrediction = true
 	E.db.unitframe.units.party.health.frequentUpdates = true
 	E.db.unitframe.units.party.health.text_format = ""
@@ -1643,6 +1650,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.party.width = 80
 	E.db.unitframe.units.party.height = 45
 	E.db.unitframe.units.party.groupBy = "GROUP"
+	E.db.unitframe.units.party.showSolo = true
 
 	if not E.db.unitframe.units.raid10.customTexts then
 		E.db.unitframe.units.raid10.customTexts = {};
@@ -1668,7 +1676,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.raid10.roleIcon.enable = false
 	E.db.unitframe.units.raid10.power.width = "inset"
 	E.db.unitframe.units.raid10.power.offset = 0
-	E.db.unitframe.units.raid10.positionOverride = "BOTTOM"
+	E.db.unitframe.units.raid10.growthDirection = "LEFT_UP"
 	E.db.unitframe.units.raid10.healPrediction = true
 	E.db.unitframe.units.raid10.health.frequentUpdates = true
 	E.db.unitframe.units.raid10.health.text_format = ""
@@ -1688,7 +1696,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.raid10.raidicon.xOffset = 9
 	E.db.unitframe.units.raid10.raidicon.size = 13
 	E.db.unitframe.units.raid10.raidicon.yOffset = 0
-	E.db.unitframe.units.raid10.name.text_format = "[namecolor][name:veryshort]"
+	E.db.unitframe.units.raid10.name.text_format = "[namecolor][name:short]"
 	E.db.unitframe.units.raid10.debuffs.sizeOverride = 21
 	E.db.unitframe.units.raid10.debuffs.xOffset = -4
 	E.db.unitframe.units.raid10.debuffs.yOffset = -7
@@ -1723,7 +1731,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.raid25.power.offset = 0
 	E.db.unitframe.units.raid25.power.width = "inset"
 	E.db.unitframe.units.raid25.power.position = "CENTER"
-	E.db.unitframe.units.raid25.positionOverride = "BOTTOM"
+	E.db.unitframe.units.raid25.growthDirection = "DOWN_RIGHT"
 	E.db.unitframe.units.raid25.healPrediction = true
 	E.db.unitframe.units.raid25.health.frequentUpdates = true
 	E.db.unitframe.units.raid25.health.text_format = ""
@@ -1748,7 +1756,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.raid25.buffs.playerOnly = false
 	E.db.unitframe.units.raid25.buffs.perrow = 1
 	E.db.unitframe.units.raid25.buffs.useFilter = "TurtleBuffs"
-	E.db.unitframe.units.raid25.name.text_format = "[namecolor][name:veryshort]"
+	E.db.unitframe.units.raid25.name.text_format = "[namecolor][name:short]"
 	E.db.unitframe.units.raid25.yOffset = 4
 	E.db.unitframe.units.raid25.width = 80
 	E.db.unitframe.units.raid25.height = 40
@@ -1776,7 +1784,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.raid40.point = "BOTTOM"
 	E.db.unitframe.units.raid40.xOffset = 1
 	E.db.unitframe.units.raid40.yOffset = 1
-	E.db.unitframe.units.raid40.positionOverride = "BOTTOM"
+	E.db.unitframe.units.raid40.growthDirection = "UP_LEFT"
 	E.db.unitframe.units.raid40.healPrediction = true
 	E.db.unitframe.units.raid40.width = 48
 	E.db.unitframe.units.raid40.height = 43
@@ -1786,7 +1794,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.raid40.raidicon.attachTo = "LEFT"
 	E.db.unitframe.units.raid40.rdebuffs.size = 26
 	E.db.unitframe.units.raid40.name.position = "TOP"
-	E.db.unitframe.units.raid40.name.text_position = "[namecolor][name:veryshort]"
+	E.db.unitframe.units.raid40.name.text_position = "[namecolor][name:short]"
 	--E.db.unitframe.units.raid40.buffIndicator.fontSize = 10
 	E.db.unitframe.units.raid40.power.enable = true
 	E.db.unitframe.units.raid40.power.offset = 0
@@ -2050,6 +2058,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.font = "Doris PP"
 	E.db.unitframe.fontOutline = "OUTLINE"
 	E.db.unitframe.statusbar = "Polished Wood"
+	E.db.unitframe.smartRaidFilter = true
 	E.db.unitframe.colors.healthclass = false
 	E.db.unitframe.colors.castColor = {
 		["r"] = 0.1,
@@ -2144,7 +2153,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.party.buffIndicator.size = 10
 	E.db.unitframe.units.party.roleIcon.enable = false
 	E.db.unitframe.units.party.GPSArrow.size = 40
-	E.db.unitframe.units.party.positionOverride = "BOTTOMRIGHT"
+	E.db.unitframe.units.party.growthDirection = "LEFT_UP"
 	E.db.unitframe.units.party.healPrediction = true
 	E.db.unitframe.units.party.health.frequentUpdates = true
 	E.db.unitframe.units.party.health.text_format = ""
@@ -2251,7 +2260,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid25.power.offset = 0
 	E.db.unitframe.units.raid25.power.width = "inset"
 	E.db.unitframe.units.raid25.power.position = "CENTER"
-	E.db.unitframe.units.raid25.positionOverride = "BOTTOMRIGHT"
+	E.db.unitframe.units.raid25.growthDirection = "UP_LEFT"
 	E.db.unitframe.units.raid25.healPrediction = true
 	E.db.unitframe.units.raid25.health.frequentUpdates = true
 	E.db.unitframe.units.raid25.health.text_format = ""
@@ -2303,7 +2312,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	E.db.unitframe.units.raid40.point = "BOTTOM"
 	E.db.unitframe.units.raid40.xOffset = 1
 	E.db.unitframe.units.raid40.yOffset = 1
-	E.db.unitframe.units.raid40.positionOverride = "BOTTOMRIGHT"
+	E.db.unitframe.units.raid40.growthDirection = "UP_LEFT"
 	E.db.unitframe.units.raid40.healPrediction = true
 	E.db.unitframe.units.raid40.width = 50
 	E.db.unitframe.units.raid40.height = 43
