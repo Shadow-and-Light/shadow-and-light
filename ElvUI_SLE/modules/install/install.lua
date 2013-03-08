@@ -926,7 +926,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		else
 			E.db.unitframe.debuffHighlighting = false
 		end
-		E.db.unitframe.smartRaidFilter = false
+		--E.db.unitframe.smartRaidFilter = false
 		E.db.unitframe.colors.healthclass = true
 		E.db.unitframe.colors.colorhealthbyvalue = false
 		E.db.unitframe.colors.transparentHealth = true
@@ -1321,6 +1321,8 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.private.skins.addons.EmbedSkada = true
 		E.private.skins.addons.EmbedOoC = true
 		E.private.skins.addons.AlwaysTrue = true
+		E.private.general.normTex = "Polished Wood"
+		E.private.general.glossTex = "Polished Wood"
 
 	--Moving stuff--
 	do
