@@ -971,7 +971,17 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.unitframe.units.target.height = 50
 			E.db.unitframe.units.target.health.position = 'BOTTOMRIGHT';
 			if layout == "healer" then
-				E.db.unitframe.units.target.health.text_format = "[healthcolor][health:deficit] [health:current-percent:sl]"
+				E.db.unitframe.units.target.health.text_format = "[healthcolor][health:deficit]      [health:current-percent:sl]"
+				
+				E.db.unitframe.units.target.customTexts = {}
+				E.db.unitframe.units.target.customTexts.Absorb = {}
+				E.db.unitframe.units.target.customTexts.Absorb.font = "ElvUI Font"
+				E.db.unitframe.units.target.customTexts.Absorb.justifyH = "CENTER"
+				E.db.unitframe.units.target.customTexts.Absorb.fontOutline = "OUTLINE"
+				E.db.unitframe.units.target.customTexts.Absorb.xOffset = 52
+				E.db.unitframe.units.target.customTexts.Absorb.yOffset = 2
+				E.db.unitframe.units.target.customTexts.Absorb.text_format = "[absorbs]"
+				E.db.unitframe.units.target.customTexts.Absorb.size = 10
 			else
 				E.db.unitframe.units.target.health.text_format = "[healthcolor][health:current-percent:sl]"
 			end
@@ -1058,6 +1068,17 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.party.debuffs.anchorPoint = "BOTTOMLEFT"
 				E.db.unitframe.units.party.GPSArrow.onMouseOver = false
 				E.db.unitframe.units.party.GPSArrow.outOfRange = true
+				
+				E.db.unitframe.units.party.customTexts = {}
+				E.db.unitframe.units.party.customTexts.Absorb = {}
+				E.db.unitframe.units.party.customTexts.Absorb.font = "ElvUI Font"
+				E.db.unitframe.units.party.customTexts.Absorb.justifyH = "CENTER"
+				E.db.unitframe.units.party.customTexts.Absorb.fontOutline = "OUTLINE"
+				E.db.unitframe.units.party.customTexts.Absorb.xOffset = 0
+				E.db.unitframe.units.party.customTexts.Absorb.yOffset = 3
+				E.db.unitframe.units.party.customTexts.Absorb.text_format = "[absorbs]"
+				E.db.unitframe.units.party.customTexts.Absorb.size = 10
+
 			else
 				E.db.unitframe.units.party.showSolo = false
 				E.db.unitframe.units.party.healPrediction = false
@@ -1068,9 +1089,9 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.party.GPSArrow.onMouseOver = true
 				E.db.unitframe.units.party.GPSArrow.outOfRange = false
 			end
-			E.db.unitframe.units.party.point = "LEFT"
+			E.db.unitframe.units.party.growthDirection = "RIGHT_DOWN"
 			E.db.unitframe.units.party.width = 80
-			E.db.unitframe.units.party.xOffset = 3
+			E.db.unitframe.units.party.horizontalSpacing = 1
 			E.db.unitframe.units.party.health.position = "BOTTOM"
 			E.db.unitframe.units.party.power.text_format = ""
 			E.db.unitframe.units.party.roleIcon.position = "RIGHT"
@@ -1087,6 +1108,16 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.raid10.health.orientation = "VERTICAL"
 				E.db.unitframe.units.raid10.GPSArrow.onMouseOver = false
 				E.db.unitframe.units.raid10.GPSArrow.outOfRange = true
+				
+				E.db.unitframe.units.party.customTexts = {}
+				E.db.unitframe.units.party.customTexts.Absorb = {}
+				E.db.unitframe.units.party.customTexts.Absorb.font = "ElvUI Font"
+				E.db.unitframe.units.party.customTexts.Absorb.justifyH = "CENTER"
+				E.db.unitframe.units.party.customTexts.Absorb.fontOutline = "OUTLINE"
+				E.db.unitframe.units.party.customTexts.Absorb.xOffset = 0
+				E.db.unitframe.units.party.customTexts.Absorb.yOffset = 3
+				E.db.unitframe.units.party.customTexts.Absorb.text_format = "[absorbs]"
+				E.db.unitframe.units.party.customTexts.Absorb.size = 10
 			else
 				E.db.unitframe.units.raid10.height = 44
 				E.db.unitframe.units.raid10.healPrediction = false
@@ -1096,8 +1127,8 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.raid10.GPSArrow.onMouseOver = true
 				E.db.unitframe.units.raid10.GPSArrow.outOfRange = false
 			end
-			E.db.unitframe.units.raid10.xOffset = 1
-			E.db.unitframe.units.raid10.yOffset = 1
+			E.db.unitframe.units.raid10.horizontalSpacing = 1
+			E.db.unitframe.units.raid10.verticalSpacing = 1
 			E.db.unitframe.units.raid10.name.text_format = "[name:medium]"
 			E.db.unitframe.units.raid10.rdebuffs.size = 18
 			E.db.unitframe.units.raid10.roleIcon.position = "RIGHT"
@@ -1113,6 +1144,16 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.raid25.height = 36
 				E.db.unitframe.units.raid25.GPSArrow.onMouseOver = false
 				E.db.unitframe.units.raid25.GPSArrow.outOfRange = true
+				
+				E.db.unitframe.units.party.customTexts = {}
+				E.db.unitframe.units.party.customTexts.Absorb = {}
+				E.db.unitframe.units.party.customTexts.Absorb.font = "ElvUI Font"
+				E.db.unitframe.units.party.customTexts.Absorb.justifyH = "CENTER"
+				E.db.unitframe.units.party.customTexts.Absorb.fontOutline = "OUTLINE"
+				E.db.unitframe.units.party.customTexts.Absorb.xOffset = 0
+				E.db.unitframe.units.party.customTexts.Absorb.yOffset = 3
+				E.db.unitframe.units.party.customTexts.Absorb.text_format = "[absorbs]"
+				E.db.unitframe.units.party.customTexts.Absorb.size = 10
 			else
 				E.db.unitframe.units.raid25.healPrediction = false
 				E.db.unitframe.units.raid25.health.text_format = "[healthcolor][health:current]"
@@ -1122,8 +1163,8 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.raid25.GPSArrow.onMouseOver = true
 				E.db.unitframe.units.raid25.GPSArrow.outOfRange = false
 			end
-			E.db.unitframe.units.raid25.xOffset = 1
-			E.db.unitframe.units.raid25.yOffset = 1
+			E.db.unitframe.units.raid25.horizontalSpacing = 1
+			E.db.unitframe.units.raid25.verticalSpacing = 1
 			E.db.unitframe.units.raid25.name.text_format = "[name:medium]"
 			E.db.unitframe.units.raid25.rdebuffs.size = 18
 			E.db.unitframe.units.raid25.roleIcon.position = "RIGHT"
@@ -1142,8 +1183,8 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.raid40.health.text_format = ""
 				E.db.unitframe.units.raid40.health.orientation = "HORIZONTAL"
 			end
-			E.db.unitframe.units.raid40.xOffset = 1
-			E.db.unitframe.units.raid40.yOffset = 1
+			E.db.unitframe.units.raid40.horizontalSpacing = 1
+			E.db.unitframe.units.raid40.verticalSpacing = 1
 			E.db.unitframe.units.raid40.name.text_format = "[name:medium]"
 			E.db.unitframe.units.raid40.name.position = "TOP"
 			E.db.unitframe.units.raid25.roleIcon.enable = true
@@ -1296,7 +1337,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.movers.PetAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT547105"
 			E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT438199"
 			E.db.movers.TempEnchantMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT474164"
-			E.db.movers.ElvUF_PartyMover = "BOTTOMElvUIParentBOTTOM0183"
+			E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT758182"
 			E.db.movers.ElvUF_Raid10Mover = "BOTTOMElvUIParentBOTTOM0156"
 			E.db.movers.ElvUF_Raid25Mover = "BOTTOMElvUIParentBOTTOM0156"
 			E.db.movers.ElvUF_Raid40Mover = "BOTTOMElvUIParentBOTTOM0156"
@@ -1328,7 +1369,11 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.movers.ElvAB_4 = "BOTTOMElvUIParentBOTTOM-18220"
 		E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM18220"
 		E.db.movers.MinimapMover = "TOPRIGHTElvUIParentTOPRIGHT2-19"
-		E.db.movers.UIBFrameMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-426112"
+		if IsAddOnLoaded("iFilger_ConfigUI") then
+			E.db.movers.UIBFrameMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-42692"
+		else
+			E.db.movers.UIBFrameMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-426112"
+		end
 		E.db.movers.WatchFrameMover = "TOPRIGHTElvUIParentTOPRIGHT-219-208"
 		E.db.movers.BossHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-2-199"
 		E.db.movers.ArenaHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-2-200"
