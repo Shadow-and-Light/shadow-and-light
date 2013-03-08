@@ -1,3 +1,7 @@
+v1.53 March 8, 2012
+- Optimize Farm Module
+- Update install to be updated with ElvUI variables
+
 v1.52 March 6, 2013
 - Fixed farm bar seed bag count not updating on use
 
