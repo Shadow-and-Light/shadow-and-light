@@ -8,6 +8,7 @@ local SeedAnchor, ToolAnchor, PortalAnchor
 local tsort = table.sort
 local farmzones = { BL["Sunsong Ranch"], BL["The Halfhill Market"] }
 local size
+local Zcheck = false
 
 FseedButtons = {}
 FtoolButtons = {}
@@ -297,12 +298,18 @@ function F:Zone()
 		F:RegisterEvent("UNIT_QUEST_LOG_CHANGED", "UpdateLayout")
 
 		F:InventoryUpdate()
+		F:UpdateLayout()
+		Zcheck = true
 	else
 		F:UnregisterEvent("BAG_UPDATE")
 		F:UnregisterEvent("BAG_UPDATE_COOLDOWN")
 		F:UnregisterEvent("UNIT_QUEST_LOG_CHANGED")
+		if Zcheck then
+			F:UpdateLayout()
+			Zcheck = false
+		end
 	end
-	F:UpdateLayout()
+	
 end
 
 function F:UpdateLayout(event)
