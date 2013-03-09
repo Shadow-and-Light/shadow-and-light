@@ -1888,26 +1888,13 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.sle.datatext.top.enabled = true
 		E.db.sle.datatext.bottom.enabled = true
 		E.db.sle.datatext.bottom.transparent = true
-		if GetScreenWidth() < 1920 then
-			E.db.sle.datatext.dp6.width = 410
-			E.db.sle.datatext.bottom.width = 272
-			E.db.sle.datatext.top.width = 204
-			E.db.sle.datatext.chatleft.width = 364
-			E.db.sle.datatext.chatright.width = 364
-		elseif GetScreenWidth() > 1920 then
-			E.db.sle.datatext.dp6.width = 402
-			E.db.sle.datatext.bottom.width = 272
-			E.db.sle.datatext.top.width = 204
-			E.db.sle.datatext.chatleft.width = 396
-			E.db.sle.datatext.chatright.width = 396
-		else
-			E.db.sle.datatext.dp5.width = 412
-			E.db.sle.datatext.dp6.width = 412
-			E.db.sle.datatext.bottom.width = 272
-			E.db.sle.datatext.top.width = 204
-			E.db.sle.datatext.chatleft.width = 396
-			E.db.sle.datatext.chatright.width = 396
-		end
+		E.db.sle.datatext.dp5.width = 412
+		E.db.sle.datatext.dp6.width = 412
+		E.db.sle.datatext.bottom.width = 274
+		E.db.sle.datatext.top.width = 204
+		E.db.sle.datatext.chatleft.width = 396
+		E.db.sle.datatext.chatright.width = 396
+
 		E.db.datatexts.panels['LeftChatDataPanel']['left'] = ""
 		E.db.datatexts.panels['LeftChatDataPanel']['middle'] = ""
 		E.db.datatexts.panels['LeftChatDataPanel']['right'] = ""
