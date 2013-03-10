@@ -1652,7 +1652,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.party.width = 80
 	E.db.unitframe.units.party.height = 45
 	E.db.unitframe.units.party.groupBy = "GROUP"
-	E.db.unitframe.units.party.showSolo = true
+	E.db.unitframe.units.party.visibility = "[@raid6,exists] hide;show"
 
 	if not E.db.unitframe.units.raid10.customTexts then
 		E.db.unitframe.units.raid10.customTexts = {};
