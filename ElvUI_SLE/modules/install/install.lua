@@ -1869,7 +1869,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	--Stance Bar
 	E.db.actionbar.stanceBar.buttonsPerRow = 1
 	--Pet Bar
-	E.db.actionbar.barPet.point = "RIGHT"
+	E.db.actionbar.barPet.point = "TOPRIGHT"
 	E.db.actionbar.barPet.buttonsPerRow = 1
 
 	--Datatext
@@ -2381,7 +2381,7 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	--Stance Bar
 	E.db.actionbar.stanceBar.buttonsPerRow = 1
 	--Pet Bar
-	E.db.actionbar.barPet.point = "RIGHT"
+	E.db.actionbar.barPet.point = "TOPRIGHT"
 	E.db.actionbar.barPet.buttonsPerRow = 1
 
 	--Datatext
