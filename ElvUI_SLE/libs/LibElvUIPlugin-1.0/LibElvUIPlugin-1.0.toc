@@ -4,6 +4,5 @@
 ## Notes: 
 ## Author: Sortokk
 
-locales\load_locales.xml
 LibStub.lua
 LibElvUIPlugin-1.0.lua
