@@ -1059,7 +1059,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			
 			--Party
 			if layout == "healer" then
-				E.db.unitframe.units.party.showSolo = true
+				E.db.unitframe.units.party.visibility = "[@raid6,exists] hide;show"
 				E.db.unitframe.units.party.healPrediction = true
 				E.db.unitframe.units.party.health.text_format = "[healthcolor][health:deficit]"
 				E.db.unitframe.units.party.health.orientation = "VERTICAL"
@@ -1080,7 +1080,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.party.customTexts.Absorb.size = 10
 
 			else
-				E.db.unitframe.units.party.showSolo = false
 				E.db.unitframe.units.party.healPrediction = false
 				E.db.unitframe.units.party.health.text_format = "[healthcolor][health:current]"
 				E.db.unitframe.units.party.health.orientation = "HORIZONTAL"
@@ -1377,8 +1376,8 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.movers.UIBFrameMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-426112"
 		end
 		E.db.movers.WatchFrameMover = "TOPRIGHTElvUIParentTOPRIGHT-219-208"
-		E.db.movers.BossHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-2-199"
-		E.db.movers.ArenaHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-2-200"
+		E.db.movers.BossHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-2-210"
+		E.db.movers.ArenaHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-2-210"
 		E.db.movers.PetBattleABMover = "BOTTOMElvUIParentBOTTOM019"
 		E.db.movers.ShiftAB = "BOTTOMElvUIParentBOTTOM-16168"
 		if UnitLevel('player') == 90 then
@@ -1400,7 +1399,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.movers.MicrobarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT55620"
 		E.db.movers.LootFrameMover = "TOPLEFTElvUIParentTOPLEFT238-329"
 		E.db.movers.AurasMover = "TOPRIGHTElvUIParentTOPRIGHT-201-18"
-		E.db.movers.GMMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT0454"
+		E.db.movers.GMMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT0444"
 		E.db.movers.VehicleSeatMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT42419"
 		E.db.movers.DP_1_Mover = "TOPLEFTElvUIParentTOPLEFT00"
 		E.db.movers.DP_2_Mover = "TOPLEFTElvUIParentTOPLEFT3850"
