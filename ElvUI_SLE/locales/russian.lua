@@ -123,6 +123,8 @@ L["Full value on Exp Bar"] = "Полное значение опыта"
 L["Changes the way text is shown on exp bar."] = "Изменяет отображение значений опыта на полосе."
 L["Full value on Rep Bar"] = "Полное значение репутации"
 L["Changes the way text is shown on rep bar."] = "Изменяет отображение значений репутации на полосе."
+L["Auto Track Reputation"] = "Автоматически отслеживать репутацию"
+L["Automatically sets reputation tracking to the most recent reputation change."] = "Автоматически изменять отслеживаемую репутацию на последнюю фракцию, чье отношение к Вам изменилось."
 
 --Equip Manager--
 L['Equipment Manager'] = "Менеджер экипировки"
