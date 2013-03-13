@@ -1,4 +1,9 @@
-v1.53 March 8, 2012
+v1.54 March 13, 2013
+- Add autotrack reputation
+- Updated Libraries
+- Updated Author installs
+
+v1.53 March 8, 2013
 - Optimize Farm Module
 - Update install to be updated with ElvUI variables
 
