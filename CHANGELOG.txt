@@ -1,3 +1,6 @@
+v1.56 March 13, 2013
+- Added Spirit Datatext
+
 v1.55 March 13, 2013
 - Remove Debug Message
 
