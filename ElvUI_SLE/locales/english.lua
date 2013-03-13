@@ -123,6 +123,8 @@ L["Full value on Exp Bar"] = true
 L["Changes the way text is shown on exp bar."] = true
 L["Full value on Rep Bar"] = true
 L["Changes the way text is shown on rep bar."] = true
+L["Auto Track Reputation"] = true
+L["Automatically sets reputation tracking to the most recent reputation change."] = true
 
 --Equip Manager--
 L['Equipment Manager'] = true

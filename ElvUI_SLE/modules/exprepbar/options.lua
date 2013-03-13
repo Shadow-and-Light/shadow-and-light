@@ -29,7 +29,7 @@ E.Options.args.sle.args.exprep = {
 		order = 3,
 		type = "toggle",
 		name = L["Auto Track Reputation"],
-		desc = L["Automatically changes reputation bar to most recent reputation changed."],
+		desc = L["Automatically sets reputation tracking to the most recent reputation change."],
 		get = function(info) return E.private.sle.exprep.autotrack end,
 		set = function(info, value) E.private.sle.exprep.autotrack = value; end
 		},
