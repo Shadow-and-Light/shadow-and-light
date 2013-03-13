@@ -151,4 +151,5 @@ end
 
 hooksecurefunc(M, "Initialize", function(self,...)
 	M:RegisterEvent("CHAT_MSG_COMBAT_FACTION_CHANGE", 'AutoTrackRep')
+	M:RegisterEvent("CHAT_MSG_SYSTEM", 'AutoTrackRep')
 end)
