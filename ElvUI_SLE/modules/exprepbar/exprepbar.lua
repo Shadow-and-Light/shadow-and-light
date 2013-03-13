@@ -1,6 +1,20 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local M = E:GetModule('Misc');
 
+local strMatchCombat = {}
+tinsert(strMatchCombat, (string.gsub(FACTION_STANDING_INCREASED,"%%%d?%$?s", "(.+)")))
+tinsert(strMatchCombat, (string.gsub(FACTION_STANDING_INCREASED_GENERIC,"%%%d?%$?s", "(.+)")))
+tinsert(strMatchCombat, (string.gsub(FACTION_STANDING_INCREASED_BONUS,"%%%d?%$?s", "(.+)")))
+tinsert(strMatchCombat, (string.gsub(FACTION_STANDING_INCREASED_DOUBLE_BONUS,"%%%d?%$?s", "(.+)")))
+tinsert(strMatchCombat, (string.gsub(FACTION_STANDING_INCREASED_ACH_BONUS,"%%%d?%$?s", "(.+)")))
+local strChangeMatch = (string.gsub(FACTION_STANDING_CHANGED,"%%%d?%$?s", "(.+)"))
+local strGuildChangeMatch = {}
+tinsert(strGuildChangeMatch, (string.gsub(FACTION_STANDING_CHANGED_GUILD,"%%%d?%$?s", "(.+)")))
+tinsert(strGuildChangeMatch, (string.gsub(FACTION_STANDING_CHANGED_GUILDNAME,"%%%d?%$?s", "(.+)")))
+
+local collapsed = {}
+local guildName
+
 function M:UpdateExperience(event)
 	local bar = self.expBar
 
@@ -120,36 +134,128 @@ function M:UpdateReputation(event)
 	self:UpdateExpRepAnchors()
 end
 
-function M:AutoTrackRep(event, msg)
+function M:ChatMsgCombat(event, ...)
 	if not E.private.sle.exprep.autotrack then return end
 
-	local find, gsub, format = string.find, string.gsub, string.format
-	local factionIncreased = gsub(gsub(FACTION_STANDING_INCREASED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
-	local factionChanged = gsub(gsub(FACTION_STANDING_CHANGED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
-	local factionDecreased = gsub(gsub(FACTION_STANDING_DECREASED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
-	local standing = ('%s:'):format(STANDING)
-	local reputation = ('%s:'):format(REPUTATION)
-
-	local _, _, faction, amount = find(msg, factionIncreased)
-	if not faction then _, _, faction, amount = find(msg, factionChanged) or find(msg, factionDecreased) end
-	if faction then
-		if faction == GUILD_REPUTATION then
-			faction = GetGuildInfo("player")
+	local messg = ...
+	local found
+	for i, v in ipairs(strMatchCombat) do
+		found = (string.match(messg,strMatchCombat[i]))
+		if found then
+			if GUILD and guildName and (found == GUILD) then
+				found = guildName
+			end
+			break
 		end
+	end
+	if found then
+		M:setWatchedFaction(found)
+	end
+end
 
-		local active = GetWatchedFactionInfo()
-		for factionIndex = 1, GetNumFactions() do
-			local name = GetFactionInfo(factionIndex)
-			if name == faction and name ~= active then
-				-- check if watch has been disabled by user
-				local inactive = IsFactionInactive(factionIndex) or SetWatchedFactionIndex(factionIndex)
+function M:CombatTextUpdate(event, ...)
+	if not E.private.sle.exprep.autotrack then return end
+
+	local messagetype, faction, amount = ...
+	if messagetype ~= "FACTION" then return end
+	if (not amount) or (amount < 0) then return end
+	if GUILD and faction and guildName and (faction == GUILD) then
+		faction = guildName
+	end
+	if faction then
+		M:setWatchedFaction(faction)
+	end
+end
+
+function M:ChatMsgSys(event, ...)
+	if not E.private.sle.exprep.autotrack then return end
+
+	local messg = ...
+	local found
+	local newfaction = (string.match(messg,strChangeMatch)) and select(2,string.match(messg,strChangeMatch))
+	if newfaction then
+		if guildName and (newfaction == GUILD) then
+			found = guildName
+		else
+			found = newfaction
+		end
+	else
+		local guildfaction
+		for i, v in ipairs(strGuildChangeMatch) do
+			guildfaction = (string.match(messg,strGuildChangeMatch[i]))
+			if guildfaction then
 				break
+			end
+		end
+		if guildfaction and guildName then
+			found = guildName
+		end
+	end
+	if found then
+		M:setWatchedFaction(found)
+	end
+end
+
+function M:PlayerRepLogin()
+	if IsInGuild() then
+		guildName = (GetGuildInfo("player"))
+		if not guildName then 
+			M:RegisterEvent("GUILD_ROSTER_UPDATE", 'PlayerGuildRosterUpdate')
+		end
+	end
+end
+function M:PlayerGuildRosterUpdate()
+	if IsInGuild() then
+		guildName = (GetGuildInfo("player"))
+	end
+	if guildName then
+		M:UnregisterEvent("GUILD_ROSTER_UPDATE")
+	end
+end
+
+function M:PlayerGuildRepUdate()
+	if IsInGuild() then
+		guildName = (GetGuildInfo("player"))
+		if not guildName then 
+			M:RegisterEvent("GUILD_ROSTER_UPDATE", 'PlayerGuildRosterUpdate')
+		end
+	else
+		guildName = nil
+	end
+end
+
+function M:setWatchedFaction(faction)
+ 	print("ARS Debug(sWF):"..faction)
+	wipe(collapsed)
+	local i,j = 1, GetNumFactions()
+	while i <= j do
+		local name,_,_,_,_,_,_,_,isHeader,isCollapsed,_,isWatched = GetFactionInfo(i)
+		if name == faction then
+			if not (isWatched or IsFactionInactive(i)) then
+				SetWatchedFactionIndex(i)
+			end
+			break
+		end
+		if isHeader and isCollapsed then
+			ExpandFactionHeader(i)
+			collapsed[i] = true
+			j = GetNumFactions()
+		end
+		i = i+1
+	end
+	if next(collapsed) then
+		for k=i,1,-1 do
+			if collapsed[k] then
+				CollapseFactionHeader(k)
 			end
 		end
 	end
 end
 
 hooksecurefunc(M, "Initialize", function(self,...)
-	M:RegisterEvent("CHAT_MSG_COMBAT_FACTION_CHANGE", 'AutoTrackRep')
-	M:RegisterEvent("CHAT_MSG_SYSTEM", 'AutoTrackRep')
+	M:RegisterEvent("CHAT_MSG_COMBAT_FACTION_CHANGE", 'ChatMsgCombat')
+	M:RegisterEvent("COMBAT_TEXT_UPDATE", 'CombatTextUpdate')
+	M:RegisterEvent("CHAT_MSG_SYSTEM", 'ChatMsgSys')
+	M:RegisterEvent("PLAYER_LOGIN", 'PlayerRepLogin')
+	M:RegisterEvent("PLAYER_GUILD_UPDATE", 'PlayerGuildRepUdate')
 end)
