@@ -225,7 +225,6 @@ function M:PlayerGuildRepUdate()
 end
 
 function M:setWatchedFaction(faction)
- 	print("ARS Debug(sWF):"..faction)
 	wipe(collapsed)
 	local i,j = 1, GetNumFactions()
 	while i <= j do
