@@ -7,7 +7,7 @@ if not L then return; end
 --General--
 L["Shadow & Light Edit"] = true
 L["Shadow & Light Edit of ElvUI"] = true
-L["SLE_DESC"] = [=[This is and edit of ElvUI that adds some functionality to the original addon and changes some previously existed options.
+L["SLE_DESC"] = [=[This is an edit of ElvUI that adds some functionality to the original addon and changes some previously existed options.
 The edit doesn't change original files in any respect so you can freely disable it any time from your addon manager without any risk.]=]
 L["LFR Lockout"] = true
 L["Show/Hide LFR lockout info in the time datatext's tooltip."] = true
