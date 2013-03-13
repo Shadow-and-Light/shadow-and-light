@@ -119,3 +119,36 @@ function M:UpdateReputation(event)
 	
 	self:UpdateExpRepAnchors()
 end
+
+function M:AutoTrackRep(event, msg)
+	if not E.private.sle.exprep.autotrack then return end
+
+	local find, gsub, format = string.find, string.gsub, string.format
+	local factionIncreased = gsub(gsub(FACTION_STANDING_INCREASED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
+	local factionChanged = gsub(gsub(FACTION_STANDING_CHANGED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
+	local factionDecreased = gsub(gsub(FACTION_STANDING_DECREASED, "(%%s)", "(.+)"), "(%%d)", "(.+)")
+	local standing = ('%s:'):format(STANDING)
+	local reputation = ('%s:'):format(REPUTATION)
+
+	local _, _, faction, amount = find(msg, factionIncreased)
+	if not faction then _, _, faction, amount = find(msg, factionChanged) or find(msg, factionDecreased) end
+	if faction then
+		if faction == GUILD_REPUTATION then
+			faction = GetGuildInfo("player")
+		end
+
+		local active = GetWatchedFactionInfo()
+		for factionIndex = 1, GetNumFactions() do
+			local name = GetFactionInfo(factionIndex)
+			if name == faction and name ~= active then
+				-- check if watch has been disabled by user
+				local inactive = IsFactionInactive(factionIndex) or SetWatchedFactionIndex(factionIndex)
+				break
+			end
+		end
+	end
+end
+
+hooksecurefunc(M, "Initialize", function(self,...)
+	M:RegisterEvent("CHAT_MSG_COMBAT_FACTION_CHANGE", 'AutoTrackRep')
+end)

@@ -25,6 +25,14 @@ E.Options.args.sle.args.exprep = {
 		get = function(info) return E.db.sle.exprep.replong end,
 		set = function(info, value) E.db.sle.exprep.replong = value; M:UpdateReputation() end
 		},
+		autotrackrep = {
+		order = 3,
+		type = "toggle",
+		name = L["Auto Track Reputation"],
+		desc = L["Automatically changes reputation bar to most recent reputation changed."],
+		get = function(info) return E.private.sle.exprep.autotrack end,
+		set = function(info, value) E.private.sle.exprep.autotrack = value; end
+		},
 	},
 }
 end

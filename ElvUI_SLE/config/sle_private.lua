@@ -22,7 +22,11 @@ V['sle'] = {
 		["bottomhide"] = false,
 		["dp6hide"] = false,
 	},
-	
+
+	['exprep'] = {
+		['autotrack'] = false,
+	},
+
 	['farm'] = {
 		['enable'] = false,
 		['seedtrash'] = false,
