@@ -177,7 +177,7 @@ function F:InventoryUpdate(event)
 	end	
 	
 	if event == "BAG_UPDATE" then
-		self:UpdateLayout()
+		F:UpdateLayout()
 	end
 end
 
@@ -512,20 +512,11 @@ function F:CreateFrames()
 			tinsert(FportalButtons, F:CreateFarmButton(id, portalBar, "item", v[2], v[11], false, nil))
 		end
 	end
+
+	F:RegisterEvent("ZONE_CHANGED", "Zone")
+	F:RegisterEvent("ZONE_CHANGED_NEW_AREA", "Zone")
 	
 	F:InventoryUpdate()
-	F:UpdateLayout()
-	
-	F:RegisterEvent("ZONE_CHANGED", "Zone")
-	F:RegisterEvent("BAG_UPDATE", "InventoryUpdate")
-	F:RegisterEvent("UNIT_QUEST_LOG_CHANGED", "UpdateLayout")
-	
-	F:Zone()
-end
-
-function F:OnLoadDelay()
-	E:Delay(5, F.UpdateLayout)
-	E:Delay(5, F.Zone)
 end
 
 function F:StartFarmBarLoader()
@@ -546,7 +537,6 @@ function F:StartFarmBarLoader()
 		E:Delay(5, F.StartFarmBarLoader)
 	else
 		F.CreateFrames()
-		E:Delay(1, F.OnLoadDelay)
 	end
 end
 
