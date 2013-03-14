@@ -59,6 +59,26 @@ local seeds = {
 	[85269] = { 5 }, -- Winter Blossom Sapling
 }
 
+local addseeds = {
+	[95434] = { 80809 }, -- Green Cabbage
+	[95437] = { 89848 }, -- Jade Squash
+	[95436] = { 84782 }, -- Juicycrunch Carrot
+	[95438] = { 85153 }, -- Mogu Pumpkin
+	[95439] = { 85162 }, -- Pink Turnip
+	[95440] = { 85158 }, -- Red Blossom Leek
+	[95441] = { 84783 }, -- Scallion
+	[95442] = { 89849 }, -- Striped Melon
+	[95443] = { 85163 }, -- White Turnip
+	[95444] = { 89847 }, -- Witchberry
+	
+	[95450] = { 95449 }, -- Enigma
+	[95452] = { 95451 }, -- Magebulb
+	[95458] = { 95457 }, -- Raptorleaf
+	[95448] = { 95447 }, -- Snakeroot
+	[95446] = { 95445 }, -- Songbell
+	[95456] = { 95454 }, -- Windshear Cactus
+}
+
 local tools = {
 	[79104]	= { 1 }, -- Rusy Watering Can
 	[80513] = { 1 }, -- Vintage Bug Sprayer
@@ -129,6 +149,14 @@ function F:InventoryUpdate(event)
 	for i = 1, 5 do
 		for _, button in ipairs(FseedButtons[i]) do
 			button.items = GetItemCount(button.itemId, nil, true)
+			if i == 2 or i == 4 then
+				for id, v in pairs(addseeds) do
+					if button.itemId == addseeds[id][1] then
+						local nCount = GetItemCount(id, nil, true)
+						button.items = button.items + nCount
+					end
+				end
+			end
 			button.text:SetText(button.items)
 			button.icon:SetDesaturated(button.items == 0)
 			button.icon:SetAlpha(button.items == 0 and .25 or 1)
