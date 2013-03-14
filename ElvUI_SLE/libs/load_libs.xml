@@ -1,1 +1,1 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">	<Include file="LibBabble-SubZone-3.0\lib.xml"/>	<Script file="oUF_NecroStrike\oUF_NecroStrike.lua"/>	<Script file="LibElvUIPlugin-1.0\LibElvUIPlugin-1.0.lua"/></Ui>
+<Ui xmlns="http://www.blizzard.com/wow/ui/">	<Include file="LibBabble-SubZone-3.0\lib.xml"/>	<Script file="oUF_NecroStrike\oUF_NecroStrike.lua"/></Ui>
