@@ -330,6 +330,7 @@ function F:Zone(event)
 		F:RegisterEvent("BAG_UPDATE_COOLDOWN")
 		F:RegisterEvent("UNIT_QUEST_LOG_CHANGED", "UpdateLayout")
 
+		F:InventoryUpdate(event)
 		F:UpdateLayout()
 		Zcheck = true
 	else
@@ -341,7 +342,6 @@ function F:Zone(event)
 			Zcheck = false
 		end
 	end
-	F:InventoryUpdate(event)
 end
 
 function F:UpdateLayout(event)
@@ -515,7 +515,7 @@ function F:CreateFrames()
 	F:RegisterEvent("ZONE_CHANGED_NEW_AREA", "Zone")
 	F:RegisterEvent("ZONE_CHANGED_INDOORS", "Zone")
 		
-	E:Delay(10, F:Zone())
+	E:Delay(10, F.Zone)
 end
 
 function F:StartFarmBarLoader()
