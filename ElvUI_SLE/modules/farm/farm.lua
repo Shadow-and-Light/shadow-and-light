@@ -144,7 +144,12 @@ function F:OnFarm()
 end
 
 function F:InventoryUpdate(event)
-	if InCombatLockdown() then return end
+	if InCombatLockdown() then
+		F:RegisterEvent("PLAYER_REGEN_ENABLED", "InventoryUpdate")	
+		return
+	else
+		F:UnregisterEvent("PLAYER_REGEN_ENABLED")
+ 	end
 	
 	for i = 1, 5 do
 		for _, button in ipairs(FseedButtons[i]) do
@@ -176,7 +181,7 @@ function F:InventoryUpdate(event)
 		button.icon:SetAlpha(button.items == 0 and .25 or 1)
 	end	
 	
-	if event == "BAG_UPDATE" then
+	if event and event ~= "BAG_UPDATE_COOLDOWN" then
 		F:UpdateLayout()
 	end
 end
@@ -319,13 +324,12 @@ function F:BAG_UPDATE_COOLDOWN()
 	F:UpdateCooldown()
 end
 
-function F:Zone()
+function F:Zone(event)
 	if F:CanSeed() then
 		F:RegisterEvent("BAG_UPDATE", "InventoryUpdate")
 		F:RegisterEvent("BAG_UPDATE_COOLDOWN")
 		F:RegisterEvent("UNIT_QUEST_LOG_CHANGED", "UpdateLayout")
 
-		F:InventoryUpdate()
 		F:UpdateLayout()
 		Zcheck = true
 	else
@@ -337,24 +341,18 @@ function F:Zone()
 			Zcheck = false
 		end
 	end
-	
+	F:InventoryUpdate(event)
 end
 
 function F:UpdateLayout(event)
 	if not SeedAnchor then return end
 	if event == "UNIT_QUEST_LOG_CHANGED" then E:Delay(1, F.UpdateLayout) end --For updating borders after quest was complited. for some reason events fires before quest disappeares from log
-	if InCombatLockdown() then
-		F:RegisterEvent("PLAYER_REGEN_ENABLED", "UpdateLayout")
-		return
-	end
 	F:UpdateBar(_G["FarmToolBar"], F.UpdateBarLayout, F.OnFarm, ToolAnchor, FtoolButtons)
 	F:UpdateBar(_G["FarmPortalBar"], F.UpdateBarLayout, F.OnFarm, PortalAnchor, FportalButtons)
 	for i=1, 5 do
 		F:UpdateBar(_G[("FarmSeedBar%d"):format(i)], F.UpdateSeedBarLayout, F.CanSeed, SeedAnchor, FseedButtons[i], i)
 	end
 	F:ResizeFrames()
-	
-	F:UnregisterEvent("PLAYER_REGEN_ENABLED")
 end
 
 local function onClick(self, mousebutton)
@@ -515,14 +513,11 @@ function F:CreateFrames()
 
 	F:RegisterEvent("ZONE_CHANGED", "Zone")
 	F:RegisterEvent("ZONE_CHANGED_NEW_AREA", "Zone")
-	F:RegisterEvent("PLAYER_ENTERING_WORLD", "DelayZoneChanged")
+	F:RegisterEvent("ZONE_CHANGED_INDOORS", "Zone")
+		
+	E:Delay(10, F:Zone())
+end
 
-	F:DelayZoneChanged()
-	F:InventoryUpdate()
-end
-function F:DelayZoneChanged()
-  E:Delay(10, F.UpdateLayout)
-end
 function F:StartFarmBarLoader()
 	F:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
