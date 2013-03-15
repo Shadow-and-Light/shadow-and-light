@@ -515,10 +515,14 @@ function F:CreateFrames()
 
 	F:RegisterEvent("ZONE_CHANGED", "Zone")
 	F:RegisterEvent("ZONE_CHANGED_NEW_AREA", "Zone")
-	
+	F:RegisterEvent("PLAYER_ENTERING_WORLD", "DelayZoneChanged")
+
+	F:DelayZoneChanged()
 	F:InventoryUpdate()
 end
-
+function F:DelayZoneChanged()
+  E:Delay(10, F.UpdateLayout)
+end
 function F:StartFarmBarLoader()
 	F:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
