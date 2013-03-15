@@ -1,6 +1,7 @@
 v1.58 March 15, 2013
 - Removed ElvUIPlugin Library
-- Update Farm Module for additional seed bags and optimized code
+- Farm module optimized
+- Seed bags bought for seeds are now taken into account by farm module
 
 v1.57 March 13, 2013
 - Sortokk forgot to add spirit into xml file cough cough
