@@ -1,5 +1,4 @@
-﻿--Raid mark bar. Similar to quickmark which just semms to be impossible to skin
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+﻿local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local LT = E:NewModule('Loot', 'AceHook-3.0', 'AceEvent-3.0')
 local check = false
 local t = 0

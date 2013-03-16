@@ -3,7 +3,7 @@ Credits : Sinaris, Elv
 made for ElvUI under Sinaris permission. Big thanks :)
 ]]
 
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local DTP = E:GetModule('DTPanels')
 if E.db.sle == nil then E.db.sle = {} end
 if E.db.sle.datatext == nil then E.db.sle.datatext = {} end
