@@ -984,7 +984,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.unitframe.units.target.height = 50
 			E.db.unitframe.units.target.health.position = 'RIGHT'
 			if layout == "healer" then
-				E.db.unitframe.units.target.health.text_format = "[healthcolor][health:deficit]      [health:current-percent:sl]"
+				E.db.unitframe.units.target.health.text_format = "[healthcolor][health:deficit]      [health:current-percent]"
 				
 				E.db.unitframe.units.target.customTexts = {}
 				E.db.unitframe.units.target.customTexts.Absorb = {}
@@ -996,7 +996,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.target.customTexts.Absorb.text_format = "[absorbs]"
 				E.db.unitframe.units.target.customTexts.Absorb.size = 10
 			else
-				E.db.unitframe.units.target.health.text_format = "[healthcolor][health:current-percent:sl]"
+				E.db.unitframe.units.target.health.text_format = "[healthcolor][health:current-percent]"
 			end
 			E.db.unitframe.units.target.power.position = 'RIGHT';
 			E.db.unitframe.units.target.power.hideonnpc = false;
