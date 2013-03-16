@@ -753,8 +753,6 @@ end
 function E:DarthSetup() --The function to switch from classic ElvUI settings to Darth's
 	InstallStepComplete.message = L["Darth's Defaults Set"]
 	InstallStepComplete:Show()
-	E:CopyTable(E.db, P)
-	E:CopyTable(E.db.sle, P.sle)
 	if not E.db.movers then E.db.movers = {}; end
 	if not E.db.loclite then E.db.loclite = {} end
 
@@ -928,6 +926,11 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 									["b"] = 0.396078431372549,
 									["g"] = 0.7333333333333333,
 									["r"] = 0.796078431372549,
+								}
+		E.db.unitframe.colors.healPrediction.absorbs = {
+									["r"] = 0.3294117647058824,
+									["g"] = 0.6039215686274509,
+									["b"] = 1,
 								}
 		UF:Update_AllFrames()
 		if layout == "healer" then
@@ -1123,7 +1126,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.raid10.height = 36
 				E.db.unitframe.units.raid10.healPrediction = true
 				E.db.unitframe.units.raid10.health.frequentUpdates = true
-				E.db.unitframe.units.raid10.health.text_format = "[healthcolor][health:dificit]"
+				E.db.unitframe.units.raid10.health.text_format = "[healthcolor][health:deficit]"
 				E.db.unitframe.units.raid10.health.orientation = "VERTICAL"
 				E.db.unitframe.units.raid10.GPSArrow.onMouseOver = false
 				E.db.unitframe.units.raid10.GPSArrow.outOfRange = true
@@ -1281,6 +1284,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.actionbar.bar3.buttonsize = 23
 		E.db.actionbar.bar3.visibility = "[overridebar] hide; [petbattle] hide; show"
 		
+		E.db.actionbar.bar4.enabled = true
 		E.db.actionbar.bar4.point = "TOPLEFT"
 		E.db.actionbar.bar4.buttonsPerRow = 6
 		E.db.actionbar.bar4.buttonspacing = 1
@@ -1375,7 +1379,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.movers.PetAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT547105"
 			E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT438199"
 			E.db.movers.TempEnchantMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT474164"
-			E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT758182"
+			E.db.movers.ElvUF_PartyMover = "BOTTOMElvUIParentBOTTOM0182"
 			E.db.movers.ElvUF_Raid10Mover = "BOTTOMElvUIParentBOTTOM0156"
 			E.db.movers.ElvUF_Raid25Mover = "BOTTOMElvUIParentBOTTOM0156"
 			E.db.movers.ElvUF_Raid40Mover = "BOTTOMElvUIParentBOTTOM0156"
