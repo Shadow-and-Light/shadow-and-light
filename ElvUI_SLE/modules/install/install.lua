@@ -1251,6 +1251,8 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.unitframe.units.boss.portrait.enable = true
 			E.db.unitframe.units.boss.power.width = "inset"
 			E.db.unitframe.units.boss.power.yOffset = 8
+			E.db.unitframe.units.boss.castbar.format = 'CURRENTMAX'
+			E.db.unitframe.units.boss.castbar.width = 200
 			E.db.unitframe.units.boss.name.position = "TOPLEFT"
 
 								
