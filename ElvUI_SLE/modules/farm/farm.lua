@@ -129,6 +129,8 @@ local quests = {
 --[31671] = {80591, 84783}, -- Scallion
 }
 
+local buttoncounts = {}
+
 function F:CanSeed()
 	local subzone = GetSubZoneText()
 	for _, zone in ipairs(farmzones) do
@@ -150,7 +152,8 @@ function F:InventoryUpdate(event)
 	else
 		F:UnregisterEvent("PLAYER_REGEN_ENABLED")
  	end
-	
+
+ 	local SeedChange = false
 	for i = 1, 5 do
 		for _, button in ipairs(FseedButtons[i]) do
 			button.items = GetItemCount(button.itemId, nil, true)
@@ -162,6 +165,13 @@ function F:InventoryUpdate(event)
 					end
 				end
 			end
+			if not buttoncounts[button.itemId] then
+				buttoncounts[button.itemId] = button.items
+			end
+			if button.items ~= buttoncounts[button.itemId] then
+				SeedChange = true
+				buttoncounts[button.itemId] = button.items
+			end
 			button.text:SetText(button.items)
 			button.icon:SetDesaturated(button.items == 0)
 			button.icon:SetAlpha(button.items == 0 and .25 or 1)
@@ -170,18 +180,32 @@ function F:InventoryUpdate(event)
 	
 	for _, button in ipairs(FtoolButtons) do
 		button.items = GetItemCount(button.itemId)
+		if not buttoncounts[button.itemId] then
+			buttoncounts[button.itemId] = button.items
+		end
+		if button.items ~= buttoncounts[button.itemId] then
+			SeedChange = true
+			buttoncounts[button.itemId] = button.items
+		end
 		button.icon:SetDesaturated(button.items == 0)
 		button.icon:SetAlpha(button.items == 0 and .25 or 1)
 	end
 	
 	for _, button in ipairs(FportalButtons) do
 		button.items = GetItemCount(button.itemId)
+		if not buttoncounts[button.itemId] then
+			buttoncounts[button.itemId] = button.items
+		end
+		if button.items ~= buttoncounts[button.itemId] then
+			SeedChange = true
+			buttoncounts[button.itemId] = button.items
+		end
 		button.text:SetText(button.items)
 		button.icon:SetDesaturated(button.items == 0)
 		button.icon:SetAlpha(button.items == 0 and .25 or 1)
 	end	
 	
-	if event and event ~= "BAG_UPDATE_COOLDOWN" then
+	if event and event ~= "BAG_UPDATE_COOLDOWN" and SeedChange == true then
 		F:UpdateLayout()
 	end
 end
@@ -194,6 +218,7 @@ function F:UpdateBarLayout(bar, anchor, buttons)
 	
 	for i, button in ipairs(buttons) do
 		button:ClearAllPoints()
+		if not button.items then F:InventoryUpdate() end
 		if not E.db.sle.farm.active or button.items > 0 then
 			button:Point("TOPLEFT", bar, "TOPLEFT", (count * (size+(E.PixelMode and 2 or 1)))+(E.PixelMode and 1 or 0), -1)
 			button:Show()
