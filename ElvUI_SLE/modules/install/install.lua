@@ -1045,24 +1045,23 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			--Focus
 			if layout == "healer" then
 				E.db.unitframe.units.focus.height = 34
+				E.db.unitframe.units.focus.width = 170
+				E.db.unitframe.units.focus.castbar.width = 170
 			else
 				E.db.unitframe.units.focus.height = 50
+				E.db.unitframe.units.focus.width = 190
+				E.db.unitframe.units.focus.castbar.width = 190
 			end
 			E.db.unitframe.units.focus.health.position = 'BOTTOMRIGHT'
 			E.db.unitframe.units.focus.power.width = "inset"
 			E.db.unitframe.units.focus.debuffs.sizeOverride = 22
 			E.db.unitframe.units.focus.debuffs.anchorPoint = "TOPLEFT"
 			E.db.unitframe.units.focus.castbar.format = 'CURRENTMAX'
-			if layout == "healer" then
-				E.db.unitframe.units.focus.castbar.width = 179
-			else
-				E.db.unitframe.units.focus.castbar.width = 190
-			end
 			
 			--Focus Target
 			E.db.unitframe.units.focustarget.enable = true
 			if layout == "healer" then
-				E.db.unitframe.units.focustarget.width = 179
+				E.db.unitframe.units.focustarget.width = 122
 			else
 				E.db.unitframe.units.focustarget.width = 190
 			end
