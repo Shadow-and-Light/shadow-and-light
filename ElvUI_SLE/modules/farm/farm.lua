@@ -344,9 +344,17 @@ function F:Zone(event)
 	end
 end
 
-function F:UpdateLayout(event)
+function F:UpdateLayout(event, unit)
+	print(event, unit)
 	if not SeedAnchor then return end
-	if event == "UNIT_QUEST_LOG_CHANGED" then E:Delay(1, F.UpdateLayout) end --For updating borders after quest was complited. for some reason events fires before quest disappeares from log
+	--For updating borders after quest was complited. for some reason events fires before quest disappeares from log
+	if event == "UNIT_QUEST_LOG_CHANGED" then
+		if unit == "player" then 
+			E:Delay(1, F.UpdateLayout)
+		else
+			return
+		end
+	end 
 	F:UpdateBar(_G["FarmToolBar"], F.UpdateBarLayout, F.OnFarm, ToolAnchor, FtoolButtons)
 	F:UpdateBar(_G["FarmPortalBar"], F.UpdateBarLayout, F.OnFarm, PortalAnchor, FportalButtons)
 	for i=1, 5 do
