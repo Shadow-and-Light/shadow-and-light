@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G = unpack(ElvUI);
+﻿local E, L, V, P, G, _ = unpack(ElvUI);
 local AI = E:GetModule('AddonInstaller')
 
 local ace3   = true               -- whether or not this database is a Ace3 profile
