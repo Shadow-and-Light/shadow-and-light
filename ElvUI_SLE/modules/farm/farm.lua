@@ -345,7 +345,6 @@ function F:Zone(event)
 end
 
 function F:UpdateLayout(event, unit)
-	print(event, unit)
 	if not SeedAnchor then return end
 	--For updating borders after quest was complited. for some reason events fires before quest disappeares from log
 	if event == "UNIT_QUEST_LOG_CHANGED" then
