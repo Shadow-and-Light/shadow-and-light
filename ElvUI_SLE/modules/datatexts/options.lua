@@ -26,7 +26,6 @@ E.Options.args.sle.args.datatext = {
 	type = "group",
 	name = L["Datatext Panels"],
 	order = 6,
-	childGroups = "select",
 	args = {
 		header = {
 			order = 1,
@@ -68,11 +67,18 @@ E.Options.args.sle.args.datatext = {
 			get = function(info) return E.db.sle.datatext.dashboard.width end,
 			set = function(info, value) E.db.sle.datatext.dashboard.width = value; DTP:DashWidth() end,
 		},
+		panels = {
+			order = 7,
+			type = "group",
+			name = L["Panels"],
+			childGroups = "select",
+			args = { },
+		},
 	},
 }
 
 for k,v in pairs(drop) do
-E.Options.args.sle.args.datatext.args[v[1]] = {
+E.Options.args.sle.args.datatext.args.panels.args[v[1]] = {
 	order = v[2],
 	type = "group",
 	name = L[k],
@@ -116,7 +122,7 @@ E.Options.args.sle.args.datatext.args[v[1]] = {
 end
 
 for k,v in pairs(chatT) do
-E.Options.args.sle.args.datatext.args[v[1]] = {
+E.Options.args.sle.args.datatext.args.panels.args[v[1]] = {
 	order = v[2],
 	type = "group",
 	name = L[k],
@@ -154,7 +160,7 @@ E.Options.args.sle.args.datatext.args[v[1]] = {
 end
 
 --Time datatext
-E.Options.args.sle.args.timedt = {
+E.Options.args.sle.args.datatext.args.timedt = {
 	type = "group",
 	name = RAID_FINDER,
 	order = 6,
