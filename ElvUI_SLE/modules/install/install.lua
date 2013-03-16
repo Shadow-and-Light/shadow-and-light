@@ -968,6 +968,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.unitframe.units.player.portrait.rotation = 345
 			E.db.unitframe.units.player.debuffs.enable = false
 			E.db.unitframe.units.player.castbar.format = 'CURRENTMAX'
+			E.db.unitframe.units.player.castbar.height = 18
 			if layout == "healer" then
 				E.db.unitframe.units.player.castbar.width = 200
 			else
@@ -1692,7 +1693,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.party.height = 45
 	E.db.unitframe.units.party.groupBy = "GROUP"
 	E.db.unitframe.units.party.visibility = "[@raid6,exists] hide;show"
-	E.db.unitframe.units.party.startOutFromCenter = true
 
 	if not E.db.unitframe.units.raid10.customTexts then
 		E.db.unitframe.units.raid10.customTexts = {};
