@@ -963,7 +963,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.unitframe.units.player.pvp.text_format = "||cFFB04F4F[pvptimer]||r"
 			E.db.unitframe.units.player.pvp.position = "LEFT"
 			E.db.unitframe.units.player.portrait.enable = true
-			E.db.unitframe.units.player.portrait.camDistanceScale = 4
+			E.db.unitframe.units.player.portrait.camDistanceScale = 3
 			E.db.unitframe.units.player.portrait.overlay = true
 			E.db.unitframe.units.player.portrait.rotation = 345
 			E.db.unitframe.units.player.debuffs.enable = false
@@ -991,8 +991,8 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.target.customTexts.Absorb.font = "ElvUI Font"
 				E.db.unitframe.units.target.customTexts.Absorb.justifyH = "CENTER"
 				E.db.unitframe.units.target.customTexts.Absorb.fontOutline = "OUTLINE"
-				E.db.unitframe.units.target.customTexts.Absorb.xOffset = 52
-				E.db.unitframe.units.target.customTexts.Absorb.yOffset = 2
+				E.db.unitframe.units.target.customTexts.Absorb.xOffset = 40
+				E.db.unitframe.units.target.customTexts.Absorb.yOffset = -9
 				E.db.unitframe.units.target.customTexts.Absorb.text_format = "[absorbs]"
 				E.db.unitframe.units.target.customTexts.Absorb.size = 10
 			else
@@ -1010,7 +1010,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.unitframe.units.target.name.yOffset = -3
 			E.db.unitframe.units.target.portrait.enable = true
 			E.db.unitframe.units.target.portrait.overlay = true
-			E.db.unitframe.units.target.portrait.camDistanceScale = 4
+			E.db.unitframe.units.target.portrait.camDistanceScale = 3
 			E.db.unitframe.units.target.portrait.rotation = 345
 			E.db.unitframe.units.target.buffs.perrow = 10
 			E.db.unitframe.units.target.buffs.numrows = 2
