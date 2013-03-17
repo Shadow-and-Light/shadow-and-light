@@ -99,6 +99,8 @@ function UF:Update_PlayerFrame(frame, db)
 		
 		if USE_POWERBAR_OFFSET then
 			health:Point("TOPRIGHT", frame, "TOPRIGHT", -(BORDER+POWERBAR_OFFSET), DEPTH)
+		elseif USE_POWERBAR_OFFSET and E.db.unitframe.units.player.power.offset == 0 then
+			health:Point("TOPRIGHT", frame, "TOPRIGHT", -(BORDER+POWERBAR_OFFSET), DEPTH)
 		else
 			health:Point("TOPRIGHT", frame, "TOPRIGHT", -BORDER, DEPTH)
 		end
