@@ -1,3 +1,6 @@
+v1.59
+- Fixed Curse Ticket: #15
+
 v1.58 March 15, 2013
 - Removed ElvUIPlugin Library
 - Farm module optimized
