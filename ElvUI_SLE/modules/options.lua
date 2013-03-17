@@ -9,28 +9,34 @@ local function configTable()
 --Main options group
 E.Options.args.sle = {
 	type = "group",
-	name = L["Shadow & Light Edit"],
-    order = 50,
-   	args = {
+	name = L["Shadow & Light"],
+	order = 50,
+	args = {
 		header = {
 			order = 1,
 			type = "header",
-			name = L["Shadow & Light Edit of ElvUI"]..format(": |cff99ff33%s|r", SLE.version),
+			name = L["Shadow & Light"]..format(": |cff99ff33%s|r", SLE.version),
+		},
+		logo = {
+			type = 'description',
+			name = '',
+			order = 2,
+			image = function() return 'Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Config_SL.tga', 1024, 256 end,
 		},
 		info = {
-			order = 2,
+			order = 3,
 			type = "description",
 			name = L["SLE_DESC"],
 		},
 		Reset = {
-			order = 3,
+			order = 4,
 			type = 'execute',
 			name = L["Reset All"],
 			desc = L["Reset all Shadow & Light options and movers to their defaults"],
 			func = function() SLE:Reset(true) end,
 		},
 		general = {
-			order = 4,
+			order = 5,
 			type = "group",
 			name = L["General"],
 			guiInline = true,
@@ -38,7 +44,7 @@ E.Options.args.sle = {
 			},
 		},
 		lootwindow = {
-			order = 5,
+			order = 6,
 			type = "group",
 			name = L["Loot History"],
 			guiInline = true,

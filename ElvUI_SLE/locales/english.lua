@@ -5,8 +5,7 @@ local L = AceLocale:NewLocale("ElvUI", "enUS", true);
 if not L then return; end
 
 --General--
-L["Shadow & Light Edit"] = true
-L["Shadow & Light Edit of ElvUI"] = true
+L["Shadow & Light"] = true
 L["SLE_DESC"] = [=[This is an edit of ElvUI that adds some functionality to the original addon and changes some previously existed options.
 The edit doesn't change original files in any respect so you can freely disable it any time from your addon manager without any risk.]=]
 L["LFR Lockout"] = true

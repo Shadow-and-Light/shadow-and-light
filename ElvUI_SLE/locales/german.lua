@@ -4,8 +4,7 @@ local L = AceLocale:NewLocale("ElvUI", "deDE")
 if not L then return end
 
 --General--
-L["Shadow & Light Edit"] = "Schatten & Licht Edit"
-L["Shadow & Light Edit of ElvUI"] = "Schatten & Licht Edit von ElvUI"
+L["Shadow & Light"] = "Schatten & Licht"
 L["SLE_DESC"] = [=[Das ist ein Edit von ElvUI das einige Funktionen zum Original Addon hinzufügt und bereits existierende Optionen ändert.
 Der Edit ändert in keiner Hinsicht Originale Dateien so das du es ohne Probleme aus deinem Addon Manager deaktivieren kannst.]=]
 L["LFR Lockout"] = "LFR Abklingzeiten"
