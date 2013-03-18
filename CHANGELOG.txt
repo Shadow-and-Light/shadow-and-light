@@ -1,5 +1,9 @@
 v1.59
 - Fixed Curse Ticket: #15
+- Added S&L Guild Datatext
+- Added S&L Friends Datatext
+- Tweaked Darth & Repooc's Config
+- Optimized Farm Module
 
 v1.58 March 15, 2013
 - Removed ElvUIPlugin Library
