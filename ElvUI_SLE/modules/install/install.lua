@@ -938,7 +938,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		else
 			E.db.unitframe.debuffHighlighting = false
 		end
-		--E.db.unitframe.smartRaidFilter = false
+		E.db.unitframe.smartRaidFilter = false
 		E.db.unitframe.colors.healthclass = true
 		E.db.unitframe.colors.colorhealthbyvalue = false
 			--Setting player frame
