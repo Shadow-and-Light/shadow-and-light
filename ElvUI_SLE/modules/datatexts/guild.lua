@@ -161,7 +161,12 @@ function DT:update_Guild()
 	if IsInGuild() then
 		GuildRoster()
 		local guildTotal, online = GetNumGuildMembers()
-
+			for i = 1, GetNumGuildMembers() do
+				local _, _, _, _, _, _, _, _, connected, _, _, _, _, isMobile = GetGuildRosterInfo(i)
+				if isMobile then
+					online = online + 1
+				end
+			end
 		if E.db.sle.dt.guild.totals then
 			LDB.text = --[["|cff82c5ff"]]"|cffffffffGuild: |r"..valueColor(online).."/"..valueColor(guildTotal)--[["|r"]]
 		else
@@ -312,7 +317,7 @@ function LDB.OnEnter(self)
 			for i = 1, GetNumGuildMembers() do
 				local toonName, rank, rankindex, level, class, zoneName, note, onote, connected, status, classFileName, achievementPoints, achievementRank, isMobile = GetGuildRosterInfo(i)
 
-				if connected then
+				if connected or isMobile then
 					if note and note ~= '' then note="|cff00ff00["..note.."]|r" end
 					if onote and onote ~= '' then onote = "|cff00ffff["..onote.."]|r" end
 
