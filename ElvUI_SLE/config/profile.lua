@@ -127,6 +127,25 @@ P['sle'] = {
 			['width'] = 100,
 		},
 	},
+--E.db.sle.dt.guild.totals
+	--DT Options
+	['dt'] = {
+		['friends'] = {
+			['combat'] = false,
+			['hideFriends'] = false,
+			['sortBN'] = 'TOONNAME',
+			['tooltipAutohide'] = 0.2,
+			['totals'] = false,
+		},
+		['guild'] = {
+			['combat'] = false,
+			['hideGuild'] = false,
+			['sortGuild'] = 'TOONNAME',
+			['tooltipAutohide'] = 0.2,
+			['totals'] = false,
+		},
+	},
+
 	--Error messages
 	['errors'] = false,
 

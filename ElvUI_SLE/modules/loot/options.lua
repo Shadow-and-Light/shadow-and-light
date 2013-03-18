@@ -4,7 +4,7 @@ local function configTable()
 
 --Main options group
 E.Options.args.sle.args.loot = {
-	order = 5,
+	order = 80,
 	type = "group",
 	name = L['Loot Announcer'],
 	args = {

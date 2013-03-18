@@ -484,7 +484,7 @@ local function configTable()
 	E.Options.args.sle.args.importing = {
 		type = 'group',
 		name = L['Import Options'],
-		order = 199,
+		order = 300,
 		args = {
 			header = {
 				order = 1,

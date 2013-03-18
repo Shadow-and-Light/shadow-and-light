@@ -4,7 +4,7 @@ local function configTable()
 
 E.Options.args.sle.args.farm = {
 	type = 'group',
-	order = 7,
+	order = 14,
 	name = L['Farm'],
 	args = {
 		intro = {

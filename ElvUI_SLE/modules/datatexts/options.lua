@@ -24,8 +24,9 @@ local chatT = {
 --Datatext panels
 E.Options.args.sle.args.datatext = {
 	type = "group",
-	name = L["Datatext Panels"],
-	order = 6,
+	name = L["Panels & Dashboard"],
+	order = 1,
+	childGroups = "select",
 	args = {
 		header = {
 			order = 1,
@@ -67,18 +68,11 @@ E.Options.args.sle.args.datatext = {
 			get = function(info) return E.db.sle.datatext.dashboard.width end,
 			set = function(info, value) E.db.sle.datatext.dashboard.width = value; DTP:DashWidth() end,
 		},
-		panels = {
-			order = 7,
-			type = "group",
-			name = L["Panels"],
-			childGroups = "select",
-			args = { },
-		},
 	},
 }
 
 for k,v in pairs(drop) do
-E.Options.args.sle.args.datatext.args.panels.args[v[1]] = {
+E.Options.args.sle.args.datatext.args[v[1]] = {
 	order = v[2],
 	type = "group",
 	name = L[k],
@@ -122,7 +116,7 @@ E.Options.args.sle.args.datatext.args.panels.args[v[1]] = {
 end
 
 for k,v in pairs(chatT) do
-E.Options.args.sle.args.datatext.args.panels.args[v[1]] = {
+E.Options.args.sle.args.datatext.args[v[1]] = {
 	order = v[2],
 	type = "group",
 	name = L[k],
@@ -159,57 +153,193 @@ E.Options.args.sle.args.datatext.args.panels.args[v[1]] = {
 }
 end
 
---Time datatext
-E.Options.args.sle.args.datatext.args.timedt = {
+E.Options.args.sle.args.sldatatext = {
 	type = "group",
-	name = RAID_FINDER,
-	order = 6,
+	name = L["S&L Datatexts"],
+	order = 2,
+	childGroups = "select",
 	args = {
-		lfrshow = {
+		header = {
 			order = 1,
-			type = "toggle",
-			name = L["LFR Lockout"],
-			desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
-			get = function(info) return E.db.sle.lfrshow.enabled end,
-			set = function(info, value) E.db.sle.lfrshow.enabled = value; end
+			type = "header",
+			name = L["Datatext Options"],
 		},
-		instances = {
+		intro = {
 			order = 2,
+			type = "description",
+			--name = L["DP_DESC"]
+			name = L["Some datatexts that Shadow & Light are supplied with have settings that can be modified to alter the displayed information. Please use the dropdown box to select which datatext you would like to configure."]
+		},
+		spacer = {
+			order = 3,
+			type = 'description',
+			name = "",
+		},
+			--['combat'] = false,
+			--['hideFriends'] = false,
+			--['sortBN'] = 'TOONNAME',
+			--['tooltipAutohide'] = '0.25',
+			--['totals'] = false,
+		slfriends = {
 			type = "group",
-			name = L["Loot History"],
-			guiInline = true,
-			get = function(info) return E.db.sle.lfrshow[ info[#info] ] end,
-			set = function(info, value) E.db.sle.lfrshow[ info[#info] ] = value; end,
+			name = L["S&L Friends"],
+			order = 1,
 			args = {
-				ds = {
+				header = {
 					order = 1,
-					type = "toggle",
-					name = GetMapNameByID(824),
-					desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
+					type = "description",
+					name = "These options are for modifing the Shadow & Light Friends datatext.",
 				},
-				mv = {
+				hidetotals = {
+					order = 2,
+					type = "toggle",--[[ width = "half",]]
+					name = "Show Totals",
+					desc = "Show total friends in the datatext.",
+					get = function(info) return E.db.sle.dt.friends.totals end,
+					set = function(info, value) E.db.sle.dt.friends.totals = value; DT:update_Friends() end,
+				},
+				hidehintline = {
+					order = 3,
+					type = "toggle",--[[ width = "half",]]
+					name = "Hide Hints",
+					desc = "Display the hints in the tooltip.",
+					get = function(info) return E.db.sle.dt.friends.hide_hintline end,
+					set = function(info, value) E.db.sle.dt.friends.hide_hintline = value; end,
+				},
+				bnbroadcast = {
+					order = 4,
+					type = "toggle",--[[ width = "half",]]
+					name = "Expand RealID",
+					desc = "Display realid with two lines to view broadcasts.",
+					get = function(info) return E.db.sle.dt.friends.expandBNBroadcast end,
+					set = function(info, value) E.db.sle.dt.friends.expandBNBroadcast = value; end,
+				},
+				spacer = {
+					order = 5,
+					type = 'description',
+					name = "",
+				},
+				tooltipautohide = {
+					order = 6,
+					type = "range",
+					name = "Autohide Delay:",
+					desc = "Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext.",
+					min = 0.1, max = 1, step = 0.1,
+					get = function(info) return E.db.sle.dt.friends.tooltipAutohide end,
+					set = function(info, value) E.db.sle.dt.friends.tooltipAutohide = value; end,
+				},
+			},
+		},
+		slguild = {
+			type = "group",
+			name = L["S&L Guild"],
+			order = 2,
+			args = {
+				header = {
+					order = 1,
+					type = "description",
+					name = "These options are for modifing the Shadow & Light Guild datatext.",
+				},
+				hidetotals = {
 					order = 2,
 					type = "toggle",
-					name = GetMapNameByID(896),
-					desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
+					name = "Show Totals",
+					desc = "Show total friends in the datatext.",
+					get = function(info) return E.db.sle.dt.guild.totals end,
+					set = function(info, value) E.db.sle.dt.guild.totals = value; DT:update_Guild() end,
 				},
-				hof = {
+				hidehintline = {
 					order = 3,
 					type = "toggle",
-					name = GetMapNameByID(897),
-					desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
+					name = "Hide Hints",
+					desc = "Display the hints in the tooltip.",
+					get = function(info) return E.db.sle.dt.guild.hide_hintline end,
+					set = function(info, value) E.db.sle.dt.guild.hide_hintline = value; end,
 				},
-				toes = {
+				hidemotd = {
 					order = 4,
 					type = "toggle",
-					name = GetMapNameByID(886),
-					desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
+					name = "Hide MOTD",
+					desc = "Hide the guild's Message of the Day in the tooltip.",
+					get = function(info) return E.db.sle.dt.guild.hide_gmotd end,
+					set = function(info, value) E.db.sle.dt.guild.hide_gmotd = value; end,
 				},
-				tot = {
-					order = 5,
+				hideguildname = {
+					order = 4,
 					type = "toggle",
-					name = GetMapNameByID(930),
+					name = "Hide Guild Name",
+					desc = "Hide the guild's name in the tooltip.",
+					get = function(info) return E.db.sle.dt.guild.hide_guildname end,
+					set = function(info, value) E.db.sle.dt.guild.hide_guildname = value; end,
+				},
+				spacer = {
+					order = 5,
+					type = 'description',
+					name = "",
+				},
+				tooltipautohide = {
+					order = 6,
+					type = "range",
+					name = "Autohide Delay:",
+					desc = "Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext.",
+					min = 0.1, max = 1, step = 0.1,
+					get = function(info) return E.db.sle.dt.guild.tooltipAutohide end,
+					set = function(info, value) E.db.sle.dt.guild.tooltipAutohide = value; end,
+				},
+			},
+		},
+		timedt = {
+			type = "group",
+			name = RAID_FINDER,
+			order = 6,
+			args = {
+				lfrshow = {
+					order = 1,
+					type = "toggle",
+					name = L["LFR Lockout"],
 					desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
+					get = function(info) return E.db.sle.lfrshow.enabled end,
+					set = function(info, value) E.db.sle.lfrshow.enabled = value; end
+				},
+				instances = {
+					order = 2,
+					type = "group",
+					name = L["Loot History"],
+					guiInline = true,
+					get = function(info) return E.db.sle.lfrshow[ info[#info] ] end,
+					set = function(info, value) E.db.sle.lfrshow[ info[#info] ] = value; end,
+					args = {
+						ds = {
+							order = 1,
+							type = "toggle",
+							name = GetMapNameByID(824),
+							desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
+						},
+						mv = {
+							order = 2,
+							type = "toggle",
+							name = GetMapNameByID(896),
+							desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
+						},
+						hof = {
+							order = 3,
+							type = "toggle",
+							name = GetMapNameByID(897),
+							desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
+						},
+						toes = {
+							order = 4,
+							type = "toggle",
+							name = GetMapNameByID(886),
+							desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
+						},
+						tot = {
+							order = 5,
+							type = "toggle",
+							name = GetMapNameByID(930),
+							desc = L["Show/Hide LFR lockdown info in time datatext's tooltip."],
+						},
+					},
 				},
 			},
 		},

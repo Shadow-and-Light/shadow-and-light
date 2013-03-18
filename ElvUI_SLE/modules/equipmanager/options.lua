@@ -5,7 +5,7 @@ local function configTable()
 
 E.Options.args.sle.args.equipmanager = {
 	type = 'group',
-	order = 2,
+	order = 13,
 	name = L['Equipment Manager'],
 	args = {
 		intro = {

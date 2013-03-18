@@ -6,7 +6,7 @@ local function configTable()
 E.Options.args.sle.args.characterframeoptions = {
 	type = "group",
 	name = L["Character Frame"],
-	order = 2,
+	order = 12,
 	args = {
 		header = {
 			order = 1,

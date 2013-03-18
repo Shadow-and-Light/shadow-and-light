@@ -73,7 +73,7 @@ E.Options.args.sle = {
 
 --Credits
 E.Options.args.sle.args.credits = {
-	order = 200,
+	order = 400,
 	type = 'group',
 	name = L["Credits"],
 	args = {

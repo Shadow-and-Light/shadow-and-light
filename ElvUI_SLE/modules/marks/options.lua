@@ -4,7 +4,7 @@ local function configTable()
 
 --Main options group
 E.Options.args.sle.args.marks = {
-	order = 5,
+	order = 90,
 	type = "group",
 	name = L["Raid Marks"],
 	args = {
