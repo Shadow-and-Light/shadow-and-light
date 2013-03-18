@@ -175,11 +175,6 @@ E.Options.args.sle.args.sldatatext = {
 			type = 'description',
 			name = "",
 		},
-			--['combat'] = false,
-			--['hideFriends'] = false,
-			--['sortBN'] = 'TOONNAME',
-			--['tooltipAutohide'] = '0.25',
-			--['totals'] = false,
 		slfriends = {
 			type = "group",
 			name = L["S&L Friends"],

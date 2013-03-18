@@ -15,7 +15,6 @@ local pairs = _G.pairs
 local frame = CreateFrame("frame")
 local tooltip
 local LDB_ANCHOR
---local update_Friends
 
 local GROUP_CHECKMARK	= "|TInterface\\Buttons\\UI-CheckBox-Check:0|t"
 local AWAY_ICON		= "|TInterface\\FriendsFrame\\StatusIcon-Away:18|t"
@@ -23,9 +22,6 @@ local BUSY_ICON		= "|TInterface\\FriendsFrame\\StatusIcon-DnD:18|t"
 local MOBILE_ICON	= "|TInterface\\ChatFrame\\UI-ChatIcon-ArmoryChat:18|t"
 local MINIMIZE		= "|TInterface\\BUTTONS\\UI-PlusButton-Up:0|t"
 local BROADCAST_ICON = "|TInterface\\FriendsFrame\\BroadcastIcon:0|t"
-
---local FACTION_COLOR_HORDE = RED_FONT_COLOR_CODE
---local FACTION_COLOR_ALLIANCE = "|cff0070dd"
 
 -- Setup the Title Font. 14
 local ssTitleFont = CreateFont("ssTitleFont")
@@ -232,15 +228,11 @@ local function Entry_OnMouseUp(frame, info, button)
 		end
 	elseif button == "RightButton" then
 		if IsControlKeyDown() then
-			--if i_type == "guild" and CanEditOfficerNote() then
-			--	SetGuildRosterSelection(guild_name_to_index(toon_name))
-			--	StaticPopup_Show("SET_GUILDOFFICERNOTE")
-			--end
+			--Possibly Set BNetBroadcast
+			--	E:StaticPopup_Show("SET_BN_BROADCAST")
 		end
 	elseif button == "MiddleButton" then
-		-- Expand RealID Broadcast
 		E.db.sle.dt.friends.expandBNBroadcast = not E.db.sle.dt.friends.expandBNBroadcast
-		--E.db.sle.socialstate.expand_realID = not E.db.sle.socialstate.expand_realID
 		LDB.OnEnter(LDB_ANCHOR)
 	end
 end
@@ -335,7 +327,6 @@ function LDB.OnEnter(self)
 					for toonidx = 1, BNGetNumFriendToons(i) do
 						local fcolor
 						local status = ""
-
 						local _, _, _, _, _, _, _, isOnline, lastOnline, isAFK, isDND, broadcast, note = BNGetFriendInfoByID(presenceID)
 						local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetFriendToonInfo(i, toonidx)
 
@@ -344,7 +335,6 @@ function LDB.OnEnter(self)
 								fcolor = RED_FONT_COLOR_CODE
 							else
 								fcolor = "|cff0070dd"
-								--fcolor = FACTION_COLOR_ALLIANCE
 							end
 						end
 
@@ -379,7 +369,6 @@ function LDB.OnEnter(self)
 
 				if (E.db.sle.dt.friends["sortBN"] ~= "REALID") and (E.db.sle.dt.friends["sortBN"] ~= "revREALID") then
 					table.sort(realid_table, list_sort[E.db.sle.dt.friends["sortBN"]])
-
 				end
 
 				for _, player in ipairs(realid_table) do
@@ -432,7 +421,6 @@ function LDB.OnEnter(self)
 				local friend_table = {}
 				for i = 1,numFriendsOnline do
 					local toonName, level, class, zoneName, connected, status, note = GetFriendInfo(i)
-
 					note = note and "|cffff8800{"..note.."}|r" or ""
 
 					if status == CHAT_FLAG_AFK then
@@ -468,7 +456,6 @@ function LDB.OnEnter(self)
 					if not E.db.sle.dt.friends.hideFriendsNotes then
 						line = tooltip:SetCell(line, 7, player["NOTE"])
 					end
-
 					tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, string.format("friends:%s:%s", player["TOONNAME"], player["TOONNAME"]))
 				end
 			end
@@ -486,21 +473,6 @@ function LDB.OnEnter(self)
 		tooltip:SetCellScript(line, 1, "OnMouseUp", HideOnMouseUp, "minimize_hintline")
 
 		if not E.db.sle.dt.friends.minimize_hintline then
-			--line = tooltip:AddLine()
-			--tooltip:SetCell(line, 1, "|cffeda55fLeft Click|r to open the friends panel.  |cffeda55fRight Click|r to open configuration panel.", "LEFT", 0)
-
-			--line = tooltip:AddLine()
-			--tooltip:SetCell(line, 1, "|cffeda55fClick|r a line to whisper a player.  |cffeda55fShift-Click|r a line to lookup a player.", "LEFT", 0)
-
-			--line = tooltip:AddLine()
-			--tooltip:SetCell(line, 1, "|cffeda55fCtrl-Click|r a line to edit a note.    |cffeda55fCtrl-RightClick|r a line to edit an officer note.", "LEFT", 0)
-
-			--line = tooltip:AddLine()
-			--tooltip:SetCell(line, 1, "|cffeda55fAlt-Click|r a line to invite.               |cffeda55fMiddleClick|r a line to expand RealID.", "LEFT", 0)
-
-			--line = tooltip:AddLine()
-			--tooltip:SetCell(line, 1, "|cffeda55fClick|r a Header to hide it or sort it.", "LEFT", 0)
-
 			line = tooltip:AddLine()
 			tooltip:SetCell(line, 1, "", "LEFT", 1)
 			tooltip:SetCell(line, 2, "|cffeda55fLeft Click|r to open the friends panel.", "LEFT", 3)

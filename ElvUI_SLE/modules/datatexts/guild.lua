@@ -202,10 +202,6 @@ local function Entry_OnMouseUp(frame, info, button)
 				StaticPopup_Show("SET_GUILDOFFICERNOTE")
 			end
 		end
-	--elseif button == "MiddleButton" then
-		-- Expand RealID Broadcast
-	--	E.db.sle.socialstate.expand_realID = not E.db.sle.socialstate.expand_realID
-	--	LDB.OnEnter(LDB_ANCHOR)
 	end
 end
 
@@ -378,17 +374,21 @@ function LDB.OnEnter(self)
 
 		if not E.db.sle.dt.guild.minimize_hintline then
 			line = tooltip:AddLine()
-			tooltip:SetCell(line, 1, "|cffeda55fClick|r to open the guild panel.  |cffeda55fClick|r a Header to hide it or sort it.", "LEFT", 0)
-
+			tooltip:SetCell(line, 1, "", "LEFT", 1)
+			tooltip:SetCell(line, 2, "|cffeda55fLeft Click|r to open the guild panel.", "LEFT", 3)
+			tooltip:SetCell(line, 5, "|cffeda55fRight Click|r to open configuration panel.", "LEFT", 3)
 			line = tooltip:AddLine()
-			tooltip:SetCell(line, 1, "|cffeda55fClick|r a line to whisper a player.  |cffeda55fShift-Click|r a line to lookup a player.", "LEFT", 0)
-
+			tooltip:SetCell(line, 1, "", "LEFT", 1)
+			tooltip:SetCell(line, 2, "|cffeda55fLeft Click|r a line to whisper a player.", "LEFT", 3)
+			tooltip:SetCell(line, 5, "|cffeda55fShift+Left Click|r a line to lookup a player.", "LEFT", 3)--
 			line = tooltip:AddLine()
-			tooltip:SetCell(line, 1, "|cffeda55fCtrl-Click|r a line to edit a note.    |cffeda55fCtrl-RightClick|r a line to edit an officer note.", "LEFT", 0)
-
+			tooltip:SetCell(line, 1, "", "LEFT", 1)
+			tooltip:SetCell(line, 2, "|cffeda55fCtrl+Left Click|r a line to edit note.", "LEFT", 3)
+			tooltip:SetCell(line, 5, "|cffeda55fCtrl+Right Click|r a line to edit officer note.", "LEFT", 3)
 			line = tooltip:AddLine()
-			tooltip:SetCell(line, 1, "|cffeda55fAlt-Click|r a line to invite.", "LEFT", 0)
-
+			tooltip:SetCell(line, 1, "", "LEFT", 1)
+			tooltip:SetCell(line, 2, "|cffeda55fAlt+Left Click|r a line to invite.", "LEFT", 3)--
+			tooltip:SetCell(line, 5, "|cffeda55fLeft Click|r a Header to hide it or sort it.", "LEFT", 3)--
 		end
 	end
 
