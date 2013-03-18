@@ -857,6 +857,11 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.sle.datatext.dp6.enabled = true
 		E.db.sle.datatext.dp6.width = 455
 		E.db.sle.datatext.dp6.transparent = true
+		
+		E.db.sle.dt.friends.totals = true
+		E.db.sle.dt.friends.expandBNBroadcast = true
+		E.db.sle.dt.guild.totals = true
+		E.db.sle.dt.guild.hide_guildname = true
 
 		E.db.datatexts.panels.Top_Center = 'Version';
 		E.db.datatexts.panels.Bottom_Panel = 'System';
