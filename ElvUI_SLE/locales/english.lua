@@ -115,6 +115,26 @@ L["Show/Hide this panel."] = true
 L["Sets size of this panel"] = true
 L['Hide panel background'] = true
 L["Don't show this panel, only datatexts assinged to it"] = true
+L["Some datatexts that Shadow & Light are supplied with have settings that can be modified to alter the displayed information. Please use the dropdown box to select which datatext you would like to configure."] = true
+L["S&L Friends"] = true
+L["Show total friends in the datatext."] = true
+L["Show total guild members in the datatext."] = true
+L["These options are for modifing the Shadow & Light Friends datatext."] = true
+L["S&L Guild"] = true
+L["Show Totals"] = true
+L["Expand RealID"] = true
+L["Display realid with two lines to view broadcasts."] = true
+L["Hide Hints"] = true
+L["Hide the hints in the tooltip."] = true
+L["Autohide Delay:"] = true
+L["Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext."] = true
+L["S&L Datatexts"] = true
+L["Datatext Options"] = true
+L["These options are for modifing the Shadow & Light Guild datatext."] = true
+L["Hide MOTD"] = true
+L["Hide the guild's Message of the Day in the tooltip."] = true
+L["Hide Guild Name"] = true
+L["Hide the guild's name in the tooltip."] = true
 
 --Exp/Rep Bar--
 L["Xp-Rep Text"] = true
