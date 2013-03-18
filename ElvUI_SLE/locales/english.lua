@@ -135,6 +135,8 @@ L["Hide MOTD"] = true
 L["Hide the guild's Message of the Day in the tooltip."] = true
 L["Hide Guild Name"] = true
 L["Hide the guild's name in the tooltip."] = true
+L["Hide In Combat"] = true
+L["Will not show the tooltip while in combat."] = true
 
 --Exp/Rep Bar--
 L["Xp-Rep Text"] = true

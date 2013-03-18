@@ -184,6 +184,14 @@ E.Options.args.sle.args.sldatatext = {
 					type = "description",
 					name = L["These options are for modifing the Shadow & Light Friends datatext."],
 				},
+				combat = {
+					order = 2,
+					type = "toggle",
+					name = L["Hide In Combat"],
+					desc = L["Will not show the tooltip while in combat."],
+					get = function(info) return E.db.sle.dt.friends.combat end,
+					set = function(info, value) E.db.sle.dt.friends.combat = value; end,
+				},
 				hidetotals = {
 					order = 2,
 					type = "toggle",
@@ -234,8 +242,16 @@ E.Options.args.sle.args.sldatatext = {
 					type = "description",
 					name = L["These options are for modifing the Shadow & Light Guild datatext."],
 				},
-				hidetotals = {
+				combat = {
 					order = 2,
+					type = "toggle",
+					name = L["Hide In Combat"],
+					desc = L["Will not show the tooltip while in combat."],
+					get = function(info) return E.db.sle.dt.guild.combat end,
+					set = function(info, value) E.db.sle.dt.guild.combat = value; end,
+				},
+				hidetotals = {
+					order = 3,
 					type = "toggle",
 					name = L["Show Totals"],
 					desc = L["Show total guild members in the datatext."],
@@ -243,7 +259,7 @@ E.Options.args.sle.args.sldatatext = {
 					set = function(info, value) E.db.sle.dt.guild.totals = value; DT:update_Guild() end,
 				},
 				hidehintline = {
-					order = 3,
+					order = 4,
 					type = "toggle",
 					name = L["Hide Hints"],
 					desc = L["Display the hints in the tooltip."],
@@ -251,7 +267,7 @@ E.Options.args.sle.args.sldatatext = {
 					set = function(info, value) E.db.sle.dt.guild.hide_hintline = value; end,
 				},
 				hidemotd = {
-					order = 4,
+					order = 5,
 					type = "toggle",
 					name = L["Hide MOTD"],
 					desc = L["Hide the guild's Message of the Day in the tooltip."],
@@ -259,7 +275,7 @@ E.Options.args.sle.args.sldatatext = {
 					set = function(info, value) E.db.sle.dt.guild.hide_gmotd = value; end,
 				},
 				hideguildname = {
-					order = 4,
+					order = 6,
 					type = "toggle",
 					name = L["Hide Guild Name"],
 					desc = L["Hide the guild's name in the tooltip."],
@@ -267,12 +283,12 @@ E.Options.args.sle.args.sldatatext = {
 					set = function(info, value) E.db.sle.dt.guild.hide_guildname = value; end,
 				},
 				spacer = {
-					order = 5,
+					order = 7,
 					type = 'description',
 					name = "",
 				},
 				tooltipautohide = {
-					order = 6,
+					order = 8,
 					type = "range",
 					name = L["Autohide Delay:"],
 					desc = L["Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext."],
