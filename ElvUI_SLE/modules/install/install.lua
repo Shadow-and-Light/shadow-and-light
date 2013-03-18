@@ -860,7 +860,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 
 		E.db.datatexts.panels.Top_Center = 'Version';
 		E.db.datatexts.panels.Bottom_Panel = 'System';
-		E.db.datatexts.panels.LeftChatDataPanel.right = 'Friends';
+		E.db.datatexts.panels.LeftChatDataPanel.right = 'S&L Friends';
 		E.db.datatexts.panels.LeftChatDataPanel.left = 'Call to Arms';
 		E.db.datatexts.panels.LeftChatDataPanel.middle = 'Durability';
 		E.db.datatexts.panels.LeftMiniPanel = '';
@@ -868,7 +868,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.datatexts.panels.DP_1.right = 'AtlasLoot';
 		E.db.datatexts.panels.DP_1.middle = 'MrtWoo';
 		E.db.datatexts.panels.DP_1.left = 'Swatter';
-		E.db.datatexts.panels.DP_2.right = 'Guild';
+		E.db.datatexts.panels.DP_2.right = 'S&L Guild';
 		E.db.datatexts.panels.DP_2.middle = 'Skada';
 		E.db.datatexts.panels.DP_2.left = 'Altoholic';
 		E.db.datatexts.panels.DP_3.right = 'Notes';
