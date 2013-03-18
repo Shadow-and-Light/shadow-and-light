@@ -193,7 +193,7 @@ E.Options.args.sle.args.sldatatext = {
 					set = function(info, value) E.db.sle.dt.friends.combat = value; end,
 				},
 				hidetotals = {
-					order = 2,
+					order = 3,
 					type = "toggle",
 					name = L["Show Totals"],
 					desc = L["Show total friends in the datatext."],
@@ -201,7 +201,7 @@ E.Options.args.sle.args.sldatatext = {
 					set = function(info, value) E.db.sle.dt.friends.totals = value; DT:update_Friends() end,
 				},
 				hidehintline = {
-					order = 3,
+					order = 4,
 					type = "toggle",
 					name = L["Hide Hints"],
 					desc = L["Hide the hints in the tooltip."],
@@ -209,7 +209,7 @@ E.Options.args.sle.args.sldatatext = {
 					set = function(info, value) E.db.sle.dt.friends.hide_hintline = value; end,
 				},
 				bnbroadcast = {
-					order = 4,
+					order = 5,
 					type = "toggle",
 					name = L["Expand RealID"],
 					desc = L["Display realid with two lines to view broadcasts."],
@@ -217,12 +217,12 @@ E.Options.args.sle.args.sldatatext = {
 					set = function(info, value) E.db.sle.dt.friends.expandBNBroadcast = value; end,
 				},
 				spacer = {
-					order = 5,
+					order = 6,
 					type = 'description',
 					name = "",
 				},
 				tooltipautohide = {
-					order = 6,
+					order = 7,
 					type = "range",
 					name = L["Autohide Delay:"],
 					desc = L["Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext."],
