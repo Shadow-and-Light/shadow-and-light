@@ -1664,7 +1664,8 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.party.roleIcon.enable = false
 	E.db.unitframe.units.party.roleIcon.position = "BOTTOMRIGHT"
 	E.db.unitframe.units.party.GPSArrow.size = 40
-	E.db.unitframe.units.party.growthDirection = "LEFT_UP"
+	E.db.unitframe.units.party.growthDirection = "RIGHT_DOWN"
+	E.db.unitframe.units.party.startOutFromCenter = true
 	E.db.unitframe.units.party.healPrediction = true
 	E.db.unitframe.units.party.health.frequentUpdates = true
 	E.db.unitframe.units.party.health.text_format = ""
@@ -1711,7 +1712,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		["yOffset"] = -7,
 	}
 	E.db.unitframe.units.raid10.columnAnchorPoint = "BOTTOM"
-	--E.db.unitframe.units.raid10.buffIndicator.fontSize = 10
 	E.db.unitframe.units.raid10.point = "RIGHT"
 	E.db.unitframe.units.raid10.rdebuffs.enable = false
 	E.db.unitframe.units.raid10.yOffset = 4
@@ -1719,7 +1719,8 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.raid10.roleIcon.enable = false
 	E.db.unitframe.units.raid10.power.width = "inset"
 	E.db.unitframe.units.raid10.power.offset = 0
-	E.db.unitframe.units.raid10.growthDirection = "LEFT_UP"
+	E.db.unitframe.units.raid10.growthDirection = "RIGHT_DOWN"
+	E.db.unitframe.units.raid10.startOutFromCenter = true
 	E.db.unitframe.units.raid10.healPrediction = true
 	E.db.unitframe.units.raid10.health.frequentUpdates = true
 	E.db.unitframe.units.raid10.health.text_format = ""
@@ -1766,7 +1767,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		["yOffset"] = -7,
 	}
 	E.db.unitframe.units.raid25.columnAnchorPoint = "RIGHT"
-	--E.db.unitframe.units.raid25.buffIndicator.fontSize = 10
 	E.db.unitframe.units.raid25.point = "BOTTOM"
 	E.db.unitframe.units.raid25.rdebuffs.enable = false
 	E.db.unitframe.units.raid25.xOffset = 1
@@ -1774,7 +1774,8 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.raid25.power.offset = 0
 	E.db.unitframe.units.raid25.power.width = "inset"
 	E.db.unitframe.units.raid25.power.position = "CENTER"
-	E.db.unitframe.units.raid25.growthDirection = "DOWN_RIGHT"
+	E.db.unitframe.units.raid25.growthDirection = "RIGHT_DOWN"
+	E.db.unitframe.units.raid25.startOutFromCenter = true
 	E.db.unitframe.units.raid25.healPrediction = true
 	E.db.unitframe.units.raid25.health.frequentUpdates = true
 	E.db.unitframe.units.raid25.health.text_format = ""
@@ -1827,7 +1828,8 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.raid40.point = "BOTTOM"
 	E.db.unitframe.units.raid40.xOffset = 1
 	E.db.unitframe.units.raid40.yOffset = 1
-	E.db.unitframe.units.raid40.growthDirection = "UP_LEFT"
+	E.db.unitframe.units.raid40.growthDirection = "RIGHT_DOWN"
+	E.db.unitframe.units.raid40.startOutFromCenter = true
 	E.db.unitframe.units.raid40.healPrediction = true
 	E.db.unitframe.units.raid40.width = 48
 	E.db.unitframe.units.raid40.height = 43
@@ -1838,7 +1840,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.raid40.rdebuffs.size = 26
 	E.db.unitframe.units.raid40.name.position = "TOP"
 	E.db.unitframe.units.raid40.name.text_position = "[namecolor][name:short]"
-	--E.db.unitframe.units.raid40.buffIndicator.fontSize = 10
 	E.db.unitframe.units.raid40.power.enable = true
 	E.db.unitframe.units.raid40.power.offset = 0
 	E.db.unitframe.units.raid40.power.width = "inset"
@@ -1939,13 +1940,13 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.datatexts.panels['LeftChatDataPanel']['left'] = ""
 		E.db.datatexts.panels['LeftChatDataPanel']['middle'] = ""
 		E.db.datatexts.panels['LeftChatDataPanel']['right'] = ""
-		E.db.datatexts.panels['RightChatDataPanel']['left'] = "SocialState"
+		E.db.datatexts.panels['RightChatDataPanel']['left'] = "Gold"
 		E.db.datatexts.panels['RightChatDataPanel']['middle'] = "Bags"
 		E.db.datatexts.panels['RightChatDataPanel']['right'] = "Time"
 		E.db.datatexts.panels['Top_Center'] = "Version"
 		E.db.datatexts.panels['Bottom_Panel'] = "Combat Time"
-		E.db.datatexts.panels['LeftMiniPanel'] = "Gold"
-		E.db.datatexts.panels['RightMiniPanel'] = "System"
+		E.db.datatexts.panels['LeftMiniPanel'] = "S&L Friends"
+		E.db.datatexts.panels['RightMiniPanel'] = "S&L Guild"
 
 		--Datatext Panels Spec Specific
 		if layout == 'tank' then
