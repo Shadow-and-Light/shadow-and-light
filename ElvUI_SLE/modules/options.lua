@@ -6,6 +6,13 @@ local A = E:GetModule('Auras')
 local SLE = E:GetModule('SLE')
 local function configTable()
 
+E.Options.args.ElvUI_Header = {
+		order = 1,
+		type = "header",
+		name = "ElvUI"..format(": |cff99ff33%s|r",E.version).."  Shadow & Light"..format(": |cff99ff33%s|r",SLE.version),
+		width = "full",
+}
+
 --Main options group
 E.Options.args.sle = {
 	type = "group",
