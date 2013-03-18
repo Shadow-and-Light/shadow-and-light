@@ -1469,43 +1469,31 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	layout = E.db.layoutSet  --Pull which layout was selected if any.
 	pixel = E.PixelMode  --Pull PixelMode
 
-	E.private.general.pixelPerfect = true
 	E.db.general.autoAcceptInvite = true
 	E.db.general.autoRepair = "GUILD"
 	E.db.general.bottomPanel = false
 	E.db.general.topPanel = false
 	E.db.general.interruptAnnounce = "RAID"
-	E.db.general.backdropfadecolor = {
-		["r"] = 0.054,
-		["g"] = 0.054,
-		["b"] = 0.054,
-	}
-	E.db.general.valuecolor = {
-		["r"] = 0.09,
-		["g"] = 0.513,
-		["b"] = 0.819,
-	}
-	E.db.general.bordercolor = {
-		["r"] = 0.31,
-		["g"] = 0.31,
-		["b"] = 0.31,
-	}
-	E.db.general.health = {
-	}
-	E.db.general.BUFFS = {
-	}
+	E.db.general.backdropfadecolor = {["r"] = 0.054,["g"] = 0.054,["b"] = 0.054,}
+	E.db.general.valuecolor = {["r"] = 0.09,["g"] = 0.513,["b"] = 0.819,}
+	E.db.general.bordercolor = {["r"] = 0.31,["g"] = 0.31,["b"] = 0.31,}
+	E.db.general.health = {}
+	E.db.general.BUFFS = {}
 	E.db.general.vendorGrays = true
 	E.db.general.autoRoll = true
 	E.db.general.threat.position = "LEFTCHAT"
 
+	E.private.general.pixelPerfect = true
 	E.private.general.normTex = "Polished Wood"
 	E.private.general.glossTex = "Polished Wood"
 	E.private.skins.addons.EmbedSkada = true
 	E.private.skins.addons.AlwaysTrue = true
+	E.private.sle.exprep.autotrack = true
+	E.private.sle.farm.enable = true
+	E.priavte.characterframeoptions.enable = true
 
 	E.db.gridSize = 110
 	E.db.hideTutorial = 1
-
 	E.db.tooltip.style = "inset"
 
 	--Chat
@@ -1526,30 +1514,14 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.fontSize = 12
 	E.db.unitframe.statusbar = "Polished Wood"
 	E.db.unitframe.colors.healthclass = false
-	E.db.unitframe.colors.castColor = {
-		["r"] = 0.1,
-		["g"] = 0.1,
-		["b"] = 0.1,
-	}
-	E.db.unitframe.colors.health = {--
-		["r"] = 0.2352941176470588,
-		["g"] = 0.2352941176470588,
-		["b"] = 0.2352941176470588,
-	}
-	E.db.unitframe.colors.auraBarBuff = {
-		["b"] = 0.09411764705882353,
-		["g"] = 0.07843137254901961,
-		["r"] = 0.3098039215686275,
-	}
+	E.db.unitframe.colors.castColor = {["r"] = 0.1,["g"] = 0.1,["b"] = 0.1,}
+	E.db.unitframe.colors.health = {["r"] = 0.2352941176470588,["g"] = 0.2352941176470588,["b"] = 0.2352941176470588,}
+	E.db.unitframe.colors.auraBarBuff = {["b"] = 0.09411764705882353,["g"] = 0.07843137254901961,["r"] = 0.3098039215686275,}
 	E.db.unitframe.colors.transparentPower = true
 	E.db.unitframe.colors.transparentHealth = true
 	E.db.unitframe.colors.colorhealthbyvalue = false
 	E.db.unitframe.colors.customhealthbackdrop = true
-	E.db.unitframe.colors.health_backdrop = {
-		["r"] = 0.7333333333333333,
-		["g"] = 0,
-		["b"] = 0.01176470588235294,
-	}
+	E.db.unitframe.colors.health_backdrop = {["r"] = 0.7333333333333333,["g"] = 0,["b"] = 0.01176470588235294,}
 
 	E.db.unitframe.units.tank.enable = false
 
@@ -1581,7 +1553,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.db.unitframe.units.focus.power.offset = 0
 	E.db.unitframe.units.focus.health.text_format = "[healthcolor][health:current]"
 
-	E.db.unitframe.units.player.debuffs.attachTo = "FRAME" --CHECK?
+	E.db.unitframe.units.player.debuffs.attachTo = "FRAME"
 	E.db.unitframe.units.player.debuffs.sizeOverride = 25
 	E.db.unitframe.units.player.debuffs.yOffset = 2
 	E.db.unitframe.units.player.portrait.overlay = true
@@ -2018,7 +1990,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		end
 	end
 
-	E.private.sle.characterframeoptions.enable = true
 	E.db.sle.characterframeoptions.itemdurability.font = "Nimrod MT"
 	E.db.sle.characterframeoptions.itemdurability.fontSize = 10
 	E.db.sle.characterframeoptions.itemdurability.fontOutline = "THICKOUTLINE"
