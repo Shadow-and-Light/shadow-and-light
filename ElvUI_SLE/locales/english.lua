@@ -181,6 +181,7 @@ L["Farm Tool Bar"] = true
 L["Farm Portal Bar"] = true
 L["Tilled Soil"] = true
 L['Right-click to drop the item.'] = true
+L["We are sorry, but you can't do this now. Try again after the end of this combat."] = true
 
 --Import Section
 L["SLE_IMPORTS"] = "|cffFF0000Note:|r Use the filter imports with caution as these will overwrite any custom ones made!\nImporting a class filter will overwrite any modifications you have made to that class filter."

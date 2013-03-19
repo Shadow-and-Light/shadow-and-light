@@ -158,6 +158,7 @@ L["Farm Tool Bar"] = "Панель инструментов"
 L["Farm Portal Bar"] = "Панель порталов"
 L["Tilled Soil"] = "Возделанная земля"
 L['Right-click to drop the item.'] = "ПКМ для уничтожения предмета."
+L["We are sorry, but you can't do this now. Try again after the end of this combat."] = "Извините, но Вы не можете этого сделать сейчас. Попробуйте снова после окончания текущего боя."
 
 --Marks--
 L["Raid Marks"] = "Рейдовые Метки"

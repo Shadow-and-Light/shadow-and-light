@@ -389,6 +389,10 @@ end
 
 local function onClick(self, mousebutton)
 	if mousebutton == "LeftButton" then
+		if InCombatLockdown() and not self.macro then
+			SLE:Print(L["We are sorry, but you can't do this now. Try again after the end of this combat."])
+			return
+		end
 		self:SetAttribute("type", self.buttonType)
 		self:SetAttribute(self.buttonType, self.sortname)
 		if self.id and self.id ~= 2 and self.id ~= 4 and E.db.sle.farm.autotarget and UnitName("target") ~= L["Tilled Soil"] then
@@ -397,6 +401,7 @@ local function onClick(self, mousebutton)
 		if self.cooldown then 
 			self.cooldown:SetCooldown(GetItemCooldown(self.itemId))
 		end	
+		if not self.macro then self.macro = true end
 	elseif mousebutton == "RightButton" and self.allowDrop then
 		self:SetAttribute("type", "click")
 		local container, slot = SLE:BagSearch(self.itemId)
@@ -441,6 +446,7 @@ function F:CreateFarmButton(index, owner, buttonType, name, texture, allowDrop, 
 	button.allowDrop = allowDrop
 	button.buttonType = buttonType
 	button.id = id
+	button.macro = false
 	
 	button.icon = button:CreateTexture(nil, "OVERLAY")
 	button.icon:SetTexture(texture)
