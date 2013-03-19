@@ -1,4 +1,4 @@
-v1.59
+v1.59 March 19, 2013
 - Fixed Curse Ticket: #15
 - Added S&L Guild Datatext
 - Added S&L Friends Datatext
