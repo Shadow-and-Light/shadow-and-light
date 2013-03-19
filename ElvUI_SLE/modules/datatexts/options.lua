@@ -167,7 +167,7 @@ E.Options.args.sle.args.sldatatext = {
 		intro = {
 			order = 2,
 			type = "description",
-			name = L["Some datatexts that Shadow & Light are supplied with have settings that can be modified to alter the displayed information. Please use the dropdown box to select which datatext you would like to configure."]
+			name = L["Some datatexts that Shadow & Light are supplied with, has settings that can be modified to alter the displayed information. Please use the dropdown box to select which datatext you would like to configure."]
 		},
 		spacer = {
 			order = 3,
