@@ -1,4 +1,4 @@
-<center><a href='http://www.tukui.org/storage/viewer.php?id=525263logo_elvui_sle.png'><img src='http://www.tukui.org/storage/thumbs/525263logo_elvui_sle.png'></a></center>
+<center><img src='http://www.tukui.org/storage/images/634223sl_logo.jpg'></center>
 
 <font color="red"><b>Please Note:</b></font> This addon will not function without ElvUI installed.  You can download it at <a href="http://www.tukui.org/dl.php">http://www.tukui.org</a>.
 
@@ -30,6 +30,7 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 - Classbar offset
 - Customizable size of chat history stored
 - Customize Combat Icon position on player unitframe.
+- Customized S&L Guild & Friend Datatexts
 - Display Item Durability on Character Frame
 - Display Item Level on Character Frame
 - Equipment Manager for ability to swap equipment sets based on zone/instance/spec.
