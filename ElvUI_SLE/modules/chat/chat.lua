@@ -168,6 +168,7 @@ function CH:PositionChat(override)
 		tab = _G[format("ChatFrame%sTab", i)]
 		point = GetChatWindowSavedPosition(id)
 		isDocked = chat.isDocked
+		tab.isDocked = chat.isDocked
 		
 		if id > NUM_CHAT_WINDOWS then
 			point = point or select(1, chat:GetPoint());
