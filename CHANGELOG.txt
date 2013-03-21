@@ -1,3 +1,6 @@
+v1.60
+- Fixed LUA Error on Repooc install
+
 v1.59 March 19, 2013
 - Fixed Curse Ticket: #15
 - Added S&L Guild Datatext
