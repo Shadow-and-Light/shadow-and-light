@@ -1495,7 +1495,7 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.private.skins.addons.AlwaysTrue = true
 	E.private.sle.exprep.autotrack = true
 	E.private.sle.farm.enable = true
-	E.priavte.characterframeoptions.enable = true
+	E.private.sle.characterframeoptions.enable = true
 
 	E.db.gridSize = 110
 	E.db.hideTutorial = 1
