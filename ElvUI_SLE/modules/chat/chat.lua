@@ -14,6 +14,7 @@ local IconTable = {
 		--Darth's toon
 		["Darthpred"] = "SLEAUTHOR",
 		--Repooc's Toon
+		["Repøøc"] = "SLEAUTHOR",
 		["Repooc"] = "SLEAUTHOR"
 	},
 	["СвежевательДуш"] = {
