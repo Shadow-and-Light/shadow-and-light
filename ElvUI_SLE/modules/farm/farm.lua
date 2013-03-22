@@ -408,9 +408,9 @@ local function onClick(self, mousebutton)
 		if container and slot then
 			PickupContainerItem(container, slot)
 			DeleteCursorItem()
-			F:InventoryUpdate()
 		end			
 	end
+	F:InventoryUpdate()
 end
 
 local function onEnter(self)
