@@ -1,4 +1,5 @@
 v1.60
+- Fixed AceConfig Error
 - Fixed LUA Error on Repooc install
 
 v1.59 March 19, 2013
