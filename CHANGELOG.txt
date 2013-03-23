@@ -1,4 +1,4 @@
-v1.61
+v1.61 March 23, 2013
 - Hide Coords During Pet Battle
 - Added options to hide S&L Datatext Panels during Pet Battles
 
