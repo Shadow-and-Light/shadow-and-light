@@ -1,4 +1,8 @@
-v1.60
+v1.61
+- Hide Coords During Pet Battle
+- Added options to hide S&L Datatext Panels during Pet Battles
+
+v1.60 March 22, 2013
 - Fixed AceConfig Error
 - Fixed LUA Error on Repooc install
 
