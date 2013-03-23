@@ -784,6 +784,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.general.totems.size = 25
 	E.db.general.bottomPanel = false
 	E.db.general.topPanel = false
+	E.db.general.hideErrorFrame = false
 
 	--Bags--
 	E.db.bags.bagSize = 22
@@ -1335,9 +1336,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	--Loot History--
 	E.db.sle.lootwin = true
 	E.db.sle.lootalpha = 0.9
-
-	--Errors--
-	E.db.sle.errors = true
 
 	--UI Buttons--
 	E.db.sle.uibuttons.enable = true
