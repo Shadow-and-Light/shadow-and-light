@@ -82,9 +82,21 @@ function DTP:Update()
 	DTP:Resize()
 end
 
+function DTP:RegisterHide()
+	local db = E.db.sle.datatext
+	for k,v in pairs(panels) do
+		if db[v[1]].pethide then
+			E.FrameLocks[k] = true
+		else
+			E.FrameLocks[k] = nil
+		end
+	end
+end
+
 --Renew panels after loading screens
 function DTP:PLAYER_ENTERING_WORLD(...)
 DTP:ExtraDataBarSetup()
+DTP:RegisterHide()
 self:UnregisterEvent("PLAYER_ENTERING_WORLD");
 end
 DTP:RegisterEvent('PLAYER_ENTERING_WORLD')

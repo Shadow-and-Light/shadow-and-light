@@ -37,6 +37,7 @@ local function CreateCoordsFrame(middle)
 	panel:SetFrameStrata("MEDIUM")
 	panel:Point("CENTER", Minimap, "CENTER", 0, 0)
 	panel:Size(E.MinimapSize, 22)
+	E.FrameLocks['CoordsPanel'] = true;
 
 	xpos = CreateFrame('Frame', "MapCoordinatesX", panel)
 	xpos:Size(40, 22)

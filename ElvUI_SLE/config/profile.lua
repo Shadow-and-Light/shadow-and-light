@@ -85,34 +85,42 @@ P['sle'] = {
 		['dp1'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/5,
+			['pethide'] = true,
 		},	
 		['dp2'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/5,
+			['pethide'] = true,
 		},
 		['top'] = {
 			['enabled'] = true,
 			['width'] = E.screenwidth/5 - 4,
+			['pethide'] = true,
 		},
 		['dp3'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/5,
+			['pethide'] = true,
 		},
 		['dp4'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/5,
+			['pethide'] = true,
 		},	
 		['dp5'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/4 - 60,
+			['pethide'] = true,
 		},	
 		['bottom'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/10 - 4,
+			['pethide'] = true,
 		},
 		['dp6'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/4 - 60,
+			['pethide'] = true,
 		},
 		['chatleft'] = {
 			['enabled'] = true,

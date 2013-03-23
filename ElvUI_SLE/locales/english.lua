@@ -61,7 +61,7 @@ L["Set the texture to use in this frame.  Requirements are the same as the chat 
 L["Backdrop Template"] = true
 L["Change the template used for this backdrop."] = true
 L["Default"] = true
-L["Hide in Pet Batlle"] = true
+L["Hide in Pet Battle"] = true
 L["Show/Hide this frame during Pet Battles."] = true
 
 --Character Frame Options

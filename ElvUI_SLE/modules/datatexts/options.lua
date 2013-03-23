@@ -111,6 +111,13 @@ E.Options.args.sle.args.datatext.args[v[1]] = {
 			--get = function(info) return E.db.sle.datatext[v[1]]."transparent"] end,
 			set = function(info, value) E.db.sle.datatext[v[1]].transparent = value; DTP:ExtraDataBarSetup() end,				
 		},
+		pethide = {
+			order = 5,
+			name = L['Hide in Pet Battle'],
+			type = 'toggle',
+			desc = L['Show/Hide this frame during Pet Battles.'],
+			set = function(info, value) E.db.sle.datatext[v[1]].pethide = value; DTP:RegisterHide() end,
+		},
 	},
 }
 end
