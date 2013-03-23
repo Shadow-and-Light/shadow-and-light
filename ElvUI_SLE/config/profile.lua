@@ -146,9 +146,6 @@ P['sle'] = {
 		},
 	},
 
-	--Error messages
-	['errors'] = false,
-
 	--Exp/Rep Bar
 	['exprep'] = {
 		['explong'] = false,

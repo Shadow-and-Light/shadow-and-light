@@ -8,7 +8,6 @@
 	<Include file='chat\load_chat.xml'/>
 	<Include file='datatexts\load_datatexts.xml'/>
 	<Include file='equipmanager\load_equipmanager.xml'/>
-	<Include file='errors\load_errors.xml'/>
 	<Include file='exprepbar\load_exprepbar.xml'/>
 	<Include file='farm\load_farm.xml'/>
 	<Include file='imports\load_imports.xml'/>
