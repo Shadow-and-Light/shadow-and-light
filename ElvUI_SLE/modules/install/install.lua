@@ -992,7 +992,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.unitframe.units.target.health.position = 'RIGHT'
 			if layout == "healer" then
 				E.db.unitframe.units.target.health.text_format = "[healthcolor][health:deficit]      [health:current-percent]"
-				
 				E.db.unitframe.units.target.customTexts = {}
 				E.db.unitframe.units.target.customTexts.Absorb = {}
 				E.db.unitframe.units.target.customTexts.Absorb.font = "ElvUI Font"
@@ -1090,7 +1089,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.party.visibility = "[@raid6,exists] hide;show"
 				E.db.unitframe.units.party.healPrediction = true
 				E.db.unitframe.units.party.health.text_format = "[healthcolor][health:deficit]"
-				E.db.unitframe.units.party.health.orientation = "VERTICAL"
 				E.db.unitframe.units.party.health.frequentUpdates = true
 				E.db.unitframe.units.party.debuffs.enable = true
 				E.db.unitframe.units.party.debuffs.anchorPoint = "BOTTOMLEFT"
@@ -1110,12 +1108,12 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			else
 				E.db.unitframe.units.party.healPrediction = false
 				E.db.unitframe.units.party.health.text_format = "[healthcolor][health:current]"
-				E.db.unitframe.units.party.health.orientation = "HORIZONTAL"
 				E.db.unitframe.units.party.health.frequentUpdates = false
 				E.db.unitframe.units.party.debuffs.enable = false
 				E.db.unitframe.units.party.GPSArrow.onMouseOver = true
 				E.db.unitframe.units.party.GPSArrow.outOfRange = false
 			end
+			E.db.unitframe.units.party.health.orientation = "HORIZONTAL"
 			E.db.unitframe.units.party.growthDirection = "RIGHT_DOWN"
 			E.db.unitframe.units.party.width = 80
 			E.db.unitframe.units.party.horizontalSpacing = 1
@@ -1134,7 +1132,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.raid10.healPrediction = true
 				E.db.unitframe.units.raid10.health.frequentUpdates = true
 				E.db.unitframe.units.raid10.health.text_format = "[healthcolor][health:deficit]"
-				E.db.unitframe.units.raid10.health.orientation = "VERTICAL"
 				E.db.unitframe.units.raid10.GPSArrow.onMouseOver = false
 				E.db.unitframe.units.raid10.GPSArrow.outOfRange = true
 				
@@ -1152,15 +1149,16 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.raid10.healPrediction = false
 				E.db.unitframe.units.raid10.health.frequentUpdates = false
 				E.db.unitframe.units.raid10.health.text_format = "[healthcolor][health:current]"
-				E.db.unitframe.units.raid10.health.orientation = "HORIZONTAL"
 				E.db.unitframe.units.raid10.GPSArrow.onMouseOver = true
 				E.db.unitframe.units.raid10.GPSArrow.outOfRange = false
 			end
+			E.db.unitframe.units.raid10.health.orientation = "HORIZONTAL"
 			E.db.unitframe.units.raid10.horizontalSpacing = 1
 			E.db.unitframe.units.raid10.verticalSpacing = 1
 			E.db.unitframe.units.raid10.name.text_format = "[name:medium]"
 			E.db.unitframe.units.raid10.health.yOffset = 8
 			E.db.unitframe.units.raid10.power.width = "inset"
+			E.db.unitframe.units.raid10.debuffs.enable = false
 			E.db.unitframe.units.raid10.rdebuffs.size = 18
 			E.db.unitframe.units.raid10.roleIcon.position = "RIGHT"
 			E.db.unitframe.units.raid10.groupBy = "GROUP"
@@ -1171,7 +1169,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.raid25.healPrediction = true
 				E.db.unitframe.units.raid25.health.text_format = "[healthcolor][health:deficit]"
 				E.db.unitframe.units.raid25.health.frequentUpdates = true
-				E.db.unitframe.units.raid25.health.orientation = "VERTICAL"
 				E.db.unitframe.units.raid25.height = 36
 				E.db.unitframe.units.raid25.GPSArrow.onMouseOver = false
 				E.db.unitframe.units.raid25.GPSArrow.outOfRange = true
@@ -1189,16 +1186,17 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 				E.db.unitframe.units.raid25.healPrediction = false
 				E.db.unitframe.units.raid25.health.text_format = "[healthcolor][health:current]"
 				E.db.unitframe.units.raid25.health.frequentUpdates = false
-				E.db.unitframe.units.raid25.health.orientation = "HORIZONTAL"
 				E.db.unitframe.units.raid25.height = 44
 				E.db.unitframe.units.raid25.GPSArrow.onMouseOver = true
 				E.db.unitframe.units.raid25.GPSArrow.outOfRange = false
 			end
+			E.db.unitframe.units.raid25.health.orientation = "HORIZONTAL"
 			E.db.unitframe.units.raid25.horizontalSpacing = 1
 			E.db.unitframe.units.raid25.verticalSpacing = 1
 			E.db.unitframe.units.raid25.name.text_format = "[name:medium]"
 			E.db.unitframe.units.raid25.health.yOffset = 8
 			E.db.unitframe.units.raid25.power.width = "inset"
+			E.db.unitframe.units.raid25.debuffs.enable = false
 			E.db.unitframe.units.raid25.rdebuffs.size = 18
 			E.db.unitframe.units.raid25.roleIcon.position = "RIGHT"
 			E.db.unitframe.units.raid25.groupBy = "GROUP"
