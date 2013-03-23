@@ -354,6 +354,7 @@ function F:Zone(event)
 		F:RegisterEvent("BAG_UPDATE", "InventoryUpdate")
 		F:RegisterEvent("BAG_UPDATE_COOLDOWN")
 		F:RegisterEvent("UNIT_QUEST_LOG_CHANGED", "UpdateLayout")
+		F:RegisterEvent("UNIT_SPELLCAST_SUCCESS ", "InventoryUpdate")
 
 		F:InventoryUpdate(event)
 		F:UpdateLayout()
@@ -362,6 +363,7 @@ function F:Zone(event)
 		F:UnregisterEvent("BAG_UPDATE")
 		F:UnregisterEvent("BAG_UPDATE_COOLDOWN")
 		F:UnregisterEvent("UNIT_QUEST_LOG_CHANGED")
+		F:UnregisterEvent("UNIT_SPELLCAST_SUCCESS")
 		if Zcheck then
 			F:UpdateLayout()
 			Zcheck = false
