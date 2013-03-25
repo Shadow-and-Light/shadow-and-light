@@ -1,13 +1,12 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local RF = E:NewModule('RaidFlares', 'AceHook-3.0', 'AceEvent-3.0');
 
-BINDING_HEADER_SHADOWLIGHT_WORLDMARKER = GetAddOnMetadata(..., "Title");
---BINDING_HEADER_SHADOWLIGHT_WORLDMARKER = string.format("|cffe1a500w|cff69ccf0Marker|r - %s",L["World markers"]);
-_G["BINDING_NAME_CLICK SquareFlareMarker:LeftButton"] = L["Square"];
-_G["BINDING_NAME_CLICK TriangleFlareMarker:LeftButton"] = L["Triangle"];
-_G["BINDING_NAME_CLICK DiamondFlareMarker:LeftButton"] = L["Diamond"];
-_G["BINDING_NAME_CLICK CrossFlareMarker:LeftButton"] = L["Cross"];
-_G["BINDING_NAME_CLICK StarFlareMarker:LeftButton"] = L["Star"];
+BINDING_HEADER_SHADOWLIGHT_WORLDMARKER = "|cff1784d1Shadow & Light|r"
+_G["BINDING_NAME_CLICK SquareFlareMarker:LeftButton"] = L["Square Flare"];
+_G["BINDING_NAME_CLICK TriangleFlareMarker:LeftButton"] = L["Triangle Flare"];
+_G["BINDING_NAME_CLICK DiamondFlareMarker:LeftButton"] = L["Diamond Flare"];
+_G["BINDING_NAME_CLICK CrossFlareMarker:LeftButton"] = L["Cross Flare"];
+_G["BINDING_NAME_CLICK StarFlareMarker:LeftButton"] = L["Star Flare"];
 
 local mainFlares = CreateFrame("Frame", "Main_Flares", E.UIParent)
 local f1 = CreateFrame("Button", "SquareFlareMarker", Main_Flares, "SecureActionButtonTemplate")
