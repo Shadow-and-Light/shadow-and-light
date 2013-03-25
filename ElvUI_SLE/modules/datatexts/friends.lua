@@ -178,9 +178,9 @@ function DT:update_Friends()
 	local totalFriends = friendsTotal + bnTotal
 
 	if E.db.sle.dt.friends.totals then
-		LDB.text = "|cffffffffFriends: |r"..valueColor(totalOnline).."/"..valueColor(totalFriends)
+		LDB.text = "|cffffffff"..L['Friends']..": |r"..valueColor(totalOnline).."/"..valueColor(totalFriends)
 	else
-		LDB.text = "|cffffffffFriends: |r"..valueColor(totalOnline)
+		LDB.text = "|cffffffff"..L['Friends']..": |r"..valueColor(totalOnline)
 	end
 end
 

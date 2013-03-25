@@ -168,12 +168,12 @@ function DT:update_Guild()
 				end
 			end
 		if E.db.sle.dt.guild.totals then
-			LDB.text = --[["|cff82c5ff"]]"|cffffffffGuild: |r"..valueColor(online).."/"..valueColor(guildTotal)--[["|r"]]
+			LDB.text = --[["|cff82c5ff"]]"|cffffffff"..GUILD..": |r"..valueColor(online).."/"..valueColor(guildTotal)--[["|r"]]
 		else
-			LDB.text = "|cffffffffGuild: |r"..valueColor(online)
+			LDB.text = "|cffffffff"..GUILD..": |r"..valueColor(online)
 		end
 	else
-		LDB.text = "|cffffffffNo Guild|r"
+		LDB.text = "|cffffffff"..L['No Guild'].."|r"
 	end
 end
 
