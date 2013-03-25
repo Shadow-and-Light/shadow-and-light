@@ -14,8 +14,9 @@ local f2 = CreateFrame("Button", "TriangleFlareMarker", Main_Flares, "SecureActi
 local f3 = CreateFrame("Button", "DiamondFlareMarker", Main_Flares, "SecureActionButtonTemplate")
 local f4 = CreateFrame("Button", "CrossFlareMarker", Main_Flares, "SecureActionButtonTemplate")
 local f5 = CreateFrame("Button", "StarFlareMarker", Main_Flares, "SecureActionButtonTemplate")
+local f6 = CreateFrame("Button", "ClearFlaresMarker", Main_Flares, "SecureActionButtonTemplate")
 
-local FlareB = {f1,f2,f3,f4,f5}
+local FlareB = {f1,f2,f3,f4,f5,f6}
 
 function RF:CreateFrame()
 	mainFlares:Point("CENTER", E.UIParent, "CENTER", 0, 40);
@@ -29,11 +30,11 @@ function RF:SetupButton(button, flare)
 	button:CreateBackdrop()
 	button.backdrop:SetAllPoints()
 	button:SetAttribute("type", "macro")
-	button:SetAttribute("macrotext",  '/wm '..flare..'')   
+	button:SetAttribute("macrotext", flare)
+	button:RegisterForClicks("AnyDown")
+
 	button.tex = button:CreateTexture(nil, 'OVERLAY')
-	--button.tex:Point('TOPLEFT', button, 'TOPLEFT', 2, -2)
 	button.tex:Point('TOPLEFT', button, 'TOPLEFT', 0, -1)
-	--button.tex:Point('BOTTOMRIGHT', button, 'BOTTOMRIGHT', -2, 2)
 	button.tex:Point('BOTTOMRIGHT', button, 'BOTTOMRIGHT', -2, 1)
 	if button == f1 then     
 		button.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_6")
@@ -55,17 +56,24 @@ function RF:SetupButton(button, flare)
 		button.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_1")
 		button:SetScript("OnEnter", function(self) if (E.db.sle.flares.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine("Star World Marker"); GameTooltip:Show() end end)
 		button:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
+	elseif button == f6 then
+		button.tex:SetTexture("Interface\\AddOns\\ElvUI_SLE\\media\\textures\\clearmarker.blp")
+		button:SetScript("OnEnter", function(self) if (E.db.sle.flares.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine("Clear World Markers"); GameTooltip:Show() end end)
+		button:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
 	end
 end
 
 function RF:CreateButtons()
-	for i = 1, 5 do
-		RF:SetupButton(FlareB[i], i)
-	end
+	RF:SetupButton(f1, "/clearworldmarker 1\n/worldmarker 1")
+	RF:SetupButton(f2, "/clearworldmarker 2\n/worldmarker 2")
+	RF:SetupButton(f3, "/clearworldmarker 3\n/worldmarker 3")
+	RF:SetupButton(f4, "/clearworldmarker 4\n/worldmarker 4")
+	RF:SetupButton(f5, "/clearworldmarker 5\n/worldmarker 5")
+	RF:SetupButton(f6, "/clearworldmarker all")
 end
 
 function RF:FrameButtonsSize()
-	for i = 1, 5 do
+	for i = 1, 6 do
 		FlareB[i]:Size(E.db.sle.flares.size)
 	end
 end
@@ -74,8 +82,8 @@ function RF:FrameButtonsGrowth()
 	local db = E.db.sle.flares
 	local size = db.size
 	local width, height, x, y, anchor, point
-	local t = {5*size+8,size+4,"LEFT","RIGHT","TOP","BOTTOM",1,0,-1}
-	for i = 1, 5 do
+	local t = {6*size+9,size+4,"LEFT","RIGHT","TOP","BOTTOM",1,0,-1}
+	for i = 1, 6 do
 		FlareB[i]:ClearAllPoints()
 	end
 
@@ -92,7 +100,7 @@ function RF:FrameButtonsGrowth()
 	mainFlares:SetWidth(width)
 	mainFlares:SetHeight(height)
 
-	for i = 1, 5 do
+	for i = 1, 6 do
 		if i == 1 then
 			FlareB[i]:Point(anchor, Main_Flares, anchor, 2 * x, 2 * y)
 		else
