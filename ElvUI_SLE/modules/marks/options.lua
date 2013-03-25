@@ -127,8 +127,16 @@ E.Options.args.sle.args.flares = {
 			get = function(info) return E.db.sle.flares.showinside end,
 			set = function(info, value) E.db.sle.flares.showinside = value; RF:UpdateVisibility() end
 		},
-		size = {
+		tooltips = {
 			order = 7,
+			type = "toggle",
+			name = L["Show Tooltip"],
+			disabled = function() return not E.db.sle.flares.enabled end,
+			get = function(info) return E.db.sle.flares.tooltips end,
+			set = function(info, value) E.db.sle.flares.tooltips = value; end
+		},
+		size = {
+			order = 8,
 			type = "range",
 			name = L['Size'],
 			desc = L["Sets size of buttons"],
@@ -138,7 +146,7 @@ E.Options.args.sle.args.flares = {
 			set = function(info, value) E.db.sle.flares.size = value; RF:FrameButtonsGrowth(); RF:FrameButtonsSize() end,
 		},
 		growth = {
-			order = 8,
+			order = 9,
 			type = "select",
 			name = L["Direction"],
 			desc = L["Change the direction of buttons growth from the square marker"],

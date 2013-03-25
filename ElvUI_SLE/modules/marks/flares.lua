@@ -37,23 +37,23 @@ function RF:SetupButton(button, flare)
 	button.tex:Point('BOTTOMRIGHT', button, 'BOTTOMRIGHT', -2, 1)
 	if button == f1 then     
 		button.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_6")
-		button:SetScript("OnEnter", function(self) GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine("Square World Marker"); GameTooltip:Show() end)
+		button:SetScript("OnEnter", function(self) if (E.db.sle.flares.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine("Square World Marker"); GameTooltip:Show() end end)
 		button:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
 	elseif button == f2 then
 		button.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_4")
-		button:SetScript("OnEnter", function(self) GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine("Triangle World Marker"); GameTooltip:Show() end)
+		button:SetScript("OnEnter", function(self) if (E.db.sle.flares.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine("Triangle World Marker"); GameTooltip:Show() end end)
 		button:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
 	elseif button == f3 then
 		button.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_3")
-		button:SetScript("OnEnter", function(self) GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine("Diamond World Marker"); GameTooltip:Show() end)
+		button:SetScript("OnEnter", function(self) if (E.db.sle.flares.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine("Diamond World Marker"); GameTooltip:Show() end end)
 		button:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
 	elseif button == f4 then
 		button.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_7")
-		button:SetScript("OnEnter", function(self) GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine("Cross World Marker"); GameTooltip:Show() end)
+		button:SetScript("OnEnter", function(self) if (E.db.sle.flares.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine("Cross World Marker"); GameTooltip:Show() end end)
 		button:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
 	elseif button == f5 then
 		button.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_1")
-		button:SetScript("OnEnter", function(self) GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine("Star World Marker"); GameTooltip:Show() end)
+		button:SetScript("OnEnter", function(self) if (E.db.sle.flares.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine("Star World Marker"); GameTooltip:Show() end end)
 		button:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
 	end
 end

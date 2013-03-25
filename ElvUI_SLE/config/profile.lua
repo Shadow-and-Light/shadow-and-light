@@ -209,6 +209,7 @@ P['sle'] = {
 		['growth'] = "RIGHT",
 		['showinside'] = false,
 		['size'] = 20,
+		['tooltips'] = true,
 	},
 
 	--UI Buttons
