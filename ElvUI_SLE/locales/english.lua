@@ -81,6 +81,7 @@ L["Chat Editbox History"] = true
 L["Amount of messages to save. Set to 0 to disable."] = true
 
 --Datatexts--
+L["Panels & Dashboard"] = true
 L["Bosses killed: "] = true
 L["You didn't select any instance to track."] = true
 L["This LFR isn't available for your level/gear."] = true

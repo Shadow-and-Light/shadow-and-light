@@ -81,6 +81,7 @@ L["Chat Editbox History"] = "История чата"
 L["Amount of messages to save. Set to 0 to disable."] = "Количество сообщений, введенных вами, которое будет сохранено между сеансами"
 
 --Datatexts--
+L["Panels & Dashboard"] = "Панели инфо-текстов"
 L["Bosses killed: "] = "Боссов убито: "
 L["You didn't select any instance to track."] = "Вы не выбрали подземелья для отслеживания"
 L["This LFR isn't available for your level/gear."] = "Это подземелье не доступно для Вашего уровня или экипировки."
