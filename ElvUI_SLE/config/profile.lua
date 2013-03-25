@@ -204,6 +204,13 @@ P['sle'] = {
 		['size'] = 18,
 	},
 
+	['flares'] = {
+		['enabled'] = true,
+		['growth'] = "RIGHT",
+		['showinside'] = false,
+		['size'] = 20,
+	},
+
 	--UI Buttons
 	['uibuttons'] = {
 		['enable'] = false,
