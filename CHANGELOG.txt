@@ -1,3 +1,7 @@
+v1.62 March 24, 2013
+- Removed Caster Name in tooltip, was added in ElvUI
+- Another attempt to fix player frame resizing if Classbar offset was enabled in S&L
+
 v1.61 March 23, 2013
 - Hide Coords During Pet Battle
 - Added options to hide S&L Datatext Panels during Pet Battles
