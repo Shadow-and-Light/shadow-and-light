@@ -34,8 +34,8 @@ function RF:SetupButton(button, flare)
 	button:RegisterForClicks("AnyDown")
 
 	button.tex = button:CreateTexture(nil, 'OVERLAY')
-	button.tex:Point('TOPLEFT', button, 'TOPLEFT', 0, -1)
-	button.tex:Point('BOTTOMRIGHT', button, 'BOTTOMRIGHT', -2, 1)
+	button.tex:Point('TOPLEFT', button, 'TOPLEFT', 2, -2)
+	button.tex:Point('BOTTOMRIGHT', button, 'BOTTOMRIGHT', -2, 2)
 	if button == f1 then     
 		button.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_6")
 		button:SetScript("OnEnter", function(self) if (E.db.sle.flares.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine("Square World Marker"); GameTooltip:Show() end end)
