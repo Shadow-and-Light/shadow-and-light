@@ -381,6 +381,12 @@ function F:UpdateLayout(event, unit)
 			return
 		end
 	end 
+	if InCombatLockdown() then
+		F:RegisterEvent("PLAYER_REGEN_ENABLED", "UpdateLayout")	
+		return
+	else
+		F:UnregisterEvent("PLAYER_REGEN_ENABLED")
+ 	end
 	F:UpdateBar(_G["FarmToolBar"], F.UpdateBarLayout, F.OnFarm, ToolAnchor, FtoolButtons)
 	F:UpdateBar(_G["FarmPortalBar"], F.UpdateBarLayout, F.OnFarm, PortalAnchor, FportalButtons)
 	for i=1, 5 do
