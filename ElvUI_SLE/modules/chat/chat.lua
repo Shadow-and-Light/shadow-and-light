@@ -50,6 +50,9 @@ local IconTable = {
 				--Some people
 		["Брэгар"] = "SLETEST"
 	},
+	["Азурегос"] = {
+		["Брэгари"] = "SLETEST"
+	},
 	["Korialstrasz"] = {
 		["Sifupooc"] = "SLEAUTHOR",
 		["Repooc"] = "SLEAUTHOR",
