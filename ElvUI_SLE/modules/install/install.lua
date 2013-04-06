@@ -2060,8 +2060,8 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 	end
 
 	--Unitframes
-	E.db.unitframe.font = "Doris PP"
-	E.db.unitframe.fontOutline = "OUTLINE"
+	E.db.unitframe.font = "ElvUI Pixel"
+	E.db.unitframe.fontOutline = "MONOCHROMEOUTLINE"
 	E.db.unitframe.statusbar = "Polished Wood"
 	E.db.unitframe.smartRaidFilter = true
 	E.db.unitframe.colors.healthclass = false
@@ -2135,9 +2135,9 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		end
 	end
 	E.db.unitframe.units.party.customTexts["Health Text"] = {
-		["font"] = "Doris PP",
+		["font"] = "ElvUI Pixel",
 		["justifyH"] = "CENTER",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "MONOCHROMEOUTLINE",
 		["xOffset"] = 0,
 		["size"] = 10,
 		["text_format"] = "[healthcolor][health:deficit]",
@@ -2194,9 +2194,9 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		end
 	end
 	E.db.unitframe.units.raid10.customTexts["Health Text"] = {
-		["font"] = "Doris PP",
+		["font"] = "ElvUI Pixel",
 		["justifyH"] = "CENTER",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "MONOCHROMEOUTLINE",
 		["xOffset"] = 0,
 		["size"] = 10,
 		["text_format"] = "[healthcolor][health:deficit]",
@@ -2248,9 +2248,9 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		end
 	end
 	E.db.unitframe.units.raid25.customTexts["Health Text"] = {
-		["font"] = "Doris PP",
+		["font"] = "ElvUI Pixel",
 		["justifyH"] = "CENTER",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "MONOCHROMEOUTLINE",
 		["xOffset"] = 0,
 		["size"] = 10,
 		["text_format"] = "[healthcolor][health:deficit]",
@@ -2305,9 +2305,9 @@ function E:AffinitiiSetup() --The function to switch from class ElvUI settings t
 		end
 	end
 	E.db.unitframe.units.raid40.customTexts["Health Text"] = {
-		["font"] = "Doris PP",
+		["font"] = "ElvUI Pixel",
 		["justifyH"] = "CENTER",
-		["fontOutline"] = "OUTLINE",
+		["fontOutline"] = "MONOCHROMEOUTLINE",
 		["xOffset"] = 0,
 		["size"] = 10,
 		["text_format"] = "[healthcolor][health:deficit]",
