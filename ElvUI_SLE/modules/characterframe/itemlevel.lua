@@ -30,11 +30,11 @@ function CFO:UpdateItemLevel()
 			else
 				actualItemLevel = baseLevel
 			end
-			if actualItemLevel <= avgEquipItemLevel - 10 then
+			if actualItemLevel and actualItemLevel <= avgEquipItemLevel - 10 then
 				frame.ItemLevel:SetFormattedText("|cffff0000%i|r", actualItemLevel)
-			elseif actualItemLevel >= avgEquipItemLevel + 10 then
+			elseif actualItemLevel and actualItemLevel >= avgEquipItemLevel + 10 then
 				frame.ItemLevel:SetFormattedText("|cff00ff00%i|r", actualItemLevel)
-			else
+			elseif actualItemLevel then
 				frame.ItemLevel:SetFormattedText("|cffffff99%i|r", actualItemLevel)
 			end
 		end
