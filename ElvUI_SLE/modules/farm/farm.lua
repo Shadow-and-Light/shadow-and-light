@@ -100,33 +100,33 @@ local portals = {
 
 local quests = {
 --Tillers counsil
-[31945] = {80591, 84783}, -- Gina, Scallion
-[31946] = {80590, 84782}, -- Mung-Mung, Juicycrunch Carrot
-[31947] = {79102, 80809}, -- Farmer Fung, Green Cabbage
-[31949] = {89326, 89847}, -- Nana, Witchberry
-[30527] = {89329, 89849}, -- Haohan, Striped Melon
---Farmer Yoon
-[31943] = {89326, 89847}, -- Witchberry
-[31942] = {89329, 89849}, -- Striped Melon
-[31941] = {89328, 89848}, -- Jade Squash
-[31669] = {79102, 80809}, -- Green Cabbage
-[31670] = {80590, 84782}, -- Juicycrunch Carrot
-[31672] = {80592, 85153}, -- Mogu Pumpkin
-[31673] = {80593, 85158}, -- Red Blossom Leek
-[31674] = {80594, 85162}, -- Pink Turnip
-[31675] = {80595, 85163}, -- White Turnip
-[31671] = {80591, 84783}, -- Scallion
---Work Orders
-[32645] = {89326, 89847}, -- Witchberry (Alliance Only)
-[32653] = {89329, 89849}, -- Striped Melon
---[31941] = {89328, 89848}, -- Jade Squash
-[32649] = {79102, 80809}, -- Green Cabbage
---[31670] = {80590, 84782}, -- Juicycrunch Carrot
-[32658] = {80592, 85153}, -- Mogu Pumpkin
-[32642] = {80593, 85158}, -- Red Blossom Leek (Horde Only)
---[31674] = {80594, 85162}, -- Pink Turnip
-[32647] = {80595, 85163}, -- White Turnip
---[31671] = {80591, 84783}, -- Scallion
+	[31945] = {80591, 84783}, -- Gina, Scallion
+	[31946] = {80590, 84782}, -- Mung-Mung, Juicycrunch Carrot
+	[31947] = {79102, 80809}, -- Farmer Fung, Green Cabbage
+	[31949] = {89326, 89847}, -- Nana, Witchberry
+	[30527] = {89329, 89849}, -- Haohan, Striped Melon
+	--Farmer Yoon
+	[31943] = {89326, 89847}, -- Witchberry
+	[31942] = {89329, 89849}, -- Striped Melon
+	[31941] = {89328, 89848}, -- Jade Squash
+	[31669] = {79102, 80809}, -- Green Cabbage
+	[31670] = {80590, 84782}, -- Juicycrunch Carrot
+	[31672] = {80592, 85153}, -- Mogu Pumpkin
+	[31673] = {80593, 85158}, -- Red Blossom Leek
+	[31674] = {80594, 85162}, -- Pink Turnip
+	[31675] = {80595, 85163}, -- White Turnip
+	[31671] = {80591, 84783}, -- Scallion
+	--Work Orders
+	[32645] = {89326, 89847}, -- Witchberry (Alliance Only)
+	[32653] = {89329, 89849}, -- Striped Melon
+	--[31941] = {89328, 89848}, -- Jade Squash
+	[32649] = {79102, 80809}, -- Green Cabbage
+	--[31670] = {80590, 84782}, -- Juicycrunch Carrot
+	[32658] = {80592, 85153}, -- Mogu Pumpkin
+	[32642] = {80593, 85158}, -- Red Blossom Leek (Horde Only)
+	--[31674] = {80594, 85162}, -- Pink Turnip
+	[32647] = {80595, 85163}, -- White Turnip
+	--[31671] = {80591, 84783}, -- Scallion
 }
 
 local buttoncounts = {}
@@ -560,6 +560,7 @@ function F:CreateFrames()
 	F:RegisterEvent("ZONE_CHANGED", "Zone")
 	F:RegisterEvent("ZONE_CHANGED_NEW_AREA", "Zone")
 	F:RegisterEvent("ZONE_CHANGED_INDOORS", "Zone")
+	F:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", "InventoryUpdate")
 		
 	E:Delay(10, F.Zone)
 end
