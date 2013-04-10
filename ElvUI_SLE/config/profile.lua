@@ -205,7 +205,7 @@ P['sle'] = {
 	},
 
 	['flares'] = {
-		['enabled'] = true,
+		['enabled'] = false,
 		['growth'] = "RIGHT",
 		['showinside'] = false,
 		['size'] = 20,
