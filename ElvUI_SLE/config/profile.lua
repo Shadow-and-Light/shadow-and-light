@@ -264,8 +264,3 @@ P.datatexts.panels.DP_6 = {
 }
 P.datatexts.panels.Top_Center = 'Version'
 P.datatexts.panels.Bottom_Panel = ''
-
---Unitframes
-P.unitframe.units.player.classbar.xOffset = 0
-P.unitframe.units.player.classbar.yOffset = 0
-P.unitframe.units.player.classbar.offset = false
