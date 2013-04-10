@@ -1,5 +1,6 @@
 v1.63 April 10, 2013
 - Removed offset option for classbar, it's no longer needed
+- Added Flare Marker Bar & Keybind options for it.
 
 v1.62 March 24, 2013
 - Removed Caster Name in tooltip, was added in ElvUI
