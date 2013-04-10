@@ -54,9 +54,11 @@ local IconTable = {
 		["Брэгари"] = "SLETEST"
 	},
 	["Korialstrasz"] = {
-		["Sifupooc"] = "SLEAUTHOR",
 		["Repooc"] = "SLEAUTHOR",
 		["Cursewordz"] = "SLEAUTHOR"
+	},
+	["Korgath"] = {
+		["Sifupooc"] = "SLEAUTHOR"
 	},
 	["Andorhal"] = {
 		["Dapooc"] = "SLEAUTHOR",
