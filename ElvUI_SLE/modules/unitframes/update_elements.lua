@@ -38,7 +38,7 @@ function E:GetFormattedTextSLE(style, min, max)
 	end
 end
 
-if E.myclass == "WARLOCK" then
+--[[if E.myclass == "WARLOCK" then
 	ElvUF_Player.ShardBar.PostUpdate = function(self, spec)
 		local maxBars = self.number
 		local db = self:GetParent().db
@@ -84,4 +84,4 @@ if E.myclass == "WARLOCK" then
 		
 		UF:UpdatePlayerFrameAnchors(frame, self:IsShown())
 	end
-end
+end]]
