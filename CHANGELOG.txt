@@ -1,3 +1,6 @@
+v1.63 April 10, 2013
+- Removed offset option for classbar, it's no longer needed
+
 v1.62 March 24, 2013
 - Removed Caster Name in tooltip, was added in ElvUI
 - Another attempt to fix player frame resizing if Classbar offset was enabled in S&L

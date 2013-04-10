@@ -1,9 +1,9 @@
-## Interface: 50200
+﻿## Interface: 50200
 ## Title: |cff1784d1ElvUI |rShadow and Light Edit
 ## Author: Darth Predator, Repooc
-## Version: 1.62
+## Version: 1.63
 ## Notes: Plugin-edit for |cff1784d1ElvUI|r.
-## Notes-ruRU: Плагин-редакци�? дл�? |cff1784d1ElvUI|r.
+## Notes-ruRU: Плагин-редакция для |cff1784d1ElvUI|r.
 ## eMail: darthpred@gmail.com, repooc@tukui.org
 ## URL: http://tukui.org/ 
 ## RequiredDeps: ElvUI
