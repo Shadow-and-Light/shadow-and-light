@@ -1,3 +1,6 @@
+v1.64 April 17, 2013
+- Update Affinitii Filter Import (Added General Filters)
+
 v1.63 April 10, 2013
 - Removed offset option for classbar, it's no longer needed
 - Added Flare Marker Bar & Keybind options for it.
