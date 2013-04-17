@@ -88,6 +88,26 @@ local function buffWatch(filter)
 		else
 			print("There is no filter for the class specified.")
 		end
+	elseif filter == "1Filter" then
+		E.global.unitframe.aurafilters["Blacklist"] = {
+			["spells"] = {
+				["Bright Light"] = {["enable"] = true,["priority"] = 0,},
+				["Insanity"] = {["enable"] = true,["priority"] = 0,},
+				["Infrared Light"] = {["enable"] = true,["priority"] = 0,},
+				["Blue Rays"] = {["enable"] = true,["priority"] = 0,},
+				["Demonic Rebirth: Cooldown"] = {["enable"] = true,["priority"] = 0,},
+				["Unleashed Anima"] = {["enable"] = true,["priority"] = 0,},
+				["Recently Bandaged"] = {["enable"] = true,["priority"] = 0,},
+				["Fully Mutated"] = {["enable"] = true,["priority"] = 0,},
+				["Keen Eyesight"] = {["enable"] = true,["priority"] = 0,},
+				["Thick Bones"] = {["enable"] = true,["priority"] = 0,},
+				["Clear Mind"] = {["enable"] = true,["priority"] = 0,},
+				["Improved Synapses"] = {["enable"] = true,["priority"] = 0,},
+				["Perdition"] = {["enable"] = true,["priority"] = 0,},
+				["Void-Touched"] = {["enable"] = true,["priority"] = 0,},
+			},
+		}
+		ReloadUI();
 	else
 		print("This author doesn't have a filter import for that option.")
 	end
