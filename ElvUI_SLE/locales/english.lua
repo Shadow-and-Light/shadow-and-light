@@ -212,6 +212,17 @@ L["Selecting this option will have the Raid Markers appear only while in a raid 
 L["Sets size of buttons"] = true --Also used in UI buttons
 L["Direction"] = true
 L["Change the direction of buttons growth from the skull marker"] = true
+L["Raid Flares"] = true
+L["Show/Hide Raid Flares."] = true
+L["Selecting this option will have the Raid Flares appear only while in a raid or dungeon."] = true
+L["Show Tooltip"] = true
+L["Change the direction of buttons growth from the square marker"] = true
+L["Square World Marker"] = true
+L["Triangle World Marker"] = true
+L["Diamond World Marker"] = true
+L["Cross World Marker"] = true
+L["Star World Marker"] = true
+L["Clear World Markers"] = true
 
 --Minimap--
 L["Minimap Options"] = true

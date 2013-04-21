@@ -189,6 +189,17 @@ L["Selecting this option will have the Raid Markers appear only while in a raid 
 L["Sets size of buttons"] = "Устанавливает размер кнопок" --Also used in UI buttons
 L["Direction"] = "Направление"
 L["Change the direction of buttons growth from the skull marker"] = "Изменяет направление роста кнопок от метки \"череп\"."
+L["Raid Flares"] = "Рейдовые маркеры"
+L["Show/Hide Raid Flares."] = "Показать/скрыть маркеры."
+L["Selecting this option will have the Raid Flares appear only while in a raid or dungeon."] = "При включении будет показывать панель маркеров только в подземельях."
+L["Show Tooltip"] = "Показывать подсказку"
+L["Change the direction of buttons growth from the square marker"] = 'Изменить направление роса кнопок от метки "квадрат"'
+L["Square World Marker"] = "Маркер квадрат"
+L["Triangle World Marker"] = "Маркер треугольник"
+L["Diamond World Marker"] = "Маркер ромб"
+L["Cross World Marker"] = "Маркер крест"
+L["Star World Marker"] = "Маркер звезда"
+L["Clear World Markers"] = "Удалить маркеры"
 
 --Import Section
 L["SLE_IMPORTS"] = "|cffFF0000Важно:|r Используйте импортирование фильтров осторожно, так как они удалят ваши собсвенные фильтры!\nИмпортирование классового фильтра перезапишет любые изменения, которые Вы в него вносили."
