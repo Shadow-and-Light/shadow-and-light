@@ -30,8 +30,6 @@ local IconTable = {
 		["Верзук"] = "SLEAUTHOR",
 		["Крениг"] = "SLEAUTHOR",
 		["Большойгном"] = "SLETEST", --Testing toon
-		--Da tester lol
-		["Фергесон"] = "SLETEST" 
 	},
 	["ВечнаяПесня"] = {
 		--Darth's toons
@@ -52,6 +50,10 @@ local IconTable = {
 	},
 	["Азурегос"] = {
 		["Брэгари"] = "SLETEST"
+	},
+	["Термоштепсель"] = {
+		--Da tester lol
+		["Фергя"] = "SLETEST" 
 	},
 	["Korialstrasz"] = {
 		["Repooc"] = "SLEAUTHOR",
