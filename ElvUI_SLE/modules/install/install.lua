@@ -1283,28 +1283,28 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.actionbar.bar2.buttonsPerRow = 3
 		E.db.actionbar.bar2.buttonspacing = 1
 		E.db.actionbar.bar2.buttonsize = 23
-		E.db.actionbar.bar2.visibility = "[overridebar] hide; [petbattle] hide; show"
+		E.db.actionbar.bar2.visibility = "[petbattle] hide; show"
 		
 		E.db.actionbar.bar3.point = "TOPLEFT"
 		E.db.actionbar.bar3.buttons = 12
 		E.db.actionbar.bar3.buttonsPerRow = 3
 		E.db.actionbar.bar3.buttonspacing = 1
 		E.db.actionbar.bar3.buttonsize = 23
-		E.db.actionbar.bar3.visibility = "[overridebar] hide; [petbattle] hide; show"
+		E.db.actionbar.bar3.visibility = "[petbattle] hide; show"
 		
 		E.db.actionbar.bar4.enabled = true
 		E.db.actionbar.bar4.point = "TOPLEFT"
 		E.db.actionbar.bar4.buttonsPerRow = 6
 		E.db.actionbar.bar4.buttonspacing = 1
 		E.db.actionbar.bar4.buttonsize = 23
-		E.db.actionbar.bar4.visibility = "[overridebar] hide; [petbattle] hide; show"
+		E.db.actionbar.bar4.visibility = "[petbattle] hide; show"
 		E.db.actionbar.bar4.backdrop = false
 		
 		E.db.actionbar.bar5.point = "TOPLEFT"
 		E.db.actionbar.bar5.buttons = 12
 		E.db.actionbar.bar5.buttonspacing = 1
 		E.db.actionbar.bar5.buttonsize = 23
-		E.db.actionbar.bar5.visibility = "[overridebar] hide; [petbattle] hide; show"
+		E.db.actionbar.bar5.visibility = "[petbattle] hide; show"
 		
 		E.db.actionbar.microbar.enabled = true
 		E.db.actionbar.microbar.buttonsPerRow = 6
