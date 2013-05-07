@@ -107,21 +107,21 @@ function UB:Positioning()
 	--position check
 	if db.position == "uib_vert" then
 		Cbutton:Point("TOP", UIBFrame, "TOP", 0, (E.PixelMode and -1 or -2))
-		Rbutton:Point("TOP", Cbutton, "BOTTOM", 0, (E.PixelMode and -3 or -5))
-		Mbutton:Point("TOP", Rbutton, "BOTTOM", 0, (E.PixelMode and -3 or -5))
-		Bbutton:Point("TOP", Mbutton, "BOTTOM", 0, (E.PixelMode and -3 or -5))
-		Abutton:Point("TOP", Bbutton, "BOTTOM", 0, (E.PixelMode and -3 or -5))
+		Rbutton:Point("TOP", Cbutton, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
+		Mbutton:Point("TOP", Rbutton, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
+		Bbutton:Point("TOP", Mbutton, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
+		Abutton:Point("TOP", Bbutton, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
 		if Fbutton then
-			Fbutton:Point("TOP", Abutton, "BOTTOM", 0, (E.PixelMode and -3 or -5))
+			Fbutton:Point("TOP", Abutton, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
 		end
 	else
 		Cbutton:Point("LEFT", UIBFrame, "LEFT", (E.PixelMode and 1 or 2), 0)
-		Rbutton:Point("LEFT", Cbutton, "RIGHT", (E.PixelMode and 3 or 5), 0)
-		Mbutton:Point("LEFT", Rbutton, "RIGHT", (E.PixelMode and 3 or 5), 0)
-		Bbutton:Point("LEFT", Mbutton, "RIGHT", (E.PixelMode and 3 or 5), 0)
-		Abutton:Point("LEFT", Bbutton, "RIGHT", (E.PixelMode and 3 or 5), 0)
+		Rbutton:Point("LEFT", Cbutton, "RIGHT", (E.PixelMode and db.spacing or db.spacing+2), 0)
+		Mbutton:Point("LEFT", Rbutton, "RIGHT", (E.PixelMode and db.spacing or db.spacing+2), 0)
+		Bbutton:Point("LEFT", Mbutton, "RIGHT", (E.PixelMode and db.spacing or db.spacing+2), 0)
+		Abutton:Point("LEFT", Bbutton, "RIGHT", (E.PixelMode and db.spacing or db.spacing+2), 0)
 		if Fbutton then
-			Fbutton:Point("LEFT", Abutton, "RIGHT", (E.PixelMode and 3 or 5), 0)
+			Fbutton:Point("LEFT", Abutton, "RIGHT", (E.PixelMode and db.spacing or db.spacing+2), 0)
 		end
 	end
 end
@@ -130,9 +130,9 @@ function UB:MoverSize()
 	local db = E.db.sle.uibuttons
 	if db.position == "uib_vert" then
 		UIBFrame:SetWidth(db.size + (E.PixelMode and 2 or 4))
-		UIBFrame:SetHeight((db.size + (E.PixelMode and 3 or 5)) * NumBut -1)
+		UIBFrame:SetHeight((db.size*NumBut)+((E.PixelMode and db.spacing or db.spacing+2)*(NumBut-1))+2)
 	else
-		UIBFrame:SetWidth((db.size + (E.PixelMode and 3 or 5)) * NumBut - 1)
+		UIBFrame:SetWidth((db.size*NumBut)+((E.PixelMode and db.spacing or db.spacing+2)*(NumBut-1))+2)
 		UIBFrame:SetHeight(db.size + (E.PixelMode and 2 or 4))
 	end
 end

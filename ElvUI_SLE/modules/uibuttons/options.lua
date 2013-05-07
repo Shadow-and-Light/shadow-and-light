@@ -37,8 +37,17 @@ E.Options.args.sle.args.uibuttons = {
 					get = function(info) return E.db.sle.uibuttons.size end,
 					set = function(info, value) E.db.sle.uibuttons.size = value; UB:FrameSize() end,
 				},
-				mouse = {
+				spacing = {
 					order = 2,
+					type = "range",
+					name = L['Button Spacing'],
+					desc = L['The spacing between buttons.'],
+					min = 1, max = 10, step = 1,
+					get = function(info) return E.db.sle.uibuttons.spacing end,
+					set = function(info, value) E.db.sle.uibuttons.spacing = value; UB:Positioning(); UB:FrameSize(); UB:MoverSize() end,
+				},
+				mouse = {
+					order = 3,
 					type = "toggle",
 					name = L["Mouse over"],
 					desc = L["Show on mouse over."],
