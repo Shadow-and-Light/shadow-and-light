@@ -53,7 +53,7 @@ function RF:SetupButton(button, flare)
 		button:SetScript("OnEnter", function(self) if (E.db.sle.flares.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine(L["Cross World Marker"]); GameTooltip:Show() end end)
 		button:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
 	elseif button == f5 then
-		button.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_1")L[
+		button.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_1")
 		button:SetScript("OnEnter", function(self) if (E.db.sle.flares.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine(L["Star World Marker"]); GameTooltip:Show() end end)
 		button:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
 	elseif button == f6 then
