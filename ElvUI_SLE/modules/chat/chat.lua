@@ -59,7 +59,7 @@ local IconTable = {
 		["Repooc"] = "SLEAUTHOR",
 		["Cursewordz"] = "SLEAUTHOR"
 	},
-	["Korgath"] = {
+	["Spirestone"] = {
 		["Sifupooc"] = "SLEAUTHOR"
 	},
 	["Andorhal"] = {
