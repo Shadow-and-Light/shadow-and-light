@@ -155,10 +155,10 @@ local function OnEnter(self)
 	
 	DT.tooltip:AddLine(" ")
 	DT.tooltip:AddLine(L["World Boss(s)"])	
-	DT.tooltip:AddDoubleLine(L['Sha of Anger']..':', Sha and L['Defeated'] or L['Undefeated'], 1, 1, 1, 0.8, 0.8, 0.8)
-	DT.tooltip:AddDoubleLine(L['Galleon']..':', Galleon and L['Defeated'] or L['Undefeated'], 1, 1, 1, 0.8, 0.8, 0.8)
-	DT.tooltip:AddDoubleLine(L['Oondasta']..':', Oondasta and L['Defeated'] or L['Undefeated'], 1, 1, 1, 0.8, 0.8, 0.8)
-	DT.tooltip:AddDoubleLine(L['Nalak']..':', Nalak and L['Defeated'] or L['Undefeated'], 1, 1, 1, 0.8, 0.8, 0.8)
+	DT.tooltip:AddDoubleLine(L['Sha of Anger']..':', Sha and "\124cffff0000"..L['Defeated'].."\124r" or "\124cff00ff00"..L['Undefeated'].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
+	DT.tooltip:AddDoubleLine(L['Galleon']..':', Galleon and "\124cffff0000"..L['Defeated'].."\124r" or "\124cff00ff00"..L['Undefeated'].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
+	DT.tooltip:AddDoubleLine(L['Oondasta']..':', Oondasta and "\124cffff0000"..L['Defeated'].."\124r" or "\124cff00ff00"..L['Undefeated'].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
+	DT.tooltip:AddDoubleLine(L['Nalak']..':', Nalak and "\124cffff0000"..L['Defeated'].."\124r" or "\124cff00ff00"..L['Undefeated'].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
 
 	if level == 90 then
 		DT.tooltip:AddDoubleLine(L["Key to the Palace of Lei Shen:"], LeiShenKey and "\124cffff0000"..L["Looted"].."\124r" or "\124cff00ff00"..L["Not looted"].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
