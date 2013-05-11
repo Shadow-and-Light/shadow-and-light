@@ -85,7 +85,11 @@ L["Panels & Dashboard"] = true
 L["Bosses killed: "] = true
 L["You didn't select any instance to track."] = true
 L["This LFR isn't available for your level/gear."] = true
-L["SLE_AUTHOR_INFO"] = "Shadow & Light Edit by Darth Predator & Repooc"
+L["Key to the Palace of Lei Shen:"] = true
+L["Trove of the Thunder King:"] = true
+L["Looted"] = true
+L["Not looted"] = true
+L["SLE_AUTHOR_INFO"] = "Shadow & Light by Darth Predator & Repooc"
 L["SLE_CONTACTS"] = [=[Bug reports, suggestions and other stuff accepted via:
 - Private Massage on TukUI.org to Darth Predator or Repooc
 - AddOn's page/ticket system on curse.com

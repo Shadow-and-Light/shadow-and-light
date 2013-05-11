@@ -22,6 +22,8 @@ local lockoutFormatString = { "%dd %02dh %02dm", "%dd %dh %02dm", "%02dh %02dm",
 local curHr, curMin, curAmPm
 local enteredFrame = false;
 
+local level = UnitLevel("player")
+
 local Update, lastPanel; -- UpValue
 local localizedName, isActive, canQueue, startTime, canEnter
 local name, reset, locked, extended, isRaid, maxPlayers, difficulty, numEncounters, encounterProgress
@@ -148,6 +150,8 @@ local function OnEnter(self)
 	local Galleon = IsQuestFlaggedCompleted(32098)
 	local Oondasta = IsQuestFlaggedCompleted(32519)
 	local Nalak = IsQuestFlaggedCompleted(32518)
+	local LeiShenKey = IsQuestFlaggedCompleted(32626)
+	local Trove = IsQuestFlaggedCompleted(32609)
 	
 	DT.tooltip:AddLine(" ")
 	DT.tooltip:AddLine(L["World Boss(s)"])	
@@ -155,7 +159,12 @@ local function OnEnter(self)
 	DT.tooltip:AddDoubleLine(L['Galleon']..':', Galleon and L['Defeated'] or L['Undefeated'], 1, 1, 1, 0.8, 0.8, 0.8)
 	DT.tooltip:AddDoubleLine(L['Oondasta']..':', Oondasta and L['Defeated'] or L['Undefeated'], 1, 1, 1, 0.8, 0.8, 0.8)
 	DT.tooltip:AddDoubleLine(L['Nalak']..':', Nalak and L['Defeated'] or L['Undefeated'], 1, 1, 1, 0.8, 0.8, 0.8)
-	
+
+	if level == 90 then
+		DT.tooltip:AddDoubleLine(L["Key to the Palace of Lei Shen:"], LeiShenKey and "\124cffff0000"..L["Looted"].."\124r" or "\124cff00ff00"..L["Not looted"].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
+		DT.tooltip:AddDoubleLine(L["Trove of the Thunder King:"], Trove and "\124cffff0000"..L["Looted"].."\124r" or "\124cff00ff00"..L["Not looted"].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
+	end
+
 	local timeText
 	local Hr, Min, AmPm = CalculateTimeValues(true)
 
