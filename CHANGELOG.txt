@@ -1,3 +1,6 @@
+v1.66
+- Tweaked ilvl display on character frame
+
 v1.65 May 21, 2013
 - Darth's Layout Modified
 - Added spacing for UI Buttons

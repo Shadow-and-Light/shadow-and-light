@@ -1,6 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local CFO = E:GetModule('CharacterFrameOptions')
 local LSM = LibStub("LibSharedMedia-3.0")
+--/dump GetInventoryItemLink("player",INVSLOT_HEAD) Leave in here for my notes
 
 local ilvlSlots = {
 	"HeadSlot","NeckSlot","ShoulderSlot","BackSlot","ChestSlot","WristSlot","MainHandSlot","SecondaryHandSlot",
@@ -22,7 +23,7 @@ function CFO:UpdateItemLevel()
 				["0"]=0,["1"]=8,["373"]=4,["374"]=8,["375"]=4,["376"]=4,
 				["377"]=4,["379"]=4,["380"]=4,["445"]=0,["446"]=4,["447"]=8,
 				["451"]=0,["452"]=8,["453"]=0,["454"]=4,["455"]=8,["456"]=0,
-				["457"]=8,["458"]=0,["459"]=4,["460"]=8,["461"]=12,["462"]=16}
+				["457"]=8,["458"]=0,["459"]=4,["460"]=8,["461"]=12,["462"]=16,["467"]=8}
 			local baseLevel = select(4,GetItemInfo(itemlink))
 			local upgrade = itemlink:match(":(%d+)\124h%[")
 			if baseLevel and upgrade and levelAdjust[upgrade] ~= nil then
