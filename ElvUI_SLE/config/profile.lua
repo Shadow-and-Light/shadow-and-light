@@ -218,6 +218,7 @@ P['sle'] = {
 		['size'] = 17,
 		['mouse'] = false,
 		['position'] = "uib_vert",
+		['spacing'] = 3,
 	},
 	
 	--Loot
