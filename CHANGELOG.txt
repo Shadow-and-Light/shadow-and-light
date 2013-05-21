@@ -1,3 +1,8 @@
+v1.65 May 21, 2013
+- Darth's Layout Modified
+- Added spacing for UI Buttons
+- Modified time datatext for flashing
+
 v1.64 April 17, 2013
 - Update Affinitii Filter Import (Added General Filters)
 
