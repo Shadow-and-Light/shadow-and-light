@@ -160,6 +160,8 @@ local function SetupChat()
 end
 
 local function SetupCVars()
+	SetCVar("alternateResourceText", 1)
+	SetCVar("statusTextDisplay", "BOTH")
 	SetCVar("mapQuestDifficulty", 1)
 	SetCVar("ShowClassColorInNameplate", 1)
 	SetCVar("screenshotQuality", 10)
@@ -235,7 +237,7 @@ function E:SetupPixelPerfect(enabled, noMsg)
 end
 
 function E:SetupTheme(theme, noDisplayMsg)
-	local classColor = RAID_CLASS_COLORS[E.myclass]
+	local classColor = E.myclass == 'PRIEST' and E.PriestColors or RAID_CLASS_COLORS[E.myclass]
 	E.private.theme = theme
 
 
@@ -411,7 +413,7 @@ function E:SetupLayout(layout, noDataReset)
 
 	if layout == 'healer' then
 		if not IsAddOnLoaded('Clique') then
-			E:Print(L['Using the healer layout it is highly recommended you download the addon Clique to work side by side with ElvUI.'])
+			E:StaticPopup_Show("CLIQUE_ADVERT")
 		end
 
 		if not noDataReset then
@@ -2669,7 +2671,7 @@ local function SetPage(PageNum)
 		InstallOption4Button:SetText(L['Caster DPS'])
 	elseif PageNum == 8 then
 		f.SubTitle:SetText(L["Auras System"])
-		f.Desc1:SetText(L["Select the type of aura system you want to use with ElvUI's unitframes. The integrated system utilizes both aura-bars and aura-icons. The icons only system will display only icons and aurabars won't be used. The classic system will configure your auras to how they were pre-v4."])
+		f.Desc1:SetText(L["Select the type of aura system you want to use with ElvUI's unitframes. The integrated system utilizes both aura-bars and aura-icons. The icons only system will display only icons and aurabars won't be used. The classic system will configure your auras to be default."])
 		f.Desc2:SetText(L["If you have an icon or aurabar that you don't want to display simply hold down shift and right click the icon for it to disapear."])
 		f.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 		InstallOption1Button:Show()
@@ -2745,7 +2747,6 @@ end
 
 --Install UI
 function E:Install()
-	--ElvUI don't have this?
 	MaxPages()
 	if not InstallStepComplete then
 		local imsg = CreateFrame("Frame", "InstallStepComplete", E.UIParent)
