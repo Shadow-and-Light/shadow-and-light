@@ -1,5 +1,6 @@
 v1.66
-- Tweaked ilvl display on character frame
+- Added ilvl to heirlooms
+- Upgrade vendor updates ilvl of item on charater frame right away
 
 v1.65 May 21, 2013
 - Darth's Layout Modified

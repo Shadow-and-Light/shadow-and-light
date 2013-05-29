@@ -7,6 +7,17 @@ local ilvlSlots = {
 	"HeadSlot","NeckSlot","ShoulderSlot","BackSlot","ChestSlot","WristSlot","MainHandSlot","SecondaryHandSlot",
 	"HandsSlot","WaistSlot","LegsSlot","FeetSlot","Finger0Slot","Finger1Slot","Trinket0Slot","Trinket1Slot"
 }
+local levelAdjust={ -- 11th item:id field and level adjustment
+	["0"]=0,["1"]=8,
+	["373"]=4,["374"]=8,
+	["375"]=4,["376"]=4,["377"]=4,["379"]=4,["380"]=4,
+	["445"]=0,["446"]=4,["447"]=8,
+	["451"]=0,["452"]=8,
+	["453"]=0,["454"]=4,["455"]=8,
+	["456"]=0,["457"]=8,
+	["458"]=0,["459"]=4,["460"]=8,["461"]=12,["462"]=16,
+	["466"]=4,["467"]=8
+}
 
 function CFO:UpdateItemLevel()
 	local frame = _G["CharacterFrame"]
@@ -19,14 +30,11 @@ function CFO:UpdateItemLevel()
 		avgItemLevel, avgEquipItemLevel = GetAverageItemLevel()
 		itemlink = GetInventoryItemLink("player",GetInventorySlotInfo(ilvlSlots[i]))
 		if itemlink then
-			local levelAdjust={ -- 11th item:id field and level adjustment
-				["0"]=0,["1"]=8,["373"]=4,["374"]=8,["375"]=4,["376"]=4,
-				["377"]=4,["379"]=4,["380"]=4,["445"]=0,["446"]=4,["447"]=8,
-				["451"]=0,["452"]=8,["453"]=0,["454"]=4,["455"]=8,["456"]=0,
-				["457"]=8,["458"]=0,["459"]=4,["460"]=8,["461"]=12,["462"]=16,["466"]=4,["467"]=8}
-			local baseLevel = select(4,GetItemInfo(itemlink))
-			local upgrade = itemlink:match(":(%d+)\124h%[")
-			if baseLevel and upgrade and levelAdjust[upgrade] ~= nil then
+			local _, _, rarity, baseLevel = GetItemInfo(itemlink)
+			local linkLevel, upgrade = itemlink:match(":(%d+):%d+:(%d+)\124h%[")
+			if linkLevel and rarity == 7 then
+				actualItemLevel = (tonumber(linkLevel) == UnitLevel("player")) and avgEquipItemLevel or linkLevel
+			elseif baseLevel and upgrade and levelAdjust[upgrade] ~= nil then
 				actualItemLevel = baseLevel + levelAdjust[upgrade]
 			else
 				actualItemLevel = baseLevel
