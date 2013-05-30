@@ -1,7 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local CFO = E:GetModule('CharacterFrameOptions')
 local LSM = LibStub("LibSharedMedia-3.0")
---/dump GetInventoryItemLink("player",INVSLOT_HEAD) Leave in here for my notes
+-- /dump GetInventoryItemLink("player",INVSLOT_HEAD) Leave in here for my notes
 
 local ilvlSlots = {
 	"HeadSlot","NeckSlot","ShoulderSlot","BackSlot","ChestSlot","WristSlot","MainHandSlot","SecondaryHandSlot",
@@ -16,7 +16,6 @@ local WOW_Heirlooms = {
 		44099,42991,42985,48691,44094,44093,42945,48716
 	},
 }
-local actualItemLevel, itemLink
 
 function CFO:UpdateItemLevel()
 	local frame = _G["CharacterFrame"]
@@ -29,16 +28,17 @@ function CFO:UpdateItemLevel()
 		frame = _G[("Character%s"):format(ilvlSlots[i])]
 		frame.ItemLevel:SetText()
 		local avgItemLevel, avgEquipItemLevel = GetAverageItemLevel()
+		local actualItemLevel, itemLink
 		itemLink = GetInventoryItemLink("player",GetInventorySlotInfo(ilvlSlots[i]))
 
 		if itemLink then
 			local itemLevel = self:GetActualItemLevel(itemLink);
-				local rarity = select(3,GetItemInfo(itemLink))
-				if rarity == 7 then
-					actualItemLevel = self:Heirloom(itemLink);
-				else
-					actualItemLevel = itemLevel
-				end
+			local rarity = select(3,GetItemInfo(itemLink))
+			if rarity == 7 then
+				actualItemLevel = self:Heirloom(itemLink);
+			else
+				actualItemLevel = itemLevel
+			end
 
 			if actualItemLevel and actualItemLevel <= avgEquipItemLevel - 10 then
 				frame.ItemLevel:SetFormattedText("|cffff0000%i|r", actualItemLevel)
@@ -62,6 +62,7 @@ function CFO:Heirloom(itemLink)
 
 	if level > 80 then
 		local _, _, _, _, itemId = string.find(itemLink, "|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?");
+		--print(itemId)
 		itemId = tonumber(itemId);
 
 		for k,iid in pairs(WOW_Heirlooms[80]) do
@@ -96,7 +97,7 @@ function CFO:GetActualItemLevel(link)
 		["453"]=0,["454"]=4,["455"]=8,
 		["456"]=0,["457"]=8,
 		["458"]=0,["459"]=4,["460"]=8,["461"]=12,["462"]=16,
-		["466"]=4,["467"]=8
+		["465"]=0,["466"]=4,["467"]=8
 	}
 	local baseLevel = select(4,GetItemInfo(link))
 	local upgrade = link:match(":(%d+)\124h%[")
