@@ -1,4 +1,4 @@
-v1.66
+v1.66 June 3, 2013
 - Added ilvl to heirlooms
 - Upgrade vendor updates ilvl of item on charater frame right away
 
