@@ -122,9 +122,10 @@ function CFO:LoadItemLevel()
 	end)
 
 	self:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", "UpdateItemLevel")
-	self:RegisterEvent("SOCKET_INFO_UPDATE", "UpdateItemLevel")
-	self:RegisterEvent("MASTERY_UPDATE", "UpdateItemLevel")
-	self:RegisterEvent("COMBAT_RATING_UPDATE", "UpdateItemLevel")
+	--self:RegisterEvent("SOCKET_INFO_UPDATE", "UpdateItemLevel")
+	--self:RegisterEvent("MASTERY_UPDATE", "UpdateItemLevel")
+	--self:RegisterEvent("COMBAT_RATING_UPDATE", "UpdateItemLevel")
+	self:RegisterEvent("ITEM_UPGRADE_MASTER_UPDATE", "UpdateItemLevel")
 
 	local frame
 	for i = 1, #ilvlSlots do

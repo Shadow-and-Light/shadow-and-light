@@ -3,6 +3,18 @@ local SLE = E:GetModule('SLE');
 local find = string.find
 local split = string.split
 
+local channel = 'GUILD'
+local target = nil;
+function E:sleChannel(chnl)
+	channel = chnl
+	E:Print(format('Developer channel has been changed to %s.', chnl))
+end
+
+function E:sleTarget(tgt)
+	target = tgt
+	E:Print(format('Developer target has been changed to %s.', tgt))
+end
+
 function E:sleSays(msg) -- /w Target /slesays {Target|ALL}#channel#message#whispertarget
 	if not SLE:Auth() then return end
 	if channel == 'WHISPER' and target == nil then
@@ -56,4 +68,6 @@ f:SetScript('OnEvent', SendRecieve)
 function SLE:RegisterCommands()
 	E:RegisterChatCommand('slesays', 'sleSays')
 	E:RegisterChatCommand('slecmd', 'sleCommand')
+	E:RegisterChatCommand('sletarget', 'sleTarget')
+	E:RegisterChatCommand('slechannel', 'sleChannel')
 end

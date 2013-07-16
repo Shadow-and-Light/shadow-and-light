@@ -4,7 +4,8 @@ local SLE = E:GetModule('SLE');
 local LSM = LibStub("LibSharedMedia-3.0")
 
 --Textures for chat
-CHAT_FLAG_SLEAUTHOR = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:13:22|t"
+CHAT_FLAG_SLEADAPT = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\adapt.tga:0:2|t"
+CHAT_FLAG_SLEAUTHOR = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo.tga:0:2|t"
 CHAT_FLAG_SLERPG = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_RPG:13:35|t"
 CHAT_FLAG_SLEFRIEND = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Friend:13:13|t"
 CHAT_FLAG_SLETEST = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Test:13:13|t"
@@ -29,7 +30,7 @@ local IconTable = {
 		["Нарджо"] = "SLEAUTHOR",
 		["Верзук"] = "SLEAUTHOR",
 		["Крениг"] = "SLEAUTHOR",
-		["Большойгном"] = "SLETEST", --Testing toon
+		["Большойгном"] = "SLETEST" --Testing toon
 	},
 	["ВечнаяПесня"] = {
 		--Darth's toons
@@ -60,7 +61,18 @@ local IconTable = {
 		["Cursewordz"] = "SLEAUTHOR"
 	},
 	["Spirestone"] = {
-		["Sifupooc"] = "SLEAUTHOR"
+		["Sifupooc"] = "SLEAUTHOR",
+		["Dapooc"] = "SLEAUTHOR",
+		["Lapooc"] = "SLEAUTHOR",
+		["Warpooc"] = "SLEAUTHOR",
+		--Adapt Roster
+		["Mobius"] = "SLEADAPT",
+		["Urgfelstorm"] = "SLEADAPT",
+		["Kilashandra"] = "SLEADAPT",
+		["Electrro"] = "SLEADAPT",
+		["Afterthot"] = "SLEADAPT",
+		["Lavathing"] = "SLEADAPT",
+		["Finkle"] = "SLEADAPT"
 	},
 	["Andorhal"] = {
 		["Dapooc"] = "SLEAUTHOR",

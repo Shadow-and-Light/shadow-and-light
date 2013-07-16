@@ -7,6 +7,8 @@
 	<Script file='add_panels.lua'/>
 	<Script file='friends.lua'/>
 	<Script file='guild.lua'/>
+	<Script file='played.lua'/>
+
 	<Include file='dashboard\load_dashboard.xml'/>
 	<Script file='options.lua'/>
 </Ui>
