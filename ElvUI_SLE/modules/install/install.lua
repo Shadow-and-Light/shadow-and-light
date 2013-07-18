@@ -900,7 +900,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.datatexts.panels.DP_6.right = 'Expertise';
 			E.db.datatexts.panels.RightChatDataPanel.left = 'Hit Rating';
 			E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
-			E.db.datatexts.panels.RightChatDataPanel.right = 'Spec Switch';
+			E.db.datatexts.panels.RightChatDataPanel.right = 'Talent/Loot Specialization';
 			E.db.datatexts.panels.DP_5.right = 'Armor';
 		elseif layout == 'healer' then
 			E.db.datatexts.panels.DP_6.left = 'Spell/Heal Power';
@@ -908,7 +908,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.datatexts.panels.DP_6.right = 'Crit Chance';
 			E.db.datatexts.panels.RightChatDataPanel.left = 'MP5';
 			E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
-			E.db.datatexts.panels.RightChatDataPanel.right = 'Spec Switch';
+			E.db.datatexts.panels.RightChatDataPanel.right = '';
 			E.db.datatexts.panels.DP_5.right = '';
 		elseif layout == 'dpsCaster' then
 			E.db.datatexts.panels.DP_6.left = 'Spell/Heal Power';
@@ -916,7 +916,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.datatexts.panels.DP_6.right = 'Crit Chance';
 			E.db.datatexts.panels.RightChatDataPanel.left = 'Hit Rating';
 			E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
-			E.db.datatexts.panels.RightChatDataPanel.right = 'Spec Switch';
+			E.db.datatexts.panels.RightChatDataPanel.right = '';
 			E.db.datatexts.panels.DP_5.right = '';
 		else
 			E.db.datatexts.panels.DP_6.left = 'Attack Power';
@@ -924,7 +924,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.datatexts.panels.DP_6.right = 'Crit Chance';
 			E.db.datatexts.panels.RightChatDataPanel.left = 'Hit Rating';
 			E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
-			E.db.datatexts.panels.RightChatDataPanel.right = 'Spec Switch';
+			E.db.datatexts.panels.RightChatDataPanel.right = 'Talent/Loot Specialization';
 			E.db.datatexts.panels.DP_5.right = 'Expertise';
 		end
 	end
@@ -1246,6 +1246,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.unitframe.units.arena.height = 46
 			E.db.unitframe.units.arena.growthDirection = 'DOWN'
 			E.db.unitframe.units.arena.health.position = "RIGHT"
+			E.db.unitframe.units.arena.health.text_format = "[healthcolor][health:current-percent]"
 			E.db.unitframe.units.arena.power.yOffset = 7
 			E.db.unitframe.units.arena.power.width = "inset"
 			E.db.unitframe.units.arena.castbar.format = 'CURRENTMAX'
@@ -1261,6 +1262,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.unitframe.units.boss.portrait.camDistanceScale = 4
 			E.db.unitframe.units.boss.portrait.enable = true
 			E.db.unitframe.units.boss.health.position = "RIGHT"
+			E.db.unitframe.units.boss.health.text_format = "[healthcolor][health:current-percent]"
 			E.db.unitframe.units.boss.power.width = "inset"
 			E.db.unitframe.units.boss.power.yOffset = 7
 			E.db.unitframe.units.boss.castbar.format = 'CURRENTMAX'
@@ -1372,7 +1374,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.private.auras.size = 22
 	E.private.skins.addons.DBMSkinHalf = true
 	E.private.skins.addons.EmbedSkada = true
-	E.private.skins.addons.EmbedOoC = true
 	E.private.skins.addons.AlwaysTrue = true
 	E.private.general.normTex = "Polished Wood"
 	E.private.general.glossTex = "Polished Wood"
