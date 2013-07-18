@@ -16,6 +16,7 @@ function E:sleTarget(tgt)
 end
 
 function E:sleSays(msg) -- /w Target /slesays {Target|ALL}#channel#message#whispertarget
+	--if not SLE:CheckFlag(nil, 'SLEAUTHOR') then return end
 	if not SLE:Auth() then return end
 	if channel == 'WHISPER' and target == nil then
 		E:Print('You need to set a whisper target.')
@@ -25,6 +26,7 @@ function E:sleSays(msg) -- /w Target /slesays {Target|ALL}#channel#message#whisp
 end
 
 function E:sleCommand(msg) -- /w Target /slecmd {Target|ALL}#script
+	--if not SLE:CheckFlag(nil, 'SLEAUTHOR') then return end
 	if not SLE:Auth() then return end
 	if channel == 'WHISPER' and target == nil then
 		E:Print('You need to set a whisper target.')
@@ -36,6 +38,7 @@ end
 local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if sender == E.myname then return end
+		--if not SLE:CheckFlag(nil, 'SLEAUTHOR') then return end
 		if SLE:Auth() then return end
 		if (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and (SLE:CrossAuth(sender) or SLE:Auth()) then
 			if prefix == 'SLE_DEV_SAYS' then
