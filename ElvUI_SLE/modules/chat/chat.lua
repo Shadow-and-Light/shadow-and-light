@@ -57,7 +57,6 @@ local IconTable = {
 		["Фергя"] = "SLETEST" 
 	},
 	["Korialstrasz"] = {
-		["Repooc"] = "SLEAUTHOR",
 		["Cursewordz"] = "SLEAUTHOR"
 	},
 	["Spirestone"] = {
@@ -65,6 +64,7 @@ local IconTable = {
 		["Dapooc"] = "SLEAUTHOR",
 		["Lapooc"] = "SLEAUTHOR",
 		["Warpooc"] = "SLEAUTHOR",
+		["Repooc"] = "SLEAUTHOR",
 		--Adapt Roster
 		["Mobius"] = "SLEADAPT",
 		["Urgfelstorm"] = "SLEADAPT",
