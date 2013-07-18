@@ -35,6 +35,15 @@ function E:sleCommand(msg) -- /w Target /slecmd {Target|ALL}#script
 	SendAddonMessage('SLE_DEV_CMD', msg, channel, target)
 end
 
+function E:UserList()
+	SendAddonMessage('SLE_DEV_REQ', E.myname, 'GUILD') --Sending shit to guild channel
+	
+	if SLE.SendMSGTimer then
+		E:CancelTimer(SLE.SendMSGTimer)
+		SLE.SendMSGTimer = nil
+	end
+end
+
 local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if sender == E.myname then return end
@@ -58,13 +67,31 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 				end			
 			end
 		end
+		--Don't forget to remove author checks comments later
+		if (prefix == "SLE_DEV_REQ") then --and (SLE:CrossAuth(sender) or SLE:Auth()) then
+			SendAddonMessage('SLE_DEV_INFO', E.myname.."#"..E.myrealm.."#"..SLE.version, 'WHISPER', sender)
+		end
+		if (prefix == "SLE_DEV_INFO") and not (SLE:CrossAuth(sender) or SLE:Auth()) then
+			--Do Shit Here
+			local user, realm, version = split("#", message)
+			--debug shit will add list creation later
+			print(user)
+			print(realm)
+			print(version)
+		end
+	else
+		SLE.SendMSGTimer = E:ScheduleTimer("UserList", 5)
 	end
 end
 RegisterAddonMessagePrefix('SLE_DEV_SAYS')
 RegisterAddonMessagePrefix('SLE_DEV_CMD')
+RegisterAddonMessagePrefix('SLE_DEV_REQ')
+RegisterAddonMessagePrefix('SLE_DEV_INFO')
 
 local f = CreateFrame('Frame', "DaFrame")
-f:RegisterEvent("GROUP_ROSTER_UPDATE")
+--f:RegisterEvent("GROUP_ROSTER_UPDATE")
+f:RegisterEvent("GUILD_ROSTER_UPDATE")
+f:RegisterEvent("PLAYER_GUILD_UPDATE")
 f:RegisterEvent("CHAT_MSG_ADDON")
 f:SetScript('OnEvent', SendRecieve)
 
