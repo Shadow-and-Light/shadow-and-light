@@ -81,6 +81,22 @@ local IconTable = {
 	},
 }
 
+--[[
+function CheckFlag(sender)
+	local senderName, senderRealm = string.split('-', sender
+	senderName = senderName or E.myname
+	senderRealm = senderRealm or E.myrealm
+	
+	senderRealm = senderRealm:gsub(' ', '')
+	
+	if IconTable[senderRealm] and IconTable[senderRealm][senderName] then
+		return IconTable[senderRealm][senderName]
+	end
+	
+	return false
+end
+]]
+
 function SLE:Auth()
 	local myRealm = E.myrealm
 	local myName = E.myname
@@ -266,6 +282,18 @@ function CH:PositionChat(override)
 	
 	self.initialMove = true;
 end
+
+--[[
+local function SLEfilter(self, event, message, author, arg3, arg4, arg5, arg6, ...)
+	local returnTex = arg6
+	
+	if(strlen(arg6) > 0) then
+	elseif CheckFlag(author) then
+		returnTex = CheckFlag(author)..arg6
+	end
+	
+	return false, message, author, arg3, arg4, arg5, returnTex, ...
+end]]
 
 --Adding icons to specific toons' names
 --Filter
