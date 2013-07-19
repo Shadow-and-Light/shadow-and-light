@@ -81,12 +81,17 @@ local IconTable = {
 	},
 }
 
---[[
+
 function SLE:CheckFlag(sender, checkFlag)
-	local senderName, senderRealm = string.split('-', sender)
-	senderName = senderName or E.myname
+	local senderName, senderRealm
+
+	if sender then
+		senderName, senderRealm = string.split('-', sender)
+	else
+		senderName = E.myname
+	end
+
 	senderRealm = senderRealm or E.myrealm
-	
 	senderRealm = senderRealm:gsub(' ', '')
 	
 	if IconTable[senderRealm] and IconTable[senderRealm][senderName] then
@@ -99,8 +104,8 @@ function SLE:CheckFlag(sender, checkFlag)
 	
 	return false
 end
-]]
 
+--[[
 function SLE:Auth()
 	local myRealm = E.myrealm
 	local myName = E.myname
@@ -146,7 +151,7 @@ function SLE:CrossAuth(sender)
 	end
 	return false
 end
-
+]]
 
 function CH:ChatEdit_AddHistory(editBox, line)
 	if line:find("/rl") then return; end
@@ -286,22 +291,21 @@ function CH:PositionChat(override)
 	
 	self.initialMove = true;
 end
-
---[[
 local function SLEfilter(self, event, message, author, arg3, arg4, arg5, arg6, ...)
 	local returnTex = arg6
 	
 	if(strlen(arg6) > 0) then
-	elseif CheckFlag(author) then
+	elseif SLE:CheckFlag(author) then
 		returnTex = SLE:CheckFlag(author)..arg6
 	end
 	
 	return false, message, author, arg3, arg4, arg5, returnTex, ...
 end
-]]
+
 
 --Adding icons to specific toons' names
 --Filter
+--[[
 local function SLEfilter(self, event, message, author, arg3, arg4, arg5, arg6, ...)
     local returnTex = arg6
 	local myRealm = E.myrealm
@@ -337,6 +341,7 @@ local function SLEfilter(self, event, message, author, arg3, arg4, arg5, arg6, .
     
     return false, message, author, arg3, arg4, arg5, returnTex, ...
 end
+]]
 --Applying filter
 ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", SLEfilter)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", SLEfilter)
