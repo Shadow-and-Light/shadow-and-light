@@ -19,6 +19,11 @@ local UserListCache = {
 		['userVersion'] = '1.65',
 	},
 }
+
+local function getlist(channel)
+	print(channel.." was selected")
+end
+
 if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 	local function configTable()
 		E.Options.args.sle.args.developer = {
@@ -64,17 +69,23 @@ if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 								['BATTLEGROUND'] = 'BATTLEGROUND',
 							},
 						},
+						submitbutton = {
+							type = 'execute',
+							order = 3,
+							name = "Update List",
+							func = function(info, value) getlist(selectedChannel) end,
+						},
 						Space = {
 							type = 'description',
 							name = ' ',
-							order = 3,
+							order = 4,
 						},
 						userList = {
 							type = 'group',
 							name = function()
 								return 'Userlist : '..selectedChannel
 							end,
-							order = 4,
+							order = 5,
 							guiInline = true,
 							args = {},
 							hidden = function() return selectedChannel == '' end,
