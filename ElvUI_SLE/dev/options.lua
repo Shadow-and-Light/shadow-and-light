@@ -73,7 +73,7 @@ if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 							type = 'execute',
 							order = 3,
 							name = "Update List",
-							func = function(info, value) getlist(selectedChannel) end,
+							func = function(info, value) SendAddonMessage('SLE_DEV_REQ', 'GIVE ME YOUR INFO RIGHT NOW!!!!', selectedChannel) end,
 						},
 						Space = {
 							type = 'description',

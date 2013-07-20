@@ -38,28 +38,19 @@ function E:sleCommand(msg) -- /w Target /slecmd {Target|ALL}#script
 	SendAddonMessage('SLE_DEV_CMD', msg, channel, target)
 end
 
-function E:UserList()
-	SendAddonMessage('SLE_DEV_REQ', E.myname, 'GUILD') --Sending shit to guild channel
-	
-	if SLE.SendMSGTimer then
-		E:CancelTimer(SLE.SendMSGTimer)
-		SLE.SendMSGTimer = nil
-	end
-end
-
 local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if sender == E.myname then return end
 		if SLE:CheckFlag(nil, 'SLEAUTHOR') then
-			print("CheckFlag nil sleauthor is true")
+			--print("CheckFlag nil sleauthor is true")
 			return
 		end
 		--if SLE:Auth() then return end
 		--if (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and (SLE:CrossAuth(sender) or SLE:Auth()) then
 		if SLE:CheckFlag(sender, 'SLEAUTHOR') then
-			print("This check is true and the sender is: "..sender)
+			--print("This check is true and the sender is: "..sender)
 		else
-			print("This check is false and the sender is: "..sender)
+			--print("This check is false and the sender is: "..sender)
 		end
 		if (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and not SLE:CheckFlag(sender, 'SLEAUTHOR') then
 			if prefix == 'SLE_DEV_SAYS' then
@@ -79,31 +70,41 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 				end			
 			end
 		end
-		--Don't forget to remove author checks comments later
-		if (prefix == "SLE_DEV_REQ") then --and (SLE:CrossAuth(sender) or SLE:Auth()) then
-			SendAddonMessage('SLE_DEV_INFO', E.myname.."#"..E.myrealm.."#"..SLE.version, 'WHISPER', sender)
-		end
-		if (prefix == "SLE_DEV_INFO") and not (SLE:CrossAuth(sender) or SLE:Auth()) then
-			--Do Shit Here
-			local user, realm, version = split("#", message)
-			--debug shit will add list creation later
-			print(user)
-			print(realm)
-			print(version)
-		end
-	else
-		SLE.SendMSGTimer = E:ScheduleTimer("UserList", 5)
 	end
 end
 RegisterAddonMessagePrefix('SLE_DEV_SAYS')
 RegisterAddonMessagePrefix('SLE_DEV_CMD')
-RegisterAddonMessagePrefix('SLE_DEV_REQ')
-RegisterAddonMessagePrefix('SLE_DEV_INFO')
+--RegisterAddonMessagePrefix('SLE_DEV_INFO')
+
+if not SLE:CheckFlag(nil, 'SLEAUTHOR') then
+	RegisterAddonMessagePrefix('SLE_DEV_REQ')
+	SLE:RegisterEvent('CHAT_MSG_ADDON', function(event, prefix, message, channel, sender)
+		if prefix == 'SLE_DEV_REQ' and SLE:CheckFlag(sender, 'SLEAUTHOR') then
+			SendAddonMessage('SLE_DEV_INFO', UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version, channel)
+		end
+	end)
+end
+
+if SLE:CheckFlag(nil, 'SLEAUTHOR') then
+	RegisterAddonMessagePrefix('SLE_DEV_INFO')
+	SLE:RegisterEvent('CHAT_MSG_ADDON', function(event, prefix, message, channel, sender) --
+		if prefix == 'SLE_DEV_INFO' then
+			local userLevel, userClass, userName, userRealm, userVersion = strsplit('#', message)
+
+			local Level = GetQuestDifficultyColor(userLevel)
+			Level = format('|cff%02x%02x%02x%s|r', Level.r *255, Level.g *255, Level.b *255, userLevel)
+	   
+			userName = '|c'..RAID_CLASS_COLORS[userClass]['colorStr']..userName..'|r'
+			userVersion = (userVersion == SLE.version and '|cffceff00' or '|cffff5678')..userVersion
+	   
+			--return Level..'  '..userName.. '|cffffffff - '..userRealm..' : '..userVersion
+			print(Level..'  '..userName.. '|cffffffff - '..userRealm..' : '..userVersion)
+		end
+	end)
+end
 
 local f = CreateFrame('Frame', "DaFrame")
---f:RegisterEvent("GROUP_ROSTER_UPDATE")
-f:RegisterEvent("GUILD_ROSTER_UPDATE")
-f:RegisterEvent("PLAYER_GUILD_UPDATE")
+f:RegisterEvent("GROUP_ROSTER_UPDATE")
 f:RegisterEvent("CHAT_MSG_ADDON")
 f:SetScript('OnEvent', SendRecieve)
 
