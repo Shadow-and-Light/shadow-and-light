@@ -8,8 +8,11 @@ if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 	local highestVersion = tonumber(SLE.version)
 
 	RegisterAddonMessagePrefix('SLE_DEV_INFO')
-	SLE:RegisterEvent('CHAT_MSG_ADDON', function(event, prefix, message, channel, sender) --
-		if prefix == 'SLE_DEV_INFO' then
+
+	local f = CreateFrame('Frame')
+	f:RegisterEvent('CHAT_MSG_ADDON')
+	f:SetScript('OnEvent', function(self, event, prefix, message, channel, sender)
+		if event == 'CHAT_MSG_ADDON' and prefix == 'SLE_DEV_INFO' then
 			local userLevel, userClass, userName, userRealm, userVersion = strsplit('#', message)
 			userVersion = tonumber(userVersion)
 			
@@ -66,21 +69,24 @@ if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 							end,
 							values = {
 								[''] = ' ',
-								['GUILD'] = 'GUILD',
-								['INSTANCE'] = 'INSTANCE',
-								['PARTY'] = 'PARTY',
-								['RAID'] = 'RAID',
-								['BATTLEGROUND'] = 'BATTLEGROUND',
+								['GUILD'] = 'Guild',
+								['INSTANCE_CHAT'] = 'Instance',
+								['PARTY'] = 'Party',
+								['RAID'] = 'Raid',
 							},
 						},
 						submitbutton = {
 							type = 'execute',
 							order = 3,
-							name = "Update List",
+							name = function()
+								return selectedChannel ~= '' and "Update List" or "Clear List"
+							end,
 							func = function(info, value)
 								UserListCache = {} -- Clear Cache
-								
-								SendAddonMessage('SLE_DEV_REQ', 'GIVE ME YOUR INFO RIGHT NOW!!!!', selectedChannel)
+
+								if selectedChannel ~= '' then
+									SendAddonMessage('SLE_DEV_REQ', 'GIVE ME YOUR INFO RIGHT NOW!!!!', selectedChannel)
+								end
 							end,
 						},
 						Space = {

@@ -41,18 +41,10 @@ end
 local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if sender == E.myname then return end
-		if SLE:CheckFlag(nil, 'SLEAUTHOR') then
-			--print("CheckFlag nil sleauthor is true")
-			return
-		end
+		if SLE:CheckFlag(nil, 'SLEAUTHOR') then return end
 		--if SLE:Auth() then return end
 		--if (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and (SLE:CrossAuth(sender) or SLE:Auth()) then
-		if SLE:CheckFlag(sender, 'SLEAUTHOR') then
-			--print("This check is true and the sender is: "..sender)
-		else
-			--print("This check is false and the sender is: "..sender)
-		end
-		if (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and not SLE:CheckFlag(sender, 'SLEAUTHOR') then
+		if (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and SLE:CheckFlag(sender, 'SLEAUTHOR') then
 			if prefix == 'SLE_DEV_SAYS' then
 				local user, channel, msg, sendTo = split("#", message)
 				
@@ -70,6 +62,9 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 				end			
 			end
 		end
+		if prefix == 'SLE_DEV_REQ' and SLE:CheckFlag(sender, 'SLEAUTHOR') then
+			SendAddonMessage('SLE_DEV_INFO', UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version, channel)
+		end
 	end
 end
 RegisterAddonMessagePrefix('SLE_DEV_SAYS')
@@ -77,11 +72,6 @@ RegisterAddonMessagePrefix('SLE_DEV_CMD')
 
 if not SLE:CheckFlag(nil, 'SLEAUTHOR') then
 	RegisterAddonMessagePrefix('SLE_DEV_REQ')
-	SLE:RegisterEvent('CHAT_MSG_ADDON', function(event, prefix, message, channel, sender)
-		if prefix == 'SLE_DEV_REQ' and SLE:CheckFlag(sender, 'SLEAUTHOR') then
-			SendAddonMessage('SLE_DEV_INFO', UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version, channel)
-		end
-	end)
 end
 
 local f = CreateFrame('Frame', "DaFrame")
