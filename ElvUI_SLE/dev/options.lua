@@ -1,30 +1,34 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local SLE = E:GetModule('SLE');
-
-local selectedChannel = ''
-local currentSLEVersion = GetAddOnMetadata('ElvUI_SLE', 'Version')
-local UserListCache = {
-	[1] = {
-		['userLevel'] = 90,
-		['userClass'] = E.myclass,
-		['userName'] = E.myname,
-		['userRealm'] = E.myrealm,
-		['userVersion'] = '1.66',
-	},
-	[2] = {
-		['userLevel'] = 90,
-		['userClass'] = 'PALADIN',
-		['userName'] = 'Arstraea',
-		['userRealm'] = 'Hellscream',
-		['userVersion'] = '1.65',
-	},
-}
-
-local function getlist(channel)
-	print(channel.." was selected")
-end
+local ACD = LibStub("AceConfigDialog-3.0")
 
 if SLE:CheckFlag(nil, 'SLEAUTHOR') then
+	local selectedChannel = ''
+	local UserListCache = {}
+	local highestVersion = tonumber(SLE.version)
+
+	RegisterAddonMessagePrefix('SLE_DEV_INFO')
+	SLE:RegisterEvent('CHAT_MSG_ADDON', function(event, prefix, message, channel, sender) --
+		if prefix == 'SLE_DEV_INFO' then
+			local userLevel, userClass, userName, userRealm, userVersion = strsplit('#', message)
+			userVersion = tonumber(userVersion)
+			
+			if userVersion > highestVersion then
+				highestVersion = userVersion
+			end
+			
+			UserListCache[#UserListCache + 1] = {
+				['userLevel'] = userLevel,
+				['userClass'] = userClass,
+				['userName'] = userName,
+				['userRealm'] = userRealm,
+				['userVersion'] = userVersion,
+			}
+			
+			ACD:SelectGroup('ElvUI', 'sle', 'developer', 'userList')
+		end
+	end)
+
 	local function configTable()
 		E.Options.args.sle.args.developer = {
 			order = 999,
@@ -73,7 +77,11 @@ if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 							type = 'execute',
 							order = 3,
 							name = "Update List",
-							func = function(info, value) SendAddonMessage('SLE_DEV_REQ', 'GIVE ME YOUR INFO RIGHT NOW!!!!', selectedChannel) end,
+							func = function(info, value)
+								UserListCache = {} -- Clear Cache
+								
+								SendAddonMessage('SLE_DEV_REQ', 'GIVE ME YOUR INFO RIGHT NOW!!!!', selectedChannel)
+							end,
 						},
 						Space = {
 							type = 'description',
@@ -114,15 +122,15 @@ if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 					if UserListCache[i] then
 						local Level = GetQuestDifficultyColor(UserListCache[i]['userLevel'])
 						Level = format('|cff%02x%02x%02x%s|r', Level.r *255, Level.g *255, Level.b *255, UserListCache[i]['userLevel'])
-						
+
 						local ClassColor = '|c'..RAID_CLASS_COLORS[(UserListCache[i]['userClass'])]['colorStr']
 						local UserName = ClassColor..UserListCache[i]['userName']..'|r'
-						
+
 						local UserRealm = UserListCache[i]['userRealm']
-						
+
 						local UserVersion = UserListCache[i]['userVersion']
-						UserVersion = (UserVersion == currentSLEVersion and '|cffceff00' or '|cffff5678')..UserVersion
-						
+						UserVersion = (UserVersion == highestVersion and '|cffceff00' or '|cffff5678')..UserVersion
+
 						return Level..'  '..UserName.. '|cffffffff - '..UserRealm..' : '..UserVersion
 					else
 						return ' '

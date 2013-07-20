@@ -74,31 +74,12 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 end
 RegisterAddonMessagePrefix('SLE_DEV_SAYS')
 RegisterAddonMessagePrefix('SLE_DEV_CMD')
---RegisterAddonMessagePrefix('SLE_DEV_INFO')
 
 if not SLE:CheckFlag(nil, 'SLEAUTHOR') then
 	RegisterAddonMessagePrefix('SLE_DEV_REQ')
 	SLE:RegisterEvent('CHAT_MSG_ADDON', function(event, prefix, message, channel, sender)
 		if prefix == 'SLE_DEV_REQ' and SLE:CheckFlag(sender, 'SLEAUTHOR') then
 			SendAddonMessage('SLE_DEV_INFO', UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version, channel)
-		end
-	end)
-end
-
-if SLE:CheckFlag(nil, 'SLEAUTHOR') then
-	RegisterAddonMessagePrefix('SLE_DEV_INFO')
-	SLE:RegisterEvent('CHAT_MSG_ADDON', function(event, prefix, message, channel, sender) --
-		if prefix == 'SLE_DEV_INFO' then
-			local userLevel, userClass, userName, userRealm, userVersion = strsplit('#', message)
-
-			local Level = GetQuestDifficultyColor(userLevel)
-			Level = format('|cff%02x%02x%02x%s|r', Level.r *255, Level.g *255, Level.b *255, userLevel)
-	   
-			userName = '|c'..RAID_CLASS_COLORS[userClass]['colorStr']..userName..'|r'
-			userVersion = (userVersion == SLE.version and '|cffceff00' or '|cffff5678')..userVersion
-	   
-			--return Level..'  '..userName.. '|cffffffff - '..userRealm..' : '..userVersion
-			print(Level..'  '..userName.. '|cffffffff - '..userRealm..' : '..userVersion)
 		end
 	end)
 end
