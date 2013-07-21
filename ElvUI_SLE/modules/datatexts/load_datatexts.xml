@@ -8,6 +8,7 @@
 	<Script file='friends.lua'/>
 	<Script file='guild.lua'/>
 	<Script file='played.lua'/>
+	<Script file='mail.lua'/>
 
 	<Include file='dashboard\load_dashboard.xml'/>
 	<Script file='options.lua'/>
