@@ -5,6 +5,8 @@ made for ElvUI under Sinaris permission. Big thanks :)
 
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local DTP = E:GetModule('DTPanels')
+local DT = E:GetModule('DataTexts')
+local LSM = LibStub("LibSharedMedia-3.0")
 if E.db.sle == nil then E.db.sle = {} end
 if E.db.sle.datatext == nil then E.db.sle.datatext = {} end
 if E.db.sle.datatext.dashboard == nil then E.db.sle.datatext.dashboard = {} end
@@ -12,7 +14,7 @@ if E.db.sle.datatext.dashboard.width == nil then E.db.sle.datatext.dashboard.wid
 local DTPANELS_WIDTH = E.db.sle.datatext.dashboard.width
 local DTPANELS_HEIGHT = 20
 local PANEL_SPACING = 1
-local font = P.general.font
+local font = LSM:Fetch("font", E.db.datatexts.font)
 local fontsize = 10 
 
 local board = {}
@@ -62,6 +64,15 @@ function DTP:DashboardShow()
 	else
 		E.FrameLocks['BoardsHolder'] = nil
 		BoardsHolder:Hide()
+	end
+end
+
+DT.LoadDataTextsSLE = DT.LoadDataTexts
+function DT:LoadDataTexts()
+	DT.LoadDataTextsSLE(self)
+	font = LSM:Fetch("font", E.db.datatexts.font)
+	for i = 1, 4 do
+		board[i].Text:SetFont(font, fontsize)
 	end
 end
 
