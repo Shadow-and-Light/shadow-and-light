@@ -15,7 +15,8 @@ local DTPANELS_WIDTH = E.db.sle.datatext.dashboard.width
 local DTPANELS_HEIGHT = 20
 local PANEL_SPACING = 1
 local font = LSM:Fetch("font", E.db.datatexts.font)
-local fontsize = 10 
+local fontsize = E.db.datatexts.fontSize 
+local outline = E.db.datatexts.fontOutline
 
 local board = {}
 
@@ -50,7 +51,7 @@ for i = 1, 4 do
 
 	board[i].Text = board[i].Status:CreateFontString( nil, "OVERLAY" )
 	board[i].Text:FontTemplate()
-	board[i].Text:SetFont(font, fontsize)
+	board[i].Text:SetFont(font, fontsize, outline)
 	board[i].Text:Point("LEFT", board[i], "LEFT", 3, 0)
 	board[i].Text:SetJustifyV('MIDDLE')
 	board[i].Text:SetShadowColor(0, 0, 0)
@@ -71,8 +72,10 @@ DT.LoadDataTextsSLE = DT.LoadDataTexts
 function DT:LoadDataTexts()
 	DT.LoadDataTextsSLE(self)
 	font = LSM:Fetch("font", E.db.datatexts.font)
+	fontsize = E.db.datatexts.fontSize 
+	outline = E.db.datatexts.fontOutline
 	for i = 1, 4 do
-		board[i].Text:SetFont(font, fontsize)
+		board[i].Text:SetFont(font, fontsize, outline)
 	end
 end
 
