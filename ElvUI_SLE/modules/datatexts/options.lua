@@ -305,6 +305,26 @@ E.Options.args.sle.args.sldatatext = {
 				},
 			},
 		},
+		slmail = {
+			type = "group",
+			name = L["S&L Mail"],
+			order = 3,
+			args = {
+				header = {
+					order = 1,
+					type = "description",
+					name = L["These options are for modifing the Shadow & Light Mail datatext."],
+				},
+				icon = {
+					order = 2,
+					type = "toggle",
+					name = L["Minimap icon"],
+					desc = L["If enabled will show new mail icon on minimap/"],
+					get = function(info) return E.db.sle.dt.mail.icon end,
+					set = function(info, value) E.db.sle.dt.mail.icon = value; end,
+				}
+			},
+		},
 		timedt = {
 			type = "group",
 			name = RAID_FINDER,

@@ -152,6 +152,9 @@ P['sle'] = {
 			['tooltipAutohide'] = 0.2,
 			['totals'] = false,
 		},
+		['mail'] = {
+			['icon'] = true,
+		},
 	},
 
 	--Exp/Rep Bar
