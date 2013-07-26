@@ -3,7 +3,6 @@ local DT = E:GetModule('DataTexts')
 
 local Mail_Icon = "|TInterface\\MINIMAP\\TRACKING\\Mailbox.blp:14:14|t";
 local OldShow = MiniMapMailFrame.Show
-local fuck = false
 
 local Read;
 
@@ -19,7 +18,7 @@ local function OnEvent(self, event, ...)
 	local newMail = false
 	
 	if event == "UPDATE_PENDING_MAIL" or event == "PLAYER_ENTERING_WORLD" or event =="PLAYER_LOGIN" then
-		if fuck then
+		if not E.db.sle.dt.mail.icon then
 			MiniMapMailFrame:Hide()
 			MiniMapMailFrame.Show = dummyFunc
 		else
