@@ -321,7 +321,7 @@ E.Options.args.sle.args.sldatatext = {
 					name = L["Minimap icon"],
 					desc = L["If enabled will show new mail icon on minimap/"],
 					get = function(info) return E.db.sle.dt.mail.icon end,
-					set = function(info, value) E.db.sle.dt.mail.icon = value; end,
+					set = function(info, value) E.db.sle.dt.mail.icon = value; DT:SLEmailUp() end,
 				}
 			},
 		},
