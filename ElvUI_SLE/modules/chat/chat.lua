@@ -2,6 +2,7 @@
 local CH = E:GetModule('Chat')
 local SLE = E:GetModule('SLE');
 local LSM = LibStub("LibSharedMedia-3.0")
+local CreatedFrames = 0;
 
 --Textures for chat
 CHAT_FLAG_SLEADAPT = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\adapt.tga:0:2|t"
@@ -172,6 +173,12 @@ function CH:ChatEdit_AddHistory(editBox, line)
 	end
 end
 
+CH.StyleChatSLE = CH.StyleChat
+function CH:StyleChat(frame)
+	CH:StyleChatSLE(frame)
+	CreatedFrames = frame:GetID()
+end
+
 --Replacement of chat tab position and size function
 function CH:PositionChat(override)
 	if not self.db.lockPositions or ((InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override)) then return end
@@ -198,8 +205,6 @@ function CH:PositionChat(override)
 	else
 		self.RightChatWindowID = nil
 	end
-
-	CreatedFrames = id
 	
 	for i=1, CreatedFrames do
 		local BASE_OFFSET = 60
@@ -214,7 +219,6 @@ function CH:PositionChat(override)
 		point = GetChatWindowSavedPosition(id)
 		isDocked = chat.isDocked
 		tab.isDocked = chat.isDocked
-
 		tab.owner = chat
 		if id > NUM_CHAT_WINDOWS then
 			point = point or select(1, chat:GetPoint());
@@ -225,8 +229,7 @@ function CH:PositionChat(override)
 			end	
 		end	
 
-		
-		if point == "BOTTOMRIGHT" and chat:IsShown() and not (id > NUM_CHAT_WINDOWS) and id == self.RightChatWindowID then
+		if point == "BOTTOMRIGHT" and chat:IsShown() and not (id > NUM_CHAT_WINDOWS) and not isDocked and id == self.RightChatWindowID then
 			chat:ClearAllPoints()
 			if E.db.datatexts.rightChatPanel then
 				chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3) -- <<< Changed
@@ -234,12 +237,12 @@ function CH:PositionChat(override)
 				BASE_OFFSET = BASE_OFFSET - 24
 				chat:Point("BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 4, 3)
 			end
-		
 			if id ~= 2 then
 				chat:SetSize(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - (E.PixelMode and 31 or 27))) -- <<< Changed
 			else
 				chat:Size(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - (E.PixelMode and 31 or 27)) - CombatLogQuickButtonFrame_Custom:GetHeight())	
 			end
+			
 			
 			FCF_SavePositionAndDimensions(chat)			
 			
