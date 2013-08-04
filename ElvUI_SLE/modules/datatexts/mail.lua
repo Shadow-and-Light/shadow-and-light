@@ -30,13 +30,14 @@ local function OnEvent(self, event, ...)
 	local newMail = false
 	
 	if event == "UPDATE_PENDING_MAIL" or event == "PLAYER_ENTERING_WORLD" or event =="PLAYER_LOGIN" then
-		DT:SLEmailUp()
 	
 		newMail = HasNewMail() 
 		
 		if unreadMail ~= newMail then
 			unreadMail = newMail
 		end
+		
+		DT:SLEmailUp()
 	
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self:UnregisterEvent("PLAYER_LOGIN")
