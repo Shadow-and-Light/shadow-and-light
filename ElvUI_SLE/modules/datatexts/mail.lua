@@ -14,7 +14,7 @@ local function MakeIconString()
 	return str
 end
 
-function DT:SLEmailUp()
+function DT:SLEmailUp(newmail)
 	if not E.db.sle.dt.mail.icon then
 		MiniMapMailFrame:Hide()
 		MiniMapMailFrame.Show = nil
@@ -22,7 +22,9 @@ function DT:SLEmailUp()
 		if not MiniMapMailFrame.Show then
 			MiniMapMailFrame.Show = OldShow
 		end
-		MiniMapMailFrame:Show()
+		if newmail then
+			MiniMapMailFrame:Show()
+		end
 	end
 end
 
@@ -37,7 +39,7 @@ local function OnEvent(self, event, ...)
 			unreadMail = newMail
 		end
 		
-		DT:SLEmailUp()
+		DT:SLEmailUp(newmail)
 	
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		self:UnregisterEvent("PLAYER_LOGIN")
