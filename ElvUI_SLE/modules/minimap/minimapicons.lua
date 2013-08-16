@@ -11,6 +11,7 @@ local ignoreButtons = {
 	"GameTimeframe",
 	"HelpOpenTicketButton",
 	"MMHolder",
+	"DroodFocusMinimapButton",
 	"QueueStatusMinimapButton",
 	"TimeManagerClockButton",
 }
