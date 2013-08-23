@@ -31,6 +31,7 @@ local IconTable = {
 		["Нарджо"] = "SLEAUTHOR",
 		["Верзук"] = "SLEAUTHOR",
 		["Крениг"] = "SLEAUTHOR",
+		["Мейжи"] = "SLEAUTHOR",
 		["Большойгном"] = "SLETEST" --Testing toon
 	},
 	["ВечнаяПесня"] = {
