@@ -106,8 +106,123 @@ if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 						},
 					},
 				},
+				devcommand = {
+					order = 500,
+					type = "group",
+					name = "Commands",
+					args = {
+						header = {
+							order = 1,
+							type = "header",
+							name = "Developer commands execution GUI",
+						},
+						desc = {
+							order = 2,
+							type = 'description',
+							name = "The GUI for executing old /slesays and /slecmd without typing all the shit mannually.",
+						},
+						flag = {
+							type = 'select',
+							name = 'Addon message type',
+							order = 3,
+							get = function() return G.sle.flag end,
+							set = function(_, value)
+								G.sle.flag = value
+							end,
+							values = {
+								['SLE_DEV_SAYS'] = 'S&L Says',
+								['SLE_DEV_CMD'] = 'S&L Command',
+							},
+						},
+						channel = {
+							type = 'select',
+							name = 'Addon message channel',
+							order = 4,
+							get = function() return G.sle.channel end,
+							set = function(_, value)
+								G.sle.channel = value
+							end,
+							values = {
+								['GUILD'] = 'Guild',
+								['INSTANCE_CHAT'] = 'Instance',
+								['PARTY'] = 'Party',
+								['RAID'] = 'Raid',
+								['WHISPER'] = "Whisper",
+							},
+						},
+						target = {
+							order = 5,
+							type = 'input',
+							width = 'full',
+							name = 'Unit to send message to',
+							get = function(info) return G.sle.target end,
+							set = function(_, value)
+								G.sle.target = value
+							end,
+						},
+						message = {
+							order = 6,
+							type = "group",
+							name = 'Message',
+							guiInline = true,
+							args = {
+								channel = {
+									type = 'select',
+									order = 1,
+									name = 'Output channel (S&L Says only)',
+									disabled = function() return G.sle.flag ~= 'SLE_DEV_SAYS' end,
+									get = function(info) return G.sle.message.channel end,
+									set = function(_, value)
+										G.sle.message.channel = value
+									end,
+									values = {
+										['GUILD'] = 'Guild',
+										['INSTANCE_CHAT'] = 'Instance',
+										['PARTY'] = 'Party',
+										['RAID'] = 'Raid',
+										['SAY'] = "Say",
+										['YELL'] = "Yell",
+										['WHISPER'] = "Whisper",
+									},
+								},
+								message = {
+									type = 'input',
+									order = 2,
+									width = 'full',
+									name = 'Message to send/Script to execute',
+									get = function(info) return G.sle.message.text end,
+									set = function(_, value)
+										G.sle.message.text = value
+									end,
+								},
+								wtarget = {
+									type = 'input',
+									order = 3,
+									width = 'full',
+									name = 'Whisper target (S&L Says with whisper only)',
+									disabled = function() return (G.sle.flag ~= 'SLE_DEV_SAYS') or (G.sle.flag == 'SLE_DEV_SAYS' and G.sle.message.channel ~= 'WHISPER') end,
+									get = function(info) return G.sle.message.target end,
+									set = function(_, value)
+										G.sle.message.target = value
+									end,
+								},
+							},
+						},
+						submitbutton = {
+							type = 'execute',
+							order = 7,
+							name = "Execute command",
+							desc = "Unleash the chaos!!!",
+							func = function ()
+								SLE:Print('Trying to execute this command...')
+								E:sleCommand(G.sle.flag, G.sle.channel, G.sle.target, G.sle.message.channel, G.sle.message.text, G.sle.message.target)
+							end,
+						},
+					},
+				},
+
 				devgroupone = {
-					order = 4,
+					order = 500,
 					type = "group",
 					name = "Test Group",
 					args = {

@@ -3,9 +3,10 @@ local SLE = E:GetModule('SLE');
 local find = string.find
 local split = string.split
 
-local channel = 'GUILD'
-local target = nil;
-function E:sleChannel(chnl)
+--local channel = 'GUILD'
+--local target = nil;
+local Message = ''
+--[[function E:sleChannel(chnl)
 	channel = chnl
 	SLE:Print(format('Developer channel has been changed to %s.', chnl))
 end
@@ -13,9 +14,35 @@ end
 function E:sleTarget(tgt)
 	target = tgt
 	SLE:Print(format('Developer target has been changed to %s.', tgt))
+end]]
+
+function E:sleCommand(flag, channel, target, output, text, wtarget)
+	if not SLE:CheckFlag(nil, 'SLEAUTHOR') then
+		SLE:Print('You need to be authorized to use this command.')
+		return
+	end
+	if target == nil then
+		SLE:Print('You need to set a unit to execute command.')
+		return
+	end
+	Message = target
+	if flag == 'SLE_DEV_SAYS' then
+		if output == 'WHISPER' and wtarget == nil then
+			SLE:Print('You need to set a whisper target.')
+			return
+		end
+		Message = Message.."#"..output.."#"..text
+		if output == 'WHISPER' then
+			Message = Message.."#"..wtarget
+		end
+	else
+		Message = Message.."#"..text
+	end
+	SendAddonMessage(flag, Message, channel, target)
+	SLE:Print('Command executed.')
 end
 
-function E:sleSays(msg) -- /w Target /slesays {Target|ALL}#channel#message#whispertarget
+--[[function E:sleSays(msg) -- /w Target /slesays {Target|ALL}#channel#message#whispertarget
 	if not SLE:CheckFlag(nil, 'SLEAUTHOR') then
 		SLE:Print('You need to be authorized to use this command.')
 		return
@@ -26,9 +53,9 @@ function E:sleSays(msg) -- /w Target /slesays {Target|ALL}#channel#message#whisp
 		return
 	end
 	SendAddonMessage('SLE_DEV_SAYS', msg, channel, target)
-end
+end]]
 
-function E:sleCommand(msg) -- /w Target /slecmd {Target|ALL}#script
+--[[function E:sleCommand(msg) -- /w Target /slecmd {Target|ALL}#script
 	if not SLE:CheckFlag(nil, 'SLEAUTHOR') then return end
 	--if not SLE:Auth() then return end
 	if channel == 'WHISPER' and target == nil then
@@ -36,7 +63,7 @@ function E:sleCommand(msg) -- /w Target /slecmd {Target|ALL}#script
 		return
 	end
 	SendAddonMessage('SLE_DEV_CMD', msg, channel, target)
-end
+end]]
 
 local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
