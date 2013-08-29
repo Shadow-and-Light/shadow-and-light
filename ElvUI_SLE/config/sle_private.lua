@@ -52,15 +52,3 @@ V['sle'] = {
 		['enable'] = false,
 	},
 }
-
-G['sle'] = {
-	['channel'] = 'GUILD',
-	['flag'] = 'SLE_DEV_SAYS',
-	['target'] = nil,
-	['message'] = {
-		['text'] = nil,
-		['channel'] = 'SAY',
-		['target'] = nil,
-	},
-	
-}

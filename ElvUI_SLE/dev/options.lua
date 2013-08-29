@@ -6,6 +6,13 @@ if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 	local selectedChannel = ''
 	local UserListCache = {}
 	local highestVersion = tonumber(SLE.version)
+	local flag = 'SLE_DEV_SAYS'
+	local addonChannel = 'GUILD'
+	local addonTarget = nil
+	local output = 'SAY'
+	local text = ''
+	local wtarget = nil
+	
 
 	RegisterAddonMessagePrefix('SLE_DEV_INFO')
 
@@ -125,9 +132,9 @@ if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 							type = 'select',
 							name = 'Addon message type',
 							order = 3,
-							get = function() return G.sle.flag end,
+							get = function() return flag end,
 							set = function(_, value)
-								G.sle.flag = value
+								flag = value
 							end,
 							values = {
 								['SLE_DEV_SAYS'] = 'S&L Says',
@@ -138,9 +145,9 @@ if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 							type = 'select',
 							name = 'Addon message channel',
 							order = 4,
-							get = function() return G.sle.channel end,
+							get = function() return addonChannel end,
 							set = function(_, value)
-								G.sle.channel = value
+								addonChannel = value
 							end,
 							values = {
 								['GUILD'] = 'Guild',
@@ -155,9 +162,9 @@ if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 							type = 'input',
 							width = 'full',
 							name = 'Unit to send message to',
-							get = function(info) return G.sle.target end,
+							get = function() return addonTarget end,
 							set = function(_, value)
-								G.sle.target = value
+								addonTarget = value
 							end,
 						},
 						message = {
@@ -170,10 +177,10 @@ if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 									type = 'select',
 									order = 1,
 									name = 'Output channel (S&L Says only)',
-									disabled = function() return G.sle.flag ~= 'SLE_DEV_SAYS' end,
-									get = function(info) return G.sle.message.channel end,
+									disabled = function() return flag ~= 'SLE_DEV_SAYS' end,
+									get = function() return output end,
 									set = function(_, value)
-										G.sle.message.channel = value
+										output = value
 									end,
 									values = {
 										['GUILD'] = 'Guild',
@@ -190,20 +197,20 @@ if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 									order = 2,
 									width = 'full',
 									name = 'Message to send/Script to execute',
-									get = function(info) return G.sle.message.text end,
+									get = function() return text end,
 									set = function(_, value)
-										G.sle.message.text = value
+										text = value
 									end,
 								},
-								wtarget = {
+								whispTarget = {
 									type = 'input',
 									order = 3,
 									width = 'full',
 									name = 'Whisper target (S&L Says with whisper only)',
-									disabled = function() return (G.sle.flag ~= 'SLE_DEV_SAYS') or (G.sle.flag == 'SLE_DEV_SAYS' and G.sle.message.channel ~= 'WHISPER') end,
-									get = function(info) return G.sle.message.target end,
+									disabled = function() return (flag ~= 'SLE_DEV_SAYS') or (flag == 'SLE_DEV_SAYS' and output ~= 'WHISPER') end,
+									get = function() return wtarget end,
 									set = function(_, value)
-										G.sle.message.target = value
+										wtarget = value
 									end,
 								},
 							},
@@ -215,7 +222,7 @@ if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 							desc = "Unleash the chaos!!!",
 							func = function ()
 								SLE:Print('Trying to execute this command...')
-								E:sleCommand(G.sle.flag, G.sle.channel, G.sle.target, G.sle.message.channel, G.sle.message.text, G.sle.message.target)
+								E:sleCommand(flag, addonChannel, addonTarget, output, text, wtarget)
 							end,
 						},
 					},
