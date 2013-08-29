@@ -74,7 +74,7 @@ local function OnEnter(self)
 	
 	if not Read then	
 		DT.tooltip:AddLine(HAVE_MAIL_FROM)
-		DT.tooltip:AddLine("    "..sender1)
+		if sender1 then DT.tooltip:AddLine("    "..sender1) end
 		if sender2 then DT.tooltip:AddLine("    "..sender2) end
 		if sender3 then DT.tooltip:AddLine("    "..sender3) end
 	
