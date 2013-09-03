@@ -1,6 +1,8 @@
 v1.67
 - GameTooltip offset option added if ElvUI Tooltip anchor is set to cursor
 - Developer backend updates/additions
+- Removed DBM Font Size option (ElvUI AddonSkins has it now)
+- Added mail datatext
 
 v1.66 June 3, 2013
 - Added ilvl to heirlooms
