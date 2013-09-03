@@ -15,6 +15,7 @@
 	<Include file='marks\load_marks.xml'/>
 	<Include file='minimap\load_minimap.xml'/>
 	<Include file='raidutility\load_raidutility.xml'/>
+	<Include file='tooltip\load_tooltip.xml'/>
 	<Include file='uibuttons\load_uibuttons.xml'/>
 	<Include file='unitframes\load_unitframes.xml'/>
 </Ui>
