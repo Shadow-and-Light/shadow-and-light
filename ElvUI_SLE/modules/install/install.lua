@@ -762,7 +762,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 
 	layout = E.db.layoutSet --To know if some sort of layout was choosed before
 
-	if SLE:Auth() then
+	if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 		E.db.hideTutorial = 1
 		E.db.general.loginmessage = false
 	end
@@ -802,14 +802,25 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.bags.currencyFormat = "ICON"
 
 	--NamePlate--
-	E.db.nameplate.healthtext = 'CURRENT_PERCENT'
-	E.db.nameplate.lowHealthWarning = 'NONE'
-	E.db.nameplate.fontOutline = "OUTLINE"
 	E.db.nameplate.font = "ElvUI Font"
-	E.db.nameplate.height = 8
-	E.db.nameplate.auraFont = "ElvUI Font"
-	E.db.nameplate.auraFontOutline = "OUTLINE"
-	E.db.nameplate.classIcons = false
+	E.db.nameplate.fontOutline = "OUTLINE"
+	E.db.nameplate.nonTargetAlpha = 0.35
+	
+	E.db.nameplate.auras.font = "ElvUI Font"
+	E.db.nameplate.auras.fontOutline = "OUTLINE"
+	E.db.nameplate.auras.numAuras = 6
+
+	E.db.nameplate.raidHealIcon.attachTo = "TOP"
+	E.db.nameplate.raidHealIcon.size = 24
+	
+	E.db.nameplate.healthBar.text.enable = true
+	E.db.nameplate.healthBar.text.format = "CURRENT_PERCENT"
+	E.db.nameplate.healthBar.lowThreshold = 0
+
+	E.db.nameplate.targetIndicator.height = 35
+	E.db.nameplate.targetIndicator.width = 35
+	
+	
 
 	--Auras--
 	E.db.auras.font = "ElvUI Font"
@@ -908,7 +919,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.datatexts.panels.DP_6.right = 'Crit Chance';
 			E.db.datatexts.panels.RightChatDataPanel.left = 'MP5';
 			E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
-			E.db.datatexts.panels.RightChatDataPanel.right = '';
+			E.db.datatexts.panels.RightChatDataPanel.right = 'Talent/Loot Specialization';
 			E.db.datatexts.panels.DP_5.right = '';
 		elseif layout == 'dpsCaster' then
 			E.db.datatexts.panels.DP_6.left = 'Spell/Heal Power';
@@ -916,7 +927,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 			E.db.datatexts.panels.DP_6.right = 'Crit Chance';
 			E.db.datatexts.panels.RightChatDataPanel.left = 'Hit Rating';
 			E.db.datatexts.panels.RightChatDataPanel.middle = 'Mastery';
-			E.db.datatexts.panels.RightChatDataPanel.right = '';
+			E.db.datatexts.panels.RightChatDataPanel.right = 'Talent/Loot Specialization';
 			E.db.datatexts.panels.DP_5.right = '';
 		else
 			E.db.datatexts.panels.DP_6.left = 'Attack Power';
