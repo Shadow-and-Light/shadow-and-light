@@ -825,8 +825,6 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 
 	E.db.nameplate.targetIndicator.height = 35
 	E.db.nameplate.targetIndicator.width = 35
-	
-	
 
 	--Auras--
 	E.db.auras.font = "ElvUI Font"
@@ -845,6 +843,10 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.auras.consolidatedBuffs.font = "ElvUI Font"
 	E.db.auras.consolidatedBuffs.filter = false
 
+	--Tooltip--
+	E.db.tooltip.healthBar.font = "ElvUI Font"
+	E.db.tooltip.talentInfo = true
+	
 	--Chat--
 	E.db.chat.editboxhistory = 10
 	E.db.chat.emotionIcons = false
@@ -854,6 +856,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.chat.timeStampFormat = "%H:%M:%S "
 	E.db.chat.whisperSound = "Whisper Alert"
 	E.db.chat.fontOutline = "OUTLINE"
+	E.db.chat.tabFont = "ElvUI Font"
 	E.db.chat.tabFontOutline = "OUTLINE"
 
 	--Datatexts--
@@ -1451,8 +1454,8 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.movers.MinimapMover = "TOPRIGHTElvUIParentTOPRIGHT2-19"
 		E.db.movers.UIBFrameMover = "TOPRIGHTElvUIParentTOPRIGHT-1-199"
 		E.db.movers.WatchFrameMover = "TOPRIGHTElvUIParentTOPRIGHT-47-198"
-		E.db.movers.BossHeaderMover = "TOPLEFTElvUIParentTOPLEFT0-290"
-		E.db.movers.ArenaHeaderMover = "TOPLEFTElvUIParentTOPLEFT0-290"
+		E.db.movers.BossHeaderMover = "TOPLEFTElvUIParentTOPLEFT0-280"
+		E.db.movers.ArenaHeaderMover = "TOPLEFTElvUIParentTOPLEFT0-280"
 		E.db.movers.PetBattleABMover = "BOTTOMElvUIParentBOTTOM019"
 		E.db.movers.ShiftAB = "BOTTOMElvUIParentBOTTOM-16168"
 		E.db.movers.ExperienceBarMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-42419"
