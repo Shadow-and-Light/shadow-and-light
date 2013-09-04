@@ -861,6 +861,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 
 	--Datatexts--
 	do
+		E.db.datatexts.font = "ElvUI Font"
 		E.db.datatexts.fontSize = 10
 		E.db.datatexts.time24 = true
 		E.db.sle.lfrshow.enabled = true
