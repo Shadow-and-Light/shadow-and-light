@@ -29,8 +29,9 @@ function TT:AnchorFrameToMouse(frame)
 	--if (E.db.tooltip.onlyMod and not (IsShiftKeyDown() or IsControlKeyDown() or IsAltKeyDown())) then return end
 	local x, y = GetCursorPosition();
 	local scale = frame:GetEffectiveScale();
+	local tipWidth = frame:GetWidth();
 	frame:ClearAllPoints();
-	frame:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", (x/scale + E.db.tooltip.mouseOffsetX), (y/scale + E.db.tooltip.mouseOffsetY));
+	frame:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", (x/scale + (E.db.tooltip.mouseOffsetX - tipWidth/2)), (y/scale + E.db.tooltip.mouseOffsetY));
 end
 
 function TT:AddonName_OnUpdate(self, elapsed)
