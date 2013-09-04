@@ -768,28 +768,34 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	end
 
 	--General options--
-	E.db.general.stickyFrames = false
-	E.db.general.autoRepair = "PLAYER"
-	E.db.general.vendorGrays = true
-	E.db.general.fontsize = 10
+	E.db.general.stickyFrames = false 
+	E.db.general.autoRepair = "PLAYER" 
+	E.db.general.vendorGrays = true 
+	E.db.general.fontsize = 10 
+	E.db.general.bottomPanel = false 
+	E.db.general.topPanel = false --double check later
+	E.db.general.hideErrorFrame = false 
+	
 	E.db.general.minimap.locationText = 'HIDE'
+	
 	E.db.general.experience.orientation = "VERTICAL"
 	E.db.general.experience.width = 10
 	E.db.general.experience.height = 185
+	
 	E.db.general.reputation.orientation = "VERTICAL"
 	E.db.general.reputation.width = 10
 	E.db.general.reputation.height = 185
+	
 	E.db.general.threat.enable = false
+	
 	if layout == "healer" then
 		E.db.general.totems.growthDirection = 'HORIZONTAL'
 		E.db.general.totems.size = 24
 	else
 		E.db.general.totems.size = 25
 	end
+	
 	E.db.general.totems.spacing = 2
-	E.db.general.bottomPanel = false
-	E.db.general.topPanel = false
-	E.db.general.hideErrorFrame = false
 
 	--Bags--
 	E.db.bags.bagSize = 26
@@ -825,9 +831,15 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	--Auras--
 	E.db.auras.font = "ElvUI Font"
 	E.db.auras.fontOutline = "OUTLINE"
-	E.db.auras.wrapAfter = 15
 	E.db.sle.castername = true
-	E.db.auras.fadeThreshold = 3
+	E.db.auras.fadeThreshold = 5
+	
+	E.db.auras.buffs.wrapAfter = 15
+	E.db.auras.buffs.size = 26
+	
+	E.db.auras.debuffs.wrapAfter = 15
+	E.db.auras.buffs.size = 26
+	
 	E.db.auras.consolidatedBuffs.fontSize = 9
 	E.db.auras.consolidatedBuffs.fontOutline = "OUTLINE"
 	E.db.auras.consolidatedBuffs.font = "ElvUI Font"
