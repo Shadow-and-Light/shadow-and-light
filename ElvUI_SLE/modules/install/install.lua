@@ -815,6 +815,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.nameplate.auras.font = "ElvUI Font"
 	E.db.nameplate.auras.fontOutline = "OUTLINE"
 	E.db.nameplate.auras.numAuras = 6
+	E.db.nameplate.auras.stretchTexture = false
 
 	E.db.nameplate.raidHealIcon.attachTo = "TOP"
 	E.db.nameplate.raidHealIcon.size = 24
@@ -825,6 +826,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 
 	E.db.nameplate.targetIndicator.height = 35
 	E.db.nameplate.targetIndicator.width = 35
+	E.db.nameplate.targetIndicator.style = "arrow"
 
 	--Auras--
 	E.db.auras.font = "ElvUI Font"
