@@ -3,6 +3,7 @@ v1.67
 - Developer backend updates/additions
 - Removed DBM Font Size option (ElvUI AddonSkins has it now)
 - Added mail datatext
+- Fixed a bug with quest items usable from watch frame
 
 v1.66 June 3, 2013
 - Added ilvl to heirlooms
