@@ -760,7 +760,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	if not E.db.movers then E.db.movers = {}; end
 	if not E.db.loclite then E.db.loclite = {} end
 
-	layout = E.db.layoutSet --To know if some sort of layout was choosed before
+	local layout = E.db.layoutSet --To know if some sort of layout was choosed before
 
 	if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 		E.db.hideTutorial = 1
