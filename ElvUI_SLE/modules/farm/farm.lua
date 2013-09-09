@@ -317,7 +317,11 @@ function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 			button:Hide()
 		end
 		if E.db.sle.farm.quest then
-			if not F:CanSeed() then return end
+			if not F:CanSeed() then
+				seedBar:Width(size+2)
+				seedBar:Height(size+2)
+				return count 
+			end
 			if F:QuestItems(id) then
 				ActionButton_ShowOverlayGlow(button)
 			else
