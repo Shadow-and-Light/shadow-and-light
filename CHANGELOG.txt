@@ -1,4 +1,4 @@
-v1.67
+v1.67 September 10, 2013
 - GameTooltip offset option added if ElvUI Tooltip anchor is set to cursor
 - Developer backend updates/additions
 - Removed DBM Font Size option (ElvUI AddonSkins has it now)
