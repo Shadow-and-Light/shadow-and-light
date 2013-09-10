@@ -144,6 +144,8 @@ L["Hide Guild Name"] = true
 L["Hide the guild's name in the tooltip."] = true
 L["Hide In Combat"] = true
 L["Will not show the tooltip while in combat."] = true
+L["World Loot"] = true
+L["Show/Hide the status of Key to the Palace of Lei Shen and Trove of the Thunder King."] = true
 
 --Exp/Rep Bar--
 L["Xp-Rep Text"] = true

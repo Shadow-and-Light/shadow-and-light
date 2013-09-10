@@ -180,6 +180,7 @@ P['sle'] = {
 		['hof'] = false,
 		['toes'] = false,
 		['tot'] = false,
+		['leishen'] = false,
 	},
 
 	--Minimap Module

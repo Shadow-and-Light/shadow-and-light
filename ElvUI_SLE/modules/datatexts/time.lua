@@ -160,7 +160,7 @@ local function OnEnter(self)
 	DT.tooltip:AddDoubleLine(L['Oondasta']..':', Oondasta and "\124cffff0000"..L['Defeated'].."\124r" or "\124cff00ff00"..L['Undefeated'].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
 	DT.tooltip:AddDoubleLine(L['Nalak']..':', Nalak and "\124cffff0000"..L['Defeated'].."\124r" or "\124cff00ff00"..L['Undefeated'].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
 
-	if level == 90 then
+	if level == 90 and E.db.sle.lfrshow.leishen then
 		DT.tooltip:AddDoubleLine(L["Key to the Palace of Lei Shen:"], LeiShenKey and "\124cffff0000"..L["Looted"].."\124r" or "\124cff00ff00"..L["Not looted"].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
 		DT.tooltip:AddDoubleLine(L["Trove of the Thunder King:"], Trove and "\124cffff0000"..L["Looted"].."\124r" or "\124cff00ff00"..L["Not looted"].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
 	end

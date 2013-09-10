@@ -144,6 +144,8 @@ L["Hide Guild Name"] = "Скрыть название гильдии"
 L["Hide the guild's name in the tooltip."] = "Скрывает название гильдии на подсказке."
 L["Hide In Combat"] = "Скрывать в бою"
 L["Will not show the tooltip while in combat."] = "Не отображать подсказки инфо-текста в бою."
+L["World Loot"] = "Мировая добыча"
+L["Show/Hide the status of Key to the Palace of Lei Shen and Trove of the Thunder King."] = "Показать/скрыть статус Ключа от дворца Лэй Шэня и Сокровищ Властелина Грома."
 
 --Exp/Rep Bar--
 L["Xp-Rep Text"] = "Текст Опыта/Репутации"
