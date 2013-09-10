@@ -1504,46 +1504,86 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	InstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
 
-	layout = E.db.layoutSet  --Pull which layout was selected if any.
+	local layout = E.db.layoutSet  --Pull which layout was selected if any.
 	pixel = E.PixelMode  --Pull PixelMode
 
-	E.db.general.autoAcceptInvite = true
-	E.db.general.autoRepair = "GUILD"
-	E.db.general.bottomPanel = false
-	E.db.general.topPanel = false
-	E.db.general.interruptAnnounce = "RAID"
-	E.db.general.backdropfadecolor = {["r"] = 0.054,["g"] = 0.054,["b"] = 0.054,}
-	E.db.general.valuecolor = {["r"] = 0.09,["g"] = 0.513,["b"] = 0.819,}
-	E.db.general.bordercolor = {["r"] = 0.31,["g"] = 0.31,["b"] = 0.31,}
-	E.db.general.health = {}
-	E.db.general.BUFFS = {}
-	E.db.general.vendorGrays = true
-	E.db.general.autoRoll = true
-	E.db.general.threat.position = "LEFTCHAT"
+	E.db.hideTutorial = 1 --5.4
 
-	E.private.general.pixelPerfect = true
-	E.private.general.normTex = "Polished Wood"
-	E.private.general.glossTex = "Polished Wood"
-	E.private.skins.addons.EmbedSkada = true
-	E.private.skins.addons.AlwaysTrue = true
-	E.private.sle.exprep.autotrack = true
-	E.private.sle.farm.enable = true
-	E.private.sle.characterframeoptions.enable = true
+	E.db.general.autoAcceptInvite = true --5.4
+--	E.db.general.autoRepair = "GUILD"
+	E.db.general.autoRoll = false --5.4
+--	E.db.general.backdropfadecolor = {["r"] = 0.054,["g"] = 0.054,["b"] = 0.054,}
+	E.db.general.bordercolor = {["r"] = 0.31,["g"] = 0.31,["b"] = 0.31,} --5.4
+	E.db.general.bottomPanel = true --5.4
+	E.db.general.experience.height = 180 --5.4
+	E.db.general.experience.width = 10 --5.4
+	E.db.general.interruptAnnounce = "RAID" --5.4
+	E.db.general.minimap.locationText = "SHOW" --5.4
+--	E.db.general.health = {}
+--	E.db.general.BUFFS = {}
+	E.db.general.reputation.height = 180 --5.4
+	E.db.general.reputation.orientation = "VERTICAL" --5.4
+	E.db.general.reputation.width = 10 --5.4
+--	E.db.general.threat.position = "LEFTCHAT"
+	E.db.general.topPanel = true --5.4
+	E.db.general.valuecolor = {["r"] = 0.09,["g"] = 0.513,["b"] = 0.819,} --5.4
+	E.db.general.vendorGrays = true --5.4
 
-	E.db.gridSize = 110
-	E.db.hideTutorial = 1
-	E.db.tooltip.style = "inset"
+	--SLE Configs
+	E.private.sle.characterframeoptions.enable = true --5.4
+	E.private.sle.exprep.autotrack = true --5.4
+	E.private.sle.farm.enable = true --5.4
+	E.db.sle.characterframeoptions.itemdurability.font = "ElvUI Font" --5.4
+	E.db.sle.characterframeoptions.itemdurability.fontSize = 12 --5.4
+	E.db.sle.characterframeoptions.itemdurability.fontOutline = "OUTLINE" --5.4
+	E.db.sle.characterframeoptions.itemlevel.font = "ElvUI Alt-Font" --5.4
+	E.db.sle.characterframeoptions.itemlevel.fontOutline = "THICKOUTLINE" --5.4
+	E.db.sle.characterframeoptions.itemlevel.fontSize = 12 --5.4
+	E.db.sle.datatext.bottom.enabled = false --5.4
+	E.db.sle.datatext.chatleft.width = 396 --5.4
+	E.db.sle.datatext.chatright.width = 396 --5.4
+	E.db.sle.datatext.dp1.enabled = false --5.4
+	E.db.sle.datatext.dp2.enabled = false --5.4
+	E.db.sle.datatext.dp3.enabled = false --5.4
+	E.db.sle.datatext.dp4.enabled = false --5.4
+	E.db.sle.datatext.dp5.enabled = false --5.4
+	E.db.sle.datatext.dp6.enabled = false --5.4
+	E.db.sle.datatext.top.enabled = false --5.4
+	E.db.sle.dt.friends.hide_hintline = true --5.4
+	E.db.sle.dt.friends.sortBN = "REALID" --5.4
+	E.db.sle.dt.guild.hide_hintline = true --5.4
+	E.db.sle.dt.guild.sortGuild = "revRANKINDEX" --5.4
+	E.db.sle.farm.autotarget = true --5.4
+	E.db.sle.minimap.enable = true --5.4
+	E.db.sle.minimap.buttons.anchor = "HORIZONTAL" --5.4
+	E.db.sle.minimap.coords.middle = "CENTER" --5.4
+	E.db.sle.uibuttons.enable = true --5.4
+	E.db.sle.uibuttons.position = "uib_hor" --5.4
+	E.db.sle.uibuttons.size = 17 --5.4
+
+	E.private.general.pixelPerfect = true --5.4
+	E.private.general.normTex = "Minimalist" --5.4
+	E.private.general.glossTex = "Minimalist" --5.4
+	
+	--Addon Skins
+	E.private.addonskins.EmbedSkada = true --5.4
+	E.private.addonskins.EmbedalDamageMeter = false --5.4
+	E.private.addonskins.EmbedSystemDual = true --5.4
+
+
+--	E.db.gridSize = 110
+--	E.db.tooltip.style = "inset"
 
 	--Chat
-	E.db.chat.editBoxPosition = "ABOVE_CHAT"
-	E.db.chat.emotionIcons = true
-	E.db.chat.panelTabTransparency = true
-	E.db.chat.hyperlinkHover = false
-	if GetScreenWidth() < 1920 then
+	E.db.chat.editBoxPosition = "ABOVE_CHAT" --5.4
+	E.db.chat.hyperlinkHover = false --5.4
+	E.db.chat.panelTabTransparency = true --5.4
+	if GetScreenWidth() < 1920 then --5.4
 		E.db.chat.panelWidth = 380
 	else
 		E.db.chat.panelWidth = 412
 	end
+	E.db.chat.timeStampFormat = "%I:%M %p " --5.4
 
 	--Unitframes
 	E.db.unitframe.smartRaidFilter = true
@@ -1926,67 +1966,37 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 
 	--Datatext
 	do
-		E.db.datatexts.panelTransparency = true
-		E.db.datatexts.minimapPanels = true
-		E.db.datatexts.fontOutline = "None"
-		E.db.sle.datatext.dp1.enabled = false
-		E.db.sle.datatext.dp2.enabled = false
-		E.db.sle.datatext.dp3.enabled = false
-		E.db.sle.datatext.dp4.enabled = false
-		E.db.sle.datatext.dp5.enabled = true
-		E.db.sle.datatext.dp5.transparent = true
-		E.db.sle.datatext.dp6.enabled = true
-		E.db.sle.datatext.dp6.transparent = true
-		E.db.sle.datatext.top.enabled = true
-		E.db.sle.datatext.bottom.enabled = true
-		E.db.sle.datatext.bottom.transparent = true
-		E.db.sle.datatext.dp5.width = 412
-		E.db.sle.datatext.dp6.width = 412
-		E.db.sle.datatext.bottom.width = 274
-		E.db.sle.datatext.top.width = 204
-		E.db.sle.datatext.chatleft.width = 396
-		E.db.sle.datatext.chatright.width = 396
-
-		E.db.datatexts.panels['LeftChatDataPanel']['left'] = ""
-		E.db.datatexts.panels['LeftChatDataPanel']['middle'] = ""
-		E.db.datatexts.panels['LeftChatDataPanel']['right'] = ""
-		E.db.datatexts.panels['RightChatDataPanel']['left'] = "Gold"
-		E.db.datatexts.panels['RightChatDataPanel']['middle'] = "Bags"
-		E.db.datatexts.panels['RightChatDataPanel']['right'] = "Time"
-		E.db.datatexts.panels['Top_Center'] = "Version"
-		E.db.datatexts.panels['Bottom_Panel'] = "Combat Time"
-		E.db.datatexts.panels['LeftMiniPanel'] = "S&L Friends"
-		E.db.datatexts.panels['RightMiniPanel'] = "S&L Guild"
+		E.db.datatexts.panelTransparency = false --5.4
+		E.db.datatexts.minimapPanels = true --5.4
+		E.db.datatexts.fontOutline = "None" --5.4
+		E.db.datatexts.panels['LeftChatDataPanel']['left'] = "" --5.4
+		E.db.datatexts.panels['LeftChatDataPanel']['middle'] = "Durability" --5.4
+		E.db.datatexts.panels['LeftChatDataPanel']['right'] = "" --5.4
+		E.db.datatexts.panels['RightChatDataPanel']['left'] = "Gold" --5.4
+		E.db.datatexts.panels['RightChatDataPanel']['middle'] = "System" --5.4
+		E.db.datatexts.panels['RightChatDataPanel']['right'] = "Time" --5.4
+		E.db.datatexts.panels['Top_Center'] = "Version" --5.4
+		E.db.datatexts.panels['LeftMiniPanel'] = "S&L Friends" --5.4
+		E.db.datatexts.panels['RightMiniPanel'] = "S&L Guild" --5.4
 
 		--Datatext Panels Spec Specific
 		if layout == 'tank' then
-			--E.db.datatexts.panels.DP_5.middle = ""
-			--E.db.datatexts.panels.DP_5.right = ""
-			--E.db.datatexts.panels.DP_6.left = ""
-			--E.db.datatexts.panels.DP_6.middle = ""
+			E.db.datatexts.panels['LeftChatDataPanel']['left'] = "Avoidance" --5.4
+			E.db.datatexts.panels['LeftChatDataPanel']['right'] = "Vengeance" --5.4
 		elseif layout == 'healer' then
-			E.db.datatexts.panels['LeftChatDataPanel']['left'] = "Spell/Heal Power"
-			E.db.datatexts.panels['LeftChatDataPanel']['middle'] = "Durability"
-			E.db.datatexts.panels['LeftChatDataPanel']['right'] = "Haste"
+			E.db.datatexts.panels['LeftChatDataPanel']['left'] = "Spell/Heal Power" --5.4
+			E.db.datatexts.panels['LeftChatDataPanel']['right'] = "Haste" --5.4
 		elseif layout == 'dpsCaster' then
-			E.db.datatexts.panels['LeftChatDataPanel']['left'] = "Spell/Heal Power"
-			E.db.datatexts.panels['LeftChatDataPanel']['middle'] = "Durability"
-			E.db.datatexts.panels['LeftChatDataPanel']['right'] = "Haste"
-		else
-			--E.db.datatexts.panels.DP_5.middle = ""
-			--E.db.datatexts.panels.DP_5.right = ""
-			--E.db.datatexts.panels.DP_6.left = ""
-			--E.db.datatexts.panels.DP_6.middle = ""
+			E.db.datatexts.panels['LeftChatDataPanel']['left'] = "Spell/Heal Power" --5.4
+			E.db.datatexts.panels['LeftChatDataPanel']['right'] = "Haste" --5.4
 		end
 	end
-	do
 
+	do
 		E.db.movers.ArenaHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-210-410"
 		E.db.movers.BossButton = "BOTTOMElvUIParentBOTTOM-315300"
 		E.db.movers.BossHeaderMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-210435"
 		E.db.movers.Bottom_Panel_Mover = "BOTTOMElvUIParentBOTTOM00"
-		E.db.movers.DP_5_Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4120"
-		E.db.movers.DP_6_Mover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-4120"--need to adjust via bottom/bottom
 		E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-20782"
 		E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM-20758"
 		E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM20782"
@@ -2027,21 +2037,6 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 			E.db.movers.ElvUF_Raid40Mover = "BOTTOMElvUIParentBOTTOM0121"
 		end
 	end
-
-	E.db.sle.characterframeoptions.itemdurability.font = "Nimrod MT"
-	E.db.sle.characterframeoptions.itemdurability.fontSize = 10
-	E.db.sle.characterframeoptions.itemdurability.fontOutline = "THICKOUTLINE"
-	E.db.sle.characterframeoptions.itemlevel.font = "ElvUI Combat"
-	E.db.sle.characterframeoptions.itemlevel.fontOutline = "THICKOUTLINE"
-	E.db.sle.minimap.enable = true
-	E.db.sle.lfrshow.enabled = true
-	E.db.sle.lfrshow.toes = true
-	E.db.sle.lfrshow.tot = true
-	E.db.sle.lfrshow.hof = true
-	E.db.sle.lfrshow.mv = true
-	E.db.sle.uibuttons.enable = true
-	E.db.sle.uibuttons.size = 16
-	E.db.sle.uibuttons.position = "uib_hor"
 
 	E:UpdateAll(true)
 end
