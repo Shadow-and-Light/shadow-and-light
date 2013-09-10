@@ -4,6 +4,7 @@ v1.67
 - Removed DBM Font Size option (ElvUI AddonSkins has it now)
 - Added mail datatext
 - Fixed a bug with quest items usable from watch frame
+- Status for Key to the Palace of Lei Shen and Trove of the Thunder King can now be hidden from time datatext tooltip. Hidden by default.
 
 v1.66 June 3, 2013
 - Added ilvl to heirlooms
