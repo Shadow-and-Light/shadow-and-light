@@ -1405,11 +1405,11 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.private.sle.characterframeoptions.enable = true
 	
 	E.private.skins.addons.DBMSkinHalf = true
-	E.private.skins.addons.EmbedSkada = true
-	E.private.skins.addons.EmbedBelowTop = true
-	E.private.skins.addons.EmbedalDamageMeter = false
+	E.private.addonskins.EmbedSkada = true
+	E.private.addonskins.EmbedBelowTop = true
+	E.private.addonskins.EmbedalDamageMeter = false
 	E.private.skins.addons.DBMFontSize = 10
-	E.private.skins.addons.EmbedSystemDual = true
+	E.private.addonskins.EmbedSystemDual = true
 	E.private.skins.addons.DBMFont = "ElvUI Font"
 	
 	E.private.general.normTex = "Polished Wood"
