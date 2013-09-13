@@ -7,17 +7,21 @@ local Message = ''
 
 function E:sleCommand(flag, channel, target, output, text, wtarget)
 	if not SLE:CheckFlag(nil, 'SLEAUTHOR') then
-		SLE:Print('You need to be authorized to use this command.')
+		SLE:Print('|cffFF0000Access Denied|r: You need to be authorized to use this command.')
 		return
 	end
 	if target == (nil or "")then
-		SLE:Print('You need to set a unit to execute command.')
+		SLE:Print('|cffFF0000Error|r: You need to set a unit to execute command.')
+		return
+	end
+	if text == (nil or "") then
+		SLE:Print('|cffFF0000Error|r: You need to actually send something in your message.')
 		return
 	end
 	Message = target
 	if flag == 'SLE_DEV_SAYS' then
 		if output == 'WHISPER' and (wtarget == (nil or "")) then
-			SLE:Print('You need to set a whisper target.')
+			SLE:Print('|cffFF0000Error|r: You need to set a whisper target.')
 			return
 		end
 		Message = Message.."#"..output.."#"..text
@@ -28,7 +32,7 @@ function E:sleCommand(flag, channel, target, output, text, wtarget)
 		Message = Message.."#"..text
 	end
 	SendAddonMessage(flag, Message, channel, target)
-	SLE:Print('Command executed.')
+	SLE:Print('|cff00FF00Success|r:  Command executed.')
 end
 
 
