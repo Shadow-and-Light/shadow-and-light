@@ -8,10 +8,10 @@ if SLE:CheckFlag(nil, 'SLEAUTHOR') then
 	local highestVersion = tonumber(SLE.version)
 	local flag = 'SLE_DEV_SAYS'
 	local addonChannel = 'GUILD'
-	local addonTarget = nil
+	local addonTarget = ""
 	local output = 'SAY'
 	local text = ''
-	local wtarget = nil
+	local wtarget = ""
 	
 
 	RegisterAddonMessagePrefix('SLE_DEV_INFO')

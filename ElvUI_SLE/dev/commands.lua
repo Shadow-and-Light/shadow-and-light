@@ -3,31 +3,20 @@ local SLE = E:GetModule('SLE');
 local find = string.find
 local split = string.split
 
---local channel = 'GUILD'
---local target = nil;
 local Message = ''
---[[function E:sleChannel(chnl)
-	channel = chnl
-	SLE:Print(format('Developer channel has been changed to %s.', chnl))
-end
-
-function E:sleTarget(tgt)
-	target = tgt
-	SLE:Print(format('Developer target has been changed to %s.', tgt))
-end]]
 
 function E:sleCommand(flag, channel, target, output, text, wtarget)
 	if not SLE:CheckFlag(nil, 'SLEAUTHOR') then
 		SLE:Print('You need to be authorized to use this command.')
 		return
 	end
-	if target == nil then
+	if target == (nil or "")then
 		SLE:Print('You need to set a unit to execute command.')
 		return
 	end
 	Message = target
 	if flag == 'SLE_DEV_SAYS' then
-		if output == 'WHISPER' and wtarget == nil then
+		if output == 'WHISPER' and (wtarget == (nil or "")) then
 			SLE:Print('You need to set a whisper target.')
 			return
 		end
@@ -42,35 +31,11 @@ function E:sleCommand(flag, channel, target, output, text, wtarget)
 	SLE:Print('Command executed.')
 end
 
---[[function E:sleSays(msg) -- /w Target /slesays {Target|ALL}#channel#message#whispertarget
-	if not SLE:CheckFlag(nil, 'SLEAUTHOR') then
-		SLE:Print('You need to be authorized to use this command.')
-		return
-	end
-	--if not SLE:Auth() then return end
-	if channel == 'WHISPER' and target == nil then
-		SLE:Print('You need to set a whisper target.')
-		return
-	end
-	SendAddonMessage('SLE_DEV_SAYS', msg, channel, target)
-end]]
-
---[[function E:sleCommand(msg) -- /w Target /slecmd {Target|ALL}#script
-	if not SLE:CheckFlag(nil, 'SLEAUTHOR') then return end
-	--if not SLE:Auth() then return end
-	if channel == 'WHISPER' and target == nil then
-		SLE:Print('You need to set a whisper target.')
-		return
-	end
-	SendAddonMessage('SLE_DEV_CMD', msg, channel, target)
-end]]
 
 local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if sender == E.myname then return end
 		if SLE:CheckFlag(nil, 'SLEAUTHOR') then return end
-		--if SLE:Auth() then return end
-		--if (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and (SLE:CrossAuth(sender) or SLE:Auth()) then
 		if (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and SLE:CheckFlag(sender, 'SLEAUTHOR') then
 			if prefix == 'SLE_DEV_SAYS' then
 				local user, channel, msg, sendTo = split("#", message)
