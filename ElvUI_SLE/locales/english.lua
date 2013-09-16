@@ -82,7 +82,7 @@ L["Set the font outline that the enchant notification will use."] = true
 --Character Frame--
 L["Enchanted"] = true
 L["Not Enchanted"] = true
-L["Cant Enchant"] = true
+L["Can't Enchant"] = true
 
 --Chat--
 L["Chat Options"] = true

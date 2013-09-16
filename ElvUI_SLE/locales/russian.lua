@@ -82,7 +82,7 @@ L["Set the font outline that the enchant notification will use."] = "Грани�
 --Character Frame--
 L["Enchanted"] = "Чары"
 L["Not Enchanted"] = "Нет чар"
-L["Cant Enchant"] = "Не зачаровывается"
+L["Can't Enchant"] = "Не зачаровывается"
 
 
 --Chat--

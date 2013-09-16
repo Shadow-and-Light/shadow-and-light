@@ -77,7 +77,7 @@ function CFO:UpdateItemEnchants()
 					frame.ItemEnchant:SetFormattedText("|cff00ff00%s|r", L["Enchanted"])
 				end
 			elseif canEnchant == false then
-					frame.ItemEnchant:SetFormattedText("|cff00ff00%s|r", L["Cant Enchant"])
+					frame.ItemEnchant:SetFormattedText("|cff00ff00%s|r", L["Can't Enchant"])
 			elseif canEnchant == nil then
 				frame.ItemEnchant:SetFormattedText("")
 			end
@@ -143,11 +143,13 @@ function CFO:LoadItemEnchants()
 		frame.ItemEnchant = frame:CreateFontString(nil, "OVERLAY")
 
 		if frame == CharacterHeadSlot or frame == CharacterNeckSlot or frame == CharacterShoulderSlot or frame == CharacterBackSlot or frame == CharacterChestSlot or frame == CharacterWristSlot or frame == CharacterShirtSlot or frame == CharacterTabardSlot then
-			frame.ItemEnchant:SetPoint("LEFT", frame, "RIGHT", 2, 7)
+			frame.ItemEnchant:SetPoint("LEFT", frame, "RIGHT", 8, 7)
 		elseif frame == CharacterHandsSlot or frame == CharacterWaistSlot or frame == CharacterLegsSlot or frame == CharacterFeetSlot or frame == CharacterFinger0Slot or frame == CharacterFinger1Slot or frame == CharacterTrinket0Slot or frame == CharacterTrinket1Slot then
-			frame.ItemEnchant:SetPoint("RIGHT", frame, "LEFT", -2, 7)
-		elseif frame == CharacterMainHandSlot or frame == CharacterSecondaryHandSlot or frame == CharacterRangedSlot then
-			frame.ItemEnchant:SetPoint("TOP", frame, "BOTTOM", 0, -3)
+			frame.ItemEnchant:SetPoint("RIGHT", frame, "LEFT", -5, 7)
+		elseif frame == CharacterMainHandSlot then
+			frame.ItemEnchant:SetPoint("TOPRIGHT", frame, "BOTTOMRIGHT", 5, -3)
+		elseif frame == CharacterSecondaryHandSlot then
+			frame.ItemEnchant:SetPoint("TOPLEFT", frame, "BOTTOMLEFT", -2, -3)
 		end		
 		frame.ItemEnchant:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemenchant.font), E.db.sle.characterframeoptions.itemenchant.fontSize, E.db.sle.characterframeoptions.itemenchant.fontOutline)
 		
