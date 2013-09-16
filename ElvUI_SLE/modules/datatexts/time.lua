@@ -146,24 +146,22 @@ local function OnEnter(self)
 		end
 	end	
 
-	local Sha = IsQuestFlaggedCompleted(32099)
-	local Galleon = IsQuestFlaggedCompleted(32098)
-	local Oondasta = IsQuestFlaggedCompleted(32519)
-	local Nalak = IsQuestFlaggedCompleted(32518)
+	local addedLine = false
+	for i = 1, GetNumSavedWorldBosses() do
+		name, instanceID, reset = GetSavedWorldBossInfo(i)
+		if(reset) then
+			if(not addedLine) then
+				DT.tooltip:AddLine(' ')
+				DT.tooltip:AddLine(RAID_INFO_WORLD_BOSS.."(s)")
+				addedLine = true
+			end
+			DT.tooltip:AddDoubleLine(name, SecondsToTime(reset, true, nil, 3), 1, 1, 1, 0.8, 0.8, 0.8)		
+		end
+	end
+	
 	local LeiShenKey = IsQuestFlaggedCompleted(32626)
 	local Trove = IsQuestFlaggedCompleted(32609)
-	local Celestials = IsQuestFlaggedCompleted(33117)
-	local Ordos = IsQuestFlaggedCompleted(33118)
 	
-	DT.tooltip:AddLine(" ")
-	DT.tooltip:AddLine(L["World Boss(s)"])	
-	DT.tooltip:AddDoubleLine(L['Sha of Anger']..':', Sha and "\124cffff0000"..L['Defeated'].."\124r" or "\124cff00ff00"..L['Undefeated'].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
-	DT.tooltip:AddDoubleLine(L['Galleon']..':', Galleon and "\124cffff0000"..L['Defeated'].."\124r" or "\124cff00ff00"..L['Undefeated'].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
-	DT.tooltip:AddDoubleLine(L['Oondasta']..':', Oondasta and "\124cffff0000"..L['Defeated'].."\124r" or "\124cff00ff00"..L['Undefeated'].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
-	DT.tooltip:AddDoubleLine(L['Nalak']..':', Nalak and "\124cffff0000"..L['Defeated'].."\124r" or "\124cff00ff00"..L['Undefeated'].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
-	DT.tooltip:AddDoubleLine(L['Celestials']..':', Celestials and "\124cffff0000"..L['Defeated'].."\124r" or "\124cff00ff00"..L['Undefeated'].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
-	DT.tooltip:AddDoubleLine(L['Ordos']..':', Ordos and "\124cffff0000"..L['Defeated'].."\124r" or "\124cff00ff00"..L['Undefeated'].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
-
 	if level == 90 and E.db.sle.lfrshow.leishen then
 		DT.tooltip:AddDoubleLine(L["Key to the Palace of Lei Shen:"], LeiShenKey and "\124cffff0000"..L["Looted"].."\124r" or "\124cff00ff00"..L["Not looted"].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
 		DT.tooltip:AddDoubleLine(L["Trove of the Thunder King:"], Trove and "\124cffff0000"..L["Looted"].."\124r" or "\124cff00ff00"..L["Not looted"].."\124r", 1, 1, 1, 0.8, 0.8, 0.8)
