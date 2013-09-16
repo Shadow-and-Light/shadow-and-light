@@ -19,14 +19,12 @@ local WOW_Heirlooms = {
 
 function CFO:UpdateItemLevel()
 	local frame = _G["CharacterFrame"]
-
-	if not frame:IsShown() then
-		return
-	end
+	if not frame:IsShown() then return end
 
 	for i = 1, #ilvlSlots do
 		frame = _G[("Character%s"):format(ilvlSlots[i])]
 		frame.ItemLevel:SetText()
+
 		local avgItemLevel, avgEquipItemLevel = GetAverageItemLevel()
 		local actualItemLevel, itemLink
 		itemLink = GetInventoryItemLink("player",GetInventorySlotInfo(ilvlSlots[i]))

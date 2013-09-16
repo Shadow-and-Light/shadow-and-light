@@ -2,5 +2,6 @@
 	<Script file='characterframe.lua'/>
 	<Script file='durability.lua'/>
 	<Script file='itemlevel.lua'/>
+	<Script file='itemmods.lua'/>
 	<Script file='options.lua'/>
 </Ui>
