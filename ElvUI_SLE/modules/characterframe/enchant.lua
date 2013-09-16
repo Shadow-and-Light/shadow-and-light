@@ -26,6 +26,8 @@ local frameDB = {
 }
 local PlayerProfession = {}
 
+local nameEnch = GetSpellInfo(110400)
+
 function CFO:UpdateItemEnchants()
 	local frame = _G["CharacterFrame"]
 	if not frame:IsShown() then return end
@@ -42,7 +44,7 @@ function CFO:UpdateItemEnchants()
 			if myslot == "Finger0Slot" or myslot == "Finger1Slot" then
 				local profNames = self:fetchProfs()
 				for k, v in pairs(profNames) do
-					if v == "Enchanting" then
+					if v == nameEnch then
 						canEnchant = true
 						isEnchanted = self:fetchChant(myslot)
 					end
