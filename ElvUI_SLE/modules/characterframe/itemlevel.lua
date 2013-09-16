@@ -111,15 +111,12 @@ function CFO:UpdateItemLevelFont()
 end
 
 function CFO:LoadItemLevel()
-	_G["CharacterFrame"]:HookScript("OnShow", function(self)
-		CFO:UpdateItemLevel()
-	end)
+	--_G["CharacterFrame"]:HookScript("OnShow", function(self)
+	--	CFO:UpdateItemLevel()
+	--end)
 
-	self:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", "UpdateItemLevel")
-	--self:RegisterEvent("SOCKET_INFO_UPDATE", "UpdateItemLevel")
-	--self:RegisterEvent("MASTERY_UPDATE", "UpdateItemLevel")
-	--self:RegisterEvent("COMBAT_RATING_UPDATE", "UpdateItemLevel")
-	self:RegisterEvent("ITEM_UPGRADE_MASTER_UPDATE", "UpdateItemLevel")
+	--self:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", "UpdateItemLevel")
+	--self:RegisterEvent("ITEM_UPGRADE_MASTER_UPDATE", "UpdateItemLevel")
 
 	local frame
 	for i = 1, #ilvlSlots do

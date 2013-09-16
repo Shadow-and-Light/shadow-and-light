@@ -39,11 +39,11 @@ function CFO:UpdateItemDurabilityFont()
 end
 
 function CFO:LoadDurability()
-	_G["CharacterFrame"]:HookScript("OnShow", function(self)
-		CFO:UpdateItemDurability()
-	end)
+	--_G["CharacterFrame"]:HookScript("OnShow", function(self)
+	--	CFO:UpdateItemDurability()
+	--end)
 
-	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY", "UpdateItemDurability")
+	--self:RegisterEvent("UPDATE_INVENTORY_DURABILITY", "UpdateItemDurability")
 
 	local frame
 	for i = 1, #durabilitySlots do

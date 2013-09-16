@@ -26,10 +26,10 @@ local frameDB = {
 }
 local PlayerProfession = {}
 
-function CFO:UpdateItemMods()
+function CFO:UpdateItemEnchants()
 	local frame = _G["CharacterFrame"]
 	if not frame:IsShown() then return end
-
+	--print("opened enchant")
 	for k, myslot in pairs(enchantSlot) do
 		--frame = _G[("Character%s"):format(enchantSlot[i])]
 		frame = frameDB[k]
@@ -37,8 +37,8 @@ function CFO:UpdateItemMods()
 
 		local canEnchant, isEnchanted
 		--slot = GetInventorySlotInfo(enchantSlot[i])
-
-		--if itemLink then
+		local itemLink = GetInventoryItemLink("player",GetInventorySlotInfo(myslot))
+		if itemLink then
 			if myslot == "Finger0Slot" or myslot == "Finger1Slot" then
 				local profNames = self:fetchProfs()
 				for k, v in pairs(profNames) do
@@ -80,12 +80,12 @@ function CFO:UpdateItemMods()
 				frame.ItemEnchant:SetFormattedText("")
 			end
 
-			if not E.db.sle.characterframeoptions.itemdurability.enable then
-			frame.ItemEnchant:Hide()
+			if not E.db.sle.characterframeoptions.itemenchant.enable then
+				frame.ItemEnchant:Hide()
 			else
-			frame.ItemEnchant:Show()
+				frame.ItemEnchant:Show()
 			end
-		--end
+		end
 	end
 end
 function CFO:fetchChant(slotName)
@@ -120,20 +120,20 @@ function CFO:fetchSubclass(slotName)
 		return(subclass)
 	end
 end
-function CFO:UpdateItemModsFont()
+function CFO:UpdateItemEnchantFont()
 	local frame
 	for i = 1, #enchantSlot do
 		frame = _G[("Character%s"):format(enchantSlot[i])]
-		frame.ItemEnchant:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemdurability.font), E.db.sle.characterframeoptions.itemdurability.fontSize, E.db.sle.characterframeoptions.itemdurability.fontOutline)
+		frame.ItemEnchant:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemenchant.font), E.db.sle.characterframeoptions.itemenchant.fontSize, E.db.sle.characterframeoptions.itemenchant.fontOutline)
 	end
 end
 
-function CFO:LoadItemMods()
-	_G["CharacterFrame"]:HookScript("OnShow", function(self)
-		CFO:UpdateItemMods()
-	end)
+function CFO:LoadItemEnchants()
+	--_G["CharacterFrame"]:HookScript("OnShow", function(self)
+		--CFO:UpdateItemMods()
+	--end)
 
-	self:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", "UpdateItemMods")
+	--self:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", "UpdateItemMods")
 
 	local frame
 	for i = 1, #enchantSlot do
@@ -147,7 +147,7 @@ function CFO:LoadItemMods()
 		elseif frame == CharacterMainHandSlot or frame == CharacterSecondaryHandSlot or frame == CharacterRangedSlot then
 			frame.ItemEnchant:SetPoint("TOP", frame, "BOTTOM", 0, -3)
 		end		
-		frame.ItemEnchant:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemdurability.font), E.db.sle.characterframeoptions.itemdurability.fontSize, E.db.sle.characterframeoptions.itemdurability.fontOutline)
+		frame.ItemEnchant:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemenchant.font), E.db.sle.characterframeoptions.itemenchant.fontSize, E.db.sle.characterframeoptions.itemenchant.fontOutline)
 		
 		--frame.EnchantWarning = CreateFrame('Button', nil, frame)
 		--frame.EnchantWarning:Size(12)

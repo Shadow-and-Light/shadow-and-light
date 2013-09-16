@@ -73,6 +73,12 @@ P['sle'] = {
 			["fontSize"] = 12,
 			["fontOutline"] = "OUTLINE",
 		},
+		['itemenchant'] = {
+			['enable'] = true,
+			["font"] = "ElvUI Font",
+			["fontSize"] = 12,
+			["fontOutline"] = "OUTLINE",
+		},
 	},
 
 	--Combat Icon
