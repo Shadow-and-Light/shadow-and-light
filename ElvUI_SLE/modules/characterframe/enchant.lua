@@ -71,13 +71,13 @@ function CFO:UpdateItemEnchants()
 			if canEnchant == true then
 				if isEnchanted == 0 then
 					--self.ItemEnchant:SetFormattedText("|cffff0000%s|r|cffff0000%s|r", "E", "G")
-					frame.ItemEnchant:SetFormattedText("|cffff0000%s|r", "Not Enchanted")
+					frame.ItemEnchant:SetFormattedText("|cffff0000%s|r", L["Not Enchanted"])
 				elseif isEnchanted > 0 then
 					--self.ItemEnchant:SetFormattedText("|cff00ff00%i|r|cffff0000%s|r", "E", "G")
-					frame.ItemEnchant:SetFormattedText("|cff00ff00%s|r", "Enchanted")
+					frame.ItemEnchant:SetFormattedText("|cff00ff00%s|r", L["Enchanted"])
 				end
 			elseif canEnchant == false then
-					frame.ItemEnchant:SetFormattedText("|cff00ff00%s|r", "Cant Enchant")
+					frame.ItemEnchant:SetFormattedText("|cff00ff00%s|r", L["Cant Enchant"])
 			elseif canEnchant == nil then
 				frame.ItemEnchant:SetFormattedText("")
 			end

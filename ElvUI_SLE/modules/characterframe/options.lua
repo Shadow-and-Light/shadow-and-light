@@ -174,7 +174,7 @@ E.Options.args.sle.args.characterframeoptions = {
 							type = "select", dialogControl = 'LSM30_Font',
 							order = 1,
 							name = L["Font"],
-							desc = L["The font that the item durability will use."],
+							desc = L["The font that the enchant notification will use."],
 							values = AceGUIWidgetLSMlists.font,	
 							get = function(info) return E.db.sle.characterframeoptions.itemenchant.font end,
 							set = function(info, value) E.db.sle.characterframeoptions.itemenchant.font = value; CFO:UpdateItemEnchantFont(); end,

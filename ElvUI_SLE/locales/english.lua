@@ -74,6 +74,15 @@ L["Set the font outline that the item level will use."] = true
 L["The font that the item durability will use."] = true
 L["Set the font size that the item durability will use."] = true
 L["Set the font outline that the item durability will use."] = true
+L["Enchanting Notification"] = true
+L["The font that the enchant notification will use."] = true
+L["Set the font size that the enchant notification will use."] = true
+L["Set the font outline that the enchant notification will use."] = true
+
+--Character Frame--
+L["Enchanted"] = true
+L["Not Enchanted"] = true
+L["Cant Enchant"] = true
 
 --Chat--
 L["Chat Options"] = true

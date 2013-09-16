@@ -74,6 +74,16 @@ L["Set the font outline that the item level will use."] = "Граница шри
 L["The font that the item durability will use."] = "Шрифт прочности предметов."
 L["Set the font size that the item durability will use."] = "Размер шрифта прочности предметов."
 L["Set the font outline that the item durability will use."] = "Граница шрифта прочности предметов."
+L["Enchanting Notification"] = "Оповещение о чарах"
+L["The font that the enchant notification will use."] = "Шрифт оповещения о чарах."
+L["Set the font size that the enchant notification will use."] = "Размер шрифта оповещения о чарах."
+L["Set the font outline that the enchant notification will use."] = "Граница шрифта оповещения о чарах"
+
+--Character Frame--
+L["Enchanted"] = "Чары"
+L["Not Enchanted"] = "Нет чар"
+L["Cant Enchant"] = "Не зачаровывается"
+
 
 --Chat--
 L["Chat Options"] = "Настройки чата"
