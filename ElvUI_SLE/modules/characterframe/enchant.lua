@@ -19,11 +19,6 @@ local isEnchantable = {
 	"LegsSlot",
 	"FeetSlot"
 }
-local frameDB = {
-	CharacterHeadSlot, CharacterNeckSlot, CharacterShoulderSlot, CharacterBackSlot, CharacterChestSlot, CharacterWristSlot,
-	CharacterMainHandSlot, CharacterSecondaryHandSlot, CharacterHandsSlot, CharacterWaistSlot,
-	CharacterLegsSlot, CharacterFeetSlot, CharacterFinger0Slot, CharacterFinger1Slot, CharacterTrinket0Slot, CharacterTrinket1Slot
-}
 local PlayerProfession = {}
 
 local nameEnch = GetSpellInfo(110400)
@@ -31,38 +26,36 @@ local nameEnch = GetSpellInfo(110400)
 function CFO:UpdateItemEnchants()
 	local frame = _G["CharacterFrame"]
 	if not frame:IsShown() then return end
-	--print("opened enchant")
-	for k, myslot in pairs(enchantSlot) do
-		--frame = _G[("Character%s"):format(enchantSlot[i])]
-		frame = frameDB[k]
+
+	for i = 1, #enchantSlot do
+		frame = _G[("Character%s"):format(enchantSlot[i])]
 		frame.ItemEnchant:SetText()
 
 		local canEnchant, isEnchanted
-		--slot = GetInventorySlotInfo(enchantSlot[i])
-		local itemLink = GetInventoryItemLink("player",GetInventorySlotInfo(myslot))
+		local itemLink = GetInventoryItemLink("player",GetInventorySlotInfo(enchantSlot[i]))
 		if itemLink then
-			if myslot == "Finger0Slot" or myslot == "Finger1Slot" then
+			if enchantSlot[i] == "Finger0Slot" or enchantSlot[i] == "Finger1Slot" then
 				local profNames = self:fetchProfs()
 				for k, v in pairs(profNames) do
 					if v == nameEnch then
 						canEnchant = true
-						isEnchanted = self:fetchChant(myslot)
+						isEnchanted = self:fetchChant(enchantSlot[i])
 					end
 				end
-			elseif myslot == "RangedSlot" then
-				local subClass = self:fetchSubclass(myslot)
+			elseif enchantSlot[i] == "RangedSlot" then
+				local subClass = self:fetchSubclass(enchantSlot[i])
 				if subClass == "Bows" or subClass == "Guns" or subClass == "Crossbows" then
 					canEnchant = true
-					isEnchanted = self:fetchChant(myslot)
+					isEnchanted = self:fetchChant(enchantSlot[i])
 				end
-			elseif myslot == "WristSlot" or myslot == "HandsSlot" then
+			elseif enchantSlot[i] == "WristSlot" or enchantSlot[i] == "HandsSlot" then
 				canEnchant = true
-				isEnchanted = self:fetchChant(myslot)
+				isEnchanted = self:fetchChant(enchantSlot[i])
 			else
 				for k ,v in pairs(isEnchantable) do
-					if v == myslot then
+					if v == enchantSlot[i] then
 						canEnchant = true
-						isEnchanted = self:fetchChant(myslot)
+						isEnchanted = self:fetchChant(enchantSlot[i])
 					end
 				end
 			end
@@ -70,14 +63,12 @@ function CFO:UpdateItemEnchants()
 			isEnchanted = tonumber(isEnchanted)
 			if canEnchant == true then
 				if isEnchanted == 0 then
-					--self.ItemEnchant:SetFormattedText("|cffff0000%s|r|cffff0000%s|r", "E", "G")
 					frame.ItemEnchant:SetFormattedText("|cffff0000%s|r", L["Not Enchanted"])
 				elseif isEnchanted > 0 then
-					--self.ItemEnchant:SetFormattedText("|cff00ff00%i|r|cffff0000%s|r", "E", "G")
 					frame.ItemEnchant:SetFormattedText("|cff00ff00%s|r", L["Enchanted"])
 				end
 			elseif canEnchant == false then
-					frame.ItemEnchant:SetFormattedText("|cff00ff00%s|r", L["Can't Enchant"])
+				frame.ItemEnchant:SetFormattedText("|cff00ff00%s|r", L["Can't Enchant"])
 			elseif canEnchant == nil then
 				frame.ItemEnchant:SetFormattedText("")
 			end
@@ -131,12 +122,6 @@ function CFO:UpdateItemEnchantFont()
 end
 
 function CFO:LoadItemEnchants()
-	--_G["CharacterFrame"]:HookScript("OnShow", function(self)
-		--CFO:UpdateItemMods()
-	--end)
-
-	--self:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", "UpdateItemMods")
-
 	local frame
 	for i = 1, #enchantSlot do
 		frame = _G[("Character%s"):format(enchantSlot[i])]
@@ -150,15 +135,7 @@ function CFO:LoadItemEnchants()
 			frame.ItemEnchant:SetPoint("TOPRIGHT", frame, "BOTTOMRIGHT", 5, -3)
 		elseif frame == CharacterSecondaryHandSlot then
 			frame.ItemEnchant:SetPoint("TOPLEFT", frame, "BOTTOMLEFT", -2, -3)
-		end		
+		end
 		frame.ItemEnchant:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemenchant.font), E.db.sle.characterframeoptions.itemenchant.fontSize, E.db.sle.characterframeoptions.itemenchant.fontOutline)
-		
-		--frame.EnchantWarning = CreateFrame('Button', nil, frame)
-		--frame.EnchantWarning:Size(12)
-		--frame.EnchantWarning.Texture = frame.EnchantWarning:CreateTexture(nil, 'OVERLAY')
-		--frame.EnchantWarning.Texture:SetInside()
-		--frame.EnchantWarning.Texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\Media\\Textures\\Warning-Small.tga')
-		--frame.EnchantWarning:Point("LEFT", frame.ItemEnchant, "RIGHT", 3, 0)
-		--frame.EnchantWarning:Hide()
 	end
 end
