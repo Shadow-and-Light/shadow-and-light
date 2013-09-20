@@ -1,4 +1,4 @@
-v1.69
+v1.69 September 20, 2013
 - Code catch up with ElvUI
 - Added warning to show if items are not enchanted (beta, please submit a ticket on curse or github with issues)
 
