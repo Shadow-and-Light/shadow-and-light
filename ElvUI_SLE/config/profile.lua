@@ -186,6 +186,8 @@ P['sle'] = {
 		['hof'] = false,
 		['toes'] = false,
 		['tot'] = false,
+		['soo'] = false,
+		['soof'] = false,
 		['leishen'] = false,
 	},
 
