@@ -146,7 +146,7 @@ function CH:CheckLFGRoles()
 			role = UnitGroupRolesAssigned(unit..i)
 			local name = GetUnitName(unit..i, true)
 			if(role and name) then
-				lfgRoles[name] = rolePaths[role]
+				lfgRoles[name] = role
 			end
 		end
 	end
