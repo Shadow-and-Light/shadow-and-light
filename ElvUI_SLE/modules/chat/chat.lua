@@ -18,10 +18,16 @@ CHAT_FLAG_SLEADAPTTANK = CHAT_FLAG_TANK..CHAT_FLAG_SLEADAPT
 CHAT_FLAG_SLEADAPTHEALER = CHAT_FLAG_HEALER..CHAT_FLAG_SLEADAPT
 CHAT_FLAG_SLEADAPTDAMAGER = CHAT_FLAG_DAMAGER..CHAT_FLAG_SLEADAPT
 --Authors
+--Repooc
 CHAT_FLAG_SLEAUTHOR = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo.tga:0:2|t"
 CHAT_FLAG_SLEAUTHORTANK = CHAT_FLAG_TANK..CHAT_FLAG_SLEAUTHOR
 CHAT_FLAG_SLEAUTHORHEALER = CHAT_FLAG_HEALER..CHAT_FLAG_SLEAUTHOR
 CHAT_FLAG_SLEAUTHORDAMAGER = CHAT_FLAG_DAMAGER..CHAT_FLAG_SLEAUTHOR
+--Darth
+CHAT_FLAG_SLEAUTHORD = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_LogoD.tga:0:2|t"
+CHAT_FLAG_SLEAUTHORDTANK = CHAT_FLAG_TANK..CHAT_FLAG_SLEAUTHORD
+CHAT_FLAG_SLEAUTHORDHEALER = CHAT_FLAG_HEALER..CHAT_FLAG_SLEAUTHORD
+CHAT_FLAG_SLEAUTHORDDAMAGER = CHAT_FLAG_DAMAGER..CHAT_FLAG_SLEAUTHORD
 --Roleplayers
 CHAT_FLAG_SLERPG = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_RPG:13:35|t"
 CHAT_FLAG_SLERPGTANK = CHAT_FLAG_TANK..CHAT_FLAG_SLERPG
@@ -50,17 +56,17 @@ local IconTable = {
 	},
 	["СвежевательДуш"] = {
 		--Darth's toons
-		["Дартпредатор"] = "SLEAUTHOR",
-		["Алея"] = "SLEAUTHOR",
-		["Ваззули"] = "SLEAUTHOR",
-		["Сиаранна"] = "SLEAUTHOR",
-		["Джатон"] = "SLEAUTHOR",
-		["Фикстер"] = "SLEAUTHOR",
-		["Киландра"] = "SLEAUTHOR",
-		["Нарджо"] = "SLEAUTHOR",
-		["Верзук"] = "SLEAUTHOR",
-		["Крениг"] = "SLEAUTHOR",
-		["Мейжи"] = "SLEAUTHOR",
+		["Дартпредатор"] = "SLEAUTHORD",
+		["Алея"] = "SLEAUTHORD",
+		["Ваззули"] = "SLEAUTHORD",
+		["Сиаранна"] = "SLEAUTHORD",
+		["Джатон"] = "SLEAUTHORD",
+		["Фикстер"] = "SLEAUTHORD",
+		["Киландра"] = "SLEAUTHORD",
+		["Нарджо"] = "SLEAUTHORD",
+		["Верзук"] = "SLEAUTHORD",
+		["Крениг"] = "SLEAUTHORD",
+		["Мейжи"] = "SLEAUTHORD",
 		["Большойгном"] = "SLETEST" --Testing toon
 	},
 	["ВечнаяПесня"] = {
