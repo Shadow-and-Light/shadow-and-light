@@ -54,8 +54,6 @@ function SLE:ChatPos()
 	end
 end
 
-
-
 E.UpdateAllSLE = E.UpdateAll
 function E:UpdateAll()
     E.UpdateAllSLE(self)
@@ -133,6 +131,22 @@ function SLE:BagSearch(itemId)
 			end
 		end
 	end
+end
+
+function SLE:ValueTable(table, item)
+	for i, _ in pairs(table) do
+		if i == item then return true end
+	end
+	return false
+end
+
+function SLE:SimpleTable(table, item)
+	for i = 1, #table do
+		if table[i] == item then  
+			return true 
+		end
+	end
+	return false
 end
 
 function SLE:Print(msg)
