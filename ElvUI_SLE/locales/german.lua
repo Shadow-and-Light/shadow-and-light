@@ -16,7 +16,7 @@ L["Show/hide triangles in corners of autocastable buttons."] = "Zeige/Verstecke 
 L["SLE_LOGIN_MSG"] = [=[Du benutzt |cff1784d1Schatten & Licht Edit|r v|cff1784d1%s%s|r für ElvUI.
 Möchtest du das Original ElvUI Addon benutzen, deaktiviere das Edit Plugin aus deinem Addon Manager.
 Habt einen schönen Tag.]=]
-L["Your version of ElvUI is older than recommended to use with Shadow & Light Edit. Please, download the latest version from tukui.org."] = "Deine Version von Elvui ist älter als die empfohlene zum benutzen mit Schatten & Licht Edit. Bitte, downloade die letzte Version von tukui.org."
+L["Your version of ElvUI is older than recommended to use with Shadow & Light. Please, download the latest version from tukui.org."] = "Deine Version von Elvui ist älter als die empfohlene zum benutzen mit Schatten & Licht. Bitte, downloade die letzte Version von tukui.org."
 L["Reset All"] = true
 L["Reset all Shadow & Light options and movers to their defaults"] = true
 L["Reset these options to defaults"] = true
