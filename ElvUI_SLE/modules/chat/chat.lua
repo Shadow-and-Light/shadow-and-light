@@ -175,7 +175,6 @@ function SLE:CheckFlag(sender, checkFlag)
 	return false
 end
 
-
 function CH:ChatEdit_AddHistory(editBox, line)
 	if line:find("/rl") then return; end
 
