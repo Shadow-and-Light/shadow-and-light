@@ -49,7 +49,7 @@ CHAT_FLAG_SLETESTDAMAGER = CHAT_FLAG_DAMAGER..CHAT_FLAG_SLETEST
 local IconTable = {
 	["Illidan"] = {
 		--Darth's toon
-		["Darthpred"] = "SLEAUTHOR",
+		["Darthpred"] = "SLEAUTHORD",
 		--Repooc's Toon
 		["Repøøc"] = "SLEAUTHOR",
 		["Repooc"] = "SLEAUTHOR"
@@ -67,7 +67,8 @@ local IconTable = {
 		["Верзук"] = "SLEAUTHORD",
 		["Крениг"] = "SLEAUTHORD",
 		["Мейжи"] = "SLEAUTHORD",
-		["Большойгном"] = "SLETEST" --Testing toon
+		["Большойгном"] = "SLETEST", --Testing toon
+		["Фергесон"] = "SLEFRIEND"
 	},
 	["ВечнаяПесня"] = {
 		--Darth's toons
@@ -95,10 +96,6 @@ local IconTable = {
 	},
 	["Азурегос"] = {
 		["Брэгари"] = "SLETEST"
-	},
-	["Термоштепсель"] = {
-		--Da tester lol
-		["Фергя"] = "SLETEST" 
 	},
 	["Korialstrasz"] = {
 		["Cursewordz"] = "SLEAUTHOR"
