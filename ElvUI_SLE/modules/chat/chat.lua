@@ -3,13 +3,42 @@ local CH = E:GetModule('Chat')
 local SLE = E:GetModule('SLE');
 local LSM = LibStub("LibSharedMedia-3.0")
 local CreatedFrames = 0;
+local lfgRoles = {};
 
---Textures for chat
+local tinsert, tremove, tsort, twipe, tconcat = table.insert, table.remove, table.sort, table.wipe, table.concat
+
+--Textures for chat--
+--Normal LFG textures
+CHAT_FLAG_TANK = "|TInterface\\AddOns\\ElvUI\\media\\textures\\tank.tga:15:15:0:0:64:64:2:56:2:56|t"
+CHAT_FLAG_HEALER = "|TInterface\\AddOns\\ElvUI\\media\\textures\\healer.tga:15:15:0:0:64:64:2:56:2:56|t"
+CHAT_FLAG_DAMAGER = "|TInterface\\AddOns\\ElvUI\\media\\textures\\dps.tga:15:15|t"
+--Adapt
 CHAT_FLAG_SLEADAPT = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\adapt.tga:0:2|t"
+CHAT_FLAG_SLEADAPTTANK = CHAT_FLAG_TANK..CHAT_FLAG_SLEADAPT
+CHAT_FLAG_SLEADAPTHEALER = CHAT_FLAG_HEALER..CHAT_FLAG_SLEADAPT
+CHAT_FLAG_SLEADAPTDAMAGER = CHAT_FLAG_DAMAGER..CHAT_FLAG_SLEADAPT
+--Authors
 CHAT_FLAG_SLEAUTHOR = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo.tga:0:2|t"
+CHAT_FLAG_SLEAUTHORTANK = CHAT_FLAG_TANK..CHAT_FLAG_SLEAUTHOR
+CHAT_FLAG_SLEAUTHORHEALER = CHAT_FLAG_HEALER..CHAT_FLAG_SLEAUTHOR
+CHAT_FLAG_SLEAUTHORDAMAGER = CHAT_FLAG_DAMAGER..CHAT_FLAG_SLEAUTHOR
+--Roleplayers
 CHAT_FLAG_SLERPG = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_RPG:13:35|t"
+CHAT_FLAG_SLERPGTANK = CHAT_FLAG_TANK..CHAT_FLAG_SLERPG
+CHAT_FLAG_SLERPGHEALER = CHAT_FLAG_HEALER..CHAT_FLAG_SLERPG
+CHAT_FLAG_SLERPGDAMAGER = CHAT_FLAG_DAMAGER..CHAT_FLAG_SLERPG
+--Friends
 CHAT_FLAG_SLEFRIEND = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Friend:13:13|t"
+CHAT_FLAG_SLEFRIENDTANK = CHAT_FLAG_TANK..CHAT_FLAG_SLEFRIEND
+CHAT_FLAG_SLEFRIENDHEALER = CHAT_FLAG_HEALER..CHAT_FLAG_SLEFRIEND
+CHAT_FLAG_SLEFRIENDDAMAGER = CHAT_FLAG_DAMAGER..CHAT_FLAG_SLEFRIEND
+--Testers
 CHAT_FLAG_SLETEST = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Test:13:13|t"
+CHAT_FLAG_SLETESTTANK = CHAT_FLAG_TANK..CHAT_FLAG_SLETEST
+CHAT_FLAG_SLETESTHEALER = CHAT_FLAG_HEALER..CHAT_FLAG_SLETEST
+CHAT_FLAG_SLETESTDAMAGER = CHAT_FLAG_DAMAGER..CHAT_FLAG_SLETEST
+
+
 --Toon table
 local IconTable = {
 	["Illidan"] = {
@@ -83,6 +112,30 @@ local IconTable = {
 	},
 }
 
+function CH:CheckLFGRoles()
+	local isInGroup, isInRaid = IsInGroup(), IsInRaid()
+	local unit = isInRaid and "raid" or "party"
+	
+	twipe(lfgRoles)
+	if(not isInGroup or not self.db.lfgIcons) then return end
+	local role = UnitGroupRolesAssigned("player")
+	if(role) then
+		lfgRoles[E.myname] = role
+	end
+	for i=1, GetNumGroupMembers() do
+		if(UnitExists(unit..i) and not UnitIsUnit(unit..i, "player")) then
+			role = UnitGroupRolesAssigned(unit..i)
+			local name, realm = UnitName(unit..i)
+			if(role) then
+				if(realm and realm ~= E.myrealm) then
+					lfgRoles[name.."-"..realm] = role
+				else
+					lfgRoles[name] = role
+				end
+			end
+		end
+	end
+end
 
 function SLE:CheckFlag(sender, checkFlag)
 	local senderName, senderRealm
@@ -107,53 +160,6 @@ function SLE:CheckFlag(sender, checkFlag)
 	return false
 end
 
---[[
-function SLE:Auth()
-	local myRealm = E.myrealm
-	local myName = E.myname
-	myRealm = myRealm:gsub(' ', '')
-	if IconTable[myRealm] then
-		for character, flag in pairs(IconTable[myRealm]) do
-			if character == myName and flag == "SLEAUTHOR" then
-				return true
-			end
-		end
-	end
-	return false
-end
-
-function SLE:CrossAuth(sender)
-	local myRealm = E.myrealm
-	local myName = E.myname
-	myRealm = myRealm:gsub(' ', '')
-	if IconTable[myRealm] then
-		for character, flag in pairs(IconTable[myRealm]) do
-			if sender == character and flag == "SLEAUTHOR" and sender ~= myName then
-				return true
-			end							
-		end
-				
-		for realm, _ in pairs(IconTable) do
-			if realm ~= myRealm then
-				for character, flag in pairs(IconTable[realm]) do
-					if sender == character.."-"..realm and flag == "SLEAUTHOR" then
-						return true
-					end			
-				end
-			end
-		end			
-	else
-		for realm, _ in pairs(IconTable) do
-			for character, flag in pairs(IconTable[realm]) do
-				if sender == character.."-"..realm and flag == "SLEAUTHOR" then
-					return true
-				end		
-			end
-		end		
-	end
-	return false
-end
-]]
 
 function CH:ChatEdit_AddHistory(editBox, line)
 	if line:find("/rl") then return; end
@@ -297,55 +303,27 @@ function CH:PositionChat(override)
 end
 local function SLEfilter(self, event, message, author, arg3, arg4, arg5, arg6, ...)
 	local returnTex = arg6
-	
+	local type = strsub(event, 10);
 	if(strlen(arg6) > 0) then
 	elseif SLE:CheckFlag(author) then
-		returnTex = SLE:CheckFlag(author)..arg6
+		if(returnTex == ""  and lfgRoles[author] and (type == "PARTY_LEADER" or type == "PARTY" or type == "RAID" or type == "RAID_LEADER" or type == "INSTANCE_CHAT" or type == "INSTANCE_CHAT_LEADER")) then
+			returnTex = SLE:CheckFlag(author)..lfgRoles[author]
+		else
+			returnTex = SLE:CheckFlag(author)
+		end
+	elseif not SLE:CheckFlag(author) then
+		if(returnTex == "" and lfgRoles[author] and (type == "PARTY_LEADER" or type == "PARTY" or type == "RAID" or type == "RAID_LEADER" or type == "INSTANCE_CHAT" or type == "INSTANCE_CHAT_LEADER")) then
+			returnTex = lfgRoles[author]
+		end
 	end
-	
+	if returnTex == nil then
+		returnTex = arg6
+	else
+		returnTex = returnTex..arg6
+	end
 	return false, message, author, arg3, arg4, arg5, returnTex, ...
 end
 
-
---Adding icons to specific toons' names
---Filter
---[[
-local function SLEfilter(self, event, message, author, arg3, arg4, arg5, arg6, ...)
-    local returnTex = arg6
-	local myRealm = E.myrealm
-	myRealm = myRealm:gsub(' ', '')
-	if(strlen(arg6) > 0) then
-	else
-		if IconTable[myRealm] then
-			for character, flag in pairs(IconTable[myRealm]) do
-				if author == character and flag then
-					returnTex = flag..arg6
-				end							
-			end
-					
-			for realm, _ in pairs(IconTable) do
-				if realm ~= myRealm then
-					for character, flag in pairs(IconTable[realm]) do
-						if author == character.."-"..realm and flag then
-							returnTex = flag..arg6
-						end			
-					end
-				end
-			end			
-		else
-			for realm, _ in pairs(IconTable) do
-				for character, flag in pairs(IconTable[realm]) do
-					if author == character.."-"..realm and flag then
-						returnTex = flag..arg6
-					end		
-				end
-			end		
-		end
-	end
-    
-    return false, message, author, arg3, arg4, arg5, returnTex, ...
-end
-]]
 --Applying filter
 ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", SLEfilter)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", SLEfilter)
