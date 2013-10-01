@@ -71,10 +71,17 @@ local IconTable = {
 	},
 	["ВечнаяПесня"] = {
 		--Darth's toons
-		["Киландра"] = "SLEAUTHOR",
-		["Равенор"] = "SLEAUTHOR",
-		["Налкас"] = "SLEAUTHOR",
-		["Ваззули"] = "SLEAUTHOR",
+		["Дартпредатор"] = "SLEAUTHORD",
+		["Алея"] = "SLEAUTHORD",
+		["Ваззули"] = "SLEAUTHORD",
+		["Сиаранна"] = "SLEAUTHORD",
+		["Джатон"] = "SLEAUTHORD",
+		["Фикстер"] = "SLEAUTHORD",
+		["Киландра"] = "SLEAUTHORD",
+		["Нарджо"] = "SLEAUTHORD",
+		["Верзук"] = "SLEAUTHORD",
+		["Крениг"] = "SLEAUTHORD",
+		["Мейжи"] = "SLEAUTHORD",
 		--Darth's friends
 		["Леани"] = "SLEFRIEND",
 		--Da tester lol
