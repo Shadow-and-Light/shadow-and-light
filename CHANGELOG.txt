@@ -1,3 +1,6 @@
+v1.71
+- Fix for people using S&L couldn't see LFG role icons in chat. Also fixed icons of people using S&L wasn't shown in original ElvUI.
+
 v1.70 September 27, 2013
 - Some SoO LFR DT Info
 
