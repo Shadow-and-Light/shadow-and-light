@@ -4,10 +4,19 @@ local SLE = E:GetModule('SLE');
 local LSM = LibStub("LibSharedMedia-3.0")
 local CreatedFrames = 0;
 local lfgRoles = {};
+local lfgChannels = {
+	"PARTY_LEADER",
+	"PARTY",
+	"RAID",
+	"RAID_LEADER",
+	"INSTANCE_CHAT",
+	"INSTANCE_CHAT_LEADER",
+}
 
 local tinsert, tremove, tsort, twipe, tconcat = table.insert, table.remove, table.sort, table.wipe, table.concat
 
 --Textures for chat--
+do
 --Normal LFG textures
 CHAT_FLAG_TANK = "|TInterface\\AddOns\\ElvUI\\media\\textures\\tank.tga:15:15:0:0:64:64:2:56:2:56|t"
 CHAT_FLAG_HEALER = "|TInterface\\AddOns\\ElvUI\\media\\textures\\healer.tga:15:15:0:0:64:64:2:56:2:56|t"
@@ -43,7 +52,7 @@ CHAT_FLAG_SLETEST = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Test:
 CHAT_FLAG_SLETESTTANK = CHAT_FLAG_TANK..CHAT_FLAG_SLETEST
 CHAT_FLAG_SLETESTHEALER = CHAT_FLAG_HEALER..CHAT_FLAG_SLETEST
 CHAT_FLAG_SLETESTDAMAGER = CHAT_FLAG_DAMAGER..CHAT_FLAG_SLETEST
-
+end
 
 --Toon table
 local IconTable = {
@@ -316,13 +325,13 @@ local function SLEfilter(self, event, message, author, arg3, arg4, arg5, arg6, .
 	local type = strsub(event, 10);
 	if(strlen(arg6) > 0) then
 	elseif SLE:CheckFlag(author) then
-		if(returnTex == ""  and lfgRoles[author] and (type == "PARTY_LEADER" or type == "PARTY" or type == "RAID" or type == "RAID_LEADER" or type == "INSTANCE_CHAT" or type == "INSTANCE_CHAT_LEADER")) then
+		if(returnTex == ""  and lfgRoles[author] and SLE:SimpleTable(lfgChannels, type)) then
 			returnTex = SLE:CheckFlag(author)..lfgRoles[author]
 		else
 			returnTex = SLE:CheckFlag(author)
 		end
 	elseif not SLE:CheckFlag(author) then
-		if(returnTex == "" and lfgRoles[author] and (type == "PARTY_LEADER" or type == "PARTY" or type == "RAID" or type == "RAID_LEADER" or type == "INSTANCE_CHAT" or type == "INSTANCE_CHAT_LEADER")) then
+		if(returnTex == "" and lfgRoles[author] and SLE:SimpleTable(lfgChannels, type)) then
 			returnTex = lfgRoles[author]
 		end
 	end
