@@ -1,3 +1,6 @@
+v1.72 October 2, 2013
+- More Chat Fixes to reflect what elv has done
+
 v1.71 October 1, 2013
 - Fix for people using S&L couldn't see LFG role icons in chat. Also fixed icons of people using S&L wasn't shown in original ElvUI.
 
