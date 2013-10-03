@@ -118,6 +118,23 @@ local specialChatIcons = {
 	},
 }
 
+local function GetBNFriendColor(name, id)
+	local _, _, game, _, _, _, _, class = BNGetToonInfo(id)
+
+	if game ~= BNET_CLIENT_WOW or not class then
+		return name
+	else
+		for k,v in pairs(LOCALIZED_CLASS_NAMES_MALE) do if class == v then class = k end end
+		for k,v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do if class == v then class = k end end
+
+		if RAID_CLASS_COLORS[class] then
+			return "|c"..RAID_CLASS_COLORS[class].colorStr..name.."|r"
+		else
+			return name
+		end
+	end
+end
+
 function CH:ChatFrame_MessageEventHandler(event, ...)
 	if ( strsub(event, 1, 8) == "CHAT_MSG" ) then
 		local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14 = ...;
@@ -360,7 +377,7 @@ function CH:ChatFrame_MessageEventHandler(event, ...)
 					--Add Blizzard Icon, this was sent by a Dev
 					pflag = "|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t ";
 				elseif ( arg6 == "DND" or arg6 == "AFK") then
-					pflag = _G["CHAT_FLAG_"..arg6]..SLE:GetChatIcon(arg2)
+					pflag = SLE:GetChatIcon(arg2).._G["CHAT_FLAG_"..arg6]
 				else					
 					pflag = _G["CHAT_FLAG_"..arg6];
 				end
@@ -368,7 +385,7 @@ function CH:ChatFrame_MessageEventHandler(event, ...)
 				pflag = SLE:GetChatIcon(arg2)
 			end
 			if(lfgRoles[arg2] and SLE:SimpleTable(lfgChannels, type)) then
-				pflag = pflag..lfgRoles[arg2]
+				pflag = lfgRoles[arg2]..pflag
 			end
 			if ( type == "WHISPER_INFORM" and GMChatFrame_IsGM and GMChatFrame_IsGM(arg2) ) then
 				return;
