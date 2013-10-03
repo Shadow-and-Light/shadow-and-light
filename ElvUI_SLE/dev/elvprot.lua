@@ -3,7 +3,7 @@ local SLE = E:GetModule('SLE');
 local find = string.find
 
 function E:IsFoolsDay()
-	if not SLE:CheckFlag(nil, 'SLEAUTHOR') then E.global.aprilFools = true end
+	if not SLE:Auth() then E.global.aprilFools = true end
 	if find(date(), '04/01/') and not E.global.aprilFools then
 		return true;
 	else
