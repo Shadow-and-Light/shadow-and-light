@@ -317,6 +317,7 @@ function CH:PositionChat(override)
 end
 local function SLEfilter(self, event, message, author, arg3, arg4, arg5, arg6, ...)
 	local returnTex = arg6
+	if returnTex == nil then returnTex = "" end
 	local type = strsub(event, 10);
 	if(strlen(arg6) > 0) then
 		return false, message, author, arg3, arg4, arg5, returnTex, ...
@@ -326,17 +327,13 @@ local function SLEfilter(self, event, message, author, arg3, arg4, arg5, arg6, .
 		else
 			returnTex = SLE:CheckFlag(author)
 		end
+		return false, message, author, arg3, arg4, arg5, returnTex, ...
 	elseif not SLE:CheckFlag(author) then
 		if(returnTex == "" and lfgRoles[author] and SLE:SimpleTable(lfgChannels, type)) then
 			returnTex = lfgRoles[author]
 		end
+		return false, message, author, arg3, arg4, arg5, returnTex, ...
 	end
-	if returnTex == nil then
-		returnTex = arg6
-	else
-		returnTex = returnTex..arg6
-	end
-	return false, message, author, arg3, arg4, arg5, returnTex, ...
 end
 
 --Applying filter
