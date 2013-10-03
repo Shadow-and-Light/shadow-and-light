@@ -319,6 +319,7 @@ local function SLEfilter(self, event, message, author, arg3, arg4, arg5, arg6, .
 	local returnTex = arg6
 	local type = strsub(event, 10);
 	if(strlen(arg6) > 0) then
+		return false, message, author, arg3, arg4, arg5, returnTex, ...
 	elseif SLE:CheckFlag(author) then
 		if(returnTex == ""  and lfgRoles[author] and SLE:SimpleTable(lfgChannels, type)) then
 			returnTex = SLE:CheckFlag(author)..lfgRoles[author]
