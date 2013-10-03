@@ -360,7 +360,7 @@ function CH:ChatFrame_MessageEventHandler(event, ...)
 					--Add Blizzard Icon, this was sent by a Dev
 					pflag = "|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t ";
 				elseif ( arg6 == "DND" or arg6 == "AFK") then
-					pflag = SLE:GetChatIcon(arg2).._G["CHAT_FLAG_"..arg6]
+					pflag = _G["CHAT_FLAG_"..arg6]..SLE:GetChatIcon(arg2)
 				else					
 					pflag = _G["CHAT_FLAG_"..arg6];
 				end
@@ -368,7 +368,7 @@ function CH:ChatFrame_MessageEventHandler(event, ...)
 				pflag = SLE:GetChatIcon(arg2)
 			end
 			if(lfgRoles[arg2] and SLE:SimpleTable(lfgChannels, type)) then
-				pflag = lfgRoles[arg2]..pflag
+				pflag = pflag..lfgRoles[arg2]
 			end
 			if ( type == "WHISPER_INFORM" and GMChatFrame_IsGM and GMChatFrame_IsGM(arg2) ) then
 				return;
