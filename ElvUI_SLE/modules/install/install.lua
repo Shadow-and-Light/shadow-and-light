@@ -762,7 +762,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 
 	local layout = E.db.layoutSet --To know if some sort of layout was choosed before
 
-	if SLE:CheckFlag(nil, 'SLEAUTHOR') then
+	if SLE:Auth() then
 		E.db.hideTutorial = 1
 		E.db.general.loginmessage = false
 	end

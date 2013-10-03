@@ -2,7 +2,7 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local SLE = E:GetModule('SLE');
 local ACD = LibStub("AceConfigDialog-3.0")
 
-if SLE:CheckFlag(nil, 'SLEAUTHOR') then
+if SLE:Auth() then
 	local selectedChannel = ''
 	local UserListCache = {}
 	local highestVersion = tonumber(SLE.version)
