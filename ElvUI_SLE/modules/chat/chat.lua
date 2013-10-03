@@ -4,6 +4,7 @@ local SLE = E:GetModule('SLE');
 local LSM = LibStub("LibSharedMedia-3.0")
 local CreatedFrames = 0;
 local lfgRoles = {};
+local chatFilters = {};
 local lfgChannels = {
 	"PARTY_LEADER",
 	"PARTY",
@@ -13,166 +14,527 @@ local lfgChannels = {
 	"INSTANCE_CHAT_LEADER",
 }
 
+local len, gsub, find, sub, gmatch, format, random = string.len, string.gsub, string.find, string.sub, string.gmatch, string.format, math.random
 local tinsert, tremove, tsort, twipe, tconcat = table.insert, table.remove, table.sort, table.wipe, table.concat
 
---Textures for chat--
-do
---Normal LFG textures
-CHAT_FLAG_TANK = "|TInterface\\AddOns\\ElvUI\\media\\textures\\tank.tga:15:15:0:0:64:64:2:56:2:56|t"
-CHAT_FLAG_HEALER = "|TInterface\\AddOns\\ElvUI\\media\\textures\\healer.tga:15:15:0:0:64:64:2:56:2:56|t"
-CHAT_FLAG_DAMAGER = "|TInterface\\AddOns\\ElvUI\\media\\textures\\dps.tga:15:15|t"
---Adapt
-CHAT_FLAG_SLEADAPT = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\adapt.tga:0:2|t"
-CHAT_FLAG_SLEADAPTTANK = CHAT_FLAG_TANK..CHAT_FLAG_SLEADAPT
-CHAT_FLAG_SLEADAPTHEALER = CHAT_FLAG_HEALER..CHAT_FLAG_SLEADAPT
-CHAT_FLAG_SLEADAPTDAMAGER = CHAT_FLAG_DAMAGER..CHAT_FLAG_SLEADAPT
---Authors
---Repooc
-CHAT_FLAG_SLEAUTHOR = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo.tga:0:2|t"
-CHAT_FLAG_SLEAUTHORTANK = CHAT_FLAG_TANK..CHAT_FLAG_SLEAUTHOR
-CHAT_FLAG_SLEAUTHORHEALER = CHAT_FLAG_HEALER..CHAT_FLAG_SLEAUTHOR
-CHAT_FLAG_SLEAUTHORDAMAGER = CHAT_FLAG_DAMAGER..CHAT_FLAG_SLEAUTHOR
---Darth
-CHAT_FLAG_SLEAUTHORD = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_LogoD.tga:0:2|t"
-CHAT_FLAG_SLEAUTHORDTANK = CHAT_FLAG_TANK..CHAT_FLAG_SLEAUTHORD
-CHAT_FLAG_SLEAUTHORDHEALER = CHAT_FLAG_HEALER..CHAT_FLAG_SLEAUTHORD
-CHAT_FLAG_SLEAUTHORDDAMAGER = CHAT_FLAG_DAMAGER..CHAT_FLAG_SLEAUTHORD
---Roleplayers
-CHAT_FLAG_SLERPG = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_RPG:13:35|t"
-CHAT_FLAG_SLERPGTANK = CHAT_FLAG_TANK..CHAT_FLAG_SLERPG
-CHAT_FLAG_SLERPGHEALER = CHAT_FLAG_HEALER..CHAT_FLAG_SLERPG
-CHAT_FLAG_SLERPGDAMAGER = CHAT_FLAG_DAMAGER..CHAT_FLAG_SLERPG
---Friends
-CHAT_FLAG_SLEFRIEND = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Friend:13:13|t"
-CHAT_FLAG_SLEFRIENDTANK = CHAT_FLAG_TANK..CHAT_FLAG_SLEFRIEND
-CHAT_FLAG_SLEFRIENDHEALER = CHAT_FLAG_HEALER..CHAT_FLAG_SLEFRIEND
-CHAT_FLAG_SLEFRIENDDAMAGER = CHAT_FLAG_DAMAGER..CHAT_FLAG_SLEFRIEND
---Testers
-CHAT_FLAG_SLETEST = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Test:13:13|t"
-CHAT_FLAG_SLETESTTANK = CHAT_FLAG_TANK..CHAT_FLAG_SLETEST
-CHAT_FLAG_SLETESTHEALER = CHAT_FLAG_HEALER..CHAT_FLAG_SLETEST
-CHAT_FLAG_SLETESTDAMAGER = CHAT_FLAG_DAMAGER..CHAT_FLAG_SLETEST
-end
+--Role icons, needed by rolecheck
+local rolePaths = {
+	TANK = [[|TInterface\AddOns\ElvUI\media\textures\tank.tga:15:15:0:0:64:64:2:56:2:56|t]],
+	HEALER = [[|TInterface\AddOns\ElvUI\media\textures\healer.tga:15:15:0:0:64:64:2:56:2:56|t]],
+	DAMAGER = [[|TInterface\AddOns\ElvUI\media\textures\dps.tga:15:15|t]]
+}
 
---Toon table
-local IconTable = {
+--Chat icon paths
+local elvui = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t"
+local affinity = "|TInterface\\AddOns\\ElvUI\\media\\textures\\Bathrobe_Chat_Logo.blp:15:15|t"
+local adapt = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\adapt.tga:0:2|t"
+local repooc = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo.tga:0:2|t"
+local darth = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_LogoD.tga:0:2|t"
+local friend = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Friend:13:13|t"
+local test = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Test:13:13|t"
+local rpg = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_RPG:13:35|t"
+
+local specialChatIcons = {
+	["Spirestone"] = {
+		["Elvz"] = elvui
+	},
 	["Illidan"] = {
+		--Original Stuff
+		["Affinichi"] = affinity,
+		["Uplift"] = affinity,
+		["Affinitii"] = affinity,
+		["Affinity"] = affinity,
 		--Darth's toon
-		["Darthpred"] = "SLEAUTHORD",
+		["Darthpred"] = darth,
 		--Repooc's Toon
-		["Repøøc"] = "SLEAUTHOR",
-		["Repooc"] = "SLEAUTHOR"
+		["Repøøc"] = repooc,
+		["Repooc"] = repooc
 	},
 	["СвежевательДуш"] = {
 		--Darth's toons
-		["Дартпредатор"] = "SLEAUTHORD",
-		["Алея"] = "SLEAUTHORD",
-		["Ваззули"] = "SLEAUTHORD",
-		["Сиаранна"] = "SLEAUTHORD",
-		["Джатон"] = "SLEAUTHORD",
-		["Фикстер"] = "SLEAUTHORD",
-		["Киландра"] = "SLEAUTHORD",
-		["Нарджо"] = "SLEAUTHORD",
-		["Верзук"] = "SLEAUTHORD",
-		["Крениг"] = "SLEAUTHORD",
-		["Мейжи"] = "SLEAUTHORD",
-		["Большойгном"] = "SLETEST", --Testing toon
-		["Фергесон"] = "SLEFRIEND"
+		["Дартпредатор"] = darth,
+		["Алея"] = darth,
+		["Ваззули"] = darth,
+		["Сиаранна"] = darth,
+		["Джатон"] = darth,
+		["Фикстер"] = darth,
+		["Киландра"] = darth,
+		["Нарджо"] = darth,
+		["Верзук"] = darth,
+		["Крениг"] = darth,
+		["Мейжи"] = darth,
+		["Большойгном"] = test, --Testing toon
+		["Фергесон"] = friend
 	},
 	["ВечнаяПесня"] = {
 		--Darth's toons
-		["Дартпредатор"] = "SLEAUTHORD",
-		["Алея"] = "SLEAUTHORD",
-		["Ваззули"] = "SLEAUTHORD",
-		["Сиаранна"] = "SLEAUTHORD",
-		["Джатон"] = "SLEAUTHORD",
-		["Фикстер"] = "SLEAUTHORD",
-		["Киландра"] = "SLEAUTHORD",
-		["Нарджо"] = "SLEAUTHORD",
-		["Верзук"] = "SLEAUTHORD",
-		["Крениг"] = "SLEAUTHORD",
-		["Мейжи"] = "SLEAUTHORD",
+		["Дартпредатор"] = darth,
+		["Алея"] = darth,
+		["Ваззули"] = darth,
+		["Сиаранна"] = darth,
+		["Джатон"] = darth,
+		["Фикстер"] = darth,
+		["Киландра"] = darth,
+		["Нарджо"] = darth,
+		["Верзук"] = darth,
+		["Крениг"] = darth,
+		["Мейжи"] = darth,
 		--Darth's friends
-		["Леани"] = "SLEFRIEND",
+		["Леани"] = friend,
 		--Da tester lol
-		["Харореанн"] = "SLETEST"
+		["Харореанн"] = test
 	},
 	["Ревущийфьорд"] = {
-		["Рыжая"] = "SLEFRIEND",
-		["Рыжа"] = "SLEFRIEND",
+		["Рыжая"] = friend,
+		["Рыжа"] = friend,
 				--Some people
-		["Брэгар"] = "SLETEST"
+		["Брэгар"] = test
 	},
 	["Азурегос"] = {
-		["Брэгари"] = "SLETEST"
+		["Брэгари"] = test
 	},
 	["Korialstrasz"] = {
-		["Cursewordz"] = "SLEAUTHOR"
+		["Cursewordz"] = repooc
 	},
 	["Spirestone"] = {
-		["Sifupooc"] = "SLEAUTHOR",
-		["Dapooc"] = "SLEAUTHOR",
-		["Lapooc"] = "SLEAUTHOR",
-		["Warpooc"] = "SLEAUTHOR",
-		["Repooc"] = "SLEAUTHOR",
+		["Sifupooc"] = repooc,
+		["Dapooc"] = repooc,
+		["Lapooc"] = repooc,
+		["Warpooc"] = repooc,
+		["Repooc"] = repooc,
 		--Adapt Roster
-		["Mobius"] = "SLEADAPT",
-		["Urgfelstorm"] = "SLEADAPT",
-		["Kilashandra"] = "SLEADAPT",
-		["Electrro"] = "SLEADAPT",
-		["Afterthot"] = "SLEADAPT",
-		["Lavathing"] = "SLEADAPT",
-		["Finkle"] = "SLEADAPT"
+		["Mobius"] = adapt,
+		["Urgfelstorm"] = adapt,
+		["Kilashandra"] = adapt,
+		["Electrro"] = adapt,
+		["Afterthot"] = adapt,
+		["Lavathing"] = adapt,
+		["Finkle"] = adapt
 	},
 	["Andorhal"] = {
-		["Dapooc"] = "SLEAUTHOR",
-		["Rovert"] = "SLEAUTHOR",
-		["Sliceoflife"] = "SLEAUTHOR"
+		["Dapooc"] = repooc,
+		["Rovert"] = repooc,
+		["Sliceoflife"] = repooc
 	},
 }
+
+function CH:ChatFrame_MessageEventHandler(event, ...)
+	if ( strsub(event, 1, 8) == "CHAT_MSG" ) then
+		local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14 = ...;
+		local type = strsub(event, 10);
+		local info = ChatTypeInfo[type];
+
+		local filter = false;
+		if ( chatFilters[event] ) then
+			local newarg1, newarg2, newarg3, newarg4, newarg5, newarg6, newarg7, newarg8, newarg9, newarg10, newarg11, newarg12, newarg13, newarg14;
+			for _, filterFunc in next, chatFilters[event] do
+				filter, newarg1, newarg2, newarg3, newarg4, newarg5, newarg6, newarg7, newarg8, newarg9, newarg10, newarg11, newarg12, newarg13, newarg14 = filterFunc(self, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14);
+				if ( filter ) then
+					return true;
+				elseif ( newarg1 ) then
+					arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14 = newarg1, newarg2, newarg3, newarg4, newarg5, newarg6, newarg7, newarg8, newarg9, newarg10, newarg11, newarg12, newarg13, newarg14;
+				end
+			end
+		end
+		
+		arg2 = E.NameReplacements[arg2] or arg2
+		local coloredName = GetColoredName(event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14);
+		
+		local channelLength = strlen(arg4);
+		local infoType = type;
+		if ( (strsub(type, 1, 7) == "CHANNEL") and (type ~= "CHANNEL_LIST") and ((arg1 ~= "INVITE") or (type ~= "CHANNEL_NOTICE_USER")) ) then
+			if ( arg1 == "WRONG_PASSWORD" ) then
+				local staticPopup = _G[StaticPopup_Visible("CHAT_CHANNEL_PASSWORD") or ""];
+				if ( staticPopup and strupper(staticPopup.data) == strupper(arg9) ) then
+					-- Don't display invalid password messages if we're going to prompt for a password (bug 102312)
+					return;
+				end
+			end
+			
+			local found = 0;
+			for index, value in pairs(self.channelList) do
+				if ( channelLength > strlen(value) ) then
+					-- arg9 is the channel name without the number in front...
+					if ( ((arg7 > 0) and (self.zoneChannelList[index] == arg7)) or (strupper(value) == strupper(arg9)) ) then
+						found = 1;
+						infoType = "CHANNEL"..arg8;
+						info = ChatTypeInfo[infoType];
+						if ( (type == "CHANNEL_NOTICE") and (arg1 == "YOU_LEFT") ) then
+							self.channelList[index] = nil;
+							self.zoneChannelList[index] = nil;
+						end
+						break;
+					end
+				end
+			end
+			if ( (found == 0) or not info ) then
+				return true;
+			end
+		end
+
+		local chatGroup = Chat_GetChatCategory(type);
+		local chatTarget;
+		if ( chatGroup == "CHANNEL" or chatGroup == "BN_CONVERSATION" ) then
+			chatTarget = tostring(arg8);
+		elseif ( chatGroup == "WHISPER" or chatGroup == "BN_WHISPER" ) then
+			if(not(strsub(arg2, 1, 2) == "|K")) then
+				chatTarget = strupper(arg2);
+			else
+				chatTarget = arg2;
+			end
+		end
+		
+		if ( FCFManager_ShouldSuppressMessage(self, chatGroup, chatTarget) ) then
+			return true;
+		end
+			
+		if ( chatGroup == "WHISPER" or chatGroup == "BN_WHISPER" ) then
+			if ( self.privateMessageList and not self.privateMessageList[strlower(arg2)] ) then
+				return true;
+			elseif ( self.excludePrivateMessageList and self.excludePrivateMessageList[strlower(arg2)] 
+				and ( (chatGroup == "WHISPER" and GetCVar("whisperMode") ~= "popout_and_inline") or (chatGroup == "BN_WHISPER" and GetCVar("bnWhisperMode") ~= "popout_and_inline") ) ) then
+				return true;
+			end
+		elseif ( chatGroup == "BN_CONVERSATION" ) then
+			if ( self.bnConversationList and not self.bnConversationList[arg8] ) then
+				return true;
+			elseif ( self.excludeBNConversationList and self.excludeBNConversationList[arg8] and GetCVar("conversationMode") ~= "popout_and_inline") then
+				return true;
+			end
+		end
+		
+		if (self.privateMessageList) then
+			-- Dedicated BN whisper windows need online/offline messages for only that player
+			if ( (chatGroup == "BN_INLINE_TOAST_ALERT" or chatGroup == "BN_WHISPER_PLAYER_OFFLINE") and not self.privateMessageList[strlower(arg2)] ) then
+				return true;
+			end
+			
+			-- HACK to put certain system messages into dedicated whisper windows
+			if ( chatGroup == "SYSTEM") then
+				local matchFound = false;
+				local message = strlower(arg1);
+				for playerName, _ in pairs(self.privateMessageList) do
+					local playerNotFoundMsg = strlower(format(ERR_CHAT_PLAYER_NOT_FOUND_S, playerName));
+					local charOnlineMsg = strlower(format(ERR_FRIEND_ONLINE_SS, playerName, playerName));
+					local charOfflineMsg = strlower(format(ERR_FRIEND_OFFLINE_S, playerName));
+					if ( message == playerNotFoundMsg or message == charOnlineMsg or message == charOfflineMsg) then
+						matchFound = true;
+						break;
+					end
+				end
+
+				if (not matchFound) then
+					return true;
+				end
+			end
+		end
+	
+		if ( type == "SYSTEM" or type == "SKILL" or type == "LOOT" or type == "CURRENCY" or type == "MONEY" or
+		     type == "OPENING" or type == "TRADESKILLS" or type == "PET_INFO" or type == "TARGETICONS" or type == "BN_WHISPER_PLAYER_OFFLINE") then
+			self:AddMessage(CH:ConcatenateTimeStamp(arg1), info.r, info.g, info.b, info.id);
+		elseif ( strsub(type,1,7) == "COMBAT_" ) then
+			self:AddMessage(CH:ConcatenateTimeStamp(arg1), info.r, info.g, info.b, info.id);
+		elseif ( strsub(type,1,6) == "SPELL_" ) then
+			self:AddMessage(CH:ConcatenateTimeStamp(arg1), info.r, info.g, info.b, info.id);
+		elseif ( strsub(type,1,10) == "BG_SYSTEM_" ) then
+			self:AddMessage(CH:ConcatenateTimeStamp(arg1), info.r, info.g, info.b, info.id);
+		elseif ( strsub(type,1,11) == "ACHIEVEMENT" ) then
+			self:AddMessage(format(CH:ConcatenateTimeStamp(arg1), "|Hplayer:"..arg2.."|h".."["..coloredName.."]".."|h"), info.r, info.g, info.b, info.id);
+		elseif ( strsub(type,1,18) == "GUILD_ACHIEVEMENT" ) then
+			self:AddMessage(format(CH:ConcatenateTimeStamp(arg1), "|Hplayer:"..arg2.."|h".."["..coloredName.."]".."|h"), info.r, info.g, info.b, info.id);
+		elseif ( type == "IGNORED" ) then
+			self:AddMessage(format(CH:ConcatenateTimeStamp(CHAT_IGNORED), arg2), info.r, info.g, info.b, info.id);
+		elseif ( type == "FILTERED" ) then
+			self:AddMessage(format(CH:ConcatenateTimeStamp(CHAT_FILTERED), arg2), info.r, info.g, info.b, info.id);
+		elseif ( type == "RESTRICTED" ) then
+			self:AddMessage(CH:ConcatenateTimeStamp(CHAT_RESTRICTED), info.r, info.g, info.b, info.id);
+		elseif ( type == "CHANNEL_LIST") then
+			if(channelLength > 0) then
+				self:AddMessage(format(CH:ConcatenateTimeStamp(_G["CHAT_"..type.."_GET"]..arg1), tonumber(arg8), arg4), info.r, info.g, info.b, info.id);
+			else
+				self:AddMessage(CH:ConcatenateTimeStamp(arg1), info.r, info.g, info.b, info.id);
+			end
+		elseif (type == "CHANNEL_NOTICE_USER") then
+			local globalstring = _G["CHAT_"..arg1.."_NOTICE_BN"];
+			if ( not globalstring ) then
+				globalstring = _G["CHAT_"..arg1.."_NOTICE"];
+			end
+			
+			globalString = CH:ConcatenateTimeStamp(globalstring);
+			
+			if(strlen(arg5) > 0) then
+				-- TWO users in this notice (E.G. x kicked y)
+				self:AddMessage(format(globalstring, arg8, arg4, arg2, arg5), info.r, info.g, info.b, info.id);
+			elseif ( arg1 == "INVITE" ) then
+				self:AddMessage(format(globalstring, arg4, arg2), info.r, info.g, info.b, info.id);
+			else
+				self:AddMessage(format(globalstring, arg8, arg4, arg2), info.r, info.g, info.b, info.id);
+			end
+		elseif (type == "CHANNEL_NOTICE") then
+			local globalstring = _G["CHAT_"..arg1.."_NOTICE_BN"];
+			if ( not globalstring ) then
+				globalstring = _G["CHAT_"..arg1.."_NOTICE"];
+			end
+			if ( arg10 > 0 ) then
+				arg4 = arg4.." "..arg10;
+			end
+			
+			globalString = CH:ConcatenateTimeStamp(globalstring);
+			
+			local accessID = ChatHistory_GetAccessID(Chat_GetChatCategory(type), arg8);
+			local typeID = ChatHistory_GetAccessID(infoType, arg8, arg12);
+			self:AddMessage(format(globalstring, arg8, arg4), info.r, info.g, info.b, info.id, false, accessID, typeID);
+		elseif ( type == "BN_CONVERSATION_NOTICE" ) then
+			local channelLink = format(CHAT_BN_CONVERSATION_GET_LINK, arg8, MAX_WOW_CHAT_CHANNELS + arg8);
+			local playerLink = format("|HBNplayer:%s:%s:%s:%s:%s|h[%s]|h", arg2, arg13, arg11, Chat_GetChatCategory(type), arg8, arg2);
+			local message = format(_G["CHAT_CONVERSATION_"..arg1.."_NOTICE"], channelLink, playerLink)
+			
+			local accessID = ChatHistory_GetAccessID(Chat_GetChatCategory(type), arg8);
+			local typeID = ChatHistory_GetAccessID(infoType, arg8, arg12);
+			self:AddMessage(CH:ConcatenateTimeStamp(message), info.r, info.g, info.b, info.id, false, accessID, typeID);
+		elseif ( type == "BN_CONVERSATION_LIST" ) then
+			local channelLink = format(CHAT_BN_CONVERSATION_GET_LINK, arg8, MAX_WOW_CHAT_CHANNELS + arg8);
+			local message = format(CHAT_BN_CONVERSATION_LIST, channelLink, arg1);
+			self:AddMessage(CH:ConcatenateTimeStamp(message), info.r, info.g, info.b, info.id, false, accessID, typeID);
+		elseif ( type == "BN_INLINE_TOAST_ALERT" ) then	
+			if ( arg1 == "FRIEND_OFFLINE" and not BNet_ShouldProcessOfflineEvents() ) then
+				return true;
+			end
+			local globalstring = _G["BN_INLINE_TOAST_"..arg1];
+			local message;
+			if ( arg1 == "FRIEND_REQUEST" ) then
+				message = globalstring;
+			elseif ( arg1 == "FRIEND_PENDING" ) then
+				message = format(BN_INLINE_TOAST_FRIEND_PENDING, BNGetNumFriendInvites());
+			elseif ( arg1 == "FRIEND_REMOVED" or arg1 == "BATTLETAG_FRIEND_REMOVED" ) then
+				message = format(globalstring, arg2);
+			elseif ( arg1 == "FRIEND_ONLINE" or arg1 == "FRIEND_OFFLINE") then
+				local hasFocus, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetToonInfo(arg13);
+				if (toonName and toonName ~= "" and client and client ~= "") then
+					local toonNameText = BNet_GetClientEmbeddedTexture(client, 14)..toonName;
+					local playerLink = format("|HBNplayer:%s:%s:%s:%s:%s|h[%s] (%s)|h", arg2, arg13, arg11, Chat_GetChatCategory(type), 0, arg2, toonNameText);
+					message = format(globalstring, playerLink);
+				else
+					local playerLink = format("|HBNplayer:%s:%s:%s:%s:%s|h[%s]|h", arg2, arg13, arg11, Chat_GetChatCategory(type), 0, arg2);
+					message = format(globalstring, playerLink);
+				end
+			else
+				local playerLink = format("|HBNplayer:%s:%s:%s:%s:%s|h[%s]|h", arg2, arg13, arg11, Chat_GetChatCategory(type), 0, arg2);
+				message = format(globalstring, playerLink);
+			end
+			self:AddMessage(CH:ConcatenateTimeStamp(message), info.r, info.g, info.b, info.id);
+		elseif ( type == "BN_INLINE_TOAST_BROADCAST" ) then
+			if ( arg1 ~= "" ) then
+				arg1 = RemoveExtraSpaces(arg1);
+				local playerLink = format("|HBNplayer:%s:%s:%s:%s:%s|h[%s]|h", arg2, arg13, arg11, Chat_GetChatCategory(type), 0, arg2);
+				self:AddMessage(format(CH:ConcatenateTimeStamp(BN_INLINE_TOAST_BROADCAST), playerLink, arg1), info.r, info.g, info.b, info.id);
+			end
+		elseif ( type == "BN_INLINE_TOAST_BROADCAST_INFORM" ) then
+			if ( arg1 ~= "" ) then
+				arg1 = RemoveExtraSpaces(arg1);
+				self:AddMessage(CH:ConcatenateTimeStamp(BN_INLINE_TOAST_BROADCAST_INFORM), info.r, info.g, info.b, info.id);
+			end
+		elseif ( type == "BN_INLINE_TOAST_CONVERSATION" ) then
+			self:AddMessage(format(CH:ConcatenateTimeStamp(BN_INLINE_TOAST_CONVERSATION), arg1), info.r, info.g, info.b, info.id);
+		else
+			local body;
+
+			local _, fontHeight = FCF_GetChatWindowInfo(self:GetID());
+			
+			if ( fontHeight == 0 ) then
+				--fontHeight will be 0 if it's still at the default (14)
+				fontHeight = 14;
+			end
+			
+			-- Add AFK/DND flags
+			local pflag = "";
+			if(strlen(arg6) > 0) then
+				if ( arg6 == "GM" ) then
+					--If it was a whisper, dispatch it to the GMChat addon.
+					if ( type == "WHISPER" ) then
+						return;
+					end
+					--Add Blizzard Icon, this was sent by a GM
+					pflag = "|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t ";
+				elseif ( arg6 == "DEV" ) then
+					--Add Blizzard Icon, this was sent by a Dev
+					pflag = "|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t ";
+				elseif ( arg6 == "DND" or arg6 == "AFK") then
+					pflag = SLE:GetChatIcon(arg2).._G["CHAT_FLAG_"..arg6]
+				else					
+					pflag = _G["CHAT_FLAG_"..arg6];
+				end
+			else
+				pflag = SLE:GetChatIcon(arg2)
+			end
+			if(lfgRoles[arg2] and SLE:SimpleTable(lfgChannels, type)) then
+				pflag = lfgRoles[arg2]..pflag
+			end
+			if ( type == "WHISPER_INFORM" and GMChatFrame_IsGM and GMChatFrame_IsGM(arg2) ) then
+				return;
+			end
+
+			local showLink = 1;
+			if ( strsub(type, 1, 7) == "MONSTER" or strsub(type, 1, 9) == "RAID_BOSS") then
+				showLink = nil;
+			else
+				arg1 = gsub(arg1, "%%", "%%%%");
+			end
+			
+			-- Search for icon links and replace them with texture links.
+			for tag in gmatch(arg1, "%b{}") do
+				local term = strlower(gsub(tag, "[{}]", ""));
+				if ( ICON_TAG_LIST[term] and ICON_LIST[ICON_TAG_LIST[term]] ) then
+					arg1 = gsub(arg1, tag, ICON_LIST[ICON_TAG_LIST[term]] .. "0|t");
+				elseif ( GROUP_TAG_LIST[term] ) then
+					local groupIndex = GROUP_TAG_LIST[term];
+					local groupList = "[";
+					for i=1, GetNumGroupMembers() do
+						local name, rank, subgroup, level, class, classFileName = GetRaidRosterInfo(i);
+						if ( name and subgroup == groupIndex ) then
+							local classColorTable = RAID_CLASS_COLORS[classFileName];
+							if ( classColorTable ) then
+								name = format("\124cff%.2x%.2x%.2x%s\124r", classColorTable.r*255, classColorTable.g*255, classColorTable.b*255, name);
+							end
+							groupList = groupList..(groupList == "[" and "" or PLAYER_LIST_DELIMITER)..name;
+						end
+					end
+					groupList = groupList.."]";
+					arg1 = gsub(arg1, tag, groupList);
+				end
+			end
+			
+			--Remove groups of many spaces
+			arg1 = RemoveExtraSpaces(arg1);
+			
+			local playerLink;
+
+			if ( type ~= "BN_WHISPER" and type ~= "BN_WHISPER_INFORM" and type ~= "BN_CONVERSATION" ) then
+				playerLink = "|Hplayer:"..arg2..":"..arg11..":"..chatGroup..(chatTarget and ":"..chatTarget or "").."|h";
+			else
+				coloredName = GetBNFriendColor(arg2, arg13)
+				playerLink = "|HBNplayer:"..arg2..":"..arg13..":"..arg11..":"..chatGroup..(chatTarget and ":"..chatTarget or "").."|h";
+			end
+			
+			local message = arg1;
+			if ( arg14 ) then	--isMobile
+				message = ChatFrame_GetMobileEmbeddedTexture(info.r, info.g, info.b)..message;
+			end
+			
+			if ( (strlen(arg3) > 0) and (arg3 ~= self.defaultLanguage) ) then
+				local languageHeader = "["..arg3.."] ";
+				if ( showLink and (strlen(arg2) > 0) ) then
+					body = format(_G["CHAT_"..type.."_GET"]..languageHeader..message, pflag..playerLink.."["..coloredName.."]".."|h");
+				else
+					body = format(_G["CHAT_"..type.."_GET"]..languageHeader..message, pflag..arg2);
+				end
+			else
+				if ( not showLink or strlen(arg2) == 0 ) then
+					if ( type == "TEXT_EMOTE" ) then
+						body = message;
+					else
+						body = format(_G["CHAT_"..type.."_GET"]..message, pflag..arg2, arg2);
+					end
+				else
+					if ( type == "EMOTE" ) then
+						body = format(_G["CHAT_"..type.."_GET"]..message, pflag..playerLink..coloredName.."|h");
+					elseif ( type == "TEXT_EMOTE") then
+						body = gsub(message, arg2, pflag..playerLink..coloredName.."|h", 1);
+					else
+						body = format(_G["CHAT_"..type.."_GET"]..message, pflag..playerLink.."["..coloredName.."]".."|h");
+					end
+				end
+			end
+
+			-- Add Channel
+			arg4 = gsub(arg4, "%s%-%s.*", "");
+			if( chatGroup  == "BN_CONVERSATION" ) then
+				body = format(CHAT_BN_CONVERSATION_GET_LINK, MAX_WOW_CHAT_CHANNELS + arg8, MAX_WOW_CHAT_CHANNELS + arg8)..body;
+			elseif(channelLength > 0) then
+				body = "|Hchannel:channel:"..arg8.."|h["..arg4.."]|h "..body;
+			end
+			
+			local accessID = ChatHistory_GetAccessID(chatGroup, chatTarget);
+			local typeID = ChatHistory_GetAccessID(infoType, chatTarget, arg12 == "" and arg13 or arg12);
+			if CH.db.shortChannels then
+				body = body:gsub("|Hchannel:(.-)|h%[(.-)%]|h", CH.ShortChannel)
+				body = body:gsub('CHANNEL:', '')
+				body = body:gsub("^(.-|h) "..L['whispers'], "%1")
+				body = body:gsub("^(.-|h) "..L['says'], "%1")
+				body = body:gsub("^(.-|h) "..L['yells'], "%1")
+				body = body:gsub("<"..AFK..">", "[|cffFF0000"..L['AFK'].."|r] ")
+				body = body:gsub("<"..DND..">", "[|cffE7E716"..L['DND'].."|r] ")
+				body = body:gsub("%[BN_CONVERSATION:", '%['.."")			
+				body = body:gsub("^%["..RAID_WARNING.."%]", '['..L['RW']..']')	
+			end
+			self:AddMessage(CH:ConcatenateTimeStamp(body), info.r, info.g, info.b, info.id, false, accessID, typeID);
+		end
+ 
+		if ( type == "WHISPER" or type == "BN_WHISPER" ) then
+			--BN_WHISPER FIXME
+			ChatEdit_SetLastTellTarget(arg2, type);
+			if ( self.tellTimer and (GetTime() > self.tellTimer) ) then
+				PlaySound("TellMessage");
+			end
+			self.tellTimer = GetTime() + CHAT_TELL_ALERT_TIME;
+			--FCF_FlashTab(self);
+		end
+		
+		if ( not self:IsShown() ) then
+			if ( (self == DEFAULT_CHAT_FRAME and info.flashTabOnGeneral) or (self ~= DEFAULT_CHAT_FRAME and info.flashTab) ) then
+				if ( not CHAT_OPTIONS.HIDE_FRAME_ALERTS or type == "WHISPER" or type == "BN_WHISPER" ) then	--BN_WHISPER FIXME
+					if (not (type == "BN_CONVERSATION" and BNIsSelf(arg13))) then
+						if (not FCFManager_ShouldSuppressMessageFlash(self, chatGroup, chatTarget) ) then
+							--FCF_StartAlertFlash(self); THIS TAINTS<<<<<<<
+							_G[self:GetName().."Tab"].glow:Show()
+							_G[self:GetName().."Tab"]:SetScript("OnUpdate", CH.ChatTab_OnUpdate)
+						end
+					end
+				end
+			end
+		end
+
+		return true;
+	end
+end
 
 function CH:CheckLFGRoles()
 	local isInGroup, isInRaid = IsInGroup(), IsInRaid()
 	local unit = isInRaid and "raid" or "party"
-	
+
 	twipe(lfgRoles)
 	if(not isInGroup or not self.db.lfgIcons) then return end
+
 	local role = UnitGroupRolesAssigned("player")
 	if(role) then
-		lfgRoles[E.myname] = role
+		lfgRoles[E.myname] = rolePaths[role]
 	end
+
 	for i=1, GetNumGroupMembers() do
 		if(UnitExists(unit..i) and not UnitIsUnit(unit..i, "player")) then
 			role = UnitGroupRolesAssigned(unit..i)
 			local name = GetUnitName(unit..i, true)
 			if(role and name) then
-				lfgRoles[name] = role
+				lfgRoles[name] = rolePaths[role]
 			end
 		end
 	end
 end
 
-function SLE:CheckFlag(sender, checkFlag)
+function SLE:GetChatIcon(sender)
 	local senderName, senderRealm
-
 	if sender then
 		senderName, senderRealm = string.split('-', sender)
 	else
 		senderName = E.myname
 	end
-
 	senderRealm = senderRealm or E.myrealm
 	senderRealm = senderRealm:gsub(' ', '')
 	
-	if IconTable[senderRealm] and IconTable[senderRealm][senderName] then
-		if checkFlag then
-			return IconTable[senderRealm][senderName] == checkFlag
-		else
-			return IconTable[senderRealm][senderName]
-		end
+	if specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
+		return specialChatIcons[senderRealm][senderName]
 	end
-	
-	return false
+	return ""
 end
 
 function CH:ChatEdit_AddHistory(editBox, line)
@@ -315,42 +677,3 @@ function CH:PositionChat(override)
 	
 	self.initialMove = true;
 end
-local function SLEfilter(self, event, message, author, arg3, arg4, arg5, arg6, ...)
-	local returnTex = arg6
-	if returnTex == nil then returnTex = "" end
-	local type = strsub(event, 10);
-	if(strlen(arg6) > 0) then
-		return false, message, author, arg3, arg4, arg5, returnTex, ...
-	elseif SLE:CheckFlag(author) then
-		if(returnTex == ""  and lfgRoles[author] and SLE:SimpleTable(lfgChannels, type)) then
-			returnTex = SLE:CheckFlag(author)..lfgRoles[author]
-		else
-			returnTex = SLE:CheckFlag(author)
-		end
-		return false, message, author, arg3, arg4, arg5, returnTex, ...
-	elseif not SLE:CheckFlag(author) then
-		if(returnTex == "" and lfgRoles[author] and SLE:SimpleTable(lfgChannels, type)) then
-			returnTex = lfgRoles[author]
-		end
-		return false, message, author, arg3, arg4, arg5, returnTex, ...
-	end
-end
-
---Applying filter
-ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", SLEfilter)
-ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", SLEfilter)
-ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", SLEfilter)
-ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER_INFORM", SLEfilter)
-ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", SLEfilter)	
-ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", SLEfilter)
-ChatFrame_AddMessageEventFilter("CHAT_MSG_OFFICER", SLEfilter)
-ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", SLEfilter)
-ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY_LEADER", SLEfilter)
-ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID", SLEfilter)
-ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_LEADER", SLEfilter)
-ChatFrame_AddMessageEventFilter("CHAT_MSG_INSTANCE_CHAT", SLEfilter)
-ChatFrame_AddMessageEventFilter("CHAT_MSG_INSTANCE_CHAT_LEADER", SLEfilter)
-ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_CONVERSATION", SLEfilter)	
-ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_WHISPER", SLEfilter)
-ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_WHISPER_INFORM", SLEfilter)
-ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_INLINE_TOAST_BROADCAST", SLEfilter)
