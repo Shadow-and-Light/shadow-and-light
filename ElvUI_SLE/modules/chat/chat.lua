@@ -694,3 +694,36 @@ function CH:PositionChat(override)
 	
 	self.initialMove = true;
 end
+
+function CH:ChatFrame_AddMessageEventFilter (event, filter)
+	assert(event and filter);
+	
+	if ( chatFilters[event] ) then
+		-- Only allow a filter to be added once
+		for index, filterFunc in next, chatFilters[event] do
+			if ( filterFunc == filter ) then
+				return;
+			end
+		end
+	else
+		chatFilters[event] = {};
+	end
+	
+	tinsert(chatFilters[event], filter);
+end
+
+function CH:ChatFrame_RemoveMessageEventFilter (event, filter)
+	assert(event and filter);
+	
+	if ( chatFilters[event] ) then
+		for index, filterFunc in next, chatFilters[event] do
+			if ( filterFunc == filter ) then
+				tremove(chatFilters[event], index);
+			end
+		end
+		
+		if ( #chatFilters[event] == 0 ) then
+			chatFilters[event] = nil;
+		end
+	end
+end
