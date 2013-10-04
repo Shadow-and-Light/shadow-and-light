@@ -1,7 +1,7 @@
 ﻿## Interface: 50400
 ## Title: |cff1784d1ElvUI |rShadow and Light
 ## Author: Darth Predator, Repooc
-## Version: 1.74
+## Version: 1.75
 ## Notes: Plugin-edit for |cff1784d1ElvUI|r.
 ## Notes-ruRU: Плагин-редакция для |cff1784d1ElvUI|r.
 ## eMail: darthpred@gmail.com, repooc@tukui.org
