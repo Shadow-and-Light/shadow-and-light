@@ -812,10 +812,14 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	E.db.nameplate.fontOutline = "OUTLINE"
 	E.db.nameplate.nonTargetAlpha = 0.35
 	
-	E.db.nameplate.auras.font = "ElvUI Font"
-	E.db.nameplate.auras.fontOutline = "OUTLINE"
-	E.db.nameplate.auras.numAuras = 6
-	E.db.nameplate.auras.stretchTexture = false
+	E.db.nameplate.buffs.font = "ElvUI Font"
+	E.db.nameplate.buffs.fontOutline = "OUTLINE"
+	E.db.nameplate.buffs.numAuras = 6
+	E.db.nameplate.buffs.stretchTexture = false
+	E.db.nameplate.debuffs.font = "ElvUI Font"
+	E.db.nameplate.debuffs.fontOutline = "OUTLINE"
+	E.db.nameplate.debuffs.numAuras = 6
+	E.db.nameplate.debuffs.stretchTexture = false
 
 	E.db.nameplate.raidHealIcon.attachTo = "TOP"
 	E.db.nameplate.raidHealIcon.size = 24
@@ -1404,13 +1408,15 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	
 	E.private.sle.characterframeoptions.enable = true
 	
-	E.private.skins.addons.DBMSkinHalf = true
-	E.private.addonskins.EmbedSkada = true
-	E.private.addonskins.EmbedBelowTop = true
-	E.private.addonskins.EmbedalDamageMeter = false
-	E.private.skins.addons.DBMFontSize = 10
-	E.private.addonskins.EmbedSystemDual = true
-	E.private.skins.addons.DBMFont = "ElvUI Font"
+	if IsAddOnLoaded("ElvUI_AddOnSkins") then
+		E.private.skins.addons.DBMSkinHalf = true
+		E.private.addonskins.EmbedSkada = true
+		E.private.addonskins.EmbedBelowTop = true
+		E.private.addonskins.EmbedalDamageMeter = false
+		E.private.skins.addons.DBMFontSize = 10
+		E.private.addonskins.EmbedSystemDual = true
+		E.private.skins.addons.DBMFont = "ElvUI Font"
+	end
 	
 	E.private.general.normTex = "Polished Wood"
 	E.private.general.glossTex = "Polished Wood"
