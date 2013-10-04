@@ -17,7 +17,6 @@ local lfgChannels = {
 local len, gsub, find, sub, gmatch, format, random = string.len, string.gsub, string.find, string.sub, string.gmatch, string.format, math.random
 local tinsert, tremove, tsort, twipe, tconcat = table.insert, table.remove, table.sort, table.wipe, table.concat
 
---Role icons, needed by rolecheck
 local rolePaths = {
 	TANK = [[|TInterface\AddOns\ElvUI\media\textures\tank.tga:15:15:0:0:64:64:2:56:2:56|t]],
 	HEALER = [[|TInterface\AddOns\ElvUI\media\textures\healer.tga:15:15:0:0:64:64:2:56:2:56|t]],
@@ -118,6 +117,128 @@ local specialChatIcons = {
 	},
 }
 
+CH.StyleChatSLE = CH.StyleChat
+function CH:StyleChat(frame)
+	CH:StyleChatSLE(frame)
+	CreatedFrames = frame:GetID()
+end
+
+--Replacement of chat tab position and size function
+function CH:PositionChat(override)
+	if not self.db.lockPositions or ((InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override)) then return end
+	if not RightChatPanel or not LeftChatPanel then return; end
+	RightChatPanel:Size(E.db.chat.panelWidth, E.db.chat.panelHeight)
+	LeftChatPanel:Size(E.db.chat.panelWidth, E.db.chat.panelHeight)	
+	
+	if E.private.chat.enable ~= true then return end
+		
+	local chat, chatbg, tab, id, point, button, isDocked, chatFound
+	for _, frameName in pairs(CHAT_FRAMES) do
+		chat = _G[frameName]
+		id = chat:GetID()
+		point = GetChatWindowSavedPosition(id)
+		
+		if point == "BOTTOMRIGHT" and chat:IsShown() then
+			chatFound = true
+			break
+		end
+	end	
+
+	if chatFound then
+		self.RightChatWindowID = id
+	else
+		self.RightChatWindowID = nil
+	end
+	
+	for i=1, CreatedFrames do
+		local BASE_OFFSET = 60
+		if E.PixelMode then
+			BASE_OFFSET = BASE_OFFSET - 3
+		end	
+		chat = _G[format("ChatFrame%d", i)]
+		chatbg = format("ChatFrame%dBackground", i)
+		button = _G[format("ButtonCF%d", i)]
+		id = chat:GetID()
+		tab = _G[format("ChatFrame%sTab", i)]
+		point = GetChatWindowSavedPosition(id)
+		isDocked = chat.isDocked
+		tab.isDocked = chat.isDocked
+		tab.owner = chat
+		if id > NUM_CHAT_WINDOWS then
+			point = point or select(1, chat:GetPoint());
+			if select(2, tab:GetPoint()):GetName() ~= bg then
+				isDocked = true
+			else
+				isDocked = false
+			end	
+		end	
+
+		if point == "BOTTOMRIGHT" and chat:IsShown() and not (id > NUM_CHAT_WINDOWS) and not isDocked and id == self.RightChatWindowID then
+			chat:ClearAllPoints()
+			if E.db.datatexts.rightChatPanel then
+				chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3) -- <<< Changed
+			else
+				BASE_OFFSET = BASE_OFFSET - 24
+				chat:Point("BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 4, 3)
+			end
+			if id ~= 2 then
+				chat:SetSize(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - (E.PixelMode and 31 or 27))) -- <<< Changed
+			else
+				chat:Size(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - (E.PixelMode and 31 or 27)) - CombatLogQuickButtonFrame_Custom:GetHeight())	
+			end
+			
+			
+			FCF_SavePositionAndDimensions(chat)			
+			
+			tab:SetParent(RightChatPanel)
+			chat:SetParent(RightChatPanel)
+			
+			if chat:IsMovable() then
+				chat:SetUserPlaced(true)
+			end
+			if E.db.chat.panelBackdrop == 'HIDEBOTH' or E.db.chat.panelBackdrop == 'LEFT' then
+				CH:SetupChatTabs(tab, true)
+			else
+				CH:SetupChatTabs(tab, false)
+			end
+		elseif not isDocked and chat:IsShown() then
+			tab:SetParent(UIParent)
+			chat:SetParent(UIParent)
+			
+			CH:SetupChatTabs(tab, true)
+		else
+			if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
+				chat:ClearAllPoints()
+				if E.db.datatexts.leftChatPanel then
+					chat:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 5, 3)
+				else
+					BASE_OFFSET = BASE_OFFSET - 24
+					chat:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 5, 3)
+				end
+				chat:Size(E.db.chat.panelWidth - 6, (E.db.chat.panelHeight - (E.PixelMode and 31 or 27))) -- <<< Changed
+				FCF_SavePositionAndDimensions(chat)		
+			end
+			chat:SetParent(LeftChatPanel)
+			if i > 2 then
+				tab:SetParent(GeneralDockManagerScrollFrameChild)
+			else
+				tab:SetParent(GeneralDockManager)
+			end
+			if chat:IsMovable() then
+				chat:SetUserPlaced(true)
+			end
+			
+			if E.db.chat.panelBackdrop == 'HIDEBOTH' or E.db.chat.panelBackdrop == 'RIGHT' then
+				CH:SetupChatTabs(tab, true)
+			else
+				CH:SetupChatTabs(tab, false)
+			end			
+		end		
+	end
+	
+	self.initialMove = true;
+end
+
 local function GetBNFriendColor(name, id)
 	local _, _, game, _, _, _, _, class = BNGetToonInfo(id)
 
@@ -135,6 +256,7 @@ local function GetBNFriendColor(name, id)
 	end
 end
 
+E.NameReplacements = {}
 function CH:ChatFrame_MessageEventHandler(event, ...)
 	if ( strsub(event, 1, 8) == "CHAT_MSG" ) then
 		local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14 = ...;
@@ -510,48 +632,8 @@ function CH:ChatFrame_MessageEventHandler(event, ...)
 				end
 			end
 		end
-
 		return true;
 	end
-end
-
-function CH:CheckLFGRoles()
-	local isInGroup, isInRaid = IsInGroup(), IsInRaid()
-	local unit = isInRaid and "raid" or "party"
-
-	twipe(lfgRoles)
-	if(not isInGroup or not self.db.lfgIcons) then return end
-
-	local role = UnitGroupRolesAssigned("player")
-	if(role) then
-		lfgRoles[E.myname] = rolePaths[role]
-	end
-
-	for i=1, GetNumGroupMembers() do
-		if(UnitExists(unit..i) and not UnitIsUnit(unit..i, "player")) then
-			role = UnitGroupRolesAssigned(unit..i)
-			local name = GetUnitName(unit..i, true)
-			if(role and name) then
-				lfgRoles[name] = rolePaths[role]
-			end
-		end
-	end
-end
-
-function SLE:GetChatIcon(sender)
-	local senderName, senderRealm
-	if sender then
-		senderName, senderRealm = string.split('-', sender)
-	else
-		senderName = E.myname
-	end
-	senderRealm = senderRealm or E.myrealm
-	senderRealm = senderRealm:gsub(' ', '')
-	
-	if specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
-		return specialChatIcons[senderRealm][senderName]
-	end
-	return ""
 end
 
 function CH:ChatEdit_AddHistory(editBox, line)
@@ -573,126 +655,20 @@ function CH:ChatEdit_AddHistory(editBox, line)
 	end
 end
 
-CH.StyleChatSLE = CH.StyleChat
-function CH:StyleChat(frame)
-	CH:StyleChatSLE(frame)
-	CreatedFrames = frame:GetID()
-end
-
---Replacement of chat tab position and size function
-function CH:PositionChat(override)
-	if not self.db.lockPositions or ((InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override)) then return end
-	if not RightChatPanel or not LeftChatPanel then return; end
-	RightChatPanel:Size(E.db.chat.panelWidth, E.db.chat.panelHeight)
-	LeftChatPanel:Size(E.db.chat.panelWidth, E.db.chat.panelHeight)	
-	
-	if E.private.chat.enable ~= true then return end
-		
-	local chat, chatbg, tab, id, point, button, isDocked, chatFound
-	for _, frameName in pairs(CHAT_FRAMES) do
-		chat = _G[frameName]
-		id = chat:GetID()
-		point = GetChatWindowSavedPosition(id)
-		
-		if point == "BOTTOMRIGHT" and chat:IsShown() then
-			chatFound = true
-			break
-		end
-	end	
-
-	if chatFound then
-		self.RightChatWindowID = id
+function SLE:GetChatIcon(sender)
+	local senderName, senderRealm
+	if sender then
+		senderName, senderRealm = string.split('-', sender)
 	else
-		self.RightChatWindowID = nil
+		senderName = E.myname
 	end
+	senderRealm = senderRealm or E.myrealm
+	senderRealm = senderRealm:gsub(' ', '')
 	
-	for i=1, CreatedFrames do
-		local BASE_OFFSET = 60
-		if E.PixelMode then
-			BASE_OFFSET = BASE_OFFSET - 3
-		end	
-		chat = _G[format("ChatFrame%d", i)]
-		chatbg = format("ChatFrame%dBackground", i)
-		button = _G[format("ButtonCF%d", i)]
-		id = chat:GetID()
-		tab = _G[format("ChatFrame%sTab", i)]
-		point = GetChatWindowSavedPosition(id)
-		isDocked = chat.isDocked
-		tab.isDocked = chat.isDocked
-		tab.owner = chat
-		if id > NUM_CHAT_WINDOWS then
-			point = point or select(1, chat:GetPoint());
-			if select(2, tab:GetPoint()):GetName() ~= bg then
-				isDocked = true
-			else
-				isDocked = false
-			end	
-		end	
-
-		if point == "BOTTOMRIGHT" and chat:IsShown() and not (id > NUM_CHAT_WINDOWS) and not isDocked and id == self.RightChatWindowID then
-			chat:ClearAllPoints()
-			if E.db.datatexts.rightChatPanel then
-				chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3) -- <<< Changed
-			else
-				BASE_OFFSET = BASE_OFFSET - 24
-				chat:Point("BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 4, 3)
-			end
-			if id ~= 2 then
-				chat:SetSize(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - (E.PixelMode and 31 or 27))) -- <<< Changed
-			else
-				chat:Size(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - (E.PixelMode and 31 or 27)) - CombatLogQuickButtonFrame_Custom:GetHeight())	
-			end
-			
-			
-			FCF_SavePositionAndDimensions(chat)			
-			
-			tab:SetParent(RightChatPanel)
-			chat:SetParent(RightChatPanel)
-			
-			if chat:IsMovable() then
-				chat:SetUserPlaced(true)
-			end
-			if E.db.chat.panelBackdrop == 'HIDEBOTH' or E.db.chat.panelBackdrop == 'LEFT' then
-				CH:SetupChatTabs(tab, true)
-			else
-				CH:SetupChatTabs(tab, false)
-			end
-		elseif not isDocked and chat:IsShown() then
-			tab:SetParent(UIParent)
-			chat:SetParent(UIParent)
-			
-			CH:SetupChatTabs(tab, true)
-		else
-			if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
-				chat:ClearAllPoints()
-				if E.db.datatexts.leftChatPanel then
-					chat:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 5, 3)
-				else
-					BASE_OFFSET = BASE_OFFSET - 24
-					chat:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 5, 3)
-				end
-				chat:Size(E.db.chat.panelWidth - 6, (E.db.chat.panelHeight - (E.PixelMode and 31 or 27))) -- <<< Changed
-				FCF_SavePositionAndDimensions(chat)		
-			end
-			chat:SetParent(LeftChatPanel)
-			if i > 2 then
-				tab:SetParent(GeneralDockManagerScrollFrameChild)
-			else
-				tab:SetParent(GeneralDockManager)
-			end
-			if chat:IsMovable() then
-				chat:SetUserPlaced(true)
-			end
-			
-			if E.db.chat.panelBackdrop == 'HIDEBOTH' or E.db.chat.panelBackdrop == 'RIGHT' then
-				CH:SetupChatTabs(tab, true)
-			else
-				CH:SetupChatTabs(tab, false)
-			end			
-		end		
+	if specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
+		return specialChatIcons[senderRealm][senderName]
 	end
-	
-	self.initialMove = true;
+	return ""
 end
 
 function CH:ChatFrame_AddMessageEventFilter (event, filter)
@@ -727,3 +703,224 @@ function CH:ChatFrame_RemoveMessageEventFilter (event, filter)
 		end
 	end
 end
+
+function CH:CheckLFGRoles()
+	local isInGroup, isInRaid = IsInGroup(), IsInRaid()
+	local unit = isInRaid and "raid" or "party"
+
+	twipe(lfgRoles)
+	if(not isInGroup or not self.db.lfgIcons) then return end
+
+	local role = UnitGroupRolesAssigned("player")
+	if(role) then
+		lfgRoles[E.myname] = rolePaths[role]
+	end
+
+	for i=1, GetNumGroupMembers() do
+		if(UnitExists(unit..i) and not UnitIsUnit(unit..i, "player")) then
+			role = UnitGroupRolesAssigned(unit..i)
+			local name = GetUnitName(unit..i, true)
+			if(role and name) then
+				lfgRoles[name] = rolePaths[role]
+			end
+		end
+	end
+end
+
+function CH:Initialize()
+	if ElvCharacterDB.ChatHistory then
+		ElvCharacterDB.ChatHistory = nil --Depreciated
+	end
+	
+	self.db = E.db.chat
+
+	if E.private.chat.enable ~= true then 
+		stopScript = true
+		DEFAULT_CHAT_FRAME:RegisterEvent("GUILD_MOTD")
+
+		local msg = GetGuildRosterMOTD()
+		if msg == "" then msg = nil end		
+		if msg then
+			ChatFrame_SystemEventHandler(DEFAULT_CHAT_FRAME, "GUILD_MOTD", msg)
+		end
+
+		return 
+	end
+
+
+	if not ElvCharacterDB.ChatEditHistory then
+		ElvCharacterDB.ChatEditHistory = {};
+	end
+	
+	if not ElvCharacterDB.ChatLog or not self.db.chatHistory then
+		ElvCharacterDB.ChatLog = {};
+	end
+	
+	self:UpdateChatKeywords()
+	
+	self:UpdateFading()
+	E.Chat = self
+	self:SecureHook('ChatEdit_OnEnterPressed')
+	FriendsMicroButton:Kill()
+	ChatFrameMenuButton:Kill()
+
+		
+    if WIM then
+      WIM.RegisterWidgetTrigger("chat_display", "whisper,chat,w2w,demo", "OnHyperlinkClick", function(self) CH.clickedframe = self end);
+	  WIM.RegisterItemRefHandler('url', WIM_URLLink)
+    end
+
+	self:SecureHook('FCF_SetChatWindowFontSize', 'SetChatFont')
+	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'DelayGMOTD')
+	self:RegisterEvent('UPDATE_CHAT_WINDOWS', 'SetupChat')
+	self:RegisterEvent('UPDATE_FLOATING_CHAT_WINDOWS', 'SetupChat')
+	self:RegisterEvent('PET_BATTLE_CLOSE')
+
+	self:SetupChat()
+	self:UpdateAnchors()
+	
+	self:RegisterEvent("GROUP_ROSTER_UPDATE", "CheckLFGRoles")
+
+	self:RegisterEvent('CHAT_MSG_INSTANCE_CHAT', 'SaveChatHistory')
+	self:RegisterEvent('CHAT_MSG_INSTANCE_CHAT_LEADER', 'SaveChatHistory')
+	self:RegisterEvent("CHAT_MSG_BN_WHISPER", 'SaveChatHistory')
+	self:RegisterEvent("CHAT_MSG_BN_WHISPER_INFORM", 'SaveChatHistory')
+	self:RegisterEvent("CHAT_MSG_CHANNEL", 'SaveChatHistory')
+	self:RegisterEvent("CHAT_MSG_EMOTE", 'SaveChatHistory')
+	self:RegisterEvent("CHAT_MSG_GUILD", 'SaveChatHistory')
+	self:RegisterEvent("CHAT_MSG_GUILD_ACHIEVEMENT", 'SaveChatHistory')
+	self:RegisterEvent("CHAT_MSG_OFFICER", 'SaveChatHistory')
+	self:RegisterEvent("CHAT_MSG_PARTY", 'SaveChatHistory')
+	self:RegisterEvent("CHAT_MSG_PARTY_LEADER", 'SaveChatHistory')
+	self:RegisterEvent("CHAT_MSG_RAID", 'SaveChatHistory')
+	self:RegisterEvent("CHAT_MSG_RAID_LEADER", 'SaveChatHistory')
+	self:RegisterEvent("CHAT_MSG_RAID_WARNING", 'SaveChatHistory')
+	self:RegisterEvent("CHAT_MSG_SAY", 'SaveChatHistory')
+	self:RegisterEvent("CHAT_MSG_WHISPER", 'SaveChatHistory')
+	self:RegisterEvent("CHAT_MSG_WHISPER_INFORM", 'SaveChatHistory')
+	self:RegisterEvent("CHAT_MSG_YELL", 'SaveChatHistory')
+	
+	--First get all pre-existing filters and copy them to our version of chatFilters using ChatFrame_GetMessageEventFilters
+	for name, _ in pairs(ChatTypeGroup) do
+		for i=1, #ChatTypeGroup[name] do
+			local filterFuncTable = ChatFrame_GetMessageEventFilters(ChatTypeGroup[name][i])
+			if filterFuncTable then
+				chatFilters[ChatTypeGroup[name][i]] = {};
+
+				for j=1, #filterFuncTable do
+					local filterFunc = filterFuncTable[j]
+					tinsert(chatFilters[ChatTypeGroup[name][i]], filterFunc);
+				end
+			end
+		end
+	end
+	
+	--CHAT_MSG_CHANNEL isn't located inside ChatTypeGroup
+	local filterFuncTable = ChatFrame_GetMessageEventFilters("CHAT_MSG_CHANNEL")
+	if filterFuncTable then
+		chatFilters["CHAT_MSG_CHANNEL"] = {};
+
+		for j=1, #filterFuncTable do
+			local filterFunc = filterFuncTable[j]
+			tinsert(chatFilters["CHAT_MSG_CHANNEL"], filterFunc);
+		end
+	end
+			
+	--Now hook onto Blizzards functions for other addons
+	self:SecureHook("ChatFrame_AddMessageEventFilter");
+	self:SecureHook("ChatFrame_RemoveMessageEventFilter");
+	
+	self:SecureHook("FCF_SetWindowAlpha")
+	
+	
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", CH.CHAT_MSG_CHANNEL)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", CH.CHAT_MSG_YELL)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", CH.CHAT_MSG_SAY)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER_INFORM", CH.FindURL)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", CH.FindURL)	
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", CH.FindURL)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_OFFICER", CH.FindURL)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", CH.FindURL)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY_LEADER", CH.FindURL)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID", CH.FindURL)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_LEADER", CH.FindURL)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_INSTANCE_CHAT", CH.FindURL)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_INSTANCE_CHAT_LEADER", CH.FindURL)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_CONVERSATION", CH.FindURL)	
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_WHISPER", CH.FindURL)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_WHISPER_INFORM", CH.FindURL)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_INLINE_TOAST_BROADCAST", CH.FindURL)
+	
+
+	GeneralDockManagerOverflowButton:ClearAllPoints()
+	GeneralDockManagerOverflowButton:Point('BOTTOMRIGHT', LeftChatTab, 'BOTTOMRIGHT', -2, 2)
+	GeneralDockManagerOverflowButtonList:SetTemplate('Transparent')
+	hooksecurefunc(GeneralDockManagerScrollFrame, 'SetPoint', function(self, point, anchor, attachTo, x, y)
+		if anchor == GeneralDockManagerOverflowButton and x == 0 and y == 0 then
+			self:SetPoint(point, anchor, attachTo, -2, -6)
+		end
+	end)	
+	
+	if self.db.chatHistory then
+		self.SoundPlayed = true;
+		self:DisplayChatHistory()
+		self.SoundPlayed = nil;
+	end
+		
+	
+	local S = E:GetModule('Skins')
+	S:HandleNextPrevButton(CombatLogQuickButtonFrame_CustomAdditionalFilterButton, true)
+	local frame = CreateFrame("Frame", "CopyChatFrame", E.UIParent)
+	tinsert(UISpecialFrames, "CopyChatFrame")
+	frame:SetTemplate('Transparent')
+	frame:Size(700, 200)
+	frame:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 3)
+	frame:Hide()
+	frame:EnableMouse(true)
+	frame:SetFrameStrata("DIALOG")
+
+
+	local scrollArea = CreateFrame("ScrollFrame", "CopyChatScrollFrame", frame, "UIPanelScrollFrameTemplate")
+	scrollArea:Point("TOPLEFT", frame, "TOPLEFT", 8, -30)
+	scrollArea:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -30, 8)
+	S:HandleScrollBar(CopyChatScrollFrameScrollBar)
+
+	local editBox = CreateFrame("EditBox", "CopyChatFrameEditBox", frame)
+	editBox:SetMultiLine(true)
+	editBox:SetMaxLetters(99999)
+	editBox:EnableMouse(true)
+	editBox:SetAutoFocus(false)
+	editBox:SetFontObject(ChatFontNormal)
+	editBox:Width(scrollArea:GetWidth())
+	editBox:Height(200)
+	editBox:SetScript("OnEscapePressed", function() CopyChatFrame:Hide() end)
+	scrollArea:SetScrollChild(editBox)
+	CopyChatFrameEditBox:SetScript("OnTextChanged", function(self, userInput)
+		if userInput then return end
+		local _, max = CopyChatScrollFrameScrollBar:GetMinMaxValues()
+		for i=1, max do
+			ScrollFrameTemplate_OnMouseWheel(CopyChatScrollFrame, -1)
+		end
+	end)		
+
+	local close = CreateFrame("Button", "CopyChatFrameCloseButton", frame, "UIPanelCloseButton")
+	close:SetPoint("TOPRIGHT")
+	close:SetFrameLevel(close:GetFrameLevel() + 1)
+	close:EnableMouse(true)
+	
+	S:HandleCloseButton(close)	
+
+	--Disable Blizzard
+	InterfaceOptionsSocialPanelTimestampsButton:SetAlpha(0)
+	InterfaceOptionsSocialPanelTimestampsButton:SetScale(0.000001)
+	InterfaceOptionsSocialPanelTimestamps:SetAlpha(0)
+	InterfaceOptionsSocialPanelTimestamps:SetScale(0.000001)
+	
+	InterfaceOptionsSocialPanelChatStyle:EnableMouse(false)
+	InterfaceOptionsSocialPanelChatStyleButton:Hide()
+	InterfaceOptionsSocialPanelChatStyle:SetAlpha(0)
+
+ 	CombatLogQuickButtonFrame_CustomAdditionalFilterButton:Size(20, 22)
+ 	CombatLogQuickButtonFrame_CustomAdditionalFilterButton:Point("TOPRIGHT", CombatLogQuickButtonFrame_Custom, "TOPRIGHT", 0, -1)
+end
+
