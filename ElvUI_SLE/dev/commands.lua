@@ -16,17 +16,12 @@ local Authors = {
 	},
 	["СвежевательДуш"] = {
 		--Darth's toons
-		["Дартпредатор"] = "SLEAUTHOR",
-		["Алея"] = "SLEAUTHOR",
-		["Ваззули"] = "SLEAUTHOR",
 		["Сиаранна"] = "SLEAUTHOR",
 		["Джатон"] = "SLEAUTHOR",
 		["Фикстер"] = "SLEAUTHOR",
-		["Киландра"] = "SLEAUTHOR",
 		["Нарджо"] = "SLEAUTHOR",
 		["Верзук"] = "SLEAUTHOR",
-		["Крениг"] = "SLEAUTHOR",
-		["Мейжи"] = "SLEAUTHOR"
+		["Крениг"] = "SLEAUTHOR"
 	},
 	["ВечнаяПесня"] = {
 		--Darth's toons

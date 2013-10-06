@@ -51,17 +51,12 @@ local specialChatIcons = {
 	},
 	["СвежевательДуш"] = {
 		--Darth's toons
-		["Дартпредатор"] = darth,
-		["Алея"] = darth,
-		["Ваззули"] = darth,
 		["Сиаранна"] = darth,
 		["Джатон"] = darth,
 		["Фикстер"] = darth,
-		["Киландра"] = darth,
 		["Нарджо"] = darth,
 		["Верзук"] = darth,
 		["Крениг"] = darth,
-		["Мейжи"] = darth,
 		["Большойгном"] = test, --Testing toon
 		["Фергесон"] = friend
 	},
