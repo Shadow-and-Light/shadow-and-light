@@ -8,21 +8,26 @@ E.Options.args.sle.args.equipmanager = {
 	order = 13,
 	name = L['Equipment Manager'],
 	args = {
-		intro = {
+		header = {
 			order = 1,
+			type = "header",
+			name = L["Equipment Manager"],
+		},
+		intro = {
+			order = 2,
 			type = 'description',
 			name = L["EM_DESC"],
 		},
 		enable = {
 			type = "toggle",
-			order = 2,
+			order = 3,
 			name = L['Enable'],
 			get = function(info) return E.private.sle.equip.enable end,
 			set = function(info, value) E.private.sle.equip.enable = value; E:StaticPopup_Show("PRIVATE_RL") end
 		},
 		spam = {
 			type = "toggle",
-			order = 3,
+			order = 4,
 			name = L['Spam Throttling'],
 			desc = L["Removes the spam from chat stating what talents were learned or unlearned during spec change."],
 			get = function(info) return E.private.sle.equip.spam end,
@@ -31,7 +36,7 @@ E.Options.args.sle.args.equipmanager = {
 		equipsets = {
 			type = "group",
 			name = PAPERDOLL_EQUIPMENTMANAGER,
-			order = 4,
+			order = 5,
 			disabled = function() return not E.private.sle.equip.enable end,
 			guiInline = true,
 			args = {

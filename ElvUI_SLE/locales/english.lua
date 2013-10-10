@@ -179,6 +179,7 @@ L["Equip this set after entering battlegrounds or arens."] = true
 
 --Farm--
 L['Farm'] = true
+L["Farm Options"] = true
 L["FARM_DESC"] = [[Additional actionbars for the Sunsong Ranch containing seeds, tools and portals.
 They will appear only if you are on the Ranch or The Halfhill Market.]]
 L['Only active buttons'] = true

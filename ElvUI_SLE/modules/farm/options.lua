@@ -7,20 +7,25 @@ E.Options.args.sle.args.farm = {
 	order = 14,
 	name = L['Farm'],
 	args = {
-		intro = {
+		header = {
 			order = 1,
+			type = "header",
+			name = L["Farm Options"],
+		},
+		intro = {
+			order = 2,
 			type = 'description',
 			name = L["FARM_DESC"],
 		},
 		enable = {
 			type = "toggle",
-			order = 2,
+			order = 3,
 			name = L['Enable'],
 			get = function(info) return E.private.sle.farm.enable end,
 			set = function(info, value) E.private.sle.farm.enable = value; E:StaticPopup_Show("PRIVATE_RL") end
 		},
 		active = {
-			order = 3,
+			order = 4,
 			type = 'toggle',
 			name = L['Only active buttons'],
 			desc = L['Only show the buttons for the seeds, portals, tools you have in your bags.'],
@@ -29,7 +34,7 @@ E.Options.args.sle.args.farm = {
 			set = function(info, value) E.db.sle.farm.active = value; if SeedAnchor then F:UpdateLayout() end end,
 		},
 		size = {
-			order = 4,
+			order = 5,
 			type = "range",
 			name = L["Button Size"],
 			disabled = function() return not E.private.sle.farm.enable end,
@@ -39,7 +44,7 @@ E.Options.args.sle.args.farm = {
 		},
 		seedbar = {
 			type = "group",
-			order = 5,
+			order = 6,
 			name = L["Seed Bars"],
 			disabled = function() return not E.private.sle.farm.enable end,
 			guiInline = true,
