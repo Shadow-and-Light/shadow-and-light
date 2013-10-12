@@ -1572,9 +1572,11 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 	E.private.general.glossTex = "Minimalist" --5.4
 	
 	--Addon Skins
-	E.private.addonskins.EmbedSkada = true --5.4
-	E.private.addonskins.EmbedalDamageMeter = false --5.4
-	E.private.addonskins.EmbedSystemDual = true --5.4
+	if IsAddOnLoaded("ElvUI_AddOnSkins") then
+		E.private.addonskins.EmbedSkada = true --5.4
+		E.private.addonskins.EmbedalDamageMeter = false --5.4
+		E.private.addonskins.EmbedSystemDual = true --5.4
+	end
 
 
 --	E.db.gridSize = 110
