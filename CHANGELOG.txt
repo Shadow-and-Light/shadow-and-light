@@ -1,3 +1,6 @@
+v1.76
+- Fix for install errors when using authors' settings
+
 v1.75 October 4, 2013
 - Fix parsing url, addon, smiley stuff in chat
 
