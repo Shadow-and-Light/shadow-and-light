@@ -1521,12 +1521,14 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 --	E.db.general.backdropfadecolor = {["r"] = 0.054,["g"] = 0.054,["b"] = 0.054,}
 	E.db.general.bordercolor = {["r"] = 0.31,["g"] = 0.31,["b"] = 0.31,} --5.4
 	E.db.general.bottomPanel = true --5.4
+	E.db.general.experience.orientation = "VERTICAL"
 	E.db.general.experience.height = 180 --5.4
 	E.db.general.experience.width = 10 --5.4
 	E.db.general.interruptAnnounce = "RAID" --5.4
 	E.db.general.minimap.locationText = "SHOW" --5.4
 --	E.db.general.health = {}
 --	E.db.general.BUFFS = {}
+	E.db.general.reputation.orientation = "VERTICAL"
 	E.db.general.reputation.height = 180 --5.4
 	E.db.general.reputation.orientation = "VERTICAL" --5.4
 	E.db.general.reputation.width = 10 --5.4
@@ -2031,6 +2033,8 @@ function E:RepoocSetup() --The function to switch from classic ElvUI settings to
 		E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT41219"
 		E.db.movers.UIBFrameMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT315178"
 		E.db.movers.WatchFrameMover = "TOPLEFTElvUIParentTOPLEFT75-239"
+		E.db.movers.ExperienceBarMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-42619"
+		E.db.movers.ReputationBarMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-41419"
 		if layout == 'dpsCaster' or layout == 'dpsMelee' or layout == 'tank' then
 			E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT7200"
 			E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT7200"
