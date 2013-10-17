@@ -852,6 +852,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 	--Tooltip--
 	E.db.tooltip.healthBar.font = "ElvUI Font"
 	E.db.tooltip.talentInfo = true
+	E.db.sle.tooltipicon = true
 	
 	--Chat--
 	E.db.chat.editboxhistory = 10
