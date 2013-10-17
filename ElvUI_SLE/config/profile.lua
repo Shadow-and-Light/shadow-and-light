@@ -239,6 +239,9 @@ P['sle'] = {
 		['chat'] = "RAID",
 		['auto'] = true,
 	},
+	
+	--Tooltip Faction Icon
+	["tooltipicon"] = false,
 }
 
 P.chat.editboxhistory = 5

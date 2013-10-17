@@ -280,6 +280,15 @@ L["Flying"] = "Летающие"
 L["Flying & Ground"] = "Наземные и Летающие"
 L["Swimming"] = "Водные"
 
+--Tooltip--
+L["Tooltip enhancements"] = "Дополнительные опции подсказки"
+L["Faction Icon"] = "Иконка фракции"
+L["Show faction icon to the left of player's name on tooltip."] = "Отображать иконку фракции около имени игроков в подсказках"
+L["Tooltip X-offset"] = "Смещение подсказки по X"
+L["Offset the tooltip on the X-axis."] = "Смещает подсказку по оси X относительно выбранной точки крепления."
+L["Tooltip Y-offset"] = "Смещение подсказки по Y"
+L["Offset the tooltip on the Y-axis."] = "Смещает подсказку по оси Y относительно выбранной точки крепления."
+
 --UI buttons--
 L["UI Buttons"] = "Меню интерфейса"
 L["Additional menu with useful buttons"] = "Дополнительное меню с полезными кнопками"

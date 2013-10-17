@@ -6,6 +6,8 @@ P['tooltip']['mouseOffsetX'] = 0
 P['tooltip']['mouseOffsetY'] = 0
 P['tooltip']['overrideCombat'] = false
 
+local iconPath = [[Interface\AddOns\ElvUI_SLE\media\textures\]]
+
 TT.GameTooltip_SetDefaultAnchorSLE = TT.GameTooltip_SetDefaultAnchor
 function TT:GameTooltip_SetDefaultAnchor(tt, parent)
 	TT:GameTooltip_SetDefaultAnchorSLE(tt, parent)
@@ -32,6 +34,20 @@ function TT:AnchorFrameToMouse(frame)
 	local tipWidth = frame:GetWidth();
 	frame:ClearAllPoints();
 	frame:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", (x/scale + (E.db.tooltip.mouseOffsetX - tipWidth/2)), (y/scale + E.db.tooltip.mouseOffsetY));
+end
+
+
+
+TT.GameTooltip_OnTooltipSetUnitSLE = TT.GameTooltip_OnTooltipSetUnit
+function TT:GameTooltip_OnTooltipSetUnit(tt)
+	TT:GameTooltip_OnTooltipSetUnitSLE(tt)
+	if not E.db.sle.tooltipicon then return end
+	local unit = select(2, tt:GetUnit())
+	if(UnitIsPlayer(unit)) then
+		local text = GameTooltipTextLeft1:GetText()
+		local faction = UnitFactionGroup(unit)
+		GameTooltipTextLeft1:SetText("|T"..iconPath..faction..".blp:15:15:0:0:64:64:2:56:2:56|t "..text)
+	end
 end
 
 function TT:AddonName_OnUpdate(self, elapsed)

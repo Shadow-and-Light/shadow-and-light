@@ -274,6 +274,15 @@ L["Flying"] = true
 L["Flying & Ground"] = true
 L["Swimming"] = true
 
+--Tooltip--
+L["Tooltip enhancements"] = true
+L["Faction Icon"] = true
+L["Show faction icon to the left of player's name on tooltip."] = true
+L["Tooltip X-offset"] = true
+L["Offset the tooltip on the X-axis."] = true
+L["Tooltip Y-offset"] = true
+L["Offset the tooltip on the Y-axis."] = true
+
 --UI buttons--
 L["UI Buttons"] = true
 L["Additional menu with useful buttons"] = true

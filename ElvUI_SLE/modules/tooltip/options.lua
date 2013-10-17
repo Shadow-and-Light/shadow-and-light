@@ -16,7 +16,15 @@ local function configTable()
 			intro = {
 				order = 2,
 				type = 'description',
-				name = "Tooltip description",
+				name = L["Tooltip enhancements"],
+			},
+			tooltipicon = {
+				order = 3,
+				type = 'toggle',
+				name = L["Faction Icon"],
+				desc = L["Show faction icon to the left of player's name on tooltip."],
+				get = function(info) return E.db.sle.tooltipicon end,
+				set = function(info, value) E.db.sle.tooltipicon = value end,
 			},
 			offset = {
 				type = "group",
@@ -28,16 +36,16 @@ local function configTable()
 					mouseOffsetX = {
 						order = 31,
 						type = 'range',
-						name = 'Tooltip X-offset',
-						desc = 'Offset the tooltip on the X-axis.',
+						name = L["Tooltip X-offset"],
+						desc = L["Offset the tooltip on the X-axis."],
 						min = -200, max = 200, step = 1,
 						set = function(info, value) E.db.tooltip[ info[#info] ] = value end,
 					},
 					mouseOffsetY = {
 						order = 32,
 						type = 'range',
-						name = 'Tooltip Y-offset',
-						desc = 'Offset the tooltip on the Y-axis.',
+						name = L["Tooltip Y-offset"],
+						desc = L["Offset the tooltip on the Y-axis."],
 						min = -200, max = 200, step = 1,
 						set = function(info, value) E.db.tooltip[ info[#info] ] = value end,
 					},
