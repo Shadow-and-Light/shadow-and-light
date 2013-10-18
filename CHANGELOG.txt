@@ -1,3 +1,6 @@
+v1.77 October 18, 2013
+- Added Faction icon to tooltip option
+
 v1.76 October 12, 2013
 - Fix for install errors when using authors' settings
 
