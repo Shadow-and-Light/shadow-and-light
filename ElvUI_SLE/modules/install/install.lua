@@ -924,7 +924,7 @@ function E:DarthSetup() --The function to switch from classic ElvUI settings to 
 		E.db.datatexts.panels.DP_3.left = 'Time';
 		E.db.datatexts.panels.DP_4.right = '';
 		E.db.datatexts.panels.DP_4.middle = '';
-		E.db.datatexts.panels.DP_4.left = 'Combat Time';
+		E.db.datatexts.panels.DP_4.left = 'Combat/Arena Time';
 		E.db.datatexts.panels.DP_5.middle = 'Gold';
 		E.db.datatexts.panels.DP_5.left = 'Bags';
 
