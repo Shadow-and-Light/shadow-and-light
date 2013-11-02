@@ -46,6 +46,7 @@ function TT:GameTooltip_OnTooltipSetUnit(tt)
 	if(UnitIsPlayer(unit)) then
 		local text = GameTooltipTextLeft1:GetText()
 		local faction = UnitFactionGroup(unit)
+		if not faction then faction = "Neutral" end
 		GameTooltipTextLeft1:SetText("|T"..iconPath..faction..".blp:15:15:0:0:64:64:2:56:2:56|t "..text)
 	end
 end
