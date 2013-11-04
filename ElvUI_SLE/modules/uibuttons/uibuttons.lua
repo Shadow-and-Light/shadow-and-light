@@ -46,6 +46,8 @@ function UB:Create(button, symbol, text, name, desc)
 			button:SetAttribute("macrotext1", "/bigwigs")
 		elseif IsAddOnLoaded("DBM-Core") then
 			button:SetAttribute("macrotext1", "/dbm options")
+		elseif IsAddOnLoaded("VEM-Core") then
+			button:SetAttribute("macrotext1", "/vem")
 		end
 	elseif button == Abutton then
 		if IsAddOnLoaded("ACP") then
