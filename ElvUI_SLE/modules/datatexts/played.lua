@@ -5,7 +5,7 @@ local format, GetTime, ChatFrame_TimeBreakDown, InCombatLockdown = format, GetTi
 local PlayedTimeFormatFull = '%d D %02d:%02d:%02d'
 local PlayedTimeFormatNoDay = '%02d:%02d:%02d'
 local TotalPlayTime, LevelPlayTime, SessionPlayTime, LevelPlayedOffset, LastLevelTime
-local MyRealm = GetCVar('realmName')
+local MyRealm = GetRealmName()
 local MyName = UnitName('player')
 local MyClass = select(2, UnitClass('player'))
 
