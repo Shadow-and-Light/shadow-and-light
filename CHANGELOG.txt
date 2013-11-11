@@ -1,3 +1,9 @@
+v1.78
+- Fixed Time Played Datatext (Thnx Caedis)
+- Added VEM to boss button to the ui button
+- Attempt to help fix some proving ground errors
+- Removed OCES skin b/c its in ElvUI Addon Skins
+
 v1.77 October 18, 2013
 - Added Faction icon to tooltip option
 
