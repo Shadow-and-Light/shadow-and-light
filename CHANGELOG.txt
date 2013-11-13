@@ -1,4 +1,4 @@
-v1.78
+v1.78 November 12, 2013
 - Fixed Time Played Datatext (Thnx Caedis)
 - Added VEM to boss button to the ui button
 - Attempt to help fix some proving ground errors
