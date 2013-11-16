@@ -6,29 +6,35 @@ local myclass = E.myclass
 local IsInInstance = IsInInstance
 local soulstone = GetSpellInfo(20707)
 local UnitLevel = UnitLevel
-local option = false
+local GetSpellCooldown = GetSpellCooldown
 local level = 0
+local cd
+local GetTime = GetTime
 
-local function Check(level)
+local function Check(level, cd)
 	if ((myclass ~= "SHAMAN") and not (soulstone and UnitBuff("player", soulstone))) then
 		RepopMe()
-	elseif myclass == "SHAMAN" and level < 32 then
+	elseif myclass == "SHAMAN" and (level < 32 or cd > 0) then
 		RepopMe()
 	end
 end
 
 function AR:Releasing()
 	local inInstance, instanceType = IsInInstance()
-	if myclass == "SHAMAN" then level = UnitLevel("player") end
+	if myclass == "SHAMAN" then 
+		level = UnitLevel("player") 
+		local start, durtion = GetSpellCooldown(20608)
+		cd = (start + duration - GetTime())
+	end
 	if (inInstance and (instanceType == "pvp")) then
-		if E.db.sle.pvpautorelease then Check(level) end
+		if E.db.sle.pvpautorelease then Check(level, cd) end
 	end
 	
 	-- auto resurrection for world PvP area...when active
 	if E.db.sle.pvpautorelease then 
 		for index = 1, GetNumWorldPVPAreas() do
 			local _, localizedName, isActive = GetWorldPVPAreaInfo(index)
-			if (GetRealZoneText() == localizedName and isActive) then Check(level) end
+			if (GetRealZoneText() == localizedName and isActive) then Check(level, cd) end
 		end
 	end
 end
