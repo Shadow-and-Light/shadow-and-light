@@ -34,8 +34,14 @@ local test = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Test:13:13|t
 local rpg = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_RPG:13:35|t"
 
 local specialChatIcons = {
+	["BleedingHollow"] = {
+		["Tirain"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\tyrone_biggums_chat_logo.tga:16:18|t"
+	},
 	["Spirestone"] = {
-		["Elvz"] = elvui
+		["Elvz"] = elvui,
+		["Elv"] = elvui,
+		["Sinth"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\tyrone_biggums_chat_logo.tga:16:18|t",
+		["Athlina"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\heart_chat_logo.tga:15:15|t"
 	},
 	["Illidan"] = {
 		--Original Stuff
