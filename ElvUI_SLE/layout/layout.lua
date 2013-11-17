@@ -2,6 +2,8 @@ local E, L, V, P, G =  unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, Glob
 local LO = E:GetModule('Layout');
 local DTP = E:GetModule('DTPanels');
 
+local Point = Point
+
 local PANEL_HEIGHT = 22;
 local SIDE_BUTTON_WIDTH = 16;
 

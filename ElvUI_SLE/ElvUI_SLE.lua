@@ -5,21 +5,25 @@ local DTP
 local EP = LibStub("LibElvUIPlugin-1.0")
 local addon = ...
 
+--localizing functions--
+local IsInInstance = IsInInstance
+local tinsert = tinsert
+
 SLE.version = GetAddOnMetadata("ElvUI_SLE", "Version")
 E.SLEConfigs = {}
 
 function SLE:Tutorials() --Additional tutorials
-	table.insert(E.TutorialList, #(E.TutorialList)+1, L["To enable full values of health/power on unitframes in Shadow & Light add \":sl\" to the end of the health/power tag.\nExample: [health:current:sl]."]);
+	tinsert(E.TutorialList, #(E.TutorialList)+1, L["To enable full values of health/power on unitframes in Shadow & Light add \":sl\" to the end of the health/power tag.\nExample: [health:current:sl]."]);
 end
 
 function SLE:ConfigCats() --Additional mover groups
-	table.insert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L");
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L");
 	E.ConfigModeLocalizedStrings["S&L"] = L["S&L: All"]
-	table.insert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L DT");
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L DT");
 	E.ConfigModeLocalizedStrings["S&L DT"] = L["S&L: Datatexts"]
-	table.insert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L BG");
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L BG");
 	E.ConfigModeLocalizedStrings["S&L BG"] = L["S&L: Backgrounds"]
-	table.insert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L MISC");
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L MISC");
 	E.ConfigModeLocalizedStrings["S&L MISC"] = L["S&L: Misc"]
 end
 
