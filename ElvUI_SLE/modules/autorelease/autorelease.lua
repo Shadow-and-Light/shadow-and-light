@@ -41,6 +41,7 @@ function AR:Releasing()
 end
 
 function AR:Initialize()
+	E:CreateMover(GhostFrame, "GhostFrameMover", L["Ghost Frame"], nil, nil, nil, "ALL,S&L,S&L MISC")
 	self:RegisterEvent("PLAYER_DEAD", "Releasing");
 end
 
