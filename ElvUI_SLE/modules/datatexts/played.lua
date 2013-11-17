@@ -2,12 +2,13 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 
 local format, GetTime, ChatFrame_TimeBreakDown, InCombatLockdown = format, GetTime, ChatFrame_TimeBreakDown, InCombatLockdown
-local PlayedTimeFormatFull = '%d D %02d:%02d:%02d'
+local PlayedTimeFormatFull = '%d '..L["D"]..' %02d:%02d:%02d'
 local PlayedTimeFormatNoDay = '%02d:%02d:%02d'
 local TotalPlayTime, LevelPlayTime, SessionPlayTime, LevelPlayedOffset, LastLevelTime
 local MyRealm = E.myrealm
 local MyName = E.myname
 local MyClass = E.myclass
+local AddLine, AddDoubleLine = AddLine, AddDoubleLine
 
 local OnEnter = function(self)
 	if not InCombatLockdown() and SessionPlayTime then
@@ -19,9 +20,9 @@ local OnEnter = function(self)
 		--local Panel, Anchor, xOff, yOff = self:GetTooltipAnchor()
 		--DT.tooltip:SetOwner(Panel, Anchor, xOff, yOff)
 		DT.tooltip:ClearLines()
-		DT.tooltip:AddLine('Time Played', 1, 1, 1)
+		DT.tooltip:AddLine(L["Time Played"], 1, 1, 1)
 		DT.tooltip:AddLine(' ')
-		DT.tooltip:AddDoubleLine("Session:", SessionDay > 0 and format(PlayedTimeFormatFull, SessionDay, SessionHour, SessionMinute, SessionSecond) or format(PlayedTimeFormatNoDay, SessionHour, SessionMinute, SessionSecond), 1, 1, 1, 1, 1, 1)
+		DT.tooltip:AddDoubleLine(L["Session:"], SessionDay > 0 and format(PlayedTimeFormatFull, SessionDay, SessionHour, SessionMinute, SessionSecond) or format(PlayedTimeFormatNoDay, SessionHour, SessionMinute, SessionSecond), 1, 1, 1, 1, 1, 1)
 		if LastLevelSecond > 0 then
 			DT.tooltip:AddDoubleLine(format('%s %s:', PREVIOUS, LEVEL), LastLevelDay > 0 and format(PlayedTimeFormatFull, LastLevelDay. LastLevelHour, LastLevelMinute, LastLevelSecond) or format(PlayedTimeFormatNoDay, LastLevelHour, LastLevelMinute, LastLevelSecond), 1, 1, 1, 1, 1, 1)
 		end
@@ -29,7 +30,7 @@ local OnEnter = function(self)
 		--DT.tooltip:AddDoubleLine(LEVEL..':', LevelDay > 0 and format(PlayedTimeFormatFull, LevelDay. LevelHour, LevelMinute, LevelSecond) or format(PlayedTimeFormatNoDay, LevelHour, LevelMinute, LevelSecond), 1, 1, 1, 1, 1, 1)
 		DT.tooltip:AddDoubleLine(TOTAL..':', TotalDay > 0 and format(PlayedTimeFormatFull, TotalDay, TotalHour, TotalMinute, TotalSecond) or format(PlayedTimeFormatNoDay, TotalHour, TotalMinute, TotalSecond), 1, 1, 1, 1, 1, 1)
 		DT.tooltip:AddLine(' ')
-		DT.tooltip:AddLine('Account Time Played', 1, 1, 1)
+		DT.tooltip:AddLine(L["Account Time Played"], 1, 1, 1)
 		DT.tooltip:AddLine(' ')
 		local Class, Level, AccountDay, AccountHour, AccountMinute, AccountSecond, TotalAccountTime
 		for player, subtable in pairs(ElvDB['sle']['TimePlayed'][MyRealm]) do
@@ -46,9 +47,9 @@ local OnEnter = function(self)
 		end
 		DT.tooltip:AddLine(' ')
 		local TotalAccountDay, TotalAccountHour, TotalAccountMinute, TotalAccountSecond = ChatFrame_TimeBreakDown(TotalAccountTime)
-		DT.tooltip:AddDoubleLine('Total', format(PlayedTimeFormatFull, TotalAccountDay, TotalAccountHour, TotalAccountMinute, TotalAccountSecond), 1, 0, 1, 1, 1, 1)
+		DT.tooltip:AddDoubleLine(TOTAL, format(PlayedTimeFormatFull, TotalAccountDay, TotalAccountHour, TotalAccountMinute, TotalAccountSecond), 1, 0, 1, 1, 1, 1)
 		DT.tooltip:AddLine(' ')
-		DT.tooltip:AddLine('|cFFAAAAAAReset Data: Hold Shift + Right Click|r')
+		DT.tooltip:AddLine(L["Reset Data: Hold Shift + Right Click"])
 		DT.tooltip:Show()
 	end
 end
@@ -71,7 +72,7 @@ local OnUpdate = function(self, elapsed)
 			Day, Hour, Minute, Second = ChatFrame_TimeBreakDown(TotalPlayTime + (GetTime() - SessionPlayTime))
 		end
 		if Day > 0 then
-			self.text:SetFormattedText('%d D %02d:%02d', Day, Hour, Minute)
+			self.text:SetFormattedText('%d '..L["D"]..' %02d:%02d', Day, Hour, Minute)
 		else
 			self.text:SetFormattedText('%02d:%02d', Hour, Minute)
 		end

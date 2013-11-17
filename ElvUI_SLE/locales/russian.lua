@@ -156,6 +156,9 @@ L["Hide In Combat"] = "Скрывать в бою"
 L["Will not show the tooltip while in combat."] = "Не отображать подсказки инфо-текста в бою."
 L["World Loot"] = "Мировая добыча"
 L["Show/Hide the status of Key to the Palace of Lei Shen and Trove of the Thunder King."] = "Показать/скрыть статус Ключа от дворца Лэй Шэня и Сокровищ Властелина Грома."
+L["Time Played"] = "Времени в игре"
+L["Account Time Played"] = "Время в игре на аккаунте"
+L["D"] = "Дн"
 
 --Exp/Rep Bar--
 L["Xp-Rep Text"] = "Текст Опыта/Репутации"
