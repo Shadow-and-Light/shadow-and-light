@@ -15,7 +15,7 @@ local pairs = _G.pairs
 local frame = CreateFrame("frame")
 local tooltip
 local LDB_ANCHOR
-
+local wtcgString = BNET_CLIENT_WTCG
 local GROUP_CHECKMARK	= "|TInterface\\Buttons\\UI-CheckBox-Check:0|t"
 local AWAY_ICON		= "|TInterface\\FriendsFrame\\StatusIcon-Away:18|t"
 local BUSY_ICON		= "|TInterface\\FriendsFrame\\StatusIcon-DnD:18|t"
@@ -253,7 +253,7 @@ end
 
 function LDB:OnClick(button)
 	if button == "LeftButton" then
-		ToggleFriendsFrame(1)
+		ToggleFriendsFrame()
 	end
 
 	if button == "RightButton" then
@@ -399,6 +399,10 @@ function LDB.OnEnter(self)
 
 						if player["CLIENT"] == "D3" then
 							line = tooltip:SetCell(line, 6, "|cff82c5ffDiablo 3|r")
+						end
+						
+						if player["CLIENT"] == wtcgString then
+							line = tooltip:SetCell(line, 6, "|cff82c5ffHearthstone|r")
 						end
 					end
 
