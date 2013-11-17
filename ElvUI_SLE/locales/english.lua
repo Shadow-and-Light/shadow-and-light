@@ -345,6 +345,7 @@ L["To enable full values of health/power on unitframes in Shadow & Light add \":
 
 --Movers--
 L["Pet Battle AB"] = true
+L["Ghost Frame"] = true
 
 
 --Changelog--

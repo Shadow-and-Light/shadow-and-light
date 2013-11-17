@@ -350,7 +350,8 @@ TheSamaKutra
 L["To enable full values of health/power on unitframes in Shadow & Light add \":sl\" to the end of the health/power tag.\nExample: [health:current:sl]."] = "Чтобы включить отображение полного значения здоровья/ресурса при использовании Shadow & Light, нужно добавить \":sl\" в конец нужного тэга.\nПример: [health:current:sl]."
 
 --Movers--
-L["Pet Battle AB"] = "Панель боев питомцев"
+L["Pet Battle AB"] = "Панель боев питомцев"'
+L["Ghost Frame"] = "Фрейм призрака"
 
 --Changelog
 L["Changelog"] = "Изменения"
