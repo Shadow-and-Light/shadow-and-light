@@ -2,6 +2,11 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local DT = E:GetModule('DataTexts')
 
+local GetLFGDungeonEncounterInfo = GetLFGDungeonEncounterInfo
+local AddLine = AddLine
+local AddDoubleLine = AddDoubleLine
+local GetMapNameByID = GetMapNameByID
+
 --For 4 boss raid
 function DT:FourKill(id)
 	local killNum = 0

@@ -10,6 +10,7 @@ local GetSpellCooldown = GetSpellCooldown
 local level = 0
 local cd
 local GetTime = GetTime
+local RepopMe = RepopMe
 
 local function Check(level, cd)
 	if ((myclass ~= "SHAMAN") and not (soulstone and UnitBuff("player", soulstone))) then

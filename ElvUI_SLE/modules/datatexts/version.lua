@@ -8,10 +8,13 @@ local displayString = '';
 local lastPanel;
 local self = lastPanel
 local join = string.join
-E.version = GetAddOnMetadata("ElvUI", "Version");
+local AddLine = AddLine
+local AddDoubleLine =AddDoubleLine
+local Eversion = E.version
+local format = format
 
 local function OnEvent(self, event, ...)
-	self.text:SetFormattedText(displayString, 'ElvUI v', E.version, SLE.version);
+	self.text:SetFormattedText(displayString, 'ElvUI v', Eversion, SLE.version);
 end
 
 local function Click()
@@ -22,7 +25,7 @@ end
 local function OnEnter(self)
 	DT:SetupTooltip(self)
 
-	DT.tooltip:AddDoubleLine("ElvUI "..L["Version"]..format(": |cff99ff33%s|r",E.version))
+	DT.tooltip:AddDoubleLine("ElvUI "..L["Version"]..format(": |cff99ff33%s|r",Eversion))
 	DT.tooltip:AddLine(L["SLE_AUTHOR_INFO"]..". "..L["Version"]..format(": |cff99ff33%s|r",SLE.version))
 	DT.tooltip:AddLine(" ")
 	DT.tooltip:AddLine(L['SLE_CONTACTS'])

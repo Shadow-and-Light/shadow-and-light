@@ -5,9 +5,9 @@ local format, GetTime, ChatFrame_TimeBreakDown, InCombatLockdown = format, GetTi
 local PlayedTimeFormatFull = '%d D %02d:%02d:%02d'
 local PlayedTimeFormatNoDay = '%02d:%02d:%02d'
 local TotalPlayTime, LevelPlayTime, SessionPlayTime, LevelPlayedOffset, LastLevelTime
-local MyRealm = GetRealmName()
-local MyName = UnitName('player')
-local MyClass = select(2, UnitClass('player'))
+local MyRealm = E.myrealm
+local MyName = E.myname
+local MyClass = E.myclass
 
 local OnEnter = function(self)
 	if not InCombatLockdown() and SessionPlayTime then

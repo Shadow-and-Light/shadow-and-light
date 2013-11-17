@@ -2,6 +2,15 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local EM = E:NewModule('EquipManager', 'AceHook-3.0', 'AceEvent-3.0');
 
+local GetEquipmentSetInfo = GetEquipmentSetInfo
+local GetSpecialization = GetSpecialization
+local IsInInstance = IsInInstance
+local GetActiveSpecGroup = GetActiveSpecGroup
+local UseEquipmentSet = UseEquipmentSet
+local GetNumWorldPVPAreas = GetNumWorldPVPAreas
+local GetWorldPVPAreaInfo = GetWorldPVPAreaInfo
+local gsub, strfind = string.gsub, string.find, string.sub
+
 EM.equipSets = {
 ["NONE"] = NONE,
 }

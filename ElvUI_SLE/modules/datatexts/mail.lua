@@ -5,6 +5,7 @@ local Mail_Icon = "|TInterface\\MINIMAP\\TRACKING\\Mailbox.blp:14:14|t";
 local OldShow = MiniMapMailFrame.Show
 
 local Read;
+local AddLine = AddLine
 
 
 local function MakeIconString()
