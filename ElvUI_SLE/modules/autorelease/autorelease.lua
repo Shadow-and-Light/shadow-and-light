@@ -23,7 +23,7 @@ function AR:Releasing()
 	local inInstance, instanceType = IsInInstance()
 	if myclass == "SHAMAN" then 
 		level = UnitLevel("player") 
-		local start, durtion = GetSpellCooldown(20608)
+		local start, duration = GetSpellCooldown(20608)
 		if duration == nil then duration = 0 end
 		cd = (start + duration - GetTime())
 	end
