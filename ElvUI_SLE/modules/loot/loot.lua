@@ -4,16 +4,24 @@ local LT = E:NewModule('Loot', 'AceHook-3.0', 'AceEvent-3.0')
 local check = false
 local t = 0
 local loottemp = {}
+local MyName = E.myname
+local IsInGroup, IsInRaid, IsPartyLFG = IsInGroup, IsInRaid, IsPartyLFG
+local GetNumGroupMembers, GetRaidRosterInfo = GetNumGroupMembers, GetRaidRosterInfo
+local GetLootSlotType = GetLootSlotType
+local GetNumLootItems = GetNumLootItems
+local IsLeftControlKeyDown = IsLeftControlKeyDown
+local GetLootSlotLink = GetLootSlotLink
+local GetLootSlotInfo = GetLootSlotInfo
 
 function LT:Check()
 	local name, rank, isML
 	for x = 1, GetNumGroupMembers() do
 		name, rank, _, _, _, _, _, _, _, _, isML = GetRaidRosterInfo(x)
-		if name == UnitName("player") and isML then
+		if name == MyName and isML then
 			return true
-		elseif name == UnitName("player") and rank == 1 then
+		elseif name == MyName and rank == 1 then
 			return true
-		elseif name == UnitName("player") and rank == 2 then
+		elseif name == MyName and rank == 2 then
 			return true
 		end
 	end
@@ -27,9 +35,9 @@ function LT:Announce()
 	local m = 0
 	local q = E.db.sle.loot.quality == "EPIC" and 4 or E.db.sle.loot.quality == "RARE" and 3 or E.db.sle.loot.quality == "UNCOMMON" and 2
 	local n = 0
-	local inGroup, inRaid, inPartyLFG = IsInGroup(), IsInRaid(), IsPartyLFG()
+	--local inGroup, inRaid, inPartyLFG = IsInGroup(), IsInRaid(), IsPartyLFG()
 	local p, chat
-	if not inGroup then return end -- not in group, exit.
+	if not IsInGroup() then return end -- not in group, exit.
 	if (LT:Check() and E.db.sle.loot.auto) or (IsLeftControlKeyDown() and (IsInGroup() or IsInRaid())) then
 		for i = 1, GetNumLootItems() do
 			if GetLootSlotType(i) == 1 then
@@ -72,12 +80,12 @@ function LT:Announce()
 		end
 		if n ~= 0 then 
 			if E.db.sle.loot.chat == "PARTY" then
-				SendChatMessage(L["Loot Dropped:"], inPartyLFG and "INSTANCE_CHAT" or "PARTY")
+				SendChatMessage(L["Loot Dropped:"], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
 			elseif E.db.sle.loot.chat == "RAID" then
-				if inRaid then
-					SendChatMessage(L["Loot Dropped:"], inPartyLFG and "INSTANCE_CHAT" or "RAID")
+				if IsInRaid() then
+					SendChatMessage(L["Loot Dropped:"], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
 				else
-					SendChatMessage(L["Loot Dropped:"], inPartyLFG and "INSTANCE_CHAT" or "PARTY")
+					SendChatMessage(L["Loot Dropped:"], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
 				end
 			elseif E.db.sle.loot.chat == "SAY" then
 				SendChatMessage(L["Loot Dropped:"], "SAY")
@@ -86,22 +94,22 @@ function LT:Announce()
 		for i = 1, n do
 			if E.db.sle.loot.chat == "PARTY" then
 				if numbers[i] == 1 then
-					SendChatMessage(i..". "..loot[i], inPartyLFG and "INSTANCE_CHAT" or "PARTY")
+					SendChatMessage(i..". "..loot[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
 				elseif numbers[i] > 1 then
-					SendChatMessage(i..". "..loot[i].."x"..numbers[i], inPartyLFG and "INSTANCE_CHAT" or "PARTY")
+					SendChatMessage(i..". "..loot[i].."x"..numbers[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
 				end
 			elseif E.db.sle.loot.chat == "RAID" then
-				if inRaid then
+				if IsInRaid() then
 					if numbers[i] == 1 then
-						SendChatMessage(i..". "..loot[i], inPartyLFG and "INSTANCE_CHAT" or "RAID")
+						SendChatMessage(i..". "..loot[i], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
 					elseif numbers[i] > 1 then
-							SendChatMessage(i..". "..loot[i].."x"..numbers[i], inPartyLFG and "INSTANCE_CHAT" or "RAID")
+							SendChatMessage(i..". "..loot[i].."x"..numbers[i], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
 						end	
 					else
 						if numbers[i] == 1 then
-							SendChatMessage(i..". "..loot[i], inPartyLFG and "INSTANCE_CHAT" or "PARTY")
+							SendChatMessage(i..". "..loot[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
 						elseif numbers[i] > 1 then
-							SendChatMessage(i..". "..loot[i].."x"..numbers[i], inPartyLFG and "INSTANCE_CHAT" or "PARTY")
+							SendChatMessage(i..". "..loot[i].."x"..numbers[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
 						end
 					end	
 			elseif E.db.sle.loot.chat == "SAY" then

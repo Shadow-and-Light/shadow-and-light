@@ -2,15 +2,21 @@ local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Pr
 local M = E:GetModule('Misc');
 
 local strMatchCombat = {}
-tinsert(strMatchCombat, (string.gsub(FACTION_STANDING_INCREASED,"%%%d?%$?s", "(.+)")))
-tinsert(strMatchCombat, (string.gsub(FACTION_STANDING_INCREASED_GENERIC,"%%%d?%$?s", "(.+)")))
-tinsert(strMatchCombat, (string.gsub(FACTION_STANDING_INCREASED_BONUS,"%%%d?%$?s", "(.+)")))
-tinsert(strMatchCombat, (string.gsub(FACTION_STANDING_INCREASED_DOUBLE_BONUS,"%%%d?%$?s", "(.+)")))
-tinsert(strMatchCombat, (string.gsub(FACTION_STANDING_INCREASED_ACH_BONUS,"%%%d?%$?s", "(.+)")))
-local strChangeMatch = (string.gsub(FACTION_STANDING_CHANGED,"%%%d?%$?s", "(.+)"))
+local tinsert, gsub, format = tinsert, string.gsub, format
+local GetXPExhaustion = GetXPExhaustion
+local SetMinMaxValues = SetMinMaxValues
+local GetFactionInfo = GetFactionInfo
+local GetGuildInfo = GetGuildInfo
+
+tinsert(strMatchCombat, (gsub(FACTION_STANDING_INCREASED,"%%%d?%$?s", "(.+)")))
+tinsert(strMatchCombat, (gsub(FACTION_STANDING_INCREASED_GENERIC,"%%%d?%$?s", "(.+)")))
+tinsert(strMatchCombat, (gsub(FACTION_STANDING_INCREASED_BONUS,"%%%d?%$?s", "(.+)")))
+tinsert(strMatchCombat, (gsub(FACTION_STANDING_INCREASED_DOUBLE_BONUS,"%%%d?%$?s", "(.+)")))
+tinsert(strMatchCombat, (gsub(FACTION_STANDING_INCREASED_ACH_BONUS,"%%%d?%$?s", "(.+)")))
+local strChangeMatch = (gsub(FACTION_STANDING_CHANGED,"%%%d?%$?s", "(.+)"))
 local strGuildChangeMatch = {}
-tinsert(strGuildChangeMatch, (string.gsub(FACTION_STANDING_CHANGED_GUILD,"%%%d?%$?s", "(.+)")))
-tinsert(strGuildChangeMatch, (string.gsub(FACTION_STANDING_CHANGED_GUILDNAME,"%%%d?%$?s", "(.+)")))
+tinsert(strGuildChangeMatch, (gsub(FACTION_STANDING_CHANGED_GUILD,"%%%d?%$?s", "(.+)")))
+tinsert(strGuildChangeMatch, (gsub(FACTION_STANDING_CHANGED_GUILDNAME,"%%%d?%$?s", "(.+)")))
 
 local collapsed = {}
 local guildName
@@ -38,19 +44,19 @@ function M:UpdateExperience(event)
 			
 			if E.db.sle.exprep.explong then
 				if textFormat == 'PERCENT' then
-					text = string.format('%d%%  '..L['Rested:']..' %d%%', cur / max * 100, rested / max * 100)
+					text = format('%d%%  '..L['Rested:']..' %d%%', cur / max * 100, rested / max * 100)
 				elseif textFormat == 'CURMAX' then
-					text = string.format('%s - %s  '..L['Rested:']..' %s', cur, max, rested)
+					text = format('%s - %s  '..L['Rested:']..' %s', cur, max, rested)
 				elseif textFormat == 'CURPERC' then
-					text = string.format('%s - %d%%  '..L['Rested:']..' %s [%d%%]', cur, cur / max * 100, rested, rested / max * 100)
+					text = format('%s - %d%%  '..L['Rested:']..' %s [%d%%]', cur, cur / max * 100, rested, rested / max * 100)
 				end
 			else
 				if textFormat == 'PERCENT' then
-					text = string.format('%d%% R:%d%%', cur / max * 100, rested / max * 100)
+					text = format('%d%% R:%d%%', cur / max * 100, rested / max * 100)
 				elseif textFormat == 'CURMAX' then
-					text = string.format('%s - %s R:%s', E:ShortValue(cur), E:ShortValue(max), E:ShortValue(rested))
+					text = format('%s - %s R:%s', E:ShortValue(cur), E:ShortValue(max), E:ShortValue(rested))
 				elseif textFormat == 'CURPERC' then
-					text = string.format('%s - %d%% R:%s [%d%%]', E:ShortValue(cur), cur / max * 100, E:ShortValue(rested), rested / max * 100)
+					text = format('%s - %d%% R:%s [%d%%]', E:ShortValue(cur), cur / max * 100, E:ShortValue(rested), rested / max * 100)
 				end
 			end
 		else
@@ -59,19 +65,19 @@ function M:UpdateExperience(event)
 
 			if E.db.sle.exprep.explong then
 				if textFormat == 'PERCENT' then
-					text = string.format('%d%%', cur / max * 100)
+					text = format('%d%%', cur / max * 100)
 				elseif textFormat == 'CURMAX' then
-					text = string.format('%s - %s', cur, max)
+					text = format('%s - %s', cur, max)
 				elseif textFormat == 'CURPERC' then
-					text = string.format('%s - %d%%', cur, cur / max * 100)
+					text = format('%s - %d%%', cur, cur / max * 100)
 				end			
 			else
 				if textFormat == 'PERCENT' then
-					text = string.format('%d%%', cur / max * 100)
+					text = format('%d%%', cur / max * 100)
 				elseif textFormat == 'CURMAX' then
-					text = string.format('%s - %s', E:ShortValue(cur), E:ShortValue(max))
+					text = format('%s - %s', E:ShortValue(cur), E:ShortValue(max))
 				elseif textFormat == 'CURPERC' then
-					text = string.format('%s - %d%%', E:ShortValue(cur), cur / max * 100)
+					text = format('%s - %d%%', E:ShortValue(cur), cur / max * 100)
 				end	
 			end
 		end
@@ -112,19 +118,19 @@ function M:UpdateReputation(event)
 		
 		if E.db.sle.exprep.replong then
 			if textFormat == 'PERCENT' then
-				text = string.format('%d%% [%s]', ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
+				text = format('%d%% [%s]', ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
 			elseif textFormat == 'CURMAX' then
-				text = string.format('%s - %s [%s]', value - min, max - min, _G['FACTION_STANDING_LABEL'..ID])
+				text = format('%s - %s [%s]', value - min, max - min, _G['FACTION_STANDING_LABEL'..ID])
 			elseif textFormat == 'CURPERC' then
-				text = string.format('%s - %d%% [%s]', value - min, ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
+				text = format('%s - %d%% [%s]', value - min, ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
 			end		
 		else
 			if textFormat == 'PERCENT' then
-				text = string.format('%d%% [%s]', ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
+				text = format('%d%% [%s]', ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
 			elseif textFormat == 'CURMAX' then
-				text = string.format('%s - %s [%s]', E:ShortValue(value - min), E:ShortValue(max - min), _G['FACTION_STANDING_LABEL'..ID])
+				text = format('%s - %s [%s]', E:ShortValue(value - min), E:ShortValue(max - min), _G['FACTION_STANDING_LABEL'..ID])
 			elseif textFormat == 'CURPERC' then
-				text = string.format('%s: %s - %d%% [%s]', name, E:ShortValue(value - min), ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
+				text = format('%s: %s - %d%% [%s]', name, E:ShortValue(value - min), ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
 			end	
 		end
 		

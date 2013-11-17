@@ -5,10 +5,16 @@ local F = E:NewModule('Farm', 'AceHook-3.0', 'AceEvent-3.0');
 local SLE = E:GetModule('SLE');
 
 local SeedAnchor, ToolAnchor, PortalAnchor
-local tsort = table.sort
+local tsort, format = table.sort, format
 local farmzones = { BL["Sunsong Ranch"], BL["The Halfhill Market"] }
 local size
 local Zcheck = false
+local GetSubZoneText = GetSubZoneText
+local InCombatLockdown = InCombatLockdown
+local GetItemCount = GetItemCount
+local Point = Point
+local GetItemInfo = GetItemInfo
+
 
 FseedButtons = {}
 FtoolButtons = {}
