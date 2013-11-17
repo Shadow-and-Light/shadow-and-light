@@ -2,7 +2,8 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local CFO = E:GetModule('CharacterFrameOptions')
 local LSM = LibStub("LibSharedMedia-3.0")
 -- /dump GetInventoryItemLink("player",INVSLOT_HEAD) Leave in here for my notes
-
+-- /dump GetInventoryItemLink("player",GetInventorySlotInfo("MainHandSlot"))
+-- /run x=GetInventoryItemLink("player",GetInventorySlotInfo("MainHandSlot"));baseLevel = select(4,GetItemInfo(x)); print(baseLevel)
 local ilvlSlots = {
 	"HeadSlot","NeckSlot","ShoulderSlot","BackSlot","ChestSlot","WristSlot","MainHandSlot","SecondaryHandSlot",
 	"HandsSlot","WaistSlot","LegsSlot","FeetSlot","Finger0Slot","Finger1Slot","Trinket0Slot","Trinket1Slot"
@@ -14,6 +15,12 @@ local WOW_Heirlooms = {
 		50255,44103,44107,44095,44098,44097,44105,42951,48683,48685,
 		42949,48687,42984,44100,44101,44092,48718,44091,42952,48689,
 		44099,42991,42985,48691,44094,44093,42945,48716
+	},
+	[90] = {
+		105683,105693,105691,105690,105689,105688,105687,105686,
+		105685,105684,105692,104402,104407,104405,104404,104403,
+		104409,104401,104400,104399,104406,104408,105678,105679,
+		105680,105676,105675,105677,105673,105672,105671,105670,105674
 	},
 }
 
@@ -32,7 +39,17 @@ function CFO:UpdateItemLevel()
 		if itemLink then
 			local itemLevel = self:GetActualItemLevel(itemLink);
 			local rarity = select(3,GetItemInfo(itemLink))
-			if rarity == 7 then
+			local _, _, _, _, heirloomid = string.find(itemLink, "|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?");
+			heirloomid = tonumber(heirloomid);
+			local checkheirloom = true
+
+			for k,hID in pairs(WOW_Heirlooms[90]) do
+				if hID == heirloomid then
+					checkheirloom = false;
+				end
+			end
+
+			if (rarity == 7 and checkheirloom == true) then
 				actualItemLevel = self:Heirloom(itemLink);
 			else
 				actualItemLevel = itemLevel
