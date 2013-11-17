@@ -24,6 +24,7 @@ function AR:Releasing()
 	if myclass == "SHAMAN" then 
 		level = UnitLevel("player") 
 		local start, durtion = GetSpellCooldown(20608)
+		if duration == nil then duration = 0 end
 		cd = (start + duration - GetTime())
 	end
 	if (inInstance and (instanceType == "pvp")) then
