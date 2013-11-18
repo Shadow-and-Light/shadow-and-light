@@ -329,41 +329,42 @@ function LDB.OnEnter(self)
 						local status = ""
 						local _, _, _, _, _, _, _, isOnline, lastOnline, isAFK, isDND, broadcast, note = BNGetFriendInfoByID(presenceID)
 						local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetFriendToonInfo(i, toonidx)
-
-						if faction then
-							if faction == "Horde" then
-								fcolor = RED_FONT_COLOR_CODE
-							else
-								fcolor = "|cff0070dd"
+						if toonName then
+							if faction then
+								if faction == "Horde" then
+									fcolor = RED_FONT_COLOR_CODE
+								else
+									fcolor = "|cff0070dd"
+								end
 							end
-						end
 
-						if isAFK then
-							status = AWAY_ICON
-						end
+							if isAFK then
+								status = AWAY_ICON
+							end
 
-						if isDND then
-							status = BUSY_ICON
-						end
+							if isDND then
+								status = BUSY_ICON
+							end
 
-						if note and note ~= "" then note = "|cffff8800{"..note.."}|r" end
-						
-						table.insert(realid_table, {
-							GIVENNAME = givenName,
-							SURNAME = surname or "",
-							LEVEL = level,
-							CLASS = class,
-							FCOLOR = fcolor,
-							STATUS = status,
-							BROADCAST_TEXT = broadcast or "",
-							TOONNAME = toonName,
-							CLIENT = client,
-							ZONENAME = zoneName,
-							REALMNAME = realmName,
-							GAMETEXT = gameText,
-							NOTE = note,
-							PRESENCEID = presenceID
-							})
+							if note and note ~= "" then note = "|cffff8800{"..note.."}|r" end
+							
+							table.insert(realid_table, {
+								GIVENNAME = givenName,
+								SURNAME = surname or "",
+								LEVEL = level,
+								CLASS = class,
+								FCOLOR = fcolor,
+								STATUS = status,
+								BROADCAST_TEXT = broadcast or "",
+								TOONNAME = toonName,
+								CLIENT = client,
+								ZONENAME = zoneName,
+								REALMNAME = realmName,
+								GAMETEXT = gameText,
+								NOTE = note,
+								PRESENCEID = presenceID
+								})
+						end
 					end
 				end
 
