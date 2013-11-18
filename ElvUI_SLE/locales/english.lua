@@ -158,6 +158,7 @@ L["Show/Hide the status of Key to the Palace of Lei Shen and Trove of the Thunde
 L["Time Played"] = true
 L["Account Time Played"] = true
 L["D"] = true
+L["Previous Level:"] = true
 
 --Exp/Rep Bar--
 L["Xp-Rep Text"] = true

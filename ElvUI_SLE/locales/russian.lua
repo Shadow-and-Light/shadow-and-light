@@ -159,6 +159,7 @@ L["Show/Hide the status of Key to the Palace of Lei Shen and Trove of the Thunde
 L["Time Played"] = "Времени в игре"
 L["Account Time Played"] = "Время в игре на аккаунте"
 L["D"] = "Дн"
+L["Previous Level:"] = "Предыдущий уровень:"
 
 --Exp/Rep Bar--
 L["Xp-Rep Text"] = "Текст Опыта/Репутации"
