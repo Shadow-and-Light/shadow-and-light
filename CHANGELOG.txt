@@ -3,6 +3,8 @@ v1.79
 - Hearthstone now shows correctly on bnet for S&L Friends Datatext
 - Some tweaks to the autorelease to account for shammy reincarnate
 - Update chat module for some of elvui changes
+- Added mover for release spirit
+- Fixed S&L Friends Datatext nil error
 
 v1.78 November 12, 2013
 - Fixed Time Played Datatext (Thnx Caedis)
