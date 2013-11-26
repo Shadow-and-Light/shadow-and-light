@@ -43,6 +43,15 @@ local specialChatIcons = {
 		["Elvz"] = elvui,
 		["Elv"] = elvui,
 		["Sinth"] = tyrone,
+		["Athlina"] = heart,
+		["Brronwyn"] = heart,
+		["Gwendollyn"] = heart,
+		["Selystel"] = heart,
+		["Wowzakapow"] = heart,
+		["Letsyles"] = heart,
+		["Temptora"] = heart
+	},
+	["Tichondrious"] = {
 		["Athlina"] = heart
 	},
 	["Illidan"] = {
