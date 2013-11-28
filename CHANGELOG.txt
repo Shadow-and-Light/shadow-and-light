@@ -1,4 +1,7 @@
-v1.79
+v1.80
+- Updated stuff to ElvUI current release
+
+v1.79 November 20, 2013
 - Character Frame ilvl for Garrosh Heirlooms corrected
 - Hearthstone now shows correctly on bnet for S&L Friends Datatext
 - Some tweaks to the autorelease to account for shammy reincarnate
