@@ -42,7 +42,9 @@ function AR:Releasing()
 end
 
 function AR:Initialize()
+	ShowUIPanel(GhostFrame)
 	E:CreateMover(GhostFrame, "GhostFrameMover", L["Ghost Frame"], nil, nil, nil, "ALL,S&L,S&L MISC")
+	HideUIPanel(GhostFrame)
 	self:RegisterEvent("PLAYER_DEAD", "Releasing");
 end
 
