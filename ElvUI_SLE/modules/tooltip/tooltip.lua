@@ -12,16 +12,15 @@ TT.GameTooltip_SetDefaultAnchorSLE = TT.GameTooltip_SetDefaultAnchor
 function TT:GameTooltip_SetDefaultAnchor(tt, parent)
 	TT:GameTooltip_SetDefaultAnchorSLE(tt, parent)
 	if E.private["tooltip"].enable ~= true then return end
-	if(tt:GetAnchorType() ~= "ANCHOR_NONE") then return end
+	if(tt:GetAnchorType() ~= "ANCHOR_CURSOR") then return end
 	if InCombatLockdown() and self.db.visibility.combat then
 		tt:Hide()
 		return
 	end
-
 	if(parent) then
 		if(self.db.cursorAnchor) then
-			TTOS:AnchorFrameToMouse(tt);
-			return		
+			TT:AnchorFrameToMouse(tt);
+			return  
 		end
 	end
 end
