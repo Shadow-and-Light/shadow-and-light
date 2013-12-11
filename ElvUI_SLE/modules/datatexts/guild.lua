@@ -12,7 +12,7 @@ local LDB = LibStub("LibDataBroker-1.1"):NewDataObject("S&L Guild",
 local _G = getfenv(0)
 local string = _G.string
 local pairs = _G.pairs
-
+local MyRealm = E.myrealm
 local frame = CreateFrame("frame")
 
 local tooltip
@@ -316,7 +316,8 @@ function LDB.OnEnter(self)
 
 			for i = 1, GetNumGuildMembers() do
 				local toonName, rank, rankindex, level, class, zoneName, note, onote, connected, status, classFileName, achievementPoints, achievementRank, isMobile = GetGuildRosterInfo(i)
-
+				local toonShortName, toonRealm = string.split("-", toonName)
+				if MyRealm == toonRealm then toonName = toonShortName end
 				if connected or isMobile then
 					if note and note ~= '' then note="|cff00ff00["..note.."]|r" end
 					if onote and onote ~= '' then onote = "|cff00ffff["..onote.."]|r" end
