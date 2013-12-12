@@ -28,10 +28,10 @@ local function configTable()
 			},
 			offset = {
 				type = "group",
-				name = "Cursor offset for game tooltip",
+				name = "Tooltip Cursor Offset",
 				order = 4,
 				guiInline = true,
-				disabled = function() return not E.private.tooltip.enable end,
+				disabled = function() return not E.private.tooltip.enable or (not E.db.tooltip.cursorAnchor and E.private.tooltip.enable) end,
 				args = {
 					mouseOffsetX = {
 						order = 31,
