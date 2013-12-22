@@ -1,5 +1,8 @@
-v1.80
+v1.80 December 22, 2013
 - Updated stuff to ElvUI current release
+- Fixed Tooltip Flicker if using the offset
+- Fixed Guild List
+- Ghost frame mover is no longer real small on initial login or reloadui
 
 v1.79 November 20, 2013
 - Character Frame ilvl for Garrosh Heirlooms corrected
