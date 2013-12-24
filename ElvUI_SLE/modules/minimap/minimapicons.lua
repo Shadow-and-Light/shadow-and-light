@@ -1,243 +1,254 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local SMB = E:NewModule('SquareMinimapButtons', 'AceHook-3.0', 'AceEvent-3.0');
 
-local sub, len, find = string.sub, string.len, string.find
+local strsub, strlen, strfind = strsub, strlen, strfind
+local tinsert, unpack = tinsert, unpack
+local TexCoords = { 0.1, 0.9, 0.1, 0.9 }
+
+E.private.sle.minimap = {}
+E.private.sle.minimap.mapicons = {}
+E.db.sle.minimap = {}
+E.db.sle.minimap.mapicons = {}
+
 local ignoreButtons = {
-	"AsphyxiaUIMinimapHelpButton",
-	"AsphyxiaUIMinimapVersionButton",
-	"ElvConfigToggle",
-	"ElvUIConfigToggle",
-	"ElvUI_ConsolidatedBuffs",
-	"GameTimeframe",
-	"HelpOpenTicketButton",
-	"MMHolder",
-	"DroodFocusMinimapButton",
-	"QueueStatusMinimapButton",
-	"TimeManagerClockButton",
+	'AsphyxiaUIMinimapHelpButton',
+	'AsphyxiaUIMinimapVersionButton',
+	'ElvConfigToggle',
+	'GameTimeFrame',
+	'HelpOpenTicketButton',
+	'MiniMapMailFrame',
+	'MiniMapTrackingButton',
+	'MiniMapVoiceChatFrame',
+	'QueueStatusMinimapButton',
+	'TimeManagerClockButton',
 }
-local genericIgnores = {
-	"Archy",
-	"GatherMatePin",
-	"GatherNote",
-	"GuildInstance",
-	"HandyNotesPin",
-	"MinimMap",
-	"Spy_MapNoteList_mini",
-	"ZGVMarker",
-}
-local partialIgnores = {
-	"Node",
-	"Note",
-	"Pin",
-}
-local whiteList = {
-	"LibDBIcon",
-}
-local moveButtons = {}
-local mmbuttonsAnchor, minimapButtonBar
 
 local function OnEnter()
-	if not E.db.sle.minimap.buttons.mouseover then return end
-	UIFrameFadeIn(MinimapButtonBar, 0.2, MinimapButtonBar:GetAlpha(), 1)
+	--if self:GetName() ~= 'SquareMinimapButtonBar' then
+		UIFrameFadeIn(SquareMinimapButtonBar, 0.2, SquareMinimapButtonBar:GetAlpha(), 1)
+	--end
 end
 
 local function OnLeave()
-	if not E.db.sle.minimap.buttons.mouseover then return end
-	UIFrameFadeOut(MinimapButtonBar, 0.2, MinimapButtonBar:GetAlpha(), 0)
-end
-
-function SMB:SkinButton(frame)
-	if frame == nil or frame:GetName() == nil or (frame:GetObjectType() ~= "Button") or not frame:IsVisible() then return end
-	
-	local name = frame:GetName()
-	local validIcon = false
-	
-	for i = 1, #whiteList do
-		if sub(name, 1, len(whiteList[i])) == whiteList[i] then validIcon = true break end
+	if E.db.sle.minimap.mapicons.iconmouseover then
+		UIFrameFadeOut(SquareMinimapButtonBar, 0.2, SquareMinimapButtonBar:GetAlpha(), 0)
 	end
-	
-	if not validIcon then
-		for i = 1, #ignoreButtons do
-			if name == ignoreButtons[i] then return end
-		end
-		
-		for i = 1, #genericIgnores do
-			if sub(name, 1, len(genericIgnores[i])) == genericIgnores[i] then return end
-		end
-		
-		for i = 1, #partialIgnores do
-			if find(name, partialIgnores[i]) ~= nil then return end
-		end
-	end
-	
-	frame:SetPushedTexture(nil)
-	frame:SetHighlightTexture(nil)
-	frame:SetDisabledTexture(nil)
-	if name == "DBMMinimapButton" then frame:SetNormalTexture("Interface\\Icons\\INV_Helmet_87") end
-	if name == "SmartBuff_MiniMapButton" then frame:SetNormalTexture(select(3, GetSpellInfo(12051))) end
-
-	if not frame.isSkinned then
-		frame:HookScript('OnEnter', OnEnter)
-		frame:HookScript('OnLeave', OnLeave)
-		frame:HookScript('OnClick', SMB.UpdateLayout)
-
-		for i = 1, frame:GetNumRegions() do
-			local region = select(i, frame:GetRegions())
-			frame.original = {}
-			frame.original.Width, frame.original.Height = frame:GetSize()
-			frame.original.Point, frame.original.relativeTo, frame.original.relativePoint, frame.original.xOfs, frame.original.yOfs = frame:GetPoint()
-			frame.original.Parent = frame:GetParent()
-			frame.original.FrameStrata = frame:GetFrameStrata()
-			if frame:HasScript("OnDragStart") then
-				frame.original.DragStart = frame:GetScript("OnDragStart")
-			end
-			if frame:HasScript("OnDragEnd") then
-				frame.original.DragEnd = frame:GetScript("OnDragEnd")
-			end
-			
-			if (region:GetObjectType() == "Texture") then
-				local texture = region:GetTexture()
-			
-				if (texture and (texture:find("Border") or texture:find("Background") or texture:find("AlphaMask"))) then
-					region:SetTexture(nil)
-				else
-					region:ClearAllPoints()
-					region:Point("TOPLEFT", frame, "TOPLEFT", 2, -2)
-					region:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -2, 2)
-					region:SetTexCoord( 0.1, 0.9, 0.1, 0.9 )
-					region:SetDrawLayer( "ARTWORK" )
-					if (name == "PS_MinimapButton") then
-						region.SetPoint = function() end
-					end
-				end
-			end
-		end
-		frame:SetTemplate("Default")
-
-		tinsert(moveButtons, name)
-		frame.isSkinned = true
-	end
-end
-
-function SMB:UpdateLayout()
-	if not E.minimapbuttons then return end
-	
-	minimapButtonBar:SetPoint("CENTER", mmbuttonsAnchor, "CENTER", 0, 0)
-	minimapButtonBar:Height(E.db.sle.minimap.buttons.size + 4)
-	minimapButtonBar:Width(E.db.sle.minimap.buttons.size + 4)
-
-	local lastFrame, anchor1, anchor2, offsetX, offsetY
-	for i = 1, #moveButtons do
-		local frame =	_G[moveButtons[i]]
-		
-		if E.db.sle.minimap.buttons.anchor == 'NOANCHOR' then
-			frame:SetParent(frame.original.Parent)
-			if frame.original.DragStart then
-				frame:SetScript("OnDragStart", frame.original.DragStart)
-			end
-			if frame.original.DragEnd then
-				frame:SetScript("OnDragStop", frame.original.DragEnd)
-			end
-
-			frame:ClearAllPoints()
-			frame:Size(E.db.sle.minimap.buttons.size)
-			frame:SetPoint(frame.original.Point, frame.original.relativeTo, frame.original.relativePoint, frame.original.xOfs, frame.original.yOfs)
-			frame:SetFrameStrata(frame.original.FrameStrata)
-			frame:SetMovable(true)
-		else
-			frame:SetParent(minimapButtonBar)
-			frame:SetMovable(false)
-			frame:SetScript("OnDragStart", nil)
-			frame:SetScript("OnDragStop", nil)
-			
-			frame:ClearAllPoints()
-			frame:SetFrameStrata("LOW")
-			frame:Size(E.db.sle.minimap.buttons.size)
-			if E.db.sle.minimap.buttons.anchor == 'HORIZONTAL' then
-				anchor1 = 'RIGHT'
-				anchor2 = 'LEFT'
-				offsetX = -2
-				offsetY = 0
-			else
-				anchor1 = 'TOP'
-				anchor2 = 'BOTTOM'
-				offsetX = 0
-				offsetY = -2
-			end
-			
-			if not lastFrame then
-				frame:SetPoint(anchor1, minimapButtonBar, anchor1, offsetX, offsetY)
-			else
-				frame:SetPoint(anchor1, lastFrame, anchor2, offsetX, offsetY)
-			end
-		end
-		lastFrame = frame
-	end
-	
-	if E.db.sle.minimap.buttons.anchor ~= 'NOANCHOR' and #moveButtons > 0 then
-		if E.db.sle.minimap.buttons.anchor == "HORIZONTAL" then
-			minimapButtonBar:Width((E.db.sle.minimap.buttons.size * #moveButtons) + (2 * #moveButtons + 1) + 1)
-		else
-			minimapButtonBar:Height((E.db.sle.minimap.buttons.size * #moveButtons) + (2 * #moveButtons + 1) + 1)
-		end
-		mmbuttonsAnchor:SetSize(minimapButtonBar:GetSize())
-		minimapButtonBar:Show()
-	else
-		minimapButtonBar:Hide()
-	end	
+	--if self:GetName() ~= 'SquareMinimapButtonBar' then
+	--	self:SetBackdropBorderColor(unpack(BorderColor))
+	--end
 end
 
 function SMB:ChangeMouseOverSetting()
-	if E.db.sle.minimap.buttons.mouseover then
-		minimapButtonBar:SetAlpha(0)
+	if E.db.sle.minimap.mapicons.iconmouseover then
+		SquareMinimapButtonBar:SetAlpha(0)
 	else
-		minimapButtonBar:SetAlpha(1)
+		SquareMinimapButtonBar:SetAlpha(1)
 	end
 end
 
-function SMB:SkinMinimapButtons()
-	SMB:RegisterEvent("ADDON_LOADED", "DelaySkinning")
+local SkinnedMinimapButtons = {}
 
+local GenericIgnores = {
+	'Archy',
+	'GatherMatePin',
+	'GatherNote',
+	'GuildInstance',
+	'HandyNotesPin',
+	'MinimMap',
+	'Spy_MapNoteList_mini',
+	'ZGVMarker',
+}
+
+local PartialIgnores = {
+	'Node',
+	'Note',
+	'Pin',
+}
+
+local WhiteList = {
+	'LibDBIcon',
+}
+
+local AcceptedFrames = {
+	'BagSync_MinimapButton',
+}
+
+local function SkinFrame(Frame)
+	if not Frame.isSkinned then
+		for i = 1, Frame:GetNumRegions() do
+			local Region = select(i, Frame:GetRegions())
+			if Region:GetObjectType() == 'Texture' then
+				local Texture = Region:GetTexture()
+				if Frame:GetName() == 'BagSync_MinimapButton' then Region:SetTexture('Interface\\AddOns\\BagSync\\media\\icon.tga') end
+
+				if Texture and (strfind(Texture, 'Border') or strfind(Texture, 'Background') or strfind(Texture, 'AlphaMask')) then
+					Region:SetTexture(nil)
+				else
+					Region:ClearAllPoints()
+					Region:SetInside()
+					Region:SetTexCoord(unpack(TexCoords))
+					Region:SetDrawLayer('ARTWORK')
+					Frame:HookScript('OnLeave', function(self) Region:SetTexCoord(unpack(TexCoords)) end)
+					if Name == 'PS_MinimapButton' then Region.SetPoint = function() end end
+				end
+			end
+		end
+
+		tinsert(SkinnedMinimapButtons, Frame)
+
+		Frame:Size(24)
+		Frame:SetTemplate('Default')
+		Frame.isSkinned = true
+	end
+end
+
+local function SkinButton(Frame)
+	if not Frame.isSkinned then
+		local Name = Frame:GetName()
+		local ValidIcon = false
+
+		for i = 1, #WhiteList do
+			if strsub(Name, 1, strlen(WhiteList[i])) == WhiteList[i] then ValidIcon = true break end
+		end
+
+		if not ValidIcon then
+			for i = 1, #ignoreButtons do
+				if Name == ignoreButtons[i] then return end
+			end
+
+			for i = 1, #GenericIgnores do
+				if strsub(Name, 1, strlen(GenericIgnores[i])) == GenericIgnores[i] then return end
+			end
+
+			for i = 1, #PartialIgnores do
+				if strfind(Name, PartialIgnores[i]) ~= nil then return end
+			end
+		end
+
+		if Name == 'DBMMinimapButton' then Frame:SetNormalTexture('Interface\\Icons\\INV_Helmet_87') end
+		if Name == 'SmartBuff_MiniMapButton' then Frame:SetNormalTexture(select(3, GetSpellInfo(12051))) end
+
+		for i = 1, Frame:GetNumRegions() do
+			local Region = select(i, Frame:GetRegions())
+			if Region:GetObjectType() == 'Texture' then
+				local Texture = Region:GetTexture()
+
+				if Texture and (strfind(Texture, 'Border') or strfind(Texture, 'Background') or strfind(Texture, 'AlphaMask')) then
+					Region:SetTexture(nil)
+				else
+					Region:ClearAllPoints()
+					Region:SetInside()
+					Region:SetTexCoord(unpack(TexCoords))
+					Region:SetDrawLayer('ARTWORK')
+					Frame:HookScript('OnLeave', function(self) Region:SetTexCoord(unpack(TexCoords)) end)
+					if Name == 'PS_MinimapButton' then Region.SetPoint = function() end end
+				end
+			end
+		end
+
+		tinsert(SkinnedMinimapButtons, Frame)
+
+		Frame:Size(24)
+		Frame:SetPushedTexture(nil)
+		Frame:SetHighlightTexture(nil)
+		Frame:SetDisabledTexture(nil)
+		Frame:SetTemplate()
+		BorderColor = { Frame:GetBackdropBorderColor() }
+		Frame.isSkinned = true
+	end
+end
+
+local SquareMinimapButtonBar = CreateFrame('Frame', 'SquareMinimapButtonBar', UIParent)
+SquareMinimapButtonBar:RegisterEvent('ADDON_LOADED')
+SquareMinimapButtonBar:RegisterEvent('PLAYER_ENTERING_WORLD')
+SquareMinimapButtonBar.Skin = function()
 	for i = 1, Minimap:GetNumChildren() do
-		self:SkinButton(select(i, Minimap:GetChildren()))
+		local object = select(i, Minimap:GetChildren())
+		if object:GetObjectType() == 'Button' and object:GetName() then
+			SkinButton(object)
+		end
+		for _, frame in pairs(AcceptedFrames) do
+			if object:GetName() == frame then
+				SkinFrame(object)
+			end
+		end
 	end
-	SMB:UpdateLayout()
 end
 
-function SMB:DelaySkinning()
-	SMB:UnregisterEvent("ADDON_LOADED")
+function SMB:Update()
+--SquareMinimapButtonBar.Update = function()
+	if not E.private.sle.minimap.mapicons.enable then return end
 
-	E:Delay(20, SMB:SkinMinimapButtons())	
+	local AnchorX, AnchorY, MaxX = 0, 1, E.db.sle.minimap.mapicons.iconperrow
+	local ButtonsPerRow = E.db.sle.minimap.mapicons.iconperrow
+	local NumColumns = ceil(#SkinnedMinimapButtons / ButtonsPerRow)
+	local Spacing, Mult = 4, 1
+	local Size = E.db.sle.minimap.mapicons.iconsize
+	local ActualButtons, Maxed = 0
+
+	if NumColumns == 1 and ButtonsPerRow > #SkinnedMinimapButtons then
+		ButtonsPerRow = #SkinnedMinimapButtons
+	end
+
+	for Key, Frame in pairs(SkinnedMinimapButtons) do
+		if Frame:IsVisible() then
+			AnchorX = AnchorX + 1
+			ActualButtons = ActualButtons + 1
+			if AnchorX > MaxX then
+				AnchorY = AnchorY + 1
+				AnchorX = 1
+				Maxed = true
+			end
+
+			local yOffset = - Spacing - ((Size + Spacing) * (AnchorY - 1))
+			local xOffset = Spacing + ((Size + Spacing) * (AnchorX - 1))
+			Frame:SetParent(SquareMinimapButtonBar)
+			Frame:ClearAllPoints()
+			Frame:Point('TOPLEFT', SquareMinimapButtonBar, 'TOPLEFT', xOffset, yOffset)
+			Frame:Size(E.db.sle.minimap.mapicons.iconsize)
+			Frame:SetFrameStrata('LOW')
+			Frame:RegisterForDrag('LeftButton')
+			Frame:SetScript('OnDragStart', function(self) self:GetParent():StartMoving() end)
+			Frame:SetScript('OnDragStop', function(self) self:GetParent():StopMovingOrSizing() end)
+			Frame:HookScript('OnEnter', OnEnter)
+			Frame:HookScript('OnLeave', OnLeave)
+		end
+	end
+
+	if Maxed then ActualButtons = ButtonsPerRow end
+
+	local BarWidth = (Spacing + ((Size * (ActualButtons * Mult)) + ((Spacing * (ActualButtons - 1)) * Mult) + (Spacing * Mult)))
+	local BarHeight = (Spacing + ((Size * (AnchorY * Mult)) + ((Spacing * (AnchorY - 1)) * Mult) + (Spacing * Mult)))
+
+	SquareMinimapButtonBar:Size(BarWidth, BarHeight)
+	SquareMinimapButtonBar:Show()
 end
 
-function SMB:CreateMinimapButtonFrames()
-	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+SquareMinimapButtonBar:SetScript('OnEvent', function(self, event, addon)
+	if addon == AddOnName then
+		if E.db.sle.minimap.mapicons.iconmouseover == nil then E.db.sle.minimap.mapicons.iconmouseover = false end
+		if E.private.sle.minimap.mapicons.enable == nil then E.private.sle.minimap.mapicons.enable = false end
+		if E.db.sle.minimap.mapicons.iconsize == nil then E.db.sle.minimap.mapicons.iconsize = 27 end
+		if E.db.sle.minimap.mapicons.iconperrow == nil then E.db.sle.minimap.mapicons.iconperrow = 12 end
+		self:Hide()
+		self:SetTemplate('Transparent', true)
+		self:SetFrameStrata('BACKGROUND')
+		self:SetClampedToScreen(true)
+		self:SetMovable()
+		self:SetPoint('RIGHT', UIParent, 'RIGHT', -45, 0)
+		self:SetScript('OnEnter', OnEnter)
+		self:SetScript('OnLeave', OnLeave)
+		self:RegisterForDrag('LeftButton')
+		self:SetScript('OnDragStart', self.StartMoving)
+		self:SetScript('OnDragStop', self.StopMovingOrSizing)
+		self:UnregisterEvent(event)
+	end
+	self.Skin()
+	if event == 'PLAYER_ENTERING_WORLD' then ElvUI[1]:Delay(5, self.Skin) self:UnregisterEvent(event) end
+	if E.private.sle.minimap.mapicons.enable then SMB:Update() end
+	OnLeave(self)
+end)
 
-	mmbuttonsAnchor = CreateFrame("Frame", "MMButtonsAnchor", E.UIParent)
-	mmbuttonsAnchor:Point("TOPRIGHT", ElvConfigToggle, "BOTTOMRIGHT", -2, -2)
-	mmbuttonsAnchor:Size(200, 32)
-	mmbuttonsAnchor:SetFrameStrata("BACKGROUND")
-	
-	E:CreateMover(mmbuttonsAnchor, "MMButtonsMover", L["Minimap Button Bar"], nil, nil, nil, "ALL,S&L,S&L MISC")
 
-	minimapButtonBar = CreateFrame("Frame", "MinimapButtonBar", UIParent)
-	minimapButtonBar:SetFrameStrata("BACKGROUND")
-	minimapButtonBar:SetTemplate("Transparent")
-	minimapButtonBar:CreateShadow()
-	minimapButtonBar:SetPoint("CENTER", mmbuttonsAnchor, "CENTER", 0, 0)
-	minimapButtonBar:SetScript("OnEnter", OnEnter)
-	minimapButtonBar:SetScript("OnLeave", OnLeave)
-
-	self:ChangeMouseOverSetting()
-	self:DelaySkinning()
-end
-
-function SMB:Initialize()
-	if not E.private.sle.minimap.buttons.enable then return end
-
-	E.minimapbuttons = SMB
-	
-	self:RegisterEvent("PLAYER_ENTERING_WORLD", "CreateMinimapButtonFrames")
-end
 
 E:RegisterModule(SMB:GetName())
