@@ -23,19 +23,20 @@ local ignoreButtons = {
 	'TimeManagerClockButton',
 }
 
-local function OnEnter()
-	--if self:GetName() ~= 'SquareMinimapButtonBar' then
-		UIFrameFadeIn(SquareMinimapButtonBar, 0.2, SquareMinimapButtonBar:GetAlpha(), 1)
-	--end
+local function OnEnter(self)
+	UIFrameFadeIn(SquareMinimapButtonBar, 0.2, SquareMinimapButtonBar:GetAlpha(), 1)
+	if self:GetName() ~= 'SquareMinimapButtonBar' then
+		self:SetBackdropBorderColor(.7, 0, .7)
+	end
 end
 
-local function OnLeave()
+local function OnLeave(self)
 	if E.db.sle.minimap.mapicons.iconmouseover then
 		UIFrameFadeOut(SquareMinimapButtonBar, 0.2, SquareMinimapButtonBar:GetAlpha(), 0)
 	end
-	--if self:GetName() ~= 'SquareMinimapButtonBar' then
-	--	self:SetBackdropBorderColor(unpack(BorderColor))
-	--end
+	if self:GetName() ~= 'SquareMinimapButtonBar' then
+		self:SetBackdropBorderColor(unpack(BorderColor))
+	end
 end
 
 function SMB:ChangeMouseOverSetting()
