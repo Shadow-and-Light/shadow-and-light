@@ -5,10 +5,11 @@ local strsub, strlen, strfind = strsub, strlen, strfind
 local tinsert, unpack = tinsert, unpack
 local TexCoords = { 0.1, 0.9, 0.1, 0.9 }
 
-E.private.sle.minimap = {}
-E.private.sle.minimap.mapicons = {}
-E.db.sle.minimap = {}
-E.db.sle.minimap.mapicons = {}
+if E.private.sle == nil then E.private.sle = {} end
+if E.private.sle.minimap == nil then E.private.sle.minimap = {} end
+if E.private.sle.minimap.mapicons == nil then E.private.sle.minimap.mapicons = {} end
+if E.db.sle.minimap == nil then E.db.sle.minimap = {} end
+if E.db.sle.minimap.mapicons == nil then E.db.sle.minimap.mapicons = {} end
 
 local ignoreButtons = {
 	'AsphyxiaUIMinimapHelpButton',
