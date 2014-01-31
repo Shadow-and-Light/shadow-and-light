@@ -35,7 +35,9 @@ local rpg = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_RPG:13:35|t"
 local tyrone = "|TInterface\\AddOns\\ElvUI\\media\\textures\\tyrone_biggums_chat_logo.tga:16:18|t"
 local heart = "|TInterface\\AddOns\\ElvUI\\media\\textures\\heart_chat_logo.tga:15:15|t"
 local hulkhead = "|TInterface\\AddOns\\ElvUI\\media\\textures\\hulk_head.tga:18:22|t"
-local chipmonk = "|TInterface\\AddOns\\ElvUI\\media\\textures\\chipmonk_head.tga:18:22|t"
+local mrhanky = "|TInterface\\AddOns\\ElvUI\\media\\textures\\mr_hankey.tga:18:22|t"
+local shortbus = "|TInterface\\AddOns\\ElvUI\\media\\textures\\short_bus.tga:16:16|t"
+
 
 local specialChatIcons = {
 	["BleedingHollow"] = {
@@ -43,7 +45,7 @@ local specialChatIcons = {
 	},
 	["Spirestone"] = {
 		["Elvz"] = elvui,
-		["Sarah"] = chipmonk,
+		["Sarah"] = mrhanky,
 		["Itzjonny"] = hulkhead,
 		["Elv"] = elvui,
 		["Sinth"] = tyrone,
@@ -53,7 +55,8 @@ local specialChatIcons = {
 		["Selystel"] = heart,
 		["Wowzakapow"] = heart,
 		["Letsyles"] = heart,
-		["Temptora"] = heart
+		["Temptora"] = heart,
+		["Incision"] = shortbus
 	},
 	["Tichondrious"] = {
 		["Athlina"] = heart
