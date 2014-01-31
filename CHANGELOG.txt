@@ -1,5 +1,6 @@
 v1.81
 - Minimap Icon overhaul
+- ElvUI 6.94 Chat update
 
 v1.80 December 22, 2013
 - Updated stuff to ElvUI current release
