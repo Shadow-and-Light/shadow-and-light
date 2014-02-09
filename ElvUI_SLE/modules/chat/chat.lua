@@ -75,12 +75,8 @@ local specialChatIcons = {
 	},
 	["СвежевательДуш"] = {
 		--Darth's toons
-		["Сиаранна"] = darth,
 		["Джатон"] = darth,
-		["Фикстер"] = darth,
 		["Нарджо"] = darth,
-		["Верзук"] = darth,
-		["Крениг"] = darth,
 		["Большойгном"] = test, --Testing toon
 		["Фергесон"] = friend
 	},
@@ -94,13 +90,14 @@ local specialChatIcons = {
 		["Фикстер"] = darth,
 		["Киландра"] = darth,
 		["Нарджо"] = darth,
-		["Верзук"] = darth,
+		["Келинира"] = darth,
 		["Крениг"] = darth,
 		["Мейжи"] = darth,
 		--Darth's friends
 		["Леани"] = friend,
 		--Da tester lol
-		["Харореанн"] = test
+		["Харореанн"] = test.
+		["Нерререанн"] = test
 	},
 	["Ревущийфьорд"] = {
 		["Рыжая"] = friend,
