@@ -96,7 +96,7 @@ local specialChatIcons = {
 		--Darth's friends
 		["Леани"] = friend,
 		--Da tester lol
-		["Харореанн"] = test.
+		["Харореанн"] = test,
 		["Нерререанн"] = test
 	},
 	["Ревущийфьорд"] = {
