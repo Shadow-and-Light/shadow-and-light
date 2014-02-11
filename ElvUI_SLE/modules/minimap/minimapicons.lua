@@ -1,15 +1,25 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local SMB = E:NewModule('SquareMinimapButtons', 'AceHook-3.0', 'AceEvent-3.0');
 
-local strsub, strlen, strfind = strsub, strlen, strfind
-local tinsert, unpack = tinsert, unpack
+local AddOnName, NS = ...
+local strsub, strlen, strfind, ceil = strsub, strlen, strfind, ceil
+local tinsert, pairs, unpack = tinsert, pairs, unpack
+
+local BorderColor
 local TexCoords = { 0.1, 0.9, 0.1, 0.9 }
 
 if E.private.sle == nil then E.private.sle = {} end
 if E.private.sle.minimap == nil then E.private.sle.minimap = {} end
 if E.private.sle.minimap.mapicons == nil then E.private.sle.minimap.mapicons = {} end
+if E.private.sle.minimap.mapicons.enable == nil then E.private.sle.minimap.mapicons.enable = false end
+
 if E.db.sle.minimap == nil then E.db.sle.minimap = {} end
 if E.db.sle.minimap.mapicons == nil then E.db.sle.minimap.mapicons = {} end
+if E.db.sle.minimap.mapicons.iconmouseover == nil then E.db.sle.minimap.mapicons.iconmouseover = false end
+if E.db.sle.minimap.mapicons.iconsize == nil then E.db.sle.minimap.mapicons.iconsize = 27 end
+if E.db.sle.minimap.mapicons.iconperrow == nil then E.db.sle.minimap.mapicons.iconperrow = 12 end
+
+QueueStatusMinimapButton:SetParent(Minimap)
 
 local ignoreButtons = {
 	'AsphyxiaUIMinimapHelpButton',
@@ -20,7 +30,6 @@ local ignoreButtons = {
 	'MiniMapMailFrame',
 	'MiniMapTrackingButton',
 	'MiniMapVoiceChatFrame',
-	'QueueStatusMinimapButton',
 	'TimeManagerClockButton',
 }
 
@@ -73,92 +82,93 @@ local WhiteList = {
 
 local AcceptedFrames = {
 	'BagSync_MinimapButton',
+	'VendomaticButtonFrame',
 }
 
-local function SkinFrame(Frame)
-	if not Frame.isSkinned then
-		for i = 1, Frame:GetNumRegions() do
-			local Region = select(i, Frame:GetRegions())
-			if Region:GetObjectType() == 'Texture' then
-				local Texture = Region:GetTexture()
-				if Frame:GetName() == 'BagSync_MinimapButton' then Region:SetTexture('Interface\\AddOns\\BagSync\\media\\icon.tga') end
+local function SkinButton(Button)
+	if not Button.isSkinned then
+		local Name = Button:GetName()
 
-				if Texture and (strfind(Texture, 'Border') or strfind(Texture, 'Background') or strfind(Texture, 'AlphaMask')) then
-					Region:SetTexture(nil)
-				else
-					Region:ClearAllPoints()
-					Region:SetInside()
-					Region:SetTexCoord(unpack(TexCoords))
-					Region:SetDrawLayer('ARTWORK')
-					Frame:HookScript('OnLeave', function(self) Region:SetTexCoord(unpack(TexCoords)) end)
-					if Name == 'PS_MinimapButton' then Region.SetPoint = function() end end
+		if Button:GetObjectType() == 'Button' then
+			local ValidIcon = false
+
+			for i = 1, #WhiteList do
+				if strsub(Name, 1, strlen(WhiteList[i])) == WhiteList[i] then ValidIcon = true break end
+			end
+
+			if not ValidIcon then
+				for i = 1, #ignoreButtons do
+					if Name == ignoreButtons[i] then return end
+				end
+
+				for i = 1, #GenericIgnores do
+					if strsub(Name, 1, strlen(GenericIgnores[i])) == GenericIgnores[i] then return end
+				end
+
+				for i = 1, #PartialIgnores do
+					if strfind(Name, PartialIgnores[i]) ~= nil then return end
 				end
 			end
+
+			Button:SetPushedTexture(nil)
+			Button:SetHighlightTexture(nil)
+			Button:SetDisabledTexture(nil)
 		end
 
-		tinsert(SkinnedMinimapButtons, Frame)
-
-		Frame:Size(24)
-		Frame:SetTemplate('Default')
-		Frame.isSkinned = true
-	end
-end
-
-local function SkinButton(Frame)
-	if not Frame.isSkinned then
-		local Name = Frame:GetName()
-		local ValidIcon = false
-
-		for i = 1, #WhiteList do
-			if strsub(Name, 1, strlen(WhiteList[i])) == WhiteList[i] then ValidIcon = true break end
-		end
-
-		if not ValidIcon then
-			for i = 1, #ignoreButtons do
-				if Name == ignoreButtons[i] then return end
-			end
-
-			for i = 1, #GenericIgnores do
-				if strsub(Name, 1, strlen(GenericIgnores[i])) == GenericIgnores[i] then return end
-			end
-
-			for i = 1, #PartialIgnores do
-				if strfind(Name, PartialIgnores[i]) ~= nil then return end
-			end
-		end
-
-		if Name == 'DBMMinimapButton' then Frame:SetNormalTexture('Interface\\Icons\\INV_Helmet_87') end
-		if Name == 'SmartBuff_MiniMapButton' then Frame:SetNormalTexture(select(3, GetSpellInfo(12051))) end
-
-		for i = 1, Frame:GetNumRegions() do
-			local Region = select(i, Frame:GetRegions())
+		for i = 1, Button:GetNumRegions() do
+			local Region = select(i, Button:GetRegions())
 			if Region:GetObjectType() == 'Texture' then
 				local Texture = Region:GetTexture()
 
 				if Texture and (strfind(Texture, 'Border') or strfind(Texture, 'Background') or strfind(Texture, 'AlphaMask')) then
 					Region:SetTexture(nil)
 				else
+					if Name == 'BagSync_MinimapButton' then Region:SetTexture('Interface\\AddOns\\BagSync\\media\\icon') end
+					if Name == 'DBMMinimapButton' then Region:SetTexture('Interface\\Icons\\INV_Helmet_87') end
+					if Name == 'SmartBuff_MiniMapButton' then Region:SetTexture(select(3, GetSpellInfo(12051))) end
 					Region:ClearAllPoints()
 					Region:SetInside()
 					Region:SetTexCoord(unpack(TexCoords))
 					Region:SetDrawLayer('ARTWORK')
-					Frame:HookScript('OnLeave', function(self) Region:SetTexCoord(unpack(TexCoords)) end)
-					if Name == 'PS_MinimapButton' then Region.SetPoint = function() end end
+					Button:HookScript('OnLeave', function(self) Region:SetTexCoord(unpack(TexCoords)) end)
 				end
 			end
 		end
+		
+		Button:SetFrameLevel(Minimap:GetFrameLevel() + 5)
+		Button:Size(E.db.sle.minimap.mapicons.iconsize)
+		if Name == 'VendomaticButtonFrame' then
+			VendomaticButton:StripTextures()
+			VendomaticButton:SetInside()
+			VendomaticButtonIcon:SetTexture('Interface\\Icons\\INV_Misc_Rabbit_2')
+			VendomaticButtonIcon:SetTexCoord(unpack(TexCoords))
+		end
+		if Name == 'QueueStatusMinimapButton' then
+			QueueStatusMinimapButton:HookScript('OnUpdate', function(self)
+				QueueStatusMinimapButtonIcon:SetFrameLevel(QueueStatusMinimapButton:GetFrameLevel() + 1)
+			end)
+			local Frame = CreateFrame('Frame', nil, SquareMinimapButtonBar)
+			Frame:SetTemplate()
+			Frame.Icon = Frame:CreateTexture(nil, 'ARTWORK')
+			Frame.Icon:SetInside()
+			Frame.Icon:SetTexture([[Interface\LFGFrame\LFG-Eye]])
+			Frame.Icon:SetTexCoord(0, 64 / 512, 0, 64 / 256)
+			Frame:SetScript('OnUpdate', function(self)
+				self:Size(E.db.sle.minimap.mapicons.iconsize)
+				self:SetFrameStrata(QueueStatusMinimapButton:GetFrameStrata())
+				self:SetFrameLevel(QueueStatusMinimapButton:GetFrameLevel())
+				self:SetPoint(QueueStatusMinimapButton:GetPoint())
+			end)
+		else
+			Button:SetTemplate()
+			Button:SetBackdropColor(0, 0, 0, 0)
+		end
 
-		tinsert(SkinnedMinimapButtons, Frame)
-
-		Frame:Size(24)
-		Frame:SetPushedTexture(nil)
-		Frame:SetHighlightTexture(nil)
-		Frame:SetDisabledTexture(nil)
-		Frame:SetTemplate()
-		BorderColor = { Frame:GetBackdropBorderColor() }
-		Frame.isSkinned = true
+		Button.isSkinned = true
+		tinsert(SkinnedMinimapButtons, Button)
 	end
 end
+
 
 local SquareMinimapButtonBar = CreateFrame('Frame', 'SquareMinimapButtonBar', UIParent)
 SquareMinimapButtonBar:RegisterEvent('ADDON_LOADED')
@@ -171,13 +181,13 @@ SquareMinimapButtonBar.Skin = function()
 		end
 		for _, frame in pairs(AcceptedFrames) do
 			if object:GetName() == frame then
-				SkinFrame(object)
+				SkinButton(object)
 			end
 		end
 	end
 end
 
-function SMB:Update()
+function SMB:Update(self)
 --SquareMinimapButtonBar.Update = function()
 	if not E.private.sle.minimap.mapicons.enable then return end
 
@@ -193,7 +203,7 @@ function SMB:Update()
 	end
 
 	for Key, Frame in pairs(SkinnedMinimapButtons) do
-		if Frame:IsVisible() then
+		if Frame:IsVisible() or Frame:GetName() == 'QueueStatusMinimapButton' then
 			AnchorX = AnchorX + 1
 			ActualButtons = ActualButtons + 1
 			if AnchorX > MaxX then
@@ -204,11 +214,14 @@ function SMB:Update()
 
 			local yOffset = - Spacing - ((Size + Spacing) * (AnchorY - 1))
 			local xOffset = Spacing + ((Size + Spacing) * (AnchorX - 1))
+			Frame:SetTemplate()
+			Frame:SetBackdropColor(0, 0, 0, 0)
 			Frame:SetParent(SquareMinimapButtonBar)
 			Frame:ClearAllPoints()
 			Frame:Point('TOPLEFT', SquareMinimapButtonBar, 'TOPLEFT', xOffset, yOffset)
-			Frame:Size(E.db.sle.minimap.mapicons.iconsize)
+			Frame:SetSize(E.db.sle.minimap.mapicons.iconsize, E.db.sle.minimap.mapicons.iconsize)
 			Frame:SetFrameStrata('LOW')
+			Frame:SetFrameLevel(Minimap:GetFrameLevel() + 5)
 			Frame:RegisterForDrag('LeftButton')
 			Frame:SetScript('OnDragStart', function(self) self:GetParent():StartMoving() end)
 			Frame:SetScript('OnDragStop', function(self) self:GetParent():StopMovingOrSizing() end)
@@ -222,18 +235,15 @@ function SMB:Update()
 	local BarWidth = (Spacing + ((Size * (ActualButtons * Mult)) + ((Spacing * (ActualButtons - 1)) * Mult) + (Spacing * Mult)))
 	local BarHeight = (Spacing + ((Size * (AnchorY * Mult)) + ((Spacing * (AnchorY - 1)) * Mult) + (Spacing * Mult)))
 
-	SquareMinimapButtonBar:Size(BarWidth, BarHeight)
-	SquareMinimapButtonBar:Show()
+	self:SetSize(BarWidth, BarHeight)
+	self:Show()
 end
 
 SquareMinimapButtonBar:SetScript('OnEvent', function(self, event, addon)
 	if addon == AddOnName then
-		if E.db.sle.minimap.mapicons.iconmouseover == nil then E.db.sle.minimap.mapicons.iconmouseover = false end
-		if E.private.sle.minimap.mapicons.enable == nil then E.private.sle.minimap.mapicons.enable = false end
-		if E.db.sle.minimap.mapicons.iconsize == nil then E.db.sle.minimap.mapicons.iconsize = 27 end
-		if E.db.sle.minimap.mapicons.iconperrow == nil then E.db.sle.minimap.mapicons.iconperrow = 12 end
 		self:Hide()
 		self:SetTemplate('Transparent', true)
+		BorderColor = { self:GetBackdropBorderColor() }
 		self:SetFrameStrata('BACKGROUND')
 		self:SetClampedToScreen(true)
 		self:SetMovable()
@@ -246,8 +256,8 @@ SquareMinimapButtonBar:SetScript('OnEvent', function(self, event, addon)
 		self:UnregisterEvent(event)
 	end
 	self.Skin()
-	if event == 'PLAYER_ENTERING_WORLD' then ElvUI[1]:Delay(5, self.Skin) self:UnregisterEvent(event) end
-	if E.private.sle.minimap.mapicons.enable then SMB:Update() end
+	if event == 'PLAYER_ENTERING_WORLD' then ElvUI[1]:Delay(5, self.Skin) self:UnregisterEvent(event) self:RegisterEvent('ADDON_LOADED') end
+	if E.private.sle.minimap.mapicons.enable then SMB:Update(self) end
 	OnLeave(self)
 end)
 

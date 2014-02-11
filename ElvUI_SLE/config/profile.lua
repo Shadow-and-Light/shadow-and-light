@@ -203,6 +203,11 @@ P['sle'] = {
 			['size'] = 24,
 			['mouseover'] = false,
 		},
+		['mapicons'] = {
+			['iconmouseover'] = false,
+			['iconsize'] = 27,
+			['iconperrow'] = 12,
+		},
 	},
 
 	--Power text on classbars

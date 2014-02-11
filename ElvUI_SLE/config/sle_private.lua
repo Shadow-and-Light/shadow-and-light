@@ -46,6 +46,9 @@ V['sle'] = {
 		['buttons'] = {
 			['enable'] = true,
 		},
+		['mapicons'] = {
+			['enable'] = false,
+		},
 	},
 	
 	['loot'] = {
