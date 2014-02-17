@@ -24,6 +24,8 @@ QueueStatusMinimapButton:SetParent(Minimap)
 local ignoreButtons = {
 	'AsphyxiaUIMinimapHelpButton',
 	'AsphyxiaUIMinimapVersionButton',
+	'FAQButton',
+	'VersionButton',
 	'ElvConfigToggle',
 	'GameTimeFrame',
 	'HelpOpenTicketButton',
@@ -130,19 +132,22 @@ local function SkinButton(Button)
 					Region:SetInside()
 					Region:SetTexCoord(unpack(TexCoords))
 					Region:SetDrawLayer('ARTWORK')
+					Region.SetPoint = function() return end
 					Button:HookScript('OnLeave', function(self) Region:SetTexCoord(unpack(TexCoords)) end)
 				end
 			end
 		end
-		
+
 		Button:SetFrameLevel(Minimap:GetFrameLevel() + 5)
 		Button:Size(E.db.sle.minimap.mapicons.iconsize)
+
 		if Name == 'VendomaticButtonFrame' then
 			VendomaticButton:StripTextures()
 			VendomaticButton:SetInside()
 			VendomaticButtonIcon:SetTexture('Interface\\Icons\\INV_Misc_Rabbit_2')
 			VendomaticButtonIcon:SetTexCoord(unpack(TexCoords))
 		end
+
 		if Name == 'QueueStatusMinimapButton' then
 			QueueStatusMinimapButton:HookScript('OnUpdate', function(self)
 				QueueStatusMinimapButtonIcon:SetFrameLevel(QueueStatusMinimapButton:GetFrameLevel() + 1)
@@ -153,7 +158,22 @@ local function SkinButton(Button)
 			Frame.Icon:SetInside()
 			Frame.Icon:SetTexture([[Interface\LFGFrame\LFG-Eye]])
 			Frame.Icon:SetTexCoord(0, 64 / 512, 0, 64 / 256)
+			Frame:SetScript('OnMouseDown', function()
+				if PVEFrame:IsShown() then
+					HideUIPanel(PVEFrame)
+				else
+					ShowUIPanel(PVEFrame)
+					GroupFinderFrame_ShowGroupFrame()
+				end
+			end)
+			Frame:HookScript('OnEnter', OnEnter)
+			Frame:HookScript('OnLeave', OnLeave)
 			Frame:SetScript('OnUpdate', function(self)
+				if QueueStatusMinimapButton:IsShown() then
+					self:EnableMouse(false)
+				else
+					self:EnableMouse(true)
+				end
 				self:Size(E.db.sle.minimap.mapicons.iconsize)
 				self:SetFrameStrata(QueueStatusMinimapButton:GetFrameStrata())
 				self:SetFrameLevel(QueueStatusMinimapButton:GetFrameLevel())
@@ -168,7 +188,6 @@ local function SkinButton(Button)
 		tinsert(SkinnedMinimapButtons, Button)
 	end
 end
-
 
 local SquareMinimapButtonBar = CreateFrame('Frame', 'SquareMinimapButtonBar', UIParent)
 SquareMinimapButtonBar:RegisterEvent('ADDON_LOADED')
@@ -260,7 +279,5 @@ SquareMinimapButtonBar:SetScript('OnEvent', function(self, event, addon)
 	if E.private.sle.minimap.mapicons.enable then SMB:Update(self) end
 	OnLeave(self)
 end)
-
-
 
 E:RegisterModule(SMB:GetName())
