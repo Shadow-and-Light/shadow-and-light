@@ -212,7 +212,6 @@ SquareMinimapButtonBar.Skin = function()
 end
 
 function SMB:Update(self)
---SquareMinimapButtonBar.Update = function()
 	if not E.private.sle.minimap.mapicons.enable then return end
 
 	local AnchorX, AnchorY, MaxX = 0, 1, E.db.sle.minimap.mapicons.iconperrow
