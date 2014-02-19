@@ -14,7 +14,8 @@ local lfgChannels = {
 	"INSTANCE_CHAT_LEADER",
 }
 
-local E.myname, E.myrealm = E.myname, E.myrealm
+local Myname = E.myname
+local Myrealm = E.myrealm
 
 local len, gsub, find, sub, gmatch, format, random = string.len, string.gsub, string.find, string.sub, string.gmatch, string.format, math.random
 local tinsert, tremove, tsort, twipe, tconcat = table.insert, table.remove, table.sort, table.wipe, table.concat
@@ -60,6 +61,20 @@ local specialChatIcons = {
 		["Letsyles"] = heart,
 		["Temptora"] = heart,
 		["Incision"] = shortbus
+		--SLE stuff
+		["Sifupooc"] = repooc,
+		["Dapooc"] = repooc,
+		["Lapooc"] = repooc,
+		["Warpooc"] = repooc,
+		["Repooc"] = repooc,
+		--Adapt Roster
+		["Mobius"] = adapt,
+		["Urgfelstorm"] = adapt,
+		["Kilashandra"] = adapt,
+		["Electrro"] = adapt,
+		["Afterthot"] = adapt,
+		["Lavathing"] = adapt,
+		["Finkle"] = adapt
 	},
 	["Tichondrious"] = {
 		["Athlina"] = heart
@@ -113,21 +128,6 @@ local specialChatIcons = {
 	},
 	["Korialstrasz"] = {
 		["Cursewordz"] = repooc
-	},
-	["Spirestone"] = {
-		["Sifupooc"] = repooc,
-		["Dapooc"] = repooc,
-		["Lapooc"] = repooc,
-		["Warpooc"] = repooc,
-		["Repooc"] = repooc,
-		--Adapt Roster
-		["Mobius"] = adapt,
-		["Urgfelstorm"] = adapt,
-		["Kilashandra"] = adapt,
-		["Electrro"] = adapt,
-		["Afterthot"] = adapt,
-		["Lavathing"] = adapt,
-		["Finkle"] = adapt
 	},
 	["Andorhal"] = {
 		["Dapooc"] = repooc,
@@ -684,9 +684,9 @@ function SLE:GetChatIcon(sender)
 	if sender then
 		senderName, senderRealm = string.split('-', sender)
 	else
-		senderName = E.myname
+		senderName = Myname
 	end
-	senderRealm = senderRealm or E.myrealm
+	senderRealm = senderRealm or Myrealm
 	senderRealm = senderRealm:gsub(' ', '')
 	
 	if specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
@@ -741,7 +741,7 @@ function CH:CheckLFGRoles()
 
 	local role = UnitGroupRolesAssigned("player")
 	if(role) then
-		lfgRoles[E.myname] = rolePaths[role]
+		lfgRoles[Myname] = rolePaths[role]
 	end
 
 	for i=1, GetNumGroupMembers() do
