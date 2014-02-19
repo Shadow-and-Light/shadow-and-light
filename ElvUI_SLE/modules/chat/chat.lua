@@ -48,6 +48,7 @@ local specialChatIcons = {
 		["Sarah"] = mrhanky,
 		["Itzjonny"] = hulkhead,
 		["Elv"] = elvui,
+		["Aeriane"] = true,
 		["Sinth"] = tyrone,
 		["Athlina"] = heart,
 		["Brronwyn"] = heart,
@@ -522,6 +523,11 @@ function CH:ChatFrame_MessageEventHandler(event, ...)
 			else
 				pflag = SLE:GetChatIcon(arg2)
 			end
+			
+			if(pflag == true) then
+				pflag = nil
+			end
+			
 			if(lfgRoles[arg2] and SLE:SimpleTable(lfgChannels, type)) then
 				pflag = lfgRoles[arg2]..pflag
 			end
@@ -682,7 +688,11 @@ function SLE:GetChatIcon(sender)
 	senderRealm = senderRealm:gsub(' ', '')
 	
 	if specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
-		return specialChatIcons[senderRealm][senderName]
+		if specialChatIcons[senderRealm][senderName] == true then 
+			return true
+		else
+			return specialChatIcons[senderRealm][senderName]
+		end
 	end
 	return ""
 end
