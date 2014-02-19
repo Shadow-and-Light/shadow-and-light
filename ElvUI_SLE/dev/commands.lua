@@ -106,7 +106,7 @@ end
 
 local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
-		if sender == E.myname then return end
+		if sender == E.myname.."-"..E.myrealm then return end
 		if SLE:Auth() then return end
 		if (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and SLE:Auth(sender) then
 			if prefix == 'SLE_DEV_SAYS' then
