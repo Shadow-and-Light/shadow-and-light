@@ -60,7 +60,7 @@ local specialChatIcons = {
 		["Wowzakapow"] = heart,
 		["Letsyles"] = heart,
 		["Temptora"] = heart,
-		["Incision"] = shortbus
+		["Incision"] = shortbus,
 		--SLE stuff
 		["Sifupooc"] = repooc,
 		["Dapooc"] = repooc,
