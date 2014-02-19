@@ -3,6 +3,8 @@ local SLE = E:GetModule('SLE');
 local find = string.find
 local split = string.split
 
+local E.myname, E.myrealm, E.myclass, SLE.version = E.myname, E.myrealm, E.myclass, SLE.version
+
 local Message = ''
 
 --The list of authorized toons

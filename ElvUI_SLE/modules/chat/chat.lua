@@ -14,6 +14,8 @@ local lfgChannels = {
 	"INSTANCE_CHAT_LEADER",
 }
 
+local E.myname, E.myrealm = E.myname, E.myrealm
+
 local len, gsub, find, sub, gmatch, format, random = string.len, string.gsub, string.find, string.sub, string.gmatch, string.format, math.random
 local tinsert, tremove, tsort, twipe, tconcat = table.insert, table.remove, table.sort, table.wipe, table.concat
 
