@@ -20,6 +20,8 @@ local Myrealm = E.myrealm
 local len, gsub, find, sub, gmatch, format, random = string.len, string.gsub, string.find, string.sub, string.gmatch, string.format, math.random
 local tinsert, tremove, tsort, twipe, tconcat = table.insert, table.remove, table.sort, table.wipe, table.concat
 
+Myrealm = Myrealm:gsub(' ', '')
+
 local rolePaths = {
 	TANK = [[|TInterface\AddOns\ElvUI\media\textures\tank.tga:15:15:0:0:64:64:2:56:2:56|t]],
 	HEALER = [[|TInterface\AddOns\ElvUI\media\textures\healer.tga:15:15:0:0:64:64:2:56:2:56|t]],
@@ -524,15 +526,18 @@ function CH:ChatFrame_MessageEventHandler(event, ...)
 				end
 			else
 				pflag = SLE:GetChatIcon(arg2)
+				
+				if(pflag == true) then
+					pflag = ""
+				end
+				
+				if(lfgRoles[arg2] and SLE:SimpleTable(lfgChannels, type)) then
+					pflag = lfgRoles[arg2]..pflag
+				end
+				
+				pflag = pflag or ""
 			end
 			
-			if(pflag == true) then
-				pflag = nil
-			end
-			
-			if(lfgRoles[arg2] and SLE:SimpleTable(lfgChannels, type)) then
-				pflag = lfgRoles[arg2]..pflag
-			end
 			if ( type == "WHISPER_INFORM" and GMChatFrame_IsGM and GMChatFrame_IsGM(arg2) ) then
 				return;
 			end
@@ -689,10 +694,9 @@ function SLE:GetChatIcon(sender)
 	senderRealm = senderRealm or Myrealm
 	senderRealm = senderRealm:gsub(' ', '')
 	
-	if specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
-		if specialChatIcons[senderRealm][senderName] == true then 
-			return true
-		else
+	--Disabling ALL special icons. IDK why Elv use that and why would we want to have that but whatever
+	if(specialChatIcons[Myrealm] == nil or (specialChatIcons[Myrealm] and specialChatIcons[Myrealm][Myname] ~= true)) then
+		if specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
 			return specialChatIcons[senderRealm][senderName]
 		end
 	end
