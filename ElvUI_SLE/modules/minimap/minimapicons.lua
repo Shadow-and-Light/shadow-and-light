@@ -87,6 +87,11 @@ local AcceptedFrames = {
 	'VendomaticButtonFrame',
 }
 
+local AddButtonsToBar = {
+	'SmartBuff_MiniMapButton',
+	'QueueStatusMinimapButton',
+}
+
 local function SkinButton(Button)
 	if not Button.isSkinned then
 		local Name = Button:GetName()
@@ -222,7 +227,17 @@ function SMB:Update(self)
 	end
 
 	for Key, Frame in pairs(SkinnedMinimapButtons) do
-		if Frame:IsVisible() or Frame:GetName() == 'QueueStatusMinimapButton' then
+		local Exception = false
+		for _, Button in pairs(AddButtonsToBar) do
+			if Frame:GetName() == Button then
+				Exception = true
+				if Frame:GetName() == 'SmartBuff_MiniMapButton' then
+					SMARTBUFF_MinimapButton_CheckPos = function() end
+					SMARTBUFF_MinimapButton_OnUpdate = function() end
+				end
+			end
+		end
+		if Frame:IsVisible() or Exception then
 			AnchorX = AnchorX + 1
 			ActualButtons = ActualButtons + 1
 			if AnchorX > MaxX then
