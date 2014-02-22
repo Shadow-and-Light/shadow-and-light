@@ -81,6 +81,15 @@ P['sle'] = {
 		},
 	},
 
+	--Knightframe Adaption
+	['KnightFrame_Armory'] = {
+		['Enable'] = true,
+		['NoticeMissing'] = true,
+	},
+	['KnightFrame_Inspect'] = {
+		['Enable'] = true,
+	},
+
 	--Combat Icon
 	['combatico'] = {
 		['pos'] = 'TOP',
