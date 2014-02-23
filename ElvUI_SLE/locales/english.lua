@@ -179,7 +179,8 @@ L["Equip this set when switching to primary talents."] = true
 L["Equip this set when switching to secondary talents."] =true
 L["Equip this set after entering dungeons or raids."] = true
 L["Equip this set after entering battlegrounds or arens."] = true
-
+L['Equipment Set Overlay'] = true
+L['Show the associated equipment sets for the items in your bags (or bank).'] = true
 
 --Farm--
 L['Farm'] = true

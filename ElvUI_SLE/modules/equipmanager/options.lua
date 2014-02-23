@@ -1,5 +1,6 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local EM = E:GetModule('EquipManager')
+local BI = E:GetModule('BagInfo')
 
 local function configTable()
 
@@ -86,6 +87,14 @@ E.Options.args.sle.args.equipmanager = {
 					set = function(info, value) E.private.sle.equip.pvp = value end,
 					values = EM.equipSets
 				},
+				setoverlay = {
+					type = "toggle",
+					order = 1,
+					name = L['Equipment Set Overlay'],
+					desc = L['Show the associated equipment sets for the items in your bags (or bank).'],
+					get = function(info) return E.private.sle.equip.setoverlay end,
+					set = function(info, value) E.private.sle.equip.setoverlay = value; BI:ToggleSettings(); end,
+				}
 			},
 		},
 	},
