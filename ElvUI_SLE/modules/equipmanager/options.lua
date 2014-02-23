@@ -34,6 +34,14 @@ E.Options.args.sle.args.equipmanager = {
 			get = function(info) return E.private.sle.equip.spam end,
 			set = function(info, value) E.private.sle.equip.spam = value; EM:SpamThrottle() end
 		},
+		setoverlay = {
+			type = "toggle",
+			order = 1,
+			name = L['Equipment Set Overlay'],	
+			desc = L['Show the associated equipment sets for the items in your bags (or bank).'],
+			get = function(info) return E.private.sle.equip.setoverlay end,
+			set = function(info, value) E.private.sle.equip.setoverlay = value; BI:ToggleSettings(); end,
+		},
 		equipsets = {
 			type = "group",
 			name = PAPERDOLL_EQUIPMENTMANAGER,
@@ -87,14 +95,6 @@ E.Options.args.sle.args.equipmanager = {
 					set = function(info, value) E.private.sle.equip.pvp = value end,
 					values = EM.equipSets
 				},
-				setoverlay = {
-					type = "toggle",
-					order = 1,
-					name = L['Equipment Set Overlay'],
-					desc = L['Show the associated equipment sets for the items in your bags (or bank).'],
-					get = function(info) return E.private.sle.equip.setoverlay end,
-					set = function(info, value) E.private.sle.equip.setoverlay = value; BI:ToggleSettings(); end,
-				}
 			},
 		},
 	},
