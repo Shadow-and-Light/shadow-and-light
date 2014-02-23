@@ -39,6 +39,7 @@ V['sle'] = {
 		['secondary'] = "NONE",
 		['instance'] = "NONE",
 		['pvp'] = "NONE",
+		['setoverlay'] = false,
 	},
 
 	--Minimap Moduel
