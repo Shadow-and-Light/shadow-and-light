@@ -505,7 +505,7 @@ function CFO:StartArmoryFrame()
 	CharacterHandsSlot:SetPoint('TOPRIGHT', CharacterFrameInsetRight, 'TOPLEFT', -4, -2)
 
 	-- Move bottom equipment slots
-	CharacterMainHandSlot:SetPoint('BOTTOMLEFT', PaperDollItemsFrame, 'BOTTOMLEFT', 183, 14)
+	CharacterMainHandSlot:SetPoint('BOTTOMLEFT', PaperDollItemsFrame, 'BOTTOMLEFT', 181, 14)
 
 	-- Model Frame
 	CharacterModelFrame:Size(341, 302)
