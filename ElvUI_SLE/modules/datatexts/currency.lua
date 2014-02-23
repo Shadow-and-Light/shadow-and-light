@@ -128,13 +128,13 @@ local function OnEvent(self, event, ...)
 	ElvDB['gold'] = ElvDB['gold'] or {};
 	ElvDB['gold'][E.myrealm] = ElvDB['gold'][E.myrealm] or {};
 	ElvDB['gold'][E.myrealm][E.myname] = ElvDB['gold'][E.myrealm][E.myname] or NewMoney;
-	if not ElvDB['class'] then ElvDB['class'] = {} end
-	if not ElvDB['class'][E.myrealm] then ElvDB['class'][E.myrealm] = {} end
+	ElvDB['class'] = ElvDB['class'] or {};
+	ElvDB['class'][E.myrealm] = ElvDB['class'][E.myrealm] or {};
 	ElvDB['class'][E.myrealm][E.myname] = select(2, UnitClass('player'))
-	if not ElvDB['faction'] then ElvDB['faction'] = {} end
-	if not ElvDB['faction'][E.myrealm] then ElvDB['faction'][E.myrealm] = {} end
-	if not ElvDB['faction'][E.myrealm][FACTION_HORDE] then ElvDB['faction'][E.myrealm][FACTION_HORDE] = {} end
-	if not ElvDB['faction'][E.myrealm][FACTION_ALLIANCE] then ElvDB['faction'][E.myrealm][FACTION_ALLIANCE] = {} end
+	ElvDB['faction'] = ElvDB['faction'] or {};
+	ElvDB['faction'][E.myrealm] = ElvDB['faction'][E.myrealm] or {};
+	ElvDB['faction'][E.myrealm][FACTION_HORDE] = ElvDB['faction'][E.myrealm][FACTION_HORDE] or {};
+	ElvDB['faction'][E.myrealm][FACTION_ALLIANCE] = ElvDB['faction'][E.myrealm][FACTION_ALLIANCE] or {};
 
 	local OldMoney = ElvDB['gold'][E.myrealm][E.myname] or NewMoney
 
