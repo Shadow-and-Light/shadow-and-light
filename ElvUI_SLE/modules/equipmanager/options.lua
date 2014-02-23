@@ -36,7 +36,7 @@ E.Options.args.sle.args.equipmanager = {
 		},
 		setoverlay = {
 			type = "toggle",
-			order = 1,
+			order = 5,
 			name = L['Equipment Set Overlay'],	
 			desc = L['Show the associated equipment sets for the items in your bags (or bank).'],
 			get = function(info) return E.private.sle.equip.setoverlay end,
@@ -45,7 +45,7 @@ E.Options.args.sle.args.equipmanager = {
 		equipsets = {
 			type = "group",
 			name = PAPERDOLL_EQUIPMENTMANAGER,
-			order = 5,
+			order = 6,
 			disabled = function() return not E.private.sle.equip.enable end,
 			guiInline = true,
 			args = {
