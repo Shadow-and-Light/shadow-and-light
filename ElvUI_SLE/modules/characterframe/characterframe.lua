@@ -505,7 +505,7 @@ function CFO:StartArmoryFrame()
 	CharacterHandsSlot:SetPoint('TOPRIGHT', CharacterFrameInsetRight, 'TOPLEFT', -4, -2)
 
 	-- Move bottom equipment slots
-	CharacterMainHandSlot:SetPoint('BOTTOMLEFT', PaperDollItemsFrame, 'BOTTOMLEFT', 185, 14)
+	CharacterMainHandSlot:SetPoint('BOTTOMLEFT', PaperDollItemsFrame, 'BOTTOMLEFT', 183, 14)
 
 	-- Model Frame
 	CharacterModelFrame:Size(341, 302)
@@ -517,7 +517,7 @@ function CFO:StartArmoryFrame()
 	
 	-- Character Control Frame
 	CharacterModelFrameControlFrame:ClearAllPoints()
-	CharacterModelFrameControlFrame:SetPoint('BOTTOM', CharacterModelFrame, 'BOTTOM', 2, 0)
+	CharacterModelFrameControlFrame:SetPoint('BOTTOM', CharacterModelFrame, 'BOTTOM', 0, 0)
 
 	if CreateArmoryFrame then
 		CreateArmoryFrame(KnightArmory)
