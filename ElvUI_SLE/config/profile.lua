@@ -61,6 +61,8 @@ P['sle'] = {
 
 	--Character Frame Options
 	['characterframeoptions'] = {
+		['missingnotice'] = true,
+		['showimage'] = true,
 		['itemlevel'] = {
 			['enable'] = true,
 			["font"] = "ElvUI Font",
@@ -78,6 +80,12 @@ P['sle'] = {
 			["font"] = "ElvUI Font",
 			["fontSize"] = 12,
 			["fontOutline"] = "OUTLINE",
+		},
+		['itemgem'] = {
+			['enable'] = true,
+			['showwarning'] = true,
+			['gemsize'] = 12,
+			['warningSize'] = 12,
 		},
 	},
 

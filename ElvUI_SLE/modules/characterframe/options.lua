@@ -25,10 +25,43 @@ local function configTable()
 				get = function(info) return E.private.sle.characterframeoptions.enable end,
 				set = function(info, value) E.private.sle.characterframeoptions.enable = value; E:StaticPopup_Show("PRIVATE_RL") end
 			},
+			decoration = {
+				type = "group",
+				name = L["Decoration"],
+				order = 55,
+				guiInline = true,
+				disabled = function() return not E.private.sle.characterframeoptions.enable end,
+				args = {
+					equipmentgradient = {
+						order = 1,
+						type = 'toggle',
+						name = L["Show Equipment Gradient"],
+						desc = L["Shows gradient effect for equipment slots."],
+						get = function(info) return E.db.sle.characterframeoptions.equipmentgradient end,
+						set = function(info, value) E.db.sle.characterframeoptions.equipmentgradient = value; CFO:ArmoryFrame_DataSetting(); end,
+					},
+					missingnotice = {
+						order = 2,
+						type = 'toggle',
+						name = L["Show Error Highlight"],
+						desc = L["Highlights equipment slot if an error has been found."],
+						get = function(info) return E.db.sle.characterframeoptions.missingnotice end,
+						set = function(info, value) E.db.sle.characterframeoptions.missingnotice = value; CFO:ArmoryFrame_DataSetting(); end,
+					},
+					bgimage = {
+						order = 3,
+						type = 'toggle',
+						name = L["Show Background Image"],
+						--desc = L["Highlights equipment slot if an error has been found."],
+						get = function(info) return E.db.sle.characterframeoptions.showimage end,
+						set = function(info, value) E.db.sle.characterframeoptions.showimage = value; CFO:ArmoryFrame_DataSetting(); end,
+					},
+				},
+			},
 			itemlevel = {
 				type = "group",
 				name = STAT_AVERAGE_ITEM_LEVEL,
-				order = 4,
+				order = 66,
 				guiInline = true,
 				disabled = function() return not E.private.sle.characterframeoptions.enable end,
 				args = {
@@ -44,7 +77,8 @@ local function configTable()
 						order = 2,
 						type = 'group',
 						guiInline = true,
-						disabled = function() return not E.db.sle.characterframeoptions.itemlevel.enable end,
+						disabled = true,
+						--disabled = function() return not E.db.sle.characterframeoptions.itemlevel.enable end,
 						name = L['Font'],
 						args = {
 							font = {
@@ -89,7 +123,7 @@ local function configTable()
 				type = "group",
 				--name = L["Item Durability"],
 				name = DURABILITY,
-				order = 5,
+				order = 77,
 				guiInline = true,
 				disabled = function() return not E.private.sle.characterframeoptions.enable end,
 				args = {
@@ -105,7 +139,8 @@ local function configTable()
 						order = 2,
 						type = 'group',
 						guiInline = true,
-						disabled = function() return not E.db.sle.characterframeoptions.itemdurability.enable end,
+						disabled = true,
+						--disabled = function() return not E.db.sle.characterframeoptions.itemdurability.enable end,
 						name = L['Font'],
 						args = {
 							font = {
@@ -147,9 +182,9 @@ local function configTable()
 			},
 			itemenchant = {
 				type = "group",
-				name = L["Enchanting Notification"],
+				name = L["Enchanting"],
 				--name = DURABILITY,
-				order = 6,
+				order = 88,
 				guiInline = true,
 				disabled = function() return not E.private.sle.characterframeoptions.enable end,
 				args = {
@@ -165,7 +200,8 @@ local function configTable()
 						order = 2,
 						type = 'group',
 						guiInline = true,
-						disabled = function() return not E.db.sle.characterframeoptions.itemenchant.enable end,
+						disabled = true,
+						--disabled = function() return not E.db.sle.characterframeoptions.itemenchant.enable end,
 						name = L['Font'],
 						args = {
 							font = {
@@ -200,6 +236,48 @@ local function configTable()
 								},
 								get = function(info) return E.db.sle.characterframeoptions.itemenchant.fontOutline end,
 								set = function(info, value) E.db.sle.characterframeoptions.itemenchant.fontOutline = value; CFO:UpdateItemEnchantFont(); end,
+							},
+						},
+					},
+				},
+			},
+			itemgem = {
+				type = "group",
+				name = L["Gem Sockets"],
+				order = 99,
+				guiInline = true,
+				disabled = function() return not E.private.sle.characterframeoptions.enable end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						--desc = L["Show/Hide Item Durability"],
+						get = function(info) return E.db.sle.characterframeoptions.itemgem.enable end,
+						set = function(info, value) E.db.sle.characterframeoptions.itemgem.enable = value; --[[CFO:ToggleCFO()]] end,
+					},
+					gemwarningGroup = {
+						order = 2,
+						type = 'group',
+						guiInline = true,
+						disabled = function () return not E.db.sle.characterframeoptions.itemgem.enable end,
+						name = L['Socket Warning'],
+						args = {
+							showwarning = {
+								order = 1,
+								type = "toggle",
+								name = L["Show Gem Warning"],
+								get = function(info) return E.db.sle.characterframeoptions.itemgem.showwarning end,
+								set = function(info, value) E.db.sle.characterframeoptions.itemgem.showwarning = value; CFO:ArmoryFrame_DataSetting(); end,
+							},
+							warningsize = {
+								order = 2,
+								name = L["Warning Size"],
+								desc = L["Set the icon size that the warning notification will use."],
+								type = "range",
+								min = 8, max = 18, step = 1,
+								get = function(info) return E.db.sle.characterframeoptions.itemgem.warningSize end,
+								set = function(info, value) E.db.sle.characterframeoptions.itemgem.warningSize = value; CFO:ResizeErrorIcon(value); end,
 							},
 						},
 					},

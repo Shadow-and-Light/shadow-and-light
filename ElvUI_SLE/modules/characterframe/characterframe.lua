@@ -4,6 +4,29 @@ local CFO = E:NewModule('CharacterFrameOptions', 'AceEvent-3.0');
 local f = CreateFrame('Frame', 'KnightArmory', PaperDollFrame)
 local C = KnightFrame_Armory_Constants
 
+hooksecurefunc(_G, 'PaperDollFrame_SetLevel', function()
+	local primaryTalentTree = GetSpecialization()
+	local classDisplayName, class = UnitClass("player")
+	local classColorString = RAID_CLASS_COLORS[class].colorStr
+	local specName, _;
+	local PLAYER_LEVEL = "|c%sLevel %s %s %s|r"
+	local PLAYER_LEVEL_NO_SPEC = "|c%sLevel %s %s|r"
+	if (primaryTalentTree) then
+		_, specName = GetSpecializationInfo(primaryTalentTree);
+	end
+
+	if (specName and specName ~= "") then
+		CharacterLevelText:SetFormattedText(PLAYER_LEVEL, classColorString, UnitLevel("player"), specName, classDisplayName);
+	else
+		CharacterLevelText:SetFormattedText(PLAYER_LEVEL_NO_SPEC, classColorString, UnitLevel("player"), classDisplayName);
+	end
+	
+	CharacterFrameTitleText:ClearAllPoints()
+	CharacterFrameTitleText:Point('TOP', f, 'TOP', 0, 0)
+	CharacterLevelText:ClearAllPoints()
+	CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 0)
+end)
+
 local function GemSocket_OnClick(self, button)
 	self = self:GetParent()
 
@@ -58,7 +81,7 @@ local function CreateArmoryFrame(self)
 	--<< Background >>--
 	self.BG = self:CreateTexture(nil, 'OVERLAY')
 	self.BG:SetInside()
-	self.BG:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Space.tga')
+	--self.BG:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Space.tga')
 
 	--<< Change Model Frame's frameLevel >>--
 	CharacterModelFrame:SetFrameLevel(self:GetFrameLevel() + 2)
@@ -116,7 +139,7 @@ local function CreateArmoryFrame(self)
 			-- Gem Socket
 			for i = 1, MAX_NUM_SOCKETS do
 				Slot['Socket'..i] = CreateFrame('Frame', nil, Slot)
-				Slot['Socket'..i]:Size(12)
+				Slot['Socket'..i]:Size(E.db.sle.characterframeoptions.itemgem.gemsize)
 				Slot['Socket'..i]:SetBackdrop({
 					bgFile = E.media.blankTex,
 					edgeFile = E.media.blankTex,
@@ -152,14 +175,16 @@ local function CreateArmoryFrame(self)
 			Slot.Socket2:Point(Slot.Direction, Slot.Socket1, Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 1 or -1, 0)
 			Slot.Socket3:Point(Slot.Direction, Slot.Socket2, Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 1 or -1, 0)
 
-			Slot.SocketWarning = CreateFrame('Button', nil, Slot)
-			Slot.SocketWarning:Size(12)
-			Slot.SocketWarning:RegisterForClicks('AnyUp')
-			Slot.SocketWarning.Texture = Slot.SocketWarning:CreateTexture(nil, 'OVERLAY')
-			Slot.SocketWarning.Texture:SetInside()
-			Slot.SocketWarning.Texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Warning-Small.tga')
-			Slot.SocketWarning:SetScript('OnEnter', C.CommonScript.OnEnter)
-			Slot.SocketWarning:SetScript('OnLeave', C.CommonScript.OnLeave)
+			--if E.db.sle.characterframeoptions.itemgem.gemwarning ~= false then
+				Slot.SocketWarning = CreateFrame('Button', nil, Slot)
+				Slot.SocketWarning:Size(E.db.sle.characterframeoptions.itemgem.warningSize)
+				Slot.SocketWarning:RegisterForClicks('AnyUp')
+				Slot.SocketWarning.Texture = Slot.SocketWarning:CreateTexture(nil, 'OVERLAY')
+				Slot.SocketWarning.Texture:SetInside()
+				Slot.SocketWarning.Texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Warning-Small.tga')
+				Slot.SocketWarning:SetScript('OnEnter', C.CommonScript.OnEnter)
+				Slot.SocketWarning:SetScript('OnLeave', C.CommonScript.OnLeave)
+			--end
 		end
 
 		self[slotName] = Slot
@@ -179,6 +204,27 @@ local function CreateArmoryFrame(self)
 	self.ChangeCharacterFrameWidth:SetScript('OnHide', function() PANEL_DEFAULT_WIDTH = 338 end)
 
 	CreateArmoryFrame = nil
+end
+
+--function CFO:ResizeErrorIcon(IconSize)
+--	local Slot
+--	for _, slotName in pairs(KnightFrame_Armory_Constants.GearList) do
+--		if slotName ~= 'ShirtSlot' and slotName ~= 'TabardSlot' then
+		--Slot = KnightArmory.slotName
+		--print(IconSize)
+--		f[slotName].SocketWarning:Size(IconSize)
+		--Slot.EnchantWarning:Size(IconSize)
+	--	end
+	--end
+--end
+
+function CFO:ResizeErrorIcon(IconSize)
+	for _, slotName in pairs(C.GearList) do
+		if slotName ~= 'ShirtSlot' and slotName ~= 'TabardSlot' then
+			f[slotName].SocketWarning:Size(IconSize)
+			--f[slotName].EnchantWarning:Size(IconSize)
+		end
+	end
 end
 
 function CFO:ArmoryFrame_DataSetting()
@@ -361,7 +407,9 @@ function CFO:ArmoryFrame_DataSetting()
 						Slot.EnchantWarning:Show()
 						Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110426)..'|r : '..L['This is not profession only.']
 					end
+				end
 
+				if E.db.sle.characterframeoptions.itemgem.showwarning ~= false then
 					if GemTotal_1 > GemTotal_2 or GemTotal_1 > GemCount then
 						ErrorDetected = true
 
@@ -382,7 +430,7 @@ function CFO:ArmoryFrame_DataSetting()
 								Slot.SocketWarning.Link = GetSpellLink(113263)
 							end
 
-							if slotName == 'WaistSlot' then
+								if slotName == 'WaistSlot' then
 								Slot.SocketWarning.Message = L['Missing Buckle']
 							elseif slotName == 'WristSlot' or slotName == 'HandsSlot' then
 								Slot.SocketWarning.Message = '|cff71d5ff'..GetSpellInfo(110396)..'|r : '..L['Missing Socket']
@@ -394,7 +442,7 @@ function CFO:ArmoryFrame_DataSetting()
 						if GemTotal_1 ~= GemTotal_2 and slotName == 'WaistSlot' then
 							Slot.SocketWarning:SetScript('OnClick', function(self, button)
 								local itemName, itemLink
-	
+		
 								if TrueItemLevel < 300 then
 									itemName, itemLink = GetItemInfo(41611)
 								elseif TrueItemLevel < 417 then
@@ -402,7 +450,7 @@ function CFO:ArmoryFrame_DataSetting()
 								else
 									itemName, itemLink = GetItemInfo(90046)
 								end
-	
+		
 								if HandleModifiedItemClick(itemLink) then
 								elseif IsShiftKeyDown() then
 									if button == 'RightButton' then
@@ -420,7 +468,8 @@ function CFO:ArmoryFrame_DataSetting()
 			end
 
 			-- Change Gradation
-			if ErrorDetected and E.db.sle.KnightFrame_Armory.NoticeMissing ~= false then
+			--if ErrorDetected and E.db.sle.KnightFrame_Armory.NoticeMissing ~= false then
+			if ErrorDetected and E.db.sle.characterframeoptions.missingnotice ~= false then
 				if Slot.Direction == 'LEFT' then
 					Slot.Gradation:SetTexCoord(0, .5, .5, 1)
 				else
@@ -435,155 +484,66 @@ function CFO:ArmoryFrame_DataSetting()
 			end
 		end
 	end
-
+	
+	if E.db.sle.characterframeoptions.showimage ~= false then
+		f.BG:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Space.tga')
+	else
+		f.BG:SetTexture(nil);
+	end
+	
 	f.AverageItemLevel:SetText(C.Toolkit.Color_Value(L['Average'])..' : '..format('%.2f', select(2, GetAverageItemLevel())))
 end
 
 function CFO:StartArmoryFrame()
-	--if E.db.sle.KnightFrame_Armory.Enable then
-		-- Setting frame
-		CHARACTERFRAME_EXPANDED_WIDTH = 650
-		CharacterFrame:SetHeight(444)
-		CharacterFrameInsetRight:SetPoint('TOPLEFT', CharacterFrameInset, 'TOPRIGHT', 110, 0)
-		CharacterFrameExpandButton:SetPoint('BOTTOMRIGHT', CharacterFrameInsetRight, 'BOTTOMLEFT', 0, 1)
+	-- Setting frame
+	CHARACTERFRAME_EXPANDED_WIDTH = 650
+	CharacterFrame:SetHeight(444)
+	CharacterFrameInsetRight:SetPoint('TOPLEFT', CharacterFrameInset, 'TOPRIGHT', 110, 0)
+	CharacterFrameExpandButton:SetPoint('BOTTOMRIGHT', CharacterFrameInsetRight, 'BOTTOMLEFT', 0, 1)
 
-		-- Move right equipment slots
-		CharacterHandsSlot:SetPoint('TOPRIGHT', CharacterFrameInsetRight, 'TOPLEFT', -4, -2)
+	-- Move right equipment slots
+	CharacterHandsSlot:SetPoint('TOPRIGHT', CharacterFrameInsetRight, 'TOPLEFT', -4, -2)
 
-		-- Move bottom equipment slots
-		CharacterMainHandSlot:SetPoint('BOTTOMLEFT', PaperDollItemsFrame, 'BOTTOMLEFT', 185, 14)
+	-- Move bottom equipment slots
+	CharacterMainHandSlot:SetPoint('BOTTOMLEFT', PaperDollItemsFrame, 'BOTTOMLEFT', 185, 14)
 
-		-- Model Frame
-		CharacterModelFrame:Size(341, 302)
-		CharacterModelFrame:SetPoint('TOPLEFT', PaperDollFrame, 'TOPLEFT', 52, -90)
-		CharacterModelFrame.BackgroundTopLeft:Hide()
-		CharacterModelFrame.BackgroundTopRight:Hide()
-		CharacterModelFrame.BackgroundBotLeft:Hide()
-		CharacterModelFrame.BackgroundBotRight:Hide()
+	-- Model Frame
+	CharacterModelFrame:Size(341, 302)
+	CharacterModelFrame:SetPoint('TOPLEFT', PaperDollFrame, 'TOPLEFT', 52, -90)
+	CharacterModelFrame.BackgroundTopLeft:Hide()
+	CharacterModelFrame.BackgroundTopRight:Hide()
+	CharacterModelFrame.BackgroundBotLeft:Hide()
+	CharacterModelFrame.BackgroundBotRight:Hide()
+	
+	-- Character Control Frame
+	CharacterModelFrameControlFrame:ClearAllPoints()
+	CharacterModelFrameControlFrame:SetPoint('BOTTOM', CharacterModelFrame, 'BOTTOM', 2, 0)
 
-		if CreateArmoryFrame then
-			CreateArmoryFrame(KnightArmory)
-		end
-		CFO:ArmoryFrame_DataSetting()
-
-		-- Run ArmoryMode
-		CFO:RegisterEvent('SOCKET_INFO_SUCCESS', 'ArmoryFrame_DataSetting')
-		CFO:RegisterEvent('PLAYER_EQUIPMENT_CHANGED', 'ArmoryFrame_DataSetting')
-		CFO:RegisterEvent('PLAYER_ENTERING_WORLD', 'ArmoryFrame_DataSetting')
-		CFO:RegisterEvent('UNIT_INVENTORY_CHANGED', 'ArmoryFrame_DataSetting')
-		CFO:RegisterEvent('EQUIPMENT_SWAP_FINISHED', 'ArmoryFrame_DataSetting')
-		CFO:RegisterEvent('UPDATE_INVENTORY_DURABILITY', 'ArmoryFrame_DataSetting')
-		CFO:RegisterEvent('ITEM_UPGRADE_MASTER_UPDATE', 'ArmoryFrame_DataSetting')
-
-		-- For frame resizing
-		f.ChangeCharacterFrameWidth:SetParent(PaperDollFrame)
-		if PaperDollFrame:IsVisible() then
-			f.ChangeCharacterFrameWidth:Show()
-			CharacterFrame:SetWidth(CharacterFrameInsetRight:IsShown() and 650 or 448)
-		end
-
-		--KF_ArmoryMode.CheckButton:Show()
-		KF_ArmoryMode_NoticeMissing:EnableMouse(true)
-		KF_ArmoryMode_NoticeMissing.text:SetTextColor(1, 1, 1)
-		KF_ArmoryMode_NoticeMissing.CheckButton:SetTexture('Interface\\Buttons\\UI-CheckBox-Check')
-	--elseif not CreateArmoryFrame then
-		-- Setting frame to default
-		--PANEL_DEFAULT_WIDTH = 338
-		--CHARACTERFRAME_EXPANDED_WIDTH = 540
-		--CharacterFrame:SetHeight(424)
-		--CharacterFrameInsetRight:SetPoint('TOPLEFT', CharacterFrameInset, 'TOPRIGHT', 1, 0)
-		--CharacterFrameExpandButton:SetPoint('BOTTOMRIGHT', CharacterFrameInset, 'BOTTOMRIGHT', -2, -1)
-
-		-- Move rightside equipment slots to default position
-		--CharacterHandsSlot:SetPoint('TOPRIGHT', CharacterFrameInset, 'TOPRIGHT', -4, -2)
-
-		-- Move bottom equipment slots to default position
-		--CharacterMainHandSlot:SetPoint('BOTTOMLEFT', PaperDollItemsFrame, 'BOTTOMLEFT', 130, 16)
-
-		-- Model Frame
-	--[[
-		CharacterModelFrame:Size(231, 320)
-		CharacterModelFrame:SetPoint('TOPLEFT', PaperDollFrame, 'TOPLEFT', 52, -66)
-		CharacterModelFrame.BackgroundTopLeft:Show()
-		CharacterModelFrame.BackgroundTopRight:Show()
-		CharacterModelFrame.BackgroundBotLeft:Show()
-		CharacterModelFrame.BackgroundBotRight:Show()
-	]]
-		-- Turn off ArmoryFrame
-	--[[
-		f:Hide()
-		CFO:UnregisterEvent('SOCKET_INFO_SUCCESS', 'ArmoryFrame_DataSetting')
-		CFO:UnregisterEvent('PLAYER_ENTERING_WORLD', 'ArmoryFrame_DataSetting')
-		CFO:UnregisterEvent('UNIT_INVENTORY_CHANGED', 'ArmoryFrame_DataSetting')
-		CFO:UnregisterEvent('EQUIPMENT_SWAP_FINISHED', 'ArmoryFrame_DataSetting')
-		CFO:UnregisterEvent('UPDATE_INVENTORY_DURABILITY', 'ArmoryFrame_DataSetting')
-		CFO:UnregisterEvent('ITEM_UPGRADE_MASTER_UPDATE', 'ArmoryFrame_DataSetting')
-	]]
-		-- Return to default size when PaperDollFrame is open
-	--[[
-		f.ChangeCharacterFrameWidth:SetParent(nil)
-		f.ChangeCharacterFrameWidth:Hide()
-		if PaperDollFrame:IsVisible() then
-			CharacterFrame:SetWidth(CharacterFrameInsetRight:IsShown() and 540 or 338)
-		end
-	]]
-		--KF_ArmoryMode.CheckButton:Hide()
-	--[[
-		KF_ArmoryMode_NoticeMissing:EnableMouse(false)
-		KF_ArmoryMode_NoticeMissing.text:SetTextColor(0.31, 0.31, 0.31)
-		KF_ArmoryMode_NoticeMissing.CheckButton:SetTexture('Interface\\Buttons\\UI-CheckBox-Check-Disabled')
+	if CreateArmoryFrame then
+		CreateArmoryFrame(KnightArmory)
+		print("Test test");
 	end
-	]]
+	CFO:ArmoryFrame_DataSetting()
+
+	-- Run ArmoryMode
+	CFO:RegisterEvent('SOCKET_INFO_SUCCESS', 'ArmoryFrame_DataSetting')
+	CFO:RegisterEvent('PLAYER_EQUIPMENT_CHANGED', 'ArmoryFrame_DataSetting')
+	CFO:RegisterEvent('PLAYER_ENTERING_WORLD', 'ArmoryFrame_DataSetting')
+	CFO:RegisterEvent('UNIT_INVENTORY_CHANGED', 'ArmoryFrame_DataSetting')
+	CFO:RegisterEvent('EQUIPMENT_SWAP_FINISHED', 'ArmoryFrame_DataSetting')
+	CFO:RegisterEvent('UPDATE_INVENTORY_DURABILITY', 'ArmoryFrame_DataSetting')
+	CFO:RegisterEvent('ITEM_UPGRADE_MASTER_UPDATE', 'ArmoryFrame_DataSetting')
+
+	-- For frame resizing
+	f.ChangeCharacterFrameWidth:SetParent(PaperDollFrame)
+	if PaperDollFrame:IsVisible() then
+		f.ChangeCharacterFrameWidth:Show()
+		CharacterFrame:SetWidth(CharacterFrameInsetRight:IsShown() and 650 or 448)
+	end
 end
 
 function CFO:Initialize()
 	if not E.private.sle.characterframeoptions.enable then return end
-	-- Create Config button in Character Frame : Enable
-	--C.Toolkit.CreateWidget_CheckButton('KF_ArmoryMode', L['Armory Mode'], 20, { ['FontSize'] = 10, ['directionH'] = 'LEFT', })
-	--KF_ArmoryMode:SetParent(PaperDollFrame)
-	--KF_ArmoryMode:SetFrameLevel(PaperDollFrame:GetFrameLevel() + 1)
-	--KF_ArmoryMode:SetFrameStrata(PaperDollFrame:GetFrameStrata())
-	--KF_ArmoryMode:Point('TOPLEFT', PaperDollFrame, 15, -20)
-	--KF_ArmoryMode:SetScript('OnClick', function(self)
-	--	E.db.sle.KnightFrame_Armory.Enable = not E.db.sle.KnightFrame_Armory.Enable
-
-	--	CFO:ToggleArmoryFrame()
-	--end)
-
-	-- Create Config button in Character Frame : NoticeMissing
-	C.Toolkit.CreateWidget_CheckButton('KF_ArmoryMode_NoticeMissing', L['Notice Missing'], 20, { ['FontSize'] = 10, ['directionH'] = 'LEFT', })
-
-	if E.db.sle.KnightFrame_Armory.NoticeMissing == false then
-		KF_ArmoryMode_NoticeMissing.CheckButton:Hide()
-	end
-
-	KF_ArmoryMode_NoticeMissing:SetParent(PaperDollFrame)
-	KF_ArmoryMode_NoticeMissing:SetFrameLevel(PaperDollFrame:GetFrameLevel() + 1)
-	KF_ArmoryMode_NoticeMissing:SetFrameStrata(PaperDollFrame:GetFrameStrata())
-	KF_ArmoryMode_NoticeMissing:Point('TOPLEFT', PaperDollFrame, 15, -20)
-	KF_ArmoryMode_NoticeMissing:SetScript('OnClick', function(self)
-		if E.db.sle.KnightFrame_Armory.NoticeMissing == true then
-			E.db.sle.KnightFrame_Armory.NoticeMissing = false
-			KF_ArmoryMode_NoticeMissing.CheckButton:Hide()
-		else
-			E.db.sle.KnightFrame_Armory.NoticeMissing = true
-			KF_ArmoryMode_NoticeMissing.CheckButton:Show()
-		end
-
-		CFO:ArmoryFrame_DataSetting()
-	end)
-
-	if E.db.sle.KnightFrame_Armory.Enable == false then
-		--KF_ArmoryMode.CheckButton:Hide()
-		KF_ArmoryMode_NoticeMissing.text:SetTextColor(0.31, 0.31, 0.31)
-		KF_ArmoryMode_NoticeMissing.CheckButton:SetTexture('Interface\\Buttons\\UI-CheckBox-Check-Disabled')
-	end
-	KF_ArmoryMode_NoticeMissing:EnableMouse(E.db.sle.KnightFrame_Armory.Enable)
-
-	--local function ValueColorUpdate()
-		--KF_ArmoryMode.text:SetTextColor(unpack(E.media.rgbvaluecolor))
-	--end
-	--E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
 	CFO:StartArmoryFrame()
 end
