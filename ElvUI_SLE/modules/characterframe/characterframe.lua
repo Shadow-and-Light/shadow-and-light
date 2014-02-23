@@ -4,29 +4,6 @@ local CFO = E:NewModule('CharacterFrameOptions', 'AceEvent-3.0');
 local f = CreateFrame('Frame', 'KnightArmory', PaperDollFrame)
 local C = KnightFrame_Armory_Constants
 
-hooksecurefunc(_G, 'PaperDollFrame_SetLevel', function()
-	local primaryTalentTree = GetSpecialization()
-	local classDisplayName, class = UnitClass("player")
-	local classColorString = RAID_CLASS_COLORS[class].colorStr
-	local specName, _;
-	local PLAYER_LEVEL = "|c%sLevel %s %s %s|r"
-	local PLAYER_LEVEL_NO_SPEC = "|c%sLevel %s %s|r"
-	if (primaryTalentTree) then
-		_, specName = GetSpecializationInfo(primaryTalentTree);
-	end
-
-	if (specName and specName ~= "") then
-		CharacterLevelText:SetFormattedText(PLAYER_LEVEL, classColorString, UnitLevel("player"), specName, classDisplayName);
-	else
-		CharacterLevelText:SetFormattedText(PLAYER_LEVEL_NO_SPEC, classColorString, UnitLevel("player"), classDisplayName);
-	end
-	
-	CharacterFrameTitleText:ClearAllPoints()
-	CharacterFrameTitleText:Point('TOP', f, 'TOP', 0, 0)
-	CharacterLevelText:ClearAllPoints()
-	CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 0)
-end)
-
 local function GemSocket_OnClick(self, button)
 	self = self:GetParent()
 
@@ -544,6 +521,29 @@ end
 
 function CFO:Initialize()
 	if not E.private.sle.characterframeoptions.enable then return end
+
+	hooksecurefunc(_G, 'PaperDollFrame_SetLevel', function()
+		local primaryTalentTree = GetSpecialization()
+		local classDisplayName, class = UnitClass("player")
+		local classColorString = RAID_CLASS_COLORS[class].colorStr
+		local specName, _;
+		local PLAYER_LEVEL = "|c%sLevel %s %s %s|r"
+		local PLAYER_LEVEL_NO_SPEC = "|c%sLevel %s %s|r"
+		if (primaryTalentTree) then
+			_, specName = GetSpecializationInfo(primaryTalentTree);
+		end
+
+		if (specName and specName ~= "") then
+			CharacterLevelText:SetFormattedText(PLAYER_LEVEL, classColorString, UnitLevel("player"), specName, classDisplayName);
+		else
+			CharacterLevelText:SetFormattedText(PLAYER_LEVEL_NO_SPEC, classColorString, UnitLevel("player"), classDisplayName);
+		end
+		
+		CharacterFrameTitleText:ClearAllPoints()
+		CharacterFrameTitleText:Point('TOP', f, 'TOP', 0, 0)
+		CharacterLevelText:ClearAllPoints()
+		CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 0)
+	end)
 
 	CFO:StartArmoryFrame()
 end
