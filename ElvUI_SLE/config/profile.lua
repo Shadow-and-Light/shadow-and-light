@@ -61,7 +61,8 @@ P['sle'] = {
 
 	--Character Frame Options
 	['characterframeoptions'] = {
-		['missingnotice'] = true,
+		['shownormalgradient'] = true,
+		['showerrorgradient'] = true,
 		['showimage'] = true,
 		['itemlevel'] = {
 			['enable'] = true,

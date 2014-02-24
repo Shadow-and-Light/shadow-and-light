@@ -32,22 +32,22 @@ local function configTable()
 				guiInline = true,
 				disabled = function() return not E.private.sle.characterframeoptions.enable end,
 				args = {
-					equipmentgradient = {
+					normalgradient = {
 						order = 1,
 						type = 'toggle',
-						name = L["Show Equipment Gradient"],
-						desc = L["Shows gradient effect for equipment slots."],
-						get = function(info) return E.db.sle.characterframeoptions.equipmentgradient end,
-						set = function(info, value) E.db.sle.characterframeoptions.equipmentgradient = value; CFO:ArmoryFrame_DataSetting(); end,
+						name = L["Show Equipment Gradients"],
+						desc = L["Shows gradient effect for all equipment slots."],
+						get = function(info) return E.db.sle.characterframeoptions.shownormalgradient end,
+						set = function(info, value) E.db.sle.characterframeoptions.shownormalgradient = value; CFO:ChangeGradiantVisibility(); end,
 					},
-					missingnotice = {
+					errorgradient = {
 						order = 2,
 						type = 'toggle',
-						name = L["Show Error Highlight"],
+						name = L["Show Error Gradients"],
 						desc = L["Highlights equipment slot if an error has been found."],
-						--disabled = function() return not E.private.sle.characterframeoptions.enable or not E.db.sle.characterframeoptions.equipmentgradient end,
-						get = function(info) return E.db.sle.characterframeoptions.missingnotice end,
-						set = function(info, value) E.db.sle.characterframeoptions.missingnotice = value; CFO:ArmoryFrame_DataSetting(); end,
+						disabled = function() return not E.private.sle.characterframeoptions.enable or not E.db.sle.characterframeoptions.shownormalgradient end,
+						get = function(info) return E.db.sle.characterframeoptions.showerrorgradient end,
+						set = function(info, value) E.db.sle.characterframeoptions.showerrorgradient = value; CFO:ArmoryFrame_DataSetting(); end,
 					},
 					bgimage = {
 						order = 3,
@@ -252,7 +252,7 @@ local function configTable()
 								type = "toggle",
 								name = L["Show Enchant Warning"],
 								get = function(info) return E.db.sle.characterframeoptions.itemenchant.showwarning end,
-								set = function(info, value) E.db.sle.characterframeoptions.itemenchant.showwarning = value; --[[CFO:ArmoryFrame_DataSetting();]] end,
+								set = function(info, value) E.db.sle.characterframeoptions.itemenchant.showwarning = value; CFO:ArmoryFrame_DataSetting(); end,
 							},
 							warningsize = {
 								order = 2,

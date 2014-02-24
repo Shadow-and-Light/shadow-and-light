@@ -152,16 +152,14 @@ local function CreateArmoryFrame(self)
 			Slot.Socket2:Point(Slot.Direction, Slot.Socket1, Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 1 or -1, 0)
 			Slot.Socket3:Point(Slot.Direction, Slot.Socket2, Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 1 or -1, 0)
 
-			--if E.db.sle.characterframeoptions.itemgem.gemwarning ~= false then
-				Slot.SocketWarning = CreateFrame('Button', nil, Slot)
-				Slot.SocketWarning:Size(E.db.sle.characterframeoptions.itemgem.warningSize)
-				Slot.SocketWarning:RegisterForClicks('AnyUp')
-				Slot.SocketWarning.Texture = Slot.SocketWarning:CreateTexture(nil, 'OVERLAY')
-				Slot.SocketWarning.Texture:SetInside()
-				Slot.SocketWarning.Texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Warning-Small.tga')
-				Slot.SocketWarning:SetScript('OnEnter', C.CommonScript.OnEnter)
-				Slot.SocketWarning:SetScript('OnLeave', C.CommonScript.OnLeave)
-			--end
+			Slot.SocketWarning = CreateFrame('Button', nil, Slot)
+			Slot.SocketWarning:Size(E.db.sle.characterframeoptions.itemgem.warningSize)
+			Slot.SocketWarning:RegisterForClicks('AnyUp')
+			Slot.SocketWarning.Texture = Slot.SocketWarning:CreateTexture(nil, 'OVERLAY')
+			Slot.SocketWarning.Texture:SetInside()
+			Slot.SocketWarning.Texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Warning-Small.tga')
+			Slot.SocketWarning:SetScript('OnEnter', C.CommonScript.OnEnter)
+			Slot.SocketWarning:SetScript('OnLeave', C.CommonScript.OnLeave)
 		end
 
 		self[slotName] = Slot
@@ -181,6 +179,16 @@ local function CreateArmoryFrame(self)
 	self.ChangeCharacterFrameWidth:SetScript('OnHide', function() PANEL_DEFAULT_WIDTH = 338 end)
 
 	CreateArmoryFrame = nil
+end
+
+function CFO:ChangeGradiantVisibility()
+	for _, slotName in pairs(C.GearList) do
+		if E.db.sle.characterframeoptions.shownormalgradient ~= false then
+			f[slotName].Gradation:Show()
+		else
+			f[slotName].Gradation:Hide()
+		end
+	end
 end
 
 function CFO:ResizeErrorIcon()
@@ -351,91 +359,98 @@ function CFO:ArmoryFrame_DataSetting()
 				end
 
 				-- Check Error
-				if E.db.sle.KnightFrame_Armory.NoticeMissing ~= false then
-					if (not IsEnchanted and C.EnchantableSlots[slotName]) or ((slotName == 'Finger0Slot' or slotName == 'Finger1Slot') and CFO.PlayerProfession.Enchanting and CFO.PlayerProfession.Enchanting >= 550 and not IsEnchanted) then
-						ErrorDetected = true
+				if (not IsEnchanted and C.EnchantableSlots[slotName]) or ((slotName == 'Finger0Slot' or slotName == 'Finger1Slot') and CFO.PlayerProfession.Enchanting and CFO.PlayerProfession.Enchanting >= 550 and not IsEnchanted) then
+					ErrorDetected = true
+					if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
 						Slot.EnchantWarning:Show()
 						Slot.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
-					elseif CFO.PlayerProfession.Engineering and ((slotName == 'BackSlot' and CFO.PlayerProfession.Engineering >= 380) or (slotName == 'HandsSlot' and CFO.PlayerProfession.Engineering >= 400) or (slotName == 'WaistSlot' and CFO.PlayerProfession.Engineering >= 380)) and not UsableEffect then
-						ErrorDetected = true
+					end
+				elseif CFO.PlayerProfession.Engineering and ((slotName == 'BackSlot' and CFO.PlayerProfession.Engineering >= 380) or (slotName == 'HandsSlot' and CFO.PlayerProfession.Engineering >= 400) or (slotName == 'WaistSlot' and CFO.PlayerProfession.Engineering >= 380)) and not UsableEffect then
+					ErrorDetected = true
+					if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
 						Slot.EnchantWarning:Show()
 						Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110403)..'|r : '..L['Missing Tinkers']
-					elseif slotName == 'ShoulderSlot' and CFO.PlayerProfession.Inscription and C.ItemEnchant_Profession_Inscription and CFO.PlayerProfession.Inscription >= C.ItemEnchant_Profession_Inscription.NeedLevel and not C.ItemEnchant_Profession_Inscription[enchantID] then
-						ErrorDetected = true
+					end
+				elseif slotName == 'ShoulderSlot' and CFO.PlayerProfession.Inscription and C.ItemEnchant_Profession_Inscription and CFO.PlayerProfession.Inscription >= C.ItemEnchant_Profession_Inscription.NeedLevel and not C.ItemEnchant_Profession_Inscription[enchantID] then
+					ErrorDetected = true
+					if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
 						Slot.EnchantWarning:Show()
 						Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110400)..'|r : '..L['This is not profession only.']
-					elseif slotName == 'WristSlot' and CFO.PlayerProfession.LeatherWorking and C.ItemEnchant_Profession_LeatherWorking and CFO.PlayerProfession.LeatherWorking >= C.ItemEnchant_Profession_LeatherWorking.NeedLevel and not C.ItemEnchant_Profession_LeatherWorking[enchantID] then
-						ErrorDetected = true
+					end
+				elseif slotName == 'WristSlot' and CFO.PlayerProfession.LeatherWorking and C.ItemEnchant_Profession_LeatherWorking and CFO.PlayerProfession.LeatherWorking >= C.ItemEnchant_Profession_LeatherWorking.NeedLevel and not C.ItemEnchant_Profession_LeatherWorking[enchantID] then
+					ErrorDetected = true
+					if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
 						Slot.EnchantWarning:Show()
 						Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110423)..'|r : '..L['This is not profession only.']
-					elseif slotName == 'BackSlot' and CFO.PlayerProfession.Tailoring and C.ItemEnchant_Profession_Tailoring and CFO.PlayerProfession.Tailoring >= C.ItemEnchant_Profession_Tailoring.NeedLevel and not C.ItemEnchant_Profession_Tailoring[enchantID] then
-						ErrorDetected = true
+					end
+				elseif slotName == 'BackSlot' and CFO.PlayerProfession.Tailoring and C.ItemEnchant_Profession_Tailoring and CFO.PlayerProfession.Tailoring >= C.ItemEnchant_Profession_Tailoring.NeedLevel and not C.ItemEnchant_Profession_Tailoring[enchantID] then
+					ErrorDetected = true
+					if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
 						Slot.EnchantWarning:Show()
 						Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110426)..'|r : '..L['This is not profession only.']
 					end
 				end
 
-				if E.db.sle.characterframeoptions.itemgem.showwarning ~= false then
-					if GemTotal_1 > GemTotal_2 or GemTotal_1 > GemCount then
-						ErrorDetected = true
+				if GemTotal_1 > GemTotal_2 or GemTotal_1 > GemCount then
+					ErrorDetected = true
 
+					if E.db.sle.characterframeoptions.itemgem.showwarning ~= false then
 						Slot.SocketWarning:Show()
+					end
 
-						if GemTotal_1 > GemTotal_2 then
+					if GemTotal_1 > GemTotal_2 then
+						if slotName == 'WaistSlot' then
+							if TrueItemLevel < 300 then
+								_, Slot.SocketWarning.Link = GetItemInfo(41611)	
+							elseif TrueItemLevel < 417 then
+								_, Slot.SocketWarning.Link = GetItemInfo(55054)
+							else
+								_, Slot.SocketWarning.Link = GetItemInfo(90046)
+							end
+						elseif slotName == 'HandsSlot' then
+							Slot.SocketWarning.Link = GetSpellLink(114112)
+						elseif slotName == 'WristSlot' then
+							Slot.SocketWarning.Link = GetSpellLink(113263)
+						end
+
 							if slotName == 'WaistSlot' then
-								if TrueItemLevel < 300 then
-									_, Slot.SocketWarning.Link = GetItemInfo(41611)	
-								elseif TrueItemLevel < 417 then
-									_, Slot.SocketWarning.Link = GetItemInfo(55054)
-								else
-									_, Slot.SocketWarning.Link = GetItemInfo(90046)
-								end
-							elseif slotName == 'HandsSlot' then
-								Slot.SocketWarning.Link = GetSpellLink(114112)
-							elseif slotName == 'WristSlot' then
-								Slot.SocketWarning.Link = GetSpellLink(113263)
-							end
-
-								if slotName == 'WaistSlot' then
-								Slot.SocketWarning.Message = L['Missing Buckle']
-							elseif slotName == 'WristSlot' or slotName == 'HandsSlot' then
-								Slot.SocketWarning.Message = '|cff71d5ff'..GetSpellInfo(110396)..'|r : '..L['Missing Socket']
-							end
-						else
-							Slot.SocketWarning.Message = '|cffff5678'..(GemTotal_1 - GemCount)..'|r '..L['Empty Socket']
+							Slot.SocketWarning.Message = L['Missing Buckle']
+						elseif slotName == 'WristSlot' or slotName == 'HandsSlot' then
+							Slot.SocketWarning.Message = '|cff71d5ff'..GetSpellInfo(110396)..'|r : '..L['Missing Socket']
 						end
+					else
+						Slot.SocketWarning.Message = '|cffff5678'..(GemTotal_1 - GemCount)..'|r '..L['Empty Socket']
+					end
 
-						if GemTotal_1 ~= GemTotal_2 and slotName == 'WaistSlot' then
-							Slot.SocketWarning:SetScript('OnClick', function(self, button)
-								local itemName, itemLink
+					if GemTotal_1 ~= GemTotal_2 and slotName == 'WaistSlot' then
+						Slot.SocketWarning:SetScript('OnClick', function(self, button)
+							local itemName, itemLink
+
+							if TrueItemLevel < 300 then
+								itemName, itemLink = GetItemInfo(41611)
+							elseif TrueItemLevel < 417 then
+								itemName, itemLink = GetItemInfo(55054)
+							else
+								itemName, itemLink = GetItemInfo(90046)
+							end
 		
-								if TrueItemLevel < 300 then
-									itemName, itemLink = GetItemInfo(41611)
-								elseif TrueItemLevel < 417 then
-									itemName, itemLink = GetItemInfo(55054)
-								else
-									itemName, itemLink = GetItemInfo(90046)
+							if HandleModifiedItemClick(itemLink) then
+							elseif IsShiftKeyDown() then
+								if button == 'RightButton' then
+									SocketInventoryItem(Slot.ID)
+								elseif BrowseName and BrowseName:IsVisible() then
+									AuctionFrameBrowse_Reset(BrowseResetButton)
+									BrowseName:SetText(itemName)
+									BrowseName:SetFocus()
 								end
-		
-								if HandleModifiedItemClick(itemLink) then
-								elseif IsShiftKeyDown() then
-									if button == 'RightButton' then
-										SocketInventoryItem(Slot.ID)
-									elseif BrowseName and BrowseName:IsVisible() then
-										AuctionFrameBrowse_Reset(BrowseResetButton)
-										BrowseName:SetText(itemName)
-										BrowseName:SetFocus()
-									end
-								end
-							end)
-						end
+							end
+						end)
 					end
 				end
 			end
 
 			-- Change Gradation
-			--if ErrorDetected and E.db.sle.KnightFrame_Armory.NoticeMissing ~= false then
-			if ErrorDetected and E.db.sle.characterframeoptions.missingnotice ~= false then
+			if ErrorDetected and E.db.sle.characterframeoptions.showerrorgradient ~= false then
 				if Slot.Direction == 'LEFT' then
 					Slot.Gradation:SetTexCoord(0, .5, .5, 1)
 				else
