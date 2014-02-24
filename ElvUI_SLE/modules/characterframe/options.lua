@@ -45,6 +45,7 @@ local function configTable()
 						type = 'toggle',
 						name = L["Show Error Highlight"],
 						desc = L["Highlights equipment slot if an error has been found."],
+						--disabled = function() return not E.private.sle.characterframeoptions.enable or not E.db.sle.characterframeoptions.equipmentgradient end,
 						get = function(info) return E.db.sle.characterframeoptions.missingnotice end,
 						set = function(info, value) E.db.sle.characterframeoptions.missingnotice = value; CFO:ArmoryFrame_DataSetting(); end,
 					},
@@ -239,6 +240,31 @@ local function configTable()
 							},
 						},
 					},
+					warningGroup = {
+						order = 3,
+						type = 'group',
+						guiInline = true,
+						--disabled = function () return not E.db.sle.characterframeoptions.itemenchant.enable end,
+						name = L['Enchant Warning'],
+						args = {
+							showwarning = {
+								order = 1,
+								type = "toggle",
+								name = L["Show Enchant Warning"],
+								get = function(info) return E.db.sle.characterframeoptions.itemenchant.showwarning end,
+								set = function(info, value) E.db.sle.characterframeoptions.itemenchant.showwarning = value; --[[CFO:ArmoryFrame_DataSetting();]] end,
+							},
+							warningsize = {
+								order = 2,
+								name = L["Warning Size"],
+								desc = L["Set the icon size that the warning notification will use."],
+								type = "range",
+								min = 8, max = 18, step = 1,
+								get = function(info) return E.db.sle.characterframeoptions.itemenchant.warningSize end,
+								set = function(info, value) E.db.sle.characterframeoptions.itemenchant.warningSize = value; CFO:ResizeErrorIcon(); end,
+							},
+						},
+					},
 				},
 			},
 			itemgem = {
@@ -256,7 +282,7 @@ local function configTable()
 						get = function(info) return E.db.sle.characterframeoptions.itemgem.enable end,
 						set = function(info, value) E.db.sle.characterframeoptions.itemgem.enable = value; --[[CFO:ToggleCFO()]] end,
 					},
-					gemwarningGroup = {
+					warningGroup = {
 						order = 2,
 						type = 'group',
 						guiInline = true,
@@ -277,7 +303,7 @@ local function configTable()
 								type = "range",
 								min = 8, max = 18, step = 1,
 								get = function(info) return E.db.sle.characterframeoptions.itemgem.warningSize end,
-								set = function(info, value) E.db.sle.characterframeoptions.itemgem.warningSize = value; CFO:ResizeErrorIcon(value); end,
+								set = function(info, value) E.db.sle.characterframeoptions.itemgem.warningSize = value; CFO:ResizeErrorIcon(); end,
 							},
 						},
 					},

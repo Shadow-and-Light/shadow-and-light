@@ -2,7 +2,7 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local CFO = E:NewModule('CharacterFrameOptions', 'AceEvent-3.0');
 
 local f = CreateFrame('Frame', 'KnightArmory', PaperDollFrame)
-local C = KnightFrame_Armory_Constants
+local C = SLArmoryConstants
 
 local function GemSocket_OnClick(self, button)
 	self = self:GetParent()
@@ -102,7 +102,7 @@ local function CreateArmoryFrame(self)
 			-- Enchantment Name
 			C.Toolkit.TextSetting(Slot, nil, { ['Tag'] = 'ItemEnchant', ['FontSize'] = 8, ['directionH'] = Slot.Direction, }, Slot.Direction, _G['Character'..slotName], Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 2 or -2, 1)
 			Slot.EnchantWarning = CreateFrame('Button', nil, Slot)
-			Slot.EnchantWarning:Size(12)
+			Slot.EnchantWarning:Size(E.db.sle.characterframeoptions.itemenchant.warningSize)
 			Slot.EnchantWarning.Texture = Slot.EnchantWarning:CreateTexture(nil, 'OVERLAY')
 			Slot.EnchantWarning.Texture:SetInside()
 			Slot.EnchantWarning.Texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Warning-Small.tga')
@@ -183,23 +183,11 @@ local function CreateArmoryFrame(self)
 	CreateArmoryFrame = nil
 end
 
---function CFO:ResizeErrorIcon(IconSize)
---	local Slot
---	for _, slotName in pairs(KnightFrame_Armory_Constants.GearList) do
---		if slotName ~= 'ShirtSlot' and slotName ~= 'TabardSlot' then
-		--Slot = KnightArmory.slotName
-		--print(IconSize)
---		f[slotName].SocketWarning:Size(IconSize)
-		--Slot.EnchantWarning:Size(IconSize)
-	--	end
-	--end
---end
-
-function CFO:ResizeErrorIcon(IconSize)
+function CFO:ResizeErrorIcon()
 	for _, slotName in pairs(C.GearList) do
 		if slotName ~= 'ShirtSlot' and slotName ~= 'TabardSlot' then
-			f[slotName].SocketWarning:Size(IconSize)
-			--f[slotName].EnchantWarning:Size(IconSize)
+			f[slotName].SocketWarning:Size(E.db.sle.characterframeoptions.itemgem.warningSize)
+			f[slotName].EnchantWarning:Size(E.db.sle.characterframeoptions.itemenchant.warningSize)
 		end
 	end
 end

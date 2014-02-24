@@ -77,9 +77,11 @@ P['sle'] = {
 		},
 		['itemenchant'] = {
 			['enable'] = true,
-			["font"] = "ElvUI Font",
-			["fontSize"] = 12,
-			["fontOutline"] = "OUTLINE",
+			['font'] = "ElvUI Font",
+			['fontSize'] = 12,
+			['fontOutline'] = "OUTLINE",
+			['showwarning'] = true,
+			['warningSize'] = 12,
 		},
 		['itemgem'] = {
 			['enable'] = true,

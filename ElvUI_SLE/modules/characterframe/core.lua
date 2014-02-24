@@ -1,7 +1,7 @@
 local E, L, V, P, G, _  = unpack(ElvUI)
 
 -- Constants
-KnightFrame_Armory_Constants = {
+SLArmoryConstants = {
 	['ItemLevelKey'] = ITEM_LEVEL:gsub('%%d', '(.+)'),
 	['EnchantKey'] = ENCHANTED_TOOLTIP_LINE:gsub('%%s', '(.+)'),
 	['ItemSetBonusKey'] = ITEM_SET_BONUS:gsub('%%s', '(.+)'),
@@ -179,7 +179,7 @@ KnightFrame_Armory_Constants = {
 				_G[buttonName].CheckButton:Point('CENTER', _G[buttonName].CheckButtonBG)
 				_G[buttonName].CheckButton:SetTexture('Interface\\Buttons\\UI-CheckBox-Check')
 
-				KnightFrame_Armory_Constants.Toolkit.TextSetting(_G[buttonName], buttonText, fontInfo, 'LEFT', _G[buttonName].CheckButtonBG, 'RIGHT', 6, 0)
+				SLArmoryConstants.Toolkit.TextSetting(_G[buttonName], buttonText, fontInfo, 'LEFT', _G[buttonName].CheckButtonBG, 'RIGHT', 6, 0)
 
 				_G[buttonName].hover = _G[buttonName]:CreateTexture(nil, 'HIGHLIGHT')
 				_G[buttonName].hover:SetTexture('Interface\\Buttons\\UI-CheckBox-Highlight')
