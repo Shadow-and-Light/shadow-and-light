@@ -61,8 +61,18 @@ function EVB:CreateExtraButtonSet(type, page, visibility)
 			barFrame[type]['Button'..i]:SetPoint('LEFT', prev, 'RIGHT', self.spacing, 0)
 		end
 	end
+	barFrame[type]['Button7'] = CreateFrame('Button', 'ElvUISLEEnhancedVehicleBar_'..type..'7', barFrame, 'SecureHandlerClickTemplate')
+	barFrame[type]['Button7']:Size(self.size)
+	barFrame[type]['Button7'].Icon = barFrame[type]['Button7']:CreateTexture(nil, 'ARTWORK')
+	barFrame[type]['Button7'].Icon:SetTexture("Interface\\Icons\\Achievement_BG_returnXflags_def_WSG")
+	barFrame[type]['Button7'].Icon:SetTexCoord(unpack(E.TexCoords))
+	barFrame[type]['Button7'].Icon:SetInside()
+	barFrame[type]['Button7']:SetTemplate("Default")
+	barFrame[type]['Button7']:SetScript("OnClick", VehicleExit)
+	barFrame[type]['Button7']:StyleButton()
+	RegisterStateDriver(barFrame[type]['Button7'], 'visibility', '[petbattle] hide; '..visibility)
+	barFrame[type]['Button7']:SetPoint('LEFT', barFrame[type]['Button6'], 'RIGHT', self.spacing, 0)
 end
-
 function EVB:Initialize()
 	if (not E.private.sle.vehicle.enable) then return end;
 
@@ -83,7 +93,7 @@ function EVB:Initialize()
 	self.size = size;
 	self.spacing = spacing;
 
-	barFrame:SetWidth((size * 6) + (spacing * 7));
+	barFrame:SetWidth((size * 7) + (spacing * 8));
 	barFrame:SetHeight(size + (spacing * 2));
 	barFrame:SetTemplate("Transparent");
 	barFrame:CreateShadow();
