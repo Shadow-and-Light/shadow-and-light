@@ -51,6 +51,7 @@ function EVB:CreateExtraButtonSet(type, page, visibility)
 		barFrame[type]['Button'..i]:SetID(i)
 		barFrame[type]['Button'..i]:SetAttribute('actionpage', page)
 		barFrame[type]['Button'..i]:SetAttribute('action', i)
+		E:RegisterCooldown(barFrame[type]['Button'..i].cooldown)
 		AB:StyleButton(barFrame[type]['Button'..i]);
 		RegisterStateDriver(barFrame[type]['Button'..i], 'visibility', '[petbattle] hide; '..visibility)
 
@@ -109,7 +110,7 @@ function EVB:Initialize()
 	self.barFrame = barFrame;
 
 	self:CreateExtraButtonSet('vehicle', 12, '[vehicleui][possessbar] show; hide')
-	self:CreateExtraButtonSet('shapeshit', 13, '[shapeshift] show; hide')
+	self:CreateExtraButtonSet('shapeshift', 13, '[shapeshift] show; hide')
 	self:CreateExtraButtonSet('override', 14, '[overridebar] show; hide')
 end
 
