@@ -30,7 +30,6 @@ function EVB:AnimSlideIn(bar)
 	end
 
 	bar.anim.out1:Stop()
-	bar:Show()
 	bar.anim:Play()
 end
 
