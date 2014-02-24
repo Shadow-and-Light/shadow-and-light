@@ -342,6 +342,7 @@ function CFO:ArmoryFrame_DataSetting()
 						if ItemUpgradeID == '0' then
 							ItemUpgradeID = nil
 						else
+							if not TrueItemLevel then TrueItemLevel = BasicItemLevel end
 							if not C.ItemUpgrade[ItemUpgradeID] then
 								print('New Upgrade ID |cffceff00['..ItemUpgradeID..']|r : |cffceff00'..(TrueItemLevel - BasicItemLevel))
 							end
