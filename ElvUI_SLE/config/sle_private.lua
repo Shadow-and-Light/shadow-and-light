@@ -55,4 +55,8 @@ V['sle'] = {
 	['loot'] = {
 		['enable'] = false,
 	},
+
+	['vehicle'] = {
+		['enable'] = false,
+	},
 }
