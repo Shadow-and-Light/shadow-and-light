@@ -320,6 +320,10 @@ function CFO:ArmoryFrame_DataSetting()
 						TrueItemLevel = tonumber(CurrentLineText:match(C.ItemLevelKey))
 					elseif CurrentLineText:find(C.EnchantKey) then
 						CurrentLineText = CurrentLineText:match(C.EnchantKey) -- Get enchant string
+						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_AGILITY_SHORT, AGI)
+						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_SPIRIT_SHORT, SPI)
+						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_STAMINA_SHORT, STA)
+						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_STRENGTH_SHORT, STR)
 						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_INTELLECT_SHORT, INT) --Intellect is to long for darth
 						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_CRIT_RATING_SHORT, CRIT_ABBR) -- Critical is too long
 						CurrentLineText = gsub(CurrentLineText, ' + ', '+') -- Remove space
