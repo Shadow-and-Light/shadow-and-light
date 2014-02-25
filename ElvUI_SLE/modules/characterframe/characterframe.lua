@@ -313,7 +313,6 @@ function CFO:ArmoryFrame_DataSetting()
 
 				ItemUpgradeID = ItemLink:match(':(%d+)\124h%[')
 
-				--<< Enchant Parts >>--
 				for i = 1, f.ScanTTForEnchanting1:NumLines() do
 					CurrentLineText = _G['KnightArmoryScanTT_E1TextLeft'..i]:GetText()
 
@@ -321,6 +320,7 @@ function CFO:ArmoryFrame_DataSetting()
 						TrueItemLevel = tonumber(CurrentLineText:match(C.ItemLevelKey))
 					elseif CurrentLineText:find(C.EnchantKey) then
 						CurrentLineText = CurrentLineText:match(C.EnchantKey) -- Get enchant string
+						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_INTELLECT_SHORT, INT) --Intellect is to long for darth
 						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_CRIT_RATING_SHORT, CRIT_ABBR) -- Critical is too long
 						CurrentLineText = gsub(CurrentLineText, ' + ', '+') -- Remove space
 
