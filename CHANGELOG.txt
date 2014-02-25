@@ -1,4 +1,4 @@
-v1.81
+v1.81 February 25, 2014
 - Minimap Icon overhaul
 - ElvUI 6.94-6.991 Chat update
 - Character Frame Overhaul (Armory Type Display)
