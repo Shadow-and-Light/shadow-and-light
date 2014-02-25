@@ -329,6 +329,7 @@ L["Submodules and Coding:"] = true
 L["ELVUI_SLE_CODERS"] = [=[Elv
 Tukz
 Affinitii
+Arstraea
 Azilroka
 Blazeflack
 Boradan

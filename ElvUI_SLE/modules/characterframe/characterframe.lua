@@ -1,5 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local CFO = E:NewModule('CharacterFrameOptions', 'AceEvent-3.0');
+local LSM = LibStub("LibSharedMedia-3.0")
 
 local f = CreateFrame('Frame', 'KnightArmory', PaperDollFrame)
 local C = SLArmoryConstants
@@ -58,7 +59,6 @@ local function CreateArmoryFrame(self)
 	--<< Background >>--
 	self.BG = self:CreateTexture(nil, 'OVERLAY')
 	self.BG:SetInside()
-	--self.BG:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Space.tga')
 
 	--<< Change Model Frame's frameLevel >>--
 	CharacterModelFrame:SetFrameLevel(self:GetFrameLevel() + 2)
@@ -116,7 +116,7 @@ local function CreateArmoryFrame(self)
 			-- Gem Socket
 			for i = 1, MAX_NUM_SOCKETS do
 				Slot['Socket'..i] = CreateFrame('Frame', nil, Slot)
-				Slot['Socket'..i]:Size(E.db.sle.characterframeoptions.itemgem.gemsize)
+				Slot['Socket'..i]:Size(E.db.sle.characterframeoptions.itemgem.socketSize)
 				Slot['Socket'..i]:SetBackdrop({
 					bgFile = E.media.blankTex,
 					edgeFile = E.media.blankTex,
@@ -196,6 +196,9 @@ function CFO:ResizeErrorIcon()
 		if slotName ~= 'ShirtSlot' and slotName ~= 'TabardSlot' then
 			f[slotName].SocketWarning:Size(E.db.sle.characterframeoptions.itemgem.warningSize)
 			f[slotName].EnchantWarning:Size(E.db.sle.characterframeoptions.itemenchant.warningSize)
+			for i = 1, MAX_NUM_SOCKETS do
+				f[slotName]['Socket'..i]:Size(E.db.sle.characterframeoptions.itemgem.socketSize)
+			end
 		end
 	end
 end
@@ -230,6 +233,7 @@ function CFO:ArmoryFrame_DataSetting()
 				Slot.Durability:SetText('')
 				for i = 1, MAX_NUM_SOCKETS do
 					Slot['Socket'..i].Texture:SetTexture(nil)
+					Slot['Socket'..i].Socket.Link = nil
 					Slot['Socket'..i].GemItemID = nil
 					Slot['Socket'..i].GemType = nil
 					Slot['Socket'..i]:Hide()
@@ -303,6 +307,7 @@ function CFO:ArmoryFrame_DataSetting()
 								GemCount = GemCount + 1
 								Slot['Socket'..i].Texture:SetTexture(ItemTexture)
 								Slot['Socket'..i].GemItemID = GemID
+								Slot['Socket'..i].Socket.Link = select(2, GetItemInfo(GemID))
 							end
 						end
 					end
@@ -330,6 +335,7 @@ function CFO:ArmoryFrame_DataSetting()
 						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_CRIT_RATING_SHORT, CRIT_ABBR) -- Critical is too long
 						CurrentLineText = gsub(CurrentLineText, ' + ', '+') -- Remove space
 
+						Slot.ItemEnchant:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemenchant.font), E.db.sle.characterframeoptions.itemenchant.fontSize, E.db.sle.characterframeoptions.itemenchant.fontOutline)
 						Slot.ItemEnchant:SetText('|cffceff00'..CurrentLineText)
 
 						IsEnchanted = true
@@ -351,7 +357,7 @@ function CFO:ArmoryFrame_DataSetting()
 							ItemUpgradeID = TrueItemLevel - BasicItemLevel
 						end
 					end
-
+					Slot.ItemLevel:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemlevel.font), E.db.sle.characterframeoptions.itemlevel.fontSize, E.db.sle.characterframeoptions.itemlevel.fontOutline)
 					Slot.ItemLevel:SetText((Slot.Direction == 'LEFT' and TrueItemLevel or '')..(ItemUpgradeID and (Slot.Direction == 'LEFT' and ' ' or '')..(C.UpgradeColor[ItemUpgradeID] or '|cffaaaaaa')..'(+'..ItemUpgradeID..')|r'..(Slot.Direction == 'RIGHT' and ' ' or '') or '')..(Slot.Direction == 'RIGHT' and TrueItemLevel or ''))
 				end
 
@@ -359,6 +365,7 @@ function CFO:ArmoryFrame_DataSetting()
 				CurrentDurability, MaxDurability = GetInventoryItemDurability(Slot.ID)
 				if CurrentDurability and MaxDurability then
 					r, g, b = E:ColorGradient((CurrentDurability / MaxDurability), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+					Slot.Durability:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemdurability.font), E.db.sle.characterframeoptions.itemdurability.fontSize, E.db.sle.characterframeoptions.itemdurability.fontOutline)
 					Slot.Durability:SetFormattedText("%s%.0f%%|r", E:RGBToHex(r, g, b), (CurrentDurability / MaxDurability) * 100)
 					Slot.Socket1:Point('BOTTOM'..Slot.Direction, Slot.Durability, 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, -2)
 				end
@@ -507,7 +514,6 @@ function CFO:StartArmoryFrame()
 
 	if CreateArmoryFrame then
 		CreateArmoryFrame(KnightArmory)
-		print("Test test");
 	end
 	CFO:ArmoryFrame_DataSetting()
 
