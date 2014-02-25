@@ -1,6 +1,10 @@
 v1.81
 - Minimap Icon overhaul
-- ElvUI 6.94 Chat update
+- ElvUI 6.94-6.991 Chat update
+- Character Frame Overhaul (Armory Type Display)
+- Added an Enhanced Vehicle Bar
+- Added New S&L Currency Datatext
+- Added Equipment Set Display for items in bag
 
 v1.80 December 22, 2013
 - Updated stuff to ElvUI current release

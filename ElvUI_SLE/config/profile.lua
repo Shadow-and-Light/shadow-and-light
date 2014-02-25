@@ -75,8 +75,8 @@ P['sle'] = {
 			["fontOutline"] = "OUTLINE",
 		},
 		['itemenchant'] = {
-			['font'] = "Arial Narrow",
-			['fontSize'] = 12,
+			['font'] = "ElvUI Pixel",
+			['fontSize'] = 10,
 			['fontOutline'] = "OUTLINE",
 			['showwarning'] = true,
 			['warningSize'] = 12,
@@ -86,15 +86,6 @@ P['sle'] = {
 			['socketSize'] = 12,
 			['warningSize'] = 12,
 		},
-	},
-
-	--Knightframe Adaption
-	['KnightFrame_Armory'] = {
-		['Enable'] = true,
-		['NoticeMissing'] = true,
-	},
-	['KnightFrame_Inspect'] = {
-		['Enable'] = true,
 	},
 
 	--Combat Icon
