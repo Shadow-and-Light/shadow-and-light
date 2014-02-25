@@ -1,3 +1,8 @@
+v1.82
+- Fixed currency datatext errors for non-english clients
+- Fixed way too long enchants strings in character frame on Ru locale
+- Some missed localization lines added
+
 v1.81 February 25, 2014
 - Minimap Icon overhaul
 - ElvUI 6.94-6.991 Chat update
