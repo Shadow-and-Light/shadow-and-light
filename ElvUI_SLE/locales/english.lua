@@ -182,6 +182,17 @@ L["D"] = true
 L["Previous Level:"] = true
 L['Current:'] = true
 L['Weekly:'] = true
+L['ElvUI Improved Currency Options'] = true
+L['Show Archaeology Fragments'] = true
+L['Show Jewelcrafting Tokens'] = true
+L['Show Player vs Player Currency'] = true
+L['Show Dungeon and Raid Currency'] = true
+L['Show Cooking Awards'] = true
+L['Show Miscellaneous Currency'] = true
+L['Show Zero Currency'] = true
+L['Show Icons'] = true
+L['Show Faction Totals'] = true
+
 
 --Exp/Rep Bar--
 L["Xp-Rep Text"] = true

@@ -52,16 +52,16 @@ local function GetOption(name)
 end
 
 local menu = {
-	{ text = 'ElvUI Improved Currency Options', isTitle = true , notCheckable = true },
-	{ text = 'Show Archaeology Fragments', checked = function() return GetOption('Archaeology') end, func = function() ToggleOption('Archaeology') end },
-	{ text = 'Show Jewelcrafting Tokens', checked = function()  return GetOption('Jewelcrafting') end, func = function() ToggleOption('Jewelcrafting') end },
-	{ text = 'Show Player vs Player Currency', checked = function() return GetOption('PvP') end, func = function() ToggleOption('PvP') end },
-	{ text = 'Show Dungeon and Raid Currency', checked = function() return GetOption('Raid') end, func = function() ToggleOption('Raid') end },
-	{ text = 'Show Cooking Awards', checked = function() return GetOption('Cooking') end, func = function() ToggleOption('Cooking') end },
-	{ text = 'Show Miscellaneous Currency', checked = function() return GetOption('Miscellaneous') end, func = function() ToggleOption('Miscellaneous') end },
-	{ text = 'Show Zero Currency', checked = function() return GetOption('Zero') end, func = function() ToggleOption('Zero') end },
-	{ text = 'Show Icons', checked = function() return GetOption('Icons') end, func = function() ToggleOption('Icons') end },
-	{ text = 'Show Faction Totals', checked = function() return GetOption('Faction') end, func = function() ToggleOption('Faction') end },
+	{ text = L['ElvUI Improved Currency Options'], isTitle = true , notCheckable = true },
+	{ text = L['Show Archaeology Fragments'], checked = function() return GetOption('Archaeology') end, func = function() ToggleOption('Archaeology') end },
+	{ text = L['Show Jewelcrafting Tokens'], checked = function()  return GetOption('Jewelcrafting') end, func = function() ToggleOption('Jewelcrafting') end },
+	{ text = L['Show Player vs Player Currency'], checked = function() return GetOption('PvP') end, func = function() ToggleOption('PvP') end },
+	{ text = L['Show Dungeon and Raid Currency'], checked = function() return GetOption('Raid') end, func = function() ToggleOption('Raid') end },
+	{ text = L['Show Cooking Awards'], checked = function() return GetOption('Cooking') end, func = function() ToggleOption('Cooking') end },
+	{ text = L['Show Miscellaneous Currency'], checked = function() return GetOption('Miscellaneous') end, func = function() ToggleOption('Miscellaneous') end },
+	{ text = L['Show Zero Currency'], checked = function() return GetOption('Zero') end, func = function() ToggleOption('Zero') end },
+	{ text = L['Show Icons'], checked = function() return GetOption('Icons') end, func = function() ToggleOption('Icons') end },
+	{ text = L['Show Faction Totals'], checked = function() return GetOption('Faction') end, func = function() ToggleOption('Faction') end },
 }
 
 local HiddenCurrency = {}
