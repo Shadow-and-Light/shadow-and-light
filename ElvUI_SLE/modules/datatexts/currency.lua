@@ -82,7 +82,6 @@ local function UnusedCheck()
 end
 
 local menuFrame = CreateFrame("Frame", "ElvUI_CurrencyMenuFrame", UIParent, 'UIDropDownMenuTemplate')
-local GetCurrencyListInfo = GetCurrencyListInfo
 
 local function GetCurrency(CurrencyTable, Text)
 	local Seperator = false
