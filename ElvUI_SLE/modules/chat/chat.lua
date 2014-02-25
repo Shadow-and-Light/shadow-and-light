@@ -42,6 +42,7 @@ local heart = "|TInterface\\AddOns\\ElvUI\\media\\textures\\heart_chat_logo.tga:
 local hulkhead = "|TInterface\\AddOns\\ElvUI\\media\\textures\\hulk_head.tga:18:22|t"
 local mrhanky = "|TInterface\\AddOns\\ElvUI\\media\\textures\\mr_hankey.tga:18:22|t"
 local shortbus = "|TInterface\\AddOns\\ElvUI\\media\\textures\\short_bus.tga:16:16|t"
+local kitalie = "|TInterface\\Icons\\inv_cloth_challengewarlock_d_01helm.blp:16:16:0:0:64:64:4:60:4:60|t"
 
 
 local specialChatIcons = {
@@ -92,6 +93,19 @@ local specialChatIcons = {
 		--Repooc's Toon
 		["Repøøc"] = repooc,
 		["Repooc"] = repooc
+	},
+	["WyrmrestAccord"] = {
+		["Kìtalie"] = kitalie,
+		["Sagome"] = kitalie,
+		["Ainy"] = kitalie,
+		["Norinael"] = kitalie,
+		["Tritalie"] = kitalie,
+		["Myùn"] = kitalie,
+		["Nevaleigh"] = kitalie,
+		["Celenii"] = kitalie,
+		["Varysa"] = kitalie,
+		["Caylasena"] = kitalie,
+		["Arillora"] = kitalie,
 	},
 	["СвежевательДуш"] = {
 		--Darth's toons

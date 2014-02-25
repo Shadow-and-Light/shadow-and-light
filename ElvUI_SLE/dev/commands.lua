@@ -52,6 +52,19 @@ local Authors = {
 		["Rovert"] = "SLEAUTHOR",
 		["Sliceoflife"] = "SLEAUTHOR"
 	},
+	["WyrmrestAccord"] = {
+		["Kìtalie"] = "SLEAUTHOR",
+		["Sagome"] = "SLEAUTHOR",
+		["Ainy"] = "SLEAUTHOR",
+		["Norinael"] = "SLEAUTHOR",
+		["Tritalie"] = "SLEAUTHOR",
+		["Myùn"] = "SLEAUTHOR",
+		["Nevaleigh"] = "SLEAUTHOR",
+		["Celenii"] = "SLEAUTHOR",
+		["Varysa"] = "SLEAUTHOR",
+		["Caylasena"] = "SLEAUTHOR",
+		["Arillora"] = "SLEAUTHOR",
+	},
 }
 
 function SLE:Auth(sender)
