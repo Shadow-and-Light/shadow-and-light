@@ -37,6 +37,7 @@ V['ElvUI_Currency'] = {
 	['Zero'] = true,
 	['Icons'] = true,
 	['Faction'] = true,
+	['Unused'] = true,
 }
 
 local function ToggleOption(name)
@@ -62,11 +63,13 @@ local menu = {
 	{ text = L['Show Zero Currency'], checked = function() return GetOption('Zero') end, func = function() ToggleOption('Zero') end },
 	{ text = L['Show Icons'], checked = function() return GetOption('Icons') end, func = function() ToggleOption('Icons') end },
 	{ text = L['Show Faction Totals'], checked = function() return GetOption('Faction') end, func = function() ToggleOption('Faction') end },
+	{ text = L['Show Unsed Currency'], checked = function() return GetOption('Unused') end, func = function() ToggleOption('Unused') end },
 }
 
 local HiddenCurrency = {}
 
 local function UnusedCheck()
+	if GetOption('Unused') then HiddenCurrency = {}; return end
 	for i = 1, GetCurrencyListSize() do
 		local name, _, _, isUnused = GetCurrencyListInfo(i)
 		if isUnused then
@@ -90,7 +93,7 @@ local function GetCurrency(CurrencyTable, Text)
 		local name, amount, texture, week, weekmax, maxed, discovered = GetCurrencyInfo(id)
 		local LeftString = GetOption('Icons') and format('%s %s', format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture), name) or name
 		local RightString = amount
-		local unused = SLE:SimpleTable(HiddenCurrency, name)
+		local unused = SLE:SimpleTable(HiddenCurrency, name) or nil
 		
 		if id == 392 or id == 395 then
 			maxed = 4000

@@ -191,6 +191,7 @@ L['Show Miscellaneous Currency'] = "Показывать прочую валют
 L['Show Zero Currency'] = "Показывать отсутствующую валюту"
 L['Show Icons'] = "Показывать иконки"
 L['Show Faction Totals'] = "Показывать сумму по фракциям"
+L['Show Unsed Currency'] = "Показывать неиспользуемую валюту"
 
 --Exp/Rep Bar--
 L["Xp-Rep Text"] = "Текст Опыта/Репутации"

@@ -192,6 +192,7 @@ L['Show Miscellaneous Currency'] = true
 L['Show Zero Currency'] = true
 L['Show Icons'] = true
 L['Show Faction Totals'] = true
+L['Show Unsed Currency'] = true
 
 
 --Exp/Rep Bar--
