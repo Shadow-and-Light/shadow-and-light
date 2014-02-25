@@ -316,7 +316,9 @@ function CFO:ArmoryFrame_DataSetting()
 				for i = 1, f.ScanTTForEnchanting1:NumLines() do
 					CurrentLineText = _G['KnightArmoryScanTT_E1TextLeft'..i]:GetText()
 
-					if CurrentLineText:find(C.ItemLevelKey) then
+					if CurrentLineText:find(C.ItemLevelKey_Alt) then
+						TrueItemLevel = tonumber(CurrentLineText:match(C.ItemLevelKey_Alt))
+					elseif CurrentLineText:find(C.ItemLevelKey) then
 						TrueItemLevel = tonumber(CurrentLineText:match(C.ItemLevelKey))
 					elseif CurrentLineText:find(C.EnchantKey) then
 						CurrentLineText = CurrentLineText:match(C.EnchantKey) -- Get enchant string
@@ -342,7 +344,6 @@ function CFO:ArmoryFrame_DataSetting()
 						if ItemUpgradeID == '0' then
 							ItemUpgradeID = nil
 						else
-							if not TrueItemLevel then TrueItemLevel = BasicItemLevel end
 							if not C.ItemUpgrade[ItemUpgradeID] then
 								print('New Upgrade ID |cffceff00['..ItemUpgradeID..']|r : |cffceff00'..(TrueItemLevel - BasicItemLevel))
 							end
