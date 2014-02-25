@@ -23,6 +23,8 @@ if SLE:Auth() then
 		if prefix == 'SLE_DEV_INFO' then
 			if event == 'CHAT_MSG_ADDON' or event == 'BN_CHAT_MSG_ADDON' then
 				local userLevel, userClass, userName, userRealm, userVersion = strsplit('#', message)
+				if (userName == E.myname and userRealm == E.myrealm) then return end;
+				
 				userVersion = tonumber(userVersion)
 
 				if userVersion > highestVersion then

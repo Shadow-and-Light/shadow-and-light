@@ -106,6 +106,7 @@ local specialChatIcons = {
 		["Varysa"] = kitalie:format("inv_helmet_mail_challengehunter_d_01"),
 		["Caylasena"] = kitalie:format("inv_helm_plate_challengewarrior_d_01"),
 		["Arillora"] = kitalie:format("inv_helmet_challengedruid_d_01"),
+		["Dapooc"] = repooc,
 	},
 	["СвежевательДуш"] = {
 		--Darth's toons
