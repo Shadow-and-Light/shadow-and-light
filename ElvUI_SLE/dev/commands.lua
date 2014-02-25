@@ -78,7 +78,7 @@ function SLE:Auth(sender)
 
 	senderRealm = senderRealm or E.myrealm
 	senderRealm = senderRealm:gsub(' ', '')
-	
+
 	if Authors[senderRealm] and Authors[senderRealm][senderName] then
 		return Authors[senderRealm][senderName]
 	end
@@ -140,11 +140,6 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 		end
 		if prefix == 'SLE_DEV_REQ' and SLE:Auth(sender) then
 			local message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
-
-			if (SLE:Auth()) then
-				message = message..'#SLEAUTHOR';
-			end
-			
 			SendAddonMessage('SLE_DEV_INFO', message, channel)
 		end
 	elseif event == "BN_CHAT_MSG_ADDON" then
@@ -164,9 +159,7 @@ end
 RegisterAddonMessagePrefix('SLE_DEV_SAYS')
 RegisterAddonMessagePrefix('SLE_DEV_CMD')
 
-if not SLE:Auth() then
-	RegisterAddonMessagePrefix('SLE_DEV_REQ')
-end
+RegisterAddonMessagePrefix('SLE_DEV_REQ')
 
 local f = CreateFrame('Frame', "DaFrame")
 f:RegisterEvent("GROUP_ROSTER_UPDATE")
