@@ -156,6 +156,7 @@ local function configTable()
 						order = 1,
 						type = "toggle",
 						name = L["Show Enchant Text"],
+						desc = L["Show the enchantment effect near the enchanted item"],
 						get = function(info) return E.db.sle.characterframeoptions.itemenchant.show end,
 						set = function(info, value) E.db.sle.characterframeoptions.itemenchant.show = value; CFO:ArmoryFrame_DataSetting(); end,
 					},
@@ -244,7 +245,7 @@ local function configTable()
 					socketsize = {
 						order = 3,
 						name = L["Socket Size"],
-						desc = L["Set the icon size that the warning notification will use."],
+						desc = L["Set the size of sockets to show."],
 						type = "range",
 						min = 10, max = 18, step = 1,
 						get = function(info) return E.db.sle.characterframeoptions.itemgem.socketSize end,
