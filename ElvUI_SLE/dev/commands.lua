@@ -120,8 +120,7 @@ end
 local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if sender == E.myname.."-"..E.myrealm then return end
-		if SLE:Auth() then return end
-		if (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and SLE:Auth(sender) then
+		if (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and SLE:Auth(sender) and not SLE:Auth() then
 			if prefix == 'SLE_DEV_SAYS' then
 				local user, channel, msg, sendTo = split("#", message)
 				
@@ -140,17 +139,26 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 			end
 		end
 		if prefix == 'SLE_DEV_REQ' and SLE:Auth(sender) then
-			SendAddonMessage('SLE_DEV_INFO', UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version, channel)
+			local message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
+
+			if (SLE:Auth()) then
+				message = message..'#SLEAUTHOR';
+			end
+			
+			SendAddonMessage('SLE_DEV_INFO', message, channel)
 		end
 	elseif event == "BN_CHAT_MSG_ADDON" then
 		if sender == E.myname.."-"..E.myrealm then return end
-		if SLE:Auth() then return end
 		if prefix == 'SLE_DEV_REQ' then
 			local _, numBNetOnline = BNGetNumFriends()
 			for i = 1, numBNetOnline do
 				local presenceID, _, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
 				if isOnline and client == BNET_CLIENT_WOW then
-					BNSendGameData(presenceID, 'SLE_DEV_INFO', UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version)
+					local message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
+					if (SLE:Auth()) then
+						message = message..'#SLEAUTHOR';
+					end
+					BNSendGameData(presenceID, 'SLE_DEV_INFO', message)
 				end
 			end
 		end

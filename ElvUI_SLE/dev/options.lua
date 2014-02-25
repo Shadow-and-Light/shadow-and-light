@@ -22,6 +22,11 @@ if SLE:Auth() then
 	f:SetScript('OnEvent', function(self, event, prefix, message, channel, sender)
 		if prefix == 'SLE_DEV_INFO' then
 			if event == 'CHAT_MSG_ADDON' or event == 'BN_CHAT_MSG_ADDON' then
+				local author = false;
+				if (message:match('#SLEAUTHOR$')) then
+					author = true;
+					message = message:gsub('#SLEAUTHOR$','');
+				end
 				local userLevel, userClass, userName, userRealm, userVersion = strsplit('#', message)
 				userVersion = tonumber(userVersion)
 
@@ -35,6 +40,7 @@ if SLE:Auth() then
 					['userName'] = userName,
 					['userRealm'] = userRealm,
 					['userVersion'] = userVersion,
+					['author'] = author,
 				}
 				
 				ACD:SelectGroup('ElvUI', 'sle', 'developer', 'userList')
@@ -291,7 +297,16 @@ if SLE:Auth() then
 						local UserVersion = UserListCache[i]['userVersion']
 						UserVersion = (UserVersion == highestVersion and '|cffceff00' or '|cffff5678')..UserVersion
 
-						return Level..'  '..UserName.. '|cffffffff - '..UserRealm..' : '..UserVersion
+						local Author = '';
+						if(UserListCache[i].author) then
+							local realm = UserRealm:gsub(' ','');
+							if (SLE.SpecialChatIcons[realm] and SLE.SpecialChatIcons[realm][UserListCache[i]['userName']]) then
+								Author = SLE.SpecialChatIcons[realm][UserListCache[i]['userName']];
+							else
+								Author = SLE.SpecialChatIcons["Spirestone"]["Repooc"];
+							end
+						end
+						return Level..'  '..UserName.. '|cffffffff - '..UserRealm..' : '..UserVersion..Author
 					else
 						return ' '
 					end
