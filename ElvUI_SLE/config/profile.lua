@@ -75,6 +75,7 @@ P['sle'] = {
 			["fontOutline"] = "OUTLINE",
 		},
 		['itemenchant'] = {
+			['show'] = true,
 			['font'] = "ElvUI Pixel",
 			['fontSize'] = 10,
 			['fontOutline'] = "OUTLINE",

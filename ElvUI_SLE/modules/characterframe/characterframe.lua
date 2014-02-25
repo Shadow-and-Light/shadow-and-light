@@ -336,8 +336,13 @@ function CFO:ArmoryFrame_DataSetting()
 						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_CRIT_RATING_SHORT, CRIT_ABBR) -- Critical is too long
 						CurrentLineText = gsub(CurrentLineText, ' + ', '+') -- Remove space
 
-						Slot.ItemEnchant:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemenchant.font), E.db.sle.characterframeoptions.itemenchant.fontSize, E.db.sle.characterframeoptions.itemenchant.fontOutline)
-						Slot.ItemEnchant:SetText('|cffceff00'..CurrentLineText)
+						if E.db.sle.characterframeoptions.itemenchant.show then
+							Slot.ItemEnchant:Show()
+							Slot.ItemEnchant:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemenchant.font), E.db.sle.characterframeoptions.itemenchant.fontSize, E.db.sle.characterframeoptions.itemenchant.fontOutline)
+							Slot.ItemEnchant:SetText('|cffceff00'..CurrentLineText)
+						else
+							Slot.ItemEnchant:Hide()
+						end
 
 						IsEnchanted = true
 					elseif CurrentLineText:find(ITEM_SPELL_TRIGGER_ONUSE) then
@@ -376,6 +381,7 @@ function CFO:ArmoryFrame_DataSetting()
 					ErrorDetected = true
 					if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
 						Slot.EnchantWarning:Show()
+						Slot.ItemEnchant:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemenchant.font), E.db.sle.characterframeoptions.itemenchant.fontSize, E.db.sle.characterframeoptions.itemenchant.fontOutline)
 						Slot.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
 					end
 				elseif CFO.PlayerProfession.Engineering and ((slotName == 'BackSlot' and CFO.PlayerProfession.Engineering >= 380) or (slotName == 'HandsSlot' and CFO.PlayerProfession.Engineering >= 400) or (slotName == 'WaistSlot' and CFO.PlayerProfession.Engineering >= 380)) and not UsableEffect then

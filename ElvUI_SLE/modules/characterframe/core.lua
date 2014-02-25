@@ -3,7 +3,7 @@ local E, L, V, P, G, _  = unpack(ElvUI)
 -- Constants
 SLArmoryConstants = {
 	['ItemLevelKey'] = ITEM_LEVEL:gsub('%%d', '(.+)'),
-	['ItemLevelKey_Alt'] = ITEM_LEVEL_ALT:gsub('%%d', '.+', 1):gsub('%(%%d%)', '%%((.+)%%)'),
+	['ItemLevelKey_Alt'] = ITEM_LEVEL_ALT:gsub('%%d', '.+'):gsub('%(.+%)', '%%((.+)%%)'),
 	['EnchantKey'] = ENCHANTED_TOOLTIP_LINE:gsub('%%s', '(.+)'),
 	['ItemSetBonusKey'] = ITEM_SET_BONUS:gsub('%%s', '(.+)'),
 	['TransmogrifiedKey'] = TRANSMOGRIFIED:gsub('%%s', '(.+)'),

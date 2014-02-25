@@ -152,15 +152,22 @@ local function configTable()
 				guiInline = true,
 				disabled = function() return not E.private.sle.characterframeoptions.enable end,
 				args = {
-					showwarning = {
+					show = {
 						order = 1,
+						type = "toggle",
+						name = L["Show Enchant Text"],
+						get = function(info) return E.db.sle.characterframeoptions.itemenchant.show end,
+						set = function(info, value) E.db.sle.characterframeoptions.itemenchant.show = value; CFO:ArmoryFrame_DataSetting(); end,
+					},
+					showwarning = {
+						order = 2,
 						type = "toggle",
 						name = L["Show Warning"],
 						get = function(info) return E.db.sle.characterframeoptions.itemenchant.showwarning end,
 						set = function(info, value) E.db.sle.characterframeoptions.itemenchant.showwarning = value; CFO:ArmoryFrame_DataSetting(); end,
 					},
 					warningsize = {
-						order = 2,
+						order = 3,
 						name = L["Warning Size"],
 						desc = L["Set the icon size that the warning notification will use."],
 						type = "range",
@@ -169,7 +176,7 @@ local function configTable()
 						set = function(info, value) E.db.sle.characterframeoptions.itemenchant.warningSize = value; CFO:ResizeErrorIcon(); end,
 					},
 					fontGroup = {
-						order = 3,
+						order = 4,
 						type = 'group',
 						guiInline = true,
 						name = L['Font'],
