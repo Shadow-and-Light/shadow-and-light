@@ -1,4 +1,4 @@
-v1.82
+v1.82 February 25, 2014
 - Fixed currency datatext errors for non-english clients
 - Currency datatext can now hide cerrensies set to unused (look for the option in S&L Currency config)
 - Fixed way too long enchants strings in character frame on Ru locale
