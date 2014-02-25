@@ -42,7 +42,7 @@ local heart = "|TInterface\\AddOns\\ElvUI\\media\\textures\\heart_chat_logo.tga:
 local hulkhead = "|TInterface\\AddOns\\ElvUI\\media\\textures\\hulk_head.tga:18:22|t"
 local mrhanky = "|TInterface\\AddOns\\ElvUI\\media\\textures\\mr_hankey.tga:18:22|t"
 local shortbus = "|TInterface\\AddOns\\ElvUI\\media\\textures\\short_bus.tga:16:16|t"
-local kitalie = "|TInterface\\Icons\\%s.blp:16:16:0:0:64:64:4:60:4:60|t"
+local kitalie = "|TInterface\\Icons\\%s.blp:12:12:0:0:64:64:4:60:4:60|t"
 
 
 local specialChatIcons = {
