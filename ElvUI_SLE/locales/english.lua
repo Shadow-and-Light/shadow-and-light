@@ -67,6 +67,12 @@ L["Show/Hide this frame during Pet Battles."] = true
 --Character Frame Options
 L["CFO_DESC"] = "This section will added different options/features to the character sheet.  Here you can show item level and durability of your items for a quick glance."
 L["Character Frame Options"] = true
+L["Decoration"] = true
+L["Show Equipment Gradients"] = true
+L["Shows gradient effect for all equipment slots."] = true
+L["Show Error Gradients"] = true
+L["Highlights equipment slot if an error has been found."] = true
+L["Show Background Image"] = true
 L['Font'] = true
 L["The font that the item level will use."] = true
 L["Set the font size that the item level will use."] = true
@@ -74,15 +80,30 @@ L["Set the font outline that the item level will use."] = true
 L["The font that the item durability will use."] = true
 L["Set the font size that the item durability will use."] = true
 L["Set the font outline that the item durability will use."] = true
-L["Enchanting Notification"] = true
+L["Enchanting"] = true 
+L["Show Enchant Text"] = true
+L["Show the enchantment effect near the enchanted item"] = true
+L["Show Warning"] = true
+L["Warning Size"] = true
+L["Set the icon size that the warning notification will use."] = true
+--L["Enchanting Notification"] = true
 L["The font that the enchant notification will use."] = true
 L["Set the font size that the enchant notification will use."] = true
 L["Set the font outline that the enchant notification will use."] = true
+L["Gem Sockets"] = true
+L["Socket Size"] = true
+L["Set the size of sockets to show."] = true
 
 --Character Frame--
-L["Enchanted"] = true
 L["Not Enchanted"] = true
-L["Can't Enchant"] = true
+--L["Can't Enchant"] = true
+L['Missing Tinkers'] = true
+L['This is not profession only.'] = true
+L['Missing Buckle'] = true
+L['Missing Socket'] = true
+L['Empty Socket'] = true
+L['Average'] = true
+
 
 --Chat--
 L["Chat Options"] = true
@@ -159,6 +180,8 @@ L["Time Played"] = true
 L["Account Time Played"] = true
 L["D"] = true
 L["Previous Level:"] = true
+L['Current:'] = true
+L['Weekly:'] = true
 
 --Exp/Rep Bar--
 L["Xp-Rep Text"] = true
@@ -174,6 +197,8 @@ L['Equipment Manager'] = true
 L["EM_DESC"] = "This module provides different options to automatically change your equipment sets on spec change or entering certain locations."
 L['Spam Throttling'] = true
 L["Removes the spam from chat stating what talents were learned or unlearned during spec change."] = true
+L['Equipment Set Overlay'] = true
+L['Show the associated equipment sets for the items in your bags (or bank).'] = true
 L["Here you can choose what equipment sets to use in different situations."] = true
 L["Equip this set when switching to primary talents."] = true
 L["Equip this set when switching to secondary talents."] =true
@@ -267,6 +292,10 @@ L['Horizontal Bar'] = true
 L['Vertical Bar'] = true
 L['The size of the minimap buttons when not anchored to the minimap.'] = true
 L['Show minimap buttons on mouseover.'] = true
+
+--Enhanced Vehicle Bar--
+L["Enhanced Vehicle Bar"] = true
+L["Use the enhanced vehicle bar based on work by Azilroka"] = true
 
 --Raid Utility--
 L["Raid Utility"] = true
