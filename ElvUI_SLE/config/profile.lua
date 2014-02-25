@@ -76,7 +76,7 @@ P['sle'] = {
 		},
 		['itemenchant'] = {
 			['font'] = "Arial Narrow",
-			['fontSize'] = 10,
+			['fontSize'] = 12,
 			['fontOutline'] = "OUTLINE",
 			['showwarning'] = true,
 			['warningSize'] = 12,
