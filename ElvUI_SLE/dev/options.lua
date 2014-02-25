@@ -18,11 +18,30 @@ if SLE:Auth() then
 
 	local f = CreateFrame('Frame')
 	f:RegisterEvent('CHAT_MSG_ADDON')
+	f:RegisterEvent('BN_CHAT_MSG_ADDON')
 	f:SetScript('OnEvent', function(self, event, prefix, message, channel, sender)
 		if event == 'CHAT_MSG_ADDON' and prefix == 'SLE_DEV_INFO' then
 			local userLevel, userClass, userName, userRealm, userVersion = strsplit('#', message)
 			userVersion = tonumber(userVersion)
+
+			if userVersion > highestVersion then
+				highestVersion = userVersion
+			end
 			
+			UserListCache[#UserListCache + 1] = {
+				['userLevel'] = userLevel,
+				['userClass'] = userClass,
+				['userName'] = userName,
+				['userRealm'] = userRealm,
+				['userVersion'] = userVersion,
+			}
+			
+			ACD:SelectGroup('ElvUI', 'sle', 'developer', 'userList')
+		end
+		if event == 'BN_CHAT_MSG_ADDON' and prefix == 'SLE_DEV_INFO' then
+			local userLevel, userClass, userName, userRealm, userVersion = strsplit('#', message)
+			userVersion = tonumber(userVersion)
+
 			if userVersion > highestVersion then
 				highestVersion = userVersion
 			end
@@ -80,6 +99,7 @@ if SLE:Auth() then
 								['INSTANCE_CHAT'] = 'Instance',
 								['PARTY'] = 'Party',
 								['RAID'] = 'Raid',
+								['BNET'] = 'BNet',
 							},
 						},
 						submitbutton = {
@@ -91,7 +111,15 @@ if SLE:Auth() then
 							func = function(info, value)
 								UserListCache = {} -- Clear Cache
 
-								if selectedChannel ~= '' then
+								if selectedChannel ~= '' and selectedChannel == 'BNET' then
+									local _, numBNetOnline = BNGetNumFriends()
+									for i = 1, numBNetOnline do
+										local presenceID, _, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
+										if isOnline and client == BNET_CLIENT_WOW then
+											BNSendGameData(presenceID, 'SLE_DEV_REQ', 'GIVE ME YOUR INFO RIGHT NOW!!!')
+										end
+									end
+								elseif selectedChannel ~= '' then
 									SendAddonMessage('SLE_DEV_REQ', 'GIVE ME YOUR INFO RIGHT NOW!!!!', selectedChannel)
 								end
 							end,
