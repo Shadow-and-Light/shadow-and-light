@@ -22,7 +22,7 @@ local DungeonRaid = { 776, 752, 697, 738, 615, 614, 395, 396 }
 local PvPPoints = { 390, 392, 391 }
 local MiscellaneousCurrency = { 241, 416, 515, 777 }
 
-local Faction = UnitFactionGroup('player')
+local _, Faction = UnitFactionGroup('player')
 local HordeColor = RAID_CLASS_COLORS['DEATHKNIGHT']
 local AllianceColor = RAID_CLASS_COLORS['SHAMAN']
 
@@ -79,7 +79,7 @@ local function GetCurrency(CurrencyTable, Text)
 
 		if id == 390 then
 			discovered = UnitLevel('player') >= SHOW_CONQUEST_LEVEL
-			RightString = format('%s %s | %s %s / %s', 'Current:', amount, 'Weekly:', week, weekmax)
+			RightString = format('%s %s | %s %s / %s', L['Current:'], amount, L['Weekly:'], week, weekmax)
 		elseif maxed <= 4000 and maxed > 0 then
 			RightString = format('%s / %s', amount, maxed)
 		end
@@ -146,7 +146,7 @@ local function OnEvent(self, event, ...)
 	end
 
 	self.text:SetText(FormatMoney(NewMoney))
-
+	
 	ElvDB['gold'][E.myrealm][E.myname] = NewMoney
 	ElvDB['faction'][E.myrealm][Faction][E.myname] = NewMoney
 	if event == 'PLAYER_ENTERING_WORLD' or event == 'SPELLS_CHANGED' then
@@ -203,10 +203,10 @@ local function OnEnter(self)
 			local class = ElvDB['class'][E.myrealm][k]
 			local color = RAID_CLASS_COLORS[class or 'PRIEST']
 			DT.tooltip:AddDoubleLine(k, FormatTooltipMoney(ElvDB['gold'][E.myrealm][k]), color.r, color.g, color.b, 1, 1, 1)
-			if ElvDB['faction'][E.myrealm]['Alliance'][k] then
+			if ElvDB['faction'][E.myrealm][FACTION_ALLIANCE][k] then
 				AllianceGold = AllianceGold + ElvDB['gold'][E.myrealm][k]
 			end
-			if ElvDB['faction'][E.myrealm]['Horde'][k] then
+			if ElvDB['faction'][E.myrealm][FACTION_HORDE][k] then
 				HordeGold = HordeGold + ElvDB['gold'][E.myrealm][k]
 			end
 			totalGold = totalGold + ElvDB['gold'][E.myrealm][k]
