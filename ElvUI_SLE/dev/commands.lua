@@ -145,7 +145,7 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 	elseif event == "BN_CHAT_MSG_ADDON" then
 		if sender == E.myname.."-"..E.myrealm then return end
 		if SLE:Auth() then return end
-		if prefix == 'SLE_DEV_REQ' and SLE:Auth(sender) then
+		if prefix == 'SLE_DEV_REQ' then
 			local _, numBNetOnline = BNGetNumFriends()
 			for i = 1, numBNetOnline do
 				local presenceID, _, _, _, _, _, client, isOnline = BNGetFriendInfo(i)

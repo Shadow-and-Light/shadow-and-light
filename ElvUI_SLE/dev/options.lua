@@ -20,25 +20,29 @@ if SLE:Auth() then
 	f:RegisterEvent('CHAT_MSG_ADDON')
 	f:RegisterEvent('BN_CHAT_MSG_ADDON')
 	f:SetScript('OnEvent', function(self, event, prefix, message, channel, sender)
-		if event == 'CHAT_MSG_ADDON' and prefix == 'SLE_DEV_INFO' then
-			local userLevel, userClass, userName, userRealm, userVersion = strsplit('#', message)
-			userVersion = tonumber(userVersion)
+		if prefix == 'SLE_DEV_INFO' then
+			if event == 'CHAT_MSG_ADDON' or 'BN_CHAT_MSG_ADDON' then
+				local userLevel, userClass, userName, userRealm, userVersion = strsplit('#', message)
+				userVersion = tonumber(userVersion)
 
-			if userVersion > highestVersion then
-				highestVersion = userVersion
+				if userVersion > highestVersion then
+					highestVersion = userVersion
+				end
+				
+				UserListCache[#UserListCache + 1] = {
+					['userLevel'] = userLevel,
+					['userClass'] = userClass,
+					['userName'] = userName,
+					['userRealm'] = userRealm,
+					['userVersion'] = userVersion,
+				}
+				
+				ACD:SelectGroup('ElvUI', 'sle', 'developer', 'userList')
 			end
-			
-			UserListCache[#UserListCache + 1] = {
-				['userLevel'] = userLevel,
-				['userClass'] = userClass,
-				['userName'] = userName,
-				['userRealm'] = userRealm,
-				['userVersion'] = userVersion,
-			}
-			
-			ACD:SelectGroup('ElvUI', 'sle', 'developer', 'userList')
 		end
+		--[[
 		if event == 'BN_CHAT_MSG_ADDON' and prefix == 'SLE_DEV_INFO' then
+			print("Hi")
 			local userLevel, userClass, userName, userRealm, userVersion = strsplit('#', message)
 			userVersion = tonumber(userVersion)
 
@@ -55,7 +59,7 @@ if SLE:Auth() then
 			}
 			
 			ACD:SelectGroup('ElvUI', 'sle', 'developer', 'userList')
-		end
+		end]]
 	end)
 
 	local function configTable()
@@ -111,7 +115,7 @@ if SLE:Auth() then
 							func = function(info, value)
 								UserListCache = {} -- Clear Cache
 
-								if selectedChannel ~= '' and selectedChannel == 'BNET' then
+								if selectedChannel == 'BNET' then
 									local _, numBNetOnline = BNGetNumFriends()
 									for i = 1, numBNetOnline do
 										local presenceID, _, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
