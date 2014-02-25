@@ -42,7 +42,7 @@ local heart = "|TInterface\\AddOns\\ElvUI\\media\\textures\\heart_chat_logo.tga:
 local hulkhead = "|TInterface\\AddOns\\ElvUI\\media\\textures\\hulk_head.tga:18:22|t"
 local mrhanky = "|TInterface\\AddOns\\ElvUI\\media\\textures\\mr_hankey.tga:18:22|t"
 local shortbus = "|TInterface\\AddOns\\ElvUI\\media\\textures\\short_bus.tga:16:16|t"
-local kitalie = "|TInterface\\Icons\\inv_cloth_challengewarlock_d_01helm.blp:16:16:0:0:64:64:4:60:4:60|t"
+local kitalie = "|TInterface\\Icons\\%s.blp:16:16:0:0:64:64:4:60:4:60|t"
 
 
 local specialChatIcons = {
@@ -95,17 +95,17 @@ local specialChatIcons = {
 		["Repooc"] = repooc
 	},
 	["WyrmrestAccord"] = {
-		["Kìtalie"] = kitalie,
-		["Sagome"] = kitalie,
-		["Ainy"] = kitalie,
-		["Norinael"] = kitalie,
-		["Tritalie"] = kitalie,
-		["Myùn"] = kitalie,
-		["Nevaleigh"] = kitalie,
-		["Celenii"] = kitalie,
-		["Varysa"] = kitalie,
-		["Caylasena"] = kitalie,
-		["Arillora"] = kitalie,
+		["Kìtalie"] = kitalie:format("inv_cloth_challengewarlock_d_01helm"),
+		["Sagome"] = kitalie:format("inv_helm_leather_challengemonk_d_01"),
+		["Ainy"] = kitalie:format("inv_helm_plate_challengedeathknight_d_01"),
+		["Norinael"] = kitalie:format("inv_helmet_plate_challengepaladin_d_01"),
+		["Tritalie"] = kitalie:format("inv_helm_cloth_challengemage_d_01"),
+		["Myùn"] = kitalie:format("inv_helmet_mail_challengeshaman_d_01"),
+		["Nevaleigh"] = kitalie:format("inv_helmet_leather_challengerogue_d_01"),
+		["Celenii"] = kitalie:format("inv_helmet_cloth_challengepriest_d_01"),
+		["Varysa"] = kitalie:format("inv_helmet_mail_challengehunter_d_01"),
+		["Caylasena"] = kitalie:format("inv_helm_plate_challengewarrior_d_01"),
+		["Arillora"] = kitalie:format("inv_helmet_challengedruid_d_01"),
 	},
 	["СвежевательДуш"] = {
 		--Darth's toons
