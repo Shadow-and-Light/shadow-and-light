@@ -21,7 +21,7 @@ if SLE:Auth() then
 	f:RegisterEvent('BN_CHAT_MSG_ADDON')
 	f:SetScript('OnEvent', function(self, event, prefix, message, channel, sender)
 		if prefix == 'SLE_DEV_INFO' then
-			if event == 'CHAT_MSG_ADDON' or 'BN_CHAT_MSG_ADDON' then
+			if event == 'CHAT_MSG_ADDON' or event == 'BN_CHAT_MSG_ADDON' then
 				local userLevel, userClass, userName, userRealm, userVersion = strsplit('#', message)
 				userVersion = tonumber(userVersion)
 
