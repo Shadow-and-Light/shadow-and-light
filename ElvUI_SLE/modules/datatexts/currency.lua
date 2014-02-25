@@ -1,8 +1,9 @@
 local E, L, V, P, G = unpack(ElvUI)
 local DT = E:GetModule('DataTexts')
+local SLE = E:GetModule('SLE')
 
-local format, floor, abs, mod, pairs = format, floor, abs, mod, pairs
-local GetMoney, GetCurrencyInfo, GetNumWatchedTokens, GetBackpackCurrencyInfo, UnitLevel = GetMoney, GetCurrencyInfo, GetNumWatchedTokens, GetBackpackCurrencyInfo, UnitLevel
+local format, floor, abs, mod, pairs, tinsert = format, floor, abs, mod, pairs, tinsert
+local GetMoney, GetCurrencyInfo, GetNumWatchedTokens, GetBackpackCurrencyInfo, UnitLevel, GetCurrencyListInfo = GetMoney, GetCurrencyInfo, GetNumWatchedTokens, GetBackpackCurrencyInfo, UnitLevel, GetCurrencyListInfo
 
 local join = string.join
 
@@ -63,14 +64,35 @@ local menu = {
 	{ text = 'Show Faction Totals', checked = function() return GetOption('Faction') end, func = function() ToggleOption('Faction') end },
 }
 
+local HiddenCurrency = {}
+
+local function UnusedCheck()
+	for i = 1, GetCurrencyListSize() do
+		local name, _, _, isUnused = GetCurrencyListInfo(i)
+		if isUnused then
+			if not SLE:SimpleTable(HiddenCurrency, name) then
+				table.insert(HiddenCurrency,#(HiddenCurrency)+1, name)
+			end
+		else
+			if SLE:SimpleTable(HiddenCurrency, name) then
+				HiddenCurrency[i] = nil
+			end
+		end
+	end
+end
+
 local menuFrame = CreateFrame("Frame", "ElvUI_CurrencyMenuFrame", UIParent, 'UIDropDownMenuTemplate')
+local GetCurrencyListInfo = GetCurrencyListInfo
 
 local function GetCurrency(CurrencyTable, Text)
 	local Seperator = false
+	UnusedCheck()
 	for key, id in pairs(CurrencyTable) do
 		local name, amount, texture, week, weekmax, maxed, discovered = GetCurrencyInfo(id)
 		local LeftString = GetOption('Icons') and format('%s %s', format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture), name) or name
 		local RightString = amount
+		local unused = SLE:SimpleTable(HiddenCurrency, name)
+		
 		if id == 392 or id == 395 then
 			maxed = 4000
 		elseif id == 396 then
@@ -93,7 +115,7 @@ local function GetCurrency(CurrencyTable, Text)
 		end
 		local r2, g2, b2 = r1, g1, b1
 		if maxed > 0 and (amount == maxed) or weekmax > 0 and (week == weekmax) then r2, g2, b2 = .77, .12, .23 end
-		if not (amount == 0 and not GetOption('Zero') and r1 == 1) and discovered then
+		if not (amount == 0 and not GetOption('Zero') and r1 == 1) and discovered and not unused then
 			if not Seperator then
 				DT.tooltip:AddLine(' ')
 				DT.tooltip:AddLine(Text)
