@@ -77,7 +77,9 @@ local specialChatIcons = {
 		["Electrro"] = adapt,
 		["Afterthot"] = adapt,
 		["Lavathing"] = adapt,
-		["Finkle"] = adapt
+		["Finkle"] = adapt,
+		["Chopsti"] = adapt,
+		["Taiin"] = adapt
 	},
 	["Tichondrious"] = {
 		["Athlina"] = heart
