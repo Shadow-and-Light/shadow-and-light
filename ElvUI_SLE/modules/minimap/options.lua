@@ -81,8 +81,17 @@ local function configTable()
 						get = function(info) return E.private.sle.minimap.mapicons.enable end,
 						set = function(info, value) E.private.sle.minimap.mapicons.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
-					iconsize = {
+					skindungeon = {
 						order = 2,
+						type = 'toggle',
+						name = L['Skin Dungeon'],
+						desc = L['Skin dungeon icon.'],
+						get = function(info) return E.db.sle.minimap.mapicons.skindungeon end,
+						set = function(info, value) E.db.sle.minimap.mapicons.skindungeon = value; E:StaticPopup_Show("PRIVATE_RL") end,
+						disabled = function() return not E.private.sle.minimap.mapicons.enable end,
+					},
+					iconsize = {
+						order = 3,
 						type = 'range',
 						name = L['Button Size'],
 						desc = L['The size of the minimap buttons when not anchored to the minimap.'],
@@ -92,7 +101,7 @@ local function configTable()
 						disabled = function() return not E.private.sle.minimap.mapicons.enable end,
 					},
 					iconperrow = {
-						order = 3,
+						order = 4,
 						type = 'range',
 						name = L['Icons Per Row'],
 						desc = L['Anchor mode for displaying the minimap buttons are skinned.'],
@@ -102,7 +111,7 @@ local function configTable()
 						disabled = function() return not E.private.sle.minimap.mapicons.enable end,
 					},
 					iconmouseover = {
-						order = 4,
+						order = 5,
 						name = L['Mouse Over'],
 						desc = L['Show minimap buttons on mouseover.'],
 						type = "toggle",

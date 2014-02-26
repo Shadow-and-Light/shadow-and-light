@@ -158,6 +158,7 @@ local function SkinButton(Button)
 				QueueStatusMinimapButtonIcon:SetFrameLevel(QueueStatusMinimapButton:GetFrameLevel() + 1)
 			end)
 			local Frame = CreateFrame('Frame', nil, SquareMinimapButtonBar)
+			Frame:Hide()
 			Frame:SetTemplate()
 			Frame.Icon = Frame:CreateTexture(nil, 'ARTWORK')
 			Frame.Icon:SetInside()
@@ -169,6 +170,20 @@ local function SkinButton(Button)
 				else
 					ShowUIPanel(PVEFrame)
 					GroupFinderFrame_ShowGroupFrame()
+				end
+			end)
+			SquareMinimapButtonBar:HookScript('OnUpdate', function()
+				if E.db.sle.minimap.mapicons.skindungeon then
+					Frame:Show()
+				else
+					Frame:Hide()
+				end
+			end)
+			QueueStatusMinimapButton:HookScript('OnShow', function()
+				if E.db.sle.minimap.mapicons.skindungeon then
+					Frame:Show()
+				else
+					Frame:Hide()
 				end
 			end)
 			Frame:HookScript('OnEnter', OnEnter)
@@ -233,6 +248,9 @@ function SMB:Update(self)
 				if Frame:GetName() == 'SmartBuff_MiniMapButton' then
 					SMARTBUFF_MinimapButton_CheckPos = function() end
 					SMARTBUFF_MinimapButton_OnUpdate = function() end
+				end
+				if not E.db.sle.minimap.mapicons.skindungeon and Frame:GetName() == 'QueueStatusMinimapButton' then
+					Exception = false
 				end
 			end
 		end
