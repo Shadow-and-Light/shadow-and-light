@@ -18,6 +18,7 @@ if E.db.sle.minimap.mapicons == nil then E.db.sle.minimap.mapicons = {} end
 if E.db.sle.minimap.mapicons.iconmouseover == nil then E.db.sle.minimap.mapicons.iconmouseover = false end
 if E.db.sle.minimap.mapicons.iconsize == nil then E.db.sle.minimap.mapicons.iconsize = 27 end
 if E.db.sle.minimap.mapicons.iconperrow == nil then E.db.sle.minimap.mapicons.iconperrow = 12 end
+if E.db.sle.minimap.mapicons.skindungeon == nil then E.db.sle.minimap.mapicons.skindungeon = false end
 
 QueueStatusMinimapButton:SetParent(Minimap)
 
