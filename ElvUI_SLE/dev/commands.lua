@@ -16,12 +16,8 @@ local Authors = {
 	},
 	["СвежевательДуш"] = {
 		--Darth's toons
-		["Сиаранна"] = "SLEAUTHOR",
 		["Джатон"] = "SLEAUTHOR",
-		["Фикстер"] = "SLEAUTHOR",
-		["Нарджо"] = "SLEAUTHOR",
-		["Верзук"] = "SLEAUTHOR",
-		["Крениг"] = "SLEAUTHOR"
+		["Нарджо"] = "SLEAUTHOR"
 	},
 	["ВечнаяПесня"] = {
 		--Darth's toons
@@ -33,7 +29,7 @@ local Authors = {
 		["Фикстер"] = "SLEAUTHOR",
 		["Киландра"] = "SLEAUTHOR",
 		["Нарджо"] = "SLEAUTHOR",
-		["Верзук"] = "SLEAUTHOR",
+		["Келинира"] = "SLEAUTHOR",
 		["Крениг"] = "SLEAUTHOR",
 		["Мейжи"] = "SLEAUTHOR"
 	},
