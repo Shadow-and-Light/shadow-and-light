@@ -22,20 +22,6 @@ if E.db.sle.minimap.mapicons.skindungeon == nil then E.db.sle.minimap.mapicons.s
 
 QueueStatusMinimapButton:SetParent(Minimap)
 
-local ignoreButtons = {
-	'AsphyxiaUIMinimapHelpButton',
-	'AsphyxiaUIMinimapVersionButton',
-	'FAQButton',
-	'VersionButton',
-	'ElvConfigToggle',
-	'GameTimeFrame',
-	'HelpOpenTicketButton',
-	'MiniMapMailFrame',
-	'MiniMapTrackingButton',
-	'MiniMapVoiceChatFrame',
-	'TimeManagerClockButton',
-}
-
 local function OnEnter(self)
 	UIFrameFadeIn(SquareMinimapButtonBar, 0.2, SquareMinimapButtonBar:GetAlpha(), 1)
 	if self:GetName() ~= 'SquareMinimapButtonBar' then
@@ -62,6 +48,20 @@ end
 
 local SkinnedMinimapButtons = {}
 
+local ignoreButtons = {
+	'AsphyxiaUIMinimapHelpButton',
+	'AsphyxiaUIMinimapVersionButton',
+	'FAQButton',
+	'VersionButton',
+	'ElvConfigToggle',
+	'GameTimeFrame',
+	'HelpOpenTicketButton',
+	'MiniMapMailFrame',
+	'MiniMapTrackingButton',
+	'MiniMapVoiceChatFrame',
+	'TimeManagerClockButton',
+}
+
 local GenericIgnores = {
 	'Archy',
 	'GatherMatePin',
@@ -69,6 +69,7 @@ local GenericIgnores = {
 	'GuildInstance',
 	'HandyNotesPin',
 	'MinimMap',
+	'poiMinimap',
 	'Spy_MapNoteList_mini',
 	'ZGVMarker',
 }
@@ -77,6 +78,7 @@ local PartialIgnores = {
 	'Node',
 	'Note',
 	'Pin',
+	'POI',
 }
 
 local WhiteList = {
