@@ -58,7 +58,6 @@ local ignoreButtons = {
 	'ElvConfigToggle',
 	'GameTimeFrame',
 	'HelpOpenTicketButton',
-	'MiniMapMailFrame',
 	'MiniMapTrackingButton',
 	'MiniMapVoiceChatFrame',
 	'TimeManagerClockButton',
@@ -90,6 +89,7 @@ local WhiteList = {
 local AcceptedFrames = {
 	'BagSync_MinimapButton',
 	'VendomaticButtonFrame',
+	'MiniMapMailFrame',
 }
 
 local AddButtonsToBar = {
@@ -212,6 +212,7 @@ local function SkinButton(Button)
 			end)
 		elseif Name == 'MiniMapMailFrame' then
 			local Frame = CreateFrame('Frame', 'MailDummyFrame', SquareMinimapButtonBar)
+			Frame:Hide()
 			Frame:Size(E.db.sle.minimap.mapicons.iconsize)
 			Frame:SetTemplate()
 			Frame.Icon = Frame:CreateTexture(nil, 'ARTWORK')
@@ -220,15 +221,23 @@ local function SkinButton(Button)
 			Frame.Icon:SetTexture(MiniMapMailIcon:GetTexture())
 			Frame:SetScript('OnEnter', OnEnter)
 			Frame:SetScript('OnLeave', OnLeave)
-			Frame:SetScript('OnShow', function(self) self:SetPoint(MiniMapMailFrame:GetPoint()) end)
+			Frame:SetScript('OnShow', function(self) Frame:SetPoint(MiniMapMailFrame:GetPoint()) end)
 			Frame:SetScript('OnUpdate', function(self)
 				if E.db.sle.minimap.mapicons.skinmail then
-					self:Show()
+					Frame:Show()
 				else
-					self:Hide()
+					Frame:Hide()
 				end
 			end)
-			MiniMapMailFrame:HookScript('OnShow', function(self) MiniMapMailIcon:SetVertexColor(0, 1, 0) end)
+			MiniMapMailFrame:HookScript('OnShow', function(self)
+				if E.db.sle.minimap.mapicons.skinmail then
+					MiniMapMailIcon:SetVertexColor(0, 1, 0)
+					--Frame:Show()
+				else
+					MiniMapMailIcon:SetVertexColor(1, 1, 1)
+					--Frame:Hide()
+				end
+			end)
 			MiniMapMailFrame:HookScript('OnHide', function(self) MiniMapMailIcon:SetVertexColor(1, 1, 1) end)
 		else
 			Button:SetTemplate()
@@ -288,7 +297,8 @@ function SMB:Update(self)
 				end
 			end
 		end
-		if Frame:IsVisible() or Exception then
+		--if Frame:IsVisible() or Exception then
+		if Exception or Frame:IsVisible() then
 			AnchorX = AnchorX + 1
 			ActualButtons = ActualButtons + 1
 			if AnchorX > MaxX then
@@ -313,14 +323,14 @@ function SMB:Update(self)
 			Frame:HookScript('OnEnter', OnEnter)
 			Frame:HookScript('OnLeave', OnLeave)
 
+
+		end
+	end
 			if Maxed then ActualButtons = ButtonsPerRow end
 
 			local BarWidth = (Spacing + ((Size * (ActualButtons * Mult)) + ((Spacing * (ActualButtons - 1)) * Mult) + (Spacing * Mult)))
 			local BarHeight = (Spacing + ((Size * (AnchorY * Mult)) + ((Spacing * (AnchorY - 1)) * Mult) + (Spacing * Mult)))
-
 			self:SetSize(BarWidth, BarHeight)
-		end
-	end
 	self:Show()
 end
 

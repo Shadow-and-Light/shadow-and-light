@@ -96,7 +96,7 @@ local function configTable()
 						name = L['Skin Mail'],
 						desc = L['Skin mail icon.'],
 						get = function(info) return E.db.sle.minimap.mapicons.skinmail end,
-						set = function(info, value) E.db.sle.minimap.mapicons.skinmail = value; E:GetModule('SquareMinimapButtons'):Update(SquareMinimapButtonBar) end,
+						set = function(info, value) E.db.sle.minimap.mapicons.skinmail = value; E:StaticPopup_Show("PRIVATE_RL") end,
 						disabled = function() return not E.private.sle.minimap.mapicons.enable end,
 					},
 					iconsize = {
