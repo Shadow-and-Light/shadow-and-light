@@ -23,7 +23,6 @@ if E.db.sle.minimap.mapicons.skindungeon == nil then E.db.sle.minimap.mapicons.s
 if E.db.sle.minimap.mapicons.skinmail == nil then E.db.sle.minimap.mapicons.skinmail = false end
 
 QueueStatusMinimapButton:SetParent(Minimap)
---MiniMapTrackingButton:SetParent(Minimap)
 
 local function OnEnter(self)
 	UIFrameFadeIn(SquareMinimapButtonBar, 0.2, SquareMinimapButtonBar:GetAlpha(), 1)
@@ -169,7 +168,6 @@ local function SkinButton(Button)
 				QueueStatusMinimapButtonIcon:SetFrameLevel(QueueStatusMinimapButton:GetFrameLevel() + 1)
 			end)
 			local Frame = CreateFrame('Frame', QueueDummyFrame, SquareMinimapButtonBar)
-			--Frame:Hide()
 			Frame:SetTemplate()
 			Frame.Icon = Frame:CreateTexture(nil, 'ARTWORK')
 			Frame.Icon:SetInside()
@@ -212,7 +210,6 @@ local function SkinButton(Button)
 			end)
 		elseif Name == 'MiniMapMailFrame' then
 			local Frame = CreateFrame('Frame', 'MailDummyFrame', SquareMinimapButtonBar)
-			Frame:Hide()
 			Frame:Size(E.db.sle.minimap.mapicons.iconsize)
 			Frame:SetTemplate()
 			Frame.Icon = Frame:CreateTexture(nil, 'ARTWORK')
@@ -232,10 +229,8 @@ local function SkinButton(Button)
 			MiniMapMailFrame:HookScript('OnShow', function(self)
 				if E.db.sle.minimap.mapicons.skinmail then
 					MiniMapMailIcon:SetVertexColor(0, 1, 0)
-					--Frame:Show()
 				else
 					MiniMapMailIcon:SetVertexColor(1, 1, 1)
-					--Frame:Hide()
 				end
 			end)
 			MiniMapMailFrame:HookScript('OnHide', function(self) MiniMapMailIcon:SetVertexColor(1, 1, 1) end)
@@ -281,24 +276,24 @@ function SMB:Update(self)
 	end
 
 	for Key, Frame in pairs(SkinnedMinimapButtons) do
+		local Name = Frame:GetName()
 		local Exception = false
 		for _, Button in pairs(AddButtonsToBar) do
-			if Frame:GetName() == Button then
+			if Name == Button then
 				Exception = true
-				if Frame:GetName() == 'SmartBuff_MiniMapButton' then
+				if Name == 'SmartBuff_MiniMapButton' then
 					SMARTBUFF_MinimapButton_CheckPos = function() end
 					SMARTBUFF_MinimapButton_OnUpdate = function() end
 				end
-				if not E.db.sle.minimap.mapicons.skindungeon and Frame:GetName() == 'QueueStatusMinimapButton' then
+				if not E.db.sle.minimap.mapicons.skindungeon and Name == 'QueueStatusMinimapButton' then
 					Exception = false
 				end
-				if not E.db.sle.minimap.mapicons.skinmail and Frame:GetName() == 'MiniMapMailFrame' then
+				if (not E.db.sle.minimap.mapicons.skinmail and Name == 'MiniMapMailFrame') then
 					Exception = false
 				end
 			end
 		end
-		--if Frame:IsVisible() or Exception then
-		if Exception or Frame:IsVisible() then
+		if Frame:IsVisible() and not (Name == 'QueueStatusMinimapButton' or Name == 'MiniMapMailFrame') or Exception then
 			AnchorX = AnchorX + 1
 			ActualButtons = ActualButtons + 1
 			if AnchorX > MaxX then
@@ -306,7 +301,6 @@ function SMB:Update(self)
 				AnchorX = 1
 				Maxed = true
 			end
-
 			local yOffset = - Spacing - ((Size + Spacing) * (AnchorY - 1))
 			local xOffset = Spacing + ((Size + Spacing) * (AnchorX - 1))
 			Frame:SetTemplate()
@@ -322,8 +316,6 @@ function SMB:Update(self)
 			Frame:SetScript('OnDragStop', function(self) self:GetParent():StopMovingOrSizing() end)
 			Frame:HookScript('OnEnter', OnEnter)
 			Frame:HookScript('OnLeave', OnLeave)
-
-
 		end
 	end
 			if Maxed then ActualButtons = ButtonsPerRow end
