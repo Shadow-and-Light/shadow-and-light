@@ -5,6 +5,7 @@ local AddOnName, NS = ...
 local strsub, strlen, strfind, ceil = strsub, strlen, strfind, ceil
 local tinsert, pairs, unpack = tinsert, pairs, unpack
 
+local SkinnedMinimapButtons = {}
 local BorderColor
 local TexCoords = { 0.1, 0.9, 0.1, 0.9 }
 
@@ -19,8 +20,10 @@ if E.db.sle.minimap.mapicons.iconmouseover == nil then E.db.sle.minimap.mapicons
 if E.db.sle.minimap.mapicons.iconsize == nil then E.db.sle.minimap.mapicons.iconsize = 27 end
 if E.db.sle.minimap.mapicons.iconperrow == nil then E.db.sle.minimap.mapicons.iconperrow = 12 end
 if E.db.sle.minimap.mapicons.skindungeon == nil then E.db.sle.minimap.mapicons.skindungeon = false end
+if E.db.sle.minimap.mapicons.skinmail == nil then E.db.sle.minimap.mapicons.skinmail = false end
 
 QueueStatusMinimapButton:SetParent(Minimap)
+--MiniMapTrackingButton:SetParent(Minimap)
 
 local function OnEnter(self)
 	UIFrameFadeIn(SquareMinimapButtonBar, 0.2, SquareMinimapButtonBar:GetAlpha(), 1)
@@ -46,7 +49,6 @@ function SMB:ChangeMouseOverSetting()
 	end
 end
 
-local SkinnedMinimapButtons = {}
 
 local ignoreButtons = {
 	'AsphyxiaUIMinimapHelpButton',
@@ -93,13 +95,14 @@ local AcceptedFrames = {
 local AddButtonsToBar = {
 	'SmartBuff_MiniMapButton',
 	'QueueStatusMinimapButton',
+	'MiniMapMailFrame',
 }
 
 local function SkinButton(Button)
 	if not Button.isSkinned then
 		local Name = Button:GetName()
 
-		if Button:GetObjectType() == 'Button' then
+		if Button:IsObjectType('Button') then
 			local ValidIcon = false
 
 			for i = 1, #WhiteList do
@@ -136,12 +139,17 @@ local function SkinButton(Button)
 					if Name == 'BagSync_MinimapButton' then Region:SetTexture('Interface\\AddOns\\BagSync\\media\\icon') end
 					if Name == 'DBMMinimapButton' then Region:SetTexture('Interface\\Icons\\INV_Helmet_87') end
 					if Name == 'SmartBuff_MiniMapButton' then Region:SetTexture(select(3, GetSpellInfo(12051))) end
-					Region:ClearAllPoints()
-					Region:SetInside()
-					Region:SetTexCoord(unpack(TexCoords))
+					if not Name == 'MiniMapMailFrame' then
+						Region:ClearAllPoints()
+						Region:SetInside()
+						Region:SetTexCoord(unpack(TexCoords))
+						Button:HookScript('OnLeave', function(self) Region:SetTexCoord(unpack(TexCoords)) end)
+					else
+						Region:ClearAllPoints()
+						Region:SetPoint('CENTER', Button)
+					end
 					Region:SetDrawLayer('ARTWORK')
 					Region.SetPoint = function() return end
-					Button:HookScript('OnLeave', function(self) Region:SetTexCoord(unpack(TexCoords)) end)
 				end
 			end
 		end
@@ -160,8 +168,8 @@ local function SkinButton(Button)
 			QueueStatusMinimapButton:HookScript('OnUpdate', function(self)
 				QueueStatusMinimapButtonIcon:SetFrameLevel(QueueStatusMinimapButton:GetFrameLevel() + 1)
 			end)
-			local Frame = CreateFrame('Frame', nil, SquareMinimapButtonBar)
-			Frame:Hide()
+			local Frame = CreateFrame('Frame', QueueDummyFrame, SquareMinimapButtonBar)
+			--Frame:Hide()
 			Frame:SetTemplate()
 			Frame.Icon = Frame:CreateTexture(nil, 'ARTWORK')
 			Frame.Icon:SetInside()
@@ -202,6 +210,26 @@ local function SkinButton(Button)
 				self:SetFrameLevel(QueueStatusMinimapButton:GetFrameLevel())
 				self:SetPoint(QueueStatusMinimapButton:GetPoint())
 			end)
+		elseif Name == 'MiniMapMailFrame' then
+			local Frame = CreateFrame('Frame', 'MailDummyFrame', SquareMinimapButtonBar)
+			Frame:Size(E.db.sle.minimap.mapicons.iconsize)
+			Frame:SetTemplate()
+			Frame.Icon = Frame:CreateTexture(nil, 'ARTWORK')
+			Frame.Icon:SetPoint('CENTER')
+			Frame.Icon:Size(18)
+			Frame.Icon:SetTexture(MiniMapMailIcon:GetTexture())
+			Frame:SetScript('OnEnter', OnEnter)
+			Frame:SetScript('OnLeave', OnLeave)
+			Frame:SetScript('OnShow', function(self) self:SetPoint(MiniMapMailFrame:GetPoint()) end)
+			Frame:SetScript('OnUpdate', function(self)
+				if E.db.sle.minimap.mapicons.skinmail then
+					self:Show()
+				else
+					self:Hide()
+				end
+			end)
+			MiniMapMailFrame:HookScript('OnShow', function(self) MiniMapMailIcon:SetVertexColor(0, 1, 0) end)
+			MiniMapMailFrame:HookScript('OnHide', function(self) MiniMapMailIcon:SetVertexColor(1, 1, 1) end)
 		else
 			Button:SetTemplate()
 			Button:SetBackdropColor(0, 0, 0, 0)
@@ -218,11 +246,11 @@ SquareMinimapButtonBar:RegisterEvent('PLAYER_ENTERING_WORLD')
 SquareMinimapButtonBar.Skin = function()
 	for i = 1, Minimap:GetNumChildren() do
 		local object = select(i, Minimap:GetChildren())
-		if object:GetObjectType() == 'Button' and object:GetName() then
+		if object:IsObjectType('Button') and object:GetName() then
 			SkinButton(object)
 		end
 		for _, frame in pairs(AcceptedFrames) do
-			if object:GetName() == frame then
+			if object:IsObjectType('Frame') and object:GetName() == frame then
 				SkinButton(object)
 			end
 		end
@@ -255,6 +283,9 @@ function SMB:Update(self)
 				if not E.db.sle.minimap.mapicons.skindungeon and Frame:GetName() == 'QueueStatusMinimapButton' then
 					Exception = false
 				end
+				if not E.db.sle.minimap.mapicons.skinmail and Frame:GetName() == 'MiniMapMailFrame' then
+					Exception = false
+				end
 			end
 		end
 		if Frame:IsVisible() or Exception then
@@ -281,15 +312,15 @@ function SMB:Update(self)
 			Frame:SetScript('OnDragStop', function(self) self:GetParent():StopMovingOrSizing() end)
 			Frame:HookScript('OnEnter', OnEnter)
 			Frame:HookScript('OnLeave', OnLeave)
+
+			if Maxed then ActualButtons = ButtonsPerRow end
+
+			local BarWidth = (Spacing + ((Size * (ActualButtons * Mult)) + ((Spacing * (ActualButtons - 1)) * Mult) + (Spacing * Mult)))
+			local BarHeight = (Spacing + ((Size * (AnchorY * Mult)) + ((Spacing * (AnchorY - 1)) * Mult) + (Spacing * Mult)))
+
+			self:SetSize(BarWidth, BarHeight)
 		end
 	end
-
-	if Maxed then ActualButtons = ButtonsPerRow end
-
-	local BarWidth = (Spacing + ((Size * (ActualButtons * Mult)) + ((Spacing * (ActualButtons - 1)) * Mult) + (Spacing * Mult)))
-	local BarHeight = (Spacing + ((Size * (AnchorY * Mult)) + ((Spacing * (AnchorY - 1)) * Mult) + (Spacing * Mult)))
-
-	self:SetSize(BarWidth, BarHeight)
 	self:Show()
 end
 
