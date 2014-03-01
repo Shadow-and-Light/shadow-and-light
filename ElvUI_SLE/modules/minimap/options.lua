@@ -93,8 +93,8 @@ local function configTable()
 					skinmail = {
 						order = 3,
 						type = 'toggle',
-						name = L['Skin Dungeon'],
-						desc = L['Skin dungeon icon.'],
+						name = L['Skin Mail'],
+						desc = L['Skin mail icon.'],
 						get = function(info) return E.db.sle.minimap.mapicons.skinmail end,
 						set = function(info, value) E.db.sle.minimap.mapicons.skinmail = value; E:GetModule('SquareMinimapButtons'):Update(SquareMinimapButtonBar) end,
 						disabled = function() return not E.private.sle.minimap.mapicons.enable end,
