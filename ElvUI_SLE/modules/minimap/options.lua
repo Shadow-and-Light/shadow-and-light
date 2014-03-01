@@ -77,7 +77,7 @@ local function configTable()
 						order = 1,
 						type = 'toggle',
 						name = L['Enable'],
-						desc = L['Enable/Disable minimap button skinning.'],
+						desc = L['Enable/Disable Square Minimap Bar.'],
 						get = function(info) return E.private.sle.minimap.mapicons.enable end,
 						set = function(info, value) E.private.sle.minimap.mapicons.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
