@@ -1,4 +1,4 @@
-v1.83
+v1.83 March 1, 2014
 - Fixed QuestPointer/Mapster Button in minimap.
 - Option to skin or not skin lfd icon
 - Removed Notes Skin (Add in ElvUI AddOnSkins)
