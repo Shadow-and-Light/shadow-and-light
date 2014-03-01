@@ -50,10 +50,6 @@ end
 
 
 local ignoreButtons = {
-	'AsphyxiaUIMinimapHelpButton',
-	'AsphyxiaUIMinimapVersionButton',
-	'FAQButton',
-	'VersionButton',
 	'ElvConfigToggle',
 	'GameTimeFrame',
 	'HelpOpenTicketButton',
