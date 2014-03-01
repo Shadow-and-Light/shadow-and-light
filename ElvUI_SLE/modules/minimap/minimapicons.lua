@@ -316,13 +316,13 @@ function SMB:Update(self)
 			Frame:SetScript('OnDragStop', function(self) self:GetParent():StopMovingOrSizing() end)
 			Frame:HookScript('OnEnter', OnEnter)
 			Frame:HookScript('OnLeave', OnLeave)
-		end
-	end
 			if Maxed then ActualButtons = ButtonsPerRow end
 
 			local BarWidth = (Spacing + ((Size * (ActualButtons * Mult)) + ((Spacing * (ActualButtons - 1)) * Mult) + (Spacing * Mult)))
 			local BarHeight = (Spacing + ((Size * (AnchorY * Mult)) + ((Spacing * (AnchorY - 1)) * Mult) + (Spacing * Mult)))
 			self:SetSize(BarWidth, BarHeight)
+		end
+	end
 	self:Show()
 end
 
