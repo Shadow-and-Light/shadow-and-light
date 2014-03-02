@@ -2,20 +2,16 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local SLE = E:GetModule('SLE');
 local ACD = LibStub("AceConfigDialog-3.0")
 
-
 local bnettesttbl = {}
 function SLE:GetBNetInfo()
-	local _, numBNetOnline = BNGetNumFriends()
-	bnettesttbl = {}
-	for i = 1, numBNetOnline do
-		local presenceID, presenceName, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
-		if isOnline and client == BNET_CLIENT_WOW then
-			--BNSendGameData(presenceID, 'SLE_DEV_REQ', 'GIVE ME YOUR INFO RIGHT NOW!
-			presenceID = tostring(presenceID)
-			bnettesttbl[presenceID] = presenceName
-			print(bnettesttbl[presenceID])
+		--print("sent")
+		local _, numBNetOnline = BNGetNumFriends()
+		for i = 1, numBNetOnline do
+			local presenceID, presenceName, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
+			if isOnline and client == BNET_CLIENT_WOW then
+				BNSendGameData(presenceID, 'SLE_DEV_REQ', 'slesay')
+			end
 		end
-	end
 end
 
 if SLE:Auth() then
@@ -28,6 +24,7 @@ if SLE:Auth() then
 	local output = 'SAY'
 	local text = ''
 	local wtarget = ""
+	local bnetP = ""
 	
 
 	RegisterAddonMessagePrefix('SLE_DEV_INFO')
@@ -47,33 +44,46 @@ if SLE:Auth() then
 		end
 		if prefix == 'SLE_DEV_INFO' then
 			if event == 'CHAT_MSG_ADDON' or event == 'BN_CHAT_MSG_ADDON' then
-				local userLevel, userClass, userName, userRealm, userVersion = strsplit('#', message)
-				if (userName == E.myname and userRealm == E.myrealm) then return end;
-				
-				userVersion = tonumber(userVersion)
-
-				if userVersion > highestVersion then
-					highestVersion = userVersion
-				end
-				
-				local id = #UserListCache + 1;
-
-				for i=1,#UserListCache do
-					if (UserListCache[i].userName == userName and UserListCache[i].userRealm == userRealm) then
-						id = i;
-						break;
+				if not message:find("SLEinfo") then
+					local userLevel, userClass, userName, userRealm, userVersion = strsplit('#', message)
+					if (userName == E.myname and userRealm == E.myrealm) then return end;
+					
+					userVersion = tonumber(userVersion)
+	
+					if userVersion > highestVersion then
+						highestVersion = userVersion
+					end
+					
+					local id = #UserListCache + 1;
+	
+					for i=1,#UserListCache do
+						if (UserListCache[i].userName == userName and UserListCache[i].userRealm == userRealm) then
+							id = i;
+							break;
+						end
+					end
+	
+					UserListCache[id] = {
+						['userLevel'] = userLevel,
+						['userClass'] = userClass,
+						['userName'] = userName,
+						['userRealm'] = userRealm,
+						['userVersion'] = userVersion,
+					}
+					
+					ACD:SelectGroup('ElvUI', 'sle', 'developer', 'userList')
+				else
+					--print("WTF")
+					local _, numBNetOnline = BNGetNumFriends()
+					for i = 1, numBNetOnline do
+						local presenceID, presenceName, _, _, toon, _, _, _ = BNGetFriendInfo(i)
+						message = message:gsub("SLEinfo", '')
+						if message == toon then 
+							bnettesttbl[presenceID] = presenceName; 
+							--print("Da table: ", bnettesttbl[presenceID])
+						end
 					end
 				end
-
-				UserListCache[id] = {
-					['userLevel'] = userLevel,
-					['userClass'] = userClass,
-					['userName'] = userName,
-					['userRealm'] = userRealm,
-					['userVersion'] = userVersion,
-				}
-				
-				ACD:SelectGroup('ElvUI', 'sle', 'developer', 'userList')
 			end
 		end
 		--[[
@@ -156,11 +166,11 @@ if SLE:Auth() then
 									for i = 1, numBNetOnline do
 										local presenceID, _, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
 										if isOnline and client == BNET_CLIENT_WOW then
-											BNSendGameData(presenceID, 'SLE_DEV_REQ', 'GIVE ME YOUR INFO RIGHT NOW!!!')
+											BNSendGameData(presenceID, 'SLE_DEV_REQ', 'userlist')
 										end
 									end
 								elseif selectedChannel ~= '' then
-									SendAddonMessage('SLE_DEV_REQ', 'GIVE ME YOUR INFO RIGHT NOW!!!!', selectedChannel)
+									SendAddonMessage('SLE_DEV_REQ', 'userlist', selectedChannel)
 								end
 							end,
 						},
@@ -233,14 +243,17 @@ if SLE:Auth() then
 							type = 'select',
 							name = 'BNet List',
 							order = 5,
-							get = function() return addonChannel end,
+							get = function() return bnetP end,
 							set = function(_, value)
-								addonChannel = value
+								bnetP = value
 								--if addonChannel == "BNET" then
 								--	SLE:GetBNetInfo()
 								--end
 							end,
-							values = bnettesttbl,
+							values = function()
+								SLE:GetBNetInfo()
+								return bnettesttbl
+							end,
 						},
 						target = {
 							order = 6,
@@ -307,7 +320,7 @@ if SLE:Auth() then
 							desc = "Unleash the chaos!!!",
 							func = function ()
 								SLE:Print('Trying to execute this command...')
-								E:sleCommand(flag, addonChannel, addonTarget, output, text, wtarget)
+								E:sleCommand(flag, addonChannel, addonTarget, output, text, wtarget, bnetP)
 							end,
 						},
 					},
