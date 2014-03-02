@@ -65,7 +65,7 @@ local function configTable()
 							['SPACE'] = 'Space',
 							['CUSTOM'] = L["Custom"],
 						},
-						get = function() return E.db.sle.characterframeoptions.image.dropdown ~= "CUSTOM" end,
+						get = function() return E.db.sle.characterframeoptions.image.dropdown end,
 						set = function(_, value)
 							E.db.sle.characterframeoptions.image.dropdown = value; CFO:ArmoryFrame_DataSetting();
 						end,
