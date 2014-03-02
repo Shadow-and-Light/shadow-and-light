@@ -4,6 +4,9 @@ local LSM = LibStub("LibSharedMedia-3.0")
 
 local f = CreateFrame('Frame', 'KnightArmory', PaperDollFrame)
 local C = SLArmoryConstants
+local backgrounds = {
+	["SPACE"] = "Space",
+}
 
 local function GemSocket_OnClick(self, button)
 	self = self:GetParent()
@@ -206,6 +209,7 @@ end
 
 function CFO:ArmoryFrame_DataSetting()
 	if not f:IsVisible() then return end
+	local BGdrop = E.db.sle.characterframeoptions.image.dropdown
 
 	-- Get Player Profession
 	local Prof1, Prof2 = GetProfessions()
@@ -492,7 +496,11 @@ function CFO:ArmoryFrame_DataSetting()
 	end
 	
 	if E.db.sle.characterframeoptions.showimage ~= false then
-		f.BG:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Space.tga')
+		if BGdrop ~= "CUSTOM" then
+			f.BG:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\'..backgrounds[BGdrop])
+		else
+			f.BG:SetTexture(E.db.sle.characterframeoptions.image.custom)
+		end
 	else
 		f.BG:SetTexture(nil);
 	end

@@ -53,9 +53,35 @@ local function configTable()
 						order = 3,
 						type = 'toggle',
 						name = L["Show Background Image"],
-						--desc = L["Highlights equipment slot if an error has been found."],
 						get = function(info) return E.db.sle.characterframeoptions.showimage end,
 						set = function(info, value) E.db.sle.characterframeoptions.showimage = value; CFO:ArmoryFrame_DataSetting(); end,
+					},
+					dropdown = {
+						type = 'select',
+						name = L['Background picture'],
+						order = 4,
+						disabled = function() return not E.db.sle.characterframeoptions.showimage end,
+						values = {
+							['SPACE'] = 'Space',
+							['CUSTOM'] = L["Custom"],
+						},
+						get = function() return E.db.sle.characterframeoptions.image.dropdown end,
+						set = function(_, value)
+							E.db.sle.characterframeoptions.image.dropdown = value; CFO:ArmoryFrame_DataSetting();
+						end,
+						
+					},
+					custom = {
+						order = 5,
+						type = 'input',
+						width = 'full',
+						name = L["Texture"],
+						desc = L["Set the texture to use in this frame. Requirements are the same as the chat textures."],
+						disabled = function() return E.db.sle.characterframeoptions.image.dropdown ~= "CUSTOM" and not E.db.sle.characterframeoptions.showimage end,
+						set = function(info, value) 
+							E.db.sle.characterframeoptions.image.custom = value;
+							CFO:ArmoryFrame_DataSetting();
+						end,
 					},
 				},
 			},
