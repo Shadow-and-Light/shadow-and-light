@@ -64,6 +64,10 @@ P['sle'] = {
 		['shownormalgradient'] = true,
 		['showerrorgradient'] = true,
 		['showimage'] = true,
+		['image'] = {
+			['dropdown'] = "SPACE",
+			['custom'] = "",
+		},
 		['itemlevel'] = {
 			["font"] = "ElvUI Pixel",
 			["fontSize"] = 10,
