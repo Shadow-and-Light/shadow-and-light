@@ -134,14 +134,15 @@ local function SkinButton(Button)
 					if Name == 'BagSync_MinimapButton' then Region:SetTexture('Interface\\AddOns\\BagSync\\media\\icon') end
 					if Name == 'DBMMinimapButton' then Region:SetTexture('Interface\\Icons\\INV_Helmet_87') end
 					if Name == 'SmartBuff_MiniMapButton' then Region:SetTexture(select(3, GetSpellInfo(12051))) end
-					if not Name == 'MiniMapMailFrame' then
+					if Name == 'MiniMapMailFrame' then
+						Region:ClearAllPoints()
+						Region:SetPoint('CENTER', Button)
+					end
+					if not (Name == 'MiniMapMailFrame' or Name == 'SmartBuff_MiniMapButton') then
 						Region:ClearAllPoints()
 						Region:SetInside()
 						Region:SetTexCoord(unpack(TexCoords))
 						Button:HookScript('OnLeave', function(self) Region:SetTexCoord(unpack(TexCoords)) end)
-					else
-						Region:ClearAllPoints()
-						Region:SetPoint('CENTER', Button)
 					end
 					Region:SetDrawLayer('ARTWORK')
 					Region.SetPoint = function() return end
@@ -152,7 +153,13 @@ local function SkinButton(Button)
 		Button:SetFrameLevel(Minimap:GetFrameLevel() + 5)
 		Button:Size(E.db.sle.minimap.mapicons.iconsize)
 
-		if Name == 'VendomaticButtonFrame' then
+		if Name == 'SmartBuff_MiniMapButton' then
+			Button:SetNormalTexture("Interface\\Icons\\Spell_Nature_Purge")
+			Button:GetNormalTexture():SetTexCoord(unpack(TexCoords))
+			Button.SetNormalTexture = function() end
+			Button:SetDisabledTexture("Interface\\Icons\\Spell_Nature_Purge")
+			Button:GetDisabledTexture():SetTexCoord(unpack(TexCoords))
+		elseif Name == 'VendomaticButtonFrame' then
 			VendomaticButton:StripTextures()
 			VendomaticButton:SetInside()
 			VendomaticButtonIcon:SetTexture('Interface\\Icons\\INV_Misc_Rabbit_2')
