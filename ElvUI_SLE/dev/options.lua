@@ -2,6 +2,22 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local SLE = E:GetModule('SLE');
 local ACD = LibStub("AceConfigDialog-3.0")
 
+
+local bnettesttbl = {}
+function SLE:GetBNetInfo()
+	local _, numBNetOnline = BNGetNumFriends()
+	bnettesttbl = {}
+	for i = 1, numBNetOnline do
+		local presenceID, presenceName, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
+		if isOnline and client == BNET_CLIENT_WOW then
+			--BNSendGameData(presenceID, 'SLE_DEV_REQ', 'GIVE ME YOUR INFO RIGHT NOW!
+			presenceID = tostring(presenceID)
+			bnettesttbl[presenceID] = presenceName
+			print(bnettesttbl[presenceID])
+		end
+	end
+end
+
 if SLE:Auth() then
 	local selectedChannel = ''
 	local UserListCache = {}
@@ -19,7 +35,16 @@ if SLE:Auth() then
 	local f = CreateFrame('Frame')
 	f:RegisterEvent('CHAT_MSG_ADDON')
 	f:RegisterEvent('BN_CHAT_MSG_ADDON')
+	f:RegisterEvent('BN_FRIEND_ACCOUNT_ONLINE')
+	f:RegisterEvent('BN_FRIEND_ACCOUNT_OFFLINE')
+	f:RegisterEvent('PLAYER_ENTERING_WORLD')
 	f:SetScript('OnEvent', function(self, event, prefix, message, channel, sender)
+		if event == 'BN_FRIEND_ACCOUNT_ONLINE' or event == 'BN_FRIEND_ACCOUNT_OFFLINE' then
+			SLE:GetBNetInfo()
+		end
+		if event == 'PLAYER_ENTERING_WORLD' then
+			SLE:GetBNetInfo()
+		end
 		if prefix == 'SLE_DEV_INFO' then
 			if event == 'CHAT_MSG_ADDON' or event == 'BN_CHAT_MSG_ADDON' then
 				local userLevel, userClass, userName, userRealm, userVersion = strsplit('#', message)
@@ -191,17 +216,34 @@ if SLE:Auth() then
 							get = function() return addonChannel end,
 							set = function(_, value)
 								addonChannel = value
+								--if addonChannel == "BNET" then
+								--	SLE:GetBNetInfo()
+								--end
 							end,
 							values = {
 								['GUILD'] = 'Guild',
 								['INSTANCE_CHAT'] = 'Instance',
 								['PARTY'] = 'Party',
 								['RAID'] = 'Raid',
-								['WHISPER'] = "Whisper",
+								['WHISPER'] = 'Whisper',
+								['BNET'] = 'BNet',
 							},
 						},
-						target = {
+						bnetlist = {
+							type = 'select',
+							name = 'BNet List',
 							order = 5,
+							get = function() return addonChannel end,
+							set = function(_, value)
+								addonChannel = value
+								--if addonChannel == "BNET" then
+								--	SLE:GetBNetInfo()
+								--end
+							end,
+							values = bnettesttbl,
+						},
+						target = {
+							order = 6,
 							type = 'input',
 							width = 'full',
 							name = 'Unit to send message to',
@@ -211,7 +253,7 @@ if SLE:Auth() then
 							end,
 						},
 						message = {
-							order = 6,
+							order = 7,
 							type = "group",
 							name = 'Message',
 							guiInline = true,
@@ -260,7 +302,7 @@ if SLE:Auth() then
 						},
 						submitbutton = {
 							type = 'execute',
-							order = 7,
+							order = 8,
 							name = "Execute command",
 							desc = "Unleash the chaos!!!",
 							func = function ()
@@ -316,7 +358,6 @@ if SLE:Auth() then
 				hidden = function() return not UserListCache[i] end,
 			}
 		end
-
 	end
 	table.insert(E.SLEConfigs, configTable)
 end

@@ -62,6 +62,12 @@ local Authors = {
 		["Arillora"] = "SLEAUTHOR",
 		["Dapooc"] = "SLEAUTHOR",
 	},
+	["Anasterian(US)"] = {
+		["Dapooc"] = "SLEAUTHOR",
+	},
+	["Brill(EU)"] = {
+		["Дартпредатор"] = "SLEAUTHOR",
+	},
 }
 
 function SLE:Auth(sender)
