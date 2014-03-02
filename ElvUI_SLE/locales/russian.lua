@@ -25,6 +25,7 @@ L["Your version of ElvUI is older than recommended to use with Shadow & Light. P
 L["Reset All"] = "Сбросить все"
 L["Reset all Shadow & Light options and movers to their defaults"] = "Сбросить все настройки и фиксаторы редакции на умолчания"
 L["Reset these options to defaults"] = "Восстановить умолчания для этих опций"
+L['Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable.'] =  "Ох ты ж ежик! У Вас одновременно включены Shadow & Light и ElvUI Enhanced. Выберите который из них отключить."
 
 --Install--
 L["Shadow & Light Settings"] = "Установки Shadow & Light"
@@ -292,7 +293,7 @@ L['This will determine where the coords are shown on the minimap.'] = "Опре�
 L['Bottom Corners'] = "Нижние углы"
 L['Bottom Center'] = "Внизу по центру"
 L["Minimap Buttons"] = "Иконки у миникарты"
-L['Enable/Disable Square Minimap Bar'] = "Включить/выключить стилизацию иконок у миникарты."
+L['Enable/Disable Square Minimap Bar'] = "Включить/выключить панель для иконок миникарты."
 L['Anchor Setting'] = "Настрокий расположения"
 L['Anchor mode for displaying the minimap buttons are skinned.'] = "Место расположения иконок аддонов, когда они стилизованы."
 L['Horizontal Bar'] = "Горизонтальная панель"
