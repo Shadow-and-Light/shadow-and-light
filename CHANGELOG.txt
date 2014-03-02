@@ -1,3 +1,6 @@
+v1.84 March 1, 2014
+- SmartBuff MiniMap Icon Fix
+
 v1.83 March 1, 2014
 - Fixed QuestPointer/Mapster Button in minimap.
 - Option to skin or not skin lfd icon
