@@ -2,6 +2,20 @@
 local EM = E:GetModule('EquipManager')
 local BI = E:GetModule('BagInfo')
 
+local sets = {}
+
+local function FillTable()
+	sets = {}
+	sets["NONE"] = NONE
+	for i = 1, GetNumEquipmentSets() do
+		local name, icon, lessIndex = GetEquipmentSetInfo(i)
+		if name then
+			sets[name] = name
+		end
+	end
+	return sets
+end
+
 local function configTable()
 
 E.Options.args.sle.args.equipmanager = {
@@ -61,7 +75,10 @@ E.Options.args.sle.args.equipmanager = {
 					desc = L["Equip this set when switching to primary talents."],
 					get = function(info) return E.private.sle.equip.primary end,
 					set = function(info, value) E.private.sle.equip.primary = value; end,
-					values = EM.equipSets
+					values = function()
+						FillTable() 
+						return sets
+					end,
 				},
 				secondary = {
 					order = 3,
@@ -70,7 +87,10 @@ E.Options.args.sle.args.equipmanager = {
 					desc = L["Equip this set when switching to secondary talents."],
 					get = function(info) return E.private.sle.equip.secondary end,
 					set = function(info, value) E.private.sle.equip.secondary = value end,
-					values = EM.equipSets
+					values = function()
+						FillTable() 
+						return sets
+					end,
 				},
 				spacer = {
 					type = "description",
@@ -84,7 +104,10 @@ E.Options.args.sle.args.equipmanager = {
 					desc = L["Equip this set after entering dungeons or raids."],
 					get = function(info) return E.private.sle.equip.instance end,
 					set = function(info, value) E.private.sle.equip.instance = value end,
-					values = EM.equipSets
+					values = function()
+						FillTable() 
+						return sets
+					end,
 				},
 				pvp = {
 					order = 6,
@@ -93,7 +116,10 @@ E.Options.args.sle.args.equipmanager = {
 					desc = L["Equip this set after entering battlegrounds or arens."],
 					get = function(info) return E.private.sle.equip.pvp end,
 					set = function(info, value) E.private.sle.equip.pvp = value end,
-					values = EM.equipSets
+					values = function()
+						FillTable() 
+						return sets
+					end,
 				},
 			},
 		},

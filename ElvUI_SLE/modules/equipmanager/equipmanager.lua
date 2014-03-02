@@ -11,19 +11,6 @@ local GetNumWorldPVPAreas = GetNumWorldPVPAreas
 local GetWorldPVPAreaInfo = GetWorldPVPAreaInfo
 local gsub, strfind = string.gsub, string.find, string.sub
 
-EM.equipSets = {
-["NONE"] = NONE,
-}
-
-function EM:FillTable()
-	for i = 1, GetNumEquipmentSets() do
-		local name, icon, lessIndex = GetEquipmentSetInfo(i)
-		if name then
-			EM.equipSets[name] = name
-		end
-	end
-end
-
 function EM:Equip(event)
 	local primary = GetSpecialization()
 	if primary ~= nil then
@@ -86,12 +73,10 @@ end
 function EM:Initialize()
 	EM:SpamThrottle()
 	if not E.private.sle.equip.enable then return end
-	EM:FillTable()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "Equip")
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "Equip")
 	self:RegisterEvent("PLAYER_TALENT_UPDATE", "Equip")
 	self:RegisterEvent("ZONE_CHANGED", "Equip")
-	self:RegisterEvent("EQUIPMENT_SETS_CHANGED", "FillTable")
 end
 
 E:RegisterModule(EM:GetName())
