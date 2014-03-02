@@ -182,6 +182,9 @@ function SLE:Initialize()
 	SLE:ConfigCats()
 	SLE:ChatPos()
 	SLE:RegisterCommands()
+	if select(4, GetAddOnInfo('ElvUI_Enhanced')) then
+		E:StaticPopup_Show('ENHANCED_SLE_INCOMPATIBLE')
+	end	
 end
 
 E:RegisterModule(SLE:GetName())

@@ -7,3 +7,14 @@ E.PopupDialogs["VERSION_MISMATCH"] = {
 	whileDead = 1,	
 	preferredIndex = 3,
 }
+
+E.PopupDialogs['ENHANCED_SLE_INCOMPATIBLE'] = {
+	text = L['Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable.'],
+	OnAccept = function() DisableAddOn("ElvUI_Enhanced"); ReloadUI() end,
+	OnCancel = function() DisableAddOn("ElvUI_SLE"); ReloadUI() end,
+	button1 = 'ElvUI Enhanced',
+	button2 = 'Shadow & Light',	
+	timeout = 0,
+	whileDead = 1,	
+	hideOnEscape = false,	
+}
