@@ -25,6 +25,7 @@ L["Your version of ElvUI is older than recommended to use with Shadow & Light. P
 L["Reset All"] = true
 L["Reset all Shadow & Light options and movers to their defaults"] = true
 L["Reset these options to defaults"] = true
+L['Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable.'] =  true
 
 --Install--
 L["Shadow & Light Settings"] = true
