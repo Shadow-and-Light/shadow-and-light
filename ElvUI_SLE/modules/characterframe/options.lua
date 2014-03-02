@@ -65,7 +65,7 @@ local function configTable()
 							['SPACE'] = 'Space',
 							['CUSTOM'] = L["Custom"],
 						},
-						get = function() return E.db.sle.characterframeoptions.image.dropdown end,
+						get = function() return E.db.sle.characterframeoptions.image.dropdown ~= "CUSTOM" end,
 						set = function(_, value)
 							E.db.sle.characterframeoptions.image.dropdown = value; CFO:ArmoryFrame_DataSetting();
 						end,
@@ -77,7 +77,7 @@ local function configTable()
 						width = 'full',
 						name = L["Texture"],
 						desc = L["Set the texture to use in this frame. Requirements are the same as the chat textures."],
-						disabled = function() return E.db.sle.characterframeoptions.image.dropdown ~= "CUSTOM" and not E.db.sle.characterframeoptions.showimage end,
+						disabled = function() return E.db.sle.characterframeoptions.image.dropdown ~= "CUSTOM" or not E.db.sle.characterframeoptions.showimage end,
 						set = function(info, value) 
 							E.db.sle.characterframeoptions.image.custom = value;
 							CFO:ArmoryFrame_DataSetting();
