@@ -75,7 +75,9 @@ if SLE:Auth() then
 						['userVersion'] = userVersion,
 					}
 					
-					ACD:SelectGroup('ElvUI', 'sle', 'developer', 'userList')
+					if (IsAddOnLoaded("ElvUI_Config")) then
+						ACD:SelectGroup('ElvUI', 'sle', 'developer', 'userList')
+					end
 				else
 					local _, numBNetOnline = BNGetNumFriends()
 					for i = 1, numBNetOnline do
