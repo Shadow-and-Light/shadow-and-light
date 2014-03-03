@@ -387,6 +387,7 @@ Boradan
 Camealion
 Omega1970
 Pvtschlag
+Simpy
 Sinaris
 Sortokk
 Swordyy
@@ -403,28 +404,3 @@ L["To enable full values of health/power on unitframes in Shadow & Light add \":
 --Movers--
 L["Pet Battle AB"] = true
 L["Ghost Frame"] = true
-
-
---Changelog--
-L["Changelog"] = true
-L["CHANGE_LOG"] = [=[|cff1784d1v1.5|r
-- Some typos fixed
-- Datatext panels can now be transparent
-- Background frames no longer have offset options, now they have own movers
-- Background frames template doesn't require reload and is a profile based option
-- Movers created by S&L now are grouped by own categories just like in ElvUI itself (Note: background frames' movers are available ONLY in those groups)
-- Raid Marks now properly update setting on profile change
-- Raid Marks module now has an option to hide backdrop for it's main panel
-- Added Item Level overlay on item slots
-- Added Item Durability overlay on item slots
-- Added Equipment Manager per spec/zone
-- Added Farm module to make farming easier.
-- Added skinning of minimap buttons
-- Added coordinates to the minimap
-- LFR Lockout tracking in time datatext now has options to choose what daungeons you want to show there
-- Top datapanel info can now be changed by user
-- You will now receive chat message if someone in your group/raid has newer version of S&L
-- Add Affinitii's (Blood Legion) UI Layout
-- Darth's Layout Modified
-- Added loot announce function
-]=]

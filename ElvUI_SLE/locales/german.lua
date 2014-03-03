@@ -157,17 +157,6 @@ L["This options will allow you to detach your classbar from player's frame and m
 --Credits--
 L["ELVUI_SLE_CREDITS"] = "Wir möchten an diesem Punkt folgenden Personen für ihre Unterstützung danken für Prüfung, Programmierung und anderen Sachen."
 L["Submodules and Coding:"] = "Submodule und Programmierung:"
-L["ELVUI_SLE_CODERS"] = [=[Elv
-Tukz
-Azilroka
-Blazeflack
-Boradan
-Camealion
-Pvtschlag
-Sinaris
-Sortokk
-Swordyy
-]=]
 L["Other Support:"] = "Anderer Support:"
 L["ELVUI_SLE_MISC"] = [=[BuG - für französisch sein lol
 TheSamaKutra
