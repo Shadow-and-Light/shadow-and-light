@@ -64,8 +64,8 @@ local function CreateArmoryFrame(self)
 	--<< Background >>--
 	self.BG = self:CreateTexture(nil, 'BACKGROUND')
 	--self.BG:SetInside()
-	self.BG:SetPoint("TOPLEFT", self, "TOPLEFT", -6, -22)
-	self.BG:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 6, 4)
+	self.BG:SetPoint("TOPLEFT", self, "TOPLEFT", -7, -20)
+	self.BG:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 7, 2)
 
 	--<< Change Model Frame's frameLevel >>--
 	CharacterModelFrame:SetFrameLevel(self:GetFrameLevel() + 2)
