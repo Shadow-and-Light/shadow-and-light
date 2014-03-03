@@ -94,15 +94,21 @@ function E:sleCommand(flag, channel, target, output, text, wtarget, presenceID)
 		SLE:Print('|cffFF0000Access Denied|r: You need to be authorized to use this command.')
 		return
 	end
-	if target == (nil or "")then
-		SLE:Print('|cffFF0000Error|r: You need to set a unit to execute command.')
-		return
-	end
+	if channel ~= 'BNET' then
+		if target == (nil or "")then
+			SLE:Print('|cffFF0000Error|r: You need to set a unit to execute command.')
+			return
+		end
+	if channel ~= 'BNET' then
 	if text == (nil or "") then
 		SLE:Print('|cffFF0000Error|r: You need to actually send something in your message.')
 		return
 	end
-	Message = target
+	if channel ~= 'BNET' then
+		Message = target
+	else
+		Message = " "
+	end
 	if flag == 'SLE_DEV_SAYS' then
 		if output == 'WHISPER' and (wtarget == (nil or "")) then
 			SLE:Print('|cffFF0000Error|r: You need to set a whisper target.')
