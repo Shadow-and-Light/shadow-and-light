@@ -251,6 +251,7 @@ if SLE:Auth() then
 							type = 'select',
 							name = 'BNet List',
 							order = 5,
+							disabled = function() return addonChannel ~= 'BNET' end,
 							get = function() return bnetP end,
 							set = function(_, value)
 								bnetP = value
@@ -268,6 +269,7 @@ if SLE:Auth() then
 							type = 'input',
 							width = 'full',
 							name = 'Unit to send message to',
+							disabled = function() return addonChannel == 'BNET' end,
 							get = function() return addonTarget end,
 							set = function(_, value)
 								addonTarget = value
