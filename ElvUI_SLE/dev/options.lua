@@ -27,14 +27,18 @@ if SLE:Auth() then
 	local wtarget = ""
 	local bnetP = ""
 	
-
+	function SLE:delete(...)
+		local _, id = ...
+		bnettesttbl[id] = nil
+	end
+	
 	RegisterAddonMessagePrefix('SLE_DEV_INFO')
 
 	local f = CreateFrame('Frame')
 	f:RegisterEvent('CHAT_MSG_ADDON')
 	f:RegisterEvent('BN_CHAT_MSG_ADDON')
 	f:RegisterEvent('BN_FRIEND_ACCOUNT_ONLINE')
-	f:RegisterEvent('BN_FRIEND_ACCOUNT_OFFLINE')
+	SLE:RegisterEvent('BN_FRIEND_ACCOUNT_OFFLINE', 'delete')
 	f:RegisterEvent('PLAYER_ENTERING_WORLD')
 	f:SetScript('OnEvent', function(self, event, prefix, message, channel, sender)
 		if event == 'BN_FRIEND_ACCOUNT_ONLINE' or event == 'BN_FRIEND_ACCOUNT_OFFLINE' then
