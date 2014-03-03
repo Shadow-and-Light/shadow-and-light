@@ -80,6 +80,7 @@ local function configTable()
 						name = L["Texture"],
 						desc = L["Set the texture to use in this frame. Requirements are the same as the chat textures."],
 						disabled = function() return E.db.sle.characterframeoptions.image.dropdown ~= "CUSTOM" or not E.db.sle.characterframeoptions.showimage end,
+						get = function() return E.db.sle.characterframeoptions.image.custom end,
 						set = function(info, value) 
 							E.db.sle.characterframeoptions.image.custom = value;
 							CFO:ArmoryFrame_DataSetting();
