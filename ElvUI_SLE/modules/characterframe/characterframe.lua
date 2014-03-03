@@ -63,7 +63,9 @@ local function CreateArmoryFrame(self)
 
 	--<< Background >>--
 	self.BG = self:CreateTexture(nil, 'OVERLAY')
-	self.BG:SetInside()
+	--self.BG:SetInside()
+	self.BG:SetPoint("TOPLEFT", self, "TOPLEFT", -6, -22)
+	self.BG:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 6, 4)
 
 	--<< Change Model Frame's frameLevel >>--
 	CharacterModelFrame:SetFrameLevel(self:GetFrameLevel() + 2)
@@ -515,7 +517,7 @@ function CFO:StartArmoryFrame()
 	CHARACTERFRAME_EXPANDED_WIDTH = 650
 	CharacterFrame:SetHeight(444)
 	CharacterFrameInsetRight:SetPoint('TOPLEFT', CharacterFrameInset, 'TOPRIGHT', 110, 0)
-	CharacterFrameExpandButton:SetPoint('BOTTOMRIGHT', CharacterFrameInsetRight, 'BOTTOMLEFT', 0, 1)
+	CharacterFrameExpandButton:SetPoint('BOTTOMRIGHT', CharacterFrameInsetRight, 'BOTTOMLEFT', -3, 7)
 
 	-- Move right equipment slots
 	CharacterHandsSlot:SetPoint('TOPRIGHT', CharacterFrameInsetRight, 'TOPLEFT', -4, -2)
