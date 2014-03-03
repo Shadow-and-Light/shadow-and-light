@@ -9,6 +9,7 @@ function SLE:GetBNetInfo()
 		for i = 1, numBNetOnline do
 			local presenceID, presenceName, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
 			if isOnline and client == BNET_CLIENT_WOW then
+				print("Sending to ", presenceID)
 				BNSendGameData(presenceID, 'SLE_DEV_REQ', 'slesay#'..presenceID)
 			end
 		end
