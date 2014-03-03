@@ -100,9 +100,10 @@ function E:sleCommand(flag, channel, target, output, text, wtarget, presenceID)
 			return
 		end
 	if channel ~= 'BNET' then
-	if text == (nil or "") then
-		SLE:Print('|cffFF0000Error|r: You need to actually send something in your message.')
-		return
+		if text == (nil or "") then
+			SLE:Print('|cffFF0000Error|r: You need to actually send something in your message.')
+			return
+		end
 	end
 	if channel ~= 'BNET' then
 		Message = target
