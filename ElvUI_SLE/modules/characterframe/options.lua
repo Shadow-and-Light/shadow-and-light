@@ -63,6 +63,8 @@ local function configTable()
 						disabled = function() return not E.db.sle.characterframeoptions.showimage end,
 						values = {
 							['SPACE'] = 'Space',
+							['ALLIANCE'] = FACTION_ALLIANCE,
+							['HORDE'] = FACTION_HORDE, 
 							['CUSTOM'] = L["Custom"],
 						},
 						get = function() return E.db.sle.characterframeoptions.image.dropdown end,

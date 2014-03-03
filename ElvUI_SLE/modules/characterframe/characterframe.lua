@@ -6,6 +6,8 @@ local f = CreateFrame('Frame', 'KnightArmory', PaperDollFrame)
 local C = SLArmoryConstants
 local backgrounds = {
 	["SPACE"] = "Space",
+	["ALLIANCE"] = "Alliance-text",
+	["HORDE"] = "Horde-text",
 }
 
 local function GemSocket_OnClick(self, button)
