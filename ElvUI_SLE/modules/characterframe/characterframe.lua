@@ -62,7 +62,7 @@ local function CreateArmoryFrame(self)
 	self:Point('BOTTOMRIGHT', CharacterFrameInsetRight, 'BOTTOMLEFT', -10, 5)
 
 	--<< Background >>--
-	self.BG = self:CreateTexture(nil, 'OVERLAY')
+	self.BG = self:CreateTexture(nil, 'BACKGROUND')
 	--self.BG:SetInside()
 	self.BG:SetPoint("TOPLEFT", self, "TOPLEFT", -6, -22)
 	self.BG:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 6, 4)
@@ -581,8 +581,10 @@ function CFO:Initialize()
 		
 		CharacterFrameTitleText:ClearAllPoints()
 		CharacterFrameTitleText:Point('TOP', f, 'TOP', 0, 0)
+		CharacterFrameTitleText:SetParent(f)
 		CharacterLevelText:ClearAllPoints()
 		CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 0)
+		CharacterLevelText:SetParent(f)
 	end)
 
 	CFO:StartArmoryFrame()
