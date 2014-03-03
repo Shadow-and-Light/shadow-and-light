@@ -192,8 +192,9 @@ local function configTable()
 					mouseover = {
 						order = 2,
 						type = "toggle",
-						name = L["Show On Mouseover"],
-						desc = L["Show the enchantment effect near the enchanted item when mousing over."],
+						name = L['Mouse Over'],
+						desc = L["Show the enchantment effect near the enchanted item (not the item itself) when mousing over."],
+						disabled = function() return not E.db.sle.characterframeoptions.itemenchant.show or not E.private.sle.characterframeoptions.enable end,
 						get = function(info) return E.db.sle.characterframeoptions.itemenchant.mouseover end,
 						set = function(info, value) E.db.sle.characterframeoptions.itemenchant.mouseover = value; CFO:ArmoryFrame_DataSetting(); end,
 					},
