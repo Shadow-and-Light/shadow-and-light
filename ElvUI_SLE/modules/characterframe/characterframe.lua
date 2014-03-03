@@ -541,7 +541,7 @@ function CFO:StartArmoryFrame()
 	
 	-- Character Control Frame
 	CharacterModelFrameControlFrame:ClearAllPoints()
-	CharacterModelFrameControlFrame:SetPoint('BOTTOM', CharacterModelFrame, 'BOTTOM', 0, 0)
+	CharacterModelFrameControlFrame:SetPoint('BOTTOM', CharacterModelFrame, 'BOTTOM', -1.5, 1)
 
 	if CreateArmoryFrame then
 		CreateArmoryFrame(KnightArmory)
