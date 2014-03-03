@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+﻿local E, L, V, P, G, _ = unpack(ElvUI);
 local CFO = E:NewModule('CharacterFrameOptions', 'AceEvent-3.0');
 local LSM = LibStub("LibSharedMedia-3.0")
 
@@ -344,12 +344,12 @@ function CFO:ArmoryFrame_DataSetting()
 						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_INTELLECT_SHORT, INT) --Intellect is to long for darth
 						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_CRIT_RATING_SHORT, CRIT_ABBR) -- Critical is too long
 						--God damn russian localization team!
-						CurrentLineText = gsub(CurrentLineText, "к показателю уклонени�?", ITEM_MOD_DODGE_RATING_SHORT)
-						CurrentLineText = gsub(CurrentLineText, "к показателю �?коро�?ти", ITEM_MOD_HASTE_RATING_SHORT)
-						CurrentLineText = gsub(CurrentLineText, "к показателю парировани�?", ITEM_MOD_PARRY_RATING_SHORT)
-						CurrentLineText = gsub(CurrentLineText, "к показателю и�?ку�?но�?ти", ITEM_MOD_MASTERY_RATING_SHORT)
+						CurrentLineText = gsub(CurrentLineText, "к показателю уклонения", ITEM_MOD_DODGE_RATING_SHORT)
+						CurrentLineText = gsub(CurrentLineText, "к показателю скорости", ITEM_MOD_HASTE_RATING_SHORT)
+						CurrentLineText = gsub(CurrentLineText, "к показателю парирования", ITEM_MOD_PARRY_RATING_SHORT)
+						CurrentLineText = gsub(CurrentLineText, "к показателю искусности", ITEM_MOD_MASTERY_RATING_SHORT)
 						CurrentLineText = gsub(CurrentLineText, ' + ', '+') -- Remove space
-						CurrentLineText = gsub(CurrentLineText, "небольшое увеличение �?коро�?ти бега", "+к �?коро�?ти бега")
+						CurrentLineText = gsub(CurrentLineText, "небольшое увеличение скорости бега", "+к скорости бега")
 
 						if E.db.sle.characterframeoptions.itemenchant.show then
 							Slot.ItemEnchant:Show()
