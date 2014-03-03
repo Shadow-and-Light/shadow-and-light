@@ -99,6 +99,7 @@ function E:sleCommand(flag, channel, target, output, text, wtarget, presenceID)
 			SLE:Print('|cffFF0000Error|r: You need to set a unit to execute command.')
 			return
 		end
+	end
 	if channel ~= 'BNET' then
 		if text == (nil or "") then
 			SLE:Print('|cffFF0000Error|r: You need to actually send something in your message.')
