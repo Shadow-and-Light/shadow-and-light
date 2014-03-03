@@ -1,5 +1,7 @@
 v1.84 March 1, 2014
 - SmartBuff MiniMap Icon Fix
+- Added ability to select background image on character screen as well set a custom image
+- Added ability to show enchant on mouseover in character screen
 
 v1.83 March 1, 2014
 - Fixed QuestPointer/Mapster Button in minimap.
