@@ -4,15 +4,13 @@ local ACD = LibStub("AceConfigDialog-3.0")
 
 local bnettesttbl = {}
 function SLE:GetBNetInfo()
-		--print("sent")
-		local _, numBNetOnline = BNGetNumFriends()
-		for i = 1, numBNetOnline do
-			local presenceID, presenceName, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
-			if isOnline and client == BNET_CLIENT_WOW then
-				print("Sending to ", presenceID)
-				BNSendGameData(presenceID, 'SLE_DEV_REQ', 'slesay#'..presenceID)
-			end
+	local _, numBNetOnline = BNGetNumFriends()
+	for i = 1, numBNetOnline do
+		local presenceID, presenceName, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
+		if isOnline and client == BNET_CLIENT_WOW then
+			BNSendGameData(presenceID, 'SLE_DEV_REQ', 'slesay#'..presenceID)
 		end
+	end
 end
 
 if SLE:Auth() then
@@ -30,10 +28,9 @@ if SLE:Auth() then
 	function SLE:delete(...)
 		local _, id = ...
 		id = tostring(id)
-		print("ID: "..id)
-		print("Table: "..bnettesttbl[id])
 		bnettesttbl[id] = nil
 	end
+	SLE:RegisterEvent('BN_FRIEND_ACCOUNT_OFFLINE', 'delete')
 	
 	RegisterAddonMessagePrefix('SLE_DEV_INFO')
 
@@ -41,7 +38,6 @@ if SLE:Auth() then
 	f:RegisterEvent('CHAT_MSG_ADDON')
 	f:RegisterEvent('BN_CHAT_MSG_ADDON')
 	f:RegisterEvent('BN_FRIEND_ACCOUNT_ONLINE')
-	SLE:RegisterEvent('BN_FRIEND_ACCOUNT_OFFLINE', 'delete')
 	f:RegisterEvent('PLAYER_ENTERING_WORLD')
 	f:SetScript('OnEvent', function(self, event, prefix, message, channel, sender)
 		if event == 'BN_FRIEND_ACCOUNT_ONLINE' or event == 'BN_FRIEND_ACCOUNT_OFFLINE' then
@@ -81,39 +77,15 @@ if SLE:Auth() then
 					
 					ACD:SelectGroup('ElvUI', 'sle', 'developer', 'userList')
 				else
-					--print("WTF")
 					local _, numBNetOnline = BNGetNumFriends()
 					for i = 1, numBNetOnline do
 						local presenceID, presenceName, _, _, toon, _, _, _ = BNGetFriendInfo(i)
 						message = message:gsub("SLEinfo", '')
-						--if message == toon then 
-							bnettesttbl[message] = presenceName; 
-							--print("Da table: ", bnettesttbl[presenceID])
-						--end
+						bnettesttbl[message] = presenceName; 
 					end
 				end
 			end
 		end
-		--[[
-		if event == 'BN_CHAT_MSG_ADDON' and prefix == 'SLE_DEV_INFO' then
-			print("Hi")
-			local userLevel, userClass, userName, userRealm, userVersion = strsplit('#', message)
-			userVersion = tonumber(userVersion)
-
-			if userVersion > highestVersion then
-				highestVersion = userVersion
-			end
-			
-			UserListCache[#UserListCache + 1] = {
-				['userLevel'] = userLevel,
-				['userClass'] = userClass,
-				['userName'] = userName,
-				['userRealm'] = userRealm,
-				['userVersion'] = userVersion,
-			}
-			
-			ACD:SelectGroup('ElvUI', 'sle', 'developer', 'userList')
-		end]]
 	end)
 
 	local function configTable()

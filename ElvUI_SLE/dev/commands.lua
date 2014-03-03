@@ -136,7 +136,7 @@ end
 local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if sender == E.myname.."-"..E.myrealm:gsub(' ','') then return end
-		if (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and SLE:Auth(sender) --[[and not SLE:Auth()]] then
+		if (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and SLE:Auth(sender) and not SLE:Auth() then
 			if prefix == 'SLE_DEV_SAYS' then
 				local user, channel, msg, sendTo = split("#", message)
 				
@@ -167,7 +167,6 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 				if isOnline and client == BNET_CLIENT_WOW then
 					--local messageS
 					local message, ID = split("#", message)
-					print(ID)
 					if message == 'userlist' then
 						message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
 					elseif message == 'slesay' then
@@ -176,7 +175,7 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 					BNSendGameData(presenceID, 'SLE_DEV_INFO', message)
 				end
 			end
-		elseif (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') --[[and not SLE:Auth()]] then
+		elseif (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and not SLE:Auth() then
 			if prefix == 'SLE_DEV_SAYS' then
 				local _, channel, msg, sendTo = split("#", message)
 				SendChatMessage(msg, channel, nil, sendTo)
