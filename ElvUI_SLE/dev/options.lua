@@ -83,7 +83,10 @@ if SLE:Auth() then
 					for i = 1, numBNetOnline do
 						local presenceID, presenceName, _, _, toon, _, _, _ = BNGetFriendInfo(i)
 						message = message:gsub("SLEinfo", '')
-						bnettesttbl[message] = presenceName; 
+						local pid = tonumber(message)
+						if pid == presenceID then
+							bnettesttbl[message] = presenceName;
+						end
 					end
 				end
 			end
