@@ -29,6 +29,9 @@ if SLE:Auth() then
 	
 	function SLE:delete(...)
 		local _, id = ...
+		id = tostring(id)
+		print("ID: "..id)
+		print("Table: "..bnettesttbl[id])
 		bnettesttbl[id] = nil
 	end
 	
