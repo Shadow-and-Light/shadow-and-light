@@ -413,18 +413,21 @@ function CFO:ArmoryFrame_DataSetting()
 				elseif slotName == 'ShoulderSlot' and CFO.PlayerProfession.Inscription and C.ItemEnchant_Profession_Inscription and CFO.PlayerProfession.Inscription >= C.ItemEnchant_Profession_Inscription.NeedLevel and not C.ItemEnchant_Profession_Inscription[enchantID] then
 					ErrorDetected = true
 					if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
+						Slot.ItemEnchant:SetDrawLayer('OVERLAY')
 						Slot.EnchantWarning:Show()
 						Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110400)..'|r : '..L['This is not profession only.']
 					end
 				elseif slotName == 'WristSlot' and CFO.PlayerProfession.LeatherWorking and C.ItemEnchant_Profession_LeatherWorking and CFO.PlayerProfession.LeatherWorking >= C.ItemEnchant_Profession_LeatherWorking.NeedLevel and not C.ItemEnchant_Profession_LeatherWorking[enchantID] then
 					ErrorDetected = true
 					if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
+						Slot.ItemEnchant:SetDrawLayer('OVERLAY')
 						Slot.EnchantWarning:Show()
 						Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110423)..'|r : '..L['This is not profession only.']
 					end
 				elseif slotName == 'BackSlot' and CFO.PlayerProfession.Tailoring and C.ItemEnchant_Profession_Tailoring and CFO.PlayerProfession.Tailoring >= C.ItemEnchant_Profession_Tailoring.NeedLevel and not C.ItemEnchant_Profession_Tailoring[enchantID] then
 					ErrorDetected = true
 					if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
+						Slot.ItemEnchant:SetDrawLayer('OVERLAY')
 						Slot.EnchantWarning:Show()
 						Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110426)..'|r : '..L['This is not profession only.']
 					end
