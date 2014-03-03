@@ -189,15 +189,23 @@ local function configTable()
 						get = function(info) return E.db.sle.characterframeoptions.itemenchant.show end,
 						set = function(info, value) E.db.sle.characterframeoptions.itemenchant.show = value; CFO:ArmoryFrame_DataSetting(); end,
 					},
-					showwarning = {
+					mouseover = {
 						order = 2,
+						type = "toggle",
+						name = L["Show On Mouseover"],
+						desc = L["Show the enchantment effect near the enchanted item when mousing over."],
+						get = function(info) return E.db.sle.characterframeoptions.itemenchant.mouseover end,
+						set = function(info, value) E.db.sle.characterframeoptions.itemenchant.mouseover = value; CFO:ArmoryFrame_DataSetting(); end,
+					},
+					showwarning = {
+						order = 3,
 						type = "toggle",
 						name = L["Show Warning"],
 						get = function(info) return E.db.sle.characterframeoptions.itemenchant.showwarning end,
 						set = function(info, value) E.db.sle.characterframeoptions.itemenchant.showwarning = value; CFO:ArmoryFrame_DataSetting(); end,
 					},
 					warningsize = {
-						order = 3,
+						order = 4,
 						name = L["Warning Size"],
 						desc = L["Set the icon size that the warning notification will use."],
 						type = "range",
@@ -206,7 +214,7 @@ local function configTable()
 						set = function(info, value) E.db.sle.characterframeoptions.itemenchant.warningSize = value; CFO:ResizeErrorIcon(); end,
 					},
 					fontGroup = {
-						order = 4,
+						order = 5,
 						type = 'group',
 						guiInline = true,
 						name = L['Font'],

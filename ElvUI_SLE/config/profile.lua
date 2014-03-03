@@ -85,6 +85,7 @@ P['sle'] = {
 			['fontOutline'] = "OUTLINE",
 			['showwarning'] = true,
 			['warningSize'] = 12,
+			['mouseover'] = false,
 		},
 		['itemgem'] = {
 			['showwarning'] = true,

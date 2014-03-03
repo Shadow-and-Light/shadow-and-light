@@ -73,7 +73,7 @@ local function CreateArmoryFrame(self)
 	--<< Average Item Level >>--
 	C.Toolkit.TextSetting(self, nil, { ['Tag'] = 'AverageItemLevel', ['FontSize'] = 12, }, 'BOTTOM', CharacterModelFrame, 'TOP', 0, 14)
 	local function ValueColorUpdate()
-		self.AverageItemLevel:SetText(C.Toolkit.Color_Value(L['Average'])..' : '..format('%.2f', select(2, GetAverageItemLevel())))
+		self.AverageItemLevel:SetText(C.Toolkit.Color_Value(L['Average'])..': '..format('%.2f', select(2, GetAverageItemLevel())))
 	end
 	E.valueColorUpdateFuncs[ValueColorUpdate] = true
 
@@ -233,6 +233,7 @@ function CFO:ArmoryFrame_DataSetting()
 	for _, slotName in pairs(C.GearList) do
 		if not (slotName == 'ShirtSlot' or slotName == 'TabardSlot') then
 			Slot = f[slotName]
+			Slot:EnableMouse(true)
 
 			do --<< Clear Setting >>--
 				ErrorDetected, TrueItemLevel, IsEnchanted, UsableEffect, ItemRarity, ItemUpgradeID, ItemTexture = nil, nil, nil, nil, nil, nil, nil
@@ -343,15 +344,20 @@ function CFO:ArmoryFrame_DataSetting()
 						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_INTELLECT_SHORT, INT) --Intellect is to long for darth
 						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_CRIT_RATING_SHORT, CRIT_ABBR) -- Critical is too long
 						--God damn russian localization team!
-						CurrentLineText = gsub(CurrentLineText, "к показателю уклонения", ITEM_MOD_DODGE_RATING_SHORT)
-						CurrentLineText = gsub(CurrentLineText, "к показателю скорости", ITEM_MOD_HASTE_RATING_SHORT)
-						CurrentLineText = gsub(CurrentLineText, "к показателю парирования", ITEM_MOD_PARRY_RATING_SHORT)
-						CurrentLineText = gsub(CurrentLineText, "к показателю искусности", ITEM_MOD_MASTERY_RATING_SHORT)
+						CurrentLineText = gsub(CurrentLineText, "к показателю уклонени�?", ITEM_MOD_DODGE_RATING_SHORT)
+						CurrentLineText = gsub(CurrentLineText, "к показателю �?коро�?ти", ITEM_MOD_HASTE_RATING_SHORT)
+						CurrentLineText = gsub(CurrentLineText, "к показателю парировани�?", ITEM_MOD_PARRY_RATING_SHORT)
+						CurrentLineText = gsub(CurrentLineText, "к показателю и�?ку�?но�?ти", ITEM_MOD_MASTERY_RATING_SHORT)
 						CurrentLineText = gsub(CurrentLineText, ' + ', '+') -- Remove space
-						CurrentLineText = gsub(CurrentLineText, "небольшое увеличение скорости бега", "+к скорости бега")
+						CurrentLineText = gsub(CurrentLineText, "небольшое увеличение �?коро�?ти бега", "+к �?коро�?ти бега")
 
 						if E.db.sle.characterframeoptions.itemenchant.show then
 							Slot.ItemEnchant:Show()
+							if E.db.sle.characterframeoptions.itemenchant.mouseover then
+								Slot.ItemEnchant:SetDrawLayer('HIGHLIGHT')
+							else
+								Slot.ItemEnchant:SetDrawLayer('OVERLAY')
+							end
 							Slot.ItemEnchant:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemenchant.font), E.db.sle.characterframeoptions.itemenchant.fontSize, E.db.sle.characterframeoptions.itemenchant.fontOutline)
 							Slot.ItemEnchant:SetText('|cffceff00'..CurrentLineText)
 						else
@@ -509,7 +515,7 @@ function CFO:ArmoryFrame_DataSetting()
 		f.BG:SetTexture(nil);
 	end
 	
-	f.AverageItemLevel:SetText(C.Toolkit.Color_Value(L['Average'])..' : '..format('%.2f', select(2, GetAverageItemLevel())))
+	f.AverageItemLevel:SetText(C.Toolkit.Color_Value(L['Average'])..': '..format('%.2f', select(2, GetAverageItemLevel())))
 end
 
 function CFO:StartArmoryFrame()
@@ -567,18 +573,18 @@ function CFO:Initialize()
 		local classDisplayName, class = UnitClass("player")
 		local classColorString = RAID_CLASS_COLORS[class].colorStr
 		local specName, _;
-		local PLAYER_LEVEL = "|c%sLevel %s %s %s|r"
-		local PLAYER_LEVEL_NO_SPEC = "|c%sLevel %s %s|r"
+		local PLAYER_LEVEL = "|c%s%s %s %s %s|r"
+		local PLAYER_LEVEL_NO_SPEC = "|c%s%s %s %s|r"
 		if (primaryTalentTree) then
 			_, specName = GetSpecializationInfo(primaryTalentTree);
 		end
 
 		if (specName and specName ~= "") then
-			CharacterLevelText:SetFormattedText(PLAYER_LEVEL, classColorString, UnitLevel("player"), specName, classDisplayName);
+			CharacterLevelText:SetFormattedText(PLAYER_LEVEL, classColorString, LEVEL, UnitLevel("player"), specName, classDisplayName);
 		else
-			CharacterLevelText:SetFormattedText(PLAYER_LEVEL_NO_SPEC, classColorString, UnitLevel("player"), classDisplayName);
+			CharacterLevelText:SetFormattedText(PLAYER_LEVEL_NO_SPEC, classColorString, LEVEL, UnitLevel("player"), classDisplayName);
 		end
-		
+
 		CharacterFrameTitleText:ClearAllPoints()
 		CharacterFrameTitleText:Point('TOP', f, 'TOP', 0, 0)
 		CharacterFrameTitleText:SetParent(f)
