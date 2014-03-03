@@ -9,7 +9,7 @@ function SLE:GetBNetInfo()
 		for i = 1, numBNetOnline do
 			local presenceID, presenceName, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
 			if isOnline and client == BNET_CLIENT_WOW then
-				BNSendGameData(presenceID, 'SLE_DEV_REQ', 'slesay')
+				BNSendGameData(presenceID, 'SLE_DEV_REQ', 'slesay#'..presenceID)
 			end
 		end
 end
@@ -78,10 +78,10 @@ if SLE:Auth() then
 					for i = 1, numBNetOnline do
 						local presenceID, presenceName, _, _, toon, _, _, _ = BNGetFriendInfo(i)
 						message = message:gsub("SLEinfo", '')
-						if message == toon then 
-							bnettesttbl[presenceID] = presenceName; 
+						--if message == toon then 
+							bnettesttbl[message] = presenceName; 
 							--print("Da table: ", bnettesttbl[presenceID])
-						end
+						--end
 					end
 				end
 			end

@@ -157,13 +157,15 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 			for i = 1, numBNetOnline do
 				local presenceID, _, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
 				if isOnline and client == BNET_CLIENT_WOW then
-					local messageS
+					--local messageS
+					local message, ID = split("#", message)
+					print(ID)
 					if message == 'userlist' then
-						messageS = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
+						message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
 					elseif message == 'slesay' then
-						messageS = "SLEinfo"..E.myname
+						message = "SLEinfo"..ID
 					end
-					BNSendGameData(presenceID, 'SLE_DEV_INFO', messageS)
+					BNSendGameData(presenceID, 'SLE_DEV_INFO', message)
 				end
 			end
 		elseif (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and not SLE:Auth() then
