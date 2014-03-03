@@ -86,6 +86,7 @@ L["Set the font outline that the item durability will use."] = true
 L["Enchanting"] = true 
 L["Show Enchant Text"] = true
 L["Show the enchantment effect near the enchanted item"] = true
+L["Show the enchantment effect near the enchanted item (not the item itself) when mousing over."] = true
 L["Show Warning"] = true
 L["Warning Size"] = true
 L["Set the icon size that the warning notification will use."] = true
@@ -301,11 +302,17 @@ L['Bottom Corners'] = true
 L['Bottom Center'] = true
 L["Minimap Buttons"] = true
 L['Enable/Disable Square Minimap Bar'] = true
+L['Skin Dungeon'] = true
+L['Skin dungeon icon.'] = true
+L['Skin Mail'] = true
+L['Skin mail icon.'] = true
+L['Icons Per Row'] = true
+L['The number of icons per row for Square Minimap Bar.'] = true
 L['Anchor Setting'] = true
 L['Anchor mode for displaying the minimap buttons are skinned.'] = true
 L['Horizontal Bar'] = true
 L['Vertical Bar'] = true
-L['The size of the minimap buttons when not anchored to the minimap.'] = true
+L['The size of the minimap buttons.'] = true
 L['Show minimap buttons on mouseover.'] = true
 
 --Enhanced Vehicle Bar--
