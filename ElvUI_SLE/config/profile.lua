@@ -69,14 +69,16 @@ P['sle'] = {
 			['custom'] = "",
 		},
 		['itemlevel'] = {
-			["font"] = "ElvUI Pixel",
-			["fontSize"] = 10,
-			["fontOutline"] = "OUTLINE",
+			['show'] = true,
+			['font'] = "ElvUI Pixel",
+			['fontSize'] = 10,
+			['fontOutline'] = "OUTLINE",
 		},
 		['itemdurability'] = {
-			["font"] = "ElvUI Pixel",
-			["fontSize"] = 10,
-			["fontOutline"] = "OUTLINE",
+			['show'] = true,
+			['font'] = "ElvUI Pixel",
+			['fontSize'] = 10,
+			['fontOutline'] = "OUTLINE",
 		},
 		['itemenchant'] = {
 			['show'] = true,
