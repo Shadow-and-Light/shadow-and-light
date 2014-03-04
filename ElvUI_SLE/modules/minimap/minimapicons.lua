@@ -96,9 +96,10 @@ local AddButtonsToBar = {
 local function SkinButton(Button)
 	if not Button.isSkinned then
 		local Name = Button:GetName()
-		
+
 		if Button:IsObjectType('Button') then
 			local ValidIcon = false
+
 			for i = 1, #WhiteList do
 				if strsub(Name, 1, strlen(WhiteList[i])) == WhiteList[i] then ValidIcon = true break end
 			end
@@ -246,7 +247,7 @@ local function SkinButton(Button)
 	end
 end
 
-local SquareMinimapButtonBar = CreateFrame('Frame', 'SquareMinimapButtonBar', UIParent)
+local SquareMinimapButtonBar = CreateFrame('Frame', 'SquareMinimapButtonBar', E.UIParent)
 SquareMinimapButtonBar:RegisterEvent('ADDON_LOADED')
 SquareMinimapButtonBar:RegisterEvent('PLAYER_ENTERING_WORLD')
 SquareMinimapButtonBar.Skin = function()
@@ -329,7 +330,6 @@ function SMB:Update(self)
 end
 
 SquareMinimapButtonBar:SetScript('OnEvent', function(self, event, addon)
-	if addon and addon:find("Blizzard") then return end
 	if addon == AddOnName then
 		self:Hide()
 		self:SetTemplate('Transparent', true)
@@ -351,16 +351,25 @@ SquareMinimapButtonBar:SetScript('OnEvent', function(self, event, addon)
 	OnLeave(self)
 end)
 
-function SMB:RegisterHide()
+function SMB:AddNonPetBattleFrames(event)
+	if InCombatLockdown() then return end
+	SquareMinimapButtonBar:Show()
+
+	SMB:UnregisterEvent("PLAYER_REGEN_DISABLED")
+end
+
+function SMB:RemoveNonPetBattleFrames()
+	if InCombatLockdown() then return end
 	if E.db.sle.minimap.mapicons.pethide then
-		E.FrameLocks["SquareMinimapButtonBar"] = true
-	else
-		E.FrameLocks["SquareMinimapButtonBar"] = nil
+		SquareMinimapButtonBar:Hide()
 	end
+
+	SMB:RegisterEvent("PLAYER_REGEN_DISABLED", "AddNonPetBattleFrames")
 end
 
 function SMB:Initialize()
-	SMB:RegisterHide()
+	SMB:RegisterEvent("PET_BATTLE_CLOSE", 'AddNonPetBattleFrames')
+	SMB:RegisterEvent('PET_BATTLE_OPENING_START', "RemoveNonPetBattleFrames")	
 end
 
 E:RegisterModule(SMB:GetName())
