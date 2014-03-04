@@ -96,10 +96,9 @@ local AddButtonsToBar = {
 local function SkinButton(Button)
 	if not Button.isSkinned then
 		local Name = Button:GetName()
-
+		
 		if Button:IsObjectType('Button') then
 			local ValidIcon = false
-
 			for i = 1, #WhiteList do
 				if strsub(Name, 1, strlen(WhiteList[i])) == WhiteList[i] then ValidIcon = true break end
 			end
@@ -330,6 +329,7 @@ function SMB:Update(self)
 end
 
 SquareMinimapButtonBar:SetScript('OnEvent', function(self, event, addon)
+	if addon and addon:find("Blizzard") then return end
 	if addon == AddOnName then
 		self:Hide()
 		self:SetTemplate('Transparent', true)
