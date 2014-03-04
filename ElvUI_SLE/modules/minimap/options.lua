@@ -84,8 +84,8 @@ local function configTable()
 					pethide = {
 						order = 2,
 						type = 'toggle',
-						name = L['Hide Pet Battles'],
-						desc = L['Enable/Disable Square Minimap Bar During Pet Battles.'],
+						name = L["Hide in Pet Battle"],
+						desc = L["Show/Hide this frame during Pet Battles."],
 						get = function(info) return E.db.sle.minimap.mapicons.pethide end,
 						set = function(info, value) E.db.sle.minimap.mapicons.pethide = value; E:GetModule('SquareMinimapButtons'):RegisterHide() end,
 					},

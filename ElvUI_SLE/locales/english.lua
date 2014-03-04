@@ -62,8 +62,8 @@ L["Set the texture to use in this frame.  Requirements are the same as the chat 
 L["Backdrop Template"] = true
 L["Change the template used for this backdrop."] = true
 L["Default"] = true
-L["Hide in Pet Battle"] = true
-L["Show/Hide this frame during Pet Battles."] = true
+L["Hide in Pet Battle"] = true --also in square minimap buttons
+L["Show/Hide this frame during Pet Battles."] = true --also in square minimap buttons
 
 --Character Frame Options
 L["CFO_DESC"] = "This section will added different options/features to the character sheet.  Here you can show item level and durability of your items for a quick glance."
