@@ -351,25 +351,25 @@ SquareMinimapButtonBar:SetScript('OnEvent', function(self, event, addon)
 	OnLeave(self)
 end)
 
-function SMB:AddNonPetBattleFrames(event)
+function SMB:PetBattleOver(event)
 	if InCombatLockdown() then return end
 	SquareMinimapButtonBar:Show()
 
 	SMB:UnregisterEvent("PLAYER_REGEN_DISABLED")
 end
 
-function SMB:RemoveNonPetBattleFrames()
+function SMB:PetBattleStart()
 	if InCombatLockdown() then return end
 	if E.db.sle.minimap.mapicons.pethide then
 		SquareMinimapButtonBar:Hide()
 	end
 
-	SMB:RegisterEvent("PLAYER_REGEN_DISABLED", "AddNonPetBattleFrames")
+	SMB:RegisterEvent("PLAYER_REGEN_DISABLED", "PetBattleOver")
 end
 
 function SMB:Initialize()
-	SMB:RegisterEvent("PET_BATTLE_CLOSE", 'AddNonPetBattleFrames')
-	SMB:RegisterEvent('PET_BATTLE_OPENING_START', "RemoveNonPetBattleFrames")	
+	SMB:RegisterEvent("PET_BATTLE_CLOSE", 'PetBattleOver')
+	SMB:RegisterEvent('PET_BATTLE_OPENING_START', "PetBattleStart")	
 end
 
 E:RegisterModule(SMB:GetName())
