@@ -351,4 +351,16 @@ SquareMinimapButtonBar:SetScript('OnEvent', function(self, event, addon)
 	OnLeave(self)
 end)
 
+function SMB:RegisterHide()
+	if E.db.sle.minimap.mapicons.pethide then
+		E.FrameLocks["SquareMinimapButtonBar"] = true
+	else
+		E.FrameLocks["SquareMinimapButtonBar"] = nil
+	end
+end
+
+function SMB:Initialize()
+	SMB:RegisterHide()
+end
+
 E:RegisterModule(SMB:GetName())

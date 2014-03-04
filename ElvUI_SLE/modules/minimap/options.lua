@@ -81,8 +81,16 @@ local function configTable()
 						get = function(info) return E.private.sle.minimap.mapicons.enable end,
 						set = function(info, value) E.private.sle.minimap.mapicons.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
-					skindungeon = {
+					pethide = {
 						order = 2,
+						type = 'toggle',
+						name = L['Hide Pet Battles'],
+						desc = L['Enable/Disable Square Minimap Bar During Pet Battles.'],
+						get = function(info) return E.db.sle.minimap.mapicons.pethide end,
+						set = function(info, value) E.db.sle.minimap.mapicons.pethide = value; E:GetModule('SquareMinimapButtons'):RegisterHide() end,
+					},
+					skindungeon = {
+						order = 3,
 						type = 'toggle',
 						name = L['Skin Dungeon'],
 						desc = L['Skin dungeon icon.'],
@@ -91,7 +99,7 @@ local function configTable()
 						disabled = function() return not E.private.sle.minimap.mapicons.enable end,
 					},
 					skinmail = {
-						order = 3,
+						order = 4,
 						type = 'toggle',
 						name = L['Skin Mail'],
 						desc = L['Skin mail icon.'],
@@ -100,7 +108,7 @@ local function configTable()
 						disabled = function() return not E.private.sle.minimap.mapicons.enable end,
 					},
 					iconsize = {
-						order = 4,
+						order = 5,
 						type = 'range',
 						name = L['Button Size'],
 						desc = L['The size of the minimap buttons when not anchored to the minimap.'],
@@ -110,7 +118,7 @@ local function configTable()
 						disabled = function() return not E.private.sle.minimap.mapicons.enable end,
 					},
 					iconperrow = {
-						order = 5,
+						order = 6,
 						type = 'range',
 						name = L['Icons Per Row'],
 						desc = L['Anchor mode for displaying the minimap buttons are skinned.'],
@@ -120,7 +128,7 @@ local function configTable()
 						disabled = function() return not E.private.sle.minimap.mapicons.enable end,
 					},
 					iconmouseover = {
-						order = 6,
+						order = 7,
 						name = L['Mouse Over'],
 						desc = L['Show minimap buttons on mouseover.'],
 						type = "toggle",
