@@ -94,17 +94,17 @@ L["Show the enchantment effect near the enchanted item (not the item itself) whe
 L["Show Warning"] = true
 L["Warning Size"] = true
 L["Set the icon size that the warning notification will use."] = true
---L["Enchanting Notification"] = true
 L["The font that the enchant notification will use."] = true
 L["Set the font size that the enchant notification will use."] = true
 L["Set the font outline that the enchant notification will use."] = true
 L["Gem Sockets"] = true
+L["Show Gems"] = true
+L["Show gem slots near the item"] = true
 L["Socket Size"] = true
 L["Set the size of sockets to show."] = true
 
 --Character Frame--
 L["Not Enchanted"] = true
---L["Can't Enchant"] = true
 L['Missing Tinkers'] = true
 L['This is not profession only.'] = true
 L['Missing Buckle'] = true
