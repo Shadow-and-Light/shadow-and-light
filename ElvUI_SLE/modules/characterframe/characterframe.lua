@@ -8,6 +8,8 @@ local backgrounds = {
 	["SPACE"] = "Space",
 	["ALLIANCE"] = "Alliance-text",
 	["HORDE"] = "Horde-text",
+	["EMPIRE"] = "TheEmpire",
+	["CASTLE"] = "Castle",
 }
 
 local function GemSocket_OnClick(self, button)
@@ -214,7 +216,7 @@ end
 function CFO:ArmoryFrame_DataSetting()
 	if not f:IsVisible() then return end
 	local BGdrop = E.db.sle.characterframeoptions.image.dropdown
-	
+	local fuck = true
 	-- Get Player Profession
 	local Prof1, Prof2 = GetProfessions()
 	local Prof1_Level, Prof2_Level = 0, 0

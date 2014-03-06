@@ -66,6 +66,8 @@ local function configTable()
 							['ALLIANCE'] = FACTION_ALLIANCE,
 							['HORDE'] = FACTION_HORDE, 
 							['CUSTOM'] = L["Custom"],
+							["EMPIRE"] = "The Empire",
+							["CASTLE"] = "Castle",
 						},
 						get = function() return E.db.sle.characterframeoptions.image.dropdown end,
 						set = function(_, value)
