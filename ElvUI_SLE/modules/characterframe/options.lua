@@ -293,15 +293,23 @@ local function configTable()
 				guiInline = true,
 				disabled = function() return not E.private.sle.characterframeoptions.enable end,
 				args = {
-					showwarning = {
+					show = {
 						order = 1,
+						type = "toggle",
+						name = L["Show Gems"],
+						desc = L["Show gem slots near the item"],
+						get = function(info) return E.db.sle.characterframeoptions.itemgem.show end,
+						set = function(info, value) E.db.sle.characterframeoptions.itemgem.show = value; CFO:ArmoryFrame_DataSetting(); end,
+					},
+					showwarning = {
+						order = 2,
 						type = "toggle",
 						name = L["Show Warning"],
 						get = function(info) return E.db.sle.characterframeoptions.itemgem.showwarning end,
 						set = function(info, value) E.db.sle.characterframeoptions.itemgem.showwarning = value; CFO:ArmoryFrame_DataSetting(); end,
 					},
 					warningsize = {
-						order = 2,
+						order = 3,
 						name = L["Warning Size"],
 						desc = L["Set the icon size that the warning notification will use."],
 						type = "range",
@@ -310,7 +318,7 @@ local function configTable()
 						set = function(info, value) E.db.sle.characterframeoptions.itemgem.warningSize = value; CFO:ResizeErrorIcon(); end,
 					},
 					socketsize = {
-						order = 3,
+						order = 4,
 						name = L["Socket Size"],
 						desc = L["Set the size of sockets to show."],
 						type = "range",

@@ -89,7 +89,8 @@ P['sle'] = {
 			['warningSize'] = 12,
 			['mouseover'] = false,
 		},
-		['itemgem'] = {
+		['itemgem'] = {	
+			['show'] = true,
 			['showwarning'] = true,
 			['socketSize'] = 12,
 			['warningSize'] = 12,
