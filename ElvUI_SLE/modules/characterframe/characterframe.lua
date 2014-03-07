@@ -216,7 +216,7 @@ end
 function CFO:ArmoryFrame_DataSetting()
 	if not f:IsVisible() then return end
 	local BGdrop = E.db.sle.characterframeoptions.image.dropdown
-	local fuck = true
+
 	-- Get Player Profession
 	local Prof1, Prof2 = GetProfessions()
 	local Prof1_Level, Prof2_Level = 0, 0
@@ -297,7 +297,6 @@ function CFO:ArmoryFrame_DataSetting()
 					end
 
 					-- Apply current item's gem setting
-					
 					for i = 1, MAX_NUM_SOCKETS do
 						ItemTexture = _G['KnightArmoryScanTT_E1Texture'..i]:GetTexture()
 						GemID = select(i, GetInventoryItemGems(Slot.ID))
@@ -312,18 +311,15 @@ function CFO:ArmoryFrame_DataSetting()
 						end
 
 						if ItemTexture then
-							if E.db.sle.characterframeoptions.itemgem.show then 
-								Slot['Socket'..i]:Show()
-							else
-								Slot['Socket'..i]:Hide()
-							end
-							GemTotal_2 = GemTotal_2 + 1
 							if E.db.sle.characterframeoptions.itemgem.show then
+								Slot['Socket'..i]:Show()
 								Slot.SocketWarning:Point(Slot.Direction, Slot['Socket'..i], (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
 							else
+								Slot['Socket'..i]:Hide()
 								Slot.SocketWarning:Point(Slot.Direction, Slot['Socket1'], (Slot.Direction == 'LEFT' and 'LEFT' or 'RIGHT'), 0, 0)
 							end
-							
+							GemTotal_2 = GemTotal_2 + 1
+
 							if GemID then
 								GemCount = GemCount + 1
 								Slot['Socket'..i].Texture:SetTexture(ItemTexture)
@@ -332,7 +328,6 @@ function CFO:ArmoryFrame_DataSetting()
 							end
 						end
 					end
-					
 				end
 
 				_, _, ItemRarity, BasicItemLevel, _, _, _, _, _, ItemTexture = GetItemInfo(ItemLink)
