@@ -27,6 +27,22 @@ local _, Faction = UnitFactionGroup('player')
 local HordeColor = RAID_CLASS_COLORS['DEATHKNIGHT']
 local AllianceColor = RAID_CLASS_COLORS['SHAMAN']
 
+local function OrderedPairs(t, f)
+	local function orderednext(t, n)
+		local key = t[t.__next]
+		if not key then return end
+		t.__next = t.__next + 1
+		return key, t.__source[key]
+	end
+
+	local keys, kn = {__source = t, __next = 1}, 1
+	for k in pairs(t) do
+		keys[kn], kn = k, kn + 1
+	end
+	sort(keys, f)
+	return orderednext, keys
+end
+
 V['ElvUI_Currency'] = {
 	['Archaeology'] = true,
 	['Jewelcrafting'] = true,
@@ -174,6 +190,7 @@ local function OnEvent(self, event, ...)
 	ElvDB['gold'][E.myrealm][E.myname] = NewMoney
 	ElvDB['faction'][E.myrealm][Faction][E.myname] = NewMoney
 	if event == 'PLAYER_ENTERING_WORLD' or event == 'SPELLS_CHANGED' then
+		JEWELCRAFTING = nil
 		for k, v in pairs({GetProfessions()}) do
 			if v then
 				local name, _, _, _, _, _, skillid = GetProfessionInfo(v)
@@ -222,7 +239,7 @@ local function OnEnter(self)
 
 	local totalGold, AllianceGold, HordeGold = 0, 0, 0
 	DT.tooltip:AddLine(L["Character: "])
-	for k,_ in pairs(ElvDB['gold'][E.myrealm]) do
+	for k,_ in OrderedPairs(ElvDB['gold'][E.myrealm]) do
 		if ElvDB['gold'][E.myrealm][k] then
 			local class = ElvDB['class'][E.myrealm][k]
 			local color = RAID_CLASS_COLORS[class or 'PRIEST']
