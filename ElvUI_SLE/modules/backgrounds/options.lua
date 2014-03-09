@@ -92,7 +92,7 @@ for k,v in pairs(drop) do
 				type = "range",
 				name = L['Width'],
 				desc = L["Sets width of the frame"],
-				min = v[3], max = E.screenwidth, step = 1,
+				min = 50, max = E.screenwidth, step = 1,
 				set = function(info, value) E.db.sle.backgrounds[v[1]].width = value; BG:FramesSize() end,
 			},
 			height = {
@@ -100,7 +100,7 @@ for k,v in pairs(drop) do
 				type = "range",
 				name = L['Height'],
 				desc = L["Sets height of the frame"],
-				min = 50, max = E.screenheight/2, step = 1,
+				min = 30, max = E.screenheight/2, step = 1,
 				set = function(info, value) E.db.sle.backgrounds[v[1]].height = value; BG:FramesSize() end,
 			},
 			spacer = { --Empty slot for making sliders move to next line
