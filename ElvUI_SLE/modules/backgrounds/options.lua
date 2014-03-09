@@ -2,11 +2,11 @@
 local BG = E:GetModule('BackGrounds')
 local function configTable()
 local drop = {
-	--Group name = {short name, order, minimum width}
-	["Bottom BG"] = {"bottom", 1, 200},
-	["Left BG"] = {"left", 2, 150},
-	["Right BG"] = {"right", 3, 150},
-	["Actionbar BG"] = {"action", 4, 200},
+	--Group name = {short name, order}
+	["Bottom BG"] = {"bottom", 1},
+	["Left BG"] = {"left", 2},
+	["Right BG"] = {"right", 3},
+	["Actionbar BG"] = {"action", 4},
 }
 
 --Options for additional background frames. Main group
