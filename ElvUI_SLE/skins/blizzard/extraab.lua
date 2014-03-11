@@ -1,5 +1,9 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-	
+
+ExtraActionButton1.style:SetTexture(nil)
+ExtraActionButton1.style.SetTexture = function() end
+
+--[[
 local function PositionHookUpdate()
 	-- hook the ExtraActionButton1 texture, idea by roth via WoWInterface forums
 	-- code taken from Tukui
@@ -23,4 +27,4 @@ frame:SetScript("OnEvent",function(self, event)
 		PositionHookUpdate()
 		frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	end
-end)	
+end)]]
