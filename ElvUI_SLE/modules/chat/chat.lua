@@ -38,7 +38,6 @@ local friend = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Friend:13:
 local test = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Test:13:13|t"
 local rpg = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_RPG:13:35|t"
 local tyrone = "|TInterface\\AddOns\\ElvUI\\media\\textures\\tyrone_biggums_chat_logo.tga:16:18|t"
-local heart = "|TInterface\\AddOns\\ElvUI\\media\\textures\\heart_chat_logo.tga:15:15|t"
 local hulkhead = "|TInterface\\AddOns\\ElvUI\\media\\textures\\hulk_head.tga:18:22|t"
 local mrhanky = "|TInterface\\AddOns\\ElvUI\\media\\textures\\mr_hankey.tga:18:22|t"
 local shortbus = "|TInterface\\AddOns\\ElvUI\\media\\textures\\short_bus.tga:16:16|t"
@@ -56,13 +55,6 @@ local specialChatIcons = {
 		["Elv"] = elvui,
 		["Aeriane"] = true,
 		["Sinth"] = tyrone,
-		["Athlina"] = heart,
-		["Brronwyn"] = heart,
-		["Gwendollyn"] = heart,
-		["Selystel"] = heart,
-		["Wowzakapow"] = heart,
-		["Letsyles"] = heart,
-		["Temptora"] = heart,
 		["Incision"] = shortbus,
 		--SLE stuff
 		["Sifupooc"] = repooc,
@@ -80,9 +72,6 @@ local specialChatIcons = {
 		["Finkle"] = adapt,
 		["Chopsti"] = adapt,
 		["Taiin"] = adapt
-	},
-	["Tichondrious"] = {
-		["Athlina"] = heart
 	},
 	["Illidan"] = {
 		--Original Stuff
