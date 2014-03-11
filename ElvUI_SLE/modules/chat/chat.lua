@@ -765,7 +765,7 @@ function CH:CheckLFGRoles()
 			local name, realm = UnitName(unit..i)
 			
 			if(role and name) then
-				name = realm and name..'-'..realm or name..'-'..PLAYER_REALM
+				name = realm and name..'-'..realm or PLAYER_NAME
 				lfgRoles[name] = rolePaths[role]
 			end
 		end
