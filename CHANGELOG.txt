@@ -6,6 +6,7 @@ v1.86 March 11, 2014
 - Added Gem Hiding function for character frame
 - Added new textures for chacter frame background
 - Added hiding squareminimap bar during pet battles
+- Made squareminimap bar a mover by multiple request
 
 v1.85 March 3, 2014
 - Added ability to select background image on character screen as well set a custom image
