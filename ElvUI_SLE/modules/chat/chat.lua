@@ -756,7 +756,7 @@ function CH:CheckLFGRoles()
 
 	local role = UnitGroupRolesAssigned("player")
 	if(role) then
-		lfgRoles[Myname..'-'..PLAYER_REALM] = rolePaths[role]
+		lfgRoles[PLAYER_NAME] = rolePaths[role]
 	end
 
 	for i=1, GetNumGroupMembers() do
