@@ -306,6 +306,7 @@ function SMB:Update(self)
 			local BarWidth = (Spacing + ((Size * (ActualButtons * Mult)) + ((Spacing * (ActualButtons - 1)) * Mult) + (Spacing * Mult)))
 			local BarHeight = (Spacing + ((Size * (AnchorY * Mult)) + ((Spacing * (AnchorY - 1)) * Mult) + (Spacing * Mult)))
 			self:SetSize(BarWidth, BarHeight)
+			E:CreateMover(SquareMinimapButtonBar, "SquareMinimapBar", "Square Minimap Bar", nil, nil, nil, "ALL,SOLO")
 		end
 	end
 
@@ -343,7 +344,6 @@ function SMB:Initialize()
 	SquareMinimapButtonBar:SetPoint('RIGHT', UIParent, 'RIGHT', -45, 0)
 	SquareMinimapButtonBar:SetScript('OnEnter', OnEnter)
 	SquareMinimapButtonBar:SetScript('OnLeave', OnLeave)
-	E:CreateMover(SquareMinimapButtonBar, "SquareMinimapBar", "Square Minimap Bar", nil, nil, nil, "ALL,SOLO")
 	E:Delay(5, SquareMinimapButtonBar.Skin)
 end
 
