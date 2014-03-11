@@ -1,5 +1,11 @@
-v1.86
+v1.86 March 11, 2014
 - Added option to Show/Hide Squareminimap Bar during pet battles
+- Updated chat module to be updated with elvui
+- exp/rep bar code clean up
+- Update minimum width/height on background panel due to requests
+- Added Gem Hiding function for character frame
+- Added new textures for chacter frame background
+- Added option to hide squareminimap bar during pet battles
 
 v1.85 March 3, 2014
 - Added ability to select background image on character screen as well set a custom image
