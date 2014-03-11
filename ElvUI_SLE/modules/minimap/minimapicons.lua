@@ -8,6 +8,7 @@ local tinsert, pairs, unpack = tinsert, pairs, unpack
 local SkinnedMinimapButtons = {}
 local BorderColor
 local TexCoords = { 0.1, 0.9, 0.1, 0.9 }
+local SquareMinimapButtonBar
 
 if E.private.sle == nil then E.private.sle = {} end
 if E.private.sle.minimap == nil then E.private.sle.minimap = {} end
@@ -47,7 +48,6 @@ function SMB:ChangeMouseOverSetting()
 		SquareMinimapButtonBar:SetAlpha(1)
 	end
 end
-
 
 local ignoreButtons = {
 	'ElvConfigToggle',
@@ -247,23 +247,6 @@ local function SkinButton(Button)
 	end
 end
 
-local SquareMinimapButtonBar = CreateFrame('Frame', 'SquareMinimapButtonBar', E.UIParent)
-SquareMinimapButtonBar:RegisterEvent('ADDON_LOADED')
-SquareMinimapButtonBar:RegisterEvent('PLAYER_ENTERING_WORLD')
-SquareMinimapButtonBar.Skin = function()
-	for i = 1, Minimap:GetNumChildren() do
-		local object = select(i, Minimap:GetChildren())
-		if object:IsObjectType('Button') and object:GetName() then
-			SkinButton(object)
-		end
-		for _, frame in pairs(AcceptedFrames) do
-			if object:IsObjectType('Frame') and object:GetName() == frame then
-				SkinButton(object)
-			end
-		end
-	end
-end
-
 function SMB:Update(self)
 	if not E.private.sle.minimap.mapicons.enable then return end
 
@@ -329,47 +312,45 @@ function SMB:Update(self)
 	self:Show()
 end
 
-SquareMinimapButtonBar:SetScript('OnEvent', function(self, event, addon)
-	if addon == AddOnName then
-		self:Hide()
-		self:SetTemplate('Transparent', true)
-		BorderColor = { self:GetBackdropBorderColor() }
-		self:SetFrameStrata('BACKGROUND')
-		self:SetClampedToScreen(true)
-		self:SetMovable()
-		self:SetPoint('RIGHT', UIParent, 'RIGHT', -45, 0)
-		self:SetScript('OnEnter', OnEnter)
-		self:SetScript('OnLeave', OnLeave)
-		self:RegisterForDrag('LeftButton')
-		self:SetScript('OnDragStart', self.StartMoving)
-		self:SetScript('OnDragStop', self.StopMovingOrSizing)
-		self:UnregisterEvent(event)
-	end
-	self.Skin()
-	if event == 'PLAYER_ENTERING_WORLD' then ElvUI[1]:Delay(5, self.Skin) self:UnregisterEvent(event) self:RegisterEvent('ADDON_LOADED') end
-	if E.private.sle.minimap.mapicons.enable then SMB:Update(self) end
-	OnLeave(self)
-end)
-
-function SMB:PetBattleOver(event)
-	if InCombatLockdown() then return end
-	SquareMinimapButtonBar:Show()
-
-	SMB:UnregisterEvent("PLAYER_REGEN_DISABLED")
-end
-
-function SMB:PetBattleStart()
-	if InCombatLockdown() then return end
-	if E.db.sle.minimap.mapicons.pethide then
-		SquareMinimapButtonBar:Hide()
-	end
-
-	SMB:RegisterEvent("PLAYER_REGEN_DISABLED", "PetBattleOver")
-end
-
 function SMB:Initialize()
-	SMB:RegisterEvent("PET_BATTLE_CLOSE", 'PetBattleOver')
-	SMB:RegisterEvent('PET_BATTLE_OPENING_START', "PetBattleStart")	
+	SquareMinimapButtonBar = CreateFrame('Frame', 'SquareMinimapButtonBar', E.UIParent)
+	SquareMinimapButtonBar:RegisterEvent('ADDON_LOADED')
+	SquareMinimapButtonBar:RegisterEvent('PLAYER_ENTERING_WORLD')
+	SquareMinimapButtonBar.Skin = function()
+		for i = 1, Minimap:GetNumChildren() do
+			local object = select(i, Minimap:GetChildren())
+			if object:IsObjectType('Button') and object:GetName() then
+				SkinButton(object)
+			end
+			for _, frame in pairs(AcceptedFrames) do
+				if object:IsObjectType('Frame') and object:GetName() == frame then
+					SkinButton(object)
+				end
+			end
+		end
+	end
+	SquareMinimapButtonBar:SetScript('OnEvent', function(self, event, addon)
+		if addon == AddOnName then
+			self:Hide()
+			self:SetTemplate('Transparent', true)
+			BorderColor = { self:GetBackdropBorderColor() }
+			self:SetFrameStrata('BACKGROUND')
+			self:SetClampedToScreen(true)
+			self:SetMovable()
+			self:SetPoint('RIGHT', UIParent, 'RIGHT', -45, 0)
+			self:SetScript('OnEnter', OnEnter)
+			self:SetScript('OnLeave', OnLeave)
+			self:RegisterForDrag('LeftButton')
+			self:SetScript('OnDragStart', self.StartMoving)
+			self:SetScript('OnDragStop', self.StopMovingOrSizing)
+			self:UnregisterEvent(event)
+		end
+		self.Skin()
+		if event == 'PLAYER_ENTERING_WORLD' then ElvUI[1]:Delay(5, self.Skin) self:UnregisterEvent(event) self:RegisterEvent('ADDON_LOADED') end
+		if E.private.sle.minimap.mapicons.enable then SMB:Update(self) end
+		OnLeave(self)
+	end)
+	RegisterStateDriver(SquareMinimapButtonBar, 'visibility', '[petbattle] hide; show')
 end
 
 E:RegisterModule(SMB:GetName())
