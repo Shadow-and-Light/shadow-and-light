@@ -104,8 +104,6 @@ local specialChatIcons = {
 	},
 	["СвежевательДуш"] = {
 		--Darth's toons
-		["Джатон"] = darth,
-		["Нарджо"] = darth,
 		["Большойгном"] = test, --Testing toon
 		["Фергесон"] = friend
 	},
