@@ -109,28 +109,34 @@ function M:UpdateReputation(event)
 		bar.statusBar:SetValue(value - min)
 		
 		for i=1, numFactions do
-			local factionName, _, standingID = GetFactionInfo(i);
+			local factionName, _, standingID,_,_,_,_,_,_,_,_,_,_, factionID = GetFactionInfo(i);
+			local friendID, friendRep, friendMaxRep, _, _, _, friendTextLevel = GetFriendshipReputation(factionID);
 			if factionName == name then
-				ID = standingID
+				if friendID ~= nil then
+					isFriend = true
+					friendText = friendTextLevel
+				else
+					ID = standingID
+				end
 			end
 		end
 		
 		
 		if E.db.sle.exprep.replong then
 			if textFormat == 'PERCENT' then
-				text = format('%d%% [%s]', ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
+				text = format('%d%% [%s]', ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
 			elseif textFormat == 'CURMAX' then
-				text = format('%s - %s [%s]', value - min, max - min, _G['FACTION_STANDING_LABEL'..ID])
+				text = format('%s - %s [%s]', value - min, max - min, isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
 			elseif textFormat == 'CURPERC' then
-				text = format('%s - %d%% [%s]', value - min, ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
+				text = format('%s - %d%% [%s]', value - min, ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
 			end		
 		else
 			if textFormat == 'PERCENT' then
-				text = format('%d%% [%s]', ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
+				text = format('%s: %d%% [%s]', name, ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
 			elseif textFormat == 'CURMAX' then
-				text = format('%s - %s [%s]', E:ShortValue(value - min), E:ShortValue(max - min), _G['FACTION_STANDING_LABEL'..ID])
+				text = format('%s: %s - %s [%s]', name, E:ShortValue(value - min), E:ShortValue(max - min), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
 			elseif textFormat == 'CURPERC' then
-				text = format('%s: %s - %d%% [%s]', name, E:ShortValue(value - min), ((value - min) / (max - min) * 100), _G['FACTION_STANDING_LABEL'..ID])
+				text = format('%s: %s - %d%% [%s]', name, E:ShortValue(value - min), ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
 			end	
 		end
 		
