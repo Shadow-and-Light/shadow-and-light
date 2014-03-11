@@ -15,12 +15,15 @@ local lfgChannels = {
 }
 
 local Myname = E.myname
-local Myrealm = E.myrealm
+--local Myrealm = E.myrealm
 
 local len, gsub, find, sub, gmatch, format, random = string.len, string.gsub, string.find, string.sub, string.gmatch, string.format, math.random
 local tinsert, tremove, tsort, twipe, tconcat = table.insert, table.remove, table.sort, table.wipe, table.concat
 
-Myrealm = Myrealm:gsub(' ', '')
+--Myrealm = Myrealm:gsub(' ', '')
+
+local PLAYER_REALM = gsub(E.myrealm,'[%s%-]','')
+local PLAYER_NAME = Myname.."-"..PLAYER_REALM
 
 local rolePaths = {
 	TANK = [[|TInterface\AddOns\ElvUI\media\textures\tank.tga:15:15:0:0:64:64:2:56:2:56|t]],
@@ -699,11 +702,11 @@ function SLE:GetChatIcon(sender)
 	else
 		senderName = Myname
 	end
-	senderRealm = senderRealm or Myrealm
+	senderRealm = senderRealm or PLAYER_REALM
 	senderRealm = senderRealm:gsub(' ', '')
 	
 	--Disabling ALL special icons. IDK why Elv use that and why would we want to have that but whatever
-	if(specialChatIcons[Myrealm] == nil or (specialChatIcons[Myrealm] and specialChatIcons[Myrealm][Myname] ~= true)) then
+	if(specialChatIcons[PLAYER_REALM] == nil or (specialChatIcons[PLAYER_REALM] and specialChatIcons[PLAYER_REALM][Myname] ~= true)) then
 		if specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
 			return specialChatIcons[senderRealm][senderName]
 		end
@@ -753,7 +756,7 @@ function CH:CheckLFGRoles()
 
 	local role = UnitGroupRolesAssigned("player")
 	if(role) then
-		lfgRoles[Myname..'-'..Myrealm] = rolePaths[role]
+		lfgRoles[Myname..'-'..PLAYER_REALM] = rolePaths[role]
 	end
 
 	for i=1, GetNumGroupMembers() do
@@ -762,7 +765,7 @@ function CH:CheckLFGRoles()
 			local name, realm = UnitName(unit..i)
 			
 			if(role and name) then
-				name = realm and name..'-'..realm or name..'-'..Myrealm
+				name = realm and name..'-'..realm or name..'-'..PLAYER_REALM
 				lfgRoles[name] = rolePaths[role]
 			end
 		end
