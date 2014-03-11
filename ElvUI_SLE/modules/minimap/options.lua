@@ -81,14 +81,6 @@ local function configTable()
 						get = function(info) return E.private.sle.minimap.mapicons.enable end,
 						set = function(info, value) E.private.sle.minimap.mapicons.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
-					pethide = {
-						order = 2,
-						type = 'toggle',
-						name = L["Hide in Pet Battle"],
-						desc = L["Show/Hide this frame during Pet Battles."],
-						get = function(info) return E.db.sle.minimap.mapicons.pethide end,
-						set = function(info, value) E.db.sle.minimap.mapicons.pethide = value; E:GetModule('SquareMinimapButtons'):RegisterHide() end,
-					},
 					skindungeon = {
 						order = 3,
 						type = 'toggle',
