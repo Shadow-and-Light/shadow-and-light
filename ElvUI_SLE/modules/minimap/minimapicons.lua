@@ -346,6 +346,7 @@ function SMB:Initialize()
 	SquareMinimapButtonBar:SetScript('OnEnter', OnEnter)
 	SquareMinimapButtonBar:SetScript('OnLeave', OnLeave)
 	E:Delay(5, SquareMinimapButtonBar.Skin)
+	self:Update(SquareMinimapButtonBar)
 end
 
 E:RegisterModule(SMB:GetName())
