@@ -345,8 +345,10 @@ function SMB:Initialize()
 	SquareMinimapButtonBar:SetPoint('RIGHT', UIParent, 'RIGHT', -45, 0)
 	SquareMinimapButtonBar:SetScript('OnEnter', OnEnter)
 	SquareMinimapButtonBar:SetScript('OnLeave', OnLeave)
-	E:Delay(5, SquareMinimapButtonBar.Skin)
-	self:Update(SquareMinimapButtonBar)
+	E:Delay(5, function()
+		SquareMinimapButtonBar.Skin()
+		SMB:Update(SquareMinimapButtonBar)
+	end)
 end
 
 E:RegisterModule(SMB:GetName())
