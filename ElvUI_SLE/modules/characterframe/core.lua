@@ -197,3 +197,225 @@ SLArmoryConstants = {
 		end,
 	},
 }
+
+--Colorize Class Name and localize specialization name
+local ClassName = {}
+FillLocalizedClassList(ClassName)
+
+L['Warrior'] = SLArmoryConstants.Toolkit.Color_Class('WARRIOR', ClassName['WARRIOR'])
+_, L['Spec_Warrior_Arms'] = GetSpecializationInfoByID(71)
+_, L['Spec_Warrior_Fury'] = GetSpecializationInfoByID(72)
+_, L['Spec_Warrior_Protection'] = GetSpecializationInfoByID(73)
+
+L['Hunter'] = SLArmoryConstants.Toolkit.Color_Class('HUNTER', ClassName['HUNTER'])
+_, L['Spec_Hunter_Beast'] = GetSpecializationInfoByID(253)
+_, L['Spec_Hunter_Marksmanship'] = GetSpecializationInfoByID(254)
+_, L['Spec_Hunter_Survival'] = GetSpecializationInfoByID(255)
+
+L['Shaman'] = SLArmoryConstants.Toolkit.Color_Class('SHAMAN', ClassName['SHAMAN'])
+_, L['Spec_Shaman_Elemental'] = GetSpecializationInfoByID(262)
+_, L['Spec_Shaman_Enhancement'] = GetSpecializationInfoByID(263)
+_, L['Spec_Shaman_Restoration'] = GetSpecializationInfoByID(264)
+
+L['Monk'] = SLArmoryConstants.Toolkit.Color_Class('MONK', ClassName['MONK'])
+_, L['Spec_Monk_Brewmaster'] = GetSpecializationInfoByID(268)
+_, L['Spec_Monk_Mistweaver'] = GetSpecializationInfoByID(270)
+_, L['Spec_Monk_Windwalker'] = GetSpecializationInfoByID(269)
+
+L['Rogue'] = SLArmoryConstants.Toolkit.Color_Class('ROGUE', ClassName['ROGUE'])
+_, L['Spec_Rogue_Assassination'] = GetSpecializationInfoByID(259)
+_, L['Spec_Rogue_Combat'] = GetSpecializationInfoByID(260)
+_, L['Spec_Rogue_Subtlety'] = GetSpecializationInfoByID(261)
+
+L['DeathKnight'] = SLArmoryConstants.Toolkit.Color_Class('DEATHKNIGHT', ClassName['DEATHKNIGHT'])
+_, L['Spec_DeathKnight_Blood'] = GetSpecializationInfoByID(250)
+_, L['Spec_DeathKnight_Frost'] = GetSpecializationInfoByID(251)
+_, L['Spec_DeathKnight_Unholy'] = GetSpecializationInfoByID(252)
+
+L['Mage'] = SLArmoryConstants.Toolkit.Color_Class('MAGE', ClassName['MAGE'])
+_, L['Spec_Mage_Arcane'] = GetSpecializationInfoByID(62)
+_, L['Spec_Mage_Fire'] = GetSpecializationInfoByID(63)
+_, L['Spec_Mage_Frost'] = GetSpecializationInfoByID(64)
+
+L['Druid'] = SLArmoryConstants.Toolkit.Color_Class('DRUID', ClassName['DRUID'])
+_, L['Spec_Druid_Balance'] = GetSpecializationInfoByID(102)
+_, L['Spec_Druid_Feral'] = GetSpecializationInfoByID(103)
+_, L['Spec_Druid_Guardian'] = GetSpecializationInfoByID(104)
+_, L['Spec_Druid_Restoration'] = GetSpecializationInfoByID(105)
+
+L['Paladin'] = SLArmoryConstants.Toolkit.Color_Class('PALADIN', ClassName['PALADIN'])
+_, L['Spec_Paladin_Holy'] = GetSpecializationInfoByID(65)
+_, L['Spec_Paladin_Protection'] = GetSpecializationInfoByID(66)
+_, L['Spec_Paladin_Retribution'] = GetSpecializationInfoByID(70)
+
+L['Priest'] = SLArmoryConstants.Toolkit.Color_Class('PRIEST', ClassName['PRIEST'])
+_, L['Spec_Priest_Discipline'] = GetSpecializationInfoByID(256)
+_, L['Spec_Priest_Holy'] = GetSpecializationInfoByID(257)
+_, L['Spec_Priest_Shadow'] = GetSpecializationInfoByID(258)
+
+L['Warlock'] = SLArmoryConstants.Toolkit.Color_Class('WARLOCK', ClassName['WARLOCK'])
+_, L['Spec_Warlock_Affliction'] = GetSpecializationInfoByID(265)
+_, L['Spec_Warlock_Demonology'] = GetSpecializationInfoByID(266)
+_, L['Spec_Warlock_Destruction'] = GetSpecializationInfoByID(267)
+
+
+SLArmoryConstants['ClassRole'] = {
+	['WARRIOR'] = {
+		[L['Spec_Warrior_Arms']] = {		--무기
+			['Color'] = '|cff9a9a9a',
+			['Role'] = 'Melee',
+		},
+		[L['Spec_Warrior_Fury']] = {		--분노
+			['Color'] = '|cffb50000',
+			['Role'] = 'Melee',
+		},
+		[L['Spec_Warrior_Protection']] = {	--방어
+			['Color'] = '|cff088fdc',
+			['Role'] = 'Tank',
+		},
+	},
+	['HUNTER'] = {
+		[L['Spec_Hunter_Beast']] = {		--야수
+			['Color'] = '|cffffdb00',
+			['Role'] = 'Melee',
+		},
+		[L['Spec_Hunter_Marksmanship']] = {	--사격
+			['Color'] = '|cffea5455',
+			['Role'] = 'Melee',
+		},
+		[L['Spec_Hunter_Survival']] = {		--생존
+			['Color'] = '|cffbaf71d',
+			['Role'] = 'Melee',
+		},
+	},
+	['SHAMAN'] = {
+		[L['Spec_Shaman_Elemental']] = {	--정기
+			['Color'] = '|cff2be5fa',
+			['Role'] = 'Caster',
+		},
+		[L['Spec_Shaman_Enhancement']] = {	--고양
+			['Color'] = '|cffe60000',
+			['Role'] = 'Melee',
+		},
+		[L['Spec_Shaman_Restoration']] = {	--복원
+			['Color'] = '|cff00ff0c',
+			['Role'] = 'Healer',
+		},
+	},
+	['MONK'] = {
+		[L['Spec_Monk_Brewmaster']] = {		--양조
+			['Color'] = '|cffbcae6d',
+			['Role'] = 'Tank',
+		},
+		[L['Spec_Monk_Mistweaver']] = {		--운무
+			['Color'] = '|cffb6f1b7',
+			['Role'] = 'Healer',
+		},
+		[L['Spec_Monk_Windwalker']] = {		--풍운
+			['Color'] = '|cffb2c6de',
+			['Role'] = 'Melee',
+		},
+	},
+	['ROGUE'] = {
+		[L['Spec_Rogue_Assassination']] = {	--암살
+			['Color'] = '|cff129800',
+			['Role'] = 'Melee',
+		},
+		[L['Spec_Rogue_Combat']] = {		--전투
+			['Color'] = '|cffbc0001',
+			['Role'] = 'Melee',
+		},
+		[L['Spec_Rogue_Subtlety']] = {		--잠행
+			['Color'] = '|cfff48cba',
+			['Role'] = 'Melee',
+		},
+	},
+	['DEATHKNIGHT'] = {
+		[L['Spec_DeathKnight_Blood']] = {	--혈기
+			['Color'] = '|cffbc0001',
+			['Role'] = 'Tank',
+		},
+		[L['Spec_DeathKnight_Frost']] = {	--냉기
+			['Color'] = '|cff1784d1',
+			['Role'] = 'Melee',
+		},
+		[L['Spec_DeathKnight_Unholy']] = {	--부정
+			['Color'] = '|cff00ff10',
+			['Role'] = 'Melee',
+		},
+	},
+	['MAGE'] = {
+		[L['Spec_Mage_Arcane']] = {			--비전
+			['Color'] = '|cffdcb0fb',
+			['Role'] = 'Caster',
+		},
+		[L['Spec_Mage_Fire']] = {			--화염
+			['Color'] = '|cffff3615',
+			['Role'] = 'Caster',
+		},
+		[L['Spec_Mage_Frost']] = {			--냉기
+			['Color'] = '|cff1784d1',
+			['Role'] = 'Caster',
+		},		
+	},
+	['DRUID'] = {
+		[L['Spec_Druid_Balance']] = {		--조화
+			['Color'] = '|cffff7d0a',
+			['Role'] = 'Caster',
+		},
+		[L['Spec_Druid_Feral']] = {			--야성
+			['Color'] = '|cffffdb00',
+			['Role'] = 'Melee',
+		},
+		[L['Spec_Druid_Guardian']] = {		--수호
+			['Color'] = '|cff088fdc',
+			['Role'] = 'Tank',
+		},
+		[L['Spec_Druid_Restoration']] = {	--회복
+			['Color'] = '|cff64df62',
+			['Role'] = 'Healer',
+		},
+	},
+	['PALADIN'] = {
+		[L['Spec_Paladin_Holy']] = {		--신성
+			['Color'] = '|cfff48cba',
+			['Role'] = 'Healer',
+		},		
+		[L['Spec_Paladin_Protection']] = {	--보호
+			['Color'] = '|cff84e1ff',
+			['Role'] = 'Tank',
+		},
+		[L['Spec_Paladin_Retribution']] = {	--징벌
+			['Color'] = '|cffe60000',
+			['Role'] = 'Melee',
+		},
+	},
+	['PRIEST'] = {
+		[L['Spec_Priest_Discipline']] = {	--수양
+			['Color'] = '|cffffffff',
+			['Role'] = 'Healer',
+		},
+		[L['Spec_Priest_Holy']] = {			--신성
+			['Color'] = '|cff6bdaff',
+			['Role'] = 'Healer',
+		},
+		[L['Spec_Priest_Shadow']] = {		--암흑
+			['Color'] = '|cff7e52c1',
+			['Role'] = 'Caster',
+		},
+	},
+	['WARLOCK'] = {
+		[L['Spec_Warlock_Affliction']] = {	--고통
+			['Color'] = '|cff00ff10',
+			['Role'] = 'Caster',
+		},
+		[L['Spec_Warlock_Demonology']] = {	--악마
+			['Color'] = '|cff9482c9',
+			['Role'] = 'Caster',
+		},
+		[L['Spec_Warlock_Destruction']] = {	--파괴
+			['Color'] = '|cffba1706',
+			['Role'] = 'Caster',
+		},
+	},
+}
