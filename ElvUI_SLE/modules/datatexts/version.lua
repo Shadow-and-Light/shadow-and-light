@@ -25,8 +25,8 @@ end
 local function OnEnter(self)
 	DT:SetupTooltip(self)
 
-	DT.tooltip:AddDoubleLine("ElvUI "..L["Version"]..format(": |cff99ff33%s|r",Eversion))
-	DT.tooltip:AddLine(L["SLE_AUTHOR_INFO"]..". "..L["Version"]..format(": |cff99ff33%s|r",SLE.version))
+	DT.tooltip:AddDoubleLine("ElvUI "..GAME_VERSION_LABEL..format(": |cff99ff33%s|r", Eversion))
+	DT.tooltip:AddLine(L["SLE_AUTHOR_INFO"]..". "..GAME_VERSION_LABEL..format(": |cff99ff33%s|r", SLE.version))
 	DT.tooltip:AddLine(" ")
 	DT.tooltip:AddLine(L['SLE_CONTACTS'])
 	
@@ -42,5 +42,5 @@ local function ValueColorUpdate(hex, r, g, b)
 end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
-DT:RegisterDatatext("Version", {'PLAYER_ENTERING_WORLD'}, OnEvent, Update, Click, OnEnter)
+DT:RegisterDatatext("S&L "..GAME_VERSION_LABEL, {'PLAYER_ENTERING_WORLD'}, OnEvent, Update, Click, OnEnter)
 

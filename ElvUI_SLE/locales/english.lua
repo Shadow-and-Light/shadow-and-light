@@ -26,7 +26,6 @@ L["Reset All"] = true
 L["Reset all Shadow & Light options and movers to their defaults"] = true
 L["Reset these options to defaults"] = true
 L['Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable.'] =  true
-L["SLE_INCOMPATIBLE_ADDON"] = "The addon %s is not compatible with Shadow & Light's %s module. Please select either the addon or the Shadow & Light module to disable."
 
 --Install--
 L["Shadow & Light Settings"] = true

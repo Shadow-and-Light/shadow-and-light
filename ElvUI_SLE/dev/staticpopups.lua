@@ -24,7 +24,7 @@ E.PopupDialogs['ENHANCED_SLE_INCOMPATIBLE'] = {
 }
 
 E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'] = {
-	text = L["SLE_INCOMPATIBLE_ADDON"],
+	text = gsub(L["INCOMPATIBLE_ADDON"], "ElvUI", "Shadow & Light"),
 	OnAccept = function(self) DisableAddOn(E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].addon); ReloadUI(); end,
 	OnCancel = function(self) E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].optiontable[E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].value] = false; ReloadUI(); end,
 	timeout = 0,

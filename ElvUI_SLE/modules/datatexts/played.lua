@@ -20,7 +20,7 @@ local OnEnter = function(self)
 		--local Panel, Anchor, xOff, yOff = self:GetTooltipAnchor()
 		--DT.tooltip:SetOwner(Panel, Anchor, xOff, yOff)
 		DT.tooltip:ClearLines()
-		DT.tooltip:AddLine(L["Time Played"], 1, 1, 1)
+		DT.tooltip:AddLine(TIME_PLAYED_MSG, 1, 1, 1)
 		DT.tooltip:AddLine(' ')
 		DT.tooltip:AddDoubleLine(L["Session:"], SessionDay > 0 and format(PlayedTimeFormatFull, SessionDay, SessionHour, SessionMinute, SessionSecond) or format(PlayedTimeFormatNoDay, SessionHour, SessionMinute, SessionSecond), 1, 1, 1, 1, 1, 1)
 		if LastLevelSecond > 0 then
@@ -60,7 +60,7 @@ local OnUpdate = function(self, elapsed)
 	if (not self.text) then
 		local text = self:CreateFontString(nil, 'OVERLAY')
 		text:SetFont(DataText.Font, DataText.Size, DataText.Flags)
-		text:SetText('Time Played')
+		text:SetText(TIME_PLAYED_MSG)
 		self.text = text
 	end
 	
@@ -164,4 +164,4 @@ local Disable = function(self)
 	self:SetScript('OnEnter', nil)
 	self:SetScript('OnLeave', nil)
 end]]
-DT:RegisterDatatext('Time Played', {'TIME_PLAYED_MSG', 'PLAYER_LEVEL_UP', 'PLAYER_ENTERING_WORLD' , 'PLAYER_LOGOUT'}, OnEvent, OnUpdate, OnMouseDown, OnEnter, OnLeave)
+DT:RegisterDatatext('S&L '..TIME_PLAYED_MSG, {'TIME_PLAYED_MSG', 'PLAYER_LEVEL_UP', 'PLAYER_ENTERING_WORLD' , 'PLAYER_LOGOUT'}, OnEvent, OnUpdate, OnMouseDown, OnEnter, OnLeave)
