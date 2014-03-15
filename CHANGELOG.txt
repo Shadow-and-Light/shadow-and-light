@@ -1,6 +1,11 @@
 v1.87
 - Added Range Datatext
 - Added iLvl Datatext
+- Added Agility Datatext
+- Added Intellect Datatext
+- Added Stamina Datatext
+- Added Strength Datatext
+- Added Energy Regen Datatext
 - Updated the Enhanced Incompatible Message so it can be ignored/Disable Enhanced Addon before reporting issues
 - Some backend clean up
 - Changed Minimap Icons to enable/disable skinning of the icons, and enable/disable the bar if skinning is enabled.
