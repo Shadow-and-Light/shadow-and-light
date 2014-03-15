@@ -7,7 +7,6 @@ local OldShow = MiniMapMailFrame.Show
 local Read;
 local AddLine = AddLine
 
-
 local function MakeIconString()
 	local str = ""
 		str = str..Mail_Icon
@@ -83,17 +82,5 @@ local function OnEnter(self)
 	DT.tooltip:Show()
 end
 
---[[
-	DT:RegisterDatatext(name, events, eventFunc, updateFunc, clickFunc, onEnterFunc, onLeaveFunc)
-	
-	name - name of the datatext (required)
-	events - must be a table with string values of event names to register 
-	eventFunc - function that gets fired when an event gets triggered
-	updateFunc - onUpdate script target function
-	click - function to fire when clicking the datatext
-	onEnterFunc - function to fire OnEnter
-	onLeaveFunc - function to fire OnLeave, if not provided one will be set for you that hides the tooltip.
-]]
-
-DT:RegisterDatatext('S&L '..MAIL_LABEL, {'PLAYER_ENTERING_WORLD', 'MAIL_INBOX_UPDATE', 'UPDATE_PENDING_MAIL', 'MAIL_CLOSED', 'PLAYER_LOGIN','MAIL_SHOW'}, OnEvent, nil, nil, OnEnter)
+DT:RegisterDatatext('S&L Mail', {'PLAYER_ENTERING_WORLD', 'MAIL_INBOX_UPDATE', 'UPDATE_PENDING_MAIL', 'MAIL_CLOSED', 'PLAYER_LOGIN','MAIL_SHOW'}, OnEvent, nil, nil, OnEnter)
 

@@ -164,4 +164,4 @@ local Disable = function(self)
 	self:SetScript('OnEnter', nil)
 	self:SetScript('OnLeave', nil)
 end]]
-DT:RegisterDatatext('S&L '..TIME_PLAYED_MSG, {'TIME_PLAYED_MSG', 'PLAYER_LEVEL_UP', 'PLAYER_ENTERING_WORLD' , 'PLAYER_LOGOUT'}, OnEvent, OnUpdate, OnMouseDown, OnEnter, OnLeave)
+DT:RegisterDatatext('S&L Time Played', {'TIME_PLAYED_MSG', 'PLAYER_LEVEL_UP', 'PLAYER_ENTERING_WORLD' , 'PLAYER_LOGOUT'}, OnEvent, OnUpdate, OnMouseDown, OnEnter, OnLeave)

@@ -50,4 +50,4 @@ local function ValueColorUpdate(hex, r, g, b)
 end
 E.valueColorUpdateFuncs[ValueColorUpdate] = true
 
-DT:RegisterDatatext(format('S&L %s %s', TARGET, WHC_TITLE_HUNTER_2), {"PLAYER_TARGET_CHANGED"}, OnEvent, OnUpdate)
+DT:RegisterDatatext('S&L Target Range', {"PLAYER_TARGET_CHANGED"}, OnEvent, OnUpdate)
