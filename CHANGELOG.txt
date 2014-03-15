@@ -1,3 +1,10 @@
+v1.87
+- Added Range Datatext
+- Added iLvl Datatext
+- Updated the Enhanced Incompatible Message so it can be ignored/Disable Enhanced Addon before reporting issues
+- Some backend clean up
+- Changed Minimap Icons to enable/disable skinning of the icons, and enable/disable the bar if skinning is enabled.
+
 v1.86 March 11, 2014
 - Added option to Show/Hide Squareminimap Bar during pet battles
 - Updated chat module to be updated with elvui
