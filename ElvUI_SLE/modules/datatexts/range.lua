@@ -25,7 +25,7 @@ local function OnUpdate(self, t)
 	if min and max then
 		self.text:SetFormattedText(displayString, WHC_TITLE_HUNTER_2, min, max)
 	else
-		self.text:SetText("")
+		self.text:SetText(SPELL_FAILED_BAD_IMPLICIT_TARGETS)
 	end
 	forceUpdate = false	
 	lastPanel = self
@@ -37,7 +37,7 @@ local function OnEvent(self, event)
 	if updateTargetRange then
 		forceUpdate = true
 	else
-		self.text:SetText("")
+		self.text:SetText(SPELL_FAILED_BAD_IMPLICIT_TARGETS)
 	end
 end
 
