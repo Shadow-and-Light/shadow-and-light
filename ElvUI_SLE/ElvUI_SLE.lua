@@ -163,6 +163,27 @@ function SLE:GetOptions()
 	end	
 end
 
+function SLE:IncompatibleAddOn(addon, module, optiontable, value)
+	E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].button1 = addon
+	E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].button2 = 'S&L: '..module
+	E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].addon = addon
+	E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].module = module
+	E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].optiontable = optiontable
+	E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].value = value
+	E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].showAlert = true
+	E:StaticPopup_Show('SLE_INCOMPATIBLE_ADDON', addon, module)
+end
+
+function SLE:CheckIncompatible()
+	if E.global.ignoreIncompatible then return; end
+	if IsAddOnLoaded('ElvUI_Enhanced') then
+		E:StaticPopup_Show('ENHANCED_SLE_INCOMPATIBLE')
+	end
+	if IsAddOnLoaded('SquareMinimapButtons') and E.private.sle.minimap.mapicons.enable then
+		SLE:IncompatibleAddOn('SquareMinimapButtons', 'SquareMinimapButtons', E.private.sle.minimap.mapicons, "enable")
+	end
+end
+
 function SLE:Initialize()
 	--Showing warning message about too old versions of ElvUI
 	if tonumber(E.version) < 6.55 then
@@ -182,9 +203,7 @@ function SLE:Initialize()
 	SLE:ConfigCats()
 	SLE:ChatPos()
 	SLE:RegisterCommands()
-	if select(4, GetAddOnInfo('ElvUI_Enhanced')) then
-		E:StaticPopup_Show('ENHANCED_SLE_INCOMPATIBLE')
-	end	
+	SLE:CheckIncompatible()
 end
 
 E:RegisterModule(SLE:GetName())

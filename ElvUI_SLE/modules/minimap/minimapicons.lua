@@ -14,6 +14,7 @@ if E.private.sle == nil then E.private.sle = {} end
 if E.private.sle.minimap == nil then E.private.sle.minimap = {} end
 if E.private.sle.minimap.mapicons == nil then E.private.sle.minimap.mapicons = {} end
 if E.private.sle.minimap.mapicons.enable == nil then E.private.sle.minimap.mapicons.enable = false end
+if E.private.sle.minimap.mapicons.barenable == nil then E.private.sle.minimap.mapicons.barenable = false end
 
 if E.db.sle.minimap == nil then E.db.sle.minimap = {} end
 if E.db.sle.minimap.mapicons == nil then E.db.sle.minimap.mapicons = {} end
@@ -248,7 +249,7 @@ local function SkinButton(Button)
 end
 
 function SMB:Update(self)
-	if not E.private.sle.minimap.mapicons.enable then return end
+	if not E.private.sle.minimap.mapicons.barenable then return end
 
 	local AnchorX, AnchorY, MaxX = 0, 1, E.db.sle.minimap.mapicons.iconperrow
 	local ButtonsPerRow = E.db.sle.minimap.mapicons.iconperrow
@@ -316,6 +317,7 @@ function SMB:Update(self)
 end
 
 function SMB:Initialize()
+	if not E.private.sle.minimap.mapicons.enable then return end
 	SquareMinimapButtonBar = CreateFrame('Frame', 'SquareMinimapButtonBar', E.UIParent)
 	SquareMinimapButtonBar:RegisterEvent('ADDON_LOADED')
 	SquareMinimapButtonBar.Skin = function()

@@ -18,3 +18,12 @@ E.PopupDialogs['ENHANCED_SLE_INCOMPATIBLE'] = {
 	whileDead = 1,	
 	hideOnEscape = false,	
 }
+
+E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'] = {
+	text = L["SLE_INCOMPATIBLE_ADDON"],
+	OnAccept = function(self) DisableAddOn(E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].addon); ReloadUI(); end,
+	OnCancel = function(self) E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].optiontable[E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].value] = false; ReloadUI(); end,
+	timeout = 0,
+	whileDead = 1,	
+	hideOnEscape = false,	
+}
