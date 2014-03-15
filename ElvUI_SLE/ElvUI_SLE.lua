@@ -175,8 +175,7 @@ function SLE:IncompatibleAddOn(addon, module, optiontable, value)
 end
 
 function SLE:CheckIncompatible()
-	if E.global.ignoreIncompatible then return; end
-	if IsAddOnLoaded('ElvUI_Enhanced') then
+	if IsAddOnLoaded('ElvUI_Enhanced') and not E.global.ignoreEnhancedIncompatible then
 		E:StaticPopup_Show('ENHANCED_SLE_INCOMPATIBLE')
 	end
 	if IsAddOnLoaded('SquareMinimapButtons') and E.private.sle.minimap.mapicons.enable then

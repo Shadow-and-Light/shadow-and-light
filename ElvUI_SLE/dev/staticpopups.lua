@@ -14,6 +14,10 @@ E.PopupDialogs['ENHANCED_SLE_INCOMPATIBLE'] = {
 	OnCancel = function() DisableAddOn("ElvUI_SLE"); ReloadUI() end,
 	button1 = 'ElvUI Enhanced',
 	button2 = 'Shadow & Light',	
+	button3 = L['Disable Warning'],
+	OnAlt = function ()
+		E.global.ignoreEnhancedIncompatible = true;
+	end,
 	timeout = 0,
 	whileDead = 1,	
 	hideOnEscape = false,	
