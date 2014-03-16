@@ -28,7 +28,7 @@ E.Options.args.sle = {
 			type = 'description',
 			name = '',
 			order = 2,
-			image = function() return 'Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Config_SL.tga', 1024, 256 end,
+			image = function() return 'Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Config_SL', 1024, 256 end,
 		},
 		info = {
 			order = 3,
