@@ -10,6 +10,7 @@ v1.87
 - Some backend clean up
 - Changed Minimap Icons to enable/disable skinning of the icons, and enable/disable the bar if skinning is enabled.
 - Added new tag [range:sl] to show range on frames like target, focus and such
+- Added nameplate options for people
 
 v1.86 March 11, 2014
 - Added option to Show/Hide Squareminimap Bar during pet battles
