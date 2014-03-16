@@ -228,8 +228,13 @@ P['sle'] = {
 		},
 	},
 
+	--Nameplate Options
+	['nameplate'] = {
+		['showthreat'] = false,
+		['targetcount'] = false,
+	},
 	--Power text on classbars
-	['powtext'] = false;
+	['powtext'] = false,
 
 	--Raid marks
 	['marks'] = {
