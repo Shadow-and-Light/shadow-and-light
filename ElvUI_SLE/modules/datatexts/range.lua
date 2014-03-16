@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI)
 local DT = E:GetModule('DataTexts')
 
-local rc = LibStub("LibRangeCheck-2.0")
+local RC = LibStub("LibRangeCheck-2.0")
 local displayString = ''
 local lastPanel
 local int = 1
@@ -16,7 +16,7 @@ local function OnUpdate(self, t)
 	if int > 0 then return end
 	int = .25
 
-	local min, max = rc:GetRange('target')
+	local min, max = RC:GetRange('target')
 	if not forceUpdate and (min == curMin and max == curMax) then return end
 
 	curMin = min
@@ -42,7 +42,7 @@ local function OnEvent(self, event)
 end
 
 local function ValueColorUpdate(hex, r, g, b)
-	displayString = string.join("", "%s: ", hex, "%d|r - ", hex, "%d|r")
+	displayString = string.join("", "%s: ", hex, "%d|r-", hex, "%d|r")
 	
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)

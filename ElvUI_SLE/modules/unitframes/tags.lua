@@ -1,5 +1,24 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 
+local RC = LibStub("LibRangeCheck-2.0")
+
+ElvUF.Tags.Methods['range:sl'] = function(unit)
+	local name, server = UnitName(unit)
+	local rangeText = ''
+	local min, max = RC:GetRange(unit)
+	curMin = min
+	curMax = max
+
+	if(server and server ~= "") then
+		name = format("%s-%s", name, server)
+	end
+
+	if min and max and (name ~= UnitName('player')) then
+		rangeText = curMin.."-"..curMax
+	end
+	return rangeText
+end
+
 ElvUF.Tags.Events['health:current:sl'] = 'UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION'
 ElvUF.Tags.Methods['health:current:sl'] = function(unit)
 	local min, max = UnitHealth(unit), UnitHealthMax(unit)
