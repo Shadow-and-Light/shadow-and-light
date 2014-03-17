@@ -323,12 +323,14 @@ function SMB:Initialize()
 	SquareMinimapButtonBar.Skin = function()
 		for i = 1, Minimap:GetNumChildren() do
 			local object = select(i, Minimap:GetChildren())
-			if object:IsObjectType('Button') and object:GetName() then
-				SkinButton(object)
-			end
-			for _, frame in pairs(AcceptedFrames) do
-				if object:IsObjectType('Frame') and object:GetName() == frame then
+			if object then
+				if object:IsObjectType('Button') and object:GetName() then
 					SkinButton(object)
+				end
+				for _, frame in pairs(AcceptedFrames) do
+					if object:IsObjectType('Frame') and object:GetName() == frame then
+						SkinButton(object)
+					end
 				end
 			end
 		end
