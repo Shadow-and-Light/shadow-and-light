@@ -326,7 +326,7 @@ if not AISM then
 			end
 
 			if slotName == 'HeadSlot' or slotName == 'BackSlot' then
-				print(slotName..' : '..(slotName == 'HeadSlot' and not isHelmDisplayed and 'NotDisplayed' or slotName == 'BackSlot' and not isCloakDisplayed and 'NotDisplayed' or 'Displayed'))
+				--print(slotName..' : '..(slotName == 'HeadSlot' and not isHelmDisplayed and 'NotDisplayed' or slotName == 'BackSlot' and not isCloakDisplayed and 'NotDisplayed' or 'Displayed'))
 			end
 
 			ShortString = slotLink and select(2, strsplit(':', slotLink)) or 'F'
@@ -622,7 +622,7 @@ if not AISM then
 					self.SendDataGuildUpdated = self.SendMessageDelay
 					
 					SendAddonMessage('AISM', 'AISM_GUILD_RegistME', 'GUILD')
-					print('길드�? AISM_GUILD_RegistME 전송')
+					--print('길드�? AISM_GUILD_RegistME 전송')
 					self.needSendDataGuild = nil
 				end
 			end
@@ -654,8 +654,8 @@ if not AISM then
 		Sender, SenderRealm = strsplit('-', Sender)
 		Sender = Sender..(SenderRealm and SenderRealm ~= '' and SenderRealm ~= playerRealm and '-'..SenderRealm or '')
 
-		print('|cffceff00['..Channel..']|r|cff2eb7e4['..Prefix..']|r '..Sender..' : ')
-		print(Message)
+		--print('|cffceff00['..Channel..']|r|cff2eb7e4['..Prefix..']|r '..Sender..' : ')
+		--print(Message)
 
 		if Message == 'AISM_GUILD_RegistME' then
 			self.GuildMemberData[Sender] = true
