@@ -55,7 +55,6 @@ KI.Default_CurrentInspectData = {
 	['Glyph'] = { [1] = {}, [2] = {} },
 	['Profession'] = { [1] = {}, [2] = {} }
 }
-KI.Default_ReInspectCount = 2
 
 local function Button_OnEnter(self)
 	self:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
@@ -167,23 +166,19 @@ KI.ScrollFrame_OnMouseWheel = function(self, spinning)
 		elseif self.Offset < 0 then
 			self.Offset = 0
 		end
-		Page:Point('TOPLEFT', self, 0, self.Offset)
-		Page:Point('TOPRIGHT', self, 0, self.Offset)
 	else
-		self.Offset = nil
+		self.Offset = 0
 	end
+
+	Page:Point('TOPLEFT', self, 0, self.Offset)
+	Page:Point('TOPRIGHT', self, 0, self.Offset)
 end
 
 KI.Category_OnClick = function(self)
 	self = self:GetParent()
+	self.Closed = not self.Closed
 
-	if self.IsOpened then
-		self:Height(INFO_TAB_SIZE + SPACING * 2)
-		self.IsOpened = nil
-	else
-		self:Height(self.CategoryHeight)
-		self.IsOpened = true
-	end
+	KI:ReArrangeCategory()
 end
 
 KI.GemSocket_OnEnter = function(self)
@@ -608,61 +603,57 @@ function KI:CreateInspectFrame()
 		self.Info.Page:SetFrameLevel(CoreFrameLevel + 2)
 		self.Info.Page:Point('TOPLEFT', self.Info)
 		self.Info.Page:Point('TOPRIGHT', self.Info, -1, 0)
-		self.Info.Page:Height(600)
 
-		local f
 		for _, CategoryType in pairs(KI.InfoPageCategoryList) do
-			f = CreateFrame('ScrollFrame', nil, self.Info.Page)
-			f:SetBackdrop({
+			self.Info[CategoryType] = CreateFrame('ScrollFrame', nil, self.Info.Page)
+			self.Info[CategoryType]:SetBackdrop({
 				bgFile = E.media.blankTex,
 				edgeFile = E.media.blankTex,
 				tile = false, tileSize = 0, edgeSize = E.mult,
 				insets = { left = 0, right = 0, top = 0, bottom = 0}
 			})
-			f:SetBackdropColor(.08, .08, .08, .8)
-			f:SetBackdropBorderColor(0, 0, 0)
-			f:Point('LEFT', self.Info.Page)
-			f:Point('RIGHT', self.Info.Page)
-			f:Height(INFO_TAB_SIZE + SPACING * 2)
+			self.Info[CategoryType]:SetBackdropColor(.08, .08, .08, .8)
+			self.Info[CategoryType]:SetBackdropBorderColor(0, 0, 0)
+			self.Info[CategoryType]:Point('LEFT', self.Info.Page)
+			self.Info[CategoryType]:Point('RIGHT', self.Info.Page)
+			self.Info[CategoryType]:Height(INFO_TAB_SIZE + SPACING * 2)
 
-			f.IconSlot = CreateFrame('Frame', nil, f)
-			f.IconSlot:Size(INFO_TAB_SIZE)
-			f.IconSlot:SetBackdrop({
+			self.Info[CategoryType].IconSlot = CreateFrame('Frame', nil, self.Info[CategoryType])
+			self.Info[CategoryType].IconSlot:Size(INFO_TAB_SIZE)
+			self.Info[CategoryType].IconSlot:SetBackdrop({
 				bgFile = E.media.blankTex,
 				edgeFile = E.media.blankTex,
 				tile = false, tileSize = 0, edgeSize = E.mult,
 				insets = { left = 0, right = 0, top = 0, bottom = 0}
 			})
-			f.IconSlot:Point('TOPLEFT', f, SPACING, -SPACING)
-			f.Icon = f.IconSlot:CreateTexture(nil, 'OVERLAY')
-			f.Icon:SetTexCoord(unpack(E.TexCoords))
-			f.Icon:SetInside()
+			self.Info[CategoryType].IconSlot:Point('TOPLEFT', self.Info[CategoryType], SPACING, -SPACING)
+			self.Info[CategoryType].Icon = self.Info[CategoryType].IconSlot:CreateTexture(nil, 'OVERLAY')
+			self.Info[CategoryType].Icon:SetTexCoord(unpack(E.TexCoords))
+			self.Info[CategoryType].Icon:SetInside()
 
-			f.Tab = CreateFrame('Frame', nil, f)
-			f.Tab:Point('TOPLEFT', f.IconSlot, 'TOPRIGHT', 1, 0)
-			f.Tab:Point('BOTTOMRIGHT', f, 'TOPRIGHT', -SPACING, -(SPACING + INFO_TAB_SIZE))
-			f.Tab:SetBackdrop({
+			self.Info[CategoryType].Tab = CreateFrame('Frame', nil, self.Info[CategoryType])
+			self.Info[CategoryType].Tab:Point('TOPLEFT', self.Info[CategoryType].IconSlot, 'TOPRIGHT', 1, 0)
+			self.Info[CategoryType].Tab:Point('BOTTOMRIGHT', self.Info[CategoryType], 'TOPRIGHT', -SPACING, -(SPACING + INFO_TAB_SIZE))
+			self.Info[CategoryType].Tab:SetBackdrop({
 				bgFile = E.media.normTex,
 				edgeFile = E.media.blankTex,
 				tile = false, tileSize = 0, edgeSize = E.mult,
 				insets = { left = 0, right = 0, top = 0, bottom = 0}
 			})
 
-			f.Tooltip = CreateFrame('Button', nil, f)
-			f.Tooltip:Point('TOPLEFT', f.Icon)
-			f.Tooltip:Point('BOTTOMRIGHT', f.Tab)
-			f.Tooltip:SetFrameLevel(CoreFrameLevel + 4)
-			f.Tooltip:SetScript('OnClick', KI.Category_OnClick)
+			self.Info[CategoryType].Tooltip = CreateFrame('Button', nil, self.Info[CategoryType])
+			self.Info[CategoryType].Tooltip:Point('TOPLEFT', self.Info[CategoryType].Icon)
+			self.Info[CategoryType].Tooltip:Point('BOTTOMRIGHT', self.Info[CategoryType].Tab)
+			self.Info[CategoryType].Tooltip:SetFrameLevel(CoreFrameLevel + 4)
+			self.Info[CategoryType].Tooltip:SetScript('OnClick', KI.Category_OnClick)
 
-			C.Toolkit.TextSetting(f.Tab, CategoryType, { ['FontSize'] = 10 }, 'LEFT', 6, 1)
+			C.Toolkit.TextSetting(self.Info[CategoryType].Tab, CategoryType, { ['FontSize'] = 10 }, 'LEFT', 6, 1)
 
-			f.Page = CreateFrame('Frame', nil, f)
-			f:SetScrollChild(f.Page)
-			f.Page:SetFrameLevel(CoreFrameLevel + 2)
-			f.Page:Point('TOPLEFT', f.Icon, 'BOTTOMLEFT', 0, -SPACING)
-			f.Page:Point('BOTTOMRIGHT', f, -SPACING, SPACING)
-
-			self.Info[CategoryType] = f
+			self.Info[CategoryType].Page = CreateFrame('Frame', nil, self.Info[CategoryType])
+			self.Info[CategoryType]:SetScrollChild(self.Info[CategoryType].Page)
+			self.Info[CategoryType].Page:SetFrameLevel(CoreFrameLevel + 2)
+			self.Info[CategoryType].Page:Point('TOPLEFT', self.Info[CategoryType].Icon, 'BOTTOMLEFT', 0, -SPACING)
+			self.Info[CategoryType].Page:Point('BOTTOMRIGHT', self.Info[CategoryType], -SPACING, SPACING)
 		end
 
 		do -- Profession Part
@@ -701,7 +692,6 @@ function KI:CreateInspectFrame()
 				self.Info.Profession['Prof'..i].Bar:SetInside()
 				self.Info.Profession['Prof'..i].Bar:SetStatusBarTexture(E.media.normTex)
 				self.Info.Profession['Prof'..i].Bar:SetMinMaxValues(0, 600)
-				self.Info.Profession['Prof'..i].Bar:SetValue(100)
 
 				C.Toolkit.TextSetting(self.Info.Profession['Prof'..i], '257', { ['Tag'] = 'Level', ['FontSize'] = 10 }, 'TOP', self.Info.Profession['Prof'..i].Icon)
 				self.Info.Profession['Prof'..i].Level:Point('RIGHT', self.Info.Profession['Prof'..i].Bar)
@@ -713,41 +703,40 @@ function KI:CreateInspectFrame()
 
 			self.Info.Profession.Prof1:Point('TOPLEFT', self.Info.Profession.Page, 6, -8)
 			self.Info.Profession.Prof2:Point('TOPLEFT', self.Info.Profession.Page, 'TOP', 6, -8)
-
-			self.Info.Profession:Point('TOP', self.Info.Page)
 		end
 
 		do -- PvP Category
 			self.Info.PvP.CategoryHeight = 100
 			self.Info.PvP.Icon:SetTexture('Interface\\Icons\\achievement_bg_killxenemies_generalsroom')
-			self.Info.PvP:Point('TOP', self.Info.Profession, 'BOTTOM', 0, -SPACING * 2)
 		end
 
 		do -- Guild Category
 			self.Info.Guild.CategoryHeight = INFO_TAB_SIZE + 66 + SPACING * 3
 			self.Info.Guild.Icon:SetTexture(GetSpellTexture(83968))
 
-			self.Info.Guild.BG = self.Info.Guild.Page:CreateTexture(nil, 'BACKGROUND')
+			self.Info.Guild.Banner = CreateFrame('Frame', nil, self.Info.Guild.Page)
+			self.Info.Guild.Banner:SetInside()
+			self.Info.Guild.Banner:SetFrameLevel(CoreFrameLevel + 3)
+
+			self.Info.Guild.BG = self.Info.Guild.Banner:CreateTexture(nil, 'BACKGROUND')
 			self.Info.Guild.BG:Size(33, 44)
 			self.Info.Guild.BG:SetTexCoord(.00781250, .32812500, .01562500, .84375000)
 			self.Info.Guild.BG:SetTexture('Interface\\GuildFrame\\GuildDifficulty')
 			self.Info.Guild.BG:Point('TOP', self.Info.Guild.Page, 0, -1)
 
-			self.Info.Guild.Border = self.Info.Guild.Page:CreateTexture(nil, 'ARTWORK')
+			self.Info.Guild.Border = self.Info.Guild.Banner:CreateTexture(nil, 'ARTWORK')
 			self.Info.Guild.Border:Size(33, 44)
 			self.Info.Guild.Border:SetTexCoord(.34375000, .66406250, .01562500, .84375000)
 			self.Info.Guild.Border:SetTexture('Interface\\GuildFrame\\GuildDifficulty')
 			self.Info.Guild.Border:Point('CENTER', self.Info.Guild.BG)
 
-			self.Info.Guild.Emblem = self.Info.Guild.Page:CreateTexture(nil, 'OVERLAY')
+			self.Info.Guild.Emblem = self.Info.Guild.Banner:CreateTexture(nil, 'OVERLAY')
 			self.Info.Guild.Emblem:Size(16)
 			self.Info.Guild.Emblem:SetTexture('Interface\\GuildFrame\\GuildEmblems_01')
 			self.Info.Guild.Emblem:Point('CENTER', self.Info.Guild.BG, 0, 2)
 
-			C.Toolkit.TextSetting(self.Info.Guild.Page, nil, { ['Tag'] = 'Name', ['FontSize'] = 14 }, 'TOP', self.Info.Guild.BG, 'BOTTOM', 0, 7)
-			C.Toolkit.TextSetting(self.Info.Guild.Page, nil, { ['Tag'] = 'LevelMembers', ['FontSize'] = 9 }, 'TOP', self.Info.Guild.Page.Name, 'BOTTOM', 0, -2)
-
-			self.Info.Guild:Point('TOP', self.Info.PvP, 'BOTTOM', 0, -SPACING * 2)
+			C.Toolkit.TextSetting(self.Info.Guild.Banner, nil, { ['Tag'] = 'Name', ['FontSize'] = 14 }, 'TOP', self.Info.Guild.BG, 'BOTTOM', 0, 7)
+			C.Toolkit.TextSetting(self.Info.Guild.Banner, nil, { ['Tag'] = 'LevelMembers', ['FontSize'] = 9 }, 'TOP', self.Info.Guild.Banner.Name, 'BOTTOM', 0, -2)
 		end
 	end
 
@@ -1097,10 +1086,8 @@ function KI:CreateInspectFrame()
 							return true
 						end
 					end, TableIndex, true)
-					print('전송')
 					SendAddonMessage('AISM_Inspect', 'AISM_DataRequestForInspecting:'..Name..'-'..Realm, SendChannel, TableIndex)
 				elseif Unit then
-					print('직접 살펴보기')
 					KI.InspectUnit(Unit)
 				end
 			end
@@ -1644,14 +1631,32 @@ function KI:InspectFrame_DataSetting(DataTable)
 	end
 
 	do --<< Information Page Setting >>--
-		if DataTable.guildName and DataTable.guildLevel and DataTable.guildNumMembers then
-			self.Info.Guild:Show()
-			self.Info.Guild.Page.Name:SetText('|cff2eb7e4'..DataTable.guildName)
-			self.Info.Guild.Page.LevelMembers:SetText('|cff77c0ff'..DataTable.guildLevel..'|r '..LEVEL..(DataTable.guildNumMembers > 0 and ' / '..format(INSPECT_GUILD_NUM_MEMBERS:gsub('%%d', '%%s'), '|cff77c0ff'..DataTable.guildNumMembers..'|r ') or ''))
-			SetSmallGuildTabardTextures('player', self.Info.Guild.Emblem, self.Info.Guild.BG, self.Info.Guild.Border, DataTable.guildEmblem)
-		else
-			self.Info.Guild:Hide()
+		do -- Profession
+			for i = 1, 2 do
+				if DataTable.Profession[i].Name then
+					self.Info.Profession:Show()
+					self.Info.Profession['Prof'..i].Name:SetText(DataTable.Profession[i].Name)
+					self.Info.Profession['Prof'..i].Level:SetText(DataTable.Profession[i].Level)
+					self.Info.Profession['Prof'..i].Bar:SetValue(DataTable.Profession[i].Level)
+				else
+					self.Info.Profession:Hide()
+					break
+				end
+			end
 		end
+			
+		do -- Guild
+			if DataTable.guildName and DataTable.guildLevel and DataTable.guildNumMembers then
+				self.Info.Guild:Show()
+				self.Info.Guild.Banner.Name:SetText('|cff2eb7e4'..DataTable.guildName)
+				self.Info.Guild.Banner.LevelMembers:SetText('|cff77c0ff'..DataTable.guildLevel..'|r '..LEVEL..(DataTable.guildNumMembers > 0 and ' / '..format(INSPECT_GUILD_NUM_MEMBERS:gsub('%%d', '%%s'), '|cff77c0ff'..DataTable.guildNumMembers..'|r ') or ''))
+				SetSmallGuildTabardTextures('player', self.Info.Guild.Emblem, self.Info.Guild.BG, self.Info.Guild.Border, DataTable.guildEmblem)
+			else
+				self.Info.Guild:Hide()
+			end
+		end
+
+		KI:ReArrangeCategory()
 	end
 
 	do --<< Specialization Page Setting >>--
@@ -1753,6 +1758,36 @@ function KI:InspectFrame_DataSetting(DataTable)
 	self.LastDataSetting = DataTable.Name..(DataTable.Realm and '-'..DataTable.Realm or '')
 end
 
+function KI:ReArrangeCategory()
+	local InfoPage_Height = 0
+	local PrevCategory
+
+	for _, CategoryType in pairs(self.InfoPageCategoryList) do
+		if self.Info[CategoryType]:IsShown() then
+			if self.Info[CategoryType].Closed then
+				InfoPage_Height = InfoPage_Height + INFO_TAB_SIZE + SPACING * 2
+				self.Info[CategoryType]:Height(INFO_TAB_SIZE + SPACING * 2)
+			else
+				InfoPage_Height = InfoPage_Height + self.Info[CategoryType].CategoryHeight
+				self.Info[CategoryType]:Height(self.Info[CategoryType].CategoryHeight)
+			end
+
+			if PrevCategory then
+				InfoPage_Height = InfoPage_Height + SPACING * 2
+				self.Info[CategoryType]:Point('TOP', PrevCategory, 'BOTTOM', 0, -SPACING * 2)
+			else
+				self.Info[CategoryType]:Point('TOP', self.Info.Page)
+			end
+
+			PrevCategory = self.Info[CategoryType]
+		end
+	end
+
+	self.Info.Page:Height(InfoPage_Height)
+	self.ScrollFrame_OnMouseWheel(self.Info, 0)
+end
+	
+	
 function KI:ToggleSpecializationTab(Group, DataTable)
 	local r, g, b
 	self.LastActiveSpec = DataTable.Specialization.ActiveSpec or 1

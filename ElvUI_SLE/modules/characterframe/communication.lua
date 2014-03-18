@@ -11,8 +11,7 @@ if not AISM then
 
 	local playerName = UnitName('player')
 	local playerRealm = GetRealmName()
-	local playerClass, playerClassID
-	_, playerClass, playerClassID = UnitClass('player')
+	local _, playerClass, playerClassID = UnitClass('player')
 	local playerRace, playerRaceID = UnitRace('player')
 	local playerSex = UnitSex('player')
 	local isHelmDisplayed = ShowingHelm() == 1
@@ -25,7 +24,7 @@ if not AISM then
 	AISM.Tooltip:SetOwner(UIParent, 'ANCHOR_NONE')
 	AISM.Updater = CreateFrame('Frame', 'AISM_Updater', UIParent)
 
-	AISM.SendMessageDelay = 1
+	AISM.SendMessageDelay = 2
 	AISM.SendDataGroupUpdated = AISM.SendMessageDelay
 	AISM.SendDataGuildUpdated = AISM.SendMessageDelay
 
@@ -451,7 +450,7 @@ if not AISM then
 		if IsInGuild() then
 			TableToSave.GuildInfo = GetGuildLevel()..'/'..GetNumGuildMembers()
 			
-			for _, DataString in ipairs({ GetGuildLogoInfo(UnitID) }) do
+			for _, DataString in ipairs({ GetGuildLogoInfo('player') }) do
 				TableToSave.GuildInfo = TableToSave.GuildInfo..'/'..DataString
 			end
 		end
@@ -605,14 +604,12 @@ if not AISM then
 				end
 
 				if self.needSendDataGroup and self.Updater.SpecUpdated and self.Updater.GlyphUpdated and self.Updater.GearUpdated then
-					print('??')
 					self.SendDataGroupUpdated = self.SendDataGroupUpdated - elapsed
 					
 					if self.SendDataGroupUpdated < 0 then
 						self.SendDataGroupUpdated = self.SendMessageDelay
 						
 						self:SendData(self.PlayerData_ShortString)
-						print('ì„¼ë“œë?°ì?´í„°')
 						self.needSendDataGroup = nil
 					end
 				end
@@ -631,7 +628,6 @@ if not AISM then
 			end
 			
 			if self.needSendDataGroup == nil and self.needSendDataGuild == nil then
-				print('??')
 				self:Hide() -- close function
 			end
 		end
@@ -673,7 +669,13 @@ if not AISM then
 			local needplayerName, needplayerRealm = Message:match('^.+:(.+)-(.+)$')
 			
 			if needplayerName == playerName and needplayerRealm == playerRealm then
-				local DataToSend = E:CopyTable({}, self.PlayerData)
+				--local DataToSend = E:CopyTable({}, self.PlayerData)
+				local TableToSend = {}
+
+				for Index, Data in pairs(self.PlayerData) do
+					TableToSend[Index] = Data
+				end
+
 				self:SettingInspectData(DataToSend)
 				
 				self:SendData(DataToSend, Prefix, Channel, Sender)
@@ -710,7 +712,9 @@ if not AISM then
 
 						if self.DataTypeTable[DataType] == 'Profession' then
 							if stringTable[1] == 'F' then
-								TableToSave.Profession[Group] = {}
+								--TableToSave.Profession[Group] = {}
+								TableToSave.Profession[Group].Name = EMPTY
+								TableToSave.Profession[Group].Level = 0
 							else
 								for localeName, Key in pairs(self.ProfessionList) do
 									if Key == stringTable[1] then
@@ -826,9 +830,6 @@ if not AISM then
 			self:GetCurrentInstanceType()
 			isHelmDisplayed = ShowingHelm() == 1
 			isCloakDisplayed = ShowingCloak() == 1
-			
-			print('HeadSlot : '..(isHelmDisplayed and 'TRUE' or 'False'))
-			print('BackSlot : '..(isCloakDisplayed and 'TRUE' or 'False'))
 		elseif Event == 'PLAYER_GUILD_UPDATE' then
 			if IsInGuild() then
 				self.needSendDataGuild = true
