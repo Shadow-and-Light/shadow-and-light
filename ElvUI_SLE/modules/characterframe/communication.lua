@@ -83,6 +83,7 @@ if not AISM then
 	}
 	AISM.DataTypeTable = {
 		['PLI'] = 'PlayerInfo',
+		['GLD'] = 'GuildInfo',
 		['PF1'] = 'Profession',
 		['PF2'] = 'Profession',
 		['ASP'] = 'ActiveSpec',
@@ -442,12 +443,21 @@ if not AISM then
 	AISM.Updater:RegisterEvent('COMBAT_LOG_EVENT_UNFILTERED')
 
 	--<< Player Info >>--
-	function AISM:GetPlayerInfoString(TableToSave)
+	function AISM:SettingInspectData(TableToSave)
 		local guildName, guildRankName = GetGuildInfo('player')
 		
 		TableToSave.PlayerInfo = playerName..'_'..UnitPVPName('player')..'/'..playerRealm..'/'..UnitLevel('player')..'/'..playerClass..'/'..playerClassID..'/'..playerRace..'/'..playerRaceID..'/'..playerSex..(guildName and '/'..guildName..'/'..guildRankName or '')
+		
+		if IsInGuild() then
+			TableToSave.GuildInfo = GetGuildLevel()..'/'..GetNumGuildMembers()
+			
+			for _, DataString in ipairs({ GetGuildLogoInfo(UnitID) }) do
+				TableToSave.GuildInfo = TableToSave.GuildInfo..'/'..DataString
+			end
+		end
 	end
-
+	
+	
 	function AISM:SendData(InputData, Prefix, Channel, WhisperTarget)
 		Channel = Channel or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(self.CurrentGroupMode)
 		Prefix = Prefix or 'AISM'
@@ -494,6 +504,10 @@ if not AISM then
 
 		if InputData.PlayerInfo then
 			Data[#Data + 1] = 'PLI:'..InputData.PlayerInfo
+		end
+		
+		if InputData.GuildInfo then
+			Data[#Data + 1] = 'GLD:'..InputData.GuildInfo
 		end
 
 		local DataString = ''
@@ -554,7 +568,6 @@ if not AISM then
 
 	local LastSendGroupType = 'NoGroup'
 	local LastSendInstanceType = 'field'
-	local asdf
 	AISM:SetScript('OnUpdate', function(self, elapsed)
 		if not self.Initialize then
 			SendAddonMessage('AISM', 'AISM_Initialize', 'WHISPER', playerName)
@@ -592,13 +605,14 @@ if not AISM then
 				end
 
 				if self.needSendDataGroup and self.Updater.SpecUpdated and self.Updater.GlyphUpdated and self.Updater.GearUpdated then
+					print('??')
 					self.SendDataGroupUpdated = self.SendDataGroupUpdated - elapsed
 					
 					if self.SendDataGroupUpdated < 0 then
 						self.SendDataGroupUpdated = self.SendMessageDelay
 						
 						self:SendData(self.PlayerData_ShortString)
-						print('센드데이터')
+						print('센드�?��?�터')
 						self.needSendDataGroup = nil
 					end
 				end
@@ -611,13 +625,13 @@ if not AISM then
 					self.SendDataGuildUpdated = self.SendMessageDelay
 					
 					SendAddonMessage('AISM', 'AISM_GUILD_RegistME', 'GUILD')
-					print('길드에 AISM_GUILD_RegistME 전송')
+					print('길드�? AISM_GUILD_RegistME 전송')
 					self.needSendDataGuild = nil
 				end
 			end
 			
 			if self.needSendDataGroup == nil and self.needSendDataGuild == nil then
-				print('종료')
+				print('??')
 				self:Hide() -- close function
 			end
 		end
@@ -660,7 +674,7 @@ if not AISM then
 			
 			if needplayerName == playerName and needplayerRealm == playerRealm then
 				local DataToSend = E:CopyTable({}, self.PlayerData)
-				self:GetPlayerInfoString(DataToSend)
+				self:SettingInspectData(DataToSend)
 				
 				self:SendData(DataToSend, Prefix, Channel, Sender)
 			end
@@ -776,6 +790,14 @@ if not AISM then
 							TableToSave.GenderID = stringTable[8]
 							TableToSave.guildName = stringTable[9]
 							TableToSave.guildRankName = stringTable[10]
+						elseif self.DataTypeTable[DataType] == 'GuildInfo' then
+							TableToSave.guildLevel = stringTable[1]
+							TableToSave.guildNumMembers = stringTable[2]
+							
+							for i = 3, #stringTable do
+								TableToSave.guildEmblem = TableToSave.guildEmblem or {}
+								TableToSave.guildEmblem[i - 2] = stringTable[i]
+							end
 						end
 					end
 				end
