@@ -9,7 +9,11 @@ V['sle'] = {
 	
 	--Character Frame Options
 	['characterframeoptions'] = {
-		["enable"] = false,
+		['enable'] = false,
+	},
+	
+	['inspectframeoptions'] = {
+		['enable'] = false,
 	},
 	
 	["datatext"] = {

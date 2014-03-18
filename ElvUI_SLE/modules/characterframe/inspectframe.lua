@@ -1905,7 +1905,7 @@ end
 UnitPopupButtons.KnightInspect = { ['text'] = L['KnightInspect'], ['dist'] = 0, }
 
 function IFO:Initialize()
-	-- if not E.private.sle.Armory.Inspect.Enable then return end
+	if not E.private.sle.inspectframeoptions.enable then return end
 	
 	Default_NotifyInspect = _G['NotifyInspect']
 	Default_InspectUnit = _G['InspectUnit']
