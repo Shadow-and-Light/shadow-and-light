@@ -64,15 +64,7 @@ SLArmoryConstants = {
 		['4894'] = true, -- ?? ??					Swordguard Embroidery
 	},
 	
-	['ProfessionList'] = {
-		[GetSpellInfo(110396)] = 'BlackSmithing',
-		[GetSpellInfo(110400)] = 'Enchanting',
-		[GetSpellInfo(110403)] = 'Engineering',
-		[GetSpellInfo(110417)] = 'Inscription',
-		[GetSpellInfo(110420)] = 'JewelCrafting',
-		[GetSpellInfo(110423)] = 'LeatherWorking',
-		[GetSpellInfo(110426)] = 'Tailoring'
-	},
+	['ProfessionList'] = {},
 	
 	['CommonScript'] = {
 		['OnEnter'] = function(self)
@@ -198,6 +190,31 @@ SLArmoryConstants = {
 	},
 }
 
+--Get Profession Information
+local ProfessionName, ProfessionTexture
+for ProfessionSkillID, Key in pairs({
+	[105206] = 'Alchemy',
+	[110396] = 'BlackSmithing',
+	[110400] = 'Enchanting',
+	[110403] = 'Engineering',
+	[110417] = 'Inscription',
+	[110420] = 'JewelCrafting',
+	[110423] = 'LeatherWorking',
+	[110426] = 'Tailoring',
+
+	[110413] = 'Herbalism',
+	[102161] = 'Mining',
+	[102216] = 'Skinning'
+})
+do
+	ProfessionName, _, ProfessionTexture = GetSpellInfo(ProfessionSkillID)
+
+	SLArmoryConstants.ProfessionList[ProfessionName] = {
+		['Key'] = Key,
+		['Texture'] = ProfessionTexture
+	}
+end
+
 --Colorize Class Name and localize specialization name
 local ClassName = {}
 FillLocalizedClassList(ClassName)
@@ -283,7 +300,7 @@ SLArmoryConstants['ClassRole'] = {
 			['Color'] = '|cffea5455',
 			['Role'] = 'Melee',
 		},
-		[L['Spec_Hunter_Survival']] = {		--생존
+		[L['Spec_Hunter_Survival']] = {		--�?존
 			['Color'] = '|cffbaf71d',
 			['Role'] = 'Melee',
 		},
@@ -297,7 +314,7 @@ SLArmoryConstants['ClassRole'] = {
 			['Color'] = '|cffe60000',
 			['Role'] = 'Melee',
 		},
-		[L['Spec_Shaman_Restoration']] = {	--복원
+		[L['Spec_Shaman_Restoration']] = {	--복�?
 			['Color'] = '|cff00ff0c',
 			['Role'] = 'Healer',
 		},
@@ -311,7 +328,7 @@ SLArmoryConstants['ClassRole'] = {
 			['Color'] = '|cffb6f1b7',
 			['Role'] = 'Healer',
 		},
-		[L['Spec_Monk_Windwalker']] = {		--풍운
+		[L['Spec_Monk_Windwalker']] = {		--�?운
 			['Color'] = '|cffb2c6de',
 			['Role'] = 'Melee',
 		},
@@ -399,7 +416,7 @@ SLArmoryConstants['ClassRole'] = {
 			['Color'] = '|cff6bdaff',
 			['Role'] = 'Healer',
 		},
-		[L['Spec_Priest_Shadow']] = {		--암흑
+		[L['Spec_Priest_Shadow']] = {		--암�?�
 			['Color'] = '|cff7e52c1',
 			['Role'] = 'Caster',
 		},

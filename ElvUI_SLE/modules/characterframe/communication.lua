@@ -39,12 +39,16 @@ if not AISM then
 
 	--<< Define Key Table >>--
 	AISM.ProfessionList = {
+		[GetSpellInfo(105206)] = 'AC', -- Alchemy
 		[GetSpellInfo(110396)] = 'BS', -- BlackSmithing
 		[GetSpellInfo(110400)] = 'EC', -- Enchanting
 		[GetSpellInfo(110403)] = 'EG', -- Engineering
+		[GetSpellInfo(110413)] = 'HB', -- Herbalism
 		[GetSpellInfo(110417)] = 'IS', -- Inscription
 		[GetSpellInfo(110420)] = 'JC', -- JewelCrafting
+		[GetSpellInfo(102161)] = 'MN', -- Mining
 		[GetSpellInfo(110423)] = 'LW', -- LeatherWorking
+		[GetSpellInfo(102216)] = 'SK', -- Skinning
 		[GetSpellInfo(110426)] = 'TL', -- Tailoring
 	}
 	AISM.GearList = {
@@ -589,6 +593,15 @@ if not AISM then
 										self.needSendDataGroup = false
 									end
 								elseif not UnitIsConnected(self.CurrentGroupMode..i) then
+									if self.needSendDataGroup == nil then
+										self.needSendDataGroup = 0
+									elseif type(self.needSendDataGroup) == 'number' then
+										self.needSendDataGroup = self.needSendDataGroup + 1
+										
+										if self.needSendDataGroup > 30 then
+											self.needSendDataGroup = nil
+										end
+									end
 									self.GroupMemberData[TableIndex] = nil
 								elseif not self.GroupMemberData[TableIndex] then
 									self.needSendDataGroup = true
@@ -603,7 +616,7 @@ if not AISM then
 					end
 				end
 
-				if self.needSendDataGroup and self.Updater.SpecUpdated and self.Updater.GlyphUpdated and self.Updater.GearUpdated then
+				if self.needSendDataGroup == true and self.Updater.SpecUpdated and self.Updater.GlyphUpdated and self.Updater.GearUpdated then
 					self.SendDataGroupUpdated = self.SendDataGroupUpdated - elapsed
 					
 					if self.SendDataGroupUpdated < 0 then
@@ -622,7 +635,6 @@ if not AISM then
 					self.SendDataGuildUpdated = self.SendMessageDelay
 					
 					SendAddonMessage('AISM', 'AISM_GUILD_RegistME', 'GUILD')
-					--print('길드�? AISM_GUILD_RegistME 전송')
 					self.needSendDataGuild = nil
 				end
 			end
@@ -657,7 +669,9 @@ if not AISM then
 		--print('|cffceff00['..Channel..']|r|cff2eb7e4['..Prefix..']|r '..Sender..' : ')
 		--print(Message)
 
-		if Message == 'AISM_GUILD_RegistME' then
+		if Message == 'AISM_UnregistME' then
+			self.GroupMemberData[Sender] = nil
+		elseif Message == 'AISM_GUILD_RegistME' then
 			self.GuildMemberData[Sender] = true
 			SendAddonMessage('AISM', 'AISM_GUILD_RegistResponse', SenderRealm == playerRealm and 'WHISPER' or 'GUILD', Sender)
 		elseif Message == 'AISM_GUILD_RegistResponse' then
@@ -676,9 +690,9 @@ if not AISM then
 					TableToSend[Index] = Data
 				end
 
-				self:SettingInspectData(DataToSend)
+				self:SettingInspectData(TableToSend)
 				
-				self:SendData(DataToSend, Prefix, Channel, Sender)
+				self:SendData(TableToSend, Prefix, Channel, Sender)
 			end
 		else
 			local TableToSave, NeedResponse, Group, stringTable
@@ -785,7 +799,7 @@ if not AISM then
 							end
 						elseif self.DataTypeTable[DataType] == 'PlayerInfo' then
 							TableToSave.Name, TableToSave.Title = strsplit('_', stringTable[1])
-							TableToSave.Realm = stringTable[2] ~= '' and stringTable[2] ~= E.myrealm and stringTable[2] or nil
+							TableToSave.Realm = stringTable[2] ~= '' and stringTable[2] ~= playerRealm and stringTable[2] or nil
 							TableToSave.Level = stringTable[3]
 							TableToSave.Class = stringTable[4]
 							TableToSave.ClassID = stringTable[5]
@@ -856,7 +870,9 @@ if not AISM then
 			if IsInGuild() then
 				SendAddonMessage('AISM', 'AISM_GUILD_UnregistME', 'GUILD')
 			end
-			
+			if self.CurrentGroupMode ~= 'NoGroup' then
+				SendAddonMessage('AISM', 'AISM_UnregistME', IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(self.CurrentGroupMode))
+			end
 		elseif Event == 'GROUP_ROSTER_UPDATE' then
 			self:GetPlayerCurrentGroupMode()
 			self:Show()

@@ -695,7 +695,6 @@ function KI:CreateInspectFrame()
 				self.Info.Profession['Prof'..i].Icon = self.Info.Profession['Prof'..i]:CreateTexture(nil, 'OVERLAY')
 				self.Info.Profession['Prof'..i].Icon:SetTexCoord(unpack(E.TexCoords))
 				self.Info.Profession['Prof'..i].Icon:SetInside()
-				self.Info.Profession['Prof'..i].Icon:SetTexture(GetSpellTexture(110396))
 
 				self.Info.Profession['Prof'..i].BarFrame = CreateFrame('Frame', nil, self.Info.Profession['Prof'..i])
 				self.Info.Profession['Prof'..i].BarFrame:Size(136, 5)
@@ -1656,9 +1655,17 @@ function KI:InspectFrame_DataSetting(DataTable)
 			for i = 1, 2 do
 				if DataTable.Profession[i].Name then
 					self.Info.Profession:Show()
-					self.Info.Profession['Prof'..i].Name:SetText(DataTable.Profession[i].Name)
-					self.Info.Profession['Prof'..i].Level:SetText(DataTable.Profession[i].Level)
 					self.Info.Profession['Prof'..i].Bar:SetValue(DataTable.Profession[i].Level)
+
+					if C.ProfessionList[DataTable.Profession[i].Name] then
+						self.Info.Profession['Prof'..i].Name:SetText('|cff77c0ff'..DataTable.Profession[i].Name)
+						self.Info.Profession['Prof'..i].Icon:SetTexture(C.ProfessionList[DataTable.Profession[i].Name].Texture)
+						self.Info.Profession['Prof'..i].Level:SetText(DataTable.Profession[i].Level)
+					else
+						self.Info.Profession['Prof'..i].Name:SetText('|cff808080'..DataTable.Profession[i].Name)
+						self.Info.Profession['Prof'..i].Icon:SetTexture('Interface\\ICONS\\INV_Misc_QuestionMark')
+						self.Info.Profession['Prof'..i].Level:SetText(nil)
+					end
 				else
 					self.Info.Profession:Hide()
 					break
@@ -1697,7 +1704,7 @@ function KI:InspectFrame_DataSetting(DataTable)
 			end
 		end
 
-		self.SpecIcon:SetTexture('Interface\\ICONS\\INV_Misc_QuestionMark.blp')
+		self.SpecIcon:SetTexture('Interface\\ICONS\\INV_Misc_QuestionMark')
 		for i = 1, MAX_TALENT_GROUPS do
 			Color = '|cff808080'
 

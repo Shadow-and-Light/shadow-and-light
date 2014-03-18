@@ -224,8 +224,8 @@ function CFO:ArmoryFrame_DataSetting()
 
 	if Prof1 then Prof1, _, Prof1_Level = GetProfessionInfo(Prof1) end
 	if Prof2 then Prof2, _, Prof2_Level = GetProfessionInfo(Prof2) end
-	if Prof1 and C.ProfessionList[Prof1] then CFO.PlayerProfession[(C.ProfessionList[Prof1])] = Prof1_Level end
-	if Prof2 and C.ProfessionList[Prof2] then CFO.PlayerProfession[(C.ProfessionList[Prof2])] = Prof2_Level end
+	if Prof1 and C.ProfessionList[Prof1] then CFO.PlayerProfession[(C.ProfessionList[Prof1].Key)] = Prof1_Level end
+	if Prof2 and C.ProfessionList[Prof2] then CFO.PlayerProfession[(C.ProfessionList[Prof2].Key)] = Prof2_Level end
 
 	local ErrorDetected
 	local r, g, b
