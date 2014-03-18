@@ -55,6 +55,27 @@ KI.Default_CurrentInspectData = {
 	['Glyph'] = { [1] = {}, [2] = {} },
 	['Profession'] = { [1] = {}, [2] = {} }
 }
+KI.CurrentGroupMode = 'NoGroup' -- Default
+local function CheckGroupMode()
+	local Check
+
+	if not (IsInGroup() or IsInRaid()) or GetNumGroupMembers() == 1 then
+		Check = 'NoGroup'
+	else
+		if IsInRaid() then
+			Check = 'raid'
+		else
+			Check = 'party'
+		end
+	end
+
+	if KI.CurrentGroupMode ~= Check then
+		KI.CurrentGroupMode = Check
+
+	end
+end
+KI:RegisterEvent('GROUP_ROSTER_UPDATE', 'CheckGroupMode')
+KI:RegisterEvent('PLAYER_ENTERING_WORLD', 'CheckGroupMode')
 
 local function Button_OnEnter(self)
 	self:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
