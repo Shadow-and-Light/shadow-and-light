@@ -42,7 +42,7 @@ local test = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Test:13:13|t
 local rpg = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_RPG:13:35|t"
 local tyrone = "|TInterface\\AddOns\\ElvUI\\media\\textures\\tyrone_biggums_chat_logo:16:18|t"
 local hulkhead = "|TInterface\\AddOns\\ElvUI\\media\\textures\\hulk_head:18:22|t"
-local mrhanky = "|TInterface\\AddOns\\ElvUI\\media\\textures\\mr_hankey:18:22|t"
+local helloitty = "|TInterface\\AddOns\\ElvUI\\media\\textures\\helloKittyChatLogo:18:20|t"
 local shortbus = "|TInterface\\AddOns\\ElvUI\\media\\textures\\short_bus:16:16|t"
 local kitalie = "|TInterface\\Icons\\%s:12:12:0:0:64:64:4:60:4:60|t"
 
@@ -53,7 +53,8 @@ local specialChatIcons = {
 	},
 	["Spirestone"] = {
 		["Elvz"] = elvui,
-		["Sarah"] = mrhanky,
+		["Sara"] = helloitty,
+		["Sarah"] = helloitty,
 		["Itzjonny"] = hulkhead,
 		["Elv"] = elvui,
 		["Aeriane"] = true,
@@ -748,8 +749,9 @@ end
 function CH:CheckLFGRoles()
 	local isInGroup, isInRaid = IsInGroup(), IsInRaid()
 	local unit = isInRaid and "raid" or "party"
-
+	local name, realm
 	twipe(lfgRoles)
+
 	if(not isInGroup or not self.db.lfgIcons) then return end
 
 	local role = UnitGroupRolesAssigned("player")
@@ -761,9 +763,9 @@ function CH:CheckLFGRoles()
 		if(UnitExists(unit..i) and not UnitIsUnit(unit..i, "player")) then
 			role = UnitGroupRolesAssigned(unit..i)
 			local name, realm = UnitName(unit..i)
-			
+
 			if(role and name) then
-				name = realm and name..'-'..realm or PLAYER_NAME
+				name = realm and name..'-'..realm or name..'-'..PLAYER_REALM;
 				lfgRoles[name] = rolePaths[role]
 			end
 		end
