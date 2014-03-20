@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+﻿local E, L, V, P, G, _ = unpack(ElvUI);
 local CFO = E:GetModule('CharacterFrameOptions')
 
 local function configTable()

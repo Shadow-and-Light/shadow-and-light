@@ -1,4 +1,4 @@
-local E, L, V, P, G, _  = unpack(ElvUI)
+﻿local E, L, V, P, G, _  = unpack(ElvUI)
 
 -- Constants
 SLArmoryConstants = {
@@ -300,7 +300,7 @@ SLArmoryConstants['ClassRole'] = {
 			['Color'] = '|cffea5455',
 			['Role'] = 'Melee',
 		},
-		[L['Spec_Hunter_Survival']] = {		--�?존
+		[L['Spec_Hunter_Survival']] = {		--생존
 			['Color'] = '|cffbaf71d',
 			['Role'] = 'Melee',
 		},
@@ -314,7 +314,7 @@ SLArmoryConstants['ClassRole'] = {
 			['Color'] = '|cffe60000',
 			['Role'] = 'Melee',
 		},
-		[L['Spec_Shaman_Restoration']] = {	--복�?
+		[L['Spec_Shaman_Restoration']] = {	--복원
 			['Color'] = '|cff00ff0c',
 			['Role'] = 'Healer',
 		},
@@ -328,7 +328,7 @@ SLArmoryConstants['ClassRole'] = {
 			['Color'] = '|cffb6f1b7',
 			['Role'] = 'Healer',
 		},
-		[L['Spec_Monk_Windwalker']] = {		--�?운
+		[L['Spec_Monk_Windwalker']] = {		--풍운
 			['Color'] = '|cffb2c6de',
 			['Role'] = 'Melee',
 		},
@@ -416,7 +416,7 @@ SLArmoryConstants['ClassRole'] = {
 			['Color'] = '|cff6bdaff',
 			['Role'] = 'Healer',
 		},
-		[L['Spec_Priest_Shadow']] = {		--암�?�
+		[L['Spec_Priest_Shadow']] = {		--암흑
 			['Color'] = '|cff7e52c1',
 			['Role'] = 'Caster',
 		},
