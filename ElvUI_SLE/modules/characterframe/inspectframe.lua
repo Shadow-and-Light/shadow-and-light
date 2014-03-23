@@ -1,11 +1,12 @@
 ﻿local E, L, V, P, G, _  = unpack(ElvUI)
 local AISM = _G['Armory_InspectSupportModule']
 local IFO = E:NewModule('InspectFrameOptions', 'AceEvent-3.0')
+local SLE = E:GetModule('SLE');
 
 --------------------------------------------------------------------------------
 --<< KnightFrame : Upgrade Inspect Frame like Wow-Armory					>>--
 --------------------------------------------------------------------------------
-local KI = CreateFrame('Frame', 'KnightInspect', E.UIParent)
+local SLI = CreateFrame('Frame', 'KnightInspect', E.UIParent)
 local ENI = _G['EnhancedNotifyInspectFrame'] or { ['CancelInspect'] = function() end, }
 local C = SLArmoryConstants
 
@@ -24,9 +25,10 @@ local Default_NotifyInspect
 local Default_InspectUnit
 
 --<< Key Table >>--
-KI.PageList = { ['Character'] = 'CHARACTER', ['Info'] = 'INFO', ['Spec'] = 'TALENTS' }
-KI.InfoPageCategoryList = { 'Profession', 'PvP', 'Guild' }
-KI.ModelList = {
+SLI.PageList = { ['Character'] = 'CHARACTER', ['Info'] = 'INFO', ['Spec'] = 'TALENTS' }
+SLI.InfoPageCategoryList = { 'Profession', 'PvP', 'Guild' }
+SLI.UnitPopupList = { ['FRIEND'] = true, ['GUILD'] = true, ['RAID'] = true, ['FOCUS'] = true, ['PLAYER'] = true, ['PARTY'] = true, ['RAID_PLAYER'] = true }
+SLI.ModelList = {
 	['Human'] = { ['RaceID'] = 1, [2] = { ['x'] = 0.02, ['y'] = -0.025, ['z'] = -0.6 }, [3] = { ['x'] = -0.01, ['y'] = -0.08, ['z'] = -0.6 } },
 	['Dwarf'] = { ['RaceID'] = 3, [2] = { ['x'] = -0.01, ['y'] = -0.23, ['z'] = -0.9 }, [3] = { ['x'] = -0.03, ['y'] = -0.15, ['z'] = -0.8 } },
 	['NightElf'] = { ['RaceID'] = 4, [2] = { ['z'] = -0.7 }, [3] = { ['x'] = -0.02, ['y'] = -0.04, ['z'] = -0.7 }},
@@ -41,8 +43,8 @@ KI.ModelList = {
 	['Goblin'] = { ['RaceID'] = 9, [2] = { ['y'] = -0.23, ['z'] = -1.3 }, [3] = { ['x'] = -0.01, ['y'] = -0.25, ['z'] = -1.3 } },
 	['Pandaren'] = { ['RaceID'] = 24, [2] = { ['x'] = 0.02, ['y'] = 0.02, ['z'] = -0.6 }, [3] = { ['x'] = 0, ['y'] = -0.05, ['z'] = -1 } },
 }
-KI.CurrentInspectData = {}
-KI.Default_CurrentInspectData = {
+SLI.CurrentInspectData = {}
+SLI.Default_CurrentInspectData = {
 	['Gear'] = {
 		['HeadSlot'] = {}, ['NeckSlot'] = {}, ['ShoulderSlot'] = {}, ['BackSlot'] = {}, ['ChestSlot'] = {},
 		['ShirtSlot'] = {}, ['TabardSlot'] = {}, ['WristSlot'] = {}, ['MainHandSlot'] = {},
@@ -53,9 +55,11 @@ KI.Default_CurrentInspectData = {
 	['SetItem'] = {},
 	['Specialization'] = { [1] = {}, [2] = {} },
 	['Glyph'] = { [1] = {}, [2] = {} },
-	['Profession'] = { [1] = {}, [2] = {} }
+	['Profession'] = { [1] = {}, [2] = {} },
+	['PvP'] = {}
 }
-KI.CurrentGroupMode = 'NoGroup' -- Default
+
+SLI.CurrentGroupMode = 'NoGroup'
 local function CheckGroupMode()
 	local Check
 
@@ -69,13 +73,13 @@ local function CheckGroupMode()
 		end
 	end
 
-	if KI.CurrentGroupMode ~= Check then
-		KI.CurrentGroupMode = Check
+	if SLI.CurrentGroupMode ~= Check then
+		SLI.CurrentGroupMode = Check
 
 	end
 end
-KI:RegisterEvent('GROUP_ROSTER_UPDATE', 'CheckGroupMode')
-KI:RegisterEvent('PLAYER_ENTERING_WORLD', 'CheckGroupMode')
+SLI:RegisterEvent('GROUP_ROSTER_UPDATE', 'CheckGroupMode')
+SLI:RegisterEvent('PLAYER_ENTERING_WORLD', 'CheckGroupMode')
 
 local function Button_OnEnter(self)
 	self:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
@@ -87,7 +91,7 @@ local function Button_OnLeave(self)
 	self.text:SetText(self.buttonString)
 end
 
-function KI:ChangePage(buttonName)
+function SLI:ChangePage(buttonName)
 	for pageType in pairs(self.PageList) do
 		if self[pageType] then
 			if buttonName == pageType..'Button' then
@@ -117,13 +121,13 @@ function KI:ChangePage(buttonName)
 	end
 end
 
-KI.EquipmentSlot_OnEnter = function(self)
+SLI.EquipmentSlot_OnEnter = function(self)
 	if self.Link then
 		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 		GameTooltip:SetHyperlink(self.Link)
-		
+
 		--ITEM_SOULBOUND
-		
+
 		local CurrentLineText, SetName
 		for i = 1, GameTooltip:NumLines() do
 			CurrentLineText = _G['GameTooltipTextLeft'..i]:GetText()
@@ -133,10 +137,10 @@ KI.EquipmentSlot_OnEnter = function(self)
 			if SetName then
 				local SetCount = 0
 
-				if type(KI.SetItem[SetName]) == 'table' then
-					for dataType, Data in pairs(KI.SetItem[SetName]) do
+				if type(SLI.SetItem[SetName]) == 'table' then
+					for dataType, Data in pairs(SLI.SetItem[SetName]) do
 						if type(dataType) == 'string' then -- Means SetOption Data
-							local CurrentLineNum = i + #KI.SetItem[SetName] + 1 + dataType:match('^.+(%d)$')
+							local CurrentLineNum = i + #SLI.SetItem[SetName] + 1 + dataType:match('^.+(%d)$')
 							local CurrentText = _G['GameTooltipTextLeft'..CurrentLineNum]:GetText()
 							local CurrentTextType = CurrentText:match("^%((%d)%)%s.+:%s.+$") or true
 
@@ -167,7 +171,7 @@ KI.EquipmentSlot_OnEnter = function(self)
 	end
 end
 
-KI.ScrollFrame_OnMouseWheel = function(self, spinning)
+SLI.ScrollFrame_OnMouseWheel = function(self, spinning)
 	local Page = self:GetScrollChild()
 	local PageHeight = Page:GetHeight()
 	local WindowHeight = self:GetHeight()
@@ -195,14 +199,14 @@ KI.ScrollFrame_OnMouseWheel = function(self, spinning)
 	Page:Point('TOPRIGHT', self, 0, self.Offset)
 end
 
-KI.Category_OnClick = function(self)
+SLI.Category_OnClick = function(self)
 	self = self:GetParent()
 	self.Closed = not self.Closed
 
-	KI:ReArrangeCategory()
+	SLI:ReArrangeCategory()
 end
 
-KI.GemSocket_OnEnter = function(self)
+SLI.GemSocket_OnEnter = function(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 
 	self = self:GetParent()
@@ -222,7 +226,7 @@ KI.GemSocket_OnEnter = function(self)
 	GameTooltip:Show()
 end
 
-KI.GemSocket_OnClick = function(self, button)
+SLI.GemSocket_OnClick = function(self, button)
 	self = self:GetParent()
 
 	if self.GemItemID and type(self.GemItemID) == 'number' then
@@ -241,7 +245,7 @@ KI.GemSocket_OnClick = function(self, button)
 	end
 end
 
-KI.OnClick = function(self)
+SLI.OnClick = function(self)
 	if self.Link then
 		if HandleModifiedItemClick(self.Link) then
 		elseif self.EnableAuctionSearch and BrowseName and BrowseName:IsVisible() then
@@ -252,7 +256,59 @@ KI.OnClick = function(self)
 	end
 end
 
-function KI:CreateInspectFrame()
+SLI.UnitPopupMenu_OnClick = function(self, DataTable)
+	local SendChannel
+
+	if AISM and AISM.GuildMemberData[DataTable.TableIndex] then
+		if DataTable.Realm == E.myrealm then
+			SendChannel = 'WHISPER'
+		else
+			SendChannel = 'GUILD'
+		end
+	elseif SLI.CurrentGroupMode ~= 'NoGroup' and AISM and type(AISM.GroupMemberData[DataTable.TableIndex]) == 'table' then
+		if DataTable.Realm == E.myrealm then
+			SendChannel = 'WHISPER'
+		else
+			SendChannel = IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(SLI.CurrentGroupMode)
+		end
+	end
+
+	if AISM and SendChannel then
+		ENI.CancelInspect(DataTable.TableIndex)
+		SLI:UnregisterEvent('INSPECT_READY')
+
+		SLI.CurrentInspectData = E:CopyTable({}, SLI.Default_CurrentInspectData)
+		AISM.CurrentInspectData[DataTable.TableIndex] = {
+			['UnitID'] = DataTable.Unit,
+		}
+		AISM:RegisterInspectDataRequest(function(User, UserData)
+			if User == DataTable.TableIndex then
+				E:CopyTable(SLI.CurrentInspectData, UserData)
+				SLI:ShowFrame(SLI.CurrentInspectData)
+
+				return true
+			end
+		end, DataTable.TableIndex, true)
+
+		SendAddonMessage('AISM_Inspect', 'AISM_DataRequestForInspecting:'..DataTable.Name..'-'..DataTable.Realm, SendChannel, DataTable.TableIndex)
+	elseif DataTable.Unit then
+		SLI.InspectUnit(DataTable.Unit)
+	end
+end
+
+SLI.UnitPopupMenu_OnUpdate = function(self)
+	if self.value == 'KnightInspect' then
+		if AISM and (type(AISM.GroupMemberData[self.arg1.TableIndex]) == 'table' or AISM.GuildMemberData[self.arg1.TableIndex]) or self.arg1.Unit and UnitIsVisible(self.arg1.Unit) then
+			self:Enable()
+		else
+			self:Disable()
+		end
+	else
+		self:SetScript('OnUpdate', nil)
+	end
+end
+
+function SLI:CreateInspectFrame()
 	do --<< Core >>--
 		self:Size(450, 480)
 		self:CreateBackdrop('Transparent')
@@ -264,7 +320,7 @@ function KI:CreateInspectFrame()
 			PlaySound('igCharacterInfoClose')
 
 			if self.CurrentInspectData.Name then
-				local TableIndex = self.CurrentInspectData.Name..(KI.CurrentInspectData.Realm and '-'..KI.CurrentInspectData.Realm or '')
+				local TableIndex = self.CurrentInspectData.Name..(SLI.CurrentInspectData.Realm and '-'..SLI.CurrentInspectData.Realm or '')
 				if AISM then
 					if self.LastDataSetting then
 						AISM.RegisteredFunction[TableIndex] = nil
@@ -272,15 +328,15 @@ function KI:CreateInspectFrame()
 				end
 
 				ENI.CancelInspect(TableIndex)
-				KI:UnregisterEvent('INSPECT_READY', 'KnightInspect')
+				SLI:UnregisterEvent('INSPECT_READY', 'KnightInspect')
 			end
 
 			self.LastDataSetting = nil
 			self.Model:Point('TOPRIGHT', UIParent, 'BOTTOMLEFT')
 		end)
 		self:SetScript('OnShow', function() self.Model:Point('TOPRIGHT', self.HandsSlot) end)
-		self:SetScript('OnEvent', function(self, Event, ...) if self[Event] then self[Event](...) end end)
-		UIPanelWindows['KnightInspect'] = { area = 'left', pushable = 1, }
+		self:SetScript('OnEvent', function(self, Event, ...) if self[Event] then self[Event](Event, ...) end end)
+		UIPanelWindows['KnightInspect'] = { area = 'left', pushable = 1, whileDead = 1 }
 	end
 
 	do --<< Tab >>--
@@ -353,7 +409,7 @@ function KI:CreateInspectFrame()
 			C.Toolkit.TextSetting(self[buttonName], _G[buttonString], { ['FontSize'] = 9, ['FontOutline'] = 'OUTLINE' })
 			self[buttonName]:SetScript('OnEnter', Button_OnEnter)
 			self[buttonName]:SetScript('OnLeave', Button_OnLeave)
-			self[buttonName]:SetScript('OnClick', function() KI:ChangePage(buttonName) end)
+			self[buttonName]:SetScript('OnClick', function() SLI:ChangePage(buttonName) end)
 			self[buttonName]['buttonString'] = _G[buttonString]
 		end
 		self.CharacterButton:Point('TOPLEFT', self.BP, 'BOTTOMLEFT', SPACING + 1, 2)
@@ -424,7 +480,7 @@ function KI:CreateInspectFrame()
 
 			local endx, endy, z, x, y
 			if button == 'LeftButton' then
-				KI.Model:SetScript('OnUpdate', function(self)
+				SLI.Model:SetScript('OnUpdate', function(self)
 					endx, endy = GetCursorPosition()
 
 					self.rotation = (endx - self.startx) / 34 + self:GetFacing()
@@ -432,7 +488,7 @@ function KI:CreateInspectFrame()
 					self.startx, self.starty = GetCursorPosition()
 				end)
 			elseif button == 'RightButton' then
-				KI.Model:SetScript('OnUpdate', function(self)
+				SLI.Model:SetScript('OnUpdate', function(self)
 					endx, endy = GetCursorPosition()
 
 					z, x, y = self:GetPosition(z, x, y)
@@ -625,7 +681,7 @@ function KI:CreateInspectFrame()
 		self.Info.Page:Point('TOPLEFT', self.Info)
 		self.Info.Page:Point('TOPRIGHT', self.Info, -1, 0)
 
-		for _, CategoryType in pairs(KI.InfoPageCategoryList) do
+		for _, CategoryType in pairs(SLI.InfoPageCategoryList) do
 			self.Info[CategoryType] = CreateFrame('ScrollFrame', nil, self.Info.Page)
 			self.Info[CategoryType]:SetBackdrop({
 				bgFile = E.media.blankTex,
@@ -666,14 +722,14 @@ function KI:CreateInspectFrame()
 			self.Info[CategoryType].Tooltip:Point('TOPLEFT', self.Info[CategoryType].Icon)
 			self.Info[CategoryType].Tooltip:Point('BOTTOMRIGHT', self.Info[CategoryType].Tab)
 			self.Info[CategoryType].Tooltip:SetFrameLevel(CoreFrameLevel + 4)
-			self.Info[CategoryType].Tooltip:SetScript('OnClick', KI.Category_OnClick)
+			self.Info[CategoryType].Tooltip:SetScript('OnClick', SLI.Category_OnClick)
 
 			C.Toolkit.TextSetting(self.Info[CategoryType].Tab, CategoryType, { ['FontSize'] = 10 }, 'LEFT', 6, 1)
 
 			self.Info[CategoryType].Page = CreateFrame('Frame', nil, self.Info[CategoryType])
 			self.Info[CategoryType]:SetScrollChild(self.Info[CategoryType].Page)
 			self.Info[CategoryType].Page:SetFrameLevel(CoreFrameLevel + 2)
-			self.Info[CategoryType].Page:Point('TOPLEFT', self.Info[CategoryType].Icon, 'BOTTOMLEFT', 0, -SPACING)
+			self.Info[CategoryType].Page:Point('TOPLEFT', self.Info[CategoryType].IconSlot, 'BOTTOMLEFT', 0, -SPACING)
 			self.Info[CategoryType].Page:Point('BOTTOMRIGHT', self.Info[CategoryType], -SPACING, SPACING)
 		end
 
@@ -721,13 +777,86 @@ function KI:CreateInspectFrame()
 				self.Info.Profession['Prof'..i].Name:Point('RIGHT', self.Info.Profession['Prof'..i].Level, 'LEFT', -SPACING, 0)
 			end
 
-			self.Info.Profession.Prof1:Point('TOPLEFT', self.Info.Profession.Page, 6, -8)
-			self.Info.Profession.Prof2:Point('TOPLEFT', self.Info.Profession.Page, 'TOP', 6, -8)
+			self.Info.Profession.Prof1:Point('TOPLEFT', self.Info.Profession.Page, 6, -7)
+			self.Info.Profession.Prof2:Point('TOPLEFT', self.Info.Profession.Page, 'TOP', 6, -7)
 		end
 
 		do -- PvP Category
-			self.Info.PvP.CategoryHeight = 100
+			self.Info.PvP.CategoryHeight = 90
 			self.Info.PvP.Icon:SetTexture('Interface\\Icons\\achievement_bg_killxenemies_generalsroom')
+
+			self.Info.PvP.PageLeft = CreateFrame('Frame', nil, self.Info.PvP.Page)
+			self.Info.PvP.PageLeft:Point('TOP', self.Info.PvP.Page)
+			self.Info.PvP.PageLeft:Point('LEFT', self.Info.PvP.Page)
+			self.Info.PvP.PageLeft:Point('BOTTOMRIGHT', self.Info.PvP.Page, 'BOTTOM')
+			self.Info.PvP.PageLeft:SetFrameLevel(CoreFrameLevel + 3)
+			self.Info.PvP.PageRight = CreateFrame('Frame', nil, self.Info.PvP.Page)
+			self.Info.PvP.PageRight:Point('TOP', self.Info.PvP.Page)
+			self.Info.PvP.PageRight:Point('RIGHT', self.Info.PvP.Page)
+			self.Info.PvP.PageRight:Point('BOTTOMLEFT', self.Info.PvP.Page, 'BOTTOM')
+			self.Info.PvP.PageRight:SetFrameLevel(CoreFrameLevel + 3)
+
+			for i = 1, 3 do
+				self.Info.PvP['Bar'..i] = self.Info.PvP.Page:CreateTexture(nil, 'OVERLAY')
+				self.Info.PvP['Bar'..i]:SetTexture(0, 0, 0)
+				self.Info.PvP['Bar'..i]:Width(2)
+			end
+
+			self.Info.PvP.Bar1:Point('TOP', self.Info.PvP.PageLeft, 0, -SPACING * 2)
+			self.Info.PvP.Bar1:Point('BOTTOM', self.Info.PvP.PageLeft, 0, SPACING * 2)
+			self.Info.PvP.Bar2:Point('TOP', self.Info.PvP.Page, 0, -SPACING * 2)
+			self.Info.PvP.Bar2:Point('BOTTOM', self.Info.PvP.Page, 0, SPACING * 2)
+			self.Info.PvP.Bar3:Point('TOP', self.Info.PvP.PageRight, 0, -SPACING * 2)
+			self.Info.PvP.Bar3:Point('BOTTOM', self.Info.PvP.PageRight, 0, SPACING * 2)
+
+			for _, Type in pairs({ '2vs2', '3vs3', '5vs5', 'RB' }) do
+				self.Info.PvP[Type] = CreateFrame('Frame', nil, self.Info.PvP.Page)
+				self.Info.PvP[Type]:SetFrameLevel(CoreFrameLevel + 4)
+				--self.Info.PvP[Type]:Height(70)
+
+				self.Info.PvP[Type].Rank = self.Info.PvP.Page:CreateTexture(nil, 'OVERLAY')
+				self.Info.PvP[Type].Rank:SetTexture('Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-SHIELDS')
+				self.Info.PvP[Type].Rank:SetTexCoord(0, .5, 0, .5)
+				self.Info.PvP[Type].Rank:Size(83, 57)
+				self.Info.PvP[Type].Rank:Point('TOP', self.Info.PvP[Type], 0, -10)
+				self.Info.PvP[Type].Rank:Hide()
+				self.Info.PvP[Type].RankGlow = self.Info.PvP.Page:CreateTexture(nil, 'OVERLAY')
+				self.Info.PvP[Type].RankGlow:SetTexture('Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-SHIELDS')
+				self.Info.PvP[Type].RankGlow:SetBlendMode('ADD')
+				self.Info.PvP[Type].RankGlow:SetTexCoord(0, .5, 0, .5)
+				self.Info.PvP[Type].RankGlow:Point('TOPLEFT', self.Info.PvP[Type].Rank)
+				self.Info.PvP[Type].RankGlow:Point('BOTTOMRIGHT', self.Info.PvP[Type].Rank)
+				self.Info.PvP[Type].RankGlow:Hide()
+				self.Info.PvP[Type].RankNoLeaf = self.Info.PvP.Page:CreateTexture(nil, 'OVERLAY')
+				self.Info.PvP[Type].RankNoLeaf:SetTexture('Interface\\ACHIEVEMENTFRAME\\UI-Achievement-Progressive-Shield')
+				self.Info.PvP[Type].RankNoLeaf:SetTexCoord(0, .66, 0, .77)
+				self.Info.PvP[Type].RankNoLeaf:Point('CENTER', self.Info.PvP[Type].Rank, 0, 2)
+				self.Info.PvP[Type].RankNoLeaf:SetVertexColor(.2, .4, 1)
+				self.Info.PvP[Type].RankNoLeaf:Size(80, 65)
+
+				C.Toolkit.TextSetting(self.Info.PvP[Type], nil, { ['Tag'] = 'Type', ['FontSize'] = 10, ['FontOutline'] = 'OUTLINE' }, 'TOPLEFT', self.Info.PvP[Type])
+				self.Info.PvP[Type].Type:Point('TOPRIGHT', self.Info.PvP[Type])
+				self.Info.PvP[Type].Type:SetHeight(22)
+				C.Toolkit.TextSetting(self.Info.PvP[Type], nil, { ['Tag'] = 'Rating', ['FontSize'] = 22, ['FontOutline'] = 'OUTLINE' }, 'CENTER', self.Info.PvP[Type].Rank, 0, 3)
+				C.Toolkit.TextSetting(self.Info.PvP[Type], nil, { ['Tag'] = 'Record', ['FontSize'] = 10, ['FontOutline'] = 'OUTLINE' }, 'TOP', self.Info.PvP[Type].Rank, 'BOTTOM', 0, 12)
+			end
+			self.Info.PvP['2vs2']:Point('TOP', self.Info.PvP.Bar1)
+			self.Info.PvP['2vs2']:Point('LEFT', self.Info.PvP.Page)
+			self.Info.PvP['2vs2']:Point('BOTTOMRIGHT', self.Info.PvP.Bar1, 'BOTTOMLEFT', -SPACING, 0)
+			self.Info.PvP['2vs2'].Type:SetText(ARENA_2V2)
+
+			self.Info.PvP['3vs3']:Point('TOPLEFT', self.Info.PvP.Bar1, 'TOPRIGHT', SPACING, 0)
+			self.Info.PvP['3vs3']:Point('BOTTOMRIGHT', self.Info.PvP.Bar2, 'BOTTOMLEFT', -SPACING, 0)
+			self.Info.PvP['3vs3'].Type:SetText(ARENA_3V3)
+
+			self.Info.PvP['5vs5']:Point('TOPLEFT', self.Info.PvP.Bar2, 'TOPRIGHT', SPACING, 0)
+			self.Info.PvP['5vs5']:Point('BOTTOMRIGHT', self.Info.PvP.Bar3, 'BOTTOMLEFT', -SPACING, 0)
+			self.Info.PvP['5vs5'].Type:SetText(ARENA_5V5)
+
+			self.Info.PvP.RB:Point('TOP', self.Info.PvP.Bar3)
+			self.Info.PvP.RB:Point('RIGHT', self.Info.PvP.Page)
+			self.Info.PvP.RB:Point('BOTTOMLEFT', self.Info.PvP.Bar3, 'BOTTOMRIGHT', SPACING, 0)
+			self.Info.PvP.RB.Type:SetText(PVP_RATED_BATTLEGROUNDS)
 		end
 
 		do -- Guild Category
@@ -742,7 +871,7 @@ function KI:CreateInspectFrame()
 			self.Info.Guild.BG:Size(33, 44)
 			self.Info.Guild.BG:SetTexCoord(.00781250, .32812500, .01562500, .84375000)
 			self.Info.Guild.BG:SetTexture('Interface\\GuildFrame\\GuildDifficulty')
-			self.Info.Guild.BG:Point('TOP', self.Info.Guild.Page, 0, -1)
+			self.Info.Guild.BG:Point('TOP', self.Info.Guild.Page)
 
 			self.Info.Guild.Border = self.Info.Guild.Banner:CreateTexture(nil, 'ARTWORK')
 			self.Info.Guild.Border:Size(33, 44)
@@ -999,116 +1128,51 @@ function KI:CreateInspectFrame()
 	end
 
 	do --<< UnitPopup Setting >>--
-		hooksecurefunc('UnitPopup_HideButtons', function()
-			if KI.Activate then
-				local Unit = UIDROPDOWNMENU_INIT_MENU.unit
-				local Name = UIDROPDOWNMENU_INIT_MENU.name
+		hooksecurefunc('UnitPopup_ShowMenu', function(Menu, Type, Unit, Name)
+			if SLI.Activate and UIDROPDOWNMENU_MENU_LEVEL == 1 and SLI.UnitPopupList[Type] then
+				local Button
+				local DataTable = {
+					['Name'] = Menu.name or Name,
+					['Unit'] = UnitExists(Menu.name) and Menu.name or Unit,
+					['Realm'] = Menu.server ~= '' and Menu.server or E.myrealm
+				}
+				DataTable.TableIndex = DataTable.Unit and GetUnitName(DataTable.Unit, 1) or DataTable.Name..(DataTable.Realm ~= E.myrealm and '-'..DataTable.Realm or '')
 
-				if Name then
-					Name = Name..(UIDROPDOWNMENU_INIT_MENU.server and UIDROPDOWNMENU_INIT_MENU.server ~= '' and UIDROPDOWNMENU_INIT_MENU.server ~= E.myrealm and '-'..UIDROPDOWNMENU_INIT_MENU.server or '')
-					Unit = UnitExists(Name) and Name or Unit
+				for i = 1, DropDownList1.numButtons do
+					Button = _G['DropDownList1Button'..i]
 
-					for index, value in ipairs(UnitPopupMenus[UIDROPDOWNMENU_MENU_VALUE] or UnitPopupMenus[UIDROPDOWNMENU_INIT_MENU.which]) do
-						if value == 'KnightInspect' then
-							if not (Unit and not UnitCanAttack('player', Unit) and UnitIsConnected(Unit)) then
-								if AISM then
-									AISM.GroupMemberData[Name] = nil
-								end
+					if Button.value == 'INSPECT' then
+						UnitPopupShown[1][i] = 0
 
-								UnitPopupShown[UIDROPDOWNMENU_MENU_LEVEL][index] = 0
-							end
-
-							if AISM and (AISM.GroupMemberData[Name] or AISM.GuildMemberData[Name]) then
-								UnitPopupShown[UIDROPDOWNMENU_MENU_LEVEL][index] = 1
-							end
-
-							return
-						end
+						Button.value = 'KnightInspect'
+						Button.func = SLI.UnitPopupMenu_OnClick
+						Button.arg1 = DataTable
+						Button:SetScript('OnUpdate', SLI.UnitPopupMenu_OnUpdate)
+						Button:SetText('KnightInspect')
 					end
-				end
-			end
-		end)
 
-		local Count, tempCount
-		hooksecurefunc('UnitPopup_OnUpdate', function()
-			if not DropDownList1:IsShown() or not KI.Activate then return end
-
-			for level, dropdownFrame in pairs(OPEN_DROPDOWNMENUS) do
-				if dropdownFrame then
-					Count = 0
-
-					for index, value in ipairs(UnitPopupMenus[dropdownFrame.which]) do
-						if UnitPopupShown[level][index] == 1 then
-							Count = Count + 1
-
-							if level > 1 then
-								tempCount = Count
-							else
-								tempCount = Count + 1
-							end
-
-							if value == 'KnightInspect' then
-								--local Type = dropdownFrame.which
-								local Unit = UIDROPDOWNMENU_INIT_MENU.unit
-								local Name = UIDROPDOWNMENU_INIT_MENU.name
-								
-								Name = Name..(UIDROPDOWNMENU_INIT_MENU.server and UIDROPDOWNMENU_INIT_MENU.server ~= '' and UIDROPDOWNMENU_INIT_MENU.server ~= E.myrealm and '-'..UIDROPDOWNMENU_INIT_MENU.server or '')
-								Unit = UnitExists(Name) and Name or Unit
-								
-								if AISM and (type(AISM.GroupMemberData[Name]) == 'table' or AISM.GuildMemberData[Name]) or Unit and UnitIsVisible(Unit) then
-									UIDropDownMenu_EnableButton(level, tempCount)
-								else
-									UIDropDownMenu_DisableButton(level, tempCount)
-								end
-							end
-						end
-					end
-				end
-			end
-		end)
-			
-		hooksecurefunc('UnitPopup_OnClick', function(self)
-			if KI.Activate and self.value == 'KnightInspect' then
-				--local Type = UIDROPDOWNMENU_INIT_MENU.which
-				local Name = UIDROPDOWNMENU_INIT_MENU.name
-				local Realm = UIDROPDOWNMENU_INIT_MENU.server
-				Realm = Realm ~= '' and Realm or E.myrealm
-
-				local TableIndex = Name..(Realm ~= E.myrealm and '-'..Realm or '')
-				local Unit = UnitExists(TableIndex) and TableIndex or UIDROPDOWNMENU_INIT_MENU.unit
-
-				local SendChannel
-
-				if AISM and AISM.GuildMemberData[TableIndex] then
-					if Realm == E.myrealm then
-						SendChannel = 'WHISPER'
-					else
-						SendChannel = 'GUILD'
-					end
-				elseif KI.CurrentGroupMode ~= 'NoGroup' and AISM and type(AISM.GroupMemberData[TableIndex]) == 'table' then
-					if Realm == E.myrealm then
-						SendChannel = 'WHISPER'
-					else
-						SendChannel = KI.InstanceType == 'pvp' and 'BATTLEGROUND' or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(KI.CurrentGroupMode)
+					if Button.value == 'KnightInspect' then
+						return
 					end
 				end
 
-				if AISM and SendChannel then
-					AISM.CurrentInspectData[TableIndex] = {
-						['UnitID'] = Unit,
-					}
-					AISM:RegisterInspectDataRequest(function(User, UserData)
-						if User == TableIndex then
-							KI.CurrentInspectData = E:CopyTable({}, KI.Default_CurrentInspectData)
-							E:CopyTable(KI.CurrentInspectData, UserData)
-							KI:ShowFrame(KI.CurrentInspectData)
-							
-							return true
-						end
-					end, TableIndex, true)
-					SendAddonMessage('AISM_Inspect', 'AISM_DataRequestForInspecting:'..Name..'-'..Realm, SendChannel, TableIndex)
-				elseif Unit then
-					KI.InspectUnit(Unit)
+				if not (Type == 'GUILD' and AISM and not AISM.GuildMemberData[DataTable.TableIndex]) then
+					Button = UIDropDownMenu_CreateInfo()
+					Button.text = 'KnightInspect'
+					Button.value = 'KnightInspect'
+					Button.owner = Menu.which
+					Button.func = SLI.UnitPopupMenu_OnClick
+					Button.arg1 = DataTable
+					Button.notCheckable = 1
+					Button.tooltipTitle = UnitPopupButtons.INSPECT.text
+					Button.tooltipText = NEWBIE_TOOLTIP_UNIT_INSPECT or UnitPopupButtons.INSPECT.tooltipText
+
+					UIDropDownMenu_AddButton(Button)
+					_G['DropDownList1Button'..DropDownList1.numButtons]:SetScript('OnUpdate', SLI.UnitPopupMenu_OnUpdate)
+				elseif not (DataTable.Unit and not UnitCanAttack('player', DataTable.Unit) and UnitIsConnected(DataTable.Unit)) then
+					if AISM then
+						AISM.GroupMemberData[DataTable.TableIndex] = nil
+					end
 				end
 			end
 		end)
@@ -1124,13 +1188,30 @@ function KI:CreateInspectFrame()
 	self.CreateInspectFrame = nil
 end
 
-KI.INSPECT_READY = function(InspectedUnitGUID)
-	local UnitID = KI.CurrentInspectData.Name..(KI.CurrentInspectData.Realm and '-'..KI.CurrentInspectData.Realm or '')
+SLI.INSPECT_HONOR_UPDATE = function(Event)
+	for i, Type in pairs({ '2vs2', '3vs3', '5vs5' }) do
+		SLI.CurrentInspectData.PvP[Type] = { GetInspectArenaData(i) }
+		for i = 4, #SLI.CurrentInspectData.PvP[Type] do
+			SLI.CurrentInspectData.PvP[Type][i] = nil
+		end
+	end
+	SLI.CurrentInspectData.PvP.RB = { GetInspectRatedBGData() }
+	SLI.CurrentInspectData.PvP.Honor = { GetInspectHonorData() }
+
+	SLI:UnregisterEvent('INSPECT_HONOR_UPDATE')
+
+	if not SLI.ForbidUpdatePvPInformation then
+		SLI:InspectFrame_PvPSetting(SLI.CurrentInspectData)
+	end
+end
+
+SLI.INSPECT_READY = function(Event, InspectedUnitGUID)
+	local UnitID = SLI.CurrentInspectData.Name..(SLI.CurrentInspectData.Realm and '-'..SLI.CurrentInspectData.Realm or '')
 	local GUIDByUnitName = UnitGUID(UnitID)
 	local Name, Realm = UnitFullName(UnitID)
 
 	if not GUIDByUnitName then
-		UnitID = KI.CurrentInspectData.UnitID
+		UnitID = SLI.CurrentInspectData.UnitID
 		GUIDByUnitName = UnitGUID(UnitID)
 		Name, Realm = UnitFullName(UnitID)
 	end
@@ -1139,28 +1220,31 @@ KI.INSPECT_READY = function(InspectedUnitGUID)
 		_, _, _, _, _, Name, Realm = GetPlayerInfoByGUID(InspectedUnitGUID)
 	end
 
-	local TableIndex = Name..(Realm and Realm ~= '' and Realm ~= E.myrealm and '-'..E.myrealm or '')
+	local TableIndex = Name..(Realm and Realm ~= '' and Realm ~= E.myrealm and '-'..Realm or '')
 
 	if InspectedUnitGUID ~= GUIDByUnitName then
-		if GUIDByUnitName and KI.CurrentInspectData.Name == Name and KI.CurrentInspectData.Realm == Realm then
-			KI.CurrentInspectData.UnitGUID = GUIDByUnitName
+		if GUIDByUnitName and SLI.CurrentInspectData.Name == Name and SLI.CurrentInspectData.Realm == Realm then
+			SLI.CurrentInspectData.UnitGUID = GUIDByUnitName
 			return
 		else
 			ENI.CancelInspect(TableIndex)
-			KI:UnregisterEvent('INSPECT_READY', 'KnightInspect')
+			SLI:UnregisterEvent('INSPECT_READY')
+			SLI:UnregisterEvent('INSPECT_HONOR_UPDATE')
 
 			return
 		end
+	elseif HasInspectHonorData() then
+		SLI.INSPECT_HONOR_UPDATE(nil)
 	end
 
-	_, _, KI.CurrentInspectData.Race, KI.CurrentInspectData.RaceID, KI.CurrentInspectData.GenderID = GetPlayerInfoByGUID(InspectedUnitGUID)
+	_, _, SLI.CurrentInspectData.Race, SLI.CurrentInspectData.RaceID, SLI.CurrentInspectData.GenderID = GetPlayerInfoByGUID(InspectedUnitGUID)
 
 	local needReinspect
 	local CurrentSetItem = {}
 	local Slot, SlotTexture, SlotLink, CheckSpace, colorR, colorG, colorB, tooltipText, TransmogrifiedItem, SetName, SetItemCount, SetItemMax, SetOptionCount
 	for _, SlotName in pairs(C.GearList) do
-		Slot = KI[SlotName]
-		KI.CurrentInspectData.Gear[SlotName] = {}
+		Slot = SLI[SlotName]
+		SLI.CurrentInspectData.Gear[SlotName] = {}
 
 		SlotTexture = GetInventoryItemTexture(UnitID, Slot.ID)
 
@@ -1170,24 +1254,24 @@ KI.INSPECT_READY = function(InspectedUnitGUID)
 			if not SlotLink then
 				needReinspect = true
 			else
-				KI.CurrentInspectData.Gear[SlotName].ItemLink = SlotLink
+				SLI.CurrentInspectData.Gear[SlotName].ItemLink = SlotLink
 
-				KI.ScanTTForInspecting:ClearLines()
+				SLI.ScanTTForInspecting:ClearLines()
 				for i = 1, 10 do
 					_G['KnightInspectScanTT_ITexture'..i]:SetTexture(nil)
 				end
-				KI.ScanTTForInspecting:SetInventoryItem(UnitID, Slot.ID)
+				SLI.ScanTTForInspecting:SetInventoryItem(UnitID, Slot.ID)
 
 				TransmogrifiedItem = nil
 				checkSpace = 2
 				SetOptionCount = 1
 
-				for i = 1, KI.ScanTTForInspecting:NumLines() do
+				for i = 1, SLI.ScanTTForInspecting:NumLines() do
 					tooltipText = _G['KnightInspectScanTT_ITextLeft'..i]:GetText()
 
 					if not TransmogrifiedItem and tooltipText:match(C.TransmogrifiedKey) then
-						if type(KI.CurrentInspectData.Gear[SlotName].Transmogrify) ~= 'number' then
-							KI.CurrentInspectData.Gear[SlotName].Transmogrify = tooltipText:match(C.TransmogrifiedKey)
+						if type(SLI.CurrentInspectData.Gear[SlotName].Transmogrify) ~= 'number' then
+							SLI.CurrentInspectData.Gear[SlotName].Transmogrify = tooltipText:match(C.TransmogrifiedKey)
 						end
 
 						TransmogrifiedItem = true
@@ -1206,7 +1290,7 @@ KI.INSPECT_READY = function(InspectedUnitGUID)
 						else
 							CurrentSetItem[SetName] = {}
 
-							for k = 1, KI.ScanTTForInspecting:NumLines() do
+							for k = 1, SLI.ScanTTForInspecting:NumLines() do
 								tooltipText = _G['KnightInspectScanTT_ITextLeft'..(i+k)]:GetText()
 
 								if tooltipText == ' ' then
@@ -1228,7 +1312,7 @@ KI.INSPECT_READY = function(InspectedUnitGUID)
 								end
 							end
 
-							KI.CurrentInspectData.SetItem[SetName] = CurrentSetItem[SetName]
+							SLI.CurrentInspectData.SetItem[SetName] = CurrentSetItem[SetName]
 
 							break
 						end
@@ -1240,18 +1324,18 @@ KI.INSPECT_READY = function(InspectedUnitGUID)
 		end
 	end
 
-	if KI.CurrentInspectData.SetItem then
-		for SetName in pairs(KI.CurrentInspectData.SetItem) do
+	if SLI.CurrentInspectData.SetItem then
+		for SetName in pairs(SLI.CurrentInspectData.SetItem) do
 			if not CurrentSetItem[SetName] then
-				KI.CurrentInspectData.SetItem[SetName] = nil
+				SLI.CurrentInspectData.SetItem[SetName] = nil
 			end
 		end
 	end
 
 	-- Specialization
-	KI.CurrentInspectData.Specialization[1].SpecializationID = GetInspectSpecialization(UnitID)
+	SLI.CurrentInspectData.Specialization[1].SpecializationID = GetInspectSpecialization(UnitID)
 	for i = 1, NUM_TALENT_COLUMNS * MAX_NUM_TALENT_TIERS do
-		KI.CurrentInspectData.Specialization[1]['Talent'..i] = select(5, GetTalentInfo(i, true, nil, UnitID, KI.CurrentInspectData.ClassID))
+		SLI.CurrentInspectData.Specialization[1]['Talent'..i] = select(5, GetTalentInfo(i, true, nil, UnitID, SLI.CurrentInspectData.ClassID))
 	end
 
 	-- Glyph
@@ -1259,24 +1343,26 @@ KI.INSPECT_READY = function(InspectedUnitGUID)
 	for i = 1, NUM_GLYPH_SLOTS do
 		_, _, _, SpellID, _, GlyphID = GetGlyphSocketInfo(i, nil, true, UnitID)
 
-		KI.CurrentInspectData.Glyph[1]['Glyph'..i..'SpellID'] = SpellID or 0
-		KI.CurrentInspectData.Glyph[1]['Glyph'..i..'ID'] = GlyphID or 0
+		SLI.CurrentInspectData.Glyph[1]['Glyph'..i..'SpellID'] = SpellID or 0
+		SLI.CurrentInspectData.Glyph[1]['Glyph'..i..'ID'] = GlyphID or 0
 	end
 
 	-- Guild
-	KI.CurrentInspectData.guildLevel, _, KI.CurrentInspectData.guildNumMembers = GetInspectGuildInfo(UnitID)
-	KI.CurrentInspectData.guildEmblem = { GetGuildLogoInfo(UnitID) }
+	SLI.CurrentInspectData.guildLevel, _, SLI.CurrentInspectData.guildNumMembers = GetInspectGuildInfo(UnitID)
+	SLI.CurrentInspectData.guildEmblem = { GetGuildLogoInfo(UnitID) }
 
 	if needReinspect then
 		return
 	end
 
+	SLI.ForbidUpdatePvPInformation = nil
 	ENI.CancelInspect(TableIndex)
-	KI:ShowFrame(KI.CurrentInspectData)
-	KI:UnregisterEvent('INSPECT_READY')
+
+	SLI:ShowFrame(SLI.CurrentInspectData)
+	SLI:UnregisterEvent('INSPECT_READY')
 end
 
-KI.InspectUnit = function(UnitID)
+SLI.InspectUnit = function(UnitID)
 	if not UnitExists('mouseover') and UnitExists('target') then
 		UnitID = 'target'
 	end
@@ -1284,8 +1370,7 @@ KI.InspectUnit = function(UnitID)
 	if not UnitIsPlayer(UnitID) then
 		return
 	elseif UnitIsDeadOrGhost('player') then
-		print('|cff2eb7e4[S&L]|r : '..L["You can't inspect while dead."])
-
+		SLE:Print(L["You can't inspect while dead."]) --print('|cff2eb7e4[S&L]|r : '..L["You can't inspect while dead."])
 		return
 	elseif not UnitIsVisible(UnitID) then
 		
@@ -1293,23 +1378,25 @@ KI.InspectUnit = function(UnitID)
 	else
 		UnitID = NotifyInspect(UnitID, true) or UnitID
 
-		KI.CurrentInspectData = E:CopyTable({}, KI.Default_CurrentInspectData)
+		SLI.CurrentInspectData = E:CopyTable({}, SLI.Default_CurrentInspectData)
 
-		KI.CurrentInspectData.UnitID = UnitID
-		KI.CurrentInspectData.UnitGUID = UnitGUID(UnitID)
-		KI.CurrentInspectData.Title = UnitPVPName(UnitID)
-		KI.CurrentInspectData.Level = UnitLevel(UnitID)
-		KI.CurrentInspectData.Name, KI.CurrentInspectData.Realm = UnitFullName(UnitID)
-		_, KI.CurrentInspectData.Class, KI.CurrentInspectData.ClassID = UnitClass(UnitID)
-		KI.CurrentInspectData.guildName, KI.CurrentInspectData.guildRankName = GetGuildInfo(UnitID)
+		SLI.CurrentInspectData.UnitID = UnitID
+		SLI.CurrentInspectData.UnitGUID = UnitGUID(UnitID)
+		SLI.CurrentInspectData.Title = UnitPVPName(UnitID)
+		SLI.CurrentInspectData.Level = UnitLevel(UnitID)
+		SLI.CurrentInspectData.Name, SLI.CurrentInspectData.Realm = UnitFullName(UnitID)
+		_, SLI.CurrentInspectData.Class, SLI.CurrentInspectData.ClassID = UnitClass(UnitID)
+		SLI.CurrentInspectData.guildName, SLI.CurrentInspectData.guildRankName = GetGuildInfo(UnitID)
 
-		KI.CurrentInspectData.Realm = KI.CurrentInspectData.Realm ~= '' and KI.CurrentInspectData.Realm ~= E.myrealm and KI.CurrentInspectData.Realm or nil
+		SLI.CurrentInspectData.Realm = SLI.CurrentInspectData.Realm ~= '' and SLI.CurrentInspectData.Realm ~= E.myrealm and SLI.CurrentInspectData.Realm or nil
 
-		KI:RegisterEvent('INSPECT_READY')
+		SLI.ForbidUpdatePvPInformation = true
+		SLI:RegisterEvent('INSPECT_READY')
+		SLI:RegisterEvent('INSPECT_HONOR_UPDATE')
 	end
 end
 
-function KI:ShowFrame(DataTable)
+function SLI:ShowFrame(DataTable)
 	local needUpdate, CheckItemInfoReceived
 
 	for _, slotName in pairs(C.GearList) do
@@ -1342,12 +1429,13 @@ function KI:ShowFrame(DataTable)
 			self.Updater:SetScript('OnUpdate', nil)
 			self.Updater:Hide()
 
+			self:InspectFrame_PvPSetting(DataTable)
 			ShowUIPanel(KnightInspect)
 		end
 	end)
 end
 
-function KI:InspectFrame_DataSetting(DataTable)
+function SLI:InspectFrame_DataSetting(DataTable)
 	local needUpdate
 	local r, g, b
 	
@@ -1611,7 +1699,7 @@ function KI:InspectFrame_DataSetting(DataTable)
 			Slot:SetBackdropBorderColor(r, g, b)
 		end
 
-		self.SetItem = E:CopyTable({}, KI.CurrentInspectData.SetItem)
+		self.SetItem = E:CopyTable({}, SLI.CurrentInspectData.SetItem)
 		self.Character.AverageItemLevel:SetText(C.Toolkit.Color_Value(STAT_AVERAGE_ITEM_LEVEL)..' : '..format('%.2f', ItemTotal / ItemCount))
 	end
 
@@ -1684,7 +1772,7 @@ function KI:InspectFrame_DataSetting(DataTable)
 			end
 		end
 
-		KI:ReArrangeCategory()
+		SLI:ReArrangeCategory()
 	end
 
 	do --<< Specialization Page Setting >>--
@@ -1786,16 +1874,79 @@ function KI:InspectFrame_DataSetting(DataTable)
 	self.LastDataSetting = DataTable.Name..(DataTable.Realm and '-'..DataTable.Realm or '')
 end
 
-function KI:ReArrangeCategory()
+function SLI:InspectFrame_PvPSetting(DataTable)
+	local Rating, Played, Won
+	local needExpand = 0
+
+	for _, Type in pairs({ '2vs2', '3vs3', '5vs5', 'RB' }) do
+		if DataTable.PvP[Type] and DataTable.PvP[Type][2] > 0 then
+			Rating = DataTable.PvP[Type][1] or 0
+			Played = DataTable.PvP[Type][2] or 0
+			Won = DataTable.PvP[Type][3] or 0
+
+			if Rating >= 2000 then
+				Rating = '|cffffe65a'..Rating
+				self.Info.PvP[Type].Rank:Show()
+				self.Info.PvP[Type].Rank:SetTexCoord(0, .5, 0, .5)
+				self.Info.PvP[Type].Rank:SetBlendMode('ADD')
+				self.Info.PvP[Type].Rank:SetVertexColor(1, 1, 1)
+				self.Info.PvP[Type].RankGlow:Show()
+				self.Info.PvP[Type].RankGlow:SetTexCoord(0, .5, 0, .5)
+				self.Info.PvP[Type].RankNoLeaf:Hide()
+			elseif Rating >= 1750 then
+				self.Info.PvP[Type].Rank:Show()
+				self.Info.PvP[Type].Rank:SetTexCoord(.5, 1, 0, .5)
+				self.Info.PvP[Type].Rank:SetBlendMode('ADD')
+				self.Info.PvP[Type].Rank:SetVertexColor(1, 1, 1)
+				self.Info.PvP[Type].RankGlow:Show()
+				self.Info.PvP[Type].RankGlow:SetTexCoord(.5, 1, 0, .5)
+				self.Info.PvP[Type].RankNoLeaf:Hide()
+			elseif Rating >= 1550 then
+				Rating = '|cffc17611'..Rating
+				self.Info.PvP[Type].Rank:Show()
+				self.Info.PvP[Type].Rank:SetTexCoord(0, .5, 0, .5)
+				self.Info.PvP[Type].Rank:SetBlendMode('BLEND')
+				self.Info.PvP[Type].Rank:SetVertexColor(.6, .5, 0)
+				self.Info.PvP[Type].RankGlow:Hide()
+				self.Info.PvP[Type].RankNoLeaf:Hide()
+			else
+				Rating = '|cff2eb7e4'..Rating
+				self.Info.PvP[Type].Rank:Hide()
+				self.Info.PvP[Type].RankGlow:Hide()
+				self.Info.PvP[Type].RankNoLeaf:Show()
+			end
+			needExpand = needExpand < 106 and 106 or needExpand
+
+			self.Info.PvP[Type].Rating:SetText(Rating)
+			self.Info.PvP[Type].Record:SetText('|cff77c0ff'..Won..'|r / |cffB24C4C'..(Played - Won))
+		else
+			needExpand = needExpand < 88 and 88 or needExpand
+
+			self.Info.PvP[Type].Rank:Hide()
+			self.Info.PvP[Type].RankGlow:Hide()
+			self.Info.PvP[Type].RankNoLeaf:Hide()
+
+			self.Info.PvP[Type].Rating:SetText('|cff8080800')
+			self.Info.PvP[Type].Record:SetText(nil)
+		end
+	end
+
+	self.Info.PvP.CategoryHeight = needExpand > 0 and needExpand or INFO_TAB_SIZE + SPACING * 2
+	self:ReArrangeCategory()
+end
+
+function SLI:ReArrangeCategory()
 	local InfoPage_Height = 0
 	local PrevCategory
 
 	for _, CategoryType in pairs(self.InfoPageCategoryList) do
 		if self.Info[CategoryType]:IsShown() then
 			if self.Info[CategoryType].Closed then
+				self.Info[CategoryType].Page:Hide()
 				InfoPage_Height = InfoPage_Height + INFO_TAB_SIZE + SPACING * 2
 				self.Info[CategoryType]:Height(INFO_TAB_SIZE + SPACING * 2)
 			else
+				self.Info[CategoryType].Page:Show()
 				InfoPage_Height = InfoPage_Height + self.Info[CategoryType].CategoryHeight
 				self.Info[CategoryType]:Height(self.Info[CategoryType].CategoryHeight)
 			end
@@ -1816,7 +1967,7 @@ function KI:ReArrangeCategory()
 end
 	
 	
-function KI:ToggleSpecializationTab(Group, DataTable)
+function SLI:ToggleSpecializationTab(Group, DataTable)
 	local r, g, b
 	self.LastActiveSpec = DataTable.Specialization.ActiveSpec or 1
 
@@ -1909,26 +2060,25 @@ function KI:ToggleSpecializationTab(Group, DataTable)
 	end
 end
 
-UnitPopupButtons.KnightInspect = { ['text'] = L['KnightInspect'], ['dist'] = 0, }
-
 function IFO:Initialize()
 	if not E.private.sle.inspectframeoptions.enable then return end
 	
 	Default_NotifyInspect = _G['NotifyInspect']
 	Default_InspectUnit = _G['InspectUnit']
 	
-	if KI.CreateInspectFrame then
-		KI:CreateInspectFrame()
+	if SLI.CreateInspectFrame then
+		SLI:CreateInspectFrame()
 	end
 	
 	_G['NotifyInspect'] = ENI.NotifyInspect or _G['NotifyInspect']
-	_G['InspectUnit'] = KI.InspectUnit
-	
+	_G['InspectUnit'] = SLI.InspectUnit
+
+	--[[
 	tinsert(UnitPopupMenus.FRIEND, 5, 'KnightInspect')
 	tinsert(UnitPopupMenus.GUILD, 5, 'KnightInspect')
 	tinsert(UnitPopupMenus.RAID, 12, 'KnightInspect')
 	tinsert(UnitPopupMenus.FOCUS, 5, 'KnightInspect')
-	for _, GroupType in pairs({ 'PLAYER', 'PARTY' }) do
+	for _, GroupType in pairs({ 'PLAYER', 'PARTY', 'RAID_PLAYER' }) do
 		for Index, MenuType in pairs(UnitPopupMenus[GroupType]) do
 			if MenuType == 'INSPECT' then
 				UnitPopupMenus[GroupType][Index] = 'KnightInspect'
@@ -1936,7 +2086,8 @@ function IFO:Initialize()
 			end
 		end
 	end
+	]]
 	
-	KI.Activate = true
+	SLI.Activate = true
 end
 E:RegisterModule(IFO:GetName())

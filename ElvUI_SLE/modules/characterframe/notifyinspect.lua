@@ -23,6 +23,7 @@ if not ENI then
 			if CurrentUnitGUID and not (ENI.CurrentInspectUnitGUID and CurrentUnitGUID ~= ENI.CurrentInspectUnitGUID) then
 				ENI.CurrentInspectUnitGUID = CurrentUnitGUID
 				BlizzardNotifyInspect(ENI.InspectList[(ENI.InspectList[1])].UnitID)
+				RequestInspectHonorData()
 			else
 				ENI.CancelInspect(ENI.InspectList[1])
 			end
@@ -62,7 +63,6 @@ if not ENI then
 					['CancelInspectByManual'] = InspectFirst,
 				}
 				ENI.CurrentInspectUnitGUID = UnitGUID(Unit)
-				--ENI.TryInspect()
 				ENI:Show()
 			elseif InspectFirst and ENI.InspectList[TableIndex] then
 				ENI.CancelInspect(TableIndex)
@@ -101,6 +101,9 @@ if not ENI then
 			end
 			
 			ENI.CurrentInspectUnitGUID = nil
+		else
+			ENI.TryInspect()
+			ENI.UpdatedTime = -ENI.UpdateInterval
 		end
 	end
 	ENI:RegisterEvent('INSPECT_READY')

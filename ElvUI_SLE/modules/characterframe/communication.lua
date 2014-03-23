@@ -138,7 +138,7 @@ if not AISM then
 		end
 	end)
 
-	AISM.Updater:SetScript('OnEvent', function(self, EventTag, ...)
+	AISM.Updater:SetScript('OnEvent', function(self, Event, ...)
 		if Event == 'COMBAT_LOG_EVENT_UNFILTERED' then
 			_, SystemMessage, _, _, _, _, _, _, isPlayer = ...
 
@@ -389,7 +389,7 @@ if not AISM then
 									else
 										tooltipText = GRAY_FONT_COLOR_CODE..tooltipText
 									end
-								--print(tooltipText..' / '..SetItemCount..' / '..SetItemMax)
+									--print(tooltipText..' / '..SetItemCount..' / '..SetItemMax)
 
 									FullString = FullString..'/'..tooltipText
 								elseif tooltipText:find(ItemSetBonusKey) then
