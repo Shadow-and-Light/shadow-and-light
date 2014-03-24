@@ -311,8 +311,6 @@ function SMB:Update(self)
 		end
 	end
 
-	RegisterStateDriver(SquareMinimapButtonBar, 'visibility', '[petbattle] hide; show')
-
 	self:Show()
 end
 
@@ -352,6 +350,7 @@ function SMB:Initialize()
 	E:Delay(5, function()
 		SquareMinimapButtonBar.Skin()
 		SMB:Update(SquareMinimapButtonBar)
+		RegisterStateDriver(SquareMinimapButtonBar, 'visibility', '[petbattle] hide; show')
 	end)
 end
 
