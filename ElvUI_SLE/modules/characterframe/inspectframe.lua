@@ -198,7 +198,6 @@ SLI.ScrollFrame_OnMouseWheel = function(self, spinning)
 	Page:Point('TOPLEFT', self, 0, self.Offset)
 	Page:Point('TOPRIGHT', self, 0, self.Offset)
 end
-
 SLI.Category_OnClick = function(self)
 	self = self:GetParent()
 	self.Closed = not self.Closed
@@ -256,58 +255,6 @@ SLI.OnClick = function(self)
 	end
 end
 
-SLI.UnitPopupMenu_OnClick = function(self, DataTable)
-	local SendChannel
-
-	if AISM and AISM.GuildMemberData[DataTable.TableIndex] then
-		if DataTable.Realm == E.myrealm then
-			SendChannel = 'WHISPER'
-		else
-			SendChannel = 'GUILD'
-		end
-	elseif SLI.CurrentGroupMode ~= 'NoGroup' and AISM and type(AISM.GroupMemberData[DataTable.TableIndex]) == 'table' then
-		if DataTable.Realm == E.myrealm then
-			SendChannel = 'WHISPER'
-		else
-			SendChannel = IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(SLI.CurrentGroupMode)
-		end
-	end
-
-	if AISM and SendChannel then
-		ENI.CancelInspect(DataTable.TableIndex)
-		SLI:UnregisterEvent('INSPECT_READY')
-
-		SLI.CurrentInspectData = E:CopyTable({}, SLI.Default_CurrentInspectData)
-		AISM.CurrentInspectData[DataTable.TableIndex] = {
-			['UnitID'] = DataTable.Unit,
-		}
-		AISM:RegisterInspectDataRequest(function(User, UserData)
-			if User == DataTable.TableIndex then
-				E:CopyTable(SLI.CurrentInspectData, UserData)
-				SLI:ShowFrame(SLI.CurrentInspectData)
-
-				return true
-			end
-		end, DataTable.TableIndex, true)
-
-		SendAddonMessage('AISM_Inspect', 'AISM_DataRequestForInspecting:'..DataTable.Name..'-'..DataTable.Realm, SendChannel, DataTable.TableIndex)
-	elseif DataTable.Unit then
-		SLI.InspectUnit(DataTable.Unit)
-	end
-end
-
-SLI.UnitPopupMenu_OnUpdate = function(self)
-	if self.value == 'KnightInspect' then
-		if AISM and (type(AISM.GroupMemberData[self.arg1.TableIndex]) == 'table' or AISM.GuildMemberData[self.arg1.TableIndex]) or self.arg1.Unit and UnitIsVisible(self.arg1.Unit) then
-			self:Enable()
-		else
-			self:Disable()
-		end
-	else
-		self:SetScript('OnUpdate', nil)
-	end
-end
-
 function SLI:CreateInspectFrame()
 	do --<< Core >>--
 		self:Size(450, 480)
@@ -321,6 +268,7 @@ function SLI:CreateInspectFrame()
 
 			if self.CurrentInspectData.Name then
 				local TableIndex = self.CurrentInspectData.Name..(SLI.CurrentInspectData.Realm and '-'..SLI.CurrentInspectData.Realm or '')
+
 				if AISM then
 					if self.LastDataSetting then
 						AISM.RegisteredFunction[TableIndex] = nil
@@ -655,7 +603,7 @@ function SLI:CreateInspectFrame()
 
 	do --<< Information Page >>--
 		self.Info = CreateFrame('ScrollFrame', nil, self)
-		self.Info:SetFrameLevel(CoreFrameLevel + 4)
+		self.Info:SetFrameLevel(CoreFrameLevel + 5)
 		self.Info:EnableMouseWheel(1)
 		self.Info:SetScript('OnMouseWheel', self.ScrollFrame_OnMouseWheel)
 
@@ -1128,6 +1076,85 @@ function SLI:CreateInspectFrame()
 	end
 
 	do --<< UnitPopup Setting >>--
+		KnightInspect_UnitPopup.Highlight = KnightInspect_UnitPopup:CreateTexture(nil, 'BACKGROUND')
+		KnightInspect_UnitPopup.Highlight:SetTexture('Interface\\QuestFrame\\UI-QuestTitleHighlight')
+		KnightInspect_UnitPopup.Highlight:SetBlendMode('ADD')
+		KnightInspect_UnitPopup.Highlight:SetAllPoints()
+		KnightInspect_UnitPopup:SetHighlightTexture(KnightInspect_UnitPopup.Highlight)
+		KnightInspect_UnitPopup:SetText('KnightInspect')
+
+		KnightInspect_UnitPopup:SetScript('OnEnter', function()
+			UIDropDownMenu_StopCounting(DropDownList1)
+		end)
+		KnightInspect_UnitPopup:SetScript('OnLeave', function()
+			UIDropDownMenu_StartCounting(DropDownList1)
+		end)
+		KnightInspect_UnitPopup:SetScript('OnHide', function(self)
+			if self.Anchored then
+				self.Anchored = nil
+				self.Data = nil
+				self:SetParent(nil)
+				self:ClearAllPoints()
+
+				self:Hide()
+			end
+		end)
+		KnightInspect_UnitPopup:SetScript('OnClick', function(self)
+			local SendChannel
+
+			print('--------------------------')
+			for a, b in pairs(self.Data) do
+				print(a..' : '..b)
+			end
+			print('--------------------------')
+
+			if AISM and AISM.GuildMemberData[self.Data.TableIndex] then
+				if self.Data.Realm == E.myrealm then
+					SendChannel = 'WHISPER'
+				else
+					SendChannel = 'GUILD'
+				end
+			elseif SLI.CurrentGroupMode ~= 'NoGroup' and AISM and type(AISM.GroupMemberData[self.Data.TableIndex]) == 'table' then
+				if self.Data.Realm == E.myrealm then
+					SendChannel = 'WHISPER'
+				else
+					SendChannel = IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(SLI.CurrentGroupMode)
+				end
+			end
+
+			if AISM and SendChannel then
+				ENI.CancelInspect(self.Data.TableIndex)
+				SLI:UnregisterEvent('INSPECT_READY')
+
+				SLI.CurrentInspectData = E:CopyTable({}, SLI.Default_CurrentInspectData)
+				AISM.CurrentInspectData[self.Data.TableIndex] = {
+					['UnitID'] = self.Data.Unit,
+				}
+				AISM:RegisterInspectDataRequest(function(User, UserData)
+					if User == self.Data.TableIndex then
+						E:CopyTable(SLI.CurrentInspectData, UserData)
+						SLI:ShowFrame(SLI.CurrentInspectData)
+
+						return true
+					end
+				end, self.Data.TableIndex, true)
+				print('Addon Communication Inspect')
+				SendAddonMessage('AISM_Inspect', 'AISM_DataRequestForInspecting:'..self.Data.Name..'-'..self.Data.Realm, SendChannel, self.Data.TableIndex)
+			elseif self.Data.Unit then
+				SLI.InspectUnit(self.Data.Unit)
+				print('Direct Inspect')
+			end
+
+			DropDownList1:Hide()
+		end)
+		KnightInspect_UnitPopup:SetScript('OnUpdate', function(self)
+			if AISM and (type(AISM.GroupMemberData[self.Data.TableIndex]) == 'table' or AISM.GuildMemberData[self.Data.TableIndex]) or self.Data.Unit and UnitIsVisible(self.Data.Unit) and UnitIsConnected(self.Data.Unit) and not UnitIsDeadOrGhost('player') then
+				self:Enable()
+			else
+				self:Disable()
+			end
+		end)
+
 		hooksecurefunc('UnitPopup_ShowMenu', function(Menu, Type, Unit, Name)
 			if SLI.Activate and UIDROPDOWNMENU_MENU_LEVEL == 1 and SLI.UnitPopupList[Type] then
 				local Button
@@ -1139,40 +1166,40 @@ function SLI:CreateInspectFrame()
 				DataTable.TableIndex = DataTable.Unit and GetUnitName(DataTable.Unit, 1) or DataTable.Name..(DataTable.Realm ~= E.myrealm and '-'..DataTable.Realm or '')
 
 				for i = 1, DropDownList1.numButtons do
-					Button = _G['DropDownList1Button'..i]
-
-					if Button.value == 'INSPECT' then
-						UnitPopupShown[1][i] = 0
-
-						Button.value = 'KnightInspect'
-						Button.func = SLI.UnitPopupMenu_OnClick
-						Button.arg1 = DataTable
-						Button:SetScript('OnUpdate', SLI.UnitPopupMenu_OnUpdate)
-						Button:SetText('KnightInspect')
+					if _G['DropDownList1Button'..i].value == 'INSPECT' then
+						Button = _G['DropDownList1Button'..i]
+						break
 					end
+				end
 
-					if Button.value == 'KnightInspect' then
+				if not Button then
+					if not (Type == 'GUILD' and AISM and not AISM.GuildMemberData[DataTable.TableIndex]) then
+						Button = UIDropDownMenu_CreateInfo()
+						Button.notCheckable = 1
+						UIDropDownMenu_AddButton(Button)
+
+						Button = _G['DropDownList1Button'..DropDownList1.numButtons]
+					elseif not (DataTable.Unit and not UnitCanAttack('player', DataTable.Unit) and UnitIsConnected(DataTable.Unit)) then
+						if AISM then
+							AISM.GroupMemberData[DataTable.TableIndex] = nil
+						end
+
 						return
 					end
 				end
 
-				if not (Type == 'GUILD' and AISM and not AISM.GuildMemberData[DataTable.TableIndex]) then
-					Button = UIDropDownMenu_CreateInfo()
-					Button.text = 'KnightInspect'
+				if Button then
 					Button.value = 'KnightInspect'
-					Button.owner = Menu.which
-					Button.func = SLI.UnitPopupMenu_OnClick
-					Button.arg1 = DataTable
-					Button.notCheckable = 1
-					Button.tooltipTitle = UnitPopupButtons.INSPECT.text
-					Button.tooltipText = NEWBIE_TOOLTIP_UNIT_INSPECT or UnitPopupButtons.INSPECT.tooltipText
+					Button:SetText('')
 
-					UIDropDownMenu_AddButton(Button)
-					_G['DropDownList1Button'..DropDownList1.numButtons]:SetScript('OnUpdate', SLI.UnitPopupMenu_OnUpdate)
-				elseif not (DataTable.Unit and not UnitCanAttack('player', DataTable.Unit) and UnitIsConnected(DataTable.Unit)) then
-					if AISM then
-						AISM.GroupMemberData[DataTable.TableIndex] = nil
-					end
+					KnightInspect_UnitPopup:Show()
+					KnightInspect_UnitPopup:SetParent('DropDownList1')
+					KnightInspect_UnitPopup:SetFrameStrata(Button:GetFrameStrata())
+					KnightInspect_UnitPopup:SetFrameLevel(Button:GetFrameLevel() + 1)
+					KnightInspect_UnitPopup:Point('TOPLEFT', Button)
+					KnightInspect_UnitPopup:Point('BOTTOMRIGHT', Button)
+					KnightInspect_UnitPopup.Anchored = true
+					KnightInspect_UnitPopup.Data = DataTable
 				end
 			end
 		end)
@@ -1189,18 +1216,19 @@ function SLI:CreateInspectFrame()
 end
 
 SLI.INSPECT_HONOR_UPDATE = function(Event)
-	for i, Type in pairs({ '2vs2', '3vs3', '5vs5' }) do
-		SLI.CurrentInspectData.PvP[Type] = { GetInspectArenaData(i) }
-		for i = 4, #SLI.CurrentInspectData.PvP[Type] do
-			SLI.CurrentInspectData.PvP[Type][i] = nil
+	if Event or HasInspectHonorData() then
+		for i, Type in pairs({ '2vs2', '3vs3', '5vs5' }) do
+			SLI.CurrentInspectData.PvP[Type] = { GetInspectArenaData(i) }
+			for i = 4, #SLI.CurrentInspectData.PvP[Type] do
+				SLI.CurrentInspectData.PvP[Type][i] = nil
+			end
 		end
+		SLI.CurrentInspectData.PvP.RB = { GetInspectRatedBGData() }
+		SLI.CurrentInspectData.PvP.Honor = { GetInspectHonorData() }
 	end
-	SLI.CurrentInspectData.PvP.RB = { GetInspectRatedBGData() }
-	SLI.CurrentInspectData.PvP.Honor = { GetInspectHonorData() }
 
-	SLI:UnregisterEvent('INSPECT_HONOR_UPDATE')
-
-	if not SLI.ForbidUpdatePvPInformation then
+	if not (SLI.ForbidUpdatePvPInformation and Event) then
+		SLI:UnregisterEvent('INSPECT_HONOR_UPDATE')
 		SLI:InspectFrame_PvPSetting(SLI.CurrentInspectData)
 	end
 end
@@ -1234,7 +1262,7 @@ SLI.INSPECT_READY = function(Event, InspectedUnitGUID)
 			return
 		end
 	elseif HasInspectHonorData() then
-		SLI.INSPECT_HONOR_UPDATE(nil)
+		SLI.INSPECT_HONOR_UPDATE()
 	end
 
 	_, _, SLI.CurrentInspectData.Race, SLI.CurrentInspectData.RaceID, SLI.CurrentInspectData.GenderID = GetPlayerInfoByGUID(InspectedUnitGUID)

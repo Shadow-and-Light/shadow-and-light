@@ -87,6 +87,7 @@ if not AISM then
 	AISM.DataTypeTable = {
 		['PLI'] = 'PlayerInfo',
 		['GLD'] = 'GuildInfo',
+		['PvP'] = 'PvPInfo',
 		['PF1'] = 'Profession',
 		['PF2'] = 'Profession',
 		['ASP'] = 'ActiveSpec',
@@ -327,10 +328,6 @@ if not AISM then
 				isTransmogrified, _, _, _, _, transmogrifiedItemID = GetTransmogrifySlotInfo(slotID)
 			else
 				isTransmogrified = nil
-			end
-
-			if slotName == 'HeadSlot' or slotName == 'BackSlot' then
-				--print(slotName..' : '..(slotName == 'HeadSlot' and not isHelmDisplayed and 'NotDisplayed' or slotName == 'BackSlot' and not isCloakDisplayed and 'NotDisplayed' or 'Displayed'))
 			end
 
 			ShortString = slotLink and select(2, strsplit(':', slotLink)) or 'F'
