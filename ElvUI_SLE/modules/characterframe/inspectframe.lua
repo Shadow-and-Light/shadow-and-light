@@ -276,7 +276,8 @@ function SLI:CreateInspectFrame()
 				end
 
 				ENI.CancelInspect(TableIndex)
-				SLI:UnregisterEvent('INSPECT_READY', 'KnightInspect')
+				SLI:UnregisterEvent('INSPECT_READY')
+				SLI:UnregisterEvent('INSPECT_HONOR_UPDATE')
 			end
 
 			self.LastDataSetting = nil
@@ -1130,8 +1131,10 @@ function SLI:CreateInspectFrame()
 				AISM.CurrentInspectData[self.Data.TableIndex] = {
 					['UnitID'] = self.Data.Unit,
 				}
+
+				local TableIndex = self.Data.TableIndex
 				AISM:RegisterInspectDataRequest(function(User, UserData)
-					if User == self.Data.TableIndex then
+					if User == TableIndex then
 						E:CopyTable(SLI.CurrentInspectData, UserData)
 						SLI:ShowFrame(SLI.CurrentInspectData)
 
@@ -1163,6 +1166,9 @@ function SLI:CreateInspectFrame()
 					['Unit'] = UnitExists(Menu.name) and Menu.name or Unit,
 					['Realm'] = Menu.server ~= '' and Menu.server or E.myrealm
 				}
+
+				if DataTable.Name == E.myname then return end
+				
 				DataTable.TableIndex = DataTable.Unit and GetUnitName(DataTable.Unit, 1) or DataTable.Name..(DataTable.Realm ~= E.myrealm and '-'..DataTable.Realm or '')
 
 				for i = 1, DropDownList1.numButtons do
@@ -1173,18 +1179,18 @@ function SLI:CreateInspectFrame()
 				end
 
 				if not Button then
-					if not (Type == 'GUILD' and AISM and not AISM.GuildMemberData[DataTable.TableIndex]) then
-						Button = UIDropDownMenu_CreateInfo()
-						Button.notCheckable = 1
-						UIDropDownMenu_AddButton(Button)
-
-						Button = _G['DropDownList1Button'..DropDownList1.numButtons]
-					elseif not (DataTable.Unit and not UnitCanAttack('player', DataTable.Unit) and UnitIsConnected(DataTable.Unit)) then
+					if DataTable.Unit and (UnitCanAttack('player', DataTable.Unit) or not UnitIsConnected(DataTable.Unit)) then
 						if AISM then
 							AISM.GroupMemberData[DataTable.TableIndex] = nil
 						end
 
 						return
+					elseif DataTable.Unit or AISM and (AISM.GuildMemberData[DataTable.TableIndex] or AISM.GroupMemberData[DataTable.TableIndex]) then
+						Button = UIDropDownMenu_CreateInfo()
+						Button.notCheckable = 1
+						UIDropDownMenu_AddButton(Button)
+
+						Button = _G['DropDownList1Button'..DropDownList1.numButtons]
 					end
 				end
 
@@ -1227,8 +1233,7 @@ SLI.INSPECT_HONOR_UPDATE = function(Event)
 		SLI.CurrentInspectData.PvP.Honor = { GetInspectHonorData() }
 	end
 
-	if not (SLI.ForbidUpdatePvPInformation and Event) then
-		SLI:UnregisterEvent('INSPECT_HONOR_UPDATE')
+	if not (SLI.ForbidUpdatePvPInformation) then
 		SLI:InspectFrame_PvPSetting(SLI.CurrentInspectData)
 	end
 end

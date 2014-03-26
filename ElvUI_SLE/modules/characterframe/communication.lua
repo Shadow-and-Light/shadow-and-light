@@ -680,7 +680,6 @@ if not AISM then
 			local needplayerName, needplayerRealm = Message:match('^.+:(.+)-(.+)$')
 			
 			if needplayerName == playerName and needplayerRealm == playerRealm then
-				--local DataToSend = E:CopyTable({}, self.PlayerData)
 				local TableToSend = {}
 
 				for Index, Data in pairs(self.PlayerData) do
@@ -723,7 +722,6 @@ if not AISM then
 
 						if self.DataTypeTable[DataType] == 'Profession' then
 							if stringTable[1] == 'F' then
-								--TableToSave.Profession[Group] = {}
 								TableToSave.Profession[Group].Name = EMPTY
 								TableToSave.Profession[Group].Level = 0
 							else

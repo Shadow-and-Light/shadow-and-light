@@ -23,7 +23,10 @@ if not ENI then
 			if CurrentUnitGUID and not (ENI.CurrentInspectUnitGUID and CurrentUnitGUID ~= ENI.CurrentInspectUnitGUID) then
 				ENI.CurrentInspectUnitGUID = CurrentUnitGUID
 				BlizzardNotifyInspect(ENI.InspectList[(ENI.InspectList[1])].UnitID)
-				RequestInspectHonorData()
+
+				if ENI.InspectList[(ENI.InspectList[1])].CancelInspectByManual then
+					RequestInspectHonorData()
+				end
 			else
 				ENI.CancelInspect(ENI.InspectList[1])
 			end
