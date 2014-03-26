@@ -6,7 +6,7 @@ local strsub, strlen, strfind, ceil = strsub, strlen, strfind, ceil
 local tinsert, pairs, unpack = tinsert, pairs, unpack
 
 local SkinnedMinimapButtons = {}
-local BorderColor
+local BorderColor = E['media'].bordercolor
 local TexCoords = { 0.1, 0.9, 0.1, 0.9 }
 local SquareMinimapButtonBar
 
@@ -248,9 +248,26 @@ local function SkinButton(Button)
 	end
 end
 
-function SMB:Update(self)
+local function SkinMinimapButtons()
+	for i = 1, Minimap:GetNumChildren() do
+		local object = select(i, Minimap:GetChildren())
+		if object then
+			if object:IsObjectType('Button') and object:GetName() then
+				SkinButton(object)
+			end
+			for _, frame in pairs(AcceptedFrames) do
+				if object:IsObjectType('Frame') and object:GetName() == frame then
+					SkinButton(object)
+				end
+			end
+		end
+	end
+end
+
+function SMB:Update()
 	if not E.private.sle.minimap.mapicons.barenable then return end
 
+	OnLeave(SquareMinimapButtonBar)
 	local AnchorX, AnchorY, MaxX = 0, 1, E.db.sle.minimap.mapicons.iconperrow
 	local ButtonsPerRow = E.db.sle.minimap.mapicons.iconperrow
 	local NumColumns = ceil(#SkinnedMinimapButtons / ButtonsPerRow)
@@ -298,59 +315,39 @@ function SMB:Update(self)
 			Frame:SetSize(E.db.sle.minimap.mapicons.iconsize, E.db.sle.minimap.mapicons.iconsize)
 			Frame:SetFrameStrata('LOW')
 			Frame:SetFrameLevel(3)
-			Frame:SetScript('OnDragStart', function(self) end)
-			Frame:SetScript('OnDragStop', function(self) end)
+			Frame:SetScript('OnDragStart', function() end)
+			Frame:SetScript('OnDragStop', function() end)
 			Frame:HookScript('OnEnter', OnEnter)
 			Frame:HookScript('OnLeave', OnLeave)
 			if Maxed then ActualButtons = ButtonsPerRow end
 
 			local BarWidth = (Spacing + ((Size * (ActualButtons * Mult)) + ((Spacing * (ActualButtons - 1)) * Mult) + (Spacing * Mult)))
 			local BarHeight = (Spacing + ((Size * (AnchorY * Mult)) + ((Spacing * (AnchorY - 1)) * Mult) + (Spacing * Mult)))
-			self:SetSize(BarWidth, BarHeight)
+			SquareMinimapButtonBar:SetSize(BarWidth, BarHeight)
 			E:CreateMover(SquareMinimapButtonBar, "SquareMinimapBar", "Square Minimap Bar", nil, nil, nil, "ALL,SOLO")
 		end
 	end
 
-	self:Show()
+	SquareMinimapButtonBar:Show()
 end
 
 function SMB:Initialize()
 	if not E.private.sle.minimap.mapicons.enable then return end
 	SquareMinimapButtonBar = CreateFrame('Frame', 'SquareMinimapButtonBar', E.UIParent)
-	SquareMinimapButtonBar:RegisterEvent('ADDON_LOADED')
-	SquareMinimapButtonBar.Skin = function()
-		for i = 1, Minimap:GetNumChildren() do
-			local object = select(i, Minimap:GetChildren())
-			if object then
-				if object:IsObjectType('Button') and object:GetName() then
-					SkinButton(object)
-				end
-				for _, frame in pairs(AcceptedFrames) do
-					if object:IsObjectType('Frame') and object:GetName() == frame then
-						SkinButton(object)
-					end
-				end
-			end
-		end
-	end
-	SquareMinimapButtonBar:SetScript('OnEvent', function(self, event, addon)
-		self.Skin()
-		if E.private.sle.minimap.mapicons.enable then SMB:Update(self) end
-		OnLeave(self)
-	end)
 	SquareMinimapButtonBar:Hide()
 	SquareMinimapButtonBar:SetTemplate('Transparent', true)
-	BorderColor = { SquareMinimapButtonBar:GetBackdropBorderColor() }
 	SquareMinimapButtonBar:SetFrameStrata('LOW')
 	SquareMinimapButtonBar:SetFrameLevel(1)
 	SquareMinimapButtonBar:SetClampedToScreen(true)
 	SquareMinimapButtonBar:SetPoint('RIGHT', UIParent, 'RIGHT', -45, 0)
 	SquareMinimapButtonBar:SetScript('OnEnter', OnEnter)
 	SquareMinimapButtonBar:SetScript('OnLeave', OnLeave)
+	RegisterStateDriver(SquareMinimapButtonBar, 'visibility', '[petbattle] hide; show')
+	SkinMinimapButtons()
+	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'Update')
 	E:Delay(5, function()
-		SquareMinimapButtonBar.Skin()
-		SMB:Update(SquareMinimapButtonBar)
-		RegisterStateDriver(SquareMinimapButtonBar, 'visibility', '[petbattle] hide; show')
+		SkinMinimapButtons()
+		SMB:Update()
 	end)
 end
 
