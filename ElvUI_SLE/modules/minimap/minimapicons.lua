@@ -222,10 +222,10 @@ local function SkinButton(Button)
 			Frame.Icon:SetTexture(MiniMapMailIcon:GetTexture())
 			Frame:SetScript('OnEnter', OnEnter)
 			Frame:SetScript('OnLeave', OnLeave)
-			Frame:SetScript('OnShow', function(self) Frame:SetPoint(MiniMapMailFrame:GetPoint()) end)
 			Frame:SetScript('OnUpdate', function(self)
 				if E.db.sle.minimap.mapicons.skinmail then
 					Frame:Show()
+					Frame:SetPoint(MiniMapMailFrame:GetPoint())
 				else
 					Frame:Hide()
 				end
@@ -233,8 +233,6 @@ local function SkinButton(Button)
 			MiniMapMailFrame:HookScript('OnShow', function(self)
 				if E.db.sle.minimap.mapicons.skinmail then
 					MiniMapMailIcon:SetVertexColor(0, 1, 0)
-				else
-					MiniMapMailIcon:SetVertexColor(1, 1, 1)
 				end
 			end)
 			MiniMapMailFrame:HookScript('OnHide', function(self) MiniMapMailIcon:SetVertexColor(1, 1, 1) end)
