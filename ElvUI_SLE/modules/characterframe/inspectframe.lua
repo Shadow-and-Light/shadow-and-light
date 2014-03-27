@@ -276,8 +276,8 @@ function SLI:CreateInspectFrame()
 				end
 
 				ENI.CancelInspect(TableIndex)
-				IFO:UnregisterEvent('INSPECT_READY')
-				IFO:UnregisterEvent('INSPECT_HONOR_UPDATE')
+				SLI:UnregisterEvent('INSPECT_READY')
+				SLI:UnregisterEvent('INSPECT_HONOR_UPDATE')
 			end
 
 			self.LastDataSetting = nil
@@ -1125,7 +1125,7 @@ function SLI:CreateInspectFrame()
 
 			if AISM and SendChannel then
 				ENI.CancelInspect(self.Data.TableIndex)
-				IFO:UnregisterEvent('INSPECT_READY')
+				SLI:UnregisterEvent('INSPECT_READY')
 
 				SLI.CurrentInspectData = E:CopyTable({}, SLI.Default_CurrentInspectData)
 				AISM.CurrentInspectData[self.Data.TableIndex] = {
@@ -1261,8 +1261,8 @@ SLI.INSPECT_READY = function(Event, InspectedUnitGUID)
 			return
 		else
 			ENI.CancelInspect(TableIndex)
-			IFO:UnregisterEvent('INSPECT_READY')
-			IFO:UnregisterEvent('INSPECT_HONOR_UPDATE')
+			SLI:UnregisterEvent('INSPECT_READY')
+			SLI:UnregisterEvent('INSPECT_HONOR_UPDATE')
 
 			return
 		end
@@ -1392,7 +1392,7 @@ SLI.INSPECT_READY = function(Event, InspectedUnitGUID)
 	ENI.CancelInspect(TableIndex)
 
 	SLI:ShowFrame(SLI.CurrentInspectData)
-	IFO:UnregisterEvent('INSPECT_READY')
+	SLI:UnregisterEvent('INSPECT_READY')
 end
 
 SLI.InspectUnit = function(UnitID)
@@ -1424,8 +1424,8 @@ SLI.InspectUnit = function(UnitID)
 		SLI.CurrentInspectData.Realm = SLI.CurrentInspectData.Realm ~= '' and SLI.CurrentInspectData.Realm ~= E.myrealm and SLI.CurrentInspectData.Realm or nil
 
 		SLI.ForbidUpdatePvPInformation = true
-		IFO:RegisterEvent('INSPECT_READY')
-		IFO:RegisterEvent('INSPECT_HONOR_UPDATE')
+		SLI:RegisterEvent('INSPECT_READY')
+		SLI:RegisterEvent('INSPECT_HONOR_UPDATE')
 	end
 end
 
@@ -1443,7 +1443,7 @@ function SLI:ShowFrame(DataTable)
 					self.GET_ITEM_INFO_RECEIVED = function()
 						self:ShowFrame(DataTable)
 					end
-					IFO:RegisterEvent('GET_ITEM_INFO_RECEIVED')
+					SLI:RegisterEvent('GET_ITEM_INFO_RECEIVED')
 				end
 			end
 		end
@@ -1454,7 +1454,7 @@ function SLI:ShowFrame(DataTable)
 	end
 
 	self.GET_ITEM_INFO_RECEIVED = nil
-	IFO:UnregisterEvent('GET_ITEM_INFO_RECEIVED')
+	SLI:UnregisterEvent('GET_ITEM_INFO_RECEIVED')
 
 	self.Updater:Show()
 	self.Updater:SetScript('OnUpdate', function()
