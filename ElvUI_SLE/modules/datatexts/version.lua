@@ -34,7 +34,7 @@ local function OnEnter(self)
 end
 
 local function ValueColorUpdate(hex, r, g, b)
-	displayString = join("", "%s", hex, "%.2f|r", " : Shadow & Light Edit v", hex, "%.2f|r")
+	displayString = join("", "%s", hex, "%s|r", " : Shadow & Light Edit v", hex, "%s|r")
 	
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)
