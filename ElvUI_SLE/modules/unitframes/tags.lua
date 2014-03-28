@@ -2,6 +2,22 @@
 
 local RC = LibStub("LibRangeCheck-2.0")
 
+ElvUF.Tags.Events['vengeance:current:sl'] = 'UNIT_AURA'
+ElvUF.Tags.Methods['vengeance:current:sl'] = function(unit)
+	local SPELL_VENGEANCE_NAME = (GetSpellInfo(93098))
+	local veng = select(15, UnitAura(unit, SPELL_VENGEANCE_NAME, nil, 'HELPFUL')) or 0
+	if (veng > 999999) then
+		veng = math.floor(veng/1000000) .. "m"
+	elseif (veng > 999) then
+		veng = math.floor(veng/1000) .. "k"
+	end
+	if veng == 0 then
+		return ' '
+	else
+		return veng
+	end
+end
+
 ElvUF.Tags.Methods['range:sl'] = function(unit)
 	local name, server = UnitName(unit)
 	local rangeText = ''
