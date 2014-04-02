@@ -10,9 +10,9 @@ local SLI = CreateFrame('Frame', 'KnightInspect', E.UIParent)
 local ENI = _G['EnhancedNotifyInspectFrame'] or { ['CancelInspect'] = function() end, }
 local C = SLArmoryConstants
 
-local CoreFrameLevel = 10
+local CORE_FRAME_LEVEL = 10
 local SLOT_SIZE = 37
-local PANEL_HEIGHT = 22
+local TAB_HEIGHT = 22
 local SIDE_BUTTON_WIDTH = 16
 local SPACING = 3
 local INFO_TAB_SIZE = 22
@@ -91,10 +91,11 @@ local function Button_OnLeave(self)
 	self.text:SetText(self.buttonString)
 end
 
-function SLI:ChangePage(buttonName)
+function SLI:ChangePage(Type)
 	for pageType in pairs(self.PageList) do
 		if self[pageType] then
-			if buttonName == pageType..'Button' then
+			if Type == pageType..'Button' then
+				Type = pageType
 				self[pageType]:Show()
 			else
 				self[pageType]:Hide()
@@ -104,7 +105,7 @@ function SLI:ChangePage(buttonName)
 
 	self.MainHandSlot:ClearAllPoints()
 	self.SecondaryHandSlot:ClearAllPoints()
-	if buttonName == 'CharacterButton' then
+	if Type == 'Character' then
 		for _, slotName in pairs(C.GearList) do
 			self[slotName].ItemLevel:Hide()
 		end
@@ -118,6 +119,19 @@ function SLI:ChangePage(buttonName)
 		self.Model:Point('TOPRIGHT', UIParent, 'BOTTOMLEFT')
 		self.MainHandSlot:Point('BOTTOMLEFT', self.BP, 'TOPLEFT', 1, SPACING)
 		self.SecondaryHandSlot:Point('BOTTOMRIGHT', self.BP, 'TOPRIGHT', -1, SPACING)
+	end
+
+	if self[Type].Message then
+		self.Message:SetText(self[Type].Message)
+		self.MessageFrame.Page:Width(self.Message:GetWidth())
+		self.MessageFrame.UpdatedTime = nil
+		self.MessageFrame.Offset = 0
+		self.MessageFrame.Page:ClearAllPoints()
+		self.MessageFrame.Page:Point('TOPLEFT', self.MessageFrame)
+		self.MessageFrame.Page:Point('BOTTOMLEFT', self.MessageFrame)
+		self.MessageFrame:Show()
+	else
+		self.MessageFrame:Hide()
 	end
 end
 
@@ -260,7 +274,7 @@ function SLI:CreateInspectFrame()
 		self:Size(450, 480)
 		self:CreateBackdrop('Transparent')
 		self:SetFrameStrata('DIALOG')
-		self:SetFrameLevel(CoreFrameLevel)
+		self:SetFrameLevel(CORE_FRAME_LEVEL)
 		self:SetMovable(true)
 		self:SetClampedToScreen(true)
 		self:SetScript('OnHide', function()
@@ -291,7 +305,7 @@ function SLI:CreateInspectFrame()
 	do --<< Tab >>--
 		self.Tab = CreateFrame('Frame', nil, self)
 		self.Tab:Point('TOPLEFT', self, SPACING, -SPACING)
-		self.Tab:Point('BOTTOMRIGHT', self, 'TOPRIGHT', -SPACING, -(SPACING + PANEL_HEIGHT))
+		self.Tab:Point('BOTTOMRIGHT', self, 'TOPRIGHT', -SPACING, -(SPACING + TAB_HEIGHT))
 		self.Tab:SetBackdrop({
 			bgFile = E.media.normTex,
 			edgeFile = E.media.blankTex,
@@ -306,7 +320,7 @@ function SLI:CreateInspectFrame()
 
 	do --<< Close Button >>--
 		self.Close = CreateFrame('Button', nil, self.Tab)
-		self.Close:Size(PANEL_HEIGHT - 8)
+		self.Close:Size(TAB_HEIGHT - 8)
 		self.Close:SetTemplate()
 		self.Close.backdropTexture:SetVertexColor(0.1, 0.1, 0.1)
 		self.Close:Point('RIGHT', -4, 0)
@@ -319,7 +333,7 @@ function SLI:CreateInspectFrame()
 
 	do --<< Bottom Panel >>--
 		self.BP = CreateFrame('Frame', nil, self)
-		self.BP:Point('TOPLEFT', self, 'BOTTOMLEFT', SPACING, SPACING + PANEL_HEIGHT)
+		self.BP:Point('TOPLEFT', self, 'BOTTOMLEFT', SPACING, SPACING + TAB_HEIGHT)
 		self.BP:Point('BOTTOMRIGHT', self, -SPACING, SPACING)
 		self.BP:SetBackdrop({
 			bgFile = E.media.normTex,
@@ -329,9 +343,58 @@ function SLI:CreateInspectFrame()
 		})
 		self.BP:SetBackdropColor(0.09, 0.3, 0.45)
 		self.BP:SetBackdropBorderColor(unpack(E.media.bordercolor))
-		self.BP:SetFrameLevel(CoreFrameLevel + 2)
-		C.Toolkit.TextSetting(self.BP, '', { ['FontSize'] = 10, ['FontOutline'] = 'OUTLINE', }, 'LEFT', 4, 1)
-		self.Message = self.BP.text
+		self.BP:SetFrameLevel(CORE_FRAME_LEVEL + 2)
+
+		self.MessageFrame = CreateFrame('ScrollFrame', nil, self.BP)
+		self.MessageFrame:Point('TOPLEFT', self.BP, SPACING * 2 + TAB_HEIGHT, 0)
+		self.MessageFrame:Point('BOTTOMRIGHT', self.BP, -10, 1)
+		self.MessageFrame.UpdateInterval = 3
+		self.MessageFrame.ScrollSpeed = 1
+		self.MessageFrame:SetScript('OnEnter', function() self.MessageFrame.UpdatedTime = 0 end)
+
+		local PageWidth
+		local VisibleWidth
+		self.MessageFrame:SetScript('OnUpdate', function(self, elapsed)
+			PageWidth = self.Page:GetWidth()
+			VisibleWidth = self:GetWidth()
+
+			if PageWidth > VisibleWidth then
+				self.UpdatedTime = (self.UpdatedTime or -self.UpdateInterval) + elapsed
+
+				if self.UpdatedTime > 0 then
+					if self.Offset then
+						self.Offset = self.Offset - self.ScrollSpeed
+					else
+						self.UpdatedTime = nil
+						self.Offset = 0
+					end
+
+					self.Page:ClearAllPoints()
+					if self.Offset < VisibleWidth - PageWidth then
+						self.UpdatedTime = -self.UpdateInterval - 2
+						self.Offset = nil
+						self.Page:Point('TOPRIGHT', self)
+						self.Page:Point('BOTTOMRIGHT', self)
+					else
+						self.Page:Point('TOPLEFT', self, self.Offset, 0)
+						self.Page:Point('BOTTOMLEFT', self, self.Offset, 0)
+					end
+				end
+			end
+		end)
+
+		self.MessageFrame.Icon = self.MessageFrame:CreateTexture(nil, 'OVERLAY')
+		self.MessageFrame.Icon:Size(TAB_HEIGHT)
+		self.MessageFrame.Icon:Point('TOPLEFT', self.BP, 'TOPLEFT', SPACING * 2, -1)
+		self.MessageFrame.Icon:SetTexture('Interface\\HELPFRAME\\HelpIcon-ReportAbuse')
+
+		self.MessageFrame.Page = CreateFrame('Frame', nil, self.MessageFrame)
+		self.MessageFrame:SetScrollChild(self.MessageFrame.Page)
+		self.MessageFrame.Page:Point('TOPLEFT', self.MessageFrame)
+		self.MessageFrame.Page:Point('BOTTOMLEFT', self.MessageFrame)
+		C.Toolkit.TextSetting(self.MessageFrame.Page, '', { ['FontSize'] = 10, ['FontOutline'] = 'OUTLINE', ['directionH'] = 'LEFT' }, 'LEFT', self.MessageFrame.Page)
+
+		self.Message = self.MessageFrame.Page.text
 	end
 
 	do --<< Background >>--
@@ -354,7 +417,7 @@ function SLI:CreateInspectFrame()
 				insets = { left = 0, right = 0, top = 0, bottom = 0}
 			})
 			self[buttonName]:SetBackdropBorderColor(unpack(E.media.bordercolor))
-			self[buttonName]:SetFrameLevel(CoreFrameLevel + 1)
+			self[buttonName]:SetFrameLevel(CORE_FRAME_LEVEL + 1)
 			C.Toolkit.TextSetting(self[buttonName], _G[buttonString], { ['FontSize'] = 9, ['FontOutline'] = 'OUTLINE' })
 			self[buttonName]:SetScript('OnEnter', Button_OnEnter)
 			self[buttonName]:SetScript('OnLeave', Button_OnLeave)
@@ -417,7 +480,7 @@ function SLI:CreateInspectFrame()
 	do --<< Player Model >>--
 		self.Model = CreateFrame('DressUpModel', nil, UIParent)
 		self.Model:SetFrameStrata('DIALOG')
-		self.Model:SetFrameLevel(CoreFrameLevel + 1)
+		self.Model:SetFrameLevel(CORE_FRAME_LEVEL + 1)
 		self.Model:EnableMouse(1)
 		self.Model:EnableMouseWheel(1)
 		self.Model:SetUnit('player')
@@ -475,7 +538,7 @@ function SLI:CreateInspectFrame()
 				tile = false, tileSize = 0, edgeSize = E.mult,
 				insets = { left = 0, right = 0, top = 0, bottom = 0}
 			})
-			Slot:SetFrameLevel(CoreFrameLevel + 3)
+			Slot:SetFrameLevel(CORE_FRAME_LEVEL + 3)
 			Slot:SetScript('OnEnter', self.EquipmentSlot_OnEnter)
 			Slot:SetScript('OnLeave', C.CommonScript.OnLeave)
 			Slot:SetScript('OnClick', self.OnClick)
@@ -500,8 +563,8 @@ function SLI:CreateInspectFrame()
 			-- Gradation
 			Slot.Gradation = CreateFrame('Frame', nil, self.Character)
 			Slot.Gradation:Size(130, SLOT_SIZE + 4)
+			Slot.Gradation:SetFrameLevel(CORE_FRAME_LEVEL + 2)
 			Slot.Gradation:Point(Slot.Direction, Slot, Slot.Direction == 'LEFT' and -1 or 1, 0)
-			Slot.Gradation:SetFrameLevel(CoreFrameLevel + 2)
 			Slot.Gradation.Texture = Slot.Gradation:CreateTexture(nil, 'OVERLAY')
 			Slot.Gradation.Texture:SetInside()
 			Slot.Gradation.Texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Gradation')
@@ -538,7 +601,7 @@ function SLI:CreateInspectFrame()
 					})
 					Slot['Socket'..i]:SetBackdropColor(0, 0, 0, 1)
 					Slot['Socket'..i]:SetBackdropBorderColor(0, 0, 0)
-					Slot['Socket'..i]:SetFrameLevel(CoreFrameLevel + 3)
+					Slot['Socket'..i]:SetFrameLevel(CORE_FRAME_LEVEL + 3)
 
 					Slot['Socket'..i].Socket = CreateFrame('Button', nil, Slot['Socket'..i])
 					Slot['Socket'..i].Socket:SetBackdrop({
@@ -548,7 +611,7 @@ function SLI:CreateInspectFrame()
 						insets = { left = 0, right = 0, top = 0, bottom = 0}
 					})
 					Slot['Socket'..i].Socket:SetInside()
-					Slot['Socket'..i].Socket:SetFrameLevel(CoreFrameLevel + 4)
+					Slot['Socket'..i].Socket:SetFrameLevel(CORE_FRAME_LEVEL + 4)
 					Slot['Socket'..i].Socket:SetScript('OnEnter', C.CommonScript.GemSocket_OnEnter)
 					Slot['Socket'..i].Socket:SetScript('OnLeave', C.CommonScript.OnLeave)
 					Slot['Socket'..i].Socket:SetScript('OnClick', self.GemSocket_OnClick)
@@ -604,12 +667,12 @@ function SLI:CreateInspectFrame()
 
 	do --<< Information Page >>--
 		self.Info = CreateFrame('ScrollFrame', nil, self)
-		self.Info:SetFrameLevel(CoreFrameLevel + 5)
+		self.Info:SetFrameLevel(CORE_FRAME_LEVEL + 5)
 		self.Info:EnableMouseWheel(1)
 		self.Info:SetScript('OnMouseWheel', self.ScrollFrame_OnMouseWheel)
 
 		self.Info.BG = CreateFrame('Frame', nil, self.Info)
-		self.Info.BG:SetFrameLevel(CoreFrameLevel + 1)
+		self.Info.BG:SetFrameLevel(CORE_FRAME_LEVEL + 1)
 		self.Info.BG:Point('TOPLEFT', self.HeadSlot, 'TOPRIGHT', SPACING, 0)
 		self.Info.BG:Point('RIGHT', self.Trinket1Slot, 'BOTTOMLEFT', -SPACING, 0)
 		self.Info.BG:Point('BOTTOM', self.BP, 'TOP', 0, SPACING)
@@ -626,7 +689,7 @@ function SLI:CreateInspectFrame()
 
 		self.Info.Page = CreateFrame('Frame', nil, self.Info)
 		self.Info:SetScrollChild(self.Info.Page)
-		self.Info.Page:SetFrameLevel(CoreFrameLevel + 2)
+		self.Info.Page:SetFrameLevel(CORE_FRAME_LEVEL + 2)
 		self.Info.Page:Point('TOPLEFT', self.Info)
 		self.Info.Page:Point('TOPRIGHT', self.Info, -1, 0)
 
@@ -670,14 +733,14 @@ function SLI:CreateInspectFrame()
 			self.Info[CategoryType].Tooltip = CreateFrame('Button', nil, self.Info[CategoryType])
 			self.Info[CategoryType].Tooltip:Point('TOPLEFT', self.Info[CategoryType].Icon)
 			self.Info[CategoryType].Tooltip:Point('BOTTOMRIGHT', self.Info[CategoryType].Tab)
-			self.Info[CategoryType].Tooltip:SetFrameLevel(CoreFrameLevel + 4)
+			self.Info[CategoryType].Tooltip:SetFrameLevel(CORE_FRAME_LEVEL + 4)
 			self.Info[CategoryType].Tooltip:SetScript('OnClick', SLI.Category_OnClick)
 
 			C.Toolkit.TextSetting(self.Info[CategoryType].Tab, CategoryType, { ['FontSize'] = 10 }, 'LEFT', 6, 1)
 
 			self.Info[CategoryType].Page = CreateFrame('Frame', nil, self.Info[CategoryType])
 			self.Info[CategoryType]:SetScrollChild(self.Info[CategoryType].Page)
-			self.Info[CategoryType].Page:SetFrameLevel(CoreFrameLevel + 2)
+			self.Info[CategoryType].Page:SetFrameLevel(CORE_FRAME_LEVEL + 2)
 			self.Info[CategoryType].Page:Point('TOPLEFT', self.Info[CategoryType].IconSlot, 'BOTTOMLEFT', 0, -SPACING)
 			self.Info[CategoryType].Page:Point('BOTTOMRIGHT', self.Info[CategoryType], -SPACING, SPACING)
 		end
@@ -738,19 +801,18 @@ function SLI:CreateInspectFrame()
 			self.Info.PvP.PageLeft:Point('TOP', self.Info.PvP.Page)
 			self.Info.PvP.PageLeft:Point('LEFT', self.Info.PvP.Page)
 			self.Info.PvP.PageLeft:Point('BOTTOMRIGHT', self.Info.PvP.Page, 'BOTTOM')
-			self.Info.PvP.PageLeft:SetFrameLevel(CoreFrameLevel + 3)
+			self.Info.PvP.PageLeft:SetFrameLevel(CORE_FRAME_LEVEL + 3)
 			self.Info.PvP.PageRight = CreateFrame('Frame', nil, self.Info.PvP.Page)
 			self.Info.PvP.PageRight:Point('TOP', self.Info.PvP.Page)
 			self.Info.PvP.PageRight:Point('RIGHT', self.Info.PvP.Page)
 			self.Info.PvP.PageRight:Point('BOTTOMLEFT', self.Info.PvP.Page, 'BOTTOM')
-			self.Info.PvP.PageRight:SetFrameLevel(CoreFrameLevel + 3)
+			self.Info.PvP.PageRight:SetFrameLevel(CORE_FRAME_LEVEL + 3)
 
 			for i = 1, 3 do
 				self.Info.PvP['Bar'..i] = self.Info.PvP.Page:CreateTexture(nil, 'OVERLAY')
 				self.Info.PvP['Bar'..i]:SetTexture(0, 0, 0)
 				self.Info.PvP['Bar'..i]:Width(2)
 			end
-
 			self.Info.PvP.Bar1:Point('TOP', self.Info.PvP.PageLeft, 0, -SPACING * 2)
 			self.Info.PvP.Bar1:Point('BOTTOM', self.Info.PvP.PageLeft, 0, SPACING * 2)
 			self.Info.PvP.Bar2:Point('TOP', self.Info.PvP.Page, 0, -SPACING * 2)
@@ -760,7 +822,7 @@ function SLI:CreateInspectFrame()
 
 			for _, Type in pairs({ '2vs2', '3vs3', '5vs5', 'RB' }) do
 				self.Info.PvP[Type] = CreateFrame('Frame', nil, self.Info.PvP.Page)
-				self.Info.PvP[Type]:SetFrameLevel(CoreFrameLevel + 4)
+				self.Info.PvP[Type]:SetFrameLevel(CORE_FRAME_LEVEL + 4)
 				--self.Info.PvP[Type]:Height(70)
 
 				self.Info.PvP[Type].Rank = self.Info.PvP.Page:CreateTexture(nil, 'OVERLAY')
@@ -814,7 +876,7 @@ function SLI:CreateInspectFrame()
 
 			self.Info.Guild.Banner = CreateFrame('Frame', nil, self.Info.Guild.Page)
 			self.Info.Guild.Banner:SetInside()
-			self.Info.Guild.Banner:SetFrameLevel(CoreFrameLevel + 3)
+			self.Info.Guild.Banner:SetFrameLevel(CORE_FRAME_LEVEL + 3)
 
 			self.Info.Guild.BG = self.Info.Guild.Banner:CreateTexture(nil, 'BACKGROUND')
 			self.Info.Guild.BG:Size(33, 44)
@@ -840,12 +902,12 @@ function SLI:CreateInspectFrame()
 
 	do --<< Specialization Page >>--
 		self.Spec = CreateFrame('ScrollFrame', nil, self)
-		self.Spec:SetFrameLevel(CoreFrameLevel + 5)
+		self.Spec:SetFrameLevel(CORE_FRAME_LEVEL + 5)
 		self.Spec:EnableMouseWheel(1)
 		self.Spec:SetScript('OnMouseWheel', self.ScrollFrame_OnMouseWheel)
 
 		self.Spec.BGFrame = CreateFrame('Frame', nil, self.Spec)
-		self.Spec.BGFrame:SetFrameLevel(CoreFrameLevel + 1)
+		self.Spec.BGFrame:SetFrameLevel(CORE_FRAME_LEVEL + 1)
 		self.Spec.BG = self.Spec.BGFrame:CreateTexture(nil, 'BACKGROUND')
 		self.Spec.BG:Point('TOP', self.HeadSlot, 'TOPRIGHT', 0, -30)
 		self.Spec.BG:Point('LEFT', self.WristSlot, 'TOPRIGHT', SPACING, 0)
@@ -858,7 +920,7 @@ function SLI:CreateInspectFrame()
 
 		self.Spec.Page = CreateFrame('Frame', nil, self.Spec)
 		self.Spec:SetScrollChild(self.Spec.Page)
-		self.Spec.Page:SetFrameLevel(CoreFrameLevel + 2)
+		self.Spec.Page:SetFrameLevel(CORE_FRAME_LEVEL + 2)
 		self.Spec.Page:Point('TOPLEFT', self.Spec)
 		self.Spec.Page:Point('TOPRIGHT', self.Spec)
 		self.Spec.Page:Height((TALENT_SLOT_SIZE + SPACING * 3) * MAX_NUM_TALENT_TIERS + (SPACING + GLYPH_SLOT_HEIGHT) * 3 + 22)
@@ -944,7 +1006,7 @@ function SLI:CreateInspectFrame()
 			})
 			self.Spec['TalentTier'..i]:SetBackdropColor(.08, .08, .08)
 			self.Spec['TalentTier'..i]:SetBackdropBorderColor(0, 0, 0)
-			self.Spec['TalentTier'..i]:SetFrameLevel(CoreFrameLevel + 2)
+			self.Spec['TalentTier'..i]:SetFrameLevel(CORE_FRAME_LEVEL + 2)
 			self.Spec['TalentTier'..i]:Size(352, TALENT_SLOT_SIZE + SPACING * 2)
 
 			for k = 1, NUM_TALENT_COLUMNS do
@@ -955,7 +1017,7 @@ function SLI:CreateInspectFrame()
 					tile = false, tileSize = 0, edgeSize = E.mult,
 					insets = { left = 0, right = 0, top = 0, bottom = 0}
 				})
-				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)]:SetFrameLevel(CoreFrameLevel + 3)
+				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)]:SetFrameLevel(CORE_FRAME_LEVEL + 3)
 				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)]:Size(114, TALENT_SLOT_SIZE)
 				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon = CreateFrame('Frame', nil, self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)])
 				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon:Size(20)
@@ -974,7 +1036,7 @@ function SLI:CreateInspectFrame()
 				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].text:Point('RIGHT', -SPACING, 0)
 
 				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Tooltip = CreateFrame('Button', nil, self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)])
-				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Tooltip:SetFrameLevel(CoreFrameLevel + 4)
+				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Tooltip:SetFrameLevel(CORE_FRAME_LEVEL + 4)
 				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Tooltip:SetInside()
 				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Tooltip:SetScript('OnClick', self.OnClick)
 				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Tooltip:SetScript('OnEnter', C.CommonScript.OnEnter)
@@ -1015,7 +1077,7 @@ function SLI:CreateInspectFrame()
 				tile = false, tileSize = 0, edgeSize = E.mult,
 				insets = { left = 0, right = 0, top = 0, bottom = 0}
 			})
-			self.Spec['Glyph'..i]:SetFrameLevel(CoreFrameLevel + 2)
+			self.Spec['Glyph'..i]:SetFrameLevel(CORE_FRAME_LEVEL + 2)
 			self.Spec['Glyph'..i]:Height(GLYPH_SLOT_HEIGHT)
 
 			self.Spec['Glyph'..i].NeedLevel = (i == 1 or i == 2) and 25 or (i == 3 or i == 4) and 50 or 75
@@ -1029,14 +1091,14 @@ function SLI:CreateInspectFrame()
 				insets = { left = 0, right = 0, top = 0, bottom = 0}
 			})
 			self.Spec['Glyph'..i].Icon:SetBackdropColor(.15, .15, .15)
-			self.Spec['Glyph'..i].Icon:SetFrameLevel(CoreFrameLevel + 3)
+			self.Spec['Glyph'..i].Icon:SetFrameLevel(CORE_FRAME_LEVEL + 3)
 			self.Spec['Glyph'..i].Icon.Texture = self.Spec['Glyph'..i].Icon:CreateTexture(nil, 'OVERLAY')
 			self.Spec['Glyph'..i].Icon.Texture:SetTexCoord(unpack(E.TexCoords))
 			self.Spec['Glyph'..i].Icon.Texture:SetInside()
 			self.Spec['Glyph'..i].Icon:Point('LEFT', self.Spec['Glyph'..i], SPACING, 0)
 
 			self.Spec['Glyph'..i].Tooltip = CreateFrame('Button', nil, self.Spec['Glyph'..i])
-			self.Spec['Glyph'..i].Tooltip:SetFrameLevel(CoreFrameLevel + 4)
+			self.Spec['Glyph'..i].Tooltip:SetFrameLevel(CORE_FRAME_LEVEL + 4)
 			self.Spec['Glyph'..i].Tooltip:SetInside()
 			self.Spec['Glyph'..i].Tooltip:SetScript('OnClick', self.OnClick)
 			self.Spec['Glyph'..i].Tooltip:SetScript('OnEnter', C.CommonScript.OnEnter)
@@ -1095,19 +1157,11 @@ function SLI:CreateInspectFrame()
 				self.Anchored = nil
 				self.Data = nil
 				self:SetParent(nil)
-				self:ClearAllPoints()
-
 				self:Hide()
 			end
 		end)
 		KnightInspect_UnitPopup:SetScript('OnClick', function(self)
 			local SendChannel
-
-			print('--------------------------')
-			for a, b in pairs(self.Data) do
-				print(a..' : '..b)
-			end
-			print('--------------------------')
 
 			if AISM and AISM.GuildMemberData[self.Data.TableIndex] then
 				if self.Data.Realm == E.myrealm then
@@ -1141,16 +1195,19 @@ function SLI:CreateInspectFrame()
 						return true
 					end
 				end, self.Data.TableIndex, true)
-				print('Addon Communication Inspect')
 				SendAddonMessage('AISM_Inspect', 'AISM_DataRequestForInspecting:'..self.Data.Name..'-'..self.Data.Realm, SendChannel, self.Data.TableIndex)
 			elseif self.Data.Unit then
 				SLI.InspectUnit(self.Data.Unit)
-				print('Direct Inspect')
 			end
 
 			DropDownList1:Hide()
 		end)
 		KnightInspect_UnitPopup:SetScript('OnUpdate', function(self)
+			if not (self:GetPoint() and self:GetParent()) then
+				self:Hide()
+				return
+			end
+
 			if AISM and (type(AISM.GroupMemberData[self.Data.TableIndex]) == 'table' or AISM.GuildMemberData[self.Data.TableIndex]) or self.Data.Unit and UnitIsVisible(self.Data.Unit) and UnitIsConnected(self.Data.Unit) and not UnitIsDeadOrGhost('player') then
 				self:Enable()
 			else
@@ -1202,6 +1259,7 @@ function SLI:CreateInspectFrame()
 					KnightInspect_UnitPopup:SetParent('DropDownList1')
 					KnightInspect_UnitPopup:SetFrameStrata(Button:GetFrameStrata())
 					KnightInspect_UnitPopup:SetFrameLevel(Button:GetFrameLevel() + 1)
+					KnightInspect_UnitPopup:ClearAllPoints()
 					KnightInspect_UnitPopup:Point('TOPLEFT', Button)
 					KnightInspect_UnitPopup:Point('BOTTOMRIGHT', Button)
 					KnightInspect_UnitPopup.Anchored = true
@@ -1230,10 +1288,10 @@ SLI.INSPECT_HONOR_UPDATE = function(Event)
 			end
 		end
 		SLI.CurrentInspectData.PvP.RB = { GetInspectRatedBGData() }
-		SLI.CurrentInspectData.PvP.Honor = { GetInspectHonorData() }
+		SLI.CurrentInspectData.PvP.Honor = select(5, GetInspectHonorData())
 	end
 
-	if not (SLI.ForbidUpdatePvPInformation) then
+	if not SLI.ForbidUpdatePvPInformation then
 		SLI:InspectFrame_PvPSetting(SLI.CurrentInspectData)
 	end
 end
@@ -1733,7 +1791,8 @@ function SLI:InspectFrame_DataSetting(DataTable)
 		end
 
 		self.SetItem = E:CopyTable({}, SLI.CurrentInspectData.SetItem)
-		self.Character.AverageItemLevel:SetText(C.Toolkit.Color_Value(STAT_AVERAGE_ITEM_LEVEL)..' : '..format('%.2f', ItemTotal / ItemCount))
+		self.Character.AverageItemLevel:SetText('|c'..RAID_CLASS_COLORS[DataTable.Class].colorStr..STAT_AVERAGE_ITEM_LEVEL..'|r : '..format('%.2f', ItemTotal / ItemCount))
+		--self.Character.AverageItemLevel:SetText(C.Toolkit.Color_Value(STAT_AVERAGE_ITEM_LEVEL)..' : '..format('%.2f', ItemTotal / ItemCount))
 	end
 
 	if needUpdate then
@@ -1746,29 +1805,8 @@ function SLI:InspectFrame_DataSetting(DataTable)
 	r, g, b = RAID_CLASS_COLORS[DataTable.Class].r, RAID_CLASS_COLORS[DataTable.Class].g, RAID_CLASS_COLORS[DataTable.Class].b
 
 	do --<< Basic Information >>--
-		self.Name:SetText('|c'..RAID_CLASS_COLORS[DataTable.Class].colorStr..DataTable.Name)
 		self.Title:SetText((DataTable.Realm and DataTable.Realm ~= E.myrealm and DataTable.Realm..L[" Server's "] or '')..'|cff93daff'..(DataTable.Title and string.gsub(DataTable.Title, DataTable.Name, '') or ''))
-		self.LevelRace:SetText(format('|cff%02x%02x%02x%s|r '..LEVEL..'|n%s', GetQuestDifficultyColor(DataTable.Level).r * 255, GetQuestDifficultyColor(DataTable.Level).g * 255, GetQuestDifficultyColor(DataTable.Level).b * 255, DataTable.Level, DataTable.Race))
 		self.Guild:SetText(DataTable.guildName and '<|cff2eb7e4'..DataTable.guildName..'|r>  [|cff2eb7e4'..DataTable.guildRankName..'|r]' or '')
-		self.ClassIcon:SetTexture('Interface\\ICONS\\ClassIcon_'..DataTable.Class..'.blp')
-	end
-
-	do --<< Color Setting >>--
-		self.Info.BG:SetBackdropBorderColor(r, g, b)
-
-		self.Info.Profession.IconSlot:SetBackdropBorderColor(r, g, b)
-		self.Info.Profession.Tab:SetBackdropColor(r, g, b, .3)
-		self.Info.Profession.Tab:SetBackdropBorderColor(r, g, b)
-		self.Info.Profession.Prof1.Bar:SetStatusBarColor(r, g, b)
-		self.Info.Profession.Prof2.Bar:SetStatusBarColor(r, g, b)
-
-		self.Info.Guild.IconSlot:SetBackdropBorderColor(r, g, b)
-		self.Info.Guild.Tab:SetBackdropColor(r, g, b, .3)
-		self.Info.Guild.Tab:SetBackdropBorderColor(r, g, b)
-
-		self.Info.PvP.IconSlot:SetBackdropBorderColor(r, g, b)
-		self.Info.PvP.Tab:SetBackdropColor(r, g, b, .3)
-		self.Info.PvP.Tab:SetBackdropBorderColor(r, g, b)
 	end
 
 	do --<< Information Page Setting >>--
@@ -1869,6 +1907,8 @@ function SLI:InspectFrame_DataSetting(DataTable)
 	do --<< Model and Frame Setting When InspectUnit Changed >>--
 		if DataTable.UnitID and UnitIsVisible(DataTable.UnitID) then
 			self.Model:SetUnit(DataTable.UnitID)
+
+			self.Character.Message = 'This is a test string. When contained string is too long then string will scrolling. If you check this scrolling ingame then erase this string part and make a nil. Like this : "self.Character.Message = nil". Congratulation your birthday Trevor :D'
 		else
 			self.Model:SetCustomRace(self.ModelList[DataTable.RaceID].RaceID, DataTable.GenderID - 2)
 			self.Model:TryOn(HeadSlotItem)
@@ -1886,17 +1926,43 @@ function SLI:InspectFrame_DataSetting(DataTable)
 					end
 				end
 			end
+			
+			self.Character.Message = L["Character model may differ because it was constructed by the inspect data."]
 		end
 
 		if not (self.LastDataSetting and self.LastDataSetting == DataTable.Name..(DataTable.Realm and '-'..DataTable.Realm or '')) then
+			--<< Initialize Inspect Page >>--
+			self.Name:SetText('|c'..RAID_CLASS_COLORS[DataTable.Class].colorStr..DataTable.Name)
+			self.LevelRace:SetText(format('|cff%02x%02x%02x%s|r '..LEVEL..'|n%s', GetQuestDifficultyColor(DataTable.Level).r * 255, GetQuestDifficultyColor(DataTable.Level).g * 255, GetQuestDifficultyColor(DataTable.Level).b * 255, DataTable.Level, DataTable.Race))
+			self.ClassIcon:SetTexture('Interface\\ICONS\\ClassIcon_'..DataTable.Class..'.blp')
+
 			self.Model:SetPosition(self.ModelList[DataTable.RaceID][DataTable.GenderID] and self.ModelList[DataTable.RaceID][DataTable.GenderID].z or 0, self.ModelList[DataTable.RaceID][DataTable.GenderID] and self.ModelList[DataTable.RaceID][DataTable.GenderID].x or 0, self.ModelList[DataTable.RaceID][DataTable.GenderID] and self.ModelList[DataTable.RaceID][DataTable.GenderID].y or 0)
 			self.Model:SetFacing(-5.67)
 			self.Model:SetPortraitZoom(1)
 			self.Model:SetPortraitZoom(0)
 
 			self:ChangePage('CharacterButton')
-			self.ClassIconSlot:SetBackdropBorderColor(RAID_CLASS_COLORS[DataTable.Class].r, RAID_CLASS_COLORS[DataTable.Class].g, RAID_CLASS_COLORS[DataTable.Class].b)
-			self.SpecIconSlot:SetBackdropBorderColor(RAID_CLASS_COLORS[DataTable.Class].r, RAID_CLASS_COLORS[DataTable.Class].g, RAID_CLASS_COLORS[DataTable.Class].b)
+
+			do --<< Color Setting >>--
+				self.ClassIconSlot:SetBackdropBorderColor(r, g, b)
+				self.SpecIconSlot:SetBackdropBorderColor(r, g, b)
+
+				self.Info.BG:SetBackdropBorderColor(r, g, b)
+
+				self.Info.Profession.IconSlot:SetBackdropBorderColor(r, g, b)
+				self.Info.Profession.Tab:SetBackdropColor(r, g, b, .3)
+				self.Info.Profession.Tab:SetBackdropBorderColor(r, g, b)
+				self.Info.Profession.Prof1.Bar:SetStatusBarColor(r, g, b)
+				self.Info.Profession.Prof2.Bar:SetStatusBarColor(r, g, b)
+
+				self.Info.Guild.IconSlot:SetBackdropBorderColor(r, g, b)
+				self.Info.Guild.Tab:SetBackdropColor(r, g, b, .3)
+				self.Info.Guild.Tab:SetBackdropBorderColor(r, g, b)
+
+				self.Info.PvP.IconSlot:SetBackdropBorderColor(r, g, b)
+				self.Info.PvP.Tab:SetBackdropColor(r, g, b, .3)
+				self.Info.PvP.Tab:SetBackdropBorderColor(r, g, b)
+			end
 
 			self:ToggleSpecializationTab(DataTable.Specialization.ActiveSpec or 1, DataTable)
 		elseif not (self.LastActiveSpec and self.LastActiveSpec == (DataTable.Specialization.ActiveSpec or 1)) then
@@ -2008,12 +2074,12 @@ function SLI:ToggleSpecializationTab(Group, DataTable)
 		if i == Group then
 			self.Spec['Spec'..i].BottomLeftBorder:Show()
 			self.Spec['Spec'..i].BottomRightBorder:Show()
-			self.Spec['Spec'..i].Tab:SetFrameLevel(CoreFrameLevel + 3)
+			self.Spec['Spec'..i].Tab:SetFrameLevel(CORE_FRAME_LEVEL + 3)
 			self.Spec['Spec'..i].Tab.text:Point('BOTTOMRIGHT', 0, -10)
 		else
 			self.Spec['Spec'..i].BottomLeftBorder:Hide()
 			self.Spec['Spec'..i].BottomRightBorder:Hide()
-			self.Spec['Spec'..i].Tab:SetFrameLevel(CoreFrameLevel + 2)
+			self.Spec['Spec'..i].Tab:SetFrameLevel(CORE_FRAME_LEVEL + 2)
 			self.Spec['Spec'..i].Tab.text:Point('BOTTOMRIGHT', 0, 0)
 		end
 	end
@@ -2103,8 +2169,10 @@ function IFO:Initialize()
 		SLI:CreateInspectFrame()
 	end
 	
-	_G['NotifyInspect'] = ENI.NotifyInspect or _G['NotifyInspect']
-	_G['InspectUnit'] = SLI.InspectUnit
+	--_G['NotifyInspect'] = ENI.NotifyInspect or _G['NotifyInspect']
+	NotifyInspect = ENI.NotifyInspect or NotifyInspect
+	InspectUnit = SLI.InspectUnit
+	--_G['InspectUnit'] = SLI.InspectUnit
 
 	--[[
 	tinsert(UnitPopupMenus.FRIEND, 5, 'KnightInspect')

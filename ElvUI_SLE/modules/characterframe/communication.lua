@@ -93,12 +93,10 @@ if not AISM then
 		['ASP'] = 'ActiveSpec',
 		['SID'] = 'SetItemData',
 	}
-
 	for groupNum = 1, MAX_TALENT_GROUPS do
 		AISM.DataTypeTable['SP'..groupNum] = 'Specialization'
 		AISM.DataTypeTable['GL'..groupNum] = 'Glyph'
 	end
-
 	for _, keyName in pairs(AISM.GearList) do
 		AISM.DataTypeTable[keyName] = 'Gear'
 	end
@@ -222,9 +220,9 @@ if not AISM then
 
 		self.Updater.ProfessionUpdated = true
 	end
-
 	AISM.Updater:RegisterEvent('CHAT_MSG_SYSTEM')
 
+	
 	--<< Specialization String >>--
 	function AISM:GetPlayerSpecSetting()
 		local DataString, isSelected, selectedSlot
@@ -275,6 +273,7 @@ if not AISM then
 	AISM.Updater:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED')
 	AISM.Updater:RegisterEvent('CHARACTER_POINTS_CHANGED')
 
+	
 	--<< Glyph String >>--
 	function AISM:GetPlayerGlyphString()
 		local ShortString, FullString
@@ -348,8 +347,9 @@ if not AISM then
 
 			if slotLink then
 				self.Tooltip:ClearLines()
-				self.Tooltip:SetInventoryItem('player', slotID)
-
+				self.Tooltip:SetHyperlink(slotLink)
+				--self.Tooltip:SetInventoryItem('player', slotID)
+				
 				checkSpace = 2
 
 				for i = 1, self.Tooltip:NumLines() do
@@ -433,7 +433,6 @@ if not AISM then
 
 		return nil
 	end
-
 	AISM.Updater:RegisterEvent('SOCKET_INFO_SUCCESS')
 	AISM.Updater:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
 	--AISM.Updater:RegisterEvent('UNIT_INVENTORY_CHANGED')
@@ -453,6 +452,17 @@ if not AISM then
 			
 			for _, DataString in ipairs({ GetGuildLogoInfo('player') }) do
 				TableToSave.GuildInfo = TableToSave.GuildInfo..'/'..DataString
+			end
+		end
+		
+		TableToSave.PvP = GetPVPLifetimeStats()
+		
+		local Rating, Played, Won
+		for i, Type in pairs({ '2vs2', '3vs3', '5vs5', 'RB' }) do
+			Rating, _, _, Played, Won = GetPersonalRatedInfo(i)
+			
+			if Played > 0 then
+				TableToSave.PvP = TableToSave.PvP..'/'..Type..'_'..Rating..'_'..Played..'_'..Won
 			end
 		end
 	end
@@ -508,6 +518,10 @@ if not AISM then
 		
 		if InputData.GuildInfo then
 			Data[#Data + 1] = 'GLD:'..InputData.GuildInfo
+		end
+		
+		if InputData.PvP then
+			Data[#Data + 1] = 'PvP:'..InputData.PvP
 		end
 
 		local DataString = ''
@@ -602,7 +616,6 @@ if not AISM then
 									self.GroupMemberData[TableIndex] = nil
 								elseif not self.GroupMemberData[TableIndex] then
 									self.needSendDataGroup = true
-									
 									self.GroupMemberData[TableIndex] = true
 								end
 							end
@@ -810,6 +823,16 @@ if not AISM then
 							for i = 3, #stringTable do
 								TableToSave.guildEmblem = TableToSave.guildEmblem or {}
 								TableToSave.guildEmblem[i - 2] = stringTable[i]
+							end
+						elseif self.DataTypeTable[DataType] == 'PvPInfo' then
+							TableToSave.PvP = TableToSave.PvP or {}
+							
+							TableToSave.PvP.Honor = stringTable[1]
+							
+							local PvPType, Rating, Played, Won
+							for i = 2, #stringTable do
+								PvPType, Rating, Played, Won = strsplit('_', stringTable[i])
+								TableToSave.PvP[PvPType] = { tonumber(Rating), tonumber(Played), tonumber(Won) }
 							end
 						end
 					end
