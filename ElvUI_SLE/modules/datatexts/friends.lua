@@ -405,6 +405,11 @@ function LDB.OnEnter(self)
 						if player["CLIENT"] == wtcgString then
 							line = tooltip:SetCell(line, 6, "|cff82c5ffHearthstone|r")
 						end
+						
+						if player["CLIENT"] == "App" then
+							line = tooltip:SetCell(line, 5, "|cff82c5ffDesctop Application|r")
+							line = tooltip:SetCell(line, 6, "|cff82c5ffBattle.net|r")
+						end
 					end
 
 					if not E.db.sle.dt.friends.hideFriendsNotes then
