@@ -407,7 +407,7 @@ function LDB.OnEnter(self)
 						end
 						
 						if player["CLIENT"] == "App" then
-							line = tooltip:SetCell(line, 5, "|cff82c5ffDesctop Application|r")
+							line = tooltip:SetCell(line, 5, "|cff82c5ffDesktop Application|r")
 							line = tooltip:SetCell(line, 6, "|cff82c5ffBattle.net|r")
 						end
 					end
