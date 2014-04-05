@@ -2,6 +2,7 @@
 local AISM = _G['Armory_InspectSupportModule']
 local IFO = E:NewModule('InspectFrameOptions', 'AceEvent-3.0')
 local SLE = E:GetModule('SLE');
+local S = E:GetModule('Skins')
 
 --------------------------------------------------------------------------------
 --<< KnightFrame : Upgrade Inspect Frame like Wow-Armory					>>--
@@ -269,6 +270,16 @@ SLI.OnClick = function(self)
 	end
 end
 
+local function SetModifiedBackdrop(self)
+	if self.backdrop then self = self.backdrop end
+	self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))	
+end
+
+local function SetOriginalBackdrop(self)
+	if self.backdrop then self = self.backdrop end
+	self:SetBackdropBorderColor(unpack(E["media"].bordercolor))	
+end
+
 function SLI:CreateInspectFrame()
 	do --<< Core >>--
 		self:Size(450, 480)
@@ -306,20 +317,48 @@ function SLI:CreateInspectFrame()
 		self.Tab = CreateFrame('Frame', nil, self)
 		self.Tab:Point('TOPLEFT', self, SPACING, -SPACING)
 		self.Tab:Point('BOTTOMRIGHT', self, 'TOPRIGHT', -SPACING, -(SPACING + TAB_HEIGHT))
-		self.Tab:SetBackdrop({
-			bgFile = E.media.normTex,
-			edgeFile = E.media.blankTex,
-			tile = false, tileSize = 0, edgeSize = E.mult,
-			insets = { left = 0, right = 0, top = 0, bottom = 0}
-		})
-		self.Tab:SetBackdropBorderColor(unpack(E.media.bordercolor))
-		C.Toolkit.TextSetting(self.Tab, ' |cff2eb7e4Knight Inspect', { ['FontSize'] = 10, ['FontOutline'] = 'OUTLINE', }, 'LEFT', 6, 1)
+		--self.Tab:SetBackdrop({
+		--	bgFile = E.media.normTex,
+		--	edgeFile = E.media.blankTex,
+		--	tile = false, tileSize = 0, edgeSize = E.mult,
+		--	insets = { left = 0, right = 0, top = 0, bottom = 0}
+		--})
+		--self.Tab:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		C.Toolkit.TextSetting(self.Tab, ' |cff2eb7e4S&L Inspect', { ['FontSize'] = 10, ['FontOutline'] = 'OUTLINE', }, 'LEFT', 6, 1)
 		self.Tab:SetScript('OnMouseDown', function() self:StartMoving() end)
 		self.Tab:SetScript('OnMouseUp', function() self:StopMovingOrSizing() end)
 	end
 
+	--S:HandleCloseButton
+	--My Modified One
 	do --<< Close Button >>--
 		self.Close = CreateFrame('Button', nil, self.Tab)
+		self.Close:StripTextures()
+		self.Close:CreateBackdrop('Default', true)
+		self.Close:Size(TAB_HEIGHT - 8)
+		self.Close:Point('RIGHT', -4, 0)
+		self.Close:HookScript('OnEnter', SetModifiedBackdrop)
+		self.Close:HookScript('OnLeave', SetOriginalBackdrop)
+		self.Close:SetScript('OnClick', function() HideUIPanel(self) end)
+		self.Close.text = self.Close:CreateFontString(nil, 'OVERLAY')
+		self.Close.text:SetFont([[Interface\AddOns\ElvUI\media\fonts\PT_Sans_Narrow.ttf]], 16, 'OUTLINE')
+		self.Close.text:SetText('x')
+		self.Close.text:SetJustifyH('CENTER')
+		self.Close.text:SetPoint('CENTER', self.Close, 'CENTER')
+
+		--self.Close:Size(TAB_HEIGHT - 8)
+		--self.Close:SetTemplate()
+		--self.Close.backdropTexture:SetVertexColor(0.1, 0.1, 0.1)
+		--self.Close:Point('RIGHT', -4, 0)
+		--C.Toolkit.TextSetting(self.Close, 'X', { ['FontSize'] = 13, }, 'CENTER', 1, 0)
+		--self.Close:SetScript('OnEnter', Button_OnEnter)
+		--self.Close:SetScript('OnLeave', Button_OnLeave)
+		--self.Close:SetScript('OnClick', function() HideUIPanel(self) end)
+		--self.Close.buttonString = 'X'
+	end
+	--Original
+	--do --<< Close Button >>--
+		--[[self.Close = CreateFrame('Button', nil, self.Tab)
 		self.Close:Size(TAB_HEIGHT - 8)
 		self.Close:SetTemplate()
 		self.Close.backdropTexture:SetVertexColor(0.1, 0.1, 0.1)
@@ -329,7 +368,7 @@ function SLI:CreateInspectFrame()
 		self.Close:SetScript('OnLeave', Button_OnLeave)
 		self.Close:SetScript('OnClick', function() HideUIPanel(self) end)
 		self.Close.buttonString = 'X'
-	end
+	end]]
 
 	do --<< Bottom Panel >>--
 		self.BP = CreateFrame('Frame', nil, self)
@@ -416,9 +455,21 @@ function SLI:CreateInspectFrame()
 				tile = false, tileSize = 0, edgeSize = E.mult,
 				insets = { left = 0, right = 0, top = 0, bottom = 0}
 			})
-			self[buttonName]:SetBackdropBorderColor(unpack(E.media.bordercolor))
+			--self[buttonName]:SetBackdropBorderColor(unpack(E.media.bordercolor))
 			self[buttonName]:SetFrameLevel(CORE_FRAME_LEVEL + 1)
 			C.Toolkit.TextSetting(self[buttonName], _G[buttonString], { ['FontSize'] = 9, ['FontOutline'] = 'OUTLINE' })
+			--Test
+			if self[buttonName].GetHighlightTexture and self[buttonName]:GetHighlightTexture() then
+				self[buttonName]:GetHighlightTexture():SetTexture(nil)
+			else
+				self[buttonName]:StripTextures()
+			end
+			self[buttonName].backdrop = CreateFrame("Frame", nil, self[buttonName])
+			self[buttonName].backdrop:SetTemplate("Default")
+			self[buttonName].backdrop:SetFrameLevel(self[buttonName]:GetFrameLevel() - 1)
+			self[buttonName].backdrop:Point("TOPLEFT", 10, E.PixelMode and -1 or -3)
+			self[buttonName].backdrop:Point("BOTTOMRIGHT", -10, 3)
+			--End Test
 			self[buttonName]:SetScript('OnEnter', Button_OnEnter)
 			self[buttonName]:SetScript('OnLeave', Button_OnLeave)
 			self[buttonName]:SetScript('OnClick', function() SLI:ChangePage(buttonName) end)
@@ -1791,7 +1842,7 @@ function SLI:InspectFrame_DataSetting(DataTable)
 		end
 
 		self.SetItem = E:CopyTable({}, SLI.CurrentInspectData.SetItem)
-		self.Character.AverageItemLevel:SetText('|c'..RAID_CLASS_COLORS[DataTable.Class].colorStr..STAT_AVERAGE_ITEM_LEVEL..'|r : '..format('%.2f', ItemTotal / ItemCount))
+		self.Character.AverageItemLevel:SetText('|c'..RAID_CLASS_COLORS[DataTable.Class].colorStr..STAT_AVERAGE_ITEM_LEVEL..'|r: '..format('%.2f', ItemTotal / ItemCount))
 		--self.Character.AverageItemLevel:SetText(C.Toolkit.Color_Value(STAT_AVERAGE_ITEM_LEVEL)..' : '..format('%.2f', ItemTotal / ItemCount))
 	end
 
@@ -1805,7 +1856,7 @@ function SLI:InspectFrame_DataSetting(DataTable)
 	r, g, b = RAID_CLASS_COLORS[DataTable.Class].r, RAID_CLASS_COLORS[DataTable.Class].g, RAID_CLASS_COLORS[DataTable.Class].b
 
 	do --<< Basic Information >>--
-		self.Title:SetText((DataTable.Realm and DataTable.Realm ~= E.myrealm and DataTable.Realm..L[" Server's "] or '')..'|cff93daff'..(DataTable.Title and string.gsub(DataTable.Title, DataTable.Name, '') or ''))
+		self.Title:SetText((DataTable.Realm and DataTable.Realm ~= E.myrealm and DataTable.Realm..L[" Server "] or '')..'|cff93daff'..(DataTable.Title and string.gsub(DataTable.Title, DataTable.Name, '') or ''))
 		self.Guild:SetText(DataTable.guildName and '<|cff2eb7e4'..DataTable.guildName..'|r>  [|cff2eb7e4'..DataTable.guildRankName..'|r]' or '')
 	end
 
@@ -1907,8 +1958,8 @@ function SLI:InspectFrame_DataSetting(DataTable)
 	do --<< Model and Frame Setting When InspectUnit Changed >>--
 		if DataTable.UnitID and UnitIsVisible(DataTable.UnitID) then
 			self.Model:SetUnit(DataTable.UnitID)
-
-			self.Character.Message = 'This is a test string. When contained string is too long then string will scrolling. If you check this scrolling ingame then erase this string part and make a nil. Like this : "self.Character.Message = nil". Congratulation your birthday Trevor :D'
+			self.Character.Message = nil
+			--self.Character.Message = 'This is a test string. When contained string is too long then string will scrolling. If you check this scrolling ingame then erase this string part and make a nil. Like this : "self.Character.Message = nil". Congratulation your birthday Trevor :D'
 		else
 			self.Model:SetCustomRace(self.ModelList[DataTable.RaceID].RaceID, DataTable.GenderID - 2)
 			self.Model:TryOn(HeadSlotItem)

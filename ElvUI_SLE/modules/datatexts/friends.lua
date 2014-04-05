@@ -12,6 +12,33 @@ local LDB = LibStub("LibDataBroker-1.1"):NewDataObject("S&L Friends",
 local _G = getfenv(0)
 local string = _G.string
 local pairs = _G.pairs
+local ONE_MINUTE = 60;
+local ONE_HOUR = 60 * ONE_MINUTE;
+local ONE_DAY = 24 * ONE_HOUR;
+local ONE_MONTH = 30 * ONE_DAY;
+local ONE_YEAR = 12 * ONE_MONTH;
+
+local function sletime_Conversion(timeDifference, isAbsolute)
+   if ( not isAbsolute ) then
+      timeDifference = time() - timeDifference;
+   end
+   local year, month, day, hour, minute;
+   
+   if ( timeDifference < ONE_MINUTE ) then
+      return LASTONLINE_SECS;
+   elseif ( timeDifference >= ONE_MINUTE and timeDifference < ONE_HOUR ) then
+      return format(LASTONLINE_MINUTES, floor(timeDifference / ONE_MINUTE));
+   elseif ( timeDifference >= ONE_HOUR and timeDifference < ONE_DAY ) then
+      return format(LASTONLINE_HOURS, floor(timeDifference / ONE_HOUR));
+   elseif ( timeDifference >= ONE_DAY and timeDifference < ONE_MONTH ) then
+      return format(LASTONLINE_DAYS, floor(timeDifference / ONE_DAY));
+   elseif ( timeDifference >= ONE_MONTH and timeDifference < ONE_YEAR ) then
+      return format(LASTONLINE_MONTHS, floor(timeDifference / ONE_MONTH));
+   else
+      return format(LASTONLINE_YEARS, floor(timeDifference / ONE_YEAR));
+   end
+end
+
 local frame = CreateFrame("frame")
 local tooltip
 local LDB_ANCHOR
@@ -323,12 +350,20 @@ function LDB.OnEnter(self)
 			if numBNOnline > 0 then
 				local realid_table = {}
 				for i = 1, numBNOnline do
-					local presenceID, givenName, surname = BNGetFriendInfo(i)
+					--local presenceID, givenName, surname = BNGetFriendInfo(i)
+					local presenceID, givenName, bTag, _, _, toonID, _, _, _, _, _, _, _, _, castTime = BNGetFriendInfo(i)
+						local broadcastTime = ""
+						if castTime then
+							broadcastTime = string.format(BNET_BROADCAST_SENT_TIME, sletime_Conversion(castTime));
+							--castTime = math.floor(castTime/1000)
+							--broadcastTime = SecondsToTime(castTime)
+						end
 					for toonidx = 1, BNGetNumFriendToons(i) do
 						local fcolor
 						local status = ""
 						local _, _, _, _, _, _, _, isOnline, lastOnline, isAFK, isDND, broadcast, note = BNGetFriendInfoByID(presenceID)
 						local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetFriendToonInfo(i, toonidx)
+
 						if toonName then
 							if faction then
 								if faction == "Horde" then
@@ -350,12 +385,13 @@ function LDB.OnEnter(self)
 							
 							table.insert(realid_table, {
 								GIVENNAME = givenName,
-								SURNAME = surname or "",
+								SURNAME = bTag or "",
 								LEVEL = level,
 								CLASS = class,
 								FCOLOR = fcolor,
 								STATUS = status,
 								BROADCAST_TEXT = broadcast or "",
+								BROADCAST_TIME = broadcastTime or "",
 								TOONNAME = toonName,
 								CLIENT = client,
 								ZONENAME = zoneName,
@@ -420,7 +456,7 @@ function LDB.OnEnter(self)
 
 					if E.db.sle.dt.friends.expandBNBroadcast and player["BROADCAST_TEXT"] ~= "" then
 						line = tooltip:AddLine()
-						line = tooltip:SetCell(line, 1, BROADCAST_ICON .. " |cff7b8489" .. player["BROADCAST_TEXT"] .. "|r", "LEFT", 0)
+						line = tooltip:SetCell(line, 1, BROADCAST_ICON .. " |cff7b8489" .. player["BROADCAST_TEXT"] .. "|r "..player["BROADCAST_TIME"], "LEFT", 0)
 						tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, string.format("realid:%s:%s:%d", player["TOONNAME"], player["GIVENNAME"], player["PRESENCEID"]))
 					end
 				end
