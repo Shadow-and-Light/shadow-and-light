@@ -351,18 +351,17 @@ function LDB.OnEnter(self)
 				local realid_table = {}
 				for i = 1, numBNOnline do
 					--local presenceID, givenName, surname = BNGetFriendInfo(i)
-					local presenceID, givenName, bTag, _, _, toonID, _, _, _, _, _, _, _, _, castTime = BNGetFriendInfo(i)
-						local broadcastTime = ""
-						if castTime then
-							broadcastTime = string.format(BNET_BROADCAST_SENT_TIME, sletime_Conversion(castTime));
-							--castTime = math.floor(castTime/1000)
-							--broadcastTime = SecondsToTime(castTime)
-						end
-					for toonidx = 1, BNGetNumFriendToons(i) do
+					local presenceID, givenName, bTag, _, _, toonID, gameClient, isOnline, lastOnline, isAFK, isDND, broadcast, note, _, castTime = BNGetFriendInfo(i)
+					local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetToonInfo(toonID or 0)
+					local broadcastTime = ""
+					if castTime then
+						broadcastTime = string.format(BNET_BROADCAST_SENT_TIME, sletime_Conversion(castTime));
+					end
+					--for toonidx = 1, BNGetNumFriendToons(i) do
 						local fcolor
 						local status = ""
-						local _, _, _, _, _, _, _, isOnline, lastOnline, isAFK, isDND, broadcast, note = BNGetFriendInfoByID(presenceID)
-						local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetFriendToonInfo(i, toonidx)
+						--local _, _, _, _, _, _, _, isOnline, lastOnline, isAFK, isDND, broadcast, note = BNGetFriendInfoByID(presenceID)
+						--local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetFriendToonInfo(i, toonidx)
 
 						if toonName then
 							if faction then
@@ -401,7 +400,7 @@ function LDB.OnEnter(self)
 								PRESENCEID = presenceID
 								})
 						end
-					end
+					--end
 				end
 
 				if (E.db.sle.dt.friends["sortBN"] ~= "REALID") and (E.db.sle.dt.friends["sortBN"] ~= "revREALID") then
@@ -428,6 +427,11 @@ function LDB.OnEnter(self)
 					if player["CLIENT"] == "WoW" then
 						line = tooltip:SetCell(line, 5, player["ZONENAME"])
 						line = tooltip:SetCell(line, 6, player["FCOLOR"] .. player["REALMNAME"] .. "|r")
+					elseif player["CLIENT"] == "App" then
+						--if player["CLIENT"] == "App" then
+							line = tooltip:SetCell(line, 5, "|cff82c5ffDesktop Application|r")
+							line = tooltip:SetCell(line, 6, "|cff01b2f1Battle.net|r")
+						--end
 					else
 						line = tooltip:SetCell(line, 5, player["GAMETEXT"])
 						if player["CLIENT"] == "S2" then
@@ -435,17 +439,13 @@ function LDB.OnEnter(self)
 						end
 
 						if player["CLIENT"] == "D3" then
-							line = tooltip:SetCell(line, 6, "|cff82c5ffDiablo 3|r")
+							line = tooltip:SetCell(line, 6, "|cffad835aDiablo 3|r")
 						end
 						
 						if player["CLIENT"] == wtcgString then
 							line = tooltip:SetCell(line, 6, "|cff82c5ffHearthstone|r")
 						end
-						
-						if player["CLIENT"] == "App" then
-							line = tooltip:SetCell(line, 5, "|cff82c5ffDesktop Application|r")
-							line = tooltip:SetCell(line, 6, "|cff82c5ffBattle.net|r")
-						end
+
 					end
 
 					if not E.db.sle.dt.friends.hideFriendsNotes then
