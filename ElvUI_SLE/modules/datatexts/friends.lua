@@ -218,7 +218,8 @@ local function Entry_OnMouseUp(frame, info, button)
 		if IsAltKeyDown() then
 			if i_type == "realid" then
 				local presenceID, presenceName, battleTag, isBattleTagPresence, toonName, toonID = BNGetFriendInfo(BNGetFriendIndex(presence_id))
-				local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetFriendToonInfo(BNGetFriendIndex(presence_id), 1)
+				--local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetFriendToonInfo(BNGetFriendIndex(presence_id), 1)
+				local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetToonInfo(toonID or 0)
 
 				InviteUnit(toon_name.."-"..realmName)
 				return
