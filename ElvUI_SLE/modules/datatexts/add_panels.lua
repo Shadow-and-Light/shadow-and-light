@@ -4,23 +4,23 @@ local DT = E:GetModule('DataTexts');
 local LO = E:GetModule('Layout');
 local dp1 = CreateFrame('Frame', "DP_1", E.UIParent)
 local dp2 = CreateFrame('Frame', "DP_2", E.UIParent)
-local top = CreateFrame('Frame', "Top_Center", E.UIParent)
 local dp3 = CreateFrame('Frame', "DP_3", E.UIParent)
 local dp4 = CreateFrame('Frame', "DP_4", E.UIParent)
 local dp5 = CreateFrame('Frame', "DP_5", E.UIParent)
-local bottom = CreateFrame('Frame', "Bottom_Panel", E.UIParent)
 local dp6 = CreateFrame('Frame', "DP_6", E.UIParent)
+local top = CreateFrame('Frame', "Top_Center", E.UIParent)
+local bottom = CreateFrame('Frame', "Bottom_Panel", E.UIParent)
 
 local panels = {
 	--Panel = short, name, point, x, panel, slot
 	DP_1 = {"dp1", "DP_1", "TOPLEFT", 0, DP_1, 3},
 	DP_2 = {"dp2", "DP_2", "TOP", -(E.screenwidth/5), DP_2, 3},
-	Top_Center = {"top", "Top_Center", "TOP", 0, Top_Center, 1},
 	DP_3 = {"dp3", "DP_3", "TOP", (E.screenwidth/5), DP_3, 3},
 	DP_4 = {"dp4", "DP_4", "TOPRIGHT", 0, DP_4, 3},
 	DP_5 = {"dp5", "DP_5", "BOTTOM", -(E.screenwidth/6 - 15), DP_5, 3},
-	Bottom_Panel = {"bottom", "Bottom_Panel", "BOTTOM", 0, Bottom_Panel, 1},
 	DP_6 = {"dp6", "DP_6", "BOTTOM", (E.screenwidth/6 - 15), DP_6, 3},
+	Top_Center = {"top", "Top_Center", "TOP", 0, Top_Center, 1},
+	Bottom_Panel = {"bottom", "Bottom_Panel", "BOTTOM", 0, Bottom_Panel, 1},
 }
 
 --Added function to create new panels
@@ -95,9 +95,9 @@ end
 
 --Renew panels after loading screens
 function DTP:PLAYER_ENTERING_WORLD(...)
-DTP:ExtraDataBarSetup()
-DTP:RegisterHide()
-self:UnregisterEvent("PLAYER_ENTERING_WORLD");
+	DTP:ExtraDataBarSetup()
+	DTP:RegisterHide()
+	self:UnregisterEvent("PLAYER_ENTERING_WORLD");
 end
 DTP:RegisterEvent('PLAYER_ENTERING_WORLD')
 

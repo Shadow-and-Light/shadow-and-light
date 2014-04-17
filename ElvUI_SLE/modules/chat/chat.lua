@@ -42,7 +42,7 @@ local test = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Test:13:13|t
 local rpg = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_RPG:13:35|t"
 local tyrone = "|TInterface\\AddOns\\ElvUI\\media\\textures\\tyrone_biggums_chat_logo:16:18|t"
 local hulkhead = "|TInterface\\AddOns\\ElvUI\\media\\textures\\hulk_head:18:22|t"
-local helloitty = "|TInterface\\AddOns\\ElvUI\\media\\textures\\helloKittyChatLogo:18:20|t"
+local hellokitty = "|TInterface\\AddOns\\ElvUI\\media\\textures\\helloKittyChatLogo:18:20|t"
 local shortbus = "|TInterface\\AddOns\\ElvUI\\media\\textures\\short_bus:16:16|t"
 local kitalie = "|TInterface\\Icons\\%s:12:12:0:0:64:64:4:60:4:60|t"
 
@@ -52,13 +52,14 @@ local specialChatIcons = {
 		["Tirain"] = tyrone
 	},
 	["Spirestone"] = {
-		["Elvz"] = elvui,
-		["Sara"] = helloitty,
-		["Sarah"] = helloitty,
-		["Itzjonny"] = hulkhead,
-		["Elv"] = elvui,
 		["Aeriane"] = true,
 		["Sinth"] = tyrone,
+		["Elvz"] = elvui,
+		["Sarah"] = hellokitty,
+		["Sara"] = hellokitty,
+		["Sarâh"] = hellokitty,
+		["Itzjonny"] = hulkhead,
+		["Elv"] = elvui,
 		["Incision"] = shortbus,
 		--SLE stuff
 		["Sifupooc"] = repooc,
