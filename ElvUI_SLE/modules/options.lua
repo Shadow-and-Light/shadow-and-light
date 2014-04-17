@@ -35,43 +35,72 @@ E.Options.args.sle = {
 			type = "description",
 			name = L["SLE_DESC"],
 		},
-		Reset = {
-			order = 4,
-			type = 'execute',
-			name = L["Reset All"],
-			desc = L["Reset all Shadow & Light options and movers to their defaults"],
-			func = function() SLE:Reset(true) end,
-		},
-		general = {
-			order = 5,
+		options = {
+			order = 1,
 			type = "group",
-			name = L["General"],
-			guiInline = true,
+			childGroups = 'tab',
+			name = SETTINGS,
 			args = {
-			},
-		},
-		lootwindow = {
-			order = 6,
-			type = "group",
-			name = L["Loot History"],
-			guiInline = true,
-			args = {
-				window = {
+				intro = {
 					order = 1,
-					type = "toggle",
-					name = L["Auto hide"],
-					desc = L["Automaticaly hide Blizzard loot histroy frame when leaving the instance."],
-					get = function(info) return E.db.sle.lootwin end,
-					set = function(info, value) E.db.sle.lootwin = value; SLE:LootShow() end
+					type = "description",
+					name = "Below you can see option groups presented by |cff1784d1Shadow & Light|r.",
+					--name = L["SLE_DESC"],
 				},
-				alpha = {
+				general = {
 					order = 2,
-					type = "range",
-					name = L['Alpha'],
-					desc = L["Sets alpha of loot histroy frame."],
-					min = 0.2, max = 1, step = 0.1,
-					get = function(info) return E.db.sle.lootalpha end,
-					set = function(info, value) E.db.sle.lootalpha = value; SLE:LootShow() end,
+					type = "group",
+					name = L["General"],
+					--guiInline = true,
+					args = {
+						Reset = {
+							order = 1,
+							type = 'execute',
+							name = L["Reset All"],
+							desc = L["Reset all Shadow & Light options and movers to their defaults"],
+							func = function() SLE:Reset(true) end,
+						},
+						space1 = {
+							order = 2,
+							type = 'description',
+							name = "",
+						},
+						space2 = {
+							order = 3,
+							type = 'description',
+							name = "",
+						},
+						lootwindow = {
+							order = 5,
+							type = "group",
+							name = L["Loot History"],
+							--guiInline = true,
+							args = {
+								header = {
+									order = 1,
+									type = "header",
+									name = L["Loot History"],
+								},
+								window = {
+									order = 2,
+									type = "toggle",
+									name = L["Auto hide"],
+									desc = L["Automaticaly hide Blizzard loot histroy frame when leaving the instance."],
+									get = function(info) return E.db.sle.lootwin end,
+									set = function(info, value) E.db.sle.lootwin = value; SLE:LootShow() end
+								},
+								alpha = {
+									order = 3,
+									type = "range",
+									name = L['Alpha'],
+									desc = L["Sets alpha of loot histroy frame."],
+									min = 0.2, max = 1, step = 0.1,
+									get = function(info) return E.db.sle.lootalpha end,
+									set = function(info, value) E.db.sle.lootalpha = value; SLE:LootShow() end,
+								},
+							},
+						},
+					},
 				},
 			},
 		},

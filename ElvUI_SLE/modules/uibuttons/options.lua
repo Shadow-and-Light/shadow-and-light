@@ -3,7 +3,7 @@ local UB = E:GetModule('UIButtons')
 local function configTable()
 
 --UI Buttons
-E.Options.args.sle.args.uibuttons = {
+E.Options.args.sle.args.options.args.general.args.uibuttons = {
 	type = "group",
 	name = L["UI Buttons"],
 	order = 99,
@@ -11,6 +11,11 @@ E.Options.args.sle.args.uibuttons = {
 		header = {
 			order = 1,
 			type = "header",
+			name = L["UI Buttons"],
+		},
+		intro = {
+			order = 2,
+			type = "description",
 			name = L["Additional menu with useful buttons"],
 		},
 		enabled = {
@@ -21,52 +26,57 @@ E.Options.args.sle.args.uibuttons = {
 			get = function(info) return E.db.sle.uibuttons.enable end,
 			set = function(info, value) E.db.sle.uibuttons.enable = value; UB:Start() end
 		},
-		options = {
-			type = "group",
-			name = L["General"],
+		space1 = {
 			order = 4,
-			guiInline = true,
+			type = 'description',
+			name = "",
+		},
+		space2 = {
+			order = 5,
+			type = 'description',
+			name = "",
+		},
+		size = {
+			order = 6,
+			type = "range",
+			name = L['Size'],
+			desc = L["Sets size of buttons"],
+			min = 12, max = 25, step = 1,
 			disabled = function() return not E.db.sle.uibuttons.enable end,
-			args = {
-				size = {
-					order = 1,
-					type = "range",
-					name = L['Size'],
-					desc = L["Sets size of buttons"],
-					min = 12, max = 25, step = 1,
-					get = function(info) return E.db.sle.uibuttons.size end,
-					set = function(info, value) E.db.sle.uibuttons.size = value; UB:FrameSize() end,
-				},
-				spacing = {
-					order = 2,
-					type = "range",
-					name = L['Button Spacing'],
-					desc = L['The spacing between buttons.'],
-					min = 1, max = 10, step = 1,
-					get = function(info) return E.db.sle.uibuttons.spacing end,
-					set = function(info, value) E.db.sle.uibuttons.spacing = value; UB:Positioning(); UB:FrameSize(); UB:MoverSize() end,
-				},
-				mouse = {
-					order = 3,
-					type = "toggle",
-					name = L["Mouse over"],
-					desc = L["Show on mouse over."],
-					get = function(info) return E.db.sle.uibuttons.mouse end,
-					set = function(info, value) E.db.sle.uibuttons.mouse = value; end
-				},
-				position = {
-					order = 10,
-					name = L["Buttons position"],
-					desc = L["Layout for UI buttons."],
-					type = "select",
-					values = {
-						["uib_hor"] = L['Horizontal'],
-						["uib_vert"] = L['Vertical'],
-					},
-					get = function(info) return E.db.sle.uibuttons.position end,
-					set = function(info, value) E.db.sle.uibuttons.position = value; UB:Positioning(); UB:MoverSize() end,
-				},
+			get = function(info) return E.db.sle.uibuttons.size end,
+			set = function(info, value) E.db.sle.uibuttons.size = value; UB:FrameSize() end,
+		},
+		spacing = {
+			order = 7,
+			type = "range",
+			name = L['Button Spacing'],
+			desc = L['The spacing between buttons.'],
+			min = 1, max = 10, step = 1,
+			disabled = function() return not E.db.sle.uibuttons.enable end,
+			get = function(info) return E.db.sle.uibuttons.spacing end,
+			set = function(info, value) E.db.sle.uibuttons.spacing = value; UB:Positioning(); UB:FrameSize(); UB:MoverSize() end,
+		},
+		mouse = {
+			order = 8,
+			type = "toggle",
+			name = L["Mouse over"],
+			desc = L["Show on mouse over."],
+			disabled = function() return not E.db.sle.uibuttons.enable end,
+			get = function(info) return E.db.sle.uibuttons.mouse end,
+			set = function(info, value) E.db.sle.uibuttons.mouse = value; end
+		},
+		position = {
+			order = 10,
+			name = L["Buttons position"],
+			desc = L["Layout for UI buttons."],
+			type = "select",
+			values = {
+				["uib_hor"] = L['Horizontal'],
+				["uib_vert"] = L['Vertical'],
 			},
+			disabled = function() return not E.db.sle.uibuttons.enable end,
+			get = function(info) return E.db.sle.uibuttons.position end,
+			set = function(info, value) E.db.sle.uibuttons.position = value; UB:Positioning(); UB:MoverSize() end,
 		},
 	},
 }

@@ -2,9 +2,9 @@
 local F = E:GetModule('Farm')
 local function configTable()
 
-E.Options.args.sle.args.farm = {
+E.Options.args.sle.args.options.args.farm = {
 	type = 'group',
-	order = 14,
+	order = 8,
 	name = L['Farm'],
 	args = {
 		header = {

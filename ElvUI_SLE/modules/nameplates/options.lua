@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local NP = E:GetModule('NamePlates')
 
 local function configTable()
-	E.Options.args.sle.args.nameplate = {
+	E.Options.args.sle.args.options.args.general.args.nameplate = {
 		type = "group",
 		name = L["NamePlates"],
 		order = 82,

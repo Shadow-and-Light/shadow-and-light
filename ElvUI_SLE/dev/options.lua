@@ -94,11 +94,12 @@ if SLE:Auth() then
 	end)
 
 	local function configTable()
-		E.Options.args.sle.args.developer = {
+		E.Options.args.sle.args.options.args.developer = {
 			order = 999,
 			type = 'group',
 			name = "Developer",
-			childGroups = 'tree',
+			--childGroups = 'tree',
+			childGroups = 'tab',
 			args = {
 				header = {
 					order = 1,
@@ -328,7 +329,7 @@ if SLE:Auth() then
 			},
 		}
 		for i = 1, 40 do
-			E.Options.args.sle.args.developer.args.userList.args.userList.args[tostring(i)] = {
+			E.Options.args.sle.args.options.args.developer.args.userList.args.userList.args[tostring(i)] = {
 				type = 'description',
 				order = i,
 				name = function()

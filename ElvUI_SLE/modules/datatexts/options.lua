@@ -25,54 +25,62 @@ local chatT = {
 E.Options.args.sle.args.datatext = {
 	type = "group",
 	name = L["Panels & Dashboard"],
-	order = 1,
-	childGroups = "select",
+	order = 10,
+	--childGroups = "select",
+	childGroups = "tab",
 	args = {
-		header = {
+		panels = {
+			type = "group",
+			name = L["Panels & Dashboard"],
 			order = 1,
-			type = "header",
-			name = L["Additional Datatext Panels"],
-		},
-		intro = {
-			order = 2,
-			type = "description",
-			name = L["DP_DESC"]
-		},
-		Reset = {
-			order = 3,
-			type = 'execute',
-			name = L['Restore Defaults'],
-			desc = L["Reset these options to defaults"],
-			func = function() E:GetModule('SLE'):Reset(nil, nil, true) end,
-		},
-		spacer = {
-			order = 4,
-			type = 'description',
-			name = "",
-		},
-		dashboard = {
-			order = 5,
-			type = "toggle",
-			name = L["Dashboard"],
-			desc = L["Show/Hide dashboard."],
-			get = function(info) return E.db.sle.datatext.dashboard.enable end,
-			set = function(info, value) E.db.sle.datatext.dashboard.enable = value; DTP:DashboardShow() end
-		},
-		width = {
-			order = 6,
-			type = "range",
-			name = L["Dashboard Panels Width"],
-			desc = L["Sets size of dashboard panels."],
-			disabled = function() return not E.db.sle.datatext.dashboard.enable end,
-			min = 75, max = 200, step = 1,
-			get = function(info) return E.db.sle.datatext.dashboard.width end,
-			set = function(info, value) E.db.sle.datatext.dashboard.width = value; DTP:DashWidth() end,
+			args = {
+				header = {
+					order = 1,
+					type = "header",
+					name = L["Additional Datatext Panels"],
+				},
+				intro = {
+					order = 2,
+					type = "description",
+					name = L["DP_DESC"]
+				},
+				Reset = {
+					order = 3,
+					type = 'execute',
+					name = L['Restore Defaults'],
+					desc = L["Reset these options to defaults"],
+					func = function() E:GetModule('SLE'):Reset(nil, nil, true) end,
+				},
+				spacer = {
+					order = 4,
+					type = 'description',
+					name = "",
+				},
+				dashboard = {
+					order = 5,
+					type = "toggle",
+					name = L["Dashboard"],
+					desc = L["Show/Hide dashboard."],
+					get = function(info) return E.db.sle.datatext.dashboard.enable end,
+					set = function(info, value) E.db.sle.datatext.dashboard.enable = value; DTP:DashboardShow() end
+				},
+				width = {
+					order = 6,
+					type = "range",
+					name = L["Dashboard Panels Width"],
+					desc = L["Sets size of dashboard panels."],
+					disabled = function() return not E.db.sle.datatext.dashboard.enable end,
+					min = 75, max = 200, step = 1,
+					get = function(info) return E.db.sle.datatext.dashboard.width end,
+					set = function(info, value) E.db.sle.datatext.dashboard.width = value; DTP:DashWidth() end,
+				},
+			},
 		},
 	},
 }
 
 for k,v in pairs(drop) do
-E.Options.args.sle.args.datatext.args[v[1]] = {
+E.Options.args.sle.args.datatext.args.panels.args[v[1]] = {
 	order = v[2],
 	type = "group",
 	name = L[k],
@@ -123,7 +131,7 @@ E.Options.args.sle.args.datatext.args[v[1]] = {
 end
 
 for k,v in pairs(chatT) do
-E.Options.args.sle.args.datatext.args[v[1]] = {
+E.Options.args.sle.args.datatext.args.panels.args[v[1]] = {
 	order = v[2],
 	type = "group",
 	name = L[k],
@@ -160,11 +168,11 @@ E.Options.args.sle.args.datatext.args[v[1]] = {
 }
 end
 
-E.Options.args.sle.args.sldatatext = {
+E.Options.args.sle.args.datatext.args.sldatatext = {
 	type = "group",
 	name = L["S&L Datatexts"],
 	order = 2,
-	childGroups = "select",
+	--childGroups = "select",
 	args = {
 		header = {
 			order = 1,

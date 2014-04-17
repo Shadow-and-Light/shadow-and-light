@@ -3,8 +3,8 @@ local LT = E:GetModule('Loot')
 local function configTable()
 
 --Main options group
-E.Options.args.sle.args.loot = {
-	order = 80,
+E.Options.args.sle.args.options.args.loot = {
+	order = 9,
 	type = "group",
 	name = L['Loot Announcer'],
 	args = {

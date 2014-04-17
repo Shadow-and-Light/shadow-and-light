@@ -18,9 +18,9 @@ end
 
 local function configTable()
 
-E.Options.args.sle.args.equipmanager = {
+E.Options.args.sle.args.options.args.equipmanager = {
 	type = 'group',
-	order = 13,
+	order = 7,
 	name = L['Equipment Manager'],
 	args = {
 		header = {

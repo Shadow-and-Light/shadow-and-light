@@ -5,8 +5,9 @@ local function configTable()
 	E.Options.args.sle.args.characterframeoptions = {
 		type = 'group',
 		name = L["Armory Mode"],
-		order = 3,
-		childGroups = 'select',
+		order = 6,
+		--childGroups = 'select',
+		childGroups = 'tab',
 		args = {
 			intro = {
 				order = -1,
@@ -20,6 +21,7 @@ local function configTable()
 				order = 2,
 				type = 'group',
 				name = L['Character Frame'],
+				--childGroups = 'tab',
 				args = {
 					header = {
 						order = 1,
@@ -43,7 +45,7 @@ local function configTable()
 						type = "group",
 						name = L["Decoration"],
 						order = 55,
-						guiInline = true,
+						--guiInline = true,
 						disabled = function() return not E.private.sle.characterframeoptions.enable end,
 						args = {
 							normalgradient = {
@@ -108,7 +110,7 @@ local function configTable()
 						type = "group",
 						name = STAT_AVERAGE_ITEM_LEVEL,
 						order = 66,
-						guiInline = true,
+					--	guiInline = true,
 						disabled = function() return not E.private.sle.characterframeoptions.enable end,
 						args = {
 							show = {
@@ -166,7 +168,7 @@ local function configTable()
 						type = "group",
 						name = DURABILITY,
 						order = 77,
-						guiInline = true,
+					--	guiInline = true,
 						disabled = function() return not E.private.sle.characterframeoptions.enable end,
 						args = {
 							show = {
@@ -223,7 +225,7 @@ local function configTable()
 						type = "group",
 						name = L["Enchanting"],
 						order = 88,
-						guiInline = true,
+					--	guiInline = true,
 						disabled = function() return not E.private.sle.characterframeoptions.enable end,
 						args = {
 							show = {
@@ -306,7 +308,7 @@ local function configTable()
 						type = "group",
 						name = L["Gem Sockets"],
 						order = 99,
-						guiInline = true,
+					--	guiInline = true,
 						disabled = function() return not E.private.sle.characterframeoptions.enable end,
 						args = {
 							show = {

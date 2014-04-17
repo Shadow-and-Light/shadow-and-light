@@ -16,7 +16,7 @@ local positionValues = {
 	NONE = L['Hide']
 };
 
-E.Options.args.sle.args.unitframes = {
+E.Options.args.sle.args.options.args.general.args.unitframes = {
 	type = "group",
 	name = L["UnitFrames"],
 	order = 100,
@@ -59,7 +59,7 @@ E.Options.args.sle.args.unitframes = {
 }
 
 if E.myclass == "DRUID" or E.myclass == "WARLOCK" then
-E.Options.args.sle.args.unitframes.args.druid = {
+E.Options.args.sle.args.options.args.general.args.unitframes.args.druid = {
 	order = 7,
 	type = 'group',
 	name = L["Classbar Energy"],
