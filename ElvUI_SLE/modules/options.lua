@@ -44,45 +44,52 @@ E.Options.args.sle = {
 				intro = {
 					order = 1,
 					type = "description",
-					name = "Below you can see option groups presented by |cff1784d1Shadow & Light|r.",
-					--name = L["SLE_DESC"],
+					name = L["Below you can see option groups presented by |cff1784d1Shadow & Light|r."],
 				},
 				general = {
 					order = 2,
 					type = "group",
 					name = L["General"],
-					--guiInline = true,
 					args = {
-						Reset = {
+						intro = {
 							order = 1,
+							type = "description",
+							name = L["General options of |cff1784d1Shadow & Light|r."],
+						},
+						Reset = {
+							order = 2,
 							type = 'execute',
 							name = L["Reset All"],
 							desc = L["Reset all Shadow & Light options and movers to their defaults"],
 							func = function() SLE:Reset(true) end,
 						},
 						space1 = {
-							order = 2,
-							type = 'description',
-							name = "",
-						},
-						space2 = {
 							order = 3,
 							type = 'description',
 							name = "",
 						},
+						space2 = {
+							order = 4,
+							type = 'description',
+							name = "",
+						},
 						lootwindow = {
-							order = 5,
+							order = 6,
 							type = "group",
 							name = L["Loot History"],
-							--guiInline = true,
 							args = {
 								header = {
 									order = 1,
 									type = "header",
 									name = L["Loot History"],
 								},
-								window = {
+								info = {
 									order = 2,
+									type = "description",
+									name = L["Options to tweak Loot History window behaviour."],
+								},
+								window = {
+									order = 3,
 									type = "toggle",
 									name = L["Auto hide"],
 									desc = L["Automaticaly hide Blizzard loot histroy frame when leaving the instance."],
@@ -90,7 +97,7 @@ E.Options.args.sle = {
 									set = function(info, value) E.db.sle.lootwin = value; SLE:LootShow() end
 								},
 								alpha = {
-									order = 3,
+									order = 4,
 									type = "range",
 									name = L['Alpha'],
 									desc = L["Sets alpha of loot histroy frame."],

@@ -98,7 +98,6 @@ if SLE:Auth() then
 			order = 999,
 			type = 'group',
 			name = "Developer",
-			--childGroups = 'tree',
 			childGroups = 'tab',
 			args = {
 				header = {

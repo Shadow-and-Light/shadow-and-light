@@ -4,7 +4,7 @@ local function configTable()
 	E.Options.args.sle.args.options.args.minimap = {
 		type = "group",
 		name = MINIMAP_LABEL,
-		order = 81,
+		order = 3,
 		args = {
 			header = {
 				order = 1,

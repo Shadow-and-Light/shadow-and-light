@@ -185,7 +185,7 @@ end
 
 function SLE:Initialize()
 	--Showing warning message about too old versions of ElvUI
-	if tonumber(E.version) < 6.55 then
+	if tonumber(E.version) < 6.998 then
 		E:StaticPopup_Show("VERSION_MISMATCH")
 	end
 	EP:RegisterPlugin(addon,SLE.GetOptions)

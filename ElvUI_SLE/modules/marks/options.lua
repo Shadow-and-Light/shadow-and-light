@@ -5,13 +5,17 @@ local function configTable()
 
 --Main options group
 E.Options.args.sle.args.options.args.marks = {
-	order = 10,
+	order = 4,
 	type = "group",
 	name = L["Raid Marks"],
-	--childGroups = 'tab',
 	args = {
-		marks = {
+		intro = {
 			order = 1,
+			type = 'description',
+			name = L['Options for panels providing fast access to raid markers and flares.'],
+		},
+		marks = {
+			order = 2,
 			type = "group",
 			name = L["Raid Marks"],
 			args = {
@@ -86,7 +90,7 @@ E.Options.args.sle.args.options.args.marks = {
 			},
 		},
 		flares = {
-			order = 2,
+			order = 3,
 			type = "group",
 			name = L["Raid Flares"],
 			args = {
@@ -111,14 +115,6 @@ E.Options.args.sle.args.options.args.marks = {
 					get = function(info) return E.db.sle.flares.backdrop end,
 					set = function(info, value) E.db.sle.flares.backdrop = value; RF:Backdrop() end
 				},
-				--Reset = {
-					--order = 4,
-					--type = 'execute',
-					--name = L['Restore Defaults'],
-					--desc = L["Reset these options to defaults"],
-					--disabled = function() return not E.db.sle.flares.enabled end,
-					--func = function() E:GetModule('SLE'):Reset(nil, nil, nil, nil, true) end,
-				--},
 				spacer = {
 					order = 5,
 					type = 'description',

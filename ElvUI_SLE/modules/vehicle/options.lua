@@ -11,11 +11,15 @@ local function configTable()
 				type = "header",
 				name = L["Enhanced Vehicle Bar"],
 			},
-			enable = {
+			info = {
 				order = 2,
+				type = "description",
+				name = L["Use the enhanced vehicle bar based on work by Azilroka"],
+			},
+			enable = {
+				order = 3,
 				type = "toggle",
 				name = L["Enable"],
-				desc = L["Use the enhanced vehicle bar based on work by Azilroka"],
 				get = function(info) return E.private.sle.vehicle.enable end,
 				set = function(info, value) E.private.sle.vehicle.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
 			},
