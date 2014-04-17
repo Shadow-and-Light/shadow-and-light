@@ -10,7 +10,7 @@ local drop = {
 }
 
 --Options for additional background frames. Main group
-E.Options.args.sle.args.backgrounds = {
+E.Options.args.sle.args.datatext.args.backgrounds = {
 	type = "group",
 	name = L["Backgrounds"],
 	order = 3,
@@ -81,7 +81,7 @@ E.Options.args.sle.args.backgrounds = {
 
 --Subgroups
 for k,v in pairs(drop) do
-	E.Options.args.sle.args.backgrounds.args[v[1]] = {
+	E.Options.args.sle.args.datatext.args.backgrounds.args[v[1]] = {
 		type = "group",
 		name = L[k],
 		order = v[2],

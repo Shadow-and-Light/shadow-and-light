@@ -4,11 +4,11 @@ local RF = E:GetModule('RaidFlares')
 local function configTable()
 
 --Main options group
-E.Options.args.sle.args.marks = {
+E.Options.args.sle.args.options.args.marks = {
 	order = 10,
 	type = "group",
 	name = L["Raid Marks"],
-	childGroups = 'tab',
+	--childGroups = 'tab',
 	args = {
 		marks = {
 			order = 1,

@@ -3,10 +3,10 @@
 	<Script file='options.lua'/>
 	<Script file='pvpmover\pvpmover.lua'/>
 	<Include file='autorelease\load_autorelease.xml'/>
+	<Include file='datatexts\load_datatexts.xml'/>
 	<Include file='backgrounds\load_backgrounds.xml'/>
 	<Include file='characterframe\load_characterframe.xml'/>
 	<Include file='chat\load_chat.xml'/>
-	<Include file='datatexts\load_datatexts.xml'/>
 	<Include file='bags\load_bags.xml'/>
 	<Include file='equipmanager\load_equipmanager.xml'/>
 	<Include file='exprepbar\load_exprepbar.xml'/>

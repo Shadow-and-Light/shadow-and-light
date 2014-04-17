@@ -1,7 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 
 local function configTable()
-	E.Options.args.sle.args.minimap = {
+	E.Options.args.sle.args.options.args.minimap = {
 		type = "group",
 		name = MINIMAP_LABEL,
 		order = 81,
