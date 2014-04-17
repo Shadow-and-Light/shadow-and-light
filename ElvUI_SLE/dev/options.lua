@@ -104,12 +104,12 @@ if SLE:Auth() then
 				header = {
 					order = 1,
 					type = "header",
-					name = "Developer Header",
+					name = "Evil Overlord Control Panel",
 				},
 				testdesc = {
 					order = 2,
 					type = "description",
-					name = "devdesc",
+					name = "WTF are you doing here, asshole?!",
 				},
 				userList = {
 					order = 3,
@@ -119,7 +119,7 @@ if SLE:Auth() then
 						listheader = {
 							order = 1,
 							type = "header",
-							name = "User List2",
+							name = "List of possible victims",
 						},
 						List = {
 							type = 'select',
@@ -322,7 +322,7 @@ if SLE:Auth() then
 						subgroup = {
 							order = 1,
 							type = "header",
-							name = "Sub Group 2",
+							name = "Dafuq we have this?",
 						},
 					},
 				},
