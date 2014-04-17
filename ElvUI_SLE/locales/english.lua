@@ -6,6 +6,8 @@ if not L then return; end
 
 --General--
 L["Shadow & Light"] = true
+L["Below you can see option groups presented by |cff1784d1Shadow & Light|r."] = true
+L["General options of |cff1784d1Shadow & Light|r."] = true
 L["SLE_DESC"] = [=[This is an edit of ElvUI that adds some functionality to the original addon and changes some previously existed options.
 The edit doesn't change original files in any respect so you can freely disable it any time from your addon manager without any risk.]=]
 L["LFR Lockout"] = true
@@ -15,6 +17,7 @@ L["Automatically release body when killed inside a battleground."] = true
 L["Pet autocast corners"] = true
 L["Show/hide triangles in corners of autocastable buttons."] = true
 L["Loot History"] = true
+L["Options to tweak Loot History window behaviour."] = true
 L["Auto hide"] = true
 L["Automaticaly hide Blizzard loot histroy frame when leaving the instance."] = true
 L["Sets alpha of loot histroy frame."] = true
@@ -104,6 +107,7 @@ L["Socket Size"] = true
 L["Set the size of sockets to show."] = true
 
 --Character Frame--
+L["Armory Mode"] = true
 L["Not Enchanted"] = true
 L['Missing Tinkers'] = true
 L['This is not profession only.'] = true
@@ -111,6 +115,7 @@ L['Missing Buckle'] = true
 L['Missing Socket'] = true
 L['Empty Socket'] = true
 L['Average'] = true
+L["Inspect Frame Options"] = true
 
 
 --Chat--
@@ -275,6 +280,7 @@ L["Announce loot to the selected channel."] = true
 L["Loot Dropped:"] = true
 
 --Marks--
+L['Options for panels providing fast access to raid markers and flares.'] = true
 L["Raid Marks"] = true
 L["Show/Hide raid marks."] = true
 L["Show only in instances"] = true
@@ -294,6 +300,12 @@ L["Cross World Marker"] = true
 L["Star World Marker"] = true
 L["Clear World Markers"] = true
 
+--Nameplates--
+L["Target Count"] = true
+L["Display the number of party / raid members targetting the nameplate unit."] = true
+L["Threat Text"] = true
+L["Display threat level as text on targeted, boss or mouseover nameplate."] = true
+
 --Minimap--
 L["Minimap Options"] = true
 L['MINIMAP_DESC'] = "These options effect various aspects of the minimap.  Some options may not work if you disable minimap in the General section of ElvUI config."
@@ -305,6 +317,7 @@ L['This will determine where the coords are shown on the minimap.'] = true
 L['Bottom Corners'] = true
 L['Bottom Center'] = true
 L["Minimap Buttons"] = true
+L["Bar Enable"] = true
 L['Enable/Disable Square Minimap Bar'] = true
 L['Skin Dungeon'] = true
 L['Skin dungeon icon.'] = true
@@ -337,6 +350,7 @@ L["Swimming"] = true
 --Tooltip--
 L["Tooltip enhancements"] = true
 L["Faction Icon"] = true
+L["Tooltip Cursor Offset"] = true
 L["Show faction icon to the left of player's name on tooltip."] = true
 L["Tooltip X-offset"] = true
 L["Offset the tooltip on the X-axis."] = true

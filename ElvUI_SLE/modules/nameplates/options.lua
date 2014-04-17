@@ -12,7 +12,7 @@ local function configTable()
 			header = {
 				order = 1,
 				type = "header",
-				name = L["Nameplate Options"],
+				name = L["NAMEPLATE_DESC"], --L["Nameplate Options"],
 			},
 			targetcount = {
 				type = "toggle",
