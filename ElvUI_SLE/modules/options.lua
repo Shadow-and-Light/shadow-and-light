@@ -17,6 +17,8 @@ E.Options.args.ElvUI_Header = {
 E.Options.args.sle = {
 	type = "group",
 	name = L["Shadow & Light"],
+	desc = [[The |cff1784d1ElvUI|r modification by
+|cff30ee30Darth Predator|r and |cffffff00Repooc|r.]],
 	order = 50,
 	args = {
 		header = {
@@ -28,7 +30,7 @@ E.Options.args.sle = {
 			type = 'description',
 			name = '',
 			order = 2,
-			image = function() return 'Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Config_SL', 1024, 256 end,
+			image = function() return 'Interface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Title', 650, 410 end,
 		},
 		info = {
 			order = 3,
