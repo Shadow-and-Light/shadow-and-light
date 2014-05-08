@@ -10,7 +10,7 @@ if not AISM then
 	local ProfessionUnlearnKey = ERR_SPELL_UNLEARNED_S:gsub('%%s', '(.+)')
 
 	local playerName = UnitName('player')
-	local playerRealm = GetRealmName()
+	local playerRealm = gsub(GetRealmName(),'[%s%-]','')
 	local _, playerClass, playerClassID = UnitClass('player')
 	local playerRace, playerRaceID = UnitRace('player')
 	local playerSex = UnitSex('player')
