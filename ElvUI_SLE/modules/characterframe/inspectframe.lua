@@ -444,10 +444,11 @@ function SLI:CreateInspectFrame()
 
 	do --<< Texts >>--
 		C.Toolkit.TextSetting(self, nil, { ['Tag'] = 'Name', ['FontSize'] = 22, ['FontOutline'] = 'OUTLINE', }, 'LEFT', self.Bookmark, 'RIGHT', 9, 0)
-		C.Toolkit.TextSetting(self, nil, { ['Tag'] = 'Title', ['FontSize'] = 9, ['FontOutline'] = 'OUTLINE', }, 'BOTTOMLEFT', self.Name, 'TOPLEFT', 2, 5)
+		C.Toolkit.TextSetting(self, nil, { ['Tag'] = 'Title', ['FontSize'] = 12, ['FontOutline'] = 'OUTLINE', }, 'BOTTOMLEFT', self.Name, 'TOPLEFT', 0, 3)
+		C.Toolkit.TextSetting(self, nil, { ['Tag'] = 'TitleR', ['FontSize'] = 12, ['FontOutline'] = 'OUTLINE', }, 'LEFT', self.Name, 'RIGHT', -2, 7)
 		C.Toolkit.TextSetting(self, nil, { ['Tag'] = 'LevelRace', ['FontSize'] = 10, ['directionH'] = 'LEFT', }, 'BOTTOMLEFT', self.Name, 'BOTTOMRIGHT', 5, 2)
 		C.Toolkit.TextSetting(self, nil, { ['Tag'] = 'Guild', ['FontSize'] = 10, ['directionH'] = 'LEFT', }, 'TOPLEFT', self.Name, 'BOTTOMLEFT', 4, -5)
-		C.Toolkit.TextSetting(self, nil, { ['Tag'] = 'Realm', ['FontSize'] = 10, ['directionH'] = 'LEFT', }, 'BOTTOMLEFT', self.Name, 'TOPLEFT', 2, 14)
+		--C.Toolkit.TextSetting(self, nil, { ['Tag'] = 'Realm', ['FontSize'] = 10, ['directionH'] = 'LEFT', }, 'BOTTOMLEFT', self.Name, 'TOPLEFT', 2, 14)
 		self.Guild:Point('RIGHT', self, -44, 0)
 	end
 
@@ -1834,10 +1835,17 @@ function SLI:InspectFrame_DataSetting(DataTable)
 	r, g, b = RAID_CLASS_COLORS[DataTable.Class].r, RAID_CLASS_COLORS[DataTable.Class].g, RAID_CLASS_COLORS[DataTable.Class].b
 
 	do --<< Basic Information >>--
-		self.Title:SetText((DataTable.Realm and DataTable.Realm ~= E.myrealm and L["Server: "]..DataTable.Realm or '')..'|cff93daff'..(DataTable.Title and string.gsub(DataTable.Title, DataTable.Name, '') or ''))
+		local iTitle = string.find(DataTable.Title, DataTable.Name)
+		if iTitle == 1 then
+			self.Title:SetText('')
+			self.TitleR:SetText('|cff93daff'..(DataTable.Title and string.gsub(DataTable.Title, DataTable.Name, '') or ''))
+		else
+			self.Title:SetText('|cff93daff'..(DataTable.Title and string.gsub(DataTable.Title, DataTable.Name, '') or ''))
+			self.TitleR:SetText('')
+		end
 		--self.Title:SetText((DataTable.Realm and DataTable.Realm ~= E.myrealm and DataTable.Realm..L[" Server "] or '')..'|cff93daff'..(DataTable.Title and string.gsub(DataTable.Title, DataTable.Name, '') or ''))		
 		self.Guild:SetText(DataTable.guildName and '<|cff2eb7e4'..DataTable.guildName..'|r>  [|cff2eb7e4'..DataTable.guildRankName..'|r]' or '')
-		self.Realm:SetText((DataTable.Realm and DataTable.Realm ~= E.myrealm and L["Server: "]..DataTable.Realm or ''))
+		--self.Realm:SetText((DataTable.Realm and DataTable.Realm ~= E.myrealm and L["Server: "]..DataTable.Realm or ''))
 	end
 
 	do --<< Information Page Setting >>--
@@ -1944,7 +1952,7 @@ function SLI:InspectFrame_DataSetting(DataTable)
 		if DataTable.UnitID and UnitIsVisible(DataTable.UnitID) and SLI.NeedModelSetting then
 			self.Model:SetUnit(DataTable.UnitID)
 			--self.Character.Message = nil
-			self.Character.Message = 'This is a test string. When contained string is too long then string will scrolling. If you check this scrolling ingame then erase this string part and make a nil. Like this : "self.Character.Message = nil". Congratulation your birthday Trevor :D'
+			--self.Character.Message = 'This is a test string. When contained string is too long then string will scrolling. If you check this scrolling ingame then erase this string part and make a nil. Like this : "self.Character.Message = nil". Congratulation your birthday Trevor :D'
 		elseif SLI.NeedModelSetting then
 			self.Model:SetUnit('player')
 			self.Model:SetCustomRace(self.ModelList[DataTable.RaceID].RaceID, DataTable.GenderID - 2)
@@ -1969,7 +1977,7 @@ function SLI:InspectFrame_DataSetting(DataTable)
 		if not (self.LastDataSetting and self.LastDataSetting == DataTable.Name..(DataTable.Realm and '-'..DataTable.Realm or '')) then
 			--<< Initialize Inspect Page >>--
 			self.Name:SetText('|c'..RAID_CLASS_COLORS[DataTable.Class].colorStr..DataTable.Name)
-			self.LevelRace:SetText(format('|cff%02x%02x%02x%s|r '..LEVEL..'|n%s', GetQuestDifficultyColor(DataTable.Level).r * 255, GetQuestDifficultyColor(DataTable.Level).g * 255, GetQuestDifficultyColor(DataTable.Level).b * 255, DataTable.Level, DataTable.Race))
+			self.LevelRace:SetText(format('|cff%02x%02x%02x%s|r %s'..(DataTable.Realm and DataTable.Realm ~= E.myrealm and ' | '..L["Server: "]..DataTable.Realm or ''), GetQuestDifficultyColor(DataTable.Level).r * 255, GetQuestDifficultyColor(DataTable.Level).g * 255, GetQuestDifficultyColor(DataTable.Level).b * 255, DataTable.Level, DataTable.Race))
 			self.ClassIcon:SetTexture('Interface\\ICONS\\ClassIcon_'..DataTable.Class..'.blp')
 
 			self.Model:SetPosition(self.ModelList[DataTable.RaceID][DataTable.GenderID] and self.ModelList[DataTable.RaceID][DataTable.GenderID].z or 0, self.ModelList[DataTable.RaceID][DataTable.GenderID] and self.ModelList[DataTable.RaceID][DataTable.GenderID].x or 0, self.ModelList[DataTable.RaceID][DataTable.GenderID] and self.ModelList[DataTable.RaceID][DataTable.GenderID].y or 0)
