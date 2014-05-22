@@ -6,8 +6,8 @@ if not L then return; end
 
 --General--
 L["Shadow & Light"] = true
-L["Below you can see option groups presented by |cff1784d1Shadow & Light|r."] = true
-L["General options of |cff1784d1Shadow & Light|r."] = true
+L["Below you can see option groups presented by Shadow & Light."] = true
+L["General options of Shadow & Light."] = true
 L["SLE_DESC"] = [=[This is an edit of ElvUI that adds some functionality to the original addon and changes some previously existed options.
 The edit doesn't change original files in any respect so you can freely disable it any time from your addon manager without any risk.]=]
 L["LFR Lockout"] = true

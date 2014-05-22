@@ -17,8 +17,6 @@ E.Options.args.ElvUI_Header = {
 E.Options.args.sle = {
 	type = "group",
 	name = L["Shadow & Light"],
-	desc = [[The |cff1784d1ElvUI|r modification by
-|cff30ee30Darth Predator|r and |cffffff00Repooc|r.]],
 	order = 50,
 	args = {
 		header = {
@@ -46,7 +44,7 @@ E.Options.args.sle = {
 				intro = {
 					order = 1,
 					type = "description",
-					name = L["Below you can see option groups presented by |cff1784d1Shadow & Light|r."],
+					name = L["Below you can see option groups presented by Shadow & Light."],
 				},
 				general = {
 					order = 2,
@@ -56,7 +54,7 @@ E.Options.args.sle = {
 						intro = {
 							order = 1,
 							type = "description",
-							name = L["General options of |cff1784d1Shadow & Light|r."],
+							name = L["General options of Shadow & Light."],
 						},
 						Reset = {
 							order = 2,
