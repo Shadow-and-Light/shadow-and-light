@@ -1362,7 +1362,7 @@ SLI.INSPECT_READY = function(Event, InspectedUnitGUID)
 			else
 				SLI.CurrentInspectData.Gear[SlotName].ItemLink = SlotLink
 
-				C.Toolkit.CommonScript.ClearTooltip(SLI.ScanTTForInspecting)
+				C.CommonScript.ClearTooltip(SLI.ScanTTForInspecting)
 				SLI.ScanTTForInspecting:SetInventoryItem(UnitID, Slot.ID)
 
 				TransmogrifiedItem = nil
@@ -1591,7 +1591,7 @@ function SLI:InspectFrame_DataSetting(DataTable)
 					do --<< Gem Parts >>--
 						arg1, itemID, enchantID, _, _, _, _, arg2, arg3, arg4, arg5, arg6 = strsplit(':', Slot.Link)
 
-						C.Toolkit.CommonScript.ClearTooltip(self.ScanTT)
+						C.CommonScript.ClearTooltip(self.ScanTT)
 						self.ScanTT:SetHyperlink(format('%s:%s:%d:0:0:0:0:%s:%s:%s:%s:%s', arg1, itemID, enchantID, arg2, arg3, arg4, arg5, arg6))
 
 						GemCount_Default, GemCount_Now, GemCount = 0, 0, 0
@@ -1615,7 +1615,7 @@ function SLI:InspectFrame_DataSetting(DataTable)
 							Slot['Socket'..GemCount_Enable].GemType = 'PRISMATIC'
 						end
 
-						C.Toolkit.CommonScript.ClearTooltip(self.ScanTT)
+						C.CommonScript.ClearTooltip(self.ScanTT)
 						self.ScanTT:SetHyperlink(Slot.Link)
 
 						-- Apply current item's gem setting
