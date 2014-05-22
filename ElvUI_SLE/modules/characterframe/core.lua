@@ -42,6 +42,13 @@ SLArmoryConstants = {
 		['504'] = 12, ['505'] = 16,
 	},
 	
+	['ItemBindString'] = { -- Usually transmogrify string is located upper than bind string so we need to check this string for adding a transmogrify string in tooltip.
+			[ITEM_BIND_ON_EQUIP] = true,
+			[ITEM_BIND_ON_PICKUP] = true,
+			[ITEM_BIND_TO_ACCOUNT] = true,
+			[ITEM_BIND_TO_BNETACCOUNT] = true
+		},
+	
 	['CanTransmogrifySlot'] = {
 			['HeadSlot'] = true,
 			['ShoulderSlot'] = true,
