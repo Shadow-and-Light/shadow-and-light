@@ -114,7 +114,7 @@ L['Missing Socket'] = "Нет гнезда"
 L['Empty Socket'] = "пустое гнездо"
 L['Average'] = "Средний ур. предметов"
 L["Inspect Frame Options"] = "Опции окна осмотра"
-
+L['Knight Button'] = "Осмотреть"
 
 --Chat--
 L["Chat Options"] = "Настройки чата"
