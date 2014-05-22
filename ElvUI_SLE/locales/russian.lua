@@ -392,6 +392,12 @@ L["This options will allow you to detach your classbar from player's frame and m
 L["Power Text Position"] = "Позиция текста ресурса"
 L["Position power text on this bar of chosen frame"] = "Позиционировать текст ресурса относительно выбранной полосы на каждой рамке"
 
+--Links--
+L['About/Help'] = "Информация/Помощь"
+L["LINK_DESC"] = [[Сылки ниже ведуть на страницы Shadow & Light на различных сайтах.]]
+L['TukUI GitLab / Report Errors'] = "TukUI GitLab / Сообщить об ошибках"
+
+
 --Credits--
 L["ELVUI_SLE_CREDITS"] = "Мы бы хотели отметить следующих людей, которые помогли нас сделать этот аддон посредством тестирования, кода и прочего."
 L["Submodules and Coding:"] = "Субмодули и кодинг:"

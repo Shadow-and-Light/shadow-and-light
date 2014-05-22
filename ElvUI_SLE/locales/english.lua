@@ -392,6 +392,11 @@ L["This options will allow you to detach your classbar from player's frame and m
 L["Power Text Position"] = true
 L["Position power text on this bar of chosen frame"] = true
 
+--Links--
+L['About/Help'] = true
+L["LINK_DESC"] = [[Following links will direct you to the Shadow & Light's pages on various sites.]]
+L['TukUI GitLab / Report Errors'] = true
+
 --Credits--
 L["ELVUI_SLE_CREDITS"] = "We would like to point out the following people for helping us create this addon with testing, coding, and other stuff."
 L["Submodules and Coding:"] = true

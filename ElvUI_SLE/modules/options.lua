@@ -122,7 +122,7 @@ E.Options.args.sle = {
 					order = 1,
 					type = 'description',
 					fontSize = 'medium',
-					name = L["Following links will direct you to Shadow & Light's pages on various sites"],
+					name = L["LINK_DESC"],
 				},
 				tukuilink = {
 					type = 'input',
@@ -148,7 +148,7 @@ E.Options.args.sle = {
 				gitlablink = {
 					type = 'input',
 					width = 'full',
-					name = 'TukUI GitLab',
+					name = L['TukUI GitLab / Report Errors'],
 					get = function(info) return 'http://git.tukui.org/repooc/elvui-shadowandlight' end,
 					order = 5,
 				},
