@@ -42,6 +42,20 @@ SLArmoryConstants = {
 		['504'] = 12, ['505'] = 16,
 	},
 	
+	['CanTransmogrifySlot'] = {
+			['HeadSlot'] = true,
+			['ShoulderSlot'] = true,
+			['BackSlot'] = true,
+			['ChestSlot'] = true,
+			['WristSlot'] = true,
+			['HandsSlot'] = true,
+			['WaistSlot'] = true,
+			['LegsSlot'] = true,
+			['FeetSlot'] = true,
+			['MainHandSlot'] = true,
+			['SecondaryHandSlot'] = true
+		},
+	
 	['ItemEnchant_Profession_Inscription'] = {
 		['NeedLevel'] = 600,
 		['4912'] = true, -- ?? ?? ????			Secret Ox Horn Inscription
