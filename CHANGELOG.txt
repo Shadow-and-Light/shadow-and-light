@@ -1,4 +1,6 @@
-v1.87
+v1.88
+- New configuration layout has been implemented in preparation to WoD. Now options groups will not take that much space vertically.
+- Character window options have been moved to the new "Armory" group. The Armory module handles not only character window but inspect window as well. If enabled new inspect window can be accessed by clicking "KnightInspect" in the right-click menu.
 - Added Range Datatext
 - Added iLvl Datatext
 - Added Agility Datatext
@@ -6,11 +8,16 @@ v1.87
 - Added Stamina Datatext
 - Added Strength Datatext
 - Added Energy Regen Datatext
+- S&L Friends Datatext now filters double instances of B-Net friends
+- Version Datatext now shows right ElvUI version instead of 7.00
 - Updated the Enhanced Incompatible Message so it can be ignored/Disable Enhanced Addon before reporting issues
 - Some backend clean up
 - Changed Minimap Icons to enable/disable skinning of the icons, and enable/disable the bar if skinning is enabled.
 - Added new tag [range:sl] to show range on frames like target, focus and such
 - Added nameplate options for people
+
+v1.87
+- Fixed chat spam on opening of character window.
 
 v1.86 March 11, 2014
 - Added option to Show/Hide Squareminimap Bar during pet battles
