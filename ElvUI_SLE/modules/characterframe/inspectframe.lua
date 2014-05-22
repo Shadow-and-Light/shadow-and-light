@@ -9,6 +9,7 @@ local S = E:GetModule('Skins')
 --------------------------------------------------------------------------------
 local SLI = CreateFrame('Frame', 'KnightInspect', E.UIParent)
 local ENI = _G['EnhancedNotifyInspectFrame'] or { ['CancelInspect'] = function() end, }
+local ButtonName = L['Knight Button']
 local C = SLArmoryConstants
 
 local CORE_FRAME_LEVEL = 10
@@ -136,12 +137,21 @@ function SLI:ChangePage(Type)
 	end
 end
 
+
 SLI.EquipmentSlot_OnEnter = function(self)
+	if C.CanTransmogrifySlot[self.SlotName] and type(self.TransmogrifyLink) == 'number' and not GetItemInfo(self.TransmogrifyLink) then
+		self:SetScript('OnUpdate', function()
+			if GetItemInfo(self.TransmogrifyLink) then
+				SLI.EquipmentSlot_OnEnter(self)
+				self:SetScript('OnUpdate', nil)
+			end
+		end)
+		return
+	end
+		
 	if self.Link then
 		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 		GameTooltip:SetHyperlink(self.Link)
-
-		--ITEM_SOULBOUND
 
 		local CurrentLineText, SetName
 		for i = 1, GameTooltip:NumLines() do
@@ -179,22 +189,21 @@ SLI.EquipmentSlot_OnEnter = function(self)
 				end
 				
 				break
+			elseif C.CanTransmogrifySlot[self.SlotName] and C.ItemBindString[CurrentLineText] and self.TransmogrifyAnchor.Link then
+				_G['GameTooltipTextLeft'..i]:SetText(E:RGBToHex(1, .5, 1)..format(TRANSMOGRIFIED, GetItemInfo(self.TransmogrifyAnchor.Link) or self.TransmogrifyAnchor.Link)..'|r|n'..CurrentLineText)
 			end
 		end
 
 		GameTooltip:Show()
 	end
 end
-
 SLI.ScrollFrame_OnMouseWheel = function(self, spinning)
 	local Page = self:GetScrollChild()
 	local PageHeight = Page:GetHeight()
 	local WindowHeight = self:GetHeight()
 
-	self.Offset = self.Offset or 0
-
 	if PageHeight > WindowHeight then
-		self.Offset = self.Offset - spinning * 5
+		self.Offset = (self.Offset or 0) - spinning * 5
 	
 		Page:ClearAllPoints()
 		if self.Offset > PageHeight - WindowHeight then
@@ -215,31 +224,11 @@ SLI.ScrollFrame_OnMouseWheel = function(self, spinning)
 end
 SLI.Category_OnClick = function(self)
 	self = self:GetParent()
+
 	self.Closed = not self.Closed
 
 	SLI:ReArrangeCategory()
 end
-
-SLI.GemSocket_OnEnter = function(self)
-	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
-
-	self = self:GetParent()
-
-	if self.GemItemID then
-		if type(self.GemItemID) == 'number' then
-			GameTooltip:SetHyperlink(select(2, GetItemInfo(self.GemItemID)))
-		else
-			GameTooltip:ClearLines()
-			GameTooltip:AddLine(self.GemItemID)
-		end
-	elseif self.GemType then
-		GameTooltip:ClearLines()
-		GameTooltip:AddLine(_G['EMPTY_SOCKET_'..self.GemType])
-	end
-
-	GameTooltip:Show()
-end
-
 SLI.GemSocket_OnClick = function(self, button)
 	self = self:GetParent()
 
@@ -270,15 +259,6 @@ SLI.OnClick = function(self)
 	end
 end
 
-local function SetModifiedBackdrop(self)
-	if self.backdrop then self = self.backdrop end
-	self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))	
-end
-
-local function SetOriginalBackdrop(self)
-	if self.backdrop then self = self.backdrop end
-	self:SetBackdropBorderColor(unpack(E["media"].bordercolor))	
-end
 
 function SLI:CreateInspectFrame()
 	do --<< Core >>--
@@ -317,48 +297,20 @@ function SLI:CreateInspectFrame()
 		self.Tab = CreateFrame('Frame', nil, self)
 		self.Tab:Point('TOPLEFT', self, SPACING, -SPACING)
 		self.Tab:Point('BOTTOMRIGHT', self, 'TOPRIGHT', -SPACING, -(SPACING + TAB_HEIGHT))
-		--self.Tab:SetBackdrop({
-		--	bgFile = E.media.normTex,
-		--	edgeFile = E.media.blankTex,
-		--	tile = false, tileSize = 0, edgeSize = E.mult,
-		--	insets = { left = 0, right = 0, top = 0, bottom = 0}
-		--})
-		--self.Tab:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		self.Tab:SetBackdrop({
+			bgFile = E.media.normTex,
+			edgeFile = E.media.blankTex,
+			tile = false, tileSize = 0, edgeSize = E.mult,
+			insets = { left = 0, right = 0, top = 0, bottom = 0}
+		})
+		self.Tab:SetBackdropBorderColor(0, 0, 0)
 		C.Toolkit.TextSetting(self.Tab, ' |cff2eb7e4S&L Inspect', { ['FontSize'] = 10, ['FontOutline'] = 'OUTLINE', }, 'LEFT', 6, 1)
 		self.Tab:SetScript('OnMouseDown', function() self:StartMoving() end)
 		self.Tab:SetScript('OnMouseUp', function() self:StopMovingOrSizing() end)
 	end
 
-	--S:HandleCloseButton
-	--My Modified One
 	do --<< Close Button >>--
 		self.Close = CreateFrame('Button', nil, self.Tab)
-		self.Close:StripTextures()
-		self.Close:CreateBackdrop('Default', true)
-		self.Close:Size(TAB_HEIGHT - 8)
-		self.Close:Point('RIGHT', -4, 0)
-		self.Close:HookScript('OnEnter', SetModifiedBackdrop)
-		self.Close:HookScript('OnLeave', SetOriginalBackdrop)
-		self.Close:SetScript('OnClick', function() HideUIPanel(self) end)
-		self.Close.text = self.Close:CreateFontString(nil, 'OVERLAY')
-		self.Close.text:SetFont([[Interface\AddOns\ElvUI\media\fonts\PT_Sans_Narrow.ttf]], 16, 'OUTLINE')
-		self.Close.text:SetText('x')
-		self.Close.text:SetJustifyH('CENTER')
-		self.Close.text:SetPoint('CENTER', self.Close, 'CENTER')
-
-		--self.Close:Size(TAB_HEIGHT - 8)
-		--self.Close:SetTemplate()
-		--self.Close.backdropTexture:SetVertexColor(0.1, 0.1, 0.1)
-		--self.Close:Point('RIGHT', -4, 0)
-		--C.Toolkit.TextSetting(self.Close, 'X', { ['FontSize'] = 13, }, 'CENTER', 1, 0)
-		--self.Close:SetScript('OnEnter', Button_OnEnter)
-		--self.Close:SetScript('OnLeave', Button_OnLeave)
-		--self.Close:SetScript('OnClick', function() HideUIPanel(self) end)
-		--self.Close.buttonString = 'X'
-	end
-	--Original
-	--do --<< Close Button >>--
-		--[[self.Close = CreateFrame('Button', nil, self.Tab)
 		self.Close:Size(TAB_HEIGHT - 8)
 		self.Close:SetTemplate()
 		self.Close.backdropTexture:SetVertexColor(0.1, 0.1, 0.1)
@@ -368,7 +320,7 @@ function SLI:CreateInspectFrame()
 		self.Close:SetScript('OnLeave', Button_OnLeave)
 		self.Close:SetScript('OnClick', function() HideUIPanel(self) end)
 		self.Close.buttonString = 'X'
-	end]]
+	end
 
 	do --<< Bottom Panel >>--
 		self.BP = CreateFrame('Frame', nil, self)
@@ -381,7 +333,7 @@ function SLI:CreateInspectFrame()
 			insets = { left = 0, right = 0, top = 0, bottom = 0}
 		})
 		self.BP:SetBackdropColor(0.09, 0.3, 0.45)
-		self.BP:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		self.BP:SetBackdropBorderColor(0, 0, 0)
 		self.BP:SetFrameLevel(CORE_FRAME_LEVEL + 2)
 
 		self.MessageFrame = CreateFrame('ScrollFrame', nil, self.BP)
@@ -389,7 +341,6 @@ function SLI:CreateInspectFrame()
 		self.MessageFrame:Point('BOTTOMRIGHT', self.BP, -10, 1)
 		self.MessageFrame.UpdateInterval = 3
 		self.MessageFrame.ScrollSpeed = 1
-		self.MessageFrame:SetScript('OnEnter', function() self.MessageFrame.UpdatedTime = 0 end)
 
 		local PageWidth
 		local VisibleWidth
@@ -455,21 +406,9 @@ function SLI:CreateInspectFrame()
 				tile = false, tileSize = 0, edgeSize = E.mult,
 				insets = { left = 0, right = 0, top = 0, bottom = 0}
 			})
-			--self[buttonName]:SetBackdropBorderColor(unpack(E.media.bordercolor))
+			self[buttonName]:SetBackdropBorderColor(0, 0, 0)
 			self[buttonName]:SetFrameLevel(CORE_FRAME_LEVEL + 1)
 			C.Toolkit.TextSetting(self[buttonName], _G[buttonString], { ['FontSize'] = 9, ['FontOutline'] = 'OUTLINE' })
-			--Test
-			if self[buttonName].GetHighlightTexture and self[buttonName]:GetHighlightTexture() then
-				self[buttonName]:GetHighlightTexture():SetTexture(nil)
-			else
-				self[buttonName]:StripTextures()
-			end
-			self[buttonName].backdrop = CreateFrame("Frame", nil, self[buttonName])
-			self[buttonName].backdrop:SetTemplate("Default")
-			self[buttonName].backdrop:SetFrameLevel(self[buttonName]:GetFrameLevel() - 1)
-			self[buttonName].backdrop:Point("TOPLEFT", 10, E.PixelMode and -1 or -3)
-			self[buttonName].backdrop:Point("BOTTOMRIGHT", -10, 3)
-			--End Test
 			self[buttonName]:SetScript('OnEnter', Button_OnEnter)
 			self[buttonName]:SetScript('OnLeave', Button_OnLeave)
 			self[buttonName]:SetScript('OnClick', function() SLI:ChangePage(buttonName) end)
@@ -499,7 +438,8 @@ function SLI:CreateInspectFrame()
 		self.Bookmark.CheckedTexture:SetTexture('Interface\\Common\\ReputationStar.tga')
 		self.Bookmark.CheckedTexture:SetInside()
 		self.Bookmark:SetCheckedTexture(self.Bookmark.CheckedTexture)
-		self.Bookmark:Point('LEFT', self.Tab, 'BOTTOMLEFT', 7, -35)
+		self.Bookmark:Point('LEFT', self.Tab, 'BOTTOMLEFT', 7, -34)
+		self.Bookmark:Hide()
 	end
 
 	do --<< Texts >>--
@@ -507,6 +447,7 @@ function SLI:CreateInspectFrame()
 		C.Toolkit.TextSetting(self, nil, { ['Tag'] = 'Title', ['FontSize'] = 9, ['FontOutline'] = 'OUTLINE', }, 'BOTTOMLEFT', self.Name, 'TOPLEFT', 2, 5)
 		C.Toolkit.TextSetting(self, nil, { ['Tag'] = 'LevelRace', ['FontSize'] = 10, ['directionH'] = 'LEFT', }, 'BOTTOMLEFT', self.Name, 'BOTTOMRIGHT', 5, 2)
 		C.Toolkit.TextSetting(self, nil, { ['Tag'] = 'Guild', ['FontSize'] = 10, ['directionH'] = 'LEFT', }, 'TOPLEFT', self.Name, 'BOTTOMLEFT', 4, -5)
+		C.Toolkit.TextSetting(self, nil, { ['Tag'] = 'Realm', ['FontSize'] = 10, ['directionH'] = 'LEFT', }, 'BOTTOMLEFT', self.Name, 'TOPLEFT', 2, 14)
 		self.Guild:Point('RIGHT', self, -44, 0)
 	end
 
@@ -682,6 +623,26 @@ function SLI:CreateInspectFrame()
 				Slot.SocketWarning.Texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Warning-Small')
 				Slot.SocketWarning:SetScript('OnEnter', C.CommonScript.OnEnter)
 				Slot.SocketWarning:SetScript('OnLeave', C.CommonScript.OnLeave)
+					
+				if C.CanTransmogrifySlot[slotName] then
+					Slot.TransmogrifyAnchor = CreateFrame('Button', nil, Slot.Gradation)
+					Slot.TransmogrifyAnchor:Size(12)
+					Slot.TransmogrifyAnchor:SetFrameLevel(CORE_FRAME_LEVEL + 4)
+					Slot.TransmogrifyAnchor:Point('BOTTOM'..Slot.Direction, Slot)
+					Slot.TransmogrifyAnchor:SetScript('OnEnter', C.CommonScript.Transmogrify_OnEnter)
+					Slot.TransmogrifyAnchor:SetScript('OnLeave', C.CommonScript.Transmogrify_OnLeave)
+						
+					Slot.TransmogrifyAnchor.Texture = Slot.TransmogrifyAnchor:CreateTexture(nil, 'OVERLAY')
+					Slot.TransmogrifyAnchor.Texture:SetInside()
+					Slot.TransmogrifyAnchor.Texture:SetTexture('Interface\\AddOns\\ElvUI_KnightFrame\\Media\\Graphics\\Anchor')
+					Slot.TransmogrifyAnchor.Texture:SetVertexColor(1, .5, 1)
+						
+					if Slot.Direction == 'LEFT' then
+						Slot.TransmogrifyAnchor.Texture:SetTexCoord(0, 1, 0, 1)
+					else
+						Slot.TransmogrifyAnchor.Texture:SetTexCoord(1, 0, 0, 1)
+					end
+				end
 			end
 
 			self[slotName] = Slot
@@ -832,10 +793,10 @@ function SLI:CreateInspectFrame()
 				self.Info.Profession['Prof'..i].Bar:SetStatusBarTexture(E.media.normTex)
 				self.Info.Profession['Prof'..i].Bar:SetMinMaxValues(0, 600)
 
-				C.Toolkit.TextSetting(self.Info.Profession['Prof'..i], '257', { ['Tag'] = 'Level', ['FontSize'] = 10 }, 'TOP', self.Info.Profession['Prof'..i].Icon)
+				C.Toolkit.TextSetting(self.Info.Profession['Prof'..i], nil, { ['Tag'] = 'Level', ['FontSize'] = 10 }, 'TOP', self.Info.Profession['Prof'..i].Icon)
 				self.Info.Profession['Prof'..i].Level:Point('RIGHT', self.Info.Profession['Prof'..i].Bar)
 
-				C.Toolkit.TextSetting(self.Info.Profession['Prof'..i], 'JewelCrafting', { ['Tag'] = 'Name', ['FontSize'] = 10, ['directionH'] = 'LEFT' }, 'TOP', self.Info.Profession['Prof'..i].Icon)
+				C.Toolkit.TextSetting(self.Info.Profession['Prof'..i], nil, { ['Tag'] = 'Name', ['FontSize'] = 10, ['directionH'] = 'LEFT' }, 'TOP', self.Info.Profession['Prof'..i].Icon)
 				self.Info.Profession['Prof'..i].Name:Point('LEFT', self.Info.Profession['Prof'..i].Bar)
 				self.Info.Profession['Prof'..i].Name:Point('RIGHT', self.Info.Profession['Prof'..i].Level, 'LEFT', -SPACING, 0)
 			end
@@ -874,7 +835,6 @@ function SLI:CreateInspectFrame()
 			for _, Type in pairs({ '2vs2', '3vs3', '5vs5', 'RB' }) do
 				self.Info.PvP[Type] = CreateFrame('Frame', nil, self.Info.PvP.Page)
 				self.Info.PvP[Type]:SetFrameLevel(CORE_FRAME_LEVEL + 4)
-				--self.Info.PvP[Type]:Height(70)
 
 				self.Info.PvP[Type].Rank = self.Info.PvP.Page:CreateTexture(nil, 'OVERLAY')
 				self.Info.PvP[Type].Rank:SetTexture('Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-SHIELDS')
@@ -1195,7 +1155,7 @@ function SLI:CreateInspectFrame()
 		KnightInspect_UnitPopup.Highlight:SetBlendMode('ADD')
 		KnightInspect_UnitPopup.Highlight:SetAllPoints()
 		KnightInspect_UnitPopup:SetHighlightTexture(KnightInspect_UnitPopup.Highlight)
-		KnightInspect_UnitPopup:SetText('KnightInspect')
+		--KnightInspect_UnitPopup:SetText('KnightInspect')
 
 		KnightInspect_UnitPopup:SetScript('OnEnter', function()
 			UIDropDownMenu_StopCounting(DropDownList1)
@@ -1208,30 +1168,28 @@ function SLI:CreateInspectFrame()
 				self.Anchored = nil
 				self.Data = nil
 				self:SetParent(nil)
+				self:ClearAllPoints()
 				self:Hide()
 			end
 		end)
 		KnightInspect_UnitPopup:SetScript('OnClick', function(self)
 			local SendChannel
 
-			if AISM and AISM.GuildMemberData[self.Data.TableIndex] then
+			if AISM and AISM.AISMUserList[self.Data.TableIndex] then
 				if self.Data.Realm == E.myrealm then
 					SendChannel = 'WHISPER'
-				else
+				elseif AISM.AISMUserList[self.Data.TableIndex] == 'GUILD' then
 					SendChannel = 'GUILD'
-				end
-			elseif SLI.CurrentGroupMode ~= 'NoGroup' and AISM and type(AISM.GroupMemberData[self.Data.TableIndex]) == 'table' then
-				if self.Data.Realm == E.myrealm then
-					SendChannel = 'WHISPER'
-				else
+				elseif SLI.CurrentGroupMode ~= 'NoGroup' and type(AISM.GroupMemberData[self.Data.TableIndex]) == 'table' then
 					SendChannel = IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(SLI.CurrentGroupMode)
 				end
 			end
 
-			if AISM and SendChannel then
+			if SendChannel then
 				ENI.CancelInspect(self.Data.TableIndex)
 				SLI:UnregisterEvent('INSPECT_READY')
 
+				SLI.NeedModelSetting = true
 				SLI.CurrentInspectData = E:CopyTable({}, SLI.Default_CurrentInspectData)
 				AISM.CurrentInspectData[self.Data.TableIndex] = {
 					['UnitID'] = self.Data.Unit,
@@ -1259,9 +1217,11 @@ function SLI:CreateInspectFrame()
 				return
 			end
 
-			if AISM and (type(AISM.GroupMemberData[self.Data.TableIndex]) == 'table' or AISM.GuildMemberData[self.Data.TableIndex]) or self.Data.Unit and UnitIsVisible(self.Data.Unit) and UnitIsConnected(self.Data.Unit) and not UnitIsDeadOrGhost('player') then
+			if AISM and (type(AISM.GroupMemberData[self.Data.TableIndex]) == 'table' or AISM.AISMUserList[self.Data.TableIndex]) or self.Data.Unit and UnitIsVisible(self.Data.Unit) and UnitIsConnected(self.Data.Unit) and not UnitIsDeadOrGhost('player') then
+				self:SetText(C.Toolkit.Color_Value(ButtonName))
 				self:Enable()
 			else
+				self:SetText(ButtonName)
 				self:Disable()
 			end
 		end)
@@ -1287,13 +1247,14 @@ function SLI:CreateInspectFrame()
 				end
 
 				if not Button then
-					if DataTable.Unit and (UnitCanAttack('player', DataTable.Unit) or not UnitIsConnected(DataTable.Unit)) then
+					if DataTable.Unit and (UnitCanAttack('player', DataTable.Unit) or not UnitIsConnected(DataTable.Unit) or not UnitIsPlayer(DataTable.Unit)) then
 						if AISM then
+							AISM.AISMUserList[DataTable.TableIndex] = nil
 							AISM.GroupMemberData[DataTable.TableIndex] = nil
 						end
 
 						return
-					elseif DataTable.Unit or AISM and (AISM.GuildMemberData[DataTable.TableIndex] or AISM.GroupMemberData[DataTable.TableIndex]) then
+					elseif DataTable.Unit or AISM and (Menu.which == 'GUILD' or AISM.AISMUserList[DataTable.TableIndex] or AISM.GroupMemberData[DataTable.TableIndex]) then
 						Button = UIDropDownMenu_CreateInfo()
 						Button.notCheckable = 1
 						UIDropDownMenu_AddButton(Button)
@@ -1304,7 +1265,7 @@ function SLI:CreateInspectFrame()
 
 				if Button then
 					Button.value = 'KnightInspect'
-					Button:SetText('')
+					Button:SetText((' '):rep(strlen(ButtonName)))
 
 					KnightInspect_UnitPopup:Show()
 					KnightInspect_UnitPopup:SetParent('DropDownList1')
@@ -1315,6 +1276,14 @@ function SLI:CreateInspectFrame()
 					KnightInspect_UnitPopup:Point('BOTTOMRIGHT', Button)
 					KnightInspect_UnitPopup.Anchored = true
 					KnightInspect_UnitPopup.Data = DataTable
+						
+					if AISM and not (AISM.AISMUserList[DataTable.TableIndex] or AISM.GroupMemberData[DataTable.TableIndex]) then
+						if DataTable.Unit and not (UnitCanAttack('player', DataTable.Unit) or not UnitIsConnected(DataTable.Unit) or not UnitIsPlayer(DataTable.Unit)) and DataTable.Realm == E.myrealm then
+							SendAddonMessage('AISM', 'AISM_Check', 'WHISPER', DataTable.Name)
+						elseif Menu.which == 'GUILD' then
+							SendAddonMessage('AISM', 'AISM_GUILD_Check', DataTable.Realm == E.myrealm and 'WHISPER' or 'GUILD', DataTable.Name)
+						end
+					end
 				end
 			end
 		end)
@@ -1330,6 +1299,7 @@ function SLI:CreateInspectFrame()
 	self.CreateInspectFrame = nil
 end
 
+	
 SLI.INSPECT_HONOR_UPDATE = function(Event)
 	if Event or HasInspectHonorData() then
 		for i, Type in pairs({ '2vs2', '3vs3', '5vs5' }) do
@@ -1347,14 +1317,14 @@ SLI.INSPECT_HONOR_UPDATE = function(Event)
 	end
 end
 
+	
 SLI.INSPECT_READY = function(Event, InspectedUnitGUID)
-	local UnitID = SLI.CurrentInspectData.Name..(SLI.CurrentInspectData.Realm and '-'..SLI.CurrentInspectData.Realm or '')
-	local GUIDByUnitName = UnitGUID(UnitID)
+	local TableIndex = SLI.CurrentInspectData.Name..(SLI.CurrentInspectData.Realm and '-'..SLI.CurrentInspectData.Realm or '')
+	local UnitID = TableIndex
 	local Name, Realm = UnitFullName(UnitID)
 
-	if not GUIDByUnitName then
+	if not Name then
 		UnitID = SLI.CurrentInspectData.UnitID
-		GUIDByUnitName = UnitGUID(UnitID)
 		Name, Realm = UnitFullName(UnitID)
 	end
 
@@ -1362,19 +1332,13 @@ SLI.INSPECT_READY = function(Event, InspectedUnitGUID)
 		_, _, _, _, _, Name, Realm = GetPlayerInfoByGUID(InspectedUnitGUID)
 	end
 
-	local TableIndex = Name..(Realm and Realm ~= '' and Realm ~= E.myrealm and '-'..Realm or '')
-
-	if InspectedUnitGUID ~= GUIDByUnitName then
-		if GUIDByUnitName and SLI.CurrentInspectData.Name == Name and SLI.CurrentInspectData.Realm == Realm then
-			SLI.CurrentInspectData.UnitGUID = GUIDByUnitName
-			return
-		else
+		if not (SLI.CurrentInspectData.Name == Name and SLI.CurrentInspectData.Realm == Realm and SLI.CurrentInspectData.UnitGUID == InspectedUnitGUID) then
+			if UnitGUID(UnitID) ~= SLI.CurrentInspectData.UnitGUID then
 			ENI.CancelInspect(TableIndex)
 			SLI:UnregisterEvent('INSPECT_READY')
 			SLI:UnregisterEvent('INSPECT_HONOR_UPDATE')
-
-			return
 		end
+		return
 	elseif HasInspectHonorData() then
 		SLI.INSPECT_HONOR_UPDATE()
 	end
@@ -1394,14 +1358,11 @@ SLI.INSPECT_READY = function(Event, InspectedUnitGUID)
 			SlotLink = GetInventoryItemLink(UnitID, Slot.ID)
 
 			if not SlotLink then
-				needReinspect = true
+				needReinspect = 'SlotLink_NotLoaded' -- this will stop setting inspect frame
 			else
 				SLI.CurrentInspectData.Gear[SlotName].ItemLink = SlotLink
 
-				SLI.ScanTTForInspecting:ClearLines()
-				for i = 1, 10 do
-					_G['KnightInspectScanTT_ITexture'..i]:SetTexture(nil)
-				end
+				C.Toolkit.CommonScript.ClearTooltip(SLI.ScanTTForInspecting)
 				SLI.ScanTTForInspecting:SetInventoryItem(UnitID, Slot.ID)
 
 				TransmogrifiedItem = nil
@@ -1424,13 +1385,15 @@ SLI.INSPECT_READY = function(Event, InspectedUnitGUID)
 						SetItemCount = tonumber(SetItemCount)
 						SetItemMax = tonumber(SetItemMax)
 
-						if SetItemCount > SetItemMax or SetItemMax == 1 then
+						if (SetItemCount > SetItemMax or SetItemMax == 1) and not needReinspect then
 							needReinspect = true
 							break
-						elseif CurrentSetItem[SetName] then
-							break
 						else
-							CurrentSetItem[SetName] = {}
+							if not (CurrentSetItem[SetName] or SLI.CurrentInspectData.SetItem[SetName]) and not needReinspect then
+								needReinspect = true
+							end
+
+							CurrentSetItem[SetName] = CurrentSetItem[SetName] or {}
 
 							for k = 1, SLI.ScanTTForInspecting:NumLines() do
 								tooltipText = _G['KnightInspectScanTT_ITextLeft'..(i+k)]:GetText()
@@ -1443,17 +1406,27 @@ SLI.INSPECT_READY = function(Event, InspectedUnitGUID)
 									colorR, colorG, colorB = _G['KnightInspectScanTT_ITextLeft'..(i+k)]:GetTextColor()
 
 									if colorR > LIGHTYELLOW_FONT_COLOR.r - 0.01 and colorR < LIGHTYELLOW_FONT_COLOR.r + 0.01 and colorG > LIGHTYELLOW_FONT_COLOR.g - 0.01 and colorG < LIGHTYELLOW_FONT_COLOR.g + 0.01 and colorB > LIGHTYELLOW_FONT_COLOR.b - 0.01 and colorB < LIGHTYELLOW_FONT_COLOR.b + 0.01 then
-										CurrentSetItem[SetName][#CurrentSetItem[SetName] + 1] = LIGHTYELLOW_FONT_COLOR_CODE..tooltipText
+										tooltipText = LIGHTYELLOW_FONT_COLOR_CODE..tooltipText
 									else
-										CurrentSetItem[SetName][#CurrentSetItem[SetName] + 1] = GRAY_FONT_COLOR_CODE..tooltipText
+										tooltipText = GRAY_FONT_COLOR_CODE..tooltipText
 									end
-								elseif tooltipText:find(C.ItemSetBonusKey) then
-									CurrentSetItem[SetName]['SetOption'..SetOptionCount] = tooltipText:match("^%((%d)%)%s.+:%s.+$") or true
 
+									if CurrentSetItem[SetName][k] and CurrentSetItem[SetName][k] ~= tooltipText and not needReinspect then
+										needReinspect = true
+									end
+
+									CurrentSetItem[SetName][k] = tooltipText
+								elseif tooltipText:find(C.ItemSetBonusKey) then
+									tooltipText = tooltipText:match("^%((%d)%)%s.+:%s.+$") or true
+
+									if CurrentSetItem[SetName]['SetOption'..SetOptionCount] and CurrentSetItem[SetName]['SetOption'..SetOptionCount] ~= tooltipText and not needReinspect then
+										needReinspect = true
+									end
+
+									CurrentSetItem[SetName]['SetOption'..SetOptionCount] = tooltipText
 									SetOptionCount = SetOptionCount + 1
 								end
 							end
-
 							SLI.CurrentInspectData.SetItem[SetName] = CurrentSetItem[SetName]
 
 							break
@@ -1493,19 +1466,26 @@ SLI.INSPECT_READY = function(Event, InspectedUnitGUID)
 	SLI.CurrentInspectData.guildLevel, _, SLI.CurrentInspectData.guildNumMembers = GetInspectGuildInfo(UnitID)
 	SLI.CurrentInspectData.guildEmblem = { GetGuildLogoInfo(UnitID) }
 
-	if needReinspect then
+	if needReinspect  and needReinspect ~= true then
 		return
 	end
 
 	SLI.ForbidUpdatePvPInformation = nil
-	ENI.CancelInspect(TableIndex)
-
 	SLI:ShowFrame(SLI.CurrentInspectData)
-	SLI:UnregisterEvent('INSPECT_READY')
+
+	if needReinspect then
+		return
+	elseif SLI.ReinspectCount > 0 then
+		SLI.ReinspectCount = SLI.ReinspectCount - 1
+	else
+		ENI.CancelInspect(TableIndex)
+		SLI:UnregisterEvent('INSPECT_READY')
+	end
 end
 
+
 SLI.InspectUnit = function(UnitID)
-	if not UnitExists('mouseover') and UnitExists('target') then
+	if UnitID == 'mouseover' and not UnitExists('mouseover') and UnitExists('target') then
 		UnitID = 'target'
 	end
 
@@ -1532,38 +1512,29 @@ SLI.InspectUnit = function(UnitID)
 
 		SLI.CurrentInspectData.Realm = SLI.CurrentInspectData.Realm ~= '' and SLI.CurrentInspectData.Realm ~= E.myrealm and SLI.CurrentInspectData.Realm or nil
 
+		SLI.ReinspectCount = 1
+		SLI.NeedModelSetting = true
 		SLI.ForbidUpdatePvPInformation = true
 		SLI:RegisterEvent('INSPECT_READY')
 		SLI:RegisterEvent('INSPECT_HONOR_UPDATE')
 	end
 end
 
+
 function SLI:ShowFrame(DataTable)
-	local needUpdate, CheckItemInfoReceived
+	self.GET_ITEM_INFO_RECEIVED = nil
+	self:UnregisterEvent('GET_ITEM_INFO_RECEIVED')
 
 	for _, slotName in pairs(C.GearList) do
-		if DataTable.Gear[slotName] and DataTable.Gear[slotName].ItemLink then
-			_, CheckItemInfoReceived = GetItemInfo(DataTable.Gear[slotName].ItemLink)
-
-			if not CheckItemInfoReceived then
-				needUpdate = true
-
-				if not self.GET_ITEM_INFO_RECEIVED then
-					self.GET_ITEM_INFO_RECEIVED = function()
-						self:ShowFrame(DataTable)
-					end
-					SLI:RegisterEvent('GET_ITEM_INFO_RECEIVED')
-				end
-			end
+		if DataTable.Gear[slotName] and DataTable.Gear[slotName].ItemLink and not GetItemInfo(DataTable.Gear[slotName].ItemLink) then
+			self.GET_ITEM_INFO_RECEIVED = function() self:ShowFrame(DataTable) end
 		end
 	end
 
-	if needUpdate then
+	if self.GET_ITEM_INFO_RECEIVED then
+		self:RegisterEvent('GET_ITEM_INFO_RECEIVED')
 		return
 	end
-
-	self.GET_ITEM_INFO_RECEIVED = nil
-	SLI:UnregisterEvent('GET_ITEM_INFO_RECEIVED')
 
 	self.Updater:Show()
 	self.Updater:SetScript('OnUpdate', function()
@@ -1577,15 +1548,16 @@ function SLI:ShowFrame(DataTable)
 	end)
 end
 
+	
 function SLI:InspectFrame_DataSetting(DataTable)
-	local needUpdate
+	local needUpdate, needUpdateList
 	local r, g, b
 	
 	do --<< Equipment Slot and Enchant, Gem Setting >>--
 		local ErrorDetected
 		local ItemCount, ItemTotal = 0, 0
 		local Slot, ItemRarity, BasicItemLevel, TrueItemLevel, ItemUpgradeID, ItemTexture, IsEnchanted, CurrentLineText, GemCount_Default, GemCount_Enable, GemCount_Now, GemCount
-		local arg1, itemID, enchantID, _, _, _, _, arg2, arg3, arg4, arg5, arg6
+		local arg1, itemID, enchantID, arg2, arg3, arg4, arg5, arg6
 
 		-- Setting except shirt and tabard
 		for _, slotName in pairs(self.GearUpdated or C.GearList) do
@@ -1593,7 +1565,7 @@ function SLI:InspectFrame_DataSetting(DataTable)
 				Slot = self[slotName]
 
 				do --<< Clear Setting >>--
-					ErrorDetected, TrueItemLevel, IsEnchanted, ItemUpgradeID, ItemTexture, r, g, b = nil, nil, nil, nil, nil, 0, 0, 0
+					needUpdate, ErrorDetected, TrueItemLevel, IsEnchanted, ItemUpgradeID, ItemTexture, r, g, b = nil, nil, nil, nil, nil, nil, 0, 0, 0
 
 					Slot.Link = nil
 					Slot.ItemLevel:SetText(nil)
@@ -1619,10 +1591,7 @@ function SLI:InspectFrame_DataSetting(DataTable)
 					do --<< Gem Parts >>--
 						arg1, itemID, enchantID, _, _, _, _, arg2, arg3, arg4, arg5, arg6 = strsplit(':', Slot.Link)
 
-						self.ScanTT:ClearLines()
-						for i = 1, 10 do
-							_G['KnightInspectScanTTTexture'..i]:SetTexture(nil)
-						end
+						C.Toolkit.CommonScript.ClearTooltip(self.ScanTT)
 						self.ScanTT:SetHyperlink(format('%s:%s:%d:0:0:0:0:%s:%s:%s:%s:%s', arg1, itemID, enchantID, arg2, arg3, arg4, arg5, arg6))
 
 						GemCount_Default, GemCount_Now, GemCount = 0, 0, 0
@@ -1646,10 +1615,7 @@ function SLI:InspectFrame_DataSetting(DataTable)
 							Slot['Socket'..GemCount_Enable].GemType = 'PRISMATIC'
 						end
 
-						self.ScanTT:ClearLines()
-						for i = 1, 10 do
-							_G['KnightInspectScanTTTexture'..i]:SetTexture(nil)
-						end
+						C.Toolkit.CommonScript.ClearTooltip(self.ScanTT)
 						self.ScanTT:SetHyperlink(Slot.Link)
 
 						-- Apply current item's gem setting
@@ -1665,30 +1631,28 @@ function SLI:InspectFrame_DataSetting(DataTable)
 								Slot['Socket'..i].Socket:SetBackdropBorderColor(1, 1, 1)
 							end
 
-							if ItemTexture then
+							CurrentLineText = select(2, _G['KnightInspectScanTTTexture'..i]:GetPoint())
+							CurrentLineText = DataTable.Gear[slotName]['Gem'..i] or CurrentLineText ~= self.ScanTT and CurrentLineText.GetText and CurrentLineText:GetText():gsub('|cff......', ''):gsub('|r', '') or nil
+								
+							if CurrentLineText then
 								Slot['Socket'..i]:Show()
 								GemCount_Now = GemCount_Now + 1
 								Slot.SocketWarning:Point(Slot.Direction, Slot['Socket'..i], (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
-								
-								if DataTable.Gear[slotName]['Gem'..i] then
-									GemCount = GemCount + 1
-									Slot['Socket'..i].Texture:SetTexture(ItemTexture)
-									Slot['Socket'..i].GemItemID = DataTable.Gear[slotName]['Gem'..i]
-								else
-									CurrentLineText = select(2, _G['KnightInspectScanTTTexture'..i]:GetPoint()):GetText()
 
-									if not C.EmptySocketString[CurrentLineText] then
-										GemCount = GemCount + 1
-										Slot['Socket'..i].Texture:SetTexture(ItemTexture)
-										Slot['Socket'..i].GemItemID = CurrentLineText
-									end
+								ItemTexture = ItemTexture or DataTable.Gear[slotName]['Gem'..i] and select(10, GetItemInfo(DataTable.Gear[slotName]['Gem'..i])) or nil
+
+								if not ItemTexture then
+									needUpdate = true
+								elseif not C.EmptySocketString[CurrentLineText] then
+									GemCount = GemCount + 1
+									Slot['Socket'..i].GemItemID = CurrentLineText
+									Slot['Socket'..i].Texture:SetTexture(ItemTexture)
 								end
 							end
 						end
 
 						if GemCount_Now < GemCount_Default then -- ItemInfo not loaded
-							needUpdate = needUpdate or {}
-							needUpdate[#needUpdate + 1] = slotName
+							needUpdate = true
 						end
 					end
 					
@@ -1806,6 +1770,16 @@ function SLI:InspectFrame_DataSetting(DataTable)
 					end
 				end
 
+				if Slot.TransmogrifyAnchor then --<< Transmogrify Parts >>--
+					Slot.TransmogrifyAnchor.Link = DataTable.Gear[slotName].Transmogrify ~= 'NotDisplayed' and DataTable.Gear[slotName].Transmogrify
+						
+					if type(Slot.TransmogrifyAnchor.Link) == 'number' then
+						Slot.TransmogrifyAnchor:Show()
+					else
+						Slot.TransmogrifyAnchor:Hide()
+					end
+				end
+
 				-- Change Gradation
 				if ErrorDetected then
 					if Slot.Direction == 'LEFT' then
@@ -1823,6 +1797,11 @@ function SLI:InspectFrame_DataSetting(DataTable)
 
 				Slot.Texture:SetTexture(ItemTexture or Slot.EmptyTexture)
 				Slot:SetBackdropBorderColor(r, g, b)
+
+				if needUpdate then
+					needUpdateList = needUpdateList or {}
+					needUpdateList[#needUpdateList + 1] = slotName
+				end
 			end
 		end
 
@@ -1843,7 +1822,6 @@ function SLI:InspectFrame_DataSetting(DataTable)
 
 		self.SetItem = E:CopyTable({}, SLI.CurrentInspectData.SetItem)
 		self.Character.AverageItemLevel:SetText('|c'..RAID_CLASS_COLORS[DataTable.Class].colorStr..STAT_AVERAGE_ITEM_LEVEL..'|r: '..format('%.2f', ItemTotal / ItemCount))
-		--self.Character.AverageItemLevel:SetText(C.Toolkit.Color_Value(STAT_AVERAGE_ITEM_LEVEL)..' : '..format('%.2f', ItemTotal / ItemCount))
 	end
 
 	if needUpdate then
@@ -1856,8 +1834,10 @@ function SLI:InspectFrame_DataSetting(DataTable)
 	r, g, b = RAID_CLASS_COLORS[DataTable.Class].r, RAID_CLASS_COLORS[DataTable.Class].g, RAID_CLASS_COLORS[DataTable.Class].b
 
 	do --<< Basic Information >>--
-		self.Title:SetText((DataTable.Realm and DataTable.Realm ~= E.myrealm and DataTable.Realm..L[" Server "] or '')..'|cff93daff'..(DataTable.Title and string.gsub(DataTable.Title, DataTable.Name, '') or ''))
+		self.Title:SetText((DataTable.Realm and DataTable.Realm ~= E.myrealm and L["Server: "]..DataTable.Realm or '')..'|cff93daff'..(DataTable.Title and string.gsub(DataTable.Title, DataTable.Name, '') or ''))
+		--self.Title:SetText((DataTable.Realm and DataTable.Realm ~= E.myrealm and DataTable.Realm..L[" Server "] or '')..'|cff93daff'..(DataTable.Title and string.gsub(DataTable.Title, DataTable.Name, '') or ''))		
 		self.Guild:SetText(DataTable.guildName and '<|cff2eb7e4'..DataTable.guildName..'|r>  [|cff2eb7e4'..DataTable.guildRankName..'|r]' or '')
+		self.Realm:SetText((DataTable.Realm and DataTable.Realm ~= E.myrealm and L["Server: "]..DataTable.Realm or ''))
 	end
 
 	do --<< Information Page Setting >>--
@@ -1920,18 +1900,23 @@ function SLI:InspectFrame_DataSetting(DataTable)
 
 			Name = nil
 
-			if DataTable.Specialization[i].SpecializationID then
+			if DataTable.Specialization[i].SpecializationID and DataTable.Specialization[i].SpecializationID ~= 0 then
 				_, Name, _, Texture = GetSpecializationInfoByID(DataTable.Specialization[i].SpecializationID)
 
 				if Name then
-					SpecRole = C.ClassRole[DataTable.Class][Name].Role
+					if C.ClassRole[DataTable.Class][Name] then
+					
+						SpecRole = C.ClassRole[DataTable.Class][Name].Role
 
-					if i == SpecGroup then
-						Color = C.ClassRole[DataTable.Class][Name].Color
-						self.SpecIcon:SetTexture(Texture)
+						if i == SpecGroup then
+							Color = C.ClassRole[DataTable.Class][Name].Color
+							self.SpecIcon:SetTexture(Texture)
+						end
+
+						Name = (SpecRole == 'Tank' and '|TInterface\\AddOns\\ElvUI\\media\\textures\\tank.tga:16:16:-3:0|t' or SpecRole == 'Healer' and '|TInterface\\AddOns\\ElvUI\\media\\textures\\healer.tga:16:16:-3:-1|t' or '|TInterface\\AddOns\\ElvUI\\media\\textures\\dps.tga:16:16:-2:-1|t')..Name
+					else
+						self.Spec.Message = L['Specialization data seems to be corrupt.  Please inspect again.']
 					end
-
-					Name = (SpecRole == 'Tank' and '|TInterface\\AddOns\\ElvUI\\media\\textures\\tank.tga:16:16:-3:0|t' or SpecRole == 'Healer' and '|TInterface\\AddOns\\ElvUI\\media\\textures\\healer.tga:16:16:-3:-1|t' or '|TInterface\\AddOns\\ElvUI\\media\\textures\\dps.tga:16:16:-2:-1|t')..Name
 				end
 			end
 
@@ -1956,30 +1941,30 @@ function SLI:InspectFrame_DataSetting(DataTable)
 	end
 
 	do --<< Model and Frame Setting When InspectUnit Changed >>--
-		if DataTable.UnitID and UnitIsVisible(DataTable.UnitID) then
+		if DataTable.UnitID and UnitIsVisible(DataTable.UnitID) and SLI.NeedModelSetting then
 			self.Model:SetUnit(DataTable.UnitID)
-			self.Character.Message = nil
+			--self.Character.Message = nil
 			--self.Character.Message = 'This is a test string. When contained string is too long then string will scrolling. If you check this scrolling ingame then erase this string part and make a nil. Like this : "self.Character.Message = nil". Congratulation your birthday Trevor :D'
-		else
+		elseif SLI.NeedModelSetting then
+			self.Model:SetUnit('player')
 			self.Model:SetCustomRace(self.ModelList[DataTable.RaceID].RaceID, DataTable.GenderID - 2)
 			self.Model:TryOn(HeadSlotItem)
 			self.Model:TryOn(BackSlotItem)
-			self.Model:UndressSlot(self.HeadSlot.ID)
-			self.Model:UndressSlot(self.BackSlot.ID)
 			self.Model:Undress()
 
 			for _, slotName in pairs(C.GearList) do
-				if DataTable.Gear[slotName].ItemLink then
-					if type(DataTable.Gear[slotName].Transmogrify) == 'number' then
-						self.Model:TryOn(DataTable.Gear[slotName].Transmogrify)
-					elseif not (DataTable.Gear[slotName].Transmogrify and DataTable.Gear[slotName].Transmogrify == 'NotDisplayed') then
-						self.Model:TryOn(DataTable.Gear[slotName].ItemLink)
-					end
+				if type(DataTable.Gear[slotName].Transmogrify) == 'number' then
+					self.Model:TryOn(DataTable.Gear[slotName].Transmogrify)
+				elseif DataTable.Gear[slotName].ItemLink and not (DataTable.Gear[slotName].Transmogrify and DataTable.Gear[slotName].Transmogrify == 'NotDisplayed') then
+					self.Model:TryOn(DataTable.Gear[slotName].ItemLink)
+				else
+					self.Model:UndressSlot(self[slotName].ID)
 				end
 			end
 			
-			self.Character.Message = L["Character model may differ because it was constructed by the inspect data."]
+			self.Character.Message = L['Character model may differ because it was constructed by the inspect data.']
 		end
+		SLI.NeedModelSetting = nil
 
 		if not (self.LastDataSetting and self.LastDataSetting == DataTable.Name..(DataTable.Realm and '-'..DataTable.Realm or '')) then
 			--<< Initialize Inspect Page >>--
@@ -2023,6 +2008,7 @@ function SLI:InspectFrame_DataSetting(DataTable)
 
 	self.LastDataSetting = DataTable.Name..(DataTable.Realm and '-'..DataTable.Realm or '')
 end
+
 
 function SLI:InspectFrame_PvPSetting(DataTable)
 	local Rating, Played, Won
@@ -2084,6 +2070,7 @@ function SLI:InspectFrame_PvPSetting(DataTable)
 	self.Info.PvP.CategoryHeight = needExpand > 0 and needExpand or INFO_TAB_SIZE + SPACING * 2
 	self:ReArrangeCategory()
 end
+
 
 function SLI:ReArrangeCategory()
 	local InfoPage_Height = 0

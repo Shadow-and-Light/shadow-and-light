@@ -112,6 +112,40 @@ SLArmoryConstants = {
 
 			GameTooltip:Show()
 		end
+		['Transmogrify_OnEnter'] = function(self)
+			self.Texture:SetVertexColor(1, .8, 1)
+
+			if self.Link then
+				if GetItemInfo(self.Link) then
+					GameTooltip:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
+					GameTooltip:SetHyperlink(select(2, GetItemInfo(self.Link)))
+					GameTooltip:Show()
+				else
+					self:SetScript('OnUpdate', function()
+						if GetItemInfo(self.Link) then
+							SLArmoryConstants.CommonScript.Transmogrify_OnEnter(self)
+							self:SetScript('OnUpdate', nil)
+						end
+					end)
+				end
+			end
+		end,
+		['Transmogrify_OnLeave'] = function(self)
+			self:SetScript('OnUpdate', nil)
+			self.Texture:SetVertexColor(1, .5, 1)
+
+			GameTooltip:Hide()
+		end,
+		['ClearTooltip'] = function(tooltip)
+			local tooltipName = tooltip:GetName()
+
+			tooltip:ClearLines()
+			for i = 1, 10 do
+				_G[tooltipName..'Texture'..i]:SetTexture(nil)
+				_G[tooltipName..'Texture'..i]:ClearAllPoints()
+				_G[tooltipName..'Texture'..i]:Point('TOPLEFT', tooltip)
+			end
+		end,
 	},
 
 	['Toolkit'] = {
