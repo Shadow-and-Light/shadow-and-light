@@ -111,7 +111,7 @@ SLArmoryConstants = {
 			end
 
 			GameTooltip:Show()
-		end
+		end,
 		['Transmogrify_OnEnter'] = function(self)
 			self.Texture:SetVertexColor(1, .8, 1)
 

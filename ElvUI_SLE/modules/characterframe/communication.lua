@@ -915,6 +915,7 @@ if not AISM then
 		elseif Event == 'PLAYER_ENTERING_WORLD' or Event == 'ZONE_CHANGED_NEW_AREA' then
 			self:GetCurrentInstanceType()
 			self:Show()
+		end
 	end)
 	AISM:RegisterEvent('VARIABLES_LOADED')
 	AISM:RegisterEvent('PLAYER_LOGIN')
