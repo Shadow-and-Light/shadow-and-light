@@ -116,7 +116,6 @@ L['Missing Socket'] = true
 L['Empty Socket'] = true
 L['Average'] = true
 L["Inspect Frame Options"] = true
-L['Knight Button'] = true
 
 --Chat--
 L["Chat Options"] = true

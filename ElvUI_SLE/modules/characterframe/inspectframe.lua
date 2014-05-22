@@ -9,7 +9,7 @@ local S = E:GetModule('Skins')
 --------------------------------------------------------------------------------
 local SLI = CreateFrame('Frame', 'KnightInspect', E.UIParent)
 local ENI = _G['EnhancedNotifyInspectFrame'] or { ['CancelInspect'] = function() end, }
-local ButtonName = L['Knight Button']
+local ButtonName = INSPECT
 local C = SLArmoryConstants
 
 local CORE_FRAME_LEVEL = 10
