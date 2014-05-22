@@ -1944,7 +1944,7 @@ function SLI:InspectFrame_DataSetting(DataTable)
 		if DataTable.UnitID and UnitIsVisible(DataTable.UnitID) and SLI.NeedModelSetting then
 			self.Model:SetUnit(DataTable.UnitID)
 			--self.Character.Message = nil
-			--self.Character.Message = 'This is a test string. When contained string is too long then string will scrolling. If you check this scrolling ingame then erase this string part and make a nil. Like this : "self.Character.Message = nil". Congratulation your birthday Trevor :D'
+			self.Character.Message = 'This is a test string. When contained string is too long then string will scrolling. If you check this scrolling ingame then erase this string part and make a nil. Like this : "self.Character.Message = nil". Congratulation your birthday Trevor :D'
 		elseif SLI.NeedModelSetting then
 			self.Model:SetUnit('player')
 			self.Model:SetCustomRace(self.ModelList[DataTable.RaceID].RaceID, DataTable.GenderID - 2)
