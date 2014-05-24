@@ -613,7 +613,7 @@ if not AISM then
 	local needSendData, Name, TableIndex
 	AISM:SetScript('OnUpdate', function(self, elapsed)
 		if elapsed < .1 then
-			needSendData = nil
+			--needSendData = nil
 			
 			if self.CurrentGroupMode ~= 'NoGroup' then
 				for i = 1, MAX_RAID_MEMBERS do
