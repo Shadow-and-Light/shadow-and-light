@@ -635,7 +635,7 @@ function SLI:CreateInspectFrame()
 						
 					Slot.TransmogrifyAnchor.Texture = Slot.TransmogrifyAnchor:CreateTexture(nil, 'OVERLAY')
 					Slot.TransmogrifyAnchor.Texture:SetInside()
-					Slot.TransmogrifyAnchor.Texture:SetTexture('Interface\\AddOns\\ElvUI_KnightFrame\\Media\\Graphics\\Anchor')
+					Slot.TransmogrifyAnchor.Texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\anchor')
 					Slot.TransmogrifyAnchor.Texture:SetVertexColor(1, .5, 1)
 						
 					if Slot.Direction == 'LEFT' then
