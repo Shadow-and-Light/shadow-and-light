@@ -675,6 +675,7 @@ if not AISM then
 	local SenderRealm
 	function AISM:Receiver(Prefix, Message, Channel, Sender)
 		Sender, SenderRealm = strsplit('-', Sender)
+		SenderRealm = gsub(SenderRealm,'[%s%-]','')
 		Sender = Sender..(SenderRealm and SenderRealm ~= '' and SenderRealm ~= playerRealm and '-'..SenderRealm or '')
 		
 		--print('|cffceff00['..Channel..']|r|cff2eb7e4['..Prefix..']|r '..Sender..' : ')
@@ -893,6 +894,7 @@ if not AISM then
 				Sender = Message:match(GuildLeaveKey) or Message:match(PlayerOfflineKey)
 				Sender = Sender:gsub('@', '-')
 				Sender, SenderRealm = strsplit('-', Sender)
+				SenderRealm = gsub(SenderRealm,'[%s%-]','')
 				Sender = Sender..(SenderRealm and SenderRealm ~= '' and SenderRealm ~= playerRealm and '-'..SenderRealm or '')
 				
 				for userName in pairs(self.AISMUserList) do
