@@ -39,7 +39,7 @@ SLArmoryConstants = {
 		['462'] = 16, ['465'] = 0, ['466'] = 4, ['467'] = 8, ['468'] = 0, ['469'] = 4, ['470'] = 8,
 		['471'] = 12, ['472'] = 16, ['476'] = 0, ['477'] = 4, ['478'] = 8, ['479'] = 0, ['480'] = 8,
 		['491'] = 0, ['492'] = 4, ['493'] = 8, ['494'] = 0, ['495'] = 4, ['496'] = 8, ['497'] = 12, ['498'] = 16,
-		['504'] = 12, ['505'] = 16,
+		['504'] = 12, ['505'] = 16, ['506'] = 20, ['507'] = 24,
 	},
 	
 	['ItemBindString'] = { -- Usually transmogrify string is located upper than bind string so we need to check this string for adding a transmogrify string in tooltip.
