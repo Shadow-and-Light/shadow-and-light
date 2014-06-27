@@ -13,10 +13,14 @@ E.Options.args.ElvUI_Header = {
 		width = "full",
 }
 
+local size = E.db.general.fontSize
+
 --Main options group
 E.Options.args.sle = {
 	type = "group",
 	name = L["Shadow & Light"],
+	desc = [[The |cff1784d1ElvUI|r modification by
+|cff30ee30Darth Predator|r and |cffffff00Repooc|r.]],
 	order = 50,
 	args = {
 		header = {
@@ -35,6 +39,13 @@ E.Options.args.sle = {
 			type = "description",
 			name = L["SLE_DESC"],
 		},
+		Install = {
+			order = 4,
+			type = 'execute',
+			name = L['Install'],
+			desc = L['Run the installation process.'],
+			func = function() SLE:Install(); E:ToggleConfig() end,
+		},
 		options = {
 			order = 1,
 			type = "group",
@@ -44,7 +55,7 @@ E.Options.args.sle = {
 				intro = {
 					order = 1,
 					type = "description",
-					name = L["Below you can see option groups presented by Shadow & Light."],
+					name = L["Below you can see option groups presented by |cff1784d1Shadow & Light|r."],
 				},
 				general = {
 					order = 2,
@@ -54,7 +65,7 @@ E.Options.args.sle = {
 						intro = {
 							order = 1,
 							type = "description",
-							name = L["General options of Shadow & Light."],
+							name = L["General options of |cff1784d1Shadow & Light|r."],
 						},
 						Reset = {
 							order = 2,
@@ -113,40 +124,40 @@ E.Options.args.sle = {
 		},
 		links = {
 			type = 'group',
-			name = L['About/Help'],
+			name = 'About/Help',
 			order = -2,
 			args = {
 				desc = {
 					order = 1,
 					type = 'description',
 					fontSize = 'medium',
-					name = L["LINK_DESC"],
+					name = 'Da LinkZ!!!!',
 				},
 				tukuilink = {
 					type = 'input',
 					width = 'full',
-					name = 'TukUI.org',
+					name = 'On TukUI.org',
 					get = function(info) return 'http://www.tukui.org/addons/index.php?act=view&id=42' end,
 					order = 2,
 				},
 				wowilink = {
 					type = 'input',
 					width = 'full',
-					name = 'WoWInterface.com',
+					name = 'On WoWI',
 					get = function(info) return 'http://www.wowinterface.com/downloads/info20927-ElvUIShadowLight.html' end,
 					order = 3,
 				},
 				curselink= {
 					type = 'input',
 					width = 'full',
-					name = 'Curse.com',
+					name = 'On Curse',
 					get = function(info) return 'http://www.curse.com/addons/wow/shadow-and-light-edit' end,
 					order = 4,
 				},
 				gitlablink = {
 					type = 'input',
 					width = 'full',
-					name = L['TukUI GitLab / Report Errors'],
+					name = 'GitLab Link / Report Errors',
 					get = function(info) return 'http://git.tukui.org/repooc/elvui-shadowandlight' end,
 					order = 5,
 				},
