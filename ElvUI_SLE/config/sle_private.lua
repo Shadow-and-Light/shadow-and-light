@@ -3,9 +3,6 @@ V['skins']['addons'] = {
 	['EmbedSkada'] = true,
 }
 V['sle'] = {
-	['dbm'] = {
-		['size'] = 10,
-	},
 	
 	--Character Frame Options
 	['characterframeoptions'] = {
@@ -45,6 +42,11 @@ V['sle'] = {
 		['pvp'] = "NONE",
 		['setoverlay'] = false,
 	},
+	
+	['marks'] = {
+		['marks'] = false,
+		['flares'] = false,
+	},
 
 	--Minimap Moduel
 	['minimap'] = {
@@ -63,4 +65,7 @@ V['sle'] = {
 	['vehicle'] = {
 		['enable'] = false,
 	},
+	
+	['guildmaster'] = false,
+	['backgrounds'] = false,
 }

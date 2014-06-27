@@ -156,6 +156,7 @@ P['sle'] = {
 			['enable'] = false,
 			['width'] = 100,
 		},
+		['chathandle'] = false,
 	},
 --E.db.sle.dt.guild.totals
 	--DT Options
@@ -238,14 +239,13 @@ P['sle'] = {
 
 	--Raid marks
 	['marks'] = {
-		['enabled'] = false,
 		['growth'] = "RIGHT",
 		['showinside'] = false,
+		['target'] = false,
 		['size'] = 18,
 	},
 
 	['flares'] = {
-		['enabled'] = false,
 		['growth'] = "RIGHT",
 		['showinside'] = false,
 		['size'] = 20,
