@@ -1,5 +1,5 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local LT = E:GetModule('Loot')
+local LT = E:GetModule('SLE_Loot')
 local function configTable()
 
 --Main options group
