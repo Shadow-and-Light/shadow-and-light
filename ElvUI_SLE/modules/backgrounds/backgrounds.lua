@@ -1,20 +1,34 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local BG = E:NewModule('BackGrounds', 'AceHook-3.0', 'AceEvent-3.0');
+local BG = E:NewModule('SLE_BackGrounds', 'AceHook-3.0', 'AceEvent-3.0');
 
-local BGb = CreateFrame('Frame', "BottomBG", E.UIParent);
+local BGb, BGl, BGr, BGa, Fr
+
+--[[local BGb = CreateFrame('Frame', "BottomBG", E.UIParent);
 local BGl = CreateFrame('Frame', "LeftBG", E.UIParent);
 local BGr = CreateFrame('Frame', "RightBG", E.UIParent);
-local BGa = CreateFrame('Frame', "ActionBG", E.UIParent);
+local BGa = CreateFrame('Frame', "ActionBG", E.UIParent);]]
 
-local Fr = {
+--[[local Fr = {
 	BottomBG = {BGb,"bottom"},
 	LeftBG = {BGl,"left"},
 	RightBG = {BGr,"right"},
 	ActionBG = {BGa,"action"},
-}
+}]]
 
 --Frames setup
 function BG:FramesCreate()
+	BGb = CreateFrame('Frame', "BottomBG", E.UIParent);
+	BGl = CreateFrame('Frame', "LeftBG", E.UIParent);
+	BGr = CreateFrame('Frame', "RightBG", E.UIParent);
+	BGa = CreateFrame('Frame', "ActionBG", E.UIParent);
+	
+	Fr = {
+		BottomBG = {BGb,"bottom"},
+		LeftBG = {BGl,"left"},
+		RightBG = {BGr,"right"},
+		ActionBG = {BGa,"action"},
+	}
+	
 	for _,v in pairs(Fr) do
 		v[1]:SetFrameLevel(v[1]:GetFrameLevel() - 1)
 		v[1]:SetScript("OnShow", function() v[1]:SetFrameStrata('BACKGROUND') end)
@@ -36,6 +50,7 @@ end
 
 --Frames Size
 function BG:FramesSize()
+	if not BGb then return end
 	local db = E.db.sle.backgrounds
 	for _,v in pairs(Fr) do
 		v[1]:SetSize(db[v[2]].width, db[v[2]].height)
@@ -44,6 +59,7 @@ end
 
 --Frames points
 function BG:FramesPositions()
+	if not BGb then return end
 	BGb:Point("BOTTOM", E.UIParent, "BOTTOM", 0, 21); 
 	BGl:Point("BOTTOMRIGHT", E.UIParent, "BOTTOM", -(E.screenwidth/4 + 32)/2 - 1, 21); 
 	BGr:Point("BOTTOMLEFT", E.UIParent, "BOTTOM", (E.screenwidth/4 + 32)/2 + 1, 21); 
@@ -52,6 +68,7 @@ end
 
 --Updating textures
 function BG:UpdateTex()
+	if not BGb then return end
 	local db = E.db.sle.backgrounds
 	for _,v in pairs(Fr) do
 		v[1].tex:Point('TOPLEFT', v[1], 'TOPLEFT', 2, -2)
@@ -62,6 +79,7 @@ end
 
 --Visibility / Enable check
 function BG:FramesVisibility()
+	if not BGb then return end
 	local db = E.db.sle.backgrounds
 	for _,v in pairs(Fr) do
 		if db[v[2]].enabled then
@@ -73,6 +91,7 @@ function BG:FramesVisibility()
 end
 
 function BG:UpdateFrames()
+	if not BGb then return end
 	local db = E.db.sle.backgrounds
 	for _,v in pairs(Fr) do
 				v[1]:SetTemplate(db[v[2]].template, true)
@@ -83,6 +102,7 @@ function BG:UpdateFrames()
 end
 
 function BG:RegisterHide()
+	if not BGb then return end
 	local db = E.db.sle.backgrounds
 	for k,v in pairs(Fr) do
 		if db[v[2]].pethide then
@@ -94,6 +114,7 @@ function BG:RegisterHide()
 end
 
 function BG:Initialize()
+	if not E.private.sle.backgrounds then return end
 	BG:FramesCreate()
 	BG:FramesPositions()
 	BG:UpdateFrames()
