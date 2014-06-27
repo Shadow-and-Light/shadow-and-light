@@ -1,6 +1,6 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local EM = E:GetModule('EquipManager')
-local BI = E:GetModule('BagInfo')
+local EM = E:GetModule('SLE_EquipManager')
+local BI = E:GetModule('SLE_BagInfo')
 
 local sets = {}
 

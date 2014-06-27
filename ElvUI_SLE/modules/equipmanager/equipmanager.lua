@@ -1,6 +1,6 @@
 ﻿--Raid mark bar. Similar to quickmark which just semms to be impossible to skin
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local EM = E:NewModule('EquipManager', 'AceHook-3.0', 'AceEvent-3.0');
+local EM = E:NewModule('SLE_EquipManager', 'AceHook-3.0', 'AceEvent-3.0');
 
 local GetEquipmentSetInfo = GetEquipmentSetInfo
 local GetSpecialization = GetSpecialization
