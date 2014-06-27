@@ -1,5 +1,5 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local DTP = E:NewModule('DTPanels', 'AceHook-3.0', 'AceEvent-3.0');
+local DTP = E:NewModule('SLE_DTPanels', 'AceHook-3.0', 'AceEvent-3.0');
 local DT = E:GetModule('DataTexts');
 local LO = E:GetModule('Layout');
 local dp1 = CreateFrame('Frame', "DP_1", E.UIParent)
@@ -10,6 +10,8 @@ local dp5 = CreateFrame('Frame', "DP_5", E.UIParent)
 local dp6 = CreateFrame('Frame', "DP_6", E.UIParent)
 local top = CreateFrame('Frame', "Top_Center", E.UIParent)
 local bottom = CreateFrame('Frame', "Bottom_Panel", E.UIParent)
+local rchat = CreateFrame('Frame', "Right_Chat_SLE", E.UIParent)
+local lchat = CreateFrame('Frame', "Left_Chat_SLE", E.UIParent)
 
 local panels = {
 	--Panel = short, name, point, x, panel, slot

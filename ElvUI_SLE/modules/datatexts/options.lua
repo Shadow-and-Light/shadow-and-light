@@ -1,5 +1,5 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local DTP = E:GetModule('DTPanels')
+local DTP = E:GetModule('SLE_DTPanels')
 local DT = E:GetModule('DataTexts')
 
 local datatexts = {}
@@ -72,6 +72,14 @@ E.Options.args.sle.args.datatext = {
 					min = 75, max = 200, step = 1,
 					get = function(info) return E.db.sle.datatext.dashboard.width end,
 					set = function(info, value) E.db.sle.datatext.dashboard.width = value; DTP:DashWidth() end,
+				},
+				chathandle = {
+					order = 7,
+					type = "toggle",
+					name = "Chat handle",
+					desc = L["Show/Hide dashboard."],
+					get = function(info) return E.db.sle.datatext.chathandle end,
+					set = function(info, value) E.db.sle.datatext.chathandle = value; E:GetModule('Layout'):ToggleChatPanels() end
 				},
 			},
 		},

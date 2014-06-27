@@ -4,7 +4,7 @@ made for ElvUI under Sinaris permission. Big thanks :)
 ]]
 
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
-local DTP = E:GetModule('DTPanels')
+local DTP = E:GetModule('SLE_DTPanels')
 local DT = E:GetModule('DataTexts')
 local LSM = LibStub("LibSharedMedia-3.0")
 if E.db.sle == nil then E.db.sle = {} end
