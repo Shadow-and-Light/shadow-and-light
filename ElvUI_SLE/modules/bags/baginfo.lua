@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local BI = E:NewModule('BagInfo', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+local BI = E:NewModule('SLE_BagInfo', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 local B = E:GetModule('Bags')
 
 local byte, format = string.byte, string.format
