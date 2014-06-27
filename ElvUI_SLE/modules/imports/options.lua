@@ -1,5 +1,5 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
-local AI = E:GetModule('AddonInstaller');
+local AI = E:GetModule('SLE_AddonInstaller');
 
 local selectedAuthor
 local selectedClass

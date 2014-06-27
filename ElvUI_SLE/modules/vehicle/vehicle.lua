@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
-local EVB = E:NewModule("EnhancedVehicleBar");
+local EVB = E:NewModule("SLE_EnhancedVehicleBar");
 local AB = E:GetModule("ActionBars");
 local LAB = LibStub("LibActionButton-1.0")
 
