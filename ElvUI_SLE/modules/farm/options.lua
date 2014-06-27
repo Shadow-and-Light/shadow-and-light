@@ -1,5 +1,5 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
-local F = E:GetModule('Farm')
+local F = E:GetModule('SLE_Farm')
 local function configTable()
 
 E.Options.args.sle.args.options.args.farm = {
