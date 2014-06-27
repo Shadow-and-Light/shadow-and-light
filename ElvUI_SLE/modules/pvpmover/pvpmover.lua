@@ -1,5 +1,5 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
-local P = E:NewModule('PvPMover', 'AceHook-3.0', 'AceEvent-3.0');
+local P = E:NewModule('SLE_PvPMover', 'AceHook-3.0', 'AceEvent-3.0');
 local holder = CreateFrame("Frame", "SLE_PvP", E.UIParent)
 
 
