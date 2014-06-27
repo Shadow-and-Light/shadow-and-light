@@ -16,6 +16,10 @@ local lfgChannels = {
 
 local Myname = E.myname
 --local Myrealm = E.myrealm
+local GetGuildRosterInfo = GetGuildRosterInfo
+local IsInGuild = IsInGuild
+local GuildMaster = ""
+local GMName, GMRealm
 
 local len, gsub, find, sub, gmatch, format, random = string.len, string.gsub, string.find, string.sub, string.gmatch, string.format, math.random
 local tinsert, tremove, tsort, twipe, tconcat = table.insert, table.remove, table.sort, table.wipe, table.concat
@@ -45,6 +49,7 @@ local hulkhead = "|TInterface\\AddOns\\ElvUI\\media\\textures\\hulk_head:18:22|t
 local hellokitty = "|TInterface\\AddOns\\ElvUI\\media\\textures\\helloKittyChatLogo:18:20|t"
 local shortbus = "|TInterface\\AddOns\\ElvUI\\media\\textures\\short_bus:16:16|t"
 local kitalie = "|TInterface\\Icons\\%s:12:12:0:0:64:64:4:60:4:60|t"
+local leader = [[|TInterface\GroupFrame\UI-Group-LeaderIcon:12:12|t]]
 
 
 local specialChatIcons = {
@@ -156,11 +161,13 @@ function CH:StyleChat(frame)
 end
 
 --Replacement of chat tab position and size function
+local PixelOff = E.PixelMode and 31 or 27
+
 function CH:PositionChat(override)
 	if not self.db.lockPositions or ((InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override)) then return end
 	if not RightChatPanel or not LeftChatPanel then return; end
-	RightChatPanel:Size(E.db.chat.panelWidth, E.db.chat.panelHeight)
-	LeftChatPanel:Size(E.db.chat.panelWidth, E.db.chat.panelHeight)	
+	RightChatPanel:SetSize(E.db.chat.panelWidth, E.db.chat.panelHeight)
+	LeftChatPanel:SetSize(E.db.chat.panelWidth, E.db.chat.panelHeight)	
 	
 	if E.private.chat.enable ~= true then return end
 		
@@ -181,7 +188,7 @@ function CH:PositionChat(override)
 	else
 		self.RightChatWindowID = nil
 	end
-	
+
 	for i=1, CreatedFrames do
 		local BASE_OFFSET = 60
 		if E.PixelMode then
@@ -205,19 +212,35 @@ function CH:PositionChat(override)
 			end	
 		end	
 
-		if point == "BOTTOMRIGHT" and chat:IsShown() and not (id > NUM_CHAT_WINDOWS) and not isDocked and id == self.RightChatWindowID then
+		
+		if point == "BOTTOMRIGHT" and chat:IsShown() and not (id > NUM_CHAT_WINDOWS) and id == self.RightChatWindowID then
 			chat:ClearAllPoints()
-			if E.db.datatexts.rightChatPanel then
-				chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3) -- <<< Changed
+			if E.db.sle.datatext.chathandle then
+				if E.db.datatexts.rightChatPanel then
+					chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3) -- <<< Changed
+				else
+					BASE_OFFSET = BASE_OFFSET - 24
+					chat:Point("BOTTOMLEFT", RightChatPanel, "BOTTOMLEFT", 4, 4)
+				end
+				if id ~= 2 then
+					chat:SetSize(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - PixelOff)) -- <<< Changed
+				else
+					chat:Size(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - PixelOff) - CombatLogQuickButtonFrame_Custom:GetHeight())	
+				end
 			else
-				BASE_OFFSET = BASE_OFFSET - 24
-				chat:Point("BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 4, 3)
+				if E.db.datatexts.rightChatPanel then
+					chat:SetPoint("BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 1, 3)
+				else
+					BASE_OFFSET = BASE_OFFSET - 24
+					chat:SetPoint("BOTTOMLEFT", RightChatDataPanel, "BOTTOMLEFT", 1, 1)
+				end
+				if id ~= 2 then
+					chat:SetSize(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - BASE_OFFSET))
+				else
+					chat:SetSize(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - BASE_OFFSET) - CombatLogQuickButtonFrame_Custom:GetHeight())				
+				end
 			end
-			if id ~= 2 then
-				chat:SetSize(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - (E.PixelMode and 31 or 27))) -- <<< Changed
-			else
-				chat:Size(E.db.chat.panelWidth - 10, (E.db.chat.panelHeight - (E.PixelMode and 31 or 27)) - CombatLogQuickButtonFrame_Custom:GetHeight())	
-			end
+			
 			
 			
 			FCF_SavePositionAndDimensions(chat)			
@@ -239,16 +262,30 @@ function CH:PositionChat(override)
 			
 			CH:SetupChatTabs(tab, true)
 		else
-			if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
-				chat:ClearAllPoints()
-				if E.db.datatexts.leftChatPanel then
-					chat:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 5, 3)
-				else
-					BASE_OFFSET = BASE_OFFSET - 24
-					chat:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 5, 3)
+			if E.db.sle.datatext.chathandle then
+				if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
+					chat:ClearAllPoints()
+					if E.db.datatexts.leftChatPanel then
+						chat:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 5, 3)
+					else
+						BASE_OFFSET = BASE_OFFSET - 24
+						chat:Point("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 5, 3)
+					end
+					chat:Size(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - PixelOff)) -- <<< Changed
+					FCF_SavePositionAndDimensions(chat)		
 				end
-				chat:Size(E.db.chat.panelWidth - 6, (E.db.chat.panelHeight - (E.PixelMode and 31 or 27))) -- <<< Changed
-				FCF_SavePositionAndDimensions(chat)		
+			else
+				if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
+					chat:ClearAllPoints()
+					if E.db.datatexts.leftChatPanel then
+						chat:SetPoint("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 1, 3)
+					else
+						BASE_OFFSET = BASE_OFFSET - 24
+						chat:SetPoint("BOTTOMLEFT", LeftChatToggleButton, "BOTTOMLEFT", 1, 1)
+					end
+					chat:SetSize(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - BASE_OFFSET))
+					FCF_SavePositionAndDimensions(chat)		
+				end
 			end
 			chat:SetParent(LeftChatPanel)
 			if i > 2 then
@@ -704,13 +741,20 @@ function SLE:GetChatIcon(sender)
 	end
 	senderRealm = senderRealm or PLAYER_REALM
 	senderRealm = senderRealm:gsub(' ', '')
-	
+		
 	--Disabling ALL special icons. IDK why Elv use that and why would we want to have that but whatever
 	if(specialChatIcons[PLAYER_REALM] == nil or (specialChatIcons[PLAYER_REALM] and specialChatIcons[PLAYER_REALM][Myname] ~= true)) then
 		if specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
 			return specialChatIcons[senderRealm][senderName]
 		end
 	end
+	
+	if not IsInGuild() then return "" end
+	if not E.private.sle.guildmaster then return "" end
+	if senderName == GMName and senderRealm == GMRealm then
+		return leader 
+	end
+	
 	return ""
 end
 
@@ -773,6 +817,42 @@ function CH:CheckLFGRoles()
 	end
 end
 
+function CH:GMCheck()
+	local name, rank
+	if GetNumGuildMembers() == 0 and IsInGuild() then E:Delay(2, CH.GMCheck); return end
+	if not IsInGuild() then GuildMaster = ""; GMName = ''; GMRealm = ''; return end
+	for i = 1, GetNumGuildMembers() do
+		name, _, rank = GetGuildRosterInfo(i)
+		if rank == 0 then
+			break
+		end
+	end
+	
+	GuildMaster = name
+	if GuildMaster then
+		GMName, GMRealm = string.split('-', GuildMaster)
+	end
+	GMRealm = GMRealm or PLAYER_REALM
+	GMRealm = GMRealm:gsub(' ', '')
+end
+
+function CH:GMIconUpdate()
+	if E.private.chat.enable ~= true then return end
+	if E.private.sle.guildmaster then
+		self:RegisterEvent('GUILD_ROSTER_UPDATE', 'Roster')
+		CH:GMCheck()
+	else
+		self:UnregisterEvent('GUILD_ROSTER_UPDATE')
+		GuildMaster = ""
+		GMName = ''
+		GMRealm = ''
+	end
+end
+
+function CH:Roster(event, update)
+ if update then CH:GMCheck() end
+end
+
 function CH:Initialize()
 	if ElvCharacterDB.ChatHistory then
 		ElvCharacterDB.ChatHistory = nil --Depreciated
@@ -821,6 +901,10 @@ function CH:Initialize()
 	self:RegisterEvent('UPDATE_CHAT_WINDOWS', 'SetupChat')
 	self:RegisterEvent('UPDATE_FLOATING_CHAT_WINDOWS', 'SetupChat')
 	self:RegisterEvent('PET_BATTLE_CLOSE')
+	if E.private.sle.guildmaster then
+		self:RegisterEvent('GUILD_ROSTER_UPDATE', 'Roster')
+		CH:GMCheck()
+	end
 
 	self:SetupChat()
 	self:UpdateAnchors()
