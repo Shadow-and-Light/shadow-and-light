@@ -1,5 +1,5 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local UB = E:GetModule('UIButtons')
+local UB = E:GetModule('SLE_UIButtons')
 local function configTable()
 
 --UI Buttons

@@ -1,5 +1,5 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local UB = E:NewModule('UIButtons', 'AceHook-3.0', 'AceEvent-3.0');
+local UB = E:NewModule('SLE_UIButtons', 'AceHook-3.0', 'AceEvent-3.0');
 local Btemplate = "SecureActionButtonTemplate"
 local NumBut = 5
 
