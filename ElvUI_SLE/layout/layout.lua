@@ -1,6 +1,6 @@
 local E, L, V, P, G =  unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, GlobalDB
 local LO = E:GetModule('Layout');
-local DTP = E:GetModule('DTPanels');
+local DTP = E:GetModule('SLE_DTPanels');
 
 local Point = Point
 
@@ -10,6 +10,28 @@ local SIDE_BUTTON_WIDTH = 16;
 LO.ToggleChatPanelsSLE = LO.ToggleChatPanels
 function LO:ToggleChatPanels()
 	LO.ToggleChatPanelsSLE(self)
+	
+	if not E.db.sle.datatext.chathandle then return end
+	
+	if not E:HasMoverBeenMoved("LeftChatMover") and E.db.datatexts.leftChatPanel then
+		if not E.db.movers then E.db.movers = {}; end
+		if E.PixelMode then
+			E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT019"
+		else
+			E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021"
+		end
+		E:SetMoversPositions()
+	end
+	
+	if not E:HasMoverBeenMoved("RightChatMover") and E.db.datatexts.rightChatPanel then
+		if not E.db.movers then E.db.movers = {}; end
+		if E.PixelMode then
+			E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT019"
+		else
+			E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
+		end
+		E:SetMoversPositions()
+	end
 
 	if E.db.chat.panelBackdrop == 'SHOWBOTH' then
 		LeftChatPanel.backdrop:Show()
