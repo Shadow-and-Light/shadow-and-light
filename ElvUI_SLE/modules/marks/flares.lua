@@ -1,5 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
-local RF = E:NewModule('RaidFlares', 'AceHook-3.0', 'AceEvent-3.0');
+local RF = E:NewModule('SLE_RaidFlares', 'AceHook-3.0', 'AceEvent-3.0');
+local template = "SecureActionButtonTemplate"
 
 BINDING_HEADER_SHADOWLIGHT_WORLDMARKER = "|cff1784d1Shadow & Light|r"
 _G["BINDING_NAME_CLICK SquareFlareMarker:LeftButton"] = L["Square Flare"];
@@ -8,25 +9,28 @@ _G["BINDING_NAME_CLICK DiamondFlareMarker:LeftButton"] = L["Diamond Flare"];
 _G["BINDING_NAME_CLICK CrossFlareMarker:LeftButton"] = L["Cross Flare"];
 _G["BINDING_NAME_CLICK StarFlareMarker:LeftButton"] = L["Star Flare"];
 
-local mainFlares = CreateFrame("Frame", "Main_Flares", E.UIParent)
-local f1 = CreateFrame("Button", "SquareFlareMarker", Main_Flares, "SecureActionButtonTemplate")
-local f2 = CreateFrame("Button", "TriangleFlareMarker", Main_Flares, "SecureActionButtonTemplate")
-local f3 = CreateFrame("Button", "DiamondFlareMarker", Main_Flares, "SecureActionButtonTemplate")
-local f4 = CreateFrame("Button", "CrossFlareMarker", Main_Flares, "SecureActionButtonTemplate")
-local f5 = CreateFrame("Button", "StarFlareMarker", Main_Flares, "SecureActionButtonTemplate")
-local f6 = CreateFrame("Button", "ClearFlaresMarker", Main_Flares, "SecureActionButtonTemplate")
-
-local FlareB = {f1,f2,f3,f4,f5,f6}
+local mainFlares, f1, f2, f3, f4, f5, f6, FlareB 
 
 function RF:CreateFrame()
+	mainFlares = CreateFrame("Frame", "Main_Flares", E.UIParent)
 	mainFlares:Point("CENTER", E.UIParent, "CENTER", 0, 40);
 	mainFlares:SetFrameStrata('LOW');
 	mainFlares:CreateBackdrop();
 	mainFlares.backdrop:SetAllPoints();
 	mainFlares:Hide();
+	
+	f1 = CreateFrame("Button", "SquareFlareMarker", Main_Flares, template)
+	f2 = CreateFrame("Button", "TriangleFlareMarker", Main_Flares, template)
+	f3 = CreateFrame("Button", "DiamondFlareMarker", Main_Flares, template)
+	f4 = CreateFrame("Button", "CrossFlareMarker", Main_Flares, template)
+	f5 = CreateFrame("Button", "StarFlareMarker", Main_Flares, template)
+	f6 = CreateFrame("Button", "ClearFlaresMarker", Main_Flares, template)
+	
+	FlareB = {f1,f2,f3,f4,f5,f6}
 end
 
 function RF:SetupButton(button, flare)
+	if not mainFlares then return end
 	button:CreateBackdrop()
 	button.backdrop:SetAllPoints()
 	button:SetAttribute("type", "macro")
@@ -64,6 +68,7 @@ function RF:SetupButton(button, flare)
 end
 
 function RF:CreateButtons()
+	if not mainFlares then return end
 	RF:SetupButton(f1, "/clearworldmarker 1\n/worldmarker 1")
 	RF:SetupButton(f2, "/clearworldmarker 2\n/worldmarker 2")
 	RF:SetupButton(f3, "/clearworldmarker 3\n/worldmarker 3")
@@ -73,12 +78,14 @@ function RF:CreateButtons()
 end
 
 function RF:FrameButtonsSize()
+	if not mainFlares then return end
 	for i = 1, 6 do
 		FlareB[i]:Size(E.db.sle.flares.size)
 	end
 end
 
 function RF:FrameButtonsGrowth()
+	if not mainFlares then return end
 	local db = E.db.sle.flares
 	local size = db.size
 	local width, height, x, y, anchor, point
@@ -110,26 +117,30 @@ function RF:FrameButtonsGrowth()
 end
 
 function RF:UpdateVisibility()
+	if not mainFlares then return end
 	local inInstance, instanceType = IsInInstance()
 	local db = E.db.sle.flares
-	if db.enabled then
-		if (inInstance and instanceType ~= "pvp") and db.showinside then
-			E.FrameLocks['Main_Flares'] = true
-			mainFlares:Show()
-		elseif not inInstance and db.showinside then
-			E.FrameLocks['Main_Flares'] = nil
-			mainFlares:Hide()
-		elseif not db.showinside then
-			E.FrameLocks['Main_Flares'] = true
-			mainFlares:Show()
-		end
-	else
+	local show = false
+	
+	if (inInstance and instanceType ~= "pvp") and db.showinside then
+		show = true
+	elseif not inInstance and db.showinside then
+		show = false
+	elseif not db.showinside then
+		show = true
+	end
+
+	if show then
 		E.FrameLocks['Main_Flares'] = true
+		mainFlares:Show()
+	else
+		E.FrameLocks['Main_Flares'] = nil
 		mainFlares:Hide()
 	end
 end
 
 function RF:Backdrop()
+	if not mainFlares then return end
 	if E.db.sle.flares.backdrop then
 		mainFlares.backdrop:Show()
 	else
@@ -138,19 +149,21 @@ function RF:Backdrop()
 end
 
 function RF:Update()
-   RF:FrameButtonsSize()
-   RF:FrameButtonsGrowth()
-   RF:UpdateVisibility()
-   RF:Backdrop()
+	if not mainFlares then return end
+	RF:FrameButtonsSize()
+	RF:FrameButtonsGrowth()
+	RF:UpdateVisibility()
+	RF:Backdrop()
 end
 
 function RF:Initialize()
-   RF:CreateFrame()
-   RF:Update()
-   RF:CreateButtons()
-   self:RegisterEvent("PLAYER_ENTERING_WORLD", "UpdateVisibility");
+	if not E.private.sle.marks.flares then return end
+	RF:CreateFrame()
+	RF:Update()
+	RF:CreateButtons()
+	self:RegisterEvent("PLAYER_ENTERING_WORLD", "UpdateVisibility");
    
-   E:CreateMover(mainFlares, "FlareMover", "RF", nil, nil, nil, "ALL,S&L,S&L MISC")
+	E:CreateMover(mainFlares, "FlareMover", "RF", nil, nil, nil, "ALL,S&L,S&L MISC")
 end
 
 E:RegisterModule(RF:GetName())
