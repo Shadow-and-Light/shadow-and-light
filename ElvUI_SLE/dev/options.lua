@@ -177,7 +177,7 @@ if SLE:Auth() then
 					},
 				},
 				devcommand = {
-					order = 500,
+					order = 4,
 					type = "group",
 					name = "Commands",
 					args = {
@@ -313,6 +313,24 @@ if SLE:Auth() then
 					},
 				},
 
+				devdiaggroup = {
+					order = 5,
+					type = "group",
+					name = "Tech and shit",
+					args = {
+						subgroup = {
+							order = 1,
+							type = "header",
+							name = "Some tech stuff",
+						},
+						cpuprofiling = {
+							order = 2,
+							type = 'execute',
+							name = "CPU Profiling",
+							func = function() SetCVar("scriptProfile", GetCVar("scriptProfile") == "1" and 0 or 1); ReloadUI() end,
+						},
+					},
+				},
 				devgroupone = {
 					order = 500,
 					type = "group",

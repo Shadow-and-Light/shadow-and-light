@@ -14,11 +14,6 @@ local Authors = {
 		["Repøøc"] = "SLEAUTHOR",
 		["Repooc"] = "SLEAUTHOR"
 	},
-	["СвежевательДуш"] = {
-		--Darth's toons
-		["Джатон"] = "SLEAUTHOR",
-		["Нарджо"] = "SLEAUTHOR"
-	},
 	["ВечнаяПесня"] = {
 		--Darth's toons
 		["Дартпредатор"] = "SLEAUTHOR",
