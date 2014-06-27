@@ -1,5 +1,5 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
-local AI = E:GetModule('AddonInstaller')
+local AI = E:GetModule('SLE_AddonInstaller')
 
 local ace3   = true               -- whether or not this database is a Ace3 profile
 local name   = 'Hermes'           -- the name of the addon
