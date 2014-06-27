@@ -21,8 +21,10 @@ function SLE:ConfigCats() --Additional mover groups
 	E.ConfigModeLocalizedStrings["S&L"] = L["S&L: All"]
 	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L DT");
 	E.ConfigModeLocalizedStrings["S&L DT"] = L["S&L: Datatexts"]
-	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L BG");
-	E.ConfigModeLocalizedStrings["S&L BG"] = L["S&L: Backgrounds"]
+	if E.private.sle.backgrounds then
+		tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L BG");
+		E.ConfigModeLocalizedStrings["S&L BG"] = L["S&L: Backgrounds"]
+	end
 	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L MISC");
 	E.ConfigModeLocalizedStrings["S&L MISC"] = L["S&L: Misc"]
 end
@@ -36,43 +38,22 @@ function SLE:LootShow()
 	end
 end
 
-function SLE:ChatPos()
-	if not E:HasMoverBeenMoved("LeftChatMover") and E.db.datatexts.leftChatPanel then
-		if not E.db.movers then E.db.movers = {}; end
-		if E.PixelMode then
-			E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT019"
-		else
-			E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021"
-		end
-		E:SetMoversPositions()
-	end
-	
-	if not E:HasMoverBeenMoved("RightChatMover") and E.db.datatexts.rightChatPanel then
-		if not E.db.movers then E.db.movers = {}; end
-		if E.PixelMode then
-			E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT019"
-		else
-			E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
-		end
-		E:SetMoversPositions()
-	end
-end
-
 E.UpdateAllSLE = E.UpdateAll
 function E:UpdateAll()
     E.UpdateAllSLE(self)
-	E:GetModule('BackGrounds'):UpdateFrames()
-	E:GetModule('BackGrounds'):RegisterHide()
+	E:GetModule('SLE_BackGrounds'):UpdateFrames()
+	E:GetModule('SLE_BackGrounds'):RegisterHide()
 	DTP:Update()
 	DTP:DashboardShow()
 	DTP:DashWidth()
 	if E.private.unitframe.enable then
 		UF:Update_CombatIndicator()
 	end
-	E:GetModule('UIButtons'):UpdateAll()
-	E:GetModule('RaidMarks'):Update()
-	E:GetModule('Farm'):UpdateLayout()
-	SLE:ChatPos()
+	E:GetModule('SLE_UIButtons'):UpdateAll()
+	E:GetModule('SLE_RaidMarks'):Update()
+	E:GetModule('SLE_RaidFlares'):Update()
+	E:GetModule('SLE_Farm'):UpdateLayout()
+	E:GetModule("Chat"):GMIconUpdate()
 end
 
 function SLE:Reset(all, uf, dt, bg, mark)
@@ -189,7 +170,7 @@ function SLE:Initialize()
 		E:StaticPopup_Show("VERSION_MISMATCH")
 	end
 	EP:RegisterPlugin(addon,SLE.GetOptions)
-	DTP = E:GetModule('DTPanels')
+	DTP = E:GetModule('SLE_DTPanels')
 	if E.private.unitframe.enable then
 		self:RegisterEvent("PLAYER_REGEN_DISABLED", UF.Update_CombatIndicator);
 	end
@@ -200,7 +181,6 @@ function SLE:Initialize()
 	DTP:DashboardShow()
 	SLE:Tutorials()
 	SLE:ConfigCats()
-	SLE:ChatPos()
 	SLE:RegisterCommands()
 	SLE:CheckIncompatible()
 end
