@@ -1,5 +1,5 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local SMB = E:NewModule('SquareMinimapButtons', 'AceHook-3.0', 'AceEvent-3.0');
+local SMB = E:NewModule('SLE_SquareMinimapButtons', 'AceHook-3.0', 'AceEvent-3.0');
 
 local AddOnName, NS = ...
 local strsub, strlen, strfind, ceil = strsub, strlen, strfind, ceil

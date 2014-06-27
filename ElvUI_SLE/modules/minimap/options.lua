@@ -16,15 +16,7 @@ local function configTable()
 				type = 'description',
 				name = L['MINIMAP_DESC'],
 			},
-			coordsenable = {
-				type = "toggle",
-				name = L['Enable'],
-				order = 3,
-				desc = L['Enable/Disable Square Minimap Coords.'],
-				get = function(info) return E.db.sle.minimap.enable end,
-				set = function(info, value) E.db.sle.minimap.enable = value; E:GetModule('Minimap'):UpdateSettings() end,
-				disabled = function() return not E.private.general.minimap.enable end,
-			},
+			
 			coords = {
 				type = "group",
 				name = L["Minimap Coordinates"],
@@ -32,6 +24,15 @@ local function configTable()
 				guiInline = true,
 				disabled = function() return not E.private.general.minimap.enable or not E.db.sle.minimap.enable end,
 				args = {
+					coordsenable = {
+						type = "toggle",
+						name = L['Enable'],
+						order = 1,
+						desc = L['Enable/Disable Square Minimap Coords.'],
+						get = function(info) return E.db.sle.minimap.enable end,
+						set = function(info, value) E.db.sle.minimap.enable = value; E:GetModule('Minimap'):UpdateSettings() end,
+						disabled = function() return not E.private.general.minimap.enable end,
+					},
 					display = {
 						order = 2,
 						type = 'select',
@@ -115,7 +116,7 @@ local function configTable()
 						desc = L['The size of the minimap buttons when not anchored to the minimap.'],
 						min = 16, max = 40, step = 1,
 						get = function(info) return E.db.sle.minimap.mapicons.iconsize end,
-						set = function(info, value) E.db.sle.minimap.mapicons.iconsize = value; E:GetModule('SquareMinimapButtons'):Update(SquareMinimapButtonBar) end,
+						set = function(info, value) E.db.sle.minimap.mapicons.iconsize = value; E:GetModule('SLE_SquareMinimapButtons'):Update(SquareMinimapButtonBar) end,
 						disabled = function() return not E.private.sle.minimap.mapicons.enable end,
 					},
 					iconperrow = {
@@ -125,7 +126,7 @@ local function configTable()
 						desc = L['Anchor mode for displaying the minimap buttons are skinned.'],
 						min = 1, max = 12, step = 1,
 						get = function(info) return E.db.sle.minimap.mapicons.iconperrow end,
-						set = function(info, value) E.db.sle.minimap.mapicons.iconperrow = value; E:GetModule('SquareMinimapButtons'):Update(SquareMinimapButtonBar) end,
+						set = function(info, value) E.db.sle.minimap.mapicons.iconperrow = value; E:GetModule('SLE_SquareMinimapButtons'):Update(SquareMinimapButtonBar) end,
 						disabled = function() return not E.private.sle.minimap.mapicons.enable end,
 					},
 					iconmouseover = {
@@ -134,7 +135,7 @@ local function configTable()
 						desc = L['Show minimap buttons on mouseover.'],
 						type = "toggle",
 						get = function(info) return E.db.sle.minimap.mapicons.iconmouseover end,
-						set = function(info, value) E.db.sle.minimap.mapicons.iconmouseover = value; E:GetModule('SquareMinimapButtons'):ChangeMouseOverSetting() end,
+						set = function(info, value) E.db.sle.minimap.mapicons.iconmouseover = value; E:GetModule('SLE_SquareMinimapButtons'):ChangeMouseOverSetting() end,
 						disabled = function() return not E.private.sle.minimap.mapicons.enable end,
 					},
 				},
