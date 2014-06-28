@@ -148,11 +148,14 @@ function UB:Start()
 end
 
 function UB:Mouseover()
+	local self = UIBFrame
 	if E.db.sle.uibuttons.mouse then
-		if (MouseIsOver(UIBFrame)) then
-			UIBFrame:SetAlpha(1)
-		else	
-			UIBFrame:SetAlpha(0)
+		if (MouseIsOver(self)) then
+			UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+			--UIBFrame:SetAlpha(1)
+		else
+			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+			--UIBFrame:SetAlpha(0)
 		end
 	else
 		UIBFrame:SetAlpha(1)
