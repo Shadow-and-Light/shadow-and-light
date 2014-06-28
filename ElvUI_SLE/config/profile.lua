@@ -251,6 +251,7 @@ P['sle'] = {
 		['showinside'] = false,
 		['size'] = 20,
 		['tooltips'] = true,
+		['mouseover'] = false,
 	},
 
 	--UI Buttons

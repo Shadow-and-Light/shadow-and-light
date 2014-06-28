@@ -137,6 +137,7 @@ function RF:UpdateVisibility()
 		E.FrameLocks['Main_Flares'] = nil
 		mainFlares:Hide()
 	end
+	RF:Mouseover()
 end
 
 function RF:Backdrop()
@@ -145,6 +146,25 @@ function RF:Backdrop()
 		mainFlares.backdrop:Show()
 	else
 		mainFlares.backdrop:Hide()
+	end
+end
+
+function RF:Mouseover()
+	if not mainFlares then return end
+	local db = E.db.sle.flares
+	if db.mouseover then
+		mainFlares:SetScript("OnUpdate", function(self)
+			if MouseIsOver(self) then
+				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+			else
+				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+			end
+		end)
+	else
+		mainFlares:SetScript("OnUpdate", nil)
+		if mainFlares:IsShown() then
+			UIFrameFadeIn(mainFlares, 0.2, mainFlares:GetAlpha(), 1)
+		end
 	end
 end
 

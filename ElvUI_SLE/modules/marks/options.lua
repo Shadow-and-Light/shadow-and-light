@@ -147,8 +147,17 @@ E.Options.args.sle.args.options.args.marks = {
 					get = function(info) return E.db.sle.flares.showinside end,
 					set = function(info, value) E.db.sle.flares.showinside = value; RF:UpdateVisibility() end
 				},
-				tooltips = {
+				mouseover = {
 					order = 7,
+					type = "toggle",
+					name = L["Mouseover"],
+					desc = L["Show on mouse over."],
+					disabled = function() return not E.private.sle.marks.flares end,
+					get = function(info) return E.db.sle.flares.mouseover end,
+					set = function(info, value) E.db.sle.flares.mouseover = value; RF:UpdateVisibility() end
+				},
+				tooltips = {
+					order = 8,
 					type = "toggle",
 					name = L["Show Tooltip"],
 					disabled = function() return not E.private.sle.marks.flares end,
@@ -156,7 +165,7 @@ E.Options.args.sle.args.options.args.marks = {
 					set = function(info, value) E.db.sle.flares.tooltips = value; end
 				},
 				size = {
-					order = 8,
+					order = 9,
 					type = "range",
 					name = L['Size'],
 					desc = L["Sets size of buttons"],
