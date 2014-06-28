@@ -133,9 +133,15 @@ function RF:UpdateVisibility()
 	if show then
 		E.FrameLocks['Main_Flares'] = true
 		mainFlares:Show()
+		for i = 1, 6 do
+			FlareB[i]:Show()
+		end
 	else
 		E.FrameLocks['Main_Flares'] = nil
 		mainFlares:Hide()
+		for i = 1, 6 do
+			FlareB[i]:Hide()
+		end
 	end
 	RF:Mouseover()
 end
