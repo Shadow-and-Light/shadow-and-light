@@ -5,6 +5,8 @@ local Mtemplate = "SecureActionButtonTemplate"
 local IsInInstance = IsInInstance
 local UnitExists = UnitExists
 local mark_menu, m1, m2, m3, m4, m5, m6, m7, m8, MarkB
+local UIFrameFadeIn = UIFrameFadeIn
+local UIFrameFadeOut = UIFrameFadeOut
 
 --Main frame
 function RM:CreateFrame()
@@ -118,10 +120,17 @@ function RM:UpdateVisibility()
 	if show then
 		E.FrameLocks['Mark_Menu'] = true
 		mark_menu:Show()
+		for i = 1, 8 do
+			MarkB[i]:Show()
+		end
 	else
 		E.FrameLocks['Mark_Menu'] = nil
 		mark_menu:Hide()
+		for i = 1, 8 do
+			MarkB[i]:Hide()
+		end
 	end
+	RM:Mouseover()
 end
 
 function RM:Target()
@@ -143,10 +152,30 @@ function RM:Backdrop()
 	end
 end
 
+function RM:Mouseover()
+	if not mark_menu then return end
+	local db = E.db.sle.marks
+	if db.mouseover then
+		mark_menu:SetScript("OnUpdate", function(self)
+			if MouseIsOver(self) then
+				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+			else
+				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+			end
+		end)
+	else
+		mark_menu:SetScript("OnUpdate", nil)
+		if mark_menu:IsShown() then
+			UIFrameFadeIn(mark_menu, 0.2, mark_menu:GetAlpha(), 1)
+		end
+	end
+end
+
 function RM:Update()
 	if not mark_menu then return end
 	RM:FrameButtonsSize()
 	RM:FrameButtonsGrowth()
+	RM:Target()
 	RM:UpdateVisibility()
 	RM:Backdrop()
 end
@@ -157,7 +186,6 @@ function RM:Initialize()
 	RM:Update()
 	RM:CreateButtons()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "UpdateVisibility");
-	RM:Target()
 
 	E:CreateMover(mark_menu, "MarkMover", "RM", nil, nil, nil, "ALL,S&L,S&L MISC")
 end

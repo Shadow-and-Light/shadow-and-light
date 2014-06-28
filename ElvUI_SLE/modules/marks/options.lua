@@ -71,8 +71,17 @@ E.Options.args.sle.args.options.args.marks = {
 					get = function(info) return E.db.sle.marks.target end,
 					set = function(info, value) E.db.sle.marks.target = value; RM:Target(); RM:UpdateVisibility() end
 				},
+				mouseover = {
+					order = 7,
+					type = "toggle",
+					name = L["Mouseover"],
+					desc = L["Show on mouse over."],
+					disabled = function() return not E.private.sle.marks.marks end,
+					get = function(info) return E.db.sle.marks.mouseover end,
+					set = function(info, value) E.db.sle.marks.mouseover = value; RM:UpdateVisibility() end --RM:Mouseover() end
+				},
 				size = {
-					order = 8,
+					order = 9,
 					type = "range",
 					name = L['Size'],
 					desc = L["Sets size of buttons"],
@@ -82,7 +91,7 @@ E.Options.args.sle.args.options.args.marks = {
 					set = function(info, value) E.db.sle.marks.size = value; RM:FrameButtonsGrowth(); RM:FrameButtonsSize() end,
 				},
 				growth = {
-					order = 9,
+					order = 10,
 					type = "select",
 					name = L["Direction"],
 					desc = L["Change the direction of buttons growth from the skull marker"],

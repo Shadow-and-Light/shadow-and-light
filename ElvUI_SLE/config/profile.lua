@@ -243,6 +243,7 @@ P['sle'] = {
 		['showinside'] = false,
 		['target'] = false,
 		['size'] = 18,
+		['mouseover'] = false,
 	},
 
 	['flares'] = {
