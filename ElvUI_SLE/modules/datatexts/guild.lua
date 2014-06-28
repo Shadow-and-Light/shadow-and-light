@@ -27,6 +27,25 @@ local MINIMIZE		= "|TInterface\\BUTTONS\\UI-PlusButton-Up:0|t"
 local FACTION_COLOR_HORDE = RED_FONT_COLOR_CODE
 local FACTION_COLOR_ALLIANCE = "|cff0070dd"
 
+local GetGuildLevel = GetGuildLevel
+local UnitGetGuildXP = UnitGetGuildXP
+local guildXP= {}
+local join = string.join
+local tthead, ttsubh, ttoff = {r=0.4, g=0.78, b=1}, {r=0.75, g=0.9, b=1}, {r=.3,g=1,b=.3}
+local guildXpCurrentString = gsub(join("", E:RGBToHex(ttsubh.r, ttsubh.g, ttsubh.b), COMBAT_XP_GAIN..": ".."%s/%s (%s%%)"), ": ", ":|r |cffffffff", 1)
+local function UpdateGuildXP()
+	local currentXP, remainingXP = UnitGetGuildXP("player")
+	local nextLevelXP = currentXP + remainingXP
+	local percentTotal
+	if currentXP > 0 and nextLevelXP > 0  then
+		percentTotal = ceil((currentXP / nextLevelXP) * 100)
+	else 
+		percentTotal = 0
+	end
+	
+	guildXP[0] = { currentXP, nextLevelXP, percentTotal }
+end
+
 -- Setup the Title Font. 14
 local ssTitleFont = CreateFont("ssTitleFont")
 ssTitleFont:SetTextColor(1,0.823529,0)
@@ -256,11 +275,24 @@ function LDB.OnEnter(self)
 		tooltip:SetScript("OnShow", function(ttskinself) ttskinself:SetTemplate('Transparent') end)
 	end
 
+	local Glevel = GetGuildLevel()
+	
 	local line = tooltip:AddLine()
 	tooltip:SetCell(line, 1, "Shadow & Light Guild", ssTitleFont, "CENTER", 0)
 	tooltip:AddLine(" ")
-
+	
+	local XPline
+	
 	if IsInGuild() then
+		if Glevel ~= 25 then
+			if guildXP[0] then
+				local currentXP, nextLevelXP, percentTotal = unpack(guildXP[0])
+	
+				XPline = " ["..Glevel.."]|r | "..format(guildXpCurrentString, E:ShortValue(currentXP), E:ShortValue(nextLevelXP), percentTotal)
+			end
+		else
+			XPline = " ["..Glevel.."]|r"
+		end
 		local guild_table = {}
 		if not E.db.sle.dt.guild.hide_gmotd then
 			line = tooltip:AddLine()
@@ -288,9 +320,9 @@ function LDB.OnEnter(self)
 
 		line = tooltip:AddLine()
 		if not E.db.sle.dt.guild.hideGuild then
-			tooltip:SetCell(line, 1, "|cffffffff" .. ssGuildName .."|r", "LEFT", 3)
+			tooltip:SetCell(line, 1, "|cffffffff" .. ssGuildName ..XPline , "LEFT", 0)
 		else
-			line = tooltip:SetCell(line, 1, MINIMIZE .. "|cffffffff" .. ssGuildName .. "|r", "LEFT", 3)
+			line = tooltip:SetCell(line, 1, MINIMIZE .. "|cffffffff" .. ssGuildName .. XPline, "LEFT", 0)
 		end
 		tooltip:SetCellScript(line, 1, "OnMouseUp", HideOnMouseUp, "hideGuild")
 
@@ -408,6 +440,18 @@ frame:SetScript("OnEvent", function(self, event, ...)
 	end 
 end)
 
+function frame:PLAYER_ENTERING_WORLD(self, event, ...)
+	if not GuildFrame and IsInGuild() then 
+		LoadAddOn("Blizzard_GuildUI")
+		UpdateGuildXP() 
+		GuildRoster() 
+	end
+end
+
+function frame:GUILD_XP_UPDATE(self, event, ...)
+		UpdateGuildXP()
+end
+
 local DELAY = 15  --  Update every 15 seconds
 local elapsed = DELAY - 5
 
@@ -421,3 +465,5 @@ frame:SetScript("OnUpdate", function (self, elapse)
 end)
 
 frame:RegisterEvent("PLAYER_LOGIN")
+frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+frame:RegisterEvent("GUILD_XP_UPDATE")
