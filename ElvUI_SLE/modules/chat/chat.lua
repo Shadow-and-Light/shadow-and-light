@@ -15,7 +15,6 @@ local lfgChannels = {
 }
 
 local Myname = E.myname
---local Myrealm = E.myrealm
 local GetGuildRosterInfo = GetGuildRosterInfo
 local IsInGuild = IsInGuild
 local GuildMaster = ""
@@ -23,8 +22,6 @@ local GMName, GMRealm
 
 local len, gsub, find, sub, gmatch, format, random = string.len, string.gsub, string.find, string.sub, string.gmatch, string.format, math.random
 local tinsert, tremove, tsort, twipe, tconcat = table.insert, table.remove, table.sort, table.wipe, table.concat
-
---Myrealm = Myrealm:gsub(' ', '')
 
 local PLAYER_REALM = gsub(E.myrealm,'[%s%-]','')
 local PLAYER_NAME = Myname.."-"..PLAYER_REALM

@@ -1,5 +1,3 @@
---Credit to Repooc.
---Remade his auto release featule to module which allows profile setting of the function not the global one.
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local AR = E:NewModule('SLE_AutoRelease', 'AceHook-3.0', 'AceEvent-3.0');
 local myclass = E.myclass

@@ -158,7 +158,7 @@ P['sle'] = {
 		},
 		['chathandle'] = false,
 	},
---E.db.sle.dt.guild.totals
+
 	--DT Options
 	['dt'] = {
 		['friends'] = {

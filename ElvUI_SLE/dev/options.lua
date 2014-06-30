@@ -211,9 +211,6 @@ if SLE:Auth() then
 							get = function() return addonChannel end,
 							set = function(_, value)
 								addonChannel = value
-								--if addonChannel == "BNET" then
-								--	SLE:GetBNetInfo()
-								--end
 							end,
 							values = {
 								['GUILD'] = 'Guild',
@@ -232,9 +229,6 @@ if SLE:Auth() then
 							get = function() return bnetP end,
 							set = function(_, value)
 								bnetP = value
-								--if addonChannel == "BNET" then
-								--	SLE:GetBNetInfo()
-								--end
 							end,
 							values = function()
 								SLE:GetBNetInfo()
