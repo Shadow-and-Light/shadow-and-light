@@ -34,10 +34,13 @@ E.Options.args.sle.args.options.args.loot = {
 			get = function(info) return E.db.sle.loot.auto end,
 			set = function(info, value) E.db.sle.loot.auto = value; end
 		},
-		spacer = {
+		improved = {
 			order = 5,
-			type = "description",
-			name = "",
+			type = "toggle",
+			name = L["Improved"],
+			disabled = function() return not E.private.sle.loot.enable end,
+			get = function(info) return E.db.sle.loot.improved end,
+			set = function(info, value) E.db.sle.loot.improved = value; LT:Register() end
 		},
 		quality = {
 			order = 6,
