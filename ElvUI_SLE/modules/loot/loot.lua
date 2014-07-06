@@ -80,7 +80,7 @@ function LT:Announce()
 							n = n + 1
 							loot[n] = GetLootSlotLink(i)
 						numbers[n] = quantity 
-						else
+					else
 						
 						p = 1
 						while GetLootSlotLink(k) ~= loot[p] do
