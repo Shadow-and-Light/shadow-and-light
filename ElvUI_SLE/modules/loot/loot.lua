@@ -77,9 +77,18 @@ function LT:Announce()
 						end
 		
 						if i == k then
-							n = n + 1
-							loot[n] = GetLootSlotLink(i)
-							numbers[n] = quantity 
+							local _, link, ilvl
+							link = GetLootSlotLink(i)
+							_, _, _, ilvl = GetItemInfo(link)
+							if SLE:SimpleTable(improved, ilvl) then
+								nI = nI + 1
+								lootImp[nI] = GetLootSlotLink(i)
+								numbersImp[nI] = quantity	
+							else
+								n = n + 1
+								loot[n] = GetLootSlotLink(i)
+								numbers[n] = quantity 
+							end
 						else
 						
 							p = 1
