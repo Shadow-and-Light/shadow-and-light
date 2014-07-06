@@ -79,12 +79,12 @@ function LT:Announce()
 						if i == k then
 							n = n + 1
 							loot[n] = GetLootSlotLink(i)
-						numbers[n] = quantity 
-					else
+							numbers[n] = quantity 
+						else
 						
-						p = 1
-						while GetLootSlotLink(k) ~= loot[p] do
-						p = p + 1
+							p = 1
+							while GetLootSlotLink(k) ~= loot[p] do
+							p = p + 1
 						end
 						numbers[p] = numbers[p] + quantity
 						
