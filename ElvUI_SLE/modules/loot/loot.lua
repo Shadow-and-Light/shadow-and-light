@@ -51,8 +51,8 @@ function LT:Announce()
 	local nI = 0
 	
 	local p, chat
-	if not IsInGroup() then return end -- not in group, exit.
-	if (LT:Check() and E.db.sle.loot.auto) or (IsLeftControlKeyDown() and (IsInGroup() or IsInRaid())) then
+	--if not IsInGroup() then return end -- not in group, exit.
+	if (LT:Check() and E.db.sle.loot.auto) or (IsLeftControlKeyDown() --[[and (IsInGroup() or IsInRaid())]]) then
 		for i = 1, GetNumLootItems() do
 			if GetLootSlotType(i) == 1 then
 				for j = 1, t do
@@ -155,33 +155,35 @@ function LT:Announce()
 			elseif E.db.sle.loot.chat == "SAY" then
 				SendChatMessage(L["Loot Dropped (Improved):"], "SAY")
 			end
-		end
-		for i = 1, n do
-			if E.db.sle.loot.chat == "PARTY" then
-				if numbersImp[i] == 1 then
-					SendChatMessage(i..". "..lootImp[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-				elseif numbersImp[i] > 1 then
-					SendChatMessage(i..". "..lootImp[i].."x"..numbersImp[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-				end
-			elseif E.db.sle.loot.chat == "RAID" then
-				if IsInRaid() then
-					if numbersImp[i] == 1 then
-						SendChatMessage(i..". "..lootImp[i], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
-					elseif numbersImp[i] > 1 then
-							SendChatMessage(i..". "..lootImp[i].."x"..numbersImp[i], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
-					end	
-				else
+		
+			for i = 1, nI do
+				if E.db.sle.loot.chat == "PARTY" then
 					if numbersImp[i] == 1 then
 						SendChatMessage(i..". "..lootImp[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
 					elseif numbersImp[i] > 1 then
 						SendChatMessage(i..". "..lootImp[i].."x"..numbersImp[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
 					end
-				end	
-			elseif E.db.sle.loot.chat == "SAY" then
-				if numbersImp[i] == 1 then
-					SendChatMessage(i..". "..lootImp[i], "SAY")	
-				elseif numbersImp[i] > 1 then
-					SendChatMessage(i..". "..lootImp[i].."x"..numbersImp[i], "SAY")
+				elseif E.db.sle.loot.chat == "RAID" then
+					if IsInRaid() then
+						if numbersImp[i] == 1 then
+							SendChatMessage(i..". "..lootImp[i], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
+						elseif numbersImp[i] > 1 then
+								SendChatMessage(i..". "..lootImp[i].."x"..numbersImp[i], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
+						end	
+					else
+						if numbersImp[i] == 1 then
+							SendChatMessage(i..". "..lootImp[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
+						elseif numbersImp[i] > 1 then
+							SendChatMessage(i..". "..lootImp[i].."x"..numbersImp[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
+						end
+					end	
+				elseif E.db.sle.loot.chat == "SAY" then
+					
+					if numbersImp[i] == 1 then
+						SendChatMessage(i..". "..lootImp[i], "SAY")	
+					elseif numbersImp[i] > 1 then
+						SendChatMessage(i..". "..lootImp[i].."x"..numbersImp[i], "SAY")
+						end
 					end
 				end
 			end
