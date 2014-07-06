@@ -15,7 +15,7 @@ local GetLootSlotLink = GetLootSlotLink
 local GetLootSlotInfo = GetLootSlotInfo
 
 local improved = {
-	110, --Test
+	--110, --Test, BC Heroic last boss epic drop ilvl
 	--Thunderforged
 	528,
 	541,
@@ -51,8 +51,8 @@ function LT:Announce()
 	local nI = 0
 	
 	local p, chat
-	--if not IsInGroup() then return end -- not in group, exit.
-	if (LT:Check() and E.db.sle.loot.auto) or (IsLeftControlKeyDown() --[[and (IsInGroup() or IsInRaid())]]) then
+	if not IsInGroup() then return end -- not in group, exit.
+	if (LT:Check() and E.db.sle.loot.auto) or (IsLeftControlKeyDown() and (IsInGroup() or IsInRaid())) then
 		for i = 1, GetNumLootItems() do
 			if GetLootSlotType(i) == 1 then
 				for j = 1, t do
@@ -178,7 +178,6 @@ function LT:Announce()
 						end
 					end	
 				elseif E.db.sle.loot.chat == "SAY" then
-					
 					if numbersImp[i] == 1 then
 						SendChatMessage(i..". "..lootImp[i], "SAY")	
 					elseif numbersImp[i] > 1 then
