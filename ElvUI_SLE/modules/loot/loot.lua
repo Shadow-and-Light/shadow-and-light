@@ -42,11 +42,14 @@ end
 function LT:Announce()
 	local name = {}
 	local loot = {}
+	local lootImp = {}
 	local numbers = {}
+	local numbersImp = {}
 	local m = 0
 	local q = E.db.sle.loot.quality == "EPIC" and 4 or E.db.sle.loot.quality == "RARE" and 3 or E.db.sle.loot.quality == "UNCOMMON" and 2
 	local n = 0
-
+	local nI = 0
+	
 	local p, chat
 	if not IsInGroup() then return end -- not in group, exit.
 	if (LT:Check() and E.db.sle.loot.auto) or (IsLeftControlKeyDown() and (IsInGroup() or IsInRaid())) then
