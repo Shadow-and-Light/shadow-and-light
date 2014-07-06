@@ -126,8 +126,8 @@ function LT:Announce()
 					if numbers[i] == 1 then
 						SendChatMessage(i..". "..loot[i], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
 					elseif numbers[i] > 1 then
-							SendChatMessage(i..". "..loot[i].."x"..numbers[i], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
-						end	
+						SendChatMessage(i..". "..loot[i].."x"..numbers[i], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
+					end	
 				else
 					if numbers[i] == 1 then
 						SendChatMessage(i..". "..loot[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
@@ -140,7 +140,6 @@ function LT:Announce()
 					SendChatMessage(i..". "..loot[i], "SAY")	
 				elseif numbers[i] > 1 then
 					SendChatMessage(i..". "..loot[i].."x"..numbers[i], "SAY")
-					end
 				end
 			end
 		end
