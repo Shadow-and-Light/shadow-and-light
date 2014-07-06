@@ -1,6 +1,7 @@
 ﻿--Raid mark bar. Similar to quickmark which just semms to be impossible to skin
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local LT = E:NewModule('SLE_Loot', 'AceHook-3.0', 'AceEvent-3.0')
+local SLE = E:GetModule("SLE")
 local check = false
 local t = 0
 local loottemp = {}
@@ -12,6 +13,16 @@ local GetNumLootItems = GetNumLootItems
 local IsLeftControlKeyDown = IsLeftControlKeyDown
 local GetLootSlotLink = GetLootSlotLink
 local GetLootSlotInfo = GetLootSlotInfo
+
+local improved = {
+	110, --Test
+	--Thunderforged
+	528,
+	541,
+	--Warforged
+	559,
+	572,
+}
 
 function LT:Check()
 	local name, rank, isML
