@@ -1,5 +1,4 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local LT = E:GetModule('SLE_Loot')
 local function configTable()
 
 --Main options group
@@ -34,13 +33,13 @@ E.Options.args.sle.args.options.args.loot = {
 			get = function(info) return E.db.sle.loot.auto end,
 			set = function(info, value) E.db.sle.loot.auto = value; end
 		},
-		improved = {
+		merge = {
 			order = 5,
 			type = "toggle",
-			name = L["Improved"],
+			name = L["Merge identical"],
 			disabled = function() return not E.private.sle.loot.enable end,
-			get = function(info) return E.db.sle.loot.improved end,
-			set = function(info, value) E.db.sle.loot.improved = value; LT:Register() end
+			get = function(info) return E.db.sle.loot.merge end,
+			set = function(info, value) E.db.sle.loot.merge = value end
 		},
 		quality = {
 			order = 6,

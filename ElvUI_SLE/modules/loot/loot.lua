@@ -1,31 +1,20 @@
-﻿--Raid mark bar. Similar to quickmark which just semms to be impossible to skin
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local LT = E:NewModule('SLE_Loot', 'AceHook-3.0', 'AceEvent-3.0')
-local SLE = E:GetModule("SLE")
 local check = false
 local t = 0
 local loottemp = {}
 local MyName = E.myname
 local IsInGroup, IsInRaid, IsPartyLFG = IsInGroup, IsInRaid, IsPartyLFG
 local GetNumGroupMembers, GetRaidRosterInfo = GetNumGroupMembers, GetRaidRosterInfo
-local GetLootSlotType = GetLootSlotType
-local GetNumLootItems = GetNumLootItems
+local GetLootSlotType, GetLootSlotLink, GetLootSlotInfo = GetLootSlotType, GetLootSlotLink, GetLootSlotInfo
+local GetNumLootItems, GetItemInfo = GetNumLootItems, GetItemInfo
 local IsLeftControlKeyDown = IsLeftControlKeyDown
-local GetLootSlotLink = GetLootSlotLink
-local GetLootSlotInfo = GetLootSlotInfo
-local GetItemInfo = GetItemInfo
+local loot = {}
+local numbers = {}
+local n = 0
+local Tremove = table.remove
 
-local improved = {
-	--110, --Test, BC Heroic last boss epic drop ilvl
-	--Thunderforged
-	528,
-	541,
-	--Warforged
-	559,
-	572,
-}
-
-function LT:Check()
+local function Check()
 	local name, rank, isML
 	for x = 1, GetNumGroupMembers() do
 		name, rank, _, _, _, _, _, _, _, _, isML = GetRaidRosterInfo(x)
@@ -40,122 +29,76 @@ function LT:Check()
 	return false
 end
 
-function LT:Announce()
-	local name = {}
-	local loot = {}
-	local numbers = {}
-	local m = 0
-	local q = E.db.sle.loot.quality == "EPIC" and 4 or E.db.sle.loot.quality == "RARE" and 3 or E.db.sle.loot.quality == "UNCOMMON" and 2
-	local n = 0
-	--local inGroup, inRaid, inPartyLFG = IsInGroup(), IsInRaid(), IsPartyLFG()
-	local p, chat
-	if not IsInGroup() then return end -- not in group, exit.
-	if (LT:Check() and E.db.sle.loot.auto) or (IsLeftControlKeyDown() and (IsInGroup() or IsInRaid())) then
-		for i = 1, GetNumLootItems() do
-			if GetLootSlotType(i) == 1 then
-				for j = 1, t do
-					if GetLootSlotLink(i) == loottemp[j] then
-						check = true
-					end
-				end 
-			end
+local function Merge()
+	local p, k
+	for i = 1, #loot do
+		k = 1
+		while loot[i] ~= loot[k] do k = k + 1 end
+		if i ~= k then
+			numbers[i] = numbers[i] + numbers[k]
+			Tremove(numbers, k)
+			Tremove(loot, k)
+			n = n - 1
 		end
-		if check == false or IsLeftControlKeyDown() then
-			for i = 1, GetNumLootItems() do
-				if GetLootSlotType(i) ~= 1 then 
-					m = m + 1
-				else 
-					local _, item, quantity, quality = GetLootSlotInfo(i)
-					if quality >= q then
-						name[i] = item
-		
-						k = 1
-						while name[i] ~= name[k] do
-						k = k + 1
-						end
-		
-						if i == k then
-							n = n + 1
-							loot[n] = GetLootSlotLink(i)
-							numbers[n] = quantity 
-						else
-						
-							p = 1
-							while GetLootSlotLink(k) ~= loot[p] do
-							p = p + 1
-						end
-						numbers[p] = numbers[p] + quantity
-					end
-				end
-			end
-		end
-		if n ~= 0 then 
-			if E.db.sle.loot.chat == "PARTY" then
-				SendChatMessage(L["Loot Dropped:"], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-			elseif E.db.sle.loot.chat == "RAID" then
-				if IsInRaid() then
-					SendChatMessage(L["Loot Dropped:"], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
-				else
-					SendChatMessage(L["Loot Dropped:"], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-				end
-			elseif E.db.sle.loot.chat == "SAY" then
-				SendChatMessage(L["Loot Dropped:"], "SAY")
-			end
-		end
-		for i = 1, n do
-			if E.db.sle.loot.chat == "PARTY" then
-				if numbers[i] == 1 then
-					SendChatMessage(i..". "..loot[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-				elseif numbers[i] > 1 then
-					SendChatMessage(i..". "..loot[i].."x"..numbers[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-				end
-			elseif E.db.sle.loot.chat == "RAID" then
-				if IsInRaid() then
-					if numbers[i] == 1 then
-						SendChatMessage(i..". "..loot[i], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
-					elseif numbers[i] > 1 then
-							SendChatMessage(i..". "..loot[i].."x"..numbers[i], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
-						end	
-				else
-					if numbers[i] == 1 then
-						SendChatMessage(i..". "..loot[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-					elseif numbers[i] > 1 then
-						SendChatMessage(i..". "..loot[i].."x"..numbers[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-					end
-				end	
-			elseif E.db.sle.loot.chat == "SAY" then
-				if numbers[i] == 1 then
-					SendChatMessage(i..". "..loot[i], "SAY")	
-				elseif numbers[i] > 1 then
-					SendChatMessage(i..". "..loot[i].."x"..numbers[i], "SAY")
-					end
-				end
-			end
-		end
-		for i = 1, GetNumLootItems() do
-			if GetLootSlotType(i) == 1 then
-				loottemp[i] = GetLootSlotLink(i)
-			end
-		end
-		t = GetNumLootItems()
-		check = false
 	end
 end
 
-function LT:AnnounceI()
-	local name = {}
-	local loot = {}
-	local lootImp = {}
-	local numbers = {}
-	local numbersImp = {}
-	local m = 0
-	local q = E.db.sle.loot.quality == "EPIC" and 4 or E.db.sle.loot.quality == "RARE" and 3 or E.db.sle.loot.quality == "UNCOMMON" and 2
-	local n = 0
-	local nI = 0
+local function PopulateTable(q)
+	local p, k
+	for i = 1, GetNumLootItems() do
+		if GetLootSlotType(i) == 1 then 
+			local _, item, quantity, quality = GetLootSlotInfo(i)
+			local _, link, ilvl
+
+			if quality >= q then
+				link = GetLootSlotLink(i)
+				ilvl = select(4, GetItemInfo(link))
+				
+				n = n + 1
+				loot[n] = link
+				loot[n] = loot[n].." (ilvl: "..ilvl..")"
+				numbers[n] = quantity
+			end
+		end
+	end
 	
-	local p, chat
+	if E.db.sle.loot.merge then 
+		Merge()
+	end
+end
+
+local function Channel()
+	local channel
+	if E.db.sle.loot.chat ~= "SAY" and IsPartyLFG() then
+		return "INSTANCE_CHAT"
+	end
+	if E.db.sle.loot.chat == "RAID" and not IsInRaid() then
+		return "PARTY"
+	end
+	return E.db.sle.loot.chat
+end
+
+local function List()
+	for i = 1, n do
+		if numbers[i] == 1 then
+			SendChatMessage(i..". "..loot[i], Channel())
+		elseif numbers[i] > 1 then
+			SendChatMessage(i..". "..numbers[i].."x"..loot[i], Channel())
+		end
+		if i == n then 
+			loot = {}
+			numbers = {}
+			n = 0
+		end
+	end
+end
+
+function LT:Announce()
 	if not IsInGroup() then return end -- not in group, exit.
-	if (LT:Check() and E.db.sle.loot.auto) or (IsLeftControlKeyDown() and (IsInGroup() or IsInRaid())) then
+	local m = 0
+	local q = E.db.sle.loot.quality == "EPIC" and 4 or E.db.sle.loot.quality == "RARE" and 3 or E.db.sle.loot.quality == "UNCOMMON" and 2
+	
+	if (Check() and E.db.sle.loot.auto) or (IsLeftControlKeyDown() and (IsInGroup() or IsInRaid())) then
 		for i = 1, GetNumLootItems() do
 			if GetLootSlotType(i) == 1 then
 				for j = 1, t do
@@ -166,129 +109,10 @@ function LT:AnnounceI()
 			end
 		end
 		if check == false or IsLeftControlKeyDown() then
-			for i = 1, GetNumLootItems() do
-				if GetLootSlotType(i) ~= 1 then 
-					m = m + 1
-				else 
-					local _, item, quantity, quality = GetLootSlotInfo(i)
-					if quality >= q then
-						name[i] = item
-		
-						k = 1
-						while name[i] ~= name[k] do
-						k = k + 1
-						end
-		
-						if i == k then
-							local _, link, ilvl
-							link = GetLootSlotLink(i)
-							_, _, _, ilvl = GetItemInfo(link)
-							if SLE:SimpleTable(improved, ilvl) then
-								nI = nI + 1
-								lootImp[nI] = GetLootSlotLink(i)
-								numbersImp[nI] = quantity	
-							else
-								n = n + 1
-								loot[n] = GetLootSlotLink(i)
-								numbers[n] = quantity 
-							end
-						else
-						
-							p = 1
-							while GetLootSlotLink(k) ~= loot[p] do
-							p = p + 1
-						end
-						numbers[p] = numbers[p] + quantity
-						
-					end
-				end
-			end
-		end
-		if n ~= 0 then 
-			if E.db.sle.loot.chat == "PARTY" then
-				SendChatMessage(L["Loot Dropped:"], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-			elseif E.db.sle.loot.chat == "RAID" then
-				if IsInRaid() then
-					SendChatMessage(L["Loot Dropped:"], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
-				else
-					SendChatMessage(L["Loot Dropped:"], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-				end
-			elseif E.db.sle.loot.chat == "SAY" then
-				SendChatMessage(L["Loot Dropped:"], "SAY")
-			end
-		end
-		for i = 1, n do
-			if E.db.sle.loot.chat == "PARTY" then
-				if numbers[i] == 1 then
-					SendChatMessage(i..". "..loot[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-				elseif numbers[i] > 1 then
-					SendChatMessage(i..". "..loot[i].."x"..numbers[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-				end
-			elseif E.db.sle.loot.chat == "RAID" then
-				if IsInRaid() then
-					if numbers[i] == 1 then
-						SendChatMessage(i..". "..loot[i], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
-					elseif numbers[i] > 1 then
-						SendChatMessage(i..". "..loot[i].."x"..numbers[i], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
-					end	
-				else
-					if numbers[i] == 1 then
-						SendChatMessage(i..". "..loot[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-					elseif numbers[i] > 1 then
-						SendChatMessage(i..". "..loot[i].."x"..numbers[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-					end
-				end	
-			elseif E.db.sle.loot.chat == "SAY" then
-				if numbers[i] == 1 then
-					SendChatMessage(i..". "..loot[i], "SAY")	
-				elseif numbers[i] > 1 then
-					SendChatMessage(i..". "..loot[i].."x"..numbers[i], "SAY")
-				end
-			end
-		end
-		if nI ~= 0 then 
-			if E.db.sle.loot.chat == "PARTY" then
-				SendChatMessage(L["Loot Dropped (Improved):"], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-			elseif E.db.sle.loot.chat == "RAID" then
-				if IsInRaid() then
-					SendChatMessage(L["Loot Dropped (Improved):"], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
-				else
-					SendChatMessage(L["Loot Dropped (Improved):"], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-				end
-			elseif E.db.sle.loot.chat == "SAY" then
-				SendChatMessage(L["Loot Dropped (Improved):"], "SAY")
-			end
-		
-			for i = 1, nI do
-				if E.db.sle.loot.chat == "PARTY" then
-					if numbersImp[i] == 1 then
-						SendChatMessage(i..". "..lootImp[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-					elseif numbersImp[i] > 1 then
-						SendChatMessage(i..". "..lootImp[i].."x"..numbersImp[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-					end
-				elseif E.db.sle.loot.chat == "RAID" then
-					if IsInRaid() then
-						if numbersImp[i] == 1 then
-							SendChatMessage(i..". "..lootImp[i], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
-						elseif numbersImp[i] > 1 then
-								SendChatMessage(i..". "..lootImp[i].."x"..numbersImp[i], IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
-						end	
-					else
-						if numbersImp[i] == 1 then
-							SendChatMessage(i..". "..lootImp[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-						elseif numbersImp[i] > 1 then
-							SendChatMessage(i..". "..lootImp[i].."x"..numbersImp[i], IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
-						end
-					end	
-				elseif E.db.sle.loot.chat == "SAY" then
-					
-					if numbersImp[i] == 1 then
-						SendChatMessage(i..". "..lootImp[i], "SAY")	
-					elseif numbersImp[i] > 1 then
-						SendChatMessage(i..". "..lootImp[i].."x"..numbersImp[i], "SAY")
-						end
-					end
-				end
+			PopulateTable(q)
+			if n ~= 0 then
+				SendChatMessage(L["Loot Dropped:"], Channel())
+				List()
 			end
 		end
 		for i = 1, GetNumLootItems() do
@@ -298,21 +122,12 @@ function LT:AnnounceI()
 		end
 		t = GetNumLootItems()
 		check = false
-	end
-end
-
-function LT:Register()
-	self:UnregisterEvent("LOOT_OPENED")
-	if E.db.sle.loot.improved then
-		self:RegisterEvent("LOOT_OPENED", "AnnounceI")
-	else
-		self:RegisterEvent("LOOT_OPENED", "Announce")
 	end
 end
 
 function LT:Initialize()
 	if not E.private.sle.loot.enable then return end
-	self:Register()
+	self:RegisterEvent("LOOT_OPENED", "Announce")
 end
 
 E:RegisterModule(LT:GetName())
