@@ -61,10 +61,7 @@ local function PopulateTable(q)
 			end
 		end
 	end
-	
-	if E.db.sle.loot.merge then 
-		Merge()
-	end
+	Merge()
 end
 
 local function Channel()

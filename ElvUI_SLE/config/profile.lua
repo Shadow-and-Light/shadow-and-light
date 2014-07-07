@@ -268,7 +268,6 @@ P['sle'] = {
 		['quality'] = "EPIC",
 		['chat'] = "RAID",
 		['auto'] = true,
-		['merge'] = true,
 	},
 	
 	--Tooltip Faction Icon
