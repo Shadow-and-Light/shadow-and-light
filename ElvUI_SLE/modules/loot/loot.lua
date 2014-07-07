@@ -48,7 +48,7 @@ local function PopulateTable(q)
 	for i = 1, GetNumLootItems() do
 		if GetLootSlotType(i) == 1 then 
 			local _, item, quantity, quality = GetLootSlotInfo(i)
-			local _, link, ilvl
+			local link, ilvl
 
 			if quality >= q then
 				link = GetLootSlotLink(i)
