@@ -1,16 +1,11 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI);
 local EM = E:GetModule('SLE_EquipManager')
 
-local GetEquipmentSetInfo = GetEquipmentSetInfo
-local GetSpecialization = GetSpecialization
-local IsInInstance = IsInInstance
-local GetActiveSpecGroup = GetActiveSpecGroup
-local UseEquipmentSet = UseEquipmentSet
-local GetNumWorldPVPAreas = GetNumWorldPVPAreas
-local GetWorldPVPAreaInfo = GetWorldPVPAreaInfo
+local GetEquipmentSetInfo, GetSpecialization, GetActiveSpecGroup, UseEquipmentSet = GetEquipmentSetInfo, GetSpecialization, GetActiveSpecGroup, UseEquipmentSet
+local IsInInstance, GetNumWorldPVPAreas, GetWorldPVPAreaInfo = IsInInstance, GetNumWorldPVPAreas, GetWorldPVPAreaInfo
 local gsub, strfind = string.gsub, string.find, string.sub
 
-function EM:Equip(event)
+local function Equip(event)
 	local primary = GetSpecialization()
 	if primary ~= nil then
 		local inInstance, instanceType = IsInInstance()
@@ -53,27 +48,27 @@ function EM:EquipSpamFilter(event, msg, ...)
 	return false, msg, ...
 end
 
-function EM:EnableSpamFilter()
+local function EnableSpamFilter()
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", EM.EquipSpamFilter)
 end
 
-function EM:DisableSpamFilter()
+local function DisableSpamFilter()
 	ChatFrame_RemoveMessageEventFilter("CHAT_MSG_SYSTEM", EM.EquipSpamFilter)
 end
 
 function EM:SpamThrottle()
 	if E.private.sle.equip.spam then
-		EM:EnableSpamFilter()
+		EnableSpamFilter()
 	else
-		EM:DisableSpamFilter()
+		DisableSpamFilter()
 	end
 end
 
 function EM:Initialize()
 	EM:SpamThrottle()
 	if not E.private.sle.equip.enable then return end
-	self:RegisterEvent("PLAYER_ENTERING_WORLD", "Equip")
-	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "Equip")
-	self:RegisterEvent("PLAYER_TALENT_UPDATE", "Equip")
-	self:RegisterEvent("ZONE_CHANGED", "Equip")
+	self:RegisterEvent("PLAYER_ENTERING_WORLD", Equip)
+	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", Equip)
+	self:RegisterEvent("PLAYER_TALENT_UPDATE", Equip)
+	self:RegisterEvent("ZONE_CHANGED", Equip)
 end
