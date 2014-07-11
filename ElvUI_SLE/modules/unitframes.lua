@@ -3,9 +3,45 @@ if not E.private.unitframe.enable then return end
 local UF = E:GetModule('UnitFrames');
 local SLE = E:GetModule('SLE');
 local RC = LibStub("LibRangeCheck-2.0")
+local format = format
+
+--Replacement of text formats on unitframes.
+local styles = {
+	['CURRENT'] = '%s',
+	['CURRENT_MAX'] = '%s - %s',
+	['CURRENT_PERCENT'] =  '%s - %s%%',
+	['CURRENT_MAX_PERCENT'] = '%s - %s | %s%%',
+	['DEFICIT'] = '-%s'
+}
+
+local function GetFormattedTextSLE(style, min, max)
+	assert(styles[style], 'Invalid format style: '..style)
+	assert(min, 'You need to provide a current value. Usage: E:GetFormattedText(style, min, max)')
+	assert(max, 'You need to provide a maximum value. Usage: E:GetFormattedText(style, min, max)')
+
+	if max == 0 then max = 1 end
+	
+	local useStyle = styles[style]
+
+	if style == 'DEFICIT' then
+		local deficit = max - min
+		if deficit <= 0 then
+			return ''
+		else
+			return format(useStyle, deficit)
+		end
+	elseif style == 'CURRENT' or ((style == 'CURRENT_MAX' or style == 'CURRENT_MAX_PERCENT' or style == 'CURRENT_PERCENT') and min == max) then
+			return format(styles['CURRENT'], min)
+	elseif style == 'CURRENT_MAX' then
+			return format(useStyle, min, max)
+	elseif style == 'CURRENT_PERCENT' then
+			return format(useStyle, min, format("%.1f", min / max * 100))
+	elseif style == 'CURRENT_MAX_PERCENT' then
+			return format(useStyle, min, max, format("%.1f", min / max * 100))
+	end
+end
 
 --New Tags
-
 local function AddTags()
 
 	ElvUF.Tags.Events['vengeance:current:sl'] = 'UNIT_AURA'
@@ -49,7 +85,7 @@ local function AddTags()
 		if (status) then
 			return status
 		else
-			return E:GetFormattedTextSLE('CURRENT', min, max)
+			return GetFormattedTextSLE('CURRENT', min, max)
 		end
 	end
 	
@@ -61,7 +97,7 @@ local function AddTags()
 		if (status) then
 			return status
 		else
-			return E:GetFormattedTextSLE('DEFICIT', min, max)
+			return GetFormattedTextSLE('DEFICIT', min, max)
 		end
 	end
 	
@@ -73,7 +109,7 @@ local function AddTags()
 		if (status) then
 			return status
 		else
-			return E:GetFormattedTextSLE('CURRENT_PERCENT', min, max)
+			return GetFormattedTextSLE('CURRENT_PERCENT', min, max)
 		end
 	end
 	
@@ -85,7 +121,7 @@ local function AddTags()
 		if (status) then
 			return status
 		else
-			return E:GetFormattedTextSLE('CURRENT_MAX', min, max)
+			return GetFormattedTextSLE('CURRENT_MAX', min, max)
 		end
 	end
 	
@@ -97,7 +133,7 @@ local function AddTags()
 		if (status) then
 			return status
 		else
-			return E:GetFormattedTextSLE('CURRENT_MAX_PERCENT', min, max)
+			return GetFormattedTextSLE('CURRENT_MAX_PERCENT', min, max)
 		end
 	end
 	
@@ -109,7 +145,7 @@ local function AddTags()
 		if min == 0 then
 			return ' '
 		else
-			return E:GetFormattedTextSLE('CURRENT', min, max)
+			return GetFormattedTextSLE('CURRENT', min, max)
 		end
 	end
 	
@@ -121,7 +157,7 @@ local function AddTags()
 		if min == 0 then
 			return ' '
 		else
-			return E:GetFormattedTextSLE('CURRENT_MAX', min, max)
+			return GetFormattedTextSLE('CURRENT_MAX', min, max)
 		end
 	end
 	
@@ -133,7 +169,7 @@ local function AddTags()
 		if min == 0 then
 			return ' '
 		else
-			return E:GetFormattedTextSLE('CURRENT_PERCENT', min, max)
+			return GetFormattedTextSLE('CURRENT_PERCENT', min, max)
 		end
 	end
 	
@@ -145,7 +181,7 @@ local function AddTags()
 		if min == 0 then
 			return ' '
 		else
-			return E:GetFormattedTextSLE('CURRENT_MAX_PERCENT', min, max)
+			return GetFormattedTextSLE('CURRENT_MAX_PERCENT', min, max)
 		end
 	end
 	
@@ -154,48 +190,10 @@ local function AddTags()
 		local pType = UnitPowerType(unit)
 		local min, max = UnitPower(unit, pType), UnitPowerMax(unit, pType)
 			
-		return E:GetFormattedTextSLE('DEFICIT', min, max, r, g, b)
+		return GetFormattedTextSLE('DEFICIT', min, max, r, g, b)
 	end
 end
 AddTags()
-
-local format = format
-
---Replacement of text formats on unitframes.
-local styles = {
-	['CURRENT'] = '%s',
-	['CURRENT_MAX'] = '%s - %s',
-	['CURRENT_PERCENT'] =  '%s - %s%%',
-	['CURRENT_MAX_PERCENT'] = '%s - %s | %s%%',
-	['DEFICIT'] = '-%s'
-}
-
-function E:GetFormattedTextSLE(style, min, max)
-	assert(styles[style], 'Invalid format style: '..style)
-	assert(min, 'You need to provide a current value. Usage: E:GetFormattedText(style, min, max)')
-	assert(max, 'You need to provide a maximum value. Usage: E:GetFormattedText(style, min, max)')
-
-	if max == 0 then max = 1 end
-	
-	local useStyle = styles[style]
-
-	if style == 'DEFICIT' then
-		local deficit = max - min
-		if deficit <= 0 then
-			return ''
-		else
-			return format(useStyle, deficit)
-		end
-	elseif style == 'CURRENT' or ((style == 'CURRENT_MAX' or style == 'CURRENT_MAX_PERCENT' or style == 'CURRENT_PERCENT') and min == max) then
-			return format(styles['CURRENT'], min)
-	elseif style == 'CURRENT_MAX' then
-			return format(useStyle, min, max)
-	elseif style == 'CURRENT_PERCENT' then
-			return format(useStyle, min, format("%.1f", min / max * 100))
-	elseif style == 'CURRENT_MAX_PERCENT' then
-			return format(useStyle, min, max, format("%.1f", min / max * 100))
-	end
-end
 
 --Player Frame Enhancements
 function UF:Update_CombatIndicator()
@@ -210,28 +208,7 @@ function UF:Update_CombatIndicator()
 	SLE:UnregisterEvent("PLAYER_REGEN_DISABLED")
 end
 
-UF.UpdatePlayerFrameAnchorsSLE = UF.UpdatePlayerFrameAnchors
-function UF:UpdatePlayerFrameAnchors(frame, isShown)
-	UF:UpdatePlayerFrameAnchorsSLE(frame, isShown)
-	
-	if E.myclass == "DRUID" then
-		UF:EclipseTextSLE()
-	end
-	
-	if E.myclass == "WARLOCK" then
-		UF:DFTextSLE()
-	end
-end
-
-function UF:ClassbarTextSLE()
-	if E.myclass == "DRUID" then
-		UF:EclipseTextSLE()
-	elseif E.myclass == "WARLOCK" then
-		UF:DFTextSLE()
-	end
-end
-
-function UF:EclipseTextSLE()
+local function EclipseTextSLE()
 	local eclipseBar = ElvUF_Player.EclipseBar
 	local spower = UnitPower( PlayerFrame.unit, SPELL_POWER_ECLIPSE );
 	if E.db.sle.powtext then
@@ -241,7 +218,7 @@ function UF:EclipseTextSLE()
 	end
 end
 
-function UF:DFTextSLE()
+local function DFTextSLE()
 	local ShardBar = ElvUF_Player.ShardBar
 	local dfpower = UnitPower( PlayerFrame.unit, SPELL_POWER_DEMONIC_FURY );
 	local hasspec = GetSpecialization(false, false)
@@ -262,6 +239,26 @@ function UF:DFTextSLE()
 		end
 	else
 		ShardBar.powtext:SetText('')
+	end
+end
+
+
+UF.UpdatePlayerFrameAnchorsSLE = UF.UpdatePlayerFrameAnchors
+function UF:UpdatePlayerFrameAnchors(frame, isShown)
+	UF:UpdatePlayerFrameAnchorsSLE(frame, isShown)
+	
+	if E.myclass == "DRUID" then
+		EclipseTextSLE()
+	elseif E.myclass == "WARLOCK" then
+		DFTextSLE()
+	end
+end
+
+function UF:ClassbarTextSLE()
+	if E.myclass == "DRUID" then
+		EclipseTextSLE()
+	elseif E.myclass == "WARLOCK" then
+		DFTextSLE()
 	end
 end
 
