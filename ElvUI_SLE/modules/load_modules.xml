@@ -1,0 +1,23 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file='autorelease.lua'/>
+	<Script file='backgrounds.lua'/>
+	<Include file='characterframe\load_characterframe.xml'/>
+	<Script file='datatexts.lua'/>
+	<Include file='sledatatexts\load_datatexts.xml'/>
+	<Include file='dashboard\load_dashboard.xml'/>
+	<Script file='chat.lua'/>
+	<Script file='baginfo.lua'/>
+	<Script file='equipmanager.lua'/>
+	<Script file='exprepbar.lua'/>
+	<Script file='farm.lua'/>
+	<Script file='loot.lua'/>
+	<Include file='marks\load_marks.xml'/>
+	<Include file='minimap\load_minimap.xml'/>
+	<Script file='nameplates.lua'/>
+	<Script file='raidutility.lua'/>
+	<Script file='pvpmover.lua'/>
+	<Script file='tooltip.lua'/>
+	<Script file='uibuttons.lua'/>
+	<Script file='unitframes.lua'/>
+	<Script file='vehicle.lua'/>
+</Ui>
