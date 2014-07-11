@@ -149,8 +149,6 @@ local specialChatIcons = {
 	},
 }
 
-SLE.SpecialChatIcons = specialChatIcons;
-
 CH.StyleChatSLE = CH.StyleChat
 function CH:StyleChat(frame)
 	CH:StyleChatSLE(frame)
@@ -320,6 +318,32 @@ local function GetBNFriendColor(name, id)
 			return name
 		end
 	end
+end
+
+local function GetChatIcon(sender)
+	local senderName, senderRealm
+	if sender then
+		senderName, senderRealm = string.split('-', sender)
+	else
+		senderName = Myname
+	end
+	senderRealm = senderRealm or PLAYER_REALM
+	senderRealm = senderRealm:gsub(' ', '')
+		
+	--Disabling ALL special icons. IDK why Elv use that and why would we want to have that but whatever
+	if(specialChatIcons[PLAYER_REALM] == nil or (specialChatIcons[PLAYER_REALM] and specialChatIcons[PLAYER_REALM][Myname] ~= true)) then
+		if specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
+			return specialChatIcons[senderRealm][senderName]
+		end
+	end
+	
+	if not IsInGuild() then return "" end
+	if not E.private.sle.guildmaster then return "" end
+	if senderName == GMName and senderRealm == GMRealm then
+		return leader 
+	end
+	
+	return ""
 end
 
 E.NameReplacements = {}
@@ -565,12 +589,12 @@ function CH:ChatFrame_MessageEventHandler(event, ...)
 					--Add Blizzard Icon, this was sent by a Dev
 					pflag = "|TInterface\\ChatFrame\\UI-ChatIcon-Blizz:12:20:0:0:32:16:4:28:0:16|t ";
 				elseif ( arg6 == "DND" or arg6 == "AFK") then
-					pflag = SLE:GetChatIcon(arg2).._G["CHAT_FLAG_"..arg6]
+					pflag = GetChatIcon(arg2).._G["CHAT_FLAG_"..arg6]
 				else					
 					pflag = _G["CHAT_FLAG_"..arg6];
 				end
 			else
-				pflag = SLE:GetChatIcon(arg2)
+				pflag = GetChatIcon(arg2)
 				
 				if(pflag == true) then
 					pflag = ""
@@ -729,32 +753,6 @@ function CH:ChatEdit_AddHistory(editBox, line)
 	end
 end
 
-function SLE:GetChatIcon(sender)
-	local senderName, senderRealm
-	if sender then
-		senderName, senderRealm = string.split('-', sender)
-	else
-		senderName = Myname
-	end
-	senderRealm = senderRealm or PLAYER_REALM
-	senderRealm = senderRealm:gsub(' ', '')
-		
-	--Disabling ALL special icons. IDK why Elv use that and why would we want to have that but whatever
-	if(specialChatIcons[PLAYER_REALM] == nil or (specialChatIcons[PLAYER_REALM] and specialChatIcons[PLAYER_REALM][Myname] ~= true)) then
-		if specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
-			return specialChatIcons[senderRealm][senderName]
-		end
-	end
-	
-	if not IsInGuild() then return "" end
-	if not E.private.sle.guildmaster then return "" end
-	if senderName == GMName and senderRealm == GMRealm then
-		return leader 
-	end
-	
-	return ""
-end
-
 function CH:ChatFrame_AddMessageEventFilter (event, filter)
 	assert(event and filter);
 	
@@ -833,10 +831,14 @@ function CH:GMCheck()
 	GMRealm = GMRealm:gsub(' ', '')
 end
 
+local function Roster(event, update)
+ if update then CH:GMCheck() end
+end
+
 function CH:GMIconUpdate()
 	if E.private.chat.enable ~= true then return end
 	if E.private.sle.guildmaster then
-		self:RegisterEvent('GUILD_ROSTER_UPDATE', 'Roster')
+		self:RegisterEvent('GUILD_ROSTER_UPDATE', Roster)
 		CH:GMCheck()
 	else
 		self:UnregisterEvent('GUILD_ROSTER_UPDATE')
@@ -844,10 +846,6 @@ function CH:GMIconUpdate()
 		GMName = ''
 		GMRealm = ''
 	end
-end
-
-function CH:Roster(event, update)
- if update then CH:GMCheck() end
 end
 
 function CH:Initialize()
@@ -899,7 +897,7 @@ function CH:Initialize()
 	self:RegisterEvent('UPDATE_FLOATING_CHAT_WINDOWS', 'SetupChat')
 	self:RegisterEvent('PET_BATTLE_CLOSE')
 	if E.private.sle.guildmaster then
-		self:RegisterEvent('GUILD_ROSTER_UPDATE', 'Roster')
+		self:RegisterEvent('GUILD_ROSTER_UPDATE', Roster)
 		CH:GMCheck()
 	end
 
