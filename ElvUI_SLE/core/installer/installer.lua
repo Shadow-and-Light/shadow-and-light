@@ -1,5 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
--- local AI = E:NewModule('SLE_AddonInstaller')
+local E, L, V, P, G, _ = unpack(ElvUI);
 local AI = E:GetModule('SLE_AddonInstaller')
 
 -- Upvalue for performance

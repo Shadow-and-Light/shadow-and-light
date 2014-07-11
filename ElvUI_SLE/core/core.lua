@@ -1,5 +1,4 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
--- local SLE = E:NewModule("SLE", 'AceHook-3.0', 'AceEvent-3.0')
+﻿local E, L, V, P, G, _ = unpack(ElvUI);
 local SLE = E:GetModule('SLE')
 local EP = LibStub("LibElvUIPlugin-1.0")
 local UF = E:GetModule('UnitFrames')
@@ -13,10 +12,11 @@ SLE.version = GetAddOnMetadata("ElvUI_SLE", "Version")
 local elvV = tonumber(E.version)
 local elvR = tonumber(GetAddOnMetadata("ElvUI_SLE", "X-ElvVersion"))
 E.SLEConfigs = {}
+--SLE['media'] = {}
 
 function SLE:MismatchText()
-	Vtext = format(L['MSG_OUTDATED'],elvV,elvR)
-	return Vtext
+	local text = format(L['MSG_OUTDATED'],elvV,elvR)
+	return text
 end
 
 local function AddTutorials() --Additional tutorials
@@ -80,5 +80,3 @@ function SLE:Initialize()
 	SLE:RegisterCommands()
 	CheckIncompatible()
 end
-
--- E:RegisterModule(SLE:GetName())

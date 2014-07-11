@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+﻿local E, L, V, P, G, _ = unpack(ElvUI); 
 local UF = E:GetModule('UnitFrames');
 local AI = E:GetModule('SLE_AddonInstaller');
 local SLE = E:GetModule('SLE');
