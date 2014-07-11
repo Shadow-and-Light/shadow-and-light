@@ -1,5 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
-
+local E, L, V, P, G, _ = unpack(ElvUI);
 local displayString = ""
 local total, totalDurability, totalPerc = 0, 0, 0
 local current, max, lastPanel

@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 local LibQTip = LibStub('LibQTip-1.0')
 local ACD = LibStub("AceConfigDialog-3.0")
 local DT = E:GetModule('DataTexts')
@@ -187,7 +187,7 @@ function DT:update_Guild()
 				end
 			end
 		if E.db.sle.dt.guild.totals then
-			LDB.text = --[["|cff82c5ff"]]"|cffffffff"..GUILD..": |r"..valueColor(online).."/"..valueColor(guildTotal)--[["|r"]]
+			LDB.text = "|cffffffff"..GUILD..": |r"..valueColor(online).."/"..valueColor(guildTotal)
 		else
 			LDB.text = "|cffffffff"..GUILD..": |r"..valueColor(online)
 		end
@@ -418,15 +418,15 @@ function LDB.OnEnter(self)
 			line = tooltip:AddLine()
 			tooltip:SetCell(line, 1, "", "LEFT", 1)
 			tooltip:SetCell(line, 2, "|cffeda55fLeft Click|r a line to whisper a player.", "LEFT", 3)
-			tooltip:SetCell(line, 5, "|cffeda55fShift+Left Click|r a line to lookup a player.", "LEFT", 3)--
+			tooltip:SetCell(line, 5, "|cffeda55fShift+Left Click|r a line to lookup a player.", "LEFT", 3)
 			line = tooltip:AddLine()
 			tooltip:SetCell(line, 1, "", "LEFT", 1)
 			tooltip:SetCell(line, 2, "|cffeda55fCtrl+Left Click|r a line to edit note.", "LEFT", 3)
 			tooltip:SetCell(line, 5, "|cffeda55fCtrl+Right Click|r a line to edit officer note.", "LEFT", 3)
 			line = tooltip:AddLine()
 			tooltip:SetCell(line, 1, "", "LEFT", 1)
-			tooltip:SetCell(line, 2, "|cffeda55fAlt+Left Click|r a line to invite.", "LEFT", 3)--
-			tooltip:SetCell(line, 5, "|cffeda55fLeft Click|r a Header to hide it or sort it.", "LEFT", 3)--
+			tooltip:SetCell(line, 2, "|cffeda55fAlt+Left Click|r a line to invite.", "LEFT", 3)
+			tooltip:SetCell(line, 5, "|cffeda55fLeft Click|r a Header to hide it or sort it.", "LEFT", 3)
 		end
 	end
 

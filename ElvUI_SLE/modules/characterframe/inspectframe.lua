@@ -1,7 +1,6 @@
 ﻿local E, L, V, P, G, _  = unpack(ElvUI)
 local AISM = _G['Armory_InspectSupportModule']
 local IFO = E:GetModule('InspectFrameOptions')
--- local IFO = E:NewModule('InspectFrameOptions', 'AceEvent-3.0')
 local SLE = E:GetModule('SLE');
 local S = E:GetModule('Skins')
 
@@ -2238,4 +2237,3 @@ function IFO:Initialize()
 	
 	SLI.Activate = true
 end
--- E:RegisterModule(IFO:GetName())

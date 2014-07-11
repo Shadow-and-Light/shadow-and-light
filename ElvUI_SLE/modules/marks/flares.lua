@@ -1,6 +1,5 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local RF = E:GetModule('SLE_RaidFlares');
--- local RF = E:NewModule('SLE_RaidFlares', 'AceHook-3.0', 'AceEvent-3.0');
 local template = "SecureActionButtonTemplate"
 
 BINDING_HEADER_SHADOWLIGHT_WORLDMARKER = "|cff1784d1Shadow & Light|r"
@@ -192,5 +191,3 @@ function RF:Initialize()
    
 	E:CreateMover(mainFlares, "FlareMover", "RF", nil, nil, nil, "ALL,S&L,S&L MISC")
 end
-
--- E:RegisterModule(RF:GetName())

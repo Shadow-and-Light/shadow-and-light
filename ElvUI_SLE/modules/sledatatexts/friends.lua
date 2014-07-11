@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 local LibQTip = LibStub('LibQTip-1.0')
 local ACD = LibStub("AceConfigDialog-3.0")
 local DT = E:GetModule('DataTexts')
@@ -218,7 +218,6 @@ local function Entry_OnMouseUp(frame, info, button)
 		if IsAltKeyDown() then
 			if i_type == "realid" then
 				local presenceID, presenceName, battleTag, isBattleTagPresence, toonName, toonID = BNGetFriendInfo(BNGetFriendIndex(presence_id))
-				--local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetFriendToonInfo(BNGetFriendIndex(presence_id), 1)
 				local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetToonInfo(toonID or 0)
 
 				InviteUnit(toon_name.."-"..realmName)
@@ -351,57 +350,49 @@ function LDB.OnEnter(self)
 			if numBNOnline > 0 then
 				local realid_table = {}
 				for i = 1, numBNOnline do
-					--local presenceID, givenName, surname = BNGetFriendInfo(i)
 					local presenceID, givenName, bTag, _, _, toonID, gameClient, isOnline, lastOnline, isAFK, isDND, broadcast, note, _, castTime = BNGetFriendInfo(i)
 					local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetToonInfo(toonID or 0)
 					local broadcastTime = ""
 					if castTime then
 						broadcastTime = string.format(BNET_BROADCAST_SENT_TIME, sletime_Conversion(castTime));
 					end
-					--for toonidx = 1, BNGetNumFriendToons(i) do
-						local fcolor
-						local status = ""
-						--local _, _, _, _, _, _, _, isOnline, lastOnline, isAFK, isDND, broadcast, note = BNGetFriendInfoByID(presenceID)
-						--local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetFriendToonInfo(i, toonidx)
-
-						if toonName then
-							if faction then
-								if faction == "Horde" then
-									fcolor = RED_FONT_COLOR_CODE
-								else
-									fcolor = "|cff0070dd"
-								end
+					
+					local fcolor
+					local status = ""
+					if toonName then
+						if faction then
+							if faction == "Horde" then
+								fcolor = RED_FONT_COLOR_CODE
+							else
+								fcolor = "|cff0070dd"
 							end
-
-							if isAFK then
-								status = AWAY_ICON
-							end
-
-							if isDND then
-								status = BUSY_ICON
-							end
-
-							if note and note ~= "" then note = "|cffff8800{"..note.."}|r" end
-							
-							table.insert(realid_table, {
-								GIVENNAME = givenName,
-								SURNAME = bTag or "",
-								LEVEL = level,
-								CLASS = class,
-								FCOLOR = fcolor,
-								STATUS = status,
-								BROADCAST_TEXT = broadcast or "",
-								BROADCAST_TIME = broadcastTime or "",
-								TOONNAME = toonName,
-								CLIENT = client,
-								ZONENAME = zoneName,
-								REALMNAME = realmName,
-								GAMETEXT = gameText,
-								NOTE = note,
-								PRESENCEID = presenceID
-								})
 						end
-					--end
+						if isAFK then
+							status = AWAY_ICON
+						end
+						if isDND then
+							status = BUSY_ICON
+						end
+						if note and note ~= "" then note = "|cffff8800{"..note.."}|r" end
+							
+						table.insert(realid_table, {
+							GIVENNAME = givenName,
+							SURNAME = bTag or "",
+							LEVEL = level,
+							CLASS = class,
+							FCOLOR = fcolor,
+							STATUS = status,
+							BROADCAST_TEXT = broadcast or "",
+							BROADCAST_TIME = broadcastTime or "",
+							TOONNAME = toonName,
+							CLIENT = client,
+							ZONENAME = zoneName,
+							REALMNAME = realmName,
+							GAMETEXT = gameText,
+							NOTE = note,
+							PRESENCEID = presenceID
+							})
+					end
 				end
 
 				if (E.db.sle.dt.friends["sortBN"] ~= "REALID") and (E.db.sle.dt.friends["sortBN"] ~= "revREALID") then
@@ -429,10 +420,8 @@ function LDB.OnEnter(self)
 						line = tooltip:SetCell(line, 5, player["ZONENAME"])
 						line = tooltip:SetCell(line, 6, player["FCOLOR"] .. player["REALMNAME"] .. "|r")
 					elseif player["CLIENT"] == "App" then
-						--if player["CLIENT"] == "App" then
 							line = tooltip:SetCell(line, 5, "|cff82c5ffDesktop Application|r")
 							line = tooltip:SetCell(line, 6, "|cff01b2f1Battle.net|r")
-						--end
 					else
 						line = tooltip:SetCell(line, 5, player["GAMETEXT"])
 						if player["CLIENT"] == "S2" then

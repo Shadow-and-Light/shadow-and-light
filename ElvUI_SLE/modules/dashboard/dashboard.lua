@@ -2,8 +2,7 @@
 Credits : Sinaris, Elv
 made for ElvUI under Sinaris permission. Big thanks :)
 ]]
-
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local E, L, V, P, G, _ = unpack(ElvUI);
 local DTP = E:GetModule('SLE_DTPanels')
 local DT = E:GetModule('DataTexts')
 local LSM = LibStub("LibSharedMedia-3.0")

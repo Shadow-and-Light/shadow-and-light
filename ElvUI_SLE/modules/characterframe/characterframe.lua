@@ -1,5 +1,4 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI);
--- local CFO = E:NewModule('CharacterFrameOptions', 'AceEvent-3.0');
 local CFO = E:GetModule('CharacterFrameOptions');
 local LSM = LibStub("LibSharedMedia-3.0")
 
@@ -611,5 +610,3 @@ function CFO:Initialize()
 
 	CFO:StartArmoryFrame()
 end
-
--- E:RegisterModule(CFO:GetName())
