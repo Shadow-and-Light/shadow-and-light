@@ -1,4 +1,5 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI);
+local CH = E:GetModule('Chat')
 local function configTable()
 
 E.Options.args.sle.args.options.args.general.args.chat = {
