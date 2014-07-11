@@ -8,7 +8,7 @@ local UIFrameFadeIn = UIFrameFadeIn
 local UIFrameFadeOut = UIFrameFadeOut
 
 --Main frame
-function RM:CreateFrame()
+local function CreateFrames()
 	mark_menu = CreateFrame("Frame", "Mark_Menu", E.UIParent)
 	mark_menu:Point("BOTTOMRIGHT", RightChatTab, "TOPRIGHT", 2, 3) --Default positon
 	mark_menu:SetFrameStrata('LOW');
@@ -29,7 +29,7 @@ function RM:CreateFrame()
 	mark_menu:Hide()
 end
 
-function RM:SetupButton(button, mark)
+local function SetupButton(button, mark)
 	button:CreateBackdrop()
 	button.backdrop:SetAllPoints()
 	button:SetAttribute("type", "macro")
@@ -42,15 +42,15 @@ function RM:SetupButton(button, mark)
 end
 
 --Buttons creation
-function RM:CreateButtons()
+local function CreateButtons()
 	if not mark_menu then return end
 	for i = 1, 8 do
-		RM:SetupButton(MarkB[i], 9 - i)
+		SetupButton(MarkB[i], 9 - i)
 	end
 end
 
 --Setting/updating buttons' size
-function RM:FrameButtonsSize()
+local function FrameButtonsSize()
 	if not mark_menu then return end
 	for i = 1, 8 do
 		MarkB[i]:Size(E.db.sle.marks.size)
@@ -58,7 +58,7 @@ function RM:FrameButtonsSize()
 end
 
 --Setting growth direction for buttons
-function RM:FrameButtonsGrowth()
+local function FrameButtonsGrowth()
 	if not mark_menu then return end
 	local db = E.db.sle.marks
 	local size = db.size
@@ -90,8 +90,27 @@ function RM:FrameButtonsGrowth()
 	end
 end
 
+local function Mouseover()
+	if not mark_menu then return end
+	local db = E.db.sle.marks
+	if db.mouseover then
+		mark_menu:SetScript("OnUpdate", function(self)
+			if MouseIsOver(self) then
+				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+			else
+				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+			end
+		end)
+	else
+		mark_menu:SetScript("OnUpdate", nil)
+		if mark_menu:IsShown() then
+			UIFrameFadeIn(mark_menu, 0.2, mark_menu:GetAlpha(), 1)
+		end
+	end
+end
+
 --Visibility/enable check
-function RM:UpdateVisibility()
+local function UpdateVisibility()
 	if not mark_menu then return end
 	local inInstance, instanceType = IsInInstance()
 	local db = E.db.sle.marks
@@ -129,20 +148,20 @@ function RM:UpdateVisibility()
 			MarkB[i]:Hide()
 		end
 	end
-	RM:Mouseover()
+	Mouseover()
 end
 
-function RM:Target()
+local function Target()
 	if not mark_menu then return end
 	local db = E.db.sle.marks
 	if db.target then
-		self:RegisterEvent("PLAYER_TARGET_CHANGED", "UpdateVisibility");
+		RM:RegisterEvent("PLAYER_TARGET_CHANGED", UpdateVisibility);
 	else
-		self:UnregisterEvent("PLAYER_TARGET_CHANGED");
+		RM:UnregisterEvent("PLAYER_TARGET_CHANGED");
 	end
 end
 
-function RM:Backdrop()
+local function Backdrop()
 	if not mark_menu then return end
 	if E.db.sle.marks.backdrop then
 		mark_menu.backdrop:Show()
@@ -151,40 +170,21 @@ function RM:Backdrop()
 	end
 end
 
-function RM:Mouseover()
-	if not mark_menu then return end
-	local db = E.db.sle.marks
-	if db.mouseover then
-		mark_menu:SetScript("OnUpdate", function(self)
-			if MouseIsOver(self) then
-				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-			else
-				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-			end
-		end)
-	else
-		mark_menu:SetScript("OnUpdate", nil)
-		if mark_menu:IsShown() then
-			UIFrameFadeIn(mark_menu, 0.2, mark_menu:GetAlpha(), 1)
-		end
-	end
-end
-
 function RM:Update()
 	if not mark_menu then return end
-	RM:FrameButtonsSize()
-	RM:FrameButtonsGrowth()
-	RM:Target()
-	RM:UpdateVisibility()
-	RM:Backdrop()
+	FrameButtonsSize()
+	FrameButtonsGrowth()
+	Target()
+	UpdateVisibility()
+	Backdrop()
 end
 
 function RM:Initialize()
 	if not E.private.sle.marks.marks then return end
-	RM:CreateFrame()
+	CreateFrames()
 	RM:Update()
-	RM:CreateButtons()
-	self:RegisterEvent("PLAYER_ENTERING_WORLD", "UpdateVisibility");
+	CreateButtons()
+	self:RegisterEvent("PLAYER_ENTERING_WORLD", UpdateVisibility);
 
 	E:CreateMover(mark_menu, "MarkMover", "RM", nil, nil, nil, "ALL,S&L,S&L MISC")
 end

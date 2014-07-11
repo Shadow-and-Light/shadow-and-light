@@ -11,7 +11,7 @@ _G["BINDING_NAME_CLICK StarFlareMarker:LeftButton"] = L["Star Flare"];
 
 local mainFlares, f1, f2, f3, f4, f5, f6, FlareB 
 
-function RF:CreateFrame()
+local function CreateFrames()
 	mainFlares = CreateFrame("Frame", "Main_Flares", E.UIParent)
 	mainFlares:Point("CENTER", E.UIParent, "CENTER", 0, 40);
 	mainFlares:SetFrameStrata('LOW');
@@ -29,7 +29,7 @@ function RF:CreateFrame()
 	FlareB = {f1,f2,f3,f4,f5,f6}
 end
 
-function RF:SetupButton(button, flare)
+local function SetupButton(button, flare)
 	if not mainFlares then return end
 	button:CreateBackdrop()
 	button.backdrop:SetAllPoints()
@@ -67,24 +67,24 @@ function RF:SetupButton(button, flare)
 	end
 end
 
-function RF:CreateButtons()
+local function CreateButtons()
 	if not mainFlares then return end
-	RF:SetupButton(f1, "/clearworldmarker 1\n/worldmarker 1")
-	RF:SetupButton(f2, "/clearworldmarker 2\n/worldmarker 2")
-	RF:SetupButton(f3, "/clearworldmarker 3\n/worldmarker 3")
-	RF:SetupButton(f4, "/clearworldmarker 4\n/worldmarker 4")
-	RF:SetupButton(f5, "/clearworldmarker 5\n/worldmarker 5")
-	RF:SetupButton(f6, "/clearworldmarker all")
+	SetupButton(f1, "/clearworldmarker 1\n/worldmarker 1")
+	SetupButton(f2, "/clearworldmarker 2\n/worldmarker 2")
+	SetupButton(f3, "/clearworldmarker 3\n/worldmarker 3")
+	SetupButton(f4, "/clearworldmarker 4\n/worldmarker 4")
+	SetupButton(f5, "/clearworldmarker 5\n/worldmarker 5")
+	SetupButton(f6, "/clearworldmarker all")
 end
 
-function RF:FrameButtonsSize()
+local function FrameButtonsSize()
 	if not mainFlares then return end
 	for i = 1, 6 do
 		FlareB[i]:Size(E.db.sle.flares.size)
 	end
 end
 
-function RF:FrameButtonsGrowth()
+local function FrameButtonsGrowth()
 	if not mainFlares then return end
 	local db = E.db.sle.flares
 	local size = db.size
@@ -116,7 +116,26 @@ function RF:FrameButtonsGrowth()
 	end
 end
 
-function RF:UpdateVisibility()
+local function Mouseover()
+	if not mainFlares then return end
+	local db = E.db.sle.flares
+	if db.mouseover then
+		mainFlares:SetScript("OnUpdate", function(self)
+			if MouseIsOver(self) then
+				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+			else
+				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+			end
+		end)
+	else
+		mainFlares:SetScript("OnUpdate", nil)
+		if mainFlares:IsShown() then
+			UIFrameFadeIn(mainFlares, 0.2, mainFlares:GetAlpha(), 1)
+		end
+	end
+end
+
+local function UpdateVisibility()
 	if not mainFlares then return end
 	local inInstance, instanceType = IsInInstance()
 	local db = E.db.sle.flares
@@ -143,10 +162,10 @@ function RF:UpdateVisibility()
 			FlareB[i]:Hide()
 		end
 	end
-	RF:Mouseover()
+	Mouseover()
 end
 
-function RF:Backdrop()
+local function Backdrop()
 	if not mainFlares then return end
 	if E.db.sle.flares.backdrop then
 		mainFlares.backdrop:Show()
@@ -155,39 +174,20 @@ function RF:Backdrop()
 	end
 end
 
-function RF:Mouseover()
-	if not mainFlares then return end
-	local db = E.db.sle.flares
-	if db.mouseover then
-		mainFlares:SetScript("OnUpdate", function(self)
-			if MouseIsOver(self) then
-				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-			else
-				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-			end
-		end)
-	else
-		mainFlares:SetScript("OnUpdate", nil)
-		if mainFlares:IsShown() then
-			UIFrameFadeIn(mainFlares, 0.2, mainFlares:GetAlpha(), 1)
-		end
-	end
-end
-
 function RF:Update()
 	if not mainFlares then return end
-	RF:FrameButtonsSize()
-	RF:FrameButtonsGrowth()
-	RF:UpdateVisibility()
-	RF:Backdrop()
+	FrameButtonsSize()
+	FrameButtonsGrowth()
+	UpdateVisibility()
+	Backdrop()
 end
 
 function RF:Initialize()
 	if not E.private.sle.marks.flares then return end
-	RF:CreateFrame()
+	CreateFrames()
 	RF:Update()
-	RF:CreateButtons()
-	self:RegisterEvent("PLAYER_ENTERING_WORLD", "UpdateVisibility");
+	CreateButtons()
+	self:RegisterEvent("PLAYER_ENTERING_WORLD", UpdateVisibility);
    
 	E:CreateMover(mainFlares, "FlareMover", "RF", nil, nil, nil, "ALL,S&L,S&L MISC")
 end
