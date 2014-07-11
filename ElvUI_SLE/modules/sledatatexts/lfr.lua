@@ -8,7 +8,7 @@ local AddDoubleLine = AddDoubleLine
 local GetMapNameByID = GetMapNameByID
 
 --For 4 boss raid
-function DT:FourKill(id)
+local function FourKill(id)
 	local killNum = 0
 	for i =1,4 do
 		_, _, isKilled = GetLFGDungeonEncounterInfo(id, i);
@@ -23,7 +23,7 @@ function DT:FourKill(id)
 	end
 end
 
-function DT:FourShift(id)
+local function FourShift(id)
 	for i =1,4 do --1st part
 		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id, i);
 		if (isKilled) then
@@ -37,7 +37,7 @@ function DT:FourShift(id)
 end
 
 --For 6 boss raid
-function DT:SixKill(id1, id2)
+local function SixKill(id1, id2)
 	local killNum = 0
 	for i =1,3 do --1st part
 		_, _, isKilled = GetLFGDungeonEncounterInfo(id1, i);
@@ -58,7 +58,7 @@ function DT:SixKill(id1, id2)
 	end
 end
 
-function DT:SixShift(id1, id2)
+local function SixShift(id1, id2)
 	for i =1,3 do --1st part
 		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id1, i);
 		if (isKilled) then
@@ -82,7 +82,7 @@ function DT:SixShift(id1, id2)
 end
 
 --For 8 boss raid
-function DT:EightKill(id1, id2)
+local function EightKill(id1, id2)
 	local killNum = 0
 	for i =1,4 do --1st part
 		_, _, isKilled = GetLFGDungeonEncounterInfo(id1, i);
@@ -103,7 +103,7 @@ function DT:EightKill(id1, id2)
 	end
 end
 
-function DT:EightShift(id1, id2)
+local function EightShift(id1, id2)
 	for i =1,4 do --1st part
 		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id1, i);
 		if (isKilled) then
@@ -127,7 +127,7 @@ function DT:EightShift(id1, id2)
 end
 
 --For 12 boss raid
-function DT:TwelveKill(id1, id2, id3, id4)
+local function TwelveKill(id1, id2, id3, id4)
 	local killNum = 0
 	for i =1,3 do --1st part
 		_, _, isKilled = GetLFGDungeonEncounterInfo(id1, i);
@@ -160,7 +160,7 @@ function DT:TwelveKill(id1, id2, id3, id4)
 	end
 end
 
-function DT:TwelveShift(id1, id2, id3, id4)
+local function TwelveShift(id1, id2, id3, id4)
 	for i =1,3 do --1st part
 		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id1, i);
 		if (isKilled) then
@@ -204,7 +204,7 @@ function DT:TwelveShift(id1, id2, id3, id4)
 end
 
 --For 14 boss raid
-function DT:FourteenKill(id1, id2, id3, id4)
+local function FourteenKill(id1, id2, id3, id4)
 	local killNum = 0
 	for i =1,4 do --1st part
 		_, _, isKilled = GetLFGDungeonEncounterInfo(id1, i);
@@ -237,7 +237,7 @@ function DT:FourteenKill(id1, id2, id3, id4)
 	end
 end
 
-function DT:FourteenShift(id1, id2, id3, id4)
+local function FourteenShift(id1, id2, id3, id4)
 	for i =1,4 do --1st part
 		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id1, i);
 		if (isKilled) then
@@ -280,51 +280,51 @@ function DT:FourteenShift(id1, id2, id3, id4)
 	end
 end
 
-function DT:DragonSoul(id1, id2)
+local function DragonSoul(id1, id2)
 	if IsShiftKeyDown() then
-		DT:EightShift(id1, id2)
+		EightShift(id1, id2)
 	else
-		DT:EightKill(id1, id2)
+		EightKill(id1, id2)
 	end
 end
 
-function DT:Mogushan(id1, id2)
+local function Mogushan(id1, id2)
 	if IsShiftKeyDown() then
-		DT:SixShift(id1, id2)
+		SixShift(id1, id2)
 	else
-		DT:SixKill(id1, id2)
+		SixKill(id1, id2)
 	end
 end
 
-function DT:HoF(id1, id2)
+local function HoF(id1, id2)
 	if IsShiftKeyDown() then
-		DT:SixShift(id1, id2)
+		SixShift(id1, id2)
 	else
-		DT:SixKill(id1, id2)
+		SixKill(id1, id2)
 	end
 end
 
-function DT:ToES(id)
+local function ToES(id)
 	if IsShiftKeyDown() then
-		DT:FourShift(id)
+		FourShift(id)
 	else
-		DT:FourKill(id)
+		FourKill(id)
 	end
 end
 
-function DT:ToT(id1, id2, id3, id4)
+local function ToT(id1, id2, id3, id4)
 	if IsShiftKeyDown() then
-		DT:TwelveShift(id1, id2, id3, id4)
+		TwelveShift(id1, id2, id3, id4)
 	else
-		DT:TwelveKill(id1, id2, id3, id4)
+		TwelveKill(id1, id2, id3, id4)
 	end
 end
 
-function DT:SoO(id1, id2, id3, id4)
+local function SoO(id1, id2, id3, id4)
 	if IsShiftKeyDown() then
-		DT:FourteenShift(id1, id2, id3, id4)
+		FourteenShift(id1, id2, id3, id4)
 	else
-		DT:FourteenKill(id1, id2, id3, id4)
+		FourteenKill(id1, id2, id3, id4)
 	end
 end
 
@@ -336,7 +336,7 @@ function DT:LFRShow()
 	if E.db.sle.lfrshow.ds then
 		DT.tooltip:AddLine(" "..GetMapNameByID(824))
 		if lvl == 85 and ilvl >= 372 then
-			DT:DragonSoul(416, 417)
+			DragonSoul(416, 417)
 		else
 			DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
 		end
@@ -345,7 +345,7 @@ function DT:LFRShow()
 		if E.db.sle.lfrshow.mv then
 		DT.tooltip:AddLine(" "..GetMapNameByID(896))
 		if lvl == 90 and ilvl >= 460 then
-			DT:Mogushan(527, 528)
+			Mogushan(527, 528)
 		else
 			DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
 		end
@@ -355,7 +355,7 @@ function DT:LFRShow()
 	if E.db.sle.lfrshow.hof then
 			DT.tooltip:AddLine(" "..GetMapNameByID(897))
 		if lvl == 90 and ilvl >= 470 then
-			DT:HoF(529, 530)
+			HoF(529, 530)
 		else
 			DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
 		end
@@ -365,7 +365,7 @@ function DT:LFRShow()
 	if E.db.sle.lfrshow.toes then
 		DT.tooltip:AddLine(" "..GetMapNameByID(886))
 		if lvl == 90 and ilvl >= 470 then
-			DT:ToES(526)
+			ToES(526)
 		else
 			DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
 		end
@@ -375,7 +375,7 @@ function DT:LFRShow()
 	if E.db.sle.lfrshow.tot then
 		DT.tooltip:AddLine(" "..GetMapNameByID(930))
 		if lvl == 90 and ilvl >= 480 then
-			DT:ToT(610, 611, 612, 613)
+			ToT(610, 611, 612, 613)
 		else
 			DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
 		end
@@ -385,7 +385,7 @@ function DT:LFRShow()
 	if E.db.sle.lfrshow.soo then
 		DT.tooltip:AddLine(" "..GetMapNameByID(953))
 		if lvl == 90 and ilvl >= 496 then
-			DT:SoO(716, 717, 724, 725)
+			SoO(716, 717, 724, 725)
 		else
 			DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
 		end
@@ -395,7 +395,7 @@ function DT:LFRShow()
 	if E.db.sle.lfrshow.soof then
 		DT.tooltip:AddLine(" "..FLEX_RAID.." "..GetMapNameByID(953))
 		if lvl == 90 then
-			DT:SoO(726, 728, 729, 730)
+			SoO(726, 728, 729, 730)
 		else
 			DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
 		end
