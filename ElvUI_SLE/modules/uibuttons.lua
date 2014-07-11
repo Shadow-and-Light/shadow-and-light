@@ -22,17 +22,30 @@ Bbutton,
 Abutton,
 }
 
-function UB:CreateFrame()
+local function Mouseover()
+	local self = UIBFrame
+	if E.db.sle.uibuttons.mouse then
+		if (MouseIsOver(self)) then
+			UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+		else
+			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+		end
+	else
+		UIBFrame:SetAlpha(1)
+	end
+end
+
+local function CreateHolder()
 	UIBFrame:SetFrameLevel(5);
 	UIBFrame:SetFrameStrata('BACKGROUND');
 	UIBFrame:Point("LEFT", E.UIParent, "LEFT", -2, 0);
 	
 	UIBFrame:SetScript("OnUpdate", function(self,event,...)
-		UB:Mouseover()
+		Mouseover()
 	end)
 end
 
-function UB:Create(button, symbol, text, name, desc)
+local function CreateB(button, symbol, text, name, desc)
 	button:CreateBackdrop()
 	local button_text = button:CreateFontString(nil, 'OVERLAY')
 	button_text:SetFont(E["media"].normFont, 10)
@@ -73,32 +86,18 @@ function UB:Create(button, symbol, text, name, desc)
 	end)
 end
 
-function UB:CreateButtons()
-	UB:Create(Cbutton, "C", "/ec", L["ElvUI Config"], L["Click to toggle config window"]) --Config
-	UB:Create(Rbutton, "R", "/rl", L["Reload UI"], L["Click to reload your interface"]) --Reload
-	UB:Create(Mbutton, "M", "/moveui", L["Move UI"], L["Click to unlock moving ElvUI elements"]) --Move UI
-	UB:Create(Bbutton, "B", nil, L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod (DXE, DBM or Bigwigs) you have enabled."])--Boss Mod
-	UB:Create(Abutton, "A", nil, L["AddOns Manager"], L["Click to toggle the AddOn Manager frame (stAddOnManager, Ampere or ACP) you have enabled."])--Addon Manager
+local function CreateButtons()
+	CreateB(Cbutton, "C", "/ec", L["ElvUI Config"], L["Click to toggle config window"]) --Config
+	CreateB(Rbutton, "R", "/rl", L["Reload UI"], L["Click to reload your interface"]) --Reload
+	CreateB(Mbutton, "M", "/moveui", L["Move UI"], L["Click to unlock moving ElvUI elements"]) --Move UI
+	CreateB(Bbutton, "B", nil, L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod (DXE, DBM or Bigwigs) you have enabled."])--Boss Mod
+	CreateB(Abutton, "A", nil, L["AddOns Manager"], L["Click to toggle the AddOn Manager frame (stAddOnManager, Ampere or ACP) you have enabled."])--Addon Manager
 	if Fbutton then
-		UB:Create(Fbutton, "F", "/ifilger", "iFilger", L["Click to toggle iFilger's config UI"])
+		CreateB(Fbutton, "F", "/ifilger", "iFilger", L["Click to toggle iFilger's config UI"])
 	end
 end
 
-function UB:FrameSize()
-	local db = E.db.sle.uibuttons
-	UB:MoverSize()
-	
-	for i = 1, 5 do
-		ButtonTable[i]:Size(db.size)
-	end
-	if Fbutton then
-		Fbutton:Size(db.size)
-	end
-	
-	UB:Positioning()
-end	
-
-function UB:Positioning()
+local function Positioning()
 	local db = E.db.sle.uibuttons
 	for i = 1, 5 do
 		ButtonTable[i]:ClearAllPoints()
@@ -128,7 +127,7 @@ function UB:Positioning()
 	end
 end
 
-function UB:MoverSize()
+local function MoverSize()
 	local db = E.db.sle.uibuttons
 	if db.position == "uib_vert" then
 		UIBFrame:SetWidth(db.size + (E.PixelMode and 2 or 4))
@@ -139,6 +138,20 @@ function UB:MoverSize()
 	end
 end
 
+local function FrameSize()
+	local db = E.db.sle.uibuttons
+	MoverSize()
+	
+	for i = 1, 5 do
+		ButtonTable[i]:Size(db.size)
+	end
+	if Fbutton then
+		Fbutton:Size(db.size)
+	end
+	
+	Positioning()
+end	
+
 function UB:Start()
 	if E.db.sle.uibuttons.enable then
 		UIBFrame:Show()
@@ -147,32 +160,19 @@ function UB:Start()
 	end
 end
 
-function UB:Mouseover()
-	local self = UIBFrame
-	if E.db.sle.uibuttons.mouse then
-		if (MouseIsOver(self)) then
-			UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-		else
-			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-		end
-	else
-		UIBFrame:SetAlpha(1)
-	end
-end
-
 function UB:UpdateAll()
-	UB:FrameSize()
+	FrameSize()
 	UB:Start()
 end
 
 function UB:Initialize()
-	UB:CreateFrame()
-	UB:FrameSize()
-	UB:CreateButtons()
+	CreateHolder()
+	FrameSize()
+	CreateButtons()
 	UB:Start()
 	
 	E.FrameLocks['UIBFrame'] = true
 	
 	E:CreateMover(UIBFrame, "UIBFrameMover", L["UI Buttons"], nil, nil, nil, "ALL,S&L,S&L MISC")
-	UB:MoverSize()
+	MoverSize()
 end

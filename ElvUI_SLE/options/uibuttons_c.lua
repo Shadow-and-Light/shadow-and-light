@@ -43,7 +43,7 @@ E.Options.args.sle.args.options.args.general.args.uibuttons = {
 			min = 12, max = 25, step = 1,
 			disabled = function() return not E.db.sle.uibuttons.enable end,
 			get = function(info) return E.db.sle.uibuttons.size end,
-			set = function(info, value) E.db.sle.uibuttons.size = value; UB:FrameSize() end,
+			set = function(info, value) E.db.sle.uibuttons.size = value; UB:UpdateAll() end,
 		},
 		spacing = {
 			order = 7,
@@ -53,7 +53,7 @@ E.Options.args.sle.args.options.args.general.args.uibuttons = {
 			min = 1, max = 10, step = 1,
 			disabled = function() return not E.db.sle.uibuttons.enable end,
 			get = function(info) return E.db.sle.uibuttons.spacing end,
-			set = function(info, value) E.db.sle.uibuttons.spacing = value; UB:Positioning(); UB:FrameSize(); UB:MoverSize() end,
+			set = function(info, value) E.db.sle.uibuttons.spacing = value; UB:UpdateAll() end,
 		},
 		mouse = {
 			order = 8,
@@ -75,7 +75,7 @@ E.Options.args.sle.args.options.args.general.args.uibuttons = {
 			},
 			disabled = function() return not E.db.sle.uibuttons.enable end,
 			get = function(info) return E.db.sle.uibuttons.position end,
-			set = function(info, value) E.db.sle.uibuttons.position = value; UB:Positioning(); UB:MoverSize() end,
+			set = function(info, value) E.db.sle.uibuttons.position = value; UB:UpdateAll() end,
 		},
 	},
 }
