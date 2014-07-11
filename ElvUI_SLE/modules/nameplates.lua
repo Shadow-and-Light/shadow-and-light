@@ -79,32 +79,32 @@ hooksecurefunc(NP, 'GetThreatReaction', function(self, frame)
 	end
 end)
 
-function NP:AddToRoster(unitId)
+local function AddToRoster(unitId)
 	local unitName = UnitName(unitId)
 	if unitName then
 		self.GroupMembers[unitName] = unitId
 	end
 end
 
-function NP:UpdateRoster()
+local function UpdateRoster()
 	twipe(self.GroupMembers)
 
 	local groupSize = IsInRaid() and GetNumGroupMembers() or IsInGroup() and GetNumSubgroupMembers() or 0
 	local groupType = IsInRaid() and "raid" or IsInGroup() and "party" or "solo"
 
 	for index = 1, groupSize do
-		self:AddToRoster(groupType..index)
+		AddToRoster(groupType..index)
 	end
 	
 	if groupType == 'party' then
-		self:AddToRoster('player')
+		AddToRoster('player')
 	end
 end
 
-function NP:StartRosterUpdate()
+local function StartRosterUpdate()
 	if not rosterTimer or NP:TimeLeft(rosterTimer) == 0 then
-		rosterTimer = NP:ScheduleTimer('UpdateRoster', 1)
+		rosterTimer = NP:ScheduleTimer(UpdateRoster, 1)
 	end
 end
 
-NP:RegisterEvent("GROUP_ROSTER_UPDATE", "StartRosterUpdate")
+NP:RegisterEvent("GROUP_ROSTER_UPDATE", StartRosterUpdate)
