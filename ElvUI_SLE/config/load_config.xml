@@ -1,4 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">	
-	<Script file="profile.lua"/>
-	<Script file="sle_private.lua"/>
-</Ui>
