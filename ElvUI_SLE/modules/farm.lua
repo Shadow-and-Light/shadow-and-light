@@ -11,9 +11,8 @@ local size
 local Zcheck = false
 local GetSubZoneText = GetSubZoneText
 local InCombatLockdown = InCombatLockdown
-local GetItemCount = GetItemCount
+local GetItemCount, GetItemInfo = GetItemCount, GetItemInfo
 local Point = Point
-local GetItemInfo = GetItemInfo
 
 
 FseedButtons = {}
@@ -137,7 +136,7 @@ local quests = {
 
 local buttoncounts = {}
 
-function F:CanSeed()
+local function CanSeed()
 	local subzone = GetSubZoneText()
 	for _, zone in ipairs(farmzones) do
 		if (zone == subzone) then
@@ -147,13 +146,13 @@ function F:CanSeed()
 	return false
 end
 
-function F:OnFarm()
+local function OnFarm()
 	return GetSubZoneText() == farmzones[1]
 end
 
-function F:InventoryUpdate(event)
+local function InventoryUpdate(event)
 	if InCombatLockdown() then
-		F:RegisterEvent("PLAYER_REGEN_ENABLED", "InventoryUpdate")	
+		F:RegisterEvent("PLAYER_REGEN_ENABLED", InventoryUpdate)	
 		return
 	else
 		F:UnregisterEvent("PLAYER_REGEN_ENABLED")
@@ -216,7 +215,7 @@ function F:InventoryUpdate(event)
 	end
 end
 
-function F:UpdateBarLayout(bar, anchor, buttons)
+local function UpdateBarLayout(bar, anchor, buttons)
 	local count = 0
 	size = E.db.sle.farm.size
 	bar:ClearAllPoints()
@@ -224,7 +223,7 @@ function F:UpdateBarLayout(bar, anchor, buttons)
 	
 	for i, button in ipairs(buttons) do
 		button:ClearAllPoints()
-		if not button.items then F:InventoryUpdate() end
+		if not button.items then InventoryUpdate() end
 		if not E.db.sle.farm.active or button.items > 0 then
 			button:Point("TOPLEFT", bar, "TOPLEFT", (count * (size+(E.PixelMode and 2 or 1)))+(E.PixelMode and 1 or 0), -1)
 			button:Show()
@@ -241,7 +240,7 @@ function F:UpdateBarLayout(bar, anchor, buttons)
 	return count
 end
 
-function F:QuestItems(itemID)
+local function QuestItems(itemID)
 	for i = 1, GetNumQuestLogEntries() do
 		for qid, sid in pairs(quests) do
 			if qid == select(9,GetQuestLogTitle(i)) then
@@ -255,29 +254,29 @@ function F:QuestItems(itemID)
 	return false
 end
 
-function F:UpdateButtonCooldown(button)
+local function UpdateButtonCooldown(button)
 	if button.cooldown then
 		button.cooldown:SetCooldown(GetItemCooldown(button.itemId))
 	end
 end
 
-function F:UpdateCooldown()
-	if not F:CanSeed() then return end
+local function UpdateCooldown()
+	if not CanSeed() then return end
 
 	for i = 1, 5 do
 		for _, button in ipairs(FseedButtons[i]) do
-			F:UpdateButtonCooldown(button)
+			UpdateButtonCooldown(button)
 		end
 	end
 	for _, button in ipairs(FtoolButtons) do
-		F:UpdateButtonCooldown(button)
+		UpdateButtonCooldown(button)
 	end
 	for _, button in ipairs(FportalButtons) do
-		F:UpdateButtonCooldown(button)
+		UpdateButtonCooldown(button)
 	end
 end
 
-function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
+local function UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 	local count = 0
 	local db = E.db.sle.farm
 	size = db.size
@@ -299,7 +298,7 @@ function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 				seedBar:Point("TOPLEFT", _G[("FarmSeedBar%d"):format(category-1)], "BOTTOMLEFT", 0, (E.PixelMode and 0 or 1))
 			end
 		else
-			F:UpdateSeedBarLayout(seedBar, anchor, buttons, category-1)
+			UpdateSeedBarLayout(seedBar, anchor, buttons, category-1)
 		end
 	end
 	
@@ -323,12 +322,12 @@ function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 			button:Hide()
 		end
 		if E.db.sle.farm.quest then
-			if not F:CanSeed() then
+			if not CanSeed() then
 				seedBar:Width(size+2)
 				seedBar:Height(size+2)
 				return count 
 			end
-			if F:QuestItems(id) then
+			if QuestItems(id) then
 				ActionButton_ShowOverlayGlow(button)
 			else
 				ActionButton_HideOverlayGlow(button)
@@ -344,11 +343,11 @@ function F:UpdateSeedBarLayout(seedBar, anchor, buttons, category)
 	return count
 end
 
-function F:UpdateBar(bar, layoutfunc, zonecheck, anchor, buttons, category)
+local function UpdateBar(bar, layoutfunc, zonecheck, anchor, buttons, category)
 	bar:Show()
 	
-	local count = layoutfunc(self, bar, anchor, buttons, category)
-	if (E.private.sle.farm.enable and count > 0 and zonecheck(self) and not InCombatLockdown()) then
+	local count = layoutfunc(bar, anchor, buttons, category)
+	if (E.private.sle.farm.enable and count > 0 and zonecheck() and not InCombatLockdown()) then
 		bar:Show()
 	else
 		bar:Hide()
@@ -356,18 +355,18 @@ function F:UpdateBar(bar, layoutfunc, zonecheck, anchor, buttons, category)
 end
 
 function F:BAG_UPDATE_COOLDOWN()
-	F:InventoryUpdate()
-	F:UpdateCooldown()
+	InventoryUpdate()
+	UpdateCooldown()
 end
 
-function F:Zone(event)
-	if F:CanSeed() then
-		F:RegisterEvent("BAG_UPDATE", "InventoryUpdate")
+local function Zone(event)
+	if CanSeed() then
+		F:RegisterEvent("BAG_UPDATE", InventoryUpdate)
 		F:RegisterEvent("BAG_UPDATE_COOLDOWN")
 		F:RegisterEvent("UNIT_QUEST_LOG_CHANGED", "UpdateLayout")
-		F:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", "InventoryUpdate")
+		F:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", InventoryUpdate)
 
-		F:InventoryUpdate(event)
+		InventoryUpdate(event)
 		F:UpdateLayout()
 		Zcheck = true
 	else
@@ -382,7 +381,18 @@ function F:Zone(event)
 	end
 end
 
-function F:UpdateLayout(event, unit)
+local function ResizeFrames()
+	local seedor = E.db.sle.farm.seedor
+	if seedor == "TOP" or seedor == "BOTTOM" then
+		SeedAnchor:Size((size+(E.PixelMode and 2 or 1))*5-(E.PixelMode and 0 or 1), (size+(E.PixelMode and 2 or 1))*10-(E.PixelMode and 0 or 1))
+	elseif seedor == "LEFT" or seedor == "RIGHT" then
+		SeedAnchor:Size((size+(E.PixelMode and 2 or 1))*10-(E.PixelMode and 0 or 1), (size+(E.PixelMode and 2 or 1))*5-(E.PixelMode and 0 or 1))
+	end
+	ToolAnchor:Size((size+(E.PixelMode and 2 or 1))*5-(E.PixelMode and 0 or 1), size+(E.PixelMode and 2 or 1)-(E.PixelMode and 0 or 1))
+	PortalAnchor:Size((size+(E.PixelMode and 2 or 1))*5-(E.PixelMode and 0 or 1), size+(E.PixelMode and 2 or 1)-(E.PixelMode and 0 or 1))
+end
+
+function F:UpdateLayout(event, unit) --don't touch
 	if not SeedAnchor then return end
 	--For updating borders after quest was complited. for some reason events fires before quest disappeares from log
 	if event == "UNIT_QUEST_LOG_CHANGED" then
@@ -398,12 +408,12 @@ function F:UpdateLayout(event, unit)
 	else
 		F:UnregisterEvent("PLAYER_REGEN_ENABLED")
  	end
-	F:UpdateBar(_G["FarmToolBar"], F.UpdateBarLayout, F.OnFarm, ToolAnchor, FtoolButtons)
-	F:UpdateBar(_G["FarmPortalBar"], F.UpdateBarLayout, F.OnFarm, PortalAnchor, FportalButtons)
+	UpdateBar(_G["FarmToolBar"], UpdateBarLayout, OnFarm, ToolAnchor, FtoolButtons)
+	UpdateBar(_G["FarmPortalBar"], UpdateBarLayout, OnFarm, PortalAnchor, FportalButtons)
 	for i=1, 5 do
-		F:UpdateBar(_G[("FarmSeedBar%d"):format(i)], F.UpdateSeedBarLayout, F.CanSeed, SeedAnchor, FseedButtons[i], i)
+		UpdateBar(_G[("FarmSeedBar%d"):format(i)], UpdateSeedBarLayout, CanSeed, SeedAnchor, FseedButtons[i], i)
 	end
-	F:ResizeFrames()
+	ResizeFrames()
 end
 
 local function onClick(self, mousebutton)
@@ -415,7 +425,7 @@ local function onClick(self, mousebutton)
 		self:SetAttribute("type", self.buttonType)
 		self:SetAttribute(self.buttonType, self.sortname)
 		if self.id and self.id ~= 2 and self.id ~= 4 and E.db.sle.farm.autotarget and UnitName("target") ~= L["Tilled Soil"] then
-			F:AutoTarget(self)
+			AutoTarget(self)
 		end
 		if self.cooldown then 
 			self.cooldown:SetCooldown(GetItemCooldown(self.itemId))
@@ -429,7 +439,7 @@ local function onClick(self, mousebutton)
 			DeleteCursorItem()
 		end			
 	end
-	F:InventoryUpdate()
+	InventoryUpdate()
 end
 
 local function onEnter(self)
@@ -446,7 +456,7 @@ local function onLeave()
 	GameTooltip:Hide() 
 end
 
-function F:AutoTarget(button)
+local function AutoTarget(button)
 	local container, slot = SLE:BagSearch(button.itemId)
 	if container and slot then
 		button:SetAttribute("type", "macro")
@@ -454,7 +464,7 @@ function F:AutoTarget(button)
 	end
 end
 
-function F:CreateFarmButton(index, owner, buttonType, name, texture, allowDrop, id)
+local function CreateFarmButton(index, owner, buttonType, name, texture, allowDrop, id)
 	size = E.db.sle.farm.size
 	local button = CreateFrame("Button", ("FarmButton%d"):format(index), owner, "SecureActionButtonTemplate")
 	button:Size(size, size)
@@ -488,24 +498,13 @@ function F:CreateFarmButton(index, owner, buttonType, name, texture, allowDrop, 
 	return button
 end				
 
-function F:ResizeFrames()
-	local seedor = E.db.sle.farm.seedor
-	if seedor == "TOP" or seedor == "BOTTOM" then
-		SeedAnchor:Size((size+(E.PixelMode and 2 or 1))*5-(E.PixelMode and 0 or 1), (size+(E.PixelMode and 2 or 1))*10-(E.PixelMode and 0 or 1))
-	elseif seedor == "LEFT" or seedor == "RIGHT" then
-		SeedAnchor:Size((size+(E.PixelMode and 2 or 1))*10-(E.PixelMode and 0 or 1), (size+(E.PixelMode and 2 or 1))*5-(E.PixelMode and 0 or 1))
-	end
-	ToolAnchor:Size((size+(E.PixelMode and 2 or 1))*5-(E.PixelMode and 0 or 1), size+(E.PixelMode and 2 or 1)-(E.PixelMode and 0 or 1))
-	PortalAnchor:Size((size+(E.PixelMode and 2 or 1))*5-(E.PixelMode and 0 or 1), size+(E.PixelMode and 2 or 1)-(E.PixelMode and 0 or 1))
-end
-
-function F:FramesPosition()
+local function FramesPosition()
 	SeedAnchor:Point("LEFT", E.UIParent, "LEFT", 24, -160)
 	ToolAnchor:Point("BOTTOMLEFT", SeedAnchor, "TOPLEFT", 0, E.PixelMode and 1 or 5)
 	PortalAnchor:Point("BOTTOMLEFT", ToolAnchor, "TOPLEFT", 0, E.PixelMode and 1 or 5)
 end				
 
-function F:CreateFrames()
+local function CreateFrames()
 	size = E.db.sle.farm.size
 	SeedAnchor = CreateFrame("Frame", "SeedAnchor", E.UIParent)
 	SeedAnchor:SetFrameStrata("BACKGROUND")
@@ -516,8 +515,8 @@ function F:CreateFrames()
 	PortalAnchor = CreateFrame("Frame", "PortalAnchor", E.UIParent)
 	PortalAnchor:SetFrameStrata("BACKGROUND")
 
-	F:ResizeFrames()
-	F:FramesPosition()
+	ResizeFrames()
+	FramesPosition()
 	
 	E:CreateMover(SeedAnchor, "FarmSeedMover", L["Farm Seed Bars"], nil, nil, nil, "ALL,S&L,S&L MISC")
 	E:CreateMover(ToolAnchor, "FarmToolMover", L["Farm Tool Bar"], nil, nil, nil, "ALL,S&L,S&L MISC")
@@ -545,7 +544,7 @@ function F:CreateFrames()
 				
 		for id, v in pairs(seeds) do
 			if v[1] == i then
-				tinsert(FseedButtons[i], F:CreateFarmButton(id, seedBar, "item", v[2], v[11], E.private.sle.farm.seedtrash, i))
+				tinsert(FseedButtons[i], CreateFarmButton(id, seedBar, "item", v[2], v[11], E.private.sle.farm.seedtrash, i))
 			end
 			tsort(FseedButtons[i], function(a, b) return a.sortname < b.sortname end)
 		end
@@ -555,7 +554,7 @@ function F:CreateFrames()
 	toolBar:SetFrameStrata("BACKGROUND")
 	toolBar:SetPoint("CENTER", ToolAnchor, "CENTER", 0, 0)
 	for id, v in pairs(tools) do
-		tinsert(FtoolButtons, F:CreateFarmButton(id, toolBar, "item", v[1], v[10], true, nil))
+		tinsert(FtoolButtons, CreateFarmButton(id, toolBar, "item", v[1], v[10], true, nil))
 	end
 	
 	local portalBar = CreateFrame("Frame", "FarmPortalBar", UIParent)
@@ -564,19 +563,19 @@ function F:CreateFrames()
 	local playerFaction = UnitFactionGroup('player')
 	for id, v in pairs(portals) do
 		if v[1] == playerFaction then
-			tinsert(FportalButtons, F:CreateFarmButton(id, portalBar, "item", v[2], v[11], false, nil))
+			tinsert(FportalButtons, CreateFarmButton(id, portalBar, "item", v[2], v[11], false, nil))
 		end
 	end
 
-	F:RegisterEvent("ZONE_CHANGED", "Zone")
-	F:RegisterEvent("ZONE_CHANGED_NEW_AREA", "Zone")
-	F:RegisterEvent("ZONE_CHANGED_INDOORS", "Zone")
-	F:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", "InventoryUpdate")
+	F:RegisterEvent("ZONE_CHANGED", Zone)
+	F:RegisterEvent("ZONE_CHANGED_NEW_AREA", Zone)
+	F:RegisterEvent("ZONE_CHANGED_INDOORS", Zone)
+	F:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", InventoryUpdate)
 		
-	E:Delay(10, F.Zone)
+	E:Delay(10, Zone)
 end
 
-function F:StartFarmBarLoader()
+local function StartFarmBarLoader()
 	F:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
 	local noItem = false
@@ -591,14 +590,14 @@ function F:StartFarmBarLoader()
 		if select(2, GetItemInfo(id)) == nil then noItem = true end
 	end
 	if noItem then
-		E:Delay(5, F.StartFarmBarLoader)
+		E:Delay(5, StartFarmBarLoader)
 	else
-		F.CreateFrames()
+		CreateFrames()
 	end
 end
 
 function F:Initialize()
 	if not E.private.sle.farm.enable then return end
 	
-	self:RegisterEvent("PLAYER_ENTERING_WORLD", "StartFarmBarLoader")
+	self:RegisterEvent("PLAYER_ENTERING_WORLD", StartFarmBarLoader)
 end
