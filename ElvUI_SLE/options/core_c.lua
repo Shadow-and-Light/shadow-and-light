@@ -1,5 +1,7 @@
 ﻿local E, L, V, P, G =  unpack(ElvUI); 
 local SLE = E:GetModule('SLE')
+local LT = E:GetModule('SLE_Loot')
+
 local function configTable()
 
 E.Options.args.ElvUI_Header = {
@@ -101,7 +103,7 @@ Darth Predator and Repooc.]],
 									name = L["Auto hide"],
 									desc = L["Automaticaly hide Blizzard loot histroy frame when leaving the instance."],
 									get = function(info) return E.db.sle.lootwin end,
-									set = function(info, value) E.db.sle.lootwin = value; SLE:LootShow() end
+									set = function(info, value) E.db.sle.lootwin = value; LT:LootShow() end
 								},
 								alpha = {
 									order = 4,
@@ -110,7 +112,7 @@ Darth Predator and Repooc.]],
 									desc = L["Sets alpha of loot histroy frame."],
 									min = 0.2, max = 1, step = 0.1,
 									get = function(info) return E.db.sle.lootalpha end,
-									set = function(info, value) E.db.sle.lootalpha = value; SLE:LootShow() end,
+									set = function(info, value) E.db.sle.lootalpha = value; LT:LootShow() end,
 								},
 							},
 						},

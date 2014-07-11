@@ -90,7 +90,7 @@ local function List()
 	end
 end
 
-function LT:Announce()
+local function Announce()
 	if not IsInGroup() then return end -- not in group, exit.
 	local m = 0
 	local q = E.db.sle.loot.quality == "EPIC" and 4 or E.db.sle.loot.quality == "RARE" and 3 or E.db.sle.loot.quality == "UNCOMMON" and 2
@@ -134,5 +134,5 @@ end
 function LT:Initialize()
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
 	if not E.private.sle.loot.enable then return end
-	self:RegisterEvent("LOOT_OPENED", "Announce")
+	self:RegisterEvent("LOOT_OPENED", Announce)
 end
