@@ -1,0 +1,1 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">	<Script file='modules.lua'/>	<Script file='core.lua'/>	<Script file='toolkit.lua'/>	<Script file='commands.lua'/>	<Script file='staticpopups.lua'/>	<Script file='install.lua'/>	<Include file='installer\load_install.xml'/>	<Script file='elvprot.lua'/>	<Script file='test.lua'/></Ui>
