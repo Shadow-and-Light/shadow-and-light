@@ -17,8 +17,6 @@ local OnEnter = function(self)
 		local TotalDay, TotalHour, TotalMinute, TotalSecond = ChatFrame_TimeBreakDown(TotalPlayTime + (GetTime() - SessionPlayTime))
 		local LevelDay, LevelHour, LevelMinute, LevelSecond = ChatFrame_TimeBreakDown(LevelPlayTime + (GetTime() - LevelPlayTimeOffset))
 		local LastLevelDay, LastLevelHour, LastLevelMinute, LastLevelSecond = ChatFrame_TimeBreakDown(LastLevelTime)
-		--local Panel, Anchor, xOff, yOff = self:GetTooltipAnchor()
-		--DT.tooltip:SetOwner(Panel, Anchor, xOff, yOff)
 		DT.tooltip:ClearLines()
 		DT.tooltip:AddLine(TIME_PLAYED_MSG, 1, 1, 1)
 		DT.tooltip:AddLine(' ')
@@ -27,7 +25,6 @@ local OnEnter = function(self)
 			DT.tooltip:AddDoubleLine(L["Previous Level:"], LastLevelDay > 0 and format(PlayedTimeFormatFull, LastLevelDay. LastLevelHour, LastLevelMinute, LastLevelSecond) or format(PlayedTimeFormatNoDay, LastLevelHour, LastLevelMinute, LastLevelSecond), 1, 1, 1, 1, 1, 1)
 		end
 		DT.tooltip:AddDoubleLine(LEVEL..':', LevelDay > 0 and format(PlayedTimeFormatFull, LevelDay, LevelHour, LevelMinute, LevelSecond) or format(PlayedTimeFormatNoDay, LevelHour, LevelMinute, LevelSecond), 1, 1, 1, 1, 1, 1)
-		--DT.tooltip:AddDoubleLine(LEVEL..':', LevelDay > 0 and format(PlayedTimeFormatFull, LevelDay. LevelHour, LevelMinute, LevelSecond) or format(PlayedTimeFormatNoDay, LevelHour, LevelMinute, LevelSecond), 1, 1, 1, 1, 1, 1)
 		DT.tooltip:AddDoubleLine(TOTAL..':', TotalDay > 0 and format(PlayedTimeFormatFull, TotalDay, TotalHour, TotalMinute, TotalSecond) or format(PlayedTimeFormatNoDay, TotalHour, TotalMinute, TotalSecond), 1, 1, 1, 1, 1, 1)
 		DT.tooltip:AddLine(' ')
 		DT.tooltip:AddLine(L["Account Time Played"], 1, 1, 1)
@@ -136,32 +133,4 @@ local OnMouseDown = function(self, button)
 		end
 	end
 end
-
---[[
-local Enable = function(self)	
-	if (not self.Text) then
-		local Text = self:CreateFontString(nil, 'OVERLAY')
-		Text:SetFont(DataText.Font, DataText.Size, DataText.Flags)
-		Text:SetText('Time Played')
-		self.Text = Text
-	end
-
-	self:RegisterEvent('TIME_PLAYED_MSG')
-	self:RegisterEvent('PLAYER_LEVEL_UP')
-	self:RegisterEvent('PLAYER_ENTERING_WORLD')
-	self:RegisterEvent('PLAYER_LOGOUT')
-	self:SetScript('OnMouseDown', OnMouseDown)
-	self:SetScript('OnUpdate', OnUpdate)
-	self:SetScript('OnEnter', OnEnter)
-	self:SetScript('OnEvent', OnEvent)
-	self:SetScript('OnLeave', GameTooltip_Hide)
-end
-
-local Disable = function(self)
-	self.Text:SetText('')
-	self:UnregisterAllEvents()
-	self:SetScript('OnEvent', nil)
-	self:SetScript('OnEnter', nil)
-	self:SetScript('OnLeave', nil)
-end]]
 DT:RegisterDatatext('S&L Time Played', {'TIME_PLAYED_MSG', 'PLAYER_LEVEL_UP', 'PLAYER_ENTERING_WORLD' , 'PLAYER_LOGOUT'}, OnEvent, OnUpdate, OnMouseDown, OnEnter, OnLeave)

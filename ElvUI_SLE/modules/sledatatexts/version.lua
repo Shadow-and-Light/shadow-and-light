@@ -1,5 +1,5 @@
 ﻿--Version datatext. Only in Russian for now.
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 local SLE = E:GetModule('SLE')
 local ACD = LibStub("AceConfigDialog-3.0")
