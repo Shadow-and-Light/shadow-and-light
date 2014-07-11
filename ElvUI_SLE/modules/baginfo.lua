@@ -1,5 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
--- local BI = E:NewModule('SLE_BagInfo', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+local E, L, V, P, G = unpack(ElvUI); 
 local BI = E:GetModule('SLE_BagInfo')
 local B = E:GetModule('Bags')
 
@@ -133,5 +132,3 @@ function BI:Initialize()
 	
 	BI:ToggleSettings()
 end
-
--- E:RegisterModule(BI:GetName())

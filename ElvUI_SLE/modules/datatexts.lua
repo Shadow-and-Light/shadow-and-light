@@ -1,5 +1,4 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
--- local DTP = E:NewModule('SLE_DTPanels', 'AceHook-3.0', 'AceEvent-3.0');
+﻿local E, L, V, P, G, _ = unpack(ElvUI); 
 local DTP = E:GetModule('SLE_DTPanels');
 local DT = E:GetModule('DataTexts');
 local LO = E:GetModule('Layout');
@@ -106,5 +105,3 @@ end
 function DTP:Initialize()
 	DTP:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
-
--- E:RegisterModule(DTP:GetName())

@@ -1,5 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
--- local AR = E:NewModule('SLE_AutoRelease', 'AceHook-3.0', 'AceEvent-3.0');
+local E, L, V, P, G, _ = unpack(ElvUI);
 local AR = E:GetModule('SLE_AutoRelease')
 local myclass = E.myclass
 local IsInInstance = IsInInstance
@@ -46,5 +45,3 @@ function AR:Initialize()
 	HideUIPanel(GhostFrame)
 	self:RegisterEvent("PLAYER_DEAD", "Releasing");
 end
-
--- E:RegisterModule(AR:GetName())

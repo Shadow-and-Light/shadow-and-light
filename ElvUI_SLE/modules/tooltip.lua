@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local E, L, V, P, G, _ = unpack(ElvUI);
 local TT = E:GetModule('Tooltip');
 
 --Defaults (Need to be moved.)
@@ -27,7 +27,6 @@ end
 
 function TT:AnchorFrameToMouse(frame)
 	if frame:GetAnchorType() ~= "ANCHOR_CURSOR" then return end
-	--if (E.db.tooltip.onlyMod and not (IsShiftKeyDown() or IsControlKeyDown() or IsAltKeyDown())) then return end
 	local x, y = GetCursorPosition();
 	local scale = frame:GetEffectiveScale();
 	local tipWidth = frame:GetWidth();
@@ -53,12 +52,6 @@ end
 function TT:AddonName_OnUpdate(self, elapsed)
   TT:AnchorFrameToMouse(self);
 end
-
---function TT:MODIFIER_STATE_CHANGED(event, key)
-	--if InCombatLockdown() and E.db.tooltip.combathide and not (E.db.tooltip.overrideCombat and IsShiftKeyDown()) then
-	--		GameTooltip:Hide()
-	--end
---end
 
 TT.InitializeSLE = TT.Initialize
 function TT:Initialize()

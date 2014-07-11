@@ -1,7 +1,6 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+﻿local E, L, V, P, G, _ = unpack(ElvUI);
 local B = LibStub("LibBabble-SubZone-3.0")
 local BL = B:GetLookupTable()
--- local F = E:NewModule('SLE_Farm', 'AceHook-3.0', 'AceEvent-3.0');
 local F = E:GetModule('SLE_Farm')
 local SLE = E:GetModule('SLE');
 
@@ -603,5 +602,3 @@ function F:Initialize()
 	
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "StartFarmBarLoader")
 end
-
--- E:RegisterModule(F:GetName())

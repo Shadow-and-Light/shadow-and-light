@@ -1,5 +1,4 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
--- local BG = E:NewModule('SLE_BackGrounds', 'AceHook-3.0', 'AceEvent-3.0');
+﻿local E, L, V, P, G, _ = unpack(ElvUI);
 local BG = E:GetModule('SLE_BackGrounds');
 
 local BGb, BGl, BGr, BGa, Fr
@@ -114,5 +113,3 @@ function BG:Initialize()
 	E:CreateMover(RightBG, "RightBG_Mover", L["Right BG"], nil, nil, nil, "S&L,S&L BG")
 	E:CreateMover(ActionBG, "ActionBG_Mover", L["Actionbar BG"], nil, nil, nil, "S&L,S&L BG")
 end
-
--- E:RegisterModule(BG:GetName())

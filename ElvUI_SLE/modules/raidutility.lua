@@ -1,8 +1,5 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
---local RU = E:GetModule('RaidUtility');
+local E, L, V, P, G, _ = unpack(ElvUI);
 local M = E:GetModule('Misc');
-
---E.RaidUtility = RU
 
 --For moving raid utility button
 M.InitializeSLE = M.Initialize

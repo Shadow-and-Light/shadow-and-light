@@ -1,5 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
--- local P = E:NewModule('SLE_PvPMover', 'AceHook-3.0', 'AceEvent-3.0');
+local E, L, V, P, G, _ = unpack(ElvUI); 
 local P = E:GetModule('SLE_PvPMover');
 local holder = CreateFrame("Frame", "SLE_PvP", E.UIParent)
 
@@ -22,5 +21,3 @@ function P:Initialize()
 	self:RegisterEvent("UPDATE_WORLD_STATES", update)
 	E:CreateMover(holder, "PvPMover", "PvP", nil, nil, nil, "ALL,S&L,S&L MISC")
 end
-
--- E:RegisterModule(P:GetName())

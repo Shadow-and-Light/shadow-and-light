@@ -1,5 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
--- local UB = E:NewModule('SLE_UIButtons', 'AceHook-3.0', 'AceEvent-3.0');
+local E, L, V, P, G, _ = unpack(ElvUI); 
 local UB = E:GetModule('SLE_UIButtons');
 local Btemplate = "SecureActionButtonTemplate"
 local NumBut = 5
@@ -153,10 +152,8 @@ function UB:Mouseover()
 	if E.db.sle.uibuttons.mouse then
 		if (MouseIsOver(self)) then
 			UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-			--UIBFrame:SetAlpha(1)
 		else
 			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-			--UIBFrame:SetAlpha(0)
 		end
 	else
 		UIBFrame:SetAlpha(1)
@@ -179,5 +176,3 @@ function UB:Initialize()
 	E:CreateMover(UIBFrame, "UIBFrameMover", L["UI Buttons"], nil, nil, nil, "ALL,S&L,S&L MISC")
 	UB:MoverSize()
 end
-
--- E:RegisterModule(UB:GetName())

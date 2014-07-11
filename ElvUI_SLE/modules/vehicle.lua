@@ -1,5 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI);
--- local EVB = E:NewModule("SLE_EnhancedVehicleBar");
 local EVB = E:GetModule("SLE_EnhancedVehicleBar")
 local AB = E:GetModule("ActionBars");
 local LAB = LibStub("LibActionButton-1.0")
@@ -136,5 +135,3 @@ function EVB:Initialize()
 
 	AB:UpdateButtonConfig(bar, bindButtons);
 end
-
--- E:RegisterModule(EVB:GetName())

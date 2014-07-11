@@ -1,5 +1,4 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
--- local LT = E:NewModule('SLE_Loot', 'AceHook-3.0', 'AceEvent-3.0')
+﻿local E, L, V, P, G, _ = unpack(ElvUI);
 local LT = E:GetModule('SLE_Loot')
 local check = false
 local t = 0
@@ -137,5 +136,3 @@ function LT:Initialize()
 	if not E.private.sle.loot.enable then return end
 	self:RegisterEvent("LOOT_OPENED", "Announce")
 end
-
--- E:RegisterModule(LT:GetName())
