@@ -25,34 +25,34 @@ local panels = {
 	Bottom_Panel = {"bottom", "Bottom_Panel", "BOTTOM", 0, Bottom_Panel, 1},
 }
 
---Added function to create new panels
-LO.InitializeSLE = LO.Initialize
-function LO:Initialize()
-	LO.InitializeSLE(self)
-	for _,v in pairs(panels) do
-		DTP:CreateDataPanels(v[5], v[2], v[3], v[4], v[6], v[1])
-	end
-	DTP:Resize()
-	
-	for _,v in pairs(panels) do
-		E:CreateMover(v[5], v[2].."_Mover", L[v[2]], nil, nil, nil, "ALL,S&L,S&L DT")
-	end
-end
-
 -- New panels
-function DTP:CreateDataPanels(panel, name, point, x, slot, short)
+local function CreateDataPanels(panel, name, point, x, slot, short)
 	panel:SetFrameStrata('LOW')
 	panel:Point(point, E.UIParent, point, x, 0); 
 	DT:RegisterPanel(panel, slot, 'ANCHOR_BOTTOM', 0, -4)
 	panel:Hide()
 end
 
-function DTP:Resize()
+local function PanelResize()
 	local db = E.db.sle.datatext
 	for _,v in pairs(panels) do
 		v[5]:Size(db[v[1]].width, 20)
 	end
 	DT:UpdateAllDimensions()
+end
+
+--Added function to create new panels
+LO.InitializeSLE = LO.Initialize
+function LO:Initialize()
+	LO.InitializeSLE(self)
+	for _,v in pairs(panels) do
+		CreateDataPanels(v[5], v[2], v[3], v[4], v[6], v[1])
+	end
+	PanelResize()
+	
+	for _,v in pairs(panels) do
+		E:CreateMover(v[5], v[2].."_Mover", L[v[2]], nil, nil, nil, "ALL,S&L,S&L DT")
+	end
 end
 
 function DTP:ChatResize()
@@ -81,7 +81,7 @@ end
 
 function DTP:Update()
 	DTP:ExtraDataBarSetup()
-	DTP:Resize()
+	PanelResize()
 end
 
 function DTP:RegisterHide()
@@ -103,5 +103,5 @@ function DTP:PLAYER_ENTERING_WORLD(...)
 end
 
 function DTP:Initialize()
-	DTP:RegisterEvent('PLAYER_ENTERING_WORLD')
+	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 end

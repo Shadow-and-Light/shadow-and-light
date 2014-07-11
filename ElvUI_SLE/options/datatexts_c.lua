@@ -107,7 +107,7 @@ E.Options.args.sle.args.datatext.args.panels.args[v[1]] = {
 			desc = L["Sets size of this panel"],
 			disabled = function() return not E.db.sle.datatext[v[1]].enabled end,
 			min = 100 * v[3], max = E.screenwidth/2, step = 1,
-			set = function(info, value) E.db.sle.datatext[v[1]].width = value; DTP:Resize() end,
+			set = function(info, value) E.db.sle.datatext[v[1]].width = value; DTP:Update() end,
 		},
 		hide = {
 			order = 3,
