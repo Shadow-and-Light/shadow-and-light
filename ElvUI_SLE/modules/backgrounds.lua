@@ -4,7 +4,7 @@ local BG = E:GetModule('SLE_BackGrounds');
 local BGb, BGl, BGr, BGa, Fr
 
 --Frames setup
-function BG:FramesCreate()
+local function CreateFrames()
 	BGb = CreateFrame('Frame', "BottomBG", E.UIParent);
 	BGl = CreateFrame('Frame', "LeftBG", E.UIParent);
 	BGr = CreateFrame('Frame', "RightBG", E.UIParent);
@@ -37,7 +37,7 @@ function BG:FramesCreate()
 end
 
 --Frames Size
-function BG:FramesSize()
+local function FramesSize()
 	if not BGb then return end
 	local db = E.db.sle.backgrounds
 	for _,v in pairs(Fr) do
@@ -46,7 +46,7 @@ function BG:FramesSize()
 end
 
 --Frames points
-function BG:FramesPositions()
+local function FramesPositions()
 	if not BGb then return end
 	BGb:Point("BOTTOM", E.UIParent, "BOTTOM", 0, 21); 
 	BGl:Point("BOTTOMRIGHT", E.UIParent, "BOTTOM", -(E.screenwidth/4 + 32)/2 - 1, 21); 
@@ -55,7 +55,7 @@ function BG:FramesPositions()
 end
 
 --Updating textures
-function BG:UpdateTex()
+local function UpdateTex()
 	if not BGb then return end
 	local db = E.db.sle.backgrounds
 	for _,v in pairs(Fr) do
@@ -66,7 +66,7 @@ function BG:UpdateTex()
 end
 
 --Visibility / Enable check
-function BG:FramesVisibility()
+local function FramesVisibility()
 	if not BGb then return end
 	local db = E.db.sle.backgrounds
 	for _,v in pairs(Fr) do
@@ -84,9 +84,9 @@ function BG:UpdateFrames()
 	for _,v in pairs(Fr) do
 				v[1]:SetTemplate(db[v[2]].template, true)
 	end
-	BG:FramesSize()
-	BG:FramesVisibility()
-    BG:UpdateTex()
+	FramesSize()
+	FramesVisibility()
+    UpdateTex()
 end
 
 function BG:RegisterHide()
@@ -103,8 +103,8 @@ end
 
 function BG:Initialize()
 	if not E.private.sle.backgrounds then return end
-	BG:FramesCreate()
-	BG:FramesPositions()
+	CreateFrames()
+	FramesPositions()
 	BG:UpdateFrames()
 	BG:RegisterHide()
 	

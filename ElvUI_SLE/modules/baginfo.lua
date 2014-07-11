@@ -39,7 +39,7 @@ local quickFormat = {
 	[3] = function(font, map) font:SetFormattedText("|cffffffaa%s %s %s|r", Utf8Sub(map[1], 1, 4), Utf8Sub(map[2], 1, 4), Utf8Sub(map[3], 1, 4)) end,
 }
 
-function BI:BuildEquipmentMap(clear)
+local function BuildEquipmentMap(clear)
 	-- clear mapped names
 	for k, v in pairs(equipmentMap) do
 		twipe(v)
@@ -63,7 +63,7 @@ function BI:BuildEquipmentMap(clear)
 	end
 end
 
-function BI:UpdateContainerFrame(frame, bag, slot)
+local function UpdateContainerFrame(frame, bag, slot)
 	if (not frame.equipmentinfo) then
 		frame.equipmentinfo = frame:CreateFontString(nil, "OVERLAY")
 		frame.equipmentinfo:FontTemplate(E.media.font, 12, "THINOUTLINE")
@@ -84,23 +84,23 @@ function BI:UpdateContainerFrame(frame, bag, slot)
 	end
 end
 
-function BI:UpdateBagInformation(clear)
+local function UpdateBagInformation(clear)
 	updateTimer = nil
 
-	self:BuildEquipmentMap(clear)
+	BuildEquipmentMap(clear)
 	for _, container in pairs(containers) do
 		for _, bagID in ipairs(container.BagIDs) do
 			for slotID = 1, GetContainerNumSlots(bagID) do			
-				self:UpdateContainerFrame(container.Bags[bagID][slotID], bagID, slotID)
+				UpdateContainerFrame(container.Bags[bagID][slotID], bagID, slotID)
 			end
 		end
 	end
 end
 
-function BI:DelayUpdateBagInformation(event)
+local function DelayUpdateBagInformation(event)
 	-- delay to make sure multiple bag events are consolidated to one update.
 	if not updateTimer then
-		updateTimer = BI:ScheduleTimer("UpdateBagInformation", .25)
+		updateTimer = BI:ScheduleTimer(UpdateBagInformation, .25)
 	end
 end
 
@@ -110,13 +110,13 @@ function BI:ToggleSettings()
 	end
 
 	if E.private.sle.equip.setoverlay then
-		self:RegisterEvent("EQUIPMENT_SETS_CHANGED", "DelayUpdateBagInformation")
-		self:RegisterEvent("BAG_UPDATE", "DelayUpdateBagInformation")
-		BI:UpdateBagInformation()
+		self:RegisterEvent("EQUIPMENT_SETS_CHANGED", DelayUpdateBagInformation)
+		self:RegisterEvent("BAG_UPDATE", DelayUpdateBagInformation)
+		UpdateBagInformation()
 	else
 		self:UnregisterEvent("EQUIPMENT_SETS_CHANGED")
 		self:UnregisterEvent("BAG_UPDATE") 
-		BI:UpdateBagInformation(true)
+		UpdateBagInformation(true)
 	end		
 end
 
