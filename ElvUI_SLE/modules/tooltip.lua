@@ -8,6 +8,15 @@ P['tooltip']['overrideCombat'] = false
 
 local iconPath = [[Interface\AddOns\ElvUI_SLE\media\textures\]]
 
+local function AnchorFrameToMouse(frame)
+	if frame:GetAnchorType() ~= "ANCHOR_CURSOR" then return end
+	local x, y = GetCursorPosition();
+	local scale = frame:GetEffectiveScale();
+	local tipWidth = frame:GetWidth();
+	frame:ClearAllPoints();
+	frame:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", (x/scale + (E.db.tooltip.mouseOffsetX - tipWidth/2)), (y/scale + E.db.tooltip.mouseOffsetY));
+end
+
 TT.GameTooltip_SetDefaultAnchorSLE = TT.GameTooltip_SetDefaultAnchor
 function TT:GameTooltip_SetDefaultAnchor(tt, parent)
 	TT:GameTooltip_SetDefaultAnchorSLE(tt, parent)
@@ -19,22 +28,11 @@ function TT:GameTooltip_SetDefaultAnchor(tt, parent)
 	end
 	if(parent) then
 		if(self.db.cursorAnchor) then
-			TT:AnchorFrameToMouse(tt);
+			AnchorFrameToMouse(tt);
 			return  
 		end
 	end
 end
-
-function TT:AnchorFrameToMouse(frame)
-	if frame:GetAnchorType() ~= "ANCHOR_CURSOR" then return end
-	local x, y = GetCursorPosition();
-	local scale = frame:GetEffectiveScale();
-	local tipWidth = frame:GetWidth();
-	frame:ClearAllPoints();
-	frame:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", (x/scale + (E.db.tooltip.mouseOffsetX - tipWidth/2)), (y/scale + E.db.tooltip.mouseOffsetY));
-end
-
-
 
 TT.GameTooltip_OnTooltipSetUnitSLE = TT.GameTooltip_OnTooltipSetUnit
 function TT:GameTooltip_OnTooltipSetUnit(tt)
@@ -49,12 +47,12 @@ function TT:GameTooltip_OnTooltipSetUnit(tt)
 	end
 end
 
-function TT:AddonName_OnUpdate(self, elapsed)
-  TT:AnchorFrameToMouse(self);
+local function AddonName_OnUpdate(self, elapsed)
+  AnchorFrameToMouse(self);
 end
 
 TT.InitializeSLE = TT.Initialize
 function TT:Initialize()
 	TT:InitializeSLE()
-	self:HookScript(GameTooltip, "OnUpdate", "AddonName_OnUpdate");
+	self:HookScript(GameTooltip, "OnUpdate", AddonName_OnUpdate);
 end
