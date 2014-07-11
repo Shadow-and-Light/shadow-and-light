@@ -1,5 +1,4 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-local CH = E:GetModule("Chat")
+﻿local E, L, V, P, G, _ = unpack(ElvUI);
 local function configTable()
 
 E.Options.args.sle.args.options.args.general.args.chat = {

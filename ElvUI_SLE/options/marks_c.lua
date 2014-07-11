@@ -1,9 +1,8 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+﻿local E, L, V, P, G, _ = unpack(ElvUI); 
 local RM = E:GetModule('SLE_RaidMarks')
 local RF = E:GetModule('SLE_RaidFlares')
 local function configTable()
 
---Main options group
 E.Options.args.sle.args.options.args.marks = {
 	order = 4,
 	type = "group",
@@ -78,7 +77,7 @@ E.Options.args.sle.args.options.args.marks = {
 					desc = L["Show on mouse over."],
 					disabled = function() return not E.private.sle.marks.marks end,
 					get = function(info) return E.db.sle.marks.mouseover end,
-					set = function(info, value) E.db.sle.marks.mouseover = value; RM:UpdateVisibility() end --RM:Mouseover() end
+					set = function(info, value) E.db.sle.marks.mouseover = value; RM:UpdateVisibility() end 
 				},
 				size = {
 					order = 9,

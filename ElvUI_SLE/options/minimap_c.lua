@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 
 local function configTable()
 	E.Options.args.sle.args.options.args.minimap = {
@@ -57,15 +57,6 @@ local function configTable()
 							['CENTER'] = L['Bottom Center'],
 						},
 					},
-					--[[middle = {
-						order = 3,
-						type = "toggle",
-						name = L["Coords in the middle"],
-						desc = L['If enabled will show coordinates in the center of minimaps lower border. Otherwise in the lower corners.'],
-						disabled = function() return not E.db.sle.minimap.enable end,
-						get = function(info) return E.db.sle.minimap.middle end,
-						set = function(info, value) E.db.sle.minimap.middle = value; E:GetModule('Minimap'):UpdateSettings() end,
-					},]]
 				},
 			},
 			mapiconsenable = {

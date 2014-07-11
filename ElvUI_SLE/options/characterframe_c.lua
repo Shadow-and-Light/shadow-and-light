@@ -122,7 +122,6 @@ local function configTable()
 									font = {
 										type = "select", dialogControl = 'LSM30_Font',
 										order = 1,
-										--name = L["Fonts"],
 										name = L["Font"],
 										desc = L["The font that the item level will use."],
 										values = AceGUIWidgetLSMlists.font,	

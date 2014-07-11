@@ -1,8 +1,7 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+﻿local E, L, V, P, G, _ = unpack(ElvUI); 
 local UB = E:GetModule('SLE_UIButtons')
 local function configTable()
 
---UI Buttons
 E.Options.args.sle.args.options.args.general.args.uibuttons = {
 	type = "group",
 	name = L["UI Buttons"],

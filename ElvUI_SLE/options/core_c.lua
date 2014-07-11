@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G =  unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, GlobalDB
+﻿local E, L, V, P, G =  unpack(ElvUI); 
 local SLE = E:GetModule('SLE')
 local function configTable()
 

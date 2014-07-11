@@ -1,6 +1,6 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+﻿local E, L, V, P, G, _ = unpack(ElvUI);
 local function configTable()
---Main options group
+
 E.Options.args.sle.args.options.args.general.args.pvpautorelease = {
 	type = "group",
     name = L["PvP Auto Release"],
