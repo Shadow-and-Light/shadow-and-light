@@ -1,0 +1,24 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+	<Script file='core_c.lua'/>
+	<Script file='help_c.lua'/>
+	<Script file='autorelease_c.lua'/>
+	<Script file='datatexts_c.lua'/>
+	<Script file='backgrounds_c.lua'/>
+	<Script file='characterframe_c.lua'/>
+	<Script file='chat_c.lua'/>
+	<Script file='bags_c.lua'/>
+	<Script file='equipmanager_c.lua'/>
+	<Script file='exprepbar_c.lua'/>
+	<Script file='farm_c.lua'/>
+	<Script file='imports_c.lua'/>
+	<Script file='loot_c.lua'/>
+	<Script file='marks_c.lua'/>
+	<Script file='minimap_c.lua'/>
+	<Script file='nameplates_c.lua'/>
+	<Script file='raidutility_c.lua'/>
+	<Script file='tooltip_c.lua'/>
+	<Script file='uibuttons_c.lua'/>
+	<Script file='unitframes_c.lua'/>
+	<Script file='vehicle_c.lua'/>
+	<Script file='dev_c.lua'/>
+</Ui>
