@@ -82,12 +82,12 @@ end)
 local function AddToRoster(unitId)
 	local unitName = UnitName(unitId)
 	if unitName then
-		self.GroupMembers[unitName] = unitId
+		NP.GroupMembers[unitName] = unitId
 	end
 end
 
 local function UpdateRoster()
-	twipe(self.GroupMembers)
+	twipe(NP.GroupMembers)
 
 	local groupSize = IsInRaid() and GetNumGroupMembers() or IsInGroup() and GetNumSubgroupMembers() or 0
 	local groupType = IsInRaid() and "raid" or IsInGroup() and "party" or "solo"
