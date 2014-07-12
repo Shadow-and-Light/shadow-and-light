@@ -9,7 +9,7 @@ local RF = E:GetModule('SLE_RaidFlares')
 local F = E:GetModule('SLE_Farm')
 local LT = E:GetModule('SLE_Loot')
 local UF = E:GetModule('UnitFrames')
-
+--test
 local GetContainerNumSlots, GetContainerItemID = GetContainerNumSlots, GetContainerItemID
 
 function SLE:BagSearch(itemId)
