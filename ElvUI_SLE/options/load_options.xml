@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
 	<Script file='core_c.lua'/>
 	<Script file='help_c.lua'/>
+	<Script file='media_c.lua'/>
 	<Script file='autorelease_c.lua'/>
 	<Script file='datatexts_c.lua'/>
 	<Script file='backgrounds_c.lua'/>

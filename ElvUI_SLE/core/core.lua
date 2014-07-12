@@ -2,6 +2,7 @@
 local SLE = E:GetModule('SLE')
 local EP = LibStub("LibElvUIPlugin-1.0")
 local UF = E:GetModule('UnitFrames')
+local LSM = LibStub("LibSharedMedia-3.0")
 local addon = ...
 
 --localizing functions--
@@ -62,6 +63,17 @@ local function CheckIncompatible()
 	end
 end
 
+local function SetFonts()
+	local zoneFont = LSM:Fetch('font', E.global.sle.fonts.zone.font)
+	local zoneSize = E.global.sle.fonts.zone.size
+	local zoneOutline = E.global.sle.fonts.zone.outline
+	local subzoneFont = LSM:Fetch('font', E.global.sle.fonts.subzone.font)
+	local subzoneSize = E.global.sle.fonts.subzone.size
+	local subzoneOutline = E.global.sle.fonts.subzone.outline
+	ZoneTextString:SetFont(zoneFont, zoneSize, zoneOutline)
+	SubZoneTextString:SetFont(subzoneFont, subzoneSize, subzoneOutline)
+end
+
 function SLE:Initialize()
 	--ElvUI's version check
 	if elvV < elvR then
@@ -79,4 +91,7 @@ function SLE:Initialize()
 	ConfigCats()
 	SLE:RegisterCommands()
 	CheckIncompatible()
+	if E.global.sle.fonts.enable then
+		hooksecurefunc(E, "UpdateBlizzardFonts", SetFonts)
+	end
 end

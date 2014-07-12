@@ -2,6 +2,7 @@
 V['skins']['addons'] = {
 	['EmbedSkada'] = true,
 }
+
 V['sle'] = {
 	
 	--Character Frame Options
@@ -68,4 +69,20 @@ V['sle'] = {
 	
 	['guildmaster'] = false,
 	['backgrounds'] = false,
+}
+
+G['sle'] = {
+	['fonts'] = {
+		['enable'] = false,
+		['zone'] = {
+			['font'] = "ElvUI Font",
+			['size'] = 32,
+			['outline'] = "OUTLINE",
+		},
+		['subzone'] = {
+			['font'] = "ElvUI Font",
+			['size'] = 25,
+			['outline'] = "OUTLINE",
+		},
+	},
 }
