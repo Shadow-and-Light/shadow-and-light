@@ -81,6 +81,11 @@ local function SetFonts()
 	PVPArenaTextString:SetFont(LSM:Fetch('font', db.pvp.font), db.pvp.size, db.pvp.outline)
 	SubZoneTextString:SetFont(LSM:Fetch('font', db.subzone.font), db.subzone.size, db.subzone.outline)
 	
+	ZoneTextString:SetWidth(db.zone.width)
+	PVPInfoTextString:SetWidth(db.pvp.width)
+	PVPArenaTextString:SetWidth(db.pvp.width)
+	SubZoneTextString:SetWidth(db.subzone.width)
+	
 	--Dat is like experiment, don't touch--
 	subOff = db.subzone.offset
 	hooksecurefunc("SetZoneText", ZoneTextPos)
