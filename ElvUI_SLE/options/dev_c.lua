@@ -339,6 +339,7 @@ if SLE:Auth() then
 				},
 			},
 		}
+
 		for i = 1, 40 do
 			E.Options.args.sle.args.developer.args.userList.args.userList.args[tostring(i)] = {
 				type = 'description',
@@ -371,5 +372,6 @@ if SLE:Auth() then
 			}
 		end
 	end
+
 	table.insert(E.SLEConfigs, configTable)
 end

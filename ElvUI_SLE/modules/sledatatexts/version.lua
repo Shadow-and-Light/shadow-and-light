@@ -43,4 +43,3 @@ end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
 DT:RegisterDatatext("Version", {'PLAYER_ENTERING_WORLD'}, OnEvent, Update, Click, OnEnter)
-

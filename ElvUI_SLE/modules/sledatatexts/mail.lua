@@ -83,4 +83,3 @@ local function OnEnter(self)
 end
 
 DT:RegisterDatatext('S&L Mail', {'PLAYER_ENTERING_WORLD', 'MAIL_INBOX_UPDATE', 'UPDATE_PENDING_MAIL', 'MAIL_CLOSED', 'PLAYER_LOGIN','MAIL_SHOW'}, OnEvent, nil, nil, OnEnter)
-

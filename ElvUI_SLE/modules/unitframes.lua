@@ -279,4 +279,3 @@ if E.myclass == "WARLOCK" then
 	ShardBar.powtext = dfbar:CreateFontString(nil, 'OVERLAY')
 	ShardBar.powtext:SetFont("Fonts\\FRIZQT__.TTF", 10, "OUTLINE")
 end
-

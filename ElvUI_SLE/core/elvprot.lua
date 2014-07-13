@@ -57,5 +57,3 @@ function E:BeginFoolsDayEvent()
 	tinsert(self.massiveShakeObjects, RaidUtility_ShowButton)
 	tinsert(self.massiveShakeObjects, RaidUtilityPanel)
 end
-
-

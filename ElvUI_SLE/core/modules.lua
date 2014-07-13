@@ -39,4 +39,3 @@ local function Register()
 end
 
 Register()
-
