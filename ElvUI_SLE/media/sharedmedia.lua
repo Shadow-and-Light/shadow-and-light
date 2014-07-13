@@ -17,5 +17,4 @@ LSM:Register("font", "Trafaret", [[Interface\AddOns\ElvUI_SLE\media\fonts\Trafar
 LSM:Register("font", "Intro Black", [[Interface\AddOns\ElvUI_SLE\media\fonts\Intro_Black.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 LSM:Register("font", "Univers", [[Interface\AddOns\ElvUI_SLE\media\fonts\Univers.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 LSM:Register("font", "Rubino", [[Interface\AddOns\ElvUI_SLE\media\fonts\Rubino_Plain.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
---TheGrCorpus
 LSM:Register("sound", "It's The Gri...", [[Interface\AddOns\ElvUI_SLE\media\sounds\TheGrCorpus.ogg]])
