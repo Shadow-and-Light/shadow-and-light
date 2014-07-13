@@ -63,15 +63,27 @@ local function CheckIncompatible()
 	end
 end
 
+local subOff
+
+local function ZoneTextPos()
+    if ( PVPInfoTextString:GetText() == "" ) then
+        SubZoneTextString:SetPoint("TOP", "ZoneTextString", "BOTTOM", 0, -subOff);
+    else
+        SubZoneTextString:SetPoint("TOP", "PVPInfoTextString", "BOTTOM", 0, -subOff);
+    end
+end
+
 local function SetFonts()
-	local zoneFont = LSM:Fetch('font', E.global.sle.fonts.zone.font)
-	local zoneSize = E.global.sle.fonts.zone.size
-	local zoneOutline = E.global.sle.fonts.zone.outline
-	local subzoneFont = LSM:Fetch('font', E.global.sle.fonts.subzone.font)
-	local subzoneSize = E.global.sle.fonts.subzone.size
-	local subzoneOutline = E.global.sle.fonts.subzone.outline
-	ZoneTextString:SetFont(zoneFont, zoneSize, zoneOutline)
-	SubZoneTextString:SetFont(subzoneFont, subzoneSize, subzoneOutline)
+	local db = E.global.sle.fonts
+
+	ZoneTextString:SetFont(LSM:Fetch('font', db.zone.font), db.zone.size, db.zone.outline)
+	PVPInfoTextString:SetFont(LSM:Fetch('font', db.pvp.font), db.pvp.size, db.pvp.outline)
+	PVPArenaTextString:SetFont(LSM:Fetch('font', db.pvp.font), db.pvp.size, db.pvp.outline)
+	SubZoneTextString:SetFont(LSM:Fetch('font', db.subzone.font), db.subzone.size, db.subzone.outline)
+	
+	--Dat is like experiment, don't touch--
+	subOff = db.subzone.offset
+	hooksecurefunc("SetZoneText", ZoneTextPos)
 end
 
 function SLE:Initialize()

@@ -83,6 +83,12 @@ G['sle'] = {
 			['font'] = "ElvUI Font",
 			['size'] = 25,
 			['outline'] = "OUTLINE",
+			['offset'] = 0,
+		},
+		['pvp'] = {
+			['font'] = "ElvUI Font",
+			['size'] = 22,
+			['outline'] = "OUTLINE",
 		},
 	},
 }
