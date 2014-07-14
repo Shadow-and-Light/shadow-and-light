@@ -2,7 +2,6 @@
 local SLE = E:GetModule('SLE')
 local EP = LibStub("LibElvUIPlugin-1.0")
 local UF = E:GetModule('UnitFrames')
-local LSM = LibStub("LibSharedMedia-3.0")
 local addon = ...
 
 --localizing functions--
@@ -63,34 +62,6 @@ local function CheckIncompatible()
 	end
 end
 
-local subOff
-
-local function ZoneTextPos()
-    if ( PVPInfoTextString:GetText() == "" ) then
-        SubZoneTextString:SetPoint("TOP", "ZoneTextString", "BOTTOM", 0, -subOff);
-    else
-        SubZoneTextString:SetPoint("TOP", "PVPInfoTextString", "BOTTOM", 0, -subOff);
-    end
-end
-
-local function SetFonts()
-	local db = E.global.sle.fonts
-
-	ZoneTextString:SetFont(LSM:Fetch('font', db.zone.font), db.zone.size, db.zone.outline)
-	PVPInfoTextString:SetFont(LSM:Fetch('font', db.pvp.font), db.pvp.size, db.pvp.outline)
-	PVPArenaTextString:SetFont(LSM:Fetch('font', db.pvp.font), db.pvp.size, db.pvp.outline)
-	SubZoneTextString:SetFont(LSM:Fetch('font', db.subzone.font), db.subzone.size, db.subzone.outline)
-	
-	ZoneTextString:SetWidth(db.zone.width)
-	PVPInfoTextString:SetWidth(db.pvp.width)
-	PVPArenaTextString:SetWidth(db.pvp.width)
-	SubZoneTextString:SetWidth(db.subzone.width)
-	
-	--Dat is like experiment, don't touch--
-	subOff = db.subzone.offset
-	hooksecurefunc("SetZoneText", ZoneTextPos)
-end
-
 function SLE:Initialize()
 	--ElvUI's version check
 	if elvV < elvR then
@@ -108,7 +79,4 @@ function SLE:Initialize()
 	ConfigCats()
 	SLE:RegisterCommands()
 	CheckIncompatible()
-	if E.global.sle.fonts.enable then
-		hooksecurefunc(E, "UpdateBlizzardFonts", SetFonts)
-	end
 end

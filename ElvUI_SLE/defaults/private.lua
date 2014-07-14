@@ -70,28 +70,3 @@ V['sle'] = {
 	['guildmaster'] = false,
 	['backgrounds'] = false,
 }
-
-G['sle'] = {
-	['fonts'] = {
-		['enable'] = false,
-		['zone'] = {
-			['font'] = "ElvUI Font",
-			['size'] = 32,
-			['outline'] = "OUTLINE",
-			['width'] = 512,
-		},
-		['subzone'] = {
-			['font'] = "ElvUI Font",
-			['size'] = 25,
-			['outline'] = "OUTLINE",
-			['offset'] = 0,
-			['width'] = 512,
-		},
-		['pvp'] = {
-			['font'] = "ElvUI Font",
-			['size'] = 22,
-			['outline'] = "OUTLINE",
-			['width'] = 512,
-		},
-	},
-}

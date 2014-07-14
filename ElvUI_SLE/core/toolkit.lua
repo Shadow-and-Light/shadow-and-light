@@ -9,6 +9,7 @@ local RF = E:GetModule('SLE_RaidFlares')
 local F = E:GetModule('SLE_Farm')
 local LT = E:GetModule('SLE_Loot')
 local UF = E:GetModule('UnitFrames')
+local M = E:GetModule('SLE_Media')
 --test
 local GetContainerNumSlots, GetContainerItemID = GetContainerNumSlots, GetContainerItemID
 
@@ -59,4 +60,5 @@ function E:UpdateAll()
 	RF:Update()
 	F:UpdateLayout()
 	CH:GMIconUpdate()
+	M:TextWidth()
 end

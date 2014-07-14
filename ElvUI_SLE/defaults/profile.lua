@@ -7,6 +7,41 @@ P['sle'] = {
 
 	--Auto release
 	['pvpautorelease'] = true,
+	
+	--Media
+	['media'] = {
+		['fonts'] = {
+			['zone'] = {
+				['font'] = "ElvUI Font",
+				['size'] = 32,
+				['outline'] = "OUTLINE",
+				['width'] = 512,
+			},
+			['subzone'] = {
+				['font'] = "ElvUI Font",
+				['size'] = 25,
+				['outline'] = "OUTLINE",
+				['offset'] = 0,
+				['width'] = 512,
+			},
+			['pvp'] = {
+				['font'] = "ElvUI Font",
+				['size'] = 22,
+				['outline'] = "OUTLINE",
+				['width'] = 512,
+			},
+			['mail'] = {
+				['font'] = "ElvUI Font",
+				['size'] = 12,
+				['outline'] = "NONE",
+			},
+			['editbox'] = {
+				['font'] = "ElvUI Font",
+				['size'] = 12,
+				['outline'] = "NONE",
+			},
+		},
+	},
 
 	--Background frames
 	['backgrounds'] = {

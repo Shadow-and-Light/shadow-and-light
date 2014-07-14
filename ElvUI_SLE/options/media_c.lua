@@ -1,10 +1,12 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
+local M = E:GetModule('SLE_Media')
 
 local function configTable()
 	E.Options.args.sle.args.media = {
 		type = "group",
 	    name = L["Media"],
 	    order = 3,
+		childGroups = 'tab',
 		args = {
 			header = {
 				order = 1,
@@ -16,54 +18,47 @@ local function configTable()
 				type = "description",
 				name = "Imma text!",
 			},
-			fonts = {
+			zonefonts = {
 				type = "group",
-				name = L["Fonts"],
+				name = L["Zone Texts"],
 				order = 3,
-				guiInline = true,
 				args = {
 					intro = {
 						order = 1,
 						type = "description",
-						name = "Enables replacement of some fonts. Please note that these options will take effect only after reload of your UI.",
+						name = "Placeholder text.",
 					},
-					enable = {
+					test = {
 						order = 2,
-						type = "toggle",
-						name = L["Enable"],
-						get = function(info) return E.global.sle.fonts.enable end,
-						set = function(info, value) E.global.sle.fonts.enable = value; E:StaticPopup_Show("GLOBAL_RL") end
+						type = 'execute',
+						name = "Test",
+						func = function() M:TextShow() end,
 					},
 					zone = {
 						type = "group",
 						name = "Zone Text",
 						order = 3,
 						guiInline = true,
-						disabled = function() return not E.global.sle.fonts.enable end,
+						get = function(info) return E.db.sle.media.fonts.zone[ info[#info] ] end,
+						set = function(info, value) E.db.sle.media.fonts.zone[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
 							font = {
 								type = "select", dialogControl = 'LSM30_Font',
 								order = 1,
-								name = L["Default Font"],
+								name = L["Font"],
 								values = AceGUIWidgetLSMlists.font,	
-								get = function(info) return E.global.sle.fonts.zone.font end,
-								set = function(info, value) E.global.sle.fonts.zone.font = value; E:StaticPopup_Show("GLOBAL_RL") end,
 							},
 							size = {
 								order = 2,
 								name = L["Font Size"],
 								type = "range",
 								min = 6, max = 48, step = 1,
-								get = function(info) return E.global.sle.fonts.zone.size end,
-								set = function(info, value) E.global.sle.fonts.zone.size = value; E:StaticPopup_Show("GLOBAL_RL") end,
 							},
 							outline = {
 								order = 3,
 								name = L["Font Outline"],
 								desc = L["Set the font outline."],
 								type = "select",
-								get = function(info) return E.global.sle.fonts.zone.outline end,
-								set = function(info, value) E.global.sle.fonts.zone.outline = value; E:StaticPopup_Show("GLOBAL_RL") end,
 								values = {
 									['NONE'] = L['None'],
 									['OUTLINE'] = 'OUTLINE',
@@ -77,8 +72,7 @@ local function configTable()
 								name = L["Width"],
 								type = "range",
 								min = 512, max = E.screenwidth, step = 1,
-								get = function(info) return E.global.sle.fonts.zone.width end,
-								set = function(info, value) E.global.sle.fonts.zone.width = value; E:StaticPopup_Show("GLOBAL_RL") end,
+								set = function(info, value) E.db.sle.media.fonts.zone.width = value; M:TextWidth() end,
 							},
 						},
 					},
@@ -87,31 +81,26 @@ local function configTable()
 						name = "Subzone Text",
 						order = 4,
 						guiInline = true,
-						disabled = function() return not E.global.sle.fonts.enable end,
+						get = function(info) return E.db.sle.media.fonts.subzone[ info[#info] ] end,
+						set = function(info, value) E.db.sle.media.fonts.subzone[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
 							font = {
 								type = "select", dialogControl = 'LSM30_Font',
 								order = 1,
-								name = L["Default Font"],
+								name = L["Font"],
 								values = AceGUIWidgetLSMlists.font,	
-								get = function(info) return E.global.sle.fonts.subzone.font end,
-								set = function(info, value) E.global.sle.fonts.subzone.font = value; E:StaticPopup_Show("GLOBAL_RL") end,
 							},
 							size = {
 								order = 2,
 								name = L["Font Size"],
 								type = "range",
 								min = 6, max = 48, step = 1,
-								get = function(info) return E.global.sle.fonts.subzone.size end,
-								set = function(info, value) E.global.sle.fonts.subzone.size = value; E:StaticPopup_Show("GLOBAL_RL") end,
 							},
 							outline = {
 								order = 3,
 								name = L["Font Outline"],
 								desc = L["Set the font outline."],
 								type = "select",
-								get = function(info) return E.global.sle.fonts.subzone.outline end,
-								set = function(info, value) E.global.sle.fonts.subzone.outline = value; E:StaticPopup_Show("GLOBAL_RL") end,
 								values = {
 									['NONE'] = L['None'],
 									['OUTLINE'] = 'OUTLINE',
@@ -120,21 +109,18 @@ local function configTable()
 									['THICKOUTLINE'] = 'THICKOUTLINE',
 								},
 							},
-							offset = {
-								order = 4,
-								name = L["Offset"],
-								type = "range",
-								min = 0, max = 30, step = 1,
-								get = function(info) return E.global.sle.fonts.subzone.offset end,
-								set = function(info, value) E.global.sle.fonts.subzone.offset = value; E:StaticPopup_Show("GLOBAL_RL") end,
-							},
 							width = {
-								order = 5,
+								order = 4,
 								name = L["Width"],
 								type = "range",
 								min = 512, max = E.screenwidth, step = 1,
-								get = function(info) return E.global.sle.fonts.subzone.width end,
-								set = function(info, value) E.global.sle.fonts.subzone.width = value; E:StaticPopup_Show("GLOBAL_RL") end,
+								set = function(info, value) E.db.sle.media.fonts.subzone.width = value; M:TextWidth() end,
+							},
+							offset = {
+								order = 5,
+								name = L["Offset"],
+								type = "range",
+								min = 0, max = 30, step = 1,
 							},
 						},
 					},
@@ -143,31 +129,26 @@ local function configTable()
 						name = "PvP Status Text",
 						order = 5,
 						guiInline = true,
-						disabled = function() return not E.global.sle.fonts.enable end,
+						get = function(info) return E.db.sle.media.fonts.pvp[ info[#info] ] end,
+						set = function(info, value) E.db.sle.media.fonts.pvp[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
 							font = {
 								type = "select", dialogControl = 'LSM30_Font',
 								order = 1,
-								name = L["Default Font"],
+								name = L["Font"],
 								values = AceGUIWidgetLSMlists.font,	
-								get = function(info) return E.global.sle.fonts.pvp.font end,
-								set = function(info, value) E.global.sle.fonts.pvp.font = value; E:StaticPopup_Show("GLOBAL_RL") end,
 							},
 							size = {
 								order = 2,
 								name = L["Font Size"],
 								type = "range",
 								min = 6, max = 48, step = 1,
-								get = function(info) return E.global.sle.fonts.pvp.size end,
-								set = function(info, value) E.global.sle.fonts.pvp.size = value; E:StaticPopup_Show("GLOBAL_RL") end,
 							},
 							outline = {
 								order = 3,
 								name = L["Font Outline"],
 								desc = L["Set the font outline."],
 								type = "select",
-								get = function(info) return E.global.sle.fonts.pvp.outline end,
-								set = function(info, value) E.global.sle.fonts.pvp.outline = value; E:StaticPopup_Show("GLOBAL_RL") end,
 								values = {
 									['NONE'] = L['None'],
 									['OUTLINE'] = 'OUTLINE',
@@ -181,8 +162,86 @@ local function configTable()
 								name = L["Width"],
 								type = "range",
 								min = 512, max = E.screenwidth, step = 1,
-								get = function(info) return E.global.sle.fonts.pvp.width end,
-								set = function(info, value) E.global.sle.fonts.pvp.width = value; E:StaticPopup_Show("GLOBAL_RL") end,
+								set = function(info, value) E.db.sle.media.fonts.pvp.width = value; M:TextWidth() end,
+							},
+						},
+					},
+				},
+			},
+			miscfonts = {
+				type = "group",
+				name = L["Misc Texts"],
+				order = 4,
+				args = {
+					mail = {
+						type = "group",
+						name = "Mail Text",
+						order = 1,
+						guiInline = true,
+						get = function(info) return E.db.sle.media.fonts.mail[ info[#info] ] end,
+						set = function(info, value) E.db.sle.media.fonts.mail[ info[#info] ] = value; E:UpdateMedia() end,
+						args = {
+							font = {
+								type = "select", dialogControl = 'LSM30_Font',
+								order = 1,
+								name = L["Font"],
+								desc = "The font used for letters' body",
+								values = AceGUIWidgetLSMlists.font,	
+							},
+							size = {
+								order = 2,
+								name = L["Font Size"],
+								type = "range",
+								min = 6, max = 22, step = 1,
+							},
+							outline = {
+								order = 3,
+								name = L["Font Outline"],
+								desc = L["Set the font outline."],
+								type = "select",
+								values = {
+									['NONE'] = L['None'],
+									['OUTLINE'] = 'OUTLINE',
+									
+									['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
+									['THICKOUTLINE'] = 'THICKOUTLINE',
+								},
+							},
+						},
+					},
+					editbox = {
+						type = "group",
+						name = "Chat Editbox Text",
+						order = 2,
+						guiInline = true,
+						get = function(info) return E.db.sle.media.fonts.editbox[ info[#info] ] end,
+						set = function(info, value) E.db.sle.media.fonts.editbox[ info[#info] ] = value; E:UpdateMedia() end,
+						args = {
+							font = {
+								type = "select", dialogControl = 'LSM30_Font',
+								order = 1,
+								name = L["Font"],
+								desc = "The font used for chat editbox",
+								values = AceGUIWidgetLSMlists.font,	
+							},
+							size = {
+								order = 2,
+								name = L["Font Size"],
+								type = "range",
+								min = 6, max = 20, step = 1,
+							},
+							outline = {
+								order = 3,
+								name = L["Font Outline"],
+								desc = L["Set the font outline."],
+								type = "select",
+								values = {
+									['NONE'] = L['None'],
+									['OUTLINE'] = 'OUTLINE',
+									
+									['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
+									['THICKOUTLINE'] = 'THICKOUTLINE',
+								},
 							},
 						},
 					},
