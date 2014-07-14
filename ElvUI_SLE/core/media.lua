@@ -1,5 +1,5 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI);
-local SLE = E:GetModule('SLE')
+local SLE = E:GetModule('SLE') --I don't see where this is needed??? 
 local M = E:GetModule('SLE_Media')
 local LSM = LibStub("LibSharedMedia-3.0")
 
@@ -86,8 +86,6 @@ function M:TextShow()
 	local z, i, a, s, c = random(1, #Zones), random(1, #PvPInfo), random(1, #PVPArena), random(1, #Subzones), random(1, #Colors)
 	local red, green, blue = unpack(Colors[c])
 
-	
-	
 	--Setting texts--
 	ZoneTextString:SetText(Zones[z])
 	PVPInfoTextString:SetText(PvPInfo[i])
