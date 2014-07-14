@@ -1,5 +1,4 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI);
-local SLE = E:GetModule('SLE') --I don't see where this is needed??? 
 local M = E:GetModule('SLE_Media')
 local LSM = LibStub("LibSharedMedia-3.0")
 
