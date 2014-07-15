@@ -149,6 +149,8 @@ local specialChatIcons = {
 	},
 }
 
+SLE.SpecialChatIcons = specialChatIcons
+
 CH.StyleChatSLE = CH.StyleChat
 function CH:StyleChat(frame)
 	CH:StyleChatSLE(frame)
