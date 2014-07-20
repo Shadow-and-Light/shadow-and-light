@@ -1,5 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
 	<Script file='flares.lua'/>
 	<Script file='marks.lua'/>
-	<Script file='options.lua'/>
 </Ui>

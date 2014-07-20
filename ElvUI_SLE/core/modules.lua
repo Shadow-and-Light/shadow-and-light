@@ -20,6 +20,7 @@ local modules = {
 	['SLE_EnhancedVehicleBar'] = {},
 	['SLE_Test'] = { 'AceHook-3.0', 'AceEvent-3.0'}, --Testing module in dev folder
 	['SLE_Media'] = { 'AceHook-3.0' },
+	['SLE_InstDif'] = { 'AceHook-3.0', 'AceEvent-3.0'},
 	['SLE'] = { 'AceHook-3.0', 'AceEvent-3.0' },
 }
 

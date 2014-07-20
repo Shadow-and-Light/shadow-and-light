@@ -10,6 +10,7 @@ local F = E:GetModule('SLE_Farm')
 local LT = E:GetModule('SLE_Loot')
 local UF = E:GetModule('UnitFrames')
 local M = E:GetModule('SLE_Media')
+local I = E:GetModule('SLE_InstDif')
 --test
 local GetContainerNumSlots, GetContainerItemID = GetContainerNumSlots, GetContainerItemID
 
@@ -61,4 +62,5 @@ function E:UpdateAll()
 	F:UpdateLayout()
 	CH:GMIconUpdate()
 	M:TextWidth()
+	I:UpdateFrame()
 end

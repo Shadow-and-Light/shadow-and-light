@@ -47,8 +47,6 @@ local Colors = {
 	[5] = {1.0, 0.9294, 0.7607}, --white
 }
 
-
-
 local function ZoneTextPos()
     if ( PVPInfoTextString:GetText() == "" ) then
         SubZoneTextString:SetPoint("TOP", "ZoneTextString", "BOTTOM", 0, -E.db.sle.media.fonts.subzone.offset);

@@ -131,6 +131,44 @@ local function configTable()
 					},
 				},
 			},
+			instance = {
+				type = "group",
+				name = L["Instance indication"],
+				order = 7,
+				guiInline = true,
+				get = function(info) return E.db.sle.minimap.instance[ info[#info] ] end,
+				set = function(info, value) E.db.sle.minimap.instance[ info[#info] ] = value; E:GetModule('SLE_InstDif'):UpdateFrame() end,
+				args = {
+					enable = {
+						order = 1,
+						type = 'toggle',
+						name = L['Enable'],
+						desc = L['Show instance difficulty info as text.'],
+						disabled = function() return not E.private.general.minimap.enable end,
+					},
+					flag = {
+						order = 2,
+						type = 'toggle',
+						name = L['Show texture'],
+						desc = L['Show instance difficulty info as default texture.'],
+						disabled = function() return not E.private.general.minimap.enable end,
+					},
+					xoffset = {
+						order = 3,
+						type = 'range',
+						name = L['X-Offset'],
+						min = -50, max = 100, step = 1,
+						disabled = function() return not E.private.general.minimap.enable or not E.db.sle.minimap.instance.enable end,
+					},
+					yoffset = {
+						order = 4,
+						type = 'range',
+						name = L['Y-Offset'],
+						min = -50, max = 100, step = 1,
+						disabled = function() return not E.private.general.minimap.enable or not E.db.sle.minimap.instance.enable end,
+					},
+				},
+			},
 		},
 	}
 end

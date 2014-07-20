@@ -1,5 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<!--<Script file='datatexts.lua'/>-->
 	<Script file='lfr.lua'/>
 	<Script file='version.lua'/>
 	<Script file='regen.lua'/>
