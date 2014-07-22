@@ -65,11 +65,14 @@ local function OnEvent(self, event, ...)
 
 end
 
+local function OnUpdate(self)
+	OnEvent(self, "UPDATE_PENDING_MAIL")
+	self:SetScript("OnUpdate", nil)
+end
+
 local function OnEnter(self)
 	DT:SetupTooltip(self)
-	
-	
-	
+
 	local sender1, sender2, sender3 = GetLatestThreeSenders()
 	
 	if not Read then	
@@ -82,4 +85,4 @@ local function OnEnter(self)
 	DT.tooltip:Show()
 end
 
-DT:RegisterDatatext('S&L Mail', {'PLAYER_ENTERING_WORLD', 'MAIL_INBOX_UPDATE', 'UPDATE_PENDING_MAIL', 'MAIL_CLOSED', 'PLAYER_LOGIN','MAIL_SHOW'}, OnEvent, nil, nil, OnEnter)
+DT:RegisterDatatext('S&L Mail', {'PLAYER_ENTERING_WORLD', 'MAIL_INBOX_UPDATE', 'UPDATE_PENDING_MAIL', 'MAIL_CLOSED', 'PLAYER_LOGIN','MAIL_SHOW'}, OnEvent, OnUpdate, nil, OnEnter)
