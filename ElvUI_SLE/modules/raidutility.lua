@@ -2,9 +2,7 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local M = E:GetModule('Misc');
 
 --For moving raid utility button
-M.InitializeSLE = M.Initialize
-function M:Initialize()
-	M.InitializeSLE(self)
+local function MoreInit()
 	E:CreateMover(RaidUtility_ShowButton, "RaidUtility_Mover", L["Raid Utility"], nil, nil, nil, "ALL,S&L,S&L MISC")
 	local mover = RaidUtility_Mover
 	local frame = RaidUtility_ShowButton
@@ -33,6 +31,7 @@ function M:Initialize()
 	else
 		dropfix()
 	end
+	RaidUtility_ShowButton:RegisterForDrag("")
 end
 
-RaidUtility_ShowButton:RegisterForDrag("") --Unregister any buttons for dragging. 
+hooksecurefunc(M, "Initialize", MoreInit)
