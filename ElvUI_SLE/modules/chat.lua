@@ -159,6 +159,7 @@ end
 local PixelOff = E.PixelMode and 31 or 27
 
 local function Position()
+	if not E.db.sle.datatext.chathandle then return end
 	local BASE_OFFSET = 60
 	if E.PixelMode then
 		BASE_OFFSET = BASE_OFFSET - 3
@@ -180,21 +181,17 @@ local function Position()
 		end]]
 		if point == "BOTTOMRIGHT" and chat:IsShown() and not (id > NUM_CHAT_WINDOWS) and id == CH.RightChatWindowID then
 			chat:ClearAllPoints()
-			if E.db.sle.datatext.chathandle then
-				if E.db.datatexts.rightChatPanel then
-					chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3)
-				end
-				if id ~= 2 then
-					chat:SetSize(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - PixelOff))
-				end
+			if E.db.datatexts.rightChatPanel then
+				chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3)
+			end
+			if id ~= 2 then
+				chat:SetSize(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - PixelOff))
 			end
 		elseif not isDocked and chat:IsShown() then
 		
 		else
-			if E.db.sle.datatext.chathandle then
-				if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
-					chat:Size(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - PixelOff))
-				end
+			if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
+				chat:Size(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - PixelOff))
 			end
 		end
 	end
