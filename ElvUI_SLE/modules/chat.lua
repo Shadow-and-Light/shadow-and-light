@@ -755,39 +755,6 @@ function CH:ChatEdit_AddHistory(editBox, line)
 	end
 end
 
-function CH:ChatFrame_AddMessageEventFilter (event, filter)
-	assert(event and filter);
-	
-	if ( chatFilters[event] ) then
-		-- Only allow a filter to be added once
-		for index, filterFunc in next, chatFilters[event] do
-			if ( filterFunc == filter ) then
-				return;
-			end
-		end
-	else
-		chatFilters[event] = {};
-	end
-	
-	tinsert(chatFilters[event], filter);
-end
-
-function CH:ChatFrame_RemoveMessageEventFilter (event, filter)
-	assert(event and filter);
-	
-	if ( chatFilters[event] ) then
-		for index, filterFunc in next, chatFilters[event] do
-			if ( filterFunc == filter ) then
-				tremove(chatFilters[event], index);
-			end
-		end
-		
-		if ( #chatFilters[event] == 0 ) then
-			chatFilters[event] = nil;
-		end
-	end
-end
-
 function CH:CheckLFGRoles()
 	local isInGroup, isInRaid = IsInGroup(), IsInRaid()
 	local unit = isInRaid and "raid" or "party"
@@ -814,9 +781,9 @@ function CH:CheckLFGRoles()
 	end
 end
 
-function CH:GMCheck()
+local function GMCheck()
 	local name, rank
-	if GetNumGuildMembers() == 0 and IsInGuild() then E:Delay(2, CH.GMCheck); return end
+	if GetNumGuildMembers() == 0 and IsInGuild() then E:Delay(2, GMCheck); return end
 	if not IsInGuild() then GuildMaster = ""; GMName = ''; GMRealm = ''; return end
 	for i = 1, GetNumGuildMembers() do
 		name, _, rank = GetGuildRosterInfo(i)
@@ -834,14 +801,14 @@ function CH:GMCheck()
 end
 
 local function Roster(event, update)
- if update then CH:GMCheck() end
+ if update then GMCheck() end
 end
 
 function CH:GMIconUpdate()
 	if E.private.chat.enable ~= true then return end
 	if E.private.sle.guildmaster then
 		self:RegisterEvent('GUILD_ROSTER_UPDATE', Roster)
-		CH:GMCheck()
+		GMCheck()
 	else
 		self:UnregisterEvent('GUILD_ROSTER_UPDATE')
 		GuildMaster = ""
@@ -853,7 +820,7 @@ end
 hooksecurefunc(CH, "Initialize", function(self)
 	if E.private.sle.guildmaster then
 		self:RegisterEvent('GUILD_ROSTER_UPDATE', Roster)
-		CH:GMCheck()
+		GMCheck()
 	end
 end)
 
@@ -861,11 +828,7 @@ end)
 local LO = E:GetModule('Layout');
 local PANEL_HEIGHT = 22;
 local SIDE_BUTTON_WIDTH = 16;
-
-LO.ToggleChatPanelsSLE = LO.ToggleChatPanels
-function LO:ToggleChatPanels()
-	LO.ToggleChatPanelsSLE(self)
-	
+local function ChatPanels()
 	if not E.db.sle.datatext.chathandle then return end
 	
 	if not E:HasMoverBeenMoved("LeftChatMover") and E.db.datatexts.leftChatPanel then
@@ -935,18 +898,16 @@ function LO:ToggleChatPanels()
 	end
 end
 
-LO.CreateChatPanelsSLE = LO.CreateChatPanels
-function LO:CreateChatPanels()
-	LO.CreateChatPanelsSLE(self)
-	
+local function CreateChatPanels()
 	--Left Chat Tab
 	LeftChatTab:Point('TOPLEFT', LeftChatPanel, 'TOPLEFT', 2, -2)
 	LeftChatTab:Point('BOTTOMRIGHT', LeftChatPanel, 'TOPRIGHT', -2, -PANEL_HEIGHT)
-	
 	--Preventing left chat datapanel fading
 	ChatFrame1EditBox:Hide()
-	
 	--Right Chat Tab
 	RightChatTab:Point('TOPRIGHT', RightChatPanel, 'TOPRIGHT', -2, -2)
 	RightChatTab:Point('BOTTOMLEFT', RightChatPanel, 'TOPLEFT', 2, -PANEL_HEIGHT)
 end
+
+hooksecurefunc(LO, "ToggleChatPanels", ChatPanels)
+hooksecurefunc(LO, "CreateChatPanels", CreateChatPanels)
