@@ -44,9 +44,7 @@ function SLE:Print(msg)
 	print(E["media"].hexvaluecolor..'S&L:|r', msg)
 end
 
-E.UpdateAllSLE = E.UpdateAll
-function E:UpdateAll()
-    E.UpdateAllSLE(self)
+local function UpdateAll()
 	BG:UpdateFrames()
 	BG:RegisterHide()
 	DTP:Update()
@@ -63,4 +61,7 @@ function E:UpdateAll()
 	CH:GMIconUpdate()
 	M:TextWidth()
 	I:UpdateFrame()
+	
+	collectgarbage('collect');
 end
+hooksecurefunc(E, "UpdateAll", UpdateAll)
