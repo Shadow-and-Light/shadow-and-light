@@ -242,17 +242,15 @@ local function DFTextSLE()
 	end
 end
 
-
-UF.UpdatePlayerFrameAnchorsSLE = UF.UpdatePlayerFrameAnchors
-function UF:UpdatePlayerFrameAnchors(frame, isShown)
-	UF:UpdatePlayerFrameAnchorsSLE(frame, isShown)
-	
+local function PlayerFrameAnchors()	
 	if E.myclass == "DRUID" then
 		EclipseTextSLE()
 	elseif E.myclass == "WARLOCK" then
 		DFTextSLE()
 	end
 end
+
+hooksecurefunc(UF, "UpdatePlayerFrameAnchors", PlayerFrameAnchors)
 
 function UF:ClassbarTextSLE()
 	if E.myclass == "DRUID" then
