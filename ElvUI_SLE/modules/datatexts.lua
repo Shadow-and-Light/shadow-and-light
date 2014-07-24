@@ -41,10 +41,7 @@ local function PanelResize()
 	DT:UpdateAllDimensions()
 end
 
---Added function to create new panels
-LO.InitializeSLE = LO.Initialize
-function LO:Initialize()
-	LO.InitializeSLE(self)
+local function AddPanels()
 	for _,v in pairs(panels) do
 		CreateDataPanels(v[5], v[2], v[3], v[4], v[6], v[1])
 	end
@@ -103,5 +100,6 @@ function DTP:PLAYER_ENTERING_WORLD(...)
 end
 
 function DTP:Initialize()
+	AddPanels()
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
