@@ -12,7 +12,7 @@ function Hex(r, g, b)
 	return format('|cFF%02x%02x%02x', r * 255, g * 255, b * 255)
 end
 
-NP.GroupMembers = {}
+local GroupMembers = {}
 
 hooksecurefunc(NP, 'CreatePlate', function(self, frame)
 	local myPlate = self.CreatedPlates[frame]
@@ -65,7 +65,7 @@ hooksecurefunc(NP, 'GetThreatReaction', function(self, frame)
 		if frame.guid then
 			local targetCount = 0
 			local target
-			for name, unitid in pairs(NP.GroupMembers) do
+			for name, unitid in pairs(GroupMembers) do
 				target = ("%starget"):format(unitid)
 				if UnitExists(target) and UnitGUID(target) == frame.guid then
 					targetCount = targetCount + 1
@@ -82,12 +82,12 @@ end)
 local function AddToRoster(unitId)
 	local unitName = UnitName(unitId)
 	if unitName then
-		NP.GroupMembers[unitName] = unitId
+		GroupMembers[unitName] = unitId
 	end
 end
 
 local function UpdateRoster()
-	twipe(NP.GroupMembers)
+	twipe(GroupMembers)
 
 	local groupSize = IsInRaid() and GetNumGroupMembers() or IsInGroup() and GetNumSubgroupMembers() or 0
 	local groupType = IsInRaid() and "raid" or IsInGroup() and "party" or "solo"
