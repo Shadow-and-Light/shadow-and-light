@@ -17,9 +17,7 @@ local function AnchorFrameToMouse(frame)
 	frame:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", (x/scale + (E.db.tooltip.mouseOffsetX - tipWidth/2)), (y/scale + E.db.tooltip.mouseOffsetY));
 end
 
-TT.GameTooltip_SetDefaultAnchorSLE = TT.GameTooltip_SetDefaultAnchor
-function TT:GameTooltip_SetDefaultAnchor(tt, parent)
-	TT:GameTooltip_SetDefaultAnchorSLE(tt, parent)
+local function SetDefaultAnchor(self, tt, parent)	
 	if E.private["tooltip"].enable ~= true then return end
 	if(tt:GetAnchorType() ~= "ANCHOR_CURSOR") then return end
 	if InCombatLockdown() and self.db.visibility.combat then
@@ -34,9 +32,7 @@ function TT:GameTooltip_SetDefaultAnchor(tt, parent)
 	end
 end
 
-TT.GameTooltip_OnTooltipSetUnitSLE = TT.GameTooltip_OnTooltipSetUnit
-function TT:GameTooltip_OnTooltipSetUnit(tt)
-	TT:GameTooltip_OnTooltipSetUnitSLE(tt)
+local function OnTooltipSetUnit(self, tt)
 	if not E.db.sle.tooltipicon then return end
 	local unit = select(2, tt:GetUnit())
 	if(UnitIsPlayer(unit)) then
@@ -51,8 +47,9 @@ local function AddonName_OnUpdate(self, elapsed)
   AnchorFrameToMouse(self);
 end
 
-TT.InitializeSLE = TT.Initialize
-function TT:Initialize()
-	TT:InitializeSLE()
-	self:HookScript(GameTooltip, "OnUpdate", AddonName_OnUpdate);
+local function Init()
+	TT:HookScript(GameTooltip, "OnUpdate", AddonName_OnUpdate);
+	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", OnTooltipSetUnit)
+	hooksecurefunc(TT, "GameTooltip_SetDefaultAnchor", SetDefaultAnchor)
 end
+hooksecurefunc(TT, "Initialize", Init)
