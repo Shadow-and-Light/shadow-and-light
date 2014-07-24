@@ -67,9 +67,7 @@ function DTP:DashboardShow()
 	end
 end
 
-DT.LoadDataTextsSLE = DT.LoadDataTexts
-function DT:LoadDataTexts()
-	DT.LoadDataTextsSLE(self)
+local function SetupFonts()
 	font = LSM:Fetch("font", E.db.datatexts.font)
 	fontsize = E.db.datatexts.fontSize 
 	outline = E.db.datatexts.fontOutline
@@ -77,6 +75,7 @@ function DT:LoadDataTexts()
 		board[i].Text:SetFont(font, fontsize, outline)
 	end
 end
+hooksecurefunc(DT, "LoadDataTexts", SetupFonts)
 
 function DTP:DashWidth()
 	for i = 1, 4 do
