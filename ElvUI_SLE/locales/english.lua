@@ -21,7 +21,7 @@ L["Options to tweak Loot History window behaviour."] = true
 L["Auto hide"] = true
 L["Automaticaly hide Blizzard loot histroy frame when leaving the instance."] = true
 L["Sets alpha of loot histroy frame."] = true
-L["SLE_LOGIN_MSG"] = [=[You are using |cff1784d1Shadow & Light Edit|r version |cff1784d1%s%s|r for ElvUI.
+L["SLE_LOGIN_MSG"] = [=[You are using |cff1784d1Shadow & Light|r version |cff1784d1%s%s|r for ElvUI.
 If you wish to use the original ElvUI addon, disable this edit's plugin in your Addons manager.
 Have a nice day.]=]
 L['MSG_OUTDATED'] = "Your version of ElvUI is older than recommended to use with Shadow & Light. Your version is |cff1784d1%s|r (recommended is |cff1784d1%s|r). Please update your ElvUI."
