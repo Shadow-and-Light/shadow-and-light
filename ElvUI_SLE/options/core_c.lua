@@ -6,7 +6,7 @@ local function configTable()
 	E.Options.args.ElvUI_Header = {
 			order = 1,
 			type = "header",
-			name = "ElvUI"..format(": |cff99ff33%s|r",E.version).."  "..L["Shadow & Light"]..format(": |cff99ff33%s|r",SLE.version),
+			name = "ElvUI"..format(": |cff99ff33%s|r",E.version).."  ".."Shadow & Light"..format(": |cff99ff33%s|r",SLE.version),
 			width = "full",
 	}
 
