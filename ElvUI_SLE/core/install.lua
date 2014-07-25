@@ -1897,7 +1897,7 @@ local function SetPage(PageNum)
 		InstallOption1Button:SetScript('OnClick', function() E.private.sle.characterframeoptions.enable = true; E.private.sle.inspectframeoptions.enable = true; end)
 		InstallOption1Button:SetText(L["Enable"])	
 	elseif PageNum == 4 then
-		f.SubTitle:SetText(L["Shadow & Light Settings"])
+		f.SubTitle:SetText("Shadow & Light "..SETTINGS)
 		f.Desc1:SetText(L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."])
 		f.Desc2:SetText(L["SLE_Install_Text2"])
 		f.Desc3:SetText(L["Importance: |cffFF0000Low|r"])
