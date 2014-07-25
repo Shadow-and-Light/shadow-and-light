@@ -5,7 +5,6 @@ local L = AceLocale:NewLocale("ElvUI", "enUS", true);
 if not L then return; end
 
 --General--
-L["Shadow & Light"] = true
 L["Below you can see option groups presented by Shadow & Light."] = true
 L["General options of Shadow & Light."] = true
 L["SLE_DESC"] = [=[This is an edit of ElvUI that adds some functionality to the original addon and changes some previously existed options.
@@ -32,7 +31,6 @@ L["Reset these options to defaults"] = true
 L['Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable.'] =  true
 
 --Install--
-L["Shadow & Light Settings"] = true
 L["You can now choose if you what to use one of authors' set of options. This will change the positioning of most elements but also change a bunch of other options within ElvUI's config."] = true
 L["SLE_Install_Text2"] = [=[This step is optional and only to be used if you are wanting to use one of our configurations. 
 |cffFF0000Warning:|r Please note that the authors' may or may not use any of the layout/theme you have selected as they may not have utilized the options.]=]

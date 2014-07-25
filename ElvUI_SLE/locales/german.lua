@@ -4,7 +4,6 @@ local L = AceLocale:NewLocale("ElvUI", "deDE")
 if not L then return end
 
 --General--
-L["Shadow & Light"] = "Schatten & Licht"
 L["SLE_DESC"] = [=[Das ist ein Edit von ElvUI das einige Funktionen zum Original Addon hinzufügt und bereits existierende Optionen ändert.
 Der Edit ändert in keiner Hinsicht Originale Dateien so das du es ohne Probleme aus deinem Addon Manager deaktivieren kannst.]=]
 L["LFR Lockout"] = "LFR Abklingzeiten"
@@ -22,7 +21,6 @@ L["Reset all Shadow & Light options and movers to their defaults"] = true
 L["Reset these options to defaults"] = true
 
 --Install--
-L["Shadow & Light Settings"] = "Schatten & Licht Einstellungen"
 L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."] = "Du kannst nun eine Einstellugen eines Authors wählen. Das wird nicht nur die Postitionierung von einigen Elementen sondern auch eine reihe anderer Optionen geändert."
 L["SLE_Install_Text2"] = [=[Elv's Standart Taste muss nur angeklickt werden um eine unserer Konfigurationen rückgängig zu machen.
 |cffFF0000Warnung:|r das wird alles zurücksetzen auf das Hohe Auflösungs Layout.]=]
