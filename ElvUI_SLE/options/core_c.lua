@@ -15,7 +15,7 @@ local function configTable()
 	--Main options group
 	E.Options.args.sle = {
 		type = "group",
-		name = L["Shadow & Light"],
+		name = "Shadow & Light",
 		desc = [[The |cff1784d1ElvUI|r modification by
 	Darth Predator and Repooc.]],
 		order = 50,
@@ -23,7 +23,7 @@ local function configTable()
 			header = {
 				order = 1,
 				type = "header",
-				name = L["Shadow & Light"]..format(": |cff99ff33%s|r", SLE.version),
+				name = "Shadow & Light"..format(": |cff99ff33%s|r", SLE.version),
 			},
 			logo = {
 				type = 'description',
