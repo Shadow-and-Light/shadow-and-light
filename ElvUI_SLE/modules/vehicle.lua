@@ -77,15 +77,16 @@ end
 function EVB:Initialize()
 	if (not E.private.sle.vehicle.enable) then return end;
 
-	local visibility = "[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] hide; show"
+	local visibility = "[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] hide;"
 	local page = format("[vehicleui] %d; [possessbar] %d; [overridebar] %d; [shapeshift] 13;", GetVehicleBarIndex(), GetVehicleBarIndex(), GetOverrideBarIndex());
 	local bindButtons = "ACTIONBUTTON";
 
 	hooksecurefunc(AB, "PositionAndSizeBar", function(self, barName)
 		local bar = self["handledBars"][barName]
-		if (self.db[barName].enabled) then
+		print(barName)
+		if (self.db[barName].enabled) and (barName == "bar1") then
 			UnregisterStateDriver(bar, 'visibility');
-			RegisterStateDriver(bar, 'visibility', visibility);
+			RegisterStateDriver(bar, 'visibility', visibility..self.db[barName].visibility);
 		end
 	end);
 
