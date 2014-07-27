@@ -83,7 +83,6 @@ function EVB:Initialize()
 
 	hooksecurefunc(AB, "PositionAndSizeBar", function(self, barName)
 		local bar = self["handledBars"][barName]
-		print(barName)
 		if (self.db[barName].enabled) and (barName == "bar1") then
 			UnregisterStateDriver(bar, 'visibility');
 			RegisterStateDriver(bar, 'visibility', visibility..self.db[barName].visibility);
