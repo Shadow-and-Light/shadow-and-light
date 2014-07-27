@@ -26,16 +26,7 @@ local modules = {
 
 local function Register()
 	for name, libs in pairs(modules) do
-		local lib1, lib2, lib3 = unpack(libs)
-		if not lib1 then
-			unit = E:NewModule(name)
-		elseif not lib2 then
-			unit = E:NewModule(name, lib1)
-		elseif not lib3 then
-			unit = E:NewModule(name, lib1, lib2)
-		else
-			unit = E:NewModule(name, lib1, lib2, lib3)
-		end	
+		unit = E:NewModule(name, unpack(libs))
 		E:RegisterModule(unit:GetName())
 	end
 end
