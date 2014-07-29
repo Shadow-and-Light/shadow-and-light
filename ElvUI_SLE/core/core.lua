@@ -39,7 +39,7 @@ end
 local function GetOptions()
 	for _, func in pairs(E.SLEConfigs) do
 		func()
-	end	
+	end
 end
 
 local function IncompatibleAddOn(addon, module, optiontable, value)
@@ -73,7 +73,7 @@ function SLE:Initialize()
 	end
 	--if E.private.install_complete == E.version and E.private.sle.install_complete == nil then SLE:Install() end
 	if E.db.general.loginmessage then
-		print(format(L['SLE_LOGIN_MSG'], E["media"].hexvaluecolor, SLE.version))
+        SLE:Print(format(L['SLE_LOGIN_MSG'], E["media"].hexvaluecolor, SLE.version))
 	end
 	E:GetModule('SLE_DTPanels'):DashboardShow()
 	AddTutorials()
