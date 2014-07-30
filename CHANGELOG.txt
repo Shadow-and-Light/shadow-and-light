@@ -1,3 +1,6 @@
+v2.00
+-
+
 v1.88
 - New configuration layout has been implemented in preparation to WoD. Now options groups will not take that much space vertically.
 - Character window options have been moved to the new "Armory" group. The Armory module handles not only character window but inspect window as well. If enabled inspect option in the right-click menu will became blue.
