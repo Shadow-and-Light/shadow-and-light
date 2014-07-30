@@ -29,7 +29,7 @@ local function Releasing()
 	if (inInstance and (instanceType == "pvp")) then
 		if E.db.sle.pvpautorelease then Check(level, cd) end
 	end
-	
+
 	-- auto resurrection for world PvP area...when active
 	if E.db.sle.pvpautorelease then 
 		for index = 1, GetNumWorldPVPAreas() do

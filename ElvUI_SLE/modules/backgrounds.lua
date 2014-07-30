@@ -9,21 +9,20 @@ local function CreateFrames()
 	BGl = CreateFrame('Frame', "LeftBG", E.UIParent);
 	BGr = CreateFrame('Frame', "RightBG", E.UIParent);
 	BGa = CreateFrame('Frame', "ActionBG", E.UIParent);
-	
+
 	Fr = {
 		BottomBG = {BGb,"bottom"},
 		LeftBG = {BGl,"left"},
 		RightBG = {BGr,"right"},
 		ActionBG = {BGa,"action"},
-	}
-	
+
 	for _,v in pairs(Fr) do
 		v[1]:SetFrameLevel(v[1]:GetFrameLevel() - 1)
 		v[1]:SetScript("OnShow", function() v[1]:SetFrameStrata('BACKGROUND') end)
 		v[1].tex = v[1]:CreateTexture(nil, 'OVERLAY')
 		v[1]:Hide()
 	end
-	
+
 	BGb:EnableMouse(true) --Maybe add an option to actually allow change this click catching?
 	BGb.tex:SetAlpha(0.5) 
 	--Also the problem. As long as bottom bg can be transparent it's no good in keeping fixed transparency for the texture.
@@ -82,7 +81,7 @@ function BG:UpdateFrames()
 	if not BGb then return end
 	local db = E.db.sle.backgrounds
 	for _,v in pairs(Fr) do
-				v[1]:SetTemplate(db[v[2]].template, true)
+		v[1]:SetTemplate(db[v[2]].template, true)
 	end
 	FramesSize()
 	FramesVisibility()
@@ -107,7 +106,7 @@ function BG:Initialize()
 	FramesPositions()
 	BG:UpdateFrames()
 	BG:RegisterHide()
-	
+
 	E:CreateMover(BottomBG, "BottomBG_Mover", L["Bottom BG"], nil, nil, nil, "S&L,S&L BG")
 	E:CreateMover(LeftBG, "LeftBG_Mover", L["Left BG"], nil, nil, nil, "S&L,S&L BG")
 	E:CreateMover(RightBG, "RightBG_Mover", L["Right BG"], nil, nil, nil, "S&L,S&L BG")

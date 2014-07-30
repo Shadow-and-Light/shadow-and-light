@@ -11,21 +11,24 @@ local infoArray = {}
 local equipmentMap = {}
 
 local function Utf8Sub(str, start, numChars)
-  local currentIndex = start
-  while numChars > 0 and currentIndex <= #str do
-    local char = byte(str, currentIndex)
-    if char > 240 then
-      currentIndex = currentIndex + 4
-    elseif char > 225 then
-      currentIndex = currentIndex + 3
-    elseif char > 192 then
-      currentIndex = currentIndex + 2
-    else
-      currentIndex = currentIndex + 1
-    end
-    numChars = numChars -1
-  end
-  return str:sub(start, currentIndex - 1)
+	local currentIndex = start
+	while numChars > 0 and currentIndex <= #str do
+		local char = byte(str, currentIndex)
+
+		if char > 240 then
+			currentIndex = currentIndex + 4
+		elseif char > 225 then
+			currentIndex = currentIndex + 3
+		elseif char > 192 then
+			currentIndex = currentIndex + 2
+		else
+			currentIndex = currentIndex + 1
+		end
+
+		numChars = numChars -1
+	end
+
+	return str:sub(start, currentIndex - 1)
 end
 
 local function MapKey(bag, slot)
@@ -44,9 +47,11 @@ local function BuildEquipmentMap(clear)
 	for k, v in pairs(equipmentMap) do
 		twipe(v)
 	end
+
 	if clear then return end
-	
+
 	local name, player, bank, bags, slot, bag, key
+
 	for i = 1, GetNumEquipmentSets() do
 		name = GetEquipmentSetInfo(i)
 		GetEquipmentSetLocations(name, infoArray)
@@ -129,6 +134,6 @@ function BI:Initialize()
 		tinsert(containers, _G["ElvUI_BankContainerFrame"])
 		BI:ToggleSettings()
 	end)
-	
+
 	BI:ToggleSettings()
 end

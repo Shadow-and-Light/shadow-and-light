@@ -45,8 +45,9 @@ local function AddPanels()
 	for _,v in pairs(panels) do
 		CreateDataPanels(v[5], v[2], v[3], v[4], v[6], v[1])
 	end
+
 	PanelResize()
-	
+
 	for _,v in pairs(panels) do
 		E:CreateMover(v[5], v[2].."_Mover", L[v[2]], nil, nil, nil, "ALL,S&L,S&L DT")
 	end

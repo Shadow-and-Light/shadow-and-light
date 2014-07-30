@@ -33,15 +33,15 @@ function M:UpdateExperience(event)
 		bar.statusBar:SetMinMaxValues(0, max)
 		bar.statusBar:SetValue(cur - 1 >= 0 and cur - 1 or 0)
 		bar.statusBar:SetValue(cur)
-		
+
 		local rested = GetXPExhaustion()
 		local text = ''
 		local textFormat = E.db.general.experience.textFormat
-		
+
 		if rested and rested > 0 then
 			bar.rested:SetMinMaxValues(0, max)
 			bar.rested:SetValue(math.min(cur + rested, max))
-			
+
 			if E.db.sle.exprep.explong then
 				if textFormat == 'PERCENT' then
 					text = format('%d%%  '..L['Rested:']..' %d%%', cur / max * 100, rested / max * 100)
@@ -84,13 +84,12 @@ function M:UpdateExperience(event)
 		
 		bar.text:SetText(text)
 	end
-	
+
 	self:UpdateExpRepAnchors()
 end
 
 function M:UpdateReputation(event)
 	local bar = self.repBar
-	
 	local ID = 100
 	local name, reaction, min, max, value = GetWatchedFactionInfo()
 	local numFactions = GetNumFactions();
@@ -107,7 +106,7 @@ function M:UpdateReputation(event)
 
 		bar.statusBar:SetMinMaxValues(0, max - min)
 		bar.statusBar:SetValue(value - min)
-		
+
 		for i=1, numFactions do
 			local factionName, _, standingID,_,_,_,_,_,_,_,_,_,_, factionID = GetFactionInfo(i);
 			local friendID, friendRep, friendMaxRep, _, _, _, friendTextLevel = GetFriendshipReputation(factionID);
@@ -120,8 +119,7 @@ function M:UpdateReputation(event)
 				end
 			end
 		end
-		
-		
+
 		if E.db.sle.exprep.replong then
 			if textFormat == 'PERCENT' then
 				text = format('%d%% [%s]', ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
@@ -139,10 +137,9 @@ function M:UpdateReputation(event)
 				text = format('%s: %s - %d%% [%s]', name, E:ShortValue(value - min), ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
 			end	
 		end
-		
 		bar.text:SetText(text)		
 	end
-	
+
 	self:UpdateExpRepAnchors()
 end
 
@@ -216,6 +213,7 @@ function M:PlayerRepLogin()
 		end
 	end
 end
+
 function M:PlayerGuildRosterUpdate()
 	if IsInGuild() then
 		guildName = (GetGuildInfo("player"))
