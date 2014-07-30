@@ -20,7 +20,7 @@ local function GetFormattedTextSLE(style, min, max)
 	assert(max, 'You need to provide a maximum value. Usage: E:GetFormattedText(style, min, max)')
 
 	if max == 0 then max = 1 end
-	
+
 	local useStyle = styles[style]
 
 	if style == 'DEFICIT' then
@@ -59,24 +59,24 @@ local function AddTags()
 			return veng
 		end
 	end
-	
+
 	ElvUF.Tags.Methods['range:sl'] = function(unit)
 		local name, server = UnitName(unit)
 		local rangeText = ''
 		local min, max = RC:GetRange(unit)
 		curMin = min
 		curMax = max
-	
+
 		if(server and server ~= "") then
 			name = format("%s-%s", name, server)
 		end
-	
+
 		if min and max and (name ~= UnitName('player')) then
 			rangeText = curMin.."-"..curMax
 		end
 		return rangeText
 	end
-	
+
 	ElvUF.Tags.Events['health:current:sl'] = 'UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION'
 	ElvUF.Tags.Methods['health:current:sl'] = function(unit)
 		local min, max = UnitHealth(unit), UnitHealthMax(unit)
@@ -88,108 +88,108 @@ local function AddTags()
 			return GetFormattedTextSLE('CURRENT', min, max)
 		end
 	end
-	
+
 	ElvUF.Tags.Events['health:deficit:sl'] = 'UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION'
 	ElvUF.Tags.Methods['health:deficit:sl'] = function(unit)
 		local min, max = UnitHealth(unit), UnitHealthMax(unit)
 		local status = not UnitIsConnected(unit) and L['Offline'] or UnitIsGhost(unit) and L['Ghost'] or UnitIsDead(unit) and DEAD
-	
+
 		if (status) then
 			return status
 		else
 			return GetFormattedTextSLE('DEFICIT', min, max)
 		end
 	end
-	
+
 	ElvUF.Tags.Events['health:current-percent:sl'] = 'UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION'
 	ElvUF.Tags.Methods['health:current-percent:sl'] = function(unit)
 		local min, max = UnitHealth(unit), UnitHealthMax(unit)
 		local status = not UnitIsConnected(unit) and L['Offline'] or UnitIsGhost(unit) and L['Ghost'] or UnitIsDead(unit) and DEAD
-	
+
 		if (status) then
 			return status
 		else
 			return GetFormattedTextSLE('CURRENT_PERCENT', min, max)
 		end
 	end
-	
+
 	ElvUF.Tags.Events['health:current-max:sl'] = 'UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION'
 	ElvUF.Tags.Methods['health:current-max:sl'] = function(unit)
 		local min, max = UnitHealth(unit), UnitHealthMax(unit)
 		local status = not UnitIsConnected(unit) and L['Offline'] or UnitIsGhost(unit) and L['Ghost'] or UnitIsDead(unit) and DEAD
-	
+
 		if (status) then
 			return status
 		else
 			return GetFormattedTextSLE('CURRENT_MAX', min, max)
 		end
 	end
-	
+
 	ElvUF.Tags.Events['health:current-max-percent:sl'] = 'UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION'
 	ElvUF.Tags.Methods['health:current-max-percent:sl'] = function(unit)
 		local min, max = UnitHealth(unit), UnitHealthMax(unit)
 		local status = not UnitIsConnected(unit) and L['Offline'] or UnitIsGhost(unit) and L['Ghost'] or UnitIsDead(unit) and DEAD
-	
+
 		if (status) then
 			return status
 		else
 			return GetFormattedTextSLE('CURRENT_MAX_PERCENT', min, max)
 		end
 	end
-	
+
 	ElvUF.Tags.Events['power:current:sl'] = 'UNIT_POWER_FREQUENT UNIT_MAXPOWER'
 	ElvUF.Tags.Methods['power:current:sl'] = function(unit)
 		local pType = UnitPowerType(unit)
 		local min, max = UnitPower(unit, pType), UnitPowerMax(unit, pType)
-			
+
 		if min == 0 then
 			return ' '
 		else
 			return GetFormattedTextSLE('CURRENT', min, max)
 		end
 	end
-	
+
 	ElvUF.Tags.Events['power:current-max:sl'] = 'UNIT_POWER_FREQUENT UNIT_MAXPOWER'
 	ElvUF.Tags.Methods['power:current-max:sl'] = function(unit)
 		local pType = UnitPowerType(unit)
 		local min, max = UnitPower(unit, pType), UnitPowerMax(unit, pType)
-			
+
 		if min == 0 then
 			return ' '
 		else
 			return GetFormattedTextSLE('CURRENT_MAX', min, max)
 		end
 	end
-	
+
 	ElvUF.Tags.Events['power:current-percent:sl'] = 'UNIT_POWER_FREQUENT UNIT_MAXPOWER'
 	ElvUF.Tags.Methods['power:current-percent:sl'] = function(unit)
 		local pType = UnitPowerType(unit)
 		local min, max = UnitPower(unit, pType), UnitPowerMax(unit, pType)
-			
+
 		if min == 0 then
 			return ' '
 		else
 			return GetFormattedTextSLE('CURRENT_PERCENT', min, max)
 		end
 	end
-	
+
 	ElvUF.Tags.Events['power:current-max-percent:sl'] = 'UNIT_POWER_FREQUENT UNIT_MAXPOWER'
 	ElvUF.Tags.Methods['power:current-max-percent:sl'] = function(unit)
 		local pType = UnitPowerType(unit)
 		local min, max = UnitPower(unit, pType), UnitPowerMax(unit, pType)
-			
+
 		if min == 0 then
 			return ' '
 		else
 			return GetFormattedTextSLE('CURRENT_MAX_PERCENT', min, max)
 		end
 	end
-	
+
 	ElvUF.Tags.Events['power:deficit:sl'] = 'UNIT_POWER_FREQUENT UNIT_MAXPOWER'
 	ElvUF.Tags.Methods['power:deficit:sl'] = function(unit)
 		local pType = UnitPowerType(unit)
 		local min, max = UnitPower(unit, pType), UnitPowerMax(unit, pType)
-			
+
 		return GetFormattedTextSLE('DEFICIT', min, max, r, g, b)
 	end
 end
@@ -200,7 +200,7 @@ function UF:Update_CombatIndicator()
 	local CombatText = ElvUF_Player.Combat
 	if E.db.sle.combatico.pos == "NONE" then
 		CombatText:ClearAllPoints()
-	else	
+	else
 		local x, y = UF:GetPositionOffset(E.db.sle.combatico.pos)
 		CombatText:ClearAllPoints()
 		CombatText:Point(E.db.sle.combatico.pos, ElvUF_Player.Health, E.db.sle.combatico.pos, x, x)
@@ -273,7 +273,7 @@ end
 if E.myclass == "WARLOCK" then
 	local ShardBar = ElvUF_Player.ShardBar
 	local dfbar = select(2, ShardBar:GetChildren())
-	
+
 	ShardBar.powtext = dfbar:CreateFontString(nil, 'OVERLAY')
 	ShardBar.powtext:SetFont("Fonts\\FRIZQT__.TTF", 10, "OUTLINE")
 end
