@@ -14,10 +14,10 @@ local elvR = tonumber(GetAddOnMetadata("ElvUI_SLE", "X-ElvVersion"))
 E.SLEConfigs = {}
 --SLE['media'] = {}
 
-function SLE:MismatchText()
+--[[function SLE:MismatchText()
 	local text = format(L['MSG_OUTDATED'],elvV,elvR)
 	return text
-end
+end]]
 
 local function AddTutorials() --Additional tutorials
 	tinsert(E.TutorialList, #(E.TutorialList)+1, L["To enable full values of health/power on unitframes in Shadow & Light add \":sl\" to the end of the health/power tag.\nExample: [health:current:sl]."]);
@@ -64,9 +64,9 @@ end
 
 function SLE:Initialize()
 	--ElvUI's version check
-	if elvV < elvR then
+	--[[if elvV < elvR then
 		E:StaticPopup_Show("VERSION_MISMATCH")
-	end
+	end]]
 	EP:RegisterPlugin(addon, GetOptions)
 	if E.private.unitframe.enable then
 		self:RegisterEvent("PLAYER_REGEN_DISABLED", UF.Update_CombatIndicator);
