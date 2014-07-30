@@ -166,5 +166,14 @@ pip-log.txt
 
 *.sublime*
 
-.idea
+.idea/libraries/
+.idea/scopes/
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/.name
+.idea/uiDesigner.xml
+.idea/vcs.xml
+.idea/workspace.xml
 *.iml
