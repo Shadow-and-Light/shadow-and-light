@@ -9,60 +9,60 @@ local Message = ''
 local Authors = {
 	["Illidan"] = {
 		--Darth's toon
-		["Darthpred"] = "SLEAUTHOR",
+		["Darthpred"] = true,
 		--Repooc's Toon
-		["Repøøc"] = "SLEAUTHOR",
-		["Repooc"] = "SLEAUTHOR"
+		["Repøøc"] = true,
+		["Repooc"] = true
 	},
 	["ВечнаяПесня"] = {
 		--Darth's toons
-		["Дартпредатор"] = "SLEAUTHOR",
-		["Алея"] = "SLEAUTHOR",
-		["Ваззули"] = "SLEAUTHOR",
-		["Сиаранна"] = "SLEAUTHOR",
-		["Джатон"] = "SLEAUTHOR",
-		["Фикстер"] = "SLEAUTHOR",
-		["Киландра"] = "SLEAUTHOR",
-		["Нарджо"] = "SLEAUTHOR",
-		["Келинира"] = "SLEAUTHOR",
-		["Крениг"] = "SLEAUTHOR",
-		["Мейжи"] = "SLEAUTHOR"
+		["Дартпредатор"] = true,
+		["Алея"] = true,
+		["Ваззули"] = true,
+		["Сиаранна"] = true,
+		["Джатон"] = true,
+		["Фикстер"] = true,
+		["Киландра"] = true,
+		["Нарджо"] = true,
+		["Келинира"] = true,
+		["Крениг"] = true,
+		["Мейжи"] = true
 	},
 	["Korialstrasz"] = {
-		["Cursewordz"] = "SLEAUTHOR"
+		["Cursewordz"] = true
 	},
 	["Spirestone"] = {
-		["Sifupooc"] = "SLEAUTHOR",
-		["Dapooc"] = "SLEAUTHOR",
-		["Lapooc"] = "SLEAUTHOR",
-		["Warpooc"] = "SLEAUTHOR",
-		["Repooc"] = "SLEAUTHOR"
+		["Sifupooc"] = true,
+		["Dapooc"] = true,
+		["Lapooc"] = true,
+		["Warpooc"] = true,
+		["Repooc"] = true
 	},
 	["Andorhal"] = {
-		["Dapooc"] = "SLEAUTHOR",
-		["Rovert"] = "SLEAUTHOR",
-		["Sliceoflife"] = "SLEAUTHOR"
+		["Dapooc"] = true,
+		["Rovert"] = true,
+		["Sliceoflife"] = true
 	},
 	["WyrmrestAccord"] = {
-		["Kìtalie"] = "SLEAUTHOR",
-		["Sagome"] = "SLEAUTHOR",
-		["Ainy"] = "SLEAUTHOR",
-		["Norinael"] = "SLEAUTHOR",
-		["Tritalie"] = "SLEAUTHOR",
-		["Myùn"] = "SLEAUTHOR",
-		["Nevaleigh"] = "SLEAUTHOR",
-		["Celenii"] = "SLEAUTHOR",
-		["Varysa"] = "SLEAUTHOR",
-		["Caylasena"] = "SLEAUTHOR",
-		["Arillora"] = "SLEAUTHOR",
-		["Dapooc"] = "SLEAUTHOR",
+		["Kìtalie"] = true,
+		["Sagome"] = true,
+		["Ainy"] = true,
+		["Norinael"] = true,
+		["Tritalie"] = true,
+		["Myùn"] = true,
+		["Nevaleigh"] = true,
+		["Celenii"] = true,
+		["Varysa"] = true,
+		["Caylasena"] = true,
+		["Arillora"] = true,
+		["Dapooc"] = true,
 	},
 	--Normal PTR
 	["Anasterian(US)"] = {
-		["Dapooc"] = "SLEAUTHOR",
+		["Dapooc"] = true,
 	},
 	["Brill(EU)"] = {
-		["Дартпредатор"] = "SLEAUTHOR",
+		["Дартпредатор"] = true,
 	},
 }
 
