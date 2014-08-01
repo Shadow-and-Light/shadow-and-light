@@ -23,7 +23,7 @@ if SLE:Auth() then
 	local output = 'SAY'
 	local text = ''
 	local wtarget = ""
-	local bnetP = ""
+	local bnetP
 	
 	function SLE:delete(...)
 		local _, id = ...
