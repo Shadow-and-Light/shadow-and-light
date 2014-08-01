@@ -57,6 +57,7 @@ local Authors = {
 		["Arillora"] = "SLEAUTHOR",
 		["Dapooc"] = "SLEAUTHOR",
 	},
+	--Normal PTR
 	["Anasterian(US)"] = {
 		["Dapooc"] = "SLEAUTHOR",
 	},
@@ -121,6 +122,10 @@ function E:sleCommand(flag, channel, target, output, text, wtarget, presenceID)
 	if channel ~= 'BNET' then
 		SendAddonMessage(flag, Message, channel, target)
 	else
+		if not presenceID then
+			SLE:Print('|cffFF0000Error|r: No bnet friend selected, stupid.')
+			return
+		end
 		presenceID = tonumber(presenceID)
 		BNSendGameData(presenceID, flag, Message)
 	end
