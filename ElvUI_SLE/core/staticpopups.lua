@@ -24,6 +24,17 @@ E.PopupDialogs['ENHANCED_SLE_INCOMPATIBLE'] = {
 	hideOnEscape = false,	
 }
 
+E.PopupDialogs['LOOTCONFIRM_SLE_INCOMPATIBLE'] = {
+	text = L['You have got Loot Confirm and Shadow & Light both enabled at the same time. Select an addon to disable.'],
+	OnAccept = function() DisableAddOn("LootConfirm"); ReloadUI() end,
+	OnCancel = function() DisableAddOn("ElvUI_SLE"); ReloadUI() end,
+	button1 = 'Loot Confirm',
+	button2 = 'Shadow & Light',	
+	timeout = 0,
+	whileDead = 1,	
+	hideOnEscape = false,	
+}
+
 E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'] = {
 	text = gsub(L["INCOMPATIBLE_ADDON"], "ElvUI", "Shadow & Light"),
 	OnAccept = function(self) DisableAddOn(E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].addon); ReloadUI(); end,

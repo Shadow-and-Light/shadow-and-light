@@ -59,6 +59,9 @@ local function CheckIncompatible()
 	if IsAddOnLoaded('SquareMinimapButtons') and E.private.sle.minimap.mapicons.enable then
 		IncompatibleAddOn('SquareMinimapButtons', 'SquareMinimapButtons', E.private.sle.minimap.mapicons, "enable")
 	end
+	if IsAddOnLoaded('LootConfirm') then
+		E:StaticPopup_Show('LOOTCONFIRM_SLE_INCOMPATIBLE')
+	end
 end
 
 function SLE:Initialize()
