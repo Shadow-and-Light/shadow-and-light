@@ -5,7 +5,6 @@ local UF = E:GetModule('UnitFrames')
 local addon = ...
 
 --localizing functions--
-local IsInInstance = IsInInstance
 local tinsert = tinsert
 
 SLE.version = GetAddOnMetadata("ElvUI_SLE", "Version")
@@ -80,5 +79,4 @@ function SLE:Initialize()
 	ConfigCats()
 	SLE:RegisterCommands()
 	CheckIncompatible()
-    --woo
 end
