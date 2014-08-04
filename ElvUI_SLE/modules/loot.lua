@@ -6,13 +6,16 @@ local loottemp = {}
 local MyName = E.myname
 local IsInGroup, IsInRaid, IsPartyLFG = IsInGroup, IsInRaid, IsPartyLFG
 local GetNumGroupMembers, GetRaidRosterInfo = GetNumGroupMembers, GetRaidRosterInfo
-local GetLootSlotType, GetLootSlotLink, GetLootSlotInfo = GetLootSlotType, GetLootSlotLink, GetLootSlotInfo
+local GetLootSlotType, GetLootSlotLink, GetLootSlotInfo, GetLootRollItemInfo = GetLootSlotType, GetLootSlotLink, GetLootSlotInfo, GetLootRollItemInfo
 local GetNumLootItems, GetItemInfo = GetNumLootItems, GetItemInfo
 local IsLeftControlKeyDown = IsLeftControlKeyDown
 local loot = {}
 local numbers = {}
 local n = 0
 local Tremove = table.remove
+local ann, GrDes = false, false
+local frozen, chaos = select(1, GetItemInfo(43102)), select(1, GetItemInfo(52078))
+local UnitLevel = UnitLevel
 
 local function Check()
 	local name, rank, isML
@@ -90,7 +93,8 @@ local function List()
 	end
 end
 
-local function Announce()
+local function Announce(event)
+	if event ~= "LOOT_OPENED" then return end
 	if not IsInGroup() then return end -- not in group, exit.
 	local m = 0
 	local q = E.db.sle.loot.quality == "EPIC" and 4 or E.db.sle.loot.quality == "RARE" and 3 or E.db.sle.loot.quality == "UNCOMMON" and 2
@@ -131,8 +135,79 @@ function LT:LootShow()
 	end
 end
 
+local function HandleRoll(event, id)
+	if not GrDes then return end
+	
+	local name = select(2, GetLootRollItemInfo(id))
+	if (name == frozen) or (name == chaos) then
+		RollOnLoot(id, 2)
+	end
+		
+	local Maxed = GetMaxPlayerLevel()
+	if IsXPUserDisabled() == true then Maxed = UnitLevel("player") end
+	
+	if UnitLevel("player") ~= Maxed then return end
+	
+	if(id and select(4, GetLootRollItemInfo(id))== 2 and not (select(5, GetLootRollItemInfo(id)))) then
+		if E.private.sle.loot.autodisenchant and RollOnLoot(id, 3) then
+			RollOnLoot(id, 3)
+		else
+			RollOnLoot(id, 2)
+		end
+	end
+end
+
+local function HandleEvent(event, ...)
+	if event == "CONFIRM_LOOT_ROLL" or event == "CONFIRM_DISENCHANT_ROLL" then
+		local arg1, arg2 = ...
+		ConfirmLootRoll(arg1, arg2)
+	elseif event == "LOOT_OPENED" or event == "LOOT_BIND_CONFIRM" then
+		if ann then Announce(event) end
+		count = GetNumLootItems()
+		if count == 0 then CloseLoot() return end
+		for slot = 1, count do
+			ConfirmLootSlot(slot)
+		end
+	end
+end
+
+function LT:Update()
+	if E.private.sle.loot.autogreed or E.private.sle.loot.autodisenchant then 
+		GrDes = true
+		E.db.general.autoRoll = false
+	else
+		GrDes = false
+	end
+	if IsAddOnLoaded("ElvUI_Config") then
+		if GrDes then
+			E.Options.args.general.args.general.args.autoRoll.disabled = true
+		else
+			E.Options.args.general.args.general.args.autoRoll.disabled = false
+		end
+	end
+end
+
+local function LoadConfig(event, addon)
+	if addon ~= "ElvUI_Config" then return end
+	LT:UnregisterEvent("ADDON_LOADED")
+	LT:Update()
+end
+
 function LT:Initialize()
+	ann = E.private.sle.loot.enable
+
+	self:Update()
+	UIParent:UnregisterEvent("LOOT_BIND_CONFIRM")
+	UIParent:UnregisterEvent("CONFIRM_DISENCHANT_ROLL")
+	UIParent:UnregisterEvent("CONFIRM_LOOT_ROLL")
+
+	self:RegisterEvent("CONFIRM_DISENCHANT_ROLL", HandleEvent)
+	self:RegisterEvent("CONFIRM_LOOT_ROLL", HandleEvent)
+	self:RegisterEvent("LOOT_BIND_CONFIRM", HandleEvent)
+	self:RegisterEvent("LOOT_OPENED", HandleEvent)
+	
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
-	if not E.private.sle.loot.enable then return end
-	self:RegisterEvent("LOOT_OPENED", Announce)
+	
+	self:RegisterEvent("START_LOOT_ROLL", HandleRoll)
+	self:RegisterEvent("ADDON_LOADED", LoadConfig)
 end

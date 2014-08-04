@@ -1,4 +1,5 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI);
+local LT = E:GetModule('SLE_Loot')
 
 local function configTable()
 	E.Options.args.sle.args.options.args.loot = {
@@ -16,7 +17,7 @@ local function configTable()
 				type = "description",
 				name = L["LOOT_DESC"],
 			},
-			enabled = {
+			enable = {
 				order = 3,
 				type = "toggle",
 				name = L["Enable"],
@@ -37,8 +38,32 @@ local function configTable()
 				type = "description",
 				name = "",
 			},
-			quality = {
+			autoconfirm = {
 				order = 6,
+				type = "toggle",
+				name = "Auto Confirm",
+				desc = "Automatically click OK on BOP items",
+				get = function(info) return E.private.sle.loot.autoconfirm end,
+    			set = function(info,value) E.private.sle.loot.autoconfirm = value; end,
+			},
+			autogreed = {
+				order = 7,
+				type = "toggle",
+				name = "Auto Greed",
+				desc = "Automatically greed uncommon (green) quality items at max level",
+				get = function(info) return E.private.sle.loot.autogreed end,
+    			set = function(info,value) E.private.sle.loot.autogreed = value; LT:Update() end,
+			},
+			autodisenchant = {
+				order = 8,
+				type = "toggle",
+				name = "Auto Disenchant",
+				desc = "Automatically disenchant uncommon (green) quality items at max level",
+				get = function(info) return E.private.sle.loot.autodisenchant end,
+    			set = function(info,value) E.private.sle.loot.autodisenchant = value; LT:Update() end,
+			},
+			quality = {
+				order = 9,
 				type = "select",
 				name = L["Loot Quality"],
 				desc = L["Set the minimum quality of an item to announce."],
@@ -52,7 +77,7 @@ local function configTable()
 				},
 			},
 			chat = {
-				order = 7,
+				order = 10,
 				type = "select",
 				name = L["Chat"],
 				desc = L["Announce loot to the selected channel."],

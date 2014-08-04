@@ -61,6 +61,9 @@ V['sle'] = {
 	
 	['loot'] = {
 		['enable'] = false,
+		['autoconfirm'] = false,
+		['autogreed'] = false,
+		['autodisenchant'] = false,
 	},
 
 	['vehicle'] = {
