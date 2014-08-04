@@ -28,6 +28,7 @@ function SLE:ValueTable(table, item)
 	for i, _ in pairs(table) do
 		if i == item then return true end
 	end
+
 	return false
 end
 
@@ -37,6 +38,7 @@ function SLE:SimpleTable(table, item)
 			return true 
 		end
 	end
+
 	return false
 end
 
@@ -61,7 +63,8 @@ local function UpdateAll()
 	CH:GMIconUpdate()
 	M:TextWidth()
 	I:UpdateFrame()
-	
+
 	collectgarbage('collect');
 end
+
 hooksecurefunc(E, "UpdateAll", UpdateAll)
