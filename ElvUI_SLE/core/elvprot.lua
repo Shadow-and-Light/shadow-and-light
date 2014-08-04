@@ -24,7 +24,7 @@ local function Fools2013()
 	for i=1, 5 do
 		if FseedButtons[i] then
 			for j = 1, #FseedButtons[i] do
-					tinsert(E.massiveShakeObjects, FseedButtons[i][j])
+				tinsert(E.massiveShakeObjects, FseedButtons[i][j])
 			end
 		end
 	end
@@ -39,7 +39,9 @@ local function Fools2013()
 	tinsert(E.massiveShakeObjects, MoveUIButton)
 	tinsert(E.massiveShakeObjects, Bbutton)
 	tinsert(E.massiveShakeObjects, Abutton)
+
 	if Fbutton then tinsert(E.massiveShakeObjects, Fbutton) end
+
 	tinsert(E.massiveShakeObjects, DP_1)
 	tinsert(E.massiveShakeObjects, DP_2)
 	tinsert(E.massiveShakeObjects, DP_3)
