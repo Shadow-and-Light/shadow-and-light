@@ -50,6 +50,7 @@ Minimap:
 Chat:
 - Added an option to show an icon near Guild Master's messages in guild chat. Reminds people of who is the boss around here.
 - No longer forcing chat data panels repositioning on users.
+- Added two buttons to reset chat history and editbox history.
 
 
 v1.87 May 21, 2014
