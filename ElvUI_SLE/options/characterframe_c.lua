@@ -11,7 +11,7 @@ local function configTable()
 			intro = {
 				order = -1,
 				type = 'description',
-				name = DESCRIPTION,
+				name = L['Test Description'],
 			},
 			characterframe = {
 				order = 2,
