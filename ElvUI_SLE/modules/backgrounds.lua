@@ -15,6 +15,7 @@ local function CreateFrames()
 		LeftBG = {BGl,"left"},
 		RightBG = {BGr,"right"},
 		ActionBG = {BGa,"action"},
+	},
 
 	for _,v in pairs(Fr) do
 		v[1]:SetFrameLevel(v[1]:GetFrameLevel() - 1)
