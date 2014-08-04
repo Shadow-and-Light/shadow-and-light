@@ -166,6 +166,7 @@ pip-log.txt
 
 *.sublime*
 
+.idea/copyright/
 .idea/libraries/
 .idea/scopes/
 .idea/compiler.xml
