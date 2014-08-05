@@ -146,7 +146,6 @@ HarmSpells["ROGUE"] = {
     2764, -- ["Throw"], -- 30 (Throwing Specialization: +5, +10)
     3018, -- ["Shoot"], -- 30
     2094, -- ["Blind"], -- 15
-    6770, -- ["Sap"], -- 10
 --    8676, -- ["Ambush"], -- 5 (Glyph of Ambush: +5)
 --    921, -- ["Pick Pocket"], -- 5 (Glyph of Pick Pocket: + 5)
     2098, -- ["Eviscerate"], -- 5
@@ -160,7 +159,6 @@ HarmSpells["SHAMAN"] = {
     403, -- ["Lightning Bolt"], -- 30 (Elemental Reach: +5)
     370, -- ["Purge"], -- 30
     8042, -- ["Earth Shock"], -- 25 (Elemental Reach: +7; Gladiator Gloves: +5)
-    57994, -- ["Wind Shear"], -- 25
     73899, -- ["Primal Strike"],. -- 5
 }
 
@@ -447,6 +445,9 @@ end
 
 -- return the spellIndex of the given spell by scanning the spellbook
 local function findSpellIdx(spellName)
+    if not spellName or spellName == "" then
+        return nil
+    end
     for i = 1, getNumSpells() do
         local spell, rank = GetSpellBookItemName(i, BOOKTYPE_SPELL)
         if spell == spellName then return i end
@@ -473,7 +474,7 @@ local function createCheckerList(spellList, itemList, interactList)
     if spellList then
         for i = 1, #spellList do
             local sid = spellList[i]
-            local name, _, _, _, _, _, _, minRange, range = GetSpellInfo(sid)
+            local name, _, _, minRange, range = GetSpellInfo(sid)
             local spellIdx = findSpellIdx(name)
             if spellIdx and range then
                 minRange = math.floor(minRange + 0.5)
