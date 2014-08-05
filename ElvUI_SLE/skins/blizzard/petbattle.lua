@@ -10,7 +10,7 @@ local function LoadSkin()
 		f.ActiveEnemy
 	}
 	S:HandleCloseButton(FloatingBattlePetTooltip.CloseButton)
-	
+
 	-- TOP FRAMES
 	f:StripTextures()
 
@@ -18,7 +18,7 @@ local function LoadSkin()
 		infoBar.Border:SetAlpha(0)
 		infoBar.Border2:SetAlpha(0)
 		infoBar.healthBarWidth = 300
-		
+
 		infoBar.IconBackdrop = CreateFrame("Frame", nil, infoBar)
 		infoBar.IconBackdrop:SetFrameLevel(infoBar:GetFrameLevel() - 1)
 		infoBar.IconBackdrop:SetOutside(infoBar.Icon)
@@ -31,16 +31,16 @@ local function LoadSkin()
 		infoBar.HealthBarBackdrop:SetTemplate("Transparent")	
 		infoBar.HealthBarBackdrop:Width(infoBar.healthBarWidth + (E.Border * 2))
 		infoBar.ActualHealthBar:SetTexture(E.media.normTex)
-		
+
 		infoBar.PetTypeFrame = CreateFrame("Frame", nil, infoBar)
 		infoBar.PetTypeFrame:Size(100, 23)
 		infoBar.PetTypeFrame.text = infoBar.PetTypeFrame:CreateFontString(nil, 'OVERLAY')
 		infoBar.PetTypeFrame.text:FontTemplate()
 		infoBar.PetTypeFrame.text:SetText("")
-	
+
 		infoBar.ActualHealthBar:ClearAllPoints()
 		infoBar.Name:ClearAllPoints()
-		
+
 		infoBar.FirstAttack = infoBar:CreateTexture(nil, "ARTWORK")
 		infoBar.FirstAttack:Size(30)
 		infoBar.FirstAttack:SetTexture("Interface\\PetBattles\\PetBattle-StatIcons")		
@@ -50,18 +50,17 @@ local function LoadSkin()
 			infoBar.ActualHealthBar:SetVertexColor(171/255, 214/255, 116/255)	
 			f.Ally2.iconPoint = infoBar.IconBackdrop
 			f.Ally3.iconPoint = infoBar.IconBackdrop
-			
+
 			infoBar.Icon:Point("TOP", E.UIParent, "TOP", 0, -23) --Player's pet frame
-			
+
 			infoBar.ActualHealthBar:Point('BOTTOMLEFT', infoBar.Icon, 'BOTTOMRIGHT', 10, 0)		
 			infoBar.Name:Point('BOTTOMLEFT', infoBar.ActualHealthBar, 'TOPLEFT', 0, 10)
 			infoBar.PetTypeFrame:SetPoint("BOTTOMRIGHT",infoBar.HealthBarBackdrop, "TOPRIGHT", 0, 4)
 			infoBar.PetTypeFrame.text:SetPoint("RIGHT")			
-			
+
 			infoBar.FirstAttack:SetPoint("LEFT", infoBar.HealthBarBackdrop, "RIGHT", 5, 0)
 			infoBar.FirstAttack:SetTexCoord(infoBar.SpeedIcon:GetTexCoord())
 			infoBar.FirstAttack:SetVertexColor(.1,.1,.1,1)
-		
 		else
 			infoBar.HealthBarBackdrop:Point('TOPRIGHT', infoBar.ActualHealthBar, 'TOPRIGHT', E.Border, E.Border)
 			infoBar.HealthBarBackdrop:Point('BOTTOMRIGHT', infoBar.ActualHealthBar, 'BOTTOMRIGHT', E.Border, -E.Border)
@@ -76,20 +75,20 @@ local function LoadSkin()
 
 			infoBar.PetTypeFrame:SetPoint("BOTTOMLEFT",infoBar.HealthBarBackdrop, "TOPLEFT", 2, 4)
 			infoBar.PetTypeFrame.text:SetPoint("LEFT")			
-			
+
 			infoBar.FirstAttack:SetPoint("RIGHT", infoBar.HealthBarBackdrop, "LEFT", -5, 0)
 			infoBar.FirstAttack:SetTexCoord(.5, 0, .5, 1)
 			infoBar.FirstAttack:SetVertexColor(.1,.1,.1,1)			
 		end
-		
+
 		infoBar.HealthText:ClearAllPoints()
 		infoBar.HealthText:SetPoint('CENTER', infoBar.HealthBarBackdrop, 'CENTER')
-		
+
 		infoBar.PetType:ClearAllPoints()
 		infoBar.PetType:SetAllPoints(infoBar.PetTypeFrame)
 		infoBar.PetType:SetFrameLevel(infoBar.PetTypeFrame:GetFrameLevel() + 2)
 		infoBar.PetType:SetAlpha(0)		
-		
+
 		infoBar.LevelUnderlay:SetAlpha(0)
 		infoBar.Level:SetFontObject(NumberFont_Outline_Huge)
 		infoBar.Level:ClearAllPoints()
@@ -101,7 +100,7 @@ local function LoadSkin()
 			infoBar.SpeedUnderlay:SetAlpha(0)		
 		end
 	end
-	
+
 	-- PETS SPEED INDICATOR UPDATE
 	hooksecurefunc("PetBattleFrame_UpdateSpeedIndicators", function(self)
 		if not f.ActiveAlly.SpeedIcon:IsShown() and not f.ActiveEnemy.SpeedIcon:IsShown() then
@@ -120,7 +119,6 @@ local function LoadSkin()
 		end
 	end)
 
-	
 	-- PETS UNITFRAMES PET TYPE UPDATE
 	hooksecurefunc("PetBattleUnitFrame_UpdatePetType", function(self)
 		if self.PetType then
@@ -129,8 +127,8 @@ local function LoadSkin()
 				self.PetTypeFrame.text:SetText(PET_TYPE_SUFFIX[petType])
 			end
 		end
-	end)	
-		
+	end)
+
 	-- PETS UNITFRAMES AURA SKINS
 	hooksecurefunc("PetBattleAuraHolder_Update", function(self)
 		if not self.petOwner or not self.petIndex then return end
@@ -167,8 +165,8 @@ local function LoadSkin()
 				nextFrame = nextFrame + 1
 			end
 		end
-end)
-		
+	end)
+
 	-- WEATHER
 	hooksecurefunc("PetBattleWeatherFrame_Update", function(self)
 		local weather = C_PetBattles.GetAuraInfo(LE_BATTLE_PET_WEATHER, PET_BATTLE_PAD_INDEX, 1)
@@ -181,7 +179,7 @@ end)
 			self:ClearAllPoints()
 			self:SetPoint("TOP", E.UIParent, 0, -15)
 		end
-	end)	
+	end)
 
 	hooksecurefunc("PetBattleUnitFrame_UpdateDisplay", function(self)
 		self.Icon:SetTexCoord(unpack(E.TexCoords))
@@ -213,34 +211,33 @@ end)
 	SkinPetTooltip(BattlePetTooltip)
 	SkinPetTooltip(FloatingBattlePetTooltip)
 	SkinPetTooltip(FloatingPetBattleAbilityTooltip)
-		
+
 	-- TOOLTIP DEFAULT POSITION
 	hooksecurefunc("PetBattleAbilityTooltip_Show", function()
 		local t = PetBattlePrimaryAbilityTooltip
 		t:ClearAllPoints()
 		t:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -4, -4)
 	end)
-	
 
 	local extraInfoBars = {
 		f.Ally2,
 		f.Ally3,
 		f.Enemy2,
 		f.Enemy3
-	}	
-	
+	}
+
 	for index, infoBar in pairs(extraInfoBars) do
 		infoBar.BorderAlive:SetAlpha(0)
 		infoBar.HealthBarBG:SetAlpha(0)
-		infoBar.HealthDivider:SetAlpha(0)	
+		infoBar.HealthDivider:SetAlpha(0)
 		infoBar:Size(40)
 		infoBar:CreateBackdrop()
-		infoBar:ClearAllPoints()		
-		
+		infoBar:ClearAllPoints()
+
 		infoBar.healthBarWidth = 40
 		infoBar.ActualHealthBar:ClearAllPoints()
 		infoBar.ActualHealthBar:SetPoint("TOPLEFT", infoBar.backdrop, 'BOTTOMLEFT', E.Border, -3)	
-		
+
 		infoBar.HealthBarBackdrop = CreateFrame("Frame", nil, infoBar)
 		infoBar.HealthBarBackdrop:SetFrameLevel(infoBar:GetFrameLevel() - 1)
 		infoBar.HealthBarBackdrop:SetTemplate("Default")	
@@ -248,12 +245,12 @@ end)
 		infoBar.HealthBarBackdrop:Point('TOPLEFT', infoBar.ActualHealthBar, 'TOPLEFT', -E.Border, E.Border)
 		infoBar.HealthBarBackdrop:Point('BOTTOMLEFT', infoBar.ActualHealthBar, 'BOTTOMLEFT', -E.Border, -E.Spacing)		
 	end
-	
+
 	f.Ally2:SetPoint("TOPRIGHT", f.Ally2.iconPoint, "TOPLEFT", -6, -2)
 	f.Ally3:SetPoint('TOPRIGHT', f.Ally2, 'TOPLEFT', -8, 0)
 	f.Enemy2:SetPoint("TOPLEFT", f.Enemy2.iconPoint, "TOPRIGHT", 6, -2)
 	f.Enemy3:SetPoint('TOPLEFT', f.Enemy2, 'TOPRIGHT', 8, 0)
-	
+
 	---------------------------------
 	-- PET BATTLE ACTION BAR SETUP --
 	---------------------------------
@@ -273,15 +270,15 @@ end)
 			self.initialShow = true;
 			return;
 		end
-		
+
 		self.backdropTexture:SetDrawLayer('BACKGROUND', 1)
 	end)
-	
+
 	bf:StripTextures()
 	bf.TurnTimer:StripTextures()
 	bf.TurnTimer.SkipButton:SetParent(bar)
 	S:HandleButton(bf.TurnTimer.SkipButton)
-			
+
 	bf.TurnTimer.SkipButton:Width(bar:GetWidth())
 	bf.TurnTimer.SkipButton:ClearAllPoints()
 	bf.TurnTimer.SkipButton:SetPoint("BOTTOM", bar, "TOP", 0, E.PixelMode and -1 or 1)
@@ -296,7 +293,7 @@ end)
 	bf.TurnTimer:ClearAllPoints()
 	bf.TurnTimer:SetPoint("TOP", E.UIParent, "TOP", 0, -140)
 	bf.TurnTimer.TimerText:SetPoint("CENTER")	
-	
+
 	bf.FlowFrame:StripTextures()
 	bf.MicroButtonFrame:Kill()
 	bf.Delimiter:StripTextures()
@@ -322,15 +319,14 @@ end)
 		pet.DeadOverlay:SetAlpha(0)
 		pet.Level:SetAlpha(0)
 		pet.HealthText:SetAlpha(0)
-	end	
-		
+	end
+
 	-- MOVE DEFAULT POSITION OF PETS SELECTION
 	hooksecurefunc("PetBattlePetSelectionFrame_Show", function()
 		bf.PetSelectionFrame:ClearAllPoints()
 		bf.PetSelectionFrame:SetPoint("BOTTOM", bf.xpBar, "TOP", 0, 8)
 	end)
 
-		
 	local function SkinPetButton(self)
 		if not self.backdrop then
 			self:CreateBackdrop()
@@ -373,7 +369,7 @@ end)
 		bf.ForfeitButton:ClearAllPoints()
 		bf.ForfeitButton:SetPoint("LEFT", bf.CatchButton, "RIGHT", 10, 0)
 		SkinPetButton(bf.ForfeitButton)
-	end)	
+	end)
 end
 
 S:RegisterSkin('ElvUI', LoadSkin)
