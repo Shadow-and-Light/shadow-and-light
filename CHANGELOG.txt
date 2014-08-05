@@ -52,6 +52,9 @@ Chat:
 - No longer forcing chat data panels repositioning on users.
 - Added two buttons to reset chat history and editbox history.
 
+Pet Battles:
+- Added the ability to move pets' health, buffs and all that stuff around
+
 
 v1.87 May 21, 2014
 - Fixed chat spam on opening of character window.
