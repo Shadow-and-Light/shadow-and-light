@@ -326,7 +326,7 @@ L['Show minimap buttons on mouseover.'] = "Отображать иконпри �
 
 --Enhanced Vehicle Bar--
 L["Enhanced Vehicle Bar"] = "Улучшенный контроль машин"
-L["Use the enhanced vehicle bar based on work by Azilroka"] = "Использовать улучшенную панель управления средствами передвижения, основанную на коде Azilroka"
+L["A different look/feel vehicle bar based on work by Azilroka"] = "Использовать улучшенную панель управления средствами передвижения, основанную на коде Azilroka"
 
 --Mover groups
 L["S&L: All"] = "S&L: Все"

@@ -332,7 +332,7 @@ L['Show minimap buttons on mouseover.'] = true
 
 --Enhanced Vehicle Bar--
 L["Enhanced Vehicle Bar"] = true
-L["Use the enhanced vehicle bar based on work by Azilroka"] = true
+L["A different look/feel vehicle bar based on work by Azilroka"] = true
 
 --Raid Utility--
 L["Raid Utility"] = true

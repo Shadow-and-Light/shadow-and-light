@@ -45,17 +45,17 @@ E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'] = {
 }
 
 E.PopupDialogs['SLE_CHAT_HISTORY'] = {
-	text = "This will clear your chat history, you will no longer be able to see messages shown before executing after reload.\nContinue?",
+	text = "This will clear your chat history and reload your UI.\nContinue?",
 	button1 = ACCEPT,
 	button2 = CANCEL,
-	OnAccept = function(self) if ElvCharacterDB.ChatLog then ElvCharacterDB.ChatLog = {} end end,
+	OnAccept = function(self) if ElvCharacterDB.ChatLog then ElvCharacterDB.ChatLog = {}; ReloadUI() end end,
 	timeout = 0,
 	whileDead = 1,	
 	hideOnEscape = false,	
 }
 
 E.PopupDialogs['SLE_EDIT_HISTORY'] = {
-	text = "This will clear your editbox history and reload UI.\nContinue?",
+	text = "This will clear your editbox history and reload your UI.\nContinue?",
 	button1 = ACCEPT,
 	button2 = CANCEL,
 	OnAccept = function(self) if ElvCharacterDB.ChatEditHistory then ElvCharacterDB.ChatEditHistory = {}; ReloadUI() end end,
