@@ -216,7 +216,7 @@ local function GetChatIcon(sender)
 	return ""
 end
 
-function CH:GetPluginReplacementIcon(arg2, arg6, type)--GetIcons(arg2, arg6, type) 
+function CH:GetPluginReplacementIcon(arg2, arg6, type)
 	local icon;
 	if arg6 and (strlen(arg6) > 0) then
 		if ( arg6 == "GM" ) then
@@ -237,14 +237,9 @@ function CH:GetPluginReplacementIcon(arg2, arg6, type)--GetIcons(arg2, arg6, typ
 	else
 		icon = GetChatIcon(arg2)
 		
-		if(icon == true) then
-			icon = ""
-		end
-		
-		if(not icon and lfgRoles[arg2] and SLE:SimpleTable(lfgChannels, type)) then
+		if(lfgRoles[arg2] and SLE:SimpleTable(lfgChannels, type)) then
 			icon = lfgRoles[arg2]..icon
 		end
-		icon = icon or ""
 	end
 	return icon, true
 end
