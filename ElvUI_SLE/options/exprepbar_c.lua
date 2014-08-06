@@ -5,9 +5,9 @@ local function configTable()
 	--Options for Exp/Rep text
 	E.Options.args.sle.args.options.args.general.args.exprep = {
 		type = "group",
-	    name = L["Xp-Rep Text"],
-	    order = 6,
-	   	args = {
+		name = L["Xp-Rep Text"],
+		order = 6,
+		args = {
 			header = {
 				order = 1,
 				type = "header",
