@@ -33,37 +33,18 @@ local rolePaths = {
 }
 
 --Chat icon paths
-local elvui = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t"
-local affinity = "|TInterface\\AddOns\\ElvUI\\media\\textures\\Bathrobe_Chat_Logo:15:15|t"
 local adapt = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\adapt:0:2|t"
 local repooc = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:0:2|t"
 local darth = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_LogoD:0:2|t"
 local friend = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Friend:13:13|t"
 local test = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Test:13:13|t"
 local rpg = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_RPG:13:35|t"
-local tyrone = "|TInterface\\AddOns\\ElvUI\\media\\textures\\tyrone_biggums_chat_logo:16:18|t"
-local hulkhead = "|TInterface\\AddOns\\ElvUI\\media\\textures\\hulk_head:18:22|t"
-local hellokitty = "|TInterface\\AddOns\\ElvUI\\media\\textures\\helloKittyChatLogo:18:20|t"
-local shortbus = "|TInterface\\AddOns\\ElvUI\\media\\textures\\short_bus:16:16|t"
 local kitalie = "|TInterface\\Icons\\%s:12:12:0:0:64:64:4:60:4:60|t"
 local leader = [[|TInterface\GroupFrame\UI-Group-LeaderIcon:12:12|t]]
 
 
 local specialChatIcons = {
-	["BleedingHollow"] = {
-		["Tirain"] = tyrone
-	},
 	["Spirestone"] = {
-		["Aeriane"] = true,
-		["Sinth"] = tyrone,
-		["Elvz"] = elvui,
-		["Sarah"] = hellokitty,
-		["Sara"] = hellokitty,
-		["Sarâh"] = hellokitty,
-		["Itzjonny"] = hulkhead,
-		["Elv"] = elvui,
-		["Incision"] = shortbus,
-		--SLE stuff
 		["Sifupooc"] = repooc,
 		["Dapooc"] = repooc,
 		["Lapooc"] = repooc,
@@ -81,11 +62,6 @@ local specialChatIcons = {
 		["Taiin"] = adapt
 	},
 	["Illidan"] = {
-		--Original Stuff
-		["Affinichi"] = affinity,
-		["Uplift"] = affinity,
-		["Affinitii"] = affinity,
-		["Affinity"] = affinity,
 		--Darth's toon
 		["Darthpred"] = darth,
 		--Repooc's Toon
