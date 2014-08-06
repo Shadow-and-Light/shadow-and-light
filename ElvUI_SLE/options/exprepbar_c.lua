@@ -6,7 +6,7 @@ local function configTable()
 	E.Options.args.sle.args.options.args.general.args.exprep = {
 		type = "group",
 		name = L["Xp-Rep Text"],
-		order = 6,
+		order = 13,
 		args = {
 			header = {
 				order = 1,

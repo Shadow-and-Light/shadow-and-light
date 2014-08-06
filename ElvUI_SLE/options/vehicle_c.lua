@@ -4,7 +4,7 @@ local function configTable()
 	E.Options.args.sle.args.options.args.general.args.vehicle = {
 		type = "group",
 		name = L["Enhanced Vehicle Bar"],
-		order = 84,
+		order = 6,
 		args = {
 			header = {
 				order = 1,
@@ -14,7 +14,7 @@ local function configTable()
 			info = {
 				order = 2,
 				type = "description",
-				name = L["Use the enhanced vehicle bar based on work by Azilroka"],
+				name = L["A different look/feel vehicle bar based on work by Azilroka"],
 			},
 			enable = {
 				order = 3,

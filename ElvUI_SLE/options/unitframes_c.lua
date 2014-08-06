@@ -19,7 +19,7 @@ local function configTable()
 	E.Options.args.sle.args.options.args.general.args.unitframes = {
 		type = "group",
 		name = L["UnitFrames"],
-		order = 100,
+		order = 12,
 		args = {
 			header = {
 				order = 1,

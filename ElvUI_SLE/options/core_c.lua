@@ -10,14 +10,13 @@ local function configTable()
 			width = "full",
 	}
 
-	local size = E.db.general.fontSize
+	--local size = E.db.general.fontSize
 
 	--Main options group
 	E.Options.args.sle = {
 		type = "group",
-		name = "Shadow & Light",
-		desc = [[The |cff1784d1ElvUI|r modification by
-	Darth Predator and Repooc.]],
+		name = L["Shadow & Light"],
+		desc = "Plugin for |cff1784d1ElvUI|r by\nDarth Predator and Repooc.",
 		order = 50,
 		args = {
 			header = {
@@ -49,26 +48,26 @@ local function configTable()
 				childGroups = 'tab',
 				name = SETTINGS,
 				args = {
-					intro = {
+					--[[intro = {
 						order = 1,
 						type = "description",
 						name = L["Below you can see option groups presented by |cff1784d1Shadow & Light|r."],
-					},
+					},]]
 					general = {
 						order = 2,
 						type = "group",
 						name = L["General"],
 						args = {
-							intro = {
+							--[[intro = {
 								order = 1,
 								type = "description",
 								name = L["General options of |cff1784d1Shadow & Light|r."],
-							},
+							},]]
 							Reset = {
 								order = 2,
 								type = 'execute',
 								name = L["Reset All"],
-								desc = L["Reset all Shadow & Light options and movers to their defaults"],
+								desc = L["Resets all movers & options for S&L."],
 								func = function() SLE:Reset(true) end,
 							},
 							space1 = {
@@ -82,7 +81,7 @@ local function configTable()
 								name = "",
 							},
 							lootwindow = {
-								order = 6,
+								order = 7,
 								type = "group",
 								name = L["Loot History"],
 								args = {

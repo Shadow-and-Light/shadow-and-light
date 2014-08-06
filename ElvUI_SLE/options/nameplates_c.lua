@@ -5,14 +5,14 @@ local function configTable()
 	E.Options.args.sle.args.options.args.general.args.nameplate = {
 		type = "group",
 		name = L["NamePlates"],
-		order = 82,
+		order = 8,
 		get = function(info) return E.db.sle.nameplate[ info[#info] ] end,
 		set = function(info, value) E.db.sle.nameplate[ info[#info] ] = value; NP:UpdateAllPlates() end,
 		args = {
 			header = {
 				order = 1,
 				type = "header",
-				name = L["NAMEPLATE_DESC"],
+				name = L["NamePlates"],
 			},
 			targetcount = {
 				type = "toggle",

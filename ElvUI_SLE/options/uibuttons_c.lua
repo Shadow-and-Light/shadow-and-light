@@ -5,7 +5,7 @@ local function configTable()
 	E.Options.args.sle.args.options.args.general.args.uibuttons = {
 		type = "group",
 		name = L["UI Buttons"],
-		order = 99,
+		order = 11,
 		args = {
 			header = {
 				order = 1,

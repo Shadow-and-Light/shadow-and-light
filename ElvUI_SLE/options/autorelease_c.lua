@@ -4,7 +4,7 @@ local function configTable()
 	E.Options.args.sle.args.options.args.general.args.pvpautorelease = {
 		type = "group",
 		name = L["PvP Auto Release"],
-		order = 5,
+		order = 9,
 		args = {
 			header = {
 				order = 1,
