@@ -80,40 +80,6 @@ local function configTable()
 								type = 'description',
 								name = "",
 							},
-							lootwindow = {
-								order = 7,
-								type = "group",
-								name = L["Loot History"],
-								args = {
-									header = {
-										order = 1,
-										type = "header",
-										name = L["Loot History"],
-									},
-									info = {
-										order = 2,
-										type = "description",
-										name = L["Options to tweak Loot History window behaviour."],
-									},
-									window = {
-										order = 3,
-										type = "toggle",
-										name = L["Auto hide"],
-										desc = L["Automaticaly hide Blizzard loot histroy frame when leaving the instance."],
-										get = function(info) return E.db.sle.lootwin end,
-										set = function(info, value) E.db.sle.lootwin = value; LT:LootShow() end
-									},
-									alpha = {
-										order = 4,
-										type = "range",
-										name = L['Alpha'],
-										desc = L["Sets alpha of loot histroy frame."],
-										min = 0.2, max = 1, step = 0.1,
-										get = function(info) return E.db.sle.lootalpha end,
-										set = function(info, value) E.db.sle.lootalpha = value; LT:LootShow() end,
-									},
-								},
-							},
 						},
 					},
 				},
