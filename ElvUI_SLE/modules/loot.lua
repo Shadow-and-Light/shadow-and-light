@@ -180,7 +180,7 @@ function LT:LootShow()
 end
 
 function LT:Update()
-	if db.history.autogreed or db.history.autode then 
+	if db.autogreed or db.autode then 
 		GrDes = true
 		E.db.general.autoRoll = false
 	else
