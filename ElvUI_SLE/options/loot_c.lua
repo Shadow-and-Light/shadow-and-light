@@ -110,12 +110,12 @@ local function configTable()
 			lootwindow = {
 				order = 6,
 				type = "group",
-				name = L["Loot History"],
+				name = L["Loot Roll History"],
 				args = {
 					header = {
 						order = 1,
 						type = "header",
-						name = L["Loot History"],
+						name = L["Loot Roll History"],
 					},
 					info = {
 						order = 2,

@@ -288,7 +288,7 @@ L['Loot Announcer'] = "Оповещение о добыче"
 --Вывод осуществляется только если Вы лидер, помощник или ответственный за добычу или при зажатии левой клавиши control при осмотре трупа для принудительного вывода.]]
 --L["LOOTH_DESC"] = true
 L["Loot Dropped:"] = "Список добычи:"
-L["Loot History"] = "История добычи"
+L["Loot Roll History"] = "История добычи"
 L["Loot Quality"] = "Качество добычи"
 L["Automatically announce in selected chat channel."] = "Автоматически выводить список добычи в выбранный канал чата"
 L["Select chat channel to announce loot to."] = "Канал чата, для вывода сообщений."
