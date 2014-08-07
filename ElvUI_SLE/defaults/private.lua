@@ -4,7 +4,6 @@ V['skins']['addons'] = {
 }
 
 V['sle'] = {
-	
 	--Character Frame Options
 	['characterframeoptions'] = {
 		['enable'] = false,
@@ -69,7 +68,6 @@ V['sle'] = {
 	['vehicle'] = {
 		['enable'] = false,
 	},
-	
-	['guildmaster'] = false,
+
 	['backgrounds'] = false,
 }

@@ -208,7 +208,7 @@ local function GetChatIcon(sender)
 	end
 	
 	if not IsInGuild() then return "" end
-	if not E.private.sle.guildmaster then return "" end
+	if not E.db.sle.chat.guildmaster then return "" end
 	if senderName == GMName and senderRealm == GMRealm then
 		return leader 
 	end
@@ -295,7 +295,7 @@ end
 
 function CH:GMIconUpdate()
 	if E.private.chat.enable ~= true then return end
-	if E.private.sle.guildmaster then
+	if E.db.sle.chat.guildmaster then
 		self:RegisterEvent('GUILD_ROSTER_UPDATE', Roster)
 		GMCheck()
 	else
@@ -396,7 +396,7 @@ hooksecurefunc(LO, "CreateChatPanels", CreateChatPanels)
 hooksecurefunc(CH, "StyleChat", Style)
 hooksecurefunc(CH, "PositionChat", Position)
 hooksecurefunc(CH, "Initialize", function(self)
-	if E.private.sle.guildmaster then
+	if E.db.sle.chat.guildmaster then
 		self:RegisterEvent('GUILD_ROSTER_UPDATE', Roster)
 		GMCheck()
 	end

@@ -1,44 +1,6 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 
 P['sle'] = {
-	--Auto release
-	['pvpautorelease'] = true,
-	
-	--Media
-	['media'] = {
-		['fonts'] = {
-			['zone'] = {
-				['font'] = "ElvUI Font",
-				['size'] = 32,
-				['outline'] = "OUTLINE",
-				['width'] = 512,
-			},
-			['subzone'] = {
-				['font'] = "ElvUI Font",
-				['size'] = 25,
-				['outline'] = "OUTLINE",
-				['offset'] = 0,
-				['width'] = 512,
-			},
-			['pvp'] = {
-				['font'] = "ElvUI Font",
-				['size'] = 22,
-				['outline'] = "OUTLINE",
-				['width'] = 512,
-			},
-			['mail'] = {
-				['font'] = "ElvUI Font",
-				['size'] = 12,
-				['outline'] = "NONE",
-			},
-			['editbox'] = {
-				['font'] = "ElvUI Font",
-				['size'] = 12,
-				['outline'] = "NONE",
-			},
-		},
-	},
-
 	--Background frames
 	['backgrounds'] = {
 		['bottom'] = {
@@ -126,6 +88,11 @@ P['sle'] = {
 			['socketSize'] = 12,
 			['warningSize'] = 12,
 		},
+	},
+
+	--Chat
+	['chat'] = {
+		['guildmaster'] = false,
 	},
 
 	--Combat Icon
@@ -226,6 +193,15 @@ P['sle'] = {
 		['quest'] = false,
 	},
 
+	--Flares (Raid)
+	['flares'] = {
+		['growth'] = "RIGHT",
+		['showinside'] = false,
+		['size'] = 20,
+		['tooltips'] = true,
+		['mouseover'] = false,
+	},
+
 	--LFR options
 	['lfrshow'] = {
 		['enabled'] = false,
@@ -254,6 +230,50 @@ P['sle'] = {
 		['history'] = {
 			['alpha'] = false,
 			['autohide'] = false,
+		},
+	},
+
+	--Marks (Raid)
+	['marks'] = {
+		['growth'] = "RIGHT",
+		['showinside'] = false,
+		['target'] = false,
+		['size'] = 18,
+		['mouseover'] = false,
+	},
+
+	--Media
+	['media'] = {
+		['fonts'] = {
+			['zone'] = {
+				['font'] = "ElvUI Font",
+				['size'] = 32,
+				['outline'] = "OUTLINE",
+				['width'] = 512,
+			},
+			['subzone'] = {
+				['font'] = "ElvUI Font",
+				['size'] = 25,
+				['outline'] = "OUTLINE",
+				['offset'] = 0,
+				['width'] = 512,
+			},
+			['pvp'] = {
+				['font'] = "ElvUI Font",
+				['size'] = 22,
+				['outline'] = "OUTLINE",
+				['width'] = 512,
+			},
+			['mail'] = {
+				['font'] = "ElvUI Font",
+				['size'] = 12,
+				['outline'] = "NONE",
+			},
+			['editbox'] = {
+				['font'] = "ElvUI Font",
+				['size'] = 12,
+				['outline'] = "NONE",
+			},
 		},
 	},
 
@@ -289,25 +309,15 @@ P['sle'] = {
 		['showthreat'] = false,
 		['targetcount'] = false,
 	},
+
 	--Power text on classbars
 	['powtext'] = false,
 
-	--Raid marks
-	['marks'] = {
-		['growth'] = "RIGHT",
-		['showinside'] = false,
-		['target'] = false,
-		['size'] = 18,
-		['mouseover'] = false,
-	},
+	--PvP Auto release
+	['pvpautorelease'] = true,
 
-	['flares'] = {
-		['growth'] = "RIGHT",
-		['showinside'] = false,
-		['size'] = 20,
-		['tooltips'] = true,
-		['mouseover'] = false,
-	},
+	--Tooltip Faction Icon
+	["tooltipicon"] = false,
 
 	--UI Buttons
 	['uibuttons'] = {
@@ -317,10 +327,6 @@ P['sle'] = {
 		['position'] = "uib_vert",
 		['spacing'] = 3,
 	},
-	
-	
-	--Tooltip Faction Icon
-	["tooltipicon"] = false,
 }
 
 P.chat.editboxhistory = 5

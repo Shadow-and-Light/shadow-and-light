@@ -37,9 +37,9 @@ local function configTable()
 				order = 5,
 				type = "toggle",
 				name = "Guild Master Icon",
-				desc = "Displays an icon near your Guild Master in chat.\n\nSome messages in chat history may disappear on login.",
-				get = function(info) return E.private.sle.guildmaster end,
-				set = function(info, value)	E.private.sle.guildmaster = value; CH:GMIconUpdate() end,
+				desc = "Displays an icon near your Guild Master in chat.\n\n|cffFF0000Note:|r Some messages in chat history may disappear on login.",
+				get = function(info) return E.db.sle.chat.guildmaster end,
+				set = function(info, value)	E.db.sle.chat.guildmaster = value; CH:GMIconUpdate() end,
 			},
 			editboxhistory = {
 				order = 6,
