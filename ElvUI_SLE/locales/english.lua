@@ -15,11 +15,8 @@ L["PvP Auto Release"] = true
 L["Automatically release body when killed inside a battleground."] = true
 L["Pet autocast corners"] = true
 L["Show/hide triangles in corners of autocastable buttons."] = true
-L["Loot History"] = true
 L["Options to tweak Loot History window behaviour."] = true
 L["Auto hide"] = true
-L["Automaticaly hide Blizzard loot histroy frame when leaving the instance."] = true
-L["Sets alpha of loot histroy frame."] = true
 L["SLE_LOGIN_MSG"] = [=[You are using |cff1784d1Shadow & Light|r version |cff1784d1%s%s|r for ElvUI.
 If you wish to use the original ElvUI addon, disable this edit's plugin in your Addons manager.
 Have a nice day.]=]
@@ -267,15 +264,19 @@ L["This will import All Class specific filters from this author."] = true
 L['Import All'] = true
 
 --Loot--
-L['Loot Announcer'] = true
-L["LOOT_DESC"] = [[This module will announce loot dropped when you open the loot window.
-This will work only if you are raid leadedr, assist or master looter or if you hold left control key while looting to manually announce the items in chat.]]
 L["Auto Announce"] = true
-L["Automatically announce in selected chat channel."] = true
-L["Loot Quality"] = true
-L["Set the minimum quality of an item to announce."] = true
-L["Announce loot to the selected channel."] = true
+L["Automaticaly hides Loot Roll Histroy frame when leaving the instance."] = true
+L["AUTOANNOUNCE_DESC"] = "When enabled, will automatically announce the loot when the loot window opens.\n\n|cffFF0000Note:|r Raid Lead, Assist, & Master Looter Only."
+L['Loot Announcer'] = true
+L["LOOT_DESC"] = "Will announce loot to specified chat channel at the selected loot threshold."
+L["LOOTH_DESC"] = "These are options for tweaking the Loot Roll History window."
 L["Loot Dropped:"] = true
+L["Loot History"] = true
+L["Loot Quality"] = true
+L["Automatically announce in selected chat channel."] = true
+L["Select chat channel to announce loot to."] = true
+L["Sets the alpha of Loot Roll Histroy frame."] = true
+L["Sets the minimum loot threshold to announce."] = true
 
 --Marks--
 L['Options for panels providing fast access to raid markers and flares.'] = true
