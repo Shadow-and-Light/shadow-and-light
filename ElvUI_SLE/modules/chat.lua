@@ -193,7 +193,7 @@ local function GetChatIcon(sender)
 end
 
 function CH:GetPluginReplacementIcon(arg2, arg6, type)
-	local icon = nil;
+	local icon
 	if arg6 and (strlen(arg6) > 0) then
 		if ( arg6 == "GM" ) then
 			--If it was a whisper, dispatch it to the GMChat addon.
