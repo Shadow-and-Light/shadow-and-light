@@ -1,21 +1,17 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI);
 local LT = E:GetModule('SLE_Loot')
-local check = false
+local check, ann, GrDes = false, false, false
 local t = 0
-local loottemp = {}
-local MyName = E.myname
+local n = 0
+local loot, loottemp, numbers = {}, {}, {}
+local MyName, UnitLevel = E.myname, UnitLevel
 local IsInGroup, IsInRaid, IsPartyLFG = IsInGroup, IsInRaid, IsPartyLFG
 local GetNumGroupMembers, GetRaidRosterInfo = GetNumGroupMembers, GetRaidRosterInfo
 local GetLootSlotType, GetLootSlotLink, GetLootSlotInfo, GetLootRollItemInfo = GetLootSlotType, GetLootSlotLink, GetLootSlotInfo, GetLootRollItemInfo
 local GetNumLootItems, GetItemInfo = GetNumLootItems, GetItemInfo
 local IsLeftControlKeyDown = IsLeftControlKeyDown
-local loot = {}
-local numbers = {}
-local n = 0
-local Tremove = table.remove
-local ann, GrDes = false, false
+local tremove = table.remove
 local frozen, chaos = select(1, GetItemInfo(43102)), select(1, GetItemInfo(52078))
-local UnitLevel = UnitLevel
 
 local function Check()
 	local name, rank, isML
@@ -39,8 +35,8 @@ local function Merge()
 		while loot[i] ~= loot[k] do k = k + 1 end
 		if i ~= k then
 			numbers[i] = numbers[i] + numbers[k]
-			Tremove(numbers, k)
-			Tremove(loot, k)
+			tremove(numbers, k)
+			tremove(loot, k)
 			n = n - 1
 		end
 	end
