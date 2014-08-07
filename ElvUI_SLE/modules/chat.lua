@@ -147,14 +147,7 @@ local function Position()
 		tab = _G[format("ChatFrame%sTab", i)]
 		point = GetChatWindowSavedPosition(id)
 		isDocked = chat.isDocked
-		--[[if id > NUM_CHAT_WINDOWS then
-			point = point or select(1, chat:GetPoint());
-			if select(2, tab:GetPoint()):GetName() ~= bg then
-				isDocked = true
-			else
-				isDocked = false
-			end	
-		end]]
+
 		if point == "BOTTOMRIGHT" and chat:IsShown() and not (id > NUM_CHAT_WINDOWS) and id == CH.RightChatWindowID then
 			chat:ClearAllPoints()
 			if E.db.datatexts.rightChatPanel then
@@ -169,23 +162,6 @@ local function Position()
 			if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
 				chat:Size(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - PixelOff))
 			end
-		end
-	end
-end
-
-local function GetBNFriendColor(name, id)
-	local _, _, game, _, _, _, _, class = BNGetToonInfo(id)
-
-	if game ~= BNET_CLIENT_WOW or not class then
-		return name
-	else
-		for k,v in pairs(LOCALIZED_CLASS_NAMES_MALE) do if class == v then class = k end end
-		for k,v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do if class == v then class = k end end
-
-		if RAID_CLASS_COLORS[class] then
-			return "|c"..RAID_CLASS_COLORS[class].colorStr..name.."|r"
-		else
-			return name
 		end
 	end
 end
@@ -213,11 +189,11 @@ local function GetChatIcon(sender)
 		return leader 
 	end
 	
-	return ""
+	return
 end
 
 function CH:GetPluginReplacementIcon(arg2, arg6, type)
-	local icon;
+	local icon = nil;
 	if arg6 and (strlen(arg6) > 0) then
 		if ( arg6 == "GM" ) then
 			--If it was a whisper, dispatch it to the GMChat addon.
@@ -241,6 +217,7 @@ function CH:GetPluginReplacementIcon(arg2, arg6, type)
 			icon = lfgRoles[arg2]..icon
 		end
 	end
+	if icon == "" then icon = nil end
 	return icon, true
 end
 
