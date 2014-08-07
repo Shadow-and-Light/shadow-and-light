@@ -128,11 +128,8 @@ L["Trove of the Thunder King:"] = true
 L["Looted"] = true
 L["Not looted"] = true
 L["SLE_AUTHOR_INFO"] = "Shadow & Light by Darth Predator & Repooc"
-L["SLE_CONTACTS"] = [=[Bug reports, suggestions and other stuff accepted via:
-- Private Massage on TukUI.org to Darth Predator or Repooc
-- AddOn's page/ticket system on curse.com
-- Forums on tukui.org, Addons/Help section
-- AddOn's repo on github.com]=]
+L["SLE_CONTACTS"] = [=[If you have suggestions or a bug report,
+please submit ticket at http://git.tukui.org/repooc/elvui-shadowandlight]=]
 L["DP_1"] = "DT Panel 1"
 L["DP_2"] = "DT Panel 2"
 L["DP_3"] = "DT Panel 3"

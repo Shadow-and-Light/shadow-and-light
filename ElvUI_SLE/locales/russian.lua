@@ -127,10 +127,7 @@ L["Looted"] = "Получено"
 L["Not looted"] = "Не получено"
 L["SLE_AUTHOR_INFO"] = "\"Shadow & Light\" от Darth Predator и Repooc"
 L["SLE_CONTACTS"] = [=[При возникновении вопросов, предложений и прочего обращаться:
-- Личное сообщение на форуме TukUI (tukui.org), ник Darth Predator или Repooc
-- Страница/система тикетов на curse.com
-- Форумы tukui.org, раздел Addons/Help
-- Репозиторий проекта на github.com]=]
+http://git.tukui.org/repooc/elvui-shadowandlight]=]
 L["DP_1"] = "Панель 1"
 L["DP_2"] = "Панель 2"
 L["DP_3"] = "Панель 3"
