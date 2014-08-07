@@ -1,10 +1,6 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 
 P['sle'] = {
-	--Autoloot
-	['lootwin'] = false,
-	['lootalpha'] = 1,
-
 	--Auto release
 	['pvpautorelease'] = true,
 	
@@ -243,6 +239,24 @@ P['sle'] = {
 		['leishen'] = false,
 	},
 
+	--Loot (Restructured)
+	['loot'] = {
+		['enable'] = false,
+		['autoconfirm'] = false,
+		['autogreed'] = false,
+		['autode'] = false,
+		['announcer'] = {
+			['enable'] = false,
+			['auto'] = true,
+			['channel'] = "RAID",
+			['quality'] = "EPIC",
+		},
+		['history'] = {
+			['alpha'] = false,
+			['autohide'] = false,
+		},
+	},
+
 	--Minimap Module
 	['minimap'] = {
 		['enable'] = false,
@@ -304,12 +318,6 @@ P['sle'] = {
 		['spacing'] = 3,
 	},
 	
-	--Loot
-	['loot'] = {
-		['quality'] = "EPIC",
-		['chat'] = "RAID",
-		['auto'] = true,
-	},
 	
 	--Tooltip Faction Icon
 	["tooltipicon"] = false,

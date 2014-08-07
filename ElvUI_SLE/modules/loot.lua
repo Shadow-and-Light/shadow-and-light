@@ -1,6 +1,8 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI);
 local LT = E:GetModule('SLE_Loot')
-local check, ann, GrDes = false, false, false
+local db = {}
+
+local check, GrDes = false, false
 local t = 0
 local n = 0
 local loot, loottemp, numbers = {}, {}, {}
@@ -65,13 +67,13 @@ end
 
 local function Channel()
 	local channel
-	if E.db.sle.loot.chat ~= "SAY" and IsPartyLFG() then
+	if db.announcer.channel ~= "SAY" and IsPartyLFG() then
 		return "INSTANCE_CHAT"
 	end
-	if E.db.sle.loot.chat == "RAID" and not IsInRaid() then
+	if db.announcer.channel == "RAID" and not IsInRaid() then
 		return "PARTY"
 	end
-	return E.db.sle.loot.chat
+	return db.announcer.channel
 end
 
 local function List()
@@ -93,9 +95,9 @@ local function Announce(event)
 	if event ~= "LOOT_OPENED" then return end
 	if not IsInGroup() then return end -- not in group, exit.
 	local m = 0
-	local q = E.db.sle.loot.quality == "EPIC" and 4 or E.db.sle.loot.quality == "RARE" and 3 or E.db.sle.loot.quality == "UNCOMMON" and 2
+	local q = db.announcer.quality == "EPIC" and 4 or db.announcer.quality == "RARE" and 3 or db.announcer.quality == "UNCOMMON" and 2
 	
-	if (Check() and E.db.sle.loot.auto) or (IsLeftControlKeyDown() and (IsInGroup() or IsInRaid())) then
+	if (Check() and db.announcer.auto) or (IsLeftControlKeyDown() and (IsInGroup() or IsInRaid())) then
 		for i = 1, GetNumLootItems() do
 			if GetLootSlotType(i) == 1 then
 				for j = 1, t do
@@ -122,15 +124,6 @@ local function Announce(event)
 	end
 end
 
-function LT:LootShow()
-	local instance = IsInInstance()
-	LootHistoryFrame:SetAlpha(E.db.sle.lootalpha or 1)
-
-	if (not instance and E.db.sle.lootwin) then
-		LootHistoryFrame:Hide()
-	end
-end
-
 local function HandleRoll(event, id)
 	if not GrDes then return end
 	
@@ -145,7 +138,7 @@ local function HandleRoll(event, id)
 	if UnitLevel("player") ~= Maxed then return end
 	
 	if(id and select(4, GetLootRollItemInfo(id))== 2 and not (select(5, GetLootRollItemInfo(id)))) then
-		if E.private.sle.loot.autodisenchant and RollOnLoot(id, 3) then
+		if E.db.sle.loot.autode and RollOnLoot(id, 3) then
 			RollOnLoot(id, 3)
 		else
 			RollOnLoot(id, 2)
@@ -158,17 +151,36 @@ local function HandleEvent(event, ...)
 		local arg1, arg2 = ...
 		ConfirmLootRoll(arg1, arg2)
 	elseif event == "LOOT_OPENED" or event == "LOOT_BIND_CONFIRM" then
-		if ann then Announce(event) end
-		count = GetNumLootItems()
-		if count == 0 then CloseLoot() return end
-		for slot = 1, count do
-			ConfirmLootSlot(slot)
+		if db.announcer.enable then
+			Announce(event)
+		end
+		if db.autoconfirm then
+			local count = GetNumLootItems()
+			if count == 0 then --[[CloseLoot()]] return end
+			for slot = 1, count do
+				ConfirmLootSlot(slot)
+			end
 		end
 	end
 end
 
+local function LoadConfig(event, addon)
+	if addon ~= "ElvUI_Config" then return end
+	LT:UnregisterEvent("ADDON_LOADED")
+	LT:Update()
+end
+
+function LT:LootShow()
+	local instance = IsInInstance()
+	LootHistoryFrame:SetAlpha(db.history.alpha or 1)
+
+	if (not instance and db.history.autohide) then
+		LootHistoryFrame:Hide()
+	end
+end
+
 function LT:Update()
-	if E.private.sle.loot.autogreed or E.private.sle.loot.autodisenchant then 
+	if db.history.autogreed or db.history.autode then 
 		GrDes = true
 		E.db.general.autoRoll = false
 	else
@@ -183,14 +195,10 @@ function LT:Update()
 	end
 end
 
-local function LoadConfig(event, addon)
-	if addon ~= "ElvUI_Config" then return end
-	LT:UnregisterEvent("ADDON_LOADED")
-	LT:Update()
-end
-
 function LT:Initialize()
-	ann = E.private.sle.loot.enable
+	db = E.db.sle.loot
+	--if db.enable then print(db.enable) else print("false") end
+	if not db.enable then return end
 
 	self:Update()
 	UIParent:UnregisterEvent("LOOT_BIND_CONFIRM")
