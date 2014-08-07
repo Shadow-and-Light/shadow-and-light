@@ -377,7 +377,6 @@ L["Boss Mod"] = true
 L["Click to toggle iFilger's config UI"] = true
 
 --Unitframes--
-L["Additional unit frames options"] = true
 L["Options for customizing unit frames. Please don't change these setting when ElvUI's testing frames for bosses and arena teams are shown. That will make them invisible until retoggling."] = true
 L["Player Frame Indicators"] = true
 L["Combat Icon"] = true

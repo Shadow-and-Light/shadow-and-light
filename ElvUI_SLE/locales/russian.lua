@@ -379,7 +379,6 @@ L["Boss Mod"] = "Босс мод"
 L["Click to toggle iFilger's config UI"] = "Нажмите для отображения настроек iFilger"
 
 --Unitframes--
-L["Additional unit frames options"] = "Дополнительные опции рамок юнитов"
 L["Options for customizing unit frames. Please don't change these setting when ElvUI's testing frames for bosses and arena teams are shown. That will make them invisible until retoggling."] = "Опции для дополнительной настройки рамок юнитов. Пожалуйста, не изменяйте эти настройки в то же время, кода включен тестовый режим рамок боссов и арены в ElvUI. Это сделает их невидимыми до повторного включения."
 L["Player Frame Indicators"] = "Индикаторы игрока"
 L["Combat Icon"] = "Иконка боя"

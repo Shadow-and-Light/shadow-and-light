@@ -24,7 +24,7 @@ local function configTable()
 			header = {
 				order = 1,
 				type = "header",
-				name = L["Additional unit frames options"],
+				name = L["UnitFrames"],
 			},
 			info = {
 				order = 2,
