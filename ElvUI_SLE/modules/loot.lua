@@ -1,8 +1,9 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI);
 local LT = E:GetModule('SLE_Loot')
-local db = {}
+local M = E:GetModule('Misc')
+local db
 
-local check, GrDes = false, false
+local check = false
 local t = 0
 local n = 0
 local loot, loottemp, numbers = {}, {}, {}
@@ -13,7 +14,7 @@ local GetLootSlotType, GetLootSlotLink, GetLootSlotInfo, GetLootRollItemInfo = G
 local GetNumLootItems, GetItemInfo = GetNumLootItems, GetItemInfo
 local IsLeftControlKeyDown = IsLeftControlKeyDown
 local tremove = table.remove
-local frozen, chaos = select(1, GetItemInfo(43102)), select(1, GetItemInfo(52078))
+local PlayerLevel, MaxPlayerLevel
 
 local function Check()
 	local name, rank, isML
@@ -92,7 +93,6 @@ local function List()
 end
 
 local function Announce(event)
-	if event ~= "LOOT_OPENED" then return end
 	if not IsInGroup() then return end -- not in group, exit.
 	local m = 0
 	local q = db.announcer.quality == "EPIC" and 4 or db.announcer.quality == "RARE" and 3 or db.announcer.quality == "UNCOMMON" and 2
@@ -107,6 +107,7 @@ local function Announce(event)
 				end 
 			end
 		end
+
 		if check == false or IsLeftControlKeyDown() then
 			PopulateTable(q)
 			if n ~= 0 then
@@ -114,6 +115,7 @@ local function Announce(event)
 				List()
 			end
 		end
+
 		for i = 1, GetNumLootItems() do
 			if GetLootSlotType(i) == 1 then
 				loottemp[i] = GetLootSlotLink(i)
@@ -125,20 +127,29 @@ local function Announce(event)
 end
 
 local function HandleRoll(event, id)
-	if not GrDes then return end
-	
-	local name = select(2, GetLootRollItemInfo(id))
-	if (name == frozen) or (name == chaos) then
-		RollOnLoot(id, 2)
+	if not (db.autogreed or db.autode) then return end
+
+	local _, name, _, quality, _, _, _, disenchant = GetLootRollItemInfo(id)
+	local link = GetLootRollItemLink(id)
+	local itemID = tonumber(strmatch(link, 'item:(%d+)'))
+
+	if itemID == 43102 or itemID == 52078 then
+		RollOnLoot(id, LOOT_ROLL_TYPE_GREED)
 	end
-		
-	local Maxed = GetMaxPlayerLevel()
-	if IsXPUserDisabled() == true then Maxed = UnitLevel("player") end
-	
-	if UnitLevel("player") ~= Maxed then return end
-	
-	if(id and select(4, GetLootRollItemInfo(id))== 2 and not (select(5, GetLootRollItemInfo(id)))) then
-		if E.db.sle.loot.autode and RollOnLoot(id, 3) then
+
+	if IsXPUserDisabled() then MaxPlayerLevel = PlayerLevel end
+	if PlayerLevel ~= MaxPlayerLevel or (db.bylevel and PlayerLevel < db.level) then return end
+	if db.bylevel then
+		if IsEquippableItem(link) then
+			local _, _, _, ilvl, _, _, _, _, slot = GetItemInfo(link)
+			local itemLink = GetInventoryItemLink('player', slot)
+			local matchItemLevel = select(4, GetItemInfo(itemLink))
+			if quality ~= 7 and matchItemLevel < ilvl then return end
+		end
+	end
+
+	if quality == ITEM_QUAILTY_UNCOMMON then
+		if db.autode and disenchant then
 			RollOnLoot(id, 3)
 		else
 			RollOnLoot(id, 2)
@@ -147,27 +158,31 @@ local function HandleRoll(event, id)
 end
 
 local function HandleEvent(event, ...)
+	if event == "LOOT_OPENED" then
+		if db.announcer.enable then
+			Announce(event)
+		end
+	end
+
+	if not db.autoconfirm then return end
 	if event == "CONFIRM_LOOT_ROLL" or event == "CONFIRM_DISENCHANT_ROLL" then
 		local arg1, arg2 = ...
 		ConfirmLootRoll(arg1, arg2)
 	elseif event == "LOOT_OPENED" or event == "LOOT_BIND_CONFIRM" then
-		if db.announcer.enable then
-			Announce(event)
-		end
-		if db.autoconfirm then
-			local count = GetNumLootItems()
-			if count == 0 then --[[CloseLoot()]] return end
-			for slot = 1, count do
-				ConfirmLootSlot(slot)
-			end
+		local count = GetNumLootItems()
+		if count == 0 then CloseLoot() return end
+		for numslot = 1, count do
+			ConfirmLootSlot(numslot)
 		end
 	end
 end
 
 local function LoadConfig(event, addon)
 	if addon ~= "ElvUI_Config" then return end
+
+	E.Options.args.general.args.general.args.autoRoll.disabled = function() return true end
+
 	LT:UnregisterEvent("ADDON_LOADED")
-	LT:Update()
 end
 
 function LT:LootShow()
@@ -179,39 +194,32 @@ function LT:LootShow()
 	end
 end
 
-function LT:Update()
-	if db.autogreed or db.autode then 
-		GrDes = true
-		E.db.general.autoRoll = false
-	else
-		GrDes = false
-	end
-	if IsAddOnLoaded("ElvUI_Config") then
-		if GrDes then
-			E.Options.args.general.args.general.args.autoRoll.disabled = true
-		else
-			E.Options.args.general.args.general.args.autoRoll.disabled = false
-		end
-	end
+function LT:PLAYER_LEVEL_UP(event, level)
+	PlayerLevel = level
 end
 
 function LT:Initialize()
 	db = E.db.sle.loot
-	--if db.enable then print(db.enable) else print("false") end
 	if not db.enable then return end
 
-	self:Update()
-	UIParent:UnregisterEvent("LOOT_BIND_CONFIRM")
-	UIParent:UnregisterEvent("CONFIRM_DISENCHANT_ROLL")
-	UIParent:UnregisterEvent("CONFIRM_LOOT_ROLL")
+	MaxPlayerLevel = GetMaxPlayerLevel()
+	PlayerLevel = UnitLevel('player')
+
+	if E.db.general then
+		E.db.general.autoRoll= false
+	end
+
+	UIParent:UnregisterEvent("LOOT_BIND_CONFIRM") --Solo
+	UIParent:UnregisterEvent("CONFIRM_DISENCHANT_ROLL") --Group
+	UIParent:UnregisterEvent("CONFIRM_LOOT_ROLL") --Group
 
 	self:RegisterEvent("CONFIRM_DISENCHANT_ROLL", HandleEvent)
 	self:RegisterEvent("CONFIRM_LOOT_ROLL", HandleEvent)
 	self:RegisterEvent("LOOT_BIND_CONFIRM", HandleEvent)
 	self:RegisterEvent("LOOT_OPENED", HandleEvent)
-	
+
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
-	
-	self:RegisterEvent("START_LOOT_ROLL", HandleRoll)
+
 	self:RegisterEvent("ADDON_LOADED", LoadConfig)
+	hooksecurefunc(M, 'START_LOOT_ROLL', function(self, event, id) HandleRoll(event, id) end)
 end

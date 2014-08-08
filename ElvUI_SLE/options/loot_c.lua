@@ -35,7 +35,7 @@ local function configTable()
 				desc = "Automatically greed uncommon (green) quality items at max level",
 				disabled = function() return not E.db.sle.loot.enable end,
 				get = function(info) return E.db.sle.loot.autogreed end,
-				set = function(info, value) E.db.sle.loot.autogreed = value; LT:Update() end,
+				set = function(info, value) E.db.sle.loot.autogreed = value; end,
 			},
 			autode = {
 				order = 5,
@@ -44,20 +44,39 @@ local function configTable()
 				desc = "Automatically disenchant uncommon (green) quality items at max level",
 				disabled = function() return not E.db.sle.loot.enable end,
 				get = function(info) return E.db.sle.loot.autode end,
-				set = function(info, value) E.db.sle.loot.autode = value; LT:Update() end,
+				set = function(info, value) E.db.sle.loot.autode = value; end,
+			},
+			bylevel = {
+				order = 6,
+				type = "toggle",
+				name = "Roll based on level.",
+				desc = "This will auto-roll if you are above the given level if: You cannot equip the item being rolled on, or the ilevel of your equipped item is higher than the item being rolled on or you have an heirloom equipped in that slot",
+				disabled = function() return not E.db.sle.loot.enable end,
+				get = function(info) return E.db.sle.loot.bylevel end,
+				set = function(info, value) E.db.sle.loot.bylevel = value; end,
+			},
+			level = {
+				order = 7,
+				type = "range",
+				name = "Level to start auto-rolling from",
+				desc = "Automatically disenchant uncommon (green) quality items at max level",
+				disabled = function() return not E.db.sle.loot.enable end,
+				min = 1, max = GetMaxPlayerLevel(), step = 1,
+				get = function(info) return E.db.sle.loot.level end,
+				set = function(info, value) E.db.sle.loot.level = value; end,
 			},
 			space2 = {
-				order = 6,
+				order = 8,
 				type = 'description',
 				name = "",
 			},
 			space3 = {
-				order = 6,
+				order = 8,
 				type = 'description',
 				name = "",
 			},
 			announcer = {
-				order = 7,
+				order = 9,
 				type = "group",
 				name = L["Loot Announcer"],
 				args = {
@@ -124,7 +143,7 @@ local function configTable()
 				},
 			},
 			history = {
-				order = 8,
+				order = 10,
 				type = "group",
 				name = L["Loot Roll History"],
 				args = {
