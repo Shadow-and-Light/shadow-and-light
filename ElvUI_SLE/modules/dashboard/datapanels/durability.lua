@@ -36,7 +36,11 @@ board[1].Status:SetScript("OnEvent", function( self, ...)
 		end
 	end
 	
-	result = totalPerc/total
+	if total ~= 0 then
+		result = totalPerc/total
+	else
+		result = 0
+	end
 	
 	if total > 0 then
 		board[1].Text:SetFormattedText(displayString, result)
