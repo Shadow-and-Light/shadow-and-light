@@ -147,7 +147,7 @@ local function HandleRoll(event, id)
 			if quality ~= 7 and matchItemLevel < ilvl then return end
 		end
 	end
-	if quality == 2 then --ITEM_QUAILTY_UNCOMMON then
+	if quality == LE_ITEM_QUALITY_UNCOMMON then
 		if db.autode and disenchant then
 			RollOnLoot(id, 3)
 		else
