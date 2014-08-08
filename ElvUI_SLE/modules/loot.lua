@@ -138,17 +138,16 @@ local function HandleRoll(event, id)
 	end
 
 	if IsXPUserDisabled() then MaxPlayerLevel = PlayerLevel end
-	if PlayerLevel ~= MaxPlayerLevel or (db.bylevel and PlayerLevel < db.level) then return end
+	if (db.bylevel and PlayerLevel < db.level) and PlayerLevel ~= MaxPlayerLevel then return end
 	if db.bylevel then
 		if IsEquippableItem(link) then
 			local _, _, _, ilvl, _, _, _, _, slot = GetItemInfo(link)
 			local itemLink = GetInventoryItemLink('player', slot)
-			local matchItemLevel = select(4, GetItemInfo(itemLink))
+			local matchItemLevel = itemLink and select(4, GetItemInfo(itemLink)) or 1
 			if quality ~= 7 and matchItemLevel < ilvl then return end
 		end
 	end
-
-	if quality == ITEM_QUAILTY_UNCOMMON then
+	if quality == 2 then --ITEM_QUAILTY_UNCOMMON then
 		if db.autode and disenchant then
 			RollOnLoot(id, 3)
 		else
