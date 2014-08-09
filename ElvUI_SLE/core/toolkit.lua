@@ -56,7 +56,6 @@ local function UpdateAll()
 		UF:Update_CombatIndicator()
 	end
 	LT:LootShow()
-	LT:Update()
 	UB:UpdateAll()
 	RM:Update()
 	RF:Update()
