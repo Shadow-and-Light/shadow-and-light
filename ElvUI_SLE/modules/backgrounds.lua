@@ -66,7 +66,7 @@ local function UpdateTex()
 end
 
 --Visibility / Enable check
-local function FramesVisibility()
+function BG:FramesVisibility()
 	if not BGb then return end
 	local db = E.db.sle.backgrounds
 	for _,v in pairs(Fr) do
@@ -85,7 +85,7 @@ function BG:UpdateFrames()
 		v[1]:SetTemplate(db[v[2]].template, true)
 	end
 	FramesSize()
-	FramesVisibility()
+	BG:FramesVisibility()
     UpdateTex()
 end
 
