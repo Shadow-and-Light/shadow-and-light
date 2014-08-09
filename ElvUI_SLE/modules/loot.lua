@@ -149,7 +149,7 @@ local function HandleRoll(event, id)
 		end
 	end
 
-	if quality == db.autoqlty then --need to add check for 2 or 3 atm it will do one or the other
+	if quality <= db.autoqlty then
 		if db.autode and disenchant then
 			RollOnLoot(id, 3)
 		else

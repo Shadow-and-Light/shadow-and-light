@@ -19,18 +19,17 @@ local function configTable()
 				type = 'description',
 				name = "",
 			},
-			automatization = {
+			autoroll = {
 				order = 1,
 				type = "group",
-				name = "Auto Rolls",
-				disabled = function() return not E.db.sle.loot.enable end,
+				name = "Loot Auto Roll",
 				args = {
 					autoconfirm = {
 						order = 3,
 						type = "toggle",
 						name = "Auto Confirm",
 						desc = "Automatically click OK on BOP items",
-						-- disabled = function() return not E.db.sle.loot.enable end,
+						disabled = function() return not E.db.sle.loot.enable end,
 						get = function(info) return E.db.sle.loot.autoconfirm end,
 						set = function(info, value) E.db.sle.loot.autoconfirm = value; end,
 					},
@@ -39,7 +38,7 @@ local function configTable()
 						type = "toggle",
 						name = "Auto Greed",
 						desc = "Automatically greed uncommon (green) quality items at max level",
-						-- disabled = function() return not E.db.sle.loot.enable end,
+						disabled = function() return not E.db.sle.loot.enable end,
 						get = function(info) return E.db.sle.loot.autogreed end,
 						set = function(info, value) E.db.sle.loot.autogreed = value; end,
 					},
@@ -48,7 +47,7 @@ local function configTable()
 						type = "toggle",
 						name = "Auto Disenchant",
 						desc = "Automatically disenchant uncommon (green) quality items at max level",
-						-- disabled = function() return not E.db.sle.loot.enable end,
+						disabled = function() return not E.db.sle.loot.enable end,
 						get = function(info) return E.db.sle.loot.autode end,
 						set = function(info, value) E.db.sle.loot.autode = value; end,
 					},
@@ -57,7 +56,7 @@ local function configTable()
 						type = "toggle",
 						name = "Roll based on level.",
 						desc = "This will auto-roll if you are above the given level if: You cannot equip the item being rolled on, or the ilevel of your equipped item is higher than the item being rolled on or you have an heirloom equipped in that slot",
-						-- disabled = function() return not E.db.sle.loot.enable end,
+						disabled = function() return not E.db.sle.loot.enable end,
 						get = function(info) return E.db.sle.loot.bylevel end,
 						set = function(info, value) E.db.sle.loot.bylevel = value; end,
 					},
@@ -66,42 +65,31 @@ local function configTable()
 						type = "range",
 						name = "Level to start auto-rolling from",
 						desc = "Automatically disenchant uncommon (green) quality items at max level",
-						-- disabled = function() return not E.db.sle.loot.enable end,
+						disabled = function() return not E.db.sle.loot.enable end,
 						min = 1, max = GetMaxPlayerLevel(), step = 1,
 						get = function(info) return E.db.sle.loot.level end,
 						set = function(info, value) E.db.sle.loot.level = value; end,
 					},
-					quality = {
+					autoqlty = {
 						order = 9,
 						type = "select",
 						name = L["Loot Quality"],
-						--desc = L["Sets the minimum loot threshold to announce."],
-						--disabled = function() return not E.db.sle.loot.enable end,
-						get = function(info) return E.db.sle.loot.rollfor end,
-						set = function(info, value) E.db.sle.loot.rollfor = value; LT:AutoQuality() end,
+						desc = "Sets the auto greed/disenchant quality\n\nUncommon: Rolls on Uncommon only\nRare: Rolls on Rares & Uncommon",
+						disabled = function() return not E.db.sle.loot.enable end,
+						get = function(info) return E.db.sle.loot.autoqlty end,
+						set = function(info, value) E.db.sle.loot.autoqlty = value; end,
 						values = {
-							['EPIC'] = "|cffA335EE"..ITEM_QUALITY4_DESC.."|r",
-							['RARE'] = "|cff0070DD"..ITEM_QUALITY3_DESC.."|r",
-							['UNCOMMON'] = "|cff1EFF00"..ITEM_QUALITY2_DESC.."|r",
+							[4] = "|cffA335EE"..ITEM_QUALITY4_DESC.."|r",
+							[3] = "|cff0070DD"..ITEM_QUALITY3_DESC.."|r",
+							[2] = "|cff1EFF00"..ITEM_QUALITY2_DESC.."|r",
 						},
 					},
 				},
 			},
-			--[[space2 = {
-				order = 8,
-				type = 'description',
-				name = "",
-			},
-			space3 = {
-				order = 8,
-				type = 'description',
-				name = "",
-			},]]
 			announcer = {
 				order = 9,
 				type = "group",
 				name = L["Loot Announcer"],
-				disabled = function() return not E.db.sle.loot.enable end,
 				args = {
 					header = {
 						order = 1,
@@ -169,7 +157,6 @@ local function configTable()
 				order = 10,
 				type = "group",
 				name = L["Loot Roll History"],
-				disabled = function() return not E.db.sle.loot.enable end,
 				args = {
 					header = {
 						order = 1,
