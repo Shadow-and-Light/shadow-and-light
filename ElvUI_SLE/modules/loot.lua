@@ -1,7 +1,6 @@
 ﻿local E, L, V, P, G, _ = unpack(ElvUI);
 local LT = E:GetModule('SLE_Loot')
 local M = E:GetModule('Misc')
-local db
 
 local check = false
 local t = 0
@@ -187,7 +186,7 @@ local function LoadConfig(event, addon)
 	LT:UnregisterEvent("ADDON_LOADED")
 end
 
-function LT:WTF()
+function LT:Update()
 	MaxPlayerLevel = GetMaxPlayerLevel()
 	PlayerLevel = UnitLevel('player')
 
@@ -234,5 +233,5 @@ end
 function LT:Initialize()
 	hooksecurefunc(M, 'START_LOOT_ROLL', function(self, event, id) HandleRoll(event, id) end)
 	if not E.db.sle.loot.enable then return end
-	LT:WTF()
+	LT:Update()
 end
