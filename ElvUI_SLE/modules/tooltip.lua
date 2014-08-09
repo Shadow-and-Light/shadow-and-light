@@ -7,8 +7,10 @@ P['tooltip']['mouseOffsetY'] = 0
 P['tooltip']['overrideCombat'] = false
 
 local iconPath = [[Interface\AddOns\ElvUI_SLE\media\textures\]]
+local gt = GameTooltip
 
-local function AnchorFrameToMouse(frame)
+local function AnchorFrameToMouse()
+	local frame = gt
 	if frame:GetAnchorType() ~= "ANCHOR_CURSOR" then return end
 	local x, y = GetCursorPosition();
 	local scale = frame:GetEffectiveScale();
@@ -48,7 +50,7 @@ local function AddonName_OnUpdate(self, elapsed)
 end
 
 local function Init()
-	TT:HookScript(GameTooltip, "OnUpdate", AddonName_OnUpdate);
+	hooksecurefunc(TT, "CheckBackdropColor", AddonName_OnUpdate)
 	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", OnTooltipSetUnit)
 	hooksecurefunc(TT, "GameTooltip_SetDefaultAnchor", SetDefaultAnchor)
 end
