@@ -68,13 +68,13 @@ end
 
 local function Channel()
 	local channel
-	if db.announcer.channel ~= "SAY" and IsPartyLFG() then
+	if E.db.sle.loot.announcer.channel ~= "SAY" and IsPartyLFG() then
 		return "INSTANCE_CHAT"
 	end
-	if db.announcer.channel == "RAID" and not IsInRaid() then
+	if E.db.sle.loot.announcer.channel == "RAID" and not IsInRaid() then
 		return "PARTY"
 	end
-	return db.announcer.channel
+	return E.db.sle.loot.announcer.channel
 end
 
 local function List()
@@ -95,9 +95,9 @@ end
 local function Announce(event)
 	if not IsInGroup() then return end -- not in group, exit.
 	local m = 0
-	local q = db.announcer.quality == "EPIC" and 4 or db.announcer.quality == "RARE" and 3 or db.announcer.quality == "UNCOMMON" and 2
+	local q = E.db.sle.loot.announcer.quality == "EPIC" and 4 or E.db.sle.loot.announcer.quality == "RARE" and 3 or E.db.sle.loot.announcer.quality == "UNCOMMON" and 2
 	
-	if (Check() and db.announcer.auto) or (IsLeftControlKeyDown() and (IsInGroup() or IsInRaid())) then
+	if (Check() and E.db.sle.loot.announcer.auto) or (IsLeftControlKeyDown() and (IsInGroup() or IsInRaid())) then
 		for i = 1, GetNumLootItems() do
 			if GetLootSlotType(i) == 1 then
 				for j = 1, t do
@@ -127,7 +127,8 @@ local function Announce(event)
 end
 
 local function HandleRoll(event, id)
-	if not (db.autogreed or db.autode) then return end
+	if not E.db.sle.loot.enable then return end
+	if not (E.db.sle.loot.autogreed or E.db.sle.loot.autode) then return end
 
 	local _, name, _, quality, _, _, _, disenchant = GetLootRollItemInfo(id)
 	local link = GetLootRollItemLink(id)
@@ -138,9 +139,9 @@ local function HandleRoll(event, id)
 	end
 
 	if IsXPUserDisabled() then MaxPlayerLevel = PlayerLevel end
-	if (db.bylevel and PlayerLevel < db.level) and PlayerLevel ~= MaxPlayerLevel then return end
+	if (E.db.sle.loot.bylevel and PlayerLevel < E.db.sle.loot.level) and PlayerLevel ~= MaxPlayerLevel then return end
 
-	if db.bylevel then
+	if E.db.sle.loot.bylevel then
 		if IsEquippableItem(link) then
 			local _, _, _, ilvl, _, _, _, _, slot = GetItemInfo(link)
 			local itemLink = GetInventoryItemLink('player', slot)
@@ -149,8 +150,8 @@ local function HandleRoll(event, id)
 		end
 	end
 
-	if quality <= db.autoqlty then
-		if db.autode and disenchant then
+	if quality <= E.db.sle.loot.autoqlty then
+		if E.db.sle.loot.autode and disenchant then
 			RollOnLoot(id, 3)
 		else
 			RollOnLoot(id, 2)
@@ -160,12 +161,12 @@ end
 
 local function HandleEvent(event, ...)
 	if event == "LOOT_OPENED" then
-		if db.announcer.enable then
+		if E.db.sle.loot.announcer.enable then
 			Announce(event)
 		end
 	end
 
-	if not db.autoconfirm then return end
+	if not E.db.sle.loot.autoconfirm then return end
 	if event == "CONFIRM_LOOT_ROLL" or event == "CONFIRM_DISENCHANT_ROLL" then
 		local arg1, arg2 = ...
 		ConfirmLootRoll(arg1, arg2)
@@ -186,6 +187,37 @@ local function LoadConfig(event, addon)
 	LT:UnregisterEvent("ADDON_LOADED")
 end
 
+function LT:WTF()
+	MaxPlayerLevel = GetMaxPlayerLevel()
+	PlayerLevel = UnitLevel('player')
+
+	if E.db.general then
+		E.db.general.autoRoll= false
+	end
+
+	--Azil made this, blame him if something fucked up
+	UIParent:UnregisterEvent("LOOT_BIND_CONFIRM") --Solo
+	UIParent:UnregisterEvent("CONFIRM_DISENCHANT_ROLL") --Group
+	UIParent:UnregisterEvent("CONFIRM_LOOT_ROLL") --Group
+	
+	if E.db.sle.loot.enable then
+		self:RegisterEvent("CONFIRM_DISENCHANT_ROLL", HandleEvent)
+		self:RegisterEvent("CONFIRM_LOOT_ROLL", HandleEvent)
+		self:RegisterEvent("LOOT_BIND_CONFIRM", HandleEvent)
+		self:RegisterEvent("LOOT_OPENED", HandleEvent)
+		self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
+		self:RegisterEvent("ADDON_LOADED", LoadConfig)
+	else
+		self:UnregisterEvent("CONFIRM_DISENCHANT_ROLL")
+		self:UnregisterEvent("CONFIRM_LOOT_ROLL")
+		self:UnregisterEvent("LOOT_BIND_CONFIRM")
+		self:UnregisterEvent("LOOT_OPENED")
+		self:UnregisterEvent('PLAYER_ENTERING_WORLD')
+		self:UnregisterEvent("ADDON_LOADED")
+	end
+	
+end
+
 function LT:LootShow()
 	local instance = IsInInstance()
 	LootHistoryFrame:SetAlpha(E.db.sle.loot.history.alpha or 1)
@@ -200,27 +232,7 @@ function LT:PLAYER_LEVEL_UP(event, level)
 end
 
 function LT:Initialize()
-	db = E.db.sle.loot
-	if not db.enable then return end
-
-	MaxPlayerLevel = GetMaxPlayerLevel()
-	PlayerLevel = UnitLevel('player')
-
-	if E.db.general then
-		E.db.general.autoRoll= false
-	end
-
-	UIParent:UnregisterEvent("LOOT_BIND_CONFIRM") --Solo
-	UIParent:UnregisterEvent("CONFIRM_DISENCHANT_ROLL") --Group
-	UIParent:UnregisterEvent("CONFIRM_LOOT_ROLL") --Group
-
-	self:RegisterEvent("CONFIRM_DISENCHANT_ROLL", HandleEvent)
-	self:RegisterEvent("CONFIRM_LOOT_ROLL", HandleEvent)
-	self:RegisterEvent("LOOT_BIND_CONFIRM", HandleEvent)
-	self:RegisterEvent("LOOT_OPENED", HandleEvent)
-
-	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
-
-	self:RegisterEvent("ADDON_LOADED", LoadConfig)
 	hooksecurefunc(M, 'START_LOOT_ROLL', function(self, event, id) HandleRoll(event, id) end)
+	if not E.db.sle.loot.enable then return end
+	LT:WTF()
 end
