@@ -8,7 +8,7 @@ local IsInRaid, IsInGroup, UnitGUID, UnitName = IsInRaid, IsInGroup, UnitGUID, U
 local format, twipe = string.format, table.wipe
 local rosterTimer
 
-function Hex(r, g, b)
+local function Hex(r, g, b)
 	return format('|cFF%02x%02x%02x', r * 255, g * 255, b * 255)
 end
 
