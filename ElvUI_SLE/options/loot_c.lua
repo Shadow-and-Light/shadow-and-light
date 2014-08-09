@@ -28,8 +28,21 @@ local function configTable()
 				get = function(info) return E.db.sle.loot.autoconfirm end,
 				set = function(info, value) E.db.sle.loot.autoconfirm = value; end,
 			},
-			autogreed = {
+			autoqlty = {
 				order = 4,
+				type = "select",
+				name = "Auto Roll Quality",
+				desc = "Sets the auto greed/disenchant quality\n\nUncommon: Rolls on Uncommon only\nRare: Rolls on Rares & Uncommon",
+				disabled = function() return not E.db.sle.loot.enable end,
+				get = function(info) return E.db.sle.loot.autoqlty end,
+				set = function(info, value) E.db.sle.loot.autoqlty = value; end,
+				values = {
+					['2'] = "|cff1EFF00"..ITEM_QUALITY2_DESC.."|r",
+					['3'] = "|cff0070DD"..ITEM_QUALITY3_DESC.."|r",
+				},
+			},
+			autogreed = {
+				order = 5,
 				type = "toggle",
 				name = "Auto Greed",
 				desc = "Automatically greed uncommon (green) quality items at max level",
@@ -38,7 +51,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.loot.autogreed = value; end,
 			},
 			autode = {
-				order = 5,
+				order = 6,
 				type = "toggle",
 				name = "Auto Disenchant",
 				desc = "Automatically disenchant uncommon (green) quality items at max level",
@@ -47,7 +60,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.loot.autode = value; end,
 			},
 			bylevel = {
-				order = 6,
+				order = 7,
 				type = "toggle",
 				name = "Roll based on level.",
 				desc = "This will auto-roll if you are above the given level if: You cannot equip the item being rolled on, or the ilevel of your equipped item is higher than the item being rolled on or you have an heirloom equipped in that slot",
@@ -56,7 +69,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.loot.bylevel = value; end,
 			},
 			level = {
-				order = 7,
+				order = 8,
 				type = "range",
 				name = "Level to start auto-rolling from",
 				desc = "Automatically disenchant uncommon (green) quality items at max level",
@@ -66,17 +79,17 @@ local function configTable()
 				set = function(info, value) E.db.sle.loot.level = value; end,
 			},
 			space2 = {
-				order = 8,
+				order = 9,
 				type = 'description',
 				name = "",
 			},
 			space3 = {
-				order = 8,
+				order = 9,
 				type = 'description',
 				name = "",
 			},
 			announcer = {
-				order = 9,
+				order = 15,
 				type = "group",
 				name = L["Loot Announcer"],
 				args = {
@@ -143,7 +156,7 @@ local function configTable()
 				},
 			},
 			history = {
-				order = 10,
+				order = 20,
 				type = "group",
 				name = L["Loot Roll History"],
 				args = {

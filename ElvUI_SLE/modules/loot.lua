@@ -139,6 +139,7 @@ local function HandleRoll(event, id)
 
 	if IsXPUserDisabled() then MaxPlayerLevel = PlayerLevel end
 	if (db.bylevel and PlayerLevel < db.level) and PlayerLevel ~= MaxPlayerLevel then return end
+
 	if db.bylevel then
 		if IsEquippableItem(link) then
 			local _, _, _, ilvl, _, _, _, _, slot = GetItemInfo(link)
@@ -147,11 +148,12 @@ local function HandleRoll(event, id)
 			if quality ~= 7 and matchItemLevel < ilvl then return end
 		end
 	end
-	if quality == LE_ITEM_QUALITY_UNCOMMON then
+
+	if quality == db.autoqlty then --need to add check for 2 or 3 atm it will do one or the other
 		if db.autode and disenchant then
 			RollOnLoot(id, 3)
 		else
-			RollOnLoot(id, 2)
+			RollOnLoot(id, db.autoqlty)
 		end
 	end
 end
