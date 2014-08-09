@@ -153,7 +153,7 @@ local function HandleRoll(event, id)
 		if db.autode and disenchant then
 			RollOnLoot(id, 3)
 		else
-			RollOnLoot(id, db.autoqlty)
+			RollOnLoot(id, 2)
 		end
 	end
 end
