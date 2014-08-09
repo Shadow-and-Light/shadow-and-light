@@ -188,9 +188,9 @@ end
 
 function LT:LootShow()
 	local instance = IsInInstance()
-	LootHistoryFrame:SetAlpha(db.history.alpha or 1)
+	LootHistoryFrame:SetAlpha(E.db.sle.loot.history.alpha or 1)
 
-	if (not instance and db.history.autohide) then
+	if (not instance and E.db.sle.loot.history.autohide) then
 		LootHistoryFrame:Hide()
 	end
 end
