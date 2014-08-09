@@ -1,7 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local displayString = ""
 local total, totalDurability, totalPerc = 0, 0, 0
-local current, max, lastPanel
+local current, max, lastPanel, result
 local invDurability = {}
 
 local slots = {
