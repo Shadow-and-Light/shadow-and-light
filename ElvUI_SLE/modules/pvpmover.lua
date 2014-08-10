@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); 
+local E, L, V, P, G = unpack(ElvUI); 
 local P = E:GetModule('SLE_PvPMover');
 local holder = CreateFrame("Frame", "SLE_PvP", E.UIParent)
 

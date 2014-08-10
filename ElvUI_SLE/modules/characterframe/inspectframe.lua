@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G, _  = unpack(ElvUI)
+﻿local E, L, V, P, G = unpack(ElvUI);
 local AISM = _G['Armory_InspectSupportModule']
 local IFO = E:GetModule('InspectFrameOptions')
 local SLE = E:GetModule('SLE');

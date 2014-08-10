@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 local TT = E:GetModule('Tooltip');
 
 --Defaults (Need to be moved.)

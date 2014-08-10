@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 local SLE = E:GetModule('SLE');
 local ACD = LibStub("AceConfigDialog-3.0")
 

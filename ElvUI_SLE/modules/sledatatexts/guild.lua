@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 local LibQTip = LibStub('LibQTip-1.0')
 local ACD = LibStub("AceConfigDialog-3.0")
 local DT = E:GetModule('DataTexts')

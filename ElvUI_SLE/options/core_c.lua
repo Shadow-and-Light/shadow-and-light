@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G =  unpack(ElvUI); 
+﻿local E, L, V, P, G = unpack(ElvUI); 
 local SLE = E:GetModule('SLE')
 local LT = E:GetModule('SLE_Loot')
 

@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI); 
+﻿local E, L, V, P, G = unpack(ElvUI); 
 local EM = E:GetModule('SLE_EquipManager')
 local BI = E:GetModule('SLE_BagInfo')
 

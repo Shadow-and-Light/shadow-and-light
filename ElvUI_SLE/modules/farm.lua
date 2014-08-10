@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI);
+﻿local E, L, V, P, G = unpack(ElvUI);
 local B = LibStub("LibBabble-SubZone-3.0")
 local BL = B:GetLookupTable()
 local F = E:GetModule('SLE_Farm')

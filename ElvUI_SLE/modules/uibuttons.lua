@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); 
+local E, L, V, P, G = unpack(ElvUI); 
 local UB = E:GetModule('SLE_UIButtons');
 local Btemplate = "SecureActionButtonTemplate"
 local NumBut = 5

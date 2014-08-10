@@ -1,5 +1,5 @@
+local E, L, V, P, G = unpack(ElvUI);
 --Replacement of Elv's time datatext with some additions
-local E, L, V, P, G, _ = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 
 local format = string.format

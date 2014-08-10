@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 
 local function configTable()
 	E.Options.args.sle.args.options.args.minimap = {

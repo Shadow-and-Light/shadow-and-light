@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 local AR = E:GetModule('SLE_AutoRelease')
 local myclass = E.myclass
 local IsInInstance = IsInInstance

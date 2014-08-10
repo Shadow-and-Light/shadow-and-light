@@ -1,5 +1,5 @@
-﻿--Version datatext. Only in Russian for now.
-local E, L, V, P, G, _ = unpack(ElvUI);
+﻿local E, L, V, P, G = unpack(ElvUI);
+--Version datatext. Only in Russian for now.
 local DT = E:GetModule('DataTexts')
 local SLE = E:GetModule('SLE')
 local ACD = LibStub("AceConfigDialog-3.0")

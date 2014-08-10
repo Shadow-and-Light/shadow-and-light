@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 local I = E:GetModule('SLE_InstDif')
 local GetInstanceInfo = GetInstanceInfo
 local sub = string.sub

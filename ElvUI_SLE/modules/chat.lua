@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI);
+﻿local E, L, V, P, G = unpack(ElvUI);
 local CH = E:GetModule('Chat')
 local SLE = E:GetModule('SLE');
 local LSM = LibStub("LibSharedMedia-3.0")
