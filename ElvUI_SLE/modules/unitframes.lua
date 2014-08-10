@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 if not E.private.unitframe.enable then return end
 local UF = E:GetModule('UnitFrames');
 local SLE = E:GetModule('SLE');
