@@ -247,7 +247,7 @@ SLArmoryConstants = {
 }
 
 --Get Profession Information
-local ProfessionName, ProfessionTexture
+--local ProfessionName, ProfessionTexture
 for ProfessionSkillID, Key in pairs({
 	[105206] = 'Alchemy',
 	[110396] = 'BlackSmithing',
@@ -263,7 +263,7 @@ for ProfessionSkillID, Key in pairs({
 	[102216] = 'Skinning'
 })
 do
-	ProfessionName, _, ProfessionTexture = GetSpellInfo(ProfessionSkillID)
+	local ProfessionName, _, ProfessionTexture = GetSpellInfo(ProfessionSkillID)
 
 	SLArmoryConstants.ProfessionList[ProfessionName] = {
 		['Key'] = Key,

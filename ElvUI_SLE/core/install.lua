@@ -6,7 +6,7 @@ local SLE = E:GetModule('SLE');
 local CURRENT_PAGE = 0
 local MAX_PAGE = 5
 
-function DarthSetup() --The function to switch from classic ElvUI settings to Darth's
+local function DarthSetup() --The function to switch from classic ElvUI settings to Darth's
 	SLEInstallStepComplete.message = L["Darth's Defaults Set"]
 	SLEInstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
@@ -758,7 +758,7 @@ function DarthSetup() --The function to switch from classic ElvUI settings to Da
 	E:UpdateAll(true)
 end
 
-function RepoocSetup() --The function to switch from classic ElvUI settings to Repooc's
+local function RepoocSetup() --The function to switch from classic ElvUI settings to Repooc's
 	SLEInstallStepComplete.message = L["Repooc's Defaults Set"]
 	SLEInstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
@@ -1306,7 +1306,7 @@ function RepoocSetup() --The function to switch from classic ElvUI settings to R
 	E:UpdateAll(true)
 end
 
-function AffinitiiSetup() --The function to switch from class ElvUI settings to Affinitii's
+local function AffinitiiSetup() --The function to switch from class ElvUI settings to Affinitii's
 	SLEInstallStepComplete.message = L["Affinitii's Defaults Set"]
 	SLEInstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
