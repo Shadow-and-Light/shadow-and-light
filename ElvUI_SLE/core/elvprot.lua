@@ -1,6 +1,6 @@
 ﻿local E, L, V, P, G = unpack(ElvUI);
 local SLE = E:GetModule('SLE');
-local find = string.find
+--[[local find = string.find
 local tinsert = tinsert
 
 function E:IsFoolsDay()
@@ -58,4 +58,4 @@ local function Fools2013()
 	tinsert(E.massiveShakeObjects, RaidUtilityPanel)
 end
 
-hooksecurefunc(E, "BeginFoolsDayEvent", Fools2013)
+hooksecurefunc(E, "BeginFoolsDayEvent", Fools2013)]]

@@ -15,9 +15,9 @@ local GetItemCount, GetItemInfo = GetItemCount, GetItemInfo
 local Point = Point
 
 
-FseedButtons = {}
-FtoolButtons = {}
-FportalButtons = {}
+local FseedButtons = {}
+local FtoolButtons = {}
+local FportalButtons = {}
 
 local seeds = {
 	--Seeds general
