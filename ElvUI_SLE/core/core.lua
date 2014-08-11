@@ -73,7 +73,7 @@ function SLE:Initialize()
 	if E.private.unitframe.enable then
 		self:RegisterEvent("PLAYER_REGEN_DISABLED", UF.Update_CombatIndicator);
 	end
-	--if E.private.install_complete == E.version and E.private.sle.install_complete == nil then SLE:Install() end
+	if E.private.install_complete and E.private.sle.install_complete == nil then SLE:Install() end
 	if E.db.general.loginmessage then
         SLE:Print(format(L['SLE_LOGIN_MSG'], E["media"].hexvaluecolor, SLE.version))
 	end
