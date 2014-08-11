@@ -1,4 +1,5 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file='character.lua'/>
 	<Script file='extraab.lua'/>
 	<Script file='petbattle.lua'/>
 </Ui>

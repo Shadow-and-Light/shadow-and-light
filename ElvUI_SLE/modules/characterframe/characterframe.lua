@@ -2,7 +2,7 @@
 local CFO = E:GetModule('CharacterFrameOptions');
 local LSM = LibStub("LibSharedMedia-3.0")
 
-local f = CreateFrame('Frame', 'KnightArmory', PaperDollFrame)
+local f = CreateFrame('Frame', 'SLEArmory', PaperDollFrame)
 local C = SLArmoryConstants
 local backgrounds = {
 	["SPACE"] = "Space",
@@ -73,7 +73,7 @@ local function CreateArmoryFrame(self)
 	CharacterModelFrame:SetFrameLevel(self:GetFrameLevel() + 2)
 
 	--<< Average Item Level >>--
-	C.Toolkit.TextSetting(self, nil, { ['Tag'] = 'AverageItemLevel', ['FontSize'] = 12, }, 'BOTTOM', CharacterModelFrame, 'TOP', 0, 14)
+	C.Toolkit.TextSetting(self, nil, { ['Tag'] = 'AverageItemLevel', ['FontSize'] = 12, }, 'TOP', CharacterLevelText, 'BOTTOM', 0, 3)
 	local function ValueColorUpdate()
 		self.AverageItemLevel:SetText(C.Toolkit.Color_Value(L['Average'])..': '..format('%.2f', select(2, GetAverageItemLevel())))
 	end
@@ -176,17 +176,20 @@ local function CreateArmoryFrame(self)
 	end
 
 	-- GameTooltip for counting gem sockets and getting enchant effects
-	self.ScanTTForEnchanting1 = CreateFrame('GameTooltip', 'KnightArmoryScanTT_E1', nil, 'GameTooltipTemplate')
+	self.ScanTTForEnchanting1 = CreateFrame('GameTooltip', 'SLEArmoryScanTT_E1', nil, 'GameTooltipTemplate')
 	self.ScanTTForEnchanting1:SetOwner(UIParent, 'ANCHOR_NONE')
 
 	-- GameTooltip for checking that texture in tooltip is socket texture
-	self.ScanTTForEnchanting2 = CreateFrame('GameTooltip', 'KnightArmoryScanTT_E2', nil, 'GameTooltipTemplate')
+	self.ScanTTForEnchanting2 = CreateFrame('GameTooltip', 'SLEArmoryScanTT_E2', nil, 'GameTooltipTemplate')
 	self.ScanTTForEnchanting2:SetOwner(UIParent, 'ANCHOR_NONE')
 
 	-- For resizing paper doll frame when it toggled.
 	self.ChangeCharacterFrameWidth = CreateFrame('Frame')
-	self.ChangeCharacterFrameWidth:SetScript('OnShow', function() if PaperDollFrame:IsVisible() then PANEL_DEFAULT_WIDTH = 448 CFO:ArmoryFrame_DataSetting() end end)
-	self.ChangeCharacterFrameWidth:SetScript('OnHide', function() PANEL_DEFAULT_WIDTH = 338 end)
+	self.ChangeCharacterFrameWidth:SetScript('OnShow', function()
+		if PaperDollFrame:IsVisible() then
+			CFO:ArmoryFrame_DataSetting()
+		end
+	end)
 
 	CreateArmoryFrame = nil
 end
@@ -262,8 +265,8 @@ function CFO:ArmoryFrame_DataSetting()
 				f.ScanTTForEnchanting1:ClearLines()
 				f.ScanTTForEnchanting2:ClearLines()
 				for i = 1, 10 do
-					_G['KnightArmoryScanTT_E1Texture'..i]:SetTexture(nil)
-					_G['KnightArmoryScanTT_E2Texture'..i]:SetTexture(nil)
+					_G['SLEArmoryScanTT_E1Texture'..i]:SetTexture(nil)
+					_G['SLEArmoryScanTT_E2Texture'..i]:SetTexture(nil)
 				end
 			end
 
@@ -280,7 +283,7 @@ function CFO:ArmoryFrame_DataSetting()
 
 					-- First, Counting default gem sockets
 					for i = 1, MAX_NUM_SOCKETS do
-						ItemTexture = _G['KnightArmoryScanTT_E2Texture'..i]:GetTexture()
+						ItemTexture = _G['SLEArmoryScanTT_E2Texture'..i]:GetTexture()
 
 						if ItemTexture and ItemTexture:find('Interface\\ItemSocketingFrame\\') then
 							GemTotal_1 = GemTotal_1 + 1
@@ -298,7 +301,7 @@ function CFO:ArmoryFrame_DataSetting()
 
 					-- Apply current item's gem setting
 					for i = 1, MAX_NUM_SOCKETS do
-						ItemTexture = _G['KnightArmoryScanTT_E1Texture'..i]:GetTexture()
+						ItemTexture = _G['SLEArmoryScanTT_E1Texture'..i]:GetTexture()
 						GemID = select(i, GetInventoryItemGems(Slot.ID))
 						
 						if Slot['Socket'..i].GemType and C.GemColor[Slot['Socket'..i].GemType] then
@@ -336,7 +339,7 @@ function CFO:ArmoryFrame_DataSetting()
 				ItemUpgradeID = ItemLink:match(':(%d+)\124h%[')
 
 				for i = 1, f.ScanTTForEnchanting1:NumLines() do
-					CurrentLineText = _G['KnightArmoryScanTT_E1TextLeft'..i]:GetText()
+					CurrentLineText = _G['SLEArmoryScanTT_E1TextLeft'..i]:GetText()
 
 					if CurrentLineText:find(C.ItemLevelKey_Alt) then
 						TrueItemLevel = tonumber(CurrentLineText:match(C.ItemLevelKey_Alt))
@@ -535,7 +538,6 @@ end
 
 function CFO:StartArmoryFrame()
 	-- Setting frame
-	CHARACTERFRAME_EXPANDED_WIDTH = 650
 	CharacterFrame:SetHeight(444)
 	CharacterFrameInsetRight:SetPoint('TOPLEFT', CharacterFrameInset, 'TOPRIGHT', 110, 0)
 	CharacterFrameExpandButton:SetPoint('BOTTOMRIGHT', CharacterFrameInsetRight, 'BOTTOMLEFT', -3, 7)
@@ -559,7 +561,7 @@ function CFO:StartArmoryFrame()
 	CharacterModelFrameControlFrame:SetPoint('BOTTOM', CharacterModelFrame, 'BOTTOM', -1.5, 1)
 
 	if CreateArmoryFrame then
-		CreateArmoryFrame(KnightArmory)
+		CreateArmoryFrame(SLEArmory)
 	end
 	CFO:ArmoryFrame_DataSetting()
 
@@ -583,15 +585,21 @@ end
 function CFO:Initialize()
 	if not E.private.sle.characterframeoptions.enable then return end
 
-	hooksecurefunc(_G, 'PaperDollFrame_SetLevel', function()
+	hooksecurefunc('CharacterFrame_Collapse', function()
+		CharacterFrame:SetWidth(448);
+	end)
+	hooksecurefunc('CharacterFrame_Expand', function()
+		CharacterFrame:SetWidth(650);
+	end)
+
+	hooksecurefunc('PaperDollFrame_SetLevel', function()
 		local primaryTalentTree = GetSpecialization()
 		local classDisplayName, class = UnitClass("player")
 		local classColorString = RAID_CLASS_COLORS[class].colorStr
-		local specName, _;
 		local PLAYER_LEVEL = "|c%s%s %s %s %s|r"
 		local PLAYER_LEVEL_NO_SPEC = "|c%s%s %s %s|r"
 		if (primaryTalentTree) then
-			_, specName = GetSpecializationInfo(primaryTalentTree);
+			local _, specName = GetSpecializationInfo(primaryTalentTree);
 		end
 
 		if (specName and specName ~= "") then
@@ -600,11 +608,12 @@ function CFO:Initialize()
 			CharacterLevelText:SetFormattedText(PLAYER_LEVEL_NO_SPEC, classColorString, LEVEL, UnitLevel("player"), classDisplayName);
 		end
 
+		--Maybe Adjust Name, Level, Avg iLvL if bliz skinning is off?
 		CharacterFrameTitleText:ClearAllPoints()
-		CharacterFrameTitleText:Point('TOP', f, 'TOP', 0, 0)
+		CharacterFrameTitleText:Point('TOP', CharacterFrame, 'TOP', 0, -25)
 		CharacterFrameTitleText:SetParent(f)
 		CharacterLevelText:ClearAllPoints()
-		CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 0)
+		CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 3)
 		CharacterLevelText:SetParent(f)
 	end)
 
