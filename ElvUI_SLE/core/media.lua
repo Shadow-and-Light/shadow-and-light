@@ -13,13 +13,14 @@ local Zones = {
 }
 
 local PvPInfo = {
-	"(Russian territory)",
-	"(Horde territory)",
-	"(Alliance territory)",
-	"(Aliens territory)",
-	"(Cats terrtory)",
-	"(Japanise territory)",
-	"(EA territory)",
+	"(Horde Territory)",
+	"(Alliance Territory)",
+	"(Contested Territory)",
+	"(Russian Territory)",
+	"(Aliens Territory)",
+	"(Cats Territory)",
+	"(Japanese Territory)",
+	"(EA Territory)",
 }
 
 local Subzones = {
@@ -28,13 +29,13 @@ local Subzones = {
 	"Alley of Bullshit",
 	"Dr. Pepper Storage",
 	"Vodka Storage",
-	"First National Bank",
+	"Last National Bank",
 }
 
 local PVPArena = {
 	"(PvP)",
 	"No Smoking!",
-	"Only 5% taxes",
+	"Only 5% Taxes",
 	"Free For All",
 	"Self destruction is in process",
 }
@@ -67,7 +68,6 @@ local function SetFonts()
 	OpenMailBodyText:SetFont(LSM:Fetch('font', db.mail.font), db.mail.size, db.mail.outline) --Received letter text
 	--QuestFont:SetFont(LSM:Fetch('font', "ElvUI Pixel"), 12, "") -- Font in Quest Log/Petitions and shit. It's fucking hedious with any outline so fuck it.
 	--QuestFont_Large:SetFont(LSM:Fetch('font', "ElvUI Pixel"), 12, "") -- No idea what that is for
-	--SystemFont_Large:SetFont(LSM:Fetch('font', "ElvUI Pixel"), 12, "") -- Core abilities names and shit
 	NumberFont_Shadow_Med:SetFont(LSM:Fetch('font', db.editbox.font), db.editbox.size, db.editbox.outline) --Chat editbox
 end
 
