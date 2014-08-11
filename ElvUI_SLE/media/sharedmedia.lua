@@ -11,7 +11,7 @@ LSM:Register("sound", "Sheep", [[Interface\AddOns\ElvUI_SLE\media\sounds\sheep.m
 
 --Darth's additions
 LSM:Register("font", "Buffet Script", [[Interface\AddOns\ElvUI_SLE\media\fonts\Buffet_Script.ttf]])
-LSM:Register("font", "Aniron", [[Interface\AddOns\ElvUI_SLE\media\fonts\Aniron.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+LSM:Register("font", "Old Cyrillic", [[Interface\AddOns\ElvUI_SLE\media\fonts\cyrillic_old.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 LSM:Register("font", "Durandal Light", [[Interface\AddOns\ElvUI_SLE\media\fonts\Durandal_Light.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 LSM:Register("font", "Trafaret", [[Interface\AddOns\ElvUI_SLE\media\fonts\Trafaret.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 LSM:Register("font", "Intro Black", [[Interface\AddOns\ElvUI_SLE\media\fonts\Intro_Black.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
