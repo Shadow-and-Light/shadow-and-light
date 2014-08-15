@@ -50,6 +50,7 @@ local specialChatIcons = {
 		["Lapooc"] = repooc,
 		["Warpooc"] = repooc,
 		["Repooc"] = repooc,
+		["Cursewordz"] = repooc,
 		--Adapt Roster
 		["Mobius"] = adapt,
 		["Urgfelstorm"] = adapt,
@@ -114,9 +115,6 @@ local specialChatIcons = {
 	},
 	["Азурегос"] = {
 		["Брэгари"] = test
-	},
-	["Korialstrasz"] = {
-		["Cursewordz"] = repooc
 	},
 	["Andorhal"] = {
 		["Dapooc"] = repooc,

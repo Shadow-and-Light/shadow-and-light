@@ -27,15 +27,13 @@ local Authors = {
 		["Крениг"] = true,
 		["Мейжи"] = true
 	},
-	["Korialstrasz"] = {
-		["Cursewordz"] = true
-	},
 	["Spirestone"] = {
 		["Sifupooc"] = true,
 		["Dapooc"] = true,
 		["Lapooc"] = true,
 		["Warpooc"] = true,
-		["Repooc"] = true
+		["Repooc"] = true,
+		["Cursewordz"] = true,
 	},
 	["Andorhal"] = {
 		["Dapooc"] = true,
