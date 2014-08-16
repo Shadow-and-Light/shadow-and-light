@@ -9,17 +9,18 @@ local Rbutton = CreateFrame("Button", "ReloadUIButton", UIBFrame, Btemplate)
 local Mbutton = CreateFrame("Button", "MoveUIButton", UIBFrame, Btemplate)
 local Bbutton = CreateFrame("Button", "Bbutton", UIBFrame, Btemplate)
 local Abutton = CreateFrame("Button", "Abutton", UIBFrame, Btemplate)
+
 if IsAddOnLoaded("iFilger_ConfigUI") then
 	local Fbutton = CreateFrame("Button", "Fbutton", UIBFrame, Btemplate)
 	NumBut = 6
 end
 
 local ButtonTable = {
-Cbutton,
-Rbutton,
-Mbutton,
-Bbutton,
-Abutton,
+	Cbutton,
+	Rbutton,
+	Mbutton,
+	Bbutton,
+	Abutton,
 }
 
 local function Mouseover()
@@ -39,7 +40,7 @@ local function CreateHolder()
 	UIBFrame:SetFrameLevel(5);
 	UIBFrame:SetFrameStrata('BACKGROUND');
 	UIBFrame:Point("LEFT", E.UIParent, "LEFT", -2, 0);
-	
+
 	UIBFrame:SetScript("OnUpdate", function(self,event,...)
 		Mouseover()
 	end)
@@ -73,14 +74,14 @@ local function CreateB(button, symbol, text, name, desc)
 	else
 		button:SetAttribute("macrotext1", text)
 	end
-	
+
 	button:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_TOP", 30,0)
 		GameTooltip:AddLine(name, .6, .6, .6, .6, .6, 1)
 		GameTooltip:AddLine(desc, 1, 1, 1, 1, 1, 1)
 		GameTooltip:Show()
 	end)
-	
+
 	button:SetScript("OnLeave", function(self) 
 		GameTooltip:Hide() 
 	end)
@@ -141,16 +142,16 @@ end
 local function FrameSize()
 	local db = E.db.sle.uibuttons
 	MoverSize()
-	
+
 	for i = 1, 5 do
 		ButtonTable[i]:Size(db.size)
 	end
 	if Fbutton then
 		Fbutton:Size(db.size)
 	end
-	
+
 	Positioning()
-end	
+end
 
 function UB:Start()
 	if E.db.sle.uibuttons.enable then
@@ -170,9 +171,9 @@ function UB:Initialize()
 	FrameSize()
 	CreateButtons()
 	UB:Start()
-	
+
 	E.FrameLocks['UIBFrame'] = true
-	
+
 	E:CreateMover(UIBFrame, "UIBFrameMover", L["UI Buttons"], nil, nil, nil, "ALL,S&L,S&L MISC")
 	MoverSize()
 end

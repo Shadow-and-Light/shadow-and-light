@@ -75,7 +75,7 @@ function SLE:Initialize()
 	end
 	if E.private.install_complete and E.private.sle.install_complete == nil then SLE:Install() end
 	if E.db.general.loginmessage then
-        SLE:Print(format(L['SLE_LOGIN_MSG'], E["media"].hexvaluecolor, SLE.version))
+		SLE:Print(format(L['SLE_LOGIN_MSG'], E["media"].hexvaluecolor, SLE.version))
 	end
 	E:GetModule('SLE_DTPanels'):DashboardShow()
 	AddTutorials()

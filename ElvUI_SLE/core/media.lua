@@ -49,11 +49,11 @@ local Colors = {
 }
 
 local function ZoneTextPos()
-    if ( PVPInfoTextString:GetText() == "" ) then
-        SubZoneTextString:SetPoint("TOP", "ZoneTextString", "BOTTOM", 0, -E.db.sle.media.fonts.subzone.offset);
-    else
-        SubZoneTextString:SetPoint("TOP", "PVPInfoTextString", "BOTTOM", 0, -E.db.sle.media.fonts.subzone.offset);
-    end
+	if ( PVPInfoTextString:GetText() == "" ) then
+		SubZoneTextString:SetPoint("TOP", "ZoneTextString", "BOTTOM", 0, -E.db.sle.media.fonts.subzone.offset);
+	else
+		SubZoneTextString:SetPoint("TOP", "PVPInfoTextString", "BOTTOM", 0, -E.db.sle.media.fonts.subzone.offset);
+	end
 end
 
 local function SetFonts()
