@@ -7,9 +7,10 @@ P['tooltip']['overrideCombat'] = false
 local iconPath = [[Interface\AddOns\ElvUI_SLE\media\textures\]]
 
 local function AnchorFrameToMouse()
-	if not E.db.tooltip.cursorAnchor then return end
+	if not E.db.tooltip.cursorAnchor or (E.db.sle.tooltip.xOffset == 0 and E.db.sle.tooltip.yOffset == 0) then return end
+
 	local frame = GameTooltip
-	if frame:GetAnchorType() ~= "ANCHOR_CURSOR" then return end
+	--if frame:GetAnchorType() ~= "ANCHOR_CURSOR" then return end
 
 	local x, y = GetCursorPosition();
 	local scale = frame:GetEffectiveScale();
@@ -37,7 +38,6 @@ local function SetDefaultAnchor(self, tt, parent)
 end
 
 local function OnTooltipSetUnit(self, tt)
-	if not E.db.sle.tooltip.enable then return end
 	if not E.db.sle.tooltip.showFaction then return end
 
 	local unit = select(2, tt:GetUnit())
@@ -57,6 +57,6 @@ local function Init()
 
 	--if not E.db.tooltip.cursorAnchor then return end
 	hooksecurefunc(TT, "CheckBackdropColor", AnchorFrameToMouse)
-	hooksecurefunc(TT, "GameTooltip_SetDefaultAnchor", SetDefaultAnchor)
+	--hooksecurefunc(TT, "GameTooltip_SetDefaultAnchor", SetDefaultAnchor)
 end
 hooksecurefunc(TT, "Initialize", Init)
