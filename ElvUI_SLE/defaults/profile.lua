@@ -13,6 +13,7 @@ P['sle'] = {
 			['yoffset'] = 0,
 			['pethide'] = true,
 			['template'] = "Default",
+			['alpha'] = 1,
 		},
 		['left'] = {
 			['enabled'] = false,
@@ -24,6 +25,7 @@ P['sle'] = {
 			['yoffset'] = 0,
 			['pethide'] = true,
 			['template'] = "Default",
+			['alpha'] = 1,
 		},
 		['right'] = {
 			['enabled'] = false,
@@ -35,6 +37,7 @@ P['sle'] = {
 			['yoffset'] = 0,
 			['pethide'] = true,
 			['template'] = "Default",
+			['alpha'] = 1,
 		},
 		['action'] = {
 			['enabled'] = false,
@@ -46,6 +49,7 @@ P['sle'] = {
 			['yoffset'] = 0,
 			['pethide'] = true,
 			['template'] = "Default",
+			['alpha'] = 1,
 		},
 	},
 
@@ -106,53 +110,64 @@ P['sle'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/5,
 			['pethide'] = true,
+			['alpha'] = 1,
 		},	
 		['dp2'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/5,
 			['pethide'] = true,
+			['alpha'] = 1,
 		},
 		['top'] = {
 			['enabled'] = true,
 			['width'] = E.screenwidth/5 - 4,
 			['pethide'] = true,
+			['alpha'] = 1,
 		},
 		['dp3'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/5,
 			['pethide'] = true,
+			['alpha'] = 1,
 		},
 		['dp4'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/5,
 			['pethide'] = true,
+			['alpha'] = 1,
 		},	
 		['dp5'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/4 - 60,
 			['pethide'] = true,
+			['alpha'] = 1,
 		},	
 		['bottom'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/10 - 4,
 			['pethide'] = true,
+			['alpha'] = 1,
 		},
 		['dp6'] = {
 			['enabled'] = false,
 			['width'] = E.screenwidth/4 - 60,
 			['pethide'] = true,
+			['alpha'] = 1,
 		},
 		['chatleft'] = {
 			['enabled'] = true,
 			['width'] = 396,
+			['alpha'] = 1,
 		},
 		['chatright'] = {
 			['enabled'] = true,
 			['width'] = 396,
+			['alpha'] = 1,
 		},
 		['dashboard'] = {
 			['enable'] = false,
 			['width'] = 100,
+			['alpha'] = 1,
 		},
 		['chathandle'] = false,
 	},
@@ -319,8 +334,15 @@ P['sle'] = {
 	--PvP Auto release
 	['pvpautorelease'] = true,
 
+	--Tooltip
+	['tooltip'] = {
+		['enable'] = false,
+		['showFaction'] = false,
+		['xOffset'] = 0,
+		['yOffset'] = 0,
+	},
 	--Tooltip Faction Icon
-	["tooltipicon"] = false,
+	--["tooltipicon"] = false,
 
 	--UI Buttons
 	['uibuttons'] = {

@@ -13,6 +13,9 @@ local bottom = CreateFrame('Frame', "Bottom_Panel", E.UIParent)
 local rchat = CreateFrame('Frame', "Right_Chat_SLE", E.UIParent)
 local lchat = CreateFrame('Frame', "Left_Chat_SLE", E.UIParent)
 
+-- Move Elv's Datatext Panel Transparency Option to our section
+-- Make Drunk Russian handle elvs dt panel transparency
+
 local panels = {
 	--Panel = short, name, point, x, panel, slot
 	DP_1 = {"dp1", "DP_1", "TOPLEFT", 0, DP_1, 3},
@@ -55,7 +58,11 @@ end
 
 function DTP:ChatResize()
 	LeftChatDataPanel:Point('TOPRIGHT', LeftChatPanel, 'BOTTOMLEFT', 16 + E.db.sle.datatext.chatleft.width, (E.PixelMode and 1 or -1))
+	LeftChatDataPanel:SetAlpha(E.db.sle.datatext.chatleft.alpha)
+	LeftChatToggleButton:SetAlpha(E.db.sle.datatext.chatleft.alpha)
 	RightChatDataPanel:Point('BOTTOMLEFT', RightChatPanel, 'BOTTOMRIGHT', - E.db.sle.datatext.chatright.width - 16, (E.PixelMode and -19 or -21))
+	RightChatDataPanel:SetAlpha(E.db.sle.datatext.chatright.alpha)
+	RightChatToggleButton:SetAlpha(E.db.sle.datatext.chatright.alpha)
 end
 
 --Showing panels
@@ -68,6 +75,7 @@ function DTP:ExtraDataBarSetup()
 			v[5]:Hide()
 		end
 		if not E.private.sle.datatext[v[1].."hide"] then
+			v[5]:SetAlpha(E.db.sle.datatext[v[1]].alpha)
 			if db[v[1]].transparent then
 				v[5]:SetTemplate("Transparent")
 			else
@@ -97,6 +105,7 @@ end
 function DTP:PLAYER_ENTERING_WORLD(...)
 	DTP:ExtraDataBarSetup()
 	DTP:RegisterHide()
+	DTP:ChatResize()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD");
 end
 

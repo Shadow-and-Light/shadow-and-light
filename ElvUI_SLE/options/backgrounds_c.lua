@@ -153,6 +153,15 @@ local function configTable()
 					desc = L["Show/Hide this frame during Pet Battles."],
 					set = function(info, value) E.db.sle.backgrounds[v[1]].pethide = value; BG:RegisterHide() end
 				},
+				alpha = {
+					order = 12,
+					type = 'range',
+					name = L['Alpha'],
+					isPercent = true,
+					min = 0, max = 1, step = 0.01,
+					get = function(info) return E.db.sle.backgrounds[v[1]].alpha end,
+					set = function(info, value) E.db.sle.backgrounds[v[1]].alpha = value; BG:UpdateFrames() end,
+				},
 			},
 		}
 	end

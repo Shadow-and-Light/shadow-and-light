@@ -132,6 +132,15 @@ local function configTable()
 				desc = L['Show/Hide this frame during Pet Battles.'],
 				set = function(info, value) E.db.sle.datatext[v[1]].pethide = value; DTP:RegisterHide() end,
 			},
+			alpha = {
+				order = 12,
+				type = 'range',
+				name = L['Alpha'],
+				isPercent = true,
+				min = 0, max = 1, step = 0.01,
+				--get = function(info) return E.db.sle.backgrounds[v[1]].alpha end,
+				set = function(info, value) E.db.sle.datatext[v[1]].alpha = value; DTP:Update() end,
+			},
 		},
 	}
 	end
@@ -168,6 +177,15 @@ local function configTable()
 				min = 150, max = E.screenwidth/2, step = 1,
 				get = function(info) return E.db.sle.datatext[v[1]].width end,
 				set = function(info, value) E.db.sle.datatext[v[1]].width = value; DTP:ChatResize() end,
+			},
+			alpha = {
+				order = 12,
+				type = 'range',
+				name = L['Alpha'],
+				isPercent = true,
+				min = 0, max = 1, step = 0.01,
+				get = function(info) return E.db.sle.datatext[v[1]].alpha end,
+				set = function(info, value) E.db.sle.datatext[v[1]].alpha = value; DTP:ChatResize() end,
 			},
 		},
 		

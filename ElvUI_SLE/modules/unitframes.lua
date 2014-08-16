@@ -60,6 +60,13 @@ local function AddTags()
 		end
 	end
 
+	ElvUF.Tags.Events['resolve:current-percent:sl'] = 'UNIT_AURA'
+	ElvUF.Tags.Methods['resolve:current-percent:sl'] = function(unit)
+	local SPELL_RESOLVE_NAME = GetSpellInfo(158300)
+	--/run print(GetSpellInfo(158300))
+	--/run print(UnitAura('player', 'Resolve', nil, 'HELPFUL'))
+	end
+
 	ElvUF.Tags.Methods['range:sl'] = function(unit)
 		local name, server = UnitName(unit)
 		local rangeText = ''
