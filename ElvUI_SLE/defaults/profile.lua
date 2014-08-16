@@ -233,12 +233,15 @@ P['sle'] = {
 	--Loot (Restructured)
 	['loot'] = {
 		['enable'] = false,
-		['autoconfirm'] = false,
-		['autode'] = false,
-		['autogreed'] = false,
-		['autoqlty'] = 2,
-		['bylevel'] = false,
-		['level'] = 1,
+		['autoroll'] = {
+			['enable'] = true,
+			['autoconfirm'] = false,
+			['autode'] = false,
+			['autogreed'] = false,
+			['autoqlty'] = 2,
+			['bylevel'] = false,
+			['level'] = 1,
+		},
 		['announcer'] = {
 			['enable'] = false,
 			['auto'] = true,

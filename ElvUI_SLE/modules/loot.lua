@@ -30,6 +30,43 @@ local function Check()
 	return false
 end
 
+local function ModifierCheck()
+	local heldModifier = E.db.sle.loot.announcer.override
+	local shiftDown = IsShiftKeyDown();
+	local ctrlDown = IsControlKeyDown();
+	local altDown = IsAltKeyDown();
+
+	if heldModifier == 3 and shiftDown then
+		return true
+	elseif heldModifier == 4 and ctrlDown then
+		return true
+	elseif heldModifier == 5 and altDown then
+		return true
+	elseif heldModifier == 2 then
+		return true
+	end
+
+	return false
+end
+
+--[[Debug Stuff
+function LT:MODIFIER_STATE_CHANGED(event)
+	local shiftDown = IsShiftKeyDown();
+	local ctrlDown = IsControlKeyDown();
+	local altDown = IsAltKeyDown();
+
+	if shiftDown then
+		print("Shift")
+	end
+	if ctrlDown then
+		print("Control")
+	end
+	if altDown then
+		print("Alt")
+	end
+end
+]]
+
 local function Merge()
 	local p, k
 	for i = 1, #loot do
@@ -96,7 +133,8 @@ local function Announce(event)
 	local m = 0
 	local q = E.db.sle.loot.announcer.quality == "EPIC" and 4 or E.db.sle.loot.announcer.quality == "RARE" and 3 or E.db.sle.loot.announcer.quality == "UNCOMMON" and 2
 	
-	if (Check() and E.db.sle.loot.announcer.auto) or (IsLeftControlKeyDown() and (IsInGroup() or IsInRaid())) then
+	if (Check() and E.db.sle.loot.announcer.auto) or (ModifierCheck() and (IsInGroup() or IsInRaid())) then
+	--if (Check() and E.db.sle.loot.announcer.auto) or (IsLeftControlKeyDown() and (IsInGroup() or IsInRaid())) then
 		for i = 1, GetNumLootItems() do
 			if GetLootSlotType(i) == 1 then
 				for j = 1, t do
@@ -107,7 +145,7 @@ local function Announce(event)
 			end
 		end
 
-		if check == false or IsLeftControlKeyDown() then
+		if check == false or ModifierCheck() then
 			PopulateTable(q)
 			if n ~= 0 then
 				SendChatMessage(L["Loot Dropped:"], Channel())
@@ -126,8 +164,8 @@ local function Announce(event)
 end
 
 local function HandleRoll(event, id)
-	if not E.db.sle.loot.enable then return end
-	if not (E.db.sle.loot.autogreed or E.db.sle.loot.autode) then return end
+	if not E.db.sle.loot.enable or not E.db.sle.loot.autoroll.enable then return end
+	if not (E.db.sle.loot.autoroll.autogreed or E.db.sle.loot.autoroll.autode) then return end
 
 	local _, name, _, quality, _, _, _, disenchant = GetLootRollItemInfo(id)
 	local link = GetLootRollItemLink(id)
@@ -138,9 +176,9 @@ local function HandleRoll(event, id)
 	end
 
 	if IsXPUserDisabled() then MaxPlayerLevel = PlayerLevel end
-	if (E.db.sle.loot.bylevel and PlayerLevel < E.db.sle.loot.level) and PlayerLevel ~= MaxPlayerLevel then return end
+	if (E.db.sle.loot.autoroll.bylevel and PlayerLevel < E.db.sle.loot.autoroll.level) and PlayerLevel ~= MaxPlayerLevel then return end
 
-	if E.db.sle.loot.bylevel then
+	if E.db.sle.loot.autoroll.bylevel then
 		if IsEquippableItem(link) then
 			local _, _, _, ilvl, _, _, _, _, slot = GetItemInfo(link)
 			local itemLink = GetInventoryItemLink('player', slot)
@@ -149,8 +187,8 @@ local function HandleRoll(event, id)
 		end
 	end
 
-	if quality <= E.db.sle.loot.autoqlty then
-		if E.db.sle.loot.autode and disenchant then
+	if quality <= E.db.sle.loot.autoroll.autoqlty then
+		if E.db.sle.loot.autoroll.autode and disenchant then
 			RollOnLoot(id, 3)
 		else
 			RollOnLoot(id, 2)
@@ -165,7 +203,7 @@ local function HandleEvent(event, ...)
 		end
 	end
 
-	if not E.db.sle.loot.autoconfirm then return end
+	if not E.db.sle.loot.autoroll.autoconfirm then return end
 	if event == "CONFIRM_LOOT_ROLL" or event == "CONFIRM_DISENCHANT_ROLL" then
 		local arg1, arg2 = ...
 		ConfirmLootRoll(arg1, arg2)
@@ -181,57 +219,91 @@ end
 local function LoadConfig(event, addon)
 	if addon ~= "ElvUI_Config" then return end
 
-	E.Options.args.general.args.general.args.autoRoll.disabled = function() return true end
-
+	LT:Update()
 	LT:UnregisterEvent("ADDON_LOADED")
 end
 
-function LT:Update()
+function LT:LoadLoot()
 	MaxPlayerLevel = GetMaxPlayerLevel()
 	PlayerLevel = UnitLevel('player')
-
-	if E.db.general then
-		E.db.general.autoRoll= false
-	end
 
 	--Azil made this, blame him if something fucked up
 	UIParent:UnregisterEvent("LOOT_BIND_CONFIRM") --Solo
 	UIParent:UnregisterEvent("CONFIRM_DISENCHANT_ROLL") --Group
 	UIParent:UnregisterEvent("CONFIRM_LOOT_ROLL") --Group
-	
+
+	if E.db.general and E.db.sle.loot.autoroll.enable then
+		E.db.general.autoRoll = false
+	end
+
 	if E.db.sle.loot.enable then
-		self:RegisterEvent("CONFIRM_DISENCHANT_ROLL", HandleEvent)
-		self:RegisterEvent("CONFIRM_LOOT_ROLL", HandleEvent)
-		self:RegisterEvent("LOOT_BIND_CONFIRM", HandleEvent)
 		self:RegisterEvent("LOOT_OPENED", HandleEvent)
 		self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
 		self:RegisterEvent("ADDON_LOADED", LoadConfig)
 	else
-		self:UnregisterEvent("CONFIRM_DISENCHANT_ROLL")
-		self:UnregisterEvent("CONFIRM_LOOT_ROLL")
-		self:UnregisterEvent("LOOT_BIND_CONFIRM")
 		self:UnregisterEvent("LOOT_OPENED")
 		self:UnregisterEvent('PLAYER_ENTERING_WORLD')
 		self:UnregisterEvent("ADDON_LOADED")
 	end
+
+	if E.db.sle.loot.autoroll.autoconfirm then
+		self:RegisterEvent("CONFIRM_DISENCHANT_ROLL", HandleEvent)
+		self:RegisterEvent("CONFIRM_LOOT_ROLL", HandleEvent)
+		self:RegisterEvent("LOOT_BIND_CONFIRM", HandleEvent)
+	else
+		self:UnregisterEvent("CONFIRM_DISENCHANT_ROLL")
+		self:UnregisterEvent("CONFIRM_LOOT_ROLL")
+		self:UnregisterEvent("LOOT_BIND_CONFIRM")
+	end
 	
+	--if E.db.sle.loot.enable then
+		--self:RegisterEvent("CONFIRM_DISENCHANT_ROLL", HandleEvent)
+		--self:RegisterEvent("CONFIRM_LOOT_ROLL", HandleEvent)
+		--self:RegisterEvent("LOOT_BIND_CONFIRM", HandleEvent)
+		--self:RegisterEvent("LOOT_OPENED", HandleEvent)
+		--self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
+		--self:RegisterEvent("ADDON_LOADED", LoadConfig)
+	--else
+		--self:UnregisterEvent("CONFIRM_DISENCHANT_ROLL")
+		--self:UnregisterEvent("CONFIRM_LOOT_ROLL")
+		--self:UnregisterEvent("LOOT_BIND_CONFIRM")
+		--self:UnregisterEvent("LOOT_OPENED")
+		--self:UnregisterEvent('PLAYER_ENTERING_WORLD')
+		--self:UnregisterEvent("ADDON_LOADED")
+	--end
 end
 
 function LT:LootShow()
 	local instance = IsInInstance()
-	LootHistoryFrame:SetAlpha(E.db.sle.loot.history.alpha or 1)
+	--LootHistoryFrame:SetAlpha(E.db.sle.loot.history.alpha or 1)
 
 	if (not instance and E.db.sle.loot.history.autohide) then
 		LootHistoryFrame:Hide()
 	end
 end
 
+function LT:Update()
+	if E.db.sle.loot.autoroll.enable then
+		E.Options.args.general.args.general.args.autoRoll.disabled = function() return true end
+	else
+		E.Options.args.general.args.general.args.autoRoll.disabled = function() return false end
+	end
+
+	LootHistoryFrame:SetAlpha(E.db.sle.loot.history.alpha or 1)
+end
+
+
 function LT:PLAYER_LEVEL_UP(event, level)
 	PlayerLevel = level
 end
 
 function LT:Initialize()
-	hooksecurefunc(M, 'START_LOOT_ROLL', function(self, event, id) HandleRoll(event, id) end)
 	if not E.db.sle.loot.enable then return end
+
+	--Used to debug
+	--self:RegisterEvent('MODIFIER_STATE_CHANGED')
+
+	hooksecurefunc(M, 'START_LOOT_ROLL', function(self, event, id) HandleRoll(event, id) end)
+	LT:LoadLoot()
 	LT:Update()
 end
