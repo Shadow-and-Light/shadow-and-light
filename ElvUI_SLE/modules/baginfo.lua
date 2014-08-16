@@ -56,7 +56,7 @@ local function BuildEquipmentMap(clear)
 		name = GetEquipmentSetInfo(i)
 		GetEquipmentSetLocations(name, infoArray)
 		for _, location in pairs(infoArray) do
-			if location < -1 or location > 1 then
+			if type(location) == "number" and (location < -1 or location > 1) then
 				player, bank, bags, _, slot, bag = EquipmentManager_UnpackLocation(location)
 				if ((bank or bags) and slot and bag) then
 					key = MapKey(bag, slot)
