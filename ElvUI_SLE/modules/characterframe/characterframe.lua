@@ -4,6 +4,7 @@ local LSM = LibStub("LibSharedMedia-3.0")
 
 local f = CreateFrame('Frame', 'SLEArmory', PaperDollFrame)
 local C = SLArmoryConstants
+
 local backgrounds = {
 	["SPACE"] = "Space",
 	["ALLIANCE"] = "Alliance-text",
@@ -218,6 +219,7 @@ end
 
 function CFO:ArmoryFrame_DataSetting()
 	if not f:IsVisible() then return end
+
 	local BGdrop = E.db.sle.characterframeoptions.image.dropdown
 
 	-- Get Player Profession
@@ -585,6 +587,36 @@ end
 function CFO:Initialize()
 	if not E.private.sle.characterframeoptions.enable then return end
 
+	--[[if IsInGuild() then
+		f.ngt2 = CreateFrame("CheckButton", "nil", CharacterFrame, "SpellBookSkillLineTabTemplate")
+		f.ngt2:Show()
+		f.ngt2.tooltip = GUILD
+		f.ngt2:SetPoint("TOPLEFT", CharacterFrame, "TOPLEFT", 8, -10)
+		f.ngt2:StripTextures()
+		f.ngt2:CreateBackdrop()
+		--f.ngt2:SetSize(46, 46)
+		if GetGuildTabardFileNames() then
+			print("hihi")
+			f.ngt2:SetNormalTexture("Interface\\SpellBook\\GuildSpellbooktabBG")
+			f.ngt2:GetNormalTexture():SetTexCoord(.1, .9, .1, .9)
+			f.ngt2.TabardEmblem:Show()
+			f.ngt2.TabardIconFrame:Show()
+			SetLargeGuildTabardTextures("player", f.ngt2.TabardEmblem, f.ngt2:GetNormalTexture(), f.ngt2.TabardIconFrame)
+
+			--local emblemSize, columns, offset, emblemTexture
+			--emblemTexture = f.ngt2.TabardEmblem
+			--if (emblemTexture) then
+			--	emblemSize = 64 / 1024;
+			--	columns = 16
+			--	offset = 0;
+			--	emblemTexture:SetTexture("Interface\\GuildFrame\\GuildEmblemsLG_01");
+			--end
+			--SetGuildTabardTextures(emblemSize, columns, offset, "player", emblemTexture, f.ngt2:GetNormalTexture(), f.ngt2.TabardIconFrame)
+		else
+			f.ngt2:SetNormalTexture("Interface\\GuildFrame\\GuildLogo-NoLogo")
+		end
+	end]]
+
 	hooksecurefunc('CharacterFrame_Collapse', function()
 		CharacterFrame:SetWidth(448);
 	end)
@@ -610,7 +642,7 @@ function CFO:Initialize()
 
 		--Maybe Adjust Name, Level, Avg iLvL if bliz skinning is off?
 		CharacterFrameTitleText:ClearAllPoints()
-		CharacterFrameTitleText:Point('TOP', CharacterFrame, 'TOP', 0, -25)
+		CharacterFrameTitleText:Point('TOP', f, 'TOP', 0, 0)
 		CharacterFrameTitleText:SetParent(f)
 		CharacterLevelText:ClearAllPoints()
 		CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 3)
