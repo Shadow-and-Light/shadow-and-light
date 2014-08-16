@@ -246,15 +246,7 @@ function LT:LoadLoot()
 		self:UnregisterEvent("ADDON_LOADED")
 	end
 
-	if E.db.sle.loot.autoroll.autoconfirm then
-		self:RegisterEvent("CONFIRM_DISENCHANT_ROLL", HandleEvent)
-		self:RegisterEvent("CONFIRM_LOOT_ROLL", HandleEvent)
-		self:RegisterEvent("LOOT_BIND_CONFIRM", HandleEvent)
-	else
-		self:UnregisterEvent("CONFIRM_DISENCHANT_ROLL")
-		self:UnregisterEvent("CONFIRM_LOOT_ROLL")
-		self:UnregisterEvent("LOOT_BIND_CONFIRM")
-	end
+
 	
 	--if E.db.sle.loot.enable then
 		--self:RegisterEvent("CONFIRM_DISENCHANT_ROLL", HandleEvent)
@@ -287,6 +279,16 @@ function LT:Update()
 		E.Options.args.general.args.general.args.autoRoll.disabled = function() return true end
 	else
 		E.Options.args.general.args.general.args.autoRoll.disabled = function() return false end
+	end
+
+	if E.db.sle.loot.autoroll.autoconfirm then
+		self:RegisterEvent("CONFIRM_DISENCHANT_ROLL", HandleEvent)
+		self:RegisterEvent("CONFIRM_LOOT_ROLL", HandleEvent)
+		self:RegisterEvent("LOOT_BIND_CONFIRM", HandleEvent)
+	else
+		self:UnregisterEvent("CONFIRM_DISENCHANT_ROLL")
+		self:UnregisterEvent("CONFIRM_LOOT_ROLL")
+		self:UnregisterEvent("LOOT_BIND_CONFIRM")
 	end
 
 	LootHistoryFrame:SetAlpha(E.db.sle.loot.history.alpha or 1)
