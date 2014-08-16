@@ -344,6 +344,7 @@ L["Flying & Ground"] = true
 L["Swimming"] = true
 
 --Tooltip--
+L["TTOFFSET_DESC"] = "This adds the ability to have the tooltip offset from the cursor.  Make sure to have the \"Cursor Anchor\" option enabled in ElvUI's Tooltip section to use this feature."
 L["Tooltip enhancements"] = true
 L["Faction Icon"] = true
 L["Tooltip Cursor Offset"] = true
