@@ -243,9 +243,10 @@ P['sle'] = {
 			['level'] = 1,
 		},
 		['announcer'] = {
-			['enable'] = false,
 			['auto'] = true,
 			['channel'] = "RAID",
+			['enable'] = false,
+			['override'] = 5,
 			['quality'] = "EPIC",
 		},
 		['history'] = {
