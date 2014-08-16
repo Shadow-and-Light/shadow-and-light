@@ -10,7 +10,7 @@ local function AnchorFrameToMouse()
 	if not E.db.tooltip.cursorAnchor or (E.db.sle.tooltip.xOffset == 0 and E.db.sle.tooltip.yOffset == 0) then return end
 
 	local frame = GameTooltip
-	--if frame:GetAnchorType() ~= "ANCHOR_CURSOR" then return end
+	if frame:GetAnchorType() ~= "ANCHOR_CURSOR" then return end
 
 	local x, y = GetCursorPosition();
 	local scale = frame:GetEffectiveScale();
