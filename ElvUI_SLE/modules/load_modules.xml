@@ -1,4 +1,5 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file='auras.lua'/>
 	<Script file='autorelease.lua'/>
 	<Script file='backgrounds.lua'/>
 	<Include file='characterframe\load_characterframe.xml'/>

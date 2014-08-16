@@ -3,6 +3,7 @@ local unit
 
 local modules = {
 	['SLE_AutoRelease'] = { 'AceHook-3.0', 'AceEvent-3.0' },
+	['SLE_AuraTimers'] = { 'AceEvent-3.0' },
 	['SLE_DTPanels'] = { 'AceHook-3.0', 'AceEvent-3.0' },
 	['SLE_BackGrounds'] = { 'AceHook-3.0', 'AceEvent-3.0'},
 	['SLE_BagInfo'] = { 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0'},

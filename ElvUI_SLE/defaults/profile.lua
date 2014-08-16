@@ -1,6 +1,19 @@
 ﻿local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 
 P['sle'] = {
+	--Auras
+	['auras'] = {
+		['enable'] = false,
+		['buffs'] = {
+			['hideTimer'] = false,
+		},
+		['debuffs'] = {
+			['hideTimer'] = false,
+		},
+		['tempenchants'] = {
+			['hideTimer'] = false,
+		},
+	},
 	--Background frames
 	['backgrounds'] = {
 		['bottom'] = {
