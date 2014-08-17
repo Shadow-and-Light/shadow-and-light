@@ -18,6 +18,7 @@
 	<Script file='minimap_c.lua'/>
 	<Script file='nameplates_c.lua'/>
 	<Script file='raidutility_c.lua'/>
+	<Script file='threat_c.lua'/>
 	<Script file='tooltip_c.lua'/>
 	<Script file='uibuttons_c.lua'/>
 	<Script file='unitframes_c.lua'/>

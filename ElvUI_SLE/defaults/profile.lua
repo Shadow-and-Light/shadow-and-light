@@ -351,6 +351,12 @@ P['sle'] = {
 	--PvP Auto release
 	['pvpautorelease'] = true,
 
+	--Threat
+	['threat'] = {
+		['enable'] = true,
+		['position'] = "RightChatDataPanel",
+	},
+
 	--Tooltip
 	['tooltip'] = {
 		['enable'] = false,
