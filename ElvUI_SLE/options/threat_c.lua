@@ -5,7 +5,7 @@ local function configTable()
 	E.Options.args.sle.args.options.args.general.args.threat = {
 		type = "group",
 		name = L['Threat'],
-		order = 1,
+		order = 55,
 		args = {
 			header = {
 				order = 1,

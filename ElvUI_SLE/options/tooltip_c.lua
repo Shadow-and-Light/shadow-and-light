@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 
 local function configTable()
 	E.Options.args.sle.args.options.args.general.args.tooltip = {
-		order = 10,
+		order = 66,
 		type = "group",
 		get = function(info) return E.db.sle.tooltip[ info[#info] ] end,
 		name = L["Tooltip"],
