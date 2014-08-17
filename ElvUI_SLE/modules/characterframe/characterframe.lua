@@ -336,6 +336,8 @@ function CFO:ArmoryFrame_DataSetting()
 				end
 
 				_, _, ItemRarity, BasicItemLevel, _, _, _, _, _, ItemTexture = GetItemInfo(ItemLink)
+				--print(ItemRarity, ItemLink)
+				if ItemRarity == nil then return end
 				r, g, b = GetItemQualityColor(ItemRarity)
 
 				ItemUpgradeID = ItemLink:match(':(%d+)\124h%[')
