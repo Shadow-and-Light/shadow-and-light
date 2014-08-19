@@ -1,6 +1,16 @@
 local E, L, V, P, G = unpack(ElvUI);
 local M = E:GetModule('Misc');
 
+local function Enter(self)
+	if not E.db.sle.rumouseover then return end
+	self:SetAlpha(1)
+end
+
+local function Leave(self)
+	if not E.db.sle.rumouseover then return end
+	self:SetAlpha(0)
+end
+
 --For moving raid utility button
 local function MoreInit()
 	E:CreateMover(RaidUtility_ShowButton, "RaidUtility_Mover", L["Raid Utility"], nil, nil, nil, "ALL,S&L,S&L MISC")
@@ -31,7 +41,10 @@ local function MoreInit()
 	else
 		dropfix()
 	end
-	RaidUtility_ShowButton:RegisterForDrag("")
+	frame:RegisterForDrag("")
+	frame:HookScript("OnEnter", Enter)
+	frame:HookScript("OnLeave", Leave)
+	Leave(frame)
 end
 
 hooksecurefunc(M, "Initialize", MoreInit)
