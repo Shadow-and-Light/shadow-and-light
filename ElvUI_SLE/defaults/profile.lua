@@ -375,6 +375,8 @@ P['sle'] = {
 		['position'] = "uib_vert",
 		['spacing'] = 3,
 	},
+	
+	['rumouseover'] = false,
 }
 
 P.chat.editboxhistory = 5
