@@ -11,6 +11,11 @@ local function Leave(self)
 	self:SetAlpha(0)
 end
 
+function M:RUReset()
+	local a = E.db.sle.rumouseover and 0 or 1
+	RaidUtility_ShowButton:SetAlpha(a)
+end
+
 --For moving raid utility button
 local function MoreInit()
 	E:CreateMover(RaidUtility_ShowButton, "RaidUtility_Mover", L["Raid Utility"], nil, nil, nil, "ALL,S&L,S&L MISC")
