@@ -316,6 +316,7 @@ P['sle'] = {
 	['minimap'] = {
 		['enable'] = false,
 		['combat'] = false,
+		['alpha'] = 1,
 		['coords'] = {
 			['display'] = "SHOW",
 			['middle'] = "CORNERS",

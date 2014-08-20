@@ -16,7 +16,7 @@ local function configTable()
 				type = 'description',
 				name = L['MINIMAP_DESC'],
 			},
-			mapiconsenable = {
+			combat = {
 				type = "toggle",
 				name = L['Hide in Combat'],
 				order = 3,
@@ -25,10 +25,19 @@ local function configTable()
 				get = function(info) return E.db.sle.minimap.combat end,
 				set = function(info, value) E.db.sle.minimap.combat = value; E:GetModule('Minimap'):SLEHideMinimap() end,
 			},
+			alpha = {
+				order = 4,
+				type = 'range',
+				name = L['Minimap Alpha'],
+				isPercent = true,
+				min = 0.3, max = 1, step = 0.01,
+				get = function(info) return E.db.sle.minimap.alpha end,
+				set = function(info, value) E.db.sle.minimap.alpha = value; E:GetModule('Minimap'):Transparency() end,
+			},
 			coords = {
 				type = "group",
 				name = L["Minimap Coordinates"],
-				order = 4,
+				order = 5,
 				guiInline = true,
 				disabled = function() return not E.private.general.minimap.enable or not E.db.sle.minimap.enable end,
 				args = {
@@ -70,7 +79,7 @@ local function configTable()
 			mapicons = {
 				type = "group",
 				name = L["Minimap Buttons"],
-				order = 5,
+				order = 6,
 				guiInline = true,
 				disabled = function() return not E.private.sle.minimap.mapicons.enable end,
 				args = {

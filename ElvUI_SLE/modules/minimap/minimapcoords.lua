@@ -88,6 +88,10 @@ local function CreateCoordsFrame(middle)
 	UpdatePosition(middle)
 end
 
+function M:Transparency()
+	cluster:SetAlpha(E.db.sle.minimap.alpha)
+end
+
 M.UpdateSettingsSLE = M.UpdateSettings
 function M:UpdateSettings()
 	M.UpdateSettingsSLE(self)
@@ -108,4 +112,5 @@ function M:UpdateSettings()
 	end
 	
 	M:SLEHideMinimap()
+	M:Transparency()
 end
