@@ -301,7 +301,7 @@ end
 
 function LT:Initialize()
 	if not E.db.sle.loot.enable then return end
-	self:RegisterEvent("CONFIRM_DISENCHANT_ROLL", HandleRoll)
+	self:RegisterEvent("START_LOOT_ROLL", HandleRoll)
 	--Used to debug
 	--self:RegisterEvent('MODIFIER_STATE_CHANGED')
 
