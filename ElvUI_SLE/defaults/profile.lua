@@ -320,6 +320,7 @@ P['sle'] = {
 		['coords'] = {
 			['display'] = "SHOW",
 			['middle'] = "CORNERS",
+			['decimals'] = true,
 		},
 		['buttons'] = {
 			['anchor'] = "NOANCHOR",

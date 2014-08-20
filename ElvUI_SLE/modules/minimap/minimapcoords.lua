@@ -19,12 +19,13 @@ local function ShowMinimap()
 end
 
 local function UpdateCoords(self, elapsed)
+	local f = E.db.sle.minimap.coords.decimals and '%.2f' or '%.0f'
 	panel.elapsed = (panel.elapsed or 0) + elapsed
 	if panel.elapsed < .1 then return end
 
 	xpos.pos, ypos.pos = GetPlayerMapPosition('player')
-	xpos.text:SetFormattedText(E.db.sle.minimap.coords.middle == "CENTER" and '%.2f/' or '%.2f', xpos.pos * 100)
-	ypos.text:SetFormattedText('%.2f', ypos.pos * 100)
+	xpos.text:SetFormattedText(E.db.sle.minimap.coords.middle == "CENTER" and f..'/' or f, xpos.pos * 100)
+	ypos.text:SetFormattedText(f, ypos.pos * 100)
 
 	panel.elapsed = 0
 end
@@ -48,7 +49,7 @@ local function UpdatePosition(middle)
 		xpos:Point('LEFT', panel, 'LEFT', 2, 0)
 	end
 	if middle == "CENTER" then
-		ypos:Point('BOTTOMLEFT', panel, 'BOTTOM', 0, 0)
+		ypos:Point('BOTTOMLEFT', panel, 'BOTTOM', E.db.sle.minimap.coords.decimals and 0 or -15, 0)
 	else
 		ypos:Point('RIGHT', panel, 'RIGHT', 2, 0)
 	end

@@ -74,6 +74,15 @@ local function configTable()
 							['CENTER'] = L['Bottom Center'],
 						},
 					},
+					decimals = {
+						type = "toggle",
+						name = L['Decimals'],
+						order = 4,
+						--desc = L['Enable/Disable Square Minimap Coords.'],
+						get = function(info) return E.db.sle.minimap.coords.decimals end,
+						set = function(info, value) E.db.sle.minimap.coords.decimals = value; E:GetModule('Minimap'):UpdateSettings() end,
+						disabled = function() return not E.private.general.minimap.enable end,
+					},
 				},
 			},
 			mapicons = {
