@@ -57,12 +57,13 @@ local function AddPanels()
 end
 
 function DTP:ChatResize()
-	LeftChatDataPanel:Point('TOPRIGHT', LeftChatPanel, 'BOTTOMLEFT', 16 + E.db.sle.datatext.chatleft.width, (E.PixelMode and 1 or -1))
 	LeftChatDataPanel:SetAlpha(E.db.sle.datatext.chatleft.alpha)
 	LeftChatToggleButton:SetAlpha(E.db.sle.datatext.chatleft.alpha)
-	RightChatDataPanel:Point('BOTTOMLEFT', RightChatPanel, 'BOTTOMRIGHT', - E.db.sle.datatext.chatright.width - 16, (E.PixelMode and -19 or -21))
 	RightChatDataPanel:SetAlpha(E.db.sle.datatext.chatright.alpha)
 	RightChatToggleButton:SetAlpha(E.db.sle.datatext.chatright.alpha)
+	if not E.db.sle.datatext.chathandle then return end
+	LeftChatDataPanel:Point('TOPRIGHT', LeftChatPanel, 'BOTTOMLEFT', 16 + E.db.sle.datatext.chatleft.width, (E.PixelMode and 1 or -1))
+	RightChatDataPanel:Point('BOTTOMLEFT', RightChatPanel, 'BOTTOMRIGHT', - E.db.sle.datatext.chatright.width - 16, (E.PixelMode and -19 or -21))
 end
 
 --Showing panels
