@@ -302,6 +302,7 @@ end
 function LT:Initialize()
 	if not E.db.sle.loot.enable then return end
 	self:RegisterEvent("START_LOOT_ROLL", HandleRoll)
+	self:RegisterEvent("PLAYER_LEVEL_UP")
 	--Used to debug
 	--self:RegisterEvent('MODIFIER_STATE_CHANGED')
 
