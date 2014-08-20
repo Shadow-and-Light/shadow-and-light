@@ -315,6 +315,7 @@ P['sle'] = {
 	--Minimap Module
 	['minimap'] = {
 		['enable'] = false,
+		['combat'] = false,
 		['coords'] = {
 			['display'] = "SHOW",
 			['middle'] = "CORNERS",

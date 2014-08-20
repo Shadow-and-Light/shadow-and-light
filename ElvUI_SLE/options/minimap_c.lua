@@ -16,7 +16,15 @@ local function configTable()
 				type = 'description',
 				name = L['MINIMAP_DESC'],
 			},
-			
+			mapiconsenable = {
+				type = "toggle",
+				name = L['Hide in Combat'],
+				order = 3,
+				desc = L['Hide minimap in combat.'],
+				disabled = false,
+				get = function(info) return E.db.sle.minimap.combat end,
+				set = function(info, value) E.db.sle.minimap.combat = value; E:GetModule('Minimap'):SLEHideMinimap() end,
+			},
 			coords = {
 				type = "group",
 				name = L["Minimap Coordinates"],
@@ -59,21 +67,22 @@ local function configTable()
 					},
 				},
 			},
-			mapiconsenable = {
-				type = "toggle",
-				name = L['Enable'],
-				order = 5,
-				desc = L['Enable/Disable Square Minimap Buttons.'],
-				get = function(info) return E.private.sle.minimap.mapicons.enable end,
-				set = function(info, value) E.private.sle.minimap.mapicons.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
-			},
 			mapicons = {
 				type = "group",
 				name = L["Minimap Buttons"],
-				order = 6,
+				order = 5,
 				guiInline = true,
 				disabled = function() return not E.private.sle.minimap.mapicons.enable end,
 				args = {
+					mapiconsenable = {
+						type = "toggle",
+						name = L['Enable'],
+						order = 1,
+						desc = L['Enable/Disable Square Minimap Buttons.'],
+						disabled = false,
+						get = function(info) return E.private.sle.minimap.mapicons.enable end,
+						set = function(info, value) E.private.sle.minimap.mapicons.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
+					},
 					barenable = {
 						order = 2,
 						type = "toggle",
