@@ -93,9 +93,7 @@ function M:Transparency()
 	cluster:SetAlpha(E.db.sle.minimap.alpha)
 end
 
-M.UpdateSettingsSLE = M.UpdateSettings
-function M:UpdateSettings()
-	M.UpdateSettingsSLE(self)
+local function Update()
 	middle = E.db.sle.minimap.coords.middle
 
 	if not framescreated then
@@ -115,3 +113,5 @@ function M:UpdateSettings()
 	M:SLEHideMinimap()
 	M:Transparency()
 end
+
+hooksecurefunc(M, 'UpdateSettings', Update)
