@@ -164,7 +164,7 @@ local function Announce(event)
 end
 
 local function HandleRoll(event, id)
-	if not E.db.sle.loot.enable or not E.db.sle.loot.autoroll.enable then return end
+	if not E.db.sle.loot.autoroll.enable then return end
 	if not (E.db.sle.loot.autoroll.autogreed or E.db.sle.loot.autoroll.autode) then return end
 
 	local _, name, _, quality, _, _, _, disenchant = GetLootRollItemInfo(id)
@@ -301,11 +301,11 @@ end
 
 function LT:Initialize()
 	if not E.db.sle.loot.enable then return end
-
+	self:RegisterEvent("CONFIRM_DISENCHANT_ROLL", HandleRoll)
 	--Used to debug
 	--self:RegisterEvent('MODIFIER_STATE_CHANGED')
 
-	hooksecurefunc(M, 'START_LOOT_ROLL', function(self, event, id) HandleRoll(event, id) end)
+	--hooksecurefunc(M, 'START_LOOT_ROLL', function(self, event, id) HandleRoll(event, id) end)
 	LT:LoadLoot()
 	LT:Update()
 end
