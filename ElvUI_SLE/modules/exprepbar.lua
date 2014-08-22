@@ -84,8 +84,6 @@ function M:UpdateExperience(event)
 		
 		bar.text:SetText(text)
 	end
-
-	self:UpdateExpRepAnchors()
 end
 
 function M:UpdateReputation(event)
@@ -139,8 +137,6 @@ function M:UpdateReputation(event)
 		end
 		bar.text:SetText(text)		
 	end
-
-	self:UpdateExpRepAnchors()
 end
 
 function M:ChatMsgCombat(event, ...)

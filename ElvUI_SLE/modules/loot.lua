@@ -275,10 +275,12 @@ function LT:LootShow()
 end
 
 function LT:Update()
-	if E.db.sle.loot.autoroll.enable then
-		E.Options.args.general.args.general.args.autoRoll.disabled = function() return true end
-	else
-		E.Options.args.general.args.general.args.autoRoll.disabled = function() return false end
+	if IsAddOnLoaded("ElvUI_Config") then
+		if E.db.sle.loot.autoroll.enable then
+			E.Options.args.general.args.general.args.autoRoll.disabled = function() return true end
+		else
+			E.Options.args.general.args.general.args.autoRoll.disabled = function() return false end
+		end
 	end
 
 	if E.db.sle.loot.autoroll.autoconfirm then

@@ -245,7 +245,7 @@ if not AISM then
 				DataString = '0'
 			end
 			
-			for i = 1, MAX_NUM_TALENT_TIERS do
+			for i = 1, MAX_TALENT_TIERS do
 				selectedSlot = '0'
 				
 				for k = 1, NUM_TALENT_COLUMNS do
@@ -759,7 +759,7 @@ if not AISM then
 						elseif self.DataTypeTable[DataType] == 'Specialization' then
 							TableToSave.Specialization[Group].SpecializationID = stringTable[1]
 							
-							for i = 1, MAX_NUM_TALENT_TIERS do
+							for i = 1, MAX_TALENT_TIERS do
 								for k = 1, NUM_TALENT_COLUMNS do
 									TableToSave.Specialization[Group]['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] = k == stringTable[i + 1] and true or false
 								end
