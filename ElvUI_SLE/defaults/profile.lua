@@ -310,6 +310,37 @@ P['sle'] = {
 				['outline'] = "NONE",
 			},
 		},
+		['screensaver'] = {
+			['enable'] = false,
+			['title'] = {
+				['font'] = "ElvUI Font",
+				['size'] = 28,
+				['outline'] = "OUTLINE",
+			},
+			['subtitle'] = {
+				['font'] = "ElvUI Font",
+				['size'] = 15,
+				['outline'] = "OUTLINE",
+			},
+			['date'] = {
+				['font'] = "ElvUI Font",
+				['size'] = 15,
+				['outline'] = "OUTLINE",
+			},
+			['player'] = {
+				['font'] = "ElvUI Font",
+				['size'] = 15,
+				['outline'] = "OUTLINE",
+			},
+			['tips'] = {
+				['font'] = "ElvUI Font",
+				['size'] = 20,
+				['outline'] = "OUTLINE",
+			},
+			['model'] = 47,
+			['crest'] = 128,
+			['height'] = E.screenheight/8,
+		},
 	},
 
 	--Minimap Module
