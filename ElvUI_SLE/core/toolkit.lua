@@ -11,6 +11,7 @@ local LT = E:GetModule('SLE_Loot')
 local UF = E:GetModule('UnitFrames')
 local M = E:GetModule('SLE_Media')
 local I = E:GetModule('SLE_InstDif')
+local S = E:GetModule("SLE_ScreenSaver")
 
 local GetContainerNumSlots, GetContainerItemID = GetContainerNumSlots, GetContainerItemID
 
@@ -46,6 +47,10 @@ function SLE:Print(msg)
 	print(E["media"].hexvaluecolor..'S&L:|r', msg)
 end
 
+function SLE:Scale(f)
+		return f*GetCVar('uiScale')
+end
+
 local function UpdateAll()
 	BG:UpdateFrames()
 	BG:RegisterHide()
@@ -64,6 +69,7 @@ local function UpdateAll()
 	CH:GMIconUpdate()
 	M:TextWidth()
 	I:UpdateFrame()
+	S:Reg(true)
 
 	collectgarbage('collect');
 end
