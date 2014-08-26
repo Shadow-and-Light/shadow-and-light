@@ -94,8 +94,8 @@ function S:Setup()
 	SS.RaceCrest = SS.Top:CreateTexture(nil, 'ARTWORK')
 	SS.RaceCrest:SetTexture(CrestPath..RaceToken)
 	SS.ExPack = SS.Top:CreateTexture(nil, 'OVERLAY')
-	-- SS.ExPack:SetTexture([[Interface\Glues\Common\Glues-WoW-MPLogo.blp]])
 	SS.ExPack:SetTexture([[Interface\Glues\Common\Glues-WoW-WoDLogo.blp]])
+	-- SS.ExPack:SetTexture([[Interface\Glues\Common\Glues-WoW-MPLogo.blp]])
 	SS.ExPack:SetSize(150, 75)
 	SS.model = CreateFrame("PlayerModel", "ScreenModel", SS)
 	SS.Top.Title = SS.Top:CreateFontString(nil, "OVERLAY")
@@ -108,6 +108,11 @@ function S:Setup()
 	SS.Top.Guild = SS.Top:CreateFontString(nil, "OVERLAY")
 	SS.Top.GuildR = SS.Top:CreateFontString(nil, "OVERLAY")
 	SS.ScrollFrame = CreateFrame("ScrollingMessageFrame", nil, SS)
+	
+	SS.testmodel = CreateFrame("PlayerModel", "ScreenTestModel", E.UIParent)
+	SS.testmodel:SetPoint("RIGHT", E.UIParent, "RIGHT", -5, 0)
+	SS.testmodel:SetSize((GetScreenHeight()/6), (GetScreenHeight()/3))
+	SS.testmodel:Hide()
 	
 	-- SS.ScrollFrame:SetShadowColor(0, 0, 0, 0)
 	SS.ScrollFrame:SetFading(false)
@@ -140,8 +145,31 @@ function S:Setup()
 	SS.Top.Title:SetText("|cff00AAFF"..L['You Are Away From Keyboard'].."|r")
 end
 
+local AnimTime, testM
+
+function S:TestShow()
+	if AnimTime then AnimTime:Cancel() end
+	testM = E.db.sle.media.screensaver.model
+	SS.testmodel:Show()
+	SS.testmodel:SetUnit("player")
+	SS.testmodel:SetPosition(0.3,0,-0.1)
+	SS.testmodel:SetFacing(-0.5)
+	SS.testmodel:SetAnimation(testM)
+	SS.testmodel:SetScript("OnAnimFinished", S.AnimTestFinished)
+
+	AnimTime = C_Timer.NewTimer(10, S.TestHide)
+end
+
+function S:TestHide()
+	SS.testmodel:Hide()
+end
+
 function S:AnimFinished()
 	SS.model:SetAnimation(E.db.sle.media.screensaver.model)
+end
+
+function S:AnimTestFinished()
+	SS.testmodel:SetAnimation(testM)
 end
 
 function S:Shown()
