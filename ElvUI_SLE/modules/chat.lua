@@ -150,6 +150,9 @@ local function Position()
 			chat:ClearAllPoints()
 			if E.db.datatexts.rightChatPanel then
 				chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3)
+			else
+				BASE_OFFSET = BASE_OFFSET - 24
+				chat:SetPoint("BOTTOMLEFT", RightChatPanel, "BOTTOMLEFT", 4, 4)
 			end
 			if id ~= 2 then
 				chat:SetSize(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - PixelOff))
@@ -158,6 +161,10 @@ local function Position()
 		
 		else
 			if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
+				if  not E.db.datatexts.leftChatPanel then
+					BASE_OFFSET = BASE_OFFSET - 24
+					chat:SetPoint("BOTTOMLEFT", LeftChatPanel, "BOTTOMLEFT", 1, 4)
+				end
 				chat:Size(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - PixelOff))
 			end
 		end
