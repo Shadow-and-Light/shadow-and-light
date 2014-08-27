@@ -98,6 +98,7 @@ function S:Setup()
 	-- SS.ExPack:SetTexture([[Interface\Glues\Common\Glues-WoW-MPLogo.blp]])
 	SS.ExPack:SetSize(150, 75)
 	SS.model = CreateFrame("PlayerModel", "ScreenModel", SS)
+	-- SS.model:CreateBackdrop("Transparent") --For checking size and borders
 	SS.Top.Title = SS.Top:CreateFontString(nil, "OVERLAY")
 	SS.Top.Quote = SS.Top:CreateFontString(nil, "OVERLAY")
 	SS.Top.Quote:SetJustifyH("LEFT")
@@ -138,8 +139,6 @@ function S:Setup()
 	SS.ExPack:SetPoint("CENTER", SS.Top, "BOTTOM", 0, 0)
 	SS.Top.Title:SetPoint("TOP", SS.Top, "TOP", 0, -10)
 	SS.Top.Quote:SetPoint("TOP", SS.Top.Title, "BOTTOM", 0, -2)
-	SS.model:SetPoint("TOPLEFT", SS.Top,"BOTTOMRIGHT", -(GetScreenWidth()/4),0)
-	SS.model:SetPoint("BOTTOMRIGHT", SS.Bottom, "TOPRIGHT", 0, 0)
 	SS.ScrollFrame:SetPoint("CENTER", SS.Bottom, "CENTER", 0, 0)
 
 	SS.Top.Title:SetText("|cff00AAFF"..L['You Are Away From Keyboard'].."|r")
@@ -149,7 +148,7 @@ local AnimTime, testM
 
 function S:TestShow()
 	if AnimTime then AnimTime:Cancel() end
-	testM = E.db.sle.media.screensaver.model
+	testM = E.db.sle.media.screensaver.playermodel.anim
 	SS.testmodel:Show()
 	SS.testmodel:SetUnit("player")
 	SS.testmodel:SetPosition(0.3,0,-0.1)
@@ -165,7 +164,7 @@ function S:TestHide()
 end
 
 function S:AnimFinished()
-	SS.model:SetAnimation(E.db.sle.media.screensaver.model)
+	SS.model:SetAnimation(E.db.sle.media.screensaver.playermodel.anim)
 end
 
 function S:AnimTestFinished()
@@ -179,10 +178,17 @@ function S:Shown()
 	end
 	local Width, Height = SLE:Scale(GetScreenWidth()), SLE:Scale(E.db.sle.media.screensaver.height)
 	self.model:SetUnit("player")
-	self.model:SetPosition(0.3,0,-0.1)
-	self.model:SetFacing(-0.5)
-	self.model:SetAnimation(E.db.sle.media.screensaver.model)
+	local x = E.db.sle.media.screensaver.playermodel.position == "RIGHT" and -1 or 1
+	local point = E.db.sle.media.screensaver.playermodel.position
+	self.model:SetPosition(0.1, -x*0.1, -0.1) --(pos/neg) first number moves closer/farther, second right/left, third up/down
+	self.model:SetFacing(x*0.5)
+	self.model:SetAnimation(E.db.sle.media.screensaver.playermodel.anim)
 	self.model:SetScript("OnAnimFinished", S.AnimFinished)
+	--Positioning model
+	SS.model:ClearAllPoints()
+	SS.model:SetWidth((GetScreenWidth()/4) + 20)
+	SS.model:SetPoint("TOP"..point, SS.Top,"BOTTOM"..point, 0,0)
+	SS.model:SetPoint("BOTTOM"..point, SS.Bottom, "TOP"..point, 0, 0)
 
 	self.Top.Quote:SetText(L["Take care of yourself, Master!"])
 
