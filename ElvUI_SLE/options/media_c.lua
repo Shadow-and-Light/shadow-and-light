@@ -447,19 +447,23 @@ local function configTable()
 						type = "group",
 						name = L["Graphics"],
 						order = 2,
-						get = function(info) return E.db.sle.media.screensaver[ info[#info] ] end,
-						set = function(info, value) E.db.sle.media.screensaver[ info[#info] ] = value S:Media() end,
+						-- get = function(info) return E.db.sle.media.screensaver[ info[#info] ] end,
+						-- set = function(info, value) E.db.sle.media.screensaver[ info[#info] ] = value S:Media() end,
 						args = {
 							crest = {
 								order = 1,
 								name = L["Crest Size"],
 								type = "range",
 								min = 84, max = 256, step = 1,
+								get = function(info) return E.db.sle.media.screensaver.crest end,
+								set = function(info, value) E.db.sle.media.screensaver.crest = value; S:Media() end,
 							},
-							model = {
+							modelanim = {
 								order = 2,
 								name = L["Model Animation"],
 								type = "select",
+								get = function(info) return E.db.sle.media.screensaver.playermodel.anim end,
+								set = function(info, value) E.db.sle.media.screensaver.playermodel.anim = value end,
 								values = {
 									[47] = "Standing",
 									[4] = "Walking",
@@ -481,14 +485,25 @@ local function configTable()
 									[113] = 'Salute',
 								},
 							},
-							height = {
+							modelpos = {
 								order = 3,
+								name = L["Model Animation"],
+								type = "select",
+								get = function(info) return E.db.sle.media.screensaver.playermodel.position end,
+								set = function(info, value) E.db.sle.media.screensaver.playermodel.position = value end,
+								values = {
+									["RIGHT"] = L['Right'],
+									["LEFT"] = L['Left'],
+								},
+							},
+							height = {
+								order = 4,
 								name = L["Panel Height"],
 								type = "range",
 								min = 130, max = E.screenheight/6, step = 1,
 							},
 							testmodel = {
-								order = 4,
+								order = 5,
 								type = 'execute',
 								name = "Test Animation",
 								desc = "Shows a test model with selected animation for 10 seconds. Ckicking again will reset timer.",
