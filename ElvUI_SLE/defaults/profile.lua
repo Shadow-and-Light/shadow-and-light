@@ -337,7 +337,10 @@ P['sle'] = {
 				['size'] = 20,
 				['outline'] = "OUTLINE",
 			},
-			['model'] = 47,
+			['playermodel'] = {
+				['anim'] = 47,
+				['position'] = "RIGHT",
+			},
 			['crest'] = 128,
 			['height'] = E.screenheight/8,
 		},
