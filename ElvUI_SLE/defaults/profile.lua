@@ -132,7 +132,7 @@ P['sle'] = {
 			['alpha'] = 1,
 		},
 		['top'] = {
-			['enabled'] = true,
+			['enabled'] = false,
 			['width'] = E.screenwidth/5 - 4,
 			['pethide'] = true,
 			['alpha'] = 1,
