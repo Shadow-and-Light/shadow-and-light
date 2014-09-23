@@ -416,6 +416,14 @@ function F:UpdateLayout(event, unit) --don't touch
 	ResizeFrames()
 end
 
+local function AutoTarget(button)
+	local container, slot = SLE:BagSearch(button.itemId)
+	if container and slot then
+		button:SetAttribute("type", "macro")
+		button:SetAttribute("macrotext", format("/targetexact %s \n/use %s %s", L["Tilled Soil"], container, slot))
+	end
+end
+
 local function onClick(self, mousebutton)
 	if mousebutton == "LeftButton" then
 		if InCombatLockdown() and not self.macro then
@@ -445,7 +453,7 @@ end
 local function onEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 2, 4)
 	GameTooltip:ClearLines()
-	GameTooltip:AddDoubleLine(self.sortname)
+	GameTooltip:AddLine("|cffFFFFFF"..self.sortname.."|r")
 	if self.allowDrop then
 		GameTooltip:AddLine(L['Right-click to drop the item.'])
 	end
@@ -456,13 +464,7 @@ local function onLeave()
 	GameTooltip:Hide() 
 end
 
-local function AutoTarget(button)
-	local container, slot = SLE:BagSearch(button.itemId)
-	if container and slot then
-		button:SetAttribute("type", "macro")
-		button:SetAttribute("macrotext", format("/targetexact %s \n/use %s %s", L["Tilled Soil"], container, slot))
-	end
-end
+
 
 local function CreateFarmButton(index, owner, buttonType, name, texture, allowDrop, id)
 	size = E.db.sle.farm.size
