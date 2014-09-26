@@ -233,6 +233,28 @@ function SLE:CreateExport()
 		ExEditBox:HighlightText()
 	end)
 	
+	local exHelp = CreateFrame("Button", "SLEExportHelp", frame)
+	exHelp:Size(20, 20)
+	exHelp:Point("LEFT", button2, "RIGHT", 4, 0)
+	local exHelp_t = exHelp:CreateFontString(nil, "OVERLAY")
+	exHelp_t:SetFont(E["media"].normFont, 14)
+	exHelp_t:SetPoint("CENTER", exHelp)
+	exHelp_t:SetText("?")
+	Sk:HandleButton(exHelp)
+	exHelp:HookScript("OnEnter", function(self) 
+		GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 2, 4)
+		GameTooltip:ClearLines()
+		GameTooltip:AddLine([[|cffFFFFFFExporting:
+Click button for whatever table you are willing to export.
+Profile will copy profile based settings;
+Private will copy character specific settings.|r]])
+			if self.allowDrop then
+				GameTooltip:AddLine(L['Right-click to drop the item.'])
+			end
+		GameTooltip:Show()
+	end)
+	exHelp:HookScript("OnLeave", function() GameTooltip:Hide() end)
+		
 	local button3 = CreateFrame("Button", "SLEExportPrivateTab", frame)
 	button3:Size(100, 20)
 	button3:Point("BOTTOMLEFT", frame, "BOTTOM", 4, 6)
@@ -245,14 +267,46 @@ function SLE:CreateExport()
  		local msg = ImEditBox:GetText()
 		msg = SLE:ImportTableReplace(msg)
 		if msg then
-			local func = loadstring(msg)
-			func()
-			E:UpdateAll(true)
-			ReloadUI()
+			local func, err = loadstring(msg)
+			if not err then
+				func()
+				E:UpdateAll(true)
+				ReloadUI()
+			else
+				SLE:Print(err)
+			end
 		else
 			SLE:Print("Entered text is not a valid settings table!")
 		end
 	end)
+	
+	local imHelp = CreateFrame("Button", "SLEImportHelp", frame)
+	imHelp:Size(20, 20)
+	imHelp:Point("LEFT", button3, "RIGHT", 4, 0)
+	local imHelp_t = imHelp:CreateFontString(nil, "OVERLAY")
+	imHelp_t:SetFont(E["media"].normFont, 14)
+	imHelp_t:SetPoint("CENTER", imHelp)
+	imHelp_t:SetText("?")
+	Sk:HandleButton(imHelp)
+	imHelp:HookScript("OnEnter", function(self) 
+		GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 2, 4)
+		GameTooltip:ClearLines()
+		GameTooltip:AddLine([[|cffFFFFFFImporting:
+To import the settings you need to paste the setting table
+or line to the import editbox and click import button.
+You can use next formats for settings:
+1) E.db.chat.panelHeight = 185
+2) E.db['chat']['panelHeight'] = 185
+3) E.db['chat'] = {
+...
+}
+In case of the third format you should put at least 2 values.|r]])
+			if self.allowDrop then
+				GameTooltip:AddLine(L['Right-click to drop the item.'])
+			end
+		GameTooltip:Show()
+	end)
+	imHelp:HookScript("OnLeave", function() GameTooltip:Hide() end)
 end
 
 hooksecurefunc(E, "UpdateAll", UpdateAll)
