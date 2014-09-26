@@ -120,8 +120,16 @@ function SLE:DisplayToTableString(tab, set)
     return ret;
 end
 
-function SLE:ImportTable()
+function SLE:ImportTableReplace(msg)
+	if string.find(msg, "E.db") then
+		msg = gsub(msg, "E.db", "ElvUI[1].db")
+	elseif string.find(msg, "E.private") then
+		msg = gsub(msg, "E.private", "ElvUI[1].private")
+	else
+		return nil
+	end
 	
+	return msg
 end
 
 function SLE:CreateExport()
@@ -177,6 +185,7 @@ function SLE:CreateExport()
 	ImEditBox:SetAutoFocus(false)
 	ImEditBox:SetFontObject(ChatFontNormal)
 	ImEditBox:Width(ExScrollArea:GetWidth())
+	ImEditBox:SetScript("OnEscapePressed", function() SLEExImFrame:Hide() end)
 	ImScrollArea:SetScrollChild(ImEditBox)
 	SLEImportEditBox:SetScript("OnTextChanged", function(self, userInput)
 		if userInput then return end
@@ -233,11 +242,16 @@ function SLE:CreateExport()
 	button3_t:SetText("Import")
 	Sk:HandleButton(button3)
 	button3:SetScript("OnClick", function(self) --This shit doesn't work right now
-		local E, L, V, P, G = unpack(ElvUI);
  		local msg = ImEditBox:GetText()
-		local func = loadstring(msg)
-		func()
-		E:UpdateAll(true)
+		msg = SLE:ImportTableReplace(msg)
+		if msg then
+			local func = loadstring(msg)
+			func()
+			E:UpdateAll(true)
+			ReloadUI()
+		else
+			SLE:Print("Entered text is not a valid settings table!")
+		end
 	end)
 end
 
