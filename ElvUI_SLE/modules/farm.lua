@@ -3,6 +3,7 @@ local B = LibStub("LibBabble-SubZone-3.0")
 local BL = B:GetLookupTable()
 local F = E:GetModule('SLE_Farm')
 local SLE = E:GetModule('SLE');
+local S = E:GetModule("Skins")
 
 local SeedAnchor, ToolAnchor, PortalAnchor
 local tsort, format = table.sort, format
@@ -15,9 +16,9 @@ local GetItemCount, GetItemInfo = GetItemCount, GetItemInfo
 local Point = Point
 
 
-local FseedButtons = {}
-local FtoolButtons = {}
-local FportalButtons = {}
+FseedButtons = {}
+FtoolButtons = {}
+FportalButtons = {}
 
 local seeds = {
 	--Seeds general
@@ -470,7 +471,7 @@ local function CreateFarmButton(index, owner, buttonType, name, texture, allowDr
 	size = E.db.sle.farm.size
 	local button = CreateFrame("Button", ("FarmButton%d"):format(index), owner, "SecureActionButtonTemplate")
 	button:Size(size, size)
-	button:SetTemplate('Default', true)
+	S:HandleButton(button)
 
 	button.sortname = name
 	button.itemId = index
@@ -493,8 +494,8 @@ local function CreateFarmButton(index, owner, buttonType, name, texture, allowDr
 		button.cooldown:SetAllPoints(button)
 	end
 		
-	button:SetScript("OnEnter", onEnter)
-	button:SetScript("OnLeave", onLeave)
+	button:HookScript("OnEnter", onEnter)
+	button:HookScript("OnLeave", onLeave)
 	button:SetScript("OnMouseDown", onClick)
 	
 	return button
