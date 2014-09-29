@@ -141,12 +141,53 @@ function SLE:CreateExport()
 	frame:Hide()
 	frame:EnableMouse(true)
 	frame:SetFrameStrata("DIALOG")
+	frame:SetMovable(true)
+	frame:RegisterForDrag("LeftButton")
+	frame:SetScript("OnDragStart", function(self) 
+		if IsShiftKeyDown() then 
+			self:StartMoving()
+		end 
+	end)
+	frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
 
 	local text = frame:CreateFontString(nil, "OVERLAY")
 	text:SetFont(E["media"].normFont, 14)
 	text:SetPoint("TOP", frame, "TOP", -10, -10)
 	text:SetText("<  "..L["Export / Import"].."  >")
 	text:SetJustifyH("left")
+	
+	local dropdown = CreateFrame("Button", "SLEExImDropDown", frame, "UIDropDownMenuTemplate")
+	dropdown:ClearAllPoints()
+	dropdown:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -3)
+	dropdown:Show()
+	Sk:HandleDropDownBox(dropdown)
+	
+	local items = {
+	   L["Profile"],
+	   L["Private"],
+	   L["Global"],
+	   L["All"],
+	}
+	 
+	local function OnClick(self)
+	   UIDropDownMenu_SetSelectedID(dropdown, self:GetID())
+	end
+	 
+	local function initialize(self, level)
+	   local info = UIDropDownMenu_CreateInfo()
+	   for k,v in pairs(items) do
+		  info = UIDropDownMenu_CreateInfo()
+		  info.text = v
+		  info.value = v
+		  info.func = OnClick
+		  UIDropDownMenu_AddButton(info, level)
+	   end
+	end
+	 
+	 
+	UIDropDownMenu_Initialize(dropdown, initialize)
+	UIDropDownMenu_SetSelectedID(dropdown, 1)
+	UIDropDownMenu_JustifyText(dropdown, "LEFT")
 	
 	local ExScrollArea = CreateFrame("ScrollFrame", "SLEExportScrollFrame", frame, "UIPanelScrollFrameTemplate")
 	ExScrollArea:Point("TOPLEFT", frame, "TOPLEFT", 10, -30)
@@ -254,6 +295,11 @@ Private will copy character specific settings.|r]])
 		GameTooltip:Show()
 	end)
 	exHelp:HookScript("OnLeave", function() GameTooltip:Hide() end)
+	exHelp:SetScript("OnClick", function(self) 
+		
+		ExEditBox:SetText(items[dropdown.selectedID])
+
+	end)
 		
 	local button3 = CreateFrame("Button", "SLEExportPrivateTab", frame)
 	button3:Size(100, 20)
