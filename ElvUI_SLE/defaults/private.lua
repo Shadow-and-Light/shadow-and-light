@@ -71,3 +71,12 @@ V['sle'] = {
 
 	['backgrounds'] = false,
 }
+
+G['sle'] = {
+	['export'] = {
+		['full'] = false,
+		['profile'] = true,
+		['private'] = false,
+		['global'] = false,
+	},
+}

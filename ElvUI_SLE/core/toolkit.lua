@@ -79,51 +79,51 @@ function SLE:OpenExport()
 	E:ToggleConfig()
 	if not SLEExImFrame then SLE:CreateExport() end
 	if not SLEExImFrame:IsShown() then 
-		SLEExportEditBox:SetText("Press button - get ya settings!")
-		SLEImportEditBox:SetText("Put your settings here, NAO!")
+		SLEExportEditBox:SetText(L["SLE_Exp_Desc"])
+		SLEImportEditBox:SetText(L["SLE_Imp_Desc"])
 		SLEExImFrame:Show() 
 	end
 end
 
-function SLE:DisplayToTableString(tab, set)
-    local ret = "";
-    local function recurse(table, level)
-        for i,v in pairs(table) do
-			ret = ret..strrep("    ", level)..(level == 0 and set or "").."[";
-            if(type(i) == "string") then
-                ret = ret.."\""..i.."\"";
-            else
-                ret = ret..i;
-            end
-            ret = ret.."] = ";
-            
-            if(type(v) == "number") then
-                ret = ret..v..(level == 0 and "" or ",").."\n"
-            elseif(type(v) == "string") then
-                ret = ret.."\""..v:gsub("\\", "\\\\"):gsub("\n", "\\n"):gsub("\"", "\\\"")..(level == 0 and "\"\n" or "\",\n")
-            elseif(type(v) == "boolean") then
-                if(v) then
-                    ret = ret.."true"..(level == 0 and "" or ",").."\n"
-                else
-                    ret = ret.."false"..(level == 0 and "" or ",").."\n"
-                end
-            elseif(type(v) == "table") then
-                ret = ret.."{\n"
-                recurse(v, level + 1);
-					ret = ret..strrep("    ", level).."}"..(level == 0 and "" or ",").."\n"
-            else
-                ret = ret.."\""..tostring(v).."\",\n"
-            end
-        end
-    end
-    
-    if(tab) then
-        recurse(tab, 0);
-    end
-    return ret;
+local datable = {}
+
+function SLE:ExportPrint()
+	local text = ''
+	for i = 1, #datable do
+		text = text..datable[i]
+	end
+	
+	return text
+end
+
+function SLE:SettingTable(t, s, root)
+	if not root then root = "" end
+	for k, v in pairs(t) do
+		if type(v) == "string" then
+			if root[k] ~= v or E.global.sle.export.full then
+				tinsert(datable, #(datable)+1, s.."."..k.." = "..v.."\n")
+			end
+		elseif type(v) == "number" then
+			if root[k] ~= v or E.global.sle.export.full then
+				tinsert(datable, #(datable)+1, s.."."..k.." = "..v.."\n")
+			else
+			end
+		elseif type(v) == "boolean" then
+			if root[k] ~= v or E.global.sle.export.full then
+				local b = v == true and "true" or "false"
+				tinsert(datable, #(datable)+1, s.."."..k.." = "..b.."\n")	
+			end
+		else
+			local new = "."..k
+			SLE:SettingTable(t[k], s..new, root[k])
+		end
+	end
 end
 
 function SLE:ImportTableReplace(msg)
+	if not string.find(msg, "E.db") and not string.find(msg, "E.private") and not string.find(msg, "E.global") then
+		return nil
+	end
 	if string.find(msg, "E.db") then
 		msg = gsub(msg, "E.db", "ElvUI[1].db")
 	end
@@ -133,238 +133,29 @@ function SLE:ImportTableReplace(msg)
 	if string.find(msg, "E.global") then
 		msg = gsub(msg, "E.global", "ElvUI[1].global")
 	end
-	
+
 	return msg
 end
 
 function SLE:Exporting()
-	local msg
-	local dropdown = SLEExImDropDown
-	if dropdown.selectedID == 1 then
-		msg = "--Profile settings--\n"..SLE:DisplayToTableString(E.db, "E.db")
-	elseif dropdown.selectedID == 2 then
-		msg = "--Character settings--\n"..SLE:DisplayToTableString(E.private, "E.private")
-	elseif dropdown.selectedID == 3 then
-		msg = "--Global settings--\n"..SLE:DisplayToTableString(E.global, "E.global")
-	else
-		msg = "--Profile settings--\n"..SLE:DisplayToTableString(E.db, "E.db").."--Character settings--\n"..SLE:DisplayToTableString(E.private, "E.private").."--Global settings--\n"..SLE:DisplayToTableString(E.global, "E.global")
+	local msg = ''
+	datable = {}
+	if E.global.sle.export.profile then
+		tinsert(datable, #(datable)+1, "--Profile--\n")
+		SLE:SettingTable(E.db, "E.db", P)
 	end
+	if E.global.sle.export.private then
+		tinsert(datable, #(datable)+1, "--Character--\n")
+		SLE:SettingTable(E.private, "E.private", V)
+	end
+	if E.global.sle.export.global then
+		tinsert(datable, #(datable)+1, "--Global--\n")
+		SLE:SettingTable(E.global, "E.global", G)
+	end
+	msg = SLE:ExportPrint()
 	local editbox = SLEExportEditBox
 	editbox:SetText(msg)
 	editbox:SetFocus()
 	editbox:HighlightText()
 end
-
-function SLE:CreateExport()
-	local frame = CreateFrame("Frame", "SLEExImFrame", E.UIParent)
-	tinsert(UISpecialFrames, "SLEExImFrame")
-	frame:SetTemplate('Transparent')
-	frame:Size(800, 400)
-	frame:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 20)
-	frame:Hide()
-	frame:EnableMouse(true)
-	frame:SetFrameStrata("DIALOG")
-	frame:SetMovable(true)
-	frame:RegisterForDrag("LeftButton")
-	frame:SetScript("OnDragStart", function(self) 
-		if IsShiftKeyDown() then 
-			self:StartMoving()
-		end 
-	end)
-	frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
-
-	local text = frame:CreateFontString(nil, "OVERLAY")
-	text:SetFont(E["media"].normFont, 14)
-	text:SetPoint("TOP", frame, "TOP", -10, -10)
-	text:SetText("<  "..L["Export / Import"].."  >")
-	text:SetJustifyH("left")
-	
-	local dropdown = CreateFrame("Button", "SLEExImDropDown", frame, "UIDropDownMenuTemplate")
-	dropdown:ClearAllPoints()
-	dropdown:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -3)
-	dropdown:Show()
-	Sk:HandleDropDownBox(dropdown)
-	
-	local values = {
-		L["Profile"],
-		L["Private"],
-		L["Global"],
-		L["All"],
-	}
-	 
-	local function OnClick(self)
-	   UIDropDownMenu_SetSelectedID(dropdown, self:GetID())
-	end
-	 
-	local function initialize(self, level)
-	   local info = UIDropDownMenu_CreateInfo()
-	   for _,v in pairs(values) do
-		  info = UIDropDownMenu_CreateInfo()
-		  info.text = v
-		  info.value = v
-		  info.func = OnClick
-		  UIDropDownMenu_AddButton(info, level)
-	   end
-	end
-	 
-	 
-	UIDropDownMenu_Initialize(dropdown, initialize)
-	UIDropDownMenu_SetSelectedID(dropdown, 1)
-	UIDropDownMenu_JustifyText(dropdown, "LEFT")
-	
-	local ExScrollArea = CreateFrame("ScrollFrame", "SLEExportScrollFrame", frame, "UIPanelScrollFrameTemplate")
-	ExScrollArea:Point("TOPLEFT", frame, "TOPLEFT", 10, -30)
-	ExScrollArea:Point("BOTTOMRIGHT", frame, "BOTTOM", -25, 30)
-	ExScrollArea:CreateBackdrop()
-	Sk:HandleScrollBar(SLEExportScrollFrameScrollBar)
-	
-	local ImScrollArea = CreateFrame("ScrollFrame", "SLEImportScrollFrame", frame, "UIPanelScrollFrameTemplate")
-	ImScrollArea:Point("TOPRIGHT", frame, "TOPRIGHT", -30, -30)
-	ImScrollArea:Point("BOTTOMLEFT", frame, "BOTTOM", 5, 30)
-	ImScrollArea:CreateBackdrop()
-	Sk:HandleScrollBar(SLEImportScrollFrameScrollBar)
-
-	local ExEditBox = CreateFrame("EditBox", "SLEExportEditBox", frame)
-	ExEditBox:SetMultiLine(true)
-	ExEditBox:SetMaxLetters(0)
-	ExEditBox:EnableMouse(true)
-	ExEditBox:SetAutoFocus(false)
-	ExEditBox:SetFontObject(ChatFontNormal)
-	ExEditBox:Width(ExScrollArea:GetWidth())
-	ExEditBox:SetScript("OnEscapePressed", function() SLEExImFrame:Hide() end)
-	ExScrollArea:SetScrollChild(ExEditBox)
-	SLEExportEditBox:SetScript("OnTextChanged", function(self, userInput)
-		if userInput then return end
-		local _, max = SLEExportScrollFrameScrollBar:GetMinMaxValues()
-		for i=1, max do
-			ScrollFrameTemplate_OnMouseWheel(SLEExportScrollFrame, -1)
-		end
-	end)
-	
-	local ImEditBox = CreateFrame("EditBox", "SLEImportEditBox", frame)
-	ImEditBox:SetMultiLine(true)
-	ImEditBox:SetMaxLetters(0)
-	ImEditBox:EnableMouse(true)
-	ImEditBox:SetAutoFocus(false)
-	ImEditBox:SetFontObject(ChatFontNormal)
-	ImEditBox:Width(ExScrollArea:GetWidth())
-	ImEditBox:SetScript("OnEscapePressed", function() SLEExImFrame:Hide() end)
-	ImScrollArea:SetScrollChild(ImEditBox)
-	SLEImportEditBox:SetScript("OnTextChanged", function(self, userInput)
-		if userInput then return end
-		local _, max = SLEImportScrollFrameScrollBar:GetMinMaxValues()
-		for i=1, max do
-			ScrollFrameTemplate_OnMouseWheel(SLEImportScrollFrame, -1)
-		end
-	end)
-	
-
-	local close = CreateFrame("Button", "SLEExImFrameCloseButton", frame, "UIPanelCloseButton")
-	close:SetPoint("TOPRIGHT")
-	close:SetFrameLevel(close:GetFrameLevel() + 1)
-	close:EnableMouse(true)
-	
-	Sk:HandleCloseButton(close)	
-	
-	local button1 = CreateFrame("Button", "SLEExportProfileTab", frame)
-	button1:Size(100, 20)
-	button1:Point("BOTTOMLEFT", frame, "BOTTOMLEFT", 9, 6)
-	local button1_t = button1:CreateFontString(nil, "OVERLAY")
-	button1_t:SetFont(E["media"].normFont, 14)
-	button1_t:SetPoint("CENTER", button1)
-	button1_t:SetText("Export Profile")
-	Sk:HandleButton(button1)
-	button1:SetScript("OnClick", SLE.Exporting)
-		
-	-- local button2 = CreateFrame("Button", "SLEExportPrivateTab", frame)
-	-- button2:Size(100, 20)
-	-- button2:Point("LEFT", button1, "RIGHT", 4, 0)
-	-- local button2_t = button2:CreateFontString(nil, "OVERLAY")
-	-- button2_t:SetFont(E["media"].normFont, 14)
-	-- button2_t:SetPoint("CENTER", button2)
-	-- button2_t:SetText("Export Private")
-	-- Sk:HandleButton(button2)
-	-- button2:SetScript("OnClick", function(self) 
-		-- local msg = SLE:DisplayToTableString(E.private, "E.private")
-		-- ExEditBox:SetText(msg)
-		-- ExEditBox:SetFocus()
-		-- ExEditBox:HighlightText()
-	-- end)
-	
-	local exHelp = CreateFrame("Button", "SLEExportHelp", frame)
-	exHelp:Size(20, 20)
-	exHelp:Point("LEFT", button1, "RIGHT", 4, 0)
-	local exHelp_t = exHelp:CreateFontString(nil, "OVERLAY")
-	exHelp_t:SetFont(E["media"].normFont, 14)
-	exHelp_t:SetPoint("CENTER", exHelp)
-	exHelp_t:SetText("?")
-	Sk:HandleButton(exHelp)
-	exHelp:HookScript("OnEnter", function(self) 
-		GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 2, 4)
-		GameTooltip:ClearLines()
-		GameTooltip:AddLine([[|cffFFFFFFExporting:
-Select the table you are willing to export in the dropdown.
- - Profile will copy profile based settings;
- - Private will copy character specific settings;
- - Global will copy global settings;
- - All will copy all above.|r
-|cffFF0000Warning: exporting may cause your game to freeze for some time.|r]])
-		GameTooltip:Show()
-	end)
-	exHelp:HookScript("OnLeave", function() GameTooltip:Hide() end)
-		
-	local button3 = CreateFrame("Button", "SLEExportPrivateTab", frame)
-	button3:Size(100, 20)
-	button3:Point("BOTTOMLEFT", frame, "BOTTOM", 4, 6)
-	local button3_t = button3:CreateFontString(nil, "OVERLAY")
-	button3_t:SetFont(E["media"].normFont, 14)
-	button3_t:SetPoint("CENTER", button3)
-	button3_t:SetText("Import")
-	Sk:HandleButton(button3)
-	button3:SetScript("OnClick", function(self) --This shit doesn't work right now
- 		local msg = ImEditBox:GetText()
-		msg = SLE:ImportTableReplace(msg)
-		if msg then
-			local func, err = loadstring(msg)
-			if not err then
-				func()
-				E:UpdateAll(true)
-				ReloadUI()
-			else
-				SLE:Print(err)
-			end
-		else
-			SLE:Print("Entered text is not a valid settings table!")
-		end
-	end)
-	
-	local imHelp = CreateFrame("Button", "SLEImportHelp", frame)
-	imHelp:Size(20, 20)
-	imHelp:Point("LEFT", button3, "RIGHT", 4, 0)
-	local imHelp_t = imHelp:CreateFontString(nil, "OVERLAY")
-	imHelp_t:SetFont(E["media"].normFont, 14)
-	imHelp_t:SetPoint("CENTER", imHelp)
-	imHelp_t:SetText("?")
-	Sk:HandleButton(imHelp)
-	imHelp:HookScript("OnEnter", function(self) 
-		GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 2, 4)
-		GameTooltip:ClearLines()
-		GameTooltip:AddLine([[|cffFFFFFFImporting:
-To import the settings you need to paste the setting table
-or line to the import editbox and click import button.
-You can use next formats for settings:
-1) E.db.chat.panelHeight = 185
-2) E.db['chat']['panelHeight'] = 185
-3) E.db['chat'] = {
-...
-}
-In case of the third format you should put at least 2 values.|r]])
-			if self.allowDrop then
-				GameTooltip:AddLine(L['Right-click to drop the item.'])
-			end
-		GameTooltip:Show()
-	end)
-	imHelp:HookScript("OnLeave", function() GameTooltip:Hide() end)
-end
-
 hooksecurefunc(E, "UpdateAll", UpdateAll)

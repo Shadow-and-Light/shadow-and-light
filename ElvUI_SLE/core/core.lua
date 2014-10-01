@@ -64,6 +64,171 @@ local function CheckIncompatible()
 	end
 end
 
+function SLE:CreateExport()
+	local frame = CreateFrame("Frame", "SLEExImFrame", E.UIParent)
+	tinsert(UISpecialFrames, "SLEExImFrame")
+	frame:SetTemplate('Transparent')
+	frame:Size(800, 400)
+	frame:Point('CENTER', E.UIParent)
+	frame:Hide()
+	frame:EnableMouse(true)
+	frame:SetFrameStrata("DIALOG")
+	frame:SetMovable(true)
+	frame:RegisterForDrag("LeftButton")
+	frame:SetScript("OnDragStart", function(self) 
+		if IsShiftKeyDown() then 
+			self:StartMoving()
+		end 
+	end)
+	frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
+
+	local text = frame:CreateFontString(nil, "OVERLAY")
+	text:SetFont(E["media"].normFont, 14)
+	text:SetPoint("TOP", frame, "TOP", -10, -10)
+	text:SetText("<  "..L["Export / Import"].."  >")
+	text:SetJustifyH("left")
+		
+	local ExScrollArea = CreateFrame("ScrollFrame", "SLEExportScrollFrame", frame, "UIPanelScrollFrameTemplate")
+	ExScrollArea:Point("TOPLEFT", frame, "TOPLEFT", 10, -30)
+	ExScrollArea:Point("BOTTOMRIGHT", frame, "BOTTOM", -25, 10)
+	ExScrollArea:CreateBackdrop()
+	Sk:HandleScrollBar(SLEExportScrollFrameScrollBar)
+	
+	local ImScrollArea = CreateFrame("ScrollFrame", "SLEImportScrollFrame", frame, "UIPanelScrollFrameTemplate")
+	ImScrollArea:Point("TOPRIGHT", frame, "TOPRIGHT", -30, -30)
+	ImScrollArea:Point("BOTTOMLEFT", frame, "BOTTOM", 5, 10)
+	ImScrollArea:CreateBackdrop()
+	Sk:HandleScrollBar(SLEImportScrollFrameScrollBar)
+
+	local ExEditBox = CreateFrame("EditBox", "SLEExportEditBox", frame)
+	ExEditBox:SetMultiLine(true)
+	ExEditBox:SetMaxLetters(0)
+	ExEditBox:EnableMouse(true)
+	ExEditBox:SetAutoFocus(false)
+	ExEditBox:SetFontObject(ChatFontNormal)
+	ExEditBox:Width(ExScrollArea:GetWidth())
+	ExEditBox:SetScript("OnEscapePressed", function() SLEExImFrame:Hide() end)
+	ExScrollArea:SetScrollChild(ExEditBox)
+	SLEExportEditBox:SetScript("OnTextChanged", function(self, userInput)
+		if userInput then return end
+		local _, max = SLEExportScrollFrameScrollBar:GetMinMaxValues()
+		for i=1, max do
+			ScrollFrameTemplate_OnMouseWheel(SLEExportScrollFrame, -1)
+		end
+	end)
+	
+	local ImEditBox = CreateFrame("EditBox", "SLEImportEditBox", frame)
+	ImEditBox:SetMultiLine(true)
+	ImEditBox:SetMaxLetters(0)
+	ImEditBox:EnableMouse(true)
+	ImEditBox:SetAutoFocus(false)
+	ImEditBox:SetFontObject(ChatFontNormal)
+	ImEditBox:Width(ExScrollArea:GetWidth())
+	ImEditBox:SetScript("OnEscapePressed", function() SLEExImFrame:Hide() end)
+	ImScrollArea:SetScrollChild(ImEditBox)
+	SLEImportEditBox:SetScript("OnTextChanged", function(self, userInput)
+		if userInput then return end
+		local _, max = SLEImportScrollFrameScrollBar:GetMinMaxValues()
+		for i=1, max do
+			ScrollFrameTemplate_OnMouseWheel(SLEImportScrollFrame, -1)
+		end
+	end)
+	
+
+	local close = CreateFrame("Button", "SLEExImFrameCloseButton", frame, "UIPanelCloseButton")
+	close:SetPoint("TOPRIGHT")
+	close:SetFrameLevel(close:GetFrameLevel() + 1)
+	close:EnableMouse(true)
+	Sk:HandleCloseButton(close)	
+	
+	local exHelp = CreateFrame("Button", "SLEExportHelp", frame)
+	exHelp:Size(20, 20)
+	exHelp:Point("TOPLEFT", frame, "TOPLEFT", 9, -6)
+	local exHelp_t = exHelp:CreateFontString(nil, "OVERLAY")
+	exHelp_t:SetFont(E["media"].normFont, 14)
+	exHelp_t:SetPoint("CENTER", exHelp)
+	exHelp_t:SetText("?")
+	Sk:HandleButton(exHelp)
+	exHelp:HookScript("OnEnter", function(self) 
+		GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 2, 4)
+		GameTooltip:ClearLines()
+		GameTooltip:AddLine([[|cffFFFFFFExporting:
+Click the Export button and the settings that are different from defaults in selected options tables' will be dumped to the export box.
+ - Profile will copy profile based settings;
+ - Private will copy character specific settings;
+ - Global will copy global settings.|r
+|cffFF0000Warning: exporting may cause your game to freeze for some time.|r
+
+|cffFFFFFFImporting:
+To import the settings you need to paste the setting table
+or line to the import editbox and click import button.
+You can use next formats for settings:
+1) E.db.chat.panelHeight = 185
+2) E.db['chat']['panelHeight'] = 185
+3) E.db['chat'] = {
+...
+}
+In case of the third format you should put at least 2 values.|r
+
+|cffFF0000Know issue: coloring options will be exported anyway no matter the values and exporting options set.|r]])
+		GameTooltip:Show()
+	end)
+	exHelp:HookScript("OnLeave", function() GameTooltip:Hide() end)
+	exHelp:SetScript("OnClick", function(self) 
+		SLEExportEditBox:SetText(dropdown.selectedID)
+	end)
+	
+	local exButton = CreateFrame("Button", "SLEExportButton", frame)
+	exButton:Size(100, 20)
+	exButton:Point("LEFT", exHelp, "RIGHT", 4, 0)
+	local exButton_t = exButton:CreateFontString(nil, "OVERLAY")
+	exButton_t:SetFont(E["media"].normFont, 14)
+	exButton_t:SetPoint("CENTER", exButton)
+	exButton_t:SetText(L["Export"])
+	Sk:HandleButton(exButton)
+	exButton:SetScript("OnClick", SLE.Exporting)
+	
+	local imButton = CreateFrame("Button", "SLEImportButton", frame)
+	imButton:Size(100, 20)
+	imButton:Point("LEFT", exButton, "RIGHT", 4, 0)
+	local imButton_t = imButton:CreateFontString(nil, "OVERLAY")
+	imButton_t:SetFont(E["media"].normFont, 14)
+	imButton_t:SetPoint("CENTER", imButton)
+	imButton_t:SetText(L["Import"])
+	Sk:HandleButton(imButton)
+	imButton:SetScript("OnClick", function(self)
+ 		local msg = ImEditBox:GetText()
+		msg = SLE:ImportTableReplace(msg)
+		if msg then
+			local func, err = loadstring(msg)
+			if not err then
+				func()
+				E:UpdateAll(true)
+				ReloadUI()
+			else
+				SLE:Print(err)
+			end
+		else
+			SLE:Print("Entered text is not a valid settings table!")
+		end
+	end)
+	
+	
+	
+	local returnB = CreateFrame("Button", "SLEReturnButton", frame)
+	returnB:Size(100, 20)
+	returnB:Point("RIGHT", close, "LEFT", 4, 0)
+	local returnB_t = returnB:CreateFontString(nil, "OVERLAY")
+	returnB_t:SetFont(E["media"].normFont, 14)
+	returnB_t:SetPoint("CENTER", returnB)
+	returnB_t:SetText(L["Back"])
+	Sk:HandleButton(returnB)
+	returnB:SetScript("OnClick", function(self)
+ 		E:ToggleConfig()
+		SLEExImFrame:Hide()
+	end)
+end
+
 function SLE:Initialize()
 	--ElvUI's version check
 	--[[if elvV < elvR then
