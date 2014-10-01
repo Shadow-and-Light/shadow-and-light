@@ -76,8 +76,11 @@ local function UpdateAll()
 end
 
 function SLE:OpenExport()
+	E:ToggleConfig()
 	if not SLEExImFrame then SLE:CreateExport() end
 	if not SLEExImFrame:IsShown() then 
+		SLEExportEditBox:SetText("Press button - get ya settings!")
+		SLEImportEditBox:SetText("Put your settings here, NAO!")
 		SLEExImFrame:Show() 
 	end
 end
@@ -132,6 +135,24 @@ function SLE:ImportTableReplace(msg)
 	return msg
 end
 
+function SLE:Exporting()
+	local msg
+	local dropdown = SLEExImDropDown
+	if dropdown.selectedID == 1 then
+		msg = "--Profile settings--\n"..SLE:DisplayToTableString(E.db, "E.db")
+	elseif dropdown.selectedID == 2 then
+		msg = "--Character settings--\n"..SLE:DisplayToTableString(E.private, "E.private")
+	elseif dropdown.selectedID == 3 then
+		msg = "--Global settings--\n"..SLE:DisplayToTableString(E.global, "E.global")
+	else
+		msg = "--Profile settings--\n"..SLE:DisplayToTableString(E.db, "E.db").."--Character settings--\n"..SLE:DisplayToTableString(E.private, "E.private").."--Global settings--\n"..SLE:DisplayToTableString(E.global, "E.global")
+	end
+	local editbox = SLEExportEditBox
+	editbox:SetText(msg)
+	editbox:SetFocus()
+	editbox:HighlightText()
+end
+
 function SLE:CreateExport()
 	local frame = CreateFrame("Frame", "SLEExImFrame", E.UIParent)
 	tinsert(UISpecialFrames, "SLEExImFrame")
@@ -162,11 +183,11 @@ function SLE:CreateExport()
 	dropdown:Show()
 	Sk:HandleDropDownBox(dropdown)
 	
-	local items = {
-	   L["Profile"],
-	   L["Private"],
-	   L["Global"],
-	   L["All"],
+	local values = {
+		L["Profile"],
+		L["Private"],
+		L["Global"],
+		L["All"],
 	}
 	 
 	local function OnClick(self)
@@ -175,7 +196,7 @@ function SLE:CreateExport()
 	 
 	local function initialize(self, level)
 	   local info = UIDropDownMenu_CreateInfo()
-	   for k,v in pairs(items) do
+	   for _,v in pairs(values) do
 		  info = UIDropDownMenu_CreateInfo()
 		  info.text = v
 		  info.value = v
@@ -217,8 +238,7 @@ function SLE:CreateExport()
 			ScrollFrameTemplate_OnMouseWheel(SLEExportScrollFrame, -1)
 		end
 	end)
-	ExEditBox:SetText("Press button - get ya settings!")
-
+	
 	local ImEditBox = CreateFrame("EditBox", "SLEImportEditBox", frame)
 	ImEditBox:SetMultiLine(true)
 	ImEditBox:SetMaxLetters(0)
@@ -235,7 +255,7 @@ function SLE:CreateExport()
 			ScrollFrameTemplate_OnMouseWheel(SLEImportScrollFrame, -1)
 		end
 	end)
-	ImEditBox:SetText("Put your settings here, NAO!")
+	
 
 	local close = CreateFrame("Button", "SLEExImFrameCloseButton", frame, "UIPanelCloseButton")
 	close:SetPoint("TOPRIGHT")
@@ -252,31 +272,26 @@ function SLE:CreateExport()
 	button1_t:SetPoint("CENTER", button1)
 	button1_t:SetText("Export Profile")
 	Sk:HandleButton(button1)
-	button1:SetScript("OnClick", function(self) 
-		local msg = SLE:DisplayToTableString(E.db, "E.db")
-		ExEditBox:SetText(msg)
-		ExEditBox:SetFocus()
-		ExEditBox:HighlightText()
-	end)
-	
-	local button2 = CreateFrame("Button", "SLEExportPrivateTab", frame)
-	button2:Size(100, 20)
-	button2:Point("LEFT", button1, "RIGHT", 4, 0)
-	local button2_t = button2:CreateFontString(nil, "OVERLAY")
-	button2_t:SetFont(E["media"].normFont, 14)
-	button2_t:SetPoint("CENTER", button2)
-	button2_t:SetText("Export Private")
-	Sk:HandleButton(button2)
-	button2:SetScript("OnClick", function(self) 
-		local msg = SLE:DisplayToTableString(E.private, "E.private")
-		ExEditBox:SetText(msg)
-		ExEditBox:SetFocus()
-		ExEditBox:HighlightText()
-	end)
+	button1:SetScript("OnClick", SLE.Exporting)
+		
+	-- local button2 = CreateFrame("Button", "SLEExportPrivateTab", frame)
+	-- button2:Size(100, 20)
+	-- button2:Point("LEFT", button1, "RIGHT", 4, 0)
+	-- local button2_t = button2:CreateFontString(nil, "OVERLAY")
+	-- button2_t:SetFont(E["media"].normFont, 14)
+	-- button2_t:SetPoint("CENTER", button2)
+	-- button2_t:SetText("Export Private")
+	-- Sk:HandleButton(button2)
+	-- button2:SetScript("OnClick", function(self) 
+		-- local msg = SLE:DisplayToTableString(E.private, "E.private")
+		-- ExEditBox:SetText(msg)
+		-- ExEditBox:SetFocus()
+		-- ExEditBox:HighlightText()
+	-- end)
 	
 	local exHelp = CreateFrame("Button", "SLEExportHelp", frame)
 	exHelp:Size(20, 20)
-	exHelp:Point("LEFT", button2, "RIGHT", 4, 0)
+	exHelp:Point("LEFT", button1, "RIGHT", 4, 0)
 	local exHelp_t = exHelp:CreateFontString(nil, "OVERLAY")
 	exHelp_t:SetFont(E["media"].normFont, 14)
 	exHelp_t:SetPoint("CENTER", exHelp)
@@ -286,20 +301,15 @@ function SLE:CreateExport()
 		GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 2, 4)
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine([[|cffFFFFFFExporting:
-Click button for whatever table you are willing to export.
-Profile will copy profile based settings;
-Private will copy character specific settings.|r]])
-			if self.allowDrop then
-				GameTooltip:AddLine(L['Right-click to drop the item.'])
-			end
+Select the table you are willing to export in the dropdown.
+ - Profile will copy profile based settings;
+ - Private will copy character specific settings;
+ - Global will copy global settings;
+ - All will copy all above.|r
+|cffFF0000Warning: exporting may cause your game to freeze for some time.|r]])
 		GameTooltip:Show()
 	end)
 	exHelp:HookScript("OnLeave", function() GameTooltip:Hide() end)
-	exHelp:SetScript("OnClick", function(self) 
-		
-		ExEditBox:SetText(items[dropdown.selectedID])
-
-	end)
 		
 	local button3 = CreateFrame("Button", "SLEExportPrivateTab", frame)
 	button3:Size(100, 20)
