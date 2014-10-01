@@ -126,10 +126,12 @@ end
 function SLE:ImportTableReplace(msg)
 	if string.find(msg, "E.db") then
 		msg = gsub(msg, "E.db", "ElvUI[1].db")
-	elseif string.find(msg, "E.private") then
+	end
+	if string.find(msg, "E.private") then
 		msg = gsub(msg, "E.private", "ElvUI[1].private")
-	else
-		return nil
+	end
+	if string.find(msg, "E.global") then
+		msg = gsub(msg, "E.global", "ElvUI[1].global")
 	end
 	
 	return msg
