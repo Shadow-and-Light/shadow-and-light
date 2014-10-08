@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G = unpack(ElvUI);
+﻿﻿local E, L, V, P, G = unpack(ElvUI);
 local CFO = E:GetModule('CharacterFrameOptions');
 local LSM = LibStub("LibSharedMedia-3.0")
 
@@ -627,7 +627,7 @@ function CFO:Initialize()
 	end)
 
 	hooksecurefunc('PaperDollFrame_SetLevel', function()
-		local primaryTalentTree = GetSpecialization()
+		--[[local primaryTalentTree = GetSpecialization()
 		local classDisplayName, class = UnitClass("player")
 		local classColorString = RAID_CLASS_COLORS[class].colorStr
 		local PLAYER_LEVEL = "|c%s%s %s %s %s|r"
@@ -640,7 +640,9 @@ function CFO:Initialize()
 			CharacterLevelText:SetFormattedText(PLAYER_LEVEL, classColorString, LEVEL, UnitLevel("player"), specName, classDisplayName);
 		else
 			CharacterLevelText:SetFormattedText(PLAYER_LEVEL_NO_SPEC, classColorString, LEVEL, UnitLevel("player"), classDisplayName);
-		end
+		end]]
+		
+		CharacterLevelText:SetText('|c'..RAID_CLASS_COLORS[E.myclass].colorStr..CharacterLevelText:GetText())
 
 		--Maybe Adjust Name, Level, Avg iLvL if bliz skinning is off?
 		CharacterFrameTitleText:ClearAllPoints()
