@@ -36,13 +36,13 @@ local function ModifierCheck()
 	local ctrlDown = IsControlKeyDown();
 	local altDown = IsAltKeyDown();
 
-	if heldModifier == 3 and shiftDown then
+	if heldModifier == '3' and shiftDown then
 		return true
-	elseif heldModifier == 4 and ctrlDown then
+	elseif heldModifier == '4' and ctrlDown then
 		return true
-	elseif heldModifier == 5 and altDown then
+	elseif heldModifier == '5' and altDown then
 		return true
-	elseif heldModifier == 2 then
+	elseif heldModifier == '2' then
 		return true
 	end
 

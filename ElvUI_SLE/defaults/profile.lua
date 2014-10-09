@@ -1,4 +1,4 @@
-﻿local E, L, V, P, G = unpack(ElvUI);
+﻿﻿local E, L, V, P, G = unpack(ElvUI);
 
 P['sle'] = {
 	--Auras
@@ -259,7 +259,7 @@ P['sle'] = {
 			['auto'] = true,
 			['channel'] = "RAID",
 			['enable'] = false,
-			['override'] = 5,
+			['override'] = '5',
 			['quality'] = "EPIC",
 		},
 		['history'] = {
