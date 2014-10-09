@@ -1,4 +1,4 @@
-﻿﻿local E, L, V, P, G = unpack(ElvUI);
+﻿local E, L, V, P, G, _ = unpack(ElvUI);
 
 P['sle'] = {
 	--Auras
