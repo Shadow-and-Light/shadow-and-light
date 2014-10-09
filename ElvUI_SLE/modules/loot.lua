@@ -32,6 +32,25 @@ local function Check()
 	return false
 end
 
+local function ModifierCheck()
+	local heldModifier = E.db.sle.loot.announcer.override
+	local shiftDown = IsShiftKeyDown();
+	local ctrlDown = IsControlKeyDown();
+	local altDown = IsAltKeyDown();
+
+	if heldModifier == '3' and shiftDown then
+		return true
+	elseif heldModifier == '5' and ctrlDown then
+		return true
+	elseif heldModifier == '4' and altDown then
+		return true
+	elseif heldModifier == '2' then
+		return true
+	end
+
+	return false
+end
+
 local function Merge()
 	local p, k
 	for i = 1, #loot do
