@@ -263,7 +263,7 @@ P['sle'] = {
 			['quality'] = "EPIC",
 		},
 		['history'] = {
-			['alpha'] = false,
+			['alpha'] = 1,
 			['autohide'] = false,
 		},
 	},

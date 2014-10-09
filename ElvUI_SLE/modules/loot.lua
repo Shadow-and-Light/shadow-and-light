@@ -19,53 +19,18 @@ local function Check()
 	local name, rank, isML
 	for x = 1, GetNumGroupMembers() do
 		name, rank, _, _, _, _, _, _, _, _, isML = GetRaidRosterInfo(x)
-		if name == MyName and isML then
-			return true
-		elseif name == MyName and rank == 1 then
-			return true
-		elseif name == MyName and rank == 2 then
-			return true
+		if name == MyName then
+			if isML then
+				return true
+			elseif rank == 1 then
+				return true
+			elseif rank == 2 then
+				return true
+			end
 		end
 	end
 	return false
 end
-
-local function ModifierCheck()
-	local heldModifier = E.db.sle.loot.announcer.override
-	local shiftDown = IsShiftKeyDown();
-	local ctrlDown = IsControlKeyDown();
-	local altDown = IsAltKeyDown();
-
-	if heldModifier == '3' and shiftDown then
-		return true
-	elseif heldModifier == '5' and ctrlDown then
-		return true
-	elseif heldModifier == '4' and altDown then
-		return true
-	elseif heldModifier == '2' then
-		return true
-	end
-
-	return false
-end
-
---[[Debug Stuff
-function LT:MODIFIER_STATE_CHANGED(event)
-	local shiftDown = IsShiftKeyDown();
-	local ctrlDown = IsControlKeyDown();
-	local altDown = IsAltKeyDown();
-
-	if shiftDown then
-		print("Shift")
-	end
-	if ctrlDown then
-		print("Control")
-	end
-	if altDown then
-		print("Alt")
-	end
-end
-]]
 
 local function Merge()
 	local p, k
@@ -133,7 +98,6 @@ local function Announce(event)
 	local m = 0
 	local q = E.db.sle.loot.announcer.quality == "EPIC" and 4 or E.db.sle.loot.announcer.quality == "RARE" and 3 or E.db.sle.loot.announcer.quality == "UNCOMMON" and 2
 	if (Check() and E.db.sle.loot.announcer.auto) or (ModifierCheck() and (IsInGroup() or IsInRaid())) then
-	--if (Check() and E.db.sle.loot.announcer.auto) or (IsLeftControlKeyDown() and (IsInGroup() or IsInRaid())) then
 		for i = 1, GetNumLootItems() do
 			if GetLootSlotType(i) == 1 then
 				for j = 1, t do
@@ -244,29 +208,10 @@ function LT:LoadLoot()
 		self:UnregisterEvent('PLAYER_ENTERING_WORLD')
 		self:UnregisterEvent("ADDON_LOADED")
 	end
-
-
-	
-	--if E.db.sle.loot.enable then
-		--self:RegisterEvent("CONFIRM_DISENCHANT_ROLL", HandleEvent)
-		--self:RegisterEvent("CONFIRM_LOOT_ROLL", HandleEvent)
-		--self:RegisterEvent("LOOT_BIND_CONFIRM", HandleEvent)
-		--self:RegisterEvent("LOOT_OPENED", HandleEvent)
-		--self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
-		--self:RegisterEvent("ADDON_LOADED", LoadConfig)
-	--else
-		--self:UnregisterEvent("CONFIRM_DISENCHANT_ROLL")
-		--self:UnregisterEvent("CONFIRM_LOOT_ROLL")
-		--self:UnregisterEvent("LOOT_BIND_CONFIRM")
-		--self:UnregisterEvent("LOOT_OPENED")
-		--self:UnregisterEvent('PLAYER_ENTERING_WORLD')
-		--self:UnregisterEvent("ADDON_LOADED")
-	--end
 end
 
 function LT:LootShow()
 	local instance = IsInInstance()
-	--LootHistoryFrame:SetAlpha(E.db.sle.loot.history.alpha or 1)
 
 	if (not instance and E.db.sle.loot.history.autohide) then
 		LootHistoryFrame:Hide()
@@ -304,10 +249,7 @@ function LT:Initialize()
 	if not E.db.sle.loot.enable then return end
 	self:RegisterEvent("START_LOOT_ROLL", HandleRoll)
 	self:RegisterEvent("PLAYER_LEVEL_UP")
-	--Used to debug
-	--self:RegisterEvent('MODIFIER_STATE_CHANGED')
 
-	--hooksecurefunc(M, 'START_LOOT_ROLL', function(self, event, id) HandleRoll(event, id) end)
 	LT:LoadLoot()
 	LT:Update()
 end
