@@ -38,9 +38,9 @@ local function ModifierCheck()
 
 	if heldModifier == '3' and shiftDown then
 		return true
-	elseif heldModifier == '4' and ctrlDown then
+	elseif heldModifier == '5' and ctrlDown then
 		return true
-	elseif heldModifier == '5' and altDown then
+	elseif heldModifier == '4' and altDown then
 		return true
 	elseif heldModifier == '2' then
 		return true
@@ -132,7 +132,6 @@ local function Announce(event)
 	if not IsInGroup() then return end -- not in group, exit.
 	local m = 0
 	local q = E.db.sle.loot.announcer.quality == "EPIC" and 4 or E.db.sle.loot.announcer.quality == "RARE" and 3 or E.db.sle.loot.announcer.quality == "UNCOMMON" and 2
-	
 	if (Check() and E.db.sle.loot.announcer.auto) or (ModifierCheck() and (IsInGroup() or IsInRaid())) then
 	--if (Check() and E.db.sle.loot.announcer.auto) or (IsLeftControlKeyDown() and (IsInGroup() or IsInRaid())) then
 		for i = 1, GetNumLootItems() do
