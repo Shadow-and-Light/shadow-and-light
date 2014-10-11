@@ -1,4 +1,4 @@
-﻿﻿local E, L, V, P, G = unpack(ElvUI);
+﻿local E, L, V, P, G = unpack(ElvUI);
 local CFO = E:GetModule('CharacterFrameOptions');
 local LSM = LibStub("LibSharedMedia-3.0")
 
