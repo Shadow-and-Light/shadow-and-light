@@ -1257,7 +1257,7 @@ function IA:CreateInspectFrame()
 			local SendChannel
 			
 			if AISM and AISM.AISMUserList[self.Data.TableIndex] then
-				if self.Data.Realm == Info.myrealm then
+				if self.Data.Realm == E.myrealm then
 					SendChannel = 'WHISPER'
 				elseif AISM.AISMUserList[self.Data.TableIndex] == 'GUILD' then
 					SendChannel = 'GUILD'
@@ -1336,9 +1336,9 @@ function IA:CreateInspectFrame()
 				local DataTable = {
 					Name = Menu.name or Name,
 					Unit = UnitExists(Menu.name) and Menu.name or Unit,
-					Realm = Menu.server ~= '' and Menu.server or Info.myrealm
+					Realm = Menu.server ~= '' and Menu.server or E.myrealm
 				}
-				DataTable.TableIndex = DataTable.Unit and GetUnitName(DataTable.Unit, 1) or DataTable.Name..(DataTable.Realm ~= Info.myrealm and '-'..DataTable.Realm or '')
+				DataTable.TableIndex = DataTable.Unit and GetUnitName(DataTable.Unit, 1) or DataTable.Name..(DataTable.Realm ~= E.myrealm and '-'..DataTable.Realm or '')
 				
 				if DataTable.Name == E.myname or DataTable.Unit and (UnitCanAttack('player', DataTable.Unit) or not UnitIsConnected(DataTable.Unit) or not UnitIsPlayer(DataTable.Unit)) then
 					if AISM then
@@ -1360,13 +1360,13 @@ function IA:CreateInspectFrame()
 					local isSending
 					print('전송준비')
 					if DataTable.Unit and not (UnitCanAttack('player', DataTable.Unit) or not UnitIsConnected(DataTable.Unit) or not UnitIsPlayer(DataTable.Unit)) then
-						if DataTable.Realm == Info.myrealm or KF.CurrentGroupMode ~= 'NoGroup' then
+						if DataTable.Realm == E.myrealm or KF.CurrentGroupMode ~= 'NoGroup' then
 							isSending = 'AISM_CheckResponse'
-							SendAddonMessage('AISM', 'AISM_Check', DataTable.Realm == Info.myrealm and 'WHISPER' or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(KF.CurrentGroupMode), DataTable.Name)
+							SendAddonMessage('AISM', 'AISM_Check', DataTable.Realm == E.myrealm and 'WHISPER' or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(KF.CurrentGroupMode), DataTable.Name)
 						end
 					elseif Menu.which == 'GUILD' then
 						isSending = 'AISM_GUILD_CheckResponse'
-						SendAddonMessage('AISM', 'AISM_GUILD_Check', DataTable.Realm == Info.myrealm and 'WHISPER' or 'GUILD', DataTable.Name)
+						SendAddonMessage('AISM', 'AISM_GUILD_Check', DataTable.Realm == E.myrealm and 'WHISPER' or 'GUILD', DataTable.Name)
 					end
 					
 					print(isSending)
@@ -1626,7 +1626,7 @@ IA.InspectUnit = function(UnitID)
 		_, IA.CurrentInspectData.Class, IA.CurrentInspectData.ClassID = UnitClass(UnitID)
 		IA.CurrentInspectData.guildName, IA.CurrentInspectData.guildRankName = GetGuildInfo(UnitID)
 		
-		IA.CurrentInspectData.Realm = IA.CurrentInspectData.Realm ~= '' and IA.CurrentInspectData.Realm ~= Info.myrealm and IA.CurrentInspectData.Realm or nil
+		IA.CurrentInspectData.Realm = IA.CurrentInspectData.Realm ~= '' and IA.CurrentInspectData.Realm ~= E.myrealm and IA.CurrentInspectData.Realm or nil
 		
 		IA.ReinspectCount = 1
 		IA.NeedModelSetting = true
