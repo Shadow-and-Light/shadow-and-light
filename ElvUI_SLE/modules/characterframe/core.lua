@@ -7,31 +7,27 @@ SLArmoryConstants = {
 	['EnchantKey'] = ENCHANTED_TOOLTIP_LINE:gsub('%%s', '(.+)'),
 	['ItemSetBonusKey'] = ITEM_SET_BONUS:gsub('%%s', '(.+)'),
 	['TransmogrifiedKey'] = TRANSMOGRIFIED:gsub('%%s', '(.+)'),
-	
 	['GearList'] = {
 		'HeadSlot', 'HandsSlot', 'NeckSlot', 'WaistSlot', 'ShoulderSlot', 'LegsSlot', 'BackSlot', 'FeetSlot', 'ChestSlot', 'Finger0Slot',
 		'ShirtSlot', 'Finger1Slot', 'TabardSlot', 'Trinket0Slot', 'WristSlot', 'Trinket1Slot', 'SecondaryHandSlot', 'MainHandSlot'
 	},
-	
 	['EnchantableSlots'] = {
 		['NeckSlot'] = true, ['BackSlot'] = true, ['Finger0Slot'] = true, ['Finger1Slot'] = true, ['MainHandSlot'] = true, ['SecondaryHandSlot'] = true
 	},
-	
 	['UpgradeColor'] = {
 		[16] = '|cffff9614', [12] = '|cfff88ef4', [8] = '|cff2eb7e4', [4] = '|cffceff00'
 	},
-	
 	['GemColor'] = {
 		['RED'] = { 1, .2, .2, }, ['YELLOW'] = { .97, .82, .29, }, ['BLUE'] = { .47, .67, 1, }
 	},
-	
 	['EmptySocketString'] = {
 		[EMPTY_SOCKET_BLUE] = true, [EMPTY_SOCKET_COGWHEEL] = true, [EMPTY_SOCKET_HYDRAULIC] = true, [EMPTY_SOCKET_META] = true,
 		[EMPTY_SOCKET_NO_COLOR] = true, [EMPTY_SOCKET_PRISMATIC] = true, [EMPTY_SOCKET_RED] = true, [EMPTY_SOCKET_YELLOW] = true
 	},
-	
+	--171 per Darth can we trust him? lol
 	['ItemUpgrade'] = {
 		['0'] = 0, ['1'] = 8,
+		['171'] = 0,
 		['373'] = 4, ['374'] = 8, ['375'] = 4, ['376'] = 4, ['377'] = 4, ['379'] = 4, ['380'] = 4,
 		['445'] = 0, ['446'] = 4, ['447'] = 8, ['451'] = 0, ['452'] = 8, ['453'] = 0, ['454'] = 4,
 		['455'] = 8, ['456'] = 0, ['457'] = 8, ['458'] = 0, ['459'] = 4, ['460'] = 8, ['461'] = 12,
@@ -40,28 +36,25 @@ SLArmoryConstants = {
 		['491'] = 0, ['492'] = 4, ['493'] = 8, ['494'] = 0, ['495'] = 4, ['496'] = 8, ['497'] = 12, ['498'] = 16,
 		['504'] = 12, ['505'] = 16, ['506'] = 20, ['507'] = 24,
 	},
-	
 	['ItemBindString'] = { -- Usually transmogrify string is located upper than bind string so we need to check this string for adding a transmogrify string in tooltip.
-			[ITEM_BIND_ON_EQUIP] = true,
-			[ITEM_BIND_ON_PICKUP] = true,
-			[ITEM_BIND_TO_ACCOUNT] = true,
-			[ITEM_BIND_TO_BNETACCOUNT] = true
-		},
-	
+		[ITEM_BIND_ON_EQUIP] = true,
+		[ITEM_BIND_ON_PICKUP] = true,
+		[ITEM_BIND_TO_ACCOUNT] = true,
+		[ITEM_BIND_TO_BNETACCOUNT] = true
+	},
 	['CanTransmogrifySlot'] = {
-			['HeadSlot'] = true,
-			['ShoulderSlot'] = true,
-			['BackSlot'] = true,
-			['ChestSlot'] = true,
-			['WristSlot'] = true,
-			['HandsSlot'] = true,
-			['WaistSlot'] = true,
-			['LegsSlot'] = true,
-			['FeetSlot'] = true,
-			['MainHandSlot'] = true,
-			['SecondaryHandSlot'] = true
-		},
-	
+		['HeadSlot'] = true,
+		['ShoulderSlot'] = true,
+		['BackSlot'] = true,
+		['ChestSlot'] = true,
+		['WristSlot'] = true,
+		['HandsSlot'] = true,
+		['WaistSlot'] = true,
+		['LegsSlot'] = true,
+		['FeetSlot'] = true,
+		['MainHandSlot'] = true,
+		['SecondaryHandSlot'] = true
+	},
 	['ItemEnchant_Profession_Inscription'] = {
 		['NeedLevel'] = 600,
 		['4912'] = true, -- ?? ?? ????			Secret Ox Horn Inscription
@@ -69,7 +62,6 @@ SLArmoryConstants = {
 		['4914'] = true, -- ?? ??? ?? ????	Secret Tiger Claw Inscription
 		['4915'] = true, -- ?? ??? ??? ????	Secret Tiger Fang Inscription
 	},
-	
 	['ItemEnchant_Profession_LeatherWorking'] = {
 		['NeedLevel'] = 575,
 		['4875'] = true, -- ?? ?? - ?				Fur Lining - Strength
@@ -77,16 +69,13 @@ SLArmoryConstants = {
 		['4878'] = true, -- ?? ?? - ??			Fur Lining - Stamina
 		['4879'] = true, -- ?? ?? - ???			Fur Lining - Agility
 	},
-	
 	['ItemEnchant_Profession_Tailoring'] = {
 		['NeedLevel'] = 550,
 		['4892'] = true, -- ??? ??					Lightweave Embroidery
 		['4893'] = true, -- ??? ??					Darkglow Embroidery
 		['4894'] = true, -- ?? ??					Swordguard Embroidery
 	},
-	
 	['ProfessionList'] = {},
-	
 	['CommonScript'] = {
 		['OnEnter'] = function(self)
 			if self.Link or self.Message then
@@ -167,7 +156,6 @@ SLArmoryConstants = {
 			end
 		end,
 	},
-
 	['Toolkit'] = {
 		['Color_Value'] = function(InputText)
 			return E:RGBToHex(E.media.rgbvaluecolor[1], E.media.rgbvaluecolor[2], E.media.rgbvaluecolor[3])..(InputText and InputText..'|r' or '')
@@ -195,12 +183,12 @@ SLArmoryConstants = {
 				
 				self = self.text
 			end
-			
+
 			self:FontTemplate(Style.Font and LibStub('LibSharedMedia-3.0'):Fetch('font', Style.Font), Style.FontSize, Style.FontOutline)
 			self:SetJustifyH(Style.directionH or 'CENTER')
 			self:SetJustifyV(Style.directionV or 'MIDDLE')
 			self:SetText(Text)
-			
+
 			if ... then
 				self:Point(...)
 			else
@@ -261,6 +249,7 @@ for ProfessionSkillID, Key in pairs({
 	[102161] = 'Mining',
 	[102216] = 'Skinning'
 })
+
 do
 	local ProfessionName, _, ProfessionTexture = GetSpellInfo(ProfessionSkillID)
 
@@ -329,7 +318,6 @@ L['Warlock'] = SLArmoryConstants.Toolkit.Color_Class('WARLOCK', ClassName['WARLO
 _, L['Spec_Warlock_Affliction'] = GetSpecializationInfoByID(265)
 _, L['Spec_Warlock_Demonology'] = GetSpecializationInfoByID(266)
 _, L['Spec_Warlock_Destruction'] = GetSpecializationInfoByID(267)
-
 
 SLArmoryConstants['ClassRole'] = {
 	['WARRIOR'] = {

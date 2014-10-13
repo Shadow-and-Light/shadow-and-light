@@ -73,6 +73,7 @@ P['sle'] = {
 	['characterframeoptions'] = {
 		['shownormalgradient'] = true,
 		['showerrorgradient'] = true,
+		['gradientColor'] = { .41, .83, 1 },
 		['showimage'] = true,
 		['image'] = {
 			['dropdown'] = "SPACE",

@@ -64,7 +64,7 @@ local function configTable()
 								type = 'toggle',
 								name = L["Show Background Image"],
 								get = function(info) return E.db.sle.characterframeoptions.showimage end,
-								set = function(info, value) E.db.sle.characterframeoptions.showimage = value; CFO:ArmoryFrame_DataSetting(); end,
+								set = function(info, value) E.db.sle.characterframeoptions.showimage = value; CFO:UpdateCharacterBG(); end,
 							},
 							dropdown = {
 								type = 'select',
@@ -81,7 +81,7 @@ local function configTable()
 								},
 								get = function() return E.db.sle.characterframeoptions.image.dropdown end,
 								set = function(_, value)
-									E.db.sle.characterframeoptions.image.dropdown = value; CFO:ArmoryFrame_DataSetting();
+									E.db.sle.characterframeoptions.image.dropdown = value; CFO:UpdateCharacterBG();
 								end,
 								
 							},
