@@ -574,158 +574,165 @@ local function AffinitiiSetup() --The function to switch from class ElvUI settin
 	SLEInstallStepComplete.message = L["Affinitii's Defaults Set"]
 	SLEInstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
-	layout = E.db.layoutSet  --Pull which layout was selected if any.
+	-- layout = E.db.layoutSet  --Pull which layout was selected if any.
 	pixel = E.PixelMode  --Pull PixelMode
-	E.private.general.pixelPerfect = true
-	E.db.general.autoAcceptInvite = true
+	
+	--Profile--
 	E.db.general.autoRepair = "GUILD"
 	E.db.general.bottomPanel = false
-	E.db.general.topPanel = false
-	E.db.general.backdropfadecolor = {
-		["r"] = 0.054,
-		["g"] = 0.054,
-		["b"] = 0.054,
-	}
-	E.db.general.valuecolor = {
-		["r"] = 0.09,
-		["g"] = 0.513,
-		["b"] = 0.819,
-	}
-	E.db.general.health = {
-	}
-	E.db.general.BUFFS = {
-	}
-	E.db.general.vendorGrays = true
-	E.db.general.autoRoll = true
+	E.db.general.backdropfadecolor.b = 0.054
+	E.db.general.backdropfadecolor.g = 0.054
+	E.db.general.backdropfadecolor.r = 0.054
+	E.db.general.valuecolor.b = 0.819
+	E.db.general.valuecolor.g = 0.513
+	E.db.general.valuecolor.r = 0.09
 	E.db.general.threat.position = "LEFTCHAT"
-
-	E.private.general.normTex = "Polished Wood"
-	E.private.general.glossTex = "Polished Wood"
-	E.private.skins.addons.EmbedSkada = true
-	E.private.skins.addons.AlwaysTrue = true
-
+	E.db.general.vendorGrays = true
+	E.db.general.topPanel = false
+	E.db.movers.DP_6_Mover = "BOTTOMElvUIParentBOTTOM03"
+	E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM097"
+	E.db.movers.ElvUF_RaidMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT440511"
+	E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021"
+	E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT449511"
+	E.db.movers.BossButton = "TOPLEFTElvUIParentTOPLEFT622-352"
+	E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM-63436"
+	E.db.movers.ClassBarMover = "BOTTOMElvUIParentBOTTOM-337500"
+	E.db.movers.SquareMinimapBar = "TOPRIGHTElvUIParentTOPRIGHT-4-211"
+	E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM278200"
+	E.db.movers.ElvUF_Raid40Mover = "TOPLEFTElvUIParentTOPLEFT447-468"
+	E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM059"
+	E.db.movers.Bottom_Panel_Mover = "BOTTOMElvUIParentBOTTOM0273"
+	E.db.movers.ElvAB_4 = "BOTTOMLEFTElvUIParentBOTTOMRIGHT-413200"
+	E.db.movers.AltPowerBarMover = "BOTTOMElvUIParentBOTTOM-300338"
+	E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM26427"
+	E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-26427"
+	E.db.movers.ElvUF_Raid25Mover = "TOPLEFTElvUIParentTOPLEFT449-448"
+	E.db.movers.PetAB = "TOPRIGHTElvUIParentTOPRIGHT-4-433"
+	E.db.movers.ElvAB_6 = "BOTTOMElvUIParentBOTTOM0102"
+	E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT41421"
+	E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT449511"
+	E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT41421"
+	E.db.movers.ArenaHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-210-410"
+	E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM0230"
+	E.db.movers.Top_Center_Mover = "BOTTOMElvUIParentBOTTOM-2644"
+	E.db.movers.BossHeaderMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-210435"
+	E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-278200"
+	E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM025"
+	E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
+	E.db.movers.MMButtonsMover = "TOPRIGHTElvUIParentTOPRIGHT-214-160"
+	E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM0190"
+	E.db.movers.DP_5_Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4327"
 	E.db.gridSize = 110
-	E.db.hideTutorial = 1
-
 	E.db.tooltip.style = "inset"
-
-	--Chat
+	E.db.tooltip.visibility.combat = true
+	E.db.hideTutorial = true
+	E.db.chat.timeStampFormat = "%I:%M"
 	E.db.chat.editBoxPosition = "ABOVE_CHAT"
+	E.db.chat.lfgIcons = false
 	E.db.chat.emotionIcons = false
-	if GetScreenWidth() < 1920 then
-		E.db.chat.panelWidth = 380
-	else
-		E.db.chat.panelWidth = 412
-	end
-
-	--Unitframes
-	E.db.unitframe.font = "ElvUI Pixel"
-	E.db.unitframe.fontOutline = "MONOCHROMEOUTLINE"
-	E.db.unitframe.statusbar = "Polished Wood"
-	E.db.unitframe.smartRaidFilter = true
-	E.db.unitframe.colors.healthclass = false
-	E.db.unitframe.colors.castColor = {
-		["r"] = 0.1,
-		["g"] = 0.1,
-		["b"] = 0.1,
-	}
-	E.db.unitframe.colors.health = {--
-		["r"] = 0.2352941176470588,
-		["g"] = 0.2352941176470588,
-		["b"] = 0.2352941176470588,
-	}
-	E.db.unitframe.colors.auraBarBuff = {
-		["b"] = 0.09411764705882353,
-		["g"] = 0.07843137254901961,
-		["r"] = 0.3098039215686275,
-	}
-	E.db.unitframe.colors.transparentPower = true
-	E.db.unitframe.colors.transparentHealth = true
-
 	E.db.unitframe.units.tank.enable = false
-
-	E.db.unitframe.units.assist.enable = false
-	E.db.unitframe.units.assist.targetsGroup.enable = false
-
-	E.db.unitframe.units.arena.power.width = "inset"
-	E.db.unitframe.units.arena.power.offset = 0
-
-	E.db.unitframe.units.targettarget.power.width = "inset"
-	E.db.unitframe.units.targettarget.power.offset = 0
-
-	E.db.unitframe.units.pet.power.width = "inset"
-	E.db.unitframe.units.pet.power.offset = 0
-
-	E.db.unitframe.units.pettarget.power.width = "inset"
-
 	E.db.unitframe.units.boss.portrait.enable = true
 	E.db.unitframe.units.boss.portrait.overlay = true
 	E.db.unitframe.units.boss.power.width = "inset"
-	E.db.unitframe.units.boss.power.offset = 0
-
+	E.db.unitframe.units.raid40.horizontalSpacing = 1
+	E.db.unitframe.units.raid40.debuffs.xOffset = -4
+	E.db.unitframe.units.raid40.debuffs.yOffset = -9
+	E.db.unitframe.units.raid40.debuffs.anchorPoint = "TOPRIGHT"
+	E.db.unitframe.units.raid40.debuffs.clickThrough = true
+	E.db.unitframe.units.raid40.debuffs.useBlacklist = false
+	E.db.unitframe.units.raid40.debuffs.perrow = 2
+	E.db.unitframe.units.raid40.debuffs.useFilter = "Blacklist"
+	E.db.unitframe.units.raid40.debuffs.sizeOverride = 21
+	E.db.unitframe.units.raid40.debuffs.enable = true
+	E.db.unitframe.units.raid40.rdebuffs.size = 26
+	E.db.unitframe.units.raid40.invertGroupingOrder = false
+	E.db.unitframe.units.raid40.name.text_format = "[namecolor][name:veryshort]"
+	E.db.unitframe.units.raid40.name.position = "TOP"
+	E.db.unitframe.units.raid40.power.enable = true
+	E.db.unitframe.units.raid40.power.width = "inset"
+	E.db.unitframe.units.raid40.power.position = "CENTER"
+	E.db.unitframe.units.raid40.customTexts = {}
+	E.db.unitframe.units.raid40.customTexts['Health Text'] = {}
+	E.db.unitframe.units.raid40.customTexts['Health Text'].font = "ElvUI Pixel"
+	E.db.unitframe.units.raid40.customTexts['Health Text'].justifyH = "CENTER"
+	E.db.unitframe.units.raid40.customTexts['Health Text'].fontOutline = "MONOCHROMEOUTLINE"
+	E.db.unitframe.units.raid40.customTexts['Health Text'].xOffset = 0
+	E.db.unitframe.units.raid40.customTexts['Health Text'].size = 10
+	E.db.unitframe.units.raid40.customTexts['Health Text'].text_format = "[healthcolor][health:deficit]"
+	E.db.unitframe.units.raid40.customTexts['Health Text'].yOffset = -7
+	E.db.unitframe.units.raid40.healPrediction = true
+	E.db.unitframe.units.raid40.width = 50
+	E.db.unitframe.units.raid40.growthDirection = "UP_LEFT"
+	E.db.unitframe.units.raid40.health.frequentUpdates = true
+	E.db.unitframe.units.raid40.buffs.xOffset = 21
+	E.db.unitframe.units.raid40.buffs.yOffset = 25
+	E.db.unitframe.units.raid40.buffs.anchorPoint = "BOTTOMLEFT"
+	E.db.unitframe.units.raid40.buffs.clickThrough = true
+	E.db.unitframe.units.raid40.buffs.useBlacklist = false
+	E.db.unitframe.units.raid40.buffs.noDuration = false
+	E.db.unitframe.units.raid40.buffs.playerOnly = false
+	E.db.unitframe.units.raid40.buffs.perrow = 1
+	E.db.unitframe.units.raid40.buffs.useFilter = "TurtleBuffs"
+	E.db.unitframe.units.raid40.buffs.noConsolidated = false
+	E.db.unitframe.units.raid40.buffs.sizeOverride = 17
+	E.db.unitframe.units.raid40.buffs.enable = true
+	E.db.unitframe.units.raid40.height = 43
+	E.db.unitframe.units.raid40.verticalSpacing = 1
+	E.db.unitframe.units.raid40.raidicon.attachTo = "LEFT"
+	E.db.unitframe.units.raid40.raidicon.xOffset = 9
+	E.db.unitframe.units.raid40.raidicon.yOffset = 0
+	E.db.unitframe.units.raid40.raidicon.size = 13
 	E.db.unitframe.units.focus.power.width = "inset"
-	E.db.unitframe.units.focus.power.offset = 0
-
-	E.db.unitframe.units.player.debuffs.attachTo = "BUFFS"
-	E.db.unitframe.units.player.portrait.overlay = true
-	E.db.unitframe.units.player.portrait.enable = true
-	E.db.unitframe.units.player.classbar.enable = false
-	E.db.unitframe.units.player.aurabar.enable = false
-	E.db.unitframe.units.player.power.width = "inset"
-	E.db.unitframe.units.player.power.offset = 0
-	E.db.unitframe.units.player.buffs.enable = true
-	E.db.unitframe.units.player.buffs.attachTo = "FRAME"
-	E.db.unitframe.units.player.buffs.noDuration = false
-	E.db.unitframe.units.player.castbar.width = 410
-	E.db.unitframe.units.player.castbar.height = 25
-
-	E.db.unitframe.units.target.portrait.enable = true
 	E.db.unitframe.units.target.portrait.overlay = true
 	E.db.unitframe.units.target.aurabar.enable = false
 	E.db.unitframe.units.target.power.width = "inset"
-	E.db.unitframe.units.target.power.offset = 0
-
+	E.db.unitframe.units.target.power.height = 11
+	E.db.unitframe.units.raid.debuffs.countFontSize = 13
+	E.db.unitframe.units.raid.debuffs.fontSize = 9
+	E.db.unitframe.units.raid.debuffs.enable = true
+	E.db.unitframe.units.raid.debuffs.yOffset = -7
+	E.db.unitframe.units.raid.debuffs.anchorPoint = "TOPRIGHT"
+	E.db.unitframe.units.raid.debuffs.sizeOverride = 21
+	E.db.unitframe.units.raid.debuffs.xOffset = -4
+	E.db.unitframe.units.raid.growthDirection = "LEFT_UP"
+	E.db.unitframe.units.raid.numGroups = 6
+	E.db.unitframe.units.raid.roleIcon.enable = false
+	E.db.unitframe.units.raid.healPrediction = true
+	E.db.unitframe.units.raid.power.height = 8
+	E.db.unitframe.units.raid.buffs.enable = true
+	E.db.unitframe.units.raid.buffs.yOffset = 28
+	E.db.unitframe.units.raid.buffs.anchorPoint = "BOTTOMLEFT"
+	E.db.unitframe.units.raid.buffs.clickThrough = true
+	E.db.unitframe.units.raid.buffs.useBlacklist = false
+	E.db.unitframe.units.raid.buffs.noDuration = false
+	E.db.unitframe.units.raid.buffs.playerOnly = false
+	E.db.unitframe.units.raid.buffs.perrow = 1
+	E.db.unitframe.units.raid.buffs.useFilter = "TurtleBuffs"
+	E.db.unitframe.units.raid.buffs.noConsolidated = false
+	E.db.unitframe.units.raid.buffs.sizeOverride = 22
+	E.db.unitframe.units.raid.buffs.xOffset = 30
 	E.db.unitframe.units.focustarget.power.width = "inset"
-
-	if not E.db.unitframe.units.party.customTexts then
-		E.db.unitframe.units.party.customTexts = {};
-		if not E.db.unitframe.units.party.customTexts["Health Text"] then
-			E.db.unitframe.units.party.customTexts["Health Text"] = {};
-		end
-	end
-	E.db.unitframe.units.party.customTexts["Health Text"] = {
-		["font"] = "ElvUI Pixel",
-		["justifyH"] = "CENTER",
-		["fontOutline"] = "MONOCHROMEOUTLINE",
-		["xOffset"] = 0,
-		["size"] = 10,
-		["text_format"] = "[healthcolor][health:deficit]",
-		["yOffset"] = -7,
-	}
-	E.db.unitframe.units.party.debuffs.xOffset = -4
+	E.db.unitframe.units.pet.power.width = "inset"
+	E.db.unitframe.units.targettarget.power.width = "inset"
+	E.db.unitframe.units.player.debuffs.attachTo = "BUFFS"
+	E.db.unitframe.units.player.portrait.overlay = true
+	E.db.unitframe.units.player.classbar.detachFromFrame = true
+	E.db.unitframe.units.player.classbar.enable = false
+	E.db.unitframe.units.player.aurabar.enable = false
+	E.db.unitframe.units.player.power.width = "inset"
+	E.db.unitframe.units.player.power.height = 11
+	E.db.unitframe.units.player.buffs.enable = true
+	E.db.unitframe.units.player.buffs.noDuration = false
+	E.db.unitframe.units.player.buffs.attachTo = "FRAME"
+	E.db.unitframe.units.player.castbar.width = 399
+	E.db.unitframe.units.player.castbar.height = 25
+	E.db.unitframe.units.party.horizontalSpacing = 1
+	E.db.unitframe.units.party.debuffs.sizeOverride = 21
 	E.db.unitframe.units.party.debuffs.yOffset = -7
 	E.db.unitframe.units.party.debuffs.anchorPoint = "TOPRIGHT"
-	E.db.unitframe.units.party.debuffs.sizeOverride = 21
-	E.db.unitframe.units.party.columnAnchorPoint = "BOTTOM"
-	E.db.unitframe.units.party.buffIndicator.size = 10
-	E.db.unitframe.units.party.point = "RIGHT"
-	E.db.unitframe.units.party.xOffset = -1
-	E.db.unitframe.units.party.yOffset = 1
-	E.db.unitframe.units.party.power.width = "inset"
-	E.db.unitframe.units.party.power.offset = 0
-	E.db.unitframe.units.party.power.text_format = ""
-	E.db.unitframe.units.party.buffIndicator.size = 10
-	E.db.unitframe.units.party.roleIcon.enable = false
-	E.db.unitframe.units.party.GPSArrow.size = 40
-	E.db.unitframe.units.party.growthDirection = "LEFT_UP"
-	E.db.unitframe.units.party.healPrediction = true
-	E.db.unitframe.units.party.health.frequentUpdates = true
-	E.db.unitframe.units.party.health.text_format = ""
-	E.db.unitframe.units.party.health.position = "BOTTOM"
-	E.db.unitframe.units.party.name.text_format = "[namecolor][name:veryshort] [difficultycolor][smartlevel]"
-	E.db.unitframe.units.party.name.position = "TOP"
-	E.db.unitframe.units.party.buffs.noConsolidated = false
+	E.db.unitframe.units.party.debuffs.xOffset = -4
 	E.db.unitframe.units.party.buffs.enable = true
+	E.db.unitframe.units.party.buffs.yOffset = 28
 	E.db.unitframe.units.party.buffs.anchorPoint = "BOTTOMLEFT"
 	E.db.unitframe.units.party.buffs.clickThrough = true
 	E.db.unitframe.units.party.buffs.useBlacklist = false
@@ -733,348 +740,343 @@ local function AffinitiiSetup() --The function to switch from class ElvUI settin
 	E.db.unitframe.units.party.buffs.playerOnly = false
 	E.db.unitframe.units.party.buffs.perrow = 1
 	E.db.unitframe.units.party.buffs.useFilter = "TurtleBuffs"
-	E.db.unitframe.units.party.buffs.yOffset = 28
-	E.db.unitframe.units.party.buffs.xOffset = 30
+	E.db.unitframe.units.party.buffs.noConsolidated = false
 	E.db.unitframe.units.party.buffs.sizeOverride = 22
+	E.db.unitframe.units.party.buffs.xOffset = 30
+	E.db.unitframe.units.party.growthDirection = "LEFT_UP"
+	E.db.unitframe.units.party.power.text_format = ""
+	E.db.unitframe.units.party.power.width = "inset"
+	E.db.unitframe.units.party.buffIndicator.size = 10
+	E.db.unitframe.units.party.roleIcon.enable = false
+	E.db.unitframe.units.party.roleIcon.position = "BOTTOMRIGHT"
+	E.db.unitframe.units.party.targetsGroup.anchorPoint = "BOTTOM"
+	E.db.unitframe.units.party.GPSArrow.size = 40
+	E.db.unitframe.units.party.customTexts = {}
+	E.db.unitframe.units.party.customTexts['Health Text'] = {}
+	E.db.unitframe.units.party.customTexts['Health Text'].font = "ElvUI Pixel"
+	E.db.unitframe.units.party.customTexts['Health Text'].justifyH = "CENTER"
+	E.db.unitframe.units.party.customTexts['Health Text'].fontOutline = "MONOCHROMEOUTLINE"
+	E.db.unitframe.units.party.customTexts['Health Text'].xOffset = 0
+	E.db.unitframe.units.party.customTexts['Health Text'].size = 10
+	E.db.unitframe.units.party.customTexts['Health Text'].text_format = "[healthcolor][health:deficit]"
+	E.db.unitframe.units.party.customTexts['Health Text'].yOffset = -7
+	E.db.unitframe.units.party.healPrediction = true
+	E.db.unitframe.units.party.width = 80
+	E.db.unitframe.units.party.name.text_format = "[namecolor][name:veryshort] [difficultycolor][smartlevel]"
+	E.db.unitframe.units.party.name.position = "TOP"
+	E.db.unitframe.units.party.health.frequentUpdates = true
+	E.db.unitframe.units.party.health.position = "BOTTOM"
+	E.db.unitframe.units.party.health.text_format = ""
+	E.db.unitframe.units.party.height = 45
+	E.db.unitframe.units.party.verticalSpacing = 1
 	E.db.unitframe.units.party.petsGroup.anchorPoint = "BOTTOM"
 	E.db.unitframe.units.party.raidicon.attachTo = "LEFT"
 	E.db.unitframe.units.party.raidicon.xOffset = 9
-	E.db.unitframe.units.party.raidicon.size = 13
 	E.db.unitframe.units.party.raidicon.yOffset = 0
-	E.db.unitframe.units.party.targetsGroup.anchorPoint = "BOTTOM"
-	E.db.unitframe.units.party.width = 80
-	E.db.unitframe.units.party.height = 45
-	E.db.unitframe.units.party.groupBy = "GROUP"
-
-	if not E.db.unitframe.units.raid10.customTexts then
-		E.db.unitframe.units.raid10.customTexts = {};
-		if not E.db.unitframe.units.raid10.customTexts["Health Text"] then
-			E.db.unitframe.units.raid10.customTexts["Health Text"] = {};
-		end
-	end
-	E.db.unitframe.units.raid10.customTexts["Health Text"] = {
-		["font"] = "ElvUI Pixel",
-		["justifyH"] = "CENTER",
-		["fontOutline"] = "MONOCHROMEOUTLINE",
-		["xOffset"] = 0,
-		["size"] = 10,
-		["text_format"] = "[healthcolor][health:deficit]",
-		["yOffset"] = -7,
-	}
-	E.db.unitframe.units.raid10.columnAnchorPoint = "BOTTOM"
-	E.db.unitframe.units.raid10.buffIndicator.fontSize = 10
-	E.db.unitframe.units.raid10.point = "RIGHT"
-	E.db.unitframe.units.raid10.rdebuffs.enable = false
-	E.db.unitframe.units.raid10.yOffset = 4
-	E.db.unitframe.units.raid10.xOffset = -1
-	E.db.unitframe.units.raid10.roleIcon.enable = false
-	E.db.unitframe.units.raid10.power.width = "inset"
-	E.db.unitframe.units.raid10.power.offset = 0
-	E.db.unitframe.units.raid10.positionOverride = "BOTTOMRIGHT"
-	E.db.unitframe.units.raid10.healPrediction = true
-	E.db.unitframe.units.raid10.health.frequentUpdates = true
-	E.db.unitframe.units.raid10.health.text_format = ""
-	E.db.unitframe.units.raid10.debuffs.enable = true
-	E.db.unitframe.units.raid10.debuffs.anchorPoint = "TOPRIGHT"
-	E.db.unitframe.units.raid10.buffs.enable = true
-	E.db.unitframe.units.raid10.buffs.noConsolidated = false
-	E.db.unitframe.units.raid10.buffs.anchorPoint = "BOTTOMLEFT"
-	E.db.unitframe.units.raid10.buffs.clickThrough = true
-	E.db.unitframe.units.raid10.buffs.useBlacklist = false
-	E.db.unitframe.units.raid10.buffs.noDuration = false
-	E.db.unitframe.units.raid10.buffs.playerOnly = false
-	E.db.unitframe.units.raid10.buffs.perrow = 1
-	E.db.unitframe.units.raid10.buffs.useFilter = "TurtleBuffs"
-	E.db.unitframe.units.raid10.raidicon.attachTo = "LEFT"
-	E.db.unitframe.units.raid10.raidicon.xOffset = 9
-	E.db.unitframe.units.raid10.raidicon.size = 13
-	E.db.unitframe.units.raid10.raidicon.yOffset = 0
-	E.db.unitframe.units.raid10.name.text_format = "[namecolor][name:veryshort]"
-	E.db.unitframe.units.raid10.debuffs.sizeOverride = 21
-	E.db.unitframe.units.raid10.debuffs.xOffset = -4
-	E.db.unitframe.units.raid10.debuffs.yOffset = -7
-	E.db.unitframe.units.raid10.height = 45
-	E.db.unitframe.units.raid10.width = 80
-	E.db.unitframe.units.raid10.buffs.yOffset = 28
-	E.db.unitframe.units.raid10.buffs.xOffset = 30
-	E.db.unitframe.units.raid10.buffs.sizeOverride = 22
-	E.db.unitframe.units.raid10.groupBy = "GROUP"
-
-	if not E.db.unitframe.units.raid25.customTexts then
-		E.db.unitframe.units.raid25.customTexts = {};
-		if not E.db.unitframe.units.raid25.customTexts["Health Text"] then
-			E.db.unitframe.units.raid25.customTexts["Health Text"] = {};
-		end
-	end
-	E.db.unitframe.units.raid25.customTexts["Health Text"] = {
-		["font"] = "ElvUI Pixel",
-		["justifyH"] = "CENTER",
-		["fontOutline"] = "MONOCHROMEOUTLINE",
-		["xOffset"] = 0,
-		["size"] = 10,
-		["text_format"] = "[healthcolor][health:deficit]",
-		["yOffset"] = -7,
-	}
-	E.db.unitframe.units.raid25.columnAnchorPoint = "RIGHT"
-	E.db.unitframe.units.raid25.buffIndicator.fontSize = 10
-	E.db.unitframe.units.raid25.point = "BOTTOM"
-	E.db.unitframe.units.raid25.rdebuffs.enable = false
-	E.db.unitframe.units.raid25.xOffset = 1
-	E.db.unitframe.units.raid25.roleIcon.enable = false
-	E.db.unitframe.units.raid25.power.offset = 0
-	E.db.unitframe.units.raid25.power.width = "inset"
-	E.db.unitframe.units.raid25.power.position = "CENTER"
-	E.db.unitframe.units.raid25.growthDirection = "UP_LEFT"
-	E.db.unitframe.units.raid25.healPrediction = true
-	E.db.unitframe.units.raid25.health.frequentUpdates = true
-	E.db.unitframe.units.raid25.health.text_format = ""
-	E.db.unitframe.units.raid25.debuffs.anchorPoint = "TOPRIGHT"
-	E.db.unitframe.units.raid25.debuffs.enable = true
-	E.db.unitframe.units.raid25.debuffs.xOffset = -4
-	E.db.unitframe.units.raid25.debuffs.yOffset = -7
-	E.db.unitframe.units.raid25.debuffs.sizeOverride = 21
-	E.db.unitframe.units.raid25.debuffs.countFontSize = 12
-	E.db.unitframe.units.raid25.debuffs.fontSize = 9
-	E.db.unitframe.units.raid25.raidicon.attachTo = "LEFT"
-	E.db.unitframe.units.raid25.raidicon.xOffset = 9
-	E.db.unitframe.units.raid25.raidicon.yOffset = 0
-	E.db.unitframe.units.raid25.raidicon.size = 13
-	E.db.unitframe.units.raid25.buffs.noConsolidated = false
-	E.db.unitframe.units.raid25.buffs.enable = true
-	E.db.unitframe.units.raid25.buffs.anchorPoint = "BOTTOMLEFT"
-	E.db.unitframe.units.raid25.buffs.clickThrough = true
-	E.db.unitframe.units.raid25.buffs.useBlacklist = false
-	E.db.unitframe.units.raid25.buffs.noDuration = false
-	E.db.unitframe.units.raid25.buffs.playerOnly = false
-	E.db.unitframe.units.raid25.buffs.perrow = 1
-	E.db.unitframe.units.raid25.buffs.useFilter = "TurtleBuffs"
-	E.db.unitframe.units.raid25.name.text_format = "[namecolor][name:veryshort]"
-	E.db.unitframe.units.raid25.yOffset = 4
-	E.db.unitframe.units.raid25.width = 80
-	E.db.unitframe.units.raid25.height = 45
-	E.db.unitframe.units.raid25.buffs.yOffset = 28
-	E.db.unitframe.units.raid25.buffs.xOffset = 30
-	E.db.unitframe.units.raid25.buffs.sizeOverride = 22
-	E.db.unitframe.units.raid25.groupBy = "GROUP"
-
-	if not E.db.unitframe.units.raid40.customTexts then
-		E.db.unitframe.units.raid40.customTexts = {};
-		if not E.db.unitframe.units.raid40.customTexts["Health Text"] then
-			E.db.unitframe.units.raid40.customTexts["Health Text"] = {};
-		end
-	end
-	E.db.unitframe.units.raid40.customTexts["Health Text"] = {
-		["font"] = "ElvUI Pixel",
-		["justifyH"] = "CENTER",
-		["fontOutline"] = "MONOCHROMEOUTLINE",
-		["xOffset"] = 0,
-		["size"] = 10,
-		["text_format"] = "[healthcolor][health:deficit]",
-		["yOffset"] = -7,
-	}
-	E.db.unitframe.units.raid40.columnAnchorPoint = "RIGHT"
-	E.db.unitframe.units.raid40.point = "BOTTOM"
-	E.db.unitframe.units.raid40.xOffset = 1
-	E.db.unitframe.units.raid40.yOffset = 1
-	E.db.unitframe.units.raid40.growthDirection = "UP_LEFT"
-	E.db.unitframe.units.raid40.healPrediction = true
-	E.db.unitframe.units.raid40.width = 50
-	E.db.unitframe.units.raid40.height = 43
-	E.db.unitframe.units.raid40.raidicon.xOffset = 9
-	E.db.unitframe.units.raid40.raidicon.yOffset = 0
-	E.db.unitframe.units.raid40.raidicon.size = 13
-	E.db.unitframe.units.raid40.raidicon.attachTo = "LEFT"
-	E.db.unitframe.units.raid40.rdebuffs.size = 26
-	E.db.unitframe.units.raid40.name.position = "TOP"
-	E.db.unitframe.units.raid40.buffIndicator.fontSize = 10
-	E.db.unitframe.units.raid40.power.enable = true
-	E.db.unitframe.units.raid40.power.offset = 0
-	E.db.unitframe.units.raid40.power.width = "inset"
-	E.db.unitframe.units.raid40.power.position = "CENTER"
-	E.db.unitframe.units.raid40.health.frequentUpdates = true
-	E.db.unitframe.units.raid40.debuffs.sizeOverride = 21
-	E.db.unitframe.units.raid40.debuffs.enable = true
-	E.db.unitframe.units.raid40.debuffs.perrow = 2
-	E.db.unitframe.units.raid40.debuffs.anchorPoint = "TOPRIGHT"
-	E.db.unitframe.units.raid40.debuffs.clickThrough = true
-	E.db.unitframe.units.raid40.debuffs.xOffset = -4
-	E.db.unitframe.units.raid40.debuffs.yOffset = -9
-	E.db.unitframe.units.raid40.debuffs.useBlacklist = false
-	E.db.unitframe.units.raid40.debuffs.useFilter = "Blacklist"
-	E.db.unitframe.units.raid40.buffs.xOffset = 21
-	E.db.unitframe.units.raid40.buffs.yOffset = 25
-	E.db.unitframe.units.raid40.buffs.anchorPoint = "BOTTOMLEFT"
-	E.db.unitframe.units.raid40.buffs.clickThrough = true
-	E.db.unitframe.units.raid40.buffs.noConsolidated = false
-	E.db.unitframe.units.raid40.buffs.noDuration = false
-	E.db.unitframe.units.raid40.buffs.playerOnly = false
-	E.db.unitframe.units.raid40.buffs.perrow = 1
-	E.db.unitframe.units.raid40.buffs.useFilter = "TurtleBuffs"
-	E.db.unitframe.units.raid40.buffs.sizeOverride = 17
-	E.db.unitframe.units.raid40.buffs.useBlacklist = false
-	E.db.unitframe.units.raid40.buffs.enable = true
-	E.db.unitframe.units.raid40.name.text_format = "[namecolor][name:veryshort]"
-	E.db.unitframe.units.raid40.groupBy = "GROUP"
-
-	--Actionbars
-	--Bar 1
-	E.db.actionbar.bar1.enabled = true
-	E.db.actionbar.bar1.backdrop = false
-	E.db.actionbar.bar1.buttons = 12
-	E.db.actionbar.bar1.buttonsize = 32
-	E.db.actionbar.bar1.buttonspacing = 2
-	--Bar 2
-	E.db.actionbar.bar2.enabled = true
-	E.db.actionbar.bar2.backdrop = true
-	E.db.actionbar.bar2.buttons = 12
-	E.db.actionbar.bar2.buttonsize = 32
-	E.db.actionbar.bar2.buttonspacing = 2
-	E.db.actionbar.bar2.heightMult = 2
-	--Bar 3
-	E.db.actionbar.bar3.enabled = true
-	E.db.actionbar.bar3.backdrop = true
-	E.db.actionbar.bar3.buttons = 6
-	E.db.actionbar.bar3.buttonsize = 32
-	E.db.actionbar.bar3.buttonspacing = 2
+	E.db.unitframe.units.party.raidicon.size = 13
+	E.db.unitframe.units.arena.power.width = "inset"
+	E.db.unitframe.units.pettarget.power.width = "inset"
+	E.db.unitframe.units.assist.targetsGroup.enable = false
+	E.db.unitframe.units.assist.enable = false
+	E.db.unitframe.colors.auraBarBuff.b = 0.094117647058824
+	E.db.unitframe.colors.auraBarBuff.g = 0.07843137254902
+	E.db.unitframe.colors.auraBarBuff.r = 0.30980392156863
+	E.db.unitframe.colors.transparentPower = true
+	E.db.unitframe.colors.castColor.b = 0.1
+	E.db.unitframe.colors.castColor.g = 0.1
+	E.db.unitframe.colors.castColor.r = 0.1
+	E.db.unitframe.colors.health.b = 0.23529411764706
+	E.db.unitframe.colors.health.g = 0.23529411764706
+	E.db.unitframe.colors.health.r = 0.23529411764706
+	E.db.unitframe.colors.transparentCastbar = true
+	E.db.unitframe.colors.transparentHealth = true
+	E.db.unitframe.colors.transparentAurabars = true
+	E.db.unitframe.smartRaidFilter = false
+	E.db.unitframe.statusbar = "Polished Wood"
+	E.db.datatexts.minimapPanels = false
+	E.db.datatexts.fontSize = 12
+	E.db.datatexts.panelTransparency = true
+	E.db.datatexts.panels.DP_3.middle = "DPS"
+	E.db.datatexts.panels.RightChatDataPanel.right = "Skada"
+	E.db.datatexts.panels.RightChatDataPanel.left = "Combat/Arena Time"
+	E.db.datatexts.panels.DP_1.middle = "Friends"
+	E.db.datatexts.panels.DP_5.middle = "Friends"
+	E.db.datatexts.panels.LeftChatDataPanel.right = "Haste"
+	E.db.datatexts.panels.LeftChatDataPanel.left = "Spell/Heal Power"
+	E.db.datatexts.panels.RightMiniPanel = "Gold"
+	E.db.datatexts.panels.Top_Center = "WIM"
+	E.db.datatexts.panels.Bottom_Panel = "System"
+	E.db.datatexts.panels.DP_6.right = "Gold"
+	E.db.datatexts.panels.DP_6.left = "System"
+	E.db.datatexts.panels.DP_6.middle = "Time"
+	E.db.datatexts.panels.DP_2.middle = "Attack Power"
+	E.db.datatexts.panels.LeftMiniPanel = "Time"
+	E.db.datatexts.font = "ElvUI Font"
+	E.db.datatexts.fontOutline = "None"
+	E.db.datatexts.battleground = false
+	E.db.actionbar.bar3.enabled = false
 	E.db.actionbar.bar3.buttonsPerRow = 3
-	--Bar 4
-	E.db.actionbar.bar4.enabled = true
-	E.db.actionbar.bar4.backdrop = false
-	E.db.actionbar.bar4.buttons = 12
-	E.db.actionbar.bar4.buttonsize = 32
-	E.db.actionbar.bar4.buttonspacing = 2
-	E.db.actionbar.bar4.buttonsPerRow = 6
-	E.db.actionbar.bar4.mouseover = true
-	E.db.actionbar.bar4.point = "BOTTOMLEFT"
-	--Bar 5
-	E.db.actionbar.bar5.enabled = true
-	E.db.actionbar.bar5.backdrop = true
-	E.db.actionbar.bar5.buttons = 6
-	E.db.actionbar.bar5.buttonsize = 32
-	E.db.actionbar.bar5.buttonspacing = 2
+	E.db.actionbar.bar3.alpha = 0.4
+	E.db.actionbar.bar2.enabled = true
+	E.db.actionbar.bar2.buttonspacing = 1
+	E.db.actionbar.bar2.alpha = 0.6
+	E.db.actionbar.bar5.enabled = false
 	E.db.actionbar.bar5.buttonsPerRow = 3
-	--Stance Bar
+	E.db.actionbar.bar5.alpha = 0.4
+	E.db.actionbar.bar1.buttonspacing = 1
+	E.db.actionbar.bar1.alpha = 0.6
 	E.db.actionbar.stanceBar.buttonsPerRow = 1
-	--Pet Bar
-	E.db.actionbar.barPet.point = "TOPRIGHT"
-	E.db.actionbar.barPet.buttonsPerRow = 1
-
-	--Datatext
-	do
-		E.db.datatexts.panelTransparency = false
-		E.db.datatexts.minimapPanels = true
-		E.db.datatexts.fontOutline = "None"
-		E.db.sle.datatext.dp1.enabled = false
-		E.db.sle.datatext.dp2.enabled = false
-		E.db.sle.datatext.dp3.enabled = false
-		E.db.sle.datatext.dp4.enabled = false
-		E.db.sle.datatext.dp5.enabled = false
-		E.db.sle.datatext.dp6.enabled = true
-		E.db.sle.datatext.top.enabled = true
-		E.db.sle.datatext.bottom.enabled = true
-		if GetScreenWidth() < 1920 then
-			E.db.sle.datatext.dp6.width = 410
-			E.db.sle.datatext.bottom.width = 104
-			E.db.sle.datatext.top.width = 104
-			E.db.sle.datatext.chatleft.width = 364
-			E.db.sle.datatext.chatright.width = 364
-		elseif GetScreenWidth() > 1920 then
-			E.db.sle.datatext.dp6.width = 402
-			E.db.sle.datatext.bottom.width = 102
-			E.db.sle.datatext.top.width = 102
-			E.db.sle.datatext.chatleft.width = 396
-			E.db.sle.datatext.chatright.width = 396
-		else
-			E.db.sle.datatext.dp6.width = 410
-			E.db.sle.datatext.bottom.width = 104
-			E.db.sle.datatext.top.width = 104
-			E.db.sle.datatext.chatleft.width = 396
-			E.db.sle.datatext.chatright.width = 396
-		end
-		E.db.datatexts.panels['DP_6']['left'] = "System"
-		E.db.datatexts.panels['DP_6']['middle'] = "Time"
-		E.db.datatexts.panels['DP_6']['right'] = "Gold"
-		E.db.datatexts.panels['LeftChatDataPanel']['left'] = ""
-		E.db.datatexts.panels['LeftChatDataPanel']['middle'] = "Durability"
-		E.db.datatexts.panels['LeftChatDataPanel']['right'] = ""
-		E.db.datatexts.panels['RightChatDataPanel']['left'] = "Skada"
-		E.db.datatexts.panels['RightChatDataPanel']['middle'] = "Combat Time"
-		E.db.datatexts.panels['RightChatDataPanel']['right'] = "WeakAuras"
-		E.db.datatexts.panels['Top_Center'] = "Spec Switch"
-		E.db.datatexts.panels['Bottom_Panel'] = "Bags"
-		E.db.datatexts.panels['LeftMiniPanel'] = "Guild"
-		E.db.datatexts.panels['RightMiniPanel'] = "Friends"
-
-		--Datatext Panels Spec Specific
-		if layout == 'tank' then
-			--E.db.datatexts.panels.DP_5.middle = ""
-			--E.db.datatexts.panels.DP_5.right = ""
-			--E.db.datatexts.panels.DP_6.left = ""
-			--E.db.datatexts.panels.DP_6.middle = ""
-		elseif layout == 'healer' then
-			E.db.datatexts.panels['LeftChatDataPanel']['left'] = "Spell/Heal Power"
-			E.db.datatexts.panels['LeftChatDataPanel']['right'] = "Haste"
-		elseif layout == 'dpsCaster' then
-			E.db.datatexts.panels['LeftChatDataPanel']['left'] = "Spell/Heal Power"
-			E.db.datatexts.panels['LeftChatDataPanel']['right'] = "Haste"
-		else
-			--E.db.datatexts.panels.DP_5.middle = ""
-			--E.db.datatexts.panels.DP_5.right = ""
-			--E.db.datatexts.panels.DP_6.left = ""
-			--E.db.datatexts.panels.DP_6.middle = ""
-		end
-	end
-	do
-		if GetScreenWidth() > 1920 then
-			E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM25427"
-			E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-25427"
-			E.db.movers.Bottom_Panel_Mover = "BOTTOMElvUIParentBOTTOM2544"
-			E.db.movers.Top_Center_Mover = "BOTTOMElvUIParentBOTTOM-2544"
-		else
-			E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM26027"
-			E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-26027"
-			E.db.movers.Bottom_Panel_Mover = "BOTTOMElvUIParentBOTTOM2604"
-			E.db.movers.Top_Center_Mover = "BOTTOMElvUIParentBOTTOM-2604"
-		end
-		E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-278200"
-		E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM0100"
-		E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM278200"
-		E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM0190"
-		--E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM310432"
-		E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM-63436"
-		E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM0230"
-		E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM060"
-		E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM027"
-		E.db.movers.DP_6_Mover = "BOTTOMElvUIParentBOTTOM04"
-		E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021"
-		E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
-		E.db.movers.PetAB = "RIGHTElvUIParentRIGHT00"
-		E.db.movers.ArenaHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-210-410"
-		E.db.movers.BossHeaderMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-210435"
-		if layout == 'dpsCaster' or layout == 'dpsMelee' or layout == 'tank' then
-			E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4200"
-			E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4200"
-			E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4200"
-			E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4200"
-			E.db.movers["BossButton"] = "CENTERElvUIParentCENTER-413188"
-		else
-			E.db.movers.ElvUF_PartyMover = "BOTTOMRIGHTElvUIParentCENTER-213-90"
-			E.db.movers.ElvUF_Raid10Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90"
-			E.db.movers.ElvUF_Raid25Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90"
-			E.db.movers.ElvUF_Raid40Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90"
-			E.db.movers["BossButton"] = "CENTERElvUIParentCENTER-413188"
-		end
+	E.db.actionbar.stanceBar.alpha = 0.6
+	E.db.actionbar.bar4.enabled = false
+	E.db.actionbar.bar4.point = "BOTTOMLEFT"
+	E.db.actionbar.bar4.mouseover = true
+	E.db.actionbar.bar4.backdrop = false
+	E.db.actionbar.bar4.buttonsPerRow = 6
+	E.db.actionbar.bar4.alpha = 0.4
+	E.db.layoutSet = "healer"
+	E.db.sle.datatext.chathandle = true
+	E.db.sle.datatext.top.transparent = true
+	E.db.sle.datatext.top.width = 101
+	E.db.sle.datatext.bottom.transparent = true
+	E.db.sle.datatext.bottom.alpha = 0.8
+	E.db.sle.datatext.bottom.width = 411
+	E.db.sle.datatext.dp6.enabled = true
+	E.db.sle.datatext.dp6.transparent = true
+	E.db.sle.datatext.dp6.alpha = 0.8
+	E.db.sle.datatext.dp6.width = 399
+	E.db.sle.minimap.buttons.anchor = "VERTICAL"
+	E.db.sle.minimap.buttons.mouseover = true
+	E.db.sle.minimap.mapicons.skinmail = false
+	E.db.sle.minimap.mapicons.iconmouseover = true
+	--Character--
+	E.private.general.chatBubbles = "nobackdrop"
+	E.private.addonskins = {}
+	E.private.addonskins.EmbedSystemDual = true
+	E.private.sle.inspectframeoptions.enable = true
+	E.private.sle.characterframeoptions.enable = true
+	E.private.theme = "classic"
+	--Global--
+	E.global.unitframe.aurafilters.TurtleBuffs = {}
+	E.global.unitframe.aurafilters.TurtleBuffs.spells = {}
+	E.global.unitframe.aurafilters.TurtleBuffs.spells['Alter Time'] = {}
+	E.global.unitframe.aurafilters.TurtleBuffs.spells['Elusive Brew'] = {}
+	E.global.unitframe.aurafilters.TurtleBuffs.spells['Alter Time'].enable = true
+	E.global.unitframe.aurafilters.TurtleBuffs.spells['Alter Time'].priority = 0
+	E.global.unitframe.aurafilters.TurtleBuffs.spells['Elusive Brew'].enable = false
+	E.global.unitframe.aurafilters.TurtleBuffs.spells['Elusive Brew'].priority = 99
+	E.global.unitframe.aurafilters.Blacklist = {}
+	E.global.unitframe.aurafilters.Blacklist.spells = {}
+	E.global.unitframe.aurafilters.Blacklist.spells['Bright Light'] = {}
+	E.global.unitframe.aurafilters.Blacklist.spells['Keen Eyesight'] = {}
+	E.global.unitframe.aurafilters.Blacklist.spells['Clear Mind'] = {}
+	E.global.unitframe.aurafilters.Blacklist.spells['Blue Rays'] = {}
+	E.global.unitframe.aurafilters.Blacklist.spells['Inferno Breath'] = {}
+	E.global.unitframe.aurafilters.Blacklist.spells['Infrared Light'] = {}
+	E.global.unitframe.aurafilters.Blacklist.spells['Thick Bones'] = {}
+	E.global.unitframe.aurafilters.Blacklist.spells['Dark Winds'] = {}
+	E.global.unitframe.aurafilters.Blacklist.spells['Fully Mutated'] = {}
+	E.global.unitframe.aurafilters.Blacklist.spells['Improved Synapses'] = {}
+	E.global.unitframe.aurafilters.Blacklist.spells['Unleashed Anima'] = {}
+	E.global.unitframe.aurafilters.Blacklist.spells['Recently Bandaged'] = {}
+	E.global.unitframe.aurafilters.Blacklist.spells['Blue Timer'] = {}
+	E.global.unitframe.aurafilters.Blacklist.spells['Bright Light'].enable = true
+	E.global.unitframe.aurafilters.Blacklist.spells['Bright Light'].priority = 0
+	E.global.unitframe.aurafilters.Blacklist.spells['Keen Eyesight'].enable = true
+	E.global.unitframe.aurafilters.Blacklist.spells['Keen Eyesight'].priority = 0
+	E.global.unitframe.aurafilters.Blacklist.spells['Clear Mind'].enable = true
+	E.global.unitframe.aurafilters.Blacklist.spells['Clear Mind'].priority = 0
+	E.global.unitframe.aurafilters.Blacklist.spells['Blue Rays'].enable = true
+	E.global.unitframe.aurafilters.Blacklist.spells['Blue Rays'].priority = 0
+	E.global.unitframe.aurafilters.Blacklist.spells['Inferno Breath'].enable = true
+	E.global.unitframe.aurafilters.Blacklist.spells['Inferno Breath'].priority = 0
+	E.global.unitframe.aurafilters.Blacklist.spells['Infrared Light'].enable = true
+	E.global.unitframe.aurafilters.Blacklist.spells['Infrared Light'].priority = 0
+	E.global.unitframe.aurafilters.Blacklist.spells['Thick Bones'].enable = true
+	E.global.unitframe.aurafilters.Blacklist.spells['Thick Bones'].priority = 0
+	E.global.unitframe.aurafilters.Blacklist.spells['Dark Winds'].enable = true
+	E.global.unitframe.aurafilters.Blacklist.spells['Dark Winds'].priority = 0
+	E.global.unitframe.aurafilters.Blacklist.spells['Fully Mutated'].enable = true
+	E.global.unitframe.aurafilters.Blacklist.spells['Fully Mutated'].priority = 0
+	E.global.unitframe.aurafilters.Blacklist.spells['Improved Synapses'].enable = true
+	E.global.unitframe.aurafilters.Blacklist.spells['Improved Synapses'].priority = 0
+	E.global.unitframe.aurafilters.Blacklist.spells['Unleashed Anima'].enable = true
+	E.global.unitframe.aurafilters.Blacklist.spells['Unleashed Anima'].priority = 0
+	E.global.unitframe.aurafilters.Blacklist.spells['Recently Bandaged'].enable = true
+	E.global.unitframe.aurafilters.Blacklist.spells['Recently Bandaged'].priority = 0
+	E.global.unitframe.aurafilters.Blacklist.spells['Blue Timer'].enable = true
+	E.global.unitframe.aurafilters.Blacklist.spells['Blue Timer'].priority = 0
+	-- E.global.unitframe.buffwatch.SHAMAN[1].color.b = 1
+	-- E.global.unitframe.buffwatch.SHAMAN[1].color.g = 1
+	-- E.global.unitframe.buffwatch.SHAMAN[1].color.r = 1
+	-- E.global.unitframe.buffwatch.SHAMAN[1].displayText = true
+	-- E.global.unitframe.buffwatch.SHAMAN[1].style = "NONE"
+	-- E.global.unitframe.buffwatch.SHAMAN[2].point = "BOTTOMRIGHT"
+	-- E.global.unitframe.buffwatch.SHAMAN[2].yOffset = 10
+	-- E.global.unitframe.buffwatch.SHAMAN[2].style = "texturedIcon"
+	-- E.global.unitframe.buffwatch.SHAMAN[3].point = "TOPLEFT"
+	-- E.global.unitframe.buffwatch.SHAMAN[3].color.r = 1
+	-- E.global.unitframe.buffwatch.SHAMAN[3].color.g = 1
+	-- E.global.unitframe.buffwatch.SHAMAN[3].color.b = 1
+	-- E.global.unitframe.buffwatch.SHAMAN[3].displayText = true
+	-- E.global.unitframe.buffwatch.SHAMAN[3].style = "NONE"
+	-- E.global.unitframe.buffwatch.PRIEST[1].point = "LEFT"
+	-- E.global.unitframe.buffwatch.PRIEST[1].displayText = true
+	-- E.global.unitframe.buffwatch.PRIEST[1].yOffset = 2
+	-- E.global.unitframe.buffwatch.PRIEST[1].style = "NONE"
+	-- E.global.unitframe.buffwatch.PRIEST[1].textColor.g = 0
+	-- E.global.unitframe.buffwatch.PRIEST[1].textColor.b = 0
+	-- E.global.unitframe.buffwatch.PRIEST[2].point = "TOPRIGHT"
+	-- E.global.unitframe.buffwatch.PRIEST[2].style = "texturedIcon"
+	-- E.global.unitframe.buffwatch.PRIEST[3].enabled = false
+	-- E.global.unitframe.buffwatch.PRIEST[4].color.r = 1
+	-- E.global.unitframe.buffwatch.PRIEST[4].color.g = 1
+	-- E.global.unitframe.buffwatch.PRIEST[4].color.b = 1
+	-- E.global.unitframe.buffwatch.PRIEST[4].displayText = true
+	-- E.global.unitframe.buffwatch.PRIEST[4].style = "NONE"
+	-- E.global.unitframe.buffwatch.PRIEST[6].enabled = false
+	-- E.global.unitframe.buffwatch.PRIEST[7].enabled = false
+	-- E.global.unitframe.buffwatch.PRIEST[8].enabled = false
+	-- E.global.unitframe.buffwatch.PRIEST[9].enabled = true
+	-- E.global.unitframe.buffwatch.PRIEST[9].anyUnit = false
+	-- E.global.unitframe.buffwatch.PRIEST[9].point = "BOTTOMLEFT"
+	-- E.global.unitframe.buffwatch.PRIEST[9].color.b = 1
+	-- E.global.unitframe.buffwatch.PRIEST[9].color.g = 1
+	-- E.global.unitframe.buffwatch.PRIEST[9].color.r = 1
+	-- E.global.unitframe.buffwatch.PRIEST[9].displayText = true
+	-- E.global.unitframe.buffwatch.PRIEST[9].textThreshold = -1
+	-- E.global.unitframe.buffwatch.PRIEST[9].yOffset = 8
+	-- E.global.unitframe.buffwatch.PRIEST[9].style = "NONE"
+	-- E.global.unitframe.buffwatch.PRIEST[9].id = 47753
+	-- E.global.unitframe.buffwatch.PRIEST[10].enabled = true
+	-- E.global.unitframe.buffwatch.PRIEST[10].anyUnit = false
+	-- E.global.unitframe.buffwatch.PRIEST[10].point = "BOTTOMRIGHT"
+	-- E.global.unitframe.buffwatch.PRIEST[10].color.b = 1
+	-- E.global.unitframe.buffwatch.PRIEST[10].color.g = 1
+	-- E.global.unitframe.buffwatch.PRIEST[10].color.r = 1
+	-- E.global.unitframe.buffwatch.PRIEST[10].displayText = true
+	-- E.global.unitframe.buffwatch.PRIEST[10].textThreshold = -1
+	-- E.global.unitframe.buffwatch.PRIEST[10].yOffset = 8
+	-- E.global.unitframe.buffwatch.PRIEST[10].style = "NONE"
+	-- E.global.unitframe.buffwatch.PRIEST[10].id = 114908
+	-- E.global.unitframe.buffwatch.DRUID[1].point = "TOPLEFT"
+	-- E.global.unitframe.buffwatch.DRUID[1].displayText = true
+	-- E.global.unitframe.buffwatch.DRUID[1].style = "NONE"
+	-- E.global.unitframe.buffwatch.DRUID[2].displayText = true
+	-- E.global.unitframe.buffwatch.DRUID[2].style = "NONE"
+	-- E.global.unitframe.buffwatch.DRUID[3].point = "BOTTOMRIGHT"
+	-- E.global.unitframe.buffwatch.DRUID[3].displayText = true
+	-- E.global.unitframe.buffwatch.DRUID[3].textThreshold = 5
+	-- E.global.unitframe.buffwatch.DRUID[3].yOffset = 12
+	-- E.global.unitframe.buffwatch.DRUID[3].style = "texturedIcon"
+	-- E.global.unitframe.buffwatch.DRUID[4].point = "TOPRIGHT"
+	-- E.global.unitframe.buffwatch.DRUID[4].displayText = true
+	-- E.global.unitframe.buffwatch.DRUID[4].textThreshold = 3
+	-- E.global.unitframe.buffwatch.DRUID[4].style = "texturedIcon"
+	-- E.global.unitframe.buffwatch.DRUID[5].enabled = true
+	-- E.global.unitframe.buffwatch.DRUID[5].anyUnit = false
+	-- E.global.unitframe.buffwatch.DRUID[5].point = "LEFT"
+	-- E.global.unitframe.buffwatch.DRUID[5].id = 155777
+	-- E.global.unitframe.buffwatch.DRUID[5].displayText = true
+	-- E.global.unitframe.buffwatch.DRUID[5].color.r = 1
+	-- E.global.unitframe.buffwatch.DRUID[5].color.g = 0
+	-- E.global.unitframe.buffwatch.DRUID[5].color.b = 0
+	-- E.global.unitframe.buffwatch.DRUID[5].style = "texturedIcon"
+	-- E.global.unitframe.buffwatch.DRUID[6].enabled = true
+	-- E.global.unitframe.buffwatch.DRUID[6].anyUnit = false
+	-- E.global.unitframe.buffwatch.DRUID[6].point = "BOTTOMRIGHT"
+	-- E.global.unitframe.buffwatch.DRUID[6].id = 162359
+	-- E.global.unitframe.buffwatch.DRUID[6].displayText = true
+	-- E.global.unitframe.buffwatch.DRUID[6].color.r = 1
+	-- E.global.unitframe.buffwatch.DRUID[6].color.g = 0
+	-- E.global.unitframe.buffwatch.DRUID[6].color.b = 0
+	-- E.global.unitframe.buffwatch.MONK[1].color.r = 1
+	-- E.global.unitframe.buffwatch.MONK[1].color.g = 1
+	-- E.global.unitframe.buffwatch.MONK[1].color.b = 1
+	-- E.global.unitframe.buffwatch.MONK[1].displayText = true
+	-- E.global.unitframe.buffwatch.MONK[1].style = "NONE"
+	-- E.global.unitframe.buffwatch.MONK[2].enabled = false
+	-- E.global.unitframe.buffwatch.MONK[3].color.r = 1
+	-- E.global.unitframe.buffwatch.MONK[3].color.g = 1
+	-- E.global.unitframe.buffwatch.MONK[3].color.b = 1
+	-- E.global.unitframe.buffwatch.MONK[3].displayText = true
+	-- E.global.unitframe.buffwatch.MONK[3].style = "NONE"
+	-- E.global.unitframe.buffwatch.MONK[4].color.r = 1
+	-- E.global.unitframe.buffwatch.MONK[4].color.g = 1
+	-- E.global.unitframe.buffwatch.MONK[4].color.b = 1
+	-- E.global.unitframe.buffwatch.MONK[4].displayText = true
+	-- E.global.unitframe.buffwatch.MONK[4].style = "NONE"
+	-- E.global.unitframe.buffwatch.MONK[5].enabled = true
+	-- E.global.unitframe.buffwatch.MONK[5].anyUnit = false
+	-- E.global.unitframe.buffwatch.MONK[5].point = "TOPRIGHT"
+	-- E.global.unitframe.buffwatch.MONK[5].color.b = 1
+	-- E.global.unitframe.buffwatch.MONK[5].color.g = 1
+	-- E.global.unitframe.buffwatch.MONK[5].color.r = 1
+	-- E.global.unitframe.buffwatch.MONK[5].id = 115175
+	-- E.global.unitframe.buffwatch.MONK[5].displayText = false
+	-- E.global.unitframe.buffwatch.MONK[5].style = "texturedIcon"
+	-- E.global.unitframe.buffwatch.MONK[5].yOffset = 0
+	-- E.global.unitframe.buffwatch.PALADIN[2].enabled = false
+	-- E.global.unitframe.buffwatch.PALADIN[3].enabled = false
+	-- E.global.unitframe.buffwatch.PALADIN[4].enabled = false
+	-- E.global.unitframe.buffwatch.PALADIN[5].enabled = false
+	-- E.global.unitframe.buffwatch.PALADIN[8].anyUnit = false
+	-- E.global.unitframe.buffwatch.PALADIN[8].point = "TOPRIGHT"
+	-- E.global.unitframe.buffwatch.PALADIN[8].color.r = 1
+	-- E.global.unitframe.buffwatch.PALADIN[8].color.g = 0
+	-- E.global.unitframe.buffwatch.PALADIN[8].color.b = 0
+	-- E.global.unitframe.buffwatch.PALADIN[8].displayText = true
+	-- E.global.unitframe.buffwatch.PALADIN[8].style = "NONE"
+	
+	-- do
+		-- if GetScreenWidth() > 1920 then
+			-- E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM25427"
+			-- E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-25427"
+			-- E.db.movers.Bottom_Panel_Mover = "BOTTOMElvUIParentBOTTOM2544"
+			-- E.db.movers.Top_Center_Mover = "BOTTOMElvUIParentBOTTOM-2544"
+		-- else
+			-- E.db.movers.ElvAB_3 = "BOTTOMElvUIParentBOTTOM26027"
+			-- E.db.movers.ElvAB_5 = "BOTTOMElvUIParentBOTTOM-26027"
+			-- E.db.movers.Bottom_Panel_Mover = "BOTTOMElvUIParentBOTTOM2604"
+			-- E.db.movers.Top_Center_Mover = "BOTTOMElvUIParentBOTTOM-2604"
+		-- end
+		-- E.db.movers.ElvUF_PlayerMover = "BOTTOMElvUIParentBOTTOM-278200"
+		-- E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOMElvUIParentBOTTOM0100"
+		-- E.db.movers.ElvUF_TargetMover = "BOTTOMElvUIParentBOTTOM278200"
+		-- E.db.movers.ElvUF_TargetTargetMover = "BOTTOMElvUIParentBOTTOM0190"
+		-- E.db.movers.ElvUF_FocusMover = "BOTTOMElvUIParentBOTTOM-63436"
+		-- E.db.movers.ElvUF_PetMover = "BOTTOMElvUIParentBOTTOM0230"
+		-- E.db.movers.ElvAB_1 = "BOTTOMElvUIParentBOTTOM060"
+		-- E.db.movers.ElvAB_2 = "BOTTOMElvUIParentBOTTOM027"
+		-- E.db.movers.DP_6_Mover = "BOTTOMElvUIParentBOTTOM04"
+		-- E.db.movers.LeftChatMover = "BOTTOMLEFTUIParentBOTTOMLEFT021"
+		-- E.db.movers.RightChatMover = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
+		-- E.db.movers.PetAB = "RIGHTElvUIParentRIGHT00"
+		-- E.db.movers.ArenaHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-210-410"
+		-- E.db.movers.BossHeaderMover = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-210435"
+		-- if layout == 'dpsCaster' or layout == 'dpsMelee' or layout == 'tank' then
+			-- E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4200"
+			-- E.db.movers.ElvUF_Raid10Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4200"
+			-- E.db.movers.ElvUF_Raid25Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4200"
+			-- E.db.movers.ElvUF_Raid40Mover = "BOTTOMLEFTElvUIParentBOTTOMLEFT4200"
+			-- E.db.movers["BossButton"] = "CENTERElvUIParentCENTER-413188"
+		-- else
+			-- E.db.movers.ElvUF_PartyMover = "BOTTOMRIGHTElvUIParentCENTER-213-90"
+			-- E.db.movers.ElvUF_Raid10Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90"
+			-- E.db.movers.ElvUF_Raid25Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90"
+			-- E.db.movers.ElvUF_Raid40Mover = "BOTTOMRIGHTElvUIParentCENTER-213-90"
+			-- E.db.movers["BossButton"] = "CENTERElvUIParentCENTER-413188"
+		-- end
 		
-		if GetScreenWidth() < 1920 then
-			E.db.movers.ElvAB_4 = "BOTTOMLEFTElvUIParentBOTTOMRIGHT-380200"
-			E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT38221"
-			E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT38221"
-		else
-			E.db.movers.ElvAB_4 = "BOTTOMLEFTElvUIParentBOTTOMRIGHT-413200"
-			E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT41421"
-			E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT41421"
-		end
-	end
+		-- if GetScreenWidth() < 1920 then
+			-- E.db.movers.ElvAB_4 = "BOTTOMLEFTElvUIParentBOTTOMRIGHT-380200"
+			-- E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT38221"
+			-- E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT38221"
+		-- else
+			-- E.db.movers.ElvAB_4 = "BOTTOMLEFTElvUIParentBOTTOMRIGHT-413200"
+			-- E.db.movers.ShiftAB = "BOTTOMLEFTElvUIParentBOTTOMLEFT41421"
+			-- E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT41421"
+		-- end
+	-- end
 
 	E:UpdateAll(true)
 end
