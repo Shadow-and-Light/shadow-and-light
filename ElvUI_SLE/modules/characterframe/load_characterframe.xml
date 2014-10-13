@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file='core.lua'/>
-	<!--<Script file='communication.lua'/>
-	<Script file='notifyinspect.lua'/>-->
+	<Script file='communication.lua'/>
+	<Script file='notifyinspect.lua'/>
 	<Script file='characterframe.lua'/>
 	<!--<Script file='inspectframe.lua'/>
 	<Button name="KnightInspect_UnitPopup" hidden="true" toplevel="true">

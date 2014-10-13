@@ -27,9 +27,9 @@ if not AISM.Revision or AISM.Revision <= Revision then
 	
 	
 	--<< Create Core >>--
-	AISM.Tooltip = CreateFrame('GameTooltip', 'AISM_Tooltip', nil, 'GameTooltipTemplate')
+	AISM.Tooltip = _G['AISM_Tooltip'] or AISM.Tooltip or CreateFrame('GameTooltip', 'AISM_Tooltip', nil, 'GameTooltipTemplate')
 	AISM.Tooltip:SetOwner(UIParent, 'ANCHOR_NONE')
-	AISM.Updater = CreateFrame('Frame', 'AISM_Updater', UIParent)
+	AISM.Updater = _G['AISM_Updater'] or AISM.Updater or CreateFrame('Frame', 'AISM_Updater', UIParent)
 	
 	AISM.SendMessageDelay_Group = 2
 	
@@ -272,13 +272,13 @@ if not AISM.Revision or AISM.Revision <= Revision then
 				for k = 1, NUM_TALENT_COLUMNS do
 					Talent, _, _, isSelected = GetTalentInfo(i, k, groupNum)
 					
-					Talent = Talent..(isSelected == true and '_1' or '')
+					Talent = ((i - 1) * NUM_TALENT_COLUMNS + k)..'_'..Talent..(isSelected == true and '_1' or '')
 					
 					Spec = Spec..'/'..Talent
 					
 					if not SpecTable['Spec'..groupNum..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] or SpecTable['Spec'..groupNum..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] ~= Talent then
 						SpecTable['Spec'..groupNum..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] = Talent
-						DataString = (DataString and DataString..'/' or '')..((i - 1) * NUM_TALENT_COLUMNS + k)..'_'..Talent
+						DataString = (DataString and DataString..'/' or '')..Talent
 					end
 				end
 			end
@@ -492,7 +492,7 @@ if not AISM.Revision or AISM.Revision <= Revision then
 		local guildName, guildRankName = GetGuildInfo('player')
 		
 		TableToSave.PlayerInfo = playerName..'_'..UnitPVPName('player')..'/'..playerRealm..'/'..UnitLevel('player')..'/'..playerClass..'/'..playerClassID..'/'..playerRace..'/'..playerRaceID..'/'..playerSex..(guildName and '/'..guildName..'/'..guildRankName or '')
-		
+		--[[
 		if IsInGuild() then
 			TableToSave.GuildInfo = GetGuildLevel()..'/'..GetNumGuildMembers()
 			
@@ -500,7 +500,7 @@ if not AISM.Revision or AISM.Revision <= Revision then
 				TableToSave.GuildInfo = TableToSave.GuildInfo..'/'..DataString
 			end
 		end
-		
+		]]
 		TableToSave.PvP = GetPVPLifetimeStats()
 		
 		local Rating, Played, Won
@@ -777,6 +777,7 @@ if not AISM.Revision or AISM.Revision <= Revision then
 							local Spec, Talent, isSelected
 							
 							for i = 1, #stringTable do
+								print(stringTable[i])
 								Spec, Talent, isSelected = strsplit('_', stringTable[i])
 								
 								if not Talent then
