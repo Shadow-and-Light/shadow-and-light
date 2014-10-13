@@ -2,6 +2,7 @@
 local SLE = E:GetModule('SLE')
 local EP = LibStub("LibElvUIPlugin-1.0")
 local UF = E:GetModule('UnitFrames')
+local Sk = E:GetModule("Skins")
 local addon = ...
 
 --localizing functions--

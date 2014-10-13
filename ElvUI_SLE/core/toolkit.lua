@@ -12,7 +12,6 @@ local UF = E:GetModule('UnitFrames')
 local M = E:GetModule('SLE_Media')
 local I = E:GetModule('SLE_InstDif')
 local S = E:GetModule("SLE_ScreenSaver")
-local Sk = E:GetModule("Skins")
 
 local GetContainerNumSlots, GetContainerItemID = GetContainerNumSlots, GetContainerItemID
 
