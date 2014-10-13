@@ -1134,7 +1134,7 @@ local function SetPage(PageNum)
 
 	if PageNum == 1 then
 		f.SubTitle:SetText(format(L["Welcome to |cff1784d1Shadow & Light|r version %s!"], SLE.version))
-		f.Desc1:SetText("This install process will setup configuration of Shadow & Light.")
+		f.Desc1:SetText(L["This will take you through a quick install process to setup some Shadow & Light features.\nIf you choose to not setup any options through this config, click continue to skip to the end and click finish."])
 		f.Desc2:SetText("")
 		f.Desc3:SetText(L["Please press the continue button to go onto the next step."])
 
@@ -1143,8 +1143,8 @@ local function SetPage(PageNum)
 		SLEInstallOption1Button:SetText(L["Skip Process"])			
 	elseif PageNum == 2 then
 		f.SubTitle:SetText(L["Chat"])
-		f.Desc1:SetText("This options will determine if you want to use default ElvUI's chat datapanels or let Shadow & Light handle them.")
-		f.Desc2:SetText("Shadow & Light will dock them outside of actual chat panels.")
+		f.Desc1:SetText(L["This will determine if you want to use ElvUI's default layout for chat datatext panels or let Shadow & Light handle them."])
+		f.Desc2:SetText(L["If you select S&L Panels, the datatext panels will be attached below the left and right chat frames instead of being inside the chat frame."])
 		f.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 		
 		SLEInstallOption1Button:Show()
@@ -1155,8 +1155,8 @@ local function SetPage(PageNum)
 		SLEInstallOption2Button:SetText("S&L Panels")
 	elseif PageNum == 3 then
 		f.SubTitle:SetText(L["Armory Mode"])
-		f.Desc1:SetText("Imma test text")
-		f.Desc2:SetText("This page is for armory mode disable/enable stuff")
+		f.Desc1:SetText(L["Enable S&L Armory\n(Deatiled Character & Inspect frames)\n|cffFF0000Note:|r This is currently a beta option."])
+		f.Desc2:SetText(L["This will enable S&L Armory mode that will show more detailed information at a quick glance on the toons you inspect as well as your own character."])
 		f.Desc3:SetText(L["Importance: |cffFF0000Low|r"])
 		
 		SLEInstallOption1Button:Show()

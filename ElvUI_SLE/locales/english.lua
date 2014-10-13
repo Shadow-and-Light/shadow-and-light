@@ -30,7 +30,7 @@ L['Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the s
 --Install--
 L["You can now choose if you what to use one of authors' set of options. This will change the positioning of most elements but also change a bunch of other options within ElvUI's config."] = true
 L["SLE_Install_Text2"] = [=[This step is optional and only to be used if you are wanting to use one of our configurations. 
-|cffFF0000Warning:|r Please note that the authors' may or may not use any of the layout/theme you have selected as they may not have utilized the options.]=]
+|cffFF0000Warning:|r Please note that the authors' may or may not use any of the layouts/themes you have selected as they may have changed their setup more recently.]=]
 L["Darth's Config"] = true
 L["Darth's Defaults Set"] = true
 L["Repooc's Config"] = true

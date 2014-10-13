@@ -4,13 +4,13 @@ local E, L, V, P, G = unpack(ElvUI);
 local function configTable()
 	E.Options.args.sle.args.options.args.general.args.auras = {
 		type = "group",
-		name = L["Auras"],
+		name = BUFFOPTIONS_LABEL,
 		order = 1,
 		args = {
 			header = {
 				order = 1,
 				type = "header",
-				name = L["Auras"],
+				name = BUFFOPTIONS_LABEL,
 			},
 			intro = {
 				order = 2,
