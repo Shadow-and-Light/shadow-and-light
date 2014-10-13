@@ -100,7 +100,7 @@ function SLE:SettingTable(t, s, root)
 	for k, v in pairs(t) do
 		if type(v) == "string" then
 			if root[k] ~= v or E.global.sle.export.full then
-				tinsert(datable, #(datable)+1, s.."."..k.." = "..v.."\n")
+				tinsert(datable, #(datable)+1, s.."."..k..' = "'..v..'"\n')
 			end
 		elseif type(v) == "number" then
 			if root[k] ~= v or E.global.sle.export.full then
