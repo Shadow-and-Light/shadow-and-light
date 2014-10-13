@@ -285,7 +285,7 @@ do --<< Button Script >>--
 		GameTooltip:Hide()
 	end
 end
-SLI.CurrentGroupMode = 'NoGroup'
+IA.CurrentGroupMode = 'NoGroup'
 local function CheckGroupMode()
 	local Check
 	if not (IsInGroup() or IsInRaid()) or GetNumGroupMembers() == 1 then
@@ -297,8 +297,8 @@ local function CheckGroupMode()
 			Check = 'party'
 		end
 	end
-	if SLI.CurrentGroupMode ~= Check then
-		SLI.CurrentGroupMode = Check
+	if IA.CurrentGroupMode ~= Check then
+		IA.CurrentGroupMode = Check
 	end
 end
 IFO:RegisterEvent('GROUP_ROSTER_UPDATE', CheckGroupMode)
@@ -1274,8 +1274,8 @@ function IA:CreateInspectFrame()
 					SendChannel = 'WHISPER'
 				elseif AISM.AISMUserList[self.Data.TableIndex] == 'GUILD' then
 					SendChannel = 'GUILD'
-				elseif SLI.CurrentGroupMode ~= 'NoGroup' then
-					SendChannel = IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(SLI.CurrentGroupMode)
+				elseif IA.CurrentGroupMode ~= 'NoGroup' then
+					SendChannel = IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(IA.CurrentGroupMode)
 				end
 			end
 			
@@ -1344,7 +1344,7 @@ function IA:CreateInspectFrame()
 		end
 		
 		hooksecurefunc('UnitPopup_ShowMenu', function(Menu, Type, Unit, Name)
-			if Info.InspectArmory_Activate and UIDROPDOWNMENU_MENU_LEVEL == 1 and IA.UnitPopupList[Type] then
+			if IA.Activate and UIDROPDOWNMENU_MENU_LEVEL == 1 and IA.UnitPopupList[Type] then
 				local Button
 				local DataTable = {
 					Name = Menu.name or Name,
@@ -1373,9 +1373,9 @@ function IA:CreateInspectFrame()
 					local isSending
 					--print('전송준비')
 					if DataTable.Unit and not (UnitCanAttack('player', DataTable.Unit) or not UnitIsConnected(DataTable.Unit) or not UnitIsPlayer(DataTable.Unit)) then
-						if DataTable.Realm == myrealm or SLI.CurrentGroupMode ~= 'NoGroup' then
+						if DataTable.Realm == myrealm or IA.CurrentGroupMode ~= 'NoGroup' then
 							isSending = 'AISM_CheckResponse'
-							SendAddonMessage('AISM', 'AISM_Check', DataTable.Realm == myrealm and 'WHISPER' or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(SLI.CurrentGroupMode), DataTable.Name)
+							SendAddonMessage('AISM', 'AISM_Check', DataTable.Realm == myrealm and 'WHISPER' or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(IA.CurrentGroupMode), DataTable.Name)
 						end
 					elseif Menu.which == 'GUILD' then
 						isSending = 'AISM_GUILD_CheckResponse'
@@ -2355,5 +2355,5 @@ function IFO:Initialize()
 		InspectUnit = IA.InspectUnit
 
 	
-	SLI.Activate = true
+	IA.Activate = true
 end
