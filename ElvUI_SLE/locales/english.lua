@@ -20,7 +20,7 @@ L["Auto hide"] = true
 L["SLE_LOGIN_MSG"] = [=[You are using |cff1784d1Shadow & Light|r version |cff1784d1%s%s|r for ElvUI.
 If you wish to use the original ElvUI addon, disable this edit's plugin in your Addons manager.
 Have a nice day.]=]
-L['MSG_OUTDATED'] = "Your version of ElvUI is older than recommended to use with Shadow & Light. Your version is |cff1784d1%s|r (recommended is |cff1784d1%s|r). Please update your ElvUI."
+L['MSG_OUTDATED'] = "Your version of ElvUI is older than recommended to use with Shadow & Light. Your version is |cff1784d1%.2f|r (recommended is |cff1784d1%.2f|r). Please update your ElvUI."
 -- L["Your version of ElvUI is older than recommended to use with Shadow & Light. Please, download the latest version from tukui.org."] = true
 L["Reset All"] = true
 L["Reset all Shadow & Light options and movers to their defaults"] = true

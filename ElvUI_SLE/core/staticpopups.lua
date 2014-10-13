@@ -1,13 +1,13 @@
 local E, L, V, P, G = unpack(ElvUI);
 local SLE = E:GetModule('SLE')
 
---[[E.PopupDialogs["VERSION_MISMATCH"] = {
+E.PopupDialogs["VERSION_MISMATCH"] = {
 	text = SLE:MismatchText(),
 	button1 = CLOSE,
 	timeout = 0,
 	whileDead = 1,	
 	preferredIndex = 3,
-}]]
+}
 
 E.PopupDialogs['ENHANCED_SLE_INCOMPATIBLE'] = {
 	text = L['Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable.'],
