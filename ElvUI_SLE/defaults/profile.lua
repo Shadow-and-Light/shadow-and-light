@@ -70,6 +70,14 @@ P['sle'] = {
 	['castername'] = false,
 
 	--Character Frame Options
+	['armory'] = {
+		['character'] = {
+			['gradientColor'] = { .41, .83, 1 },
+		},
+		['inspect'] = {
+			['gradientColor'] = { .41, .83, 1 },
+		},
+	},
 	['characterframeoptions'] = {
 		['shownormalgradient'] = true,
 		['showerrorgradient'] = true,
