@@ -24,14 +24,14 @@ if SLE:Auth() then
 	local text = ''
 	local wtarget = ""
 	local bnetP
-	
+
 	function SLE:delete(...)
 		local _, id = ...
 		id = tostring(id)
 		bnettesttbl[id] = nil
 	end
 	SLE:RegisterEvent('BN_FRIEND_ACCOUNT_OFFLINE', 'delete')
-	
+
 	RegisterAddonMessagePrefix('SLE_DEV_INFO')
 
 	local f = CreateFrame('Frame')
@@ -43,30 +43,32 @@ if SLE:Auth() then
 		if event == 'BN_FRIEND_ACCOUNT_ONLINE' or event == 'BN_FRIEND_ACCOUNT_OFFLINE' then
 			SLE:GetBNetInfo()
 		end
+
 		if event == 'PLAYER_ENTERING_WORLD' then
 			SLE:GetBNetInfo()
 		end
+
 		if prefix == 'SLE_DEV_INFO' then
 			if event == 'CHAT_MSG_ADDON' or event == 'BN_CHAT_MSG_ADDON' then
 				if not message:find("SLEinfo") then
 					local userLevel, userClass, userName, userRealm, userVersion = strsplit('#', message)
 					if (userName == E.myname and userRealm == E.myrealm) then return end;
-					
+
 					userVersion = tonumber(userVersion)
-	
+
 					if userVersion > highestVersion then
 						highestVersion = userVersion
 					end
-					
+
 					local id = #UserListCache + 1;
-	
+
 					for i=1,#UserListCache do
 						if (UserListCache[i].userName == userName and UserListCache[i].userRealm == userRealm) then
 							id = i;
 							break;
 						end
 					end
-	
+
 					UserListCache[id] = {
 						['userLevel'] = userLevel,
 						['userClass'] = userClass,
@@ -74,7 +76,7 @@ if SLE:Auth() then
 						['userRealm'] = userRealm,
 						['userVersion'] = userVersion,
 					}
-					
+
 					if (IsAddOnLoaded("ElvUI_Config")) then
 						ACD:SelectGroup('ElvUI', 'sle', 'developer', 'userList')
 					end
@@ -306,7 +308,6 @@ if SLE:Auth() then
 						},
 					},
 				},
-
 				devdiaggroup = {
 					order = 5,
 					type = "group",

@@ -2,8 +2,8 @@
 local BG = E:GetModule('SLE_BackGrounds')
 
 local function configTable()
+	--GroupName = { ShortName, Order }
 	local drop = {
-		--Group name = {short name, order}
 		["Bottom BG"] = {"bottom", 1},
 		["Left BG"] = {"left", 2},
 		["Right BG"] = {"right", 3},
@@ -100,7 +100,7 @@ local function configTable()
 			get = function(info) return E.db.sle.backgrounds[v[1]][ info[#info] ] end,
 			disabled = function() return not E.db.sle.backgrounds[v[1]].enabled or not E.private.sle.backgrounds end,
 			args = {
-				width = { --setting width (obviously)
+				width = {
 					order = 1,
 					type = "range",
 					name = L['Width'],
@@ -116,12 +116,11 @@ local function configTable()
 					min = 30, max = E.screenheight/2, step = 1,
 					set = function(info, value) E.db.sle.backgrounds[v[1]].height = value; BG:FramesSize() end,
 				},
-				spacer = { --Empty slot for making sliders move to next line
+				spacer = {
 					order = 3,
 					type = "description",
 					name = "",
 				},
-				--Setting custom texture for those who like it
 				texture = {
 					order = 6,
 					type = 'input',

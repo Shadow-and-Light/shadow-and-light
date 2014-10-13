@@ -15,7 +15,7 @@ local function configTable()
 			intro = {
 				order = 2,
 				type = "description",
-				name = "Some aura changes",
+				name = "",
 			},
 			enabled = {
 				order = 3,
@@ -38,8 +38,8 @@ local function configTable()
 			buffs = {
 				order = 6,
 				type = "toggle",
-				name = "Hide Buffs Time",
-				--desc = L["Sets size of buttons"],
+				name = L["Hide Buff Timer"],
+				desc = L["This hides the time remaining for your buffs."],
 				disabled = function() return not E.db.sle.auras.enable end,
 				get = function(info) return E.db.sle.auras.buffs.hideTimer end,
 				set = function(info, value) E.db.sle.auras.buffs.hideTimer = value end,
@@ -47,8 +47,8 @@ local function configTable()
 			debuffs = {
 				order = 7,
 				type = "toggle",
-				name = "Hide Debuffs Time",
-				--desc = L['The spacing between buttons.'],
+				name = L["Hide Debuff Timer"],
+				desc = L["This hides the time remaining for your debuffs."],
 				disabled = function() return not E.db.sle.auras.enable end,
 				get = function(info) return E.db.sle.auras.debuffs.hideTimer end,
 				set = function(info, value) E.db.sle.auras.debuffs.hideTimer = value end,

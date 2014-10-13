@@ -76,8 +76,8 @@ local function configTable()
 					chathandle = {
 						order = 7,
 						type = "toggle",
-						name = "Chat handle",
-						desc = L["Show/Hide dashboard."],
+						name = L["Override Chat DT Panels"],
+						desc = L["This will have S&L handle chat datatext panels and place them below the left & right chat panels.\n\n|cffFF0000Note:|r When you first enabled, you may need to move the chat panels up to see your datatext panels."],
 						get = function(info) return E.db.sle.datatext.chathandle end,
 						set = function(info, value) E.db.sle.datatext.chathandle = value; E:GetModule('Layout'):ToggleChatPanels() end
 					},
@@ -205,7 +205,7 @@ local function configTable()
 			intro = {
 				order = 2,
 				type = "description",
-				name = L["Some datatexts that Shadow & Light are supplied with, has settings that can be modified to alter the displayed information. Please use the dropdown box to select which datatext you would like to configure."]
+				name = L["Some datatexts that Shadow & Light are supplied with have settings that can be modified to alter the displayed information. Please use the dropdown box to select which datatext you would like to configure."]
 			},
 			spacer = {
 				order = 3,
