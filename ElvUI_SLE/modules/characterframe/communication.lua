@@ -525,6 +525,18 @@ if not AISM.Revision or AISM.Revision <= Revision then
 		
 		local Data = {}
 		
+		if InputData.PlayerInfo then
+			Data[#Data + 1] = 'PLI:'..InputData.PlayerInfo
+		end
+		
+		if InputData.GuildInfo then
+			Data[#Data + 1] = 'GLD:'..InputData.GuildInfo
+		end
+		
+		if InputData.PvP then
+			Data[#Data + 1] = 'PvP:'..InputData.PvP
+		end
+		
 		if InputData.Profession1 then
 			Data[#Data + 1] = 'PF1:'..InputData.Profession1
 		end
@@ -557,18 +569,6 @@ if not AISM.Revision or AISM.Revision <= Revision then
 			for SetName, DataString in pairs(InputData.SetItem) do
 				Data[#Data + 1] = 'SID:'..SetName..(type(DataString) == 'number' and '/' or '')..DataString
 			end
-		end
-		
-		if InputData.PlayerInfo then
-			Data[#Data + 1] = 'PLI:'..InputData.PlayerInfo
-		end
-		
-		if InputData.GuildInfo then
-			Data[#Data + 1] = 'GLD:'..InputData.GuildInfo
-		end
-		
-		if InputData.PvP then
-			Data[#Data + 1] = 'PvP:'..InputData.PvP
 		end
 		
 		local DataString = ''
