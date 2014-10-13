@@ -3,8 +3,9 @@
 	<Script file='communication.lua'/>
 	<Script file='notifyinspect.lua'/>
 	<Script file='characterframe.lua'/>
-	<!--<Script file='inspectframe.lua'/>
-	<Button name="KnightInspect_UnitPopup" hidden="true" toplevel="true">
+	<Script file='inspectframe.lua'/>
+
+	<Button name="InspectArmory_UnitPopup" hidden="true" toplevel="true">
 		<ButtonText>
 			<Anchors>
 				<Anchor point="LEFT">
@@ -15,5 +16,5 @@
 		<NormalFont style="GameFontHighlightSmallLeft"/>
 		<HighlightFont style="GameFontHighlightSmallLeft"/>
 		<DisabledFont style="GameFontDisableSmallLeft"/>
-	</Button>-->
+	</Button>
 </Ui>
