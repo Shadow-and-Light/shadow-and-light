@@ -11,7 +11,8 @@ local function configTable()
 			intro = {
 				order = -1,
 				type = 'description',
-				name = L['Test Description'],
+				--Temp Description until things are implemented later
+				name = L['The character frame and inspect frame have been redone and are still very much in beta.  Some fields are disabled because the options are not fully implemented and working just yet.  They will be re-enabled in future releases once we fix the issues.'],
 			},
 			characterframe = {
 				order = 2,
@@ -45,14 +46,16 @@ local function configTable()
 							normalgradient = {
 								order = 1,
 								type = 'toggle',
+								disabled = true,
 								name = L["Show Equipment Gradients"],
-								desc = L["Shows gradient effect for all equipment slots."],
+								desc = L["Show gradient effect for all equipment slots."],
 								get = function(info) return E.db.sle.characterframeoptions.shownormalgradient end,
 								set = function(info, value) E.db.sle.characterframeoptions.shownormalgradient = value; CFO:ChangeGradiantVisibility(); end,
 							},
 							errorgradient = {
 								order = 2,
 								type = 'toggle',
+								disabled = true,
 								name = L["Show Error Gradients"],
 								desc = L["Highlights equipment slot if an error has been found."],
 								disabled = function() return not E.private.sle.characterframeoptions.enable or not E.db.sle.characterframeoptions.shownormalgradient end,
@@ -109,6 +112,7 @@ local function configTable()
 							show = {
 								order = 3,
 								type = "toggle",
+								disabled = true,
 								name = L["Show Item Level"],
 								get = function(info) return E.db.sle.characterframeoptions.itemlevel.show end,
 								set = function(info, value) E.db.sle.characterframeoptions.itemlevel.show = value; CFO:ArmoryFrame_DataSetting(); end,
@@ -116,6 +120,7 @@ local function configTable()
 							fontGroup = {
 								order = 5,
 								type = 'group',
+								disabled = true,
 								guiInline = true,
 								name = L['Font'],
 								args = {
@@ -165,6 +170,7 @@ local function configTable()
 							show = {
 								order = 3,
 								type = "toggle",
+								disabled = true,
 								name = L["Show Durability"],
 								get = function(info) return E.db.sle.characterframeoptions.itemdurability.show end,
 								set = function(info, value) E.db.sle.characterframeoptions.itemdurability.show = value; CFO:ArmoryFrame_DataSetting(); end,
@@ -172,6 +178,7 @@ local function configTable()
 							fontGroup = {
 								order = 5,
 								type = 'group',
+								disabled = true,
 								guiInline = true,
 								name = L['Font'],
 								args = {
@@ -221,6 +228,7 @@ local function configTable()
 							show = {
 								order = 1,
 								type = "toggle",
+								disabled = true,
 								name = L["Show Enchants"],
 								desc = L["Show the enchantment effect near the enchanted item"],
 								get = function(info) return E.db.sle.characterframeoptions.itemenchant.show end,
@@ -229,6 +237,7 @@ local function configTable()
 							mouseover = {
 								order = 2,
 								type = "toggle",
+								disabled = true,
 								name = L['Mouse Over'],
 								desc = L["Show the enchantment effect near the enchanted item (not the item itself) when mousing over."],
 								disabled = function() return not E.db.sle.characterframeoptions.itemenchant.show or not E.private.sle.characterframeoptions.enable end,
@@ -238,6 +247,7 @@ local function configTable()
 							showwarning = {
 								order = 3,
 								type = "toggle",
+								disabled = true,
 								name = L["Show Warning"],
 								get = function(info) return E.db.sle.characterframeoptions.itemenchant.showwarning end,
 								set = function(info, value) E.db.sle.characterframeoptions.itemenchant.showwarning = value; CFO:ArmoryFrame_DataSetting(); end,
@@ -247,6 +257,7 @@ local function configTable()
 								name = L["Warning Size"],
 								desc = L["Set the icon size that the warning notification will use."],
 								type = "range",
+								disabled = true,
 								min = 8, max = 18, step = 1,
 								get = function(info) return E.db.sle.characterframeoptions.itemenchant.warningSize end,
 								set = function(info, value) E.db.sle.characterframeoptions.itemenchant.warningSize = value; CFO:ResizeErrorIcon(); end,
@@ -254,6 +265,7 @@ local function configTable()
 							fontGroup = {
 								order = 5,
 								type = 'group',
+								disabled = true,
 								guiInline = true,
 								name = L['Font'],
 								args = {
@@ -303,6 +315,7 @@ local function configTable()
 							show = {
 								order = 1,
 								type = "toggle",
+								disabled = true,
 								name = L["Show Gems"],
 								desc = L["Show gem slots near the item"],
 								get = function(info) return E.db.sle.characterframeoptions.itemgem.show end,
@@ -311,6 +324,7 @@ local function configTable()
 							showwarning = {
 								order = 2,
 								type = "toggle",
+								disabled = true,
 								name = L["Show Warning"],
 								get = function(info) return E.db.sle.characterframeoptions.itemgem.showwarning end,
 								set = function(info, value) E.db.sle.characterframeoptions.itemgem.showwarning = value; CFO:ArmoryFrame_DataSetting(); end,
@@ -320,6 +334,7 @@ local function configTable()
 								name = L["Warning Size"],
 								desc = L["Set the icon size that the warning notification will use."],
 								type = "range",
+								disabled = true,
 								min = 8, max = 18, step = 1,
 								get = function(info) return E.db.sle.characterframeoptions.itemgem.warningSize end,
 								set = function(info, value) E.db.sle.characterframeoptions.itemgem.warningSize = value; CFO:ResizeErrorIcon(); end,
@@ -329,6 +344,7 @@ local function configTable()
 								name = L["Socket Size"],
 								desc = L["Set the size of sockets to show."],
 								type = "range",
+								disabled = true,
 								min = 10, max = 18, step = 1,
 								get = function(info) return E.db.sle.characterframeoptions.itemgem.socketSize end,
 								set = function(info, value) E.db.sle.characterframeoptions.itemgem.socketSize = value; CFO:ResizeErrorIcon(); end,
