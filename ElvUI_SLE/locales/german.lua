@@ -4,7 +4,6 @@ local L = AceLocale:NewLocale("ElvUI", "deDE")
 if not L then return end
 
 --General--
-L["Shadow & Light"] = "Schatten & Licht"
 L["SLE_DESC"] = [=[Das ist ein Edit von ElvUI das einige Funktionen zum Original Addon hinzufügt und bereits existierende Optionen ändert.
 Der Edit ändert in keiner Hinsicht Originale Dateien so das du es ohne Probleme aus deinem Addon Manager deaktivieren kannst.]=]
 L["LFR Lockout"] = "LFR Abklingzeiten"
@@ -13,7 +12,7 @@ L["PvP Auto Release"] = "PvP Auto Freilassen"
 L["Automatically release body when killed inside a battleground."] = "Geist automatisch freilassen wenn man innerhalb eines Schlachtfeldes stirbt."
 L["Pet autocast corners"] = "Begleiter autozauber Ecken"
 L["Show/hide triangles in corners of autocastable buttons."] = "Zeige/Verstecke dreiecke in den Ecken der automatisch zaubernden Tasten."
-L["SLE_LOGIN_MSG"] = [=[Du benutzt |cff1784d1Schatten & Licht Edit|r v|cff1784d1%s%s|r für ElvUI.
+L["SLE_LOGIN_MSG"] = [=[Du benutzt |cff1784d1Schatten & Licht|r v|cff1784d1%s%s|r für ElvUI.
 Möchtest du das Original ElvUI Addon benutzen, deaktiviere das Edit Plugin aus deinem Addon Manager.
 Habt einen schönen Tag.]=]
 L["Your version of ElvUI is older than recommended to use with Shadow & Light. Please, download the latest version from tukui.org."] = "Deine Version von Elvui ist älter als die empfohlene zum benutzen mit Schatten & Licht. Bitte, downloade die letzte Version von tukui.org."
@@ -22,7 +21,6 @@ L["Reset all Shadow & Light options and movers to their defaults"] = true
 L["Reset these options to defaults"] = true
 
 --Install--
-L["Shadow & Light Settings"] = "Schatten & Licht Einstellungen"
 L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."] = "Du kannst nun eine Einstellugen eines Authors wählen. Das wird nicht nur die Postitionierung von einigen Elementen sondern auch eine reihe anderer Optionen geändert."
 L["SLE_Install_Text2"] = [=[Elv's Standart Taste muss nur angeklickt werden um eine unserer Konfigurationen rückgängig zu machen.
 |cffFF0000Warnung:|r das wird alles zurücksetzen auf das Hohe Auflösungs Layout.]=]

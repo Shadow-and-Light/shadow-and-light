@@ -1,0 +1,20 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file='lfr.lua'/>
+	<Script file='version.lua'/>
+	<Script file='regen.lua'/>
+	<Script file='agility.lua'/>
+	<Script file='strength.lua'/>
+	<Script file='energyregen.lua'/>
+	<Script file='intellect.lua'/>
+	<Script file='stamina.lua'/>
+	<Script file='spirit.lua'/>
+	<Script file='time.lua'/>
+	<Script file='friends.lua'/>
+	<Script file='guild.lua'/>
+	<Script file='itemlevel.lua'/>
+	<Script file='played.lua'/>
+	<Script file='mail.lua'/>
+	<Script file='micromenu.lua'/>
+	<Script file='currency.lua'/>
+	<Script file='range.lua'/>
+</Ui>

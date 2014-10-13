@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G = unpack(ElvUI);
 local M = E:GetModule('Minimap')
 
 local GetPlayerMapPosition = GetPlayerMapPosition
@@ -6,15 +6,38 @@ local framescreated = false
 local panel, xpos, ypos
 local middle
 
+local cluster = _G['MinimapCluster']
+
+local function HideMinimap()
+	cluster:Hide()
+end
+
+local function ShowMinimap()
+	if not InCombatLockdown() then
+		UIFrameFadeIn(cluster, 0.2, cluster:GetAlpha(), 1)
+	end
+end
+
 local function UpdateCoords(self, elapsed)
+	local f = E.db.sle.minimap.coords.decimals and '%.2f' or '%.0f'
 	panel.elapsed = (panel.elapsed or 0) + elapsed
 	if panel.elapsed < .1 then return end
 
 	xpos.pos, ypos.pos = GetPlayerMapPosition('player')
-	xpos.text:SetFormattedText(E.db.sle.minimap.coords.middle == "CENTER" and '%.2f/' or '%.2f', xpos.pos * 100)
-	ypos.text:SetFormattedText('%.2f', ypos.pos * 100)
+	xpos.text:SetFormattedText(E.db.sle.minimap.coords.middle == "CENTER" and f..'/' or f, xpos.pos * 100)
+	ypos.text:SetFormattedText(f, ypos.pos * 100)
 
 	panel.elapsed = 0
+end
+
+function M:SLEHideMinimap()
+	if E.db.sle.minimap.combat then
+		M:RegisterEvent("PLAYER_REGEN_DISABLED", HideMinimap)	
+		M:RegisterEvent("PLAYER_REGEN_ENABLED", ShowMinimap)
+	else
+		M:UnregisterEvent("PLAYER_REGEN_DISABLED")	
+		M:UnregisterEvent("PLAYER_REGEN_ENABLED")
+	end
 end
 
 local function UpdatePosition(middle)
@@ -26,7 +49,7 @@ local function UpdatePosition(middle)
 		xpos:Point('LEFT', panel, 'LEFT', 2, 0)
 	end
 	if middle == "CENTER" then
-		ypos:Point('BOTTOMLEFT', panel, 'BOTTOM', 0, 0)
+		ypos:Point('BOTTOMLEFT', panel, 'BOTTOM', E.db.sle.minimap.coords.decimals and 0 or -15, 0)
 	else
 		ypos:Point('RIGHT', panel, 'RIGHT', 2, 0)
 	end
@@ -66,9 +89,11 @@ local function CreateCoordsFrame(middle)
 	UpdatePosition(middle)
 end
 
-M.UpdateSettingsSLE = M.UpdateSettings
-function M:UpdateSettings()
-	M.UpdateSettingsSLE(self)
+function M:Transparency()
+	cluster:SetAlpha(E.db.sle.minimap.alpha)
+end
+
+local function Update()
 	middle = E.db.sle.minimap.coords.middle
 
 	if not framescreated then
@@ -84,4 +109,9 @@ function M:UpdateSettings()
 	else
 		panel:Show()
 	end
+	
+	M:SLEHideMinimap()
+	M:Transparency()
 end
+
+hooksecurefunc(M, 'UpdateSettings', Update)

@@ -5,7 +5,6 @@ local L = AceLocale:NewLocale("ElvUI", "enUS", true);
 if not L then return; end
 
 --General--
-L["Shadow & Light"] = true
 L["Below you can see option groups presented by Shadow & Light."] = true
 L["General options of Shadow & Light."] = true
 L["SLE_DESC"] = [=[This is an edit of ElvUI that adds some functionality to the original addon and changes some previously existed options.
@@ -16,22 +15,19 @@ L["PvP Auto Release"] = true
 L["Automatically release body when killed inside a battleground."] = true
 L["Pet autocast corners"] = true
 L["Show/hide triangles in corners of autocastable buttons."] = true
-L["Loot History"] = true
 L["Options to tweak Loot History window behaviour."] = true
 L["Auto hide"] = true
-L["Automaticaly hide Blizzard loot histroy frame when leaving the instance."] = true
-L["Sets alpha of loot histroy frame."] = true
-L["SLE_LOGIN_MSG"] = [=[You are using |cff1784d1Shadow & Light Edit|r version |cff1784d1%s%s|r for ElvUI.
+L["SLE_LOGIN_MSG"] = [=[You are using |cff1784d1Shadow & Light|r version |cff1784d1%s%s|r for ElvUI.
 If you wish to use the original ElvUI addon, disable this edit's plugin in your Addons manager.
 Have a nice day.]=]
-L["Your version of ElvUI is older than recommended to use with Shadow & Light. Please, download the latest version from tukui.org."] = true
+L['MSG_OUTDATED'] = "Your version of ElvUI is older than recommended to use with Shadow & Light. Your version is |cff1784d1%.2f|r (recommended is |cff1784d1%.2f|r). Please update your ElvUI."
+-- L["Your version of ElvUI is older than recommended to use with Shadow & Light. Please, download the latest version from tukui.org."] = true
 L["Reset All"] = true
 L["Reset all Shadow & Light options and movers to their defaults"] = true
 L["Reset these options to defaults"] = true
 L['Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable.'] =  true
 
 --Install--
-L["Shadow & Light Settings"] = true
 L["You can now choose if you what to use one of authors' set of options. This will change the positioning of most elements but also change a bunch of other options within ElvUI's config."] = true
 L["SLE_Install_Text2"] = [=[This step is optional and only to be used if you are wanting to use one of our configurations. 
 |cffFF0000Warning:|r Please note that the authors' may or may not use any of the layout/theme you have selected as they may not have utilized the options.]=]
@@ -132,11 +128,8 @@ L["Trove of the Thunder King:"] = true
 L["Looted"] = true
 L["Not looted"] = true
 L["SLE_AUTHOR_INFO"] = "Shadow & Light by Darth Predator & Repooc"
-L["SLE_CONTACTS"] = [=[Bug reports, suggestions and other stuff accepted via:
-- Private Massage on TukUI.org to Darth Predator or Repooc
-- AddOn's page/ticket system on curse.com
-- Forums on tukui.org, Addons/Help section
-- AddOn's repo on github.com]=]
+L["SLE_CONTACTS"] = [=[If you have suggestions or a bug report,
+please submit ticket at http://git.tukui.org/repooc/elvui-shadowandlight]=]
 L["DP_1"] = "DT Panel 1"
 L["DP_2"] = "DT Panel 2"
 L["DP_3"] = "DT Panel 3"
@@ -268,15 +261,19 @@ L["This will import All Class specific filters from this author."] = true
 L['Import All'] = true
 
 --Loot--
-L['Loot Announcer'] = true
-L["LOOT_DESC"] = [[This module will announce loot dropped when you open the loot window.
-This will work only if you are raid leadedr, assist or master looter or if you hold left control key while looting to manually announce the items in chat.]]
 L["Auto Announce"] = true
-L["Automatically announce in selected chat channel."] = true
-L["Loot Quality"] = true
-L["Set the minimum quality of an item to announce."] = true
-L["Announce loot to the selected channel."] = true
+L["Automaticaly hides Loot Roll Histroy frame when leaving the instance."] = true
+L["AUTOANNOUNCE_DESC"] = "When enabled, will automatically announce the loot when the loot window opens.\n\n|cffFF0000Note:|r Raid Lead, Assist, & Master Looter Only."
+L['Loot Announcer'] = true
+L["LOOT_DESC"] = "Will announce loot to specified chat channel at the selected loot threshold."
+L["LOOTH_DESC"] = "These are options for tweaking the Loot Roll History window."
 L["Loot Dropped:"] = true
+L["Loot Roll History"] = true
+L["Loot Quality"] = true
+L["Automatically announce in selected chat channel."] = true
+L["Select chat channel to announce loot to."] = true
+L["Sets the alpha of Loot Roll Histroy frame."] = true
+L["Sets the minimum loot threshold to announce."] = true
 
 --Marks--
 L['Options for panels providing fast access to raid markers and flares.'] = true
@@ -333,7 +330,7 @@ L['Show minimap buttons on mouseover.'] = true
 
 --Enhanced Vehicle Bar--
 L["Enhanced Vehicle Bar"] = true
-L["Use the enhanced vehicle bar based on work by Azilroka"] = true
+L["A different look/feel vehicle bar based on work by Azilroka"] = true
 
 --Raid Utility--
 L["Raid Utility"] = true
@@ -347,6 +344,7 @@ L["Flying & Ground"] = true
 L["Swimming"] = true
 
 --Tooltip--
+L["TTOFFSET_DESC"] = "This adds the ability to have the tooltip offset from the cursor.  Make sure to have the \"Cursor Anchor\" option enabled in ElvUI's Tooltip section to use this feature."
 L["Tooltip enhancements"] = true
 L["Faction Icon"] = true
 L["Tooltip Cursor Offset"] = true
@@ -377,7 +375,6 @@ L["Boss Mod"] = true
 L["Click to toggle iFilger's config UI"] = true
 
 --Unitframes--
-L["Additional unit frames options"] = true
 L["Options for customizing unit frames. Please don't change these setting when ElvUI's testing frames for bosses and arena teams are shown. That will make them invisible until retoggling."] = true
 L["Player Frame Indicators"] = true
 L["Combat Icon"] = true

@@ -1,6 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file='tags.lua'/>
-	<Script file='update_elements.lua'/>
-	<Include file='units\load_units.xml'/>
-	<Script file='options.lua'/>
-</Ui>

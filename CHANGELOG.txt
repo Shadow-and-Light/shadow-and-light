@@ -1,355 +1,68 @@
-v1.88
-- New configuration layout has been implemented in preparation to WoD. Now options groups will not take that much space vertically.
+v2.00
+In general added a lot of new stuff and improved the way everything works.
+
+Configuration:
+New configuration layout has been implemented in preparation to WoD. Now options groups will not take that much space vertically. Takes some time to get used to though.
+- Most of the options are now concentrated in Settings group divided by General, Minimap, Raid Marks, Equip Manager, Farm and Loot subgroups.
+- Media group contains options for Zone and Subzone titles, Mail and Chat Editbox fonts
 - Character window options have been moved to the new "Armory" group. The Armory module handles not only character window but inspect window as well. If enabled inspect option in the right-click menu will became blue.
-- Added Range Datatext
-- Added iLvl Datatext
-- Added Agility Datatext
-- Added Intellect Datatext
-- Added Stamina Datatext
-- Added Strength Datatext
-- Added Energy Regen Datatext
+- Panels and Dashboard now houses not only datatext options but background frames as well
+- New About/Help group contains various links to the download/bug report locations
+- S&L Install isn't included in ElvUI's installation process and launches only after normal install is complete or manually.
+- Added nameplate options. You are now able to see your aggro and a number of people in your group targeting each unit
+
+Auras (Buffs/Debuffs):
+- Option to remove the time remaining for buffs/debuffs for a more minimal look
+
+Background Panels:
+- Added alpha option to background panels
+
+Character Frame (Armory Mode):
+- Fixed taint that was in live version and 6.0
+
+Chat:
+- Added an option to show an icon near Guild Master's messages in guild chat. Reminds people of who is the boss around here.
+- No longer forcing chat data panels repositioning on users.
+- Added two buttons to reset chat history and editbox history.
+
+Datatexts:
+- Added a number of datatexts
+-- Range Datatext
+-- iLvl Datatext
+-- Agility Datatext
+-- Intellect Datatext
+-- Stamina Datatext
+-- Strength Datatext
+-- Energy Regen Datatext
 - S&L Friends Datatext now filters double instances of B-Net friends
-- Version Datatext now shows right ElvUI version instead of 7.00
+- Version Datatext now shows full ElvUI version instead of only 2 digits of minor version number
+- Added alpha option to datatext panels
+
+Incompatible addons:
 - Updated the Enhanced Incompatible Message so it can be ignored/Disable Enhanced Addon before reporting issues
-- Some backend clean up
+- No more identical module names with other ElvUI plugins = no more unexpected incompatibilities!
+- At the moment next addons are incompatible with Shadow & Light cause they are doing exactly the same:
+-- ElvUI_Enhanced
+-- Loot Confirm
+-- SquareMinimapButtons
+
+Loot:
+- Loot announcer now shows item's ilvl allowing to tell apart warforged and regular gear
+- Added override option to announce loot with out needing a modifier or by selecting a modifier
+- Added options to automatically confirm loot collecting for BoP and disenchanting
+- Added options to automatically roll greed and/or disenchant for selected quality of items on max level or after the selected level of your choice. With ElvUI's option, you can only greed green quality items if no enchanter is in the group.
+- Disabled ElvUI's Auto Greed/DE option when our auto loot module is enabled
+
+Minimap:
 - Changed Minimap Icons to enable/disable skinning of the icons, and enable/disable the bar if skinning is enabled.
+- Added an option to show instance mode with text instead of texture on minimap.
+
+Pet Battles:
+- Added the ability to move pets' health, buffs and all that stuff around
+
+Raid Marks:
+- Added mouseover option for both Marks and Flares
+- Added an option for Raid Marks to appear only if target is selected
+
+Unitframes:
 - Added new tag [range:sl] to show range on frames like target, focus and such
-- Added nameplate options for people
-
-v1.87
-- Fixed chat spam on opening of character window.
-
-v1.86 March 11, 2014
-- Added option to Show/Hide Squareminimap Bar during pet battles
-- Updated chat module to be updated with elvui
-- exp/rep bar code clean up
-- Update minimum width/height on background panel due to requests
-- Added Gem Hiding function for character frame
-- Added new textures for chacter frame background
-- Added hiding squareminimap bar during pet battles
-- Made squareminimap bar a mover by multiple request
-
-v1.85 March 3, 2014
-- Added ability to select background image on character screen as well set a custom image
-- Added ability to show enchant on mouseover in character screen
-- Added Show/Hide Durability & Item Level
-
-v1.84 March 1, 2014
-- SmartBuff MiniMap Icon Fix
-
-v1.83 March 1, 2014
-- Fixed QuestPointer/Mapster Button in minimap.
-- Option to skin or not skin lfd icon
-- Removed Notes Skin (Add in ElvUI AddOnSkins)
-- Added Skin Mail Icon Notification
-
-v1.82 February 25, 2014
-- Fixed currency datatext errors for non-english clients
-- Currency datatext can now hide cerrensies set to unused (look for the option in S&L Currency config)
-- Fixed way too long enchants strings in character frame on Ru locale
-- Some missed localization lines added
-
-v1.81 February 25, 2014
-- Minimap Icon overhaul
-- ElvUI 6.94-6.991 Chat update
-- Character Frame Overhaul (Armory Type Display)
-- Added an Enhanced Vehicle Bar
-- Added New S&L Currency Datatext
-- Added Equipment Set Display for items in bag
-
-v1.80 December 22, 2013
-- Updated stuff to ElvUI current release
-- Fixed Tooltip Flicker if using the offset
-- Fixed Guild List
-- Ghost frame mover is no longer real small on initial login or reloadui
-
-v1.79 November 20, 2013
-- Character Frame ilvl for Garrosh Heirlooms corrected
-- Hearthstone now shows correctly on bnet for S&L Friends Datatext
-- Some tweaks to the autorelease to account for shammy reincarnate
-- Update chat module for some of elvui changes
-- Added mover for release spirit
-- Fixed S&L Friends Datatext nil error
-
-v1.78 November 12, 2013
-- Fixed Time Played Datatext (Thnx Caedis)
-- Added VEM to boss button to the ui button
-- Attempt to help fix some proving ground errors
-- Removed OCES skin b/c its in ElvUI Addon Skins
-
-v1.77 October 18, 2013
-- Added Faction icon to tooltip option
-
-v1.76 October 12, 2013
-- Fix for install errors when using authors' settings
-
-v1.75 October 4, 2013
-- Fix parsing url, addon, smiley stuff in chat
-
-v1.74 October 4, 2013
-- Rewritten chat module to really work
-
-v1.73 October 2, 2013
-- Real chat fix
-
-v1.72 October 2, 2013
-- More Chat Fixes to reflect what elv has done
-
-v1.71 October 1, 2013
-- Fix for people using S&L couldn't see LFG role icons in chat. Also fixed icons of people using S&L wasn't shown in original ElvUI.
-
-v1.70 September 27, 2013
-- Some SoO LFR DT Info
-
-v1.69 September 20, 2013
-- Code catch up with ElvUI
-- Added warning to show if items are not enchanted (beta, please submit a ticket on curse or github with issues)
-
-v1.68 September 13, 2013
-- Bug fixes
-- Backend updates
-
-v1.67 September 10, 2013
-- GameTooltip offset option added if ElvUI Tooltip anchor is set to cursor
-- Developer backend updates/additions
-- Removed DBM Font Size option (ElvUI AddonSkins has it now)
-- Added mail datatext
-- Fixed a bug with quest items usable from watch frame
-- Status for Key to the Palace of Lei Shen and Trove of the Thunder King can now be hidden from time datatext tooltip. Hidden by default.
-
-v1.66 June 3, 2013
-- Added ilvl to heirlooms
-- Upgrade vendor updates ilvl of item on charater frame right away
-
-v1.65 May 21, 2013
-- Darth's Layout Modified
-- Added spacing for UI Buttons
-- Modified time datatext for flashing
-
-v1.64 April 17, 2013
-- Update Affinitii Filter Import (Added General Filters)
-
-v1.63 April 10, 2013
-- Removed offset option for classbar, it's no longer needed
-- Added Flare Marker Bar & Keybind options for it.
-
-v1.62 March 24, 2013
-- Removed Caster Name in tooltip, was added in ElvUI
-- Another attempt to fix player frame resizing if Classbar offset was enabled in S&L
-
-v1.61 March 23, 2013
-- Hide Coords During Pet Battle
-- Added options to hide S&L Datatext Panels during Pet Battles
-
-v1.60 March 22, 2013
-- Fixed AceConfig Error
-- Fixed LUA Error on Repooc install
-
-v1.59 March 19, 2013
-- Fixed Curse Ticket: #15
-- Added S&L Guild Datatext
-- Added S&L Friends Datatext
-- Tweaked Darth & Repooc's Config
-- Optimized Farm Module
-
-v1.58 March 15, 2013
-- Removed ElvUIPlugin Library
-- Farm module optimized
-- Seed bags bought for seeds are now taken into account by farm module
-
-v1.57 March 13, 2013
-- Sortokk forgot to add spirit into xml file cough cough
-
-v1.56 March 13, 2013
-- Added Spirit Datatext
-
-v1.55 March 13, 2013
-- Remove Debug Message
-
-v1.54 March 13, 2013
-- Add autotrack reputation
-- Updated Libraries
-- Updated Author installs
-
-v1.53 March 8, 2013
-- Optimize Farm Module
-- Update install to be updated with ElvUI variables
-
-v1.52 March 6, 2013
-- Fixed farm bar seed bag count not updating on use
-
-v1.51 March 6, 2013
-Fixed compatibility issue with Location Plus pligin. Hopefully forever
-
-v1.5 March 5, 2013
-- Some typos fixed
-- Datatext panels can now be transparent
-- Background frames no longer have offset options, now they have own movers
-- Background frames template doesn't require reload and is a profile based option
-- Movers created by S&L now are grouped by own categories just like in ElvUI itself (Note: background frames' movers are available ONLY in those groups)
-- Raid Marks now properly update setting on profile change
-- Raid Marks module now has an option to hide backdrop for it's main panel
-- Added Item Level overlay on item slots
-- Added Item Durability overlay on item slots
-- Added Equipment Manager per spec/zone
-- Added Farm module to make farming easier.
-- Added skinning of minimap buttons
-- Added coordinates to the minimap
-- LFR Lockout tracking in time datatext now has options to choose what daungeons you want to show there
-- Top datapanel info can now be changed by user
-- You will now receive chat message if someone in your group/raid has newer version of S&L
-- Add Affinitii's (Blood Legion) UI Layout
-- Darth's Layout Modified
-- Added loot announce function
-
-v1.42 (January 31, 2013)
-- Curse being stupid and fixed changelog b/c darth dont realize there are 31 days in Jan.
-
-v1.41 (January 31, 2013)
-- Fixed version datatext error 
-
-v.1.4a (January 30, 2013)
-- Fix for pet battle actionbar detached from the mover
-
-v1.4 (January 21, 2013)
-- Fix for LFR info not available on toltip for time datatext
-
-v1.39 (January 19, 2013)
-- Fixed stack overflow on pet battles
-- Fixed overlooked missing english locale
-
-v1.38 (January 18, 2013)
-- Fixed to work with ElvUI 5.26 
-
-v1.37 (January 8, 2013)
-- Decimals are once again shown for hp/power texts on unit frames for full values
-
-v1.36 (January 8, 2013)
-- Some tweaks to better work with ElvUI 5.20
-
-v1.35 (December 28, 2012)
-- Fixed compatibility with full Location Plus version
-
-v1.34 (December 12, 2012)
-- Fixed rune bar error when using classbar offset
-
-v1.33 (December 2, 2012)
-- Fixed errors on auras tooltips
-- Fixed health bar height with classbar offset enabled
-
-v1.32 (November 27, 2012)
-- Config updated
-
-v1.31 (November 27, 2012)
-- Repooc config updated
-
-v1.3 (November 27, 2012)
-- Authors' layouts have been changed
-- Mount serach was deleted, Blizzard added that themselves
-- Some adjustions for pixel perfect mode to make things look good
-- Caster name in auras' tooltips is now profile based option
-- An option added to chosee if you want your power text to be on power bar or health bar (health by default as in normal ElvUI)
-- Raid Utility options removed. Now it's fully movable with it's own mover
-- Added a mover for world/BG pvp score - Hellfire towers, AV reinforcements, AB resources, etc. (Darth grow tired of using MoveAnything)
-- Capture bar is now docked to the bottom of a new mover
-- Show errors in combat is now profile based option
-- Added S&L version number to version datatext, login message and config
-- Buttons for resetting all S&L options or just desired group's options have been added
-- You can now see changelog in game
-- Added alternative mene regen datatext called "MP5". It shows an "mp5" title instead of "mana regen"
-
-v1.22 (November 8, 2012)
-- Fixed our settings packs in installation
-- You will be able to see your castbar and other stuff while in vehicle again (apparently it was there for ages and no one reported that o_O)
-- The option to hide combat indicator was removed. You can choose to hide it in it's positioning dropdown list now.
-- Fixed some issues with loading that resulted in disappearing of S&L mover group in config mode.
-
-v1.21 (November 1, 2012)
-- Fixed small error
-
-v1.20 (November 1, 2012)
-- Code catch up with ElvUI
-- Some code restructure to reduce memory
-- Small fixes/tweaks
-
-v1.19 (October 24, 2012)
-- Code catch up with ElvUI
-- Added show/hide option for errors in combat (out of LoS, on cooldown, etc)
-- Changed the way reputation is shown on bar
-- Added Ampere Addon Control Panel to UI Buttons
-- Fixed wrong rested percent with cur-percent mode of experience bar (195000000% of rested? Easy)
-- Added new options for loot history frame
-- Add ability to show Raid Markers only in the instance.
-
-v1.18 (October 9, 2012)
-- Fixed red flying could not showing in the mount list
-
-v1.17 (September 30, 2012)
-- Fixed Mount Search bug when skinning was disabled.
-- Fixed Background Panels & Pet Battle Bar having frame level issues.
-- Fixed left chat being to close to the edge of the frame.
-- Added ability to show/hide background panels during pet battles
-
-v1.16 (September 24, 2012)
-- Added Search Feature for Mount Window by p3lim
-- Fixed lua error about missing locale for ElvUI Hud during install process(It was mistyped)
-- Fixed Raid Marker not toggling off
-
-v1.15 (September 7, 2012)
-- Fix Curse Ticket #3
-
-v1.14 (September 5, 2012)
-- Updated Install to catch up with ElvUI
-- Updated Repooc Settings to more current setup
-
-v1.13 (September 1, 2012)
-- Fixed Combat Icon Error when ElvUI Unitframes were disabled.
-- Updated Install file to ElvUI additions
-
-v1.12 (August 31, 2012)
-- Fixed Time Datatext error
-
-v1.11 (August 30, 2012)
-- Fixrd editbox positioning when ElvUI chat is disabled
-
-v1.1 (August 28, 2012)
-- (Backend) Optimize Druid Resource
-- (Backend) Private options now use Elv's popus
-- Added Demonic Fury number on warlock classbar
-- Added debuff resizing
-- Added hiding for combat ico
-- Readded castername in buff/debuff icon due to darth rewriting auras.lua and not doing his job
-- Moved options for auras to its own category
-- Removed some skinning of addons as we are now working with Azilroka on the skinning package.
-- Removed embed right fix due it being removed from ElvUI
-- Fixed the chat text going over the panel's border
-- Options for full values on hp/power text changed due to ElvUI's changes in text formatting. Now you can use tags. Just add a ":sl" at the end of the health or power tag to get full value. Doesn't work with percent.
-- Background frames now have an option for transparancy
-- Exp/Rep bar text options were changed to show full or short values
-- Added an option to move editbox for chat pannels
-- PvP text options were removed, ElvUI now has it's own
-- Removed Skada and DBM skins
-- Removed Pet Autocast option
-- Changed positions of some options
-
-v1.03 (July 25, 2012)
-- Fixed Combatlog not anchoring correctly in right panel as the only chat window
-- Fixed Microbar Bug (Leave combat issue)
-- Added the vengeance bar for tanks (without options atm)
-- Deleted keywords sounds (Elv has his own)
-- Increased the recommended version number
-
-v1.02 (July 15, 2012)
-- Updated Repooc install
-- Added Poisner Skin
-- Added Outfitter skin
-- Fixed Microbar Bug
-- Fixed RaidUtility button not changing position on profile change
-
-v1.01 (July 11, 2012)
-- Skada/Recount embedright tweaked
-- Minor install tweaks
-- Added Alphabet layout to Microbar
-
-v1.0 (July 7, 2012)
-- Inital Release
