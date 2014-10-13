@@ -259,65 +259,70 @@ do
 	}
 end
 
---Colorize Class Name and localize specialization name
-local ClassName = {}
-FillLocalizedClassList(ClassName)
-
-L['Warrior'] = SLArmoryConstants.Toolkit.Color_Class('WARRIOR', ClassName['WARRIOR'])
-_, L['Spec_Warrior_Arms'] = GetSpecializationInfoByID(71)
-_, L['Spec_Warrior_Fury'] = GetSpecializationInfoByID(72)
-_, L['Spec_Warrior_Protection'] = GetSpecializationInfoByID(73)
-
-L['Hunter'] = SLArmoryConstants.Toolkit.Color_Class('HUNTER', ClassName['HUNTER'])
-_, L['Spec_Hunter_Beast'] = GetSpecializationInfoByID(253)
-_, L['Spec_Hunter_Marksmanship'] = GetSpecializationInfoByID(254)
-_, L['Spec_Hunter_Survival'] = GetSpecializationInfoByID(255)
-
-L['Shaman'] = SLArmoryConstants.Toolkit.Color_Class('SHAMAN', ClassName['SHAMAN'])
-_, L['Spec_Shaman_Elemental'] = GetSpecializationInfoByID(262)
-_, L['Spec_Shaman_Enhancement'] = GetSpecializationInfoByID(263)
-_, L['Spec_Shaman_Restoration'] = GetSpecializationInfoByID(264)
-
-L['Monk'] = SLArmoryConstants.Toolkit.Color_Class('MONK', ClassName['MONK'])
-_, L['Spec_Monk_Brewmaster'] = GetSpecializationInfoByID(268)
-_, L['Spec_Monk_Mistweaver'] = GetSpecializationInfoByID(270)
-_, L['Spec_Monk_Windwalker'] = GetSpecializationInfoByID(269)
-
-L['Rogue'] = SLArmoryConstants.Toolkit.Color_Class('ROGUE', ClassName['ROGUE'])
-_, L['Spec_Rogue_Assassination'] = GetSpecializationInfoByID(259)
-_, L['Spec_Rogue_Combat'] = GetSpecializationInfoByID(260)
-_, L['Spec_Rogue_Subtlety'] = GetSpecializationInfoByID(261)
-
-L['DeathKnight'] = SLArmoryConstants.Toolkit.Color_Class('DEATHKNIGHT', ClassName['DEATHKNIGHT'])
-_, L['Spec_DeathKnight_Blood'] = GetSpecializationInfoByID(250)
-_, L['Spec_DeathKnight_Frost'] = GetSpecializationInfoByID(251)
-_, L['Spec_DeathKnight_Unholy'] = GetSpecializationInfoByID(252)
-
-L['Mage'] = SLArmoryConstants.Toolkit.Color_Class('MAGE', ClassName['MAGE'])
-_, L['Spec_Mage_Arcane'] = GetSpecializationInfoByID(62)
-_, L['Spec_Mage_Fire'] = GetSpecializationInfoByID(63)
-_, L['Spec_Mage_Frost'] = GetSpecializationInfoByID(64)
-
-L['Druid'] = SLArmoryConstants.Toolkit.Color_Class('DRUID', ClassName['DRUID'])
-_, L['Spec_Druid_Balance'] = GetSpecializationInfoByID(102)
-_, L['Spec_Druid_Feral'] = GetSpecializationInfoByID(103)
-_, L['Spec_Druid_Guardian'] = GetSpecializationInfoByID(104)
-_, L['Spec_Druid_Restoration'] = GetSpecializationInfoByID(105)
-
-L['Paladin'] = SLArmoryConstants.Toolkit.Color_Class('PALADIN', ClassName['PALADIN'])
-_, L['Spec_Paladin_Holy'] = GetSpecializationInfoByID(65)
-_, L['Spec_Paladin_Protection'] = GetSpecializationInfoByID(66)
-_, L['Spec_Paladin_Retribution'] = GetSpecializationInfoByID(70)
-
-L['Priest'] = SLArmoryConstants.Toolkit.Color_Class('PRIEST', ClassName['PRIEST'])
-_, L['Spec_Priest_Discipline'] = GetSpecializationInfoByID(256)
-_, L['Spec_Priest_Holy'] = GetSpecializationInfoByID(257)
-_, L['Spec_Priest_Shadow'] = GetSpecializationInfoByID(258)
-
-L['Warlock'] = SLArmoryConstants.Toolkit.Color_Class('WARLOCK', ClassName['WARLOCK'])
-_, L['Spec_Warlock_Affliction'] = GetSpecializationInfoByID(265)
-_, L['Spec_Warlock_Demonology'] = GetSpecializationInfoByID(266)
-_, L['Spec_Warlock_Destruction'] = GetSpecializationInfoByID(267)
+for ClassName, SpecializationIDTable in pairs({
+	Warrior = {
+		Arms = 71,
+		Fury = 72,
+		Protection = 73
+	},
+	Hunter = {
+		Beast = 253,
+		Marksmanship = 254,
+		Survival = 255
+	},
+	Shaman = {
+		Elemental = 262,
+		Enhancement = 263,
+		Restoration = 264
+	},
+	Monk = {
+		Brewmaster = 268,
+		Mistweaver = 270,
+		Windwalker = 269
+	},
+	Rogue = {
+		Assassination = 259,
+		Combat = 260,
+		Subtlety = 261
+	},
+	DeathKnight = {
+		Blood = 250,
+		Frost = 251,
+		Unholy = 252
+	},
+	Mage = {
+		Arcane = 62,
+		Fire = 63,
+		Frost = 64
+	},
+	Druid = {
+		Balance = 102,
+		Feral = 103,
+		Guardian = 104,
+		Restoration = 105
+	},
+	Paladin = {
+		Holy = 65,
+		Protection = 66,
+		Retribution = 70
+	},
+	Priest = {
+		Discipline = 256,
+		Holy = 257,
+		Shadow = 258
+	},
+	Warlock = {
+		Affliction = 265,
+		Demonology = 266,
+		Destruction = 267
+	}
+}) do
+	L[ClassName] = SLArmoryConstants.Toolkit.Color_Class('WARRIOR', LOCALIZED_CLASS_NAMES_MALE[string.upper(ClassName)])
+	
+	for Name, ID in pairs(SpecializationIDTable) do
+		_, L['Spec_'..ClassName..'_'..Name] = GetSpecializationInfoByID(ID)
+	end
+end
 
 SLArmoryConstants['ClassRole'] = {
 	['WARRIOR'] = {
