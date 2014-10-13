@@ -1,11 +1,11 @@
-﻿local type, tinsert = type, tinsert
-local ENI = _G['EnhancedNotifyInspectFrame']
-local CurrentFileRevision = 1.0
+﻿local tinsert, tremove = tinsert, tremove
+local ENI = _G['EnhancedNotifyInspect']
+local Revision = 1.1
 
 if not ENI then
-	ENI = CreateFrame('Frame', 'EnhancedNotifyInspectFrame', UIParent)
-	ENI.UpdatedTime = 0
+	ENI = CreateFrame('Frame', 'EnhancedNotifyInspect', UIParent)
 	ENI.InspectList = {}
+	ENI.Revision = Revision
 	ENI:SetScript('OnEvent', function(self, Event, ...)
 		if self[Event] then
 			self[Event](...)
@@ -14,8 +14,7 @@ if not ENI then
 	ENI:Hide()
 end	
 
-if not (ENI.Revision and ENI.Revision >= CurrentFileRevision) then
-	ENI.Revision = CurrentFileRevision
+if not ENI.Revision or ENI.Revision <= Revision then
 	ENI.UpdateInterval = 1
 	
 	local BlizzardNotifyInspect = _G['NotifyInspect']
@@ -42,8 +41,9 @@ if not (ENI.Revision and ENI.Revision >= CurrentFileRevision) then
 			end
 		end
 		
-		ENI.UpdatedTime = 0
-		ENI:Hide()
+		if ENI.NowInspecting and not ENI.NowInspecting._cancelled then
+			ENI.NowInspecting:Cancel()
+		end
 	end
 	
 	ENI.NotifyInspect = function(Unit, InspectFirst)
@@ -70,9 +70,14 @@ if not (ENI.Revision and ENI.Revision >= CurrentFileRevision) then
 				end
 				
 				ENI.InspectList[TableIndex] = {
-					['UnitID'] = Unit,
-					['CancelInspectByManual'] = InspectFirst,
+					UnitID = Unit,
+					CancelInspectByManual = InspectFirst
 				}
+				
+				if not ENI.NowInspecting or ENI.NowInspecting._cancelled then
+					ENI.NowInspecting = C_Timer.NewTicker(ENI.UpdateInterval, ENI.TryInspect)
+				end
+				
 				ENI:Show()
 			elseif InspectFirst and ENI.InspectList[TableIndex] then
 				ENI.CancelInspect(TableIndex)
@@ -104,35 +109,21 @@ if not (ENI.Revision and ENI.Revision >= CurrentFileRevision) then
 			local Name, Realm
 			
 			_, _, _, _, _, Name, Realm = GetPlayerInfoByGUID(InspectedUnitGUID)
-			Name = Name..(Realm and Realm ~= '' and Realm ~= playerRealm and '-'..Realm or '')
 			
-			if ENI.InspectList[Name] then
-				if ENI.InspectList[Name].CancelInspectByManual then
-					return
-				end
+			if Name then
+				Name = Name..(Realm and Realm ~= '' and Realm ~= playerRealm and '-'..Realm or '')
 				
-				ENI.CancelInspect(Name)
-				ENI.UpdatedTime = 0
+				if ENI.InspectList[Name] then
+					if ENI.InspectList[Name].CancelInspectByManual then
+						return
+					end
+					
+					ENI.CancelInspect(Name)
+				end
 			end
 			
 			ENI.CurrentInspectUnitGUID = nil
-		else
-			ENI.TryInspect()
-			ENI.UpdatedTime = -ENI.UpdateInterval
 		end
 	end
 	ENI:RegisterEvent('INSPECT_READY')
-	
-	ENI.Updater = function(_, elapsed)
-		ENI.UpdatedTime = ENI.UpdatedTime + elapsed
-		
-		if ENI.UpdatedTime < 0 then
-			return
-		else
-			ENI.UpdatedTime = -ENI.UpdateInterval
-		end
-		
-		ENI.TryInspect()
-	end
-	ENI:SetScript('OnUpdate', ENI.Updater)
 end

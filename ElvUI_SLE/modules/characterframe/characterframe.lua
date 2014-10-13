@@ -158,7 +158,7 @@ function CA:Setup_CharacterArmory()
 		end
 	end)
 	hooksecurefunc('CharacterFrame_Collapse', function()
-		CharacterFrame:SetWidth(448);
+		CharacterFrame:SetWidth(PaperDollFrame:IsShown() and 448 or PANEL_DEFAULT_WIDTH)
 	end)
 	hooksecurefunc('CharacterFrame_Expand', function()
 		CharacterFrame:SetWidth(650);
@@ -778,8 +778,6 @@ end
 
 function CFO:Initialize()
 	if not E.private.sle.characterframeoptions.enable then return end
-
-
 
 	CA:StartArmoryFrame()
 end

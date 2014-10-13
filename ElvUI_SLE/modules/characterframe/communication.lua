@@ -1,9 +1,15 @@
 ﻿--------------------------------------------------------------------------------
---<< AISM : Surpport Module for Armory Inspecting							>>--
+--<< AISM : Armory Surpport Module for AddOn Communication Inspecting		>>--
 --------------------------------------------------------------------------------
+local Revision = 1.1
 local AISM = _G['Armory_InspectSupportModule']
 
 if not AISM then
+	AISM = CreateFrame('Frame', 'Armory_InspectSupportModule', UIParent)
+	AISM.Revision = Revision
+end
+
+if not AISM.Revision or AISM.Revision <= Revision then
 	local ItemSetBonusKey = ITEM_SET_BONUS:gsub('%%s', '(.+)')
 	local ProfessionLearnKey = ERR_LEARN_ABILITY_S:gsub('%%s', '(.+)')
 	local ProfessionLearnKey2 = ERR_LEARN_RECIPE_S:gsub('%%s', '(.+)')
@@ -16,20 +22,19 @@ if not AISM then
 	local _, playerClass, playerClassID = UnitClass('player')
 	local playerRace, playerRaceID = UnitRace('player')
 	local playerSex = UnitSex('player')
+	local playerNumSpecGroup = GetNumSpecGroups()
 	local isHelmDisplayed, isCloakDisplayed
 	
 	
 	--<< Create Core >>--
-	AISM = CreateFrame('Frame', 'Armory_InspectSupportModule', UIParent)
-	AISM.Version = 1.0
 	AISM.Tooltip = CreateFrame('GameTooltip', 'AISM_Tooltip', nil, 'GameTooltipTemplate')
 	AISM.Tooltip:SetOwner(UIParent, 'ANCHOR_NONE')
 	AISM.Updater = CreateFrame('Frame', 'AISM_Updater', UIParent)
 	
 	AISM.SendMessageDelay_Group = 2
 	
-	AISM.PlayerData = { ['SetItem'] = {}, }
-	AISM.PlayerData_ShortString = { ['SetItem'] = {}, }
+	AISM.PlayerData = { SetItem = {} }
+	AISM.PlayerData_ShortString = { SetItem = {} }
 	AISM.AISMUserList = {}
 	AISM.GroupMemberData = {}
 	AISM.GuildMemberData = {}
@@ -53,53 +58,53 @@ if not AISM then
 		
 		[GetSpellInfo(110413)] = 'HB', -- Herbalism
 		[GetSpellInfo(102161)] = 'MN', -- Mining
-		[GetSpellInfo(102216)] = 'SK', -- Skinning
+		[GetSpellInfo(102216)] = 'SK' -- Skinning
 	}
 	AISM.GearList = {
-		['HeadSlot'] = 'HE',
-		['NeckSlot'] = 'NK',
-		['ShoulderSlot'] = 'SD',
-		['BackSlot'] = 'BK',
-		['ChestSlot'] = 'CH',
-		['ShirtSlot'] = 'ST',
-		['TabardSlot'] = 'TB',
-		['WristSlot'] = 'WR',
-		['HandsSlot'] = 'HD',
-		['WaistSlot'] = 'WA',
-		['LegsSlot'] = 'LE',
-		['FeetSlot'] = 'FE',
-		['Finger0Slot'] = 'FG0',
-		['Finger1Slot'] = 'FG1',
-		['Trinket0Slot'] = 'TR0',
-		['Trinket1Slot'] = 'TR1',
-		['MainHandSlot'] = 'MH',
-		['SecondaryHandSlot'] = 'SH',
+		HeadSlot = 'HE',
+		NeckSlot = 'NK',
+		ShoulderSlot = 'SD',
+		BackSlot = 'BK',
+		ChestSlot = 'CH',
+		ShirtSlot = 'ST',
+		TabardSlot = 'TB',
+		WristSlot = 'WR',
+		HandsSlot = 'HD',
+		WaistSlot = 'WA',
+		LegsSlot = 'LE',
+		FeetSlot = 'FE',
+		Finger0Slot = 'FG0',
+		Finger1Slot = 'FG1',
+		Trinket0Slot = 'TR0',
+		Trinket1Slot = 'TR1',
+		MainHandSlot = 'MH',
+		SecondaryHandSlot = 'SH'
 	}
 	AISM.CanTransmogrifySlot = {
-		['HeadSlot'] = true,
-		['ShoulderSlot'] = true,
-		['BackSlot'] = true,
-		['ChestSlot'] = true,
-		['WristSlot'] = true,
-		['HandsSlot'] = true,
-		['WaistSlot'] = true,
-		['LegsSlot'] = true,
-		['FeetSlot'] = true,
-		['MainHandSlot'] = true,
-		['SecondaryHandSlot'] = true,
+		HeadSlot = true,
+		ShoulderSlot = true,
+		BackSlot = true,
+		ChestSlot = true,
+		WristSlot = true,
+		HandsSlot = true,
+		WaistSlot = true,
+		LegsSlot = true,
+		FeetSlot = true,
+		MainHandSlot = true,
+		SecondaryHandSlot = true
 	}
 	AISM.DataTypeTable = {
-		['PLI'] = 'PlayerInfo',
-		['GLD'] = 'GuildInfo',
-		['PvP'] = 'PvPInfo',
-		['PF1'] = 'Profession',
-		['PF2'] = 'Profession',
-		['ASP'] = 'ActiveSpec',
-		['SID'] = 'SetItemData',
+		PLI = 'PlayerInfo',
+		GLD = 'GuildInfo',
+		PvP = 'PvPInfo',
+		PF1 = 'Profession',
+		PF2 = 'Profession',
+		ASP = 'ActiveSpec',
+		SID = 'SetItemData'
 	}
 	for groupNum = 1, MAX_TALENT_GROUPS do
-		AISM.DataTypeTable['SP'..groupNum] = 'Specialization'
 		AISM.DataTypeTable['GL'..groupNum] = 'Glyph'
+		AISM.DataTypeTable['SP'..groupNum] = 'Specialization'
 	end
 	for slotName, keyName in pairs(AISM.GearList) do
 		AISM.DataTypeTable[keyName] = 'Gear'
@@ -170,15 +175,30 @@ if not AISM then
 				self.ProfessionUpdated = nil
 				self:Show()
 			end
-		elseif Event == 'ACTIVE_TALENT_GROUP_CHANGED' or Event == 'CHARACTER_POINTS_CHANGED' then
+		elseif Event == 'ACTIVE_TALENT_GROUP_CHANGED' or Event == 'PLAYER_SPECIALIZATION_CHANGED' then
 			self.SpecUpdated = nil
 			self:Show()
 		elseif Event == 'GLYPH_ADDED' or Event == 'GLYPH_REMOVED' or Event == 'GLYPH_UPDATED' then
 			self.GlyphUpdated = nil
 			self:Show()
-		else
+		elseif Event == 'PLAYER_TALENT_UPDATE' then
+			local args = GetNumSpecGroups()
+			
+			if playerNumSpecGroup ~= args then
+				playerNumSpecGroup = args
+				self.SpecUpdated = nil
+				self:Show()
+				
+				if args == MAX_TALENT_GROUPS then
+					self:UnregisterEvent('PLAYER_TALENT_UPDATE')
+				end
+			end
 		end
 	end)
+	if playerNumSpecGroup ~= MAX_TALENT_GROUPS then
+		AISM.Updater:RegisterEvent('PLAYER_TALENT_UPDATE')
+	end
+	AISM.Updater:RegisterEvent('PLAYER_TALENT_UPDATE')
 	AISM.UpdateHelmDisplaying = function(value)
 		isHelmDisplayed = value == '1'
 		AISM.Updater.GearUpdated = nil
@@ -232,54 +252,54 @@ if not AISM then
 	
 	
 	--<< Specialization String >>--
+	local SpecTable = {}
 	function AISM:GetPlayerSpecSetting()
-		local DataString, isSelected, selectedSlot
+		local DataString, Spec, Talent, isSelected
 		local ActiveSpec = GetActiveSpecGroup()
 		
-		for groupNum = 1, MAX_TALENT_GROUPS do
-			DataString = GetSpecialization(nil, nil, groupNum)
+		for groupNum = 1, playerNumSpecGroup do
+			DataString = nil
 			
-			if DataString then
-				DataString = GetSpecializationInfo(DataString)
-			else
-				DataString = '0'
+			Spec = GetSpecialization(nil, nil, groupNum)
+			Spec = Spec and GetSpecializationInfo(Spec) or '0'
+			
+			if not SpecTable['Spec'..groupNum] or SpecTable['Spec'..groupNum] ~= Spec then
+				SpecTable['Spec'..groupNum] = Spec
+				DataString = Spec
 			end
 			
 			for i = 1, MAX_TALENT_TIERS do
-				selectedSlot = '0'
-				
 				for k = 1, NUM_TALENT_COLUMNS do
-					_, _, _, _, isSelected = GetTalentInfo((i - 1) * NUM_TALENT_COLUMNS + k, nil, groupNum)
+					Talent, _, _, isSelected = GetTalentInfo(i, k, groupNum)
 					
-					if isSelected then
-						selectedSlot = k
-						break
+					Talent = Talent..(isSelected == true and '_1' or '')
+					
+					Spec = Spec..'/'..Talent
+					
+					if not SpecTable['Spec'..groupNum..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] or SpecTable['Spec'..groupNum..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] ~= Talent then
+						SpecTable['Spec'..groupNum..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] = Talent
+						DataString = (DataString and DataString..'/' or '')..((i - 1) * NUM_TALENT_COLUMNS + k)..'_'..Talent
 					end
 				end
-				
-				DataString = DataString..'/'..selectedSlot
 			end
 			
-			if self.PlayerData['Spec'..groupNum] ~= DataString then
-				self.PlayerData['Spec'..groupNum] = DataString
-			end
-			
-			if groupNum == ActiveSpec and self.PlayerData_ShortString.Spec1 ~= DataString then
-				self.PlayerData_ShortString.Spec1 = DataString
-				self.UpdatedData.Spec1 = DataString
+			if not self.PlayerData['Spec'..groupNum] or self.PlayerData['Spec'..groupNum] ~= Spec then
+				self.PlayerData['Spec'..groupNum] = Spec
+				self.PlayerData_ShortString['Spec'..groupNum] = Spec
+				self.UpdatedData['Spec'..groupNum] = DataString
 			end
 		end
 		
-		isSelected = GetActiveSpecGroup()
-		
 		if self.PlayerData.ActiveSpec ~= ActiveSpec then
 			self.PlayerData.ActiveSpec = ActiveSpec
+			self.PlayerData_ShortString.ActiveSpec = ActiveSpec
+			self.UpdatedData.ActiveSpec = ActiveSpec
 		end
 		
 		self.Updater.SpecUpdated = true
 	end
 	AISM.Updater:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED')
-	AISM.Updater:RegisterEvent('CHARACTER_POINTS_CHANGED')
+	AISM.Updater:RegisterEvent('PLAYER_SPECIALIZATION_CHANGED')
 	
 	
 	--<< Glyph String >>--
@@ -288,7 +308,7 @@ if not AISM then
 		local ActiveSpec = GetActiveSpecGroup()
 		
 		local SpellID, GlyphID
-		for groupNum = 1, MAX_TALENT_GROUPS do
+		for groupNum = 1, playerNumSpecGroup do
 			ShortString, FullString = '', ''
 			
 			for slotNum = 1, NUM_GLYPH_SLOTS do
@@ -445,7 +465,6 @@ if not AISM then
 			for SetName in pairs(self.PlayerData.SetItem) do
 				if not CurrentSetItem[SetName] then
 					self.PlayerData.SetItem[SetName] = nil
-					
 					self.PlayerData_ShortString.SetItem[SetName] = nil
 					self.UpdatedData.SetItem = self.UpdatedData.SetItem or {}
 					self.UpdatedData.SetItem[SetName] = 'F'
@@ -511,17 +530,15 @@ if not AISM then
 			Data[#Data + 1] = 'PF2:'..InputData.Profession2
 		end
 		
-		for groupNum = 1, MAX_TALENT_GROUPS do
-			if InputData['Spec'..groupNum] then
-				Data[#Data + 1] = 'SP'..groupNum..':'..InputData['Spec'..groupNum]
-			end
-		end
-		
 		if InputData.ActiveSpec then
 			Data[#Data + 1] = 'ASP:'..InputData.ActiveSpec
 		end
 		
 		for groupNum = 1, MAX_TALENT_GROUPS do
+			if InputData['Spec'..groupNum] then
+				Data[#Data + 1] = 'SP'..groupNum..':'..InputData['Spec'..groupNum]
+			end
+			
 			if InputData['Glyph'..groupNum] then
 				Data[#Data + 1] = 'GL'..groupNum..':'..InputData['Glyph'..groupNum]
 			end
@@ -612,43 +629,39 @@ if not AISM then
 	
 	local needSendData, Name, TableIndex
 	AISM:SetScript('OnUpdate', function(self, elapsed)
-		if elapsed < .1 then
-			--needSendData = nil
-			
-			if self.CurrentGroupMode ~= 'NoGroup' then
-				for i = 1, MAX_RAID_MEMBERS do
-					Name = UnitName(self.CurrentGroupMode..i)
-					TableIndex = GetUnitName(self.CurrentGroupMode..i, true)
-					
-					if Name and not UnitIsUnit('player', self.CurrentGroupMode..i) then
-						if Name == UNKNOWNOBJECT or Name == COMBATLOG_UNKNOWN_UNIT or not UnitIsConnected(self.CurrentGroupMode..i) then
-							self.AISMUserList[TableIndex] = nil
-							self.GroupMemberData[TableIndex] = nil
-						elseif not self.GroupMemberData[TableIndex] then
-							needSendData = true
-							self.GroupMemberData[TableIndex] = true
-						end
+		if self.CurrentGroupMode ~= 'NoGroup' then
+			for i = 1, MAX_RAID_MEMBERS do
+				Name = UnitName(self.CurrentGroupMode..i)
+				TableIndex = GetUnitName(self.CurrentGroupMode..i, true)
+				
+				if Name and not UnitIsUnit('player', self.CurrentGroupMode..i) then
+					if Name == UNKNOWNOBJECT or Name == COMBATLOG_UNKNOWN_UNIT or not UnitIsConnected(self.CurrentGroupMode..i) then
+						self.AISMUserList[TableIndex] = nil
+						self.GroupMemberData[TableIndex] = nil
+					elseif not self.GroupMemberData[TableIndex] then
+						needSendData = true
+						self.GroupMemberData[TableIndex] = true
 					end
 				end
-			else
+			end
+		else
+			needSendData = nil
+			self.SendDataGroupUpdated = nil
+		end
+		
+		if needSendData and self.Updater.SpecUpdated and self.Updater.GlyphUpdated and self.Updater.GearUpdated then
+			self.SendDataGroupUpdated = (self.SendDataGroupUpdated or self.SendMessageDelay_Group) - elapsed
+			
+			if self.SendDataGroupUpdated < 0 then
 				needSendData = nil
 				self.SendDataGroupUpdated = nil
-			end
-			
-			if needSendData and self.Updater.SpecUpdated and self.Updater.GlyphUpdated and self.Updater.GearUpdated then
-				self.SendDataGroupUpdated = (self.SendDataGroupUpdated or self.SendMessageDelay_Group) - elapsed
 				
-				if self.SendDataGroupUpdated < 0 then
-					needSendData = nil
-					self.SendDataGroupUpdated = nil
-					
-					self:SendData(self.PlayerData_ShortString)
-				end
+				self:SendData(self.PlayerData_ShortString)
 			end
-			
-			if needSendData == nil then
-				self:Hide() -- close function
-			end
+		end
+		
+		if needSendData == nil then
+			self:Hide() -- close function
 		end
 	end)
 	
@@ -713,6 +726,10 @@ if not AISM then
 					self:SendData(TableToSend, Prefix, Channel, Sender)
 				end
 			end
+			
+			for funcName, func in pairs(self.RegisteredFunction) do
+				func(Sender, Message)
+			end
 		else
 			local TableToSave, NeedResponse, Group, stringTable
 			
@@ -757,11 +774,15 @@ if not AISM then
 								TableToSave.Profession[Group].Level = stringTable[2]
 							end
 						elseif self.DataTypeTable[DataType] == 'Specialization' then
-							TableToSave.Specialization[Group].SpecializationID = stringTable[1]
+							local Spec, Talent, isSelected
 							
-							for i = 1, MAX_TALENT_TIERS do
-								for k = 1, NUM_TALENT_COLUMNS do
-									TableToSave.Specialization[Group]['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] = k == stringTable[i + 1] and true or false
+							for i = 1, #stringTable do
+								Spec, Talent, isSelected = strsplit('_', stringTable[i])
+								
+								if not Talent then
+									TableToSave.Specialization[Group].SpecializationID = stringTable[1]
+								else
+									TableToSave.Specialization[Group]['Talent'..Spec] = { Talent, isSelected and true or false }
 								end
 							end
 						elseif self.DataTypeTable[DataType] == 'ActiveSpec' then
@@ -786,8 +807,8 @@ if not AISM then
 							end
 							
 							TableToSave.Gear[DataType] = {
-								['ItemLink'] = stringTable[1] ~= 'F' and stringTable[1] or nil,
-								['Transmogrify'] = stringTable[2] == 'ND' and 'NotDisplayed' or stringTable[2] ~= 0 and stringTable[2] or nil
+								ItemLink = stringTable[1] ~= 'F' and stringTable[1] or nil,
+								Transmogrify = stringTable[2] == 'ND' and 'NotDisplayed' or stringTable[2] ~= 0 and stringTable[2] or nil
 							}
 							
 							for i = 1, MAX_NUM_SOCKETS do
@@ -894,7 +915,7 @@ if not AISM then
 				Sender = Message:match(GuildLeaveKey) or Message:match(PlayerOfflineKey)
 				Sender = Sender:gsub('@', '-')
 				Sender, SenderRealm = strsplit('-', Sender)
-				SenderRealm = gsub(SenderRealm,'[%s%-]','')
+				SenderRealm = SenderRealm and gsub(SenderRealm, '[%s%-]', '') or nil
 				Sender = Sender..(SenderRealm and SenderRealm ~= '' and SenderRealm ~= playerRealm and '-'..SenderRealm or '')
 				
 				for userName in pairs(self.AISMUserList) do
