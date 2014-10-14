@@ -128,7 +128,7 @@ function CA:Setup_CharacterArmory()
 	self:SetScript('OnEvent', function(self, Event, ...)
 		if Event == 'SOCKET_INFO_SUCCESS' or Event == 'ITEM_UPGRADE_MASTER_UPDATE' or Event == 'TRANSMOGRIFY_UPDATE' or Event == 'PLAYER_ENTERING_WORLD' then
 			if Event == 'TRANSMOGRIFY_UPDATE' then
-				print(...)
+				--print(...)
 			end
 			self.GearUpdated = nil
 			self:SetScript('OnUpdate', self.CharacterArmory_DataSetting)
@@ -373,7 +373,7 @@ end
 
 function CA:Update_Gear()
 	--if not CA:IsVisible() then return end
-	print("yep")
+	--print("yep")
 	-- Get Player Profession
 	local Prof1, Prof2 = GetProfessions()
 	local Prof1_Level, Prof2_Level = 0, 0

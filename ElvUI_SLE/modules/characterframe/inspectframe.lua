@@ -1382,7 +1382,7 @@ function IA:CreateInspectFrame()
 						SendAddonMessage('AISM', 'AISM_GUILD_Check', DataTable.Realm == myrealm and 'WHISPER' or 'GUILD', DataTable.Name)
 					end
 					
-					print(isSending)
+					--print(isSending)
 					if isSending then
 						AISM:RegisterInspectDataRequest(function(User, Message)
 							if User == DataTable.TableIndex and Message == isSending then
