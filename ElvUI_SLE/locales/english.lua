@@ -4,43 +4,59 @@ local L = AceLocale:NewLocale("ElvUI", "enUS", true);
 
 if not L then return; end
 
+--Export/Import--
+L["SLE_IMPORTS"] = "|cffFF0000Note:|r Use the filter imports with caution as these will overwrite any custom ones made!\nImporting a class filter will overwrite any modifications you have made to that class filter."
+-- L["SLE_EXPORT_HELP"] = [[|cffFFFFFFExporting:
+-- Click the Export button and the settings that are different from defaults in selected options tables' will be dumped to the export box.
+ -- - Profile will copy profile based settings;
+ -- - Private will copy character specific settings;
+ -- - Global will copy global settings.|r
+-- |cffFF0000Warning: exporting may cause your game to freeze for some time.|r
+
+-- |cffFFFFFFImporting:
+-- To import the settings you need to paste the setting table
+-- or line to the import editbox and click import button.
+-- You can use next formats for settings:
+-- 1) E.db.chat.panelHeight = 185
+-- 2) E.db['chat']['panelHeight'] = 185
+-- 3) E.db['chat'] = {
+-- ...
+-- }
+-- In case of the third format you should put at least 2 values.|r
+
+-- |cffFF0000Know issue: coloring options will be exported anyway no matter the values and exporting options set.|r]]
+
 --General--
-L["SLE_DESC"] = [=[This is an edit of ElvUI that adds some functionality to the original addon and changes some previously existed options.
-The edit doesn't change original files in any respect so you can freely disable it any time from your addon manager without any risk.]=]
-L["LFR Lockout"] = true
-L["Show/Hide LFR lockout info in time datatext's tooltip."] = true
-L["PvP Auto Release"] = true
-L["Automatically release body when killed inside a battleground."] = true
-L["Auto hide"] = true
 L["SLE_LOGIN_MSG"] = [=[You are using |cff1784d1Shadow & Light|r version |cff1784d1%s%s|r for ElvUI.
 If you wish to use the original ElvUI addon, disable this edit's plugin in your Addons manager.
 Have a nice day.]=]
+L["SLE_DESC"] = [=[This is an edit of ElvUI that adds some functionality to the original addon and changes some previously existed options.
+The edit doesn't change original files in any respect so you can freely disable it any time from your addon manager without any risk.]=]
 L['MSG_OUTDATED'] = "Your version of ElvUI is older than recommended to use with Shadow & Light. Your version is |cff1784d1%.2f|r (recommended is |cff1784d1%.2f|r). Please update your ElvUI."
-L["Reset All"] = true
-L["Reset these options to defaults"] = true
-L['Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable.'] =  true
 
 --Install--
 L["SLE_Install_Text2"] = [=[This step is optional and only to be used if you are wanting to use one of our configurations. 
 |cffFF0000Warning:|r Please note that the authors' may or may not use any of the layouts/themes you have selected as they may have changed their setup more recently.]=]
 
 
---Auras--
-
 
 --Backgroungds--
+
 L["BG_DESC"] = "Module for creating additional frames that can be used as backgrounds for anything."
+L["Sets width of the frame"] = "Wähle die breite dieses Fensters"
+L["Sets height of the frame"] = "Wähle die höhe dieses Fensters"
+L["Sets X offset of the frame"] = "Wähle den X Versatz für dieses Fenster"
+L["Sets Y offset of the frame"] = "Wähle den Y Versatz für dieses Fenster"
+L["Texture"] = "Textur"
+L["Set the texture to use in this frame.  Requirements are the same as the chat textures."] = "Wähle die Textur die für dieses Fenster benutzt wird. Empfohlen wird die selbe wie die Chat Textur."
+L["Backdrop Template"] = "Hintergrund Template"
+L["Change the template used for this backdrop."] = "Wähle das Template das für den Hintergrund benutzt wird."
+L["Default"] = "Standart"
+
 
 --Character Frame Options
 L["CFO_DESC"] = "This section will added different options/features to the character sheet.  Here you can show item level and durability of your items for a quick glance."
 L['IFO_DESC'] = "This section will disable default inspect frame and use a custom one that S&L provides.  Please note that this is in a very early beta and we know there may be issues.  We will be adding customization in later releases, please make sure to check for updates for new features and fixes."
-
-
---Character Frame--
-
-
---Chat--
-
 
 --Datatexts--
 L["SLE_AUTHOR_INFO"] = "Shadow & Light by Darth Predator & Repooc"
@@ -59,11 +75,8 @@ L["DP_DESC"] = [=[Additional Datatext Panels.
 You can't disable chat panels.]=]
 
 
---Exp/Rep Bar--
-
 
 --Equip Manager--
-
 L["EM_DESC"] = "This module provides different options to automatically change your equipment sets on spec change or entering certain locations."
 
 
@@ -71,45 +84,19 @@ L["EM_DESC"] = "This module provides different options to automatically change y
 L["FARM_DESC"] = [[Additional actionbars for the Sunsong Ranch containing seeds, tools and portals.
 They will appear only if you are on the Ranch or The Halfhill Market.]]
 
---Marks--
-
-
---Import Section
-L["SLE_IMPORTS"] = "|cffFF0000Note:|r Use the filter imports with caution as these will overwrite any custom ones made!\nImporting a class filter will overwrite any modifications you have made to that class filter."
-
 --Loot--
 L["AUTOANNOUNCE_DESC"] = "When enabled, will automatically announce the loot when the loot window opens.\n\n|cffFF0000Note:|r Raid Lead, Assist, & Master Looter Only."
 L["LOOT_DESC"] = "Will announce loot to specified chat channel at the selected loot threshold."
 L["LOOTH_DESC"] = "These are options for tweaking the Loot Roll History window."
 
-
-
-
---Nameplates--
-
-
 --Minimap--
 L['MINIMAP_DESC'] = "These options effect various aspects of the minimap.  Some options may not work if you disable minimap in the General section of ElvUI config."
-
-
---Enhanced Vehicle Bar--
-
-
---Raid Utility--
-
-
---Skins--
 
 --Tooltip--
 L["TTOFFSET_DESC"] = "This adds the ability to have the tooltip offset from the cursor.  Make sure to have the \"Cursor Anchor\" option enabled in ElvUI's Tooltip section to use this feature."
 
-
 --UI buttons--
 L["UB_DESC"] = "This adds a small bar with some useful buttons which acts as a small menu for common things."
-
-
---Unitframes--
-
 
 --Links--
 L["LINK_DESC"] = [[Following links will direct you to the Shadow & Light's pages on various sites.]]
@@ -121,12 +108,13 @@ Tukz
 Affinitii
 Arstraea
 Azilroka
+Benik
 Blazeflack
 Boradan
 Camealion
 Omega1970
 Pvtschlag
-Simpy
+Simpy The Heretic
 Sinaris
 Sortokk
 Swordyy
@@ -135,7 +123,3 @@ L["ELVUI_SLE_MISC"] = [=[BuG - for being french lol
 TheSamaKutra
 The rest of TukUI community
 ]=]
-
---Tutorials--
-
---Movers--

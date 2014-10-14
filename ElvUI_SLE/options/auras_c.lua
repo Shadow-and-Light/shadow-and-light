@@ -15,13 +15,12 @@ local function configTable()
 			intro = {
 				order = 2,
 				type = "description",
-				name = "",
+				name = L["Options for customizing auras near the minimap."],
 			},
 			enabled = {
 				order = 3,
 				type = "toggle",
 				name = L["Enable"],
-				--desc = L["Show/Hide UI buttons."],
 				get = function(info) return E.db.sle.auras.enable end,
 				set = function(info, value) E.db.sle.auras.enable = value end
 			},
