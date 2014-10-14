@@ -97,7 +97,7 @@ function S:Setup()
 	SS.ExPack:SetTexture([[Interface\Glues\Common\Glues-WoW-WoDLogo.blp]])
 	SS.ExPack:SetSize(150, 75)
 	SS.model = CreateFrame("PlayerModel", "ScreenModel", SS)
-	SS.model:CreateBackdrop("Transparent") --For checking size and borders
+	-- SS.model:CreateBackdrop("Transparent") --For checking size and borders
 	SS.Top.Title = SS.Top:CreateFontString(nil, "OVERLAY")
 	SS.Top.Quote = SS.Top:CreateFontString(nil, "OVERLAY")
 	SS.Top.Quote:SetJustifyH("LEFT")
@@ -111,7 +111,7 @@ function S:Setup()
 	
 	SS.testmodel = CreateFrame("PlayerModel", "ScreenTestModel", E.UIParent)
 	SS.testmodel:SetPoint("RIGHT", E.UIParent, "RIGHT", -5, 0)
-	SS.testmodel:CreateBackdrop("Transparent")
+	-- SS.testmodel:CreateBackdrop("Transparent")
 	SS.testmodel:Hide()
 	
 	-- SS.ScrollFrame:SetShadowColor(0, 0, 0, 0)
