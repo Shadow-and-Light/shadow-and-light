@@ -11,17 +11,12 @@ L["LFR Lockout"] = "Состояние ЛФР"
 L["Show/Hide LFR lockout info in time datatext's tooltip."] = "Отображать/скрывать информацию о сохранении ЛФР"
 L["PvP Auto Release"] = "Автоматический выход из тела"
 L["Automatically release body when killed inside a battleground."] = "Автоматически выходить из тела на полях боя."
-L["Pet autocast corners"] = "Автокаст питомца"
-L["Show/hide triangles in corners of autocastable buttons."] = "Показать/скрыть треугольники в углах кнопок с автоматически применяемыми заклинаниями питомца."
-L["Options to tweak Loot History window behaviour."] = "Опции поведения окна истории добычи в подземельях."
 L["Auto hide"] = "Автоматически скрывать"
 L["SLE_LOGIN_MSG"] = [=[Вы используете редакцию ElvUI под названием |cff1784d1"Shadow & Light"|r версия |cff1784d1%s%s|r.
 Если вы хотите использовать оригинальный ElvUI, просто отключите плагин этой редакции в вашем менеджере аддонов.
 Приятной игры.]=]
 L['MSG_OUTDATED'] = "Ваша версия ElvUI старее, чем рекомендованная для использования с Shadow & Light. У Вас версия |cff1784d1%.2f|r (рекомендованая |cff1784d1%.2f|r). Пожалуйста, обновите ElvUI."
--- L["Your version of ElvUI is older than recommended to use with Shadow & Light. Please, download the latest version from tukui.org."] = "Ваша версия ElvUI старее, чем рекомендованная для использования с Shadow & Light. Пожалуйста, скачайте последнюю версию с tukui.org."
 L["Reset All"] = "Сбросить все"
-L["Reset all Shadow & Light options and movers to their defaults"] = "Сбросить все настройки и фиксаторы редакции на умолчания"
 L["Reset these options to defaults"] = "Восстановить умолчания для этих опций"
 L['Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable.'] =  "Ох ты ж ежик! У Вас одновременно включены Shadow & Light и ElvUI Enhanced. Выберите который из них отключить."
 
