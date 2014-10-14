@@ -30,11 +30,11 @@ local function configTable()
 				order = 2,
 				image = function() return 'Interface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Title', 650, 410 end,
 			},
-			info = {
+			--[[info = {
 				order = 3,
 				type = "description",
 				name = L["SLE_DESC"],
-			},
+			},]]
 			Install = {
 				order = 4,
 				type = 'execute',

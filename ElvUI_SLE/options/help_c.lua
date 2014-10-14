@@ -9,12 +9,6 @@ local function configTable()
 		order = -2,
 		childGroups = 'tab',
 		args = {
-			desc = {
-				order = 1,
-				type = 'description',
-				fontSize = 'medium',
-				name = 'Da Helpz!!!!',
-			},
 			about = {
 				type = 'group',
 				name = 'About',
@@ -24,8 +18,7 @@ local function configTable()
 						order = 1,
 						type = 'description',
 						fontSize = 'medium',
-						name = [[Shadow & Light is a plugin by two lazy asses.
-This shit is comletely broken and should be scrapped as soon as possible!]],
+						name = L["SLE_DESC"],
 					},
 				},
 			},
@@ -50,8 +43,8 @@ This shit is comletely broken and should be scrapped as soon as possible!]],
 								order = 1,
 								type = 'description',
 								fontSize = 'medium',
-								name = [[|cff30ee30Imma be da first question!|r
-Imma be da first answerz]],
+								name = [[|cff30ee30Q: Imma be da first question!|r
+A: Imma be da first answerz]],
 							},
 						},
 					},
@@ -65,8 +58,8 @@ Imma be da first answerz]],
 								order = 2,
 								type = 'description',
 								fontSize = 'medium',
-								name = [[|cff30ee30Imma be da second question!|r
-Imma be da second answerz]],
+								name = [[|cff30ee30Q: Imma be da second question!|r
+A: Imma be da second answerz]],
 							},
 						},
 					},
