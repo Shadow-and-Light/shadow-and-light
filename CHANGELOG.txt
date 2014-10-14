@@ -2,17 +2,17 @@ v2.00
 In general added a lot of new stuff and improved the way everything works.
 
 Configuration:
-New configuration layout has been implemented in preparation to WoD. Now options groups will not take that much space vertically. Takes some time to get used to though.
-- Most of the options are now concentrated in Settings group divided by General, Minimap, Raid Marks, Equip Manager, Farm and Loot subgroups.
-- Media group contains options for Zone and Subzone titles, Mail and Chat Editbox fonts
-- Character window options have been moved to the new "Armory" group. The Armory module handles not only character window but inspect window as well. If enabled inspect option in the right-click menu will became blue.
+New configuration layout has been implemented in preparation to WoD. Now the options are grouped up differently. Take some time to get used to them though.
+- Most of the options are now concentrated in Settings group with tabbed groups in that section.
+- Media group contains options for Zone and Subzone titles, Mail and Chat Editbox fonts, as well as a neat screen saver option for when you go afk
+- Character window options have been moved to the new "Armory" group. The Armory module handles not only the character window but the inspect window as well. If enabled inspect option in the right-click menu will became blue and you will be able to inspect other S&L users.  Please note this is very beta and stuff may be broken at time of 6.0.2 release.
 - Panels and Dashboard now houses not only datatext options but background frames as well
 - New About/Help group contains various links to the download/bug report locations
-- S&L Install isn't included in ElvUI's installation process and launches only after normal install is complete or manually.
-- Added nameplate options. You are now able to see your aggro and a number of people in your group targeting each unit
+- S&L Install isn't included in ElvUI's installation process like before.  It now launches after completing ElvUI's install which reloads the UI.
+- Added nameplate options. You are now able to see your threat and a number of people in your group targeting each unit
 
 Auras (Buffs/Debuffs):
-- Option to remove the time remaining for buffs/debuffs for a more minimal look
+- Option to remove the time remaining for buffs/debuffs for a more minimal look (Your welcome Rehok via twitch)
 
 Background Panels:
 - Added alpha option to background panels
@@ -39,16 +39,16 @@ Datatexts:
 - Added alpha option to datatext panels
 
 Incompatible addons:
-- Updated the Enhanced Incompatible Message so it can be ignored/Disable Enhanced Addon before reporting issues
+- Updated the Enhanced Incompatible Message so it can be ignored/Disable Enhanced Addon before reporting issues (Do not report conflicts with ElvUI Enhanced Addon, we do not support it as it is out of date)
 - No more identical module names with other ElvUI plugins = no more unexpected incompatibilities!
-- At the moment next addons are incompatible with Shadow & Light cause they are doing exactly the same:
+- The following addons are incompatible with Shadow & Light as they provide the same options:
 -- ElvUI_Enhanced
 -- Loot Confirm
 -- SquareMinimapButtons
 
 Loot:
-- Loot announcer now shows item's ilvl allowing to tell apart warforged and regular gear
-- Added override option to announce loot with out needing a modifier or by selecting a modifier
+- Loot announcer now shows item's ilvl allowing you to tell apart warforged and regular gear apart
+- Added override option to announce loot with out needing a modifier or by selecting a modifier (Doesn't require you to be RL/Assist/ML anymore)
 - Added options to automatically confirm loot collecting for BoP and disenchanting
 - Added options to automatically roll greed and/or disenchant for selected quality of items on max level or after the selected level of your choice. With ElvUI's option, you can only greed green quality items if no enchanter is in the group.
 - Disabled ElvUI's Auto Greed/DE option when our auto loot module is enabled
@@ -61,7 +61,7 @@ Pet Battles:
 - Added the ability to move pets' health, buffs and all that stuff around
 
 Raid Marks:
-- Added mouseover option for both Marks and Flares
+- Added mouseover option for both Raid Marks and Flare bars
 - Added an option for Raid Marks to appear only if target is selected
 
 Unitframes:
