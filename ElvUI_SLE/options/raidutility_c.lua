@@ -2,29 +2,28 @@
 local M = E:GetModule('Misc')
 
 local function configTable()
-	E.Options.args.sle.args.options.args.ru = {
-		order = 9,
+	E.Options.args.sle.args.options.args.general.args.ru = {
 		type = "group",
 		name = L['Raid Utility'],
+		order = 10,
 		args = {
-			ru = {
+			header = {
 				order = 1,
-				type = "group",
+				type = "header",
 				name = L['Raid Utility'],
-				args = {
-					info = {
-						order = 1,
-						type = "description",
-						name = "Options for the raid control button",
-					},
-					mouseover = {
-						order = 2,
-						type = "toggle",
-						name = L["Enable"],
-						get = function(info) return E.db.sle.rumouseover end,
-						set = function(info, value) E.db.sle.rumouseover = value; M:RUReset() end,
-					},
-				},
+			},
+			info = {
+				order = 2,
+				type = "description",
+				name = "Options for the raid control button",
+			},
+			mouseover = {
+				order = 3,
+				type = "toggle",
+				name = L["Mouse Over"],
+				desc = L["Enabling mouse over will make ElvUI's raid utility show on mouse over instead of always showing."],
+				get = function(info) return E.db.sle.rumouseover end,
+				set = function(info, value) E.db.sle.rumouseover = value; M:RUReset() end,
 			},
 		},
 	}
