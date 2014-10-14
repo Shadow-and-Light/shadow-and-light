@@ -5,12 +5,10 @@ local L = AceLocale:NewLocale("ElvUI", "ruRU")
 if not L then return; end
 
 --General--
-L["Below you can see option groups presented by Shadow & Light."] = "Ниже располагаются группы опций, добавленные Shadow & Light."
-L["General options of Shadow & Light."] = "Общие опции Shadow & Light."
 L["SLE_DESC"] = [=[Это редакция ElvUI добавляет некоторые новые функции к оригинальному аддону и изменяет функционал некоторых старых опций.
 Эта редакция ни в коем виде не изменяет оригинальные файлы, так что вы можете спокойно отключить ее в вашем менеджере аддонов по желанию.]=]
 L["LFR Lockout"] = "Состояние ЛФР"
-L["Show/Hide LFR lockout info in the time datatext's tooltip."] = "Отображать/скрывать информацию о сохранении ЛФР"
+L["Show/Hide LFR lockout info in time datatext's tooltip."] = "Отображать/скрывать информацию о сохранении ЛФР"
 L["PvP Auto Release"] = "Автоматический выход из тела"
 L["Automatically release body when killed inside a battleground."] = "Автоматически выходить из тела на полях боя."
 L["Pet autocast corners"] = "Автокаст питомца"
