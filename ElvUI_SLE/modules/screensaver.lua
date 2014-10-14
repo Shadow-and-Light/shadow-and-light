@@ -95,10 +95,9 @@ function S:Setup()
 	SS.RaceCrest:SetTexture(CrestPath..RaceToken)
 	SS.ExPack = SS.Top:CreateTexture(nil, 'OVERLAY')
 	SS.ExPack:SetTexture([[Interface\Glues\Common\Glues-WoW-WoDLogo.blp]])
-	-- SS.ExPack:SetTexture([[Interface\Glues\Common\Glues-WoW-MPLogo.blp]])
 	SS.ExPack:SetSize(150, 75)
 	SS.model = CreateFrame("PlayerModel", "ScreenModel", SS)
-	-- SS.model:CreateBackdrop("Transparent") --For checking size and borders
+	SS.model:CreateBackdrop("Transparent") --For checking size and borders
 	SS.Top.Title = SS.Top:CreateFontString(nil, "OVERLAY")
 	SS.Top.Quote = SS.Top:CreateFontString(nil, "OVERLAY")
 	SS.Top.Quote:SetJustifyH("LEFT")
@@ -112,7 +111,7 @@ function S:Setup()
 	
 	SS.testmodel = CreateFrame("PlayerModel", "ScreenTestModel", E.UIParent)
 	SS.testmodel:SetPoint("RIGHT", E.UIParent, "RIGHT", -5, 0)
-	SS.testmodel:SetSize((GetScreenHeight()/6), (GetScreenHeight()/3))
+	SS.testmodel:CreateBackdrop("Transparent")
 	SS.testmodel:Hide()
 	
 	-- SS.ScrollFrame:SetShadowColor(0, 0, 0, 0)
@@ -142,6 +141,14 @@ function S:Setup()
 	SS.ScrollFrame:SetPoint("CENTER", SS.Bottom, "CENTER", 0, 0)
 
 	SS.Top.Title:SetText("|cff00AAFF"..L['You Are Away From Keyboard'].."|r")
+	-----
+	local Width, Height = GetScreenWidth(), E.db.sle.media.screensaver.height 
+	local point = E.db.sle.media.screensaver.playermodel.position
+	SS.Top:SetSize(Width, Height)
+	SS.Bottom:SetSize(Width, Height)
+	SS.model:SetWidth(E.db.sle.media.screensaver.playermodel.width)
+	SS.model:SetPoint("TOP"..point, SS.Top,"BOTTOM"..point, 0,0)
+	SS.model:SetPoint("BOTTOM"..point, SS.Bottom, "TOP"..point, 0, 0)
 end
 
 local AnimTime, testM
@@ -151,8 +158,11 @@ function S:TestShow()
 	testM = E.db.sle.media.screensaver.playermodel.anim
 	SS.testmodel:Show()
 	SS.testmodel:SetUnit("player")
-	SS.testmodel:SetPosition(0.3,0,-0.1)
-	SS.testmodel:SetFacing(-0.5)
+	SS.testmodel:SetSize(SS.model:GetWidth(), SS.model:GetHeight())
+	SS.testmodel:SetPosition(-E.db.sle.media.screensaver.playermodel.distance, E.db.sle.media.screensaver.playermodel.xaxis, E.db.sle.media.screensaver.playermodel.yaxis)
+	if SS.testmodel:GetFacing() ~= (E.db.sle.media.screensaver.playermodel.rotation / 60) then
+		SS.testmodel:SetFacing(E.db.sle.media.screensaver.playermodel.rotation / 60)
+	end
 	SS.testmodel:SetAnimation(testM)
 	SS.testmodel:SetScript("OnAnimFinished", S.AnimTestFinished)
 
@@ -176,17 +186,24 @@ function S:Shown()
 	if IsInGuild() then
 		GuildName, GuildRank = GetGuildInfo("player")
 	end
-	local Width, Height = SLE:Scale(GetScreenWidth()), SLE:Scale(E.db.sle.media.screensaver.height)
+	local Width, Height = GetScreenWidth(), E.db.sle.media.screensaver.height 
 	self.model:SetUnit("player")
 	local x = E.db.sle.media.screensaver.playermodel.position == "RIGHT" and -1 or 1
 	local point = E.db.sle.media.screensaver.playermodel.position
-	self.model:SetPosition(0.1, -x*0.1, -0.1) --(pos/neg) first number moves closer/farther, second right/left, third up/down
-	self.model:SetFacing(x*0.5)
+	self.model:SetPosition(-E.db.sle.media.screensaver.playermodel.distance, -x*E.db.sle.media.screensaver.playermodel.xaxis, E.db.sle.media.screensaver.playermodel.yaxis) --(pos/neg) first number moves closer/farther, second right/left, third up/down
+	if self.model:GetFacing() ~= (E.db.sle.media.screensaver.playermodel.rotation / 60) then
+		self.model:SetFacing(E.db.sle.media.screensaver.playermodel.rotation / 60)
+	end
 	self.model:SetAnimation(E.db.sle.media.screensaver.playermodel.anim)
 	self.model:SetScript("OnAnimFinished", S.AnimFinished)
+	
+	self.Top:SetSize(Width, Height)
+	self.Bottom:SetSize(Width, Height)
+	self.ScrollFrame:SetSize(Width, 24)
+	
 	--Positioning model
 	SS.model:ClearAllPoints()
-	SS.model:SetWidth((GetScreenWidth()/4) + 20)
+	SS.model:SetWidth(E.db.sle.media.screensaver.playermodel.width)
 	SS.model:SetPoint("TOP"..point, SS.Top,"BOTTOM"..point, 0,0)
 	SS.model:SetPoint("BOTTOM"..point, SS.Bottom, "TOP"..point, 0, 0)
 
@@ -197,9 +214,7 @@ function S:Shown()
 	self.Top.GuildR:SetText(format(GuildRank and "|cff00AAFF"..RANK..": %s|r" or "", GuildRank))
 	self.Top.PlayerInfo:SetText(format("|c%s%s|r, %s %s", Color.colorStr, Class, LEVEL, Level))
 
-	self.Top:SetSize(Width, Height)
-	self.Bottom:SetSize(Width, Height)
-	self.ScrollFrame:SetSize(Width, 24)
+	
 
 	self.ScrollFrame:AddMessage(Tips[TipNum], 1, 1, 1)
 end
@@ -274,7 +289,7 @@ function S:Initialize()
 	SS = CreateFrame("Frame", "SLE_SS", WorldFrame)
 	SS:Hide()
 	SS:SetFrameStrata("FULLSCREEN")
-	SS:SetScale(UIParent:GetScale())
+	SS:SetScale(SLE:Scale(1))
 	self:Setup()
 	SS:SetScript("OnShow", self.Shown)
 	SS:SetScript("OnUpdate", self.Update)

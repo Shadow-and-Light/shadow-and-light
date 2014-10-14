@@ -502,8 +502,16 @@ local function configTable()
 								type = "range",
 								min = 130, max = E.screenheight/6, step = 1,
 							},
-							yaxis = {
+							width = {
 								order = 5,
+								name = L["Width"],
+								type = "range",
+								min = 200, max = E.screenwidth/2, step = 0.01,
+								get = function(info) return E.db.sle.media.screensaver.playermodel.width end,
+								set = function(info, value) E.db.sle.media.screensaver.playermodel.width = value end,
+							},
+							yaxis = {
+								order = 6,
 								name = L["Y Offset"],
 								type = "range",
 								min = -1.5, max = 1.5, step = 0.01,
@@ -511,7 +519,7 @@ local function configTable()
 								set = function(info, value) E.db.sle.media.screensaver.playermodel.yaxis = value end,
 							},
 							xaxis = {
-								order = 6,
+								order = 7,
 								name = L["X Offset"],
 								type = "range",
 								min = -1.5, max = 1.5, step = 0.01,
@@ -519,12 +527,20 @@ local function configTable()
 								set = function(info, value) E.db.sle.media.screensaver.playermodel.xaxis = value end,
 							},
 							distance = {
-								order = 7,
+								order = 8,
 								name = L["Camera Distance Scale"],
 								type = "range",
 								min = -1.5, max = 4, step = 0.01,
 								get = function(info) return E.db.sle.media.screensaver.playermodel.distance end,
 								set = function(info, value) E.db.sle.media.screensaver.playermodel.distance = value end,
+							},
+							rotation = {
+								type = 'range',
+								name = L['Model Rotation'],
+								order = 4,
+								min = 0, max = 360, step = 1,
+								get = function(info) return E.db.sle.media.screensaver.playermodel.rotation end,
+								set = function(info, value) E.db.sle.media.screensaver.playermodel.rotation = value end,
 							},
 							testmodel = {
 								order = 10,
