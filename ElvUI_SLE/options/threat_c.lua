@@ -12,11 +12,11 @@ local function configTable()
 				type = "header",
 				name = L['Threat'],
 			},
-			intro = {
+			--[[intro = {
 				order = 2,
 				type = "description",
 				name = "Some threat changes",
-			},
+			},]]
 			enabled = {
 				order = 3,
 				type = "toggle",

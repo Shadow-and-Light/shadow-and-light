@@ -15,7 +15,7 @@ local function configTable()
 			intro = {
 				order = 2,
 				type = "description",
-				name = L["Additional menu with useful buttons"],
+				name = L["UB_DESC"],
 			},
 			enabled = {
 				order = 3,

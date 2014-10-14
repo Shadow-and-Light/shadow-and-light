@@ -8,11 +8,11 @@ local function configTable()
 		type = "group",
 		name = L["Raid Marks"],
 		args = {
-			intro = {
+			--[[intro = {
 				order = 1,
 				type = 'description',
 				name = L['Options for panels providing fast access to raid markers and flares.'],
-			},
+			},]]
 			marks = {
 				order = 2,
 				type = "group",

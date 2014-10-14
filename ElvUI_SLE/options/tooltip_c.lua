@@ -12,11 +12,11 @@ local function configTable()
 				type = "header",
 				name = L["Tooltip"],
 			},
-			intro = {
+			--[[intro = {
 				order = 2,
 				type = 'description',
 				name = L["Tooltip enhancements"],
-			},
+			},]]
 			space1 = {
 				order = 4,
 				type = 'description',

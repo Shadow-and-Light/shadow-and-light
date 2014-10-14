@@ -355,7 +355,7 @@ L["Offset the tooltip on the Y-axis."] = true
 
 --UI buttons--
 L["UI Buttons"] = true
-L["Additional menu with useful buttons"] = true
+L["UB_DESC"] = "This adds a small bar with some useful buttons which acts as a small menu for common things."
 L["Show/Hide UI buttons."] = true
 L["Mouse over"] = true
 L["Show on mouse over."] = true
