@@ -9,10 +9,11 @@ local MAX_PAGE = 5
 local function DarthSetup() --The function to switch from classic ElvUI settings to Darth's
 	SLEInstallStepComplete.message = L["Darth's Defaults Set"]
 	SLEInstallStepComplete:Show()
-	if not E.db.movers then E.db.movers = {}; end
-	if not E.db.loclite then E.db.loclite = {} end
-
 	local layout = E.db.layoutSet --To know if some sort of layout was choosed before
+
+	if not E.db.movers then E.db.movers = {}; end
+
+	
 
 	if SLE:Auth() then
 		E.db.hideTutorial = 1
@@ -157,7 +158,7 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 	E.db["auras"] = {
 		["font"] = "ElvUI Font",
 		["fontOutline"] = "OUTLINE",
-		["consolidatedBuffs"] = {
+		["consolidatedBuffs"] = { 
 			["fontSize"] = 11,
 			["filter"] = false,
 			["font"] = "ElvUI Font",
@@ -170,18 +171,17 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 			["size"] = 30,
 		},
 	}
-	--Don't forget to set if LocLite is enabled
+
 	E.db["movers"] = {
 		["DP_6_Mover"] = "BOTTOMElvUIParentBOTTOM3170",
 		["ElvUF_FocusCastbarMover"] = "BOTTOMElvUIParentBOTTOM0178",
 		["PetAB"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT55152",
-		["LocationLiteMover"] = "TOPElvUIParentTOP0-19",
 		["LeftChatMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT019",
 		["GMMover"] = "TOPLEFTElvUIParentTOPLEFT00",
 		["BuffsMover"] = "TOPRIGHTElvUIParentTOPRIGHT-2000",
 		["BossButton"] = "BOTTOMElvUIParentBOTTOM-1200",
 		["ElvUF_FocusMover"] = "BOTTOMElvUIParentBOTTOM29421",
-		["MicrobarMover"] = "TOPElvUIParentTOP0-38",
+		["MicrobarMover"] = "TOPElvUIParentTOP0-18",
 		["VehicleSeatMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT420205",
 		["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM304140",
 		["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0211",
@@ -205,7 +205,7 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 		["RaidUtility_Mover"] = "TOPElvUIParentTOP-3060",
 		["ArenaHeaderMover"] = "TOPLEFTElvUIParentTOPLEFT0-209",
 		["ElvAB_6"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-11210",
-		["PvPMover"] = "TOPElvUIParentTOP0-70",
+		["PvPMover"] = "TOPElvUIParentTOP0-50",
 		["BossHeaderMover"] = "TOPLEFTElvUIParentTOPLEFT0-209",
 		["ElvUF_PetMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT551100",
 		["PetBattleABMover"] = "BOTTOMElvUIParentBOTTOM020",
@@ -260,6 +260,7 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 					["overlay"] = true,
 					["enable"] = true,
 					["camDistanceScale"] = 3,
+					["rotation"] = 345,
 				},
 				["castbar"] = {
 					["height"] = 20,
@@ -309,6 +310,7 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 					["overlay"] = true,
 					["enable"] = true,
 					["camDistanceScale"] = 3,
+					["rotation"] = 345,
 				},
 				["classbar"] = {
 					["fill"] = "spaced",
@@ -396,7 +398,7 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 			},
 		},
 		["fontOutline"] = "OUTLINE",
-	},
+	}
 	
 	E.db["datatexts"] = {
 		["minimapPanels"] = false,
@@ -502,16 +504,46 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 		["panelWidth"] = 425,
 	}
 	--Hide under is addon loaded check
-	E.db["loclite"] = {
-		["dig"] = false,
-		["lpwidth"] = 300,
-		["lpauto"] = false,
-		["lpfontsize"] = 10,
-		["lpfontflags"] = "OUTLINE",
-		["dtheight"] = 20,
+	
+	if IsAddOnLoaded("ElvUI_LocLite") then
+		E.db["loclite"] = {
+			["dig"] = false,
+			["lpwidth"] = 300,
+			["lpauto"] = false,
+			["lpfontsize"] = 10,
+			["lpfontflags"] = "OUTLINE",
+			["dtheight"] = 20,
+		}
+		E.db["movers"]["LocationLiteMover"] = "TOPElvUIParentTOP0-19"
+		E.db["movers"]["MicrobarMover"] = "TOPElvUIParentTOP0-38"
+		E.db["movers"]["PvPMover"] = "TOPElvUIParentTOP0-70"
+	end
+	
+	E.private["general"]["normTex"] = "Polished Wood"
+	E.private["general"]["glossTex"] = "Polished Wood"
+
+	E.private["sle"]["inspectframeoptions"]["enable"] = true
+	E.private["sle"]["characterframeoptions"]["enable"] = true
+	E.private["sle"]["minimap"]["mapicons"]["enable"] = true
+	E.private["sle"]["equip"]["spam"] = true
+
+	if AddOnSkins then
+		E.private["addonskins"] = {
+			["Blizzard_WorldStateCaptureBar"] = true,
+			["EmbedOoCDelay"] = 5,
+			["EmbedOoC"] = true,
+			["DBMFontSize"] = 10,
+			["DBMSkinHalf"] = true,
+			["DBMFont"] = "ElvUI Font",
+			["EmbedLeftWidth"] = 213,
+			["EmbedSystemDual"] = true,
+		}
+	end
+	E.private["ElvUI_Currency"] = {
+		["Unused"] = false,
 	}
 	
-	E:UpdateAll(true)
+	E:UpdateAll()
 end
 
 local function RepoocSetup() --The function to switch from classic ElvUI settings to Repooc's
