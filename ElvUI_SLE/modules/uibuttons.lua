@@ -64,13 +64,14 @@ local function CreateB(button, symbol, text, name, desc)
 			button:SetAttribute("macrotext1", "/vem")
 		end
 	elseif button == Abutton then
-		if IsAddOnLoaded("ACP") then
-			button:SetAttribute("macrotext1", "/acp")
-		elseif IsAddOnLoaded("Ampere") then
-			button:SetAttribute("macrotext1", "/ampere")
-		else
-			button:SetAttribute("macrotext1", "/stam")
-		end
+		-- if IsAddOnLoaded("ACP") then
+			-- button:SetAttribute("macrotext1", "/acp")
+		-- elseif IsAddOnLoaded("Ampere") then
+			-- button:SetAttribute("macrotext1", "/ampere")
+		-- else
+			-- button:SetAttribute("macrotext1", "/stam")
+		-- end
+		button:SetScript("OnClick", function(self) GameMenuButtonAddons:Click() end)
 	else
 		button:SetAttribute("macrotext1", text)
 	end
