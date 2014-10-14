@@ -58,7 +58,7 @@ local function configTable()
 								disabled = true,
 								name = L["Show Error Gradients"],
 								desc = L["Highlights equipment slot if an error has been found."],
-								disabled = function() return not E.private.sle.characterframeoptions.enable or not E.db.sle.characterframeoptions.shownormalgradient end,
+								--disabled = function() return not E.private.sle.characterframeoptions.enable or not E.db.sle.characterframeoptions.shownormalgradient end,
 								get = function(info) return E.db.sle.characterframeoptions.showerrorgradient end,
 								set = function(info, value) E.db.sle.characterframeoptions.showerrorgradient = value; CFO:ArmoryFrame_DataSetting(); end,
 							},

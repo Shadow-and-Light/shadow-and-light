@@ -22,12 +22,12 @@ local function configTable()
 			autoroll = {
 				order = 1,
 				type = "group",
-				name = "Loot Auto Roll",
+				name = L["Loot Auto Roll"],
 				args = {
 					header = {
 						order = 1,
 						type = "header",
-						name = L['Loot Announcer'],
+						name = L["Loot Auto Roll"],
 					},
 					info = {
 						order = 2,
