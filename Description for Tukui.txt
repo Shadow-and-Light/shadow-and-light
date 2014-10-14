@@ -2,20 +2,20 @@
 
 <font color="red"><b>Please Note:</b></font> This addon will not function without ElvUI installed.  You can download it at <a href="http://www.tukui.org/dl.php">http://www.tukui.org</a>.
 
-Shadow & Light is an external edit of ElvUI, meaning it isn't made by changing of ElvUI's files directly.  What this means to you, is that any time ElvUI gets updated, you will not have to worry about it overwriting our edited version of ElvUI.  It also means if we push an update it will not mess with any ElvUI files.  This addon can not be used without ElvUI installed and enabled.
+Shadow & Light is an external edit of ElvUI, which means it doesn't change ElvUI's files directly.
+What does this mean to you?
+It means that any time ElvUI gets updated, you will not have to worry about it overwriting our edited version of ElvUI.  It also means if we push an update it will not mess with any ElvUI files.  This addon can not be used without ElvUI installed and enabled.
 
-Originally this project started as two personal edits of ElvUI by Darth Predator and I.  For technical support reasons and other reasons as well, we have moved to a combine effort on this external edit of the ElvUI.  Shadow & Light does not disable or hinder the normal function of ElvUI but does add additional features that are not yet implemented or will not be added to ElvUI.
+Originally this project started as two personal edits of ElvUI by Darth Predator and I (Repooc).  For technical support reasons and other reasons as well, we have moved to a combined effort on this external edit of the ElvUI.  Shadow & Light does not disable or hinder the normal function of ElvUI but does add additional features that are not yet implemented or will not be added to ElvUI.
 You'll find Shadow & Light options under it's own configuration category in ElvUI's config section by typing /ec
 
 <font color="#3e8ac6"><b>Suggestions/Concerns:</b></font>
-- <a href="http://wow.curseforge.com/addons/shadow-and-light-edit/tickets/">Curse Ticket System</a>
-- <a href="https://github.com/Repooc/ElvUI_SLE/issues">Github Ticket System</a>
+- <a href="http://git.tukui.org/repooc/elvui-shadowandlight/issues">Ticket System</a>
 
 <font color="#3e8ac6"><b>Download Locations:</b></font>
 - <a href="http://www.tukui.org/addons/index.php?act=view&id=42">Tukui</a>
 - <a href="http://www.wowinterface.com/downloads/info20927-ShadowLightEdit.html">Wowinterface</a>
 - <a href="http://www.curse.com/addons/wow/shadow-and-light-edit">Curse</a>
-- <a href="https://github.com/Repooc/ElvUI_SLE/downloads">Github</a> (<font color="FF0000"><b>Warning:</b></font> This is our development area and is consider the latest Alpha and may contain bugs.)
 
 <font color="#3e8ac6"><b>Features:</b></font>
 - Ability to display coordinates on minimap
@@ -24,15 +24,12 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 - Additional background panels that can be customized to your liking.
 - Additional datatext panels that can be moved and resized.
 - Additional options for DBM skins. (Not enabled atm.)
-- Balance Druid and Demonoligy Warlock power value text on Classbar.
-- Can display caster name in auras tooltip.
-- Chat Datatext Panels altered to fit with the additional datatext panels module of Shadow & Light.
-- Classbar offset
+- Balance Druid and Demonology Warlock power value text on Classbar.
+- Option to have S&L Handle Chat Datatext Panels to be docked below the chat windows
 - Customizable size of chat history stored
 - Customize Combat Icon position on player unitframe.
 - Customized S&L Guild & Friend Datatexts
-- Display Item Durability on Character Frame
-- Display Item Level on Character Frame
+- Armory Mode styled Character & Inspect frames
 - Equipment Manager for ability to swap equipment sets based on zone/instance/spec.
 - Farmer Module for easier farm management.
 - LFR progression in Time Datatext.
@@ -68,21 +65,17 @@ If you have questions on how to import these into weak auras, you may contact us
 
 <font color="#3e8ac6"><b>Skins:</b></font>
 - Boss Button Texture Removed
-- <a href="http://www.curse.com/addons/wow/notes">Nirriti's Notes Skin</a>
-- <a href="http://www.curse.com/addons/wow/oces">OneClickEnchantScroll Skin</a>
 
 <font color="#3e8ac6"><b>Included Addons:</b></font>
 (if you have any of those the I'd recommend to disable them)
-- The idea of Classbar offset was taken from <a href="http://www.tukui.org/forums/topic.php?id=21398">Boradan's guide</a> and his <a href="http://www.tukui.org/forums/topic.php?id=21517">addon</a>
-- <a href="http://www.tukui.org/forums/topic.php?id=21378">Blizzard additional skins</a> by <a href="http://www.tukui.org/forums/profile.php?id=1109">Pat</a>
 - UI buttons idea by <a href="http://www.tukui.org/forums/profile.php?id=7616">Swordyy</a>
 
 Did we forget anyone? O_o
 
 <font color="red"><b>Techincal Support:</b></font>
-If you have any questions or concerns, we want to hear about it.  You are welcome to post it via <a href="https://github.com/Repooc/ElvUI_SLE/issues?state=open">Github</a> & <a href="http://wow.curseforge.com/addons/shadow-and-light-edit/tickets/">Curse</a> & <a href="http://www.tukui.org/forums/forum.php?id=182">Tukui.org</a> (Make sure to have addon title in subject field).  
+If you have any questions or concerns, we want to hear about it.  You are welcome to post it via the <a href="http://git.tukui.org/repooc/elvui-shadowandlight/issues">Ticket System</a>.  
 
-Darth Predator and I will do our best to address everyone's concern, we typically need some information from you other than the problem you are having.  Before posting, PLEASE, make sure you are running the latest version of Shadow & Light as well as ElvUI and that you <b>DISABLE ALL</b> addons except for those two and try to reproduce the issue.  It is important that you do that so we can narrow down what is causing the problem in the first place.
+Darth Predator and I will do our best to address everyone's concern.  We typically need some information from you other than the problem you are having.  Before posting, PLEASE, make sure you are running the latest version of Shadow & Light as well as ElvUI and that you <b>DISABLE ALL</b> addons except for those two and try to reproduce the issue.  It is important that you do that so we can narrow down what is causing the problem in the first place.
 
 Information to provide when posting:
 <blockquote>1.) Shadow & Light Version
