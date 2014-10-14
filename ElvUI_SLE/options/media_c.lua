@@ -458,6 +458,14 @@ local function configTable()
 								get = function(info) return E.db.sle.media.screensaver.crest end,
 								set = function(info, value) E.db.sle.media.screensaver.crest = value; S:Media() end,
 							},
+							xpack = {
+								order = 1,
+								name = L["X-Pack Logo Size"],
+								type = "range",
+								min = 100, max = 256, step = 1,
+								get = function(info) return E.db.sle.media.screensaver.xpack end,
+								set = function(info, value) E.db.sle.media.screensaver.xpack = value; S:Media() end,
+							},
 							modelanim = {
 								order = 2,
 								name = L["Model Animation"],

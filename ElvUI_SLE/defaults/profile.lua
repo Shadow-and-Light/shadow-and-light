@@ -356,6 +356,7 @@ P['sle'] = {
 				['rotation'] = 0,
 			},
 			['crest'] = 128,
+			['xpack'] = 150,
 			['height'] = E.screenheight/8,
 		},
 	},

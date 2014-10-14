@@ -80,7 +80,7 @@ function S:Media()
 	
 	SS.FactCrest:SetSize(db.crest, db.crest)
 	SS.RaceCrest:SetSize(db.crest, db.crest)
-
+	SS.ExPack:SetSize(E.db.sle.media.screensaver.xpack, E.db.sle.media.screensaver.xpack/2)
 end
 
 function S:Setup()
@@ -95,7 +95,6 @@ function S:Setup()
 	SS.RaceCrest:SetTexture(CrestPath..RaceToken)
 	SS.ExPack = SS.Top:CreateTexture(nil, 'OVERLAY')
 	SS.ExPack:SetTexture([[Interface\Glues\Common\Glues-WoW-WoDLogo.blp]])
-	SS.ExPack:SetSize(150, 75)
 	SS.model = CreateFrame("PlayerModel", "ScreenModel", SS)
 	-- SS.model:CreateBackdrop("Transparent") --For checking size and borders
 	SS.Top.Title = SS.Top:CreateFontString(nil, "OVERLAY")
