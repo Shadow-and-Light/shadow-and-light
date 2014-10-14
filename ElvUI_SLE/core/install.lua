@@ -213,6 +213,7 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 		["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0265",
 		["DebuffsMover"] = "TOPRIGHTElvUIParentTOPRIGHT-200-143",
 		["MinimapMover"] = "TOPRIGHTElvUIParentTOPRIGHT00",
+		["ShiftAB"] = "BOTTOMElvUIParentBOTTOM-133116",
 	}
 	
 	
@@ -471,6 +472,9 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 			["buttonsPerRow"] = 2,
 			["buttonsize"] = 30,
 		},
+		["stanceBar"] = {
+			["buttonsize"] = 20,
+		},
 	}
 	
 	E.db["general"] = {
@@ -543,7 +547,7 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 		["Unused"] = false,
 	}
 	
-	E:UpdateAll()
+	E:UpdateAll(true)
 end
 
 local function RepoocSetup() --The function to switch from classic ElvUI settings to Repooc's
