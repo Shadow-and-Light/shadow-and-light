@@ -18,18 +18,18 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 [/list]
 
 [color="#3e8ac6"][b]Features:[/b][/color]
-[list]Ability to display coordinates on minimap
-[*]Ability to set text on exp/rep bar to full values.
-[*]Ability to show full values for HP/Mana on unitframes. (Tags: [health:current:sl])
-[*]Additional background panels that can be customized to your liking.
-[*]Additional datatext panels that can be moved and resized.
-[*]Additional options for DBM skins. (Not enabled atm.)
+[list]Armory Mode Style Character & Inspect frame
+[*]Go afk in style with our Afk feature
+[*]Customize various texts including, Zone, Chat editbox, Mailbox
+[*]Add Coordinates on the Minimap
+[*]Show full values for Exp/Rep Bars and even full HP/MP values on the unitframe (Tags: [health:current:sl]).
+[*]Customizable background panels.
+[*]Additional datatext panels for those tha want to display more info
 [*]Balance Druid and Demonology Warlock power value text on Classbar.
 [*]Option to have S&L Handle Chat Datatext Panels to be docked below the chat windows
 [*]Customizable size of chat history stored
 [*]Customize Combat Icon position on player unitframe.
-[*]Armory Mode styled Character & Inspect frames
-[*]Equipment Manager for ability to swap equipment sets based on zone/instance/spec.
+[*]Equipment Manager for ability to swap equipment sets based on zone/instance/spec, can even display equipment set name on items in your bags.
 [*]Farmer Module for easier farm management.
 [*]LFR progression in Time Datatext.
 [*]Loot Announcer module adds ability to announce loot to selected channel
