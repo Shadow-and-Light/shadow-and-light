@@ -1,6 +1,6 @@
 --[[
 Name: LibRangeCheck-2.0
-Revision: $Revision: 136 $
+Revision: $Revision: 149 $
 Author(s): mitch0
 Website: http://www.wowace.com/projects/librangecheck-2-0/
 Description: A range checking library based on interact distances and spell ranges
@@ -41,7 +41,7 @@ License: Public Domain
 -- @class file
 -- @name LibRangeCheck-2.0
 local MAJOR_VERSION = "LibRangeCheck-2.0"
-local MINOR_VERSION = tonumber(("$Revision: 136 $"):match("%d+")) + 100000
+local MINOR_VERSION = tonumber(("$Revision: 149 $"):match("%d+")) + 100000
 
 local lib, oldminor = LibStub:NewLibrary(MAJOR_VERSION, MINOR_VERSION)
 if not lib then
@@ -193,15 +193,6 @@ HarmSpells["DEATHKNIGHT"] = {
     45477, -- ["Icy Touch"], -- 20 (Icy Reach: +5, +10)
     50842, -- ["Pestilence"], -- 5
     45902, -- ["Blood Strike"], -- 5, but requires weapon, use Pestilence if possible, so keep it after Pestilence in this list
-}
-
-FriendSpells["MONK"] = {
-	115450, -- ["Detox"] -- 40
-}
-
-HarmSpells["MONK"]= {
-	115546, -- ["Provoke"], -- 40
-	100780, -- ["Jab"] -- 5
 }
 
 -- Items [Special thanks to Maldivia for the nice list]
@@ -395,9 +386,7 @@ local checkers_SpellWithMin = setmetatable({}, {
 local checkers_Item = setmetatable({}, {
     __index = function(t, item)
         local func = function(unit)
-            if IsItemInRange(item, unit) == 1 then
-                 return true
-            end
+            return IsItemInRange(item, unit)
         end
         t[item] = func
         return func
@@ -474,7 +463,7 @@ local function createCheckerList(spellList, itemList, interactList)
     if spellList then
         for i = 1, #spellList do
             local sid = spellList[i]
-            local name, _, _, minRange, range = GetSpellInfo(sid)
+            local name, _, _, _, minRange, range = GetSpellInfo(sid)
             local spellIdx = findSpellIdx(name)
             if spellIdx and range then
                 minRange = math.floor(minRange + 0.5)
@@ -657,7 +646,6 @@ function lib:findSpellIndex(spell)
     if type(spell) == 'number' then
         spell = GetSpellInfo(spell)
     end
-    if not spell then return nil end
     return findSpellIdx(spell)
 end
 
@@ -688,7 +676,7 @@ function lib:init(forced)
             local item = items[i]
             if GetItemInfo(item) then
                 minRangeCheck = function(unit)
-                    return (IsItemInRange(item, unit) == 1)
+                    return IsItemInRange(item, unit)
                 end
                 break
             end

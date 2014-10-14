@@ -20,7 +20,7 @@ L["SLE_Install_Text2"] = [=[Этот шаг опционален и должен
 
 
 --Auras--
-L
+
 
 --Backgroungds--
 

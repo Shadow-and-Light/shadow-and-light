@@ -23,7 +23,7 @@ local function OnUpdate(self, t)
 	curMax = max
 	
 	if min and max then
-		self.text:SetFormattedText(displayString, WHC_TITLE_HUNTER_2, min, max)
+		self.text:SetFormattedText(displayString, "Range", min, max)
 	else
 		self.text:SetText(SPELL_FAILED_BAD_IMPLICIT_TARGETS)
 	end
