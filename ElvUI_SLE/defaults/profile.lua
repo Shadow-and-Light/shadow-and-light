@@ -349,6 +349,9 @@ P['sle'] = {
 			['playermodel'] = {
 				['anim'] = 47,
 				['position'] = "RIGHT",
+				['distance'] = 1,
+				['xaxis'] = 0,
+				['yaxis'] = 0,
 			},
 			['crest'] = 128,
 			['height'] = E.screenheight/8,

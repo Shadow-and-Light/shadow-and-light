@@ -487,7 +487,7 @@ local function configTable()
 							},
 							modelpos = {
 								order = 3,
-								name = L["Model Animation"],
+								name = L["Model Position"],
 								type = "select",
 								get = function(info) return E.db.sle.media.screensaver.playermodel.position end,
 								set = function(info, value) E.db.sle.media.screensaver.playermodel.position = value end,
@@ -502,8 +502,32 @@ local function configTable()
 								type = "range",
 								min = 130, max = E.screenheight/6, step = 1,
 							},
-							testmodel = {
+							yaxis = {
 								order = 5,
+								name = L["Y Offset"],
+								type = "range",
+								min = -1.5, max = 1.5, step = 0.01,
+								get = function(info) return E.db.sle.media.screensaver.playermodel.yaxis end,
+								set = function(info, value) E.db.sle.media.screensaver.playermodel.yaxis = value end,
+							},
+							xaxis = {
+								order = 6,
+								name = L["X Offset"],
+								type = "range",
+								min = -1.5, max = 1.5, step = 0.01,
+								get = function(info) return E.db.sle.media.screensaver.playermodel.xaxis end,
+								set = function(info, value) E.db.sle.media.screensaver.playermodel.xaxis = value end,
+							},
+							distance = {
+								order = 7,
+								name = L["Camera Distance Scale"],
+								type = "range",
+								min = -1.5, max = 4, step = 0.01,
+								get = function(info) return E.db.sle.media.screensaver.playermodel.distance end,
+								set = function(info, value) E.db.sle.media.screensaver.playermodel.distance = value end,
+							},
+							testmodel = {
+								order = 10,
 								type = 'execute',
 								name = "Test Animation",
 								desc = "Shows a test model with selected animation for 10 seconds. Ckicking again will reset timer.",
