@@ -512,7 +512,7 @@ local function configTable()
 				type = "header",
 				name = L['Import Options'],
 			},
-			export = {
+			--[[export = {
 				order = 2,
 				type = 'group',
 				name = L["Export / Import"],
@@ -563,7 +563,7 @@ local function configTable()
 						func = function(info, value) SLE:OpenExport() end,
 					},
 				},
-			},
+			},]]
 			authors = {
 				order = 3,
 				type = 'group',
