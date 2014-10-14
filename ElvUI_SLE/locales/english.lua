@@ -26,6 +26,12 @@ L["SLE_IMPORTS"] = "|cffFF0000Note:|r Use the filter imports with caution as the
 
 -- |cffFF0000Know issue: coloring options will be exported anyway no matter the values and exporting options set.|r]]
 
+--Media--
+L["SLE_MEDIA"] = "Options to change the look of several UI elements."
+L["SLE_TIPS"] = {
+	"Don't stand in the fire!",
+}
+
 --General--
 L["SLE_LOGIN_MSG"] = [=[You are using |cff1784d1Shadow & Light|r version |cff1784d1%s%s|r for ElvUI.
 If you wish to use the original ElvUI addon, disable this edit's plugin in your Addons manager.
@@ -38,10 +44,7 @@ L['MSG_OUTDATED'] = "Your version of ElvUI is older than recommended to use with
 L["SLE_Install_Text2"] = [=[This step is optional and only to be used if you are wanting to use one of our configurations. 
 |cffFF0000Warning:|r Please note that the authors' may or may not use any of the layouts/themes you have selected as they may have changed their setup more recently.]=]
 
-
-
 --Backgroungds--
-
 L["BG_DESC"] = "Module for creating additional frames that can be used as backgrounds for anything."
 L["Sets width of the frame"] = "Wähle die breite dieses Fensters"
 L["Sets height of the frame"] = "Wähle die höhe dieses Fensters"
@@ -52,7 +55,6 @@ L["Set the texture to use in this frame.  Requirements are the same as the chat 
 L["Backdrop Template"] = "Hintergrund Template"
 L["Change the template used for this backdrop."] = "Wähle das Template das für den Hintergrund benutzt wird."
 L["Default"] = "Standart"
-
 
 --Character Frame Options
 L["CFO_DESC"] = "This section will added different options/features to the character sheet.  Here you can show item level and durability of your items for a quick glance."
@@ -74,8 +76,6 @@ L["DP_DESC"] = [=[Additional Datatext Panels.
 8 panels with 20 datatext points total and a dashboard with 4 status bars.
 You can't disable chat panels.]=]
 
-
-
 --Equip Manager--
 L["EM_DESC"] = "This module provides different options to automatically change your equipment sets on spec change or entering certain locations."
 
@@ -86,8 +86,8 @@ They will appear only if you are on the Ranch or The Halfhill Market.]]
 
 --Loot--
 L["AUTOANNOUNCE_DESC"] = "When enabled, will automatically announce the loot when the loot window opens.\n\n|cffFF0000Note:|r Raid Lead, Assist, & Master Looter Only."
-L["LOOT_DESC"] = "Will announce loot to specified chat channel at the selected loot threshold."
 L["LOOTH_DESC"] = "These are options for tweaking the Loot Roll History window."
+L["LOOT_AUTO_DESC"] = "Automatically selects an apropriate roll on dropped loot."
 
 --Minimap--
 L['MINIMAP_DESC'] = "These options effect various aspects of the minimap.  Some options may not work if you disable minimap in the General section of ElvUI config."
@@ -98,7 +98,7 @@ L["TTOFFSET_DESC"] = "This adds the ability to have the tooltip offset from the 
 --UI buttons--
 L["UB_DESC"] = "This adds a small bar with some useful buttons which acts as a small menu for common things."
 
---Links--
+--About/help--
 L["LINK_DESC"] = [[Following links will direct you to the Shadow & Light's pages on various sites.]]
 
 --Credits--

@@ -18,7 +18,7 @@ local function configTable()
 			},
 			combat = {
 				type = "toggle",
-				name = L['Hide in Combat'],
+				name = L["Hide In Combat"],
 				order = 3,
 				desc = L['Hide minimap in combat.'],
 				disabled = false,

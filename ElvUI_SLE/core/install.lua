@@ -495,6 +495,9 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 		["reputation"] = {
 			["height"] = 187,
 		},
+		['minimap'] = {
+			['locationText'] = 'HIDE',
+		},
 	}
 	
 	E.db["chat"] = {

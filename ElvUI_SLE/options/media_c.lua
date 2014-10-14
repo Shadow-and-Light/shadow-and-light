@@ -17,27 +17,27 @@ local function configTable()
 			intro = {
 				order = 2,
 				type = "description",
-				name = "Imma text!",
+				name = L["SLE_MEDIA"],
 			},
 			zonefonts = {
 				type = "group",
-				name = L["Zone Texts"],
+				name = L["Zone Text"],
 				order = 3,
 				args = {
 					intro = {
 						order = 1,
 						type = "description",
-						name = "Placeholder text.",
+						name = "",
 					},
 					test = {
 						order = 2,
 						type = 'execute',
-						name = "Test",
+						name = L["Test"],
 						func = function() M:TextShow() end,
 					},
 					zone = {
 						type = "group",
-						name = "Zone Text",
+						name = L["Zone Text"],
 						order = 3,
 						guiInline = true,
 						get = function(info) return E.db.sle.media.fonts.zone[ info[#info] ] end,
@@ -79,7 +79,7 @@ local function configTable()
 					},
 					subzone = {
 						type = "group",
-						name = "Subzone Text",
+						name = L["Subzone Text"],
 						order = 4,
 						guiInline = true,
 						get = function(info) return E.db.sle.media.fonts.subzone[ info[#info] ] end,
@@ -127,7 +127,7 @@ local function configTable()
 					},
 					pvpstatus = {
 						type = "group",
-						name = "PvP Status Text",
+						name = L["PvP Status Text"],
 						order = 5,
 						guiInline = true,
 						get = function(info) return E.db.sle.media.fonts.pvp[ info[#info] ] end,
@@ -176,7 +176,7 @@ local function configTable()
 				args = {
 					mail = {
 						type = "group",
-						name = "Mail Text",
+						name = L["Mail Text"],
 						order = 1,
 						guiInline = true,
 						get = function(info) return E.db.sle.media.fonts.mail[ info[#info] ] end,
@@ -212,7 +212,7 @@ local function configTable()
 					},
 					editbox = {
 						type = "group",
-						name = "Chat Editbox Text",
+						name = L["Chat Editbox Text"],
 						order = 2,
 						guiInline = true,
 						get = function(info) return E.db.sle.media.fonts.editbox[ info[#info] ] end,
@@ -268,7 +268,7 @@ local function configTable()
 						args = {
 							title = {
 								type = "group",
-								name = "Title font",
+								name = L["Title font"],
 								order = 1,
 								guiInline = true,
 								get = function(info) return E.db.sle.media.screensaver.title[ info[#info] ] end,
@@ -303,7 +303,7 @@ local function configTable()
 							},
 							subtitle = {
 								type = "group",
-								name = "Subitle font",
+								name = L["Subitle font"],
 								order = 2,
 								guiInline = true,
 								get = function(info) return E.db.sle.media.screensaver.subtitle[ info[#info] ] end,
@@ -338,7 +338,7 @@ local function configTable()
 							},
 							date = {
 								type = "group",
-								name = "Date font",
+								name = L["Date font"],
 								order = 3,
 								guiInline = true,
 								get = function(info) return E.db.sle.media.screensaver.date[ info[#info] ] end,
@@ -373,7 +373,7 @@ local function configTable()
 							},
 							player = {
 								type = "group",
-								name = "Player info font",
+								name = L["Player info font"],
 								order = 4,
 								guiInline = true,
 								get = function(info) return E.db.sle.media.screensaver.player[ info[#info] ] end,
@@ -408,7 +408,7 @@ local function configTable()
 							},
 							tips = {
 								type = "group",
-								name = "Tips font",
+								name = L["Tips font"],
 								order = 4,
 								guiInline = true,
 								get = function(info) return E.db.sle.media.screensaver.tips[ info[#info] ] end,
@@ -553,7 +553,7 @@ local function configTable()
 							testmodel = {
 								order = 10,
 								type = 'execute',
-								name = "Test Animation",
+								name = L["Test"],
 								desc = "Shows a test model with selected animation for 10 seconds. Ckicking again will reset timer.",
 								-- disabled = function() return not E.db.chat.chatHistory end,
 								func = function() S:TestShow() end,

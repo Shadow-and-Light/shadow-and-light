@@ -54,17 +54,7 @@ local UpdateElapsed, TipsElapsed, TipNum, TipThrottle, OldTip = 0, 0, 1, 10, 0
 local degree = 0
 local fading = false
 
-local Tips = {
-	"Не стой в огне!",
-	"Спать вредно! Пока ты спишь, враг качается!",
-	"|cffFF4040Алгалон кричит: Я покараю вас анально, бичи со Свежевателя!|r",
-	"Сделал дейлик - спас китайца!",
-	"Lord Wert: Воронка, как ультимативное оружие, крайне сомнительна!",
-	"Иди паси ёжиков! (С) Горыныч",
-	"‹Elv›: I just utilized my degree in afro engineering and fixed it",
-	"Ragenvald: да вы ****ец че за сильные духом и закаленные травой",
-	"Варлоки пришли к нам из сказочного мира, где их любят и уважают. Поэтому они ненавидят наш мир лютой ненавистью.",
-}
+local Tips = L["SLE_TIPS"]
 
 function S:Media()
 	local db = E.db.sle.media.screensaver

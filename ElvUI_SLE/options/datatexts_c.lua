@@ -127,7 +127,7 @@ local function configTable()
 			},
 			pethide = {
 				order = 5,
-				name = L['Hide in Pet Battle'],
+				name = L["Hide in Pet Batlle"],
 				type = 'toggle',
 				desc = L['Show/Hide this frame during Pet Battles.'],
 				set = function(info, value) E.db.sle.datatext[v[1]].pethide = value; DTP:RegisterHide() end,
@@ -205,7 +205,7 @@ local function configTable()
 			intro = {
 				order = 2,
 				type = "description",
-				name = L["Some datatexts that Shadow & Light are supplied with have settings that can be modified to alter the displayed information. Please use the dropdown box to select which datatext you would like to configure."]
+				name = L["Some datatexts that Shadow & Light are supplied with, has settings that can be modified to alter the displayed information."]
 			},
 			spacer = {
 				order = 3,

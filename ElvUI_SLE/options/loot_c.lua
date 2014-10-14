@@ -32,7 +32,7 @@ local function configTable()
 					info = {
 						order = 2,
 						type = "description",
-						name = L["LOOT_DESC"],
+						name = L["LOOT_AUTO_DESC"],
 					},
 					space1 = {
 						order = 3,
@@ -56,8 +56,8 @@ local function configTable()
 					autoconfirm = {
 						order = 6,
 						type = "toggle",
-						name = "Auto Confirm",
-						desc = "Automatically click OK on BOP items",
+						name = L["Auto Confirm"],
+						desc = L["Automatically click OK on BOP items"],
 						disabled = function() return not E.db.sle.loot.enable or not E.db.sle.loot.autoroll.enable end,
 						get = function(info) return E.db.sle.loot.autoroll.autoconfirm end,
 						set = function(info, value) E.db.sle.loot.autoroll.autoconfirm = value end,
@@ -65,8 +65,8 @@ local function configTable()
 					autogreed = {
 						order = 7,
 						type = "toggle",
-						name = "Auto Greed",
-						desc = "Automatically greed uncommon (green) quality items at max level",
+						name = L["Auto Greed"],
+						desc = L["Automatically greed uncommon (green) quality items at max level"],
 						disabled = function() return not E.db.sle.loot.enable or not E.db.sle.loot.autoroll.enable end,
 						get = function(info) return E.db.sle.loot.autoroll.autogreed end,
 						set = function(info, value) E.db.sle.loot.autoroll.autogreed = value end,
@@ -74,8 +74,8 @@ local function configTable()
 					autode = {
 						order = 8,
 						type = "toggle",
-						name = "Auto Disenchant",
-						desc = "Automatically disenchant uncommon (green) quality items at max level",
+						name = L["Auto Disenchant"],
+						desc = L["Automatically disenchant uncommon (green) quality items at max level"],
 						disabled = function() return not E.db.sle.loot.enable or not E.db.sle.loot.autoroll.enable end,
 						get = function(info) return E.db.sle.loot.autoroll.autode end,
 						set = function(info, value) E.db.sle.loot.autoroll.autode = value; end,
@@ -84,7 +84,7 @@ local function configTable()
 						order = 9,
 						type = "select",
 						name = L["Loot Quality"],
-						desc = "Sets the auto greed/disenchant quality\n\nUncommon: Rolls on Uncommon only\nRare: Rolls on Rares & Uncommon",
+						desc = L["Sets the auto greed/disenchant quality\n\nUncommon: Rolls on Uncommon only\nRare: Rolls on Rares & Uncommon"],
 						disabled = function() return not E.db.sle.loot.enable or not E.db.sle.loot.autoroll.enable end,
 						get = function(info) return E.db.sle.loot.autoroll.autoqlty end,
 						set = function(info, value) E.db.sle.loot.autoroll.autoqlty = value; end,
@@ -102,8 +102,8 @@ local function configTable()
 					bylevel = {
 						order = 11,
 						type = "toggle",
-						name = "Roll based on level.",
-						desc = "This will auto-roll if you are above the given level if: You cannot equip the item being rolled on, or the ilevel of your equipped item is higher than the item being rolled on or you have an heirloom equipped in that slot",
+						name = L["Roll based on level."],
+						desc = L["This will auto-roll if you are above the given level if: You cannot equip the item being rolled on, or the ilevel of your equipped item is higher than the item being rolled on or you have an heirloom equipped in that slot"],
 						disabled = function() return not E.db.sle.loot.enable or not E.db.sle.loot.autoroll.enable end,
 						get = function(info) return E.db.sle.loot.autoroll.bylevel end,
 						set = function(info, value) E.db.sle.loot.autoroll.bylevel = value; end,
@@ -111,8 +111,7 @@ local function configTable()
 					level = {
 						order = 12,
 						type = "range",
-						name = "Level to start auto-rolling from",
-						desc = "Automatically disenchant uncommon (green) quality items at max level",
+						name = L["Level to start auto-rolling from"],
 						disabled = function() return not E.db.sle.loot.enable or not E.db.sle.loot.autoroll.enable end,
 						min = 1, max = GetMaxPlayerLevel(), step = 1,
 						get = function(info) return E.db.sle.loot.autoroll.level end,
@@ -133,7 +132,7 @@ local function configTable()
 					info = {
 						order = 2,
 						type = "description",
-						name = L["LOOT_DESC"],
+						name = L["AUTOANNOUNCE_DESC"],
 					},
 					space1 = {
 						order = 3,
@@ -166,16 +165,16 @@ local function configTable()
 						order = 7,
 						type = "select",
 						name = L["Manual Override"],
-						desc = L["Sets the minimum loot threshold to announce."],
+						desc = L["Sets the button for manual override."],
 						disabled = function() return not E.db.sle.loot.enable or not E.db.sle.loot.announcer.enable end,
 						get = function(info) return E.db.sle.loot.announcer.override end,
 						set = function(info, value) E.db.sle.loot.announcer.override = value; end,
 						values = {
 							['1'] = "No Override",
 							['2'] = "Automatic Override",
-							['3'] = "SHIFT Required",
-							['4'] = "ALT Required",
-							['5'] = "CTRL Required",
+							['3'] = "SHIFT",
+							['4'] = "ALT",
+							['5'] = "CTRL",
 						},
 					},
 					space3 = {

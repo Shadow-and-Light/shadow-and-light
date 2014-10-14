@@ -5,14 +5,14 @@ local function configTable()
 	--Main options group
 	E.Options.args.sle.args.help = {
 		type = 'group',
-		name = 'About/Help',
-		order = -2,
+		name = L['About/Help'],
+		order = -5,
 		childGroups = 'tab',
 		args = {
 			about = {
 				type = 'group',
-				name = 'About',
-				order = 2,
+				name = L['About'],
+				order = 1,
 				args = {
 					content = {
 						order = 1,
@@ -22,85 +22,85 @@ local function configTable()
 					},
 				},
 			},
-			faq = {
-				type = 'group',
-				name = 'FAQ',
-				order = 2,
-				args = {
-					desc = {
-						order = 1,
-						type = 'description',
-						fontSize = 'medium',
-						name = 'Da FAQz!!!!',
-					},
-					q1 = {
-						type = 'group',
-						name = '',
-						order = 2,
-						guiInline = true,
-						args = {
-							q = {
-								order = 1,
-								type = 'description',
-								fontSize = 'medium',
-								name = [[|cff30ee30Q: Imma be da first question!|r
-A: Imma be da first answerz]],
-							},
-						},
-					},
-					q2 = {
-						type = 'group',
-						name = '',
-						order = 3,
-						guiInline = true,
-						args = {
-							q = {
-								order = 2,
-								type = 'description',
-								fontSize = 'medium',
-								name = [[|cff30ee30Q: Imma be da second question!|r
-A: Imma be da second answerz]],
-							},
-						},
-					},
-				},
-			},
+			-- faq = {
+				-- type = 'group',
+				-- name = 'FAQ',
+				-- order = 5,
+				-- args = {
+					-- desc = {
+						-- order = 1,
+						-- type = 'description',
+						-- fontSize = 'medium',
+						-- name = 'Da FAQz!!!!',
+					-- },
+					-- q1 = {
+						-- type = 'group',
+						-- name = '',
+						-- order = 2,
+						-- guiInline = true,
+						-- args = {
+							-- q = {
+								-- order = 1,
+								-- type = 'description',
+								-- fontSize = 'medium',
+								-- name = [[|cff30ee30Q: Imma be da first question!|r
+-- A: Imma be da first answerz]],
+							-- },
+						-- },
+					-- },
+					-- q2 = {
+						-- type = 'group',
+						-- name = '',
+						-- order = 3,
+						-- guiInline = true,
+						-- args = {
+							-- q = {
+								-- order = 2,
+								-- type = 'description',
+								-- fontSize = 'medium',
+								-- name = [[|cff30ee30Q: Imma be da second question!|r
+-- A: Imma be da second answerz]],
+							-- },
+						-- },
+					-- },
+				-- },
+			-- },
 			links = {
 				type = 'group',
-				name = 'Links',
+				name = L['Links'],
 				order = 10,
 				args = {
 					desc = {
 						order = 1,
 						type = 'description',
 						fontSize = 'medium',
-						name = 'Da LinkZ!!!!',
+						name = L["LINK_DESC"],
 					},
 					tukuilink = {
 						type = 'input',
 						width = 'full',
-						name = 'On TukUI.org',
+						name = 'TukUI.org',
 						get = function(info) return 'http://www.tukui.org/addons/index.php?act=view&id=42' end,
 						order = 2,
 					},
 					wowilink = {
 						type = 'input',
 						width = 'full',
-						name = 'On WoWI',
+						name = 'WoWInterface',
 						get = function(info) return 'http://www.wowinterface.com/downloads/info20927-ElvUIShadowLight.html' end,
 						order = 3,
 					},
 					curselink= {
 						type = 'input',
 						width = 'full',
-						name = 'On Curse',
+						name = 'Curse.com',
 						get = function(info) return 'http://www.curse.com/addons/wow/shadow-and-light-edit' end,
 						order = 4,
 					},
 					gitlablink = {
 						type = 'input',
 						width = 'full',
-						name = 'GitLab Link / Report Errors',
+						name = L['GitLab Link / Report Errors'],
 						get = function(info) return 'http://git.tukui.org/repooc/elvui-shadowandlight' end,
 						order = 5,
 					},

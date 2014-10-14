@@ -13,6 +13,16 @@ L["S&L: Datatexts"] = "S&L: Инфо-тексты"
 L["S&L: Backgrounds"] = "S&L: Фоновые фреймы"
 L["S&L: Misc"] = "S&L: Прочее"
 
+--Import--
+L["Import Options"] = "Импорт Настроек"
+L["Author Specific Imports"] = "Импорт специфических настроек авторов"
+L['Select Author'] = "Выберите автора"
+L["Please be aware that importing any of the filters will require a reload of the UI for the settings to take effect.\nOnce you click a filter button, your screen will reload automatically."] = "Пожалуйста, учтите, что импортирование любого фильтра потребует перезагрузки интерфейса для вступления в силу.\nКак только вы нажмете на кнопку, Ваш интерфейс перезагрузится автоматически."
+L["Import"] = "Импорт"
+L["This will import non class specific filters from this author."] = "Это импортирует не привязанные к классу фильтры этого автора."
+L["This will import All Class specific filters from this author."] = "Это импортирует все классовые фильтры этого автора."
+L['Import All'] = "Импорт всего"
+
 --General--
 L["SLE_LOGIN_MSG"] = [=[Вы используете редакцию ElvUI под названием |cff1784d1"Shadow & Light"|r версия |cff1784d1%s%s|r.
 Если вы хотите использовать оригинальный ElvUI, просто отключите плагин этой редакции в вашем менеджере аддонов.
@@ -34,13 +44,45 @@ L["Chat Editbox History"] = "История ввода"
 L["The amount of messages to save in the editbox history.\n\n|cffFF0000Note:|r To disable, set to 0."] = "Количество сообщений, введенных вами, которое будет сохранено между сеансами.\n\n|cffFF0000Напоминание:|r Для отключения, установите на 0."
 L["Guild Master Icon"] = "Иконка Главы гильдии"
 L["Displays an icon near your Guild Master in chat.\n\n|cffFF0000Note:|r Some messages in chat history may disappear on login."] = "Отображает иконку рядом с сообщениями главы вашей гильдии в чате.\n\n|cffFF0000Предупреждение:|r Некоторые сообщения в истории чата в истории чата могут исчезать при входе в игру."
+L['Raid Utility'] = "Управлеие рейдом"
+
+--Media--
+L["SLE_MEDIA"] = "Опции для изменения внешнего вида некоторых элементов интерфейса."
+L["Zone Text"] = "Текст локации"
+L["Test"] = "Тест"
+L["Subzone Text"] = "Название сублокации"
+L["PvP Status Text"] = "PvP статус"
+L["Misc Texts"] = "Прочие тексты"
+L["Mail Text"] = "Текст письма"
+L["Chat Editbox Text"] = "Текст поля ввода"
+L["Screensaver"] = "Заставка"
+L["Title font"] = "Заголовок"
+L["Subitle font"] = "Подзаголовок"
+L["Date font"] = "Дата"
+L["Player info font"] = "Информация игрока"
+L["Tips font"] = "Советы"
+L["Graphics"] = "Графика"
+L["Crest Size"] = "Размер гербов"
+L["X-Pack Logo Size"] = "Логотип дополнения"
+L["Model Animation"] = "Анимация модели"
+L["Model Position"] = "Позиция модели"
+L["SLE_TIPS"] = {
+	"Не стой в огне!",
+	"Спать вредно! Пока ты спишь, враг качается!",
+	"Сделал дейлик - спас китайца!",
+	"‹Elv›: I just utilized my degree in afro engineering and fixed it",
+	"Варлоки пришли к нам из сказочного мира, где их любят и уважают. Поэтому они ненавидят наш мир лютой ненавистью.",
+}
+L['You Are Away From Keyboard'] = "Вы отошли от компьютера"
+L["Take care of yourself, Master!"] = "Не задерживайтесь, Хозаяин!"
+
+
 
 --Install--
-L["SLE_Install_Text2"] = [=[Этот шаг опционален и должен использоваться только в случае, если Вы хотите использовать одну из наших конфигураций. 
+L["SLE_Install_Text2"] = [=[Этот шаг опционален и должен использоваться только в случае, если Вы хотите использовать одну из наших конфигураций.
 |cffFF0000Внимание:|r Пожалуйста помните, что авторы могут не использовать тему/роль, которую вы выбрали, и потому результат не всегда будет хорошим.]=]
 
 --Auras--
-L["Options for customizing auras near the minimap."] = "Опции для настройки аур около миникарты"
 L["Hide Buff Timer"] = "Спрятать таймеры баффов"
 L["This hides the time remaining for your buffs."] = "Скрывает текст оставшегося времени действия около баффов"
 L["Hide Debuff Timer"] = "Спрятать таймеры дебаффов"
@@ -122,8 +164,39 @@ L['Empty Socket'] = "пустое гнездо"
 L['Average'] = "Средний ур. предметов"
 L["Inspect Frame Options"] = "Опции окна осмотра"
 
+--Marks--
+L['Options for panels providing fast access to raid markers and flares.'] = "Опции панелей, предоставляющих быстрый доступ к рейдовым меткам и маркерам на земле."
+L["Raid Marks"] = "Рейдовые Метки"
+L["Show/Hide raid marks."] = "Показать/скрыть фрейм рейдовых меток."
+L["Show only in instances"] = "Только в подземельях"
+L["Selecting this option will have the Raid Markers appear only while in a raid or dungeon."] = "При активации будет отображать полосу меток только в подземельях и рейдах."
+L["Sets size of buttons"] = "Устанавливает размер кнопок" --Also used in UI buttons
+L["Direction"] = "Направление"
+L["Change the direction of buttons growth from the skull marker"] = "Изменяет направление роста кнопок от метки \"череп\"."
+L["Raid Flares"] = "Рейдовые маркеры"
+L["Show/Hide Raid Flares."] = "Показать/скрыть маркеры."
+L["Selecting this option will have the Raid Flares appear only while in a raid or dungeon."] = "При включении будет показывать панель маркеров только в подземельях."
+L["Show Tooltip"] = "Показывать подсказку"
+L["Change the direction of buttons growth from the square marker"] = 'Изменить направление роса кнопок от метки "квадрат"'
+L["Square World Marker"] = "Маркер квадрат"
+L["Triangle World Marker"] = "Маркер треугольник"
+L["Diamond World Marker"] = "Маркер ромб"
+L["Cross World Marker"] = "Маркер крест"
+L["Star World Marker"] = "Маркер звезда"
+L["Clear World Markers"] = "Удалить маркеры"
+
 --Datatexts--
-L["SLE_AUTHOR_INFO"] = "\"Shadow & Light\" от Darth Predator и Repooc"
+L["Panels & Dashboard"] = "Панели и Информация"
+L["LFR Lockout"] = "Состояние ЛФР"
+L["Show/Hide LFR lockout info in time datatext's tooltip."] = "Отображать/скрывать информацию о сохранении ЛФР"
+L["Bosses killed: "] = "Боссов убито: "
+L["You didn't select any instance to track."] = "Вы не выбрали подземелья для отслеживания"
+L["This LFR isn't available for your level/gear."] = "Это подземелье не доступно для Вашего уровня или экипировки."
+L["Key to the Palace of Lei Shen:"] = "Ключ от дворца Лэй Шэня"
+L["Trove of the Thunder King:"] = "Сокровища Властелина Грома"
+L["Looted"] = "Получено"
+L["Not looted"] = "Не получено"
+L["SLE_AUTHOR_INFO"] = "\"Shadow & Light\" от Darth Predator'а и Repooc'а"
 L["SLE_CONTACTS"] = [=[При возникновении вопросов, предложений и прочего обращаться:
 http://git.tukui.org/repooc/elvui-shadowandlight]=]
 L["DP_1"] = "Панель 1"
@@ -134,42 +207,225 @@ L["DP_5"] = "Панель 5"
 L["DP_6"] = "Панель 6"
 L["Bottom_Panel"] = "Нижняя панель"
 L["Top_Center"] = "Верхняя панель"
+-- L["Left Chat"] = "Левый чат"
+-- L["Right Chat"] = "Правый чат"
+L["Additional Datatext Panels"] = "Дополнительные панели инфо-текстов"
 L["DP_DESC"] = [=[Дополнительные панели под информационные тексты.
 Всего здесь 8 дополнительных панелей и 20 дополнительных слотов под инфо-тексты, а также панель состояния с 4мя индикаторами.
 Панели на чатах отключить нельзя.]=]
+L["Dashboard"] = "Панель состояния"
+L["Show/Hide dashboard."] = "Показать/скрыть панель состояния."
+L["Dashboard Panels Width"] = "Ширина панелей"
+L["Sets size of dashboard panels."] = "Устанавливает размер полос панели состояния."
+L["Override Chat DT Panels"] = "Изменить инфо-панели чата"
+L["This will have S&L handle chat datatext panels and place them below the left & right chat panels.\n\n|cffFF0000Note:|r When you first enabled, you may need to move the chat panels up to see your datatext panels."] = "S&L перенесет панели информации чатов. Информационны панели удут перемещены под панели чата. \n\n|cffFF0000Внимание:|r При первой активации может потребоваться вручную переместить панели чата, чтобы увидеть инфо-панели."
+L["Show/Hide this panel."] = "Показать/скрыть эту панель."
+L["Sets size of this panel"] = "Установить ширину панели"
+L['Hide panel background'] = "Скрыть фон панели"
+L["Don't show this panel, only datatexts assinged to it"] = "Не показывать саму панель, а только назначенные на нее инфо-тексты"
+L["Some datatexts that Shadow & Light are supplied with, has settings that can be modified to alter the displayed information."] = "Некоторые инфо-тексты Shadow & Light имеют настройки, которые могут изменить отображаемую информацию."
+-- L["S&L Friends"] = true
+L["Show total friends in the datatext."] = "Показывать общее кол-во друзей на инфо-тексте."
+L["Show total guild members in the datatext."] = "Показывать общее кол-во членов гильдии на инфо-тексте."
+L["These options are for modifing the Shadow & Light Friends datatext."] = "Опции для настройки инфо-текста S&L Friends."
+-- L["S&L Guild"] = true
+L["Show Totals"] = "Показывать общее"
+L["Expand RealID"] = "Развернуть RealID"
+L["Display realid with two lines to view broadcasts."] = "Отображать информацию друрей по RealID в две строки для отображения рассылки."
+L["Hide Hints"] = "Скрыть управление"
+L["Hide the hints in the tooltip."] = "Скрывать инструкцию по управлению в подсказке инфо-текста"
+L["Autohide Delay:"] = "Задержка скрывания"
+L["Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext."] = "Устанавливает время исчезновения подсказки, после ухода курсора с инфо-текста."
+-- L["S&L Mail"] = true
+L["These options are for modifing the Shadow & Light Mail datatext."] = "Опции для настройки инфо-текста S&L Mail"
+L["Minimap icon"] = "Иконка на миникарте"
+L["If enabled will show new mail icon on minimap."] = "Если включено, то иконка почты на миникарте будет отображаться."
+L["S&L Datatexts"] = "Инфо-тексты S&L"
+L["Datatext Options"] = "Опции инфо-текстов"
+L["These options are for modifing the Shadow & Light Guild datatext."] = "Опции для настройки инфо-текста S&L Guild."
+L["Hide MOTD"] = "Скрыть сообщение дня"
+L["Hide the guild's Message of the Day in the tooltip."] = "Скрывает сообщение дня гильдии на подсказке."
+L["Hide Guild Name"] = "Скрыть название гильдии"
+L["Hide the guild's name in the tooltip."] = "Скрывает название гильдии на подсказке."
+L["Hide In Combat"] = "Скрывать в бою"
+L["Will not show the tooltip while in combat."] = "Не отображать подсказки инфо-текста в бою."
+L["World Loot"] = "Мировая добыча"
+L["Show/Hide the status of Key to the Palace of Lei Shen and Trove of the Thunder King."] = "Показать/скрыть статус Ключа от дворца Лэй Шэня и Сокровищ Властелина Грома."
+L["Time Played"] = "Времени в игре"
+L["Account Time Played"] = "Время в игре на аккаунте"
+L["D"] = "Дн"
+L["Previous Level:"] = "Предыдущий уровень:"
+L['Current:'] = "Текущее:"
+L['Weekly:'] = "За неделю:"
+L['ElvUI Improved Currency Options'] = "Опции расширенного инфо-текста валюты"
+L['Show Archaeology Fragments'] = "Показывать фрагменты археологии"
+L['Show Jewelcrafting Tokens'] = "Показывать ювелирные значки"
+L['Show Player vs Player Currency'] = "Показывать PvP валюту"
+L['Show Dungeon and Raid Currency'] = "Показывать валюту подземелий"
+L['Show Cooking Awards'] = "Показывать кулиназные значки"
+L['Show Miscellaneous Currency'] = "Показывать прочую валюту"
+L['Show Zero Currency'] = "Показывать отсутствующую валюту"
+L['Show Icons'] = "Показывать иконки"
+L['Show Faction Totals'] = "Показывать сумму по фракциям"
+L['Show Unsed Currency'] = "Показывать неиспользуемую валюту"
 
 --Equip Manager--
-L["EM_DESC"] = "Этот модуль предоставляет различные опции для автоматической смены комплектов экипировки при переключении набора талантов или попадании в определенную локацию."
+L['Equipment Manager'] = "Менеджер экипировки"
+L["EM_DESC"] = "Этот модуль предоставляет различные опции для автоматической смены комплектов экипировки при переключении набора талантов или попадании в определенную локацию."	 
+L['Spam Throttling'] = "Подавление спама"
+L["Removes the spam from chat stating what talents were learned or unlearned during spec change."] = "Удаляет спам об изученных/забытых заклинаниях при смене талантов."
+L['Equipment Set Overlay'] = "Название комплекта"
+L['Show the associated equipment sets for the items in your bags (or bank).'] = "Отображает название комплекта экипировки, к которому привязан предмет, на его иконке в сумках или банке."
+L["Here you can choose what equipment sets to use in different situations."] = "Здесь Вы можете выбрать какие комплекты экипировки использовать в различных случаях."
+L["Equip this set when switching to primary talents."] = "Надеть этот набор при переключении на основной набор талантов."
+L["Equip this set when switching to secondary talents."] = "Надеть этот набор при переключении на дополнительный набор талантов."
+L["Equip this set after entering dungeons or raids."] = "Надеть этот набор при попадании в подземелье или рейд."
+L["Equip this set after entering battlegrounds or arens."] = "Надеть этот набор при попадании на поля боя или арены."
 
+--XP-Rep Bar--
+L["Xp-Rep Text"] = "Текст Опыта/Репутации"
+L["Full value on Exp Bar"] = "Полное значение опыта"
+L["Changes the way text is shown on exp bar."] = "Изменяет отображение значений опыта на полосе."
+L["Full value on Rep Bar"] = "Полное значение репутации"
+L["Changes the way text is shown on rep bar."] = "Изменяет отображение значений репутации на полосе."
+L["Auto Track Reputation"] = "Автоматически отслеживать репутацию"
+L["Automatically sets reputation tracking to the most recent reputation change."] = "Автоматически изменять отслеживаемую репутацию на последнюю фракцию, чье отношение к Вам изменилось."
 
 --Farm--
+L['Farm'] = "Ферма"
 L["FARM_DESC"] = [[Дополнительные панели с семенами, инструментами и порталами для Фермы Солнечной Песни.
 Они будут отображаться только если Вы находитесь на ферме или рынке Полугорья.]]
+L['Only active buttons'] = "Только активные"
+L['Only show the buttons for the seeds, portals, tools you have in your bags.'] = "Отображать только кнопки для тех семян/инструментов/порталов, которые есть у Вас в сумках."
+L["Seed Bars"] = "Панели семян"
+L["Auto Planting"] = "Автоматическая посадка"
+L["Automatically plant seeds to the nearest tilled soil if one is not already selected."] = "Автоматически высаживать указанное растение на ближайшую возделанную змелю, если не выбрана другая."
+L["Drop Seeds"] = "Удалять семена"
+L["Allow seeds to be destroyed from seed bars."] = "Позволить удаление семян при помощи панелей."
+L["Quest Glow"] = "Свечение заданий"
+L["Show glowing border on seeds needed for any quest in your log."] = "Показывать светящуюся границу на семенах, необходимых на какое-либо из взятых заданий из Вашего журнала."
+L["Dock Buttons To"] = "Прикрепить кнопки к"
+L["Change the position from where seed bars will grow."] = "Изменить сторону, с которой будут расти панели семян."
+L["Bottom"] = "Низ"
+L["Top"] = "Верх"
+L["Farm Seed Bars"] = "Панели семян"
+L["Farm Tool Bar"] = "Панель инструментов"
+L["Farm Portal Bar"] = "Панель порталов"
+L["Tilled Soil"] = "Возделанная земля"
+L['Right-click to drop the item.'] = "ПКМ для уничтожения предмета."
+L["We are sorry, but you can't do this now. Try again after the end of this combat."] = "Извините, но Вы не можете этого сделать сейчас. Попробуйте снова после окончания текущего боя."
 
+--Help--
+L["LINK_DESC"] = [[Сылки ниже ведуть на страницы Shadow & Light на различных сайтах.]]
+L['About/Help'] = "Помощь/Информация"
+L['About'] = "Информация"
+L['Links'] = "Ссылки"
+L['GitLab Link / Report Errors'] = "Ссылка на GitLab / Сообщить об ошибке"
 
 --Import Section
 L["SLE_IMPORTS"] = "|cffFF0000Важно:|r Используйте импортирование фильтров осторожно, так как они удалят ваши собсвенные фильтры!\nИмпортирование классового фильтра перезапишет любые изменения, которые Вы в него вносили."
 
 --Loot--
-L["LOOT_DESC"] = [[Этот модуль будет выводить список выпавшей добычи при открытии окна добычи.
-Вывод осуществляется только если Вы лидер, помощник или ответственный за добычу или при зажатии левой клавиши control при осмотре трупа для принудительного вывода.]]
-L["AUTOANNOUNCE_DESC"] = "When enabled, will automatically announce the loot when the loot window opens.\n\n|cffFF0000Note:|r Raid Lead, Assist, & Master Looter Only."
-L["LOOTH_DESC"] = "These are options for tweaking the Loot Roll History window."
+L["AUTOANNOUNCE_DESC"] = [[Этот модуль будет выводить список выпавшей добычи при открытии окна добычи.
+Вывод осуществляется только если Вы лидер, помощник или ответственный за добычу или при зажатии клавиши принудительного вывода.]]
+L["LOOTH_DESC"] = "Опции, задающие поведение окна истории добычи."
+L["Loot Dropped:"] = "Список добычи:"
+L["Loot Roll History"] = "История добычи"
+L["Loot Quality"] = "Качество добычи"
+L["Automatically announce in selected chat channel."] = "Автоматически выводить список добычи в выбранный канал чата"
+L["Select chat channel to announce loot to."] = "Канал чата, для вывода сообщений."
+L["Sets the alpha of Loot Roll Histroy frame."] = "Устанавливает прозрачность окна истории добычи"
+L["Sets the minimum loot threshold to announce."] = "Минимальное качество предмета, для вывода в чате."
+L["Auto Announce"] = "Авто оповещение"
+L["Automaticaly hides Loot Roll Histroy frame when leaving the instance."] = "Автоматически скрывать окно истории добычи Blizzard при выходе из подземелья."
+L['Loot Announcer'] = "Оповещение о добыче"
+L["Loot Auto Roll"] = "Автоматические броски"
+L["LOOT_AUTO_DESC"] = "Автоматически выбирает вариант при розыгрыше добычи, основывась на заданных настройках."
+L["Auto hide"] = "Автоматически скрывать"
+L["Manual Override"] = "Принудительно"
+L["Sets the button for manual override."] = "Задает кнопку, при зажатии которой добыча будет анонсироватья."
+L["Auto Confirm"] = "Автоматически подтверидь"
+L["Automatically click OK on BOP items"] = "Автоматически подтверждать поднятие/разрушение ПпП вещей"
+L["Auto Greed"] = "Авто. не откажусь"
+L["Automatically greed uncommon (green) quality items at max level"] = "Автоматически нажимать 'не откажусь' на предметы зеленого качества на максимальном уровне."
+L["Auto Disenchant"] = "Авто. распыление"
+L["Automatically disenchant uncommon (green) quality items at max level"] = "Автоматически нажимать 'распылить' на вещи зеленого качества на максимальном уровне."
+L["Sets the auto greed/disenchant quality\n\nUncommon: Rolls on Uncommon only\nRare: Rolls on Rares & Uncommon"] = "Устанавливает качество предмета для автоматических бросков.\n\nНеобычное: разыгрывает только зеленые\nРедкие: разыгрывает синие и зеленые."
+L["Roll based on level."] = "Уровень розыгрыша"
+L["This will auto-roll if you are above the given level if: You cannot equip the item being rolled on, or the ilevel of your equipped item is higher than the item being rolled on or you have an heirloom equipped in that slot"] = "Автоматически разыгрывать добычу после установленного уровня, если: вы не можете надеть предмет, или надетый на вас предмет выше уровнем, или в этом слоте у вас фамильный предмет"
+L["Level to start auto-rolling from"] = "Минимальный уровень розыгрыша"
 
 --Nameplates--
+L["Target Count"] = "Число выделений"
+L["Display the number of party / raid members targetting the nameplate unit."] = "Показывать количество членов группы/рейда, выбравших в цель этот юнит."
+L["Threat Text"] = "Текст угрозы"
+L["Display threat level as text on targeted, boss or mouseover nameplate."] = "Отображает текст угрозы на индикаторе цели, босса или юнита под курсором."
 
 --Minimap--
+L["Minimap Options"] = "Опции миникарты"
 L['MINIMAP_DESC'] = "Эти опции влияют на различные функции миникарты.  Некоторые опции погут не работать, если вы отключите миникарты в основных настройках ElvUI."
+L["Minimap Coordinates"] = "Координаты на миникарте"
+L['Coords Display'] = "Отображение координат"
+L['Change settings for the display of the coordinates that are on the minimap.'] = "Укажите условие отображения координат на миникарте."
+L["Coords Location"] = "Позиция координат"
+L['This will determine where the coords are shown on the minimap.'] = "Определяет место, в котором будут отображаться координаты на миникарте"
+L['Bottom Corners'] = "Нижние углы"
+L['Bottom Center'] = "Внизу по центру"
+L["Minimap Buttons"] = "Иконки у миникарты"
+L["Bar Enable"] = "Включить полосу"
+L['Enable/Disable Square Minimap Bar'] = "Включить/выключить панель для иконок миникарты."
+L['Skin Dungeon'] = "Иконка поиска"
+L['Skin dungeon icon.'] = "Забирать иконку поиска группы."
+L['Skin Mail'] = "Иконка почты"
+L['Skin mail icon.'] = "Забирать иконку письма."
+L['Icons Per Row'] = "Иконок в ряду"
+L['The number of icons per row for Square Minimap Bar.'] = "Кол-во иконок в ряду на полосе иконок."
+L['Anchor Setting'] = "Настрокий расположения"
+L['Anchor mode for displaying the minimap buttons are skinned.'] = "Место расположения иконок аддонов, когда они стилизованы."
+L['Horizontal Bar'] = "Горизонтальная панель"
+L['Vertical Bar'] = "Вертикальная панель"
+L['The size of the minimap buttons.'] = "Размер иконок."
+L['Show minimap buttons on mouseover.'] = "Отображать иконпри при наведении мыши."
+L["Instance indication"] = "Индикатор подземелья"
+L['Show instance difficulty info as text.'] = "Показывать информацию о сложности подземелья в виде текста"
+L['Show texture'] = "Показывать текстуру"
+L['Show instance difficulty info as default texture.'] = "Показывать информацию о сложности подземелья в виде стандартной текстуры"
+L['Minimap Alpha'] = "Прозрачность миникарты"
 
 --Tooltip--
-L["TTOFFSET_DESC"] = "This adds the ability to have the tooltip offset from the cursor.  Make sure to have the \"Cursor Anchor\" option enabled in ElvUI's Tooltip section to use this feature."
+L["TTOFFSET_DESC"] = "Добавляет возможность сделать отступ подсказки от курсора. Работает только при включенной опции \"Около курсора\" в ElvUI."
+L["Tooltip enhancements"] = "Дополнительные опции подсказки"
+L["Faction Icon"] = "Иконка фракции"
+L["Tooltip Cursor Offset"] = "Смещение подсказки"
+L["Show faction icon to the left of player's name on tooltip."] = "Отображать иконку фракции около имени игроков в подсказках"
+L["Tooltip X-offset"] = "Смещение подсказки по X"
+L["Offset the tooltip on the X-axis."] = "Смещает подсказку по оси X относительно выбранной точки крепления."
+L["Tooltip Y-offset"] = "Смещение подсказки по Y"
+L["Offset the tooltip on the Y-axis."] = "Смещает подсказку по оси Y относительно выбранной точки крепления."
 
 --UI buttons--
 L["UB_DESC"] = "This adds a small bar with some useful buttons which acts as a small menu for common things."
+L["UI Buttons"] = "Меню интерфейса"
+L["Additional menu with useful buttons"] = "Дополнительное меню с полезными кнопками"
+L["Show/Hide UI buttons."] = "Показать/скрыть меню"
+L["Mouse Over"] = "При наведении"
+L["Show on mouse over."] = "Отображать при наведении мыши."
+L["Buttons position"] = "Положение кнопок"
+L["Layout for UI buttons."] = "Режим положения кнопок"
+L["Click to reload your interface"] = "Нажмите для перезагрузки интерфейса"
+L["Click to toggle config window"] = "Нажмите для отображения окна настроек"
+L["Click to toggle the AddOn Manager frame."] = "Нажмите для отображения окна менеджера аддонов."
+L["Click to toggle the Configuration/Option Window from the Bossmod (DXE, DBM or Bigwigs) you have enabled."] = "Нажмите для отображения окна настроек включенного босс мода. Поддерживаются DXE, DBM, Bigwigs."
+L["Click to unlock moving ElvUI elements"] = "Нажмите для входа в режим перемещения элементов"
+L["ElvUI Config"] = "Настройка ElvUI"
+L["Move UI"] = "Разблокировать элементы"
+L["Reload UI"] = "Перезагрузить интерфейс"
+L["AddOns Manager"] = "Менеджер аддонов"
+L["Boss Mod"] = "Босс мод"
+L["Click to toggle iFilger's config UI"] = "Нажмите для отображения настроек iFilger"
 
---Links--
-L["LINK_DESC"] = [[Сылки ниже ведуть на страницы Shadow & Light на различных сайтах.]]
-
+L["Enhanced Vehicle Bar"] = "Улучшенный контроль машин"
+L["A different look/feel vehicle bar based on work by Azilroka"] = "Использовать улучшенную панель управления средствами передвижения, основанную на коде Azilroka"
 
 --Credits--
 L["Submodules and Coding:"] = "Субмодули и помощ с кодом:"

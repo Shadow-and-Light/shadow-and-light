@@ -15,7 +15,7 @@ local function configTable()
 			info = {
 				order = 2,
 				type = "description",
-				name = "Options for the raid control button",
+				name = "",
 			},
 			mouseover = {
 				order = 3,
