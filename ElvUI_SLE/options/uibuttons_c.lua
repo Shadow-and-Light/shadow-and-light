@@ -58,7 +58,7 @@ local function configTable()
 			mouse = {
 				order = 8,
 				type = "toggle",
-				name = L["Mouse over"],
+				name = L["Mouse Over"],
 				desc = L["Show on mouse over."],
 				disabled = function() return not E.db.sle.uibuttons.enable end,
 				get = function(info) return E.db.sle.uibuttons.mouse end,

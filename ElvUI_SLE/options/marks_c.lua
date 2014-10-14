@@ -71,7 +71,7 @@ local function configTable()
 					mouseover = {
 						order = 7,
 						type = "toggle",
-						name = L["Mouseover"],
+						name = L["Mouse Over"],
 						desc = L["Show on mouse over."],
 						disabled = function() return not E.private.sle.marks.marks end,
 						get = function(info) return E.db.sle.marks.mouseover end,
@@ -143,7 +143,7 @@ local function configTable()
 					mouseover = {
 						order = 7,
 						type = "toggle",
-						name = L["Mouseover"],
+						name = L["Mouse Over"],
 						desc = L["Show on mouse over."],
 						disabled = function() return not E.private.sle.marks.flares end,
 						get = function(info) return E.db.sle.flares.mouseover end,
