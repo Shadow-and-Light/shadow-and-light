@@ -174,6 +174,11 @@ function CA:Setup_CharacterArmory()
 		CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 3)
 		CharacterLevelText:SetParent(self)
 	end)
+	hooksecurefunc('ToggleCharacter', function(frameType)
+		if frameType ~= 'PaperDollFrame' then
+			CharacterFrame:SetWidth(PANEL_DEFAULT_WIDTH)
+		end
+	end)
 	--hooksecurefunc('CharacterFrame_Collapse', function() if Info.CharacterArmory_Activate then CharacterFrame:SetWidth(448) end end)
 	--hooksecurefunc('CharacterFrame_Expand', function() if Info.CharacterArmory_Activate then CharacterFrame:SetWidth(650) end end)
 	--hooksecurefunc('PaperDollFrame_SetLevel', function()
