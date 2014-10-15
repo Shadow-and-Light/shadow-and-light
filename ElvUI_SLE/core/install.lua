@@ -6,247 +6,72 @@ local SLE = E:GetModule('SLE');
 local CURRENT_PAGE = 0
 local MAX_PAGE = 5
 
-local function DarthSetup() --The function to switch from classic ElvUI settings to Darth's
-	SLEInstallStepComplete.message = L["Darth's Defaults Set"]
-	SLEInstallStepComplete:Show()
-	local layout = E.db.layoutSet --To know if some sort of layout was choosed before
+function AI:DarthCaster()
+	
+end
 
-	if not E.db.movers then E.db.movers = {}; end
+function AI:DarthTank()
+	E.db["datatexts"]["panels"]["DP_6"]["left"] = "Avoidance"
+end
 
-	
+function AI:DarthPhys()
+	E.db["datatexts"]["panels"]["DP_6"]["left"] = "Attack Power"
+end
 
-	if SLE:Auth() then
-		E.db.hideTutorial = 1
-		E.db.general.loginmessage = false
-	end
-	
-	E.db["nameplate"] = {
-		["debuffs"] = {
-			["font"] = "ElvUI Font",
-			["fontOutline"] = "OUTLINE",
-			["numAuras"] = 5,
-			["stretchTexture"] = false,
-		},
-		["fontSize"] = 8,
-		["healthBar"] = {
-			["text"] = {
-				["enable"] = true,
-			},
-			["lowHPScale"] = {
-				["enable"] = true,
-			},
-		},
-		["font"] = "ElvUI Font",
-		["fontOutline"] = "OUTLINE",
-		["buffs"] = {
-			["fontOutline"] = "OUTLINE",
-			["font"] = "ElvUI Font",
-		},
-		["raidHealIcon"] = {
-			["xOffset"] = 0,
-		},
-	}
-
-	E.db["sle"] = {
-		["nameplate"] = {
-			["showthreat"] = true,
-		},
-		["media"] = {
-			["fonts"] = {
-				["zone"] = {
-					["font"] = "Old Cyrillic",
-				},
-				["subzone"] = {
-					["font"] = "Old Cyrillic",
-				},
-				["pvp"] = {
-					["font"] = "Old Cyrillic",
-				},
-			},
-			["screensaver"] = {
-				["enable"] = true,
-				["playermodel"] = {
-					["rotation"] = 345,
-					["xaxis"] = -0.2,
-					["anim"] = 70,
-					["distance"] = -0.0999999999999999,
-					["yaxis"] = -0.2,
-					["width"] = 530,
-				},
-				["xpack"] = 200,
-				["crest"] = 150,
-			},
-		},
-		["datatext"] = {
-			["chatright"] = {
-				["width"] = 408,
-			},
-			["bottom"] = {
-				["enabled"] = true,
-				["transparent"] = true,
-				["width"] = 196,
-			},
-			["chathandle"] = true,
-			["dp5"] = {
-				["enabled"] = true,
-				["transparent"] = true,
-				["width"] = 440,
-			},
-			["top"] = {
-				["enabled"] = true,
-				["transparent"] = true,
-			},
-			["chatleft"] = {
-				["width"] = 408,
-			},
-			["dp6"] = {
-				["enabled"] = true,
-				["transparent"] = true,
-				["width"] = 440,
-			},
-		},
-		["loot"] = {
-			["enable"] = true,
-			["history"] = {
-				["alpha"] = 0.7,
-				["autohide"] = true,
-			},
-			["autoroll"] = {
-				["autoconfirm"] = true,
-				["autogreed"] = true,
-			},
-		},
-		["combatico"] = {
-			["pos"] = "TOPRIGHT",
-		},
-		["tooltip"] = {
-			["showFaction"] = true,
-		},
-		["threat"] = {
-			["enable"] = false,
-		},
-		["dt"] = {
-			["friends"] = {
-				["combat"] = true,
-				["hide_hintline"] = false,
-				["totals"] = true,
-				["expandBNBroadcast"] = true,
-			},
-			["guild"] = {
-				["totals"] = true,
-				["combat"] = true,
-			},
-		},
-		["uibuttons"] = {
-			["position"] = "uib_hor",
-			["enable"] = true,
-			["spacing"] = 4,
-			["size"] = 20,
-		},
+function AI:DarthHeal()
+	E.db["general"]["totems"] = {
+		["size"] = 34,
 	}
 	
-	E.db["bags"] = {
-		["bagWidth"] = 425,
-		["currencyFormat"] = "ICON",
-		["yOffset"] = 181,
-		["bankSize"] = 30,
-		["bankWidth"] = 425,
-		["alignToChat"] = false,
-		["bagSize"] = 30,
-	}
+	E.db["movers"]["PetAB"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT54366"
+	E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMElvUIParentBOTTOM0152"
+	E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMElvUIParentBOTTOM0130"
+	E.db["movers"]["BossButton"] = "BOTTOMElvUIParentBOTTOM1440"
+	E.db["movers"]["MarkMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-517138"
+	E.db["movers"]["VehicleSeatMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT416209"
+	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM312177"
+	E.db["movers"]["ElvUF_PlayerCastbarMover"] = nil --"BOTTOMElvUIParentBOTTOM-312152"
+	E.db["movers"]["ElvUF_TargetCastbarMover"] = nil
+	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-543114"
+	E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMElvUIParentBOTTOM0152"
+	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT49950"
+	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT543114"
+	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-312177"
+	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMElvUIParentBOTTOM0152"
+	E.db["movers"]["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM3432"
 	
-	E.db["auras"] = {
-		["font"] = "ElvUI Font",
-		["fontOutline"] = "OUTLINE",
-		["consolidatedBuffs"] = { 
-			["fontSize"] = 11,
-			["filter"] = false,
-			["font"] = "ElvUI Font",
-			["fontOutline"] = "OUTLINE",
-		},
-		["buffs"] = {
-			["size"] = 30,
-		},
-		["debuffs"] = {
-			["size"] = 30,
-		},
-	}
-
-	E.db["movers"] = {
-		["DP_6_Mover"] = "BOTTOMElvUIParentBOTTOM3170",
-		["ElvUF_FocusCastbarMover"] = "BOTTOMElvUIParentBOTTOM0178",
-		["PetAB"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT55152",
-		["LeftChatMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT019",
-		["GMMover"] = "TOPLEFTElvUIParentTOPLEFT00",
-		["BuffsMover"] = "TOPRIGHTElvUIParentTOPRIGHT-2000",
-		["BossButton"] = "BOTTOMElvUIParentBOTTOM-1200",
-		["ElvUF_FocusMover"] = "BOTTOMElvUIParentBOTTOM29421",
-		["MicrobarMover"] = "TOPElvUIParentTOP0-18",
-		["VehicleSeatMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT420205",
-		["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM304140",
-		["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0211",
-		["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0210",
-		["ElvAB_1"] = "BOTTOMElvUIParentBOTTOM019",
-		["ElvAB_2"] = "BOTTOMElvUIParentBOTTOM13319",
-		["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM0155",
-		["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM0130",
-		["ElvAB_4"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-42419",
-		["RightChatMover"] = "BOTTOMRIGHTUIParentBOTTOMRIGHT019",
-		["AltPowerBarMover"] = "TOPElvUIParentTOP0-195",
-		["ElvAB_3"] = "BOTTOMElvUIParentBOTTOM-13319",
-		["DP_5_Mover"] = "BOTTOMElvUIParentBOTTOM-3170",
-		["ReputationBarMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-48819",
-		["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-304140",
-		["ElvUF_TargetTargetMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-551100",
-		["ObjectiveFrameMover"] = "TOPRIGHTElvUIParentTOPRIGHT-61-205",
-		["PetBattleStatusMover"] = "TOPElvUIParentTOP0-69",
-		["UIBFrameMover"] = "TOPRIGHTElvUIParentTOPRIGHT0-177",
-		["ElvAB_5"] = "BOTTOMElvUIParentBOTTOM281264",
-		["RaidUtility_Mover"] = "TOPElvUIParentTOP-3060",
-		["ArenaHeaderMover"] = "TOPLEFTElvUIParentTOPLEFT0-209",
-		["ElvAB_6"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-11210",
-		["PvPMover"] = "TOPElvUIParentTOP0-50",
-		["BossHeaderMover"] = "TOPLEFTElvUIParentTOPLEFT0-209",
-		["ElvUF_PetMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT551100",
-		["PetBattleABMover"] = "BOTTOMElvUIParentBOTTOM020",
-		["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0210",
-		["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0265",
-		["DebuffsMover"] = "TOPRIGHTElvUIParentTOPRIGHT-200-143",
-		["MinimapMover"] = "TOPRIGHTElvUIParentTOPRIGHT00",
-		["ShiftAB"] = "BOTTOMElvUIParentBOTTOM-133116",
-	}
-	
-	
-	
-	E.db["tooltip"] = {
-		["healthBar"] = {
-			["font"] = "ElvUI Font",
-		},
-	}
+	E.db["unitframe"] = P.unitframe
 	
 	E.db["unitframe"] = {
 		["fontSize"] = 11,
 		["units"] = {
+			["tank"] = {
+				["enable"] = false,
+			},
 			["party"] = {
 				["horizontalSpacing"] = 3,
 				["debuffs"] = {
-					["enable"] = false,
+					["anchorPoint"] = "TOPLEFT",
+					["sizeOverride"] = 0,
 				},
 				["health"] = {
+					["frequentUpdates"] = true,
 					["position"] = "BOTTOMLEFT",
-					["text_format"] = "[healthcolor][health:current]",
+					["text_format"] = "[healthcolor][health:deficit]",
 				},
 				["growthDirection"] = "RIGHT_UP",
-				["power"] = {
-					["text_format"] = "",
+				["GPSArrow"] = {
+					["xOffset"] = -27,
+					["size"] = 25,
+					["yOffset"] = 12,
 				},
 				["roleIcon"] = {
 					["position"] = "BOTTOMRIGHT",
 				},
-				["GPSArrow"] = {
-					["enable"] = false,
-					["size"] = 30,
+				["power"] = {
+					["text_format"] = "",
 				},
+				["healPrediction"] = true,
 				["width"] = 80,
 				["name"] = {
 					["text_format"] = "[name:medium]",
@@ -254,27 +79,43 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 				},
 			},
 			["raid40"] = {
+				["GPSArrow"] = {
+					["enable"] = true,
+					["xOffset"] = -27,
+					["size"] = 20,
+				},
+				["name"] = {
+					["position"] = "TOP",
+				},
+				["rdebuffs"] = {
+					["size"] = 16,
+				},
 				["height"] = 32,
+				["visibility"] = "[@raid31,noexists] hide;show",
 			},
 			["target"] = {
+				["combobar"] = {
+					["fill"] = "spaced",
+				},
 				["portrait"] = {
-					["overlay"] = true,
-					["enable"] = true,
-					["camDistanceScale"] = 3,
 					["rotation"] = 345,
+					["enable"] = true,
+					["overlay"] = true,
+					["camDistanceScale"] = 3,
 				},
 				["castbar"] = {
 					["height"] = 20,
 					["width"] = 210,
 				},
 				["width"] = 210,
-				["health"] = {
-					["yOffset"] = -5,
-				},
 				["name"] = {
 					["position"] = "TOPLEFT",
 					["text_format"] = "[namecolor][name:medium] [difficultycolor][level] [shortclassification]",
 					["yOffset"] = -2,
+				},
+				["health"] = {
+					["text_format"] = "[healthcolor][health:deficit] - [health:current-percent]",
+					["yOffset"] = -5,
 				},
 				["power"] = {
 					["attachTextToPower"] = true,
@@ -286,20 +127,22 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 			},
 			["raid"] = {
 				["growthDirection"] = "RIGHT_UP",
-				["name"] = {
-					["text_format"] = "[name:medium]",
+				["health"] = {
+					["frequentUpdates"] = true,
+					["position"] = "BOTTOMLEFT",
 				},
 				["rdebuffs"] = {
 					["size"] = 18,
 				},
 				["GPSArrow"] = {
-					["enable"] = false,
-					["size"] = 30,
+					["xOffset"] = -27,
+					["size"] = 25,
+					["yOffset"] = 12,
 				},
+				["healPrediction"] = true,
 				["numGroups"] = 6,
-				["health"] = {
-					["position"] = "BOTTOMLEFT",
-					["text_format"] = "[healthcolor][health:current]",
+				["name"] = {
+					["text_format"] = "[name:medium]",
 				},
 				["visibility"] = "[@raid6,noexists][@raid31,exists] hide;show",
 			},
@@ -308,29 +151,29 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 					["enable"] = false,
 				},
 				["portrait"] = {
-					["overlay"] = true,
-					["enable"] = true,
-					["camDistanceScale"] = 3,
 					["rotation"] = 345,
+					["enable"] = true,
+					["overlay"] = true,
+					["camDistanceScale"] = 3,
 				},
 				["classbar"] = {
 					["fill"] = "spaced",
 				},
 				["aurabar"] = {
-					["maxBars"] = 8,
 					["attachTo"] = "FRAME",
+					["maxBars"] = 8,
 				},
 				["castbar"] = {
-					["width"] = 300,
+					["width"] = 210,
 					["height"] = 20,
 					["format"] = "CURRENTMAX",
 				},
 				["width"] = 210,
 				["lowmana"] = 0,
 				["health"] = {
-					["yOffset"] = -4,
-					["text_format"] = "[healthcolor][health:current-percent:sl]",
 					["position"] = "RIGHT",
+					["text_format"] = "[healthcolor][health:current-percent:sl]",
+					["yOffset"] = -4,
 				},
 				["power"] = {
 					["attachTextToPower"] = true,
@@ -344,8 +187,8 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 				["raidicon"] = {
 					["attachTo"] = "LEFT",
 					["xOffset"] = -20,
-					["yOffset"] = 0,
 					["size"] = 22,
+					["yOffset"] = 0,
 				},
 			},
 			["arena"] = {
@@ -379,11 +222,11 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 					["anchorPoint"] = "RIGHT",
 				},
 			},
+			["assist"] = {
+				["enable"] = false,
+			},
 		},
 		["statusbar"] = "Polished Wood",
-		["debuffHighlighting"] = false,
-		["smartRaidFilter"] = false,
-		["font"] = "ElvUI Font",
 		["colors"] = {
 			["auraBarBuff"] = {
 				["r"] = 0.576470588235294,
@@ -392,6 +235,12 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 			},
 			["colorhealthbyvalue"] = false,
 			["healthclass"] = true,
+			["customhealthbackdrop"] = true,
+			["castColor"] = {
+				["r"] = 0.854901960784314,
+				["g"] = 0.772549019607843,
+				["b"] = 0.36078431372549,
+			},
 			["castNoInterrupt"] = {
 				["r"] = 0.780392156862745,
 				["g"] = 0.250980392156863,
@@ -399,16 +248,88 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 			},
 		},
 		["fontOutline"] = "OUTLINE",
+		["smartRaidFilter"] = false,
+		["font"] = "ElvUI Font",
+	}
+end
+
+function AI:DarthSetup() --The function to switch from classic ElvUI settings to Darth's
+	local layout = E.db.layoutSet
+	local word = layout == 'tank' and L["Tank"] or layout == 'healer' and L["Healer"] or layout == 'dpsMelee' and L['Physical DPS'] or L['Caster DPS']
+	SLEInstallStepComplete.message = L["Darth's Defaults Set"]..": "..word
+	SLEInstallStepComplete:Show()
+	
+	if not E.db.movers then E.db.movers = {}; end
+
+	E.db["general"] = {
+		["loginmessage"] = false,
+		["threat"] = {
+			["enable"] = false,
+		},
+		["stickyFrames"] = false,
+		["hideErrorFrame"] = false,
+		["vendorGrays"] = true,
+		["autoRepair"] = "PLAYER",
+		["minimap"] = {
+			["locationText"] = "HIDE",
+		},
+		["castNoInterrupt"] = {
+		},
+		["bottomPanel"] = false,
+		["reputation"] = {
+			["height"] = 187,
+		},
+		["NEUTRAL"] = {
+		},
+		["experience"] = {
+			["height"] = 187,
+		},
+		["castColor"] = {
+		},
+	}
+
+	E.db["nameplate"] = {
+		["debuffs"] = {
+			["stretchTexture"] = false,
+			["font"] = "ElvUI Font",
+			["numAuras"] = 5,
+			["fontOutline"] = "OUTLINE",
+		},
+		["healthBar"] = {
+			["lowHPScale"] = {
+				["enable"] = true,
+			},
+			["text"] = {
+				["enable"] = true,
+			},
+		},
+		["fontOutline"] = "OUTLINE",
+		["fontSize"] = 8,
+		["buffs"] = {
+			["font"] = "ElvUI Font",
+			["fontOutline"] = "OUTLINE",
+		},
+		["font"] = "ElvUI Font",
+		["raidHealIcon"] = {
+			["xOffset"] = 0,
+		},
 	}
 	
 	E.db["datatexts"] = {
 		["minimapPanels"] = false,
+		["font"] = "ElvUI Font",
 		["panelTransparency"] = true,
 		["time24"] = true,
 		["panels"] = {
 			["RightChatDataPanel"] = {
-				["right"] = "Talent/Loot Specialization",
 				["left"] = "Mastery",
+				["right"] = "Talent/Loot Specialization",
+			},
+			["Bottom_Panel"] = "System",
+			["DP_6"] = {
+				["right"] = "Crit Chance",
+				["left"] = "Spell/Heal Power",
+				["middle"] = "Haste",
 			},
 			["DP_5"] = {
 				["right"] = "Durability",
@@ -418,16 +339,9 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 			["LeftChatDataPanel"] = {
 				["right"] = "S&L Friends",
 				["left"] = "Combat/Arena Time",
-				["middle"] = "Guild",
-			},
-			["Bottom_Panel"] = "System",
-			["DP_6"] = {
-				["right"] = "Crit Chance",
-				["left"] = "Spell/Heal Power",
-				["middle"] = "Haste",
+				["middle"] = "S&L Guild",
 			},
 		},
-		["font"] = "ElvUI Font",
 	}
 	
 	E.db["actionbar"] = {
@@ -436,81 +350,456 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 			["buttons"] = 12,
 			["buttonsPerRow"] = 4,
 			["buttonsize"] = 30,
+			["visibility"] = "[petbattle] hide; show",
 		},
-		["fontOutline"] = "OUTLINE",
-		["microbar"] = {
-			["enabled"] = true,
-			["buttonsPerRow"] = 11,
-		},
+		["fontSize"] = 12,
 		["bar2"] = {
 			["enabled"] = true,
 			["point"] = "TOPLEFT",
 			["buttonsPerRow"] = 4,
 			["buttonsize"] = 30,
+			["visibility"] = " [petbattle] hide; show",
 		},
-		["bar5"] = {
-			["enabled"] = false,
-			["point"] = "TOPLEFT",
-			["buttons"] = 12,
-		},
-		["font"] = "ElvUI Font",
 		["bar1"] = {
 			["point"] = "TOPLEFT",
 			["buttonsPerRow"] = 4,
 		},
-		["fontSize"] = 12,
-		["barPet"] = {
+		["bar5"] = {
 			["point"] = "TOPLEFT",
-			["buttonspacing"] = 1,
-			["backdrop"] = false,
-			["buttonsPerRow"] = 5,
-			["buttonsize"] = 22,
-		},
-		["bar4"] = {
-			["point"] = "TOPLEFT",
+			["buttons"] = 12,
 			["buttonspacing"] = 1,
 			["buttonsPerRow"] = 2,
 			["buttonsize"] = 30,
+			["visibility"] = " [petbattle] hide; show",
 		},
+		["bar4"] = {
+			["point"] = "TOPLEFT",
+			["visibility"] = "[petbattle] hide; show",
+			["buttonspacing"] = 1,
+			["buttonsPerRow"] = 2,
+			["backdrop"] = false,
+			["buttonsize"] = 30,
+		},
+		["font"] = "ElvUI Font",
+		["barPet"] = {
+			["point"] = "TOPLEFT",
+			["buttonspacing"] = 1,
+			["buttonsPerRow"] = 5,
+			["buttonsize"] = 22,
+			["backdrop"] = false,
+		},
+		["fontOutline"] = "OUTLINE",
+		["hotkeytext"] = false,
 		["stanceBar"] = {
 			["buttonsize"] = 20,
 		},
+		["microbar"] = {
+			["enabled"] = true,
+			["buttonsPerRow"] = 11,
+		},
+		["keyDown"] = false,
 	}
 	
-	E.db["general"] = {
-		["autoRepair"] = "PLAYER",
-		["bottomPanel"] = false,
-		["loginmessage"] = false,
-		["threat"] = {
-			["enable"] = false,
+	E.db["tooltip"] = {
+		["healthBar"] = {
+			["font"] = "ElvUI Font",
 		},
-		["stickyFrames"] = false,
-		["vendorGrays"] = true,
-		["castNoInterrupt"] = {
+	}
+	
+	E.db["unitframe"] = {
+		["debuffHighlighting"] = false,
+		["fontSize"] = 11,
+		["colors"] = {
+			["castNoInterrupt"] = {
+				["b"] = 0.250980392156863,
+				["g"] = 0.250980392156863,
+				["r"] = 0.780392156862745,
+			},
+			["castColor"] = {
+				["b"] = 0.36078431372549,
+				["g"] = 0.772549019607843,
+				["r"] = 0.854901960784314,
+			},
+			["colorhealthbyvalue"] = false,
+			["healthclass"] = true,
 		},
-		["experience"] = {
-			["height"] = 187,
+		["fontOutline"] = "OUTLINE",
+		["smartRaidFilter"] = false,
+		["font"] = "ElvUI Font",
+		["statusbar"] = "Polished Wood",
+		["units"] = {
+			["tank"] = {
+				["enable"] = false,
+			},
+			["boss"] = {
+				["buffs"] = {
+					["anchorPoint"] = "RIGHT",
+				},
+				["debuffs"] = {
+					["anchorPoint"] = "RIGHT",
+				},
+				["health"] = {
+					["text_format"] = "[healthcolor][health:current-percent:sl]",
+				},
+				["growthDirection"] = "DOWN",
+			},
+			["party"] = {
+				["horizontalSpacing"] = 3,
+				["debuffs"] = {
+					["enable"] = false,
+				},
+				["power"] = {
+					["text_format"] = "",
+				},
+				["growthDirection"] = "RIGHT_UP",
+				["health"] = {
+					["text_format"] = "[healthcolor][health:current]",
+					["position"] = "BOTTOMLEFT",
+				},
+				["name"] = {
+					["text_format"] = "[name:medium]",
+					["position"] = "TOP",
+				},
+				["GPSArrow"] = {
+					["enable"] = false,
+					["size"] = 30,
+				},
+				["roleIcon"] = {
+					["position"] = "BOTTOMRIGHT",
+				},
+				["width"] = 80,
+			},
+			["raid40"] = {
+				["height"] = 32,
+				["visibility"] = "[@raid31,noexists] hide;show",
+			},
+			["arena"] = {
+				["debuffs"] = {
+					["anchorPoint"] = "RIGHT",
+				},
+				["health"] = {
+					["text_format"] = "[healthcolor][health:current-percent:sl]",
+				},
+				["power"] = {
+					["position"] = "RIGHT",
+					["width"] = "inset",
+				},
+				["buffs"] = {
+					["anchorPoint"] = "RIGHT",
+				},
+				["pvpTrinket"] = {
+					["position"] = "LEFT",
+				},
+				["growthDirection"] = "DOWN",
+			},
+			["assist"] = {
+				["enable"] = false,
+			},
+			["raid"] = {
+				["visibility"] = "[@raid6,noexists][@raid31,exists] hide;show",
+				["health"] = {
+					["text_format"] = "[healthcolor][health:current]",
+					["position"] = "BOTTOMLEFT",
+				},
+				["GPSArrow"] = {
+					["enable"] = false,
+					["size"] = 30,
+				},
+				["name"] = {
+					["text_format"] = "[name:medium]",
+				},
+				["rdebuffs"] = {
+					["size"] = 18,
+				},
+				["numGroups"] = 6,
+				["growthDirection"] = "RIGHT_UP",
+			},
+			["player"] = {
+				["debuffs"] = {
+					["enable"] = false,
+				},
+				["portrait"] = {
+					["rotation"] = 345,
+					["overlay"] = true,
+					["camDistanceScale"] = 3,
+					["enable"] = true,
+				},
+				["castbar"] = {
+					["height"] = 20,
+					["format"] = "CURRENTMAX",
+					["width"] = 300,
+				},
+				["width"] = 210,
+				["raidicon"] = {
+					["attachTo"] = "LEFT",
+					["yOffset"] = 0,
+					["xOffset"] = -20,
+					["size"] = 22,
+				},
+				["pvp"] = {
+					["text_format"] = "||cFFB04F4F[pvptimer]||r",
+				},
+				["health"] = {
+					["yOffset"] = -4,
+					["text_format"] = "[healthcolor][health:current-percent:sl]",
+					["position"] = "RIGHT",
+				},
+				["power"] = {
+					["width"] = "inset",
+					["text_format"] = "[powercolor][power:current:sl]",
+					["attachTextToPower"] = true,
+				},
+				["height"] = 51,
+				["lowmana"] = 0,
+				["classbar"] = {
+					["fill"] = "spaced",
+				},
+				["aurabar"] = {
+					["maxBars"] = 8,
+					["attachTo"] = "FRAME",
+				},
+			},
+			["target"] = {
+				["combobar"] = {
+					["fill"] = "spaced",
+				},
+				["power"] = {
+					["position"] = "RIGHT",
+					["hideonnpc"] = false,
+					["width"] = "inset",
+					["attachTextToPower"] = true,
+				},
+				["portrait"] = {
+					["rotation"] = 345,
+					["overlay"] = true,
+					["camDistanceScale"] = 3,
+					["enable"] = true,
+				},
+				["castbar"] = {
+					["height"] = 20,
+					["width"] = 210,
+				},
+				["height"] = 51,
+				["health"] = {
+					["yOffset"] = -5,
+				},
+				["name"] = {
+					["yOffset"] = -2,
+					["text_format"] = "[namecolor][name:medium] [difficultycolor][level] [shortclassification]",
+					["position"] = "TOPLEFT",
+				},
+				["width"] = 210,
+			},
 		},
-		["hideErrorFrame"] = false,
-		["reputation"] = {
-			["height"] = 187,
-		},
-		['minimap'] = {
-			['locationText'] = 'HIDE',
-		},
+	}
+	
+	E.db["bags"] = {
+		["bagWidth"] = 425,
+		["bankWidth"] = 425,
+		["bagSize"] = 30,
+		["currencyFormat"] = "ICON",
+		["bankSize"] = 30,
+		["alignToChat"] = false,
+		["yOffset"] = 181,
 	}
 	
 	E.db["chat"] = {
-		["emotionIcons"] = false,
-		["tabFont"] = "ElvUI Font",
-		["tabFontSize"] = 11,
 		["editboxhistory"] = 10,
+		["emotionIcons"] = false,
+		["tabFontOutline"] = "OUTLINE",
 		["panelHeight"] = 187,
 		["timeStampFormat"] = "%H:%M:%S ",
-		["tabFontOutline"] = "OUTLINE",
+		["tabFont"] = "ElvUI Font",
+		["tabFontSize"] = 11,
 		["panelWidth"] = 425,
 	}
-	--Hide under is addon loaded check
+	
+	E.db["auras"] = {
+		["font"] = "ElvUI Font",
+		["fontOutline"] = "OUTLINE",
+		["consolidatedBuffs"] = {
+			["fontOutline"] = "OUTLINE",
+			["font"] = "ElvUI Font",
+			["fontSize"] = 11,
+			["filter"] = false,
+		},
+		["buffs"] = {
+			["size"] = 30,
+		},
+		["debuffs"] = {
+			["size"] = 30,
+		},
+	}
+	
+	E.db["sle"] = {
+		["combatico"] = {
+			["pos"] = "TOPRIGHT",
+		},
+		["threat"] = {
+			["enable"] = false,
+		},
+		["media"] = {
+			["fonts"] = {
+				["subzone"] = {
+					["font"] = "Old Cyrillic",
+				},
+				["pvp"] = {
+					["font"] = "Old Cyrillic",
+				},
+				["zone"] = {
+					["font"] = "Old Cyrillic",
+				},
+			},
+			["screensaver"] = {
+				["enable"] = true,
+				["xpack"] = 200,
+				["playermodel"] = {
+					["rotation"] = 345,
+					["xaxis"] = -0.2,
+					["yaxis"] = -0.2,
+					["distance"] = -0.0999999999999999,
+					["anim"] = 70,
+					["width"] = 530,
+				},
+				["crest"] = 150,
+			},
+		},
+		["tooltip"] = {
+			["showFaction"] = true,
+		},
+		["datatext"] = {
+			["top"] = {
+				["enabled"] = true,
+				["transparent"] = true,
+			},
+			["chatright"] = {
+				["width"] = 408,
+			},
+			["bottom"] = {
+				["enabled"] = true,
+				["width"] = 196,
+				["transparent"] = true,
+			},
+			["dp6"] = {
+				["enabled"] = true,
+				["width"] = 440,
+				["transparent"] = true,
+			},
+			["chathandle"] = true,
+			["chatleft"] = {
+				["width"] = 408,
+			},
+			["dp5"] = {
+				["enabled"] = true,
+				["width"] = 440,
+				["transparent"] = true,
+			},
+		},
+		["dt"] = {
+			["friends"] = {
+				["totals"] = true,
+				["expandBNBroadcast"] = true,
+				["combat"] = true,
+				["hide_hintline"] = false,
+			},
+			["guild"] = {
+				["totals"] = true,
+				["combat"] = true,
+			},
+		},
+		["loot"] = {
+			["enable"] = true,
+			["autoroll"] = {
+				["autoconfirm"] = true,
+				["autogreed"] = true,
+			},
+			["history"] = {
+				["alpha"] = 0.7,
+				["autohide"] = true,
+			},
+		},
+		["marks"] = {
+			["target"] = true,
+			["mouseover"] = true,
+			["growth"] = "UP",
+			["size"] = 20,
+		},
+		["nameplate"] = {
+			["showthreat"] = true,
+		},
+		["uibuttons"] = {
+			["enable"] = true,
+			["size"] = 20,
+			["spacing"] = 4,
+			["position"] = "uib_hor",
+		},
+	}
+	
+	E.db["movers"] = {
+		["DP_6_Mover"] = "BOTTOMElvUIParentBOTTOM3170",
+		["ElvUF_FocusCastbarMover"] = "BOTTOMElvUIParentBOTTOM0178",
+		["PetAB"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT55152",
+		["LeftChatMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT019",
+		["GMMover"] = "TOPLEFTElvUIParentTOPLEFT00",
+		["BuffsMover"] = "TOPRIGHTElvUIParentTOPRIGHT-2000",
+		["BossButton"] = "BOTTOMElvUIParentBOTTOM-1200",
+		["ElvUF_FocusMover"] = "BOTTOMElvUIParentBOTTOM29421",
+		["MicrobarMover"] = "TOPElvUIParentTOP0-18",
+		["VehicleSeatMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT420205",
+		["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM304140",
+		["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0211",
+		["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0210",
+		["ElvAB_1"] = "BOTTOMElvUIParentBOTTOM019",
+		["ElvAB_2"] = "BOTTOMElvUIParentBOTTOM13319",
+		["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM0155",
+		["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM0130",
+		["ElvAB_4"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-42520",
+		["RightChatMover"] = "BOTTOMRIGHTUIParentBOTTOMRIGHT019",
+		["AltPowerBarMover"] = "TOPElvUIParentTOP0-195",
+		["ElvAB_3"] = "BOTTOMElvUIParentBOTTOM-13319",
+		["DP_5_Mover"] = "BOTTOMElvUIParentBOTTOM-3170",
+		["ReputationBarMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-48819",
+		["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-304140",
+		["ElvUF_TargetTargetMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-551100",
+		["ObjectiveFrameMover"] = "TOPRIGHTElvUIParentTOPRIGHT-61-205",
+		["PetBattleStatusMover"] = "TOPElvUIParentTOP0-69",
+		["UIBFrameMover"] = "TOPRIGHTElvUIParentTOPRIGHT0-177",
+		["ElvAB_5"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT42520",
+		["RaidUtility_Mover"] = "TOPElvUIParentTOP-3060",
+		["ArenaHeaderMover"] = "TOPLEFTElvUIParentTOPLEFT0-209",
+		["ElvAB_6"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-11210",
+		["PvPMover"] = "TOPElvUIParentTOP0-50",
+		["BossHeaderMover"] = "TOPLEFTElvUIParentTOPLEFT0-209",
+		["ElvUF_PetMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT551100",
+		["PetBattleABMover"] = "BOTTOMElvUIParentBOTTOM020",
+		["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0210",
+		["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0265",
+		["DebuffsMover"] = "TOPRIGHTElvUIParentTOPRIGHT-200-143",
+		["MinimapMover"] = "TOPRIGHTElvUIParentTOPRIGHT00",
+		["ShiftAB"] = "BOTTOMElvUIParentBOTTOM-133116",
+		["LootFrameMover"] = "BOTTOMElvUIParentBOTTOM-313527",
+	}
+	
+	E.private["general"]["normTex"] = "Polished Wood"
+	E.private["general"]["glossTex"] = "Polished Wood"
+
+	E.private["sle"]["inspectframeoptions"]["enable"] = true
+	E.private["sle"]["characterframeoptions"]["enable"] = true
+	E.private["sle"]["minimap"]["mapicons"]["enable"] = true
+	E.private["sle"]["equip"]["spam"] = true
+	E.private["sle"]["equip"]["setoverlay"] = true
+	E.private["sle"]["marks"]["marks"] = true
+
+	E.private["ElvUI_Currency"] = {
+		["Unused"] = false,
+	}
+
+	if layout then
+		if layout == 'tank' then AI:DarthTank() 
+		elseif layout == 'dpsMelee' then AI:DarthPhys() 
+		elseif layout == 'healer' then AI:DarthHeal() 
+		end
+	end
 	
 	if IsAddOnLoaded("ElvUI_LocLite") then
 		E.db["loclite"] = {
@@ -525,14 +814,6 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 		E.db["movers"]["MicrobarMover"] = "TOPElvUIParentTOP0-38"
 		E.db["movers"]["PvPMover"] = "TOPElvUIParentTOP0-70"
 	end
-	
-	E.private["general"]["normTex"] = "Polished Wood"
-	E.private["general"]["glossTex"] = "Polished Wood"
-
-	E.private["sle"]["inspectframeoptions"]["enable"] = true
-	E.private["sle"]["characterframeoptions"]["enable"] = true
-	E.private["sle"]["minimap"]["mapicons"]["enable"] = true
-	E.private["sle"]["equip"]["spam"] = true
 
 	if AddOnSkins then
 		E.private["addonskins"] = {
@@ -546,9 +827,11 @@ local function DarthSetup() --The function to switch from classic ElvUI settings
 			["EmbedSystemDual"] = true,
 		}
 	end
-	E.private["ElvUI_Currency"] = {
-		["Unused"] = false,
-	}
+	
+	if SLE:Auth() then
+		E.db.hideTutorial = 1
+		E.db.general.loginmessage = false
+	end
 	
 	E:UpdateAll(true)
 end
@@ -1360,7 +1643,7 @@ local function SetPage(PageNum)
 
 	if PageNum == 1 then
 		f.SubTitle:SetText(format(L["Welcome to |cff1784d1Shadow & Light|r version %s!"], SLE.version))
-		f.Desc1:SetText(L["This will take you through a quick install process to setup some Shadow & Light features.\nIf you choose to not setup any options through this config, click continue to skip to the end and click finish."])
+		f.Desc1:SetText(L["This will take you through a quick install process to setup some Shadow & Light features.\nIf you choose to not setup any options through this config, click Skip Process button to finish the installation."])
 		f.Desc2:SetText("")
 		f.Desc3:SetText(L["Please press the continue button to go onto the next step."])
 
@@ -1375,27 +1658,32 @@ local function SetPage(PageNum)
 		
 		SLEInstallOption1Button:Show()
 		SLEInstallOption1Button:SetScript("OnClick", function() E.db.sle.datatext.chathandle = false; E:GetModule('Layout'):ToggleChatPanels() end)
-		SLEInstallOption1Button:SetText("ElvUI Panels")
+		SLEInstallOption1Button:SetText("ElvUI")
 		SLEInstallOption2Button:Show()
 		SLEInstallOption2Button:SetScript('OnClick', function() E.db.sle.datatext.chathandle = true; E:GetModule('Layout'):ToggleChatPanels() end)
-		SLEInstallOption2Button:SetText("S&L Panels")
+		SLEInstallOption2Button:SetText("Shadow & Light")
 	elseif PageNum == 3 then
 		f.SubTitle:SetText(L["Armory Mode"])
-		f.Desc1:SetText(L["Enable S&L Armory\n(Deatiled Character & Inspect frames)\n|cffFF0000Note:|r This is currently a beta option."])
-		f.Desc2:SetText(L["This will enable S&L Armory mode that will show more detailed information at a quick glance on the toons you inspect as well as your own character."])
+		f.Desc1:SetText(L["SLE_ARMORY_INSTALL"])
+		f.Desc2:SetText(L["This will enable S&L Armory mode components that will show more detailed information at a quick glance on the toons you inspect or your own character."])
 		f.Desc3:SetText(L["Importance: |cffFF0000Low|r"])
 		
 		SLEInstallOption1Button:Show()
 		SLEInstallOption1Button:SetScript('OnClick', function() E.private.sle.characterframeoptions.enable = true; E.private.sle.inspectframeoptions.enable = true; end)
-		SLEInstallOption1Button:SetText(L["Enable"])	
+		SLEInstallOption1Button:SetText(ENABLE)
+
+		SLEInstallOption2Button:Show()
+		SLEInstallOption2Button:SetScript('OnClick', function() E.private.sle.characterframeoptions.enable = true; E.private.sle.inspectframeoptions.enable = true; end)
+		SLEInstallOption2Button:SetText(DISABLE)
+
 	elseif PageNum == 4 then
-		f.SubTitle:SetText("Shadow & Light Settings")
+		f.SubTitle:SetText(L["Shadow & Light Layouts"])
 		f.Desc1:SetText(L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."])
-		f.Desc2:SetText(L["SLE_Install_Text2"])
+		f.Desc2:SetText(format(L["SLE_Install_Text2"], E.db.layoutSet or NONE))
 		f.Desc3:SetText(L["Importance: |cffFF0000Low|r"])
 
 		SLEInstallOption1Button:Show()
-		SLEInstallOption1Button:SetScript('OnClick', function() DarthSetup() end)
+		SLEInstallOption1Button:SetScript('OnClick', function() AI:DarthSetup() end)
 		SLEInstallOption1Button:SetText(L["Darth's Config"])	
 
 		SLEInstallOption2Button:Show()
@@ -1405,6 +1693,8 @@ local function SetPage(PageNum)
 		SLEInstallOption3Button:Show()
 		SLEInstallOption3Button:SetScript('OnClick', function() RepoocSetup() end)
 		SLEInstallOption3Button:SetText(L["Repooc's Config"])
+		
+		SLEInstallFrame:Size(550, 500)
 	elseif PageNum == 5 then 
 		f.SubTitle:SetText(L["Installation Complete"])
 		f.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
@@ -1412,7 +1702,7 @@ local function SetPage(PageNum)
 		SLEInstallOption1Button:Show()
 		SLEInstallOption1Button:SetScript("OnClick", InstallComplete)
 		SLEInstallOption1Button:SetText(L["Finished"])				
-		SLEInstallFrame:Size(550, 350)
+		SLEInstallFrame:Size(550, 400)
 	end
 end
 
@@ -1538,7 +1828,7 @@ function SLE:Install()
 		f.Option1 = CreateFrame("Button", "SLEInstallOption1Button", f, "UIPanelButtonTemplate")
 		f.Option1:StripTextures()
 		f.Option1:Size(160, 30)
-		f.Option1:Point("BOTTOM", 0, 45)
+		f.Option1:Point("BOTTOM", 0, 55)
 		f.Option1:SetText("")
 		f.Option1:Hide()
 		E.Skins:HandleButton(f.Option1, true)
@@ -1546,11 +1836,11 @@ function SLE:Install()
 		f.Option2 = CreateFrame("Button", "SLEInstallOption2Button", f, "UIPanelButtonTemplate")
 		f.Option2:StripTextures()
 		f.Option2:Size(110, 30)
-		f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45)
+		f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 55)
 		f.Option2:SetText("")
 		f.Option2:Hide()
-		f.Option2:SetScript('OnShow', function() f.Option1:SetWidth(110); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOMRIGHT', f, 'BOTTOM', -4, 45) end)
-		f.Option2:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point("BOTTOM", 0, 45) end)
+		f.Option2:SetScript('OnShow', function() f.Option1:SetWidth(110); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOMRIGHT', f, 'BOTTOM', -4, 55) end)
+		f.Option2:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point("BOTTOM", 0, 55) end)
 		E.Skins:HandleButton(f.Option2, true)		
 
 		f.Option3 = CreateFrame("Button", "SLEInstallOption3Button", f, "UIPanelButtonTemplate")
@@ -1559,8 +1849,8 @@ function SLE:Install()
 		f.Option3:Point('LEFT', f.Option2, 'RIGHT', 4, 0)
 		f.Option3:SetText("")
 		f.Option3:Hide()
-		f.Option3:SetScript('OnShow', function() f.Option1:SetWidth(100); f.Option1:ClearAllPoints(); f.Option1:Point('RIGHT', f.Option2, 'LEFT', -4, 0); f.Option2:SetWidth(100); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOM', f, 'BOTTOM', 0, 45)  end)
-		f.Option3:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point("BOTTOM", 0, 45); f.Option2:SetWidth(110); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45) end)
+		f.Option3:SetScript('OnShow', function() f.Option1:SetWidth(100); f.Option1:ClearAllPoints(); f.Option1:Point('RIGHT', f.Option2, 'LEFT', -4, 0); f.Option2:SetWidth(100); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOM', f, 'BOTTOM', 0, 55)  end)
+		f.Option3:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point("BOTTOM", 0, 55); f.Option2:SetWidth(110); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 55) end)
 		E.Skins:HandleButton(f.Option3, true)			
 
 		f.Option4 = CreateFrame("Button", "SLEInstallOption4Button", f, "UIPanelButtonTemplate")
@@ -1576,30 +1866,29 @@ function SLE:Install()
 			f.Option1:ClearAllPoints(); 
 			f.Option1:Point('RIGHT', f.Option2, 'LEFT', -4, 0); 
 			f.Option2:ClearAllPoints(); 
-			f.Option2:Point('BOTTOMRIGHT', f, 'BOTTOM', -4, 45)  
+			f.Option2:Point('BOTTOMRIGHT', f, 'BOTTOM', -4, 55)  
 		end)
-		f.Option4:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point("BOTTOM", 0, 45); f.Option2:SetWidth(110); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45) end)
-		E.Skins:HandleButton(f.Option4, true)					
+		f.Option4:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point("BOTTOM", 0, 55); f.Option2:SetWidth(110); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 55) end)
+		E.Skins:HandleButton(f.Option4, true)	
 
 		f.SubTitle = f:CreateFontString(nil, 'OVERLAY')
 		f.SubTitle:FontTemplate(nil, 15, nil)		
 		f.SubTitle:Point("TOP", 0, -40)
-
+		
 		f.Desc1 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc1:FontTemplate()	
 		f.Desc1:Point("TOPLEFT", 20, -75)	
 		f.Desc1:Width(f:GetWidth() - 40)
-
+		
 		f.Desc2 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc2:FontTemplate()	
 		f.Desc2:Point("TOPLEFT", 20, -125)		
 		f.Desc2:Width(f:GetWidth() - 40)
-
+		
 		f.Desc3 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc3:FontTemplate()	
-		f.Desc3:Point("TOPLEFT", 20, -175)	
+		f.Desc3:Point("TOP", f.Desc2, "BOTTOM", 0, -30)	
 		f.Desc3:Width(f:GetWidth() - 40)
-
 		local close = CreateFrame("Button", "SLEInstallCloseButton", f, "UIPanelCloseButton")
 		close:SetPoint("TOPRIGHT", f, "TOPRIGHT")
 		close:SetScript("OnClick", function()
@@ -1611,7 +1900,7 @@ function SLE:Install()
 		f.tutorialImage = f:CreateTexture('SLEInstallTutorialImage', 'OVERLAY')
 		f.tutorialImage:Size(256, 128)
 		f.tutorialImage:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Banner')
-		f.tutorialImage:Point('BOTTOM', 0, 70)
+		f.tutorialImage:Point('BOTTOM', 0, 85)
 	end
 
 	SLEInstallFrame:Show()

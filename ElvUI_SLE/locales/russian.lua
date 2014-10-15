@@ -79,8 +79,24 @@ L["Take care of yourself, Master!"] = "Не задерживайтесь, Хоз
 
 
 --Install--
-L["SLE_Install_Text2"] = [=[Этот шаг опционален и должен использоваться только в случае, если Вы хотите использовать одну из наших конфигураций.
-|cffFF0000Внимание:|r Пожалуйста помните, что авторы могут не использовать тему/роль, которую вы выбрали, и потому результат не всегда будет хорошим.]=]
+L["|cff1784d1Shadow & Light|r Installation"] = "Установка |cff1784d1Shadow & Light|r"
+L["Welcome to |cff1784d1Shadow & Light|r version %s!"] = "Добро пожаловать в |cff1784d1Shadow & Light|r версии %s!"
+L["This will take you through a quick install process to setup some Shadow & Light features.\nIf you choose to not setup any options through this config, click Skip Process button to finish the installation."] = "Этот установщик позволит ван выбрать поведение некоторых функций Shadow & Light.\nЕсли вы не хотите настраивать эти опции, то нажмите кнопку \"Пропустить установку\" для ее завершения немедленно."
+L["This will determine if you want to use ElvUI's default layout for chat datatext panels or let Shadow & Light handle them."] = "Здесь вы можете указать использовать ли стандартное положение информационных панелей чата ElvUI или позволить Shadow & Light его изменить."
+L["If you select S&L Panels, the datatext panels will be attached below the left and right chat frames instead of being inside the chat frame."] = "Если вы выберете стиль S&L, то информационные панели будут прикреплены к нижней границе панелей чата вместо нажождения внутри них."
+L["SLE_ARMORY_INSTALL"] = "Включить режим оружейной S&L\n(Детализированные окна персонажа и осмотра)\n|cffFF0000Предепреждаем:|r Эта опция на данный момент находится в состоянии беты."
+L["This will enable S&L Armory mode components that will show more detailed information at a quick glance on the toons you inspect or your own character."] = "Активирует компоненты оружейной Shadow & Light, которые покажут вам более детальную информацию о вашем персонаже или игроке, которого вы осматриваете."
+L["Shadow & Light Layouts"] = "Шаблоны Shadow & Light"
+L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."] = "Вы можете использовать набор настроек, используемый одним из представленных людей. Будут изменены положения элементов и многие другие настройки."
+L["SLE_Install_Text2"] = [=[Этот шаг опционален и должен использоваться только в случае, если Вы хотите использовать одну из наших конфигураций. В зависимости от роли, выбранной в ElvUI (шаг "Расположение"), результат модет отличаться. Была выбрана роль "%s".
+|cffFF0000Внимание:|r Пожалуйста помните, что авторы могут не использовать тему/роль, которую вы выбрали, и потому результат не всегда будет хорошим. Также переключение между шаблонами здесь может привести к неоднозначным результатам.
+]=]
+L["Darth's Config"] = "Опции Дарта"
+L["Darth's Defaults Set"] = "Установлены настройки Дарта"	 
+L["Repooc's Config"] = "Опции Repooc'а"	 
+L["Repooc's Defaults Set"] = "Установлены настройки Repooc'а"	 
+L["Affinitii's Config"] = "Опции  Affinitii"
+L["Affinitii's Defaults Set"] = "Установлены настройки Affinitii"
 
 --Auras--
 L["Hide Buff Timer"] = "Спрятать таймеры баффов"
@@ -184,6 +200,8 @@ L["Diamond World Marker"] = "Маркер ромб"
 L["Cross World Marker"] = "Маркер крест"
 L["Star World Marker"] = "Маркер звезда"
 L["Clear World Markers"] = "Удалить маркеры"
+L["Target Exists"] = "Есть цель"
+L["Selecting this option will have the Raid Markers appear only when you have a target."] = "Отображать метки только, если у вас есть цель"
 
 --Datatexts--
 L["Panels & Dashboard"] = "Панели и Информация"
@@ -391,6 +409,7 @@ L['Show instance difficulty info as text.'] = "Показывать информ
 L['Show texture'] = "Показывать текстуру"
 L['Show instance difficulty info as default texture.'] = "Показывать информацию о сложности подземелья в виде стандартной текстуры"
 L['Minimap Alpha'] = "Прозрачность миникарты"
+L['Decimals'] = "Десятые доли"
 
 --Tooltip--
 L["TTOFFSET_DESC"] = "Добавляет возможность сделать отступ подсказки от курсора. Работает только при включенной опции \"Около курсора\" в ElvUI."
@@ -404,7 +423,7 @@ L["Tooltip Y-offset"] = "Смещение подсказки по Y"
 L["Offset the tooltip on the Y-axis."] = "Смещает подсказку по оси Y относительно выбранной точки крепления."
 
 --UI buttons--
-L["UB_DESC"] = "This adds a small bar with some useful buttons which acts as a small menu for common things."
+L["UB_DESC"] = "Добавляет небольшую полосу с кнопками, дающими доступ к набору полезных функций."
 L["UI Buttons"] = "Меню интерфейса"
 L["Additional menu with useful buttons"] = "Дополнительное меню с полезными кнопками"
 L["Show/Hide UI buttons."] = "Показать/скрыть меню"
@@ -423,6 +442,20 @@ L["Reload UI"] = "Перезагрузить интерфейс"
 L["AddOns Manager"] = "Менеджер аддонов"
 L["Boss Mod"] = "Босс мод"
 L["Click to toggle iFilger's config UI"] = "Нажмите для отображения настроек iFilger"
+
+--Unitframes--
+L["Options for customizing unit frames. Please don't change these setting when ElvUI's testing frames for bosses and arena teams are shown. That will make them invisible until retoggling."] = "Опции для дополнительной настройки рамок юнитов. Пожалуйста, не изменяйте эти настройки в то же время, кода включен тестовый режим рамок боссов и арены в ElvUI. Это сделает их невидимыми до повторного включения."
+L["Player Frame Indicators"] = "Индикаторы игрока"
+L["Combat Icon"] = "Иконка боя"
+L["Show/Hide combat icon on player frame."] = "Отображать/скрывать иконку в бою."
+L["Combat Position"] = "Позиция иконки боя"
+L["Set the point to show combat icon"] = "Устанавливает позицию индикатора боя."
+L["Classbar Energy"] = "Текст энергии полосы класса"
+L["Show/hide the text with exact number of energy (Solar/Lunar or Demonic Fury) on your Classbar."] = "Показать/скрыть текст с точным значением энергии (Лунной/Солнечной или Демонической Ярости) на полосе класса."
+L["Classbar Offset"] = "Отступ полосы класса"
+L["This options will allow you to detach your classbar from player's frame and move it in other location."] = "Эти опции позволят вам открепить полосу класса от рамки игрока и передвинуть ее в другое место."
+L["Power Text Position"] = "Позиция текста ресурса"
+L["Position power text on this bar of chosen frame"] = "Позиционировать текст ресурса относительно выбранной полосы на каждой рамке"
 
 L["Enhanced Vehicle Bar"] = "Улучшенный контроль машин"
 L["A different look/feel vehicle bar based on work by Azilroka"] = "Использовать улучшенную панель управления средствами передвижения, основанную на коде Azilroka"
