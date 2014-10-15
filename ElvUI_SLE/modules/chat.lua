@@ -194,11 +194,11 @@ local function GetChatIcon(sender)
 		return leader 
 	end
 	
-	return
+	return ""
 end
 
 function CH:GetPluginReplacementIcon(arg2, arg6, type)
-	local icon
+	local icon = ""
 	if arg6 and (strlen(arg6) > 0) then
 		if ( arg6 == "GM" ) then
 			--If it was a whisper, dispatch it to the GMChat addon.
@@ -217,7 +217,6 @@ function CH:GetPluginReplacementIcon(arg2, arg6, type)
 		end
 	else
 		icon = GetChatIcon(arg2)
-		
 		if(lfgRoles[arg2] and SLE:SimpleTable(lfgChannels, type)) then
 			icon = lfgRoles[arg2]..icon
 		end
@@ -243,9 +242,8 @@ function CH:CheckLFGRoles()
 		if(UnitExists(unit..i) and not UnitIsUnit(unit..i, "player")) then
 			role = UnitGroupRolesAssigned(unit..i)
 			local name, realm = UnitName(unit..i)
-
 			if(role and name) then
-				name = realm and name..'-'..realm or name..'-'..PLAYER_REALM;
+				name = realm ~= '' and name..'-'..realm or name ..'-'..PLAYER_REALM;
 				lfgRoles[name] = rolePaths[role]
 			end
 		end
