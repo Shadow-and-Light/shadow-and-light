@@ -1,3 +1,6 @@
+v2.02 10/15/2014
+- Another Fix for chat icons
+
 v2.01 10/15/2014
 - Fixed Range Datatext
 - Fixed Chat bug with icons
