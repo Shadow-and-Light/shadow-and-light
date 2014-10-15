@@ -1,3 +1,8 @@
+v2.01 10/15/2014
+- Fixed Range Datatext
+- Fixed Chat bug with icons
+- Fixed Rep/Currency Tab width when Armory Mode Enabled
+
 v2.00
 In general added a lot of new stuff and improved the way everything works.
 
