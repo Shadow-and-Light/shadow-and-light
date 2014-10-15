@@ -15,7 +15,7 @@ local function configTable()
 			intro = {
 				order = 2,
 				type = "description",
-				name = L["Options for customizing auras near the minimap."],
+				name = L['AURAS_DESC'],
 			},
 			enabled = {
 				order = 3,
