@@ -74,12 +74,12 @@ local function PopulateTable(q)
 
 			if quality >= q then
 				link = GetLootSlotLink(i)
-				ilvl = select(4, GetItemInfo(link))
+				ilvl = select(4, GetItemInfo(link)) or QUEUED_STATUS_UNKNOWN
 				
 				n = n + 1
 				loot[n] = link
 				loot[n] = loot[n].." (ilvl: "..ilvl..")"
-				numbers[n] = quantity
+				numbers[n] = quantity or 1
 			end
 		end
 	end
