@@ -46,7 +46,7 @@ L["SLE_Install_Text2"] = [=[This step is optional and only to be used if you are
 A |cff1784d1"%s"|r role was chosen.
 
 |cffFF0000Warning:|r Please note that the authors' may or may not use any of the layouts/themes you have selected as they may have changed their setup more recently. Also switching between layouts in here may cause some unpredictable and weird results.]=]
-L["SLE_ARMORY_INSTALL"] = "Enable S&L Armory\n(Deatiled Character & Inspect frames)\n|cffFF0000Note:|r This is currently a beta option."
+L["SLE_ARMORY_INSTALL"] = "Enable S&L Armory\n(Detailed Character & Inspect frames)\n|cffFF0000Note:|r This is currently a beta option."
 
 --Backgroungds--
 L["BG_DESC"] = "Module for creating additional frames that can be used as backgrounds for anything."
