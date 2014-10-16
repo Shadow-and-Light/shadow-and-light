@@ -229,9 +229,9 @@ function AI:DarthHeal()
 		["statusbar"] = "Polished Wood",
 		["colors"] = {
 			["auraBarBuff"] = {
-				["r"] = 0.576470588235294,
-				["g"] = 0.509803921568627,
-				["b"] = 0.788235294117647,
+				["r"] = 0.317647058823529,
+				["g"] = 0.552941176470588,
+				["b"] = 0.109803921568627,
 			},
 			["colorhealthbyvalue"] = false,
 			["healthclass"] = true,
@@ -410,6 +410,11 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		["debuffHighlighting"] = false,
 		["fontSize"] = 11,
 		["colors"] = {
+			["auraBarBuff"] = {
+				["r"] = 0.317647058823529,
+				["g"] = 0.552941176470588,
+				["b"] = 0.109803921568627,
+			},
 			["castNoInterrupt"] = {
 				["b"] = 0.250980392156863,
 				["g"] = 0.250980392156863,
