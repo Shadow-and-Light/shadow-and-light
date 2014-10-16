@@ -809,6 +809,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 			["lpfontsize"] = 10,
 			["lpfontflags"] = "OUTLINE",
 			["dtheight"] = 20,
+			['EmbedLeft'] = 'Skada',
+			['EmbedRight'] = 'Skada',
 		}
 		E.db["movers"]["LocationLiteMover"] = "TOPElvUIParentTOP0-19"
 		E.db["movers"]["MicrobarMover"] = "TOPElvUIParentTOP0-38"
@@ -825,6 +827,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 			["DBMFont"] = "ElvUI Font",
 			["EmbedLeftWidth"] = 213,
 			["EmbedSystemDual"] = true,
+			
 		}
 	end
 	
