@@ -737,12 +737,12 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	
 	E.db["movers"] = {
 		["DP_6_Mover"] = "BOTTOMElvUIParentBOTTOM3170",
-		["ElvUF_FocusCastbarMover"] = "BOTTOMElvUIParentBOTTOM0178",
+		["ElvUF_FocusCastbarMover"] = "BOTTOMElvUIParentBOTTOM0189",
 		["PetAB"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT55152",
 		["LeftChatMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT019",
 		["GMMover"] = "TOPLEFTElvUIParentTOPLEFT00",
 		["BuffsMover"] = "TOPRIGHTElvUIParentTOPRIGHT-2000",
-		["BossButton"] = "BOTTOMElvUIParentBOTTOM-1200",
+		["BossButton"] = "BOTTOMElvUIParentBOTTOM-1210",
 		["ElvUF_FocusMover"] = "BOTTOMElvUIParentBOTTOM29421",
 		["MicrobarMover"] = "TOPElvUIParentTOP0-18",
 		["VehicleSeatMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT420205",
@@ -751,8 +751,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0210",
 		["ElvAB_1"] = "BOTTOMElvUIParentBOTTOM019",
 		["ElvAB_2"] = "BOTTOMElvUIParentBOTTOM13319",
-		["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM0155",
-		["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM0130",
+		["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM0165",
+		["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM0142",
 		["ElvAB_4"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-42520",
 		["RightChatMover"] = "BOTTOMRIGHTUIParentBOTTOMRIGHT019",
 		["AltPowerBarMover"] = "TOPElvUIParentTOP0-195",
@@ -773,11 +773,12 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		["ElvUF_PetMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT551100",
 		["PetBattleABMover"] = "BOTTOMElvUIParentBOTTOM020",
 		["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0210",
-		["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0265",
+		["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0280",
 		["DebuffsMover"] = "TOPRIGHTElvUIParentTOPRIGHT-200-143",
 		["MinimapMover"] = "TOPRIGHTElvUIParentTOPRIGHT00",
 		["ShiftAB"] = "BOTTOMElvUIParentBOTTOM-133116",
 		["LootFrameMover"] = "BOTTOMElvUIParentBOTTOM-313527",
+		["TotemBarMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT49223",
 	}
 	
 	E.private["general"]["normTex"] = "Polished Wood"
