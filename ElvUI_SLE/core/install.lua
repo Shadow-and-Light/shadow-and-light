@@ -1689,7 +1689,8 @@ local function SetPage(PageNum)
 	elseif PageNum == 4 then
 		f.SubTitle:SetText(L["Shadow & Light Layouts"])
 		f.Desc1:SetText(L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."])
-		f.Desc2:SetText(format(L["SLE_Install_Text2"], E.db.layoutSet or NONE))
+		local word = E.db.layoutSet == 'tank' and L["Tank"] or E.db.layoutSet == 'healer' and L["Healer"] or E.db.layoutSet == 'dpsMelee' and L['Physical DPS'] or E.db.layoutSet == 'dpsCaster' and L['Caster DPS'] or NONE
+		f.Desc2:SetText(format(L["SLE_Install_Text2"], word))
 		f.Desc3:SetText(L["Importance: |cffFF0000Low|r"])
 
 		SLEInstallOption1Button:Show()
