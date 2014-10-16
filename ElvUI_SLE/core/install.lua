@@ -34,7 +34,7 @@ function AI:DarthHeal()
 	E.db["movers"]["ElvUF_TargetCastbarMover"] = nil
 	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-543114"
 	E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMElvUIParentBOTTOM0152"
-	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT49950"
+	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT50050"
 	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT543114"
 	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-312177"
 	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMElvUIParentBOTTOM0152"
@@ -758,7 +758,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		["AltPowerBarMover"] = "TOPElvUIParentTOP0-195",
 		["ElvAB_3"] = "BOTTOMElvUIParentBOTTOM-13319",
 		["DP_5_Mover"] = "BOTTOMElvUIParentBOTTOM-3170",
-		["ReputationBarMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-48819",
+		["ReputationBarMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-48919",
 		["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-304140",
 		["ElvUF_TargetTargetMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-551100",
 		["ObjectiveFrameMover"] = "TOPRIGHTElvUIParentTOPRIGHT-61-205",
@@ -778,7 +778,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		["MinimapMover"] = "TOPRIGHTElvUIParentTOPRIGHT00",
 		["ShiftAB"] = "BOTTOMElvUIParentBOTTOM-133116",
 		["LootFrameMover"] = "BOTTOMElvUIParentBOTTOM-313527",
-		["TotemBarMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT49223",
+		["TotemBarMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT50123",
+		["ExperienceBarMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT48919",
 	}
 	
 	E.private["general"]["normTex"] = "Polished Wood"
