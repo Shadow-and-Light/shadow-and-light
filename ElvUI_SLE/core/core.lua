@@ -12,6 +12,7 @@ SLE.version = GetAddOnMetadata("ElvUI_SLE", "Version")
 local elvV = tonumber(E.version)
 local elvR = tonumber(GetAddOnMetadata("ElvUI_SLE", "X-ElvVersion"))
 E.SLEConfigs = {}
+
 --SLE['media'] = {}
 
 function SLE:MismatchText()
@@ -246,6 +247,5 @@ function SLE:Initialize()
 	E:GetModule('SLE_DTPanels'):DashboardShow()
 	AddTutorials()
 	ConfigCats()
-	SLE:RegisterCommands()
 	CheckIncompatible()
 end
