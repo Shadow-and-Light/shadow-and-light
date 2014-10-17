@@ -242,8 +242,8 @@ function CH:CheckLFGRoles()
 		if(UnitExists(unit..i) and not UnitIsUnit(unit..i, "player")) then
 			role = UnitGroupRolesAssigned(unit..i)
 			local name, realm = UnitName(unit..i)
-			if(role and name) then
-				name = (realm and realm ~= '') and name..'-'..realm or name ..'-'..PLAYER_REALM;
+			if(role and name and realm) then
+				name = realm ~= '' and name..'-'..realm or name ..'-'..PLAYER_REALM;
 				lfgRoles[name] = rolePaths[role]
 			end
 		end
