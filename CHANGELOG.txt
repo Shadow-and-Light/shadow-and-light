@@ -1,3 +1,7 @@
+v2.03 10/17/2014
+- Try to fix chat stuff
+- S&L Install modifications
+
 v2.02 10/15/2014
 - Another Fix for chat icons
 
