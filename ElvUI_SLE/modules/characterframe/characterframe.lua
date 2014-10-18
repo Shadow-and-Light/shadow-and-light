@@ -767,11 +767,11 @@ function CA:StartArmoryFrame()
 	CA:RegisterEvent('PLAYER_ENTERING_WORLD')
 
 	-- For frame resizing
-	CA.ChangeCharacterFrameWidth:SetParent(PaperDollFrame)
+	--[[CA.ChangeCharacterFrameWidth:SetParent(PaperDollFrame)
 	if PaperDollFrame:IsVisible() then
 		CA.ChangeCharacterFrameWidth:Show()
 		CharacterFrame:SetWidth(CharacterFrameInsetRight:IsShown() and 650 or 448)
-	end
+	end]]
 end
 
 function CFO:Initialize()
