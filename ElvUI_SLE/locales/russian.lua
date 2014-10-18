@@ -87,7 +87,7 @@ L["If you select S&L Panels, the datatext panels will be attached below the left
 L["SLE_ARMORY_INSTALL"] = "Включить режим оружейной S&L\n(Детализированные окна персонажа и осмотра)\n|cffFF0000Предепреждаем:|r Эта опция на данный момент находится в состоянии беты."
 L["This will enable S&L Armory mode components that will show more detailed information at a quick glance on the toons you inspect or your own character."] = "Активирует компоненты оружейной Shadow & Light, которые покажут вам более детальную информацию о вашем персонаже или игроке, которого вы осматриваете."
 L["Shadow & Light Layouts"] = "Шаблоны Shadow & Light"
-L["You can now choose if you what to use one of authors' set of options. This will change not only the positioning of some elements but also change a bunch of other options."] = "Вы можете использовать набор настроек, используемый одним из представленных людей. Будут изменены положения элементов и многие другие настройки."
+L["You can now choose if you want to use one of the authors' set of options. This will change the positioning of some elements as well of other various options."] = "Вы можете использовать набор настроек, используемый одним из представленных людей. Будут изменены положения элементов и другие настройки."
 L["SLE_Install_Text2"] = [=[Этот шаг опционален и должен использоваться только в случае, если Вы хотите использовать одну из наших конфигураций. В зависимости от роли, выбранной в ElvUI (шаг "Расположение"), результат модет отличаться.
 
 Была выбрана роль |cff1784d1"%s"|r.
