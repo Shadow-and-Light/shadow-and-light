@@ -502,6 +502,7 @@ local function configTable()
 								values = {
 									["RIGHT"] = L['Right'],
 									["LEFT"] = L['Left'],
+									["CENTER"] = L['Center']
 								},
 							},
 							height = {

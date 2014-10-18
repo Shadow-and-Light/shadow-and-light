@@ -136,8 +136,13 @@ function S:Setup()
 	SS.Top:SetSize(Width, Height)
 	SS.Bottom:SetSize(Width, Height)
 	SS.model:SetWidth(E.db.sle.media.screensaver.playermodel.width)
-	SS.model:SetPoint("TOP"..point, SS.Top,"BOTTOM"..point, 0,0)
-	SS.model:SetPoint("BOTTOM"..point, SS.Bottom, "TOP"..point, 0, 0)
+	if point ~= "CENTER" then
+		SS.model:SetPoint("TOP"..point, SS.Top,"BOTTOM"..point, 0,0)
+		SS.model:SetPoint("BOTTOM"..point, SS.Bottom, "TOP"..point, 0, 0)
+	else
+		SS.model:SetPoint("TOP", SS.Top,"BOTTOM", 0,0)
+		SS.model:SetPoint("BOTTOM", SS.Bottom, "TOP", 0, 0)
+	end
 end
 
 local AnimTime, testM
@@ -193,8 +198,13 @@ function S:Shown()
 	--Positioning model
 	SS.model:ClearAllPoints()
 	SS.model:SetWidth(E.db.sle.media.screensaver.playermodel.width)
-	SS.model:SetPoint("TOP"..point, SS.Top,"BOTTOM"..point, 0,0)
-	SS.model:SetPoint("BOTTOM"..point, SS.Bottom, "TOP"..point, 0, 0)
+	if point ~= "CENTER" then
+		SS.model:SetPoint("TOP"..point, SS.Top,"BOTTOM"..point, 0,0)
+		SS.model:SetPoint("BOTTOM"..point, SS.Bottom, "TOP"..point, 0, 0)
+	else
+		SS.model:SetPoint("TOP", SS.Top,"BOTTOM", 0,0)
+		SS.model:SetPoint("BOTTOM", SS.Bottom, "TOP", 0, 0)
+	end
 
 	self.Top.Quote:SetText(L["Take care of yourself, Master!"])
 
