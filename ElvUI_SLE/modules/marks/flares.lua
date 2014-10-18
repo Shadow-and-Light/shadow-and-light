@@ -8,8 +8,11 @@ _G["BINDING_NAME_CLICK TriangleFlareMarker:LeftButton"] = L["Triangle Flare"];
 _G["BINDING_NAME_CLICK DiamondFlareMarker:LeftButton"] = L["Diamond Flare"];
 _G["BINDING_NAME_CLICK CrossFlareMarker:LeftButton"] = L["Cross Flare"];
 _G["BINDING_NAME_CLICK StarFlareMarker:LeftButton"] = L["Star Flare"];
+_G["BINDING_NAME_CLICK CircleFlareMarker:LeftButton"] = L["Circle Flare"];
+_G["BINDING_NAME_CLICK MoonFlareMarker:LeftButton"] = L["Moon Flare"];
+_G["BINDING_NAME_CLICK SkullFlareMarker:LeftButton"] = L["Skull Flare"];
 
-local mainFlares, f1, f2, f3, f4, f5, f6, FlareB 
+local mainFlares, f1, f2, f3, f4, f5, f6, f7, f8, f9, FlareB 
 
 local function CreateFrames()
 	mainFlares = CreateFrame("Frame", "Main_Flares", E.UIParent)
@@ -25,8 +28,11 @@ local function CreateFrames()
 	f4 = CreateFrame("Button", "CrossFlareMarker", Main_Flares, template)
 	f5 = CreateFrame("Button", "StarFlareMarker", Main_Flares, template)
 	f6 = CreateFrame("Button", "ClearFlaresMarker", Main_Flares, template)
+	f7 = CreateFrame("Button", "MoonFlareMarker", Main_Flares, template)
+	f8 = CreateFrame("Button", "SkullFlareMarker", Main_Flares, template)
+	f9 = CreateFrame("Button", "ClearFlaresMarker", Main_Flares, template)
 	
-	FlareB = {f1,f2,f3,f4,f5,f6}
+	FlareB = {f1,f2,f3,f4,f5,f6,f7,f8,f9}
 end
 
 local function SetupButton(button, flare)
@@ -61,6 +67,18 @@ local function SetupButton(button, flare)
 		button:SetScript("OnEnter", function(self) if (E.db.sle.flares.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine(L["Star World Marker"]); GameTooltip:Show() end end)
 		button:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
 	elseif button == f6 then
+		button.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_2")
+		button:SetScript("OnEnter", function(self) if (E.db.sle.flares.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine(L["Circle World Marker"]); GameTooltip:Show() end end)
+		button:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
+	elseif button == f7 then
+		button.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_5")
+		button:SetScript("OnEnter", function(self) if (E.db.sle.flares.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine(L["Moon World Marker"]); GameTooltip:Show() end end)
+		button:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
+	elseif button == f8 then
+		button.tex:SetTexture("INTERFACE/TARGETINGFRAME/UI-RaidTargetingIcon_8")
+		button:SetScript("OnEnter", function(self) if (E.db.sle.flares.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine(L["Skull World Marker"]); GameTooltip:Show() end end)
+		button:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
+	elseif button == f9 then
 		button.tex:SetTexture("Interface\\AddOns\\ElvUI_SLE\\media\\textures\\clearmarker.blp")
 		button:SetScript("OnEnter", function(self) if (E.db.sle.flares.tooltips==true) then GameTooltip:SetOwner(self, "ANCHOR_CURSOR"); GameTooltip:ClearLines(); GameTooltip:AddLine(L["Clear World Markers"]); GameTooltip:Show() end end)
 		button:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
@@ -69,17 +87,18 @@ end
 
 local function CreateButtons()
 	if not mainFlares then return end
-	SetupButton(f1, "/clearworldmarker 1\n/worldmarker 1")
-	SetupButton(f2, "/clearworldmarker 2\n/worldmarker 2")
-	SetupButton(f3, "/clearworldmarker 3\n/worldmarker 3")
-	SetupButton(f4, "/clearworldmarker 4\n/worldmarker 4")
-	SetupButton(f5, "/clearworldmarker 5\n/worldmarker 5")
-	SetupButton(f6, "/clearworldmarker all")
+	for i = 1, 9 do
+		if i ~= 9 then
+			SetupButton(FlareB[i], "/clearworldmarker".. i .."\n/worldmarker".. i)
+		else
+			SetupButton(FlareB[i], "/clearworldmarker all")
+		end
+	end
 end
 
 local function FrameButtonsSize()
 	if not mainFlares then return end
-	for i = 1, 6 do
+	for i = 1, 9 do
 		FlareB[i]:Size(E.db.sle.flares.size)
 	end
 end
@@ -89,8 +108,8 @@ local function FrameButtonsGrowth()
 	local db = E.db.sle.flares
 	local size = db.size
 	local width, height, x, y, anchor, point
-	local t = {6*size+9,size+4,"LEFT","RIGHT","TOP","BOTTOM",1,0,-1}
-	for i = 1, 6 do
+	local t = {9*size+9,size+4,"LEFT","RIGHT","TOP","BOTTOM",1,0,-1}
+	for i = 1, 9 do
 		FlareB[i]:ClearAllPoints()
 	end
 
@@ -107,7 +126,7 @@ local function FrameButtonsGrowth()
 	mainFlares:SetWidth(width)
 	mainFlares:SetHeight(height)
 
-	for i = 1, 6 do
+	for i = 1, 9 do
 		if i == 1 then
 			FlareB[i]:Point(anchor, Main_Flares, anchor, 2 * x, 2 * y)
 		else
@@ -152,13 +171,13 @@ local function UpdateVisibility()
 	if show then
 		E.FrameLocks['Main_Flares'] = true
 		mainFlares:Show()
-		for i = 1, 6 do
+		for i = 1, 9 do
 			FlareB[i]:Show()
 		end
 	else
 		E.FrameLocks['Main_Flares'] = nil
 		mainFlares:Hide()
-		for i = 1, 6 do
+		for i = 1, 9 do
 			FlareB[i]:Hide()
 		end
 	end
