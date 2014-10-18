@@ -1,6 +1,7 @@
-local E, L, V, P, G = unpack(ElvUI);
+п»їlocal E, L, V, P, G = unpack(ElvUI);
 local SLE = E:GetModule('SLE')
 
+--Update chat icon functions and such and convert to utf-8
 --Chat icon paths
 local adapt = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\adapt:0:2|t"
 local repooc = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:0:2|t"
@@ -22,24 +23,24 @@ SLE.Dev = {
 			["Dapooc"] = true,
 		},
 		["Brill(EU)"] = {
-			["Дартпредатор"] = true,
+			["Р”Р°СЂС‚РїСЂРµРґР°С‚РѕСЂ"] = true,
 		},
 		--Live
 		['Sylvanas'] = {
 			["Neeka"] = true,
 		},
-		["ВечнаяПесня"] = {
-			["Дартпредатор"] = true,
-			["Алея"] = true,
-			["Ваззули"] = true,
-			["Сиаранна"] = true,
-			["Джатон"] = true,
-			["Фикстер"] = true,
-			["Киландра"] = true,
-			["Нарджо"] = true,
-			["Келинира"] = true,
-			["Крениг"] = true,
-			["Мейжи"] = true
+		["Р’РµС‡РЅР°СЏРџРµСЃРЅСЏ"] = {
+			["Р”Р°СЂС‚РїСЂРµРґР°С‚РѕСЂ"] = true,
+			["РђР»РµСЏ"] = true,
+			["Р’Р°Р·Р·СѓР»Рё"] = true,
+			["РЎРёР°СЂР°РЅРЅР°"] = true,
+			["Р”Р¶Р°С‚РѕРЅ"] = true,
+			["Р¤РёРєСЃС‚РµСЂ"] = true,
+			["РљРёР»Р°РЅРґСЂР°"] = true,
+			["РќР°СЂРґР¶Рѕ"] = true,
+			["РљРµР»РёРЅРёСЂР°"] = true,
+			["РљСЂРµРЅРёРі"] = true,
+			["РњРµР№Р¶Рё"] = true
 		},
 	},
 	["US"] = {
@@ -75,38 +76,38 @@ SLE.SpecialChatIcons = {
 		['Sylvanas'] = {
 			["Neeka"] = darth,
 		},
-		["СвежевательДуш"] = {
+		["РЎРІРµР¶РµРІР°С‚РµР»СЊР”СѓС€"] = {
 			--Darth's toons
-			["Большойгном"] = test, --Testing toon
-			["Фергесон"] = friend
+			["Р‘РѕР»СЊС€РѕР№РіРЅРѕРј"] = test, --Testing toon
+			["Р¤РµСЂРіРµСЃРѕРЅ"] = friend
 		},
-		["ВечнаяПесня"] = {
+		["Р’РµС‡РЅР°СЏРџРµСЃРЅСЏ"] = {
 			--Darth's toons
-			["Дартпредатор"] = darth,
-			["Алея"] = darth,
-			["Ваззули"] = darth,
-			["Сиаранна"] = darth,
-			["Джатон"] = darth,
-			["Фикстер"] = darth,
-			["Киландра"] = darth,
-			["Нарджо"] = darth,
-			["Келинира"] = darth,
-			["Крениг"] = darth,
-			["Мейжи"] = darth,
+			["Р”Р°СЂС‚РїСЂРµРґР°С‚РѕСЂ"] = darth,
+			["РђР»РµСЏ"] = darth,
+			["Р’Р°Р·Р·СѓР»Рё"] = darth,
+			["РЎРёР°СЂР°РЅРЅР°"] = darth,
+			["Р”Р¶Р°С‚РѕРЅ"] = darth,
+			["Р¤РёРєСЃС‚РµСЂ"] = darth,
+			["РљРёР»Р°РЅРґСЂР°"] = darth,
+			["РќР°СЂРґР¶Рѕ"] = darth,
+			["РљРµР»РёРЅРёСЂР°"] = darth,
+			["РљСЂРµРЅРёРі"] = darth,
+			["РњРµР№Р¶Рё"] = darth,
 			--Darth's friends
-			["Леани"] = friend,
+			["Р›РµР°РЅРё"] = friend,
 			--Da tester lol
-			["Харореанн"] = test,
-			["Нерререанн"] = test
+			["РҐР°СЂРѕСЂРµР°РЅРЅ"] = test,
+			["РќРµСЂСЂРµСЂРµР°РЅРЅ"] = test
 		},
-		["Ревущийфьорд"] = {
-			["Рыжая"] = friend,
-			["Рыжа"] = friend,
+		["Р РµРІСѓС‰РёР№С„СЊРѕСЂРґ"] = {
+			["Р С‹Р¶Р°СЏ"] = friend,
+			["Р С‹Р¶Р°"] = friend,
 			--Some people
-			["Брэгар"] = test
+			["Р‘СЂСЌРіР°СЂ"] = test
 		},
-		["Азурегос"] = {
-			["Брэгари"] = test
+		["РђР·СѓСЂРµРіРѕСЃ"] = {
+			["Р‘СЂСЌРіР°СЂРё"] = test
 		},
 	},
 	["US"] = {
