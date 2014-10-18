@@ -1,7 +1,6 @@
 ﻿local E, L, V, P, G = unpack(ElvUI);
 local SLE = E:GetModule('SLE')
 
---Update chat icon functions and such and convert to utf-8
 --Chat icon paths
 local adapt = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\adapt:0:2|t"
 local repooc = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:0:2|t"
