@@ -822,6 +822,13 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["movers"]["PvPMover"] = "TOPElvUIParentTOP0-70"
 	end
 
+	if SLE:Auth() then
+		E.db.hideTutorial = 1
+		E.db.general.loginmessage = false
+	end
+	
+	E:UpdateAll(true)
+	
 	if AddOnSkins then
 		E.private["addonskins"] = {
 			["Blizzard_WorldStateCaptureBar"] = true,
@@ -836,13 +843,6 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 			['EmbedRight'] = 'Skada',
 		}
 	end
-	
-	if SLE:Auth() then
-		E.db.hideTutorial = 1
-		E.db.general.loginmessage = false
-	end
-	
-	E:UpdateAll(true)
 end
 
 local function RepoocSetup() --The function to switch from classic ElvUI settings to Repooc's
@@ -1080,6 +1080,8 @@ local function RepoocSetup() --The function to switch from classic ElvUI setting
 	E.private["sle"]["equip"]["setoverlay"] = true
 	E.private["sle"]["exprep"]["autotrack"] = true
 
+	E:UpdateAll(true)
+
 	if AddOnSkins then
 		E.private["addonskins"] = {
 			["Blizzard_WorldStateCaptureBar"] = true,
@@ -1091,7 +1093,6 @@ local function RepoocSetup() --The function to switch from classic ElvUI setting
 			["EmbedRight"] = "Skada",
 		}
 	end
-	E:UpdateAll(true)
 end
 
 local function AffinitiiSetup() --The function to switch from class ElvUI settings to Affinitii's
@@ -1579,17 +1580,6 @@ local function AffinitiiSetup() --The function to switch from class ElvUI settin
 	E.private["general"]["chatBubbles"] = "nobackdrop"
 	E.private["general"]["glossTex"] = "Polished Wood"
 	
-	if AddOnSkins then
-		E.private["addonskins"] = {
-			["Blizzard_WorldStateCaptureBar"] = true,
-			["EmbedSkada"] = true,
-			["EmbedalDamageMeter"] = false,
-			["EmbedSystemDual"] = true,
-			['EmbedLeft'] = 'Skada',
-			['EmbedRight'] = 'Skada',
-		}
-	end
-	
 	E.private["skins"] = {
 		["addons"] = {
 			["EmbedSystemDual"] = true,
@@ -1606,6 +1596,17 @@ local function AffinitiiSetup() --The function to switch from class ElvUI settin
 	E.private["theme"] = "default"
 
 	E:UpdateAll(true)
+	
+	if AddOnSkins then
+		E.private["addonskins"] = {
+			["Blizzard_WorldStateCaptureBar"] = true,
+			["EmbedSkada"] = true,
+			["EmbedalDamageMeter"] = false,
+			["EmbedSystemDual"] = true,
+			['EmbedLeft'] = 'Skada',
+			['EmbedRight'] = 'Skada',
+		}
+	end
 end
 
 local function InstallComplete()
