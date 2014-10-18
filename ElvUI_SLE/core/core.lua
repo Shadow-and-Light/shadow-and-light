@@ -8,10 +8,8 @@ local addon = ...
 --localizing functions--
 local tinsert = tinsert
 
-SLE.version = GetAddOnMetadata("ElvUI_SLE", "Version")
 local elvV = tonumber(E.version)
 local elvR = tonumber(GetAddOnMetadata("ElvUI_SLE", "X-ElvVersion"))
-E.SLEConfigs = {}
 
 --SLE['media'] = {}
 
