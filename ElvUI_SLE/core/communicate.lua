@@ -6,10 +6,7 @@ local split = string.split
 local Authors = {
 	["Illidan"] = {
 		--Darth's toon
-		["Darthpred"] = true,
-		--Repooc's Toon
-		["Repooc"] = true,
-		["Repooc"] = true
+		["Darthpred"] = true
 	},
 	["ВечнаяПесня"] = {
 		--Darth's toons
@@ -33,11 +30,6 @@ local Authors = {
 		["Repooc"] = true,
 		["Cursewordz"] = true,
 	},
-	["Andorhal"] = {
-		["Dapooc"] = true,
-		["Rovert"] = true,
-		["Sliceoflife"] = true
-	},
 	["WyrmrestAccord"] = {
 		["Kitalie"] = true,
 		["Sagome"] = true,
@@ -50,7 +42,6 @@ local Authors = {
 		["Varysa"] = true,
 		["Caylasena"] = true,
 		["Arillora"] = true,
-		["Dapooc"] = true,
 	},
 	--Normal PTR
 	["Anasterian(US)"] = {
