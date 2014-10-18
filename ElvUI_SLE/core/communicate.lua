@@ -4,10 +4,6 @@ local split = string.split
 
 --The list of authorized toons
 local Authors = {
-	["Illidan"] = {
-		--Darth's toon
-		["Darthpred"] = true
-	},
 	["ВечнаяПесня"] = {
 		--Darth's toons
 		["Дартпредатор"] = true,
