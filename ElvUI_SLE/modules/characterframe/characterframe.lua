@@ -4,6 +4,10 @@ local LSM = LibStub("LibSharedMedia-3.0")
 
 local CA = CreateFrame('Frame', 'CharacterArmory', PaperDollFrame)
 local SlotIDList = {}
+
+CA.elapsed = 0
+CA.Delay_Updater = .5
+
 local C = SLArmoryConstants
 local backgrounds = {
 	["SPACE"] = "Space",
@@ -157,12 +161,9 @@ function CA:Setup_CharacterArmory()
 			self:SetScript('OnUpdate', self.CharacterArmory_DataSetting)
 		end
 	end)
-	hooksecurefunc('CharacterFrame_Collapse', function()
-		CharacterFrame:SetWidth(PaperDollFrame:IsShown() and 448 or PANEL_DEFAULT_WIDTH)
-	end)
-	hooksecurefunc('CharacterFrame_Expand', function()
-		CharacterFrame:SetWidth(650);
-	end)
+	hooksecurefunc('CharacterFrame_Collapse', function() CharacterFrame:SetWidth(PaperDollFrame:IsShown() and 448 or PANEL_DEFAULT_WIDTH) end)
+	hooksecurefunc('CharacterFrame_Expand', function() CharacterFrame:SetWidth(650); end)
+	hooksecurefunc('ToggleCharacter', function(frameType) if frameType ~= 'PaperDollFrame' then CharacterFrame:SetWidth(PANEL_DEFAULT_WIDTH) end end)
 	hooksecurefunc('PaperDollFrame_SetLevel', function()
 		CharacterLevelText:SetText('|c'..RAID_CLASS_COLORS[E.myclass].colorStr..CharacterLevelText:GetText())
 
@@ -173,11 +174,6 @@ function CA:Setup_CharacterArmory()
 		CharacterLevelText:ClearAllPoints()
 		CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, 3)
 		CharacterLevelText:SetParent(self)
-	end)
-	hooksecurefunc('ToggleCharacter', function(frameType)
-		if frameType ~= 'PaperDollFrame' then
-			CharacterFrame:SetWidth(PANEL_DEFAULT_WIDTH)
-		end
 	end)
 	--hooksecurefunc('CharacterFrame_Collapse', function() if Info.CharacterArmory_Activate then CharacterFrame:SetWidth(448) end end)
 	--hooksecurefunc('CharacterFrame_Expand', function() if Info.CharacterArmory_Activate then CharacterFrame:SetWidth(650) end end)
@@ -313,33 +309,35 @@ function CA:Setup_CharacterArmory()
 	self.ScanTT = CreateFrame('GameTooltip', 'SLE_CharacterArmory_ScanTT', nil, 'GameTooltipTemplate')
 	self.ScanTT:SetOwner(UIParent, 'ANCHOR_NONE')
 
-	-- For resizing paper doll frame when it toggled.
-	self.ChangeCharacterFrameWidth = CreateFrame('Frame')
-	self.ChangeCharacterFrameWidth:SetScript('OnShow', function()
-		if PaperDollFrame:IsVisible() then
-			self:CharacterArmory_DataSetting()
-		end
-	end)
-
 	self.Setup_CharacterArmory = nil
 end
 
-local needUpdate
-function CA:CharacterArmory_DataSetting()
-	if not self:IsVisible() then return end
+function CA:CharacterArmory_DataSetting(elapsed)
+	self.elapsed = self.elapsed + (elapsed or .1)
 
-	needUpdate = nil
-
-	if not self.DurabilityUpdated then
-		needUpdate = self:Update_Durability() or needUpdate
-	end
-
-	if self.GearUpdated ~= true then
-		needUpdate = self:Update_Gear() or needUpdate
-	end
-
-	if not needUpdate then
-		self:SetScript('OnUpdate', nil)
+	if self.elapsed > 0 then
+		self.elapsed = -self.Delay_Updater
+		self.needUpdate = nil
+		
+		if not self.DurabilityUpdated then
+			self.needUpdate = self:Update_Durability() or self.needUpdate
+		end
+		
+		if self.GearUpdated ~= true then
+			self.needUpdate = self:Update_Gear() or self.needUpdate
+		end
+		
+		if not self.needUpdate and self:IsShown() then
+			self.elapsed = 0
+			self:SetScript('OnUpdate', nil)
+		elseif self.needUpdate then
+			self:SetScript('OnShow', function()
+				self.elapsed = 0
+				self:CharacterArmory_DataSetting()
+				self:SetScript('OnShow', nil)
+			end)
+			self:SetScript('OnUpdate', self.CharacterArmory_DataSetting)
+		end
 	end
 end
 
@@ -377,8 +375,6 @@ function CA:ClearTooltip(tooltip)
 end
 
 function CA:Update_Gear()
-	--if not CA:IsVisible() then return end
-	--print("yep")
 	-- Get Player Profession
 	local Prof1, Prof2 = GetProfessions()
 	local Prof1_Level, Prof2_Level = 0, 0
@@ -422,247 +418,252 @@ function CA:Update_Gear()
 			end
 
 			if ItemLink then
-				do --<< Gem Parts >>--
-					ItemData = { strsplit(':', ItemLink) }
-					ItemData[4], ItemData[5], ItemData[6], ItemData[7] = 0, 0, 0, 0
+				if not ItemLink:find('%[%]') then
+					do --<< Gem Parts >>--
+						ItemData = { strsplit(':', ItemLink) }
+						ItemData[4], ItemData[5], ItemData[6], ItemData[7] = 0, 0, 0, 0
 
-					for i = 1, #ItemData do
-						ItemData.FixedLink = (ItemData.FixedLink and ItemData.FixedLink..':' or '')..ItemData[i]
+						for i = 1, #ItemData do
+							ItemData.FixedLink = (ItemData.FixedLink and ItemData.FixedLink..':' or '')..ItemData[i]
+						end
+					
+						self:ClearTooltip(self.ScanTT)
+						self.ScanTT:SetHyperlink(ItemData.FixedLink)
+
+						GemCount_Default, GemCount_Now, GemCount = 0, 0, 0
+
+						-- First, Counting default gem sockets
+						for i = 1, MAX_NUM_SOCKETS do
+							ItemTexture = _G['SLE_CharacterArmory_ScanTTTexture'..i]:GetTexture()
+
+							if ItemTexture and ItemTexture:find('Interface\\ItemSocketingFrame\\') then
+								GemCount_Default = GemCount_Default + 1
+								Slot['Socket'..GemCount_Default].GemType = strupper(gsub(ItemTexture, 'Interface\\ItemSocketingFrame\\UI--EmptySocket--', ''))
+							end
+						end
+
+						-- Second, Check if slot's item enable to adding a socket
+						GemCount_Enable = GemCount_Default
+						if (slotName == 'WaistSlot' and UnitLevel('player') >= 70) or -- buckle
+							((slotName == 'WristSlot' or slotName == 'HandsSlot') and self.PlayerProfession.BlackSmithing and self.PlayerProfession.BlackSmithing >= 550) then -- BlackSmith
+
+							GemCount_Enable = GemCount_Enable + 1
+							Slot['Socket'..GemCount_Enable].GemType = 'PRISMATIC'
+						end
+
+						self:ClearTooltip(self.ScanTT)
+						self.ScanTT:SetInventoryItem('player', Slot.ID)
+
+						-- Apply current item's gem setting
+						for i = 1, MAX_NUM_SOCKETS do
+							ItemTexture = _G['SLE_CharacterArmory_ScanTTTexture'..i]:GetTexture()
+							GemID = select(i, GetInventoryItemGems(Slot.ID))
+
+							if Slot['Socket'..i].GemType and C.GemColor[Slot['Socket'..i].GemType] then
+								r, g, b = unpack(C.GemColor[Slot['Socket'..i].GemType])
+								Slot['Socket'..i].Socket:SetBackdropColor(r, g, b, .5)
+								Slot['Socket'..i].Socket:SetBackdropBorderColor(r, g, b)
+							else
+								Slot['Socket'..i].Socket:SetBackdropColor(1, 1, 1, .5)
+								Slot['Socket'..i].Socket:SetBackdropBorderColor(1, 1, 1)
+							end
+
+							if ItemTexture or GemID then
+								if E.db.sle.characterframeoptions.itemgem.show then
+									Slot['Socket'..i]:Show()
+									Slot.SocketWarning:Point(Slot.Direction, Slot['Socket'..i], (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
+								else
+									Slot['Socket'..i]:Hide()
+									Slot.SocketWarning:Point(Slot.Direction, Slot['Socket1'], (Slot.Direction == 'LEFT' and 'LEFT' or 'RIGHT'), 0, 0)
+								end
+
+								GemCount_Now = GemCount_Now + 1
+
+								if GemID then
+									GemCount = GemCount + 1
+									Slot['Socket'..i].GemItemID = GemID
+								
+									_, Slot['Socket'..i].Socket.Link, _, _, _, _, _, _, _, ItemTexture = GetItemInfo(GemID)
+
+									if ItemTexture then
+										Slot['Socket'..i].Texture:SetTexture(ItemTexture)
+									else
+										needUpdate = true
+									end
+								end
+							end
+						end
+
+						--print(slotName..' : ', GemCount_Default, GemCount_Enable, GemCount_Now, GemCount)
+						if GemCount_Now < GemCount_Default then -- ItemInfo not loaded
+							needUpdate = true
+						end
+					end
+
+					_, _, ItemRarity, BasicItemLevel, _, _, _, _, _, ItemTexture = GetItemInfo(ItemLink)
+					r, g, b = GetItemQualityColor(ItemRarity)
+
+					ItemUpgradeID = ItemLink:match(':(%d+)\124h%[')
+
+					--<< Enchant Parts >>--
+					for i = 1, self.ScanTT:NumLines() do
+						CurrentLineText = _G['SLE_CharacterArmory_ScanTTTextLeft'..i]:GetText()
+
+						if CurrentLineText:find(C.ItemLevelKey_Alt) then
+							TrueItemLevel = tonumber(CurrentLineText:match(C.ItemLevelKey_Alt))
+						elseif CurrentLineText:find(C.ItemLevelKey) then
+							TrueItemLevel = tonumber(CurrentLineText:match(C.ItemLevelKey))
+						elseif CurrentLineText:find(C.EnchantKey) then
+							CurrentLineText = CurrentLineText:match(C.EnchantKey) -- Get enchant string
+							CurrentLineText = gsub(CurrentLineText, ITEM_MOD_AGILITY_SHORT, AGI)
+							CurrentLineText = gsub(CurrentLineText, ITEM_MOD_SPIRIT_SHORT, SPI)
+							CurrentLineText = gsub(CurrentLineText, ITEM_MOD_STAMINA_SHORT, STA)
+							CurrentLineText = gsub(CurrentLineText, ITEM_MOD_STRENGTH_SHORT, STR)
+							CurrentLineText = gsub(CurrentLineText, ITEM_MOD_INTELLECT_SHORT, INT)
+							CurrentLineText = gsub(CurrentLineText, ITEM_MOD_CRIT_RATING_SHORT, CRIT_ABBR) -- Critical is too long
+							--God damn russian localization team!
+							CurrentLineText = gsub(CurrentLineText, "к показателю уклонения", ITEM_MOD_DODGE_RATING_SHORT)
+							CurrentLineText = gsub(CurrentLineText, "к показателю скорости", ITEM_MOD_HASTE_RATING_SHORT)
+							CurrentLineText = gsub(CurrentLineText, "к показателю парирования", ITEM_MOD_PARRY_RATING_SHORT)
+							CurrentLineText = gsub(CurrentLineText, "к показателю искусности", ITEM_MOD_MASTERY_RATING_SHORT)
+							CurrentLineText = gsub(CurrentLineText, ' + ', '+') -- Remove space
+							CurrentLineText = gsub(CurrentLineText, "небольшое увеличение скорости бега", "+к скорости бега")
+
+							if E.db.sle.characterframeoptions.itemenchant.show then
+								Slot.ItemEnchant:Show()
+								if E.db.sle.characterframeoptions.itemenchant.mouseover then
+									Slot.ItemEnchant:SetDrawLayer('HIGHLIGHT')
+								else
+									Slot.ItemEnchant:SetDrawLayer('OVERLAY')
+								end
+								Slot.ItemEnchant:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemenchant.font), E.db.sle.characterframeoptions.itemenchant.fontSize, E.db.sle.characterframeoptions.itemenchant.fontOutline)
+								Slot.ItemEnchant:SetText('|cffceff00'..CurrentLineText)
+							else
+								Slot.ItemEnchant:Hide()
+							end
+
+							IsEnchanted = true
+						elseif CurrentLineText:find(ITEM_SPELL_TRIGGER_ONUSE) then
+							UsableEffect = true
+						end
+					end
+
+					--<< ItemLevel Parts >>--
+					if BasicItemLevel then
+						if ItemUpgradeID then
+							if ItemUpgradeID == '0' then
+								ItemUpgradeID = nil
+							else
+								ItemUpgradeID = TrueItemLevel - BasicItemLevel
+							end
+						end
+						if E.db.sle.characterframeoptions.itemlevel.show ~= false then
+							Slot.ItemLevel:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemlevel.font), E.db.sle.characterframeoptions.itemlevel.fontSize, E.db.sle.characterframeoptions.itemlevel.fontOutline)
+							Slot.ItemLevel:SetText((Slot.Direction == 'LEFT' and TrueItemLevel or '')..(ItemUpgradeID and (Slot.Direction == 'LEFT' and ' ' or '')..(C.UpgradeColor[ItemUpgradeID] or '|cffaaaaaa')..'(+'..ItemUpgradeID..')|r'..(Slot.Direction == 'RIGHT' and ' ' or '') or '')..(Slot.Direction == 'RIGHT' and TrueItemLevel or ''))
+						end
 					end
 					
-					self:ClearTooltip(self.ScanTT)
-					self.ScanTT:SetHyperlink(ItemData.FixedLink)
-
-					GemCount_Default, GemCount_Now, GemCount = 0, 0, 0
-
-					-- First, Counting default gem sockets
-					for i = 1, MAX_NUM_SOCKETS do
-						ItemTexture = _G['SLE_CharacterArmory_ScanTTTexture'..i]:GetTexture()
-
-						if ItemTexture and ItemTexture:find('Interface\\ItemSocketingFrame\\') then
-							GemCount_Default = GemCount_Default + 1
-							Slot['Socket'..GemCount_Default].GemType = strupper(gsub(ItemTexture, 'Interface\\ItemSocketingFrame\\UI--EmptySocket--', ''))
-						end
-					end
-
-					-- Second, Check if slot's item enable to adding a socket
-					GemCount_Enable = GemCount_Default
-					if (slotName == 'WaistSlot' and UnitLevel('player') >= 70) or -- buckle
-						((slotName == 'WristSlot' or slotName == 'HandsSlot') and self.PlayerProfession.BlackSmithing and self.PlayerProfession.BlackSmithing >= 550) then -- BlackSmith
-
-						GemCount_Enable = GemCount_Enable + 1
-						Slot['Socket'..GemCount_Enable].GemType = 'PRISMATIC'
-					end
-
-					self:ClearTooltip(self.ScanTT)
-					self.ScanTT:SetInventoryItem('player', Slot.ID)
-
-					-- Apply current item's gem setting
-					for i = 1, MAX_NUM_SOCKETS do
-						ItemTexture = _G['SLE_CharacterArmory_ScanTTTexture'..i]:GetTexture()
-						GemID = select(i, GetInventoryItemGems(Slot.ID))
-
-						if Slot['Socket'..i].GemType and C.GemColor[Slot['Socket'..i].GemType] then
-							r, g, b = unpack(C.GemColor[Slot['Socket'..i].GemType])
-							Slot['Socket'..i].Socket:SetBackdropColor(r, g, b, .5)
-							Slot['Socket'..i].Socket:SetBackdropBorderColor(r, g, b)
-						else
-							Slot['Socket'..i].Socket:SetBackdropColor(1, 1, 1, .5)
-							Slot['Socket'..i].Socket:SetBackdropBorderColor(1, 1, 1)
-						end
-
-						if ItemTexture or GemID then
-							if E.db.sle.characterframeoptions.itemgem.show then
-								Slot['Socket'..i]:Show()
-								Slot.SocketWarning:Point(Slot.Direction, Slot['Socket'..i], (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
-							else
-								Slot['Socket'..i]:Hide()
-								Slot.SocketWarning:Point(Slot.Direction, Slot['Socket1'], (Slot.Direction == 'LEFT' and 'LEFT' or 'RIGHT'), 0, 0)
+					--[[ Check Error
+					if DB.Modules.Armory.Character.NoticeMissing ~= false then --Replace with our noticemissing
+						if (not IsEnchanted and C.EnchantableSlots[slotName]) or ((slotName == 'Finger0Slot' or slotName == 'Finger1Slot') and self.PlayerProfession.Enchanting and self.PlayerProfession.Enchanting >= 550 and not IsEnchanted) then
+							ErrorDetected = true
+							if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
+								Slot.EnchantWarning:Show()
+								Slot.ItemEnchant:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemenchant.font), E.db.sle.characterframeoptions.itemenchant.fontSize, E.db.sle.characterframeoptions.itemenchant.fontOutline)
+								Slot.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
 							end
-
-							GemCount_Now = GemCount_Now + 1
-
-							if GemID then
-								GemCount = GemCount + 1
-								Slot['Socket'..i].GemItemID = GemID
-								
-								_, Slot['Socket'..i].Socket.Link, _, _, _, _, _, _, _, ItemTexture = GetItemInfo(GemID)
-
-								if ItemTexture then
-									Slot['Socket'..i].Texture:SetTexture(ItemTexture)
-								else
-									needUpdate = true
-								end
+						elseif self.PlayerProfession.Engineering and ((slotName == 'BackSlot' and self.PlayerProfession.Engineering >= 380) or (slotName == 'HandsSlot' and self.PlayerProfession.Engineering >= 400) or (slotName == 'WaistSlot' and self.PlayerProfession.Engineering >= 380)) and not UsableEffect then
+							ErrorDetected = true
+							if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
+								Slot.EnchantWarning:Show()
+								Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110403)..'|r : '..L['Missing Tinkers']
 							end
-						end
-					end
-
-					--print(slotName..' : ', GemCount_Default, GemCount_Enable, GemCount_Now, GemCount)
-					if GemCount_Now < GemCount_Default then -- ItemInfo not loaded
-						needUpdate = true
-					end
-				end
-
-				_, _, ItemRarity, BasicItemLevel, _, _, _, _, _, ItemTexture = GetItemInfo(ItemLink)
-				r, g, b = GetItemQualityColor(ItemRarity)
-
-				ItemUpgradeID = ItemLink:match(':(%d+)\124h%[')
-
-				--<< Enchant Parts >>--
-				for i = 1, self.ScanTT:NumLines() do
-					CurrentLineText = _G['SLE_CharacterArmory_ScanTTTextLeft'..i]:GetText()
-
-					if CurrentLineText:find(C.ItemLevelKey_Alt) then
-						TrueItemLevel = tonumber(CurrentLineText:match(C.ItemLevelKey_Alt))
-					elseif CurrentLineText:find(C.ItemLevelKey) then
-						TrueItemLevel = tonumber(CurrentLineText:match(C.ItemLevelKey))
-					elseif CurrentLineText:find(C.EnchantKey) then
-						CurrentLineText = CurrentLineText:match(C.EnchantKey) -- Get enchant string
-						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_AGILITY_SHORT, AGI)
-						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_SPIRIT_SHORT, SPI)
-						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_STAMINA_SHORT, STA)
-						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_STRENGTH_SHORT, STR)
-						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_INTELLECT_SHORT, INT) --Intellect is to long for darth
-						CurrentLineText = gsub(CurrentLineText, ITEM_MOD_CRIT_RATING_SHORT, CRIT_ABBR) -- Critical is too long
-						--God damn russian localization team!
-						CurrentLineText = gsub(CurrentLineText, "к показателю уклонения", ITEM_MOD_DODGE_RATING_SHORT)
-						CurrentLineText = gsub(CurrentLineText, "к показателю скорости", ITEM_MOD_HASTE_RATING_SHORT)
-						CurrentLineText = gsub(CurrentLineText, "к показателю парирования", ITEM_MOD_PARRY_RATING_SHORT)
-						CurrentLineText = gsub(CurrentLineText, "к показателю искусности", ITEM_MOD_MASTERY_RATING_SHORT)
-						CurrentLineText = gsub(CurrentLineText, ' + ', '+') -- Remove space
-						CurrentLineText = gsub(CurrentLineText, "небольшое увеличение скорости бега", "+к скорости бега")
-
-						if E.db.sle.characterframeoptions.itemenchant.show then
-							Slot.ItemEnchant:Show()
-							if E.db.sle.characterframeoptions.itemenchant.mouseover then
-								Slot.ItemEnchant:SetDrawLayer('HIGHLIGHT')
-							else
+						elseif slotName == 'ShoulderSlot' and self.PlayerProfession.Inscription and C.ItemEnchant_Profession_Inscription and self.PlayerProfession.Inscription >= C.ItemEnchant_Profession_Inscription.NeedLevel and not C.ItemEnchant_Profession_Inscription[enchantID] then
+							ErrorDetected = true
+							if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
 								Slot.ItemEnchant:SetDrawLayer('OVERLAY')
+								Slot.EnchantWarning:Show()
+								Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110400)..'|r : '..L['This is not profession only.']
 							end
-							Slot.ItemEnchant:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemenchant.font), E.db.sle.characterframeoptions.itemenchant.fontSize, E.db.sle.characterframeoptions.itemenchant.fontOutline)
-							Slot.ItemEnchant:SetText('|cffceff00'..CurrentLineText)
-						else
-							Slot.ItemEnchant:Hide()
-						end
-
-						IsEnchanted = true
-					elseif CurrentLineText:find(ITEM_SPELL_TRIGGER_ONUSE) then
-						UsableEffect = true
-					end
-				end
-
-				--<< ItemLevel Parts >>--
-				if BasicItemLevel then
-					if ItemUpgradeID then
-						if ItemUpgradeID == '0' then
-							ItemUpgradeID = nil
-						else
-							--if not C.ItemUpgrade[ItemUpgradeID] then
-								--print('New Upgrade ID |cffceff00['..ItemUpgradeID..']|r : |cffceff00'..(TrueItemLevel - BasicItemLevel))
-							--end
-
-							ItemUpgradeID = TrueItemLevel - BasicItemLevel
-						end
-					end
-					if E.db.sle.characterframeoptions.itemlevel.show ~= false then
-						Slot.ItemLevel:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemlevel.font), E.db.sle.characterframeoptions.itemlevel.fontSize, E.db.sle.characterframeoptions.itemlevel.fontOutline)
-						Slot.ItemLevel:SetText((Slot.Direction == 'LEFT' and TrueItemLevel or '')..(ItemUpgradeID and (Slot.Direction == 'LEFT' and ' ' or '')..(C.UpgradeColor[ItemUpgradeID] or '|cffaaaaaa')..'(+'..ItemUpgradeID..')|r'..(Slot.Direction == 'RIGHT' and ' ' or '') or '')..(Slot.Direction == 'RIGHT' and TrueItemLevel or ''))
-					end
-				end
-
-				--[[ Check Error
-				if (not IsEnchanted and C.EnchantableSlots[slotName]) or ((slotName == 'Finger0Slot' or slotName == 'Finger1Slot') and CFO.PlayerProfession.Enchanting and CFO.PlayerProfession.Enchanting >= 550 and not IsEnchanted) then
-					ErrorDetected = true
-					if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
-						Slot.EnchantWarning:Show()
-						Slot.ItemEnchant:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemenchant.font), E.db.sle.characterframeoptions.itemenchant.fontSize, E.db.sle.characterframeoptions.itemenchant.fontOutline)
-						Slot.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
-					end
-				elseif CFO.PlayerProfession.Engineering and ((slotName == 'BackSlot' and CFO.PlayerProfession.Engineering >= 380) or (slotName == 'HandsSlot' and CFO.PlayerProfession.Engineering >= 400) or (slotName == 'WaistSlot' and CFO.PlayerProfession.Engineering >= 380)) and not UsableEffect then
-					ErrorDetected = true
-					if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
-						Slot.EnchantWarning:Show()
-						Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110403)..'|r : '..L['Missing Tinkers']
-					end
-				elseif slotName == 'ShoulderSlot' and CFO.PlayerProfession.Inscription and C.ItemEnchant_Profession_Inscription and CFO.PlayerProfession.Inscription >= C.ItemEnchant_Profession_Inscription.NeedLevel and not C.ItemEnchant_Profession_Inscription[enchantID] then
-					ErrorDetected = true
-					if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
-						Slot.ItemEnchant:SetDrawLayer('OVERLAY')
-						Slot.EnchantWarning:Show()
-						Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110400)..'|r : '..L['This is not profession only.']
-					end
-				elseif slotName == 'WristSlot' and CFO.PlayerProfession.LeatherWorking and C.ItemEnchant_Profession_LeatherWorking and CFO.PlayerProfession.LeatherWorking >= C.ItemEnchant_Profession_LeatherWorking.NeedLevel and not C.ItemEnchant_Profession_LeatherWorking[enchantID] then
-					ErrorDetected = true
-					if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
-						Slot.ItemEnchant:SetDrawLayer('OVERLAY')
-						Slot.EnchantWarning:Show()
-						Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110423)..'|r : '..L['This is not profession only.']
-					end
-				elseif slotName == 'BackSlot' and CFO.PlayerProfession.Tailoring and C.ItemEnchant_Profession_Tailoring and CFO.PlayerProfession.Tailoring >= C.ItemEnchant_Profession_Tailoring.NeedLevel and not C.ItemEnchant_Profession_Tailoring[enchantID] then
-					ErrorDetected = true
-					if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
-						Slot.ItemEnchant:SetDrawLayer('OVERLAY')
-						Slot.EnchantWarning:Show()
-						Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110426)..'|r : '..L['This is not profession only.']
-					end
-				end
-
-				if GemTotal_1 > GemTotal_2 or GemTotal_1 > GemCount then
-					ErrorDetected = true
-
-					if E.db.sle.characterframeoptions.itemgem.showwarning ~= false then
-						Slot.SocketWarning:Show()
-					end
-
-					if GemTotal_1 > GemTotal_2 then
-						if slotName == 'WaistSlot' then
-							if TrueItemLevel < 300 then
-								_, Slot.SocketWarning.Link = GetItemInfo(41611)	
-							elseif TrueItemLevel < 417 then
-								_, Slot.SocketWarning.Link = GetItemInfo(55054)
-							else
-								_, Slot.SocketWarning.Link = GetItemInfo(90046)
+						elseif slotName == 'WristSlot' and self.PlayerProfession.LeatherWorking and C.ItemEnchant_Profession_LeatherWorking and self.PlayerProfession.LeatherWorking >= C.ItemEnchant_Profession_LeatherWorking.NeedLevel and not C.ItemEnchant_Profession_LeatherWorking[enchantID] then
+							ErrorDetected = true
+							if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
+								Slot.ItemEnchant:SetDrawLayer('OVERLAY')
+								Slot.EnchantWarning:Show()
+								Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110423)..'|r : '..L['This is not profession only.']
 							end
-						elseif slotName == 'HandsSlot' then
-							Slot.SocketWarning.Link = GetSpellLink(114112)
-						elseif slotName == 'WristSlot' then
-							Slot.SocketWarning.Link = GetSpellLink(113263)
-						end
-
-							if slotName == 'WaistSlot' then
-							Slot.SocketWarning.Message = L['Missing Buckle']
-						elseif slotName == 'WristSlot' or slotName == 'HandsSlot' then
-							Slot.SocketWarning.Message = '|cff71d5ff'..GetSpellInfo(110396)..'|r : '..L['Missing Socket']
-						end
-					else
-						Slot.SocketWarning.Message = '|cffff5678'..(GemTotal_1 - GemCount)..'|r '..L['Empty Socket']
-					end
-
-					if GemTotal_1 ~= GemTotal_2 and slotName == 'WaistSlot' then
-						Slot.SocketWarning:SetScript('OnClick', function(self, button)
-							local itemName, itemLink
-
-							if TrueItemLevel < 300 then
-								itemName, itemLink = GetItemInfo(41611)
-							elseif TrueItemLevel < 417 then
-								itemName, itemLink = GetItemInfo(55054)
-							else
-								itemName, itemLink = GetItemInfo(90046)
-							end
-		
-							if HandleModifiedItemClick(itemLink) then
-							elseif IsShiftKeyDown() then
-								if button == 'RightButton' then
-									SocketInventoryItem(Slot.ID)
-								elseif BrowseName and BrowseName:IsVisible() then
-									AuctionFrameBrowse_Reset(BrowseResetButton)
-									BrowseName:SetText(itemName)
-									BrowseName:SetFocus()
+						elseif slotName == 'BackSlot' and self.PlayerProfession.Tailoring and C.ItemEnchant_Profession_Tailoring and CFO.PlayerProfession.Tailoring >= C.ItemEnchant_Profession_Tailoring.NeedLevel and not C.ItemEnchant_Profession_Tailoring[enchantID] then
+							for EnchantID, NeedLevel in pairs(C.ItemEnchant_Profession_Tailoring) do
+								if self.PlayerProfession_Tailoring >= NeedLevel then
+									Slot.ItemEnchant:SetDrawLayer('OVERLAY')
+									if EnchantID == ItemTable[3] then
+										ErrorDetected = nil
+										break
+									else
+										ErrorDetected = true
+									end
 								end
 							end
-						end)
+							
+							Slot.EnchantWarning:Show()
+							Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110426)..'|r : '..L['This is not profession only.']
+						end
+						
+						if GemCount_Enable > GemCount_Now or GemCount_Enable > GemCount or GemCount_Now > GemCount then
+							ErrorDetected = true
+							
+							Slot.SocketWarning:Show()
+							
+							if GemCount_Enable > GemCount_Now then
+								if slotName == 'WaistSlot' then
+									if TrueItemLevel < 300 then
+										_, Slot.SocketWarning.Link = GetItemInfo(41611)	
+									elseif TrueItemLevel < 417 then
+										_, Slot.SocketWarning.Link = GetItemInfo(55054)
+									else
+										_, Slot.SocketWarning.Link = GetItemInfo(90046)
+									end
+									
+									Slot.SocketWarning.Message = L['Missing Buckle']
+									
+									Slot.SocketWarning:SetScript('OnClick', function(self, button)
+										local itemName, itemLink
+										
+										if TrueItemLevel < 300 then
+											itemName, itemLink = GetItemInfo(41611)
+										elseif TrueItemLevel < 417 then
+											itemName, itemLink = GetItemInfo(55054)
+										else
+											itemName, itemLink = GetItemInfo(90046)
+										end
+										
+										if HandleModifiedItemClick(itemLink) then
+										elseif IsShiftKeyDown() then
+											if button == 'RightButton' then
+												SocketInventoryItem(Slot.ID)
+											elseif BrowseName and BrowseName:IsVisible() then
+												AuctionFrameBrowse_Reset(BrowseResetButton)
+												BrowseName:SetText(itemName)
+												BrowseName:SetFocus()
+											end
+										end
+									end)
+								elseif slotName == 'HandsSlot' then
+									Slot.SocketWarning.Link = GetSpellLink(114112)
+									Slot.SocketWarning.Message = '|cff71d5ff'..GetSpellInfo(110396)..'|r : '..L['Missing Socket']
+								elseif slotName == 'WristSlot' then
+									Slot.SocketWarning.Link = GetSpellLink(113263)
+									Slot.SocketWarning.Message = '|cff71d5ff'..GetSpellInfo(110396)..'|r : '..L['Missing Socket']
+								end
+							else
+								Slot.SocketWarning.Message = '|cffff5678'..(GemCount_Now - GemCount)..'|r '..L['Empty Socket']
+							end
+						end
 					end
-				end]]
+					]]
+				else
+					needUpdate = true
+				end
 			end
 
 			-- Change Gradation
@@ -756,14 +757,6 @@ function CA:StartArmoryFrame()
 	CA:CharacterArmory_DataSetting()
 
 	-- Run SLE CharacterArmoryMode
-	--[[CFO:RegisterEvent('SOCKET_INFO_SUCCESS', 'ArmoryFrame_DataSetting')
-	CFO:RegisterEvent('PLAYER_EQUIPMENT_CHANGED', 'ArmoryFrame_DataSetting')
-	CFO:RegisterEvent('PLAYER_ENTERING_WORLD', 'ArmoryFrame_DataSetting')
-	CFO:RegisterEvent('UNIT_INVENTORY_CHANGED', 'ArmoryFrame_DataSetting')
-	CFO:RegisterEvent('EQUIPMENT_SWAP_FINISHED', 'ArmoryFrame_DataSetting')
-	CFO:RegisterEvent('UPDATE_INVENTORY_DURABILITY', 'ArmoryFrame_DataSetting')
-	CFO:RegisterEvent('ITEM_UPGRADE_MASTER_UPDATE', 'ArmoryFrame_DataSetting')
-	]]
 	CA:RegisterEvent('SOCKET_INFO_SUCCESS')
 	CA:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
 	CA:RegisterEvent('UNIT_INVENTORY_CHANGED')

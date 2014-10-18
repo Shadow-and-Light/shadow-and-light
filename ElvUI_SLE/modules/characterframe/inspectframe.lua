@@ -1386,7 +1386,7 @@ function IA:CreateInspectFrame()
 					if isSending then
 						AISM:RegisterInspectDataRequest(function(User, Message)
 							if User == DataTable.TableIndex and Message == isSending then
-								InspectArmory_UnitPopup.CreateDropDownButton(nil, DataTable)
+								InspectArmory_UnitPopup.CreateDropDownButton(Button, DataTable)
 								
 								return true
 							end
@@ -1718,188 +1718,192 @@ function IA:InspectFrame_DataSetting(DataTable)
 				if DataTable.Gear[slotName].ItemLink then
 					_, Slot.Link = GetItemInfo(DataTable.Gear[slotName].ItemLink)
 					
-					do --<< Gem Parts >>--
-						arg1, itemID, enchantID, _, _, _, _, arg2, arg3, arg4, arg5, arg6 = strsplit(':', Slot.Link)
-						
-						IA:ClearTooltip(self.ScanTT)
-						self.ScanTT:SetHyperlink(format('%s:%s:%d:0:0:0:0:%s:%s:%s:%s:%s', arg1, itemID, enchantID, arg2, arg3, arg4, arg5, arg6))
-						
-						GemCount_Default, GemCount_Now, GemCount = 0, 0, 0
-						
-						-- First, Counting default gem sockets
-						for i = 1, MAX_NUM_SOCKETS do
-							ItemTexture = _G['InspectArmoryScanTTTexture'..i]:GetTexture()
+					if Slot.Link then
+						do --<< Gem Parts >>--
+							arg1, itemID, enchantID, _, _, _, _, arg2, arg3, arg4, arg5, arg6 = strsplit(':', Slot.Link)
 							
-							if ItemTexture and ItemTexture:find('Interface\\ItemSocketingFrame\\') then
-								GemCount_Default = GemCount_Default + 1
-								Slot['Socket'..GemCount_Default].GemType = strupper(gsub(ItemTexture, 'Interface\\ItemSocketingFrame\\UI--EmptySocket--', ''))
-							end
-						end
-						
-						-- Second, Check if slot's item enable to adding a socket
-						GemCount_Enable = GemCount_Default
-						if (slotName == 'WaistSlot' and DataTable.Level >= 70) or -- buckle
-							((slotName == 'WristSlot' or slotName == 'HandsSlot') and (DataTable.Profession[1].Name == GetSpellInfo(110396) and DataTable.Profession[1].Level >= 550 or DataTable.Profession[2].Name == GetSpellInfo(110396) and DataTable.Profession[2].Level >= 550)) then -- BlackSmith
+							IA:ClearTooltip(self.ScanTT)
+							self.ScanTT:SetHyperlink(format('%s:%s:%d:0:0:0:0:%s:%s:%s:%s:%s', arg1, itemID, enchantID, arg2, arg3, arg4, arg5, arg6))
 							
-							GemCount_Enable = GemCount_Enable + 1
-							Slot['Socket'..GemCount_Enable].GemType = 'PRISMATIC'
-						end
-						
-						IA:ClearTooltip(self.ScanTT)
-						self.ScanTT:SetHyperlink(Slot.Link)
-						
-						-- Apply current item's gem setting
-						for i = 1, MAX_NUM_SOCKETS do
-							ItemTexture = _G['InspectArmoryScanTTTexture'..i]:GetTexture()
+							GemCount_Default, GemCount_Now, GemCount = 0, 0, 0
 							
-							if Slot['Socket'..i].GemType and C.GemColor[Slot['Socket'..i].GemType] then
-								r, g, b = unpack(C.GemColor[Slot['Socket'..i].GemType])
-								Slot['Socket'..i].Socket:SetBackdropColor(r, g, b, 0.5)
-								Slot['Socket'..i].Socket:SetBackdropBorderColor(r, g, b)
-							else
-								Slot['Socket'..i].Socket:SetBackdropColor(1, 1, 1, 0.5)
-								Slot['Socket'..i].Socket:SetBackdropBorderColor(1, 1, 1)
-							end
-							
-							CurrentLineText = select(2, _G['InspectArmoryScanTTTexture'..i]:GetPoint())
-							CurrentLineText = DataTable.Gear[slotName]['Gem'..i] or CurrentLineText ~= self.ScanTT and CurrentLineText.GetText and CurrentLineText:GetText():gsub('|cff......', ''):gsub('|r', '') or nil
-							
-							if CurrentLineText then
-								Slot['Socket'..i]:Show()
-								GemCount_Now = GemCount_Now + 1
-								Slot.SocketWarning:Point(Slot.Direction, Slot['Socket'..i], (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
+							-- First, Counting default gem sockets
+							for i = 1, MAX_NUM_SOCKETS do
+								ItemTexture = _G['InspectArmoryScanTTTexture'..i]:GetTexture()
 								
-								ItemTexture = ItemTexture or DataTable.Gear[slotName]['Gem'..i] and select(10, GetItemInfo(DataTable.Gear[slotName]['Gem'..i])) or nil
-								
-								if not ItemTexture then
-									needUpdate = true
-								elseif not C.EmptySocketString[CurrentLineText] then
-									GemCount = GemCount + 1
-									Slot['Socket'..i].GemItemID = CurrentLineText
-									Slot['Socket'..i].Texture:SetTexture(ItemTexture)
+								if ItemTexture and ItemTexture:find('Interface\\ItemSocketingFrame\\') then
+									GemCount_Default = GemCount_Default + 1
+									Slot['Socket'..GemCount_Default].GemType = strupper(gsub(ItemTexture, 'Interface\\ItemSocketingFrame\\UI--EmptySocket--', ''))
 								end
 							end
-						end
-						
-						if GemCount_Now < GemCount_Default then -- ItemInfo not loaded
-							needUpdate = true
-						end
-					end
-					
-					_, _, ItemRarity, BasicItemLevel, _, _, _, _, _, ItemTexture = GetItemInfo(Slot.Link)
-					r, g, b = GetItemQualityColor(ItemRarity)
-					
-					ItemUpgradeID = Slot.Link:match(':(%d+)\124h%[')
-					
-					--<< Enchant Parts >>--
-					for i = 1, self.ScanTT:NumLines() do
-						CurrentLineText = _G['InspectArmoryScanTTTextLeft'..i]:GetText()
-						
-						if CurrentLineText:find(C.ItemLevelKey_Alt) then
-							TrueItemLevel = tonumber(CurrentLineText:match(C.ItemLevelKey_Alt))
-						elseif CurrentLineText:find(C.ItemLevelKey) then
-							TrueItemLevel = tonumber(CurrentLineText:match(C.ItemLevelKey))
-						elseif CurrentLineText:find(C.EnchantKey) then
-							CurrentLineText = CurrentLineText:match(C.EnchantKey) -- Get enchant string
-							CurrentLineText = gsub(CurrentLineText, ITEM_MOD_AGILITY_SHORT, AGI)
-							CurrentLineText = gsub(CurrentLineText, ITEM_MOD_SPIRIT_SHORT, SPI)
-							CurrentLineText = gsub(CurrentLineText, ITEM_MOD_STAMINA_SHORT, STA)
-							CurrentLineText = gsub(CurrentLineText, ITEM_MOD_STRENGTH_SHORT, STR)
-							CurrentLineText = gsub(CurrentLineText, ITEM_MOD_INTELLECT_SHORT, INT)
-							CurrentLineText = gsub(CurrentLineText, ITEM_MOD_CRIT_RATING_SHORT, CRIT_ABBR) -- Critical is too long
-							CurrentLineText = gsub(CurrentLineText, ' + ', '+') -- Remove space
 							
-							Slot.Gradation.ItemEnchant:SetText('|cffceff00'..CurrentLineText)
-							
-							IsEnchanted = true
-						end
-					end
-					
-					--<< ItemLevel Parts >>--
-					if BasicItemLevel then
-						ItemCount = ItemCount + 1
-						
-						if ItemUpgradeID then
-							if ItemUpgradeID == '0' then
-								ItemUpgradeID = nil
-							else
-								ItemUpgradeID = TrueItemLevel - BasicItemLevel
+							-- Second, Check if slot's item enable to adding a socket
+							GemCount_Enable = GemCount_Default
+							if (slotName == 'WaistSlot' and DataTable.Level >= 70) or -- buckle
+								((slotName == 'WristSlot' or slotName == 'HandsSlot') and (DataTable.Profession[1].Name == GetSpellInfo(110396) and DataTable.Profession[1].Level >= 550 or DataTable.Profession[2].Name == GetSpellInfo(110396) and DataTable.Profession[2].Level >= 550)) then -- BlackSmith
+								
+								GemCount_Enable = GemCount_Enable + 1
+								Slot['Socket'..GemCount_Enable].GemType = 'PRISMATIC'
 							end
-						end
-						
-						ItemTotal = ItemTotal + TrueItemLevel
-						
-						Slot.ItemLevel:SetText((ItemUpgradeID and (C.UpgradeColor[ItemUpgradeID] or '|cffffffff') or '')..TrueItemLevel)
-						Slot.Gradation.ItemLevel:SetText((Slot.Direction == 'LEFT' and TrueItemLevel or '')..(ItemUpgradeID and (Slot.Direction == 'LEFT' and ' ' or '')..(C.UpgradeColor[ItemUpgradeID] or '|cffaaaaaa')..'(+'..ItemUpgradeID..')|r'..(Slot.Direction == 'RIGHT' and ' ' or '') or '')..(Slot.Direction == 'RIGHT' and TrueItemLevel or ''))
-					end
-					
-					--[[
-					-- Check Error
-					if (not IsEnchanted and C.EnchantableSlots[slotName]) or ((slotName == 'Finger0Slot' or slotName == 'Finger1Slot') and (DataTable.Profession[1].Name == GetSpellInfo(110400) and DataTable.Profession[1].Level >= 550 or DataTable.Profession[2].Name == GetSpellInfo(110400) and DataTable.Profession[2].Level >= 550) and not IsEnchanted) then
-						ErrorDetected = true
-						Slot.EnchantWarning:Show()
-						Slot.Gradation.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
-					elseif slotName == 'ShoulderSlot' and C.ItemEnchant_Profession_Inscription and (DataTable.Profession[1].Name == GetSpellInfo(110417) and DataTable.Profession[1].Level >= C.ItemEnchant_Profession_Inscription.NeedLevel or DataTable.Profession[2].Name == GetSpellInfo(110417) and DataTable.Profession[2].Level >= C.ItemEnchant_Profession_Inscription.NeedLevel) and not C.ItemEnchant_Profession_Inscription[enchantID] then
-						ErrorDetected = true
-						Slot.EnchantWarning:Show()
-						Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110400)..'|r : '..L['This is not profession only.']
-					elseif slotName == 'WristSlot' and C.ItemEnchant_Profession_LeatherWorking and (DataTable.Profession[1].Name == GetSpellInfo(110423) and DataTable.Profession[1].Level >= C.ItemEnchant_Profession_LeatherWorking.NeedLevel or DataTable.Profession[2].Name == GetSpellInfo(110423) and DataTable.Profession[2].Level >= C.ItemEnchant_Profession_LeatherWorking.NeedLevel) and not C.ItemEnchant_Profession_LeatherWorking[enchantID] then
-						ErrorDetected = true
-						Slot.EnchantWarning:Show()
-						Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110423)..'|r : '..L['This is not profession only.']
-					elseif slotName == 'BackSlot' and C.ItemEnchant_Profession_Tailoring and (DataTable.Profession[1].Name == GetSpellInfo(110426) and DataTable.Profession[1].Level >= C.ItemEnchant_Profession_Tailoring.NeedLevel or DataTable.Profession[2].Name == GetSpellInfo(110426) and DataTable.Profession[2].Level >= C.ItemEnchant_Profession_Tailoring.NeedLevel) and not C.ItemEnchant_Profession_Tailoring[enchantID] then
-						ErrorDetected = true
-						Slot.EnchantWarning:Show()
-						Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110426)..'|r : '..L['This is not profession only.']
-					end
-					
-					if GemCount_Enable > GemCount_Now or GemCount_Enable > GemCount or GemCount_Now > GemCount then
-						ErrorDetected = true
-						
-						Slot.SocketWarning:Show()
-						
-						if GemCount_Enable > GemCount_Now then
-							if slotName == 'WaistSlot' then
-								if TrueItemLevel < 300 then
-									_, Slot.SocketWarning.Link = GetItemInfo(41611)	
-								elseif TrueItemLevel < 417 then
-									_, Slot.SocketWarning.Link = GetItemInfo(55054)
+							
+							IA:ClearTooltip(self.ScanTT)
+							self.ScanTT:SetHyperlink(Slot.Link)
+							
+							-- Apply current item's gem setting
+							for i = 1, MAX_NUM_SOCKETS do
+								ItemTexture = _G['InspectArmoryScanTTTexture'..i]:GetTexture()
+								
+								if Slot['Socket'..i].GemType and C.GemColor[Slot['Socket'..i].GemType] then
+									r, g, b = unpack(C.GemColor[Slot['Socket'..i].GemType])
+									Slot['Socket'..i].Socket:SetBackdropColor(r, g, b, 0.5)
+									Slot['Socket'..i].Socket:SetBackdropBorderColor(r, g, b)
 								else
-									_, Slot.SocketWarning.Link = GetItemInfo(90046)
+									Slot['Socket'..i].Socket:SetBackdropColor(1, 1, 1, 0.5)
+									Slot['Socket'..i].Socket:SetBackdropBorderColor(1, 1, 1)
 								end
 								
-								Slot.SocketWarning.Message = L['Missing Buckle']
+								CurrentLineText = select(2, _G['InspectArmoryScanTTTexture'..i]:GetPoint())
+								CurrentLineText = DataTable.Gear[slotName]['Gem'..i] or CurrentLineText ~= self.ScanTT and CurrentLineText.GetText and CurrentLineText:GetText():gsub('|cff......', ''):gsub('|r', '') or nil
 								
-								Slot.SocketWarning:SetScript('OnClick', function(self)
-									local itemName, itemLink
+								if CurrentLineText then
+									Slot['Socket'..i]:Show()
+									GemCount_Now = GemCount_Now + 1
+									Slot.SocketWarning:Point(Slot.Direction, Slot['Socket'..i], (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
 									
-									if TrueItemLevel < 300 then
-										itemName, itemLink = GetItemInfo(41611)
-									elseif TrueItemLevel < 417 then
-										itemName, itemLink = GetItemInfo(55054)
-									else
-										itemName, itemLink = GetItemInfo(90046)
-									end
+									ItemTexture = ItemTexture or DataTable.Gear[slotName]['Gem'..i] and select(10, GetItemInfo(DataTable.Gear[slotName]['Gem'..i])) or nil
 									
-									if HandleModifiedItemClick(itemLink) then
-									elseif IsShiftKeyDown() and BrowseName and BrowseName:IsVisible() then
-										AuctionFrameBrowse_Reset(BrowseResetButton)
-										BrowseName:SetText(itemName)
-										BrowseName:SetFocus()
+									if not ItemTexture then
+										needUpdate = true
+									elseif not C.EmptySocketString[CurrentLineText] then
+										GemCount = GemCount + 1
+										Slot['Socket'..i].GemItemID = CurrentLineText
+										Slot['Socket'..i].Texture:SetTexture(ItemTexture)
 									end
-								end)
-							elseif slotName == 'HandsSlot' then
-								Slot.SocketWarning.Link = GetSpellLink(114112)
-								Slot.SocketWarning.Message = '|cff71d5ff'..GetSpellInfo(110396)..'|r : '..L['Missing Socket']
-							elseif slotName == 'WristSlot' then
-								Slot.SocketWarning.Link = GetSpellLink(113263)
-								Slot.SocketWarning.Message = '|cff71d5ff'..GetSpellInfo(110396)..'|r : '..L['Missing Socket']
+								end
 							end
-						else
-							Slot.SocketWarning.Message = '|cffff5678'..(GemCount_Now - GemCount)..'|r '..L['Empty Socket']
+							
+							if GemCount_Now < GemCount_Default then -- ItemInfo not loaded
+								needUpdate = true
+							end
 						end
+						
+						_, _, ItemRarity, BasicItemLevel, _, _, _, _, _, ItemTexture = GetItemInfo(Slot.Link)
+						r, g, b = GetItemQualityColor(ItemRarity)
+						
+						ItemUpgradeID = Slot.Link:match(':(%d+)\124h%[')
+						
+						--<< Enchant Parts >>--
+						for i = 1, self.ScanTT:NumLines() do
+							CurrentLineText = _G['InspectArmoryScanTTTextLeft'..i]:GetText()
+							
+							if CurrentLineText:find(C.ItemLevelKey_Alt) then
+								TrueItemLevel = tonumber(CurrentLineText:match(C.ItemLevelKey_Alt))
+							elseif CurrentLineText:find(C.ItemLevelKey) then
+								TrueItemLevel = tonumber(CurrentLineText:match(C.ItemLevelKey))
+							elseif CurrentLineText:find(C.EnchantKey) then
+								CurrentLineText = CurrentLineText:match(C.EnchantKey) -- Get enchant string
+								CurrentLineText = gsub(CurrentLineText, ITEM_MOD_AGILITY_SHORT, AGI)
+								CurrentLineText = gsub(CurrentLineText, ITEM_MOD_SPIRIT_SHORT, SPI)
+								CurrentLineText = gsub(CurrentLineText, ITEM_MOD_STAMINA_SHORT, STA)
+								CurrentLineText = gsub(CurrentLineText, ITEM_MOD_STRENGTH_SHORT, STR)
+								CurrentLineText = gsub(CurrentLineText, ITEM_MOD_INTELLECT_SHORT, INT)
+								CurrentLineText = gsub(CurrentLineText, ITEM_MOD_CRIT_RATING_SHORT, CRIT_ABBR) -- Critical is too long
+								CurrentLineText = gsub(CurrentLineText, ' + ', '+') -- Remove space
+								
+								Slot.Gradation.ItemEnchant:SetText('|cffceff00'..CurrentLineText)
+								
+								IsEnchanted = true
+							end
+						end
+						
+						--<< ItemLevel Parts >>--
+						if BasicItemLevel then
+							ItemCount = ItemCount + 1
+							
+							if ItemUpgradeID then
+								if ItemUpgradeID == '0' then
+									ItemUpgradeID = nil
+								else
+									ItemUpgradeID = TrueItemLevel - BasicItemLevel
+								end
+							end
+							
+							ItemTotal = ItemTotal + TrueItemLevel
+							
+							Slot.ItemLevel:SetText((ItemUpgradeID and (C.UpgradeColor[ItemUpgradeID] or '|cffffffff') or '')..TrueItemLevel)
+							Slot.Gradation.ItemLevel:SetText((Slot.Direction == 'LEFT' and TrueItemLevel or '')..(ItemUpgradeID and (Slot.Direction == 'LEFT' and ' ' or '')..(C.UpgradeColor[ItemUpgradeID] or '|cffaaaaaa')..'(+'..ItemUpgradeID..')|r'..(Slot.Direction == 'RIGHT' and ' ' or '') or '')..(Slot.Direction == 'RIGHT' and TrueItemLevel or ''))
+						end
+						
+						--[[
+						-- Check Error
+						if (not IsEnchanted and C.EnchantableSlots[slotName]) or ((slotName == 'Finger0Slot' or slotName == 'Finger1Slot') and (DataTable.Profession[1].Name == GetSpellInfo(110400) and DataTable.Profession[1].Level >= 550 or DataTable.Profession[2].Name == GetSpellInfo(110400) and DataTable.Profession[2].Level >= 550) and not IsEnchanted) then
+							ErrorDetected = true
+							Slot.EnchantWarning:Show()
+							Slot.Gradation.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
+						elseif slotName == 'ShoulderSlot' and C.ItemEnchant_Profession_Inscription and (DataTable.Profession[1].Name == GetSpellInfo(110417) and DataTable.Profession[1].Level >= C.ItemEnchant_Profession_Inscription.NeedLevel or DataTable.Profession[2].Name == GetSpellInfo(110417) and DataTable.Profession[2].Level >= C.ItemEnchant_Profession_Inscription.NeedLevel) and not C.ItemEnchant_Profession_Inscription[enchantID] then
+							ErrorDetected = true
+							Slot.EnchantWarning:Show()
+							Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110400)..'|r : '..L['This is not profession only.']
+						elseif slotName == 'WristSlot' and C.ItemEnchant_Profession_LeatherWorking and (DataTable.Profession[1].Name == GetSpellInfo(110423) and DataTable.Profession[1].Level >= C.ItemEnchant_Profession_LeatherWorking.NeedLevel or DataTable.Profession[2].Name == GetSpellInfo(110423) and DataTable.Profession[2].Level >= C.ItemEnchant_Profession_LeatherWorking.NeedLevel) and not C.ItemEnchant_Profession_LeatherWorking[enchantID] then
+							ErrorDetected = true
+							Slot.EnchantWarning:Show()
+							Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110423)..'|r : '..L['This is not profession only.']
+						elseif slotName == 'BackSlot' and C.ItemEnchant_Profession_Tailoring and (DataTable.Profession[1].Name == GetSpellInfo(110426) and DataTable.Profession[1].Level >= C.ItemEnchant_Profession_Tailoring.NeedLevel or DataTable.Profession[2].Name == GetSpellInfo(110426) and DataTable.Profession[2].Level >= C.ItemEnchant_Profession_Tailoring.NeedLevel) and not C.ItemEnchant_Profession_Tailoring[enchantID] then
+							ErrorDetected = true
+							Slot.EnchantWarning:Show()
+							Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110426)..'|r : '..L['This is not profession only.']
+						end
+						
+						if GemCount_Enable > GemCount_Now or GemCount_Enable > GemCount or GemCount_Now > GemCount then
+							ErrorDetected = true
+							
+							Slot.SocketWarning:Show()
+							
+							if GemCount_Enable > GemCount_Now then
+								if slotName == 'WaistSlot' then
+									if TrueItemLevel < 300 then
+										_, Slot.SocketWarning.Link = GetItemInfo(41611)	
+									elseif TrueItemLevel < 417 then
+										_, Slot.SocketWarning.Link = GetItemInfo(55054)
+									else
+										_, Slot.SocketWarning.Link = GetItemInfo(90046)
+									end
+									
+									Slot.SocketWarning.Message = L['Missing Buckle']
+									
+									Slot.SocketWarning:SetScript('OnClick', function(self)
+										local itemName, itemLink
+										
+										if TrueItemLevel < 300 then
+											itemName, itemLink = GetItemInfo(41611)
+										elseif TrueItemLevel < 417 then
+											itemName, itemLink = GetItemInfo(55054)
+										else
+											itemName, itemLink = GetItemInfo(90046)
+										end
+										
+										if HandleModifiedItemClick(itemLink) then
+										elseif IsShiftKeyDown() and BrowseName and BrowseName:IsVisible() then
+											AuctionFrameBrowse_Reset(BrowseResetButton)
+											BrowseName:SetText(itemName)
+											BrowseName:SetFocus()
+										end
+									end)
+								elseif slotName == 'HandsSlot' then
+									Slot.SocketWarning.Link = GetSpellLink(114112)
+									Slot.SocketWarning.Message = '|cff71d5ff'..GetSpellInfo(110396)..'|r : '..L['Missing Socket']
+								elseif slotName == 'WristSlot' then
+									Slot.SocketWarning.Link = GetSpellLink(113263)
+									Slot.SocketWarning.Message = '|cff71d5ff'..GetSpellInfo(110396)..'|r : '..L['Missing Socket']
+								end
+							else
+								Slot.SocketWarning.Message = '|cffff5678'..(GemCount_Now - GemCount)..'|r '..L['Empty Socket']
+							end
+						end
+						]]
+					else
+						needUpdate = true
 					end
-					]]
 				end
 				
 				if Slot.TransmogrifyAnchor then --<< Transmogrify Parts >>--

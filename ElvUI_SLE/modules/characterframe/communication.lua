@@ -30,6 +30,7 @@ if not AISM.Revision or AISM.Revision <= Revision then
 	AISM.Tooltip = _G['AISM_Tooltip'] or AISM.Tooltip or CreateFrame('GameTooltip', 'AISM_Tooltip', nil, 'GameTooltipTemplate')
 	AISM.Tooltip:SetOwner(UIParent, 'ANCHOR_NONE')
 	AISM.Updater = _G['AISM_Updater'] or AISM.Updater or CreateFrame('Frame', 'AISM_Updater', UIParent)
+	AISM.Updater.elapsed = 0
 	
 	AISM.Delay_SendMessage = 2
 	AISM.Delay_Updater = .5
@@ -115,34 +116,41 @@ if not AISM.Revision or AISM.Revision <= Revision then
 	
 	--<< Player Data Updater Core >>--
 	local needUpdate, args
-	AISM.Updater:SetScript('OnUpdate', function(self)
-		AISM.UpdatedData = needUpdate and AISM.UpdatedData or {}
-		needUpdate = nil
+	AISM.Updater:SetScript('OnUpdate', function(self, elapsed)
+		self.elapsed = self.elapsed + elapsed
 		
-		if not self.ProfessionUpdated then
-			needUpdate = AISM:GetPlayerProfessionSetting() or needUpdate
-		end
-		
-		if not self.SpecUpdated then
-			needUpdate = AISM:GetPlayerSpecSetting() or needUpdate
-		end
-		
-		if not self.GlyphUpdated then
-			needUpdate = AISM:GetPlayerGlyphString() or needUpdate
-		end
-		
-		if self.GearUpdated ~= true then
-			needUpdate = AISM:GetPlayerGearString() or needUpdate
-		end
-		
-		if not needUpdate then
-			self:Hide()
+		if self.elapsed > 0 then
+			self.elapsed = -AISM.Delay_Updater
 			
-			for _ in pairs(AISM.UpdatedData) do
-				if AISM.CurrentGroupMode and AISM.CurrentGroupMode ~= 'NoGroup' and AISM.CurrentGroupType then
-					AISM:SendData(AISM.UpdatedData)
+			AISM.UpdatedData = needUpdate and AISM.UpdatedData or {}
+			needUpdate = nil
+			
+			if not self.ProfessionUpdated then
+				needUpdate = AISM:GetPlayerProfessionSetting() or needUpdate
+			end
+			
+			if not self.SpecUpdated then
+				needUpdate = AISM:GetPlayerSpecSetting() or needUpdate
+			end
+			
+			if not self.GlyphUpdated then
+				needUpdate = AISM:GetPlayerGlyphString() or needUpdate
+			end
+			
+			if self.GearUpdated ~= true then
+				needUpdate = AISM:GetPlayerGearString() or needUpdate
+			end
+			
+			if not needUpdate then
+				self.elapsed = 0
+				self:Hide()
+				
+				for _ in pairs(AISM.UpdatedData) do
+					if AISM.CurrentGroupMode and AISM.CurrentGroupMode ~= 'NoGroup' and AISM.CurrentGroupType then
+						AISM:SendData(AISM.UpdatedData)
+					end
+					break
 				end
-				break
 			end
 		end
 	end)
@@ -341,7 +349,7 @@ if not AISM.Revision or AISM.Revision <= Revision then
 	--<< Gear String >>--
 	function AISM:GetPlayerGearString()
 		local ShortString, FullString, needUpdate, needUpdateList
-		local CurrentSetItem = {}
+		local CurrentSetItem, GearSetIDList = {}, {}
 		
 		local slotID, slotLink, isTransmogrified, transmogrifiedItemID, SetName, GeatSetCount, SetItemMax, SetOptionCount, colorR, colorG, colorB, checkSpace, tooltipText
 		for slotName in pairs(self.Updater.GearUpdated or self.GearList) do
