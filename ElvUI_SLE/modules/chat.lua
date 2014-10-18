@@ -90,7 +90,7 @@ local function GetChatIcon(sender)
 	senderRealm = senderRealm:gsub(' ', '')
 		
 	--Disabling ALL special icons. IDK why Elv use that and why would we want to have that but whatever
-	if specialChatIcons[PLAYER_REALM] and specialChatIcons[PLAYER_REALM][Myname] ~= true then
+	if specialChatIcons and specialChatIcons[PLAYER_REALM] and specialChatIcons[PLAYER_REALM][Myname] ~= true then
 		if specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
 			return specialChatIcons[senderRealm][senderName]
 		end
