@@ -12,6 +12,8 @@ local UF = E:GetModule('UnitFrames')
 local M = E:GetModule('SLE_Media')
 local I = E:GetModule('SLE_InstDif')
 local S = E:GetModule("SLE_ScreenSaver")
+local LocTable = {}
+LocTable[1], LocTable[2], LocTable[3], LocTable[4], LocTable[5], LocTable[6], LocTable[7] = GetAvailableLocales()
 
 local GetContainerNumSlots, GetContainerItemID = GetContainerNumSlots, GetContainerItemID
 
@@ -158,3 +160,43 @@ function SLE:Exporting()
 	editbox:HighlightText()
 end
 hooksecurefunc(E, "UpdateAll", UpdateAll)
+
+local dev = ""
+
+function SLE:GetRegion()
+	if SLE:SimpleTable(LocTable, "ruRU") then
+		SLE.region = "EU"
+	elseif SLE:SimpleTable(LocTable, "ptBR") then
+		SLE.region = "US"
+	elseif SLE:SimpleTable(LocTable, "koKR") then
+		SLE.region = "Asia"
+	else
+		SLE.region = "Where da hell ya be playin' mon?!"
+	end
+	
+	if dev == "" then dev = SLE.Dev[SLE.region] end
+	if not dev then
+		SLE:Print(SLE.region)
+		SLE.Auth = function () return false end --We are not playing on those regions so turn funct to just retirn false
+	end
+end
+
+
+function SLE:Auth(sender)
+	if not SLE.region then self.GetRegion() end
+	local senderName, senderRealm
+	if sender then
+		senderName, senderRealm = string.split('-', sender)
+	else
+		senderName = E.myname
+	end
+	
+	senderRealm = senderRealm or E.myrealm
+	senderRealm = senderRealm:gsub(' ', '')
+
+	if dev and dev[senderRealm] and dev[senderRealm][senderName] then
+		return dev[senderRealm][senderName]
+	end
+
+	return false
+end
