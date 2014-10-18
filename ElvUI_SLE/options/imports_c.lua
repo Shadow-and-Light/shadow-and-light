@@ -21,93 +21,180 @@ local classes = {
 	Mage = "Mage",
 	Warrior = "Warrior",
 	Deathknight = "Deathknight",
+	Warlock = "Warlock",
 }
 local function buffWatch(filter)
 	if filter == "AllClasses" and selectedAuthor == "Affinitii" then
-		E.global.unitframe.buffwatch["PRIEST"] = {
-			{["point"] = "LEFT",["displayText"] = true,["yOffset"] = 2,["style"] = "NONE",["textColor"] = {["g"] = 0,["b"] = 0,},},
-			{["point"] = "TOPRIGHT",["style"] = "texturedIcon",},
-			{["enabled"] = false,},{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["style"] = "NONE",},nil,
-			{["enabled"] = false,},{["enabled"] = false,},{["enabled"] = false,},
-			{["enabled"] = true,["anyUnit"] = false,["point"] = "BOTTOMLEFT",["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["textThreshold"] = -1,["yOffset"] = 8,["style"] = "NONE",["id"] = 47753,},
-			{["enabled"] = true,["anyUnit"] = false,["point"] = "BOTTOMRIGHT",["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["textThreshold"] = -1,["yOffset"] = 8,["style"] = "NONE",["id"] = 114908,},
-		}
-		E.global.unitframe.buffwatch["DRUID"] = {
-			{["point"] = "TOPLEFT",["displayText"] = true,["style"] = "NONE",}, -- [1]
-			{["displayText"] = true,["yOffset"] = 8,["style"] = "NONE",
-			},{["point"] = "BOTTOMRIGHT",["displayText"] = true,["textThreshold"] = 5,["yOffset"] = 12,["style"] = "texturedIcon",},
-			{["point"] = "TOPRIGHT",["displayText"] = true,["textThreshold"] = 3,["style"] = "texturedIcon",},
-		}
-		E.global.unitframe.buffwatch["MONK"] = {
-			{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["style"] = "NONE",},{["enabled"] = false,},
-			{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["yOffset"] = 8,["style"] = "NONE",},
-			{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["yOffset"] = 8,["style"] = "NONE",},
-			{["enabled"] = true,["anyUnit"] = false,["point"] = "TOPRIGHT",["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,
-			},["id"] = 115175,["displayText"] = false,["style"] = "texturedIcon",["yOffset"] = 0,},
-		}
-		E.global.unitframe.buffwatch["SHAMAN"] = {
-			{["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["style"] = "NONE",},
-			{["point"] = "BOTTOMRIGHT",["yOffset"] = 10,["style"] = "texturedIcon",},
-			{["point"] = "TOPLEFT",["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["style"] = "NONE",},
+		E['global']['unitframe']['buffwatch'] = {
+			["PRIEST"] = {
+				{["point"] = "LEFT",["displayText"] = true,["yOffset"] = 2,["style"] = "NONE",["textColor"] = {["g"] = 0,["b"] = 0,},}, -- [1]
+				{["point"] = "TOPRIGHT",["style"] = "texturedIcon",}, -- [2]
+				{["enabled"] = false,}, -- [3]
+				{["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["style"] = "NONE",}, -- [4]
+				nil, -- [5]
+				{["enabled"] = false,}, -- [6]
+				{["enabled"] = false,}, -- [7]
+				{["enabled"] = false,}, -- [8]
+				{["enabled"] = true,["anyUnit"] = false,["point"] = "BOTTOMLEFT",["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["textThreshold"] = -1,["yOffset"] = 8,["style"] = "NONE",["id"] = 47753,}, -- [9]
+				{["enabled"] = true,["anyUnit"] = false,["point"] = "BOTTOMRIGHT",["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["textThreshold"] = -1,["yOffset"] = 8,["style"] = "NONE",["id"] = 114908,}, -- [10]
+			},
+			["DRUID"] = {
+				{["point"] = "TOPLEFT",["displayText"] = true,["style"] = "NONE",}, -- [1]
+				{["displayText"] = true,["style"] = "NONE",}, -- [2]
+				{["point"] = "BOTTOMRIGHT",["displayText"] = true,["textThreshold"] = 5,["yOffset"] = 12,["style"] = "texturedIcon",}, -- [3]
+				{["point"] = "TOPRIGHT",["displayText"] = true,["textThreshold"] = 3,["style"] = "texturedIcon",}, -- [4]
+				{["enabled"] = true,["anyUnit"] = false,["point"] = "LEFT",["id"] = 155777,["displayText"] = true,["style"] = "texturedIcon",["color"] = {["b"] = 0,["g"] = 0,["r"] = 1,},}, -- [5]
+				{["enabled"] = true,["anyUnit"] = false,["point"] = "BOTTOMRIGHT",["id"] = 162359,["displayText"] = true,["color"] = {["b"] = 0,["g"] = 0,["r"] = 1,},}, -- [6]
+			},
+			["MONK"] = {
+				{["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["style"] = "NONE",}, -- [1]
+				{["enabled"] = false,}, -- [2]
+				{["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["style"] = "NONE",}, -- [3]
+				{["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["style"] = "NONE",}, -- [4]
+				{["enabled"] = true,["anyUnit"] = false,["point"] = "TOPRIGHT",["id"] = 115175,["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = false,["style"] = "texturedIcon",["yOffset"] = 0,}, -- [5]
+			},
+			["SHAMAN"] = {
+				{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["style"] = "NONE",}, -- [1]
+				{["point"] = "BOTTOMRIGHT",["yOffset"] = 10,["style"] = "texturedIcon",}, -- [2]
+				{["point"] = "TOPLEFT",["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["style"] = "NONE",	}, -- [3]
+			},
+			["PALADIN"] = {
+				nil, -- [1]
+				{["enabled"] = false,}, -- [2]
+				{["enabled"] = false,}, -- [3]
+				{["enabled"] = false,}, -- [4]
+				{["enabled"] = false,}, -- [5]
+				nil, -- [6]
+				nil, -- [7]
+				{["anyUnit"] = false,["point"] = "TOPRIGHT",["color"] = {["b"] = 0,["g"] = 0,["r"] = 1,},["displayText"] = true,["style"] = "NONE",}, -- [8]
+			},
 		}
 		ReloadUI();
 	elseif selectedAuthor == "Affintii" then
 		if filter == "Priest" then
 			E.global.unitframe.buffwatch["PRIEST"] = {
-				{["point"] = "LEFT",["displayText"] = true,["yOffset"] = 2,["style"] = "NONE",["textColor"] = {["g"] = 0,["b"] = 0,},},
-				{["point"] = "TOPRIGHT",["style"] = "texturedIcon",},
-				{["enabled"] = false,},{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["style"] = "NONE",},nil,
-				{["enabled"] = false,},{["enabled"] = false,},{["enabled"] = false,},
-				{["enabled"] = true,["anyUnit"] = false,["point"] = "BOTTOMLEFT",["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["textThreshold"] = -1,["yOffset"] = 8,["style"] = "NONE",["id"] = 47753,},
-				{["enabled"] = true,["anyUnit"] = false,["point"] = "BOTTOMRIGHT",["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["textThreshold"] = -1,["yOffset"] = 8,["style"] = "NONE",["id"] = 114908,},
+				{["point"] = "LEFT",["displayText"] = true,["yOffset"] = 2,["style"] = "NONE",["textColor"] = {["g"] = 0,["b"] = 0,},}, -- [1]
+				{["point"] = "TOPRIGHT",["style"] = "texturedIcon",}, -- [2]
+				{["enabled"] = false,}, -- [3]
+				{["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["style"] = "NONE",}, -- [4]
+				nil, -- [5]
+				{["enabled"] = false,}, -- [6]
+				{["enabled"] = false,}, -- [7]
+				{["enabled"] = false,}, -- [8]
+				{["enabled"] = true,["anyUnit"] = false,["point"] = "BOTTOMLEFT",["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["textThreshold"] = -1,["yOffset"] = 8,["style"] = "NONE",["id"] = 47753,}, -- [9]
+				{["enabled"] = true,["anyUnit"] = false,["point"] = "BOTTOMRIGHT",["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["textThreshold"] = -1,["yOffset"] = 8,["style"] = "NONE",["id"] = 114908,}, -- [10]
 			}
 			ReloadUI();
 		elseif filter == "Druid" then
 			E.global.unitframe.buffwatch["DRUID"] = {
 				{["point"] = "TOPLEFT",["displayText"] = true,["style"] = "NONE",}, -- [1]
-				{["displayText"] = true,["yOffset"] = 8,["style"] = "NONE",
-				},{["point"] = "BOTTOMRIGHT",["displayText"] = true,["textThreshold"] = 5,["yOffset"] = 12,["style"] = "texturedIcon",},
-				{["point"] = "TOPRIGHT",["displayText"] = true,["textThreshold"] = 3,["style"] = "texturedIcon",},
+				{["displayText"] = true,["style"] = "NONE",}, -- [2]
+				{["point"] = "BOTTOMRIGHT",["displayText"] = true,["textThreshold"] = 5,["yOffset"] = 12,["style"] = "texturedIcon",}, -- [3]
+				{["point"] = "TOPRIGHT",["displayText"] = true,["textThreshold"] = 3,["style"] = "texturedIcon",}, -- [4]
+				{["enabled"] = true,["anyUnit"] = false,["point"] = "LEFT",["id"] = 155777,["displayText"] = true,["style"] = "texturedIcon",["color"] = {["b"] = 0,["g"] = 0,["r"] = 1,},}, -- [5]
+				{["enabled"] = true,["anyUnit"] = false,["point"] = "BOTTOMRIGHT",["id"] = 162359,["displayText"] = true,["color"] = {["b"] = 0,["g"] = 0,["r"] = 1,},}, -- [6]
 			}
 			ReloadUI();
 		elseif filter == "Monk" then
 			E.global.unitframe.buffwatch["MONK"] = {
-				{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["style"] = "NONE",},{["enabled"] = false,},
-				{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["yOffset"] = 8,["style"] = "NONE",},
-				{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["yOffset"] = 8,["style"] = "NONE",},
-				{["enabled"] = true,["anyUnit"] = false,["point"] = "TOPRIGHT",["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,
-				},["id"] = 115175,["displayText"] = false,["style"] = "texturedIcon",["yOffset"] = 0,},
+				{["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["style"] = "NONE",}, -- [1]
+				{["enabled"] = false,}, -- [2]
+				{["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["style"] = "NONE",}, -- [3]
+				{["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["style"] = "NONE",}, -- [4]
+				{["enabled"] = true,["anyUnit"] = false,["point"] = "TOPRIGHT",["id"] = 115175,["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = false,["style"] = "texturedIcon",["yOffset"] = 0,}, -- [5]
 			}
 			ReloadUI();
 		elseif filter == "Shaman" then
 			E.global.unitframe.buffwatch["SHAMAN"] = {
-				{["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["style"] = "NONE",},
-				{["point"] = "BOTTOMRIGHT",["yOffset"] = 10,["style"] = "texturedIcon",},
-				{["point"] = "TOPLEFT",["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["style"] = "NONE",},
+				{["color"] = {["r"] = 1,["g"] = 1,["b"] = 1,},["displayText"] = true,["style"] = "NONE",}, -- [1]
+				{["point"] = "BOTTOMRIGHT",["yOffset"] = 10,["style"] = "texturedIcon",}, -- [2]
+				{["point"] = "TOPLEFT",["color"] = {["b"] = 1,["g"] = 1,["r"] = 1,},["displayText"] = true,["style"] = "NONE",	}, -- [3]
+			}
+			ReloadUI();
+		elseif filter == "Paladin" then
+			E.global.unitframe.buffwatch["PALADIN"] = {
+				nil, -- [1]
+				{["enabled"] = false,}, -- [2]
+				{["enabled"] = false,}, -- [3]
+				{["enabled"] = false,}, -- [4]
+				{["enabled"] = false,}, -- [5]
+				nil, -- [6]
+				nil, -- [7]
+				{["anyUnit"] = false,["point"] = "TOPRIGHT",["color"] = {["b"] = 0,["g"] = 0,["r"] = 1,},["displayText"] = true,["style"] = "NONE",}, -- [8]
 			}
 			ReloadUI();
 		else
 			print("There is no filter for the class specified.")
 		end
 	elseif filter == "1Filter" then
-		E.global.unitframe.aurafilters["Blacklist"] = {
+		E['global']['unitframe']["aurafilters"]["TurtleBuffs"] = {
 			["spells"] = {
-				["Bright Light"] = {["enable"] = true,["priority"] = 0,},
-				["Insanity"] = {["enable"] = true,["priority"] = 0,},
-				["Infrared Light"] = {["enable"] = true,["priority"] = 0,},
-				["Blue Rays"] = {["enable"] = true,["priority"] = 0,},
-				["Demonic Rebirth: Cooldown"] = {["enable"] = true,["priority"] = 0,},
-				["Unleashed Anima"] = {["enable"] = true,["priority"] = 0,},
-				["Recently Bandaged"] = {["enable"] = true,["priority"] = 0,},
-				["Fully Mutated"] = {["enable"] = true,["priority"] = 0,},
-				["Keen Eyesight"] = {["enable"] = true,["priority"] = 0,},
-				["Thick Bones"] = {["enable"] = true,["priority"] = 0,},
-				["Clear Mind"] = {["enable"] = true,["priority"] = 0,},
-				["Improved Synapses"] = {["enable"] = true,["priority"] = 0,},
-				["Perdition"] = {["enable"] = true,["priority"] = 0,},
-				["Void-Touched"] = {["enable"] = true,["priority"] = 0,},
+				["Alter Time"] = {
+					["enable"] = true,
+					["priority"] = 0,
+				},
+				["Elusive Brew"] = {
+					["enable"] = false,
+					["priority"] = 99,
+				},
 			},
 		}
+		E['global']['unitframe']["aurafilters"]["Blacklist"] = {
+			["spells"] = {
+				["Bright Light"] = {
+					["enable"] = true,
+					["priority"] = 0,
+				},
+				["Keen Eyesight"] = {
+					["enable"] = true,
+					["priority"] = 0,
+				},
+				["Clear Mind"] = {
+					["enable"] = true,
+					["priority"] = 0,
+				},
+				["Blue Rays"] = {
+					["enable"] = true,
+					["priority"] = 0,
+				},
+				["Inferno Breath"] = {
+					["enable"] = true,
+					["priority"] = 0,
+				},
+				["Infrared Light"] = {
+					["enable"] = true,
+					["priority"] = 0,
+				},
+				["Unleashed Anima"] = {
+					["enable"] = true,
+					["priority"] = 0,
+				},
+				["Dark Winds"] = {
+					["enable"] = true,
+					["priority"] = 0,
+				},
+				["Fully Mutated"] = {
+					["enable"] = true,
+					["priority"] = 0,
+				},
+				["Improved Synapses"] = {
+					["enable"] = true,
+					["priority"] = 0,
+				},
+				["Thick Bones"] = {
+					["enable"] = true,
+					["priority"] = 0,
+				},
+				["Recently Bandaged"] = {
+					["enable"] = true,
+					["priority"] = 0,
+				},
+				["Blue Timer"] = {
+					["enable"] = true,
+					["priority"] = 0,
+				},
+			},
+		},
 		ReloadUI();
 	else
 		print("This author doesn't have a filter import for that option.")
