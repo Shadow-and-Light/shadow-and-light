@@ -89,7 +89,7 @@ local function CreateButtons()
 	if not mainFlares then return end
 	for i = 1, 9 do
 		if i ~= 9 then
-			SetupButton(FlareB[i], "/clearworldmarker".. i .."\n/worldmarker".. i)
+			SetupButton(FlareB[i], "/clearworldmarker".. i .."\n/worldmarker ".. i)
 		else
 			SetupButton(FlareB[i], "/clearworldmarker all")
 		end
