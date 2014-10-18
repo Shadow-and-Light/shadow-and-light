@@ -119,8 +119,6 @@ function SLE:SettingTable(t, s, root)
 	end
 end
 
-
-
 function SLE:ImportTableReplace(msg)
 	if not string.find(msg, "E.db") and not string.find(msg, "E.private") and not string.find(msg, "E.global") then
 		return nil
