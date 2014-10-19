@@ -107,12 +107,12 @@ local function Login(self, event)
 					header = {
 						order = 1,
 						type = "header",
-						name = "Evil Overlord Control Panel",
+						name = "Version Control Panel",
 					},
 					testdesc = {
 						order = 2,
 						type = "description",
-						name = "WTF are you doing here, asshole?!",
+						name = "",
 					},
 					userList = {
 						order = 3,
@@ -122,11 +122,11 @@ local function Login(self, event)
 							listheader = {
 								order = 1,
 								type = "header",
-								name = "List of possible victims",
+								name = "S&L Users with Version # Installed",
 							},
 							List = {
 								type = 'select',
-								name = 'Choose a channel',
+								name = 'Choose channel to get S&L info from.',
 								order = 2,
 								get = function() return selectedChannel end,
 								set = function(_, value)
