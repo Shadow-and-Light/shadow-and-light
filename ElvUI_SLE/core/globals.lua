@@ -3,10 +3,12 @@ local SLE = E:GetModule('SLE')
 
 --Chat icon paths
 local adapt = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\adapt:0:2|t"
-local repooc = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:0:2|t"
-local darth = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_LogoD:0:2|t"
-local friend = "|TInterface\\Icons\\Spell_Holy_PrayerofSpirit:16:16|t"
-local test = "|TInterface\\Icons\\Achievement_PVP_H_03:16:16|t"
+local repooc = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:0:2|t "
+local darth = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_LogoD:0:2|t "
+--"|TInterface\\Icons\\inv_helmet_131:12:12:0:0:64:64:4:60:4:60|t"
+local friend = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Friend:16:16|t "
+-- local test = "|TInterface\\Icons\\Achievement_PVP_H_03:16:16|t "
+local test = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Test:16:16|t "
 local rpg = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_RPG:13:35|t"
 local kitalie = "|TInterface\\Icons\\%s:12:12:0:0:64:64:4:60:4:60|t"
 local leader = [[|TInterface\GroupFrame\UI-Group-LeaderIcon:12:12|t]]
@@ -96,6 +98,8 @@ SLE.SpecialChatIcons = {
 			["Мейжи"] = darth,
 			--Darth's friends
 			["Леани"] = friend,
+			["Кайрия"] = friend,
+			["Дендрин"] = frined,
 			--Da tester lol
 			["Харореанн"] = test,
 			["Нерререанн"] = test
@@ -106,8 +110,11 @@ SLE.SpecialChatIcons = {
 			--Some people
 			["Брэгар"] = test
 		},
-		["Азурегос"] = {
+		["Пиратскаябухта"] = {
 			["Брэгари"] = test
+		},
+		["ЧерныйШрам"] = {
+			["Емалия"] = friend,
 		},
 	},
 	["US"] = {
