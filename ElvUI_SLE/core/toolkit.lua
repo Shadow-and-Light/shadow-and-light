@@ -12,6 +12,8 @@ local UF = E:GetModule('UnitFrames')
 local M = E:GetModule('SLE_Media')
 local I = E:GetModule('SLE_InstDif')
 local S = E:GetModule("SLE_ScreenSaver")
+local dev = ""
+local lib = LibStub("LibRealmInfo")
 local LocTable = {}
 LocTable[1], LocTable[2], LocTable[3], LocTable[4], LocTable[5], LocTable[6], LocTable[7] = GetAvailableLocales()
 
@@ -161,23 +163,17 @@ function SLE:Exporting()
 end
 hooksecurefunc(E, "UpdateAll", UpdateAll)
 
-local dev = ""
-
 function SLE:GetRegion()
-	if SLE:SimpleTable(LocTable, "ruRU") then
-		SLE.region = "EU"
-	elseif SLE:SimpleTable(LocTable, "ptBR") then
-		SLE.region = "US"
-	elseif SLE:SimpleTable(LocTable, "koKR") then
-		SLE.region = "Asia"
-	else
-		SLE.region = "Where da hell ya be playin' mon?!"
-	end
-	
+	local pid = BNGetInfo()
+	local rid = select(5, BNGetToonInfo(pid))
+	local region = select(6, lib:GetRealmInfo(rid))
+	SLE.region = region
+
+	if not SLE.region then SLE.region = format("An error happened while processing your realm. Please report error id and realm to |cff1784d1Shadow & Light|r authors! Error id: %s. Realm: %s", rid, E.myrealm) end
 	if dev == "" then dev = SLE.Dev[SLE.region] end
 	if not dev then
 		SLE:Print(SLE.region)
-		SLE.Auth = function () return false end --We are not playing on those regions so turn funct to just retirn false
+		SLE.region = ""
 	end
 end
 
