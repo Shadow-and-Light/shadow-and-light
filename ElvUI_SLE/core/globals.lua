@@ -66,8 +66,9 @@ SLE.Dev = {
 			["Arillora"] = true,
 		},
 	},
-	["Asia"] = {
-	},
+	["CN"] = {},
+	["KR"] = {},
+	["TW"] = {},
 }
 
 SLE.SpecialChatIcons = {
@@ -155,6 +156,7 @@ SLE.SpecialChatIcons = {
 			["Sliceoflife"] = repooc
 		},
 	},
-	["Asia"] = {
-	}
+	["CN"] = {},
+	["KR"] = {},
+	["TW"] = {},
 }
