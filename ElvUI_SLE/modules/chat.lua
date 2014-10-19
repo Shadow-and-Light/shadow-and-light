@@ -288,6 +288,6 @@ hooksecurefunc(CH, "Initialize", function(self)
 		self:RegisterEvent('GUILD_ROSTER_UPDATE', Roster)
 		GMCheck()
 	end
-	SLE:Auth()
+	SLE:GetRegion()
 	specialChatIcons = SLE.SpecialChatIcons[SLE.region]
 end)

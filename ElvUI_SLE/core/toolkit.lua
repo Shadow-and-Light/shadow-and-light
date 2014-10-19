@@ -179,7 +179,6 @@ end
 
 
 function SLE:Auth(sender)
-	if not SLE.region then self.GetRegion() end
 	local senderName, senderRealm
 	if sender then
 		senderName, senderRealm = string.split('-', sender)
