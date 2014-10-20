@@ -137,12 +137,9 @@ function CH:PositionChat(override)
 		else
 			if E.db.sle.datatext.chathandle then 
 				if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
-					if  not E.db.datatexts.leftChatPanel then
-						BASE_OFFSET = BASE_OFFSET - 24
-						chat:SetPoint("BOTTOMLEFT", LeftChatPanel, "BOTTOMLEFT", 1, 4)
-					end
-					chat:Size(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - PixelOff))
-					chat:Height(E.db.chat.panelHeight - PixelOff)
+					BASE_OFFSET = BASE_OFFSET - 24
+					chat:SetPoint("BOTTOMLEFT", LeftChatPanel, "BOTTOMLEFT", 1, 4)
+					chat:Size(E.db.chat.panelWidth - 11, E.db.chat.panelHeight - PixelOff)
 				end
 			else
 				if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
