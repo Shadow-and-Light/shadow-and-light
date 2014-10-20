@@ -4,6 +4,8 @@ local LSM = LibStub("LibSharedMedia-3.0")
 
 local CA = CreateFrame('Frame', 'CharacterArmory', PaperDollFrame)
 local SlotIDList = {}
+local InsetDefaultPoint = { CharacterFrameInsetRight:GetPoint() }
+local ExpandButtonDefaultPoint = { CharacterFrameExpandButton:GetPoint() }
 
 CA.elapsed = 0
 CA.Delay_Updater = .5
@@ -122,11 +124,12 @@ do --<< Button Script >>--
 	end
 end
 
+
 function CA:Setup_CharacterArmory()
 	--<< Core >>--
 	self:Point('TOPLEFT', CharacterFrameInset, 10, 20)
 	self:Point('BOTTOMRIGHT', CharacterFrameInsetRight, 'BOTTOMLEFT', -10, 5)
-
+	
 	--<< Updater >>--
 	local args
 	self:SetScript('OnEvent', function(self, Event, ...)
@@ -161,9 +164,19 @@ function CA:Setup_CharacterArmory()
 			self:SetScript('OnUpdate', self.CharacterArmory_DataSetting)
 		end
 	end)
-	hooksecurefunc('CharacterFrame_Collapse', function() CharacterFrame:SetWidth(PaperDollFrame:IsShown() and 448 or PANEL_DEFAULT_WIDTH) end)
-	hooksecurefunc('CharacterFrame_Expand', function() CharacterFrame:SetWidth(650); end)
-	hooksecurefunc('ToggleCharacter', function(frameType) if frameType ~= 'PaperDollFrame' then CharacterFrame:SetWidth(PANEL_DEFAULT_WIDTH) end end)
+	hooksecurefunc('CharacterFrame_Collapse', function() if PaperDollFrame:IsShown() then CharacterFrame:SetWidth(448) end end)
+	hooksecurefunc('CharacterFrame_Expand', function() if PaperDollFrame:IsShown() then CharacterFrame:SetWidth(650) end end)
+	hooksecurefunc('ToggleCharacter', function(frameType)
+		if frameType ~= 'PaperDollFrame' and frameType ~= 'PetPaperDollFrame' then
+			CharacterFrame:SetWidth(PANEL_DEFAULT_WIDTH)
+		else if frameType == 'PaperDollFrame' then
+			CharacterFrameInsetRight:SetPoint('TOPLEFT', CharacterFrameInset, 'TOPRIGHT', 110, 0)
+			CharacterFrameExpandButton:SetPoint('BOTTOMRIGHT', CharacterFrameInsetRight, 'BOTTOMLEFT', 0, 1)
+		else
+			CharacterFrameInsetRight:SetPoint(unpack(InsetDefaultPoint))
+			CharacterFrameExpandButton:SetPoint(unpack(ExpandButtonDefaultPoint))
+		end
+	end)
 	hooksecurefunc('PaperDollFrame_SetLevel', function()
 		CharacterLevelText:SetText('|c'..RAID_CLASS_COLORS[E.myclass].colorStr..CharacterLevelText:GetText())
 
