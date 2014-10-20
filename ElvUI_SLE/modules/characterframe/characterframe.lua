@@ -169,7 +169,7 @@ function CA:Setup_CharacterArmory()
 	hooksecurefunc('ToggleCharacter', function(frameType)
 		if frameType ~= 'PaperDollFrame' and frameType ~= 'PetPaperDollFrame' then
 			CharacterFrame:SetWidth(PANEL_DEFAULT_WIDTH)
-		else if frameType == 'PaperDollFrame' then
+		elseif frameType == 'PaperDollFrame' then
 			CharacterFrameInsetRight:SetPoint('TOPLEFT', CharacterFrameInset, 'TOPRIGHT', 110, 0)
 			CharacterFrameExpandButton:SetPoint('BOTTOMRIGHT', CharacterFrameInsetRight, 'BOTTOMLEFT', 0, 1)
 		else
@@ -177,6 +177,7 @@ function CA:Setup_CharacterArmory()
 			CharacterFrameExpandButton:SetPoint(unpack(ExpandButtonDefaultPoint))
 		end
 	end)
+	
 	hooksecurefunc('PaperDollFrame_SetLevel', function()
 		CharacterLevelText:SetText('|c'..RAID_CLASS_COLORS[E.myclass].colorStr..CharacterLevelText:GetText())
 
