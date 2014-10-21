@@ -317,8 +317,7 @@ for ClassName, SpecializationIDTable in pairs({
 		Destruction = 267
 	}
 }) do
-	L[ClassName] = SLArmoryConstants.Toolkit.Color_Class('WARRIOR', LOCALIZED_CLASS_NAMES_MALE[string.upper(ClassName)])
-	
+	L[ClassName] = SLArmoryConstants.Toolkit.Color_Class(strupper(ClassName), LOCALIZED_CLASS_NAMES_MALE[string.upper(ClassName)])
 	for Name, ID in pairs(SpecializationIDTable) do
 		_, L['Spec_'..ClassName..'_'..Name] = GetSpecializationInfoByID(ID)
 	end
