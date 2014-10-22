@@ -3,6 +3,7 @@ v2.04
 - Updated filters from Affiniti in import section
 - Using our layouts should no longer cause AddonSkins to throw errros around
 - Screensaver model can now be placed in center of the screen
+- Added a button to screensaver that allows to remove afk flag (hiding screensaver as well). Or you can exit AFK by hitting Escape button. Usefull for those who doesn't have auto clear afk enabled.
 - Added more flares to the raid flares bar
 - Fixed Armory mode breaking pet stats window
 - ElvUI has own screensaver now. Enabling the one from S&L will now disable Elv's. Also the option in /ec - general will no longer be available for activation until our screensaver is turned off.
