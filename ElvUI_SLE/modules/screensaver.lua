@@ -248,11 +248,8 @@ function S:Event(event, unit)
 	if event == "PLAYER_FLAGS_CHANGED" and unit ~= "player" then return end
 	if UnitIsAFK("player") then
 		SS:Show()
+		UIParent:Hide()
 		Minimap:Hide()
-		if not fading then
-			fading = true
-			UIFrameFadeIn(UIParent, 0.5, 1, 0)
-		end
 	else
 		FlipCameraYaw(-degree)
 		degree = 0
@@ -262,17 +259,32 @@ function S:Event(event, unit)
 		else
 			Minimap:Show()
 		end
-		if fading then
-			fading = false
-			UIFrameFadeIn(UIParent, 0.5, 0, 1)
-		end
+		UIParent:Show()
 	end
 	if event == "PLAYER_REGEN_ENABLED" then self:UnregisterEvent(event) end
 	if event == "PLAYER_ENTERING_WORLD" then self:UnregisterEvent(event) end
 end
 
+function S:UpdateConfig()
+	if IsAddOnLoaded("ElvUI_Config") then
+		if E.db.sle.media.screensaver.enable then
+			E.Options.args.general.args.general.args.afk.disabled = function() return true end
+		else
+			E.Options.args.general.args.general.args.afk.disabled = function() return false end
+		end
+	end
+end
+
+local function LoadConfig(event, addon)
+	if addon ~= "ElvUI_Config" then return end
+
+	S:UpdateConfig()
+	S:UnregisterEvent("ADDON_LOADED")
+end
+
 function S:Reg(opt)
-	if E.db.sle.media.screensaver.enable then 
+	if E.db.sle.media.screensaver.enable then
+		if E.db.general then E.db.general.afk = false E:GetModule("AFK"):Toggle() end
 		self:RegisterEvent("PLAYER_ENTERING_WORLD", "Event")
 		self:RegisterEvent("PLAYER_FLAGS_CHANGED", "Event")
 		self:RegisterEvent("PLAYER_LOGIN", "Event")
@@ -293,4 +305,5 @@ function S:Initialize()
 	SS:SetScript("OnShow", self.Shown)
 	SS:SetScript("OnUpdate", self.Update)
 	self:Reg()
+	self:RegisterEvent("ADDON_LOADED", LoadConfig)
 end
