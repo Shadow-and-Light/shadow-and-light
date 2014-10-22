@@ -259,7 +259,7 @@ local function configTable()
 						type = "toggle",
 						name = L["Enable"],
 						get = function(info) return E.db.sle.media.screensaver.enable end,
-						set = function(info, value) E.db.sle.media.screensaver.enable = value; S:Reg(true) end,
+						set = function(info, value) E.db.sle.media.screensaver.enable = value; S:Reg(true); S:UpdateConfig() end,
 					},
 					fonts = {
 						type = "group",
