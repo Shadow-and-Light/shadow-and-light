@@ -55,8 +55,6 @@ local UpdateElapsed, TipsElapsed, TipNum, TipThrottle, OldTip = 0, 0, 1, 10, 0
 local degree = 0
 local fading = false
 
-local Tips = L["SLE_TIPS"]
-
 function S:Media()
 	local db = E.db.sle.media.screensaver
 	SS.Top.Title:SetFont(LSM:Fetch('font', db.title.font), db.title.size, db.title.outline)
@@ -196,7 +194,7 @@ function S:AnimTestFinished()
 end
 
 function S:Shown()
-	Level, Name, TipNum = UnitLevel("player"), UnitPVPName("player"), random(1, #Tips)
+	Level, Name, TipNum = UnitLevel("player"), UnitPVPName("player"), random(1, #L["SLE_TIPS"])
 	if IsInGuild() then
 		GuildName, GuildRank = GetGuildInfo("player")
 	end
@@ -235,7 +233,7 @@ function S:Shown()
 
 	
 
-	self.ScrollFrame:AddMessage(Tips[TipNum], 1, 1, 1)
+	self.ScrollFrame:AddMessage(L["SLE_TIPS"][TipNum], 1, 1, 1)
 end
 
 function S:Update(elapsed)
@@ -256,9 +254,9 @@ function S:Update(elapsed)
 		UpdateElapsed = 0
 	end
 	if TipsElapsed > TipThrottle then
-		TipNum = random(1, #Tips)
-		if TipNum == OldTip then TipNum = random(1, #Tips) end
-		self.ScrollFrame:AddMessage(Tips[TipNum], 1, 1, 1) 
+		TipNum = random(1, #L["SLE_TIPS"])
+		if TipNum == OldTip then TipNum = random(1, #L["SLE_TIPS"]) end
+		self.ScrollFrame:AddMessage(L["SLE_TIPS"][TipNum], 1, 1, 1) 
 		OldTip = TipNum
 		TipsElapsed = 0
 	end
