@@ -2,6 +2,7 @@
 local SLE = E:GetModule('SLE');
 local S = E:GetModule("SLE_ScreenSaver")
 local LSM = LibStub("LibSharedMedia-3.0")
+local Sk = E:GetModule("Skins")
 local SS
 local ru = false
 local Months = {}
@@ -71,6 +72,8 @@ function S:Media()
 	SS.FactCrest:SetSize(db.crest, db.crest)
 	SS.RaceCrest:SetSize(db.crest, db.crest)
 	SS.ExPack:SetSize(E.db.sle.media.screensaver.xpack, E.db.sle.media.screensaver.xpack/2)
+	SS.Elv:SetSize(E.db.sle.media.screensaver.xpack, E.db.sle.media.screensaver.xpack/2)
+	SS.sle:SetSize(E.db.sle.media.screensaver.xpack, E.db.sle.media.screensaver.xpack/2)
 end
 
 function S:Setup()
@@ -83,6 +86,10 @@ function S:Setup()
 	SS.FactCrest:SetTexture(CrestPath..FactionToken)
 	SS.RaceCrest = SS.Top:CreateTexture(nil, 'ARTWORK')
 	SS.RaceCrest:SetTexture(CrestPath..RaceToken)
+	SS.Elv = SS.Bottom:CreateTexture(nil, 'OVERLAY')
+	SS.Elv:SetTexture("Interface\\AddOns\\ElvUI\\media\\textures\\logo.tga")
+	SS.sle = SS.Bottom:CreateTexture(nil, 'OVERLAY')
+	SS.sle:SetTexture("Interface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Banner")
 	SS.ExPack = SS.Top:CreateTexture(nil, 'OVERLAY')
 	SS.ExPack:SetTexture([[Interface\Glues\Common\Glues-WoW-WoDLogo.blp]])
 	SS.model = CreateFrame("PlayerModel", "ScreenModel", SS)
@@ -97,6 +104,15 @@ function S:Setup()
 	SS.Top.Guild = SS.Top:CreateFontString(nil, "OVERLAY")
 	SS.Top.GuildR = SS.Top:CreateFontString(nil, "OVERLAY")
 	SS.ScrollFrame = CreateFrame("ScrollingMessageFrame", nil, SS)
+	
+	SS.button = CreateFrame("Button", "SLE_SS_AFK", SS.Bottom)
+	SS.button:Size(150, 30)
+	SS.button:SetScript("OnClick", function() SendChatMessage("" ,"AFK" ) end)
+	SS.button.text = SS.button:CreateFontString(nil, "OVERLAY")
+	SS.button.text:FontTemplate(nil, nil, "OUTLINE")
+	SS.button.text:SetText(L['Exit AFK'])
+	SS.button.text:Point("CENTER", SS.button)
+	Sk:HandleButton(SS.button, true)
 	
 	SS.testmodel = CreateFrame("PlayerModel", "ScreenTestModel", E.UIParent)
 	SS.testmodel:SetPoint("RIGHT", E.UIParent, "RIGHT", -5, 0)
@@ -124,10 +140,14 @@ function S:Setup()
 	SS.Top.GuildR:SetPoint("TOP", SS.Top.Guild, "BOTTOM", 0, -2)
 	SS.FactCrest:SetPoint("CENTER", SS.Top, "BOTTOM", -(GetScreenWidth()/6), 0)
 	SS.RaceCrest:SetPoint("CENTER", SS.Top, "BOTTOM", (GetScreenWidth()/6), 0)
+	SS.Elv:SetPoint("CENTER", SS.Bottom, "TOP", -(GetScreenWidth()/10), 0)
+	SS.sle:SetPoint("CENTER", SS.Bottom, "TOP", (GetScreenWidth()/10), 0)
 	SS.ExPack:SetPoint("CENTER", SS.Top, "BOTTOM", 0, 0)
 	SS.Top.Title:SetPoint("TOP", SS.Top, "TOP", 0, -10)
 	SS.Top.Quote:SetPoint("TOP", SS.Top.Title, "BOTTOM", 0, -2)
 	SS.ScrollFrame:SetPoint("CENTER", SS.Bottom, "CENTER", 0, 0)
+	
+	SS.button:SetPoint("TOP", SS.Bottom, "TOP")
 
 	SS.Top.Title:SetText("|cff00AAFF"..L['You Are Away From Keyboard'].."|r")
 	-----
@@ -296,6 +316,12 @@ function S:Reg(opt)
 	if opt then self:Media() end
 end
 
+function S:Escape()
+	if E.db.sle.media.screensaver.enable and UnitIsAFK("player") then 
+		SendChatMessage("" ,"AFK" )
+	end
+end
+
 function S:Initialize()
 	SS = CreateFrame("Frame", "SLE_SS", WorldFrame)
 	SS:Hide()
@@ -304,6 +330,7 @@ function S:Initialize()
 	self:Setup()
 	SS:SetScript("OnShow", self.Shown)
 	SS:SetScript("OnUpdate", self.Update)
+	UIParent:HookScript("OnShow", S.Escape) 
 	self:Reg()
 	self:RegisterEvent("ADDON_LOADED", LoadConfig)
 end
