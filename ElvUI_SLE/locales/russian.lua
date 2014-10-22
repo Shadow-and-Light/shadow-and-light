@@ -75,6 +75,7 @@ L["SLE_TIPS"] = {
 }
 L['You Are Away From Keyboard'] = "Вы отошли от компьютера"
 L["Take care of yourself, Master!"] = "Не задерживайтесь, Хозяин!"
+L['Exit AFK'] = "Вернуться"
 
 
 
