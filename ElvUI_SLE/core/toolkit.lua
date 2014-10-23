@@ -169,7 +169,7 @@ function SLE:GetRegion()
 	local region = select(6, lib:GetRealmInfo(rid))
 	SLE.region = region
 
-	if not SLE.region then SLE.region = format("An error happened while processing your realm. Please report error id and realm to |cff1784d1Shadow & Light|r authors! Error id: %s. Realm: %s", rid, E.myrealm) end
+	if not SLE.region then SLE.region = format("An error happened while processing your realm. Please report error id, realm and the region you are playing to |cff1784d1Shadow & Light|r authors! Error id: %s. Realm: %s", rid, E.myrealm) end
 	if dev == "" then dev = SLE.Dev[SLE.region] end
 	if not dev then
 		SLE:Print(SLE.region)
