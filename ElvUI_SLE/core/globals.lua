@@ -84,7 +84,7 @@ SLE.SpecialChatIcons = {
 		},
 		["ВечнаяПесня"] = {
 			--Darth's toons
-			-- ["Дартпредатор"] = darth,
+			["Дартпредатор"] = darth,
 			["Алея"] = darth,
 			["Ваззули"] = darth,
 			["Сиаранна"] = darth,
