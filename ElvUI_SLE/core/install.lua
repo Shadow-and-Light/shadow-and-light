@@ -830,18 +830,17 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	E:UpdateAll(true)
 	
 	if AddOnSkins then
-		E.private["addonskins"] = {
-			["Blizzard_WorldStateCaptureBar"] = true,
-			["EmbedOoCDelay"] = 5,
-			["EmbedOoC"] = true,
-			["DBMFontSize"] = 10,
-			["DBMSkinHalf"] = true,
-			["DBMFont"] = "ElvUI Font",
-			["EmbedLeftWidth"] = 213,
-			["EmbedSystemDual"] = true,
-			['EmbedLeft'] = 'Skada',
-			['EmbedRight'] = 'Skada',
-		}
+		E.private["addonskins"]["Blizzard_WorldStateCaptureBar"] = true
+		E.private["addonskins"]["EmbedOoCDelay"] = 5
+		E.private["addonskins"]["EmbedOoC"] = true
+		E.private["addonskins"]["DBMFontSize"] = 10
+		E.private["addonskins"]["DBMSkinHalf"] = true
+		E.private["addonskins"]["DBMFont"] = "ElvUI Font"
+		E.private["addonskins"]["EmbedLeftWidth"] = 213
+		E.private["addonskins"]["EmbedSystemDual"] = true
+		E.private["addonskins"]['EmbedLeft'] = 'Skada'
+		E.private["addonskins"]['EmbedRight'] = 'Skada'
+		E.private["addonskins"]["EmbedSystem"] = false
 	end
 end
 
@@ -1083,15 +1082,14 @@ local function RepoocSetup() --The function to switch from classic ElvUI setting
 	E:UpdateAll(true)
 
 	if AddOnSkins then
-		E.private["addonskins"] = {
-			["Blizzard_WorldStateCaptureBar"] = true,
-			["EmbedOoC"] = false,
-			["DBMSkinHalf"] = true,
-			["DBMFont"] = "ElvUI Font",
-			["EmbedSystemDual"] = true,
-			["EmbedLeft"] = "Skada",
-			["EmbedRight"] = "Skada",
-		}
+		E.private["addonskins"]["Blizzard_WorldStateCaptureBar"] = true
+		E.private["addonskins"]["EmbedOoC"] = false
+		E.private["addonskins"]["DBMSkinHalf"] = true
+		E.private["addonskins"]["DBMFont"] = "ElvUI Font"
+		E.private["addonskins"]["EmbedSystemDual"] = true
+		E.private["addonskins"]["EmbedLeft"] = "Skada"
+		E.private["addonskins"]["EmbedRight"] = "Skada"
+		E.private["addonskins"]["EmbedSystem"] = false
 	end
 end
 
