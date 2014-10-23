@@ -1596,14 +1596,11 @@ local function AffinitiiSetup() --The function to switch from class ElvUI settin
 	E:UpdateAll(true)
 	
 	if AddOnSkins then
-		E.private["addonskins"] = {
-			["Blizzard_WorldStateCaptureBar"] = true,
-			["EmbedSkada"] = true,
-			["EmbedalDamageMeter"] = false,
-			["EmbedSystemDual"] = true,
-			['EmbedLeft'] = 'Skada',
-			['EmbedRight'] = 'Skada',
-		}
+		E.private["addonskins"]["Blizzard_WorldStateCaptureBar"] = true
+		E.private["addonskins"]["EmbedSystem"] = false
+		E.private["addonskins"]["EmbedSystemDual"] = true
+		E.private["addonskins"]['EmbedLeft'] = 'Skada'
+		E.private["addonskins"]['EmbedRight'] = 'Skada'
 	end
 end
 
