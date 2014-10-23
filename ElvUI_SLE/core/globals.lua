@@ -11,7 +11,6 @@ local friend = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Friend:16:
 local test = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Test:16:16|t "
 local rpg = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_RPG:13:35|t"
 local kitalie = "|TInterface\\Icons\\%s:12:12:0:0:64:64:4:60:4:60|t"
-local leader = [[|TInterface\GroupFrame\UI-Group-LeaderIcon:12:12|t]]
 
 E.SLEConfigs = {}
 
