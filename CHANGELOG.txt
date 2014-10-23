@@ -1,4 +1,4 @@
-v2.04
+v2.04 10/22/2014
 - Fixed chat item tooltip flickering
 - Updated filters from Affiniti in import section
 - Using our layouts should no longer cause AddonSkins to throw errros around
