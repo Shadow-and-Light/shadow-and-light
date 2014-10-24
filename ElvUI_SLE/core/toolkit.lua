@@ -164,12 +164,20 @@ end
 hooksecurefunc(E, "UpdateAll", UpdateAll)
 
 function SLE:GetRegion()
-	local pid = BNGetInfo()
-	local rid = select(5, BNGetToonInfo(pid))
-	local region = select(6, lib:GetRealmInfo(rid))
-	SLE.region = region
-
-	if not SLE.region then SLE.region = format("An error happened while processing your realm. Please report error id, realm and the region you are playing to |cff1784d1Shadow & Light|r authors! Error id: %s. Realm: %s", rid, E.myrealm) end
+	-- local pid = BNGetInfo()
+	-- local rid = select(5, BNGetToonInfo(pid))
+	-- local region = select(6, lib:GetRealmInfo(rid))
+	local rid = GetCurrentRegion()
+	local region = {
+		[1] = "US",
+		[2] = "KR",
+		[3] = "EU",
+		[4] = "TW",
+		[5] = "CN",
+	}
+	SLE.region = region[rid]
+	if not SLE.region then SLE.region = format("An error happened. Your region is unknown. Realm: %s. Please report your realm name and the region you are playing in to |cff1784d1Shadow & Light|r authors.", E.myrealm)  end
+	-- if not SLE.region then SLE.region = format("An error happened while processing your realm. Please report error id, realm and the region you are playing to |cff1784d1Shadow & Light|r authors! Error id: %s. Realm: %s", rid, E.myrealm) end
 	if dev == "" then dev = SLE.Dev[SLE.region] end
 	if not dev then
 		SLE:Print(SLE.region)
