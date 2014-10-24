@@ -6,14 +6,12 @@ local IsInInstance, IsInGuild = IsInInstance, IsInGuild
 local f 
 
 local function CreateText()
-f = CreateFrame("Frame", "MiniMapDifFrame", Minimap)
-f:Size(50, 20)
-
--- f:Point("CENTER", UIParent)
-
-f.text = f:CreateFontString(nil, 'OVERLAY')
-f.text:SetFont(E["media"].normFont, 12)
-f.text:SetPoint("CENTER", f, "CENTER")
+	f = CreateFrame("Frame", "MiniMapDifFrame", Minimap)
+	f:Size(50, 20)
+	-- f:Point("CENTER", UIParent)
+	f.text = f:CreateFontString(nil, 'OVERLAY')
+	f.text:SetFont(E["media"].normFont, 12)
+	f.text:SetPoint("CENTER", f, "CENTER")
 end
 
 
