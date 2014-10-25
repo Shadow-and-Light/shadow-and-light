@@ -44,7 +44,7 @@ local PixelOff = E.PixelMode and 31 or 27
 function CH:PositionChat(override)
 	if not self.db.lockPositions or ((InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override)) then return end
 	if not RightChatPanel or not LeftChatPanel then return; end
-	RightChatPanel:SetSize(E.db.chat.panelWidth, E.db.chat.panelHeight)
+	RightChatPanel:SetSize(E.db.chat.separateSizes and E.db.chat.panelWidthRight or E.db.chat.panelWidth, E.db.chat.separateSizes and E.db.chat.panelHeightRight or E.db.chat.panelHeight)
 	LeftChatPanel:SetSize(E.db.chat.panelWidth, E.db.chat.panelHeight)	
 	
 	if E.private.chat.enable ~= true then return end
@@ -101,7 +101,7 @@ function CH:PositionChat(override)
 					chat:SetPoint("BOTTOMLEFT", RightChatPanel, "BOTTOMLEFT", 4, 4)
 				end
 				if id ~= 2 then
-					chat:Size(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - PixelOff))
+					chat:Size((E.db.chat.separateSizes and E.db.chat.panelWidthRight or E.db.chat.panelWidth) - 11, ((E.db.chat.separateSizes and E.db.chat.panelHeightRight or E.db.chat.panelHeight) - PixelOff))
 				end
 			else
 				if E.db.datatexts.rightChatPanel then
@@ -111,7 +111,7 @@ function CH:PositionChat(override)
 					chat:SetPoint("BOTTOMLEFT", RightChatDataPanel, "BOTTOMLEFT", 1, 1)
 				end
 				if id ~= 2 then
-					chat:SetSize(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - BASE_OFFSET))
+					chat:SetSize((E.db.chat.separateSizes and E.db.chat.panelWidthRight or E.db.chat.panelWidth) - 11, (E.db.chat.separateSizes and E.db.chat.panelHeightRight or E.db.chat.panelHeight) - BASE_OFFSET)
 				else
 					chat:SetSize(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - BASE_OFFSET) - CombatLogQuickButtonFrame_Custom:GetHeight())				
 				end
