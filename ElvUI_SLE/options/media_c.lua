@@ -33,6 +33,7 @@ local function configTable()
 						order = 2,
 						type = 'execute',
 						name = L["Test"],
+						disabled = function() return not E.private.general.replaceBlizzFonts end,
 						func = function() M:TextShow() end,
 					},
 					zone = {
@@ -40,6 +41,7 @@ local function configTable()
 						name = L["Zone Text"],
 						order = 3,
 						guiInline = true,
+						disabled = function() return not E.private.general.replaceBlizzFonts end,
 						get = function(info) return E.db.sle.media.fonts.zone[ info[#info] ] end,
 						set = function(info, value) E.db.sle.media.fonts.zone[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
@@ -82,6 +84,7 @@ local function configTable()
 						name = L["Subzone Text"],
 						order = 4,
 						guiInline = true,
+						disabled = function() return not E.private.general.replaceBlizzFonts end,
 						get = function(info) return E.db.sle.media.fonts.subzone[ info[#info] ] end,
 						set = function(info, value) E.db.sle.media.fonts.subzone[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
@@ -130,6 +133,7 @@ local function configTable()
 						name = L["PvP Status Text"],
 						order = 5,
 						guiInline = true,
+						disabled = function() return not E.private.general.replaceBlizzFonts end,
 						get = function(info) return E.db.sle.media.fonts.pvp[ info[#info] ] end,
 						set = function(info, value) E.db.sle.media.fonts.pvp[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
@@ -179,6 +183,7 @@ local function configTable()
 						name = L["Mail Text"],
 						order = 1,
 						guiInline = true,
+						disabled = function() return not E.private.general.replaceBlizzFonts end,
 						get = function(info) return E.db.sle.media.fonts.mail[ info[#info] ] end,
 						set = function(info, value) E.db.sle.media.fonts.mail[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
@@ -215,6 +220,7 @@ local function configTable()
 						name = L["Chat Editbox Text"],
 						order = 2,
 						guiInline = true,
+						disabled = function() return not E.private.general.replaceBlizzFonts end,
 						get = function(info) return E.db.sle.media.fonts.editbox[ info[#info] ] end,
 						set = function(info, value) E.db.sle.media.fonts.editbox[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
