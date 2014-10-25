@@ -203,6 +203,7 @@ local function Click(self, btn)
 end
 
 local function OnEnter(self)
+	if SLE_SS:IsShown() then return end
 	DT:SetupTooltip(self)
 
 	DT.tooltip:AddLine(L['Session:'])

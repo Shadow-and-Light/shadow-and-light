@@ -238,6 +238,7 @@ end
 function LDB.OnLeave() end
 
 function LDB.OnEnter(self)
+	if SLE_SS:IsShown() then return end
 	if E.db.sle.dt.guild.combat and InCombatLockdown() then return end
 	LDB_ANCHOR = self
 
