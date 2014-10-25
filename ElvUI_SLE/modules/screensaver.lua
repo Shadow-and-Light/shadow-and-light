@@ -337,4 +337,6 @@ function S:Initialize()
 	-- SS:SetScript("OnKeyDown", S.Escape)
 	self:Reg()
 	self:RegisterEvent("ADDON_LOADED", LoadConfig)
+	self:RegisterEvent("LFG_PROPOSAL_SHOW", S.Escape)
+	self:RegisterEvent("UPDATE_BATTLEFIELD_STATUS", S.Escape)
 end
