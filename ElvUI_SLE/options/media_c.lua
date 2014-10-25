@@ -271,6 +271,7 @@ local function configTable()
 						type = "group",
 						name = L["Fonts"],
 						order = 1,
+						disabled = function() return not E.db.sle.media.screensaver.enable end,
 						args = {
 							title = {
 								type = "group",
@@ -453,6 +454,7 @@ local function configTable()
 						type = "group",
 						name = L["Graphics"],
 						order = 2,
+						disabled = function() return not E.db.sle.media.screensaver.enable end,
 						-- get = function(info) return E.db.sle.media.screensaver[ info[#info] ] end,
 						-- set = function(info, value) E.db.sle.media.screensaver[ info[#info] ] = value S:Media() end,
 						args = {
