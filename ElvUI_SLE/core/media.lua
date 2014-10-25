@@ -57,18 +57,20 @@ local function ZoneTextPos()
 end
 
 local function SetFonts()
-	local db = E.db.sle.media.fonts
+	if E.private.general.replaceBlizzFonts then
+		local db = E.db.sle.media.fonts
 
-	ZoneTextString:SetFont(LSM:Fetch('font', db.zone.font), db.zone.size, db.zone.outline) -- Main zone name
-	PVPInfoTextString:SetFont(LSM:Fetch('font', db.pvp.font), db.pvp.size, db.pvp.outline) -- PvP status for main zone
-	PVPArenaTextString:SetFont(LSM:Fetch('font', db.pvp.font), db.pvp.size, db.pvp.outline) -- PvP status for subzone
-	SubZoneTextString:SetFont(LSM:Fetch('font', db.subzone.font), db.subzone.size, db.subzone.outline) -- Subzone name
-	
-	SendMailBodyEditBox:SetFont(LSM:Fetch('font', db.mail.font), db.mail.size, db.mail.outline) --Writing letter text
-	OpenMailBodyText:SetFont(LSM:Fetch('font', db.mail.font), db.mail.size, db.mail.outline) --Received letter text
-	--QuestFont:SetFont(LSM:Fetch('font', "ElvUI Pixel"), 12, "") -- Font in Quest Log/Petitions and shit. It's fucking hedious with any outline so fuck it.
-	--QuestFont_Large:SetFont(LSM:Fetch('font', "ElvUI Pixel"), 12, "") -- No idea what that is for
-	NumberFont_Shadow_Med:SetFont(LSM:Fetch('font', db.editbox.font), db.editbox.size, db.editbox.outline) --Chat editbox
+		ZoneTextString:SetFont(LSM:Fetch('font', db.zone.font), db.zone.size, db.zone.outline) -- Main zone name
+		PVPInfoTextString:SetFont(LSM:Fetch('font', db.pvp.font), db.pvp.size, db.pvp.outline) -- PvP status for main zone
+		PVPArenaTextString:SetFont(LSM:Fetch('font', db.pvp.font), db.pvp.size, db.pvp.outline) -- PvP status for subzone
+		SubZoneTextString:SetFont(LSM:Fetch('font', db.subzone.font), db.subzone.size, db.subzone.outline) -- Subzone name
+		
+		SendMailBodyEditBox:SetFont(LSM:Fetch('font', db.mail.font), db.mail.size, db.mail.outline) --Writing letter text
+		OpenMailBodyText:SetFont(LSM:Fetch('font', db.mail.font), db.mail.size, db.mail.outline) --Received letter text
+		--QuestFont:SetFont(LSM:Fetch('font', "ElvUI Pixel"), 12, "") -- Font in Quest Log/Petitions and shit. It's fucking hedious with any outline so fuck it.
+		--QuestFont_Large:SetFont(LSM:Fetch('font', "ElvUI Pixel"), 12, "") -- No idea what that is for
+		NumberFont_Shadow_Med:SetFont(LSM:Fetch('font', db.editbox.font), db.editbox.size, db.editbox.outline) --Chat editbox
+	end
 end
 
 function M:TextWidth()
