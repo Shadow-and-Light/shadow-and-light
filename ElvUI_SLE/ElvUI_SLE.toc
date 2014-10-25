@@ -1,7 +1,7 @@
 ﻿## Interface: 60000
 ## Title: |cff1784d1ElvUI |rShadow and Light
 ## Author: Darth Predator, Repooc
-## Version: 2.05
+## Version: 2.06
 ## Notes: Plugin-edit for |cff1784d1ElvUI|r.
 ## Notes-ruRU: Плагин-редакция для |cff1784d1ElvUI|r.
 ## eMail: darthpred@gmail.com, repooc@tukui.org
@@ -11,7 +11,7 @@
 ## DefaultState: Enabled
 ## X-Tukui-ProjectID: 42
 ## X-Tukui-ProjectFolders: ElvUI_SLE
-## X-ElvVersion: 7.24
+## X-ElvVersion: 7.32
 
 libs\load_libs.xml
 locales\load_locales.xml
