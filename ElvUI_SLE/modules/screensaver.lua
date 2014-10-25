@@ -266,8 +266,11 @@ function S:Event(event, unit)
 	if event == "PLAYER_FLAGS_CHANGED" and unit ~= "player" then return end
 	if UnitIsAFK("player") then
 		SS:Show()
-		UIParent:Hide()
 		Minimap:Hide()
+		if not fading then
+			fading = true
+			UIFrameFadeIn(UIParent, 0.5, 1, 0)
+		end
 	else
 		FlipCameraYaw(-degree)
 		degree = 0
@@ -277,7 +280,10 @@ function S:Event(event, unit)
 		else
 			Minimap:Show()
 		end
-		UIParent:Show()
+		if fading then
+			fading = false
+			UIFrameFadeIn(UIParent, 0.5, 0, 1)
+		end
 	end
 	if event == "PLAYER_REGEN_ENABLED" then self:UnregisterEvent(event) end
 	if event == "PLAYER_ENTERING_WORLD" then self:UnregisterEvent(event) end
@@ -328,7 +334,7 @@ function S:Initialize()
 	self:Setup()
 	SS:SetScript("OnShow", self.Shown)
 	SS:SetScript("OnUpdate", self.Update)
-	UIParent:HookScript("OnShow", S.Escape) 
+	-- SS:SetScript("OnKeyDown", S.Escape)
 	self:Reg()
 	self:RegisterEvent("ADDON_LOADED", LoadConfig)
 end
