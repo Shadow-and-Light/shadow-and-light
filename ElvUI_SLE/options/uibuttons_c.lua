@@ -23,7 +23,7 @@ local function configTable()
 				name = L["Enable"],
 				desc = L["Show/Hide UI buttons."],
 				get = function(info) return E.db.sle.uibuttons.enable end,
-				set = function(info, value) E.db.sle.uibuttons.enable = value; UB:Start() end
+				set = function(info, value) E.db.sle.uibuttons.enable = value; UB:Toggle() end
 			},
 			space1 = {
 				order = 4,
@@ -43,7 +43,7 @@ local function configTable()
 				min = 12, max = 25, step = 1,
 				disabled = function() return not E.db.sle.uibuttons.enable end,
 				get = function(info) return E.db.sle.uibuttons.size end,
-				set = function(info, value) E.db.sle.uibuttons.size = value; UB:UpdateAll() end,
+				set = function(info, value) E.db.sle.uibuttons.size = value; UB:FrameSize() end,
 			},
 			spacing = {
 				order = 7,
@@ -53,7 +53,7 @@ local function configTable()
 				min = 1, max = 10, step = 1,
 				disabled = function() return not E.db.sle.uibuttons.enable end,
 				get = function(info) return E.db.sle.uibuttons.spacing end,
-				set = function(info, value) E.db.sle.uibuttons.spacing = value; UB:UpdateAll() end,
+				set = function(info, value) E.db.sle.uibuttons.spacing = value; UB:FrameSize() end,
 			},
 			mouse = {
 				order = 8,
@@ -62,7 +62,7 @@ local function configTable()
 				desc = L["Show on mouse over."],
 				disabled = function() return not E.db.sle.uibuttons.enable end,
 				get = function(info) return E.db.sle.uibuttons.mouse end,
-				set = function(info, value) E.db.sle.uibuttons.mouse = value; end
+				set = function(info, value) E.db.sle.uibuttons.mouse = value; UB:UpdateMouseOverSetting() end
 			},
 			position = {
 				order = 10,
@@ -75,7 +75,7 @@ local function configTable()
 				},
 				disabled = function() return not E.db.sle.uibuttons.enable end,
 				get = function(info) return E.db.sle.uibuttons.position end,
-				set = function(info, value) E.db.sle.uibuttons.position = value; UB:UpdateAll() end,
+				set = function(info, value) E.db.sle.uibuttons.position = value; UB:FrameSize() end,
 			},
 		},
 	}

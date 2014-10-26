@@ -1,3 +1,6 @@
+v2.07
+- Fixed UIButtons lua error for mouse over + combat
+
 v2.06 10/25/2014
 - Update Ace Libs
 - Remove RealmInfo Libs

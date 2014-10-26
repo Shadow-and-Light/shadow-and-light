@@ -2,8 +2,34 @@ local E, L, V, P, G = unpack(ElvUI);
 local UB = E:GetModule('SLE_UIButtons');
 local Btemplate = "SecureActionButtonTemplate"
 local NumBut = 5
+local BorderColor = E['media'].bordercolor
+
+local function OnEnter(self)
+	UIBFrame:SetAlpha(1)
+end
+
+local function OnLeave(self)
+	if E.db.sle.uibuttons.mouse then
+		UIBFrame:SetAlpha(0)
+	end
+end
+
+function UB:UpdateMouseOverSetting()
+	if E.db.sle.uibuttons.mouse then
+		UIBFrame:SetAlpha(0)
+	else
+		UIBFrame:SetAlpha(1)
+	end
+end
 
 local UIBFrame = CreateFrame('Frame', "UIBFrame", E.UIParent);
+UIBFrame:SetFrameLevel(5);
+UIBFrame:SetFrameStrata('BACKGROUND');
+UIBFrame:Point("LEFT", E.UIParent, "LEFT", -2, 0);
+UIBFrame:SetClampedToScreen(true)
+UIBFrame:HookScript('OnEnter', OnEnter)
+UIBFrame:HookScript('OnLeave', OnLeave)
+
 local Cbutton = CreateFrame("Button", "ConfigUIButton", UIBFrame, Btemplate)
 local Rbutton = CreateFrame("Button", "ReloadUIButton", UIBFrame, Btemplate)
 local Mbutton = CreateFrame("Button", "MoveUIButton", UIBFrame, Btemplate)
@@ -11,7 +37,7 @@ local Bbutton = CreateFrame("Button", "Bbutton", UIBFrame, Btemplate)
 local Abutton = CreateFrame("Button", "Abutton", UIBFrame, Btemplate)
 
 if IsAddOnLoaded("iFilger_ConfigUI") then
-	local Fbutton = CreateFrame("Button", "Fbutton", UIBFrame, Btemplate)
+	local Fbutton = CreateFrame("Button", "Fbutton", UIBFrame)
 	NumBut = 6
 end
 
@@ -22,29 +48,6 @@ local ButtonTable = {
 	Bbutton,
 	Abutton,
 }
-
-local function Mouseover()
-	local self = UIBFrame
-	if E.db.sle.uibuttons.mouse then
-		if (MouseIsOver(self)) then
-			UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-		else
-			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-		end
-	else
-		UIBFrame:SetAlpha(1)
-	end
-end
-
-local function CreateHolder()
-	UIBFrame:SetFrameLevel(5);
-	UIBFrame:SetFrameStrata('BACKGROUND');
-	UIBFrame:Point("LEFT", E.UIParent, "LEFT", -2, 0);
-
-	UIBFrame:SetScript("OnUpdate", function(self,event,...)
-		Mouseover()
-	end)
-end
 
 local function CreateB(button, symbol, text, name, desc)
 	button:CreateBackdrop()
@@ -86,6 +89,8 @@ local function CreateB(button, symbol, text, name, desc)
 	button:SetScript("OnLeave", function(self) 
 		GameTooltip:Hide() 
 	end)
+	button:HookScript('OnEnter', OnEnter)
+	button:HookScript('OnLeave', OnLeave)
 end
 
 local function CreateButtons()
@@ -140,7 +145,7 @@ local function MoverSize()
 	end
 end
 
-local function FrameSize()
+function UB:FrameSize()
 	local db = E.db.sle.uibuttons
 	MoverSize()
 
@@ -154,24 +159,19 @@ local function FrameSize()
 	Positioning()
 end
 
-function UB:Start()
-	if E.db.sle.uibuttons.enable then
-		UIBFrame:Show()
-	else
+function UB:Toggle()
+	if not E.db.sle.uibuttons.enable then
 		UIBFrame:Hide()
+	else
+		UIBFrame:Show()
+		UB:UpdateMouseOverSetting()
 	end
 end
 
-function UB:UpdateAll()
-	FrameSize()
-	UB:Start()
-end
-
 function UB:Initialize()
-	CreateHolder()
-	FrameSize()
+	UB:FrameSize()
 	CreateButtons()
-	UB:Start()
+	UB:Toggle()
 
 	E.FrameLocks['UIBFrame'] = true
 
