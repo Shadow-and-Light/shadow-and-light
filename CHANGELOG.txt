@@ -1,5 +1,6 @@
-v2.07
+v2.07 10/27/2014
 - Fixed UIButtons lua error for mouse over + combat
+- Fixed LFG Icon in minimap location if you resize the minimap
 
 v2.06 10/25/2014
 - Update Ace Libs
