@@ -66,7 +66,7 @@ local function UpdateAll()
 	end
 	LT:LootShow()
 	LT:Update()
-	UB:UpdateAll()
+	UB:FrameSize()
 	RM:Update()
 	RF:Update()
 	F:UpdateLayout()
