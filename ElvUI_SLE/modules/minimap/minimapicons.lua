@@ -290,6 +290,8 @@ function SMB:Update()
 				end
 				if not E.db.sle.minimap.mapicons.skindungeon and Name == 'QueueStatusMinimapButton' then
 					Exception = false
+					QueueStatusMinimapButton:ClearAllPoints()
+					QueueStatusMinimapButton:Point("BOTTOMRIGHT", Minimap, 3, 0)
 				end
 				if (not E.db.sle.minimap.mapicons.skinmail and Name == 'MiniMapMailFrame') then
 					Exception = false
