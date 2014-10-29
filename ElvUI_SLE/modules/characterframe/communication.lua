@@ -2,14 +2,9 @@
 --<< AISM : Armory Surpport Module for AddOn Communication Inspecting		>>--
 --------------------------------------------------------------------------------
 local Revision = 1.1
-local AISM = _G['Armory_InspectSupportModule']
+local AISM = _G['Armory_InspectSupportModule'] or CreateFrame('Frame', 'Armory_InspectSupportModule', UIParent)
 
-if not AISM then
-	AISM = CreateFrame('Frame', 'Armory_InspectSupportModule', UIParent)
-	AISM.Revision = Revision
-end
-
-if not AISM.Revision or AISM.Revision <= Revision then
+if not AISM.Revision or AISM.Revision < Revision then
 	local ItemSetBonusKey = ITEM_SET_BONUS:gsub('%%s', '(.+)')
 	local ProfessionLearnKey = ERR_LEARN_ABILITY_S:gsub('%%s', '(.+)')
 	local ProfessionLearnKey2 = ERR_LEARN_RECIPE_S:gsub('%%s', '(.+)')
@@ -27,6 +22,8 @@ if not AISM.Revision or AISM.Revision <= Revision then
 	
 	
 	--<< Create Core >>--
+	AISM.Revision = Revision
+	
 	AISM.Tooltip = _G['AISM_Tooltip'] or AISM.Tooltip or CreateFrame('GameTooltip', 'AISM_Tooltip', nil, 'GameTooltipTemplate')
 	AISM.Tooltip:SetOwner(UIParent, 'ANCHOR_NONE')
 	AISM.Updater = _G['AISM_Updater'] or AISM.Updater or CreateFrame('Frame', 'AISM_Updater', UIParent)
