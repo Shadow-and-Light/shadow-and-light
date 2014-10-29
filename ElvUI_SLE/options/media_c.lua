@@ -513,12 +513,14 @@ local function configTable()
 									["CENTER"] = L['Center']
 								},
 							},
-							--height = {
-							--	order = 4,
-							--	name = L["Panel Height"],
-							--	type = "range",
-							--	min = 130, max = E.screenheight/6, step = 1,
-							--},
+							height = {
+								order = 4,
+								name = L["Panel Height"],
+								type = "range",
+								min = 120, max = 200, step = 1,
+								get = function(info) return E.db.sle.media.screensaver.height end,
+								set = function(info, value) E.db.sle.media.screensaver.height = value end,
+							},
 							width = {
 								order = 5,
 								name = L["Width"],
