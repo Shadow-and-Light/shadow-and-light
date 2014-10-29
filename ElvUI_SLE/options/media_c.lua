@@ -513,12 +513,12 @@ local function configTable()
 									["CENTER"] = L['Center']
 								},
 							},
-							height = {
-								order = 4,
-								name = L["Panel Height"],
-								type = "range",
-								min = 130, max = E.screenheight/6, step = 1,
-							},
+							--height = {
+							--	order = 4,
+							--	name = L["Panel Height"],
+							--	type = "range",
+							--	min = 130, max = E.screenheight/6, step = 1,
+							--},
 							width = {
 								order = 5,
 								name = L["Width"],

@@ -198,7 +198,7 @@ function S:Shown()
 	if IsInGuild() then
 		GuildName, GuildRank = GetGuildInfo("player")
 	end
-	local Width, Height = GetScreenWidth(), E.db.sle.media.screensaver.height 
+	local Width, Height = GetScreenWidth(), E.db.sle.media.screensaver.height
 	self.model:SetUnit("player")
 	local x = E.db.sle.media.screensaver.playermodel.position == "RIGHT" and -1 or 1
 	local point = E.db.sle.media.screensaver.playermodel.position
