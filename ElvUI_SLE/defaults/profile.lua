@@ -357,7 +357,7 @@ P['sle'] = {
 			},
 			['crest'] = 128,
 			['xpack'] = 150,
-			['height'] = E.screenheight/8,
+			['height'] = 135,
 		},
 	},
 
