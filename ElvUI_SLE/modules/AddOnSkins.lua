@@ -32,9 +32,6 @@ function AS:EmbedSystem_WindowResize()
 	end
 
 	EmbedSystem_MainWindow:SetParent(ChatPanel)
-	EmbedSystem_MainWindow:SetTemplate()
-	EmbedSystem_MainWindow:SetBackdropBorderColor(1,0,0)
-	EmbedSystem_MainWindow:SetBackdropColor(1,0,0)
 
 	EmbedSystem_MainWindow:SetSize(ChatPanel:GetWidth() - Width, ChatPanel:GetHeight() - Height)
 	EmbedSystem_LeftWindow:SetSize(AS:CheckOption('EmbedLeftWidth'), EmbedSystem_MainWindow:GetHeight())
