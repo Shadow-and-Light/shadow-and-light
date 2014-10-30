@@ -1,3 +1,7 @@
+v2.09 10/30/2014
+- Added AddonSkins Embed system (Backend stuff, users don't need to adjust anything if using AddonSkins embed system)
+- Fixed Ace Error if viewing S&L Screensaver's Graphics Section
+
 v2.08 10/27/2014
 - Fixed install error due to update all hooked to function i deleted for uibutton fix
 
