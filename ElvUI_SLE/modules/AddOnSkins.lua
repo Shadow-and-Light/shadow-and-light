@@ -5,41 +5,26 @@ local E = unpack(ElvUI)
 function AS:EmbedSystem_WindowResize()
 	if UnitAffectingCombat('player') or not AS.EmbedSystemCreated then return end
 	local ChatPanel = AS:CheckOption('EmbedRightChat') and RightChatPanel or LeftChatPanel
-	local ChatTabSize = AS:CheckOption('EmbedBelowTop') and RightChatTab:GetHeight() + (E.Border * 2) or 0
-
-	local DataTextSize = 0
-
-	if not E.db.sle.datatext.chathandle then
-		if AS:CheckOption('EmbedRightChat') and E.db.datatexts.rightChatPanel then
-			DataTextSize = RightChatDataPanel:GetHeight() + (E.PixelMode and 1 or 2)
-		elseif not AS:CheckOption('EmbedRightChat') and E.db.datatexts.leftChatPanel then
-			DataTextSize = LeftChatDataPanel:GetHeight() + (E.Border * 2)
-		end
-	end
-
-	local Width, Height, X, Y
-
-	if E.PixelMode then
-		Width = 6
-		Height = (E.Border * 3) + ChatTabSize + DataTextSize + 3 
-		X = 0
-		Y = E.Border + DataTextSize + 2
-	else
-		Width = 10
-		Height = (E.Border * 3) + ChatTabSize + DataTextSize + 3
-		X = 0
-		Y = E.Border + DataTextSize + 2
-	end
+	local ChatTab = AS:CheckOption('EmbedRightChat') and RightChatTab or LeftChatTab
+	local ChatData = AS:CheckOption('EmbedRightChat') and RightChatDataPanel or LeftChatDataPanel
+	local TopLeft = ChatData == RightChatDataPanel and (E.db.datatexts.rightChatPanel and 'TOPLEFT' or 'BOTTOMLEFT') or ChatData == LeftChatDataPanel and (E.db.datatexts.leftChatPanel and 'TOPLEFT' or 'BOTTOMLEFT')
+	local yOffset = (ChatData == RightChatDataPanel and E.db.datatexts.rightChatPanel and (E.PixelMode and 1 or 0)) or (ChatData == LeftChatDataPanel and E.db.datatexts.leftChatPanel and (E.PixelMode and 1 or 0)) or (E.PixelMode and 0 or -1)
 
 	EmbedSystem_MainWindow:SetParent(ChatPanel)
+	EmbedSystem_MainWindow:ClearAllPoints()
 
-	EmbedSystem_MainWindow:SetSize(ChatPanel:GetWidth() - Width, ChatPanel:GetHeight() - Height)
+	if E.db.sle.datatext.chathandle then
+		EmbedSystem_MainWindow:SetInside(ChatPanel, 4, 4)
+	else
+		EmbedSystem_MainWindow:SetPoint('BOTTOMLEFT', ChatData, TopLeft, 0, yOffset)
+		EmbedSystem_MainWindow:SetPoint('TOPRIGHT', ChatTab, AS:CheckOption('EmbedBelowTop') and 'BOTTOMRIGHT' or 'TOPRIGHT', 0, AS:CheckOption('EmbedBelowTop') and -1 or 0)
+	end
+
 	EmbedSystem_LeftWindow:SetSize(AS:CheckOption('EmbedLeftWidth'), EmbedSystem_MainWindow:GetHeight())
 	EmbedSystem_RightWindow:SetSize((EmbedSystem_MainWindow:GetWidth() - AS:CheckOption('EmbedLeftWidth')) - 1, EmbedSystem_MainWindow:GetHeight())
 
 	EmbedSystem_LeftWindow:SetPoint('LEFT', EmbedSystem_MainWindow, 'LEFT', 0, 0)
 	EmbedSystem_RightWindow:SetPoint('RIGHT', EmbedSystem_MainWindow, 'RIGHT', 0, 0)
-	EmbedSystem_MainWindow:SetPoint('BOTTOM', ChatPanel, 'BOTTOM', X, Y)
 
 	-- Dynamic Range
 	if IsAddOnLoaded('ElvUI_Config') then
