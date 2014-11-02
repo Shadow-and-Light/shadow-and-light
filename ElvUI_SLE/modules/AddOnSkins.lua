@@ -16,11 +16,11 @@ function AS:EmbedSystem_WindowResize()
 	if E.db.sle.datatext.chathandle then
 		local xOffset, yOffset = select(4, ChatTab:GetPoint())
 		EmbedSystem_MainWindow:SetPoint('BOTTOMLEFT', ChatPanel, 'BOTTOMLEFT', -xOffset, -yOffset)
-		EmbedSystem_MainWindow:SetPoint('TOPRIGHT', ChatTab, AS:CheckOption('EmbedBelowTop') and 'BOTTOMRIGHT' or 'TOPRIGHT', 0, AS:CheckOption('EmbedBelowTop') and -1 or 0)
 	else
 		EmbedSystem_MainWindow:SetPoint('BOTTOMLEFT', ChatData, TopLeft, 0, yOffset)
-		EmbedSystem_MainWindow:SetPoint('TOPRIGHT', ChatTab, AS:CheckOption('EmbedBelowTop') and 'BOTTOMRIGHT' or 'TOPRIGHT', 0, AS:CheckOption('EmbedBelowTop') and -1 or 0)
 	end
+
+	EmbedSystem_MainWindow:SetPoint('TOPRIGHT', ChatTab, AS:CheckOption('EmbedBelowTop') and 'BOTTOMRIGHT' or 'TOPRIGHT', 0, AS:CheckOption('EmbedBelowTop') and -1 or 0)
 
 	EmbedSystem_LeftWindow:SetSize(AS:CheckOption('EmbedLeftWidth'), EmbedSystem_MainWindow:GetHeight())
 	EmbedSystem_RightWindow:SetSize((EmbedSystem_MainWindow:GetWidth() - AS:CheckOption('EmbedLeftWidth')) - 1, EmbedSystem_MainWindow:GetHeight())
