@@ -68,7 +68,8 @@ function EVB:CreateExtraButtonSet()
 			bar.buttons[i]:SetPoint('LEFT', prev, 'RIGHT', self.spacing, 0)
 		end
 
-		AB:StyleButton(bar.buttons[i]);
+		AB:StyleButton(bar.buttons[i], nil, nil, true);
+		bar.buttons[i]:SetCheckedTexture("")
 		RegisterStateDriver(bar.buttons[i], 'visibility', '[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] show; hide')
 
 	end
