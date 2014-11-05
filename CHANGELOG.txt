@@ -1,3 +1,7 @@
+v2.10
+- Fixed Vehicle Grey Issue #70
+- Cleanup some backend code
+
 v2.09 10/30/2014
 - Added AddonSkins Embed system (Backend stuff, users don't need to adjust anything if using AddonSkins embed system)
 - Fixed Ace Error if viewing S&L Screensaver's Graphics Section
