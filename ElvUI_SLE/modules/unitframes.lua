@@ -9,9 +9,10 @@ local format = format
 local styles = {
 	['CURRENT'] = '%s',
 	['CURRENT_MAX'] = '%s - %s',
-	['CURRENT_PERCENT'] =  '%s - %s%%',
+	['CURRENT_PERCENT'] =  '%s | %s%%',
 	['CURRENT_MAX_PERCENT'] = '%s - %s | %s%%',
-	['DEFICIT'] = '-%s'
+	['DEFICIT'] = '-%s',
+	['DARTH_HEAL'] = '-%s / %s | %s%%',
 }
 
 local function GetFormattedTextSLE(style, min, max)
@@ -31,13 +32,21 @@ local function GetFormattedTextSLE(style, min, max)
 			return format(useStyle, deficit)
 		end
 	elseif style == 'CURRENT' or ((style == 'CURRENT_MAX' or style == 'CURRENT_MAX_PERCENT' or style == 'CURRENT_PERCENT') and min == max) then
-			return format(styles['CURRENT'], min)
+		return format(styles['CURRENT'], min)
 	elseif style == 'CURRENT_MAX' then
-			return format(useStyle, min, max)
+		return format(useStyle, min, max)
 	elseif style == 'CURRENT_PERCENT' then
-			return format(useStyle, min, format("%.1f", min / max * 100))
+		return format(useStyle, min, format("%.1f", min / max * 100))
 	elseif style == 'CURRENT_MAX_PERCENT' then
-			return format(useStyle, min, max, format("%.1f", min / max * 100))
+		return format(useStyle, min, max, format("%.1f", min / max * 100))
+	elseif style == "DARTH_HEAL" then
+		local deficit = max - min
+		if deficit <= 0 then
+			return format(styles["CURRENT_PERCENT"], min, format("%.1f", min / max * 100))
+		else
+			return format(useStyle, deficit, min, format("%.1f", min / max * 100))
+		end
+		
 	end
 end
 
@@ -141,6 +150,18 @@ local function AddTags()
 			return status
 		else
 			return GetFormattedTextSLE('CURRENT_MAX_PERCENT', min, max)
+		end
+	end
+	
+	ElvUF.Tags.Events['health:sl:darth-heal'] = 'UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION'
+	ElvUF.Tags.Methods['health:sl:darth-heal'] = function(unit)
+		local min, max = UnitHealth(unit), UnitHealthMax(unit)
+		local status = not UnitIsConnected(unit) and L['Offline'] or UnitIsGhost(unit) and L['Ghost'] or UnitIsDead(unit) and DEAD
+
+		if (status) then
+			return status
+		else
+			return GetFormattedTextSLE('DARTH_HEAL', min, max)
 		end
 	end
 
