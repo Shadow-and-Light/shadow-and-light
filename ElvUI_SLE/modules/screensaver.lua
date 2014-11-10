@@ -3,6 +3,10 @@ local SLE = E:GetModule('SLE');
 local S = E:GetModule("SLE_ScreenSaver")
 local LSM = LibStub("LibSharedMedia-3.0")
 local Sk = E:GetModule("Skins")
+local AS
+if AddOnSkins then
+	AS = unpack(AddOnSkins)
+end
 local SS
 local ru = false
 local Months = {}
@@ -230,10 +234,14 @@ function S:Shown()
 	self.Top.Guild:SetText(format(GuildName and "|cff00AAFF<%s>|r" or "", GuildName))
 	self.Top.GuildR:SetText(format(GuildRank and "|cff00AAFF"..RANK..": %s|r" or "", GuildRank))
 	self.Top.PlayerInfo:SetText(format("|c%s%s|r, %s %s", Color.colorStr, Class, LEVEL, Level))
-
 	
-
 	self.ScrollFrame:AddMessage(L["SLE_TIPS"][TipNum], 1, 1, 1)
+	
+	UIParent:Hide()
+	UIParent:Show()
+	if AS then
+		AS:EmbedExitCombat()
+	end
 end
 
 function S:Update(elapsed)
