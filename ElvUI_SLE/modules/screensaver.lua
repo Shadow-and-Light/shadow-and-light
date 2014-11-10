@@ -3,9 +3,9 @@ local SLE = E:GetModule('SLE');
 local S = E:GetModule("SLE_ScreenSaver")
 local LSM = LibStub("LibSharedMedia-3.0")
 local Sk = E:GetModule("Skins")
-local AS
+
 if AddOnSkins then
-	AS = unpack(AddOnSkins)
+	local AS = unpack(AddOnSkins)
 end
 local SS
 local ru = false
