@@ -559,7 +559,7 @@ function UB:UpdateAddonLayout()
 	for i = 2, #AddonTable do
 		AddonTable[i]:ClearAllPoints()
 		if AddonTable[i].shown then
-			AddonTable[i]:Point("TOP", UB.menuHolder.Addon.Manager, "BOTTOM", 0, -(count * (db.size))- count * (E.PixelMode and db.spacing or (db.spacing+2))-(E.PixelMode and 1 or 0))
+			AddonTable[i]:Point("TOP", UB.menuHolder.Addon.Manager, "BOTTOM", 0, -(count * (db.size)) - (count + 1) * (E.PixelMode and db.spacing or (db.spacing+2))+(E.PixelMode and 0 or 1))
 			AddonTable[i]:Show()
 			count = count + 1
 		else
