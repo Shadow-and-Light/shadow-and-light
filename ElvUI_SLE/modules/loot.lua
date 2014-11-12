@@ -266,9 +266,10 @@ end
 
 function LT:Initialize()
 	if not E.db.sle.loot.enable then return end
-	self:RegisterEvent("START_LOOT_ROLL", HandleRoll)
+	--self:RegisterEvent("START_LOOT_ROLL", HandleRoll)
 	self:RegisterEvent("PLAYER_LEVEL_UP")
 
 	LT:LoadLoot()
 	LT:Update()
+	hooksecurefunc(M, 'START_LOOT_ROLL', function(self, event, id) HandleRoll(event, id) end)
 end
