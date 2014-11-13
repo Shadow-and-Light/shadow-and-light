@@ -253,7 +253,7 @@ function LT:Update()
 	else
 		self:UnregisterEvent("CONFIRM_DISENCHANT_ROLL")
 		self:UnregisterEvent("CONFIRM_LOOT_ROLL")
-		self:UnregisterEvent("LOOT_BIND_CONFIRM")
+		--self:UnregisterEvent("LOOT_BIND_CONFIRM")
 	end
 
 	LootHistoryFrame:SetAlpha(E.db.sle.loot.history.alpha or 1)
