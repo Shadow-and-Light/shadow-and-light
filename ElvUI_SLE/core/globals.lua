@@ -54,7 +54,7 @@ SLE.Dev = {
 			["Cursewordz"] = true,
 		},
 		["WyrmrestAccord"] = {
-			["Kitalie"] = true,
+			["Kìtalie"] = true,
 			["Sagome"] = true,
 			["Ainy"] = true,
 			["Norinael"] = true,
@@ -143,7 +143,7 @@ SLE.SpecialChatIcons = {
 			["Repooc"] = repooc
 		},
 		["WyrmrestAccord"] = {
-			["Kitalie"] = kitalie:format("inv_cloth_challengewarlock_d_01helm"),
+			["Kìtalie"] = kitalie:format("inv_cloth_challengewarlock_d_01helm"),
 			["Sagome"] = kitalie:format("inv_helm_leather_challengemonk_d_01"),
 			["Ainy"] = kitalie:format("inv_helm_plate_challengedeathknight_d_01"),
 			["Norinael"] = kitalie:format("inv_helmet_plate_challengepaladin_d_01"),
