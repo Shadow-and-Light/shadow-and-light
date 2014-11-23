@@ -210,10 +210,6 @@ function LT:LoadLoot()
 	PlayerLevel = UnitLevel('player')
 
 	--Azil made this, blame him if something fucked up
-	UIParent:UnregisterEvent("LOOT_BIND_CONFIRM") --Solo
-	UIParent:UnregisterEvent("CONFIRM_DISENCHANT_ROLL") --Group
-	UIParent:UnregisterEvent("CONFIRM_LOOT_ROLL") --Group
-
 	if E.db.general and E.db.sle.loot.autoroll.enable then
 		E.db.general.autoRoll = false
 	end
@@ -222,6 +218,21 @@ function LT:LoadLoot()
 		self:RegisterEvent("LOOT_OPENED", HandleEvent)
 		self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
 		self:RegisterEvent("ADDON_LOADED", LoadConfig)
+		if E.db.sle.loot.autoroll.autoconfirm then
+			self:RegisterEvent("CONFIRM_DISENCHANT_ROLL", HandleEvent)
+			self:RegisterEvent("CONFIRM_LOOT_ROLL", HandleEvent)
+			self:RegisterEvent("LOOT_BIND_CONFIRM", HandleEvent)
+			UIParent:UnregisterEvent("LOOT_BIND_CONFIRM") --Solo
+			UIParent:UnregisterEvent("CONFIRM_DISENCHANT_ROLL") --Group
+			UIParent:UnregisterEvent("CONFIRM_LOOT_ROLL") --Group
+		else
+			self:UnregisterEvent("CONFIRM_DISENCHANT_ROLL")
+			self:UnregisterEvent("CONFIRM_LOOT_ROLL")
+			self:UnregisterEvent("LOOT_BIND_CONFIRM")
+			UIParent:RegisterEvent("LOOT_BIND_CONFIRM") --Solo
+			UIParent:RegisterEvent("CONFIRM_DISENCHANT_ROLL") --Group
+			UIParent:RegisterEvent("CONFIRM_LOOT_ROLL") --Group
+		end
 	else
 		self:UnregisterEvent("LOOT_OPENED")
 		self:UnregisterEvent('PLAYER_ENTERING_WORLD')
@@ -250,10 +261,16 @@ function LT:Update()
 		self:RegisterEvent("CONFIRM_DISENCHANT_ROLL", HandleEvent)
 		self:RegisterEvent("CONFIRM_LOOT_ROLL", HandleEvent)
 		self:RegisterEvent("LOOT_BIND_CONFIRM", HandleEvent)
+		UIParent:UnregisterEvent("LOOT_BIND_CONFIRM") --Solo
+		UIParent:UnregisterEvent("CONFIRM_DISENCHANT_ROLL") --Group
+		UIParent:UnregisterEvent("CONFIRM_LOOT_ROLL") --Group
 	else
 		self:UnregisterEvent("CONFIRM_DISENCHANT_ROLL")
 		self:UnregisterEvent("CONFIRM_LOOT_ROLL")
-		--self:UnregisterEvent("LOOT_BIND_CONFIRM")
+		self:UnregisterEvent("LOOT_BIND_CONFIRM")
+		UIParent:RegisterEvent("LOOT_BIND_CONFIRM") --Solo
+		UIParent:RegisterEvent("CONFIRM_DISENCHANT_ROLL") --Group
+		UIParent:RegisterEvent("CONFIRM_LOOT_ROLL") --Group
 	end
 
 	LootHistoryFrame:SetAlpha(E.db.sle.loot.history.alpha or 1)
