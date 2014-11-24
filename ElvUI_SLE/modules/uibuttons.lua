@@ -12,12 +12,32 @@ local AddonTable = {}
 local StatusTable = {}
 local RollTable = {}
 
+function UB:OnEnter(self)
+	UB.menuHolder:SetAlpha(1)
+end
+
+function UB:OnLeave(self)
+	if E.db.sle.uibuttons.mouse then
+		UB.menuHolder:SetAlpha(0)
+	end
+end
+
+function UB:UpdateMouseOverSetting()
+	if E.db.sle.uibuttons.mouse then
+		UB.menuHolder:SetAlpha(0)
+	else
+		UB.menuHolder:SetAlpha(1)
+	end
+end
+
 function UB:CreateFrame()
 	UB.menuHolder = CreateFrame("Frame", "SLEUIButtonHolder", E.UIParent)
 	UB.menuHolder:SetFrameStrata("HIGH")
 	UB.menuHolder:SetFrameLevel(5)
 	UB.menuHolder:SetClampedToScreen(true)
 	UB.menuHolder:Point("LEFT", E.UIParent, "LEFT", -2, 0);
+	UB.menuHolder:HookScript('OnEnter', UB.OnEnter)
+	UB.menuHolder:HookScript('OnLeave', UB.OnLeave)
 	
 	UB.menuHolder.Config = CreateFrame("Frame", "SLEUIConfigHolder", UB.menuHolder)
 	UB.menuHolder.Config.Toggle = CreateFrame("Button", "SLEUIConfigToggle", UB.menuHolder)
@@ -25,6 +45,8 @@ function UB:CreateFrame()
 	UB.menuHolder.Config.Toggle.text:SetFont(E["media"].normFont, 10, "OUTLINE")
 	UB.menuHolder.Config.Toggle.text:SetPoint("CENTER", UB.menuHolder.Config.Toggle, "CENTER", 0, 0)
 	UB.menuHolder.Config.Toggle.text:SetText("C")
+	UB.menuHolder.Config:HookScript('OnEnter', UB.OnEnter)
+	UB.menuHolder.Config:HookScript('OnLeave', UB.OnLeave)
 	UB:ConfigSetup()
 	Sk:HandleButton(UB.menuHolder.Config.Toggle)
 	
@@ -34,6 +56,8 @@ function UB:CreateFrame()
 	UB.menuHolder.Addon.Toggle.text:SetFont(E["media"].normFont, 10, "OUTLINE")
 	UB.menuHolder.Addon.Toggle.text:SetPoint("CENTER", UB.menuHolder.Addon.Toggle, "CENTER", 0, 0)
 	UB.menuHolder.Addon.Toggle.text:SetText("A")
+	UB.menuHolder.Addon:HookScript('OnEnter', UB.OnEnter)
+	UB.menuHolder.Addon:HookScript('OnLeave', UB.OnLeave)
 	UB:AddonSetup()
 	Sk:HandleButton(UB.menuHolder.Addon.Toggle)
 	
@@ -43,6 +67,8 @@ function UB:CreateFrame()
 	UB.menuHolder.Status.Toggle.text:SetFont(E["media"].normFont, 10, "OUTLINE")
 	UB.menuHolder.Status.Toggle.text:SetPoint("CENTER", UB.menuHolder.Status.Toggle, "CENTER", 0, 0)
 	UB.menuHolder.Status.Toggle.text:SetText("S")
+	UB.menuHolder.Status:HookScript('OnEnter', UB.OnEnter)
+	UB.menuHolder.Status:HookScript('OnLeave', UB.OnLeave)
 	UB:StatusSetup()
 	Sk:HandleButton(UB.menuHolder.Status.Toggle)
 	
@@ -52,6 +78,8 @@ function UB:CreateFrame()
 	UB.menuHolder.Roll.Toggle.text:SetFont(E["media"].normFont, 10, "OUTLINE")
 	UB.menuHolder.Roll.Toggle.text:SetPoint("CENTER", UB.menuHolder.Roll.Toggle, "CENTER", 0, 0)
 	UB.menuHolder.Roll.Toggle.text:SetText("R")
+	UB.menuHolder.Roll:HookScript('OnEnter', UB.OnEnter)
+	UB.menuHolder.Roll:HookScript('OnLeave', UB.OnLeave)
 	UB:RollSetup()
 	Sk:HandleButton(UB.menuHolder.Roll.Toggle)
 	
@@ -103,6 +131,8 @@ function UB:ConfigSetup()
 		end
 		UB:ToggleCats()
 	end)
+	button:HookScript('OnEnter', UB.OnEnter)
+	button:HookScript('OnLeave', UB.OnLeave)
 	do
 		UB.menuHolder.Config.Elv = CreateFrame("Button", "SLEUIConfigElv", UB.menuHolder.Config)
 		UB.menuHolder.Config.Elv.text = UB.menuHolder.Config.Elv:CreateFontString(nil, "OVERLAY")
@@ -115,12 +145,14 @@ function UB:ConfigSetup()
 			UB:ToggleCats()
 		end)
 		UB.menuHolder.Config.Elv:SetScript("OnEnter", function(self)
+			UB:OnEnter()
 			GameTooltip:SetOwner(self)
 			GameTooltip:AddLine(L["ElvUI Config"], .6, .6, .6, .6, .6, 1)
 			GameTooltip:AddLine(L["Click to toggle config window"], 1, 1, 1, 1, 1, 1)
 			GameTooltip:Show()
 		end)
-		UB.menuHolder.Config.Elv:SetScript("OnLeave", function(self) 
+		UB.menuHolder.Config.Elv:SetScript("OnLeave", function(self)
+			UB:OnLeave()
 			GameTooltip:Hide() 
 		end)
 		Sk:HandleButton(UB.menuHolder.Config.Elv)
@@ -138,12 +170,14 @@ function UB:ConfigSetup()
 			UB:ToggleCats()
 		end)
 		UB.menuHolder.Config.SLE:SetScript("OnEnter", function(self)
+			UB:OnEnter()
 			GameTooltip:SetOwner(self)
 			GameTooltip:AddLine(L["S&L Config"], .6, .6, .6, .6, .6, 1)
 			GameTooltip:AddLine(L["Click to toggle Shadow & Light config group"], 1, 1, 1, 1, 1, 1)
 			GameTooltip:Show()
 		end)
-		UB.menuHolder.Config.SLE:SetScript("OnLeave", function(self) 
+		UB.menuHolder.Config.SLE:SetScript("OnLeave", function(self)
+			UB:OnLeave()
 			GameTooltip:Hide() 
 		end)
 		Sk:HandleButton(UB.menuHolder.Config.SLE)
@@ -161,12 +195,14 @@ function UB:ConfigSetup()
 			UB:ToggleCats()
 		end)
 		UB.menuHolder.Config.Benik:SetScript("OnEnter", function(self)
+			UB:OnEnter()
 			GameTooltip:SetOwner(self)
 			GameTooltip:AddLine(L["BenikUI Config"], .6, .6, .6, .6, .6, 1)
 			GameTooltip:AddLine(L["Click to toggle BenikUI config group"], 1, 1, 1, 1, 1, 1)
 			GameTooltip:Show()
 		end)
-		UB.menuHolder.Config.Benik:SetScript("OnLeave", function(self) 
+		UB.menuHolder.Config.Benik:SetScript("OnLeave", function(self)
+			UB:OnLeave()
 			GameTooltip:Hide() 
 		end)
 		Sk:HandleButton(UB.menuHolder.Config.Benik)
@@ -181,12 +217,14 @@ function UB:ConfigSetup()
 			ReloadUI()
 		end)
 		UB.menuHolder.Config.Reload:SetScript("OnEnter", function(self)
+			UB:OnEnter()
 			GameTooltip:SetOwner(self)
 			GameTooltip:AddLine(L["Reload UI"], .6, .6, .6, .6, .6, 1)
 			GameTooltip:AddLine(L["Click to reload your interface"], 1, 1, 1, 1, 1, 1)
 			GameTooltip:Show()
 		end)
-		UB.menuHolder.Config.Reload:SetScript("OnLeave", function(self) 
+		UB.menuHolder.Config.Reload:SetScript("OnLeave", function(self)
+			UB:OnLeave()
 			GameTooltip:Hide() 
 		end)
 		Sk:HandleButton(UB.menuHolder.Config.Reload)
@@ -196,19 +234,21 @@ function UB:ConfigSetup()
 		UB.menuHolder.Config.MoveUI.text = UB.menuHolder.Config.MoveUI:CreateFontString(nil, "OVERLAY")
 		UB.menuHolder.Config.MoveUI.text:SetFont(E["media"].normFont, 10, "OUTLINE")
 		UB.menuHolder.Config.MoveUI.text:SetPoint("CENTER", UB.menuHolder.Config.MoveUI, "CENTER")
-		UB.menuHolder.Config.MoveUI.text:SetText(L["Move"]) 
+		UB.menuHolder.Config.MoveUI.text:SetText("/moveui") 
 		UB.menuHolder.Config.MoveUI:SetScript("OnClick", function(self)
 			E:ToggleConfigMode()
 			button.opened = false
 			UB:ToggleCats()
 		end)
 		UB.menuHolder.Config.MoveUI:SetScript("OnEnter", function(self)
+			UB:OnEnter()
 			GameTooltip:SetOwner(self)
 			GameTooltip:AddLine(L["Move UI"], .6, .6, .6, .6, .6, 1)
 			GameTooltip:AddLine(L["Click to unlock moving ElvUI elements"], 1, 1, 1, 1, 1, 1)
 			GameTooltip:Show()
 		end)
-		UB.menuHolder.Config.MoveUI:SetScript("OnLeave", function(self) 
+		UB.menuHolder.Config.MoveUI:SetScript("OnLeave", function(self)
+			UB:OnLeave()
 			GameTooltip:Hide() 
 		end)
 		Sk:HandleButton(UB.menuHolder.Config.MoveUI)
@@ -238,6 +278,8 @@ function UB:AddonSetup()
 		end
 		UB:ToggleCats()
 	end)
+	button:HookScript('OnEnter', UB.OnEnter)
+	button:HookScript('OnLeave', UB.OnLeave)
 	
 	do
 		UB.menuHolder.Addon.Manager = CreateFrame("Button", "SLEUIAddonManager", UB.menuHolder.Addon)
@@ -251,12 +293,14 @@ function UB:AddonSetup()
 			UB:ToggleCats()
 		end)
 		UB.menuHolder.Addon.Manager:SetScript("OnEnter", function(self)
+			UB:OnEnter()
 			GameTooltip:SetOwner(self, "ANCHOR_TOP", 30,0)
 			GameTooltip:AddLine(L["AddOns Manager"], .6, .6, .6, .6, .6, 1)
 			GameTooltip:AddLine(L["Click to toggle the AddOn Manager frame."], 1, 1, 1, 1, 1, 1)
 			GameTooltip:Show()
 		end)
-		UB.menuHolder.Addon.Manager:SetScript("OnLeave", function(self) 
+		UB.menuHolder.Addon.Manager:SetScript("OnLeave", function(self)
+			UB:OnLeave()
 			GameTooltip:Hide() 
 		end)
 		UB.menuHolder.Addon.Manager.shown = true
@@ -275,12 +319,14 @@ function UB:AddonSetup()
 			UB:ToggleCats()
 		end)
 		UB.menuHolder.Addon.Boss:SetScript("OnEnter", function(self)
+			UB:OnEnter()
 			GameTooltip:SetOwner(self, "ANCHOR_TOP", 30,0)
 			GameTooltip:AddLine(L["Boss Mod"], .6, .6, .6, .6, .6, 1)
 			GameTooltip:AddLine(L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], 1, 1, 1, 1, 1, 1)
 			GameTooltip:Show()
 		end)
 		UB.menuHolder.Addon.Boss:SetScript("OnLeave", function(self) 
+			UB:OnLeave()
 			GameTooltip:Hide() 
 		end)
 		UB.menuHolder.Addon.Boss.shown = true
@@ -318,6 +364,8 @@ function UB:AddonSetup()
 		else
 			UB.menuHolder.Addon.Altoholic.shown = false
 		end
+		UB.menuHolder.Addon.Altoholic:HookScript('OnEnter', UB.OnEnter)
+		UB.menuHolder.Addon.Altoholic:HookScript('OnLeave', UB.OnLeave)
 		Sk:HandleButton(UB.menuHolder.Addon.Altoholic)
 		tinsert(AddonTable, UB.menuHolder.Addon.Altoholic)
 	end
@@ -337,6 +385,8 @@ function UB:AddonSetup()
 		else
 			UB.menuHolder.Addon.AtlasLoot.shown = false
 		end
+		UB.menuHolder.Addon.AtlasLoot:HookScript('OnEnter', UB.OnEnter)
+		UB.menuHolder.Addon.AtlasLoot:HookScript('OnLeave', UB.OnLeave)
 		Sk:HandleButton(UB.menuHolder.Addon.AtlasLoot)
 		tinsert(AddonTable, UB.menuHolder.Addon.AtlasLoot)
 	end
@@ -352,6 +402,8 @@ function UB:AddonSetup()
 			button.opened = false
 			UB:ToggleCats()
 		end)
+		UB.menuHolder.Addon.WeakAuras:HookScript('OnEnter', UB.OnEnter)
+		UB.menuHolder.Addon.WeakAuras:HookScript('OnLeave', UB.OnLeave)
 		if IsAddOnLoaded("WeakAuras") then
 			UB.menuHolder.Addon.WeakAuras.shown = true
 		else
@@ -372,6 +424,8 @@ function UB:AddonSetup()
 			button.opened = false
 			UB:ToggleCats()
 		end)
+		UB.menuHolder.Addon.Swatter:HookScript('OnEnter', UB.OnEnter)
+		UB.menuHolder.Addon.Swatter:HookScript('OnLeave', UB.OnLeave)
 		if IsAddOnLoaded("!Swatter") then
 			UB.menuHolder.Addon.Swatter.shown = true
 		else
@@ -393,6 +447,8 @@ function UB:AddonSetup()
 			button.opened = false
 			UB:ToggleCats()
 		end)
+		UB.menuHolder.Addon.WowLua:HookScript('OnEnter', UB.OnEnter)
+		UB.menuHolder.Addon.WowLua:HookScript('OnLeave', UB.OnLeave)
 		if IsAddOnLoaded("WowLua") then
 			UB.menuHolder.Addon.WowLua.shown = true
 		else
@@ -439,6 +495,8 @@ function UB:StatusSetup()
 		end
 		UB:ToggleCats()
 	end)
+	button:HookScript('OnEnter', UB.OnEnter)
+	button:HookScript('OnLeave', UB.OnLeave)
 	
 	do
 		UB.menuHolder.Status.AFK = CreateFrame("Button", "SLEUIStatusAFK", UB.menuHolder.Status)
@@ -451,6 +509,8 @@ function UB:StatusSetup()
 			button.opened = false
 			UB:ToggleCats()
 		end)
+		UB.menuHolder.Status.AFK:HookScript('OnEnter', UB.OnEnter)
+		UB.menuHolder.Status.AFK:HookScript('OnLeave', UB.OnLeave)
 		Sk:HandleButton(UB.menuHolder.Status.AFK)
 	end
 	
@@ -465,6 +525,8 @@ function UB:StatusSetup()
 			button.opened = false
 			UB:ToggleCats()
 		end)
+		UB.menuHolder.Status.DND:HookScript('OnEnter', UB.OnEnter)
+		UB.menuHolder.Status.DND:HookScript('OnLeave', UB.OnLeave)
 		Sk:HandleButton(UB.menuHolder.Status.DND)
 	end
 	
@@ -491,6 +553,8 @@ function UB:RollSetup()
 		end
 		UB:ToggleCats()
 	end)
+	button:HookScript('OnEnter', UB.OnEnter)
+	button:HookScript('OnLeave', UB.OnLeave)
 	
 	do
 		UB.menuHolder.Roll.Ten = CreateFrame("Button", "SLEUIRollTen", UB.menuHolder.Roll)
@@ -503,6 +567,8 @@ function UB:RollSetup()
 			button.opened = false
 			UB:ToggleCats()
 		end)
+		UB.menuHolder.Roll.Ten:HookScript('OnEnter', UB.OnEnter)
+		UB.menuHolder.Roll.Ten:HookScript('OnLeave', UB.OnLeave)
 		Sk:HandleButton(UB.menuHolder.Roll.Ten)
 	end
 	do
@@ -516,6 +582,8 @@ function UB:RollSetup()
 			button.opened = false
 			UB:ToggleCats()
 		end)
+		UB.menuHolder.Roll.Twenty:HookScript('OnEnter', UB.OnEnter)
+		UB.menuHolder.Roll.Twenty:HookScript('OnLeave', UB.OnLeave)
 		Sk:HandleButton(UB.menuHolder.Roll.Twenty)
 	end
 	do
@@ -529,6 +597,8 @@ function UB:RollSetup()
 			button.opened = false
 			UB:ToggleCats()
 		end)
+		UB.menuHolder.Roll.Thirty:HookScript('OnEnter', UB.OnEnter)
+		UB.menuHolder.Roll.Thirty:HookScript('OnLeave', UB.OnLeave)
 		Sk:HandleButton(UB.menuHolder.Roll.Thirty)
 	end
 	do
@@ -542,6 +612,8 @@ function UB:RollSetup()
 			button.opened = false
 			UB:ToggleCats()
 		end)
+		UB.menuHolder.Roll.Forty:HookScript('OnEnter', UB.OnEnter)
+		UB.menuHolder.Roll.Forty:HookScript('OnLeave', UB.OnLeave)
 		Sk:HandleButton(UB.menuHolder.Roll.Forty)
 	end
 	do
@@ -555,6 +627,8 @@ function UB:RollSetup()
 			button.opened = false
 			UB:ToggleCats()
 		end)
+		UB.menuHolder.Roll.Hundred:HookScript('OnEnter', UB.OnEnter)
+		UB.menuHolder.Roll.Hundred:HookScript('OnLeave', UB.OnLeave)
 		Sk:HandleButton(UB.menuHolder.Roll.Hundred)
 	end
 	do
@@ -574,11 +648,13 @@ function UB:RollSetup()
 			UB:ToggleCats()
 		end)
 		UB.menuHolder.Roll.Custom:SetScript("OnEnter", function(self)
+			UB:OnEnter()
 			GameTooltip:SetOwner(self)
-			GameTooltip:AddLine(L["Do a roll with custom limits. Those limits can be set in S&L config."], .6, .6, .6, .6, .6, 1)
+			GameTooltip:AddLine(L["Do a roll with custom limits. Those limits can be set in S&L config."], 1, 1, 1, 1, 1, 1)
 			GameTooltip:Show()
 		end)
 		UB.menuHolder.Roll.Custom:SetScript("OnLeave", function(self) 
+			UB:OnLeave()
 			GameTooltip:Hide() 
 		end)
 		Sk:HandleButton(UB.menuHolder.Roll.Custom)
@@ -639,7 +715,7 @@ function UB:UpdateConfigLayout(load)
 	if load then
 		UB.menuHolder.Config.Elv:Point("TOP", UB.menuHolder.Config, "TOP", 0, 0)
 		UB.menuHolder.Config.SLE:Point("TOP", UB.menuHolder.Config.Elv, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
-		if IsAddOnLoaded("BenikUI") then 
+		if IsAddOnLoaded("ElvUI_BenikUI") then 
 			UB.menuHolder.Config.Benik:Point("TOP", UB.menuHolder.Config.SLE, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
 			UB.menuHolder.Config.Reload:Point("TOP", UB.menuHolder.Config.Benik, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
 		else
@@ -725,6 +801,7 @@ function UB:Toggle()
 		UB.menuHolder:Hide()
 	else
 		UB.menuHolder:Show()
+		UB:UpdateMouseOverSetting()
 	end
 end
 
