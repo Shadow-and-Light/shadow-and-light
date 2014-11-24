@@ -426,6 +426,14 @@ P['sle'] = {
 		['mouse'] = false,
 		['position'] = "uib_vert",
 		['spacing'] = 3,
+		['point'] = "TOPLEFT",
+		['anchor'] = "TOPRIGHT",
+		['xoffset'] = 0,
+		['yoffset'] = 0,
+		['roll'] = {
+			['min'] = "1",
+			['max'] = "50",
+		}
 	},
 	
 	['rumouseover'] = false,
