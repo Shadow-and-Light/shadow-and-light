@@ -531,7 +531,7 @@ local function configTable()
 							},
 							yaxis = {
 								order = 6,
-								name = L["Y Offset"],
+								name = L["Y-Offset"],
 								type = "range",
 								min = -1.5, max = 1.5, step = 0.01,
 								get = function(info) return E.db.sle.media.screensaver.playermodel.yaxis end,
@@ -539,7 +539,7 @@ local function configTable()
 							},
 							xaxis = {
 								order = 7,
-								name = L["X Offset"],
+								name = L["X-Offset"],
 								type = "range",
 								min = -1.5, max = 1.5, step = 0.01,
 								get = function(info) return E.db.sle.media.screensaver.playermodel.xaxis end,
