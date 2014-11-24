@@ -44,13 +44,13 @@ end
 function I:UpdateFrame()
 	local db = E.db.sle.minimap.instance
 	if IsInInstance() then
-		if db.flag then
-			MiniMapInstanceDifficulty:Show()
-		else
+		if not db.flag then
 			MiniMapInstanceDifficulty:Hide()
+		elseif db.flag and not MiniMapInstanceDifficulty:IsShown() then
+			MiniMapInstanceDifficulty:Show()
 		end
 	end
-	f:Point("TOPLEFT", MiniMapInstanceDifficulty, "TOPLEFT", db.xoffset, db.yoffset)
+	f:Point("TOPLEFT", Minimap, "TOPLEFT", db.xoffset, db.yoffset)
 	if db.enable then
 		f.text:Show()
 	else
