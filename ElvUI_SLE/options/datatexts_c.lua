@@ -458,7 +458,7 @@ local function configTable()
 						order = 4,
 						type = "toggle",
 						name = L["Hide Hints"],
-						desc = L["Display the hints in the tooltip."],
+						desc = L["Hide the hints in the tooltip."],
 						get = function(info) return E.db.sle.dt.guild.hide_hintline end,
 						set = function(info, value) E.db.sle.dt.guild.hide_hintline = value; end,
 					},
