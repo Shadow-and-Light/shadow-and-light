@@ -12,6 +12,9 @@ L["S&L: All"] = "S&L: Все"
 L["S&L: Datatexts"] = "S&L: Инфо-тексты"
 L["S&L: Backgrounds"] = "S&L: Фоновые фреймы"
 L["S&L: Misc"] = "S&L: Прочее"
+L["Pet Battle Status"] = "Статус битвы питомцев"
+L["Pet Battle AB"] = "Панель битв питомцев"
+L["Ghost Frame"] = "Фрейм призрака"
 
 --Import--
 L["Import Options"] = "Импорт Настроек"
@@ -34,6 +37,10 @@ L['MSG_OUTDATED'] = "Ваша версия ElvUI старее, чем реком
 L["Reset these options to defaults"] = "Восстановить умолчания для этих опций"
 L["Reset All"] = "Сбросить все"
 L["Resets all movers & options for S&L."] = "Сбросить все фиксаторы и опции S&L"
+L['Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable.'] = "Ешкин конь, одновременно включены ElvUI Enhanced и Shadow & Light. Выберите что отключить."
+L['You have got Loot Confirm and Shadow & Light both enabled at the same time. Select an addon to disable.'] = "Одновременно активны Loot Confirm и Shadow & Light. Выберите что из них отключить."
+L["Enabling mouse over will make ElvUI's raid utility show on mouse over instead of always showing."] = "Отображать кнопку управления рейдом только при наведении мыши."
+L['Adjust the position of the threat bar to any of the datatext panels in ElvUI & S&L.'] = "Позволяет поместить полосу угрозы на любой панели инфо-текстов."
 
 --Chat--
 L["Reset Chat History"] = "Сбросить историю чата"
@@ -76,8 +83,6 @@ L["SLE_TIPS"] = {
 L['You Are Away From Keyboard'] = "Вы отошли от компьютера"
 L["Take care of yourself, Master!"] = "Не задерживайтесь, Хозяин!"
 L['Exit AFK'] = "Вернуться"
-
-
 
 --Install--
 L["|cff1784d1Shadow & Light|r Installation"] = "Установка |cff1784d1Shadow & Light|r"
@@ -172,6 +177,7 @@ L["Show Gems"] = "Показывать камни"
 L["Show gem slots near the item"] = "Показывать слоты для камней около предмета"
 L["Socket Size"] = "Размер слотов"
 L["Set the size of sockets to show."] = "Размер отображаемых слотов для камней."
+L["Set the texture to use in this frame. Requirements are the same as the chat textures."] = "Установить текстуру для фона этого фрейма. Требования такие же, как и для текстур чата."
 
 --Character Frame--
 L["Armory Mode"] = "Оружейная"
@@ -206,6 +212,15 @@ L["Star World Marker"] = "Маркер звезда"
 L["Clear World Markers"] = "Удалить маркеры"
 L["Target Exists"] = "Есть цель"
 L["Selecting this option will have the Raid Markers appear only when you have a target."] = "Отображать метки только, если у вас есть цель"
+L["Square Flare"] = "Маркер квадрат"
+L["Triangle Flare"] = "Маркер треугольник"
+L["Diamond Flare"] = "Маркер ромб"
+L["Cross Flare"] = "Маркер крест"
+L["Star Flare"] = "Маркер звезда"
+L["Circle Flare"] = "Маркер круг"
+L["Moon Flare"] = "Маркер луна"
+L["Skull Flare"] = "Маркер череп"
+
 
 --Datatexts--
 L["Panels & Dashboard"] = "Панели и Информация"
@@ -246,11 +261,11 @@ L["Sets size of this panel"] = "Установить ширину панели"
 L['Hide panel background'] = "Скрыть фон панели"
 L["Don't show this panel, only datatexts assinged to it"] = "Не показывать саму панель, а только назначенные на нее инфо-тексты"
 L["Some datatexts that Shadow & Light are supplied with, has settings that can be modified to alter the displayed information."] = "Некоторые инфо-тексты Shadow & Light имеют настройки, которые могут изменить отображаемую информацию."
--- L["S&L Friends"] = true
+L["S&L Friends"] = true
 L["Show total friends in the datatext."] = "Показывать общее кол-во друзей на инфо-тексте."
 L["Show total guild members in the datatext."] = "Показывать общее кол-во членов гильдии на инфо-тексте."
 L["These options are for modifing the Shadow & Light Friends datatext."] = "Опции для настройки инфо-текста S&L Friends."
--- L["S&L Guild"] = true
+L["S&L Guild"] = true
 L["Show Totals"] = "Показывать общее"
 L["Expand RealID"] = "Развернуть RealID"
 L["Display realid with two lines to view broadcasts."] = "Отображать информацию друрей по RealID в две строки для отображения рассылки."
@@ -258,7 +273,7 @@ L["Hide Hints"] = "Скрыть управление"
 L["Hide the hints in the tooltip."] = "Скрывать инструкцию по управлению в подсказке инфо-текста"
 L["Autohide Delay:"] = "Задержка скрывания"
 L["Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext."] = "Устанавливает время исчезновения подсказки, после ухода курсора с инфо-текста."
--- L["S&L Mail"] = true
+L["S&L Mail"] = true
 L["These options are for modifing the Shadow & Light Mail datatext."] = "Опции для настройки инфо-текста S&L Mail"
 L["Minimap icon"] = "Иконка на миникарте"
 L["If enabled will show new mail icon on minimap."] = "Если включено, то иконка почты на миникарте будет отображаться."
@@ -315,6 +330,7 @@ L["Automatically sets reputation tracking to the most recent reputation change."
 
 --Farm--
 L['Farm'] = "Ферма"
+L["Farm Options"] = "Опции фермы"
 L["FARM_DESC"] = [[Дополнительные панели с семенами, инструментами и порталами для Фермы Солнечной Песни.
 Они будут отображаться только если Вы находитесь на ферме или рынке Полугорья.]]
 L['Only active buttons'] = "Только активные"
@@ -385,17 +401,19 @@ L["Display threat level as text on targeted, boss or mouseover nameplate."] = "�
 
 --Minimap--
 L["Minimap Options"] = "Опции миникарты"
+L['Hide minimap in combat.'] = "Скрыть миникарту в бою"
 L['MINIMAP_DESC'] = "Эти опции влияют на различные функции миникарты.  Некоторые опции погут не работать, если вы отключите миникарты в основных настройках ElvUI."
 L["Minimap Coordinates"] = "Координаты на миникарте"
+L['Enable/Disable Square Minimap Coords.'] = "Включить/выключить координаты на миникарте."
 L['Coords Display'] = "Отображение координат"
 L['Change settings for the display of the coordinates that are on the minimap.'] = "Укажите условие отображения координат на миникарте."
 L["Coords Location"] = "Позиция координат"
 L['This will determine where the coords are shown on the minimap.'] = "Определяет место, в котором будут отображаться координаты на миникарте"
 L['Bottom Corners'] = "Нижние углы"
 L['Bottom Center'] = "Внизу по центру"
-L["Minimap Buttons"] = "Иконки у миникарты"
+L['Enable/Disable Square Minimap Buttons.'] = "Включить/выключить квадратные иконки у миникарты."
 L["Bar Enable"] = "Включить полосу"
-L['Enable/Disable Square Minimap Bar'] = "Включить/выключить панель для иконок миникарты."
+L['Enable/Disable Square Minimap Bar.'] = "Включить/выключить панель для иконок миникарты."
 L['Skin Dungeon'] = "Иконка поиска"
 L['Skin dungeon icon.'] = "Забирать иконку поиска группы."
 L['Skin Mail'] = "Иконка почты"
@@ -406,7 +424,7 @@ L['Anchor Setting'] = "Настрокий расположения"
 L['Anchor mode for displaying the minimap buttons are skinned.'] = "Место расположения иконок аддонов, когда они стилизованы."
 L['Horizontal Bar'] = "Горизонтальная панель"
 L['Vertical Bar'] = "Вертикальная панель"
-L['The size of the minimap buttons.'] = "Размер иконок."
+L['The size of the minimap buttons when not anchored to the minimap.'] = "Размер иконок миникарты, когда они находятся на полосе."
 L['Show minimap buttons on mouseover.'] = "Отображать иконпри при наведении мыши."
 L["Instance indication"] = "Индикатор подземелья"
 L['Show instance difficulty info as text.'] = "Показывать информацию о сложности подземелья в виде текста"
@@ -438,14 +456,27 @@ L["Layout for UI buttons."] = "Режим положения кнопок"
 L["Click to reload your interface"] = "Нажмите для перезагрузки интерфейса"
 L["Click to toggle config window"] = "Нажмите для отображения окна настроек"
 L["Click to toggle the AddOn Manager frame."] = "Нажмите для отображения окна менеджера аддонов."
-L["Click to toggle the Configuration/Option Window from the Bossmod (DXE, DBM or Bigwigs) you have enabled."] = "Нажмите для отображения окна настроек включенного босс мода. Поддерживаются DXE, DBM, Bigwigs."
+L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."] = "Нажмите для отображения окна настроек включенного босс мода."
 L["Click to unlock moving ElvUI elements"] = "Нажмите для входа в режим перемещения элементов"
 L["ElvUI Config"] = "Настройка ElvUI"
 L["Move UI"] = "Разблокировать элементы"
 L["Reload UI"] = "Перезагрузить интерфейс"
 L["AddOns Manager"] = "Менеджер аддонов"
 L["Boss Mod"] = "Босс мод"
-L["Click to toggle iFilger's config UI"] = "Нажмите для отображения настроек iFilger"
+L["BenikUI Config"] = "Настройки BenikUI"
+L["Click to toggle BenikUI config group"] = "Нажмите, чтобы открыть группу настроек BenikUI"
+L["Addons"] = "Аддоны"
+L["S&L Config"] = "Настройки Shadow & Light"
+L["Click to toggle Shadow & Light config group"] = "Нажмите, чтобы открыть группу настроек Shadow & Light"
+L["Do a roll with custom limits. Those limits can be set in S&L config."] = "Сделать бросок с собственными пределами. Они могут быть выставлены в настройках S&L."
+L['What point of dropdown will be attached to the toggle button.'] = "Какая точка выпадающего списка будет крепиться к кнопке его открытия."
+L['What point to anchor dropdown on the toggle button.'] = "К какой точке кнопки будет крепитьсяее выпадающий список."
+L["Horizontal offset of dropdown from the toggle button."] = "Отступ выпадающего списка от кнопки его открытия по горизонтали."
+L["Vertical offset of dropdown from the toggle button."] = "Отступ выпадающего списка от кнопки его открытия по вертикали."
+L["Minimum Roll Value"] = "Минимальное значение броска"
+L["The lower limit for custom roll button."] = "Нижняя граница броска при использовании собственных установок."
+L["Maximum Roll Value"] = "Масимальное значение броска"
+L["The higher limit for custom roll button."] = "Верхняя граница броска при использовании собственных установок."
 
 --Unitframes--
 L["Options for customizing unit frames. Please don't change these setting when ElvUI's testing frames for bosses and arena teams are shown. That will make them invisible until retoggling."] = "Опции для дополнительной настройки рамок юнитов. Пожалуйста, не изменяйте эти настройки в то же время, кода включен тестовый режим рамок боссов и арены в ElvUI. Это сделает их невидимыми до повторного включения."
