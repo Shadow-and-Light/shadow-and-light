@@ -4,9 +4,6 @@ local S = E:GetModule("SLE_ScreenSaver")
 local LSM = LibStub("LibSharedMedia-3.0")
 local Sk = E:GetModule("Skins")
 
-if AddOnSkins then
-	local AS = unpack(AddOnSkins)
-end
 local SS
 local ru = false
 local Months = {}
@@ -236,12 +233,6 @@ function S:Shown()
 	self.Top.PlayerInfo:SetText(format("|c%s%s|r, %s %s", Color.colorStr, Class, LEVEL, Level))
 	
 	self.ScrollFrame:AddMessage(L["SLE_TIPS"][TipNum], 1, 1, 1)
-	
-	UIParent:Hide()
-	UIParent:Show()
-	if AS then
-		AS:EmbedExitCombat()
-	end
 end
 
 function S:Update(elapsed)
@@ -279,6 +270,7 @@ function S:Event(event, unit)
 			fading = true
 			UIFrameFadeIn(UIParent, 0.5, 1, 0)
 		end
+		UIParent:Hide()
 	else
 		FlipCameraYaw(-degree)
 		degree = 0
