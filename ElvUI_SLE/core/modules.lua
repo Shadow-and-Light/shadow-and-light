@@ -12,6 +12,7 @@ local modules = {
 	['SLE_EquipManager'] = {'AceHook-3.0', 'AceEvent-3.0'},
 	['SLE_Farm'] = {'AceHook-3.0', 'AceEvent-3.0'},
 	['SLE_AddonInstaller'] = {},
+	['SLE_Bags'] = {'AceHook-3.0'},
 	['SLE_Loot'] = {'AceHook-3.0', 'AceEvent-3.0'},
 	['SLE_RaidFlares'] = {'AceHook-3.0', 'AceEvent-3.0'},
 	['SLE_RaidMarks'] = {'AceHook-3.0', 'AceEvent-3.0'},
