@@ -810,7 +810,7 @@ function UB:Initialize()
 	UB:FrameSize(true)
 	UB:Toggle()
 	
-	E.FrameLocks['UB.menuHolder'] = true
+	E.FrameLocks['SLEUIButtonHolder'] = true
 	
 	E:CreateMover(UB.menuHolder, "UIBFrameMover", L["UI Buttons"], nil, nil, nil, "ALL,S&L,S&L MISC")
 	UB:MoverSize()
