@@ -8,7 +8,7 @@ function SB:UpdateSlot(bagID, slotID)
 	end
 
 	local slot = self.Bags[bagID][slotID];
-
+	slot.shadow:Hide();
 	E:StopFlash(slot.shadow);
 
 	if (slot:IsShown() and C_NewItems.IsNewItem(bagID, slotID)) then
@@ -20,7 +20,7 @@ function SB:UpdateReagentSlot(slotID)
 	local bagID = REAGENTBANK_CONTAINER;
 	local slot = _G["ElvUIReagentBankFrameItem"..slotID];
 	if not slot then return end;
-
+	slot.shadow:Hide();
 	E:StopFlash(slot.shadow);
 
 	if (slot:IsShown() and C_NewItems.IsNewItem(bagID, slotID)) then
@@ -29,14 +29,12 @@ function SB:UpdateReagentSlot(slotID)
 end
 
 function SB:StartAnim(slot)
-	slot.shadow:Show();
 	slot.flashTex:Show();
 	slot.flashAnim:Play();
 	slot.glowAnim:Play();
 end
 
 function SB:StopAnim(slot)
-	slot.shadow:Hide();
 	slot.flashTex:Hide();
 	slot.flashAnim:Stop();
 	slot.glowAnim:Stop();
@@ -44,52 +42,66 @@ end
 
 function SB:HookSlot(slot, bagID, slotID)
 	slot:HookScript('OnEnter', function()
-		C_NewItems.RemoveNewItem(bagID, slotID);
-		SB:StopAnim(slot);
-	end);
-
-	slot:HookScript('OnShow', function()
-		if (C_NewItems.IsNewItem(bagID, slotID)) then
-			SB:StartAnim(slot);			
-		else
+		if (E.db.sle.bags.lootshadow) then
+			C_NewItems.RemoveNewItem(bagID, slotID);
 			SB:StopAnim(slot);
 		end
 	end);
 
+	slot:HookScript('OnShow', function()
+		if (E.db.sle.bags.lootshadow) then
+			if (C_NewItems.IsNewItem(bagID, slotID)) then
+				SB:StartAnim(slot);			
+			else
+				SB:StopAnim(slot);
+			end
+		end
+	end);
+
 	slot:HookScript('OnHide', function()
-		C_NewItems.RemoveNewItem(bagID, slotID);
-		SB:StopAnim(slot);
+		if (E.db.sle.bags.lootshadow) then
+			C_NewItems.RemoveNewItem(bagID, slotID);
+			SB:StopAnim(slot);
+		end
 	end);
 
 	slot.flashTex = slot:CreateTexture('flashTex', 'OVERLAY', 1);
 	slot.flashTex:SetBlendMode("ADD");
-	slot.flashTex:SetAtlas("bags-glow-flash");
-	slot.flashTex:SetAllPoints();
+	slot.flashTex:SetTexture(.7, .7, .7);
+	slot.flashTex:SetInside();
 	slot.flashTex:SetAlpha(0);
 
 	slot.shadow:SetAlpha(0);
 	
 	local flashAnimGroup = slot:CreateAnimationGroup("flashAnim");
-	local flashAnim = flashAnimGroup:CreateAnimation("Alpha");
-	flashAnim:SetChildKey("flashTex");
-	flashAnim:SetFromAlpha(1);
-	flashAnim:SetToAlpha(0);
-	flashAnim:SetSmoothing("OUT");
-	flashAnim:SetDuration(0.6);
-	flashAnim:SetOrder(1);
+	local flashAnim1 = flashAnimGroup:CreateAnimation("Alpha");
+	flashAnim1:SetChildKey("flashTex");
+	flashAnim1:SetFromAlpha(0);
+	flashAnim1:SetToAlpha(1);
+	--flashAnim1:SetSmoothing("IN");
+	flashAnim1:SetDuration(0.2);
+	flashAnim1:SetOrder(1);
+	local flashAnim2 = flashAnimGroup:CreateAnimation("Alpha");
+	flashAnim2:SetChildKey("flashTex");
+	flashAnim2:SetFromAlpha(1);
+	flashAnim2:SetToAlpha(0);
+	--flashAnim2:SetSmoothing("OUT");
+	flashAnim2:SetDuration(0.2);
+	flashAnim2:SetOrder(2);
 	slot.flashAnim = flashAnimGroup;
 
 	local glowAnimGroup = slot:CreateAnimationGroup("NewItemGlow");
 	glowAnimGroup:SetLooping("REPEAT");
 	local glowFlash1 = glowAnimGroup:CreateAnimation("Alpha");
-	glowFlash1:SetChildKey("shadow");
+	glowFlash1:SetChildKey("backdrop");
+	--glowFlash1:SetStartDelay(0.4);
 	glowFlash1:SetDuration(0.8);
 	glowFlash1:SetOrder(1);
 	glowFlash1:SetFromAlpha(1);
 	glowFlash1:SetToAlpha(0.4);
 
 	local glowFlash2 = glowAnimGroup:CreateAnimation("Alpha");
-	glowFlash2:SetChildKey("shadow");
+	glowFlash2:SetChildKey("backdrop");
 	glowFlash2:SetDuration(0.8);
 	glowFlash2:SetOrder(2);
 	glowFlash2:SetFromAlpha(0.4);
@@ -127,14 +139,18 @@ function SB:Initialize()
 	for _, bagFrame in pairs(B.BagFrames) do
 		local UpdateSlot = function(self, bagID, slotID)
 			BUpdateSlot(bagFrame, bagID, slotID);
-			SBUpdateSlot(bagFrame, bagID, slotID);
+			if (E.db.sle.bags.lootshadow) then
+				SBUpdateSlot(bagFrame, bagID, slotID);
+			end
 		end
 		bagFrame.UpdateSlot = UpdateSlot;
 		local BUpdateReagentSlot = B.UpdateReagentSlot;
 		local SBUpdateReagentSlot = SB.UpdateReagentSlot;
 		local UpdateReagentSlot = function(self, slotID)
 			BUpdateReagentSlot(bagFrame, slotID);
-			SBUpdateReagentSlot(bagFrame, slotID);
+			if (E.db.sle.bags.lootshadow) then
+				SBUpdateReagentSlot(bagFrame, slotID);
+			end
 		end
 		bagFrame.UpdateReagentSlot = UpdateReagentSlot;
 	end

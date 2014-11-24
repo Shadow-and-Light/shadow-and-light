@@ -429,6 +429,10 @@ P['sle'] = {
 	},
 	
 	['rumouseover'] = false,
+
+	['bags'] = {
+		['lootshadow'] = true,
+	},
 }
 
 P.chat.editboxhistory = 5
