@@ -42,14 +42,14 @@ end
 
 function SB:HookSlot(slot, bagID, slotID)
 	slot:HookScript('OnEnter', function()
-		if (E.db.sle.bags.lootshadow) then
+		if (E.db.sle.bags.lootflash) then
 			C_NewItems.RemoveNewItem(bagID, slotID);
 			SB:StopAnim(slot);
 		end
 	end);
 
 	slot:HookScript('OnShow', function()
-		if (E.db.sle.bags.lootshadow) then
+		if (E.db.sle.bags.lootflash) then
 			if (C_NewItems.IsNewItem(bagID, slotID)) then
 				SB:StartAnim(slot);			
 			else
@@ -59,7 +59,7 @@ function SB:HookSlot(slot, bagID, slotID)
 	end);
 
 	slot:HookScript('OnHide', function()
-		if (E.db.sle.bags.lootshadow) then
+		if (E.db.sle.bags.lootflash) then
 			C_NewItems.RemoveNewItem(bagID, slotID);
 			SB:StopAnim(slot);
 		end
@@ -139,7 +139,7 @@ function SB:Initialize()
 	for _, bagFrame in pairs(B.BagFrames) do
 		local UpdateSlot = function(self, bagID, slotID)
 			BUpdateSlot(bagFrame, bagID, slotID);
-			if (E.db.sle.bags.lootshadow) then
+			if (E.db.sle.bags.lootflash) then
 				SBUpdateSlot(bagFrame, bagID, slotID);
 			end
 		end
@@ -148,7 +148,7 @@ function SB:Initialize()
 		local SBUpdateReagentSlot = SB.UpdateReagentSlot;
 		local UpdateReagentSlot = function(self, slotID)
 			BUpdateReagentSlot(bagFrame, slotID);
-			if (E.db.sle.bags.lootshadow) then
+			if (E.db.sle.bags.lootflash) then
 				SBUpdateReagentSlot(bagFrame, slotID);
 			end
 		end

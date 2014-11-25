@@ -11,13 +11,13 @@ local function configTable()
 				type = "header",
 				name = L["Bags"],
 			},
-			lootshadow = {
+			lootflash = {
 				order = 5,
 				type = "toggle",
-				name = L["Loot Shadow"],
-				desc = L["Use the Shadow & Light Loot Shadow"],
-				get = function(info) return E.db.sle.bags.lootshadow end,
-				set = function(info, value)	E.db.sle.bags.lootshadow = value end,
+				name = L["New Item Flash"],
+				desc = L["Use the Shadow & Light New Item Flash instead of the default ElvUI flash"],
+				get = function(info) return E.db.sle.bags.lootflash end,
+				set = function(info, value)	E.db.sle.bags.lootflash = value end,
 			},
 		},
 	}

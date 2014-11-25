@@ -439,7 +439,7 @@ P['sle'] = {
 	['rumouseover'] = false,
 
 	['bags'] = {
-		['lootshadow'] = true,
+		['lootflash'] = true,
 	},
 }
 
