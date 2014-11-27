@@ -1,6 +1,21 @@
 v2.10
 - Fixed Vehicle Grey Issue #70
 - Cleanup some backend code
+- Added a new tag: 'health:sl:darth-heal'. Returns health in format "Deficit / Current | Percent". Yeah, Darth likes to make stupid stuff.
+- Transmog info now should be correctly shown when inspecting non S&L users.
+- (+0) string appearing in character window is gone for good now.
+- Loot rolls fixed.
+- New items in bags will now flash! You can disable it in S&L config if you don't like it.
+- UI Buttons are complitely rewritten and are acting in a different way. Now there are only 4 buttons. Those buttons open dropdown menues with a number of options in each.
+"C" - Config group. Containes buttons for opening ElvUI config, S&L config, reload ui and showing anchors. BenikUI users will have the button to directly open BenikUI config.
+"A" - Addons. Allowes to open addon manager, boss mod (no BigWigs or DXE support atm, sorry) and a number of other addons.
+"S" - Status. buttons to set yorself afk or dnd
+"R" - Rolls. Provides a number of different roll ranges plus a button for custom roll range then can be set in S&L options (default is 1-50)
+Dropdowns positioning and orientation are fully customised. If you were using ui buttons before and moved the bar from default position you will want to change those options asap.
+- Fixed work orders progress being visible on screensaver. Issue #75
+- Dear russian users! Darth finally found his grammar book and managed to fix a lot of typos... possibly?
+- Darth updated his layout to reflect some changes in latest ElvUI versions.
+
 
 v2.09 10/30/2014
 - Added AddonSkins Embed system (Backend stuff, users don't need to adjust anything if using AddonSkins embed system)
