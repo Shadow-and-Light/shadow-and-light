@@ -77,11 +77,11 @@ function RM:UpdateBar(update)
 	local height, width
 
 	if self.db.orientation == "VERTICAL" then
-		width = self.db.buttonSize + 3
-		height = (self.db.buttonSize * 9) + (self.db.spacing * 9)
+		width = self.db.buttonSize + 4
+		height = (self.db.buttonSize * 9) + (self.db.spacing * 8) + 4
 	else
-		width = (self.db.buttonSize * 9) + (self.db.spacing * 9)
-		height = self.db.buttonSize + 3
+		width = (self.db.buttonSize * 9) + (self.db.spacing * 8) + 4
+		height = self.db.buttonSize + 4
 	end
 
 	self.frame:SetWidth(width)
@@ -99,7 +99,7 @@ function RM:UpdateBar(update)
 			head = self.db.reverse and "BOTTOM" or "TOP"
 			tail = self.db.reverse and "TOP" or "BOTTOM"
 			if i == 9 then
-				button:SetPoint(head, 0, -3)
+				button:SetPoint(head, 0, (self.db.reverse and 2 or -2))
 			else
 				button:SetPoint(head, prev, tail, 0, self.db.spacing*(self.db.reverse and 1 or -1))
 			end
@@ -107,7 +107,7 @@ function RM:UpdateBar(update)
 			head = self.db.reverse and "RIGHT" or "LEFT"
 			tail = self.db.reverse and "LEFT" or "RIGHT"
 			if i == 9 then
-				button:SetPoint(head, 3, 0)
+				button:SetPoint(head, (self.db.reverse and -2 or 2), 0)
 			else
 				button:SetPoint(head, prev, tail, self.db.spacing*(self.db.reverse and -1 or 1), 0)
 			end
