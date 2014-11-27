@@ -148,7 +148,7 @@ function RM:Initialize()
 
 	self.frame.backdrop:SetAllPoints()
 
-	E:CreateMover(self.frame, "RaidMarkerBarAnchor", L['Raid Marker Bar'])
+	E:CreateMover(self.frame, "RaidMarkerBarAnchor", L['Raid Marker Bar'], nil, nil, nil, "ALL,S&L,S&L MISC")
 
 	self:CreateButtons()
 	self:ToggleSettings()
