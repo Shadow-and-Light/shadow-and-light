@@ -275,6 +275,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["unitframe"]["units"]["focus"]["castbar"]["width"] = 248
 		
 		E.db["unitframe"]["units"]["pet"]["height"] = 25
+		E.db["unitframe"]["units"]["pet"]["power"]["height"] = 5
 
 		E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 2
 		E.db["unitframe"]["units"]["party"]["debuffs"]["enable"] = false
