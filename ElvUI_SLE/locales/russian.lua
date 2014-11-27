@@ -15,6 +15,7 @@ L["S&L: Misc"] = "S&L: Прочее"
 L["Pet Battle Status"] = "Статус битвы питомцев"
 L["Pet Battle AB"] = "Панель битв питомцев"
 L["Ghost Frame"] = "Фрейм призрака"
+L['Raid Marker Bar'] = "Полоса меток"
 
 --Import--
 L["Import Options"] = "Импорт Настроек"
@@ -192,34 +193,16 @@ L["Inspect Frame Options"] = "Опции окна осмотра"
 
 --Marks--
 L['Options for panels providing fast access to raid markers and flares.'] = "Опции панелей, предоставляющих быстрый доступ к рейдовым меткам и маркерам на земле."
-L["Raid Marks"] = "Рейдовые Метки"
+L["Raid Markers"] = "Рейдовые Метки"
 L["Show/Hide raid marks."] = "Показать/скрыть фрейм рейдовых меток."
-L["Show only in instances"] = "Только в подземельях"
-L["Selecting this option will have the Raid Markers appear only while in a raid or dungeon."] = "При активации будет отображать полосу меток только в подземельях и рейдах."
-L["Sets size of buttons"] = "Устанавливает размер кнопок" --Also used in UI buttons
-L["Direction"] = "Направление"
 L["Change the direction of buttons growth from the skull marker"] = "Изменяет направление роста кнопок от метки \"череп\"."
-L["Raid Flares"] = "Рейдовые маркеры"
-L["Show/Hide Raid Flares."] = "Показать/скрыть маркеры."
-L["Selecting this option will have the Raid Flares appear only while in a raid or dungeon."] = "При включении будет показывать панель маркеров только в подземельях."
-L["Show Tooltip"] = "Показывать подсказку"
-L["Change the direction of buttons growth from the square marker"] = 'Изменить направление роса кнопок от метки "квадрат"'
-L["Square World Marker"] = "Маркер квадрат"
-L["Triangle World Marker"] = "Маркер треугольник"
-L["Diamond World Marker"] = "Маркер ромб"
-L["Cross World Marker"] = "Маркер крест"
-L["Star World Marker"] = "Маркер звезда"
-L["Clear World Markers"] = "Удалить маркеры"
-L["Target Exists"] = "Есть цель"
-L["Selecting this option will have the Raid Markers appear only when you have a target."] = "Отображать метки только, если у вас есть цель"
-L["Square Flare"] = "Маркер квадрат"
-L["Triangle Flare"] = "Маркер треугольник"
-L["Diamond Flare"] = "Маркер ромб"
-L["Cross Flare"] = "Маркер крест"
-L["Star Flare"] = "Маркер звезда"
-L["Circle Flare"] = "Маркер круг"
-L["Moon Flare"] = "Маркер луна"
-L["Skull Flare"] = "Маркер череп"
+L["Reverse"] = "Обратный порядок"
+L['Modifier Key'] = "Модификатор"
+L['Set the modifier key for placing world markers.'] = "Модификатор для установки меток на земле."
+
+--Bags--
+L["New Item Flash"] = "Мерцание новых предметов"
+L["Use the Shadow & Light New Item Flash instead of the default ElvUI flash"] = "Использовать полное мерцание Shadow & Light вместо обычного из ElvUI."
 
 
 --Datatexts--
@@ -478,6 +461,7 @@ L["The lower limit for custom roll button."] = "Нижняя граница бр
 L["Maximum Roll Value"] = "Масимальное значение броска"
 L["The higher limit for custom roll button."] = "Верхняя граница броска при использовании собственных установок."
 L["Custom roll limits are set incorrectly! Minimum should be smaller then or equial to maximum."] = "Пределы для броска указаны некорректно! Минимальное значение должно быть меньше максимального."
+L["Sets size of buttons"] = "Устанавливает размер кнопок"
 
 --Unitframes--
 L["Options for customizing unit frames. Please don't change these setting when ElvUI's testing frames for bosses and arena teams are shown. That will make them invisible until retoggling."] = "Опции для дополнительной настройки рамок юнитов. Пожалуйста, не изменяйте эти настройки в то же время, кода включен тестовый режим рамок боссов и арены в ElvUI. Это сделает их невидимыми до повторного включения."
