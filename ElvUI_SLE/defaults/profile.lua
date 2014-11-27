@@ -394,6 +394,7 @@ P['sle'] = {
 		['spacing'] = 2,
 		['orientation'] = 'HORIZONTAL',
 		['modifier'] = 'shift-',
+		['reverse'] = false,
 	},
 
 	--Threat
