@@ -43,7 +43,6 @@ local function configTable()
 						order = 4,
 						type = "toggle",
 						name = L["Enable"],
-						desc = "Automatically click OK on BOP items",
 						disabled = function() return not E.db.sle.loot.enable end,
 						get = function(info) return E.db.sle.loot.autoroll.enable end,
 						set = function(info, value) E.db.sle.loot.autoroll.enable = value; LT:Update() end,
