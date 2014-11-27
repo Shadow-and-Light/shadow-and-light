@@ -40,7 +40,7 @@ local function configTable()
 				name = L['Restore Defaults'],
 				desc = L["Reset these options to defaults"],
 				disabled = function() return not E.private.sle.backgrounds end,
-				func = function() E:GetModule('SLE'):Reset(nil, nil, nil, true) end,
+				func = function() E:GetModule('SLE'):Reset("backgrounds") end,
 			},
 			spacerreset = {
 				order = 5,

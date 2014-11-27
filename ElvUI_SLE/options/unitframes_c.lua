@@ -36,7 +36,7 @@ local function configTable()
 				type = 'execute',
 				name = L['Restore Defaults'],
 				desc = L["Reset these options to defaults"],
-				func = function() E:GetModule('SLE'):Reset(nil, true) end,
+				func = function() E:GetModule('SLE'):Reset("unitframes") end,
 			},
 			indicators = {
 				order = 5,

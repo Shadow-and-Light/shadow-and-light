@@ -68,7 +68,7 @@ local function configTable()
 								type = 'execute',
 								name = L["Reset All"],
 								desc = L["Resets all movers & options for S&L."],
-								func = function() SLE:Reset(true) end,
+								func = function() SLE:Reset("all") end,
 							},
 							Install = {
 								order = 3,
