@@ -15,6 +15,9 @@ Dropdowns positioning and orientation are fully customised. If you were using ui
 - Fixed work orders progress being visible on screensaver. Issue #75
 - Dear russian users! Darth finally found his grammar book and managed to fix a lot of typos... possibly?
 - Darth updated his layout to reflect some changes in latest ElvUI versions.
+- Raid marks and raid flares bars are now one bar. Thus settings for those have been reset. Features 2 visibility states:
+default - shown if you have target selected or in a group
+in group - always shown if you are in a group
 
 
 v2.09 10/30/2014
