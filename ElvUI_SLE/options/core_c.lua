@@ -70,8 +70,15 @@ local function configTable()
 								desc = L["Resets all movers & options for S&L."],
 								func = function() SLE:Reset(true) end,
 							},
-							space1 = {
+							Install = {
 								order = 3,
+								type = 'execute',
+								name = L['Install'],
+								desc = L['Run the installation process.'],
+								func = function() SLE:Install(); E:ToggleConfig() end,
+							},
+							space1 = {
+								order = 4,
 								type = 'description',
 								name = "",
 							},
