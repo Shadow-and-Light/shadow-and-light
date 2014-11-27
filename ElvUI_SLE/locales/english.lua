@@ -118,7 +118,7 @@ Boradan
 Camealion
 Omega1970
 Pvtschlag
-Simpy The Heretic
+Simpy, The Heretic
 Sinaris
 Sortokk
 Swordyy
