@@ -85,7 +85,7 @@ function RM:UpdateBar()
 
 	self.frame:SetWidth(width)
 	self.frame:SetHeight(height)
-
+	local head, tail
 	for i = 9, 1, -1 do
 		local button = self.frame.buttons[i]
 		local prev = self.frame.buttons[i + 1]
@@ -93,18 +93,23 @@ function RM:UpdateBar()
 
 		button:SetWidth(self.db.buttonSize)
 		button:SetHeight(self.db.buttonSize)
-
+		
+		
 		if self.db.orientation == "VERTICAL" then
+			head = self.db.reverse and "BOTTOM" or "TOP"
+			tail = self.db.reverse and "TOP" or "BOTTOM"
 			if i == 9 then
-				button:SetPoint("TOP", 0, -3)
+				button:SetPoint(head, 0, -3)
 			else
-				button:SetPoint("TOP", prev, "BOTTOM", 0, -self.db.spacing)
+				button:SetPoint(head, prev, tail, 0, self.db.spacing*(self.db.reverse and 1 or -1))
 			end
 		else
+			head = self.db.reverse and "RIGHT" or "LEFT"
+			tail = self.db.reverse and "LEFT" or "RIGHT"
 			if i == 9 then
-				button:SetPoint("LEFT", 3, 0)
+				button:SetPoint(head, 3, 0)
 			else
-				button:SetPoint("LEFT", prev, "RIGHT", self.db.spacing, 0)
+				button:SetPoint(head, prev, tail, self.db.spacing*(self.db.reverse and -1 or 1), 0)
 			end
 		end
 	end
