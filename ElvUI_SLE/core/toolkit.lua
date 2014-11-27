@@ -229,7 +229,7 @@ function SLE:Reset(group)
 	end
 	if group == "marks" or group == "all" then
 		E:CopyTable(E.db.sle.raidmarkers, P.sle.raidmarkers)
-		E:ResetMovers("RM")
+		E:ResetMovers(L['Raid Marker Bar'])
 	end
 	if group == "all" then
 		E:ResetMovers("PvP")
