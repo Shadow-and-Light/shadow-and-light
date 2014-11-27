@@ -108,8 +108,9 @@ function AI:DarthHeal()
 		E.db["unitframe"]["units"]["party"]["health"]["text_format"] = "[healthcolor][health:deficit]"
 
 		E.db["unitframe"]["units"]["raid"]["GPSArrow"]["enable"] = true
+		E.db["unitframe"]["units"]["raid"]["GPSArrow"]["size"] = 20
 		E.db["unitframe"]["units"]["raid"]["GPSArrow"]["xOffset"] = -27
-		E.db["unitframe"]["units"]["raid"]["GPSArrow"]["yOffset"] = 12
+		E.db["unitframe"]["units"]["raid"]["GPSArrow"]["yOffset"] = 8
 		E.db["unitframe"]["units"]["raid"]["healPrediction"] = true
 		E.db["unitframe"]["units"]["raid"]["health"]["frequentUpdates"] = true
 		E.db["unitframe"]["units"]["raid"]["health"]["text_format"] = "[healthcolor][health:deficit]"
@@ -140,7 +141,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	local word = layout == 'tank' and L["Tank"] or layout == 'healer' and L["Healer"] or layout == 'dpsMelee' and L['Physical DPS'] or L['Caster DPS']
 	SLEInstallStepComplete.message = L["Darth's Defaults Set"]..": "..word
 	SLEInstallStepComplete:Show()
-	
+	E:CopyTable(E.db, P)
+	E:CopyTable(E.private, V)
 	if not E.db.movers then E.db.movers = {}; end
 	--General--
 	do
@@ -295,7 +297,6 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		
 		E.db["unitframe"]["units"]["raid"]["horizontalSpacing"] = 2
 		E.db["unitframe"]["units"]["raid"]["GPSArrow"]["enable"] = false
-		E.db["unitframe"]["units"]["raid"]["GPSArrow"]["size"] = 30
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["size"] = 18
 		E.db["unitframe"]["units"]["raid"]["numGroups"] = 6
 		E.db["unitframe"]["units"]["raid"]["growthDirection"] = "RIGHT_UP"
@@ -517,11 +518,11 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		elseif layout == 'healer' then AI:DarthHeal() 
 		else AI:DarthCaster()
 		end
+		E.db.layoutSet = layout
 	else
 		AI:DarthCaster()
 	end
-
-
+	
 	if IsAddOnLoaded("ElvUI_LocLite") then
 		E.db["loclite"]["lpwidth"] = 300
 		E.db["loclite"]["dtheight"] = 20
@@ -538,7 +539,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	end
 
 	if SLE:Auth() then
-		E.db["hideTutorial"] = 1
+		E.db["hideTutorial"] = true
 		E.db["general"]["loginmessage"] = false
 		E.db["tooltip"]["itemCount"] = "NONE"
 	end
