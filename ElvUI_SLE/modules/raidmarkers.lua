@@ -72,7 +72,8 @@ function RM:UpdateWorldMarkersAndTooltips()
 	end
 end
 
-function RM:UpdateBar()
+function RM:UpdateBar(update)
+	if update then self.db = E.db.sle.raidmarkers end
 	local height, width
 
 	if self.db.orientation == "VERTICAL" then
@@ -93,7 +94,6 @@ function RM:UpdateBar()
 
 		button:SetWidth(self.db.buttonSize)
 		button:SetHeight(self.db.buttonSize)
-		
 		
 		if self.db.orientation == "VERTICAL" then
 			head = self.db.reverse and "BOTTOM" or "TOP"
@@ -119,7 +119,7 @@ end
 
 function RM:ToggleSettings()
 	if self.db.enable then
-		RegisterStateDriver(self.frame, "visibility", self.db.visibility == 'DEFAULT' and '[noexists, nogroup] hide; show' or '[group] show; hide')
+		RegisterStateDriver(self.frame, "visibility", self.db.visibility == 'DEFAULT' and '[noexists, nogroup] hide; show' or  '[group] show; hide')
 	else
 		UnregisterStateDriver(self.frame, "visibility")
 		self.frame:Hide()
