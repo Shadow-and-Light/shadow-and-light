@@ -15,9 +15,9 @@
 	<Script file='farm_c.lua'/>
 	<Script file='imports_c.lua'/>
 	<Script file='loot_c.lua'/>
-	<Script file='marks_c.lua'/>
 	<Script file='minimap_c.lua'/>
 	<Script file='nameplates_c.lua'/>
+	<Script file='raidmarkers_c.lua'/>
 	<Script file='raidutility_c.lua'/>
 	<Script file='threat_c.lua'/>
 	<Script file='tooltip_c.lua'/>

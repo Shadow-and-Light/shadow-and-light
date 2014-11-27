@@ -14,11 +14,11 @@
 	<Script file='exprepbar.lua'/>
 	<Script file='farm.lua'/>
 	<Script file='loot.lua'/>
-	<Include file='marks\load_marks.xml'/>
 	<Include file='minimap\load_minimap.xml'/>
 	<Script file='nameplates.lua'/>
 	<Script file='raidutility.lua'/>
 	<Script file='pvpmover.lua'/>
+	<Script file='raidmarkers.lua'/>
 	<Script file='screensaver.lua'/>
 	<Script file='threat.lua'/>
 	<Script file='tooltip.lua'/>

@@ -230,7 +230,7 @@ function SLE:Reset(group)
 		E:ResetMovers(L["Dashboard"])
 	end
 	if group == "marks" or group == "all" then
-		E:CopyTable(E.db.sle.marks, P.sle.marks)
+		E:CopyTable(E.db.sle.raidmarkers, P.sle.raidmarkers)
 		E:ResetMovers("RM")
 	end
 	if group == "all" then

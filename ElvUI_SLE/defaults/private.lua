@@ -43,11 +43,6 @@ V['sle'] = {
 		['pvp'] = "NONE",
 		['setoverlay'] = false,
 	},
-	
-	['marks'] = {
-		['marks'] = false,
-		['flares'] = false,
-	},
 
 	--Minimap Moduel
 	['minimap'] = {

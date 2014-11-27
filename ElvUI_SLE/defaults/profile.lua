@@ -230,15 +230,6 @@ P['sle'] = {
 		['quest'] = false,
 	},
 
-	--Flares (Raid)
-	['flares'] = {
-		['growth'] = "RIGHT",
-		['showinside'] = false,
-		['size'] = 20,
-		['tooltips'] = true,
-		['mouseover'] = false,
-	},
-
 	--LFR options
 	['lfrshow'] = {
 		['enabled'] = false,
@@ -275,15 +266,6 @@ P['sle'] = {
 			['alpha'] = 1,
 			['autohide'] = false,
 		},
-	},
-
-	--Marks (Raid)
-	['marks'] = {
-		['growth'] = "RIGHT",
-		['showinside'] = false,
-		['target'] = false,
-		['size'] = 18,
-		['mouseover'] = false,
 	},
 
 	--Media
@@ -402,6 +384,17 @@ P['sle'] = {
 
 	--PvP Auto release
 	['pvpautorelease'] = true,
+
+	--Raid Markers
+	['raidmarkers'] = {
+		['enable'] = true,
+		['visibility'] = 'DEFAULT',
+		['backdrop'] = false,
+		['buttonSize'] = 22,
+		['spacing'] = 2,
+		['orientation'] = 'HORIZONTAL',
+		['modifier'] = 'shift-',
+	},
 
 	--Threat
 	['threat'] = {
