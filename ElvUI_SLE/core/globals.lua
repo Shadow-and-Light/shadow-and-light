@@ -99,6 +99,7 @@ SLE.SpecialChatIcons = {
 			["Леани"] = friend,
 			["Кайрия"] = friend,
 			["Дендрин"] = frined,
+			["Аргрут"] = friend,
 			--Da tester lol
 			["Харореанн"] = test,
 			["Нерререанн"] = test
@@ -106,6 +107,7 @@ SLE.SpecialChatIcons = {
 		["Ревущийфьорд"] = {
 			["Рыжая"] = friend,
 			["Рыжа"] = friend,
+			["Шензори"] = friend,
 			--Some people
 			["Брэгар"] = test
 		},
