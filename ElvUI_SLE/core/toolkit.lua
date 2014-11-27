@@ -185,7 +185,6 @@ function SLE:GetRegion()
 	end
 end
 
-
 function SLE:Auth(sender)
 	local senderName, senderRealm
 	if sender then
@@ -202,4 +201,41 @@ function SLE:Auth(sender)
 	end
 
 	return false
+end
+
+function SLE:Reset(group)
+	if not group then print("U wot m8?") end
+	if group == "unitframes" or group == "all" then
+		E.db.sle.combatico.pos = 'TOP'
+		E.db.sle.powtext = false
+	end
+	if group == "backgrounds" or group == "all" then
+		E:CopyTable(E.db.sle.backgrounds, P.sle.backgrounds)
+		E:ResetMovers(L["Bottom BG"])
+		E:ResetMovers(L["Left BG"])
+		E:ResetMovers(L["Right BG"])
+		E:ResetMovers(L["Actionbar BG"])
+	end
+	if group == "datatexts" or group == "all" then
+		E:CopyTable(E.db.sle.datatext, P.sle.datatext)
+		E:CopyTable(E.db.sle.dt, P.sle.dt)
+		E:ResetMovers(L["DP_1"])
+		E:ResetMovers(L["DP_2"])
+		E:ResetMovers(L["DP_3"])
+		E:ResetMovers(L["DP_4"])
+		E:ResetMovers(L["DP_5"])
+		E:ResetMovers(L["DP_6"])
+		E:ResetMovers(L["Top_Center"])
+		E:ResetMovers(L["Bottom_Panel"])
+		E:ResetMovers(L["Dashboard"])
+	end
+	if group == "marks" or group == "all" then
+		E:CopyTable(E.db.sle.marks, P.sle.marks)
+		E:ResetMovers("RM")
+	end
+	if group == "all" then
+		E:ResetMovers("PvP")
+		E:ResetMovers(L["UI Buttons"])
+	end
+	E:UpdateAll()
 end
