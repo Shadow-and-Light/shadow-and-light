@@ -25,7 +25,6 @@ function AI:DarthCaster()
 		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
 		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
 		E.db["movers"]["BossButton"] = "BOTTOMElvUIParentBOTTOM0168"
-		E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-565119"
 		E.db["movers"]["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0234"
 		E.db["movers"]["ComboBarMover"] = nil
 		E.db["movers"]["ClassBarMover"] = nil
@@ -59,7 +58,6 @@ function AI:DarthTank()
 		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
 		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
 		E.db["movers"]["BossButton"] = "BOTTOMElvUIParentBOTTOM0168"
-		E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-565119"
 		E.db["movers"]["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0234"
 		E.db["movers"]["ComboBarMover"] = nil
 		E.db["movers"]["ClassBarMover"] = nil
@@ -87,7 +85,6 @@ function AI:DarthPhys()
 		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
 		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
 		E.db["movers"]["BossButton"] = "BOTTOMElvUIParentBOTTOM0168"
-		E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-565119"
 		E.db["movers"]["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0234"
 		E.db["movers"]["ComboBarMover"] = "BOTTOMElvUIParentBOTTOM0356"
 		E.db["movers"]["ClassBarMover"] = "BOTTOMElvUIParentBOTTOM0364"
@@ -129,7 +126,6 @@ function AI:DarthHeal()
 		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT768134"
 		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT768134"
 		E.db["movers"]["BossButton"] = "BOTTOMElvUIParentBOTTOM-31822"
-		E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-555116"
 		E.db["movers"]["AlertFrameMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT198207"
 		E.db["movers"]["ComboBarMover"] = nil
 		E.db["movers"]["ClassBarMover"] = nil
@@ -449,8 +445,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["sle"]["combatico"]["pos"] = "BOTTOMLEFT"
 		E.db["sle"]["tooltip"]["showFaction"] = true
 		E.db["sle"]['raidmarkers']['visibility'] = 'INPARTY'
-		E.db["sle"]['raidmarkers']['buttonSize'] = 18
-		E.db["sle"]['raidmarkers']['orientation'] = 'VERTICAL'
+		E.db["sle"]['raidmarkers']['buttonSize'] = 16
+		E.db["sle"]['raidmarkers']['spacing'] = 1
 		E.db["sle"]['raidmarkers']['reverse'] = true
 		E.db["sle"]["uibuttons"]["yoffset"] = -2
 		E.db["sle"]["uibuttons"]["point"] = "TOPRIGHT"
@@ -497,6 +493,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHTElvUIParentTOPRIGHT0-202"
 		E.db["movers"]["BossHeaderMover"] = "TOPRIGHTElvUIParentTOPRIGHT0-202"
 		E.db["movers"]["TotemBarMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT50123"
+		E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOMElvUIParentBOTTOM0114"
 	end
 	
 	E.private["general"]["normTex"] = "Polished Wood"
