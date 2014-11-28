@@ -21,3 +21,4 @@ modules\load_modules.xml
 defaults\load_defaults.xml
 options\load_options.xml
 skins\load_skins.xml
+Bindings.xml

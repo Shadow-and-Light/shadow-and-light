@@ -1,6 +1,27 @@
 local E, L, V, P, G = unpack(ElvUI);
 local RM = E:GetModule('SLE_RaidMarkers');
 
+BINDING_HEADER_RAIDFLARE = "|cff1784d1Shadow & Light|r"
+
+local function make(name, command, description)
+	_G["BINDING_NAME_CLICK "..name..":LeftButton"] = description
+	local btn = CreateFrame("Button", name, nil, "SecureActionButtonTemplate")
+	btn:SetAttribute("type", "macro")
+	btn:SetAttribute("macrotext", command)
+	btn:RegisterForClicks("AnyDown")
+end
+
+make("RaidFlare1", "/clearworldmarker 1\n/worldmarker 1", "Blue Flare")
+make("RaidFlare2", "/clearworldmarker 2\n/worldmarker 2", "Green Flare")
+make("RaidFlare3", "/clearworldmarker 3\n/worldmarker 3", "Purple Flare")
+make("RaidFlare4", "/clearworldmarker 4\n/worldmarker 4", "Red Flare")
+make("RaidFlare5", "/clearworldmarker 5\n/worldmarker 5", "Yellow Flare")
+make("RaidFlare6", "/clearworldmarker 6\n/worldmarker 6", "Orange Flare")
+make("RaidFlare7", "/clearworldmarker 7\n/worldmarker 7", "White Flare")
+make("RaidFlare8", "/clearworldmarker 8\n/worldmarker 8", "Skull Flare")
+
+make("ClearRaidFlares", "/clearworldmarker 0", "Clear All Flares")
+
 local layouts = {
 	[1] = {RT = 1, WM = 5},	-- Star
 	[2] = {RT = 2, WM = 6},	-- Circle
@@ -119,7 +140,7 @@ end
 
 function RM:ToggleSettings()
 	if self.db.enable then
-		RegisterStateDriver(self.frame, "visibility", self.db.visibility == 'DEFAULT' and '[noexists, nogroup] hide; show' or  '[group] show; hide')
+		RegisterStateDriver(self.frame, "visibility", self.db.visibility == 'DEFAULT' and '[noexists, nogroup] hide; show' or '[group] show; hide')
 	else
 		UnregisterStateDriver(self.frame, "visibility")
 		self.frame:Hide()
