@@ -134,6 +134,7 @@ end
 
 function SB:Initialize()
 	self.hookedBags = {};
+	if not E.private.bags.enable then return end
 	local BUpdateSlot = B.UpdateSlot;
 	local SBUpdateSlot = SB.UpdateSlot;
 	for _, bagFrame in pairs(B.BagFrames) do
