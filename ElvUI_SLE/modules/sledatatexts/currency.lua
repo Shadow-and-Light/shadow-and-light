@@ -8,22 +8,22 @@ local GetMoney, GetCurrencyInfo, GetNumWatchedTokens, GetBackpackCurrencyInfo, U
 local join = string.join
 
 local defaultColor = { 1, 1, 1 }
-local Profit	= 0
-local Spent		= 0
+local Profit = 0
+local Spent	= 0
 local copperFormatter = join("", "%d", L.copperabbrev)
 local silverFormatter = join("", "%d", L.silverabbrev, " %.2d", L.copperabbrev)
 local goldFormatter =  join("", "%s", L.goldabbrev, " %.2d", L.silverabbrev, " %.2d", L.copperabbrev)
 local resetInfoFormatter = join("", "|cffaaaaaa", L["Reset Data: Hold Shift + Right Click"], "|r")
 local JEWELCRAFTING, COOKING, ARCHAEOLOGY
 
-local ArchaeologyFragments = { 398, 384, 393, 677, 400, 394, 397, 676, 401, 385, 399 }
+local ArchaeologyFragments = { 398, 384, 393, 677, 400, 394, 397, 676, 401, 385, 399, 829, 821, 828 }
 local CookingAwards = { 81, 402 }
 local JewelcraftingTokens = { 61, 361, 698 }
 local DungeonRaid = { 776, 752, 697, 738, 615, 614, 395, 396 }
 local PvPPoints = { 390, 392, 391 }
-local MiscellaneousCurrency = { 241, 416, 515, 777 }
+local MiscellaneousCurrency = { 241, 416, 515, 777, 823, 824 }
 
-local _, Faction = UnitFactionGroup('player')
+local Faction = UnitFactionGroup('player')
 local HordeColor = RAID_CLASS_COLORS['DEATHKNIGHT']
 local AllianceColor = RAID_CLASS_COLORS['SHAMAN']
 
@@ -162,17 +162,35 @@ local function OnEvent(self, event, ...)
 
 	local OldMoney = ElvDB['gold'][E.myrealm][E.myname] or NewMoney
 
-	local Change = NewMoney-OldMoney -- Positive if we gain money
-	if OldMoney>NewMoney then		-- Lost Money
-		Spent = Spent - Change
-	else							-- Gained Moeny
-		Profit = Profit + Change
+	local calculateChange = false;
+	
+	if (NewMoney == 0) then
+		if (self.seenZeroAlready) then
+			calculateChange = true
+			self.seenZeroAlready = false
+		else
+			self.seenZeroAlready = true
+		end
+	else
+		self.seenZeroAlready = false
+		calculateChange = true
 	end
 
-	self.text:SetText(FormatMoney(NewMoney))
-	
-	ElvDB['gold'][E.myrealm][E.myname] = NewMoney
-	ElvDB['faction'][E.myrealm][Faction][E.myname] = NewMoney
+	if (calculateChange) then
+		local Change = NewMoney - OldMoney
+
+		if OldMoney > NewMoney then
+			Spent = Spent - Change
+		else
+			Profit = Profit + Change
+		end
+
+		self.text:SetText(FormatMoney(NewMoney))
+
+		ElvDB['gold'][E.myrealm][E.myname] = NewMoney
+		ElvDB['faction'][E.myrealm][Faction][E.myname] = NewMoney
+	end
+
 	if event == 'PLAYER_ENTERING_WORLD' or event == 'SPELLS_CHANGED' then
 		JEWELCRAFTING = nil
 		for k, v in pairs({GetProfessions()}) do
