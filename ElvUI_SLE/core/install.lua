@@ -209,10 +209,16 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["unitframe"]["fontOutline"] = "OUTLINE"
 		E.db["unitframe"]["statusbar"] = "Polished Wood"
 		E.db["unitframe"]["font"] = "ElvUI Font"
-		E.db["unitframe"]["colors"]["castNoInterrupt"]["b"] = 0.250980392156863
-		E.db["unitframe"]["colors"]["castNoInterrupt"]["g"] = 0.250980392156863
-		E.db["unitframe"]["colors"]["castNoInterrupt"]["r"] = 0.780392156862745
-		E.db["unitframe"]["colors"]["auraBarBuff"]["b"] = 0.109803921568627
+		E.db["unitframe"]["colors"]["castNoInterrupt"] = {
+			["r"] = 0.780392156862745,
+			["g"] = 0.250980392156863,
+			["b"] = 0.250980392156863,
+		}
+		E.db["unitframe"]["colors"]["castColor"] = {
+			["r"] = 0.803921568627451,
+			["g"] = 0.76078431372549,
+			["b"] = 0.180392156862745,
+		}
 		E.db["unitframe"]["colors"]["auraBarBuff"]["g"] = 0.552941176470588
 		E.db["unitframe"]["colors"]["auraBarBuff"]["r"] = 0.317647058823529
 		E.db["unitframe"]["colors"]["colorhealthbyvalue"] = false
@@ -505,7 +511,6 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	E.private["sle"]["minimap"]["mapicons"]["enable"] = true
 	E.private["sle"]["equip"]["spam"] = true
 	E.private["sle"]["equip"]["setoverlay"] = true
-	E.private["sle"]["marks"]["marks"] = true
 
 	E.private["ElvUI_Currency"]["Unused"] = false
 	E.private["ElvUI_Currency"]["Archaeology"] = false
