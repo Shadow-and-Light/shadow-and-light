@@ -23,7 +23,7 @@ local DungeonRaid = { 776, 752, 697, 738, 615, 614, 395, 396 }
 local PvPPoints = { 390, 392, 391 }
 local MiscellaneousCurrency = { 241, 416, 515, 777, 823, 824 }
 
-local Faction = UnitFactionGroup('player')
+local _, Faction = UnitFactionGroup('player')
 local HordeColor = RAID_CLASS_COLORS['DEATHKNIGHT']
 local AllianceColor = RAID_CLASS_COLORS['SHAMAN']
 
