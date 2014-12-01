@@ -462,6 +462,8 @@ L["Maximum Roll Value"] = "Масимальное значение броска"
 L["The higher limit for custom roll button."] = "Верхняя граница броска при использовании собственных установок."
 L["Custom roll limits are set incorrectly! Minimum should be smaller then or equial to maximum."] = "Пределы для броска указаны некорректно! Минимальное значение должно быть меньше максимального."
 L["Sets size of buttons"] = "Устанавливает размер кнопок"
+L["Quick Action"] = "Быстрое действие"
+L["Use quick access (on right click) for this button."] = "Функция для быстрого действия. Вызывается нажатием ПКМ на кнопке открытия списка."
 
 --Unitframes--
 L["Options for customizing unit frames. Please don't change these setting when ElvUI's testing frames for bosses and arena teams are shown. That will make them invisible until retoggling."] = "Опции для дополнительной настройки рамок юнитов. Пожалуйста, не изменяйте эти настройки в то же время, кода включен тестовый режим рамок боссов и арены в ElvUI. Это сделает их невидимыми до повторного включения."
