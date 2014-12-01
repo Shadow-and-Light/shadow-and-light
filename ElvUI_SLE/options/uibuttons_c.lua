@@ -276,6 +276,10 @@ local function configTable()
 			},
 		},
 	}
+	
+	if IsAddOnLoaded("ElvUI_BenikUI") then 
+		E.Options.args.sle.args.options.args.general.args.uibuttons.args.cFunc.args.called.values["Benik"] = "BenikUI"
+	end
 end
 
 table.insert(E.SLEConfigs, configTable)
