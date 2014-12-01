@@ -147,6 +147,133 @@ local function configTable()
 				get = function(info) return E.db.sle.uibuttons.roll.max end,
 				set = function(info, value) E.db.sle.uibuttons.roll.max = value; end,
 			},
+			cFunc = {
+				order = 19,
+				name = "\"C\" "..L["Quick Action"],
+				type = "group",
+				guiInline = true,
+				args = {
+					enabled = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						desc = L["Use quick access (on right click) for this button."],
+						disabled = function() return not E.db.sle.uibuttons.enable end,
+						get = function(info) return E.db.sle.uibuttons.cfunc.enable end,
+						set = function(info, value) E.db.sle.uibuttons.cfunc.enable = value end
+					},
+					called = {
+						order = 2,
+						name = L["Function"],
+						desc = L["Function called by quick access."],
+						type = "select",
+						values = {
+							["Elv"] = L["ElvUI Config"],
+							["SLE"] = L["S&L Config"],
+							["Reload"] = L["Reload UI"],
+							["MoveUI"] = L["Move UI"],
+						},
+						disabled = function() return not E.db.sle.uibuttons.enable or not E.db.sle.uibuttons.cfunc.enable end,
+						get = function(info) return E.db.sle.uibuttons.cfunc.called end,
+						set = function(info, value) E.db.sle.uibuttons.cfunc.called = value; end,
+					},
+				},
+			},
+			aFunc = {
+				order = 20,
+				name = "\"A\" "..L["Quick Action"],
+				type = "group",
+				guiInline = true,
+				args = {
+					enabled = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						desc = L["Use quick access (on right click) for this button."],
+						disabled = function() return not E.db.sle.uibuttons.enable end,
+						get = function(info) return E.db.sle.uibuttons.afunc.enable end,
+						set = function(info, value) E.db.sle.uibuttons.afunc.enable = value end
+					},
+					called = {
+						order = 2,
+						name = L["Function"],
+						desc = L["Function called by quick access."],
+						type = "select",
+						values = {
+							["Manager"] = L["Addons"],
+							["Boss"] = L["Boss Mod"],
+						},
+						disabled = function() return not E.db.sle.uibuttons.enable or not E.db.sle.uibuttons.afunc.enable end,
+						get = function(info) return E.db.sle.uibuttons.afunc.called end,
+						set = function(info, value) E.db.sle.uibuttons.afunc.called = value; end,
+					},
+				},
+			},
+			sFunc = {
+				order = 21,
+				name = "\"S\" "..L["Quick Action"],
+				type = "group",
+				guiInline = true,
+				args = {
+					enabled = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						desc = L["Use quick access (on right click) for this button."],
+						disabled = function() return not E.db.sle.uibuttons.enable end,
+						get = function(info) return E.db.sle.uibuttons.sfunc.enable end,
+						set = function(info, value) E.db.sle.uibuttons.sfunc.enable = value end
+					},
+					called = {
+						order = 2,
+						name = L["Function"],
+						desc = L["Function called by quick access."],
+						type = "select",
+						values = {
+							["AFK"] = L["AFK"],
+							["DND"] = L["DND"],
+						},
+						disabled = function() return not E.db.sle.uibuttons.enable or not E.db.sle.uibuttons.sfunc.enable end,
+						get = function(info) return E.db.sle.uibuttons.sfunc.called end,
+						set = function(info, value) E.db.sle.uibuttons.sfunc.called = value; end,
+					},
+				},
+			},
+			rFunc = {
+				order = 22,
+				name = "\"R\" "..L["Quick Action"],
+				type = "group",
+				guiInline = true,
+				args = {
+					enabled = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						desc = L["Use quick access (on right click) for this button."],
+						disabled = function() return not E.db.sle.uibuttons.enable end,
+						get = function(info) return E.db.sle.uibuttons.rfunc.enable end,
+						set = function(info, value) E.db.sle.uibuttons.rfunc.enable = value end
+					},
+					called = {
+						order = 2,
+						name = L["Function"],
+						desc = L["Function called by quick access."],
+						type = "select",
+						values = {
+							["Ten"] = "1-10",
+							["Twenty"] = "1-20",
+							["Thirty"] = "1-30",
+							["Forty"] = "1-40",
+							["Hundred"] = "1-100",
+							["Custom"] = L["Custom"],
+
+						},
+						disabled = function() return not E.db.sle.uibuttons.enable or not E.db.sle.uibuttons.rfunc.enable end,
+						get = function(info) return E.db.sle.uibuttons.rfunc.called end,
+						set = function(info, value) E.db.sle.uibuttons.rfunc.called = value; end,
+					},
+				},
+			},
 		},
 	}
 end
