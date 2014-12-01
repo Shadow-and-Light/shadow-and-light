@@ -112,6 +112,10 @@ function AI:DarthHeal()
 		E.db["unitframe"]["units"]["raid"]["health"]["frequentUpdates"] = true
 		E.db["unitframe"]["units"]["raid"]["health"]["text_format"] = "[healthcolor][health:deficit]"
 	end
+	
+	E.db["datatexts"]["panels"]["DP_6"]["right"] = "Crit Chance"
+	E.db["datatexts"]["panels"]["DP_6"]["left"] = "Spell/Heal Power"
+	E.db["datatexts"]["panels"]["DP_6"]["middle"] = "MP5"
 	--Movers--
 	do
 		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-289137"
