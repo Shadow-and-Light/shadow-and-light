@@ -120,16 +120,21 @@ function UB:ConfigSetup()
 	button.opened = false
 	
 	UB.menuHolder.Config:Hide()
-	button:SetScript("OnClick", function(self)
-		if self.opened then
-			self.opened = false
-		else
-			self.opened = true
-			UB.menuHolder.Addon.Toggle.opened = false
-			UB.menuHolder.Status.Toggle.opened = false
-			UB.menuHolder.Roll.Toggle.opened = false
+	button:RegisterForClicks("LeftButtonDown", "RightButtonDown");
+	button:SetScript("OnClick", function(self, button, down)
+		if button == "LeftButton" then
+			if self.opened then
+				self.opened = false
+			else
+				self.opened = true
+				UB.menuHolder.Addon.Toggle.opened = false
+				UB.menuHolder.Status.Toggle.opened = false
+				UB.menuHolder.Roll.Toggle.opened = false
+			end
+			UB:ToggleCats()
+		elseif button == "RightButton" and E.db.sle.uibuttons.cfunc.enable then
+			UB.menuHolder.Config[E.db.sle.uibuttons.cfunc.called]:Click()
 		end
-		UB:ToggleCats()
 	end)
 	button:HookScript('OnEnter', UB.OnEnter)
 	button:HookScript('OnLeave', UB.OnLeave)
@@ -267,16 +272,22 @@ function UB:AddonSetup()
 	local button = UB.menuHolder.Addon.Toggle
 	button.opened = false
 	UB.menuHolder.Addon:Hide()
-	button:SetScript("OnClick", function(self)
-		if self.opened then
-			self.opened = false
-		else
-			self.opened = true
-			UB.menuHolder.Config.Toggle.opened = false
-			UB.menuHolder.Status.Toggle.opened = false
-			UB.menuHolder.Roll.Toggle.opened = false
+	
+	button:RegisterForClicks("LeftButtonDown", "RightButtonDown");
+	button:SetScript("OnClick", function(self, button, down)
+		if button == "LeftButton" then
+			if self.opened then
+				self.opened = false
+			else
+				self.opened = true
+				UB.menuHolder.Config.Toggle.opened = false
+				UB.menuHolder.Status.Toggle.opened = false
+				UB.menuHolder.Roll.Toggle.opened = false
+			end
+			UB:ToggleCats()
+		elseif button == "RightButton" and E.db.sle.uibuttons.afunc.enable then
+			UB.menuHolder.Addon[E.db.sle.uibuttons.afunc.called]:Click()
 		end
-		UB:ToggleCats()
 	end)
 	button:HookScript('OnEnter', UB.OnEnter)
 	button:HookScript('OnLeave', UB.OnLeave)
@@ -484,16 +495,21 @@ function UB:StatusSetup()
 	button.opened = false
 	UB.menuHolder.Status:Point("TOP", button, "BOTTOM", 0, -4)
 	UB.menuHolder.Status:Hide()
-	button:SetScript("OnClick", function(self)
-		if self.opened then
-			self.opened = false
-		else
-			self.opened = true
-			UB.menuHolder.Config.Toggle.opened = false
-			UB.menuHolder.Addon.Toggle.opened = false
-			UB.menuHolder.Roll.Toggle.opened = false
+	button:RegisterForClicks("LeftButtonDown", "RightButtonDown");
+	button:SetScript("OnClick", function(self, button, down)
+		if button == "LeftButton" then
+			if self.opened then
+				self.opened = false
+			else
+				self.opened = true
+				UB.menuHolder.Config.Toggle.opened = false
+				UB.menuHolder.Addon.Toggle.opened = false
+				UB.menuHolder.Roll.Toggle.opened = false
+			end
+			UB:ToggleCats()
+		elseif button == "RightButton" and E.db.sle.uibuttons.sfunc.enable then
+			UB.menuHolder.Status[E.db.sle.uibuttons.sfunc.called]:Click()
 		end
-		UB:ToggleCats()
 	end)
 	button:HookScript('OnEnter', UB.OnEnter)
 	button:HookScript('OnLeave', UB.OnLeave)
@@ -542,16 +558,21 @@ function UB:RollSetup()
 	button.opened = false
 	UB.menuHolder.Roll:Point("TOP", button, "BOTTOM", 0, -4)
 	UB.menuHolder.Roll:Hide()
-	button:SetScript("OnClick", function(self)
-		if self.opened then
-			self.opened = false
-		else
-			self.opened = true
-			UB.menuHolder.Config.Toggle.opened = false
-			UB.menuHolder.Addon.Toggle.opened = false
-			UB.menuHolder.Status.Toggle.opened = false
+	button:RegisterForClicks("LeftButtonDown", "RightButtonDown");
+	button:SetScript("OnClick", function(self, button, down)
+		if button == "LeftButton" then
+			if self.opened then
+				self.opened = false
+			else
+				self.opened = true
+				UB.menuHolder.Config.Toggle.opened = false
+				UB.menuHolder.Addon.Toggle.opened = false
+				UB.menuHolder.Status.Toggle.opened = false
+			end
+			UB:ToggleCats()
+		elseif button == "RightButton" and E.db.sle.uibuttons.rfunc.enable then
+			UB.menuHolder.Roll[E.db.sle.uibuttons.rfunc.called]:Click()
 		end
-		UB:ToggleCats()
 	end)
 	button:HookScript('OnEnter', UB.OnEnter)
 	button:HookScript('OnLeave', UB.OnLeave)
