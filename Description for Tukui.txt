@@ -1,6 +1,8 @@
-<center><img src='http://www.tukui.org/storage/images/634223sl_logo.jpg'></center>
+<center><img src='http://www.tukui.org/storage/images/379422DaBanner.png'></center>
 
 <font color="red"><b>Please Note:</b></font> This addon will not function without ElvUI installed.  You can download it at <a href="http://www.tukui.org/dl.php">http://www.tukui.org</a>.
+
+<font color="red"><b>Please Note 2:</b></font> When updating from a version for patch 5.4.8 or older it will be a good idea to delede S&L from your addon folder and reinstall it.
 
 Shadow & Light is an external edit of ElvUI, which means it doesn't change ElvUI's files directly.
 What does this mean to you?
@@ -89,15 +91,25 @@ With that said, happy gaming and enjoy the addon!
 <tr><td align="center" colspan="2">
 <font color="#3e8ac6"><b>Repooc's Layout</b></font></td></tr>
 <tr><td align="center">Tank/Dps Layout
-<a href="http://www.tukui.org/storage/images/540914Repooc-DPSLayout.png" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/540914Repooc-DPSLayout.png"></a>
+<a href="http://www.tukui.org/storage/images/540914Repooc-DPSLayout.png" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/540914Repooc-DPSLayout.png" ></a>
 </td>
 <td align="center">Healer Layout
 <a href="http://www.tukui.org/storage/images/238390Repooc-HealerLayout.png" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/238390Repooc-HealerLayout.png"></a>
 </td></tr>
 <tr><td align="center" colspan="2">
 <font color="#3e8ac6"><b>Darth Predator's Layout</b></font></td></tr>
-<tr><td align="center" colspan="2">
-<a href="http://www.tukui.org/storage/images/335018Darth_Setup_high.jpg" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/335018Darth_Setup_high.jpg"></a>
+<tr><td align="center"> Caster 
+<a href="http://www.tukui.org/storage/images/78827WoWScrnShot_120114_211122.jpg" rel="lightbox[roadtrip]">
+<img src="http://www.tukui.org/storage/thumbs/78827WoWScrnShot_120114_211122.jpg"></a>
+</td>
+<td align="center"> Physical DPS 
+<a href="http://www.tukui.org/storage/images/83015WoWScrnShot_120114_212723.jpg" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/83015WoWScrnShot_120114_212723.jpg"></a>
+</td></tr>
+<tr><td align="center"> Tank 
+<a href="http://www.tukui.org/storage/images/93983WoWScrnShot_120114_220156.jpg" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/93983WoWScrnShot_120114_220156.jpg"></a>
+</td>
+<td align="center"> Healer 
+<a href="http://www.tukui.org/storage/images/558982WoWScrnShot_120114_214424.jpg" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/558982WoWScrnShot_120114_214424.jpg"></a>
 </td></tr>
 <tr><td align="center" colspan="2">
 <font color="#3e8ac6"><b>Affinitii's Layout</b></font></td></tr>
