@@ -129,8 +129,10 @@ function S:Setup()
 	self:Media()
 	
 	--Positioning stuff
-	SS.Top:SetPoint("TOP", UIParent, "TOP", 0, 0)
-	SS.Bottom:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 0)
+	SS.Top:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 0, 0)
+	SS.Top:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", 0, 0)
+	SS.Bottom:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 0, 0)
+	SS.Bottom:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", 0, 0)
 	SS.Top.Date:SetPoint("RIGHT", SS.Top, "RIGHT", -40, 10)
 	SS.Top.Time:SetPoint("TOP", SS.Top.Date, "BOTTOM", 0, -2)
 	SS.Top.PlayerInfo:SetPoint("LEFT", SS.Top, "LEFT", 50, 10)
@@ -150,10 +152,9 @@ function S:Setup()
 
 	SS.Top.Title:SetText("|cff00AAFF"..L['You Are Away From Keyboard'].."|r")
 	-----
-	local Width, Height = GetScreenWidth(), E.db.sle.media.screensaver.height 
 	local point = E.db.sle.media.screensaver.playermodel.position
-	SS.Top:SetSize(Width, Height)
-	SS.Bottom:SetSize(Width, Height)
+	SS.Top:SetHeight(E.db.sle.media.screensaver.height)
+	SS.Bottom:SetHeight(E.db.sle.media.screensaver.height)
 	SS.model:SetWidth(E.db.sle.media.screensaver.playermodel.width)
 	if point ~= "CENTER" then
 		SS.model:SetPoint("TOP"..point, SS.Top,"BOTTOM"..point, 0,0)
@@ -199,7 +200,6 @@ function S:Shown()
 	if IsInGuild() then
 		GuildName, GuildRank = GetGuildInfo("player")
 	end
-	local Width, Height = GetScreenWidth(), E.db.sle.media.screensaver.height
 	self.model:SetUnit("player")
 	local x = E.db.sle.media.screensaver.playermodel.position == "RIGHT" and -1 or 1
 	local point = E.db.sle.media.screensaver.playermodel.position
@@ -210,9 +210,9 @@ function S:Shown()
 	self.model:SetAnimation(E.db.sle.media.screensaver.playermodel.anim)
 	self.model:SetScript("OnAnimFinished", S.AnimFinished)
 	
-	self.Top:SetSize(Width, Height)
-	self.Bottom:SetSize(Width, Height)
-	self.ScrollFrame:SetSize(Width, 24)
+	self.Top:SetHeight(E.db.sle.media.screensaver.height)
+	self.Bottom:SetHeight(E.db.sle.media.screensaver.height)
+	self.ScrollFrame:SetSize(self.Bottom:GetWidth(), 24)
 	
 	--Positioning model
 	SS.model:ClearAllPoints()
