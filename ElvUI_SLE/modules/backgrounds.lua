@@ -37,7 +37,7 @@ local function CreateFrames()
 end
 
 --Frames Size
-local function FramesSize()
+function BG:FramesSize()
 	if not BGb then return end
 	local db = E.db.sle.backgrounds
 	for _,v in pairs(Fr) do
@@ -85,7 +85,7 @@ function BG:UpdateFrames()
 		v[1]:SetTemplate(db[v[2]].template, true)
 		v[1]:SetAlpha(db[v[2]].alpha)
 	end
-	FramesSize()
+	BG:FramesSize()
 	BG:FramesVisibility()
     UpdateTex()
 end
