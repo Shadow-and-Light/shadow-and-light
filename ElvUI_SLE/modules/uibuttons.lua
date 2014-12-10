@@ -387,11 +387,11 @@ function UB:AddonSetup()
 		UB.menuHolder.Addon.AtlasLoot.text:SetPoint("CENTER", UB.menuHolder.Addon.AtlasLoot, "CENTER")
 		UB.menuHolder.Addon.AtlasLoot.text:SetText("AtlasLoot")
 		UB.menuHolder.Addon.AtlasLoot:SetScript("OnClick", function(self)
-			AtlasLoot:SlashCommand("/al")
+			AtlasLoot.GUI:Toggle()
 			button.opened = false
 			UB:ToggleCats()
 		end)
-		if IsAddOnLoaded("AtlasLoot_Loader") then
+		if IsAddOnLoaded("AtlasLoot") then
 			UB.menuHolder.Addon.AtlasLoot.shown = true
 		else
 			UB.menuHolder.Addon.AtlasLoot.shown = false
