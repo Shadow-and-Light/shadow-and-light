@@ -263,10 +263,10 @@ local function configTable()
 								type = "toggle",
 								name = GetMapNameByID(953),
 							},
-							soof = {
+							hm = {
 								order = 7,
 								type = "toggle",
-								name = FLEX_RAID.." "..GetMapNameByID(953),
+								name = GetMapNameByID(994),
 							},
 						},
 					},

@@ -239,8 +239,8 @@ P['sle'] = {
 		['toes'] = false,
 		['tot'] = false,
 		['soo'] = false,
-		['soof'] = false,
 		['leishen'] = false,
+		['hm'] = false,
 	},
 
 	--Loot (Restructured)

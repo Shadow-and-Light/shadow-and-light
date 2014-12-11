@@ -81,6 +81,67 @@ local function SixShift(id1, id2)
 	end
 end
 
+--For 7 boss raid
+local function SevenKill(id1, id2, id3)
+	local killNum = 0
+	for i =1,3 do --1st part
+		_, _, isKilled = GetLFGDungeonEncounterInfo(id1, i);
+		if (isKilled) then
+			killNum = killNum + 1
+		end
+	end
+	for i =4,6 do --2nd part
+		_, _, isKilled = GetLFGDungeonEncounterInfo(id2, i);
+		if (isKilled) then
+			killNum = killNum + 1
+		end
+	end
+
+	-- 3rd part
+	_, _, isKilled = GetLFGDungeonEncounterInfo(id3, 7);
+	if (isKilled) then
+		killNum = killNum+1;
+	end
+
+	if killNum == 7 then
+		DT.tooltip:AddLine(" "..L["Bosses killed: "]..killNum.."/7", RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
+	else
+		DT.tooltip:AddLine(" "..L["Bosses killed: "]..killNum.."/7", GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b)
+	end
+end
+
+local function SevenShift(id1, id2, id3)
+	for i =1,3 do --1st part
+		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id1, i);
+		if (isKilled) then
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+		elseif ( isIneligible ) then
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		else
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		end
+	end
+	for i =4,6 do --2nd part
+		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id2, i);
+		if (isKilled) then
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+		elseif (isIneligible) then
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		else
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		end
+	end
+	-- 3rd part
+	bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id3, 7);
+	if (isKilled) then
+		DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+	elseif ( isIneligible ) then
+		DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+	else
+		DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+	end
+end
+
 --For 8 boss raid
 local function EightKill(id1, id2)
 	local killNum = 0
@@ -328,6 +389,14 @@ local function SoO(id1, id2, id3, id4)
 	end
 end
 
+local function HM(id1, id2, id3)
+	if IsShiftKeyDown() then
+		SevenShift(id1, id2, id3);
+	else
+		SevenKill(id1, id2, id3);
+	end
+end
+
 function DT:LFRShow()
 	local lvl = UnitLevel("player")
 	local ilvl = GetAverageItemLevel()
@@ -391,17 +460,15 @@ function DT:LFRShow()
 		end
 		DT.tooltip:AddLine(" ")
 	end
-	
-	if E.db.sle.lfrshow.soof then
-		DT.tooltip:AddLine(" "..FLEX_RAID.." "..GetMapNameByID(953))
-		if lvl == 90 then
-			SoO(726, 728, 729, 730)
-		else
-			DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
+
+	if E.db.sle.lfrshow.hm then
+		DT.tooltip:AddLine(" "..GetMapNameByID(994))
+		if lvl == 100 and ilvl >= 615 then
+			HM(849, 850, 851);
 		end
-		DT.tooltip:AddLine(" ")
 	end
-	if not E.db.sle.lfrshow.ds and not E.db.sle.lfrshow.mv and not E.db.sle.lfrshow.hof and not E.db.sle.lfrshow.toes and not E.db.sle.lfrshow.tot and not E.db.sle.lfrshow.soo and not E.db.sle.lfrshow.soof then
+
+	if not E.db.sle.lfrshow.ds and not E.db.sle.lfrshow.mv and not E.db.sle.lfrshow.hof and not E.db.sle.lfrshow.toes and not E.db.sle.lfrshow.tot and not E.db.sle.lfrshow.soo and not E.db.sle.lfrshow.hm then
 		DT.tooltip:AddLine(" "..L["You didn't select any instance to track."])
 	end
 end
