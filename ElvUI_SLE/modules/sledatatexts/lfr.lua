@@ -465,6 +465,8 @@ function DT:LFRShow()
 		DT.tooltip:AddLine(" "..GetMapNameByID(994))
 		if lvl == 100 and ilvl >= 615 then
 			HM(849, 850, 851);
+		else
+			DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
 		end
 	end
 
