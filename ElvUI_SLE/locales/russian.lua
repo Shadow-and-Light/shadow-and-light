@@ -208,10 +208,12 @@ L["Use the Shadow & Light New Item Flash instead of the default ElvUI flash"] = 
 --Datatexts--
 L["Panels & Dashboard"] = "Панели и Информация"
 L["LFR Lockout"] = "Состояние ЛФР"
+L["Raid Saves"] = "Сохранения рейдов"
 L["Show/Hide LFR lockout info in time datatext's tooltip."] = "Отображать/скрывать информацию о сохранении ЛФР"
 L["Bosses killed: "] = "Боссов убито: "
 L["You didn't select any instance to track."] = "Вы не выбрали подземелья для отслеживания"
 L["This LFR isn't available for your level/gear."] = "Это подземелье не доступно для Вашего уровня или экипировки."
+L["This raid isn't available for your level/gear."] = "Этот рейд не доступен для Вашего уровня или экипировки."
 L["Key to the Palace of Lei Shen:"] = "Ключ от дворца Лэй Шэня"
 L["Trove of the Thunder King:"] = "Сокровища Властелина Грома"
 L["Looted"] = "Получено"
