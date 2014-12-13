@@ -401,7 +401,7 @@ function DT:LFRShow()
 	local lvl = UnitLevel("player")
 	local ilvl = GetAverageItemLevel()
 	DT.tooltip:AddLine(" ")
-	DT.tooltip:AddLine(RAID_FINDER)
+	DT.tooltip:AddLine(RAID_FINDER.." / "..L["Raid Saves"])
 	if E.db.sle.lfrshow.ds then
 		DT.tooltip:AddLine(" "..GetMapNameByID(824))
 		if lvl == 85 and ilvl >= 372 then
@@ -467,6 +467,24 @@ function DT:LFRShow()
 			HM(849, 850, 851);
 		else
 			DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
+		end
+	end
+	
+	if E.db.sle.lfrshow.hmNormal then
+		DT.tooltip:AddLine(" "..GetMapNameByID(994).." ("..PLAYER_DIFFICULTY1..")")
+		if lvl == 100 and ilvl >= 627 then
+			HM(895, 895, 895);
+		else
+			DT.tooltip:AddLine(" "..L["This raid isn't available for your level/gear."])
+		end
+	end
+	
+	if E.db.sle.lfrshow.hmHeroic then
+		DT.tooltip:AddLine(" "..GetMapNameByID(994).." ("..PLAYER_DIFFICULTY2..")")
+		if lvl == 100 and ilvl >= 650 then
+			HM(896, 896, 896);
+		else
+			DT.tooltip:AddLine(" "..L["This raid isn't available for your level/gear."])
 		end
 	end
 

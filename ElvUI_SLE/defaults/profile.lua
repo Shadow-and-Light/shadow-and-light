@@ -241,6 +241,8 @@ P['sle'] = {
 		['soo'] = false,
 		['leishen'] = false,
 		['hm'] = false,
+		['hmNormal'] = false,
+		['hmHeroic'] = false,
 	},
 
 	--Loot (Restructured)

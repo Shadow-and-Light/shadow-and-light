@@ -268,6 +268,16 @@ local function configTable()
 								type = "toggle",
 								name = GetMapNameByID(994),
 							},
+							hmNormal = {
+								order = 8,
+								type = "toggle",
+								name = GetMapNameByID(994).." ("..PLAYER_DIFFICULTY1..")",
+							},
+							hmHeroic = {
+								order = 9,
+								type = "toggle",
+								name = GetMapNameByID(994).." ("..PLAYER_DIFFICULTY2..")",
+							},
 						},
 					},
 					hubs = {
