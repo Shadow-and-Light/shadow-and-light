@@ -472,7 +472,7 @@ function DT:LFRShow()
 	
 	if E.db.sle.lfrshow.hmNormal then
 		DT.tooltip:AddLine(" "..GetMapNameByID(994).." ("..PLAYER_DIFFICULTY1..")")
-		if lvl == 100 and ilvl >= 627 then
+		if lvl == 100 then
 			HM(895, 895, 895);
 		else
 			DT.tooltip:AddLine(" "..L["This raid isn't available for your level/gear."])
@@ -481,7 +481,7 @@ function DT:LFRShow()
 	
 	if E.db.sle.lfrshow.hmHeroic then
 		DT.tooltip:AddLine(" "..GetMapNameByID(994).." ("..PLAYER_DIFFICULTY2..")")
-		if lvl == 100 and ilvl >= 650 then
+		if lvl == 100 then
 			HM(896, 896, 896);
 		else
 			DT.tooltip:AddLine(" "..L["This raid isn't available for your level/gear."])
