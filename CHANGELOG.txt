@@ -4,6 +4,7 @@ v2.11
 - Errors on changing backgrounds size
 - Added quick action functionality to ui buttons
 - Fixed error when trying to apply Darth's config
+- Added HighMaul LFR info to time datatext
 
 
 v2.10 11/27/2014
