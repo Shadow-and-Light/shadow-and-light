@@ -1,3 +1,11 @@
+v2.11
+- Fixed errors on login when ElvUI's bag module was disabled
+- Fixed sizing issues with screensaver when autoscale wasn't there
+- Errors on changing backgrounds size
+- Added quick action functionality to ui buttons
+- Fixed error when trying to apply Darth's config
+
+
 v2.10 11/27/2014
 - Fixed Vehicle Grey Issue #70
 - Cleanup some backend code
