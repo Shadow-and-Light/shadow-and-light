@@ -6,7 +6,6 @@ v2.11 12/14/2014
 - Fixed error when trying to apply Darth's config
 - Added HighMaul LFR info to time datatext
 
-
 v2.10 11/27/2014
 - Fixed Vehicle Grey Issue #70
 - Cleanup some backend code
