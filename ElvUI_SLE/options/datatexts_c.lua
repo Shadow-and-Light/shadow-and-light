@@ -280,7 +280,7 @@ local function configTable()
 							},]]
 						},
 					},
-					hubs = {
+					--[[hubs = {
 						order = 3,
 						type = "group",
 						name = L["World Loot"],
@@ -295,7 +295,7 @@ local function configTable()
 								desc = L["Show/Hide the status of Key to the Palace of Lei Shen and Trove of the Thunder King."],
 							},
 						},
-					},
+					},]]
 				},
 			},
 			slcurrency = {
