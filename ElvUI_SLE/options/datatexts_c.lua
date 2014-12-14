@@ -280,22 +280,6 @@ local function configTable()
 							},]]
 						},
 					},
-					--[[hubs = {
-						order = 3,
-						type = "group",
-						name = L["World Loot"],
-						guiInline = true,
-						get = function(info) return E.db.sle.lfrshow[ info[#info] ] end,
-						set = function(info, value) E.db.sle.lfrshow[ info[#info] ] = value; end,
-						args = {
-							leishen = {
-								order = 1,
-								type = "toggle",
-								name = GetMapNameByID(928),
-								desc = L["Show/Hide the status of Key to the Palace of Lei Shen and Trove of the Thunder King."],
-							},
-						},
-					},]]
 				},
 			},
 			slcurrency = {
