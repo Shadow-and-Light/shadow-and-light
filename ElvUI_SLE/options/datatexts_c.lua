@@ -268,7 +268,7 @@ local function configTable()
 								type = "toggle",
 								name = GetMapNameByID(994),
 							},
-							hmNormal = {
+							--[[hmNormal = {
 								order = 8,
 								type = "toggle",
 								name = GetMapNameByID(994).." ("..PLAYER_DIFFICULTY1..")",
@@ -277,7 +277,7 @@ local function configTable()
 								order = 9,
 								type = "toggle",
 								name = GetMapNameByID(994).." ("..PLAYER_DIFFICULTY2..")",
-							},
+							},]]
 						},
 					},
 					hubs = {

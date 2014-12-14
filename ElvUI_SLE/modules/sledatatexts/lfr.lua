@@ -470,7 +470,7 @@ function DT:LFRShow()
 		end
 	end
 	
-	if E.db.sle.lfrshow.hmNormal then
+	--[[if E.db.sle.lfrshow.hmNormal then
 		DT.tooltip:AddLine(" "..GetMapNameByID(994).." ("..PLAYER_DIFFICULTY1..")")
 		if lvl == 100 then
 			HM(895, 895, 895);
@@ -486,7 +486,7 @@ function DT:LFRShow()
 		else
 			DT.tooltip:AddLine(" "..L["This raid isn't available for your level/gear."])
 		end
-	end
+	end]]
 
 	if not E.db.sle.lfrshow.ds and not E.db.sle.lfrshow.mv and not E.db.sle.lfrshow.hof and not E.db.sle.lfrshow.toes and not E.db.sle.lfrshow.tot and not E.db.sle.lfrshow.soo and not E.db.sle.lfrshow.hm then
 		DT.tooltip:AddLine(" "..L["You didn't select any instance to track."])
