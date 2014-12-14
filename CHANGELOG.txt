@@ -1,4 +1,4 @@
-v2.11
+v2.11 12/14/2014
 - Fixed errors on login when ElvUI's bag module was disabled
 - Fixed sizing issues with screensaver when autoscale wasn't there
 - Errors on changing backgrounds size
