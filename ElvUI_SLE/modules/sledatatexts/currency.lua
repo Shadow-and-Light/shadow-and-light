@@ -23,7 +23,6 @@ local DungeonRaid = { 776, 752, 697, 738, 615, 614, 395, 396 }
 local PvPPoints = { 390, 392, 391 }
 local MiscellaneousCurrency = { 241, 416, 515, 777, 823, 824 }
 
-local _, Faction = UnitFactionGroup('player')
 local HordeColor = RAID_CLASS_COLORS['DEATHKNIGHT']
 local AllianceColor = RAID_CLASS_COLORS['SHAMAN']
 
@@ -187,8 +186,12 @@ local function OnEvent(self, event, ...)
 
 		self.text:SetText(FormatMoney(NewMoney))
 
+		local FactionToken, Faction = UnitFactionGroup('player')
+
 		ElvDB['gold'][E.myrealm][E.myname] = NewMoney
-		ElvDB['faction'][E.myrealm][Faction][E.myname] = NewMoney
+		if (FactionToken ~= "Neutral") then
+			ElvDB['faction'][E.myrealm][Faction][E.myname] = NewMoney
+		end
 	end
 
 	if event == 'PLAYER_ENTERING_WORLD' or event == 'SPELLS_CHANGED' then
