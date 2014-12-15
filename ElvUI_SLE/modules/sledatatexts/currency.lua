@@ -16,12 +16,61 @@ local goldFormatter =  join("", "%s", L.goldabbrev, " %.2d", L.silverabbrev, " %
 local resetInfoFormatter = join("", "|cffaaaaaa", L["Reset Data: Hold Shift + Right Click"], "|r")
 local JEWELCRAFTING, COOKING, ARCHAEOLOGY
 
-local ArchaeologyFragments = { 398, 384, 393, 677, 400, 394, 397, 676, 401, 385, 399, 829, 821, 828 }
-local CookingAwards = { 81, 402 }
-local JewelcraftingTokens = { 61, 361, 698 }
-local DungeonRaid = { 776, 752, 697, 738, 615, 614 }
-local PvPPoints = { 390, 392, 391 }
-local MiscellaneousCurrency = { 241, 416, 515, 777, 823, 824 }
+local ArchaeologyFragments = {
+	398, -- Draenai
+	384, -- Dwarf
+	393, -- Fossil
+	677, -- Mogu
+	400, -- Nerubian
+	394, -- Night Elf
+	828, -- Ogre
+	397, -- Orc
+	676, -- Pandaren
+	401, -- Tol'vir
+	385, -- Troll
+	399, -- Vrykul
+	754, -- Mantid
+	829, -- Arakkoa
+	821, -- Draenai Clan
+}
+
+local CookingAwards = {
+	81, -- Epicurean
+	402 -- Ironpaw
+}
+
+local JewelcraftingTokens = {
+	61, -- Dalaran
+	361, -- Illustrious
+}
+
+local DungeonRaid = {
+	776, -- Warforged Seal
+	752, -- Mogu Rune of Fate
+	697, -- Elder Charm
+	738, -- Lesser Charm
+	615, -- Essence of Corrupted Deathwing
+	614, -- Mote of Darkness
+	994, -- Seal of Tempered Fate
+}
+
+local PvPPoints = {
+	390, -- Conquest
+	392, -- Honor
+	391, -- Tol Barad
+}
+
+local MiscellaneousCurrency = {
+	241, -- Champion Seals
+	416, -- Mark of the World Tree
+	515, -- Darkmoon Prize Ticket
+	777, -- Timeless Coins
+	944, -- Artifact Fragment?
+	789, -- Bloody Coin
+	823, -- Apexis Crystal
+	980, -- Dingy Iron Coins
+	824, -- Garrison
+}
 
 local HordeColor = RAID_CLASS_COLORS['DEATHKNIGHT']
 local AllianceColor = RAID_CLASS_COLORS['SHAMAN']
