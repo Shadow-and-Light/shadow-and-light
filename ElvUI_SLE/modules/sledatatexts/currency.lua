@@ -19,7 +19,7 @@ local JEWELCRAFTING, COOKING, ARCHAEOLOGY
 local ArchaeologyFragments = { 398, 384, 393, 677, 400, 394, 397, 676, 401, 385, 399, 829, 821, 828 }
 local CookingAwards = { 81, 402 }
 local JewelcraftingTokens = { 61, 361, 698 }
-local DungeonRaid = { 776, 752, 697, 738, 615, 614, 395, 396 }
+local DungeonRaid = { 776, 752, 697, 738, 615, 614 }
 local PvPPoints = { 390, 392, 391 }
 local MiscellaneousCurrency = { 241, 416, 515, 777, 823, 824 }
 
