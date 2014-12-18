@@ -66,6 +66,8 @@ V['sle'] = {
 	},
 
 	['backgrounds'] = false,
+	
+	['uiButtonStyle'] = "dropdown",
 }
 
 G['sle'] = {
