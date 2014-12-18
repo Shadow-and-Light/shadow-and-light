@@ -11,7 +11,7 @@
 ## DefaultState: Enabled
 ## X-Tukui-ProjectID: 42
 ## X-Tukui-ProjectFolders: ElvUI_SLE
-## X-ElvVersion: 7.32
+## X-ElvVersion: 7.70
 
 libs\load_libs.xml
 locales\load_locales.xml
