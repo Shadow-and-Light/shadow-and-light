@@ -1,11 +1,6 @@
 ﻿local E, L, V, P, G = unpack(ElvUI); 
 local RM = E:GetModule('SLE_RaidMarkers')
 
-local raidmarkerVisibility = {
-	DEFAULT = L['Default'],
-	INPARTY = AGGRO_WARNING_IN_PARTY,
-}
-
 local function configTable()
 	E.Options.args.sle.args.options.args.raidmarkerbars = {
 		order = 4,
@@ -48,7 +43,11 @@ local function configTable()
 				order = 6,
 				name = L["Visibility"],
 				disabled = function() return not E.db.sle.raidmarkers.enable end,
-				values = raidmarkerVisibility,
+				values = {
+					DEFAULT = L['Default'],
+					INPARTY = AGGRO_WARNING_IN_PARTY,
+					ALWAYS = L['Always Display'],
+				},
 			},
 			backdrop = {
 				type = 'toggle',

@@ -140,7 +140,7 @@ end
 
 function RM:ToggleSettings()
 	if self.db.enable then
-		RegisterStateDriver(self.frame, "visibility", self.db.visibility == 'DEFAULT' and '[noexists, nogroup] hide; show' or '[group] show; hide')
+		RegisterStateDriver(self.frame, "visibility", self.db.visibility == 'DEFAULT' and '[noexists, nogroup] hide; show' or self.db.visibility == 'ALWAYS' and '[petbattle] hide; show' or '[group] show; [petbattle] hide; hide')
 	else
 		UnregisterStateDriver(self.frame, "visibility")
 		self.frame:Hide()
