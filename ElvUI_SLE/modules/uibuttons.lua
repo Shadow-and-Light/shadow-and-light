@@ -320,7 +320,7 @@ function UB:AddonSetup()
 	UB:CreateDropdownButton("Addon", "Altoholic", "Altoholic", nil, nil, function() Altoholic:ToggleUI() end, "Altoholic")
 	UB:CreateDropdownButton("Addon", "AtlasLoot", "AtlasLoot", nil, nil, function() AtlasLoot.GUI:Toggle() end, "AtlasLoot")
 	UB:CreateDropdownButton("Addon", "WeakAuras", "WeakAuras", nil, nil, function() SlashCmdList.WEAKAURAS() end, "WeakAuras")
-	UB:CreateDropdownButton("Addon", "Swatter", "Swatter", nil, nil, function() Swatter:ErrorShow() end, "!Swatter")
+	UB:CreateDropdownButton("Addon", "Swatter", "Swatter", nil, nil, function() Swatter.ErrorShow() end, "!Swatter")
 
 	tinsert(AddonTable, UB.menuHolder.Addon.Manager)
 	tinsert(AddonTable, UB.menuHolder.Addon.Boss)
