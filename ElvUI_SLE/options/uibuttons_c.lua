@@ -37,12 +37,19 @@ local function configTable()
 				get = function(info) return E.db.sle.uibuttons.enable end,
 				set = function(info, value) E.db.sle.uibuttons.enable = value; UB:Toggle() end
 			},
-			space1 = {
+			style = {
 				order = 4,
-				type = 'description',
-				name = "",
+				name = L["UI Buttons Style"],
+				type = "select",
+				values = {
+					["classic"] = L['Classic'],
+					["dropdown"] = L['Dropdown'],
+				},
+				disabled = function() return not E.db.sle.uibuttons.enable end,
+				get = function(info) return E.private.sle.uiButtonStyle end,
+				set = function(info, value) E.private.sle.uiButtonStyle = value; E:StaticPopup_Show("PRIVATE_RL") end,
 			},
-			space2 = {
+			space = {
 				order = 5,
 				type = 'description',
 				name = "",
@@ -94,7 +101,7 @@ local function configTable()
 				order = 13,
 				name = L['Anchor Point'],
 				desc = L['What point of dropdown will be attached to the toggle button.'],
-				disabled = function() return not E.db.sle.uibuttons.enable end,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.point end,
 				set = function(info, value) E.db.sle.uibuttons.point = value; UB:FrameSize() end,
 				values = positionValues,				
@@ -104,7 +111,7 @@ local function configTable()
 				order = 14,
 				name = L['Attach To'],
 				desc = L['What point to anchor dropdown on the toggle button.'],
-				disabled = function() return not E.db.sle.uibuttons.enable end,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.anchor end,
 				set = function(info, value) E.db.sle.uibuttons.anchor = value; UB:FrameSize() end,
 				values = positionValues,				
@@ -115,7 +122,7 @@ local function configTable()
 				name = L['X-Offset'],
 				desc = L["Horizontal offset of dropdown from the toggle button."],
 				min = -10, max = 10, step = 1,
-				disabled = function() return not E.db.sle.uibuttons.enable end,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.xoffset end,
 				set = function(info, value) E.db.sle.uibuttons.xoffset = value; UB:FrameSize() end,
 			},
@@ -125,7 +132,7 @@ local function configTable()
 				name = L['Y-Offset'],
 				desc = L["Vertical offset of dropdown from the toggle button."],
 				min = -10, max = 10, step = 1,
-				disabled = function() return not E.db.sle.uibuttons.enable end,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.yoffset end,
 				set = function(info, value) E.db.sle.uibuttons.yoffset = value; UB:FrameSize() end,
 			},
@@ -134,7 +141,7 @@ local function configTable()
 				type = 'input',
 				name = L["Minimum Roll Value"],
 				desc = L["The lower limit for custom roll button."],
-				disabled = function() return not E.db.sle.uibuttons.enable end,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.roll.min end,
 				set = function(info, value) E.db.sle.uibuttons.roll.min = value; end,
 			},
@@ -143,7 +150,7 @@ local function configTable()
 				type = 'input',
 				name = L["Maximum Roll Value"],
 				desc = L["The higher limit for custom roll button."],
-				disabled = function() return not E.db.sle.uibuttons.enable end,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.roll.max end,
 				set = function(info, value) E.db.sle.uibuttons.roll.max = value; end,
 			},
@@ -152,13 +159,13 @@ local function configTable()
 				name = "\"C\" "..L["Quick Action"],
 				type = "group",
 				guiInline = true,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
 				args = {
 					enabled = {
 						order = 1,
 						type = "toggle",
 						name = L["Enable"],
 						desc = L["Use quick access (on right click) for this button."],
-						disabled = function() return not E.db.sle.uibuttons.enable end,
 						get = function(info) return E.db.sle.uibuttons.cfunc.enable end,
 						set = function(info, value) E.db.sle.uibuttons.cfunc.enable = value end
 					},
@@ -173,7 +180,6 @@ local function configTable()
 							["Reload"] = L["Reload UI"],
 							["MoveUI"] = L["Move UI"],
 						},
-						disabled = function() return not E.db.sle.uibuttons.enable or not E.db.sle.uibuttons.cfunc.enable end,
 						get = function(info) return E.db.sle.uibuttons.cfunc.called end,
 						set = function(info, value) E.db.sle.uibuttons.cfunc.called = value; end,
 					},
@@ -184,13 +190,13 @@ local function configTable()
 				name = "\"A\" "..L["Quick Action"],
 				type = "group",
 				guiInline = true,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
 				args = {
 					enabled = {
 						order = 1,
 						type = "toggle",
 						name = L["Enable"],
 						desc = L["Use quick access (on right click) for this button."],
-						disabled = function() return not E.db.sle.uibuttons.enable end,
 						get = function(info) return E.db.sle.uibuttons.afunc.enable end,
 						set = function(info, value) E.db.sle.uibuttons.afunc.enable = value end
 					},
@@ -203,7 +209,6 @@ local function configTable()
 							["Manager"] = L["Addons"],
 							["Boss"] = L["Boss Mod"],
 						},
-						disabled = function() return not E.db.sle.uibuttons.enable or not E.db.sle.uibuttons.afunc.enable end,
 						get = function(info) return E.db.sle.uibuttons.afunc.called end,
 						set = function(info, value) E.db.sle.uibuttons.afunc.called = value; end,
 					},
@@ -214,13 +219,13 @@ local function configTable()
 				name = "\"S\" "..L["Quick Action"],
 				type = "group",
 				guiInline = true,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
 				args = {
 					enabled = {
 						order = 1,
 						type = "toggle",
 						name = L["Enable"],
 						desc = L["Use quick access (on right click) for this button."],
-						disabled = function() return not E.db.sle.uibuttons.enable end,
 						get = function(info) return E.db.sle.uibuttons.sfunc.enable end,
 						set = function(info, value) E.db.sle.uibuttons.sfunc.enable = value end
 					},
@@ -233,7 +238,6 @@ local function configTable()
 							["AFK"] = L["AFK"],
 							["DND"] = L["DND"],
 						},
-						disabled = function() return not E.db.sle.uibuttons.enable or not E.db.sle.uibuttons.sfunc.enable end,
 						get = function(info) return E.db.sle.uibuttons.sfunc.called end,
 						set = function(info, value) E.db.sle.uibuttons.sfunc.called = value; end,
 					},
@@ -244,13 +248,13 @@ local function configTable()
 				name = "\"R\" "..L["Quick Action"],
 				type = "group",
 				guiInline = true,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
 				args = {
 					enabled = {
 						order = 1,
 						type = "toggle",
 						name = L["Enable"],
 						desc = L["Use quick access (on right click) for this button."],
-						disabled = function() return not E.db.sle.uibuttons.enable end,
 						get = function(info) return E.db.sle.uibuttons.rfunc.enable end,
 						set = function(info, value) E.db.sle.uibuttons.rfunc.enable = value end
 					},
@@ -268,7 +272,6 @@ local function configTable()
 							["Custom"] = L["Custom"],
 
 						},
-						disabled = function() return not E.db.sle.uibuttons.enable or not E.db.sle.uibuttons.rfunc.enable end,
 						get = function(info) return E.db.sle.uibuttons.rfunc.called end,
 						set = function(info, value) E.db.sle.uibuttons.rfunc.called = value; end,
 					},
@@ -276,9 +279,10 @@ local function configTable()
 			},
 		},
 	}
-	
-	if IsAddOnLoaded("ElvUI_BenikUI") then 
-		E.Options.args.sle.args.options.args.general.args.uibuttons.args.cFunc.args.called.values["Benik"] = "BenikUI"
+	if E.private.sle.uiButtonStyle == "dropdown" then
+		if IsAddOnLoaded("ElvUI_BenikUI") then 
+			E.Options.args.sle.args.options.args.general.args.uibuttons.args.cFunc.args.called.values["Benik"] = "BenikUI"
+		end
 	end
 end
 
