@@ -47,35 +47,59 @@ function UB:CreateFrame()
 	UB.menuHolder:Point("LEFT", E.UIParent, "LEFT", -2, 0);
 	UB.menuHolder:HookScript('OnEnter', UB.OnEnter)
 	UB.menuHolder:HookScript('OnLeave', UB.OnLeave)
-	
-	UB.menuHolder.Config = CreateFrame("Frame", "SLEUIConfigHolder", UB.menuHolder)
-	UB:CreateCoreButton("Config", "C")
-	UB:ConfigSetup()
-	
-	UB.menuHolder.Addon = CreateFrame("Frame", "SLEUIAddonHolder", UB.menuHolder)
-	UB:CreateCoreButton("Addon", "A")
-	UB:AddonSetup()
-	
-	UB.menuHolder.Status = CreateFrame("Frame", "SLEUIStatusHolder", UB.menuHolder)
-	UB:CreateCoreButton("Status", "S")
-	UB:StatusSetup()
-	
-	UB.menuHolder.Roll = CreateFrame("Frame", "SLEUIRollHolder", UB.menuHolder)
-	UB:CreateCoreButton("Roll", "R")
-	UB:RollSetup()
-	
-	
-	ToggleTable = {
-		UB.menuHolder.Config.Toggle,
-		UB.menuHolder.Addon.Toggle,
-		UB.menuHolder.Status.Toggle,
-		UB.menuHolder.Roll.Toggle,
-	}
+
+	if E.private.sle.uiButtonStyle == "classic" then
+		UB:CreateCoreButton("Config", "C")
+		UB:CreateCoreButton("Reload", "R")
+		UB:CreateCoreButton("MoveUI", "M")
+		UB:CreateCoreButton("Boss", "B")
+		UB:CreateCoreButton("Addon", "A")
+		NumBut = 5
+
+		UB:ClassicSetup()
+
+		ToggleTable = {
+			UB.menuHolder.Config,
+			UB.menuHolder.Reload,
+			UB.menuHolder.MoveUI,
+			UB.menuHolder.Boss,
+			UB.menuHolder.Addon,
+		}
+	else
+		UB.menuHolder.Config = CreateFrame("Frame", "SLEUIConfigHolder", UB.menuHolder)
+		UB:CreateCoreButton("Config", "C")
+		UB:ConfigSetup()
+
+		UB.menuHolder.Addon = CreateFrame("Frame", "SLEUIAddonHolder", UB.menuHolder)
+		UB:CreateCoreButton("Addon", "A")
+		UB:AddonSetup()
+
+		UB.menuHolder.Status = CreateFrame("Frame", "SLEUIStatusHolder", UB.menuHolder)
+		UB:CreateCoreButton("Status", "S")
+		UB:StatusSetup()
+
+		UB.menuHolder.Roll = CreateFrame("Frame", "SLEUIRollHolder", UB.menuHolder)
+		UB:CreateCoreButton("Roll", "R")
+		UB:RollSetup()
+
+		ToggleTable = {
+			UB.menuHolder.Config.Toggle,
+			UB.menuHolder.Addon.Toggle,
+			UB.menuHolder.Status.Toggle,
+			UB.menuHolder.Roll.Toggle,
+		}
+	end
 end
 
 function UB:CreateCoreButton(name, text)
-	UB.menuHolder[name].Toggle = CreateFrame("Button", "SLEUI"..name.."Toggle", UB.menuHolder)
-	local button = UB.menuHolder[name].Toggle
+	local button
+	if E.private.sle.uiButtonStyle == "classic" then
+		UB.menuHolder[name] = CreateFrame("Button", "SLEUI"..name, UB.menuHolder)
+		button = UB.menuHolder[name]
+	else
+		UB.menuHolder[name].Toggle = CreateFrame("Button", "SLEUI"..name.."Toggle", UB.menuHolder)
+		button = UB.menuHolder[name].Toggle
+	end
 	button.text = button:CreateFontString(nil, "OVERLAY")
 	button.text:SetPoint("CENTER", button, "CENTER", 0, 0)
 	UB.menuHolder[name]:HookScript('OnEnter', UB.OnEnter)
@@ -177,6 +201,56 @@ function UB:ToggleCats()
 	end
 end
 
+function UB:ClassicSetup()
+	local button
+	local db = E.db.sle.uibuttons
+
+	button = UB.menuHolder.Config
+	button:SetScript("OnClick", function(self)
+		E:ToggleConfig()
+	end)
+	button:HookScript('OnEnter', UB.OnEnter)
+	button:HookScript('OnLeave', UB.OnLeave)
+
+	button = UB.menuHolder.Reload
+	button:SetScript("OnClick", function(self)
+		ReloadUI()
+	end)
+	button:HookScript('OnEnter', UB.OnEnter)
+	button:HookScript('OnLeave', UB.OnLeave)
+
+	button = UB.menuHolder.MoveUI
+	button:SetScript("OnClick", function(self)
+		E:ToggleConfigMode()
+	end)
+	button:HookScript('OnEnter', UB.OnEnter)
+	button:HookScript('OnLeave', UB.OnLeave)
+
+	button = UB.menuHolder.Boss
+	button:SetScript("OnClick", function(self)
+		if IsAddOnLoaded("DBM-Core") then
+			DBM:LoadGUI()
+		-- elseif IsAddOnLoaded("Bigwigs") then
+			-- b.bossmode = function() end
+		elseif IsAddOnLoaded("VEM-Core") then
+			VEM:LoadGUI()
+		-- elseif IsAddOnLoaded("DXE_Loader") then
+			-- b.bossmode = function() end
+		-- elseif IsAddOnLoaded("") then
+			-- b.bossmode = function() end
+		end
+	end)
+	button:HookScript('OnEnter', UB.OnEnter)
+	button:HookScript('OnLeave', UB.OnLeave)
+
+	button = UB.menuHolder.Addon
+	button:SetScript("OnClick", function(self)
+		GameMenuButtonAddons:Click()
+	end)
+	button:HookScript('OnEnter', UB.OnEnter)
+	button:HookScript('OnLeave', UB.OnLeave)
+end
+
 function UB:ConfigSetup()
 	local button = UB.menuHolder.Config.Toggle
 	local db = E.db.sle.uibuttons
@@ -221,7 +295,7 @@ function UB:AddonSetup()
 	local button = UB.menuHolder.Addon.Toggle
 	button.opened = false
 	UB.menuHolder.Addon:Hide()
-	
+
 	button:RegisterForClicks("LeftButtonDown", "RightButtonDown");
 	button:SetScript("OnClick", function(self, button, down)
 		if button == "LeftButton" then
@@ -241,25 +315,24 @@ function UB:AddonSetup()
 	button:HookScript('OnEnter', UB.OnEnter)
 	button:HookScript('OnLeave', UB.OnLeave)
 	
-
 	UB:CreateDropdownButton("Addon", "Manager", L["AddOns"], L["AddOns Manager"], L["Click to toggle the AddOn Manager frame."],  function() GameMenuButtonAddons:Click() end)
 	UB:CreateDropdownButton("Addon", "Boss", L["Boss Mod"], L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], function() UB.menuHolder.Addon.Boss.bossmode() end, true)
 	UB:CreateDropdownButton("Addon", "Altoholic", "Altoholic", nil, nil, Altoholic.ToggleUI, "Altoholic")
 	UB:CreateDropdownButton("Addon", "AtlasLoot", "AtlasLoot", nil, nil, function() AtlasLoot.GUI:Toggle() end, "AtlasLoot")
 	UB:CreateDropdownButton("Addon", "WeakAuras", "WeakAuras", nil, nil, SlashCmdList.WEAKAURAS, "WeakAuras")
 	UB:CreateDropdownButton("Addon", "Swatter", "Swatter", nil, nil, Swatter.ErrorShow, "!Swatter")
-	
+
 	tinsert(AddonTable, UB.menuHolder.Addon.Manager)
 	tinsert(AddonTable, UB.menuHolder.Addon.Boss)
 	tinsert(AddonTable, UB.menuHolder.Addon.Altoholic)
 	tinsert(AddonTable, UB.menuHolder.Addon.AtlasLoot)
 	tinsert(AddonTable, UB.menuHolder.Addon.WeakAuras)
 	tinsert(AddonTable, UB.menuHolder.Addon.Swatter)
-	
+
 	--Always keep at the bottom--
 	UB:CreateDropdownButton("Addon", "WowLua", "WowLua", nil, nil, function() SlashCmdList["WOWLUA"]("") end, "WowLua")
 	UB:CreateDropdownButton("Addon", "Darth", "DarthUI", nil, nil, function() DarthUI[1]:ToggleConfig() end, "DarthUI")
-	
+
 	tinsert(AddonTable, UB.menuHolder.Addon.WowLua)
 	tinsert(AddonTable, UB.menuHolder.Addon.Darth)
 end
@@ -358,22 +431,24 @@ function UB:FrameSize(onLoad)
 	for i = 1, #ToggleTable do
 		ToggleTable[i]:Size(db.size)
 	end
-	UB.menuHolder.Config:Size(db.size * 2.6, (db.size * #ConfigTable)+(db.spacing*(#ConfigTable-1)))
-	for i = 1, #ConfigTable do
-		ConfigTable[i]:Size(db.size * 2.6, db.size)
+	if E.private.sle.uiButtonStyle == "dropdown" then
+		UB.menuHolder.Config:Size(db.size * 2.6, (db.size * #ConfigTable)+(db.spacing*(#ConfigTable-1)))
+		for i = 1, #ConfigTable do
+			ConfigTable[i]:Size(db.size * 2.6, db.size)
+		end
+		for i = 1, #AddonTable do
+			AddonTable[i]:Size(db.size * 3.1, db.size)
+		end
+		UB.menuHolder.Status:Size(db.size * 2.1, (db.size * #StatusTable)+(db.spacing*(#StatusTable-1)))
+		for i = 1, #StatusTable do
+			StatusTable[i]:Size(db.size * 2.1, db.size)
+		end
+		UB.menuHolder.Roll:Size(db.size * 2.1, (db.size * #RollTable)+(db.spacing*(#RollTable-1)))
+		for i = 1, #RollTable do
+			RollTable[i]:Size(db.size * 2.1, db.size)
+		end
 	end
-	for i = 1, #AddonTable do
-		AddonTable[i]:Size(db.size * 3.1, db.size)
-	end
-	UB.menuHolder.Status:Size(db.size * 2.1, (db.size * #StatusTable)+(db.spacing*(#StatusTable-1)))
-	for i = 1, #StatusTable do
-		StatusTable[i]:Size(db.size * 2.1, db.size)
-	end
-	UB.menuHolder.Roll:Size(db.size * 2.1, (db.size * #RollTable)+(db.spacing*(#RollTable-1)))
-	for i = 1, #RollTable do
-		RollTable[i]:Size(db.size * 2.1, db.size)
-	end
-
+	
 	UB:Positioning(onLoad)
 end
 
@@ -449,23 +524,31 @@ function UB:Positioning(load)
 	end
 	--position check
 	if db.position == "uib_vert" then
-		UB.menuHolder.Config.Toggle:Point("TOP", UB.menuHolder, "TOP", 0, (E.PixelMode and -1 or -2))
+		if E.private.sle.uiButtonStyle == "dropdown" then
+			UB.menuHolder.Config.Toggle:Point("TOP", UB.menuHolder, "TOP", 0, (E.PixelMode and -1 or -2))
+		else
+			UB.menuHolder.Config:Point("TOP", UB.menuHolder, "TOP", 0, (E.PixelMode and -1 or -2))
+		end
 		for i = 2, #ToggleTable do
 			ToggleTable[i]:Point("TOP", ToggleTable[i-1], "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
 		end
 	else
-		UB.menuHolder.Config.Toggle:Point("LEFT", UB.menuHolder, "LEFT", (E.PixelMode and 1 or 2), 0)
+		if E.private.sle.uiButtonStyle == "dropdown" then
+			UB.menuHolder.Config.Toggle:Point("LEFT", UB.menuHolder, "LEFT", (E.PixelMode and 1 or 2), 0)
+		else
+			UB.menuHolder.Config:Point("LEFT", UB.menuHolder, "LEFT", (E.PixelMode and 1 or 2), 0)
+		end
 		for i = 2, #ToggleTable do
 			ToggleTable[i]:Point("LEFT", ToggleTable[i-1], "RIGHT", (E.PixelMode and db.spacing or db.spacing+2), 0)
 		end
 	end
-	
-	UB:UpdateConfigLayout(load)
-	UB:UpdateAddonLayout(load)
-	UB:UpdateStatusLayout(load)
-	UB:UpdateRollLayout(load)
+	if E.private.sle.uiButtonStyle == "dropdown" then
+		UB:UpdateConfigLayout(load)
+		UB:UpdateAddonLayout(load)
+		UB:UpdateStatusLayout(load)
+		UB:UpdateRollLayout(load)
+	end
 end
-
 
 function UB:Toggle()
 	if not E.db.sle.uibuttons.enable then
