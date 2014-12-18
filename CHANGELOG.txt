@@ -1,3 +1,8 @@
+v2.12
+- UI buttons font now doesn't change only on load. You'll see the difference the same moment you cahnge default ElvUI font. Also this font now respects default font size instead of being always constant.
+- By popular demand Ui buttons now have a style option. You can turn back classic style if you don't like the new look. This option is private so you'll need to change it on all your characters.
+- Raid mark bar now can be set to be always shown.
+
 v2.11 12/14/2014
 - Fixed errors on login when ElvUI's bag module was disabled
 - Fixed sizing issues with screensaver when autoscale wasn't there
