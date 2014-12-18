@@ -276,10 +276,10 @@ function UB:ConfigSetup()
 	button:HookScript('OnEnter', UB.OnEnter)
 	button:HookScript('OnLeave', UB.OnLeave)
 
-	UB:CreateDropdownButton("Config", "Elv", "ElvUI", L["ElvUI Config"], L["Click to toggle config window"],  E.ToggleConfig)
+	UB:CreateDropdownButton("Config", "Elv", "ElvUI", L["ElvUI Config"], L["Click to toggle config window"],  function() E:ToggleConfig() end)
 	UB:CreateDropdownButton("Config", "SLE", "S&L", L["S&L Config"], L["Click to toggle Shadow & Light config group"],  function() E:ToggleConfig(); ACD:SelectGroup("ElvUI", "sle", "options") end)
 	UB:CreateDropdownButton("Config", "Benik", "BenikUI", L["BenikUI Config"], L["Click to toggle BenikUI config group"],  function() E:ToggleConfig(); ACD:SelectGroup("ElvUI", "bui") end)
-	UB:CreateDropdownButton("Config", "Reload", "/reloadui", L["Reload UI"], L["Click to reload your interface"],  ReloadUI)
+	UB:CreateDropdownButton("Config", "Reload", "/reloadui", L["Reload UI"], L["Click to reload your interface"],  function() ReloadUI() end)
 	UB:CreateDropdownButton("Config", "MoveUI", "/moveui", L["Move UI"], L["Click to unlock moving ElvUI elements"],  function() E:ToggleConfigMode() end)
 	
 	ConfigTable = {
@@ -317,10 +317,10 @@ function UB:AddonSetup()
 	
 	UB:CreateDropdownButton("Addon", "Manager", L["AddOns"], L["AddOns Manager"], L["Click to toggle the AddOn Manager frame."],  function() GameMenuButtonAddons:Click() end)
 	UB:CreateDropdownButton("Addon", "Boss", L["Boss Mod"], L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], function() UB.menuHolder.Addon.Boss.bossmode() end, true)
-	UB:CreateDropdownButton("Addon", "Altoholic", "Altoholic", nil, nil, Altoholic.ToggleUI, "Altoholic")
+	UB:CreateDropdownButton("Addon", "Altoholic", "Altoholic", nil, nil, function() Altoholic:ToggleUI() end, "Altoholic")
 	UB:CreateDropdownButton("Addon", "AtlasLoot", "AtlasLoot", nil, nil, function() AtlasLoot.GUI:Toggle() end, "AtlasLoot")
-	UB:CreateDropdownButton("Addon", "WeakAuras", "WeakAuras", nil, nil, SlashCmdList.WEAKAURAS, "WeakAuras")
-	UB:CreateDropdownButton("Addon", "Swatter", "Swatter", nil, nil, Swatter.ErrorShow, "!Swatter")
+	UB:CreateDropdownButton("Addon", "WeakAuras", "WeakAuras", nil, nil, function() SlashCmdList.WEAKAURAS() end, "WeakAuras")
+	UB:CreateDropdownButton("Addon", "Swatter", "Swatter", nil, nil, function() Swatter:ErrorShow() end, "!Swatter")
 
 	tinsert(AddonTable, UB.menuHolder.Addon.Manager)
 	tinsert(AddonTable, UB.menuHolder.Addon.Boss)
@@ -401,7 +401,7 @@ function UB:RollSetup()
 	UB:CreateDropdownButton("Roll", "Thirty", "1-30", nil, nil,  function() RandomRoll(1, 30) end)
 	UB:CreateDropdownButton("Roll", "Forty", "1-40", nil, nil,  function() RandomRoll(1, 40) end)
 	UB:CreateDropdownButton("Roll", "Hundred", "1-100", nil, nil,  function() RandomRoll(1, 100) end)
-	UB:CreateDropdownButton("Roll", "Custom", L["Custom"], nil, nil,  CusomRollCall)
+	UB:CreateDropdownButton("Roll", "Custom", L["Custom"], nil, nil,  function() CusomRollCall() end)
 	
 	RollTable = {
 		UB.menuHolder.Roll.Ten,
