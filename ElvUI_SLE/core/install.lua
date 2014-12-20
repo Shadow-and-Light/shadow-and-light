@@ -495,7 +495,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["movers"]["ReputationBarMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-48919"
 		E.db["movers"]["PetBattleStatusMover"] = "TOPElvUIParentTOP0-69"
 		E.db["movers"]["PetBattleABMover"] = "BOTTOMElvUIParentBOTTOM020"
-		E.db["movers"]["ObjectiveFrameMover"] = "TOPLEFTElvUIParentTOPLEFT870"
+		E.db["movers"]["ObjectiveFrameMover"] = "TOPLEFTElvUIParentTOPLEFT800"
 		E.db["movers"]["BNETMover"] = "TOPRIGHTElvUIParentTOPRIGHT-86-179"
 		E.db["movers"]["MinimapMover"] = "TOPRIGHTElvUIParentTOPRIGHT00"
 		E.db["movers"]["PvPMover"] = "TOPElvUIParentTOP0-51"
