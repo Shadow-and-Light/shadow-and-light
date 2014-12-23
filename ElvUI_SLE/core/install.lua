@@ -153,7 +153,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["general"]["afk"] = false
 		E.db["general"]["autoRepair"] = "PLAYER"
 		E.db["general"]["minimap"]["locationText"] = "HIDE"
-		E.db["general"]["minimap"]["icons"]["garrison"]["position"] = "BOTTOMLEFT"
+		E.db["general"]["minimap"]["icons"]["garrison"]["position"] = "LEFT"
+		E.db["general"]["minimap"]["icons"]["garrison"]["xOffset"] = -22
 		E.db["general"]["experience"]["height"] = 187
 		E.db["general"]["bottomPanel"] = false
 		E.db["general"]["vendorGrays"] = true
@@ -509,7 +510,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	
 	E.private["general"]["normTex"] = "Polished Wood"
 	E.private["general"]["glossTex"] = "Polished Wood"
-
+	E.private["general"]["'hideGarrison"] = false
+	
 	E.private["sle"]["inspectframeoptions"]["enable"] = true
 	E.private["sle"]["characterframeoptions"]["enable"] = true
 	E.private["sle"]["minimap"]["mapicons"]["enable"] = true
