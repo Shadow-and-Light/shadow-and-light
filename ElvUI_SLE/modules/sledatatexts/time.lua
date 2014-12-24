@@ -31,7 +31,7 @@ local name, reset, locked, extended, isRaid, maxPlayers, difficulty, numEncounte
 local function ValueColorUpdate(hex, r, g, b)
 	europeDisplayFormat = join("", "%02d", hex, ":|r%02d")
 	ukDisplayFormat = join("", "", "%d", hex, ":|r%02d", hex, " %s|r")
-	
+
 	if lastPanel ~= nil then
 		Update(lastPanel, 20000)
 	end
