@@ -453,6 +453,13 @@ P['sle'] = {
 	['bags'] = {
 		['lootflash'] = true,
 	},
+	
+	['garrison'] = {
+		['autoOrder'] = false,
+		['autoWar'] = false,
+		['autoTrade'] = false,
+		['showOrderButton'] = true,
+	},
 }
 
 P.chat.editboxhistory = 5

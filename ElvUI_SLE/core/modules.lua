@@ -24,6 +24,7 @@ local modules = {
 	['SLE_Media'] = {'AceHook-3.0'},
 	['SLE_InstDif'] = {'AceHook-3.0', 'AceEvent-3.0'},
 	['SLE_ScreenSaver'] = { 'AceHook-3.0', 'AceEvent-3.0' },
+	['SLE_Garrison'] = { 'AceEvent-3.0' },
 	['SLE'] = {'AceHook-3.0', 'AceEvent-3.0'},
 }
 

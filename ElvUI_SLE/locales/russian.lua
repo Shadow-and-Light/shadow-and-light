@@ -485,6 +485,17 @@ L["Position power text on this bar of chosen frame"] = "Позициониров
 L["Enhanced Vehicle Bar"] = "Улучшенный контроль машин"
 L["A different look/feel vehicle bar based on work by Azilroka"] = "Использовать улучшенную панель управления средствами передвижения, основанную на коде Azilroka"
 
+--Garrison--
+L["Auto Work Orders"] = "Автоматические заказы"
+L["Automatically queue maximum number of work orders available when visitin respected NPC."] = "Автоматически делать максимально возможное количество заказов при открытии соответствующего диалога."
+L["Auto Work Orders for Warmill"] = "Авто. заказы на фабрике"
+L["Automatically queue maximum number of work orders available for Warmill/Dwarven Bunker."] = "Автоматически делать максимальное количество заказов для военной фабрики/дворфийского бункера."
+L["Auto Work Orders for Trading Post"] = "Авто. заказы в торговой лавке"
+L["Automatically queue maximum number of work orders available for Trading Post."] = "Автоматически делать максимальное количество заказов для торговой лавки."
+L["Show Max Order Button"] = "Кнопка максимума"
+L["Show the button to queue maximum number of work orders in building's UI."] = "Отображать кнопку для выполнения максимума заказов в интерфейсе зданий."
+L["Max"] = "Макс."
+
 --Credits--
 L["Submodules and Coding:"] = "Субмодули и помощь с кодом:"
 L["Other Support:"] = "Прочая поддержка:"

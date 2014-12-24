@@ -13,6 +13,7 @@
 	<Script file='equipmanager_c.lua'/>
 	<Script file='exprepbar_c.lua'/>
 	<Script file='farm_c.lua'/>
+	<Script file='garrison_c.lua'/>
 	<Script file='imports_c.lua'/>
 	<Script file='loot_c.lua'/>
 	<Script file='minimap_c.lua'/>
