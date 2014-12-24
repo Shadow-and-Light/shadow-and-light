@@ -17,7 +17,6 @@ local function AnchorFrameToMouse()
 	local tipWidth = frame:GetWidth();
 
 	frame:ClearAllPoints();
-	--frame:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", (x/scale + (E.db.tooltip.mouseOffsetX - tipWidth/2)), (y/scale + E.db.tooltip.mouseOffsetY));
 	frame:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", (x/scale + (E.db.sle.tooltip.xOffset - tipWidth/2)), (y/scale + E.db.sle.tooltip.yOffset));
 end
 
