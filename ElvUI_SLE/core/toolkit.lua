@@ -11,6 +11,7 @@ local UF = E:GetModule('UnitFrames')
 local M = E:GetModule('SLE_Media')
 local I = E:GetModule('SLE_InstDif')
 local S = E:GetModule("SLE_ScreenSaver")
+local G = E:GetModule("SLE_Garrison")
 local dev = ""
 local lib = LibStub("LibRealmInfo")
 local LocTable = {}
@@ -72,6 +73,7 @@ local function UpdateAll()
 	M:TextWidth()
 	I:UpdateFrame()
 	S:Reg(true)
+	G:ShowButton()
 
 	collectgarbage('collect');
 end
