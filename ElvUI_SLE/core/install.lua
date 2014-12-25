@@ -428,8 +428,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["sle"]["media"]["screensaver"]["crest"] = 150
 		E.db["sle"]["characterframeoptions"]["image"]["dropdown"] = "CASTLE"
 		E.db["sle"]["datatext"]["chathandle"] = true
-		E.db["sle"]["datatext"]["chatleft"]["width"] = 408
-		E.db["sle"]["datatext"]["chatright"]["width"] = 408
+		E.db["sle"]["datatext"]["chatleft"]["width"] = 409
+		E.db["sle"]["datatext"]["chatright"]["width"] = 409
 		E.db["sle"]["datatext"]["top"]["enabled"] = true
 		E.db["sle"]["datatext"]["top"]["transparent"] = true
 		E.db["sle"]["datatext"]["bottom"]["enabled"] = true
@@ -437,10 +437,10 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["sle"]["datatext"]["bottom"]["width"] = 196
 		E.db["sle"]["datatext"]["dp5"]["enabled"] = true
 		E.db["sle"]["datatext"]["dp5"]["transparent"] = true
-		E.db["sle"]["datatext"]["dp5"]["width"] = 440
+		E.db["sle"]["datatext"]["dp5"]["width"] = 439
 		E.db["sle"]["datatext"]["dp6"]["enabled"] = true
 		E.db["sle"]["datatext"]["dp6"]["transparent"] = true
-		E.db["sle"]["datatext"]["dp6"]["width"] = 440
+		E.db["sle"]["datatext"]["dp6"]["width"] = 439
 		E.db["sle"]["dt"]["friends"]["sortBN"] = "REALID"
 		E.db["sle"]["dt"]["friends"]["combat"] = true
 		E.db["sle"]["dt"]["friends"]["hide_hintline"] = false
@@ -480,7 +480,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["movers"]["ShiftAB"] = "BOTTOMElvUIParentBOTTOM-133108"
 		E.db["movers"]["MicrobarMover"] = "TOPElvUIParentTOP0-19"
 		E.db["movers"]["Top_Center_Mover"] = "TOPElvUIParentTOP00"
-		E.db["movers"]["DP_5_Mover"] = "BOTTOMElvUIParentBOTTOM-3170"
+		E.db["movers"]["DP_5_Mover"] = "BOTTOMElvUIParentBOTTOM-3160"
 		E.db["movers"]["DP_6_Mover"] = "BOTTOMElvUIParentBOTTOM3170"
 		E.db["movers"]["LeftChatMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT019"
 		E.db["movers"]["RightChatMover"] = "BOTTOMRIGHTUIParentBOTTOMRIGHT019"
