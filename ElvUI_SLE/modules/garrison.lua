@@ -38,6 +38,17 @@ function G:GetNumOrders(maxShipments)
 		if canDo < number then number = floor(canDo) end
 	end
 
+	local currencyID, currencyNeeded = C_Garrison.GetShipmentReagentCurrencyInfo();
+
+	if (currencyID and currencyNeeded) then
+		local name, quantity = GetCurrencyInfo(currencyID);
+
+		if (name) then
+			local canDo = quantity/currencyNeeded;
+			if canDo < number then number = floor(canDo) end
+		end
+	end
+
 	return number
 end
 
