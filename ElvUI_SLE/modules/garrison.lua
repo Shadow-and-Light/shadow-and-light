@@ -54,7 +54,6 @@ function G:AutoOrderScript()
 				C_Garrison.RequestShipmentCreation()
 			else
 				self:SetScript("OnUpdate", nil);
-				self:Disable();
 			end
 		end
 	end)
