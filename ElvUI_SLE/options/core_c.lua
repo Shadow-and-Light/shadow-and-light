@@ -3,12 +3,7 @@ local SLE = E:GetModule('SLE')
 local LT = E:GetModule('SLE_Loot')
 
 local function configTable()
-	E.Options.args.ElvUI_Header = {
-			order = 1,
-			type = "header",
-			name = "ElvUI"..format(": |cff99ff33%s|r",E.version).."  ".."Shadow & Light"..format(": |cff99ff33%s|r",SLE.version),
-			width = "full",
-	}
+	E.Options.args.ElvUI_Header.name = E.Options.args.ElvUI_Header.name.." + Shadow & Light"..format(": |cff99ff33%s|r",SLE.version)
 
 	--local size = E.db.general.fontSize
 
