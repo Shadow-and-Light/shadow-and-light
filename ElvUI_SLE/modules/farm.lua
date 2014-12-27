@@ -8,6 +8,7 @@ local S = E:GetModule("Skins")
 local SeedAnchor, ToolAnchor, PortalAnchor
 local tsort, format = table.sort, format
 local farmzones = { BL["Sunsong Ranch"], BL["The Halfhill Market"] }
+local salvagezones = { BL["Salvage Yard"] }
 local size
 local Zcheck = false
 local GetSubZoneText = GetSubZoneText
@@ -19,6 +20,7 @@ local Point = Point
 FseedButtons = {}
 FtoolButtons = {}
 FportalButtons = {}
+FsalvageButtons = {}
 
 local seeds = {
 	--Seeds general
@@ -135,6 +137,12 @@ local quests = {
 	--[31671] = {80591, 84783}, -- Scallion
 }
 
+local salvage = {
+	[114116] = { 1 }, -- Bag of Salvaged Goods
+	[114119] = { 1 }, -- Crate of Salvage
+	[114120] = { 1 }, -- Big Crate of Salvage
+}
+
 local buttoncounts = {}
 
 local function CanSeed()
@@ -149,6 +157,10 @@ end
 
 local function OnFarm()
 	return GetSubZoneText() == farmzones[1]
+end
+
+local function InSalvageYard()
+	return GetMinimapZoneText() == salvagezones[1];
 end
 
 local function InventoryUpdate(event)
@@ -211,6 +223,19 @@ local function InventoryUpdate(event)
 		button.icon:SetAlpha(button.items == 0 and .25 or 1)
 	end	
 	
+	for _, button in ipairs(FsalvageButtons) do
+		button.items = GetItemCount(button.itemId)
+		if not buttoncounts[button.itemId] then
+			buttoncounts[button.itemId] = button.items
+		end
+		if button.items ~= buttoncounts[button.itemId] then
+			SeedChange = true
+			buttoncounts[button.itemId] = button.items
+		end
+		button.text:SetText(button.items)
+		button.icon:SetDesaturated(button.items == 0)
+		button.icon:SetAlpha(button.items == 0 and .25 or 1)
+	end
 	if event and event ~= "BAG_UPDATE_COOLDOWN" and SeedChange == true then
 		F:UpdateLayout()
 	end
@@ -262,7 +287,7 @@ local function UpdateButtonCooldown(button)
 end
 
 local function UpdateCooldown()
-	if not CanSeed() then return end
+	if not CanSeed() or InSalvageYard() then return end
 
 	for i = 1, 5 do
 		for _, button in ipairs(FseedButtons[i]) do
@@ -273,6 +298,9 @@ local function UpdateCooldown()
 		UpdateButtonCooldown(button)
 	end
 	for _, button in ipairs(FportalButtons) do
+		UpdateButtonCooldown(button)
+	end
+	for _, button in ipairs(FsalvageButtons) do
 		UpdateButtonCooldown(button)
 	end
 end
@@ -361,7 +389,7 @@ function F:BAG_UPDATE_COOLDOWN()
 end
 
 local function Zone(event)
-	if CanSeed() then
+	if CanSeed() or InSalvageYard() then
 		F:RegisterEvent("BAG_UPDATE", InventoryUpdate)
 		F:RegisterEvent("BAG_UPDATE_COOLDOWN")
 		F:RegisterEvent("UNIT_QUEST_LOG_CHANGED", "UpdateLayout")
@@ -391,6 +419,7 @@ local function ResizeFrames()
 	end
 	ToolAnchor:Size((size+(E.PixelMode and 2 or 1))*5-(E.PixelMode and 0 or 1), size+(E.PixelMode and 2 or 1)-(E.PixelMode and 0 or 1))
 	PortalAnchor:Size((size+(E.PixelMode and 2 or 1))*5-(E.PixelMode and 0 or 1), size+(E.PixelMode and 2 or 1)-(E.PixelMode and 0 or 1))
+	SalvageAnchor:Size((size+(E.PixelMode and 2 or 1))*5-(E.PixelMode and 0 or 1), size+(E.PixelMode and 2 or 1)-(E.PixelMode and 0 or 1))
 end
 
 function F:UpdateLayout(event, unit) --don't touch
@@ -414,6 +443,7 @@ function F:UpdateLayout(event, unit) --don't touch
 	for i=1, 5 do
 		UpdateBar(_G[("FarmSeedBar%d"):format(i)], UpdateSeedBarLayout, CanSeed, SeedAnchor, FseedButtons[i], i)
 	end
+	UpdateBar(_G["SalvageCreateBar"], UpdateBarLayout, InSalvageYard, SalvageAnchor, FsalvageButtons);
 	ResizeFrames()
 end
 
@@ -505,6 +535,7 @@ local function FramesPosition()
 	SeedAnchor:Point("LEFT", E.UIParent, "LEFT", 24, -160)
 	ToolAnchor:Point("BOTTOMLEFT", SeedAnchor, "TOPLEFT", 0, E.PixelMode and 1 or 5)
 	PortalAnchor:Point("BOTTOMLEFT", ToolAnchor, "TOPLEFT", 0, E.PixelMode and 1 or 5)
+	SalvageAnchor:Point("LEFT", E.UIParent, "LEFT", 24, 0);
 end				
 
 local function CreateFrames()
@@ -518,13 +549,17 @@ local function CreateFrames()
 	PortalAnchor = CreateFrame("Frame", "PortalAnchor", E.UIParent)
 	PortalAnchor:SetFrameStrata("BACKGROUND")
 
+	SalvageAnchor = CreateFrame("Frame", "SalvageAnchor", E.UIParent)
+	SalvageAnchor:SetFrameStrata("BACKGROUND")
+
 	ResizeFrames()
 	FramesPosition()
 	
 	E:CreateMover(SeedAnchor, "FarmSeedMover", L["Farm Seed Bars"], nil, nil, nil, "ALL,S&L,S&L MISC")
 	E:CreateMover(ToolAnchor, "FarmToolMover", L["Farm Tool Bar"], nil, nil, nil, "ALL,S&L,S&L MISC")
 	E:CreateMover(PortalAnchor, "FarmPortalMover", L["Farm Portal Bar"], nil, nil, nil, "ALL,S&L,S&L MISC")
-	
+	E:CreateMover(SalvageAnchor, "SalvageCrateMover", L["Salvage Crate Bars"], nil, nil, nil, "ALL,S&L,S&L MISC")
+
 	for id, v in pairs(seeds) do
 		seeds[id] = { v[1], GetItemInfo(id) }	
 	end
@@ -535,6 +570,10 @@ local function CreateFrames()
 
 	for id, v in pairs(portals) do
 		portals[id] = { v[1], GetItemInfo(id) }
+	end
+
+	for id, v in pairs(salvage) do
+		salvage[id] = { GetItemInfo(id) }
 	end
 
 	for i = 1, 5 do
@@ -570,6 +609,13 @@ local function CreateFrames()
 		end
 	end
 
+	local salvageBar = CreateFrame("Frame", "SalvageCreateBar", UIParent);
+	salvageBar:SetFrameStrata("BACKGROUND")
+	salvageBar:SetPoint("CENTER", SalvageAnchor, "CENTER", 0, 0)
+	for id, v in pairs(salvage) do
+		tinsert(FsalvageButtons, CreateFarmButton(id, salvageBar, "item", v[1], v[10], false, nil));
+	end
+
 	F:RegisterEvent("ZONE_CHANGED", Zone)
 	F:RegisterEvent("ZONE_CHANGED_NEW_AREA", Zone)
 	F:RegisterEvent("ZONE_CHANGED_INDOORS", Zone)
@@ -590,6 +636,9 @@ local function StartFarmBarLoader()
 		if select(2, GetItemInfo(id)) == nil then noItem = true end
 	end
 	for id, _ in pairs(portals) do
+		if select(2, GetItemInfo(id)) == nil then noItem = true end
+	end
+	for id, _ in pairs(salvage) do
 		if select(2, GetItemInfo(id)) == nil then noItem = true end
 	end
 	if noItem then
