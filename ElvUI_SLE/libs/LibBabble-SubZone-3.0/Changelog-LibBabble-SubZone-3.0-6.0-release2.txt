@@ -1,0 +1,64 @@
+------------------------------------------------------------------------
+r171 | arith | 2014-10-18 14:01:18 +0000 (Sat, 18 Oct 2014) | 1 line
+Changed paths:
+   A /tags/6.0-release2 (from /trunk:170)
+
+Tagging as 6.0-release2
+------------------------------------------------------------------------
+r170 | arith | 2014-10-18 13:24:28 +0000 (Sat, 18 Oct 2014) | 1 line
+Changed paths:
+   M /trunk/LibBabble-SubZone-3.0.lua
+   M /trunk/LibBabble-SubZone-3.0_deDE.lua
+   M /trunk/LibBabble-SubZone-3.0_esES.lua
+   M /trunk/LibBabble-SubZone-3.0_esMX.lua
+   M /trunk/LibBabble-SubZone-3.0_frFR.lua
+   M /trunk/LibBabble-SubZone-3.0_itIT.lua
+   M /trunk/LibBabble-SubZone-3.0_koKR.lua
+   M /trunk/LibBabble-SubZone-3.0_ptBR.lua
+   M /trunk/LibBabble-SubZone-3.0_ruRU.lua
+   M /trunk/LibBabble-SubZone-3.0_zhCN.lua
+   M /trunk/LibBabble-SubZone-3.0_zhTW.lua
+
+few more taxi nodes added
+------------------------------------------------------------------------
+r168 | arith | 2014-10-15 14:04:23 +0000 (Wed, 15 Oct 2014) | 1 line
+Changed paths:
+   M /trunk/LibBabble-SubZone-3.0.toc
+
+TOC update to support WoW 6.0
+------------------------------------------------------------------------
+r166 | arith | 2014-10-14 14:30:19 +0000 (Tue, 14 Oct 2014) | 1 line
+Changed paths:
+   M /trunk/LibBabble-SubZone-3.0.lua
+   A /trunk/LibBabble-SubZone-3.0_deDE.lua
+   A /trunk/LibBabble-SubZone-3.0_esES.lua
+   A /trunk/LibBabble-SubZone-3.0_esMX.lua
+   A /trunk/LibBabble-SubZone-3.0_frFR.lua
+   A /trunk/LibBabble-SubZone-3.0_itIT.lua
+   A /trunk/LibBabble-SubZone-3.0_koKR.lua
+   A /trunk/LibBabble-SubZone-3.0_ptBR.lua
+   A /trunk/LibBabble-SubZone-3.0_ruRU.lua
+   A /trunk/LibBabble-SubZone-3.0_zhCN.lua
+   A /trunk/LibBabble-SubZone-3.0_zhTW.lua
+   M /trunk/lib.xml
+
+split subzones table into languages
+------------------------------------------------------------------------
+r164 | arith | 2014-10-13 18:54:49 +0000 (Mon, 13 Oct 2014) | 1 line
+Changed paths:
+   M /trunk/LibBabble-SubZone-3.0.lua
+
+temporary remove itIT and several entries to resolve the file too long issue. will need to find other solution to resolve it.
+------------------------------------------------------------------------
+r162 | arith | 2014-10-13 16:21:49 +0000 (Mon, 13 Oct 2014) | 1 line
+Changed paths:
+   M /trunk/LibBabble-SubZone-3.0.lua
+
+added zone names for WoW 6.0.2.19005
+------------------------------------------------------------------------
+r161 | arith | 2014-10-07 14:07:15 +0000 (Tue, 07 Oct 2014) | 1 line
+Changed paths:
+   M /trunk/LibBabble-SubZone-3.0.lua
+
+added new zone name from WoW 6.0.2.18988
+------------------------------------------------------------------------

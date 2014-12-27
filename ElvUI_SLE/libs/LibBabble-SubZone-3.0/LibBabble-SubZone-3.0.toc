@@ -1,4 +1,4 @@
-﻿## Interface: 50100
+﻿## Interface: 60000
 ## LoadOnDemand: 1
 ## Title: Lib: Babble-SubZone-3.0
 ## Notes: A library to help with localization of in-game subzone names.
@@ -7,7 +7,7 @@
 ## X-eMail: arithmandarjp@yahoo.co.jp
 ## X-Category: Library
 ## X-License: MIT
-## X-Curse-Packaged-Version: 5.1-release1
+## X-Curse-Packaged-Version: 6.0-release2
 ## X-Curse-Project-Name: LibBabble-SubZone-3.0
 ## X-Curse-Project-ID: libbabble-subzone-3-0
 ## X-Curse-Repository-ID: wow/libbabble-subzone-3-0/mainline
