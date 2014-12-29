@@ -13,19 +13,18 @@ function AI:DarthCaster()
 	
 	--Movers--
 	do
-		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-279140"
-		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM0142"
-		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM279140"
-		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM279119"
-		E.db["movers"]["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM-309114"
-		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMElvUIParentBOTTOM26556"
-		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMElvUIParentBOTTOM30934"
-		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM23493"
+		E.db["movers"]["PetAB"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT58686"
+		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-279152"
+		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM0124"
+		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM279152"
+		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM279131"
+		E.db["movers"]["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM-309126"
+		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM234105"
 		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
 		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
 		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
-		E.db["movers"]["BossButton"] = "BOTTOMElvUIParentBOTTOM0168"
-		E.db["movers"]["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0234"
+		E.db["movers"]["BossButton"] = "BOTTOMElvUIParentBOTTOM0145"
+		E.db["movers"]["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0211"
 		E.db["movers"]["ComboBarMover"] = nil
 		E.db["movers"]["ClassBarMover"] = nil
 	end
@@ -46,19 +45,18 @@ function AI:DarthTank()
 	E.db["datatexts"]["panels"]["DP_6"]["middle"] = "Resolve"
 	--Movers--
 	do
-		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-279140"
-		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM0142"
-		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM279140"
-		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM279119"
-		E.db["movers"]["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM-309114"
-		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMElvUIParentBOTTOM26556"
-		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMElvUIParentBOTTOM30934"
-		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM23493"
+		E.db["movers"]["PetAB"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT58686"
+		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-279152"
+		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM0124"
+		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM279152"
+		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM279131"
+		E.db["movers"]["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM-309126"
+		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM234105"
 		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
 		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
 		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
-		E.db["movers"]["BossButton"] = "BOTTOMElvUIParentBOTTOM0168"
-		E.db["movers"]["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0234"
+		E.db["movers"]["BossButton"] = "BOTTOMElvUIParentBOTTOM0145"
+		E.db["movers"]["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0211"
 		E.db["movers"]["ComboBarMover"] = nil
 		E.db["movers"]["ClassBarMover"] = nil
 	end
@@ -73,19 +71,18 @@ function AI:DarthPhys()
 	E.db["unitframe"]["units"]["target"]["combobar"]["detachFromFrame"] = true
 	--Movers--
 	do
-		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-279140"
-		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM0142"
-		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM279140"
-		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM279119"
-		E.db["movers"]["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM-309114"
-		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMElvUIParentBOTTOM26556"
-		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMElvUIParentBOTTOM30934"
-		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM23493"
+		E.db["movers"]["PetAB"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT58686"
+		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-279152"
+		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM0124"
+		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM279152"
+		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM279131"
+		E.db["movers"]["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM-309126"
+		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM234105"
 		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
 		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
 		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
-		E.db["movers"]["BossButton"] = "BOTTOMElvUIParentBOTTOM0168"
-		E.db["movers"]["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0234"
+		E.db["movers"]["BossButton"] = "BOTTOMElvUIParentBOTTOM0145"
+		E.db["movers"]["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0211"
 		E.db["movers"]["ComboBarMover"] = "BOTTOMElvUIParentBOTTOM0356"
 		E.db["movers"]["ClassBarMover"] = "BOTTOMElvUIParentBOTTOM0364"
 	end
@@ -118,18 +115,17 @@ function AI:DarthHeal()
 	E.db["datatexts"]["panels"]["DP_6"]["middle"] = "MP5"
 	--Movers--
 	do
-		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-289137"
-		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM-289116"
-		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM289137"
-		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM289116"
-		E.db["movers"]["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM-31988"
-		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMElvUIParentBOTTOM26554"
-		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMElvUIParentBOTTOM30932"
-		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM24489"
-		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT768134"
-		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT768134"
-		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT768134"
-		E.db["movers"]["BossButton"] = "BOTTOMElvUIParentBOTTOM-31822"
+		E.db["movers"]["PetAB"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT57660"
+		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-289149"
+		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM-289128"
+		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM2891149"
+		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM289128"
+		E.db["movers"]["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM-319100"
+		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM244105"
+		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT768126"
+		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT768126"
+		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT768126"
+		E.db["movers"]["BossButton"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-502134"
 		E.db["movers"]["AlertFrameMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT198207"
 		E.db["movers"]["ComboBarMover"] = nil
 		E.db["movers"]["ClassBarMover"] = nil
@@ -282,8 +278,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["unitframe"]["units"]["focus"]["debuffs"]["anchorPoint"] = "RIGHT"
 		E.db["unitframe"]["units"]["focus"]["debuffs"]["sizeOverride"] = 29
 		E.db["unitframe"]["units"]["focus"]["debuffs"]["perrow"] = 3
-		E.db["unitframe"]["units"]["focus"]["width"] = 160
-		E.db["unitframe"]["units"]["focus"]["castbar"]["width"] = 248
+		E.db["unitframe"]["units"]["focus"]["width"] = 120
+		E.db["unitframe"]["units"]["focus"]["castbar"]["width"] = 208
 		
 		E.db["unitframe"]["units"]["pet"]["height"] = 25
 		E.db["unitframe"]["units"]["pet"]["power"]["height"] = 5
@@ -364,18 +360,20 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["actionbar"]["font"] = "ElvUI Font"
 		E.db["actionbar"]["fontOutline"] = "OUTLINE"
 		E.db["actionbar"]["hotkeytext"] = false
-		E.db["actionbar"]["bar1"]["buttonsPerRow"] = 4
+		E.db["actionbar"]["bar1"]["buttonsPerRow"] = 6
 		E.db["actionbar"]["bar1"]["point"] = "TOPLEFT"
-		E.db["actionbar"]["bar1"]["buttonsize"] = 30
+		E.db["actionbar"]["bar1"]["buttonsize"] = 40
 		E.db["actionbar"]["bar2"]["enabled"] = true
 		E.db["actionbar"]["bar2"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["bar2"]["buttonsPerRow"] = 4
-		E.db["actionbar"]["bar2"]["buttonsize"] = 28
+		E.db["actionbar"]["bar2"]["buttonsize"] = 27
+		E.db["actionbar"]["bar2"]["buttonspacing"] = 1
 		E.db["actionbar"]["bar2"]["visibility"] = " [petbattle] hide; show"
 		E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["bar3"]["buttons"] = 12
 		E.db["actionbar"]["bar3"]["buttonsPerRow"] = 4
-		E.db["actionbar"]["bar3"]["buttonsize"] = 28
+		E.db["actionbar"]["bar3"]["buttonsize"] = 27
+		E.db["actionbar"]["bar3"]["buttonspacing"] = 1
 		E.db["actionbar"]["bar3"]["visibility"] = "[petbattle] hide; show"
 		E.db["actionbar"]["bar4"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["bar4"]["visibility"] = "[petbattle] hide; show"
@@ -395,7 +393,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 20
 		E.db["actionbar"]["barPet"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["barPet"]["buttonspacing"] = 1
-		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 2
+		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 5
 		E.db["actionbar"]["barPet"]["backdrop"] = false
 		E.db["actionbar"]["barPet"]["buttonsize"] = 18
 	end
@@ -428,8 +426,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["sle"]["media"]["screensaver"]["crest"] = 150
 		E.db["sle"]["characterframeoptions"]["image"]["dropdown"] = "CASTLE"
 		E.db["sle"]["datatext"]["chathandle"] = true
-		E.db["sle"]["datatext"]["chatleft"]["width"] = 409
-		E.db["sle"]["datatext"]["chatright"]["width"] = 409
+		E.db["sle"]["datatext"]["chatleft"]["width"] = 408
+		E.db["sle"]["datatext"]["chatright"]["width"] = 408
 		E.db["sle"]["datatext"]["top"]["enabled"] = true
 		E.db["sle"]["datatext"]["top"]["transparent"] = true
 		E.db["sle"]["datatext"]["bottom"]["enabled"] = true
@@ -437,10 +435,10 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["sle"]["datatext"]["bottom"]["width"] = 196
 		E.db["sle"]["datatext"]["dp5"]["enabled"] = true
 		E.db["sle"]["datatext"]["dp5"]["transparent"] = true
-		E.db["sle"]["datatext"]["dp5"]["width"] = 439
+		E.db["sle"]["datatext"]["dp5"]["width"] = 440
 		E.db["sle"]["datatext"]["dp6"]["enabled"] = true
 		E.db["sle"]["datatext"]["dp6"]["transparent"] = true
-		E.db["sle"]["datatext"]["dp6"]["width"] = 439
+		E.db["sle"]["datatext"]["dp6"]["width"] = 440
 		E.db["sle"]["dt"]["friends"]["sortBN"] = "REALID"
 		E.db["sle"]["dt"]["friends"]["combat"] = true
 		E.db["sle"]["dt"]["friends"]["hide_hintline"] = false
@@ -471,16 +469,17 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	--Movers--
 	do
 		E.db["movers"]["ElvAB_1"] = "BOTTOMElvUIParentBOTTOM019"
-		E.db["movers"]["ElvAB_2"] = "BOTTOMElvUIParentBOTTOM12419"
-		E.db["movers"]["ElvAB_3"] = "BOTTOMElvUIParentBOTTOM-12419"
+		E.db["movers"]["ElvAB_2"] = "BOTTOMElvUIParentBOTTOM18219"
+		E.db["movers"]["ElvAB_3"] = "BOTTOMElvUIParentBOTTOM-18219"
 		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-42520"
 		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT42520"
 		E.db["movers"]["ElvAB_6"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-11210"
-		E.db["movers"]["PetAB"] = "BOTTOMElvUIParentBOTTOM-20320"
-		E.db["movers"]["ShiftAB"] = "BOTTOMElvUIParentBOTTOM-133108"
+		E.db["movers"]["ShiftAB"] = "BOTTOMElvUIParentBOTTOM-205102"
 		E.db["movers"]["MicrobarMover"] = "TOPElvUIParentTOP0-19"
+		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMElvUIParentBOTTOM30056"
+		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-51234"
 		E.db["movers"]["Top_Center_Mover"] = "TOPElvUIParentTOP00"
-		E.db["movers"]["DP_5_Mover"] = "BOTTOMElvUIParentBOTTOM-3160"
+		E.db["movers"]["DP_5_Mover"] = "BOTTOMElvUIParentBOTTOM-3170"
 		E.db["movers"]["DP_6_Mover"] = "BOTTOMElvUIParentBOTTOM3170"
 		E.db["movers"]["LeftChatMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT019"
 		E.db["movers"]["RightChatMover"] = "BOTTOMRIGHTUIParentBOTTOMRIGHT019"
@@ -505,7 +504,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHTElvUIParentTOPRIGHT0-202"
 		E.db["movers"]["BossHeaderMover"] = "TOPRIGHTElvUIParentTOPRIGHT0-202"
 		E.db["movers"]["TotemBarMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT50123"
-		E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOMElvUIParentBOTTOM0114"
+		E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOMElvUIParentBOTTOM0102"		
 	end
 	
 	E.private["general"]["normTex"] = "Polished Wood"
