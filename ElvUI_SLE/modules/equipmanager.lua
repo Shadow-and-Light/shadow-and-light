@@ -7,24 +7,40 @@ local gsub, strfind = string.gsub, string.find, string.sub
 
 local function Equip(event)
 	local primary = GetSpecialization()
+	local equipSet
+	for i = 1, GetNumEquipmentSets() do
+		local name, _, _, isEquipped = GetEquipmentSetInfo(i)
+		if isEquipped then
+			equipSet = name
+			
+		end
+	end
 
 	if primary ~= nil then
 		local inInstance, instanceType = IsInInstance()
 
 		if (event == "ACTIVE_TALENT_GROUP_CHANGED") then
 			if GetActiveSpecGroup() == 1 then
-				UseEquipmentSet(E.private.sle.equip.primary)
+				if equipSet ~= E.private.sle.equip.primary and E.private.sle.equip.primary ~= "NONE" then
+					UseEquipmentSet(E.private.sle.equip.primary)
+				end
 			else
-				UseEquipmentSet(E.private.sle.equip.secondary)
+				if equipSet ~= E.private.sle.equip.secondary and E.private.sle.equip.secondary ~= "NONE" then
+					UseEquipmentSet(E.private.sle.equip.secondary)
+				end
 			end
 		end
 
 		if (instanceType == "party" or instanceType == "raid") then
-			UseEquipmentSet(E.private.sle.equip.instance)
+			if equipSet ~= E.private.sle.equip.instance and E.private.sle.equip.instance ~= "NONE" then
+				UseEquipmentSet(E.private.sle.equip.instance)
+			end
 		end
 
 		if (instanceType == "pvp" or instanceType == "arena") then
-			UseEquipmentSet(E.private.sle.equip.pvp)
+			if equipSet ~= E.private.sle.equip.pvp and E.private.sle.equip.pvp ~= "NONE" then
+				UseEquipmentSet(E.private.sle.equip.pvp)
+			end
 		end
 
 		if E.private.sle.equip.pvp ~= "NONE" then
@@ -32,7 +48,9 @@ local function Equip(event)
 				local _, localizedName, isActive = GetWorldPVPAreaInfo(i)
 
 				if (GetRealZoneText() == localizedName and isActive) then
-					UseEquipmentSet(E.private.sle.equip.pvp)
+					if equipSet ~= E.private.sle.equip.pvp then
+						UseEquipmentSet(E.private.sle.equip.pvp)
+					end
 				end
 			end
 		end
