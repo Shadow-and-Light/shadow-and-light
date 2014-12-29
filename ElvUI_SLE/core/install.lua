@@ -91,16 +91,18 @@ end
 function AI:DarthHeal()
 	do
 		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 18
-		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 190
 		
 		E.db["unitframe"]["units"]["target"]["health"]["text_format"] = "[healthcolor][health:sl:darth-heal]"
 		
+		E.db["unitframe"]["units"]["party"]["height"] = 34
 		E.db["unitframe"]["units"]["party"]["debuffs"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "TOPLEFT"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 25
 		E.db["unitframe"]["units"]["party"]["health"]["frequentUpdates"] = true
 		E.db["unitframe"]["units"]["party"]["health"]["text_format"] = "[healthcolor][health:deficit]"
 
+		E.db["unitframe"]["units"]["raid"]["height"] = 34
+		E.db["unitframe"]["units"]["raid"]['verticalSpacing'] = 0
 		E.db["unitframe"]["units"]["raid"]["GPSArrow"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["GPSArrow"]["size"] = 20
 		E.db["unitframe"]["units"]["raid"]["GPSArrow"]["xOffset"] = -27
@@ -117,14 +119,14 @@ function AI:DarthHeal()
 	do
 		E.db["movers"]["PetAB"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT57660"
 		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-289149"
-		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM-289128"
+		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM0122"
 		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM289149"
 		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM289128"
 		E.db["movers"]["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM-319100"
 		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM244105"
-		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT768126"
-		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT768126"
-		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT768126"
+		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT768144"
+		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT768144"
+		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT768144"
 		E.db["movers"]["BossButton"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-502134"
 		E.db["movers"]["AlertFrameMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT198207"
 		E.db["movers"]["ComboBarMover"] = nil
