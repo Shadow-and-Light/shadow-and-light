@@ -118,7 +118,7 @@ function AI:DarthHeal()
 		E.db["movers"]["PetAB"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT57660"
 		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-289149"
 		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM-289128"
-		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM2891149"
+		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM289149"
 		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM289128"
 		E.db["movers"]["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM-319100"
 		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM244105"
