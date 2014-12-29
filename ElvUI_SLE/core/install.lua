@@ -511,7 +511,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	
 	E.private["general"]["normTex"] = "Polished Wood"
 	E.private["general"]["glossTex"] = "Polished Wood"
-	E.private["general"]["'hideGarrison"] = false
+	E.private["general"]["minimap"]["hideGarrison"] = false
 	
 	E.private["sle"]["inspectframeoptions"]["enable"] = true
 	E.private["sle"]["characterframeoptions"]["enable"] = true
