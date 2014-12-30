@@ -8,7 +8,7 @@ local S = E:GetModule("Skins")
 local SeedAnchor, ToolAnchor, PortalAnchor
 local tsort, format = table.sort, format
 local farmzones = { BL["Sunsong Ranch"], BL["The Halfhill Market"] }
-local salvagezones = { BL["Salvage Yard"] }
+local salvagezones = { BL["Salvage Yard"], BL["Frostwall Mine"], BL["Lunarfall Excavation"]}
 local size
 local Zcheck = false
 local GetSubZoneText = GetSubZoneText
@@ -141,6 +141,8 @@ local salvage = {
 	[114116] = { 1 }, -- Bag of Salvaged Goods
 	[114119] = { 1 }, -- Crate of Salvage
 	[114120] = { 1 }, -- Big Crate of Salvage
+	[118903] = { 1 }, -- Minepick
+	[118897] = { 1 }, -- Coffee
 }
 
 local buttoncounts = {}
@@ -160,7 +162,12 @@ local function OnFarm()
 end
 
 local function InSalvageYard()
-	return GetMinimapZoneText() == salvagezones[1];
+	if GetMinimapZoneText() == salvagezones[1] then 
+		return true
+	elseif GetMinimapZoneText() == salvagezones[playerFaction == "Horde" and 2 or 3] then
+		return true
+	end
+	return false
 end
 
 local function InventoryUpdate(event)
@@ -419,7 +426,7 @@ local function ResizeFrames()
 	end
 	ToolAnchor:Size((size+(E.PixelMode and 2 or 1))*5-(E.PixelMode and 0 or 1), size+(E.PixelMode and 2 or 1)-(E.PixelMode and 0 or 1))
 	PortalAnchor:Size((size+(E.PixelMode and 2 or 1))*5-(E.PixelMode and 0 or 1), size+(E.PixelMode and 2 or 1)-(E.PixelMode and 0 or 1))
-	SalvageAnchor:Size((size+(E.PixelMode and 2 or 1))*3-(E.PixelMode and 0 or 1), size+(E.PixelMode and 2 or 1)-(E.PixelMode and 0 or 1))
+	SalvageAnchor:Size((size+(E.PixelMode and 2 or 1))*5-(E.PixelMode and 0 or 1), size+(E.PixelMode and 2 or 1)-(E.PixelMode and 0 or 1))
 end
 
 function F:UpdateLayout(event, unit) --don't touch
@@ -558,7 +565,7 @@ local function CreateFrames()
 	E:CreateMover(SeedAnchor, "FarmSeedMover", L["Farm Seed Bars"], nil, nil, nil, "ALL,S&L,S&L MISC")
 	E:CreateMover(ToolAnchor, "FarmToolMover", L["Farm Tool Bar"], nil, nil, nil, "ALL,S&L,S&L MISC")
 	E:CreateMover(PortalAnchor, "FarmPortalMover", L["Farm Portal Bar"], nil, nil, nil, "ALL,S&L,S&L MISC")
-	E:CreateMover(SalvageAnchor, "SalvageCrateMover", L["Salvage Crate Bars"], nil, nil, nil, "ALL,S&L,S&L MISC")
+	E:CreateMover(SalvageAnchor, "SalvageCrateMover", L["Garrison Tools Bars"], nil, nil, nil, "ALL,S&L,S&L MISC")
 
 	for id, v in pairs(seeds) do
 		seeds[id] = { v[1], GetItemInfo(id) }	
