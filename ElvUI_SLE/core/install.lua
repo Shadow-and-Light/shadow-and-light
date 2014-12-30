@@ -156,6 +156,9 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["general"]["experience"]["height"] = 187
 		E.db["general"]["bottomPanel"] = false
 		E.db["general"]["vendorGrays"] = true
+		E.db["general"]['objectiveFrameHeight'] = 620
+		E.db["general"]['bonusObjectivePosition'] = "RIGHT"
+		
 	end
 	--Nameplates--
 	do
@@ -507,7 +510,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["movers"]["BossHeaderMover"] = "TOPRIGHTElvUIParentTOPRIGHT0-202"
 		E.db["movers"]["TotemBarMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT50123"
 		E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOMElvUIParentBOTTOM0102"	
-		E.db["movers"]["SalvageCrateMover"] = "BOTTOMElvUIParentBOTTOM-28619"
+		E.db["movers"]["SalvageCrateMover"] = "BOTTOMElvUIParentBOTTOM-31819"
 	end
 	
 	E.private["general"]["normTex"] = "Polished Wood"
