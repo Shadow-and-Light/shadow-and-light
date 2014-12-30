@@ -506,7 +506,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHTElvUIParentTOPRIGHT0-202"
 		E.db["movers"]["BossHeaderMover"] = "TOPRIGHTElvUIParentTOPRIGHT0-202"
 		E.db["movers"]["TotemBarMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT50123"
-		E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOMElvUIParentBOTTOM0102"		
+		E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOMElvUIParentBOTTOM0102"	
+		E.db["movers"]["SalvageCrateMover"] = "BOTTOMElvUIParentBOTTOM-28619"
 	end
 	
 	E.private["general"]["normTex"] = "Polished Wood"
@@ -518,6 +519,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	E.private["sle"]["minimap"]["mapicons"]["enable"] = true
 	E.private["sle"]["equip"]["spam"] = true
 	E.private["sle"]["equip"]["setoverlay"] = true
+	E.private["sle"]['farm']['enable'] = true
 
 	E.private["ElvUI_Currency"]["Unused"] = false
 	E.private["ElvUI_Currency"]["Archaeology"] = false
