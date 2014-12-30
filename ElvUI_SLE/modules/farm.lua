@@ -563,7 +563,7 @@ local function FramesPosition()
 	ToolAnchor:Point("BOTTOMLEFT", SeedAnchor, "TOPLEFT", 0, E.PixelMode and 1 or 5)
 	PortalAnchor:Point("BOTTOMLEFT", ToolAnchor, "TOPLEFT", 0, E.PixelMode and 1 or 5)
 	SalvageAnchor:Point("LEFT", E.UIParent, "LEFT", 24, 0);
-	MineAnchor:Point("LEFT", SalvageAnchor, "LEFT", 0, 0) --E.PixelMode and 1 or 5, 0);
+	MineAnchor:Point("LEFT", SalvageAnchor, "LEFT", 0, 0)
 end				
 
 local function CreateFrames()
