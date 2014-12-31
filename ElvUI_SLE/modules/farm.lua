@@ -311,7 +311,7 @@ local function UpdateButtonCooldown(button)
 end
 
 local function UpdateCooldown()
-	if not CanSeed() or not InSalvageYard() or not InMine() then return end
+	if not CanSeed() and not InSalvageYard() and not InMine() then return end
 
 	for i = 1, 5 do
 		for _, button in ipairs(FseedButtons[i]) do
