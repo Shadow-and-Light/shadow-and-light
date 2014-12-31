@@ -395,7 +395,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["actionbar"]["microbar"]["enabled"] = true
 		E.db["actionbar"]["microbar"]["buttonsPerRow"] = 11
 		E.db["actionbar"]["stanceBar"]["style"] = "classic"
-		E.db["actionbar"]["stanceBar"]["buttonsize"] = 20
+		E.db["actionbar"]["stanceBar"]["buttonsize"] = 18
 		E.db["actionbar"]["barPet"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["barPet"]["buttonspacing"] = 1
 		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 5
@@ -479,7 +479,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-42520"
 		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT42520"
 		E.db["movers"]["ElvAB_6"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-11210"
-		E.db["movers"]["ShiftAB"] = "BOTTOMElvUIParentBOTTOM-205102"
+		E.db["movers"]["ShiftAB"] = "BOTTOMElvUIParentBOTTOM-188102"
 		E.db["movers"]["MicrobarMover"] = "TOPElvUIParentTOP0-19"
 		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMElvUIParentBOTTOM30056"
 		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-51234"
