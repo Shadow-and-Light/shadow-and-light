@@ -12,6 +12,7 @@ local M = E:GetModule('SLE_Media')
 local I = E:GetModule('SLE_InstDif')
 local S = E:GetModule("SLE_ScreenSaver")
 local G = E:GetModule("SLE_Garrison")
+local EF = E:GetModule('SLE_ErrorFrame');
 local dev = ""
 local lib = LibStub("LibRealmInfo")
 local LocTable = {}
@@ -74,6 +75,7 @@ local function UpdateAll()
 	I:UpdateFrame()
 	S:Reg(true)
 	G:ShowButton()
+	EF:SetSize()
 
 	collectgarbage('collect');
 end
