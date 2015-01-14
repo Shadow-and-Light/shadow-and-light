@@ -42,6 +42,7 @@ L['Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the s
 L['You have got Loot Confirm and Shadow & Light both enabled at the same time. Select an addon to disable.'] = "Одновременно активны Loot Confirm и Shadow & Light. Выберите что из них отключить."
 L["Enabling mouse over will make ElvUI's raid utility show on mouse over instead of always showing."] = "Отображать кнопку управления рейдом только при наведении мыши."
 L['Adjust the position of the threat bar to any of the datatext panels in ElvUI & S&L.'] = "Позволяет поместить полосу угрозы на любой панели инфо-текстов."
+L["This option have been moved by Shadow & Light. Click to access it's new place."] = "Shadow & Light переместил эту опцию. Кликните для перехода к ее новому расположению."
 
 --Chat--
 L["Reset Chat History"] = "Сбросить историю чата"
@@ -495,6 +496,11 @@ L["Automatically queue maximum number of work orders available for Trading Post.
 L["Show Max Order Button"] = "Кнопка максимума"
 L["Show the button to queue maximum number of work orders in building's UI."] = "Отображать кнопку для выполнения максимума заказов в интерфейсе зданий."
 L["Max"] = "Макс."
+
+--Error Frame--
+L["Error Frame"] = "Фрейм ошибок"
+L["Set the width of Error Frame. Too narrow frame may cause messages to be split in several lines"] = "Устанавливает ширину фрейма ошибок. Если фрейм окажется слишком узким, текст будет разделен на несколько строк."
+L["Set the height of Error Frame. Higher frame can show more lines at once."] = "Устанавливает высоту фрейма ошибок. Чем выше фрейм, тем больше строк может быть показано одновременно."
 
 --Credits--
 L["Submodules and Coding:"] = "Субмодули и помощь с кодом:"

@@ -26,4 +26,5 @@
 	<Script file='uibuttons.lua'/>
 	<Script file='unitframes.lua'/>
 	<Script file='vehicle.lua'/>
+	<Script file='errorframe.lua'/>
 </Ui>

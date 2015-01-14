@@ -460,6 +460,11 @@ P['sle'] = {
 		['autoTrade'] = false,
 		['showOrderButton'] = true,
 	},
+	
+	['errorframe'] = {
+		['height'] = 60,
+		['width'] = 512,
+	},
 }
 
 P.chat.editboxhistory = 5
