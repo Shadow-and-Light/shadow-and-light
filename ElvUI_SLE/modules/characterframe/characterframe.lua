@@ -545,7 +545,8 @@ function CA:Update_Gear()
 							CurrentLineText = gsub(CurrentLineText, "к показателю многократной атаки", "многократной атаке")
 														
 							CurrentLineText = gsub(CurrentLineText, ' + ', '+') -- Remove space
-							CurrentLineText = gsub(CurrentLineText, "небольшое увеличение скорости передвижения", "+к скорости передвижения")
+							CurrentLineText = gsub(CurrentLineText, "небольшое увеличение скорости передвижения", "+к бегу")
+							CurrentLineText = gsub(CurrentLineText, "к скорости передвижения", "к бегу")
 							
 							CurrentLineText = gsub(CurrentLineText, ITEM_MOD_CRIT_RATING_SHORT, CRIT_ABBR) -- Critical is too long
 
