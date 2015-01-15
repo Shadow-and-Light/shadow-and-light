@@ -320,6 +320,7 @@ function UB:AddonSetup()
 	UB:CreateDropdownButton("Addon", "Altoholic", "Altoholic", nil, nil, function() Altoholic:ToggleUI() end, "Altoholic")
 	UB:CreateDropdownButton("Addon", "AtlasLoot", "AtlasLoot", nil, nil, function() AtlasLoot.GUI:Toggle() end, "AtlasLoot")
 	UB:CreateDropdownButton("Addon", "WeakAuras", "WeakAuras", nil, nil, function() SlashCmdList.WEAKAURAS() end, "WeakAuras")
+	UB:CreateDropdownButton("Addon", "xCT", "xCT+", nil, nil, function() xCT_Plus:ToggleConfigTool() end, "xCT+")
 	UB:CreateDropdownButton("Addon", "Swatter", "Swatter", nil, nil, function() Swatter.ErrorShow() end, "!Swatter")
 
 	tinsert(AddonTable, UB.menuHolder.Addon.Manager)
@@ -327,6 +328,7 @@ function UB:AddonSetup()
 	tinsert(AddonTable, UB.menuHolder.Addon.Altoholic)
 	tinsert(AddonTable, UB.menuHolder.Addon.AtlasLoot)
 	tinsert(AddonTable, UB.menuHolder.Addon.WeakAuras)
+	tinsert(AddonTable, UB.menuHolder.Addon.xCT)
 	tinsert(AddonTable, UB.menuHolder.Addon.Swatter)
 
 	--Always keep at the bottom--
