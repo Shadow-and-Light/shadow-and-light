@@ -254,12 +254,14 @@ local function TwelveShift(id1, id2, id3, id4)
 	end
 	for i =10,12 do --4th part
 		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id4, i);
-		if (isKilled) then
-			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
-		elseif (isIneligible) then
-			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
-		else
-			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		if bossName then
+			if (isKilled) then
+				DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+			elseif (isIneligible) then
+				DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+			else
+				DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+			end
 		end
 	end
 end
@@ -397,6 +399,14 @@ local function HM(id1, id2, id3)
 	end
 end
 
+local function BRF(id1, id2, id3, id4)
+	if IsShiftKeyDown() then
+		TwelveShift(id1, id2, id3, id4);
+	else
+		TwelveKill(id1, id2, id3, id4);
+	end
+end
+
 function DT:LFRShow()
 	local lvl = UnitLevel("player")
 	local ilvl = GetAverageItemLevel()
@@ -465,6 +475,15 @@ function DT:LFRShow()
 		DT.tooltip:AddLine(" "..GetMapNameByID(994))
 		if lvl == 100 and ilvl >= 615 then
 			HM(849, 850, 851);
+		else
+			DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
+		end
+	end
+	
+	if E.db.sle.lfrshow.brf then
+		DT.tooltip:AddLine(" "..GetMapNameByID(988))
+		if lvl == 100 and ilvl >= 640 then
+			BRF(846, 847, 848, 848);
 		else
 			DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
 		end
