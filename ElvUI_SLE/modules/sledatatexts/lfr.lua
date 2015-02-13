@@ -187,6 +187,82 @@ local function EightShift(id1, id2)
 	end
 end
 
+--For 10 boss raid
+local function TenKill(id1, id2, id3, id4)
+	local killNum = 0
+	for i =1,3 do --1st part
+		_, _, isKilled = GetLFGDungeonEncounterInfo(id1, i);
+		if (isKilled) then
+			killNum = killNum + 1
+		end
+	end
+	for i =4,6 do --2nd part
+		_, _, isKilled = GetLFGDungeonEncounterInfo(id2, i);
+		if (isKilled) then
+			killNum = killNum + 1
+		end
+	end
+	for i =7,9 do --3rd part
+		_, _, isKilled = GetLFGDungeonEncounterInfo(id3, i);
+		if (isKilled) then
+			killNum = killNum + 1
+		end
+	end
+
+	-- 4th part
+	_, _, isKilled = GetLFGDungeonEncounterInfo(id4, 10);
+	if (isKilled) then
+		killNum = killNum + 1
+	end
+	if killNum == 10 then
+		DT.tooltip:AddLine(" "..L["Bosses killed: "]..killNum.."/10", RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
+	else
+		DT.tooltip:AddLine(" "..L["Bosses killed: "]..killNum.."/10", GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b)
+	end
+end
+
+local function TenShift(id1, id2, id3, id4)
+	for i =1,3 do --1st part
+		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id1, i);
+		if (isKilled) then
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+		elseif ( isIneligible ) then
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		else
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		end
+	end
+	for i =4,6 do --2nd part
+		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id2, i);
+		if (isKilled) then
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+		elseif (isIneligible) then
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		else
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		end
+	end
+	for i =7,9 do --3rd part
+		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id3, i);
+		if (isKilled) then
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+		elseif (isIneligible) then
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		else
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		end
+	end
+	--4th part
+	bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id4, 10);
+	if (isKilled) then
+		DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+	elseif (isIneligible) then
+		DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+	else
+		DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+	end
+end
+
 --For 12 boss raid
 local function TwelveKill(id1, id2, id3, id4)
 	local killNum = 0
@@ -401,9 +477,9 @@ end
 
 local function BRF(id1, id2, id3, id4)
 	if IsShiftKeyDown() then
-		TwelveShift(id1, id2, id3, id4);
+		TenShift(id1, id2, id3, id4);
 	else
-		TwelveKill(id1, id2, id3, id4);
+		TenKill(id1, id2, id3, id4);
 	end
 end
 
@@ -482,13 +558,13 @@ function DT:LFRShow()
 	
 	if E.db.sle.lfrshow.brf then
 		DT.tooltip:AddLine(" "..GetMapNameByID(988))
-		if lvl == 100 and ilvl >= 640 then
-			BRF(846, 847, 848, 848);
+		if lvl == 100 and ilvl >= 635 then
+			BRF(847, 846, 848, 823)
 		else
 			DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
 		end
 	end
-	
+
 	--[[if E.db.sle.lfrshow.hmNormal then
 		DT.tooltip:AddLine(" "..GetMapNameByID(994).." ("..PLAYER_DIFFICULTY1..")")
 		if lvl == 100 then
