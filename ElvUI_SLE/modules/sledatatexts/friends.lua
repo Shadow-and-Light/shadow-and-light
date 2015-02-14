@@ -18,6 +18,8 @@ local ONE_DAY = 24 * ONE_HOUR;
 local ONE_MONTH = 30 * ONE_DAY;
 local ONE_YEAR = 12 * ONE_MONTH;
 
+local realid_table = {}
+
 local function sletime_Conversion(timeDifference, isAbsolute)
    if ( not isAbsolute ) then
       timeDifference = time() - timeDifference;
@@ -248,8 +250,15 @@ local function Entry_OnMouseUp(frame, info, button)
 		end
 
 		if i_type == "realid" then
-			local name = full_name..":"..presence_id
-			SetItemRef( "BNplayer:"..name, ("|HBNplayer:%1$s|h[%1$s]|h"):format(name), "LeftButton" )          
+			local name
+			for _, player in ipairs(realid_table) do
+				if player["GIVENNAME"] == presence_id and player["CLIENT"] == "Hero" then
+					name = presence_id..":"..player["PRESENCEID"]
+					break
+				end
+			end
+			if not name then name = full_name..":"..presence_id end
+			SetItemRef( "BNplayer:"..name, ("|HBNplayer:%1$s|h[%1$s]|h"):format(name), "LeftButton" )     
 		else
 			SetItemRef( "player:"..full_name, ("|Hplayer:%1$s|h[%1$s]|h"):format(full_name), "LeftButton" )
 		end
@@ -349,7 +358,7 @@ function LDB.OnEnter(self)
 			tooltip:AddSeparator()
 
 			if numBNOnline > 0 then
-				local realid_table = {}
+				realid_table = {}
 				for i = 1, numBNOnline do
 					local presenceID, givenName, bTag, _, _, toonID, gameClient, isOnline, lastOnline, isAFK, isDND, broadcast, note, _, castTime = BNGetFriendInfo(i)
 					local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetToonInfo(toonID or 0)
