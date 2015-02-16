@@ -1,3 +1,9 @@
+v2.13
+- Error frame is now movable. That frame contains any red text errors like out of range adn stuff. Also it contains location discovery and quest progress texts.
+- UI buttons in dropdown style now have a button for xCT options under addons section
+- Time datatext can now show Blackrock Foundry LFR status
+- Fixed an error when trying to send a message to a friend in Heroes of The Storm via S&L Friends datatext
+
 v2.12 1/1/2015
 - UI buttons font now doesn't change only on load. You'll see the difference the same moment you cahnge default ElvUI font. Also this font now respects default font size instead of being always constant.
 - By popular demand Ui buttons now have a style option. You can turn back classic style if you don't like the new look. This option is private so you'll need to change it on all your characters.
