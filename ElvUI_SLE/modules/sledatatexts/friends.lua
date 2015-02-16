@@ -358,7 +358,7 @@ function LDB.OnEnter(self)
 			tooltip:AddSeparator()
 
 			if numBNOnline > 0 then
-				realid_table = {}
+				wipe(realid_table)
 				for i = 1, numBNOnline do
 					local presenceID, givenName, bTag, _, _, toonID, gameClient, isOnline, lastOnline, isAFK, isDND, broadcast, note, _, castTime = BNGetFriendInfo(i)
 					local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetToonInfo(toonID or 0)
