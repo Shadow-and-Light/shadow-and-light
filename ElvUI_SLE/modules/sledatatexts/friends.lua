@@ -420,9 +420,13 @@ function LDB.OnEnter(self)
 					line = tooltip:AddLine()
 					line = tooltip:SetCell(line, 1, ColoredLevel(player["LEVEL"]))
 					line = tooltip:SetCell(line, 2, player["STATUS"])
-					line = tooltip:SetCell(line, 3,
+					if player["CLIENT"] ~= "Hero" then
+						line = tooltip:SetCell(line, 3,
 						string.format("|cff%s%s",CLASS_COLORS[player["CLASS"]] or "B8B8B8", player["TOONNAME"] .. "|r")..
 						(inGroup(player["TOONNAME"]) and GROUP_CHECKMARK or ""))
+					else
+						line = tooltip:SetCell(line, 3, string.format(""))
+					end
 					line = tooltip:SetCell(line, 4,
 						"|cff82c5ff" .. player["GIVENNAME"] .. "|r" .. broadcast_flag)
 
