@@ -1,4 +1,4 @@
-v2.13
+v2.13 2/16/2015
 - Error frame is now movable. That frame contains any red text errors like out of range adn stuff. Also it contains location discovery and quest progress texts.
 - UI buttons in dropdown style now have a button for xCT options under addons section
 - Time datatext can now show Blackrock Foundry LFR status
