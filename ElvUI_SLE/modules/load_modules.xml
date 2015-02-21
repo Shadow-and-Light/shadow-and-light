@@ -3,7 +3,6 @@
 	<Script file='auras.lua'/>
 	<Script file='autorelease.lua'/>
 	<Script file='backgrounds.lua'/>
-	<Script file='garrison.lua'/>
 	<Script file='bags.lua'/>
 	<Include file='characterframe\load_characterframe.xml'/>
 	<Script file='datatexts.lua'/>
