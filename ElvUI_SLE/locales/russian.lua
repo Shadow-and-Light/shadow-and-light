@@ -494,9 +494,6 @@ L["Auto Work Orders for Warmill"] = "Авто. заказы на фабрике"
 L["Automatically queue maximum number of work orders available for Warmill/Dwarven Bunker."] = "Автоматически делать максимальное количество заказов для военной фабрики/дворфийского бункера."
 L["Auto Work Orders for Trading Post"] = "Авто. заказы в торговой лавке"
 L["Automatically queue maximum number of work orders available for Trading Post."] = "Автоматически делать максимальное количество заказов для торговой лавки."
-L["Show Max Order Button"] = "Кнопка максимума"
-L["Show the button to queue maximum number of work orders in building's UI."] = "Отображать кнопку для выполнения максимума заказов в интерфейсе зданий."
-L["Max"] = "Макс."
 
 --Error Frame--
 L["Error Frame"] = "Фрейм ошибок"

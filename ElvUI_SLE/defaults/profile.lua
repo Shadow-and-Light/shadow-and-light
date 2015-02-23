@@ -457,7 +457,6 @@ P['sle'] = {
 		['autoOrder'] = false,
 		['autoWar'] = false,
 		['autoTrade'] = false,
-		['showOrderButton'] = true,
 	},
 	
 	['errorframe'] = {
