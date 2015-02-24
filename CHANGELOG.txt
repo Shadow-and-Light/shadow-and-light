@@ -1,8 +1,7 @@
-v2.14
+v2.14 2/24/2015
 - Removed max work order button cause Blizzard made their own. The option to auto queue max amount is still there.
 - Fixed a couple of errors in install when applying author's layouts
 - Patch 6.1 ready and stuff
-
 
 v2.13 2/16/2015
 - Error frame is now movable. That frame contains any red text errors like out of range adn stuff. Also it contains location discovery and quest progress texts.
