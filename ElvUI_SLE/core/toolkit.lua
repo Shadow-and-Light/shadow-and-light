@@ -74,7 +74,6 @@ local function UpdateAll()
 	M:TextWidth()
 	I:UpdateFrame()
 	S:Reg(true)
-	G:ShowButton()
 	EF:SetSize()
 
 	collectgarbage('collect');
