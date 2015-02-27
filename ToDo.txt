@@ -7,4 +7,3 @@ Saw an idea about a dot tracker, saw some coding for it will look at it when hav
 Maybe add the ability to select amount of datatexts on each panel ranging from 1-3 slots
 adfas
 ==Testing Git Setup==
-Just a test push b/c I reinstalled Win8 another test.
