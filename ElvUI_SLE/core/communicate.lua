@@ -5,6 +5,9 @@ local split = string.split
 local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if prefix == 'SLE_DEV_REQ' then 
+			local message = "wut?"
+			SendAddonMessage('SLE_USER_REQ', message, channel)
+		elseif prefix == 'SLE_USER_INFO' then
 			local message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
 			SendAddonMessage('SLE_DEV_INFO', message, channel)
 		end
