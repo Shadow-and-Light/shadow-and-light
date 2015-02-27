@@ -98,7 +98,7 @@ local function configTable()
 								get = function() return E.db.sle.characterframeoptions.image.custom end,
 								set = function(info, value) 
 									E.db.sle.characterframeoptions.image.custom = value;
-									CFO:ArmoryFrame_DataSetting();
+									CFO:UpdateCharacterBG()
 								end,
 							},
 						},
