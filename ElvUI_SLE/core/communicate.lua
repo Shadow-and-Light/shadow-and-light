@@ -4,9 +4,7 @@ local split = string.split
 
 local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
-		if sender == E.myname.."-"..E.myrealm:gsub(' ','') then return end
-		
-		if prefix == 'SLE_DEV_REQ' and SLE:Auth(sender) then
+		if prefix == 'SLE_DEV_REQ' then 
 			local message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
 			SendAddonMessage('SLE_DEV_INFO', message, channel)
 		end
@@ -18,7 +16,6 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 			for i = 1, numBNetOnline do
 				local presenceID, _, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
 				if isOnline and client == BNET_CLIENT_WOW then
-					--local messageS
 					local message, ID = split("#", message)
 
 					if message == 'userlist' then
@@ -32,8 +29,6 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 		end
 	end
 end
-
-RegisterAddonMessagePrefix('SLE_DEV_REQ')
 
 local f = CreateFrame('Frame', "SLE_Comm_Frame")
 f:RegisterEvent("GROUP_ROSTER_UPDATE")
