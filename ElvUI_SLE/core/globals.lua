@@ -17,62 +17,6 @@ E.SLEConfigs = {}
 
 SLE.version = GetAddOnMetadata("ElvUI_SLE", "Version")
 
-SLE.Dev = {
-	["EU"] = {
-		--PTR
-		["Anasterian(US)"] = {
-			["Dapooc"] = true,
-		},
-		["Brill(EU)"] = {
-			["Дартпредатор"] = true,
-		},
-		--Live
-		['Sylvanas'] = {
-			["Neeka"] = true,
-		},
-		["ВечнаяПесня"] = {
-			["Дартпредатор"] = true,
-			["Алея"] = true,
-			["Ваззули"] = true,
-			["Сиаранна"] = true,
-			["Джатон"] = true,
-			["Фикстер"] = true,
-			["Киландра"] = true,
-			["Нарджо"] = true,
-			["Келинира"] = true,
-			["Крениг"] = true,
-			["Мейжи"] = true
-		},
-	},
-	["US"] = {
-		-- Live
-		["Spirestone"] = {
-			["Sifupooc"] = true,
-			["Dapooc"] = true,
-			["Lapooc"] = true,
-			["Warpooc"] = true,
-			["Repooc"] = true,
-			["Cursewordz"] = true,
-		},
-		["WyrmrestAccord"] = {
-			["Kalinix"] = true,
-			["Sagome"] = true,
-			["Sortokk"] = true,
-			["Norinael"] = true,
-			["Shalerie"] = true,
-			["Myun"] = true,
-			["Nevaleigh"] = true,
-			["Celenii"] = true,
-			["Varysa"] = true,
-			["Caylasena"] = true,
-			["Arillora"] = true,
-		},
-	},
-	["CN"] = {},
-	["KR"] = {},
-	["TW"] = {},
-}
-
 SLE.SpecialChatIcons = {
 	["EU"] = {
 		['Sylvanas'] = {
