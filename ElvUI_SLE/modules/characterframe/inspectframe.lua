@@ -22,7 +22,7 @@ local INFO_TAB_SIZE = 22
 local TALENT_SLOT_SIZE = 26
 local GLYPH_SLOT_HEIGHT = 22
 
-local HeadSlotItem = 1020
+local HeadSlotItem = 99568
 local BackSlotItem = 102246
 local Default_NotifyInspect, Default_InspectUnit
 
@@ -59,6 +59,36 @@ IA.Default_CurrentInspectData = {
 	Glyph = { [1] = {}, [2] = {} },
 	Profession = { [1] = {}, [2] = {} },
 	PvP = {}
+}
+IA.MainStats = {	-- STR, INT, AGI, 
+	WARRIOR = STR,
+	HUNTER = AGI,
+	SHAMAN = {
+		[(L['Spec_Shaman_Elemental'])] = INT,
+		[(L['Spec_Shaman_Enhancement'])] = AGI,
+		[(L['Spec_Shaman_Restoration'])] = INT
+	},
+	MONK = {
+		[(L['Spec_Monk_Brewmaster'])] = AGI,
+		[(L['Spec_Monk_Mistweaver'])] = INT,
+		[(L['Spec_Monk_Windwalker'])] = AGI
+	},
+	ROGUE = AGI,
+	DEATHKNIGHT = STR,
+	MAGE = INT,
+	DRUID = {
+		[(L['Spec_Druid_Balance'])] = INT,
+		[(L['Spec_Druid_Feral'])] = AGI,
+		[(L['Spec_Druid_Guardian'])] = AGI,
+		[(L['Spec_Druid_Restoration'])] = INT
+	},
+	PALADIN = {
+		[(L['Spec_Paladin_Holy'])] = INT,
+		[(L['Spec_Paladin_Protection'])] = STR,
+		[(L['Spec_Paladin_Retribution'])] = STR
+	},
+	PRIEST = INT,
+	WARLOCK = INT
 }
 
 
@@ -227,13 +257,9 @@ do --<< Button Script >>--
 			if type(Parent.GemItemID) == 'number' then
 				if GetItemInfo(Parent.GemItemID) then
 					GameTooltip:SetHyperlink(select(2, GetItemInfo(Parent.GemItemID)))
+					self:SetScript('OnUpdate', nil)
 				else
-					self:SetScript('OnUpdate', function()
-						if GetItemInfo(Parent.GemItemID) then
-							IA.GemSocket_OnEnter(self)
-							self:SetScript('OnUpdate', nil)
-						end
-					end)
+					self:SetScript('OnUpdate', IA.GemSocket_OnEnter)
 					return
 				end
 			else
@@ -274,16 +300,12 @@ do --<< Button Script >>--
 		
 		if self.Link then
 			if GetItemInfo(self.Link) then
+				self:SetScript('OnUpdate', nil)
 				GameTooltip:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
 				GameTooltip:SetHyperlink(select(2, GetItemInfo(self.Link)))
 				GameTooltip:Show()
 			else
-				self:SetScript('OnUpdate', function()
-					if GetItemInfo(self.Link) then
-						IA.Transmogrify_OnEnter(self)
-						self:SetScript('OnUpdate', nil)
-					end
-				end)
+				self:SetScript('OnUpdate', IA.Transmogrify_OnEnter)
 			end
 		end
 	end
@@ -372,7 +394,7 @@ function IA:CreateInspectFrame()
 			PlaySound('igCharacterInfoClose')
 			
 			if self.CurrentInspectData.Name then
-				local TableIndex = self.CurrentInspectData.Name..(IA.CurrentInspectData.Realm and '-'..IA.CurrentInspectData.Realm or '')
+				local TableIndex = self.CurrentInspectData.Name..(IA.CurrentInspectData.Realm and IA.CurrentInspectData.Realm ~= '' and IA.CurrentInspectData.Realm ~= myrealm and '-'..IA.CurrentInspectData.Realm or '')
 				
 				if AISM then
 					AISM.RegisteredFunction.InspectArmory = nil
@@ -402,7 +424,7 @@ function IA:CreateInspectFrame()
 			insets = { left = 0, right = 0, top = 0, bottom = 0}
 		})
 		self.Tab:SetBackdropBorderColor(0, 0, 0)
-		C.Toolkit.TextSetting(self.Tab, ' |cff2eb7e4S&L Inspect', { FontSize = 10, FontOutline = 'OUTLINE' }, 'LEFT', 6, 1)
+		C.Toolkit.TextSetting(self.Tab, ' |cff2eb7e4S&L Inspect', { FontSize = 10, FontStyle = 'OUTLINE' }, 'LEFT', 6, 1)
 		self.Tab:SetScript('OnMouseDown', function() self:StartMoving() end)
 		self.Tab:SetScript('OnMouseUp', function() self:StopMovingOrSizing() end)
 	end
@@ -480,7 +502,7 @@ function IA:CreateInspectFrame()
 		self.MessageFrame:SetScrollChild(self.MessageFrame.Page)
 		self.MessageFrame.Page:Point('TOPLEFT', self.MessageFrame)
 		self.MessageFrame.Page:Point('BOTTOMLEFT', self.MessageFrame)
-		C.Toolkit.TextSetting(self.MessageFrame.Page, '', { FontSize = 10, FontOutline = 'OUTLINE', directionH = 'LEFT' }, 'LEFT', self.MessageFrame.Page)
+		C.Toolkit.TextSetting(self.MessageFrame.Page, '', { FontSize = 10, FontStyle = 'OUTLINE', directionH = 'LEFT' }, 'LEFT', self.MessageFrame.Page)
 		
 		self.Message = self.MessageFrame.Page.text
 	end
@@ -506,7 +528,7 @@ function IA:CreateInspectFrame()
 			})
 			self[ButtonName]:SetBackdropBorderColor(0, 0, 0)
 			self[ButtonName]:SetFrameLevel(CORE_FRAME_LEVEL + 1)
-			C.Toolkit.TextSetting(self[ButtonName], _G[ButtonString], { FontSize = 9, FontOutline = 'OUTLINE' })
+			C.Toolkit.TextSetting(self[ButtonName], _G[ButtonString], { FontSize = 9, FontStyle = 'OUTLINE' })
 			self[ButtonName]:SetScript('OnEnter', self.Button_OnEnter)
 			self[ButtonName]:SetScript('OnLeave', self.Button_OnLeave)
 			self[ButtonName]:SetScript('OnClick', function() IA:ChangePage(ButtonName) end)
@@ -541,8 +563,8 @@ function IA:CreateInspectFrame()
 	end
 	
 	do --<< Texts >>--
-		C.Toolkit.TextSetting(self, nil, { Tag = 'Name', FontSize = 22, FontOutline = 'OUTLINE', }, 'LEFT', self.Bookmark, 'RIGHT', 9, 0)
-		C.Toolkit.TextSetting(self, nil, { Tag = 'Title', FontSize = 9, FontOutline = 'OUTLINE', }, 'BOTTOMLEFT', self.Name, 'TOPLEFT', 2, 5)
+		C.Toolkit.TextSetting(self, nil, { Tag = 'Name', FontSize = 22, FontStyle = 'OUTLINE', }, 'LEFT', self.Bookmark, 'RIGHT', 9, 0)
+		C.Toolkit.TextSetting(self, nil, { Tag = 'Title', FontSize = 9, FontStyle = 'OUTLINE', }, 'BOTTOMLEFT', self.Name, 'TOPLEFT', 2, 5)
 		C.Toolkit.TextSetting(self, nil, { Tag = 'LevelRace', FontSize = 10, directionH = 'LEFT', }, 'BOTTOMLEFT', self.Name, 'BOTTOMRIGHT', 5, 2)
 		C.Toolkit.TextSetting(self, nil, { Tag = 'Guild', FontSize = 10, directionH = 'LEFT', }, 'TOPLEFT', self.Name, 'BOTTOMLEFT', 4, -5)
 		self.Guild:Point('RIGHT', self, -44, 0)
@@ -602,8 +624,8 @@ function IA:CreateInspectFrame()
 					EndX, EndY = GetCursorPosition()
 					
 					Z, X, Y = self:GetPosition(Z, X, Y)
-					x = (EndX - self.StartX) / 45 + x
-					y = (EndY - self.StartY) / 45 + y
+					X = (EndX - self.StartX) / 45 + X
+					Y = (EndY - self.StartY) / 45 + Y
 					
 					self:SetPosition(Z, X, Y)
 					self.StartX, self.StartY = GetCursorPosition()
@@ -616,7 +638,7 @@ function IA:CreateInspectFrame()
 		self.Model:SetScript('OnMouseWheel', function(self, spining)
 			local Z, X, Y = self:GetPosition()
 			
-			z = (spining > 0 and z + 0.5 or z - 0.5)
+			Z = (spining > 0 and Z + 0.5 or Z - 0.5)
 			
 			self:SetPosition(Z, X, Y)
 		end)
@@ -640,7 +662,7 @@ function IA:CreateInspectFrame()
 			Slot:SetScript('OnEnter', self.EquipmentSlot_OnEnter)
 			Slot:SetScript('OnLeave', self.OnLeave)
 			Slot:SetScript('OnClick', self.OnClick)
-			C.Toolkit.TextSetting(Slot, '', { FontSize = 12, FontOutline = 'OUTLINE' })
+			C.Toolkit.TextSetting(Slot, '', { FontSize = 12, FontStyle = 'OUTLINE' })
 			
 			Slot.SlotName = SlotName
 			Slot.Direction = i%2 == 1 and 'LEFT' or 'RIGHT'
@@ -656,7 +678,7 @@ function IA:CreateInspectFrame()
 			Slot.Highlight:SetTexture(1, 1, 1, 0.3)
 			Slot:SetHighlightTexture(Slot.Highlight)
 			
-			C.Toolkit.TextSetting(Slot, nil, { Tag = 'ItemLevel', FontSize = 10, FontOutline = 'OUTLINE', }, 'TOP', Slot, 0, -3)
+			C.Toolkit.TextSetting(Slot, nil, { Tag = 'ItemLevel', FontSize = 10, FontStyle = 'OUTLINE', }, 'TOP', Slot, 0, -3)
 			
 			-- Gradation
 			Slot.Gradation = CreateFrame('Frame', nil, self.Character)
@@ -734,7 +756,7 @@ function IA:CreateInspectFrame()
 					Slot.TransmogrifyAnchor = CreateFrame('Button', nil, Slot.Gradation)
 					Slot.TransmogrifyAnchor:Size(12)
 					Slot.TransmogrifyAnchor:SetFrameLevel(CORE_FRAME_LEVEL + 4)
-					Slot.TransmogrifyAnchor:Point('BOTTOM'..Slot.Direction, Slot)
+					Slot.TransmogrifyAnchor:Point('BOTTOM'..Slot.Direction, Slot, Slot.Direction == 'LEFT' and -3 or 3, -3)
 					Slot.TransmogrifyAnchor:SetScript('OnEnter', self.Transmogrify_OnEnter)
 					Slot.TransmogrifyAnchor:SetScript('OnLeave', self.Transmogrify_OnLeave)
 					
@@ -855,8 +877,6 @@ function IA:CreateInspectFrame()
 			self.Info[CategoryType].Tooltip:SetFrameLevel(CORE_FRAME_LEVEL + 5)
 			self.Info[CategoryType].Tooltip:SetScript('OnClick', IA.Category_OnClick)
 			
-			C.Toolkit.TextSetting(self.Info[CategoryType].Tab, CategoryType, { FontSize = 10 }, 'LEFT', 6, 1)
-			
 			self.Info[CategoryType].Page = CreateFrame('Frame', nil, self.Info[CategoryType])
 			self.Info[CategoryType]:SetScrollChild(self.Info[CategoryType].Page)
 			self.Info[CategoryType].Page:SetFrameLevel(CORE_FRAME_LEVEL + 3)
@@ -865,8 +885,9 @@ function IA:CreateInspectFrame()
 		end
 		
 		do -- Profession Part
+			C.Toolkit.TextSetting(self.Info.Profession.Tab, TRADE_SKILLS, { FontSize = 10 }, 'LEFT', 6, 1)
 			self.Info.Profession.CategoryHeight = INFO_TAB_SIZE + 34 + SPACING * 3
-			self.Info.Profession.Icon:SetTexture(GetSpellTexture(110396))
+			self.Info.Profession.Icon:SetTexture('Interface\\Icons\\Trade_BlackSmithing')
 			
 			for i = 1, 2 do
 				self.Info.Profession['Prof'..i] = CreateFrame('Frame', nil, self.Info.Profession.Page)
@@ -913,6 +934,7 @@ function IA:CreateInspectFrame()
 		end
 		
 		do -- PvP Category
+			C.Toolkit.TextSetting(self.Info.PvP.Tab, PVP, { FontSize = 10 }, 'LEFT', 6, 1)
 			self.Info.PvP.CategoryHeight = 90
 			self.Info.PvP.Icon:SetTexture('Interface\\Icons\\achievement_bg_killxenemies_generalsroom')
 			
@@ -963,11 +985,11 @@ function IA:CreateInspectFrame()
 				self.Info.PvP[Type].RankNoLeaf:SetVertexColor(.2, .4, 1)
 				self.Info.PvP[Type].RankNoLeaf:Size(80, 65)
 				
-				C.Toolkit.TextSetting(self.Info.PvP[Type], nil, { Tag = 'Type', FontSize = 10, FontOutline = 'OUTLINE' }, 'TOPLEFT', self.Info.PvP[Type])
+				C.Toolkit.TextSetting(self.Info.PvP[Type], nil, { Tag = 'Type', FontSize = 10, FontStyle = 'OUTLINE' }, 'TOPLEFT', self.Info.PvP[Type])
 				self.Info.PvP[Type].Type:Point('TOPRIGHT', self.Info.PvP[Type])
 				self.Info.PvP[Type].Type:SetHeight(22)
-				C.Toolkit.TextSetting(self.Info.PvP[Type], nil, { Tag = 'Rating', FontSize = 22, FontOutline = 'OUTLINE' }, 'CENTER', self.Info.PvP[Type].Rank, 0, 3)
-				C.Toolkit.TextSetting(self.Info.PvP[Type], nil, { Tag = 'Record', FontSize = 10, FontOutline = 'OUTLINE' }, 'TOP', self.Info.PvP[Type].Rank, 'BOTTOM', 0, 12)
+				C.Toolkit.TextSetting(self.Info.PvP[Type], nil, { Tag = 'Rating', FontSize = 22, FontStyle = 'OUTLINE' }, 'CENTER', self.Info.PvP[Type].Rank, 0, 3)
+				C.Toolkit.TextSetting(self.Info.PvP[Type], nil, { Tag = 'Record', FontSize = 10, FontStyle = 'OUTLINE' }, 'TOP', self.Info.PvP[Type].Rank, 'BOTTOM', 0, 12)
 			end
 			self.Info.PvP['2vs2']:Point('TOP', self.Info.PvP.Bar1)
 			self.Info.PvP['2vs2']:Point('LEFT', self.Info.PvP.Page)
@@ -989,8 +1011,9 @@ function IA:CreateInspectFrame()
 		end
 		
 		do -- Guild Category
+			C.Toolkit.TextSetting(self.Info.Guild.Tab, GUILD, { FontSize = 10 }, 'LEFT', 6, 1)
 			self.Info.Guild.CategoryHeight = INFO_TAB_SIZE + 66 + SPACING * 3
-			self.Info.Guild.Icon:SetTexture(GetSpellTexture(83968))
+			self.Info.Guild.Icon:SetTexture('Interface\\Icons\\ACHIEVEMENT_GUILDPERK_MASSRESURRECTION')
 			
 			self.Info.Guild.Banner = CreateFrame('Frame', nil, self.Info.Guild.Page)
 			self.Info.Guild.Banner:SetInside()
@@ -1072,7 +1095,7 @@ function IA:CreateInspectFrame()
 				self.Spec['Spec'..i].Tab:SetBackdropColor(0, 0, 0, .7)
 				self.Spec['Spec'..i].Tab:SetBackdropBorderColor(0, 0, 0, 0)
 				self.Spec['Spec'..i].Tab:Point('TOPRIGHT', self.Spec['Spec'..i])
-				C.Toolkit.TextSetting(self.Spec['Spec'..i].Tab, nil, { FontSize = 10, FontOutline = 'OUTLINE' }, 'TOPLEFT', 0, 0)
+				C.Toolkit.TextSetting(self.Spec['Spec'..i].Tab, nil, { FontSize = 10, FontStyle = 'OUTLINE' }, 'TOPLEFT', 0, 0)
 				self.Spec['Spec'..i].Tab.text:Point('BOTTOMRIGHT', 0, -4)
 				
 				self.Spec['Spec'..i].Icon = CreateFrame('Frame', nil, self.Spec['Spec'..i].Tab)
@@ -1295,14 +1318,15 @@ function IA:CreateInspectFrame()
 				IA:UnregisterEvent('INSPECT_READY')
 				
 				IA.NeedModelSetting = true
-				IA.CurrentInspectData = E:CopyTable({}, IA.Default_CurrentInspectData)
+				wipe(IA.CurrentInspectData)
+				E:CopyTable(IA.CurrentInspectData, IA.Default_CurrentInspectData)
 				AISM.CurrentInspectData[self.Data.TableIndex] = {
 					UnitID = self.Data.Unit,
 				}
 				
 				local TableIndex = self.Data.TableIndex
-				AISM:RegisterInspectDataRequest(function(User, UserData)
-					if User == TableIndex then
+				AISM:RegisterInspectDataRequest(function(User, Prefix, UserData)
+					if Prefix == 'AISM_Inspect' and User == TableIndex then
 						E:CopyTable(IA.CurrentInspectData, UserData)
 						IA:ShowFrame(IA.CurrentInspectData)
 						
@@ -1310,8 +1334,10 @@ function IA:CreateInspectFrame()
 					end
 				end, 'InspectArmory', true)
 				SendAddonMessage('AISM_Inspect', 'AISM_DataRequestForInspecting:'..self.Data.Name..'-'..self.Data.Realm, SendChannel, self.Data.TableIndex)
-			elseif self.Data.Unit then
-				IA.InspectUnit(self.Data.Unit)
+			end
+			
+			if self.Data.Unit then
+				IA.InspectUnit(self.Data.Unit, { CancelInspectByManual = 'KnightInspect' })
 			end
 			
 			DropDownList1:Hide()
@@ -1362,7 +1388,7 @@ function IA:CreateInspectFrame()
 					Unit = UnitExists(Menu.name) and Menu.name or Unit,
 					Realm = Menu.server ~= '' and Menu.server or myrealm
 				}
-				DataTable.TableIndex = DataTable.Unit and GetUnitName(DataTable.Unit, 1) or DataTable.Name..(DataTable.Realm ~= myrealm and '-'..DataTable.Realm or '')
+				DataTable.TableIndex = DataTable.Unit and GetUnitName(DataTable.Unit, 1) or DataTable.Name..(DataTable.Realm and DataTable.Realm ~= '' and DataTable.Realm ~= myrealm and '-'..DataTable.Realm or '')
 				
 				if DataTable.Name == E.myname or DataTable.Unit and (UnitCanAttack('player', DataTable.Unit) or not UnitIsConnected(DataTable.Unit) or not UnitIsPlayer(DataTable.Unit)) then
 					if AISM then
@@ -1391,11 +1417,14 @@ function IA:CreateInspectFrame()
 					elseif Menu.which == 'GUILD' then
 						isSending = 'AISM_GUILD_CheckResponse'
 						SendAddonMessage('AISM', 'AISM_GUILD_Check', DataTable.Realm == myrealm and 'WHISPER' or 'GUILD', DataTable.Name)
+					elseif DataTable.Realm == myrealm then
+						isSending = 'AISM_CheckResponse'
+						SendAddonMessage('AISM', 'AISM_Check', 'WHISPER', DataTable.Name)
 					end
 					
 					--print(isSending)
 					if isSending then
-						AISM:RegisterInspectDataRequest(function(User, Message)
+						AISM:RegisterInspectDataRequest(function(User, _, Message)
 							if User == DataTable.TableIndex and Message == isSending then
 								InspectArmory_UnitPopup.CreateDropDownButton(Button, DataTable)
 								
@@ -1468,12 +1497,7 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 		_, _, _, _, _, Name, Realm = GetPlayerInfoByGUID(InspectedUnitGUID)
 	end
 	
-	if not (IA.CurrentInspectData.Name == Name and IA.CurrentInspectData.Realm == Realm and IA.CurrentInspectData.UnitGUID == InspectedUnitGUID) then
-		if UnitGUID(UnitID) ~= IA.CurrentInspectData.UnitGUID then
-			ENI.CancelInspect(TableIndex)
-			IA:UnregisterEvent('INSPECT_READY')
-			IA:UnregisterEvent('INSPECT_HONOR_UPDATE')
-		end
+	if not (IA.CurrentInspectData.Name == Name and IA.CurrentInspectData.Realm == Realm) then
 		return
 	elseif HasInspectHonorData() then
 		IA:INSPECT_HONOR_UPDATE()
@@ -1600,7 +1624,7 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 	local SpellID, GlyphID
 	for i = 1, NUM_GLYPH_SLOTS do
 		_, _, _, SpellID, _, GlyphID = GetGlyphSocketInfo(i, nil, true, UnitID)
-
+		
 		IA.CurrentInspectData.Glyph[1]['Glyph'..i..'SpellID'] = SpellID or 0
 		IA.CurrentInspectData.Glyph[1]['Glyph'..i..'ID'] = GlyphID or 0
 	end
@@ -1619,13 +1643,13 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 	if IA.ReinspectCount > 0 then
 		IA.ReinspectCount = IA.ReinspectCount - 1
 	else
-		ENI.CancelInspect(TableIndex)
+		ENI.CancelInspect(TableIndex, 'KnightInspect')
 		IA:UnregisterEvent('INSPECT_READY')
 	end
 end
 
 
-IA.InspectUnit = function(UnitID)
+IA.InspectUnit = function(UnitID, Properties)
 	if UnitID == 'mouseover' and not UnitExists('mouseover') and UnitExists('target') then
 		UnitID = 'target'
 	end
@@ -1639,12 +1663,12 @@ IA.InspectUnit = function(UnitID)
 		
 		return
 	else
-		UnitID = NotifyInspect(UnitID, true) or UnitID
+		UnitID = NotifyInspect(UnitID, Properties) or UnitID
 		
-		IA.CurrentInspectData = E:CopyTable({}, IA.Default_CurrentInspectData)
+		wipe(IA.CurrentInspectData)
+		E:CopyTable(IA.CurrentInspectData, IA.Default_CurrentInspectData)
 		
 		IA.CurrentInspectData.UnitID = UnitID
-		IA.CurrentInspectData.UnitGUID = UnitGUID(UnitID)
 		IA.CurrentInspectData.Title = UnitPVPName(UnitID)
 		IA.CurrentInspectData.Level = UnitLevel(UnitID)
 		IA.CurrentInspectData.Name, IA.CurrentInspectData.Realm = UnitFullName(UnitID)
@@ -1668,7 +1692,9 @@ function IA:ShowFrame(DataTable)
 	
 	for _, SlotName in pairs(C.GearList) do
 		if DataTable.Gear[SlotName] and DataTable.Gear[SlotName].ItemLink and not GetItemInfo(DataTable.Gear[SlotName].ItemLink) then
-			self.GET_ITEM_INFO_RECEIVED = function() self:ShowFrame(DataTable) end
+			if not self.GET_ITEM_INFO_RECEIVED then
+				self.GET_ITEM_INFO_RECEIVED = function() self:ShowFrame(DataTable) end
+			end
 		end
 	end
 	
@@ -1691,11 +1717,11 @@ end
 
 
 function IA:InspectFrame_DataSetting(DataTable)
-	local ErrorDetected, NeedUpdate, NeedUpdateList, R, G, B
+	local Slot, ErrorDetected, NeedUpdate, NeedUpdateList, R, G, B
+	local ItemCount, ItemTotal = 0, 0
 	
-	do --<< Equipment Slot and Enchant, Gem Setting >>--
-		local ItemCount, ItemTotal = 0, 0
-		local Slot, ItemData, ItemRarity, BasicItemLevel, TrueItemLevel, ItemUpgradeID, ItemTexture, IsEnchanted, CurrentLineText, GemCount_Default, GemCount_Enable, GemCount_Now, GemCount
+	do	--<< Equipment Slot and Enchant, Gem Setting >>--
+		local ItemData, ItemRarity, BasicItemLevel, TrueItemLevel, ItemUpgradeID, ItemTexture, IsEnchanted, CurrentLineText, GemCount_Default, GemCount_Enable, GemCount_Now, GemCount
 		
 		-- Setting except shirt and tabard
 		for _, SlotName in pairs(self.GearUpdated or C.GearList) do
@@ -1706,6 +1732,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 					NeedUpdate, ErrorDetected, TrueItemLevel, IsEnchanted, ItemUpgradeID, ItemTexture, R, G, B = nil, nil, nil, nil, nil, nil, 0, 0, 0
 					
 					Slot.Link = nil
+					Slot.ILvL = nil
 					Slot.ItemLevel:SetText(nil)
 					Slot.Gradation.ItemLevel:SetText(nil)
 					Slot.Gradation.ItemEnchant:SetText(nil)
@@ -1752,12 +1779,14 @@ function IA:InspectFrame_DataSetting(DataTable)
 							
 							-- Second, Check if slot's item enable to adding a socket
 							GemCount_Enable = GemCount_Default
+							--[[
 							if (SlotName == 'WaistSlot' and DataTable.Level >= 70) or -- buckle
 								((SlotName == 'WristSlot' or SlotName == 'HandsSlot') and (DataTable.Profession[1].Name == GetSpellInfo(110396) and DataTable.Profession[1].Level >= 550 or DataTable.Profession[2].Name == GetSpellInfo(110396) and DataTable.Profession[2].Level >= 550)) then -- BlackSmith
 								
 								GemCount_Enable = GemCount_Enable + 1
 								Slot['Socket'..GemCount_Enable].GemType = 'PRISMATIC'
 							end
+							]]
 							
 							self:ClearTooltip(self.ScanTT)
 							self.ScanTT:SetHyperlink(Slot.Link)
@@ -1815,6 +1844,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 								TrueItemLevel = tonumber(CurrentLineText:match(C.ItemLevelKey))
 							elseif CurrentLineText:find(C.EnchantKey) then
 								CurrentLineText = CurrentLineText:match(C.EnchantKey) -- Get enchant string
+								
 								CurrentLineText = gsub(CurrentLineText, ITEM_MOD_AGILITY_SHORT, AGI)
 								CurrentLineText = gsub(CurrentLineText, ITEM_MOD_SPIRIT_SHORT, SPI)
 								CurrentLineText = gsub(CurrentLineText, ITEM_MOD_STAMINA_SHORT, STA)
@@ -1831,8 +1861,6 @@ function IA:InspectFrame_DataSetting(DataTable)
 						
 						--<< ItemLevel Parts >>--
 						if BasicItemLevel then
-							ItemCount = ItemCount + 1
-							
 							if ItemUpgradeID then
 								if ItemUpgradeID == '0' then
 									ItemUpgradeID = nil
@@ -1841,11 +1869,13 @@ function IA:InspectFrame_DataSetting(DataTable)
 								end
 							end
 							
-							ItemTotal = ItemTotal + TrueItemLevel
+							Slot.ILvL = TrueItemLevel or BasicItemLevel
 							
 							Slot.ItemLevel:SetText((ItemUpgradeID and (C.UpgradeColor[ItemUpgradeID] or '|cffffffff') or '')..TrueItemLevel)
-							Slot.Gradation.ItemLevel:SetText((Slot.Direction == 'LEFT' and TrueItemLevel or '')..(ItemUpgradeID and (Slot.Direction == 'LEFT' and ' ' or '')..(C.UpgradeColor[ItemUpgradeID] or '|cffaaaaaa')..'(+'..ItemUpgradeID..')|r'..(Slot.Direction == 'RIGHT' and ' ' or '') or '')..(Slot.Direction == 'RIGHT' and TrueItemLevel or ''))
+							Slot.Gradation.ItemLevel:SetText((not TrueItemLevel or BasicItemLevel == TrueItemLevel) and BasicItemLevel or (Slot.Direction == 'LEFT' and TrueItemLevel or '')..(ItemUpgradeID and (Slot.Direction == 'LEFT' and ' ' or '')..(C.UpgradeColor[ItemUpgradeID] or '|cffaaaaaa')..'(+'..ItemUpgradeID..')|r'..(Slot.Direction == 'RIGHT' and ' ' or '') or '')..(Slot.Direction == 'RIGHT' and TrueItemLevel or ''))
 						end
+						
+						--print(SlotName..':', Slot.Link, BasicItemLevel, TrueItemLevel)
 						
 						--[[
 						-- Check Error
@@ -1866,12 +1896,19 @@ function IA:InspectFrame_DataSetting(DataTable)
 							Slot.EnchantWarning:Show()
 							Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110426)..'|r : '..L['This is not profession only.']
 						end
+						]]
+						if not IsEnchanted and C.EnchantableSlots[SlotName] then
+							ErrorDetected = true
+							Slot.EnchantWarning:Show()
+							Slot.Gradation.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
+						end
 						
 						if GemCount_Enable > GemCount_Now or GemCount_Enable > GemCount or GemCount_Now > GemCount then
 							ErrorDetected = true
 							
 							Slot.SocketWarning:Show()
-							
+							Slot.SocketWarning.Message = '|cffff5678'..(GemCount_Now - GemCount)..'|r '..L['Empty Socket']
+							--[[
 							if GemCount_Enable > GemCount_Now then
 								if SlotName == 'WaistSlot' then
 									if TrueItemLevel < 300 then
@@ -1912,8 +1949,10 @@ function IA:InspectFrame_DataSetting(DataTable)
 							else
 								Slot.SocketWarning.Message = '|cffff5678'..(GemCount_Now - GemCount)..'|r '..L['Empty Socket']
 							end
+							]]
 						end
-						]]
+						
+						--print(SlotName, Slot.Link, TrueItemLevel, ItemTotal)
 					else
 						NeedUpdate = true
 					end
@@ -1962,7 +2001,6 @@ function IA:InspectFrame_DataSetting(DataTable)
 		end
 		
 		self.SetItem = E:CopyTable({}, self.CurrentInspectData.SetItem)
-		self.Character.AverageItemLevel:SetText('|c'..RAID_CLASS_COLORS[DataTable.Class].colorStr..STAT_AVERAGE_ITEM_LEVEL..'|r: '..format('%.2f', ItemTotal / ItemCount))
 	end
 	
 	if NeedUpdateList then
@@ -1972,9 +2010,23 @@ function IA:InspectFrame_DataSetting(DataTable)
 	end
 	self.GearUpdated = nil
 	
+	do	--<< Average ItemLevel >>--
+		for _, SlotName in pairs(self.GearUpdated or C.GearList) do
+			if SlotName ~= 'ShirtSlot' and SlotName ~= 'TabardSlot' then
+				Slot = self[SlotName]
+				
+				if Slot.ILvL then
+					ItemCount = ItemCount + 1
+					ItemTotal = ItemTotal + Slot.ILvL
+				end
+			end
+		end
+		self.Character.AverageItemLevel:SetText('|c'..RAID_CLASS_COLORS[DataTable.Class].colorStr..STAT_AVERAGE_ITEM_LEVEL..'|r : '..format('%.2f', ItemTotal / ItemCount))
+	end
+	
 	R, G, B = RAID_CLASS_COLORS[DataTable.Class].r, RAID_CLASS_COLORS[DataTable.Class].g, RAID_CLASS_COLORS[DataTable.Class].b
 	
-	do --<< Basic Information >>--
+	do	--<< Basic Information >>--
 		local Realm = DataTable.Realm and DataTable.Realm ~= myrealm and DataTable.Realm or ''
 		local Title = DataTable.Title and string.gsub(DataTable.Title, DataTable.Name, '') or ''
 		
@@ -1994,8 +2046,8 @@ function IA:InspectFrame_DataSetting(DataTable)
 		--self.Guild:SetText(DataTable.guildName and '<|cff2eb7e4'..DataTable.guildName..'|r>  [|cff2eb7e4'..DataTable.guildRankName..'|r]' or '')
 	--end
 	
-	do --<< Information Page Setting >>--
-		do -- Profession
+	do	--<< Information Page Setting >>--
+		do	-- Profession
 			for i = 1, 2 do
 				if DataTable.Profession[i].Name then
 					self.Info.Profession:Show()
@@ -2017,7 +2069,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 			end
 		end
 		
-		do -- Guild
+		do	-- Guild
 			if DataTable.guildName and DataTable.guildPoint and DataTable.guildNumMembers then
 				self.Info.Guild:Show()
 				self.Info.Guild.Banner.Name:SetText('|cff2eb7e4'..DataTable.guildName)
@@ -2031,7 +2083,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 		self:ReArrangeCategory()
 	end
 	
-	do --<< Specialization Page Setting >>--
+	do	--<< Specialization Page Setting >>--
 		local SpecGroup, TalentID, Name, Color, Texture, SpecRole
 		
 		if DataTable.Specialization.ActiveSpec then
@@ -2082,23 +2134,10 @@ function IA:InspectFrame_DataSetting(DataTable)
 			self.Spec['Spec'..groupNum].Tab.text:SetText(Color..Name)
 			self.Spec['Spec'..groupNum].Texture:SetTexture(Texture)
 			self.Spec['Spec'..groupNum].Texture:SetDesaturated(groupNum ~= SpecGroup)
-			
-			-- Talents
-			for i = 1, MAX_TALENT_TIERS do
-				for k = 1, NUM_TALENT_COLUMNS do
-					if DataTable.Specialization[groupNum]['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] and DataTable.Specialization[groupNum]['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)][1] then
-						TalentID, Name, Texture = GetTalentInfoByID(DataTable.Specialization[groupNum]['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)][1])
-						
-						self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon.Texture:SetTexture(Texture)
-						self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].text:SetText(Name)
-						self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Tooltip.Link = GetTalentLink(TalentID)
-					end
-				end
-			end
 		end
 	end
 	
-	do --<< Model and Frame Setting When InspectUnit Changed >>--
+	do	--<< Model and Frame Setting When InspectUnit Changed >>--
 		if DataTable.UnitID and UnitIsVisible(DataTable.UnitID) and self.NeedModelSetting then
 			self.Model:SetUnit(DataTable.UnitID)
 			
@@ -2265,6 +2304,8 @@ end
 
 
 function IA:ToggleSpecializationTab(Group, DataTable)
+	if not DataTable.Specialization[Group].SpecializationID then return end
+	
 	local R, G, B
 	self.LastActiveSpec = DataTable.Specialization.ActiveSpec or 1
 	
@@ -2293,8 +2334,15 @@ function IA:ToggleSpecializationTab(Group, DataTable)
 	self.Spec.RightBorder:SetTexture(R, G, B)
 	
 	local LevelTable = CLASS_TALENT_LEVELS[DataTable.Class] or CLASS_TALENT_LEVELS.DEFAULT
+	
 	for i = 1, MAX_TALENT_TIERS do
 		for k = 1, NUM_TALENT_COLUMNS do
+			TalentID, Name, Texture = GetTalentInfoByID(DataTable.Specialization[Group]['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)][1], 1)
+			
+			self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon.Texture:SetTexture(Texture)
+			self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].text:SetText(Name)
+			self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Tooltip.Link = GetTalentLink(TalentID)
+			
 			if DataTable.Specialization[Group]['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)][2] == true then
 				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)]:SetBackdropColor(R, G, B, .3)
 				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)]:SetBackdropBorderColor(R, G, B)

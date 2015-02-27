@@ -46,7 +46,7 @@ local function configTable()
 							normalgradient = {
 								order = 1,
 								type = 'toggle',
-								disabled = true,
+								--disabled = true,
 								name = L["Show Equipment Gradients"],
 								desc = L["Show gradient effect for all equipment slots."],
 								get = function(info) return E.db.sle.characterframeoptions.shownormalgradient end,
@@ -55,12 +55,13 @@ local function configTable()
 							errorgradient = {
 								order = 2,
 								type = 'toggle',
-								disabled = true,
+								--disabled = true,
 								name = L["Show Error Gradients"],
 								desc = L["Highlights equipment slot if an error has been found."],
 								--disabled = function() return not E.private.sle.characterframeoptions.enable or not E.db.sle.characterframeoptions.shownormalgradient end,
 								get = function(info) return E.db.sle.characterframeoptions.showerrorgradient end,
-								set = function(info, value) E.db.sle.characterframeoptions.showerrorgradient = value; CFO:ArmoryFrame_DataSetting(); end,
+								set = function(info, value) E.db.sle.characterframeoptions.showerrorgradient = value; CFO:UpdateErrorGradient(); end,
+								--CFO:ArmoryFrame_DataSetting()
 							},
 							bgimage = {
 								order = 3,

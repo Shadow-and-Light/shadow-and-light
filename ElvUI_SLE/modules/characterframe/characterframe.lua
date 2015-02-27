@@ -734,6 +734,11 @@ function CFO:ChangeGradiantVisibility()
 	end
 end
 
+function CFO:UpdateErrorGradient()
+
+	CA:CharacterArmory_DataSetting()
+end
+
 function CFO:ResizeErrorIcon()
 	for _, slotName in pairs(C.GearList) do
 		if slotName ~= 'ShirtSlot' and slotName ~= 'TabardSlot' then
