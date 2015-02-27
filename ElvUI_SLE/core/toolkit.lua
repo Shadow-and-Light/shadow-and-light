@@ -13,7 +13,6 @@ local I = E:GetModule('SLE_InstDif')
 local S = E:GetModule("SLE_ScreenSaver")
 local G = E:GetModule("SLE_Garrison")
 local EF = E:GetModule('SLE_ErrorFrame');
-local dev = ""
 local lib = LibStub("LibRealmInfo")
 local LocTable = {}
 LocTable[1], LocTable[2], LocTable[3], LocTable[4], LocTable[5], LocTable[6], LocTable[7] = GetAvailableLocales()
@@ -165,9 +164,6 @@ end
 hooksecurefunc(E, "UpdateAll", UpdateAll)
 
 function SLE:GetRegion()
-	-- local pid = BNGetInfo()
-	-- local rid = select(5, BNGetToonInfo(pid))
-	-- local region = select(6, lib:GetRealmInfo(rid))
 	local rid = GetCurrentRegion()
 	local region = {
 		[1] = "US",
@@ -177,31 +173,11 @@ function SLE:GetRegion()
 		[5] = "CN",
 	}
 	SLE.region = region[rid]
-	if not SLE.region then SLE.region = format("An error happened. Your region is unknown. Realm: %s. Please report your realm name and the region you are playing in to |cff1784d1Shadow & Light|r authors.", E.myrealm)  end
-	-- if not SLE.region then SLE.region = format("An error happened while processing your realm. Please report error id, realm and the region you are playing to |cff1784d1Shadow & Light|r authors! Error id: %s. Realm: %s", rid, E.myrealm) end
-	if dev == "" then dev = SLE.Dev[SLE.region] end
-	if not dev then
+	if not SLE.region then 
+		SLE.region = format("An error happened. Your region is unknown. Realm: %s. Please report your realm name and the region you are playing in to |cff1784d1Shadow & Light|r authors.", E.myrealm)
 		SLE:Print(SLE.region)
 		SLE.region = ""
 	end
-end
-
-function SLE:Auth(sender)
-	local senderName, senderRealm
-	if sender then
-		senderName, senderRealm = string.split('-', sender)
-	else
-		senderName = E.myname
-	end
-	
-	senderRealm = senderRealm or E.myrealm
-	senderRealm = senderRealm:gsub(' ', '')
-
-	if dev and dev[senderRealm] and dev[senderRealm][senderName] then
-		return dev[senderRealm][senderName]
-	end
-
-	return false
 end
 
 function SLE:Reset(group)
