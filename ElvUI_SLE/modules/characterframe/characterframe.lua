@@ -3,6 +3,7 @@ local CFO = E:GetModule('CharacterFrameOptions')
 local LSM = LibStub("LibSharedMedia-3.0")
 
 local CA = CreateFrame('Frame', 'CharacterArmory', PaperDollFrame)
+local IsGemType = select(8, GetAuctionItemClasses())
 local SlotIDList = {}
 local InsetDefaultPoint = { CharacterFrameInsetRight:GetPoint() }
 local ExpandButtonDefaultPoint = { CharacterFrameExpandButton:GetPoint() }
@@ -20,7 +21,7 @@ local backgrounds = {
 }
 
 do --<< Button Script >>--
-	CA.OnEnter = function(self)
+	function CA:OnEnter()
 		if self.Link or self.Message then
 			GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 			
@@ -42,12 +43,14 @@ do --<< Button Script >>--
 		end
 	end
 	
-	CA.OnLeave = function(self)
+	
+	function CA:OnLeave()
 		self:SetScript('OnUpdate', nil)
 		GameTooltip:Hide()
 	end
 	
-	CA.GemSocket_OnEnter = function(self)
+	
+	function CA:GemSocket_OnEnter()
 		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 		
 		local Parent = self:GetParent()
@@ -56,13 +59,9 @@ do --<< Button Script >>--
 			if type(Parent.GemItemID) == 'number' then
 				if GetItemInfo(Parent.GemItemID) then
 					GameTooltip:SetHyperlink(select(2, GetItemInfo(Parent.GemItemID)))
+					self:SetScript('OnUpdate', nil)
 				else
-					self:SetScript('OnUpdate', function()
-						if GetItemInfo(Parent.GemItemID) then
-							CA.GemSocket_OnEnter(self)
-							self:SetScript('OnUpdate', nil)
-						end
-					end)
+					self:SetScript('OnUpdate', CA.GemSocket_OnEnter)
 					return
 				end
 			else
@@ -77,48 +76,75 @@ do --<< Button Script >>--
 		GameTooltip:Show()
 	end
 	
-	CA.GemSocket_OnClick = function(self, button)
-		self = self:GetParent()
-		
+	
+	function CA:GemSocket_OnClick(Button)
 		if CursorHasItem() then
-			local CursorType, _, ItemLink = GetCursorInfo()
-			
-			-- Check cursor item is gem type
-			if CursorType == 'item' and select(6, GetItemInfo(ItemLink)) == select(8, GetAuctionItemClasses()) then
-				SocketInventoryItem(GetInventorySlotInfo(self.slotName))
-				ClickSocketButton(self.socketNumber)
-				
-				return
-			end
+			CA.GemSocket_OnRecieveDrag(self)
+			return
+		else
+			self = self:GetParent()
 		end
 		
 		if self.GemItemID then
-			local itemName, itemLink = GetItemInfo(self.GemItemID)
+			local ItemName, ItemLink = GetItemInfo(self.GemItemID)
 			
 			if not IsShiftKeyDown() then
-				SetItemRef(itemLink, itemLink, 'LeftButton')
+				SetItemRef(ItemLink, ItemLink, 'LeftButton')
 			else
-				if button == 'RightButton' then
-					SocketInventoryItem(GetInventorySlotInfo(self.slotName))
-				elseif HandleModifiedItemClick(itemLink) then
+				if Button == 'RightButton' then
+					SocketInventoryItem(GetInventorySlotInfo(self.SlotName))
+				elseif HandleModifiedItemClick(ItemLink) then
 				elseif BrowseName and BrowseName:IsVisible() then
 					AuctionFrameBrowse_Reset(BrowseResetButton)
-					BrowseName:SetText(itemName)
+					BrowseName:SetText(ItemName)
 					BrowseName:SetFocus()
 				end
 			end
 		end
 	end
 	
-	CA.GemSocket_OnRecieveDrag = function(self)
+	
+	function CA:GemSocket_OnRecieveDrag()
 		self = self:GetParent()
 		
 		if CursorHasItem() then
 			local CursorType, _, ItemLink = GetCursorInfo()
 			
-			if CursorType == 'item' and select(6, GetItemInfo(ItemLink)) == select(8, GetAuctionItemClasses()) then
-				SocketInventoryItem(GetInventorySlotInfo(self.slotName))
-				ClickSocketButton(self.socketNumber)
+			if CursorType == 'item' and select(6, GetItemInfo(ItemLink)) == IsGemType then
+				SocketInventoryItem(GetInventorySlotInfo(self.SlotName))
+				ClickSocketButton(self.SocketNumber)
+			end
+		end
+	end
+	
+	
+	function CA:Transmogrify_OnEnter()
+		self.Texture:SetVertexColor(1, .8, 1)
+		
+		GameTooltip:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
+		GameTooltip:SetHyperlink(self.Link)
+		GameTooltip:Show()
+	end
+	
+	
+	function CA:Transmogrify_OnLeave()
+		self.Texture:SetVertexColor(1, .5, 1)
+		
+		GameTooltip:Hide()
+	end
+	
+	
+	function CA:Transmogrify_OnClick(Button)
+		local ItemName, ItemLink = GetItemInfo(self.Link)
+		
+		if not IsShiftKeyDown() then
+			SetItemRef(ItemLink, ItemLink, 'LeftButton')
+		else
+			if HandleModifiedItemClick(ItemLink) then
+			elseif BrowseName and BrowseName:IsVisible() then
+				AuctionFrameBrowse_Reset(BrowseResetButton)
+				BrowseName:SetText(ItemName)
+				BrowseName:SetFocus()
 			end
 		end
 	end
@@ -134,9 +160,6 @@ function CA:Setup_CharacterArmory()
 	local args
 	self:SetScript('OnEvent', function(self, Event, ...)
 		if Event == 'SOCKET_INFO_SUCCESS' or Event == 'ITEM_UPGRADE_MASTER_UPDATE' or Event == 'TRANSMOGRIFY_UPDATE' or Event == 'PLAYER_ENTERING_WORLD' then
-			if Event == 'TRANSMOGRIFY_UPDATE' then
-				--print(...)
-			end
 			self.GearUpdated = nil
 			self:SetScript('OnUpdate', self.CharacterArmory_DataSetting)
 		elseif Event == 'UNIT_INVENTORY_CHANGED' then
@@ -164,6 +187,7 @@ function CA:Setup_CharacterArmory()
 			self:SetScript('OnUpdate', self.CharacterArmory_DataSetting)
 		end
 	end)
+	self:SetScript('OnShow', self.CharacterArmory_DataSetting)
 	hooksecurefunc('CharacterFrame_Collapse', function() if PaperDollFrame:IsShown() then CharacterFrame:SetWidth(448) end end)
 	hooksecurefunc('CharacterFrame_Expand', function() if PaperDollFrame:IsShown() then CharacterFrame:SetWidth(650) end end)
 	hooksecurefunc('ToggleCharacter', function(frameType)
@@ -177,7 +201,6 @@ function CA:Setup_CharacterArmory()
 			CharacterFrameExpandButton:SetPoint(unpack(ExpandButtonDefaultPoint))
 		end
 	end)
-	
 	hooksecurefunc('PaperDollFrame_SetLevel', function()
 		CharacterLevelText:SetText('|c'..RAID_CLASS_COLORS[E.myclass].colorStr..CharacterLevelText:GetText())
 
@@ -221,38 +244,37 @@ function CA:Setup_CharacterArmory()
 		self.AverageItemLevel:SetText(C.Toolkit.Color_Value(L['Average'])..': '..format('%.2f', select(2, GetAverageItemLevel())))
 	end
 	E.valueColorUpdateFuncs[ValueColorUpdate] = true
-
+	
 	-- Create each equipment slots gradation, text, gem socket icon.
 	local Slot
-	for i, slotName in pairs(C.GearList) do
+	for i, SlotName in pairs(C.GearList) do
 		-- Equipment Tag
 		Slot = CreateFrame('Frame', nil, self)
 		Slot:Size(130, 41)
 		Slot:SetFrameLevel(CharacterModelFrame:GetFrameLevel() + 1)
 		Slot.Direction = i%2 == 1 and 'LEFT' or 'RIGHT'
-		Slot.ID, Slot.EmptyTexture = GetInventorySlotInfo(slotName)
-		Slot:Point(Slot.Direction, _G['Character'..slotName], Slot.Direction == 'LEFT' and -1 or 1, 0)
-
+		Slot.ID, Slot.EmptyTexture = GetInventorySlotInfo(SlotName)
+		Slot:Point(Slot.Direction, _G['Character'..SlotName], Slot.Direction == 'LEFT' and -1 or 1, 0)
+		
 		-- Grow each equipment slot's frame level
-		_G['Character'..slotName]:SetFrameLevel(Slot:GetFrameLevel() + 1)
-
+		_G['Character'..SlotName]:SetFrameLevel(Slot:GetFrameLevel() + 1)
+		
 		-- Gradation
 		Slot.Gradation = Slot:CreateTexture(nil, 'OVERLAY')
 		Slot.Gradation:SetInside()
 		Slot.Gradation:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Gradation')
-
 		if Slot.Direction == 'LEFT' then
 			Slot.Gradation:SetTexCoord(0, 1, 0, 1)
 		else
 			Slot.Gradation:SetTexCoord(1, 0, 0, 1)
 		end
-
-		if slotName ~= 'ShirtSlot' and slotName ~= 'TabardSlot' then
+		
+		if SlotName ~= 'ShirtSlot' and SlotName ~= 'TabardSlot' then
 			-- Item Level
-			C.Toolkit.TextSetting(Slot, nil, { Tag = 'ItemLevel', FontSize = 10, directionH = Slot.Direction, }, 'TOP'..Slot.Direction, _G['Character'..slotName], 'TOP'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 or -2, -1)
+			C.Toolkit.TextSetting(Slot, nil, { Tag = 'ItemLevel', FontSize = 10, directionH = Slot.Direction }, 'TOP'..Slot.Direction, _G['Character'..SlotName], 'TOP'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 or -2, -1)
 
 			-- Enchantment Name
-			C.Toolkit.TextSetting(Slot, nil, { Tag = 'ItemEnchant', FontSize = 8, directionH = Slot.Direction, }, Slot.Direction, _G['Character'..slotName], Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 2 or -2, 1)
+			C.Toolkit.TextSetting(Slot, nil, { Tag = 'ItemEnchant', FontSize = 8, directionH = Slot.Direction }, Slot.Direction, _G['Character'..SlotName], Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 2 or -2, 1)
 			Slot.EnchantWarning = CreateFrame('Button', nil, Slot)
 			Slot.EnchantWarning:Size(E.db.sle.characterframeoptions.itemenchant.warningSize)
 			Slot.EnchantWarning.Texture = Slot.EnchantWarning:CreateTexture(nil, 'OVERLAY')
@@ -263,7 +285,7 @@ function CA:Setup_CharacterArmory()
 			Slot.EnchantWarning:SetScript('OnLeave', self.OnLeave)
 
 			-- Durability
-			C.Toolkit.TextSetting(Slot, nil, { Tag = 'Durability', FontSize = 10, directionH = Slot.Direction, }, 'BOTTOM'..Slot.Direction, _G['Character'..slotName], 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 or -2, 3)
+			C.Toolkit.TextSetting(Slot, nil, { Tag = 'Durability', FontSize = 10, directionH = Slot.Direction }, 'BOTTOM'..Slot.Direction, _G['Character'..SlotName], 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 or -2, 3)
 
 			-- Gem Socket
 			for i = 1, MAX_NUM_SOCKETS do
@@ -279,8 +301,8 @@ function CA:Setup_CharacterArmory()
 				Slot['Socket'..i]:SetBackdropBorderColor(0, 0, 0)
 				Slot['Socket'..i]:SetFrameLevel(CharacterModelFrame:GetFrameLevel() + 1)
 
-				Slot['Socket'..i].slotName = slotName
-				Slot['Socket'..i].socketNumber = i
+				Slot['Socket'..i].SlotName = SlotName
+				Slot['Socket'..i].SocketNumber = i
 
 				Slot['Socket'..i].Socket = CreateFrame('Button', nil, Slot['Socket'..i])
 				Slot['Socket'..i].Socket:SetBackdrop({
@@ -313,104 +335,118 @@ function CA:Setup_CharacterArmory()
 			Slot.SocketWarning.Texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\Warning-Small')
 			Slot.SocketWarning:SetScript('OnEnter', self.OnEnter)
 			Slot.SocketWarning:SetScript('OnLeave', self.OnLeave)
+			
+			-- Transmogrify
+			if C.CanTransmogrifySlot[SlotName] then
+				Slot.TransmogrifyAnchor = CreateFrame('Button', nil, Slot)
+				Slot.TransmogrifyAnchor:Size(12)
+				Slot.TransmogrifyAnchor:SetFrameLevel(Slot:GetFrameLevel() + 2)
+				Slot.TransmogrifyAnchor:Point('BOTTOM'..Slot.Direction, Slot, Slot.Direction == 'LEFT' and -2 or 2, -1)
+				Slot.TransmogrifyAnchor:SetScript('OnEnter', self.Transmogrify_OnEnter)
+				Slot.TransmogrifyAnchor:SetScript('OnLeave', self.Transmogrify_OnLeave)
+				Slot.TransmogrifyAnchor:SetScript('OnClick', self.Transmogrify_OnClick)
+				
+				Slot.TransmogrifyAnchor.Texture = Slot.TransmogrifyAnchor:CreateTexture(nil, 'OVERLAY')
+				Slot.TransmogrifyAnchor.Texture:SetInside()
+				Slot.TransmogrifyAnchor.Texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\anchor')
+				Slot.TransmogrifyAnchor.Texture:SetVertexColor(1, .5, 1)
+				
+				if Slot.Direction == 'LEFT' then
+					Slot.TransmogrifyAnchor.Texture:SetTexCoord(0, 1, 0, 1)
+				else
+					Slot.TransmogrifyAnchor.Texture:SetTexCoord(1, 0, 0, 1)
+				end
+				
+				Slot.TransmogrifyAnchor:Hide()
+			end
 		end
-
-		SlotIDList[Slot.ID] = slotName
-		self[slotName] = Slot
+		
+		SlotIDList[Slot.ID] = SlotName
+		self[SlotName] = Slot
 	end
-
+	
 	-- GameTooltip for counting gem sockets and getting enchant effects
 	self.ScanTT = CreateFrame('GameTooltip', 'SLE_CharacterArmory_ScanTT', nil, 'GameTooltipTemplate')
 	self.ScanTT:SetOwner(UIParent, 'ANCHOR_NONE')
-
+	
 	self.Setup_CharacterArmory = nil
 end
 
-function CA:CharacterArmory_DataSetting(elapsed)
-	self.elapsed = self.elapsed + (elapsed or .1)
 
-	if self.elapsed > 0 then
-		self.elapsed = -self.Delay_Updater
-		self.needUpdate = nil
-		
-		if not self.DurabilityUpdated then
-			self.needUpdate = self:Update_Durability() or self.needUpdate
-		end
-		
-		if self.GearUpdated ~= true then
-			self.needUpdate = self:Update_Gear() or self.needUpdate
-		end
-		
-		if not self.needUpdate and self:IsShown() then
-			self.elapsed = 0
-			self:SetScript('OnUpdate', nil)
-		elseif self.needUpdate then
-			self:SetScript('OnShow', function()
-				self.elapsed = 0
-				self:CharacterArmory_DataSetting()
-				self:SetScript('OnShow', nil)
-			end)
-			self:SetScript('OnUpdate', self.CharacterArmory_DataSetting)
-		end
+function CA:CharacterArmory_DataSetting()
+	self.NeedUpdate = nil
+	
+	if not self.DurabilityUpdated then
+		self.NeedUpdate = self:Update_Durability() or self.NeedUpdate
+	end
+	
+	if self.GearUpdated ~= true then
+		self.NeedUpdate = self:Update_Gear() or self.NeedUpdate
+	end
+	
+	if not self.NeedUpdate and self:IsShown() then
+		self:SetScript('OnUpdate', nil)
+	elseif self.NeedUpdate then
+		self:SetScript('OnUpdate', self.CharacterArmory_DataSetting)
 	end
 end
 
+
 function CA:Update_Durability()
-	local Slot, r, g, b, CurrentDurability, MaxDurability
-
-	for _, slotName in pairs(C.GearList) do
-		Slot = self[slotName]
+	local Slot, R, G, B, CurrentDurability, MaxDurability
+	
+	for _, SlotName in pairs(C.GearList) do
+		Slot = self[SlotName]
 		CurrentDurability, MaxDurability = GetInventoryItemDurability(Slot.ID)
-
+		
 		if CurrentDurability and MaxDurability then
 			if E.db.sle.characterframeoptions.itemdurability.show ~= false then
-				r, g, b = E:ColorGradient((CurrentDurability / MaxDurability), 1, 0, 0, 1, 1, 0, 0, 1, 0)
-				Slot.Durability:SetFormattedText("%s%.0f%%|r", E:RGBToHex(r, g, b), (CurrentDurability / MaxDurability) * 100)
+				R, G, B = E:ColorGradient((CurrentDurability / MaxDurability), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+				Slot.Durability:SetFormattedText("%s%.0f%%|r", E:RGBToHex(R, G, B), (CurrentDurability / MaxDurability) * 100)
 				Slot.Socket1:Point('BOTTOM'..Slot.Direction, Slot.Durability, 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, -2)
 			end
 		elseif Slot.Durability then
 			Slot.Durability:SetText('')
-			Slot.Socket1:Point('BOTTOM'..Slot.Direction, _G['Character'..slotName], 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 3)
+			Slot.Socket1:Point('BOTTOM'..Slot.Direction, _G['Character'..SlotName], 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 3)
 		end
 	end
-
+	
 	self.DurabilityUpdated = true
 end
 
-function CA:ClearTooltip(tooltip)
-	local tooltipName = tooltip:GetName()
+function CA:ClearTooltip(Tooltip)
+	local TooltipName = Tooltip:GetName()
 
-	tooltip:ClearLines()
+	Tooltip:ClearLines()
 	for i = 1, 10 do
-		_G[tooltipName..'Texture'..i]:SetTexture(nil)
-		_G[tooltipName..'Texture'..i]:ClearAllPoints()
-		_G[tooltipName..'Texture'..i]:Point('TOPLEFT', tooltip)
+		_G[TooltipName..'Texture'..i]:SetTexture(nil)
+		_G[TooltipName..'Texture'..i]:ClearAllPoints()
+		_G[TooltipName..'Texture'..i]:Point('TOPLEFT', Tooltip)
 	end
 end
 
 function CA:Update_Gear()
-	-- Get Player Profession
+	--[[ Get Player Profession
+	
 	local Prof1, Prof2 = GetProfessions()
 	local Prof1_Level, Prof2_Level = 0, 0
 	self.PlayerProfession = {}
-
+	
 	if Prof1 then Prof1, _, Prof1_Level = GetProfessionInfo(Prof1) end
 	if Prof2 then Prof2, _, Prof2_Level = GetProfessionInfo(Prof2) end
 	if Prof1 and C.ProfessionList[Prof1] then self.PlayerProfession[(C.ProfessionList[Prof1].Key)] = Prof1_Level end
 	if Prof2 and C.ProfessionList[Prof2] then self.PlayerProfession[(C.ProfessionList[Prof2].Key)] = Prof2_Level end
+	]]
+	local ErrorDetected, NeedUpdate, NeedUpdateList, R, G, B
+	local Slot, ItemLink, ItemData, ItemRarity, BasicItemLevel, TrueItemLevel, ItemUpgradeID, ItemTexture, IsEnchanted, UsableEffect, CurrentLineText, GemID, GemCount_Default, GemCount_Enable, GemCount_Now, GemCount, IsTransmogrified, TransmogrifyItemID
 
-	local ErrorDetected, needUpdate, needUpdateList
-	local r, g, b
-	local Slot, ItemLink, ItemData, ItemRarity, BasicItemLevel, TrueItemLevel, ItemUpgradeID, ItemTexture, IsEnchanted, UsableEffect, CurrentLineText, GemID, GemCount_Default, GemCount_Enable, GemCount_Now, GemCount
-
-	for _, slotName in pairs(self.GearUpdated or C.GearList) do
-		if not (slotName == 'ShirtSlot' or slotName == 'TabardSlot') then
-			Slot = self[slotName]
+	for _, SlotName in pairs(self.GearUpdated or C.GearList) do
+		if not (SlotName == 'ShirtSlot' or SlotName == 'TabardSlot') then
+			Slot = self[SlotName]
 			ItemLink = GetInventoryItemLink('player', Slot.ID)
-			--Slot:EnableMouse(true)
 
 			do --<< Clear Setting >>--
-				needUpdate, ErrorDetected, TrueItemLevel, IsEnchanted, UsableEffect, ItemUpgradeID, ItemTexture = nil, nil, nil, nil, nil, nil, nil
+				NeedUpdate, ErrorDetected, TrueItemLevel, IsEnchanted, UsableEffect, ItemUpgradeID, ItemTexture = nil, nil, nil, nil, nil, nil, nil
 
 				Slot.ItemLevel:SetText(nil)
 				Slot.ItemEnchant:SetText(nil)
@@ -421,18 +457,20 @@ function CA:Update_Gear()
 					Slot['Socket'..i].GemType = nil
 					Slot['Socket'..i]:Hide()
 				end
-
-				--Slot.Socket1:Point('BOTTOM'..Slot.Direction, _G['Character'..slotName], 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
 				Slot.EnchantWarning:Hide()
 				Slot.EnchantWarning.Message = nil
 				Slot.SocketWarning:Point(Slot.Direction, Slot.Socket1)
 				Slot.SocketWarning:Hide()
 				Slot.SocketWarning.Link = nil
 				Slot.SocketWarning.Message = nil
+				if Slot.TransmogrifyAnchor then
+					Slot.TransmogrifyAnchor.Link = nil
+					Slot.TransmogrifyAnchor:Hide()
+				end
 			end
 
 			if ItemLink then
-				if not ItemLink:find('%[%]') then
+				if not ItemLink:find('%[%]') then -- sometimes itemLink is malformed so we need to update when crashed
 					do --<< Gem Parts >>--
 						ItemData = { strsplit(':', ItemLink) }
 						ItemData[4], ItemData[5], ItemData[6], ItemData[7] = 0, 0, 0, 0
@@ -458,13 +496,14 @@ function CA:Update_Gear()
 
 						-- Second, Check if slot's item enable to adding a socket
 						GemCount_Enable = GemCount_Default
-						if (slotName == 'WaistSlot' and UnitLevel('player') >= 70) or -- buckle
-							((slotName == 'WristSlot' or slotName == 'HandsSlot') and self.PlayerProfession.BlackSmithing and self.PlayerProfession.BlackSmithing >= 550) then -- BlackSmith
+						--[[
+						if (SlotName == 'WaistSlot' and UnitLevel('player') >= 70) or -- buckle
+							((SlotName == 'WristSlot' or SlotName == 'HandsSlot') and self.PlayerProfession.BlackSmithing and self.PlayerProfession.BlackSmithing >= 550) then -- BlackSmith
 
 							GemCount_Enable = GemCount_Enable + 1
 							Slot['Socket'..GemCount_Enable].GemType = 'PRISMATIC'
 						end
-
+						]]
 						self:ClearTooltip(self.ScanTT)
 						self.ScanTT:SetInventoryItem('player', Slot.ID)
 
@@ -474,9 +513,9 @@ function CA:Update_Gear()
 							GemID = select(i, GetInventoryItemGems(Slot.ID))
 
 							if Slot['Socket'..i].GemType and C.GemColor[Slot['Socket'..i].GemType] then
-								r, g, b = unpack(C.GemColor[Slot['Socket'..i].GemType])
-								Slot['Socket'..i].Socket:SetBackdropColor(r, g, b, .5)
-								Slot['Socket'..i].Socket:SetBackdropBorderColor(r, g, b)
+								R, G, B = unpack(C.GemColor[Slot['Socket'..i].GemType])
+								Slot['Socket'..i].Socket:SetBackdropColor(R, G, B, .5)
+								Slot['Socket'..i].Socket:SetBackdropBorderColor(R, G, B)
 							else
 								Slot['Socket'..i].Socket:SetBackdropColor(1, 1, 1, .5)
 								Slot['Socket'..i].Socket:SetBackdropBorderColor(1, 1, 1)
@@ -502,20 +541,20 @@ function CA:Update_Gear()
 									if ItemTexture then
 										Slot['Socket'..i].Texture:SetTexture(ItemTexture)
 									else
-										needUpdate = true
+										NeedUpdate = true
 									end
 								end
 							end
 						end
 
-						--print(slotName..' : ', GemCount_Default, GemCount_Enable, GemCount_Now, GemCount)
+						--print(SlotName..' : ', GemCount_Default, GemCount_Enable, GemCount_Now, GemCount)
 						if GemCount_Now < GemCount_Default then -- ItemInfo not loaded
-							needUpdate = true
+							NeedUpdate = true
 						end
 					end
 
 					_, _, ItemRarity, BasicItemLevel, _, _, _, _, _, ItemTexture = GetItemInfo(ItemLink)
-					r, g, b = GetItemQualityColor(ItemRarity)
+					R, G, B = GetItemQualityColor(ItemRarity)
 
 					ItemUpgradeID = ItemLink:match(':(%d+)\124h%[')
 
@@ -580,26 +619,49 @@ function CA:Update_Gear()
 						end
 						if E.db.sle.characterframeoptions.itemlevel.show ~= false then
 							Slot.ItemLevel:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemlevel.font), E.db.sle.characterframeoptions.itemlevel.fontSize, E.db.sle.characterframeoptions.itemlevel.fontOutline)
-							Slot.ItemLevel:SetText((Slot.Direction == 'LEFT' and TrueItemLevel or '')..(ItemUpgradeID and (Slot.Direction == 'LEFT' and ' ' or '')..(Slot.Direction == 'RIGHT' and ' ' or '') or '')..(Slot.Direction == 'RIGHT' and TrueItemLevel or ''))
+							Slot.ItemLevel:SetText((not TrueItemLevel or BasicItemLevel == TrueItemLevel) and BasicItemLevel or (Slot.Direction == 'LEFT' and TrueItemLevel or '')..(ItemUpgradeID and (Slot.Direction == 'LEFT' and ' ' or '')..(C.UpgradeColor[ItemUpgradeID] or '|cffaaaaaa')..'(+'..ItemUpgradeID..')|r'..(Slot.Direction == 'RIGHT' and ' ' or '') or '')..(Slot.Direction == 'RIGHT' and TrueItemLevel or ''))
 						end
 					end
+					--if KF.db.Modules.Armory.Character.NoticeMissing ~= false then
+						if not IsEnchanted and C.EnchantableSlots[SlotName] then
+							ErrorDetected = true
+							Slot.EnchantWarning:Show()
+							Slot.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
+						end
+						
+						if GemCount_Enable > GemCount_Now or GemCount_Enable > GemCount or GemCount_Now > GemCount then
+							ErrorDetected = true
+							
+							Slot.SocketWarning:Show()
+							Slot.SocketWarning.Message = '|cffff5678'..(GemCount_Now - GemCount)..'|r '..L['Empty Socket']
+						end
+					--end
 					
+					--<< Transmogrify Parts >>--
+					if Slot.TransmogrifyAnchor then
+						IsTransmogrified, _, _, _, _, TransmogrifyItemID = GetTransmogrifySlotInfo(Slot.ID)
+						
+						if IsTransmogrified then
+							_, Slot.TransmogrifyAnchor.Link = GetItemInfo(TransmogrifyItemID)
+							Slot.TransmogrifyAnchor:Show()
+						end
+					end
 					--[[ Check Error
-					if DB.Modules.Armory.Character.NoticeMissing ~= false then --Replace with our noticemissing
-						if (not IsEnchanted and C.EnchantableSlots[slotName]) or ((slotName == 'Finger0Slot' or slotName == 'Finger1Slot') and self.PlayerProfession.Enchanting and self.PlayerProfession.Enchanting >= 550 and not IsEnchanted) then
+					if DB.Modules.Armory.Character.NoticeMissing ~= false then
+						if (not IsEnchanted and C.EnchantableSlots[SlotName]) or ((SlotName == 'Finger0Slot' or SlotName == 'Finger1Slot') and self.PlayerProfession.Enchanting and self.PlayerProfession.Enchanting >= 550 and not IsEnchanted) then
 							ErrorDetected = true
 							if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
 								Slot.EnchantWarning:Show()
 								Slot.ItemEnchant:FontTemplate(LSM:Fetch("font", E.db.sle.characterframeoptions.itemenchant.font), E.db.sle.characterframeoptions.itemenchant.fontSize, E.db.sle.characterframeoptions.itemenchant.fontOutline)
 								Slot.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
 							end
-						elseif self.PlayerProfession.Engineering and ((slotName == 'BackSlot' and self.PlayerProfession.Engineering >= 380) or (slotName == 'HandsSlot' and self.PlayerProfession.Engineering >= 400) or (slotName == 'WaistSlot' and self.PlayerProfession.Engineering >= 380)) and not UsableEffect then
+						elseif self.PlayerProfession.Engineering and ((SlotName == 'BackSlot' and self.PlayerProfession.Engineering >= 380) or (SlotName == 'HandsSlot' and self.PlayerProfession.Engineering >= 400) or (SlotName == 'WaistSlot' and self.PlayerProfession.Engineering >= 380)) and not UsableEffect then
 							ErrorDetected = true
 							if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
 								Slot.EnchantWarning:Show()
 								Slot.EnchantWarning.Message = '|cff71d5ff'..GetSpellInfo(110403)..'|r : '..L['Missing Tinkers']
 							end
-						elseif slotName == 'ShoulderSlot' and self.PlayerProfession.Inscription and C.ItemEnchant_Profession_Inscription and self.PlayerProfession.Inscription >= C.ItemEnchant_Profession_Inscription.NeedLevel and not C.ItemEnchant_Profession_Inscription[enchantID] then
+						elseif SlotName == 'ShoulderSlot' and self.PlayerProfession.Inscription and C.ItemEnchant_Profession_Inscription and self.PlayerProfession.Inscription >= C.ItemEnchant_Profession_Inscription and not C.ItemEnchant_Profession_Inscription[(ItemData[3])] then
 							ErrorDetected = true
 							if E.db.sle.characterframeoptions.itemenchant.showwarning ~= false then
 								Slot.ItemEnchant:SetDrawLayer('OVERLAY')
@@ -636,7 +698,7 @@ function CA:Update_Gear()
 							Slot.SocketWarning:Show()
 							
 							if GemCount_Enable > GemCount_Now then
-								if slotName == 'WaistSlot' then
+								if SlotName == 'WaistSlot' then
 									if TrueItemLevel < 300 then
 										_, Slot.SocketWarning.Link = GetItemInfo(41611)	
 									elseif TrueItemLevel < 417 then
@@ -669,10 +731,10 @@ function CA:Update_Gear()
 											end
 										end
 									end)
-								elseif slotName == 'HandsSlot' then
+								elseif SlotName == 'HandsSlot' then
 									Slot.SocketWarning.Link = GetSpellLink(114112)
 									Slot.SocketWarning.Message = '|cff71d5ff'..GetSpellInfo(110396)..'|r : '..L['Missing Socket']
-								elseif slotName == 'WristSlot' then
+								elseif SlotName == 'WristSlot' then
 									Slot.SocketWarning.Link = GetSpellLink(113263)
 									Slot.SocketWarning.Message = '|cff71d5ff'..GetSpellInfo(110396)..'|r : '..L['Missing Socket']
 								end
@@ -683,7 +745,7 @@ function CA:Update_Gear()
 					end
 					]]
 				else
-					needUpdate = true
+					NeedUpdate = true
 				end
 			end
 
@@ -694,17 +756,17 @@ function CA:Update_Gear()
 				Slot.Gradation:SetVertexColor(unpack(E.db.sle.characterframeoptions.gradientColor))
 			end
 
-			if needUpdate then
-				needUpdateList = needUpdateList or {}
-				needUpdateList[#needUpdateList + 1] = slotName
+			if NeedUpdate then
+				NeedUpdateList = NeedUpdateList or {}
+				NeedUpdateList[#NeedUpdateList + 1] = SlotName
 			end
 		end
 	end
 
 	self.AverageItemLevel:SetText(C.Toolkit.Color_Value(STAT_AVERAGE_ITEM_LEVEL)..': '..format('%.2f', select(2, GetAverageItemLevel())))
 
-	if needUpdateList then
-		self.GearUpdated = needUpdateList
+	if NeedUpdateList then
+		self.GearUpdated = NeedUpdateList
 		return true
 	end
 
