@@ -1,5 +1,5 @@
 ﻿## Interface: 60100
-## Title: |cff1784d1ElvUI |rShadow and Light
+## Title: |cff1784d1ElvUI|r |cff9482c9Shadow & Light|r
 ## Author: Darth Predator, Repooc
 ## Version: 2.15
 ## Notes: Plugin-edit for |cff1784d1ElvUI|r.
@@ -9,8 +9,6 @@
 ## RequiredDeps: ElvUI
 ## OptionalDeps: AddonSkins, iFilger_ConfigUI, BigWigs, Clique, Hermes, xCT+
 ## DefaultState: Enabled
-## X-Tukui-ProjectID: 42
-## X-Tukui-ProjectFolders: ElvUI_SLE
 ## X-ElvVersion: 7.8
 
 libs\load_libs.xml
@@ -22,3 +20,7 @@ defaults\load_defaults.xml
 options\load_options.xml
 skins\load_skins.xml
 Bindings.xml
+ 
+ 
+## X-Tukui-ProjectID: 42
+## X-Tukui-ProjectFolders: ElvUI_SLE
