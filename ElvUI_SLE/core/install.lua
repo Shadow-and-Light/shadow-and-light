@@ -553,12 +553,6 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["movers"]["PvPMover"] = "TOPElvUIParentTOP0-70"
 	end
 
-	if SLE:Auth() then
-		E.db["hideTutorial"] = true
-		E.db["general"]["loginmessage"] = false
-		E.db["tooltip"]["itemCount"] = "NONE"
-	end
-
 	if AddOnSkins then
 		E.private["addonskins"]["Blizzard_WorldStateCaptureBar"] = true
 		E.private["addonskins"]["EmbedOoCDelay"] = 2
@@ -583,11 +577,6 @@ local function RepoocSetup() --The function to switch from classic ElvUI setting
 	if not E.db.movers then E.db.movers = {}; end
 
 	local layout = E.db.layoutSet
-
-	if SLE:Auth() then
-		E.db.hideTutorial = 1
-		E.db.general.loginmessage = false
-	end
 
 	E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 	E.db["actionbar"]["bar3"]["buttons"] = 12
