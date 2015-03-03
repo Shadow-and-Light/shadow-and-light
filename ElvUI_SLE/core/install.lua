@@ -701,8 +701,6 @@ local function RepoocSetup() --The function to switch from classic ElvUI setting
 	E.private["sle"]["equip"]["setoverlay"] = true
 	E.private["sle"]["exprep"]["autotrack"] = true
 
-	E:UpdateAll(true)
-
 	if AddOnSkins then
 		E.private["addonskins"]["Blizzard_WorldStateCaptureBar"] = true
 		E.private["addonskins"]["EmbedOoC"] = false
@@ -713,6 +711,8 @@ local function RepoocSetup() --The function to switch from classic ElvUI setting
 		E.private["addonskins"]["EmbedRight"] = "Skada"
 		E.private["addonskins"]["EmbedSystem"] = false
 	end
+	
+	E:UpdateAll(true)
 end
 
 local function AffinitiiSetup() --The function to switch from class ElvUI settings to Affinitii's
