@@ -571,7 +571,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	E:UpdateAll(true)
 end
 
-local function RepoocSetup() --The function to switch from classic ElvUI settings to Repooc's
+function AI:RepoocSetup() --The function to switch from classic ElvUI settings to Repooc's
 	SLEInstallStepComplete.message = L["Repooc's Defaults Set"]
 	SLEInstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
@@ -715,7 +715,7 @@ local function RepoocSetup() --The function to switch from classic ElvUI setting
 	E:UpdateAll(true)
 end
 
-local function AffinitiiSetup() --The function to switch from class ElvUI settings to Affinitii's
+function AI:AffinitiiSetup() --The function to switch from class ElvUI settings to Affinitii's
 	SLEInstallStepComplete.message = L["Affinitii's Defaults Set"]
 	SLEInstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
@@ -1126,11 +1126,11 @@ local function SetPage(PageNum)
 		SLEInstallOption1Button:SetText(L["Darth's Config"])	
 
 		SLEInstallOption2Button:Show()
-		SLEInstallOption2Button:SetScript('OnClick', function() AffinitiiSetup() end)
+		SLEInstallOption2Button:SetScript('OnClick', function() AI:AffinitiiSetup() end)
 		SLEInstallOption2Button:SetText(L["Affinitii's Config"])
 
 		SLEInstallOption3Button:Show()
-		SLEInstallOption3Button:SetScript('OnClick', function() RepoocSetup() end)
+		SLEInstallOption3Button:SetScript('OnClick', function() AI:RepoocSetup() end)
 		SLEInstallOption3Button:SetText(L["Repooc's Config"])
 		
 		SLEInstallFrame:Size(550, 500)
