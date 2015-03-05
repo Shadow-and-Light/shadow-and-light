@@ -26,6 +26,8 @@ local HeadSlotItem = 99568
 local BackSlotItem = 102246
 local Default_NotifyInspect, Default_InspectUnit
 
+local GetInventoryItemID, GetItemInfo = GetInventoryItemID, GetItemInfo
+
 --<< Key Table >>--
 IA.PageList = { Character = 'CHARACTER', Info = 'INFO', Spec = 'TALENTS' }
 IA.InfoPageCategoryList = { 'Profession', 'PvP', 'Guild' }
