@@ -1898,9 +1898,11 @@ function IA:InspectFrame_DataSetting(DataTable)
 						end
 						]]
 						if not IsEnchanted and C.EnchantableSlots[SlotName] then
-							ErrorDetected = true
-							Slot.EnchantWarning:Show()
-							Slot.Gradation.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
+							if IType == "INVTYPE_WEAPON" or IType == "INVTYPE_RANGEDRIGHT" then 
+								ErrorDetected = true
+								Slot.EnchantWarning:Show()
+								Slot.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
+							end
 						end
 						
 						if GemCount_Enable > GemCount_Now or GemCount_Enable > GemCount or GemCount_Now > GemCount then
