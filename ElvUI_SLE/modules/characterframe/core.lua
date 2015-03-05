@@ -12,7 +12,7 @@ SLArmoryConstants = {
 		'ShirtSlot', 'Finger1Slot', 'TabardSlot', 'Trinket0Slot', 'WristSlot', 'Trinket1Slot', 'SecondaryHandSlot', 'MainHandSlot'
 	},
 	['EnchantableSlots'] = {
-		['NeckSlot'] = true, ['BackSlot'] = true, ['Finger0Slot'] = true, ['Finger1Slot'] = true, ['MainHandSlot'] = true, ['SecondaryHandSlot'] = true
+		['NeckSlot'] = true, ['BackSlot'] = true, ['Finger0Slot'] = true, ['Finger1Slot'] = true, ['MainHandSlot'] = true,
 	},
 	['UpgradeColor'] = {
 		[16] = '|cffff9614', [12] = '|cfff88ef4', [8] = '|cff2eb7e4', [4] = '|cffceff00'
