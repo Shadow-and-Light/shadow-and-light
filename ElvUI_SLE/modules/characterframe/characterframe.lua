@@ -8,6 +8,8 @@ local SlotIDList = {}
 local InsetDefaultPoint = { CharacterFrameInsetRight:GetPoint() }
 local ExpandButtonDefaultPoint = { CharacterFrameExpandButton:GetPoint() }
 
+local GetInventoryItemID, GetItemInfo = GetInventoryItemID, GetItemInfo
+
 CA.elapsed = 0
 CA.Delay_Updater = .5
 
@@ -624,9 +626,13 @@ function CA:Update_Gear()
 					end
 					--if KF.db.Modules.Armory.Character.NoticeMissing ~= false then
 						if not IsEnchanted and C.EnchantableSlots[SlotName] then
-							ErrorDetected = true
-							Slot.EnchantWarning:Show()
-							Slot.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
+							local id = GetInventoryItemID("player", Slot.ID)
+							local IType = select(9, GetItemInfo(id))
+							if IType == "INVTYPE_WEAPON" then 
+								ErrorDetected = true
+								Slot.EnchantWarning:Show()
+								Slot.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
+							end
 						end
 						
 						if GemCount_Enable > GemCount_Now or GemCount_Enable > GemCount or GemCount_Now > GemCount then
