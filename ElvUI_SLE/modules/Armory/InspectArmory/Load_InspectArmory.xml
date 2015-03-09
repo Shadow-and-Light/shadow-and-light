@@ -1,0 +1,19 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Profile.lua"/>
+	<Script file="Communication.lua"/>
+	<Script file="NotifyInspect.lua"/>
+	<Script file="InspectArmory.lua"/>
+	
+	<Button name="InspectArmory_UnitPopup" hidden="true" toplevel="true">
+		<ButtonText>
+			<Anchors>
+				<Anchor point="LEFT">
+					<Offset x="0" y="0"/>
+				</Anchor>
+			</Anchors>
+		</ButtonText>
+		<NormalFont style="GameFontHighlightSmallLeft"/>
+		<HighlightFont style="GameFontHighlightSmallLeft"/>
+		<DisabledFont style="GameFontDisableSmallLeft"/>
+	</Button>
+</Ui>
