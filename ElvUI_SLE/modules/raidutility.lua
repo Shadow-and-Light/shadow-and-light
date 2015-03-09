@@ -18,6 +18,7 @@ end
 
 --For moving raid utility button
 local function MoreInit()
+	if not RaidUtility_ShowButton then return end
 	E:CreateMover(RaidUtility_ShowButton, "RaidUtility_Mover", L["Raid Utility"], nil, nil, nil, "ALL,S&L,S&L MISC")
 	local mover = RaidUtility_Mover
 	local frame = RaidUtility_ShowButton
