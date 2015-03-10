@@ -682,6 +682,9 @@ local function StartFarmBarLoader()
 	for id, _ in pairs(salvage) do
 		if select(2, GetItemInfo(id)) == nil then noItem = true end
 	end
+	for id, _ in pairs(mineTools) do
+		if select(2, GetItemInfo(id)) == nil then noItem = true end
+	end
 	if noItem then
 		E:Delay(5, StartFarmBarLoader)
 	else
