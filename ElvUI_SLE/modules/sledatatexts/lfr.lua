@@ -604,7 +604,7 @@ function DT:LFRShow()
 		end
 	end]]
 
-	if not E.db.sle.lfrshow.ds and not E.db.sle.lfrshow.mv and not E.db.sle.lfrshow.hof and not E.db.sle.lfrshow.toes and not E.db.sle.lfrshow.tot and not E.db.sle.lfrshow.soo and not E.db.sle.lfrshow.hm then
+	if not E.db.sle.lfrshow.ds and not E.db.sle.lfrshow.mv and not E.db.sle.lfrshow.hof and not E.db.sle.lfrshow.toes and not E.db.sle.lfrshow.tot and not E.db.sle.lfrshow.soo and not E.db.sle.lfrshow.hm and not E.db.sle.lfrshow.brf then
 		DT.tooltip:AddLine(" "..L["You didn't select any instance to track."])
 	end
 end
