@@ -6,6 +6,8 @@ local GetLFGDungeonEncounterInfo = GetLFGDungeonEncounterInfo
 local AddLine = AddLine
 local AddDoubleLine = AddDoubleLine
 local GetMapNameByID = GetMapNameByID
+local bossName, _, isKilled, isIneligible
+local twipe = table.wipe
 
 --For 4 boss raid
 local function FourKill(id)
@@ -190,20 +192,29 @@ end
 --For 10 boss raid
 local function TenKill(id1, id2, id3, id4)
 	local killNum = 0
-	for i =1,3 do --1st part
-		_, _, isKilled = GetLFGDungeonEncounterInfo(id1, i);
+	local bosses = {} --cause fuck blizz ordering
+	--1st part
+	bosses = {1, 2, 7}
+	for i =1, #bosses do
+		_, _, isKilled = GetLFGDungeonEncounterInfo(id1, bosses[i]);
 		if (isKilled) then
 			killNum = killNum + 1
 		end
 	end
-	for i =4,6 do --2nd part
-		_, _, isKilled = GetLFGDungeonEncounterInfo(id2, i);
+	twipe(bosses)
+	--2nd part
+	bosses = {3, 5, 8}
+	for i =1, #bosses do 
+		_, _, isKilled = GetLFGDungeonEncounterInfo(id2, bosses[i]);
 		if (isKilled) then
 			killNum = killNum + 1
 		end
 	end
-	for i =7,9 do --3rd part
-		_, _, isKilled = GetLFGDungeonEncounterInfo(id3, i);
+	twipe(bosses)
+	--3rd part
+	bosses = {4, 6, 9}
+	for i =1, #bosses do
+		_, _, isKilled = GetLFGDungeonEncounterInfo(id3, bosses[i]);
 		if (isKilled) then
 			killNum = killNum + 1
 		end
@@ -222,8 +233,12 @@ local function TenKill(id1, id2, id3, id4)
 end
 
 local function TenShift(id1, id2, id3, id4)
-	for i =1,3 do --1st part
-		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id1, i);
+	
+	local bosses = {} --cause fuck blizz ordering
+	--1st part
+	bosses = {1, 2, 7}
+	for i =1, #bosses do 
+		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id1, bosses[i]);
 		if (isKilled) then
 			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
 		elseif ( isIneligible ) then
@@ -232,8 +247,11 @@ local function TenShift(id1, id2, id3, id4)
 			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
 		end
 	end
-	for i =4,6 do --2nd part
-		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id2, i);
+	twipe(bosses)
+	--2nd part
+	bosses = {3, 5, 8}
+	for i =1, #bosses do  
+		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id2, bosses[i]);
 		if (isKilled) then
 			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
 		elseif (isIneligible) then
@@ -242,8 +260,11 @@ local function TenShift(id1, id2, id3, id4)
 			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
 		end
 	end
-	for i =7,9 do --3rd part
-		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id3, i);
+	twipe(bosses)
+	--3rd part
+	bosses = {4, 6, 9}
+	for i =1, #bosses do   
+		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id3, bosses[i]);
 		if (isKilled) then
 			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
 		elseif (isIneligible) then
