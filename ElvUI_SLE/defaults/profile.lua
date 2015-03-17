@@ -119,6 +119,7 @@ P['sle'] = {
 	--Chat
 	['chat'] = {
 		['guildmaster'] = false,
+		['dpsSpam'] = false,
 	},
 
 	--Combat Icon

@@ -50,6 +50,14 @@ local function configTable()
 				get = function(info) return E.db.chat.editboxhistory end,
 				set = function(info, value)	E.db.chat.editboxhistory = value; end,
 			},
+			dpsSpam = {
+				order = 7,
+				type = "toggle",
+				name = L["Filter DPS meters' Spam"],
+				desc = L["Replaces long reports from damage meters with a clickeble hyperlink to reduce chat spam."],
+				get = function(info) return E.db.sle.chat.dpsSpam end,
+				set = function(info, value)	E.db.sle.chat.dpsSpam = value; CH:SpamFilter() end,
+			},
 		},
 	}
 end
