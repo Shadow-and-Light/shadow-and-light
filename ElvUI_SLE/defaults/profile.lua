@@ -66,9 +66,6 @@ P['sle'] = {
 		},
 	},
 
-	--Caster Name
-	['castername'] = false,
-
 	--Character Frame Options
 	['armory'] = {
 		['character'] = {
