@@ -388,6 +388,7 @@ P['sle'] = {
 	['raidmarkers'] = {
 		['enable'] = true,
 		['visibility'] = 'DEFAULT',
+		['customVisibility'] = "[noexists, nogroup] hide; show",
 		['backdrop'] = false,
 		['buttonSize'] = 22,
 		['spacing'] = 2,
