@@ -1,5 +1,12 @@
 v2.16
-- Fixed broken chat stuff due to ElvUI changes
+- Fade Undocked Tabs option should be working with S&L enabled now.
+- Custom background for character screen now shouldn't throw errors on applying.
+- Fixed auto queue work orders taking double resourses for some reason. Issue #114
+- Fixed some auras being anchored wherever they wish in pet battles.
+- Fixed tools buttons for garrison mine sometimes not actually working. Issue #116
+- Fixed LRF status for BRF being completely wrong (cause dammit blizz)
+- Added an option for chat to filter DPS meters' spam by turning it into a hyperlink.
+- Added a custom variant to marker bar visibility options. That one is working just as actionbars visibility.
 
 v2.15 2/24/2015
 - Fixed error on profile change. Issue 110
