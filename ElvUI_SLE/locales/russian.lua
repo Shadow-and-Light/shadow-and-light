@@ -54,7 +54,7 @@ L["The amount of messages to save in the editbox history.\n\n|cffFF0000Note:|r T
 L["Guild Master Icon"] = "Иконка Главы гильдии"
 L["Displays an icon near your Guild Master in chat.\n\n|cffFF0000Note:|r Some messages in chat history may disappear on login."] = "Отображает иконку рядом с сообщениями главы вашей гильдии в чате.\n\n|cffFF0000Предупреждение:|r Некоторые сообщения в истории чата в истории чата могут исчезать при входе в игру."
 L["Filter DPS meters' Spam"] = "Фильтровать отчеты о УВС"
-L["Replaces long reports from damage meters with a clickeble hyperlink to reduce chat spam."] = "Заменяет длиные отчеты от аддонов для измерения УВС на гиперссылку, сокращая уровень спама в чате."
+L["Replaces long reports from damage meters with a clickeble hyperlink to reduce chat spam.\nWorks correctly only with general reports such as DPS or HPS. May fail to filter te report of other things"] = "Заменяет длиные отчеты от аддонов для измерения УВС на гиперссылку, сокращая уровень спама в чате.\nКорректно работает с отчетами урона и исцеления. Может не отфильтровать другие специфические отчеты."
 L["Reported by %s"] = "Отчет от %s"
 
 --Raid utility--

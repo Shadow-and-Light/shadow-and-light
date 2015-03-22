@@ -54,7 +54,7 @@ local function configTable()
 				order = 7,
 				type = "toggle",
 				name = L["Filter DPS meters' Spam"],
-				desc = L["Replaces long reports from damage meters with a clickeble hyperlink to reduce chat spam."],
+				desc = L["Replaces long reports from damage meters with a clickeble hyperlink to reduce chat spam.\nWorks correctly only with general reports such as DPS or HPS. May fail to filter te report of other things"],
 				get = function(info) return E.db.sle.chat.dpsSpam end,
 				set = function(info, value)	E.db.sle.chat.dpsSpam = value; CH:SpamFilter() end,
 			},
