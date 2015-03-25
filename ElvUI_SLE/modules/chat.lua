@@ -71,7 +71,8 @@ CH.spamNextLines = {
 	"^(.*)   (.*)$", --Additional Skada
 	"^Numeration: (.*)$", -- Numeration
 	"^[+-]%d+.%d", -- Numeration Deathlog Details
-	"^(%d+). (.*):(.*)(%d+)(.*)(%d+)%%(.*)%((%d+)%)$" -- TinyDPS
+	"^(%d+). (.*):(.*)(%d+)(.*)(%d+)%%(.*)%((%d+)%)$", -- TinyDPS
+	"^(.+) (%d-%.%d-%w)$", -- Skada 2
 }
 CH.Meters = {}
 
