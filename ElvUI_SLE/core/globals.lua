@@ -81,7 +81,8 @@ SLE.SpecialChatIcons = {
 			["Finkle"] = adapt,
 			["Chopsti"] = adapt,
 			["Loosh"] = goldicon,
-			["Alooshy"] = goldicon
+			["Alooshy"] = goldicon,
+			["Aloosh"] = goldicon
 		},
 		["Illidan"] = {
 			--Darth's toon
