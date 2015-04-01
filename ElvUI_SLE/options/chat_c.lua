@@ -77,6 +77,7 @@ local function configTable()
 						type = "range",
 						name = L["Alpha"],
 						isPercent = true,
+						disabled = function() return not E.db.sle.chat.textureAlpha.enable end,
 						min = 0, max = 1, step = 0.01,
 						get = function(info) return E.db.sle.chat.textureAlpha.alpha end,
 						set = function(info, value)	E.db.sle.chat.textureAlpha.alpha = value; E:UpdateMedia() end,
