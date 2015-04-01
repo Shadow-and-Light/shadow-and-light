@@ -9,6 +9,7 @@ v2.16
 - Added a custom variant to marker bar visibility options. That one is working just as actionbars visibility.
 - A little improvement to the equipment manager's logic on when switching stuff
 - Farm module now shows actual item tooltips on its buttons
+- Added an option to set own alpha for textures in chat ignoring global alpha on transparent frames.
 
 v2.15 2/24/2015
 - Fixed error on profile change. Issue 110
