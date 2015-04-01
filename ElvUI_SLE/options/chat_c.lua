@@ -58,6 +58,31 @@ local function configTable()
 				get = function(info) return E.db.sle.chat.dpsSpam end,
 				set = function(info, value)	E.db.sle.chat.dpsSpam = value; CH:SpamFilter() end,
 			},
+			textureAlpha = {
+				order = 8,
+				type = "group",
+				name = L["Texture Alpha"],
+				guiInline = true,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						desc = L["Allows separate alpha setting for textures in chat"],
+						get = function(info) return E.db.sle.chat.textureAlpha.enable end,
+						set = function(info, value)	E.db.sle.chat.textureAlpha.enable = value; E:UpdateMedia() end,
+					},
+					alpha = {
+						order = 2,
+						type = "range",
+						name = L["Alpha"],
+						isPercent = true,
+						min = 0, max = 1, step = 0.01,
+						get = function(info) return E.db.sle.chat.textureAlpha.alpha end,
+						set = function(info, value)	E.db.sle.chat.textureAlpha.alpha = value; E:UpdateMedia() end,
+					},
+				},
+			},
 		},
 	}
 end

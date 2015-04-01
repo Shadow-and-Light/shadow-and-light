@@ -117,6 +117,10 @@ P['sle'] = {
 	['chat'] = {
 		['guildmaster'] = false,
 		['dpsSpam'] = false,
+		['textureAlpha'] = {
+			['enable'] = false,
+			['alpha'] = 0.5,
+		},
 	},
 
 	--Combat Icon

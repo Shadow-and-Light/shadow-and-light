@@ -532,9 +532,21 @@ local function CreateChatPanels()
 	RightChatTab:Point('BOTTOMLEFT', RightChatPanel, 'TOPLEFT', 2, -PANEL_HEIGHT)
 end
 
+local function ChatTextures()
+	if not E.db['general'] or not E.private['general'] then return end --Prevent rare nil value errors
+	if not E.db.sle.chat.textureAlpha.enable then return end --our option enable check
+	
+	if LeftChatPanel and LeftChatPanel.tex and RightChatPanel and RightChatPanel.tex then
+		local a = E.db.sle.chat.textureAlpha.alpha or 0.5
+		LeftChatPanel.tex:SetAlpha(a)
+		RightChatPanel.tex:SetAlpha(a)
+	end
+end
+
 hooksecurefunc(LO, "ToggleChatPanels", ChatPanels)
 hooksecurefunc(LO, "CreateChatPanels", CreateChatPanels)
 hooksecurefunc(CH, "StyleChat", Style)
+
 hooksecurefunc(CH, "Initialize", function(self)
 	if not E.private.chat.enable then return end
 	if E.db.sle.chat.guildmaster then
@@ -547,7 +559,7 @@ hooksecurefunc(CH, "Initialize", function(self)
 	CH:SpamFilter()
 
 	self:SecureHook("SetItemRef","ParseLink")
-
+	hooksecurefunc(E, "UpdateMedia", ChatTextures)
 	-- Borrowed from Deadly Boss Mods
 	do
 		local old = ItemRefTooltip.SetHyperlink -- we have to hook this function since the default ChatFrame code assumes that all links except for player and channel links are valid arguments for this function

@@ -56,6 +56,8 @@ L["Displays an icon near your Guild Master in chat.\n\n|cffFF0000Note:|r Some me
 L["Filter DPS meters' Spam"] = "Фильтровать отчеты о УВС"
 L["Replaces long reports from damage meters with a clickeble hyperlink to reduce chat spam.\nWorks correctly only with general reports such as DPS or HPS. May fail to filter te report of other things"] = "Заменяет длиные отчеты от аддонов для измерения УВС на гиперссылку, сокращая уровень спама в чате.\nКорректно работает с отчетами урона и исцеления. Может не отфильтровать другие специфические отчеты."
 L["Reported by %s"] = "Отчет от %s"
+L["Texture Alpha"] = "Прозрачность текстур"
+L["Allows separate alpha setting for textures in chat"] = "Включает отдельную настройку прозрачности для текстур в чате"
 
 --Raid utility--
 L['Raid Utility'] = "Управление рейдом"
