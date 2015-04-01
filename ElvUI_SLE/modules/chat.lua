@@ -546,7 +546,7 @@ end
 hooksecurefunc(LO, "ToggleChatPanels", ChatPanels)
 hooksecurefunc(LO, "CreateChatPanels", CreateChatPanels)
 hooksecurefunc(CH, "StyleChat", Style)
-
+hooksecurefunc(E, "UpdateMedia", ChatTextures)
 hooksecurefunc(CH, "Initialize", function(self)
 	if not E.private.chat.enable then return end
 	if E.db.sle.chat.guildmaster then
@@ -559,7 +559,7 @@ hooksecurefunc(CH, "Initialize", function(self)
 	CH:SpamFilter()
 
 	self:SecureHook("SetItemRef","ParseLink")
-	hooksecurefunc(E, "UpdateMedia", ChatTextures)
+
 	-- Borrowed from Deadly Boss Mods
 	do
 		local old = ItemRefTooltip.SetHyperlink -- we have to hook this function since the default ChatFrame code assumes that all links except for player and channel links are valid arguments for this function
