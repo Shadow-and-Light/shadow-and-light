@@ -513,7 +513,8 @@ end
 local function onEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 2, 4)
 	GameTooltip:ClearLines()
-	GameTooltip:AddLine("|cffFFFFFF"..self.sortname.."|r")
+	GameTooltip:AddLine(" ")
+	GameTooltip:SetItemByID(self.itemId) 
 	if self.allowDrop then
 		GameTooltip:AddLine(L['Right-click to drop the item.'])
 	end
