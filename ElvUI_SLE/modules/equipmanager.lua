@@ -8,11 +8,12 @@ local gsub, strfind = string.gsub, string.find, string.sub
 local function Equip(event)
 	local primary = GetSpecialization()
 	local equipSet
+	local pvp = false
 	for i = 1, GetNumEquipmentSets() do
 		local name, _, _, isEquipped = GetEquipmentSetInfo(i)
 		if isEquipped then
 			equipSet = name
-			
+			break
 		end
 	end
 
@@ -23,10 +24,12 @@ local function Equip(event)
 			if GetActiveSpecGroup() == 1 then
 				if equipSet ~= E.private.sle.equip.primary and E.private.sle.equip.primary ~= "NONE" then
 					UseEquipmentSet(E.private.sle.equip.primary)
+					return
 				end
 			else
 				if equipSet ~= E.private.sle.equip.secondary and E.private.sle.equip.secondary ~= "NONE" then
 					UseEquipmentSet(E.private.sle.equip.secondary)
+					return
 				end
 			end
 		end
@@ -34,12 +37,15 @@ local function Equip(event)
 		if (instanceType == "party" or instanceType == "raid") then
 			if equipSet ~= E.private.sle.equip.instance and E.private.sle.equip.instance ~= "NONE" then
 				UseEquipmentSet(E.private.sle.equip.instance)
+				return
 			end
 		end
 
 		if (instanceType == "pvp" or instanceType == "arena") then
+			pvp = true
 			if equipSet ~= E.private.sle.equip.pvp and E.private.sle.equip.pvp ~= "NONE" then
 				UseEquipmentSet(E.private.sle.equip.pvp)
+				return
 			end
 		end
 
@@ -48,9 +54,23 @@ local function Equip(event)
 				local _, localizedName, isActive = GetWorldPVPAreaInfo(i)
 
 				if (GetRealZoneText() == localizedName and isActive) then
+					pvp = true
 					if equipSet ~= E.private.sle.equip.pvp then
 						UseEquipmentSet(E.private.sle.equip.pvp)
+						return
 					end
+				end
+			end
+		end
+		
+		if event == "ZONE_CHANGED" then
+			if (equipSet ~= E.private.sle.equip.primary and E.private.sle.equip.primary ~= "NONE") and (equipSet ~= E.private.sle.equip.secondary and E.private.sle.equip.secondary ~= "NONE") and equipSet == E.private.sle.equip.pvp and not pvp then
+				if GetActiveSpecGroup() == 1 then
+					UseEquipmentSet(E.private.sle.equip.primary)
+					return
+				else
+					UseEquipmentSet(E.private.sle.equip.secondary)
+					return
 				end
 			end
 		end
