@@ -9,7 +9,7 @@
 ## RequiredDeps: ElvUI
 ## OptionalDeps: AddonSkins, iFilger_ConfigUI, BigWigs, Clique, Hermes, xCT+
 ## DefaultState: Enabled
-## X-ElvVersion: 7.95
+## X-ElvVersion: 8.00
 
 libs\load_libs.xml
 locales\load_locales.xml
