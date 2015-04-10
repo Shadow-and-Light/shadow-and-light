@@ -58,8 +58,15 @@ local function configTable()
 				get = function(info) return E.db.sle.chat.dpsSpam end,
 				set = function(info, value)	E.db.sle.chat.dpsSpam = value; CH:SpamFilter() end,
 			},
-			textureAlpha = {
+			combathide = {
 				order = 8,
+				type = "toggle",
+				name = L["Hide In Combat"],
+				get = function(info) return E.db.sle.chat.combathide end,
+				set = function(info, value)	E.db.sle.chat.combathide = value; end,
+			},
+			textureAlpha = {
+				order = 10,
 				type = "group",
 				name = L["Texture Alpha"],
 				guiInline = true,

@@ -447,6 +447,21 @@ function CH:SpamFilter()
 	end
 end
 
+function CH:Combat(event)
+	if not E.db.sle.chat.combathide then return end
+	if event == "PLAYER_REGEN_DISABLED" then
+		RightChatPanel:Hide()
+		RightChatToggleButton:Hide()
+		LeftChatPanel:Hide()
+		LeftChatToggleButton:Hide()
+	elseif event == "PLAYER_REGEN_ENABLED" then
+		RightChatPanel:Show()
+		RightChatToggleButton:Show()
+		LeftChatPanel:Show()
+		LeftChatToggleButton:Show()
+	end
+end
+
 --Previously layout.lua
 local LO = E:GetModule('Layout');
 local PANEL_HEIGHT = 22;
@@ -570,4 +585,7 @@ hooksecurefunc(CH, "Initialize", function(self)
 			return old(self, link, ...)
 		end
 	end
+	
+	self:RegisterEvent("PLAYER_REGEN_ENABLED", "Combat")
+	self:RegisterEvent("PLAYER_REGEN_DISABLED", "Combat")
 end)
