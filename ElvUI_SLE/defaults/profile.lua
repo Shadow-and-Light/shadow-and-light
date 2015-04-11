@@ -27,6 +27,7 @@ P['sle'] = {
 			['pethide'] = true,
 			['template'] = "Default",
 			['alpha'] = 1,
+			['clickthrough'] = true,
 		},
 		['left'] = {
 			['enabled'] = false,
@@ -39,6 +40,7 @@ P['sle'] = {
 			['pethide'] = true,
 			['template'] = "Default",
 			['alpha'] = 1,
+			['clickthrough'] = false,
 		},
 		['right'] = {
 			['enabled'] = false,
@@ -51,6 +53,7 @@ P['sle'] = {
 			['pethide'] = true,
 			['template'] = "Default",
 			['alpha'] = 1,
+			['clickthrough'] = false,
 		},
 		['action'] = {
 			['enabled'] = false,
@@ -63,6 +66,7 @@ P['sle'] = {
 			['pethide'] = true,
 			['template'] = "Default",
 			['alpha'] = 1,
+			['clickthrough'] = true,
 		},
 	},
 
