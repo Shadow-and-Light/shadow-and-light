@@ -22,7 +22,6 @@ local Difficulties = {
 	[15] = 'heroic', --13-30ppl heroic
 	[16] = 'mythic', --20ppl mythic
 	[17] = 'lfr', --10-30 LFR
-	
 }
 
 function I:CreateText()
@@ -64,8 +63,7 @@ local function GuildEmblem()
 	else
 		char.guildTexCoord = false
 	end
-	-- if IsInGuild() and char.guildTexCoord then
-	if char.guildTexCoord then
+	if IsInGuild() and char.guildTexCoord then
 		return "|TInterface\\GuildFrame\\GuildEmblemsLG_01:24:24:-4:1:32:32:"..(char.guildTexCoord[1]*32)..":"..(char.guildTexCoord[7]*32)..":"..(char.guildTexCoord[2]*32)..":"..(char.guildTexCoord[8]*32).."|t"
 	else
 		return ""
@@ -111,10 +109,10 @@ function I:GenerateText(event, guild, force)
 		difficultyName = sub(difficultyName, 1 , 2)
 		local r, g, b = I:GetColor(difficulty)
 		f.text:SetFormattedText(instanceGroupSize.." |cff%02x%02x%02x%s|r", r, g, b, difficultyName)
-		-- if guild or force then
+		if guild or force then
 			local logo = GuildEmblem()
 			f.icon:SetText(logo)
-		-- end
+		end
 	end
 end
 
