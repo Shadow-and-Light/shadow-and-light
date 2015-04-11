@@ -24,9 +24,6 @@ local function CreateFrames()
 		v[1]:Hide()
 	end
 
-	--Make EnableMouse and option b/c of drunk russian
-	BGb:EnableMouse(true) --Maybe add an option to actually allow change this click catching?
-	BGa:EnableMouse(true)
 	BGb.tex:SetAlpha(0.5) 
 
 	--Also the problem. As long as bottom bg can be transparent it's no good in keeping fixed transparency for the texture.
@@ -78,6 +75,14 @@ function BG:FramesVisibility()
 	end
 end
 
+function BG:MouseCatching()
+	if not BGb then return end
+	local db = E.db.sle.backgrounds
+	for _,v in pairs(Fr) do
+		v[1]:EnableMouse(not(db[v[2]].clickthrough))
+	end
+end
+
 function BG:UpdateFrames()
 	if not BGb then return end
 	local db = E.db.sle.backgrounds
@@ -87,6 +92,7 @@ function BG:UpdateFrames()
 	end
 	BG:FramesSize()
 	BG:FramesVisibility()
+	BG:MouseCatching()
     UpdateTex()
 end
 

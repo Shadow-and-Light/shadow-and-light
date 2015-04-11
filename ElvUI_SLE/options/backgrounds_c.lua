@@ -152,6 +152,12 @@ local function configTable()
 					desc = L["Show/Hide this frame during Pet Battles."],
 					set = function(info, value) E.db.sle.backgrounds[v[1]].pethide = value; BG:RegisterHide() end
 				},
+				clickthrough = {
+					order = 9,
+					type = "toggle",
+					name = L["Click Through"],
+					set = function(info, value) E.db.sle.backgrounds[v[1]].clickthrough = value; BG:MouseCatching() end
+				},
 				alpha = {
 					order = 12,
 					type = 'range',
