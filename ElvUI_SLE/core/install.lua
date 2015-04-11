@@ -572,7 +572,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 end
 
 function AI:RepoocSetup() --The function to switch from classic ElvUI settings to Repooc's
-	SLEInstallStepComplete.message = L["Repooc's Defaults Set"]
+	SLEInstallStepComplete.message = L["Repooc's Default Set"]
 	SLEInstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
 
