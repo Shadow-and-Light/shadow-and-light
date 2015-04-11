@@ -381,6 +381,9 @@ P['sle'] = {
 				['challenge'] = {r = 0.9,g = 0.89,b = 0.27 },
 				['mythic'] = {r = 0.9,g = 0.14,b = 0.15 },
 			},
+			['font'] = "ElvUI Font",
+			['fontSize'] = 12,
+			['fontOutline'] = "OUTLINE",
 		},
 	},
 
