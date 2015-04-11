@@ -4,6 +4,7 @@ local GetInstanceInfo = GetInstanceInfo
 local sub = string.sub
 local IsInInstance, IsInGuild = IsInInstance, IsInGuild
 local f 
+local LSM = LibStub("LibSharedMedia-3.0")
 
 local Difficulties = {
 	[1] = 'normal', --5ppl normal
@@ -36,8 +37,9 @@ function I:CreateText()
 end
 
 function I:SetFonts()
-	f.text:SetFont(E["media"].normFont, 12)
-	f.icon:SetFont(E["media"].normFont, 12)
+	local db = E.db.sle.minimap.instance
+	f.text:SetFont(LSM:Fetch('font', db.font), db.fontSize, db.fontOutline)
+	f.icon:SetFont(LSM:Fetch('font', db.font), db.fontSize, db.fontOutline)
 end
 
 
@@ -59,6 +61,8 @@ local function GuildEmblem()
 	-- check if Blizzard_GuildUI is loaded
 	if GuildFrameTabardEmblem then
 		char.guildTexCoord = {GuildFrameTabardEmblem:GetTexCoord()}
+	else
+		char.guildTexCoord = false
 	end
 	-- if IsInGuild() and char.guildTexCoord then
 	if char.guildTexCoord then
@@ -78,6 +82,7 @@ function I:UpdateFrame()
 		end
 	end
 	f:Point("TOPLEFT", Minimap, "TOPLEFT", db.xoffset, db.yoffset)
+	I:SetFonts()
 	if db.enable then
 		f.text:Show()
 		f.icon:Show()
@@ -96,7 +101,8 @@ function I:GetColor(dif)
 	end
 end
 
-function I:GenerateText(event, guild)
+function I:GenerateText(event, guild, force)
+	
 	if not InstanceCheck() then 
 		f.text:SetText("")
 		f.icon:SetText("")
@@ -105,9 +111,8 @@ function I:GenerateText(event, guild)
 		difficultyName = sub(difficultyName, 1 , 2)
 		local r, g, b = I:GetColor(difficulty)
 		f.text:SetFormattedText(instanceGroupSize.." |cff%02x%02x%02x%s|r", r, g, b, difficultyName)
-		-- if guild then
+		-- if guild or force then
 			local logo = GuildEmblem()
-			-- f.text:SetText(instanceGroupSize.." "..difficultyName.." "..logo)
 			f.icon:SetText(logo)
 		-- end
 	end
