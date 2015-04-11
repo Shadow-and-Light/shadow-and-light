@@ -249,7 +249,7 @@ local function configTable()
 							info = {
 								order = 1,
 								type = "description",
-								name = L['Sets the colors for difficulty abbriviation'],
+								name = L['Sets the colors for difficulty abbreviation'],
 							},
 							lfr = {
 								type = "color",
