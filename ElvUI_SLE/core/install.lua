@@ -137,7 +137,7 @@ end
 function AI:DarthSetup() --The function to switch from classic ElvUI settings to Darth's
 	local layout = E.db.layoutSet
 	local word = layout == 'tank' and L["Tank"] or layout == 'healer' and L["Healer"] or layout == 'dpsMelee' and L['Physical DPS'] or L['Caster DPS']
-	SLEInstallStepComplete.message = L["Darth's Defaults Set"]..": "..word
+	SLEInstallStepComplete.message = L["Darth's Default Set"]..": "..word
 	SLEInstallStepComplete:Show()
 	E:CopyTable(E.db, P)
 	E:CopyTable(E.private, V)
@@ -716,7 +716,7 @@ function AI:RepoocSetup() --The function to switch from classic ElvUI settings t
 end
 
 function AI:AffinitiiSetup() --The function to switch from class ElvUI settings to Affinitii's
-	SLEInstallStepComplete.message = L["Affinitii's Defaults Set"]
+	SLEInstallStepComplete.message = L["Affinitii's Default Set"]
 	SLEInstallStepComplete:Show()
 	if not E.db.movers then E.db.movers = {}; end
 	if not E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = {} end
