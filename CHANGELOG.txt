@@ -12,6 +12,7 @@ v2.16
 - Added an option to set own alpha for textures in chat ignoring global alpha on transparent frames.
 - Added an option to hide chat in combat
 - Added a lot of options for instance difficulty indicator on the minimap
+- Added option to click throught background frames
 
 v2.15 2/24/2015
 - Fixed error on profile change. Issue 110
