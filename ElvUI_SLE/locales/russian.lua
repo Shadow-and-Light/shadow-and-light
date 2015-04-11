@@ -112,9 +112,9 @@ L["SLE_Install_Text2"] = [=[Этот шаг опционален и должен
 L["Darth's Config"] = "Опции Дарта"
 L["Darth's Defaults Set"] = "Установлены настройки Дарта"	 
 L["Repooc's Config"] = "Опции Repooc'а"	 
-L["Repooc's Defaults Set"] = "Установлены настройки Repooc'а"	 
+L["Repooc's Default Set"] = "Установлены настройки Repooc'а"	 
 L["Affinitii's Config"] = "Опции  Affinitii"
-L["Affinitii's Defaults Set"] = "Установлены настройки Affinitii"
+L["Affinitii's Default Set"] = "Установлены настройки Affinitii"
 
 --Auras--
 L["Hide Buff Timer"] = "Спрятать таймеры баффов"
