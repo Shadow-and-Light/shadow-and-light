@@ -24,13 +24,10 @@ local function CreateFrames()
 		v[1]:Hide()
 	end
 
-	BGb.tex:SetAlpha(0.5) 
-
-	--Also the problem. As long as bottom bg can be transparent it's no good in keeping fixed transparency for the texture.
-	--Maybe add an option to change this from using Elv's trnsparency to additional user-set one?
-	BGl.tex:SetAlpha(E.db.general.backdropfadecolor.a - 0.7 > 0 and E.db.general.backdropfadecolor.a - 0.7 or 0.5)
-	BGr.tex:SetAlpha(E.db.general.backdropfadecolor.a - 0.7 > 0 and E.db.general.backdropfadecolor.a - 0.7 or 0.5)	
-	BGa.tex:SetAlpha(E.db.general.backdropfadecolor.a - 0.7 > 0 and E.db.general.backdropfadecolor.a - 0.7 or 0.5)
+	BGb.tex:SetAlpha(E.db.general.backdropfadecolor.a or 0.5) 
+	BGl.tex:SetAlpha(E.db.general.backdropfadecolor.a or 0.5)
+	BGr.tex:SetAlpha(E.db.general.backdropfadecolor.a or 0.5)	
+	BGa.tex:SetAlpha(E.db.general.backdropfadecolor.a or 0.5)
 end
 
 --Frames Size
