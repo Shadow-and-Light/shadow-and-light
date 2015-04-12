@@ -634,7 +634,7 @@ function CA:Update_Gear()
 						if not IsEnchanted and C.EnchantableSlots[SlotName] then
 							local id = GetInventoryItemID("player", Slot.ID)
 							local IType = select(9, GetItemInfo(id))
-							if IType == "INVTYPE_WEAPON" or IType == "INVTYPE_RANGEDRIGHT" or IType == "INVTYPE_2HWEAPON"then 
+							if IType == "INVTYPE_WEAPON" or IType == "INVTYPE_RANGEDRIGHT" or IType == "INVTYPE_2HWEAPON" then 
 								ErrorDetected = true
 								Slot.EnchantWarning:Show()
 								Slot.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
