@@ -549,7 +549,7 @@ end
 
 local function ChatTextures()
 	if not E.db['general'] or not E.private['general'] then return end --Prevent rare nil value errors
-	if not E.db.sle.chat or not E.db.sle.chat.textureAlpha.enable then return end --our option enable check
+	if not E.db.sle.chat or not E.db.sle.chat.textureAlpha or not E.db.sle.chat.textureAlpha.enable then return end --our option enable check
 
 	if LeftChatPanel and LeftChatPanel.tex and RightChatPanel and RightChatPanel.tex then
 		local a = E.db.sle.chat.textureAlpha.alpha or 0.5
