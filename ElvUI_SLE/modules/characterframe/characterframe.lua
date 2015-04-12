@@ -22,6 +22,12 @@ local backgrounds = {
 	["CASTLE"] = "Castle",
 }
 
+local backgroundsD = {
+	["ALLIANCE2"] = [[Interface\LFGFrame\UI-PVP-BACKGROUND-Alliance]],
+	["HORDE2"] = [[Interface\LFGFrame\UI-PVP-BACKGROUND-Horde]],
+	["ARENA"] = [[Interface\PVPFrame\PvpBg-NagrandArena-ToastBG]],
+}
+
 do --<< Button Script >>--
 	function CA:OnEnter()
 		if self.Link or self.Message then
@@ -628,7 +634,7 @@ function CA:Update_Gear()
 						if not IsEnchanted and C.EnchantableSlots[SlotName] then
 							local id = GetInventoryItemID("player", Slot.ID)
 							local IType = select(9, GetItemInfo(id))
-							if IType == "INVTYPE_WEAPON" or IType == "INVTYPE_RANGEDRIGHT" then 
+							if IType == "INVTYPE_WEAPON" or IType == "INVTYPE_RANGEDRIGHT" or IType == "INVTYPE_2HWEAPON"then 
 								ErrorDetected = true
 								Slot.EnchantWarning:Show()
 								Slot.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
@@ -783,7 +789,7 @@ function CFO:UpdateCharacterBG()
 	local BGdrop = E.db.sle.characterframeoptions.image.dropdown
 	if E.db.sle.characterframeoptions.showimage ~= false then
 		if BGdrop ~= "CUSTOM" then
-			CA.BG:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\'..backgrounds[BGdrop])
+			CA.BG:SetTexture(backgrounds[BGdrop] and 'Interface\\AddOns\\ElvUI_SLE\\media\\textures\\'..backgrounds[BGdrop] or backgroundsD[BGdrop])
 		else
 			CA.BG:SetTexture(E.db.sle.characterframeoptions.image.custom)
 		end

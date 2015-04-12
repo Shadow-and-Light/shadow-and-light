@@ -78,10 +78,13 @@ local function configTable()
 								values = {
 									['SPACE'] = 'Space',
 									['ALLIANCE'] = FACTION_ALLIANCE,
+									['ALLIANCE2'] = FACTION_ALLIANCE.." 2",
 									['HORDE'] = FACTION_HORDE, 
+									['HORDE2'] = FACTION_HORDE.." 2", 
 									['CUSTOM'] = L["Custom"],
 									["EMPIRE"] = "The Empire",
 									["CASTLE"] = "Castle",
+									["ARENA"] = ARENA,
 								},
 								get = function() return E.db.sle.characterframeoptions.image.dropdown end,
 								set = function(_, value)
