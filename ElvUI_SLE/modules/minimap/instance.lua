@@ -100,15 +100,20 @@ function I:GetColor(dif)
 end
 
 function I:GenerateText(event, guild, force)
-	
+	local text
 	if not InstanceCheck() then 
 		f.text:SetText("")
 		f.icon:SetText("")
 	else
 		local _, _, difficulty, difficultyName, _, _, _, _, instanceGroupSize = GetInstanceInfo()
-		difficultyName = sub(difficultyName, 1 , 2)
 		local r, g, b = I:GetColor(difficulty)
-		f.text:SetFormattedText(instanceGroupSize.." |cff%02x%02x%02x%s|r", r, g, b, difficultyName)
+		if (difficulty >= 3 and difficulty <= 7) or difficulty == 9 then
+			text = format("|cff%02x%02x%02x%s|r", r, g, b, instanceGroupSize)
+		else
+			difficultyName = sub(difficultyName, 1 , 2)
+			text = format(instanceGroupSize.." |cff%02x%02x%02x%s|r", r, g, b, difficultyName)
+		end
+		f.text:SetText(text)
 		if guild or force then
 			local logo = GuildEmblem()
 			f.icon:SetText(logo)
