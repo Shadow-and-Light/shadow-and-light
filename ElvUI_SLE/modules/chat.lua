@@ -364,11 +364,9 @@ function CH:filterLine(event, source, msg, ...)
 		local newID = 0
 		if msg:match(line) then
 			local curTime = GetTime();
-			-- check wheter there's already a meter running (don't want duplicates)
-			if find(msg, "|cff(.+)"..Myname.."|r") then
-				msg = gsub(msg, "|cff(.+)"..Myname.."|r", Myname)
-			elseif find(msg, "|cff(.+)"..PLAYER_NAME.."|r") then
-				msg = gsub(msg, "|cff(.+)"..PLAYER_NAME.."|r", Myname)
+			if find(msg, "|cff(.+)|r") then
+				msg = gsub(msg, "|cff%w%w%w%w%w%w", "")
+				msg = gsub(msg, "|r", "")
 			end
 			for id,meter in ipairs(CH.Meters) do
 				local elapsed = curTime - meter.time
