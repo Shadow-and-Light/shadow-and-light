@@ -93,6 +93,9 @@ function CH:PositionChat(override)
 	if not self.db.lockPositions or E.private.chat.enable ~= true then return end
 		
 	local chat, chatbg, tab, id, point, button, isDocked, chatFound
+	local fadeUndockedTabs = E.db["chat"].fadeUndockedTabs
+	local fadeTabsNoBackdrop = E.db["chat"].fadeTabsNoBackdrop
+
 	for _, frameName in pairs(CHAT_FRAMES) do
 		chat = _G[frameName]
 		id = chat:GetID()
@@ -169,7 +172,7 @@ function CH:PositionChat(override)
 				chat:SetUserPlaced(true)
 			end
 			if E.db.chat.panelBackdrop == 'HIDEBOTH' or E.db.chat.panelBackdrop == 'LEFT' then
-				CH:SetupChatTabs(tab, true)
+				CH:SetupChatTabs(tab, fadeTabsNoBackdrop and true or false)
 			else
 				CH:SetupChatTabs(tab, false)
 			end
@@ -177,8 +180,7 @@ function CH:PositionChat(override)
 			tab:SetParent(UIParent)
 			chat:SetParent(UIParent)
 			
-			local fade = E.db["chat"].fadeUndockedTabs
-			CH:SetupChatTabs(tab, fade and true or false)
+			CH:SetupChatTabs(tab, fadeUndockedTabs and true or false)
 		else
 			if E.db.sle.datatext.chathandle then 
 				if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
@@ -210,7 +212,7 @@ function CH:PositionChat(override)
 			end
 			
 			if E.db.chat.panelBackdrop == 'HIDEBOTH' or E.db.chat.panelBackdrop == 'RIGHT' then
-				CH:SetupChatTabs(tab, true)
+				CH:SetupChatTabs(tab, fadeTabsNoBackdrop and true or false)
 			else
 				CH:SetupChatTabs(tab, false)
 			end			

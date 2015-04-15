@@ -1,3 +1,6 @@
+v2.17
+- Fixed some of chat options in ElvUI still not working with S&L enabled
+
 v2.16 4/15/2015
 - Fade Undocked Tabs option should be working with S&L enabled now.
 - Custom background for character screen now shouldn't throw errors on applying.
