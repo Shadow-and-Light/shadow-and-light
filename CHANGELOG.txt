@@ -1,4 +1,4 @@
-v2.16
+v2.16 4/15/2015
 - Fade Undocked Tabs option should be working with S&L enabled now.
 - Custom background for character screen now shouldn't throw errors on applying.
 - Fixed auto queue work orders taking double resourses for some reason. Issue #114
