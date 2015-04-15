@@ -1,4 +1,4 @@
-v2.17
+v2.17 4/15/2015
 - Fixed some of chat options in ElvUI still not working with S&L enabled
 
 v2.16 4/15/2015
