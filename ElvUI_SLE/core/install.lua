@@ -163,6 +163,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	--Nameplates--
 	do
 		E.db["nameplate"]["fontSize"] = 10
+		E.db["nameplate"]["wrapName"] = true
 		E.db["nameplate"]["healthBar"]["height"] = 10
 		E.db["nameplate"]["healthBar"]["text"]["enable"] = true
 		E.db["nameplate"]["healthBar"]["lowHPScale"]["enable"] = true
@@ -192,6 +193,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	end
 	--Chat--
 	do
+		E.db["chat"]["fontOutline"] = "OUTLINE"
+		E.db["chat"]["keywordSound"] = "Whisper Alert"
 		E.db["chat"]["tabFontOutline"] = "OUTLINE"
 		E.db["chat"]["tabFont"] = "ElvUI Font"
 		E.db["chat"]["tabFontSize"] = 11
@@ -392,7 +395,6 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["actionbar"]["bar5"]["buttonsPerRow"] = 2
 		E.db["actionbar"]["bar5"]["buttonsize"] = 30
 		E.db["actionbar"]["bar5"]["visibility"] = " [petbattle] hide; show"
-		E.db["actionbar"]["microbar"]["enabled"] = true
 		E.db["actionbar"]["microbar"]["buttonsPerRow"] = 11
 		E.db["actionbar"]["stanceBar"]["style"] = "classic"
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 18
@@ -417,6 +419,11 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	do
 		E.db["sle"]["nameplate"]["showthreat"] = true
 		E.db["sle"]["threat"]["enable"] = false
+		E.db["sle"]["chat"]["dpsSpam"] = true
+		E.db["sle"]["chat"]["textureAlpha"] = true
+		E.db["sle"]["minimap"]["instance"]["fontSize"] = 14
+		E.db["sle"]["minimap"]["instance"]["flag"] = false
+		E.db["sle"]["minimap"]["instance"]["enable"] = true
 		E.db["sle"]["media"]["fonts"]["subzone"]["font"] = "Old Cyrillic"
 		E.db["sle"]["media"]["fonts"]["zone"]["font"] = "Old Cyrillic"
 		E.db["sle"]["media"]["fonts"]["pvp"]["font"] = "Old Cyrillic"
@@ -481,6 +488,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["movers"]["ElvAB_6"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-11210"
 		E.db["movers"]["ShiftAB"] = "BOTTOMElvUIParentBOTTOM-188102"
 		E.db["movers"]["MicrobarMover"] = "TOPElvUIParentTOP0-19"
+		E.db["movers"]["ElvUF_BodyGuardMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-510100"
 		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMElvUIParentBOTTOM30056"
 		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-51234"
 		E.db["movers"]["Top_Center_Mover"] = "TOPElvUIParentTOP00"
@@ -511,6 +519,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["movers"]["TotemBarMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT50123"
 		E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOMElvUIParentBOTTOM0102"	
 		E.db["movers"]["SalvageCrateMover"] = "BOTTOMElvUIParentBOTTOM-28619"
+		E.db["movers"]["UIErrorsFrameMover"] = "TOPLEFTElvUIParentTOPLEFT24-507"
 	end
 	
 	E.private["general"]["normTex"] = "Polished Wood"
@@ -547,9 +556,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["loclite"]["dig"] = false
 		E.db["loclite"]["lpauto"] = false
 		E.db["loclite"]["lpfontflags"] = "OUTLINE"
-		E.db["movers"]["LocationLiteMover"] = "TOPElvUIParentTOP00"
+		E.db["movers"]["LocationLiteMover"] = "TOPElvUIParentTOP0-19"
 		E.db["movers"]["MicrobarMover"] = "TOPElvUIParentTOP0-38"
-		E.db["movers"]["Top_Center_Mover"] = "TOPElvUIParentTOP0-19"
 		E.db["movers"]["PvPMover"] = "TOPElvUIParentTOP0-70"
 	end
 
