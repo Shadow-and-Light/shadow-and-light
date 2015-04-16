@@ -194,7 +194,6 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	--Chat--
 	do
 		E.db["chat"]["fontOutline"] = "OUTLINE"
-		E.db["chat"]["keywordSound"] = "Whisper Alert"
 		E.db["chat"]["tabFontOutline"] = "OUTLINE"
 		E.db["chat"]["tabFont"] = "ElvUI Font"
 		E.db["chat"]["tabFontSize"] = 11
