@@ -437,7 +437,6 @@ function UB:FrameSize(onLoad)
 			UB.ConfigTable[i]:Size(db.size * 2.6, db.size)
 		end
 		for i = 1, #UB.AddonTable do
-			-- print(UB.AddonTable[i]:GetName())
 			UB.AddonTable[i]:Size(db.size * 3.1, db.size)
 		end
 		UB.menuHolder.Status:Size(db.size * 2.1, (db.size * #UB.StatusTable)+(db.spacing*(#UB.StatusTable-1)))
