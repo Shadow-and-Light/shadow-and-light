@@ -12,6 +12,7 @@ local lfgChannels = {
 	"RAID_LEADER",
 	"INSTANCE_CHAT",
 	"INSTANCE_CHAT_LEADER",
+	"RAID_WARNING",
 }
 
 local Myname = E.myname
@@ -232,13 +233,10 @@ local function GetChatIcon(sender)
 	senderRealm = senderRealm or PLAYER_REALM
 	senderRealm = senderRealm:gsub(' ', '')
 		
-	--Disabling ALL special icons. IDK why Elv use that and why would we want to have that but whatever
-	if specialChatIcons and specialChatIcons[PLAYER_REALM] and specialChatIcons[PLAYER_REALM][Myname] ~= true then
-		if specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
-			return specialChatIcons[senderRealm][senderName]
-		end
+	if specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
+		return specialChatIcons[senderRealm][senderName]
 	end
-	
+
 	if not IsInGuild() then return "" end
 	if not E.db.sle.chat.guildmaster then return "" end
 	if senderName == GMName and senderRealm == GMRealm then
@@ -292,9 +290,10 @@ function CH:CheckLFGRoles()
 	for i=1, GetNumGroupMembers() do
 		if(UnitExists(unit..i) and not UnitIsUnit(unit..i, "player")) then
 			role = UnitGroupRolesAssigned(unit..i)
-			local name, realm = UnitName(unit..i)
-			if(role and name and realm) then
-				name = realm ~= '' and name..'-'..realm or name ..'-'..PLAYER_REALM;
+			name, realm = UnitName(unit..i)
+
+			if(role and name) then
+				name = (realm and realm ~= '') and name..'-'..realm or name ..'-'..PLAYER_REALM;
 				lfgRoles[name] = rolePaths[role]
 			end
 		end
