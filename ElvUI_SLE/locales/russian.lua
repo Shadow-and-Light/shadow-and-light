@@ -491,6 +491,7 @@ L["Classbar Offset"] = "Отступ полосы класса"
 L["This options will allow you to detach your classbar from player's frame and move it in other location."] = "Эти опции позволят вам открепить полосу класса от рамки игрока и передвинуть ее в другое место."
 L["Power Text Position"] = "Позиция текста ресурса"
 L["Position power text on this bar of chosen frame"] = "Позиционировать текст ресурса относительно выбранной полосы на каждой рамке"
+L["Choose what icon set will unitframes and chat use."] = "Набор иконок для использования на рамках юнитов и в чате."
 
 L["Enhanced Vehicle Bar"] = "Улучшенный контроль машин"
 L["A different look/feel vehicle bar based on work by Azilroka"] = "Использовать улучшенную панель управления средствами передвижения, основанную на коде Azilroka"
