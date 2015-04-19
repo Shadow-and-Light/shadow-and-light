@@ -27,11 +27,6 @@ local tinsert, tremove, tsort, twipe, tconcat = table.insert, table.remove, tabl
 local PLAYER_REALM = gsub(E.myrealm,'[%s%-]','')
 local PLAYER_NAME = Myname.."-"..PLAYER_REALM
 
-local rolePaths = {
-	TANK = [[|TInterface\AddOns\ElvUI\media\textures\tank:15:15:0:0:64:64:2:56:2:56|t]],
-	HEALER = [[|TInterface\AddOns\ElvUI\media\textures\healer:15:15:0:0:64:64:2:56:2:56|t]],
-	DAMAGER = [[|TInterface\AddOns\ElvUI\media\textures\dps:15:15|t]]
-}
 local leader = [[|TInterface\GroupFrame\UI-Group-LeaderIcon:12:12|t]]
 local specialChatIcons
 
