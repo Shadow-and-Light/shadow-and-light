@@ -39,19 +39,33 @@ local function configTable()
 				func = function() E:GetModule('SLE'):Reset("unitframes") end,
 			},
 			indicators = {
-				order = 5,
+				order = 4,
 				type = "group",
 				name = L["Player Frame Indicators"],
 				guiInline = true,
 				args = {
 					combaticopos = {
-						order = 6,
+						order = 1,
 						type = "select",
 						name = L["Combat Position"],
 						desc = L["Set the point to show combat icon"],
 						get = function(info) return E.db.sle.combatico.pos end,
 						set = function(info, value) E.db.sle.combatico.pos = value; UF:Update_CombatIndicator() end,
 						values = positionValues
+					},
+					roleicons = {
+						order = 2,
+						type = "select",
+						name = L["LFG Icons"],
+						desc = L["Choose what icon set will unitframes and chat use."],
+						get = function(info) return E.db.sle.roleicons end,
+						set = function(info, value) E.db.sle.roleicons = value; E:GetModule('Chat'):CheckLFGRoles(); UF:UpdateAllHeaders() end,
+						values = {
+							["ElvUI"] = "ElvUI",
+							["SupervillainUI"] = "Supervillain UI",
+							["Blizzard"] = "Blizzard",
+							["MiirGui"] = "MiirGui",
+						},
 					},
 				},
 			},
