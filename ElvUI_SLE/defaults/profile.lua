@@ -481,6 +481,8 @@ P['sle'] = {
 		['height'] = 60,
 		['width'] = 512,
 	},
+	
+	['roleicons'] = "ElvUI",
 }
 
 P.chat.editboxhistory = 5
