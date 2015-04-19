@@ -116,6 +116,32 @@ function UB:CreateCoreButton(name, text)
 	end
 end
 
+
+--[[
+A function to create a dropdown button for pretty much anything in any UB's dropdown.
+UB:CreateDropdownButton(parent, name, text, tooltip1, tooltip2, click, addon)
+
+parent - a group the button will be in: Config, Addon, Status, Roll
+name - unique button's name used for table reference and actual name creation
+text - a string that will be shown on button
+tooltip1 - upper line of button's tooltip shown in greay color. Mandatory for creating a tooltip. If tooltip is not needed set to nil
+tooltip2 - lower line of the tooltip shown in white color. If not needed set to nil
+click - a function executed on button click. Preferably in the form of function() <your stuff here> end
+addon - if button's function requires an addon to function should be addon's name for IsAddOnLoaded check. the button will not be shown if check is failed.
+
+To hook your button into UB dropdown use this method:
+
+local function MyButtonInsert()
+	UB:CreateDropdownButton(parent, name, text, tooltip1, tooltip2, click, addon)
+	tinsert(UB.AddonTable, UB.menuHolder[parent][name])
+	UB:FrameSize(true)
+end
+hooksecurefunc(UB, "Initialize", MyButtonInsert)
+
+You can have as many buttons created inside your function as you want.
+
+]]
+
 function UB:CreateDropdownButton(parent, name, text, tooltip1, tooltip2, click, addon)
 	UB.menuHolder[parent][name] = CreateFrame("Button", "SLEUI"..parent..name, UB.menuHolder[parent])
 	local b = UB.menuHolder[parent][name]
@@ -155,7 +181,7 @@ function UB:CreateDropdownButton(parent, name, text, tooltip1, tooltip2, click, 
 			UB:OnEnter()
 			GameTooltip:SetOwner(self)
 			GameTooltip:AddLine(tooltip1, .6, .6, .6, .6, .6, 1)
-			GameTooltip:AddLine(tooltip2, 1, 1, 1, 1, 1, 1)
+			if tooltip2 then GameTooltip:AddLine(tooltip2, 1, 1, 1, 1, 1, 1) end
 			GameTooltip:Show()
 		end)
 		b:SetScript("OnLeave", function(self)
