@@ -6,11 +6,11 @@ local Sk = E:GetModule("Skins")
 
 local BorderColor = E['media'].bordercolor
 local NumBut = 4
-local ToggleTable = {}
-local ConfigTable = {}
-local AddonTable = {}
-local StatusTable = {}
-local RollTable = {}
+UB.ToggleTable = {}
+UB.ConfigTable = {}
+UB.AddonTable = {}
+UB.StatusTable = {}
+UB.RollTable = {}
 
 local function CustomRollCall()
 	local min, max = tonumber(E.db.sle.uibuttons.roll.min), tonumber(E.db.sle.uibuttons.roll.max)
@@ -58,7 +58,7 @@ function UB:CreateFrame()
 
 		UB:ClassicSetup()
 
-		ToggleTable = {
+		UB.ToggleTable = {
 			UB.menuHolder.Config,
 			UB.menuHolder.Reload,
 			UB.menuHolder.MoveUI,
@@ -82,7 +82,7 @@ function UB:CreateFrame()
 		UB:CreateCoreButton("Roll", "R")
 		UB:RollSetup()
 
-		ToggleTable = {
+		UB.ToggleTable = {
 			UB.menuHolder.Config.Toggle,
 			UB.menuHolder.Addon.Toggle,
 			UB.menuHolder.Status.Toggle,
@@ -282,7 +282,7 @@ function UB:ConfigSetup()
 	UB:CreateDropdownButton("Config", "Reload", "/reloadui", L["Reload UI"], L["Click to reload your interface"],  function() ReloadUI() end)
 	UB:CreateDropdownButton("Config", "MoveUI", "/moveui", L["Move UI"], L["Click to unlock moving ElvUI elements"],  function() E:ToggleConfigMode() end)
 	
-	ConfigTable = {
+	UB.ConfigTable = {
 		UB.menuHolder.Config.Elv,
 		UB.menuHolder.Config.SLE,
 		UB.menuHolder.Config.Benik,
@@ -323,20 +323,18 @@ function UB:AddonSetup()
 	UB:CreateDropdownButton("Addon", "xCT", "xCT+", nil, nil, function() xCT_Plus:ToggleConfigTool() end, "xCT+")
 	UB:CreateDropdownButton("Addon", "Swatter", "Swatter", nil, nil, function() Swatter.ErrorShow() end, "!Swatter")
 
-	tinsert(AddonTable, UB.menuHolder.Addon.Manager)
-	tinsert(AddonTable, UB.menuHolder.Addon.Boss)
-	tinsert(AddonTable, UB.menuHolder.Addon.Altoholic)
-	tinsert(AddonTable, UB.menuHolder.Addon.AtlasLoot)
-	tinsert(AddonTable, UB.menuHolder.Addon.WeakAuras)
-	tinsert(AddonTable, UB.menuHolder.Addon.xCT)
-	tinsert(AddonTable, UB.menuHolder.Addon.Swatter)
+	tinsert(UB.AddonTable, UB.menuHolder.Addon.Manager)
+	tinsert(UB.AddonTable, UB.menuHolder.Addon.Boss)
+	tinsert(UB.AddonTable, UB.menuHolder.Addon.Altoholic)
+	tinsert(UB.AddonTable, UB.menuHolder.Addon.AtlasLoot)
+	tinsert(UB.AddonTable, UB.menuHolder.Addon.WeakAuras)
+	tinsert(UB.AddonTable, UB.menuHolder.Addon.xCT)
+	tinsert(UB.AddonTable, UB.menuHolder.Addon.Swatter)
 
 	--Always keep at the bottom--
 	UB:CreateDropdownButton("Addon", "WowLua", "WowLua", nil, nil, function() SlashCmdList["WOWLUA"]("") end, "WowLua")
-	UB:CreateDropdownButton("Addon", "Darth", "DarthUI", nil, nil, function() DarthUI[1]:ToggleConfig() end, "DarthUI")
 
-	tinsert(AddonTable, UB.menuHolder.Addon.WowLua)
-	tinsert(AddonTable, UB.menuHolder.Addon.Darth)
+	tinsert(UB.AddonTable, UB.menuHolder.Addon.WowLua)
 end
 
 function UB:StatusSetup()
@@ -367,7 +365,7 @@ function UB:StatusSetup()
 	UB:CreateDropdownButton("Status", "AFK", L["AFK"], nil, nil,  function() SendChatMessage("" ,"AFK" ) end)
 	UB:CreateDropdownButton("Status", "DND", L["DND"], nil, nil,  function() SendChatMessage("" ,"DND" ) end)
 	
-	StatusTable = {
+	UB.StatusTable = {
 		UB.menuHolder.Status.AFK,
 		UB.menuHolder.Status.DND
 	}
@@ -405,7 +403,7 @@ function UB:RollSetup()
 	UB:CreateDropdownButton("Roll", "Hundred", "1-100", nil, nil,  function() RandomRoll(1, 100) end)
 	UB:CreateDropdownButton("Roll", "Custom", L["Custom"], nil, nil,  function() CusomRollCall() end)
 	
-	RollTable = {
+	UB.RollTable = {
 		UB.menuHolder.Roll.Ten,
 		UB.menuHolder.Roll.Twenty,
 		UB.menuHolder.Roll.Thirty,
@@ -430,24 +428,25 @@ function UB:FrameSize(onLoad)
 	local db = E.db.sle.uibuttons
 	UB:MoverSize()
 
-	for i = 1, #ToggleTable do
-		ToggleTable[i]:Size(db.size)
+	for i = 1, #UB.ToggleTable do
+		UB.ToggleTable[i]:Size(db.size)
 	end
 	if E.private.sle.uiButtonStyle == "dropdown" then
-		UB.menuHolder.Config:Size(db.size * 2.6, (db.size * #ConfigTable)+(db.spacing*(#ConfigTable-1)))
-		for i = 1, #ConfigTable do
-			ConfigTable[i]:Size(db.size * 2.6, db.size)
+		UB.menuHolder.Config:Size(db.size * 2.6, (db.size * #UB.ConfigTable)+(db.spacing*(#UB.ConfigTable-1)))
+		for i = 1, #UB.ConfigTable do
+			UB.ConfigTable[i]:Size(db.size * 2.6, db.size)
 		end
-		for i = 1, #AddonTable do
-			AddonTable[i]:Size(db.size * 3.1, db.size)
+		for i = 1, #UB.AddonTable do
+			-- print(UB.AddonTable[i]:GetName())
+			UB.AddonTable[i]:Size(db.size * 3.1, db.size)
 		end
-		UB.menuHolder.Status:Size(db.size * 2.1, (db.size * #StatusTable)+(db.spacing*(#StatusTable-1)))
-		for i = 1, #StatusTable do
-			StatusTable[i]:Size(db.size * 2.1, db.size)
+		UB.menuHolder.Status:Size(db.size * 2.1, (db.size * #UB.StatusTable)+(db.spacing*(#UB.StatusTable-1)))
+		for i = 1, #UB.StatusTable do
+			UB.StatusTable[i]:Size(db.size * 2.1, db.size)
 		end
-		UB.menuHolder.Roll:Size(db.size * 2.1, (db.size * #RollTable)+(db.spacing*(#RollTable-1)))
-		for i = 1, #RollTable do
-			RollTable[i]:Size(db.size * 2.1, db.size)
+		UB.menuHolder.Roll:Size(db.size * 2.1, (db.size * #UB.RollTable)+(db.spacing*(#UB.RollTable-1)))
+		for i = 1, #UB.RollTable do
+			UB.RollTable[i]:Size(db.size * 2.1, db.size)
 		end
 	end
 	
@@ -480,13 +479,13 @@ function UB:UpdateAddonLayout(load)
 	UB.menuHolder.Addon:Point(db.point, button, db.anchor, db.xoffset, db.yoffset)
 	if load then
 		UB.menuHolder.Addon.Manager:Point("TOP", UB.menuHolder.Addon, "TOP", 0, 0)
-		for i = 2, #AddonTable do
-			if AddonTable[i].shown then
-				AddonTable[i]:Point("TOP", UB.menuHolder.Addon.Manager, "BOTTOM", 0, -(count * (db.size)) - (count + 1) * (E.PixelMode and db.spacing or (db.spacing+2))+(E.PixelMode and 0 or 1))
-				AddonTable[i]:Show()
+		for i = 2, #UB.AddonTable do
+			if UB.AddonTable[i].shown then
+				UB.AddonTable[i]:Point("TOP", UB.menuHolder.Addon.Manager, "BOTTOM", 0, -(count * (db.size)) - (count + 1) * (E.PixelMode and db.spacing or (db.spacing+2))+(E.PixelMode and 0 or 1))
+				UB.AddonTable[i]:Show()
 				count = count + 1
 			else
-				AddonTable[i]:Hide()
+				UB.AddonTable[i]:Hide()
 			end
 		end
 		UB.menuHolder.Addon:Size(db.size * 3.1, (db.size * (count+1))+(db.spacing*(count)))
@@ -521,8 +520,8 @@ end
 
 function UB:Positioning(load)
 	local db = E.db.sle.uibuttons
-	for i = 1, #ToggleTable do
-		ToggleTable[i]:ClearAllPoints()
+	for i = 1, #UB.ToggleTable do
+		UB.ToggleTable[i]:ClearAllPoints()
 	end
 	--position check
 	if db.position == "uib_vert" then
@@ -531,8 +530,8 @@ function UB:Positioning(load)
 		else
 			UB.menuHolder.Config:Point("TOP", UB.menuHolder, "TOP", 0, (E.PixelMode and -1 or -2))
 		end
-		for i = 2, #ToggleTable do
-			ToggleTable[i]:Point("TOP", ToggleTable[i-1], "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
+		for i = 2, #UB.ToggleTable do
+			UB.ToggleTable[i]:Point("TOP", UB.ToggleTable[i-1], "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
 		end
 	else
 		if E.private.sle.uiButtonStyle == "dropdown" then
@@ -540,8 +539,8 @@ function UB:Positioning(load)
 		else
 			UB.menuHolder.Config:Point("LEFT", UB.menuHolder, "LEFT", (E.PixelMode and 1 or 2), 0)
 		end
-		for i = 2, #ToggleTable do
-			ToggleTable[i]:Point("LEFT", ToggleTable[i-1], "RIGHT", (E.PixelMode and db.spacing or db.spacing+2), 0)
+		for i = 2, #UB.ToggleTable do
+			UB.ToggleTable[i]:Point("LEFT", UB.ToggleTable[i-1], "RIGHT", (E.PixelMode and db.spacing or db.spacing+2), 0)
 		end
 	end
 	if E.private.sle.uiButtonStyle == "dropdown" then
