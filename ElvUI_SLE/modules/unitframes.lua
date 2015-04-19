@@ -305,3 +305,75 @@ if E.myclass == "WARLOCK" then
 	ShardBar.powtext = dfbar:CreateFontString(nil, 'OVERLAY')
 	ShardBar.powtext:SetFont("Fonts\\FRIZQT__.TTF", 10, "OUTLINE")
 end
+
+local specNameToRole = {}
+for i = 1, GetNumClasses() do
+	local _, class, classID = GetClassInfo(i)
+	specNameToRole[class] = {}
+	for j = 1, GetNumSpecializationsForClassID(classID) do
+		local _, spec, _, _, _, role = GetSpecializationInfoForClassID(classID, j)
+		specNameToRole[class][spec] = role
+	end
+end
+
+function UF:UpdateRoleIcon()
+    local lfdrole = self.LFDRole
+    if not self.db then return; end
+    local db = self.db.roleIcon;
+    if (not db) or (db and not db.enable) then
+        lfdrole:Hide()
+        return
+    end
+    
+    local isInstance, instanceType = IsInInstance()
+    local role
+    if isInstance and instanceType == "pvp" then
+        local name = GetUnitName(self.unit, true)
+        local index = GetBattleFieldIndexFromUnitName(name)
+        if index then
+            local _, _, _, _, _, _, _, _, classToken, _, _, _, _, _, _, talentSpec = GetBattlefieldScore(index)
+            if classToken and talentSpec then
+                role = specNameToRole[classToken][talentSpec]
+            else
+                role = UnitGroupRolesAssigned(self.unit) --Fallback
+            end
+        else
+            role = UnitGroupRolesAssigned(self.unit) --Fallback
+        end
+    else
+        role = UnitGroupRolesAssigned(self.unit)
+        if self.isForced and role == 'NONE' then
+            local rnd = random(1, 3)
+            role = rnd == 1 and "TANK" or (rnd == 2 and "HEALER" or (rnd == 3 and "DAMAGER"))
+        end
+    end
+    if role ~= 'NONE' and (self.isForced or UnitIsConnected(self.unit)) then
+        lfdrole:SetTexture(SLE.rolePaths[E.db.sle.roleicons][role])
+        lfdrole:Show()
+    else
+        lfdrole:Hide()
+    end
+end
+local function SetRoleIcons()
+    for _, header in pairs(UF.headers) do
+        local name = header.groupName
+        local db = UF.db['units'][name]
+        for i = 1, header:GetNumChildren() do
+            local group = select(i, header:GetChildren())
+            for j = 1, group:GetNumChildren() do
+                local unitbutton = select(j, group:GetChildren())
+                if unitbutton.LFDRole and unitbutton.LFDRole.Override then
+                    unitbutton.LFDRole.Override = UF.UpdateRoleIcon
+                end
+            end
+        end
+    end
+    
+    UF:UpdateAllHeaders()
+end
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent", function(self, event)
+    self:UnregisterEvent(event)
+    SetRoleIcons()
+end)
