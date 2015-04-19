@@ -115,3 +115,26 @@ SLE.SpecialChatIcons = {
 	["KR"] = {},
 	["TW"] = {},
 }
+
+SLE.rolePaths = {
+	["ElvUI"] = {
+		TANK = [[Interface\AddOns\ElvUI\media\textures\tank]],
+		HEALER = [[Interface\AddOns\ElvUI\media\textures\healer]],
+		DAMAGER = [[Interface\AddOns\ElvUI\media\textures\dps]]
+	},
+	["SupervillainUI"] = {
+		TANK = [[Interface\AddOns\ElvUI_SLE\media\textures\role\svui-tank]],
+		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\svui-healer]],
+		DAMAGER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\svui-dps]]
+	},
+	["Blizzard"] = {
+		TANK = [[Interface\AddOns\ElvUI_SLE\media\textures\role\blizz-tank]],
+		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\blizz-healer]],
+		DAMAGER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\blizz-dps]]
+	},
+	["MiirGui"] = {
+		TANK = [[Interface\AddOns\ElvUI_SLE\media\textures\role\mg-tank]],
+		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\mg-healer]],
+		DAMAGER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\mg-dps]]
+	},
+}
