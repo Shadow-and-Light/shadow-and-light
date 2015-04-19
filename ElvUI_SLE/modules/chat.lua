@@ -284,7 +284,7 @@ function CH:CheckLFGRoles()
 
 	local role = UnitGroupRolesAssigned("player")
 	if(role) then
-		lfgRoles[PLAYER_NAME] = rolePaths[role]
+		lfgRoles[PLAYER_NAME] = "|T"..SLE.rolePaths[E.db.sle.roleicons][role]..":15:15:0:0:64:64:2:56:2:56|t"
 	end
 
 	for i=1, GetNumGroupMembers() do
@@ -294,7 +294,7 @@ function CH:CheckLFGRoles()
 
 			if(role and name) then
 				name = (realm and realm ~= '') and name..'-'..realm or name ..'-'..PLAYER_REALM;
-				lfgRoles[name] = rolePaths[role]
+				lfgRoles[name] = role ~= "NONE" and "|T"..SLE.rolePaths[E.db.sle.roleicons][role]..":15:15:0:0:64:64:2:56:2:56|t" or nil
 			end
 		end
 	end
