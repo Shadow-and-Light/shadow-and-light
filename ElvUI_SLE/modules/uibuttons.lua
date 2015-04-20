@@ -116,33 +116,56 @@ function UB:CreateCoreButton(name, text)
 	end
 end
 
-
 --[[
 A function to create a dropdown button for pretty much anything in any UB's dropdown.
-UB:CreateDropdownButton(parent, name, text, tooltip1, tooltip2, click, addon)
+UB:CreateDropdownButton(always, parent, name, text, tooltip1, tooltip2, click, addon)
 
-parent - a group the button will be in: Config, Addon, Status, Roll
-name - unique button's name used for table reference and actual name creation
-text - a string that will be shown on button
-tooltip1 - upper line of button's tooltip shown in greay color. Mandatory for creating a tooltip. If tooltip is not needed set to nil
-tooltip2 - lower line of the tooltip shown in white color. If not needed set to nil
-click - a function executed on button click. Preferably in the form of function() <your stuff here> end
-addon - if button's function requires an addon to function should be addon's name for IsAddOnLoaded check. the button will not be shown if check is failed.
+always - (boolean) true if the button should be shown no matter what
+parent - (string) a group the button will be in: Config, Addon, Status, Roll
+name - (string) unique button's name used for table reference and actual name creation
+text - (string) a string that will be shown on button
+tooltip1 (string) - upper line of button's tooltip shown in yellow-ish color. Mandatory for creating a tooltip. If tooltip is not needed set to nil
+tooltip2 (string) - lower line of the tooltip shown in white color. If not needed set to nil
+click - (function) a function executed on button click. Preferably in the form of function() <your stuff here> end
+addon (string) - if button's function requires an addon to function should be addon's name for IsAddOnLoaded check. the button will not be shown if check is failed.
 
 To hook your button into UB dropdown use this method:
 
+local E = ElvUI[1]
+local UB = E:GetModule('SLE_UIButtons');
 local function MyButtonInsert()
-	UB:CreateDropdownButton(parent, name, text, tooltip1, tooltip2, click, addon)
-	tinsert(UB.AddonTable, UB.menuHolder[parent][name])
-	UB:FrameSize(true)
+	UB:CreateDropdownButton(always, parent, name, text, tooltip1, tooltip2, click, addon)
+	tinsert(<TableName>, UB.menuHolder[parent][name])
 end
-hooksecurefunc(UB, "Initialize", MyButtonInsert)
+hooksecurefunc(UB, "InsertButtons", MyButtonInsert)
 
 You can have as many buttons created inside your function as you want.
-
+TableName can be one of four tables: 
+UB.ConfigTable
+UB.AddonTable
+UB.StatusTable
+UB.RollTable
 ]]
-
-function UB:CreateDropdownButton(parent, name, text, tooltip1, tooltip2, click, addon)
+function UB:CreateDropdownButton(always, parent, name, text, tooltip1, tooltip2, click, addon)
+	if type(always) ~= "boolean" then
+		SLE:Print(format("You function contains unappropriate type for 1st argument \""..E["media"].hexvaluecolor.."always|r\" in function "..E["media"].hexvaluecolor.."UB:CreateDropdownButton|r. Your type is "..E["media"].hexvaluecolor.."%s|r (should be \"boolean\"). Parent: "..E["media"].hexvaluecolor.."%s|r. Name: "..E["media"].hexvaluecolor.."%s|r", type(always), parent, name))
+		return
+	elseif not UB.menuHolder[parent] then
+		SLE:Print(format("You function contains unappropriate type for 2nd argument \""..E["media"].hexvaluecolor.."parent|r\" in function "..E["media"].hexvaluecolor.."UB:CreateDropdownButton|r. Parent frame: "..E["media"].hexvaluecolor.."UB.menuHolder.%s|r doesn't exist.", parent))
+		return
+	elseif not name or type(name) ~= "string" then
+		SLE:Print(format("You function contains unappropriate type for 3rd argument \""..E["media"].hexvaluecolor.."name|r\" in function "..E["media"].hexvaluecolor.."UB:CreateDropdownButton|r. Your type is "..E["media"].hexvaluecolor.."%s|r (should be \"strigh\"). Parent: "..E["media"].hexvaluecolor.."%s|r.", type(name), parent))
+		return
+	elseif type(click) ~= "function" then
+		SLE:Print(format("You function contains unappropriate type for 7th argument \""..E["media"].hexvaluecolor.."click|r\" in function "..E["media"].hexvaluecolor.."UB:CreateDropdownButton|r. Your type is "..E["media"].hexvaluecolor.."%s|r (should be \"function\"). Parent: "..E["media"].hexvaluecolor.."%s|r. Name: "..E["media"].hexvaluecolor.."%s|r", type(click), parent, name))
+		return
+	elseif (tooltip1 and type(tooltip1) ~= "string") or (tooltip2 and type(tooltip2) ~= "string") then
+		SLE:Print(format("You function contains unappropriate type for 5th or 6th argument \""..E["media"].hexvaluecolor.."tooltip|r\" in function "..E["media"].hexvaluecolor.."UB:CreateDropdownButton|r. Parent: "..E["media"].hexvaluecolor.."%s|r. Name: "..E["media"].hexvaluecolor.."%s|r", parent, name))
+		return
+	elseif (addon and type(addon) ~= "string" and type(addon) ~= nil and name ~= "Boss") then
+		SLE:Print(format("You function contains unappropriate type for 8rd argument \""..E["media"].hexvaluecolor.."addon|r\" in function "..E["media"].hexvaluecolor.."UB:CreateDropdownButton|r. Your type is "..E["media"].hexvaluecolor.."%s|r (should be \"strigh\"). Parent: "..E["media"].hexvaluecolor.."%s|r. Name: "..E["media"].hexvaluecolor.."%s|r", type(addon), parent, name))
+		return
+	end
 	UB.menuHolder[parent][name] = CreateFrame("Button", "SLEUI"..parent..name, UB.menuHolder[parent])
 	local b = UB.menuHolder[parent][name]
 	local toggle = UB.menuHolder[parent].Toggle
@@ -162,6 +185,8 @@ function UB:CreateDropdownButton(parent, name, text, tooltip1, tooltip2, click, 
 		else
 			b.shown = false
 		end
+	elseif always and type(always) == "boolean" then
+		b.shown = true
 	elseif addon then
 		if IsAddOnLoaded(addon) then
 			b.shown = true
@@ -169,6 +194,7 @@ function UB:CreateDropdownButton(parent, name, text, tooltip1, tooltip2, click, 
 			b.shown = false
 		end
 	end
+	if not b.shown then return end
 	
 	b:SetScript("OnClick", function(self)
 		click()
@@ -180,7 +206,7 @@ function UB:CreateDropdownButton(parent, name, text, tooltip1, tooltip2, click, 
 		b:SetScript("OnEnter", function(self)
 			UB:OnEnter()
 			GameTooltip:SetOwner(self)
-			GameTooltip:AddLine(tooltip1, .6, .6, .6, .6, .6, 1)
+			GameTooltip:AddLine(tooltip1, 1, .96, .41, .6, .6, 1)
 			if tooltip2 then GameTooltip:AddLine(tooltip2, 1, 1, 1, 1, 1, 1) end
 			GameTooltip:Show()
 		end)
@@ -194,14 +220,28 @@ function UB:CreateDropdownButton(parent, name, text, tooltip1, tooltip2, click, 
 	end
 	Sk:HandleButton(b)
 	
-	if text then
-		local t = b:CreateFontString(nil,"OVERLAY",b)
-		t:FontTemplate()
-		t:SetPoint("CENTER", b, 'CENTER', 0, -1)
-		t:SetJustifyH("CENTER")
-		t:SetText(text)
-		b:SetFontString(t)
+	if text and type(text) == "string" then
+		b.text = b:CreateFontString(nil,"OVERLAY",b)
+		b.text:FontTemplate()
+		b.text:SetPoint("CENTER", b, 'CENTER', 0, -1)
+		b.text:SetJustifyH("CENTER")
+		b.text:SetText(text)
+		b:SetFontString(b.text)
 	end
+	
+	tinsert(UB[parent.."Table"], b)
+end
+
+function UB:CreateSeparator(parent, name, size, space)
+	UB.menuHolder[parent][name] = CreateFrame("Frame", "SLEUI"..parent..name, UB.menuHolder[parent])
+	local f = UB.menuHolder[parent][name]
+	f.isSeparator = true
+	f.shown = true
+	f.size = size or 1
+	f.space = space or 2
+	f:CreateBackdrop()
+	
+	tinsert(UB[parent.."Table"], f)
 end
 
 function UB:ToggleCats()
@@ -302,19 +342,13 @@ function UB:ConfigSetup()
 	button:HookScript('OnEnter', UB.OnEnter)
 	button:HookScript('OnLeave', UB.OnLeave)
 
-	UB:CreateDropdownButton("Config", "Elv", "ElvUI", L["ElvUI Config"], L["Click to toggle config window"],  function() E:ToggleConfig() end)
-	UB:CreateDropdownButton("Config", "SLE", "S&L", L["S&L Config"], L["Click to toggle Shadow & Light config group"],  function() E:ToggleConfig(); ACD:SelectGroup("ElvUI", "sle", "options") end)
-	UB:CreateDropdownButton("Config", "Benik", "BenikUI", L["BenikUI Config"], L["Click to toggle BenikUI config group"],  function() E:ToggleConfig(); ACD:SelectGroup("ElvUI", "bui") end)
-	UB:CreateDropdownButton("Config", "Reload", "/reloadui", L["Reload UI"], L["Click to reload your interface"],  function() ReloadUI() end)
-	UB:CreateDropdownButton("Config", "MoveUI", "/moveui", L["Move UI"], L["Click to unlock moving ElvUI elements"],  function() E:ToggleConfigMode() end)
-	
-	UB.ConfigTable = {
-		UB.menuHolder.Config.Elv,
-		UB.menuHolder.Config.SLE,
-		UB.menuHolder.Config.Benik,
-		UB.menuHolder.Config.Reload,
-		UB.menuHolder.Config.MoveUI,
-	}
+	--UB:CreateSeparator("Config", "SLE_StartSeparator", 1, 2)
+	UB:CreateDropdownButton(true, "Config", "Elv", "ElvUI", L["ElvUI Config"], L["Click to toggle config window"],  function() E:ToggleConfig() end)
+	UB:CreateDropdownButton(true, "Config", "SLE", "S&L", L["S&L Config"], L["Click to toggle Shadow & Light config group"],  function() E:ToggleConfig(); ACD:SelectGroup("ElvUI", "sle", "options") end)
+	UB:CreateSeparator("Config", "SLE_FirstSeparator", 4, 2)
+	UB:CreateDropdownButton(true, "Config", "Reload", "/reloadui", L["Reload UI"], L["Click to reload your interface"],  function() ReloadUI() end)
+	UB:CreateDropdownButton(true, "Config", "MoveUI", "/moveui", L["Move UI"], L["Click to unlock moving ElvUI elements"],  function() E:ToggleConfigMode() end)
+	--UB:CreateSeparator("Config", "SLE_EndSeparator", 1, 2)
 end
 
 function UB:AddonSetup()
@@ -341,26 +375,20 @@ function UB:AddonSetup()
 	button:HookScript('OnEnter', UB.OnEnter)
 	button:HookScript('OnLeave', UB.OnLeave)
 	
-	UB:CreateDropdownButton("Addon", "Manager", L["AddOns"], L["AddOns Manager"], L["Click to toggle the AddOn Manager frame."],  function() GameMenuButtonAddons:Click() end)
-	UB:CreateDropdownButton("Addon", "Boss", L["Boss Mod"], L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], function() UB.menuHolder.Addon.Boss.bossmode() end, true)
-	UB:CreateDropdownButton("Addon", "Altoholic", "Altoholic", nil, nil, function() Altoholic:ToggleUI() end, "Altoholic")
-	UB:CreateDropdownButton("Addon", "AtlasLoot", "AtlasLoot", nil, nil, function() AtlasLoot.GUI:Toggle() end, "AtlasLoot")
-	UB:CreateDropdownButton("Addon", "WeakAuras", "WeakAuras", nil, nil, function() SlashCmdList.WEAKAURAS() end, "WeakAuras")
-	UB:CreateDropdownButton("Addon", "xCT", "xCT+", nil, nil, function() xCT_Plus:ToggleConfigTool() end, "xCT+")
-	UB:CreateDropdownButton("Addon", "Swatter", "Swatter", nil, nil, function() Swatter.ErrorShow() end, "!Swatter")
+	--UB:CreateSeparator("Addon", "SLE_StartSeparator", 1, 2)
+	UB:CreateDropdownButton(true, "Addon", "Manager", L["AddOns"], L["AddOns Manager"], L["Click to toggle the AddOn Manager frame."],  function() GameMenuButtonAddons:Click() end)
+	UB:CreateDropdownButton(false, "Addon", "Boss", L["Boss Mod"], L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], function() UB.menuHolder.Addon.Boss.bossmode() end, true)
+	UB:CreateSeparator("Addon", "SLE_FirstSeparator", 4, 2)
+	UB:CreateDropdownButton(false, "Addon", "Altoholic", "Altoholic", nil, nil, function() Altoholic:ToggleUI() end, "Altoholic")
+	UB:CreateDropdownButton(false, "Addon", "AtlasLoot", "AtlasLoot", nil, nil, function() AtlasLoot.GUI:Toggle() end, "AtlasLoot")
+	UB:CreateDropdownButton(false, "Addon", "WeakAuras", "WeakAuras", nil, nil, function() SlashCmdList.WEAKAURAS() end, "WeakAuras")
+	UB:CreateDropdownButton(false, "Addon", "xCT", "xCT+", nil, nil, function() xCT_Plus:ToggleConfigTool() end, "xCT+")
+	UB:CreateDropdownButton(false, "Addon", "Swatter", "Swatter", nil, nil, function() Swatter.ErrorShow() end, "!Swatter")
 
-	tinsert(UB.AddonTable, UB.menuHolder.Addon.Manager)
-	tinsert(UB.AddonTable, UB.menuHolder.Addon.Boss)
-	tinsert(UB.AddonTable, UB.menuHolder.Addon.Altoholic)
-	tinsert(UB.AddonTable, UB.menuHolder.Addon.AtlasLoot)
-	tinsert(UB.AddonTable, UB.menuHolder.Addon.WeakAuras)
-	tinsert(UB.AddonTable, UB.menuHolder.Addon.xCT)
-	tinsert(UB.AddonTable, UB.menuHolder.Addon.Swatter)
 
 	--Always keep at the bottom--
-	UB:CreateDropdownButton("Addon", "WowLua", "WowLua", nil, nil, function() SlashCmdList["WOWLUA"]("") end, "WowLua")
-
-	tinsert(UB.AddonTable, UB.menuHolder.Addon.WowLua)
+	UB:CreateDropdownButton(false, "Addon", "WowLua", "WowLua", nil, nil, function() SlashCmdList["WOWLUA"]("") end, "WowLua")
+	--UB:CreateSeparator("Addon", "SLE_EndSeparator", 1, 2)
 end
 
 function UB:StatusSetup()
@@ -388,13 +416,8 @@ function UB:StatusSetup()
 	button:HookScript('OnEnter', UB.OnEnter)
 	button:HookScript('OnLeave', UB.OnLeave)
 
-	UB:CreateDropdownButton("Status", "AFK", L["AFK"], nil, nil,  function() SendChatMessage("" ,"AFK" ) end)
-	UB:CreateDropdownButton("Status", "DND", L["DND"], nil, nil,  function() SendChatMessage("" ,"DND" ) end)
-	
-	UB.StatusTable = {
-		UB.menuHolder.Status.AFK,
-		UB.menuHolder.Status.DND
-	}
+	UB:CreateDropdownButton(true, "Status", "AFK", L["AFK"], nil, nil,  function() SendChatMessage("" ,"AFK" ) end)
+	UB:CreateDropdownButton(true, "Status", "DND", L["DND"], nil, nil,  function() SendChatMessage("" ,"DND" ) end)
 end
 
 function UB:RollSetup()
@@ -422,21 +445,12 @@ function UB:RollSetup()
 	button:HookScript('OnEnter', UB.OnEnter)
 	button:HookScript('OnLeave', UB.OnLeave)
 	
-	UB:CreateDropdownButton("Roll", "Ten", "1-10", nil, nil,  function() RandomRoll(1, 10) end)
-	UB:CreateDropdownButton("Roll", "Twenty", "1-20", nil, nil,  function() RandomRoll(1, 20) end)
-	UB:CreateDropdownButton("Roll", "Thirty", "1-30", nil, nil,  function() RandomRoll(1, 30) end)
-	UB:CreateDropdownButton("Roll", "Forty", "1-40", nil, nil,  function() RandomRoll(1, 40) end)
-	UB:CreateDropdownButton("Roll", "Hundred", "1-100", nil, nil,  function() RandomRoll(1, 100) end)
-	UB:CreateDropdownButton("Roll", "Custom", L["Custom"], nil, nil,  function() CusomRollCall() end)
-	
-	UB.RollTable = {
-		UB.menuHolder.Roll.Ten,
-		UB.menuHolder.Roll.Twenty,
-		UB.menuHolder.Roll.Thirty,
-		UB.menuHolder.Roll.Forty,
-		UB.menuHolder.Roll.Hundred,
-		UB.menuHolder.Roll.Custom,
-	}
+	UB:CreateDropdownButton(true, "Roll", "Ten", "1-10", nil, nil,  function() RandomRoll(1, 10) end)
+	UB:CreateDropdownButton(true, "Roll", "Twenty", "1-20", nil, nil,  function() RandomRoll(1, 20) end)
+	UB:CreateDropdownButton(true, "Roll", "Thirty", "1-30", nil, nil,  function() RandomRoll(1, 30) end)
+	UB:CreateDropdownButton(true, "Roll", "Forty", "1-40", nil, nil,  function() RandomRoll(1, 40) end)
+	UB:CreateDropdownButton(true, "Roll", "Hundred", "1-100", nil, nil,  function() RandomRoll(1, 100) end)
+	UB:CreateDropdownButton(true, "Roll", "Custom", L["Custom"], nil, nil,  function() CusomRollCall() end)
 end
 
 function UB:MoverSize()
@@ -452,95 +466,52 @@ end
 
 function UB:FrameSize(onLoad)
 	local db = E.db.sle.uibuttons
+	if not db.size then return end
 	UB:MoverSize()
 
 	for i = 1, #UB.ToggleTable do
 		UB.ToggleTable[i]:Size(db.size)
 	end
+
 	if E.private.sle.uiButtonStyle == "dropdown" then
-		UB.menuHolder.Config:Size(db.size * 2.6, (db.size * #UB.ConfigTable)+(db.spacing*(#UB.ConfigTable-1)))
-		for i = 1, #UB.ConfigTable do
-			UB.ConfigTable[i]:Size(db.size * 2.6, db.size)
-		end
-		for i = 1, #UB.AddonTable do
-			UB.AddonTable[i]:Size(db.size * 3.1, db.size)
-		end
-		UB.menuHolder.Status:Size(db.size * 2.1, (db.size * #UB.StatusTable)+(db.spacing*(#UB.StatusTable-1)))
-		for i = 1, #UB.StatusTable do
-			UB.StatusTable[i]:Size(db.size * 2.1, db.size)
-		end
-		UB.menuHolder.Roll:Size(db.size * 2.1, (db.size * #UB.RollTable)+(db.spacing*(#UB.RollTable-1)))
-		for i = 1, #UB.RollTable do
-			UB.RollTable[i]:Size(db.size * 2.1, db.size)
+		for i = 1, #UB.MetaTable do
+			local group = UB.MetaTable[i].group
+			local mass = UB[group.."Table"]
+			for n = 1, #mass do
+				if mass[n].isSeparator then
+					mass[n]:Size((db.size * 3.1) - 2, mass[n].size)
+				else
+					mass[n]:Size(db.size * 3.1, db.size)	
+				end
+			end
 		end
 	end
 	
 	UB:Positioning(onLoad)
 end
 
-function UB:UpdateConfigLayout(load)
+function UB:UpdateDropdownLayout(load, group, backdrop)
+	local count = -1
+	local sepS, sepC = 0, 0
+	local header = UB.menuHolder[group]
 	local db = E.db.sle.uibuttons
-	local button = UB.menuHolder.Config.Toggle
-	UB.menuHolder.Config:ClearAllPoints()
-	UB.menuHolder.Config:Point(db.point, button, db.anchor, db.xoffset, db.yoffset)
+	header:ClearAllPoints()
+	header:Point(db.point, header.Toggle, db.anchor, db.xoffset, db.yoffset)
 	if load then
-		UB.menuHolder.Config.Elv:Point("TOP", UB.menuHolder.Config, "TOP", 0, 0)
-		UB.menuHolder.Config.SLE:Point("TOP", UB.menuHolder.Config.Elv, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
-		if IsAddOnLoaded("ElvUI_BenikUI") then 
-			UB.menuHolder.Config.Benik:Point("TOP", UB.menuHolder.Config.SLE, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
-			UB.menuHolder.Config.Reload:Point("TOP", UB.menuHolder.Config.Benik, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
-		else
-			UB.menuHolder.Config.Reload:Point("TOP", UB.menuHolder.Config.SLE, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
+		local T = UB[group.."Table"]
+		for i = 1, #T do
+			local button, prev, next = T[i], T[i-1], T[i+1]
+			local y_offset = prev and ((E.PixelMode and -db.spacing or -(db.spacing+2))-(prev.isSeparator and prev.space or 0)-(button.isSeparator and button.space or 0)) or 0
+			button:Point("TOP", (prev or header), (prev and "BOTTOM" or "TOP"), 0, y_offset)
+			count = button.isSeparator and count or count + 1
+			sepS = (button.isSeparator and sepS + ((prev and 2 or 1)*button.space + button.size)) or sepS
+			sepC = button.isSeparator and sepC + 1 or sepC
 		end
-		UB.menuHolder.Config.MoveUI:Point("TOP", UB.menuHolder.Config.Reload, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
-	end
-end
-
-function UB:UpdateAddonLayout(load)
-	local count = 0
-	local button = UB.menuHolder.Addon.Toggle
-	local db = E.db.sle.uibuttons
-	UB.menuHolder.Addon:ClearAllPoints()
-	UB.menuHolder.Addon:Point(db.point, button, db.anchor, db.xoffset, db.yoffset)
-	if load then
-		UB.menuHolder.Addon.Manager:Point("TOP", UB.menuHolder.Addon, "TOP", 0, 0)
-		for i = 2, #UB.AddonTable do
-			if UB.AddonTable[i].shown then
-				UB.AddonTable[i]:Point("TOP", UB.menuHolder.Addon.Manager, "BOTTOM", 0, -(count * (db.size)) - (count + 1) * (E.PixelMode and db.spacing or (db.spacing+2))+(E.PixelMode and 0 or 1))
-				UB.AddonTable[i]:Show()
-				count = count + 1
-			else
-				UB.AddonTable[i]:Hide()
-			end
+		if backdrop then
+			header:CreateBackdrop("Transparent")
 		end
-		UB.menuHolder.Addon:Size(db.size * 3.1, (db.size * (count+1))+(db.spacing*(count)))
 	end
-end
-
-function UB:UpdateStatusLayout(load)
-	local button = UB.menuHolder.Status.Toggle
-	local db = E.db.sle.uibuttons
-	UB.menuHolder.Status:ClearAllPoints()
-	UB.menuHolder.Status:Point(db.point, button, db.anchor, db.xoffset, db.yoffset)
-	if load then
-		UB.menuHolder.Status.AFK:Point("TOP", UB.menuHolder.Status, "TOP", 0, 0)
-		UB.menuHolder.Status.DND:Point("TOP", UB.menuHolder.Status.AFK, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
-	end
-end
-
-function UB:UpdateRollLayout(load)
-	local button = UB.menuHolder.Roll.Toggle
-	local db = E.db.sle.uibuttons
-	UB.menuHolder.Roll:ClearAllPoints()
-	UB.menuHolder.Roll:Point(db.point, button, db.anchor, db.xoffset, db.yoffset)
-	if load then
-		UB.menuHolder.Roll.Ten:Point("TOP", UB.menuHolder.Roll, "TOP", 0, 0)
-		UB.menuHolder.Roll.Twenty:Point("TOP", UB.menuHolder.Roll.Ten, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
-		UB.menuHolder.Roll.Thirty:Point("TOP", UB.menuHolder.Roll.Twenty, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
-		UB.menuHolder.Roll.Forty:Point("TOP", UB.menuHolder.Roll.Thirty, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
-		UB.menuHolder.Roll.Hundred:Point("TOP", UB.menuHolder.Roll.Forty, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
-		UB.menuHolder.Roll.Custom:Point("TOP", UB.menuHolder.Roll.Hundred, "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
-	end
+	header:Size(db.size * 3.1, (db.size * (count+1))+(db.spacing*(count))+sepS+(.5*sepC))
 end
 
 function UB:Positioning(load)
@@ -569,10 +540,9 @@ function UB:Positioning(load)
 		end
 	end
 	if E.private.sle.uiButtonStyle == "dropdown" then
-		UB:UpdateConfigLayout(load)
-		UB:UpdateAddonLayout(load)
-		UB:UpdateStatusLayout(load)
-		UB:UpdateRollLayout(load)
+		for i = 1, #UB.MetaTable do
+			UB:UpdateDropdownLayout(load, UB.MetaTable[i].group, UB.MetaTable[i].back)
+		end
 	end
 end
 
@@ -585,8 +555,39 @@ function UB:Toggle()
 	end
 end
 
+function UB:CreateMetaTable()
+	if E.private.sle.uiButtonStyle ~= "dropdown" then return end
+	UB.MetaTable = {
+		[1] = {
+			group = "Config",
+			back = true,
+		},
+		[2] = {
+			group = "Addon",
+			back = true,
+		},
+		[3] = {
+			group = "Status",
+			back = false,
+		},
+		[4] = {
+			group = "Roll",
+			back = false,
+		},
+	}
+end
+
+function UB:InsertButtons()
+	--This function is purely cosmetic and used only for hooking other button creating funct to it by any external addon
+end
+
 function UB:Initialize()
 	UB:CreateFrame()
+	
+	UB:InsertButtons() --For external buttons
+	
+	UB:CreateMetaTable()
+	
 	UB:FrameSize(true)
 	UB:Toggle()
 	
