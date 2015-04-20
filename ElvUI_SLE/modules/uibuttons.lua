@@ -67,18 +67,22 @@ function UB:CreateFrame()
 		}
 	else
 		UB.menuHolder.Config = CreateFrame("Frame", "SLEUIConfigHolder", UB.menuHolder)
+		UB.menuHolder.Config:CreateBackdrop("Transparent")
 		UB:CreateCoreButton("Config", "C")
 		UB:ConfigSetup()
 
 		UB.menuHolder.Addon = CreateFrame("Frame", "SLEUIAddonHolder", UB.menuHolder)
+		UB.menuHolder.Addon:CreateBackdrop("Transparent")
 		UB:CreateCoreButton("Addon", "A")
 		UB:AddonSetup()
 
 		UB.menuHolder.Status = CreateFrame("Frame", "SLEUIStatusHolder", UB.menuHolder)
+		UB.menuHolder.Status:CreateBackdrop("Transparent")
 		UB:CreateCoreButton("Status", "S")
 		UB:StatusSetup()
 
 		UB.menuHolder.Roll = CreateFrame("Frame", "SLEUIRollHolder", UB.menuHolder)
+		UB.menuHolder.Roll:CreateBackdrop("Transparent")
 		UB:CreateCoreButton("Roll", "R")
 		UB:RollSetup()
 
@@ -135,17 +139,12 @@ local E = ElvUI[1]
 local UB = E:GetModule('SLE_UIButtons');
 local function MyButtonInsert()
 	UB:CreateDropdownButton(always, parent, name, text, tooltip1, tooltip2, click, addon)
-	tinsert(<TableName>, UB.menuHolder[parent][name])
 end
 hooksecurefunc(UB, "InsertButtons", MyButtonInsert)
 
 You can have as many buttons created inside your function as you want.
-TableName can be one of four tables: 
-UB.ConfigTable
-UB.AddonTable
-UB.StatusTable
-UB.RollTable
 ]]
+
 function UB:CreateDropdownButton(always, parent, name, text, tooltip1, tooltip2, click, addon)
 	if type(always) ~= "boolean" then
 		SLE:Print(format("You function contains unappropriate type for 1st argument \""..E["media"].hexvaluecolor.."always|r\" in function "..E["media"].hexvaluecolor.."UB:CreateDropdownButton|r. Your type is "..E["media"].hexvaluecolor.."%s|r (should be \"boolean\"). Parent: "..E["media"].hexvaluecolor.."%s|r. Name: "..E["media"].hexvaluecolor.."%s|r", type(always), parent, name))
@@ -239,7 +238,7 @@ function UB:CreateSeparator(parent, name, size, space)
 	f.shown = true
 	f.size = size or 1
 	f.space = space or 2
-	f:CreateBackdrop()
+	f:CreateBackdrop("Transparent")
 	
 	tinsert(UB[parent.."Table"], f)
 end
@@ -464,7 +463,7 @@ function UB:MoverSize()
 	end
 end
 
-function UB:FrameSize(onLoad)
+function UB:FrameSize()
 	local db = E.db.sle.uibuttons
 	if not db.size then return end
 	UB:MoverSize()
@@ -475,7 +474,7 @@ function UB:FrameSize(onLoad)
 
 	if E.private.sle.uiButtonStyle == "dropdown" then
 		for i = 1, #UB.MetaTable do
-			local group = UB.MetaTable[i].group
+			local group = UB.MetaTable[i]
 			local mass = UB[group.."Table"]
 			for n = 1, #mass do
 				if mass[n].isSeparator then
@@ -487,61 +486,54 @@ function UB:FrameSize(onLoad)
 		end
 	end
 	
-	UB:Positioning(onLoad)
+	UB:Positioning()
 end
 
-function UB:UpdateDropdownLayout(load, group, backdrop)
+function UB:UpdateDropdownLayout(group, backdrop)
 	local count = -1
 	local sepS, sepC = 0, 0
 	local header = UB.menuHolder[group]
 	local db = E.db.sle.uibuttons
 	header:ClearAllPoints()
 	header:Point(db.point, header.Toggle, db.anchor, db.xoffset, db.yoffset)
-	if load then
-		local T = UB[group.."Table"]
-		for i = 1, #T do
-			local button, prev, next = T[i], T[i-1], T[i+1]
-			local y_offset = prev and ((E.PixelMode and -db.spacing or -(db.spacing+2))-(prev.isSeparator and prev.space or 0)-(button.isSeparator and button.space or 0)) or 0
-			button:Point("TOP", (prev or header), (prev and "BOTTOM" or "TOP"), 0, y_offset)
-			count = button.isSeparator and count or count + 1
-			sepS = (button.isSeparator and sepS + ((prev and 2 or 1)*button.space + button.size)) or sepS
-			sepC = button.isSeparator and sepC + 1 or sepC
-		end
-		if backdrop then
-			header:CreateBackdrop("Transparent")
-		end
+	local T = UB[group.."Table"]
+	for i = 1, #T do
+		local button, prev, next = T[i], T[i-1], T[i+1]
+		local y_offset = prev and ((E.PixelMode and -db.spacing or -(db.spacing+2))-(prev.isSeparator and prev.space or 0)-(button.isSeparator and button.space or 0)) or 0
+		button:Point("TOP", (prev or header), (prev and "BOTTOM" or "TOP"), 0, y_offset)
+		count = button.isSeparator and count or count + 1
+		sepS = (button.isSeparator and sepS + ((prev and 2 or 1)*button.space + button.size)) or sepS
+		sepC = button.isSeparator and sepC + 1 or sepC
 	end
 	header:Size(db.size * 3.1, (db.size * (count+1))+(db.spacing*(count))+sepS+(.5*sepC))
+	if backdrop then
+		header.backdrop:Show()
+	else
+		header.backdrop:Hide()
+	end
 end
 
-function UB:Positioning(load)
+function UB:Positioning()
 	local db = E.db.sle.uibuttons
-	for i = 1, #UB.ToggleTable do
-		UB.ToggleTable[i]:ClearAllPoints()
-	end
+
 	--position check
+	local header = UB.menuHolder
 	if db.position == "uib_vert" then
-		if E.private.sle.uiButtonStyle == "dropdown" then
-			UB.menuHolder.Config.Toggle:Point("TOP", UB.menuHolder, "TOP", 0, (E.PixelMode and -1 or -2))
-		else
-			UB.menuHolder.Config:Point("TOP", UB.menuHolder, "TOP", 0, (E.PixelMode and -1 or -2))
-		end
-		for i = 2, #UB.ToggleTable do
-			UB.ToggleTable[i]:Point("TOP", UB.ToggleTable[i-1], "BOTTOM", 0, (E.PixelMode and -db.spacing or -(db.spacing+2)))
+		for i = 1, #UB.ToggleTable do
+			local button, prev = UB.ToggleTable[i], UB.ToggleTable[i-1]
+			UB.ToggleTable[i]:ClearAllPoints()
+			UB.ToggleTable[i]:Point("TOP", (prev or header), prev and "BOTTOM" or "TOP", 0, prev and (E.PixelMode and -db.spacing or -(db.spacing+2)) or (E.PixelMode and -1 or -2))
 		end
 	else
-		if E.private.sle.uiButtonStyle == "dropdown" then
-			UB.menuHolder.Config.Toggle:Point("LEFT", UB.menuHolder, "LEFT", (E.PixelMode and 1 or 2), 0)
-		else
-			UB.menuHolder.Config:Point("LEFT", UB.menuHolder, "LEFT", (E.PixelMode and 1 or 2), 0)
-		end
-		for i = 2, #UB.ToggleTable do
-			UB.ToggleTable[i]:Point("LEFT", UB.ToggleTable[i-1], "RIGHT", (E.PixelMode and db.spacing or db.spacing+2), 0)
+		for i = 1, #UB.ToggleTable do
+			local button, prev = UB.ToggleTable[i], UB.ToggleTable[i-1]
+			UB.ToggleTable[i]:ClearAllPoints()
+			UB.ToggleTable[i]:Point("LEFT", (prev or header), prev and "RIGHT" or "LEFT", prev and (E.PixelMode and db.spacing or db.spacing+2) or (E.PixelMode and 1 or 2), 0)
 		end
 	end
 	if E.private.sle.uiButtonStyle == "dropdown" then
 		for i = 1, #UB.MetaTable do
-			UB:UpdateDropdownLayout(load, UB.MetaTable[i].group, UB.MetaTable[i].back)
+			UB:UpdateDropdownLayout(UB.MetaTable[i], E.db.sle.uibuttons.dropdownBackdrop)
 		end
 	end
 end
@@ -558,22 +550,10 @@ end
 function UB:CreateMetaTable()
 	if E.private.sle.uiButtonStyle ~= "dropdown" then return end
 	UB.MetaTable = {
-		[1] = {
-			group = "Config",
-			back = true,
-		},
-		[2] = {
-			group = "Addon",
-			back = true,
-		},
-		[3] = {
-			group = "Status",
-			back = false,
-		},
-		[4] = {
-			group = "Roll",
-			back = false,
-		},
+		"Config",
+		"Addon",
+		"Status",
+		"Roll",
 	}
 end
 
@@ -588,7 +568,7 @@ function UB:Initialize()
 	
 	UB:CreateMetaTable()
 	
-	UB:FrameSize(true)
+	UB:FrameSize()
 	UB:Toggle()
 	
 	E.FrameLocks['SLEUIButtonHolder'] = true

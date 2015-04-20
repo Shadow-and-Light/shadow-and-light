@@ -83,6 +83,14 @@ local function configTable()
 				get = function(info) return E.db.sle.uibuttons.mouse end,
 				set = function(info, value) E.db.sle.uibuttons.mouse = value; UB:UpdateMouseOverSetting() end
 			},
+			dropdownBackdrop = {
+				order = 8,
+				type = "toggle",
+				name = L["Dropdown Backdrop"],
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
+				get = function(info) return E.db.sle.uibuttons.dropdownBackdrop end,
+				set = function(info, value) E.db.sle.uibuttons.dropdownBackdrop = value; UB:FrameSize() end
+			},
 			position = {
 				order = 10,
 				name = L["Buttons position"],

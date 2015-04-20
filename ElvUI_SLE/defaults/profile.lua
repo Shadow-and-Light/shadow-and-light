@@ -437,6 +437,7 @@ P['sle'] = {
 		['enable'] = false,
 		['size'] = 17,
 		['mouse'] = false,
+		['dropdownBackdrop'] = false,
 		['position'] = "uib_vert",
 		['spacing'] = 3,
 		['point'] = "TOPLEFT",
