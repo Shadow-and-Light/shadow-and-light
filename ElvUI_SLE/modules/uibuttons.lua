@@ -5,7 +5,7 @@ local SLE = E:GetModule("SLE")
 local Sk = E:GetModule("Skins")
 
 local BorderColor = E['media'].bordercolor
-local NumBut = 4
+UB.NumBut = 4
 UB.ToggleTable = {}
 UB.ConfigTable = {}
 UB.AddonTable = {}
@@ -54,7 +54,7 @@ function UB:CreateFrame()
 		UB:CreateCoreButton("MoveUI", "M")
 		UB:CreateCoreButton("Boss", "B")
 		UB:CreateCoreButton("Addon", "A")
-		NumBut = 5
+		UB.NumBut = 5
 
 		UB:ClassicSetup()
 
@@ -456,9 +456,9 @@ function UB:MoverSize()
 	local db = E.db.sle.uibuttons
 	if db.position == "uib_vert" then
 		UB.menuHolder:SetWidth(db.size + (E.PixelMode and 2 or 4))
-		UB.menuHolder:SetHeight((db.size*NumBut)+((E.PixelMode and db.spacing or db.spacing+2)*(NumBut-1))+2)
+		UB.menuHolder:SetHeight((db.size*UB.NumBut)+((E.PixelMode and db.spacing or db.spacing+2)*(UB.NumBut-1))+2)
 	else
-		UB.menuHolder:SetWidth((db.size*NumBut)+((E.PixelMode and db.spacing or db.spacing+2)*(NumBut-1))+2)
+		UB.menuHolder:SetWidth((db.size*UB.NumBut)+((E.PixelMode and db.spacing or db.spacing+2)*(UB.NumBut-1))+2)
 		UB.menuHolder:SetHeight(db.size + (E.PixelMode and 2 or 4))
 	end
 end
