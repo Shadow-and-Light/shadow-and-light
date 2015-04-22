@@ -219,6 +219,7 @@ function CH:PositionChat(override)
 end
 
 local function GetChatIcon(sender)
+	if not specialChatIcons then return "" end
 	local senderName, senderRealm
 	if sender then
 		senderName, senderRealm = string.split('-', sender)
@@ -564,6 +565,13 @@ hooksecurefunc(CH, "StyleChat", Style)
 hooksecurefunc(E, "UpdateMedia", ChatTextures)
 hooksecurefunc(CH, "Initialize", function(self)
 	if not E.private.chat.enable then return end
+	
+	if self.db.chatHistory then
+		self.SoundPlayed = true;
+		self:DisplayChatHistory()
+		self.SoundPlayed = nil;
+	end
+	
 	if E.db.sle.chat.guildmaster then
 		self:RegisterEvent('GUILD_ROSTER_UPDATE', Roster)
 		GMCheck()
