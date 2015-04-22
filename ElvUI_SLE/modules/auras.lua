@@ -181,13 +181,12 @@ end
 
 function AT:UpdateAuraStandings(event, unit)
 	if unit ~= "player" and event ~= "PLAYER_REGEN_ENABLED" then return end
-	if event == "PLAYER_REGEN_DISABLED" then
+	if event == "PLAYER_REGEN_DISABLED" or InCombatLockdown() then
 		self:RegisterEvent("PLAYER_REGEN_ENABLED", "UpdateAuraStandings")
 		return
 	elseif event == "PLAYER_REGEN_ENABLED" then
 		self:UnregisterEvent(event)
 	end
-	if InCombatLockdown() then return end
 	for i = 1, NUM_LE_RAID_BUFF_TYPES do
 		local button = _G["ElvUIConsolidatedBuff"..i]
 		for s = 1, #AT.Buffs[i] do
