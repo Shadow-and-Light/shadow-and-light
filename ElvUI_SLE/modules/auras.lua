@@ -176,17 +176,18 @@ function AT:BuildCasts(event, unit)
 			button:SetAttribute("spell1", name)
 		end
 	end
-	AT:UpdateAuraStandings(nil, unit)
+	AT:UpdateAuraStandings(nil, "player")
 end
 
 function AT:UpdateAuraStandings(event, unit)
-	if unit ~= "player" then return end
+	if unit ~= "player" and event ~= "PLAYER_REGEN_ENABLED" then return end
 	if event == "PLAYER_REGEN_DISABLED" then
 		self:RegisterEvent("PLAYER_REGEN_ENABLED", "UpdateAuraStandings")
 		return
 	elseif event == "PLAYER_REGEN_ENABLED" then
 		self:UnregisterEvent(event)
 	end
+	if InCombatLockdown() then return end
 	for i = 1, NUM_LE_RAID_BUFF_TYPES do
 		local button = _G["ElvUIConsolidatedBuff"..i]
 		for s = 1, #AT.Buffs[i] do
