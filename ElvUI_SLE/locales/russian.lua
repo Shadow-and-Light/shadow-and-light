@@ -298,7 +298,7 @@ L['Show Unsed Currency'] = "Показывать неиспользуемую в
 L["Gradient"] = "Градиент"
 L["If enabled will color durability text based on it's value."] = "Если включено, будет окрашивать текст прочности в зависимости от значения."
 L["Durability Threshold"] = "Порог прочности"
-L["Datatext will flash if durability shown will be equal or lower that this value."] = "Инфотекст начнет мигать, если показанная прочность будет меньшей либо равной заданному числу."
+L["Datatext will flash if durability shown will be equal or lower that this value. Set to -1 to disable"] = "Инфотекст начнет мигать, если показанная прочность будет меньшей либо равной заданному числу. Поставьте на -1 для отключения."
 L["Any changes made will take effect only after:\n - Opening vendor\n - Item durability changes\n - Experiencing loading screen."] = "Изменения данных параметров вступят в силу только после одного из следующих действий:\n - Взаимодействия с торговцем\n - Изменения прочности предметов\n - Окончания экрана загрузки."
 
 --Equip Manager--

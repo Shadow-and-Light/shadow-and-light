@@ -534,9 +534,9 @@ local function configTable()
 					threshold = {
 						order = 3,
 						type = "range",
-						min = 5, max = 99, step = 1,
+						min = -1, max = 99, step = 1,
 						name = L["Durability Threshold"],
-						desc = L["Datatext will flash if durability shown will be equal or lower that this value."],
+						desc = L["Datatext will flash if durability shown will be equal or lower that this value. Set to -1 to disable"],
 						get = function(info) return E.db.sle.dt.durability.threshold end,
 						set = function(info, value) E.db.sle.dt.durability.threshold = value end,
 					}
