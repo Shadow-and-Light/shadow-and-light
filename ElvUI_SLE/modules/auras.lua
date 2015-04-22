@@ -181,6 +181,12 @@ end
 
 function AT:UpdateAuraStandings(event, unit)
 	if unit ~= "player" then return end
+	if event == "PLAYER_REGEN_DISABLED" then
+		self:RegisterEvent("PLAYER_REGEN_ENABLED", "UpdateAuraStandings")
+		return
+	elseif event == "PLAYER_REGEN_ENABLED" then
+		self:UnregisterEvent(event)
+	end
 	for i = 1, NUM_LE_RAID_BUFF_TYPES do
 		local button = _G["ElvUIConsolidatedBuff"..i]
 		for s = 1, #AT.Buffs[i] do
@@ -204,6 +210,7 @@ function AT:Initialize()
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "BuildCasts")
 	self:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED", "BuildCasts")
 	self:RegisterEvent("UNIT_LEVEL", "BuildCasts")
+	self:RegisterEvent("PLAYER_REGEN_DISABLED", "UpdateAuraStandings")
 
 	AT:BuildCasts()
 end
