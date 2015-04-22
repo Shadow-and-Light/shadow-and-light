@@ -221,8 +221,8 @@ P['sle'] = {
 			['icon'] = true,
 		},
 		['durability'] = {
-			['gradient'] = true,
-			['threshold'] = 50,
+			['gradient'] = false,
+			['threshold'] = -1,
 		}
 	},
 

@@ -461,6 +461,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["sle"]["dt"]["friends"]["expandBNBroadcast"] = true
 		E.db["sle"]["dt"]["guild"]["totals"] = true
 		E.db["sle"]["dt"]["guild"]["combat"] = true
+		E.db["sle"]["dt"]["durability"]["threshold"] = 50
+		E.db["sle"]["dt"]["durability"]["gradient"] = true
 		E.db["sle"]["loot"]["enable"] = true
 		E.db["sle"]["loot"]["autoroll"]["autode"] = true
 		E.db["sle"]["loot"]["autoroll"]["autoconfirm"] = true
