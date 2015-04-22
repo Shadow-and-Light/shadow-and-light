@@ -184,14 +184,14 @@ local function configTable()
 						order = 3,
 						type = 'range',
 						name = L['X-Offset'],
-						min = -50, max = 100, step = 1,
+						min = -300, max = 300, step = 1,
 						disabled = function() return not E.private.general.minimap.enable or not E.db.sle.minimap.instance.enable end,
 					},
 					yoffset = {
 						order = 4,
 						type = 'range',
 						name = L['Y-Offset'],
-						min = -50, max = 100, step = 1,
+						min = -300, max = 300, step = 1,
 						disabled = function() return not E.private.general.minimap.enable or not E.db.sle.minimap.instance.enable end,
 					},
 					fontGroup = {
