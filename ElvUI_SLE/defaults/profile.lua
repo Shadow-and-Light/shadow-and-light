@@ -220,6 +220,10 @@ P['sle'] = {
 		['mail'] = {
 			['icon'] = true,
 		},
+		['durability'] = {
+			['gradient'] = true,
+			['threshold'] = 50,
+		}
 	},
 
 	--Exp/Rep Bar

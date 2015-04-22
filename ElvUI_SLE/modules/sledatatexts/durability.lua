@@ -34,14 +34,18 @@ local function OnEvent(self, event, ...)
             end
         end
     end
-    if totalDurability <= 89 then
+    if totalDurability <= E.db.sle.dt.durability.threshold then
         E:Flash(self, 0.53, true)
     else
         E:StopFlash(self)
     end
-    local r,g,b = E:ColorGradient(totalDurability/100, .9,.2,.2, .9,.9,.2, .2,.9,.2)
-    local hex = E:RGBToHex(r,g,b)
-    self.text:SetFormattedText("%s: %s%d%%|r", DURABILITY, hex, totalDurability)
+	if E.db.sle.dt.durability.gradient then
+		local r,g,b = E:ColorGradient(totalDurability/100, .9,.2,.2, .9,.9,.2, .2,.9,.2)
+		local hex = E:RGBToHex(r,g,b)
+		self.text:SetFormattedText("%s: %s%d%%|r", DURABILITY, hex, totalDurability)
+	else
+		self.text:SetFormattedText(displayString, totalDurability)
+	end
 end
 
 local function Click()
@@ -57,6 +61,15 @@ local function OnEnter(self)
 
 	DT.tooltip:Show()
 end
+
+local function ValueColorUpdate(hex, r, g, b)
+	displayString = join("", DURABILITY, ": ", hex, "%d%%|r")
+
+	if lastPanel ~= nil then
+		OnEvent(lastPanel, 'ELVUI_COLOR_UPDATE')
+	end
+end
+E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
 DT:RegisterDatatext('Durability', {'PLAYER_ENTERING_WORLD', "UPDATE_INVENTORY_DURABILITY", "MERCHANT_SHOW"}, OnEvent, nil, Click, OnEnter)
 

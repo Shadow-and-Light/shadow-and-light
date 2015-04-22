@@ -513,6 +513,35 @@ local function configTable()
 					}
 				},
 			},
+			sldurability = {
+				type = "group",
+				name = DURABILITY,
+				order = 6,
+				args = {
+					header = {
+						order = 1,
+						type = "description",
+						name = L["Any changes made will take effect only after:\n - Opening vendor\n - Item durability changes\n - Experiencing loading screen."],
+					},
+					gradient = {
+						order = 2,
+						type = "toggle",
+						name = L["Gradient"],
+						desc = L["If enabled will color durability text based on it's value."],
+						get = function(info) return E.db.sle.dt.durability.gradient end,
+						set = function(info, value) E.db.sle.dt.durability.gradient = value end,
+					},
+					threshold = {
+						order = 3,
+						type = "range",
+						min = 5, max = 99, step = 1,
+						name = L["Durability Threshold"],
+						desc = L["Datatext will flash if durability shown will be equal or lower that this value."],
+						get = function(info) return E.db.sle.dt.durability.threshold end,
+						set = function(info, value) E.db.sle.dt.durability.threshold = value end,
+					}
+				},
+			},
 		},
 	}
 end
