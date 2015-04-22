@@ -92,8 +92,6 @@ function AI:DarthHeal()
 	do
 		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 18
 		
-		E.db["unitframe"]["units"]["target"]["health"]["text_format"] = "[healthcolor][health:sl:darth-heal]"
-		
 		E.db["unitframe"]["units"]["party"]["height"] = 34
 		E.db["unitframe"]["units"]["party"]["debuffs"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "TOPLEFT"
@@ -190,6 +188,9 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["bags"]["moneyFormat"] = "CONDENSED"
 		E.db["bags"]["bagSize"] = 31
 		E.db["bags"]["alignToChat"] = false
+		E.db["bags"]["itemLevelFontSize"] = 12
+		E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
+		E.db["bags"]["itemLevelFont"] = "ElvUI Font"
 	end
 	--Chat--
 	do
@@ -234,7 +235,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		
 		E.db["unitframe"]["units"]["player"]["debuffs"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["portrait"]["rotation"] = 345
-		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
+		-- E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["portrait"]["camDistanceScale"] = 3
 		E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 20
@@ -244,12 +245,13 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["unitframe"]["units"]["player"]["aurabar"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["aurabar"]["maxBars"] = 8
 		E.db["unitframe"]["units"]["player"]["pvp"]["text_format"] = "||cFFB04F4F[pvptimer]||r"
-		E.db["unitframe"]["units"]["player"]["health"]["text_format"] = "[healthcolor][health:current-percent:sl]"
+		E.db["unitframe"]["units"]["player"]["health"]["text_format"] = "[healthcolor] [perhp]% || [curhp]"
 		E.db["unitframe"]["units"]["player"]["health"]["position"] = "BOTTOMRIGHT"
 		E.db["unitframe"]["units"]["player"]["lowmana"] = 0
 		E.db["unitframe"]["units"]["player"]["height"] = 40
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 8
-		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[powercolor][power:current:sl]"
+		E.db["unitframe"]["units"]["player"]["power"]["xOffset"] = 3
+		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[powercolor][perpp]% || [curpp]"
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextToPower"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["height"] = 8
 		E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "spaced"
@@ -261,7 +263,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["unitframe"]["units"]["target"]["combobar"]["height"] = 8
 		E.db["unitframe"]["units"]["target"]["combobar"]["fill"] = "spaced"
 		E.db["unitframe"]["units"]["target"]["portrait"]["rotation"] = 345
-		E.db["unitframe"]["units"]["target"]["portrait"]["enable"] = true
+		-- E.db["unitframe"]["units"]["target"]["portrait"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["portrait"]["camDistanceScale"] = 3
 		E.db["unitframe"]["units"]["target"]["portrait"]["overlay"] = true
 		E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 190
@@ -272,10 +274,12 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["unitframe"]["units"]["target"]["height"] = 40
 		E.db["unitframe"]["units"]["target"]["buffs"]["useBlacklist"]["enemy"] = false
 		E.db["unitframe"]["units"]["target"]["health"]["position"] = "BOTTOMRIGHT"
+		E.db["unitframe"]["units"]["target"]["health"]["text_format"] = "[bsorbs] [healthcolor][health:current] || [perhp]%"
 		E.db["unitframe"]["units"]["target"]["power"]["height"] = 8
 		E.db["unitframe"]["units"]["target"]["power"]["hideonnpc"] = false
 		E.db["unitframe"]["units"]["target"]["power"]["attachTextToPower"] = true
 		E.db["unitframe"]["units"]["target"]["power"]["position"] = "RIGHT"
+		E.db["unitframe"]["units"]["target"]["power"]["text_format"] = "[powercolor][curpp] || [perpp]%"
 		
 		E.db["unitframe"]["units"]["targettarget"]["height"] = 25
 		E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = false
