@@ -125,7 +125,7 @@ P['sle'] = {
 			['enable'] = false,
 			['alpha'] = 0.5,
 		},
-		['combathide'] = false,
+		['combathide'] = "NONE",
 	},
 
 	--Combat Icon

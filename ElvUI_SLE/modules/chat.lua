@@ -449,17 +449,25 @@ function CH:SpamFilter()
 end
 
 function CH:Combat(event)
-	if not E.db.sle.chat.combathide then return end
+	if E.db.sle.chat.combathide == "NONE" then return end
 	if event == "PLAYER_REGEN_DISABLED" then
-		RightChatPanel:Hide()
-		RightChatToggleButton:Hide()
-		LeftChatPanel:Hide()
-		LeftChatToggleButton:Hide()
+		if E.db.sle.chat.combathide == "BOTH" or E.db.sle.chat.combathide == "RIGHT" then
+			RightChatPanel:Hide()
+			RightChatToggleButton:Hide()
+		end
+		if E.db.sle.chat.combathide == "BOTH" or E.db.sle.chat.combathide == "LEFT" then
+			LeftChatPanel:Hide()
+			LeftChatToggleButton:Hide()
+		end
 	elseif event == "PLAYER_REGEN_ENABLED" then
-		RightChatPanel:Show()
-		RightChatToggleButton:Show()
-		LeftChatPanel:Show()
-		LeftChatToggleButton:Show()
+		if not RightChatPanel:IsShown() then
+			RightChatPanel:Show()
+			RightChatToggleButton:Show()
+		end
+		if not LeftChatPanel:IsShown() then
+			LeftChatPanel:Show()
+			LeftChatToggleButton:Show()
+		end
 	end
 end
 

@@ -60,10 +60,16 @@ local function configTable()
 			},
 			combathide = {
 				order = 8,
-				type = "toggle",
+				type = "select",
 				name = L["Hide In Combat"],
 				get = function(info) return E.db.sle.chat.combathide end,
 				set = function(info, value)	E.db.sle.chat.combathide = value; end,
+				values = {
+					["NONE"] = NONE,
+					["BOTH"] = L["Both"],
+					["LEFT"] = L["Left"],
+					["RIGHT"] = L["Right"],
+				}
 			},
 			textureAlpha = {
 				order = 10,
