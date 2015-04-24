@@ -275,12 +275,12 @@ function CH:CheckLFGRoles()
 	local unit = isInRaid and "raid" or "party"
 	local name, realm
 	twipe(lfgRoles)
-
 	if(not isInGroup or not self.db.lfgIcons) then return end
 
 	local role = UnitGroupRolesAssigned("player")
-	if(role) then
-		lfgRoles[PLAYER_NAME] = "|T"..SLE.rolePaths[E.db.sle.roleicons][role]..":15:15:0:0:64:64:2:56:2:56|t"
+	if(role and role ~= "NONE") then
+		local path = SLE.rolePaths[E.db.sle.roleicons][role]
+		lfgRoles[PLAYER_NAME] = "|T"..path..":15:15:0:0:64:64:2:56:2:56|t"
 	end
 
 	for i=1, GetNumGroupMembers() do
