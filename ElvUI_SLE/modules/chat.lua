@@ -580,6 +580,8 @@ hooksecurefunc(CH, "Initialize", function(self)
 		self.SoundPlayed = nil;
 	end
 	
+	self:RegisterEvent("GROUP_JOINED", function() E:Delay(5, function() CH:CheckLFGRoles() end) end)
+	
 	if E.db.sle.chat.guildmaster then
 		self:RegisterEvent('GUILD_ROSTER_UPDATE', Roster)
 		GMCheck()
