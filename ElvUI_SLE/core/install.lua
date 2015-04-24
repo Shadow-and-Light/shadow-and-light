@@ -246,11 +246,12 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["unitframe"]["units"]["player"]["aurabar"]["maxBars"] = 8
 		E.db["unitframe"]["units"]["player"]["pvp"]["text_format"] = "||cFFB04F4F[pvptimer]||r"
 		E.db["unitframe"]["units"]["player"]["health"]["text_format"] = "[healthcolor] [perhp]% || [curhp]"
-		E.db["unitframe"]["units"]["player"]["health"]["position"] = "BOTTOMRIGHT"
+		E.db["unitframe"]["units"]["player"]["health"]["position"] = "BOTTOMLEFT"
 		E.db["unitframe"]["units"]["player"]["lowmana"] = 0
 		E.db["unitframe"]["units"]["player"]["height"] = 40
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 8
 		E.db["unitframe"]["units"]["player"]["power"]["xOffset"] = 3
+		E.db["unitframe"]["units"]["player"]["power"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[powercolor][perpp]% || [curpp]"
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextToPower"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["height"] = 8
@@ -274,7 +275,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["unitframe"]["units"]["target"]["height"] = 40
 		E.db["unitframe"]["units"]["target"]["buffs"]["useBlacklist"]["enemy"] = false
 		E.db["unitframe"]["units"]["target"]["health"]["position"] = "BOTTOMRIGHT"
-		E.db["unitframe"]["units"]["target"]["health"]["text_format"] = "[bsorbs] [healthcolor][health:current] || [perhp]%"
+		E.db["unitframe"]["units"]["target"]["health"]["text_format"] = "[absorbs] [healthcolor][health:current] || [perhp]%"
 		E.db["unitframe"]["units"]["target"]["power"]["height"] = 8
 		E.db["unitframe"]["units"]["target"]["power"]["hideonnpc"] = false
 		E.db["unitframe"]["units"]["target"]["power"]["attachTextToPower"] = true
@@ -423,7 +424,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["sle"]["nameplate"]["showthreat"] = true
 		E.db["sle"]["threat"]["enable"] = false
 		E.db["sle"]["chat"]["dpsSpam"] = true
-		E.db["sle"]["chat"]["textureAlpha"] = true
+		E.db["sle"]["chat"]["textureAlpha"]["enable"] = true
+		E.db["sle"]["chat"]["textureAlpha"]["alpha"] = 0.5
 		E.db["sle"]["minimap"]["instance"]["fontSize"] = 14
 		E.db["sle"]["minimap"]["instance"]["flag"] = false
 		E.db["sle"]["minimap"]["instance"]["enable"] = true
