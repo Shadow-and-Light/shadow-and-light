@@ -484,6 +484,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["sle"]["uibuttons"]["anchor"] = "BOTTOMRIGHT"
 		E.db["sle"]["uibuttons"]["position"] = "uib_hor"
 		E.db["sle"]["uibuttons"]["size"] = 20
+		E.db["sle"]["garrison"]["autoOrder"] = true
 	end
 	--Movers--
 	do
