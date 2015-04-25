@@ -2,6 +2,9 @@
 local UF = E:GetModule('UnitFrames')
 local CAN_HAVE_CLASSBAR = (E.myclass == "PALADIN" or E.myclass == "DRUID" or E.myclass == "DEATHKNIGHT" or E.myclass == "WARLOCK" or E.myclass == "PRIEST" or E.myclass == "MONK" or E.myclass == 'MAGE')
 
+local texPath = [[Interface\AddOns\ElvUI_SLE\media\textures\role\]]
+local texPathE = [[Interface\AddOns\ElvUI\media\textures\]]
+
 local function configTable()
 	local positionValues = {
 		TOPLEFT = 'TOPLEFT',
@@ -61,10 +64,10 @@ local function configTable()
 						get = function(info) return E.db.sle.roleicons end,
 						set = function(info, value) E.db.sle.roleicons = value; E:GetModule('Chat'):CheckLFGRoles(); UF:UpdateAllHeaders() end,
 						values = {
-							["ElvUI"] = "ElvUI",
-							["SupervillainUI"] = "Supervillain UI",
-							["Blizzard"] = "Blizzard",
-							["MiirGui"] = "MiirGui",
+							["ElvUI"] = "ElvUI ".."|T"..texPathE.."tank:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPathE.."healer:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPathE.."dps:15:15:0:0:64:64:2:56:2:56|t ",
+							["SupervillainUI"] = "Supervillain UI ".."|T"..texPath.."svui-tank:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."svui-healer:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."svui-dps:15:15:0:0:64:64:2:56:2:56|t ",
+							["Blizzard"] = "Blizzard ".."|T"..texPath.."blizz-tank:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."blizz-healer:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."blizz-dps:15:15:0:0:64:64:2:56:2:56|t ",
+							["MiirGui"] = "MiirGui ".."|T"..texPath.."mg-tank:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."mg-healer:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."mg-dps:15:15:0:0:64:64:2:56:2:56|t ",
 						},
 					},
 				},
