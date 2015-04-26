@@ -574,12 +574,6 @@ hooksecurefunc(E, "UpdateMedia", ChatTextures)
 hooksecurefunc(CH, "Initialize", function(self)
 	if not E.private.chat.enable then return end
 	
-	if self.db.chatHistory then
-		self.SoundPlayed = true;
-		self:DisplayChatHistory()
-		self.SoundPlayed = nil;
-	end
-	
 	self:RegisterEvent("GROUP_JOINED", function() E:Delay(5, function() CH:CheckLFGRoles() end) end)
 	
 	if E.db.sle.chat.guildmaster then
