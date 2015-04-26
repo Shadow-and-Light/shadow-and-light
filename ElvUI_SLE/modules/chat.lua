@@ -219,7 +219,10 @@ function CH:PositionChat(override)
 end
 
 local function GetChatIcon(sender)
-	if not specialChatIcons then return "" end
+	if not specialChatIcons then 
+		SLE:GetRegion()
+		specialChatIcons = SLE.SpecialChatIcons[SLE.region]
+	end
 	local senderName, senderRealm
 	if sender then
 		senderName, senderRealm = string.split('-', sender)
@@ -573,15 +576,13 @@ hooksecurefunc(CH, "StyleChat", Style)
 hooksecurefunc(E, "UpdateMedia", ChatTextures)
 hooksecurefunc(CH, "Initialize", function(self)
 	if not E.private.chat.enable then return end
-	
+
 	self:RegisterEvent("GROUP_JOINED", function() E:Delay(5, function() CH:CheckLFGRoles() end) end)
-	
+
 	if E.db.sle.chat.guildmaster then
 		self:RegisterEvent('GUILD_ROSTER_UPDATE', Roster)
 		GMCheck()
 	end
-	SLE:GetRegion()
-	specialChatIcons = SLE.SpecialChatIcons[SLE.region]
 
 	CH:SpamFilter()
 
@@ -597,7 +598,7 @@ hooksecurefunc(CH, "Initialize", function(self)
 			return old(self, link, ...)
 		end
 	end
-	
+
 	self:RegisterEvent("PLAYER_REGEN_ENABLED", "Combat")
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "Combat")
 end)
