@@ -312,6 +312,11 @@ P['sle'] = {
 				['size'] = 12,
 				['outline'] = "NONE",
 			},
+			['gossip'] = {
+				['font'] = "ElvUI Font",
+				['size'] = 12,
+				['outline'] = "NONE",
+			},
 		},
 		['screensaver'] = {
 			['enable'] = false,

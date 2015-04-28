@@ -67,7 +67,7 @@ local function SetFonts()
 		
 		SendMailBodyEditBox:SetFont(LSM:Fetch('font', db.mail.font), db.mail.size, db.mail.outline) --Writing letter text
 		OpenMailBodyText:SetFont(LSM:Fetch('font', db.mail.font), db.mail.size, db.mail.outline) --Received letter text
-		--QuestFont:SetFont(LSM:Fetch('font', "ElvUI Pixel"), 12, "") -- Font in Quest Log/Petitions and shit. It's fucking hedious with any outline so fuck it.
+		QuestFont:SetFont(LSM:Fetch('font', db.gossip.font), db.gossip.size, db.gossip.outline) -- Font in Quest Log/Petitions and shit. It's fucking hedious with any outline so fuck it.
 		--QuestFont_Large:SetFont(LSM:Fetch('font', "ElvUI Pixel"), 12, "") -- No idea what that is for
 		NumberFont_Shadow_Med:SetFont(LSM:Fetch('font', db.editbox.font), db.editbox.size, db.editbox.outline) --Chat editbox
 	end
