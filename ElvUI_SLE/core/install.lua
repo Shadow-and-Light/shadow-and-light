@@ -351,7 +351,9 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	--Datatexts--
 	do
 		E.db["datatexts"]["minimapPanels"] = false
+		E.db["datatexts"]["fontSize"] = 12
 		E.db["datatexts"]["font"] = "ElvUI Font"
+		E.db["datatexts"]['fontOutline'] = "OUTLINE"
 		E.db["datatexts"]["goldFormat"] = "CONDENSED"
 		E.db["datatexts"]["panelTransparency"] = true
 		E.db["datatexts"]["time24"] = true
