@@ -152,7 +152,8 @@ local function GetCurrency(CurrencyTable, Text)
 		if id == 390 then
 			discovered = UnitLevel('player') >= SHOW_CONQUEST_LEVEL
 			RightString = format('%s %s | %s %s / %s', L['Current:'], amount, L['Weekly:'], week, weekmax)
-		elseif maxed <= 4000 and maxed > 0 then
+		-- elseif maxed <= 4000 and maxed > 0 then
+		elseif maxed > 0 then
 			RightString = format('%s / %s', amount, maxed)
 		end
 
