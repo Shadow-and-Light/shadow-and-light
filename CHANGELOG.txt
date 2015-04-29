@@ -2,7 +2,7 @@ v2.18
 Additions:
 - New option in general -> unitframes. Allowes you to choose role icons for your raid frames. Also applies to chat role icons. You will be able to preview icons in config window.
 - New option for UI Buttons to show backdrop for menue groups in dropdown mode.
-- Now you are able to cast class specific raid buffs (eg. Mark of The Wind) by left clicking on respective icon on consolidated buff bar.
+- Now you are able to cast class specific raid buffs (eg. Mark of The Wild) by left clicking on respective icon on consolidated buff bar.
 - New options for durability datatext. Gradient allows the value text to be colored by the value itself. Threshlod will allow you to make datatext flashing when the value is lower then set number. Thanks our french lazy friend for the idea.
 - New option under Media to change text fonts for quest and gossip frames.
 Fixes:
