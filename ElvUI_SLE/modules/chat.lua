@@ -452,7 +452,7 @@ function CH:SpamFilter()
 end
 
 function CH:Combat(event)
-	if E.db.sle.chat.combathide == "NONE" then return end
+	if E.db.sle.chat.combathide == "NONE" or not E.db.sle.chat.combathide then return end
 	if event == "PLAYER_REGEN_DISABLED" then
 		if E.db.sle.chat.combathide == "BOTH" or E.db.sle.chat.combathide == "RIGHT" then
 			RightChatPanel:Hide()
