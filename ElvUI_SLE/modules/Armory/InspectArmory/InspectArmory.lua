@@ -1443,7 +1443,7 @@ function IA:CreateInspectFrame()
 					local isSending
 					
 					if DataTable.Unit and not (UnitCanAttack('player', DataTable.Unit) or not UnitIsConnected(DataTable.Unit) or not UnitIsPlayer(DataTable.Unit)) then
-						if DataTable.Realm == Info.MyRealm or Info.CurrentGroupMode ~= 'NoGroup' then
+						if DataTable.Realm == Info.MyRealm or (Info.CurrentGroupMode and Info.CurrentGroupMode ~= 'NoGroup') then
 							isSending = 'AISM_CheckResponse'
 							SendAddonMessage('AISM', 'AISM_Check', DataTable.Realm == Info.MyRealm and 'WHISPER' or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(Info.CurrentGroupMode), DataTable.Name)
 						end
