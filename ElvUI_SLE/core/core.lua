@@ -235,7 +235,7 @@ function SLE:FixDatabase() --For when we dramatically change some options
 end
 
 function SLE:Initialize()
-	SLE:FixeDatabase()
+	SLE:FixDatabase()
 	--ElvUI's version check
 	if elvV < elvR then
 		E:StaticPopup_Show("VERSION_MISMATCH")
