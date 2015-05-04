@@ -17,7 +17,7 @@ Changes:
 - Armory mode is now fully functional.
 Armory Mode:
 - All options are now woring at full potential
-- Added an option to filter enchant effect strings on character and inspect frames. For example replace "movement speed" with "eating speed".
+- Added an option to filter enchant effect strings on character and inspect frames. For example replace "movement speed" with "eating speed". Option is global.
 
 
 
