@@ -1042,7 +1042,7 @@ local function LoadArmoryConfigTable()
 				},
 				Gem = {
 					type = 'group',
-					name = function() return IA_Color('ffffffff', 'ff787878')..L['Gem Socket'] end,
+					name = function() return IA_Color('ffffffff', 'ff787878')..L['Gem Sockets'] end,
 					order = 11,
 					guiInline = true,
 					get = function(Info) return E.db.sle.Armory.Inspect[(Info[#Info - 1])][(Info[#Info])] end,

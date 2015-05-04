@@ -171,6 +171,9 @@ L["Socket Size"] = "Размер слотов"
 
 --Character Frame--
 L["Not Enchanted"] = "Нет чар"
+L['This is not profession only.'] = "Не усиление от профессии"
+L['Empty Socket'] = "Пустое гнездо"
+L['Average'] = "Средний ур. предметов" --Not sure if still used. Saw it in code, never saw in game
 
 --Marks--
 L['Options for panels providing fast access to raid markers and flares.'] = "Опции панелей, предоставляющих быстрый доступ к рейдовым меткам и маркерам на земле."
