@@ -1,4 +1,4 @@
-v2.18
+v2.18 5/4/2015
 Additions:
 - New option in general -> unitframes. Allowes you to choose role icons for your raid frames. Also applies to chat role icons. You will be able to preview icons in config window.
 - New option for UI Buttons to show backdrop for menue groups in dropdown mode.
@@ -18,8 +18,6 @@ Changes:
 Armory Mode:
 - All options are now woring at full potential
 - Added an option to filter enchant effect strings on character and inspect frames. For example replace "movement speed" with "eating speed". Option is global.
-
-
 
 v2.17 4/15/2015
 - Fixed some of chat options in ElvUI still not working with S&L enabled
