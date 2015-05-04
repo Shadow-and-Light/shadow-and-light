@@ -286,7 +286,7 @@ if not (select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_Kn
 	end
 	
 	function KF:Credit()
-		return KF:Color_Value('Created By')..' |cffffffffArstraea|r |cffceff00(kr)|r |cffffffff/|r '..KF:Color_Value('E-mail')..' |cffffffff: qjr2513|r|cffceff00@naver.com|r'
+		return KF:Color_Value('Created By')..' |cffffffffArstraea|r |cffceff00(kr)|r'
 	end
 	
 	function KF:Initialize()
