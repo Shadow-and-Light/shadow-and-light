@@ -15,13 +15,13 @@ local SelectedEnchantString
 local function LoadArmoryConfigTable()
 	E.Options.args.sle.args.Armory = {
 		type = 'group',
-		name = function() return KF:Color_Value(L["Armory Mode"]) end,
+		name = L["Armory Mode"],
 		order = 6,
 		childGroups = 'tab',
 		args = {
 			EnchantString = {
 				type = 'group',
-				name = function() return Color('', 'ff787878')..L['Enchant String'] end,
+				name = L['Enchant String'],
 				order = 300,
 				args = {
 					Space = {
@@ -31,7 +31,7 @@ local function LoadArmoryConfigTable()
 					},
 					ConfigSpace = {
 						type = 'group',
-						name = function() return Color('ffffffff', 'ff787878')..L['String Replacement'] end,
+						name = L['String Replacement'],
 						order = 2,
 						guiInline = true,
 						args = {
@@ -48,7 +48,7 @@ local function LoadArmoryConfigTable()
 							},
 							AddButton = {
 								type = 'execute',
-								name = function() return (((E.db.sle.Armory.Character.Enable == false and E.db.sle.Armory.Inspect.Enable == false) or EnchantStringName == '') and '|cff787878' or KF:Color_Value())..ADD end, --L['Create Replacement'] end,
+								name = ADD,
 								order = 3,
 								desc = '',
 								func = function()
@@ -64,12 +64,12 @@ local function LoadArmoryConfigTable()
 							},
 							List = {
 								type = 'select',
-								name = function() return ' '..Color()..L['List of Strings'] end,
+								name = L['List of Strings'],
 								order = 4,
 								get = function() return SelectedEnchantString end,
 								set = function(_, value)
 									SelectedEnchantString = value
-									E.Options.args.sle.args.Armory.args.EnchantString.args.ConfigSpace.args.StringGroup.name = L['List of Strings']..": "..value
+									E.Options.args.sle.args.Armory.args.EnchantString.args.ConfigSpace.args.StringGroup.name = L['List of Strings']..":  "..value
 								end,
 								values = function()
 									local List = {}
@@ -101,7 +101,7 @@ local function LoadArmoryConfigTable()
 								args = {
 									TargetString = {
 										type = 'input',
-										name = function() return ' '..Color()..L['Original String'] end,
+										name = L['Original String'],
 										order = 1,
 										desc = '',
 										width = "full",
@@ -121,7 +121,7 @@ local function LoadArmoryConfigTable()
 									},
 									NewString = {
 										type = 'input',
-										name = function() return ' '..Color()..L['New String'] end,
+										name = L['New String'],
 										order = 2,
 										desc = '',
 										width = "full",
@@ -141,7 +141,7 @@ local function LoadArmoryConfigTable()
 									},
 									DeleteButton = {
 										type = 'execute',
-										name = function() return Color(nil, 'ff787878')..DELETE end,
+										name = DELETE,
 										order = 8,
 										desc = '',
 										func = function()
@@ -232,7 +232,7 @@ local function LoadArmoryConfigTable()
 		
 		E.Options.args.sle.args.Armory.args.CAEnable = {
 			type = 'toggle',
-			name = function() return KF:Color_Value()..L['Character Armory'] end,
+			name = L['Character Armory'],
 			order = 1,
 			desc = '',
 			get = function() return E.db.sle.Armory.Character.Enable end,
@@ -246,12 +246,12 @@ local function LoadArmoryConfigTable()
 		local SelectedCABG
 		E.Options.args.sle.args.Armory.args.Character = {
 			type = 'group',
-			name = function() return CA_Color('', 'ff787878')..L['Character Armory'] end,
+			name = L['Character Armory'],
 			order = 400,
 			args = {
 				NoticeMissing = {
 					type = 'toggle',
-					name = function() return ' '..CA_Color()..L['Show Missing Enchants or Gems'] end,
+					name = L['Show Missing Enchants or Gems'],
 					order = 1,
 					desc = '',
 					get = function() return E.db.sle.Armory.Character.NoticeMissing end,
@@ -271,13 +271,13 @@ local function LoadArmoryConfigTable()
 				},
 				Backdrop = {
 					type = 'group',
-					name = function() return CA_Color('ffffffff', 'ff787878')..L['Backdrop'] end,
+					name = L['Backdrop'],
 					order = 3,
 					guiInline = true,
 					args = {
 						SelectedBG = {
 							type = 'select',
-							name = function() return ' '..CA_Color()..L['Select Image'] end,
+							name = L['Select Image'],
 							order = 1,
 							get = function()
 								for Index, Key in pairs(BackdropKeyTable) do
@@ -298,7 +298,7 @@ local function LoadArmoryConfigTable()
 						},
 						CustomAddress = {
 							type = 'input',
-							name = function() return ' '..CA_Color()..L['Custom Image Path'] end,
+							name = L['Custom Image Path'],
 							order = 2,
 							desc = '',
 							get = function() return E.db.sle.Armory.Character.Backdrop.CustomAddress end,
@@ -320,13 +320,13 @@ local function LoadArmoryConfigTable()
 				},
 				Gradation = {
 					type = 'group',
-					name = function() return CA_Color('ffffffff', 'ff787878')..L['Gradient'] end,
+					name = L['Gradient'],
 					order = 5,
 					guiInline = true,
 					args = {
 						Display = {
 							type = 'toggle',
-							name = function() return ' '..CA_Color()..L['Enable'] end,
+							name = L['Enable'],
 							order = 1,
 							get = function() return E.db.sle.Armory.Character.Gradation.Display end,
 							set = function(_, value)
@@ -338,7 +338,7 @@ local function LoadArmoryConfigTable()
 						},
 						Color = {
 							type = 'color',
-							name = function() return ' '..(E.db.sle.Armory.Character.Enable == true and E.db.sle.Armory.Character.Gradation.Display == true and KF:Color_Value() or '')..L['Gradient Texture Color'] end,
+							name = L['Gradient Texture Color'],
 							order = 2,
 							get = function() 
 								return E.db.sle.Armory.Character.Gradation.Color[1],
@@ -362,7 +362,7 @@ local function LoadArmoryConfigTable()
 				},
 				Level = {
 					type = 'group',
-					name = function() return CA_Color('ffffffff', 'ff787878')..L['Item Level'] end,
+					name = L['Item Level'],
 					order = 7,
 					guiInline = true,
 					get = function(info) return E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] end,
@@ -384,7 +384,7 @@ local function LoadArmoryConfigTable()
 					args = {
 						Display = {
 							type = 'select',
-							name = function() return ' '..CA_Color()..L['Visibility'] end,
+							name = L['Visibility'],
 							order = 1,
 							set = function(info, value)
 								E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] = value
@@ -397,7 +397,7 @@ local function LoadArmoryConfigTable()
 						},
 						ShowUpgradeLevel = {
 							type = 'toggle',
-							name = function() return ' '..CA_Color()..L['Upgrade Level'] end,
+							name = L['Upgrade Level'],
 							order = 2,
 							set = function(_, value)
 								E.db.sle.Armory.Character.Level.ShowUpgradeLevel = value
@@ -413,7 +413,7 @@ local function LoadArmoryConfigTable()
 						},
 						Font = {
 							type = 'select', dialogControl = 'LSM30_Font',
-							name = function() return ' '..CA_Color()..L['Font'] end,
+							name = L['Font'],
 							order = 4,
 							values = function()
 								return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
@@ -422,7 +422,7 @@ local function LoadArmoryConfigTable()
 						},
 						FontSize = {
 							type = 'range',
-							name = function() return ' '..CA_Color()..L['Font Size'] end,
+							name = L['Font Size'],
 							order = 5,
 							desc = '',
 							min = 6,
@@ -432,7 +432,7 @@ local function LoadArmoryConfigTable()
 						},
 						FontStyle = {
 							type = 'select',
-							name = function() return ' '..CA_Color()..L['Font Outline'] end,
+							name = L['Font Outline'],
 							order = 6,
 							desc = '',
 							values = FontStyleList,
@@ -447,7 +447,7 @@ local function LoadArmoryConfigTable()
 				},
 				Enchant = {
 					type = 'group',
-					name = function() return CA_Color('ffffffff', 'ff787878')..L['Enchant String'] end,
+					name = L['Enchant String'],
 					order = 9,
 					guiInline = true,
 					get = function(info) return E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] end,
@@ -469,7 +469,7 @@ local function LoadArmoryConfigTable()
 					args = {
 						Display = {
 							type = 'select',
-							name = function() return ' '..CA_Color()..L['Visibility'] end,
+							name = L['Visibility'],
 							order = 1,
 							set = function(info, value)
 								E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] = value
@@ -482,7 +482,7 @@ local function LoadArmoryConfigTable()
 						},
 						WarningSize = {
 							type = 'range',
-							name = function() return ' '..CA_Color()..L['Warning Size'] end,
+							name = L['Warning Size'],
 							order = 2,
 							set = function(_, value)
 								E.db.sle.Armory.Character.Enchant.WarningSize = value
@@ -500,7 +500,7 @@ local function LoadArmoryConfigTable()
 						},
 						WarningIconOnly = {
 							type = 'toggle',
-							name = function() return ' '..CA_Color()..L['Warning Only As Icons'] end,
+							name = L['Warning Only As Icons'],
 							order = 3,
 							set = function(_, value)
 								E.db.sle.Armory.Character.Enchant.WarningIconOnly = value
@@ -516,7 +516,7 @@ local function LoadArmoryConfigTable()
 						},
 						Font = {
 							type = 'select', dialogControl = 'LSM30_Font',
-							name = function() return ' '..CA_Color()..L['Font'] end,
+							name = L['Font'],
 							order = 5,
 							values = function()
 								return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
@@ -525,7 +525,7 @@ local function LoadArmoryConfigTable()
 						},
 						FontSize = {
 							type = 'range',
-							name = function() return ' '..CA_Color()..L['Font Size'] end,
+							name = L['Font Size'],
 							order = 6,
 							desc = '',
 							min = 6,
@@ -535,7 +535,7 @@ local function LoadArmoryConfigTable()
 						},
 						FontStyle = {
 							type = 'select',
-							name = function() return ' '..CA_Color()..L['Font Outline'] end,
+							name = L['Font Outline'],
 							order = 7,
 							desc = '',
 							values = FontStyleList,
@@ -550,7 +550,7 @@ local function LoadArmoryConfigTable()
 				},
 				Durability = {
 					type = 'group',
-					name = function() return CA_Color('ffffffff', 'ff787878')..DURABILITY end,
+					name = DURABILITY,
 					order = 11,
 					guiInline = true,
 					get = function(info) return E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] end,
@@ -572,7 +572,7 @@ local function LoadArmoryConfigTable()
 					args = {
 						Display = {
 							type = 'select',
-							name = function() return ' '..CA_Color()..L['Visibility'] end,
+							name = L['Visibility'],
 							order = 1,
 							set = function(info, value)
 								E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] = value
@@ -595,7 +595,7 @@ local function LoadArmoryConfigTable()
 						},
 						Font = {
 							type = 'select', dialogControl = 'LSM30_Font',
-							name = function() return ' '..CA_Color()..L['Font'] end,
+							name = L['Font'],
 							order = 3,
 							values = function()
 								return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
@@ -604,7 +604,7 @@ local function LoadArmoryConfigTable()
 						},
 						FontSize = {
 							type = 'range',
-							name = function() return ' '..CA_Color()..L['Font Size'] end,
+							name = L['Font Size'],
 							order = 4,
 							desc = '',
 							min = 6,
@@ -614,7 +614,7 @@ local function LoadArmoryConfigTable()
 						},
 						FontStyle = {
 							type = 'select',
-							name = function() return ' '..CA_Color()..L['Font Outline'] end,
+							name = L['Font Outline'],
 							order = 5,
 							desc = '',
 							values = FontStyleList,
@@ -629,14 +629,14 @@ local function LoadArmoryConfigTable()
 				},
 				Gem = {
 					type = 'group',
-					name = function() return CA_Color('ffffffff', 'ff787878')..L['Gem Sockets'] end,
+					name = L['Gem Sockets'],
 					order = 13,
 					guiInline = true,
 					get = function(Info) return E.db.sle.Armory.Character[(Info[#Info - 1])][(Info[#Info])] end,
 					args = {
 						Display = {
 							type = 'select',
-							name = function() return ' '..CA_Color()..L['Visibility'] end,
+							name = L['Visibility'],
 							order = 1,
 							set = function(Info, value)
 								E.db.sle.Armory.Character[(Info[#Info - 1])][(Info[#Info])] = value
@@ -649,7 +649,7 @@ local function LoadArmoryConfigTable()
 						},
 						SocketSize = {
 							type = 'range',
-							name = function() return ' '..CA_Color()..L['Socket Size'] end,
+							name = L['Socket Size'],
 							order = 2,
 							set = function(_, value)
 								E.db.sle.Armory.Character.Gem.SocketSize = value
@@ -671,7 +671,7 @@ local function LoadArmoryConfigTable()
 						},
 						WarningSize = {
 							type = 'range',
-							name = function() return ' '..CA_Color()..L['Warning Size'] end,
+							name = L['Warning Size'],
 							order = 3,
 							set = function(_, value)
 								E.db.sle.Armory.Character.Gem.WarningSize = value
@@ -711,7 +711,7 @@ local function LoadArmoryConfigTable()
 		
 		E.Options.args.sle.args.Armory.args.IAEnable = {
 			type = 'toggle',
-			name = function() return KF:Color_Value()..L['Inspect Armory'] end,
+			name = L['Inspect Armory'],
 			order = 2,
 			desc = '',
 			get = function() return E.db.sle.Armory.Inspect.Enable end,
@@ -724,12 +724,12 @@ local function LoadArmoryConfigTable()
 		
 		E.Options.args.sle.args.Armory.args.Inspect = {
 			type = 'group',
-			name = function() return Color('', 'ff787878')..L['Inspect Armory'] end,
+			name = L['Inspect Armory'],
 			order = 500,
 			args = {
 				NoticeMissing = {
 					type = 'toggle',
-					name = function() return ' '..IA_Color()..L['Show Missing Enchants or Gems'] end,
+					name = L['Show Missing Enchants or Gems'],
 					order = 1,
 					desc = '',
 					get = function() return E.db.sle.Armory.Inspect.NoticeMissing end,
@@ -751,13 +751,13 @@ local function LoadArmoryConfigTable()
 				},
 				Backdrop = {
 					type = 'group',
-					name = function() return IA_Color('ffffffff', 'ff787878')..L['Backdrop'] end,
+					name = L['Backdrop'],
 					order = 3,
 					guiInline = true,
 					args = {
 						SelectedBG = {
 							type = 'select',
-							name = function() return ' '..IA_Color()..L['Select Image'] end,
+							name = L['Select Image'],
 							order = 1,
 							get = function()
 								for Index, Key in pairs(BackdropKeyTable) do
@@ -778,7 +778,7 @@ local function LoadArmoryConfigTable()
 						},
 						CustomAddress = {
 							type = 'input',
-							name = function() return ' '..IA_Color()..L['Custom Image Path'] end,
+							name = L['Custom Image Path'],
 							order = 2,
 							desc = '',
 							get = function() return E.db.sle.Armory.Inspect.Backdrop.CustomAddress end,
@@ -800,13 +800,13 @@ local function LoadArmoryConfigTable()
 				},
 				Gradation = {
 					type = 'group',
-					name = function() return IA_Color('ffffffff', 'ff787878')..L['Gradient'] end,
+					name = L['Gradient'],
 					order = 5,
 					guiInline = true,
 					args = {
 						Display = {
 							type = 'toggle',
-							name = function() return ' '..IA_Color()..L['Enable'] end,
+							name = L['Enable'],
 							order = 1,
 							get = function() return E.db.sle.Armory.Inspect.Gradation.Display end,
 							set = function(_, value)
@@ -820,7 +820,7 @@ local function LoadArmoryConfigTable()
 						},
 						Color = {
 							type = 'color',
-							name = function() return ' '..(E.db.sle.Armory.Inspect.Enable == true and E.db.sle.Armory.Inspect.Gradation.Display == true and KF:Color_Value() or '')..L['Gradient Texture Color'] end,
+							name = L['Gradient Texture Color'],
 							order = 2,
 							get = function() 
 								return E.db.sle.Armory.Inspect.Gradation.Color[1],
@@ -846,7 +846,7 @@ local function LoadArmoryConfigTable()
 				},
 				Level = {
 					type = 'group',
-					name = function() return IA_Color('ffffffff', 'ff787878')..L['Item Level'] end,
+					name = L['Item Level'],
 					order = 7,
 					guiInline = true,
 					get = function(info) return E.db.sle.Armory.Inspect[(info[#info - 1])][(info[#info])] end,
@@ -868,7 +868,7 @@ local function LoadArmoryConfigTable()
 					args = {
 						Display = {
 							type = 'select',
-							name = function() return ' '..IA_Color()..L['Visibility'] end,
+							name = L['Visibility'],
 							order = 1,
 							set = function(info, value)
 								E.db.sle.Armory.Inspect[(info[#info - 1])][(info[#info])] = value
@@ -883,7 +883,7 @@ local function LoadArmoryConfigTable()
 						},
 						ShowUpgradeLevel = {
 							type = 'toggle',
-							name = function() return ' '..IA_Color()..L['Upgrade Level'] end,
+							name = L['Upgrade Level'],
 							order = 2,
 							set = function(_, value)
 								E.db.sle.Armory.Inspect.Level.ShowUpgradeLevel = value
@@ -901,7 +901,7 @@ local function LoadArmoryConfigTable()
 						},
 						Font = {
 							type = 'select', dialogControl = 'LSM30_Font',
-							name = function() return ' '..IA_Color()..L['Font'] end,
+							name = L['Font'],
 							order = 4,
 							values = function()
 								return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
@@ -910,7 +910,7 @@ local function LoadArmoryConfigTable()
 						},
 						FontSize = {
 							type = 'range',
-							name = function() return ' '..IA_Color()..L['Font Size'] end,
+							name = L['Font Size'],
 							order = 5,
 							desc = '',
 							min = 6,
@@ -920,7 +920,7 @@ local function LoadArmoryConfigTable()
 						},
 						FontStyle = {
 							type = 'select',
-							name = function() return ' '..IA_Color()..L['Font Outline'] end,
+							name = L['Font Outline'],
 							order = 6,
 							desc = '',
 							values = FontStyleList,
@@ -935,7 +935,7 @@ local function LoadArmoryConfigTable()
 				},
 				Enchant = {
 					type = 'group',
-					name = function() return IA_Color('ffffffff', 'ff787878')..L['Enchant String'] end,
+					name = L['Enchant String'],
 					order = 9,
 					guiInline = true,
 					get = function(info) return E.db.sle.Armory.Inspect[(info[#info - 1])][(info[#info])] end,
@@ -957,7 +957,7 @@ local function LoadArmoryConfigTable()
 					args = {
 						Display = {
 							type = 'select',
-							name = function() return ' '..IA_Color()..L['Visibility'] end,
+							name = L['Visibility'],
 							order = 1,
 							set = function(info, value)
 								E.db.sle.Armory.Inspect[(info[#info - 1])][(info[#info])] = value
@@ -972,7 +972,7 @@ local function LoadArmoryConfigTable()
 						},
 						WarningSize = {
 							type = 'range',
-							name = function() return ' '..IA_Color()..L['Warning Size'] end,
+							name = L['Warning Size'],
 							order = 2,
 							set = function(_, value)
 								E.db.sle.Armory.Inspect.Enchant.WarningSize = value
@@ -990,7 +990,7 @@ local function LoadArmoryConfigTable()
 						},
 						WarningIconOnly = {
 							type = 'toggle',
-							name = function() return ' '..IA_Color()..L['Warning Only As Icons'] end,
+							name = L['Warning Only As Icons'],
 							order = 3,
 							set = function(_, value)
 								E.db.sle.Armory.Inspect.Enchant.WarningIconOnly = value
@@ -1008,7 +1008,7 @@ local function LoadArmoryConfigTable()
 						},
 						Font = {
 							type = 'select', dialogControl = 'LSM30_Font',
-							name = function() return ' '..IA_Color()..L['Font'] end,
+							name = L['Font'],
 							order = 5,
 							values = function()
 								return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
@@ -1017,7 +1017,7 @@ local function LoadArmoryConfigTable()
 						},
 						FontSize = {
 							type = 'range',
-							name = function() return ' '..IA_Color()..L['Font Size'] end,
+							name = L['Font Size'],
 							order = 6,
 							desc = '',
 							min = 6,
@@ -1027,7 +1027,7 @@ local function LoadArmoryConfigTable()
 						},
 						FontStyle = {
 							type = 'select',
-							name = function() return ' '..IA_Color()..L['Font Outline'] end,
+							name = L['Font Outline'],
 							order = 7,
 							desc = '',
 							values = FontStyleList,
@@ -1042,14 +1042,14 @@ local function LoadArmoryConfigTable()
 				},
 				Gem = {
 					type = 'group',
-					name = function() return IA_Color('ffffffff', 'ff787878')..L['Gem Sockets'] end,
+					name = L['Gem Sockets'],
 					order = 11,
 					guiInline = true,
 					get = function(Info) return E.db.sle.Armory.Inspect[(Info[#Info - 1])][(Info[#Info])] end,
 					args = {
 						Display = {
 							type = 'select',
-							name = function() return ' '..IA_Color()..L['Visibility'] end,
+							name = L['Visibility'],
 							order = 1,
 							set = function(Info, value)
 								E.db.sle.Armory.Inspect[(Info[#Info - 1])][(Info[#Info])] = value
@@ -1064,7 +1064,7 @@ local function LoadArmoryConfigTable()
 						},
 						SocketSize = {
 							type = 'range',
-							name = function() return ' '..IA_Color()..L['Socket Size'] end,
+							name = L['Socket Size'],
 							order = 2,
 							set = function(_, value)
 								E.db.sle.Armory.Inspect.Gem.SocketSize = value
@@ -1086,7 +1086,7 @@ local function LoadArmoryConfigTable()
 						},
 						WarningSize = {
 							type = 'range',
-							name = function() return ' '..IA_Color()..L['Warning Size'] end,
+							name = L['Warning Size'],
 							order = 3,
 							set = function(_, value)
 								E.db.sle.Armory.Inspect.Gem.WarningSize = value
