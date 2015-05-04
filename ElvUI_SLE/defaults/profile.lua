@@ -70,53 +70,6 @@ P['sle'] = {
 		},
 	},
 
-	--Character Frame Options
-	['armory'] = {
-		['character'] = {
-			['gradientColor'] = { .41, .83, 1 },
-		},
-		['inspect'] = {
-			['gradientColor'] = { .41, .83, 1 },
-		},
-	},
-	['characterframeoptions'] = {
-		['shownormalgradient'] = true,
-		['showerrorgradient'] = true,
-		['gradientColor'] = { .41, .83, 1 },
-		['showimage'] = true,
-		['image'] = {
-			['dropdown'] = "SPACE",
-			['custom'] = "",
-		},
-		['itemlevel'] = {
-			['show'] = true,
-			['font'] = "ElvUI Font",
-			['fontSize'] = 10,
-			['fontOutline'] = "OUTLINE",
-		},
-		['itemdurability'] = {
-			['show'] = true,
-			['font'] = "ElvUI Font",
-			['fontSize'] = 10,
-			['fontOutline'] = "OUTLINE",
-		},
-		['itemenchant'] = {
-			['show'] = true,
-			['font'] = "ElvUI Font",
-			['fontSize'] = 10,
-			['fontOutline'] = "OUTLINE",
-			['showwarning'] = true,
-			['warningSize'] = 12,
-			['mouseover'] = false,
-		},
-		['itemgem'] = {	
-			['show'] = true,
-			['showwarning'] = true,
-			['socketSize'] = 12,
-			['warningSize'] = 12,
-		},
-	},
-
 	--Chat
 	['chat'] = {
 		['guildmaster'] = false,

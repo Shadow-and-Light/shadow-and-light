@@ -1,4 +1,6 @@
-﻿local E, L, V, P, G = unpack(ElvUI)
+﻿if select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_KnightFrame') then return end
+
+local E, L, V, P, G = unpack(ElvUI)
 local KF, Info, Timer = unpack(ElvUI_KnightFrame)
 
 Info.Armory_Constants = {
@@ -53,7 +55,13 @@ Info.Armory_Constants = {
 		HandsSlot = true, WaistSlot = true, LegsSlot = true, FeetSlot = true, MainHandSlot = true, SecondaryHandSlot = true
 	},
 	
-	ProfessionList = {}
+	ProfessionList = {},
+	
+	BlizzardBackdropList = {
+		['Alliance-bliz'] = [[Interface\LFGFrame\UI-PVP-BACKGROUND-Alliance]],
+		['Horde-bliz'] = [[Interface\LFGFrame\UI-PVP-BACKGROUND-Horde]],
+		['Arena-bliz'] = [[Interface\PVPFrame\PvpBg-NagrandArena-ToastBG]]
+	}
 }
 	
 for ProfessionID, ProfessionKey in pairs({

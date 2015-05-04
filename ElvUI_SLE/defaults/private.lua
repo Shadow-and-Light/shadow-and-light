@@ -5,15 +5,6 @@ V['skins']['addons'] = {
 }
 
 V['sle'] = {
-	--Character Frame Options
-	['characterframeoptions'] = {
-		['enable'] = false,
-	},
-	
-	['inspectframeoptions'] = {
-		['enable'] = false,
-	},
-	
 	["datatext"] = {
 		["dp1hide"] = false,
 		["dp2hide"] = false,

@@ -1,4 +1,4 @@
-﻿local Revision = 1.5
+﻿local Revision = 1.6
 local ENI = _G['EnhancedNotifyInspect'] or CreateFrame('Frame', 'EnhancedNotifyInspect', UIParent)
 
 if not ENI.Revision or ENI.Revision < Revision then
@@ -14,6 +14,12 @@ if not ENI.Revision or ENI.Revision < Revision then
 	ENI:SetScript('OnEvent', function(self, Event, ...)
 		if self[Event] then
 			self[Event](...)
+		end
+	end)
+	ENI:SetScript('OnUpdate', function(self)
+		if not self.HoldInspecting then
+			self.NowInspecting = C_Timer.NewTicker(self.UpdateInterval, self.TryInspect)
+			self:Hide()
 		end
 	end)
 	ENI:Hide()
@@ -75,9 +81,10 @@ if not ENI.Revision or ENI.Revision < Revision then
 		
 		if UnitIsPlayer(Unit) and CanInspect(Unit) then
 			local TableIndex = GetUnitName(Unit, true)
+			local Check = not (Properties and type(Properties) == 'table' and Properties.Reservation)
 			
 			if not ENI.InspectList[TableIndex] then
-				if not (Properties and Properties.Reservation) then
+				if Check then
 					tinsert(ENI.InspectList, 1, TableIndex)
 				else
 					tinsert(ENI.InspectList, TableIndex)
@@ -85,17 +92,17 @@ if not ENI.Revision or ENI.Revision < Revision then
 				
 				ENI.InspectList[TableIndex] = { UnitID = Unit }
 				
-				if Properties then
+				if Properties and type(Properties) == 'table' then
 					ENI.InspectList[TableIndex].InspectTryCount = Properties.InspectTryCount
 					ENI.InspectList[TableIndex].CancelInspectByManual = Properties.CancelInspectByManual
 				end
 				
-				if not ENI.NowInspecting or ENI.NowInspecting._cancelled then
+				if not ENI.HoldInspecting and (not ENI.NowInspecting or ENI.NowInspecting._cancelled) then
 					ENI.NowInspecting = C_Timer.NewTicker(ENI.UpdateInterval, ENI.TryInspect)
+				elseif ENI.HoldInspecting then
+					ENI:Show()
 				end
-				
-				ENI:Show()
-			elseif not (Properties and Properties.Reservation) then
+			elseif Check then
 				ENI.CancelInspect(TableIndex)
 				ENI.NotifyInspect(Unit, Properties)
 			end
@@ -130,7 +137,7 @@ if not ENI.Revision or ENI.Revision < Revision then
 					return
 				end
 				
-				ENI.CancelInspect(Name, 'INSPECT_READY')
+				ENI.CancelInspect(Name)
 			end
 		end
 	end

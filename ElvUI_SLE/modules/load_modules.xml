@@ -5,7 +5,7 @@
 	<Script file='backgrounds.lua'/>
 	<Script file='garrison.lua'/>
 	<Script file='bags.lua'/>
-	<Include file='characterframe\load_characterframe.xml'/>
+	<Include file='Armory\Load_Armory.xml'/>
 	<Script file='datatexts.lua'/>
 	<Include file='sledatatexts\load_datatexts.xml'/>
 	<Include file='dashboard\load_dashboard.xml'/>

@@ -1,7 +1,7 @@
 ﻿--------------------------------------------------------------------------------
 --<< AISM : Armory Surpport Module for AddOn Communication Inspecting		>>--
 --------------------------------------------------------------------------------
-local Revision = 1.1
+local Revision = 1.2
 local AISM = _G['Armory_InspectSupportModule'] or CreateFrame('Frame', 'Armory_InspectSupportModule', UIParent)
 
 if not AISM.Revision or AISM.Revision < Revision then
@@ -100,6 +100,10 @@ if not AISM.Revision or AISM.Revision < Revision then
 		PF2 = 'Profession',
 		ASP = 'ActiveSpec',
 		SID = 'SetItemData'
+	}
+	AISM.UncheckableDataList = {
+		Profession1 = false,
+		Profession2 = false
 	}
 	for groupNum = 1, MAX_TALENT_GROUPS do
 		AISM.DataTypeTable['GL'..groupNum] = 'Glyph'
@@ -207,14 +211,14 @@ if not AISM.Revision or AISM.Revision < Revision then
 	end
 	
 	function AISM:UpdateHelmDisplaying(value)
-		isHelmDisplayed = value == '1'
+		isHelmDisplayed = value
 		AISM.Updater.GearUpdated = nil
 		AISM.Updater:Show()
 	end
 	hooksecurefunc('ShowHelm', function(value) AISM:UpdateHelmDisplaying(value) end)
 	
 	function AISM:UpdateCloakDisplaying(value)
-		isCloakDisplayed = value == '1'
+		isCloakDisplayed = value
 		AISM.Updater.GearUpdated = nil
 		AISM.Updater:Show()
 	end
@@ -248,10 +252,12 @@ if not AISM.Revision or AISM.Revision < Revision then
 		
 		if self.PlayerData.Profession1 ~= Profession1 then
 			self.PlayerData.Profession1 = Profession1
+			self.UncheckableDataList.Profession1 = Profession1
 		end
 		
 		if self.PlayerData.Profession2 ~= Profession2 then
 			self.PlayerData.Profession2 = Profession2
+			self.UncheckableDataList.Profession2 = Profession2
 		end
 		
 		self.Updater.ProfessionUpdated = true
@@ -260,48 +266,72 @@ if not AISM.Revision or AISM.Revision < Revision then
 	
 	
 	--<< Specialization String >>--
+	local ActiveSpec = GetActiveSpecGroup()
 	local SpecTable = {}
+	local GroupArray = {}
+	for i = 1, playerNumSpecGroup do
+		tinsert(GroupArray, i)
+	end
+	if ActiveSpec ~= 1 then
+		tremove(GroupArray, ActiveSpec)
+		tinsert(GroupArray, 1, ActiveSpec)
+	end
+	
 	function AISM:GetPlayerSpecSetting()
 		local DataString, Spec, Talent, isSelected
-		local ActiveSpec = GetActiveSpecGroup()
 		
-		for groupNum = 1, playerNumSpecGroup do
-			DataString = nil
-			
-			Spec = GetSpecialization(nil, nil, groupNum)
-			Spec = Spec and GetSpecializationInfo(Spec) or '0'
-			
-			if not SpecTable['Spec'..groupNum] or SpecTable['Spec'..groupNum] ~= Spec then
-				SpecTable['Spec'..groupNum] = Spec
-				DataString = Spec
-			end
-			
-			for i = 1, MAX_TALENT_TIERS do
-				for k = 1, NUM_TALENT_COLUMNS do
-					Talent, _, _, isSelected = GetTalentInfo(i, k, groupNum)
-					
-					Talent = ((i - 1) * NUM_TALENT_COLUMNS + k)..'_'..Talent..(isSelected == true and '_1' or '')
-					
-					Spec = Spec..'/'..Talent
-					
-					if not SpecTable['Spec'..groupNum..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] or SpecTable['Spec'..groupNum..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] ~= Talent then
-						SpecTable['Spec'..groupNum..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] = Talent
-						DataString = (DataString and DataString..'/' or '')..Talent
-					end
-				end
-			end
-			
-			if not self.PlayerData['Spec'..groupNum] or self.PlayerData['Spec'..groupNum] ~= Spec then
-				self.PlayerData['Spec'..groupNum] = Spec
-				self.PlayerData_ShortString['Spec'..groupNum] = Spec
-				self.UpdatedData['Spec'..groupNum] = DataString
-			end
-		end
+		ActiveSpec = GetActiveSpecGroup()
 		
 		if self.PlayerData.ActiveSpec ~= ActiveSpec then
 			self.PlayerData.ActiveSpec = ActiveSpec
 			self.PlayerData_ShortString.ActiveSpec = ActiveSpec
 			self.UpdatedData.ActiveSpec = ActiveSpec
+			
+			wipe(GroupArray)
+			for i = 1, playerNumSpecGroup do
+				tinsert(GroupArray, i)
+			end
+			if ActiveSpec ~= 1 then
+				tremove(GroupArray, ActiveSpec)
+				tinsert(GroupArray, 1, ActiveSpec)
+			end
+		end
+		
+		for Step, Group in pairs(GroupArray) do
+			DataString = nil
+			
+			Spec = GetSpecialization(nil, nil, Group)
+			Spec = Spec and GetSpecializationInfo(Spec) or '0'
+			
+			if not SpecTable['Spec'..Step] or SpecTable['Spec'..Step] ~= Spec then
+				SpecTable['Spec'..Step] = Spec
+				DataString = Spec
+			end
+			
+			for i = 1, MAX_TALENT_TIERS do
+				for k = 1, NUM_TALENT_COLUMNS do
+					Talent, _, _, isSelected = GetTalentInfo(i, k, Group)
+					
+					Talent = ((i - 1) * NUM_TALENT_COLUMNS + k)..'_'..Talent..(isSelected == true and '_1' or '')
+					
+					Spec = Spec..'/'..Talent
+					
+					if not SpecTable['Spec'..Step..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] or SpecTable['Spec'..Step..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] ~= Talent then
+						SpecTable['Spec'..Step..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] = Talent
+						DataString = (DataString and DataString..'/' or '')..Talent
+					end
+				end
+			end
+			
+			if not self.PlayerData['Spec'..Step] or self.PlayerData['Spec'..Step] ~= Spec then
+				self.PlayerData['Spec'..Step] = Spec
+				self.PlayerData_ShortString['Spec'..Step] = Spec
+				self.UpdatedData['Spec'..Step] = DataString
+				
+				if Step > 1 then
+					self.UncheckableDataList['Spec'..Step] = Spec
+				end
+			end
 		end
 		
 		self.Updater.SpecUpdated = true
@@ -312,25 +342,27 @@ if not AISM.Revision or AISM.Revision < Revision then
 	
 	--<< Glyph String >>--
 	function AISM:GetPlayerGlyphString()
-		local ShortString, FullString
-		local ActiveSpec = GetActiveSpecGroup()
+		local ShortString, FullString, SpellID, GlyphID
 		
-		local SpellID, GlyphID
-		for groupNum = 1, playerNumSpecGroup do
+		for Step, Group in pairs(GroupArray) do
 			ShortString, FullString = '', ''
 			
-			for slotNum = 1, NUM_GLYPH_SLOTS do
-				_, _, _, SpellID, _, GlyphID = GetGlyphSocketInfo(slotNum, groupNum)
+			for SlotNum = 1, NUM_GLYPH_SLOTS do
+				_, _, _, SpellID, _, GlyphID = GetGlyphSocketInfo(SlotNum, Group)
 				
-				ShortString = ShortString..(SpellID or '0')..(slotNum ~= NUM_GLYPH_SLOTS and '/' or '')
-				FullString = FullString..(SpellID or '0')..'_'..(GlyphID or '0')..(slotNum ~= NUM_GLYPH_SLOTS and '/' or '')
+				ShortString = ShortString..(SpellID or '0')..(SlotNum ~= NUM_GLYPH_SLOTS and '/' or '')
+				FullString = FullString..(SpellID or '0')..'_'..(GlyphID or '0')..(SlotNum ~= NUM_GLYPH_SLOTS and '/' or '')
 			end
 			
-			if self.PlayerData['Glyph'..groupNum] ~= FullString then
-				self.PlayerData['Glyph'..groupNum] = FullString
+			if self.PlayerData['Glyph'..Step] ~= FullString then
+				self.PlayerData['Glyph'..Step] = FullString
+				
+				if Step > 1 then
+					self.UncheckableDataList['Glyph'..Step] = FullString
+				end
 			end
 			
-			if groupNum == ActiveSpec and self.PlayerData_ShortString.Glyph1 ~= ShortString then
+			if Step == 1 and self.PlayerData_ShortString.Glyph1 ~= ShortString then
 				self.PlayerData_ShortString.Glyph1 = ShortString
 				self.UpdatedData.Glyph1 = ShortString
 			end
@@ -349,8 +381,10 @@ if not AISM.Revision or AISM.Revision < Revision then
 		local CurrentSetItem, GearSetIDList = {}, {}
 		
 		local slotID, slotLink, isTransmogrified, transmogrifiedItemID, SetName, GeatSetCount, SetItemMax, SetOptionCount, colorR, colorG, colorB, checkSpace, tooltipText
-		for slotName in pairs(self.Updater.GearUpdated or self.GearList) do
+		for slotName in pairs(type(self.Updater.GearUpdated) == 'table' and self.Updater.GearUpdated or self.GearList) do
 			needUpdate = nil
+			
+			self.UncheckableDataList[slotName] = nil
 			
 			slotID = GetInventorySlotInfo(slotName)
 			slotLink = GetInventoryItemLink('player', slotID)
@@ -364,11 +398,17 @@ if not AISM.Revision or AISM.Revision < Revision then
 					isTransmogrified = nil
 				end
 				
-				ShortString = slotLink and select(2, strsplit(':', slotLink)) or 'F'
-				FullString = (slotLink or 'F')..'/'..(slotName == 'HeadSlot' and not isHelmDisplayed and 'ND' or slotName == 'BackSlot' and not isCloakDisplayed and 'ND' or isTransmogrified and transmogrifiedItemID or '0')
+				ShortString = slotLink and select(2, strsplit(':', slotLink)) or 'F'	-- ITEM ID
+				FullString = slotLink or 'F'
 				
-				for i = 1, MAX_NUM_SOCKETS do
-					FullString = FullString..'/'..(select(i, GetInventoryItemGems(slotID)) or 0)
+				if slotLink then
+					self.UncheckableDataList[slotName] = slotName == 'HeadSlot' and not isHelmDisplayed and 'ND' or slotName == 'BackSlot' and not isCloakDisplayed and 'ND' or isTransmogrified and transmogrifiedItemID or '0'
+					
+					for i = 1, MAX_NUM_SOCKETS do
+						self.UncheckableDataList[slotName] = self.UncheckableDataList[slotName]..'/'..(select(i, GetInventoryItemGems(slotID)) or 0)
+					end
+					
+					FullString = FullString..'/'..self.UncheckableDataList[slotName]
 				end
 				
 				if self.PlayerData[slotName] ~= FullString then
@@ -551,7 +591,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 		end
 		
 		if InputData.ActiveSpec then
-			Data[#Data + 1] = 'ASP:'..InputData.ActiveSpec
+			Data[#Data + 1] = 'ASP:1'
 		end
 		
 		for groupNum = 1, MAX_TALENT_GROUPS do
@@ -703,11 +743,20 @@ if not AISM.Revision or AISM.Revision < Revision then
 		--print(Message)
 		
 		if Message:find('AISM_') then
-			if Message == 'AISM_Check' then
+			if Message:find('AISM_Check') then
+				Message = Message:gsub('AISM_Check', '')
+				
 				self.AISMUserList[Sender] = true
 				SendAddonMessage('AISM', 'AISM_CheckResponse', 'WHISPER', Sender)
-			elseif Message == 'AISM_CheckResponse' then
-				self.AISMUserList[Sender] = true
+				SendAddonMessage('AISM', 'AISM_CheckResponse:'..self.Revision, 'WHISPER', Sender)
+			elseif Message:find('AISM_CheckResponse') then
+				Message = Message:gsub('AISM_CheckResponse', '')
+				
+				if Message ~= '' then
+					self.AISMUserList[Sender] = tonumber(strsub(Message, 2))
+				else
+					self.AISMUserList[Sender] = true
+				end
 			elseif Message == 'AISM_UnregistME' then
 				self.AISMUserList[Sender] = nil
 				self.GroupMemberData[Sender] = nil
@@ -720,18 +769,23 @@ if not AISM.Revision or AISM.Revision < Revision then
 				self.AISMUserList[Sender] = nil
 				self.CurrentInspectData[Sender] = nil
 			elseif Message:find('AISM_DataRequestForInspecting:') then
-				local needplayerName, needplayerRealm = Message:match('^.+:(.+)-(.+)$')
+				Message = Message:gsub('AISM_DataRequestForInspecting:', '')
+				
+				local needplayerName, needplayerRealm, NeedOnlyUncheckableData = strsplit('-', Message)
 				
 				if needplayerName == playerName and needplayerRealm == playerRealm then
-					local TableToSend = {}
-					
-					for Index, Data in pairs(self.PlayerData) do
-						TableToSend[Index] = Data
+					if not NeedOnlyUncheckableData then
+						local TableToSend = {}
+						
+						for Index, Data in pairs(self.PlayerData) do
+							TableToSend[Index] = Data
+						end
+						
+						self:SettingInspectData(TableToSend)
+						self:SendData(TableToSend, Prefix, Channel, Sender)
+					else
+						self:SendData(self.UncheckableDataList, Prefix, Channel, Sender)
 					end
-					
-					self:SettingInspectData(TableToSend)
-					
-					self:SendData(TableToSend, Prefix, Channel, Sender)
 				end
 			end
 			
@@ -814,13 +868,23 @@ if not AISM.Revision or AISM.Revision < Revision then
 								end
 							end
 							
-							TableToSave.Gear[DataType] = {
-								ItemLink = stringTable[1] ~= 'F' and stringTable[1] or nil,
-								Transmogrify = stringTable[2] == 'ND' and 'NotDisplayed' or stringTable[2] ~= 0 and stringTable[2] or nil
-							}
-							
-							for i = 1, MAX_NUM_SOCKETS do
-								TableToSave.Gear[DataType]['Gem'..i] = stringTable[i + 2] ~= 0 and stringTable[i + 2] or nil
+							if #stringTable == 1 or #stringTable == 2 + MAX_NUM_SOCKETS then
+								TableToSave.Gear[DataType] = {
+									ItemLink = stringTable[1] ~= 'F' and stringTable[1] or nil,
+									Transmogrify = stringTable[2] == 'ND' and 'NotDisplayed' or stringTable[2] ~= 0 and stringTable[2] or nil
+								}
+								
+								for i = 1, MAX_NUM_SOCKETS do
+									TableToSave.Gear[DataType]['Gem'..i] = stringTable[i + 2] ~= 0 and stringTable[i + 2] or nil
+								end
+							else
+								TableToSave.Gear[DataType] = {
+									Transmogrify = stringTable[1] == 'ND' and 'NotDisplayed' or stringTable[1] ~= 0 and stringTable[1] or nil
+								}
+								
+								for i = 1, MAX_NUM_SOCKETS do
+									TableToSave.Gear[DataType]['Gem'..i] = stringTable[i + 1] ~= 0 and stringTable[i + 1] or nil
+								end
 							end
 						elseif self.DataTypeTable[DataType] == 'SetItemData' then
 							TableToSave.SetItem = TableToSave.SetItem or {}
@@ -898,12 +962,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 	
 	local Prefix, Message, Channel, Sender, Type
 	AISM:SetScript('OnEvent', function(self, Event, ...)
-		if Event == 'VARIABLES_LOADED' then
-			isHelmDisplayed = ShowingHelm() == 1
-			isCloakDisplayed = ShowingCloak() == 1
-			
-			self:UnregisterEvent('VARIABLES_LOADED')
-		elseif Event == 'PLAYER_LOGIN' then
+		if Event == 'PLAYER_LOGIN' then
 			self:GetPlayerCurrentGroupMode()
 			self:GetCurrentInstanceType()
 		elseif Event == 'PLAYER_LOGOUT' then
@@ -944,11 +1003,15 @@ if not AISM.Revision or AISM.Revision < Revision then
 			self:GetPlayerCurrentGroupMode()
 			self:Show()
 		elseif Event == 'PLAYER_ENTERING_WORLD' or Event == 'ZONE_CHANGED_NEW_AREA' then
+			if not (isHelmDisplayed and isCloakDisplayed) then
+				isHelmDisplayed = ShowingHelm()
+				isCloakDisplayed = ShowingCloak()
+			end
+			
 			self:GetCurrentInstanceType()
 			self:Show()
 		end
 	end)
-	AISM:RegisterEvent('VARIABLES_LOADED')
 	AISM:RegisterEvent('PLAYER_LOGIN')
 	AISM:RegisterEvent('PLAYER_LOGOUT')
 	AISM:RegisterEvent('CHAT_MSG_SYSTEM')
