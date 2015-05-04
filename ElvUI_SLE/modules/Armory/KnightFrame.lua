@@ -279,8 +279,8 @@ if not (select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_Kn
 	
 	_G[AddOnName] = Engine
 	
-	if type(KnightFrame_ArmoryDB) ~= 'table' then
-		KnightFrame_ArmoryDB = {
+	if type(SLE_ArmoryDB) ~= 'table' then
+		SLE_ArmoryDB = {
 			EnchantString = {}
 		}
 	end

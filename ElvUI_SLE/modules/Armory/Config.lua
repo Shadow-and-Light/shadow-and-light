@@ -74,7 +74,7 @@ local function LoadArmoryConfigTable()
 								values = function()
 									local List = {}
 									
-									for Old, New in pairs(KnightFrame_ArmoryDB.EnchantString) do
+									for Old, New in pairs(SLE_ArmoryDB.EnchantString) do
 										if not SelectedEnchantString then
 											SelectedEnchantString = Old
 										end
@@ -105,7 +105,7 @@ local function LoadArmoryConfigTable()
 								desc = '',
 								func = function()
 									if EnchantString_Old ~= '' and EnchantString_New ~= '' then
-										KnightFrame_ArmoryDB.EnchantString[EnchantString_Old] = EnchantString_New
+										SLE_ArmoryDB.EnchantString[EnchantString_Old] = EnchantString_New
 										
 										EnchantString_Old = ''
 										EnchantString_New = ''
@@ -117,8 +117,8 @@ local function LoadArmoryConfigTable()
 										if InspectArmory and InspectArmory.LastDataSetting then
 											InspectArmory:InspectFrame_DataSetting(InspectArmory.CurrentInspectData)
 										end
-									elseif KnightFrame_ArmoryDB.EnchantString[EnchantString_Old] and EnchantString_New == '' then
-										KnightFrame_ArmoryDB.EnchantString[EnchantString_Old] = nil
+									elseif SLE_ArmoryDB.EnchantString[EnchantString_Old] and EnchantString_New == '' then
+										SLE_ArmoryDB.EnchantString[EnchantString_Old] = nil
 									end
 								end,
 								disabled = function()
@@ -137,8 +137,8 @@ local function LoadArmoryConfigTable()
 								order = 8,
 								desc = '',
 								func = function()
-									if KnightFrame_ArmoryDB.EnchantString[SelectedEnchantString] then
-										KnightFrame_ArmoryDB.EnchantString[SelectedEnchantString] = nil
+									if SLE_ArmoryDB.EnchantString[SelectedEnchantString] then
+										SLE_ArmoryDB.EnchantString[SelectedEnchantString] = nil
 										SelectedEnchantString = ''
 										
 										if CharacterArmory then
@@ -174,8 +174,8 @@ local function LoadArmoryConfigTable()
 									local List = ''
 									local Order = 1
 									
-									if KnightFrame_ArmoryDB.EnchantString and next(KnightFrame_ArmoryDB.EnchantString) then
-										for Old, New in pairs(KnightFrame_ArmoryDB.EnchantString) do
+									if SLE_ArmoryDB.EnchantString and next(SLE_ArmoryDB.EnchantString) then
+										for Old, New in pairs(SLE_ArmoryDB.EnchantString) do
 											List = List..'    '..Color('ffffffff', 'ff787878')..Order..'. '..Color('ffFF7E7E', 'ff787878')..Old..'|r  '..Color('ffceff00', 'ff787878')..'->|r  '..Color(nil, 'ff787878')..New..'|r|n'
 											Order = Order + 1
 										end

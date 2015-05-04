@@ -1902,7 +1902,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 										end
 									end
 									
-									for Old, New in pairs(KnightFrame_ArmoryDB.EnchantString) do
+									for Old, New in pairs(SLE_ArmoryDB.EnchantString) do
 										CurrentLineText = gsub(CurrentLineText, Old, New)
 									end
 									

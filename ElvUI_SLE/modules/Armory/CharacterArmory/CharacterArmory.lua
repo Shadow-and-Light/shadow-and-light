@@ -592,14 +592,14 @@ function CA:Update_Gear()
 									end
 								end
 								
-								for Old, New in pairs(KnightFrame_ArmoryDB.EnchantString) do
+								for Old, New in pairs(SLE_ArmoryDB.EnchantString) do
 									CurrentLineText = gsub(CurrentLineText, Old, New)
 								end
 								
 								Slot.ItemEnchant:SetText('|cffceff00'..CurrentLineText)
 							end
 							
-							IsEnchanted = true
+							Slot.IsEnchanted = true
 						elseif CurrentLineText:find(ITEM_SPELL_TRIGGER_ONUSE) then
 							UsableEffect = true
 						end

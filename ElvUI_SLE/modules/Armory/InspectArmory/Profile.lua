@@ -23,18 +23,18 @@ P.sle.Armory.Inspect = {
 	Level = {
 		Display = 'Always', -- Always, MouseoverOnly, Hide
 		ShowUpgradeLevel = false,
-		Font = nil,
+		Font = "ElvUI Font",
 		FontSize = 10,
-		FontStyle = nil
+		FontStyle = "OUTLINE"
 	},
 	
 	Enchant = {
 		Display = 'Always', -- Always, MouseoverOnly, Hide
 		WarningSize = 12,
 		WarningIconOnly = false,
-		Font = nil,
+		Font = "ElvUI Font",
 		FontSize = 8,
-		FontStyle = nil
+		FontStyle = "OUTLINE"
 	},
 	
 	Gem = {

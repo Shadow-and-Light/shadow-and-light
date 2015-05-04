@@ -10,7 +10,7 @@
 ## OptionalDeps: AddonSkins, iFilger_ConfigUI, BigWigs, Clique, Hermes, xCT+
 ## DefaultState: Enabled
 ## X-ElvVersion: 8.08
-## SavedVariables: KnightFrame_ArmoryDB
+## SavedVariables: SLE_ArmoryDB
 
 libs\load_libs.xml
 locales\load_locales.xml
