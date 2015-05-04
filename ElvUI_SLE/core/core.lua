@@ -230,8 +230,8 @@ In case of the third format you should put at least 2 values.|r
 end
 
 function SLE:FixDatabase() --For when we dramatically change some options
-	if E.db.sle.chat.combathide == true then E.db.sle.chat.combathide == "BOTH" end
-	if E.db.sle.chat.combathide == false then E.db.sle.chat.combathide == "NONE" end
+	if E.db.sle.chat.combathide == true then E.db.sle.chat.combathide = "BOTH" end
+	if E.db.sle.chat.combathide == false then E.db.sle.chat.combathide = "NONE" end
 end
 
 function SLE:Initialize()
