@@ -70,24 +70,17 @@ local function LoadArmoryConfigTable()
 								get = function() return SelectedEnchantString end,
 								set = function(_, value)
 									SelectedEnchantString = value
+									E.Options.args.sle.args.Armory.args.EnchantString.args.ConfigSpace.args.StringGroup.name = value
 								end,
 								values = function()
 									local List = {}
-									
+									List[''] = NONE
 									for Old, New in pairs(SLE_ArmoryDB.EnchantString) do
-										if not SelectedEnchantString then
-											SelectedEnchantString = Old
-										end
-										
 										List[Old] = Old
 									end
-									
-									if not next(List) then
-										List[''] = NONE
-										
-										SelectedEnchantString = ''
-									end
-									
+									if not SelectedEnchantString then
+											SelectedEnchantString = ''
+										end
 									return List
 								end,
 								disabled = function() return E.db.sle.Armory.Character.Enable == false and E.db.sle.Armory.Inspect.Enable == false end
@@ -131,31 +124,39 @@ local function LoadArmoryConfigTable()
 								order = 7,
 								width = 'normal'
 							},
-							DeleteButton = {
-								type = 'execute',
-								name = function() return Color(nil, 'ff787878')..DELETE end,
+							StringGroup = {
+								type = 'group',
+								name = "", --function() return Color('ffffffff', 'ff787878')..L['String Replacement'] end,
 								order = 8,
-								desc = '',
-								func = function()
-									if SLE_ArmoryDB.EnchantString[SelectedEnchantString] then
-										SLE_ArmoryDB.EnchantString[SelectedEnchantString] = nil
-										SelectedEnchantString = ''
-										
-										if CharacterArmory then
-											CharacterArmory:Update_Gear()
-										end
-										
-										if InspectArmory and InspectArmory.LastDataSetting then
-											InspectArmory:InspectFrame_DataSetting(InspectArmory.CurrentInspectData)
-										end
-									end
-								end,
-								disabled = function() return E.db.sle.Armory.Character.Enable == false and E.db.sle.Armory.Inspect.Enable == false end,
+								guiInline = true,
 								hidden = function()
 									return SelectedEnchantString == ''
-								end
-							}
-						}
+								end,
+								args = {
+									DeleteButton = {
+										type = 'execute',
+										name = function() return Color(nil, 'ff787878')..DELETE end,
+										order = 8,
+										desc = '',
+										func = function()
+											if SLE_ArmoryDB.EnchantString[SelectedEnchantString] then
+												SLE_ArmoryDB.EnchantString[SelectedEnchantString] = nil
+												SelectedEnchantString = ''
+												
+												if CharacterArmory then
+													CharacterArmory:Update_Gear()
+												end
+												
+												if InspectArmory and InspectArmory.LastDataSetting then
+													InspectArmory:InspectFrame_DataSetting(InspectArmory.CurrentInspectData)
+												end
+											end
+										end,
+										disabled = function() return E.db.sle.Armory.Character.Enable == false and E.db.sle.Armory.Inspect.Enable == false end,	
+									},
+								},
+							},
+						},
 					},
 					Space2 = {
 						type = 'description',
