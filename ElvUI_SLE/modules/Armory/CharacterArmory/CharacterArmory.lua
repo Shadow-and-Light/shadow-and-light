@@ -591,9 +591,11 @@ function CA:Update_Gear()
 										CurrentLineText = gsub(CurrentLineText, Old, New)
 									end
 								end
-								
-								for Old, New in pairs(SLE_ArmoryDB.EnchantString) do
-									CurrentLineText = gsub(CurrentLineText, Old, New)
+
+								for Name, _ in pairs(SLE_ArmoryDB.EnchantString) do
+									if SLE_ArmoryDB.EnchantString[Name].original and SLE_ArmoryDB.EnchantString[Name].new then
+										CurrentLineText = gsub(CurrentLineText, SLE_ArmoryDB.EnchantString[Name].original, SLE_ArmoryDB.EnchantString[Name].new)
+									end
 								end
 								
 								Slot.ItemEnchant:SetText('|cffceff00'..CurrentLineText)

@@ -9,7 +9,7 @@ local KF, Info, Timer = unpack(ElvUI_KnightFrame)
 local IA = InspectArmory or CreateFrame('Frame', 'InspectArmory', E.UIParent)
 local ENI = _G['EnhancedNotifyInspect'] or { CancelInspect = function() end }
 local AISM = _G['Armory_InspectSupportModule']
-local ButtonName = L['Knight Inspect']
+local ButtonName = INSPECT --L['Knight Inspect']
 
 local CORE_FRAME_LEVEL = 10
 local SLOT_SIZE = 37
@@ -1902,8 +1902,10 @@ function IA:InspectFrame_DataSetting(DataTable)
 										end
 									end
 									
-									for Old, New in pairs(SLE_ArmoryDB.EnchantString) do
-										CurrentLineText = gsub(CurrentLineText, Old, New)
+									for Name, _ in pairs(SLE_ArmoryDB.EnchantString) do
+										if SLE_ArmoryDB.EnchantString[Name].original and SLE_ArmoryDB.EnchantString[Name].new then
+											CurrentLineText = gsub(CurrentLineText, SLE_ArmoryDB.EnchantString[Name].original, SLE_ArmoryDB.EnchantString[Name].new)
+										end
 									end
 									
 									Slot.Gradation.ItemEnchant:SetText('|cffceff00'..CurrentLineText)

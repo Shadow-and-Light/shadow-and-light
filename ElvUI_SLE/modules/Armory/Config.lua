@@ -9,7 +9,7 @@ local function Color(TrueColor, FalseColor)
 	return (E.db.sle.Armory.Character.Enable ~= false or E.db.sle.Armory.Inspect.Enable ~= false) and (TrueColor == '' and '' or TrueColor and '|c'..TrueColor or KF:Color_Value()) or FalseColor and '|c'..FalseColor or ''
 end
 
-local EnchantString_Old, EnchantString_New = '', ''
+local EnchantStringName, EnchantString_Old, EnchantString_New = '', '', ''
 local SelectedEnchantString
 
 local function LoadArmoryConfigTable()
@@ -35,33 +35,32 @@ local function LoadArmoryConfigTable()
 						order = 2,
 						guiInline = true,
 						args = {
-							TargetString = {
-								type = 'input',
-								name = function() return ' '..Color()..L['Original String'] end,
+							CreateString = {
 								order = 1,
-								desc = '',
-								get = function() return EnchantString_Old end,
-								set = function(_, value)
-									EnchantString_Old = value
-								end,
-								disabled = function() return E.db.sle.Armory.Character.Enable == false and E.db.sle.Armory.Inspect.Enable == false end
-							},
-							NewString = {
+								name = L["Create Filter"],
 								type = 'input',
-								name = function() return ' '..Color()..L['New String'] end,
-								order = 2,
-								desc = '',
-								get = function() return EnchantString_New end,
+								width = "full",
+								get = function() return EnchantStringName end,
 								set = function(_, value)
-									EnchantString_New = value
+									EnchantStringName = value
 								end,
 								disabled = function() return E.db.sle.Armory.Character.Enable == false and E.db.sle.Armory.Inspect.Enable == false end
 							},
-							Space = {
-								type = 'description',
-								name = ' ',
+							AddButton = {
+								type = 'execute',
+								name = function() return (((E.db.sle.Armory.Character.Enable == false and E.db.sle.Armory.Inspect.Enable == false) or EnchantStringName == '') and '|cff787878' or KF:Color_Value())..ADD end, --L['Create Replacement'] end,
 								order = 3,
-								width = 'half'
+								desc = '',
+								func = function()
+									if EnchantStringName ~= '' and not SLE_ArmoryDB.EnchantString[EnchantStringName] then
+										SLE_ArmoryDB.EnchantString[EnchantStringName] = {}
+										SelectedEnchantString = EnchantStringName
+										EnchantStringName = ""
+									end
+								end,
+								disabled = function()
+									return (E.db.sle.Armory.Character.Enable == false and E.db.sle.Armory.Inspect.Enable == false) or EnchantStringName == ''
+								end
 							},
 							List = {
 								type = 'select',
@@ -70,13 +69,13 @@ local function LoadArmoryConfigTable()
 								get = function() return SelectedEnchantString end,
 								set = function(_, value)
 									SelectedEnchantString = value
-									E.Options.args.sle.args.Armory.args.EnchantString.args.ConfigSpace.args.StringGroup.name = value
+									E.Options.args.sle.args.Armory.args.EnchantString.args.ConfigSpace.args.StringGroup.name = L['List of Strings']..": "..value
 								end,
 								values = function()
 									local List = {}
 									List[''] = NONE
-									for Old, New in pairs(SLE_ArmoryDB.EnchantString) do
-										List[Old] = Old
+									for Name, _ in pairs(SLE_ArmoryDB.EnchantString) do
+										List[Name] = Name
 									end
 									if not SelectedEnchantString then
 											SelectedEnchantString = ''
@@ -91,48 +90,55 @@ local function LoadArmoryConfigTable()
 								order = 5,
 								width = 'half'
 							},
-							AddButton = {
-								type = 'execute',
-								name = function() return (((E.db.sle.Armory.Character.Enable == false and E.db.sle.Armory.Inspect.Enable == false) or EnchantString_Old == '' or EnchantString_New == '') and '|cff787878' or KF:Color_Value())..L['Create Replacement'] end,
-								order = 6,
-								desc = '',
-								func = function()
-									if EnchantString_Old ~= '' and EnchantString_New ~= '' then
-										SLE_ArmoryDB.EnchantString[EnchantString_Old] = EnchantString_New
-										
-										EnchantString_Old = ''
-										EnchantString_New = ''
-										
-										if CharacterArmory then
-											CharacterArmory:Update_Gear()
-										end
-										
-										if InspectArmory and InspectArmory.LastDataSetting then
-											InspectArmory:InspectFrame_DataSetting(InspectArmory.CurrentInspectData)
-										end
-									elseif SLE_ArmoryDB.EnchantString[EnchantString_Old] and EnchantString_New == '' then
-										SLE_ArmoryDB.EnchantString[EnchantString_Old] = nil
-									end
-								end,
-								disabled = function()
-									return (E.db.sle.Armory.Character.Enable == false and E.db.sle.Armory.Inspect.Enable == false) or EnchantString_Old == '' or EnchantString_New == ''
-								end
-							},
-							Space3 = {
-								type = 'description',
-								name = ' ',
-								order = 7,
-								width = 'normal'
-							},
 							StringGroup = {
 								type = 'group',
-								name = "", --function() return Color('ffffffff', 'ff787878')..L['String Replacement'] end,
+								name = "",
 								order = 8,
 								guiInline = true,
 								hidden = function()
 									return SelectedEnchantString == ''
 								end,
 								args = {
+									TargetString = {
+										type = 'input',
+										name = function() return ' '..Color()..L['Original String'] end,
+										order = 1,
+										desc = '',
+										width = "full",
+										get = function() return SLE_ArmoryDB.EnchantString[SelectedEnchantString]["original"] end,
+										set = function(_, value)
+											SLE_ArmoryDB.EnchantString[SelectedEnchantString]["original"] = value
+											
+											if CharacterArmory then
+												CharacterArmory:Update_Gear()
+											end
+											
+											if InspectArmory and InspectArmory.LastDataSetting then
+												InspectArmory:InspectFrame_DataSetting(InspectArmory.CurrentInspectData)
+											end
+										end,
+										disabled = function() return E.db.sle.Armory.Character.Enable == false and E.db.sle.Armory.Inspect.Enable == false end
+									},
+									NewString = {
+										type = 'input',
+										name = function() return ' '..Color()..L['New String'] end,
+										order = 2,
+										desc = '',
+										width = "full",
+										get = function() return SLE_ArmoryDB.EnchantString[SelectedEnchantString]["new"] end,
+										set = function(_, value)
+											SLE_ArmoryDB.EnchantString[SelectedEnchantString]["new"] = value
+											
+											if CharacterArmory then
+												CharacterArmory:Update_Gear()
+											end
+											
+											if InspectArmory and InspectArmory.LastDataSetting then
+												InspectArmory:InspectFrame_DataSetting(InspectArmory.CurrentInspectData)
+											end
+										end,
+										disabled = function() return E.db.sle.Armory.Character.Enable == false and E.db.sle.Armory.Inspect.Enable == false end
+									},
 									DeleteButton = {
 										type = 'execute',
 										name = function() return Color(nil, 'ff787878')..DELETE end,
@@ -162,34 +168,6 @@ local function LoadArmoryConfigTable()
 						type = 'description',
 						name = ' ',
 						order = 3
-					},
-					List = {
-						type = 'group',
-						name = function() return Color('ffffffff', 'ff787878')..L['List of Strings'] end,
-						order = 4,
-						guiInline = true,
-						args = {
-							List = {
-								type = 'description',
-								name = function()
-									local List = ''
-									local Order = 1
-									
-									if SLE_ArmoryDB.EnchantString and next(SLE_ArmoryDB.EnchantString) then
-										for Old, New in pairs(SLE_ArmoryDB.EnchantString) do
-											List = List..'    '..Color('ffffffff', 'ff787878')..Order..'. '..Color('ffFF7E7E', 'ff787878')..Old..'|r  '..Color('ffceff00', 'ff787878')..'->|r  '..Color(nil, 'ff787878')..New..'|r|n'
-											Order = Order + 1
-										end
-									else
-										List = '    |cffFF7E7E'..L['There is no replacing order.']
-									end
-									
-									return List
-								end,
-								order = 1,
-								disabled = function() return E.db.sle.Armory.Character.Enable == false and E.db.sle.Armory.Inspect.Enable == false end,
-							}
-						}
 					},
 					CreditSpace = {
 						type = 'description',
