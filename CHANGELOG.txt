@@ -13,7 +13,12 @@ Changes:
 - Screensaver options are moved out of Media group.
 - Increased offset limits for instanse text indicator on minimap.
 - Change hide chat in combat option. Now you are able to choose what chat will be hidden: both, left only, right only or none.
-- Darth changed his layout again. 
+- Darth changed his layout again with a big change planned for later. You are warned.
+- Armory mode is now fully functional.
+Armory Mode:
+- All options are now woring at full potential
+- Added an option to filter enchant effect strings on character and inspect frames. For example replace "movement speed" with "eating speed".
+
 
 
 v2.17 4/15/2015
