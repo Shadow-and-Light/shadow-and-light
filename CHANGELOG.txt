@@ -1,3 +1,7 @@
+v2.19
+Fixes:
+- Seems like we managed to break install. Fixed now.
+
 v2.18 5/4/2015
 Additions:
 - New option in general -> unitframes. Allowes you to choose role icons for your raid frames. Also applies to chat role icons. You will be able to preview icons in config window.
