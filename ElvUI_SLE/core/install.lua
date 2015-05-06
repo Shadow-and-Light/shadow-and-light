@@ -443,7 +443,6 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["sle"]["media"]["screensaver"]["playermodel"]["anim"] = 70
 		E.db["sle"]["media"]["screensaver"]["playermodel"]["width"] = 650
 		E.db["sle"]["media"]["screensaver"]["crest"] = 150
-		E.db["sle"]["characterframeoptions"]["image"]["dropdown"] = "CASTLE"
 		E.db["sle"]["datatext"]["chathandle"] = true
 		E.db["sle"]["datatext"]["chatleft"]["width"] = 408
 		E.db["sle"]["datatext"]["chatright"]["width"] = 408
@@ -531,13 +530,11 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["movers"]["SalvageCrateMover"] = "BOTTOMElvUIParentBOTTOM-28619"
 		E.db["movers"]["UIErrorsFrameMover"] = "TOPLEFTElvUIParentTOPLEFT24-507"
 	end
-	
+
 	E.private["general"]["normTex"] = "Polished Wood"
 	E.private["general"]["glossTex"] = "Polished Wood"
 	E.private["general"]["minimap"]["hideGarrison"] = false
-	
-	E.private["sle"]["inspectframeoptions"]["enable"] = true
-	E.private["sle"]["characterframeoptions"]["enable"] = true
+
 	E.private["sle"]["minimap"]["mapicons"]["enable"] = true
 	E.private["sle"]["equip"]["spam"] = true
 	E.private["sle"]["equip"]["setoverlay"] = true
@@ -556,7 +553,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	else
 		AI:DarthCaster()
 	end
-	
+
 	if IsAddOnLoaded("ElvUI_LocLite") then
 		E.db["loclite"]["lpwidth"] = 300
 		E.db["loclite"]["dtheight"] = 20
@@ -585,7 +582,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.private["addonskins"]["EmbedOoC"] = true
 		E.private["addonskins"]["SkinTemplate"] = "Default"
 	end
-	
+
 	E:UpdateAll(true)
 end
 
@@ -660,7 +657,6 @@ function AI:RepoocSetup() --The function to switch from classic ElvUI settings t
 	E.db["nameplate"]["font"] = "Intro Black"
 	E.db["nameplate"]["fontOutline"] = "OUTLINE"
 
-	E.db["sle"]["characterframeoptions"]["image"]["dropdown"] = "ALLIANCE"
 	E.db["sle"]["datatext"]["top"]["enabled"] = true
 	E.db["sle"]["datatext"]["top"]["width"] = 202
 	E.db["sle"]["datatext"]["bottom"]["enabled"] = true
@@ -712,8 +708,6 @@ function AI:RepoocSetup() --The function to switch from classic ElvUI settings t
 	E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 202
 	E.db["unitframe"]["units"]["player"]["width"] = 202
 
-	E.private["sle"]["inspectframeoptions"]["enable"] = true
-	E.private["sle"]["characterframeoptions"]["enable"] = true
 	E.private["sle"]["minimap"]["mapicons"]["enable"] = true
 	E.private["sle"]["minimap"]["mapicons"]["barenable"] = true
 	E.private["sle"]["equip"]["setoverlay"] = true
@@ -741,7 +735,7 @@ function AI:AffinitiiSetup() --The function to switch from class ElvUI settings 
 	if not E.db["unitframe"]["units"]["raid40"]["customTexts"] then E.db["unitframe"]["units"]["raid40"]["customTexts"] = {} end
 	-- layout = E.db.layoutSet  --Pull which layout was selected if any.
 	pixel = E.PixelMode  --Pull PixelMode
-	
+
 	E.db["sle"]["nameplate"]["showthreat"] = true
 	E.db["sle"]["nameplate"]["targetcount"] = true
 	E.db["sle"]["datatext"]["chathandle"] = true
@@ -793,9 +787,9 @@ function AI:AffinitiiSetup() --The function to switch from class ElvUI settings 
 	E.db["movers"]["Bottom_Panel_Mover"] = "BOTTOMElvUIParentBOTTOM2543"
 	E.db["movers"]["PetAB"] = "TOPRIGHTElvUIParentTOPRIGHT-4-433"
 	E.db["movers"]["ElvUF_Raid25Mover"] = "TOPLEFTElvUIParentTOPLEFT449-448"
-	
+
 	E.db["gridSize"] = 110
-	
+
 	E.db["tooltip"]["style"] = "inset"
 	E.db["tooltip"]["visibility"]["combat"] = true
 
@@ -803,7 +797,7 @@ function AI:AffinitiiSetup() --The function to switch from class ElvUI settings 
 	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
 	E.db["chat"]["lfgIcons"] = false
 	E.db["chat"]["emotionIcons"] = false
-	
+
 	E.db["unitframe"]["units"]["tank"]["enable"] = false
 	E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 1
 	E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 21
@@ -992,7 +986,7 @@ function AI:AffinitiiSetup() --The function to switch from class ElvUI settings 
 	E.db["datatexts"]["font"] = "ElvUI Font"
 	E.db["datatexts"]["fontOutline"] = "None"
 	E.db["datatexts"]["battleground"] = false
-	
+
 	E.db["actionbar"]["bar3"]["buttonspacing"] = 1
 	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 3
 	E.db["actionbar"]["bar3"]["alpha"] = 0.4
@@ -1011,7 +1005,7 @@ function AI:AffinitiiSetup() --The function to switch from class ElvUI settings 
 	E.db["actionbar"]["bar4"]["alpha"] = 0.4
 	E.db["actionbar"]["bar4"]["buttonsPerRow"] = 6
 	E.db["actionbar"]["bar4"]["backdrop"] = false
-	
+
 	E.db["general"]["autoRepair"] = "GUILD"
 	E.db["general"]["bottomPanel"] = false
 	E.db["general"]["backdropfadecolor"]["b"] = 0.054
@@ -1029,10 +1023,7 @@ function AI:AffinitiiSetup() --The function to switch from class ElvUI settings 
 	E.private["general"]["normTex"] = "Polished Wood"
 	E.private["general"]["chatBubbles"] = "nobackdrop"
 	E.private["general"]["glossTex"] = "Polished Wood"
-	
-	E.private["sle"]["inspectframeoptions"]["enable"] = true
-	E.private["sle"]["characterframeoptions"]["enable"] = true
-	
+
 	E.private["theme"] = "default"
 
 	E:UpdateAll(true)
@@ -1125,11 +1116,11 @@ local function SetPage(PageNum)
 		f.Desc3:SetText(L["Importance: |cffFF0000Low|r"])
 		
 		SLEInstallOption1Button:Show()
-		SLEInstallOption1Button:SetScript('OnClick', function() E.private.sle.characterframeoptions.enable = true; E.private.sle.inspectframeoptions.enable = true; end)
+		SLEInstallOption1Button:SetScript('OnClick', function() E.private.sle.Armory.Character.Enable = true; E.private.sle.Armory.Inspect.Enable = true; end)
 		SLEInstallOption1Button:SetText(ENABLE)
 
 		SLEInstallOption2Button:Show()
-		SLEInstallOption2Button:SetScript('OnClick', function() E.private.sle.characterframeoptions.enable = true; E.private.sle.inspectframeoptions.enable = true; end)
+		SLEInstallOption2Button:SetScript('OnClick', function() E.private.sle.Armory.Character.Enable = true; E.private.sle.Armory.Inspect.Enable = true; end)
 		SLEInstallOption2Button:SetText(DISABLE)
 
 	elseif PageNum == 4 then
