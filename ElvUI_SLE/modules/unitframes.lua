@@ -316,6 +316,18 @@ for i = 1, GetNumClasses() do
 	end
 end
 
+local function GetBattleFieldIndexFromUnitName(name)
+	local nameFromIndex
+	for index = 1, GetNumBattlefieldScores() do
+		nameFromIndex = GetBattlefieldScore(index)
+		if nameFromIndex == name then
+			return index
+		end
+	end
+	return nil
+end
+
+
 function UF:UpdateRoleIcon()
     local lfdrole = self.LFDRole
     if not self.db then return; end
