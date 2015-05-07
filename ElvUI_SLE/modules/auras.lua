@@ -55,9 +55,8 @@ AT.Buffs = {
 		GetSpell(172967), --Hunt
 	},
 }
-
 AT.Spells = {
-	["DEATHKNIGH"] = {[3] = GetSpell(57330),},
+	["DEATHKNIGHT"] = {[3] = GetSpell(57330),},
 	["DRUID"] = {[1] = GetSpell(1126),[9] = GetSpell(1126),},
 	["HUNTER"] = {
 		[1] = GetSpell(160206),
@@ -173,7 +172,7 @@ function AT:BuildCasts(event, unit)
 		local button = _G["ElvUIConsolidatedBuff"..i]
 		if AT.Spells[E.myclass] then
 			local name = AT.Spells[E.myclass][i]
-			button:SetAttribute("spell1", name)
+			if name then button:SetAttribute("spell1", name) end
 		end
 	end
 	AT:UpdateAuraStandings(nil, "player")
