@@ -1114,13 +1114,13 @@ local function SetPage(PageNum)
 		f.Desc1:SetText(L["SLE_ARMORY_INSTALL"])
 		f.Desc2:SetText(L["This will enable S&L Armory mode components that will show more detailed information at a quick glance on the toons you inspect or your own character."])
 		f.Desc3:SetText(L["Importance: |cffFF0000Low|r"])
-		
+
 		SLEInstallOption1Button:Show()
-		SLEInstallOption1Button:SetScript('OnClick', function() E.private.sle.Armory.Character.Enable = true; E.private.sle.Armory.Inspect.Enable = true; end)
+		SLEInstallOption1Button:SetScript('OnClick', function() E.db.sle.Armory.Character.Enable = true; E.db.sle.Armory.Inspect.Enable = true; end)
 		SLEInstallOption1Button:SetText(ENABLE)
 
 		SLEInstallOption2Button:Show()
-		SLEInstallOption2Button:SetScript('OnClick', function() E.private.sle.Armory.Character.Enable = true; E.private.sle.Armory.Inspect.Enable = true; end)
+		SLEInstallOption2Button:SetScript('OnClick', function() E.db.sle.Armory.Character.Enable = false; E.db.sle.Armory.Inspect.Enable = false; end)
 		SLEInstallOption2Button:SetText(DISABLE)
 
 	elseif PageNum == 4 then
