@@ -399,8 +399,9 @@ P['sle'] = {
 		['enable'] = false,
 		['size'] = 17,
 		['mouse'] = false,
+		['menuBackdrop'] = false,
 		['dropdownBackdrop'] = false,
-		['position'] = "uib_vert",
+		['position'] = "vertical",
 		['spacing'] = 3,
 		['point'] = "TOPLEFT",
 		['anchor'] = "TOPRIGHT",
@@ -410,19 +411,19 @@ P['sle'] = {
 			['min'] = "1",
 			['max'] = "50",
 		},
-		['cfunc'] = {
+		['Config'] = {
 			['enabled'] = false,
 			['called'] = "Reload",
 		},
-		['afunc'] = {
+		['Addon'] = {
 			['enabled'] = false,
 			['called'] = "Manager",
 		},
-		['sfunc'] = {
+		['Status'] = {
 			['enabled'] = false,
 			['called'] = "AFK",
 		},
-		['rfunc'] = {
+		['Roll'] = {
 			['enabled'] = false,
 			['called'] = "Hundred",
 		},

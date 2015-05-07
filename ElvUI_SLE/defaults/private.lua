@@ -57,7 +57,7 @@ V['sle'] = {
 	},
 
 	['backgrounds'] = false,
-	
+
 	['uiButtonStyle'] = "dropdown",
 }
 
