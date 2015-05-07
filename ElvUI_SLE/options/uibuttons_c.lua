@@ -14,6 +14,7 @@ local positionValues = {
 };
 
 local function configTable()
+	local Bar = UB.Holder
 	E.Options.args.sle.args.options.args.general.args.uibuttons = {
 		type = "group",
 		name = L["UI Buttons"],
@@ -35,7 +36,7 @@ local function configTable()
 				name = L["Enable"],
 				desc = L["Show/Hide UI buttons."],
 				get = function(info) return E.db.sle.uibuttons.enable end,
-				set = function(info, value) E.db.sle.uibuttons.enable = value; UB:Toggle() end
+				set = function(info, value) E.db.sle.uibuttons.enable = value; Bar:ToggleShow() end
 			},
 			style = {
 				order = 4,
@@ -62,7 +63,7 @@ local function configTable()
 				min = 12, max = 25, step = 1,
 				disabled = function() return not E.db.sle.uibuttons.enable end,
 				get = function(info) return E.db.sle.uibuttons.size end,
-				set = function(info, value) E.db.sle.uibuttons.size = value; UB:FrameSize() end,
+				set = function(info, value) E.db.sle.uibuttons.size = value; Bar:FrameSize() end,
 			},
 			spacing = {
 				order = 7,
@@ -72,7 +73,7 @@ local function configTable()
 				min = 1, max = 10, step = 1,
 				disabled = function() return not E.db.sle.uibuttons.enable end,
 				get = function(info) return E.db.sle.uibuttons.spacing end,
-				set = function(info, value) E.db.sle.uibuttons.spacing = value; UB:FrameSize() end,
+				set = function(info, value) E.db.sle.uibuttons.spacing = value; Bar:FrameSize() end,
 			},
 			mouse = {
 				order = 8,
@@ -81,28 +82,36 @@ local function configTable()
 				desc = L["Show on mouse over."],
 				disabled = function() return not E.db.sle.uibuttons.enable end,
 				get = function(info) return E.db.sle.uibuttons.mouse end,
-				set = function(info, value) E.db.sle.uibuttons.mouse = value; UB:UpdateMouseOverSetting() end
+				set = function(info, value) E.db.sle.uibuttons.mouse = value; Bar:UpdateMouseOverSetting() end
+			},
+			menuBackdrop = {
+				order = 9,
+				type = "toggle",
+				name = L["Backdrop"],
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
+				get = function(info) return E.db.sle.uibuttons.menuBackdrop end,
+				set = function(info, value) E.db.sle.uibuttons.menuBackdrop = value; Bar:UpdateBackdrop() end
 			},
 			dropdownBackdrop = {
-				order = 8,
+				order = 10,
 				type = "toggle",
 				name = L["Dropdown Backdrop"],
 				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.dropdownBackdrop end,
-				set = function(info, value) E.db.sle.uibuttons.dropdownBackdrop = value; UB:FrameSize() end
+				set = function(info, value) E.db.sle.uibuttons.dropdownBackdrop = value; Bar:FrameSize() end
 			},
 			position = {
-				order = 10,
+				order = 11,
 				name = L["Buttons position"],
 				desc = L["Layout for UI buttons."],
 				type = "select",
 				values = {
-					["uib_hor"] = L['Horizontal'],
-					["uib_vert"] = L['Vertical'],
+					["horizontal"] = L['Horizontal'],
+					["vertical"] = L['Vertical'],
 				},
 				disabled = function() return not E.db.sle.uibuttons.enable end,
 				get = function(info) return E.db.sle.uibuttons.position end,
-				set = function(info, value) E.db.sle.uibuttons.position = value; UB:FrameSize() end,
+				set = function(info, value) E.db.sle.uibuttons.position = value; Bar:FrameSize() end,
 			},
 			point = {
 				type = 'select',
@@ -111,7 +120,7 @@ local function configTable()
 				desc = L['What point of dropdown will be attached to the toggle button.'],
 				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.point end,
-				set = function(info, value) E.db.sle.uibuttons.point = value; UB:FrameSize() end,
+				set = function(info, value) E.db.sle.uibuttons.point = value; Bar:FrameSize() end,
 				values = positionValues,				
 			},
 			anchor = {
@@ -121,7 +130,7 @@ local function configTable()
 				desc = L['What point to anchor dropdown on the toggle button.'],
 				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.anchor end,
-				set = function(info, value) E.db.sle.uibuttons.anchor = value; UB:FrameSize() end,
+				set = function(info, value) E.db.sle.uibuttons.anchor = value; Bar:FrameSize() end,
 				values = positionValues,				
 			},
 			xoffset = {
@@ -132,7 +141,7 @@ local function configTable()
 				min = -10, max = 10, step = 1,
 				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.xoffset end,
-				set = function(info, value) E.db.sle.uibuttons.xoffset = value; UB:FrameSize() end,
+				set = function(info, value) E.db.sle.uibuttons.xoffset = value; Bar:FrameSize() end,
 			},
 			yoffset = {
 				order = 16,
@@ -142,7 +151,7 @@ local function configTable()
 				min = -10, max = 10, step = 1,
 				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.yoffset end,
-				set = function(info, value) E.db.sle.uibuttons.yoffset = value; UB:FrameSize() end,
+				set = function(info, value) E.db.sle.uibuttons.yoffset = value; Bar:FrameSize() end,
 			},
 			minroll = {
 				order = 17,
@@ -162,7 +171,7 @@ local function configTable()
 				get = function(info) return E.db.sle.uibuttons.roll.max end,
 				set = function(info, value) E.db.sle.uibuttons.roll.max = value; end,
 			},
-			cFunc = {
+			Config = {
 				order = 19,
 				name = "\"C\" "..L["Quick Action"],
 				type = "group",
@@ -174,8 +183,8 @@ local function configTable()
 						type = "toggle",
 						name = L["Enable"],
 						desc = L["Use quick access (on right click) for this button."],
-						get = function(info) return E.db.sle.uibuttons.cfunc.enable end,
-						set = function(info, value) E.db.sle.uibuttons.cfunc.enable = value end
+						get = function(info) return E.db.sle.uibuttons.Config.enable end,
+						set = function(info, value) E.db.sle.uibuttons.Config.enable = value end
 					},
 					called = {
 						order = 2,
@@ -188,12 +197,12 @@ local function configTable()
 							["Reload"] = L["Reload UI"],
 							["MoveUI"] = L["Move UI"],
 						},
-						get = function(info) return E.db.sle.uibuttons.cfunc.called end,
-						set = function(info, value) E.db.sle.uibuttons.cfunc.called = value; end,
+						get = function(info) return E.db.sle.uibuttons.Config.called end,
+						set = function(info, value) E.db.sle.uibuttons.Config.called = value; end,
 					},
 				},
 			},
-			aFunc = {
+			Addon = {
 				order = 20,
 				name = "\"A\" "..L["Quick Action"],
 				type = "group",
@@ -205,8 +214,8 @@ local function configTable()
 						type = "toggle",
 						name = L["Enable"],
 						desc = L["Use quick access (on right click) for this button."],
-						get = function(info) return E.db.sle.uibuttons.afunc.enable end,
-						set = function(info, value) E.db.sle.uibuttons.afunc.enable = value end
+						get = function(info) return E.db.sle.uibuttons.Addon.enable end,
+						set = function(info, value) E.db.sle.uibuttons.Addon.enable = value end
 					},
 					called = {
 						order = 2,
@@ -217,12 +226,12 @@ local function configTable()
 							["Manager"] = L["Addons"],
 							["Boss"] = L["Boss Mod"],
 						},
-						get = function(info) return E.db.sle.uibuttons.afunc.called end,
-						set = function(info, value) E.db.sle.uibuttons.afunc.called = value; end,
+						get = function(info) return E.db.sle.uibuttons.Addon.called end,
+						set = function(info, value) E.db.sle.uibuttons.Addon.called = value; end,
 					},
 				},
 			},
-			sFunc = {
+			Status = {
 				order = 21,
 				name = "\"S\" "..L["Quick Action"],
 				type = "group",
@@ -234,8 +243,8 @@ local function configTable()
 						type = "toggle",
 						name = L["Enable"],
 						desc = L["Use quick access (on right click) for this button."],
-						get = function(info) return E.db.sle.uibuttons.sfunc.enable end,
-						set = function(info, value) E.db.sle.uibuttons.sfunc.enable = value end
+						get = function(info) return E.db.sle.uibuttons.Status.enable end,
+						set = function(info, value) E.db.sle.uibuttons.Status.enable = value end
 					},
 					called = {
 						order = 2,
@@ -246,12 +255,12 @@ local function configTable()
 							["AFK"] = L["AFK"],
 							["DND"] = L["DND"],
 						},
-						get = function(info) return E.db.sle.uibuttons.sfunc.called end,
-						set = function(info, value) E.db.sle.uibuttons.sfunc.called = value; end,
+						get = function(info) return E.db.sle.uibuttons.Status.called end,
+						set = function(info, value) E.db.sle.uibuttons.Status.called = value; end,
 					},
 				},
 			},
-			rFunc = {
+			Roll = {
 				order = 22,
 				name = "\"R\" "..L["Quick Action"],
 				type = "group",
@@ -263,8 +272,8 @@ local function configTable()
 						type = "toggle",
 						name = L["Enable"],
 						desc = L["Use quick access (on right click) for this button."],
-						get = function(info) return E.db.sle.uibuttons.rfunc.enable end,
-						set = function(info, value) E.db.sle.uibuttons.rfunc.enable = value end
+						get = function(info) return E.db.sle.uibuttons.Roll.enable end,
+						set = function(info, value) E.db.sle.uibuttons.Roll.enable = value end
 					},
 					called = {
 						order = 2,
@@ -280,18 +289,13 @@ local function configTable()
 							["Custom"] = L["Custom"],
 
 						},
-						get = function(info) return E.db.sle.uibuttons.rfunc.called end,
-						set = function(info, value) E.db.sle.uibuttons.rfunc.called = value; end,
+						get = function(info) return E.db.sle.uibuttons.Roll.called end,
+						set = function(info, value) E.db.sle.uibuttons.Roll.called = value; end,
 					},
 				},
 			},
 		},
 	}
-	if E.private.sle.uiButtonStyle == "dropdown" then
-		if IsAddOnLoaded("ElvUI_BenikUI") then 
-			E.Options.args.sle.args.options.args.general.args.uibuttons.args.cFunc.args.called.values["Benik"] = "BenikUI"
-		end
-	end
 end
 
 table.insert(E.SLEConfigs, configTable)
