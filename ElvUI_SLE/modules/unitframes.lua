@@ -366,6 +366,7 @@ function UF:UpdateRoleIcon()
         lfdrole:Hide()
     end
 end
+
 local function SetRoleIcons()
     for _, header in pairs(UF.headers) do
         local name = header.groupName
