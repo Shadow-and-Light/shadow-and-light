@@ -3,7 +3,7 @@ local S = E:GetModule('Skins')
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable == true and E.private.skins.blizzard.character == true then return end
-	if not E.private.sle.characterframeoptions.enable then return end
+	if not E.db.sle.Armory.Character.Enable then return end
 
 	local slots = {
 		"HeadSlot", "NeckSlot", "ShoulderSlot", "BackSlot", "ChestSlot", "ShirtSlot",
