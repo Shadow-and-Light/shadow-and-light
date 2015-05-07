@@ -13,7 +13,6 @@ local I = E:GetModule('SLE_InstDif')
 local S = E:GetModule("SLE_ScreenSaver")
 local G = E:GetModule("SLE_Garrison")
 local EF = E:GetModule('SLE_ErrorFrame');
-local lib = LibStub("LibRealmInfo")
 local LocTable = {}
 LocTable[1], LocTable[2], LocTable[3], LocTable[4], LocTable[5], LocTable[6], LocTable[7] = GetAvailableLocales()
 
