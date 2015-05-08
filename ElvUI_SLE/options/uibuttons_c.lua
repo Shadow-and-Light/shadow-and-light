@@ -223,7 +223,7 @@ local function configTable()
 						desc = L["Function called by quick access."],
 						type = "select",
 						values = {
-							["Manager"] = L["Addons"],
+							["Manager"] = L["AddOns"],
 							["Boss"] = L["Boss Mod"],
 						},
 						get = function(info) return E.db.sle.uibuttons.Addon.called end,
