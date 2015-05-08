@@ -1,4 +1,4 @@
-v2.20
+v2.20 5/8/15
 Fixes:
 - Fixed DKs not able to cast Horn of Winter from consolidated buff bar
 - Fixed unitframe errors on BGs (#125 and #124)
