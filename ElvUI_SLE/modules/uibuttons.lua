@@ -6,7 +6,7 @@ local SLE = E:GetModule("SLE")
 local S = E:GetModule("Skins")
 
 local function CustomRollCall()
-	local min, max = tonumber(E.db.sle.uibuttons.roll.min), tonumber(E.db.sle.uibuttons.roll.max)
+	local min, max = tonumber(E.db.sle.uibuttons.customroll.min), tonumber(E.db.sle.uibuttons.customroll.max)
 	if min <= max then
 		RandomRoll(min, max)
 	else

@@ -407,7 +407,7 @@ P['sle'] = {
 		['anchor'] = "TOPRIGHT",
 		['xoffset'] = 0,
 		['yoffset'] = 0,
-		['roll'] = {
+		['customroll'] = {
 			['min'] = "1",
 			['max'] = "50",
 		},

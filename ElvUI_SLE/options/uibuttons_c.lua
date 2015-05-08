@@ -159,8 +159,8 @@ local function configTable()
 				name = L["Minimum Roll Value"],
 				desc = L["The lower limit for custom roll button."],
 				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
-				get = function(info) return E.db.sle.uibuttons.roll.min end,
-				set = function(info, value) E.db.sle.uibuttons.roll.min = value; end,
+				get = function(info) return E.db.sle.uibuttons.customroll.min end,
+				set = function(info, value) E.db.sle.uibuttons.customroll.min = value; end,
 			},
 			maxroll = {
 				order = 18,
@@ -168,8 +168,8 @@ local function configTable()
 				name = L["Maximum Roll Value"],
 				desc = L["The higher limit for custom roll button."],
 				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
-				get = function(info) return E.db.sle.uibuttons.roll.max end,
-				set = function(info, value) E.db.sle.uibuttons.roll.max = value; end,
+				get = function(info) return E.db.sle.uibuttons.customroll.max end,
+				set = function(info, value) E.db.sle.uibuttons.customroll.max = value; end,
 			},
 			Config = {
 				order = 19,
