@@ -17,10 +17,10 @@ end
 
 local function MoverSize(menu)
 	local db = menu.db
-	if db.position == "vertical" then
+	if db.orientation == "vertical" then
 		menu:SetWidth(db.size + (E.PixelMode and 2 or 4))
 		menu:SetHeight((db.size*menu.NumBut)+((E.PixelMode and db.spacing or db.spacing+2)*(menu.NumBut-1))+2)
-	elseif db.position == "horizontal" then
+	elseif db.orientation == "horizontal" then
 		menu:SetWidth((db.size*menu.NumBut)+((E.PixelMode and db.spacing or db.spacing+2)*(menu.NumBut-1))+2)
 		menu:SetHeight(db.size + (E.PixelMode and 2 or 4))
 	end
@@ -223,13 +223,13 @@ local function Positioning(menu)
 
 	--position check
 	local header = menu
-	if db.position == "vertical" then
+	if db.orientation == "vertical" then
 		for i = 1, #menu.ToggleTable do
 			local button, prev = menu.ToggleTable[i], menu.ToggleTable[i-1]
 			menu.ToggleTable[i]:ClearAllPoints()
 			menu.ToggleTable[i]:Point("TOP", (prev or header), prev and "BOTTOM" or "TOP", 0, prev and (E.PixelMode and -db.spacing or -(db.spacing+2)) or (E.PixelMode and -1 or -2))
 		end
-	elseif db.position == "horizontal" then
+	elseif db.orientation == "horizontal" then
 		for i = 1, #menu.ToggleTable do
 			local button, prev = menu.ToggleTable[i], menu.ToggleTable[i-1]
 			menu.ToggleTable[i]:ClearAllPoints()

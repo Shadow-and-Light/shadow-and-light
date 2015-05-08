@@ -100,7 +100,7 @@ local function configTable()
 				get = function(info) return E.db.sle.uibuttons.dropdownBackdrop end,
 				set = function(info, value) E.db.sle.uibuttons.dropdownBackdrop = value; Bar:FrameSize() end
 			},
-			position = {
+			orientation = {
 				order = 11,
 				name = L["Buttons position"],
 				desc = L["Layout for UI buttons."],
@@ -110,8 +110,8 @@ local function configTable()
 					["vertical"] = L['Vertical'],
 				},
 				disabled = function() return not E.db.sle.uibuttons.enable end,
-				get = function(info) return E.db.sle.uibuttons.position end,
-				set = function(info, value) E.db.sle.uibuttons.position = value; Bar:FrameSize() end,
+				get = function(info) return E.db.sle.uibuttons.orientation end,
+				set = function(info, value) E.db.sle.uibuttons.orientation = value; Bar:FrameSize() end,
 			},
 			point = {
 				type = 'select',
