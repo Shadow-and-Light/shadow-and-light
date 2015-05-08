@@ -1,7 +1,7 @@
 ﻿local E, L, V, P, G = unpack(ElvUI); 
 local UB = E:GetModule('SLE_UIButtons');
 local ACD = LibStub("AceConfigDialog-3.0")
-local lib = LibStub("LibUIButtons-1.0")
+local lib = LibStub("LibElv-UIButtons-1.0")
 local SLE = E:GetModule("SLE")
 local S = E:GetModule("Skins")
 
@@ -127,10 +127,9 @@ function UB:RightClicks(menu)
 	for i = 1, #menu.ToggleTable do
 		menu.ToggleTable[i]:RegisterForClicks("LeftButtonDown", "RightButtonDown")
 	end
-	
 	menu.Config.Toggle:HookScript("OnClick", function(self, button, down)
 		if button == "RightButton" and E.db.sle.uibuttons.Config.enable then
-			menu.Addon[menu.db.Config.called]:Click()
+			menu.Config[menu.db.Config.called]:Click()
 		end
 	end)
 	menu.Addon.Toggle:HookScript("OnClick", function(self, button, down)
@@ -140,12 +139,12 @@ function UB:RightClicks(menu)
 	end)
 	menu.Status.Toggle:HookScript("OnClick", function(self, button, down)
 		if button == "RightButton" and E.db.sle.uibuttons.Status.enable then
-			menu.Addon[menu.db.Status.called]:Click()
+			menu.Status[menu.db.Status.called]:Click()
 		end
 	end)
 	menu.Roll.Toggle:HookScript("OnClick", function(self, button, down)
 		if button == "RightButton" and E.db.sle.uibuttons.Roll.enable then
-			menu.Addon[menu.db.Roll.called]:Click()
+			menu.Roll[menu.db.Roll.called]:Click()
 		end
 	end)
 end
