@@ -421,6 +421,7 @@ L["Tooltip Y-offset"] = "Смещение подсказки по Y"
 L["Offset the tooltip on the Y-axis."] = "Смещает подсказку по оси Y относительно выбранной точки крепления."
 
 --UI buttons--
+L["S&L UI Buttons"] = "Меню S&L"
 L["UB_DESC"] = "Добавляет небольшую полосу с кнопками, дающими доступ к набору полезных функций."
 L["Click to reload your interface"] = "Нажмите для перезагрузки интерфейса"
 L["Click to toggle config window"] = "Нажмите для отображения окна настроек"
