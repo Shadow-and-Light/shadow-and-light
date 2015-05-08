@@ -4,4 +4,4 @@
 ## Title: Lib UIButtons 1.0
 ## RequiredDeps: ElvUI
 
-LibUIButtons-1.0.lua
+LibElv-UIButtons-1.0.lua

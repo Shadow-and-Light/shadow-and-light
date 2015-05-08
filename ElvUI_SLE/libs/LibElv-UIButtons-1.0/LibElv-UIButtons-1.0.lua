@@ -1,4 +1,4 @@
-local MAJOR, MINOR = "LibUIButtons-1.0", 01
+local MAJOR, MINOR = "LibElv-UIButtons-1.0", 01
 local lib, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not lib then return end
