@@ -51,11 +51,11 @@ local function ToggleCats(menu)
 	end
 end
 
-local function OnEnter(self, menu)
+local function OnEnter(menu)
 	menu:SetAlpha(1)
 end
 
-local function OnLeave(self, menu)
+local function OnLeave(menu)
 	if menu.db.mouse then
 		menu:SetAlpha(0)
 	end
@@ -76,8 +76,8 @@ local function CreateCoreButton(menu, name, text)
 	else
 		lib:CustomStyleCoreButton(menu, name, text)
 	end
-	button:SetScript('OnEnter', function(self) OnEnter(self, menu) end)
-	button:SetScript('OnLeave', function(self) OnLeave(self, menu) end)
+	button:SetScript('OnEnter', function(self) menu:OnEnter() end)
+	button:SetScript('OnLeave', function(self) menu:OnLeave() end)
 	-- button:SetSize(17, 17) --For testing purposes
 	button.text = button:CreateFontString(nil, "OVERLAY")
 	button.text:SetPoint("CENTER", button, "CENTER", 0, 0)
@@ -124,19 +124,19 @@ local function CreateDropdownButton(menu, core, name, text, tooltip1, tooltip2, 
 
 	if tooltip1 then
 		b:SetScript("OnEnter", function(self)
-			OnEnter(self, menu)
+			menu:OnEnter()
 			GameTooltip:SetOwner(self)
 			GameTooltip:AddLine(tooltip1, 1, .96, .41, .6, .6, 1)
 			if tooltip2 then GameTooltip:AddLine(tooltip2, 1, 1, 1, 1, 1, 1) end
 			GameTooltip:Show()
 		end)
 		b:SetScript("OnLeave", function(self)
-			OnLeave(self, menu)
+			menu:OnLeave()
 			GameTooltip:Hide() 
 		end)
 	else
-		b:SetScript('OnEnter', function(self) OnEnter(self, menu) end)
-		b:SetScript('OnLeave', function(self) OnLeave(self, menu) end)
+		b:SetScript('OnEnter', function(self) menu:OnEnter() end)
+		b:SetScript('OnLeave', function(self) menu:OnLeave() end)
 	end
 	S:HandleButton(b)
 
@@ -160,8 +160,8 @@ local function CreateSeparator(menu, core, name, size, space)
 	f.size = size or 1
 	f.space = space or 2
 	f:CreateBackdrop("Transparent")
-	f:SetScript('OnEnter', function(self) OnEnter(self, menu) end)
-	f:SetScript('OnLeave', function(self) OnLeave(self, menu) end)
+	f:SetScript('OnEnter', function(self) menu:OnEnter() end)
+	f:SetScript('OnLeave', function(self) menu:OnLeave() end)
 	tinsert(menu[core.."Table"], f)
 end
 
@@ -182,8 +182,8 @@ local function ToggleSetup(menu, button, holder)
 			menu:ToggleCats()
 		end
 	end)
-	holder:SetScript('OnEnter', function(self) OnEnter(self, menu) end)
-	holder:SetScript('OnLeave', function(self) OnLeave(self, menu) end)
+	holder:SetScript('OnEnter', function(self) menu:OnEnter() end)
+	holder:SetScript('OnLeave', function(self) menu:OnLeave() end)
 end
 
 local function UpdateDropdownLayout(menu, group)
@@ -304,8 +304,6 @@ function lib:CreateFrame(name, db, default, style, styleDefault)
 	menu:SetClampedToScreen(true)
 	menu:Point("LEFT", E.UIParent, "LEFT", -2, 0);
 	menu:Size(17, 17); --Cause the damn thing doesn't want to show up without default size lol
-	menu:SetScript('OnEnter', function(self) OnEnter(self, self) end)
-	menu:SetScript('OnLeave', function(self) OnLeave(self, self) end)
 	menu.myname = UnitName('player')
 	menu:CreateBackdrop()
 
@@ -328,6 +326,12 @@ function lib:CreateFrame(name, db, default, style, styleDefault)
 	menu.SetupMover = SetupMover
 	menu.ToggleShow = ToggleShow
 	menu.UpdateBackdrop = UpdateBackdrop
+	menu.OnEnter = OnEnter
+	menu.OnLeave = OnLeave
+
+
+	menu:SetScript('OnEnter', function(self) menu:OnEnter() end)
+	menu:SetScript('OnLeave', function(self) menu:OnLeave() end)
 
 	return menu
 end
