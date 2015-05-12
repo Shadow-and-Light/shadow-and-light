@@ -332,6 +332,177 @@ function lib:CreateFrame(name, db, default, style, styleDefault)
 	return menu
 end
 
+local function GenerateTable(menu, coreGroup, groupName, groupTitle)
+	local positionValues = {
+		TOPLEFT = 'TOPLEFT',
+		LEFT = 'LEFT',
+		BOTTOMLEFT = 'BOTTOMLEFT',
+		RIGHT = 'RIGHT',
+		TOPRIGHT = 'TOPRIGHT',
+		BOTTOMRIGHT = 'BOTTOMRIGHT',
+		CENTER = 'CENTER',
+		TOP = 'TOP',
+		BOTTOM = 'BOTTOM',
+	};
+
+	local isDefault = coreGroup == true and true or false
+	if isDefault and not E.Options.args.uibuttons then
+		E.Options.args.uibuttons = {
+			type = "group",
+			name = L["UI Buttons"],
+			order = 77,
+			childGroups = 'select',
+			args = {
+			},
+		}
+		coreGroup = E.Options.args.uibuttons
+	end
+	coreGroup.args[groupName] = {
+		type = "group",
+		name = groupTitle,
+		order = 1,
+		args = {
+			header = {
+				order = 1,
+				type = "header",
+				name = groupTitle,
+			},
+			enabled = {
+				order = 3,
+				type = "toggle",
+				name = L["Enable"],
+				desc = L["Show/Hide UI buttons."],
+				get = function(info) return menu.db.enable end,
+				set = function(info, value) menu.db.enable = value; menu:ToggleShow() end
+			},
+			style = {
+				order = 4,
+				name = L["UI Buttons Style"],
+				type = "select",
+				values = {
+					["classic"] = L['Classic'],
+					["dropdown"] = L['Dropdown'],
+				},
+				disabled = function() return not menu.db.enable end,
+				get = function(info) return E.private.sle.uiButtonStyle end,
+				set = function(info, value) E.private.sle.uiButtonStyle = value; E:StaticPopup_Show("PRIVATE_RL") end,
+			},
+			space = {
+				order = 5,
+				type = 'description',
+				name = "",
+			},
+			size = {
+				order = 6,
+				type = "range",
+				name = L['Size'],
+				desc = L["Sets size of buttons"],
+				min = 12, max = 25, step = 1,
+				disabled = function() return not menu.db.enable end,
+				get = function(info) return menu.db.size end,
+				set = function(info, value) menu.db.size = value; menu:FrameSize() end,
+			},
+			spacing = {
+				order = 7,
+				type = "range",
+				name = L['Button Spacing'],
+				desc = L['The spacing between buttons.'],
+				min = 1, max = 10, step = 1,
+				disabled = function() return not menu.db.enable end,
+				get = function(info) return menu.db.spacing end,
+				set = function(info, value) menu.db.spacing = value; menu:FrameSize() end,
+			},
+			mouse = {
+				order = 8,
+				type = "toggle",
+				name = L["Mouse Over"],
+				desc = L["Show on mouse over."],
+				disabled = function() return not menu.db.enable end,
+				get = function(info) return menu.db.mouse end,
+				set = function(info, value) menu.db.mouse = value; menu:UpdateMouseOverSetting() end
+			},
+			menuBackdrop = {
+				order = 9,
+				type = "toggle",
+				name = L["Backdrop"],
+				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == "classic" end,
+				get = function(info) return menu.db.menuBackdrop end,
+				set = function(info, value) menu.db.menuBackdrop = value; menu:UpdateBackdrop() end
+			},
+			dropdownBackdrop = {
+				order = 10,
+				type = "toggle",
+				name = L["Dropdown Backdrop"],
+				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == "classic" end,
+				get = function(info) return menu.db.dropdownBackdrop end,
+				set = function(info, value) menu.db.dropdownBackdrop = value; menu:FrameSize() end
+			},
+			orientation = {
+				order = 11,
+				name = L["Buttons position"],
+				desc = L["Layout for UI buttons."],
+				type = "select",
+				values = {
+					["horizontal"] = L['Horizontal'],
+					["vertical"] = L['Vertical'],
+				},
+				disabled = function() return not menu.db.enable end,
+				get = function(info) return menu.db.orientation end,
+				set = function(info, value) menu.db.orientation = value; menu:FrameSize() end,
+			},
+			point = {
+				type = 'select',
+				order = 13,
+				name = L['Anchor Point'],
+				desc = L['What point of dropdown will be attached to the toggle button.'],
+				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == "classic" end,
+				get = function(info) return menu.db.point end,
+				set = function(info, value) menu.db.point = value; menu:FrameSize() end,
+				values = positionValues,				
+			},
+			anchor = {
+				type = 'select',
+				order = 14,
+				name = L['Attach To'],
+				desc = L['What point to anchor dropdown on the toggle button.'],
+				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == "classic" end,
+				get = function(info) return menu.db.anchor end,
+				set = function(info, value) menu.db.anchor = value; menu:FrameSize() end,
+				values = positionValues,				
+			},
+			xoffset = {
+				order = 15,
+				type = "range",
+				name = L['X-Offset'],
+				desc = L["Horizontal offset of dropdown from the toggle button."],
+				min = -10, max = 10, step = 1,
+				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == "classic" end,
+				get = function(info) return menu.db.xoffset end,
+				set = function(info, value) menu.db.xoffset = value; menu:FrameSize() end,
+			},
+			yoffset = {
+				order = 16,
+				type = "range",
+				name = L['Y-Offset'],
+				desc = L["Vertical offset of dropdown from the toggle button."],
+				min = -10, max = 10, step = 1,
+				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == "classic" end,
+				get = function(info) return menu.db.yoffset end,
+				set = function(info, value) menu.db.yoffset = value; menu:FrameSize() end,
+			},
+		},
+	}
+end
+
+function lib:CreateOptions(menu, default, groupName, groupTitle)
+	menu:RegisterEvent("ADDON_LOADED")
+	menu:SetScript("OnEvent", function(self, event, addon) 
+		if addon ~= "ElvUI_Config" then return end
+		self:UnregisterEvent("ADDON_LOADED")
+		GenerateTable(self, default, groupName, groupTitle)
+	end)
+end
+
 --This function is for creating own menu style. Replacing is not encouraged, hooking recommended.
 function lib:CustomStyleCoreButton(menu, name, text)
 end
