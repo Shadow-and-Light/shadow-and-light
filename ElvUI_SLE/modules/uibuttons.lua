@@ -21,22 +21,22 @@ function UB:ClassicSetup(menu)
 	button:SetScript("OnClick", function(self)
 		E:ToggleConfig()
 	end)
-	button:HookScript('OnEnter', function(self) OnEnter(self, menu) end)
-	button:HookScript('OnLeave', function(self) OnLeave(self, menu) end)
+	button:HookScript('OnEnter', function(self) menu:OnEnter() end)
+	button:HookScript('OnLeave', function(self) menu:OnLeave() end)
 
 	button = menu.Reload
 	button:SetScript("OnClick", function(self)
 		ReloadUI()
 	end)
-	button:HookScript('OnEnter', function(self) OnEnter(self, menu) end)
-	button:HookScript('OnLeave', function(self) OnLeave(self, menu) end)
+	button:HookScript('OnEnter', function(self) menu:OnEnter() end)
+	button:HookScript('OnLeave', function(self) menu:OnLeave() end)
 
 	button = menu.MoveUI
 	button:SetScript("OnClick", function(self)
 		E:ToggleConfigMode()
 	end)
-	button:HookScript('OnEnter', function(self) OnEnter(self, menu) end)
-	button:HookScript('OnLeave', function(self) OnLeave(self, menu) end)
+	button:HookScript('OnEnter', function(self) menu:OnEnter() end)
+	button:HookScript('OnLeave', function(self) menu:OnLeave() end)
 
 	button = menu.Boss
 	button:SetScript("OnClick", function(self)
@@ -46,15 +46,15 @@ function UB:ClassicSetup(menu)
 			VEM:LoadGUI()
 		end
 	end)
-	button:HookScript('OnEnter', function(self) OnEnter(self, menu) end)
-	button:HookScript('OnLeave', function(self) OnLeave(self, menu) end)
+	button:HookScript('OnEnter', function(self) menu:OnEnter() end)
+	button:HookScript('OnLeave', function(self) menu:OnLeave() end)
 
 	button = menu.Addon
 	button:SetScript("OnClick", function(self)
 		GameMenuButtonAddons:Click()
 	end)
-	button:HookScript('OnEnter', function(self) OnEnter(self, menu) end)
-	button:HookScript('OnLeave', function(self) OnLeave(self, menu) end)
+	button:HookScript('OnEnter', function(self) menu:OnEnter() end)
+	button:HookScript('OnLeave', function(self) menu:OnLeave() end)
 end
 
 function UB:ConfigSetup(menu)
@@ -162,4 +162,6 @@ function UB:Initialize()
 	UB.FrameSize = menu.FrameSize
 
 	UB:RightClicks(menu)
+
+	-- lib:CreateOptions(menu, true, "slebuttons", "SLE Buttons")
 end
