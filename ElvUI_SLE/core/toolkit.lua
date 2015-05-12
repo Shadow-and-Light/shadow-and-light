@@ -65,7 +65,7 @@ local function UpdateAll()
 	end
 	LT:LootShow()
 	LT:Update()
-	UB:FrameSize()
+	UB.Holder:FrameSize()
 	RM:UpdateBar(true)
 	F:UpdateLayout()
 	CH:GMIconUpdate()
