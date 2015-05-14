@@ -71,6 +71,7 @@ local function CreateCoreButton(menu, name, text)
 		menu[name] = CreateFrame("Frame", menu:GetName().."_Core_"..name, menu)
 		menu[name].Toggle = CreateFrame("Button", menu:GetName().."_Core_"..name.."Toggle", menu)
 		holder = menu[name]
+		holder.width = 0
 		holder:CreateBackdrop("Transparent")
 		button = menu[name].Toggle
 	else
@@ -202,7 +203,7 @@ local function UpdateDropdownLayout(menu, group)
 		sepS = (button.isSeparator and sepS + ((prev and 2 or 1)*button.space + button.size)) or sepS
 		sepC = button.isSeparator and sepC + 1 or sepC
 	end
-	header:Size(db.size * 3.1, (db.size * (count+1))+(db.spacing*(count))+sepS+(.5*sepC))
+	header:Size(header.width, (db.size * (count+1))+(db.spacing*(count))+sepS+(.5*sepC))
 	if menu.db.dropdownBackdrop then
 		header.backdrop:Show()
 	else
@@ -256,11 +257,16 @@ local function FrameSize(menu)
 		for i = 1, #menu.GroupsTable do
 			local group = menu.GroupsTable[i]
 			local mass = menu[group.."Table"]
+			for w = 1, #mass do
+				if mass[w].text and mass[w].text:GetWidth() > menu.HoldersTable[i].width then
+					menu.HoldersTable[i].width = mass[w].text:GetWidth() + 10
+				end
+			end
 			for n = 1, #mass do
 				if mass[n].isSeparator then
-					mass[n]:Size((db.size * 3.1) - 2, mass[n].size)
+					mass[n]:Size(menu.HoldersTable[i].width - 2, mass[n].size)
 				else
-					mass[n]:Size(db.size * 3.1, db.size)
+					mass[n]:Size(menu.HoldersTable[i].width, db.size)
 				end
 			end
 		end
