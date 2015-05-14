@@ -232,6 +232,8 @@ end
 function SLE:FixDatabase() --For when we dramatically change some options
 	if E.db.sle.chat.combathide == true then E.db.sle.chat.combathide = "BOTH" end
 	if E.db.sle.chat.combathide == false then E.db.sle.chat.combathide = "NONE" end
+	if E.db.sle.uibuttons.position == "uib_vert" then E.db.sle.uibuttons.orientation = "vertical" end
+	if E.db.sle.uibuttons.position == "uib_hor" then E.db.sle.uibuttons.orientation = "horizontal" end
 end
 
 function SLE:Initialize()

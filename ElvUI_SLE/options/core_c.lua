@@ -1,6 +1,7 @@
 ﻿local E, L, V, P, G = unpack(ElvUI)
 local SLE = E:GetModule('SLE')
 local LT = E:GetModule('SLE_Loot')
+local ACD = LibStub("AceConfigDialog-3.0")
 
 local function configTable()
 	E.Options.args.ElvUI_Header.name = E.Options.args.ElvUI_Header.name.." + Shadow & Light"..format(": |cff99ff33%s|r",SLE.version)
@@ -23,7 +24,7 @@ local function configTable()
 				type = 'description',
 				name = '',
 				order = 2,
-				image = function() return 'Interface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Title', 650, 410 end,
+				image = function() return 'Interface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Title', 555, 350 end,
 			},
 			--[[info = {
 				order = 3,
@@ -36,6 +37,72 @@ local function configTable()
 				name = L['Install'],
 				desc = L['Run the installation process.'],
 				func = function() SLE:Install(); E:ToggleConfig() end,
+			},
+			SettingsButton = {
+				order = 5,
+				type = 'execute',
+				name = L["General"].." "..SETTINGS,
+				func = function() ACD:SelectGroup("ElvUI", "sle", "options", "general") end,
+			},
+			MinimapButton = {
+				order = 6,
+				type = 'execute',
+				name = L["Minimap"],
+				func = function() ACD:SelectGroup("ElvUI", "sle", "options", "minimap") end,
+			},
+			MarkersButton = {
+				order = 7,
+				type = 'execute',
+				name = L["Raid Markers"],
+				func = function() ACD:SelectGroup("ElvUI", "sle", "options", "raidmarkerbars") end,
+			},
+			EquipButton = {
+				order = 8,
+				type = 'execute',
+				name = L['Equipment Manager'],
+				func = function() ACD:SelectGroup("ElvUI", "sle", "options", "equipmanager") end,
+			},
+			FarmButton = {
+				order = 9,
+				type = 'execute',
+				name = L['Farm'],
+				func = function() ACD:SelectGroup("ElvUI", "sle", "options", "farm") end,
+			},
+			LootButton = {
+				order = 10,
+				type = 'execute',
+				name = L['Loot'],
+				func = function() ACD:SelectGroup("ElvUI", "sle", "options", "loot") end,
+			},
+			MediaButton = {
+				order = 11,
+				type = 'execute',
+				name = L["Media"],
+				func = function() ACD:SelectGroup("ElvUI", "sle", "media") end,
+			},
+			ScreensaverButton = {
+				order = 12,
+				type = 'execute',
+				name = L["Screensaver"],
+				func = function() ACD:SelectGroup("ElvUI", "sle", "screensaver") end,
+			},
+			ArmoryButton = {
+				order = 13,
+				type = 'execute',
+				name = L["Armory Mode"],
+				func = function() ACD:SelectGroup("ElvUI", "sle", "armory") end,
+			},
+			DatatextButton = {
+				order = 14,
+				type = 'execute',
+				name = L["Panels & Dashboard"],
+				func = function() ACD:SelectGroup("ElvUI", "sle", "datatext") end,
+			},
+			HelpButton = {
+				order = 15,
+				type = 'execute',
+				name = L['About/Help'],
+				func = function() ACD:SelectGroup("ElvUI", "sle", "help") end,
 			},
 			options = {
 				order = 1,

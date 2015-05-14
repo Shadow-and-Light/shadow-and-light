@@ -399,30 +399,31 @@ P['sle'] = {
 		['enable'] = false,
 		['size'] = 17,
 		['mouse'] = false,
+		['menuBackdrop'] = false,
 		['dropdownBackdrop'] = false,
-		['position'] = "uib_vert",
+		['orientation'] = "vertical",
 		['spacing'] = 3,
 		['point'] = "TOPLEFT",
 		['anchor'] = "TOPRIGHT",
 		['xoffset'] = 0,
 		['yoffset'] = 0,
-		['roll'] = {
+		['customroll'] = {
 			['min'] = "1",
 			['max'] = "50",
 		},
-		['cfunc'] = {
+		['Config'] = {
 			['enabled'] = false,
 			['called'] = "Reload",
 		},
-		['afunc'] = {
+		['Addon'] = {
 			['enabled'] = false,
 			['called'] = "Manager",
 		},
-		['sfunc'] = {
+		['Status'] = {
 			['enabled'] = false,
 			['called'] = "AFK",
 		},
-		['rfunc'] = {
+		['Roll'] = {
 			['enabled'] = false,
 			['called'] = "Hundred",
 		},
