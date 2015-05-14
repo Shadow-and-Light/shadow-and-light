@@ -98,9 +98,28 @@ function AT:Update_ConsolidatedBuffsSettings()
 	end
 end
 
+local function ConsOnEnter(button)
+	GameTooltip:Hide()
+	GameTooltip:SetOwner(button, "ANCHOR_BOTTOMLEFT", -3, button:GetHeight() + 2)
+	GameTooltip:ClearLines()
+
+	if button.BuffID and button.SpellName ~= "" then
+		GameTooltip:SetUnitConsolidatedBuff("player", button.BuffID)
+	else
+		GameTooltip:AddLine(_G[("RAID_BUFF_%d"):format(button.BuffID)])
+	end
+
+	GameTooltip:Show()
+end
+
+local function ConsOnLeave()
+	GameTooltip:Hide()
+end
+
 function A:CreateButton(i)
 	local button = CreateFrame("Button", "ElvUIConsolidatedBuff"..i, ElvUI_ConsolidatedBuffs, "SecureActionButtonTemplate")
 	button:SetTemplate('Default')
+	button.BuffID = i
 
 	button.t = button:CreateTexture(nil, "OVERLAY")
 	button.t:SetTexCoord(unpack(E.TexCoords))
@@ -120,7 +139,9 @@ function A:CreateButton(i)
 	button.timer:SetPoint('CENTER')
 
 	button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-	
+	button:SetScript("OnEnter", function(self) ConsOnEnter(self) end)
+	button:SetScript("OnLeave", function(self) ConsOnLeave() end)
+
 	return button
 end
 
@@ -188,11 +209,13 @@ function AT:UpdateAuraStandings(event, unit)
 	end
 	for i = 1, NUM_LE_RAID_BUFF_TYPES do
 		local button = _G["ElvUIConsolidatedBuff"..i]
+		button.SpellName = ""
 		for s = 1, #AT.Buffs[i] do
 			local name = UnitAura("player", AT.Buffs[i][s])
 			if name then
 				button:SetAttribute("type2", "cancelaura")
 				button:SetAttribute("spell2", name)
+				button.SpellName = name
 				break
 			end
 		end
@@ -204,7 +227,7 @@ function AT:Initialize()
 	hooksecurefunc(A, 'UpdateAura', AT.UpdateAura)
 	hooksecurefunc(A, 'Update_ConsolidatedBuffsSettings', AT.Update_ConsolidatedBuffsSettings)
 	--hooksecurefunc(A, 'UpdateTempEnchant', AT.UpdateTempEnchant)
-	
+
 	self:RegisterEvent("UNIT_AURA", "UpdateAuraStandings")
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "BuildCasts")
 	self:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED", "BuildCasts")
