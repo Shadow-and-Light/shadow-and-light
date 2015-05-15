@@ -286,7 +286,7 @@ function LDB.OnEnter(self)
 		else
 			ssGuildName = _G.GUILD
 		end
-
+		if not ssGuildName then return end
 		line = tooltip:AddLine()
 		if not E.db.sle.dt.guild.hideGuild then
 			tooltip:SetCell(line, 1, "|cffffffff" .. ssGuildName .."|r", "LEFT", 3)
