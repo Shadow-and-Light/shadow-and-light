@@ -1,3 +1,10 @@
+v2.21
+Additions:
+- New options to control visibility of quest log in sertain areas. It can be full, minimized or hidden.
+Changes:
+- Changed the way UI Buttons are operating. Transition will result in next options returning to default values: mover position, horizontal/vertical orientation, custom roll limits, quick actions states for dropdown mode.
+- Tooltips for Consolidated Buffs bar are back.
+
 v2.20 5/8/15
 Fixes:
 - Fixed DKs not able to cast Horn of Winter from consolidated buff bar
