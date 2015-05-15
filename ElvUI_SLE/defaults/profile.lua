@@ -428,25 +428,36 @@ P['sle'] = {
 			['called'] = "Hundred",
 		},
 	},
-	
+
 	['rumouseover'] = false,
 
 	['bags'] = {
 		['lootflash'] = true,
 	},
-	
+
 	['garrison'] = {
 		['autoOrder'] = false,
 		['autoWar'] = false,
 		['autoTrade'] = false,
 	},
-	
+
 	['errorframe'] = {
 		['height'] = 60,
 		['width'] = 512,
 	},
-	
+
 	['roleicons'] = "ElvUI",
+
+	['quests'] = {
+		['visibility'] = {
+			['bg'] = "COLLAPSED",
+			['arena'] = "COLLAPSED",
+			['dungeon'] = "FULL",
+			['raid'] = "COLLAPSED",
+			['scenario'] = "FULL",
+			['rested'] = "FULL",
+		},
+	},
 }
 
 P.chat.editboxhistory = 5

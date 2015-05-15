@@ -1,0 +1,52 @@
+local E, L, V, P, G = unpack(ElvUI);
+local Q = E:GetModule("SLE_Quests")
+local frame
+
+local statedriver = {
+	['FULL'] = function(frame) 
+		ObjectiveTracker_Expand()
+		frame:Show()
+	end,
+	['COLLAPSED'] = function(frame)
+		ObjectiveTracker_Collapse()
+		frame:Show()
+	end,
+	['HIDDEN'] = function(frame)
+		frame:Hide()
+	end,
+}
+
+function Q:ChangeState(event)
+	if InCombatLockdown() then self:RegisterEvent("PLAYER_REGEN_ENABLED", "ChangeState") return end
+	if event == "PLAYER_REGEN_ENABLED" then self:UnregisterEvent("PLAYER_REGEN_ENABLED") end
+
+	if IsResting() then
+		statedriver[Q.db.visibility.rested](frame)
+		-- statedriver["COLLAPSED"](frame)
+	else
+		local instance, instanceType = IsInInstance()
+		if instance then
+			if instanceType == 'pvp' then
+				statedriver[Q.db.visibility.bg](frame)
+			elseif instanceType == 'arena' then
+				statedriver[Q.db.visibility.arena](frame)
+			elseif instanceType == 'party' then
+				statedriver[Q.db.visibility.dungeon](frame)
+			elseif instanceType == 'scenario' then
+				statedriver[Q.db.visibility.scenario](frame)
+			elseif instanceType == 'raid' then
+				statedriver[Q.db.visibility.raid](frame)
+			end
+		else
+			statedriver["FULL"](frame)
+		end
+		
+	end
+end
+
+function Q:Initialize()
+	Q.db = E.db.sle.quests
+	frame = ObjectiveTrackerFrame
+	self:RegisterEvent("PLAYER_ENTERING_WORLD", "ChangeState")
+	self:RegisterEvent("PLAYER_UPDATE_RESTING", "ChangeState")
+end

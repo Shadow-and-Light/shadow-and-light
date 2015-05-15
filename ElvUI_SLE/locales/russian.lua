@@ -480,6 +480,9 @@ L["Error Frame"] = "Фрейм ошибок"
 L["Set the width of Error Frame. Too narrow frame may cause messages to be split in several lines"] = "Устанавливает ширину фрейма ошибок. Если фрейм окажется слишком узким, текст будет разделен на несколько строк."
 L["Set the height of Error Frame. Higher frame can show more lines at once."] = "Устанавливает высоту фрейма ошибок. Чем выше фрейм, тем больше строк может быть показано одновременно."
 
+--Quests--
+L["Rested"] = "Отдых"
+
 --Credits--
 L["Submodules and Coding:"] = "Субмодули и помощь с кодом:"
 L["Other Support:"] = "Прочая поддержка:"

@@ -25,4 +25,5 @@
 	<Script file='unitframes_c.lua'/>
 	<Script file='vehicle_c.lua'/>
 	<Script file='errorframe_c.lua'/>
+	<Script file='quests_c.lua'/>
 </Ui>
