@@ -1,4 +1,5 @@
 v2.21
+For preventing issues we recommend you to remove Shadow & Light and install it again instead of usual updating process due to some files have been moved or renamed.
 Additions:
 - New options to control visibility of quest log in sertain areas. It can be full, minimized or hidden.
 Changes:
