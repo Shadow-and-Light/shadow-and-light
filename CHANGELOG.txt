@@ -5,6 +5,8 @@ Additions:
 Changes:
 - Changed the way UI Buttons are operating. Transition will result in next options returning to default values: mover position, horizontal/vertical orientation, custom roll limits, quick actions states for dropdown mode.
 - Tooltips for Consolidated Buffs bar are back.
+Fixes:
+- Fixed the button from PAWN addon being unclickable with armory mode enabled
 
 v2.20 5/8/15
 Fixes:
