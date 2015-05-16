@@ -371,7 +371,11 @@ function CA:Setup_CharacterArmory()
 	-- GameTooltip for counting gem sockets and getting enchant effects
 	self.ScanTT = CreateFrame('GameTooltip', 'Knight_CharacterArmory_ScanTT', nil, 'GameTooltipTemplate')
 	self.ScanTT:SetOwner(UIParent, 'ANCHOR_NONE')
-	
+
+	if PawnUI_InventoryPawnButton then
+		PawnUI_InventoryPawnButton:SetFrameLevel(CharacterModelFrame:GetFrameLevel() + 1)
+	end
+
 	self.Setup_CharacterArmory = nil
 end
 
