@@ -11,7 +11,7 @@ local statedriver = {
 		ObjectiveTracker_Collapse()
 		frame:Show()
 	end,
-	['HIDDEN'] = function(frame)
+	['HIDE'] = function(frame)
 		frame:Hide()
 	end,
 }
@@ -22,7 +22,6 @@ function Q:ChangeState(event)
 
 	if IsResting() then
 		statedriver[Q.db.visibility.rested](frame)
-		-- statedriver["COLLAPSED"](frame)
 	else
 		local instance, instanceType = IsInInstance()
 		if instance then
