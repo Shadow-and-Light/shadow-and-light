@@ -1323,13 +1323,12 @@ function IA:CreateInspectFrame()
 		end)
 		InspectArmory_UnitPopup:SetScript('OnClick', function(self)
 			local SendChannel, InspectWork
-			
 			if AISM and AISM.AISMUserList[self.Data.TableIndex] then
 				if self.Data.Realm == Info.MyRealm then
 					SendChannel = 'WHISPER'
 				elseif AISM.AISMUserList[self.Data.TableIndex] == 'GUILD' then
 					SendChannel = 'GUILD'
-				elseif Info.CurrentGroupMode ~= 'NoGroup' then
+				elseif Info.CurrentGroupMode and Info.CurrentGroupMode ~= 'NoGroup' then
 					SendChannel = IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(Info.CurrentGroupMode)
 				end
 			end
