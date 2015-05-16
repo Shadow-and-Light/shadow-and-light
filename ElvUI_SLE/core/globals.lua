@@ -1,18 +1,33 @@
 ﻿local E, L, V, P, G = unpack(ElvUI);
 local SLE = E:GetModule('SLE')
 
---Chat icon paths
-local adapt = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\adapt:0:2|t"
-local repooc = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_Logo:0:2|t "
-local darth = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Chat_LogoD:0:2|t "
---"|TInterface\\Icons\\inv_helmet_131:12:12:0:0:64:64:4:60:4:60|t"
-local friend = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Friend:16:16|t "
--- local test = "|TInterface\\Icons\\Achievement_PVP_H_03:16:16|t "
-local test = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_Test:16:16|t "
-local rpg = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\Chat_RPG:13:35|t"
-local kitalie = "|TInterface\\Icons\\%s:12:12:0:0:64:64:4:60:4:60|t"
-local orc = "|TInterface\\Icons\\Achievement_Character_Orc_Male:16:16|t"
-local goldicon = "|TInterface\\MoneyFrame\\UI-GoldIcon:12:12|t"
+--Chat icon paths--
+local slePath = [[|TInterface\AddOns\ElvUI_SLE\media\textures\]]
+local blizzPath = [[|TInterface\ICONS\]]
+--sle
+local adapt = slePath..[[adapt:0:2|t]]
+local repooc = slePath..[[SLE_Chat_Logo:0:2|t ]]
+local darth = slePath..[[SLE_Chat_LogoD:0:2|t ]]
+local friend = slePath..[[Chat_Friend:16:16|t ]]
+local test = slePath..[[Chat_Test:16:16|t ]]
+local rpg = slePath..[[Chat_RPG:13:35|t]]
+--blizz
+local kitalie = blizzPath..[[%s:12:12:0:0:64:64:4:60:4:60|t]]
+local orc = blizzPath..[[Achievement_Character_Orc_Male:16:16|t ]]
+local goldicon = blizzPath..[[rame\UI-GoldIcon:12:12|t]]
+local classTable = {
+	deathknight = blizzPath..[[ClassIcon_DeathKnight:16:16|t ]],
+	druid = blizzPath..[[ClassIcon_Druid:16:16|t ]],
+	hunter = blizzPath..[[ClassIcon_Hunter:16:16|t ]],
+	mage = blizzPath..[[ClassIcon_Mage:16:16|t ]],
+	monk = blizzPath..[[ClassIcon_Monk:16:16|t ]],
+	paladin = blizzPath..[[ClassIcon_Paladin:16:16|t ]],
+	priest = blizzPath..[[ClassIcon_Priest:16:16|t ]],
+	rogue = blizzPath..[[ClassIcon_Rogue:16:16|t ]],
+	shaman = blizzPath..[[ClassIcon_Shaman:16:16|t ]],
+	warlock = blizzPath..[[ClassIcon_Warlock:16:16|t ]],
+	warrior = blizzPath..[[ClassIcon_Warrior:16:16|t ]],
+}
 
 E.SLEConfigs = {}
 
@@ -54,7 +69,7 @@ SLE.SpecialChatIcons = {
 		["Ревущийфьорд"] = {
 			["Рыжая"] = friend,
 			["Рыжа"] = friend,
-			["Шензори"] = friend,
+			["Шензори"] = classTable.hunter,
 			--Some people
 			["Брэгар"] = test
 		},
