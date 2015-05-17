@@ -259,8 +259,14 @@ local function FrameSize(menu)
 			local group = menu.GroupsTable[i]
 			local mass = menu[group.."Table"]
 			for w = 1, #mass do
-				if mass[w].text and mass[w].text:GetWidth() > menu.HoldersTable[i].width then
+				if mass[w].text and mass[w].text:GetWidth() > menu.HoldersTable[i].width and not menu.fixedDropdownWidth then
 					menu.HoldersTable[i].width = mass[w].text:GetWidth() + 10
+				elseif menu.fixedDropdownWidth then
+					menu.HoldersTable[i].width = menu.fixedDropdownWidth
+					if mass[w].text and mass[w].text:GetWidth() >  menu.fixedDropdownWidth then
+						mass[w].text:SetWidth(menu.fixedDropdownWidth - 10)
+						mass[w].text:SetWordWrap(false)
+					end
 				end
 			end
 			for n = 1, #mass do
