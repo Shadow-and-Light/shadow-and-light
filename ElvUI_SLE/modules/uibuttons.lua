@@ -14,49 +14,6 @@ local function CustomRollCall()
 	end
 end
 
-function UB:ClassicSetup(menu)
-	local button
-
-	button = menu.Config
-	button:SetScript("OnClick", function(self)
-		E:ToggleConfig()
-	end)
-	button:HookScript('OnEnter', function(self) menu:OnEnter() end)
-	button:HookScript('OnLeave', function(self) menu:OnLeave() end)
-
-	button = menu.Reload
-	button:SetScript("OnClick", function(self)
-		ReloadUI()
-	end)
-	button:HookScript('OnEnter', function(self) menu:OnEnter() end)
-	button:HookScript('OnLeave', function(self) menu:OnLeave() end)
-
-	button = menu.MoveUI
-	button:SetScript("OnClick", function(self)
-		E:ToggleConfigMode()
-	end)
-	button:HookScript('OnEnter', function(self) menu:OnEnter() end)
-	button:HookScript('OnLeave', function(self) menu:OnLeave() end)
-
-	button = menu.Boss
-	button:SetScript("OnClick", function(self)
-		if IsAddOnLoaded("DBM-Core") then
-			DBM:LoadGUI()
-		elseif IsAddOnLoaded("VEM-Core") then
-			VEM:LoadGUI()
-		end
-	end)
-	button:HookScript('OnEnter', function(self) menu:OnEnter() end)
-	button:HookScript('OnLeave', function(self) menu:OnLeave() end)
-
-	button = menu.Addon
-	button:SetScript("OnClick", function(self)
-		GameMenuButtonAddons:Click()
-	end)
-	button:HookScript('OnEnter', function(self) menu:OnEnter() end)
-	button:HookScript('OnLeave', function(self) menu:OnLeave() end)
-end
-
 function UB:ConfigSetup(menu)
 	--UB:CreateSeparator("Config", "SLE_StartSeparator", 1, 2)
 	menu:CreateDropdownButton("Config", "Elv", "ElvUI", L["ElvUI Config"], L["Click to toggle config window"],  function() E:ToggleConfig() end, nil, true)
@@ -102,12 +59,17 @@ end
 
 function UB:SetupBar(menu)
 	if E.private.sle.uiButtonStyle == "classic" then
-		menu:CreateCoreButton("Config", "C")
-		menu:CreateCoreButton("Reload", "R")
-		menu:CreateCoreButton("MoveUI", "M")
-		menu:CreateCoreButton("Boss", "B")
-		menu:CreateCoreButton("Addon", "A")
-		UB:ClassicSetup(menu)
+		menu:CreateCoreButton("Config", "C", function() E:ToggleConfig() end)
+		menu:CreateCoreButton("Reload", "R", function() ReloadUI() end)
+		menu:CreateCoreButton("MoveUI", "M", function(self) E:ToggleConfigMode() end)
+		menu:CreateCoreButton("Boss", "B", function(self)
+			if IsAddOnLoaded("DBM-Core") then
+				DBM:LoadGUI()
+			elseif IsAddOnLoaded("VEM-Core") then
+				VEM:LoadGUI()
+			end
+		end)
+		menu:CreateCoreButton("Addon", "A", function(self) GameMenuButtonAddons:Click() end)
 	else
 		menu:CreateCoreButton("Config", "C")
 		UB:ConfigSetup(menu)
@@ -124,6 +86,7 @@ function UB:SetupBar(menu)
 end
 
 function UB:RightClicks(menu)
+	if E.private.sle.uiButtonStyle == "classic" then return end
 	for i = 1, #menu.ToggleTable do
 		menu.ToggleTable[i]:RegisterForClicks("LeftButtonDown", "RightButtonDown")
 	end
