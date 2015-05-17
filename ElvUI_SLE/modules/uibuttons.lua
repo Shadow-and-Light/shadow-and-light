@@ -16,11 +16,11 @@ end
 
 function UB:ConfigSetup(menu)
 	--UB:CreateSeparator("Config", "SLE_StartSeparator", 1, 2)
-	menu:CreateDropdownButton("Config", "Elv", "ElvUI", L["ElvUI Config"], L["Click to toggle config window"],  function() E:ToggleConfig() end, nil, true)
-	menu:CreateDropdownButton("Config", "SLE", "S&L", L["S&L Config"], L["Click to toggle Shadow & Light config group"],  function() E:ToggleConfig(); ACD:SelectGroup("ElvUI", "sle", "options") end, nil, true)
+	menu:CreateDropdownButton("Config", "Elv", "ElvUI", L["ElvUI Config"], L["Click to toggle config window"],  function() if InCombatLockdown() then return end; E:ToggleConfig() end, nil, true)
+	menu:CreateDropdownButton("Config", "SLE", "S&L", L["S&L Config"], L["Click to toggle Shadow & Light config group"],  function() if InCombatLockdown() then return end; E:ToggleConfig(); ACD:SelectGroup("ElvUI", "sle", "options") end, nil, true)
 	menu:CreateSeparator("Config", "First", 4, 2)
 	menu:CreateDropdownButton( "Config", "Reload", "/reloadui", L["Reload UI"], L["Click to reload your interface"],  function() ReloadUI() end, nil, true)
-	menu:CreateDropdownButton("Config", "MoveUI", "/moveui", L["Move UI"], L["Click to unlock moving ElvUI elements"],  function() E:ToggleConfigMode() end, nil, true)
+	menu:CreateDropdownButton("Config", "MoveUI", "/moveui", L["Move UI"], L["Click to unlock moving ElvUI elements"],  function() if InCombatLockdown() then return end; E:ToggleConfigMode() end, nil, true)
 	--UB:CreateSeparator("Config", "SLE_EndSeparator", 1, 2)
 end
 
