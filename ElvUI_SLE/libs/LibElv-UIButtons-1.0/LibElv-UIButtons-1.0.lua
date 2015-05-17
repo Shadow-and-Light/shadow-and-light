@@ -61,12 +61,15 @@ local function OnLeave(menu)
 	end
 end
 
-local function CreateCoreButton(menu, name, text)
+local function CreateCoreButton(menu, name, text, onClick)
 	if _G[menu:GetName().."_Core_"..name] then return end
 	local button, holder
 	if menu.style == "classic" then
 		menu[name] = CreateFrame("Button", menu:GetName().."_Core_"..name, menu)
 		button = menu[name]
+		if onClick then
+			button:SetScript("OnClick", onClick)
+		end
 	elseif menu.style == "dropdown" then
 		menu[name] = CreateFrame("Frame", menu:GetName().."_Core_"..name, menu)
 		menu[name].Toggle = CreateFrame("Button", menu:GetName().."_Core_"..name.."Toggle", menu)
@@ -74,6 +77,12 @@ local function CreateCoreButton(menu, name, text)
 		holder.width = 0
 		holder:CreateBackdrop("Transparent")
 		button = menu[name].Toggle
+		if not menu[name.."Table"] then
+			menu[name.."Table"] = {}
+		end
+		menu:ToggleSetup(button, holder)
+		tinsert(menu.HoldersTable, holder)
+		tinsert(menu.GroupsTable, name)
 	else
 		lib:CustomStyleCoreButton(menu, name, text)
 	end
@@ -95,14 +104,6 @@ local function CreateCoreButton(menu, name, text)
 	end
 
 	tinsert(menu.ToggleTable, button)
-	if holder then tinsert(menu.HoldersTable, holder) end
-	if menu.style == "dropdown" then
-		if not menu[name.."Table"] then
-			menu[name.."Table"] = {}
-		end
-		menu:ToggleSetup(button, holder)
-		tinsert(menu.GroupsTable, name)
-	end
 
 	menu.NumBut = menu.NumBut + 1
 end
@@ -435,7 +436,7 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 				order = 9,
 				type = "toggle",
 				name = L["Backdrop"],
-				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not menu.db.enable end,
 				get = function(info) return menu.db.menuBackdrop end,
 				set = function(info, value) menu.db.menuBackdrop = value; menu:UpdateBackdrop() end
 			},
