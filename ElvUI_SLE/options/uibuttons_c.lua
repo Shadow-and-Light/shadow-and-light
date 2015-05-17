@@ -88,7 +88,7 @@ local function configTable()
 				order = 9,
 				type = "toggle",
 				name = L["Backdrop"],
-				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not E.db.sle.uibuttons.enable end,
 				get = function(info) return E.db.sle.uibuttons.menuBackdrop end,
 				set = function(info, value) E.db.sle.uibuttons.menuBackdrop = value; Bar:UpdateBackdrop() end
 			},
