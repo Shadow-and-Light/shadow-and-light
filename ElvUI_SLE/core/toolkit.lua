@@ -65,6 +65,7 @@ local function UpdateAll()
 	end
 	LT:LootShow()
 	LT:Update()
+	UB.Holder.db = E.db.sle.uibuttons
 	UB.Holder:FrameSize()
 	RM:UpdateBar(true)
 	F:UpdateLayout()

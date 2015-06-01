@@ -308,7 +308,8 @@ function lib:CreateFrame(name, db, default, style, styleDefault)
 	if not style and not styleDefault then print("Sorry but you didn't set defaults for this menu bar's style. Aborting creation"); return end
 	local menu = CreateFrame("Frame", name, E.UIParent)
 	menu.db = db
-	EqualizeDB(menu.db, default)
+	menu.default = default
+	EqualizeDB(menu.db, menu.default)
 	if not style and styleDefault then style = styleDefault end
 	menu.style = style
 
@@ -387,7 +388,7 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 			enabled = {
 				order = 3,
 				type = "toggle",
-				name = L["Enable"],
+				name = ENABLE,
 				desc = L["Show/Hide UI buttons."],
 				get = function(info) return menu.db.enable end,
 				set = function(info, value) menu.db.enable = value; menu:ToggleShow() end
