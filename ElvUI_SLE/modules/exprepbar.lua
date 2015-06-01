@@ -21,28 +21,17 @@ tinsert(strGuildChangeMatch, (gsub(FACTION_STANDING_CHANGED_GUILDNAME,"%%%d?%$?s
 local collapsed = {}
 local guildName
 
-function M:UpdateExperience(event)
+local function UpdateExperience(self, event)
+	if not E.db.sle.exprep.explong then return end
 	local bar = self.expBar
 
-	if(UnitLevel('player') == MAX_PLAYER_LEVEL) or IsXPUserDisabled() then
-		bar:Hide()
-	else
-		bar:Show()
-		
+	if not UnitLevel('player') == MAX_PLAYER_LEVEL or not IsXPUserDisabled() then
 		local cur, max = self:GetXP('player')
-		bar.statusBar:SetMinMaxValues(0, max)
-		bar.statusBar:SetValue(cur - 1 >= 0 and cur - 1 or 0)
-		bar.statusBar:SetValue(cur)
-
 		local rested = GetXPExhaustion()
 		local text = ''
 		local textFormat = E.db.general.experience.textFormat
 
 		if rested and rested > 0 then
-			bar.rested:SetMinMaxValues(0, max)
-			bar.rested:SetValue(math.min(cur + rested, max))
-
-			if E.db.sle.exprep.explong then
 				if textFormat == 'PERCENT' then
 					text = format('%d%%  '..L['Rested:']..' %d%%', cur / max * 100, rested / max * 100)
 				elseif textFormat == 'CURMAX' then
@@ -50,60 +39,38 @@ function M:UpdateExperience(event)
 				elseif textFormat == 'CURPERC' then
 					text = format('%s - %d%%  '..L['Rested:']..' %s [%d%%]', cur, cur / max * 100, rested, rested / max * 100)
 				end
-			else
-				if textFormat == 'PERCENT' then
-					text = format('%d%% R:%d%%', cur / max * 100, rested / max * 100)
-				elseif textFormat == 'CURMAX' then
-					text = format('%s - %s R:%s', E:ShortValue(cur), E:ShortValue(max), E:ShortValue(rested))
-				elseif textFormat == 'CURPERC' then
-					text = format('%s - %d%% R:%s [%d%%]', E:ShortValue(cur), cur / max * 100, E:ShortValue(rested), rested / max * 100)
-				end
-			end
 		else
-			bar.rested:SetMinMaxValues(0, 1)
-			bar.rested:SetValue(0)	
-
-			if E.db.sle.exprep.explong then
 				if textFormat == 'PERCENT' then
 					text = format('%d%%', cur / max * 100)
 				elseif textFormat == 'CURMAX' then
 					text = format('%s - %s', cur, max)
 				elseif textFormat == 'CURPERC' then
 					text = format('%s - %d%%', cur, cur / max * 100)
-				end			
-			else
-				if textFormat == 'PERCENT' then
-					text = format('%d%%', cur / max * 100)
-				elseif textFormat == 'CURMAX' then
-					text = format('%s - %s', E:ShortValue(cur), E:ShortValue(max))
-				elseif textFormat == 'CURPERC' then
-					text = format('%s - %d%%', E:ShortValue(cur), cur / max * 100)
-				end	
-			end
+				end
 		end
-		
+
 		bar.text:SetText(text)
 	end
 end
 
-function M:UpdateReputation(event)
+local backupColor = FACTION_BAR_COLORS[1]
+local FactionStandingLabelUnknown = UNKNOWN
+local function UpdateReputation(self, event)
+	if not E.db.sle.exprep.replong then return end
 	local bar = self.repBar
-	local ID = 100
+	local ID
+	local isFriend, friendText, standingLabel
 	local name, reaction, min, max, value = GetWatchedFactionInfo()
 	local numFactions = GetNumFactions();
 
-	if not name then
-		bar:Hide()
-	else
-		bar:Show()
-
+	if name then
 		local text = ''
-		local textFormat = E.db.general.reputation.textFormat		
-		local color = FACTION_BAR_COLORS[reaction]
-		bar.statusBar:SetStatusBarColor(color.r, color.g, color.b)	
+		local textFormat = E.db.general.reputation.textFormat
+		local color = FACTION_BAR_COLORS[reaction] or backupColor
+		bar.statusBar:SetStatusBarColor(color.r, color.g, color.b)
 
-		bar.statusBar:SetMinMaxValues(0, max - min)
-		bar.statusBar:SetValue(value - min)
+		bar.statusBar:SetMinMaxValues(min, max)
+		bar.statusBar:SetValue(value)
 
 		for i=1, numFactions do
 			local factionName, _, standingID,_,_,_,_,_,_,_,_,_,_, factionID = GetFactionInfo(i);
@@ -118,24 +85,21 @@ function M:UpdateReputation(event)
 			end
 		end
 
-		if E.db.sle.exprep.replong then
-			if textFormat == 'PERCENT' then
-				text = format('%d%% [%s]', ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
-			elseif textFormat == 'CURMAX' then
-				text = format('%s - %s [%s]', value - min, max - min, isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
-			elseif textFormat == 'CURPERC' then
-				text = format('%s - %d%% [%s]', value - min, ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
-			end		
+		if ID then
+			standingLabel = _G['FACTION_STANDING_LABEL'..ID]
 		else
-			if textFormat == 'PERCENT' then
-				text = format('%s: %d%% [%s]', name, ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
-			elseif textFormat == 'CURMAX' then
-				text = format('%s: %s - %s [%s]', name, E:ShortValue(value - min), E:ShortValue(max - min), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
-			elseif textFormat == 'CURPERC' then
-				text = format('%s: %s - %d%% [%s]', name, E:ShortValue(value - min), ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
-			end	
+			standingLabel = FactionStandingLabelUnknown
 		end
-		bar.text:SetText(text)		
+
+		if textFormat == 'PERCENT' then
+			text = format('%s: %d%% [%s]', name, ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
+		elseif textFormat == 'CURMAX' then
+			text = format('%s: %s - %s [%s]', name, value - min, max - min, isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
+		elseif textFormat == 'CURPERC' then
+			text = format('%s: %s - %d%% [%s]', name, value - min, ((value - min) / (max - min) * 100), isFriend and friendText or _G['FACTION_STANDING_LABEL'..ID])
+		end
+
+		bar.text:SetText(text)
 	end
 end
 
@@ -264,3 +228,6 @@ hooksecurefunc(M, "Initialize", function(self,...)
 	M:RegisterEvent("PLAYER_LOGIN", 'PlayerRepLogin')
 	M:RegisterEvent("PLAYER_GUILD_UPDATE", 'PlayerGuildRepUdate')
 end)
+
+hooksecurefunc(M, "UpdateExperience", UpdateExperience)
+hooksecurefunc(M, "UpdateReputation", UpdateReputation)
