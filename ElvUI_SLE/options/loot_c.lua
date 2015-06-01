@@ -10,7 +10,7 @@ local function configTable()
 			enable = {
 				order = 1,
 				type = "toggle",
-				name = L["Enable"],
+				name = ENABLE,
 				get = function(info) return E.db.sle.loot.enable end,
 				set = function(info, value) E.db.sle.loot.enable = value; E:StaticPopup_Show("CONFIG_RL") end
 			},
@@ -42,7 +42,7 @@ local function configTable()
 					enable = {
 						order = 4,
 						type = "toggle",
-						name = L["Enable"],
+						name = ENABLE,
 						disabled = function() return not E.db.sle.loot.enable end,
 						get = function(info) return E.db.sle.loot.autoroll.enable end,
 						set = function(info, value) E.db.sle.loot.autoroll.enable = value; LT:Update() end,
@@ -141,7 +141,7 @@ local function configTable()
 					enable = {
 						order = 4,
 						type = "toggle",
-						name = L["Enable"],
+						name = ENABLE,
 						disabled = function() return not E.db.sle.loot.enable end,
 						get = function(info) return E.db.sle.loot.announcer.enable end,
 						set = function(info, value) E.db.sle.loot.announcer.enable = value; E:StaticPopup_Show("CONFIG_RL") end,

@@ -22,7 +22,7 @@ local function configTable()
 			enable = {
 				order = 3,
 				type = "toggle",
-				name = L["Enable"],
+				name = ENABLE,
 				desc = L["Show/Hide raid marks."],
 			},
 			reset = {

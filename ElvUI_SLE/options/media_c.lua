@@ -303,7 +303,7 @@ local function configTable()
 			enable = {
 				order = 1,
 				type = "toggle",
-				name = L["Enable"],
+				name = ENABLE,
 				get = function(info) return E.db.sle.media.screensaver.enable end,
 				set = function(info, value) E.db.sle.media.screensaver.enable = value; S:Reg(true); S:UpdateConfig() end,
 			},

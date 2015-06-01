@@ -20,7 +20,7 @@ local function configTable()
 			enabled = {
 				order = 3,
 				type = "toggle",
-				name = L["Enable"],
+				name = ENABLE,
 				--desc = L["Show/Hide UI buttons."],
 				get = function(info) return E.db.sle.threat.enable end,
 				set = function(info, value) E.db.sle.threat.enable = value; SLT:Update(); SLT:UpdatePosition() end,

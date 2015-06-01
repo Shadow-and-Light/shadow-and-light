@@ -19,7 +19,7 @@ local function configTable()
 			enable = {
 				order = 3,
 				type = "toggle",
-				name = L["Enable"],
+				name = ENABLE,
 				get = function(info) return E.private.sle.vehicle.enable end,
 				set = function(info, value) E.private.sle.vehicle.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
 			},

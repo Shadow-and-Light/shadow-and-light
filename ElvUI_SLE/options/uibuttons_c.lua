@@ -33,7 +33,7 @@ local function configTable()
 			enabled = {
 				order = 3,
 				type = "toggle",
-				name = L["Enable"],
+				name = ENABLE,
 				desc = L["Show/Hide UI buttons."],
 				get = function(info) return E.db.sle.uibuttons.enable end,
 				set = function(info, value) E.db.sle.uibuttons.enable = value; Bar:ToggleShow() end
@@ -181,7 +181,7 @@ local function configTable()
 					enabled = {
 						order = 1,
 						type = "toggle",
-						name = L["Enable"],
+						name = ENABLE,
 						desc = L["Use quick access (on right click) for this button."],
 						get = function(info) return E.db.sle.uibuttons.Config.enable end,
 						set = function(info, value) E.db.sle.uibuttons.Config.enable = value end
@@ -212,7 +212,7 @@ local function configTable()
 					enabled = {
 						order = 1,
 						type = "toggle",
-						name = L["Enable"],
+						name = ENABLE,
 						desc = L["Use quick access (on right click) for this button."],
 						get = function(info) return E.db.sle.uibuttons.Addon.enable end,
 						set = function(info, value) E.db.sle.uibuttons.Addon.enable = value end
@@ -241,7 +241,7 @@ local function configTable()
 					enabled = {
 						order = 1,
 						type = "toggle",
-						name = L["Enable"],
+						name = ENABLE,
 						desc = L["Use quick access (on right click) for this button."],
 						get = function(info) return E.db.sle.uibuttons.Status.enable end,
 						set = function(info, value) E.db.sle.uibuttons.Status.enable = value end
@@ -270,7 +270,7 @@ local function configTable()
 					enabled = {
 						order = 1,
 						type = "toggle",
-						name = L["Enable"],
+						name = ENABLE,
 						desc = L["Use quick access (on right click) for this button."],
 						get = function(info) return E.db.sle.uibuttons.Roll.enable end,
 						set = function(info, value) E.db.sle.uibuttons.Roll.enable = value end

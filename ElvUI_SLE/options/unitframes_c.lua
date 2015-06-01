@@ -85,7 +85,7 @@ local function configTable()
 				powtext = {
 					order = 1,
 					type = "toggle",
-					name = L["Enable"],
+					name = ENABLE,
 					desc = L["Show/hide the text with exact number of energy (Solar/Lunar or Demonic Fury) on your Classbar."],
 					get = function(info) return E.db.sle.powtext end,
 					set = function(info, value) E.db.sle.powtext = value; UF:ClassbarTextSLE() end,
