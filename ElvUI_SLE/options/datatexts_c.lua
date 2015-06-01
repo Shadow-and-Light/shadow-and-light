@@ -96,7 +96,7 @@ local function configTable()
 			enabled = {
 				order = 1,
 				type = "toggle",
-				name = L["Enable"],
+				name = ENABLE,
 				desc = L["Show/Hide this panel."],
 				set = function(info, value) E.db.sle.datatext[v[1]].enabled = value; DTP:ExtraDataBarSetup() end
 			},
@@ -154,7 +154,7 @@ local function configTable()
 			enabled = {
 				order = 1,
 				type = "toggle",
-				name = L["Enable"],
+				name = ENABLE,
 				desc = L["Show/Hide this panel."],
 				get = function(info) return E.db.datatexts[v[3]] end,
 				set = function(info, value) 

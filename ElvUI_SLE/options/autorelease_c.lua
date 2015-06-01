@@ -19,7 +19,7 @@ local function configTable()
 			enable = {
 				order = 3,
 				type = "toggle",
-				name = L["Enable"],
+				name = ENABLE,
 				get = function(info) return E.db.sle.pvpautorelease end,
 				set = function(info, value) E.db.sle.pvpautorelease = value; end
 			},

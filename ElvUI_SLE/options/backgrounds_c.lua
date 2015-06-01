@@ -29,7 +29,7 @@ local function configTable()
 			enabled = {
 				order = 3,
 				type = "toggle",
-				name = L["Enable"],
+				name = ENABLE,
 				desc = L["Show/Hide this frame."],
 				get = function(info) return E.private.sle.backgrounds end,
 				set = function(info, value) E.private.sle.backgrounds = value; E:StaticPopup_Show("PRIVATE_RL") end

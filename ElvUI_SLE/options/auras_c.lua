@@ -20,7 +20,7 @@ local function configTable()
 			enabled = {
 				order = 3,
 				type = "toggle",
-				name = L["Enable"],
+				name = ENABLE,
 				get = function(info) return E.db.sle.auras.enable end,
 				set = function(info, value) E.db.sle.auras.enable = value end
 			},

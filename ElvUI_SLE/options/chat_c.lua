@@ -80,7 +80,7 @@ local function configTable()
 					enable = {
 						order = 1,
 						type = "toggle",
-						name = L["Enable"],
+						name = ENABLE,
 						desc = L["Allows separate alpha setting for textures in chat"],
 						get = function(info) return E.db.sle.chat.textureAlpha.enable end,
 						set = function(info, value)	E.db.sle.chat.textureAlpha.enable = value; E:UpdateMedia() end,
