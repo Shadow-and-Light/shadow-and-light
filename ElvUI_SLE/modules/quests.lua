@@ -19,6 +19,8 @@ local statedriver = {
 function Q:ChangeState(event)
 	if InCombatLockdown() then self:RegisterEvent("PLAYER_REGEN_ENABLED", "ChangeState") return end
 	if event == "PLAYER_REGEN_ENABLED" then self:UnregisterEvent("PLAYER_REGEN_ENABLED") end
+	if not Q.db then return end
+	if not Q.db.visibility then return end
 
 	if IsResting() then
 		statedriver[Q.db.visibility.rested](frame)
@@ -48,4 +50,9 @@ function Q:Initialize()
 	frame = ObjectiveTrackerFrame
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "ChangeState")
 	self:RegisterEvent("PLAYER_UPDATE_RESTING", "ChangeState")
+
+	hooksecurefunc(E, "UpdateAll", function()
+		Q:ChangeState()
+		collectgarbage('collect');
+	end)
 end
