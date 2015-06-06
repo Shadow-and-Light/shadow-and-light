@@ -22,49 +22,75 @@ local function configTable()
 					},
 				},
 			},
-			-- faq = {
-				-- type = 'group',
-				-- name = 'FAQ',
-				-- order = 5,
-				-- args = {
-					-- desc = {
-						-- order = 1,
-						-- type = 'description',
-						-- fontSize = 'medium',
-						-- name = 'Da FAQz!!!!',
-					-- },
-					-- q1 = {
-						-- type = 'group',
-						-- name = '',
-						-- order = 2,
-						-- guiInline = true,
-						-- args = {
-							-- q = {
-								-- order = 1,
-								-- type = 'description',
-								-- fontSize = 'medium',
-								-- name = [[|cff30ee30Q: Imma be da first question!|r
--- A: Imma be da first answerz]],
-							-- },
-						-- },
-					-- },
-					-- q2 = {
-						-- type = 'group',
-						-- name = '',
-						-- order = 3,
-						-- guiInline = true,
-						-- args = {
-							-- q = {
-								-- order = 2,
-								-- type = 'description',
-								-- fontSize = 'medium',
-								-- name = [[|cff30ee30Q: Imma be da second question!|r
--- A: Imma be da second answerz]],
-							-- },
-						-- },
-					-- },
-				-- },
-			-- },
+			faq = {
+				type = 'group',
+				name = 'FAQ',
+				order = 5,
+				args = {
+					desc = {
+						order = 1,
+						type = 'description',
+						fontSize = 'medium',
+						name = L["FAQ_DESC"],
+					},
+					q1 = {
+						type = 'group',
+						name = '',
+						order = 2,
+						guiInline = true,
+						args = {
+							q = {
+								order = 1,
+								type = 'description',
+								fontSize = 'medium',
+								name = L["FAQ_1"],
+							},
+						},
+					},
+					q2 = {
+						type = 'group',
+						name = '',
+						order = 3,
+						guiInline = true,
+						args = {
+							q = {
+								order = 2,
+								type = 'description',
+								fontSize = 'medium',
+								name = L["FAQ_2"],
+							},
+						},
+					},
+					q3 = {
+						type = 'group',
+						name = '',
+						order = 4,
+						guiInline = true,
+						args = {
+							q = {
+								order = 2,
+								type = 'description',
+								fontSize = 'medium',
+								name = L["FAQ_3"],
+							},
+						},
+					},
+					q4 = {
+						type = 'group',
+						name = '',
+						order = 5,
+						guiInline = true,
+						args = {
+							q = {
+								order = 2,
+								type = 'description',
+								fontSize = 'medium',
+								name = L["FAQ_4"],
+							},
+						},
+					},
+				},
+			},
 			links = {
 				type = 'group',
 				name = L['Links'],
