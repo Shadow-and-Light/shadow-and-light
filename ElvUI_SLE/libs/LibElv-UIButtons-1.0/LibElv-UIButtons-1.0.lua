@@ -5,6 +5,8 @@ if not lib then return end
 local E, L, V, P, G = unpack(ElvUI)
 local S = E:GetModule("Skins")
 
+--Upon creation menu.db does not account for values missing in E.db = being default.
+--We are using this to fix it.
 local function EqualizeDB(db, default)
 	for key, value in pairs(default) do
 		if not db[key] and type(default[key]) ~= "table" then
@@ -15,6 +17,7 @@ local function EqualizeDB(db, default)
 	end
 end
 
+--Sets the size of menu's mover
 local function MoverSize(menu)
 	local db = menu.db
 	if db.orientation == "vertical" then
@@ -26,6 +29,7 @@ local function MoverSize(menu)
 	end
 end
 
+--Creates a mover for the menu
 local function SetupMover(menu, name, own)
 	local exist = false
 	for i = 1, #E.ConfigModeLayouts do
@@ -34,13 +38,14 @@ local function SetupMover(menu, name, own)
 			break
 		end
 	end
-	if not exist then
+	if not exist then --Create a new config group for movers
 		tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "UIButtons")
 		E.ConfigModeLocalizedStrings["UIButtons"] = L["UI Buttons"]
 	end
-	E:CreateMover(menu, menu:GetName().."Mover", name, nil, nil, nil, own or "ALL,UIButtons")
+	E:CreateMover(menu, menu:GetName().."Mover", name, nil, nil, nil, own and own..",UIButtons" or "ALL,UIButtons")
 end
 
+--A function to toggle dropdown categories to show/hide then on button click
 local function ToggleCats(menu)
 	for i = 1, #menu.ToggleTable do
 		if menu.ToggleTable[i].opened then
@@ -61,6 +66,7 @@ local function OnLeave(menu)
 	end
 end
 
+--Creating main buttons to execute stuff in classic mode and toggle categories n dropdown
 local function CreateCoreButton(menu, name, text, onClick)
 	if _G[menu:GetName().."_Core_"..name] then return end
 	local button, holder
@@ -108,8 +114,9 @@ local function CreateCoreButton(menu, name, text, onClick)
 	menu.NumBut = menu.NumBut + 1
 end
 
+--Creating buttons to populate dropdowns
 local function CreateDropdownButton(menu, core, name, text, tooltip1, tooltip2, click, addon, always)
-	if addon then
+	if addon then --Check if addon specified as dependancy is enabled to load (not loaded cause it can start to load way after our code is executed)
 		local enabled = GetAddOnEnableState(menu.myname, addon)
 		if enabled == 0 then return end
 	end
@@ -154,6 +161,7 @@ local function CreateDropdownButton(menu, core, name, text, tooltip1, tooltip2, 
 	tinsert(menu[core.."Table"], b)
 end
 
+--Creating separator frame
 local function CreateSeparator(menu, core, name, size, space)
 	if _G[menu:GetName().."_Core_"..core..name.."_Separator"] or not menu[core.."Table"] then return end
 	menu[core][name] = CreateFrame("Frame", menu:GetName().."_Core_"..core..name.."_Separator", menu[core])
@@ -167,6 +175,7 @@ local function CreateSeparator(menu, core, name, size, space)
 	tinsert(menu[core.."Table"], f)
 end
 
+--Setup for core buttons in dropdown mode to act like toggles
 local function ToggleSetup(menu, button, holder)
 	local db = menu.db
 	button.opened = false
@@ -188,6 +197,7 @@ local function ToggleSetup(menu, button, holder)
 	holder:SetScript('OnLeave', function(self) menu:OnLeave() end)
 end
 
+--Updating the positioning and order of dropdown category
 local function UpdateDropdownLayout(menu, group)
 	local count = -1
 	local sepS, sepC = 0, 0
@@ -220,6 +230,7 @@ local function UpdateMouseOverSetting(menu)
 	end
 end
 
+--Updating positions of the menu
 local function Positioning(menu)
 	local db = menu.db
 
@@ -238,6 +249,7 @@ local function Positioning(menu)
 			menu.ToggleTable[i]:Point("LEFT", (prev or header), prev and "RIGHT" or "LEFT", prev and (E.PixelMode and db.spacing or db.spacing+2) or (E.PixelMode and 1 or 2), 0)
 		end
 	end
+	--Calling for dropdown updates
 	if menu.style == "dropdown" then
 		for i = 1, #menu.GroupsTable do
 			menu:UpdateDropdownLayout(menu.GroupsTable[i])
@@ -245,6 +257,7 @@ local function Positioning(menu)
 	end
 end
 
+--Resizing frames. Need to run after a new button was created to let the menu know it exist
 local function FrameSize(menu)
 	local db = menu.db
 	if not db.size then return end
@@ -290,6 +303,7 @@ local function UpdateBackdrop(menu)
 	end
 end
 
+--Enable/disable call
 local function ToggleShow(menu)
 	if not menu.db.enable then
 		menu:Hide()
@@ -300,15 +314,17 @@ local function ToggleShow(menu)
 	end
 end
 
+--Creating of the menu
 function lib:CreateFrame(name, db, default, style, styleDefault)
+	--Checks to prevent a shitload of errors cause of wrong arguments passed
 	if _G[name] then return end
 	if not name then print("Sorry but you didn't set a name for this menu bar. Aborting creation"); return end
 	if not db then print("Sorry but you didn't set database for this menu bar. Aborting creation"); return end
 	if not default then print("Sorry but you didn't set defaults for this menu bar. Aborting creation"); return end
 	if not style and not styleDefault then print("Sorry but you didn't set defaults for this menu bar's style. Aborting creation"); return end
 	local menu = CreateFrame("Frame", name, E.UIParent)
-	menu.db = db
-	menu.default = default
+	menu.db = db --making manu db table so we can actually keep unified settings calls in other functions
+	menu.default = default --same for defaults
 	EqualizeDB(menu.db, menu.default)
 	if not style and styleDefault then style = styleDefault end
 	menu.style = style
@@ -316,8 +332,9 @@ function lib:CreateFrame(name, db, default, style, styleDefault)
 	menu:SetFrameStrata("HIGH")
 	menu:SetFrameLevel(5)
 	menu:SetClampedToScreen(true)
+	menu:Point("LEFT", E.UIParent, "LEFT", -2, 0);
 	menu:Size(17, 17); --Cause the damn thing doesn't want to show up without default size lol
-	menu.myname = UnitName('player')
+	menu.myname = UnitName('player') --used in checks for addon deps
 	menu:CreateBackdrop()
 
 	menu.NumBut = 0
@@ -349,6 +366,7 @@ function lib:CreateFrame(name, db, default, style, styleDefault)
 	return menu
 end
 
+--Default options table structure
 local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 	local positionValues = {
 		TOPLEFT = 'TOPLEFT',
@@ -401,8 +419,8 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 					["dropdown"] = L['Dropdown'],
 				},
 				disabled = function() return not menu.db.enable end,
-				get = function(info) return menu.style end,
-				set = function(info, value) menu.style = value; E:StaticPopup_Show("PRIVATE_RL") end,
+				get = function(info) return E.private.sle.uiButtonStyle end,
+				set = function(info, value) E.private.sle.uiButtonStyle = value; E:StaticPopup_Show("PRIVATE_RL") end,
 			},
 			space = {
 				order = 5,
