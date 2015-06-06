@@ -31,7 +31,7 @@ L["SLE_MEDIA"] = "Options to change the look of several UI elements."
 L["SLE_TIPS"] = {
 	"Don't stand in the fire!",
 	"Elv: I just utilized my degree in afro engineering and fixed it",
-	"Burn the heretic. Kill the mutant. Purge the unclean.",
+	[[|TInterface\AddOns\ElvUI_SLE\media\textures\WH:24:24|t Burn the heretic. Kill the mutant. Purge the unclean.]],
 	"Blood for the Blood God!",
 	"Coffee for the Coffee God!",
 	"Darth's most favorite change comment - \"Woops\"",
