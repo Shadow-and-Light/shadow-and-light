@@ -30,6 +30,15 @@ L["SLE_IMPORTS"] = "|cffFF0000Note:|r Use the filter imports with caution as the
 L["SLE_MEDIA"] = "Options to change the look of several UI elements."
 L["SLE_TIPS"] = {
 	"Don't stand in the fire!",
+	"Elv: I just utilized my degree in afro engineering and fixed it",
+	"Burn the heretic. Kill the mutant. Purge the unclean.",
+	"Blood for the Blood God!",
+	"Coffee for the Coffee God!",
+	"Darth's most favorite change comment - \"Woops\"",
+	"Affinity: Always blame the russian...",
+	"Power Level of this guy is not OVER9000!!!!",
+	"Need... More... Catgirls... Wait, what?!",
+	"First Aid potions are better then Healthstones. WTF Blizzard?!",
 }
 
 --General--
