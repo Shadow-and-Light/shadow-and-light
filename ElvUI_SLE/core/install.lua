@@ -7,129 +7,65 @@ local CURRENT_PAGE = 0
 local MAX_PAGE = 5
 
 function AI:DarthCaster()
-	-- E.db["datatexts"]["panels"]["DP_6"]["right"] = "Crit Chance"
-	-- E.db["datatexts"]["panels"]["DP_6"]["left"] = "Spell/Heal Power"
-	-- E.db["datatexts"]["panels"]["DP_6"]["middle"] = "Haste"
-	
-	--Movers--
-	-- do
-		-- E.db["movers"]["PetAB"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT58686"
-		-- E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-279152"
-		-- E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM0124"
-		-- E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM279152"
-		-- E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM279131"
-		-- E.db["movers"]["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM-309126"
-		-- E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM234105"
-		-- E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
-		-- E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
-		-- E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
-		-- E.db["movers"]["BossButton"] = "BOTTOMElvUIParentBOTTOM0145"
-		-- E.db["movers"]["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0211"
-		-- E.db["movers"]["ComboBarMover"] = nil
-		-- E.db["movers"]["ClassBarMover"] = nil
-	-- end
+	E.db["datatexts"]["panels"]["DP_6"]["right"] = "Crit Chance"
+	E.db["datatexts"]["panels"]["DP_6"]["left"] = "Spell/Heal Power"
+	E.db["datatexts"]["panels"]["DP_6"]["middle"] = "Haste"
 end
 
 function AI:DarthTank()
-	-- E.db["nameplate"]["healthBar"]["lowHPScale"]["toFront"] = false
-	-- E.db["nameplate"]["healthBar"]["lowThreshold"] = 0
-	-- E.db["nameplate"]["threat"]["badScale"] = 1.2
-	-- E.db["nameplate"]["threat"]["badColor"] = {
-		-- ["r"] = 0.780392156862745,
-		-- ["g"] = 0.0784313725490196,
-		-- ["b"] = 0.101960784313725,
-	-- }
-	
-	-- E.db["datatexts"]["panels"]["DP_6"]["right"] = "Armor"
-	-- E.db["datatexts"]["panels"]["DP_6"]["left"] = "Avoidance"
-	-- E.db["datatexts"]["panels"]["DP_6"]["middle"] = "Resolve"
-	--Movers--
-	-- do
-		-- E.db["movers"]["PetAB"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT58686"
-		-- E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-279152"
-		-- E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM0124"
-		-- E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM279152"
-		-- E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM279131"
-		-- E.db["movers"]["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM-309126"
-		-- E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM234105"
-		-- E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
-		-- E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
-		-- E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
-		-- E.db["movers"]["BossButton"] = "BOTTOMElvUIParentBOTTOM0145"
-		-- E.db["movers"]["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0211"
-		-- E.db["movers"]["ComboBarMover"] = nil
-		-- E.db["movers"]["ClassBarMover"] = nil
-	-- end
+	E.db["nameplate"]["healthBar"]["lowHPScale"]["toFront"] = false
+	E.db["nameplate"]["healthBar"]["lowThreshold"] = 0
+	E.db["nameplate"]["threat"]["badScale"] = 1.2
+	E.db["nameplate"]["threat"]["badColor"] = {
+		["r"] = 0.780392156862745,
+		["g"] = 0.0784313725490196,
+		["b"] = 0.101960784313725,
+	}
+
+	E.db["datatexts"]["panels"]["DP_6"]["right"] = "Armor"
+	E.db["datatexts"]["panels"]["DP_6"]["left"] = "Avoidance"
+	E.db["datatexts"]["panels"]["DP_6"]["middle"] = "Resolve"
 end
 
 function AI:DarthPhys()
-	-- E.db["datatexts"]["panels"]["DP_6"]["right"] = "Crit Chance"
-	-- E.db["datatexts"]["panels"]["DP_6"]["left"] = "Attack Power"
-	-- E.db["datatexts"]["panels"]["DP_6"]["middle"] = "Haste"
-
-	-- E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
-	-- E.db["unitframe"]["units"]["target"]["combobar"]["detachFromFrame"] = true
-	-- Movers--
-	-- do
-		-- E.db["movers"]["PetAB"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT58686"
-		-- E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-279152"
-		-- E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM0124"
-		-- E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM279152"
-		-- E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM279131"
-		-- E.db["movers"]["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM-309126"
-		-- E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM234105"
-		-- E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
-		-- E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
-		-- E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
-		-- E.db["movers"]["BossButton"] = "BOTTOMElvUIParentBOTTOM0145"
-		-- E.db["movers"]["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0211"
-		-- E.db["movers"]["ComboBarMover"] = "BOTTOMElvUIParentBOTTOM0356"
-		-- E.db["movers"]["ClassBarMover"] = "BOTTOMElvUIParentBOTTOM0364"
-	-- end
+	E.db["datatexts"]["panels"]["DP_6"]["right"] = "Crit Chance"
+	E.db["datatexts"]["panels"]["DP_6"]["left"] = "Attack Power"
+	E.db["datatexts"]["panels"]["DP_6"]["middle"] = "Haste"
 end
 
 function AI:DarthHeal()
-	-- do
-		-- E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 18
-		
-		-- E.db["unitframe"]["units"]["party"]["height"] = 34
-		-- E.db["unitframe"]["units"]["party"]["debuffs"]["enable"] = true
-		-- E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "TOPLEFT"
-		-- E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 25
-		-- E.db["unitframe"]["units"]["party"]["health"]["frequentUpdates"] = true
-		-- E.db["unitframe"]["units"]["party"]["health"]["text_format"] = "[healthcolor][health:deficit]"
+	do
+		E.db["unitframe"]["debuffHighlighting"] = true
 
-		-- E.db["unitframe"]["units"]["raid"]["height"] = 34
-		-- E.db["unitframe"]["units"]["raid"]['verticalSpacing'] = 0
-		-- E.db["unitframe"]["units"]["raid"]["GPSArrow"]["enable"] = true
-		-- E.db["unitframe"]["units"]["raid"]["GPSArrow"]["size"] = 20
-		-- E.db["unitframe"]["units"]["raid"]["GPSArrow"]["xOffset"] = -27
-		-- E.db["unitframe"]["units"]["raid"]["GPSArrow"]["yOffset"] = 8
-		-- E.db["unitframe"]["units"]["raid"]["healPrediction"] = true
-		-- E.db["unitframe"]["units"]["raid"]["health"]["frequentUpdates"] = true
-		-- E.db["unitframe"]["units"]["raid"]["health"]["text_format"] = "[healthcolor][health:deficit]"
-	-- end
-	
-	-- E.db["datatexts"]["panels"]["DP_6"]["right"] = "Crit Chance"
-	-- E.db["datatexts"]["panels"]["DP_6"]["left"] = "Spell/Heal Power"
-	-- E.db["datatexts"]["panels"]["DP_6"]["middle"] = "MP5"
+		E.db["unitframe"]["units"]["party"]["health"]["frequentUpdates"] = true
+		E.db["unitframe"]["units"]["party"]["health"]["text_format"] = "[healthcolor][health:deficit]"
+		E.db["unitframe"]["units"]["party"]["debuffs"]["enable"] = true
+		E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "TOPLEFT"
+		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 25
+
+		E.db["unitframe"]["units"]["raid"]["healPrediction"] = true
+		E.db["unitframe"]["units"]["raid"]["health"]["frequentUpdates"] = true
+		E.db["unitframe"]["units"]["raid"]["health"]["text_format"] = "[healthcolor][health:deficit]"
+		E.db["unitframe"]["units"]["raid"]["GPSArrow"]["enable"] = true
+		E.db["unitframe"]["units"]["raid"]["GPSArrow"]["size"] = 20
+		E.db["unitframe"]["units"]["raid"]["GPSArrow"]["xOffset"] = -27
+		E.db["unitframe"]["units"]["raid"]["GPSArrow"]["yOffset"] = 8
+
+		E.db["unitframe"]["units"]["raidpet"]["enable"] = true
+	end
+
+	E.db["datatexts"]["panels"]["DP_6"]["right"] = "Crit Chance"
+	E.db["datatexts"]["panels"]["DP_6"]["left"] = "Spell/Heal Power"
+	E.db["datatexts"]["panels"]["DP_6"]["middle"] = "MP5"
 	--Movers--
-	-- do
-		-- E.db["movers"]["PetAB"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT57660"
-		-- E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-289149"
-		-- E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM0122"
-		-- E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM289149"
-		-- E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOMElvUIParentBOTTOM289128"
-		-- E.db["movers"]["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM-319100"
-		-- E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM244105"
-		-- E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT768144"
-		-- E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT768144"
-		-- E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT768144"
-		-- E.db["movers"]["BossButton"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-502134"
-		-- E.db["movers"]["AlertFrameMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT198207"
-		-- E.db["movers"]["ComboBarMover"] = nil
-		-- E.db["movers"]["ClassBarMover"] = nil
-	-- end
+	do
+		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT770143"
+		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT770143"
+		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT770143"
+		E.db["movers"]["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0427"
+		E.db["movers"]["UIErrorsFrameMover"] = "TOPElvUIParentTOP8-381"
+		E.db["movers"]["BossButton"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-421382"
+	end
 end
 
 function AI:DarthSetup() --The function to switch from classic ElvUI settings to Darth's
@@ -405,9 +341,9 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = "Combat/Arena Time"
 		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["middle"] = "S&L Guild"
 		E.db["datatexts"]["panels"]["Bottom_Panel"] = "System"
-		E.db["datatexts"]["panels"]["DP_6"]["right"] = "Crit Chance"
-		E.db["datatexts"]["panels"]["DP_6"]["left"] = "Spell/Heal Power"
-		E.db["datatexts"]["panels"]["DP_6"]["middle"] = "Haste"
+		-- E.db["datatexts"]["panels"]["DP_6"]["right"] = "Crit Chance"
+		-- E.db["datatexts"]["panels"]["DP_6"]["left"] = "Spell/Heal Power"
+		-- E.db["datatexts"]["panels"]["DP_6"]["middle"] = "Haste"
 		E.db["datatexts"]["font"] = "ElvUI Font"
 		E.db["datatexts"]["fontOutline"] = "OUTLINE"
 	end
@@ -606,7 +542,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["movers"]["BossHeaderMover"] = "TOPRIGHTElvUIParentTOPRIGHT0-229"
 		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHTElvUIParentTOPRIGHT0-229"
 		E.db["movers"]["TotemBarMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT576337"
-		E.db["movers"]["MicrobarMover"] = "TOPElvUIParentTOP0-38"
+		E.db["movers"]["MicrobarMover"] = "TOPElvUIParentTOP0-20"
 		E.db["movers"]["GMMover"] = "TOPLEFTElvUIParentTOPLEFT267-1"
 		E.db["movers"]["ObjectiveFrameMover"] = "TOPLEFTElvUIParentTOPLEFT800"
 		E.db["movers"]["BNETMover"] = "TOPRIGHTElvUIParentTOPRIGHT-88-206"
