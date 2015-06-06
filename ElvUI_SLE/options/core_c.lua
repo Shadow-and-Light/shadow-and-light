@@ -108,7 +108,7 @@ local function configTable()
 				order = 1,
 				type = "group",
 				childGroups = 'tab',
-				name = SETTINGS,
+				name = SETTINGS..[[ |TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|t]],
 				args = {
 					--[[intro = {
 						order = 1,
@@ -152,25 +152,6 @@ local function configTable()
 						},
 					},
 				},
-			},
-		},
-	}
-
-	--Credits
-	E.Options.args.sle.args.credits = {
-		order = 400,
-		type = 'group',
-		name = L["Credits"],
-		args = {
-			creditheader = {
-				order = 1,
-				type = "header",
-				name = L["Credits"],
-			},
-			credits = {
-				order = 2,
-				type = "description",
-				name = L["ELVUI_SLE_CREDITS"]..'\n\n\n'..L["Submodules and Coding:"]..'\n\n'..L["ELVUI_SLE_CODERS"]..'\n\n\n'..L["Other Support:"]..'\n\n'..L["ELVUI_SLE_MISC"],
 			},
 		},
 	}

@@ -5,7 +5,7 @@ local function configTable()
 	--Main options group
 	E.Options.args.sle.args.help = {
 		type = 'group',
-		name = L['About/Help'],
+		name = L['About/Help']..[[ |TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|t]],
 		order = -5,
 		childGroups = 'tab',
 		args = {
@@ -24,7 +24,7 @@ local function configTable()
 			},
 			faq = {
 				type = 'group',
-				name = 'FAQ',
+				name = 'FAQ'..[[ |TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|t]],
 				order = 5,
 				args = {
 					desc = {
@@ -129,6 +129,24 @@ local function configTable()
 						name = L['GitLab Link / Report Errors'],
 						get = function(info) return 'http://git.tukui.org/repooc/elvui-shadowandlight' end,
 						order = 5,
+					},
+				},
+			},
+			--Credits
+			credits = {
+				order = 400,
+				type = 'group',
+				name = L["Credits"],
+				args = {
+					creditheader = {
+						order = 1,
+						type = "header",
+						name = L["Credits"],
+					},
+					credits = {
+						order = 2,
+						type = "description",
+						name = L["ELVUI_SLE_CREDITS"]..'\n\n\n'..L["Submodules and Coding:"]..'\n\n'..L["ELVUI_SLE_CODERS"]..'\n\n\n'..L["Other Support:"]..'\n\n'..L["ELVUI_SLE_MISC"],
 					},
 				},
 			},
