@@ -316,7 +316,6 @@ function lib:CreateFrame(name, db, default, style, styleDefault)
 	menu:SetFrameStrata("HIGH")
 	menu:SetFrameLevel(5)
 	menu:SetClampedToScreen(true)
-	menu:Point("LEFT", E.UIParent, "LEFT", -2, 0);
 	menu:Size(17, 17); --Cause the damn thing doesn't want to show up without default size lol
 	menu.myname = UnitName('player')
 	menu:CreateBackdrop()
@@ -402,8 +401,8 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 					["dropdown"] = L['Dropdown'],
 				},
 				disabled = function() return not menu.db.enable end,
-				get = function(info) return E.private.sle.uiButtonStyle end,
-				set = function(info, value) E.private.sle.uiButtonStyle = value; E:StaticPopup_Show("PRIVATE_RL") end,
+				get = function(info) return menu.style end,
+				set = function(info, value) menu.style = value; E:StaticPopup_Show("PRIVATE_RL") end,
 			},
 			space = {
 				order = 5,

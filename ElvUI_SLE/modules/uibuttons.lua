@@ -115,6 +115,7 @@ end
 function UB:Initialize()
 	UB.Holder = lib:CreateFrame("SLE_UIButtons", E.db.sle.uibuttons, P.sle.uibuttons, E.private.sle.uiButtonStyle, "dropdown")
 	local menu = UB.Holder
+	menu:Point("LEFT", E.UIParent, "LEFT", -2, 0);
 	menu:SetupMover(L["S&L UI Buttons"], "ALL,S&L,S&L MISC,UIButtons")
 
 	UB:SetupBar(menu)
@@ -126,5 +127,11 @@ function UB:Initialize()
 
 	UB:RightClicks(menu)
 
+	hooksecurefunc(E, "UpdateAll", function()
+		UB.Holder.db = E.db.sle.uibuttons
+		UB.Holder:ToggleShow()
+		UB.Holder:FrameSize()
+		collectgarbage('collect');
+	end)
 	-- lib:CreateOptions(menu, true, "slebuttons", "SLE Buttons")
 end
