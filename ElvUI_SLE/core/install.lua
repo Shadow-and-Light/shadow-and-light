@@ -568,7 +568,6 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["movers"]["DP_6_Mover"] = "BOTTOMElvUIParentBOTTOM3070"
 		E.db["movers"]["SalvageCrateMover"] = "BOTTOMElvUIParentBOTTOM-1350"
 		E.db["movers"]["PetBattleStatusMover"] = "TOPElvUIParentTOP0-69"
-		E.db["movers"]["PetBattleABMover"] = "BOTTOMElvUIParentBOTTOM020"
 	end
 
 	E.private["general"]["minimap"]["hideGarrison"] = false
