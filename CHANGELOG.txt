@@ -9,6 +9,8 @@ Changes:
 - Did some optimizations for 2 years old code sections.
 - UI Buttons to open config are now doing nothing while in combat. This prevents issues with Ace-Config library untill we'll be able to fix that.
 - Config sections that have new stuff in them are now marked with an exclamation points.
+- Screensaer now should be less demanding on cpu.
+- Removed "Exit AFK" button in screensaver.
 Fixes:
 - Fixed the button from PAWN addon being unclickable with armory mode enabled
 - Fixed numerous errors when inspecting people (probably not all of them so keep an eye on those)
