@@ -43,6 +43,7 @@ L['You have got Loot Confirm and Shadow & Light both enabled at the same time. S
 L["Enabling mouse over will make ElvUI's raid utility show on mouse over instead of always showing."] = "Отображать кнопку управления рейдом только при наведении мыши."
 L['Adjust the position of the threat bar to any of the datatext panels in ElvUI & S&L.'] = "Позволяет поместить полосу угрозы на любой панели инфо-текстов."
 L["This option have been moved by Shadow & Light. Click to access it's new place."] = "Shadow & Light переместил эту опцию. Кликните для перехода к ее новому расположению."
+L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."] = "Shadow & Light отключил эту опцию. Для доступа к ней нужно отключить соответствующую опцию S&L. Кликните для перехода к ее расположению."
 L["This will clear your chat history and reload your UI.\nContinue?"] = "История чата будет очищена, а интерфейс перезагружен.\nПродолжить?"
 L["This will clear your editbox history and reload your UI.\nContinue?"] = "История введенных сообщений будет очищена, а интерфейс перезагружен.\nПродолжить?"
 

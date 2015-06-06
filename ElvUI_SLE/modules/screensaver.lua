@@ -3,6 +3,7 @@ local SLE = E:GetModule('SLE');
 local S = E:GetModule("SLE_ScreenSaver")
 local LSM = LibStub("LibSharedMedia-3.0")
 local Sk = E:GetModule("Skins")
+local ACD = LibStub("AceConfigDialog-3.0")
 
 local SS
 local ru = false
@@ -109,7 +110,7 @@ function S:Setup()
 	SS.testmodel:SetPoint("RIGHT", E.UIParent, "RIGHT", -5, 0)
 	-- SS.testmodel:CreateBackdrop("Transparent")
 	SS.testmodel:Hide()
-\
+
 	-- SS.ScrollFrame:SetShadowColor(0, 0, 0, 0)
 	SS.ScrollFrame:SetFading(false)
 	SS.ScrollFrame:SetFadeDuration(0)
@@ -290,9 +291,22 @@ end
 function S:UpdateConfig()
 	if IsAddOnLoaded("ElvUI_Config") then
 		if E.db.sle.media.screensaver.enable then
-			E.Options.args.general.args.general.args.afk.disabled = function() return true end
+			E.Options.args.general.args.general.args.afk = {
+				order = 15,
+				name = L["AFK Mode"],
+				desc = L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."],
+				type = "execute",
+				func = function() ACD:SelectGroup("ElvUI", "sle", "screensaver") end,
+			}
 		else
-			E.Options.args.general.args.general.args.afk.disabled = function() return false end
+			E.Options.args.general.args.general.args.afk = {
+				order = 15,
+				type = 'toggle',
+				name = L["AFK Mode"],
+				desc = L["When you go AFK display the AFK screen."],
+				get = function(info) return E.db.general.afk end,
+				set = function(info, value) E.db.general.afk = value; E:GetModule('AFK'):Toggle() end
+			}
 		end
 	end
 end

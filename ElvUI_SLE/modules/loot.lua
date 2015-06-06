@@ -1,6 +1,7 @@
 ﻿local E, L, V, P, G = unpack(ElvUI);
 local LT = E:GetModule('SLE_Loot')
 local M = E:GetModule('Misc')
+local ACD = LibStub("AceConfigDialog-3.0")
 
 local check = false
 local t = 0
@@ -251,9 +252,21 @@ end
 function LT:Update()
 	if IsAddOnLoaded("ElvUI_Config") then
 		if E.db.sle.loot.autoroll.enable then
-			E.Options.args.general.args.general.args.autoRoll.disabled = function() return true end
+			E.Options.args.general.args.general.args.autoRoll = {
+				order = 6,
+				name = L["Auto Greed/DE"],
+				desc = L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."],
+				type = "execute",
+				func = function() ACD:SelectGroup("ElvUI", "sle", "options", "loot") end,
+			}
 		else
-			E.Options.args.general.args.general.args.autoRoll.disabled = function() return false end
+			E.Options.args.general.args.general.args.autoRoll = {
+				order = 6,
+				name = L["Auto Greed/DE"],
+				desc = L["Automatically select greed or disenchant (when available) on green quality items. This will only work if you are the max level."],
+				type = 'toggle',
+				disabled = function() return not E.private.general.lootRoll end
+			}
 		end
 	end
 
