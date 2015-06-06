@@ -182,6 +182,7 @@ function SLE:Reset(group)
 	if not group then print("U wot m8?") end
 	if group == "unitframes" or group == "all" then
 		E.db.sle.combatico.pos = 'TOP'
+		E.db.sle.roleicons = "ElvUI"
 		E.db.sle.powtext = false
 	end
 	if group == "backgrounds" or group == "all" then
@@ -209,8 +210,19 @@ function SLE:Reset(group)
 		E:ResetMovers(L['Raid Marker Bar'])
 	end
 	if group == "all" then
+		E:CopyTable(E.db.sle, P.sle)
 		E:ResetMovers("PvP")
-		E:ResetMovers(L["UI Buttons"])
+		E:ResetMovers(L["S&L UI Buttons"])
+		E:ResetMovers(L["Error Frame"])
+		E:ResetMovers(L["Pet Battle Status"])
+		E:ResetMovers(L["Pet Battle AB"])
+		E:ResetMovers(L["Farm Seed Bars"])
+		E:ResetMovers(L["Farm Tool Bar"])
+		E:ResetMovers(L["Farm Portal Bar"])
+		E:ResetMovers(L["Garrison Tools Bar"])
+		E:ResetMovers(L["Ghost Frame"])
+		E:ResetMovers(L["Raid Utility"])
+		
 	end
 	E:UpdateAll()
 end
