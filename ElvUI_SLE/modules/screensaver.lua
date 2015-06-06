@@ -52,7 +52,7 @@ local FactionToken, Faction = UnitFactionGroup("player")
 local Color = RAID_CLASS_COLORS[ClassToken]
 local CrestPath = [[Interface\AddOns\ElvUI_SLE\media\textures\crests\]]
 local crestSize, month, week
-local UpdateElapsed, TipsElapsed, TipNum, TipThrottle, OldTip = 0, 0, 1, 10, 0
+local TipsElapsed, TipNum, TipThrottle, OldTip = 0, 1, 10, 0
 local degree = 0
 local fading = false
 
@@ -76,6 +76,7 @@ function S:Media()
 end
 
 function S:Setup()
+	SS.startTime = GetTime()
 	--Creating stuff
 	SS.Top = CreateFrame("Frame", nil, SS)
 	SS.Top:SetTemplate("Transparent")
@@ -103,21 +104,12 @@ function S:Setup()
 	SS.Top.Guild = SS.Top:CreateFontString(nil, "OVERLAY")
 	SS.Top.GuildR = SS.Top:CreateFontString(nil, "OVERLAY")
 	SS.ScrollFrame = CreateFrame("ScrollingMessageFrame", nil, SS)
-	
-	SS.button = CreateFrame("Button", "SLE_SS_AFK", SS.Bottom)
-	SS.button:Size(150, 30)
-	SS.button:SetScript("OnClick", function() SendChatMessage("" ,"AFK" ) end)
-	SS.button.text = SS.button:CreateFontString(nil, "OVERLAY")
-	SS.button.text:FontTemplate(nil, nil, "OUTLINE")
-	SS.button.text:SetText(L['Exit AFK'])
-	SS.button.text:Point("CENTER", SS.button)
-	Sk:HandleButton(SS.button, true)
-	
+
 	SS.testmodel = CreateFrame("PlayerModel", "ScreenTestModel", E.UIParent)
 	SS.testmodel:SetPoint("RIGHT", E.UIParent, "RIGHT", -5, 0)
 	-- SS.testmodel:CreateBackdrop("Transparent")
 	SS.testmodel:Hide()
-	
+\
 	-- SS.ScrollFrame:SetShadowColor(0, 0, 0, 0)
 	SS.ScrollFrame:SetFading(false)
 	SS.ScrollFrame:SetFadeDuration(0)
@@ -148,7 +140,7 @@ function S:Setup()
 	SS.Top.Quote:SetPoint("TOP", SS.Top.Title, "BOTTOM", 0, -2)
 	SS.ScrollFrame:SetPoint("CENTER", SS.Bottom, "CENTER", 0, 0)
 	
-	SS.button:SetPoint("TOP", SS.Bottom, "TOP")
+	-- SS.button:SetPoint("TOP", SS.Bottom, "TOP")
 
 	SS.Top.Title:SetText("|cff00AAFF"..L['You Are Away From Keyboard'].."|r")
 	-----
@@ -200,6 +192,7 @@ function S:Shown()
 	if IsInGuild() then
 		GuildName, GuildRank = GetGuildInfo("player")
 	end
+	self.startTime = GetTime()
 	self.model:SetUnit("player")
 	local x = E.db.sle.media.screensaver.playermodel.position == "RIGHT" and -1 or 1
 	local point = E.db.sle.media.screensaver.playermodel.position
@@ -233,11 +226,18 @@ function S:Shown()
 	self.Top.PlayerInfo:SetText(format("|c%s%s|r, %s %s", Color.colorStr, Class, LEVEL, Level))
 	
 	self.ScrollFrame:AddMessage(L["SLE_TIPS"][TipNum], 1, 1, 1)
+	S:UpdateTimer()
+	self.timer = S:ScheduleRepeatingTimer('UpdateTimer', 1)
 end
 
-function S:Update(elapsed)
-	UpdateElapsed = UpdateElapsed + elapsed
-	TipsElapsed = TipsElapsed + elapsed
+function S:UpdateCamera(elapsed)
+	if degree > 360 then degree = 0 end
+	FlipCameraYaw(elapsed*10)
+	degree = degree + elapsed*10
+end
+
+function S:UpdateTimer()
+	TipsElapsed = TipsElapsed + 1
 	if ru then
 		month = Months[tonumber(date("%m"))]
 		week = Week[tonumber(date("%w"))+1]
@@ -245,17 +245,13 @@ function S:Update(elapsed)
 		month = date("%B")
 		week = date("%A")
 	end
-	FlipCameraYaw(elapsed*10)
-	degree = degree + elapsed*10
-	if UpdateElapsed > 0.5 then
-		self.Top.Time:SetText(format("%s", date("%H|cff00AAFF:|r%M|cff00AAFF:|r%S")))
-		self.Top.Date:SetText(date("%d").." "..month.." |cff00AAFF"..week.."|r")
-		UpdateElapsed = 0
-	end
+	SS.Top.Time:SetText(format("%s", date("%H|cff00AAFF:|r%M|cff00AAFF:|r%S")))
+	SS.Top.Date:SetText(date("%d").." "..month.." |cff00AAFF"..week.."|r")
+
 	if TipsElapsed > TipThrottle then
 		TipNum = random(1, #L["SLE_TIPS"])
 		if TipNum == OldTip then TipNum = random(1, #L["SLE_TIPS"]) end
-		self.ScrollFrame:AddMessage(L["SLE_TIPS"][TipNum], 1, 1, 1) 
+		SS.ScrollFrame:AddMessage(L["SLE_TIPS"][TipNum], 1, 1, 1) 
 		OldTip = TipNum
 		TipsElapsed = 0
 	end
@@ -275,6 +271,8 @@ function S:Event(event, unit)
 		FlipCameraYaw(-degree)
 		degree = 0
 		SS:Hide()
+		S:CancelTimer(SS.timer)
+		TipsElapsed = 0
 		if InCombatLockdown() then
 			self:RegisterEvent("PLAYER_REGEN_ENABLED", "Event")
 		else
@@ -333,7 +331,7 @@ function S:Initialize()
 	SS:SetScale(SLE:Scale(1))
 	self:Setup()
 	SS:SetScript("OnShow", self.Shown)
-	SS:SetScript("OnUpdate", self.Update)
+	SS:SetScript("OnUpdate", self.UpdateCamera)
 	-- SS:SetScript("OnKeyDown", S.Escape)
 	self:Reg()
 	self:RegisterEvent("ADDON_LOADED", LoadConfig)
