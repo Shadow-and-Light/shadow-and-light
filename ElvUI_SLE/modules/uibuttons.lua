@@ -116,7 +116,7 @@ function UB:Initialize()
 	UB.Holder = lib:CreateFrame("SLE_UIButtons", E.db.sle.uibuttons, P.sle.uibuttons, E.private.sle.uiButtonStyle, "dropdown")
 	local menu = UB.Holder
 	menu:Point("LEFT", E.UIParent, "LEFT", -2, 0);
-	menu:SetupMover(L["S&L UI Buttons"], "ALL,S&L,S&L MISC,UIButtons")
+	menu:SetupMover(L["S&L UI Buttons"], "ALL,S&L,S&L MISC")
 
 	UB:SetupBar(menu)
 
