@@ -2,11 +2,15 @@ v2.21
 For preventing issues we recommend you to remove Shadow & Light and install it again instead of usual updating process due to some files have been moved or renamed.
 Additions:
 - New options to control visibility of quest log in sertain areas. It can be full, minimized or hidden.
+- New option for UI Buttons to show/hide backdrop on the main menu panel.
 Changes:
 - Changed the way UI Buttons are operating. Transition will result in next options returning to default values: mover position, horizontal/vertical orientation, custom roll limits, quick actions states for dropdown mode.
 - Tooltips for Consolidated Buffs bar are back.
+- Did some optimizations for 2 years old code sections.
+- UI Buttons to open config are now doing nothing while in combat. This prevents issues with Ace-Config library untill we'll be able to fix that.
 Fixes:
 - Fixed the button from PAWN addon being unclickable with armory mode enabled
+- Fixed numerous errors when inspecting people (probably not all of them so keep an eye on those)
 
 v2.20 5/8/15
 Fixes:
