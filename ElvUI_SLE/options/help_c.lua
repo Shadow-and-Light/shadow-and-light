@@ -89,6 +89,20 @@ local function configTable()
 							},
 						},
 					},
+					q5 = {
+						type = 'group',
+						name = '',
+						order = 6,
+						guiInline = true,
+						args = {
+							q = {
+								order = 2,
+								type = 'description',
+								fontSize = 'medium',
+								name = L["FAQ_5"],
+							},
+						},
+					},
 				},
 			},
 			links = {

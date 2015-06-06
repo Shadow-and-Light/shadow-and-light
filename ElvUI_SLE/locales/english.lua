@@ -113,14 +113,15 @@ To do so you need to disable all other addons except of ElvUI, ElvUI_Config and 
 If error didn't disappear then you need to send us a bug report. The link is in the next section.
 In it you'll need to provide S&L version, ElvUI version, the text of the error, screenshot if needed.]]
 L["FAQ_2"] = [[|cff30ee30Q: How do I send a bug report is my English is not very good?|r
-|cff9482c9A:|r Basically it doesn't matter really. Officially we provide support in English and Russian.
-But tukui.org community is very diverce and our most active members are speaking different languadges thus we can ask someone to translate whatever you wrote.]]
+|cff9482c9A:|r Basically it doesn't matter really. Officially Shadow & Light support is provided in English and Russian.
+But tukui.org community is very large and our most active members are speaking different languadges thus we can ask someone to translate whatever you wrote.]]
 L["FAQ_3"] = [[|cff30ee30Q: Why are layouts' screenshots on download page are different from what I see in game?|r
 |cff9482c9A:|r Because we just forgot to update those.]]
 L["FAQ_4"] = [[|cff30ee30Q: Why I see some weird icons near some peoples' names in chat?|r
 |cff9482c9A:|r Those icons are provided by S&L and are associated with people we'd like to highlight in any way.
-For example: |TInterface\AddOns\ElvUI_SLE\media\textures\SLE_Chat_LogoD:0:2|t is the icon for Darth's characters and |TInterface\AddOns\ElvUI_SLE\media\textures\SLE_Chat_Logo:0:2|t is for Repooc's.]]
-
+For example: |TInterface\AddOns\ElvUI_SLE\media\textures\SLE_Chat_LogoD:0:2|t is the icon for Darth's characters and |TInterface\AddOns\ElvUI_SLE\media\textures\SLE_Chat_Logo:0:2|t is for Repooc's. |TInterface\AddOns\ElvUI_SLE\media\textures\Chat_Test:16:16|t is awarded for help in finding bugs.]]
+L["FAQ_5"] = [[|cff30ee30Q: How can I get in touch with you guys?|r
+|cff9482c9A:|r For obvious reasons we are not giving out our contacts freely. So your best bet is using tukui.org forums.]]
 
 --Credits--
 L["ELVUI_SLE_CREDITS"] = "We would like to point out the following people for helping us create this addon with testing, coding, and other stuff."
