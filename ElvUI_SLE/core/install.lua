@@ -400,6 +400,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	do
 		E.db["auras"]["font"] = "ElvUI Font"
 		E.db["auras"]["fontOutline"] = "OUTLINE"
+		E.db["auras"]["fontSize"] = 12
 		E.db["auras"]["buffs"]["size"] = 28
 		E.db["auras"]["debuffs"]["horizontalSpacing"] = 8
 		E.db["auras"]["debuffs"]["size"] = 36
