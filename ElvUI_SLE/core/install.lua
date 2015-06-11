@@ -499,7 +499,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 
 		E.db["sle"]["chat"]["dpsSpam"] = true
 		E.db["sle"]["chat"]["textureAlpha"]["enable"] = true
-		E.db["sle"]["chat"]["textureAlpha"]["alpha"] = 1
+		E.db["sle"]["chat"]["textureAlpha"]["alpha"] = 0.7
 
 		E.db["sle"]["minimap"]["instance"]["fontSize"] = 14
 		E.db["sle"]["minimap"]["instance"]["flag"] = false
