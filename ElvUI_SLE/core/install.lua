@@ -415,7 +415,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["sle"]["nameplate"]["showthreat"] = true
 		E.db["sle"]["raidmarkers"]["buttonSize"] = 18
 		E.db["sle"]["raidmarkers"]["spacing"] = 1
-		E.db["sle"]["raidmarkers"]["visibility"] = "ALWAYS"
+		E.db["sle"]["raidmarkers"]["visibility"] = "DEFAULT"
 		E.db["sle"]["raidmarkers"]["reverse"] = true
 		E.db["sle"]["errorframe"]["width"] = 470
 
@@ -499,6 +499,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 
 		E.db["sle"]["chat"]["dpsSpam"] = true
 		E.db["sle"]["chat"]["textureAlpha"]["enable"] = true
+		E.db["sle"]["chat"]["textureAlpha"]["alpha"] = 1
 
 		E.db["sle"]["minimap"]["instance"]["fontSize"] = 14
 		E.db["sle"]["minimap"]["instance"]["flag"] = false
