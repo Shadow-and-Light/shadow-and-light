@@ -341,9 +341,6 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = "Combat/Arena Time"
 		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["middle"] = "S&L Guild"
 		E.db["datatexts"]["panels"]["Bottom_Panel"] = "System"
-		-- E.db["datatexts"]["panels"]["DP_6"]["right"] = "Crit Chance"
-		-- E.db["datatexts"]["panels"]["DP_6"]["left"] = "Spell/Heal Power"
-		-- E.db["datatexts"]["panels"]["DP_6"]["middle"] = "Haste"
 		E.db["datatexts"]["font"] = "ElvUI Font"
 		E.db["datatexts"]["fontOutline"] = "OUTLINE"
 	end
