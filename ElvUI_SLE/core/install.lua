@@ -489,6 +489,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["sle"]["quests"]["visibility"]["arena"] = "HIDE"
 		E.db["sle"]["quests"]["visibility"]["bg"] = "HIDE"
 		E.db["sle"]["quests"]["visibility"]["rested"] = "COLLAPSED"
+		E.db["sle"]["quests"]["visibility"]["garrison"] = "COLLAPSED"
 
 		E.db["sle"]["tooltip"]["showFaction"] = true
 
