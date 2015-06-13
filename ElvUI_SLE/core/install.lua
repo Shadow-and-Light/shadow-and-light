@@ -512,6 +512,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["sle"]["uibuttons"]["size"] = 20
 		E.db["sle"]["uibuttons"]["orientation"] = "horizontal"
 		E.db["sle"]["uibuttons"]["yoffset"] = -2
+		
+		E.db["sle"]["auras"]["consolidatedMark"] = true
 	end
 	--Movers--
 	do
