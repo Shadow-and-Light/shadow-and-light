@@ -577,7 +577,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	E.private["sle"]["farm"]["enable"] = true
 	E.private["sle"]["equip"]["spam"] = true
 	E.private["sle"]["equip"]["setoverlay"] = true
-	if E.myclass ~= "HUNTER" then E.private["sle"]["auras"]["consolidatedMark"] = true end
+	if E.myclass ~= "HUNTER" and E.myclass ~= "SHAMAN" and E.myclass ~= "ROGUE" then E.private["sle"]["auras"]["consolidatedMark"] = true end
 	E.private["ElvUI_Currency"]["Unused"] = false
 	E.private["ElvUI_Currency"]["Archaeology"] = false
 
