@@ -142,6 +142,19 @@ function A:CreateButton(i)
 	button:SetScript("OnEnter", function(self) ConsOnEnter(self) end)
 	button:SetScript("OnLeave", function(self) ConsOnLeave() end)
 
+	button.icon = CreateFrame("Frame", "ElvUIConsolidatedBuff"..i.."CanCast", button)
+	local icon = button.icon
+	icon:SetWidth(2)
+	icon:SetPoint("TOPRIGHT", button, -1, -1)
+	icon:SetPoint("BOTTOMRIGHT", button, -1, 1)
+	local overlay = icon:CreateTexture(nil, "OVERLAY")
+	overlay:SetTexture(E['media'].blankTex)
+	overlay:SetAllPoints(icon)
+	local classColor = RAID_CLASS_COLORS[E.myclass]
+	overlay:SetVertexColor(classColor.r, classColor.g, classColor.b)
+	icon:SetFrameLevel(button:GetFrameLevel() + 3)
+	icon:Hide()
+
 	return button
 end
 
@@ -193,7 +206,14 @@ function AT:BuildCasts(event, unit)
 		local button = _G["ElvUIConsolidatedBuff"..i]
 		if AT.Spells[E.myclass] then
 			local name = AT.Spells[E.myclass][i]
-			if name then button:SetAttribute("spell1", name) end
+			if name then
+				button:SetAttribute("spell1", name)
+				if E.db.sle.auras.consolidatedMark then
+					button.icon:Show()
+				else
+					button.icon:Hide()
+				end
+			end
 		end
 	end
 	AT:UpdateAuraStandings(nil, "player")
@@ -231,7 +251,7 @@ function AT:Initialize()
 	self:RegisterEvent("UNIT_AURA", "UpdateAuraStandings")
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "BuildCasts")
 	self:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED", "BuildCasts")
-	self:RegisterEvent("UNIT_LEVEL", "BuildCasts")
+	-- self:RegisterEvent("UNIT_LEVEL", "BuildCasts")
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "UpdateAuraStandings")
 
 	AT:BuildCasts()

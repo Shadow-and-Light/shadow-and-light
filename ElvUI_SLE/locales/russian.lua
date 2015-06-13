@@ -131,6 +131,8 @@ L["Hide Buff Timer"] = "Спрятать таймеры баффов"
 L["This hides the time remaining for your buffs."] = "Скрывает текст оставшегося времени действия около баффов"
 L["Hide Debuff Timer"] = "Спрятать таймеры дебаффов"
 L["This hides the time remaining for your debuffs."] = "Скрывает текст оставшегося времени действия около дебаффов"
+L["Mark Your Consolidated Buffs"] = "Отмечать ваши объединенные эффекты"
+L["Create a mark bar on a consolidated buffs bar's icons for buffs your class can provide."] = "Создавать метку в полосе объединенных эффектов на иконках, бафф которых может предоставить ваш класс."
 
 --Autoreleas--
 L["PvP Auto Release"] = "Автоматический выход из тела"
