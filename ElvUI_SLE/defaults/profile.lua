@@ -13,7 +13,6 @@ P['sle'] = {
 		['tempenchants'] = {
 			['hideTimer'] = false,
 		},
-		['consolidatedMark'] = false,
 	},
 	--Background frames
 	['backgrounds'] = {

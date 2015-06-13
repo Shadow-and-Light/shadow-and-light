@@ -512,8 +512,6 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["sle"]["uibuttons"]["size"] = 20
 		E.db["sle"]["uibuttons"]["orientation"] = "horizontal"
 		E.db["sle"]["uibuttons"]["yoffset"] = -2
-		
-		E.db["sle"]["auras"]["consolidatedMark"] = true
 	end
 	--Movers--
 	do
@@ -579,6 +577,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	E.private["sle"]["farm"]["enable"] = true
 	E.private["sle"]["equip"]["spam"] = true
 	E.private["sle"]["equip"]["setoverlay"] = true
+	E.private["sle"]["auras"]["consolidatedMark"] = true
 	E.private["ElvUI_Currency"]["Unused"] = false
 	E.private["ElvUI_Currency"]["Archaeology"] = false
 

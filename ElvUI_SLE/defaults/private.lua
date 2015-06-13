@@ -59,6 +59,10 @@ V['sle'] = {
 	['backgrounds'] = false,
 
 	['uiButtonStyle'] = "dropdown",
+	
+	['auras'] = {
+		['consolidatedMark'] = false,
+	},
 }
 
 G['sle'] = {

@@ -91,6 +91,7 @@ AT.Spells = {
 local ignoreIcons = {}
 function AT:Update_ConsolidatedBuffsSettings()
 	local frame = A.frame
+
 	twipe(ignoreIcons)
 	if E.db.auras.consolidatedBuffs.filter then
 		if E.role == 'Caster' then
@@ -166,8 +167,8 @@ function A:CreateButton(i)
 	button.icon = CreateFrame("Frame", "ElvUIConsolidatedBuff"..i.."CanCast", button)
 	local icon = button.icon
 	icon:SetWidth(3)
-	icon:SetPoint("TOPLEFT", button, -2, -1)
-	icon:SetPoint("BOTTOMLEFT", button, -2, 1)
+	icon:SetPoint("TOPLEFT", button, -1, -1)
+	icon:SetPoint("BOTTOMLEFT", button, -1, 1)
 	local overlay = icon:CreateTexture(nil, "OVERLAY")
 	overlay:SetTexture(E['media'].blankTex)
 	overlay:SetAllPoints(icon)
@@ -230,7 +231,7 @@ function AT:BuildCasts(event, unit)
 			local name = AT.Spells[E.myclass][i]
 			if name then
 				button:SetAttribute("spell1", name)
-				if E.db.sle.auras.consolidatedMark then
+				if E.private.sle.auras.consolidatedMark then
 					button.icon:Show()
 				else
 					button.icon:Hide()
@@ -277,4 +278,9 @@ function AT:Initialize()
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "UpdateAuraStandings")
 
 	AT:BuildCasts()
+
+	-- hooksecurefunc(E, "UpdateAll", function()
+		-- A:Update_ConsolidatedBuffsSettings()
+		-- collectgarbage('collect');
+	-- end)
 end

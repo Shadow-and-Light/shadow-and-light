@@ -65,8 +65,8 @@ local function configTable()
 				name = L["Mark Your Consolidated Buffs"],
 				desc = L["Create a mark bar on a consolidated buffs bar's icons for buffs your class can provide."],
 				disabled = function() return (E.private.general.minimap.enable ~= true or E.private.auras.disableBlizzard ~= true) end,
-				get = function(info) return E.db.sle.auras.consolidatedMark end,
-				set = function(info, value) E.db.sle.auras.consolidatedMark = value; AT:BuildCasts(); A:Update_ConsolidatedBuffsSettings() end,
+				get = function(info) return E.private.sle.auras.consolidatedMark end,
+				set = function(info, value) E.private.sle.auras.consolidatedMark = value; AT:BuildCasts(); A:Update_ConsolidatedBuffsSettings() end,
 			},
 		},
 	}
