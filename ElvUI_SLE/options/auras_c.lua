@@ -1,5 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI); 
 local AT = E:GetModule('SLE_AuraTimers')
+local A = E:GetModule('Auras')
+
 
 local function configTable()
 	E.Options.args.sle.args.options.args.general.args.auras = {
@@ -64,7 +66,7 @@ local function configTable()
 				desc = L["Create a mark bar on a consolidated buffs bar's icons for buffs your class can provide."],
 				disabled = function() return (E.private.general.minimap.enable ~= true or E.private.auras.disableBlizzard ~= true) end,
 				get = function(info) return E.db.sle.auras.consolidatedMark end,
-				set = function(info, value) E.db.sle.auras.consolidatedMark = value; AT:BuildCasts() end,
+				set = function(info, value) E.db.sle.auras.consolidatedMark = value; AT:BuildCasts(); A:Update_ConsolidatedBuffsSettings() end,
 			},
 		},
 	}

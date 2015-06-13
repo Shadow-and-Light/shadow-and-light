@@ -88,10 +88,31 @@ AT.Spells = {
 	},
 }
 
+local ignoreIcons = {}
 function AT:Update_ConsolidatedBuffsSettings()
 	local frame = A.frame
+	twipe(ignoreIcons)
+	if E.db.auras.consolidatedBuffs.filter then
+		if E.role == 'Caster' then
+			ignoreIcons[3] = 2
+		else
+			ignoreIcons[5] = 4
+		end
+	end
 	if(E.private.auras.disableBlizzard) then
 		for i = 1, NUM_LE_RAID_BUFF_TYPES do
+			local button = _G["ElvUIConsolidatedBuff"..i]
+			button:ClearAllPoints()
+			if i == 1 then
+				button:Point("TOPRIGHT", ElvUI_ConsolidatedBuffs, "TOPRIGHT", 0, -(E.PixelMode and 0 or 2))
+			else
+				button:Point("TOPRIGHT", frame[ignoreIcons[i - 1] or (i - 1)], "BOTTOMRIGHT", 0, (E.PixelMode and 2 or -1))
+			end
+
+			if button.icon:IsShown() then
+				button:SetWidth(E.ConsolidatedBuffsWidth - 3)
+			end
+
 			local buffIcon = _G[("ConsolidatedBuffsTooltipBuff%d"):format(i)]
 			buffIcon:Hide()
 		end
@@ -144,9 +165,9 @@ function A:CreateButton(i)
 
 	button.icon = CreateFrame("Frame", "ElvUIConsolidatedBuff"..i.."CanCast", button)
 	local icon = button.icon
-	icon:SetWidth(2)
-	icon:SetPoint("TOPRIGHT", button, -1, -1)
-	icon:SetPoint("BOTTOMRIGHT", button, -1, 1)
+	icon:SetWidth(3)
+	icon:SetPoint("TOPLEFT", button, -2, -1)
+	icon:SetPoint("BOTTOMLEFT", button, -2, 1)
 	local overlay = icon:CreateTexture(nil, "OVERLAY")
 	overlay:SetTexture(E['media'].blankTex)
 	overlay:SetAllPoints(icon)
@@ -154,6 +175,7 @@ function A:CreateButton(i)
 	overlay:SetVertexColor(classColor.r, classColor.g, classColor.b)
 	icon:SetFrameLevel(button:GetFrameLevel() + 3)
 	icon:Hide()
+	button.cd:SetFrameLevel(icon:GetFrameLevel() + 1)
 
 	return button
 end
