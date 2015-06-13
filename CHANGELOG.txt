@@ -4,6 +4,7 @@ Also due to changes in settings tables you may experience errors on profile chan
 Additions:
 - New options to control visibility of quest log in sertain areas. It can be full, minimized or hidden.
 - New option for UI Buttons to show/hide backdrop on the main menu panel.
+- New option for consolidated buffs bar. You will be able to show a small classcolored indication on the icons of buffs your class can provide. This option applies to the character.
 Changes:
 - Changed the way UI Buttons are operating. Transition will result in next options returning to default values: mover position, horizontal/vertical orientation, custom roll limits, quick actions states for dropdown mode.
 - Tooltips for Consolidated Buffs bar are back.
