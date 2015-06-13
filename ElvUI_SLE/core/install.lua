@@ -75,7 +75,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	SLEInstallStepComplete:Show()
 	E:CopyTable(E.db, P)
 	E:CopyTable(E.private, V)
-	if not E.db.movers then E.db.movers = {}; end
+	E.db.movers = {}
 	--General--
 	do
 		E.db["general"]["totems"]["sortDirection"] = "DESCENDING"
