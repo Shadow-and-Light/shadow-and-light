@@ -278,9 +278,4 @@ function AT:Initialize()
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "UpdateAuraStandings")
 
 	AT:BuildCasts()
-
-	-- hooksecurefunc(E, "UpdateAll", function()
-		-- A:Update_ConsolidatedBuffsSettings()
-		-- collectgarbage('collect');
-	-- end)
 end
