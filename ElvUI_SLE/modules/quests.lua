@@ -56,6 +56,7 @@ function Q:Initialize()
 	self:RegisterEvent("PLAYER_UPDATE_RESTING", "ChangeState")
 
 	hooksecurefunc(E, "UpdateAll", function()
+		Q.db = E.db.sle.quests
 		Q:ChangeState()
 		collectgarbage('collect');
 	end)
