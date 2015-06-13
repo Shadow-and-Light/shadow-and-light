@@ -1,6 +1,8 @@
 local E, L, V, P, G = unpack(ElvUI);
 local Q = E:GetModule("SLE_Quests")
 local frame
+local B = LibStub("LibBabble-SubZone-3.0")
+local BL = B:GetLookupTable()
 
 local statedriver = {
 	['FULL'] = function(frame) 
@@ -22,7 +24,9 @@ function Q:ChangeState(event)
 	if not Q.db then return end
 	if not Q.db.visibility then return end
 
-	if IsResting() then
+	if GetZoneText() == BL.Frostwall or GetZoneText() == BL.Lunarfall then
+		statedriver[Q.db.visibility.garrison](frame)
+	elseif IsResting() then
 		statedriver[Q.db.visibility.rested](frame)
 	else
 		local instance, instanceType = IsInInstance()

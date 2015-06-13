@@ -456,6 +456,7 @@ P['sle'] = {
 			['raid'] = "COLLAPSED",
 			['scenario'] = "FULL",
 			['rested'] = "FULL",
+			['garrison'] = "FULL",
 		},
 	},
 }

@@ -23,8 +23,20 @@ local function configTable()
 					["HIDE"] = HIDE,
 				},
 			},
-			bg = {
+			garrison = {
 				order = 3,
+				type = "select",
+				name = GARRISON_LOCATION_TOOLTIP,
+				get = function(info) return E.db.sle.quests.visibility[ info[#info] ] end,
+				set = function(info, value) E.db.sle.quests.visibility[ info[#info] ] = value; E:GetModule('SLE_Quests'):ChangeState() end,
+				values = {
+					["FULL"] = DEFAULT,
+					["COLLAPSED"] = MINIMIZE,
+					["HIDE"] = HIDE,
+				},
+			},
+			bg = {
+				order = 4,
 				type = "select",
 				name = BATTLEGROUNDS,
 				get = function(info) return E.db.sle.quests.visibility[ info[#info] ] end,
@@ -36,7 +48,7 @@ local function configTable()
 				},
 			},
 			arena = {
-				order = 4,
+				order = 5,
 				type = "select",
 				name = ARENA,
 				get = function(info) return E.db.sle.quests.visibility[ info[#info] ] end,
@@ -48,7 +60,7 @@ local function configTable()
 				},
 			},
 			dungeon = {
-				order = 5,
+				order = 6,
 				type = "select",
 				name = DUNGEONS,
 				get = function(info) return E.db.sle.quests.visibility[ info[#info] ] end,
@@ -60,7 +72,7 @@ local function configTable()
 				},
 			},
 			scenario = {
-				order = 6,
+				order = 7,
 				type = "select",
 				name = SCENARIOS,
 				get = function(info) return E.db.sle.quests.visibility[ info[#info] ] end,
@@ -72,7 +84,7 @@ local function configTable()
 				},
 			},
 			raid = {
-				order = 7,
+				order = 8,
 				type = "select",
 				name = RAIDS,
 				get = function(info) return E.db.sle.quests.visibility[ info[#info] ] end,
