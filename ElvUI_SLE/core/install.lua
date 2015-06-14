@@ -211,7 +211,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["unitframe"]["units"]["target"]["name"]["position"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["target"]["combobar"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["target"]["combobar"]["detachedWidth"] = 200
-		E.db["unitframe"]["units"]["target"]["combobar"]["height"] = 6
+		E.db["unitframe"]["units"]["target"]["combobar"]["height"] = 8
 		E.db["unitframe"]["units"]["target"]["combobar"]["fill"] = "spaced"
 		E.db["unitframe"]["units"]["target"]["castbar"]["height"] = 14
 		E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 190
