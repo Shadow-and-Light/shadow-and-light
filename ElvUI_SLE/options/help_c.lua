@@ -26,6 +26,7 @@ local function configTable()
 				type = 'group',
 				name = 'FAQ'..[[ |TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|t]],
 				order = 5,
+				childGroups = "select",
 				args = {
 					desc = {
 						order = 1,
@@ -33,73 +34,143 @@ local function configTable()
 						fontSize = 'medium',
 						name = L["FAQ_DESC"],
 					},
-					q1 = {
+					elvui = {
 						type = 'group',
-						name = '',
-						order = 2,
-						guiInline = true,
+						order = 1,
+						name = "ElvUI",
 						args = {
-							q = {
+							q1 = {
+								type = 'group',
+								name = '',
 								order = 1,
-								type = 'description',
-								fontSize = 'medium',
-								name = L["FAQ_1"],
+								guiInline = true,
+								args = {
+									q = {
+										order = 1,
+										type = 'description',
+										fontSize = 'medium',
+										name = L["FAQ_Elv_1"],
+									},
+								},
+							},
+							q2 = {
+								type = 'group',
+								name = '',
+								order = 2,
+								guiInline = true,
+								args = {
+									q = {
+										order = 1,
+										type = 'description',
+										fontSize = 'medium',
+										name = L["FAQ_Elv_2"],
+									},
+								},
+							},
+							q3 = {
+								type = 'group',
+								name = '',
+								order = 3,
+								guiInline = true,
+								args = {
+									q = {
+										order = 1,
+										type = 'description',
+										fontSize = 'medium',
+										name = L["FAQ_Elv_3"],
+									},
+								},
+							},
+							q4 = {
+								type = 'group',
+								name = '',
+								order = 4,
+								guiInline = true,
+								args = {
+									q = {
+										order = 1,
+										type = 'description',
+										fontSize = 'medium',
+										name = L["FAQ_Elv_4"],
+									},
+								},
 							},
 						},
 					},
-					q2 = {
+					sle = {
 						type = 'group',
-						name = '',
-						order = 3,
-						guiInline = true,
+						order = 1,
+						name = "Shadow & Light",
 						args = {
-							q = {
-								order = 2,
-								type = 'description',
-								fontSize = 'medium',
-								name = L["FAQ_2"],
+							q1 = {
+								type = 'group',
+								name = '',
+								order = 1,
+								guiInline = true,
+								args = {
+									q = {
+										order = 1,
+										type = 'description',
+										fontSize = 'medium',
+										name = L["FAQ_sle_1"],
+									},
+								},
 							},
-						},
-					},
-					q3 = {
-						type = 'group',
-						name = '',
-						order = 4,
-						guiInline = true,
-						args = {
-							q = {
+							q2 = {
+								type = 'group',
+								name = '',
 								order = 2,
-								type = 'description',
-								fontSize = 'medium',
-								name = L["FAQ_3"],
+								guiInline = true,
+								args = {
+									q = {
+										order = 1,
+										type = 'description',
+										fontSize = 'medium',
+										name = L["FAQ_sle_2"],
+									},
+								},
 							},
-						},
-					},
-					q4 = {
-						type = 'group',
-						name = '',
-						order = 5,
-						guiInline = true,
-						args = {
-							q = {
-								order = 2,
-								type = 'description',
-								fontSize = 'medium',
-								name = L["FAQ_4"],
+							q3 = {
+								type = 'group',
+								name = '',
+								order = 3,
+								guiInline = true,
+								args = {
+									q = {
+										order = 1,
+										type = 'description',
+										fontSize = 'medium',
+										name = L["FAQ_sle_3"],
+									},
+								},
 							},
-						},
-					},
-					q5 = {
-						type = 'group',
-						name = '',
-						order = 6,
-						guiInline = true,
-						args = {
-							q = {
-								order = 2,
-								type = 'description',
-								fontSize = 'medium',
-								name = L["FAQ_5"],
+							q4 = {
+								type = 'group',
+								name = '',
+								order = 4,
+								guiInline = true,
+								args = {
+									q = {
+										order = 1,
+										type = 'description',
+										fontSize = 'medium',
+										name = L["FAQ_sle_4"],
+									},
+								},
+							},
+							q5 = {
+								type = 'group',
+								name = '',
+								order = 5,
+								guiInline = true,
+								args = {
+									q = {
+										order = 1,
+										type = 'description',
+										fontSize = 'medium',
+										name = L["FAQ_sle_5"],
+									},
+								},
 							},
 						},
 					},
