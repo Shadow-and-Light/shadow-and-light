@@ -2355,27 +2355,28 @@ function IA:ToggleSpecializationTab(Group, DataTable)
 				if DataTable.Specialization[Group]['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)][1] then
 					TalentID, Name, Texture = GetTalentInfoByID(DataTable.Specialization[Group]['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)][1], 1)
 				end
-
-				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon.Texture:SetTexture(Texture)
-				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].text:SetText(Name)
-				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Tooltip.Link = GetTalentLink(TalentID)
-				
-				if DataTable.Specialization[Group]['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)][2] == true then
-					self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)]:SetBackdropColor(R, G, B, .3)
-					self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)]:SetBackdropBorderColor(R, G, B)
-					self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon:SetBackdropBorderColor(R, G, B)
-					self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon.Texture:SetDesaturated(false)
-					self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].text:SetTextColor(1, 1, 1)
-				else
-					self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)]:SetBackdropColor(.1, .1, .1)
-					self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)]:SetBackdropBorderColor(0, 0, 0)
-					self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon:SetBackdropBorderColor(0, 0, 0)
-					self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon.Texture:SetDesaturated(true)
+				if TalentID and Name and Texture then
+					self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon.Texture:SetTexture(Texture)
+					self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].text:SetText(Name)
+					self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Tooltip.Link = GetTalentLink(TalentID)
 					
-					if DataTable.Level < LevelTable[i] then
-						self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].text:SetTextColor(.7, .3, .3)
+					if DataTable.Specialization[Group]['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)][2] == true then
+						self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)]:SetBackdropColor(R, G, B, .3)
+						self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)]:SetBackdropBorderColor(R, G, B)
+						self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon:SetBackdropBorderColor(R, G, B)
+						self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon.Texture:SetDesaturated(false)
+						self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].text:SetTextColor(1, 1, 1)
 					else
-						self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].text:SetTextColor(.5, .5, .5)
+						self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)]:SetBackdropColor(.1, .1, .1)
+						self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)]:SetBackdropBorderColor(0, 0, 0)
+						self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon:SetBackdropBorderColor(0, 0, 0)
+						self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon.Texture:SetDesaturated(true)
+						
+						if DataTable.Level < LevelTable[i] then
+							self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].text:SetTextColor(.7, .3, .3)
+						else
+							self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].text:SetTextColor(.5, .5, .5)
+						end
 					end
 				end
 			end
