@@ -70,12 +70,21 @@ end
 
 function AI:DarthSetup() --The function to switch from classic ElvUI settings to Darth's
 	local layout = E.db.layoutSet
+	local installMark = E.private["install_complete"]
+	local installMarkSLE = E.private["sle"]["install_complete"]
+
 	local word = layout == 'tank' and L["Tank"] or layout == 'healer' and L["Healer"] or layout == 'dpsMelee' and L['Physical DPS'] or L['Caster DPS']
 	SLEInstallStepComplete.message = L["Darth's Default Set"]..": "..word
 	SLEInstallStepComplete:Show()
+
+	table.wipe(E.db)
 	E:CopyTable(E.db, P)
+
+	table.wipe(E.private)
 	E:CopyTable(E.private, V)
-	E.db.movers = {}
+	
+	if E.db['movers'] then table.wipe(E.db['movers']) else E.db['movers'] = {} end
+
 	--General--
 	do
 		E.db["general"]["totems"]["sortDirection"] = "DESCENDING"
@@ -139,7 +148,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["chat"]["panelHeightRight"] = 187
 		E.db["chat"]["panelWidth"] = 445
 		E.db["chat"]["emotionIcons"] = false
-		E.db["chat"]["tabFontSize"] = 11
+		E.db["chat"]["tabFontSize"] = 12
 		E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
 		E.db["chat"]["panelWidthRight"] = 425
 		E.db["chat"]["tabFont"] = "ElvUI Font"
@@ -536,8 +545,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMElvUIParentBOTTOM296320"
 		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-516303"
 		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
-		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0243"
-		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0244"
+		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
+		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
 		E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFTElvUIParentBOTTOMLEFT379369"
 		E.db["movers"]["BossHeaderMover"] = "TOPRIGHTElvUIParentTOPRIGHT0-229"
 		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHTElvUIParentTOPRIGHT0-229"
@@ -590,6 +599,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db.layoutSet = layout
 	else
 		AI:DarthCaster()
+		E.db.layoutSet = "dpsCaster"
 	end
 
 	if IsAddOnLoaded("ElvUI_LocLite") then
@@ -622,16 +632,28 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.private["addonskins"]["EmbedSystemDual"] = true
 	end
 
+	E.private["install_complete"] = installMark
+	E.private["sle"]["install_complete"] = installMarkSLE
+
 	E:UpdateAll(true)
 end
 
 function AI:RepoocSetup() --The function to switch from classic ElvUI settings to Repooc's
+	local layout = E.db.layoutSet
+	local installMark = E.private["install_complete"]
+	local installMarkSLE = E.private["sle"]["install_complete"]
+
 	SLEInstallStepComplete.message = L["Repooc's Default Set"]
 	SLEInstallStepComplete:Show()
-	if not E.db.movers then E.db.movers = {}; end
 
-	local layout = E.db.layoutSet
+	table.wipe(E.db)
+	E:CopyTable(E.db, P)
 
+	table.wipe(E.private)
+	E:CopyTable(E.private, V)
+	
+	if E.db['movers'] then table.wipe(E.db['movers']) else E.db['movers'] = {} end
+	
 	E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 	E.db["actionbar"]["bar3"]["buttons"] = 12
 	E.db["actionbar"]["fontOutline"] = "OUTLINE"
@@ -762,18 +784,32 @@ function AI:RepoocSetup() --The function to switch from classic ElvUI settings t
 		E.private["addonskins"]["EmbedRight"] = "Skada"
 		E.private["addonskins"]["EmbedSystem"] = false
 	end
-	
+
+	E.db.layoutSet = layout
+	E.private["install_complete"] = installMark
+	E.private["sle"]["install_complete"] = installMarkSLE
+
 	E:UpdateAll(true)
 end
 
 function AI:AffinitiiSetup() --The function to switch from class ElvUI settings to Affinitii's
+	local layout = E.db.layoutSet
+	local installMark = E.private["install_complete"]
+	local installMarkSLE = E.private["sle"]["install_complete"]
+	pixel = E.PixelMode  --Pull PixelMode
+
 	SLEInstallStepComplete.message = L["Affinitii's Default Set"]
 	SLEInstallStepComplete:Show()
-	if not E.db.movers then E.db.movers = {}; end
+
+	table.wipe(E.db)
+	E:CopyTable(E.db, P)
+
+	table.wipe(E.private)
+	E:CopyTable(E.private, V)
+
+	if E.db['movers'] then table.wipe(E.db['movers']) else E.db['movers'] = {} end
 	if not E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = {} end
 	if not E.db["unitframe"]["units"]["raid40"]["customTexts"] then E.db["unitframe"]["units"]["raid40"]["customTexts"] = {} end
-	-- layout = E.db.layoutSet  --Pull which layout was selected if any.
-	pixel = E.PixelMode  --Pull PixelMode
 
 	E.db["sle"]["nameplate"]["showthreat"] = true
 	E.db["sle"]["nameplate"]["targetcount"] = true
@@ -1065,8 +1101,6 @@ function AI:AffinitiiSetup() --The function to switch from class ElvUI settings 
 
 	E.private["theme"] = "default"
 
-	E:UpdateAll(true)
-	
 	if AddOnSkins then
 		E.private["addonskins"]["Blizzard_WorldStateCaptureBar"] = true
 		E.private["addonskins"]["EmbedSystem"] = false
@@ -1074,6 +1108,12 @@ function AI:AffinitiiSetup() --The function to switch from class ElvUI settings 
 		E.private["addonskins"]['EmbedLeft'] = 'Skada'
 		E.private["addonskins"]['EmbedRight'] = 'Skada'
 	end
+
+	E.db.layoutSet = layout
+	E.private["install_complete"] = installMark
+	E.private["sle"]["install_complete"] = installMarkSLE
+
+	E:UpdateAll(true)
 end
 
 local function InstallComplete()
@@ -1221,13 +1261,6 @@ function SLE:Install()
 				UIFrameFadeOut(self, 3.5, 1, 0)
 				E:Delay(4, function() self:Hide() end)	
 				self.message = nil
-
-				if imsg.firstShow == false then
-					if GetCVarBool("Sound_EnableMusic") then
-						PlayMusic([[Sound\Music\ZoneMusic\DMF_L70ETC01.mp3]])
-					end					
-					imsg.firstShow = true
-				end
 			else
 				self:Hide()
 			end
