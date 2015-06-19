@@ -648,6 +648,13 @@ function CA:Update_Gear()
 							Slot.SocketWarning:Show()
 							Slot.SocketWarning.Message = '|cffff5678'..(GemCount_Now - GemCount)..'|r '..L['Empty Socket']
 						end
+						if E.db.sle.Armory.Character.MissingIcon then
+							Slot.EnchantWarning.Texture:Show()
+							Slot.SocketWarning.Texture:Show()
+						else
+							Slot.EnchantWarning.Texture:Hide()
+							Slot.SocketWarning.Texture:Hide()
+						end
 					end
 					
 					--<< Transmogrify Parts >>--

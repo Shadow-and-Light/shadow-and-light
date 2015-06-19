@@ -1967,14 +1967,21 @@ function IA:InspectFrame_DataSetting(DataTable)
 									if not E.db.sle.Armory.Character.Enchant.WarningIconOnly then
 										Slot.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
 									end
+								end
 							end
-						end
 							
 							if GemCount_Enable > GemCount_Now or GemCount_Enable > GemCount or GemCount_Now > GemCount then
 								ErrorDetected = true
 								
 								Slot.SocketWarning:Show()
 								Slot.SocketWarning.Message = '|cffff5678'..(GemCount_Now - GemCount)..'|r '..L['Empty Socket']
+							end
+							if E.db.sle.Armory.Inspect.MissingIcon then
+								Slot.EnchantWarning.Texture:Show()
+								Slot.SocketWarning.Texture:Show()
+							else
+								Slot.EnchantWarning.Texture:Hide()
+								Slot.SocketWarning.Texture:Hide()
 							end
 						end
 						

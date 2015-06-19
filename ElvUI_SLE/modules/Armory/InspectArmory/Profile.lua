@@ -9,6 +9,7 @@ P.sle.Armory.Inspect = {
 	Enable = true,
 	
 	NoticeMissing = true,
+	MissingIcon = true,
 	
 	Backdrop = {
 		SelectedBG = 'Space',

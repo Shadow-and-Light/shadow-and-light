@@ -261,13 +261,21 @@ local function LoadArmoryConfigTable()
 						CharacterArmory:Update_Gear()
 						CharacterArmory:Update_Display(true)
 					end,
-					disabled = function() return E.db.sle.Armory.Character.Enable == false end,
-					width = 'full'
+					disabled = function() return not E.db.sle.Armory.Character.Enable end,
 				},
-				Space1 = {
-					type = 'description',
-					name = ' ',
-					order = 2
+				MissingIcon = {
+					type = 'toggle',
+					name = L['Show Warning Icon'],
+					order = 2,
+					desc = '',
+					get = function() return E.db.sle.Armory.Character.MissingIcon end,
+					set = function(_, value)
+						E.db.sle.Armory.Character.MissingIcon = value
+						
+						CharacterArmory:Update_Gear()
+						CharacterArmory:Update_Display(true)
+					end,
+					disabled = function() return not E.db.sle.Armory.Character.Enable or not E.db.sle.Armory.Character.NoticeMissing end,
 				},
 				Backdrop = {
 					type = 'group',
@@ -741,13 +749,23 @@ local function LoadArmoryConfigTable()
 						end
 						InspectArmory:Update_Display(true)
 					end,
-					disabled = function() return E.db.sle.Armory.Inspect.Enable == false end,
-					width = 'full'
+					disabled = function() return not E.db.sle.Armory.Inspect.Enable end,
 				},
-				Space1 = {
-					type = 'description',
-					name = ' ',
-					order = 2
+				MissingIcon = {
+					type = 'toggle',
+					name = L['Show Warning Icon'],
+					order = 2,
+					desc = '',
+					get = function() return E.db.sle.Armory.Inspect.MissingIcon end,
+					set = function(_, value)
+						E.db.sle.Armory.Inspect.MissingIcon = value
+						
+						if InspectArmory.LastDataSetting then
+							InspectArmory:InspectFrame_DataSetting(InspectArmory.CurrentInspectData)
+						end
+						InspectArmory:Update_Display(true)
+					end,
+					disabled = function() return not E.db.sle.Armory.Inspect.Enable or not E.db.sle.Armory.Inspect.NoticeMissing end,
 				},
 				Backdrop = {
 					type = 'group',

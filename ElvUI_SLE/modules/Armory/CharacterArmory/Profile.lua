@@ -9,6 +9,7 @@ P.sle.Armory.Character = {
 	Enable = true,
 	
 	NoticeMissing = true,
+	MissingIcon = true,
 	
 	Backdrop = {
 		SelectedBG = 'Space',
