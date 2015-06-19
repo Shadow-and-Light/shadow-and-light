@@ -439,6 +439,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["sle"]["media"]["screensaver"]["crest"] = 150
 
 		E.db["sle"]["Armory"]["Character"]["Enchant"]["FontSize"] = 12
+		E.db["sle"]["Armory"]["Character"]["MissingIcon"] = false
 		E.db["sle"]["Armory"]["Character"]["Durability"]["Display"] = "DamagedOnly"
 		E.db["sle"]["Armory"]["Character"]["Durability"]["FontSize"] = 12
 		E.db["sle"]["Armory"]["Character"]["Level"]["FontSize"] = 12
@@ -451,6 +452,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		}
 
 		E.db["sle"]["Armory"]["Inspect"]["Gem"]["SocketSize"] = 12
+		E.db["sle"]["Armory"]["Inspect"]["MissingIcon"] = false
 		E.db["sle"]["Armory"]["Inspect"]["Level"]["FontSize"] = 12
 		E.db["sle"]["Armory"]["Inspect"]["Backdrop"]["SelectedBG"] = "Castle"
 		E.db["sle"]["Armory"]["Inspect"]["Enchant"]["FontSize"] = 12
