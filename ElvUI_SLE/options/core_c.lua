@@ -90,7 +90,7 @@ local function configTable()
 				order = 13,
 				type = 'execute',
 				name = L["Armory Mode"],
-				func = function() ACD:SelectGroup("ElvUI", "sle", "armory") end,
+				func = function() ACD:SelectGroup("ElvUI", "sle", "Armory") end,
 			},
 			DatatextButton = {
 				order = 14,
