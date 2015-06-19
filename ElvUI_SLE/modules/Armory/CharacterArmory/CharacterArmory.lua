@@ -631,12 +631,14 @@ function CA:Update_Gear()
 					end
 					
 					if E.db.sle.Armory.Character.NoticeMissing ~= false then
-						if not Slot.IsEnchanted and Info.Armory_Constants.EnchantableSlots[SlotName] and not (SlotName == 'SecondaryHandSlot' and ItemType ~= 'INVTYPE_WEAPON' and ItemType ~= 'INVTYPE_WEAPONOFFHAND' and ItemType ~= 'INVTYPE_RANGEDRIGHT') then
-							ErrorDetected = true
-							Slot.EnchantWarning:Show()
-							
-							if not E.db.sle.Armory.Character.Enchant.WarningIconOnly then
-								Slot.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
+						if not Slot.IsEnchanted and Info.Armory_Constants.EnchantableSlots[SlotName] then 
+							if (SlotName == 'SecondaryHandSlot' and ItemType ~= 'INVTYPE_SHIELD' and ItemType ~= 'INVTYPE_HOLDABLE' and ItemType ~= 'INVTYPE_WEAPONOFFHAND' and ItemType ~= 'INVTYPE_RANGEDRIGHT') or SlotName ~= 'SecondaryHandSlot' then
+								ErrorDetected = true
+								Slot.EnchantWarning:Show()
+								
+								if not E.db.sle.Armory.Character.Enchant.WarningIconOnly then
+									Slot.ItemEnchant:SetText('|cffff0000'..L['Not Enchanted'])
+								end
 							end
 						end
 						
