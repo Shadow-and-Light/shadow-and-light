@@ -52,6 +52,7 @@ local DungeonRaid = {
 	615, -- Essence of Corrupted Deathwing
 	614, -- Mote of Darkness
 	994, -- Seal of Tempered Fate
+	1129, -- Seal of Inavitable Fate
 }
 
 local PvPPoints = {
@@ -70,6 +71,7 @@ local MiscellaneousCurrency = {
 	823, -- Apexis Crystal
 	980, -- Dingy Iron Coins
 	824, -- Garrison
+	1101, -- Oil
 }
 
 local HordeColor = RAID_CLASS_COLORS['DEATHKNIGHT']
