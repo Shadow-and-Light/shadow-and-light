@@ -269,9 +269,14 @@ local function configTable()
 								name = GetMapNameByID(994),
 							},
 							brf = {
-								order = 7,
+								order = 8,
 								type = "toggle",
 								name = GetMapNameByID(988),
+							},
+							hfc = {
+								order = 9,
+								type = "toggle",
+								name = GetMapNameByID(1026),
 							},
 							--[[hmNormal = {
 								order = 8,

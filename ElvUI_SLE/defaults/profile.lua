@@ -206,6 +206,7 @@ P['sle'] = {
 		['leishen'] = false,
 		['hm'] = false,
 		['brf'] = false,
+		['hfc'] = false,
 	},
 
 	--Loot (Restructured)

@@ -363,6 +363,99 @@ local function TwelveShift(id1, id2, id3, id4)
 	end
 end
 
+--For 13 boss raid (HFC)
+local function HFCKill(id1, id2, id3, id4, id5)
+	local killNum = 0
+	for i =1,3 do --1st part
+		_, _, isKilled = GetLFGDungeonEncounterInfo(id1, i);
+		if (isKilled) then
+			killNum = killNum + 1
+		end
+	end
+	for i =4,6 do --2nd part
+		_, _, isKilled = GetLFGDungeonEncounterInfo(id2, i);
+		if (isKilled) then
+			killNum = killNum + 1
+		end
+	end
+	for i =7,9 do --3rd part
+		_, _, isKilled = GetLFGDungeonEncounterInfo(id3, i);
+		if (isKilled) then
+			killNum = killNum + 1
+		end
+	end
+	for i =10,12 do --4th part
+		_, _, isKilled = GetLFGDungeonEncounterInfo(id4, i);
+		if (isKilled) then
+			killNum = killNum + 1
+		end
+	end
+	_, _, isKilled = GetLFGDungeonEncounterInfo(id5, 13);
+	if (isKilled) then
+		killNum = killNum + 1
+	end
+	if killNum == 13 then
+		DT.tooltip:AddLine(" "..L["Bosses killed: "]..killNum.."/13", RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
+	else
+		DT.tooltip:AddLine(" "..L["Bosses killed: "]..killNum.."/13", GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b)
+	end
+end
+
+local function HFCShift(id1, id2, id3, id4, id5)
+	for i =1,3 do --1st part
+		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id1, i);
+		if (isKilled) then
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+		elseif ( isIneligible ) then
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		else
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		end
+	end
+	for i =4,6 do --2nd part
+		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id2, i);
+		if (isKilled) then
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+		elseif (isIneligible) then
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		else
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		end
+	end
+	for i =7,9 do --3rd part
+		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id3, i);
+		if (isKilled) then
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+		elseif (isIneligible) then
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		else
+			DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		end
+	end
+	for i =10,12 do --4th part
+		bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id4, i);
+		if bossName then
+			if (isKilled) then
+				DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+			elseif (isIneligible) then
+				DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+			else
+				DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+			end
+		end
+	end
+	bossName, _, isKilled, isIneligible = GetLFGDungeonEncounterInfo(id5, 13);
+		if bossName then
+			if (isKilled) then
+				DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+			elseif (isIneligible) then
+				DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+			else
+				DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+			end
+		end
+end
+
 --For 14 boss raid
 local function FourteenKill(id1, id2, id3, id4)
 	local killNum = 0
@@ -504,6 +597,14 @@ local function BRF(id1, id2, id3, id4)
 	end
 end
 
+local function HFC(id1, id2, id3, id4, id5)
+	if IsShiftKeyDown() then
+		HFCShift(id1, id2, id3, id4, id5);
+	else
+		HFCKill(id1, id2, id3, id4, id5);
+	end
+end
+
 function DT:LFRShow()
 	local lvl = UnitLevel("player")
 	local ilvl = GetAverageItemLevel()
@@ -585,26 +686,17 @@ function DT:LFRShow()
 			DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
 		end
 	end
-
-	--[[if E.db.sle.lfrshow.hmNormal then
-		DT.tooltip:AddLine(" "..GetMapNameByID(994).." ("..PLAYER_DIFFICULTY1..")")
-		if lvl == 100 then
-			HM(895, 895, 895);
+	
+	if E.db.sle.lfrshow.hfc then
+		DT.tooltip:AddLine(" "..GetMapNameByID(1026))
+		if lvl == 100 and ilvl >= 650 then
+			HFC(982, 983, 984, 985, 986)
 		else
-			DT.tooltip:AddLine(" "..L["This raid isn't available for your level/gear."])
+			DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
 		end
 	end
-	
-	if E.db.sle.lfrshow.hmHeroic then
-		DT.tooltip:AddLine(" "..GetMapNameByID(994).." ("..PLAYER_DIFFICULTY2..")")
-		if lvl == 100 then
-			HM(896, 896, 896);
-		else
-			DT.tooltip:AddLine(" "..L["This raid isn't available for your level/gear."])
-		end
-	end]]
 
-	if not E.db.sle.lfrshow.ds and not E.db.sle.lfrshow.mv and not E.db.sle.lfrshow.hof and not E.db.sle.lfrshow.toes and not E.db.sle.lfrshow.tot and not E.db.sle.lfrshow.soo and not E.db.sle.lfrshow.hm and not E.db.sle.lfrshow.brf then
+	if not E.db.sle.lfrshow.ds and not E.db.sle.lfrshow.mv and not E.db.sle.lfrshow.hof and not E.db.sle.lfrshow.toes and not E.db.sle.lfrshow.tot and not E.db.sle.lfrshow.soo and not E.db.sle.lfrshow.hm and not E.db.sle.lfrshow.brf and not E.db.sle.lfrshow.hfc then
 		DT.tooltip:AddLine(" "..L["You didn't select any instance to track."])
 	end
 end
