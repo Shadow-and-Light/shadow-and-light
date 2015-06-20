@@ -1959,7 +1959,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 						end
 						]]
 						if E.db.sle.Armory.Inspect.NoticeMissing ~= false then
-							if not Slot.IsEnchanted and Info.Armory_Constants.EnchantableSlots[SlotName] then 
+							if not Slot.IsEnchanted and Info.Armory_Constants.EnchantableSlots[SlotName] and Slot.ItemEnchant then 
 								if (SlotName == 'SecondaryHandSlot' and ItemType ~= 'INVTYPE_SHIELD' and ItemType ~= 'INVTYPE_HOLDABLE' and ItemType ~= 'INVTYPE_WEAPONOFFHAND' and ItemType ~= 'INVTYPE_RANGEDRIGHT') or SlotName ~= 'SecondaryHandSlot' then
 									ErrorDetected = true
 									Slot.EnchantWarning:Show()
