@@ -460,6 +460,8 @@ P['sle'] = {
 			['garrison'] = "FULL",
 		},
 	},
+	
+	['blizzraidroles'] = false,
 }
 
 P.chat.editboxhistory = 5

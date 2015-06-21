@@ -25,6 +25,7 @@ local modules = {
 	['SLE_Garrison'] = { 'AceEvent-3.0' },
 	['SLE_ErrorFrame'] = { },
 	['SLE_Quests'] = { 'AceEvent-3.0' },
+	['SLE_BlizzRaid'] = { 'AceEvent-3.0' },
 	['SLE'] = {'AceHook-3.0', 'AceEvent-3.0'},
 }
 
