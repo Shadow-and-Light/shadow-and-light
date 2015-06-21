@@ -473,9 +473,11 @@ L["This options will allow you to detach your classbar from player's frame and m
 L["Power Text Position"] = "Позиция текста ресурса"
 L["Position power text on this bar of chosen frame"] = "Позиционировать текст ресурса относительно выбранной полосы на каждой рамке"
 L["Choose what icon set will unitframes and chat use."] = "Набор иконок для использования на рамках юнитов и в чате."
-L["Use role icons in Blizzard raid manager"] = "Показывать иконки в менеджере рейда Blizzard"
-L["Show/hide role icons in raid manager \"O -> Raid\"."] = "Показывать/скрывать иконки роли в менеджере рейда \"О -> Рейд\""
 
+--Raid Manager--
+L["Options for customizing Blizzard Raid Manager \"O - > Raid\""] = "Опции настройки менеджера рейда \"О -> Рейд\""
+L["Show role icons"] = "Показывать иконки роли"
+L["Show level"] = "Показывать уровень"
 
 L["Enhanced Vehicle Bar"] = "Улучшенный контроль машин"
 L["A different look/feel vehicle bar based on work by Azilroka"] = "Использовать улучшенную панель управления средствами передвижения, основанную на коде Azilroka"

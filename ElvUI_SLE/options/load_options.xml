@@ -26,4 +26,5 @@
 	<Script file='vehicle_c.lua'/>
 	<Script file='errorframe_c.lua'/>
 	<Script file='quests_c.lua'/>
+	<Script file='raidroleicons_c.lua'/>
 </Ui>

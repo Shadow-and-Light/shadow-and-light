@@ -21,7 +21,7 @@ local function configTable()
 
 	E.Options.args.sle.args.options.args.general.args.unitframes = {
 		type = "group",
-		name = L["UnitFrames"]..[[ |TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|t]],
+		name = L["UnitFrames"],
 		order = 88,
 		args = {
 			header = {
@@ -69,14 +69,6 @@ local function configTable()
 							["Blizzard"] = "Blizzard ".."|T"..texPath.."blizz-tank:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."blizz-healer:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."blizz-dps:15:15:0:0:64:64:2:56:2:56|t ",
 							["MiirGui"] = "MiirGui ".."|T"..texPath.."mg-tank:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."mg-healer:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."mg-dps:15:15:0:0:64:64:2:56:2:56|t ",
 						},
-					},
-					blizzraidroles = {
-						order = 3,
-						type = "toggle",
-						name = L["Use role icons in Blizzard raid manager"],
-						desc = L["Show/hide role icons in raid manager \"O -> Raid\"."],
-						get = function(info) return E.db.sle.blizzraidroles end,
-						set = function(info, value) E.db.sle.blizzraidroles = value; E:GetModule("SLE_BlizzRaid"):CreateAndUpdateIcons() end,
 					},
 				},
 			},

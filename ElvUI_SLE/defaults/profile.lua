@@ -461,7 +461,11 @@ P['sle'] = {
 		},
 	},
 	
-	['blizzraidroles'] = false,
+	['raidmanager'] = {
+		['level'] = true,
+		['roles'] = false,
+	},
+	
 }
 
 P.chat.editboxhistory = 5
