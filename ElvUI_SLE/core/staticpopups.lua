@@ -35,6 +35,17 @@ E.PopupDialogs['LOOTCONFIRM_SLE_INCOMPATIBLE'] = {
 	hideOnEscape = false,	
 }
 
+E.PopupDialogs['ORA_SLE_INCOMPATIBLE'] = {
+	text = L['You have got oRA3 and Shadow & Light both enabled at the same time. Select an addon to disable.'],
+	OnAccept = function() DisableAddOn("oRA3"); ReloadUI() end,
+	OnCancel = function() DisableAddOn("ElvUI_SLE"); ReloadUI() end,
+	button1 = 'oRA3',
+	button2 = 'Shadow & Light',	
+	timeout = 0,
+	whileDead = 1,	
+	hideOnEscape = false,	
+}
+
 E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'] = {
 	text = gsub(L["INCOMPATIBLE_ADDON"], "ElvUI", "Shadow & Light"),
 	OnAccept = function(self) DisableAddOn(E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].addon); ReloadUI(); end,
