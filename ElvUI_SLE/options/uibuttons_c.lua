@@ -17,7 +17,7 @@ local function configTable()
 	local Bar = UB.Holder
 	E.Options.args.sle.args.options.args.general.args.uibuttons = {
 		type = "group",
-		name = L["UI Buttons"],
+		name = L["UI Buttons"]..[[ |TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|t]],
 		order = 77,
 		args = {
 			header = {

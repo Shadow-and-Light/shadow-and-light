@@ -21,7 +21,7 @@ local function configTable()
 
 	E.Options.args.sle.args.options.args.general.args.unitframes = {
 		type = "group",
-		name = L["UnitFrames"],
+		name = L["UnitFrames"]..[[ |TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|t]],
 		order = 88,
 		args = {
 			header = {

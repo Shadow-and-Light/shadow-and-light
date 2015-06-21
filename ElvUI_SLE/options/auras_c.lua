@@ -6,7 +6,7 @@ local A = E:GetModule('Auras')
 local function configTable()
 	E.Options.args.sle.args.options.args.general.args.auras = {
 		type = "group",
-		name = BUFFOPTIONS_LABEL,
+		name = BUFFOPTIONS_LABEL..[[ |TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|t]],
 		order = 1,
 		args = {
 			header = {
