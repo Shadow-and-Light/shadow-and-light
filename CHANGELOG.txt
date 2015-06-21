@@ -6,12 +6,13 @@ Additions:
 - New option for UI Buttons to show/hide backdrop on the main menu panel.
 - New option for consolidated buffs bar. You will be able to show a small classcolored indication on the icons of buffs your class can provide. This option applies to the character.
 - New option for Armory to hide warning icons on slots without ench/gems
+- New option for Unitfrmes section. Allows you to show role icons in blizz raid manager (O -> Raid)
 Changes:
+- Config sections that have new stuff in them are now marked with an exclamation points.
 - Changed the way UI Buttons are operating. Transition will result in next options returning to default values: mover position, horizontal/vertical orientation, custom roll limits, quick actions states for dropdown mode.
 - Tooltips for Consolidated Buffs bar are back.
 - Did some optimizations for 2 years old code sections.
 - UI Buttons to open config are now doing nothing while in combat. This prevents issues with Ace-Config library untill we'll be able to fix that.
-- Config sections that have new stuff in them are now marked with an exclamation points.
 - Screensaer now should be less demanding on cpu.
 - Removed "Exit AFK" button in screensaver.
 - To avoid confusion core ElvUI's options disabled/moved by S&L are now replaced with buttons redirecting user towards the place where he/she can cancel the effect.
