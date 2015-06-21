@@ -45,5 +45,3 @@ function B:RaidLoaded(event, addon)
 end
 
 B:RegisterEvent("ADDON_LOADED", "RaidLoaded")
-
-
