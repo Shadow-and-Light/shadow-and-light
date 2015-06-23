@@ -1,4 +1,4 @@
-v2.21
+v2.21 6/23/15
 For preventing issues we recommend you to remove Shadow & Light and install it again instead of usual updating process due to some files have been moved or renamed.
 Also due to changes in settings tables you may experience errors on profile change or entering/leaving the zone. Those errors potentially can result in your profile being reset to defaults. We recommend you to backup your settings prior to loggin into the game in case we can't find all those.
 Additions:
