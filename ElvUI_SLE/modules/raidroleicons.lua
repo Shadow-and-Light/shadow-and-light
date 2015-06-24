@@ -44,4 +44,7 @@ function B:RaidLoaded(event, addon)
 	end
 end
 
-B:RegisterEvent("ADDON_LOADED", "RaidLoaded")
+if not SLE.oraenabled then
+	B:RegisterEvent("ADDON_LOADED", "RaidLoaded")
+end
+

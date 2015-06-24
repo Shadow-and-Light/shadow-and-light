@@ -28,6 +28,9 @@ local classTable = {
 	warlock = blizzPath..[[ClassIcon_Warlock:16:16|t ]],
 	warrior = blizzPath..[[ClassIcon_Warrior:16:16|t ]],
 }
+--Check if oRA3 happens to be enabled
+local enable = GetAddOnEnableState(E.myname, "oRA3")
+if enable == 0 then SLE.oraenabled = false else SLE.oraenabled = true end 
 
 E.SLEConfigs = {}
 
