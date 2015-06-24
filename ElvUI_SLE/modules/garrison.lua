@@ -9,6 +9,7 @@ local buildID = {
     [111] = "Trade",
     [144] = "Trade",
     [145] = "Trade",
+	[205] = "Ship",
 }
 
 function G:SHIPMENT_CRAFTER_INFO(event, success, _, maxShipments, plotID)

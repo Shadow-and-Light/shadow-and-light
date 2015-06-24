@@ -37,6 +37,15 @@ local function configTable()
 				get = function(info) return E.db.sle.garrison.autoTrade end,
 				set = function(info, value) E.db.sle.garrison.autoTrade = value end
 			},
+			autoShip = {
+				order = 6,
+				type = "toggle",
+				name = L["Auto Work Orders for Shipyard"],
+				desc = L["Automatically queue maximum number of work orders available for Shipyard."],
+				disabled = function() return not E.db.sle.garrison.autoOrder end,
+				get = function(info) return E.db.sle.garrison.autoShip end,
+				set = function(info, value) E.db.sle.garrison.autoShip = value end
+			},
 		},
 	}
 end
