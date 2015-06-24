@@ -62,9 +62,9 @@ local function CheckIncompatible()
 	if IsAddOnLoaded('LootConfirm') then
 		E:StaticPopup_Show('LOOTCONFIRM_SLE_INCOMPATIBLE')
 	end
-	if IsAddOnLoaded('oRA3') then
-		E:StaticPopup_Show('ORA_SLE_INCOMPATIBLE')
-	end
+	-- if IsAddOnLoaded('oRA3') then
+		-- E:StaticPopup_Show('ORA_SLE_INCOMPATIBLE')
+	-- end
 end
 
 function SLE:CreateExport()
