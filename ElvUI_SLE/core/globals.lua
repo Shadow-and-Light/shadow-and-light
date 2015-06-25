@@ -5,7 +5,7 @@ local SLE = E:GetModule('SLE')
 local slePath = [[|TInterface\AddOns\ElvUI_SLE\media\textures\]]
 local blizzPath = [[|TInterface\ICONS\]]
 --sle
-local adapt = slePath..[[adapt:0:2|t]]
+--local adapt = slePath..[[adapt:0:2|t]]
 local repooc = slePath..[[SLE_Chat_Logo:0:2|t ]]
 local darth = slePath..[[SLE_Chat_LogoD:0:2|t ]]
 local friend = slePath..[[Chat_Friend:16:16|t ]]
@@ -90,12 +90,6 @@ SLE.SpecialChatIcons = {
 			["Repooc"] = repooc,
 			["Cursewordz"] = repooc,
 			--Adapt Roster
-			["Mobius"] = adapt,
-			["Urgfelstorm"] = adapt,
-			["Kilashandra"] = adapt,
-			["Lavathing"] = adapt,
-			["Finkle"] = adapt,
-			["Chopsti"] = adapt,
 			["Loosh"] = goldicon,
 			["Alooshy"] = goldicon,
 			["Aloosh"] = goldicon
