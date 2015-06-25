@@ -7,6 +7,7 @@ local function configTable()
 		type = "group",
 		name = RAID..[[ |TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|t]],
 		order = 80,
+		disabled = function() return SLE.oraenabled end,
 		args = {
 			header = {
 				order = 1,
