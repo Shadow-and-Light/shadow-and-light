@@ -1,9 +1,8 @@
-v.2.22
+v2.22 6/25/15
 Additions:
 - Additional option for garrison aotu work orders - shipyard. Darth suspects there will be time when its queue will be bigger then 1 ship so made this just in case.
 Changes:
 - Changed the way S&L interacts with oRA3. No more incompatibility popups. For the time being you can come across some issues when inspecting people wile using both armory mode for it and oRA. Hopefully will be fixed soon. A "Raid" option group will be disabled if you use oRA3 tho cause of similar functionality.
-
 
 v2.21 6/23/15
 For preventing issues we recommend you to remove Shadow & Light and install it again instead of usual updating process due to some files have been moved or renamed.
