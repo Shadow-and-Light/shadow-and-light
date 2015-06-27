@@ -30,6 +30,7 @@ function UB:AddonSetup(menu)
 
 	menu:CreateDropdownButton("Addon", "DBM", L["Boss Mod"], L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], function() DBM:LoadGUI() end, "DBM-Core")
 	menu:CreateDropdownButton("Addon", "VEM", L["Boss Mod"], L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], function() VEM:LoadGUI() end, "VEM-Core")
+	menu:CreateDropdownButton("Addon", "BigWigs", L["Boss Mod"], L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], function() LibDBIcon10_BigWigs:Click("RightButton") end, "BigWigs")
 	menu:CreateSeparator("Addon", "First", 4, 2)
 	menu:CreateDropdownButton("Addon", "Altoholic", "Altoholic", nil, nil, function() Altoholic:ToggleUI() end, "Altoholic")
 	menu:CreateDropdownButton("Addon", "AtlasLoot", "AtlasLoot", nil, nil, function() AtlasLoot.GUI:Toggle() end, "AtlasLoot")
