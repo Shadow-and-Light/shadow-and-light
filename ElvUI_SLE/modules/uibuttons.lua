@@ -68,6 +68,8 @@ function UB:SetupBar(menu)
 				DBM:LoadGUI()
 			elseif IsAddOnLoaded("VEM-Core") then
 				VEM:LoadGUI()
+			elseif IsAddOnLoaded("BigWigs") then
+				LibDBIcon10_BigWigs:Click("RightButton")
 			end
 		end)
 		menu:CreateCoreButton("Addon", "A", function(self) GameMenuButtonAddons:Click() end)
