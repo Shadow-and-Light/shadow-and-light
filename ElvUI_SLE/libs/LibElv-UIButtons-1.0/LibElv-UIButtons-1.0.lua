@@ -315,13 +315,14 @@ local function ToggleShow(menu)
 end
 
 --Creating of the menu
-function lib:CreateFrame(name, db, default, style, styleDefault)
+function lib:CreateFrame(name, db, default, style, styleDefault, strata)
 	--Checks to prevent a shitload of errors cause of wrong arguments passed
 	if _G[name] then return end
 	if not name then print("Sorry but you didn't set a name for this menu bar. Aborting creation"); return end
 	if not db then print("Sorry but you didn't set database for this menu bar. Aborting creation"); return end
 	if not default then print("Sorry but you didn't set defaults for this menu bar. Aborting creation"); return end
 	if not style and not styleDefault then print("Sorry but you didn't set defaults for this menu bar's style. Aborting creation"); return end
+	if not strata then strata = "MEDIUM" end
 	local menu = CreateFrame("Frame", name, E.UIParent)
 	menu.db = db --making manu db table so we can actually keep unified settings calls in other functions
 	menu.default = default --same for defaults
@@ -329,7 +330,7 @@ function lib:CreateFrame(name, db, default, style, styleDefault)
 	if not style and styleDefault then style = styleDefault end
 	menu.style = style
 
-	menu:SetFrameStrata("HIGH")
+	menu:SetFrameStrata(strata)
 	menu:SetFrameLevel(5)
 	menu:SetClampedToScreen(true)
 	menu:Point("LEFT", E.UIParent, "LEFT", -2, 0);
