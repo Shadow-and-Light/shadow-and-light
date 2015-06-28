@@ -3,13 +3,15 @@ local S = E:GetModule("Skins")
 local G = E:GetModule("SLE_Garrison")
 
 local buildID = {
-    [8] = "War",
-    [9] = "War",
-    [10] = "War",
-    [111] = "Trade",
-    [144] = "Trade",
-    [145] = "Trade",
+	[8] = "War",
+	[9] = "War",
+	[10] = "War",
+	[111] = "Trade",
+	[144] = "Trade",
+	[145] = "Trade",
 	[205] = "Ship",
+	[206] = "Ship",
+	[207] = "Ship",
 }
 
 function G:SHIPMENT_CRAFTER_INFO(event, success, _, maxShipments, plotID)
@@ -19,6 +21,7 @@ function G:SHIPMENT_CRAFTER_INFO(event, success, _, maxShipments, plotID)
 	G.clicked = true
 	local ID = C_Garrison.GetOwnedBuildingInfo(plotID)
 	local nope = buildID[ID]
+	print(ID, nope)
 	if nope then
 		if E.db.sle.garrison['auto'..nope] then
 			GarrisonCapacitiveDisplayFrame.CreateAllWorkOrdersButton:Click()
