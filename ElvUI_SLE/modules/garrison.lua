@@ -21,7 +21,6 @@ function G:SHIPMENT_CRAFTER_INFO(event, success, _, maxShipments, plotID)
 	G.clicked = true
 	local ID = C_Garrison.GetOwnedBuildingInfo(plotID)
 	local nope = buildID[ID]
-	print(ID, nope)
 	if nope then
 		if E.db.sle.garrison['auto'..nope] then
 			GarrisonCapacitiveDisplayFrame.CreateAllWorkOrdersButton:Click()
