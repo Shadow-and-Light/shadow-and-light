@@ -1,3 +1,11 @@
+v2.23
+From now on updates may be slower since we both don't actively play WoW anymore.
+Additions:
+- "Boss Mod" button in UI Buttons once more works with BigWigs
+Changes:
+- UI Buttons now has slightly lower strata. Shouldnt be seen over other frames.
+- Updated auto work orders for shipyard
+
 v2.22 6/25/15
 Additions:
 - Additional option for garrison aotu work orders - shipyard. Darth suspects there will be time when its queue will be bigger then 1 ship so made this just in case.
