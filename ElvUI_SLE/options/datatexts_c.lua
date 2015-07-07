@@ -106,7 +106,7 @@ local function configTable()
 				name = L['Width'],
 				desc = L["Sets size of this panel"],
 				disabled = function() return not E.db.sle.datatext[v[1]].enabled end,
-				min = 100 * v[3], max = E.screenwidth/2, step = 1,
+				min = 100 * v[3], max = (E.eyefinity or E.screenwidth)/2, step = 1,
 				set = function(info, value) E.db.sle.datatext[v[1]].width = value; DTP:Update() end,
 			},
 			hide = {
@@ -174,7 +174,7 @@ local function configTable()
 				name = L['Width'],
 				desc = L["Sets size of this panel"],
 				disabled = function() return not E.db.datatexts[v[3]] end,
-				min = 150, max = E.screenwidth/2, step = 1,
+				min = 150, max = (E.eyefinity or E.screenwidth)/2, step = 1,
 				get = function(info) return E.db.sle.datatext[v[1]].width end,
 				set = function(info, value) E.db.sle.datatext[v[1]].width = value; DTP:ChatResize() end,
 			},

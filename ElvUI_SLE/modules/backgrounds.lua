@@ -43,8 +43,8 @@ end
 local function FramesPositions()
 	if not BGb then return end
 	BGb:Point("BOTTOM", E.UIParent, "BOTTOM", 0, 21); 
-	BGl:Point("BOTTOMRIGHT", E.UIParent, "BOTTOM", -(E.screenwidth/4 + 32)/2 - 1, 21); 
-	BGr:Point("BOTTOMLEFT", E.UIParent, "BOTTOM", (E.screenwidth/4 + 32)/2 + 1, 21); 
+	BGl:Point("BOTTOMRIGHT", E.UIParent, "BOTTOM", -((E.eyefinity or E.screenwidth)/4 + 32)/2 - 1, 21); 
+	BGr:Point("BOTTOMLEFT", E.UIParent, "BOTTOM", ((E.eyefinity or E.screenwidth)/4 + 32)/2 + 1, 21); 
 	BGa:Point("BOTTOM", E.UIParent, "BOTTOM", 0, E.screenheight/6 + 9);
 end
 
