@@ -110,6 +110,10 @@ function AT:Update_ConsolidatedBuffsSettings()
 				button:Point("TOPRIGHT", frame[ignoreIcons[i - 1] or (i - 1)], "BOTTOMRIGHT", 0, (E.PixelMode and 2 or -1))
 			end
 
+			if i == NUM_LE_RAID_BUFF_TYPES then
+				button:Point("BOTTOMRIGHT", ElvUI_ConsolidatedBuffs, "BOTTOMRIGHT", 0, (E.PixelMode and 0 or 2)) --2 needs to be 0
+			end
+
 			if button.icon:IsShown() then
 				button:SetWidth(E.ConsolidatedBuffsWidth - 3)
 			end
@@ -166,9 +170,9 @@ function A:CreateButton(i)
 
 	button.icon = CreateFrame("Frame", "ElvUIConsolidatedBuff"..i.."CanCast", button)
 	local icon = button.icon
-	icon:SetWidth(3)
-	icon:SetPoint("TOPLEFT", button, -1, -1)
-	icon:SetPoint("BOTTOMLEFT", button, -1, 1)
+	icon:Width(3)
+	icon:SetPoint("TOPRIGHT", button, "TOPLEFT", 1, -1)
+	icon:SetPoint("BOTTOMRIGHT", button, "BOTTOMLEFT", 1, 1)
 	local overlay = icon:CreateTexture(nil, "OVERLAY")
 	overlay:SetTexture(E['media'].blankTex)
 	overlay:SetAllPoints(icon)
