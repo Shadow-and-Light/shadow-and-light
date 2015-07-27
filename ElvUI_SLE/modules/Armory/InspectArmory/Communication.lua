@@ -1,5 +1,5 @@
 ﻿--------------------------------------------------------------------------------
---<< AISM : Armory Surpport Module for AddOn Communication Inspecting		>>--
+--<< AISM : Armory Support Module for AddOn Communication Inspecting		>>--
 --------------------------------------------------------------------------------
 local Revision = 1.2
 local AISM = _G['Armory_InspectSupportModule'] or CreateFrame('Frame', 'Armory_InspectSupportModule', UIParent)
@@ -29,7 +29,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 	AISM.Updater = _G['AISM_Updater'] or AISM.Updater or CreateFrame('Frame', 'AISM_Updater', UIParent)
 	AISM.Updater.elapsed = 0
 	
-	AISM.Delay_SendMessage = 2
+	AISM.Delay = 2
 	AISM.Delay_Updater = .5
 	
 	AISM.PlayerData = { SetItem = {} }
@@ -374,7 +374,6 @@ if not AISM.Revision or AISM.Revision < Revision then
 	AISM.Updater:RegisterEvent('GLYPH_REMOVED')
 	AISM.Updater:RegisterEvent('GLYPH_UPDATED')
 	
-	
 	--<< Gear String >>--
 	function AISM:GetPlayerGearString()
 		local ShortString, FullString, needUpdate, needUpdateList
@@ -398,7 +397,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 					isTransmogrified = nil
 				end
 				
-				ShortString = slotLink and select(2, strsplit(':', slotLink)) or 'F'	-- ITEM ID
+				ShortString = slotLink and select(2, strsplit(':', string.match(slotLink, 'item[%-?%d:]+'))) or 'F'	-- ITEM ID
 				FullString = slotLink or 'F'
 				
 				if slotLink then
@@ -645,7 +644,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 	function AISM:GetPlayerCurrentGroupMode()
 		if not (IsInGroup() or IsInRaid()) or GetNumGroupMembers() == 1 then
 			self.CurrentGroupMode = 'NoGroup'
-			self.GroupMemberData = {}
+			wipe(self.GroupMemberData)
 		else
 			if IsInRaid() then
 				self.CurrentGroupMode = 'raid'
@@ -674,18 +673,32 @@ if not AISM.Revision or AISM.Revision < Revision then
 		end
 	end
 	
-	
 	local needSendData, Name, TableIndex
 	AISM:SetScript('OnUpdate', function(self, elapsed)
+		self.elapsed = -(self.elapsed or self.Delay) + (elapsed > 1 and 0 or elapsed)
+		
+		if self.elapsed <= 0 then return end
+		self.elapsed = nil
+		
 		if self.CurrentGroupMode ~= 'NoGroup' then
 			for i = 1, MAX_RAID_MEMBERS do
 				Name = UnitName(self.CurrentGroupMode..i)
 				TableIndex = GetUnitName(self.CurrentGroupMode..i, true)
 				
 				if Name and not UnitIsUnit('player', self.CurrentGroupMode..i) then
-					if Name == UNKNOWNOBJECT or Name == COMBATLOG_UNKNOWN_UNIT or not UnitIsConnected(self.CurrentGroupMode..i) then
+					if Name == UNKNOWNOBJECT or Name == COMBATLOG_UNKNOWN_UNIT then
 						self.AISMUserList[TableIndex] = nil
 						self.GroupMemberData[TableIndex] = nil
+					elseif self.GroupMemberData[TableIndex] and not UnitIsConnected(self.CurrentGroupMode..i) then
+						if type(self.GroupMemberData[TableIndex]) ~= 'number' then
+							self.GroupMemberData[TableIndex] = 0
+						end
+						
+						self.GroupMemberData[TableIndex] = self.GroupMemberData[TableIndex] + 1
+						
+						if self.GroupMemberData[TableIndex] >= 5 then
+							self.GroupMemberData[TableIndex] = nil
+						end
 					elseif not self.GroupMemberData[TableIndex] then
 						needSendData = true
 						self.GroupMemberData[TableIndex] = true
@@ -698,14 +711,10 @@ if not AISM.Revision or AISM.Revision < Revision then
 		end
 		
 		if needSendData and self.Updater.SpecUpdated and self.Updater.GlyphUpdated and self.Updater.GearUpdated then
-			self.SendDataGroupUpdated = (self.SendDataGroupUpdated or self.Delay_SendMessage) - elapsed
+			needSendData = nil
+			self.SendDataGroupUpdated = nil
 			
-			if self.SendDataGroupUpdated < 0 then
-				needSendData = nil
-				self.SendDataGroupUpdated = nil
-				
-				self:SendData(self.PlayerData_ShortString)
-			end
+			self:SendData(self.PlayerData_ShortString)
 		end
 		
 		if needSendData == nil then
@@ -733,7 +742,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 	end
 	
 	
-	local SenderRealm
+	local SenderRealm, TableToSave, NeedResponse, Group, stringTable
 	function AISM:Receiver(Prefix, Message, Channel, Sender)
 		Sender, SenderRealm = strsplit('-', Sender)
 		SenderRealm = SenderRealm and gsub(SenderRealm,'[%s%-]','') or nil
@@ -744,16 +753,15 @@ if not AISM.Revision or AISM.Revision < Revision then
 		
 		if Message:find('AISM_') then
 			if Message:find('AISM_Check') then
-				Message = Message:gsub('AISM_Check', '')
-				
 				self.AISMUserList[Sender] = true
-				SendAddonMessage('AISM', 'AISM_CheckResponse', 'WHISPER', Sender)
-				SendAddonMessage('AISM', 'AISM_CheckResponse:'..self.Revision, 'WHISPER', Sender)
-			elseif Message:find('AISM_CheckResponse') then
-				Message = Message:gsub('AISM_CheckResponse', '')
 				
-				if Message ~= '' then
-					self.AISMUserList[Sender] = tonumber(strsub(Message, 2))
+				SendAddonMessage('AISM', 'AISM_Response:'..self.Revision, 'WHISPER', Sender)
+			elseif Message:find('AISM_Response') then
+				local ver = tonumber(strsub(Message:gsub('AISM_Response', ''), 2))
+				Message = 'AISM_Response'
+				
+				if type(ver) == 'number' then
+					self.AISMUserList[Sender] = ver
 				else
 					self.AISMUserList[Sender] = true
 				end
@@ -793,8 +801,6 @@ if not AISM.Revision or AISM.Revision < Revision then
 				func(Sender, Prefix, Message)
 			end
 		else
-			local TableToSave, NeedResponse, Group, stringTable
-			
 			TableToSave, NeedResponse = self:PrepareTableSetting(Prefix, Sender)
 			
 			if not TableToSave then
