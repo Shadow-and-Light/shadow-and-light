@@ -105,7 +105,7 @@ SLE.SpecialChatIcons = {
 			["Repooc"] = repooc
 		},
 		["WyrmrestAccord"] = {
-			["Kalinix"] = kitalie:format("inv_cloth_challengewarlock_d_01helm"),
+			["Miralene"] = kitalie:format("inv_cloth_challengewarlock_d_01helm"),
 			["Sagome"] = kitalie:format("inv_helm_leather_challengemonk_d_01"),
 			["Sortokk"] = kitalie:format("inv_helm_plate_challengedeathknight_d_01"),
 			["Norinael"] = kitalie:format("inv_helmet_plate_challengepaladin_d_01"),
