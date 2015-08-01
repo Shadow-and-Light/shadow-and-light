@@ -226,3 +226,12 @@ function SLE:Reset(group)
 	end
 	E:UpdateAll()
 end
+
+function SLE:SetMoverPosition(mover, anchor, parent, point, x, y)
+	if not _G[mover] then return end
+	local frame = _G[mover]
+
+	frame:ClearAllPoints()
+	frame:SetPoint(anchor, parent, point, x, y)
+	E:SaveMoverPosition(mover)
+end
