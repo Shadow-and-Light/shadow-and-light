@@ -9,7 +9,7 @@
 ## RequiredDeps: ElvUI
 ## OptionalDeps: AddonSkins, BigWigs, Clique, Hermes, xCT+
 ## DefaultState: Enabled
-## X-ElvVersion: 8.15
+## X-ElvVersion: 8.24
 ## SavedVariables: SLE_ArmoryDB
 
 libs\load_libs.xml
