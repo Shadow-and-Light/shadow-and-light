@@ -628,7 +628,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	end
 
 	if IsAddOnLoaded("ElvUI_LocLite") then
-		E.db["movers"]["LocationLiteMover"] = "TOPElvUIParentTOP0-19"
+		SLE:SetMoverPosition("LocationLiteMover", "TOP", ElvUIParent, "TOP", 0, -19)
 		E.db["loclite"]["dig"] = false
 		E.db["loclite"]["lpwidth"] = 300
 		E.db["loclite"]["dtheight"] = 20
