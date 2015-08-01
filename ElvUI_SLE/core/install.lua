@@ -62,12 +62,12 @@ function AI:DarthHeal()
 	E.db["datatexts"]["panels"]["DP_6"]["middle"] = "MP5"
 	--Movers--
 	do
-		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT770143"
-		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT770143"
-		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT770143"
-		E.db["movers"]["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0427"
-		E.db["movers"]["UIErrorsFrameMover"] = "TOPElvUIParentTOP8-381"
-		E.db["movers"]["BossButton"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-421382"
+		SLE:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 770, 143)
+		SLE:SetMoverPosition("ElvUF_RaidMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 770, 143)
+		SLE:SetMoverPosition("ElvUF_Raid40Mover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 770, 143)
+		SLE:SetMoverPosition("AlertFrameMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 427)
+		SLE:SetMoverPosition("UIErrorsFrameMover", "TOP", ElvUIParent, "TOP", 8, -381)
+		SLE:SetMoverPosition("BossButton", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -421, 382)
 	end
 end
 
@@ -549,59 +549,59 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	end
 	--Movers--
 	do
-		E.db["movers"]["ElvAB_1"] = "BOTTOMElvUIParentBOTTOM021"
-		E.db["movers"]["ElvAB_2"] = "BOTTOMElvUIParentBOTTOM20220"
-		E.db["movers"]["ElvAB_3"] = "BOTTOMElvUIParentBOTTOM-20220"
-		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-44520"
-		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT44520"
-		E.db["movers"]["ElvAB_6"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-11210"
-		E.db["movers"]["ShiftAB"] = "TOPLEFTElvUIParentBOTTOMLEFT711136"
-		E.db["movers"]["PetAB"] = "BOTTOMElvUIParentBOTTOM-287337"
-		E.db["movers"]["BossButton"] = "BOTTOMElvUIParentBOTTOM0170"
-		E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOMElvUIParentBOTTOM0113"
-		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-240400"
-		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM0381"
-		E.db["movers"]["ClassBarMover"] = "BOTTOMElvUIParentBOTTOM2419"
-		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM239400"
-		E.db["movers"]["ComboBarMover"] = "BOTTOMElvUIParentBOTTOM2408"
-		E.db["movers"]["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM-295379"
-		E.db["movers"]["ElvUF_BodyGuardMover"] = "BOTTOMElvUIParentBOTTOM-208379"
-		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM194355"
-		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMElvUIParentBOTTOM296320"
-		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-516303"
-		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
-		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
-		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT0207"
-		E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFTElvUIParentBOTTOMLEFT379369"
-		E.db["movers"]["BossHeaderMover"] = "TOPRIGHTElvUIParentTOPRIGHT0-229"
-		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHTElvUIParentTOPRIGHT0-229"
-		E.db["movers"]["TotemBarMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT576337"
-		E.db["movers"]["MicrobarMover"] = "TOPElvUIParentTOP0-20"
-		E.db["movers"]["GMMover"] = "TOPLEFTElvUIParentTOPLEFT267-1"
-		E.db["movers"]["ObjectiveFrameMover"] = "TOPLEFTElvUIParentTOPLEFT800"
-		E.db["movers"]["BNETMover"] = "TOPRIGHTElvUIParentTOPRIGHT-88-206"
-		E.db["movers"]["RaidUtility_Mover"] = "TOPElvUIParentTOP-3060"
-		E.db["movers"]["AlertFrameMover"] = "BOTTOMElvUIParentBOTTOM0135"
-		E.db["movers"]["GhostFrameMover"] = "TOPElvUIParentTOP2570"
-		E.db["movers"]["AltPowerBarMover"] = "TOPElvUIParentTOP0-113"
-		E.db["movers"]["PvPMover"] = "TOPElvUIParentTOP0-70"
-		E.db["movers"]["MinimapMover"] = "TOPRIGHTElvUIParentTOPRIGHT00"
-		E.db["movers"]["BuffsMover"] = "TOPRIGHTElvUIParentTOPRIGHT-228-1"
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHTElvUIParentTOPRIGHT-228-149"
-		E.db["movers"]["LeftChatMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT019"
-		E.db["movers"]["RightChatMover"] = "BOTTOMRIGHTUIParentBOTTOMRIGHT019"
-		E.db["movers"]["LootFrameMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT420383"
-		E.db["movers"]["DigSiteProgressBarMover"] = "TOPElvUIParentTOP0-106"
-		E.db["movers"]["SLE_UIButtonsMover"] = "TOPRIGHTElvUIParentTOPRIGHT0-203"
-		E.db["movers"]["UIErrorsFrameMover"] = "BOTTOMElvUIParentBOTTOM0290"
-		E.db["movers"]["VehicleSeatMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT545207"
-		E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT50820"
-		E.db["movers"]["ReputationBarMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-50820"
-		E.db["movers"]["Top_Center_Mover"] = "TOPElvUIParentTOP00"
-		E.db["movers"]["DP_5_Mover"] = "BOTTOMElvUIParentBOTTOM-3070"
-		E.db["movers"]["DP_6_Mover"] = "BOTTOMElvUIParentBOTTOM3070"
-		E.db["movers"]["SalvageCrateMover"] = "BOTTOMElvUIParentBOTTOM-1350"
-		E.db["movers"]["PetBattleStatusMover"] = "TOPElvUIParentTOP0-69"
+		SLE:SetMoverPosition("ElvAB_1", "BOTTOM", ElvUIParent, "BOTTOM", 0, 21)
+		SLE:SetMoverPosition("ElvAB_2", "BOTTOM", ElvUIParent, "BOTTOM", 202, 20)
+		SLE:SetMoverPosition("ElvAB_3", "BOTTOM", ElvUIParent, "BOTTOM", -202, 20)
+		SLE:SetMoverPosition("ElvAB_4", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -445, 20)
+		SLE:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 445, 20)
+		SLE:SetMoverPosition("ElvAB_6", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -11, 210)
+		SLE:SetMoverPosition("ShiftAB", "TOPLEFT", ElvUIParent, "BOTTOMLEFT", 711, 136)
+		SLE:SetMoverPosition("PetAB", "BOTTOM", ElvUIParent, "BOTTOM", -287, 337)
+		SLE:SetMoverPosition("BossButton", "BOTTOM", ElvUIParent, "BOTTOM", 0, 170)
+		SLE:SetMoverPosition("RaidMarkerBarAnchor", "BOTTOM", ElvUIParent, "BOTTOM", 0, 113)
+		SLE:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", ElvUIParent, "BOTTOM", -240, 400)
+		SLE:SetMoverPosition("ElvUF_PlayerCastbarMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 381)
+		SLE:SetMoverPosition("ClassBarMover", "BOTTOM", ElvUIParent, "BOTTOM", 2, 419)
+		SLE:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", ElvUIParent, "BOTTOM", 239, 400)
+		SLE:SetMoverPosition("ComboBarMover", "BOTTOM", ElvUIParent, "BOTTOM", 2, 408)
+		SLE:SetMoverPosition("ElvUF_PetMover", "BOTTOM", ElvUIParent, "BOTTOM", -295, 379)
+		SLE:SetMoverPosition("ElvUF_BodyGuardMover", "BOTTOM", ElvUIParent, "BOTTOM", -208, 379)
+		SLE:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOM", ElvUIParent, "BOTTOM", 194, 355)
+		SLE:SetMoverPosition("ElvUF_FocusMover", "BOTTOM", ElvUIParent, "BOTTOM", 296, 320)
+		SLE:SetMoverPosition("ElvUF_FocusCastbarMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -516, 303)
+		SLE:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 0, 207)
+		SLE:SetMoverPosition("ElvUF_RaidMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 0, 207)
+		SLE:SetMoverPosition("ElvUF_Raid40Mover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 0, 207)
+		SLE:SetMoverPosition("ElvUF_RaidpetMover", "TOPLEFT", ElvUIParent, "BOTTOMLEFT", 379, 369)
+		SLE:SetMoverPosition("BossHeaderMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", 0, -229)
+		SLE:SetMoverPosition("ArenaHeaderMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", 0, -229)
+		SLE:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 576, 337)
+		SLE:SetMoverPosition("MicrobarMover", "TOP", ElvUIParent, "TOP", 0, -20)
+		SLE:SetMoverPosition("GMMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 267, -1)
+		SLE:SetMoverPosition("ObjectiveFrameMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 80, 0)
+		SLE:SetMoverPosition("BNETMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -88, -206)
+		SLE:SetMoverPosition("RaidUtility_Mover", "TOP", ElvUIParent, "TOP", -306, 0)
+		SLE:SetMoverPosition("AlertFrameMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 135)
+		SLE:SetMoverPosition("GhostFrameMover", "TOP", ElvUIParent, "TOP", 257, 0)
+		SLE:SetMoverPosition("AltPowerBarMover", "TOP", ElvUIParent, "TOP", 0, -113)
+		SLE:SetMoverPosition("PvPMover", "TOP", ElvUIParent, "TOP", 0, -70)
+		SLE:SetMoverPosition("MinimapMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", 0, 0)
+		SLE:SetMoverPosition("BuffsMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -228, -1)
+		SLE:SetMoverPosition("DebuffsMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -228, -149)
+		SLE:SetMoverPosition("LeftChatMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 0, 19)
+		SLE:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", 0, 19)
+		SLE:SetMoverPosition("LootFrameMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 420, 383)
+		SLE:SetMoverPosition("DigSiteProgressBarMover", "TOP", ElvUIParent, "TOP", 0, -106)
+		SLE:SetMoverPosition("SLE_UIButtonsMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", 0, -203)
+		SLE:SetMoverPosition("UIErrorsFrameMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 290)
+		SLE:SetMoverPosition("VehicleSeatMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 545, 207)
+		SLE:SetMoverPosition("ExperienceBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 508, 20)
+		SLE:SetMoverPosition("ReputationBarMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -508, 20)
+		SLE:SetMoverPosition("Top_Center_Mover", "TOP", ElvUIParent, "TOP", 0, 0)
+		SLE:SetMoverPosition("DP_5_Mover", "BOTTOM", ElvUIParent, "BOTTOM", -307, 0)
+		SLE:SetMoverPosition("DP_6_Mover", "BOTTOM", ElvUIParent, "BOTTOM", 307, 0)
+		SLE:SetMoverPosition("SalvageCrateMover", "BOTTOM", ElvUIParent, "BOTTOM", -1, 350)
+		SLE:SetMoverPosition("PetBattleStatusMover", "TOP", ElvUIParent, "TOP", 0, -69)
 	end
 
 	E.private["general"]["minimap"]["hideGarrison"] = false
@@ -738,22 +738,22 @@ function AI:RepoocSetup() --The function to switch from classic ElvUI settings t
 	}
 	E.db["general"]["font"] = "Rubino"
 
-	E.db["movers"]["BossButton"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-448415"
-	E.db["movers"]["Bottom_Panel_Mover"] = "BOTTOMElvUIParentBOTTOM-3122"
-	E.db["movers"]["DP_6_Mover"] = "BOTTOMElvUIParentBOTTOM02"
-	E.db["movers"]["ElvAB_1"] = "BOTTOMElvUIParentBOTTOM057"
-	E.db["movers"]["ElvAB_2"] = "BOTTOMElvUIParentBOTTOM022"
-	E.db["movers"]["ElvAB_3"] = "BOTTOMElvUIParentBOTTOM31223"
-	E.db["movers"]["ElvAB_5"] = "BOTTOMElvUIParentBOTTOM-31223"
-	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-311145"
-	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT410240"
-	E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMElvUIParentBOTTOM095"
-	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM311145"
-	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-410240"
-	E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM-311122"
-	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT22"
-	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-22"
-	E.db["movers"]["Top_Center_Mover"] = "BOTTOMElvUIParentBOTTOM3122"
+	SLE:SetMoverPosition("BossButton", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -448, 415)
+	SLE:SetMoverPosition("Bottom_Panel_Mover", "BOTTOM", ElvUIParent, "BOTTOM", -312, 2)
+	SLE:SetMoverPosition("DP_6_Mover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 2)
+	SLE:SetMoverPosition("ElvAB_1", "BOTTOM", ElvUIParent, "BOTTOM", 0, 57)
+	SLE:SetMoverPosition("ElvAB_2", "BOTTOM", ElvUIParent, "BOTTOM", 0, 22)
+	SLE:SetMoverPosition("ElvAB_3", "BOTTOM", ElvUIParent, "BOTTOM", 312, 23)
+	SLE:SetMoverPosition("ElvAB_5", "BOTTOM", ElvUIParent, "BOTTOM", -312, 23)
+	SLE:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", ElvUIParent, "BOTTOM", -311, 145)
+	SLE:SetMoverPosition("ElvUF_PetMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 410, 240)
+	SLE:SetMoverPosition("ElvUF_RaidMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 95)
+	SLE:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", ElvUIParent, "BOTTOM", 311, 145)
+	SLE:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -410, 240)
+	SLE:SetMoverPosition("ElvUF_PlayerCastbarMover", "BOTTOM", ElvUIParent, "BOTTOM", -311, 122)
+	SLE:SetMoverPosition("LeftChatMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 2, 2)
+	SLE:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -2, 2)
+	SLE:SetMoverPosition("Top_Center_Mover", "BOTTOM", ElvUIParent, "BOTTOM", 312, 2)
 
 	E.db["nameplate"]["healthBar"]["text"]["enable"] = true
 	E.db["nameplate"]["healthBar"]["text"]["format"] = "CURRENT_PERCENT"
@@ -884,39 +884,39 @@ function AI:AffinitiiSetup() --The function to switch from class ElvUI settings 
 	E.db["sle"]["minimap"]["mapicons"]["skinmail"] = false
 	E.db["sle"]["minimap"]["mapicons"]["iconmouseover"] = true
 
-	E.db["movers"]["DP_6_Mover"] = "BOTTOMElvUIParentBOTTOM03"
-	E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOMElvUIParentBOTTOM096"
-	E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT440511"
-	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFTUIParentBOTTOMLEFT021"
-	E.db["movers"]["ElvUF_Raid10Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT449511"
-	E.db["movers"]["BossButton"] = "TOPLEFTElvUIParentTOPLEFT622-352"
-	E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMElvUIParentBOTTOM-63436"
-	E.db["movers"]["ClassBarMover"] = "BOTTOMElvUIParentBOTTOM-337500"
-	E.db["movers"]["SquareMinimapBar"] = "TOPRIGHTElvUIParentTOPRIGHT-4-211"
-	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMElvUIParentBOTTOM278200"
-	E.db["movers"]["ElvUF_Raid40Mover"] = "TOPLEFTElvUIParentTOPLEFT447-468"
-	E.db["movers"]["ElvAB_1"] = "BOTTOMElvUIParentBOTTOM059"
-	E.db["movers"]["ElvAB_2"] = "BOTTOMElvUIParentBOTTOM025"
-	E.db["movers"]["ElvAB_4"] = "BOTTOMLEFTElvUIParentBOTTOMRIGHT-413200"
-	E.db["movers"]["AltPowerBarMover"] = "BOTTOMElvUIParentBOTTOM-300338"
-	E.db["movers"]["ElvAB_3"] = "BOTTOMElvUIParentBOTTOM25425"
-	E.db["movers"]["ElvAB_5"] = "BOTTOMElvUIParentBOTTOM-25425"
-	E.db["movers"]["MMButtonsMover"] = "TOPRIGHTElvUIParentTOPRIGHT-214-160"
-	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMElvUIParentBOTTOM-278200"
-	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMElvUIParentBOTTOM0190"
-	E.db["movers"]["ShiftAB"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT41421"
-	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHTUIParentBOTTOMRIGHT021"
-	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT41421"
-	E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHTElvUIParentTOPRIGHT-210-410"
-	E.db["movers"]["DP_5_Mover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT4327"
-	E.db["movers"]["Top_Center_Mover"] = "BOTTOMElvUIParentBOTTOM-2543"
-	E.db["movers"]["BossHeaderMover"] = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-210435"
-	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMElvUIParentBOTTOM0230"
-	E.db["movers"]["ElvAB_6"] = "BOTTOMElvUIParentBOTTOM0102"
-	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFTElvUIParentBOTTOMLEFT449511"
-	E.db["movers"]["Bottom_Panel_Mover"] = "BOTTOMElvUIParentBOTTOM2543"
-	E.db["movers"]["PetAB"] = "TOPRIGHTElvUIParentTOPRIGHT-4-433"
-	E.db["movers"]["ElvUF_Raid25Mover"] = "TOPLEFTElvUIParentTOPLEFT449-448"
+	SLE:SetMoverPosition("DP_6_Mover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 3)
+	SLE:SetMoverPosition("ElvUF_PlayerCastbarMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 96)
+	SLE:SetMoverPosition("ElvUF_RaidMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 440, 511)
+	SLE:SetMoverPosition("LeftChatMover", "BOTTOMLEFT", UIParent, "BOTTOMLEFT", 0, 21)
+	SLE:SetMoverPosition("ElvUF_Raid10Mover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 449, 511)
+	SLE:SetMoverPosition("BossButton", "TOPLEFT", ElvUIParent, "TOPLEFT", 622, -352)
+	SLE:SetMoverPosition("ElvUF_FocusMover", "BOTTOM", ElvUIParent, "BOTTOM", -63, 436)
+	SLE:SetMoverPosition("ClassBarMover", "BOTTOM", ElvUIParent, "BOTTOM", -337, 500)
+	SLE:SetMoverPosition("SquareMinimapBar", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -4, -211)
+	SLE:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", ElvUIParent, "BOTTOM", 278, 200)
+	SLE:SetMoverPosition("ElvUF_Raid40Mover", "TOPLEFT", ElvUIParent, "TOPLEFT", 447, -468)
+	SLE:SetMoverPosition("ElvAB_1", "BOTTOM", ElvUIParent, "BOTTOM", 0, 59)
+	SLE:SetMoverPosition("ElvAB_2", "BOTTOM", ElvUIParent, "BOTTOM", 0, 25)
+	SLE:SetMoverPosition("ElvAB_4", "BOTTOMLEFT", ElvUIParent, "BOTTOMRIGHT", -413, 200)
+	SLE:SetMoverPosition("AltPowerBarMover", "BOTTOM", ElvUIParent, "BOTTOM", -300, 338)
+	SLE:SetMoverPosition("ElvAB_3", "BOTTOM", ElvUIParent, "BOTTOM", 254, 25)
+	SLE:SetMoverPosition("ElvAB_5", "BOTTOM", ElvUIParent, "BOTTOM", -254, 25)
+	SLE:SetMoverPosition("MMButtonsMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -214, -160)
+	SLE:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", ElvUIParent, "BOTTOM", -278, 200)
+	SLE:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 190)
+	SLE:SetMoverPosition("ShiftAB", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 414, 21)
+	SLE:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", 0, 21)
+	SLE:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 414, 21)
+	SLE:SetMoverPosition("ArenaHeaderMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -210, -410)
+	SLE:SetMoverPosition("DP_5_Mover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 4, 327)
+	SLE:SetMoverPosition("Top_Center_Mover", "BOTTOM", ElvUIParent, "BOTTOM", -254, 3)
+	SLE:SetMoverPosition("BossHeaderMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -210, 435)
+	SLE:SetMoverPosition("ElvUF_PetMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 230)
+	SLE:SetMoverPosition("ElvAB_6", "BOTTOM", ElvUIParent, "BOTTOM", 0, 102)
+	SLE:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 449, 511)
+	SLE:SetMoverPosition("Bottom_Panel_Mover", "BOTTOM", ElvUIParent, "BOTTOM", 254, 3)
+	SLE:SetMoverPosition("PetAB", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -4, -433)
+	SLE:SetMoverPosition("ElvUF_Raid25Mover", "TOPLEFT", ElvUIParent, "TOPLEFT", 449, -448)
 
 	E.db["gridSize"] = 110
 
