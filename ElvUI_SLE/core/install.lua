@@ -6,6 +6,9 @@ local SLE = E:GetModule('SLE');
 local CURRENT_PAGE = 0
 local MAX_PAGE = 5
 
+local dtbarsList = {}
+local dtbarsTexts = {}
+
 function AI:DarthCaster()
 	E.db["datatexts"]["panels"]["DP_6"]["right"] = "Crit Chance"
 	E.db["datatexts"]["panels"]["DP_6"]["left"] = "Spell/Heal Power"
@@ -77,6 +80,16 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	SLEInstallStepComplete.message = L["Darth's Default Set"]..": "..word
 	SLEInstallStepComplete:Show()
 
+	if IsAddOnLoaded("ElvUI_DTBars2") then
+		table.wipe(dtbarsList)
+		table.wipe(dtbarsTexts)
+		for name, data in pairs(E.global.dtbars) do
+			if E.db.dtbars and E.db.dtbars[name] then
+				dtbarsList[name] = E.db.dtbars[name]
+				dtbarsTexts[name] = E.db.datatexts.panels[name]
+			end
+		end
+	end
 	table.wipe(E.db)
 	E:CopyTable(E.db, P)
 
@@ -352,6 +365,16 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["datatexts"]["panels"]["Bottom_Panel"] = "System"
 		E.db["datatexts"]["font"] = "ElvUI Font"
 		E.db["datatexts"]["fontOutline"] = "OUTLINE"
+
+		if IsAddOnLoaded("ElvUI_DTBars2") then
+			if not E.db.dtbars then E.db.dtbars = {} end
+			for name, data in pairs(E.global.dtbars) do
+				if dtbarsList[name] then
+					E.db.dtbars[name] = dtbarsList[name]
+					E.db.datatexts.panels[name] = dtbarsTexts[name]
+				end
+			end
+		end
 	end
 	--Actionbars--
 	do
@@ -648,6 +671,16 @@ function AI:RepoocSetup() --The function to switch from classic ElvUI settings t
 	SLEInstallStepComplete.message = L["Repooc's Default Set"]
 	SLEInstallStepComplete:Show()
 
+	if IsAddOnLoaded("ElvUI_DTBars2") then
+		table.wipe(dtbarsList)
+		table.wipe(dtbarsTexts)
+		for name, data in pairs(E.global.dtbars) do
+			if E.db.dtbars and E.db.dtbars[name] then
+				dtbarsList[name] = E.db.dtbars[name]
+				dtbarsTexts[name] = E.db.datatexts.panels[name]
+			end
+		end
+	end
 	table.wipe(E.db)
 	E:CopyTable(E.db, P)
 
@@ -680,6 +713,16 @@ function AI:RepoocSetup() --The function to switch from classic ElvUI settings t
 	E.db["datatexts"]["panels"]["DP_6"]["middle"] = "System"
 	E.db["datatexts"]["leftChatPanel"] = false
 	E.db["datatexts"]["rightChatPanel"] = false
+
+	if IsAddOnLoaded("ElvUI_DTBars2") then
+			if not E.db.dtbars then E.db.dtbars = {} end
+			for name, data in pairs(E.global.dtbars) do
+				if dtbarsList[name] then
+					E.db.dtbars[name] = dtbarsList[name]
+					E.db.datatexts.panels[name] = dtbarsTexts[name]
+				end
+			end
+		end
 
 	E.db["general"]["bottomPanel"] = false
 	E.db["general"]["valuecolor"] = {
@@ -803,6 +846,16 @@ function AI:AffinitiiSetup() --The function to switch from class ElvUI settings 
 	SLEInstallStepComplete.message = L["Affinitii's Default Set"]
 	SLEInstallStepComplete:Show()
 
+	if IsAddOnLoaded("ElvUI_DTBars2") then
+		table.wipe(dtbarsList)
+		table.wipe(dtbarsTexts)
+		for name, data in pairs(E.global.dtbars) do
+			if E.db.dtbars and E.db.dtbars[name] then
+				dtbarsList[name] = E.db.dtbars[name]
+				dtbarsTexts[name] = E.db.datatexts.panels[name]
+			end
+		end
+	end
 	table.wipe(E.db)
 	E:CopyTable(E.db, P)
 
@@ -1063,6 +1116,16 @@ function AI:AffinitiiSetup() --The function to switch from class ElvUI settings 
 	E.db["datatexts"]["font"] = "ElvUI Font"
 	E.db["datatexts"]["fontOutline"] = "None"
 	E.db["datatexts"]["battleground"] = false
+
+	if IsAddOnLoaded("ElvUI_DTBars2") then
+		if not E.db.dtbars then E.db.dtbars = {} end
+		for name, data in pairs(E.global.dtbars) do
+			if dtbarsList[name] then
+				E.db.dtbars[name] = dtbarsList[name]
+				E.db.datatexts.panels[name] = dtbarsTexts[name]
+			end
+		end
+	end
 
 	E.db["actionbar"]["bar3"]["buttonspacing"] = 1
 	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 3
