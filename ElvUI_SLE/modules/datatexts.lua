@@ -88,6 +88,7 @@ end
 
 function DTP:Update()
 	DTP:ExtraDataBarSetup()
+	DTP:RegisterHide()
 	PanelResize()
 end
 
