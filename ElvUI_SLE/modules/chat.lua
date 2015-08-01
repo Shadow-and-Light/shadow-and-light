@@ -78,147 +78,44 @@ local function Style(self, frame)
 end
 
 --Replacement of chat tab position and size function
-local PixelOff = E.PixelMode and 31 or 27
+local PixelOff = E.PixelMode and 33 or 27
 
-function CH:PositionChat(override, noSave)
-	if ((InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override)) then return end
-	if not RightChatPanel or not LeftChatPanel then return; end
-	RightChatPanel:SetSize(E.db.chat.separateSizes and E.db.chat.panelWidthRight or E.db.chat.panelWidth, E.db.chat.separateSizes and E.db.chat.panelHeightRight or E.db.chat.panelHeight)
-	LeftChatPanel:SetSize(E.db.chat.panelWidth, E.db.chat.panelHeight)	
+local function PositionChat(override, noSave)
+	if not E.db.sle.datatext.chathandle then return end
 	
-	if not self.db.lockPositions or E.private.chat.enable ~= true then return end
-		
-	local chat, chatbg, tab, id, point, button, isDocked, chatFound
-	local fadeUndockedTabs = E.db["chat"].fadeUndockedTabs
-	local fadeTabsNoBackdrop = E.db["chat"].fadeTabsNoBackdrop
-
-	for _, frameName in pairs(CHAT_FRAMES) do
-		chat = _G[frameName]
-		id = chat:GetID()
-		point = GetChatWindowSavedPosition(id)
-		
-		if point == "BOTTOMRIGHT" and chat:IsShown() then
-			chatFound = true
-			break
-		end
+	local BASE_OFFSET = 60
+	if E.PixelMode then
+		BASE_OFFSET = BASE_OFFSET - 3
 	end	
-
-	if chatFound then
-		self.RightChatWindowID = id
-	else
-		self.RightChatWindowID = nil
-	end
-
+	local chat, id, isDocked, point
 	for i=1, CreatedFrames do
-		local BASE_OFFSET = 60
-		if E.PixelMode then
-			BASE_OFFSET = BASE_OFFSET - 3
-		end	
 		chat = _G[format("ChatFrame%d", i)]
-		chatbg = format("ChatFrame%dBackground", i)
-		button = _G[format("ButtonCF%d", i)]
 		id = chat:GetID()
 		tab = _G[format("ChatFrame%sTab", i)]
 		point = GetChatWindowSavedPosition(id)
 		isDocked = chat.isDocked
-		tab.isDocked = chat.isDocked
-		tab.owner = chat
-		if id > NUM_CHAT_WINDOWS then
-			point = point or select(1, chat:GetPoint());
-			if select(2, tab:GetPoint()):GetName() ~= bg then
-				isDocked = true
-			else
-				isDocked = false
-			end	
-		end	
 
-		
-		if point == "BOTTOMRIGHT" and chat:IsShown() and not (id > NUM_CHAT_WINDOWS) and id == self.RightChatWindowID then
+		if point == "BOTTOMRIGHT" and chat:IsShown() and not (id > NUM_CHAT_WINDOWS) and id == CH.RightChatWindowID then
 			chat:ClearAllPoints()
-			if E.db.sle.datatext.chathandle then 
-				if E.db.datatexts.rightChatPanel then
-					chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3)
-				else
-					BASE_OFFSET = BASE_OFFSET - 24
-					chat:SetPoint("BOTTOMLEFT", RightChatPanel, "BOTTOMLEFT", 4, 4)
-				end
-				if id ~= 2 then
-					chat:Size((E.db.chat.separateSizes and E.db.chat.panelWidthRight or E.db.chat.panelWidth) - 11, ((E.db.chat.separateSizes and E.db.chat.panelHeightRight or E.db.chat.panelHeight) - PixelOff))
-				end
+			if E.db.datatexts.rightChatPanel then
+				chat:Point("BOTTOMRIGHT", RightChatDataPanel, "TOPRIGHT", 10, 3)
 			else
-				if E.db.datatexts.rightChatPanel then
-					chat:SetPoint("BOTTOMLEFT", RightChatDataPanel, "TOPLEFT", 1, 3)
-				else
-					BASE_OFFSET = BASE_OFFSET - 24
-					chat:SetPoint("BOTTOMLEFT", RightChatDataPanel, "BOTTOMLEFT", 1, 1)
-				end
-				if id ~= 2 then
-					chat:SetSize((E.db.chat.separateSizes and E.db.chat.panelWidthRight or E.db.chat.panelWidth) - 11, (E.db.chat.separateSizes and E.db.chat.panelHeightRight or E.db.chat.panelHeight) - BASE_OFFSET)
-				else
-					chat:SetSize(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - BASE_OFFSET) - CombatLogQuickButtonFrame_Custom:GetHeight())				
-				end
+				BASE_OFFSET = BASE_OFFSET - 24
+				chat:SetPoint("BOTTOMLEFT", RightChatPanel, "BOTTOMLEFT", 4, 4)
 			end
-			
-			--Don't run when triggered by FCF_SavePositionAndDimensions, otherwise we get infinite loop
-			if not noSave then FCF_SavePositionAndDimensions(chat) end
-			
-			tab:SetParent(RightChatPanel)
-			chat:SetParent(RightChatPanel)
-			
-			if chat:IsMovable() then
-				chat:SetUserPlaced(true)
-			end
-			if E.db.chat.panelBackdrop == 'HIDEBOTH' or E.db.chat.panelBackdrop == 'LEFT' then
-				CH:SetupChatTabs(tab, fadeTabsNoBackdrop and true or false)
-			else
-				CH:SetupChatTabs(tab, false)
+			if id ~= 2 then
+				chat:Size((E.db.chat.separateSizes and E.db.chat.panelWidthRight or E.db.chat.panelWidth) - 10, ((E.db.chat.separateSizes and E.db.chat.panelHeightRight or E.db.chat.panelHeight) - PixelOff))
 			end
 		elseif not isDocked and chat:IsShown() then
-			tab:SetParent(UIParent)
-			chat:SetParent(UIParent)
-			
-			CH:SetupChatTabs(tab, fadeUndockedTabs and true or false)
+		
 		else
-			if E.db.sle.datatext.chathandle then 
-				if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
-					BASE_OFFSET = BASE_OFFSET - 24
-					chat:SetPoint("BOTTOMLEFT", LeftChatPanel, "BOTTOMLEFT", 1, 4)
-					chat:Size(E.db.chat.panelWidth - 11, E.db.chat.panelHeight - PixelOff)
-				end
-			else
-				if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
-					chat:ClearAllPoints()
-					if E.db.datatexts.leftChatPanel then
-						chat:SetPoint("BOTTOMLEFT", LeftChatToggleButton, "TOPLEFT", 1, 3)
-					else
-						BASE_OFFSET = BASE_OFFSET - 24
-						chat:SetPoint("BOTTOMLEFT", LeftChatToggleButton, "BOTTOMLEFT", 1, 1)
-					end
-					chat:SetSize(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - BASE_OFFSET))
-
-					--Don't run when triggered by FCF_SavePositionAndDimensions, otherwise we get infinite loop
-				if not noSave then FCF_SavePositionAndDimensions(chat) end
-				end
+			if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
+				BASE_OFFSET = BASE_OFFSET - 24
+				chat:SetPoint("BOTTOMLEFT", LeftChatPanel, "BOTTOMLEFT", 4, 4)
+				chat:Size(E.db.chat.panelWidth - 10, E.db.chat.panelHeight - PixelOff)
 			end
-			chat:SetParent(LeftChatPanel)
-			if i > 2 then
-				tab:SetParent(GeneralDockManagerScrollFrameChild)
-			else
-				tab:SetParent(GeneralDockManager)
-			end
-			if chat:IsMovable() then
-				chat:SetUserPlaced(true)
-			end
-			
-			if E.db.chat.panelBackdrop == 'HIDEBOTH' or E.db.chat.panelBackdrop == 'RIGHT' then
-				CH:SetupChatTabs(tab, fadeTabsNoBackdrop and true or false)
-			else
-				CH:SetupChatTabs(tab, false)
-			end			
-		end		
+		end
 	end
-	
-	self.initialMove = true;
 end
 
 local function GetChatIcon(sender)
@@ -575,6 +472,7 @@ end
 
 hooksecurefunc(LO, "ToggleChatPanels", ChatPanels)
 hooksecurefunc(LO, "CreateChatPanels", CreateChatPanels)
+hooksecurefunc(CH, "PositionChat", PositionChat)
 hooksecurefunc(CH, "StyleChat", Style)
 hooksecurefunc(E, "UpdateMedia", ChatTextures)
 hooksecurefunc(CH, "Initialize", function(self)

@@ -79,7 +79,7 @@ local function configTable()
 						name = L["Override Chat DT Panels"],
 						desc = L["This will have S&L handle chat datatext panels and place them below the left & right chat panels.\n\n|cffFF0000Note:|r When you first enabled, you may need to move the chat panels up to see your datatext panels."],
 						get = function(info) return E.db.sle.datatext.chathandle end,
-						set = function(info, value) E.db.sle.datatext.chathandle = value; E:GetModule('Layout'):ToggleChatPanels() end
+						set = function(info, value) E.db.sle.datatext.chathandle = value; E:GetModule('Layout'):ToggleChatPanels(); E.Chat:PositionChat(true) end
 					},
 				},
 			},
