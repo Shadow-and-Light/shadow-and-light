@@ -80,7 +80,7 @@ end
 --Replacement of chat tab position and size function
 local PixelOff = E.PixelMode and 31 or 27
 
-function CH:PositionChat(override)
+function CH:PositionChat(override, noSave)
 	if ((InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override)) then return end
 	if not RightChatPanel or not LeftChatPanel then return; end
 	RightChatPanel:SetSize(E.db.chat.separateSizes and E.db.chat.panelWidthRight or E.db.chat.panelWidth, E.db.chat.separateSizes and E.db.chat.panelHeightRight or E.db.chat.panelHeight)
@@ -159,7 +159,8 @@ function CH:PositionChat(override)
 				end
 			end
 			
-			FCF_SavePositionAndDimensions(chat)			
+			--Don't run when triggered by FCF_SavePositionAndDimensions, otherwise we get infinite loop
+			if not noSave then FCF_SavePositionAndDimensions(chat) end
 			
 			tab:SetParent(RightChatPanel)
 			chat:SetParent(RightChatPanel)
@@ -194,7 +195,9 @@ function CH:PositionChat(override)
 						chat:SetPoint("BOTTOMLEFT", LeftChatToggleButton, "BOTTOMLEFT", 1, 1)
 					end
 					chat:SetSize(E.db.chat.panelWidth - 11, (E.db.chat.panelHeight - BASE_OFFSET))
-					FCF_SavePositionAndDimensions(chat)		
+
+					--Don't run when triggered by FCF_SavePositionAndDimensions, otherwise we get infinite loop
+				if not noSave then FCF_SavePositionAndDimensions(chat) end
 				end
 			end
 			chat:SetParent(LeftChatPanel)
