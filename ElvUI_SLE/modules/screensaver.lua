@@ -232,7 +232,6 @@ function S:Shown()
 end
 
 function S:UpdateCamera(elapsed)
-	if degree > 360 then degree = 0 end
 	FlipCameraYaw(elapsed*10)
 	degree = degree + elapsed*10
 end
