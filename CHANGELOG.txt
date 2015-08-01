@@ -1,3 +1,14 @@
+v2.24
+A license file is now included in the addon folder. Please make sure to read it.
+Changes:
+- Adapted chat code according to changes in ElvUI 8.24
+- Code changes to better work with multi-monitor setups
+- Tweaked installation scripts so it wouldn't resert settings from DTBars2
+Fixes:
+- Fixed disconnection issues some players experienced when inspect armory was enabled (issue 147)
+- Fixed Consolidated Buff Bar's sizing (issue 148)
+- Attempted to fix the problem with camera after leaving afk screen
+
 v2.23 7/4/15
 From now on updates may be slower since we both don't actively play WoW anymore.
 Additions:
