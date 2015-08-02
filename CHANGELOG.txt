@@ -1,4 +1,4 @@
-v2.25
+v2.25 8/2/15
 Fixes:
 - Fixed chat tabs not being able to resize or move
 
