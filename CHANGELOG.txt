@@ -1,4 +1,4 @@
-v2.24
+v2.24 8/2/15
 A license file is now included in the addon folder. Please make sure to read it.
 Changes:
 - Adapted chat code according to changes in ElvUI 8.24
