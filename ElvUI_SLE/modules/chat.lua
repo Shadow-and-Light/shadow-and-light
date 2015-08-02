@@ -80,7 +80,10 @@ end
 --Replacement of chat tab position and size function
 local PixelOff = E.PixelMode and 33 or 27
 
-local function PositionChat(override, noSave)
+local function PositionChat(self, override, noSave)
+	if ((InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override)) then return end
+	if not RightChatPanel or not LeftChatPanel then return; end
+	if not self.db.lockPositions or E.private.chat.enable ~= true then return end
 	if not E.db.sle.datatext.chathandle then return end
 	
 	local BASE_OFFSET = 60
