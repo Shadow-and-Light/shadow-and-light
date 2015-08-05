@@ -16,7 +16,6 @@ local function configTable()
 		CENTER = 'CENTER',
 		TOP = 'TOP',
 		BOTTOM = 'BOTTOM',
-		NONE = L['Hide']
 	};
 
 	E.Options.args.sle.args.options.args.general.args.unitframes = {

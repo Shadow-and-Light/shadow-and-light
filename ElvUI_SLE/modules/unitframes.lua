@@ -226,13 +226,9 @@ AddTags()
 --Player Frame Enhancements
 function UF:Update_CombatIndicator()
 	local CombatText = ElvUF_Player.Combat
-	if E.db.sle.combatico.pos == "NONE" then
-		CombatText:ClearAllPoints()
-	else
-		local x, y = UF:GetPositionOffset(E.db.sle.combatico.pos)
-		CombatText:ClearAllPoints()
-		CombatText:Point(E.db.sle.combatico.pos, ElvUF_Player.Health, E.db.sle.combatico.pos, x, x)
-	end
+	local x, y = UF:GetPositionOffset(E.db.sle.combatico.pos)
+	CombatText:ClearAllPoints()
+	CombatText:Point(E.db.sle.combatico.pos, ElvUF_Player.Health, E.db.sle.combatico.pos, x, x)
 	SLE:UnregisterEvent("PLAYER_REGEN_DISABLED")
 end
 
