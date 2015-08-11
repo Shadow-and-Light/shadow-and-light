@@ -226,6 +226,7 @@ AddTags()
 --Player Frame Enhancements
 function UF:Update_CombatIndicator()
 	local CombatText = ElvUF_Player.Combat
+	if E.db.sle.combatico.pos == "NONE" then E.db.sle.combatico.pos = "TOP" end
 	local x, y = UF:GetPositionOffset(E.db.sle.combatico.pos)
 	CombatText:ClearAllPoints()
 	CombatText:Point(E.db.sle.combatico.pos, ElvUF_Player.Health, E.db.sle.combatico.pos, x, x)
