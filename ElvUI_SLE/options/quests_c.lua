@@ -3,7 +3,7 @@
 local function configTable()
 	E.Options.args.sle.args.options.args.general.args.quests = {
 		type = "group",
-		name = OBJECTIVES_TRACKER_LABEL..[[ |TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|t]],
+		name = OBJECTIVES_TRACKER_LABEL,
 		order = 9,
 		args = {
 			header = {

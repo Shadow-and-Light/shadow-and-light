@@ -15,7 +15,7 @@ local SelectedEnchantString
 local function LoadArmoryConfigTable()
 	E.Options.args.sle.args.Armory = {
 		type = 'group',
-		name = L["Armory Mode"]..[[ |TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|t]],
+		name = L["Armory Mode"],
 		order = 6,
 		childGroups = 'tab',
 		args = {

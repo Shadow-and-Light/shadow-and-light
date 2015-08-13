@@ -108,7 +108,7 @@ local function configTable()
 				order = 1,
 				type = "group",
 				childGroups = 'tab',
-				name = SETTINGS..[[ |TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|t]],
+				name = SETTINGS,
 				args = {
 					--[[intro = {
 						order = 1,

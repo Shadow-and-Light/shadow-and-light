@@ -5,7 +5,7 @@ local B = E:GetModule("SLE_BlizzRaid")
 local function configTable()
 	E.Options.args.sle.args.options.args.general.args.raidmanager = {
 		type = "group",
-		name = RAID..[[ |TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|t]],
+		name = RAID,
 		order = 80,
 		disabled = function() return SLE.oraenabled end,
 		args = {

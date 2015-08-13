@@ -5,7 +5,7 @@ local function configTable()
 	--Main options group
 	E.Options.args.sle.args.help = {
 		type = 'group',
-		name = L['About/Help']..[[ |TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|t]],
+		name = L['About/Help'],
 		order = -5,
 		childGroups = 'tab',
 		args = {
@@ -24,7 +24,7 @@ local function configTable()
 			},
 			faq = {
 				type = 'group',
-				name = 'FAQ'..[[ |TInterface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|t]],
+				name = 'FAQ',
 				order = 5,
 				childGroups = "select",
 				args = {
