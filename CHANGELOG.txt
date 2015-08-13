@@ -1,3 +1,7 @@
+v2.26
+Changes:
+- Removed the option to hide combat icon, cause ElvUI 8.25 have that
+
 v2.25 8/2/15
 Fixes:
 - Fixed chat tabs not being able to resize or move
