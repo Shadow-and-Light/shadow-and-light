@@ -589,7 +589,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		SLE:SetMoverPosition("BuffsMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -228, -1)
 		SLE:SetMoverPosition("DebuffsMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -228, -149)
 		SLE:SetMoverPosition("LeftChatMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 0, 19)
-		SLE:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", 0, 19)
+		SLE:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", 0, 19)
 		SLE:SetMoverPosition("LootFrameMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 420, 383)
 		SLE:SetMoverPosition("DigSiteProgressBarMover", "TOP", ElvUIParent, "TOP", 0, -106)
 		SLE:SetMoverPosition("SLE_UIButtonsMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", 0, -203)
