@@ -49,7 +49,7 @@ function RM:CreateButtons()
 
 		if target then
 			button:SetAttribute("type1", "macro")
-			button:SetAttribute("macrotext1", ("/tm %d"):format(k))
+			button:SetAttribute("macrotext1", ("/tm %d"):format(k == 9 and 0 or k))
 		end
 
 		button:RegisterForClicks("AnyDown")
