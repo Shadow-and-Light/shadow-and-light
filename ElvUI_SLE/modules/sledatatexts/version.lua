@@ -2,7 +2,7 @@
 --Version datatext. Only in Russian for now.
 local DT = E:GetModule('DataTexts')
 local SLE = E:GetModule('SLE')
-local ACD = LibStub("AceConfigDialog-3.0")
+local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
 
 local displayString = '';
 local lastPanel;

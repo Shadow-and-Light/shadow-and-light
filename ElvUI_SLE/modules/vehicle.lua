@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
 local EVB = E:GetModule("SLE_EnhancedVehicleBar")
 local AB = E:GetModule("ActionBars");
-local LAB = LibStub("LibActionButton-1.0")
+local LAB = LibStub("LibActionButton-1.0-ElvUI")
 
 -- Regular Button for these bars are 52. 52 * .71 = ~37.. I just rounded it up to 40 and called it good.
 function EVB:Animate(bar, x, y, duration)

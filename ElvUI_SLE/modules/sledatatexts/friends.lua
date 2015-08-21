@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local LibQTip = LibStub('LibQTip-1.0')
-local ACD = LibStub("AceConfigDialog-3.0")
+local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
 local DT = E:GetModule('DataTexts')
 local LDB = LibStub("LibDataBroker-1.1"):NewDataObject("S&L Friends",
 {

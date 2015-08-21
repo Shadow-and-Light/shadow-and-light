@@ -1,6 +1,6 @@
 ﻿local E, L, V, P, G = unpack(ElvUI); 
 local UB = E:GetModule('SLE_UIButtons');
-local ACD = LibStub("AceConfigDialog-3.0")
+local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
 local lib = LibStub("LibElv-UIButtons-1.0")
 local SLE = E:GetModule("SLE")
 local S = E:GetModule("Skins")

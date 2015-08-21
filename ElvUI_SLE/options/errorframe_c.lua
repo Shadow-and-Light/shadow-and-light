@@ -1,6 +1,6 @@
 ﻿local E, L, V, P, G = unpack(ElvUI); 
 local F = E:GetModule('SLE_ErrorFrame');
-local ACD = LibStub("AceConfigDialog-3.0")
+local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
 
 local function configTable()
 	E.Options.args.sle.args.options.args.general.args.errorframe = {

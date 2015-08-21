@@ -3,7 +3,7 @@ local SLE = E:GetModule('SLE');
 local S = E:GetModule("SLE_ScreenSaver")
 local LSM = LibStub("LibSharedMedia-3.0")
 local Sk = E:GetModule("Skins")
-local ACD = LibStub("AceConfigDialog-3.0")
+local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
 
 local SS
 local ru = false

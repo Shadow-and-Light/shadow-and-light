@@ -1,7 +1,7 @@
 ﻿local E, L, V, P, G = unpack(ElvUI)
 local SLE = E:GetModule('SLE')
 local LT = E:GetModule('SLE_Loot')
-local ACD = LibStub("AceConfigDialog-3.0")
+local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
 
 local function configTable()
 	E.Options.args.ElvUI_Header.name = E.Options.args.ElvUI_Header.name.." + Shadow & Light"..format(": |cff99ff33%s|r",SLE.version)

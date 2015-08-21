@@ -1,7 +1,7 @@
 ﻿local E, L, V, P, G = unpack(ElvUI);
 local LT = E:GetModule('SLE_Loot')
 local M = E:GetModule('Misc')
-local ACD = LibStub("AceConfigDialog-3.0")
+local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
 
 local check = false
 local t = 0
