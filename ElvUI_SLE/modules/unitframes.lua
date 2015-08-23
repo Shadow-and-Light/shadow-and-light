@@ -356,7 +356,7 @@ function UF:UpdateRoleIcon()
             role = rnd == 1 and "TANK" or (rnd == 2 and "HEALER" or (rnd == 3 and "DAMAGER"))
         end
     end
-    if role ~= 'NONE' and (self.isForced or UnitIsConnected(self.unit)) then
+    if (self.isForced or UnitIsConnected(self.unit)) and ((role == "DAMAGER" and db.damager) or (role == "HEALER" and db.healer) or (role == "TANK" and db.tank)) then
         lfdrole:SetTexture(SLE.rolePaths[E.db.sle.roleicons][role])
         lfdrole:Show()
     else
