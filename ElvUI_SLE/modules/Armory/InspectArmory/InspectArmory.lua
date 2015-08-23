@@ -1926,7 +1926,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 							
 							Slot.ILvL = TrueItemLevel or BasicItemLevel
 							
-							Slot.ItemLevel:SetText((ItemUpgradeID and (Info.Armory_Constants.UpgradeColor[ItemUpgradeID] or '|cffffffff') or '')..TrueItemLevel)
+							Slot.ItemLevel:SetText((ItemUpgradeID and (Info.Armory_Constants.UpgradeColor[ItemUpgradeID] or '|cffffffff') or '')..(TrueItemLevel or BasicItemLevel))
 							Slot.Gradation.ItemLevel:SetText(
 								(not TrueItemLevel or BasicItemLevel == TrueItemLevel) and BasicItemLevel
 								or
