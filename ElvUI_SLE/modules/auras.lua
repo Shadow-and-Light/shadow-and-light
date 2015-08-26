@@ -1,6 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
 local AT = E:GetModule('SLE_AuraTimers');
 local A = E:GetModule('Auras');
+local SLE = E:GetModule("SLE")
 
 local format = string.format
 local twipe = table.wipe
@@ -129,7 +130,7 @@ local function ConsOnEnter(button)
 	GameTooltip:SetOwner(button, "ANCHOR_BOTTOMLEFT", -3, button:GetHeight() + 2)
 	GameTooltip:ClearLines()
 
-	if button.BuffID and button.SpellName ~= "" then
+	if button.BuffID and (button.SpellName and button.SpellName ~= "") then
 		GameTooltip:SetUnitConsolidatedBuff("player", button.BuffID)
 	else
 		GameTooltip:AddLine(_G[("RAID_BUFF_%d"):format(button.BuffID)])
@@ -217,8 +218,18 @@ function AT:UpdateTempEnchant(button, index)
 	--Might do tempenchant stuff later
 end
 
+local f = CreateFrame("Frame")
+f:SetScript("OnEvent", function(self, event)
+	AT:BuildCasts(event)
+end)
 function AT:BuildCasts(event, unit)
 	if unit and unit ~= "player" then return end
+	if InCombatLockdown() then
+		f:RegisterEvent("PLAYER_REGEN_ENABLED")
+		SLE:Print(L["You are in combat, Consolidated Buffs Bars will be updated upon leaving it"])
+		return
+	end
+	if event == "PLAYER_REGEN_ENABLED" then f:UnregisterEvent(event) end
 	if E.myclass == "MONK" then
 		twipe(AT.Spells["MONK"])
 		if GetSpecialization() == 2 then
@@ -281,5 +292,5 @@ function AT:Initialize()
 	-- self:RegisterEvent("UNIT_LEVEL", "BuildCasts")
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "UpdateAuraStandings")
 
-	AT:BuildCasts()
+	C_Timer.After(5, AT.BuildCasts)
 end
