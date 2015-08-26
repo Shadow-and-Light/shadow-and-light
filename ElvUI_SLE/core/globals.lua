@@ -105,17 +105,17 @@ SLE.SpecialChatIcons = {
 			["Repooc"] = repooc
 		},
 		["WyrmrestAccord"] = {
-			["Miralene"] = kitalie:format("inv_cloth_challengewarlock_d_01helm"),
+			["Kìtalie"] = kitalie:format("inv_cloth_challengewarlock_d_01helm"),
 			["Sagome"] = kitalie:format("inv_helm_leather_challengemonk_d_01"),
 			["Sortokk"] = kitalie:format("inv_helm_plate_challengedeathknight_d_01"),
 			["Norinael"] = kitalie:format("inv_helmet_plate_challengepaladin_d_01"),
 			["Shalerie"] = kitalie:format("inv_helm_cloth_challengemage_d_01"),
-			["Myun"] = kitalie:format("inv_helmet_mail_challengeshaman_d_01"),
-			["Nevaleigh"] = kitalie:format("inv_helmet_leather_challengerogue_d_01"),
-			["Celenii"] = kitalie:format("inv_helmet_cloth_challengepriest_d_01"),
+			["Chalini"] = kitalie:format("inv_helmet_mail_challengeshaman_d_01"),
+			["Marittie"] = kitalie:format("inv_helmet_leather_challengerogue_d_01"),
+			["Lieliline"] = kitalie:format("inv_helmet_cloth_challengepriest_d_01"),
 			["Varysa"] = kitalie:format("inv_helmet_mail_challengehunter_d_01"),
-			["Caylasena"] = kitalie:format("inv_helm_plate_challengewarrior_d_01"),
-			["Arillora"] = kitalie:format("inv_helmet_challengedruid_d_01"),
+			["Kaelleigh"] = kitalie:format("inv_helm_plate_challengewarrior_d_01"),
+			["Syralea"] = kitalie:format("inv_helmet_challengedruid_d_01"),
 			["Dapooc"] = repooc,
 		},
 		["Andorhal"] = {
