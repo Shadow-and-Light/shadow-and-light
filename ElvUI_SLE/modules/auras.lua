@@ -106,7 +106,7 @@ function AT:Update_ConsolidatedBuffsSettings()
 			local button = _G["ElvUIConsolidatedBuff"..i]
 			button:ClearAllPoints()
 			if i == 1 then
-				button:Point("TOPRIGHT", ElvUI_ConsolidatedBuffs, "TOPRIGHT", 0, -(E.PixelMode and 0 or 2))
+				button:Point("TOPRIGHT", ElvUI_ConsolidatedBuffs, "TOPRIGHT", (E.PixelMode and 0 or -2), -(E.PixelMode and 0 or 2))
 			else
 				button:Point("TOPRIGHT", frame[ignoreIcons[i - 1] or (i - 1)], "BOTTOMRIGHT", 0, (E.PixelMode and 2 or -1))
 			end
@@ -115,8 +115,10 @@ function AT:Update_ConsolidatedBuffsSettings()
 				button:Point("BOTTOMRIGHT", ElvUI_ConsolidatedBuffs, "BOTTOMRIGHT", 0, (E.PixelMode and 0 or 2)) --2 needs to be 0
 			end
 
-			if button.icon:IsShown() then
-				button:SetWidth(E.ConsolidatedBuffsWidth - 3)
+			if E.private.sle.auras.consolidatedMark then
+				if button.icon:IsShown() then
+					button:SetWidth(E.ConsolidatedBuffsWidth - (E.PixelMode and 3 or 5))
+				end
 			end
 
 			local buffIcon = _G[("ConsolidatedBuffsTooltipBuff%d"):format(i)]
@@ -172,8 +174,8 @@ function A:CreateButton(i)
 	button.icon = CreateFrame("Frame", "ElvUIConsolidatedBuff"..i.."CanCast", button)
 	local icon = button.icon
 	icon:Width(3)
-	icon:SetPoint("TOPRIGHT", button, "TOPLEFT", 1, -1)
-	icon:SetPoint("BOTTOMRIGHT", button, "BOTTOMLEFT", 1, 1)
+	icon:SetPoint("TOPRIGHT", button, "TOPLEFT", 1, (E.PixelMode and -1 or 0))
+	icon:SetPoint("BOTTOMRIGHT", button, "BOTTOMLEFT", 1, (E.PixelMode and 1 or 0))
 	local overlay = icon:CreateTexture(nil, "OVERLAY")
 	overlay:SetTexture(E['media'].blankTex)
 	overlay:SetAllPoints(icon)
@@ -293,4 +295,5 @@ function AT:Initialize()
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "UpdateAuraStandings")
 
 	C_Timer.After(5, AT.BuildCasts)
+	C_Timer.After(5, function() A:Update_ConsolidatedBuffsSettings() end)
 end
