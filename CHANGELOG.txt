@@ -1,3 +1,8 @@
+v2.28
+Fixes:
+- Fixed a number of problems with consolidated buff bar in combat
+- Added a new failsafe for inspect
+
 v2.27 8/21/15
 Fixes:
 - Fixed an issue with mark bar causing trouble with "illegal" mark macro.
