@@ -232,7 +232,7 @@ function AT:BuildCasts(event, unit)
 		return
 	end
 	if event == "PLAYER_REGEN_ENABLED" then f:UnregisterEvent(event) end
-	if E.myclass == "MONK" then
+	if E.myclass == "MONK" and GetSpecialization() then
 		twipe(AT.Spells["MONK"])
 		if GetSpecialization() == 2 then
 			AT.Spells["MONK"][1] = GetSpell(115921)
@@ -291,7 +291,7 @@ function AT:Initialize()
 	self:RegisterEvent("UNIT_AURA", "UpdateAuraStandings")
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "BuildCasts")
 	self:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED", "BuildCasts")
-	-- self:RegisterEvent("UNIT_LEVEL", "BuildCasts")
+	self:RegisterEvent("UNIT_LEVEL", "BuildCasts")
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "UpdateAuraStandings")
 
 	C_Timer.After(5, AT.BuildCasts)

@@ -133,6 +133,7 @@ L["Hide Debuff Timer"] = "Спрятать таймеры дебаффов"
 L["This hides the time remaining for your debuffs."] = "Скрывает текст оставшегося времени действия около дебаффов"
 L["Mark Your Consolidated Buffs"] = "Отмечать ваши объединенные эффекты"
 L["Create a mark bar on a consolidated buffs bar's icons for buffs your class can provide."] = "Создавать метку в полосе объединенных эффектов на иконках, бафф которых может предоставить ваш класс."
+L["You are in combat, Consolidated Buffs Bars will be updated upon leaving it"] = "Вы в бою. Полоса объединенных эффектов будет обновлена по его окончанию."
 
 --Autoreleas--
 L["PvP Auto Release"] = "Автоматический выход из тела"
