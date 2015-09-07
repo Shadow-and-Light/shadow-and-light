@@ -53,6 +53,7 @@ local DungeonRaid = {
 	614, -- Mote of Darkness
 	994, -- Seal of Tempered Fate
 	1129, -- Seal of Inavitable Fate
+	1166, --Timewarped Badge
 }
 
 local PvPPoints = {
