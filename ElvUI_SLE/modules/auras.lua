@@ -2,6 +2,8 @@ local E, L, V, P, G = unpack(ElvUI);
 local AT = E:GetModule('SLE_AuraTimers');
 local A = E:GetModule('Auras');
 local SLE = E:GetModule("SLE")
+local Masque = LibStub("Masque", true)
+local MasqueGroup = Masque and Masque:Group("ElvUI", "Consolidated Buffs")
 
 local format = string.format
 local twipe = table.wipe
@@ -147,7 +149,7 @@ end
 
 function A:CreateButton(i)
 	local button = CreateFrame("Button", "ElvUIConsolidatedBuff"..i, ElvUI_ConsolidatedBuffs, "SecureActionButtonTemplate")
-	button:SetTemplate('Default')
+	-- button:SetTemplate('Default')
 	button.BuffID = i
 
 	button.t = button:CreateTexture(nil, "OVERLAY")
@@ -166,6 +168,31 @@ function A:CreateButton(i)
 
 	button.timer = button.cd:CreateFontString(nil, 'OVERLAY')
 	button.timer:SetPoint('CENTER')
+
+	local ButtonData = {
+		FloatingBG = nil,
+		Icon = button.t,
+		Cooldown = button.cd,
+		Flash = nil,
+		Pushed = nil,
+		Normal = nil,
+		Disabled = nil,
+		Checked = nil,
+		Border = nil,
+		AutoCastable = nil,
+		Highlight = nil,
+		HotKey = nil,
+		Count = nil,
+		Name = nil,
+		Duration = false,
+		AutoCast = nil,
+	}
+
+	if MasqueGroup and E.private.auras.masque.consolidatedBuffs then
+		MasqueGroup:AddButton(button, ButtonData)
+	elseif not E.private.auras.masque.consolidatedBuffs then
+		button:SetTemplate('Default')
+	end
 
 	button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	button:SetScript("OnEnter", function(self) ConsOnEnter(self) end)
