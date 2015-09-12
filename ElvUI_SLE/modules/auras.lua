@@ -149,7 +149,6 @@ end
 
 function A:CreateButton(i)
 	local button = CreateFrame("Button", "ElvUIConsolidatedBuff"..i, ElvUI_ConsolidatedBuffs, "SecureActionButtonTemplate")
-	-- button:SetTemplate('Default')
 	button.BuffID = i
 
 	button.t = button:CreateTexture(nil, "OVERLAY")
