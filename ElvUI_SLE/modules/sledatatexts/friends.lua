@@ -221,8 +221,11 @@ local function Entry_OnMouseUp(frame, info, button)
 			if i_type == "realid" then
 				local presenceID, presenceName, battleTag, isBattleTagPresence, toonName, toonID = BNGetFriendInfo(BNGetFriendIndex(presence_id))
 				local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetToonInfo(toonID or 0)
-
-				InviteUnit(toon_name.."-"..realmName)
+				if E.myrealm == realmName then
+					InviteUnit(toon_name)
+				else
+					InviteUnit(toon_name.."-"..realmName)
+				end
 				return
 			else
 				InviteUnit(toon_name)
