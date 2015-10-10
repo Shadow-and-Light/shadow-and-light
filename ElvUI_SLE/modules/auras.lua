@@ -282,6 +282,7 @@ function AT:BuildCasts(event, unit)
 			end
 		end
 	end
+	AT:Update_ConsolidatedBuffsSettings()
 	AT:UpdateAuraStandings(nil, "player")
 end
 

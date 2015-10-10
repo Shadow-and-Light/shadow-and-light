@@ -13,6 +13,8 @@ local I = E:GetModule('SLE_InstDif')
 local S = E:GetModule("SLE_ScreenSaver")
 local G = E:GetModule("SLE_Garrison")
 local EF = E:GetModule('SLE_ErrorFrame');
+local AT = E:GetModule('SLE_AuraTimers')
+local A = E:GetModule('Auras')
 local LocTable = {}
 LocTable[1], LocTable[2], LocTable[3], LocTable[4], LocTable[5], LocTable[6], LocTable[7] = GetAvailableLocales()
 
@@ -72,6 +74,8 @@ local function UpdateAll()
 	I:UpdateFrame()
 	S:Reg(true)
 	EF:SetSize()
+	AT:BuildCasts()
+	A:Update_ConsolidatedBuffsSettings()
 
 	collectgarbage('collect');
 end
