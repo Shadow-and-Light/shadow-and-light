@@ -54,6 +54,7 @@ local DungeonRaid = {
 	994, -- Seal of Tempered Fate
 	1129, -- Seal of Inavitable Fate
 	1166, --Timewarped Badge
+	1191, -- Valor
 }
 
 local PvPPoints = {
