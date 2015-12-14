@@ -93,38 +93,10 @@ AT.Spells = {
 
 local ignoreIcons = {}
 function AT:Update_ConsolidatedBuffsSettings()
-	local frame = A.frame
-
-	twipe(ignoreIcons)
-	if E.db.auras.consolidatedBuffs.filter then
-		if E.role == 'Caster' then
-			ignoreIcons[3] = 2
-		else
-			ignoreIcons[5] = 4
-		end
-	end
 	if(E.private.auras.disableBlizzard) then
 		for i = 1, NUM_LE_RAID_BUFF_TYPES do
-			local button = _G["ElvUIConsolidatedBuff"..i]
-			button:ClearAllPoints()
-			if i == 1 then
-				button:Point("TOPRIGHT", ElvUI_ConsolidatedBuffs, "TOPRIGHT", (E.PixelMode and 0 or -2), -(E.PixelMode and 0 or 2))
-			else
-				button:Point("TOPRIGHT", frame[ignoreIcons[i - 1] or (i - 1)], "BOTTOMRIGHT", 0, (E.PixelMode and 2 or -1))
-			end
-
-			if i == NUM_LE_RAID_BUFF_TYPES then
-				button:Point("BOTTOMRIGHT", ElvUI_ConsolidatedBuffs, "BOTTOMRIGHT", 0, (E.PixelMode and 0 or 2)) --2 needs to be 0
-			end
-
-			if E.private.sle.auras.consolidatedMark then
-				if button.icon:IsShown() then
-					button:SetWidth(E.ConsolidatedBuffsWidth - (E.PixelMode and 3 or 5))
-				end
-			end
-
-			local buffIcon = _G[("ConsolidatedBuffsTooltipBuff%d"):format(i)]
-			buffIcon:Hide()
+			local tt = _G[format("ConsolidatedBuffsTooltipBuff%d",i)]
+			tt:Hide()
 		end
 	end
 end
@@ -198,17 +170,29 @@ function A:CreateButton(i)
 	button:SetScript("OnLeave", function(self) ConsOnLeave() end)
 
 	button.icon = CreateFrame("Frame", "ElvUIConsolidatedBuff"..i.."CanCast", button)
+	-- local icon = button.icon
+	-- icon:Width(3)
+	-- icon:SetPoint("TOPRIGHT", button, "TOPLEFT", 1, (E.PixelMode and -1 or 0))
+	-- icon:SetPoint("BOTTOMRIGHT", button, "BOTTOMLEFT", 1, (E.PixelMode and 1 or 0))
+	-- local overlay = icon:CreateTexture(nil, "OVERLAY")
+	-- overlay:SetTexture(E['media'].blankTex)
+	-- overlay:SetAllPoints(icon)
+	-- local classColor = RAID_CLASS_COLORS[E.myclass]
+	-- overlay:SetVertexColor(classColor.r, classColor.g, classColor.b)
+	-- icon:SetFrameLevel(button:GetFrameLevel() + 3)
+	-- icon:Hide()
+	button.icon = CreateFrame("Frame", "ElvUIConsolidatedBuff"..i.."CanCast", button)
 	local icon = button.icon
 	icon:Width(3)
-	icon:SetPoint("TOPRIGHT", button, "TOPLEFT", 1, (E.PixelMode and -1 or 0))
-	icon:SetPoint("BOTTOMRIGHT", button, "BOTTOMLEFT", 1, (E.PixelMode and 1 or 0))
+	icon:SetPoint("TOPLEFT", button, "TOPLEFT", 1, (E.PixelMode and -1 or 0))
+	icon:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT", 1, (E.PixelMode and 1 or 0))
 	local overlay = icon:CreateTexture(nil, "OVERLAY")
-	overlay:SetTexture(E['media'].blankTex)
+	overlay:SetTexture(E["media"].blankTex)
 	overlay:SetAllPoints(icon)
 	local classColor = RAID_CLASS_COLORS[E.myclass]
 	overlay:SetVertexColor(classColor.r, classColor.g, classColor.b)
-	icon:SetFrameLevel(button:GetFrameLevel() + 3)
 	icon:Hide()
+	
 	button.cd:SetFrameLevel(icon:GetFrameLevel() + 1)
 
 	return button
