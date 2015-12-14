@@ -164,7 +164,7 @@ function RM:Initialize()
 	self.frame:SetFrameStrata('LOW')
 	self.frame:CreateBackdrop('Transparent')
 	self.frame:ClearAllPoints()
-	self.frame:Point("BOTTOMRIGHT", RightChatPanel, "TOPRIGHT", -1, 3)
+	self.frame:Point("BOTTOMRIGHT", E.UIParent, "TOPRIGHT", -1, 200)
 	self.frame.buttons = {}
 
 	self.frame.backdrop:SetAllPoints()
