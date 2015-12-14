@@ -1,3 +1,12 @@
+v2.29
+Fixes:
+- Fixed rare weird behavoir of right chat panel with skada embedded with some visibility combinations.
+- Fixed (in theory) CBB not being able to be horizontal when using custom tweaks.
+Changes:
+- AFK screen once again provides an option to exit without moving in case you've managed to go afk while in pet battle or dead. To do that click on expantion logo.
+- Try to support masque support o_O
+- Currncy datatext now shows timewarped bages and valor
+
 v2.28 9/3/15
 Fixes:
 - Fixed a number of problems with consolidated buff bar in combat
