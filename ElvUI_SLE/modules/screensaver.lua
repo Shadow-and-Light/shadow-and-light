@@ -91,8 +91,11 @@ function S:Setup()
 	SS.Elv:SetTexture("Interface\\AddOns\\ElvUI\\media\\textures\\logo.tga")
 	SS.sle = SS.Bottom:CreateTexture(nil, 'OVERLAY')
 	SS.sle:SetTexture("Interface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Banner")
-	SS.ExPack = SS.Top:CreateTexture(nil, 'OVERLAY')
-	SS.ExPack:SetTexture([[Interface\Glues\Common\Glues-WoW-WoDLogo.blp]])
+	SS.ExPack = CreateFrame("Button", "SLE_SS_Expack", SS.Top)
+	SS.ExPack.Texture = SS.ExPack:CreateTexture(nil, 'OVERLAY')
+	SS.ExPack.Texture:SetAllPoints(SS.ExPack)
+	SS.ExPack.Texture:SetTexture([[Interface\Glues\Common\Glues-WoW-WoDLogo.blp]])
+	SS.ExPack:SetScript("OnClick", S.Escape)
 	SS.model = CreateFrame("PlayerModel", "ScreenModel", SS)
 	-- SS.model:CreateBackdrop("Transparent") --For checking size and borders
 	SS.Top.Title = SS.Top:CreateFontString(nil, "OVERLAY")
@@ -203,11 +206,11 @@ function S:Shown()
 	end
 	self.model:SetAnimation(E.db.sle.media.screensaver.playermodel.anim)
 	self.model:SetScript("OnAnimFinished", S.AnimFinished)
-	
+
 	self.Top:SetHeight(E.db.sle.media.screensaver.height)
 	self.Bottom:SetHeight(E.db.sle.media.screensaver.height)
 	self.ScrollFrame:SetSize(self.Bottom:GetWidth(), 24)
-	
+
 	--Positioning model
 	SS.model:ClearAllPoints()
 	SS.model:SetWidth(E.db.sle.media.screensaver.playermodel.width)
