@@ -1,4 +1,4 @@
-v2.29
+v2.29 12/16/2015
 Fixes:
 - Fixed rare weird behavoir of right chat panel with skada embedded with some visibility combinations.
 - Fixed (in theory) CBB not being able to be horizontal when using custom tweaks.
