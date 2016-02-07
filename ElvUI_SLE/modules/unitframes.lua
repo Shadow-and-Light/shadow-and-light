@@ -275,7 +275,7 @@ local function PlayerFrameAnchors()
 	end
 end
 
-hooksecurefunc(UF, "UpdatePlayerFrameAnchors", PlayerFrameAnchors)
+hooksecurefunc(UF, "Configure_ClassBar", PlayerFrameAnchors)
 
 function UF:ClassbarTextSLE()
 	if E.myclass == "DRUID" then
