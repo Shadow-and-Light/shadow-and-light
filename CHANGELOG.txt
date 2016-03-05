@@ -1,3 +1,6 @@
+v2.30
+- Account for ElvUI's unitfrafe overhaul
+
 v2.29 12/16/2015
 Fixes:
 - Fixed rare weird behavoir of right chat panel with skada embedded with some visibility combinations.
