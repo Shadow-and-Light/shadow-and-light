@@ -1,4 +1,7 @@
-v2.30
+v2.31
+- Apparently Darth forgot something in terms of accounting :D
+
+v2.30 03/05/2016
 - Account for ElvUI's unitfrafe overhaul
 
 v2.29 12/16/2015
