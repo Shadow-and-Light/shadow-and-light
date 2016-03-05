@@ -238,36 +238,36 @@ P['sle'] = {
 	['media'] = {
 		['fonts'] = {
 			['zone'] = {
-				['font'] = "ElvUI Font",
+				['font'] = "PT Sans Narrow",
 				['size'] = 32,
 				['outline'] = "OUTLINE",
 				['width'] = 512,
 			},
 			['subzone'] = {
-				['font'] = "ElvUI Font",
+				['font'] = "PT Sans Narrow",
 				['size'] = 25,
 				['outline'] = "OUTLINE",
 				['offset'] = 0,
 				['width'] = 512,
 			},
 			['pvp'] = {
-				['font'] = "ElvUI Font",
+				['font'] = "PT Sans Narrow",
 				['size'] = 22,
 				['outline'] = "OUTLINE",
 				['width'] = 512,
 			},
 			['mail'] = {
-				['font'] = "ElvUI Font",
+				['font'] = "PT Sans Narrow",
 				['size'] = 12,
 				['outline'] = "NONE",
 			},
 			['editbox'] = {
-				['font'] = "ElvUI Font",
+				['font'] = "PT Sans Narrow",
 				['size'] = 12,
 				['outline'] = "NONE",
 			},
 			['gossip'] = {
-				['font'] = "ElvUI Font",
+				['font'] = "PT Sans Narrow",
 				['size'] = 12,
 				['outline'] = "NONE",
 			},
@@ -275,27 +275,27 @@ P['sle'] = {
 		['screensaver'] = {
 			['enable'] = false,
 			['title'] = {
-				['font'] = "ElvUI Font",
+				['font'] = "PT Sans Narrow",
 				['size'] = 28,
 				['outline'] = "OUTLINE",
 			},
 			['subtitle'] = {
-				['font'] = "ElvUI Font",
+				['font'] = "PT Sans Narrow",
 				['size'] = 15,
 				['outline'] = "OUTLINE",
 			},
 			['date'] = {
-				['font'] = "ElvUI Font",
+				['font'] = "PT Sans Narrow",
 				['size'] = 15,
 				['outline'] = "OUTLINE",
 			},
 			['player'] = {
-				['font'] = "ElvUI Font",
+				['font'] = "PT Sans Narrow",
 				['size'] = 15,
 				['outline'] = "OUTLINE",
 			},
 			['tips'] = {
-				['font'] = "ElvUI Font",
+				['font'] = "PT Sans Narrow",
 				['size'] = 20,
 				['outline'] = "OUTLINE",
 			},
@@ -348,7 +348,7 @@ P['sle'] = {
 				['challenge'] = {r = 0.9,g = 0.89,b = 0.27 },
 				['mythic'] = {r = 0.9,g = 0.14,b = 0.15 },
 			},
-			['font'] = "ElvUI Font",
+			['font'] = "PT Sans Narrow",
 			['fontSize'] = 12,
 			['fontOutline'] = "OUTLINE",
 		},

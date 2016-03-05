@@ -123,7 +123,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["nameplate"]["fontSize"] = 10
 		E.db["nameplate"]["wrapName"] = true
 		E.db["nameplate"]["fontOutline"] = "OUTLINE"
-		E.db["nameplate"]["font"] = "ElvUI Font"
+		E.db["nameplate"]["font"] = "PT Sans Narrow"
 		E.db["nameplate"]["colorNameByValue"] = false
 		E.db["nameplate"]["raidHealIcon"]["xOffset"] = 0
 		E.db["nameplate"]["healthBar"]["height"] = 10
@@ -131,8 +131,8 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["nameplate"]["healthBar"]["lowHPScale"]["height"] = 10
 		E.db["nameplate"]["healthBar"]["lowHPScale"]["enable"] = true
 		E.db["nameplate"]["buffs"]["fontOutline"] = "OUTLINE"
-		E.db["nameplate"]["buffs"]["font"] = "ElvUI Font"
-		E.db["nameplate"]["debuffs"]["font"] = "ElvUI Font"
+		E.db["nameplate"]["buffs"]["font"] = "PT Sans Narrow"
+		E.db["nameplate"]["debuffs"]["font"] = "PT Sans Narrow"
 		E.db["nameplate"]["debuffs"]["numAuras"] = 6
 		E.db["nameplate"]["debuffs"]["fontOutline"] = "OUTLINE"
 		E.db["nameplate"]["debuffs"]["stretchTexture"] = false
@@ -140,7 +140,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	--Bags--
 	do
 		E.db["bags"]["yOffsetBank"] = 181
-		E.db["bags"]["itemLevelFont"] = "ElvUI Font"
+		E.db["bags"]["itemLevelFont"] = "PT Sans Narrow"
 		E.db["bags"]["yOffset"] = 181
 		E.db["bags"]["bagSize"] = 31
 		E.db["bags"]["itemLevelFontSize"] = 12
@@ -164,17 +164,17 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["chat"]["tabFontSize"] = 12
 		E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
 		E.db["chat"]["panelWidthRight"] = 425
-		E.db["chat"]["tabFont"] = "ElvUI Font"
+		E.db["chat"]["tabFont"] = "PT Sans Narrow"
 		E.db["chat"]["panelHeight"] = 187
 	end
 	--Tooltip--
-	E.db["tooltip"]["healthBar"]["font"] = "ElvUI Font"
+	E.db["tooltip"]["healthBar"]["font"] = "PT Sans Narrow"
 	E.db["tooltip"]["itemCount"] = "NONE"
 	--Unitframes--
 	do
 		E.db["unitframe"]["fontSize"] = 12
 		E.db["unitframe"]["statusbar"] = "Polished Wood"
-		E.db["unitframe"]["font"] = "ElvUI Font"
+		E.db["unitframe"]["font"] = "PT Sans Narrow"
 		E.db["unitframe"]["debuffHighlighting"] = false
 		E.db["unitframe"]["fontOutline"] = "OUTLINE"
 		E.db["unitframe"]["smartRaidFilter"] = false
@@ -363,7 +363,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = "Combat/Arena Time"
 		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["middle"] = "S&L Guild"
 		E.db["datatexts"]["panels"]["Bottom_Panel"] = "System"
-		E.db["datatexts"]["font"] = "ElvUI Font"
+		E.db["datatexts"]["font"] = "PT Sans Narrow"
 		E.db["datatexts"]["fontOutline"] = "OUTLINE"
 
 		if IsAddOnLoaded("ElvUI_DTBars2") then
@@ -379,7 +379,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	--Actionbars--
 	do
 		E.db["actionbar"]["fontSize"] = 12
-		E.db["actionbar"]["font"] = "ElvUI Font"
+		E.db["actionbar"]["font"] = "PT Sans Narrow"
 		E.db["actionbar"]["fontOutline"] = "OUTLINE"
 		E.db["actionbar"]["keyDown"] = false
 		E.db["actionbar"]["hotkeytext"] = false
@@ -427,7 +427,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	end
 	--Auras--
 	do
-		E.db["auras"]["font"] = "ElvUI Font"
+		E.db["auras"]["font"] = "PT Sans Narrow"
 		E.db["auras"]["fontOutline"] = "OUTLINE"
 		E.db["auras"]["fontSize"] = 12
 		E.db["auras"]["buffs"]["size"] = 28
@@ -435,7 +435,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.db["auras"]["debuffs"]["size"] = 36
 		E.db["auras"]["debuffs"]["wrapAfter"] = 9
 		E.db["auras"]["consolidatedBuffs"]["fontSize"] = 12
-		E.db["auras"]["consolidatedBuffs"]["font"] = "ElvUI Font"
+		E.db["auras"]["consolidatedBuffs"]["font"] = "PT Sans Narrow"
 		E.db["auras"]["consolidatedBuffs"]["fontOutline"] = "OUTLINE"
 		E.db["auras"]["consolidatedBuffs"]["filter"] = false
 	end
@@ -638,7 +638,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 	end
 	
 	if IsAddOnLoaded("ElvUI_EverySecondCounts") then
-		E.db["ESC"]["font"] = "ElvUI Font"
+		E.db["ESC"]["font"] = "PT Sans Narrow"
 	end
 
 	if AddOnSkins then
@@ -648,7 +648,7 @@ function AI:DarthSetup() --The function to switch from classic ElvUI settings to
 		E.private["addonskins"]["AuctionHouse"] = false
 		E.private["addonskins"]["SkinTemplate"] = "Default"
 		E.private["addonskins"]["DBMSkinHalf"] = true
-		E.private["addonskins"]["DBMFont"] = "ElvUI Font"
+		E.private["addonskins"]["DBMFont"] = "PT Sans Narrow"
 		E.private["addonskins"]["Blizzard_ExtraActionButton"] = true
 		E.private["addonskins"]["EmbedLeftWidth"] = 213
 		E.private["addonskins"]["EmbedOoC"] = true
@@ -823,7 +823,7 @@ function AI:RepoocSetup() --The function to switch from classic ElvUI settings t
 		E.private["addonskins"]["Blizzard_WorldStateCaptureBar"] = true
 		E.private["addonskins"]["EmbedOoC"] = false
 		E.private["addonskins"]["DBMSkinHalf"] = true
-		E.private["addonskins"]["DBMFont"] = "ElvUI Font"
+		E.private["addonskins"]["DBMFont"] = "PT Sans Narrow"
 		E.private["addonskins"]["EmbedSystemDual"] = true
 		E.private["addonskins"]["EmbedLeft"] = "Skada"
 		E.private["addonskins"]["EmbedRight"] = "Skada"
@@ -955,7 +955,7 @@ function AI:AffinitiiSetup() --The function to switch from class ElvUI settings 
 	E.db["unitframe"]["units"]["party"]["power"]["text_format"] = ""
 	E.db["unitframe"]["units"]["party"]["power"]["width"] = "inset"
 	E.db["unitframe"]["units"]["party"]["customTexts"]["Health Text"] = {}
-	E.db["unitframe"]["units"]["party"]["customTexts"]["Health Text"]["font"] = "ElvUI Pixel"
+	E.db["unitframe"]["units"]["party"]["customTexts"]["Health Text"]["font"] = "Homespun"
 	E.db["unitframe"]["units"]["party"]["customTexts"]["Health Text"]["justifyH"] = "CENTER"
 	E.db["unitframe"]["units"]["party"]["customTexts"]["Health Text"]["fontOutline"] = "MONOCHROMEOUTLINE"
 	E.db["unitframe"]["units"]["party"]["customTexts"]["Health Text"]["xOffset"] = 0
@@ -993,7 +993,7 @@ function AI:AffinitiiSetup() --The function to switch from class ElvUI settings 
 	E.db["unitframe"]["units"]["raid40"]["power"]["width"] = "inset"
 	E.db["unitframe"]["units"]["raid40"]["power"]["position"] = "CENTER"
 	E.db["unitframe"]["units"]["raid40"]["customTexts"]["Health Text"] = {}
-	E.db["unitframe"]["units"]["raid40"]["customTexts"]["Health Text"]["font"] = "ElvUI Pixel"
+	E.db["unitframe"]["units"]["raid40"]["customTexts"]["Health Text"]["font"] = "Homespun"
 	E.db["unitframe"]["units"]["raid40"]["customTexts"]["Health Text"]["justifyH"] = "CENTER"
 	E.db["unitframe"]["units"]["raid40"]["customTexts"]["Health Text"]["fontOutline"] = "MONOCHROMEOUTLINE"
 	E.db["unitframe"]["units"]["raid40"]["customTexts"]["Health Text"]["xOffset"] = 0
@@ -1113,7 +1113,7 @@ function AI:AffinitiiSetup() --The function to switch from class ElvUI settings 
 	E.db["datatexts"]["panels"]["DP_6"]["middle"] = "Time"
 	E.db["datatexts"]["panels"]["DP_2"]["middle"] = "Attack Power"
 	E.db["datatexts"]["panels"]["LeftMiniPanel"] = "Time"
-	E.db["datatexts"]["font"] = "ElvUI Font"
+	E.db["datatexts"]["font"] = "PT Sans Narrow"
 	E.db["datatexts"]["fontOutline"] = "None"
 	E.db["datatexts"]["battleground"] = false
 
