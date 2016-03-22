@@ -220,7 +220,7 @@ local function Entry_OnMouseUp(frame, info, button)
 		if IsAltKeyDown() then
 			if i_type == "realid" then
 				local presenceID, presenceName, battleTag, isBattleTagPresence, toonName, toonID = BNGetFriendInfo(BNGetFriendIndex(presence_id))
-				local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetToonInfo(toonID or 0)
+				local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetGameAccountInfo(toonID or 0)
 				if E.myrealm == realmName then
 					InviteUnit(toon_name)
 				else
@@ -364,7 +364,7 @@ function LDB.OnEnter(self)
 				wipe(realid_table)
 				for i = 1, numBNOnline do
 					local presenceID, givenName, bTag, _, _, toonID, gameClient, isOnline, lastOnline, isAFK, isDND, broadcast, note, _, castTime = BNGetFriendInfo(i)
-					local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetToonInfo(toonID or 0)
+					local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetGameAccountInfo(toonID or 0)
 					local broadcastTime = ""
 					if castTime then
 						broadcastTime = string.format(BNET_BROADCAST_SENT_TIME, sletime_Conversion(castTime));
