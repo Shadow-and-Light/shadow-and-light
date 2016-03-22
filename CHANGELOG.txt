@@ -1,3 +1,6 @@
+v2.32
+- Replaced old BNet API with new one
+
 v2.31 03/07/2016
 - Apparently Darth forgot something in terms of accounting :D
 
