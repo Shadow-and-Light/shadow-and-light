@@ -1,4 +1,4 @@
-v2.32
+v2.32 03/22/2016
 - Replaced old BNet API with new one
 
 v2.31 03/07/2016
