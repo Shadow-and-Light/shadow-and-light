@@ -24,7 +24,7 @@ P.sle.Armory.Character = {
 	Level = {
 		Display = 'Always', -- Always, MouseoverOnly, Hide
 		ShowUpgradeLevel = false,
-		Font = "ElvUI Font",
+		Font = "PT Sans Narrow",
 		FontSize = 10,
 		FontStyle = "OUTLINE",
 	},
@@ -33,14 +33,14 @@ P.sle.Armory.Character = {
 		Display = 'Always', -- Always, MouseoverOnly, Hide
 		WarningSize = 12,
 		WarningIconOnly = false,
-		Font = "ElvUI Font",
+		Font = "PT Sans Narrow",
 		FontSize = 8,
 		FontStyle = "OUTLINE",
 	},
 	
 	Durability = {
 		Display = 'Always', -- Always, MouseoverOnly, DamagedOnly, Hide
-		Font = "ElvUI Font",
+		Font = "PT Sans Narrow",
 		FontSize = 9,
 		FontStyle = "OUTLINE",
 	},

@@ -30,7 +30,7 @@ local function OnDemand(profile)  -- function that creates the "load on demand" 
 							["g"] = 0,
 							["r"] = 0,
 						},
-						["font"] = "ElvUI Font",
+						["font"] = "PT Sans Narrow",
 						["fontsize"] = 15,
 					},
 					["point"] = "BOTTOMRIGHT",
@@ -50,7 +50,7 @@ local function OnDemand(profile)  -- function that creates the "load on demand" 
 					["barwidth"] = 199.0832316080729,
 					["barfontsize"] = 12,
 					["mode"] = "Damage",
-					["barfont"] = "ElvUI Font",
+					["barfont"] = "PT Sans Narrow",
 				}, -- [1]
 				{
 					["barheight"] = 17,
@@ -61,7 +61,7 @@ local function OnDemand(profile)  -- function that creates the "load on demand" 
 					["set"] = "current",
 					["hidden"] = true,
 					["y"] = 39.89824908834681,
-					["barfont"] = "ElvUI Font",
+					["barfont"] = "PT Sans Narrow",
 					["name"] = "DPS",
 					["display"] = "bar",
 					["barfontflags"] = "",
@@ -96,7 +96,7 @@ local function OnDemand(profile)  -- function that creates the "load on demand" 
 					["modeincombat"] = "",
 					["title"] = {
 						["borderthickness"] = 2,
-						["font"] = "ElvUI Font",
+						["font"] = "PT Sans Narrow",
 						["fontsize"] = 15,
 						["fontflags"] = "",
 						["color"] = {

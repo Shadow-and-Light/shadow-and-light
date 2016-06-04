@@ -455,6 +455,9 @@ function LDB.OnEnter(self)
 						if player["CLIENT"] == "Hero" then
 							line = tooltip:SetCell(line, 6, "|cff82c5ffHeroes of The Storm|r")
 						end
+						if player["CLIENT"] == "Pro" then
+							line = tooltip:SetCell(line, 6, "|cffff6600Overwatch|r");
+						end
 					end
 
 					if not E.db.sle.dt.friends.hideFriendsNotes then
