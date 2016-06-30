@@ -3,6 +3,44 @@ local DTP = E:GetModule('SLE_DTPanels')
 local DT = E:GetModule('DataTexts')
 local datatexts = {}
 
+local function OrderedPairs(t, f)
+	local function orderednext(t, n)
+		local key = t[t.__next]
+		if not key then return end
+		t.__next = t.__next + 1
+		return key, t.__source[key]
+	end
+
+	local keys, kn = {__source = t, __next = 1}, 1
+	for k in pairs(t) do
+		keys[kn], kn = k, kn + 1
+	end
+	sort(keys, f)
+	return orderednext, keys
+end
+
+E.PopupDialogs['CONFIRM_DELETE_CURRENCY_CHARACTER'] = {
+	text = "Are you sure you want to delete this character",
+	button1 = YES,
+	button2 = NO,
+	OnAccept = function(self, data)
+		if ElvDB['class'][data.realm][data.name] then
+			ElvDB['class'][data.realm][data.name] = nil;
+		end
+		if ElvDB['gold'][data.realm][data.name] then
+			ElvDB['gold'][data.realm][data.name] = nil;
+		end
+		if ElvDB['faction'][data.realm][FACTION_ALLIANCE][data.name] then
+			ElvDB['faction'][data.realm][FACTION_ALLIANCE][data.name] = nil;
+		end
+		if ElvDB['faction'][data.realm][FACTION_HORDE][data.name] then
+			ElvDB['faction'][data.realm][FACTION_HORDE][data.name] = nil;
+		end
+		ReloadUI();
+	end,
+	OnCancel = E.noop;									
+}
+
 local function configTable()
 	local drop = {
 		--Group name = {short name, order, slot}
@@ -373,6 +411,28 @@ local function configTable()
 						get = function(info) return E.private['ElvUI_Currency']['Unused'] end,
 						set = function(info, value) E.private['ElvUI_Currency']['Unused'] = value; end,
 					},
+					delete = {
+						order = 12,
+						type = "select",
+						name = "Delete a character",
+						desc = "Remove a character from the stored gold values",
+						values = function()
+							local names = {};
+							for rk,_ in OrderedPairs(ElvDB['gold']) do
+								for k,_ in OrderedPairs(ElvDB['gold'][rk]) do
+									if ElvDB['gold'][rk][k] then
+										local name = ("%s-%s"):format(k, rk);
+										names[name] = name;
+									end
+								end
+							end
+							return names;
+						end,
+						set = function(info, value) 
+							local name, realm = strsplit("-", value);
+							E:StaticPopup_Show('CONFIRM_DELETE_CURRENCY_CHARACTER', nil, nil, { ["name"] = name, ["realm"] = realm });
+						end,
+					}
 				},
 			},
 			slfriends = {
