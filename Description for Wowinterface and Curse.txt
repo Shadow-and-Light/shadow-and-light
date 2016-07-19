@@ -1,5 +1,3 @@
-[color="red"][b]Please Note:[/b][/color] This addon will not function without ElvUI installed.  You can download it at [url=http://www.tukui.org/dl.php]http://www.tukui.org[/url].
-
 Shadow & Light is an external edit of ElvUI, which means it doesn't change ElvUI's files directly.
 What does this mean to you?
 It means that any time ElvUI gets updated, you will not have to worry about it overwriting our edited version of ElvUI.  It also means if we push an update it will not mess with any ElvUI files.  This addon can not be used without ElvUI installed and enabled.
@@ -22,10 +20,9 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 [*]Go afk in style with our Afk feature
 [*]Customize various texts including, Zone, Chat editbox, Mailbox
 [*]Add Coordinates on the Minimap
-[*]Show full values for Exp/Rep Bars and even full HP/MP values on the unitframe (Tags: [health:current:sl]).
+[*]Show full values for Exp/Rep Bars
 [*]Customizable background panels.
 [*]Additional datatext panels for those tha want to display more info
-[*]Balance Druid and Demonology Warlock power value text on Classbar.
 [*]Option to have S&L Handle Chat Datatext Panels to be docked below the chat windows
 [*]Customizable size of chat history stored
 [*]Customize Combat Icon position on player unitframe.
@@ -40,30 +37,16 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 [*]PvP Auto Release
 [*]Skinned Minimap buttons
 [*]Skinned Raid Marker Bar
+[*]And more!
 [/list]
 
-As of 5.2, we have included Affinitii's UI in our install process to make installing his UI a lot easier and more streamlined for people.  One thing that you will need to do manually is install his weak aura profiles as we have not included that will the install as they may change a lot through out the expansion.
-If you have questions on how to import these into weak auras, you may contact us through the ticket system or try asking in his stream located at his [url=http://twitch.tv/affinitiibl/]Twitch TV[/url] account.
-[color="#3e8ac6"][b]Affinitii's WeakAura Pastebin:[/b][/color]
-[list][url=http://pastebin.com/aWCPFXYj]Consolidated Pastebin List[/url]
-[*][url=http://pastebin.com/HuHbPA9A]Monk Bar[/url]
-[*][url=http://pastebin.com/CGjRcEmg]Monk Bar 2[/url]
-[*][url=http://pastebin.com/bF69Dfi2]Monk DPS Bar[/url]
-[*][url=http://pastebin.com/fdbHQ9n3]Chi Bar[/url]
-[*][url=http://pastebin.com/qwdnVNYe]Renewing Mist Tracker[/url]
-[*][url=http://pastebin.com/XEY3bLf9]Druid Mainbar[/url]
-[*][url=http://pastebin.com/UmFVbAC0]Paladin Bar[/url]
-[*][url=http://pastebin.com/x6RyELSW]Paladin Holy Power Bar[/url]
-[*][url=http://pastebin.com/Nt8JKhZA]Priest Bar[/url]
-[*][url=http://pastebin.com/Nt8JKhZA]Priest Rapture Tracker[/url]
-[*][url=http://pastebin.com/H4LgmpqH]Shaman Bar[/url]
-[*][url=http://pastebin.com/Q6Jfbr7s]Debuffs[/url]
-[*][url=http://pastebin.com/sKGGSxsX]Misc Bar[/url]
-[*][url=http://pastebin.com/73Hg2FRU]T14 Debuffs[/url]
-[/list]
 
 [color="#3e8ac6"][b]Skins:[/b][/color]
-[list]Boss Button Texture Removed
+[list]Additional features for ElvUI skins:
+[*]Pet Battles
+[*]Objective Tracker
+[*]Merchant
+
 [/list]
 
 [color="#3e8ac6"][b]Included Addons:[/b][/color]
