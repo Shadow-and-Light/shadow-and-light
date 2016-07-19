@@ -9,7 +9,7 @@ local darth = slePath..[[SLE_Chat_LogoD:0:2|t ]]
 local friend = slePath..[[Chat_Friend:16:16|t ]]
 local test = slePath..[[Chat_Test:16:16|t ]]
 -- local rpg = slePath..[[Chat_RPG:13:35|t]]
-local kitalie = blizzPath..[[%s:12:12:0:0:64:64:4:60:4:60|t]]
+
 local orc = blizzPath..[[Achievement_Character_Orc_Male:16:16|t ]]
 local goldicon = blizzPath..[[rame\UI-GoldIcon:12:12|t]]
 local classTable = {
@@ -136,17 +136,6 @@ SLE.SpecialChatIcons = {
 			["Repooc"] = repooc
 		},
 		["WyrmrestAccord"] = {
-			["Kìtalie"] = format(kitalie,"inv_cloth_challengewarlock_d_01helm"),
-			["Sagome"] = format(kitalie,"inv_helm_leather_challengemonk_d_01"),
-			["Sortokk"] = format(kitalie,"inv_helm_plate_challengedeathknight_d_01"),
-			["Norinael"] = format(kitalie,"inv_helmet_plate_challengepaladin_d_01"),
-			["Shalerie"] = format(kitalie,"inv_helm_cloth_challengemage_d_01"),
-			["Chalini"] = format(kitalie,"inv_helmet_mail_challengeshaman_d_01"),
-			["Marittie"] = format(kitalie,"inv_helmet_leather_challengerogue_d_01"),
-			["Lieliline"] = format(kitalie,"inv_helmet_cloth_challengepriest_d_01"),
-			["Varysa"] = format(kitalie,"inv_helmet_mail_challengehunter_d_01"),
-			["Kaelleigh"] = format(kitalie,"inv_helm_plate_challengewarrior_d_01"),
-			["Syralea"] = format(kitalie,"inv_helmet_challengedruid_d_01"),
 			["Dapooc"] = repooc,
 		},
 		["Andorhal"] = {
