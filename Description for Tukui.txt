@@ -1,9 +1,5 @@
 <center><img src='http://www.tukui.org/storage/images/379422DaBanner.png'></center>
 
-<font color="red"><b>Please Note:</b></font> This addon will not function without ElvUI installed.  You can download it at <a href="http://www.tukui.org/dl.php">http://www.tukui.org</a>.
-
-<font color="red"><b>Please Note 2:</b></font> When updating from a version for patch 5.4.8 or older it will be a good idea to delede S&L from your addon folder and reinstall it.
-
 Shadow & Light is an external edit of ElvUI, which means it doesn't change ElvUI's files directly.
 What does this mean to you?
 It means that any time ElvUI gets updated, you will not have to worry about it overwriting our edited version of ElvUI.  It also means if we push an update it will not mess with any ElvUI files.  This addon can not be used without ElvUI installed and enabled.
@@ -24,10 +20,9 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 - Go afk in style with our Afk feature
 - Customize various texts including, Zone, Chat editbox, Mailbox
 - Add Coordinates on the Minimap
-- Show full values for Exp/Rep Bars and even full HP/MP values on the unitframe (Tags: [health:current:sl]).
+- Show full values for Exp/Rep Bars.
 - Customizable background panels.
 - Additional datatext panels for those tha want to display more info
-- Balance Druid and Demonology Warlock power value text on Classbar.
 - Option to have S&L Handle Chat Datatext Panels to be docked below the chat windows
 - Customizable size of chat history stored
 - Customize Combat Icon position on player unitframe.
@@ -43,29 +38,13 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 - Skinned Minimap buttons
 - Skinned Raid Marker Bar
 
-<center><h1><font color="#3e8ac6"><b>Affinitii's UI Now Available</b></font></h1></center>
-As of 5.2, we have included Affinitii's UI in our install process to make installing his UI a lot easier and more streamlined for people.  One thing that you will need to do manually is install his weak aura profiles as we have not included that will the install as they may change a lot through out the expansion.
-If you have questions on how to import these into weak auras, you may contact us through the ticket system or try asking in his stream located at his <a href="http://twitch.tv/affinitiibl/">Twitch TV</a> account.
-
-<font color="#3e8ac6"><b>Affinitii's WeakAura Pastebin:</b></font>
-- <a href="http://pastebin.com/aWCPFXYj">Consolidated Pastebin List</a>
-- <a href="http://pastebin.com/HuHbPA9A">Monk Bar</a>
-- <a href="http://pastebin.com/CGjRcEmg">Monk Bar 2</a>
-- <a href="http://pastebin.com/bF69Dfi2">Monk DPS Bar</a>
-- <a href="http://pastebin.com/fdbHQ9n3">Chi Bar</a>
-- <a href="http://pastebin.com/qwdnVNYe">Renewing Mist Tracker</a>
-- <a href="http://pastebin.com/XEY3bLf9">Druid Mainbar</a>
-- <a href="http://pastebin.com/UmFVbAC0">Paladin Bar</a>
-- <a href="http://pastebin.com/x6RyELSW">Paladin Holy Power Bar</a>
-- <a href="http://pastebin.com/Nt8JKhZA">Priest Bar</a>
-- <a href="http://pastebin.com/Nt8JKhZA">Priest Rapture Tracker</a>
-- <a href="http://pastebin.com/H4LgmpqH">Shaman Bar</a>
-- <a href="http://pastebin.com/Q6Jfbr7s">Debuffs</a>
-- <a href="http://pastebin.com/sKGGSxsX">Misc Bar</a>
-- <a href="http://pastebin.com/73Hg2FRU">T14 Debuffs</a>
+And a lot more
 
 <font color="#3e8ac6"><b>Skins:</b></font>
-- Boss Button Texture Removed
+Additional features for ElvUI skins:
+- Pet Battles
+- Objective Tracker
+- Merchant
 
 <font color="#3e8ac6"><b>Included Addons:</b></font>
 (if you have any of those the I'd recommend to disable them)
@@ -86,37 +65,3 @@ Information to provide when posting:
 5.) Detailed description of the issue on when it happens, how it happens, whatever you did to reproduce it.
 6.) Just to be clear, Disable ALL Addons except for ElvUI and Shadow & Light</blockquote>
 With that said, happy gaming and enjoy the addon!
-
-<table width="100%">
-<tr><td align="center" colspan="2">
-<font color="#3e8ac6"><b>Repooc's Layout</b></font></td></tr>
-<tr><td align="center">Tank/Dps Layout
-<a href="http://www.tukui.org/storage/images/540914Repooc-DPSLayout.png" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/540914Repooc-DPSLayout.png" ></a>
-</td>
-<td align="center">Healer Layout
-<a href="http://www.tukui.org/storage/images/238390Repooc-HealerLayout.png" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/238390Repooc-HealerLayout.png"></a>
-</td></tr>
-<tr><td align="center" colspan="2">
-<font color="#3e8ac6"><b>Darth Predator's Layout</b></font></td></tr>
-<tr><td align="center"> Caster 
-<a href="http://www.tukui.org/storage/images/78827WoWScrnShot_120114_211122.jpg" rel="lightbox[roadtrip]">
-<img src="http://www.tukui.org/storage/thumbs/78827WoWScrnShot_120114_211122.jpg"></a>
-</td>
-<td align="center"> Physical DPS 
-<a href="http://www.tukui.org/storage/images/83015WoWScrnShot_120114_212723.jpg" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/83015WoWScrnShot_120114_212723.jpg"></a>
-</td></tr>
-<tr><td align="center"> Tank 
-<a href="http://www.tukui.org/storage/images/93983WoWScrnShot_120114_220156.jpg" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/93983WoWScrnShot_120114_220156.jpg"></a>
-</td>
-<td align="center"> Healer 
-<a href="http://www.tukui.org/storage/images/558982WoWScrnShot_120114_214424.jpg" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/558982WoWScrnShot_120114_214424.jpg"></a>
-</td></tr>
-<tr><td align="center" colspan="2">
-<font color="#3e8ac6"><b>Affinitii's Layout</b></font></td></tr>
-<tr><td align="center">Tank/Dps Layout
-<a href="http://www.tukui.org/storage/images/196539Affinitii-DPSLayout.png" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/196539Affinitii-DPSLayout.png"></a>
-</td>
-<td align="center">Healer Layout
-<a href="http://www.tukui.org/storage/images/766034Affinitii-HealerLayout.png" rel="lightbox[roadtrip]"><img src="http://www.tukui.org/storage/thumbs/766034Affinitii-HealerLayout.png"></a>
-</td></tr>
-</table>
