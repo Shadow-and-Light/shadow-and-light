@@ -1,3 +1,72 @@
+v3.0
+Overall reconfiguration of options. We would recommend to start with a fresh clean install for this one.
+Repooc's install layouts are not available at the moment
+This version is nowhere near being fully completed. More stuff comes.
+
+Additions:
+- Some config groups will now be disabled if required ElvUI modules are not enabled.
+- Messages for honorable kills and honor gained can now be formatted in several ways
+- Experience gained text can now be formatted to look nicer
+- Reputation text can now be formatted to look nicer.
+- Option to show ALL possible factions standing change for the action: like having all faction races reputation increased on gaining rep with only one of them.
+- Tooltip group now has an option to always compare items
+- You can now justify text in chat (separate for each chat window)
+- Loot section now has an option to show icons near item links in selected chat channels
+- Added the ability to auto cancel selected types of duels
+- A new option to make a lot of blizzard frames movable
+- New section for profession specific stuff
+- Ability to have a button to apply enchant to the scroll
+- Option for deconstruction mode - DE, mill, prospect and pick lock in one click in your bags
+- Ability to unlock boxes in trade window (decinstruction mode should be enabled)
+- Ability to cast fising with a double click on the screen
+- Added the ability to move out of range indication to keybind text instead of coloring the entire button
+- Added the ability to have "highlight texture" on the button for spells that require to choose location
+- Added the option to automatically select quest reward with highest selling price
+- Party and Raid frames now can have and indicator on players who are offline
+- An option to increase the number of lines stored in chat
+- An option for raid progression in tooltip
+- Options for deiiferent textures on powerbar, aurabars, classbar and castbar
+- More options for combat indicator
+- Datatext panels now have option to show on mouseover (we advise to not use datatext with icons on them with mouseover tho)
+- Bags now have an option for transparent slot template
+- Actionbars now have optios for transparent backgrounds and buttons.
+- Added an option for selecet chat tab indicator
+- Added an option for viewport (if you don't know wtf is that, you probably don't need it)
+- Added an option for selecting which chat channels to store in history
+- Added an option to change the size of chat history
+- Added an option to control rested icon on player frame
+- Added an option to change fonts for objective tracker
+- Added an option to change the color of header text in objectie tracker
+- Added an option to allow additional skinning for objective tracker
+- Added advanced options toggler
+- Added options to have S&L buttons in game menu
+- Added an option to show your killing blows as a boss banner in pvp
+- Added location panel looking exactly like LocationLite
+- Added additional skin options for merchant frame. Not you can have 10+ items on a page.
+- Added an option to alter unitframes and actionbars spacing limits
+- Added an option to scale vehicle seat indicator
+- Added an option to make overlay portraits visible regardles of helath level, also their alpha can now be customized
+- Added hearthstone/portals dropdown to location panel
+- Added an option to remove people from gold datatexts one by one
+- Added an option to slightly resize health prediction bars. You'll not notice the difference in most cases.
+Fixes:
+- Fixed veicle bar not hiding actionbar 1
+Changes:
+- AFK screensaver now doesn't replace ElvUI's one but instead enhances it with a number of customization options. You will find those in /ec -> Shadow & Light -> AFK Mode
+- PvP autorelease function now has the option to not check for rebirth mechanic such as Reincarnation and SoulStone
+- Additional datatext panels had names changed and the code redisinged overall.
+- Backgrounds had their names changed to be numerical instead of arbitrary "Action BG"
+- Currency dataext's settings are now profile based and not character based.
+- Farm and Garrison modules moved into new legacy config group.
+- Movers for a lot of elements will not be visible when respective elements are disabled
+- More textures
+- Removed old tags, added a couple of new ones (absorbs:sl-short, absorbs:sl-full)
+Misc:
+- Some texts should finally be translated (blame Repooc for not including them like 2 years ago)
+- Ashran should now be detected as open world pvp area by autorelease code (if anyone still cares bout that place)
+- Russian specific chat commands cause to hell with languadge switching
+- Stolen BenikUI's one pixel statusbar texture
+
 v2.32 03/22/2016
 - Replaced old BNet API with new one
 
