@@ -1,10 +1,9 @@
-﻿## Interface: 60200
+﻿## Interface: 70000
 ## Title: |cff1784d1ElvUI|r |cff9482c9Shadow & Light|r
 ## Author: Darth Predator, Repooc
-## Version: 2.32
-## Notes: Plugin-edit for |cff1784d1ElvUI|r.
-## Notes-ruRU: Плагин-редакция для |cff1784d1ElvUI|r.
-## eMail: darthpred@gmail.com, repooc@tukui.org
+## Version: 3.00
+## Notes: Plugin-edit for |cff1784d1ElvUI|r implementing additional features.
+## Notes-ruRU: Плагин-редакция для |cff1784d1ElvUI|r, добавляющий новые функции.
 ## URL: http://tukui.org/ 
 ## RequiredDeps: ElvUI
 ## OptionalDeps: AddonSkins, BigWigs, Clique, Hermes, xCT+
@@ -12,14 +11,15 @@
 ## X-ElvVersion: 8.26
 ## SavedVariables: SLE_ArmoryDB
 
+
 libs\load_libs.xml
 locales\load_locales.xml
 media\load_media.xml
 core\load_core.xml
 defaults\load_defaults.xml
 modules\load_modules.xml
-options\load_options.xml
 skins\load_skins.xml
+options\load_options.xml
 Bindings.xml
  
  

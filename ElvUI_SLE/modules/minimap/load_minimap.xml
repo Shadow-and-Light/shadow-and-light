@@ -2,4 +2,5 @@
 	<Script file='minimapcoords.lua'/>
 	<Script file='minimapicons.lua'/>
 	<Script file='instance.lua'/>
+	<Script file='locationbar.lua'/>
 </Ui>

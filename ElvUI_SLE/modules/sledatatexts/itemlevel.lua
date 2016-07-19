@@ -1,10 +1,11 @@
-local E, L, V, P, G = unpack(ElvUI)
+local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
 local DT = E:GetModule('DataTexts')
-
+local HEADSLOT, NECKSLOT, SHOULDERSLOT, BACKSLOT, CHESTSLOT, WRISTSLOT, HANDSSLOT, WAISTSLOT, LEGSSLOT, FEETSLOT, FINGER0SLOT_UNIQUE, FINGER1SLOT_UNIQUE, TRINKET0SLOT_UNIQUE, TRINKET1SLOT_UNIQUE, MAINHANDSLOT, SECONDARYHANDSLOT = HEADSLOT, NECKSLOT, SHOULDERSLOT, BACKSLOT, CHESTSLOT, WRISTSLOT, HANDSSLOT, WAISTSLOT, LEGSSLOT, FEETSLOT, FINGER0SLOT_UNIQUE, FINGER1SLOT_UNIQUE, TRINKET0SLOT_UNIQUE, TRINKET1SLOT_UNIQUE, MAINHANDSLOT, SECONDARYHANDSLOT
 local displayString = ''
 local lastPanel
-local floor = floor
-local GetInventoryItemLink, GetInventorySlotInfo = GetInventoryItemLink, GetInventorySlotInfo
+local ITEM_LEVEL_ABBR = ITEM_LEVEL_ABBR
+local GMSURVEYRATING3 = GMSURVEYRATING3
+local TOTAL = TOTAL
 
 local slots = {
 	[1] = { "HeadSlot", HEADSLOT },
@@ -183,23 +184,35 @@ local heirlooms = {
 		105692, --Hellscream's Decapitator (Heroic)
 		105693, --Hellscream's Shield Wall (Heroic)
 	},
+	[100] = {
+		133585, --Judgment of the Naaru
+		133595, --Gronntooth War Horn
+		133596, --Orb of Voidsight
+		133597, --Infallible Tracking Charm
+		133598, --Purified Shard of the Third Moon
+	},
 }
 
 local function HeirLoomLevel(itemLink)
-	local ItemID, _, _, _, _, _, _, _, level = strmatch(itemLink, '|Hitem:(%d+):(%d+):(%d+):(%d+):(%d+):(%d+):(%d+):(%d+):(%d+)')
-	ItemID, level = tonumber(ItemID), tonumber(level)
-	for _, ID in pairs(heirlooms[90]) do
+	local ItemID, _, _, _, _, _, _, _, level = T.match(itemLink, '|Hitem:(%d+):(%d*):(%d*):(%d*):(%d*):(%d*):(%d*):(%d*):(%d*)')
+	ItemID, level = T.tonumber(ItemID), T.tonumber(level)
+	for _, ID in pairs(heirlooms[100]) do
 		if ID == ItemID then
-			return select(4, GetItemInfo(itemLink))
+			return (715 + (10 * (level - 100)));
 		end
 	end
-	for _, ID in pairs(heirlooms[85]) do
+	for _, ID in T.pairs(heirlooms[90]) do
+		if ID == ItemID then
+			return T.select(4, T.GetItemInfo(itemLink))
+		end
+	end
+	for _, ID in T.pairs(heirlooms[85]) do
 		if ID == ItemID and level > 85 then
 			level = 85
 			break
 		end
 	end
-	for _, ID in pairs(heirlooms[80]) do
+	for _, ID in T.pairs(heirlooms[80]) do
 		if ID == ItemID and level > 80 then
 			level = 80
 			break
@@ -217,12 +230,26 @@ local function HeirLoomLevel(itemLink)
 	end
 end
 
+local function ArtifactLevel(itemLink)
+	local itemLevel = select(4, T.GetItemInfo(itemLink));
+	for i = 1, 3 do
+		local relicLink = select(4, C_ArtifactUI.GetEquippedArtifactRelicInfo(i));
+		if (relicLink and T.match(relicLink, "item:")) then
+			itemLevel = itemLevel + C_ArtifactUI.GetItemLevelIncreaseProvidedByRelic(relicLink);
+		end
+	end
+
+	return itemLevel;
+end
+
 local function GetItemLevel(itemLink)
-	local rarity, itemLevel = select(3, GetItemInfo(itemLink))
-	if rarity == 7 then
+	local rarity, itemLevel = T.select(3, T.GetItemInfo(itemLink))
+	if rarity == 6 then
+		itemLevel = ArtifactLevel(itemLink);
+	elseif rarity == 7 then
 		itemLevel = HeirLoomLevel(itemLink)
 	end
-	local upgrade = strmatch(itemLink, ":(%d+)\124h%[")
+	local upgrade = T.match(itemLink, ":(%d+)\124h%[")
 	if itemLevel and upgrade and levelAdjust[upgrade] then
 		itemLevel = itemLevel + levelAdjust[upgrade]
 	end
@@ -230,19 +257,19 @@ local function GetItemLevel(itemLink)
 end
 
 local function OnEvent(self)
-	self.avgItemLevel, self.avgEquipItemLevel = GetAverageItemLevel()
-	self.text:SetFormattedText(displayString, ITEM_LEVEL_ABBR, floor(self.avgEquipItemLevel), floor(self.avgItemLevel))
+	self.avgItemLevel, self.avgEquipItemLevel = T.GetAverageItemLevel()
+	self.text:SetFormattedText(displayString, ITEM_LEVEL_ABBR, T.floor(self.avgEquipItemLevel), T.floor(self.avgItemLevel))
 end
 
 local function OnEnter(self)
 	local avgItemLevel, avgEquipItemLevel = self.avgItemLevel, self.avgEquipItemLevel
-
+	local itemLevel
 	DT:SetupTooltip(self)
-	DT.tooltip:AddDoubleLine(TOTAL, floor(avgItemLevel), 1, 1, 1, 0, 1, 0)
-	DT.tooltip:AddDoubleLine(GMSURVEYRATING3, floor(avgEquipItemLevel), 1, 1, 1, 0, 1, 0)
+	DT.tooltip:AddDoubleLine(TOTAL, T.floor(avgItemLevel), 1, 1, 1, 0, 1, 0)
+	DT.tooltip:AddDoubleLine(GMSURVEYRATING3, T.floor(avgEquipItemLevel), 1, 1, 1, 0, 1, 0)
 	DT.tooltip:AddLine(" ")
 	for i = 1, 16 do
-		local itemLink = GetInventoryItemLink("player", GetInventorySlotInfo(slots[i][1]))
+		local itemLink = T.GetInventoryItemLink("player", T.GetInventorySlotInfo(slots[i][1]))
 		if itemLink then
 			itemLevel = GetItemLevel(itemLink)
 			if itemLevel and avgEquipItemLevel then
@@ -255,7 +282,7 @@ local function OnEnter(self)
 end
 
 local function ValueColorUpdate(hex, r, g, b)
-	displayString = string.join("", "|cffffffff%s:|r", " ", hex, "%d / %d|r")
+	displayString = T.join("", "|cffffffff%s:|r", " ", hex, "%d / %d|r")
 	if lastPanel ~= nil then OnEvent(lastPanel) end
 end
 E["valueColorUpdateFuncs"][ValueColorUpdate] = true

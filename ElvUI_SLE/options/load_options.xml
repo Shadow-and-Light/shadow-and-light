@@ -1,30 +1,39 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
+	<!--Core-->
 	<Script file='core_c.lua'/>
+	<Script file='skins_c.lua'/>
+	<Script file='misc_c.lua'/>
+	<Script file='legacy_c.lua'/>
+	<Script file='afk_c.lua'/>
+	<Script file='unitframes_c.lua'/>
+	<Script file='professions_c.lua'/>
+	<Include file='chat\load_chat.xml'/>
+	<Include file='minimap\load_minimap.xml'/>
+	<Include file='datatexts\load_datatexts.xml'/>
+	
+	<Script file='actionbars_c.lua'/>
+	<Script file='blizzard_c.lua'/>
 	<Script file='help_c.lua'/>
 	<Script file='media_c.lua'/>
 	<Script file='auras_c.lua'/>
 	<Script file='bags_c.lua'/>
-	<Script file='autorelease_c.lua'/>
-	<Script file='datatexts_c.lua'/>
+	<Script file='pvp_c.lua'/>
 	<Script file='backgrounds_c.lua'/>
-	<Script file='chat_c.lua'/>
 	<Script file='bags_c.lua'/>
 	<Script file='equipmanager_c.lua'/>
-	<Script file='exprepbar_c.lua'/>
 	<Script file='farm_c.lua'/>
 	<Script file='garrison_c.lua'/>
 	<Script file='imports_c.lua'/>
 	<Script file='loot_c.lua'/>
-	<Script file='minimap_c.lua'/>
 	<Script file='nameplates_c.lua'/>
 	<Script file='raidmarkers_c.lua'/>
 	<Script file='raidutility_c.lua'/>
 	<Script file='threat_c.lua'/>
 	<Script file='tooltip_c.lua'/>
 	<Script file='uibuttons_c.lua'/>
-	<Script file='unitframes_c.lua'/>
 	<Script file='vehicle_c.lua'/>
-	<Script file='errorframe_c.lua'/>
+	<Script file='databars_c.lua'/>
 	<Script file='quests_c.lua'/>
 	<Script file='raidroleicons_c.lua'/>
+	<Script file='viewport_c.lua'/>
 </Ui>

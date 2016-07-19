@@ -1,5 +1,5 @@
-﻿local E, L, V, P, G = unpack(ElvUI); 
-local UB = E:GetModule('SLE_UIButtons')
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local UB = SLE:GetModule('UIButtons')
 
 local positionValues = {
 	TOPLEFT = 'TOPLEFT',
@@ -14,11 +14,12 @@ local positionValues = {
 };
 
 local function configTable()
+	if not SLE.initialized then return end
 	local Bar = UB.Holder
-	E.Options.args.sle.args.options.args.general.args.uibuttons = {
+	E.Options.args.sle.args.modules.args.uibuttons = {
 		type = "group",
 		name = L["UI Buttons"],
-		order = 77,
+		order = 21,
 		args = {
 			header = {
 				order = 1,
@@ -33,7 +34,7 @@ local function configTable()
 			enabled = {
 				order = 3,
 				type = "toggle",
-				name = ENABLE,
+				name = L["Enable"],
 				desc = L["Show/Hide UI buttons."],
 				get = function(info) return E.db.sle.uibuttons.enable end,
 				set = function(info, value) E.db.sle.uibuttons.enable = value; Bar:ToggleShow() end
@@ -43,8 +44,8 @@ local function configTable()
 				name = L["UI Buttons Style"],
 				type = "select",
 				values = {
-					["classic"] = L['Classic'],
-					["dropdown"] = L['Dropdown'],
+					["classic"] = L["Classic"],
+					["dropdown"] = L["Dropdown"],
 				},
 				disabled = function() return not E.db.sle.uibuttons.enable end,
 				get = function(info) return E.private.sle.uiButtonStyle end,
@@ -58,7 +59,7 @@ local function configTable()
 			size = {
 				order = 6,
 				type = "range",
-				name = L['Size'],
+				name = L["Size"],
 				desc = L["Sets size of buttons"],
 				min = 12, max = 25, step = 1,
 				disabled = function() return not E.db.sle.uibuttons.enable end,
@@ -68,9 +69,9 @@ local function configTable()
 			spacing = {
 				order = 7,
 				type = "range",
-				name = L['Button Spacing'],
-				desc = L['The spacing between buttons.'],
-				min = 1, max = 10, step = 1,
+				name = L["Button Spacing"],
+				desc = L["The spacing between buttons."],
+				min = -4, max = 10, step = 1,
 				disabled = function() return not E.db.sle.uibuttons.enable end,
 				get = function(info) return E.db.sle.uibuttons.spacing end,
 				set = function(info, value) E.db.sle.uibuttons.spacing = value; Bar:FrameSize() end,
@@ -106,8 +107,8 @@ local function configTable()
 				desc = L["Layout for UI buttons."],
 				type = "select",
 				values = {
-					["horizontal"] = L['Horizontal'],
-					["vertical"] = L['Vertical'],
+					["horizontal"] = L["Horizontal"],
+					["vertical"] = L["Vertical"],
 				},
 				disabled = function() return not E.db.sle.uibuttons.enable end,
 				get = function(info) return E.db.sle.uibuttons.orientation end,
@@ -116,27 +117,27 @@ local function configTable()
 			point = {
 				type = 'select',
 				order = 13,
-				name = L['Anchor Point'],
-				desc = L['What point of dropdown will be attached to the toggle button.'],
+				name = L["Anchor Point"],
+				desc = L["What point of dropdown will be attached to the toggle button."],
 				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.point end,
 				set = function(info, value) E.db.sle.uibuttons.point = value; Bar:FrameSize() end,
-				values = positionValues,				
+				values = positionValues,
 			},
 			anchor = {
 				type = 'select',
 				order = 14,
-				name = L['Attach To'],
-				desc = L['What point to anchor dropdown on the toggle button.'],
+				name = L["Attach To"],
+				desc = L["What point to anchor dropdown on the toggle button."],
 				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.anchor end,
 				set = function(info, value) E.db.sle.uibuttons.anchor = value; Bar:FrameSize() end,
-				values = positionValues,				
+				values = positionValues,
 			},
 			xoffset = {
 				order = 15,
 				type = "range",
-				name = L['X-Offset'],
+				name = L["X-Offset"],
 				desc = L["Horizontal offset of dropdown from the toggle button."],
 				min = -10, max = 10, step = 1,
 				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
@@ -146,7 +147,7 @@ local function configTable()
 			yoffset = {
 				order = 16,
 				type = "range",
-				name = L['Y-Offset'],
+				name = L["Y-Offset"],
 				desc = L["Vertical offset of dropdown from the toggle button."],
 				min = -10, max = 10, step = 1,
 				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
@@ -181,7 +182,7 @@ local function configTable()
 					enabled = {
 						order = 1,
 						type = "toggle",
-						name = ENABLE,
+						name = L["Enable"],
 						desc = L["Use quick access (on right click) for this button."],
 						get = function(info) return E.db.sle.uibuttons.Config.enable end,
 						set = function(info, value) E.db.sle.uibuttons.Config.enable = value end
@@ -212,7 +213,7 @@ local function configTable()
 					enabled = {
 						order = 1,
 						type = "toggle",
-						name = ENABLE,
+						name = L["Enable"],
 						desc = L["Use quick access (on right click) for this button."],
 						get = function(info) return E.db.sle.uibuttons.Addon.enable end,
 						set = function(info, value) E.db.sle.uibuttons.Addon.enable = value end
@@ -241,7 +242,7 @@ local function configTable()
 					enabled = {
 						order = 1,
 						type = "toggle",
-						name = ENABLE,
+						name = L["Enable"],
 						desc = L["Use quick access (on right click) for this button."],
 						get = function(info) return E.db.sle.uibuttons.Status.enable end,
 						set = function(info, value) E.db.sle.uibuttons.Status.enable = value end
@@ -270,7 +271,7 @@ local function configTable()
 					enabled = {
 						order = 1,
 						type = "toggle",
-						name = ENABLE,
+						name = L["Enable"],
 						desc = L["Use quick access (on right click) for this button."],
 						get = function(info) return E.db.sle.uibuttons.Roll.enable end,
 						set = function(info, value) E.db.sle.uibuttons.Roll.enable = value end
@@ -298,4 +299,4 @@ local function configTable()
 	}
 end
 
-table.insert(E.SLEConfigs, configTable)
+T.tinsert(SLE.Configs, configTable)

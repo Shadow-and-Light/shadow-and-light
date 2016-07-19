@@ -1,11 +1,12 @@
-local E, L, V, P, G = unpack(ElvUI);
-local SLE = E:GetModule('SLE')
-local B = E:GetModule("SLE_BlizzRaid")
-local GetNumGroupMembers, IsInGroup, IsInRaid = GetNumGroupMembers, IsInGroup, IsInRaid
-local PLAYER_REALM = gsub(E.myrealm,'[%s%-]','')
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local B = SLE:NewModule("BlizzRaid", 'AceEvent-3.0')
+local PLAYER_REALM = T.gsub(E.myrealm,'[%s%-]','')
+local _G = _G
 
 function B:CreateAndUpdateIcons()
-	local members = GetNumGroupMembers()
+	if not SLE.initialized then return end
+	local RaiseFrameLevel = RaiseFrameLevel
+	local members = T.GetNumGroupMembers()
 	for i = 1, members do
 		local frame = _G["RaidGroupButton"..i]
 		if (frame and not frame.subframes) or not E.db.sle.raidmanager then E:Delay(1, B.CreateAndUpdateIcons); return end
@@ -24,13 +25,13 @@ function B:CreateAndUpdateIcons()
 			frame.sleicon.texture:SetAllPoints(frame.sleicon)
 		end
 		frame.sleicon:SetPoint("RIGHT", parent, "LEFT", 2, 0)
-		local unit = IsInRaid() and "raid" or "party"
-		local role = UnitGroupRolesAssigned(unit..i)
-		local name, realm = UnitName(unit..i)
+		local unit = T.IsInRaid() and "raid" or "party"
+		local role = T.UnitGroupRolesAssigned(unit..i)
+		local name, realm = T.UnitName(unit..i)
 		local texture = ""
-		if (role and role ~= "NONE") and name and E.db.sle.roleicons and E.db.sle.raidmanager.roles then
+		if (role and role ~= "NONE") and name and E.db.sle.unitframes.roleicons and E.db.sle.raidmanager.roles then
 			name = (realm and realm ~= '') and name..'-'..realm or name ..'-'..PLAYER_REALM;
-			texture = SLE.rolePaths[E.db.sle.roleicons][role]
+			texture = SLE.rolePaths[E.db.sle.unitframes.roleicons][role]
 		end
 		frame.sleicon.texture:SetTexture(texture)
 	end
@@ -44,7 +45,12 @@ function B:RaidLoaded(event, addon)
 	end
 end
 
-if not SLE.oraenabled then
+if not SLE._Compatibility["oRA3"] then
 	B:RegisterEvent("ADDON_LOADED", "RaidLoaded")
 end
 
+function B:Initialize()
+	if not SLE.initialized then return end
+end
+
+SLE:RegisterModule(B:GetName())

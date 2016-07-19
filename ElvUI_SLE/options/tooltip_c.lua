@@ -1,8 +1,10 @@
-local E, L, V, P, G = unpack(ElvUI);
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local RP = SLE:GetModule("RaidProgress")
 
 local function configTable()
-	E.Options.args.sle.args.options.args.general.args.tooltip = {
-		order = 66,
+	if not SLE.initialized then return end
+	E.Options.args.sle.args.modules.args.tooltip = {
+		order = 20,
 		type = "group",
 		get = function(info) return E.db.sle.tooltip[ info[#info] ] end,
 		name = L["Tooltip"],
@@ -12,11 +14,6 @@ local function configTable()
 				type = "header",
 				name = L["Tooltip"],
 			},
-			--[[intro = {
-				order = 2,
-				type = 'description',
-				name = L["Tooltip enhancements"],
-			},]]
 			space1 = {
 				order = 4,
 				type = 'description',
@@ -28,19 +25,22 @@ local function configTable()
 				name = L["Faction Icon"],
 				desc = L["Show faction icon to the left of player's name on tooltip."],
 				disabled = function() return not E.private.tooltip.enable end,
-				--get = function(info) return E.db.sle.tooltip.showFaction end,
 				set = function(info, value) E.db.sle.tooltip.showFaction = value end,
 			},
-			space2 = {
+			alwaysCompareItems = {
 				order = 6,
-				type = 'description',
-				name = "",
+				type = 'toggle',
+				name = L["Always Compare Items"],
+				-- desc = L["Show faction icon to the left of player's name on tooltip."],
+				disabled = function() return not E.private.tooltip.enable end,
+				set = function(info, value) E.db.sle.tooltip.alwaysCompareItems = value; SLE:SetCompareItems() end,
 			},
 			offset = {
 				type = "group",
 				name = L["Tooltip Cursor Offset"],
 				order = 7,
 				guiInline = true,
+				set = function(info, value) E.db.sle.tooltip[ info[#info] ] = value end,
 				disabled = function() return not E.private.tooltip.enable or not E.db.tooltip.cursorAnchor end,
 				args = {
 					intro = {
@@ -59,8 +59,6 @@ local function configTable()
 						name = L["Tooltip X-offset"],
 						desc = L["Offset the tooltip on the X-axis."],
 						min = -200, max = 200, step = 1,
-						--get = function(info) return E.db.sle.tooltip.xOffset end,
-						set = function(info, value) E.db.sle.tooltip[ info[#info] ] = value end,
 					},
 					yOffset = {
 						order = 32,
@@ -68,8 +66,43 @@ local function configTable()
 						name = L["Tooltip Y-offset"],
 						desc = L["Offset the tooltip on the Y-axis."],
 						min = -200, max = 200, step = 1,
-						--get = function(info) return E.db.sle.tooltip.yOffset
-						set = function(info, value) E.db.sle.tooltip[ info[#info] ] = value end,
+					},
+				},
+			},
+			RaidProg = {
+				type = "group",
+				name = L["Raid Progression"],
+				order = 12,
+				guiInline = true,
+				get = function(info) return E.db.sle.tooltip.RaidProg[ info[#info] ] end,
+				set = function(info, value) E.db.sle.tooltip.RaidProg[ info[#info] ] = value end,
+				disabled = function() return not E.private.tooltip.enable end,
+				args = {
+					enable = {
+						order = 1,
+						type = 'toggle',
+						name = L["Enable"],
+						desc = L["Show raid experience of character in tooltip (requires holding shift)."],
+					},
+					NameStyle = {
+						order = 2,
+						name = L["Name Style"],
+						type = "select",
+						set = function(info, value) E.db.sle.tooltip.RaidProg[ info[#info] ] = value; T.twipe(RP.Cache) end,
+						values = {
+							["LONG"] = L["Full"],
+							["SHORT"] = L["Short"],
+						},
+					},
+					DifStyle = {
+						order = 3,
+						name = L["Difficulty Style"],
+						type = "select",
+						set = function(info, value) E.db.sle.tooltip.RaidProg[ info[#info] ] = value; T.twipe(RP.Cache) end,
+						values = {
+							["LONG"] = L["Full"],
+							["SHORT"] = L["Short"],
+						},
 					},
 				},
 			},
@@ -77,4 +110,4 @@ local function configTable()
 	}
 end
 
-table.insert(E.SLEConfigs, configTable)
+T.tinsert(SLE.Configs, configTable)

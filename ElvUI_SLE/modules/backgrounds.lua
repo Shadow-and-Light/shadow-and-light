@@ -1,119 +1,92 @@
-﻿local E, L, V, P, G = unpack(ElvUI);
-local BG = E:GetModule('SLE_BackGrounds');
-
-local BGb, BGl, BGr, BGa, Fr
-
---Frames setup
-local function CreateFrames()
-	BGb = CreateFrame('Frame', "BottomBG", E.UIParent);
-	BGl = CreateFrame('Frame', "LeftBG", E.UIParent);
-	BGr = CreateFrame('Frame', "RightBG", E.UIParent);
-	BGa = CreateFrame('Frame', "ActionBG", E.UIParent);
-
-	Fr = {
-		BottomBG = {BGb,"bottom"},
-		LeftBG = {BGl,"left"},
-		RightBG = {BGr,"right"},
-		ActionBG = {BGa,"action"},
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local BG = SLE:NewModule('Backgrounds', 'AceHook-3.0');
+local CreateFrame = CreateFrame
+BG.pos = {
+		[1] = {"BOTTOM", "BOTTOM", 0, 21},
+		[2] = {"BOTTOMRIGHT", "BOTTOM", -((E.eyefinity or E.screenwidth)/4 + 32)/2 - 1, 21, 21},
+		[3] = {"BOTTOMLEFT", "BOTTOM", ((E.eyefinity or E.screenwidth)/4 + 32)/2 + 1, 21},
+		[4] = {"BOTTOM", "BOTTOM", 0, E.screenheight/6 + 9},
 	}
 
-	for _,v in pairs(Fr) do
-		v[1]:SetFrameLevel(v[1]:GetFrameLevel() - 1)
-		v[1]:SetScript("OnShow", function() v[1]:SetFrameStrata('BACKGROUND') end)
-		v[1].tex = v[1]:CreateTexture(nil, 'OVERLAY')
-		v[1]:Hide()
-	end
+function BG:CreateFrame(i)
+	local frame = CreateFrame("Frame", "SLE_BG_"..i, E.UIParent)
+	frame:SetFrameStrata("BACKGROUND")
+	frame.texture = frame:CreateTexture(nil, 'OVERLAY')
+	frame.texture:Point('TOPLEFT', frame, 'TOPLEFT', 2, -2)
+	frame.texture:Point('BOTTOMRIGHT', frame, 'BOTTOMRIGHT', -2, 2)
+	frame:Hide()
 
-	BGb.tex:SetAlpha(E.db.general.backdropfadecolor.a or 0.5) 
-	BGl.tex:SetAlpha(E.db.general.backdropfadecolor.a or 0.5)
-	BGr.tex:SetAlpha(E.db.general.backdropfadecolor.a or 0.5)	
-	BGa.tex:SetAlpha(E.db.general.backdropfadecolor.a or 0.5)
+	frame.texture:SetAlpha(E.db.general.backdropfadecolor.a or 0.5) 
+	return frame
 end
 
---Frames Size
-function BG:FramesSize()
-	if not BGb then return end
-	local db = E.db.sle.backgrounds
-	for _,v in pairs(Fr) do
-		v[1]:SetSize(db[v[2]].width, db[v[2]].height)
-	end
+function BG:Positions(i)
+	local anchor, point, x, y = T.unpack(BG.pos[i])
+	BG["Frame_"..i]:SetPoint(anchor, E.UIParent, point, x, y)
 end
 
---Frames points
-local function FramesPositions()
-	if not BGb then return end
-	BGb:Point("BOTTOM", E.UIParent, "BOTTOM", 0, 21); 
-	BGl:Point("BOTTOMRIGHT", E.UIParent, "BOTTOM", -((E.eyefinity or E.screenwidth)/4 + 32)/2 - 1, 21); 
-	BGr:Point("BOTTOMLEFT", E.UIParent, "BOTTOM", ((E.eyefinity or E.screenwidth)/4 + 32)/2 + 1, 21); 
-	BGa:Point("BOTTOM", E.UIParent, "BOTTOM", 0, E.screenheight/6 + 9);
+function BG:UpdateTexture(i)
+	BG["Frame_"..i].texture:SetTexture(BG.db["bg"..i].texture)
 end
 
---Updating textures
-local function UpdateTex()
-	if not BGb then return end
-	local db = E.db.sle.backgrounds
-	for _,v in pairs(Fr) do
-		v[1].tex:Point('TOPLEFT', v[1], 'TOPLEFT', 2, -2)
-		v[1].tex:Point('BOTTOMRIGHT', v[1], 'BOTTOMRIGHT', -2, 2)
-		v[1].tex:SetTexture(db[v[2]].texture)
-	end
+function BG:FramesSize(i)
+	BG["Frame_"..i]:SetSize(BG.db["bg"..i].width, BG.db["bg"..i].height)
 end
 
---Visibility / Enable check
-function BG:FramesVisibility()
-	if not BGb then return end
-	local db = E.db.sle.backgrounds
-	for _,v in pairs(Fr) do
-		if db[v[2]].enabled then
-			v[1]:Show()
-		else
-			v[1]:Hide()
-		end
+function BG:Alpha(i)
+	BG["Frame_"..i]:SetAlpha(BG.db["bg"..i].alpha)
+end
+
+function BG:FrameTemplate(i)
+	BG["Frame_"..i]:SetTemplate(BG.db["bg"..i].template, true)
+end
+
+function BG:RegisterHide(i)
+	if BG.db["bg"..i].pethide then
+		E.FrameLocks[BG["Frame_"..i]] = true
+	else
+		E.FrameLocks[BG["Frame_"..i]] = nil
 	end
 end
 
-function BG:MouseCatching()
-	if not BGb then return end
-	local db = E.db.sle.backgrounds
-	for _,v in pairs(Fr) do
-		v[1]:EnableMouse(not(db[v[2]].clickthrough))
+function BG:FramesVisibility(i)
+	if BG.db["bg"..i].enabled then
+		BG["Frame_"..i]:Show()
+		E:EnableMover(BG["Frame_"..i].mover:GetName())
+	else
+		BG["Frame_"..i]:Hide()
+		E:DisableMover(BG["Frame_"..i].mover:GetName())
 	end
 end
 
-function BG:UpdateFrames()
-	if not BGb then return end
-	local db = E.db.sle.backgrounds
-	for _,v in pairs(Fr) do
-		v[1]:SetTemplate(db[v[2]].template, true)
-		v[1]:SetAlpha(db[v[2]].alpha)
-	end
-	BG:FramesSize()
-	BG:FramesVisibility()
-	BG:MouseCatching()
-    UpdateTex()
+function BG:MouseCatching(i)
+	BG["Frame_"..i]:EnableMouse(not(BG.db["bg"..i].clickthrough))
 end
 
-function BG:RegisterHide()
-	if not BGb then return end
-	local db = E.db.sle.backgrounds
-	for k,v in pairs(Fr) do
-		if db[v[2]].pethide then
-			E.FrameLocks[k] = true
-		else
-			E.FrameLocks[k] = nil
-		end
+function BG:CreateAndUpdateFrames()
+	for i = 1, 4 do
+		if not BG["Frame_"..i] then BG["Frame_"..i] = self:CreateFrame(i) end
+		BG:Positions(i)
+		BG:FramesSize(i)
+		BG:FrameTemplate(i)
+		BG:Alpha(i)
+		if not E.CreatedMovers["SLE_BG_"..i.."_Mover"] then E:CreateMover(BG["Frame_"..i], "SLE_BG_"..i.."_Mover", L["SLE_BG_"..i], nil, nil, nil, "S&L,S&L BG") end
+		BG:FramesVisibility(i)
+		BG:MouseCatching(i)
+		BG:UpdateTexture(i)
+		BG:RegisterHide(i)
 	end
 end
 
 function BG:Initialize()
-	if not E.private.sle.backgrounds then return end
-	CreateFrames()
-	FramesPositions()
-	BG:UpdateFrames()
-	BG:RegisterHide()
+	if not SLE.initialized then return end
 
-	E:CreateMover(BottomBG, "BottomBG_Mover", L["Bottom BG"], nil, nil, nil, "S&L,S&L BG")
-	E:CreateMover(LeftBG, "LeftBG_Mover", L["Left BG"], nil, nil, nil, "S&L,S&L BG")
-	E:CreateMover(RightBG, "RightBG_Mover", L["Right BG"], nil, nil, nil, "S&L,S&L BG")
-	E:CreateMover(ActionBG, "ActionBG_Mover", L["Actionbar BG"], nil, nil, nil, "S&L,S&L BG")
+	function BG:ForUpdateAll()
+		BG.db = E.db.sle.backgrounds
+		BG:CreateAndUpdateFrames()
+	end
+
+	BG:ForUpdateAll()
 end
+
+SLE:RegisterModule(BG:GetName())

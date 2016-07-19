@@ -1,117 +1,93 @@
-﻿local E, L, V, P, G = unpack(ElvUI);
-local EM = E:GetModule('SLE_EquipManager')
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local EM = SLE:NewModule('EquipManager', 'AceHook-3.0', 'AceEvent-3.0')
+local GetRealZoneText = GetRealZoneText
+EM.Processing = false
 
-local GetEquipmentSetInfo, GetSpecialization, GetActiveSpecGroup, UseEquipmentSet = GetEquipmentSetInfo, GetSpecialization, GetActiveSpecGroup, UseEquipmentSet
-local IsInInstance, GetNumWorldPVPAreas, GetWorldPVPAreaInfo = IsInInstance, GetNumWorldPVPAreas, GetWorldPVPAreaInfo
-local gsub, strfind = string.gsub, string.find, string.sub
+local SpecTable = {
+	[1] = "firstSpec",
+	[2] = "secondSpec",
+	[3] = "thirdSpec",
+	[4] = "forthSpec",
+}
 
-local function Equip(event)
-	local primary = GetSpecialization()
+function EM:GetData()
+	local spec = T.GetSpecialization()
 	local equipSet
-	local pvp = false
-	for i = 1, GetNumEquipmentSets() do
-		local name, _, _, isEquipped = GetEquipmentSetInfo(i)
+	for i = 1, T.GetNumEquipmentSets() do
+		local name, _, _, isEquipped = T.GetEquipmentSetInfo(i)
 		if isEquipped then
 			equipSet = name
 			break
 		end
 	end
+	return spec, equipSet
+end
 
-	if primary ~= nil then
-		local inInstance, instanceType = IsInInstance()
+function EM:IsPvP(inInstance, instanceType)
+	if inInstance and (instanceType == "pvp" or instanceType == "arena") then return true end
+	for i = 1, T.GetNumWorldPVPAreas() do
+		local _, localizedName, isActive, canQueue = T.GetWorldPVPAreaInfo(i)
+		if (T.GetRealZoneText() == localizedName and isActive) or (GetRealZoneText() == localizedName and canQueue) then return true end
+	end
+	return false
+end
 
-		if (event == "ACTIVE_TALENT_GROUP_CHANGED") then
-			if GetActiveSpecGroup() == 1 then
-				if equipSet ~= E.private.sle.equip.primary and E.private.sle.equip.primary ~= "NONE" then
-					UseEquipmentSet(E.private.sle.equip.primary)
-					return
-				end
-			else
-				if equipSet ~= E.private.sle.equip.secondary and E.private.sle.equip.secondary ~= "NONE" then
-					UseEquipmentSet(E.private.sle.equip.secondary)
-					return
-				end
+function EM:IsDungeon(inInstance, instanceType)
+	if inInstance and (instanceType ==  "scenario" or instanceType == "party" or instanceType == "raid") then return true end
+	return false
+end
+
+function EM:WrongSet(equipSet, group, inCombat)
+	local inInstance, instanceType = T.IsInInstance()
+	if inInstance and ((EM.db.instanceSet and EM.db[group].instance ~= "NONE") or (EM.db.pvpSet and EM.db[group].pvp ~= "NONE")) then
+		if EM:IsDungeon(inInstance, instanceType) and EM.db.instanceSet then
+			if equipSet ~= EM.db[group].instance and EM.db[group].instance ~= "NONE" then
+				if inCombat then SLE:ErrorPrint(L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."]); return false end
+				return true, EM.db[group].instance
 			end
 		end
-
-		if (instanceType == "party" or instanceType == "raid") then
-			if equipSet ~= E.private.sle.equip.instance and E.private.sle.equip.instance ~= "NONE" then
-				UseEquipmentSet(E.private.sle.equip.instance)
-				return
-			end
-		end
-
-		if (instanceType == "pvp" or instanceType == "arena") then
-			pvp = true
-			if equipSet ~= E.private.sle.equip.pvp and E.private.sle.equip.pvp ~= "NONE" then
-				UseEquipmentSet(E.private.sle.equip.pvp)
-				return
-			end
-		end
-
-		if E.private.sle.equip.pvp ~= "NONE" then
-			for i = 1, GetNumWorldPVPAreas() do
-				local _, localizedName, isActive = GetWorldPVPAreaInfo(i)
-
-				if (GetRealZoneText() == localizedName and isActive) then
-					pvp = true
-					if equipSet ~= E.private.sle.equip.pvp then
-						UseEquipmentSet(E.private.sle.equip.pvp)
-						return
-					end
-				end
-			end
-		end
-		
-		if event == "ZONE_CHANGED" then
-			if (equipSet ~= E.private.sle.equip.primary and E.private.sle.equip.primary ~= "NONE") and (equipSet ~= E.private.sle.equip.secondary and E.private.sle.equip.secondary ~= "NONE") and equipSet == E.private.sle.equip.pvp and not pvp then
-				if GetActiveSpecGroup() == 1 then
-					UseEquipmentSet(E.private.sle.equip.primary)
-					return
-				else
-					UseEquipmentSet(E.private.sle.equip.secondary)
-					return
-				end
+		if EM:IsPvP(inInstance, instanceType) and EM.db.pvpSet then
+			if equipSet ~= EM.db[group].pvp and EM.db[group].pvp ~= "NONE" then
+				if inCombat then SLE:ErrorPrint(L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."]); return false end
+				return true, EM.db[group].pvp
 			end
 		end
 	end
-end
-
-function EM:EquipSpamFilter(event, msg, ...)
-	if strfind(msg, string.gsub(ERR_LEARN_ABILITY_S:gsub('%.', '%.'), '%%s', '(.*)')) then
-		return true
-	elseif strfind(msg, string.gsub(ERR_LEARN_SPELL_S:gsub('%.', '%.'), '%%s', '(.*)')) then
-		return true
-	elseif strfind(msg, string.gsub(ERR_SPELL_UNLEARNED_S:gsub('%.', '%.'), '%%s', '(.*)')) then
-		return true
-	elseif strfind(msg, string.gsub(ERR_LEARN_PASSIVE_S:gsub('%.', '%.'), '%%s', '(.*)')) then
-		return true
+	if equipSet ~= EM.db[group].general and EM.db[group].general ~= "NONE" then
+		if inCombat then SLE:ErrorPrint(L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."]); return false end
+		return true, EM.db[group].general
 	end
-
-	return false, msg, ...
+	return false
 end
 
-local function EnableSpamFilter()
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", EM.EquipSpamFilter)
-end
-
-local function DisableSpamFilter()
-	ChatFrame_RemoveMessageEventFilter("CHAT_MSG_SYSTEM", EM.EquipSpamFilter)
-end
-
-function EM:SpamThrottle()
-	if E.private.sle.equip.spam then
-		EnableSpamFilter()
-	else
-		DisableSpamFilter()
+local function Equip(event)
+	if EM.Processing then return end
+	EM.Processing = true
+	local inCombat = false
+	E:Delay(1, function() EM.Processing = false end)
+	if T.InCombatLockdown() then
+		EM:RegisterEvent("PLAYER_REGEN_ENABLED", Equip)
+		inCombat = true
+	end
+	if event == "PLAYER_REGEN_ENABLED" then
+		EM:UnregisterEvent(event)
+	end
+	local spec, equipSet = EM:GetData()
+	if spec ~= nil then --In case you don't have spec
+		local isWrong, trueSet = EM:WrongSet(equipSet, SpecTable[spec], inCombat)
+		if isWrong then
+			T.UseEquipmentSet(trueSet)
+		end
 	end
 end
 
 function EM:Initialize()
-	EM:SpamThrottle()
-	if not E.private.sle.equip.enable then return end
+	EM.db = E.private.sle.equip
+	if not SLE.initialized then return end
+	if not EM.db.enable then return end
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", Equip)
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", Equip)
-	self:RegisterEvent("PLAYER_TALENT_UPDATE", Equip)
 	self:RegisterEvent("ZONE_CHANGED", Equip)
 end
+
+SLE:RegisterModule(EM:GetName())

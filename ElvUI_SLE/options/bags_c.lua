@@ -1,15 +1,25 @@
-local E, L, V, P, G = unpack(ElvUI);
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 
 local function configTable()
-	E.Options.args.sle.args.options.args.general.args.bags = {
+	if not SLE.initialized then return end
+	E.Options.args.sle.args.modules.args.bags = {
 		order = 6,
 		type = "group",
 		name = L["Bags"],
+		disabled = function() return not E.private.bags.enable end,
 		args = {
 			header = {
 				order = 1,
 				type = "header",
 				name = L["Bags"],
+			},
+			transparentSlots = {
+				order = 2,
+				type = "toggle",
+				name = L["Transparent Slots"],
+				desc = L["Apply transparent template on bag and bank slots."],
+				get = function(info) return E.private.sle.bags.transparentSlots end,
+				set = function(info, value)	E.private.sle.bags.transparentSlots = value; E:StaticPopup_Show('PRIVATE_RL') end,
 			},
 			lootflash = {
 				order = 5,
@@ -23,4 +33,4 @@ local function configTable()
 	}
 end
 
-table.insert(E.SLEConfigs, configTable)
+T.tinsert(SLE.Configs, configTable)

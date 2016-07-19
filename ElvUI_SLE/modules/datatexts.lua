@@ -1,117 +1,177 @@
-﻿local E, L, V, P, G = unpack(ElvUI); 
-local DTP = E:GetModule('SLE_DTPanels');
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))  
+local DTP = SLE:NewModule('Datatexts', 'AceHook-3.0', 'AceEvent-3.0');
 local DT = E:GetModule('DataTexts');
-local LO = E:GetModule('Layout');
-local dp1 = CreateFrame('Frame', "DP_1", E.UIParent)
-local dp2 = CreateFrame('Frame', "DP_2", E.UIParent)
-local dp3 = CreateFrame('Frame', "DP_3", E.UIParent)
-local dp4 = CreateFrame('Frame', "DP_4", E.UIParent)
-local dp5 = CreateFrame('Frame', "DP_5", E.UIParent)
-local dp6 = CreateFrame('Frame', "DP_6", E.UIParent)
-local top = CreateFrame('Frame', "Top_Center", E.UIParent)
-local bottom = CreateFrame('Frame', "Bottom_Panel", E.UIParent)
-local rchat = CreateFrame('Frame', "Right_Chat_SLE", E.UIParent)
-local lchat = CreateFrame('Frame', "Left_Chat_SLE", E.UIParent)
-
--- Move Elv's Datatext Panel Transparency Option to our section
--- Make Drunk Russian handle elvs dt panel transparency
-
-local panels = {
-	--Panel = short, name, point, x, panel, slot
-	DP_1 = {"dp1", "DP_1", "TOPLEFT", 0, DP_1, 3},
-	DP_2 = {"dp2", "DP_2", "TOP", -((E.eyefinity or E.screenwidth)/5), DP_2, 3},
-	DP_3 = {"dp3", "DP_3", "TOP", ((E.eyefinity or E.screenwidth)/5), DP_3, 3},
-	DP_4 = {"dp4", "DP_4", "TOPRIGHT", 0, DP_4, 3},
-	DP_5 = {"dp5", "DP_5", "BOTTOM", -((E.eyefinity or E.screenwidth)/6 - 15), DP_5, 3},
-	DP_6 = {"dp6", "DP_6", "BOTTOM", ((E.eyefinity or E.screenwidth)/6 - 15), DP_6, 3},
-	Top_Center = {"top", "Top_Center", "TOP", 0, Top_Center, 1},
-	Bottom_Panel = {"bottom", "Bottom_Panel", "BOTTOM", 0, Bottom_Panel, 1},
+local _G = _G
+local CreateFrame = CreateFrame
+DTP.values = {
+	[1] = {"TOPLEFT", 0, 3},
+	[2] = {"TOP", -((E.eyefinity or E.screenwidth)/5), 3},
+	[3] = {"TOP", 0, 1},
+	[4] = {"TOP", ((E.eyefinity or E.screenwidth)/5), 3},
+	[5] = {"TOPRIGHT", 0, 3},
+	[6] = {"BOTTOM", -((E.eyefinity or E.screenwidth)/6 - 15), 3},
+	[7] = {"BOTTOM", 0, 1},
+	[8] = {"BOTTOM", ((E.eyefinity or E.screenwidth)/6 - 15), 3},
 }
+DTP.Names = {}
 
--- New panels
-local function CreateDataPanels(panel, name, point, x, slot, short)
-	panel:SetFrameStrata('LOW')
-	panel:Point(point, E.UIParent, point, x, 0); 
-	DT:RegisterPanel(panel, slot, 'ANCHOR_BOTTOM', 0, -4)
-	panel:Hide()
-end
-
-local function PanelResize()
-	local db = E.db.sle.datatext
-	for _,v in pairs(panels) do
-		v[5]:Size(db[v[1]].width, 20)
-	end
-	DT:UpdateAllDimensions()
-end
-
-local function AddPanels()
-	for _,v in pairs(panels) do
-		CreateDataPanels(v[5], v[2], v[3], v[4], v[6], v[1])
-	end
-
-	PanelResize()
-
-	for _,v in pairs(panels) do
-		E:CreateMover(v[5], v[2].."_Mover", L[v[2]], nil, nil, nil, "ALL,S&L,S&L DT")
+local function Bar_OnEnter(self)
+	if DTP.db["panel"..self.Num].mouseover then
+		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 	end
 end
 
-function DTP:ChatResize()
-	LeftChatDataPanel:SetAlpha(E.db.sle.datatext.chatleft.alpha)
-	LeftChatToggleButton:SetAlpha(E.db.sle.datatext.chatleft.alpha)
-	RightChatDataPanel:SetAlpha(E.db.sle.datatext.chatright.alpha)
-	RightChatToggleButton:SetAlpha(E.db.sle.datatext.chatright.alpha)
-	if not E.db.sle.datatext.chathandle then return end
-	LeftChatDataPanel:Point('TOPRIGHT', LeftChatPanel, 'BOTTOMLEFT', 16 + E.db.sle.datatext.chatleft.width, (E.PixelMode and 1 or -1))
-	RightChatDataPanel:Point('BOTTOMLEFT', RightChatPanel, 'BOTTOMRIGHT', - E.db.sle.datatext.chatright.width - 16, (E.PixelMode and -19 or -21))
+local function Button_OnEnter(self)
+	local bar = self:GetParent()
+	if DTP.db["panel"..bar.Num].mouseover then
+		E:UIFrameFadeIn(bar, 0.2, bar:GetAlpha(), 1)
+	end
 end
 
---Showing panels
-function DTP:ExtraDataBarSetup()
-	local db = E.db.sle.datatext
-	for _,v in pairs(panels) do
-		if db[v[1]].enabled then
-			v[5]:Show()
-		else
-			v[5]:Hide()
-		end
-		if not E.private.sle.datatext[v[1].."hide"] then
-			v[5]:SetAlpha(E.db.sle.datatext[v[1]].alpha)
-			if db[v[1]].transparent then
-				v[5]:SetTemplate("Transparent")
-			else
-				v[5]:SetTemplate("Default", true)
+local function Bar_OnLeave(self)
+	if DTP.db["panel"..self.Num].mouseover then
+		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+	end
+end
+
+local function Button_OnLeave(self)
+	local bar = self:GetParent()
+	if DTP.db["panel"..bar.Num].mouseover then
+		E:UIFrameFadeOut(bar, 0.2, bar:GetAlpha(), 0)
+	end
+end
+
+function DTP:MouseoverHook()
+	for panelName, panel in T.pairs(DT.RegisteredPanels) do
+		for i=1, panel.numPoints do
+			local pointIndex = DT.PointLocation[i]
+			if DTP.Names[panelName] then 
+				panel.dataPanels[pointIndex]:HookScript("OnEnter", Button_OnEnter)
+				panel.dataPanels[pointIndex]:HookScript("OnLeave", Button_OnLeave)
 			end
 		end
 	end
 end
 
-function DTP:Update()
-	DTP:ExtraDataBarSetup()
-	DTP:RegisterHide()
-	PanelResize()
+function DTP:CreatePanel(i)
+	local panel = CreateFrame('Frame', "SLE_DataPanel_"..i, E.UIParent)
+	panel.Num = i
+	panel:SetFrameStrata('LOW')
+	panel:Point(DTP.values[i][1], E.UIParent, DTP.values[i][1], DTP.values[i][2], 0); 
+	DT:RegisterPanel(panel, DTP.values[i][3], 'ANCHOR_BOTTOM', 0, -4)
+	panel:SetScript("OnEnter", Bar_OnEnter)
+	panel:SetScript("OnLeave", Bar_OnLeave)
+	panel:Hide()
+	DTP.Names["SLE_DataPanel_"..i] = true
+
+	return panel
 end
 
-function DTP:RegisterHide()
-	local db = E.db.sle.datatext
-	for k,v in pairs(panels) do
-		if db[v[1]].pethide then
-			E.FrameLocks[k] = true
+function DTP:Mouseover(i)
+	if DTP.db["panel"..i].mouseover then
+		self["Panel_"..i]:SetAlpha(0)
+	else
+		self["Panel_"..i]:SetAlpha(1)
+	end
+end
+
+function DTP:Size(i)
+	self["Panel_"..i]:Size(DTP.db["panel"..i].width, 20)
+	DT:UpdateAllDimensions()
+end
+
+function DTP:Toggle(i)
+	if DTP.db["panel"..i].enabled then
+		self["Panel_"..i]:Show()
+		E:EnableMover(self["Panel_"..i].mover:GetName())
+	else
+		self["Panel_"..i]:Hide()
+		E:DisableMover(self["Panel_"..i].mover:GetName())
+	end
+end
+
+function DTP:PetHide(i)
+	E.FrameLocks[self["Panel_"..i]] = DTP.db["panel"..i].pethide or nil
+end
+
+function DTP:Template(i)
+	if not DTP.db["panel"..i].noback then
+		if DTP.db["panel"..i].transparent then
+			self["Panel_"..i]:SetTemplate("Transparent")
 		else
-			E.FrameLocks[k] = nil
+			self["Panel_"..i]:SetTemplate("Default", true)
 		end
 	end
 end
 
---Renew panels after loading screens
-function DTP:PLAYER_ENTERING_WORLD(...)
-	DTP:ExtraDataBarSetup()
-	DTP:RegisterHide()
+function DTP:Alpha(i)
+	self["Panel_"..i]:SetAlpha(DTP.db["panel"..i].alpha)
+end
+
+function DTP:ChatResize()
+	_G["LeftChatDataPanel"]:SetAlpha(DTP.db.leftchat.alpha)
+	_G["LeftChatToggleButton"]:SetAlpha(DTP.db.leftchat.alpha)
+	_G["RightChatDataPanel"]:SetAlpha(DTP.db.rightchat.alpha)
+	_G["RightChatToggleButton"]:SetAlpha(DTP.db.rightchat.alpha)
+	if not DTP.db.chathandle then return end
+	_G["LeftChatDataPanel"]:Width(DTP.db.leftchat.width - E.Spacing*2)
+	_G["RightChatDataPanel"]:Width(DTP.db.rightchat.width  - E.Spacing*2)
+end
+
+function DTP:CreateAndUpdatePanels()
+	for i = 1, 8 do
+		if not self["Panel_"..i] then self["Panel_"..i] = DTP:CreatePanel(i) end
+		DTP:Size(i)
+		DTP:Template(i)
+		if not E.CreatedMovers["SLE_DataPanel_"..i.."_Mover"] then E:CreateMover(self["Panel_"..i], "SLE_DataPanel_"..i.."_Mover", L["SLE_DataPanel_"..i], nil, nil, nil, "ALL,S&L,S&L DT") end
+		DTP:Toggle(i)
+		DTP:PetHide(i)
+		DTP:Alpha(i)
+		DTP:Mouseover(i)
+	end
 	DTP:ChatResize()
-	self:UnregisterEvent("PLAYER_ENTERING_WORLD");
+end
+
+function DTP:DeleteCurrencyEntry(data)
+	if ElvDB['gold'][data.realm][data.name] then
+		ElvDB['gold'][data.realm][data.name] = nil;
+	end
+	if ElvDB['class'] then
+		if ElvDB['class'][data.realm][data.name] then
+			ElvDB['class'][data.realm][data.name] = nil;
+		end
+	end
+	if ElvDB['faction'] then
+		if ElvDB['faction'][data.realm][FACTION_ALLIANCE][data.name] then
+			ElvDB['faction'][data.realm][FACTION_ALLIANCE][data.name] = nil;
+		end
+		if ElvDB['faction'][data.realm][FACTION_HORDE][data.name] then
+			ElvDB['faction'][data.realm][FACTION_HORDE][data.name] = nil;
+		end
+	end
+	SLE.ACD:ConfigTableChanged(nil, "ElvUI")
 end
 
 function DTP:Initialize()
-	AddPanels()
-	self:RegisterEvent('PLAYER_ENTERING_WORLD')
+	if not SLE.initialized then return end
+
+	function DTP:ForUpdateAll()
+		DTP.db = E.db.sle.datatexts
+		DTP:CreateAndUpdatePanels()
+	end
+
+	DTP:ForUpdateAll()
+	--Datatexts
+	DTP:HookTimeDT()
+	DTP:HookDurabilityDT()
+	DTP:CreateMailDT()
+	DTP:CreateCurrencyDT()
+
+	--Remove char
+	local popup = E.PopupDialogs['SLE_CONFIRM_DELETE_CURRENCY_CHARACTER']
+	popup.OnAccept = DTP.DeleteCurrencyEntry,
+	
+	hooksecurefunc(DT, "LoadDataTexts", DTP.MouseoverHook)
 end
+
+SLE:RegisterModule(DTP:GetName())

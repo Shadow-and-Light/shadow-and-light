@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+	<Script file='databars.lua'/>
+	<Script file='exp.lua'/>
+	<Script file='rep.lua'/>
+	<Script file='honor.lua'/>
+	<Script file='artifact.lua'/>
+</Ui>

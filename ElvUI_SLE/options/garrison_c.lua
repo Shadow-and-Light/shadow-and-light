@@ -1,53 +1,85 @@
-﻿local E, L, V, P, G = unpack(ElvUI); 
-
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local GARRISON_LOCATION_TOOLTIP = GARRISON_LOCATION_TOOLTIP
+local EXPANSION_NAME5 = EXPANSION_NAME5
 local function configTable()
-	E.Options.args.sle.args.options.args.general.args.garrison = {
+	if not SLE.initialized then return end
+	E.Options.args.sle.args.modules.args.legacy.args.garrison = {
 		type = "group",
-		name = GARRISON_LOCATION_TOOLTIP,
-		order = 53,
+		name = GARRISON_LOCATION_TOOLTIP.." ("..EXPANSION_NAME5..")",
+		order = 1,
 		args = {
 			header = {
 				order = 1,
 				type = "header",
 				name = GARRISON_LOCATION_TOOLTIP,
 			},
+			toolbar = {
+				order = 1,
+				type = "group",
+				name = L["Toolbar"],
+				guiInline = true,
+				get = function(info) return E.db.sle.legacy.garrison.toolbar[ info[#info] ] end,
+				set = function(info, value) E.db.sle.legacy.garrison.toolbar[ info[#info] ] = value; SLE:GetModule("Toolbars"):UpdateLayout() end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+					},
+					active = {
+						order = 2,
+						type = 'toggle',
+						name = L["Only active buttons"],
+						disabled = function() return not E.db.sle.legacy.garrison.toolbar.enable end,
+					},
+					buttonsize = {
+						order = 3,
+						type = "range",
+						name = L["Button Size"],
+						disabled = function() return not E.db.sle.legacy.garrison.toolbar.enable end,
+						min = 15, max = 60, step = 1,
+					},
+				},
+			},
 			autoOrder = {
-				order = 3,
-				type = "toggle",
+				order = 2,
+				type = "group",
 				name = L["Auto Work Orders"],
-				desc = L["Automatically queue maximum number of work orders available when visitin respected NPC."],
-				get = function(info) return E.db.sle.garrison.autoOrder end,
-				set = function(info, value) E.db.sle.garrison.autoOrder = value end
-			},
-			autoWar = {
-				order = 4,
-				type = "toggle",
-				name = L["Auto Work Orders for Warmill"],
-				desc = L["Automatically queue maximum number of work orders available for Warmill/Dwarven Bunker."],
-				disabled = function() return not E.db.sle.garrison.autoOrder end,
-				get = function(info) return E.db.sle.garrison.autoWar end,
-				set = function(info, value) E.db.sle.garrison.autoWar = value end
-			},
-			autoTrade = {
-				order = 5,
-				type = "toggle",
-				name = L["Auto Work Orders for Trading Post"],
-				desc = L["Automatically queue maximum number of work orders available for Trading Post."],
-				disabled = function() return not E.db.sle.garrison.autoOrder end,
-				get = function(info) return E.db.sle.garrison.autoTrade end,
-				set = function(info, value) E.db.sle.garrison.autoTrade = value end
-			},
-			autoShip = {
-				order = 6,
-				type = "toggle",
-				name = L["Auto Work Orders for Shipyard"],
-				desc = L["Automatically queue maximum number of work orders available for Shipyard."],
-				disabled = function() return not E.db.sle.garrison.autoOrder end,
-				get = function(info) return E.db.sle.garrison.autoShip end,
-				set = function(info, value) E.db.sle.garrison.autoShip = value end
+				guiInline = true,
+				get = function(info) return E.db.sle.legacy.garrison.autoOrder[ info[#info] ] end,
+				set = function(info, value) E.db.sle.legacy.garrison.autoOrder[ info[#info] ] = value end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						desc = L["Automatically queue maximum number of work orders available when visiting respected NPC."],
+					},
+					autoWar = {
+						order = 2,
+						type = "toggle",
+						name = L["Auto Work Orders for Warmill"],
+						desc = L["Automatically queue maximum number of work orders available for Warmill/Dwarven Bunker."],
+						disabled = function() return not E.db.sle.legacy.garrison.autoOrder.enable end,
+					},
+					autoTrade = {
+						order = 3,
+						type = "toggle",
+						name = L["Auto Work Orders for Trading Post"],
+						desc = L["Automatically queue maximum number of work orders available for Trading Post."],
+						disabled = function() return not E.db.sle.legacy.garrison.autoOrder.enable end,
+					},
+					autoShip = {
+						order = 4,
+						type = "toggle",
+						name = L["Auto Work Orders for Shipyard"],
+						desc = L["Automatically queue maximum number of work orders available for Shipyard."],
+						disabled = function() return not E.db.sle.legacy.garrison.autoOrder.enable end,
+					},
+				},
 			},
 		},
 	}
 end
 
-table.insert(E.SLEConfigs, configTable)
+T.tinsert(SLE.Configs, configTable)

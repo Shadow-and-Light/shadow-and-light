@@ -1,25 +1,28 @@
-﻿local E, L, V, P, G = unpack(ElvUI);
-local SLE = E:GetModule('SLE')
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 
 local function configTable()
+	if not SLE.initialized then return end
+	
+	local function CreateQuestion(i, text)
+		local question = {
+			type = 'group', name = '', order = i, guiInline = true,
+			args = {
+				q = { order = 1, type = 'description', fontSize = 'medium', name = text },
+			},
+		}
+		return question
+	end
 	--Main options group
 	E.Options.args.sle.args.help = {
 		type = 'group',
-		name = L['About/Help'],
-		order = -5,
+		name = L["About/Help"],
+		order = 100,
 		childGroups = 'tab',
 		args = {
 			about = {
-				type = 'group',
-				name = L['About'],
-				order = 1,
+				type = 'group', name = L["About"], order = 1,
 				args = {
-					content = {
-						order = 1,
-						type = 'description',
-						fontSize = 'medium',
-						name = L["SLE_DESC"],
-					},
+					content = { order = 1, type = 'description', fontSize = 'medium', name = L["SLE_DESC"] },
 				},
 			},
 			faq = {
@@ -35,185 +38,50 @@ local function configTable()
 						name = L["FAQ_DESC"],
 					},
 					elvui = {
-						type = 'group',
-						order = 1,
-						name = "ElvUI",
+						type = 'group', order = 1, name = "ElvUI",
 						args = {
-							q1 = {
-								type = 'group',
-								name = '',
-								order = 1,
-								guiInline = true,
-								args = {
-									q = {
-										order = 1,
-										type = 'description',
-										fontSize = 'medium',
-										name = L["FAQ_Elv_1"],
-									},
-								},
-							},
-							q2 = {
-								type = 'group',
-								name = '',
-								order = 2,
-								guiInline = true,
-								args = {
-									q = {
-										order = 1,
-										type = 'description',
-										fontSize = 'medium',
-										name = L["FAQ_Elv_2"],
-									},
-								},
-							},
-							q3 = {
-								type = 'group',
-								name = '',
-								order = 3,
-								guiInline = true,
-								args = {
-									q = {
-										order = 1,
-										type = 'description',
-										fontSize = 'medium',
-										name = L["FAQ_Elv_3"],
-									},
-								},
-							},
-							q4 = {
-								type = 'group',
-								name = '',
-								order = 4,
-								guiInline = true,
-								args = {
-									q = {
-										order = 1,
-										type = 'description',
-										fontSize = 'medium',
-										name = L["FAQ_Elv_4"],
-									},
-								},
-							},
+							q1 = CreateQuestion(1, L["FAQ_Elv_1"]),
+							q2 = CreateQuestion(2, L["FAQ_Elv_2"]),
+							q3 = CreateQuestion(3, L["FAQ_Elv_3"]),
+							q4 = CreateQuestion(4, L["FAQ_Elv_4"]),
+							q5 = CreateQuestion(5, L["FAQ_Elv_5"]),
 						},
 					},
 					sle = {
-						type = 'group',
-						order = 1,
-						name = "Shadow & Light",
+						type = 'group', order = 2, name = "Shadow & Light",
 						args = {
-							q1 = {
-								type = 'group',
-								name = '',
-								order = 1,
-								guiInline = true,
-								args = {
-									q = {
-										order = 1,
-										type = 'description',
-										fontSize = 'medium',
-										name = L["FAQ_sle_1"],
-									},
-								},
-							},
-							q2 = {
-								type = 'group',
-								name = '',
-								order = 2,
-								guiInline = true,
-								args = {
-									q = {
-										order = 1,
-										type = 'description',
-										fontSize = 'medium',
-										name = L["FAQ_sle_2"],
-									},
-								},
-							},
-							q3 = {
-								type = 'group',
-								name = '',
-								order = 3,
-								guiInline = true,
-								args = {
-									q = {
-										order = 1,
-										type = 'description',
-										fontSize = 'medium',
-										name = L["FAQ_sle_3"],
-									},
-								},
-							},
-							q4 = {
-								type = 'group',
-								name = '',
-								order = 4,
-								guiInline = true,
-								args = {
-									q = {
-										order = 1,
-										type = 'description',
-										fontSize = 'medium',
-										name = L["FAQ_sle_4"],
-									},
-								},
-							},
-							q5 = {
-								type = 'group',
-								name = '',
-								order = 5,
-								guiInline = true,
-								args = {
-									q = {
-										order = 1,
-										type = 'description',
-										fontSize = 'medium',
-										name = L["FAQ_sle_5"],
-									},
-								},
-							},
+							q1 = CreateQuestion(1, L["FAQ_sle_1"]),
+							q2 = CreateQuestion(2, L["FAQ_sle_2"]),
+							q3 = CreateQuestion(3, L["FAQ_sle_3"]),
+							q4 = CreateQuestion(4, L["FAQ_sle_4"]),
+							q5 = CreateQuestion(5, L["FAQ_sle_5"]),
 						},
 					},
 				},
 			},
 			links = {
 				type = 'group',
-				name = L['Links'],
+				name = L["Links"],
 				order = 10,
 				args = {
 					desc = {
-						order = 1,
-						type = 'description',
-						fontSize = 'medium',
-						name = L["LINK_DESC"],
+						order = 1, type = 'description', fontSize = 'medium', name = L["LINK_DESC"]
 					},
 					tukuilink = {
-						type = 'input',
-						width = 'full',
-						name = 'TukUI.org',
+						order = 2, type = 'input', width = 'full', name = 'TukUI.org',
 						get = function(info) return 'http://www.tukui.org/addons/index.php?act=view&id=42' end,
-						order = 2,
 					},
 					wowilink = {
-						type = 'input',
-						width = 'full',
-						name = 'WoWInterface',
+						order = 3, type = 'input', width = 'full', name = 'WoWInterface',
 						get = function(info) return 'http://www.wowinterface.com/downloads/info20927-ElvUIShadowLight.html' end,
-						order = 3,
 					},
 					curselink= {
-						type = 'input',
-						width = 'full',
-						name = 'Curse.com',
+						order = 4, type = 'input', width = 'full', name = 'Curse.com',
 						get = function(info) return 'http://www.curse.com/addons/wow/shadow-and-light-edit' end,
-						order = 4,
 					},
 					gitlablink = {
-						type = 'input',
-						width = 'full',
-						name = L['GitLab Link / Report Errors'],
+						order = 5, type = 'input', width = 'full', name = L["GitLab Link / Report Errors"],
 						get = function(info) return 'http://git.tukui.org/repooc/elvui-shadowandlight' end,
-						order = 5,
 					},
 				},
 			},
@@ -223,11 +91,7 @@ local function configTable()
 				type = 'group',
 				name = L["Credits"],
 				args = {
-					creditheader = {
-						order = 1,
-						type = "header",
-						name = L["Credits"],
-					},
+					creditheader = { order = 1, type = "header", name = L["Credits"] },
 					credits = {
 						order = 2,
 						type = "description",
@@ -239,4 +103,4 @@ local function configTable()
 	}
 end
 
-table.insert(E.SLEConfigs, configTable)
+T.tinsert(SLE.Configs, configTable)

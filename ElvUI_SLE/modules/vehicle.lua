@@ -1,5 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
-local EVB = E:GetModule("SLE_EnhancedVehicleBar")
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local EVB = SLE:NewModule("EnhancedVehicleBar")
 local AB = E:GetModule("ActionBars");
 local LAB = LibStub("LibActionButton-1.0-ElvUI")
 
@@ -26,7 +26,7 @@ end
 
 function EVB:AnimSlideIn(bar)
 	if not bar.anim then
-		Animate(bar)
+		EVB:Animate(bar)
 	end
 
 	bar.anim.out1:Stop()
@@ -48,7 +48,7 @@ function EVB:CreateExtraButtonSet()
 	for i = 1, 7 do
 		i = i == 7 and 12 or i
 
-		bar.buttons[i] = LAB:CreateButton(i, format(bar:GetName().."Button%d", i), bar, nil);
+		bar.buttons[i] = LAB:CreateButton(i, T.format(bar:GetName().."Button%d", i), bar, nil);
 		bar.buttons[i]:SetState(0, "action", i);
 		
 		for k = 1, 14 do
@@ -76,10 +76,11 @@ function EVB:CreateExtraButtonSet()
 end
 
 function EVB:Initialize()
+	if not SLE.initialized then return end
 	if (not E.private.sle.vehicle.enable) then return end;
 
 	local visibility = "[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] hide;"
-	local page = format("[vehicleui] %d; [possessbar] %d; [overridebar] %d; [shapeshift] 13;", GetVehicleBarIndex(), GetVehicleBarIndex(), GetOverrideBarIndex());
+	local page = T.format("[vehicleui] %d; [possessbar] %d; [overridebar] %d; [shapeshift] 13;", GetVehicleBarIndex(), GetVehicleBarIndex(), GetOverrideBarIndex());
 	local bindButtons = "ACTIONBUTTON";
 
 	hooksecurefunc(AB, "PositionAndSizeBar", function(self, barName)
@@ -93,6 +94,7 @@ function EVB:Initialize()
 	local size = 40;
 	local spacing = E:Scale(AB.db["bar1"].buttonspacing);
 	local bar = CreateFrame("Frame", "ElvUISLEEnhancedVehicleBar", UIParent, "SecureHandlerStateTemplate");
+	bar.id = 1
 
 	self.size = size;
 	self.spacing = spacing;
@@ -135,4 +137,7 @@ function EVB:Initialize()
 	self:CreateExtraButtonSet();
 
 	AB:UpdateButtonConfig(bar, bindButtons);
+	AB:PositionAndSizeBar("bar1")
 end
+
+SLE:RegisterModule(EVB:GetName())

@@ -16,7 +16,7 @@ Info.Armory_Constants = {
 	},
 	
 	EnchantableSlots = {
-		NeckSlot = true, BackSlot = true, Finger0Slot = true, Finger1Slot = true, MainHandSlot = true, SecondaryHandSlot = true
+		NeckSlot = true, BackSlot = true, Finger0Slot = true, Finger1Slot = true
 	},
 	
 	UpgradeColor = {
@@ -58,9 +58,9 @@ Info.Armory_Constants = {
 	ProfessionList = {},
 	
 	BlizzardBackdropList = {
-		['Alliance-bliz'] = [[Interface\LFGFrame\UI-PVP-BACKGROUND-Alliance]],
-		['Horde-bliz'] = [[Interface\LFGFrame\UI-PVP-BACKGROUND-Horde]],
-		['Arena-bliz'] = [[Interface\PVPFrame\PvpBg-NagrandArena-ToastBG]]
+		["Alliance-bliz"] = [[Interface\LFGFrame\UI-PVP-BACKGROUND-Alliance]],
+		["Horde-bliz"] = [[Interface\LFGFrame\UI-PVP-BACKGROUND-Horde]],
+		["Arena-bliz"] = [[Interface\PVPFrame\PvpBg-NagrandArena-ToastBG]]
 	}
 }
 	

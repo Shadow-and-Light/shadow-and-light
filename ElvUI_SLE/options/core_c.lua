@@ -1,13 +1,28 @@
-﻿local E, L, V, P, G = unpack(ElvUI)
-local SLE = E:GetModule('SLE')
-local LT = E:GetModule('SLE_Loot')
-local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
-
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local M = SLE:GetModule("Misc")
+local SETTINGS = SETTINGS
+local LFG_LIST_LEGACY = LFG_LIST_LEGACY
 local function configTable()
-	E.Options.args.ElvUI_Header.name = E.Options.args.ElvUI_Header.name.." + Shadow & Light"..format(": |cff99ff33%s|r",SLE.version)
+	if not SLE.initialized then return end
+	local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
+	SLE.ACD = ACD
+	E.Options.args.ElvUI_Header.name = E.Options.args.ElvUI_Header.name.." + |cff9482c9Shadow & Light|r"..T.format(": |cff99ff33%s|r",SLE.version)
 
-	--local size = E.db.general.fontSize
-
+	local function CreateButton(number, text, ...)
+		local path = {}
+		local num = T.select("#", ...)
+		for i = 1, num do
+			local name = T.select(i, ...)
+			T.tinsert(path, #(path)+1, name)
+		end
+		local config = {
+			order = number,
+			type = 'execute',
+			name = text,
+			func = function() ACD:SelectGroup("ElvUI", "sle", T.unpack(path)) end,
+		}
+		return config
+	end
 	--Main options group
 	E.Options.args.sle = {
 		type = "group",
@@ -18,138 +33,160 @@ local function configTable()
 			header = {
 				order = 1,
 				type = "header",
-				name = "Shadow & Light"..format(": |cff99ff33%s|r", SLE.version),
+				name = "|cff9482c9Shadow & Light|r"..T.format(": |cff99ff33%s|r", SLE.version),
 			},
 			logo = {
 				type = 'description',
-				name = '',
-				order = 2,
-				image = function() return 'Interface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Title', 555, 350 end,
-			},
-			--[[info = {
-				order = 3,
-				type = "description",
 				name = L["SLE_DESC"],
-			},]]
+				order = 2,
+				image = function() return 'Interface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Banner', 200, 100 end,
+			},
 			Install = {
 				order = 4,
 				type = 'execute',
-				name = L['Install'],
-				desc = L['Run the installation process.'],
-				func = function() SLE:Install(); E:ToggleConfig() end,
+				name = L["Install"],
+				desc = L["Run the installation process."],
+				func = function() E:GetModule("PluginInstaller"):Queue(SLE.installTable); E:ToggleConfig();  end,
 			},
-			SettingsButton = {
-				order = 5,
-				type = 'execute',
-				name = L["General"].." "..SETTINGS,
-				func = function() ACD:SelectGroup("ElvUI", "sle", "options", "general") end,
-			},
-			MinimapButton = {
+			infoButton = CreateButton(5, L["About/Help"], "help"),
+			Reset = {
 				order = 6,
 				type = 'execute',
-				name = L["Minimap"],
-				func = function() ACD:SelectGroup("ElvUI", "sle", "options", "minimap") end,
+				name = L["Reset All"],
+				desc = L["Resets all movers & options for S&L."],
+				func = function() SLE:Reset("all") end,
 			},
-			MarkersButton = {
-				order = 7,
-				type = 'execute',
-				name = L["Raid Markers"],
-				func = function() ACD:SelectGroup("ElvUI", "sle", "options", "raidmarkerbars") end,
-			},
-			EquipButton = {
-				order = 8,
-				type = 'execute',
-				name = L['Equipment Manager'],
-				func = function() ACD:SelectGroup("ElvUI", "sle", "options", "equipmanager") end,
-			},
-			FarmButton = {
-				order = 9,
-				type = 'execute',
-				name = L['Farm'],
-				func = function() ACD:SelectGroup("ElvUI", "sle", "options", "farm") end,
-			},
-			LootButton = {
-				order = 10,
-				type = 'execute',
-				name = L['Loot'],
-				func = function() ACD:SelectGroup("ElvUI", "sle", "options", "loot") end,
-			},
-			MediaButton = {
-				order = 11,
-				type = 'execute',
-				name = L["Media"],
-				func = function() ACD:SelectGroup("ElvUI", "sle", "media") end,
-			},
-			ScreensaverButton = {
-				order = 12,
-				type = 'execute',
-				name = L["Screensaver"],
-				func = function() ACD:SelectGroup("ElvUI", "sle", "screensaver") end,
-			},
-			ArmoryButton = {
-				order = 13,
-				type = 'execute',
-				name = L["Armory Mode"],
-				func = function() ACD:SelectGroup("ElvUI", "sle", "Armory") end,
-			},
-			DatatextButton = {
-				order = 14,
-				type = 'execute',
-				name = L["Panels & Dashboard"],
-				func = function() ACD:SelectGroup("ElvUI", "sle", "datatext") end,
-			},
-			HelpButton = {
-				order = 15,
-				type = 'execute',
-				name = L['About/Help'],
-				func = function() ACD:SelectGroup("ElvUI", "sle", "help") end,
-			},
-			options = {
-				order = 1,
+			modulesButton = CreateButton(7, L["Modules"], "modules"),
+			mediaButton = CreateButton(8, L["Media"], "media"),
+			skinsButton = CreateButton(9, L["Skins"], "skins"),
+			threat = {
 				type = "group",
-				childGroups = 'tab',
-				name = SETTINGS,
+				name = L["Threat"],
+				order = 12,
+				guiInline = true,
 				args = {
-					--[[intro = {
+					enabled = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						get = function(info) return E.db.sle.misc.threat.enable end,
+						set = function(info, value) E.db.sle.misc.threat.enable = value; M:UpdateThreatConfig(); M:UpdateThreatPosition() end,
+					},
+					position = {
+						order = 2,
+						type = 'select',
+						name = L["Position"],
+						desc = L["Adjust the position of the threat bar to any of the datatext panels in ElvUI & S&L."],
+						disabled = function() return not E.db.sle.misc.threat.enable end,
+						values = {
+							["SLE_DataPanel_1"] = L["SLE_DataPanel_1"],
+							["SLE_DataPanel_2"] = L["SLE_DataPanel_2"],
+							["SLE_DataPanel_3"] = L["SLE_DataPanel_3"],
+							["SLE_DataPanel_4"] = L["SLE_DataPanel_4"],
+							["SLE_DataPanel_5"] = L["SLE_DataPanel_5"],
+							["SLE_DataPanel_6"] = L["SLE_DataPanel_6"],
+							["SLE_DataPanel_7"] = L["SLE_DataPanel_7"],
+							["SLE_DataPanel_8"] = L["SLE_DataPanel_8"],
+							["LeftChatDataPanel"] = L["Left Chat"],
+							["RightChatDataPanel"] = L["Right Chat"],
+						},
+						get = function(info) return E.db.sle.misc.threat.position end,
+						set = function(info, value) E.db.sle.misc.threat.position = value; M:UpdateThreatPosition() end,
+					},
+				},
+			},
+			advanced = {
+				type = "group",
+				name = L["Advanced Options"],
+				order = 16,
+				guiInline = true,
+				get = function(info) return E.global.sle.advanced[ info[#info] ] end,
+				set = function(info, value) E.global.sle.advanced[ info[#info] ] = value; end,
+				args = {
+					info = {
 						order = 1,
 						type = "description",
-						name = L["Below you can see option groups presented by |cff1784d1Shadow & Light|r."],
-					},]]
+						name = L["SLE_Advanced_Desc"],
+					},
 					general = {
 						order = 2,
+						type = "toggle",
+						name = L["Allow Advanced Options"],
+						set = function(info, value) 
+							if value == true and not E.global.sle.advanced.confirmed then E:StaticPopup_Show("SLE_ADVANCED_POPUP"); return end
+							E.global.sle.advanced[ info[#info] ] = value;
+						end,
+					},
+					optionsLimits = {
+						order = 3,
+						type = "toggle",
+						name = L["Change Elv's options limits"],
+						desc = L["Allow |cff9482c9Shadow & Light|r to change some of ElvUI's options limits."],
+						disabled = function() return not E.global.sle.advanced.general end,
+						set = function(info, value) E.global.sle.advanced[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL") end,
+					},
+					gameMenu = {
+						order = 4,
 						type = "group",
-						name = L["General"],
+						name = L["Game Menu Buttons"],
+						hidden = function() return not E.global.sle.advanced.general end,
+						disabled = function() return not E.global.sle.advanced.gameMenu.enable end,
+						get = function(info) return E.global.sle.advanced.gameMenu[ info[#info] ] end,
+						set = function(info, value) E.global.sle.advanced.gameMenu[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL") end,
 						args = {
-							--[[intro = {
+							enable = {
 								order = 1,
-								type = "description",
-								name = L["General options of |cff1784d1Shadow & Light|r."],
-							},]]
-							Reset = {
+								type = "toggle",
+								name = L["Enable"],
+								desc = L["Adds |cff9482c9Shadow & Light|r buttons to main game menu."],
+								disabled = false,
+							},
+							reload = {
 								order = 2,
-								type = 'execute',
-								name = L["Reset All"],
-								desc = L["Resets all movers & options for S&L."],
-								func = function() SLE:Reset("all") end,
-							},
-							Install = {
-								order = 3,
-								type = 'execute',
-								name = L['Install'],
-								desc = L['Run the installation process.'],
-								func = function() SLE:Install(); E:ToggleConfig() end,
-							},
-							space1 = {
-								order = 4,
-								type = 'description',
-								name = "",
-							},
-							space2 = {
-								order = 4,
-								type = 'description',
-								name = "",
+								type = "toggle",
+								name = L["Reload UI"],
 							},
 						},
+					},
+					cyrillics = {
+						order = 5,
+						type = "group",
+						name = L["Cyrillics Support"],
+						hidden = function() return not E.global.sle.advanced.general end,
+						get = function(info) return E.global.sle.advanced.cyrillics[ info[#info] ] end,
+						set = function(info, value) E.global.sle.advanced.cyrillics[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL") end,
+						args = {
+							info = {
+								order = 1,
+								type = "description",
+								name = L["SLE_CYR_DESC"],
+							},
+							commands = {
+								order = 2,
+								type = "toggle",
+								name = L["Commands"],
+								desc = L["SLE_CYR_COM_DESC"],
+							},
+							devCommands = {
+								order = 3,
+								type = "toggle",
+								name = L["Dev Commands"],
+								desc = L["SLE_CYR_DEVCOM_DESC"],
+							},
+						},
+					},
+				},
+			},
+			modules = {
+				order = 20,
+				type = "group",
+				childGroups = "select",
+				name = L["Modules"],
+				args = {
+					info = {
+						type = "description",
+						order = 1,
+						name = L["Options for different S&L modules."],
 					},
 				},
 			},
@@ -157,4 +194,4 @@ local function configTable()
 	}
 end
 
-table.insert(E.SLEConfigs, configTable)
+T.tinsert(SLE.Configs, configTable)

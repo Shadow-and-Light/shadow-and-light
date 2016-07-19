@@ -1,0 +1,14 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file='questking.lua'/>
+	<Script file='core\util.lua'/>
+	<Script file='ui\rewardsframe.lua'/>
+	<Script file='ui\timerbar.lua'/>
+	<Script file='ui\progressbar.lua'/>
+	<Script file='ui\tracker.lua'/>
+	<Script file='buttons\quest.lua'/>
+	<Script file='buttons\scenario.lua'/>
+	<Script file='buttons\achievement.lua'/>
+	<Script file='buttons\challengetimer.lua'/>
+	<Script file='buttons\bonusobjective.lua'/>
+	<Script file='core\core.lua'/>
+</Ui>

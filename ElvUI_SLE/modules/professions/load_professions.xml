@@ -1,0 +1,6 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file='professions.lua'/>
+	<Script file='fishing.lua'/>
+	<Script file='enchant.lua'/>
+	<Script file='deconstruct.lua'/>
+</Ui>

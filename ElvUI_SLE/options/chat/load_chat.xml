@@ -1,0 +1,6 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+	<!--Core-->
+	<Script file='chat_c.lua'/>
+	<Script file='tabs_c.lua'/>
+	<Script file='history_c.lua'/>
+</Ui>

@@ -1,0 +1,13 @@
+﻿## Interface: 60200
+## LoadOnDemand: 1
+## Title: Lib: Tourist-3.0
+## Notes: A library to provide information about zones and instances.
+## Author: ckknight, Arrowmaster, Odica
+## X-Category: Library
+## X-Curse-Packaged-Version: r181
+## X-Curse-Project-Name: LibTourist-3.0
+## X-Curse-Project-ID: libtourist-3-0
+## X-Curse-Repository-ID: wow/libtourist-3-0/mainline
+
+LibStub\LibStub.lua
+lib.xml

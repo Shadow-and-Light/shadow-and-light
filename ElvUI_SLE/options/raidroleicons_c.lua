@@ -1,18 +1,20 @@
-local E, L, V, P, G = unpack(ElvUI);
-local SLE = E:GetModule('SLE')
-local B = E:GetModule("SLE_BlizzRaid")
-
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local B = SLE:GetModule("BlizzRaid")
+local RAID_CONTROL = RAID_CONTROL
 local function configTable()
-	E.Options.args.sle.args.options.args.general.args.raidmanager = {
+	if not SLE.initialized then return end
+	E.Options.args.sle.args.modules.args.raidmanager = {
 		type = "group",
-		name = RAID,
-		order = 80,
-		disabled = function() return SLE.oraenabled end,
+		name = RAID_CONTROL,
+		order = 19,
+		disabled = function() return SLE._Compatibility["oRA3"] end,
+		get = function(info) return E.db.sle.raidmanager[ info[#info] ] end,
+		set = function(info, value) E.db.sle.raidmanager[ info[#info] ] = value; B:CreateAndUpdateIcons() end,
 		args = {
 			header = {
 				order = 1,
 				type = "header",
-				name = RAID,
+				name = RAID_CONTROL,
 			},
 			info = {
 				order = 2,
@@ -23,17 +25,13 @@ local function configTable()
 				order = 3,
 				type = "toggle",
 				name = L["Show role icons"],
-				get = function(info) return E.db.sle.raidmanager.roles end,
-				set = function(info, value) E.db.sle.raidmanager.roles = value; E:GetModule("SLE_BlizzRaid"):CreateAndUpdateIcons() end,
 			},
 			level = {
 				order = 4,
 				type = "toggle",
 				name = L["Show level"],
-				get = function(info) return E.db.sle.raidmanager.level end,
-				set = function(info, value) E.db.sle.raidmanager.level = value; E:GetModule("SLE_BlizzRaid"):CreateAndUpdateIcons() end,
 			},
 		},
 	}
 end
-table.insert(E.SLEConfigs, configTable)
+T.tinsert(SLE.Configs, configTable)

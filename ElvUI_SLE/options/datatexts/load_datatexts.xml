@@ -1,0 +1,9 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+	<!--Core-->
+	<Script file='datatexts_c.lua'/>
+	<Script file='misc_c.lua'/>
+	<Script file='time_c.lua'/>
+	<Script file='currency_c.lua'/>
+	<Script file='friends_c.lua'/>
+	<Script file='guild_c.lua'/>
+</Ui>

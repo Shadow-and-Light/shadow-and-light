@@ -1,0 +1,17 @@
+------------------------------------------------------------------------
+r181 | Odica | 2015-07-17 09:55:31 +0000 (Fri, 17 Jul 2015) | 2 lines
+Changed paths:
+   M /trunk/LibTourist-3.0.lua
+   M /trunk/LibTourist-3.0.toc
+
+- Updated TOC to 60200
+- Added Hellfire Citadel raid. Because this is a duplicate name with the Hellfire Citadel complex in Hellfire Peninsula, Outland, the raid is added to the mechanism that handles duplicate names, and is identified by LibTourist as "Hellfire Citadel (Draenor)".
+------------------------------------------------------------------------
+r180 | Odica | 2015-02-25 15:52:03 +0000 (Wed, 25 Feb 2015) | 2 lines
+Changed paths:
+   M /trunk/LibTourist-3.0.lua
+   M /trunk/LibTourist-3.0.toc
+
+- Updated TOC to 60100
+- Added instance entrance portal coordinates for Auchindoun, Iron Docks, Bloodmaul Slag Mines and Skyreach
+------------------------------------------------------------------------

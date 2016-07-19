@@ -1,6 +1,6 @@
-local E, L, V, P, G = unpack(ElvUI)
+local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
 local DT = E:GetModule('DataTexts')
-
+local SPELL_FAILED_BAD_IMPLICIT_TARGETS = SPELL_FAILED_BAD_IMPLICIT_TARGETS
 local RC = LibStub("LibRangeCheck-2.0")
 local displayString = ''
 local lastPanel
@@ -23,7 +23,7 @@ local function OnUpdate(self, t)
 	curMax = max
 	
 	if min and max then
-		self.text:SetFormattedText(displayString, "Range", min, max)
+		self.text:SetFormattedText(displayString, L["Range"], min, max)
 	else
 		self.text:SetText(SPELL_FAILED_BAD_IMPLICIT_TARGETS)
 	end
@@ -32,7 +32,7 @@ local function OnUpdate(self, t)
 end
 
 local function OnEvent(self, event)
-	updateTargetRange = UnitName("target") ~= nil
+	updateTargetRange = T.UnitName("target") ~= nil
 	int = 0
 	if updateTargetRange then
 		forceUpdate = true
@@ -42,7 +42,7 @@ local function OnEvent(self, event)
 end
 
 local function ValueColorUpdate(hex, r, g, b)
-	displayString = string.join("", "%s: ", hex, "%d|r-", hex, "%d|r")
+	displayString = T.join("", "%s: ", hex, "%d|r-", hex, "%d|r")
 	
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)

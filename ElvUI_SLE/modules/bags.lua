@@ -1,9 +1,13 @@
-local E, L, V, P, G = unpack(ElvUI)
-local SB = E:GetModule("SLE_Bags")
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SB = SLE:NewModule("Bags", 'AceHook-3.0')
+local Pr
 local B = E:GetModule('Bags')
+local _G = _G
+local REAGENTBANK_CONTAINER = REAGENTBANK_CONTAINER
+local C_NewItems = C_NewItems
 
 function SB:UpdateSlot(bagID, slotID)
-	if (self.Bags[bagID] and self.Bags[bagID].numSlots ~= GetContainerNumSlots(bagID)) or not self.Bags[bagID] or not self.Bags[bagID][slotID] then		
+	if (self.Bags[bagID] and self.Bags[bagID].numSlots ~= T.GetContainerNumSlots(bagID)) or not self.Bags[bagID] or not self.Bags[bagID][slotID] then
 		return; 
 	end
 
@@ -13,6 +17,13 @@ function SB:UpdateSlot(bagID, slotID)
 
 	if (slot:IsShown() and C_NewItems.IsNewItem(bagID, slotID)) then
 		SB:StartAnim(slot);
+	end
+	
+	if not Pr then Pr = SLE:GetModule("Professions") end
+	if not Pr.DeconstructionReal then return end
+	if Pr.DeconstructionReal:IsShown() and not slot.hasItem then
+		B:Tooltip_Hide()
+		Pr.DeconstructionReal:OnLeave()
 	end
 end
 
@@ -29,6 +40,9 @@ function SB:UpdateReagentSlot(slotID)
 end
 
 function SB:StartAnim(slot)
+	if not slot.flashTex then
+		SB:HookBags(nil, slot)
+	end
 	slot.flashTex:Show();
 	slot.flashAnim:Play();
 	slot.glowAnim:Play();
@@ -41,17 +55,21 @@ function SB:StopAnim(slot)
 end
 
 function SB:HookSlot(slot, bagID, slotID)
+	if bagID == REAGENTBANK_CONTAINER and E.private.sle.bags.transparentSlots and not slot.SLErarity then
+			slot.SLErarity = true
+			B:UpdateReagentSlot(slotID)
+	end
 	slot:HookScript('OnEnter', function()
-		if (E.db.sle.bags.lootflash) then
+		if (SB.db.lootflash) then
 			C_NewItems.RemoveNewItem(bagID, slotID);
 			SB:StopAnim(slot);
 		end
 	end);
 
 	slot:HookScript('OnShow', function()
-		if (E.db.sle.bags.lootflash) then
+		if (SB.db.lootflash) then
 			if (C_NewItems.IsNewItem(bagID, slotID)) then
-				SB:StartAnim(slot);			
+				SB:StartAnim(slot);
 			else
 				SB:StopAnim(slot);
 			end
@@ -59,7 +77,7 @@ function SB:HookSlot(slot, bagID, slotID)
 	end);
 
 	slot:HookScript('OnHide', function()
-		if (E.db.sle.bags.lootflash) then
+		if (SB.db.lootflash) then
 			C_NewItems.RemoveNewItem(bagID, slotID);
 			SB:StopAnim(slot);
 		end
@@ -110,20 +128,29 @@ function SB:HookSlot(slot, bagID, slotID)
 	slot.glowAnim = glowAnimGroup;
 end
 
-function SB:HookBags()
-	for _, bagFrame in pairs(B.BagFrames) do
-		for _, bagID in pairs(bagFrame.BagIDs) do
-			if (not self.hookedBags[bagID]) then
-				for slotID = 1, GetContainerNumSlots(bagID) do
-					local slot = bagFrame.Bags[bagID][slotID];
+function SB:HookBags(isBank, force)
+	local slot
+	for _, bagFrame in T.pairs(B.BagFrames) do
+		for _, bagID in T.pairs(bagFrame.BagIDs) do
+			if (not self.hookedBags[bagID])then
+				for slotID = 1, T.GetContainerNumSlots(bagID) do
+					slot = bagFrame.Bags[bagID][slotID];
 					self:HookSlot(slot, bagID, slotID);
 				end
 				self.hookedBags[bagID] = true;
+			elseif self.hookedBags[bagID] and force then
+				for slotID = 1, T.GetContainerNumSlots(bagID) do
+					if force == bagFrame.Bags[bagID][slotID] then self:HookSlot(force, bagID, slotID) end
+				end
+			end
+			for slotID = 1, T.GetContainerNumSlots(bagID) do
+				slot = bagFrame.Bags[bagID][slotID];
+				if slot.template ~= "Transparent" and E.private.sle.bags.transparentSlots then slot:SetTemplate('Transparent') end
 			end
 		end
 	end
 
-	if (ElvUIReagentBankFrameItem1 and not self.hookedBags[REAGENTBANK_CONTAINER]) then
+	if (_G["ElvUIReagentBankFrameItem1"] and not self.hookedBags[REAGENTBANK_CONTAINER]) then
 		for slotID = 1, 98 do
 			local slot = _G["ElvUIReagentBankFrameItem"..slotID];
 			self:HookSlot(slot, REAGENTBANK_CONTAINER, slotID);
@@ -134,13 +161,20 @@ end
 
 function SB:Initialize()
 	self.hookedBags = {};
+	if not SLE.initialized then return end
 	if not E.private.bags.enable then return end
+
+	function SB:ForUpdateAll()
+		SB.db = E.db.sle.bags
+	end
+	SB:ForUpdateAll()
+
 	local BUpdateSlot = B.UpdateSlot;
 	local SBUpdateSlot = SB.UpdateSlot;
-	for _, bagFrame in pairs(B.BagFrames) do
+	for _, bagFrame in T.pairs(B.BagFrames) do
 		local UpdateSlot = function(self, bagID, slotID)
 			BUpdateSlot(bagFrame, bagID, slotID);
-			if (E.db.sle.bags.lootflash) then
+			if (SB.db.lootflash) then
 				SBUpdateSlot(bagFrame, bagID, slotID);
 			end
 		end
@@ -149,7 +183,7 @@ function SB:Initialize()
 		local SBUpdateReagentSlot = SB.UpdateReagentSlot;
 		local UpdateReagentSlot = function(self, slotID)
 			BUpdateReagentSlot(bagFrame, slotID);
-			if (E.db.sle.bags.lootflash) then
+			if (SB.db.lootflash) then
 				SBUpdateReagentSlot(bagFrame, slotID);
 			end
 		end
@@ -160,3 +194,5 @@ function SB:Initialize()
 		self:HookBags()
 	end);
 end
+
+SLE:RegisterModule(SB:GetName())

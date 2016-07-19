@@ -1,22 +1,20 @@
-﻿local E, L, V, P, G = unpack(ElvUI);
-local SLE = E:GetModule('SLE')
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local format = format
 
 --Chat icon paths--
 local slePath = [[|TInterface\AddOns\ElvUI_SLE\media\textures\]]
 local blizzPath = [[|TInterface\ICONS\]]
---sle
---local adapt = slePath..[[adapt:0:2|t]]
 local repooc = slePath..[[SLE_Chat_Logo:0:2|t ]]
 local darth = slePath..[[SLE_Chat_LogoD:0:2|t ]]
 local friend = slePath..[[Chat_Friend:16:16|t ]]
 local test = slePath..[[Chat_Test:16:16|t ]]
-local rpg = slePath..[[Chat_RPG:13:35|t]]
---blizz
+-- local rpg = slePath..[[Chat_RPG:13:35|t]]
 local kitalie = blizzPath..[[%s:12:12:0:0:64:64:4:60:4:60|t]]
 local orc = blizzPath..[[Achievement_Character_Orc_Male:16:16|t ]]
 local goldicon = blizzPath..[[rame\UI-GoldIcon:12:12|t]]
 local classTable = {
 	deathknight = blizzPath..[[ClassIcon_DeathKnight:16:16|t ]],
+	-- demonhunter = blizzPath..[[ClassIcon_DemonHunter:16:16|t ]],
 	druid = blizzPath..[[ClassIcon_Druid:16:16|t ]],
 	hunter = blizzPath..[[ClassIcon_Hunter:16:16|t ]],
 	mage = blizzPath..[[ClassIcon_Mage:16:16|t ]],
@@ -28,18 +26,51 @@ local classTable = {
 	warlock = blizzPath..[[ClassIcon_Warlock:16:16|t ]],
 	warrior = blizzPath..[[ClassIcon_Warrior:16:16|t ]],
 }
---Check if oRA3 happens to be enabled
-local enable = GetAddOnEnableState(E.myname, "oRA3")
-if enable == 0 then SLE.oraenabled = false else SLE.oraenabled = true end 
 
-E.SLEConfigs = {}
+--Role icons
+SLE.rolePaths = {
+	["ElvUI"] = {
+		TANK = [[Interface\AddOns\ElvUI\media\textures\tank]],
+		HEALER = [[Interface\AddOns\ElvUI\media\textures\healer]],
+		DAMAGER = [[Interface\AddOns\ElvUI\media\textures\dps]]
+	},
+	["SupervillainUI"] = {
+		TANK = [[Interface\AddOns\ElvUI_SLE\media\textures\role\svui-tank]],
+		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\svui-healer]],
+		DAMAGER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\svui-dps]]
+	},
+	["Blizzard"] = {
+		TANK = [[Interface\AddOns\ElvUI_SLE\media\textures\role\blizz-tank]],
+		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\blizz-healer]],
+		DAMAGER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\blizz-dps]]
+	},
+	["MiirGui"] = {
+		TANK = [[Interface\AddOns\ElvUI_SLE\media\textures\role\mg-tank]],
+		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\mg-healer]],
+		DAMAGER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\mg-dps]]
+	},
+}
 
-SLE.version = GetAddOnMetadata("ElvUI_SLE", "Version")
+--Epty Tables
+SLE.Configs = {}
 
+--Variables
+SLE.region = false
+
+--Toonlists
 SLE.SpecialChatIcons = {
 	["EU"] = {
-		['Sylvanas'] = {
+		["Sylvanas"] = {
 			["Neeka"] = darth,
+		},
+		["DarkmoonFaire"] = {
+			["Shaylith"] = darth,
+			["Yandria"] = darth,
+			["Ardon"] = darth,
+		},
+		["TheSha'tar"] = {
+			["Lelora"] = darth,
+			["Alamira"] = darth,
 		},
 		["СвежевательДуш"] = {
 			--Darth's toons
@@ -105,17 +136,17 @@ SLE.SpecialChatIcons = {
 			["Repooc"] = repooc
 		},
 		["WyrmrestAccord"] = {
-			["Kìtalie"] = kitalie:format("inv_cloth_challengewarlock_d_01helm"),
-			["Sagome"] = kitalie:format("inv_helm_leather_challengemonk_d_01"),
-			["Sortokk"] = kitalie:format("inv_helm_plate_challengedeathknight_d_01"),
-			["Norinael"] = kitalie:format("inv_helmet_plate_challengepaladin_d_01"),
-			["Shalerie"] = kitalie:format("inv_helm_cloth_challengemage_d_01"),
-			["Chalini"] = kitalie:format("inv_helmet_mail_challengeshaman_d_01"),
-			["Marittie"] = kitalie:format("inv_helmet_leather_challengerogue_d_01"),
-			["Crielexie"] = kitalie:format("inv_helmet_cloth_challengepriest_d_01"),
-			["Varysa"] = kitalie:format("inv_helmet_mail_challengehunter_d_01"),
-			["Caylasena"] = kitalie:format("inv_helm_plate_challengewarrior_d_01"),
-			["Syralea"] = kitalie:format("inv_helmet_challengedruid_d_01"),
+			["Kìtalie"] = format(kitalie,"inv_cloth_challengewarlock_d_01helm"),
+			["Sagome"] = format(kitalie,"inv_helm_leather_challengemonk_d_01"),
+			["Sortokk"] = format(kitalie,"inv_helm_plate_challengedeathknight_d_01"),
+			["Norinael"] = format(kitalie,"inv_helmet_plate_challengepaladin_d_01"),
+			["Shalerie"] = format(kitalie,"inv_helm_cloth_challengemage_d_01"),
+			["Chalini"] = format(kitalie,"inv_helmet_mail_challengeshaman_d_01"),
+			["Marittie"] = format(kitalie,"inv_helmet_leather_challengerogue_d_01"),
+			["Lieliline"] = format(kitalie,"inv_helmet_cloth_challengepriest_d_01"),
+			["Varysa"] = format(kitalie,"inv_helmet_mail_challengehunter_d_01"),
+			["Kaelleigh"] = format(kitalie,"inv_helm_plate_challengewarrior_d_01"),
+			["Syralea"] = format(kitalie,"inv_helmet_challengedruid_d_01"),
 			["Dapooc"] = repooc,
 		},
 		["Andorhal"] = {
@@ -123,31 +154,13 @@ SLE.SpecialChatIcons = {
 			["Rovert"] = repooc,
 			["Sliceoflife"] = repooc
 		},
+		--Teh PTR
+		["Brill(EU)"] = {
+			["Дартпредатор"] = darth,
+			["Киландра"] = darth,
+		},
 	},
 	["CN"] = {},
 	["KR"] = {},
 	["TW"] = {},
-}
-
-SLE.rolePaths = {
-	["ElvUI"] = {
-		TANK = [[Interface\AddOns\ElvUI\media\textures\tank]],
-		HEALER = [[Interface\AddOns\ElvUI\media\textures\healer]],
-		DAMAGER = [[Interface\AddOns\ElvUI\media\textures\dps]]
-	},
-	["SupervillainUI"] = {
-		TANK = [[Interface\AddOns\ElvUI_SLE\media\textures\role\svui-tank]],
-		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\svui-healer]],
-		DAMAGER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\svui-dps]]
-	},
-	["Blizzard"] = {
-		TANK = [[Interface\AddOns\ElvUI_SLE\media\textures\role\blizz-tank]],
-		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\blizz-healer]],
-		DAMAGER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\blizz-dps]]
-	},
-	["MiirGui"] = {
-		TANK = [[Interface\AddOns\ElvUI_SLE\media\textures\role\mg-tank]],
-		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\mg-healer]],
-		DAMAGER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\mg-dps]]
-	},
 }

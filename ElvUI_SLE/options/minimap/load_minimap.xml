@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+	<!--Core-->
+	<Script file='minimap_c.lua'/>
+	<Script file='coords_c.lua'/>
+	<Script file='minimapicons_c.lua'/>
+	<Script file='instance_c.lua'/>
+	<Script file='locpanel_c.lua'/>
+</Ui>

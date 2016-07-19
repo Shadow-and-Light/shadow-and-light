@@ -1,14 +1,15 @@
-local E, L, V, P, G = unpack(ElvUI);
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
+local _G = _G
 
 local function PetBattle()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.petbattleui ~= true then return end
-	local f = PetBattleFrame
-	local bar = ElvUIPetBattleActionBar
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.petbattleui ~= true and E.private.sle.skins.petbattles.enable ~= true then return end
+	local f = _G["PetBattleFrame"]
+	local bar = _G["ElvUIPetBattleActionBar"]
 	
 	local a = CreateFrame("Frame", "ActiveAllyHolder", E.UIParent)
 	a:Size(918, 68)
-	a:Point("TOP", PetBattleFrame)
+	a:Point("TOP", f)
 	
 	f.TopVersusText:ClearAllPoints()
 	f.TopVersusText:SetPoint("CENTER", a)

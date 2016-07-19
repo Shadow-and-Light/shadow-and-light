@@ -1,9 +1,10 @@
-local E, L, V, P, G = unpack(ElvUI);
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins')
+local _G = _G
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable == true and E.private.skins.blizzard.character == true then return end
-	if not E.db.sle.Armory.Character.Enable then return end
+	if E.db.sle.Armory and not E.db.sle.Armory.Character.Enable then return end
 
 	local slots = {
 		"HeadSlot", "NeckSlot", "ShoulderSlot", "BackSlot", "ChestSlot", "ShirtSlot",
@@ -11,7 +12,7 @@ local function LoadSkin()
 		"Finger0Slot", "Finger1Slot", "Trinket0Slot", "Trinket1Slot", "MainHandSlot", "SecondaryHandSlot",
 	}
 
-	for _, slot in pairs(slots) do
+	for _, slot in T.pairs(slots) do
 		local icon = _G["Character"..slot.."IconTexture"]
 		local cooldown = _G["Character"..slot.."Cooldown"]
 		slot = _G["Character"..slot]
@@ -19,7 +20,7 @@ local function LoadSkin()
 		slot:StyleButton(false)
 		slot.ignoreTexture:SetTexture([[Interface\PaperDollInfoFrame\UI-GearManager-LeaveItem-Transparent]])
 		slot:SetTemplate("Default", true)
-		icon:SetTexCoord(unpack(E.TexCoords))
+		icon:SetTexCoord(T.unpack(E.TexCoords))
 		icon:SetInside()
 		
 		if(cooldown) then
@@ -28,20 +29,20 @@ local function LoadSkin()
 	end	
 
 	local function ColorItemBorder()
-		for _, slot in pairs(slots) do
+		for _, slot in T.pairs(slots) do
 			local target = _G["Character"..slot]
-			local slotId, _, _ = GetInventorySlotInfo(slot)
-			local itemId = GetInventoryItemID("player", slotId)
+			local slotId, _, _ = T.GetInventorySlotInfo(slot)
+			local itemId = T.GetInventoryItemID("player", slotId)
 
 			if itemId then
-				local rarity = GetInventoryItemQuality("player", slotId);
+				local rarity = T.GetInventoryItemQuality("player", slotId);
 				if rarity and rarity > 1 then
-					target:SetBackdropBorderColor(GetItemQualityColor(rarity))
+					target:SetBackdropBorderColor(T.GetItemQualityColor(rarity))
 				else
-					target:SetBackdropBorderColor(unpack(E.media.bordercolor))
+					target:SetBackdropBorderColor(T.unpack(E.media.bordercolor))
 				end
 			else
-				target:SetBackdropBorderColor(unpack(E.media.bordercolor))
+				target:SetBackdropBorderColor(T.unpack(E.media.bordercolor))
 			end
 		end
 	end
@@ -49,7 +50,7 @@ local function LoadSkin()
 	local CheckItemBorderColor = CreateFrame("Frame")
 	CheckItemBorderColor:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 	CheckItemBorderColor:SetScript("OnEvent", ColorItemBorder)	
-	CharacterFrame:HookScript("OnShow", ColorItemBorder)
+	_G["CharacterFrame"]:HookScript("OnShow", ColorItemBorder)
 	ColorItemBorder()
 
 	local charframe = {
@@ -57,7 +58,7 @@ local function LoadSkin()
 		"CharacterFrameInset", 
 	}
 
-	for _, object in pairs(charframe) do
+	for _, object in T.pairs(charframe) do
 		_G[object]:StripTextures()
 	end
 end

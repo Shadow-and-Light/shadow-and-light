@@ -1,5 +1,6 @@
 ﻿local Revision = 1.6
-local ENI = _G['EnhancedNotifyInspect'] or CreateFrame('Frame', 'EnhancedNotifyInspect', UIParent)
+local _G = _G
+local ENI = _G["EnhancedNotifyInspect"] or CreateFrame('Frame', 'EnhancedNotifyInspect', UIParent)
 
 if not ENI.Revision or ENI.Revision < Revision then
 	ENI.InspectList = {}
@@ -7,7 +8,7 @@ if not ENI.Revision or ENI.Revision < Revision then
 	ENI.UpdateInterval = 1
 	
 	if not ENI.Original_BlizzardNotifyInspect then
-		local BlizNotifyInspect = _G['NotifyInspect']
+		local BlizNotifyInspect = _G["NotifyInspect"]
 		ENI.Original_BlizzardNotifyInspect = BlizNotifyInspect
 	end
 	

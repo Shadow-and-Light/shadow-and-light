@@ -1,9 +1,16 @@
-local MAJOR, MINOR = "LibElv-UIButtons-1.0", 01
+local MAJOR, MINOR = "LibElv-UIButtons-1.0", 1
 local lib, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not lib then return end
 local E, L, V, P, G = unpack(ElvUI)
 local S = E:GetModule("Skins")
+local TT = E:GetModule("Tooltip")
+
+local _G = _G
+local pairs, type, tinsert = pairs, type, tinsert
+local UnitName = UnitName
+local GameTooltip = GameTooltip
+local GetAddOnEnableState = GetAddOnEnableState
 
 --Upon creation menu.db does not account for values missing in E.db = being default.
 --We are using this to fix it.
@@ -21,11 +28,11 @@ end
 local function MoverSize(menu)
 	local db = menu.db
 	if db.orientation == "vertical" then
-		menu:SetWidth(db.size + (E.PixelMode and 2 or 4))
-		menu:SetHeight((db.size*menu.NumBut)+((E.PixelMode and db.spacing or db.spacing+2)*(menu.NumBut-1))+2)
+		menu:SetWidth(db.size + 2 + E.Spacing*2)
+		menu:SetHeight((db.size*menu.NumBut)+((db.spacing + E.Spacing*2)*(menu.NumBut-1))+2)
 	elseif db.orientation == "horizontal" then
-		menu:SetWidth((db.size*menu.NumBut)+((E.PixelMode and db.spacing or db.spacing+2)*(menu.NumBut-1))+2)
-		menu:SetHeight(db.size + (E.PixelMode and 2 or 4))
+		menu:SetWidth((db.size*menu.NumBut)+((db.spacing + E.Spacing*2)*(menu.NumBut-1))+2)
+		menu:SetHeight(db.size + 2 + E.Spacing*2)
 	end
 end
 
@@ -208,7 +215,7 @@ local function UpdateDropdownLayout(menu, group)
 	local T = menu[group.."Table"]
 	for i = 1, #T do
 		local button, prev, next = T[i], T[i-1], T[i+1]
-		local y_offset = prev and ((E.PixelMode and -db.spacing or -(db.spacing+2))-(prev.isSeparator and prev.space or 0)-(button.isSeparator and button.space or 0)) or 0
+		local y_offset = prev and (-(db.spacing + E.Spacing*2) - (prev.isSeparator and prev.space or 0) - (button.isSeparator and button.space or 0)) or 0
 		button:Point("TOP", (prev or header), (prev and "BOTTOM" or "TOP"), 0, y_offset)
 		count = button.isSeparator and count or count + 1
 		sepS = (button.isSeparator and sepS + ((prev and 2 or 1)*button.space + button.size)) or sepS
@@ -240,13 +247,13 @@ local function Positioning(menu)
 		for i = 1, #menu.ToggleTable do
 			local button, prev = menu.ToggleTable[i], menu.ToggleTable[i-1]
 			menu.ToggleTable[i]:ClearAllPoints()
-			menu.ToggleTable[i]:Point("TOP", (prev or header), prev and "BOTTOM" or "TOP", 0, prev and (E.PixelMode and -db.spacing or -(db.spacing+2)) or (E.PixelMode and -1 or -2))
+			menu.ToggleTable[i]:Point("TOP", (prev or header), prev and "BOTTOM" or "TOP", 0, prev and -(db.spacing + E.Spacing*2) or -(1 + E.Spacing))
 		end
 	elseif db.orientation == "horizontal" then
 		for i = 1, #menu.ToggleTable do
 			local button, prev = menu.ToggleTable[i], menu.ToggleTable[i-1]
 			menu.ToggleTable[i]:ClearAllPoints()
-			menu.ToggleTable[i]:Point("LEFT", (prev or header), prev and "RIGHT" or "LEFT", prev and (E.PixelMode and db.spacing or db.spacing+2) or (E.PixelMode and 1 or 2), 0)
+			menu.ToggleTable[i]:Point("LEFT", (prev or header), prev and "RIGHT" or "LEFT", prev and (db.spacing + E.Spacing*2) or (1 + E.Spacing), 0)
 		end
 	end
 	--Calling for dropdown updates
@@ -307,10 +314,12 @@ end
 local function ToggleShow(menu)
 	if not menu.db.enable then
 		menu:Hide()
+		E:DisableMover(menu.mover:GetName())
 	else
 		menu:Show()
 		menu:UpdateMouseOverSetting()
 		menu:UpdateBackdrop()
+		E:EnableMover(menu.mover:GetName())
 	end
 end
 
@@ -318,13 +327,9 @@ end
 function lib:CreateFrame(name, db, default, style, styleDefault, strata)
 	--Checks to prevent a shitload of errors cause of wrong arguments passed
 	if _G[name] then return end
-	if not name then print("Sorry but you didn't set a name for this menu bar. Aborting creation"); return end
-	if not db then print("Sorry but you didn't set database for this menu bar. Aborting creation"); return end
-	if not default then print("Sorry but you didn't set defaults for this menu bar. Aborting creation"); return end
-	if not style and not styleDefault then print("Sorry but you didn't set defaults for this menu bar's style. Aborting creation"); return end
 	if not strata then strata = "MEDIUM" end
 	local menu = CreateFrame("Frame", name, E.UIParent)
-	menu.db = db --making manu db table so we can actually keep unified settings calls in other functions
+	menu.db = db --making menu db table so we can actually keep unified settings calls in other functions
 	menu.default = default --same for defaults
 	EqualizeDB(menu.db, menu.default)
 	if not style and styleDefault then style = styleDefault end
@@ -406,7 +411,7 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 			enabled = {
 				order = 3,
 				type = "toggle",
-				name = ENABLE,
+				name = L["Enable"],
 				desc = L["Show/Hide UI buttons."],
 				get = function(info) return menu.db.enable end,
 				set = function(info, value) menu.db.enable = value; menu:ToggleShow() end
@@ -416,8 +421,8 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 				name = L["UI Buttons Style"],
 				type = "select",
 				values = {
-					["classic"] = L['Classic'],
-					["dropdown"] = L['Dropdown'],
+					["classic"] = L["Classic"],
+					["dropdown"] = L["Dropdown"],
 				},
 				disabled = function() return not menu.db.enable end,
 				get = function(info) return E.private.sle.uiButtonStyle end,
@@ -431,7 +436,7 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 			size = {
 				order = 6,
 				type = "range",
-				name = L['Size'],
+				name = L["Size"],
 				desc = L["Sets size of buttons"],
 				min = 12, max = 25, step = 1,
 				disabled = function() return not menu.db.enable end,
@@ -441,8 +446,8 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 			spacing = {
 				order = 7,
 				type = "range",
-				name = L['Button Spacing'],
-				desc = L['The spacing between buttons.'],
+				name = L["Button Spacing"],
+				desc = L["The spacing between buttons."],
 				min = 1, max = 10, step = 1,
 				disabled = function() return not menu.db.enable end,
 				get = function(info) return menu.db.spacing end,
@@ -479,8 +484,8 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 				desc = L["Layout for UI buttons."],
 				type = "select",
 				values = {
-					["horizontal"] = L['Horizontal'],
-					["vertical"] = L['Vertical'],
+					["horizontal"] = L["Horizontal"],
+					["vertical"] = L["Vertical"],
 				},
 				disabled = function() return not menu.db.enable end,
 				get = function(info) return menu.db.orientation end,
@@ -489,27 +494,27 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 			point = {
 				type = 'select',
 				order = 13,
-				name = L['Anchor Point'],
-				desc = L['What point of dropdown will be attached to the toggle button.'],
+				name = L["Anchor Point"],
+				desc = L["What point of dropdown will be attached to the toggle button."],
 				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == "classic" end,
 				get = function(info) return menu.db.point end,
 				set = function(info, value) menu.db.point = value; menu:FrameSize() end,
-				values = positionValues,				
+				values = positionValues,
 			},
 			anchor = {
 				type = 'select',
 				order = 14,
-				name = L['Attach To'],
-				desc = L['What point to anchor dropdown on the toggle button.'],
+				name = L["Attach To"],
+				desc = L["What point to anchor dropdown on the toggle button."],
 				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == "classic" end,
 				get = function(info) return menu.db.anchor end,
 				set = function(info, value) menu.db.anchor = value; menu:FrameSize() end,
-				values = positionValues,				
+				values = positionValues,
 			},
 			xoffset = {
 				order = 15,
 				type = "range",
-				name = L['X-Offset'],
+				name = L["X-Offset"],
 				desc = L["Horizontal offset of dropdown from the toggle button."],
 				min = -10, max = 10, step = 1,
 				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == "classic" end,
@@ -519,7 +524,7 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 			yoffset = {
 				order = 16,
 				type = "range",
-				name = L['Y-Offset'],
+				name = L["Y-Offset"],
 				desc = L["Vertical offset of dropdown from the toggle button."],
 				min = -10, max = 10, step = 1,
 				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == "classic" end,

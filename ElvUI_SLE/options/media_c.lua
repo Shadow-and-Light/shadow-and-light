@@ -1,12 +1,12 @@
-local E, L, V, P, G = unpack(ElvUI);
-local M = E:GetModule('SLE_Media')
-local S = E:GetModule("SLE_ScreenSaver")
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local M = SLE:GetModule('Media')
 
 local function configTable()
+	if not SLE.initialized then return end
 	E.Options.args.sle.args.media = {
 		type = "group",
-	    name = L["Media"],
-	    order = 3,
+		name = L["Media"],
+		order = 20,
 		childGroups = 'tab',
 		args = {
 			header = {
@@ -63,11 +63,11 @@ local function configTable()
 								desc = L["Set the font outline."],
 								type = "select",
 								values = {
-									['NONE'] = L['None'],
-									['OUTLINE'] = 'OUTLINE',
+									["NONE"] = L["None"],
+									["OUTLINE"] = 'OUTLINE',
 									
-									['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-									['THICKOUTLINE'] = 'THICKOUTLINE',
+									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
+									["THICKOUTLINE"] = 'THICKOUTLINE',
 								},
 							},
 							width = {
@@ -106,11 +106,11 @@ local function configTable()
 								desc = L["Set the font outline."],
 								type = "select",
 								values = {
-									['NONE'] = L['None'],
-									['OUTLINE'] = 'OUTLINE',
+									["NONE"] = L["None"],
+									["OUTLINE"] = 'OUTLINE',
 									
-									['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-									['THICKOUTLINE'] = 'THICKOUTLINE',
+									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
+									["THICKOUTLINE"] = 'THICKOUTLINE',
 								},
 							},
 							width = {
@@ -155,11 +155,11 @@ local function configTable()
 								desc = L["Set the font outline."],
 								type = "select",
 								values = {
-									['NONE'] = L['None'],
-									['OUTLINE'] = 'OUTLINE',
+									["NONE"] = L["None"],
+									["OUTLINE"] = 'OUTLINE',
 									
-									['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-									['THICKOUTLINE'] = 'THICKOUTLINE',
+									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
+									["THICKOUTLINE"] = 'THICKOUTLINE',
 								},
 							},
 							width = {
@@ -206,11 +206,11 @@ local function configTable()
 								desc = L["Set the font outline."],
 								type = "select",
 								values = {
-									['NONE'] = L['None'],
-									['OUTLINE'] = 'OUTLINE',
+									["NONE"] = L["None"],
+									["OUTLINE"] = 'OUTLINE',
 									
-									['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-									['THICKOUTLINE'] = 'THICKOUTLINE',
+									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
+									["THICKOUTLINE"] = 'THICKOUTLINE',
 								},
 							},
 						},
@@ -243,11 +243,11 @@ local function configTable()
 								desc = L["Set the font outline."],
 								type = "select",
 								values = {
-									['NONE'] = L['None'],
-									['OUTLINE'] = 'OUTLINE',
+									["NONE"] = L["None"],
+									["OUTLINE"] = 'OUTLINE',
 									
-									['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-									['THICKOUTLINE'] = 'THICKOUTLINE',
+									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
+									["THICKOUTLINE"] = 'THICKOUTLINE',
 								},
 							},
 						},
@@ -280,129 +280,36 @@ local function configTable()
 								desc = L["Set the font outline."],
 								type = "select",
 								values = {
-									['NONE'] = L['None'],
-									['OUTLINE'] = 'OUTLINE',
+									["NONE"] = L["None"],
+									["OUTLINE"] = 'OUTLINE',
 									
-									['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-									['THICKOUTLINE'] = 'THICKOUTLINE',
+									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
+									["THICKOUTLINE"] = 'THICKOUTLINE',
 								},
 							},
 						},
 					},
-				},
-			},
-		},
-	}
-	
-	E.Options.args.sle.args.screensaver = {
-		type = "group",
-		name = L["Screensaver"],
-		order = 4,
-		childGroups = 'tab',
-		args = {
-			enable = {
-				order = 1,
-				type = "toggle",
-				name = ENABLE,
-				get = function(info) return E.db.sle.media.screensaver.enable end,
-				set = function(info, value) E.db.sle.media.screensaver.enable = value; S:Reg(true); S:UpdateConfig() end,
-			},
-			fonts = {
-				type = "group",
-				name = L["Fonts"],
-				order = 1,
-				disabled = function() return not E.db.sle.media.screensaver.enable end,
-				args = {
-					title = {
+					questHeader = {
 						type = "group",
-						name = L["Title font"],
-						order = 1,
-						guiInline = true,
-						get = function(info) return E.db.sle.media.screensaver.title[ info[#info] ] end,
-						set = function(info, value) E.db.sle.media.screensaver.title[ info[#info] ] = value S:Media() end,
-						args = {
-							font = {
-								type = "select", dialogControl = 'LSM30_Font',
-								order = 1,
-								name = L["Font"],
-								desc = "The font used for ScreenSaver's Title",
-								values = AceGUIWidgetLSMlists.font,	
-							},
-							size = {
-								order = 2,
-								name = L["Font Size"],
-								type = "range",
-								min = 12, max = 32, step = 1,
-							},
-							outline = {
-								order = 3,
-								name = L["Font Outline"],
-								desc = L["Set the font outline."],
-								type = "select",
-								values = {
-									['NONE'] = L['None'],
-									['OUTLINE'] = 'OUTLINE',
-									['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-									['THICKOUTLINE'] = 'THICKOUTLINE',
-								},
-							},
-						},
-					},
-					subtitle = {
-						type = "group",
-						name = L["Subitle font"],
-						order = 2,
-						guiInline = true,
-						get = function(info) return E.db.sle.media.screensaver.subtitle[ info[#info] ] end,
-						set = function(info, value) E.db.sle.media.screensaver.subtitle[ info[#info] ] = value S:Media() end,
-						args = {
-							font = {
-								type = "select", dialogControl = 'LSM30_Font',
-								order = 1,
-								name = L["Font"],
-								desc = "The font used for ScreenSaver's Subtitle",
-								values = AceGUIWidgetLSMlists.font,	
-							},
-							size = {
-								order = 2,
-								name = L["Font Size"],
-								type = "range",
-								min = 12, max = 26, step = 1,
-							},
-							outline = {
-								order = 3,
-								name = L["Font Outline"],
-								desc = L["Set the font outline."],
-								type = "select",
-								values = {
-									['NONE'] = L['None'],
-									['OUTLINE'] = 'OUTLINE',
-									['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-									['THICKOUTLINE'] = 'THICKOUTLINE',
-								},
-							},
-						},
-					},
-					date = {
-						type = "group",
-						name = L["Date font"],
+						name = L["Objective Tracker Header Text"],
 						order = 3,
 						guiInline = true,
-						get = function(info) return E.db.sle.media.screensaver.date[ info[#info] ] end,
-						set = function(info, value) E.db.sle.media.screensaver.date[ info[#info] ] = value S:Media() end,
+						disabled = function() return not E.private.general.replaceBlizzFonts end,
+						get = function(info) return E.db.sle.media.fonts.objectiveHeader[ info[#info] ] end,
+						set = function(info, value) E.db.sle.media.fonts.objectiveHeader[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
 							font = {
 								type = "select", dialogControl = 'LSM30_Font',
 								order = 1,
 								name = L["Font"],
-								desc = "The font used for Screensaver's Date and Time",
+								desc = "The font used for chat editbox",
 								values = AceGUIWidgetLSMlists.font,	
 							},
 							size = {
 								order = 2,
 								name = L["Font Size"],
 								type = "range",
-								min = 12, max = 26, step = 1,
+								min = 6, max = 20, step = 1,
 							},
 							outline = {
 								order = 3,
@@ -410,34 +317,36 @@ local function configTable()
 								desc = L["Set the font outline."],
 								type = "select",
 								values = {
-									['NONE'] = L['None'],
-									['OUTLINE'] = 'OUTLINE',
-									['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-									['THICKOUTLINE'] = 'THICKOUTLINE',
+									["NONE"] = L["None"],
+									["OUTLINE"] = 'OUTLINE',
+									
+									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
+									["THICKOUTLINE"] = 'THICKOUTLINE',
 								},
 							},
 						},
 					},
-					player = {
+					questTracker = {
 						type = "group",
-						name = L["Player info font"],
+						name = L["Objective Tracker Text"],
 						order = 4,
 						guiInline = true,
-						get = function(info) return E.db.sle.media.screensaver.player[ info[#info] ] end,
-						set = function(info, value) E.db.sle.media.screensaver.player[ info[#info] ] = value S:Media() end,
+						disabled = function() return not E.private.general.replaceBlizzFonts end,
+						get = function(info) return E.db.sle.media.fonts.objective[ info[#info] ] end,
+						set = function(info, value) E.db.sle.media.fonts.objective[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
 							font = {
 								type = "select", dialogControl = 'LSM30_Font',
 								order = 1,
 								name = L["Font"],
-								desc = "The font used for Screensaver's Player info",
+								desc = "The font used for chat editbox",
 								values = AceGUIWidgetLSMlists.font,	
 							},
 							size = {
 								order = 2,
 								name = L["Font Size"],
 								type = "range",
-								min = 12, max = 26, step = 1,
+								min = 6, max = 20, step = 1,
 							},
 							outline = {
 								order = 3,
@@ -445,169 +354,14 @@ local function configTable()
 								desc = L["Set the font outline."],
 								type = "select",
 								values = {
-									['NONE'] = L['None'],
-									['OUTLINE'] = 'OUTLINE',
-									['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-									['THICKOUTLINE'] = 'THICKOUTLINE',
+									["NONE"] = L["None"],
+									["OUTLINE"] = 'OUTLINE',
+									
+									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
+									["THICKOUTLINE"] = 'THICKOUTLINE',
 								},
 							},
 						},
-					},
-					tips = {
-						type = "group",
-						name = L["Tips font"],
-						order = 4,
-						guiInline = true,
-						get = function(info) return E.db.sle.media.screensaver.tips[ info[#info] ] end,
-						set = function(info, value) E.db.sle.media.screensaver.tips[ info[#info] ] = value S:Media() end,
-						args = {
-							font = {
-								type = "select", dialogControl = 'LSM30_Font',
-								order = 1,
-								name = L["Font"],
-								desc = "The font used for Screensaver's Tips",
-								values = AceGUIWidgetLSMlists.font,	
-							},
-							size = {
-								order = 2,
-								name = L["Font Size"],
-								type = "range",
-								min = 12, max = 32, step = 1,
-							},
-							outline = {
-								order = 3,
-								name = L["Font Outline"],
-								desc = L["Set the font outline."],
-								type = "select",
-								values = {
-									['NONE'] = L['None'],
-									['OUTLINE'] = 'OUTLINE',
-									['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-									['THICKOUTLINE'] = 'THICKOUTLINE',
-								},
-							},
-						},
-					},
-				},
-			},
-			model = {
-				type = "group",
-				name = L["Graphics"],
-				order = 2,
-				disabled = function() return not E.db.sle.media.screensaver.enable end,
-				-- get = function(info) return E.db.sle.media.screensaver[ info[#info] ] end,
-				-- set = function(info, value) E.db.sle.media.screensaver[ info[#info] ] = value S:Media() end,
-				args = {
-					crest = {
-						order = 1,
-						name = L["Crest Size"],
-						type = "range",
-						min = 84, max = 256, step = 1,
-						get = function(info) return E.db.sle.media.screensaver.crest end,
-						set = function(info, value) E.db.sle.media.screensaver.crest = value; S:Media() end,
-					},
-					xpack = {
-						order = 1,
-						name = L["X-Pack Logo Size"],
-						type = "range",
-						min = 100, max = 256, step = 1,
-						get = function(info) return E.db.sle.media.screensaver.xpack end,
-						set = function(info, value) E.db.sle.media.screensaver.xpack = value; S:Media() end,
-					},
-					modelanim = {
-						order = 2,
-						name = L["Model Animation"],
-						type = "select",
-						get = function(info) return E.db.sle.media.screensaver.playermodel.anim end,
-						set = function(info, value) E.db.sle.media.screensaver.playermodel.anim = value end,
-						values = {
-							[47] = "Standing",
-							[4] = "Walking",
-							[5] = "Running",
-							[13] = "Walking backwards",
-							[25] = 'Unarmed Ready',
-							[60] = "Talking",
-							[64] = 'Exclmation',
-							[66] = 'Bow',
-							[67] = 'Wave',
-							[68] = 'Ceers',
-							[69] = 'Dance',
-							[70] = 'Laugh',
-							[76] = 'Kiss',
-							[77] = 'Cry',
-							[80] = 'Applaud',
-							[82] = 'Flex',
-							[83] = 'Shy',
-							[113] = 'Salute',
-						},
-					},
-					modelpos = {
-						order = 3,
-						name = L["Model Position"],
-						type = "select",
-						get = function(info) return E.db.sle.media.screensaver.playermodel.position end,
-						set = function(info, value) E.db.sle.media.screensaver.playermodel.position = value end,
-						values = {
-							["RIGHT"] = L['Right'],
-							["LEFT"] = L['Left'],
-							["CENTER"] = L['Center']
-						},
-					},
-					height = {
-						order = 4,
-						name = L["Panel Height"],
-						type = "range",
-						min = 120, max = 200, step = 1,
-						get = function(info) return E.db.sle.media.screensaver.height end,
-						set = function(info, value) E.db.sle.media.screensaver.height = value end,
-					},
-					width = {
-						order = 5,
-						name = L["Width"],
-						type = "range",
-						min = 200, max = (E.eyefinity or E.screenwidth)/2, step = 0.01,
-						get = function(info) return E.db.sle.media.screensaver.playermodel.width end,
-						set = function(info, value) E.db.sle.media.screensaver.playermodel.width = value end,
-					},
-					yaxis = {
-						order = 6,
-						name = L["Y-Offset"],
-						type = "range",
-						min = -1.5, max = 1.5, step = 0.01,
-						get = function(info) return E.db.sle.media.screensaver.playermodel.yaxis end,
-						set = function(info, value) E.db.sle.media.screensaver.playermodel.yaxis = value end,
-					},
-					xaxis = {
-						order = 7,
-						name = L["X-Offset"],
-						type = "range",
-						min = -1.5, max = 1.5, step = 0.01,
-						get = function(info) return E.db.sle.media.screensaver.playermodel.xaxis end,
-						set = function(info, value) E.db.sle.media.screensaver.playermodel.xaxis = value end,
-					},
-					distance = {
-						order = 8,
-						name = L["Camera Distance Scale"],
-						type = "range",
-						min = -1.5, max = 4, step = 0.01,
-						get = function(info) return E.db.sle.media.screensaver.playermodel.distance end,
-						set = function(info, value) E.db.sle.media.screensaver.playermodel.distance = value end,
-					},
-					rotation = {
-						type = 'range',
-						name = L['Model Rotation'],
-						order = 4,
-						min = 0, max = 360, step = 1,
-						get = function(info) return E.db.sle.media.screensaver.playermodel.rotation end,
-						set = function(info, value) E.db.sle.media.screensaver.playermodel.rotation = value end,
-					},
-					testmodel = {
-						order = 10,
-						type = 'execute',
-						name = L["Test"],
-						desc = "Shows a test model with selected animation for 10 seconds. Ckicking again will reset timer.",
-						-- disabled = function() return not E.db.chat.chatHistory end,
-						func = function() S:TestShow() end,
 					},
 				},
 			},
@@ -615,4 +369,4 @@ local function configTable()
 	}
 end
 
-table.insert(E.SLEConfigs, configTable)
+T.tinsert(SLE.Configs, configTable)

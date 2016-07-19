@@ -1,28 +1,31 @@
-﻿local E, L, V, P, G = unpack(ElvUI); 
-local SLE = E:GetModule('SLE');
-local split = string.split
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local BNET_CLIENT_WOW = BNET_CLIENT_WOW
+local BNSendGameData = BNSendGameData
+local SendAddonMessage = SendAddonMessage
 
+
+--Building user list for dev tool
 local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if prefix == 'SLE_DEV_REQ' then 
 			local message = "wut?"
 			SendAddonMessage('SLE_USER_REQ', message, channel)
 		elseif prefix == 'SLE_USER_INFO' then
-			local message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
+			local message = T.UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
 			SendAddonMessage('SLE_DEV_INFO', message, channel)
 		end
 	elseif event == "BN_CHAT_MSG_ADDON" then
 		if (sender == E.myname.."-"..E.myrealm:gsub(' ','')) then return end
 
 		if prefix == 'SLE_DEV_REQ' then
-			local _, numBNetOnline = BNGetNumFriends()
+			local _, numBNetOnline = T.BNGetNumFriends()
 			for i = 1, numBNetOnline do
-				local presenceID, _, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
+				local presenceID, _, _, _, _, _, client, isOnline = T.BNGetFriendInfo(i)
 				if isOnline and client == BNET_CLIENT_WOW then
-					local message, ID = split("#", message)
+					local message, ID = T.split("#", message)
 
 					if message == 'userlist' then
-						message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
+						message = T.UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
 					elseif message == 'slesay' then
 						message = "SLEinfo"..ID
 					end
