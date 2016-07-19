@@ -1,7 +1,9 @@
 v3.0
 Overall reconfiguration of options. We would recommend to start with a fresh clean install for this one.
-Repooc's install layouts are not available at the moment
+Repooc's install layouts are not available at the moment.
 This version is nowhere near being fully completed. More stuff comes.
+
+This version is for patch 7.0 if you don't have that installed on your server, don't update just yet
 
 Additions:
 - Some config groups will now be disabled if required ElvUI modules are not enabled.
