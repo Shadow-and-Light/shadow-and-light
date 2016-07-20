@@ -239,11 +239,11 @@ local function DarthSetup()
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["powerbar"]["enable"] = true
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["powerbar"]["height"] = 4
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["powerbar"]["enable"] = true
-		E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["numAuras"] = 6
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 6
 		E.db["nameplates"]["units"]["HEALER"]["powerbar"]["height"] = 4
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["powerbar"]["height"] = 4
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["powerbar"]["enable"] = true
-		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["numAuras"] = 6
+		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["numAuras"] = 6
 		E.db["nameplates"]["units"]["PLAYER"]["alwaysShow"] = true
 		E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["enable"] = false
 		E.db["nameplates"]["units"]["PLAYER"]["healthbar"]["width"] = 120
