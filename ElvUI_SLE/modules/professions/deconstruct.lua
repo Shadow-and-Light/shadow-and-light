@@ -319,6 +319,7 @@ function Pr:ConstructRealDecButton()
 end
 
 function Pr:InitializeDeconstruct()
+	if not E.private.bags.enable then return end
 	Pr:Construct_BagButton()
 	Pr:ConstructRealDecButton()
 	
