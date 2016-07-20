@@ -1,11 +1,11 @@
-v3.01
+v3.01 07/20/2016
 Fixes:
 - Fixed nameplates error cause by copy-paste fail
 - Fixed errors in profession module when ElvUI bags are disabled
 Misc:
 - Attempted to prevent on load errors for non-clear installs
 
-v3.0
+v3.0 07/19/2016
 Overall reconfiguration of options. We would recommend to start with a fresh clean install for this one.
 Repooc's install layouts are not available at the moment.
 This version is nowhere near being fully completed. More stuff comes.
