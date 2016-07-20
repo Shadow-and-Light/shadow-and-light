@@ -137,6 +137,9 @@ Tools.Salvage = {
 	[114116] = { 1 }, -- Bag of Salvaged Goods
 	[114119] = { 1 }, -- Crate of Salvage
 	[114120] = { 1 }, -- Big Crate of Salvage
+	[139593] = { 1 }, -- New Small sack
+	[140590] = { 1 }, -- New big Crate
+	-- [114120] = { 1 }, -- Big Crate of Salvage
 }
 Tools.GarMine = {
 	[118903] = { 1 }, -- Minepick
