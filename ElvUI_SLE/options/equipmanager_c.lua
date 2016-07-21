@@ -6,6 +6,7 @@ local SPECIALIZATION_PRIMARY = SPECIALIZATION_PRIMARY
 local SPECIALIZATION_SECONDARY = SPECIALIZATION_SECONDARY
 local PVP = PVP
 local DUNGEONS = DUNGEONS
+local GENERAL = GENERAL
 
 local sets = {}
 
@@ -25,7 +26,7 @@ local function configTable()
 	if not SLE.initialized then return end
 	
 	local function ConstructSpecOption(ORDER, ID, OPTION)
-		local SpecID, SpecName = GetSpecializationInfo(ID)
+		local SpecID, SpecName = T.GetSpecializationInfo(ID)
 		if not SpecID then return nil end
 		local config = {
 			order = ORDER,

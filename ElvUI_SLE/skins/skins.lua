@@ -2,6 +2,7 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins');
 local Sk = SLE:NewModule("Skins")
 local LSM = LibStub("LibSharedMedia-3.0")
+--GLOBALS: CreateFrame
 local _G = _G
 
 function Sk:CreateUnderline(frame, texture, shadow, height)

@@ -86,10 +86,10 @@ local function UpdateBuybackInfo()
 	for i = 1, BUYBACK_ITEMS_PER_PAGE, 1 do
 		btn = _G["MerchantItem" .. i];
 		if (btn) then
-			link = GetBuybackItemLink(i);
+			link = T.GetBuybackItemLink(i);
 			if (link) then
-				_, _, quality = GetItemInfo(link);
-				r, g, b = GetItemQualityColor(quality);
+				_, _, quality = T.GetItemInfo(link);
+				r, g, b = T.GetItemQualityColor(quality);
 				_G["MerchantItem" .. i .. "Name"]:SetTextColor(r, g, b);
 			end
 		end
