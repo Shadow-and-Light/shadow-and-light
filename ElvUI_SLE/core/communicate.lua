@@ -20,7 +20,7 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 		if prefix == 'SLE_DEV_REQ' then
 			local _, numBNetOnline = T.BNGetNumFriends()
 			for i = 1, numBNetOnline do
-				local presenceID, _, _, _, _, _, client, isOnline = T.BNGetFriendInfo(i)
+				local presenceID, _, _, _, _, toonID, client, isOnline = T.BNGetFriendInfo(i)
 				if isOnline and client == BNET_CLIENT_WOW then
 					local message, ID = T.split("#", message)
 
@@ -29,7 +29,8 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 					elseif message == 'slesay' then
 						message = "SLEinfo"..ID
 					end
-					BNSendGameData(presenceID, 'SLE_DEV_INFO', message)
+					-- BNSendGameData(presenceID, 'SLE_DEV_INFO', message)
+					BNSendGameData(toonID, 'SLE_DEV_INFO', message)
 				end
 			end
 		end
