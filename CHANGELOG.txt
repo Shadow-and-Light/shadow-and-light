@@ -1,3 +1,9 @@
+v3.02
+Fixes:
+- Added more checks to prevent some code from loading when corresponding ElvUI module is disabled
+Misc:
+- Blizz changed salvage crates, 2 new crates were added to garrison toolbar. I'm yet to get the third type.
+
 v3.01 07/20/2016
 Fixes:
 - Fixed nameplates error cause by copy-paste fail
