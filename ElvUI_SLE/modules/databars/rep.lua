@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DB = SLE:GetModule("DataBars")
-
+--GLOBALS: hooksecurefunc
 local _G = _G
 local strMatchCombat = {}
 local guildName

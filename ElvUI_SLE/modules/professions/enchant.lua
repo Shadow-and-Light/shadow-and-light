@@ -1,7 +1,7 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Pr = SLE:GetModule("Professions")
 local S = E:GetModule("Skins")
--- GLOBALS: CreateFrame
+-- GLOBALS: CreateFrame, hooksecurefunc
 local _G = _G
 local UseItemByName = UseItemByName
 local C_TradeSkillUI = C_TradeSkillUI

@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DB = SLE:NewModule("DataBars","AceHook-3.0", "AceEvent-3.0")
-
+--GLOBALS: ChatFrame_AddMessageEventFilter, ChatFrame_RemoveMessageEventFilter
 DB.Icons = {
 	Rep = [[Interface\Icons\Achievement_Reputation_08]],
 	XP = [[Interface\Icons\XP_ICON]],

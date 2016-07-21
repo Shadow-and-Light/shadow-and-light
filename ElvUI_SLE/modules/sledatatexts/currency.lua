@@ -1,7 +1,7 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
 local DTP = SLE:GetModule('Datatexts')
-
+--GLOBALS: ElvDB
 local abs, mod = abs, mod
 local GetMoney, GetCurrencyInfo, GetNumWatchedTokens, GetBackpackCurrencyInfo, GetCurrencyListInfo = GetMoney, GetCurrencyInfo, GetNumWatchedTokens, GetBackpackCurrencyInfo, GetCurrencyListInfo
 

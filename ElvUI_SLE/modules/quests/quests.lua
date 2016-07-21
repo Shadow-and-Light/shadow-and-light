@@ -3,6 +3,7 @@ local Q = SLE:NewModule("Quests", "AceEvent-3.0")
 local B = LibStub("LibBabble-SubZone-3.0")
 local BL = B:GetLookupTable()
 local ObjectiveTracker_Expand, ObjectiveTracker_Collapse = ObjectiveTracker_Expand, ObjectiveTracker_Collapse
+local IsResting = IsResting
 local statedriver = {
 	["FULL"] = function(frame) 
 		ObjectiveTracker_Expand()
@@ -25,6 +26,7 @@ function Q:ChangeState(event)
 
 	if T.GetZoneText() == BL.Frostwall or T.GetZoneText() == BL.Lunarfall then
 		statedriver[Q.db.visibility.garrison](Q.frame)
+	--here be order halls
 	elseif IsResting() then
 		statedriver[Q.db.visibility.rested](Q.frame)
 	else

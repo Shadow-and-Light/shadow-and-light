@@ -2,6 +2,7 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local M = E:GetModule('Minimap')
 local MM = SLE:NewModule("Minimap", 'AceHook-3.0', 'AceEvent-3.0')
 local LSM = LibStub("LibSharedMedia-3.0");
+--GLOBALS: CreateFrame, hooksecurefunc
 local _G = _G
 local cluster = _G["MinimapCluster"]
 local UIFrameFadeIn = UIFrameFadeIn
@@ -60,26 +61,24 @@ end
 
 function MM:UpdateCoordinatesPosition()
 	MM.coordspanel:ClearAllPoints()
-	MM.coordspanel:SetPoint(E.db.sle.minimap.coords.position, Minimap)
+	MM.coordspanel:SetPoint(E.db.sle.minimap.coords.position, _G["Minimap"])
 end
 
 function MM:CreateCoordsFrame()
 	MM.coordspanel = CreateFrame('Frame', "SLE_CoordsPanel", E.UIParent)
-	-- MM.coordspanel:SetFrameStrata("MEDIUM")
-	MM.coordspanel:Point("BOTTOM", Minimap, "BOTTOM", 0, 0)
-	-- MM.coordspanel:CreateBackdrop()
+	MM.coordspanel:Point("BOTTOM", _G["Minimap"], "BOTTOM", 0, 0)
 	E.FrameLocks["SLE_CoordsPanel"] = true;
 
 	MM.coordspanel.Text = MM.coordspanel:CreateFontString(nil, "OVERLAY")
 	MM.coordspanel.Text:SetAllPoints(MM.coordspanel)
 	MM.coordspanel.Text:SetWordWrap(false)
 
-	Minimap:HookScript('OnEnter', function(self)
+	_G["Minimap"]:HookScript('OnEnter', function(self)
 		if E.db.sle.minimap.coords.display ~= 'MOUSEOVER' or not E.private.general.minimap.enable or not E.db.sle.minimap.coords.enable then return; end
 		MM.coordspanel:Show()
 	end)
 
-	Minimap:HookScript('OnLeave', function(self)
+	_G["Minimap"]:HookScript('OnLeave', function(self)
 		if E.db.sle.minimap.coords.display ~= 'MOUSEOVER' or not E.private.general.minimap.enable or not E.db.sle.minimap.coords.enable then return; end
 		MM.coordspanel:Hide()
 	end)
@@ -98,7 +97,7 @@ function MM:UpdateSettings()
 	MM:CoordFont()
 	MM:CoordsSize()
 
-	MM.coordspanel:SetPoint(E.db.sle.minimap.coords.position, Minimap)
+	MM.coordspanel:SetPoint(E.db.sle.minimap.coords.position, _G["Minimap"])
 	MM.coordspanel:SetScript('OnUpdate', MM.UpdateCoords)
 
 	MM:UpdateCoordinatesPosition()

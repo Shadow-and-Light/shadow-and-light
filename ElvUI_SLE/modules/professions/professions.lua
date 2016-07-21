@@ -31,15 +31,15 @@ function Pr:UpdateSkills(event)
 		end
 	end
 
-	local prof1, prof2 = GetProfessions()
+	local prof1, prof2 = T.GetProfessions()
 	if prof1 then
-		local name, _, rank = GetProfessionInfo(prof1)
+		local name, _, rank = T.GetProfessionInfo(prof1)
 		if name == T.GetSpell(7411) then
 			Pr.DErank = rank
 		end
 	end
 	if prof2 then
-		local name, _, rank = GetProfessionInfo(prof2)
+		local name, _, rank = T.GetProfessionInfo(prof2)
 		if name == T.GetSpell(7411) then
 			Pr.DErank = rank
 		end

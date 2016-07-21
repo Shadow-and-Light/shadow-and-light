@@ -26,6 +26,7 @@ local ShowFriends = ShowFriends
 local IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown = IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown
 local SetItemRef = SetItemRef
 local StaticPopup_Show = StaticPopup_Show
+local ToggleFriendsFrame = ToggleFriendsFrame
 
 local realid_table = {}
 
@@ -249,13 +250,13 @@ local function Entry_OnMouseUp(frame, info, button)
 
 		if IsControlKeyDown() then
 			if i_type == "friends" then
-				FriendsFrame.NotesID = nameIndex(toon_name)
- 				StaticPopup_Show("SET_FRIENDNOTE", T.GetFriendInfo(FriendsFrame.NotesID))
+				_G["FriendsFrame"].NotesID = nameIndex(toon_name)
+ 				StaticPopup_Show("SET_FRIENDNOTE", T.GetFriendInfo(_G["FriendsFrame"].NotesID))
  				return
 			end
 
 			if i_type == "realid" then
-				FriendsFrame.NotesID = presence_id
+				_G["FriendsFrame"].NotesID = presence_id
 				StaticPopup_Show("SET_BNFRIENDNOTE", full_name)
 				return
 			end
@@ -305,7 +306,7 @@ function LDB:OnClick(button)
 	end
 
 	if button == "RightButton" then
-		ElvConfigToggle:Click();
+		_G["ElvConfigToggle"]:Click();
 		SLE.ACD:SelectGroup("ElvUI", "sle", "modules", "datatext", "sldatatext", "slfriends")
 	end
 end

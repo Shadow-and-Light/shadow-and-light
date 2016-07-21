@@ -1,6 +1,10 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local SMB = SLE:NewModule('SquareMinimapButtons','AceHook-3.0', 'AceEvent-3.0');
 
+--GLOBALS: CreateFrame, UIParent
+local _G = _G
+local RegisterStateDriver = RegisterStateDriver
+
 local strsub, ceil = strsub, ceil
 local BorderColor = E["media"].bordercolor
 local TexCoords = { 0.1, 0.9, 0.1, 0.9 }
@@ -138,7 +142,7 @@ local function SkinButton(Button)
 			end
 		end
 
-		Button:SetFrameLevel(Minimap:GetFrameLevel() + 5)
+		Button:SetFrameLevel(_G["Minimap"]:GetFrameLevel() + 5)
 		Button:Size(E.db.sle.minimap.mapicons.iconsize)
 
 		if Name == 'SmartBuff_MiniMapButton' then
@@ -148,27 +152,27 @@ local function SkinButton(Button)
 			Button:SetDisabledTexture("Interface\\Icons\\Spell_Nature_Purge")
 			Button:GetDisabledTexture():SetTexCoord(T.unpack(TexCoords))
 		elseif Name == 'VendomaticButtonFrame' then
-			VendomaticButton:StripTextures()
-			VendomaticButton:SetInside()
-			VendomaticButtonIcon:SetTexture('Interface\\Icons\\INV_Misc_Rabbit_2')
-			VendomaticButtonIcon:SetTexCoord(T.unpack(TexCoords))
+			_G["VendomaticButton"]:StripTextures()
+			_G["VendomaticButton"]:SetInside()
+			_G["VendomaticButtonIcon"]:SetTexture('Interface\\Icons\\INV_Misc_Rabbit_2')
+			_G["VendomaticButtonIcon"]:SetTexCoord(T.unpack(TexCoords))
 		end
 
 		if Name == 'QueueStatusMinimapButton' then
-			QueueStatusMinimapButton:HookScript('OnUpdate', function(self)
-				QueueStatusMinimapButtonIcon:SetFrameLevel(QueueStatusMinimapButton:GetFrameLevel() + 1)
+			_G["QueueStatusMinimapButton"]:HookScript('OnUpdate', function(self)
+				_G["QueueStatusMinimapButtonIcon"]:SetFrameLevel(_G["QueueStatusMinimapButton"]:GetFrameLevel() + 1)
 			end)
-			local Frame = CreateFrame('Frame', QueueDummyFrame, SMB.bar)
+			local Frame = CreateFrame('Frame', "QueueDummyFrame", SMB.bar)
 			Frame:SetTemplate()
 			Frame.Icon = Frame:CreateTexture(nil, 'ARTWORK')
 			Frame.Icon:SetInside()
 			Frame.Icon:SetTexture([[Interface\LFGFrame\LFG-Eye]])
 			Frame.Icon:SetTexCoord(0, 64 / 512, 0, 64 / 256)
 			Frame:SetScript('OnMouseDown', function()
-				if PVEFrame:IsShown() then
-					HideUIPanel(PVEFrame)
+				if _G["PVEFrame"]:IsShown() then
+					HideUIPanel(_G["PVEFrame"])
 				else
-					ShowUIPanel(PVEFrame)
+					ShowUIPanel(_G["PVEFrame"])
 					GroupFinderFrame_ShowGroupFrame()
 				end
 			end)
@@ -179,7 +183,7 @@ local function SkinButton(Button)
 					Frame:Hide()
 				end
 			end)
-			QueueStatusMinimapButton:HookScript('OnShow', function()
+			_G["QueueStatusMinimapButton"]:HookScript('OnShow', function()
 				if E.db.sle.minimap.mapicons.skindungeon then
 					Frame:Show()
 				else
@@ -189,15 +193,15 @@ local function SkinButton(Button)
 			Frame:HookScript('OnEnter', OnEnter)
 			Frame:HookScript('OnLeave', OnLeave)
 			Frame:SetScript('OnUpdate', function(self)
-				if QueueStatusMinimapButton:IsShown() then
+				if _G["QueueStatusMinimapButton"]:IsShown() then
 					self:EnableMouse(false)
 				else
 					self:EnableMouse(true)
 				end
 				self:Size(E.db.sle.minimap.mapicons.iconsize)
-				self:SetFrameStrata(QueueStatusMinimapButton:GetFrameStrata())
-				self:SetFrameLevel(QueueStatusMinimapButton:GetFrameLevel())
-				self:SetPoint(QueueStatusMinimapButton:GetPoint())
+				self:SetFrameStrata(_G["QueueStatusMinimapButton"]:GetFrameStrata())
+				self:SetFrameLevel(_G["QueueStatusMinimapButton"]:GetFrameLevel())
+				self:SetPoint(_G["QueueStatusMinimapButton"]:GetPoint())
 			end)
 		elseif Name == 'MiniMapMailFrame' then
 			local Frame = CreateFrame('Frame', 'MailDummyFrame', SMB.bar)
@@ -206,23 +210,23 @@ local function SkinButton(Button)
 			Frame.Icon = Frame:CreateTexture(nil, 'ARTWORK')
 			Frame.Icon:SetPoint('CENTER')
 			Frame.Icon:Size(18)
-			Frame.Icon:SetTexture(MiniMapMailIcon:GetTexture())
+			Frame.Icon:SetTexture(_G["MiniMapMailIcon"]:GetTexture())
 			Frame:SetScript('OnEnter', OnEnter)
 			Frame:SetScript('OnLeave', OnLeave)
 			Frame:SetScript('OnUpdate', function(self)
 				if E.db.sle.minimap.mapicons.skinmail then
 					Frame:Show()
-					Frame:SetPoint(MiniMapMailFrame:GetPoint())
+					Frame:SetPoint(_G["MiniMapMailFrame"]:GetPoint())
 				else
 					Frame:Hide()
 				end
 			end)
-			MiniMapMailFrame:HookScript('OnShow', function(self)
+			_G["MiniMapMailFrame"]:HookScript('OnShow', function(self)
 				if E.db.sle.minimap.mapicons.skinmail then
-					MiniMapMailIcon:SetVertexColor(0, 1, 0)
+					_G["MiniMapMailIcon"]:SetVertexColor(0, 1, 0)
 				end
 			end)
-			MiniMapMailFrame:HookScript('OnHide', function(self) MiniMapMailIcon:SetVertexColor(1, 1, 1) end)
+			_G["MiniMapMailFrame"]:HookScript('OnHide', function(self) _G["MiniMapMailIcon"]:SetVertexColor(1, 1, 1) end)
 		else
 			Button:SetTemplate()
 			Button:SetBackdropColor(0, 0, 0, 0)
@@ -234,8 +238,8 @@ local function SkinButton(Button)
 end
 
 function SMB:SkinMinimapButtons()
-	for i = 1, Minimap:GetNumChildren() do
-		local object = T.select(i, Minimap:GetChildren())
+	for i = 1, _G["Minimap"]:GetNumChildren() do
+		local object = T.select(i, _G["Minimap"]:GetChildren())
 		if object then
 			if object:IsObjectType('Button') and object:GetName() then
 				SkinButton(object)
@@ -276,8 +280,8 @@ function SMB:Update()
 				end
 				if not E.db.sle.minimap.mapicons.skindungeon and Name == 'QueueStatusMinimapButton' then
 					Exception = false
-					QueueStatusMinimapButton:ClearAllPoints()
-					QueueStatusMinimapButton:Point("BOTTOMRIGHT", Minimap, -3, 3)
+					_G["QueueStatusMinimapButton"]:ClearAllPoints()
+					_G["QueueStatusMinimapButton"]:Point("BOTTOMRIGHT", _G["Minimap"], -3, 3)
 				end
 				if (not E.db.sle.minimap.mapicons.skinmail and Name == 'MiniMapMailFrame') then
 					Exception = false
@@ -321,7 +325,7 @@ end
 function SMB:Initialize()
 	if not SLE.initialized or not E.private.general.minimap.enable then return end
 
-	QueueStatusMinimapButton:SetParent(Minimap)
+	_G["QueueStatusMinimapButton"]:SetParent(_G["Minimap"])
 
 	SMB.bar = CreateFrame('Frame', 'SLE_SquareMinimapButtonBar', E.UIParent)
 	SMB.bar:Hide()

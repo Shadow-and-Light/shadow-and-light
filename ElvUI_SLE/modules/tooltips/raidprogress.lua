@@ -1,15 +1,19 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local RP = SLE:NewModule("RaidProgress", "AceHook-3.0", "AceEvent-3.0")
 local TT = E:GetModule('Tooltip');
+--GLOBALS: hooksecurefunc
 local MAX_PLAYER_LEVEL = MAX_PLAYER_LEVEL
 local _G = _G
 local sub = string.sub
+local ClearAchievementComparisonUnit = ClearAchievementComparisonUnit
+local AchievementFrame_DisplayComparison = AchievementFrame_DisplayComparison
+local SetAchievementComparisonUnit = SetAchievementComparisonUnit
+local HideUIPanel = HideUIPanel
 
 RP.Cache = {}
 RP.playerGUID = UnitGUID("player")
 RP.highestKill = 0
 
-local ClearAchievementComparisonUnit = ClearAchievementComparisonUnit
 
 
 RP.bosses = {
@@ -172,7 +176,7 @@ local function OnInspectInfo(self, tt, unit, level, r, g, b, numTries)
 			ClearAchievementComparisonUnit()
 			if not self.loadedComparison and T.select(2, T.IsAddOnLoaded("Blizzard_AchievementUI")) then
 				AchievementFrame_DisplayComparison(unit)
-				HideUIPanel(AchievementFrame)
+				HideUIPanel(_G["AchievementFrame"])
 				ClearAchievementComparisonUnit()
 				self.loadedComparison = true
 			end

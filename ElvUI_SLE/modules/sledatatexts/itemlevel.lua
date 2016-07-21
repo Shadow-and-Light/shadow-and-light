@@ -6,6 +6,8 @@ local lastPanel
 local ITEM_LEVEL_ABBR = ITEM_LEVEL_ABBR
 local GMSURVEYRATING3 = GMSURVEYRATING3
 local TOTAL = TOTAL
+local GetEquippedArtifactRelicInfo = C_ArtifactUI.GetEquippedArtifactRelicInfo
+local GetItemLevelIncreaseProvidedByRelic = C_ArtifactUI.GetItemLevelIncreaseProvidedByRelic
 
 local slots = {
 	[1] = { "HeadSlot", HEADSLOT },
@@ -196,7 +198,7 @@ local heirlooms = {
 local function HeirLoomLevel(itemLink)
 	local ItemID, _, _, _, _, _, _, _, level = T.match(itemLink, '|Hitem:(%d+):(%d*):(%d*):(%d*):(%d*):(%d*):(%d*):(%d*):(%d*)')
 	ItemID, level = T.tonumber(ItemID), T.tonumber(level)
-	for _, ID in pairs(heirlooms[100]) do
+	for _, ID in T.pairs(heirlooms[100]) do
 		if ID == ItemID then
 			return (715 + (10 * (level - 100)));
 		end
@@ -231,11 +233,11 @@ local function HeirLoomLevel(itemLink)
 end
 
 local function ArtifactLevel(itemLink)
-	local itemLevel = select(4, T.GetItemInfo(itemLink));
+	local itemLevel = T.select(4, T.GetItemInfo(itemLink));
 	for i = 1, 3 do
-		local relicLink = select(4, C_ArtifactUI.GetEquippedArtifactRelicInfo(i));
+		local relicLink = T.select(4, GetEquippedArtifactRelicInfo(i));
 		if (relicLink and T.match(relicLink, "item:")) then
-			itemLevel = itemLevel + C_ArtifactUI.GetItemLevelIncreaseProvidedByRelic(relicLink);
+			itemLevel = itemLevel + GetItemLevelIncreaseProvidedByRelic(relicLink);
 		end
 	end
 

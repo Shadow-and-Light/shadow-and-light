@@ -2,6 +2,8 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local I = SLE:NewModule("InstDif",'AceHook-3.0', 'AceEvent-3.0')
 local sub = string.utf8sub
 local LSM = LibStub("LibSharedMedia-3.0")
+--GLOBALS: CreateFrame
+local _G = _G
 
 local Difficulties = {
 	[1] = 'normal', --5ppl normal
@@ -24,7 +26,7 @@ local Difficulties = {
 }
 
 function I:CreateText()
-	I.frame = CreateFrame("Frame", "MiniMapDifFrame", Minimap)
+	I.frame = CreateFrame("Frame", "MiniMapDifFrame", _G["Minimap"])
 	I.frame:Size(50, 20)
 	-- I.frame:Point("CENTER", UIParent)
 	I.frame.text = I.frame:CreateFontString(nil, 'OVERLAY')
@@ -56,8 +58,8 @@ function I:GuildEmblem()
 	-- table
 	local char = {}
 	-- check if Blizzard_GuildUI is loaded
-	if GuildFrameTabardEmblem then
-		char.guildTexCoord = {GuildFrameTabardEmblem:GetTexCoord()}
+	if _G["GuildFrameTabardEmblem"] then
+		char.guildTexCoord = {_G["GuildFrameTabardEmblem"]:GetTexCoord()}
 	else
 		char.guildTexCoord = false
 	end
@@ -72,12 +74,12 @@ function I:UpdateFrame()
 	local db = I.db
 	if T.IsInInstance() then
 		if not db.flag then
-			MiniMapInstanceDifficulty:Hide()
-		elseif db.flag and not MiniMapInstanceDifficulty:IsShown() then
-			MiniMapInstanceDifficulty:Show()
+			_G["MiniMapInstanceDifficulty"]:Hide()
+		elseif db.flag and not _G["MiniMapInstanceDifficulty"]:IsShown() then
+			_G["MiniMapInstanceDifficulty"]:Show()
 		end
 	end
-	I.frame:Point("TOPLEFT", Minimap, "TOPLEFT", db.xoffset, db.yoffset)
+	I.frame:Point("TOPLEFT", _G["Minimap"], "TOPLEFT", db.xoffset, db.yoffset)
 	I:SetFonts()
 	if db.enable then
 		I.frame.text:Show()
@@ -123,7 +125,7 @@ function I:Initialize()
 	if not SLE.initialized or not E.private.general.minimap.enable then return end
 	I.db = E.db.sle.minimap.instance
 	self:CreateText()
-	MiniMapInstanceDifficulty:HookScript("OnShow", function(self) if not I.db.flag then self:Hide() end end)
+	_G["MiniMapInstanceDifficulty"]:HookScript("OnShow", function(self) if not I.db.flag then self:Hide() end end)
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "GenerateText")
 	self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "GenerateText")
 	self:RegisterEvent("GUILD_PARTY_STATE_UPDATED", "GenerateText")

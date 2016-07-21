@@ -4,6 +4,7 @@ local SUF = SLE:NewModule("UnitFrames")
 local RC = LibStub("LibRangeCheck-2.0")
 --GLOBALS: hooksecurefunc, CreateFrame
 local _G = _G
+local UnitGetTotalAbsorbs = UnitGetTotalAbsorbs
 
 function SUF:NewTags()
 	_G["ElvUF"].Tags.Methods["range:sl"] = function(unit)
