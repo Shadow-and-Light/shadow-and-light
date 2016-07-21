@@ -20,10 +20,8 @@ function SB:UpdateSlot(bagID, slotID)
 		SB:StartAnim(slot);
 	end
 	
-	if not Pr then
-		Pr = SLE:GetModule("Professions")
-		if not Pr.DeconstructionReal then return end
-	end
+	if not Pr then Pr = SLE:GetModule("Professions") end
+	if not Pr.DeconstructionReal then return end
 	if Pr.DeconstructionReal:IsShown() and not slot.hasItem then
 		B:Tooltip_Hide()
 		Pr.DeconstructionReal:OnLeave()
