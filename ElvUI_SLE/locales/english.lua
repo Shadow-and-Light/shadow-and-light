@@ -29,6 +29,8 @@ If you choose to not setup any options through this config, click Skip Process b
 Note that steps to the right marked with * are optional steps unavailable without selecting something in previous steps.]]
 L["This will enable S&L Armory mode components that will show more detailed information at a quick glance on the toons you inspect or your own character."] = true
 L["SLE_ARMORY_INSTALL"] = "Enable S&L Armory\n(Detailed Character & Inspect frames)."
+L["AFK Mode in |cff9482c9Shadow & Light|r is additional settings/elements for standard |cff1784d1ElvUI|r AFK screen."] = true
+L["This option is bound to character and requires a UI reload to take effect."] = true
 L["Shadow & Light Imports"] = true
 L["You can now choose if you want to use one of the authors' set of options. This will change the positioning of some elements as well of other various options."] = true
 L["SLE_Install_Text_AUTHOR"] = [=[This step is optional and only to be used if you are wanting to use one of our configurations. In some cases settings may differ depending on layout options you chose in ElvUI installation.
@@ -53,6 +55,8 @@ L["Moving Frames"] = true
 L["Import Profile"] = true
 L["AFK Mode"] = true
 L["You have selected to use %s and role %s."] = true
+L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"] = [[This action can cause you to loose some of your settings.
+Continue?]]
 
 --Config replacements
 L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."] = true
@@ -100,6 +104,8 @@ L["SLE_CYR_DEVCOM_DESC"] = [[Allows the usage of these commands with ru input:
 - /enableblizzard
 
 These are usually used for developing and testing purposes or are extremely rare used by general user.]]
+L["Modules"] = true
+L["Options for different S&L modules."] = true
 
 --Config groups
 L["S&L: All"] = true

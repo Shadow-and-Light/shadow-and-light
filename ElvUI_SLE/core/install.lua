@@ -4,6 +4,7 @@ PI.SLE_Auth = ""
 PI.SLE_Word = ""
 local locale = GetLocale()
 
+--GLOBALS: SkadaDB, Skada, xCTSavedDB, xCT_Plus
 local _G = _G
 local ENABLE, DISABLE, NONE = ENABLE, DISABLE, NONE
 local SetCVar = SetCVar
@@ -136,20 +137,21 @@ local function DarthSetup()
 	end
 	--Bags
 	do
-		E.db["bags"]["junkIcon"] = true
-		E.db["bags"]["countFont"] = "Univers"
-		E.db["bags"]["itemLevelFont"] = "PT Sans Narrow"
-		E.db["bags"]["bagSize"] = 33
-		E.db["bags"]["bankWidth"] = 505
-		E.db["bags"]["itemLevelThreshold"] = 650
-		E.db["bags"]["bankSize"] = 33
-		E.db["bags"]["countFontOutline"] = "OUTLINE"
-		E.db["bags"]["itemLevelFontSize"] = 11
-		E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
-		E.db["bags"]["bagWidth"] = 505
 		E.db["bags"]["yOffsetBank"] = 175
-		E.db["bags"]["alignToChat"] = false
+		E.db["bags"]["itemLevelFont"] = "PT Sans Narrow"
+		E.db["bags"]["currencyFormat"] = "ICON"
 		E.db["bags"]["yOffset"] = 175
+		E.db["bags"]["itemLevelFontSize"] = 11
+		E.db["bags"]["alignToChat"] = false
+		E.db["bags"]["bagWidth"] = 505
+		E.db["bags"]["countFont"] = "Univers"
+		E.db["bags"]["countFontOutline"] = "OUTLINE"
+		E.db["bags"]["bankSize"] = 33
+		E.db["bags"]["bankWidth"] = 505
+		E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
+		E.db["bags"]["bagSize"] = 33
+		E.db["bags"]["junkIcon"] = true
+		E.db["bags"]["itemLevelThreshold"] = 650
 	end
 	--Chat
 	do
@@ -821,9 +823,21 @@ local function SetupCVars()
 	_G["PluginInstallStepComplete"]:Show()
 end
 
+E.PopupDialogs['SLE_INSTALL_SETTINGS_LAYOUT'] = {
+	text = L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"],
+	button1 = YES,
+	button2 = NO,
+	OnAccept = function()
+		if PI.SLE_Auth == "DARTH" then
+			DarthSetup()
+		end
+	end,
+	OnCancel = E.noop;
+}
+
 local function StartSetup()
 	if PI.SLE_Auth == "DARTH" then
-		DarthSetup()
+		E:StaticPopup_Show("SLE_INSTALL_SETTINGS_LAYOUT")
 	elseif PI.SLE_Auth == "REPOOC" then
 
 	end
