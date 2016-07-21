@@ -86,8 +86,8 @@ local function GetChatIcon(sender)
 		return specialChatIcons[senderRealm][senderName]
 	end
 
-	if not T.IsInGuild() then return "" end
-	if not C.db.guildmaster then return "" end
+	if not T.IsInGuild() then return nil end
+	if not C.db.guildmaster then return nil end
 	if senderName == C.GMName and senderRealm == C.GMRealm then
 		return leader 
 	end
