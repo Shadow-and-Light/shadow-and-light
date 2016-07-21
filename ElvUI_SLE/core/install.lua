@@ -617,9 +617,9 @@ function PI:DarthSetup()
 	_G["PluginInstallStepComplete"]:Show()
 end
 
-local function DarthAddons()
+function PI:DarthAddons()
 	if SkadaDB and T.IsAddOnLoaded("Skada") then
-		local damage, healing = locale == "ruRU" and "Нанесенный урон" or "Damage", locale == "ruRU" and "Исцеление" or "Healing"
+		local damage, healing = locale == "ruRU" and "Нанесённый урон" or "Damage", locale == "ruRU" and "Исцеление" or "Healing"
 		local profileName = "Darth "..(locale == "ruRU" and "Ru" or "Eng")
 		if not SkadaDB["profiles"][profileName] then
 		SkadaDB["profiles"][profileName] = {
@@ -845,7 +845,7 @@ end
 
 local function SetupAddons()
 	if PI.SLE_Auth == "DARTH" then
-		DarthAddons()
+		PI:DarthAddons()
 	end
 end
 
