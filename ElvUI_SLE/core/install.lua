@@ -45,7 +45,7 @@ local function DarthHeal()
 	end
 end
 
-local function DarthSetup()
+function PI:DarthSetup()
 	local layout = E.db.layoutSet
 	local installMark = E.private["install_complete"]
 	local installMarkSLE = E.private["sle"]["install_complete"]
@@ -829,7 +829,7 @@ E.PopupDialogs['SLE_INSTALL_SETTINGS_LAYOUT'] = {
 	button2 = NO,
 	OnAccept = function()
 		if PI.SLE_Auth == "DARTH" then
-			DarthSetup()
+			PI:DarthSetup()
 		end
 	end,
 	OnCancel = E.noop;
