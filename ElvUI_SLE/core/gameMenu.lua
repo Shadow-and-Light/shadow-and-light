@@ -2,6 +2,7 @@
 local lib = LibStub("LibElv-GameMenu-1.0")
 local _G = _G
 local HideUIPanel = HideUIPanel
+local ReloadUI = ReloadUI
 
 function SLE:BuildGameMenu()
 	if not E.global.sle.advanced.gameMenu.enable then return end

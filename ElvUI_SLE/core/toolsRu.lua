@@ -1,4 +1,7 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local GetLocale = GetLocale
+
+--GLOBALS: SLASH_RELOADUI3, SLASH_FRAME2, SLASH_FRAMELIST2, SLASH_TEXLIST2
 
 function SLE:CyrCommands()
 	SLASH_RELOADUI3 = "/кд"

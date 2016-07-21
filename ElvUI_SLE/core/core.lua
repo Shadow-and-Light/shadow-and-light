@@ -3,6 +3,7 @@ local EP = LibStub("LibElvUIPlugin-1.0")
 local AddOnName, Engine = ...;
 
 local _G = _G
+local tonumber = tonumber
 
 local SLE = LibStub("AceAddon-3.0"):NewAddon(AddOnName, "AceConsole-3.0", "AceEvent-3.0", 'AceTimer-3.0', 'AceHook-3.0');
 SLE.callbacks = SLE.callbacks or LibStub("CallbackHandler-1.0"):New(SLE)
