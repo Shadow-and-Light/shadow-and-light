@@ -115,8 +115,7 @@ function N:StartRosterUpdate()
 end
 
 function N:Initialize()
-	if not SLE.initialized then return end
-	if not E.private.nameplates.enable then return end
+	if not SLE.initialized or not E.private.nameplates.enable then return end
 	N.db = E.db.sle.nameplate
 	N.viewPort = NP.viewPort
 	self:RegisterEvent("GROUP_ROSTER_UPDATE", "StartRosterUpdate")

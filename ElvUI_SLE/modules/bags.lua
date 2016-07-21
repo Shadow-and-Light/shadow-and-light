@@ -161,8 +161,7 @@ end
 
 function SB:Initialize()
 	self.hookedBags = {};
-	if not SLE.initialized then return end
-	if not E.private.bags.enable then return end
+	if not SLE.initialized or not E.private.bags.enable then return end
 
 	function SB:ForUpdateAll()
 		SB.db = E.db.sle.bags

@@ -243,8 +243,7 @@ end
 hooksecurefunc(CH, "Initialize", C.UpdateChatMax)
 
 function C:Initialize()
-	if not SLE.initialized then return end
-	if not E.private.chat.enable then return end
+	if not SLE.initialized or not E.private.chat.enable then return end
 	C.db = E.db.sle.chat
 
 	function C:ForUpdateAll()

@@ -9,7 +9,7 @@ local _G = _G
 --GLOBALS: UIParent, hooksecurefunc
 
 local function AnchorFrameToMouse()
-	if not SLE.initialized then return end
+	if not SLE.initialized or not E.private.tooltip.enable then return end
 	if not E.db.tooltip.cursorAnchor or (E.db.sle.tooltip.xOffset == 0 and E.db.sle.tooltip.yOffset == 0) then return end
 
 	local frame = GameTooltip

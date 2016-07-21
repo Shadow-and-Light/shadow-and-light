@@ -319,8 +319,7 @@ function SMB:Update()
 end
 
 function SMB:Initialize()
-	if not SLE.initialized then return end
-	if not E.private.sle.minimap.mapicons.enable then return end
+	if not SLE.initialized or not E.private.general.minimap.enable then return end
 
 	QueueStatusMinimapButton:SetParent(Minimap)
 

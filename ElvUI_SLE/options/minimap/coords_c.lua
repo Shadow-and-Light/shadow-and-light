@@ -6,6 +6,7 @@ local function configTable()
 		type = "group",
 		name = L["Minimap Coordinates"],
 		order = 5,
+		disabled = function() return not E.private.general.minimap.enable end,
 		get = function(info) return E.db.sle.minimap.coords[ info[#info] ] end,
 		set = function(info, value) E.db.sle.minimap.coords[ info[#info] ] = value; MM:UpdateSettings() end,
 		args = {

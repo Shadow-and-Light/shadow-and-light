@@ -126,8 +126,7 @@ function BI:ToggleSettings()
 end
 
 function BI:Initialize()
-	if not SLE.initialized then return end
-	if not E.private.bags.enable then return end
+	if not SLE.initialized or not E.private.bags.enable then return end
 
 	T.tinsert(BI.containers, _G["ElvUI_ContainerFrame"])
 	self:SecureHook(B, "OpenBank", function()

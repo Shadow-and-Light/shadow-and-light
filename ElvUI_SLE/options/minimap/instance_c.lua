@@ -8,6 +8,7 @@ local function configTable()
 		type = "group",
 		name = L["Instance indication"],
 		order = 7,
+		disabled = function() return not E.private.general.minimap.enable end,
 		get = function(info) return E.db.sle.minimap.instance[ info[#info] ] end,
 		set = function(info, value) E.db.sle.minimap.instance[ info[#info] ] = value; I:UpdateFrame() end,
 		args = {

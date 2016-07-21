@@ -6,6 +6,7 @@ local function configTable()
 		type = "group",
 		name = L["NamePlates"],
 		order = 14,
+		disabled = function() return not E.private.nameplates.enable end,
 		get = function(info) return E.db.sle.nameplate[ info[#info] ] end,
 		set = function(info, value) E.db.sle.nameplate[ info[#info] ] = value; E:GetModule('NamePlates'):ConfigureAll() end,
 		args = {

@@ -6,6 +6,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.tooltip = {
 		order = 20,
 		type = "group",
+		disabled = function() return not E.private.toltip.enable end,
 		get = function(info) return E.db.sle.tooltip[ info[#info] ] end,
 		name = L["Tooltip"],
 		args = {

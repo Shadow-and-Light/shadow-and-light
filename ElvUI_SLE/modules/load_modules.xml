@@ -24,10 +24,8 @@
 	<Include file='quests\load_quests.xml'/>
 	<Script file='raidmarkers.lua'/>
 	<Script file='raidroleicons.lua'/>
-	<Script file='raidutility.lua'/>
 	<Include file='sledatatexts\load_datatexts.xml'/>
 	<Include file='tooltips\load_tooltips.xml'/>
-	<Script file='threat.lua'/>
 	<Script file='uibuttons.lua'/>
 	<Include file='unitframes\load_unitframes.xml'/>
 	<Script file='vehicle.lua'/>

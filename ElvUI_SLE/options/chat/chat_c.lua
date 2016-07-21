@@ -24,6 +24,7 @@ local function configTable()
 		type = "group",
 		name = L["Chat"],
 		childGroups = 'select',
+		disabled = function() return not E.private.chat.enable end,
 		args = {
 			header = { order = 1, type = "header", name = L["Chat"] },
 			editreset = {

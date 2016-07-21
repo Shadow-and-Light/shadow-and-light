@@ -121,7 +121,7 @@ function SUF:HealthPredictUpdate(frame)
 end
 
 function SUF:Initialize()
-if not SLE.initialized then return end
+	if not SLE.initialized or not E.private.unitframe.enable then return end
 	SUF:NewTags()
 	SUF:InitPlayer()
 

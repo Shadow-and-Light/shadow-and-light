@@ -54,8 +54,7 @@ function A:ButtonsBackdrop()
 end
 
 function A:Initialize()
-	if not SLE.initialized then return end
-	if E.private.actionbar.enable ~= true then return; end
+	if not SLE.initialized or E.private.actionbar.enable ~= true then return; end
 	A.MaxBars = T.IsAddOnLoaded('ElvUI_ExtraActionBars') and 10 or 6
 
 	if E.private.sle.actionbars.oorBind then 

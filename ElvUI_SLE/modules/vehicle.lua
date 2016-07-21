@@ -77,7 +77,7 @@ end
 
 function EVB:Initialize()
 	if not SLE.initialized then return end
-	if (not E.private.sle.vehicle.enable) then return end;
+	if not E.private.sle.vehicle.enable or not E.private.actionbar.enable then return end;
 
 	local visibility = "[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] hide;"
 	local page = T.format("[vehicleui] %d; [possessbar] %d; [overridebar] %d; [shapeshift] 13;", GetVehicleBarIndex(), GetVehicleBarIndex(), GetOverrideBarIndex());

@@ -120,7 +120,7 @@ function I:GenerateText(event, guild, force)
 end
 
 function I:Initialize()
-	if not SLE.initialized then return end
+	if not SLE.initialized or not E.private.general.minimap.enable then return end
 	I.db = E.db.sle.minimap.instance
 	self:CreateText()
 	MiniMapInstanceDifficulty:HookScript("OnShow", function(self) if not I.db.flag then self:Hide() end end)

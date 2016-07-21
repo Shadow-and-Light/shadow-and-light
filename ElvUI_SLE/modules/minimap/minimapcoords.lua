@@ -112,7 +112,7 @@ function MM:UpdateSettings()
 end
 
 function MM:Initialize()
-	if not SLE.initialized then return end
+	if not SLE.initialized or not E.private.general.minimap.enable then return end
 
 	hooksecurefunc(M, 'UpdateSettings', MM.UpdateSettings)
 

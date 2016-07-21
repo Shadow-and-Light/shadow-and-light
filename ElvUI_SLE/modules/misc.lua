@@ -23,23 +23,24 @@ end
 function M:UpdateThreatConfig()
 	if IsAddOnLoaded("ElvUI_Config") then
 		if M.db.threat.enable then
-			E.Options.args.general.args.threat.args.position = {
-				order = 2,
+			E.Options.args.general.args.general.args.threatPosition = {
+				order = 42,
 				name = L["Position"],
 				desc = L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."],
 				type = "execute",
 				func = function() SLE.ACD:SelectGroup("ElvUI", "sle") end,
 			}
 		else
-			E.Options.args.general.args.threat.args.position = {
-				order = 2,
+			E.Options.args.general.args.general.args.threatPosition = {
+				order = 42,
 				type = 'select',
 				name = L["Position"],
 				desc = L["Adjust the position of the threat bar to either the left or right datatext panels."],
 				values = {
-					["LEFTCHAT"] = L["Left Chat"],
-					["RIGHTCHAT"] = L["Right Chat"],
+					['LEFTCHAT'] = L["Left Chat"],
+					['RIGHTCHAT'] = L["Right Chat"],
 				},
+				get = function(info) return E.db.general.threat.position end,
 				set = function(info, value) E.db.general.threat[ info[#info] ] = value; T:UpdatePosition() end,
 			}
 		end
@@ -57,7 +58,6 @@ function M:SetViewport()
 	local scale = 768 / UIParent:GetHeight()
 	WorldFrame:SetPoint("TOPLEFT", ( M.db.viewport.left * scale ), -( M.db.viewport.top * scale ) )
 	WorldFrame:SetPoint("BOTTOMRIGHT", -( M.db.viewport.right * scale ), ( M.db.viewport.bottom * scale ) )
-	-- SLE:GetModule("Nameplates"):RegisterViewport()
 end
 
 function M:Initialize()
