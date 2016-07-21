@@ -2,6 +2,7 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local SB = SLE:NewModule("Bags", 'AceHook-3.0')
 local Pr
 local B = E:GetModule('Bags')
+--GLOBALS: hooksecurefunc
 local _G = _G
 local REAGENTBANK_CONTAINER = REAGENTBANK_CONTAINER
 local C_NewItems = C_NewItems
@@ -19,8 +20,10 @@ function SB:UpdateSlot(bagID, slotID)
 		SB:StartAnim(slot);
 	end
 	
-	if not Pr then Pr = SLE:GetModule("Professions") end
-	if not Pr.DeconstructionReal then return end
+	if not Pr then
+		Pr = SLE:GetModule("Professions")
+		if not Pr.DeconstructionReal then return end
+	end
 	if Pr.DeconstructionReal:IsShown() and not slot.hasItem then
 		B:Tooltip_Hide()
 		Pr.DeconstructionReal:OnLeave()

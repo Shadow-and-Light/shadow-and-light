@@ -3,6 +3,7 @@ local SA = SLE:NewModule("Auras", 'AceEvent-3.0')
 local A = E:GetModule("Auras")
 local Masque = LibStub("Masque", true)
 local MasqueGroup = Masque and Masque:Group("ElvUI", "Consolidated Buffs")
+--GLOBALS: hooksecurefunc
 local _G = _G
 local NUM_LE_RAID_BUFF_TYPES = NUM_LE_RAID_BUFF_TYPES
 local GameTooltip = GameTooltip

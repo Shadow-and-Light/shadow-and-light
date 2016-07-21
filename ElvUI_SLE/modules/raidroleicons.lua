@@ -1,11 +1,12 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local B = SLE:NewModule("BlizzRaid", 'AceEvent-3.0')
 local PLAYER_REALM = T.gsub(E.myrealm,'[%s%-]','')
+--GLOBALS: CreateFrame, hooksecurefunc
 local _G = _G
+local RaiseFrameLevel = RaiseFrameLevel
 
 function B:CreateAndUpdateIcons()
 	if not SLE.initialized then return end
-	local RaiseFrameLevel = RaiseFrameLevel
 	local members = T.GetNumGroupMembers()
 	for i = 1, members do
 		local frame = _G["RaidGroupButton"..i]

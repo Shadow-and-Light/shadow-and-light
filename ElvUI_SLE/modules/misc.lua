@@ -1,12 +1,14 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
 local M = SLE:NewModule("Misc", 'AceHook-3.0', 'AceEvent-3.0')
 local Tr = E:GetModule('Threat');
+--GLOBALS: hooksecurefunc, UIParent
+local _G = _G
 local ShowUIPanel, HideUIPanel = ShowUIPanel, HideUIPanel
 local find = string.find
 
 function M:RUReset()
 	local a = E.db.sle.blizzard.rumouseover and 0 or 1
-	RaidUtility_ShowButton:SetAlpha(a)
+	_G["RaidUtility_ShowButton"]:SetAlpha(a)
 end
 
 function M:UpdateThreatPosition()
@@ -21,7 +23,7 @@ function M:UpdateThreatPosition()
 end
 
 function M:UpdateThreatConfig()
-	if IsAddOnLoaded("ElvUI_Config") then
+	if T.IsAddOnLoaded("ElvUI_Config") then
 		if M.db.threat.enable then
 			E.Options.args.general.args.general.args.threatPosition = {
 				order = 42,
@@ -56,25 +58,25 @@ end
 
 function M:SetViewport()
 	local scale = 768 / UIParent:GetHeight()
-	WorldFrame:SetPoint("TOPLEFT", ( M.db.viewport.left * scale ), -( M.db.viewport.top * scale ) )
-	WorldFrame:SetPoint("BOTTOMRIGHT", -( M.db.viewport.right * scale ), ( M.db.viewport.bottom * scale ) )
+	_G["WorldFrame"]:SetPoint("TOPLEFT", ( M.db.viewport.left * scale ), -( M.db.viewport.top * scale ) )
+	_G["WorldFrame"]:SetPoint("BOTTOMRIGHT", -( M.db.viewport.right * scale ), ( M.db.viewport.bottom * scale ) )
 end
 
 function M:Initialize()
 	if not SLE.initialized then return end
 	M.db = E.db.sle.misc
-	E:CreateMover(UIErrorsFrame, "UIErrorsFrameMover", L["Error Frame"], nil, nil, nil, "ALL,S&L,S&L MISC")
+	E:CreateMover(_G["UIErrorsFrame"], "UIErrorsFrameMover", L["Error Frame"], nil, nil, nil, "ALL,S&L,S&L MISC")
 
 	--GhostFrame Mover.
-	ShowUIPanel(GhostFrame)
-	E:CreateMover(GhostFrame, "GhostFrameMover", L["Ghost Frame"], nil, nil, nil, "ALL,S&L,S&L MISC")
-	HideUIPanel(GhostFrame)
+	ShowUIPanel(_G["GhostFrame"])
+	E:CreateMover(_G["GhostFrame"], "GhostFrameMover", L["Ghost Frame"], nil, nil, nil, "ALL,S&L,S&L MISC")
+	HideUIPanel(_G["GhostFrame"])
 
 	--Raid Utility
-	if RaidUtility_ShowButton then
-		E:CreateMover(RaidUtility_ShowButton, "RaidUtility_Mover", L["Raid Utility"], nil, nil, nil, "ALL,S&L,S&L MISC")
-		local mover = RaidUtility_Mover
-		local frame = RaidUtility_ShowButton
+	if _G["RaidUtility_ShowButton"] then
+		E:CreateMover(_G["RaidUtility_ShowButton"], "RaidUtility_Mover", L["Raid Utility"], nil, nil, nil, "ALL,S&L,S&L MISC")
+		local mover = _G["RaidUtility_Mover"]
+		local frame = _G["RaidUtility_ShowButton"]
 		if E.db.movers == nil then E.db.movers = {} end
 
 		mover:HookScript("OnDragStart", function(self) 

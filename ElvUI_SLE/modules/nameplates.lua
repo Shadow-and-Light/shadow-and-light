@@ -5,6 +5,8 @@ local N = SLE:NewModule("Nameplates", 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3
 local rosterTimer
 N.targetCount = 0
 
+local GetNamePlates = C_NamePlate.GetNamePlates
+
 local function Hex(r, g, b)
 	return T.format('|cFF%02x%02x%02x', r * 255, g * 255, b * 255)
 end
@@ -61,7 +63,7 @@ function N:UpdateCount(event,unit,force)
 	if (not T.find(unit, "raid") and not T.find(unit, "party") and not (unit == "player" and force) ) or T.find(unit, "pet") then return end
 	if force and (T.IsInRaid() or T.IsInGroup()) then N:UpdateRoster() end
 	local target
-	for _, frame in T.pairs(C_NamePlate.GetNamePlates()) do
+	for _, frame in T.pairs(GetNamePlates()) do
 		if(frame and frame.UnitFrame) then
 			local plate = frame.UnitFrame
 			plate.targetcount:SetText("")

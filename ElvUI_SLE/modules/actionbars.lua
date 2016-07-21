@@ -1,12 +1,12 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local LSM = LibStub("LibSharedMedia-3.0")
 local A = SLE:NewModule("Actionbars", 'AceHook-3.0', 'AceEvent-3.0')
-
 local AB = E:GetModule('ActionBars');
-
+--GLOBALS: hooksecurefunc, LibStub
 local _G = _G
 local NUM_PET_ACTION_SLOTS = NUM_PET_ACTION_SLOTS
 local NUM_ACTIONBAR_BUTTONS = NUM_ACTIONBAR_BUTTONS
+local C_TimerAfter = C_Timer.After
 
 A.CheckedTextures = {}
 
@@ -97,7 +97,7 @@ function A:Initialize()
 		end
 	end
 	
-	C_Timer.After(0.3, function()
+	C_TimerAfter(0.3, function()
 		if E.private.sle.actionbars.transparentBackdrop then A:BarsBackdrop() end
 		if E.private.sle.actionbars.transparentButtons then A:ButtonsBackdrop() end
 	end)

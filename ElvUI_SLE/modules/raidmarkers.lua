@@ -1,7 +1,10 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local RM = SLE:NewModule('RaidMarkers');
+--GLOBALS: CreateFrame
 local _G = _G
 local GameTooltip = GameTooltip
+local RegisterStateDriver = RegisterStateDriver
+local UnregisterStateDriver = UnregisterStateDriver
 
 RM.VisibilityStates = {
 	["DEFAULT"] = "[noexists, nogroup] hide; show",

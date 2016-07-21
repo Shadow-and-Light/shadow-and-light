@@ -1,8 +1,11 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))  
 local DTP = SLE:NewModule('Datatexts', 'AceHook-3.0', 'AceEvent-3.0');
 local DT = E:GetModule('DataTexts');
+--GLOBALS: ElvDB, hooksecurefunc
 local _G = _G
 local CreateFrame = CreateFrame
+local FACTION_ALLIANCE, FACTION_HORDE = FACTION_ALLIANCE, FACTION_HORDE
+
 DTP.values = {
 	[1] = {"TOPLEFT", 0, 3},
 	[2] = {"TOP", -((E.eyefinity or E.screenwidth)/5), 3},

@@ -3,7 +3,7 @@ local B = LibStub("LibBabble-SubZone-3.0")
 local BL = B:GetLookupTable()
 local S = E:GetModule("Skins")
 local Tools = SLE:NewModule("Toolbars", 'AceHook-3.0', 'AceEvent-3.0')
-
+--GLOBALS: CreateFrame, hooksecurefunc, UIParent
 local SeedAnchor, ToolAnchor, PortalAnchor, SalvageAnchor, MineAnchor
 local farmzones = { BL["Sunsong Ranch"], BL["The Halfhill Market"] }
 local garrisonzones = { BL["Salvage Yard"], BL["Frostwall Mine"], BL["Lunarfall Excavation"]}

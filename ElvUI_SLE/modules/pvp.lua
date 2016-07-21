@@ -18,9 +18,7 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local TopBannerManager_Show = TopBannerManager_Show
 local BossBanner_BeginAnims = BossBanner_BeginAnims
 local PlaySound = PlaySound
-
-
-
+local CancelPetPVPDuel = C_PetBattles.CancelPVPDuel
 
 function PvP:Release()
 	if (PvP.db.rebirth and not HasSoulstone()) or not PvP.db.rebirth then RepopMe() end
@@ -56,7 +54,7 @@ function PvP:Duels(event, name)
 		StaticPopup_Hide("DUEL_REQUESTED")
 		cancelled = "REGULAR"
 	elseif event == "PET_BATTLE_PVP_DUEL_REQUESTED" and PvP.db.duels.pet then
-		C_PetBattles.CancelPVPDuel()
+		CancelPetPVPDuel()
 		StaticPopup_Hide("PET_BATTLE_PVP_DUEL_REQUESTED")
 		cancelled = "PET"
 	end
@@ -89,8 +87,8 @@ end
 function PvP:Initialize()
 	if not SLE.initialized then return end
 	PvP.db = E.db.sle.pvp
-	PvP.AlwaysUpFrame = WorldStateAlwaysUpFrame
-	PvP.CaptureBar1 = WorldStateCaptureBar1
+	PvP.AlwaysUpFrame = _G["WorldStateAlwaysUpFrame"]
+	PvP.CaptureBar1 = _G["WorldStateCaptureBar1"]
 	--AutoRes event
 	self:RegisterEvent("PLAYER_DEAD", "Dead");
 	--Mover for pvp info

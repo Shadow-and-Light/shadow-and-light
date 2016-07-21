@@ -4,6 +4,9 @@ local lib = LibStub("LibElv-UIButtons-1.0")
 local S = E:GetModule("Skins")
 local RandomRoll = RandomRoll
 local SendChatMessage = SendChatMessage
+local ReloadUI = ReloadUI
+--GLOBALS: DBM, VEM, LibStub, Altoholic, AtlasLoot, xCT_Plus, Swatter, SlashCmdList
+local _G = _G
 
 local function CustomRollCall()
 	local min, max = T.tonumber(E.db.sle.uibuttons.customroll.min), T.tonumber(E.db.sle.uibuttons.customroll.max)
@@ -26,7 +29,7 @@ end
 
 function UB:AddonSetup(menu)
 	--UB:CreateSeparator("Addon", "SLE_StartSeparator", 1, 2)
-	menu:CreateDropdownButton("Addon", "Manager", L["AddOns"], L["AddOns Manager"], L["Click to toggle the AddOn Manager frame."],  function() GameMenuButtonAddons:Click() end, nil, true)
+	menu:CreateDropdownButton("Addon", "Manager", L["AddOns"], L["AddOns Manager"], L["Click to toggle the AddOn Manager frame."],  function() _G["GameMenuButtonAddons"]:Click() end, nil, true)
 
 	menu:CreateDropdownButton("Addon", "DBM", L["Boss Mod"], L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], function() DBM:LoadGUI() end, "DBM-Core")
 	menu:CreateDropdownButton("Addon", "VEM", L["Boss Mod"], L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], function() VEM:LoadGUI() end, "VEM-Core")
@@ -72,7 +75,7 @@ function UB:SetupBar(menu)
 				LibStub("LibDataBroker-1.1"):GetDataObjectByName("BigWigs"):OnClick("RightButton")
 			end
 		end)
-		menu:CreateCoreButton("Addon", "A", function(self) GameMenuButtonAddons:Click() end)
+		menu:CreateCoreButton("Addon", "A", function(self) _G["GameMenuButtonAddons"]:Click() end)
 	else
 		menu:CreateCoreButton("Config", "C")
 		UB:ConfigSetup(menu)

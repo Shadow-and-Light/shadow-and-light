@@ -1,6 +1,10 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local LT = SLE:NewModule('Loot','AceHook-3.0', 'AceEvent-3.0')
 local M = E:GetModule('Misc')
+--GLOBALS: hooksecurefunc, ChatFrame_AddMessageEventFilter, ChatFrame_RemoveMessageEventFilter, UIParent
+local _G = _G
+local ConfirmLootSlot = ConfirmLootSlot
+
 LT.PlayerLevel = 0
 LT.MaxPlayerLevel = 0
 LT.LootItems = 0 --To determine how many items are in our loot cache
@@ -242,14 +246,14 @@ function LT:AutoToggle()
 end
 
 function LT:LootAlpha()
-	LootHistoryFrame:SetAlpha(LT.db.history.alpha or 1)
+	_G["LootHistoryFrame"]:SetAlpha(LT.db.history.alpha or 1)
 end
 
 function LT:LootShow()
 	local instance = T.IsInInstance()
 
 	if (not instance and LT.db.history.autohide) then
-		LootHistoryFrame:Hide()
+		_G["LootHistoryFrame"]:Hide()
 	end
 end
 

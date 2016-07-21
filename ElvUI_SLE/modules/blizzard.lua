@@ -99,13 +99,13 @@ function B:Addons(event, addon)
 end
 
 function B:VehicleScale()
-	local frame = VehicleSeatIndicator
+	local frame = _G["VehicleSeatIndicator"]
 	frame:SetScale(B.db.vehicleSeatScale)
 	frame.mover:SetSize(B.db.vehicleSeatScale * frame:GetWidth(), B.db.vehicleSeatScale * frame:GetHeight())
 end
 
 function B:ErrorFrameSize()
-	UIErrorsFrame:SetSize(B.db.errorframe.width, B.db.errorframe.height) --512 x 60
+	_G["UIErrorsFrame"]:SetSize(B.db.errorframe.width, B.db.errorframe.height) --512 x 60
 end
 
 function B:Initialize()
