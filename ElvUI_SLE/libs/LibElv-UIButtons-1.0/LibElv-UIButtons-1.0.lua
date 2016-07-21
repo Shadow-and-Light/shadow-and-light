@@ -6,6 +6,7 @@ local E, L, V, P, G = unpack(ElvUI)
 local S = E:GetModule("Skins")
 local TT = E:GetModule("Tooltip")
 
+--GLOBALS: CreateFrame
 local _G = _G
 local pairs, type, tinsert = pairs, type, tinsert
 local UnitName = UnitName
