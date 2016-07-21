@@ -1,33 +1,56 @@
 if select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_KnightFrame') then return end
 
-local E, L, V, P, G = unpack(ElvUI)
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local KF, Info, Timer = unpack(ElvUI_KnightFrame)
+--GLOBALS: CreateFrame, UIParent, SLE_ArmoryDB, hooksecurefunc
 local _G = _G
+local _
+local IsShiftKeyDown = IsShiftKeyDown
+local SetItemRef = SetItemRef
+local GetCursorInfo, CursorHasItem = GetCursorInfo, CursorHasItem
+local SocketInventoryItem = SocketInventoryItem
+local HandleModifiedItemClick = HandleModifiedItemClick
+local AuctionFrameBrowse_Reset = AuctionFrameBrowse_Reset
+local ClickSocketButton = ClickSocketButton
+
+local MAX_NUM_SOCKETS = MAX_NUM_SOCKETS
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
+local PANEL_DEFAULT_WIDTH = PANEL_DEFAULT_WIDTH
+
+local ITEM_MOD_AGILITY_SHORT, ITEM_MOD_SPIRIT_SHORT, ITEM_MOD_STAMINA_SHORT, ITEM_MOD_STRENGTH_SHORT, ITEM_MOD_INTELLECT_SHORT, ITEM_MOD_CRIT_RATING_SHORT, ITEM_SPELL_TRIGGER_ONUSE = ITEM_MOD_AGILITY_SHORT, ITEM_MOD_SPIRIT_SHORT, ITEM_MOD_STAMINA_SHORT, ITEM_MOD_STRENGTH_SHORT, ITEM_MOD_INTELLECT_SHORT, ITEM_MOD_CRIT_RATING_SHORT, ITEM_SPELL_TRIGGER_ONUSE
+local AGI, SPI, STA, STR, INT, CRIT_ABBR = AGI, SPI, STA, STR, INT, CRIT_ABBR
+local LE_TRANSMOG_TYPE_APPEARANCE = LE_TRANSMOG_TYPE_APPEARANCE
+local STAT_AVERAGE_ITEM_LEVEL = STAT_AVERAGE_ITEM_LEVEL
+local CHARACTERFRAME_EXPANDED_WIDTH = CHARACTERFRAME_EXPANDED_WIDTH
+
+local C_TransmogGetSlotInfo = C_Transmog.GetSlotInfo
+local C_TransmogCollectionGetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
+local C_TransmogGetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
 
 local format = format
 
 --------------------------------------------------------------------------------
 --<< KnightFrame : Upgrade Character Frame's Item Info like Wow-Armory		>>--
 --------------------------------------------------------------------------------
-local CA = CharacterArmory or CreateFrame('Frame', 'CharacterArmory', PaperDollFrame)
+local CA = CharacterArmory or CreateFrame('Frame', 'CharacterArmory', _G["PaperDollFrame"])
 
 local IsGemType = LE_ITEM_CLASS_GEM
 local SlotIDList = {}
-local InsetDefaultPoint = { CharacterFrameInsetRight:GetPoint() }
+local InsetDefaultPoint = { _G["CharacterFrameInsetRight"]:GetPoint() }
 
 local linkCache = {};
 
 function GetInventoryItemGems(slot)
-	local link = GetInventoryItemLink("player", slot);
+	local link = T.GetInventoryItemLink("player", slot);
 	
 	if (link and linkCache[link]) then
-		return unpack(linkCache[link]);
+		return T.unpack(linkCache[link]);
 	end
 
 	local gem1, gem2, gem3, gem4;
 
 	if (link) then
-		gem1, gem2, gem3, gem4 = select(7, string.find(link, "|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?"));
+		gem1, gem2, gem3, gem4 = T.select(7, T.find(link, "|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?"));
 		if (gem1 == "") then gem1 = nil; end
 		if (gem2 == "") then gem2 = nil; end
 		if (gem3 == "") then gem3 = nil; end
@@ -43,22 +66,22 @@ end
 do --<< Button Script >>--
 	function CA:OnEnter()
 		if self.Link or self.Message then
-			GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
+			_G["GameTooltip"]:SetOwner(self, 'ANCHOR_RIGHT')
 			
 			self:SetScript('OnUpdate', function()
-				GameTooltip:ClearLines()
+				_G["GameTooltip"]:ClearLines()
 				
 				if self.Link then
-					GameTooltip:SetHyperlink(self.Link)
+					_G["GameTooltip"]:SetHyperlink(self.Link)
 				end
 				
-				if self.Link and self.Message then GameTooltip:AddLine(' ') end -- Line space
+				if self.Link and self.Message then _G["GameTooltip"]:AddLine(' ') end -- Line space
 				
 				if self.Message then
-					GameTooltip:AddLine(self.Message, 1, 1, 1)
+					_G["GameTooltip"]:AddLine(self.Message, 1, 1, 1)
 				end
 				
-				GameTooltip:Show()
+				_G["GameTooltip"]:Show()
 			end)
 		end
 	end
@@ -66,34 +89,34 @@ do --<< Button Script >>--
 	
 	function CA:OnLeave()
 		self:SetScript('OnUpdate', nil)
-		GameTooltip:Hide()
+		_G["GameTooltip"]:Hide()
 	end
 	
 	
 	function CA:GemSocket_OnEnter()
-		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
+		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_RIGHT')
 		
 		local Parent = self:GetParent()
 		
 		if Parent.GemItemID then
-			if type(Parent.GemItemID) == 'number' then
-				if GetItemInfo(Parent.GemItemID) then
-					GameTooltip:SetHyperlink(select(2, GetItemInfo(Parent.GemItemID)))
+			if T.type(Parent.GemItemID) == 'number' then
+				if T.GetItemInfo(Parent.GemItemID) then
+					_G["GameTooltip"]:SetHyperlink(T.select(2, T.GetItemInfo(Parent.GemItemID)))
 					self:SetScript('OnUpdate', nil)
 				else
 					self:SetScript('OnUpdate', CA.GemSocket_OnEnter)
 					return
 				end
 			else
-				GameTooltip:ClearLines()
-				GameTooltip:AddLine("|cffffffff"..Parent.GemItemID)
+				_G["GameTooltip"]:ClearLines()
+				_G["GameTooltip"]:AddLine("|cffffffff"..Parent.GemItemID)
 			end
 		elseif Parent.GemType then
-			GameTooltip:ClearLines()
-			GameTooltip:AddLine("|cffffffff".._G["EMPTY_SOCKET_"..Parent.GemType])
+			_G["GameTooltip"]:ClearLines()
+			_G["GameTooltip"]:AddLine("|cffffffff".._G["EMPTY_SOCKET_"..Parent.GemType])
 		end
 		
-		GameTooltip:Show()
+		_G["GameTooltip"]:Show()
 	end
 	
 	
@@ -106,18 +129,18 @@ do --<< Button Script >>--
 		end
 		
 		if self.GemItemID then
-			local ItemName, ItemLink = GetItemInfo(self.GemItemID)
+			local ItemName, ItemLink = T.GetItemInfo(self.GemItemID)
 			
 			if not IsShiftKeyDown() then
 				SetItemRef(ItemLink, ItemLink, 'LeftButton')
 			else
 				if Button == 'RightButton' then
-					SocketInventoryItem(GetInventorySlotInfo(self.SlotName))
+					SocketInventoryItem(T.GetInventorySlotInfo(self.SlotName))
 				elseif HandleModifiedItemClick(ItemLink) then
-				elseif BrowseName and BrowseName:IsVisible() then
-					AuctionFrameBrowse_Reset(BrowseResetButton)
-					BrowseName:SetText(ItemName)
-					BrowseName:SetFocus()
+				elseif _G["BrowseName"] and _G["BrowseName"]:IsVisible() then
+					AuctionFrameBrowse_Reset(_G["BrowseResetButton"])
+					_G["BrowseName"]:SetText(ItemName)
+					_G["BrowseName"]:SetFocus()
 				end
 			end
 		end
@@ -130,8 +153,8 @@ do --<< Button Script >>--
 		if CursorHasItem() then
 			local CursorType, _, ItemLink = GetCursorInfo()
 			
-			if CursorType == 'item' and select(6, GetItemInfo(ItemLink)) == IsGemType then
-				SocketInventoryItem(GetInventorySlotInfo(self.SlotName))
+			if CursorType == 'item' and T.select(6, T.GetItemInfo(ItemLink)) == IsGemType then
+				SocketInventoryItem(T.GetInventorySlotInfo(self.SlotName))
 				ClickSocketButton(self.SocketNumber)
 			end
 		end
@@ -141,30 +164,30 @@ do --<< Button Script >>--
 	function CA:Transmogrify_OnEnter()
 		self.Texture:SetVertexColor(1, .8, 1)
 		
-		GameTooltip:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
-		GameTooltip:SetHyperlink(self.Link)
-		GameTooltip:Show()
+		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
+		_G["GameTooltip"]:SetHyperlink(self.Link)
+		_G["GameTooltip"]:Show()
 	end
 	
 	
 	function CA:Transmogrify_OnLeave()
 		self.Texture:SetVertexColor(1, .5, 1)
 		
-		GameTooltip:Hide()
+		_G["GameTooltip"]:Hide()
 	end
 	
 	
 	function CA:Transmogrify_OnClick(Button)
-		local ItemName, ItemLink = GetItemInfo(self.Link)
+		local ItemName, ItemLink = T.GetItemInfo(self.Link)
 		
 		if not IsShiftKeyDown() then
 			SetItemRef(ItemLink, ItemLink, 'LeftButton')
 		else
 			if HandleModifiedItemClick(ItemLink) then
-			elseif BrowseName and BrowseName:IsVisible() then
-				AuctionFrameBrowse_Reset(BrowseResetButton)
-				BrowseName:SetText(ItemName)
-				BrowseName:SetFocus()
+			elseif _G["BrowseName"] and _G["BrowseName"]:IsVisible() then
+				AuctionFrameBrowse_Reset(_G["BrowseResetButton"])
+				_G["BrowseName"]:SetText(ItemName)
+				_G["BrowseName"]:SetFocus()
 			end
 		end
 	end
@@ -173,8 +196,8 @@ end
 
 function CA:Setup_CharacterArmory()
 	--<< Core >>--
-	self:Point('TOPLEFT', CharacterFrameInset, 10, 20)
-	self:Point('BOTTOMRIGHT', CharacterFrameInsetRight, 'BOTTOMLEFT', -10, 5)
+	self:Point('TOPLEFT', _G["CharacterFrameInset"], 10, 20)
+	self:Point('BOTTOMRIGHT', _G["CharacterFrameInsetRight"], 'BOTTOMLEFT', -10, 5)
 	
 	--<< Updater >>--
 	local args
@@ -202,31 +225,31 @@ function CA:Setup_CharacterArmory()
 		end
 	end)
 	self:SetScript('OnShow', self.ScanData)
-	hooksecurefunc('CharacterFrame_Collapse', function() if Info.CharacterArmory_Activate and PaperDollFrame:IsShown() then CharacterFrame:SetWidth(448) end end)
-	hooksecurefunc('CharacterFrame_Expand', function() if Info.CharacterArmory_Activate and PaperDollFrame:IsShown() then CharacterFrame:SetWidth(650) end end)
+	hooksecurefunc('CharacterFrame_Collapse', function() if Info.CharacterArmory_Activate and _G["PaperDollFrame"]:IsShown() then _G["CharacterFrame"]:SetWidth(448) end end)
+	hooksecurefunc('CharacterFrame_Expand', function() if Info.CharacterArmory_Activate and _G["PaperDollFrame"]:IsShown() then _G["CharacterFrame"]:SetWidth(650) end end)
 	hooksecurefunc('ToggleCharacter', function(frameType)
-		if frameType ~= 'PaperDollFrame' and frameType ~= 'PetPaperDollFrame' then
-			CharacterFrame:SetWidth(PANEL_DEFAULT_WIDTH)
-		elseif Info.CharacterArmory_Activate and frameType == 'PaperDollFrame' then
-			CharacterFrameInsetRight:SetPoint('TOPLEFT', CharacterFrameInset, 'TOPRIGHT', 110, 0)
+		if frameType ~= "PaperDollFrame" and frameType ~= "PetPaperDollFrame" then
+			_G["CharacterFrame"]:SetWidth(PANEL_DEFAULT_WIDTH)
+		elseif Info.CharacterArmory_Activate and frameType == "PaperDollFrame" then
+			_G["CharacterFrameInsetRight"]:SetPoint('TOPLEFT', _G["CharacterFrameInset"], 'TOPRIGHT', 110, 0)
 		else
-			CharacterFrameInsetRight:SetPoint(unpack(InsetDefaultPoint))
+			_G["CharacterFrameInsetRight"]:SetPoint(T.unpack(InsetDefaultPoint))
 		end
 	end)
 	hooksecurefunc('PaperDollFrame_SetLevel', function()
 		if Info.CharacterArmory_Activate then 
-			CharacterLevelText:SetText('|c'..RAID_CLASS_COLORS[E.myclass].colorStr..CharacterLevelText:GetText())
+			_G["CharacterLevelText"]:SetText('|c'..RAID_CLASS_COLORS[E.myclass].colorStr.._G["CharacterLevelText"]:GetText())
 
-			CharacterFrameTitleText:ClearAllPoints()
-			CharacterFrameTitleText:Point('TOP', self, 0, 23)
-			CharacterFrameTitleText:SetParent(self)
-			CharacterLevelText:ClearAllPoints()
-			CharacterLevelText:SetPoint('TOP', CharacterFrameTitleText, 'BOTTOM', 0, -13)
-			CharacterLevelText:SetParent(self)
+			_G["CharacterFrameTitleText"]:ClearAllPoints()
+			_G["CharacterFrameTitleText"]:Point('TOP', self, 0, 23)
+			_G["CharacterFrameTitleText"]:SetParent(self)
+			_G["CharacterLevelText"]:ClearAllPoints()
+			_G["CharacterLevelText"]:SetPoint('TOP', _G["CharacterFrameTitleText"], 'BOTTOM', 0, -13)
+			_G["CharacterLevelText"]:SetParent(self)
 		end
 	end)
 	
-	self.DisplayUpdater = CreateFrame('Frame', nil, PaperDollFrame)
+	self.DisplayUpdater = CreateFrame('Frame', nil, _G["PaperDollFrame"])
 	self.DisplayUpdater:SetScript('OnShow', function() if Info.CharacterArmory_Activate then self:Update_Display(true) end end)
 	self.DisplayUpdater:SetScript('OnUpdate', function() if Info.CharacterArmory_Activate then self:Update_Display() end end)
 	
@@ -237,24 +260,24 @@ function CA:Setup_CharacterArmory()
 	self:Update_BG()
 	
 	--<< Change Model Frame's frameLevel >>--
-	CharacterModelFrame:SetFrameLevel(self:GetFrameLevel() + 2)
+	_G["CharacterModelFrame"]:SetFrameLevel(self:GetFrameLevel() + 2)
 	
 	--<< Average Item Level >>--
-	KF:TextSetting(self, nil, { Tag = 'AverageItemLevel', FontSize = 12 }, 'BOTTOM', CharacterModelFrame, 'TOP', 0, 14)
+	KF:TextSetting(self, nil, { Tag = 'AverageItemLevel', FontSize = 12 }, 'BOTTOM', _G["CharacterModelFrame"], 'TOP', 0, 14)
 	local function ValueColorUpdate()
-		self.AverageItemLevel:SetText(KF:Color_Value(L["Average"])..' : '..format('%.2f', select(2, GetAverageItemLevel())))
+		self.AverageItemLevel:SetText(KF:Color_Value(L["Average"])..' : '..format('%.2f', T.select(2, T.GetAverageItemLevel())))
 	end
 	E.valueColorUpdateFuncs[ValueColorUpdate] = true
 	
 	-- Create each equipment slots gradation, text, gem socket icon.
 	local Slot
-	for i, SlotName in pairs(Info.Armory_Constants.GearList) do
+	for i, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 		-- Equipment Tag
 		Slot = CreateFrame('Frame', nil, self)
 		Slot:Size(130, 41)
-		Slot:SetFrameLevel(CharacterModelFrame:GetFrameLevel() + 1)
+		Slot:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() + 1)
 		Slot.Direction = i%2 == 1 and 'LEFT' or 'RIGHT'
-		Slot.ID, Slot.EmptyTexture = GetInventorySlotInfo(SlotName)
+		Slot.ID, Slot.EmptyTexture = T.GetInventorySlotInfo(SlotName)
 		Slot:Point(Slot.Direction, _G["Character"..SlotName], Slot.Direction == 'LEFT' and -1 or 1, 0)
 		
 		-- Grow each equipment slot's frame level
@@ -328,7 +351,7 @@ function CA:Setup_CharacterArmory()
 				})
 				Slot["Socket"..i]:SetBackdropColor(0, 0, 0, 1)
 				Slot["Socket"..i]:SetBackdropBorderColor(0, 0, 0)
-				Slot["Socket"..i]:SetFrameLevel(CharacterModelFrame:GetFrameLevel() + 1)
+				Slot["Socket"..i]:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() + 1)
 				
 				Slot["Socket"..i].SlotName = SlotName
 				Slot["Socket"..i].SocketNumber = i
@@ -393,12 +416,12 @@ function CA:Setup_CharacterArmory()
 		self[SlotName] = Slot
 	end
 	
-	-- GameTooltip for counting gem sockets and getting enchant effects
+	-- _G["GameTooltip"] for counting gem sockets and getting enchant effects
 	self.ScanTT = CreateFrame('GameTooltip', 'Knight_CharacterArmory_ScanTT', nil, 'GameTooltipTemplate')
 	self.ScanTT:SetOwner(UIParent, 'ANCHOR_NONE')
 
-	if PawnUI_InventoryPawnButton then
-		PawnUI_InventoryPawnButton:SetFrameLevel(CharacterModelFrame:GetFrameLevel() + 1)
+	if _G["PawnUI_InventoryPawnButton"] then
+		_G["PawnUI_InventoryPawnButton"]:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() + 1)
 	end
 
 	self.Setup_CharacterArmory = nil
@@ -427,9 +450,9 @@ end
 function CA:Update_Durability()
 	local Slot, R, G, B, CurrentDurability, MaxDurability
 	
-	for _, SlotName in pairs(Info.Armory_Constants.GearList) do
+	for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 		Slot = self[SlotName]
-		CurrentDurability, MaxDurability = GetInventoryItemDurability(Slot.ID)
+		CurrentDurability, MaxDurability = T.GetInventoryItemDurability(Slot.ID)
 		
 		if CurrentDurability and MaxDurability and not (E.db.sle.Armory.Character.Durability.Display == 'DamagedOnly' and CurrentDurability == MaxDurability) then
 			R, G, B = E:ColorGradient((CurrentDurability / MaxDurability), 1, 0, 0, 1, 1, 0, 0, 1, 0)
@@ -477,9 +500,9 @@ function CA:Update_Gear()
 	local ErrorDetected, NeedUpdate, NeedUpdateList, R, G, B
 	local Slot, ItemLink, ItemData, ItemRarity, BasicItemLevel, TrueItemLevel, ItemUpgradeID, ItemType, ItemTexture, UsableEffect, CurrentLineText, GemID, GemCount_Default, GemCount_Enable, GemCount_Now, GemCount, IsTransmogrified, TransmogrifyItemID
 	
-	for _, SlotName in pairs(type(self.GearUpdated) == 'table' and self.GearUpdated or Info.Armory_Constants.GearList) do
+	for _, SlotName in T.pairs(T.type(self.GearUpdated) == 'table' and self.GearUpdated or Info.Armory_Constants.GearList) do
 		Slot = self[SlotName]
-		ItemLink = GetInventoryItemLink('player', Slot.ID)
+		ItemLink = T.GetInventoryItemLink('player', Slot.ID)
 		ErrorDetected = nil
 		
 		if not (SlotName == 'ShirtSlot' or SlotName == 'TabardSlot') then
@@ -512,7 +535,7 @@ function CA:Update_Gear()
 			if ItemLink then
 				if not ItemLink:find('%[%]') then -- sometimes itemLink is malformed so we need to update when crashed
 					do --<< Gem Parts >>--
-						ItemData = { strsplit(':', ItemLink) }
+						ItemData = { T.split(':', ItemLink) }
 						ItemData[4], ItemData[5], ItemData[6], ItemData[7] = 0, 0, 0, 0
 						
 						for i = 1, #ItemData do
@@ -530,7 +553,7 @@ function CA:Update_Gear()
 							
 							if ItemTexture and ItemTexture:find('Interface\\ItemSocketingFrame\\') then
 								GemCount_Default = GemCount_Default + 1
-								Slot["Socket"..GemCount_Default].GemType = strupper(gsub(ItemTexture, 'Interface\\ItemSocketingFrame\\UI--EmptySocket--', ''))
+								Slot["Socket"..GemCount_Default].GemType = T.upper(T.gsub(ItemTexture, 'Interface\\ItemSocketingFrame\\UI--EmptySocket--', ''))
 							end
 						end
 						
@@ -551,10 +574,10 @@ function CA:Update_Gear()
 						-- Apply current item's gem setting
 						for i = 1, MAX_NUM_SOCKETS do
 							ItemTexture = _G["Knight_CharacterArmory_ScanTTTexture"..i]:GetTexture()
-							GemID = select(i, GetInventoryItemGems(Slot.ID))
+							GemID = T.select(i, GetInventoryItemGems(Slot.ID))
 							
 							if Slot["Socket"..i].GemType and Info.Armory_Constants.GemColor[Slot["Socket"..i].GemType] then
-								R, G, B = unpack(Info.Armory_Constants.GemColor[Slot["Socket"..i].GemType])
+								R, G, B = T.unpack(Info.Armory_Constants.GemColor[Slot["Socket"..i].GemType])
 								Slot["Socket"..i].Socket:SetBackdropColor(R, G, B, .5)
 								Slot["Socket"..i].Socket:SetBackdropBorderColor(R, G, B)
 							else
@@ -574,7 +597,7 @@ function CA:Update_Gear()
 									GemCount = GemCount + 1
 									Slot["Socket"..i].GemItemID = GemID
 									
-									_, Slot["Socket"..i].Socket.Link, _, _, _, _, _, _, _, ItemTexture = GetItemInfo(GemID)
+									_, Slot["Socket"..i].Socket.Link, _, _, _, _, _, _, _, ItemTexture = T.GetItemInfo(GemID)
 									
 									if ItemTexture then
 										Slot["Socket"..i].Texture:SetTexture(ItemTexture)
@@ -591,37 +614,37 @@ function CA:Update_Gear()
 						end
 					end
 					
-					_, _, ItemRarity, BasicItemLevel, _, _, _, _, ItemType, ItemTexture = GetItemInfo(ItemLink)
-					R, G, B = GetItemQualityColor(ItemRarity)
+					_, _, ItemRarity, BasicItemLevel, _, _, _, _, ItemType, ItemTexture = T.GetItemInfo(ItemLink)
+					R, G, B = T.GetItemQualityColor(ItemRarity)
 					
 					ItemUpgradeID = ItemLink:match(":(%d+)\124h%[")
 					--<< Enchant Parts >>--
 					for i = 1, self.ScanTT:NumLines() do
 						CurrentLineText = _G["Knight_CharacterArmory_ScanTTTextLeft"..i]:GetText()
 						if CurrentLineText:find(Info.Armory_Constants.ItemLevelKey_Alt) then
-								TrueItemLevel = tonumber(CurrentLineText:match(Info.Armory_Constants.ItemLevelKey_Alt))
+								TrueItemLevel = T.tonumber(CurrentLineText:match(Info.Armory_Constants.ItemLevelKey_Alt))
 						elseif CurrentLineText:find(Info.Armory_Constants.ItemLevelKey) then
-							TrueItemLevel = tonumber(CurrentLineText:match(Info.Armory_Constants.ItemLevelKey))
+							TrueItemLevel = T.tonumber(CurrentLineText:match(Info.Armory_Constants.ItemLevelKey))
 						elseif CurrentLineText:find(Info.Armory_Constants.EnchantKey) then
 							if E.db.sle.Armory.Character.Enchant.Display ~= 'Hide' then
 								CurrentLineText = CurrentLineText:match(Info.Armory_Constants.EnchantKey) -- Get enchant string
-								CurrentLineText = gsub(CurrentLineText, ITEM_MOD_AGILITY_SHORT, AGI)
-								CurrentLineText = gsub(CurrentLineText, ITEM_MOD_SPIRIT_SHORT, SPI)
-								CurrentLineText = gsub(CurrentLineText, ITEM_MOD_STAMINA_SHORT, STA)
-								CurrentLineText = gsub(CurrentLineText, ITEM_MOD_STRENGTH_SHORT, STR)
-								CurrentLineText = gsub(CurrentLineText, ITEM_MOD_INTELLECT_SHORT, INT)
-								CurrentLineText = gsub(CurrentLineText, ITEM_MOD_CRIT_RATING_SHORT, CRIT_ABBR) -- Critical is too long
-								CurrentLineText = gsub(CurrentLineText, ' + ', '+') -- Remove space
+								CurrentLineText = T.gsub(CurrentLineText, ITEM_MOD_AGILITY_SHORT, AGI)
+								CurrentLineText = T.gsub(CurrentLineText, ITEM_MOD_SPIRIT_SHORT, SPI)
+								CurrentLineText = T.gsub(CurrentLineText, ITEM_MOD_STAMINA_SHORT, STA)
+								CurrentLineText = T.gsub(CurrentLineText, ITEM_MOD_STRENGTH_SHORT, STR)
+								CurrentLineText = T.gsub(CurrentLineText, ITEM_MOD_INTELLECT_SHORT, INT)
+								CurrentLineText = T.gsub(CurrentLineText, ITEM_MOD_CRIT_RATING_SHORT, CRIT_ABBR) -- Critical is too long
+								CurrentLineText = T.gsub(CurrentLineText, ' + ', '+') -- Remove space
 								
-								if L.Armory_ReplaceEnchantString and type(L.Armory_ReplaceEnchantString) == 'table' then
-									for Old, New in pairs(L.Armory_ReplaceEnchantString) do
-										CurrentLineText = gsub(CurrentLineText, Old, New)
+								if L.Armory_ReplaceEnchantString and T.type(L.Armory_ReplaceEnchantString) == 'table' then
+									for Old, New in T.pairs(L.Armory_ReplaceEnchantString) do
+										CurrentLineText = T.gsub(CurrentLineText, Old, New)
 									end
 								end
 
-								for Name, _ in pairs(SLE_ArmoryDB.EnchantString) do
+								for Name, _ in T.pairs(SLE_ArmoryDB.EnchantString) do
 									if SLE_ArmoryDB.EnchantString[Name].original and SLE_ArmoryDB.EnchantString[Name].new then
-										CurrentLineText = gsub(CurrentLineText, SLE_ArmoryDB.EnchantString[Name].original, SLE_ArmoryDB.EnchantString[Name].new)
+										CurrentLineText = T.gsub(CurrentLineText, SLE_ArmoryDB.EnchantString[Name].original, SLE_ArmoryDB.EnchantString[Name].new)
 									end
 								end
 								
@@ -682,10 +705,10 @@ function CA:Update_Gear()
 					
 					--<< Transmogrify Parts >>--
 					if Slot.TransmogrifyAnchor then
-						IsTransmogrified = C_Transmog.GetSlotInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE);
+						IsTransmogrified = C_TransmogGetSlotInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE);
 						
 						if IsTransmogrified then
-							Slot.TransmogrifyAnchor.Link = select(6, C_TransmogCollection.GetAppearanceSourceInfo(select(3, C_Transmog.GetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE))));
+							Slot.TransmogrifyAnchor.Link = T.select(6, C_TransmogCollectionGetAppearanceSourceInfo(T.select(3, C_TransmogGetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE))));
 							Slot.TransmogrifyAnchor:Show()
 						end
 					end
@@ -710,11 +733,11 @@ function CA:Update_Gear()
 			Slot.Gradation:SetVertexColor(1, 0, 0)
 			Slot.Gradation:Show()
 		else
-			Slot.Gradation:SetVertexColor(unpack(E.db.sle.Armory.Character.Gradation.Color))
+			Slot.Gradation:SetVertexColor(T.unpack(E.db.sle.Armory.Character.Gradation.Color))
 		end
 	end
 	
-	self.AverageItemLevel:SetText(KF:Color_Value(STAT_AVERAGE_ITEM_LEVEL)..' : '..format('%.2f', select(2, GetAverageItemLevel())))
+	self.AverageItemLevel:SetText(KF:Color_Value(STAT_AVERAGE_ITEM_LEVEL)..' : '..format('%.2f', T.select(2, T.GetAverageItemLevel())))
 	
 	if NeedUpdateList then
 		self.GearUpdated = NeedUpdateList
@@ -739,8 +762,8 @@ end
 function CA:Update_Display(Force)
 	local Slot, Mouseover, SocketVisible
 	
-	if (PaperDollFrame:IsMouseOver() and (E.db.sle.Armory.Character.Level.Display == 'MouseoverOnly' or E.db.sle.Armory.Character.Enchant.Display == 'MouseoverOnly' or E.db.sle.Armory.Character.Durability.Display == 'MouseoverOnly' or E.db.sle.Armory.Character.Gem.Display == 'MouseoverOnly')) or Force then
-		for _, SlotName in pairs(Info.Armory_Constants.GearList) do
+	if (_G["PaperDollFrame"]:IsMouseOver() and (E.db.sle.Armory.Character.Level.Display == 'MouseoverOnly' or E.db.sle.Armory.Character.Enchant.Display == 'MouseoverOnly' or E.db.sle.Armory.Character.Durability.Display == 'MouseoverOnly' or E.db.sle.Armory.Character.Gem.Display == 'MouseoverOnly')) or Force then
+		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 			Slot = self[SlotName]
 			Mouseover = Slot:IsMouseOver()
 			
@@ -829,13 +852,13 @@ KF.Modules.CharacterArmory = function()
 		Info.CharacterArmory_Activate = true
 		
 		-- Setting frame
-		CharacterFrame:SetHeight(444)
+		_G["CharacterFrame"]:SetHeight(444)
 		
 		-- Move right equipment slots
-		CharacterHandsSlot:SetPoint('TOPRIGHT', CharacterFrameInsetRight, 'TOPLEFT', -4, -2)
+		_G["CharacterHandsSlot"]:SetPoint('TOPRIGHT', _G["CharacterFrameInsetRight"], 'TOPLEFT', -4, -2)
 		
 		-- Move bottom equipment slots
-		CharacterMainHandSlot:SetPoint('BOTTOMLEFT', PaperDollItemsFrame, 'BOTTOMLEFT', 185, 14)
+		_G["CharacterMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["PaperDollItemsFrame"], 'BOTTOMLEFT', 185, 14)
 		
 		if CA.Setup_CharacterArmory then
 			CA:Setup_CharacterArmory()
@@ -846,18 +869,18 @@ KF.Modules.CharacterArmory = function()
 		CA:Update_BG()
 		
 		-- Model Frame
-		CharacterModelFrame:ClearAllPoints()
-		CharacterModelFrame:SetPoint('TOPLEFT', CharacterHeadSlot)
-		CharacterModelFrame:SetPoint('RIGHT', CharacterHandsSlot)
-		CharacterModelFrame:SetPoint('BOTTOM', CharacterMainHandSlot)
-		CharacterModelFrame.BackgroundTopLeft:Hide()
-		CharacterModelFrame.BackgroundTopRight:Hide()
-		CharacterModelFrame.BackgroundBotLeft:Hide()
-		CharacterModelFrame.BackgroundBotRight:Hide()
+		_G["CharacterModelFrame"]:ClearAllPoints()
+		_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"])
+		_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
+		_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
+		_G["CharacterModelFrame"].BackgroundTopLeft:Hide()
+		_G["CharacterModelFrame"].BackgroundTopRight:Hide()
+		_G["CharacterModelFrame"].BackgroundBotLeft:Hide()
+		_G["CharacterModelFrame"].BackgroundBotRight:Hide()
 		
-		if PaperDollFrame:IsShown() then
-			CharacterFrame:SetWidth(CharacterFrame.Expanded and 650 or 444)
-			CharacterFrameInsetRight:SetPoint('TOPLEFT', CharacterFrameInset, 'TOPRIGHT', 110, 0)
+		if _G["PaperDollFrame"]:IsShown() then
+			_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and 650 or 444)
+			_G["CharacterFrameInsetRight"]:SetPoint('TOPLEFT', _G["CharacterFrameInset"], 'TOPRIGHT', 110, 0)
 		end
 		
 		-- Run KnightArmory
@@ -880,24 +903,24 @@ KF.Modules.CharacterArmory = function()
 		Info.CharacterArmory_Activate = nil
 		
 		-- Setting frame to default
-		CharacterFrame:SetHeight(424)
-		CharacterFrame:SetWidth(PaperDollFrame:IsShown() and CharacterFrame.Expanded and CHARACTERFRAME_EXPANDED_WIDTH or PANEL_DEFAULT_WIDTH)
-		CharacterFrameInsetRight:SetPoint(unpack(InsetDefaultPoint))
+		_G["CharacterFrame"]:SetHeight(424)
+		_G["CharacterFrame"]:SetWidth(_G["PaperDollFrame"]:IsShown() and _G["CharacterFrame"].Expanded and CHARACTERFRAME_EXPANDED_WIDTH or PANEL_DEFAULT_WIDTH)
+		_G["CharacterFrameInsetRight"]:SetPoint(T.unpack(InsetDefaultPoint))
 		
 		-- Move rightside equipment slots to default position
-		CharacterHandsSlot:SetPoint('TOPRIGHT', CharacterFrameInset, 'TOPRIGHT', -4, -2)
+		_G["CharacterHandsSlot"]:SetPoint('TOPRIGHT', _G["CharacterFrameInset"], 'TOPRIGHT', -4, -2)
 		
 		-- Move bottom equipment slots to default position
-		CharacterMainHandSlot:SetPoint('BOTTOMLEFT', PaperDollItemsFrame, 'BOTTOMLEFT', 130, 16)
+		_G["CharacterMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["PaperDollItemsFrame"], 'BOTTOMLEFT', 130, 16)
 		
 		-- Model Frame
-		CharacterModelFrame:ClearAllPoints()
-		CharacterModelFrame:Size(231, 320)
-		CharacterModelFrame:SetPoint('TOPLEFT', PaperDollFrame, 'TOPLEFT', 52, -66)
-		CharacterModelFrame.BackgroundTopLeft:Show()
-		CharacterModelFrame.BackgroundTopRight:Show()
-		CharacterModelFrame.BackgroundBotLeft:Show()
-		CharacterModelFrame.BackgroundBotRight:Show()
+		_G["CharacterModelFrame"]:ClearAllPoints()
+		_G["CharacterModelFrame"]:Size(231, 320)
+		_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["PaperDollFrame"], 'TOPLEFT', 52, -66)
+		_G["CharacterModelFrame"].BackgroundTopLeft:Show()
+		_G["CharacterModelFrame"].BackgroundTopRight:Show()
+		_G["CharacterModelFrame"].BackgroundBotLeft:Show()
+		_G["CharacterModelFrame"].BackgroundBotRight:Show()
 		
 		-- Turn off ArmoryFrame
 		CA:Hide()

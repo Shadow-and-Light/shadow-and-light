@@ -1,9 +1,30 @@
 ﻿--------------------------------------------------------------------------------
 --<< AISM : Armory Support Module for AddOn Communication Inspecting		>>--
 --------------------------------------------------------------------------------
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Revision = 1.2
 local _G = _G
 local AISM = _G["Armory_InspectSupportModule"] or CreateFrame('Frame', 'Armory_InspectSupportModule', UIParent)
+local gsub = gsub
+local strsub = strsub
+
+local GetNumSpecGroups = GetNumSpecGroups
+local GetTotalAchievementPoints = GetTotalAchievementPoints
+local C_TransmogGetSlotInfo = C_Transmog.GetSlotInfo
+local C_TransmogCollectionGetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
+local C_TransmogGetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
+local SendAddonMessage = SendAddonMessage
+
+local MAX_TALENT_GROUPS, NUM_TALENT_COLUMNS, MAX_TALENT_TIERS = MAX_TALENT_GROUPS, NUM_TALENT_COLUMNS, MAX_TALENT_TIERS
+local MAX_NUM_SOCKETS = MAX_NUM_SOCKETS
+local LIGHTYELLOW_FONT_COLOR = LIGHTYELLOW_FONT_COLOR
+local LIGHTYELLOW_FONT_COLOR_CODE, GRAY_FONT_COLOR_CODE = LIGHTYELLOW_FONT_COLOR_CODE, GRAY_FONT_COLOR_CODE
+local LE_TRANSMOG_TYPE_APPEARANCE = LE_TRANSMOG_TYPE_APPEARANCE
+local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
+local COMBATLOG_UNKNOWN_UNIT = COMBATLOG_UNKNOWN_UNIT
+local UNKNOWNOBJECT = UNKNOWNOBJECT
+local MAX_RAID_MEMBERS = MAX_RAID_MEMBERS
+local EMPTY = EMPTY
 
 if not AISM.Revision or AISM.Revision < Revision then
 	local ItemSetBonusKey = ITEM_SET_BONUS:gsub('%%s', '(.+)')
@@ -12,14 +33,14 @@ if not AISM.Revision or AISM.Revision < Revision then
 	local ProfessionUnlearnKey = ERR_SPELL_UNLEARNED_S:gsub('%%s', '(.+)')
 	local GuildLeaveKey = ERR_GUILD_LEAVE_S:gsub('%%s', '(.+)')
 	local PlayerOfflineKey = ERR_CHAT_PLAYER_NOT_FOUND_S:gsub('%%s', '(.+)')
-	
+
 	local playerName = UnitName('player')
 	local playerRealm = gsub(GetRealmName(),'[%s%-]','')
 	local _, playerClass, playerClassID = UnitClass('player')
 	local playerRace, playerRaceID = UnitRace('player')
 	local playerSex = UnitSex('player')
 	local playerNumSpecGroup = GetNumSpecGroups()
-	
+
 	
 	--<< Create Core >>--
 	AISM.Revision = Revision
@@ -108,7 +129,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 	for groupNum = 1, MAX_TALENT_GROUPS do
 		AISM.DataTypeTable["SP"..groupNum] = 'Specialization'
 	end
-	for slotName, keyName in pairs(AISM.GearList) do
+	for slotName, keyName in T.pairs(AISM.GearList) do
 		AISM.DataTypeTable[keyName] = 'Gear'
 		SlotIDList[GetInventorySlotInfo(slotName)] = slotName
 	end
@@ -141,7 +162,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 				self.elapsed = 0
 				self:Hide()
 				
-				for _ in pairs(AISM.UpdatedData) do
+				for _ in T.pairs(AISM.UpdatedData) do
 					if AISM.CurrentGroupMode and AISM.CurrentGroupMode ~= 'NoGroup' and AISM.CurrentGroupType then
 						AISM:SendData(AISM.UpdatedData)
 					end
@@ -163,7 +184,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 			end
 		elseif Event == 'PLAYER_EQUIPMENT_CHANGED' then
 			args = ...
-			self.GearUpdated = type(self.GearUpdated) == 'table' and self.GearUpdated or {}
+			self.GearUpdated = T.type(self.GearUpdated) == 'table' and self.GearUpdated or {}
 			self.GearUpdated[(SlotIDList[args])] = true
 			self:Show()
 		elseif Event == 'COMBAT_LOG_EVENT_UNFILTERED' then
@@ -204,11 +225,11 @@ if not AISM.Revision or AISM.Revision < Revision then
 	
 	--<< Profession String >>--
 	function AISM:GetPlayerProfessionSetting()
-		local Profession1, Profession2 = GetProfessions()
+		local Profession1, Profession2 = T.GetProfessions()
 		local Profession1_Level, Profession2_Level = 0, 0
 		
 		if Profession1 then
-			Profession1, _, Profession1_Level = GetProfessionInfo(Profession1)
+			Profession1, _, Profession1_Level = T.GetProfessionInfo(Profession1)
 			
 			if self.ProfessionList[Profession1] then
 				Profession1 = self.ProfessionList[Profession1]..'/'..Profession1_Level
@@ -218,7 +239,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 		end
 		
 		if Profession2 then
-			Profession2, _, Profession2_Level = GetProfessionInfo(Profession2)
+			Profession2, _, Profession2_Level = T.GetProfessionInfo(Profession2)
 			
 			if self.ProfessionList[Profession2] then
 				Profession2 = self.ProfessionList[Profession2]..'/'..Profession2_Level
@@ -247,38 +268,38 @@ if not AISM.Revision or AISM.Revision < Revision then
 	local SpecTable = {}
 	local GroupArray = {}
 	for i = 1, playerNumSpecGroup do
-		tinsert(GroupArray, i)
+		T.tinsert(GroupArray, i)
 	end
 	if ActiveSpec ~= 1 then
-		tremove(GroupArray, ActiveSpec)
-		tinsert(GroupArray, 1, ActiveSpec)
+		T.tremove(GroupArray, ActiveSpec)
+		T.tinsert(GroupArray, 1, ActiveSpec)
 	end
 	
 	function AISM:GetPlayerSpecSetting()
 		local DataString, Spec, Talent, isSelected
 		
-		ActiveSpec = GetActiveSpecGroup()
+		ActiveSpec = T.GetActiveSpecGroup()
 		
 		if self.PlayerData.ActiveSpec ~= ActiveSpec then
 			self.PlayerData.ActiveSpec = ActiveSpec
 			self.PlayerData_ShortString.ActiveSpec = ActiveSpec
 			self.UpdatedData.ActiveSpec = ActiveSpec
 			
-			wipe(GroupArray)
+			T.twipe(GroupArray)
 			for i = 1, playerNumSpecGroup do
-				tinsert(GroupArray, i)
+				T.tinsert(GroupArray, i)
 			end
 			if ActiveSpec ~= 1 then
-				tremove(GroupArray, ActiveSpec)
-				tinsert(GroupArray, 1, ActiveSpec)
+				T.tremove(GroupArray, ActiveSpec)
+				T.tinsert(GroupArray, 1, ActiveSpec)
 			end
 		end
 		
-		for Step, Group in pairs(GroupArray) do
+		for Step, Group in T.pairs(GroupArray) do
 			DataString = nil
 			
-			Spec = GetSpecialization(nil, nil, Group)
-			Spec = Spec and GetSpecializationInfo(Spec) or '0'
+			Spec = T.GetSpecialization(nil, nil, Group)
+			Spec = Spec and T.GetSpecializationInfo(Spec) or '0'
 			
 			if not SpecTable["Spec"..Step] or SpecTable["Spec"..Step] ~= Spec then
 				SpecTable["Spec"..Step] = Spec
@@ -287,7 +308,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 			
 			for i = 1, MAX_TALENT_TIERS do
 				for k = 1, NUM_TALENT_COLUMNS do
-					Talent, _, _, isSelected = GetTalentInfo(i, k, Group)
+					Talent, _, _, isSelected = T.GetTalentInfo(i, k, Group)
 					
 					Talent = ((i - 1) * NUM_TALENT_COLUMNS + k)..'_'..Talent..(isSelected == true and '_1' or '')
 					
@@ -321,24 +342,24 @@ if not AISM.Revision or AISM.Revision < Revision then
 		local ShortString, FullString, needUpdate, needUpdateList
 		local CurrentSetItem, GearSetIDList = {}, {}
 		
-		local slotID, slotLink, isTransmogrified, transmogrifiedItemID, SetName, GeatSetCount, SetItemMax, SetOptionCount, colorR, colorG, colorB, checkSpace, tooltipText
-		for slotName in pairs(type(self.Updater.GearUpdated) == 'table' and self.Updater.GearUpdated or self.GearList) do
+		local slotID, slotLink, isTransmogrified, transmogrifiedItemID, SetName, SetItemCount, SetItemMax, SetOptionCount, colorR, colorG, colorB, checkSpace, tooltipText
+		for slotName in T.pairs(T.type(self.Updater.GearUpdated) == 'table' and self.Updater.GearUpdated or self.GearList) do
 			needUpdate = nil
 			
 			self.UncheckableDataList[slotName] = nil
 			
-			slotID = GetInventorySlotInfo(slotName)
-			slotLink = GetInventoryItemLink('player', slotID)
+			slotID = T.GetInventorySlotInfo(slotName)
+			slotLink = T.GetInventoryItemLink('player', slotID)
 			
 			if slotLink and slotLink:find('%[%]') then -- sometimes itemLink is malformed so we need to update when crashed
 				needUpdate = true
 			else
 				if slotLink and self.CanTransmogrifySlot[slotName] then
-					isTransmogrified = C_Transmog.GetSlotInfo(slotID, LE_TRANSMOG_TYPE_APPEARANCE);
+					isTransmogrified = C_TransmogGetSlotInfo(slotID, LE_TRANSMOG_TYPE_APPEARANCE);
 					if (isTransmogrified) then
-						local transmogLink = select(6, C_TransmogCollection.GetAppearanceSourceInfo(select(3, C_Transmog.GetSlotVisualInfo(slotID, LE_TRANSMOG_TYPE_APPEARANCE))));
+						local transmogLink = T.select(6, C_TransmogCollectionGetAppearanceSourceInfo(T.select(3, C_TransmogGetSlotVisualInfo(slotID, LE_TRANSMOG_TYPE_APPEARANCE))));
 						if (transmogLink) then
-							transmogrifiedItemID = select(2, strsplit(':', string.match(slotLink, 'item[%-?%d:]+')));
+							transmogrifiedItemID = T.select(2, T.split(':', T.match(slotLink, 'item[%-?%d:]+')));
 						else
 							isTransmogrified = nil
 						end
@@ -347,14 +368,14 @@ if not AISM.Revision or AISM.Revision < Revision then
 					isTransmogrified = nil
 				end
 				
-				ShortString = slotLink and select(2, strsplit(':', string.match(slotLink, 'item[%-?%d:]+'))) or 'F'	-- ITEM ID
+				ShortString = slotLink and T.select(2, T.split(':', T.match(slotLink, 'item[%-?%d:]+'))) or 'F'	-- ITEM ID
 				FullString = slotLink or 'F'
 				
 				if slotLink then
 					self.UncheckableDataList[slotName] = slotName == 'HeadSlot' and 'ND' or slotName == 'BackSlot' and 'ND' or isTransmogrified and transmogrifiedItemID or '0'
 					
 					for i = 1, MAX_NUM_SOCKETS do
-						self.UncheckableDataList[slotName] = self.UncheckableDataList[slotName]..'/'..(select(i, GetInventoryItemGems(slotID)) or 0)
+						self.UncheckableDataList[slotName] = self.UncheckableDataList[slotName]..'/'..(T.select(i, GetInventoryItemGems(slotID)) or 0)
 					end
 					
 					FullString = FullString..'/'..self.UncheckableDataList[slotName]
@@ -380,8 +401,8 @@ if not AISM.Revision or AISM.Revision < Revision then
 						SetName, SetItemCount, SetItemMax = _G["AISM_TooltipTextLeft"..i]:GetText():match('^(.+) %((%d)/(%d)%)$') -- find string likes 'SetName (0/5)'
 						
 						if SetName then
-							SetItemCount = tonumber(SetItemCount)
-							SetItemMax = tonumber(SetItemMax)
+							SetItemCount = T.tonumber(SetItemCount)
+							SetItemMax = T.tonumber(SetItemMax)
 							
 							if SetItemCount > SetItemMax or SetItemMax == 1 then
 								needUpdate = true
@@ -459,7 +480,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 		
 		-- Clear cache when there's no gear set
 		if self.PlayerData.SetItem then
-			for SetName in pairs(self.PlayerData.SetItem) do
+			for SetName in T.pairs(self.PlayerData.SetItem) do
 				if not CurrentSetItem[SetName] then
 					self.PlayerData.SetItem[SetName] = nil
 					self.PlayerData_ShortString.SetItem[SetName] = nil
@@ -486,36 +507,35 @@ if not AISM.Revision or AISM.Revision < Revision then
 	
 	--<< Player Info >>--
 	function AISM:SettingInspectData(TableToSave)
-		local guildName, guildRankName = GetGuildInfo('player')
+		local guildName, guildRankName = T.GetGuildInfo('player')
 		
-		TableToSave.PlayerInfo = playerName..'_'..UnitPVPName('player')..'/'..playerRealm..'/'..UnitLevel('player')..'/'..playerClass..'/'..playerClassID..'/'..playerRace..'/'..playerRaceID..'/'..playerSex..(guildName and '/'..guildName..'/'..guildRankName or '')
+		TableToSave.PlayerInfo = playerName..'_'..T.UnitPVPName('player')..'/'..playerRealm..'/'..T.UnitLevel('player')..'/'..playerClass..'/'..playerClassID..'/'..playerRace..'/'..playerRaceID..'/'..playerSex..(guildName and '/'..guildName..'/'..guildRankName or '')
 		
-		if IsInGuild() then
-			TableToSave.GuildInfo = GetTotalAchievementPoints(true)..'/'..GetNumGuildMembers()
+		if T.IsInGuild() then
+			TableToSave.GuildInfo = GetTotalAchievementPoints(true)..'/'..T.GetNumGuildMembers()
 			
-			for _, DataString in ipairs({ GetGuildLogoInfo('player') }) do
+			for _, DataString in T.ipairs({ T.GetGuildLogoInfo('player') }) do
 				TableToSave.GuildInfo = TableToSave.GuildInfo..'/'..DataString
 			end
 		end
 		
-		TableToSave.PvP = GetPVPLifetimeStats()
+		TableToSave.PvP = T.GetPVPLifetimeStats()
 		
 		local Rating, Played, Won
-		for i, Type in pairs({ '2vs2', '3vs3', '5vs5', 'RB' }) do
-			Rating, _, _, Played, Won = GetPersonalRatedInfo(i)
+		for i, Type in T.pairs({ '2vs2', '3vs3', '5vs5', 'RB' }) do
+			Rating, _, _, Played, Won = T.GetPersonalRatedInfo(i)
 			
 			if Played > 0 then
 				TableToSave.PvP = TableToSave.PvP..'/'..Type..'_'..Rating..'_'..Played..'_'..Won
 			end
 		end
 	end
-	
-	
+
 	function AISM:SendData(InputData, Prefix, Channel, WhisperTarget)
-		Channel = Channel or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(self.CurrentGroupMode)
+		Channel = Channel or T.IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or T.upper(self.CurrentGroupMode)
 		Prefix = Prefix or 'AISM'
 		
-		if not InputData or type(InputData) ~= 'table' or Channel == 'NOGROUP' then return end
+		if not InputData or T.type(InputData) ~= 'table' or Channel == 'NOGROUP' then return end
 		
 		local Data = {}
 		
@@ -549,15 +569,15 @@ if not AISM.Revision or AISM.Revision < Revision then
 			end
 		end
 		
-		for slotName, keyName in pairs(self.GearList) do
+		for slotName, keyName in T.pairs(self.GearList) do
 			if InputData[slotName] then
 				Data[#Data + 1] = keyName..':'..InputData[slotName]
 			end
 		end
 		
 		if InputData.SetItem then
-			for SetName, DataString in pairs(InputData.SetItem) do
-				Data[#Data + 1] = 'SID:'..SetName..(type(DataString) == 'number' and '/' or '')..DataString
+			for SetName, DataString in T.pairs(InputData.SetItem) do
+				Data[#Data + 1] = 'SID:'..SetName..(T.type(DataString) == 'number' and '/' or '')..DataString
 			end
 		end
 		
@@ -565,18 +585,18 @@ if not AISM.Revision or AISM.Revision < Revision then
 		local stringLength = 0
 		local dataLength
 		
-		for dataTag, dataText in pairs(Data) do
+		for dataTag, dataText in T.pairs(Data) do
 			DataString = DataString..'{'..dataText..'}'
-			dataLength = strlen(dataText) + 2
+			dataLength = T.strlen(dataText) + 2
 			
 			if stringLength + dataLength <= 255 then
 				stringLength = stringLength + dataLength
 			else
-				while strlen(DataString) > 255 do
+				while T.strlen(DataString) > 255 do
 					SendAddonMessage(Prefix, strsub(DataString, 1, 255), Channel, WhisperTarget)
 					
 					DataString = strsub(DataString, 256)
-					stringLength = strlen(DataString)
+					stringLength = T.strlen(DataString)
 				end
 			end
 		end
@@ -588,18 +608,18 @@ if not AISM.Revision or AISM.Revision < Revision then
 	
 	
 	function AISM:GetPlayerCurrentGroupMode()
-		if not (IsInGroup() or IsInRaid()) or GetNumGroupMembers() == 1 then
+		if not (T.IsInGroup() or T.IsInRaid()) or T.GetNumGroupMembers() == 1 then
 			self.CurrentGroupMode = 'NoGroup'
-			wipe(self.GroupMemberData)
+			T.twipe(self.GroupMemberData)
 		else
-			if IsInRaid() then
+			if T.IsInRaid() then
 				self.CurrentGroupMode = 'raid'
 			else
 				self.CurrentGroupMode = 'party'
 			end
 			
-			for userName in pairs(self.GroupMemberData) do
-				if not UnitExists(userName) or not UnitIsConnected(userName) then
+			for userName in T.pairs(self.GroupMemberData) do
+				if not T.UnitExists(userName) or not T.UnitIsConnected(userName) then
 					self.GroupMemberData[userName] = nil
 				end
 			end
@@ -610,7 +630,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 	
 	
 	function AISM:GetCurrentInstanceType()
-		local _, instanceType, difficultyID = GetInstanceInfo()
+		local _, instanceType, difficultyID = T.GetInstanceInfo()
 		
 		if difficultyID == 8 then
 			self.InstanceType = 'challenge'
@@ -628,15 +648,15 @@ if not AISM.Revision or AISM.Revision < Revision then
 		
 		if self.CurrentGroupMode ~= 'NoGroup' then
 			for i = 1, MAX_RAID_MEMBERS do
-				Name = UnitName(self.CurrentGroupMode..i)
-				TableIndex = GetUnitName(self.CurrentGroupMode..i, true)
+				Name = T.UnitName(self.CurrentGroupMode..i)
+				TableIndex = T.GetUnitName(self.CurrentGroupMode..i, true)
 				
-				if Name and not UnitIsUnit('player', self.CurrentGroupMode..i) then
+				if Name and not T.UnitIsUnit('player', self.CurrentGroupMode..i) then
 					if Name == UNKNOWNOBJECT or Name == COMBATLOG_UNKNOWN_UNIT then
 						self.AISMUserList[TableIndex] = nil
 						self.GroupMemberData[TableIndex] = nil
-					elseif self.GroupMemberData[TableIndex] and not UnitIsConnected(self.CurrentGroupMode..i) then
-						if type(self.GroupMemberData[TableIndex]) ~= 'number' then
+					elseif self.GroupMemberData[TableIndex] and not T.UnitIsConnected(self.CurrentGroupMode..i) then
+						if T.type(self.GroupMemberData[TableIndex]) ~= 'number' then
 							self.GroupMemberData[TableIndex] = 0
 						end
 						
@@ -675,7 +695,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 		if Prefix == 'AISM' then
 			local NeedResponse
 			
-			if type(self.GroupMemberData[Sender]) ~= 'table' then
+			if T.type(self.GroupMemberData[Sender]) ~= 'table' then
 				self.GroupMemberData[Sender] = {}
 				
 				NeedResponse = true
@@ -690,7 +710,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 	
 	local SenderRealm, TableToSave, NeedResponse, Group, stringTable
 	function AISM:Receiver(Prefix, Message, Channel, Sender)
-		Sender, SenderRealm = strsplit('-', Sender)
+		Sender, SenderRealm = T.split('-', Sender)
 		SenderRealm = SenderRealm and gsub(SenderRealm,'[%s%-]','') or nil
 		Sender = Sender..(SenderRealm and SenderRealm ~= '' and SenderRealm ~= playerRealm and '-'..SenderRealm or '')
 		
@@ -703,10 +723,10 @@ if not AISM.Revision or AISM.Revision < Revision then
 				
 				SendAddonMessage('AISM', 'AISM_Response:'..self.Revision, 'WHISPER', Sender)
 			elseif Message:find('AISM_Response') then
-				local ver = tonumber(strsub(Message:gsub('AISM_Response', ''), 2))
+				local ver = T.tonumber(strsub(Message:gsub('AISM_Response', ''), 2))
 				Message = 'AISM_Response'
 				
-				if type(ver) == 'number' then
+				if T.type(ver) == 'number' then
 					self.AISMUserList[Sender] = ver
 				else
 					self.AISMUserList[Sender] = true
@@ -725,13 +745,13 @@ if not AISM.Revision or AISM.Revision < Revision then
 			elseif Message:find('AISM_DataRequestForInspecting:') then
 				Message = Message:gsub('AISM_DataRequestForInspecting:', '')
 				
-				local needplayerName, needplayerRealm, NeedOnlyUncheckableData = strsplit('-', Message)
+				local needplayerName, needplayerRealm, NeedOnlyUncheckableData = T.split('-', Message)
 				
 				if needplayerName == playerName and needplayerRealm == playerRealm then
 					if not NeedOnlyUncheckableData then
 						local TableToSend = {}
 						
-						for Index, Data in pairs(self.PlayerData) do
+						for Index, Data in T.pairs(self.PlayerData) do
 							TableToSend[Index] = Data
 						end
 						
@@ -743,7 +763,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 				end
 			end
 			
-			for funcName, func in pairs(self.RegisteredFunction) do
+			for funcName, func in T.pairs(self.RegisteredFunction) do
 				func(Sender, Prefix, Message)
 			end
 		else
@@ -760,16 +780,16 @@ if not AISM.Revision or AISM.Revision < Revision then
 					if self.DataTypeTable[DataType] then
 						Message = Message:gsub('%{'..DataType..':.-%}', '')
 						Group = DataType:match('^.+(%d)$')
-						stringTable = { strsplit('/', DataString) }
+						stringTable = { T.split('/', DataString) }
 						
-						for Index, Data in pairs(stringTable) do
-							if tonumber(Data) then
-								stringTable[Index] = tonumber(Data)
+						for Index, Data in T.pairs(stringTable) do
+							if T.tonumber(Data) then
+								stringTable[Index] = T.tonumber(Data)
 							end
 						end
 						
 						if Group and self.DataTypeTable[DataType] ~= 'Gear' then -- Prepare group setting
-							Group = tonumber(Group)
+							Group = T.tonumber(Group)
 							TableToSave[(self.DataTypeTable[DataType])] = TableToSave[(self.DataTypeTable[DataType])] or {}
 							TableToSave[(self.DataTypeTable[DataType])][Group] = TableToSave[(self.DataTypeTable[DataType])][Group] or {}
 						end
@@ -779,7 +799,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 								TableToSave.Profession[Group].Name = EMPTY
 								TableToSave.Profession[Group].Level = 0
 							else
-								for localeName, Key in pairs(self.ProfessionList) do
+								for localeName, Key in T.pairs(self.ProfessionList) do
 									if Key == stringTable[1] then
 										TableToSave.Profession[Group].Name = localeName
 										break
@@ -791,7 +811,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 							local Spec, Talent, isSelected
 							
 							for i = 1, #stringTable do
-								Spec, Talent, isSelected = strsplit('_', stringTable[i])
+								Spec, Talent, isSelected = T.split('_', stringTable[i])
 								
 								if not Talent then
 									TableToSave.Specialization[Group].SpecializationID = stringTable[1]
@@ -801,11 +821,11 @@ if not AISM.Revision or AISM.Revision < Revision then
 							end
 						elseif self.DataTypeTable[DataType] == 'ActiveSpec' then
 							TableToSave.Specialization = TableToSave.Specialization or {}
-							TableToSave.Specialization.ActiveSpec = tonumber(DataString)
+							TableToSave.Specialization.ActiveSpec = T.tonumber(DataString)
 						elseif self.DataTypeTable[DataType] == 'Gear' then
 							TableToSave.Gear = TableToSave.Gear or {}
 							
-							for slotName, keyName in pairs(self.GearList) do
+							for slotName, keyName in T.pairs(self.GearList) do
 								if keyName == DataType then
 									DataType = slotName
 									break
@@ -834,13 +854,13 @@ if not AISM.Revision or AISM.Revision < Revision then
 							TableToSave.SetItem = TableToSave.SetItem or {}
 							
 							if stringTable[2] ~= 'F' then
-								if type(stringTable[2]) == 'number' then
+								if T.type(stringTable[2]) == 'number' then
 									TableToSave.SetItem[(stringTable[1])] = stringTable[2]
 								else
 									TableToSave.SetItem[(stringTable[1])] = {}
 									
 									for i = 2, #stringTable do
-										if strlen(stringTable[i]) > 2 then
+										if T.strlen(stringTable[i]) > 2 then
 											TableToSave.SetItem[(stringTable[1])][i - 1] = stringTable[i]
 										else
 											for k = 1, #stringTable - i + 1 do
@@ -854,7 +874,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 								TableToSave.SetItem[(stringTable[1])] = nil
 							end
 						elseif self.DataTypeTable[DataType] == 'PlayerInfo' then
-							TableToSave.Name, TableToSave.Title = strsplit('_', stringTable[1])
+							TableToSave.Name, TableToSave.Title = T.split('_', stringTable[1])
 							TableToSave.Realm = stringTable[2] ~= '' and stringTable[2] ~= playerRealm and stringTable[2] or nil
 							TableToSave.Level = stringTable[3]
 							TableToSave.Class = stringTable[4]
@@ -879,15 +899,15 @@ if not AISM.Revision or AISM.Revision < Revision then
 							
 							local PvPType, Rating, Played, Won
 							for i = 2, #stringTable do
-								PvPType, Rating, Played, Won = strsplit('_', stringTable[i])
-								TableToSave.PvP[PvPType] = { tonumber(Rating), tonumber(Played), tonumber(Won) }
+								PvPType, Rating, Played, Won = T.split('_', stringTable[i])
+								TableToSave.PvP[PvPType] = { T.tonumber(Rating), T.tonumber(Played), T.tonumber(Won) }
 							end
 						end
 					end
 				end
 				
 				if Message == '' then
-					for funcName, func in pairs(self.RegisteredFunction) do
+					for funcName, func in T.pairs(self.RegisteredFunction) do
 						func(Sender, Prefix, TableToSave)
 					end
 					
@@ -910,11 +930,11 @@ if not AISM.Revision or AISM.Revision < Revision then
 			self:GetPlayerCurrentGroupMode()
 			self:GetCurrentInstanceType()
 		elseif Event == 'PLAYER_LOGOUT' then
-			if IsInGuild() then
+			if T.IsInGuild() then
 				SendAddonMessage('AISM', 'AISM_GUILD_UnregistME', 'GUILD')
 			end
 			if self.CurrentGroupMode ~= 'NoGroup' then
-				SendAddonMessage('AISM', 'AISM_UnregistME', IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(self.CurrentGroupMode))
+				SendAddonMessage('AISM', 'AISM_UnregistME', T.IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or T.upper(self.CurrentGroupMode))
 			end
 		elseif Event == 'CHAT_MSG_SYSTEM' then
 			Message = ...
@@ -925,11 +945,11 @@ if not AISM.Revision or AISM.Revision < Revision then
 				
 				Sender = Message:match(GuildLeaveKey) or Message:match(PlayerOfflineKey)
 				Sender = Sender:gsub('@', '-')
-				Sender, SenderRealm = strsplit('-', Sender)
+				Sender, SenderRealm = T.split('-', Sender)
 				SenderRealm = SenderRealm and gsub(SenderRealm, '[%s%-]', '') or nil
 				Sender = Sender..(SenderRealm and SenderRealm ~= '' and SenderRealm ~= playerRealm and '-'..SenderRealm or '')
 				
-				for userName in pairs(self.AISMUserList) do
+				for userName in T.pairs(self.AISMUserList) do
 					if userName == Sender then
 						self.AISMUserList[userName] = Type == 'GUILD' and true or nil
 						
@@ -961,7 +981,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 	
 	
 	function AISM:RegisterInspectDataRequest(Func, funcName, PreserveFunction)
-		if type(Func) == 'function' then
+		if T.type(Func) == 'function' then
 			funcName = funcName or #self.RegisteredFunction + 1
 			
 			self.RegisteredFunction[funcName] = function(User, Prefix, UserData)

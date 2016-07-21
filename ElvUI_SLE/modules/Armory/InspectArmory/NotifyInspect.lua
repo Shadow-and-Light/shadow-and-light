@@ -1,6 +1,12 @@
-﻿local Revision = 1.6
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local Revision = 1.6
 local _G = _G
+local _
 local ENI = _G["EnhancedNotifyInspect"] or CreateFrame('Frame', 'EnhancedNotifyInspect', UIParent)
+
+local GetPlayerInfoByGUID = GetPlayerInfoByGUID
+local RequestInspectHonorData = RequestInspectHonorData
+local C_TimerNewTicker = C_Timer.NewTicker
 
 if not ENI.Revision or ENI.Revision < Revision then
 	ENI.InspectList = {}
@@ -19,7 +25,7 @@ if not ENI.Revision or ENI.Revision < Revision then
 	end)
 	ENI:SetScript('OnUpdate', function(self)
 		if not self.HoldInspecting then
-			self.NowInspecting = C_Timer.NewTicker(self.UpdateInterval, self.TryInspect)
+			self.NowInspecting = C_TimerNewTicker(self.UpdateInterval, self.TryInspect)
 			self:Hide()
 		end
 	end)
@@ -34,8 +40,8 @@ if not ENI.Revision or ENI.Revision < Revision then
 				UnitID = ENI.InspectList[(ENI.InspectList[i])].UnitID
 				Count = ENI.InspectList[(ENI.InspectList[i])].InspectTryCount
 				
-				if UnitID and UnitIsConnected(UnitID) and CanInspect(UnitID) and not (Count and Count <= 0) then
-					ENI.CurrentInspectUnitGUID = UnitGUID(UnitID)
+				if UnitID and T.UnitIsConnected(UnitID) and T.CanInspect(UnitID) and not (Count and Count <= 0) then
+					ENI.CurrentInspectUnitGUID = T.UnitGUID(UnitID)
 					
 					if Count then
 						ENI.InspectList[(ENI.InspectList[i])].InspectTryCount = ENI.InspectList[(ENI.InspectList[i])].InspectTryCount - 1
@@ -68,38 +74,38 @@ if not ENI.Revision or ENI.Revision < Revision then
 		}
 	]]
 	ENI.NotifyInspect = function(Unit, Properties)
-		if Unit ~= 'target' and UnitIsUnit(Unit, 'target') then
+		if Unit ~= 'target' and T.UnitIsUnit(Unit, 'target') then
 			Unit = 'target'
 		end
 		
-		if Unit ~= 'focus' and UnitIsUnit(Unit, 'focus') then
+		if Unit ~= 'focus' and T.UnitIsUnit(Unit, 'focus') then
 			Unit = 'focus'
 		end
 		
-		if UnitInParty(Unit) or UnitInRaid(Unit) then
-			Unit = GetUnitName(Unit, true)
+		if T.UnitInParty(Unit) or T.UnitInRaid(Unit) then
+			Unit = T.GetUnitName(Unit, true)
 		end
 		
-		if UnitIsPlayer(Unit) and CanInspect(Unit) then
-			local TableIndex = GetUnitName(Unit, true)
-			local Check = not (Properties and type(Properties) == 'table' and Properties.Reservation)
+		if T.UnitIsPlayer(Unit) and T.CanInspect(Unit) then
+			local TableIndex = T.GetUnitName(Unit, true)
+			local Check = not (Properties and T.type(Properties) == 'table' and Properties.Reservation)
 			
 			if not ENI.InspectList[TableIndex] then
 				if Check then
-					tinsert(ENI.InspectList, 1, TableIndex)
+					T.tinsert(ENI.InspectList, 1, TableIndex)
 				else
-					tinsert(ENI.InspectList, TableIndex)
+					T.tinsert(ENI.InspectList, TableIndex)
 				end
 				
 				ENI.InspectList[TableIndex] = { UnitID = Unit }
 				
-				if Properties and type(Properties) == 'table' then
+				if Properties and T.type(Properties) == 'table' then
 					ENI.InspectList[TableIndex].InspectTryCount = Properties.InspectTryCount
 					ENI.InspectList[TableIndex].CancelInspectByManual = Properties.CancelInspectByManual
 				end
 				
 				if not ENI.HoldInspecting and (not ENI.NowInspecting or ENI.NowInspecting._cancelled) then
-					ENI.NowInspecting = C_Timer.NewTicker(ENI.UpdateInterval, ENI.TryInspect)
+					ENI.NowInspecting = C_TimerNewTicker(ENI.UpdateInterval, ENI.TryInspect)
 				elseif ENI.HoldInspecting then
 					ENI:Show()
 				end
@@ -116,7 +122,7 @@ if not ENI.Revision or ENI.Revision < Revision then
 		if ENI.InspectList[Unit] then
 			for i = 1, #ENI.InspectList do
 				if ENI.InspectList[i] == Unit and not (Canceller and ENI.InspectList[Unit].CancelInspectByManual and ENI.InspectList[Unit].CancelInspectByManual ~= Canceller) then
-					tremove(ENI.InspectList, i)
+					T.tremove(ENI.InspectList, i)
 					ENI.InspectList[Unit] = nil
 					
 					return

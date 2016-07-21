@@ -1,15 +1,19 @@
 ﻿if select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_KnightFrame') then return end
 
-local E, L, V, P, G = unpack(ElvUI)
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local KF, Info, Timer = unpack(ElvUI_KnightFrame)
-
+--GLOBALS: CreateFrame, SLE_ArmoryDB, NotifyInspect, InspectUnit, UIParent, hooksecurefunc, UIDROPDOWNMENU_MENU_LEVEL
 local format = format
+local gsub = gsub
+local print = print
+local next = next
 
 --------------------------------------------------------------------------------
 --<< KnightFrame : Upgrade Inspect Frame like Wow-Armory					>>--
 --------------------------------------------------------------------------------
 local IA = InspectArmory or CreateFrame('Frame', 'InspectArmory', E.UIParent)
 local _G = _G
+local _
 local ENI = _G["EnhancedNotifyInspect"] or { CancelInspect = function() end }
 local AISM = _G["Armory_InspectSupportModule"]
 local ButtonName = INSPECT --L["Knight Inspect"]
@@ -25,6 +29,42 @@ local TALENT_SLOT_SIZE = 26
 local HeadSlotItem = 99568
 local BackSlotItem = 102246
 local Default_NotifyInspect, Default_InspectUnit
+
+local NUM_TALENT_COLUMNS,MAX_TALENT_GROUPS = NUM_TALENT_COLUMNS,MAX_TALENT_GROUPS
+local MAX_TALENT_GROUPS, CLASS_TALENT_LEVELS,  MAX_TALENT_TIERS = MAX_TALENT_GROUPS, CLASS_TALENT_LEVELS,  MAX_TALENT_TIERS
+local LIGHTYELLOW_FONT_COLOR_CODE = LIGHTYELLOW_FONT_COLOR_CODE
+local TRANSMOGRIFIED_HEADER = TRANSMOGRIFIED_HEADER
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
+local LEVEL = LEVEL
+local MAX_NUM_SOCKETS = MAX_NUM_SOCKETS
+local ITEM_MOD_AGILITY_SHORT, ITEM_MOD_SPIRIT_SHORT, ITEM_MOD_STAMINA_SHORT, ITEM_MOD_STRENGTH_SHORT, ITEM_MOD_INTELLECT_SHORT, ITEM_MOD_CRIT_RATING_SHORT, ITEM_SPELL_TRIGGER_ONUSE = ITEM_MOD_AGILITY_SHORT, ITEM_MOD_SPIRIT_SHORT, ITEM_MOD_STAMINA_SHORT, ITEM_MOD_STRENGTH_SHORT, ITEM_MOD_INTELLECT_SHORT, ITEM_MOD_CRIT_RATING_SHORT, ITEM_SPELL_TRIGGER_ONUSE
+local AGI, SPI, STA, STR, INT, CRIT_ABBR = AGI, SPI, STA, STR, INT, CRIT_ABBR
+local LIGHTYELLOW_FONT_COLOR_CODE, GRAY_FONT_COLOR_CODE = LIGHTYELLOW_FONT_COLOR_CODE, GRAY_FONT_COLOR_CODE
+local LIGHTYELLOW_FONT_COLOR = LIGHTYELLOW_FONT_COLOR
+local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
+local INSPECT_GUILD_NUM_MEMBERS = INSPECT_GUILD_NUM_MEMBERS
+local STAT_AVERAGE_ITEM_LEVEL = STAT_AVERAGE_ITEM_LEVEL
+local TRADE_SKILLS = TRADE_SKILLS
+local PVP, ARENA_2V2, ARENA_3V3, ARENA_5V5, PVP_RATED_BATTLEGROUNDS, GUILD = PVP, ARENA_2V2, ARENA_3V3, ARENA_5V5, PVP_RATED_BATTLEGROUNDS, GUILD
+
+local SendAddonMessage = SendAddonMessage
+local ShowUIPanel, HideUIPanel = ShowUIPanel, HideUIPanel
+local HandleModifiedItemClick = HandleModifiedItemClick
+local AuctionFrameBrowse_Reset = AuctionFrameBrowse_Reset
+local IsShiftKeyDown = IsShiftKeyDown
+local SetItemRef = SetItemRef
+local GetCursorPosition = GetCursorPosition
+local PlaySound = PlaySound
+local UIDropDownMenu_StopCounting, UIDropDownMenu_StartCounting = UIDropDownMenu_StopCounting, UIDropDownMenu_StartCounting
+local UIDropDownMenu_CreateInfo, UIDropDownMenu_AddButton = UIDropDownMenu_CreateInfo, UIDropDownMenu_AddButton
+local SetSmallGuildTabardTextures = SetSmallGuildTabardTextures
+local GetPlayerInfoByGUID = GetPlayerInfoByGUID
+local HasInspectHonorData = HasInspectHonorData
+local GetInventoryItemTexture = GetInventoryItemTexture
+local GetInspectSpecialization = GetInspectSpecialization
+local GetInspectArenaData, GetInspectRatedBGData, GetInspectHonorData = GetInspectArenaData, GetInspectRatedBGData, GetInspectHonorData
+local GetGuildLogoInfo, GetInspectGuildInfo = GetGuildLogoInfo, GetInspectGuildInfo
+local GetTalentLink = GetTalentLink
 
 --<< Key Table >>--
 IA.PageList = { Character = 'CHARACTER', Info = 'INFO', Spec = 'TALENTS' }
@@ -99,22 +139,22 @@ IA.MainStats = {	-- STR, INT, AGI,
 do --<< Button Script >>--
 	function IA:OnEnter()
 		if self.Link or self.Message then
-			GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
+			_G["GameTooltip"]:SetOwner(self, 'ANCHOR_RIGHT')
 			
 			self:SetScript('OnUpdate', function()
-				GameTooltip:ClearLines()
+				_G["GameTooltip"]:ClearLines()
 				
 				if self.Link then
-					GameTooltip:SetHyperlink(self.Link)
+					_G["GameTooltip"]:SetHyperlink(self.Link)
 				end
 				
-				if self.Link and self.Message then GameTooltip:AddLine(' ') end -- Line space
+				if self.Link and self.Message then _G["GameTooltip"]:AddLine(' ') end -- Line space
 				
 				if self.Message then
-					GameTooltip:AddLine(self.Message, 1, 1, 1)
+					_G["GameTooltip"]:AddLine(self.Message, 1, 1, 1)
 				end
 				
-				GameTooltip:Show()
+				_G["GameTooltip"]:Show()
 			end)
 		end
 	end
@@ -122,38 +162,38 @@ do --<< Button Script >>--
 	
 	function IA:OnLeave()
 		self:SetScript('OnUpdate', nil)
-		GameTooltip:Hide()
+		_G["GameTooltip"]:Hide()
 	end
 	
 	
 	function IA:OnClick()
 		if self.Link then
 			if HandleModifiedItemClick(self.Link) then
-			elseif self.EnableAuctionSearch and BrowseName and BrowseName:IsVisible() then
-				AuctionFrameBrowse_Reset(BrowseResetButton)
-				BrowseName:SetText(self:GetParent().text:GetText())
-				BrowseName:SetFocus()
+			elseif self.EnableAuctionSearch and _G["BrowseName"] and _G["BrowseName"]:IsVisible() then
+				AuctionFrameBrowse_Reset(_G["BrowseResetButton"])
+				_G["BrowseName"]:SetText(self:GetParent().text:GetText())
+				_G["BrowseName"]:SetFocus()
 			end
 		end
 	end
 	
 	
 	function IA:Button_OnEnter()
-		self:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
+		self:SetBackdropBorderColor(T.unpack(E.media.rgbvaluecolor))
 		self.text:SetText(KF:Color_Value(self.ButtonString))
 	end
 	
 	
 	function IA:Button_OnLeave()
-		self:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		self:SetBackdropBorderColor(T.unpack(E.media.bordercolor))
 		self.text:SetText(self.ButtonString)
 	end
 	
 	
 	function IA:EquipmentSlot_OnEnter()
-		if Info.Armory_Constants.CanTransmogrifySlot[self.SlotName] and type(self.TransmogrifyLink) == 'number' and not GetItemInfo(self.TransmogrifyLink) then
+		if Info.Armory_Constants.CanTransmogrifySlot[self.SlotName] and T.type(self.TransmogrifyLink) == 'number' and not T.GetItemInfo(self.TransmogrifyLink) then
 			self:SetScript('OnUpdate', function()
-				if GetItemInfo(self.TransmogrifyLink) then
+				if T.GetItemInfo(self.TransmogrifyLink) then
 					IA.EquipmentSlot_OnEnter(self)
 					self:SetScript('OnUpdate', nil)
 				end
@@ -162,11 +202,11 @@ do --<< Button Script >>--
 		end
 		
 		if self.Link then
-			GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
-			GameTooltip:SetHyperlink(self.Link)
+			_G["GameTooltip"]:SetOwner(self, 'ANCHOR_RIGHT')
+			_G["GameTooltip"]:SetHyperlink(self.Link)
 			
 			local CurrentLineText, SetName
-			for i = 1, GameTooltip:NumLines() do
+			for i = 1, _G["GameTooltip"]:NumLines() do
 				CurrentLineText = _G["GameTooltipTextLeft"..i]:GetText()
 				
 				SetName = CurrentLineText:match('^(.+) %((%d)/(%d)%)$')
@@ -174,9 +214,9 @@ do --<< Button Script >>--
 				if SetName then
 					local SetCount = 0
 					
-					if type(IA.SetItem[SetName]) == 'table' then
-						for dataType, Data in pairs(IA.SetItem[SetName]) do
-							if type(dataType) == 'string' then -- Means SetOption Data
+					if T.type(IA.SetItem[SetName]) == 'table' then
+						for dataType, Data in T.pairs(IA.SetItem[SetName]) do
+							if T.type(dataType) == 'string' then -- Means SetOption Data
 								
 								
 								_G["GameTooltipTextLeft"..(i + #IA.SetItem[SetName] + 1 + dataType:match('^.+(%d)$'))]:SetText(Data)
@@ -202,16 +242,16 @@ do --<< Button Script >>--
 							end
 						end
 						
-						_G["GameTooltipTextLeft"..i]:SetText(string.gsub(CurrentLineText, ' %(%d/', ' %('..SetCount..'/', 1))
+						_G["GameTooltipTextLeft"..i]:SetText(gsub(CurrentLineText, ' %(%d/', ' %('..SetCount..'/', 1))
 					end
 					
 					break
 				elseif Info.Armory_Constants.CanTransmogrifySlot[self.SlotName] and Info.Armory_Constants.ItemBindString[CurrentLineText] and self.TransmogrifyAnchor.Link then
-					_G["GameTooltipTextLeft"..i]:SetText(E:RGBToHex(1, .5, 1)..TRANSMOGRIFIED_HEADER..'|n'..(GetItemInfo(self.TransmogrifyAnchor.Link) or self.TransmogrifyAnchor.Link)..'|r|n'..CurrentLineText)
+					_G["GameTooltipTextLeft"..i]:SetText(E:RGBToHex(1, .5, 1)..TRANSMOGRIFIED_HEADER..'|n'..(T.GetItemInfo(self.TransmogrifyAnchor.Link) or self.TransmogrifyAnchor.Link)..'|r|n'..CurrentLineText)
 				end
 			end
 			
-			GameTooltip:Show()
+			_G["GameTooltip"]:Show()
 		end
 	end
 	
@@ -253,46 +293,46 @@ do --<< Button Script >>--
 	
 	
 	function IA:GemSocket_OnEnter()
-		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
+		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_RIGHT')
 		
 		local Parent = self:GetParent()
 		
 		if Parent.GemItemID then
-			if type(Parent.GemItemID) == 'number' then
-				if GetItemInfo(Parent.GemItemID) then
-					GameTooltip:SetHyperlink(select(2, GetItemInfo(Parent.GemItemID)))
+			if T.type(Parent.GemItemID) == 'number' then
+				if T.GetItemInfo(Parent.GemItemID) then
+					_G["GameTooltip"]:SetHyperlink(T.select(2, T.GetItemInfo(Parent.GemItemID)))
 					self:SetScript('OnUpdate', nil)
 				else
 					self:SetScript('OnUpdate', IA.GemSocket_OnEnter)
 					return
 				end
 			else
-				GameTooltip:ClearLines()
-				GameTooltip:AddLine('|cffffffff'..Parent.GemItemID)
+				_G["GameTooltip"]:ClearLines()
+				_G["GameTooltip"]:AddLine('|cffffffff'..Parent.GemItemID)
 			end
 		elseif Parent.GemType then
-			GameTooltip:ClearLines()
-			GameTooltip:AddLine('|cffffffff'.._G["EMPTY_SOCKET_"..Parent.GemType])
+			_G["GameTooltip"]:ClearLines()
+			_G["GameTooltip"]:AddLine('|cffffffff'.._G["EMPTY_SOCKET_"..Parent.GemType])
 		end
 		
-		GameTooltip:Show()
+		_G["GameTooltip"]:Show()
 	end
 	
 	
 	function IA:GemSocket_OnClick()
 		self = self:GetParent()
 		
-		if self.GemItemID and type(self.GemItemID) == 'number' then
-			local ItemName, ItemLink = GetItemInfo(self.GemItemID)
+		if self.GemItemID and T.type(self.GemItemID) == 'number' then
+			local ItemName, ItemLink = T.GetItemInfo(self.GemItemID)
 			
 			if not IsShiftKeyDown() then
 				SetItemRef(ItemLink, ItemLink, 'LeftButton')
 			else
 				if HandleModifiedItemClick(ItemLink) then
-				elseif BrowseName and BrowseName:IsVisible() then
-					AuctionFrameBrowse_Reset(BrowseResetButton)
-					BrowseName:SetText(ItemName)
-					BrowseName:SetFocus()
+				elseif _G["BrowseName"] and _G["BrowseName"]:IsVisible() then
+					AuctionFrameBrowse_Reset(_G["BrowseResetButton"])
+					_G["BrowseName"]:SetText(ItemName)
+					_G["BrowseName"]:SetFocus()
 				end
 			end
 		end
@@ -303,11 +343,11 @@ do --<< Button Script >>--
 		self.Texture:SetVertexColor(1, .8, 1)
 		
 		if self.Link then
-			if GetItemInfo(self.Link) then
+			if T.GetItemInfo(self.Link) then
 				self:SetScript('OnUpdate', nil)
-				GameTooltip:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
-				GameTooltip:SetHyperlink(select(2, GetItemInfo(self.Link)))
-				GameTooltip:Show()
+				_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
+				_G["GameTooltip"]:SetHyperlink(T.select(2, T.GetItemInfo(self.Link)))
+				_G["GameTooltip"]:Show()
 			else
 				self:SetScript('OnUpdate', IA.Transmogrify_OnEnter)
 			end
@@ -319,21 +359,21 @@ do --<< Button Script >>--
 		self:SetScript('OnUpdate', nil)
 		self.Texture:SetVertexColor(1, .5, 1)
 		
-		GameTooltip:Hide()
+		_G["GameTooltip"]:Hide()
 	end
 	
 	
 	function IA:Transmogrify_OnClick(Button)
-		local ItemName, ItemLink = GetItemInfo(self.Link)
+		local ItemName, ItemLink = T.GetItemInfo(self.Link)
 		
 		if not IsShiftKeyDown() then
 			SetItemRef(ItemLink, ItemLink, 'LeftButton')
 		else
 			if HandleModifiedItemClick(ItemLink) then
-			elseif BrowseName and BrowseName:IsVisible() then
-				AuctionFrameBrowse_Reset(BrowseResetButton)
-				BrowseName:SetText(ItemName)
-				BrowseName:SetFocus()
+			elseif _G["BrowseName"] and _G["BrowseName"]:IsVisible() then
+				AuctionFrameBrowse_Reset(_G["BrowseResetButton"])
+				_G["BrowseName"]:SetText(ItemName)
+				_G["BrowseName"]:SetFocus()
 			end
 		end
 	end
@@ -341,7 +381,7 @@ end
 
 
 function IA:ChangePage(Type)
-	for PageType in pairs(self.PageList) do
+	for PageType in T.pairs(self.PageList) do
 		if self[PageType] then
 			if Type == PageType..'Button' then
 				Type = PageType
@@ -355,14 +395,14 @@ function IA:ChangePage(Type)
 	self.MainHandSlot:ClearAllPoints()
 	self.SecondaryHandSlot:ClearAllPoints()
 	if Type == 'Character' then
-		for _, SlotName in pairs(Info.Armory_Constants.GearList) do
+		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 			self[SlotName].ItemLevel:Hide()
 		end
 		
 		self.MainHandSlot:Point('BOTTOMRIGHT', self.BP, 'TOP', -2, SPACING)
 		self.SecondaryHandSlot:Point('BOTTOMLEFT', self.BP, 'TOP', 2, SPACING)
 	else
-		for _, SlotName in pairs(Info.Armory_Constants.GearList) do
+		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 			self[SlotName].ItemLevel:Show()
 		end
 		
@@ -413,7 +453,7 @@ function IA:CreateInspectFrame()
 		end)
 		self:SetScript('OnShow', function() self.Model:Point('TOPRIGHT', self.HandsSlot) end)
 		self:SetScript('OnEvent', function(self, Event, ...) if self[Event] then self[Event](Event, ...) end end)
-		UIPanelWindows.InspectArmory = { area = 'left', pushable = 1, whileDead = 1 }
+		_G["UIPanelWindows"].InspectArmory = { area = 'left', pushable = 1, whileDead = 1 }
 		
 		self.DisplayUpdater = CreateFrame('Frame', nil, self)
 		self.DisplayUpdater:SetScript('OnShow', function() if Info.InspectArmory_Activate then  self:Update_Display(true) end end)
@@ -521,7 +561,7 @@ function IA:CreateInspectFrame()
 	end
 	
 	do --<< Buttons >>--
-		for ButtonName, ButtonString in pairs(self.PageList) do
+		for ButtonName, ButtonString in T.pairs(self.PageList) do
 			ButtonName = ButtonName..'Button'
 			
 			self[ButtonName] = CreateFrame('Button', nil, self.BP)
@@ -577,7 +617,7 @@ function IA:CreateInspectFrame()
 	end
 	
 	do --<< Class, Specialization Icon >>--
-		for _, FrameName in pairs({ 'SpecIcon', 'ClassIcon', }) do
+		for _, FrameName in T.pairs({ 'SpecIcon', 'ClassIcon', }) do
 			self[FrameName.."Slot"] = CreateFrame('Frame', nil, self)
 			self[FrameName.."Slot"]:Size(24)
 			self[FrameName.."Slot"]:SetBackdrop({
@@ -587,7 +627,7 @@ function IA:CreateInspectFrame()
 				insets = { left = 0, right = 0, top = 0, bottom = 0}
 			})
 			self[FrameName] = self[FrameName.."Slot"]:CreateTexture(nil, 'OVERLAY')
-			self[FrameName]:SetTexCoord(unpack(E.TexCoords))
+			self[FrameName]:SetTexCoord(T.unpack(E.TexCoords))
 			self[FrameName]:SetInside()
 		end
 		self.ClassIconSlot:Point('RIGHT', self.Tab, 'BOTTOMRIGHT', -44, -35)
@@ -645,7 +685,7 @@ function IA:CreateInspectFrame()
 		self.Character = CreateFrame('Frame', nil, self)
 		
 		local Slot
-		for i, SlotName in pairs(Info.Armory_Constants.GearList) do
+		for i, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 			-- Slot
 			Slot = CreateFrame('Button', nil, self)
 			Slot:Size(SLOT_SIZE)
@@ -663,10 +703,10 @@ function IA:CreateInspectFrame()
 			
 			Slot.SlotName = SlotName
 			Slot.Direction = i%2 == 1 and 'LEFT' or 'RIGHT'
-			Slot.ID, Slot.EmptyTexture = GetInventorySlotInfo(SlotName)
+			Slot.ID, Slot.EmptyTexture = T.GetInventorySlotInfo(SlotName)
 			
 			Slot.Texture = Slot:CreateTexture(nil, 'OVERLAY')
-			Slot.Texture:SetTexCoord(unpack(E.TexCoords))
+			Slot.Texture:SetTexCoord(T.unpack(E.TexCoords))
 			Slot.Texture:SetInside()
 			Slot.Texture:SetTexture(Slot.EmptyTexture)
 			
@@ -855,7 +895,7 @@ function IA:CreateInspectFrame()
 		self.Info.Page:Point('TOPLEFT', self.Info, 0, 2)
 		self.Info.Page:Point('TOPRIGHT', self.Info, 0, 2)
 		
-		for _, CategoryType in pairs(IA.InfoPageCategoryList) do
+		for _, CategoryType in T.pairs(IA.InfoPageCategoryList) do
 			self.Info[CategoryType] = CreateFrame('ScrollFrame', nil, self.Info.Page)
 			self.Info[CategoryType]:SetBackdrop({
 				bgFile = E.media.blankTex,
@@ -879,7 +919,7 @@ function IA:CreateInspectFrame()
 			})
 			self.Info[CategoryType].IconSlot:Point('TOPLEFT', self.Info[CategoryType], SPACING, -SPACING)
 			self.Info[CategoryType].Icon = self.Info[CategoryType].IconSlot:CreateTexture(nil, 'OVERLAY')
-			self.Info[CategoryType].Icon:SetTexCoord(unpack(E.TexCoords))
+			self.Info[CategoryType].Icon:SetTexCoord(T.unpack(E.TexCoords))
 			self.Info[CategoryType].Icon:SetInside()
 			
 			self.Info[CategoryType].Tab = CreateFrame('Frame', nil, self.Info[CategoryType])
@@ -922,7 +962,7 @@ function IA:CreateInspectFrame()
 				self.Info.Profession["Prof"..i]:SetBackdropBorderColor(0, 0, 0)
 				
 				self.Info.Profession["Prof"..i].Icon = self.Info.Profession["Prof"..i]:CreateTexture(nil, 'OVERLAY')
-				self.Info.Profession["Prof"..i].Icon:SetTexCoord(unpack(E.TexCoords))
+				self.Info.Profession["Prof"..i].Icon:SetTexCoord(T.unpack(E.TexCoords))
 				self.Info.Profession["Prof"..i].Icon:SetInside()
 				
 				self.Info.Profession["Prof"..i].BarFrame = CreateFrame('Frame', nil, self.Info.Profession["Prof"..i])
@@ -982,7 +1022,7 @@ function IA:CreateInspectFrame()
 			self.Info.PvP.Bar3:Point('TOP', self.Info.PvP.PageRight, 0, -SPACING * 2)
 			self.Info.PvP.Bar3:Point('BOTTOM', self.Info.PvP.PageRight, 0, SPACING * 2)
 			
-			for _, Type in pairs({ '2vs2', '3vs3', '5vs5', 'RB' }) do
+			for _, Type in T.pairs({ '2vs2', '3vs3', '5vs5', 'RB' }) do
 				self.Info.PvP[Type] = CreateFrame('Frame', nil, self.Info.PvP.Page)
 				self.Info.PvP[Type]:SetFrameLevel(CORE_FRAME_LEVEL + 5)
 				
@@ -1190,7 +1230,7 @@ function IA:CreateInspectFrame()
 					insets = { left = 0, right = 0, top = 0, bottom = 0}
 				})
 				self.Spec["Talent"..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon.Texture = self.Spec["Talent"..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon:CreateTexture(nil, 'OVERLAY')
-				self.Spec["Talent"..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon.Texture:SetTexCoord(unpack(E.TexCoords))
+				self.Spec["Talent"..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon.Texture:SetTexCoord(T.unpack(E.TexCoords))
 				self.Spec["Talent"..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon.Texture:SetInside()
 				self.Spec["Talent"..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon:Point('LEFT', self.Spec["Talent"..((i - 1) * NUM_TALENT_COLUMNS + k)], SPACING, 0)
 				KF:TextSetting(self.Spec["Talent"..((i - 1) * NUM_TALENT_COLUMNS + k)], nil, { FontSize = 9, directionH = 'LEFT' }, 'TOPLEFT', self.Spec["Talent"..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon, 'TOPRIGHT', SPACING, SPACING)
@@ -1218,26 +1258,26 @@ function IA:CreateInspectFrame()
 	end
 	
 	do --<< Scanning Tooltip >>--
-		self.ScanTTForInspecting = CreateFrame('GameTooltip', 'InspectArmoryScanTT_I', nil, 'GameTooltipTemplate')
+		self.ScanTTForInspecting = CreateFrame("GameTooltip", 'InspectArmoryScanTT_I', nil, 'GameTooltipTemplate')
 		self.ScanTTForInspecting:SetOwner(UIParent, 'ANCHOR_NONE')
-		self.ScanTT = CreateFrame('GameTooltip', 'InspectArmoryScanTT', nil, 'GameTooltipTemplate')
+		self.ScanTT = CreateFrame("GameTooltip", 'InspectArmoryScanTT', nil, 'GameTooltipTemplate')
 		self.ScanTT:SetOwner(UIParent, 'ANCHOR_NONE')
 	end
 	
 	do --<< UnitPopup Setting >>--
-		InspectArmory_UnitPopup.Highlight = InspectArmory_UnitPopup:CreateTexture(nil, 'BACKGROUND')
-		InspectArmory_UnitPopup.Highlight:SetTexture('Interface\\QuestFrame\\UI-QuestTitleHighlight')
-		InspectArmory_UnitPopup.Highlight:SetBlendMode('ADD')
-		InspectArmory_UnitPopup.Highlight:SetAllPoints()
-		InspectArmory_UnitPopup:SetHighlightTexture(InspectArmory_UnitPopup.Highlight)
+		_G["InspectArmory_UnitPopup"].Highlight = _G["InspectArmory_UnitPopup"]:CreateTexture(nil, 'BACKGROUND')
+		_G["InspectArmory_UnitPopup"].Highlight:SetTexture('Interface\\QuestFrame\\UI-QuestTitleHighlight')
+		_G["InspectArmory_UnitPopup"].Highlight:SetBlendMode('ADD')
+		_G["InspectArmory_UnitPopup"].Highlight:SetAllPoints()
+		_G["InspectArmory_UnitPopup"]:SetHighlightTexture(_G["InspectArmory_UnitPopup"].Highlight)
 		
-		InspectArmory_UnitPopup:SetScript('OnEnter', function()
-			UIDropDownMenu_StopCounting(DropDownList1)
+		_G["InspectArmory_UnitPopup"]:SetScript('OnEnter', function()
+			UIDropDownMenu_StopCounting(_G["DropDownList1"])
 		end)
-		InspectArmory_UnitPopup:SetScript('OnLeave', function()
-			UIDropDownMenu_StartCounting(DropDownList1)
+		_G["InspectArmory_UnitPopup"]:SetScript('OnLeave', function()
+			UIDropDownMenu_StartCounting(_G["DropDownList1"])
 		end)
-		InspectArmory_UnitPopup:SetScript('OnHide', function(self)
+		_G["InspectArmory_UnitPopup"]:SetScript('OnHide', function(self)
 			if self.Anchored then
 				self.Anchored = nil
 				self.Data = nil
@@ -1246,7 +1286,7 @@ function IA:CreateInspectFrame()
 				self:Hide()
 			end
 		end)
-		InspectArmory_UnitPopup:SetScript('OnClick', function(self)
+		_G["InspectArmory_UnitPopup"]:SetScript('OnClick', function(self)
 			local SendChannel, InspectWork
 			if AISM and AISM.AISMUserList[self.Data.TableIndex] then
 				if self.Data.Realm == Info.MyRealm then
@@ -1254,7 +1294,7 @@ function IA:CreateInspectFrame()
 				elseif AISM.AISMUserList[self.Data.TableIndex] == 'GUILD' then
 					SendChannel = 'GUILD'
 				elseif Info.CurrentGroupMode and Info.CurrentGroupMode ~= 'NoGroup' then
-					SendChannel = IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(Info.CurrentGroupMode)
+					SendChannel = T.IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or T.upper(Info.CurrentGroupMode)
 				end
 			end
 			
@@ -1276,7 +1316,7 @@ function IA:CreateInspectFrame()
 					IA:UnregisterEvent('INSPECT_READY')
 					
 					IA.NeedModelSetting = true
-					wipe(IA.CurrentInspectData)
+					T.twipe(IA.CurrentInspectData)
 					E:CopyTable(IA.CurrentInspectData, IA.Default_CurrentInspectData)
 				end
 				
@@ -1297,15 +1337,15 @@ function IA:CreateInspectFrame()
 				SendAddonMessage('AISM_Inspect', 'AISM_DataRequestForInspecting:'..self.Data.Name..'-'..self.Data.Realm..(InspectWork and '-true' or ''), SendChannel, self.Data.TableIndex)
 			end
 			
-			DropDownList1:Hide()
+			_G["DropDownList1"]:Hide()
 		end)
-		InspectArmory_UnitPopup:SetScript('OnUpdate', function(self)
+		_G["InspectArmory_UnitPopup"]:SetScript('OnUpdate', function(self)
 			if not (self:GetPoint() and self:GetParent()) then
 				self:Hide()
 				return
 			end
 			
-			if AISM and (type(AISM.GroupMemberData[self.Data.TableIndex]) == 'table' or AISM.AISMUserList[self.Data.TableIndex]) or self.Data.Unit and UnitIsVisible(self.Data.Unit) and UnitIsConnected(self.Data.Unit) and not UnitIsDeadOrGhost('player') then
+			if AISM and (T.type(AISM.GroupMemberData[self.Data.TableIndex]) == 'table' or AISM.AISMUserList[self.Data.TableIndex]) or self.Data.Unit and T.UnitIsVisible(self.Data.Unit) and T.UnitIsConnected(self.Data.Unit) and not T.UnitIsDeadOrGhost('player') then
 				self:SetText(KF:Color_Value(ButtonName))
 				self:Enable()
 			else
@@ -1314,27 +1354,27 @@ function IA:CreateInspectFrame()
 			end
 		end)
 		
-		InspectArmory_UnitPopup.CreateDropDownButton = function(Button, DataTable)
+		_G["InspectArmory_UnitPopup"].CreateDropDownButton = function(Button, DataTable)
 			if not Button then
 				Button = UIDropDownMenu_CreateInfo()
 				Button.notCheckable = 1
 				UIDropDownMenu_AddButton(Button)
 				
-				Button = _G["DropDownList1Button"..DropDownList1.numButtons]
+				Button = _G["DropDownList1Button".._G["DropDownList1"].numButtons]
 			end
 			
 			Button.value = 'InspectArmory'
-			Button:SetText((' '):rep(strlen(ButtonName)))
+			Button:SetText((' '):rep(T.strlen(ButtonName)))
 			
-			InspectArmory_UnitPopup:Show()
-			InspectArmory_UnitPopup:SetParent('DropDownList1')
-			InspectArmory_UnitPopup:SetFrameStrata(Button:GetFrameStrata())
-			InspectArmory_UnitPopup:SetFrameLevel(Button:GetFrameLevel() + 1)
-			InspectArmory_UnitPopup:ClearAllPoints()
-			InspectArmory_UnitPopup:Point('TOPLEFT', Button)
-			InspectArmory_UnitPopup:Point('BOTTOMRIGHT', Button)
-			InspectArmory_UnitPopup.Anchored = true
-			InspectArmory_UnitPopup.Data = DataTable
+			_G["InspectArmory_UnitPopup"]:Show()
+			_G["InspectArmory_UnitPopup"]:SetParent("DropDownList1")
+			_G["InspectArmory_UnitPopup"]:SetFrameStrata(Button:GetFrameStrata())
+			_G["InspectArmory_UnitPopup"]:SetFrameLevel(Button:GetFrameLevel() + 1)
+			_G["InspectArmory_UnitPopup"]:ClearAllPoints()
+			_G["InspectArmory_UnitPopup"]:Point('TOPLEFT', Button)
+			_G["InspectArmory_UnitPopup"]:Point('BOTTOMRIGHT', Button)
+			_G["InspectArmory_UnitPopup"].Anchored = true
+			_G["InspectArmory_UnitPopup"].Data = DataTable
 		end
 		
 		hooksecurefunc('UnitPopup_ShowMenu', function(Menu, Type, Unit, Name, ...)
@@ -1342,12 +1382,12 @@ function IA:CreateInspectFrame()
 				local Button
 				local DataTable = {
 					Name = Menu.name or Name,
-					Unit = UnitExists(Menu.name) and Menu.name or Unit,
+					Unit = T.UnitExists(Menu.name) and Menu.name or Unit,
 					Realm = Menu.server ~= '' and Menu.server or Info.MyRealm
 				}
-				DataTable.TableIndex = DataTable.Unit and GetUnitName(DataTable.Unit, 1) or DataTable.Name..(DataTable.Realm and DataTable.Realm ~= '' and DataTable.Realm ~= Info.MyRealm and '-'..DataTable.Realm or '')
+				DataTable.TableIndex = DataTable.Unit and T.GetUnitName(DataTable.Unit, 1) or DataTable.Name..(DataTable.Realm and DataTable.Realm ~= '' and DataTable.Realm ~= Info.MyRealm and '-'..DataTable.Realm or '')
 				
-				if DataTable.Name == E.myname or DataTable.Unit and (UnitCanAttack('player', DataTable.Unit) or not UnitIsConnected(DataTable.Unit) or not UnitIsPlayer(DataTable.Unit)) then
+				if DataTable.Name == E.myname or DataTable.Unit and (T.UnitCanAttack('player', DataTable.Unit) or not T.UnitIsConnected(DataTable.Unit) or not T.UnitIsPlayer(DataTable.Unit)) then
 					if AISM then
 						AISM.AISMUserList[DataTable.TableIndex] = nil
 						AISM.GroupMemberData[DataTable.TableIndex] = nil
@@ -1356,7 +1396,7 @@ function IA:CreateInspectFrame()
 					return
 				end
 				
-				for i = 1, DropDownList1.numButtons do
+				for i = 1, _G["DropDownList1"].numButtons do
 					if _G["DropDownList1Button"..i].value == 'INSPECT' then
 						Button = _G["DropDownList1Button"..i]
 						break
@@ -1366,10 +1406,10 @@ function IA:CreateInspectFrame()
 				if AISM and not (AISM.AISMUserList[DataTable.TableIndex] or AISM.GroupMemberData[DataTable.TableIndex]) then
 					local isSending
 					
-					if DataTable.Unit and not (UnitCanAttack('player', DataTable.Unit) or not UnitIsConnected(DataTable.Unit) or not UnitIsPlayer(DataTable.Unit)) then
+					if DataTable.Unit and not (T.UnitCanAttack('player', DataTable.Unit) or not T.UnitIsConnected(DataTable.Unit) or not T.UnitIsPlayer(DataTable.Unit)) then
 						if DataTable.Realm == Info.MyRealm or (Info.CurrentGroupMode and Info.CurrentGroupMode ~= 'NoGroup') then
 							isSending = 'AISM_CheckResponse'
-							SendAddonMessage('AISM', 'AISM_Check', DataTable.Realm == Info.MyRealm and 'WHISPER' or IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or string.upper(Info.CurrentGroupMode), DataTable.Name)
+							SendAddonMessage('AISM', 'AISM_Check', DataTable.Realm == Info.MyRealm and 'WHISPER' or T.IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or T.upper(Info.CurrentGroupMode), DataTable.Name)
 						end
 					elseif Menu.which == 'GUILD' then
 						isSending = 'AISM_GUILD_CheckResponse'
@@ -1382,7 +1422,7 @@ function IA:CreateInspectFrame()
 					if isSending then
 						AISM:RegisterInspectDataRequest(function(User, _, Message)
 							if User == DataTable.TableIndex and Message == isSending then
-								InspectArmory_UnitPopup.CreateDropDownButton(Button, DataTable)
+								_G["InspectArmory_UnitPopup"].CreateDropDownButton(Button, DataTable)
 								
 								return true
 							end
@@ -1391,7 +1431,7 @@ function IA:CreateInspectFrame()
 				end
 				
 				if DataTable.Unit or Button or (AISM and (AISM.AISMUserList[DataTable.TableIndex] or AISM.GroupMemberData[DataTable.TableIndex]))then
-					InspectArmory_UnitPopup.CreateDropDownButton(Button, DataTable)
+					_G["InspectArmory_UnitPopup"].CreateDropDownButton(Button, DataTable)
 				end
 			end
 		end)
@@ -1423,14 +1463,14 @@ end
 
 function IA:INSPECT_HONOR_UPDATE()
 	if self == 'INSPECT_HONOR_UPDATE' or HasInspectHonorData() then
-		for i, Type in pairs({ '2vs2', '3vs3', '5vs5' }) do
+		for i, Type in T.pairs({ '2vs2', '3vs3', '5vs5' }) do
 			IA.CurrentInspectData.PvP[Type] = { GetInspectArenaData(i) }
 			for i = 4, #IA.CurrentInspectData.PvP[Type] do
 				IA.CurrentInspectData.PvP[Type][i] = nil
 			end
 		end
 		IA.CurrentInspectData.PvP.RB = { GetInspectRatedBGData() }
-		IA.CurrentInspectData.PvP.Honor = select(5, GetInspectHonorData())
+		IA.CurrentInspectData.PvP.Honor = T.select(5, GetInspectHonorData())
 	end
 	
 	if not IA.ForbidUpdatePvPInformation then
@@ -1442,11 +1482,11 @@ end
 function IA:INSPECT_READY(InspectedUnitGUID)
 	local TableIndex = IA.CurrentInspectData.Name..(IA.CurrentInspectData.Realm and '-'..IA.CurrentInspectData.Realm or '')
 	local UnitID = TableIndex
-	local Name, Realm = UnitFullName(UnitID)
+	local Name, Realm = T.UnitFullName(UnitID)
 	
 	if not Name then
 		UnitID = IA.CurrentInspectData.UnitID
-		Name, Realm = UnitFullName(UnitID)
+		Name, Realm = T.UnitFullName(UnitID)
 	end
 	
 	if not Name then
@@ -1464,14 +1504,14 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 	local NeedReinspect
 	local CurrentSetItem = {}
 	local Slot, SlotTexture, SlotLink, CheckSpace, R, G, B, TooltipText, TransmogrifiedItem, SetName, SetItemCount, SetItemMax, SetOptionCount
-	for _, SlotName in pairs(Info.Armory_Constants.GearList) do
+	for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 		Slot = IA[SlotName]
 		IA.CurrentInspectData.Gear[SlotName] = {}
 		
 		SlotTexture = GetInventoryItemTexture(UnitID, Slot.ID)
 		
 		if SlotTexture and SlotTexture..'.blp' ~= Slot.EmptyTexture then
-			SlotLink = GetInventoryItemLink(UnitID, Slot.ID)
+			SlotLink = T.GetInventoryItemLink(UnitID, Slot.ID)
 			
 			if not SlotLink then
 				NeedReinspect = true
@@ -1489,7 +1529,7 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 					TooltipText = _G["InspectArmoryScanTT_ITextLeft"..i]:GetText()
 					
 					if not TransmogrifiedItem and TooltipText:match(TRANSMOGRIFIED_HEADER) then -- TooltipText:match(Info.Armory_Constants.TransmogrifiedKey)
-						if type(IA.CurrentInspectData.Gear[SlotName].Transmogrify) ~= 'number' then
+						if T.type(IA.CurrentInspectData.Gear[SlotName].Transmogrify) ~= 'number' then
 							IA.CurrentInspectData.Gear[SlotName].Transmogrify = _G["InspectArmoryScanTT_ITextLeft"..(i + 1)]:GetText() --TooltipText:match(Info.Armory_Constants.TransmogrifiedKey)
 						end
 						
@@ -1498,8 +1538,8 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 					
 					SetName, SetItemCount, SetItemMax = TooltipText:match('^(.+) %((%d)/(%d)%)$') -- find string likes 'SetName (0/5)'
 					if SetName then
-						SetItemCount = tonumber(SetItemCount)
-						SetItemMax = tonumber(SetItemMax)
+						SetItemCount = T.tonumber(SetItemCount)
+						SetItemMax = T.tonumber(SetItemMax)
 						
 						if (SetItemCount > SetItemMax or SetItemMax == 1) then
 							NeedReinspect = true
@@ -1558,7 +1598,7 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 	end
 	
 	if IA.CurrentInspectData.SetItem then
-		for SetName in pairs(IA.CurrentInspectData.SetItem) do
+		for SetName in T.pairs(IA.CurrentInspectData.SetItem) do
 			if not CurrentSetItem[SetName] then
 				IA.CurrentInspectData.SetItem[SetName] = nil
 			end
@@ -1570,7 +1610,7 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 	local TalentID, isSelected
 	for i = 1, MAX_TALENT_TIERS do
 		for k = 1, NUM_TALENT_COLUMNS do
-			TalentID, _, _, isSelected = GetTalentInfo(i, k, 1, true, UnitID)
+			TalentID, _, _, isSelected = T.GetTalentInfo(i, k, 1, true, UnitID)
 			
 			IA.CurrentInspectData.Specialization[1]["Talent"..((i - 1) * NUM_TALENT_COLUMNS + k)] = { TalentID, isSelected }
 		end
@@ -1597,30 +1637,30 @@ end
 
 
 IA.InspectUnit = function(UnitID, Properties)
-	if UnitID == 'mouseover' and not UnitExists('mouseover') and UnitExists('target') then
+	if UnitID == 'mouseover' and not T.UnitExists('mouseover') and T.UnitExists('target') then
 		UnitID = 'target'
 	end
 	
-	if not UnitIsPlayer(UnitID) then
+	if not T.UnitIsPlayer(UnitID) then
 		return
-	elseif UnitIsDeadOrGhost('player') then
+	elseif T.UnitIsDeadOrGhost('player') then
 		print(L["KF"]..' : '..L["You can't inspect while dead."])
 		return
-	elseif not UnitIsVisible(UnitID) then
+	elseif not T.UnitIsVisible(UnitID) then
 		
 		return
 	else
 		UnitID = NotifyInspect(UnitID, Properties) or UnitID
 		
-		wipe(IA.CurrentInspectData)
+		T.twipe(IA.CurrentInspectData)
 		E:CopyTable(IA.CurrentInspectData, IA.Default_CurrentInspectData)
 		
 		IA.CurrentInspectData.UnitID = UnitID
-		IA.CurrentInspectData.Title = UnitPVPName(UnitID)
-		IA.CurrentInspectData.Level = UnitLevel(UnitID)
-		IA.CurrentInspectData.Name, IA.CurrentInspectData.Realm = UnitFullName(UnitID)
-		_, IA.CurrentInspectData.Class, IA.CurrentInspectData.ClassID = UnitClass(UnitID)
-		IA.CurrentInspectData.guildName, IA.CurrentInspectData.guildRankName = GetGuildInfo(UnitID)
+		IA.CurrentInspectData.Title = T.UnitPVPName(UnitID)
+		IA.CurrentInspectData.Level = T.UnitLevel(UnitID)
+		IA.CurrentInspectData.Name, IA.CurrentInspectData.Realm = T.UnitFullName(UnitID)
+		_, IA.CurrentInspectData.Class, IA.CurrentInspectData.ClassID = T.UnitClass(UnitID)
+		IA.CurrentInspectData.guildName, IA.CurrentInspectData.guildRankName = T.GetGuildInfo(UnitID)
 		
 		IA.CurrentInspectData.Realm = IA.CurrentInspectData.Realm ~= '' and IA.CurrentInspectData.Realm ~= Info.MyRealm and IA.CurrentInspectData.Realm or nil
 		
@@ -1639,8 +1679,8 @@ function IA:ShowFrame(DataTable)
 	self.GET_ITEM_INFO_RECEIVED = nil
 	self:UnregisterEvent('GET_ITEM_INFO_RECEIVED')
 	
-	for _, SlotName in pairs(Info.Armory_Constants.GearList) do
-		if DataTable.Gear[SlotName] and DataTable.Gear[SlotName].ItemLink and not GetItemInfo(DataTable.Gear[SlotName].ItemLink) then
+	for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
+		if DataTable.Gear[SlotName] and DataTable.Gear[SlotName].ItemLink and not T.GetItemInfo(DataTable.Gear[SlotName].ItemLink) then
 			if not self.GET_ITEM_INFO_RECEIVED then
 				self.GET_ITEM_INFO_RECEIVED = function() self:ShowFrame(DataTable) end
 			end
@@ -1659,7 +1699,7 @@ function IA:ShowFrame(DataTable)
 			self.Updater:Hide()
 			
 			self:InspectFrame_PvPSetting(DataTable)
-			ShowUIPanel(InspectArmory)
+			ShowUIPanel(_G["InspectArmory"])
 		end
 	end)
 end
@@ -1673,7 +1713,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 		local ItemData, ItemRarity, BasicItemLevel, TrueItemLevel, ItemUpgradeID, ItemType, ItemTexture, CurrentLineText, GemCount_Default, GemCount_Enable, GemCount_Now, GemCount
 		
 		-- Setting except shirt and tabard
-		for _, SlotName in pairs(type(self.GearUpdated) == 'table' and self.GearUpdated or Info.Armory_Constants.GearList) do
+		for _, SlotName in T.pairs(T.type(self.GearUpdated) == 'table' and self.GearUpdated or Info.Armory_Constants.GearList) do
 			Slot = self[SlotName]
 			ErrorDetected, ItemRarity, ItemTexture, R, G, B = nil, nil, nil, 0, 0, 0
 			
@@ -1706,11 +1746,11 @@ function IA:InspectFrame_DataSetting(DataTable)
 				end
 				
 				if DataTable.Gear[SlotName].ItemLink then
-					_, Slot.Link = GetItemInfo(DataTable.Gear[SlotName].ItemLink)
+					_, Slot.Link = T.GetItemInfo(DataTable.Gear[SlotName].ItemLink)
 					
 					if Slot.Link then
 						do --<< Gem Parts >>--
-							ItemData = { strsplit(':', Slot.Link) }
+							ItemData = { T.split(':', Slot.Link) }
 							ItemData[4], ItemData[5], ItemData[6], ItemData[7] = 0, 0, 0, 0
 							
 							for i = 1, #ItemData do
@@ -1728,7 +1768,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 								
 								if ItemTexture and ItemTexture:find('Interface\\ItemSocketingFrame\\') then
 									GemCount_Default = GemCount_Default + 1
-									Slot["Socket"..GemCount_Default].GemType = strupper(gsub(ItemTexture, 'Interface\\ItemSocketingFrame\\UI--EmptySocket--', ''))
+									Slot["Socket"..GemCount_Default].GemType = T.upper(gsub(ItemTexture, 'Interface\\ItemSocketingFrame\\UI--EmptySocket--', ''))
 								end
 							end
 							
@@ -1751,7 +1791,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 								ItemTexture = _G["InspectArmoryScanTTTexture"..i]:GetTexture()
 								
 								if Slot["Socket"..i].GemType and Info.Armory_Constants.GemColor[Slot["Socket"..i].GemType] then
-									R, G, B = unpack(Info.Armory_Constants.GemColor[Slot["Socket"..i].GemType])
+									R, G, B = T.unpack(Info.Armory_Constants.GemColor[Slot["Socket"..i].GemType])
 									Slot["Socket"..i].Socket:SetBackdropColor(R, G, B, 0.5)
 									Slot["Socket"..i].Socket:SetBackdropBorderColor(R, G, B)
 								else
@@ -1759,7 +1799,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 									Slot["Socket"..i].Socket:SetBackdropBorderColor(1, 1, 1)
 								end
 								
-								CurrentLineText = select(2, _G["InspectArmoryScanTTTexture"..i]:GetPoint())
+								CurrentLineText = T.select(2, _G["InspectArmoryScanTTTexture"..i]:GetPoint())
 								CurrentLineText = DataTable.Gear[SlotName]["Gem"..i] or CurrentLineText ~= self.ScanTT and CurrentLineText.GetText and CurrentLineText:GetText():gsub('|cff......', ''):gsub('|r', '') or nil
 								
 								if CurrentLineText then
@@ -1770,7 +1810,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 									
 									GemCount_Now = GemCount_Now + 1
 									
-									ItemTexture = ItemTexture or DataTable.Gear[SlotName]["Gem"..i] and select(10, GetItemInfo(DataTable.Gear[SlotName]["Gem"..i])) or nil
+									ItemTexture = ItemTexture or DataTable.Gear[SlotName]["Gem"..i] and T.select(10, T.GetItemInfo(DataTable.Gear[SlotName]["Gem"..i])) or nil
 									
 									if not ItemTexture then
 										NeedUpdate = true
@@ -1787,8 +1827,8 @@ function IA:InspectFrame_DataSetting(DataTable)
 							end
 						end
 						
-						_, _, ItemRarity, BasicItemLevel, _, _, _, _, ItemType, ItemTexture = GetItemInfo(Slot.Link)
-						R, G, B = GetItemQualityColor(ItemRarity)
+						_, _, ItemRarity, BasicItemLevel, _, _, _, _, ItemType, ItemTexture = T.GetItemInfo(Slot.Link)
+						R, G, B = T.GetItemQualityColor(ItemRarity)
 						
 						ItemUpgradeID = Slot.Link:match(":(%d+)\124h%[")
 						
@@ -1797,9 +1837,9 @@ function IA:InspectFrame_DataSetting(DataTable)
 							CurrentLineText = _G["InspectArmoryScanTTTextLeft"..i]:GetText()
 							
 							if CurrentLineText:find(Info.Armory_Constants.ItemLevelKey_Alt) then
-								TrueItemLevel = tonumber(CurrentLineText:match(Info.Armory_Constants.ItemLevelKey_Alt))
+								TrueItemLevel = T.tonumber(CurrentLineText:match(Info.Armory_Constants.ItemLevelKey_Alt))
 							elseif CurrentLineText:find(Info.Armory_Constants.ItemLevelKey) then
-								TrueItemLevel = tonumber(CurrentLineText:match(Info.Armory_Constants.ItemLevelKey))
+								TrueItemLevel = T.tonumber(CurrentLineText:match(Info.Armory_Constants.ItemLevelKey))
 							elseif CurrentLineText:find(Info.Armory_Constants.EnchantKey) then
 								if E.db.sle.Armory.Inspect.Enchant.Display ~= 'Hide' then
 									CurrentLineText = CurrentLineText:match(Info.Armory_Constants.EnchantKey) -- Get enchant string
@@ -1811,13 +1851,13 @@ function IA:InspectFrame_DataSetting(DataTable)
 									CurrentLineText = gsub(CurrentLineText, ITEM_MOD_CRIT_RATING_SHORT, CRIT_ABBR) -- Critical is too long
 									CurrentLineText = gsub(CurrentLineText, ' + ', '+') -- Remove space
 									
-									if L.Armory_ReplaceEnchantString and type(L.Armory_ReplaceEnchantString) == 'table' then
-										for Old, New in pairs(L.Armory_ReplaceEnchantString) do
+									if L.Armory_ReplaceEnchantString and T.type(L.Armory_ReplaceEnchantString) == 'table' then
+										for Old, New in T.pairs(L.Armory_ReplaceEnchantString) do
 											CurrentLineText = gsub(CurrentLineText, Old, New)
 										end
 									end
 									
-									for Name, _ in pairs(SLE_ArmoryDB.EnchantString) do
+									for Name, _ in T.pairs(SLE_ArmoryDB.EnchantString) do
 										if SLE_ArmoryDB.EnchantString[Name].original and SLE_ArmoryDB.EnchantString[Name].new then
 											CurrentLineText = gsub(CurrentLineText, SLE_ArmoryDB.EnchantString[Name].original, SLE_ArmoryDB.EnchantString[Name].new)
 										end
@@ -1904,7 +1944,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 						if Slot.TransmogrifyAnchor then --<< Transmogrify Parts >>--
 							Slot.TransmogrifyAnchor.Link = DataTable.Gear[SlotName].Transmogrify ~= 'NotDisplayed' and DataTable.Gear[SlotName].Transmogrify or nil
 							
-							if type(Slot.TransmogrifyAnchor.Link) == 'number' then
+							if T.type(Slot.TransmogrifyAnchor.Link) == 'number' then
 								Slot.TransmogrifyAnchor:Show()
 							end
 						end
@@ -1923,10 +1963,10 @@ function IA:InspectFrame_DataSetting(DataTable)
 				Slot.Link = DataTable.Gear[SlotName].ItemLink
 				
 				if Slot.Link then
-					_, _, ItemRarity, _, _, _, _, _, _, ItemTexture = GetItemInfo(Slot.Link)
+					_, _, ItemRarity, _, _, _, _, _, _, ItemTexture = T.GetItemInfo(Slot.Link)
 					
 					if ItemRarity then
-						R, G, B = GetItemQualityColor(ItemRarity)
+						R, G, B = T.GetItemQualityColor(ItemRarity)
 					else
 						NeedUpdateList = NeedUpdateList or {}
 						NeedUpdateList[#NeedUpdateList + 1] = SlotName
@@ -1947,7 +1987,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 				Slot.Gradation.Texture:SetVertexColor(1, 0, 0)
 				Slot.Gradation.Texture:Show()
 			else
-				Slot.Gradation.Texture:SetVertexColor(unpack(E.db.sle.Armory.Inspect.Gradation.Color))
+				Slot.Gradation.Texture:SetVertexColor(T.unpack(E.db.sle.Armory.Inspect.Gradation.Color))
 			end
 			Slot:SetBackdropBorderColor(R, G, B)
 		end
@@ -1963,7 +2003,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 	self.GearUpdated = nil
 	
 	do	--<< Average ItemLevel >>--
-		for _, SlotName in pairs(self.GearUpdated or Info.Armory_Constants.GearList) do
+		for _, SlotName in T.pairs(self.GearUpdated or Info.Armory_Constants.GearList) do
 			if SlotName ~= 'ShirtSlot' and SlotName ~= 'TabardSlot' then
 				Slot = self[SlotName]
 				
@@ -1980,7 +2020,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 	
 	do	--<< Basic Information >>--
 		local Realm = DataTable.Realm and DataTable.Realm ~= Info.MyRealm and DataTable.Realm or ''
-		local Title = DataTable.Title and string.gsub(DataTable.Title, DataTable.Name, '') or ''
+		local Title = DataTable.Title and gsub(DataTable.Title, DataTable.Name, '') or ''
 		
 		self.Title:SetText(Realm..(Realm ~= '' and Title ~= '' and ' / ' or '')..(Title ~= '' and '|cff93daff'..Title or ''))
 		self.Guild:SetText(DataTable.guildName and '<|cff2eb7e4'..DataTable.guildName..'|r>  [|cff2eb7e4'..DataTable.guildRankName..'|r]' or '')
@@ -2047,7 +2087,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 			Name = nil
 			
 			if DataTable.Specialization[groupNum].SpecializationID and DataTable.Specialization[groupNum].SpecializationID ~= 0 then
-				_, Name, _, Texture = GetSpecializationInfoByID(DataTable.Specialization[groupNum].SpecializationID)
+				_, Name, _, Texture = T.GetSpecializationInfoByID(DataTable.Specialization[groupNum].SpecializationID)
 				
 				if Name then
 					if Info.ClassRole[DataTable.Class][Name] then
@@ -2077,7 +2117,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 	end
 	
 	do	--<< Model and Frame Setting When InspectUnit Changed >>--
-		if DataTable.UnitID and UnitIsVisible(DataTable.UnitID) and self.NeedModelSetting then
+		if DataTable.UnitID and T.UnitIsVisible(DataTable.UnitID) and self.NeedModelSetting then
 			self.Model:SetUnit(DataTable.UnitID)
 			
 			self.Character.Message = nil
@@ -2088,8 +2128,8 @@ function IA:InspectFrame_DataSetting(DataTable)
 			self.Model:TryOn(BackSlotItem)
 			self.Model:Undress()
 			
-			for _, SlotName in pairs(Info.Armory_Constants.GearList) do
-				if type(DataTable.Gear[SlotName].Transmogrify) == 'number' then
+			for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
+				if T.type(DataTable.Gear[SlotName].Transmogrify) == 'number' then
 					self.Model:TryOn(DataTable.Gear[SlotName].Transmogrify)
 				elseif DataTable.Gear[SlotName].ItemLink and not (DataTable.Gear[SlotName].Transmogrify and DataTable.Gear[SlotName].Transmogrify == 'NotDisplayed') then
 					self.Model:TryOn(DataTable.Gear[SlotName].ItemLink)
@@ -2105,7 +2145,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 		if not (self.LastDataSetting and self.LastDataSetting == DataTable.Name..(DataTable.Realm and '-'..DataTable.Realm or '')) and DataTable.Level and DataTable.Race then
 			--<< Initialize Inspect Page >>--
 			self.Name:SetText('|c'..RAID_CLASS_COLORS[DataTable.Class].colorStr..DataTable.Name)
-			self.LevelRace:SetText(format('|cff%02x%02x%02x%s|r '..LEVEL..'|n%s', GetQuestDifficultyColor(DataTable.Level).r * 255, GetQuestDifficultyColor(DataTable.Level).g * 255, GetQuestDifficultyColor(DataTable.Level).b * 255, DataTable.Level, DataTable.Race))
+			self.LevelRace:SetText(format('|cff%02x%02x%02x%s|r '..LEVEL..'|n%s', T.GetQuestDifficultyColor(DataTable.Level).r * 255, T.GetQuestDifficultyColor(DataTable.Level).g * 255, T.GetQuestDifficultyColor(DataTable.Level).b * 255, DataTable.Level, DataTable.Race))
 			self.ClassIcon:SetTexture('Interface\\ICONS\\ClassIcon_'..DataTable.Class)
 			
 			self.Model:SetPosition(self.ModelList[DataTable.RaceID][DataTable.GenderID] and self.ModelList[DataTable.RaceID][DataTable.GenderID].z or 0, self.ModelList[DataTable.RaceID][DataTable.GenderID] and self.ModelList[DataTable.RaceID][DataTable.GenderID].x or 0, self.ModelList[DataTable.RaceID][DataTable.GenderID] and self.ModelList[DataTable.RaceID][DataTable.GenderID].y or 0)
@@ -2152,7 +2192,7 @@ function IA:InspectFrame_PvPSetting(DataTable)
 	local Rating, Played, Won
 	local NeedExpand = 0
 	
-	for _, Type in pairs({ '2vs2', '3vs3', '5vs5', 'RB' }) do
+	for _, Type in T.pairs({ '2vs2', '3vs3', '5vs5', 'RB' }) do
 		if DataTable.PvP[Type] and DataTable.PvP[Type][2] > 0 then
 			Rating = DataTable.PvP[Type][1] or 0
 			Played = DataTable.PvP[Type][2] or 0
@@ -2214,7 +2254,7 @@ function IA:ReArrangeCategory()
 	local InfoPage_Height = 0
 	local PrevCategory
 	
-	for _, CategoryType in pairs(self.InfoPageCategoryList) do
+	for _, CategoryType in T.pairs(self.InfoPageCategoryList) do
 		if self.Info[CategoryType]:IsShown() then
 			if self.Info[CategoryType].Closed then
 				self.Info[CategoryType].Page:Hide()
@@ -2273,12 +2313,12 @@ function IA:ToggleSpecializationTab(Group, DataTable)
 	self.Spec.RightBorder:SetTexture(R, G, B)
 	
 	local LevelTable = CLASS_TALENT_LEVELS[DataTable.Class] or CLASS_TALENT_LEVELS.DEFAULT
-	
+	local TalentID, Name, Texture
 	for i = 1, MAX_TALENT_TIERS do
 		for k = 1, NUM_TALENT_COLUMNS do
 			if DataTable.Specialization then
 				if DataTable.Specialization[Group]["Talent"..((i - 1) * NUM_TALENT_COLUMNS + k)][1] then
-					TalentID, Name, Texture = GetTalentInfoByID(DataTable.Specialization[Group]["Talent"..((i - 1) * NUM_TALENT_COLUMNS + k)][1], 1)
+					TalentID, Name, Texture = T.GetTalentInfoByID(DataTable.Specialization[Group]["Talent"..((i - 1) * NUM_TALENT_COLUMNS + k)][1], 1)
 				end
 				if TalentID and Name and Texture then
 					self.Spec["Talent"..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon.Texture:SetTexture(Texture)
@@ -2342,7 +2382,7 @@ function IA:Update_Display(Force)
 	local Slot, Mouseover, SocketVisible
 	
 	if (self:IsMouseOver() and (E.db.sle.Armory.Inspect.Level.Display == 'MouseoverOnly' or E.db.sle.Armory.Inspect.Enchant.Display == 'MouseoverOnly' or E.db.sle.Armory.Inspect.Gem.Display == 'MouseoverOnly')) or Force then
-		for _, SlotName in pairs(Info.Armory_Constants.GearList) do
+		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 			Slot = self[SlotName]
 			Mouseover = Slot.Gradation:IsMouseOver()
 			

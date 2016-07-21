@@ -1,5 +1,8 @@
 ﻿local E, L, V, P, G = unpack(ElvUI)
+--GLOBALS: SLE_ArmoryDB
+local _
 local _G = _G
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 if not (select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_KnightFrame')) then
 	--<< INITIALIZE >>--
