@@ -1,4 +1,11 @@
-v3.02
+v3.03 07/21/2016
+Fixes:
+- More fixes for people not reading changelogs and ahving leftover files from v2
+- More safe checks
+Misc:
+- Some backend tweaking to armory
+
+v3.02 07/21/2016
 Fixes:
 - Added more checks to prevent some code from loading when corresponding ElvUI module is disabled
 Misc:
