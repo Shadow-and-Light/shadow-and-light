@@ -4,7 +4,7 @@ Additions:
 Fixes:
 - Fixed raid progress tooltip throwing errors left and right
 Misc:
-- DejaCharacterStats' button is now higher then armory texture
+- DejaCharacterStats' button is now higher than armory texture
 
 
 v3.03 07/21/2016
