@@ -427,7 +427,12 @@ function CA:Setup_CharacterArmory()
 	self.Setup_CharacterArmory = nil
 end
 
-
+local function DCS_Check()
+	if DCS_ExpandCheck then
+		DCS_ExpandCheck:SetFrameLevel(CharacterModelFrame:GetFrameLevel() + 2)
+		DCS_Check = nil
+	end
+end
 function CA:ScanData()
 	self.NeedUpdate = nil
 	
@@ -444,6 +449,8 @@ function CA:ScanData()
 	elseif self.NeedUpdate then
 		self:SetScript('OnUpdate', self.ScanData)
 	end
+
+	if DCS_Check then DCS_Check() end
 end
 
 
