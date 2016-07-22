@@ -201,6 +201,7 @@ L["Hide Debuff Timer"] = true
 L["This hides the time remaining for your debuffs."] = true
 
 --Backgrounds
+L["Backgrounds"] = true
 L["SLE_BG_1"] = "Background 1"
 L["SLE_BG_2"] = "Background 2"
 L["SLE_BG_3"] = "Background 3"
@@ -747,6 +748,8 @@ L["Bottom Offset"] = true
 L["Set the offset from the bottom border of the screen."] = true
 
 --Help
+L["About/Help"] = true
+L["About"] = true
 L["SLE_DESC"] = [=[|cff9482c9Shadow & Light|r is an extention of ElvUI. It adds:
 - a lot of new features 
 - more customization options for existing ones
