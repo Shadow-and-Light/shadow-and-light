@@ -4,7 +4,7 @@ local TT = E:GetModule('Tooltip');
 --GLOBALS: hooksecurefunc, AchievementFrame_DisplayComparison
 local MAX_PLAYER_LEVEL = MAX_PLAYER_LEVEL
 local _G = _G
-local sub = string.sub
+local utf8sub = string.utf8sub
 local ClearAchievementComparisonUnit = ClearAchievementComparisonUnit
 local SetAchievementComparisonUnit = SetAchievementComparisonUnit
 local HideUIPanel = HideUIPanel
@@ -77,10 +77,10 @@ RP.modes = {
 		PLAYER_DIFFICULTY3,
 	},
 	["SHORT"] = {
-		sub(PLAYER_DIFFICULTY6, 1 , 1),
-		sub(PLAYER_DIFFICULTY2, 1 , 1),
-		sub(PLAYER_DIFFICULTY1, 1 , 1),
-		sub(PLAYER_DIFFICULTY3, 1 , 1),
+		utf8sub (PLAYER_DIFFICULTY6, 1 , 1),
+		utf8sub (PLAYER_DIFFICULTY2, 1 , 1),
+		utf8sub (PLAYER_DIFFICULTY1, 1 , 1),
+		utf8sub (PLAYER_DIFFICULTY3, 1 , 1),
 	},
 }
 
