@@ -57,6 +57,10 @@ L["AFK Mode"] = true
 L["You have selected to use %s and role %s."] = true
 L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"] = [[This action can cause you to loose some of your settings.
 Continue?]]
+L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"] = [[This will create a profile for these addons (if enabled) and switch to it:
+%s
+
+Continue?]]
 
 --Config replacements
 L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."] = true

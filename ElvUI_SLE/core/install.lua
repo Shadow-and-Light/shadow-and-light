@@ -621,7 +621,6 @@ function PI:DarthAddons()
 	if SkadaDB and T.IsAddOnLoaded("Skada") then
 		local damage, healing = locale == "ruRU" and "Нанесённый урон" or "Damage", locale == "ruRU" and "Исцеление" or "Healing"
 		local profileName = "Darth "..(locale == "ruRU" and "Ru" or "Eng")
-		if not SkadaDB["profiles"][profileName] then
 		SkadaDB["profiles"][profileName] = {
 			["icon"] = {
 				["hide"] = true,
@@ -732,78 +731,75 @@ function PI:DarthAddons()
 				}, -- [2]
 			},
 		}
-		end
 		Skada.db:SetProfile(profileName)
 	end
 	if xCTSavedDB and T.IsAddOnLoaded("xCT+") then
-		if not xCTSavedDB["profiles"]["S&L Darth"] then
-			xCTSavedDB["profiles"]["S&L Darth"] = {
-				["frames"] = {
-					["general"] = {
-						["fontOutline"] = "2OUTLINE",
-						["font"] = "PT Sans Narrow",
-						["enabledFrame"] = false,
-					},
-					["power"] = {
-						["fontOutline"] = "2OUTLINE",
-						["font"] = "PT Sans Narrow",
-						["enabledFrame"] = false,
-					},
-					["healing"] = {
-						["enableRealmNames"] = false,
-						["enableClassNames"] = false,
-						["fontOutline"] = "2OUTLINE",
-						["enableOverHeal"] = false,
-						["Width"] = 128,
-						["Y"] = 63,
-						["X"] = -209,
-						["Height"] = 164,
-						["showFriendlyHealers"] = false,
-						["font"] = "PT Sans Narrow",
-					},
-					["outgoing"] = {
-						["fontOutline"] = "2OUTLINE",
-						["Width"] = 142,
-						["Y"] = 71,
-						["font"] = "PT Sans Narrow",
-						["Height"] = 176,
-						["X"] = 333,
-					},
-					["critical"] = {
-						["fontOutline"] = "2OUTLINE",
-						["Width"] = 150,
-						["Y"] = 71,
-						["font"] = "PT Sans Narrow",
-						["Height"] = 174,
-						["X"] = 481,
-					},
-					["procs"] = {
-						["fontOutline"] = "2OUTLINE",
-						["Y"] = -68,
-						["font"] = "PT Sans Narrow",
-						["enabledFrame"] = false,
-						["X"] = -248,
-					},
-					["loot"] = {
-						["fontOutline"] = "2OUTLINE",
-						["Y"] = -76,
-						["font"] = "PT Sans Narrow",
-						["X"] = 8,
-					},
-					["class"] = {
-						["font"] = "PT Sans Narrow",
-						["fontOutline"] = "2OUTLINE",
-						["enabledFrame"] = false,
-					},
-					["damage"] = {
-						["X"] = -339,
-						["Y"] = 65,
-						["font"] = "PT Sans Narrow",
-						["fontOutline"] = "2OUTLINE",
-					},
+		xCTSavedDB["profiles"]["S&L Darth"] = {
+			["frames"] = {
+				["general"] = {
+					["fontOutline"] = "2OUTLINE",
+					["font"] = "PT Sans Narrow",
+					["enabledFrame"] = false,
 				},
-			}
-		end
+				["power"] = {
+					["fontOutline"] = "2OUTLINE",
+					["font"] = "PT Sans Narrow",
+					["enabledFrame"] = false,
+				},
+				["healing"] = {
+					["enableRealmNames"] = false,
+					["enableClassNames"] = false,
+					["fontOutline"] = "2OUTLINE",
+					["enableOverHeal"] = false,
+					["Width"] = 128,
+					["Y"] = 63,
+					["X"] = -209,
+					["Height"] = 164,
+					["showFriendlyHealers"] = false,
+					["font"] = "PT Sans Narrow",
+				},
+				["outgoing"] = {
+					["fontOutline"] = "2OUTLINE",
+					["Width"] = 142,
+					["Y"] = 71,
+					["font"] = "PT Sans Narrow",
+					["Height"] = 176,
+					["X"] = 333,
+				},
+				["critical"] = {
+					["fontOutline"] = "2OUTLINE",
+					["Width"] = 150,
+					["Y"] = 71,
+					["font"] = "PT Sans Narrow",
+					["Height"] = 174,
+					["X"] = 481,
+				},
+				["procs"] = {
+					["fontOutline"] = "2OUTLINE",
+					["Y"] = -68,
+					["font"] = "PT Sans Narrow",
+					["enabledFrame"] = false,
+					["X"] = -248,
+				},
+				["loot"] = {
+					["fontOutline"] = "2OUTLINE",
+					["Y"] = -76,
+					["font"] = "PT Sans Narrow",
+					["X"] = 8,
+				},
+				["class"] = {
+					["font"] = "PT Sans Narrow",
+					["fontOutline"] = "2OUTLINE",
+					["enabledFrame"] = false,
+				},
+				["damage"] = {
+					["X"] = -339,
+					["Y"] = 65,
+					["font"] = "PT Sans Narrow",
+					["fontOutline"] = "2OUTLINE",
+				},
+			},
+		}
 		xCT_Plus.db:SetProfile("S&L Darth")
 	end
 
@@ -823,6 +819,15 @@ local function SetupCVars()
 	_G["PluginInstallStepComplete"]:Show()
 end
 
+function PI:RepoocSetup()
+end
+
+function PI:RepoocAddons()
+end
+
+local function AffinitySetup()
+end
+
 E.PopupDialogs['SLE_INSTALL_SETTINGS_LAYOUT'] = {
 	text = L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"],
 	button1 = YES,
@@ -835,18 +840,33 @@ E.PopupDialogs['SLE_INSTALL_SETTINGS_LAYOUT'] = {
 	OnCancel = E.noop;
 }
 
+E.PopupDialogs['SLE_INSTALL_SETTINGS_ADDONS'] = {
+	text = "",
+	button1 = YES,
+	button2 = NO,
+	OnAccept = function()
+		if PI.SLE_Auth == "DARTH" then
+			PI:DarthAddons()
+		end
+	end,
+	OnCancel = E.noop;
+}
+
 local function StartSetup()
 	if PI.SLE_Auth == "DARTH" then
 		E:StaticPopup_Show("SLE_INSTALL_SETTINGS_LAYOUT")
 	elseif PI.SLE_Auth == "REPOOC" then
-
+	elseif PI.SLE_Auth == "AFFINITY" then
+		AffinitySetup()
 	end
 end
 
 local function SetupAddons()
 	if PI.SLE_Auth == "DARTH" then
-		PI:DarthAddons()
+		local list = "Skada\nxCT+"
+		E.PopupDialogs['SLE_INSTALL_SETTINGS_ADDONS'].text = T.format(L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"], list)
 	end
+	E:StaticPopup_Show("SLE_INSTALL_SETTINGS_ADDONS")
 end
 
 local function InstallComplete()

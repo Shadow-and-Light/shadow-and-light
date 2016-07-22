@@ -54,6 +54,10 @@ L["AFK Mode"] = "Режим АФК"
 L["You have selected to use %s and role %s."] = "Вы выбрали %s для роли %s."
 L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"] = [[Это действие может привести к потере некоторых ваших настроек.
 Продолжить?]]
+L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"] = [[Это действие создаст профили для следующих аддонов (если они включены) и переключится на них:
+%s
+
+Продолжить?]]
 
 --Config replacements
 L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."] = "Shadow & Light отключил эту опцию. Для ее возвращения нужно отключить соответственную опцию в S&L. Нажмите для перехода к ней."
