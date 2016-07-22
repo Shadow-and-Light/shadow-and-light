@@ -6,7 +6,6 @@ local MAX_PLAYER_LEVEL = MAX_PLAYER_LEVEL
 local _G = _G
 local sub = string.sub
 local ClearAchievementComparisonUnit = ClearAchievementComparisonUnit
--- local AchievementFrame_DisplayComparison = AchievementFrame_DisplayComparison
 local SetAchievementComparisonUnit = SetAchievementComparisonUnit
 local HideUIPanel = HideUIPanel
 
