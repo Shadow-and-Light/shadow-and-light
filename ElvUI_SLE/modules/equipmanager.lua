@@ -32,6 +32,15 @@ function EM:IsPvP(inInstance, instanceType)
 	return false
 end
 
+local TIMEWALKING_DIFFICULTYID = 24;
+
+function EM:IsTimewalkingDungeon(inInstance, instanceType)
+	if inInstance and (instanceType ==  "scenario" or instanceType == "party" or instanceType == "raid") and select(3, GetInstanceInfo()) == TIMEWALKING_DIFFICULTYID then
+		return true
+	end
+	return false
+end
+
 function EM:IsDungeon(inInstance, instanceType)
 	if inInstance and (instanceType ==  "scenario" or instanceType == "party" or instanceType == "raid") then return true end
 	return false
@@ -39,7 +48,13 @@ end
 
 function EM:WrongSet(equipSet, group, inCombat)
 	local inInstance, instanceType = T.IsInInstance()
-	if inInstance and ((EM.db.instanceSet and EM.db[group].instance ~= "NONE") or (EM.db.pvpSet and EM.db[group].pvp ~= "NONE")) then
+	if inInstance and ((EM.db.timewalkingSet and EM.db[group].timewalking ~= "NONE") or (EM.db.instanceSet and EM.db[group].instance ~= "NONE") or (EM.db.pvpSet and EM.db[group].pvp ~= "NONE")) then
+		if EM:IsTimewalkingDungeon(inInstance, instanceType) and EM.db.timewalkingSet then
+			if equipSet ~= EM.db[group].timewalking and EM.db[group].timewalking ~= "NONE" then
+				if inCombat then SLE:ErrorPrint(L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."]); return false end
+				return true, EM.db[group].timewalking
+			end
+		end
 		if EM:IsDungeon(inInstance, instanceType) and EM.db.instanceSet then
 			if equipSet ~= EM.db[group].instance and EM.db[group].instance ~= "NONE" then
 				if inCombat then SLE:ErrorPrint(L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."]); return false end

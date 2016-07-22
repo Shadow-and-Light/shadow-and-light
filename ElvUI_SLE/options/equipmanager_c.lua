@@ -7,6 +7,7 @@ local SPECIALIZATION_SECONDARY = SPECIALIZATION_SECONDARY
 local PVP = PVP
 local DUNGEONS = DUNGEONS
 local GENERAL = GENERAL
+local TIMEWALKING = L["Timewalking"]
 
 local sets = {}
 
@@ -62,8 +63,19 @@ local function configTable()
 						return sets
 					end,
 				},
-				pvp = {
+				timewalking = {
 					order = 4,
+					type = "select",
+					name = TIMEWALKING,
+					disabled = function() return not EM.db.timewalkingSet end,
+					desc = L["Equip this set after enetering a timewalking dungeon."],
+					values = function()
+						FillTable()
+						return sets
+					end,
+				},
+				pvp = {
+					order = 5,
 					type = "select",
 					name = PVP,
 					disabled = function() return not EM.db.pvpSet end,
@@ -117,15 +129,24 @@ local function configTable()
 			instanceSet = {
 				type = "toggle",
 				order = 7,
-				name = L["Use Instanse Set"],
+				name = L["Use Instance Set"],
 				desc = L["Use a dedicated set for instances and raids."],
 				disabled = function() return not EM.db.enable end,
 				get = function(info) return EM.db.instanceSet end,
 				set = function(info, value) EM.db.instanceSet = value; end
 			},
+			timewalkingSet = {
+				type = "toggle",
+				order = 7,
+				name = L["Use Timewalking Set"],
+				desc = L["Use a dedicated set for timewalking instances."],
+				disabled = function() return not EM.db.enable end,
+				get = function(info) return EM.db.timewalkingSet end,
+				set = function(info, value) EM.db.timewalkingSet = value; end
+			},
 			pvpSet = {
 				type = "toggle",
-				order = 8,
+				order = 9,
 				name = L["Use PvP Set"],
 				desc = L["Use a dedicated set for PvP situations."],
 				disabled = function() return not EM.db.enable end,
@@ -135,7 +156,7 @@ local function configTable()
 			equipsets = {
 				type = "group",
 				name = PAPERDOLL_EQUIPMENTMANAGER,
-				order = 9,
+				order = 10,
 				disabled = function() return not EM.db.enable end,
 				guiInline = true,
 				args = {

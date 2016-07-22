@@ -388,14 +388,20 @@ L["Are you sure you want to remove |cff1784d1%s|r from currency datatexts?"] = t
 L["Equipment Manager"] = true
 L["EM_DESC"] = "This module provides different options to automatically change your equipment sets on spec change or entering certain locations. All options are character based."
 L["Equipment Set Overlay"] = true
+L["Timewalking"] = true
 L["Show the associated equipment sets for the items in your bags (or bank)."] = true
 L["Here you can choose what equipment sets to use in different situations."] = true
 L["Equip this set when switching to specialization %s."] = true
 L["Equip this set for open world/general use."] = true
 L["Equip this set after entering dungeons or raids."] = true
 L["Equip this set after entering battlegrounds or arens."] = true
+L["Equip this set after enetering a timewalking dungeon."] = true
+L["Use Instance Set"] = true
 L["Use a dedicated set for instances and raids."] = true
+L["Use PvP Set"] = true
 L["Use a dedicated set for PvP situations."] = true
+L["Use Timewalking Set"] = true
+L["Use a dedicated set for timewalking instances."] = true
 L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."] = true
 
 --Loot
