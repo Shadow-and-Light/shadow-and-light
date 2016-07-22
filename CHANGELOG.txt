@@ -1,3 +1,12 @@
+v3.04
+Additions:
+- Equip manager now has an options for Timewalking sets
+Fixes:
+- Fixed raid progress tooltip throwing errors left and right
+Misc:
+- DejaCharacterStats' button is now higher then armory texture
+
+
 v3.03 07/21/2016
 Fixes:
 - More fixes for people not reading changelogs and having leftover files from v2
