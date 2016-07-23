@@ -73,9 +73,9 @@ end
 function I:UpdateFrame()
 	local db = I.db
 	if T.IsInInstance() then
-		if not db.flag then
+		if db.enable then
 			_G["MiniMapInstanceDifficulty"]:Hide()
-		elseif db.flag and not _G["MiniMapInstanceDifficulty"]:IsShown() then
+		elseif not db.enable and not _G["MiniMapInstanceDifficulty"]:IsShown() then
 			_G["MiniMapInstanceDifficulty"]:Show()
 		end
 	end
@@ -124,8 +124,9 @@ end
 function I:Initialize()
 	if not SLE.initialized or not E.private.general.minimap.enable then return end
 	I.db = E.db.sle.minimap.instance
+	I.db.flag = nil
 	self:CreateText()
-	_G["MiniMapInstanceDifficulty"]:HookScript("OnShow", function(self) if not I.db.flag then self:Hide() end end)
+	_G["MiniMapInstanceDifficulty"]:HookScript("OnShow", function(self) if I.db.enable then self:Hide() end end)
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "GenerateText")
 	self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "GenerateText")
 	self:RegisterEvent("GUILD_PARTY_STATE_UPDATED", "GenerateText")

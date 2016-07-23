@@ -496,7 +496,6 @@ function PI:DarthSetup()
 		E.db["sle"]["minimap"]["locPanel"]["enable"] = true
 		E.db["sle"]["minimap"]["locPanel"]["width"] = 310
 		E.db["sle"]["minimap"]["instance"]["enable"] = true
-		E.db["sle"]["minimap"]["instance"]["flag"] = false
 		E.db["sle"]["quests"]["visibility"]["rested"] = "COLLAPSED"
 		E.db["sle"]["quests"]["visibility"]["garrison"] = "COLLAPSED"
 		E.db["sle"]["quests"]["autoReward"] = true

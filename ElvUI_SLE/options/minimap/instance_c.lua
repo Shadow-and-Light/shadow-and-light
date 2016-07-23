@@ -19,14 +19,6 @@ local function configTable()
 				desc = L["Show instance difficulty info as text."],
 				disabled = function() return not E.private.general.minimap.enable end,
 			},
-			flag = {
-				order = 2,
-				type = 'toggle',
-				name = L["Show texture"],
-				desc = L["Show instance difficulty info as default texture."],
-				hidden = function() return not E.global.sle.advanced.general end,
-				disabled = function() return not E.private.general.minimap.enable end,
-			},
 			xoffset = {
 				order = 3, type = 'range', name = L["X-Offset"], min = -300, max = 300, step = 1,
 				disabled = function() return not E.private.general.minimap.enable or not E.db.sle.minimap.instance.enable end,

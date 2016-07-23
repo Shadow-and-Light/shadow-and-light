@@ -1,3 +1,7 @@
+v3.06
+Changes:
+- Changed the logic for instance indicator. Now show Icon option is no longer needed and was removed (previously locked under advanced). Now the flag texture automatically hides when indicator is inabled.
+
 v3.05 07/23/2016
 Fixes:
 - Fixed easy cast fishing not respecting ignore pole option

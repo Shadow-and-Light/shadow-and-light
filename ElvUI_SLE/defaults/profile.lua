@@ -503,7 +503,6 @@ P["sle"] = {
 		},
 		["instance"] = {
 			["enable"] = false,
-			["flag"] = true,
 			["xoffset"] = -10,
 			["yoffset"] = 0,
 			["colors"] = {
