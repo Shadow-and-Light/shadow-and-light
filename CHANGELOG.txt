@@ -1,6 +1,10 @@
 v3.06
+Additions:
+- Chat datapanels can now have their backdrop hidden
+- Added options for strata, frame level and backdropn style on UI Buttons. Those are locked under advanced options.
 Changes:
 - Changed the logic for instance indicator. Now show Icon option is no longer needed and was removed (previously locked under advanced). Now the flag texture automatically hides when indicator is inabled.
+- Hide panel backdrop for additional datatexts now don't require reload
 
 v3.05 07/23/2016
 Fixes:
