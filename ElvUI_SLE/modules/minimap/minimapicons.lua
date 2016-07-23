@@ -238,6 +238,7 @@ local function SkinButton(Button)
 end
 
 function SMB:SkinMinimapButtons()
+	if not E.private.sle.minimap.mapicons.enable then return end
 	for i = 1, _G["Minimap"]:GetNumChildren() do
 		local object = T.select(i, _G["Minimap"]:GetChildren())
 		if object then
