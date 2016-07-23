@@ -268,7 +268,7 @@ end
 
 function LP:CheckForIncompatible()
 	if T.IsAddOnLoaded('ElvUI_LocLite') and E.db.sle.minimap.locPanel.enable then
-		SLE:IncompatibleAddOn('Location Lite', 'Location Panel', E.db.sle.minimap.locPanel.enable, "enable")
+		SLE:IncompatibleAddOn('ElvUI_LocLite', 'Location Panel', E.db.sle.minimap.locPanel.enable, "enable")
 	end
 end
 
