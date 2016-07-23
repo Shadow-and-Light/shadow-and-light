@@ -121,10 +121,13 @@ local function configTable()
 				get = function(info) return EM.db.setoverlay end,
 				set = function(info, value) EM.db.setoverlay = value; SLE:GetModule('BagInfo'):ToggleSettings(); end,
 			},
-			spacer = {
+			lockbutton = {
 				order = 6,
-				type = "description",
-				name = "",
+				type = "toggle",
+				name = L["Block button"],
+				desc = L["Create a button in character frame to allow temp blocking of auto set swap."],
+				get = function(info) return EM.db.lockbutton end,
+				set = function(info, value) EM.db.lockbutton = value; E:StaticPopup_Show("PRIVATE_RL") end
 			},
 			instanceSet = {
 				type = "toggle",

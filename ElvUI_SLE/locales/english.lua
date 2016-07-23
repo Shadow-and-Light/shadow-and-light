@@ -411,6 +411,12 @@ L["Use a dedicated set for PvP situations."] = true
 L["Use Timewalking Set"] = true
 L["Use a dedicated set for timewalking instances."] = true
 L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."] = true
+L["SLE_EM_LOCK_TITLE"] = "|cff9482c9S&L|r"
+L["SLE_EM_LOCK_TOOLTIP"] = [[This button is designed for temporary disable
+Equip Manager's auto switch gear sets.
+While locked (red colored state) it will disable auto swap.]]
+L["Block button"] = true
+L["Create a button in character frame to allow temp blocking of auto set swap."] = true
 
 --Loot
 L["Loot Dropped:"] = true

@@ -76,7 +76,7 @@ function EM:WrongSet(equipSet, group, inCombat)
 end
 
 local function Equip(event)
-	if EM.Processing then return end
+	if EM.Processing or EM.lock then return end
 	EM.Processing = true
 	local inCombat = false
 	E:Delay(1, function() EM.Processing = false end)
@@ -96,13 +96,50 @@ local function Equip(event)
 	end
 end
 
+function EM:CreateLock()
+	if _G["SLE_Equip_Lock_Button"] or not EM.db.lockbutton then return end
+	local button = CreateFrame("Button", "SLE_Equip_Lock_Button", CharacterFrame)
+	button:Size(20, 20)
+	button:Point("BOTTOMLEFT", _G["CharacterFrame"], "BOTTOMLEFT", 4, 4)
+	-- button:CreateBackdrop("Default")
+	button:SetFrameLevel(CharacterModelFrame:GetFrameLevel() + 2)
+	button:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self)
+		GameTooltip:AddLine(L["SLE_EM_LOCK_TOOLTIP"])
+		GameTooltip:Show()
+	end)
+	button:SetScript("OnLeave", function(self)
+		GameTooltip:Hide() 
+	end)
+	E:GetModule("Skins"):HandleButton(button)
+
+	button.TitleText = button:CreateFontString(nil, "OVERLAY")
+	button.TitleText:FontTemplate()
+	button.TitleText:SetPoint("BOTTOMLEFT", button, "TOPLEFT", 0, 0)
+	button.TitleText:SetJustifyH("LEFT")
+	button.TitleText:SetText(L["SLE_EM_LOCK_TITLE"])
+
+	button.Icon = button:CreateTexture(nil, "OVERLAY")
+	button.Icon:SetAllPoints()
+	button.Icon:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\lock]])
+	button.Icon:SetVertexColor(0, 1, 0)
+
+	button:SetScript("OnClick", function()
+		EM.lock = not EM.lock
+		button.Icon:SetVertexColor(EM.lock and 1 or 0, EM.lock and 0 or 1, 0)
+	end)
+end
+
 function EM:Initialize()
 	EM.db = E.private.sle.equip
+	EM.lock = false
 	if not SLE.initialized then return end
 	if not EM.db.enable then return end
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", Equip)
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", Equip)
 	self:RegisterEvent("ZONE_CHANGED", Equip)
+	
+	self:CreateLock()
 end
 
 SLE:RegisterModule(EM:GetName())

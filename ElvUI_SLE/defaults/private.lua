@@ -36,6 +36,7 @@ V["sle"] = {
 			["timewalking"] = "NONE",
 		},
 		["setoverlay"] = false,
+		["lockbutton"] = false,
 	},
 
 	--Minimap Module
