@@ -62,7 +62,7 @@ function UB:RollSetup(menu)
 end
 
 function UB:SetupBar(menu)
-	if E.private.sle.uiButtonStyle == "classic" then
+	if E.private.sle.uibuttons.style == "classic" then
 		menu:CreateCoreButton("Config", "C", function() E:ToggleConfig() end)
 		menu:CreateCoreButton("Reload", "R", function() ReloadUI() end)
 		menu:CreateCoreButton("MoveUI", "M", function(self) E:ToggleConfigMode() end)
@@ -92,7 +92,7 @@ function UB:SetupBar(menu)
 end
 
 function UB:RightClicks(menu)
-	if E.private.sle.uiButtonStyle == "classic" then return end
+	if E.private.sle.uibuttons.style == "classic" then return end
 	for i = 1, #menu.ToggleTable do
 		menu.ToggleTable[i]:RegisterForClicks("LeftButtonDown", "RightButtonDown")
 	end
@@ -120,7 +120,11 @@ end
 
 function UB:Initialize()
 	if not SLE.initialized then return end
-	UB.Holder = lib:CreateFrame("SLE_UIButtons", E.db.sle.uibuttons, P.sle.uibuttons, E.private.sle.uiButtonStyle, "dropdown")
+	if E.private.sle.uiButtonStyle then
+		E.private.sle.uibuttons.style = E.private.sle.uiButtonStyle
+		E.private.sle.uiButtonStyle = nil
+	end
+	UB.Holder = lib:CreateFrame("SLE_UIButtons", E.db.sle.uibuttons, P.sle.uibuttons, E.private.sle.uibuttons.style, "dropdown", E.private.sle.uibuttons.strata, E.private.sle.uibuttons.level)
 	local menu = UB.Holder
 	menu:Point("LEFT", E.UIParent, "LEFT", -2, 0);
 	menu:SetupMover(L["S&L UI Buttons"], "ALL,S&L,S&L MISC")

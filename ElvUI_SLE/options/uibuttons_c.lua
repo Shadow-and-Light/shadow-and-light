@@ -13,6 +13,17 @@ local positionValues = {
 	BOTTOM = 'BOTTOM',
 };
 
+local stratas = {
+	["BACKGROUND"] = "1. Background",
+	["LOW"] = "2. Low",
+	["MEDIUM"] = "3. Medium",
+	["HIGH"] = "4. High",
+	["DIALOG"] = "5. Dialog",
+	["FULLSCREEN"] = "6. Fullscreen",
+	["FULLSCREEN_DIALOG"] = "7. Fullscreen Dialog",
+	["TOOLTIP"] = "8. Tooltip",
+}
+
 local function configTable()
 	if not SLE.initialized then return end
 	local Bar = UB.Holder
@@ -48,16 +59,40 @@ local function configTable()
 					["dropdown"] = L["Dropdown"],
 				},
 				disabled = function() return not E.db.sle.uibuttons.enable end,
-				get = function(info) return E.private.sle.uiButtonStyle end,
-				set = function(info, value) E.private.sle.uiButtonStyle = value; E:StaticPopup_Show("PRIVATE_RL") end,
+				get = function(info) return E.private.sle.uibuttons.style end,
+				set = function(info, value) E.private.sle.uibuttons.style = value; E:StaticPopup_Show("PRIVATE_RL") end,
+			},
+			advanced = {
+				type = "group",
+				order = 5,
+				name = L["Advanced Options"],
+				guiInline = true,
+				get = function(info) return E.private.sle.uibuttons[ info[#info] ]  end,
+				set = function(info, value) E.private.sle.uibuttons[ info[#info] ]  = value; E:StaticPopup_Show("PRIVATE_RL") end,
+				disabled = function() return not E.db.sle.uibuttons.enable end,
+				hidden = function() return not E.global.sle.advanced.general end,
+				args = {
+					strata = {
+						order = 1,
+						name = L["UI Buttons Strata"],
+						type = "select",
+						values = stratas,
+					},
+					level = {
+						order = 2,
+						type = "range",
+						name = L["Frame Level"],
+						min = 1, max = 250, step = 1,
+					},
+				},
 			},
 			space = {
-				order = 5,
+				order = 6,
 				type = 'description',
 				name = "",
 			},
 			size = {
-				order = 6,
+				order = 7,
 				type = "range",
 				name = L["Size"],
 				desc = L["Sets size of buttons"],
@@ -67,7 +102,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.uibuttons.size = value; Bar:FrameSize() end,
 			},
 			spacing = {
-				order = 7,
+				order = 8,
 				type = "range",
 				name = L["Button Spacing"],
 				desc = L["The spacing between buttons."],
@@ -77,7 +112,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.uibuttons.spacing = value; Bar:FrameSize() end,
 			},
 			mouse = {
-				order = 8,
+				order = 9,
 				type = "toggle",
 				name = L["Mouse Over"],
 				desc = L["Show on mouse over."],
@@ -86,7 +121,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.uibuttons.mouse = value; Bar:UpdateMouseOverSetting() end
 			},
 			menuBackdrop = {
-				order = 9,
+				order = 10,
 				type = "toggle",
 				name = L["Backdrop"],
 				disabled = function() return not E.db.sle.uibuttons.enable end,
@@ -94,15 +129,15 @@ local function configTable()
 				set = function(info, value) E.db.sle.uibuttons.menuBackdrop = value; Bar:UpdateBackdrop() end
 			},
 			dropdownBackdrop = {
-				order = 10,
+				order = 11,
 				type = "toggle",
 				name = L["Dropdown Backdrop"],
-				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uibuttons.style == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.dropdownBackdrop end,
 				set = function(info, value) E.db.sle.uibuttons.dropdownBackdrop = value; Bar:FrameSize() end
 			},
 			orientation = {
-				order = 11,
+				order = 12,
 				name = L["Buttons position"],
 				desc = L["Layout for UI buttons."],
 				type = "select",
@@ -119,7 +154,7 @@ local function configTable()
 				order = 13,
 				name = L["Anchor Point"],
 				desc = L["What point of dropdown will be attached to the toggle button."],
-				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uibuttons.style == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.point end,
 				set = function(info, value) E.db.sle.uibuttons.point = value; Bar:FrameSize() end,
 				values = positionValues,
@@ -129,7 +164,7 @@ local function configTable()
 				order = 14,
 				name = L["Attach To"],
 				desc = L["What point to anchor dropdown on the toggle button."],
-				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uibuttons.style == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.anchor end,
 				set = function(info, value) E.db.sle.uibuttons.anchor = value; Bar:FrameSize() end,
 				values = positionValues,
@@ -140,7 +175,7 @@ local function configTable()
 				name = L["X-Offset"],
 				desc = L["Horizontal offset of dropdown from the toggle button."],
 				min = -10, max = 10, step = 1,
-				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uibuttons.style == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.xoffset end,
 				set = function(info, value) E.db.sle.uibuttons.xoffset = value; Bar:FrameSize() end,
 			},
@@ -150,7 +185,7 @@ local function configTable()
 				name = L["Y-Offset"],
 				desc = L["Vertical offset of dropdown from the toggle button."],
 				min = -10, max = 10, step = 1,
-				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uibuttons.style == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.yoffset end,
 				set = function(info, value) E.db.sle.uibuttons.yoffset = value; Bar:FrameSize() end,
 			},
@@ -159,7 +194,7 @@ local function configTable()
 				type = 'input',
 				name = L["Minimum Roll Value"],
 				desc = L["The lower limit for custom roll button."],
-				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uibuttons.style == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.customroll.min end,
 				set = function(info, value) E.db.sle.uibuttons.customroll.min = value; end,
 			},
@@ -168,7 +203,7 @@ local function configTable()
 				type = 'input',
 				name = L["Maximum Roll Value"],
 				desc = L["The higher limit for custom roll button."],
-				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uibuttons.style == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.customroll.max end,
 				set = function(info, value) E.db.sle.uibuttons.customroll.max = value; end,
 			},
@@ -177,7 +212,7 @@ local function configTable()
 				name = "\"C\" "..L["Quick Action"],
 				type = "group",
 				guiInline = true,
-				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uibuttons.style == "classic" end,
 				args = {
 					enabled = {
 						order = 1,
@@ -208,7 +243,7 @@ local function configTable()
 				name = "\"A\" "..L["Quick Action"],
 				type = "group",
 				guiInline = true,
-				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uibuttons.style == "classic" end,
 				args = {
 					enabled = {
 						order = 1,
@@ -237,7 +272,7 @@ local function configTable()
 				name = "\"S\" "..L["Quick Action"],
 				type = "group",
 				guiInline = true,
-				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uibuttons.style == "classic" end,
 				args = {
 					enabled = {
 						order = 1,
@@ -266,7 +301,7 @@ local function configTable()
 				name = "\"R\" "..L["Quick Action"],
 				type = "group",
 				guiInline = true,
-				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uibuttons.style == "classic" end,
 				args = {
 					enabled = {
 						order = 1,

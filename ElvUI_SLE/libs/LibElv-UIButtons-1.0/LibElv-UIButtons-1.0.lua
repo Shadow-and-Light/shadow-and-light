@@ -325,7 +325,7 @@ local function ToggleShow(menu)
 end
 
 --Creating of the menu
-function lib:CreateFrame(name, db, default, style, styleDefault, strata)
+function lib:CreateFrame(name, db, default, style, styleDefault, strata, level)
 	--Checks to prevent a shitload of errors cause of wrong arguments passed
 	if _G[name] then return end
 	if not strata then strata = "MEDIUM" end
@@ -337,7 +337,7 @@ function lib:CreateFrame(name, db, default, style, styleDefault, strata)
 	menu.style = style
 
 	menu:SetFrameStrata(strata)
-	menu:SetFrameLevel(5)
+	menu:SetFrameLevel(level or 5)
 	menu:SetClampedToScreen(true)
 	menu:Point("LEFT", E.UIParent, "LEFT", -2, 0);
 	menu:Size(17, 17); --Cause the damn thing doesn't want to show up without default size lol

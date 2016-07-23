@@ -162,7 +162,11 @@ V["sle"] = {
 			["subpages"] = 2,
 		},
 	},
-	["uiButtonStyle"] = "classic"
+	["uibuttons"] = {
+		["style"] = "classic",
+		["strata"] = "MEDIUM",
+		["level"] = 5,
+	},
 }
 
 G["sle"] = {
