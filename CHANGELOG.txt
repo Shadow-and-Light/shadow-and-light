@@ -7,6 +7,7 @@ Additions:
 Fixes:
 - Fixed class bar texture not applying for stagger and druid mana.
 - Also potentially fixed weird crash from classbar texture
+- Fixed icons shown for data panels with mouseover enabled after login or reload
 Changes:
 - Changed the logic for instance indicator. Now show Icon option is no longer needed and was removed (previously locked under advanced). Now the flag texture automatically hides when indicator is inabled.
 - Hide panel backdrop for additional datatexts now don't require reload
