@@ -85,12 +85,12 @@ function M:Initialize()
 		end)
 
 		local function Enter(self)
-			if not M.db.rumouseover then return end
+			if not E.db.sle.blizzard.rumouseover then return end
 			self:SetAlpha(1)
 		end
 
 		local function Leave(self)
-			if not M.db.rumouseover then return end
+			if not E.db.sle.blizzard.rumouseover then return end
 			self:SetAlpha(0)
 		end
 
