@@ -457,6 +457,7 @@ function PI:DarthSetup()
 		E.db["sle"]["uibuttons"]["spacing"] = 1
 		E.db["sle"]["uibuttons"]["anchor"] = "BOTTOMRIGHT"
 		E.db["sle"]["uibuttons"]["orientation"] = "horizontal"
+		E.db["sle"]["uibuttons"]["yoffset"] = -1
 		E.db["sle"]["raidmanager"]["roles"] = true
 		E.db["sle"]["tooltip"]["alwaysCompareItems"] = true
 		E.db["sle"]["tooltip"]["showFaction"] = true
@@ -543,7 +544,7 @@ function PI:DarthSetup()
 		E.db["movers"]["PvPMover"] = "TOP,ElvUIParent,TOP,-5,-59"
 		E.db["movers"]["SLE_Location_Mover"] = "TOP,ElvUIParent,TOP,0,-19"
 		E.db["movers"]["ElvUF_PetMover"] = "BOTTOM,ElvUIParent,BOTTOM,-163,141"
-		E.db["movers"]["SLE_UIButtonsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-201"
+		E.db["movers"]["SLE_UIButtonsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-201"
 		E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,19"
 		E.db["movers"]["AlertFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,312"
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-187,-158"
@@ -575,7 +576,8 @@ function PI:DarthSetup()
 	E.private["general"]["minimap"]["hideClassHallReport"] = true
 
 	E.private["sle"]["module"]["screensaver"] = true
-	E.private["sle"]["uiButtonStyle"] = "dropdown"
+	E.private["sle"]["uibuttons"]["style"] = "dropdown"
+	E.private["sle"]["uibuttons"]["transparent"] = "Transparent"
 	E.private["sle"]["bags"]["transparentSlots"] = true
 	E.private["sle"]["minimap"]["mapicons"]["enable"] = true
 	E.private["sle"]["unitframe"]["resizeHealthPrediction"] = true
