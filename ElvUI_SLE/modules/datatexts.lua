@@ -86,6 +86,7 @@ end
 function DTP:Toggle(i)
 	if DTP.db["panel"..i].enabled then
 		self["Panel_"..i]:Show()
+		if DTP.db["panel"..i].mouseover then Bar_OnLeave(self["Panel_"..i]) end
 		E:EnableMover(self["Panel_"..i].mover:GetName())
 	else
 		self["Panel_"..i]:Hide()
