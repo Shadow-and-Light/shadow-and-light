@@ -98,12 +98,10 @@ function DTP:PetHide(i)
 end
 
 function DTP:Template(i)
-	if not DTP.db["panel"..i].noback then
-		if DTP.db["panel"..i].transparent then
-			self["Panel_"..i]:SetTemplate("Transparent")
-		else
-			self["Panel_"..i]:SetTemplate("Default", true)
-		end
+	if DTP.db["panel"..i].transparent then
+		self["Panel_"..i]:SetTemplateSLE(DTP.db["panel"..i].noback and "NoDrop" or "Transparent")
+	else
+		self["Panel_"..i]:SetTemplateSLE(DTP.db["panel"..i].noback and "NoDrop" or "Default", true)
 	end
 end
 

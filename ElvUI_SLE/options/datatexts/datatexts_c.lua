@@ -28,7 +28,7 @@ local function configTable()
 					desc = L["Don't show this panel, only datatexts assinged to it"],
 					disabled = function() return not E.db.sle.datatexts["panel"..i].enabled end,
 					get = function(info) return E.db.sle.datatexts["panel"..i].noback end,
-					set = function(info, value) E.db.sle.datatexts["panel"..i].noback = value; E:StaticPopup_Show('CONFIG_RL') end,
+					set = function(info, value) E.db.sle.datatexts["panel"..i].noback = value; DTP:Template(i) end,
 				},
 				transparent = {
 					order = 4, type = 'toggle', name = L["Panel Transparency"],
@@ -92,6 +92,13 @@ local function configTable()
 					min = 0, max = 1, step = 0.01,
 					get = function(info) return E.db.sle.datatexts[name].alpha end,
 					set = function(info, value) E.db.sle.datatexts[name].alpha = value; DTP:ChatResize() end,
+				},
+				noborders = {
+					order = 13, type = "toggle",
+					name = L["Hide panel background"],
+					desc = L["Don't show this panel, only datatexts assinged to it"],
+					get = function(info) return E.db.sle.datatexts[name][ info[#info] ] end,
+					set = function(info, value) E.db.sle.datatexts[name][ info[#info] ] = value; E:GetModule("Layout"):SetDataPanelStyle() end,
 				},
 			},
 		}

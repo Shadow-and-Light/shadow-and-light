@@ -179,6 +179,26 @@ local function ChatPanels()
 	RightChatDataPanel:Height(20)
 end
 
+function LO:SetDataPanelStyle()
+	if E.db.datatexts.panelTransparency then
+		LeftChatDataPanel:SetTemplateSLE(E.db.sle.datatexts.leftchat.noborders and "NoDrop" or "Transparent")
+		LeftChatToggleButton:SetTemplateSLE(E.db.sle.datatexts.leftchat.noborders and "NoDrop" or "Transparent")
+		LeftMiniPanel:SetTemplate("Transparent")
+		RightChatDataPanel:SetTemplateSLE(E.db.sle.datatexts.rightchat.noborders and "NoDrop" or "Transparent")
+		RightChatToggleButton:SetTemplateSLE(E.db.sle.datatexts.rightchat.noborders and "NoDrop" or "Transparent")
+		RightMiniPanel:SetTemplate("Transparent")
+		-- ElvConfigToggle:SetTemplate("Transparent")
+	else
+		LeftChatDataPanel:SetTemplateSLE(E.db.sle.datatexts.leftchat.noborders and "NoDrop" or "Default", true)
+		LeftChatToggleButton:SetTemplateSLE(E.db.sle.datatexts.leftchat.noborders and "NoDrop" or "Default", true)
+		LeftMiniPanel:SetTemplate("Default", true)
+		RightChatDataPanel:SetTemplateSLE(E.db.sle.datatexts.rightchat.noborders and "NoDrop" or "Default", true)
+		RightChatToggleButton:SetTemplateSLE(E.db.sle.datatexts.rightchat.noborders and "NoDrop" or "Default", true)
+		RightMiniPanel:SetTemplate("Default", true)
+		-- ElvConfigToggle:SetTemplate("Default", true)
+	end
+end
+
 local function CreateChatPanels()
 	local SPACING = E.Border*3 - E.Spacing
 	--Left Chat
@@ -193,6 +213,9 @@ local function CreateChatPanels()
 	LeftChatDataPanel:Point("TOPLEFT", LeftChatToggleButton, "TOPRIGHT", -1 + E.Spacing*2, 0)
 	LeftChatDataPanel:Point("BOTTOMLEFT", LeftChatToggleButton, "BOTTOMRIGHT", -1 + E.Spacing*2, 0)
 	LeftChatDataPanel:Size(E.db.sle.datatexts.leftchat.width, PANEL_HEIGHT)
+	
+	-- LeftChatDataPanel:SetTemplateSLE("NoDrop")
+	
 	--Right Chat
 	RightChatTab:Point('TOPRIGHT', RightChatPanel, 'TOPRIGHT', -2, -2)
 	RightChatTab:Point('BOTTOMLEFT', RightChatPanel, 'TOPLEFT', 2, -PANEL_HEIGHT)
@@ -280,10 +303,12 @@ function C:Initialize()
 	end
 
 	C:InitHistory()
+	LO:SetDataPanelStyle()
 
 	C:InitTabs()
 end
 hooksecurefunc(LO, "CreateChatPanels", CreateChatPanels)
+-- hooksecurefunc(LO, "SetDataPanelStyle", SetDataPanelStyle)
 CH:AddPluginIcons(GetChatIcon)
 
 SLE:RegisterModule(C:GetName())
