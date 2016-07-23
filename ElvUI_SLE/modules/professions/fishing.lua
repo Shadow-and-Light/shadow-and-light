@@ -75,7 +75,7 @@ end
 function Pr:FishCasting()
 	-- put on a lure if we need to
 	local key = Pr.FishingKey
-	if (key == "None" and FL:IsFishingReady(false)) or (not key ~= "None" and _G["Is"..key.."KeyDown"]()) then
+	if (key == "None" and FL:IsFishingReady(false)) or (key ~= "None" and _G["Is"..key.."KeyDown"]()) then
 		local update, id, n = Pr:GetUpdateLure();
 		if (update and id) then
 			FL:InvokeLuring(id);
