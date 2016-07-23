@@ -80,9 +80,6 @@ function SLE:CheckIncompatible()
 	if Toolkit.IsAddOnLoaded('SquareMinimapButtons') and E.private.sle.minimap.mapicons.enable then
 		SLE:IncompatibleAddOn('SquareMinimapButtons', 'SquareMinimapButtons', E.private.sle.minimap.mapicons, "enable")
 	end
-	if Toolkit.IsAddOnLoaded('ElvUI_LocLite') and E.db.sle.minimap.locPanel.enable then
-		SLE:IncompatibleAddOn('Location Lite', 'Location Panel', E.db.sle.minimap.locPanel.enable, "enable")
-	end
 	if Toolkit.IsAddOnLoaded('LootConfirm') then
 		E:StaticPopup_Show('LOOTCONFIRM_SLE_INCOMPATIBLE')
 	end

@@ -266,8 +266,15 @@ function LP:Template()
 	loc_panel.Ycoord:SetTemplate(LP.db.template)
 end
 
+function LP:CheckForIncompatible()
+	if T.IsAddOnLoaded('ElvUI_LocLite') and E.db.sle.minimap.locPanel.enable then
+		SLE:IncompatibleAddOn('Location Lite', 'Location Panel', E.db.sle.minimap.locPanel.enable, "enable")
+	end
+end
+
 function LP:Toggle()
 	if LP.db.enable then
+		LP:CheckForIncompatible()
 		loc_panel:Show()
 		E:EnableMover(loc_panel.mover:GetName())
 	else
