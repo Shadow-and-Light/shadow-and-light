@@ -711,7 +711,8 @@ end
 
 function FishLib:IsFishingReady(partial)
 	if ( partial ) then
-		return self:IsFishingGear();
+		-- return self:IsFishingGear();
+		return true
 	else
 		return self:IsFishingPole();
 	end
