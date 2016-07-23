@@ -3,6 +3,10 @@ Requires ElvUI v10.09 or higher to work
 Additions:
 - Chat datapanels can now have their backdrop hidden
 - Added options for strata, frame level and backdropn style on UI Buttons. Those are locked under advanced options.
+- Added an option for equip manager to create a button in character frame that temporary (until relog or reloadui) disables auto swapping of sets.
+Fixes:
+- Fixed class bar texture not applying for stagger and druid mana.
+- Also potentially fixed weird crash from classbar texture
 Changes:
 - Changed the logic for instance indicator. Now show Icon option is no longer needed and was removed (previously locked under advanced). Now the flag texture automatically hides when indicator is inabled.
 - Hide panel backdrop for additional datatexts now don't require reload
