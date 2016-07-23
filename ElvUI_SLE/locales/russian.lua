@@ -545,7 +545,43 @@ L["Threat Text"] = "Текст угрозы"
 L["Display threat level as text on targeted, boss or mouseover nameplate."] = "Отображает текст угрозы на индикаторе цели, босса или юнита под курсором."
 
 --Professions
-L['Scroll'] = "Свиток"
+L["Deconstruct Mode"] = true
+L["Create a button in your bag frame to switch to deconstrution mode allowing you to easily disenchant/mill/prospect and pick locks."] = true
+L["Actionbar Proc"] = true
+L["Actionbar Autocast"] = true
+L["Show glow on bag button"] = true
+L["Show glow on the deconstruction button in bag when deconstruction mode is enabled.\nApplies on next mode toggle."] = true
+L["Scroll"] = "Свиток"
+L["Create a button in your bag frame to switch to deconstrution mode allowing you to easily disenchant/mill/prospect and pick locks."] = true
+L["Sets style of glow around item available for deconstruction while in deconstruct mode. Autocast is less intence but also less noticeable."] = true
+L["Show glow on bag button"] = true
+L["Show glow on the deconstruction button in bag when deconstruction mode is enabled.\nApplies on next mode toggle."] = true
+L["Enchant Scroll Button"] = true
+L["Create a button for applying selected enchant on the scroll."] = true
+L["Following options are global and will be applied to all characters on account."] = true
+L["Deconstruction ignore"] = true
+L["Items listed here will be ignored in deconstruction mode. Add names or item links, entries must be separated by comma."] = true
+L["Ignore tabards"] = true
+L["Deconstruction mode will ignore tabards."] = true
+L["Ignore Pandaria BoA"] = true
+L["Deconstruction mode will ignore BoA weapons from Pandaria."] = true
+L["Ignore Cooking"] = true
+L["Deconstruction mode will ignore cooking specific items."] = true
+L["Ignore Fishing"] = "Игнорировать рыболовство"
+L["Deconstruction mode will ignore fishing specific items."] = true
+L["Unlock in trade"] = "Открывать в обмене"
+L["Apply unlocking skills in trade window the same way as in deconstruction mode for bags."] = true
+L["Easy Cast"] = "Быстрая рыбалка"
+L["Allow to fish with double right-click."] = "Позволяет начать ловить рыбу двойным ПКМ."
+L["From Mount"] = "С маунта"
+L["Start fishing even if you are mounted."] = "Забрасывать удочку даже, если вы на средстве передвижения."
+L["Apply Lures"] = "Наживка"
+L["Automatically apply lures."] = "Автоматически насаживать наживку."
+L["Ingore Poles"] = "Без удочки"
+L["If enabled will start fishing even if you don't have fishing pole equipped. Will not work if you have fish key set to \"None\"."] = true
+L["Fish Key"] = "Модификатор рыбалки"
+L["Hold this button while clicking to allow fishing action."] = "Удерживайте эту кнопку для быстрой рыбалки."
+
 
 --PvP
 L["Functions dedicated to player versus player modes."] = "Функции для режима игрок Против Игрока."
