@@ -417,6 +417,33 @@ function SLE:UpdateAll()
 	collectgarbage('collect');
 end
 
+local function GetTemplate(t, isPixelPerfectForced)
+	backdropa = 1
+
+	if t == "ClassColor" then
+		if CUSTOM_CLASS_COLORS then
+			borderr, borderg, borderb = CUSTOM_CLASS_COLORS[E.myclass].r, CUSTOM_CLASS_COLORS[E.myclass].g, CUSTOM_CLASS_COLORS[E.myclass].b
+		else
+			borderr, borderg, borderb = RAID_CLASS_COLORS[E.myclass].r, RAID_CLASS_COLORS[E.myclass].g, RAID_CLASS_COLORS[E.myclass].b
+		end
+		if t ~= "Transparent" then
+			backdropr, backdropg, backdropb = unpack(E["media"].backdropcolor)
+		else
+			backdropr, backdropg, backdropb, backdropa = unpack(E["media"].backdropfadecolor)
+		end
+	elseif t == "Transparent" then
+		borderr, borderg, borderb = unpack(E["media"].bordercolor)
+		backdropr, backdropg, backdropb, backdropa = unpack(E["media"].backdropfadecolor)
+	else
+		borderr, borderg, borderb = unpack(E["media"].bordercolor)
+		backdropr, backdropg, backdropb = unpack(E["media"].backdropcolor)
+	end
+	
+	if(isPixelPerfectForced) then
+		borderr, borderg, borderb = 0, 0, 0
+	end	
+end
+
 --New API
 local function LevelUpBG(frame, topcolor, bottomcolor)
 	frame.bg = frame:CreateTexture(nil, 'BACKGROUND')
@@ -479,10 +506,110 @@ local function LevelUpBG(frame, topcolor, bottomcolor)
 	end
 end
 
+local function SetTemplateSLE(f, t, glossTex, ignoreUpdates, forcePixelMode)
+	GetTemplate(t, f.forcePixelMode or forcePixelMode)
+
+	if(t) then
+	   f.template = t
+	end
+
+	if(glossTex) then
+	   f.glossTex = glossTex
+	end
+
+	if(ignoreUpdates) then
+	   f.ignoreUpdates = ignoreUpdates
+	end
+	
+	if(forcePixelMode) then
+		f.forcePixelMode = forcePixelMode
+	end
+	if t ~= "NoDrop" then
+		if E.private.general.pixelPerfect or f.forcePixelMode then
+			f:SetBackdrop({
+			  bgFile = E["media"].blankTex,
+			  edgeFile = E["media"].blankTex,
+			  tile = false, tileSize = 0, edgeSize = E.mult,
+			  insets = { left = 0, right = 0, top = 0, bottom = 0}
+			})
+		else
+			f:SetBackdrop({
+			  bgFile = E["media"].blankTex,
+			  edgeFile = E["media"].blankTex,
+			  tile = false, tileSize = 0, edgeSize = E.mult,
+			  insets = { left = -E.mult, right = -E.mult, top = -E.mult, bottom = -E.mult}
+			})
+		end
+
+		if not f.backdropTexture and t ~= 'Transparent' then
+			local backdropTexture = f:CreateTexture(nil, "BORDER")
+			backdropTexture:SetDrawLayer("BACKGROUND", 1)
+			f.backdropTexture = backdropTexture
+		elseif t == 'Transparent' then
+			f:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
+
+			if f.backdropTexture then
+				f.backdropTexture:Hide()
+				f.backdropTexture = nil
+			end
+
+			if not f.oborder and not f.iborder and not E.private.general.pixelPerfect and not f.forcePixelMode then
+				local border = CreateFrame("Frame", nil, f)
+				border:SetInside(f, E.mult, E.mult)
+				border:SetBackdrop({
+					edgeFile = E["media"].blankTex,
+					edgeSize = E.mult,
+					insets = { left = E.mult, right = E.mult, top = E.mult, bottom = E.mult }
+				})
+				border:SetBackdropBorderColor(0, 0, 0, 1)
+				f.iborder = border
+
+				if f.oborder then return end
+				local border = CreateFrame("Frame", nil, f)
+				border:SetOutside(f, E.mult, E.mult)
+				border:SetFrameLevel(f:GetFrameLevel() + 1)
+				border:SetBackdrop({
+					edgeFile = E["media"].blankTex,
+					edgeSize = E.mult,
+					insets = { left = E.mult, right = E.mult, top = E.mult, bottom = E.mult }
+				})
+				border:SetBackdropBorderColor(0, 0, 0, 1)
+				f.oborder = border
+			end
+		end
+
+		if f.backdropTexture then
+			f:SetBackdropColor(0, 0, 0, backdropa)
+			f.backdropTexture:SetVertexColor(backdropr, backdropg, backdropb)
+			f.backdropTexture:SetAlpha(backdropa)
+			if glossTex then
+				f.backdropTexture:SetTexture(E["media"].glossTex)
+			else
+				f.backdropTexture:SetTexture(E["media"].blankTex)
+			end
+
+			if(f.forcePixelMode or forcePixelMode) then
+				f.backdropTexture:SetInside(f, E.mult, E.mult)
+			else
+				f.backdropTexture:SetInside(f)
+			end
+		end
+	else
+		f:SetBackdrop(nil)
+		if f.backdropTexture then f.backdropTexture:SetTexture(nil) end
+	end
+	f:SetBackdropBorderColor(borderr, borderg, borderb)
+
+	if not f.ignoreUpdates and not f.forcePixelMode then
+		E["frames"][f] = true
+	end
+end
+
 --Add API
 local function addapi(object)
 	local mt = getmetatable(object).__index
 	if not object.LevelUpBG then mt.LevelUpBG = LevelUpBG end
+	if not object.SetTemplateSLE then mt.SetTemplateSLE = SetTemplateSLE end
 end
 
 local handled = {["Frame"] = true}
