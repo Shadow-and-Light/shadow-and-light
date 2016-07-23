@@ -1,4 +1,5 @@
 v3.06
+Requires ElvUI v10.09 or higher to work
 Additions:
 - Chat datapanels can now have their backdrop hidden
 - Added options for strata, frame level and backdropn style on UI Buttons. Those are locked under advanced options.
