@@ -113,7 +113,6 @@ function B:Initialize()
 	if not SLE.initialized then return end
 	B.addonCount = 0
 	if E.private.sle.module.blizzmove then
-		if E.isMacClient then T.tinsert(B.Frames, "MacOptionsFrame") end
 		for i = 1, #B.Frames do
 			local frame = _G[B.Frames[i]]
 			if frame then B:MakeMovable(frame) else SLE:ErrorPrint("Doesn't exist: "..B.Frames[i]) end
