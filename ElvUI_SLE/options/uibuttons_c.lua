@@ -84,6 +84,17 @@ local function configTable()
 						name = L["Frame Level"],
 						min = 1, max = 250, step = 1,
 					},
+					transparent = {
+						order = 3,
+						name = L["Backdrop Template"],
+						desc = L["Change the template used for this backdrop."],
+						type = "select",
+						values = {
+							["NO"] = NONE,
+							["Default"] = DEFAULT,
+							["Transparent"] = L["Transparent"],
+						},
+					},
 				},
 			},
 			space = {

@@ -73,6 +73,7 @@ L["Reset these options to defaults"] = true
 L["Modules designed for older expantions"] = true
 L["Game Menu Buttons"] = true
 L["Adds |cff9482c9Shadow & Light|r buttons to main game menu."] = true
+L["Advanced Options"] = true
 L["SLE_Advanced_Desc"] = [[Folowing options provide acces to additional customization settings in various modules.
 Is not reccomended to new players or people not experienced in addons' configuration.]]
 L["Allow Advanced Options"] = true
@@ -388,6 +389,8 @@ L["Changes the text string to a shorter variant."] = true
 L["Delete character info"] = true
 L["Remove selected character from the stored gold values"] = true
 L["Are you sure you want to remove |cff1784d1%s|r from currency datatexts?"] = true
+L["Hide panel background"] = true
+L["Don't show this panel, only datatexts assinged to it"] = true
 
 --Equip Manager
 L["Equipment Manager"] = true
@@ -747,6 +750,7 @@ L["Quick Action"] = true
 L["Use quick access (on right click) for this button."] = true
 L["Function"] = true
 L["Function called by quick access."] = true
+L["UI Buttons Strata"] = true
 
 --Unitframes
 L["Options for customizing unit frames. Please don't change these setting when ElvUI's testing frames for bosses and arena teams are shown. That will make them invisible until retoggling."] = true

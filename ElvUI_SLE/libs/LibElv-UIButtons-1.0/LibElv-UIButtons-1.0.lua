@@ -106,7 +106,11 @@ local function CreateCoreButton(menu, name, text, onClick)
 	button.text = button:CreateFontString(nil, "OVERLAY")
 	button.text:SetPoint("CENTER", button, "CENTER", 0, 0)
 
-	S:HandleButton(button)
+	if menu.transparent == "Transparent" then
+		button:CreateBackdrop("Transparent")
+	elseif menu.transparent == "Default" then
+		S:HandleButton(button)
+	end
 
 	if text then
 		local t = button:CreateFontString(nil,"OVERLAY",button)
@@ -155,7 +159,11 @@ local function CreateDropdownButton(menu, core, name, text, tooltip1, tooltip2, 
 		b:SetScript('OnEnter', function(self) menu:OnEnter() end)
 		b:SetScript('OnLeave', function(self) menu:OnLeave() end)
 	end
-	S:HandleButton(b)
+	if menu.transparent == "Transparent" then
+		b:CreateBackdrop("Transparent")
+	elseif menu.transparent == "Default" then
+		S:HandleButton(b)
+	end
 
 	if text and type(text) == "string" then
 		b.text = b:CreateFontString(nil,"OVERLAY",b)
@@ -325,7 +333,7 @@ local function ToggleShow(menu)
 end
 
 --Creating of the menu
-function lib:CreateFrame(name, db, default, style, styleDefault, strata, level)
+function lib:CreateFrame(name, db, default, style, styleDefault, strata, level, transparent)
 	--Checks to prevent a shitload of errors cause of wrong arguments passed
 	if _G[name] then return end
 	if not strata then strata = "MEDIUM" end
@@ -335,6 +343,7 @@ function lib:CreateFrame(name, db, default, style, styleDefault, strata, level)
 	EqualizeDB(menu.db, menu.default)
 	if not style and styleDefault then style = styleDefault end
 	menu.style = style
+	menu.transparent = transparent
 
 	menu:SetFrameStrata(strata)
 	menu:SetFrameLevel(level or 5)

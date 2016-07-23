@@ -166,6 +166,7 @@ V["sle"] = {
 		["style"] = "classic",
 		["strata"] = "MEDIUM",
 		["level"] = 5,
+		["transparent"] = "Default",
 	},
 }
 
