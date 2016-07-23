@@ -1,7 +1,7 @@
 ﻿## Interface: 70000
 ## Title: |cff1784d1ElvUI|r |cff9482c9Shadow & Light|r
 ## Author: Darth Predator, Repooc
-## Version: 3.04
+## Version: 3.05
 ## Notes: Plugin-edit for |cff1784d1ElvUI|r implementing additional features.
 ## Notes-ruRU: Плагин-редакция для |cff1784d1ElvUI|r, добавляющий новые функции.
 ## URL: http://tukui.org/ 

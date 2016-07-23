@@ -1,3 +1,13 @@
+v3.05 07/23/2016
+Fixes:
+- Fixed easy cast fishing not respecting ignore pole option
+- Fixed raid utility being stubborn when mouseover option is checked
+- Fixed minimap buttons skinning applied when option is disabled
+- Fixed skinned minimap buttons jumping around all over the place (thanks to the only person who actually explained how to reproduce that instead of talking gibberish)
+- Fixed error caused by incompatibility popup about LocLite #IBlameBenik
+Misc:
+- Added missing locales
+
 v3.04
 Additions:
 - Equip manager now has an options for Timewalking sets
