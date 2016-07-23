@@ -99,9 +99,9 @@ end
 
 function DTP:Template(i)
 	if DTP.db["panel"..i].transparent then
-		self["Panel_"..i]:SetTemplate(DTP.db["panel"..i].noback and "NoDrop" or "Transparent")
+		self["Panel_"..i]:SetTemplate(DTP.db["panel"..i].noback and "NoBackdrop" or "Transparent")
 	else
-		self["Panel_"..i]:SetTemplate(DTP.db["panel"..i].noback and "NoDrop" or "Default", true)
+		self["Panel_"..i]:SetTemplate(DTP.db["panel"..i].noback and "NoBackdrop" or "Default", true)
 	end
 end
 

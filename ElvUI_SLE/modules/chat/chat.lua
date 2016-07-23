@@ -181,15 +181,15 @@ end
 
 local function SetDataPanelStyle()
 	if E.db.datatexts.panelTransparency then
-		LeftChatDataPanel:SetTemplate(E.db.sle.datatexts.leftchat.noborders and "NoDrop" or "Transparent")
-		LeftChatToggleButton:SetTemplate(E.db.sle.datatexts.leftchat.noborders and "NoDrop" or "Transparent")
-		RightChatDataPanel:SetTemplate(E.db.sle.datatexts.rightchat.noborders and "NoDrop" or "Transparent")
-		RightChatToggleButton:SetTemplate(E.db.sle.datatexts.rightchat.noborders and "NoDrop" or "Transparent")
+		LeftChatDataPanel:SetTemplate(E.db.sle.datatexts.leftchat.noborders and "NoBackdrop" or "Transparent")
+		LeftChatToggleButton:SetTemplate(E.db.sle.datatexts.leftchat.noborders and "NoBackdrop" or "Transparent")
+		RightChatDataPanel:SetTemplate(E.db.sle.datatexts.rightchat.noborders and "NoBackdrop" or "Transparent")
+		RightChatToggleButton:SetTemplate(E.db.sle.datatexts.rightchat.noborders and "NoBackdrop" or "Transparent")
 	else
-		LeftChatDataPanel:SetTemplate(E.db.sle.datatexts.leftchat.noborders and "NoDrop" or "Default", true)
-		LeftChatToggleButton:SetTemplate(E.db.sle.datatexts.leftchat.noborders and "NoDrop" or "Default", true)
-		RightChatDataPanel:SetTemplate(E.db.sle.datatexts.rightchat.noborders and "NoDrop" or "Default", true)
-		RightChatToggleButton:SetTemplate(E.db.sle.datatexts.rightchat.noborders and "NoDrop" or "Default", true)
+		LeftChatDataPanel:SetTemplate(E.db.sle.datatexts.leftchat.noborders and "NoBackdrop" or "Default", true)
+		LeftChatToggleButton:SetTemplate(E.db.sle.datatexts.leftchat.noborders and "NoBackdrop" or "Default", true)
+		RightChatDataPanel:SetTemplate(E.db.sle.datatexts.rightchat.noborders and "NoBackdrop" or "Default", true)
+		RightChatToggleButton:SetTemplate(E.db.sle.datatexts.rightchat.noborders and "NoBackdrop" or "Default", true)
 	end
 end
 
