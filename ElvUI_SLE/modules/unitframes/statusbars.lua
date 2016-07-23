@@ -87,6 +87,8 @@ function SUF:UpdateClass(frame)
 				bars[i]:SetStatusBarTexture(texture)
 			end
 		end
+	elseif frame.ClassBar == "AdditionalPower" or frame.ClassBar == "Stagger" then
+		bars:SetStatusBarTexture(texture)
 	end
 end
 
@@ -102,7 +104,7 @@ function SUF:UpdateStatusBars()
 			end
 		end
 	end
-	if E.private.sle.unitframe.statusbarTextures.class then UF:CreateAndUpdateUF('player') end
+	if E.private.sle.unitframe.statusbarTextures.class then SUF:UpdateClass(ElvUF_Player) end
 end
 
 function SUF:InitStatus()
