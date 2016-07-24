@@ -61,7 +61,7 @@ local function configTable()
 				type = 'range',
 				name = L["Update Throttle"],
 				min = 0.1, max = 2, step = 0.1,
-				disabled = function() return not E.db.sle.minimap.locPanel.enable end,
+				disabled = function() return not E.db.sle.minimap.coords.enable or not E.private.general.minimap.enable end,
 				set = function(info, value) E.db.sle.minimap.coords[ info[#info] ] = value; end,
 			},
 			fontGroup = {
@@ -69,7 +69,7 @@ local function configTable()
 				type = "group",
 				name = L["Fonts"],
 				guiInline = true,
-				disabled = function() return not E.db.sle.minimap.locPanel.enable end,
+				disabled = function() return not E.db.sle.minimap.coords.enable or not E.private.general.minimap.enable end,
 				get = function(info) return E.db.sle.minimap.coords[ info[#info] ] end,
 				set = function(info, value) E.db.sle.minimap.coords[ info[#info] ] = value; MM:CoordFont() end,
 				args = {
