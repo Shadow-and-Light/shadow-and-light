@@ -1,4 +1,4 @@
-v3.06
+v3.06 07/24/2016
 Requires ElvUI v10.09 or higher to work
 Additions:
 - Chat datapanels can now have their backdrop hidden
