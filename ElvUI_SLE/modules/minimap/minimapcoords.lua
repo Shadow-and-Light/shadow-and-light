@@ -32,8 +32,9 @@ function MM:UpdateCoords(elapsed)
 	local x, y = CreateCoords()
 	if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
 	if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
-	MM.coordspanel.Text:SetText(x.." , "..y)
-	if not MM.coordspanel.FirstLoad then
+	local cString = x.." , "..y
+	MM.coordspanel.Text:SetText(cString)
+	if not MM.coordspanel.FirstLoad and cString ~= "- , -" then
 		MM.coordspanel.FirstLoad = true
 		MM:CoordsSize()
 	end
@@ -67,6 +68,7 @@ end
 function MM:CreateCoordsFrame()
 	MM.coordspanel = CreateFrame('Frame', "SLE_CoordsPanel", E.UIParent)
 	MM.coordspanel:Point("BOTTOM", _G["Minimap"], "BOTTOM", 0, 0)
+	-- MM.coordspanel:CreateBackdrop()
 	E.FrameLocks["SLE_CoordsPanel"] = true;
 
 	MM.coordspanel.Text = MM.coordspanel:CreateFontString(nil, "OVERLAY")
