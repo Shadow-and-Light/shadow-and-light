@@ -7,8 +7,8 @@ local function configTable()
 		name = L["NamePlates"],
 		order = 14,
 		disabled = function() return not E.private.nameplates.enable end,
-		get = function(info) return E.db.sle.nameplate[ info[#info] ] end,
-		set = function(info, value) E.db.sle.nameplate[ info[#info] ] = value; E:GetModule('NamePlates'):ConfigureAll() end,
+		get = function(info) return E.db.sle.nameplates[ info[#info] ] end,
+		set = function(info, value) E.db.sle.nameplates[ info[#info] ] = value; E:GetModule('NamePlates'):ConfigureAll() end,
 		args = {
 			header = {
 				order = 1,
@@ -26,6 +26,14 @@ local function configTable()
 				order = 3,
 				name = L["Threat Text"],
 				desc = L["Display threat level as text on targeted, boss or mouseover nameplate."],
+			},
+			visibleRange = {
+				type = "range",
+				order = 4,
+				name = L["Visibility Range"],
+				desc = L["Sets the maximum range to the unit on which its nameplate will be shown."],
+				min = 1, max = 100, step = 1,
+				set = function(info, value) E.db.sle.nameplates[ info[#info] ] = value; SLE:GetModule('Nameplates'):PlateRange() end,
 			},
 		},
 	}

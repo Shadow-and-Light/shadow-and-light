@@ -345,9 +345,10 @@ P["sle"] = {
 		},
 	},
 	--Nameplate Options
-	["nameplate"] = {
+	["nameplates"] = {
 		["showthreat"] = false,
 		["targetcount"] = false,
+		["visibleRange"] = 60,
 	},
 	--Loot 
 	["loot"] = {
