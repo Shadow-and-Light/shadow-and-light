@@ -253,7 +253,10 @@ function C:UpdateChatMax()
 		local frame = _G[frameName]
 		frame:SetMaxLines(E.private.sle.chat.chatMax)
 	end
+	local whisper = E.db.chat.whisperSound
+	E.db.chat.whisperSound = "None"
 	CH:DisplayChatHistory()
+	E.db.chat.whisperSound = whisper
 end
 hooksecurefunc(CH, "Initialize", C.UpdateChatMax)
 
