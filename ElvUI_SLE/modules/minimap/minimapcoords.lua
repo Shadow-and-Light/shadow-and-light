@@ -32,12 +32,8 @@ function MM:UpdateCoords(elapsed)
 	local x, y = CreateCoords()
 	if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
 	if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
-	local cString = x.." , "..y
-	MM.coordspanel.Text:SetText(cString)
-	if not MM.coordspanel.FirstLoad and cString ~= "- , -" then
-		MM.coordspanel.FirstLoad = true
-		MM:CoordsSize()
-	end
+	MM.coordspanel.Text:SetText(x.." , "..y)
+	MM:CoordsSize()
 	MM.coordspanel.elapsed = 0
 end
 
@@ -57,7 +53,10 @@ end
 
 function MM:CoordsSize()
 	local size = MM.coordspanel.Text:GetStringWidth()
-	MM.coordspanel:Size(size + 4, E.db.sle.minimap.coords.fontSize + 2)
+	if size ~= MM.coordspanel.WidthValue then
+		MM.coordspanel:Size(size + 4, E.db.sle.minimap.coords.fontSize + 2)
+		MM.coordspanel.WidthValue = size + 4
+	end
 end
 
 function MM:UpdateCoordinatesPosition()
@@ -68,11 +67,13 @@ end
 function MM:CreateCoordsFrame()
 	MM.coordspanel = CreateFrame('Frame', "SLE_CoordsPanel", E.UIParent)
 	MM.coordspanel:Point("BOTTOM", _G["Minimap"], "BOTTOM", 0, 0)
+	MM.coordspanel.WidthValue = 0
 	-- MM.coordspanel:CreateBackdrop()
 	E.FrameLocks["SLE_CoordsPanel"] = true;
 
 	MM.coordspanel.Text = MM.coordspanel:CreateFontString(nil, "OVERLAY")
-	MM.coordspanel.Text:SetAllPoints(MM.coordspanel)
+	-- MM.coordspanel.Text:SetAllPoints(MM.coordspanel)
+	MM.coordspanel.Text:SetPoint("CENTER", MM.coordspanel)
 	MM.coordspanel.Text:SetWordWrap(false)
 
 	_G["Minimap"]:HookScript('OnEnter', function(self)
