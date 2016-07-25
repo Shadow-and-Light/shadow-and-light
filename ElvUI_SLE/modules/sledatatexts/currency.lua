@@ -179,23 +179,6 @@ local function GetCurrency(CurrencyTable, Text)
 	end
 end
 
-local function FormatMoney(money)
-	local gold, silver, copper = T.floor(abs(money / 10000)), abs(mod(money / 100, 100)), abs(mod(money, 100))
-	if gold ~= 0 then
-		return T.format(goldFormatter, BreakUpLargeNumbers(gold), silver, copper)
-	elseif silver ~= 0 then
-		return T.format(silverFormatter, silver, copper)
-	else
-		return T.format(copperFormatter, copper)
-	end
-end
-
-local function FormatTooltipMoney(money)
-	if not money then return end
-	local gold, silver, copper = T.floor(abs(money / 10000)), abs(mod(money / 100, 100)), abs(mod(money, 100))
-	return T.format(goldFormatter, BreakUpLargeNumbers(gold), silver, copper)
-end
-
 local function OnEvent(self, event, ...)
 	if not IsLoggedIn() then return end
 	local NewMoney = GetMoney();
@@ -236,7 +219,7 @@ local function OnEvent(self, event, ...)
 			Profit = Profit + Change
 		end
 
-		self.text:SetText(FormatMoney(NewMoney))
+		self.text:SetText(E:FormatMoney(NewMoney, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins))
 
 		local FactionToken, Faction = T.UnitFactionGroup('player')
 
@@ -279,12 +262,12 @@ local function OnEnter(self)
 	DT:SetupTooltip(self)
 
 	DT.tooltip:AddLine(L["Session:"])
-	DT.tooltip:AddDoubleLine(L["Earned:"], FormatMoney(Profit), 1, 1, 1, 1, 1, 1)
-	DT.tooltip:AddDoubleLine(L["Spent:"], FormatMoney(Spent), 1, 1, 1, 1, 1, 1)
+	DT.tooltip:AddDoubleLine(L["Earned:"], E:FormatMoney(Profit, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), 1, 1, 1, 1, 1, 1)
+	DT.tooltip:AddDoubleLine(L["Spent:"], E:FormatMoney(Spent, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), 1, 1, 1, 1, 1, 1)
 	if Profit < Spent then
-		DT.tooltip:AddDoubleLine(L["Deficit:"], FormatMoney(Profit-Spent), 1, 0, 0, 1, 1, 1)
+		DT.tooltip:AddDoubleLine(L["Deficit:"], E:FormatMoney(Profit-Spent, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), 1, 0, 0, 1, 1, 1)
 	elseif (Profit-Spent)>0 then
-		DT.tooltip:AddDoubleLine(L["Profit:"], FormatMoney(Profit-Spent), 0, 1, 0, 1, 1, 1)
+		DT.tooltip:AddDoubleLine(L["Profit:"], E:FormatMoney(Profit-Spent, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), 0, 1, 0, 1, 1, 1)
 	end
 	DT.tooltip:AddLine' '
 
@@ -294,7 +277,7 @@ local function OnEnter(self)
 		if ElvDB["gold"][E.myrealm][k] then
 			local class = ElvDB["class"][E.myrealm][k]
 			local color = RAID_CLASS_COLORS[class or "PRIEST"]
-			DT.tooltip:AddDoubleLine(k, FormatTooltipMoney(ElvDB["gold"][E.myrealm][k]), color.r, color.g, color.b, 1, 1, 1)
+			DT.tooltip:AddDoubleLine(k, E:FormatMoney(ElvDB["gold"][E.myrealm][k], E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), color.r, color.g, color.b, 1, 1, 1)
 			if ElvDB["faction"][E.myrealm]["Alliance"][k] then
 				AllianceGold = AllianceGold + ElvDB["gold"][E.myrealm][k]
 			end
@@ -308,10 +291,10 @@ local function OnEnter(self)
 	DT.tooltip:AddLine' '
 	DT.tooltip:AddLine(L["Server: "])
 	if GetOption('Faction') then
-		DT.tooltip:AddDoubleLine(T.format('%s: ', FACTION_HORDE), FormatTooltipMoney(HordeGold), HordeColor.r, HordeColor.g, HordeColor.b, 1, 1, 1)
-		DT.tooltip:AddDoubleLine(T.format('%s: ', FACTION_ALLIANCE), FormatTooltipMoney(AllianceGold), AllianceColor.r, AllianceColor.g, AllianceColor.b, 1, 1, 1)
+		DT.tooltip:AddDoubleLine(T.format('%s: ', FACTION_HORDE), E:FormatMoney(HordeGold, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), HordeColor.r, HordeColor.g, HordeColor.b, 1, 1, 1)
+		DT.tooltip:AddDoubleLine(T.format('%s: ', FACTION_ALLIANCE), E:FormatMoney(AllianceGold, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), AllianceColor.r, AllianceColor.g, AllianceColor.b, 1, 1, 1)
 	end
-	DT.tooltip:AddDoubleLine(L["Total: "], FormatTooltipMoney(totalGold), 1, 1, 1, 1, 1, 1)
+	DT.tooltip:AddDoubleLine(L["Total: "], E:FormatMoney(totalGold, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), 1, 1, 1, 1, 1, 1)
 
 	if ARCHAEOLOGY ~= nil and GetOption('Archaeology') then
 		GetCurrency(ArchaeologyFragments, T.format('%s %s:', ARCHAEOLOGY, ARCHAEOLOGY_RUNE_STONES))
