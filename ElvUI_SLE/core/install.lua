@@ -400,7 +400,7 @@ function PI:DarthSetup()
 		E.db["unitframe"]["units"]["raid"]["roleIcon"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["roleIcon"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["font"] = "PT Sans Narrow"
-		E.db["unitframe"]["units"]["raid"]['growthDirection'] = 'RIGHT_UP'
+		E.db["unitframe"]["units"]["raid"]['growthDirection'] = "RIGHT_UP"
 		E.db["unitframe"]["units"]["raid"]["numGroups"] = 8
 		E.db["unitframe"]["units"]["raid"]["width"] = 86
 		E.db["unitframe"]["units"]["raid"]["infoPanel"]["enable"] = true
