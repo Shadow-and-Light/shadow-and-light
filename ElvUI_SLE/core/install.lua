@@ -185,6 +185,7 @@ function PI:DarthSetup()
 	do
 		E.db["datatexts"]["noCombatClick"] = true
 		E.db["datatexts"]["noCombatHover"] = true
+		E.db["datatexts"]["goldCoins"] = true
 		E.db["datatexts"]["fontOutline"] = "OUTLINE"
 		E.db["datatexts"]["panelTransparency"] = true
 		E.db["datatexts"]["time24"] = true
