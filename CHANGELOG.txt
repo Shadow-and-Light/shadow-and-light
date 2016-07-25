@@ -1,3 +1,12 @@
+v3.07
+Additions:
+- Added an option for the max range of showing namepletes
+Fixes:
+- Fixed annoying whisper sound played when chat history was dumped
+- Fixed minimap coordinates options being greyed out when loc panel was enabled
+Changes:
+- Currency DT now follows ElvUI's setting for showing coins (including in tooltip)
+
 v3.06 07/24/2016
 Requires ElvUI v10.09 or higher to work
 Additions:
