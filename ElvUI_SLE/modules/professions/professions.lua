@@ -51,6 +51,13 @@ function Pr:Initialize()
 
 	LoadAddOn("Blizzard_TradeSkillUI")
 	Pr:UpdateSkills()
+	_G["TradeSkillFrame"]:HookScript("OnShow", function(self)
+		if Pr.FirstOpen then return end
+		E:Delay(0.2, function()
+			Pr.FirstOpen = true
+			self.RecipeList.scrollBar:SetValue(0)
+		end)
+	end)
 
 	if E.private.sle.professions.enchant.enchScroll then Pr:EnchantButton() end
 
