@@ -251,14 +251,13 @@ function Pr:Construct_BagButton()
 
 	Pr.DeconstructButton:StyleButton(nil, true)
 	Pr.DeconstructButton:SetScript("OnClick", function(self,...)
-		if Pr.DeconstructMode == true then
-			Pr.DeconstructMode = false
-			Pr.DeconstructButton:SetNormalTexture("Interface\\ICONS\\INV_Rod_Cobalt")
-			ActionButton_HideOverlayGlow(Pr.DeconstructButton)
-		else
-			Pr.DeconstructMode = true
+		Pr.DeconstructMode = not Pr.DeconstructMode
+		if Pr.DeconstructMode then
 			Pr.DeconstructButton:SetNormalTexture("Interface\\ICONS\\INV_Rod_EnchantedCobalt")
 			if E.private.sle.professions.deconButton.buttonGlow then ActionButton_ShowOverlayGlow(Pr.DeconstructButton) end
+		else
+			Pr.DeconstructButton:SetNormalTexture("Interface\\ICONS\\INV_Rod_Cobalt")
+			ActionButton_HideOverlayGlow(Pr.DeconstructButton)
 		end
 		Pr.DeconstructButton.ttText2 = T.format(L["Allow you to disenchant/mill/prospect/unlock items.\nClick to toggle.\nCurrent state: %s."], Pr:GetDeconMode())
 		B.Tooltip_Show(self)
