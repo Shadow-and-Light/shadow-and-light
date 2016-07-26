@@ -1,11 +1,10 @@
 v3.07
-Additions:
-- Added an option for the max range of showing namepletes
 Fixes:
 - Fixed annoying whisper sound played when chat history was dumped
 - Fixed minimap coordinates options being greyed out when loc panel was enabled
 - Fixed minimap coordinates being truncated
 - Fixed all reset buttons in config (cause no one ever pressed those while testing)
+- Fixed scrollbar in trade ui being all the way down
 Changes:
 - Currency DT now follows ElvUI's setting for showing coins (including in tooltip)
 
