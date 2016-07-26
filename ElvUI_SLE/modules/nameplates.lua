@@ -116,17 +116,12 @@ function N:StartRosterUpdate()
 	end
 end
 
-function N:PlateRange()
-	SetCVar("nameplateMaxDistance", N.db.visibleRange or 60)
-end
-
 function N:Initialize()
 	if not SLE.initialized or not E.private.nameplates.enable then return end
 	if E.db.sle.nameplate then E.db.sle.nameplates = E.db.sle.nameplate; E.db.sle.nameplate = nil end
 	N.db = E.db.sle.nameplates
 	self:RegisterEvent("GROUP_ROSTER_UPDATE", "StartRosterUpdate")
 	self:RegisterEvent("UNIT_TARGET", "UpdateCount")
-	N:PlateRange()
 
 	E:Delay(.3, function() N:UpdateCount(nil,"player", true) end)
 	function N:ForUpdateAll()

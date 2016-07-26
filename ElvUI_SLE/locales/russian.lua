@@ -551,8 +551,6 @@ L["Target Count"] = "Число выделений"
 L["Display the number of party / raid members targetting the nameplate unit."] = "Показывать количество членов группы/рейда, выбравших в цель этот юнит."
 L["Threat Text"] = "Текст угрозы"
 L["Display threat level as text on targeted, boss or mouseover nameplate."] = "Отображает текст угрозы на индикаторе цели, босса или юнита под курсором."
-L["Visibility Range"] = "Дальность видимости"
-L["Sets the maximum range to the unit on which its nameplate will be shown."] = "Устанавливает максимальное расстояние до юнита, на котором будет показываться его индикатор."
 
 --Professions
 L["Deconstruct Mode"] = "Режим распыления"

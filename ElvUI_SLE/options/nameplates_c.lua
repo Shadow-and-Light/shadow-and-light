@@ -27,14 +27,6 @@ local function configTable()
 				name = L["Threat Text"],
 				desc = L["Display threat level as text on targeted, boss or mouseover nameplate."],
 			},
-			visibleRange = {
-				type = "range",
-				order = 4,
-				name = L["Visibility Range"],
-				desc = L["Sets the maximum range to the unit on which its nameplate will be shown."],
-				min = 1, max = 100, step = 1,
-				set = function(info, value) E.db.sle.nameplates[ info[#info] ] = value; SLE:GetModule('Nameplates'):PlateRange() end,
-			},
 		},
 	}
 end

@@ -559,8 +559,6 @@ L["Target Count"] = true
 L["Display the number of party / raid members targetting the nameplate unit."] = true
 L["Threat Text"] = true
 L["Display threat level as text on targeted, boss or mouseover nameplate."] = true
-L["Visibility Range"] = true
-L["Sets the maximum range to the unit on which its nameplate will be shown."] = true
 
 --Professions
 L["Deconstruct Mode"] = true
