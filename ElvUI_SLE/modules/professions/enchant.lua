@@ -72,6 +72,7 @@ function Pr:EnchantButton()
 		if CURRENT_TRADESKILL ~= EnchName then _G["SLE_EnchScrollButton"]:Hide() return end
 
 		local recipeInfo = C_TradeSkillUI.GetRecipeInfo(frame.selectedRecipeID)
+		if not recipeInfo then return end
 		if C_TradeSkillUI.IsTradeSkillGuild() or C_TradeSkillUI.IsTradeSkillLinked() then
 			_G["SLE_EnchScrollButton"]:Hide()
 		elseif recipeInfo.alternateVerb then
