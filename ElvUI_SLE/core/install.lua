@@ -504,6 +504,8 @@ function PI:DarthSetup()
 		E.db["sle"]["pvp"]["duels"]["pet"] = true
 		E.db["sle"]["pvp"]["duels"]["regular"] = true
 		E.db["sle"]["pvp"]["autorelease"] = true
+		E.db["sle"]["skins"]["merchant"]["list"]["subSize"] = 11
+		E.db["sle"]["skins"]["merchant"]["list"]["nameSize"] = 12
 	end
 	--Movers
 	do
