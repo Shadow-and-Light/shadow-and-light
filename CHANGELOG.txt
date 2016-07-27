@@ -4,7 +4,7 @@ Additions:
 - Affinitii's layout made its return to install. Keep in mind that this setup was not updated in years and can look not ideal. You'll need to change it a bit after applying.
 Fixes:
 - Fixed annoying whisper sound played when chat history was dumped
-- Fixed minimap coordinates options being greyed out when loc panel was enabled
+- Fixed minimap coordinates options being greyed out when loc panel was disabled
 - Fixed minimap coordinates being truncated
 - Fixed all reset buttons in config (cause no one ever pressed those while testing)
 - Fixed scrollbar in trade ui being all the way down
