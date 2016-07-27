@@ -43,9 +43,9 @@ end
 
 function BG:RegisterHide(i)
 	if BG.db["bg"..i].pethide then
-		E.FrameLocks[BG["Frame_"..i]] = true
+		E:RegisterPetBattleHideFrames(BG["Frame_"..i], E.UIParent, "BACKGROUND")
 	else
-		E.FrameLocks[BG["Frame_"..i]] = nil
+		E:UnregisterPetBattleHideFrames(BG["Frame_"..i])
 	end
 end
 

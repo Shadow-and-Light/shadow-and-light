@@ -95,7 +95,11 @@ function DTP:Toggle(i)
 end
 
 function DTP:PetHide(i)
-	E.FrameLocks[self["Panel_"..i]] = DTP.db["panel"..i].pethide or nil
+	if DTP.db["panel"..i].pethide then
+		E:RegisterPetBattleHideFrames(self["Panel_"..i], E.UIParent, "LOW")
+	else
+		E:UnregisterPetBattleHideFrames(self["Panel_"..i])
+	end
 end
 
 function DTP:Template(i)
