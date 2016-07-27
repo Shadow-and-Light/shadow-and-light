@@ -41,8 +41,10 @@ A |cff1784d1"%s"|r role was chosen.
 |cffFF0000Warning:|r Please note that the authors' may or may not use any of the layouts/themes you have selected as they may have changed their setup more recently. Also switching between layouts in here may cause some unpredictable and weird results.]=]
 L["Darth's Config"] = true
 L["Repooc's Config"] = true
+L["Affinitii's Config"] = true
 L["Darth's Default Set"] = true
 L["Repooc's Default Set"] = true
+L["Affinitii's Default Set"] = true
 L["Layout & Settings Import"] = true
 L["You have selected to use %s."] = true
 L["SLE_INSTALL_LAYOUT_TEXT2"] = [[Following buttons will import layout/addon settings for the selected config and role.
