@@ -126,7 +126,6 @@ function N:Initialize()
 	E:Delay(.3, function() N:UpdateCount(nil,"player", true) end)
 	function N:ForUpdateAll()
 		N.db = E.db.sle.nameplates
-		N:PlateRange()
 	end
 end
 
