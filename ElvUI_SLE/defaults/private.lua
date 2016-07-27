@@ -160,6 +160,7 @@ V["sle"] = {
 		},
 		["merchant"] = {
 			["enable"] = false,
+			["style"] = "Default",
 			["subpages"] = 2,
 		},
 	},

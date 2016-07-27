@@ -337,13 +337,21 @@ local function configTable()
 						type = "toggle",
 						name = L["Enable"],
 					},
+					style = {
+						order = 2, type = "select",
+						name = L["Style"],
+						values = {
+							["Default"] = DEFAULT,
+							["List"] = L["As List"],
+						},
+					},
 					subpages = {
 						order = 2,
 						type = 'range',
 						name = L["Subpages"],
 						desc = L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."],
 						min = 2, max = 5, step = 1,
-						disabled = function() return not E.private.sle.skins.merchant.enable end,
+						disabled = function() return not E.private.sle.skins.merchant.enable or E.private.sle.skins.merchant.style ~= "Default" end,
 					},
 				},
 			},

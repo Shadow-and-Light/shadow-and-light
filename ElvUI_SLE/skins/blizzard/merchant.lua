@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Sk = SLE:GetModule("Skins")
 local S = E:GetModule('Skins')
 --GLOBALS: CreateFrame, MERCHANT_ITEMS_PER_PAGE, BUYBACK_ITEMS_PER_PAGE, hooksecurefunc, MERCHANT_PAGE_NUMBER
@@ -214,9 +214,7 @@ local function RebuildMerchantFrame()
 	ItemsPerSubpage = MERCHANT_ITEMS_PER_PAGE
 	SubpagesPerPage = E.private.sle.skins.merchant.subpages
 	MERCHANT_ITEMS_PER_PAGE = SubpagesPerPage * 10 --Haven't seen this causing any taints so I asume it's ok
-	-- _G["MerchantFrame"]:SetWidth(60 + 330 * SubpagesPerPage)
 	_G["MerchantFrame"]:SetWidth(42 + (318 * SubpagesPerPage) + (12 * (SubpagesPerPage - 1)))
-	-- _G["MerchantFrame"]:SetWidth(690)
 
 	for i = 1, MERCHANT_ITEMS_PER_PAGE do
 		if (not _G["MerchantItem" .. i]) then
@@ -247,6 +245,7 @@ end
 
 local function MerchantSkinInit()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.merchant ~= true or E.private.sle.skins.merchant.enable ~= true then return end
+	if E.private.sle.skins.merchant.style ~= "Default" then return end
 	RebuildMerchantFrame()
 	UpdateButtonsPositions()
 

@@ -3,4 +3,5 @@
 	<Script file='petbattle.lua'/>
 	<Script file='objectiveTracker.lua'/>
 	<Script file='merchant.lua'/>
+	<Script file='merchantList.lua'/>
 </Ui>

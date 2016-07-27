@@ -679,6 +679,7 @@ L["Subpages are blocks of 10 items. This option set how many of subpages will be
 -- L["SLE_QUESTKING_Required"] = "  Required: "
 L["ElvUI Objective Tracker"] = "Список задач ElvUI"
 L["ElvUI Skins"] = "Скины ElvUI"
+L["As List"] = "Списком"
 
 --Toolbars
 L["We are sorry, but you can't do this now. Try again after the end of this combat."] = "Извините, но Вы не можете этого сделать сейчас. Попробуйте снова после окончания текущего боя."

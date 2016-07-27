@@ -688,6 +688,7 @@ Ctrl + Left Click to collapce]]
 L["SLE_QUESTKING_Required"] = "  Required: "
 L["ElvUI Objective Tracker"] = true
 L["ElvUI Skins"] = true
+L["As List"] = true
 
 --Toolbars
 L["We are sorry, but you can't do this now. Try again after the end of this combat."] = true
