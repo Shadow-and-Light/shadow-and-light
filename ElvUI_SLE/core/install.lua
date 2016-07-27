@@ -588,6 +588,7 @@ function PI:DarthSetup()
 	E.private["sle"]["chat"]["chatHistory"]["CHAT_MSG_GUILD_ACHIEVEMENT"] = false
 	E.private["sle"]["chat"]["chatHistory"]["CHAT_MSG_EMOTE"] = false
 	E.private["sle"]["skins"]["merchant"]["enable"] = true
+	E.private["sle"]["skins"]["merchant"]["style"] = "List"
 	E.private["sle"]["equip"]["setoverlay"] = true
 	E.private["sle"]["actionbars"]["transparentButtons"] = true
 
