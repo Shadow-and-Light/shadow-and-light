@@ -169,6 +169,7 @@ end
 --Math
 T.floor = floor
 T.tonumber = tonumber
+T.tostring = tostring
 --Groups
 T.IsInGroup = IsInGroup
 T.IsInRaid = IsInRaid
