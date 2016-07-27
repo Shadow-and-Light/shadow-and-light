@@ -1,6 +1,7 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Sk = SLE:GetModule("Skins")
 local S = E:GetModule('Skins')
+local LSM = LibStub("LibSharedMedia-3.0")
 --GLOBALS: CreateFrame, hooksecurefunc, ChatFontSmall, UIParent, INVSLOT_FIRST_EQUIPPED, INVSLOT_LAST_EQUIPPED
 --Rebuilding Merchant Frame as a scrollable list. Based on a code by Nils Ruesch (xMerchant addon)
 local _G = _G
@@ -611,17 +612,6 @@ local function Create_ListButton(frame, i)
 	highlight:SetTexture("Interface\\Buttons\\UI-Listbox-Highlight2");
 	highlight:Hide();
 
-	local itemname = button:CreateFontString("ARTWORK", "$parentItemName", "GameFontHighlightSmall");
-	button.itemname = itemname;
-	itemname:SetPoint("TOPLEFT", 30.4, -3);
-	itemname:SetJustifyH("LEFT");
-
-	local iteminfo = button:CreateFontString("ARTWORK", "$parentItemInfo", "GameFontDisableSmall");
-	button.iteminfo = iteminfo;
-	iteminfo:SetPoint("BOTTOMLEFT", 30.4, 3);
-	iteminfo:SetJustifyH("LEFT");
-	iteminfo:SetTextHeight(12);
-
 	local icon = button:CreateTexture("$parentIcon", "BORDER");
 	button.icon = icon;
 	icon:SetWidth(25.4);
@@ -629,11 +619,25 @@ local function Create_ListButton(frame, i)
 	icon:SetPoint("LEFT", 2, 0);
 	icon:SetTexture("Interface\\Icons\\temp");
 
+	local itemname = button:CreateFontString("ARTWORK", "$parentItemName")
+	button.itemname = itemname;
+	itemname:SetFont(LSM:Fetch('font', E.db.sle.skins.merchant.list.nameFont), E.db.sle.skins.merchant.list.nameSize, E.db.sle.skins.merchant.list.nameOutline)
+	itemname:SetPoint("TOPLEFT", icon, "TOPRIGHT", 4, -3);
+	itemname:SetJustifyH("LEFT");
+
+	local iteminfo = button:CreateFontString("ARTWORK", "$parentItemInfo")
+	button.iteminfo = iteminfo;
+	iteminfo:SetFont(LSM:Fetch('font', E.db.sle.skins.merchant.list.subFont), E.db.sle.skins.merchant.list.subSize, E.db.sle.skins.merchant.list.subOutline)
+	-- iteminfo:SetPoint("BOTTOMLEFT", 30.4, 3);
+	iteminfo:SetPoint("BOTTOMLEFT", icon, "BOTTOMRIGHT", 4, -3);
+	iteminfo:SetJustifyH("LEFT");
+
 	local money = button:CreateFontString("ARTWORK", "$parentMoney", "GameFontHighlight");
 	button.money = money;
 	money:SetPoint("RIGHT", -2, 0);
 	money:SetJustifyH("RIGHT");
-	itemname:SetPoint("RIGHT", money, "LEFT", -2, 0);
+	itemname:SetPoint("BOTTOMRIGHT", money, "LEFT", -2, 0);
+	iteminfo:SetPoint("TOPRIGHT", money, "LEFT", -2, 0);
 
 	button.item = {};
 	for j=1, MAX_ITEM_COST do

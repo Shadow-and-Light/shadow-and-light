@@ -337,14 +337,6 @@ local function configTable()
 						type = "toggle",
 						name = L["Enable"],
 					},
-					style = {
-						order = 2, type = "select",
-						name = L["Style"],
-						values = {
-							["Default"] = DEFAULT,
-							["List"] = L["As List"],
-						},
-					},
 					subpages = {
 						order = 2,
 						type = 'range',
@@ -352,6 +344,71 @@ local function configTable()
 						desc = L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."],
 						min = 2, max = 5, step = 1,
 						disabled = function() return not E.private.sle.skins.merchant.enable or E.private.sle.skins.merchant.style ~= "Default" end,
+					},
+					style = {
+						order = 3, type = "select",
+						name = L["Style"],
+						values = {
+							["Default"] = DEFAULT,
+							["List"] = L["As List"],
+						},
+					},
+					listFonts = {
+						order = 4,
+						name = L["List Style Fonts"],
+						type = "group",
+						guiInline = true,
+						disabled = function() return E.private.sle.skins.merchant.style ~= "List" end,
+						get = function(info) return E.db.sle.skins.merchant.list[ info[#info] ] end,
+						set = function(info, value) E.db.sle.skins.merchant.list[ info[#info] ] = value; Sk:Media() end,
+						args = {
+							nameFont = {
+								type = "select", dialogControl = 'LSM30_Font',
+								order = 1,
+								name = L["Item Name Font"],
+								values = AceGUIWidgetLSMlists.font,	
+							},
+							nameSize = {
+								order = 2,
+								name = L["Item Name Size"],
+								type = "range",
+								min = 8, max = 32, step = 1,
+							},
+							nameOutline = {
+								order = 3,
+								name = L["Item Name Outline"],
+								type = "select",
+								values = {
+									["NONE"] = L["None"],
+									["OUTLINE"] = 'OUTLINE',
+									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
+									["THICKOUTLINE"] = 'THICKOUTLINE',
+								},
+							},
+							subFont = {
+								type = "select", dialogControl = 'LSM30_Font',
+								order = 4,
+								name = L["Item Info Font"],
+								values = AceGUIWidgetLSMlists.font,	
+							},
+							subSize = {
+								order = 5,
+								name = L["Item Info Size"],
+								type = "range",
+								min = 8, max = 32, step = 1,
+							},
+							subOutline = {
+								order = 6,
+								name = L["Item Info Outline"],
+								type = "select",
+								values = {
+									["NONE"] = L["None"],
+									["OUTLINE"] = 'OUTLINE',
+									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
+									["THICKOUTLINE"] = 'THICKOUTLINE',
+								},
+							},
+						}
 					},
 				},
 			},

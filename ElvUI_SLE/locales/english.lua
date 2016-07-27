@@ -689,6 +689,13 @@ L["SLE_QUESTKING_Required"] = "  Required: "
 L["ElvUI Objective Tracker"] = true
 L["ElvUI Skins"] = true
 L["As List"] = true
+L["List Style Fonts"] = true
+L["Item Name Font"] = true
+L["Item Name Size"] = true
+L["Item Name Outline"] = true
+L["Item Info Font"] = true
+L["Item Info Size"] = true
+L["Item Info Outline"] = true
 
 --Toolbars
 L["We are sorry, but you can't do this now. Try again after the end of this combat."] = true

@@ -680,6 +680,13 @@ L["Subpages are blocks of 10 items. This option set how many of subpages will be
 L["ElvUI Objective Tracker"] = "Список задач ElvUI"
 L["ElvUI Skins"] = "Скины ElvUI"
 L["As List"] = "Списком"
+L["List Style Fonts"] = "Шрифты стиля списка"
+L["Item Name Font"] = "Шрифт названия"
+L["Item Name Size"] = "Размер названия"
+L["Item Name Outline"] = "Граница названия"
+L["Item Info Font"] = "Шрифт информации"
+L["Item Info Size"] = "Размер информации"
+L["Item Info Outline"] = "Граница информации"
 
 --Toolbars
 L["We are sorry, but you can't do this now. Try again after the end of this combat."] = "Извините, но Вы не можете этого сделать сейчас. Попробуйте снова после окончания текущего боя."
