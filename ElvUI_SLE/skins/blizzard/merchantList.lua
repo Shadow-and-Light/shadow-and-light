@@ -2,6 +2,7 @@
 local Sk = SLE:GetModule("Skins")
 local S = E:GetModule('Skins')
 --GLOBALS: CreateFrame, hooksecurefunc, ChatFontSmall, UIParent, INVSLOT_FIRST_EQUIPPED, INVSLOT_LAST_EQUIPPED
+--Rebuilding Merchant Frame as a scrollable list. Based on a code by Nils Ruesch (xMerchant addon)
 local _G = _G
 local strtrim = strtrim
 local GetLocale = GetLocale

@@ -2,6 +2,7 @@ v3.07
 This version requires ElvUI 10.12 to run.
 Additions:
 - Affinitii's layout made its return to install. Keep in mind that this setup was not updated in years and can look not ideal. You'll need to change it a bit after applying.
+- Added an ption to change merchant frame into scrollable list. Based on a code from xMerchant addon by Nils Ruesch
 Fixes:
 - Fixed annoying whisper sound played when chat history was dumped
 - Fixed minimap coordinates options being greyed out when loc panel was disabled
