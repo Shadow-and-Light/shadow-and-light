@@ -80,7 +80,7 @@ local function UpdateButtonsPositions(isBuyBack)
 end
 
 local function UpdateBuybackInfo()
-	UpdateButtonsPositions(true)
+	if E.private.sle.skins.merchant.style == "Default" then UpdateButtonsPositions(true) end
 	-- apply coloring
 	local btn, link, quality, r, g, b, _;
 	for i = 1, BUYBACK_ITEMS_PER_PAGE, 1 do
@@ -245,12 +245,12 @@ end
 
 local function MerchantSkinInit()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.merchant ~= true or E.private.sle.skins.merchant.enable ~= true then return end
+	hooksecurefunc("MerchantFrame_UpdateBuybackInfo", UpdateBuybackInfo)
 	if E.private.sle.skins.merchant.style ~= "Default" then return end
 	RebuildMerchantFrame()
 	UpdateButtonsPositions()
 
 	hooksecurefunc("MerchantFrame_UpdateMerchantInfo", UpdateMerchantInfo)
-	hooksecurefunc("MerchantFrame_UpdateBuybackInfo", UpdateBuybackInfo)
 end
 
 hooksecurefunc(S, "Initialize", MerchantSkinInit)
