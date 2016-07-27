@@ -69,7 +69,6 @@ function MM:CreateCoordsFrame()
 	MM.coordspanel:Point("BOTTOM", _G["Minimap"], "BOTTOM", 0, 0)
 	MM.coordspanel.WidthValue = 0
 	-- MM.coordspanel:CreateBackdrop()
-	E.FrameLocks["SLE_CoordsPanel"] = true;
 
 	MM.coordspanel.Text = MM.coordspanel:CreateFontString(nil, "OVERLAY")
 	-- MM.coordspanel.Text:SetAllPoints(MM.coordspanel)
