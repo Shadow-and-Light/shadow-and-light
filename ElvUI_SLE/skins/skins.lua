@@ -25,9 +25,10 @@ function Sk:CreateUnderline(frame, texture, shadow, height)
 end
 
 function Sk:Media()
-	if E.private.skins.blizzard.enable == true or E.private.skins.blizzard.merchant == true or E.private.sle.skins.merchant.enable == true and E.private.sle.skins.merchant.style == "List" then
+	if E.private.skins.blizzard.enable == true and E.private.skins.blizzard.merchant == true and E.private.sle.skins.merchant.enable == true and E.private.sle.skins.merchant.style == "List" then
 		for i = 1, 10 do
 			local button = _G["SLE_ListMerchantFrame_Button"..i]
+			if not button then break end
 			button.itemname:SetFont(LSM:Fetch('font', E.db.sle.skins.merchant.list.nameFont), E.db.sle.skins.merchant.list.nameSize, E.db.sle.skins.merchant.list.nameOutline)
 			button.iteminfo:SetFont(LSM:Fetch('font', E.db.sle.skins.merchant.list.subFont), E.db.sle.skins.merchant.list.subSize, E.db.sle.skins.merchant.list.subOutline)
 		end
