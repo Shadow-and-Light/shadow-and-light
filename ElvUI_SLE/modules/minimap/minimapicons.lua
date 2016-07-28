@@ -281,8 +281,10 @@ function SMB:Update()
 				end
 				if not E.db.sle.minimap.mapicons.skindungeon and Name == 'QueueStatusMinimapButton' then
 					Exception = false
+					local pos = E.db.general.minimap.icons.lfgEye.position or "BOTTOMRIGHT"
+					local scale = E.db.general.minimap.icons.lfgEye.scale or 1
 					_G["QueueStatusMinimapButton"]:ClearAllPoints()
-					_G["QueueStatusMinimapButton"]:Point("BOTTOMRIGHT", _G["Minimap"], -3, 3)
+					_G["QueueStatusMinimapButton"]:Point(pos, _G["Minimap"], pos, E.db.general.minimap.icons.lfgEye.xOffset or 3, E.db.general.minimap.icons.lfgEye.yOffset or 0)
 				end
 				if (not E.db.sle.minimap.mapicons.skinmail and Name == 'MiniMapMailFrame') then
 					Exception = false
