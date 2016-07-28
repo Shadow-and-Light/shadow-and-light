@@ -39,7 +39,6 @@ end
 
 function SLE:OnInitialize()
 	--Incompatibility stuff will go here
-	SLE:CheckIncompatible()
 	SLE:AddTutorials()
 end
 
@@ -74,18 +73,23 @@ function SLE:IncompatibleAddOn(addon, module, optiontable, value)
 end
 
 function SLE:CheckIncompatible()
-	if Toolkit.IsAddOnLoaded('ElvUI_Enhanced') and not E.global.ignoreEnhancedIncompatible then
+	if SLE._Compatibility["ElvUI_Enhanced"] and not E.global.ignoreEnhancedIncompatible then
 		E:StaticPopup_Show('ENHANCED_SLE_INCOMPATIBLE')
+		return true
 	end
 	if Toolkit.IsAddOnLoaded('SquareMinimapButtons') and E.private.sle.minimap.mapicons.enable then
 		SLE:IncompatibleAddOn('SquareMinimapButtons', 'SquareMinimapButtons', E.private.sle.minimap.mapicons, "enable")
+		return true
 	end
 	if Toolkit.IsAddOnLoaded('LootConfirm') then
 		E:StaticPopup_Show('LOOTCONFIRM_SLE_INCOMPATIBLE')
+		return true
 	end
 	if Toolkit.IsAddOnLoaded('ElvUITransparentActionbars') then
 		E:StaticPopup_Show('TRANSAB_SLE_INCOMPATIBLE')
+		return true
 	end
+	return false
 end
 
 local GetAddOnEnableState = GetAddOnEnableState
@@ -110,6 +114,7 @@ function SLE:Initialize()
 		E:StaticPopup_Show("VERSION_MISMATCH")
 		return --Not loading shit if version is too old, prevents shit from being broken
 	end
+	if SLE:CheckIncompatible() then return end
 	SLE:ConfigCats()
 	self.initialized = true
 	self:InitializeModules(); --Load Modules
@@ -129,7 +134,6 @@ function SLE:Initialize()
 
 	if E.private.sle.install_complete == nil or tonumber(E.private.sle.install_complete) < 3 then
 		E:GetModule("PluginInstaller"):Queue(SLE.installTable)
-		-- E:GetModule("PluginInstaller"):Queue(SLE.installTable2)
 	end
 
 	LibStub("LibElvUIPlugin-1.0"):RegisterPlugin(AddOnName, GetOptions) --Registering as plugin
