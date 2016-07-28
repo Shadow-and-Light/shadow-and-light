@@ -39,6 +39,14 @@ local errors = {};
 local knowns = {};
 
 local locale = {
+	enUS = {
+		REQUIRES_LEVEL = "Requires Level (%d+)",
+		LEVEL = "Level %d",
+		REQUIRES_REPUTATION = "Requires .+ %- (.+)",
+		REQUIRES_REPUTATION_NAME = "Requires (.+) %- .+",
+		REQUIRES_SKILL = "Requires (.+) %((%d+)%)",
+		REQUIRES = "Requires (.+)",
+	},
 	deDE = {
 		REQUIRES_LEVEL = "Benötigt Stufe (%d+)",
 		LEVEL = "Stufe %d",
