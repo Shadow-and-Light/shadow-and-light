@@ -1,7 +1,8 @@
-v3.08
+v3.08 07/28/2016
 Fixes:
 - Fixed incorrect logic in global update causeing errors on profile switch and install (also caused errors on some options changing)
 - Fixed selected tab indicator not recognising newly created tabs until reload
+- Fixed chat tab indicator not working if lock position is disabled in ElvUI's config
 - Fixed data panels not respecting alpha setting
 - Fixed mimimap butons bar stealing control over lfg button on minimap
 
