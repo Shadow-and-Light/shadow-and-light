@@ -35,9 +35,16 @@ local function PositionChat(self, override)
 	if C.CreatedFrames == 0 then return end
 	if ((T.InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override)) then return end
 	if not RightChatPanel or not LeftChatPanel then return; end
-	if not self.db.lockPositions or E.private.chat.enable ~= true then return end
-	if not E.db.sle.datatexts.chathandle then return end
 	local chat, id, tab, isDocked, point
+	if not self.db.lockPositions or E.private.chat.enable ~= true then
+		for i=1, C.CreatedFrames do
+			chat = _G[T.format("ChatFrame%d", i)]
+			tab = _G[T.format("ChatFrame%sTab", i)]
+			tab.isDocked = chat.isDocked
+		end
+		return
+	end
+	if not E.db.sle.datatexts.chathandle then return end
 	for i=1, C.CreatedFrames do
 		local BASE_OFFSET = 57 + E.Spacing*3
 		chat = _G[T.format("ChatFrame%d", i)]
