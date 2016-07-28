@@ -1,4 +1,4 @@
-v3.07
+v3.07 07/28/2016
 This version requires ElvUI 10.12 to run.
 Additions:
 - Affinitii's layout made its return to install. Keep in mind that this setup was not updated in years and can look not ideal. You'll need to change it a bit after applying.
