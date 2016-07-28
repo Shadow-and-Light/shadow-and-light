@@ -44,9 +44,6 @@ function C:SetSelectedTab(isForced)
 				end
 			end
 		end
-
-		--Prevent chat tabs changing width on each click.
-		PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, tab.textWidth);
 	end
 end
 
@@ -61,18 +58,10 @@ function C:DelaySetSelectedTab()
 	E:Delay(0.2, function() CH:PositionChat(); C:SetSelectedTab() end)
 end
 
-function C:SetTabWidth()
-	for i=1, C.CreatedFrames do
-		local tab = _G[T.format("ChatFrame%sTab", i)]
-		PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, tab.textWidth);
-	end
-end
-
 function C:InitTabs()
 	hooksecurefunc("FCFDockOverflowListButton_OnClick", C.SetSelectedTab)
 	hooksecurefunc("FCF_Close", C.SetSelectedTab)
 	hooksecurefunc("FCF_OpenNewWindow", C.DelaySetSelectedTab)
 	hooksecurefunc("FCF_OpenTemporaryWindow", C.OpenTemporaryWindow)
-	hooksecurefunc("FCF_DockUpdate", C.SetTabWidth)
 	C:SetSelectedTab()
 end
