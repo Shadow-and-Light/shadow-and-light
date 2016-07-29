@@ -288,7 +288,7 @@ function PI:DarthSetup()
 		E.db["unitframe"]["units"]["player"]["raidicon"]["size"] = 24
 		E.db["unitframe"]["units"]["player"]["debuffs"]["yOffset"] = 15
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
-		E.db["unitframe"]["units"]["player"]["portrait"]["camDistanceScale"] = 6
+		E.db["unitframe"]["units"]["player"]["portrait"]["camDistanceScale"] = 3
 		E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 22
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 220
@@ -318,7 +318,7 @@ function PI:DarthSetup()
 		E.db["unitframe"]["units"]["player"]["pvp"]["text_format"] = "[pvptimer]"
 
 		E.db["unitframe"]["units"]["target"]["portrait"]["enable"] = true
-		E.db["unitframe"]["units"]["target"]["portrait"]["camDistanceScale"] = 6
+		E.db["unitframe"]["units"]["target"]["portrait"]["camDistanceScale"] = 3
 		E.db["unitframe"]["units"]["target"]["portrait"]["overlay"] = true
 		E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 200
 		E.db["unitframe"]["units"]["target"]["customTexts"] = {}
@@ -340,6 +340,7 @@ function PI:DarthSetup()
 		E.db["unitframe"]["units"]["target"]["power"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["power"]["text_format"] = "[powercolor][curpp]"
 		E.db["unitframe"]["units"]["target"]["power"]["yOffset"] = -10
+		E.db["unitframe"]["units"]["target"]["power"]["hideonnpc"] = false
 		E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = -2
 		E.db["unitframe"]["units"]["target"]["health"]["position"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["target"]["height"] = 40
@@ -1423,6 +1424,8 @@ E.PopupDialogs['SLE_INSTALL_SETTINGS_ADDONS'] = {
 	OnAccept = function()
 		if PI.SLE_Auth == "DARTH" then
 			PI:DarthAddons()
+		elseif PI.SLE_Auth == "AFFINITY" then
+			AffinityAddons()
 		end
 	end,
 	OnCancel = E.noop;
