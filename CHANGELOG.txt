@@ -1,3 +1,7 @@
+v3.09
+Fixes:
+- Fixed instance indicator not updating when difficulty is changed inside the instance
+
 v3.08 07/28/2016
 Fixes:
 - Fixed incorrect logic in global update causeing errors on profile switch and install (also caused errors on some options changing)
