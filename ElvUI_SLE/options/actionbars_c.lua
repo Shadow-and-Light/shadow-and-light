@@ -1,6 +1,7 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local A = SLE:GetModule("Actionbars")
 local AB = E:GetModule('ActionBars');
+local EVB = SLE:GetModule("EnhancedVehicleBar")
 
 local function configTable()
 	if not SLE.initialized then return end
@@ -82,6 +83,26 @@ local function configTable()
 						name = L["Enable"],
 						get = function(info) return E.private.sle.vehicle.enable end,
 						set = function(info, value) E.private.sle.vehicle.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
+					},
+					buttonsize = {
+						order = 4,
+						type = 'range',
+						name = L["Button Size"],
+						desc = L["The size of the action buttons."],
+						min = 15, max = 60, step = 1,
+						disabled = function() return not E.private.sle.vehicle.enable end,
+						get = function(info) return E.db.sle.actionbars.vehicle[ info[#info] ] end,
+						set = function(info, value) E.db.sle.actionbars.vehicle[ info[#info] ] = value; EVB:BarSize(); EVB:ButtonsSize() end,
+					},
+					buttonspacing = {
+						order = 5,
+						type = 'range',
+						name = L["Button Spacing"],
+						desc = L["The spacing between buttons."],
+						min = -4, max = 20, step = 1,
+						disabled = function() return not E.private.sle.vehicle.enable end,
+						get = function(info) return E.db.sle.actionbars.vehicle[ info[#info] ] end,
+						set = function(info, value) E.db.sle.actionbars.vehicle[ info[#info] ] = value; EVB:BarSize(); EVB:ButtonsSize() end,
 					},
 				},
 			},
