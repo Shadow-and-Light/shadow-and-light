@@ -49,5 +49,25 @@ P.sle.Armory.Character = {
 		Display = 'Always', -- Always, MouseoverOnly, Hide
 		SocketSize = 10,
 		WarningSize = 12
-	}
+	},
+	
+	Stats = {
+		IlvlFull = false,
+		IlvlColor = false,
+		AverageColor = {r = 0, g = 1, b = .59},
+		OnlyPrimary = true,
+		List = {
+			HEALTH = false,
+			POWER = false,
+			ALTERNATEMANA = false,
+			ATTACK_DAMAGE = false,
+			ATTACK_AP = false,
+			ATTACK_ATTACKSPEED = false,
+			SPELLPOWER = false,
+			ENERGY_REGEN = false,
+			RUNE_REGEN = false,
+			FOCUS_REGEN = false,
+			MOVESPEED = false,
+		},
+	},
 }

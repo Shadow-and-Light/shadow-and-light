@@ -160,6 +160,14 @@ L["Only Damaged"] = true
 L["Gem Sockets"] = true
 L["Socket Size"] = true
 L["Inspect Armory"] = true
+L["Full Item Level"] = true
+L["Show both equipped and average item levels."] = true
+L["Item Level Coloring"] = true
+L["Color code item levels values. Equipped will be gradient, avarage - selected color."] = true
+L["Color of Average"] = true
+L["Sets the color of avarage item level."] = true
+L["Only Relevant Stats"] = true
+L["Show only those primary stats relevant to your spec."] = true
 
 --AFK
 L["You Are Away From Keyboard for"] = true
@@ -863,6 +871,7 @@ Benik, The Slacker
 Blazeflack
 Boradan
 Camealion
+Dejablue
 Nils Ruesch
 Omega1970
 Pvtschlag

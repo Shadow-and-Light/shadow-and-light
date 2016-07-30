@@ -277,6 +277,76 @@ local function LoadArmoryConfigTable()
 					end,
 					disabled = function() return not E.db.sle.Armory.Character.Enable or not E.db.sle.Armory.Character.NoticeMissing end,
 				},
+				Stats = {
+					type = 'group',
+					name = STAT_CATEGORY_ATTRIBUTES,
+					order = 3,
+					guiInline = true,
+					disabled = function() return SLE._Compatibility["DejaCharacterStats"] end,
+					get = function(info) return E.db.sle.Armory.Character.Stats[ info[#info] ] end,
+					set = function(info, value) E.db.sle.Armory.Character.Stats[ info[#info] ] = value; PaperDollFrame_UpdateStats() end,
+					args = {
+						IlvlFull = {
+							order = 1,
+							type = "toggle",
+							name = L["Full Item Level"],
+							desc = L["Show both equipped and average item levels."],
+						},
+						IlvlColor = {
+							order = 2,
+							type = "toggle",
+							name = L["Item Level Coloring"],
+							desc = L["Color code item levels values. Equipped will be gradient, avarage - selected color."],
+							disabled = function() return SLE._Compatibility["DejaCharacterStats"] or not E.db.sle.Armory.Character.Stats.IlvlFull end,
+						},
+						AverageColor = {
+							type = 'color',
+							order = 3,
+							name = L["Color of Average"],
+							desc = L["Sets the color of avarage item level."],
+							hasAlpha = false,
+							disabled = function() return SLE._Compatibility["DejaCharacterStats"] or not E.db.sle.Armory.Character.Stats.IlvlFull end,
+							get = function(info)
+								local t = E.db.sle.Armory.Character.Stats[ info[#info] ]
+								local d = P.sle.Armory.Character.Stats[info[#info]]
+								return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+							end,
+							set = function(info, r, g, b, a)
+								E.db.sle.Armory.Character.Stats[ info[#info] ] = {}
+								local t = E.db.sle.Armory.Character.Stats[ info[#info] ]
+								t.r, t.g, t.b, t.a = r, g, b, a
+								PaperDollFrame_UpdateStats()
+							end,
+						},
+						OnlyPrimary = {
+							order = 4,
+							type = "toggle",
+							name = L["Only Relevant Stats"],
+							desc = L["Show only those primary stats relevant to your spec."],
+						},
+						Stats = {
+							type = 'group',
+							name = STAT_CATEGORY_ATTRIBUTES,
+							order = 6,
+							guiInline = true,
+							get = function(info) return E.db.sle.Armory.Character.Stats.List[ info[#info] ] end,
+							set = function(info, value) E.db.sle.Armory.Character.Stats.List[ info[#info] ] = value; CharacterArmory:ToggleStats() end,
+							args = {
+								HEALTH = { order = 1,type = "toggle",name = HEALTH,},
+								POWER = { order = 2,type = "toggle",name = _G[select(2, UnitPowerType("player"))],},
+								ALTERNATEMANA = { order = 3,type = "toggle",name = ALTERNATE_RESOURCE_TEXT,},
+								ATTACK_DAMAGE = { order = 4,type = "toggle",name = DAMAGE,},
+								ATTACK_AP = { order = 5,type = "toggle",name = ATTACK_POWER,},
+								ATTACK_ATTACKSPEED = { order = 6,type = "toggle",name = ATTACK_SPEED,},
+								SPELLPOWER = { order = 7,type = "toggle",name = STAT_SPELLPOWER,},
+								ENERGY_REGEN = { order = 8,type = "toggle",name = STAT_ENERGY_REGEN,},
+								RUNE_REGEN = { order = 9,type = "toggle",name = STAT_RUNE_REGEN,},
+								FOCUS_REGEN = { order = 10,type = "toggle",name = STAT_FOCUS_REGEN,},
+								MOVESPEED = { order = 11,type = "toggle",name = STAT_SPEED,},
+							},
+						},
+					},
+				},
 				Backdrop = {
 					type = 'group',
 					name = L["Backdrop"],

@@ -241,10 +241,10 @@ function CA:Setup_CharacterArmory()
 			_G["CharacterLevelText"]:SetText('|c'..RAID_CLASS_COLORS[E.myclass].colorStr.._G["CharacterLevelText"]:GetText())
 
 			_G["CharacterFrameTitleText"]:ClearAllPoints()
-			_G["CharacterFrameTitleText"]:Point('TOP', self, 0, 23)
+			_G["CharacterFrameTitleText"]:Point('TOP', self, 0, 35)
 			_G["CharacterFrameTitleText"]:SetParent(self)
 			_G["CharacterLevelText"]:ClearAllPoints()
-			_G["CharacterLevelText"]:SetPoint('TOP', _G["CharacterFrameTitleText"], 'BOTTOM', 0, -13)
+			_G["CharacterLevelText"]:SetPoint('TOP', _G["CharacterFrameTitleText"], 'BOTTOM', 0, 2)
 			_G["CharacterLevelText"]:SetParent(self)
 		end
 	end)
@@ -261,13 +261,6 @@ function CA:Setup_CharacterArmory()
 	
 	--<< Change Model Frame's frameLevel >>--
 	_G["CharacterModelFrame"]:SetFrameLevel(self:GetFrameLevel() + 2)
-	
-	--<< Average Item Level >>--
-	KF:TextSetting(self, nil, { Tag = 'AverageItemLevel', FontSize = 12 }, 'BOTTOM', _G["CharacterModelFrame"], 'TOP', 0, 14)
-	local function ValueColorUpdate()
-		self.AverageItemLevel:SetText(KF:Color_Value(L["Average"])..' : '..format('%.2f', T.select(2, T.GetAverageItemLevel())))
-	end
-	E.valueColorUpdateFuncs[ValueColorUpdate] = true
 	
 	-- Create each equipment slots gradation, text, gem socket icon.
 	local Slot
@@ -744,8 +737,6 @@ function CA:Update_Gear()
 		end
 	end
 	
-	self.AverageItemLevel:SetText(KF:Color_Value(STAT_AVERAGE_ITEM_LEVEL)..' : '..format('%.2f', T.select(2, T.GetAverageItemLevel())))
-	
 	if NeedUpdateList then
 		self.GearUpdated = NeedUpdateList
 		return true
@@ -852,7 +843,6 @@ function CA:Update_Display(Force)
 	end
 end
 
-
 KF.Modules[#KF.Modules + 1] = 'CharacterArmory'
 KF.Modules.CharacterArmory = function()
 	if E.db.sle.Armory.Character.Enable ~= false then
@@ -940,4 +930,14 @@ KF.Modules.CharacterArmory = function()
 		KF_KnightArmory_NoticeMissing.CheckButton:SetTexture('Interface\\Buttons\\UI-CheckBox-Check-Disabled')
 		]]
 	end
+	if SLE._Compatibility["DejaCharacterStats"] then return end
+	--Resize and reposition god damned ilevel text
+	CharacterStatsPane.ItemLevelFrame:SetPoint("TOP", CharacterStatsPane.ItemLevelCategory, "BOTTOM", 0, 6)
+	CharacterStatsPane.ItemLevelFrame:SetHeight(15)
+	CharacterStatsPane.ItemLevelFrame.Background:SetHeight(15)
+	CharacterStatsPane.ItemLevelFrame.leftGrad:SetHeight(15)
+	CharacterStatsPane.ItemLevelFrame.rightGrad:SetHeight(15)
+	CharacterStatsPane.ItemLevelFrame.Value:FontTemplate()
+	hooksecurefunc("PaperDollFrame_UpdateStats", CA.PaperDollFrame_UpdateStats)
+	CA:ToggleStats()
 end
