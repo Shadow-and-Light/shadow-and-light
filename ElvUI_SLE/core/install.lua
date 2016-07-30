@@ -1045,6 +1045,7 @@ local function SetupCVars()
 	SetCVar("mapFade", "0")
 	SetCVar("cameraSmoothStyle", "0")
 	SetCVar("autoLootDefault", "1")
+	SetCVar("UberTooltips", "1")
 
 	SetAutoDeclineGuildInvites(true)
 	SetInsertItemsLeftToRight(false)
