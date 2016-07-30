@@ -57,7 +57,7 @@ local function configTable()
 				type = 'range',
 				name = L["Icons Per Row"],
 				desc = L["Anchor mode for displaying the minimap buttons are skinned."],
-				min = 1, max = 12, step = 1,
+				min = 1, max = 30, step = 1,
 				disabled = function() return not E.private.sle.minimap.mapicons.enable end,
 				get = function(info) return E.db.sle.minimap.mapicons.iconperrow end,
 				set = function(info, value) E.db.sle.minimap.mapicons.iconperrow = value; SMB:Update(SLE_SquareMinimapButtonBar) end,

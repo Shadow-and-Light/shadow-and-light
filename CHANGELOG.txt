@@ -2,6 +2,8 @@ v3.09
 Fixes:
 - Fixed instance indicator not updating when difficulty is changed inside the instance
 - Fixed Affinitii's addons profile not actually applying (got exactly zero reports on that one, shows how much people actually wanted the thing)
+Changes:
+- Minimap icon bar buttons per row increased up to 30
 
 v3.08 07/28/2016
 Fixes:
