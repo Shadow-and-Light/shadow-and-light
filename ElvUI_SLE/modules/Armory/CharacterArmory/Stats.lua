@@ -2,7 +2,26 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 if SLE._Compatibility["DejaCharacterStats"] then return end
 --Credits: Dejablue
 
---GLOBALS: PAPERDOLL_STATCATEGORIES
+--GLOBALS: PAPERDOLL_STATCATEGORIES, PAPERDOLL_STATINFO, PaperDollFrame_SetAttackSpeed, PaperDollFrame_SetMovementSpeed
+local _G = _G
+local math_min, math_max= math.min, math.max
+
+local GetMeleeHaste, UnitAttackSpeed = GetMeleeHaste, UnitAttackSpeed
+local BreakUpLargeNumbers = BreakUpLargeNumbers
+local PaperDollFrame_SetLabelAndText = PaperDollFrame_SetLabelAndText
+local UnitSex = UnitSex
+-- local PaperDollFrame_UpdateStats = PaperDollFrame_UpdateStats
+local PaperDollFrame_SetItemLevel = PaperDollFrame_SetItemLevel
+local GetItemLevelColor = GetItemLevelColor
+local MovementSpeed_OnEnter, MovementSpeed_OnUpdate = MovementSpeed_OnEnter, MovementSpeed_OnUpdate
+
+local LE_UNIT_STAT_STRENGTH, LE_UNIT_STAT_AGILITY, LE_UNIT_STAT_INTELLECT = LE_UNIT_STAT_STRENGTH, LE_UNIT_STAT_AGILITY, LE_UNIT_STAT_INTELLECT
+local STAT_ATTACK_SPEED_BASE_TOOLTIP = STAT_ATTACK_SPEED_BASE_TOOLTIP
+local FONT_COLOR_CODE_CLOSE, HIGHLIGHT_FONT_COLOR_CODE = FONT_COLOR_CODE_CLOSE, HIGHLIGHT_FONT_COLOR_CODE
+local ATTACK_SPEED = ATTACK_SPEED
+local PAPERDOLLFRAME_TOOLTIP_FORMAT = PAPERDOLLFRAME_TOOLTIP_FORMAT
+local WEAPON_SPEED = WEAPON_SPEED
+
 local CA = CharacterArmory
 local totalShown = 0
 
@@ -10,10 +29,11 @@ local totalShown = 0
 function PaperDollFrame_SetAttackSpeed(statFrame, unit)
 	local meleeHaste = GetMeleeHaste();
 	local speed, offhandSpeed = UnitAttackSpeed(unit);
+	local displaySpeedxt
 
-	local displaySpeed = format("%.2f", speed);
+	local displaySpeed = T.format("%.2f", speed);
 	if ( offhandSpeed ) then
-		offhandSpeed = format("%.2f", offhandSpeed);
+		offhandSpeed = T.format("%.2f", offhandSpeed);
 	end
 	if ( offhandSpeed ) then
 		displaySpeedxt =  BreakUpLargeNumbers(displaySpeed).." / ".. offhandSpeed;
@@ -22,9 +42,9 @@ function PaperDollFrame_SetAttackSpeed(statFrame, unit)
 	end
 	PaperDollFrame_SetLabelAndText(statFrame, WEAPON_SPEED, displaySpeed, false, speed);
 
-	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, ATTACK_SPEED).." "..displaySpeed..FONT_COLOR_CODE_CLOSE;
-	statFrame.tooltip2 = format(STAT_ATTACK_SPEED_BASE_TOOLTIP, BreakUpLargeNumbers(meleeHaste));
-	
+	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..T.format(PAPERDOLLFRAME_TOOLTIP_FORMAT, ATTACK_SPEED).." "..displaySpeed..FONT_COLOR_CODE_CLOSE;
+	statFrame.tooltip2 = T.format(STAT_ATTACK_SPEED_BASE_TOOLTIP, BreakUpLargeNumbers(meleeHaste));
+
 	statFrame:Show();
 end
 
@@ -32,7 +52,7 @@ function PaperDollFrame_SetMovementSpeed(statFrame, unit)
 	statFrame.wasSwimming = nil;
 	statFrame.unit = unit;
 	MovementSpeed_OnUpdate(statFrame);
-	
+
 	statFrame.onEnterFunc = MovementSpeed_OnEnter;
 	-- TODO: Fix if we decide to show movement speed
 	-- statFrame:SetScript("OnUpdate", MovementSpeed_OnUpdate);
@@ -102,50 +122,49 @@ function CA:PaperDollFrame_UpdateStats()
 		if E.db.sle.Armory.Character.Stats.IlvlColor then
 			local R, G, B = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
 			local avColor = E.db.sle.Armory.Character.Stats.AverageColor
-			CharacterStatsPane.ItemLevelFrame.Value:SetFormattedText("%s%.2f|r / %s%.2f|r", E:RGBToHex(R, G, B), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
+			_G["CharacterStatsPane"].ItemLevelFrame.Value:SetFormattedText("%s%.2f|r / %s%.2f|r", E:RGBToHex(R, G, B), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
 		else
-			CharacterStatsPane.ItemLevelFrame.Value:SetFormattedText("%.2f / %.2f", equipped, total)
+			_G["CharacterStatsPane"].ItemLevelFrame.Value:SetFormattedText("%.2f / %.2f", equipped, total)
 		end
 	else
-		CharacterStatsPane.ItemLevelFrame.Value:SetTextColor(GetItemLevelColor())
-		PaperDollFrame_SetItemLevel(CharacterStatsPane.ItemLevelFrame, "player");
+		_G["CharacterStatsPane"].ItemLevelFrame.Value:SetTextColor(GetItemLevelColor())
+		PaperDollFrame_SetItemLevel(_G["CharacterStatsPane"].ItemLevelFrame, "player");
 	end
 
-	CharacterStatsPane.AttributesCategory:SetPoint("TOP", CharacterStatsPane.ItemLevelFrame, "BOTTOM", 0, 6)
+	_G["CharacterStatsPane"].AttributesCategory:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelFrame, "BOTTOM", 0, 6)
 
-	local level = UnitLevel("player");
+	local level = T.UnitLevel("player");
 	local categoryYOffset = 6;
 	local statYOffset = 0;
 
-	CharacterStatsPane.ItemLevelCategory:Show();
-	CharacterStatsPane.ItemLevelFrame:Show();
+	_G["CharacterStatsPane"].ItemLevelCategory:Show();
+	_G["CharacterStatsPane"].ItemLevelFrame:Show();
 
-	local spec = GetSpecialization();
-	local role = GetSpecializationRole(spec);
+	local spec = T.GetSpecialization();
+	local role = T.GetSpecializationRole(spec);
 
-	CharacterStatsPane.statsFramePool:ReleaseAll();
+	_G["CharacterStatsPane"].statsFramePool:ReleaseAll();
 	-- we need a stat frame to first do the math to know if we need to show the stat frame
 	-- so effectively we'll always pre-allocate
-	local statFrame = CharacterStatsPane.statsFramePool:Acquire();
+	local statFrame = _G["CharacterStatsPane"].statsFramePool:Acquire();
 
 	local lastAnchor;
 
 	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
-		local catFrame = CharacterStatsPane[PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame];
+		local catFrame = _G["CharacterStatsPane"][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame];
 		local numStatInCat = 0;
 		for statIndex = 1, #PAPERDOLL_STATCATEGORIES[catIndex].stats do
 			local stat = PAPERDOLL_STATCATEGORIES[catIndex].stats[statIndex];
 			local showStat = true;
 			if ( showStat and stat.primary ) then
-				local primaryStat = select(7, GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")));
+				local primaryStat = T.select(7, T.GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")));
 				if ( stat.primary ~= primaryStat ) and E.db.sle.Armory.Character.Stats.OnlyPrimary then
 					showStat = false;
 				end
 			end
 			if ( showStat and stat.roles ) then
 				local foundRole = false;
-				-- local foundRole = true;
-				for _, statRole in pairs(stat.roles) do
+				for _, statRole in T.pairs(stat.roles) do
 					if ( role == statRole ) then
 						foundRole = true;
 						break;
@@ -173,14 +192,14 @@ function CA:PaperDollFrame_UpdateStats()
 						lastAnchor = statFrame;
 					end
 					-- done with this stat frame, get the next one
-					statFrame = CharacterStatsPane.statsFramePool:Acquire();
+					statFrame = _G["CharacterStatsPane"].statsFramePool:Acquire();
 				end
 			end
 		end
 		catFrame:SetShown(numStatInCat > 0);
 	end
 	-- release the current stat frame
-	CharacterStatsPane.statsFramePool:Release(statFrame);
+	_G["CharacterStatsPane"].statsFramePool:Release(statFrame);
 	if totalShown > 16 then
 		CA.Scrollbar:Show()
 	else
@@ -241,10 +260,10 @@ CA.ScrollFrame:SetScript("OnMouseWheel", function(self, delta)
 	local min_val, max_val = CA.Scrollbar:GetMinMaxValues()
 
 	if delta < 0 and cur_val < max_val then
-		cur_val = math.min(max_val, cur_val + 22)
+		cur_val = math_min(max_val, cur_val + 22)
 		CA.Scrollbar:SetValue(cur_val)
 	elseif delta > 0 and cur_val > min_val then
-		cur_val = math.max(min_val, cur_val - 22)
+		cur_val = math_max(min_val, cur_val - 22)
 		CA.Scrollbar:SetValue(cur_val)
 	end
 end)

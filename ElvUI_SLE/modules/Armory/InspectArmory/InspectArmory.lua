@@ -2445,6 +2445,43 @@ function IA:Update_Display(Force)
 	end
 end
 
+function IA:UpdateSettings(part)
+	local db = E.db.sle.Armory.Inspect
+	if part == "ilvl" or part == "all" then
+		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
+			if _G["InspectArmory"][SlotName] and _G["InspectArmory"][SlotName].Gradation and _G["InspectArmory"][SlotName].Gradation.ItemLevel then
+				_G["InspectArmory"][SlotName].Gradation.ItemLevel:FontTemplate(E.LSM:Fetch('font', db.Level.Font),db.Level.FontSize,db.Level.FontStyle)
+			end
+		end
+	end
+	if part == "ench" or part == "all" then
+		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
+			if _G["InspectArmory"][SlotName] and _G["InspectArmory"][SlotName].Gradation and _G["InspectArmory"][SlotName].Gradation.ItemEnchant then
+				_G["InspectArmory"][SlotName].Gradation.ItemEnchant:FontTemplate(E.LSM:Fetch('font', db.Enchant.Font),db.Enchant.FontSize,db.Enchant.FontStyle)
+			end
+			if _G["InspectArmory"][SlotName] and _G["InspectArmory"][SlotName].EnchantWarning then
+				_G["InspectArmory"][SlotName].EnchantWarning:Size(db.Enchant.WarningSize)
+			end
+		end
+	end
+	if part == "gem" or part == "all" then
+		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
+			for i = 1, MAX_NUM_SOCKETS do
+				if _G["InspectArmory"][SlotName] and _G["InspectArmory"][SlotName]["Socket"..i] then
+					_G["InspectArmory"][SlotName]["Socket"..i]:Size(db.Gem.SocketSize)
+				else
+					break
+				end
+			end
+			for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
+				if _G["InspectArmory"][SlotName] and _G["InspectArmory"][SlotName].SocketWarning then
+					_G["InspectArmory"][SlotName].SocketWarning:Size(db.Gem.WarningSize)
+				end
+			end
+		end
+	end
+end
+
 
 KF.Modules[#KF.Modules + 1] = 'InspectArmory'
 KF.Modules.InspectArmory = function()
