@@ -20,11 +20,18 @@ local function configTable()
 				type = 'range',
 				name = L["Width"],
 				min = 100, max = E.screenwidth/2, step = 1,
-				disabled = function() return not E.db.sle.minimap.locPanel.enable end,
+				disabled = function() return not E.db.sle.minimap.locPanel.enable or E.db.sle.minimap.locPanel.autowidth end,
+				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Resize() end,
+			},
+			autowidth = {
+				type = "toggle",
+				name = L["Automatic Width"],
+				desc = L["Change width based on the zone name length."],
+				order = 3,
 				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Resize() end,
 			},
 			height = {
-				order = 3,
+				order = 4,
 				type = 'range',
 				name = L["Height"],
 				min = 10, max = 50, step = 1,
@@ -32,7 +39,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Resize() end,
 			},
 			template = {
-				order = 4,
+				order = 5,
 				name = L["Template"],
 				type = "select",
 				disabled = function() return not E.db.sle.minimap.locPanel.enable end,
@@ -43,7 +50,7 @@ local function configTable()
 				},
 			},
 			throttle = {
-				order = 5,
+				order = 6,
 				type = 'range',
 				name = L["Update Throttle"],
 				desc = L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."],
@@ -52,7 +59,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; end,
 			},
 			format = {
-				order = 6,
+				order = 7,
 				name = L["Format"],
 				type = "select",
 				disabled = function() return not E.db.sle.minimap.locPanel.enable end,
@@ -66,12 +73,12 @@ local function configTable()
 			zoneText = {
 				type = "toggle",
 				name = L["Full Location"],
-				order = 7,
+				order = 8,
 				disabled = function() return not E.db.sle.minimap.locPanel.enable end,
 				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; end,
 			},
 			colorType = {
-				order = 8,
+				order = 9,
 				name = L["Color Type"],
 				type = "select",
 				disabled = function() return not E.db.sle.minimap.locPanel.enable end,
@@ -84,7 +91,7 @@ local function configTable()
 			},
 			customColor = {
 				type = 'color',
-				order = 9,
+				order = 10,
 				name = L["Custom Color"],
 				disabled = function() return not E.db.sle.minimap.locPanel.enable or not E.db.sle.minimap.locPanel.colorType == "CUSTOM" end,
 				get = function(info)
@@ -102,11 +109,11 @@ local function configTable()
 				type = "toggle",
 				name = L["Link Position"],
 				desc = L["Allow pasting of your coordinates in chat editbox via holding shift and clicking on the location name."],
-				order = 10,
+				order = 11,
 				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; end,
 			},
 			portals = {
-				order = 11,
+				order = 12,
 				type = "group",
 				name = L["Relocation Menu"],
 				guiInline = true,
@@ -155,7 +162,7 @@ local function configTable()
 				},
 			},
 			fontGroup = {
-				order = 12,
+				order = 13,
 				type = "group",
 				name = L["Fonts"],
 				guiInline = true,
