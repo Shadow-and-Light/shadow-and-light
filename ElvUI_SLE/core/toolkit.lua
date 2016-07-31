@@ -26,6 +26,7 @@ T.UnitDebuff = UnitDebuff
 T.GetSpecialization = GetSpecialization
 T.GetSpecializationInfo = GetSpecializationInfo
 T.GetSpecializationInfoByID = GetSpecializationInfoByID
+T.GetSpecializationRole = GetSpecializationRole
 T.GetTalentInfo = GetTalentInfo
 T.GetTalentInfoByID = GetTalentInfoByID
 T.GetNumSpecializationsForClassID = GetNumSpecializationsForClassID
