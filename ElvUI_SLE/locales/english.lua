@@ -537,6 +537,8 @@ L["Show texture"] = true
 L["Show instance difficulty info as default texture."] = true
 L["Sets the colors for difficulty abbreviation"] = true
 L["Location Panel"] = true
+L["Automatic Width"] = true
+L["Change width based on the zone name length."] = true
 L["Update Throttle"] = true
 L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."] = true
 L["Full Location"] = true
@@ -871,7 +873,6 @@ Benik, The Slacker
 Blazeflack
 Boradan
 Camealion
-Dejablue
 Nils Ruesch
 Omega1970
 Pvtschlag

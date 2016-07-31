@@ -507,6 +507,18 @@ function PI:DarthSetup()
 		E.db["sle"]["pvp"]["autorelease"] = true
 		E.db["sle"]["skins"]["merchant"]["list"]["subSize"] = 11
 		E.db["sle"]["skins"]["merchant"]["list"]["nameSize"] = 12
+		E.db["sle"]["Armory"]["Inspect"]["Level"]["FontSize"] = 12
+		E.db["sle"]["Armory"]["Inspect"]["Enchant"]["FontSize"] = 10
+		E.db["sle"]["Armory"]["Character"]["Enchant"]["FontSize"] = 11
+		E.db["sle"]["Armory"]["Character"]["Stats"]["IlvlColor"] = true
+		E.db["sle"]["Armory"]["Character"]["Stats"]["IlvlFull"] = true
+		E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["SPELLPOWER"] = true
+		E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["HEALTH"] = true
+		E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["POWER"] = true
+		E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["MOVESPEED"] = true
+		E.db["sle"]["Armory"]["Character"]["Durability"]["FontSize"] = 10
+		E.db["sle"]["Armory"]["Character"]["Level"]["FontSize"] = 12
+		E.db["sle"]["Armory"]["Character"]["Backdrop"]["SelectedBG"] = "TheEmpire"
 	end
 	--Movers
 	do
@@ -605,8 +617,19 @@ function PI:DarthSetup()
 			E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Avoidance"
 			E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["middle"] = "Versatility"
 			E.db["unitframe"]["units"]["raid"]["power"]["enable"] = true
+			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["SPELLPOWER"] = false
+			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_DAMAGE"] = true
+			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_AP"] = true
+			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_ATTACKSPEED"] = true
 		elseif layout == 'dpsMelee' then 
 			E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Attack Power"
+			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["SPELLPOWER"] = false
+			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_DAMAGE"] = true
+			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_AP"] = true
+			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_ATTACKSPEED"] = true
+			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ENERGY_REGEN"] = true
+			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["RUNE_REGEN"] = true
+			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["FOCUS_REGEN"] = true
 		elseif layout == 'healer' then DarthHeal() 
 		end
 		E.db.layoutSet = layout

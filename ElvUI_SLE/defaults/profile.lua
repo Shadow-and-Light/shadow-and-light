@@ -472,6 +472,7 @@ P["sle"] = {
 		},
 		["locPanel"] = {
 			["enable"] = false,
+			["autowidth"] = false,
 			["width"] = 200,
 			["height"] = 21,
 			["linkcoords"] = true,
