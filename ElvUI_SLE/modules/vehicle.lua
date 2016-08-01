@@ -2,7 +2,7 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local EVB = SLE:NewModule("EnhancedVehicleBar")
 local AB = E:GetModule("ActionBars");
 local LAB = LibStub("LibActionButton-1.0-ElvUI")
-local ES = SLE:GetModule("EnhancedShadows")
+local ES
 --GLOBALS: CreateFrame, hooksecurefunc, UIParent
 local _G = _G
 local RegisterStateDriver = RegisterStateDriver
@@ -112,6 +112,8 @@ function EVB:Initialize()
 	if not SLE.initialized then return end
 	if not E.private.sle.vehicle.enable or not E.private.actionbar.enable then return end;
 
+	ES = SLE._Compatibility["ElvUI_KitUI"] and E:GetModule("EnhancedShadows") or SLE:GetModule("EnhancedShadows")
+	
 	local visibility = "[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] hide;"
 	local page = T.format("[vehicleui] %d; [possessbar] %d; [overridebar] %d; [shapeshift] 13;", GetVehicleBarIndex(), GetVehicleBarIndex(), GetOverrideBarIndex());
 	local bindButtons = "ACTIONBUTTON";
