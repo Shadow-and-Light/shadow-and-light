@@ -151,7 +151,6 @@ function SUF:Initialize()
 	hooksecurefunc(UF, "Update_Raid40Frames", SUF.Update_GroupFrames)
 	--Portrait overlay
 	hooksecurefunc(UF, "Configure_Portrait", SUF.ConfiguePortrait)
-	-- hooksecurefunc(UF, "PortraitUpdate", SUF.PortraitUpdate)
 	if E.private.sle.unitframe.resizeHealthPrediction then
 		hooksecurefunc(UF, "Configure_HealthBar", SUF.HealthPredictUpdate)
 	end
