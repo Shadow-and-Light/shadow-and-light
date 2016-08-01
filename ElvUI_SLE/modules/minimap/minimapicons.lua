@@ -83,6 +83,7 @@ SMB.AddButtonsToBar = {
 	'SmartBuff_MiniMapButton',
 	'QueueStatusMinimapButton',
 	'MiniMapMailFrame',
+	"ItemRackMinimapFrame",
 }
 
 local function SkinButton(Button)
@@ -278,6 +279,8 @@ function SMB:Update()
 				if Name == 'SmartBuff_MiniMapButton' then
 					SMARTBUFF_MinimapButton_CheckPos = function() end
 					SMARTBUFF_MinimapButton_OnUpdate = function() end
+				elseif Name == "ItemRackMinimapFrame" then
+					ItemRack.MoveMinimap = function() end
 				end
 				if not E.db.sle.minimap.mapicons.skindungeon and Name == 'QueueStatusMinimapButton' then
 					Exception = false
