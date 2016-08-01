@@ -309,7 +309,7 @@ end
 function LP:ItemList(check)
 	for i = 1, #LP.PortItems do
 		local data = LP.PortItems[i]
-		if SLE:BagSearch(data.secure.ID) or PlayerHasToy(data.secure.ID)then
+		if (SLE:BagSearch(data.secure.ID) or PlayerHasToy(data.secure.ID)) and T.IsUsableItem(data.secure.ID) then
 			if check then 
 				T.tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
 				return true 
