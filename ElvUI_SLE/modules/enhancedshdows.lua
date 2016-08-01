@@ -21,8 +21,8 @@ local UFrames = {
 }
 
 local UGroups = {
-	{"boss", "Boss", 5}
-	{"arena", "Arena", 5}
+	{"boss", "Boss", 5},
+	{"arena", "Arena", 5},
 }
 
 function ES:UpdateShadows()
