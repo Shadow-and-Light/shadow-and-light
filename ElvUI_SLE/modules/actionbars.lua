@@ -55,7 +55,7 @@ end
 
 function A:Initialize()
 	if not SLE.initialized or E.private.actionbar.enable ~= true then return; end
-	A.MaxBars = T.IsAddOnLoaded('ElvUI_ExtraActionBars') and 10 or 6
+	A.MaxBars = SLE._Compatibility["ElvUI_ExtraActionBars"] and 10 or 6
 
 	if E.private.sle.actionbars.oorBind then 
 		hooksecurefunc(AB, "UpdateButtonConfig", function(self, bar, buttonName)

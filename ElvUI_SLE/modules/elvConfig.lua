@@ -9,7 +9,7 @@ function EC:ADDON_LOADED(event, addon)
 end
 
 function EC:UpdateActionbars()
-	local extra = T.IsAddOnLoaded('ElvUI_ExtraActionBars')
+	local extra = SLE._Compatibility["ElvUI_ExtraActionBars"]
 	if extra then
 		if not E.Options.args.blazeplugins then
 			E:Delay(0.1, EC.UpdateActionbars)
