@@ -1,9 +1,10 @@
 v3.09
 Additions:
 - Added button size and button spacing on enhanced vehicle bar. It also can now be moved around (mover is in S&L Misc config group)
-- Added an options to show characters item level as equipped/average format. Also this giant number is way less giant.
-- Added an options for Armory to show character stats that Blizzard decided we don't need. Movement speed anyone? Script based on DejaCharacterStats addon by Dejablue
-- Added an option to change location panel width based on location name length
+- New options to show characters item level as equipped/average format. Also this giant number is way less giant.
+- New options for Armory to show character stats that Blizzard decided we don't need. Movement speed anyone? Script based on DejaCharacterStats addon by Dejablue
+- New option to change location panel width based on location name length
+- New options to create a shadow for a number of ElvUI unitframes and actionbars
 Fixes:
 - Fixed instance indicator not updating when difficulty is changed inside the instance
 - Fixed Affinitii's addons profile not actually applying (got exactly zero reports on that one, shows how much people actually wanted the thing)

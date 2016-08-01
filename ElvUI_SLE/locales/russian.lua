@@ -399,6 +399,10 @@ L["Account Time Played"] = "Время в игре на аккаунте"
 L["Hide panel background"] = "Скрыть фон"
 L["Don't show this panel, only datatexts assinged to it"] = "Не показывать фон панели, а только назначенные инфо-тексты."
 
+--Enhnced Shadows
+L["Enhanced Shadows"] = "Улучшенные тени"
+L["Use shadows on..."] = "Использовать тени на..."
+
 --Equip Manager
 L["Equipment Manager"] = "Менеджер экипировки"
 L["EM_DESC"] = "Этот модуль предоставляет различные опции для автоматической смены комплектов экипировки при переключении набора талантов или попадании в определенную локацию."

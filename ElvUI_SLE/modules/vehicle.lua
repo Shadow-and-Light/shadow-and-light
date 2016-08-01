@@ -2,6 +2,7 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local EVB = SLE:NewModule("EnhancedVehicleBar")
 local AB = E:GetModule("ActionBars");
 local LAB = LibStub("LibActionButton-1.0-ElvUI")
+local ES = SLE:GetModule("EnhancedShadows")
 --GLOBALS: CreateFrame, hooksecurefunc, UIParent
 local _G = _G
 local RegisterStateDriver = RegisterStateDriver
@@ -131,8 +132,8 @@ function EVB:Initialize()
 
 	bar:SetTemplate("Transparent");
 	bar:CreateShadow();
-	if (E:GetModule("EnhancedShadows", true)) then
-		E:GetModule("EnhancedShadows"):RegisterShadow(bar.shadow);
+	if E.private.sle.module.shadows.vehicle then
+		ES:RegisterShadow(bar.shadow);
 	end
 
 	bar:SetPoint("BOTTOM", 0, 34);

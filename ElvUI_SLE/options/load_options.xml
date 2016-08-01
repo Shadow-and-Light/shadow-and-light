@@ -19,6 +19,7 @@
 	<Script file='pvp_c.lua'/>
 	<Script file='backgrounds_c.lua'/>
 	<Script file='equipmanager_c.lua'/>
+	<Script file='enhancedshadows_c.lua'/>
 	<Script file='farm_c.lua'/>
 	<Script file='garrison_c.lua'/>
 	<Script file='loot_c.lua'/>

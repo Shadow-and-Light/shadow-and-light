@@ -85,6 +85,33 @@ V["sle"] = {
 	["module"] = {
 		["screensaver"] = false,
 		["blizzmove"] = true,
+		["shadows"] = {
+			["vehicle"] = false,
+			["player"] = false,
+			["target"] = false,
+			["targettarget"] = false,
+			["focus"] = false,
+			["focustarget"] = false,
+			["pet"] = false,
+			["pettarget"] = false,
+			["boss"] = false,
+			["arena"] = false,
+			["actionbars"] = {
+				["bar1"] = false,
+				["bar2"] = false,
+				["bar3"] = false,
+				["bar4"] = false,
+				["bar5"] = false,
+				["bar6"] = false,
+				["bar7"] = false,
+				["bar8"] = false,
+				["bar9"] = false,
+				["bar10"] = false,
+				["stancebar"] = false,
+				["microbar"] = false,
+				["petbar"] = false,
+			},
+		},
 	},
 	
 	["unitframe"] = {

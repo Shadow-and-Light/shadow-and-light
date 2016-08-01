@@ -402,6 +402,10 @@ L["Are you sure you want to remove |cff1784d1%s|r from currency datatexts?"] = t
 L["Hide panel background"] = true
 L["Don't show this panel, only datatexts assinged to it"] = true
 
+--Enhnced Shadows
+L["Enhanced Shadows"] = true
+L["Use shadows on..."] = true
+
 --Equip Manager
 L["Equipment Manager"] = true
 L["EM_DESC"] = "This module provides different options to automatically change your equipment sets on spec change or entering certain locations. All options are character based."
