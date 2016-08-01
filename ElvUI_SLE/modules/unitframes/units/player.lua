@@ -74,6 +74,6 @@ function SUF:InitPlayer()
 	SUF.CombatTest.texture:SetAllPoints()
 	SUF.CombatTest:Hide()
 	_G["ElvUF_Player"].Combat.PostUpdate = SUF.CombatIcon_PostUpdate
-	
+
 	hooksecurefunc(UF, "Configure_RestingIndicator", SUF.UpdateRested)
 end
