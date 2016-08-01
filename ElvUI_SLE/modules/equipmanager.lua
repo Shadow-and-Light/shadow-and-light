@@ -90,7 +90,7 @@ local function Equip(event)
 	local spec, equipSet = EM:GetData()
 	if spec ~= nil then --In case you don't have spec
 		local isWrong, trueSet = EM:WrongSet(equipSet, SpecTable[spec], inCombat)
-		if isWrong then
+		if isWrong and not T.UnitInVehicle("player") then
 			T.UseEquipmentSet(trueSet)
 		end
 	end
