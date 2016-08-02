@@ -1,4 +1,4 @@
-v3.09
+v3.09 08/02/2016
 Additions:
 - Added button size and button spacing on enhanced vehicle bar. It also can now be moved around (mover is in S&L Misc config group)
 - New options to show characters item level as equipped/average format. Also this giant number is way less giant.
