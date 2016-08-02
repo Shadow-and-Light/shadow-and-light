@@ -5,6 +5,7 @@ Additions:
 - New options for Armory to show character stats that Blizzard decided we don't need. Movement speed anyone? Script based on DejaCharacterStats addon by Dejablue
 - New option to change location panel width based on location name length
 - New options to create a shadow for a number of ElvUI unitframes and actionbars
+- New option for S&L guild and friends datatext to change text displayed
 Fixes:
 - Fixed instance indicator not updating when difficulty is changed inside the instance
 - Fixed Affinitii's addons profile not actually applying (got exactly zero reports on that one, shows how much people actually wanted the thing)

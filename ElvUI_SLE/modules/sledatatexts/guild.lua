@@ -165,16 +165,17 @@ function DTP:update_Guild()
 	if T.IsInGuild() then
 		T.GuildRoster()
 		local guildTotal, online = T.GetNumGuildMembers()
-			for i = 1, T.GetNumGuildMembers() do
-				local _, _, _, _, _, _, _, _, connected, _, _, _, _, isMobile = T.GetGuildRosterInfo(i)
-				if isMobile then
-					online = online + 1
-				end
+		for i = 1, T.GetNumGuildMembers() do
+			local _, _, _, _, _, _, _, _, connected, _, _, _, _, isMobile = T.GetGuildRosterInfo(i)
+			if isMobile then
+				online = online + 1
 			end
+		end
+		local text = E.db.sle.dt.guild.textStyle == "Default" and "|cffffffff"..GUILD..": |r" or E.db.sle.dt.guild.textStyle == "NoText" and "" or E.db.sle.dt.guild.textStyle == "Icon" and "|TInterface\\ICONS\\Achievement_Dungeon_HEROIC_GloryoftheRaider:12|t: "
 		if E.db.sle.dt.guild.totals then
-			LDB.text = --[["|cff82c5ff"]]"|cffffffff"..GUILD..": |r"..valueColor(online).."/"..valueColor(guildTotal)--[["|r"]]
+			LDB.text = --[["|cff82c5ff"]]text..valueColor(online).."/"..valueColor(guildTotal)--[["|r"]]
 		else
-			LDB.text = "|cffffffff"..GUILD..": |r"..valueColor(online)
+			LDB.text = text..valueColor(online)
 		end
 	else
 		LDB.text = "|cffffffff"..L["No Guild"].."|r"

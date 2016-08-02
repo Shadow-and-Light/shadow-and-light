@@ -247,6 +247,7 @@ P["sle"] = {
 			["sortBN"] = 'TOONNAME',
 			["tooltipAutohide"] = 0.2,
 			["totals"] = false,
+			["textStyle"] = "Default",
 		},
 		["guild"] = {
 			["combat"] = false,
@@ -257,6 +258,7 @@ P["sle"] = {
 			["sortGuild"] = 'TOONNAME',
 			["tooltipAutohide"] = 0.2,
 			["totals"] = false,
+			["textStyle"] = "Default",
 		},
 		["mail"] = {
 			["icon"] = true,

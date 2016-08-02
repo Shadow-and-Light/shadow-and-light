@@ -30,8 +30,20 @@ local function configTable()
 				get = function(info) return E.db.sle.dt.guild.totals end,
 				set = function(info, value) E.db.sle.dt.guild.totals = value; DTP:update_Guild(); end,
 			},
-			hide_hintline = {
+			textStyle = {
 				order = 4,
+				type = "select",
+				name = L["Style"],
+				values = {
+					["Default"] = DEFAULT,
+					["Icon"] = L["Icon"],
+					["NoText"] = NONE,
+				},
+				get = function(info) return E.db.sle.dt.guild.textStyle  end,
+				set = function(info, value) E.db.sle.dt.guild.textStyle  = value; DTP:update_Guild(); end,
+			},
+			hide_hintline = {
+				order = 5,
 				type = "toggle",
 				name = L["Hide Hints"],
 				desc = L["Hide the hints in the tooltip."],
@@ -39,7 +51,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.dt.guild.hide_hintline = value; end,
 			},
 			hide_gmotd = {
-				order = 5,
+				order = 6,
 				type = "toggle",
 				name = L["Hide MOTD"],
 				desc = L["Hide the guild's Message of the Day in the tooltip."],
@@ -47,7 +59,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.dt.guild.hide_gmotd = value; end,
 			},
 			hideGuild = {
-				order = 6,
+				order = 7,
 				type = "toggle",
 				name = L["Hide Guild"],
 				desc = L["Minimize the Guild Datatext."],
@@ -55,17 +67,12 @@ local function configTable()
 				set = function(info, value) E.db.sle.dt.guild.hideGuild = value; end,
 			},
 			hide_guildname = {
-				order = 7,
+				order = 8,
 				type = "toggle",
 				name = L["Hide Guild Name"],
 				desc = L["Hide the guild's name in the tooltip."],
 				get = function(info) return E.db.sle.dt.guild.hide_guildname end,
 				set = function(info, value) E.db.sle.dt.guild.hide_guildname = value; end,
-			},
-			spacer = {
-				order = 8,
-				type = 'description',
-				name = "",
 			},
 			tooltipAutohide = {
 				order = 9,

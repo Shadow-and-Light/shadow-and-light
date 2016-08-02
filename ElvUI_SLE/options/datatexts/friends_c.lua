@@ -30,8 +30,20 @@ local function configTable()
 				get = function(info) return E.db.sle.dt.friends.totals end,
 				set = function(info, value) E.db.sle.dt.friends.totals = value; DTP:update_Friends(); end,
 			},
-			hideFriends = {
+			textStyle = {
 				order = 4,
+				type = "select",
+				name = L["Style"],
+				values = {
+					["Default"] = DEFAULT,
+					["Icon"] = L["Icon"],
+					["NoText"] = NONE,
+				},
+				get = function(info) return E.db.sle.dt.friends.textStyle  end,
+				set = function(info, value) E.db.sle.dt.friends.textStyle  = value; DTP:update_Friends(); end,
+			},
+			hideFriends = {
+				order = 5,
 				type = "toggle",
 				name = L["Hide Friends"],
 				desc = L["Minimize the Friend Datatext."],
@@ -39,7 +51,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.dt.friends.hideFriends = value; end,
 			},
 			hide_hintline = {
-				order = 5,
+				order = 6,
 				type = "toggle",
 				name = L["Hide Hints"],
 				desc = L["Hide the hints in the tooltip."],
@@ -47,14 +59,13 @@ local function configTable()
 				set = function(info, value) E.db.sle.dt.friends.hide_hintline = value; end,
 			},
 			expandBNBroadcast = {
-				order = 6,
+				order = 7,
 				type = "toggle",
 				name = L["Expand RealID"],
 				desc = L["Display realid with two lines to view broadcasts."],
 				get = function(info) return E.db.sle.dt.friends.expandBNBroadcast end,
 				set = function(info, value) E.db.sle.dt.friends.expandBNBroadcast = value; end,
 			},
-			spacer = { order = 7, type = 'description', name = "" },
 			tooltipAutohide = {
 				order = 8,
 				type = "range",
