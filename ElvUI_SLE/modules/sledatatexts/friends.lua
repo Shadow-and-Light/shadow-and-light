@@ -306,7 +306,7 @@ function LDB:OnClick(button)
 	end
 
 	if button == "RightButton" then
-		_G["ElvConfigToggle"]:Click();
+		E:ToggleConfig()
 		SLE.ACD:SelectGroup("ElvUI", "sle", "modules", "datatext", "sldatatext", "slfriends")
 	end
 end
