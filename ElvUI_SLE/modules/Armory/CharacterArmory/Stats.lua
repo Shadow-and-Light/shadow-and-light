@@ -267,3 +267,19 @@ CA.ScrollFrame:SetScript("OnMouseWheel", function(self, delta)
 		CA.Scrollbar:SetValue(cur_val)
 	end
 end)
+
+PaperDollSidebarTab1:HookScript("OnShow", function(self,event) 
+	CA.ScrollframeParentFrame:Show()
+end)
+
+PaperDollSidebarTab1:HookScript("OnClick", function(self,event) 
+	CA.ScrollframeParentFrame:Show()
+end)
+
+PaperDollSidebarTab2:HookScript("OnClick", function(self,event) 
+	CA.ScrollframeParentFrame:Hide()
+end)
+
+PaperDollSidebarTab3:HookScript("OnClick", function(self,event) 
+	CA.ScrollframeParentFrame:Hide()
+end)
