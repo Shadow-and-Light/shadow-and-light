@@ -816,6 +816,7 @@ function PI:DarthAddons()
 					["X"] = -248,
 				},
 				["loot"] = {
+					["fontSize"] = 12,
 					["fontOutline"] = "2OUTLINE",
 					["Y"] = -76,
 					["font"] = "PT Sans Narrow",
