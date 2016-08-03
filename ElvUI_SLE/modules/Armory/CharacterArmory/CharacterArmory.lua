@@ -899,9 +899,10 @@ function CA:UpdateIlvlFont()
 	_G["CharacterStatsPane"].ItemLevelFrame.Value:FontTemplate(E.LSM:Fetch('font', db.font), db.size, db.outline)
 	_G["CharacterStatsPane"].ItemLevelFrame:SetHeight(db.size + 4)
 	_G["CharacterStatsPane"].ItemLevelFrame.Background:SetHeight(db.size + 4)
-	_G["CharacterStatsPane"].ItemLevelFrame.leftGrad:SetHeight(db.size + 4)
-	_G["CharacterStatsPane"].ItemLevelFrame.rightGrad:SetHeight(db.size + 4)
-	
+	if _G["CharacterStatsPane"].ItemLevelFrame.leftGrad then
+		_G["CharacterStatsPane"].ItemLevelFrame.leftGrad:SetHeight(db.size + 4)
+		_G["CharacterStatsPane"].ItemLevelFrame.rightGrad:SetHeight(db.size + 4)
+	end
 end
 
 KF.Modules[#KF.Modules + 1] = 'CharacterArmory'
