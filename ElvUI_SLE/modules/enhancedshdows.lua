@@ -113,14 +113,14 @@ function ES:UpdateShadow(shadow)
 	if E.db.sle.shadows.classcolor then r, g, b = ClassColor['r'], ClassColor['g'], ClassColor['b'] end
 
 	local size = E.db.sle.shadows.size
-	if size ~= LastSize then
+	-- if size ~= LastSize then
 		shadow:SetOutside(shadow:GetParent(), size, size)
 		shadow:SetBackdrop({
 			edgeFile = Border, edgeSize = E:Scale(size > 3 and size or 3),
 			insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
 		})
-		LastSize = size
-	end
+		-- LastSize = size
+	-- end
 	shadow:SetBackdropColor(r, g, b, 0)
 	shadow:SetBackdropBorderColor(r, g, b, 0.9)
 end
