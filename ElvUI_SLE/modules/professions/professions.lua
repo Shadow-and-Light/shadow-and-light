@@ -50,6 +50,8 @@ function Pr:Initialize()
 	if not SLE.initialized then return end
 
 	LoadAddOn("Blizzard_TradeSkillUI")
+	--Next line is to fix other guys' code cause they fell like being assholes and morons
+	if SLE._Compatibility["TradeSkillMaster"] then TradeSkillFrame.RecipeList.collapsedCategories = {} end
 	Pr:UpdateSkills()
 	_G["TradeSkillFrame"]:HookScript("OnShow", function(self)
 		if Pr.FirstOpen then return end
