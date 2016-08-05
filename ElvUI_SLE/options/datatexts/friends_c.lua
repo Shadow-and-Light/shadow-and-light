@@ -58,8 +58,15 @@ local function configTable()
 				get = function(info) return E.db.sle.dt.friends.hide_hintline end,
 				set = function(info, value) E.db.sle.dt.friends.hide_hintline = value; end,
 			},
-			expandBNBroadcast = {
+			hide_titleline = {
 				order = 7,
+				type = "toggle",
+				name = L["Hide Title"],
+				get = function(info) return E.db.sle.dt.friends.hide_titleline end,
+				set = function(info, value) E.db.sle.dt.friends.hide_titleline = value; end,
+			},
+			expandBNBroadcast = {
+				order = 8,
 				type = "toggle",
 				name = L["Expand RealID"],
 				desc = L["Display realid with two lines to view broadcasts."],
@@ -67,7 +74,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.dt.friends.expandBNBroadcast = value; end,
 			},
 			tooltipAutohide = {
-				order = 8,
+				order = 9,
 				type = "range",
 				name = L["Autohide Delay:"],
 				desc = L["Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext."],

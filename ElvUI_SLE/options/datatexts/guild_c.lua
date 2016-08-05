@@ -50,8 +50,15 @@ local function configTable()
 				get = function(info) return E.db.sle.dt.guild.hide_hintline end,
 				set = function(info, value) E.db.sle.dt.guild.hide_hintline = value; end,
 			},
-			hide_gmotd = {
+			hide_titleline = {
 				order = 6,
+				type = "toggle",
+				name = L["Hide Title"],
+				get = function(info) return E.db.sle.dt.guild.hide_titleline end,
+				set = function(info, value) E.db.sle.dt.guild.hide_titleline = value; end,
+			},
+			hide_gmotd = {
+				order = 7,
 				type = "toggle",
 				name = L["Hide MOTD"],
 				desc = L["Hide the guild's Message of the Day in the tooltip."],
@@ -59,7 +66,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.dt.guild.hide_gmotd = value; end,
 			},
 			hideGuild = {
-				order = 7,
+				order = 8,
 				type = "toggle",
 				name = L["Hide Guild"],
 				desc = L["Minimize the Guild Datatext."],
@@ -67,7 +74,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.dt.guild.hideGuild = value; end,
 			},
 			hide_guildname = {
-				order = 8,
+				order = 9,
 				type = "toggle",
 				name = L["Hide Guild Name"],
 				desc = L["Hide the guild's name in the tooltip."],
@@ -75,7 +82,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.dt.guild.hide_guildname = value; end,
 			},
 			tooltipAutohide = {
-				order = 9,
+				order = 10,
 				type = "range",
 				name = L["Autohide Delay:"],
 				desc = L["Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext."],

@@ -333,8 +333,10 @@ function LDB.OnEnter(self)
 	end
 
 	local line = tooltip:AddLine()
-	tooltip:SetCell(line, 1, "Shadow & Light Friends", ssTitleFont, "CENTER", 0)
-	tooltip:AddLine(" ")
+	if not E.db.sle.dt.friends.hide_titleline then
+		tooltip:SetCell(line, 1, "Shadow & Light Friends", ssTitleFont, "CENTER", 0)
+		tooltip:AddLine(" ")
+	end
 
 	local _, numBNOnline = T.BNGetNumFriends()
 	local _, numFriendsOnline = T.GetNumFriends()

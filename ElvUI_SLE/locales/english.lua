@@ -368,6 +368,7 @@ L["These options are for modifing the Shadow & Light Friends datatext."] = true
 L["Hide In Combat"] = true
 L["Will not show the tooltip while in combat."] = true
 L["Hide Friends"] = true
+L["Hide Title"] = true
 L["Minimize the Friend Datatext."] = true
 L["Show Totals"] = true
 L["Show total friends in the datatext."] = true
