@@ -4,7 +4,7 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 local function PetBattle()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.petbattleui ~= true and E.private.sle.skins.petbattles.enable ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.petbattleui ~= true or E.private.sle.skins.petbattles.enable ~= true then return end
 	local f = _G["PetBattleFrame"]
 	local bar = _G["ElvUIPetBattleActionBar"]
 	
