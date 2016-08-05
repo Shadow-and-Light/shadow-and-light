@@ -300,7 +300,7 @@ if not (select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_Kn
 		
 		function KF:ForUpdateAll()
 			_G["CharacterArmory"]:UpdateSettings("all")
-			_G["CharacterArmory"]:ToggleStats()
+			if not SLE._Compatibility["DejaCharacterStats"] then _G["CharacterArmory"]:ToggleStats() end
 			_G["InspectArmory"]:UpdateSettings("all")
 		end
 	end
