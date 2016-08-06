@@ -3,9 +3,9 @@ Additions:
 - New option for S&L guild/friends datatexts to hide title text in tooltip
 Fixes:
 - Fixed error in S&L guild/friends datatexts on right click
-- Fixed (hopefuly) aggro numbers randomly appearing on nameplates of mobs not in combat with player
+- Fixed (hopefully) aggro numbers randomly appearing on nameplates of mobs not in combat with player
 - Fixed a number of errors in Armory when either character screen skin or Armory itself were disabled
-- Fixed enhqnced shadow acting weird on unitframes
+- Fixed enhanced shadow acting weird on unitframes
 - Fixed pet battle skin error
 - Fixed some stuff leaking through compatibility logic in Armory
 - Fixed inability to scroll titles list
