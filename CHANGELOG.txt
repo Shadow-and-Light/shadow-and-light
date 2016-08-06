@@ -1,3 +1,18 @@
+v3.10 09/06/2016
+Additions:
+- New option for S&L guild/friends datatexts to hide title text in tooltip
+Fixes:
+- Fixed error in S&L guild/friends datatexts on right click
+- Fixed (hopefuly) aggro numbers randomly appearing on nameplates of mobs not in combat with player
+- Fixed a number of errors in Armory when either character screen skin or Armory itself were disabled
+- Fixed enhqnced shadow acting weird on unitframes
+- Fixed pet battle skin error
+- Fixed some stuff leaking through compatibility logic in Armory
+- Adopted a workaround for TSM Crafting's flawed logic they were too important to fix themselves.
+Changes:
+- Armory now shows "enhancement" stats in decimal form
+
+
 v3.09 08/02/2016
 Additions:
 - Added button size and button spacing on enhanced vehicle bar. It also can now be moved around (mover is in S&L Misc config group)
