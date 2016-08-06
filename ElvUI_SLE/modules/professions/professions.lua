@@ -49,9 +49,9 @@ end
 function Pr:Initialize()
 	if not SLE.initialized then return end
 
-	LoadAddOn("Blizzard_TradeSkillUI")
+	if not T.IsAddOnLoaded("Blizzard_TradeSkillUI") then LoadAddOn("Blizzard_TradeSkillUI") end
 	--Next line is to fix other guys' code cause they fell like being assholes and morons
-	if SLE._Compatibility["TradeSkillMaster"] then TradeSkillFrame.RecipeList.collapsedCategories = {} end
+	if SLE._Compatibility["TradeSkillMaster"] and not TradeSkillFrame.RecipeList.collapsedCategories then TradeSkillFrame.RecipeList.collapsedCategories = {} end
 	Pr:UpdateSkills()
 	_G["TradeSkillFrame"]:HookScript("OnShow", function(self)
 		if Pr.FirstOpen then return end
