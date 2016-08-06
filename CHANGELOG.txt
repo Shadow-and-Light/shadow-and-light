@@ -8,6 +8,7 @@ Fixes:
 - Fixed enhqnced shadow acting weird on unitframes
 - Fixed pet battle skin error
 - Fixed some stuff leaking through compatibility logic in Armory
+- Fixed inability to scroll titles list
 - Adopted a workaround for TSM Crafting's flawed logic they were too important to fix themselves.
 Changes:
 - Armory now shows "enhancement" stats in decimal form
