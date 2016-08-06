@@ -2447,6 +2447,8 @@ end
 
 function IA:UpdateSettings(part)
 	local db = E.db.sle.Armory.Inspect
+	if not db.Enable then return end
+	if db.Enable and _G["InspectArmory"].CreateInspectFrame then _G["InspectArmory"]:CreateInspectFrame() end
 	if part == "ilvl" or part == "all" then
 		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 			if _G["InspectArmory"][SlotName] and _G["InspectArmory"][SlotName].Gradation and _G["InspectArmory"][SlotName].Gradation.ItemLevel then
