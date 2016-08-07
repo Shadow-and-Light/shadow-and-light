@@ -110,7 +110,7 @@ function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 				elseif frame.buttons[i].secure.buttonType == "macro" then
 					frame.buttons[i]:SetAttribute("macrotext", frame.buttons[i].secure.ID)
 				else
-					SLE:Print("Wrong argument for button type: "..frame.buttons[i].secure.buttonType)
+					SLE:ErrorPrint("Wrong argument for button type: "..frame.buttons[i].secure.buttonType)
 				end
 				frame.buttons[i]:HookScript("OnClick", OnClick)
 			else
