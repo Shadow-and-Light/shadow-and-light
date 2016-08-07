@@ -79,6 +79,14 @@ local locale = {
 		REQUIRES_SKILL = "Requiere (.+) %((%d+)%)",
 		REQUIRES = "Requiere (.+)",
 	},
+	koKR = {
+		REQUIRES_LEVEL = "최소 레벨 (%d+)",
+		LEVEL = "레벨 %d",
+		REQUIRES_REPUTATION = "필수 평판 .+ %- (.+)",
+		REQUIRES_REPUTATION_NAME = "필수 평판 (.+) %- .+",
+		REQUIRES_SKILL = "필수 스킬 (.+) %((%d+)%)",
+		REQUIRES = "필수 (.+)",
+	},
 	ruRU = {
 		REQUIRES_LEVEL = "Требуется уровень: (%d+)",
 		LEVEL = "Уровень %d",
