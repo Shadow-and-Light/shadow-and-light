@@ -12,10 +12,15 @@ local buildID = {
 	[206] = "Ship",
 	[207] = "Ship",
 }
+local zones = {
+	[971] = true,
+	[976] = true,
+}
 local C_Garrison = C_Garrison
 
 function Gar:SHIPMENT_CRAFTER_INFO(event, success, _, maxShipments, plotID)
 	if not _G["GarrisonCapacitiveDisplayFrame"] then return end --Just in case
+	if not zones[T.GetCurrentMapAreaID()] then return end
 	local n = _G["GarrisonCapacitiveDisplayFrame"].available or 0
 	if Gar.clicked or n == 0 or not Gar.db.autoOrder.enable then return end
 	Gar.clicked = true

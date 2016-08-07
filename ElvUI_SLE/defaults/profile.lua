@@ -517,6 +517,13 @@ P["sle"] = {
 		["targetcount"] = false,
 		["visibleRange"] = 60,
 	},
+	--Order Halls
+	["orderhall"] = {
+		["autoOrder"] = {
+			["enable"] = false,
+			["autoEquip"] = false,
+		},
+	},
 	--Quests
 	["quests"] = {
 		["visibility"] = {
