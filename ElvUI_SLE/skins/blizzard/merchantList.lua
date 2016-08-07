@@ -111,13 +111,13 @@ local locale = {
 		REQUIRES = "需要(.+)",
 	},
 };
-local REQUIRES_LEVEL = locale[GetLocale()].REQUIRES_LEVEL
-local LEVEL = locale[GetLocale()].LEVEL
-local REQUIRES_REPUTATION = locale[GetLocale()].REQUIRES_REPUTATION
-local REQUIRES_REPUTATION_NAME = locale[GetLocale()].REQUIRES_REPUTATION_NAME
-local REQUIRES_SKILL = locale[GetLocale()].REQUIRES_SKILL
+local REQUIRES_LEVEL = locale[GetLocale()] and locale[GetLocale()].REQUIRES_LEVEL or ""
+local LEVEL = locale[GetLocale()] and locale[GetLocale()].LEVEL or ""
+local REQUIRES_REPUTATION = locale[GetLocale()] and locale[GetLocale()].REQUIRES_REPUTATION or ""
+local REQUIRES_REPUTATION_NAME = locale[GetLocale()] and locale[GetLocale()].REQUIRES_REPUTATION_NAME or ""
+local REQUIRES_SKILL = locale[GetLocale()] and locale[GetLocale()].REQUIRES_SKILL or ""
 local SKILL = "%1$s (%2$d)"
-local REQUIRES = locale[GetLocale()].REQUIRES
+local REQUIRES = locale[GetLocale()] and locale[GetLocale()].REQUIRES or ""
 
 local function Item_OnClick(self)
 	HandleModifiedItemClick(self.itemLink);
@@ -730,6 +730,9 @@ local function MerchantListSkinInit()
 	for i = 1, #delete do
 		delete[i]:Hide()
 		delete[i].Show = function() end;
+	end
+	if not locale[GetLocale()] then
+		SLE:ErrorPrint("Your locale is unavailable to use with merchant style selected. Please, contact S&L authors.")
 	end
 end
 
