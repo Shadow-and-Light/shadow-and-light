@@ -141,6 +141,7 @@ T.GetZoneText = GetZoneText
 T.GetRealZoneText = GetRealZoneText
 T.GetMinimapZoneText = GetMinimapZoneText
 T.GetMapNameByID = GetMapNameByID
+T.GetCurrentMapAreaID = GetCurrentMapAreaID
 T.GetSubZoneText = GetSubZoneText
 T.GetPlayerMapPosition = GetPlayerMapPosition
 T.GetZonePVPInfo = GetZonePVPInfo
