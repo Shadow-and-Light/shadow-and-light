@@ -732,7 +732,7 @@ local function MerchantListSkinInit()
 		delete[i].Show = function() end;
 	end
 	if not locale[GetLocale()] then
-		SLE:ErrorPrint("Your locale is unavailable to use with merchant style selected. Please, contact S&L authors.")
+		SLE:ErrorPrint("Your language is unavailable for selected merchant style. We would appretiate if ou contact us and provide needed translations.")
 	end
 end
 
