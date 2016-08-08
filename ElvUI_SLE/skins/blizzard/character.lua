@@ -27,7 +27,9 @@ local function LoadSkin()
 		if(cooldown) then
 			E:RegisterCooldown(cooldown)
 		end
-	end	
+	end
+
+	_G["CharacterLevelText"]:FontTemplate()
 
 	local function ColorItemBorder()
 		for _, slot in T.pairs(slots) do
