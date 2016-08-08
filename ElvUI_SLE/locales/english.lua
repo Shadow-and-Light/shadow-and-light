@@ -57,7 +57,7 @@ L["Moving Frames"] = true
 L["Import Profile"] = true
 L["AFK Mode"] = true
 L["You have selected to use %s and role %s."] = true
-L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"] = [[This action can cause you to loose some of your settings.
+L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"] = [[This action can cause you to lose some of your settings.
 Continue?]]
 L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"] = [[This will create a profile for these addons (if enabled) and switch to it:
 %s
