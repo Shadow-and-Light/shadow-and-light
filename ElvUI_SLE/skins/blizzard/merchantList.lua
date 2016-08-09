@@ -36,6 +36,7 @@ local buttons = {}
 local searching = "";
 local errors = {};
 local knowns = {};
+local MerchantUpdating = false
 
 local locale = {
 	enUS = {
@@ -734,6 +735,12 @@ local function MerchantListSkinInit()
 		delete[i]:Hide()
 		delete[i].Show = function() end;
 	end
+	frame:RegisterEvent("BAG_UPDATE")
+	frame:SetScript("OnEvent", function(self, event, ...)
+		if not self:IsShown() or MerchantUpdating then return end
+		MerchantUpdating = true
+		E:Delay(0.25, function() List_CurrencyUpdate(); List_MerchantUpdate(); MerchantUpdating = false end)
+	end)
 	if not locale[GetLocale()] then
 		SLE:ErrorPrint("Your language is unavailable for selected merchant style. We would appretiate if ou contact us and provide needed translations.")
 	end
