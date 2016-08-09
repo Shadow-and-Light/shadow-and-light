@@ -1,4 +1,14 @@
-v3.10 09/06/2016
+v3.11 08/09/2016
+Additions:
+- Added korean templates for merchant frame styled as scroll list.
+- When in scroll list style merchat frame now should show cost as yellow text if it uses items that do not considered currency by the game.
+- Added an option for location panel's right click menu to show where your hearthstone is actually bound.
+Fixes:
+- Fixed transparent buttons not applying to pet bar
+Misc:
+- Fixed some typos
+
+v3.10 08/06/2016
 Additions:
 - New option for S&L guild/friends datatexts to hide title text in tooltip
 Fixes:
@@ -47,7 +57,7 @@ Additions:
 Fixes:
 - Fixed annoying whisper sound played when chat history was dumped
 - Fixed minimap coordinates options being greyed out when loc panel was disabled
-- Fixed minimap coordinates being truncated
+-Fixed minimap coordinates being truncated
 - Fixed all reset buttons in config (cause no one ever pressed those while testing)
 - Fixed scrollbar in trade ui being all the way down
 Changes:
