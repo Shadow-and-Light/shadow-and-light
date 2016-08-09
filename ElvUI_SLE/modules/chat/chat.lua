@@ -1,7 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local CH, LO = SLE:GetElvModules("Chat", "Layout")
 local C = SLE:NewModule("Chat",  'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
-local LSM = LibStub("LibSharedMedia-3.0")
 --GLOBALS:  UIParent, LeftChatPanel, LeftChatDataPanel, LeftChatToggleButton, LeftChatTab, RightChatPanel,
 --GLOBALS:  RightChatDataPanel, RightChatToggleButton, RightChatTab, hooksecurefunc
 

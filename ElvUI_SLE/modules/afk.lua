@@ -1,5 +1,4 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local LSM = LibStub("LibSharedMedia-3.0")
 local AFK = E:GetModule("AFK")
 local S = SLE:NewModule("Screensaver", 'AceHook-3.0', 'AceEvent-3.0')
 S.Animations = {}
@@ -25,16 +24,16 @@ local PVEFrame_ToggleFrame = PVEFrame_ToggleFrame
 
 function S:Media()
 	--Updating all the shits!
-	SS.AFKtitle:SetFont(LSM:Fetch('font', S.db.title.font), S.db.title.size, S.db.title.outline)
-	SS.timePassed:SetFont(LSM:Fetch('font', S.db.title.font), S.db.title.size, S.db.title.outline)
-	SS.Subtitle:SetFont(LSM:Fetch('font', S.db.subtitle.font), S.db.subtitle.size, S.db.subtitle.outline)
-	SS.Date:SetFont(LSM:Fetch('font', S.db.date.font), S.db.date.size, S.db.date.outline)
-	SS.Time:SetFont(LSM:Fetch('font', S.db.date.font), S.db.date.size, S.db.date.outline)
-	SS.PlayerName:SetFont(LSM:Fetch('font', S.db.player.font), S.db.player.size, S.db.player.outline)
-	SS.PlayerInfo:SetFont(LSM:Fetch('font', S.db.player.font), S.db.player.size, S.db.player.outline)
-	SS.GuildRank:SetFont(LSM:Fetch('font', S.db.player.font), S.db.player.size, S.db.player.outline)
-	SS.Guild:SetFont(LSM:Fetch('font', S.db.player.font), S.db.player.size, S.db.player.outline)
-	SS.ScrollFrame:SetFont(LSM:Fetch('font', S.db.tips.font), S.db.tips.size, S.db.tips.outline)
+	SS.AFKtitle:SetFont(E.LSM:Fetch('font', S.db.title.font), S.db.title.size, S.db.title.outline)
+	SS.timePassed:SetFont(E.LSM:Fetch('font', S.db.title.font), S.db.title.size, S.db.title.outline)
+	SS.Subtitle:SetFont(E.LSM:Fetch('font', S.db.subtitle.font), S.db.subtitle.size, S.db.subtitle.outline)
+	SS.Date:SetFont(E.LSM:Fetch('font', S.db.date.font), S.db.date.size, S.db.date.outline)
+	SS.Time:SetFont(E.LSM:Fetch('font', S.db.date.font), S.db.date.size, S.db.date.outline)
+	SS.PlayerName:SetFont(E.LSM:Fetch('font', S.db.player.font), S.db.player.size, S.db.player.outline)
+	SS.PlayerInfo:SetFont(E.LSM:Fetch('font', S.db.player.font), S.db.player.size, S.db.player.outline)
+	SS.GuildRank:SetFont(E.LSM:Fetch('font', S.db.player.font), S.db.player.size, S.db.player.outline)
+	SS.Guild:SetFont(E.LSM:Fetch('font', S.db.player.font), S.db.player.size, S.db.player.outline)
+	SS.ScrollFrame:SetFont(E.LSM:Fetch('font', S.db.tips.font), S.db.tips.size, S.db.tips.outline)
 
 	SS.timePassed:SetTextColor(1, 1, 1)
 

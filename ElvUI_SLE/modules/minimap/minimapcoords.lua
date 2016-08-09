@@ -1,7 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local M = E:GetModule('Minimap')
 local MM = SLE:NewModule("Minimap", 'AceHook-3.0', 'AceEvent-3.0')
-local LSM = LibStub("LibSharedMedia-3.0");
 --GLOBALS: CreateFrame, hooksecurefunc
 local _G = _G
 local cluster = _G["MinimapCluster"]
@@ -48,7 +47,7 @@ function MM:HideMinimapRegister()
 end
 
 function MM:CoordFont()
-	MM.coordspanel.Text:SetFont(LSM:Fetch('font', E.db.sle.minimap.coords.font), E.db.sle.minimap.coords.fontSize, E.db.sle.minimap.coords.fontOutline)
+	MM.coordspanel.Text:SetFont(E.LSM:Fetch('font', E.db.sle.minimap.coords.font), E.db.sle.minimap.coords.fontSize, E.db.sle.minimap.coords.fontOutline)
 end
 
 function MM:CoordsSize()

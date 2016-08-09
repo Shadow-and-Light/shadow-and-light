@@ -1,7 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
 local SUF = SLE:GetModule("UnitFrames")
 local UF = E:GetModule('UnitFrames');
-local LSM = LibStub("LibSharedMedia-3.0");
 --GLOBALS: hooksecurefunc
 local _G = _G
 local MAX_BOSS_FRAMES = MAX_BOSS_FRAMES
@@ -31,7 +30,7 @@ end
 
 --Castbar
 function SUF:PostCast(unit)
-	local castTexture = LSM:Fetch("statusbar", E.db.sle.unitframes.statusTextures.castTexture)
+	local castTexture = E.LSM:Fetch("statusbar", E.db.sle.unitframes.statusTextures.castTexture)
 	self:SetStatusBarTexture(castTexture)
 end
 
@@ -68,7 +67,7 @@ end
 
 --Aurabars
 function SUF:AuraHook()
-	local auraTexture = LSM:Fetch("statusbar", E.db.sle.unitframes.statusTextures.auraTexture)
+	local auraTexture = E.LSM:Fetch("statusbar", E.db.sle.unitframes.statusTextures.auraTexture)
 	local bars = self.bars
 	if not bars then return end
 	for index = 1, #bars do
@@ -80,7 +79,7 @@ end
 --Classbars
 function SUF:UpdateClass(frame)
 	local bars = frame[frame.ClassBar]
-	local texture = LSM:Fetch("statusbar", E.db.sle.unitframes.statusTextures.classTexture)
+	local texture = E.LSM:Fetch("statusbar", E.db.sle.unitframes.statusTextures.classTexture)
 	if (frame.ClassBar == 'ClassIcons' or frame.ClassBar == 'Runes') then
 		for i = 1, (UF.classMaxResourceBar[E.myclass] or 0) do
 			if i <= frame.MAX_CLASS_BAR then
@@ -94,7 +93,7 @@ end
 
 function SUF:UpdateStatusBars()
 	if E.private.sle.unitframe.statusbarTextures.power then
-		local powerTexture = LSM:Fetch("statusbar", E.db.sle.unitframes.statusTextures.powerTexture)
+		local powerTexture = E.LSM:Fetch("statusbar", E.db.sle.unitframes.statusTextures.powerTexture)
 
 		for powerbar in T.pairs(SUF.powerbars) do
 			if powerbar and powerbar:GetObjectType() == "StatusBar" and not powerbar.isTransparent then

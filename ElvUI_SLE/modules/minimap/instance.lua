@@ -1,7 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local I = SLE:NewModule("InstDif",'AceHook-3.0', 'AceEvent-3.0')
 local sub = string.utf8sub
-local LSM = LibStub("LibSharedMedia-3.0")
 --GLOBALS: CreateFrame
 local _G = _G
 
@@ -37,8 +36,8 @@ function I:CreateText()
 end
 
 function I:SetFonts()
-	I.frame.text:SetFont(LSM:Fetch('font', I.db.font), I.db.fontSize, I.db.fontOutline)
-	I.frame.icon:SetFont(LSM:Fetch('font', I.db.font), I.db.fontSize, I.db.fontOutline)
+	I.frame.text:SetFont(E.LSM:Fetch('font', I.db.font), I.db.fontSize, I.db.fontOutline)
+	I.frame.icon:SetFont(E.LSM:Fetch('font', I.db.font), I.db.fontSize, I.db.fontOutline)
 end
 
 

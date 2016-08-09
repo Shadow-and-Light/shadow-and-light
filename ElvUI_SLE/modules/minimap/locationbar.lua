@@ -2,7 +2,6 @@
 local M = E:GetModule('Minimap')
 local MM, DD = SLE:GetModules("Minimap", "Dropdowns")
 local LP = SLE:NewModule("LocationPanel", "AceTimer-3.0")
-local LSM = LibStub("LibSharedMedia-3.0");
 local loc_panel
 local COORDS_WIDTH = 35 -- Coord panels width
 
@@ -260,9 +259,9 @@ function LP:Resize()
 end
 
 function LP:Fonts()
-	loc_panel.Text:SetFont(LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
-	loc_panel.Xcoord.Text:SetFont(LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
-	loc_panel.Ycoord.Text:SetFont(LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
+	loc_panel.Text:SetFont(E.LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
+	loc_panel.Xcoord.Text:SetFont(E.LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
+	loc_panel.Ycoord.Text:SetFont(E.LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
 end
 
 function LP:Template()

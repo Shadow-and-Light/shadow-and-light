@@ -4,7 +4,6 @@ local _G = _G
 
 if not SLE._Compatibility["QuestKing"] then return end
 
-local LSM = LibStub("LibSharedMedia-3.0")
 local classColor = RAID_CLASS_COLORS[E.myclass]
 local progressBarPool = {}
 QK.numProgressBars = 0
@@ -54,7 +53,7 @@ local function Replace()
 				QK.numProgressBars = QK.numProgressBars + 1
 
 				progressBar = CreateFrame("StatusBar", "QuestKing_ProgressBar"..QK.numProgressBars, QuestKing.Tracker)
-				progressBar:SetStatusBarTexture(LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
+				progressBar:SetStatusBarTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
 				progressBar:GetStatusBarTexture():SetHorizTile(false)
 				SetProgressBarsColor(progressBar)
 				progressBar:SetMinMaxValues(0, 100)
@@ -171,7 +170,7 @@ local function Replace()
 		local progressBar = _G["QuestKing_ProgressBar"..i]
 		if progressBar and not progressBar.sle_skinned then
 			progressBar:StripTextures()
-			progressBar:SetStatusBarTexture(LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
+			progressBar:SetStatusBarTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
 			progressBar:SetWidth(opt_buttonWidth - 36)
 			SetProgressBarsColor(progressBar)
 			progressBar:CreateBackdrop("Transparent")

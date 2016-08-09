@@ -4,7 +4,6 @@ local _G = _G
 
 if not SLE._Compatibility["QuestKing"] then return end
 
-local LSM = LibStub("LibSharedMedia-3.0")
 local classColor = RAID_CLASS_COLORS[E.myclass]
 
 -- local functions
@@ -75,7 +74,7 @@ local function Replace()
 				numTimerBars = numTimerBars + 1
 
 				timerBar = CreateFrame("StatusBar", "QuestKing_TimerBar"..numTimerBars, QuestKing.Tracker)
-				timerBar:SetStatusBarTexture(LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
+				timerBar:SetStatusBarTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
 				timerBar:GetStatusBarTexture():SetHorizTile(false)
 				SetProgressBarsColor(timerBar)
 				timerBar:SetMinMaxValues(0, 100)

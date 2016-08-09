@@ -4,8 +4,6 @@ local _G = _G
 
 if not SLE._Compatibility["QuestKing"] then return end
 
-local LSM = LibStub("LibSharedMedia-3.0")
-
 local function Replace()
 	local QuestKing = _G["QuestKing"]
 	local WatchButton = QuestKing.WatchButton
@@ -37,7 +35,7 @@ local function Replace()
 		local challengeBar
 		if (not cachedChallengeBar) then
 			challengeBar = CreateFrame("StatusBar", "QuestKing_ChallengeBar", QuestKing.Tracker)
-			challengeBar:SetStatusBarTexture(LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
+			challengeBar:SetStatusBarTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
 			challengeBar:GetStatusBarTexture():SetHorizTile(false)
 			SetProgressBarsColor(challengeBar)
 			challengeBar:SetMinMaxValues(0, 1)

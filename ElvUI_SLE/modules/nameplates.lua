@@ -1,6 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local NP = E:GetModule('NamePlates')
-local LSM = LibStub("LibSharedMedia-3.0")
 local N = SLE:NewModule("Nameplates", 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 local rosterTimer
 N.targetCount = 0
@@ -22,14 +21,14 @@ hooksecurefunc(NP, 'NAME_PLATE_CREATED', function(self, event, frame)
 		myPlate.threatInfo:SetPoint("BOTTOMLEFT", myPlate.HealthBar, "BOTTOMLEFT", 1, 2)
 		myPlate.threatInfo:SetJustifyH("LEFT")
 	end
-	if not frame.targetcount then
+	if not myPlate.targetcount then
 		myPlate.targetcount = myPlate.HealthBar:CreateFontString(nil, "OVERLAY")
 		myPlate.targetcount:SetPoint('BOTTOMRIGHT', myPlate.HealthBar, 'BOTTOMRIGHT', 1, 2)
 		myPlate.targetcount:SetJustifyH("RIGHT")
 		myPlate.targetCount = 0
 	end
-	myPlate.threatInfo:FontTemplate(LSM:Fetch("font", NP.db.font), NP.db.fontSize, NP.db.fontOutline)
-	myPlate.targetcount:FontTemplate(LSM:Fetch("font", NP.db.font), NP.db.fontSize, NP.db.fontOutline)
+	myPlate.threatInfo:FontTemplate(E.LSM:Fetch("font", NP.db.font), NP.db.fontSize, NP.db.fontOutline)
+	myPlate.targetcount:FontTemplate(E.LSM:Fetch("font", NP.db.font), NP.db.fontSize, NP.db.fontOutline)
 	myPlate.targetcount:SetText()
 end)
 
