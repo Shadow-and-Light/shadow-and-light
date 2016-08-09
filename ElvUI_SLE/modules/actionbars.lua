@@ -27,16 +27,7 @@ function A:BarsBackdrop()
 			frame.backdrop:SetTemplate('Transparent')
 		end
 	end
-	
-	-- Pet Buttons
-	for i = 1, NUM_PET_ACTION_SLOTS do
-		local petButtons = {_G["PetActionButton"..i]}
-		for _, button in T.pairs(petButtons) do
-			if button.backdrop then
-				button.backdrop:SetTemplate('Transparent')
-			end
-		end
-	end
+
 end
 
 function A:ButtonsBackdrop()
@@ -48,7 +39,16 @@ function A:ButtonsBackdrop()
 					button.backdrop:SetTemplate('Transparent')
 				end
 			end
-		end	
+		end
+	end
+	-- Pet Buttons
+	for i = 1, NUM_PET_ACTION_SLOTS do
+		local petButtons = {_G["PetActionButton"..i]}
+		for _, button in T.pairs(petButtons) do
+			if button.backdrop then
+				button.backdrop:SetTemplate('Transparent')
+			end
+		end
 	end
 end
 
