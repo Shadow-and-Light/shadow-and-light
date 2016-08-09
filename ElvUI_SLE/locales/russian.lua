@@ -550,7 +550,8 @@ L["Right click on the location panel will bring up a menu with available options
 L["Custom Width"] = "Своя ширина"
 L["By default menu's width will be equal to the location panel width. Checking this option will allow you to set own width."] = "По умолчанию ширина меню будет равна ширине панели. Включение данной опции позволит установить свою ширину."
 L["Justify Text"] = "Выравнивание тектса"
-
+L["Hearthstone Location"] = "Привязка камня"
+L["Show the name on location your Heathstone is bound to."] = "Показывать имя локации, к которой привязан камень возвращения."
 
 --Miscs
 L["Error Frame"] = "Фрейм ошибок"

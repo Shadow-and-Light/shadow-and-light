@@ -159,6 +159,12 @@ local function configTable()
 							["DEFAULT_ICONFIRST"] = [[( |TInterface\FriendsFrame\StatusIcon-Away:16|t10m)]],
 						},
 					},
+					HSplace = {
+						type = "toggle",
+						order = 6,
+						name = L["Hearthstone Location"],
+						desc = L["Show the name on location your Heathstone is bound to."],
+					},
 				},
 			},
 			fontGroup = {

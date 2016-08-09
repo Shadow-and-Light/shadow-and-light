@@ -558,6 +558,8 @@ L["Right click on the location panel will bring up a menu with available options
 L["Custom Width"] = true
 L["By default menu's width will be equal to the location panel width. Checking this option will allow you to set own width."] = true
 L["Justify Text"] = true
+L["Hearthstone Location"] = true
+L["Show the name on location your Heathstone is bound to."] = true
 
 
 --Miscs
