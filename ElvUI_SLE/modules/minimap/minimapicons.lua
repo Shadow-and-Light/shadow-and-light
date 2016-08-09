@@ -50,6 +50,7 @@ SMB.ignoreButtons = {
 	'ElvConfigToggle',
 	'GameTimeFrame',
 	'HelpOpenTicketButton',
+	'HelpOpenWebTicketButton',
 	'MiniMapTrackingButton',
 	'MiniMapVoiceChatFrame',
 	'TimeManagerClockButton',
