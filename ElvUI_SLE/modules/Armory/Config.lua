@@ -957,6 +957,7 @@ local function LoadArmoryConfigTable()
 					order = 11,
 					guiInline = true,
 					get = function(Info) return E.db.sle.Armory.Inspect[(Info[#Info - 1])][(Info[#Info])] end,
+					set = function(info, value) E.db.sle.Armory.Inspect[(info[#info - 1])][(info[#info])] = value; _G["InspectArmory"]:UpdateSettings("gem") end,
 					args = {
 						Display = {
 							type = 'select',
