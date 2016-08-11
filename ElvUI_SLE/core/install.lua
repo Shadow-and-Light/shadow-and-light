@@ -39,6 +39,7 @@ local function DarthHeal()
 	E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,-300,330"
 	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-186"
 	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-523,187"
+	E.db["movers"]["PlayerNameplate"] = nil
 	if T.IsAddOnLoaded("ElvUI_AuraBarsMovers") then
 		E.db["movers"]["ElvUF_PlayerAuraMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,345,210"
 		E.db["movers"]["ElvUF_TargetAuraMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-341,207"
@@ -252,12 +253,13 @@ function PI:DarthSetup()
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["powerbar"]["height"] = 4
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["powerbar"]["enable"] = true
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["numAuras"] = 6
+		E.db["nameplates"]["units"]["PLAYER"]["enable"] = true
 		E.db["nameplates"]["units"]["PLAYER"]["alwaysShow"] = true
 		E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["enable"] = false
 		E.db["nameplates"]["units"]["PLAYER"]["healthbar"]["width"] = 120
 		E.db["nameplates"]["units"]["PLAYER"]["castbar"]["enable"] = false
-		E.db["nameplates"]["units"]["PLAYER"]["powerbar"]["enable"] = false
 		E.db["nameplates"]["units"]["PLAYER"]["buffs"]["enable"] = false
+		E.db["nameplates"]["units"]["PLAYER"]["clickthrough"] = true
 	end
 	--Tooltips
 	do
@@ -570,6 +572,7 @@ function PI:DarthSetup()
 		E.db["movers"]["AlertFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,312"
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-187,-158"
 		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,211,189"
+		E.db["movers"]["PlayerNameplate"] = "BOTTOM,ElvUIParent,BOTTOM,0,426"
 	end
 	
 	if T.IsAddOnLoaded("ElvUI_AuraBarsMovers") then
