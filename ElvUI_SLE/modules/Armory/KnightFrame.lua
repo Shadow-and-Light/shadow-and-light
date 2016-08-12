@@ -79,6 +79,10 @@ if not (select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_Kn
 			Frost = 251,
 			Unholy = 252
 		},
+		DemonHunter = {
+			Havoc = 577,
+			Vengeance = 581,
+		},
 		Mage = {
 			Arcane = 62,
 			Fire = 63,
@@ -197,6 +201,16 @@ if not (select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_Kn
 				Color = '|cff00ff10',
 				Role = 'Melee'
 			}
+		},
+		DEMONHUNTER = {
+			[(L["Spec_DemonHunter_Havoc"])] = { 
+				Color = '|cffa330c9',
+				Role = 'Melee'
+			},
+			[(L["Spec_DemonHunter_Vengeance"])] = {
+				Color = '|cffa330c9',
+				Role = 'Tank'
+			},
 		},
 		MAGE = {
 			[(L["Spec_Mage_Arcane"])] = { --비전
