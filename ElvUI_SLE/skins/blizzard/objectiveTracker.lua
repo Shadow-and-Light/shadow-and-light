@@ -178,10 +178,47 @@ local function ObjectiveReskin()
 		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.sle.skins.objectiveTracker.enable ~= true then return end
 		-- Objective Tracker Bar
 		hooksecurefunc(_G["BONUS_OBJECTIVE_TRACKER_MODULE"], "AddProgressBar", skinObjectiveBar) 
+		-- ProgressBar in the ObjectiveTacker
+		hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, block, line, questID)
+			local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line];
+			if progressBar and progressBar:IsShown() and not progressBar.skinned then
+				progressBar.Bar:StripTextures()
+				progressBar.Bar:SetStatusBarTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
+				local COLOR
+				if E.private.sle.skins.objectiveTracker.class then
+					COLOR = classColor
+				else
+					COLOR = E.private.sle.skins.objectiveTracker.color
+				end
+				progressBar.Bar:SetStatusBarColor(COLOR.r, COLOR.g, COLOR.b)
+				progressBar.Bar:CreateBackdrop()
+				progressBar.Bar.backdrop:SetAllPoints()
+				progressBar.skinned = true
+			end
+		end)
 		-- scenario
 		hooksecurefunc(_G["DEFAULT_OBJECTIVE_TRACKER_MODULE"], "AddTimerBar", SkinTimerBar)
 		hooksecurefunc(_G["SCENARIO_CONTENT_TRACKER_MODULE"], "Update", SkinScenarioButtons)
 		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
+		-- Another ProgressBar in the ObjectiveTracker counting as Scenario (e.g. Legion Pre-Event)
+		hooksecurefunc(SCENARIO_TRACKER_MODULE, "AddProgressBar", function(self, block, line, criteriaIndex)
+			local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line];
+			if progressBar and progressBar:IsShown() and not progressBar.skinned then
+				progressBar.Bar:StripTextures()
+				progressBar.Bar:SetStatusBarTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
+				local COLOR
+				if E.private.sle.skins.objectiveTracker.class then
+					COLOR = classColor
+				else
+					COLOR = E.private.sle.skins.objectiveTracker.color
+				end
+				progressBar.Bar:SetStatusBarColor(COLOR.r, COLOR.g, COLOR.b)
+				progressBar.Bar:CreateBackdrop()
+				progressBar.Bar.backdrop:SetAllPoints()
+				progressBar.skinned = true
+				ScenarioTrackerProgressBar_PlayFlareAnim = dummy
+			end
+		end)
 		-- proving grounds
 		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
 		_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton:SetSize(14,14)
