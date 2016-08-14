@@ -1,3 +1,12 @@
+v3.12 08/14/2016
+Fixes:
+- Inspect Armory options for gems are now changeable again
+- Fixed error on trying to inspect Demon Hunters
+Changes:
+- S&L Curency datatext will now warn you if you have ElvUI's gold datatext enabled somewhere and block it from functioning.
+- Legion invasion progress bar is now also skinned
+- Item level datatext now uses different method to show items' levels in tooltip
+
 v3.11 08/09/2016
 Additions:
 - Added korean templates for merchant frame styled as scroll list.
