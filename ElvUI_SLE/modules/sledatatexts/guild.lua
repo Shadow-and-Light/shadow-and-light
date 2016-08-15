@@ -69,7 +69,9 @@ local list_sort = {
 		end
 	end,
 	ZONENAME = function(a, b)
-		if a["ZONENAME"] < b["ZONENAME"] then
+		if not a["ZONENAME"] or not b["ZONENAME"] then
+			return false
+		elseif a["ZONENAME"] < b["ZONENAME"] then
 			return true
 		elseif a["ZONENAME"] > b["ZONENAME"] then
 			return false
