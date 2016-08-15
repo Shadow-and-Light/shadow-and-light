@@ -62,6 +62,8 @@ local function skinObjectiveBar(self, block, line)
 		end
 		bar:SetStatusBarColor(COLOR.r, COLOR.g, COLOR.b)
 		bar:CreateBackdrop('Transparent')
+		bar.backdrop:Point("TOPLEFT", bar, -1, 1)
+		bar.backdrop:Point("BOTTOMRIGHT", bar, 1, -1)
 		bar:SetFrameStrata('HIGH')
 
 		flare:Hide()
@@ -89,6 +91,8 @@ local function SkinTimerBar(self, block, line, duration, startTime)
 		tb.Bar.BorderMid:Hide()
 		tb.Bar:StripTextures()
 		tb.Bar:CreateBackdrop('Transparent')
+		tb.Bar.backdrop:Point('TOPLEFT', tb.Bar, -1, 1)
+		tb.Bar.backdrop:Point('BOTTOMRIGHT', tb.Bar, 1, -1)
 		tb.Bar:SetStatusBarTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
 		local COLOR
 		if E.private.sle.skins.objectiveTracker.class then
@@ -151,6 +155,8 @@ local function SkinProvingGroundButtons()
 	-- Timer
 	sb:StripTextures()
 	sb:CreateBackdrop('Transparent')
+	sb.backdrop:Point('TOPLEFT', sb, -1, 1)
+	sb.backdrop:Point('BOTTOMRIGHT', sb, 1, -1)
 	sb:SetStatusBarTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
 	local COLOR
 	if E.private.sle.skins.objectiveTracker.class then
@@ -164,12 +170,12 @@ local function SkinProvingGroundButtons()
 	sb:SetSize(200, 15)
 
 	-- Create a little border around the Bar.
-	local sb2 = sb:GetParent():CreateTexture(nil, 'BACKGROUND')
-	sb2:SetPoint('TOPLEFT', sb, -1, 1)
-	sb2:SetPoint('BOTTOMRIGHT', sb, 1, -1)
-	sb2:SetTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
-	sb2:SetAlpha(0.5)
-	sb2:SetVertexColor(unpack(E.media.backdropcolor))
+	-- local sb2 = sb:GetParent():CreateTexture(nil, 'BACKGROUND')
+	-- sb2:SetPoint('TOPLEFT', sb, -1, 1)
+	-- sb2:SetPoint('BOTTOMRIGHT', sb, 1, -1)
+	-- sb2:SetTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
+	-- sb2:SetAlpha(0.5)
+	-- sb2:SetVertexColor(unpack(E.media.backdropcolor))
 end
 
 local function ObjectiveReskin()
@@ -191,8 +197,9 @@ local function ObjectiveReskin()
 					COLOR = E.private.sle.skins.objectiveTracker.color
 				end
 				progressBar.Bar:SetStatusBarColor(COLOR.r, COLOR.g, COLOR.b)
-				progressBar.Bar:CreateBackdrop()
-				progressBar.Bar.backdrop:SetAllPoints()
+				progressBar.Bar:CreateBackdrop('Transparent')
+				progressBar.Bar.backdrop:Point('TOPLEFT', Bar, -1, 1)
+				progressBar.Bar.backdrop:Point('BOTTOMRIGHT', Bar, 1, -1)
 				progressBar.skinned = true
 			end
 		end)
@@ -214,7 +221,8 @@ local function ObjectiveReskin()
 				end
 				progressBar.Bar:SetStatusBarColor(COLOR.r, COLOR.g, COLOR.b)
 				progressBar.Bar:CreateBackdrop()
-				progressBar.Bar.backdrop:SetAllPoints()
+				progressBar.Bar.backdrop:Point('TOPLEFT', Bar, -1, 1)
+				progressBar.Bar.backdrop:Point('BOTTOMRIGHT', Bar, 1, -1)
 				progressBar.skinned = true
 				ScenarioTrackerProgressBar_PlayFlareAnim = dummy
 			end
