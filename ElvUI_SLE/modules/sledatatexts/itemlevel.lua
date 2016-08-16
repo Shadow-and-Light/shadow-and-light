@@ -88,7 +88,7 @@ local function OnEnter(self)
 		end
 	end
 	for i = 1, #tooltipOrder do
-		DT.tooltip:AddDoubleLine(T.unpack(tooltipOrder[i]))
+		if tooltipOrder[i] then DT.tooltip:AddDoubleLine(T.unpack(tooltipOrder[i])) end
 	end
 	DT.tooltip:Show()
 end
