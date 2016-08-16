@@ -309,14 +309,15 @@ if not AISM.Revision or AISM.Revision < Revision then
 			for i = 1, MAX_TALENT_TIERS do
 				for k = 1, NUM_TALENT_COLUMNS do
 					Talent, _, _, isSelected = T.GetTalentInfo(i, k, Group)
-					
+					if Talent then
 					Talent = ((i - 1) * NUM_TALENT_COLUMNS + k)..'_'..Talent..(isSelected == true and '_1' or '')
-					
-					Spec = Spec..'/'..Talent
-					
-					if not SpecTable["Spec"..Step..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] or SpecTable["Spec"..Step..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] ~= Talent then
-						SpecTable["Spec"..Step..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] = Talent
-						DataString = (DataString and DataString..'/' or '')..Talent
+
+						Spec = Spec..'/'..Talent
+
+						if not SpecTable["Spec"..Step..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] or SpecTable["Spec"..Step..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] ~= Talent then
+							SpecTable["Spec"..Step..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] = Talent
+							DataString = (DataString and DataString..'/' or '')..Talent
+						end
 					end
 				end
 			end
