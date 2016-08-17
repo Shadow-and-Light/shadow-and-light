@@ -143,6 +143,7 @@ function UB:Initialize()
 	UB.FrameSize = menu.FrameSize
 
 	UB:RightClicks(menu)
+	UB.Holder.mover:SetFrameLevel(305)
 end
 
 SLE:RegisterModule(UB:GetName())
