@@ -1,4 +1,3 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file='quests.lua'/>
-	<Include file='questking\load_questking.xml'/>
 </Ui>
