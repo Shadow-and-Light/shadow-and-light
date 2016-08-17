@@ -51,5 +51,7 @@ local function Init()
 	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", OnTooltipSetUnit)
 
 	hooksecurefunc(TT, "CheckBackdropColor", AnchorFrameToMouse)
+
+	SLE:SetCompareItems() --Blizz cvar for item compare
 end
 hooksecurefunc(TT, "Initialize", Init)

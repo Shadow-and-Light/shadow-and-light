@@ -123,8 +123,6 @@ function SLE:Initialize()
 	self.initialized = true
 	self:InitializeModules(); --Load Modules
 
-	SLE:SetCompareItems() --Blizz cvar for item compare
-
 	hooksecurefunc(E, "UpdateAll", SLE.UpdateAll)
 	--Here goes installation script
 
