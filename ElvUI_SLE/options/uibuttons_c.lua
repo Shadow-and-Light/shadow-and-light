@@ -271,7 +271,6 @@ local function configTable()
 						type = "select",
 						values = {
 							["Manager"] = L["AddOns"],
-							["Boss"] = L["Boss Mod"],
 						},
 						get = function(info) return E.db.sle.uibuttons.Addon.called end,
 						set = function(info, value) E.db.sle.uibuttons.Addon.called = value; end,
@@ -343,6 +342,10 @@ local function configTable()
 			},
 		},
 	}
+
+	for k, v in T.pairs(UB.Holder.Addon) do
+		if k ~= "Toggle" and T.type(v) == "table" and v:HasScript("OnClick") then E.Options.args.sle.args.modules.args.uibuttons.args.Addon.args.called.values[k] = k end
+	end
 end
 
 T.tinsert(SLE.Configs, configTable)
