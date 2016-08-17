@@ -634,6 +634,9 @@ P["sle"] = {
 				["subOutline"] = "OUTLINE",
 			},
 		},
+		["questguru"] = {
+			["removeParchment"] = false,
+		},
 	},
 	--Tooltip
 	["tooltip"] = {
