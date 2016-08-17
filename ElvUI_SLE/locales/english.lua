@@ -675,35 +675,6 @@ L["Header Text Color"] = true
 L["Class Colored Header Text"] = true
 L["Subpages"] = true
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = true
-L["SLE_SKINS_QUESTKING_DESC"] = [[Following options controls additional features for Quest King addon. Settings are character based.
-Due to the way of how that addon works it is mostly impossible to hook into its functions.
-Affected options are:
-- Tooltip positioning and scale
-- Clicks processing
-- Quest tagging
-- Award frame is now following Objective tracker opions of ElvUI
-- Quest names are following header settings from S&L's objective tracker skin
-- Quest King's position is now controlled by ElvUI's objectives mover
-- A lot of lines are now pulled from the client instead of being hardcoded
-- Tracked quest icon is larger]]
-L["Tooltip Anchor"] = true
-L["Tooltip Scale"] = true
-L["Quest Type Indications"] = true
-L["Clicks Registration"] = true
-L["SLE_SKINS_QUESTKING_TEMPLATE_DESC"] = [[|cff9482c9Quest King|r
-Original Quest King's controls:
-Left Click to open quest info
-Alt + Right Click to untrack
-Alt + Left Click to collapce quest
-Right Click to set quest watch
-
-|cff9482c9Blizzlike|r
-Controls of standart Blizzard quest log:
-Left Click to open quest info
-Shift + Left Click to untrack
-Right Click to set uest follow
-Ctrl + Left Click to collapce]]
-L["SLE_QUESTKING_Required"] = "  Required: "
 L["ElvUI Objective Tracker"] = true
 L["ElvUI Skins"] = true
 L["As List"] = true

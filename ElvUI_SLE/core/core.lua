@@ -99,7 +99,6 @@ local _CompList = {
 	"oRA3",
 	"ElvUI_CustomTweaks",
 	"ElvUI_MerathilisUI",
-	"QuestKing",
 	"ElvUI_Enhanced",
 	"DejaCharacterStats",
 	"ElvUI_ExtraActionBars",

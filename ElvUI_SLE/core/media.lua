@@ -50,10 +50,6 @@ function M:SetBlizzFonts()
 		--QuestFont_Large:SetFont(E.LSM:Fetch('font', "Homespun"), 12, "") -- No idea what that is for
 		_G["NumberFont_Shadow_Med"]:SetFont(E.LSM:Fetch('font', db.editbox.font), db.editbox.size, db.editbox.outline) --Chat editbox
 		--Objective Frame
-		if SLE._Compatibility["QuestKing"] and E.private.sle.skins.QuestKing.enable then
-			_G["QuestKing"]:UpdateTrackerQuests()
-			_G["QuestKing"]:UpdateTrackerAchievements()
-		end
 		if not SLE._Compatibility["ElvUI_MerathilisUI"] or (SLE._Compatibility["ElvUI_MerathilisUI"] and not E.private.muiSkins.blizzard.objectivetracker) then
 			local COLOR
 			if E.db.sle.skins.objectiveTracker.classHeader then
