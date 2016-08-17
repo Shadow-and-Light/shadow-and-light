@@ -177,6 +177,9 @@ V["sle"] = {
 			["style"] = "Default",
 			["subpages"] = 2,
 		},
+		["questguru"] = {
+			["removeParchment"] = false,
+		},
 	},
 	["uibuttons"] = {
 		["style"] = "classic",

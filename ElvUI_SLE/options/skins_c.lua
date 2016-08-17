@@ -84,7 +84,7 @@ local function configTable()
 						type = "toggle",
 						name = L["Underline"],
 						desc = L["Creates a cosmetic line under objective headers."],
-						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or SLE._Compatibility["QuestKing"] end,
+						disabled = function() return not E.private.sle.skins.objectiveTracker.enable end,
 						get = function(info) return E.db.sle.skins.objectiveTracker[ info[#info] ] end,
 						set = function(info, value) E.db.sle.skins.objectiveTracker[ info[#info] ] = value; Sk:Update_ObjectiveTrackerUnderlinesVisibility() end,
 					},
@@ -92,7 +92,7 @@ local function configTable()
 						type = 'color',
 						order = 8,
 						name = L["Underline Color"],
-						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.db.sle.skins.objectiveTracker.underline or E.db.sle.skins.objectiveTracker.underlineClass or SLE._Compatibility["QuestKing"] end,
+						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.db.sle.skins.objectiveTracker.underline or E.db.sle.skins.objectiveTracker.underlineClass  end,
 						get = function(info)
 							local t = E.db.sle.skins.objectiveTracker[ info[#info] ]
 							local d = P.sle.skins.objectiveTracker[info[#info]]
@@ -109,7 +109,7 @@ local function configTable()
 						order = 9,
 						type = "toggle",
 						name = L["Class Colored Underline"],
-						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.db.sle.skins.objectiveTracker.underline or SLE._Compatibility["QuestKing"] end,
+						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.db.sle.skins.objectiveTracker.underline end,
 						get = function(info) return E.db.sle.skins.objectiveTracker[ info[#info] ] end,
 						set = function(info, value) E.db.sle.skins.objectiveTracker[ info[#info] ] = value; Sk:Update_ObjectiveTrackerUnderlinesColor() end,
 					},
@@ -118,7 +118,7 @@ local function configTable()
 						type = 'range',
 						name = L["Underline Height"],
 						min = 1, max = 10, step = 1,
-						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker or SLE._Compatibility["QuestKing"] end,
+						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
 					},
 					space4 = {
 						order = 11,
@@ -260,6 +260,23 @@ local function configTable()
 			},
 		},
 	}
+
+	if T.IsAddOnLoaded("QuestGuru") then
+		E.Options.args.sle.args.skins.args.QuestGuru = {
+			order = 12,
+			type = "group",
+			name = "QuestGuru",
+			get = function(info) return E.private.sle.skins.questguru[ info[#info] ] end,
+			set = function(info, value) E.private.sle.skins.questguru[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+			args = {
+				removeParchment = {
+					order = 1,
+					type = "toggle",
+					name = L["Remove Parchment"],
+				},
+			},
+		}
+	end
 end
 
 T.tinsert(SLE.Configs, configTable)

@@ -18,7 +18,7 @@ local function LoadSkin()
 
 	S:HandleScrollBar(_G["QuestGuruScrollFrameScrollBar"])
 	S:HandleScrollBar(_G["QuestGuruDetailScrollFrameScrollBar"])
-	if (E.db.sle.skins.questguru.removeParchment) then
+	if (E.private.sle.skins.questguru.removeParchment) then
 		_G["QuestGuruDetailScrollFrame"]:StripTextures();
 	else
 		_G["QuestGuruDetailScrollFrame"].DetailBG:SetTexture("Interface\\QuestFrame\\QuestBG")
