@@ -685,6 +685,7 @@ L["Item Name Outline"] = true
 L["Item Info Font"] = true
 L["Item Info Size"] = true
 L["Item Info Outline"] = true
+L["Remove Parchment"] = true
 
 --Toolbars
 L["We are sorry, but you can't do this now. Try again after the end of this combat."] = true
