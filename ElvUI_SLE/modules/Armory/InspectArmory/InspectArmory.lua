@@ -712,7 +712,13 @@ function IA:CreateInspectFrame()
 			
 			Slot.Highlight = Slot:CreateTexture('Frame', nil, self)
 			Slot.Highlight:SetInside()
-			Slot.Highlight:SetTexture(1, 1, 1, 0.3)
+			Slot.Highlight:SetTexture("Interface\\AddOns\\ElvUI_SLE\\modules\\Armory\\Media\\Textures\\Gradation")
+			if Slot.Direction == 'LEFT' then
+				Slot.Highlight:SetTexCoord(0, 1, 0, 1)
+			else
+				Slot.Highlight:SetTexCoord(1, 0, 0, 1)
+			end
+			Slot.Highlight:SetAlpha(0.8)
 			Slot:SetHighlightTexture(Slot.Highlight)
 			
 			KF:TextSetting(Slot, nil, { Tag = 'ItemLevel', FontSize = 10, FontStyle = 'OUTLINE', }, 'TOP', Slot, 0, -3)
