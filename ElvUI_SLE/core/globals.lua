@@ -67,6 +67,15 @@ SLE.SpecialChatIcons = {
 			["Shaylith"] = darth,
 			["Yandria"] = darth,
 			["Ardon"] = darth,
+			["Lelora"] = darth,
+			["Illia"] = darth,
+			["Jumahko"] = darth,
+			["Jilti"] = darth,
+			["Hweiru"] = darth,
+			["Maggas"] = darth,
+			["Faanna"] = darth,
+			["Naliss"] = darth,
+			["Ahkara"] = darth,
 		},
 		["TheSha'tar"] = {
 			["Lelora"] = darth,
@@ -90,6 +99,7 @@ SLE.SpecialChatIcons = {
 			["Келинира"] = darth,
 			["Крениг"] = darth,
 			["Мейжи"] = darth,
+			["Тисандри"] = darth,
 			--Darth's friends
 			["Леани"] = friend,
 			["Кайрия"] = friend,
