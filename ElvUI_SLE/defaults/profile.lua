@@ -462,6 +462,7 @@ P["sle"] = {
 			["enable"] = false,
 			["xoffset"] = -10,
 			["yoffset"] = 0,
+			["onlyNumber"] = false,
 			["colors"] = {
 				["lfr"] = {r = 0.32,g = 0.91,b = 0.25},
 				["normal"] = {r = 0.09,g = 0.51,b = 0.82},

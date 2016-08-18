@@ -106,7 +106,7 @@ function I:GenerateText(event, guild, force)
 	else
 		local _, _, difficulty, difficultyName, _, _, _, _, instanceGroupSize = T.GetInstanceInfo()
 		local r, g, b = I:GetColor(difficulty)
-		if (difficulty >= 3 and difficulty <= 7) or difficulty == 9 then
+		if (difficulty >= 3 and difficulty <= 7) or difficulty == 9 or E.db.sle.minimap.instance.onlyNumber then
 			text = T.format("|cff%02x%02x%02x%s|r", r, g, b, instanceGroupSize)
 		else
 			difficultyName = sub(difficultyName, 1 , 1)

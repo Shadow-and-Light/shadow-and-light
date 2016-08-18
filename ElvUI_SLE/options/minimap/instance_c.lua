@@ -27,8 +27,15 @@ local function configTable()
 				order = 4, type = 'range', name = L["Y-Offset"], min = -300, max = 300, step = 1,
 				disabled = function() return not E.private.general.minimap.enable or not E.db.sle.minimap.instance.enable end,
 			},
-			fontGroup = {
+			onlyNumber = {
 				order = 5,
+				type = 'toggle',
+				name = L["Only Number"],
+				disabled = function() return not E.private.general.minimap.enable or not E.db.sle.minimap.instance.enable end,
+				set = function(info, value) E.db.sle.minimap.instance[ info[#info] ] = value; I:GenerateText(nil, nil, true) end,
+			},
+			fontGroup = {
+				order = 6,
 				type = "group",
 				name = L["Fonts"],
 				guiInline = true,

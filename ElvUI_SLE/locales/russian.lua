@@ -553,6 +553,7 @@ L["By default menu's width will be equal to the location panel width. Checking t
 L["Justify Text"] = "Выравнивание тектса"
 L["Hearthstone Location"] = "Привязка камня"
 L["Show the name on location your Heathstone is bound to."] = "Показывать имя локации, к которой привязан камень возвращения."
+L["Only Number"] = "Только цифры"
 
 --Miscs
 L["Error Frame"] = "Фрейм ошибок"

@@ -561,6 +561,7 @@ L["By default menu's width will be equal to the location panel width. Checking t
 L["Justify Text"] = true
 L["Hearthstone Location"] = true
 L["Show the name on location your Heathstone is bound to."] = true
+L["Only Number"] = true
 
 
 --Miscs
