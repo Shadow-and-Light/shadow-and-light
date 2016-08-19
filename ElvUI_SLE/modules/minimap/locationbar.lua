@@ -317,7 +317,7 @@ function LP:ItemList(check)
 				local tmp = {}
 				local cd = DD:GetCooldown("Item", data.secure.ID)
 				local HSplace = ""
-				if LP.db.portals.HSplace and data.secure.ID == 6948 then
+				if LP.db.portals.HSplace and (data.secure.ID == 6948 or data.secure.ID == 64488) then
 					HSplace = " - "..GetBindLocation()
 				end
 				E:CopyTable(tmp, data)
