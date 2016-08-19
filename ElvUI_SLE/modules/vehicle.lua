@@ -133,8 +133,8 @@ function EVB:Initialize()
 	EVB:BarSize()
 
 	bar:SetTemplate("Transparent");
-	bar:CreateShadow();
 	if E.private.sle.module.shadows.vehicle then
+		bar:CreateShadow();
 		ES:RegisterShadow(bar.shadow);
 	end
 
