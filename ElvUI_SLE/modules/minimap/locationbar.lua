@@ -16,6 +16,7 @@ local ChatEdit_ChooseBoxForSend, ChatEdit_ActivateChat = ChatEdit_ChooseBoxForSe
 local UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK = UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK
 local DUNGEON_FLOOR_DALARAN1 = DUNGEON_FLOOR_DALARAN1
 local PlayerHasToy = PlayerHasToy
+local IsToyUsable = C_ToyBox.IsToyUsable
 LP.CDformats = {
 	["DEFAULT"] = [[ (%s |TInterface\FriendsFrame\StatusIcon-Away:16|t)]],
 	["DEFAULT_ICONFIRST"] = [[ (|TInterface\FriendsFrame\StatusIcon-Away:16|t %s)]],
@@ -308,7 +309,7 @@ end
 function LP:ItemList(check)
 	for i = 1, #LP.PortItems do
 		local data = LP.PortItems[i]
-		if (SLE:BagSearch(data.secure.ID) or PlayerHasToy(data.secure.ID)) and T.IsUsableItem(data.secure.ID) then
+		if (SLE:BagSearch(data.secure.ID) or PlayerHasToy(data.secure.ID)) and IsToyUsable(data.secure.ID) then
 			if check then 
 				T.tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
 				return true 
