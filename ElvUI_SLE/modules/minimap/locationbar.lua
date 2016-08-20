@@ -1,7 +1,7 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local M = E:GetModule('Minimap')
 local MM, DD = SLE:GetModules("Minimap", "Dropdowns")
-local LP = SLE:NewModule("LocationPanel", "AceTimer-3.0")
+local LP = SLE:NewModule("LocationPanel", "AceTimer-3.0", "AceEvent-3.0")
 local loc_panel
 local COORDS_WIDTH = 35 -- Coord panels width
 
