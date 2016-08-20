@@ -108,6 +108,11 @@ function EVB:BarSize()
 	bar:SetHeight(self.size + 4);
 end
 
+function EVB:BarBackdrop()
+	if not self.bar then return end
+	self.bar:SetTemplate(E.db.sle.actionbars.vehicle.template)
+end
+
 function EVB:Initialize()
 	if not SLE.initialized then return end
 	if not E.private.sle.vehicle.enable or not E.private.actionbar.enable then return end;
@@ -131,8 +136,7 @@ function EVB:Initialize()
 	self.bar = bar;
 
 	EVB:BarSize()
-
-	bar:SetTemplate("Transparent");
+	EVB:BarBackdrop()
 	if E.private.sle.module.shadows.vehicle then
 		bar:CreateShadow();
 		ES:RegisterShadow(bar.shadow);
@@ -169,6 +173,12 @@ function EVB:Initialize()
 
 	AB:UpdateButtonConfig(bar, bindButtons);
 	AB:PositionAndSizeBar("bar1")
+	
+	function EVB:ForUpdateAll()
+		EVB:ButtonsSize()
+		EVB:BarSize()
+		EVB:BarBackdrop()
+	end
 end
 
 SLE:RegisterModule(EVB:GetName())
