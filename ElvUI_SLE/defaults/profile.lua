@@ -28,6 +28,7 @@ P["sle"] = {
 			["template"] = "Default",
 			["alpha"] = 1,
 			["clickthrough"] = true,
+			["visibility"] = "show",
 		},
 		["bg2"] = {
 			["enabled"] = false,
@@ -41,6 +42,7 @@ P["sle"] = {
 			["template"] = "Default",
 			["alpha"] = 1,
 			["clickthrough"] = false,
+			["visibility"] = "show",
 		},
 		["bg3"] = {
 			["enabled"] = false,
@@ -54,6 +56,7 @@ P["sle"] = {
 			["template"] = "Default",
 			["alpha"] = 1,
 			["clickthrough"] = false,
+			["visibility"] = "show",
 		},
 		["bg4"] = {
 			["enabled"] = false,
@@ -67,6 +70,7 @@ P["sle"] = {
 			["template"] = "Default",
 			["alpha"] = 1,
 			["clickthrough"] = true,
+			["visibility"] = "show",
 		},
 	},
 		--Bags

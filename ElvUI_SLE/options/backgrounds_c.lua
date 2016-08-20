@@ -90,6 +90,14 @@ local function configTable()
 					get = function(info) return E.db.sle.backgrounds["bg"..i].alpha end,
 					set = function(info, value) E.db.sle.backgrounds["bg"..i].alpha = value; BG:Alpha(i) end,
 				},
+				visibility = {
+					order = 13,
+					type = 'input',
+					width = 'full',
+					name = L["Visibility State"],
+					get = function(info) return E.db.sle.backgrounds["bg"..i].visibility end,
+					set = function(info, value) E.db.sle.backgrounds["bg"..i].visibility = value; BG:FramesVisibility(i) end,
+				},
 			},
 		}
 		return config

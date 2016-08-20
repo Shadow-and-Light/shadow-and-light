@@ -53,9 +53,11 @@ function BG:FramesVisibility(i)
 	if BG.db["bg"..i].enabled then
 		BG["Frame_"..i]:Show()
 		E:EnableMover(BG["Frame_"..i].mover:GetName())
+		RegisterStateDriver(BG["Frame_"..i], "visibility", BG.db["bg"..i].visibility)
 	else
 		BG["Frame_"..i]:Hide()
 		E:DisableMover(BG["Frame_"..i].mover:GetName())
+		UnregisterStateDriver(BG["Frame_"..i], "visibility")
 	end
 end
 

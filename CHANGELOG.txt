@@ -6,7 +6,7 @@ Additions:
 - Quick action option for UI Buttons' addon section received some love = more variants 
 - Added an option to show only numbers in instance indicator
 - Location panel menu now contains challenge mode teleports
-- UI BUttons now have visibility state option. Works like actionbar visibility.
+- UI BUttons and Background panels now have visibility state option. Works like actionbar visibility.
 - Added an option to select background template for vehicle bar.
 Fixes:
 - Attempted to fix error with S&L guild dt when one of guild members happen to be in the middle of actual nowhere
