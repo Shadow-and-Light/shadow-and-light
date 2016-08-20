@@ -138,7 +138,6 @@ end
 function RM:Visibility()
 	local db = E.db.sle.raidmarkers
 	if db.enable then
-		-- RegisterStateDriver(self.frame, "visibility", E.db.sle.raidmarkers.visibility == 'DEFAULT' and '[noexists, nogroup] hide; show' or E.db.sle.raidmarkers.visibility == 'ALWAYS' and '[petbattle] hide; show' or E.db.sle.raidmarkers.visibility == 'CUSTOM' and E.db.sle.raidmarkers.customVisibility or '[group] show; [petbattle] hide; hide')
 		RegisterStateDriver(self.frame, "visibility", db.visibility == 'CUSTOM' and db.customVisibility or RM.VisibilityStates[db.visibility])
 		E:EnableMover(self.frame.mover:GetName())
 	else
