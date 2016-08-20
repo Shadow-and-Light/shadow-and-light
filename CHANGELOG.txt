@@ -1,3 +1,29 @@
+v3.13
+A number of files were deleted in this release. We would suggest to manually remove S&L's folder and install it again instead of just auto updating.
+
+Additions:
+- Added QuestGuru skin
+- Quick action option for UI Buttons' addon section received some love = more variants 
+- Added an option to show only numbers in instance indicator
+- Location panel menu now contains challenge mode teleports
+- UI BUttons now have visibility state option. Works like actionbar visibility.
+- Added an option to select background template for vehicle bar.
+Fixes:
+- Attempted to fix error with S&L guild dt when one of guild members happen to be in the middle of actual nowhere
+- Fixed error in item level dt cause by empty slots
+- Enchant warnings for weapons made their return bt are now limited to ilvl <= 750
+- Inspect highlight texture is now less green, way less green
+- Always show tooltip option will now not lock the respective cvar if ElvUI tooltip is disabled
+- Attempted to fix an error with paladin talent in Armory
+- DPS spam filter should now capture Detailes! once again
+- Fixed random error caused location panel menu to not show toys for some people
+- Removed double shadow from vehicle bar
+Changes:
+- Tweaked viluals for legion invasion progress bar
+- Frame level of the UI Buttons mover is now over 9k = not overlaped by chat panels
+- Skinned mail icon no longer has backdrop is not on the button bar
+
+
 v3.12 08/14/2016
 Fixes:
 - Inspect Armory options for gems are now changeable again
