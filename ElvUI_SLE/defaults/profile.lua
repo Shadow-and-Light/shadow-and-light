@@ -6,6 +6,7 @@ P["sle"] = {
 		["vehicle"] = {
 			["buttonsize"] = 40,
 			["buttonspacing"] = 2,
+			["template"] = "Transparent",
 		},
 	},
 	--Auras
@@ -661,6 +662,7 @@ P["sle"] = {
 		["anchor"] = "TOPRIGHT",
 		["xoffset"] = 0,
 		["yoffset"] = 0,
+		["visibility"] = "show",
 		["customroll"] = {
 			["min"] = "1",
 			["max"] = "50",
