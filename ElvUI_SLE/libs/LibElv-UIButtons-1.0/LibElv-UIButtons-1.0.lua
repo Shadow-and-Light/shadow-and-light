@@ -324,11 +324,13 @@ local function ToggleShow(menu)
 	if not menu.db.enable then
 		menu:Hide()
 		E:DisableMover(menu.mover:GetName())
+		UnregisterStateDriver(menu, "visibility")
 	else
 		menu:Show()
 		menu:UpdateMouseOverSetting()
 		menu:UpdateBackdrop()
 		E:EnableMover(menu.mover:GetName())
+		if menu.db.visibility then RegisterStateDriver(menu, "visibility", menu.db.visibility) end
 	end
 end
 

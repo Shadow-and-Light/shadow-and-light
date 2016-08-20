@@ -218,8 +218,17 @@ local function configTable()
 				get = function(info) return E.db.sle.uibuttons.customroll.max end,
 				set = function(info, value) E.db.sle.uibuttons.customroll.max = value; end,
 			},
-			Config = {
+			visibility = {
 				order = 19,
+				type = 'input',
+				width = 'full',
+				name = L["Visibility State"],
+				disabled = function() return not E.db.sle.uibuttons.enable end,
+				get = function(info) return E.db.sle.uibuttons.visibility end,
+				set = function(info, value) E.db.sle.uibuttons.visibility = value; Bar:ToggleShow() end,
+			},
+			Config = {
+				order = 30,
 				name = "\"C\" "..L["Quick Action"],
 				type = "group",
 				guiInline = true,
@@ -250,7 +259,7 @@ local function configTable()
 				},
 			},
 			Addon = {
-				order = 20,
+				order = 31,
 				name = "\"A\" "..L["Quick Action"],
 				type = "group",
 				guiInline = true,
@@ -278,7 +287,7 @@ local function configTable()
 				},
 			},
 			Status = {
-				order = 21,
+				order = 32,
 				name = "\"S\" "..L["Quick Action"],
 				type = "group",
 				guiInline = true,
@@ -307,7 +316,7 @@ local function configTable()
 				},
 			},
 			Roll = {
-				order = 22,
+				order = 33,
 				name = "\"R\" "..L["Quick Action"],
 				type = "group",
 				guiInline = true,
