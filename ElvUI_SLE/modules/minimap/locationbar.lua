@@ -421,6 +421,14 @@ function LP:PopulateDropdown()
 	SLE:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 0, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
 end
 
+function LP:PLAYER_REGEN_DISABLED()
+	if LP.db.combathide then loc_panel:Hide() end
+end
+
+function LP:PLAYER_REGEN_ENABLED()
+	if LP.db.enable then loc_panel:Show() end
+end
+
 function LP:Initialize()
 	LP.db = E.db.sle.minimap.locPanel
 	if not SLE.initialized then return end
@@ -439,6 +447,9 @@ function LP:Initialize()
 		LP:Fonts()
 		LP:Toggle()
 	end
+
+	LP:RegisterEvent("PLAYER_REGEN_DISABLED")
+ 	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
 end
 
 SLE:RegisterModule(LP:GetName())

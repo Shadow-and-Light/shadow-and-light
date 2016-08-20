@@ -495,6 +495,7 @@ P["sle"] = {
 			["zoneText"] = true,
 			["colorType"] = "REACTION",
 			["customColor"] = {r = 1, g = 1, b = 1 },
+			["combathide"] = false,
 			["portals"] = {
 				["enable"] = true,
 				["HSplace"] = true,

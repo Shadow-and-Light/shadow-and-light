@@ -112,8 +112,14 @@ local function configTable()
 				order = 11,
 				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; end,
 			},
-			portals = {
+			combathide = {
 				order = 12,
+				type = "toggle",
+				name = L["Hide In Combat"],
+				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; end,
+			},
+			portals = {
+				order = 20,
 				type = "group",
 				name = L["Relocation Menu"],
 				guiInline = true,
@@ -168,7 +174,7 @@ local function configTable()
 				},
 			},
 			fontGroup = {
-				order = 13,
+				order = 30,
 				type = "group",
 				name = L["Fonts"],
 				guiInline = true,

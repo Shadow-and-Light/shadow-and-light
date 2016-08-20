@@ -8,6 +8,7 @@ Additions:
 - Location panel menu now contains challenge mode teleports
 - UI BUttons and Background panels now have visibility state option. Works like actionbar visibility.
 - Added an option to select background template for vehicle bar.
+- Added an option to hide in combat for location panel
 Fixes:
 - Attempted to fix error with S&L guild dt when one of guild members happen to be in the middle of actual nowhere
 - Fixed error in item level dt cause by empty slots
