@@ -208,7 +208,7 @@ local function SkinButton(Button)
 		elseif Name == 'MiniMapMailFrame' then
 			local Frame = CreateFrame('Frame', 'MailDummyFrame', E.private.sle.minimap.mapicons.barenable and SMB.bar or Minimap)
 			Frame:Size(E.db.sle.minimap.mapicons.iconsize)
-			Frame:SetTemplate()
+			Frame:SetTemplate(E.private.sle.minimap.mapicons.barenable and "Default" or "NoBackdrop")
 			Frame.Icon = Frame:CreateTexture(nil, 'ARTWORK')
 			Frame.Icon:SetPoint('CENTER')
 			Frame.Icon:Size(18)
