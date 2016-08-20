@@ -132,6 +132,25 @@ LP.Spells = {
 			[12] = {text = T.GetSpellInfo(224871),icon = SLE:GetIconFromID("spell", 224871),secure = {buttonType = "spell",ID = 224871}},-- P:Dalaran - BI
 		},
 	},
+	["challenge"] = {
+		[1] = {text = T.GetSpellInfo(131204),icon = SLE:GetIconFromID("spell", 131204),secure = {buttonType = "spell",ID = 131204}},-- Jade serpent
+		[2] = {text = T.GetSpellInfo(131205),icon = SLE:GetIconFromID("spell", 131205),secure = {buttonType = "spell",ID = 131205}}, -- Brew
+		[3] = {text = T.GetSpellInfo(131206),icon = SLE:GetIconFromID("spell", 131206),secure = {buttonType = "spell",ID = 131206}},-- Shado-pan
+		[4] = {text = T.GetSpellInfo(131222),icon = SLE:GetIconFromID("spell", 131222),secure = {buttonType = "spell",ID = 131222}},-- Mogu
+		[5] = {text = T.GetSpellInfo(131225),icon = SLE:GetIconFromID("spell", 131225),secure = {buttonType = "spell",ID = 131225}},-- Setting sun
+		[6] = {text = T.GetSpellInfo(131231),icon = SLE:GetIconFromID("spell", 131231),secure = {buttonType = "spell",ID = 131231}},-- Scarlet blade
+		[7] = {text = T.GetSpellInfo(131229),icon = SLE:GetIconFromID("spell", 131229),secure = {buttonType = "spell",ID = 131229}},-- scarlet mitre
+		[8] = {text = T.GetSpellInfo(131232),icon = SLE:GetIconFromID("spell", 131232),secure = {buttonType = "spell",ID = 131232}},-- Scholo
+		[9] = {text = T.GetSpellInfo(131228),icon = SLE:GetIconFromID("spell", 131228),secure = {buttonType = "spell",ID = 131228}},-- Black ox
+		[10] = {text = T.GetSpellInfo(159895),icon = SLE:GetIconFromID("spell", 159895),secure = {buttonType = "spell",ID = 159895}},-- bloodmaul
+		[11] = {text = T.GetSpellInfo(159902),icon = SLE:GetIconFromID("spell", 159902),secure = {buttonType = "spell",ID = 159902}},-- burning mountain
+		[12] = {text = T.GetSpellInfo(159899),icon = SLE:GetIconFromID("spell", 159899),secure = {buttonType = "spell",ID = 159899}},-- crescent moon
+		[13] = {text = T.GetSpellInfo(159900),icon = SLE:GetIconFromID("spell", 159900),secure = {buttonType = "spell",ID = 159900}},-- dark rail
+		[14] = {text = T.GetSpellInfo(159896),icon = SLE:GetIconFromID("spell", 159896),secure = {buttonType = "spell",ID = 159896}},-- iron prow
+		[15] = {text = T.GetSpellInfo(159898),icon = SLE:GetIconFromID("spell", 159898),secure = {buttonType = "spell",ID = 159898}},-- Skies
+		[16] = {text = T.GetSpellInfo(159901),icon = SLE:GetIconFromID("spell", 159901),secure = {buttonType = "spell",ID = 159901}},-- Verdant
+		[17] = {text = T.GetSpellInfo(159897),icon = SLE:GetIconFromID("spell", 159897),secure = {buttonType = "spell",ID = 159897}},-- Vigilant
+	},
 }
 
 local function CreateCoords()
@@ -303,6 +322,7 @@ function LP:PopulateItems()
 		LP.PortItems[7] = {text = T.GetItemInfo(112059), icon = SLE:GetIconFromID("item", 112059),secure = {buttonType = "item",ID = 112059}} --Wormhole Centrifuge
 		LP.PortItems[8] = {text = T.GetItemInfo(128502), icon = SLE:GetIconFromID("item", 128502),secure = {buttonType = "item",ID = 128502}} --Hunter's Seeking Crystal
 		LP.PortItems[9] = {text = T.GetItemInfo(128503), icon = SLE:GetIconFromID("item", 128503),secure = {buttonType = "item",ID = 128503}} --Master Hunter's Seeking Crystal
+		LP.PortItems[10] = {text = T.GetItemInfo(18986), icon = SLE:GetIconFromID("item", 18986),secure = {buttonType = "item",ID = 18986}} --Safe transporter
 	end
 end
 
@@ -361,9 +381,20 @@ function LP:PopulateDropdown()
 	if LP:ItemList(true) then
 		LP:ItemList() 
 	end
-	if LP:SpellList(LP.Spells[E.myclass], nil, true) or E.myclass == "MAGE" then
+	if LP:SpellList(LP.Spells[E.myclass], nil, true) or  LP:SpellList(LP.Spells.challenge, nil, true) or E.myclass == "MAGE" then
 		T.tinsert(LP.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
 		LP:SpellList(LP.Spells[E.myclass], LP.MainMenu)
+		if LP:SpellList(LP.Spells.challenge, nil, true) then
+			T.tinsert(LP.MainMenu, {text = CHALLENGE_MODE.." >>",icon = SLE:GetIconFromID("achiev", 6378), func = function() 
+				T.twipe(LP.SecondaryMenu)
+				MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
+				T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() LP:PopulateDropdown() end})
+				T.tinsert(LP.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
+				LP:SpellList(LP.Spells.challenge, LP.SecondaryMenu)
+				T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() ToggleFrame(LP.Menu2) end})
+				SLE:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 0, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
+			end})
+		end
 		if E.myclass == "MAGE" then
 			T.tinsert(LP.MainMenu, {text = L["Teleports"].." >>", icon = SLE:GetIconFromID("spell", 53140), func = function() 
 				T.twipe(LP.SecondaryMenu)
