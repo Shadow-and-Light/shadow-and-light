@@ -45,24 +45,24 @@ local function GetDirection()
 	return anchor, point
 end
 
---{ItemID, ButtonText}
+--{ItemID, ButtonText, isToy}
 LP.PortItems = {
 	{6948}, --Hearthstone
-	{64488}, --The Innkeeper's Daughter
+	{64488, nil, true}, --The Innkeeper's Daughter
 	{110560, GARRISON_LOCATION_TOOLTIP}, --Garrison Hearthstone
 	{128353}, --Admiral's Compass
 	{140192, DUNGEON_FLOOR_DALARAN1}, --Dalaran Hearthstone
 	{37863}, --Grim Guzzler
 	{52251}, --Jaina's Locket
-	{48933}, --Wormhole Generator: Northrend
-	{87215}, --Wormhole Generator: Pandaria
-	{112059}, --Wormhole Centrifuge
-	{18986}, --Ultrasafe Transporter: Gadgetzan
-	{30544}, --Ultrasafe Transporter: Toshley's Station
-	{18984}, --Dimensional Ripper - Everlook
-	{30542}, --Dimensional Ripper - Area 52
+	{48933, nil, true}, --Wormhole Generator: Northrend
+	{87215, nil, true}, --Wormhole Generator: Pandaria
+	{112059, nil, true}, --Wormhole Centrifuge
+	{18986, nil, true}, --Ultrasafe Transporter: Gadgetzan
+	{30544, nil, true}, --Ultrasafe Transporter: Toshley's Station
+	{18984, nil, true}, --Dimensional Ripper - Everlook
+	{30542, nil, true}, --Dimensional Ripper - Area 52
 	{58487}, --Potion of Deepholm
-	{43824}, --The Schools of Arcane Magic - Mastery
+	{43824, nil, true}, --The Schools of Arcane Magic - Mastery
 	{64457}, --The Last Relic of Argus
 	{128502}, --Hunter's Seeking Crystal
 	{128503}, --Master Hunter's Seeking Crystal
@@ -335,8 +335,8 @@ function LP:PopulateItems()
 		E:Delay(2, LP.PopulateItems)
 	else
 		for i = 1, #LP.PortItems do
-			local id, name = unpack(LP.PortItems[i])
-			LP.PortItems[i] = {text = name or T.GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id}}
+			local id, name, toy = unpack(LP.PortItems[i])
+			LP.PortItems[i] = {text = name or T.GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true}
 		end
 	end
 end
@@ -357,7 +357,7 @@ function LP:ItemList(check)
 				end
 				E:CopyTable(tmp, data)
 				if cd then
-					tmp.text = tmp.text..HSplace..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
+					tmp.text = "|cff636363"..tmp.text..HSplace.."|r"..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
 				else
 					tmp.text = tmp.text..HSplace
 				end
@@ -390,7 +390,11 @@ end
 
 function LP:PopulateDropdown()
 	if LP.Menu2:IsShown() then ToggleFrame(LP.Menu2) end
-	T.twipe(LP.MainMenu)
+	if #LP.MainMenu > 0 then
+		T.twipe(LP.MainMenu)
+		SLE:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
+		return
+	end
 	local anchor, point = GetDirection()
 	local MENU_WIDTH
 	if LP:ItemList(true) then
@@ -403,10 +407,10 @@ function LP:PopulateDropdown()
 			T.tinsert(LP.MainMenu, {text = CHALLENGE_MODE.." >>",icon = SLE:GetIconFromID("achiev", 6378), func = function() 
 				T.twipe(LP.SecondaryMenu)
 				MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
-				T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() LP:PopulateDropdown() end})
+				T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() T.twipe(LP.MainMenu); LP:PopulateDropdown() end})
 				T.tinsert(LP.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
 				LP:SpellList(LP.Spells.challenge, LP.SecondaryMenu)
-				T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() ToggleFrame(LP.Menu2) end})
+				T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
 				SLE:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 0, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
 			end})
 		end
@@ -414,26 +418,26 @@ function LP:PopulateDropdown()
 			T.tinsert(LP.MainMenu, {text = L["Teleports"].." >>", icon = SLE:GetIconFromID("spell", 53140), func = function() 
 				T.twipe(LP.SecondaryMenu)
 				MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
-				T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() LP:PopulateDropdown() end})
+				T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() T.twipe(LP.MainMenu); LP:PopulateDropdown() end})
 				T.tinsert(LP.SecondaryMenu, {text = L["Teleports"]..":", title = true, nohighlight = true})
 				LP:SpellList(LP.Spells["teleports"][faction], LP.SecondaryMenu)
-				T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() ToggleFrame(LP.Menu2) end})
+				T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
 				SLE:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 0, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
 			end})
 			T.tinsert(LP.MainMenu, {text = L["Portals"].." >>",icon = SLE:GetIconFromID("spell", 53142), func = function() 
 				T.twipe(LP.SecondaryMenu)
 				MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
-				T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() LP:PopulateDropdown() end})
+				T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() T.twipe(LP.MainMenu); LP:PopulateDropdown() end})
 				T.tinsert(LP.SecondaryMenu, {text = L["Portals"]..":", title = true, nohighlight = true})
 				LP:SpellList(LP.Spells["portals"][faction], LP.SecondaryMenu)
-				T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() ToggleFrame(LP.Menu2) end})
+				T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
 				SLE:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 0, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
 			end})
 		end
 	end
-	T.tinsert(LP.MainMenu, {text = CLOSE, title = true, ending = true, func = function() ToggleFrame(LP.Menu1) end})
+	T.tinsert(LP.MainMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu1) end})
 	MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
-	SLE:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 0, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
+	SLE:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
 end
 
 function LP:PLAYER_REGEN_DISABLED()
