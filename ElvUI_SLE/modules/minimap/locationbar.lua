@@ -220,6 +220,8 @@ function LP:CreateLocationPanel()
 	LP.Menu2:SetTemplate("Transparent", true)
 	DD:RegisterMenu(LP.Menu1)
 	DD:RegisterMenu(LP.Menu2)
+	LP.Menu1:SetScript("OnHide", function() T.twipe(LP.MainMenu) end)
+	LP.Menu2:SetScript("OnHide", function() T.twipe(LP.SecondaryMenu) end)
 end
 
 function LP:OnClick(btn)
@@ -358,7 +360,7 @@ function LP:ItemList(check)
 					HSplace = " - "..GetBindLocation()
 				end
 				E:CopyTable(tmp, data)
-				if cd then
+				if cd and T.tonumber(cd) > 1.5 then
 					tmp.text = "|cff636363"..tmp.text..HSplace.."|r"..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
 				else
 					tmp.text = tmp.text..HSplace
@@ -378,7 +380,7 @@ function LP:SpellList(list, dropdown, check)
 				return true 
 			else
 				local cd = DD:GetCooldown("Spell", data.secure.ID)
-				if cd then
+				if cd and T.tonumber(cd) > 1.5 then
 					E:CopyTable(tmp, data)
 					tmp.text = tmp.text..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
 					T.tinsert(dropdown, tmp)
@@ -393,7 +395,6 @@ end
 function LP:PopulateDropdown()
 	if LP.Menu2:IsShown() then ToggleFrame(LP.Menu2) end
 	if #LP.MainMenu > 0 then
-		T.twipe(LP.MainMenu)
 		SLE:DropDown(LP.MainMenu, LP.Menu1)
 		return
 	end
