@@ -12,9 +12,11 @@ local GetScreenHeight = GetScreenHeight
 local CreateFrame = CreateFrame
 local ToggleFrame = ToggleFrame
 local IsShiftKeyDown = IsShiftKeyDown
+local GetBindLocation = GetBindLocation
 local ChatEdit_ChooseBoxForSend, ChatEdit_ActivateChat = ChatEdit_ChooseBoxForSend, ChatEdit_ActivateChat
 local UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK = UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK
 local DUNGEON_FLOOR_DALARAN1 = DUNGEON_FLOOR_DALARAN1
+local CHALLENGE_MODE = CHALLENGE_MODE
 local PlayerHasToy = PlayerHasToy
 local IsToyUsable = C_ToyBox.IsToyUsable
 LP.CDformats = {
@@ -335,7 +337,7 @@ function LP:PopulateItems()
 		E:Delay(2, LP.PopulateItems)
 	else
 		for i = 1, #LP.PortItems do
-			local id, name, toy = unpack(LP.PortItems[i])
+			local id, name, toy = T.unpack(LP.PortItems[i])
 			LP.PortItems[i] = {text = name or T.GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true}
 		end
 	end
@@ -392,7 +394,7 @@ function LP:PopulateDropdown()
 	if LP.Menu2:IsShown() then ToggleFrame(LP.Menu2) end
 	if #LP.MainMenu > 0 then
 		T.twipe(LP.MainMenu)
-		SLE:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
+		SLE:DropDown(LP.MainMenu, LP.Menu1)
 		return
 	end
 	local anchor, point = GetDirection()
