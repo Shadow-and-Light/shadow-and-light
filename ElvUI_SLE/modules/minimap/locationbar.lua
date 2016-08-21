@@ -45,7 +45,28 @@ local function GetDirection()
 	return anchor, point
 end
 
-LP.PortItems = {}
+--{ItemID, ButtonText}
+LP.PortItems = {
+	{6948}, --Hearthstone
+	{64488}, --The Innkeeper's Daughter
+	{110560, GARRISON_LOCATION_TOOLTIP}, --Garrison Hearthstone
+	{128353}, --Admiral's Compass
+	{140192, DUNGEON_FLOOR_DALARAN1}, --Dalaran Hearthstone
+	{37863}, --Grim Guzzler
+	{52251}, --Jaina's Locket
+	{48933}, --Wormhole Generator: Northrend
+	{87215}, --Wormhole Generator: Pandaria
+	{112059}, --Wormhole Centrifuge
+	{18986}, --Ultrasafe Transporter: Gadgetzan
+	{30544}, --Ultrasafe Transporter: Toshley's Station
+	{18984}, --Dimensional Ripper - Everlook
+	{30542}, --Dimensional Ripper - Area 52
+	{58487}, --Potion of Deepholm
+	{43824}, --The Schools of Arcane Magic - Mastery
+	{64457}, --The Last Relic of Argus
+	{128502}, --Hunter's Seeking Crystal
+	{128503}, --Master Hunter's Seeking Crystal
+}
 LP.Spells = {
 	["DEATHKNIGHT"] = {
 		[1] = {text =  T.GetSpellInfo(50977),icon = SLE:GetIconFromID("spell", 50977),secure = {buttonType = "spell",ID = 50977}},
@@ -313,23 +334,17 @@ function LP:PopulateItems()
 	if noItem then
 		E:Delay(2, LP.PopulateItems)
 	else
-		LP.PortItems[1] = {text = T.GetItemInfo(6948), icon = SLE:GetIconFromID("item", 6948),secure = {buttonType = "item",ID = 6948}} --Hearthstone
-		LP.PortItems[2] = {text = T.GetItemInfo(64488), icon = SLE:GetIconFromID("item", 64488),secure = {buttonType = "item",ID = 64488}} -- The Innkeeper's Daughter
-		LP.PortItems[3] = {text = GARRISON_LOCATION_TOOLTIP, icon = SLE:GetIconFromID("item", 110560),secure = {buttonType = "item",ID = 110560}} --Garrison Hearthstone
-		LP.PortItems[4] = {text = DUNGEON_FLOOR_DALARAN1, icon = SLE:GetIconFromID("item", 140192),secure = {buttonType = "item",ID = 140192}} --Dalaran Hearthstone
-		LP.PortItems[5] = {text = T.GetItemInfo(48933), icon = SLE:GetIconFromID("item", 48933),secure = {buttonType = "item",ID = 48933}} --Wormhole Generator: Northrend
-		LP.PortItems[6] = {text = T.GetItemInfo(87215), icon = SLE:GetIconFromID("item", 87215),secure = {buttonType = "item",ID = 87215}} --Wormhole Generator: Pandaria
-		LP.PortItems[7] = {text = T.GetItemInfo(112059), icon = SLE:GetIconFromID("item", 112059),secure = {buttonType = "item",ID = 112059}} --Wormhole Centrifuge
-		LP.PortItems[8] = {text = T.GetItemInfo(128502), icon = SLE:GetIconFromID("item", 128502),secure = {buttonType = "item",ID = 128502}} --Hunter's Seeking Crystal
-		LP.PortItems[9] = {text = T.GetItemInfo(128503), icon = SLE:GetIconFromID("item", 128503),secure = {buttonType = "item",ID = 128503}} --Master Hunter's Seeking Crystal
-		LP.PortItems[10] = {text = T.GetItemInfo(18986), icon = SLE:GetIconFromID("item", 18986),secure = {buttonType = "item",ID = 18986}} --Safe transporter
+		for i = 1, #LP.PortItems do
+			local id, name = unpack(LP.PortItems[i])
+			LP.PortItems[i] = {text = name or T.GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id}}
+		end
 	end
 end
 
 function LP:ItemList(check)
 	for i = 1, #LP.PortItems do
 		local data = LP.PortItems[i]
-		if (SLE:BagSearch(data.secure.ID) or PlayerHasToy(data.secure.ID)) and IsToyUsable(data.secure.ID) then
+		if SLE:BagSearch(data.secure.ID) or (PlayerHasToy(data.secure.ID) and IsToyUsable(data.secure.ID)) then
 			if check then 
 				T.tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
 				return true 
