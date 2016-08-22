@@ -5,7 +5,7 @@ Additions:
 - Added QuestGuru skin
 - Quick action option for UI Buttons' addon section received some love = more variants 
 - Added an option to show only numbers in instance indicator
-- Location panel menu now contains challenge mode teleports
+- Location panel menu now contains a lot more teletorting stuff
 - UI BUttons and Background panels now have visibility state option. Works like actionbar visibility.
 - Added an option to select background template for vehicle bar.
 - Added an option to hide in combat for location panel
