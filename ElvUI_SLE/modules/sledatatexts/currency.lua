@@ -316,7 +316,7 @@ local function OnEnter(self)
 	sort(ShownGold, SortGold)
 	for i = 1, #ShownGold do
 		local t = ShownGold[i]
-		DT.tooltip:AddDoubleLine(t.name, t.amountText, t.r, t.g, t.b, 1, 1, 1)
+		DT.tooltip:AddDoubleLine(t.name == E.myname and t.name.." |TInterface\\RAIDFRAME\\ReadyCheck-Ready:12|t" or t.name, t.amountText, t.r, t.g, t.b, 1, 1, 1)
 	end
 
 	DT.tooltip:AddLine' '
