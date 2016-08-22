@@ -70,6 +70,63 @@ local function configTable()
 					E:StaticPopup_Show('SLE_CONFIRM_DELETE_CURRENCY_CHARACTER', nil, nil, { ["name"] = name, ["realm"] = realm });
 				end,
 			},
+			sortGold = {
+				order = 30,
+				name = L["Gold Sorting"],
+				type = "group",
+				guiInline = true,
+				get = function(info) return E.db.sle.dt.currency.gold[ info[#info] ] end,
+				set = function(info, value) E.db.sle.dt.currency.gold[ info[#info] ] = value; end,
+				args = {
+					direction = {
+						order = 1,
+						type = "select",
+						name = L["Sort Direction"],
+						values = {
+							["normal"] = L["Normal"],
+							["reverced"] = L["Reverced"],
+						},
+					},
+					method = {
+						order = 2,
+						type = "select",
+						name = L["Sort Method"],
+						values = {
+							["name"] = NAME,
+							["amount"] = L["Amount"],
+						},
+					},
+				},
+			},
+			sortCurrency = {
+				order = 31,
+				name = L["Currency Sorting"],
+				type = "group",
+				guiInline = true,
+				get = function(info) return E.db.sle.dt.currency.cur[ info[#info] ] end,
+				set = function(info, value) E.db.sle.dt.currency.cur[ info[#info] ] = value; end,
+				args = {
+					direction = {
+						order = 1,
+						type = "select",
+						name = L["Direction"],
+						values = {
+							["normal"] = L["Normal"],
+							["reverced"] = L["Reverced"],
+						},
+					},
+					method = {
+						order = 2,
+						type = "select",
+						name = L["Sort Method"],
+						values = {
+							["name"] = NAME,
+							["amount"] = L["Amount"],
+							["r1"] = L["Tracked"],
+						},
+					},
+				},
+			},
 		},
 	}
 end

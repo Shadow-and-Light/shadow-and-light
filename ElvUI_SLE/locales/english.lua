@@ -403,6 +403,10 @@ L["Are you sure you want to remove |cff1784d1%s|r from currency datatexts?"] = t
 L["Hide panel background"] = true
 L["Don't show this panel, only datatexts assinged to it"] = true
 L["SLE_DT_CURRENCY_WARNING_GOLD"] = [[Your datapanel %s has ElvUI's "Gold" datatext active while "S&L Currency" datatext is selected elsewhere. To ensure the correct functioning of "S&L Currency" datatext we are disabling some functions of "Gold" datatext. To avoid this conflict you need to replace one of conflicting datatexts.]]
+L["Gold Sorting"] = true
+L["Normal"] = true
+L["Reverced"] = true
+L["Amount"] = true
 
 --Enhnced Shadows
 L["Enhanced Shadows"] = true

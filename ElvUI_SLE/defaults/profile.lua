@@ -285,6 +285,14 @@ P["sle"] = {
 			["Icons"] = true,
 			["Faction"] = true,
 			["Unused"] = true,
+			["gold"] = {
+				["direction"] = "normal",
+				["method"] = "name",
+			},
+			["cur"] = {
+				["direction"] = "normal",
+				["method"] = "name",
+			},
 		},
 		["regen"] = {
 			["short"] = false,

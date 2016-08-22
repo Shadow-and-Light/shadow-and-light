@@ -3,11 +3,12 @@ local DT = E:GetModule('DataTexts')
 local DTP = SLE:GetModule('Datatexts')
 --GLOBALS: ElvDB
 local abs, mod = abs, mod
+local sort = sort
 local GetMoney, GetCurrencyInfo, GetNumWatchedTokens, GetBackpackCurrencyInfo, GetCurrencyListInfo = GetMoney, GetCurrencyInfo, GetNumWatchedTokens, GetBackpackCurrencyInfo, GetCurrencyListInfo
 
 local defaultColor = { 1, 1, 1 }
 local Profit = 0
-local Spent	= 0
+local Spent = 0
 local copperFormatter = T.join("", "%d", L.copperabbrev)
 local silverFormatter = T.join("", "%d", L.silverabbrev, " %.2d", L.copperabbrev)
 local goldFormatter =  T.join("", "%s", L.goldabbrev, " %.2d", L.silverabbrev, " %.2d", L.copperabbrev)
@@ -100,22 +101,6 @@ local MiscellaneousCurrency = {
 local HordeColor = RAID_CLASS_COLORS["DEATHKNIGHT"]
 local AllianceColor = RAID_CLASS_COLORS["SHAMAN"]
 
-local function OrderedPairs(t, f)
-	local function orderednext(t, n)
-		local key = t[t.__next]
-		if not key then return end
-		t.__next = t.__next + 1
-		return key, t.__source[key]
-	end
-
-	local keys, kn = {__source = t, __next = 1}, 1
-	for k in T.pairs(t) do
-		keys[kn], kn = k, kn + 1
-	end
-	T.sort(keys, f)
-	return orderednext, keys
-end
-
 local function ToggleOption(name)
 	if E.db.sle.dt.currency[name] then
 		E.db.sle.dt.currency[name] = false
@@ -146,9 +131,28 @@ local function UnusedCheck()
 	end
 end
 
+local function SortCurrency(a,b)
+	local method = E.db.sle.dt.currency.cur.method
+	if E.db.sle.dt.currency.cur.direction == "normal" then
+		return a[method] < b[method]
+	else
+		return a[method] > b[method]
+	end
+end
+
+local function SortGold(a,b)
+	local method = E.db.sle.dt.currency.gold.method
+	if E.db.sle.dt.currency.gold.direction == "normal" then
+		return a[method] < b[method]
+	else
+		return a[method] > b[method]
+	end
+end
+
 local function GetCurrency(CurrencyTable, Text)
 	local Seperator = false
 	UnusedCheck()
+	local ShownTable = {}
 	for key, id in T.pairs(CurrencyTable) do
 		local name, amount, texture, week, weekmax, maxed, discovered = GetCurrencyInfo(id)
 		local LeftString = GetOption('Icons') and T.format('%s %s', T.format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture), name) or name
@@ -174,8 +178,22 @@ local function GetCurrency(CurrencyTable, Text)
 				DT.tooltip:AddLine(Text)
 				Seperator = true
 			end
-			DT.tooltip:AddDoubleLine(LeftString, RightString, r1, g1, b1, r2, g2, b2)
+			T.tinsert(ShownTable,
+				{
+					name = name,
+					left = LeftString,
+					right = RightString,
+					r1 = r1, g1 = g1, b1 = b1,
+					r2 = r2, g2 = g2, b2 = b2,
+					amount = amount
+				}
+			)
 		end
+	end
+	sort(ShownTable, SortCurrency)
+	for i = 1, #ShownTable do
+		local t = ShownTable[i]
+		DT.tooltip:AddDoubleLine(t.left, t.right, t.r1, t.g1, t.b1, t.r2, t.g2, t.b2)
 	end
 end
 
@@ -273,11 +291,19 @@ local function OnEnter(self)
 
 	local totalGold, AllianceGold, HordeGold = 0, 0, 0
 	DT.tooltip:AddLine(L["Character: "])
-	for k,_ in OrderedPairs(ElvDB["gold"][E.myrealm]) do
+	local ShownGold = {}
+	for k,_ in T.pairs(ElvDB["gold"][E.myrealm]) do
 		if ElvDB["gold"][E.myrealm][k] then
 			local class = ElvDB["class"][E.myrealm][k]
 			local color = RAID_CLASS_COLORS[class or "PRIEST"]
-			DT.tooltip:AddDoubleLine(k, E:FormatMoney(ElvDB["gold"][E.myrealm][k], E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), color.r, color.g, color.b, 1, 1, 1)
+			T.tinsert(ShownGold,
+				{
+					name = k,
+					amount = ElvDB["gold"][E.myrealm][k],
+					amountText = E:FormatMoney(ElvDB["gold"][E.myrealm][k], E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins),
+					r = color.r, g = color.g, b =color.b,
+				}
+			)
 			if ElvDB["faction"][E.myrealm]["Alliance"][k] then
 				AllianceGold = AllianceGold + ElvDB["gold"][E.myrealm][k]
 			end
@@ -286,6 +312,11 @@ local function OnEnter(self)
 			end
 			totalGold = totalGold + ElvDB["gold"][E.myrealm][k]
 		end
+	end
+	sort(ShownGold, SortGold)
+	for i = 1, #ShownGold do
+		local t = ShownGold[i]
+		DT.tooltip:AddDoubleLine(t.name, t.amountText, t.r, t.g, t.b, 1, 1, 1)
 	end
 
 	DT.tooltip:AddLine' '
