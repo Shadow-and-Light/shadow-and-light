@@ -450,6 +450,8 @@ function PI:DarthSetup()
 		E.db["sle"]["dt"]["currency"]["Jewelcrafting"] = false
 		E.db["sle"]["dt"]["currency"]["Archaeology"] = false
 		E.db["sle"]["dt"]["currency"]["Unused"] = false
+		E.db["sle"]["dt"]["currency"]["gold"]["method"] = "amount"
+		E.db["sle"]["dt"]["currency"]["gold"]["direction"] = "reverced"
 		E.db["sle"]["dt"]["guild"]["hide_guildname"] = true
 		E.db["sle"]["dt"]["guild"]["totals"] = true
 		E.db["sle"]["dt"]["guild"]["hide_gmotd"] = true
