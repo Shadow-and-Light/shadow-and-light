@@ -274,6 +274,12 @@ L["Shows you which of docked chat tabs is currently selected."] = "Показы�
 L["Chat history size"] = "Размер истории чата"
 L["Sets how many messages will be stored in history."] = "Кол-во сообщений, сохраняемых в истории чата."
 L["Following options determine which channels to save in chat history.\nNote: disabling a channel will immideately delete saved info for that channel."] = "Следующие опции задают каналы, которые будут сохраняться в истории чата.\nОбратите внимание: отключение канала тутже отчистит историю чата от сообщений из этого канала."
+L["Alt-Click Invite"] = "Альт-клик для приглашения"
+L["Allows you to invite people by alt-clicking their names in chat."] = "Позволяет приглашать людей в группу кликом по их именам с зажатым Alt."
+L["Invite links"] = "Ссылки для приглашения"
+L["Convets specified keywords to links that automatically invite message's author to group."] = "Превращает указаные слова в ссылки, клик по которым пригласит автора сообщения в группу."
+L["Link Color"] = "Цвет ссылки"
+L["Invite Keywords"] = "Ключевые слова для приглашения"
 
 --Databars
 L["Full value on Exp Bar"] = "Полное значение опыта"

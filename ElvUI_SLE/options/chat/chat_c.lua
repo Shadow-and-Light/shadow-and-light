@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local C = SLE:GetModule("Chat")
-local NONE = NONE
+local NONE, INVITE = NONE, INVITE
 local function configTable()
 	if not SLE.initialized then return end
 	local function CreateJustify(i)
@@ -117,6 +117,54 @@ local function configTable()
 						name = L["Identify"],
 						desc = L["Showes the message in each chat frame containing frame's number."],
 						func = function() C:IdentifyChatFrames() end,
+					},
+				},
+			},
+			invite = {
+				order = 15,
+				type = "group",
+				name = INVITE,
+				get = function(info) return E.db.sle.chat.invite[ info[#info] ]  end,
+				set = function(info, value) E.db.sle.chat.invite[ info[#info] ]  = value; end,
+				args = {
+					altInv = {
+						order = 1,
+						type = "toggle",
+						name = L["Alt-Click Invite"],
+						desc = L["Allows you to invite people by alt-clicking their names in chat."],
+					},
+					invLinks = {
+						order = 2,
+						type = "toggle",
+						name = L["Invite links"],
+						desc = L["Convets specified keywords to links that automatically invite message's author to group."],
+						set = function(info, value) E.db.sle.chat.invite[ info[#info] ]  = value; C:SpamFilter() end,
+					},
+					color = {
+						type = 'color',
+						order = 3,
+						name = L["Link Color"],
+						hasAlpha = false,
+						disabled = function() return not E.db.sle.chat.invite.invLinks end,
+						get = function(info)
+							local t = E.db.sle.chat.invite[ info[#info] ]
+							local d = P.sle.chat.invite[info[#info]]
+							return t.r, t.g, t.b, d.r, d.g, d.b
+						end,
+						set = function(info, r, g, b)
+							E.db.sle.chat.tab[ info[#info] ] = {}
+							local t = E.db.sle.chat.invite[ info[#info] ]
+							t.r, t.g, t.b = r, g, b
+						end,
+					},
+					keys = {
+						order = 4,
+						type = "input",
+						name = L["Invite Keywords"],
+						width = "full",
+						multiline = true,
+						disabled = function() return not E.db.sle.chat.invite.invLinks end,
+						set = function(info, value) E.db.sle.chat.invite[ info[#info] ]  = value; C:CreateInvKeys() end,
 					},
 				},
 			},

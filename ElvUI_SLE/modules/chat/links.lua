@@ -5,6 +5,7 @@ local ShowUIPanel = ShowUIPanel
 --GLOBALS: UIParent, ChatFrame_AddMessageEventFilter, ChatFrame_RemoveMessageEventFilter
 
 C.Meterspam = false
+C.invLinksInit = false
 C.ChannelEvents = {
 	"CHAT_MSG_CHANNEL",
 	"CHAT_MSG_GUILD",
@@ -15,6 +16,15 @@ C.ChannelEvents = {
 	"CHAT_MSG_INSTANCE_CHAT_LEADER",
 	"CHAT_MSG_RAID",
 	"CHAT_MSG_RAID_LEADER",
+	"CHAT_MSG_SAY",
+	"CHAT_MSG_WHISPER",
+	"CHAT_MSG_WHISPER_INFORM",
+	"CHAT_MSG_YELL",
+}
+C.InvLinkEvents = {
+	"CHAT_MSG_CHANNEL",
+	"CHAT_MSG_GUILD",
+	"CHAT_MSG_OFFICER",
 	"CHAT_MSG_SAY",
 	"CHAT_MSG_WHISPER",
 	"CHAT_MSG_WHISPER_INFORM",
@@ -46,6 +56,20 @@ C.spamNextLines = {
 	'|c%x-|H.-|h(%[.-%])|h|r (%d-%.%d-%w %(%d-%.%d-%%%))', --Skada 3
 }
 C.Meters = {}
+
+local invKeys = {}
+function C:CreateInvKeys()
+	local db = E.db.sle.chat.invite.keys
+	T.twipe(invKeys)
+	db = T.gsub(db, ',%s', ',') --remove spaces that follow a comma
+	for index = 1, T.select('#', T.split(",", db)) do
+		local key = T.select(index, T.split(",", db))
+		if key then
+			invKeys[key] = true
+			print(key)
+		end
+	end
+end
 
 function C:filterLine(event, source, msg, ...)
 	local isSpam = false
@@ -120,9 +144,25 @@ function C:ParseChatEvent(event, msg, sender, ...)
 	return true
 end
 
-function C:ParseLink(link, text, button, chatframe)
+function C:ParseChatEventInv(event, msg, sender, ...)
+	local hex = E:RGBToHex(C.db.invite.color.r,C.db.invite.color.g,C.db.invite.color.b)
+	for _,allevents in T.ipairs(C.InvLinkEvents) do
+		if event == allevents then
+			for key,_ in pairs(invKeys) do
+				if T.find(msg, key) then 
+					msg = T.gsub(msg, key, T.format("|Hinvite:"..sender.."|h"..hex.."[%s]|r|h", key))
+					break
+				end
+			end
+		end
+	end
+
+	return false, msg, sender, ...
+end
+
+function C:SetItemRef(link, text, button, chatframe)
+	local linktype, id = T.split(":", link)
 	if C.db.dpsSpam then
-		local linktype, id = T.split(":", link)
 		if linktype == "SLD" then
 			local meterID = T.tonumber(id)
 			-- put stuff in the ItemRefTooltip from FrameXML
@@ -135,8 +175,17 @@ function C:ParseLink(link, text, button, chatframe)
 			ItemRefTooltip:AddLine(T.format(L["Reported by %s"],C.Meters[meterID].src))
 			for _,message in T.ipairs(C.Meters[meterID].data) do ItemRefTooltip:AddLine(message,1,1,1) end
 			ItemRefTooltip:Show()
+			return nil
 		end
 	end
+	if IsAltKeyDown() and linktype == "player" and E.db.sle.chat.invite.altInv then
+		InviteUnit(id)
+		return nil
+	elseif linktype == "invite" then
+		InviteUnit(id)
+		return nil
+	end
+	return self.hooks.SetItemRef(link, text, button)
 end
 
 function C:SpamFilter()
@@ -153,16 +202,31 @@ function C:SpamFilter()
 			C.Meterspam = false
 		end
 	end
+	if C.db.invite.invLinks then
+		for _,event in T.ipairs(C.InvLinkEvents) do
+			ChatFrame_AddMessageEventFilter(event, self.ParseChatEventInv)
+		end
+		C.invLinksInit = true
+	else
+		if C.invLinksInit then
+			for _,event in T.ipairs(C.InvLinkEvents) do
+				ChatFrame_RemoveMessageEventFilter(event, self.ParseChatEventInv)
+			end
+			C.invLinksInit = false
+		end
+	end
 end
 
-function C:InitDamageSpam()
+function C:InitLinks()
 	C:SpamFilter()
-	self:SecureHook("SetItemRef","ParseLink")
+	C:CreateInvKeys()
+	C:RawHook(nil, "SetItemRef", true)
 	-- Borrowed from Deadly Boss Mods
 	do
 		local old = ItemRefTooltip.SetHyperlink -- we have to hook this function since the default ChatFrame code assumes that all links except for player and channel links are valid arguments for this function
 		function ItemRefTooltip:SetHyperlink(link, ...)
 			if link:sub(0, 4) == "SLD:" then return end
+			if link:sub(0, 6) == "invite" then return end
 			return old(self, link, ...)
 		end
 	end

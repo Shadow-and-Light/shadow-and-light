@@ -279,6 +279,12 @@ L["Shows you which of docked chat tabs is currently selected."] = true
 L["Chat history size"] = true
 L["Sets how many messages will be stored in history."] = true
 L["Following options determine which channels to save in chat history.\nNote: disabling a channel will immideately delete saved info for that channel."] = true
+L["Alt-Click Invite"] = true
+L["Allows you to invite people by alt-clicking their names in chat."] = true
+L["Invite links"] = true
+L["Convets specified keywords to links that automatically invite message's author to group."] = true
+L["Link Color"] = true
+L["Invite Keywords"] = true
 
 --Databars
 L["Full value on Exp Bar"] = true

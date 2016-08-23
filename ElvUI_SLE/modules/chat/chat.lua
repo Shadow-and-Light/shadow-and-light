@@ -273,6 +273,8 @@ function C:Initialize()
 	function C:ForUpdateAll()
 		C.db = E.db.sle.chat
 		C:GMIconUpdate()
+		C:CreateInvKeys()
+		C:SpamFilter()
 		for i = 1, NUM_CHAT_WINDOWS do
 			C:JustifyChat(i)
 		end
@@ -289,7 +291,7 @@ function C:Initialize()
 	end
 
 	--Teh Damage meter spam handle
-	C:InitDamageSpam()
+	C:InitLinks()
 
 	--Combat Hide
 	self:RegisterEvent("PLAYER_REGEN_ENABLED", "Combat")

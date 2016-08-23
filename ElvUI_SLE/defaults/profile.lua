@@ -113,6 +113,12 @@ P["sle"] = {
 			["style"] = "DEFAULT",
 			["color"] = {r = 1, g = 1, b = 1},
 		},
+		["invite"] = {
+			["altInv"] = false,
+			["invLinks"] = false,
+			["keys"] = "invite",
+			["color"] = {r = 1, g = 1, b = 0},
+		},
 	},
 	--Datbars
 	["databars"] = {
