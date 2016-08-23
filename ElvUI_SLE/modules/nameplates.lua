@@ -123,7 +123,7 @@ end
 
 function N:Initialize()
 	if not SLE.initialized or not E.private.nameplates.enable then return end
-	if E.db.sle.nameplate then E.db.sle.nameplates = E.db.sle.nameplate; E.db.sle.nameplate = nil end
+	if E.db.sle.nameplate then E.db.sle.nameplates = E.db.sle.nameplate; E.db.sle.nameplate = nil end --DB converts
 	N.db = E.db.sle.nameplates
 	self:RegisterEvent("GROUP_ROSTER_UPDATE", "StartRosterUpdate")
 	self:RegisterEvent("UNIT_TARGET", "UpdateCount")
