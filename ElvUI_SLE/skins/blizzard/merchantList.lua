@@ -28,6 +28,7 @@ local MAX_ITEM_COST = MAX_ITEM_COST
 local RETRIEVING_ITEM_INFO = RETRIEVING_ITEM_INFO
 local ITEM_SPELL_KNOWN = ITEM_SPELL_KNOWN
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
+local MISCELLANEOUS, MOUNT = MISCELLANEOUS, MOUNT
 
 local RECIPE = GetItemClassInfo(LE_ITEM_CLASS_RECIPE)
 
@@ -195,7 +196,7 @@ local function ListItem_OnHide()
 	T.twipe(currencies);
 end
 
-local function List_GetError(link, isRecipe)
+local function List_GetError(link, itemType, itemSubType)
 	if ( not link ) then
 		return false;
 	end
@@ -205,65 +206,77 @@ local function List_GetError(link, isRecipe)
 	if ( errors[id] ) then
 		return errors[id];
 	end
-
-	_G["GameTooltip"]:SetOwner(UIParent, "ANCHOR_NONE");
-	_G["GameTooltip"]:SetHyperlink(link);
-
+	local upperLimit
+	local isMount = false
+	local isRecipe = false
+	if itemType == RECIPE then
+		isRecipe = true
+	elseif itemType == MISCELLANEOUS and itemSubType == MOUNT then
+		isMount = true
+	end
 	local errormsg = "";
-	for i=2, _G["GameTooltip"]:NumLines() do
-		local text = _G["GameTooltipTextLeft"..i];
-		local r, g, b = text:GetTextColor();
-		local gettext = text:GetText();
-		if ( gettext and r >= 0.9 and g <= 0.2 and b <= 0.2 and gettext ~= RETRIEVING_ITEM_INFO ) then
-			if ( errormsg ~= "" ) then
-				errormsg = errormsg..", ";
-			end
 
-			local level = gettext:match(REQUIRES_LEVEL);
-			if ( level ) then
-				errormsg = errormsg..LEVEL:format(level);
-			end
+	_G["SLE_Merchant_HiddenTooltip"]:SetOwner(UIParent, "ANCHOR_NONE");
+	_G["SLE_Merchant_HiddenTooltip"]:SetHyperlink(link);
+	upperLimit = isRecipe and _G["SLE_Merchant_HiddenTooltip"]:NumLines() - 1 or 0
 
-			local reputation, factionName = T.match(gettext, REQUIRES_REPUTATION);
-			if ( reputation ) then
-				errormsg = errormsg..reputation;
-				if not factionName then factionName = gettext:match(REQUIRES_REPUTATION_NAME); end
-				if ( factionName ) then
-						errormsg = errormsg.." ("..factionName..")";
-				end
-			end
-
-			local skill, slevel = gettext:match(REQUIRES_SKILL);
-			if ( skill and slevel ) then
-				errormsg = errormsg..SKILL:format(skill, slevel);
-			end
-
-			local requires = gettext:match(REQUIRES);
-			if ( not level and not reputation and not skill and requires ) then
-				errormsg = errormsg..requires;
-			end
-
-			if ( not level and not reputation and not skill and not requires ) then
+	for i=2, _G["SLE_Merchant_HiddenTooltip"]:NumLines() do
+		if (isRecipe and (i <= 5 or i == upperLimit)) or isMount or not isRecipe then
+			local text = _G["SLE_Merchant_HiddenTooltipTextLeft"..i];
+			local r, g, b = text:GetTextColor();
+			local gettext = text:GetText();
+			if ( gettext and r >= 0.9 and g <= 0.2 and b <= 0.2 and gettext ~= RETRIEVING_ITEM_INFO ) then
 				if ( errormsg ~= "" ) then
-					errormsg = gettext..", "..errormsg;
-				else
-					errormsg = errormsg..gettext;
+					errormsg = errormsg..", ";
+				end
+
+				local level = gettext:match(REQUIRES_LEVEL);
+				if ( level ) then
+					errormsg = errormsg..LEVEL:format(level);
+				end
+
+				local reputation, factionName = T.match(gettext, REQUIRES_REPUTATION);
+				if ( reputation ) then
+					errormsg = errormsg..reputation;
+					if not factionName then factionName = gettext:match(REQUIRES_REPUTATION_NAME); end
+					if ( factionName ) then
+							errormsg = errormsg.." ("..factionName..")";
+					end
+				end
+
+				local skill, slevel = gettext:match(REQUIRES_SKILL);
+				if ( skill and slevel ) then
+					errormsg = errormsg..SKILL:format(skill, slevel);
+				end
+
+				local requires = gettext:match(REQUIRES);
+				if ( not level and not reputation and not skill and requires ) then
+					errormsg = errormsg..requires;
+				end
+
+				local known = gettext == ITEM_SPELL_KNOWN and true or false
+				if known then
+					errormsg = errormsg..ITEM_SPELL_KNOWN
+				end
+
+				if ( not level and not reputation and not skill and not requires and not known) then
+					if ( errormsg ~= "" ) then
+						errormsg = gettext..", "..errormsg;
+					else
+						errormsg = errormsg..gettext;
+					end
 				end
 			end
-		end
 
-		local text = _G["GameTooltipTextRight"..i];
-		local r, g, b = text:GetTextColor();
-		local gettext = text:GetText();
-		if ( gettext and r >= 0.9 and g <= 0.2 and b <= 0.2 ) then
-			if ( errormsg ~= "" ) then
-				errormsg = errormsg..", ";
+			local text = _G["SLE_Merchant_HiddenTooltipTextRight"..i];
+			local r, g, b = text:GetTextColor();
+			local gettext = text:GetText();
+			if ( gettext and r >= 0.9 and g <= 0.2 and b <= 0.2 ) then
+				if ( errormsg ~= "" ) then
+					errormsg = errormsg..", ";
+				end
+				errormsg = errormsg..gettext;
 			end
-			errormsg = errormsg..gettext;
-		end
-
-		if ( isRecipe and i == 5 ) then
-			break;
 		end
 	end
 
@@ -398,29 +411,6 @@ local function List_UpdateAltCurrency(button, index, i)
 	end
 end
 
-local function List_GetKnown(link)
-	if ( not link ) then
-		return false;
-	end
-	
-	local id = link:match("item:(%d+)");
-	if ( knowns[id] ) then
-		return true;
-	end
-	
-	_G["GameTooltip"]:SetOwner(UIParent, "ANCHOR_NONE");
-	_G["GameTooltip"]:SetHyperlink(link);
-	
-	for i=1, _G["GameTooltip"]:NumLines() do
-		if ( _G["GameTooltipTextLeft"..i]:GetText() == ITEM_SPELL_KNOWN ) then
-			knowns[id] = true;
-			return true;
-		end
-	end
-	
-	return false;
-end
-
 local function List_MerchantUpdate()
 	local self = _G["SLE_ListMerchantFrame"]
 	local numMerchantItems = GetMerchantNumItems();
@@ -502,21 +492,20 @@ local function List_MerchantUpdate()
 				button.highlight:SetVertexColor(1, 0.2, 0.2, 0.5);
 				button.highlight:Show();
 				button.isShown = 1;
-				
-				local errors = List_GetError(link, itemType and itemType == RECIPE);
+
+				local errors = List_GetError(link, itemType, itemSubType);
 				if ( errors ) then
 					button.iteminfo:SetText("|cffd00000"..subtext.." - "..errors.."|r");
 				end
-			elseif ( itemType and itemType == RECIPE and not List_GetKnown(link) ) then
-				button.highlight:SetVertexColor(0.2, 1, 0.2, 0.5);
-				button.highlight:Show();
-				button.isShown = 1;
 			else
 				button.highlight:SetVertexColor(r, g, b, 0.5);
 				button.highlight:Hide();
 				button.isShown = nil;
-				local errors = List_GetError(link, itemType and itemType == RECIPE);
+				local errors = List_GetError(link, itemType, itemSubType);
 				if ( errors ) then
+					button.highlight:SetVertexColor(1, 0.2, 0.2, 0.5);
+					button.highlight:Show();
+					button.isShown = 1;
 					button.iteminfo:SetText("|cffd00000"..subtext.." - "..errors.."|r");
 				end
 			end
@@ -744,6 +733,7 @@ local function MerchantListSkinInit()
 	if not locale[GetLocale()] then
 		SLE:ErrorPrint("Your language is unavailable for selected merchant style. We would appretiate if ou contact us and provide needed translations.")
 	end
+	CreateFrame("GameTooltip", "SLE_Merchant_HiddenTooltip", UIParent, "GameTooltipTemplate");
 end
 
 hooksecurefunc(S, "Initialize", MerchantListSkinInit)

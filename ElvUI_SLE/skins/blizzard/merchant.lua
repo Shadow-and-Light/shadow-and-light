@@ -1,8 +1,9 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Sk = SLE:GetModule("Skins")
 local S = E:GetModule('Skins')
---GLOBALS: CreateFrame, MERCHANT_ITEMS_PER_PAGE, BUYBACK_ITEMS_PER_PAGE, hooksecurefunc, MERCHANT_PAGE_NUMBER
+--GLOBALS: CreateFrame, MERCHANT_ITEMS_PER_PAGE, BUYBACK_ITEMS_PER_PAGE, hooksecurefunc, MERCHANT_PAGE_NUMBER, UIParent, ChatFontSmall
 local _G = _G
+local strtrim = strtrim
 local ItemsPerSubpage, SubpagesPerPage
 local math_max, math_ceil = math.max, math.ceil
 local MerchantFrame_UpdateAltCurrency, MoneyFrame_Update = MerchantFrame_UpdateAltCurrency, MoneyFrame_Update
@@ -10,6 +11,13 @@ local GetMerchantNumItems = GetMerchantNumItems
 local GetMerchantItemInfo, GetMerchantItemLink = GetMerchantItemInfo, GetMerchantItemLink
 local SetItemButtonCount, SetItemButtonStock, SetItemButtonTexture = SetItemButtonCount, SetItemButtonStock, SetItemButtonTexture
 local SetItemButtonNameFrameVertexColor, SetItemButtonSlotVertexColor, SetItemButtonTextureVertexColor, SetItemButtonNormalTextureVertexColor = SetItemButtonNameFrameVertexColor, SetItemButtonSlotVertexColor, SetItemButtonTextureVertexColor, SetItemButtonNormalTextureVertexColor
+
+local RETRIEVING_ITEM_INFO, RETRIEVING_ITEM_INFO, MOUNT, ITEM_SPELL_KNOWN, SEARCH = RETRIEVING_ITEM_INFO, RETRIEVING_ITEM_INFO, MOUNT, ITEM_SPELL_KNOWN, SEARCH
+local MISCELLANEOUS = MISCELLANEOUS
+
+local RECIPE = GetItemClassInfo(LE_ITEM_CLASS_RECIPE)
+local searchBox
+local searching = ""
 
 local IgnoreCurrency = {
 	[T.GetCurrencyInfo(994)] = true,
@@ -40,9 +48,11 @@ local function UpdateButtonsPositions(isBuyBack)
 	if (isBuyBack) then
 		vertSpacing = -30
 		horizSpacing = 50
+		searchBox:Hide()
 	else
 		vertSpacing = -16
 		horizSpacing = 12
+		searchBox:Show()
 	end
 	for i = 1, MERCHANT_ITEMS_PER_PAGE do
 		btn = _G["MerchantItem" .. i]
@@ -94,6 +104,38 @@ local function UpdateBuybackInfo()
 			end
 		end
 	end
+end
+
+local function isKnown(link, itemType, itemSubType)
+	if ( not link ) then
+		return false;
+	end
+	local upperLimit
+	local isMount = false
+	local isRecipe = false
+	if itemType == RECIPE then
+		isRecipe = true
+	elseif itemType == MISCELLANEOUS and itemSubType == MOUNT then
+		isMount = true
+	end
+
+	_G["SLE_Merchant_HiddenTooltip"]:SetOwner(UIParent, "ANCHOR_NONE");
+	_G["SLE_Merchant_HiddenTooltip"]:SetHyperlink(link);
+	upperLimit = isRecipe and _G["SLE_Merchant_HiddenTooltip"]:NumLines() - 1 or 0
+
+	for i=2, _G["SLE_Merchant_HiddenTooltip"]:NumLines() do
+		if (isRecipe and (i <= 5 or i == upperLimit)) or isMount or not isRecipe then
+			local text = _G["SLE_Merchant_HiddenTooltipTextLeft"..i];
+			local r, g, b = text:GetTextColor();
+			local gettext = text:GetText();
+
+			if ( gettext and r >= 0.9 and g <= 0.2 and b <= 0.2 and gettext ~= RETRIEVING_ITEM_INFO ) then
+				if gettext == ITEM_SPELL_KNOWN then return true end
+			end
+		end
+	end
+
+	return false
 end
 
 local function UpdateMerchantInfo()
@@ -189,9 +231,24 @@ local function UpdateMerchantInfo()
 					slotColor = {r = 1.0, g = 0, b = 0};
 					detailColor = {r = 1.0, g = 0, b = 0};
 				else
-					slotColor = {r = 1.0, g = 1.0, b = 1.0};
-					detailColor = {r = 0.5, g = 0.5, b = 0.5};
+					-- print(itemType)
+					if not isKnown(itemButton.link, itemType, itemSubType) then
+						slotColor = {r = 1.0, g = 1.0, b = 1.0};
+						detailColor = {r = 0.5, g = 0.5, b = 0.5};
+					else
+						slotColor = {r = 1.0, g = 0, b = 0};
+						detailColor = {r = 1.0, g = 0, b = 0};
+					end
 				end
+				local alpha = 0.3;
+				if ( searching == "" or searching == SEARCH:lower() or name:lower():match(searching) 
+					or ( quality and ( T.tostring(quality):lower():match(searching) or _G["ITEM_QUALITY"..T.tostring(quality).."_DESC"]:lower():match(searching) ) )
+					or ( itemType and itemType:lower():match(searching) ) 
+					or ( itemSubType and itemSubType:lower():match(searching) )
+					) then
+					alpha = 1;
+				end
+				merchantButton:SetAlpha(alpha);
 				SetItemButtonNameFrameVertexColor(merchantButton, detailColor.r * colorMult, detailColor.g * colorMult, detailColor.b * colorMult);
 				SetItemButtonSlotVertexColor(merchantButton, slotColor.r * colorMult, slotColor.g * colorMult, slotColor.b * colorMult);
 				SetItemButtonTextureVertexColor(itemButton, slotColor.r * colorMult, slotColor.g * colorMult, slotColor.b * colorMult);
@@ -241,6 +298,32 @@ local function RebuildMerchantFrame()
 	_G["MerchantExtraCurrencyBg"]:ClearAllPoints();
 	_G["MerchantExtraCurrencyBg"]:SetPoint("TOPLEFT", _G["MerchantExtraCurrencyInset"], "TOPLEFT", 3, -2);
 	_G["MerchantExtraCurrencyBg"]:SetPoint("BOTTOMRIGHT", _G["MerchantExtraCurrencyInset"], "BOTTOMRIGHT", -3, 2);
+
+	searchBox = CreateFrame("EditBox", "$parentSearchBox", _G["MerchantFrame"], "InputBoxTemplate");
+	searchBox:SetWidth(_G["MerchantItem1"]:GetWidth());
+	searchBox:SetHeight(24);
+	searchBox:SetPoint("BOTTOMLEFT", _G["MerchantItem1"], "TOPLEFT", 0, 9);
+	searchBox:SetAutoFocus(false);
+	searchBox:SetFontObject(ChatFontSmall);
+	searchBox:SetScript("OnTextChanged", function(self) searching = self:GetText():trim():lower(); UpdateMerchantInfo() end)
+	searchBox:SetScript("OnShow", function(self) self:SetText(SEARCH); searching = "" end)
+	searchBox:SetScript("OnEnterPressed", function(self)  self:ClearFocus() end)
+	searchBox:SetScript("OnEscapePressed", function(self)  self:ClearFocus(); self:SetText(SEARCH); searching = "" end)
+	searchBox:SetScript("OnEditFocusLost", function(self)
+		self:HighlightText(0, 0);
+		if ( strtrim(self:GetText()) == "" ) then
+			self:SetText(SEARCH);
+			searching = "";
+		end
+	end)
+	searchBox:SetScript("OnEditFocusGained", function(self)
+		self:HighlightText();
+		if ( self:GetText():trim():lower() == SEARCH:lower() ) then
+			self:SetText("");
+		end
+	end)
+	searchBox:SetText(SEARCH);
+	S:HandleEditBox(searchBox)
 end
 
 local function MerchantSkinInit()
@@ -249,6 +332,7 @@ local function MerchantSkinInit()
 	if E.private.sle.skins.merchant.style ~= "Default" then return end
 	RebuildMerchantFrame()
 	UpdateButtonsPositions()
+	CreateFrame("GameTooltip", "SLE_Merchant_HiddenTooltip", UIParent, "GameTooltipTemplate");
 
 	hooksecurefunc("MerchantFrame_UpdateMerchantInfo", UpdateMerchantInfo)
 end
