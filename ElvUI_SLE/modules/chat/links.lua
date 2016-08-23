@@ -66,7 +66,6 @@ function C:CreateInvKeys()
 		local key = T.select(index, T.split(",", db))
 		if key then
 			invKeys[key] = true
-			print(key)
 		end
 	end
 end
