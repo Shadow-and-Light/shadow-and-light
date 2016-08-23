@@ -136,6 +136,7 @@ function SLE:Initialize()
 	if E.private.sle.install_complete == nil or tonumber(E.private.sle.install_complete) < 3 then
 		E:GetModule("PluginInstaller"):Queue(SLE.installTable)
 	end
+	if not E.private.sle.characterGoldsSorting[E.myrealm] then E.private.sle.characterGoldsSorting[E.myrealm] = {} end
 
 	LibStub("LibElvUIPlugin-1.0"):RegisterPlugin(AddOnName, GetOptions) --Registering as plugin
 end

@@ -404,6 +404,7 @@ L["Gold Sorting"] = "Сортировка золота"
 L["Normal"] = "Нормальная"
 L["Reverced"] = "Обратная"
 L["Amount"] = "Количество"
+L["Order of each toon. Smaller numbers will go first"] = "Порядок персонажей. Показ в порядке возрастания номера."
 
 --Enhnced Shadows
 L["Enhanced Shadows"] = "Улучшенные тени"

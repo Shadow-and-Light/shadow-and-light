@@ -407,6 +407,7 @@ L["Gold Sorting"] = true
 L["Normal"] = true
 L["Reverced"] = true
 L["Amount"] = true
+L["Order of each toon. Smaller numbers will go first"] = true
 
 --Enhnced Shadows
 L["Enhanced Shadows"] = true

@@ -28,6 +28,48 @@ local function configTable()
 		}
 		return config
 	end
+	
+	local function CreateCustomToonList()
+		local config = {
+			name = CUSTOM,
+			order = 3,
+			type = "group",
+			guiInline = true,
+			hidden = function() return E.db.sle.dt.currency.gold.method ~= "order" end,
+			args = {
+				info = {
+					order = 1,
+					type = "description",
+					name = L["Order of each toon. Smaller numbers will go first"],
+				},
+			},
+		}
+		for k,_ in T.pairs(ElvDB["gold"][E.myrealm]) do
+			config.args[k] = {
+				type = "select",
+				name = k,
+				order = 10,
+				width = "half",
+				get = function(info) return (E.private.sle.characterGoldsSorting[E.myrealm][k] or 1) end,
+				set = function(info, value) E.private.sle.characterGoldsSorting[E.myrealm][k] = value end,
+				values = {
+					[1] = "1",
+					[2] = "2",
+					[3] = "3",
+					[4] = "4",
+					[5] = "5",
+					[6] = "6",
+					[7] = "7",
+					[8] = "8",
+					[9] = "9",
+					[10] = "10",
+					[11] = "11",
+					[12] = "12",
+				},
+			}
+		end
+		return config
+	end
 
 	E.Options.args.sle.args.modules.args.datatext.args.sldatatext.args.slcurrency = {
 		type = "group",
@@ -82,6 +124,7 @@ local function configTable()
 						order = 1,
 						type = "select",
 						name = L["Sort Direction"],
+						width = "half",
 						values = {
 							["normal"] = L["Normal"],
 							["reverced"] = L["Reverced"],
@@ -91,11 +134,14 @@ local function configTable()
 						order = 2,
 						type = "select",
 						name = L["Sort Method"],
+						width = "half",
 						values = {
 							["name"] = NAME,
 							["amount"] = L["Amount"],
+							["order"] = CUSTOM,
 						},
 					},
+					customSort = CreateCustomToonList(),
 				},
 			},
 			sortCurrency = {
@@ -110,6 +156,7 @@ local function configTable()
 						order = 1,
 						type = "select",
 						name = L["Direction"],
+						width = "half",
 						values = {
 							["normal"] = L["Normal"],
 							["reverced"] = L["Reverced"],
@@ -119,6 +166,7 @@ local function configTable()
 						order = 2,
 						type = "select",
 						name = L["Sort Method"],
+						width = "half",
 						values = {
 							["name"] = NAME,
 							["amount"] = L["Amount"],

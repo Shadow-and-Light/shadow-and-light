@@ -296,12 +296,14 @@ local function OnEnter(self)
 		if ElvDB["gold"][E.myrealm][k] then
 			local class = ElvDB["class"][E.myrealm][k]
 			local color = RAID_CLASS_COLORS[class or "PRIEST"]
+			local order = E.private.sle.characterGoldsSorting[E.myrealm][k] or 1
 			T.tinsert(ShownGold,
 				{
 					name = k,
 					amount = ElvDB["gold"][E.myrealm][k],
 					amountText = E:FormatMoney(ElvDB["gold"][E.myrealm][k], E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins),
 					r = color.r, g = color.g, b =color.b,
+					order = order,
 				}
 			)
 			if ElvDB["faction"][E.myrealm]["Alliance"][k] then

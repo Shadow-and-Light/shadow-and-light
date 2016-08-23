@@ -187,7 +187,9 @@ V["sle"] = {
 		["level"] = 5,
 		["transparent"] = "Default",
 	},
-}
+
+	["characterGoldsSorting"] = {},
+	}
 
 G["sle"] = {
 	["DE"] = {
