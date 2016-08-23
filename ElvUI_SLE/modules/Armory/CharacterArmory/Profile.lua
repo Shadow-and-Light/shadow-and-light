@@ -11,6 +11,12 @@ P.sle.Armory.Character = {
 	NoticeMissing = true,
 	MissingIcon = true,
 	
+	ItemLevel = {
+		font = "PT Sans Narrow",
+		size = 12,
+		outline = "NONE",
+	},
+	
 	Backdrop = {
 		SelectedBG = 'Space',
 		CustomAddress = ''

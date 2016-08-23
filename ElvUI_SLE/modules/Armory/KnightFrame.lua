@@ -314,7 +314,10 @@ if not (select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_Kn
 		
 		function KF:ForUpdateAll()
 			_G["CharacterArmory"]:UpdateSettings("all")
-			if not SLE._Compatibility["DejaCharacterStats"] then _G["CharacterArmory"]:ToggleStats() end
+			if not SLE._Compatibility["DejaCharacterStats"] then
+				_G["CharacterArmory"]:ToggleStats()
+				_G["CharacterArmory"]:UpdateIlvlFont()
+			end
 			_G["InspectArmory"]:UpdateSettings("all")
 		end
 	end

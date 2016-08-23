@@ -897,7 +897,7 @@ function CA:UpdateSettings(part)
 end
 
 function CA:UpdateIlvlFont()
-	local db = E.private.sle.Armory.ItemLevel
+	local db = E.db.sle.Armory.Character.ItemLevel
 	_G["CharacterStatsPane"].ItemLevelFrame.Value:FontTemplate(E.LSM:Fetch('font', db.font), db.size, db.outline)
 	_G["CharacterStatsPane"].ItemLevelFrame:SetHeight(db.size + 4)
 	_G["CharacterStatsPane"].ItemLevelFrame.Background:SetHeight(db.size + 4)
@@ -909,6 +909,7 @@ end
 
 KF.Modules[#KF.Modules + 1] = 'CharacterArmory'
 KF.Modules.CharacterArmory = function()
+	if E.private.sle.Armory then E.db.sle.Armory.Character.ItemLevel = E.private.sle.Armory.ItemLevel; E.db.sle.Armory.ItemLevel = nil end --DB converts
 	if E.db.sle.Armory.Character.Enable ~= false then
 		Info.CharacterArmory_Activate = true
 		

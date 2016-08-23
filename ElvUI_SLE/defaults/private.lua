@@ -38,13 +38,6 @@ V["sle"] = {
 		["setoverlay"] = false,
 		["lockbutton"] = false,
 	},
-	["Armory"] = {
-		["ItemLevel"] = {
-			["font"] = "PT Sans Narrow",
-			["size"] = 12,
-			["outline"] = "NONE",
-		},
-	},
 	--Minimap Module
 	["minimap"] = {
 		["buttons"] = {
