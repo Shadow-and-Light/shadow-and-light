@@ -2,6 +2,7 @@
 local RM = SLE:GetModule('RaidMarkers')
 local SHIFT_KEY, CTRL_KEY, ALT_KEY = SHIFT_KEY, CTRL_KEY, ALT_KEY
 local AGGRO_WARNING_IN_PARTY = AGGRO_WARNING_IN_PARTY
+local CUSTOM = CUSTOM
 local function configTable()
 	if not SLE.initialized then return end
 	E.Options.args.sle.args.modules.args.raidmarkerbars = {
@@ -104,7 +105,7 @@ local function configTable()
 					["DEFAULT"] = DEFAULT,
 					["INPARTY"] = AGGRO_WARNING_IN_PARTY,
 					["ALWAYS"] = L["Always Display"],
-					["CUSTOM"] = L["Custom"],
+					["CUSTOM"] = CUSTOM,
 				},
 			},
 			customVisibility = {

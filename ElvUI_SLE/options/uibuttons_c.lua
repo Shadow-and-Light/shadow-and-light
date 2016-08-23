@@ -1,6 +1,8 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local UB = SLE:GetModule('UIButtons')
 
+local CUSTOM, NONE, DEFAULT = CUSTOM, NONE, DEFAULT
+
 local positionValues = {
 	TOPLEFT = 'TOPLEFT',
 	LEFT = 'LEFT',
@@ -341,7 +343,7 @@ local function configTable()
 							["Thirty"] = "1-30",
 							["Forty"] = "1-40",
 							["Hundred"] = "1-100",
-							["Custom"] = L["Custom"],
+							["Custom"] = CUSTOM,
 
 						},
 						get = function(info) return E.db.sle.uibuttons.Roll.called end,

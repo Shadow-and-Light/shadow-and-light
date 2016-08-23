@@ -752,7 +752,6 @@ L["AddOns Manager"] = true
 L["Click to toggle the AddOn Manager frame."] = true
 L["Boss Mod"] = true
 L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."] = true
-L["Custom"] = true
 L["UB_DESC"] = "This adds a small bar with some useful buttons which acts as a small menu for common things."
 L["Minimum Roll Value"] = true
 L["The lower limit for custom roll button."] = true

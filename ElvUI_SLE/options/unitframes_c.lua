@@ -3,6 +3,7 @@ local UF = E:GetModule('UnitFrames');
 local SUF = SLE:GetModule("UnitFrames")
 local texPath = [[Interface\AddOns\ElvUI_SLE\media\textures\role\]]
 local texPathE = [[Interface\AddOns\ElvUI\media\textures\]]
+local CUSTOM = CUSTOM
 
 local function configTable()
 	if not SLE.initialized then return end
@@ -41,7 +42,7 @@ local function configTable()
 						["SKULL"] = [[|TInterface\LootFrame\LootPanel-Icon:14|t]],
 						["PASS"] = [[|TInterface\PaperDollInfoFrame\UI-GearManager-LeaveItem-Transparent:14|t]],
 						["NOTREADY"] = [[|TInterface\RAIDFRAME\ReadyCheck-NotReady:14|t]],
-						["CUSTOM"] = L["Custom"],
+						["CUSTOM"] = CUSTOM,
 					},
 				},
 				CustomTexture = {
@@ -155,7 +156,7 @@ local function configTable()
 								values = {
 									["DEFAULT"] = DEFAULT,
 									["SVUI"] = "Supervillian UI",
-									["CUSTOM"] = L["Custom"],
+									["CUSTOM"] = CUSTOM,
 								},
 							},
 							customTexture = {

@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local LP = SLE:GetModule("LocationPanel")
-local DEFAULT = DEFAULT
+local DEFAULT, CUSTOM = DEFAULT, CUSTOM
 local function configTable()
 	if not SLE.initialized then return end
 	E.Options.args.sle.args.modules.args.minimap.args.locPanel = {
@@ -86,7 +86,7 @@ local function configTable()
 				values = {
 					["REACTION"] = L["Reaction"],
 					["DEFAULT"] = DEFAULT,
-					["CUSTOM"] = L["Custom"],
+					["CUSTOM"] = CUSTOM,
 				},
 			},
 			customColor = {

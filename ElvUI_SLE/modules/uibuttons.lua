@@ -7,6 +7,7 @@ local SendChatMessage = SendChatMessage
 local ReloadUI = ReloadUI
 --GLOBALS: DBM, VEM, LibStub, Altoholic, AtlasLoot, xCT_Plus, Swatter, SlashCmdList
 local _G = _G
+local CUSTOM = CUSTOM
 
 local function CustomRollCall()
 	local min, max = T.tonumber(E.db.sle.uibuttons.customroll.min), T.tonumber(E.db.sle.uibuttons.customroll.max)
@@ -58,7 +59,7 @@ function UB:RollSetup(menu)
 	menu:CreateDropdownButton("Roll", "Thirty", "1-30", nil, nil,  function() RandomRoll(1, 30) end)
 	menu:CreateDropdownButton("Roll", "Forty", "1-40", nil, nil,  function() RandomRoll(1, 40) end)
 	menu:CreateDropdownButton("Roll", "Hundred", "1-100", nil, nil,  function() RandomRoll(1, 100) end)
-	menu:CreateDropdownButton("Roll", "Custom", L["Custom"], nil, nil,  function() CustomRollCall() end)
+	menu:CreateDropdownButton("Roll", "Custom", CUSTOM, nil, nil,  function() CustomRollCall() end)
 end
 
 function UB:SetupBar(menu)
