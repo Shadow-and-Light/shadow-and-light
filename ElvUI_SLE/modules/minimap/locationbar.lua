@@ -71,7 +71,7 @@ LP.PortItems = {
 }
 LP.Spells = {
 	["DEATHKNIGHT"] = {
-		[1] = {text =  T.GetSpellInfo(50977),icon = SLE:GetIconFromID("spell", 50977),secure = {buttonType = "spell",ID = 50977}},
+		[1] = {text =  T.GetSpellInfo(50977),icon = SLE:GetIconFromID("spell", 50977),secure = {buttonType = "spell",ID = 50977}, UseTooltip = true},
 	},
 	["DEMONHUNTER"] = {},
 	["DRUID"] = {
