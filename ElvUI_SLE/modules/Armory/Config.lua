@@ -323,8 +323,8 @@ local function LoadArmoryConfigTable()
 							name = L["Font"],
 							order = 5,
 							guiInline = true,
-							get = function(info) return E.db.sle.Armory.ItemLevel[ info[#info] ] end,
-							set = function(info, value) E.db.sle.Armory.ItemLevel[ info[#info] ] = value; _G["CharacterArmory"]:UpdateIlvlFont() end,
+							get = function(info) return E.db.sle.Armory.Character.ItemLevel[ info[#info] ] end,
+							set = function(info, value) E.db.sle.Armory.Character.ItemLevel[ info[#info] ] = value; _G["CharacterArmory"]:UpdateIlvlFont() end,
 							args = {
 								font = {
 									type = 'select', dialogControl = 'LSM30_Font',
