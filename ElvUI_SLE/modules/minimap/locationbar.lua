@@ -19,6 +19,9 @@ local DUNGEON_FLOOR_DALARAN1 = DUNGEON_FLOOR_DALARAN1
 local CHALLENGE_MODE = CHALLENGE_MODE
 local PlayerHasToy = PlayerHasToy
 local IsToyUsable = C_ToyBox.IsToyUsable
+
+local collectgarbage = collectgarbage
+
 LP.CDformats = {
 	["DEFAULT"] = [[ (%s |TInterface\FriendsFrame\StatusIcon-Away:16|t)]],
 	["DEFAULT_ICONFIRST"] = [[ (|TInterface\FriendsFrame\StatusIcon-Away:16|t %s)]],
@@ -369,8 +372,8 @@ function LP:ItemList(check)
 end
 
 function LP:SpellList(list, dropdown, check)
-	local tmp = {}
 	for i = 1, #list do
+		local tmp = {}
 		local data = list[i]
 		if T.IsSpellKnown(data.secure.ID) then
 			if check then 
@@ -407,7 +410,7 @@ function LP:PopulateDropdown()
 			T.tinsert(LP.MainMenu, {text = CHALLENGE_MODE.." >>",icon = SLE:GetIconFromID("achiev", 6378), func = function() 
 				T.twipe(LP.SecondaryMenu)
 				MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
-				T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() T.twipe(LP.MainMenu); LP:PopulateDropdown() end})
+				T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); LP:PopulateDropdown() end})
 				T.tinsert(LP.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
 				LP:SpellList(LP.Spells.challenge, LP.SecondaryMenu)
 				T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
@@ -438,6 +441,8 @@ function LP:PopulateDropdown()
 	T.tinsert(LP.MainMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu1) end})
 	MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
 	SLE:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
+
+	collectgarbage('collect');
 end
 
 function LP:PLAYER_REGEN_DISABLED()
