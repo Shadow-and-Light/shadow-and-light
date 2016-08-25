@@ -112,11 +112,13 @@ local function SkinScenarioButtons()
 
 	-- we have to independently resize the artwork
 	-- because we're messing with the tracker width >_>
-	-- pop-up artwork
-	block.NormalBG:Hide()
+	if not E.private.sle.skins.objectiveTracker.scenarioBG then
+		-- pop-up artwork
+		block.NormalBG:Hide()
 
-	-- pop-up final artwork
-	block.FinalBG:Hide()
+		-- pop-up final artwork
+		block.FinalBG:Hide()
+	end
 
 	-- pop-up glow
 	block.GlowTexture:SetSize(width+20, 75)

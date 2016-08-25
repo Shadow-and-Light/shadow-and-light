@@ -154,6 +154,11 @@ local function configTable()
 						get = function(info) return E.db.sle.skins.objectiveTracker[ info[#info] ] end,
 						set = function(info, value) E.db.sle.skins.objectiveTracker[ info[#info] ] = value; E:UpdateBlizzardFonts() end,
 					},
+					scenarioBG = {
+						order = 15,
+						type = "toggle",
+						name = L["Stage Background"],
+					},
 				},
 			},
 			merchant = {

@@ -161,6 +161,7 @@ V["sle"] = {
 			["class"] = false,
 			["color"] = {r = 0.26, g = 0.42, b = 1},
 			["underlineHeight"] = 1,
+			["scenarioBG"] = false,
 		},
 		["petbattles"] = {
 			["enable"] = true,

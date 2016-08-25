@@ -688,6 +688,7 @@ L["Item Info Font"] = "Шрифт информации"
 L["Item Info Size"] = "Размер информации"
 L["Item Info Outline"] = "Граница информации"
 L["Remove Parchment"] = "Удалить пергамент"
+L["Stage Background"] = "Фон стадии"
 
 --Toolbars
 L["We are sorry, but you can't do this now. Try again after the end of this combat."] = "Извините, но Вы не можете этого сделать сейчас. Попробуйте снова после окончания текущего боя."
