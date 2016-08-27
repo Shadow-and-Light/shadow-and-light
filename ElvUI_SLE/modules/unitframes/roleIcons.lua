@@ -61,8 +61,11 @@ function SUF:SetRoleIcons()
 			local group = T.select(i, header:GetChildren())
 			for j = 1, group:GetNumChildren() do
 			local unitbutton = T.select(j, group:GetChildren())
-				if unitbutton.LFDRole and unitbutton.LFDRole.Override then
+				if unitbutton.LFDRole and unitbutton.LFDRole.Override and not unitbutton.LFDRole.sleRoleSetup then
 					unitbutton.LFDRole.Override = SUF.UpdateRoleIcon
+					unitbutton:UnregisterEvent("UNIT_CONNECTION")
+					unitbutton:RegisterEvent("UNIT_CONNECTION", SUF.UpdateRoleIcon)
+					unitbutton.LFDRole.sleRoleSetup = true
 				end
 			end
 		end
