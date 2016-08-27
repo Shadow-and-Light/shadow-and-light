@@ -711,13 +711,16 @@ L["Change the position from where seed bars will grow."] = "Изменить с�
 --Garrison
 L["Garrison Tools Bar"] = "Панель гарнизона"
 L["Auto Work Orders"] = "Автоматические заказы"
-L["Automatically queue maximum number of work orders available when visitin respected NPC."] = "Автоматически делать максимально возможное количество заказов при открытии соответствующего диалога."
+L["Automatically queue maximum number of work orders available when visiting respected NPC."] = "Автоматически делать максимально возможное количество заказов при открытии соответствующего диалога."
 L["Auto Work Orders for Warmill"] = "Авто. заказы на фабрике"
 L["Automatically queue maximum number of work orders available for Warmill/Dwarven Bunker."] = "Автоматически делать максимальное количество заказов для военной фабрики/дворфийского бункера."
 L["Auto Work Orders for Trading Post"] = "Авто. заказы в торговой лавке"
 L["Automatically queue maximum number of work orders available for Trading Post."] = "Автоматически делать максимальное количество заказов для торговой лавки."
 L["Auto Work Orders for Shipyard"] = "Авто. заказы на верфи"
 L["Automatically queue maximum number of work orders available for Shipyard."] = "Автоматически делать максимальное количество заказов для верфи."
+--Class Hall
+L["Class Hall"] = "Оплот класса"
+L["Auto Work Orders for equipment"] = "Авто. заказы на экипировку"
 
 --Tooltip
 L["Faction Icon"] = "Иконка фракции"
