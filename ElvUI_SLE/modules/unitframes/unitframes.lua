@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
 local UF = E:GetModule('UnitFrames');
-local SUF = SLE:NewModule("UnitFrames")
+local SUF = SLE:NewModule("UnitFrames", "AceEvent-3.0")
 local RC = LibStub("LibRangeCheck-2.0")
 --GLOBALS: hooksecurefunc, CreateFrame
 local _G = _G
@@ -158,7 +158,7 @@ function SUF:Initialize()
 	SUF:InitStatus()
 
 	function SUF:ForUpdateAll()
-		UF:UpdateAllHeaders()
+		SUF:SetRoleIcons()
 		if E.private.sle.unitframe.statusbarTextures.power then SUF:BuildStatusTable() end
 	end
 end
