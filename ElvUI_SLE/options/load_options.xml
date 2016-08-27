@@ -22,7 +22,7 @@
 	<Script file='enhancedshadows_c.lua'/>
 	<Script file='farm_c.lua'/>
 	<Script file='garrison_c.lua'/>
-	<!--<Script file='orderhall_c.lua'/>-->
+	<Script file='orderhall_c.lua'/>
 	<Script file='loot_c.lua'/>
 	<Script file='nameplates_c.lua'/>
 	<Script file='raidmarkers_c.lua'/>

@@ -15,7 +15,7 @@
 	<Script file='enhancedshdows.lua'/>
 	<Script file='toolbars.lua'/>
 	<Script file='garrison.lua'/>
-	<!--<Script file='orderhall.lua'/>-->
+	<Script file='orderhall.lua'/>
 	<Script file='lfr.lua'/>
 	<Script file='loot.lua'/>
 	<Include file='minimap\load_minimap.xml'/>
