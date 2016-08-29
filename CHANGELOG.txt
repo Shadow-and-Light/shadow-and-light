@@ -1,5 +1,6 @@
 v3.13 08/29/2016
 A number of files were deleted in this release. We would suggest to manually remove S&L's folder and install it again instead of just auto updating.
+For a couple of days any issues will be slow to get answers/fixes cause of leveling. Sorry for the inconvinience.
 
 Additions:
 - Added QuestGuru skin
