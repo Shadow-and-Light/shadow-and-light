@@ -334,7 +334,11 @@ function S:UpdateTimer()
 	TipsElapsed = TipsElapsed + 1
 	month = SLE.Russian and SLE.RuMonths[T.tonumber(T.date("%m"))] or T.date("%B")
 	week = SLE.Russian and SLE.RuWeek[T.tonumber(T.date("%w"))+1] or T.date("%A")
-	SS.Time:SetText(T.format("%s", T.date("%H|cff00AAFF:|r%M|cff00AAFF:|r%S")))
+	if S.db.date.hour24 then
+		SS.Time:SetText(T.format("%s", T.date("%H|cff00AAFF:|r%M|cff00AAFF:|r%S")))
+	else
+		SS.Time:SetText(T.format("%s", T.date("%I|cff00AAFF:|r%M|cff00AAFF:|r%S %p")))
+	end
 	SS.Date:SetText(T.date("%d").." "..month..", |cff00AAFF"..week.."|r")
 
 	if TipsElapsed > S.db.tipThrottle then

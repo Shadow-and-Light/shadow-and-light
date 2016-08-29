@@ -37,6 +37,48 @@ local function configTable()
 				},
 			},
 		}
+		if group == "date" then
+			config.args.xOffset = {
+				order = 4,
+				name = L["Date X-Offset"],
+				type = "range",
+				min = -(T.GetScreenWidth()/2), max = T.GetScreenWidth()/2, step = 1,
+				-- get = function(info) return E.db.sle.screensaver.date.xOffset end,
+				set = function(info, value) E.db.sle.screensaver.date.xOffset = value end,
+			}
+			config.args.yOffset = {
+				order = 5,
+				name = L["Date Y-Offset"],
+				type = "range",
+				min = -(T.GetScreenWidth()/2), max = T.GetScreenWidth()/2, step = 1,
+				-- get = function(info) return E.db.sle.screensaver.date.yOffset end,
+				set = function(info, value) E.db.sle.screensaver.date.yOffset = value end,
+			}
+			config.args.hour24 = {
+				order = 6,
+				name = L["24-Hour Time"],
+				type = "toggle",
+				-- get = function(info) return E.db.sle.screensaver.date.hour24 end,
+				set = function(info, value) E.db.sle.screensaver.date.hour24 = value end,
+			}
+		elseif group == "player" then
+			config.args.xOffset = {
+				order = 4,
+				name = L["Player Info X-Offset"],
+				type = "range",
+				min = -(T.GetScreenWidth()/2), max = T.GetScreenWidth()/2, step = 1,
+				-- get = function(info) return E.db.sle.screensaver.player.xOffset end,
+				set = function(info, value) E.db.sle.screensaver.player.xOffset = value end,
+			}
+			config.args.yOffset = {
+				order = 5,
+				name = L["Player Info Y-Offset"],
+				type = "range",
+				min = -(T.GetScreenWidth()/2), max = T.GetScreenWidth()/2, step = 1,
+				-- get = function(info) return E.db.sle.screensaver.player.yOffset end,
+				set = function(info, value) E.db.sle.screensaver.player.yOffset = value end,
+			}
+		end
 		return config
 	end
 	E.Options.args.sle.args.modules.args.screensaver = {
@@ -144,46 +186,6 @@ local function configTable()
 								min = 120, max = 200, step = 1,
 								get = function(info) return E.db.sle.screensaver.height end,
 								set = function(info, value) E.db.sle.screensaver.height = value end,
-							},
-							texts = {
-								order = 4,
-								type = "group",
-								name = L["Texts Positions"],
-								guiInline = true,
-								args = {
-									xOffset_date = {
-										order = 1,
-										name = L["Date X-Offset"],
-										type = "range",
-										min = -(T.GetScreenWidth()/2), max = T.GetScreenWidth()/2, step = 1,
-										get = function(info) return E.db.sle.screensaver.date.xOffset end,
-										set = function(info, value) E.db.sle.screensaver.date.xOffset = value end,
-									},
-									yOffset_date = {
-										order = 1,
-										name = L["Date Y-Offset"],
-										type = "range",
-										min = -(T.GetScreenWidth()/2), max = T.GetScreenWidth()/2, step = 1,
-										get = function(info) return E.db.sle.screensaver.date.yOffset end,
-										set = function(info, value) E.db.sle.screensaver.date.yOffset = value end,
-									},
-									xOffset_player = {
-										order = 1,
-										name = L["Player Info X-Offset"],
-										type = "range",
-										min = -(T.GetScreenWidth()/2), max = T.GetScreenWidth()/2, step = 1,
-										get = function(info) return E.db.sle.screensaver.player.xOffset end,
-										set = function(info, value) E.db.sle.screensaver.player.xOffset = value end,
-									},
-									yOffset_player = {
-										order = 1,
-										name = L["Player Info Y-Offset"],
-										type = "range",
-										min = -(T.GetScreenWidth()/2), max = T.GetScreenWidth()/2, step = 1,
-										get = function(info) return E.db.sle.screensaver.player.yOffset end,
-										set = function(info, value) E.db.sle.screensaver.player.yOffset = value end,
-									},
-								},
 							},
 							animType = {
 								order = 5,

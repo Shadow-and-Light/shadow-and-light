@@ -605,6 +605,7 @@ P["sle"] = {
 				["outline"] = "OUTLINE",
 				["xOffset"] = 0,
 				["yOffset"] = 0,
+				["hour24"] = true,
 			},
 			["player"] = {
 				["font"] = "PT Sans Narrow",
