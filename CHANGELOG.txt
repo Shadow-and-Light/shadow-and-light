@@ -1,4 +1,4 @@
-v3.13
+v3.13 08/29/2016
 A number of files were deleted in this release. We would suggest to manually remove S&L's folder and install it again instead of just auto updating.
 
 Additions:
