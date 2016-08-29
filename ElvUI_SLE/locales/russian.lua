@@ -732,6 +732,7 @@ L["Class Hall"] = "Оплот класса"
 L["Auto Work Orders for equipment"] = "Авто. заказы на экипировку"
 
 --Tooltip
+L["Always Compare Items"] = "Всегда сравнивать предметы"
 L["Faction Icon"] = "Иконка фракции"
 L["Show faction icon to the left of player's name on tooltip."] = "Отображать иконку фракции около имени игроков в подсказках"
 L["TTOFFSET_DESC"] = "Добавляет возможность сделать отступ подсказки от курсора. Работает только при включенной опции \"Около курсора\" в ElvUI."
@@ -791,6 +792,7 @@ L["Makes frame portrait visible regardles of health level when overlay portrait 
 L["Classbar Texture"] = "Текстура классовой полосы"
 L["Resize Health Prediction"] = "Подогнать входящее исцеление"
 L["Slightly chages size of health prediction bars."] = "Немного изменяет размер полос входящего исцеления."
+L["Always Compare Items"] = "Прозрачность портрета при наложении"
 
 
 --Viewport

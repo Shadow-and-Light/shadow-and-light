@@ -742,6 +742,7 @@ L["Class Hall"] = true
 L["Auto Work Orders for equipment"] = true
 
 --Tooltip
+L["Always Compare Items"] = true
 L["Faction Icon"] = true
 L["Show faction icon to the left of player's name on tooltip."] = true
 L["TTOFFSET_DESC"] = "This adds the ability to have the tooltip offset from the cursor.  Make sure to have the \"Cursor Anchor\" option enabled in ElvUI's Tooltip section to use this feature."
@@ -801,6 +802,7 @@ L["Makes frame portrait visible regardles of health level when overlay portrait 
 L["Classbar Texture"] = true
 L["Resize Health Prediction"] = true
 L["Slightly chages size of health prediction bars."] = true
+L["Always Compare Items"] = true
 
 
 --Viewport
