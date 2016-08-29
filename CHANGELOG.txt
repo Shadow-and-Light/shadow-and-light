@@ -18,7 +18,7 @@ Additions:
 Fixes:
 - Attempted to fix error with S&L guild dt when one of guild members happen to be in the middle of actual nowhere
 - Fixed error in item level dt cause by empty slots
-- Enchant warnings for weapons made their return bt are now limited to ilvl <= 750
+- Enchant warnings for weapons made their return but are now limited to ilvl <= 750
 - Inspect highlight texture is now less green, way less green
 - Always show tooltip option will now not lock the respective cvar if ElvUI tooltip is disabled
 - Attempted to fix an error with paladin talent in Armory
@@ -31,7 +31,6 @@ Changes:
 - Tweaked visuals for legion invasion progress bar
 - Frame level of the UI Buttons mover is now over 9k = not overlapped by chat panels
 - Skinned mail icon no longer has backdrop is not on the button bar
-
 
 v3.12 08/14/2016
 Fixes:
