@@ -110,15 +110,22 @@ function N:UpdateRoster()
 end
 
 function N:StartRosterUpdate()
-	if not rosterTimer or N:TimeLeft(rosterTimer) == 0 then
+	if not rosterTimer then
 		rosterTimer = N:ScheduleTimer(N.UpdateRoster, 1)
 	end
+end
+
+function N:NAME_PLATE_UNIT_ADDED(event, unit, frame)
+	local frame = frame or NP:GetNamePlateForUnit(unit);
+	N:UpdateCount(nil,"player", true)
 end
 
 function N:NAME_PLATE_UNIT_REMOVED(event, unit, frame, ...)
 	local frame = frame or NP:GetNamePlateForUnit(unit);
 	frame.UnitFrame.unit = nil
 	frame.UnitFrame.threatInfo:SetText("")
+	frame.UnitFrame.targetcount:SetText("")
+	frame.UnitFrame.targetCount = 0
 end
 
 function N:Initialize()
@@ -128,6 +135,7 @@ function N:Initialize()
 	self:RegisterEvent("GROUP_ROSTER_UPDATE", "StartRosterUpdate")
 	self:RegisterEvent("UNIT_TARGET", "UpdateCount")
 	self:RegisterEvent("NAME_PLATE_UNIT_REMOVED")
+	self:RegisterEvent("NAME_PLATE_UNIT_ADDED")
 
 	E:Delay(.3, function() N:UpdateCount(nil,"player", true) end)
 	function N:ForUpdateAll()
