@@ -16,7 +16,6 @@ local dtbarsList = {}
 local dtbarsTexts = {}
 
 local function DarthHeal()
-	E.db["unitframe"]["units"]["raid"]["GPSArrow"]["enable"] = true
 	E.db["unitframe"]["units"]["raid"]["health"]["frequentUpdates"] = true
 	E.db["unitframe"]["units"]["raid"]["height"] = 22
 
@@ -221,7 +220,7 @@ function PI:DarthSetup()
 	end
 	--Nameplates
 	do
-		E.db["nameplates"]["lowHealthThreshold"] = 0.2
+		E.db["nameplates"]["lowHealthThreshold"] = 0
 		E.db["nameplates"]["font"] = "PT Sans Narrow"
 		E.db["nameplates"]["fontOutline"] = "OUTLINE"
 		E.db["nameplates"]["threat"]["beingTankedByTank"] = false
@@ -246,13 +245,19 @@ function PI:DarthSetup()
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["powerbar"]["height"] = 4
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["powerbar"]["height"] = 4
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["powerbar"]["enable"] = true
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 6
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["enable"] = true
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["format"] = "CURRENT_PERCENT"
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["powerbar"]["height"] = 4
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["powerbar"]["enable"] = true
-		E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 6
-		E.db["nameplates"]["units"]["HEALER"]["powerbar"]["height"] = 4
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["xOffset"] = 20
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["yOffset"] = 14
+		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["numAuras"] = 6
+		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["enable"] = true
+		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "CURRENT_PERCENT"
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["powerbar"]["height"] = 4
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["powerbar"]["enable"] = true
-		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["numAuras"] = 6
 		E.db["nameplates"]["units"]["PLAYER"]["enable"] = true
 		E.db["nameplates"]["units"]["PLAYER"]["alwaysShow"] = true
 		E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["enable"] = false
@@ -416,7 +421,6 @@ function PI:DarthSetup()
 		E.db["unitframe"]["units"]["raid"]["name"]["attachTextTo"] = "InfoPanel"
 		E.db["unitframe"]["units"]["raid"]["name"]["xOffset"] = 15
 		E.db["unitframe"]["units"]["raid"]["name"]["position"] = "LEFT"
-		E.db["unitframe"]["units"]["raid"]["GPSArrow"]["enable"] = false
 		E.db["unitframe"]["units"]["raid"]["health"]["xOffset"] = 4
 		E.db["unitframe"]["units"]["raid"]["health"]["yOffset"] = -4
 		E.db["unitframe"]["units"]["raid"]["health"]["text_format"] = ""
@@ -433,6 +437,7 @@ function PI:DarthSetup()
 	do
 		E.db["sle"]["databars"]["artifact"]["longtext"] = true
 		E.db["sle"]["databars"]["artifact"]["chatfilter"]["enable"] = true
+		E.db["sle"]["databars"]["artifact"]["chatfilter"]["style"] = "STYLE2"
 		E.db["sle"]["databars"]["honor"]["chatfilter"]["awardStyle"] = "STYLE2"
 		E.db["sle"]["databars"]["honor"]["chatfilter"]["style"] = "STYLE8"
 		E.db["sle"]["databars"]["honor"]["chatfilter"]["enable"] = true
@@ -534,7 +539,7 @@ function PI:DarthSetup()
 		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,286,118"
 		E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOM,ElvUIParent,BOTTOM,0,137"
 		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,165"
-		E.db["movers"]["ElvUF_RaidMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,574"
+		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,0,201"
 		E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,UIParent,BOTTOMLEFT,0,19"
 		E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,285,0"
 		E.db["movers"]["GhostFrameMover"] = "TOP,ElvUIParent,TOP,288,0"
@@ -614,6 +619,7 @@ function PI:DarthSetup()
 	E.private["sle"]["chat"]["chatHistory"]["CHAT_MSG_EMOTE"] = false
 	E.private["sle"]["skins"]["merchant"]["enable"] = true
 	E.private["sle"]["skins"]["merchant"]["style"] = "List"
+	E.private["sle"]["skins"]["objectiveTracker"]["scenarioBG"] = true
 	E.private["sle"]["equip"]["setoverlay"] = true
 	E.private["sle"]["actionbars"]["transparentButtons"] = true
 
@@ -1201,7 +1207,6 @@ local function AffinitySetup()
 	E.db["unitframe"]["units"]["party"]["buffs"]["sizeOverride"] = 22
 	E.db["unitframe"]["units"]["party"]["buffs"]["xOffset"] = 30
 	E.db["unitframe"]["units"]["party"]["growthDirection"] = "LEFT_UP"
-	E.db["unitframe"]["units"]["party"]["GPSArrow"]["size"] = 40
 	E.db["unitframe"]["units"]["party"]["buffIndicator"]["size"] = 10
 	E.db["unitframe"]["units"]["party"]["roleIcon"]["enable"] = false
 	E.db["unitframe"]["units"]["party"]["roleIcon"]["position"] = "BOTTOMRIGHT"
