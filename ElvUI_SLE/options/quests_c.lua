@@ -53,32 +53,38 @@ local function configTable()
 						name = GARRISON_LOCATION_TOOLTIP,
 						values = settings,
 					},
-					bg = {
+					orderhall = {
 						order = 4,
+						type = "select",
+						name = L["Class Hall"],
+						values = settings,
+					},
+					bg = {
+						order = 5,
 						type = "select",
 						name = BATTLEGROUNDS,
 						values = settings,
 					},
 					arena = {
-						order = 5,
+						order = 6,
 						type = "select",
 						name = ARENA,
 						values = settings,
 					},
 					dungeon = {
-						order = 6,
+						order = 7,
 						type = "select",
 						name = DUNGEONS,
 						values = settings,
 					},
 					scenario = {
-						order = 7,
+						order = 8,
 						type = "select",
 						name = SCENARIOS,
 						values = settings,
 					},
 					raid = {
-						order = 8,
+						order = 9,
 						type = "select",
 						name = RAIDS,
 						values = settings,

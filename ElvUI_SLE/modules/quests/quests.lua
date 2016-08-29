@@ -27,6 +27,8 @@ function Q:ChangeState(event)
 	if T.GetZoneText() == BL.Frostwall or T.GetZoneText() == BL.Lunarfall then
 		statedriver[Q.db.visibility.garrison](Q.frame)
 	--here be order halls
+	elseif T.GetRealZoneText() ~= _G["ORDER_HALL_"..E.myclass] then
+		statedriver[Q.db.visibility.orderhall](Q.frame)
 	elseif IsResting() then
 		statedriver[Q.db.visibility.rested](Q.frame)
 	else

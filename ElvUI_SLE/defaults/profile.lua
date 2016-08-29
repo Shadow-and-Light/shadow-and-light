@@ -556,6 +556,7 @@ P["sle"] = {
 			["scenario"] = "FULL",
 			["rested"] = "FULL",
 			["garrison"] = "FULL",
+			["orderhall"] = "FULL",
 		},
 		["autoReward"] = false,
 	},
