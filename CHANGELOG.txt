@@ -13,6 +13,7 @@ Additions:
 - Merchant skin now marks recipes/mounts you already know
 - Order Halls auto work orders options
 - Objective tracker skin now has option to not hide stage background
+- New options for AFK screen: player info, date and crests can now be moved by offsset options. Time can now be set to 12h format if needed.
 Fixes:
 - Attempted to fix error with S&L guild dt when one of guild members happen to be in the middle of actual nowhere
 - Fixed error in item level dt cause by empty slots
@@ -23,6 +24,8 @@ Fixes:
 - DPS spam filter should now capture Detailes! once again
 - Fixed random error caused location panel menu to not show toys for some people
 - Removed double shadow from vehicle bar
+- Role icons should no longer reset to default on unitframes
+- Fixed S&L friends/guild datatexts tooltips not respecting tooltip text size setting of ElvUI
 Changes:
 - Tweaked viluals for legion invasion progress bar
 - Frame level of the UI Buttons mover is now over 9k = not overlaped by chat panels
