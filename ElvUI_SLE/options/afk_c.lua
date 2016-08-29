@@ -43,7 +43,6 @@ local function configTable()
 				name = L["Date X-Offset"],
 				type = "range",
 				min = -(T.GetScreenWidth()/2), max = T.GetScreenWidth()/2, step = 1,
-				-- get = function(info) return E.db.sle.screensaver.date.xOffset end,
 				set = function(info, value) E.db.sle.screensaver.date.xOffset = value end,
 			}
 			config.args.yOffset = {
@@ -51,14 +50,12 @@ local function configTable()
 				name = L["Date Y-Offset"],
 				type = "range",
 				min = -(T.GetScreenWidth()/2), max = T.GetScreenWidth()/2, step = 1,
-				-- get = function(info) return E.db.sle.screensaver.date.yOffset end,
 				set = function(info, value) E.db.sle.screensaver.date.yOffset = value end,
 			}
 			config.args.hour24 = {
 				order = 6,
 				name = L["24-Hour Time"],
 				type = "toggle",
-				-- get = function(info) return E.db.sle.screensaver.date.hour24 end,
 				set = function(info, value) E.db.sle.screensaver.date.hour24 = value end,
 			}
 		elseif group == "player" then
@@ -67,7 +64,6 @@ local function configTable()
 				name = L["Player Info X-Offset"],
 				type = "range",
 				min = -(T.GetScreenWidth()/2), max = T.GetScreenWidth()/2, step = 1,
-				-- get = function(info) return E.db.sle.screensaver.player.xOffset end,
 				set = function(info, value) E.db.sle.screensaver.player.xOffset = value end,
 			}
 			config.args.yOffset = {
@@ -75,7 +71,6 @@ local function configTable()
 				name = L["Player Info Y-Offset"],
 				type = "range",
 				min = -(T.GetScreenWidth()/2), max = T.GetScreenWidth()/2, step = 1,
-				-- get = function(info) return E.db.sle.screensaver.player.yOffset end,
 				set = function(info, value) E.db.sle.screensaver.player.yOffset = value end,
 			}
 		end
