@@ -32,7 +32,6 @@ local function configTable()
 				order = 6,
 				type = 'toggle',
 				name = L["Always Compare Items"],
-				-- desc = L["Show faction icon to the left of player's name on tooltip."],
 				disabled = function() return not E.private.tooltip.enable end,
 				set = function(info, value) E.db.sle.tooltip.alwaysCompareItems = value; SLE:SetCompareItems() end,
 			},
