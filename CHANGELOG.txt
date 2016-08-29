@@ -1,12 +1,12 @@
 v3.13 08/29/2016
 A number of files were deleted in this release. We would suggest to manually remove S&L's folder and install it again instead of just auto updating.
-For a couple of days any issues will be slow to get answers/fixes cause of leveling. Sorry for the inconvinience.
+For a couple of days any issues will be slow to get answers/fixes cause of leveling. Sorry for the inconvenience.
 
 Additions:
 - Added QuestGuru skin
 - Quick action option for UI Buttons' addon section received some love = more variants 
 - Added an option to show only numbers in instance indicator
-- Location panel menu now contains a lot more teletorting stuff
+- Location panel menu now contains a lot more teleporting stuff
 - UI Buttons and Background panels now have visibility state option. Works like actionbar visibility.
 - Added an option to select background template for vehicle bar.
 - Added an option to hide in combat for location panel
@@ -14,7 +14,7 @@ Additions:
 - Merchant skin now marks recipes/mounts you already know
 - Order Halls auto work orders options
 - Objective tracker skin now has option to not hide stage background
-- New options for AFK screen: player info, date and crests can now be moved by offsset options. Time can now be set to 12h format if needed.
+- New options for AFK screen: player info, date and crests can now be moved by offset options. Time can now be set to 12h format if needed.
 Fixes:
 - Attempted to fix error with S&L guild dt when one of guild members happen to be in the middle of actual nowhere
 - Fixed error in item level dt cause by empty slots
@@ -28,8 +28,8 @@ Fixes:
 - Role icons should no longer reset to default on unitframes
 - Fixed S&L friends/guild datatexts tooltips not respecting tooltip text font and size setting of ElvUI
 Changes:
-- Tweaked viluals for legion invasion progress bar
-- Frame level of the UI Buttons mover is now over 9k = not overlaped by chat panels
+- Tweaked visuals for legion invasion progress bar
+- Frame level of the UI Buttons mover is now over 9k = not overlapped by chat panels
 - Skinned mail icon no longer has backdrop is not on the button bar
 
 
