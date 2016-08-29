@@ -25,7 +25,7 @@ Fixes:
 - Fixed random error caused location panel menu to not show toys for some people
 - Removed double shadow from vehicle bar
 - Role icons should no longer reset to default on unitframes
-- Fixed S&L friends/guild datatexts tooltips not respecting tooltip text size setting of ElvUI
+- Fixed S&L friends/guild datatexts tooltips not respecting tooltip text font and size setting of ElvUI
 Changes:
 - Tweaked viluals for legion invasion progress bar
 - Frame level of the UI Buttons mover is now over 9k = not overlaped by chat panels
