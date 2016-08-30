@@ -5,6 +5,7 @@ local _G = _G
 local unpack = unpack
 
 local function LoadSkin()
+	if not E.private.sle.skins.questguru.enable then return end
 	_G["QuestGuru"]:StripTextures()
 	_G["QuestGuruPortraitFrame"]:Kill()
 	_G["QGC_FramePortrait"]:Kill()

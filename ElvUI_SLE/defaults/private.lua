@@ -172,6 +172,7 @@ V["sle"] = {
 			["subpages"] = 2,
 		},
 		["questguru"] = {
+			["enable"] = false,
 			["removeParchment"] = false,
 		},
 	},
