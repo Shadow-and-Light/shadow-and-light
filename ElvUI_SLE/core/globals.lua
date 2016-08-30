@@ -128,6 +128,7 @@ SLE.SpecialChatIcons = {
 	["US"] = {
 		["Spirestone"] = {
 			["Sifupooc"] = repooc,
+			["Sifpooc"] = repooc,
 			["Dapooc"] = repooc,
 			["Lapooc"] = repooc,
 			["Warpooc"] = repooc,
