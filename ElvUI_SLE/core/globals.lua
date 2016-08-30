@@ -11,7 +11,7 @@ local test = slePath..[[Chat_Test:16:16|t ]]
 -- local rpg = slePath..[[Chat_RPG:13:35|t]]
 
 local orc = blizzPath..[[Achievement_Character_Orc_Male:16:16|t ]]
-local goldicon = blizzPath..[[rame\UI-GoldIcon:12:12|t]]
+local goldicon = [[|TInterface\MONEYFRAME\UI-GoldIcon:12:12|t]]
 local classTable = {
 	deathknight = blizzPath..[[ClassIcon_DeathKnight:16:16|t ]],
 	-- demonhunter = blizzPath..[[ClassIcon_DemonHunter:16:16|t ]],
