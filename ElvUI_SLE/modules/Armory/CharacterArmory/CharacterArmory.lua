@@ -678,7 +678,12 @@ function CA:Update_Gear()
 					
 					if E.db.sle.Armory.Character.NoticeMissing ~= false then
 						if not Slot.IsEnchanted and Info.Armory_Constants.EnchantableSlots[SlotName] then 
-							if SlotName ~= 'SecondaryHandSlot' or ((ItemType == "INVTYPE_WEAPONOFFHAND" or ItemType == "INVTYPE_WEAPON") and (TrueItemLevel and TrueItemLevel <= 750) ) then
+							local isValid = false
+							local isWeapon = (ItemType == "INVTYPE_WEAPONOFFHAND" or ItemType == "INVTYPE_WEAPON" or ItemType == "INVTYPE_2HWEAPON")
+							if (isWeapon and (TrueItemLevel and TrueItemLevel <= 750)) or (SlotName ~= 'SecondaryHandSlot' and not isWeapon) then
+								isValid = true
+							end
+							if isValid then
 								ErrorDetected = true
 								Slot.EnchantWarning:Show()
 								
