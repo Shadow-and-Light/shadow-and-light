@@ -99,7 +99,11 @@ local function UpdateBuybackInfo()
 			link = T.GetBuybackItemLink(i);
 			if (link) then
 				_, _, quality = T.GetItemInfo(link);
-				r, g, b = T.GetItemQualityColor(quality);
+				if quality then
+					r, g, b = T.GetItemQualityColor(quality);
+				else
+					r, g, b = 1,1,1
+				end
 				_G["MerchantItem" .. i .. "Name"]:SetTextColor(r, g, b);
 			end
 		end
