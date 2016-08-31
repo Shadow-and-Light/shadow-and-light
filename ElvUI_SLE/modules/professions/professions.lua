@@ -10,25 +10,13 @@ function Pr:UpdateSkills(event)
 	if event ~= "CHAT_MSG_SKILL" then
 		local spellName
 		Pr.DEname, Pr.LOCKname, Pr.SMITHname = false, false, false
-		T.twipe(Pr.ItemTable[ITEM_MILLABLE])
-		T.twipe(Pr.ItemTable['OVERRIDE_MILLABLE'])
-		T.twipe(Pr.ItemTable[ITEM_PROSPECTABLE])
 
 		if(T.IsSpellKnown(13262)) then Pr.DEname = T.GetSpell(13262) end --Enchant
 		if(T.IsSpellKnown(1804)) then Pr.LOCKname = T.GetSpell(1804) end --Lockpicking
 		if(T.IsSpellKnown(2018)) then Pr.SMITHname = T.GetSpellBookItemInfo((T.GetSpellInfo(2018))) end --Blacksmith
-
-		if(T.IsSpellKnown(51005)) then --Milling
-			spellName = T.GetSpell(51005)
-			Pr.ItemTable[ITEM_MILLABLE] = {spellName, 0.5, 1, 0.5}
-			Pr.ItemTable['OVERRIDE_MILLABLE'] = {spellName, 0.5, 1, 0.5}
-		end
-
-		if(T.IsSpellKnown(31252)) then --Prospecting
-			spellName = T.GetSpell(31252)
-			Pr.ItemTable[ITEM_PROSPECTABLE] = {spellName, 1, 0.33, 0.33}
-			-- Pr.ItemTable['OVERRIDE_PROSPECTABLE'] = {spellName, 1, 0.33, 0.33}
-		end
+		if(T.IsSpellKnown(25229)) then Pr.JEWELname = T.GetSpellBookItemInfo((T.GetSpellInfo(25229))) end --Jewelcrating
+		if(T.IsSpellKnown(31252)) then Pr.PROSPECTname = T.GetSpell((T.GetSpellInfo(31252))) end --Jewelcrating
+		if(T.IsSpellKnown(51005)) then Pr.MILLname = T.GetSpell((T.GetSpellInfo(51005))) end --Milling
 	end
 
 	local prof1, prof2 = T.GetProfessions()

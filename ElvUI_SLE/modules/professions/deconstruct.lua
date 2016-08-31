@@ -1,6 +1,7 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Pr = SLE:GetModule("Professions")
 local B = E:GetModule("Bags")
+local lib = LibStub("LibProcessable")
 --GLOBALS: hooksecurefunc, CreateFrame
 local _G = _G
 local VIDEO_OPTIONS_ENABLED, VIDEO_OPTIONS_DISABLED = VIDEO_OPTIONS_ENABLED, VIDEO_OPTIONS_DISABLED
@@ -59,20 +60,9 @@ Pr.ItemTable = {
 		["45991"] = true, --Bone Fishing Pole
 		["45992"] = true, --Jeweled Fishing Pole
 	},
-	--Cause this shit doesn't state it's millable
-	["CanDisentegrate"] = {
-		['109129']='OVERRIDE_MILLABLE',
-		['109128']='OVERRIDE_MILLABLE',
-		['109127']='OVERRIDE_MILLABLE',
-		['109126']='OVERRIDE_MILLABLE',
-		['109125']='OVERRIDE_MILLABLE',
-		['109124']='OVERRIDE_MILLABLE',
-	},
-	[ITEM_MILLABLE] = {},
-	['OVERRIDE_MILLABLE'] = {},
-	[ITEM_PROSPECTABLE] = {},
 }
 Pr.Keys = {
+	[T.GetSpell(195809)] = true, -- jeweled lockpick
 	[T.GetSpell(130100)] = true, -- Ghostly Skeleton Key
 	[T.GetSpell(94574)] = true, -- Obsidium Skeleton Key
 	[T.GetSpell(59403)] = true, -- Titanium Skeleton Key
@@ -167,9 +157,6 @@ function Pr:IsBreakable(link)
 		if Pr.ItemTable["Cooking"][item] and E.global.sle.DE.IgnoreCooking then return false end
 		if Pr.ItemTable["Fishing"][item] and E.global.sle.DE.IgnoreFishing then return false end
 		if Pr.BlacklistDE[name] then return false end
-		for skill, level in T.pairs(Pr.EnchantSkillTable[quality]) do
-			if Pr.DErank < skill and ilvl >= level then return false end
-		end
 		return true
 	end
 	return false
@@ -206,22 +193,25 @@ end
 
 function Pr:DeconstructParser(...)
 	local item, link = self:GetItem()
+	local itemString = T.match(link, "item[%-?%d:]+")
+	local _, id = T.split(":", itemString)
 	if(item and not T.InCombatLockdown()) and (Pr.DeconstructMode == true or (E.global.sle.LOCK.TradeOpen and self:GetOwner():GetName() == "TradeRecipientItem7ItemButton")) then
-		local spell, r, g, b = Pr.DeconstructionReal.ScanTooltip(self, link)
-		if(spell) then
-			Pr:ApplyDeconstruct(link, spell, r, g, b)
-		else
-			if(Pr.DEname and Pr:IsBreakable(link)) then
-				r, g, b = 1, 0, 0
-				Pr:ApplyDeconstruct(link, Pr.DEname, r, g, b)
-			elseif(Pr.LOCKname and Pr:IsLocked(link) and Pr:IsUnlockable(link)) then
-				r, g, b = 0, 1, 1
-				Pr:ApplyDeconstruct(link, Pr.LOCKname, r, g, b)
-			elseif(Pr.SMITHname and Pr:IsLocked(link) and Pr:IsUnlockable(link)) then
-				r, g, b = 0, 1, 1
-				local hasKey = HaveKey()
-				Pr:ApplyDeconstruct(link, hasKey, r, g, b)
-			end
+		if (Pr.DEname and lib:IsDisenchantable(id) and Pr:IsBreakable(link)) then
+			r, g, b = 1, 0, 0
+			Pr:ApplyDeconstruct(link, Pr.DEname, r, g, b)
+		elseif Pr.LOCKname and lib:IsOpenable(id) and not Pr.BlacklistLOCK[item] then
+			r, g, b = 0, 1, 1
+			Pr:ApplyDeconstruct(link, Pr.LOCKname, r, g, b)
+		elseif(Pr.SMITHname or Pr.JEWELname and lib:IsOpenable(id)) then
+			r, g, b = 0, 1, 1
+			local hasKey = HaveKey()
+			Pr:ApplyDeconstruct(link, hasKey, r, g, b)
+		elseif (Pr.PROSPECTname and lib:IsProspectable(id)) then
+			r, g, b = 1, 0, 0
+			Pr:ApplyDeconstruct(link, Pr.PROSPECTname, r, g, b)
+		elseif (Pr.MILLname and lib:IsMillable(id)) then
+			r, g, b = 1, 0, 0
+			Pr:ApplyDeconstruct(link, Pr.MILLname, r, g, b)
 		end
 	end
 end
@@ -291,20 +281,6 @@ function Pr:ConstructRealDecButton()
 		_G["GameTooltip"]:SetOwner(self,"ANCHOR_LEFT",0,4)
 		_G["GameTooltip"]:ClearLines()
 		_G["GameTooltip"]:SetBagItem(self.Bag, self.Slot)
-	end
-
-	Pr.DeconstructionReal.ScanTooltip = function(self, itemLink)
-		for index = 1, self:NumLines() do
-			local info = Pr.ItemTable[_G['GameTooltipTextLeft' .. index]:GetText()]
-			if(info) then
-				return T.unpack(info)
-			end
-		end
-		local itemID = itemLink:match(":(%w+)")
-		local override = Pr.ItemTable.CanDisentegrate[itemID]
-		if(override and Pr.ItemTable[override]) then
-			return T.unpack(Pr.ItemTable[override])
-		end
 	end
 
 	Pr.DeconstructionReal:SetScript("OnEnter", Pr.DeconstructionReal.SetTip)
