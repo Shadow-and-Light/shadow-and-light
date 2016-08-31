@@ -1,0 +1,14 @@
+tag 13
+1b2c99d765ecdfeac2091b79dea1d989b4244e45
+Adrian L Lange <mail@p3lim.net>
+2016-08-26 04:28:18 +0200
+
+Tag 13
+
+
+--------------------
+
+Adrian L Lange:
+	- Update version
+	- Kill all humans
+	Fixes #12

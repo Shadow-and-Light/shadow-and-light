@@ -1,0 +1,12 @@
+## Interface: 70000
+## Author: p3lim
+## Version: 13
+## Title: Lib: Processable
+## Notes: Library that lets you easily check if you can process resources
+## OptionalDeps: LibStub
+## X-Curse-Packaged-Version: 13
+## X-Curse-Project-Name: LibProcessable
+## X-Curse-Project-ID: libprocessable
+## X-Curse-Repository-ID: wow/libprocessable/mainline
+
+embed.xml
