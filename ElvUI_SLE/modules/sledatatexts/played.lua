@@ -29,7 +29,7 @@ local OnEnter = function(self)
 		DT.tooltip:AddLine(' ')
 		DT.tooltip:AddDoubleLine(L["Session:"], SessionDay > 0 and T.format(PlayedTimeFormatFull, SessionDay, SessionHour, SessionMinute, SessionSecond) or T.format(PlayedTimeFormatNoDay, SessionHour, SessionMinute, SessionSecond), 1, 1, 1, 1, 1, 1)
 		if LastLevelSecond > 0 then
-			DT.tooltip:AddDoubleLine(L["Previous Level:"], LastLevelDay > 0 and T.format(PlayedTimeFormatFull, LastLevelDay. LastLevelHour, LastLevelMinute, LastLevelSecond) or T.format(PlayedTimeFormatNoDay, LastLevelHour, LastLevelMinute, LastLevelSecond), 1, 1, 1, 1, 1, 1)
+			DT.tooltip:AddDoubleLine(L["Previous Level:"], LastLevelDay > 0 and T.format(PlayedTimeFormatFull, LastLevelDay, LastLevelHour, LastLevelMinute, LastLevelSecond) or T.format(PlayedTimeFormatNoDay, LastLevelHour, LastLevelMinute, LastLevelSecond), 1, 1, 1, 1, 1, 1)
 		end
 		DT.tooltip:AddDoubleLine(LEVEL..':', LevelDay > 0 and T.format(PlayedTimeFormatFull, LevelDay, LevelHour, LevelMinute, LevelSecond) or T.format(PlayedTimeFormatNoDay, LevelHour, LevelMinute, LevelSecond), 1, 1, 1, 1, 1, 1)
 		DT.tooltip:AddDoubleLine(TOTAL..':', TotalDay > 0 and T.format(PlayedTimeFormatFull, TotalDay, TotalHour, TotalMinute, TotalSecond) or T.format(PlayedTimeFormatNoDay, TotalHour, TotalMinute, TotalSecond), 1, 1, 1, 1, 1, 1)
