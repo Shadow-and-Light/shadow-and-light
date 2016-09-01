@@ -70,7 +70,7 @@ function N:UpdateCount(event,unit,force)
 			if N.db.targetcount and plate.targetcount then
 				if T.IsInRaid() or T.IsInGroup() then
 					for name, unitid in T.pairs(N.GroupMembers) do
-						if not T.UnitIsUnit(unitid,"player") then
+						if not T.UnitIsUnit(unitid,"player") and plate.unit then
 							target = T.format("%starget", unitid)
 							plate.guid = T.UnitGUID(plate.unit)
 							if plate.guid and T.UnitExists(target) then
