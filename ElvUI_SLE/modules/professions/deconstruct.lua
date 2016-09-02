@@ -10,6 +10,7 @@ local ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow = ActionButton_
 local AutoCastShine_AutoCastStart, AutoCastShine_AutoCastStop = AutoCastShine_AutoCastStart, AutoCastShine_AutoCastStop
 
 Pr.DeconstructMode = false
+local relicItemTypeLocalized, relicItemSubTypeLocalized
 Pr.ItemTable = {
 	--Various lockboxes
 	["Pick"]={
@@ -59,6 +60,10 @@ Pr.ItemTable = {
 		["45858"] = true, --Nat's Lucky Fishing Pole
 		["45991"] = true, --Bone Fishing Pole
 		["45992"] = true, --Jeweled Fishing Pole
+	},
+	--Quest dis
+	["Quest"] = {
+		["137221"] = true, --Ravencrest sigil
 	},
 }
 Pr.Keys = {
@@ -148,9 +153,10 @@ function Pr:ApplyDeconstruct(itemLink, spell, r, g, b)
 end
 
 function Pr:IsBreakable(link)
+	if not link then return false end
 	local name, _, quality, ilvl,_,_,_,_,equipSlot = T.GetItemInfo(link)
+	local item = T.match(link, 'item:(%d+):')
 	if(T.IsEquippableItem(link) and quality and quality > 1 and quality < 5 and equipSlot ~= "INVTYPE_BAG") then
-		local item = T.match(link, 'item:(%d+):')
 		if E.global.sle.DE.IgnoreTabards and equipSlot == "INVTYPE_TABARD" then return false end
 		if Pr.ItemTable["DoNotDE"][item] then return false end
 		if Pr.ItemTable["PandariaBoA"][item] and E.global.sle.DE.IgnorePanda then return false end
@@ -158,7 +164,7 @@ function Pr:IsBreakable(link)
 		if Pr.ItemTable["Fishing"][item] and E.global.sle.DE.IgnoreFishing then return false end
 		if Pr.BlacklistDE[name] then return false end
 		return true
-	end
+	end 
 	return false
 end
 
@@ -193,16 +199,22 @@ end
 
 function Pr:DeconstructParser(...)
 	local item, link = self:GetItem()
+	local class, subclass = select(6, T.GetItemInfo(item))
+	if not link then return end
 	local itemString = T.match(link, "item[%-?%d:]+")
 	local _, id = T.split(":", itemString)
 	if(item and not T.InCombatLockdown()) and (Pr.DeconstructMode == true or (E.global.sle.LOCK.TradeOpen and self:GetOwner():GetName() == "TradeRecipientItem7ItemButton")) then
-		if (Pr.DEname and lib:IsDisenchantable(id) and Pr:IsBreakable(link)) then
-			r, g, b = 1, 0, 0
-			Pr:ApplyDeconstruct(link, Pr.DEname, r, g, b)
+		if Pr.DEname then
+			local normalItem = (lib:IsDisenchantable(id) and Pr:IsBreakable(link))
+			local isArtRelic = (class == relicItemTypeLocalized and subclass == relicItemSubTypeLocalized)
+			if normalItem or Pr.ItemTable["Quest"][id] or isArtRelic then
+				r, g, b = 1, 0, 0
+				Pr:ApplyDeconstruct(link, Pr.DEname, r, g, b)
+			end
 		elseif Pr.LOCKname and lib:IsOpenable(id) and not Pr.BlacklistLOCK[item] then
 			r, g, b = 0, 1, 1
 			Pr:ApplyDeconstruct(link, Pr.LOCKname, r, g, b)
-		elseif(Pr.SMITHname or Pr.JEWELname and lib:IsOpenable(id)) then
+		elseif((Pr.SMITHname or Pr.JEWELname) and lib:IsOpenable(id)) then
 			r, g, b = 0, 1, 1
 			local hasKey = HaveKey()
 			Pr:ApplyDeconstruct(link, hasKey, r, g, b)
@@ -297,7 +309,7 @@ function Pr:InitializeDeconstruct()
 	if not E.private.bags.enable then return end
 	Pr:Construct_BagButton()
 	Pr:ConstructRealDecButton()
-	
+
 	local function Hiding()
 		Pr.DeconstructMode = false
 		Pr.DeconstructButton:SetNormalTexture("Interface\\ICONS\\INV_Rod_Cobalt")
@@ -305,11 +317,12 @@ function Pr:InitializeDeconstruct()
 		Pr.DeconstructionReal:OnLeave()
 	end
 
-	-- hooksecurefunc(B, "CloseBags", Hiding)
 	_G["ElvUI_ContainerFrame"]:HookScript("OnHide", Hiding)
 
 	_G["GameTooltip"]:HookScript('OnTooltipSetItem', Pr.DeconstructParser)
 
 	Pr:Blacklisting("DE")
 	Pr:Blacklisting("LOCK")
+
+	relicItemTypeLocalized, relicItemSubTypeLocalized = select(6, GetItemInfo(132342))
 end
