@@ -38,9 +38,16 @@ local function configTable()
 				order = 10,
 				guiInline = true,
 				name = L["Quest Log Toggle"],
+				disabled = function() return not E.db.sle.quests.visibility.enable end,
 				get = function(info) return E.db.sle.quests.visibility[ info[#info] ] end,
 				set = function(info, value) E.db.sle.quests.visibility[ info[#info] ] = value; Q:ChangeState() end,
 				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						disabled = false,
+					},
 					rested = {
 						order = 2,
 						type = "select",

@@ -549,6 +549,7 @@ P["sle"] = {
 	--Quests
 	["quests"] = {
 		["visibility"] = {
+			["enable"] = false,
 			["bg"] = "COLLAPSED",
 			["arena"] = "COLLAPSED",
 			["dungeon"] = "FULL",
