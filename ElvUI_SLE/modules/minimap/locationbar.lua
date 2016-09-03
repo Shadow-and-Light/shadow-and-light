@@ -69,6 +69,7 @@ LP.PortItems = {
 	{58487}, --Potion of Deepholm
 	{43824, nil, true}, --The Schools of Arcane Magic - Mastery
 	{64457}, --The Last Relic of Argus
+	{141605}, --Flight Masters's Whistle
 	{128502}, --Hunter's Seeking Crystal
 	{128503}, --Master Hunter's Seeking Crystal
 }
