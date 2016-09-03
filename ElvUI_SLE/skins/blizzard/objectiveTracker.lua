@@ -186,6 +186,8 @@ local function ObjectiveReskin()
 		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.sle.skins.objectiveTracker.enable ~= true then return end
 		-- Objective Tracker Bar
 		hooksecurefunc(_G["BONUS_OBJECTIVE_TRACKER_MODULE"], "AddProgressBar", skinObjectiveBar) 
+		-- World Quests can be bonus objective type
+		hooksecurefunc(_G["WORLD_QUEST_TRACKER_MODULE"], "AddProgressBar", skinObjectiveBar)
 		-- ProgressBar in the ObjectiveTacker
 		hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, block, line, questID)
 			local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line];
