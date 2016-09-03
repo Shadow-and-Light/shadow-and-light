@@ -64,6 +64,7 @@ Pr.ItemTable = {
 	--Quest dis
 	["Quest"] = {
 		["137221"] = true, --Ravencrest sigil
+		["137286"] = true, --Demon runes
 	},
 }
 Pr.Keys = {
@@ -305,6 +306,16 @@ function Pr:ConstructRealDecButton()
 	end
 end
 
+local function Get_ArtRelic()
+	local noItem = false
+	if T.select(2, T.GetItemInfo(132342)) == nil then noItem = true end
+	if noItem then
+		E:Delay(5, Get_ArtRelic)
+	else
+		relicItemTypeLocalized, relicItemSubTypeLocalized = select(6, GetItemInfo(132342))
+	end
+end
+
 function Pr:InitializeDeconstruct()
 	if not E.private.bags.enable then return end
 	Pr:Construct_BagButton()
@@ -324,5 +335,5 @@ function Pr:InitializeDeconstruct()
 	Pr:Blacklisting("DE")
 	Pr:Blacklisting("LOCK")
 
-	relicItemTypeLocalized, relicItemSubTypeLocalized = select(6, GetItemInfo(132342))
+	Get_ArtRelic()
 end
