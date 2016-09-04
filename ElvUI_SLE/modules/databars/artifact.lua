@@ -19,7 +19,7 @@ local function UpdateArtifact(self, event)
 	if not E.db.sle.databars.artifact.longtext then return end
 	local bar = self.artifactBar
 	local showArtifact = HasArtifactEquipped();
-	if not showArtifact then
+	if not showArtifact or (event == "PLAYER_REGEN_DISABLED" and self.db.artifact.hideInCombat) then
 		bar:Hide()
 	else
 		bar:Show()
