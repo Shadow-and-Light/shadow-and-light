@@ -199,11 +199,13 @@ function Pr:IsUnlockable(itemLink)
 end
 
 function Pr:DeconstructParser(...)
+	if not Pr.DeconstructMode then return end
 	local item, link = self:GetItem()
 	local class, subclass = select(6, T.GetItemInfo(item))
 	if not link then return end
 	local itemString = T.match(link, "item[%-?%d:]+")
 	local _, id = T.split(":", itemString)
+	if not id or id == "" then return end
 	if(item and not T.InCombatLockdown()) and (Pr.DeconstructMode == true or (E.global.sle.LOCK.TradeOpen and self:GetOwner():GetName() == "TradeRecipientItem7ItemButton")) then
 		if Pr.DEname then
 			local normalItem = (lib:IsDisenchantable(id) and Pr:IsBreakable(link))
