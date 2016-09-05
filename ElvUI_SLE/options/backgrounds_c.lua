@@ -107,7 +107,7 @@ local function configTable()
 		type = "group",
 		name = L["Backgrounds"],
 		order = 5,
-		childGroups = 'select',
+		childGroups = 'tab',
 		args = {
 			header = {
 				order = 1,

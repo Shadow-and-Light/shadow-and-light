@@ -61,7 +61,7 @@ local function configTable()
 		type = "group",
 		name = L["UnitFrames"],
 		order = 22,
-		childGroups = "select",
+		childGroups = 'tab',
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
 			info = {

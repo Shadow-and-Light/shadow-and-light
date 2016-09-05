@@ -22,6 +22,7 @@ local function configTable()
 		order = 12,
 		type = "group",
 		name = L["Loot"],
+		childGroups = 'tab',
 		args = {
 			enable = {
 				order = 1,

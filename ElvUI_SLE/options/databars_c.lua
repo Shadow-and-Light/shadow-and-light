@@ -8,7 +8,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.databars = {
 		type = "group",
 		name = L["DataBars"],
-		childGroups = 'select',
+		childGroups = 'tab',
 		order = 10,
 		args = {
 			exp = {
