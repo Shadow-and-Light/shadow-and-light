@@ -5,7 +5,7 @@ local C_Garrison = C_Garrison
 
 function OH:SHIPMENT_CRAFTER_INFO(event, success, _, maxShipments, plotID)
 	if not _G["GarrisonCapacitiveDisplayFrame"] then return end --Just in case
-	if T.GetRealZoneText() ~= _G["ORDER_HALL_"..E.myclass] then return end
+	if not C_Garrison.IsPlayerInGarrison(3) then return end
 	local n = _G["GarrisonCapacitiveDisplayFrame"].available or 0
 	if OH.clicked or n == 0 or not OH.db.autoOrder.enable then return end
 	OH.clicked = true
