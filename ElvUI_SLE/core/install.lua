@@ -467,6 +467,7 @@ function PI:DarthSetup()
 		E.db["sle"]["loot"]["enable"] = true
 		E.db["sle"]["loot"]["autoroll"]["autoconfirm"] = true
 		E.db["sle"]["loot"]["autoroll"]["autogreed"] = true
+		E.db["sle"]["orderhall"]["autoOrder"]["enable"] = true
 		E.db["sle"]["uibuttons"]["point"] = "TOPRIGHT"
 		E.db["sle"]["uibuttons"]["enable"] = true
 		E.db["sle"]["uibuttons"]["spacing"] = 1
