@@ -21,7 +21,7 @@ local function UpdateArtifact(self, event)
 	local showArtifact = HasArtifactEquipped();
 	if not showArtifact or (event == "PLAYER_REGEN_DISABLED" and self.db.artifact.hideInCombat) then
 		bar:Hide()
-	else
+	elseif showArtifact and (not self.db.artifact.hideInCombat or not InCombatLockdown()) then
 		bar:Show()
 
 		if self.db.artifact.hideInVehicle then
@@ -43,6 +43,12 @@ local function UpdateArtifact(self, event)
 			text = T.format(numPointsAvailableToSpend > 0 and '%s - %s (%s)' or '%s - %s', xp, xpForNextPoint, numPointsAvailableToSpend)
 		elseif textFormat == 'CURPERC' then
 			text = T.format(numPointsAvailableToSpend > 0 and '%s - %d%% (%s)' or '%s - %d%%',xp, xp / xpForNextPoint * 100, numPointsAvailableToSpend)
+		elseif textFormat == 'CUR' then
+			text = T.format(numPointsAvailableToSpend > 0 and '%s (%s)' or '%s', xp, numPointsAvailableToSpend)
+		elseif textFormat == 'REM' then
+			text = T.format(numPointsAvailableToSpend > 0 and '%s (%s)' or '%s', xpForNextPoint - xp, numPointsAvailableToSpend)
+		elseif textFormat == 'CURREM' then
+			text = T.format(numPointsAvailableToSpend > 0 and '%s - %s (%s)' or '%s - %s', xp, xpForNextPoint - xp, numPointsAvailableToSpend)
 		end
 
 		bar.text:SetText(text)
@@ -76,4 +82,5 @@ end
 function DB:ArtInit()
 	DB:PopulateArtPatterns()
 	hooksecurefunc(E:GetModule('DataBars'), "UpdateArtifact", UpdateArtifact)
+	E:GetModule('DataBars'):UpdateArtifact()
 end
