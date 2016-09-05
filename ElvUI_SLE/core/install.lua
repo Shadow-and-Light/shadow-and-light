@@ -142,12 +142,9 @@ function PI:DarthSetup()
 	end
 	--Bags
 	do
-		E.db["bags"]["yOffsetBank"] = 175
 		E.db["bags"]["itemLevelFont"] = "PT Sans Narrow"
 		E.db["bags"]["currencyFormat"] = "ICON"
-		E.db["bags"]["yOffset"] = 175
 		E.db["bags"]["itemLevelFontSize"] = 11
-		E.db["bags"]["alignToChat"] = false
 		E.db["bags"]["bagWidth"] = 505
 		E.db["bags"]["countFont"] = "Univers"
 		E.db["bags"]["countFontOutline"] = "OUTLINE"
@@ -220,6 +217,7 @@ function PI:DarthSetup()
 	end
 	--Nameplates
 	do
+		E.db["nameplates"]["clampToScreen"] = true
 		E.db["nameplates"]["lowHealthThreshold"] = 0
 		E.db["nameplates"]["font"] = "PT Sans Narrow"
 		E.db["nameplates"]["fontOutline"] = "OUTLINE"
@@ -250,6 +248,7 @@ function PI:DarthSetup()
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["format"] = "CURRENT_PERCENT"
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["powerbar"]["height"] = 4
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["powerbar"]["enable"] = true
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["enable"] = false
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["xOffset"] = 20
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["yOffset"] = 14
@@ -427,7 +426,7 @@ function PI:DarthSetup()
 		E.db["unitframe"]["units"]["raid"]["health"]["position"] = "TOPLEFT"
 		E.db["unitframe"]["units"]["raid"]["height"] = 28
 		E.db["unitframe"]["units"]["raid"]["power"]["enable"] = false
-		E.db["unitframe"]["units"]["raid"]["visibility"] = "[@raid31,exists][nogroup] hide;show"
+		E.db["unitframe"]["units"]["raid"]["visibility"] = "[nogroup] hide;show"
 		E.db["unitframe"]["units"]["raid"]["raidicon"]["attachTo"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["raid"]["raidicon"]["xOffset"] = -2
 
@@ -488,8 +487,6 @@ function PI:DarthSetup()
 		E.db["sle"]["datatexts"]["panel7"]["enabled"] = true
 		E.db["sle"]["datatexts"]["panel7"]["width"] = 191
 		E.db["sle"]["datatexts"]["panel7"]["transparent"] = true
-		E.db["sle"]["datatexts"]["panel3"]["enabled"] = true
-		E.db["sle"]["datatexts"]["panel3"]["transparent"] = true
 		E.db["sle"]["datatexts"]["panel6"]["enabled"] = true
 		E.db["sle"]["datatexts"]["panel6"]["width"] = 421
 		E.db["sle"]["datatexts"]["panel6"]["transparent"] = true
@@ -513,6 +510,7 @@ function PI:DarthSetup()
 		E.db["sle"]["minimap"]["locPanel"]["enable"] = true
 		E.db["sle"]["minimap"]["locPanel"]["width"] = 310
 		E.db["sle"]["minimap"]["instance"]["enable"] = true
+		E.db["sle"]["quests"]["visibility"]["enable"] = true
 		E.db["sle"]["quests"]["visibility"]["rested"] = "COLLAPSED"
 		E.db["sle"]["quests"]["visibility"]["garrison"] = "COLLAPSED"
 		E.db["sle"]["quests"]["autoReward"] = true
@@ -562,17 +560,17 @@ function PI:DarthSetup()
 		E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,0,-65"
 		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,-125,19"
 		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,444,19"
-		E.db["movers"]["ArtifactBarMover"] = "TOP,ElvUIParent,TOP,0,-39"
+		E.db["movers"]["ArtifactBarMover"] = "TOP,ElvUIParent,TOP,0,-20"
 		E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-3,188"
 		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-220,186"
 		E.db["movers"]["ObjectiveFrameMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,98,-4"
 		E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-59,-299"
 		E.db["movers"]["ShiftAB"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,761,138"
-		E.db["movers"]["HonorBarMover"] = "TOP,ElvUIParent,TOP,0,-48"
+		E.db["movers"]["HonorBarMover"] = "TOP,ElvUIParent,TOP,0,-29"
 		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-59,-299"
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,-267,142"
 		E.db["movers"]["PvPMover"] = "TOP,ElvUIParent,TOP,-5,-59"
-		E.db["movers"]["SLE_Location_Mover"] = "TOP,ElvUIParent,TOP,0,-19"
+		E.db["movers"]["SLE_Location_Mover"] = "TOP,ElvUIParent,TOP,0,1"
 		E.db["movers"]["ElvUF_PetMover"] = "BOTTOM,ElvUIParent,BOTTOM,-163,141"
 		E.db["movers"]["SLE_UIButtonsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-201"
 		E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,19"
@@ -580,6 +578,8 @@ function PI:DarthSetup()
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-187,-158"
 		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,211,189"
 		E.db["movers"]["PlayerNameplate"] = "BOTTOM,ElvUIParent,BOTTOM,0,426"
+		E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,153,199"
+		E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-152,199"
 	end
 	
 	if T.IsAddOnLoaded("ElvUI_AuraBarsMovers") then
