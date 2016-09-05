@@ -76,7 +76,7 @@ L["Modules designed for older expantions"] = true
 L["Game Menu Buttons"] = true
 L["Adds |cff9482c9Shadow & Light|r buttons to main game menu."] = true
 L["Advanced Options"] = true
-L["SLE_Advanced_Desc"] = [[Folowing options provide access to additional customization settings in various modules.
+L["SLE_Advanced_Desc"] = [[Folowing options provide acces to additional customization settings in various modules.
 Is not reccomended to new players or people not experienced in addons' configuration.]]
 L["Allow Advanced Options"] = true
 L["Change Elv's options limits"] = true
@@ -213,6 +213,12 @@ L["Slide Sideways"] = true
 L["Fade"] = true
 L["Tip time"] = true
 L["Number of seconds tip will be shown before changed to another."] = true
+L["Title font"] = true
+L["Subitle font"] = true
+L["Date font"] = true
+L["Player info font"] = true
+L["Tips font"] = true
+L["Graphics"] = true
 
 --Auras
 L["Hide Buff Timer"] = true
@@ -746,6 +752,7 @@ L["Always Compare Items"] = true
 L["Faction Icon"] = true
 L["Show faction icon to the left of player's name on tooltip."] = true
 L["TTOFFSET_DESC"] = "This adds the ability to have the tooltip offset from the cursor.  Make sure to have the \"Cursor Anchor\" option enabled in ElvUI's Tooltip section to use this feature."
+L["Tooltip Cursor Offset"] = true
 L["Tooltip X-offset"] = true
 L["Offset the tooltip on the X-axis."] = true
 L["Tooltip Y-offset"] = true
