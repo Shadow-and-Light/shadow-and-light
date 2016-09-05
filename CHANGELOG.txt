@@ -1,3 +1,17 @@
+v3.14
+Additions:
+- Added an option to disable QuestGuru skin. Skin is now disabled by default.
+- World quest statusbar is now skinned.
+Fixes:
+- Time played datatext will not error on mouseover.
+- Fixed merchant skin randomly complaining about item quality.
+- Nameplates now should not get confused when you have vahicles/NPCs in your party.
+- Fixed databars not respecting hide in combat option
+Changes:
+- Logic to filter weapon enchants warning was changed. Note the warning on artifact while it is ilvl 750 is intended.
+- Deconstruct mode now recognises artifact relics and some quest items as legit targets for DE. Also it now knows Legion has new ores and herbs.
+- A lot of option groups now have tabs instead of dropdowns
+
 v3.13 08/29/2016
 A number of files were deleted in this release. We would suggest to manually remove S&L's folder and install it again instead of just auto updating.
 For a couple of days any issues will be slow to get answers/fixes cause of leveling. Sorry for the inconvenience.
