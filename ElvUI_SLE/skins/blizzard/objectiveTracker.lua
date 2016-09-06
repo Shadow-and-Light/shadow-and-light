@@ -233,14 +233,6 @@ local function ObjectiveReskin()
 		end)
 		-- proving grounds
 		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
-		local function MinOnClick(self)
-			local textObject = self.text
-			textObject:SetText("")
-		end
-		_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton:SetSize(14,14)
-		_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton:SetNormalTexture([[Interface\AddOns\ElvUI_SLE\media\textures\NewQuestMinimize]])
-		_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton:SetPushedTexture([[Interface\AddOns\ElvUI_SLE\media\textures\NewQuestMinimize]])
-		_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton:HookScript('OnClick', MinOnClick)
 
 		--Doing Underlines
 		local flat = [[Interface\AddOns\ElvUI\media\textures\Minimalist]]
