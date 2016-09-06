@@ -260,8 +260,8 @@ function DB:ScanFactions()
 	self.factions = T.GetNumFactions();
 	for i = 1, self.factions do
 		local name, _, standingID, _, _, barValue, _, _, isHeader, _, hasRep = T.GetFactionInfo(i)
-		if (not isHeader or hasRep) then
-			self.factionVars[name] = {}
+		if (not isHeader or hasRep) and name then
+			self.factionVars[name] = self.factionVars[name] or {}
 			self.factionVars[name].Standing = standingID
 			self.factionVars[name].Value = barValue
 		end
