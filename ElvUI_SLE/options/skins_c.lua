@@ -7,7 +7,7 @@ local function configTable()
 		order = 30,
 		type = "group",
 		name = L["Skins"],
-		childGroups = 'select',
+		childGroups = 'tab',
 		args = {
 			info = {
 				order = 1,
