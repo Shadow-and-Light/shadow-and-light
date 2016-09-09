@@ -218,10 +218,10 @@ local function List_GetError(link, itemType, itemSubType)
 
 	_G["SLE_Merchant_HiddenTooltip"]:SetOwner(UIParent, "ANCHOR_NONE");
 	_G["SLE_Merchant_HiddenTooltip"]:SetHyperlink(link);
-	upperLimit = isRecipe and _G["SLE_Merchant_HiddenTooltip"]:NumLines() - 1 or 0
+	upperLimit = isRecipe and _G["SLE_Merchant_HiddenTooltip"]:NumLines() or 0
 
 	for i=2, _G["SLE_Merchant_HiddenTooltip"]:NumLines() do
-		if (isRecipe and (i <= 5 or i == upperLimit)) or isMount or not isRecipe then
+		if (isRecipe and (i <= 5 or i >= upperLimit - 3)) or isMount or not isRecipe then
 			local text = _G["SLE_Merchant_HiddenTooltipTextLeft"..i];
 			local r, g, b = text:GetTextColor();
 			local gettext = text:GetText();
