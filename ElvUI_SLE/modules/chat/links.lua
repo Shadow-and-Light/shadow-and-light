@@ -164,29 +164,31 @@ function C:ParseChatEventInv(event, msg, sender, ...)
 end
 
 function C:SetItemRef(link, text, button, chatframe)
-	local linktype, id = T.split(":", link)
-	if C.db.dpsSpam then
-		if linktype == "SLD" then
-			local meterID = T.tonumber(id)
-			-- put stuff in the ItemRefTooltip from FrameXML
-			ShowUIPanel(ItemRefTooltip);
-			if ( not ItemRefTooltip:IsShown() ) then
-				ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE");
+	if not T.InCombatLockdown() then
+		local linktype, id = T.split(":", link)
+		if C.db.dpsSpam then
+			if linktype == "SLD" then
+				local meterID = T.tonumber(id)
+				-- put stuff in the ItemRefTooltip from FrameXML
+				ShowUIPanel(ItemRefTooltip);
+				if ( not ItemRefTooltip:IsShown() ) then
+					ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE");
+				end
+				ItemRefTooltip:ClearLines()
+				ItemRefTooltip:AddLine(C.Meters[meterID].title)
+				ItemRefTooltip:AddLine(T.format(L["Reported by %s"],C.Meters[meterID].src))
+				for _,message in T.ipairs(C.Meters[meterID].data) do ItemRefTooltip:AddLine(message,1,1,1) end
+				ItemRefTooltip:Show()
+				return nil
 			end
-			ItemRefTooltip:ClearLines()
-			ItemRefTooltip:AddLine(C.Meters[meterID].title)
-			ItemRefTooltip:AddLine(T.format(L["Reported by %s"],C.Meters[meterID].src))
-			for _,message in T.ipairs(C.Meters[meterID].data) do ItemRefTooltip:AddLine(message,1,1,1) end
-			ItemRefTooltip:Show()
+		end
+		if IsAltKeyDown() and linktype == "player" and E.db.sle.chat.invite.altInv then
+			InviteUnit(id)
+			return nil
+		elseif linktype == "invite" then
+			InviteUnit(id)
 			return nil
 		end
-	end
-	if IsAltKeyDown() and linktype == "player" and E.db.sle.chat.invite.altInv then
-		InviteUnit(id)
-		return nil
-	elseif linktype == "invite" then
-		InviteUnit(id)
-		return nil
 	end
 	return self.hooks.SetItemRef(link, text, button)
 end
