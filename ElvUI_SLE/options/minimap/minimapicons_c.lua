@@ -62,14 +62,36 @@ local function configTable()
 				get = function(info) return E.db.sle.minimap.mapicons.iconperrow end,
 				set = function(info, value) E.db.sle.minimap.mapicons.iconperrow = value; SMB:Update(SLE_SquareMinimapButtonBar) end,
 			},
-			iconmouseover = {
+			spacing = {
 				order = 7,
+				type = 'range',
+				name = L["Button Spacing"],
+				min = -4, max = 10, step = 1,
+				disabled = function() return not E.private.sle.minimap.mapicons.enable or not E.private.sle.minimap.mapicons.barenable end,
+				get = function(info) return E.db.sle.minimap.mapicons.spacing end,
+				set = function(info, value) E.db.sle.minimap.mapicons.spacing = value; SMB:Update(SLE_SquareMinimapButtonBar) end,
+			},
+			iconmouseover = {
+				order = 8,
 				name = L["Mouse Over"],
 				desc = L["Show minimap buttons on mouseover."],
 				type = "toggle",
 				disabled = function() return not E.private.sle.minimap.mapicons.enable or not E.private.sle.minimap.mapicons.barenable end,
 				get = function(info) return E.db.sle.minimap.mapicons.iconmouseover end,
 				set = function(info, value) E.db.sle.minimap.mapicons.iconmouseover = value; SMB:ChangeMouseOverSetting() end,
+			},
+			template = {
+				order = 9,
+				name = L["Backdrop Template"],
+				type = "select",
+				disabled = function() return not E.private.sle.minimap.mapicons.enable or not E.private.sle.minimap.mapicons.barenable end,
+				get = function(info) return E.private.sle.minimap.mapicons.template end,
+				set = function(info, value) E.private.sle.minimap.mapicons.template = value; E:StaticPopup_Show("PRIVATE_RL") end,
+				values = {
+					["NoBackdrop"] = NONE,
+					["Default"] = DEFAULT,
+					["Transparent"] = L["Transparent"],
+				},
 			},
 		},
 	}

@@ -263,7 +263,7 @@ function SMB:Update()
 	local AnchorX, AnchorY, MaxX = 0, 1, E.db.sle.minimap.mapicons.iconperrow
 	local ButtonsPerRow = E.db.sle.minimap.mapicons.iconperrow
 	local NumColumns = ceil(#SMB.SkinnedMinimapButtons / ButtonsPerRow)
-	local Spacing, Mult = 4, 1
+	local Spacing, Mult = E.db.sle.minimap.mapicons.spacing, 1
 	local Size = E.db.sle.minimap.mapicons.iconsize
 	local ActualButtons, Maxed = 0
 
@@ -336,7 +336,7 @@ function SMB:Initialize()
 
 	SMB.bar = CreateFrame('Frame', 'SLE_SquareMinimapButtonBar', E.UIParent)
 	SMB.bar:Hide()
-	SMB.bar:SetTemplate('Transparent', true)
+	SMB.bar:SetTemplate(E.private.sle.minimap.mapicons.template)
 	SMB.bar:SetFrameStrata('LOW')
 	SMB.bar:SetFrameLevel(1)
 	SMB.bar:SetClampedToScreen(true)

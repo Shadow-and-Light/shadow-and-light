@@ -37,6 +37,10 @@ V["sle"] = {
 		},
 		["setoverlay"] = false,
 		["lockbutton"] = false,
+		["FishingRaftSet"] = {
+			["enable"] = false,
+			["set"] = "NONE",
+		},
 	},
 	--Minimap Module
 	["minimap"] = {
@@ -46,6 +50,7 @@ V["sle"] = {
 		["mapicons"] = {
 			["enable"] = false,
 			["barenable"] = false,
+			["template"] = "Transparent",
 		},
 	},
 
