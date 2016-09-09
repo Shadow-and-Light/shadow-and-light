@@ -679,8 +679,10 @@ function CA:Update_Gear()
 					if E.db.sle.Armory.Character.NoticeMissing ~= false then
 						if not Slot.IsEnchanted and Info.Armory_Constants.EnchantableSlots[SlotName] then 
 							local isValid = false
-							local isWeapon = (ItemType == "INVTYPE_WEAPONOFFHAND" or ItemType == "INVTYPE_WEAPON" or ItemType == "INVTYPE_2HWEAPON")
-							if (isWeapon and (TrueItemLevel and TrueItemLevel <= 750)) or (SlotName ~= 'SecondaryHandSlot' and not isWeapon) then
+							local isWeapon = Info.Armory_Constants.WeaponTypes[ItemType]
+							local isArtifact = (ItemRarity == 6)
+							-- print(isArtifact, ItemRarity)
+							if (isWeapon and not isArtifact) or (SlotName ~= 'SecondaryHandSlot' and not isWeapon) then
 								isValid = true
 							end
 							if isValid then
