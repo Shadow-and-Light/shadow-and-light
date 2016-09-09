@@ -25,10 +25,10 @@ function Q:ChangeState(event)
 	if T.InCombatLockdown() then self:RegisterEvent("PLAYER_REGEN_ENABLED", "ChangeState") return end
 	if event == "PLAYER_REGEN_ENABLED" then self:UnregisterEvent("PLAYER_REGEN_ENABLED") end
 
-	if T.GetZoneText() == BL.Frostwall or T.GetZoneText() == BL.Lunarfall then
+	if C_Garrison.IsPlayerInGarrison(2) then
 		statedriver[Q.db.visibility.garrison](Q.frame)
 	--here be order halls
-	elseif T.GetRealZoneText() == _G["ORDER_HALL_"..E.myclass] then
+	elseif C_Garrison.IsPlayerInGarrison(3) then
 		statedriver[Q.db.visibility.orderhall](Q.frame)
 	elseif IsResting() then
 		statedriver[Q.db.visibility.rested](Q.frame)
