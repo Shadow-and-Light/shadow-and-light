@@ -476,6 +476,7 @@ P["sle"] = {
 			["iconperrow"] = 12,
 			["pethide"] = false,
 			["skindungeon"] = false,
+			["skinmail"] = false,
 			["spacing"] = 4,
 		},
 		["instance"] = {
