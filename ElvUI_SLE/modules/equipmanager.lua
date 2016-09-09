@@ -87,11 +87,16 @@ local function Equip(event)
 	if event == "PLAYER_REGEN_ENABLED" then
 		EM:UnregisterEvent(event)
 	end
-	local spec, equipSet = EM:GetData()
-	if spec ~= nil then --In case you don't have spec
-		local isWrong, trueSet = EM:WrongSet(equipSet, SpecTable[spec], inCombat)
-		if isWrong and not T.UnitInVehicle("player") then
-			T.UseEquipmentSet(trueSet)
+	if event == "PLAYER_AURAS_CHANGED" then
+		local _, _, _, _, _, _, _, _, _, _, spellID = T.UnitAura(unit, index, filter)
+		if spellID == 124036 then T.UseEquipmentSet(E.private.sle.equip.FishingRaft.set) end
+	else
+		local spec, equipSet = EM:GetData()
+		if spec ~= nil then --In case you don't have spec
+			local isWrong, trueSet = EM:WrongSet(equipSet, SpecTable[spec], inCombat)
+			if isWrong and not T.UnitInVehicle("player") then
+				T.UseEquipmentSet(trueSet)
+			end
 		end
 	end
 end
@@ -137,6 +142,9 @@ function EM:Initialize()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", Equip)
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", Equip)
 	self:RegisterEvent("ZONE_CHANGED", Equip)
+	if E.private.sle.equip.FishingRaft.enable then
+		self:RegisterEvent("PLAYER_AURAS_CHANGED", Equip)
+	end
 	
 	self:CreateLock()
 end
