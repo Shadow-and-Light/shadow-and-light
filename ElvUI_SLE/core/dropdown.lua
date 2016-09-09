@@ -62,6 +62,7 @@ local function CreateListButton(frame)
 
 	button:SetScript("OnEnter", OnEnter)
 	button:SetScript("OnLeave", OnLeave)
+	button:HookScript("OnClick", OnClick)
 
 	return button
 end
@@ -127,9 +128,6 @@ function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 				else
 					SLE:ErrorPrint("Wrong argument for button type: "..btn.secure.buttonType)
 				end
-				btn:HookScript("OnClick", OnClick)
-			else
-				btn:SetScript("OnClick", OnClick)
 			end
 			btn.UseTooltip = list[i].UseTooltip
 			if list[i].TooltipText then btn.TooltipText = list[i].TooltipText end
