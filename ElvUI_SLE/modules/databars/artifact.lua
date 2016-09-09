@@ -70,7 +70,7 @@ function DB:FilterArtExperience(event, message, ...)
 				name, exp = T.match(message, DB.Art.Strings[i])
 				local _, _, _, icon = C_ArtifactUIGetEquippedArtifactInfo()
 				if name then
-					message = T.format(DB.Art.Styles[DB.db.artifact.chatfilter.style], icon, DB.db.artifact.chatfilter.iconsize, name, exp)
+					message = T.format(DB.Art.Styles[DB.db.artifact.chatfilter.style], E.db.sle.loot.looticons.channels["CHAT_MSG_SYSTEM"] and "" or icon, DB.db.artifact.chatfilter.iconsize, name, exp)
 					return false, message, ...
 				end
 			end
