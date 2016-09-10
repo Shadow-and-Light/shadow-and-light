@@ -93,6 +93,30 @@ local function configTable()
 					["Transparent"] = L["Transparent"],
 				},
 			},
+			growth_hor = {
+				order = 10,
+				name = L["Horizontal Growth"],
+				type = "select",
+				disabled = function() return not E.private.sle.minimap.mapicons.enable or not E.private.sle.minimap.mapicons.barenable end,
+				get = function(info) return E.db.sle.minimap.mapicons.growth_hor end,
+				set = function(info, value) E.db.sle.minimap.mapicons.growth_hor = value; SMB:Update(SLE_SquareMinimapButtonBar) end,
+				values = {
+					["Right"] = L["Right"],
+					["Left"] = L["Left"],
+				},
+			},
+			growth_vert = {
+				order = 11,
+				name = L["Vertical Growth"],
+				type = "select",
+				disabled = function() return not E.private.sle.minimap.mapicons.enable or not E.private.sle.minimap.mapicons.barenable end,
+				get = function(info) return E.db.sle.minimap.mapicons.growth_vert end,
+				set = function(info, value) E.db.sle.minimap.mapicons.growth_vert = value; SMB:Update(SLE_SquareMinimapButtonBar) end,
+				values = {
+					["Down"] = L["Down"],
+					["Up"] = L["Up"],
+				},
+			},
 		},
 	}
 end

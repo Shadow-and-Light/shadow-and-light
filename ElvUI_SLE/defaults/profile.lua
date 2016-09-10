@@ -478,6 +478,8 @@ P["sle"] = {
 			["skindungeon"] = false,
 			["skinmail"] = false,
 			["spacing"] = 4,
+			["growth_hor"] = "Right",
+			["growth_vert"] = "Down",
 		},
 		["instance"] = {
 			["enable"] = false,

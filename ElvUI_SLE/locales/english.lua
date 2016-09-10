@@ -591,6 +591,8 @@ L["Justify Text"] = true
 L["Hearthstone Location"] = true
 L["Show the name on location your Heathstone is bound to."] = true
 L["Only Number"] = true
+L["Horizontal Growth"] = true
+L["Vertical Growth"] = true
 
 
 --Miscs

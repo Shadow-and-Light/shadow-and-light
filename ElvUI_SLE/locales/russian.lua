@@ -583,6 +583,8 @@ L["Justify Text"] = "Выравнивание тектса"
 L["Hearthstone Location"] = "Привязка камня"
 L["Show the name on location your Heathstone is bound to."] = "Показывать имя локации, к которой привязан камень возвращения."
 L["Only Number"] = "Только цифры"
+L["Horizontal Growth"] = "Горизонтаьный рост"
+L["Vertical Growth"] = "Вертикальный рост"
 
 --Miscs
 L["Error Frame"] = "Фрейм ошибок"

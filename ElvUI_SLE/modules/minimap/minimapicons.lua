@@ -303,8 +303,10 @@ function SMB:Update()
 				AnchorX = 1
 				Maxed = true
 			end
-			local yOffset = - Spacing - ((Size + Spacing) * (AnchorY - 1))
-			local xOffset = Spacing + ((Size + Spacing) * (AnchorX - 1))
+			local direction_hor = E.db.sle.minimap.mapicons.growth_hor == "Right" and 1 or -1
+			local direction_vert = E.db.sle.minimap.mapicons.growth_vert == "Down" and -1 or 1
+			local yOffset = (Spacing + ((Size + Spacing) * (AnchorY - 1)))*direction_vert
+			local xOffset = (Spacing + ((Size + Spacing) * (AnchorX - 1)))*direction_hor
 			Frame:SetTemplate()
 			Frame:SetBackdropColor(0, 0, 0, 0)
 			Frame:SetParent(SMB.bar)
