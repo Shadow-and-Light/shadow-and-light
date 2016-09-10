@@ -7,6 +7,7 @@ local _G = _G
 local _
 local IsShiftKeyDown = IsShiftKeyDown
 local SetItemRef = SetItemRef
+local GetItemGem = GetItemGem
 local GetCursorInfo, CursorHasItem = GetCursorInfo, CursorHasItem
 local SocketInventoryItem = SocketInventoryItem
 local HandleModifiedItemClick = HandleModifiedItemClick
@@ -567,15 +568,17 @@ function CA:Update_Gear()
 							Slot["Socket'..GemCount_Enable].GemType = 'PRISMATIC'
 						end
 						]]
-						
+
 						self:ClearTooltip(self.ScanTT)
 						self.ScanTT:SetInventoryItem('player', Slot.ID)
-						
+
 						-- Apply current item's gem setting
 						for i = 1, MAX_NUM_SOCKETS do
 							ItemTexture = _G["Knight_CharacterArmory_ScanTTTexture"..i]:GetTexture()
+
+							local _, GemLink = GetItemGem(ItemLink, i)
 							GemID = T.select(i, GetInventoryItemGems(Slot.ID))
-							
+
 							if Slot["Socket"..i].GemType and Info.Armory_Constants.GemColor[Slot["Socket"..i].GemType] then
 								R, G, B = T.unpack(Info.Armory_Constants.GemColor[Slot["Socket"..i].GemType])
 								Slot["Socket"..i].Socket:SetBackdropColor(R, G, B, .5)
@@ -584,21 +587,22 @@ function CA:Update_Gear()
 								Slot["Socket"..i].Socket:SetBackdropColor(1, 1, 1, .5)
 								Slot["Socket"..i].Socket:SetBackdropBorderColor(1, 1, 1)
 							end
-							
+
 							if ItemTexture or GemID then
 								if E.db.sle.Armory.Character.Gem.Display == 'Always' or E.db.sle.Armory.Character.Gem.Display == 'MouseoverOnly' and Slot.Mouseovered or E.db.sle.Armory.Character.Gem.Display == 'MissingOnly' then
 									Slot["Socket"..i]:Show()
 									Slot.SocketWarning:Point(Slot.Direction, Slot["Socket"..i], (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
 								end
-								
+
 								GemCount_Now = GemCount_Now + 1
-								
+
 								if GemID then
 									GemCount = GemCount + 1
 									Slot["Socket"..i].GemItemID = GemID
-									
-									_, Slot["Socket"..i].Socket.Link, _, _, _, _, _, _, _, ItemTexture = T.GetItemInfo(GemID)
-									
+									Slot["Socket"..i].Socket.Link = GemLink
+
+									ItemTexture = T.select(10, T.GetItemInfo(GemID))
+
 									if ItemTexture then
 										Slot["Socket"..i].Texture:SetTexture(ItemTexture)
 									else
