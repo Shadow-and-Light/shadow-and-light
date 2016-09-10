@@ -46,8 +46,15 @@ function EM:IsDungeon(inInstance, instanceType)
 	return false
 end
 
+function EM:HasFishingRaftAura()
+	return UnitAura("player", GetSpellInfo(124036)) ~= nil;
+end
+
 function EM:WrongSet(equipSet, group, inCombat)
 	local inInstance, instanceType = T.IsInInstance()
+	if EM:HasFishingRaftAura() and E.private.sle.equip.FishingRaft.enable then
+		return E.private.sle.equip.FishingRaft.set ~= equipSet, E.private.sle.equip.FishingRaft.set
+	end
 	if inInstance and ((EM.db.timewalkingSet and EM.db[group].timewalking ~= "NONE") or (EM.db.instanceSet and EM.db[group].instance ~= "NONE") or (EM.db.pvpSet and EM.db[group].pvp ~= "NONE")) then
 		if EM:IsTimewalkingDungeon(inInstance, instanceType) and EM.db.timewalkingSet then
 			if equipSet ~= EM.db[group].timewalking and EM.db[group].timewalking ~= "NONE" then
@@ -87,16 +94,12 @@ local function Equip(event)
 	if event == "PLAYER_REGEN_ENABLED" then
 		EM:UnregisterEvent(event)
 	end
-	if event == "PLAYER_AURAS_CHANGED" then
-		local _, _, _, _, _, _, _, _, _, _, spellID = T.UnitAura(unit, index, filter)
-		if spellID == 124036 then T.UseEquipmentSet(E.private.sle.equip.FishingRaft.set) end
-	else
-		local spec, equipSet = EM:GetData()
-		if spec ~= nil then --In case you don't have spec
-			local isWrong, trueSet = EM:WrongSet(equipSet, SpecTable[spec], inCombat)
-			if isWrong and not T.UnitInVehicle("player") then
-				T.UseEquipmentSet(trueSet)
-			end
+	
+	local spec, equipSet = EM:GetData()
+	if spec ~= nil then --In case you don't have spec
+		local isWrong, trueSet = EM:WrongSet(equipSet, SpecTable[spec], inCombat)
+		if isWrong and not T.UnitInVehicle("player") then
+			T.UseEquipmentSet(trueSet)
 		end
 	end
 end
@@ -143,7 +146,7 @@ function EM:Initialize()
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", Equip)
 	self:RegisterEvent("ZONE_CHANGED", Equip)
 	if E.private.sle.equip.FishingRaft.enable then
-		self:RegisterEvent("PLAYER_AURAS_CHANGED", Equip)
+		self:RegisterEvent("UNIT_AURA", Equip)
 	end
 	
 	self:CreateLock()
