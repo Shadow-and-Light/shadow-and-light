@@ -20,13 +20,14 @@ local PANEL_DEFAULT_WIDTH = PANEL_DEFAULT_WIDTH
 
 local ITEM_MOD_AGILITY_SHORT, ITEM_MOD_SPIRIT_SHORT, ITEM_MOD_STAMINA_SHORT, ITEM_MOD_STRENGTH_SHORT, ITEM_MOD_INTELLECT_SHORT, ITEM_MOD_CRIT_RATING_SHORT, ITEM_SPELL_TRIGGER_ONUSE = ITEM_MOD_AGILITY_SHORT, ITEM_MOD_SPIRIT_SHORT, ITEM_MOD_STAMINA_SHORT, ITEM_MOD_STRENGTH_SHORT, ITEM_MOD_INTELLECT_SHORT, ITEM_MOD_CRIT_RATING_SHORT, ITEM_SPELL_TRIGGER_ONUSE
 local AGI, SPI, STA, STR, INT, CRIT_ABBR = AGI, SPI, STA, STR, INT, CRIT_ABBR
-local LE_TRANSMOG_TYPE_APPEARANCE = LE_TRANSMOG_TYPE_APPEARANCE
+local LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION = LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION
 local STAT_AVERAGE_ITEM_LEVEL = STAT_AVERAGE_ITEM_LEVEL
 local CHARACTERFRAME_EXPANDED_WIDTH = CHARACTERFRAME_EXPANDED_WIDTH
 
-local C_TransmogGetSlotInfo = C_Transmog.GetSlotInfo
-local C_TransmogCollectionGetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
-local C_TransmogGetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
+local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
+local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
+local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
+local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllusionSourceInfo
 
 local format = format
 
@@ -176,8 +177,7 @@ do --<< Button Script >>--
 		
 		_G["GameTooltip"]:Hide()
 	end
-	
-	
+
 	function CA:Transmogrify_OnClick(Button)
 		local ItemName, ItemLink = T.GetItemInfo(self.Link)
 		
@@ -192,6 +192,22 @@ do --<< Button Script >>--
 			end
 		end
 	end
+
+	function CA:Illusion_OnEnter()
+		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOM')
+		_G["GameTooltip"]:AddLine(self.Link, 1, 1, 1)
+		_G["GameTooltip"]:Show()
+	end
+
+	function CA:Illusion_OnLeave()
+		_G["GameTooltip"]:Hide()
+	end
+
+	function CA:Illusion_OnClick(Button)
+		if IsShiftKeyDown() then
+			HandleModifiedItemClick(self.Link)
+		end
+	end
 end
 
 
@@ -203,7 +219,7 @@ function CA:Setup_CharacterArmory()
 	--<< Updater >>--
 	local args
 	self:SetScript('OnEvent', function(self, Event, ...)
-		if Event == 'SOCKET_INFO_SUCCESS' or Event == 'ITEM_UPGRADE_MASTER_UPDATE' or Event == 'TRANSMOGRIFY_UPDATE' or Event == 'PLAYER_ENTERING_WORLD' or Event == 'PLAYER_EQUIPMENT_CHANGED' then
+		if Event == 'SOCKET_INFO_SUCCESS' or Event == 'ITEM_UPGRADE_MASTER_UPDATE' or Event == 'TRANSMOGRIFY_SUCCESS' or Event == 'PLAYER_ENTERING_WORLD' or Event == 'PLAYER_EQUIPMENT_CHANGED' then
 			self.GearUpdated = nil
 			self:SetScript('OnUpdate', self.ScanData)
 		elseif Event == 'UNIT_INVENTORY_CHANGED' then
@@ -404,6 +420,31 @@ function CA:Setup_CharacterArmory()
 				
 				Slot.TransmogrifyAnchor:Hide()
 			end
+
+			-- Illusion
+			if Info.Armory_Constants.CanIllusionSlot[SlotName] then
+				Slot.IllusionAnchor = CreateFrame('Button', nil, Slot)
+				Slot.IllusionAnchor:Size(18)
+				Slot.IllusionAnchor:SetBackdrop({
+					bgFile = E.media.blankTex,
+					edgeFile = E.media.blankTex,
+					tile = false, tileSize = 0, edgeSize = E.mult,
+					insets = { left = 0, right = 0, top = 0, bottom = 0}
+				})
+				Slot.IllusionAnchor:SetFrameLevel(Slot:GetFrameLevel() + 2)
+				Slot.IllusionAnchor:Point('CENTER', _G['Character'..SlotName], 'BOTTOM', 0, -2)
+				Slot.IllusionAnchor:SetScript('OnEnter', self.Illusion_OnEnter)
+				Slot.IllusionAnchor:SetScript('OnLeave', self.Illusion_OnLeave)
+				Slot.IllusionAnchor:SetScript('OnClick', self.Illusion_OnClick)
+				hooksecurefunc(_G['Character'..SlotName].IconBorder, 'SetVertexColor', function(self, r, g, b)
+					Slot.IllusionAnchor:SetBackdropBorderColor(r, g, b)
+				end)
+				
+				Slot.IllusionAnchor.Texture = Slot.IllusionAnchor:CreateTexture(nil, 'OVERLAY')
+				Slot.IllusionAnchor.Texture:SetInside()
+				Slot.IllusionAnchor.Texture:SetTexCoord(.1, .9, .1, .9)
+				Slot.IllusionAnchor:Hide()
+			end
 		end
 		
 		SlotIDList[Slot.ID] = SlotName
@@ -427,7 +468,7 @@ local function DCS_Check()
 		DCS_Check = nil
 	end
 end
-function CA:ScanData()
+function CA:ScanData(...)
 	self.NeedUpdate = nil
 	
 	if not self.DurabilityUpdated then
@@ -499,7 +540,7 @@ function CA:Update_Gear()
 	if Prof2 and Info.Armory_Constants.ProfessionList[Prof2] then self.PlayerProfession[(Info.Armory_Constants.ProfessionList[Prof2].Key)] = Prof2_Level end
 	]]
 	local ErrorDetected, NeedUpdate, NeedUpdateList, R, G, B
-	local Slot, ItemLink, ItemData, ItemRarity, BasicItemLevel, TrueItemLevel, ItemUpgradeID, ItemType, ItemTexture, UsableEffect, CurrentLineText, GemID, GemCount_Default, GemCount_Enable, GemCount_Now, GemCount, IsTransmogrified, TransmogrifyItemID
+	local Slot, ItemLink, ItemData, ItemRarity, BasicItemLevel, TrueItemLevel, ItemUpgradeID, ItemType, ItemTexture, UsableEffect, CurrentLineText, GemID, GemCount_Default, GemCount_Enable, GemCount_Now, GemCount, IsTransmogrified
 	
 	for _, SlotName in T.pairs(T.type(self.GearUpdated) == 'table' and self.GearUpdated or Info.Armory_Constants.GearList) do
 		Slot = self[SlotName]
@@ -508,8 +549,8 @@ function CA:Update_Gear()
 		
 		if not (SlotName == 'ShirtSlot' or SlotName == 'TabardSlot') then
 			do --<< Clear Setting >>--
-				NeedUpdate, TrueItemLevel, UsableEffect, ItemUpgradeID, ItemType, ItemTexture = nil, nil, nil, nil, nil, nil
-				
+				NeedUpdate, TrueItemLevel, UsableEffect, ItemUpgradeID, ItemType, ItemTexture, IsTransmogrified = nil, nil, nil, nil, nil, nil, nil
+
 				Slot.ItemLevel:SetText(nil)
 				Slot.IsEnchanted = nil
 				Slot.ItemEnchant:SetText(nil)
@@ -528,8 +569,14 @@ function CA:Update_Gear()
 				Slot.SocketWarning.Message = nil
 				
 				if Slot.TransmogrifyAnchor then
+					Slot.TransmogrifyAnchor.SourceID = nil
 					Slot.TransmogrifyAnchor.Link = nil
 					Slot.TransmogrifyAnchor:Hide()
+				end
+				
+				if Slot.IllusionAnchor then
+					Slot.IllusionAnchor.Link = nil
+					Slot.IllusionAnchor:Hide()
 				end
 			end
 			
@@ -537,10 +584,13 @@ function CA:Update_Gear()
 				if not ItemLink:find('%[%]') then -- sometimes itemLink is malformed so we need to update when crashed
 					do --<< Gem Parts >>--
 						ItemData = { T.split(':', ItemLink) }
-						ItemData[4], ItemData[5], ItemData[6], ItemData[7] = 0, 0, 0, 0
-						
+
 						for i = 1, #ItemData do
-							ItemData.FixedLink = (ItemData.FixedLink and ItemData.FixedLink..':' or '')..ItemData[i]
+							if i == 4 or i == 5 or i ==6 or i ==7 then
+								ItemData.FixedLink = (ItemData.FixedLink and ItemData.FixedLink..':' or '')..0
+							else
+								ItemData.FixedLink = (ItemData.FixedLink and ItemData.FixedLink..':' or '')..ItemData[i]
+							end
 						end
 						
 						self:ClearTooltip(self.ScanTT)
@@ -577,7 +627,7 @@ function CA:Update_Gear()
 							ItemTexture = _G["Knight_CharacterArmory_ScanTTTexture"..i]:GetTexture()
 
 							local _, GemLink = GetItemGem(ItemLink, i)
-							GemID = T.select(i, GetInventoryItemGems(Slot.ID))
+							GemID = ItemData[i + 3]
 
 							if Slot["Socket"..i].GemType and Info.Armory_Constants.GemColor[Slot["Socket"..i].GemType] then
 								R, G, B = T.unpack(Info.Armory_Constants.GemColor[Slot["Socket"..i].GemType])
@@ -588,7 +638,7 @@ function CA:Update_Gear()
 								Slot["Socket"..i].Socket:SetBackdropBorderColor(1, 1, 1)
 							end
 
-							if ItemTexture or GemID then
+							if ItemTexture or (T.type(GemID) == 'number' and GemID ~= 0) then
 								if E.db.sle.Armory.Character.Gem.Display == 'Always' or E.db.sle.Armory.Character.Gem.Display == 'MouseoverOnly' and Slot.Mouseovered or E.db.sle.Armory.Character.Gem.Display == 'MissingOnly' then
 									Slot["Socket"..i]:Show()
 									Slot.SocketWarning:Point(Slot.Direction, Slot["Socket"..i], (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
@@ -620,8 +670,7 @@ function CA:Update_Gear()
 					
 					_, _, ItemRarity, BasicItemLevel, _, _, _, _, ItemType, ItemTexture = T.GetItemInfo(ItemLink)
 					R, G, B = T.GetItemQualityColor(ItemRarity)
-					
-					ItemUpgradeID = ItemLink:match(":(%d+)\124h%[")
+
 					--<< Enchant Parts >>--
 					for i = 1, self.ScanTT:NumLines() do
 						CurrentLineText = _G["Knight_CharacterArmory_ScanTTTextLeft"..i]:GetText()
@@ -662,9 +711,10 @@ function CA:Update_Gear()
 					end
 
 					--<< ItemLevel Parts >>--
+					ItemUpgradeID = ItemData[12]
 					if BasicItemLevel then
 						if ItemUpgradeID then
-							if ItemUpgradeID == '0' or not E.db.sle.Armory.Character.Level.ShowUpgradeLevel and ItemRarity == 7 then
+							if ItemUpgradeID == '' or not E.db.sle.Armory.Character.Level.ShowUpgradeLevel and ItemRarity == 7 then
 								ItemUpgradeID = nil
 							else
 								ItemUpgradeID = TrueItemLevel - BasicItemLevel
@@ -715,12 +765,19 @@ function CA:Update_Gear()
 					end
 					
 					--<< Transmogrify Parts >>--
-					if Slot.TransmogrifyAnchor then
-						IsTransmogrified = C_TransmogGetSlotInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE);
+					if Slot.TransmogrifyAnchor and C_Transmog_GetSlotInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE) then
+						Slot.TransmogrifyAnchor.Link = T.select(6, C_TransmogCollection_GetAppearanceSourceInfo(T.select(3, C_Transmog_GetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE))));
+						Slot.TransmogrifyAnchor:Show()
+					end
+					--<< Illusion Parts >>--
+					if Slot.IllusionAnchor then
+						IsTransmogrified, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(Slot.ID, LE_TRANSMOG_TYPE_ILLUSION)
 						
 						if IsTransmogrified then
-							Slot.TransmogrifyAnchor.Link = T.select(6, C_TransmogCollectionGetAppearanceSourceInfo(T.select(3, C_TransmogGetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE))));
-							Slot.TransmogrifyAnchor:Show()
+							Slot.IllusionAnchor.Texture:SetTexture(ItemTexture)
+							_, _, Slot.IllusionAnchor.Link = C_TransmogCollection_GetIllusionSourceInfo(T.select(3, C_Transmog_GetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_ILLUSION)))
+							
+							Slot.IllusionAnchor:Show()
 						end
 					end
 				else
@@ -961,7 +1018,7 @@ KF.Modules.CharacterArmory = function()
 		CA:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
 		CA:RegisterEvent('UNIT_INVENTORY_CHANGED')
 		CA:RegisterEvent('ITEM_UPGRADE_MASTER_UPDATE')
-		CA:RegisterEvent('TRANSMOGRIFY_UPDATE')
+		CA:RegisterEvent('TRANSMOGRIFY_SUCCESS')
 		CA:RegisterEvent('COMBAT_LOG_EVENT_UNFILTERED')
 		CA:RegisterEvent('UPDATE_INVENTORY_DURABILITY')
 		CA:RegisterEvent('PLAYER_ENTERING_WORLD')

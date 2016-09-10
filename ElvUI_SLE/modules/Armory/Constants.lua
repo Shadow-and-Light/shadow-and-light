@@ -65,7 +65,11 @@ Info.Armory_Constants = {
 		HeadSlot = true, ShoulderSlot = true, BackSlot = true, ChestSlot = true, WristSlot = true,
 		HandsSlot = true, WaistSlot = true, LegsSlot = true, FeetSlot = true, MainHandSlot = true, SecondaryHandSlot = true
 	},
-	
+
+	CanIllusionSlot = {
+		MainHandSlot = true, SecondaryHandSlot = true
+	},
+
 	ProfessionList = {},
 	
 	BlizzardBackdropList = {
