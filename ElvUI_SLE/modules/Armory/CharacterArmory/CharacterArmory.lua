@@ -638,7 +638,7 @@ function CA:Update_Gear()
 								Slot["Socket"..i].Socket:SetBackdropBorderColor(1, 1, 1)
 							end
 
-							if ItemTexture or (T.type(GemID) == 'number' and GemID ~= 0) then
+							if ItemTexture or GemLink then
 								if E.db.sle.Armory.Character.Gem.Display == 'Always' or E.db.sle.Armory.Character.Gem.Display == 'MouseoverOnly' and Slot.Mouseovered or E.db.sle.Armory.Character.Gem.Display == 'MissingOnly' then
 									Slot["Socket"..i]:Show()
 									Slot.SocketWarning:Point(Slot.Direction, Slot["Socket"..i], (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
