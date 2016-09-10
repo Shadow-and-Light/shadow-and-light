@@ -96,6 +96,13 @@ local function Equip(event)
 	end
 	
 	local spec, equipSet = EM:GetData()
+
+	local shouldHandleUnitAura = E.private.sle.equip.FishingRaft.enable and (EM:HasFishingRaftAura() and equipSet ~= E.private.sle.equip.FishingRaft.set) or (not EM:HasFishingRaftAura() and equipSet == E.private.sle.equip.FishingRaft.set);
+
+	if (event == "UNIT_AURA" and not shouldHandleUnitAura) then
+		return
+	end
+
 	if spec ~= nil then --In case you don't have spec
 		local isWrong, trueSet = EM:WrongSet(equipSet, SpecTable[spec], inCombat)
 		if isWrong and not T.UnitInVehicle("player") then
