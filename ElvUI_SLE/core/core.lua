@@ -104,6 +104,7 @@ local _CompList = {
 	"ElvUI_ExtraActionBars",
 	"ElvUI_KitUI",
 	"TradeSkillMaster",
+	"WorldQuestTracker",
 }
 for i = 1, #_CompList do
 	if GetAddOnEnableState(E.myname, _CompList[i]) == 0 then SLE._Compatibility[_CompList[i]] = nil else SLE._Compatibility[_CompList[i]] = true end

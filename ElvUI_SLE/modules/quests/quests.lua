@@ -49,7 +49,22 @@ function Q:ChangeState(event)
 		else
 			statedriver["FULL"](Q.frame)
 		end
-		
+	end
+	if SLE._Compatibility["WorldQuestTracker"] then -- and WorldQuestTrackerAddon then
+		local y = 0
+		for i = 1, #ObjectiveTrackerFrame.MODULES do
+			local module = ObjectiveTrackerFrame.MODULES[i]
+			if (module.Header:IsShown()) then
+				y = y + module.contentsHeight
+			end
+		end
+		if (ObjectiveTrackerFrame.collapsed) then
+			WorldQuestTrackerAddon.TrackerHeight = 20
+		else
+			WorldQuestTrackerAddon.TrackerHeight = y
+		end
+
+		WorldQuestTrackerAddon.RefreshAnchor()
 	end
 end
 
