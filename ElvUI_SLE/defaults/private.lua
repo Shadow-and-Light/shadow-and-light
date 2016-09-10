@@ -37,7 +37,7 @@ V["sle"] = {
 		},
 		["setoverlay"] = false,
 		["lockbutton"] = false,
-		["FishingRaftSet"] = {
+		["FishingRaft"] = {
 			["enable"] = false,
 			["set"] = "NONE",
 		},
