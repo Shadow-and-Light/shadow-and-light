@@ -19,6 +19,7 @@ local DUNGEON_FLOOR_DALARAN1 = DUNGEON_FLOOR_DALARAN1
 local CHALLENGE_MODE = CHALLENGE_MODE
 local PlayerHasToy = PlayerHasToy
 local IsToyUsable = C_ToyBox.IsToyUsable
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 local collectgarbage = collectgarbage
 
@@ -260,6 +261,24 @@ function LP:UpdateCoords(elapsed)
 	if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
 	loc_panel.Xcoord.Text:SetText(x)
 	loc_panel.Ycoord.Text:SetText(y)
+	--Coords coloring
+	local colorC = {r = 1, g = 1, b = 1}
+	if LP.db.colorType_Coords == "REACTION" then
+		local inInstance, _ = T.IsInInstance()
+		if inInstance then
+			colorC = {r = 1, g = 0.1,b =  0.1}
+		else
+			local pvpType = T.GetZonePVPInfo()
+			colorC = LP.ReactionColors[pvpType] or {r = 1, g = 1, b = 0}
+		end
+	elseif LP.db.colorType_Coords == "CUSTOM" then
+		colorC = LP.db.customColor_Coords
+	elseif LP.db.colorType_Coords == "CLASS" then
+		colorC = RAID_CLASS_COLORS[E.myclass]
+	end
+	loc_panel.Xcoord.Text:SetTextColor(colorC.r, colorC.g, colorC.b)
+	loc_panel.Ycoord.Text:SetTextColor(colorC.r, colorC.g, colorC.b)
+
 	--Location
 	local subZoneText = T.GetMinimapZoneText() or ""
 	local zoneText = T.GetRealZoneText() or UNKNOWN;
@@ -289,6 +308,8 @@ function LP:UpdateCoords(elapsed)
 			end
 		elseif LP.db.colorType == "CUSTOM" then
 			color = LP.db.customColor
+		elseif LP.db.colorType == "CLASS" then
+			color = RAID_CLASS_COLORS[E.myclass]
 		end
 		loc_panel.Text:SetTextColor(color.r, color.g, color.b)
 	end
