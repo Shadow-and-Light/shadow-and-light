@@ -1,4 +1,4 @@
-v3.14
+v3.14 09/12/2016
 Additions:
 - Added an option to disable QuestGuru skin. Skin is now disabled by default.
 - World quest statusbar is now skinned.
