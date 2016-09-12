@@ -7,9 +7,9 @@ Additions:
 Fixes:
 - Time played datatext will not error on mouseover.
 - Fixed merchant skin randomly complaining about item quality.
-- Nameplates now should not get confused when you have vahicles/NPCs in your party.
+- Nameplates now should not get confused when you have vehicles/NPCs in your party.
 - Fixed databars not respecting hide in combat option
-- Fixed rendom error of faction being not faction in rep bar
+- Fixed random error of faction being not faction in rep bar
 - Attempt at fixing portal dropdown sometimes not allowing spells to be casted
 Changes:
 - Logic to filter weapon enchants warning was changed.
