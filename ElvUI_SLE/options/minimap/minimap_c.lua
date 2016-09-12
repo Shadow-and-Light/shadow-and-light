@@ -28,15 +28,6 @@ local function configTable()
 				get = function(info) return E.db.sle.minimap.combat end,
 				set = function(info, value) E.db.sle.minimap.combat = value; MM:HideMinimapRegister() end,
 			},
-			alpha = {
-				order = 4,
-				type = 'range',
-				name = L["Minimap Alpha"],
-				isPercent = true,
-				min = 0.3, max = 1, step = 0.01,
-				get = function(info) return E.db.sle.minimap.alpha end,
-				set = function(info, value) E.db.sle.minimap.alpha = value; MM:MinimapTransparency() end,
-			},
 		},
 	}
 end

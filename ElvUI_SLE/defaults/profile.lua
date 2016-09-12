@@ -454,7 +454,6 @@ P["sle"] = {
 	--Minimap Module
 	["minimap"] = {
 		["combat"] = false,
-		["alpha"] = 1,
 		["coords"] = {
 			["enable"] = false,
 			["display"] = "SHOW",

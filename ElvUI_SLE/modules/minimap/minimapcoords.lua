@@ -87,11 +87,8 @@ function MM:CreateCoordsFrame()
 	MM:UpdateCoordinatesPosition()
 end
 
-function MM:MinimapTransparency()
-	cluster:SetAlpha(E.db.sle.minimap.alpha)
-end
-
 function MM:UpdateSettings()
+	if E.db.sle.minimap.alpha then E.db.sle.minimap.alpha = nil end
 	if not MM.coordspanel then
 		MM:CreateCoordsFrame()
 	end
@@ -108,7 +105,6 @@ function MM:UpdateSettings()
 		MM.coordspanel:Show()
 	end
 	MM:HideMinimapRegister()
-	MM:MinimapTransparency()
 end
 
 function MM:Initialize()
