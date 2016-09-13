@@ -164,31 +164,29 @@ function C:ParseChatEventInv(event, msg, sender, ...)
 end
 
 function C:SetItemRef(link, text, button, chatframe)
-	if not T.InCombatLockdown() then
-		local linktype, id = T.split(":", link)
-		if C.db.dpsSpam then
-			if linktype == "SLD" then
-				local meterID = T.tonumber(id)
-				-- put stuff in the ItemRefTooltip from FrameXML
-				ShowUIPanel(ItemRefTooltip);
-				if ( not ItemRefTooltip:IsShown() ) then
-					ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE");
-				end
-				ItemRefTooltip:ClearLines()
-				ItemRefTooltip:AddLine(C.Meters[meterID].title)
-				ItemRefTooltip:AddLine(T.format(L["Reported by %s"],C.Meters[meterID].src))
-				for _,message in T.ipairs(C.Meters[meterID].data) do ItemRefTooltip:AddLine(message,1,1,1) end
-				ItemRefTooltip:Show()
-				return nil
+	local linktype, id = T.split(":", link)
+	if C.db.dpsSpam then
+		if linktype == "SLD" then
+			local meterID = T.tonumber(id)
+			-- put stuff in the ItemRefTooltip from FrameXML
+			ShowUIPanel(ItemRefTooltip);
+			if ( not ItemRefTooltip:IsShown() ) then
+				ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE");
 			end
-		end
-		if IsAltKeyDown() and linktype == "player" and E.db.sle.chat.invite.altInv then
-			InviteUnit(id)
+			ItemRefTooltip:ClearLines()
+			ItemRefTooltip:AddLine(C.Meters[meterID].title)
+			ItemRefTooltip:AddLine(T.format(L["Reported by %s"],C.Meters[meterID].src))
+			for _,message in T.ipairs(C.Meters[meterID].data) do ItemRefTooltip:AddLine(message,1,1,1) end
+			ItemRefTooltip:Show()
 			return nil
-		elseif linktype == "invite" then
-			InviteUnit(id)
-			return nil
 		end
+	end
+	if IsAltKeyDown() and linktype == "player" and E.db.sle.chat.invite.altInv then
+		InviteUnit(id)
+		return nil
+	elseif linktype == "invite" then
+		InviteUnit(id)
+		return nil
 	end
 	return self.hooks.SetItemRef(link, text, button)
 end
@@ -225,7 +223,7 @@ end
 function C:InitLinks()
 	C:SpamFilter()
 	C:CreateInvKeys()
-	C:RawHook(nil, "SetItemRef", true)
+	C:RawHook("SetItemRef", true)
 	-- Borrowed from Deadly Boss Mods
 	do
 		local old = ItemRefTooltip.SetHyperlink -- we have to hook this function since the default ChatFrame code assumes that all links except for player and channel links are valid arguments for this function
