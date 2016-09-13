@@ -113,7 +113,7 @@ LP.Spells = {
 			[9] = {text = T.GetSpellInfo(132627),icon = SLE:GetIconFromID("spell", 132627),secure = {buttonType = "spell",ID = 132627}, UseTooltip = true},-- TP:Vale of Eternal Blossoms
 			[10] = {text = T.GetSpellInfo(120145),icon = SLE:GetIconFromID("spell", 120145),secure = {buttonType = "spell",ID = 120145}, UseTooltip = true},-- TP:Ancient Dalaran
 			[11] = {text = T.GetSpellInfo(176242),icon = SLE:GetIconFromID("spell", 176242),secure = {buttonType = "spell",ID = 176242}, UseTooltip = true},-- TP:Warspear
-			[12] = {text = T.GetSpellInfo(224873),icon = SLE:GetIconFromID("spell", 224873),secure = {buttonType = "spell",ID = 224873}, UseTooltip = true},-- TP:Dalaran - BI
+			[12] = {text = T.GetSpellInfo(224869),icon = SLE:GetIconFromID("spell", 224869),secure = {buttonType = "spell",ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
 		},
 		["Alliance"] = {
 			[1] = {text = T.GetSpellInfo(3561),icon = SLE:GetIconFromID("spell", 3561),secure = {buttonType = "spell",ID = 3561}, UseTooltip = true},-- TP:Stormwind
@@ -127,7 +127,7 @@ LP.Spells = {
 			[9] = {text = T.GetSpellInfo(132621),icon = SLE:GetIconFromID("spell", 132621),secure = {buttonType = "spell",ID = 132621}, UseTooltip = true},-- TP:Vale of Eternal Blossoms
 			[10] = {text = T.GetSpellInfo(120145),icon = SLE:GetIconFromID("spell", 120145),secure = {buttonType = "spell",ID = 120145}, UseTooltip = true},-- TP:Ancient Dalaran
 			[11] = {text = T.GetSpellInfo(176248),icon = SLE:GetIconFromID("spell", 176248),secure = {buttonType = "spell",ID = 176248}, UseTooltip = true},-- TP:StormShield
-			[12] = {text = T.GetSpellInfo(224873),icon = SLE:GetIconFromID("spell", 224873),secure = {buttonType = "spell",ID = 224873}, UseTooltip = true},-- TP:Dalaran - BI
+			[12] = {text = T.GetSpellInfo(224869),icon = SLE:GetIconFromID("spell", 224869),secure = {buttonType = "spell",ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
 		},
 	},
 	["portals"] = {
