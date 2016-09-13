@@ -241,11 +241,13 @@ local function ObjectiveReskin()
 		_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.SLE_Underline = Sk:CreateUnderline(_G["ObjectiveTrackerBlocksFrame"].AchievementHeader, flat, true, height)
 		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.SLE_Underline = Sk:CreateUnderline(_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header, flat, true, height)
 		_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.SLE_Underline = Sk:CreateUnderline(_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader, flat, true, height)
+		_G["WORLD_QUEST_TRACKER_MODULE"].Header.SLE_Underline = Sk:CreateUnderline(_G["WORLD_QUEST_TRACKER_MODULE"].Header, flat, true, height)
 
 		T.tinsert(underlines, _G["ObjectiveTrackerBlocksFrame"].QuestHeader.SLE_Underline)
 		T.tinsert(underlines, _G["ObjectiveTrackerBlocksFrame"].AchievementHeader.SLE_Underline)
 		T.tinsert(underlines, _G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.SLE_Underline)
 		T.tinsert(underlines, _G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.SLE_Underline)
+		T.tinsert(underlines, _G["WORLD_QUEST_TRACKER_MODULE"].Header.SLE_Underline)
 
 		Sk:Update_ObjectiveTrackerUnderlinesVisibility()
 		Sk:Update_ObjectiveTrackerUnderlinesColor()
