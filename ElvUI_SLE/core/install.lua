@@ -627,6 +627,7 @@ function PI:DarthSetup()
 
 	E.global["sle"]["advanced"]["optionsLimits"] = true
 	E.global["sle"]["advanced"]["cyrillics"]["commands"] = true
+	E.global["sle"]["LinkArtifactTrait"] = true
 	E.global["general"]["animateConfig"] = false
 	E.global["general"]["commandBarSetting"] = "DISABLED"
 	E.global["general"]["fadeMapWhenMoving"] = false

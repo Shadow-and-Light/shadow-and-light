@@ -36,6 +36,14 @@ local function configTable()
 					},
 				},
 			},
+			LinkArtifactTrait = {
+				order = 3,
+				type = "toggle",
+				name = L["Link Artifact Traits"],
+				desc = L["Allows you to link artifact traits and relics in chat by shift+click."],
+				get = function(info) return E.global.sle.LinkArtifactTrait end,
+				set = function(info, value) E.global.sle.LinkArtifactTrait = value; E:StaticPopup_Show("GLOBAL_RL") end,
+			},
 		},
 	}
 end
