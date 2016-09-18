@@ -203,7 +203,6 @@ G["sle"] = {
 		["Blacklist"] = "",
 		["TradeOpen"] = false,
 	},
-	["LinkArtifactTrait"] = false,
 	["advanced"] = {
 		["general"] = false,
 		["optionsLimits"] = false,
@@ -217,4 +216,4 @@ G["sle"] = {
 			["devCommands"] = false,
 		},
 	},
-	}
+}
