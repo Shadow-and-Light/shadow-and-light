@@ -579,8 +579,8 @@ function PI:DarthSetup()
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-187,-158"
 		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,211,189"
 		E.db["movers"]["PlayerNameplate"] = "BOTTOM,ElvUIParent,BOTTOM,0,426"
-		E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,153,199"
-		E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-152,199"
+		E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,0,199"
+		E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,199"
 	end
 	
 	if T.IsAddOnLoaded("ElvUI_AuraBarsMovers") then
@@ -628,6 +628,8 @@ function PI:DarthSetup()
 	E.global["sle"]["advanced"]["optionsLimits"] = true
 	E.global["sle"]["advanced"]["cyrillics"]["commands"] = true
 	E.global["general"]["animateConfig"] = false
+	E.global["general"]["commandBarSetting"] = "DISABLED"
+	E.global["general"]["fadeMapWhenMoving"] = false
 
 	if layout then
 		if layout == 'tank' then

@@ -7,10 +7,14 @@ local IsResting = IsResting
 local statedriver = {
 	["FULL"] = function(frame) 
 		ObjectiveTracker_Expand()
+		-- TextFix(minimizeButton, "full")
+		minimizeButton.text:SetText("-")
 		frame:Show()
 	end,
 	["COLLAPSED"] = function(frame)
 		ObjectiveTracker_Collapse()
+		minimizeButton.text:SetText("+")
+		-- TextFix(minimizeButton, "collaped")
 		frame:Show()
 	end,
 	["HIDE"] = function(frame)
@@ -98,7 +102,7 @@ function Q:QUEST_COMPLETE()
 	for index = 1, num do
 		local link = GetQuestItemLink("choice", index);
 		if link then
-			local price = select(11, GetItemInfo(link))
+			local price = T.select(11, GetItemInfo(link))
 			if price and price > highest then
 				highest = price
 				choice = index

@@ -116,7 +116,8 @@ end
 local HiddenCurrency = {}
 
 local function UnusedCheck()
-	if GetOption('Unused') then HiddenCurrency = {}; return end
+	-- if GetOption('Unused') then HiddenCurrency = {}; return end
+	T.twipe(HiddenCurrency)
 	for i = 1, T.GetCurrencyListSize() do
 		local name, _, _, isUnused = GetCurrencyListInfo(i)
 		if isUnused then
