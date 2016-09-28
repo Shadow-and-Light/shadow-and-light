@@ -146,7 +146,6 @@ function C:Combat(event)
 			LeftChatPanel:Hide()
 			LeftChatToggleButton:Hide()
 		end
-		
 	elseif event == "PLAYER_REGEN_ENABLED" then
 		if not RightChatPanel:IsShown() then
 			RightChatPanel:Show()
