@@ -372,22 +372,26 @@ end
 
 function LP:ItemList(check)
 	for i = 1, #LP.PortItems do
+		local tmp = {}
 		local data = LP.PortItems[i]
 		if SLE:BagSearch(data.secure.ID) or (PlayerHasToy(data.secure.ID) and IsToyUsable(data.secure.ID)) then
 			if check then 
-				if LP.db.portals.HSplace then T.tinsert(LP.MainMenu, {text = HOME..": "..GetBindLocation(), title = true, nohighlight = true}) end
+				if LP.db.portals.HSplace then T.tinsert(LP.MainMenu, {text = L["Hearthstone Location"]..": "..GetBindLocation(), title = true, nohighlight = true}) end
 				T.tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
 				return true 
 			else
-				local tmp = {}
-				local cd = DD:GetCooldown("Item", data.secure.ID)
-				E:CopyTable(tmp, data)
-				if cd or (T.tonumber(cd) and T.tonumber(cd) > 1.5) then
-					tmp.text = "|cff636363"..tmp.text.."|r"..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
-				else
-					tmp.text = tmp.text
+				if data.text then
+					local cd = DD:GetCooldown("Item", data.secure.ID)
+					E:CopyTable(tmp, data)
+					if cd or (T.tonumber(cd) and T.tonumber(cd) > 1.5) then
+						tmp.text = "|cff636363"..tmp.text.."|r"..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
+						T.tinsert(LP.MainMenu, tmp)
+					else
+						-- tmp.text = tmp.text
+						T.tinsert(LP.MainMenu, data)
+					end
+					
 				end
-				T.tinsert(LP.MainMenu, tmp)
 			end
 		end
 	end
@@ -401,13 +405,15 @@ function LP:SpellList(list, dropdown, check)
 			if check then 
 				return true 
 			else
-				local cd = DD:GetCooldown("Spell", data.secure.ID)
-				if cd or (T.tonumber(cd) and T.tonumber(cd) > 1.5) then
-					E:CopyTable(tmp, data)
-					tmp.text = "|cff636363"..tmp.text.."|r"..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
-					T.tinsert(dropdown, tmp)
-				else
-					T.tinsert(dropdown, data)
+				if data.text then
+					local cd = DD:GetCooldown("Spell", data.secure.ID)
+					if cd or (T.tonumber(cd) and T.tonumber(cd) > 1.5) then
+						E:CopyTable(tmp, data)
+						tmp.text = "|cff636363"..tmp.text.."|r"..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
+						T.tinsert(dropdown, tmp)
+					else
+						T.tinsert(dropdown, data)
+					end
 				end
 			end
 		end
