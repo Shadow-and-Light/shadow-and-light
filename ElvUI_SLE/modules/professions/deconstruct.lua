@@ -63,6 +63,7 @@ Pr.ItemTable = {
 	},
 	--Quest dis
 	["Quest"] = {
+		["137195"] = true, --Highmountain armor
 		["137221"] = true, --Ravencrest sigil
 		["137286"] = true, --Demon runes
 	},
