@@ -762,9 +762,8 @@ L["Tooltip X-offset"] = true
 L["Offset the tooltip on the X-axis."] = true
 L["Tooltip Y-offset"] = true
 L["Offset the tooltip on the Y-axis."] = true
-L["RAID_HFC"] = "HFC"
-L["RAID_BRF"] = "BRF"
-L["RAID_HM"] = "HM"
+L["RAID_NH"] = "NH"
+L["RAID_EN"] = "EN"
 L["Raid Progression"] = true
 L["Show raid experience of character in tooltip (requires holding shift)."] = true
 
