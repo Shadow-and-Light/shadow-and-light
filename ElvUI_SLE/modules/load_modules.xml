@@ -5,6 +5,7 @@
 	<Include file='Armory\Load_Armory.xml'/>
 	<Script file='auras.lua'/>
 	<Script file='backgrounds.lua'/>
+	<Include file='bags\load_bags.xml'/>
 	<Script file='bags.lua'/>
 	<Script file='baginfo.lua'/>
 	<Script file='blizzard.lua'/>
