@@ -34,24 +34,23 @@ local function GetItemLinkArtifactPower(slotLink)
 	end
 end
 
-local function UpdateContainerFrame(self, bagID, slotID)
-	local slotFrame = _G["ElvUI_ContainerFrameBag"..bagID.."Slot"..slotID]
-	local slotLink = GetContainerItemLink(bagID,slotID)
-
-	if not slotFrame.artifactpowerinfo then
-		slotFrame.artifactpowerinfo = slotFrame:CreateFontString(nil, 'OVERLAY')
+local function UpdateContainerFrame(frame, bagID, slotID)
+	if (not frame.artifactpowerinfo) then
+		frame.artifactpowerinfo = frame:CreateFontString(nil, 'OVERLAY')
+		frame.artifactpowerinfo:Point("BOTTOMRIGHT", 0, 2)
+		frame.artifactpowerinfo:FontTemplate(E.LSM:Fetch("font", E.db.bags.itemLevelFont), E.db.bags.itemLevelFontSize, E.db.bags.itemLevelFontOutline)
+		frame.artifactpowerinfo:SetText("")
+		frame.artifactpowerinfo:SetAllPoints(frame)
+		frame.artifactpowerinfo:SetTextColor(255, 0, 0)
 	end
+	--local frame = _G["ElvUI_ContainerFrameBag"..bagID.."Slot"..slotID]
 
-	slotFrame.artifactpowerinfo:Point("BOTTOMRIGHT", 0, 2)
-	slotFrame.artifactpowerinfo:FontTemplate(E.LSM:Fetch("font", E.db.bags.itemLevelFont), E.db.bags.itemLevelFontSize, E.db.bags.itemLevelFontOutline)
-	slotFrame.artifactpowerinfo:SetText("")
-	slotFrame.artifactpowerinfo:SetAllPoints(slotFrame)
-	slotFrame.artifactpowerinfo:SetTextColor(255, 0, 0)
+	if (frame.artifactpowerinfo) then
+		local slotLink = GetContainerItemLink(bagID,slotID)
 
-	arcanePower = GetItemLinkArtifactPower(slotLink)
 
-	if arcanePower then
-		slotFrame.artifactpowerinfo:SetText(arcanePower)
+		arcanePower = GetItemLinkArtifactPower(slotLink)
+		frame.artifactpowerinfo:SetText(arcanePower)
 	end
 end
 
