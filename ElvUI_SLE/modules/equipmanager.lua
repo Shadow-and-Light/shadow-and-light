@@ -2,6 +2,7 @@
 local EM = SLE:NewModule('EquipManager', 'AceHook-3.0', 'AceEvent-3.0')
 local GetRealZoneText = GetRealZoneText
 EM.Processing = false
+EM.ErrorShown = false
 
 local SpecTable = {
 	[1] = "firstSpec",
@@ -58,25 +59,37 @@ function EM:WrongSet(equipSet, group, inCombat)
 	if inInstance and ((EM.db.timewalkingSet and EM.db[group].timewalking ~= "NONE") or (EM.db.instanceSet and EM.db[group].instance ~= "NONE") or (EM.db.pvpSet and EM.db[group].pvp ~= "NONE")) then
 		if EM:IsTimewalkingDungeon(inInstance, instanceType) and EM.db.timewalkingSet then
 			if equipSet ~= EM.db[group].timewalking and EM.db[group].timewalking ~= "NONE" then
-				if inCombat then SLE:ErrorPrint(L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."]); return false end
+				if inCombat then
+					if not EM.ErrorShown then SLE:ErrorPrint(L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."]); EM.ErrorShown = true end
+					return false
+				end
 				return true, EM.db[group].timewalking
 			end
 		end
 		if EM:IsDungeon(inInstance, instanceType) and EM.db.instanceSet then
 			if equipSet ~= EM.db[group].instance and EM.db[group].instance ~= "NONE" then
-				if inCombat then SLE:ErrorPrint(L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."]); return false end
+				if inCombat then
+					if not EM.ErrorShown then SLE:ErrorPrint(L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."]); EM.ErrorShown = true end
+					return false
+				end
 				return true, EM.db[group].instance
 			end
 		end
 		if EM:IsPvP(inInstance, instanceType) and EM.db.pvpSet then
 			if equipSet ~= EM.db[group].pvp and EM.db[group].pvp ~= "NONE" then
-				if inCombat then SLE:ErrorPrint(L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."]); return false end
+				if inCombat then
+					if not EM.ErrorShown then SLE:ErrorPrint(L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."]); EM.ErrorShown = true end
+					return false
+				end
 				return true, EM.db[group].pvp
 			end
 		end
 	end
 	if equipSet ~= EM.db[group].general and EM.db[group].general ~= "NONE" then
-		if inCombat then SLE:ErrorPrint(L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."]); return false end
+		if inCombat then
+			if not EM.ErrorShown then SLE:ErrorPrint(L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."]); EM.ErrorShown = true end
+			return false
+		end
 		return true, EM.db[group].general
 	end
 	return false
@@ -93,6 +106,7 @@ local function Equip(event)
 	end
 	if event == "PLAYER_REGEN_ENABLED" then
 		EM:UnregisterEvent(event)
+		EM.ErrorShown = false
 	end
 	
 	local spec, equipSet = EM:GetData()
