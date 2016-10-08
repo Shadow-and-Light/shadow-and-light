@@ -73,6 +73,7 @@ LP.PortItems = {
 	{141605}, --Flight Masters's Whistle
 	{128502}, --Hunter's Seeking Crystal
 	{128503}, --Master Hunter's Seeking Crystal
+	{140324, nil, true}, --Mobile Telemancy Beacon
 }
 LP.Spells = {
 	["DEATHKNIGHT"] = {
