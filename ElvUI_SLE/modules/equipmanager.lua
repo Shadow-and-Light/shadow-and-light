@@ -97,6 +97,7 @@ end
 
 local function Equip(event)
 	if EM.Processing or EM.lock then return end
+	if event == "ZONE_CHANGED" and EM.db.onlyTalent then return end
 	EM.Processing = true
 	local inCombat = false
 	E:Delay(1, function() EM.Processing = false end)
@@ -108,7 +109,7 @@ local function Equip(event)
 		EM:UnregisterEvent(event)
 		EM.ErrorShown = false
 	end
-	
+
 	local spec, equipSet = EM:GetData()
 
 	local shouldHandleUnitAura = E.private.sle.equip.FishingRaft.enable and (EM:HasFishingRaftAura() and equipSet ~= E.private.sle.equip.FishingRaft.set) or (not EM:HasFishingRaftAura() and equipSet == E.private.sle.equip.FishingRaft.set);

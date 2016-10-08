@@ -129,9 +129,18 @@ local function configTable()
 				get = function(info) return EM.db.lockbutton end,
 				set = function(info, value) EM.db.lockbutton = value; E:StaticPopup_Show("PRIVATE_RL") end
 			},
-			instanceSet = {
+			onlyTalent = {
 				type = "toggle",
 				order = 7,
+				name = L["Ignore zone change"],
+				desc = L["Swap sets only on specialization change ignoring location change when. Does not influence entering/leaving instances and bg/arena."],
+				disabled = function() return not EM.db.enable end,
+				get = function(info) return EM.db.onlyTalent end,
+				set = function(info, value) EM.db.onlyTalent = value; end,
+			},
+			instanceSet = {
+				type = "toggle",
+				order = 8,
 				name = L["Use Instance Set"],
 				desc = L["Use a dedicated set for instances and raids."],
 				disabled = function() return not EM.db.enable end,
@@ -140,7 +149,7 @@ local function configTable()
 			},
 			timewalkingSet = {
 				type = "toggle",
-				order = 7,
+				order = 9,
 				name = L["Use Timewalking Set"],
 				desc = L["Use a dedicated set for timewalking instances."],
 				disabled = function() return not EM.db.enable end,
@@ -149,7 +158,7 @@ local function configTable()
 			},
 			pvpSet = {
 				type = "toggle",
-				order = 9,
+				order = 10,
 				name = L["Use PvP Set"],
 				desc = L["Use a dedicated set for PvP situations."],
 				disabled = function() return not EM.db.enable end,
@@ -159,7 +168,7 @@ local function configTable()
 			equipsets = {
 				type = "group",
 				name = PAPERDOLL_EQUIPMENTMANAGER,
-				order = 10,
+				order = 11,
 				disabled = function() return not EM.db.enable end,
 				guiInline = true,
 				args = {

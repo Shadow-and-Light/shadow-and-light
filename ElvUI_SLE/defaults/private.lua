@@ -11,6 +11,7 @@ V["sle"] = {
 		["instanceSet"] = false,
 		["pvpSet"] = false,
 		["timewalkingSet"] = false,
+		["onlyTalent"] = false,
 		["firstSpec"] = {
 			["general"] = "NONE",
 			["pvp"] = "NONE",
