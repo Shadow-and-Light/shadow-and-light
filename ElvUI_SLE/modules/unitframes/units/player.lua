@@ -20,12 +20,13 @@ SUF.RestedTextures = {
 }
 
 function SUF:CombatIcon_PostUpdate(inCombat)
-	local frame = self:GetParent()
 	self:ClearAllPoints()
 	self:SetTexture(SUF.CombatTextures[E.db.sle.unitframes.unit.player.combatico.texture])
+
 	if E.db.sle.unitframes.unit.player.combatico.texture == "DEFAULT" or E.db.sle.unitframes.unit.player.combatico.texture == "SVUI" then self:SetTexCoord(.5, 1, 0, .49) else self:SetTexCoord(0,1,0,1) end
 	self:Size(E.db.sle.unitframes.unit.player.combatico.size)
-	self:Point("CENTER", frame.Health, "CENTER", E.db.sle.unitframes.unit.player.combatico.xoffset, E.db.sle.unitframes.unit.player.combatico.yoffset)
+
+	self:Point("CENTER", _G["ElvUF_Player"].Health, "CENTER", E.db.sle.unitframes.unit.player.combatico.xoffset, E.db.sle.unitframes.unit.player.combatico.yoffset)
 	if not E.db.sle.unitframes.unit.player.combatico.red then self:SetVertexColor(1, 1, 1) end
 end
 
@@ -39,6 +40,7 @@ function SUF:TestCombat()
 	if E.db.sle.unitframes.unit.player.combatico.texture == "DEFAULT" or E.db.sle.unitframes.unit.player.combatico.texture == "SVUI" then SUF.CombatTest.texture:SetTexCoord(.5, 1, 0, .49) else SUF.CombatTest.texture:SetTexCoord(0,1,0,1) end
 	if not E.db.sle.unitframes.unit.player.combatico.red then SUF.CombatTest.texture:SetVertexColor(1, 1, 1) else SUF.CombatTest.texture:SetVertexColor(0.69, 0.31, 0.31) end
 	SUF.CombatTest:Show()
+
 	SUF.CombatTest.Timer = C_TimerNewTimer(10, function() SUF.CombatTest:Hide() end)
 end
 
