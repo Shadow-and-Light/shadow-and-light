@@ -1,3 +1,24 @@
+v3.15
+Currently we have a lot of stuff IRL to attend to so New releases will be very slow. If you don't want to wait, you can always try alpha version. Link in the description.
+
+Additions:
+- Added missed quest item to dienchantable list for deconstruction mode.
+- Telemancy beacon is added to relocation list.
+- Added an option to ignore zone changes when checking for equipped set for your spec. Now it will do it only on spec switch.
+Fixes:
+- Fixed "script ran too long" error in chat's links parsing. Now no action will be executed for them in combat.
+- Fixed currency not showing up in currency DT when moved out of unused section.
+- Attempts at fixing various random nil errros in dropdowns.
+- Fixed combat icon disapearing after latest ElvUI changes.
+- Fixed chat frame position being moved on load with some option/position combinations.
+- Fixed QuestGuru skin.
+Changes:
+- Dalaran portal in location panel dropdown now uses correct ID.
+- Short label on regen DT now also shortens the value.
+- Raid progress in tooltip updated for Legion raids.
+Misc:
+- The message about inability to swap equip set should now be shown only once per combat.
+
 v3.14 09/12/2016
 Additions:
 - Added an option to disable QuestGuru skin. Skin is now disabled by default.
