@@ -456,6 +456,8 @@ L["SLE_EM_LOCK_TOOLTIP"] = [[Эта кнопка позволит временн
 В заблокированном состоянии (красный цвет) автоматическая смена отключена.]]
 L["Block button"] = "Кнопка блокировки"
 L["Create a button in character frame to allow temp blocking of auto set swap."] = "Создать в окне персонажа кнопку, позволяющую временно отключить автоматическую смену комплектов."
+L["Ignore zone change"] = "Игнорировать смену зоны"
+L["Swap sets only on specialization change ignoring location change when. Does not influence entering/leaving instances and bg/arena."] = "Изменять комплект только при смене специализации, игнорируя изменение локации. Не влиет на вход/выход из подземелий и полей боя/арен."
 
 --Loot
 L["Loot Dropped:"] = "Список добычи:"

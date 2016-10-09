@@ -459,6 +459,8 @@ Equip Manager's auto switch gear sets.
 While locked (red colored state) it will disable auto swap.]]
 L["Block button"] = true
 L["Create a button in character frame to allow temp blocking of auto set swap."] = true
+L["Ignore zone change"] = true
+L["Swap sets only on specialization change ignoring location change when. Does not influence entering/leaving instances and bg/arena."] = true
 
 --Loot
 L["Loot Dropped:"] = true
