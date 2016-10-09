@@ -300,6 +300,8 @@ L["Invite links"] = true
 L["Convets specified keywords to links that automatically invite message's author to group."] = true
 L["Link Color"] = true
 L["Invite Keywords"] = true
+L["Chat Setup Delay"] = true
+L["Manages the delay before S&L will execute hooks to ElvUI's chat positioning. Prevents some weird positioning issues."] = true
 
 --Databars
 L["Full value on Exp Bar"] = true

@@ -216,5 +216,8 @@ G["sle"] = {
 			["commands"] = false,
 			["devCommands"] = false,
 		},
+		["chat"] = {
+			["setupDelay"] = 1,
+		},
 	},
 }

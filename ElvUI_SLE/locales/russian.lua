@@ -295,6 +295,8 @@ L["Invite links"] = "Ссылки для приглашения"
 L["Convets specified keywords to links that automatically invite message's author to group."] = "Превращает указаные слова в ссылки, клик по которым пригласит автора сообщения в группу."
 L["Link Color"] = "Цвет ссылки"
 L["Invite Keywords"] = "Ключевые слова для приглашения"
+L["Chat Setup Delay"] = "Задержка подключения ата"
+L["Manages the delay before S&L will execute hooks to ElvUI's chat positioning. Prevents some weird positioning issues."] = "задает задержку до выполнения хуков к функция позиционирования ElvUI. Предотвращает некоторые проблемы расположения окон чата."
 
 --Databars
 L["Full value on Exp Bar"] = "Полное значение опыта"

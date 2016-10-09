@@ -305,7 +305,8 @@ function C:Initialize()
 
 	--Launching stuff so hooks can work
 	LO:ToggleChatPanels()
-	CH:SetupChat()
+	local setupDelay = E.global.sle.advanced.chat.setupDelay
+	E:Delay(setupDelay, function() CH:SetupChat() end) --This seems to actually fix some issues with detecting right panel chat frame
 	--Justify
 	for i = 1, NUM_CHAT_WINDOWS do
 		C:JustifyChat(i)

@@ -76,6 +76,16 @@ local function configTable()
 					["RIGHT"] = L["Right"],
 				}
 			},
+			setupDelay = {
+				order = 10,
+				type = "range",
+				name = L["Chat Setup Delay"],
+				desc = L["Manages the delay before S&L will execute hooks to ElvUI's chat positioning. Prevents some weird positioning issues."],
+				hidden = function() return not E.global.sle.advanced.general end,
+				min = 0.5, max = 10, step = .1,
+				get = function(info) return E.global.sle.advanced.chat[ info[#info] ] end,
+				set = function(info, value) E.global.sle.advanced.chat[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL") end,
+			},
 			textureAlpha = {
 				order = 20, type = "group",
 				name = L["Texture Alpha"],
