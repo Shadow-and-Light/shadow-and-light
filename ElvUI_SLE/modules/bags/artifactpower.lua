@@ -3,7 +3,7 @@ local AP = SLE:NewModule("ArtifactPowerBags", 'AceHook-3.0', 'AceEvent-3.0')
 local B = E:GetModule('Bags')
 local _G = _G
 local tooltipScanner
-local tooltipName = "ArtifactPowerTooltipScanner"
+local tooltipName = "SLE_ArtifactPowerTooltipScanner"
 local EMPOWERING_SPELL_ID = 227907
 local empoweringSpellName
 local arcanePower
@@ -23,9 +23,9 @@ local function GetItemLinkArtifactPower(slotLink)
 			end
 
 			local ap = tooltipText:gsub("[,%.]", ""):match("%d.-%s") or ""
-
-			tooltipScanner:Hide()			
-			return tonumber(ap);
+			tooltipScanner:Hide()
+			if E.db.sle.bags.artifactPower.short then ap = E:ShortValue(ap) end
+			return ap
 		else
 			return nil
 		end
@@ -35,26 +35,31 @@ local function GetItemLinkArtifactPower(slotLink)
 end
 
 local function UpdateContainerFrame(frame, bagID, slotID)
-	if (not frame.artifactpowerinfo) then
+	if (not frame.artifactpowerinfo) and E.db.sle.bags.artifactPower.enable then
 		frame.artifactpowerinfo = frame:CreateFontString(nil, 'OVERLAY')
 		frame.artifactpowerinfo:Point("BOTTOMRIGHT", 0, 2)
-		frame.artifactpowerinfo:FontTemplate(E.LSM:Fetch("font", E.db.bags.itemLevelFont), E.db.bags.itemLevelFontSize, E.db.bags.itemLevelFontOutline)
-		frame.artifactpowerinfo:SetText("")
 		frame.artifactpowerinfo:SetAllPoints(frame)
-		frame.artifactpowerinfo:SetTextColor(255, 0, 0)
 	end
-	--local frame = _G["ElvUI_ContainerFrameBag"..bagID.."Slot"..slotID]
 
-	if (frame.artifactpowerinfo) then
-		local slotLink = GetContainerItemLink(bagID,slotID)
+	if E.db.sle.bags.artifactPower.enable then
+		frame.artifactpowerinfo:FontTemplate(E.LSM:Fetch("font", E.db.sle.bags.artifactPower.fonts.font), E.db.sle.bags.artifactPower.fonts.size, E.db.sle.bags.artifactPower.fonts.outline)
+		frame.artifactpowerinfo:SetText("")
+		local r,g,b = E.db.sle.bags.artifactPower.color.r, E.db.sle.bags.artifactPower.color.g, E.db.sle.bags.artifactPower.color.b
+		frame.artifactpowerinfo:SetTextColor(r, g, b)
+
+		if (frame.artifactpowerinfo) then
+			local slotLink = GetContainerItemLink(bagID,slotID)
 
 
-		arcanePower = GetItemLinkArtifactPower(slotLink)
-		frame.artifactpowerinfo:SetText(arcanePower)
+			arcanePower = GetItemLinkArtifactPower(slotLink)
+			frame.artifactpowerinfo:SetText(arcanePower)
+		end
+	elseif not E.db.sle.bags.artifactPower.enable and frame.artifactpowerinfo then
+		frame.artifactpowerinfo:SetText("")
 	end
 end
 
-local bagUpdate = function(self)
+function AP:bagUpdate()
 	for _, container in T.pairs(AP.containers) do
 		for _, bagID in T.ipairs(container.BagIDs) do
 			for slotID = 1, T.GetContainerNumSlots(bagID) do
@@ -84,14 +89,14 @@ local bagUpdate = function(self)
 end
 
 function AP:ToggleSettings()
-	self:RegisterEvent("BAG_UPDATE_DELAYED", bagUpdate)
-	self:RegisterEvent("ARTIFACT_UPDATE", bagUpdate)
-	self:RegisterEvent("BANKFRAME_OPENED", bagUpdate)
-	self:RegisterEvent("PLAYERBANKSLOTS_CHANGED", bagUpdate)
-	self:RegisterEvent("BANKFRAME_CLOSED", bagUpdate)
-	self:RegisterEvent("BAG_UPDATE", bagUpdate)
-	self:RegisterEvent("ITEM_LOCKED", bagUpdate)
-	self:RegisterEvent("ITEM_LOCK_CHANGED", bagUpdate)
+	self:RegisterEvent("BAG_UPDATE_DELAYED", "bagUpdate")
+	self:RegisterEvent("ARTIFACT_UPDATE", "bagUpdate")
+	self:RegisterEvent("BANKFRAME_OPENED", "bagUpdate")
+	self:RegisterEvent("PLAYERBANKSLOTS_CHANGED", "bagUpdate")
+	self:RegisterEvent("BANKFRAME_CLOSED", "bagUpdate")
+	self:RegisterEvent("BAG_UPDATE", "bagUpdate")
+	self:RegisterEvent("ITEM_LOCKED", "bagUpdate")
+	self:RegisterEvent("ITEM_LOCK_CHANGED", "bagUpdate")
 end
 
 function AP:Initialize()

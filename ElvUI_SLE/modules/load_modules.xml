@@ -6,7 +6,6 @@
 	<Script file='auras.lua'/>
 	<Script file='backgrounds.lua'/>
 	<Include file='bags\load_bags.xml'/>
-	<Script file='baginfo.lua'/>
 	<Script file='blizzard.lua'/>
 	<Include file='chat\load_chat.xml'/>
 	<Script file='datatexts.lua'/>
