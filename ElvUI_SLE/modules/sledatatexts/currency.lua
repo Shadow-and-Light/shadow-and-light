@@ -278,6 +278,7 @@ local function Click(self, btn)
 end
 
 local function OnEnter(self)
+	if T.InCombatLockdown() then return end
 	DT:SetupTooltip(self)
 
 	DT.tooltip:AddLine(L["Session:"])
