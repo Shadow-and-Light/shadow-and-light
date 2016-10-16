@@ -38,7 +38,7 @@ hooksecurefunc(NP, 'Update_ThreatList', function(self, myPlate)
 	if myPlate.threatInfo then
 		myPlate.threatInfo:SetText()
 
-		if N.db.showthreat and myPlate.UnitType == "ENEMY_NPC" then
+		if E.db.sle.nameplates.showthreat and myPlate.UnitType == "ENEMY_NPC" then
 			local unit = myPlate.unit
 			if not unit then
 				for i=1, 4 do
