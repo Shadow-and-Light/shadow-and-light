@@ -78,7 +78,7 @@ P["sle"] = {
 		["lootflash"] = true,
 		["artifactPower"] = {
 			["enable"] = false,
-			["color"] = {r = 1, g = 0, b = 0},
+			["color"] = {r = 230, g = 204, b = 128},
 			["short"] = false,
 			["fonts"] = {
 				["font"] = "PT Sans Narrow",
