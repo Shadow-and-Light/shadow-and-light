@@ -137,6 +137,7 @@ SLE.SpecialChatIcons = {
 			--Adapt Roster
 			["Mylune"] = friend,
 			["Loosh"] = goldicon,
+			["Looshana"] = goldicon,
 			["Alooshy"] = goldicon,
 			["Aloosh"] = goldicon
 		},
