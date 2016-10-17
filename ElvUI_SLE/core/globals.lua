@@ -135,7 +135,7 @@ SLE.SpecialChatIcons = {
 			["Repooc"] = repooc,
 			["Cursewordz"] = repooc,
 			--Adapt Roster
-			["Mylune"] = friend,
+			--["Mylune"] = friend,
 			["Loosh"] = goldicon,
 			["Looshana"] = goldicon,
 			["Alooshy"] = goldicon,
