@@ -37,7 +37,7 @@ end
 local function UpdateContainerFrame(frame, bagID, slotID)
 	if (not frame.artifactpowerinfo) and E.db.sle.bags.artifactPower.enable then
 		frame.artifactpowerinfo = frame:CreateFontString(nil, 'OVERLAY')
-		frame.artifactpowerinfo:Point("BOTTOMRIGHT", 0, 2)
+		frame.artifactpowerinfo:Point("BOTTOMLEFT", 2, 2)
 		--frame.artifactpowerinfo:SetAllPoints(frame)
 	end
 
