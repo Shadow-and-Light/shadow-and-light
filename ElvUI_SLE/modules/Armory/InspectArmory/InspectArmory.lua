@@ -1834,7 +1834,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 						end
 						
 						_, _, ItemRarity, _, _, _, _, _, ItemType, ItemTexture = T.GetItemInfo(Slot.Link)
-						TrueItemLevel, _, BasicItemLevel = GetDetailedItemLevelInfo(Slot.Link)
+						TrueItemLevel, _, BasicItemLevel = T.GetDetailedItemLevelInfo(Slot.Link)
 						R, G, B = T.GetItemQualityColor(ItemRarity)
 						
 						ItemUpgradeID = Slot.Link:match(":(%d+)\124h%[")

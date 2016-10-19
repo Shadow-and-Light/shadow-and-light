@@ -545,6 +545,7 @@ function CA:Update_Gear()
 	for _, SlotName in T.pairs(T.type(self.GearUpdated) == 'table' and self.GearUpdated or Info.Armory_Constants.GearList) do
 		Slot = self[SlotName]
 		ItemLink = T.GetInventoryItemLink('player', Slot.ID)
+		-- if ItemLink then local DaName = GetItemInfo(ItemLink); print(DaName, GetDetailedItemLevelInfo(ItemLink)) end
 		ErrorDetected = nil
 		
 		if not (SlotName == 'ShirtSlot' or SlotName == 'TabardSlot') then
@@ -669,7 +670,7 @@ function CA:Update_Gear()
 					end
 					
 					_, _, ItemRarity, _, _, _, _, _, ItemType, ItemTexture = T.GetItemInfo(ItemLink)
-					TrueItemLevel, _, BasicItemLevel = GetDetailedItemLevelInfo(ItemLink)
+					TrueItemLevel, _, BasicItemLevel = T.GetDetailedItemLevelInfo(ItemLink)
 					R, G, B = T.GetItemQualityColor(ItemRarity)
 
 					--<< Enchant Parts >>--

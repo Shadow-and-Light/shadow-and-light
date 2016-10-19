@@ -68,6 +68,7 @@ T.GetInventorySlotInfo = GetInventorySlotInfo
 T.GetInventoryItemDurability = GetInventoryItemDurability
 T.GetInventoryItemQuality = GetInventoryItemQuality
 T.GetItemInfo = GetItemInfo
+T.GetDetailedItemLevelInfo = GetDetailedItemLevelInfo
 T.GetBuybackItemLink = GetBuybackItemLink
 T.GetItemIcon = GetItemIcon
 T.GetItemCooldown = GetItemCooldown
