@@ -73,7 +73,7 @@ P["sle"] = {
 			["visibility"] = "show",
 		},
 	},
-		--Bags
+	--Bags
 	["bags"] = {
 		["lootflash"] = true,
 		["artifactPower"] = {
