@@ -429,7 +429,6 @@ function S:Initialize()
 			end
 			self.AFKMode.chat:RegisterEvent("CHAT_MSG_WHISPER")
 			self.AFKMode.chat:RegisterEvent("CHAT_MSG_BN_WHISPER")
-			self.AFKMode.chat:RegisterEvent("CHAT_MSG_BN_CONVERSATION")
 			self.AFKMode.chat:RegisterEvent("CHAT_MSG_GUILD")
 
 			self.isAFK = true

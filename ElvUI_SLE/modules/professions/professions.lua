@@ -51,7 +51,6 @@ function Pr:Initialize()
 
 	if E.private.sle.professions.enchant.enchScroll then Pr:EnchantButton() end
 
-	self:RegisterEvent("TRADE_SKILL_UPDATE", "UpdateSkills")
 	self:RegisterEvent("CHAT_MSG_SKILL", "UpdateSkills")
 
 	if E.private.sle.professions.deconButton.enable then Pr:InitializeDeconstruct() end
