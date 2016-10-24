@@ -5,8 +5,6 @@ local KF, Info, Timer = unpack(ElvUI_KnightFrame)
 local gsub = gsub
 
 Info.Armory_Constants = {
-	ItemLevelKey = ITEM_LEVEL:gsub('%%d', '(.+)'),
-	ItemLevelKey_Alt = ITEM_LEVEL_ALT:gsub('%%d', '.+'):gsub('%(.+%)', '%%((.+)%%)'),
 	EnchantKey = ENCHANTED_TOOLTIP_LINE:gsub('%%s', '(.+)'),
 	ItemSetBonusKey = ITEM_SET_BONUS:gsub('%%s', '(.+)'),
 	--TransmogrifiedKey = TRANSMOGRIFIED:gsub('%%s', '(.+)'),

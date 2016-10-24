@@ -545,6 +545,7 @@ function CA:Update_Gear()
 	for _, SlotName in T.pairs(T.type(self.GearUpdated) == 'table' and self.GearUpdated or Info.Armory_Constants.GearList) do
 		Slot = self[SlotName]
 		ItemLink = T.GetInventoryItemLink('player', Slot.ID)
+		-- if ItemLink then local DaName = GetItemInfo(ItemLink); print(DaName, GetDetailedItemLevelInfo(ItemLink)) end
 		ErrorDetected = nil
 		
 		if not (SlotName == 'ShirtSlot' or SlotName == 'TabardSlot') then
@@ -668,17 +669,14 @@ function CA:Update_Gear()
 						end
 					end
 					
-					_, _, ItemRarity, BasicItemLevel, _, _, _, _, ItemType, ItemTexture = T.GetItemInfo(ItemLink)
+					_, _, ItemRarity, _, _, _, _, _, ItemType, ItemTexture = T.GetItemInfo(ItemLink)
+					TrueItemLevel, _, BasicItemLevel = T.GetDetailedItemLevelInfo(ItemLink)
 					R, G, B = T.GetItemQualityColor(ItemRarity)
 
 					--<< Enchant Parts >>--
 					for i = 1, self.ScanTT:NumLines() do
 						CurrentLineText = _G["Knight_CharacterArmory_ScanTTTextLeft"..i]:GetText()
-						if CurrentLineText:find(Info.Armory_Constants.ItemLevelKey_Alt) then
-								TrueItemLevel = T.tonumber(CurrentLineText:match(Info.Armory_Constants.ItemLevelKey_Alt))
-						elseif CurrentLineText:find(Info.Armory_Constants.ItemLevelKey) then
-							TrueItemLevel = T.tonumber(CurrentLineText:match(Info.Armory_Constants.ItemLevelKey))
-						elseif CurrentLineText:find(Info.Armory_Constants.EnchantKey) then
+						if CurrentLineText:find(Info.Armory_Constants.EnchantKey) then
 							if E.db.sle.Armory.Character.Enchant.Display ~= 'Hide' then
 								CurrentLineText = CurrentLineText:match(Info.Armory_Constants.EnchantKey) -- Get enchant string
 								CurrentLineText = T.gsub(CurrentLineText, ITEM_MOD_AGILITY_SHORT, AGI)
