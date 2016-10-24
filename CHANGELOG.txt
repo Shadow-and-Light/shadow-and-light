@@ -1,6 +1,8 @@
 v3.15
 Currently we have a lot of stuff IRL to attend to so new releases will be very slow. If you don't want to wait, you can always try alpha version. Link in the description.
 
+This version requires patch 7.1 and ElvUI v10.25 to function. Be sure to not update to early.
+
 Additions:
 - Added missed quest item to dienchantable list for deconstruction mode.
 - Telemancy beacon is added to relocation list.
