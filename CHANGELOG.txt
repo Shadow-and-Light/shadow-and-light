@@ -22,6 +22,7 @@ Changes:
 Misc:
 - The message about inability to swap equip set should now be shown only once per combat.
 
+
 v3.14 09/12/2016
 Additions:
 - Added an option to disable QuestGuru skin. Skin is now disabled by default.
