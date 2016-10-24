@@ -86,7 +86,7 @@ function SB:HookSlot(slot, bagID, slotID)
 
 	slot.flashTex = slot:CreateTexture('flashTex', 'OVERLAY', 1);
 	slot.flashTex:SetBlendMode("ADD");
-	slot.flashTex:SetTexture(.7, .7, .7);
+	slot.flashTex:SetColorTexture(.7, .7, .7);
 	slot.flashTex:SetInside();
 	slot.flashTex:SetAlpha(0);
 

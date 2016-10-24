@@ -1018,7 +1018,7 @@ function IA:CreateInspectFrame()
 			
 			for i = 1, 3 do
 				self.Info.PvP["Bar"..i] = self.Info.PvP.Page:CreateTexture(nil, 'OVERLAY')
-				self.Info.PvP["Bar"..i]:SetTexture(0, 0, 0)
+				self.Info.PvP["Bar"..i]:SetColorTexture(0, 0, 0)
 				self.Info.PvP["Bar"..i]:Width(2)
 			end
 			self.Info.PvP.Bar1:Point('TOP', self.Info.PvP.PageLeft, 0, -SPACING * 2)
@@ -1121,7 +1121,7 @@ function IA:CreateInspectFrame()
 		self.Spec.BG:Point('LEFT', self.WristSlot, 'TOPRIGHT', SPACING, 0)
 		self.Spec.BG:Point('RIGHT', self.Trinket1Slot, 'BOTTOMLEFT', -SPACING, 0)
 		self.Spec.BG:Point('BOTTOM', self.BP, 'TOP', 0, SPACING)
-		self.Spec.BG:SetTexture(0, 0, 0, .7)
+		self.Spec.BG:SetColorTexture(0, 0, 0, .7)
 		
 		self.Spec:Point('TOPLEFT', self.Spec.BG, 4, -4)
 		self.Spec:Point('BOTTOMRIGHT', self.Spec.BG, -4, 7)
