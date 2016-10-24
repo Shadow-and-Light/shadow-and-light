@@ -3,10 +3,10 @@ local DT = E:GetModule('DataTexts')
 local GAME_VERSION_LABEL = GAME_VERSION_LABEL
 local displayString = '';
 local lastPanel;
-local self = lastPanel
 
 local function OnEvent(self, event, ...)
 	self.text:SetFormattedText(displayString, 'ElvUI v', E.version, SLE.version);
+	lastPanel = self
 end
 
 local function Click()

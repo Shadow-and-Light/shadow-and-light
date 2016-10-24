@@ -45,6 +45,7 @@ local levelColors = {
 local function OnEvent(self)
 	self.avgItemLevel, self.avgEquipItemLevel = T.GetAverageItemLevel()
 	self.text:SetFormattedText(displayString, ITEM_LEVEL_ABBR, T.floor(self.avgEquipItemLevel), T.floor(self.avgItemLevel))
+	lastPanel = self
 end
 
 local function ClearTooltip(Tooltip)
