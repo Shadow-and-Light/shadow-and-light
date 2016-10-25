@@ -1,6 +1,0 @@
-huh test
-
-Following settings will be lost:
-UIButtons mover position
-custom roll numbers
-quick actions for dropdown mode
