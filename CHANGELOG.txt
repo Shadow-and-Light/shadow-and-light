@@ -1,18 +1,19 @@
-v3.15
+v3.15 10/25/2016
+
 Currently we have a lot of stuff IRL to attend to so new releases will be very slow. If you don't want to wait, you can always try alpha version. Link in the description.
 
 This version requires patch 7.1 and ElvUI v10.25 to function. Be sure to not update to early.
 
 Additions:
-- Added missed quest item to dienchantable list for deconstruction mode.
+- Added missed quest item to disenchantable list for deconstruction mode.
 - Telemancy beacon is added to relocation list.
 - Added an option to ignore zone changes when checking for equipped set for your spec. Now it will do it only on spec switch.
 - Added option to show power gain on artifact power items in bags.
 Fixes:
 - Fixed "script ran too long" error in chat's links parsing. Now no action will be executed for them in combat.
 - Fixed currency not showing up in currency DT when moved out of unused section.
-- Attempts at fixing various random nil errros in dropdowns.
-- Fixed combat icon disapearing after latest ElvUI changes.
+- Attempts at fixing various random nil errors in dropdowns.
+- Fixed combat icon disappearing after latest ElvUI changes.
 - Fixed chat frame position being moved on load with some option/position combinations.
 - Fixed QuestGuru skin.
 Changes:
@@ -21,7 +22,6 @@ Changes:
 - Raid progress in tooltip updated for Legion raids.
 Misc:
 - The message about inability to swap equip set should now be shown only once per combat.
-
 
 v3.14 09/12/2016
 Additions:
