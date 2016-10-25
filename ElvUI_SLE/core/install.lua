@@ -593,15 +593,15 @@ function PI:DarthSetup()
 	end
 
 	if T.IsAddOnLoaded("AddOnSkins") then
-		E.private["addonskins"]["EmbedOoC"] = true
-		E.private["addonskins"]["EmbedOoCDelay"] = 5
-		E.private["addonskins"]["Blizzard_AbilityButton"] = true
-		E.private["addonskins"]["EmbedSystemDual"] = true
-		E.private["addonskins"]["LoginMsg"] = false
-		E.private["addonskins"]["Blizzard_ExtraActionButton"] = true
-		E.private["addonskins"]["DBMFont"] = "PT Sans Narrow"
-		E.private["addonskins"]["DBMSkinHalf"] = true
-		
+		local AS = unpack(AddOnSkins) or nil
+		AS.db["EmbedOoC"] = true
+		AS.db["EmbedOoCDelay"] = 5
+		AS.db["Blizzard_AbilityButton"] = true
+		AS.db["EmbedSystemDual"] = true
+		AS.db["LoginMsg"] = false
+		AS.db["Blizzard_ExtraActionButton"] = true
+		AS.db["DBMFont"] = "PT Sans Narrow"
+		AS.db["DBMSkinHalf"] = true
 	end
 
 	E.private["general"]["normTex"] = "Ohi MetalSheet"
@@ -1427,11 +1427,12 @@ local function AffinitySetup()
 	E.private["theme"] = "default"
 
 	if AddOnSkins then
-		E.private["addonskins"]["Blizzard_WorldStateCaptureBar"] = true
-		E.private["addonskins"]["EmbedSystem"] = false
-		E.private["addonskins"]["EmbedSystemDual"] = true
-		E.private["addonskins"]['EmbedLeft'] = 'Skada'
-		E.private["addonskins"]['EmbedRight'] = 'Skada'
+		local AS = unpack(AddOnSkins) or nil
+		AS.db["Blizzard_WorldStateCaptureBar"] = true
+		AS.db["EmbedSystem"] = false
+		AS.db["EmbedSystemDual"] = true
+		AS.db['EmbedLeft'] = 'Skada'
+		AS.db['EmbedRight'] = 'Skada'
 	end
 
 	E.db.layoutSet = layout
