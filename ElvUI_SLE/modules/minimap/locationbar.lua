@@ -39,6 +39,7 @@ LP.ReactionColors = {
 
 LP.MainMenu = {}
 LP.SecondaryMenu = {}
+LP.RestrictedArea = false
 
 local function GetDirection()
 	local x, y = _G["SLE_LocationPanel"]:GetCenter()
@@ -184,8 +185,8 @@ LP.Spells = {
 
 local function CreateCoords()
 	local x, y = T.GetPlayerMapPosition("player")
-	x = T.format(LP.db.format, x * 100)
-	y = T.format(LP.db.format, y * 100)
+	if x then x = T.format(LP.db.format, x * 100) else x = "0" end
+	if y then y = T.format(LP.db.format, y * 100) else y = "0" end
 	
 	return x, y
 end
@@ -257,11 +258,16 @@ function LP:UpdateCoords(elapsed)
 	LP.elapsed = LP.elapsed + elapsed
 	if LP.elapsed < LP.db.throttle then return end
 	--Coords
-	local x, y = CreateCoords()
-	if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
-	if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
-	loc_panel.Xcoord.Text:SetText(x)
-	loc_panel.Ycoord.Text:SetText(y)
+	if not LP.RestrictedArea then
+		local x, y = CreateCoords()
+		if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
+		if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
+		loc_panel.Xcoord.Text:SetText(x)
+		loc_panel.Ycoord.Text:SetText(y)
+	else
+		loc_panel.Xcoord.Text:SetText("-")
+		loc_panel.Ycoord.Text:SetText("-")
+	end
 	--Coords coloring
 	local colorC = {r = 1, g = 1, b = 1}
 	if LP.db.colorType_Coords == "REACTION" then
@@ -482,6 +488,11 @@ function LP:PLAYER_REGEN_ENABLED()
 	if LP.db.enable then loc_panel:Show() end
 end
 
+function LP:PLAYER_ENTERING_WORLD()
+	local x, y = T.GetPlayerMapPosition("player")
+	if x then LP.RestrictedArea = false else LP.RestrictedArea = true end
+end
+
 function LP:Initialize()
 	LP.db = E.db.sle.minimap.locPanel
 	if not SLE.initialized then return end
@@ -503,6 +514,7 @@ function LP:Initialize()
 
 	LP:RegisterEvent("PLAYER_REGEN_DISABLED")
  	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
+ 	LP:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 SLE:RegisterModule(LP:GetName())
