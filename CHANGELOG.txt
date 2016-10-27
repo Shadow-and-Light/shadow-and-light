@@ -1,3 +1,7 @@
+v3.16 10/XX/2016
+Fixes:
+- Fixed lua errors when entering instances where player location data isn't available
+
 v3.15 10/25/2016
 
 Currently we have a lot of stuff IRL to attend to so new releases will be very slow. If you don't want to wait, you can always try alpha version. Link in the description.
