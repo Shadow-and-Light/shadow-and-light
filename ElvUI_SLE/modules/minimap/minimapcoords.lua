@@ -6,8 +6,6 @@ local _G = _G
 local cluster = _G["MinimapCluster"]
 local UIFrameFadeIn = UIFrameFadeIn
 
-MM.RestrictedArea = false
-
 local function HideMinimap()
 	cluster:Hide()
 end
@@ -20,8 +18,8 @@ end
 
 local function CreateCoords()
 	local x, y = T.GetPlayerMapPosition("player")
-	if x then x = T.format(E.db.sle.minimap.coords.format, x * 100) else x = "0" end
-	if y then y = T.format(E.db.sle.minimap.coords.format, y * 100) else y = "0" end
+	x = T.format(E.db.sle.minimap.coords.format, x * 100)
+	y = T.format(E.db.sle.minimap.coords.format, y * 100)
 	
 	return x, y
 end
@@ -29,14 +27,11 @@ end
 function MM:UpdateCoords(elapsed)
 	MM.coordspanel.elapsed = (MM.coordspanel.elapsed or 0) + elapsed
 	if MM.coordspanel.elapsed < E.db.sle.minimap.coords.throttle then return end
-	if not MM.RestrictedArea then
-		local x, y = CreateCoords()
-		if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
-		if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
-		MM.coordspanel.Text:SetText(x.." , "..y)
-	else 
-		MM.coordspanel.Text:SetText("-")
-	end
+
+	local x, y = CreateCoords()
+	if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
+	if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
+	MM.coordspanel.Text:SetText(x.." , "..y)
 	MM:CoordsSize()
 	MM.coordspanel.elapsed = 0
 end
@@ -92,15 +87,6 @@ function MM:CreateCoordsFrame()
 	MM:UpdateCoordinatesPosition()
 end
 
-function MM:PLAYER_ENTERING_WORLD()
-	local x = T.GetPlayerMapPosition("player")
-	if not x then
-		MM.RestrictedArea = true
-	else
-		MM.RestrictedArea = false
-	end
-end
-
 function MM:UpdateSettings()
 	if E.db.sle.minimap.alpha then E.db.sle.minimap.alpha = nil end
 	if not MM.coordspanel then
@@ -124,7 +110,6 @@ end
 function MM:Initialize()
 	if not SLE.initialized or not E.private.general.minimap.enable then return end
 
-	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	hooksecurefunc(M, 'UpdateSettings', MM.UpdateSettings)
 
 	MM:UpdateSettings()
