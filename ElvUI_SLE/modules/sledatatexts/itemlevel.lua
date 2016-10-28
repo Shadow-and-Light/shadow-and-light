@@ -9,12 +9,6 @@ local TOTAL = TOTAL
 local GetEquippedArtifactRelicInfo = C_ArtifactUI.GetEquippedArtifactRelicInfo
 local GetItemLevelIncreaseProvidedByRelic = C_ArtifactUI.GetItemLevelIncreaseProvidedByRelic
 
-local Scan = CreateFrame('GameTooltip', 'SLE_IlvlDT_ScanTT', nil, 'GameTooltipTemplate')
-Scan:SetOwner(UIParent, 'ANCHOR_NONE')
-local CurrentLineText
-local ItemLevelKey = ITEM_LEVEL:gsub('%%d', '(.+)')
-local ItemLevelKey_Alt = ITEM_LEVEL_ALT:gsub('%%d', '.+'):gsub('%(.+%)', '%%((.+)%%)')
-
 local slots = {
 	[1] = { "HeadSlot", HEADSLOT, 1},
 	[2] = { "NeckSlot", NECKSLOT, 2},
@@ -48,44 +42,39 @@ local function OnEvent(self)
 	lastPanel = self
 end
 
-local function ClearTooltip(Tooltip)
-	local TooltipName = Tooltip:GetName()
-
-	Tooltip:ClearLines()
-	for i = 1, 10 do
-		_G[TooltipName..'Texture'..i]:SetTexture(nil)
-		_G[TooltipName..'Texture'..i]:ClearAllPoints()
-		_G[TooltipName..'Texture'..i]:Point('TOPLEFT', Tooltip)
-	end
-end
-
-local function GetItemLevel()
-	local itemLevel
-	for i = 1, Scan:NumLines() do
-		CurrentLineText = _G["SLE_IlvlDT_ScanTTTextLeft"..i]:GetText()
-		if CurrentLineText:find(ItemLevelKey_Alt) then
-			itemLevel = T.tonumber(CurrentLineText:match(ItemLevelKey_Alt))
-		elseif CurrentLineText:find(ItemLevelKey) then
-			itemLevel = T.tonumber(CurrentLineText:match(ItemLevelKey))
-		end
-	end
-	return itemLevel
-end
-
+local ArtifactsIlvl = {}
 local function OnEnter(self)
 	T.twipe(tooltipOrder)
+	T.twipe(ArtifactsIlvl)
 	local avgItemLevel, avgEquipItemLevel = self.avgItemLevel, self.avgEquipItemLevel
 	DT:SetupTooltip(self)
 	DT.tooltip:AddDoubleLine(TOTAL, T.floor(avgItemLevel), 1, 1, 1, 0, 1, 0)
 	DT.tooltip:AddDoubleLine(GMSURVEYRATING3, T.floor(avgEquipItemLevel), 1, 1, 1, 0, 1, 0)
 	DT.tooltip:AddLine(" ")
 	for i in T.pairs(slots) do
-		ClearTooltip(Scan)
-		Scan:SetInventoryItem('player', i)
-		local itemLevel = GetItemLevel()
-		if itemLevel and avgEquipItemLevel then
+		local ItemLink = T.GetInventoryItemLink('player', i)
+		if ItemLink then
+			local ItemRarity = T.select(3, T.GetItemInfo(ItemLink))
+			local isArtifact = (ItemRarity == 6)
+			local itemLevel = T.GetDetailedItemLevelInfo(ItemLink)
+			if itemLevel and avgEquipItemLevel and not isArtifact then
+				local color = levelColors[(itemLevel < avgEquipItemLevel - 10 and 0 or (itemLevel > avgEquipItemLevel + 10 and 1 or (2)))]
+				tooltipOrder[slots[i][3]] = {slots[i][2], itemLevel, 1, 1, 1, color[1], color[2], color[3]}
+			elseif itemLevel and avgEquipItemLevel and isArtifact then
+				ArtifactsIlvl[slots[i][3]] = {slots[i][3], slots[i][2], itemLevel}
+			end
+		end
+	end
+	if ArtifactsIlvl[15] then
+		if ArtifactsIlvl[15][3] > ArtifactsIlvl[16][3] then
+			ArtifactsIlvl[16][3] = ArtifactsIlvl[15][3]
+		elseif ArtifactsIlvl[15][3] < ArtifactsIlvl[16][3] then
+			ArtifactsIlvl[15][3] = ArtifactsIlvl[16][3]
+		end
+		for slot,data in T.pairs(ArtifactsIlvl) do
+			local itemLevel = data[3]
 			local color = levelColors[(itemLevel < avgEquipItemLevel - 10 and 0 or (itemLevel > avgEquipItemLevel + 10 and 1 or (2)))]
-			tooltipOrder[slots[i][3]] = {slots[i][2], itemLevel, 1, 1, 1, color[1], color[2], color[3]}
+			tooltipOrder[data[1]] = {data[2], data[3], 1, 1, 1, color[1], color[2], color[3]}
 		end
 	end
 	for i in T.pairs(tooltipOrder) do
