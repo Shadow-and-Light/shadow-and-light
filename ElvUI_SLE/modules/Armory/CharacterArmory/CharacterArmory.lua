@@ -663,17 +663,20 @@ function CA:Setup_CharacterArmory()
 		
 		self.ArtifactMonitor.AddPower.Button = CreateFrame('Button', nil, self.ArtifactMonitor.AddPower)
 		self.ArtifactMonitor.AddPower.Button:SetInside()
+		self.ArtifactMonitor.AddPower.Button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 		self.ArtifactMonitor.AddPower.Button:SetFrameLevel(CharacterFrame_Level + 6)
 		self.ArtifactMonitor.AddPower.Button:SetScript('OnEnter', self.OnEnter)
 		self.ArtifactMonitor.AddPower.Button:SetScript('OnLeave', self.OnLeave)
-		self.ArtifactMonitor.AddPower.Button:SetScript('OnClick', function()
-			if E.private.bags.enable then
+		self.ArtifactMonitor.AddPower.Button:SetScript('OnClick', function(self, btn)
+			if E.private.bags.enable and btn == "LeftButton" then
 				OpenAllBags()
 				ElvUI_ContainerFrameEditBox:SetText('POWER')
-				self.ArtifactMonitor.NowSearchingPowerItem = true
+				if self.ArtifactMonitor then self.ArtifactMonitor.NowSearchingPowerItem = true end
+			elseif btn == "RightButton" then
+				ShowUIPanel(SocketInventoryItem(16))
 			end
 		end)
-		
+
 		self.ArtifactMonitor.ScanTT = CreateFrame('GameTooltip', 'Knight_CharacterArmory_ArtifactScanTT', nil, 'GameTooltipTemplate')
 		self.ArtifactMonitor.ScanTT:SetOwner(UIParent, 'ANCHOR_NONE')
 		
@@ -1332,7 +1335,6 @@ do --<< Artifact Monitor >>
 			
 			if LowestPower then
 				self.ArtifactMonitor.AddPower.Texture:Show()
-				self.ArtifactMonitor.AddPower.Button:Show()
 				self.ArtifactMonitor.AddPower.Button.Link = LowestPower_Link
 				
 				if LowestPower > 0 then
@@ -1342,7 +1344,6 @@ do --<< Artifact Monitor >>
 				end
 			else
 				self.ArtifactMonitor.AddPower.Texture:Hide()
-				self.ArtifactMonitor.AddPower.Button:Hide()
 				self.ArtifactMonitor.AddPower.Button.Link = nil
 				
 				self.ArtifactMonitor.BarExpected.AvailablePower:SetText()
