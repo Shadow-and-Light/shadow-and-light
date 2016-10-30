@@ -577,7 +577,7 @@ function CA:Setup_CharacterArmory()
 				insets = { left = 0, right = 0, top = 0, bottom = 0}
 			})
 			self.ArtifactMonitor['Socket'..i].Socket:SetInside()
-			self.ArtifactMonitor['Socket'..i].Socket:SetFrameLevel(CharacterFrame_Level + 4)
+			self.ArtifactMonitor['Socket'..i].Socket:SetFrameLevel(CharacterFrame_Level + 5)
 			self.ArtifactMonitor['Socket'..i].Socket:RegisterForClicks('AnyUp', 'RightButtonDown')
 			self.ArtifactMonitor['Socket'..i].Socket:SetScript('OnEnter', self.OnEnter)
 			self.ArtifactMonitor['Socket'..i].Socket:SetScript('OnLeave', self.OnLeave)
