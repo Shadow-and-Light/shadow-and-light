@@ -1,6 +1,13 @@
 v3.16 10/XX/2016
+Additions:
+- Added Artifact Power Tracking for weapon on character screen
+
 Fixes:
 - Fixed lua errors when entering instances where player location data isn't available
+
+Changes:
+- Removed the ability to remotely inspect other S&L users until kinks are worked out
+- Updated inspect frame a bit to be 7.0 compatible (Still Not Tested Fully)
 
 v3.15 10/25/2016
 
