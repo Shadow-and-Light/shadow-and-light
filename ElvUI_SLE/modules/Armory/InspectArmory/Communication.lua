@@ -2,7 +2,7 @@
 --<< AISM : Armory Support Module for AddOn Communication Inspecting		>>--
 --------------------------------------------------------------------------------
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local Revision = 1.2
+local Revision = 1.3
 local _G = _G
 local AISM = _G["Armory_InspectSupportModule"] or CreateFrame('Frame', 'Armory_InspectSupportModule', UIParent)
 local gsub = gsub
@@ -33,21 +33,22 @@ if not AISM.Revision or AISM.Revision < Revision then
 	local ProfessionUnlearnKey = ERR_SPELL_UNLEARNED_S:gsub('%%s', '(.+)')
 	local GuildLeaveKey = ERR_GUILD_LEAVE_S:gsub('%%s', '(.+)')
 	local PlayerOfflineKey = ERR_CHAT_PLAYER_NOT_FOUND_S:gsub('%%s', '(.+)')
-
+	
 	local playerName = UnitName('player')
 	local playerRealm = gsub(GetRealmName(),'[%s%-]','')
 	local _, playerClass, playerClassID = UnitClass('player')
 	local playerRace, playerRaceID = UnitRace('player')
 	local playerSex = UnitSex('player')
 	local playerNumSpecGroup = GetNumSpecGroups()
-
+	local isHelmDisplayed, isCloakDisplayed
+	
 	
 	--<< Create Core >>--
 	AISM.Revision = Revision
 	
-	AISM.Tooltip = _G["AISM_Tooltip"] or AISM.Tooltip or CreateFrame('GameTooltip', 'AISM_Tooltip', nil, 'GameTooltipTemplate')
+	AISM.Tooltip = _G['AISM_Tooltip'] or AISM.Tooltip or CreateFrame('GameTooltip', 'AISM_Tooltip', nil, 'GameTooltipTemplate')
 	AISM.Tooltip:SetOwner(UIParent, 'ANCHOR_NONE')
-	AISM.Updater = _G["AISM_Updater"] or AISM.Updater or CreateFrame('Frame', 'AISM_Updater', UIParent)
+	AISM.Updater = _G['AISM_Updater'] or AISM.Updater or CreateFrame('Frame', 'AISM_Updater', UIParent)
 	AISM.Updater.elapsed = 0
 	
 	AISM.Delay = 2
@@ -127,7 +128,8 @@ if not AISM.Revision or AISM.Revision < Revision then
 		Profession2 = false
 	}
 	for groupNum = 1, MAX_TALENT_GROUPS do
-		AISM.DataTypeTable["SP"..groupNum] = 'Specialization'
+		--AISM.DataTypeTable['GL'..groupNum] = 'Glyph'
+		AISM.DataTypeTable['SP'..groupNum] = 'Specialization'
 	end
 	for slotName, keyName in T.pairs(AISM.GearList) do
 		AISM.DataTypeTable[keyName] = 'Gear'
@@ -153,6 +155,10 @@ if not AISM.Revision or AISM.Revision < Revision then
 			if not self.SpecUpdated then
 				needUpdate = AISM:GetPlayerSpecSetting() or needUpdate
 			end
+			
+			-- if not self.GlyphUpdated then
+			-- 	needUpdate = AISM:GetPlayerGlyphString() or needUpdate
+			-- end
 			
 			if self.GearUpdated ~= true then
 				needUpdate = AISM:GetPlayerGearString() or needUpdate
@@ -204,6 +210,9 @@ if not AISM.Revision or AISM.Revision < Revision then
 		elseif Event == 'ACTIVE_TALENT_GROUP_CHANGED' or Event == 'PLAYER_SPECIALIZATION_CHANGED' then
 			self.SpecUpdated = nil
 			self:Show()
+		--elseif Event == 'GLYPH_ADDED' or Event == 'GLYPH_REMOVED' or Event == 'GLYPH_UPDATED' then
+			--self.GlyphUpdated = nil
+			--self:Show()
 		elseif Event == 'PLAYER_TALENT_UPDATE' then
 			local args = GetNumSpecGroups()
 			
@@ -222,6 +231,21 @@ if not AISM.Revision or AISM.Revision < Revision then
 	if playerNumSpecGroup ~= MAX_TALENT_GROUPS then
 		AISM.Updater:RegisterEvent('PLAYER_TALENT_UPDATE')
 	end
+	
+	function AISM:UpdateHelmDisplaying(value)
+		isHelmDisplayed = value
+		AISM.Updater.GearUpdated = nil
+		AISM.Updater:Show()
+	end
+	--hooksecurefunc('ShowHelm', function(value) AISM:UpdateHelmDisplaying(value) end)
+	
+	function AISM:UpdateCloakDisplaying(value)
+		isCloakDisplayed = value
+		AISM.Updater.GearUpdated = nil
+		AISM.Updater:Show()
+	end
+	--hooksecurefunc('ShowCloak', function(value) AISM:UpdateCloakDisplaying(value) end)
+	
 	
 	--<< Profession String >>--
 	function AISM:GetPlayerProfessionSetting()
@@ -301,34 +325,33 @@ if not AISM.Revision or AISM.Revision < Revision then
 			Spec = T.GetSpecialization(nil, nil, Group)
 			Spec = Spec and T.GetSpecializationInfo(Spec) or '0'
 			
-			if not SpecTable["Spec"..Step] or SpecTable["Spec"..Step] ~= Spec then
-				SpecTable["Spec"..Step] = Spec
+			if not SpecTable['Spec'..Step] or SpecTable['Spec'..Step] ~= Spec then
+				SpecTable['Spec'..Step] = Spec
 				DataString = Spec
 			end
 			
 			for i = 1, MAX_TALENT_TIERS do
 				for k = 1, NUM_TALENT_COLUMNS do
 					Talent, _, _, isSelected = T.GetTalentInfo(i, k, Group)
-					if Talent then
+					
 					Talent = ((i - 1) * NUM_TALENT_COLUMNS + k)..'_'..Talent..(isSelected == true and '_1' or '')
-
-						Spec = Spec..'/'..Talent
-
-						if not SpecTable["Spec"..Step..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] or SpecTable["Spec"..Step..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] ~= Talent then
-							SpecTable["Spec"..Step..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] = Talent
-							DataString = (DataString and DataString..'/' or '')..Talent
-						end
+					
+					Spec = Spec..'/'..Talent
+					
+					if not SpecTable['Spec'..Step..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] or SpecTable['Spec'..Step..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] ~= Talent then
+						SpecTable['Spec'..Step..'_Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] = Talent
+						DataString = (DataString and DataString..'/' or '')..Talent
 					end
 				end
 			end
 			
-			if not self.PlayerData["Spec"..Step] or self.PlayerData["Spec"..Step] ~= Spec then
-				self.PlayerData["Spec"..Step] = Spec
-				self.PlayerData_ShortString["Spec"..Step] = Spec
-				self.UpdatedData["Spec"..Step] = DataString
+			if not self.PlayerData['Spec'..Step] or self.PlayerData['Spec'..Step] ~= Spec then
+				self.PlayerData['Spec'..Step] = Spec
+				self.PlayerData_ShortString['Spec'..Step] = Spec
+				self.UpdatedData['Spec'..Step] = DataString
 				
 				if Step > 1 then
-					self.UncheckableDataList["Spec"..Step] = Spec
+					self.UncheckableDataList['Spec'..Step] = Spec
 				end
 			end
 		end
@@ -338,12 +361,48 @@ if not AISM.Revision or AISM.Revision < Revision then
 	AISM.Updater:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED')
 	AISM.Updater:RegisterEvent('PLAYER_SPECIALIZATION_CHANGED')
 	
+	
+	--<< Glyph String >>--
+	-- function AISM:GetPlayerGlyphString()
+	-- 	local ShortString, FullString, SpellID, GlyphID
+		
+	-- 	for Step, Group in pairs(GroupArray) do
+	-- 		ShortString, FullString = '', ''
+			
+	-- 		for SlotNum = 1, NUM_GLYPH_SLOTS do
+	-- 			print(SlotNum)
+	-- 			_, _, _, SpellID, _, GlyphID = GetGlyphSocketInfo(SlotNum, Group)
+				
+	-- 			ShortString = ShortString..(SpellID or '0')..(SlotNum ~= NUM_GLYPH_SLOTS and '/' or '')
+	-- 			FullString = FullString..(SpellID or '0')..'_'..(GlyphID or '0')..(SlotNum ~= NUM_GLYPH_SLOTS and '/' or '')
+	-- 		end
+			
+	-- 		if self.PlayerData['Glyph'..Step] ~= FullString then
+	-- 			self.PlayerData['Glyph'..Step] = FullString
+				
+	-- 			if Step > 1 then
+	-- 				self.UncheckableDataList['Glyph'..Step] = FullString
+	-- 			end
+	-- 		end
+			
+	-- 		if Step == 1 and self.PlayerData_ShortString.Glyph1 ~= ShortString then
+	-- 			self.PlayerData_ShortString.Glyph1 = ShortString
+	-- 			self.UpdatedData.Glyph1 = ShortString
+	-- 		end
+	-- 	end
+		
+	-- 	self.Updater.GlyphUpdated = true
+	-- end
+	-- AISM.Updater:RegisterEvent('GLYPH_ADDED')
+	-- AISM.Updater:RegisterEvent('GLYPH_REMOVED')
+	-- AISM.Updater:RegisterEvent('GLYPH_UPDATED')
+	
 	--<< Gear String >>--
 	function AISM:GetPlayerGearString()
 		local ShortString, FullString, needUpdate, needUpdateList
 		local CurrentSetItem, GearSetIDList = {}, {}
 		
-		local slotID, slotLink, isTransmogrified, transmogrifiedItemID, SetName, SetItemCount, SetItemMax, SetOptionCount, colorR, colorG, colorB, checkSpace, tooltipText
+		local slotID, slotLink, isTransmogrified, transmogrifiedItemID, SetName, GeatSetCount, SetItemMax, SetOptionCount, colorR, colorG, colorB, checkSpace, tooltipText
 		for slotName in T.pairs(T.type(self.Updater.GearUpdated) == 'table' and self.Updater.GearUpdated or self.GearList) do
 			needUpdate = nil
 			
@@ -399,7 +458,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 					SetOptionCount = 1
 					
 					for i = 1, self.Tooltip:NumLines() do
-						SetName, SetItemCount, SetItemMax = _G["AISM_TooltipTextLeft"..i]:GetText():match('^(.+) %((%d)/(%d)%)$') -- find string likes 'SetName (0/5)'
+						SetName, SetItemCount, SetItemMax = _G['AISM_TooltipTextLeft'..i]:GetText():match('^(.+) %((%d)/(%d)%)$') -- find string likes 'SetName (0/5)'
 						
 						if SetName then
 							SetItemCount = T.tonumber(SetItemCount)
@@ -419,14 +478,14 @@ if not AISM.Revision or AISM.Revision < Revision then
 								FullString = ''
 								
 								for k = 1, self.Tooltip:NumLines() do
-									tooltipText = _G["AISM_TooltipTextLeft"..(i+k)]:GetText()
+									tooltipText = _G['AISM_TooltipTextLeft'..(i+k)]:GetText()
 									
 									if tooltipText == ' ' then
 										checkSpace = checkSpace - 1
 										
 										if checkSpace == 0 then break end
 									elseif checkSpace == 2 then
-										colorR, colorG, colorB = _G["AISM_TooltipTextLeft"..(i+k)]:GetTextColor()
+										colorR, colorG, colorB = _G['AISM_TooltipTextLeft'..(i+k)]:GetTextColor()
 										
 										if colorR > LIGHTYELLOW_FONT_COLOR.r - .01 and colorR < LIGHTYELLOW_FONT_COLOR.r + .01 and colorG > LIGHTYELLOW_FONT_COLOR.g - .01 and colorG < LIGHTYELLOW_FONT_COLOR.g + .01 and colorB > LIGHTYELLOW_FONT_COLOR.b - .01 and colorB < LIGHTYELLOW_FONT_COLOR.b + .01 then
 											ShortString = ShortString + 1
@@ -444,11 +503,11 @@ if not AISM.Revision or AISM.Revision < Revision then
 									elseif tooltipText:find(ItemSetBonusKey) then
 										tooltipText = tooltipText:match("^%((%d)%)%s.+:%s.+$") or 'T'
 										
-										if CurrentSetItem[SetName]["SetOption"..SetOptionCount] and CurrentSetItem[SetName]["SetOption"..SetOptionCount] ~= tooltipText then
+										if CurrentSetItem[SetName]['SetOption'..SetOptionCount] and CurrentSetItem[SetName]['SetOption'..SetOptionCount] ~= tooltipText then
 											needUpdate = true
 										end
 										
-										CurrentSetItem[SetName]["SetOption"..SetOptionCount] = tooltipText
+										CurrentSetItem[SetName]['SetOption'..SetOptionCount] = tooltipText
 										FullString = FullString..'/'..tooltipText
 										
 										SetOptionCount = SetOptionCount + 1
@@ -565,9 +624,13 @@ if not AISM.Revision or AISM.Revision < Revision then
 		end
 		
 		for groupNum = 1, MAX_TALENT_GROUPS do
-			if InputData["Spec"..groupNum] then
-				Data[#Data + 1] = 'SP'..groupNum..':'..InputData["Spec"..groupNum]
+			if InputData['Spec'..groupNum] then
+				Data[#Data + 1] = 'SP'..groupNum..':'..InputData['Spec'..groupNum]
 			end
+			
+			--if InputData['Glyph'..groupNum] then
+				--Data[#Data + 1] = 'GL'..groupNum..':'..InputData['Glyph'..groupNum]
+			--end
 		end
 		
 		for slotName, keyName in T.pairs(self.GearList) do
@@ -817,12 +880,20 @@ if not AISM.Revision or AISM.Revision < Revision then
 								if not Talent then
 									TableToSave.Specialization[Group].SpecializationID = stringTable[1]
 								else
-									TableToSave.Specialization[Group]["Talent"..Spec] = { Talent, isSelected and true or false }
+									TableToSave.Specialization[Group]['Talent'..Spec] = { Talent, isSelected and true or false }
 								end
 							end
 						elseif self.DataTypeTable[DataType] == 'ActiveSpec' then
 							TableToSave.Specialization = TableToSave.Specialization or {}
 							TableToSave.Specialization.ActiveSpec = T.tonumber(DataString)
+						-- elseif self.DataTypeTable[DataType] == 'Glyph' then
+						-- 	local SpellID, GlyphID
+						-- 	for i = 1, #stringTable do
+						-- 		SpellID, GlyphID = T.split('_', stringTable[i])
+								
+						-- 		TableToSave.Glyph[Group]['Glyph'..i..'SpellID'] = tonumber(SpellID)
+						-- 		TableToSave.Glyph[Group]['Glyph'..i..'ID'] = tonumber(GlyphID)
+						-- 	end
 						elseif self.DataTypeTable[DataType] == 'Gear' then
 							TableToSave.Gear = TableToSave.Gear or {}
 							
@@ -840,7 +911,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 								}
 								
 								for i = 1, MAX_NUM_SOCKETS do
-									TableToSave.Gear[DataType]["Gem"..i] = stringTable[i + 2] ~= 0 and stringTable[i + 2] or nil
+									TableToSave.Gear[DataType]['Gem'..i] = stringTable[i + 2] ~= 0 and stringTable[i + 2] or nil
 								end
 							else
 								TableToSave.Gear[DataType] = {
@@ -848,7 +919,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 								}
 								
 								for i = 1, MAX_NUM_SOCKETS do
-									TableToSave.Gear[DataType]["Gem"..i] = stringTable[i + 1] ~= 0 and stringTable[i + 1] or nil
+									TableToSave.Gear[DataType]['Gem'..i] = stringTable[i + 1] ~= 0 and stringTable[i + 1] or nil
 								end
 							end
 						elseif self.DataTypeTable[DataType] == 'SetItemData' then
@@ -865,7 +936,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 											TableToSave.SetItem[(stringTable[1])][i - 1] = stringTable[i]
 										else
 											for k = 1, #stringTable - i + 1 do
-												TableToSave.SetItem[(stringTable[1])]["SetOption"..k] = stringTable[i + k - 1] == 'T' or stringTable[i + k - 1]
+												TableToSave.SetItem[(stringTable[1])]['SetOption'..k] = stringTable[i + k - 1] == 'T' or stringTable[i + k - 1]
 											end
 											break
 										end
@@ -968,6 +1039,11 @@ if not AISM.Revision or AISM.Revision < Revision then
 			self:GetPlayerCurrentGroupMode()
 			self:Show()
 		elseif Event == 'PLAYER_ENTERING_WORLD' or Event == 'ZONE_CHANGED_NEW_AREA' then	
+			-- if not (isHelmDisplayed and isCloakDisplayed) then
+			-- 	isHelmDisplayed = ShowingHelm()
+			-- 	isCloakDisplayed = ShowingCloak()
+			-- end
+			
 			self:GetCurrentInstanceType()
 			self:Show()
 		end
