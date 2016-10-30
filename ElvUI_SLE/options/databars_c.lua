@@ -238,7 +238,7 @@ local function configTable()
 						name = L["Full value on Honor Bar"],
 						desc = L["Changes the way text is shown on honor bar."],
 						get = function(info) return E.db.sle.databars.honor.longtext end,
-						set = function(info, value) E.db.sle.databars.honor.longtext = value; EDB:UpdateUpdateHonor() end,
+						set = function(info, value) E.db.sle.databars.honor.longtext = value; EDB:UpdateHonor() end,
 					},
 					chatfilters = {
 						order = 3,
