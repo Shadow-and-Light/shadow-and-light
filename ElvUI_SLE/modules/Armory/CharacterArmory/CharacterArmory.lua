@@ -296,8 +296,8 @@ function CA:Setup_CharacterArmory()
 	
 	--<< Background >>--
 	self.BG = self:CreateTexture(nil, 'OVERLAY')
-	self.BG:SetPoint('TOPLEFT', self)
-	self.BG:SetPoint('BOTTOMRIGHT', self)
+	self.BG:SetPoint('TOPLEFT', self, -8, 0)
+	self.BG:SetPoint('BOTTOMRIGHT', self, 8, 0)
 	self:Update_BG()
 	
 	--<< Change Model Frame's frameLevel >>--
