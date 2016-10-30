@@ -1256,7 +1256,11 @@ do --<< Artifact Monitor >>
 			Legion_ArtifactData.RemainXP = Legion_ArtifactData.XPForNextPoint - Legion_ArtifactData.XP
 			
 			self.ArtifactMonitor:Show()
-			self.ArtifactMonitor.TraitRank:SetText(LEVEL..' : '..COLORSTRING_ARTIFACT..Artifact_Rank)
+			if (GetLocale() == "ruRU") then
+				self.ArtifactMonitor.TraitRank:SetText(LEVEL..' : '..COLORSTRING_ARTIFACT..Artifact_Rank)
+			else
+				self.ArtifactMonitor.TraitRank:SetText(RANK..' : '..COLORSTRING_ARTIFACT..Artifact_Rank)
+			end
 			self.ArtifactMonitor.CurrentPower:SetAnimatedValue(Legion_ArtifactData.Power)
 			self.ArtifactMonitor.RequirePower:SetText(BreakUpLargeNumbers(Legion_ArtifactData.XPForNextPoint))
 			
