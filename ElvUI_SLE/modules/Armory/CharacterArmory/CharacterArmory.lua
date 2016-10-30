@@ -1252,7 +1252,7 @@ do --<< Artifact Monitor >>
 			Legion_ArtifactData.AvailablePoint, Legion_ArtifactData.XP, Legion_ArtifactData.XPForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(Artifact_Rank, Artifact_Power)
 			Legion_ArtifactData.RemainXP = Legion_ArtifactData.XPForNextPoint - Legion_ArtifactData.XP
 			
-			self.ArtifactMonitor.TraitRank:SetText(RANK..' : '..COLORSTRING_ARTIFACT..Artifact_Rank)
+			self.ArtifactMonitor.TraitRank:SetText(LEVEL..' : '..COLORSTRING_ARTIFACT..Artifact_Rank)
 			self.ArtifactMonitor.CurrentPower:SetAnimatedValue(Legion_ArtifactData.Power)
 			self.ArtifactMonitor.RequirePower:SetText(BreakUpLargeNumbers(Legion_ArtifactData.XPForNextPoint))
 			
