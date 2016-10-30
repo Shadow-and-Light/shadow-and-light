@@ -688,7 +688,26 @@ function CA:Setup_CharacterArmory()
 	self.Setup_CharacterArmory = nil
 end
 
-function CA:ScanData()
+-- function CA:ScanData()
+	-- self.NeedUpdate = nil
+	
+	-- if not self.DurabilityUpdated then
+		-- self.NeedUpdate = self:Update_Durability() or self.NeedUpdate
+	-- end
+	
+	-- if self.GearUpdated ~= true then
+		-- self.NeedUpdate = self:Update_Gear() or self.NeedUpdate
+	-- end
+	
+	-- if not self.NeedUpdate and self:IsShown() then
+		-- self:SetScript('OnUpdate', nil)
+		-- self:Update_Display(true)
+	-- elseif self.NeedUpdate then
+		-- self:SetScript('OnUpdate', self.ScanData)
+	-- end
+-- end
+
+function CA:ScanData(...)
 	self.NeedUpdate = nil
 	
 	if not self.DurabilityUpdated then
@@ -701,38 +720,19 @@ function CA:ScanData()
 	
 	if not self.NeedUpdate and self:IsShown() then
 		self:SetScript('OnUpdate', nil)
-		self:Update_Display(true)
 	elseif self.NeedUpdate then
 		self:SetScript('OnUpdate', self.ScanData)
 	end
+
+	if DCS_Check then DCS_Check() end
 end
 
--- function CA:ScanData(...)
--- 	self.NeedUpdate = nil
-	
--- 	if not self.DurabilityUpdated then
--- 		self.NeedUpdate = self:Update_Durability() or self.NeedUpdate
--- 	end
-	
--- 	if self.GearUpdated ~= true then
--- 		self.NeedUpdate = self:Update_Gear() or self.NeedUpdate
--- 	end
-	
--- 	if not self.NeedUpdate and self:IsShown() then
--- 		self:SetScript('OnUpdate', nil)
--- 	elseif self.NeedUpdate then
--- 		self:SetScript('OnUpdate', self.ScanData)
--- 	end
-
--- 	if DCS_Check then DCS_Check() end
--- end
-
--- local function DCS_Check()
--- 	if _G["DCS_ExpandCheck"] then
--- 		_G["DCS_ExpandCheck"]:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() + 2)
--- 		DCS_Check = nil
--- 	end
--- end
+local function DCS_Check()
+	if _G["DCS_ExpandCheck"] then
+		_G["DCS_ExpandCheck"]:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() + 2)
+		DCS_Check = nil
+	end
+end
 
 function CA:Update_Durability()
 	local Slot, R, G, B, CurrentDurability, MaxDurability
