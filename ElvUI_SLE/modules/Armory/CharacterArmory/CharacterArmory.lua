@@ -671,7 +671,7 @@ function CA:Setup_CharacterArmory()
 			if E.private.bags.enable and btn == "LeftButton" then
 				OpenAllBags()
 				ElvUI_ContainerFrameEditBox:SetText('POWER')
-				if self.ArtifactMonitor then self.ArtifactMonitor.NowSearchingPowerItem = true end
+				CA.ArtifactMonitor.NowSearchingPowerItem = true
 			elseif btn == "RightButton" then
 				ShowUIPanel(SocketInventoryItem(16))
 			end
