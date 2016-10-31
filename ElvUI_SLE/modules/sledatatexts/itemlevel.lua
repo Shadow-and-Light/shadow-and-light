@@ -66,10 +66,12 @@ local function OnEnter(self)
 		end
 	end
 	if ArtifactsIlvl[15] then
-		if ArtifactsIlvl[15][3] > ArtifactsIlvl[16][3] then
-			ArtifactsIlvl[16][3] = ArtifactsIlvl[15][3]
-		elseif ArtifactsIlvl[15][3] < ArtifactsIlvl[16][3] then
-			ArtifactsIlvl[15][3] = ArtifactsIlvl[16][3]
+		if ArtifactsIlvl[16] then
+			if ArtifactsIlvl[15][3] > ArtifactsIlvl[16][3] then
+				ArtifactsIlvl[16][3] = ArtifactsIlvl[15][3]
+			elseif ArtifactsIlvl[15][3] < ArtifactsIlvl[16][3] then
+				ArtifactsIlvl[15][3] = ArtifactsIlvl[16][3]
+			end
 		end
 		for slot,data in T.pairs(ArtifactsIlvl) do
 			local itemLevel = data[3]
