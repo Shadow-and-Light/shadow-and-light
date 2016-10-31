@@ -168,6 +168,7 @@ L["Color of Average"] = true
 L["Sets the color of avarage item level."] = true
 L["Only Relevant Stats"] = true
 L["Show only those primary stats relevant to your spec."] = true
+L["SLE_ARMORY_POINTS_AVAILABLE"] = "%s Point(s) Available!!"
 
 --AFK
 L["You Are Away From Keyboard for"] = true

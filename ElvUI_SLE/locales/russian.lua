@@ -165,6 +165,7 @@ L["Color of Average"] = "Цвет стреднего"
 L["Sets the color of avarage item level."] = "Устанавливает цвет среднего уровня предметов."
 L["Only Relevant Stats"] = "Только подходящие"
 L["Show only those primary stats relevant to your spec."] = "Отображает только те основные характеристики, что подходят вашей текущей специализации."
+L["SLE_ARMORY_POINTS_AVAILABLE"] = "Очков доступно: %s"
 
 --AFK
 L["You Are Away From Keyboard for"] = "Вы отошли на"

@@ -1247,7 +1247,6 @@ do --<< Artifact Monitor >>
 	
 	function CA:LegionArtifactMonitor_UpdateData()
 		Artifact_ItemID, _, _, _, Artifact_Power, Artifact_Rank = C_ArtifactUI.GetEquippedArtifactInfo()
-		
 		if Artifact_ItemID then
 			Legion_ArtifactData.ItemID = Artifact_ItemID
 			Legion_ArtifactData.Rank = Artifact_Rank
@@ -1265,7 +1264,7 @@ do --<< Artifact Monitor >>
 			self.ArtifactMonitor.RequirePower:SetText(BreakUpLargeNumbers(Legion_ArtifactData.XPForNextPoint))
 			
 			if Legion_ArtifactData.AvailablePoint > 0 then
-				self.ArtifactMonitor.BarExpected.Message:SetText(format(L['%s Points Available!!'], KF:Color_Value(Legion_ArtifactData.AvailablePoint)))
+				self.ArtifactMonitor.BarExpected.Message:SetText(format(L["SLE_ARMORY_POINTS_AVAILABLE"], KF:Color_Value(Legion_ArtifactData.AvailablePoint)))
 			else
 				self.ArtifactMonitor.BarExpected.Message:SetText()
 			end
