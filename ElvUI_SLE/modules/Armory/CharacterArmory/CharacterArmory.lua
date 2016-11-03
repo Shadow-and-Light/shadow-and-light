@@ -486,9 +486,11 @@ function CA:Setup_CharacterArmory()
 	self.ScanTT = CreateFrame('GameTooltip', 'Knight_CharacterArmory_ScanTT', nil, 'GameTooltipTemplate')
 	self.ScanTT:SetOwner(UIParent, 'ANCHOR_NONE')
 
-	if _G["PawnUI_InventoryPawnButton"] then
-		_G["PawnUI_InventoryPawnButton"]:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() + 1)
-	end
+	-- if _G["PawnUI_InventoryPawnButton"] then
+	-- 	_G["PawnUI_InventoryPawnButton"]:ClearAllPoints()
+	-- 	_G["PawnUI_InventoryPawnButton"]:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() + 1)
+	-- 	_G["PawnUI_InventoryPawnButton"]:SetPoint('BOTTOMRIGHT', _G["PaperDollFrame"], 'BOTTOMRIGHT', 0, 0)
+	-- end
 
 	do -- Legion : Artifact Weapon Monitor
 		self.ArtifactMonitor = CreateFrame('Frame', nil, self)
