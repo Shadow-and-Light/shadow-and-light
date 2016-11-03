@@ -15,7 +15,7 @@ function SUF:NewTags()
 		else
 		    local curHealth = UnitHealth(unit)
 			local perHealth = (UnitHealth(unit)/UnitHealthMax(unit))*100
-		    local id = UnitIsDead("player")
+
 		    if curHealth >= 1e9 then
 		        return format("%.2fB", curHealth / 1e9) .. " | " .. format("%.0f", perHealth)
 		    elseif curHealth >= 1e6 then
