@@ -70,7 +70,8 @@ local function configTable()
 						set = function(info, value) E.db.sle.lfr.legion[ info[#info] ] = value; end,
 						args = {
 							nightmare = { order = 1, type = "toggle", name = T.GetMapNameByID(1094) },
-							palace = { order = 2, type = "toggle", name = T.GetMapNameByID(1088) },
+							trial = { order = 2, type = "toggle", name = T.GetMapNameByID(1114) },
+							palace = { order = 3, type = "toggle", name = T.GetMapNameByID(1088) },
 						},
 					},
 				},

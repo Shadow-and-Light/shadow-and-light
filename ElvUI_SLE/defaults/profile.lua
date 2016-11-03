@@ -358,6 +358,7 @@ P["sle"] = {
 		},
 		["legion"] = {
 			["nightmare"] = false,
+			["trial"] = false,
 			["palace"] = false,
 		},
 	},

@@ -16,6 +16,24 @@ local IsShiftKeyDown = IsShiftKeyDown
 local bossName, _, isKilled, isIneligible
 local ExpackColor = "|cff9482c9"
 
+--For 3 boss raid
+local function ThreeKill(id)
+	local killNum = 0
+	for i =1,3 do
+		_, _, isKilled = T.GetLFGDungeonEncounterInfo(id, i);
+		if (isKilled) then killNum = killNum + 1 end
+	end
+
+	LFR:BossCount(killNum, 3)
+end
+
+local function ThreeShift(id)
+	for i =1,3 do --1st part
+		bossName, _, isKilled, isIneligible = T.GetLFGDungeonEncounterInfo(id, i);
+		LFR:BossStatus(bossName, isKilled, isIneligible)
+	end
+end
+
 --For 4 boss raid
 local function FourKill(id)
 	local killNum = 0
@@ -90,6 +108,39 @@ local function SevenShift(id1, id2, id3)
 	end
 	-- 3rd part
 	bossName, _, isKilled, isIneligible = T.GetLFGDungeonEncounterInfo(id3, 7);
+	LFR:BossStatus(bossName, isKilled, isIneligible)
+end
+
+-- For Emarald Nightmare
+-- What the actual fuck, Blizz? What the fuck is this shit? You can't fucking make all your LFR following the same fucking pattern?
+-- Do I need to make an exclusive function or every raid in existance now?
+local function NightmareKill(id1, id2, id3)
+	local killNum = 0
+	for i =1,3 do --1st part
+		_, _, isKilled = T.GetLFGDungeonEncounterInfo(id1, i);
+		if (isKilled) then killNum = killNum + 1 end
+	end
+	for i =1,3 do --2nd part
+		_, _, isKilled = T.GetLFGDungeonEncounterInfo(id2, i);
+		if (isKilled) then killNum = killNum + 1 end
+	end
+	-- 3rd part
+	_, _, isKilled = T.GetLFGDungeonEncounterInfo(id3, 1);
+	if (isKilled) then killNum = killNum + 1 end
+	LFR:BossCount(killNum, 7)
+end
+
+local function NightmareShift(id1, id2, id3)
+	for i =1,3 do --1st part
+		bossName, _, isKilled, isIneligible = T.GetLFGDungeonEncounterInfo(id1, i);
+		LFR:BossStatus(bossName, isKilled, isIneligible)
+	end
+	for i =1,3 do --2nd part
+		bossName, _, isKilled, isIneligible = T.GetLFGDungeonEncounterInfo(id2, i);
+		LFR:BossStatus(bossName, isKilled, isIneligible)
+	end
+	-- 3rd part
+	bossName, _, isKilled, isIneligible = T.GetLFGDungeonEncounterInfo(id3, 1);
 	LFR:BossStatus(bossName, isKilled, isIneligible)
 end
 
@@ -382,9 +433,9 @@ end
 
 local function Nightmare()
 	if IsShiftKeyDown() then
-		SevenShift(1287,1288,1289);
+		NightmareShift(1287,1288,1289);
 	else
-		SevenKill(1287,1288,1289);
+		NightmareKill(1287,1288,1289);
 	end
 end
 
@@ -393,6 +444,14 @@ local function Suramar()
 		TenShift(1290,1291,1292,1293);
 	else
 		TenKill(1290,1291,1292,1293);
+	end
+end
+
+local function Trial()
+	if IsShiftKeyDown() then
+		ThreeShift(1411);
+	else
+		ThreeKill(1411);
 	end
 end
 
@@ -470,6 +529,12 @@ LFR.Legion = {
 		["func"] = Nightmare,
 	},
 	[2] = {
+		["name"] = 'trial',
+		["ilevel"] = 825,
+		["map"] = 1114,
+		["func"] = Trial,
+	},
+	[3] = {
 		["name"] = 'palace',
 		["ilevel"] = 835,
 		["map"] = 1088,
