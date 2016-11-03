@@ -28,6 +28,20 @@ RP.bosses = {
 			10911, 10920, 10924, 10915, 10928, 10932, 10936, 
 		},
 	},
+	{ --Trial of Valor
+		{ --Mythic
+			11410, 11414, 11418,
+		},
+		{ -- Herioc
+			11409, 11413, 11417,
+		},
+		{ -- Normal
+			11408, 11412, 11416,
+		},
+		{ -- LFR
+			11407, 11411, 11415,
+		},
+	},
 	{ -- Nighthold
 		{ --Mythic
 			10943, 10947, 10951, 10955, 10960, 10964, 10968, 10972, 10976, 10980
@@ -46,10 +60,12 @@ RP.bosses = {
 RP.Raids = {
 	["LONG"] = {
 		T.GetMapNameByID(1094),
+		T.GetMapNameByID(1114),
 		T.GetMapNameByID(1088),
 	},
 	["SHORT"] = {
 		L["RAID_EN"],
+		L["RAID_TOV"],
 		L["RAID_NH"],
 	},
 }
@@ -61,10 +77,10 @@ RP.modes = {
 		PLAYER_DIFFICULTY3,
 	},
 	["SHORT"] = {
-		utf8sub (PLAYER_DIFFICULTY6, 1 , 1),
-		utf8sub (PLAYER_DIFFICULTY2, 1 , 1),
-		utf8sub (PLAYER_DIFFICULTY1, 1 , 1),
-		utf8sub (PLAYER_DIFFICULTY3, 1 , 1),
+		utf8sub(PLAYER_DIFFICULTY6, 1 , 1),
+		utf8sub(PLAYER_DIFFICULTY2, 1 , 1),
+		utf8sub(PLAYER_DIFFICULTY1, 1 , 1),
+		utf8sub(PLAYER_DIFFICULTY3, 1 , 1),
 	},
 }
 
