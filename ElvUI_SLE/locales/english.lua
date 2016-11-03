@@ -768,9 +768,12 @@ L["Offset the tooltip on the X-axis."] = true
 L["Tooltip Y-offset"] = true
 L["Offset the tooltip on the Y-axis."] = true
 L["RAID_NH"] = "NH"
+L["RAID_TOV"] = "ToV"
 L["RAID_EN"] = "EN"
 L["Raid Progression"] = true
 L["Show raid experience of character in tooltip (requires holding shift)."] = true
+L["Name Style"] = true
+L["Difficulty Style"] = true
 
 --UI Buttons
 L["S&L UI Buttons"] = true

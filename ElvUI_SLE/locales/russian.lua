@@ -758,9 +758,12 @@ L["Offset the tooltip on the X-axis."] = "Смещает подсказку по
 L["Tooltip Y-offset"] = "Смещение подсказки по Y"
 L["Offset the tooltip on the Y-axis."] = "Смещает подсказку по оси Y относительно выбранной точки крепления."
 L["RAID_NH"] = "ЦН"
+L["RAID_TOV"] = "ИД"
 L["RAID_EN"] = "ИК"
 L["Raid Progression"] = "Рейдовый прогресс"
 L["Show raid experience of character in tooltip (requires holding shift)."] = "Отображает рейдовый опыт данного персонажа (требуется зажатый shift)"
+L["Name Style"] = "Стиль названия"
+L["Difficulty Style"] = "Стиль сложности"
 
 --UI Buttons
 L["S&L UI Buttons"] = "Меню S&L"
