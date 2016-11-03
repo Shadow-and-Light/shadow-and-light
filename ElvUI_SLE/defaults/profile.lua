@@ -695,6 +695,11 @@ P["sle"] = {
 			["enable"] = false,
 			["NameStyle"] = "SHORT",
 			["DifStyle"] = "SHORT",
+			["raids"] = {
+				["nightmare"] = true,
+				["trial"] = true,
+				["nighthold"] = true,
+			},
 		},
 	},
 	--UI Buttons

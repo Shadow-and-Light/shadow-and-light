@@ -27,6 +27,7 @@ RP.bosses = {
 		{ -- LFR
 			10911, 10920, 10924, 10915, 10928, 10932, 10936, 
 		},
+		"nightmare",
 	},
 	{ --Trial of Valor
 		{ --Mythic
@@ -41,6 +42,7 @@ RP.bosses = {
 		{ -- LFR
 			11407, 11411, 11415,
 		},
+		"trial",
 	},
 	{ -- Nighthold
 		{ --Mythic
@@ -55,6 +57,7 @@ RP.bosses = {
 		{ -- LFR
 			10940, 10944, 10948, 10952, 10956, 10961, 10965, 10969, 10973, 10977
 		},
+		"nighthold",
 	},
 }
 RP.Raids = {
@@ -89,26 +92,30 @@ function RP:GetProgression(guid)
 	local statFunc = guid == RP.playerGUID and T.GetStatistic or T.GetComparisonStatistic
 	
 	for raid = 1, #RP.Raids["LONG"] do
-		RP.Cache[guid].header[raid] = {}
-		RP.Cache[guid].info[raid] = {}
-		for level = 1, 4 do
-			RP.highestKill = 0
-			for statInfo = 1, #RP.bosses[raid][level] do
-				kills = T.tonumber((statFunc(RP.bosses[raid][level][statInfo])))
-				if kills and kills > 0 then
-					RP.highestKill = RP.highestKill + 1
+		local option = RP.bosses[raid][5]
+		if E.db.sle.tooltip.RaidProg.raids[option] then
+			RP.Cache[guid].header[raid] = {}
+			RP.Cache[guid].info[raid] = {}
+			for level = 1, 4 do
+				RP.highestKill = 0
+				for statInfo = 1, #RP.bosses[raid][level] do
+					local bossTable = RP.bosses[raid][level][statInfo]
+					kills = T.tonumber((statFunc(bossTable)))
+					if kills and kills > 0 then
+						RP.highestKill = RP.highestKill + 1
+					end
 				end
-			end
-			pos = RP.highestKill
-			if (RP.highestKill > 0) then
-				RP.Cache[guid].header[raid][level] = T.format("%s [%s]:", RP.Raids[E.db.sle.tooltip.RaidProg.NameStyle][raid], RP.modes[E.db.sle.tooltip.RaidProg.DifStyle][level])
-				RP.Cache[guid].info[raid][level] = T.format("%d/%d", RP.highestKill, #RP.bosses[raid][level])
-				if RP.highestKill == #RP.bosses[raid][level] then
-					break
+				pos = RP.highestKill
+				if (RP.highestKill > 0) then
+					RP.Cache[guid].header[raid][level] = T.format("%s [%s]:", RP.Raids[E.db.sle.tooltip.RaidProg.NameStyle][raid], RP.modes[E.db.sle.tooltip.RaidProg.DifStyle][level])
+					RP.Cache[guid].info[raid][level] = T.format("%d/%d", RP.highestKill, #RP.bosses[raid][level])
+					if RP.highestKill == #RP.bosses[raid][level] then
+						break
+					end
 				end
 			end
 		end
-	end		
+	end
 end
 
 function RP:UpdateProgression(guid)
@@ -141,8 +148,11 @@ function RP:SetProgressionInfo(guid, tt)
 		-- add progression tooltip line
 		if RP.highestKill > 0 then tt:AddLine(" ") end
 		for raid = 1, #RP.Raids["LONG"] do
-			for level = 1, 4 do
-				tt:AddDoubleLine(RP.Cache[guid].header[raid][level], RP.Cache[guid].info[raid][level], nil, nil, nil, 1, 1, 1)
+			local option = RP.bosses[raid][5]
+			if E.db.sle.tooltip.RaidProg.raids[option] then
+				for level = 1, 4 do
+					tt:AddDoubleLine(RP.Cache[guid].header[raid][level], RP.Cache[guid].info[raid][level], nil, nil, nil, 1, 1, 1)
+				end
 			end
 		end
 	end
