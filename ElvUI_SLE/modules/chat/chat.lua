@@ -259,6 +259,7 @@ function C:IdentifyChatFrames()
 	end
 end
 
+local firstDump = true
 function C:UpdateChatMax()
 	if SLE._Compatibility["ElvUI_CustomTweaks"] then return end
 	for _, frameName in T.pairs(_G["CHAT_FRAMES"]) do
@@ -267,7 +268,10 @@ function C:UpdateChatMax()
 	end
 	local whisper = E.db.chat.whisperSound
 	E.db.chat.whisperSound = "None"
-	CH:DisplayChatHistory()
+	if not firstDump then 
+		CH:DisplayChatHistory()
+		firstDump = false
+	end
 	E.db.chat.whisperSound = whisper
 end
 hooksecurefunc(CH, "Initialize", C.UpdateChatMax)
