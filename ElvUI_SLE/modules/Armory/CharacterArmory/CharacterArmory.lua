@@ -891,8 +891,10 @@ function CA:Update_Gear()
 									if GemTexture then
 										GemCount = GemCount + 1
 									else
-										self.ArtifactMonitor['Socket'..i].Socket.Message = format(RELIC_TOOLTIP_TYPE, E:RGBToHex(R, G, B).._G['RELIC_SLOT_TYPE_'..GemID])
-										Slot['Socket'..i].Socket.Message = format(RELIC_TOOLTIP_TYPE, E:RGBToHex(R, G, B).._G['RELIC_SLOT_TYPE_'..GemID])
+										if self.ArtifactMonitor['Socket'..i].Socket.Message then
+											self.ArtifactMonitor['Socket'..i].Socket.Message = format(RELIC_TOOLTIP_TYPE, E:RGBToHex(R, G, B).._G['RELIC_SLOT_TYPE_'..GemID])
+											Slot['Socket'..i].Socket.Message = format(RELIC_TOOLTIP_TYPE, E:RGBToHex(R, G, B).._G['RELIC_SLOT_TYPE_'..GemID])
+										end
 									end
 								else
 									Slot.GemCount_Enable = Slot.GemCount_Enable - 1
