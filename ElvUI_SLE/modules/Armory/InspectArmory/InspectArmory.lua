@@ -1909,8 +1909,9 @@ function IA:InspectFrame_DataSetting(DataTable)
 				end
 				
 				if DataTable.Gear[SlotName].ItemLink then
-					_, Slot.Link = T.GetItemInfo(DataTable.Gear[SlotName].ItemLink)
-					
+					-- _, Slot.Link = T.GetItemInfo(DataTable.Gear[SlotName].ItemLink)
+					Slot.Link = DataTable.Gear[SlotName].ItemLink
+
 					if Slot.Link then
 						do --<< Gem Parts >>--
 							ItemData = { T.split(':', Slot.Link) }
