@@ -27,10 +27,10 @@ local function LoadSkin()
 
 	_G["QuestGuru"].abandon.RightSeparator:Kill()
 	_G["QuestGuru"].push.RightSeparator:Kill()
-	_G["QuestGuru"].TrackButton.RightSeparator:Kill()
+	_G["QuestGuru"].Track.RightSeparator:Kill()
 	S:HandleButton(_G["QuestGuru"].abandon)
 	S:HandleButton(_G["QuestGuru"].push)
-	S:HandleButton(_G["QuestGuru"].TrackButton)
+	S:HandleButton(_G["QuestGuru"].Track)
 	S:HandleCloseButton(_G["QuestGuruCloseButton"])
 
 	local CloseButton = _G["QuestGuruText"]:GetParent()
