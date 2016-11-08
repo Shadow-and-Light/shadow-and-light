@@ -16,6 +16,7 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local RequestTimePlayed = RequestTimePlayed
 local IsShiftKeyDown = IsShiftKeyDown
 local LevelPlayTimeOffset
+local eventRequesting
 
 local OnEnter = function(self)
 	if not T.InCombatLockdown() and SessionPlayTime then
@@ -81,11 +82,21 @@ local OnUpdate = function(self, elapsed)
 			self.text:SetFormattedText('%02d:%02d', Hour, Minute)
 		end
 	else
-		if ElapsedTimer > 1 and not self.Requested then
+		if ElapsedTimer > 2 and not self.Requested and not eventRequesting then
 			self.Requested = true
+			eventRequesting = true
 			RequestTimePlayed()
 		end
 	end
+end
+
+local oldTimePlayedFunction = ChatFrame_DisplayTimePlayed
+ChatFrame_DisplayTimePlayed = function(...)
+	if eventRequesting then
+		eventRequesting = false
+		return
+	end
+	return oldTimePlayedFunction(...)
 end
 
 local OnEvent = function(self, event, ...)
@@ -114,11 +125,13 @@ local OnEvent = function(self, event, ...)
 	end
 	if event == 'PLAYER_ENTERING_WORLD' then
 		self:UnregisterEvent(event)
-		if not T.IsAddOnLoaded('DataStore_Characters') then
+		if not T.IsAddOnLoaded('DataStore_Characters') and not eventRequesting then
+			eventRequesting = true
 			RequestTimePlayed()
 		end
 	end
-	if event == 'PLAYER_LOGOUT' then
+	if event == 'PLAYER_LOGOUT' and not eventRequesting then
+		eventRequesting = true
 		RequestTimePlayed()
 	end
 end
@@ -129,7 +142,10 @@ local function Reset()
 	ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["Level"] = T.UnitLevel('player')
 	ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["LastLevelTime"] = LastLevelTime
 	ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["Class"] = MyClass
-	RequestTimePlayed()
+	if not eventRequesting then
+		eventRequesting = true
+		RequestTimePlayed()
+	end
 	T.print(': Time Played has been reset!')
 end
 
