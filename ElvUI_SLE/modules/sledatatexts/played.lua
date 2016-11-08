@@ -16,7 +16,7 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local RequestTimePlayed = RequestTimePlayed
 local IsShiftKeyDown = IsShiftKeyDown
 local LevelPlayTimeOffset
-local eventRequesting
+local eventRequesting = true
 
 local OnEnter = function(self)
 	if not T.InCombatLockdown() and SessionPlayTime then
