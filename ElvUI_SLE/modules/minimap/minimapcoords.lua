@@ -69,7 +69,8 @@ function MM:UpdateCoordinatesPosition()
 end
 
 function MM:CreateCoordsFrame()
-	MM.coordspanel = CreateFrame('Frame', "SLE_CoordsPanel", E.UIParent)
+	MM.coordspanel = CreateFrame('Frame', "SLE_CoordsPanel", _G["Minimap"])
+	-- MM.coordspanel = CreateFrame('Frame', "SLE_CoordsPanel", E.UIParent)
 	MM.coordspanel:Point("BOTTOM", _G["Minimap"], "BOTTOM", 0, 0)
 	MM.coordspanel.WidthValue = 0
 	-- MM.coordspanel:CreateBackdrop()
