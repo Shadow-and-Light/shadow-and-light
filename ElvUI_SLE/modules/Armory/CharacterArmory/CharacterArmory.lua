@@ -1361,10 +1361,12 @@ do --<< Artifact Monitor >>
 				self:LegionArtifactMonitor_ClearPowerItemSearching()
 			end
 			
-			if TotalPower + Legion_ArtifactData.XP > Legion_ArtifactData.XPForNextPoint then
-				TotalPower = Legion_ArtifactData.XPForNextPoint
-			else
-				TotalPower = TotalPower + Legion_ArtifactData.XP
+			if Legion_ArtifactData.XP then
+				if TotalPower + Legion_ArtifactData.XP > Legion_ArtifactData.XPForNextPoint then
+					TotalPower = Legion_ArtifactData.XPForNextPoint
+				else
+					TotalPower = TotalPower + Legion_ArtifactData.XP
+				end
 			end
 			
 			self.ArtifactMonitor.BarExpected:SetValue(TotalPower)
