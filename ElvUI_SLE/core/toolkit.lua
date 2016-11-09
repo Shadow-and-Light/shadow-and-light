@@ -322,7 +322,6 @@ end
 function SLE:Reset(group)
 	if not group then print("U wot m8?") end
 	if group == "unitframes" or group == "all" then
-		E.db.sle.combatico.pos = 'TOP'
 		E.db.sle.roleicons = "ElvUI"
 		E.db.sle.powtext = false
 	end
