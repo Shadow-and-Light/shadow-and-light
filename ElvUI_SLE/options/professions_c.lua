@@ -193,7 +193,7 @@ local function configTable()
 					},
 					IgnorePole = {
 						order = 4,
-						name = L["Ingore Poles"],
+						name = L["Ignore Poles"],
 						desc = L["If enabled will start fishing even if you don't have fishing pole equipped. Will not work if you have fish key set to \"None\"."],
 						type = "toggle",
 						disabled = function() return not E.private.sle.professions.fishing.EasyCast or E.private.sle.professions.fishing.CastButton == "None" end,
