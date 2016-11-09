@@ -135,18 +135,24 @@ function SB:HookBags(isBank, force)
 		for _, bagID in T.pairs(bagFrame.BagIDs) do
 			if (not self.hookedBags[bagID])then
 				for slotID = 1, T.GetContainerNumSlots(bagID) do
-					slot = bagFrame.Bags[bagID][slotID];
-					self:HookSlot(slot, bagID, slotID);
+					if bagFrame.Bags[bagID] then
+						slot = bagFrame.Bags[bagID][slotID];
+						self:HookSlot(slot, bagID, slotID);
+					end
 				end
 				self.hookedBags[bagID] = true;
 			elseif self.hookedBags[bagID] and force then
 				for slotID = 1, T.GetContainerNumSlots(bagID) do
-					if force == bagFrame.Bags[bagID][slotID] then self:HookSlot(force, bagID, slotID) end
+					if bagFrame.Bags[bagID] then
+						if force == bagFrame.Bags[bagID][slotID] then self:HookSlot(force, bagID, slotID) end
+					end
 				end
 			end
 			for slotID = 1, T.GetContainerNumSlots(bagID) do
-				slot = bagFrame.Bags[bagID][slotID];
-				if slot.template ~= "Transparent" and E.private.sle.bags.transparentSlots then slot:SetTemplate('Transparent') end
+				if bagFrame.Bags[bagID] then
+					slot = bagFrame.Bags[bagID][slotID];
+					if slot.template ~= "Transparent" and E.private.sle.bags.transparentSlots then slot:SetTemplate('Transparent') end
+				end
 			end
 		end
 	end
