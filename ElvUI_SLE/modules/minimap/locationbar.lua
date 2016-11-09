@@ -256,7 +256,7 @@ end
 
 function LP:UpdateCoords(elapsed)
 	LP.elapsed = LP.elapsed + elapsed
-	if LP.elapsed < LP.db.throttle then return end
+	if LP.elapsed < (LP.db.throttle or 0.2) then return end
 	--Coords
 	if not LP.RestrictedArea then
 		local x, y = CreateCoords()
