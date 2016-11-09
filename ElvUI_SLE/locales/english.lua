@@ -70,6 +70,7 @@ L["This option have been disabled by Shadow & Light. To return it you need to di
 --Core
 L["SLE_LOGIN_MSG"] = "|cff9482c9Shadow & Light|r version |cff1784d1%s%s|r for ElvUI is loaded. Thanks for the usage."
 L["Plugin for |cff1784d1ElvUI|r by\nDarth Predator and Repooc."] = true
+L["Reset All"] = true
 L["Resets all movers & options for S&L."] = true
 L["Reset these options to defaults"] = true
 L["Modules designed for older expantions"] = true
