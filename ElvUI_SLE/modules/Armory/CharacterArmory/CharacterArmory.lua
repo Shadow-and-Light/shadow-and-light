@@ -1309,36 +1309,40 @@ do --<< Artifact Monitor >>
 					_, _, _, _, _, _, PowerItemLink = GetContainerItemInfo(BagID, SlotID)
 					
 					if PowerItemLink then
-						self:ClearTooltip(self.ArtifactMonitor.ScanTT)
-						self.ArtifactMonitor.ScanTT:SetHyperlink(PowerItemLink)
-						SearchingPhase = 1
-						CurrentItemPower = 0
-						
-						for i = 1, self.ArtifactMonitor.ScanTT:NumLines() do
-							SearchingText = CleanString(_G['Knight_CharacterArmory_ArtifactScanTTTextLeft' .. i]:GetText())
+						if GetItemInfo(PowerItemLink) then
+							-- print(GetItemInfo(PowerItemLink))
+							-- print(PowerItemLink)
+							self:ClearTooltip(self.ArtifactMonitor.ScanTT)
+							self.ArtifactMonitor.ScanTT:SetHyperlink(PowerItemLink)
+							SearchingPhase = 1
+							CurrentItemPower = 0
 							
-							if SearchingPhase == 1 and SearchingText == ARTIFACT_POWER then
-								SearchingPhase = 2
-							elseif SearchingPhase == 2 and SearchingText:find(ITEM_SPELL_TRIGGER_ONUSE) then
-								CurrentItemPower = tonumber(SearchingText:gsub(',', ''):match('%d+'))
-								TotalPower = TotalPower + CurrentItemPower
+							for i = 1, self.ArtifactMonitor.ScanTT:NumLines() do
+								SearchingText = CleanString(_G['Knight_CharacterArmory_ArtifactScanTTTextLeft' .. i]:GetText())
 								
-								if not LowestPower or LowestPower > CurrentItemPower then
-									LowestPower = CurrentItemPower
-									LowestPower_BagID = BagID
-									LowestPower_SlotID = SlotID
-									LowestPower_Link = PowerItemLink
+								if SearchingPhase == 1 and SearchingText == ARTIFACT_POWER then
+									SearchingPhase = 2
+								elseif SearchingPhase == 2 and SearchingText:find(ITEM_SPELL_TRIGGER_ONUSE) then
+									CurrentItemPower = tonumber(SearchingText:gsub(',', ''):match('%d+'))
+									TotalPower = TotalPower + CurrentItemPower
+									
+									if not LowestPower or LowestPower > CurrentItemPower then
+										LowestPower = CurrentItemPower
+										LowestPower_BagID = BagID
+										LowestPower_SlotID = SlotID
+										LowestPower_Link = PowerItemLink
+									end
+									
+									break
 								end
-								
-								break
 							end
-						end
-						
-						if SearchingPhase == 2 and not (LowestPower and LowestPower > 0) then
-							LowestPower = CurrentItemPower
-							LowestPower_BagID = BagID
-							LowestPower_SlotID = SlotID
-							LowestPower_Link = PowerItemLink
+							
+							if SearchingPhase == 2 and not (LowestPower and LowestPower > 0) then
+								LowestPower = CurrentItemPower
+								LowestPower_BagID = BagID
+								LowestPower_SlotID = SlotID
+								LowestPower_Link = PowerItemLink
+							end
 						end
 					end
 				end
