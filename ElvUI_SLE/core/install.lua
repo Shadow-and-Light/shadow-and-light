@@ -68,7 +68,7 @@ function PI:DarthSetup()
 	E:CopyTable(E.private, V)
 
 	if E.db['movers'] then T.twipe(E.db['movers']) else E.db['movers'] = {} end
-	
+
 	--General
 	do
 		E.db["general"]["totems"]["size"] = 30
@@ -582,7 +582,7 @@ function PI:DarthSetup()
 		E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,0,199"
 		E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,199"
 	end
-	
+
 	if T.IsAddOnLoaded("ElvUI_AuraBarsMovers") then
 		E.db["abm"]["target"] = true
 		E.db["abm"]["player"] = true
@@ -641,7 +641,7 @@ function PI:DarthSetup()
 			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_DAMAGE"] = true
 			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_AP"] = true
 			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_ATTACKSPEED"] = true
-		elseif layout == 'dpsMelee' then 
+		elseif layout == 'dpsMelee' then
 			E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Attack Power"
 			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["SPELLPOWER"] = false
 			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_DAMAGE"] = true
@@ -650,7 +650,7 @@ function PI:DarthSetup()
 			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ENERGY_REGEN"] = true
 			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["RUNE_REGEN"] = true
 			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["FOCUS_REGEN"] = true
-		elseif layout == 'healer' then DarthHeal() 
+		elseif layout == 'healer' then DarthHeal()
 		end
 		E.db.layoutSet = layout
 	else
@@ -1102,6 +1102,7 @@ function PI:RepoocSetup()
 end
 
 function PI:RepoocAddons()
+	--Test message
 end
 
 local function AffinitySetup()
@@ -1419,7 +1420,7 @@ local function AffinitySetup()
 	E.db["general"]["threat"]["position"] = "LEFTCHAT"
 	E.db["general"]["topPanel"] = false
 	E.db["general"]["vendorGrays"] = true
-	
+
 	E.private["general"]["normTex"] = "Polished Wood"
 	E.private["general"]["chatBubbles"] = "nobackdrop"
 	E.private["general"]["glossTex"] = "Polished Wood"
@@ -1440,7 +1441,7 @@ local function AffinitySetup()
 	E.private["sle"]["install_complete"] = installMarkSLE
 
 	E:UpdateAll(true)
-	
+
 	_G["PluginInstallStepComplete"].message = L["Affinitii's Default Set"]
 	_G["PluginInstallStepComplete"]:Show()
 end
@@ -1584,7 +1585,7 @@ SLE.installTable = {
 			-- _G["PluginInstallFrame"].Option2:Show()
 			-- _G["PluginInstallFrame"].Option2:SetScript('OnClick', function() PI.SLE_Auth = "REPOOC"; _G["PluginInstallFrame"].Next:Click() end)
 			-- _G["PluginInstallFrame"].Option2:SetText(L["Repooc's Config"])
-			
+
 			_G["PluginInstallFrame"].Option2:Show()
 			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() PI.SLE_Auth = "AFFINITY"; _G["PluginInstallFrame"].Next:Click() end)
 			_G["PluginInstallFrame"].Option2:SetText(L["Affinitii's Config"])
@@ -1652,4 +1653,3 @@ SLE.installTable = {
 		-- end,
 	-- },
 -- }
-
