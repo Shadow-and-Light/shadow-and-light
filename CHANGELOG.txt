@@ -1,13 +1,26 @@
-v3.16 10/XX/2016
+v3.16 11/15/2016
 Additions:
 - Added Artifact Power Tracking for weapon on character screen
+- Added tracking of Trial of Valor LFR
+- Added Trial of Valor to raid progression tooltip
+
 
 Fixes:
 - Fixed lua errors when entering instances where player location data isn't available
+- Fixed an error in quest tracker when ElvUI's skin for it is disabled
+- Fixed hnor databar options causing errors
+- Fixed chat history being shown twice
+- Fixed QuestGuru skin
+- Fixed random error in coordinate update throttle
+- Fixed an error when acessing bank with no currency tracked in bags
+
 
 Changes:
-- Removed the ability to remotely inspect other S&L users until kinks are worked out
+- Removed the ability to remotely inspect other S&L users until links are worked out
 - Updated inspect frame a bit to be 7.0 compatible (Still Not Tested Fully)
+- Time played span caused by corresponding datatext should now be reduced
+- World Quest group in objective tracker now follows font options for the tracker
+
 
 v3.15 10/25/2016
 
