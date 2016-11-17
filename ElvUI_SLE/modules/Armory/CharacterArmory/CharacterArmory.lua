@@ -1607,6 +1607,9 @@ KF.Modules.CharacterArmory = function()
 		KF_KnightArmory_NoticeMissing.text:SetTextColor(1, 1, 1)
 		KF_KnightArmory_NoticeMissing.CheckButton:SetTexture('Interface\\Buttons\\UI-CheckBox-Check')
 		]]
+		_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', CharacterArmory, -8, 0)
+		_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', CharacterArmory, 8, 0)
+		
 	elseif Info.CharacterArmory_Activate then
 		Info.CharacterArmory_Activate = nil
 		
