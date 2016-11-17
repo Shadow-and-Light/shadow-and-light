@@ -167,6 +167,7 @@ L["Sets the color of avarage item level."] = "Устанавливает цве�
 L["Only Relevant Stats"] = "Только подходящие"
 L["Show only those primary stats relevant to your spec."] = "Отображает только те основные характеристики, что подходят вашей текущей специализации."
 L["SLE_ARMORY_POINTS_AVAILABLE"] = "Очков доступно: %s"
+L["Show ElvUI skin's backdrop overlay"] = "Отображать фон скина ElvUI"
 
 --AFK
 L["You Are Away From Keyboard for"] = "Вы отошли на"

@@ -29,6 +29,11 @@ local function LoadArmoryConfigTable()
 		order = 3,
 		childGroups = 'tab',
 		args = {
+			Credit = {
+				type = 'header',
+				name = KF.Credit,
+				order = 1
+			},
 			EnchantString = {
 				type = 'group',
 				name = L["Enchant String"],
@@ -243,7 +248,7 @@ local function LoadArmoryConfigTable()
 		E.Options.args.sle.args.modules.args.Armory.args.CAEnable = {
 			type = 'toggle',
 			name = L["Character Armory"],
-			order = 1,
+			order = 2,
 			desc = '',
 			get = function() return E.db.sle.Armory.Character.Enable end,
 			set = function(_, value) E.db.sle.Armory.Character.Enable = value; KF.Modules.CharacterArmory() end
@@ -275,7 +280,6 @@ local function LoadArmoryConfigTable()
 					type = 'group',
 					name = STAT_CATEGORY_ATTRIBUTES,
 					order = 3,
-					guiInline = true,
 					disabled = function() return SLE._Compatibility["DejaCharacterStats"] end,
 					get = function(info) return E.db.sle.Armory.Character.Stats[ info[#info] ] end,
 					set = function(info, value) E.db.sle.Armory.Character.Stats[ info[#info] ] = value; PaperDollFrame_UpdateStats() end,
@@ -375,7 +379,6 @@ local function LoadArmoryConfigTable()
 					type = 'group',
 					name = L["Backdrop"],
 					order = 3,
-					guiInline = true,
 					args = {
 						SelectedBG = {
 							type = 'select',
@@ -403,18 +406,20 @@ local function LoadArmoryConfigTable()
 							disabled = function() return E.db.sle.Armory.Character.Enable == false end,
 							hidden = function() return E.db.sle.Armory.Character.Backdrop.SelectedBG ~= 'CUSTOM' end
 						},
+						Overlay = {
+							type = "toggle",
+							order = 3,
+							name = L["Overlay"],
+							desc = L["Show ElvUI skin's backdrop overlay"],
+							get = function() return E.db.sle.Armory.Character.Backdrop.Overlay end,
+							set = function(_, value) E.db.sle.Armory.Character.Backdrop.Overlay = value; _G["CharacterArmory"]:ElvOverlayToggle() end
+						},
 					}
-				},
-				Space2 = {
-					type = 'description',
-					name = ' ',
-					order = 4
 				},
 				Gradation = {
 					type = 'group',
 					name = L["Gradient"],
 					order = 5,
-					guiInline = true,
 					args = {
 						Display = {
 							type = 'toggle',
@@ -439,16 +444,10 @@ local function LoadArmoryConfigTable()
 						},
 					}
 				},
-				Space3 = {
-					type = 'description',
-					name = ' ',
-					order = 6
-				},
 				Level = {
 					type = 'group',
 					name = L["Item Level"],
 					order = 7,
-					guiInline = true,
 					get = function(info) return E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] end,
 					set = function(info, value) E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] = value; _G["CharacterArmory"]:UpdateSettings("ilvl") end,
 					args = {
@@ -495,16 +494,10 @@ local function LoadArmoryConfigTable()
 						}
 					}
 				},
-				Space4 = {
-					type = 'description',
-					name = '',
-					order = 8
-				},
 				Enchant = {
 					type = 'group',
 					name = L["Enchant String"],
 					order = 9,
-					guiInline = true,
 					get = function(info) return E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] end,
 					set = function(info, value) E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] = value;  _G["CharacterArmory"]:UpdateSettings("ench") end,
 					args = {
@@ -557,16 +550,10 @@ local function LoadArmoryConfigTable()
 						}
 					}
 				},
-				Space5 = {
-					type = 'description',
-					name = '',
-					order = 10
-				},
 				Durability = {
 					type = 'group',
 					name = DURABILITY,
 					order = 11,
-					guiInline = true,
 					get = function(info) return E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] end,
 					set = function(info, value) E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] = value; _G["CharacterArmory"]:UpdateSettings("dur") end,
 					args = {
@@ -611,16 +598,10 @@ local function LoadArmoryConfigTable()
 						}
 					}
 				},
-				Space6 = {
-					type = 'description',
-					name = '',
-					order = 12
-				},
 				Gem = {
 					type = 'group',
 					name = L["Gem Sockets"],
 					order = 13,
-					guiInline = true,
 					get = function(Info) return E.db.sle.Armory.Character[(Info[#Info - 1])][(Info[#Info])] end,
 					args = {
 						Display = {
@@ -648,16 +629,42 @@ local function LoadArmoryConfigTable()
 						},
 					}
 				},
-				CreditSpace = {
-					type = 'description',
-					name = ' ',
-					order = 998
+				Artifact = {
+					type = 'group',
+					order = 14,
+					name = ITEM_QUALITY6_DESC,
+					get = function(info) return E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] end,
+					set = function(info, value) E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] = value; _G["CharacterArmory"]:UpdateSettings("art") end,
+					args = {
+						Font = {
+							type = 'select', dialogControl = 'LSM30_Font',
+							name = L["Font"],
+							order = 1,
+							values = function() return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {} end,
+							disabled = function() return E.db.sle.Armory.Character.Enable == false end
+						},
+						FontSize = {
+							type = 'range',
+							name = L["Font Size"],
+							order = 2,
+							min = 6, max = 22, step = 1,
+							disabled = function() return E.db.sle.Armory.Character.Enable == false end
+						},
+						FontStyle = {
+							type = 'select',
+							name = L["Font Outline"],
+							order = 3,
+							values = FontStyleList,
+							disabled = function() return E.db.sle.Armory.Character.Enable == false end
+						},
+						ShortValues = {
+							order = 4,
+							type = "toggle",
+							name = L["Short text"],
+							disabled = function() return E.db.sle.Armory.Character.Enable == false end
+						},
+					},
 				},
-				Credit = {
-					type = 'header',
-					name = KF.Credit,
-					order = 999
-				}
 			}
 		}
 	end
@@ -671,7 +678,7 @@ local function LoadArmoryConfigTable()
 		E.Options.args.sle.args.modules.args.Armory.args.IAEnable = {
 			type = 'toggle',
 			name = L["Inspect Armory"],
-			order = 2,
+			order = 3,
 			get = function() return E.db.sle.Armory.Inspect.Enable end,
 			set = function(_, value) E.db.sle.Armory.Inspect.Enable = value; KF.Modules.InspectArmory() end
 		}
@@ -715,7 +722,6 @@ local function LoadArmoryConfigTable()
 					type = 'group',
 					name = L["Backdrop"],
 					order = 3,
-					guiInline = true,
 					args = {
 						SelectedBG = {
 							type = 'select',
@@ -753,16 +759,10 @@ local function LoadArmoryConfigTable()
 						},
 					}
 				},
-				Space2 = {
-					type = 'description',
-					name = '',
-					order = 4
-				},
 				Gradation = {
 					type = 'group',
 					name = L["Gradient"],
 					order = 5,
-					guiInline = true,
 					args = {
 						Display = {
 							type = 'toggle',
@@ -799,16 +799,10 @@ local function LoadArmoryConfigTable()
 						},
 					}
 				},
-				Space3 = {
-					type = 'description',
-					name = '',
-					order = 6
-				},
 				Level = {
 					type = 'group',
 					name = L["Item Level"],
 					order = 7,
-					guiInline = true,
 					get = function(info) return E.db.sle.Armory.Inspect[(info[#info - 1])][(info[#info])] end,
 					set = function(info, value) E.db.sle.Armory.Inspect[(info[#info - 1])][(info[#info])] = value; _G["InspectArmory"]:UpdateSettings("ilvl") end,
 					args = {
@@ -870,16 +864,10 @@ local function LoadArmoryConfigTable()
 						}
 					}
 				},
-				Space4 = {
-					type = 'description',
-					name = '',
-					order = 8
-				},
 				Enchant = {
 					type = 'group',
 					name = L["Enchant String"],
 					order = 9,
-					guiInline = true,
 					get = function(info) return E.db.sle.Armory.Inspect[(info[#info - 1])][(info[#info])] end,
 					set = function(info, value) E.db.sle.Armory.Inspect[(info[#info - 1])][(info[#info])] = value; _G["InspectArmory"]:UpdateSettings("ench") end,
 					args = {
@@ -947,16 +935,10 @@ local function LoadArmoryConfigTable()
 						}
 					}
 				},
-				Space5 = {
-					type = 'description',
-					name = '',
-					order = 10
-				},
 				Gem = {
 					type = 'group',
 					name = L["Gem Sockets"],
 					order = 11,
-					guiInline = true,
 					get = function(Info) return E.db.sle.Armory.Inspect[(Info[#Info - 1])][(Info[#Info])] end,
 					set = function(info, value) E.db.sle.Armory.Inspect[(info[#info - 1])][(info[#info])] = value; _G["InspectArmory"]:UpdateSettings("gem") end,
 					args = {
@@ -990,16 +972,6 @@ local function LoadArmoryConfigTable()
 						},
 					}
 				},
-				CreditSpace = {
-					type = 'description',
-					name = '',
-					order = 998
-				},
-				Credit = {
-					type = 'header',
-					name = KF.Credit,
-					order = 999
-				}
 			}
 		}
 	end

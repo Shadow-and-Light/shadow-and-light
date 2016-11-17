@@ -19,7 +19,8 @@ P.sle.Armory.Character = {
 	
 	Backdrop = {
 		SelectedBG = 'Space',
-		CustomAddress = ''
+		CustomAddress = '',
+		Overlay = true,
 	},
 	
 	Gradation = {
@@ -56,7 +57,12 @@ P.sle.Armory.Character = {
 		SocketSize = 10,
 		WarningSize = 12
 	},
-	
+	Artifact = {
+		Font = "PT Sans Narrow",
+		FontSize = 9,
+		FontStyle = "OUTLINE",
+		ShortValues = true,
+	},
 	Stats = {
 		IlvlFull = false,
 		IlvlColor = false,
