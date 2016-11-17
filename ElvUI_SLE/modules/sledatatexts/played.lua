@@ -117,7 +117,7 @@ local OnEvent = function(self, event, ...)
 		ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["LevelTime"] = LevelTime
 	end
 	if event == 'PLAYER_LEVEL_UP' then
-		LastLevelTime = T.floor(LevelPlayTime + (T.GetTime() - LevelPlayTimeOffset))
+		LastLevelTime = T.floor(LevelPlayTime + (T.GetTime() - (LevelPlayTimeOffset or 0)))
 		ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["LastLevelTime"] = LastLevelTime
 		LevelPlayTime = 1
 		LevelPlayTimeOffset = T.GetTime()
