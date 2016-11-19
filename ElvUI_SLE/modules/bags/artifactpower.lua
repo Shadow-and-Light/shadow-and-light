@@ -34,11 +34,16 @@ local function GetItemLinkArtifactPower(slotLink)
 	end
 end
 
-local function UpdateContainerFrame(frame, bagID, slotID)
+local function SlotUpdate(self, bagID, slotID)
+	if (not bagID or not slotID) or bagID == -3 then return end
+	if not self.Bags[bagID] or not self.Bags[bagID][slotID] then
+		return;
+	end
+	
+	local frame = self.Bags[bagID][slotID]
 	if (not frame.artifactpowerinfo) and E.db.sle.bags.artifactPower.enable then
 		frame.artifactpowerinfo = frame:CreateFontString(nil, 'OVERLAY')
 		frame.artifactpowerinfo:Point("BOTTOMLEFT", 2, 2)
-		--frame.artifactpowerinfo:SetAllPoints(frame)
 	end
 
 	if E.db.sle.bags.artifactPower.enable then
@@ -59,59 +64,17 @@ local function UpdateContainerFrame(frame, bagID, slotID)
 	end
 end
 
-function AP:bagUpdate()
-	for _, container in T.pairs(AP.containers) do
-		for _, bagID in T.ipairs(container.BagIDs) do
-			for slotID = 1, T.GetContainerNumSlots(bagID) do
-				UpdateContainerFrame(container.Bags[bagID][slotID], bagID, slotID)
-
-				-- local slotFrame = _G["ElvUI_ContainerFrameBag"..bagID.."Slot"..slotID]
-				-- local slotLink = GetContainerItemLink(bagID,slotID)
-
-				-- if not slotFrame.artifactpowerinfo then
-				-- 	slotFrame.artifactpowerinfo = slotFrame:CreateFontString(nil, 'OVERLAY')
-				-- end
-
-				-- slotFrame.artifactpowerinfo:Point("BOTTOMRIGHT", 0, 2)
-				-- slotFrame.artifactpowerinfo:FontTemplate(E.LSM:Fetch("font", E.db.bags.itemLevelFont), E.db.bags.itemLevelFontSize, E.db.bags.itemLevelFontOutline)
-				-- slotFrame.artifactpowerinfo:SetText("")
-				-- slotFrame.artifactpowerinfo:SetAllPoints(slotFrame)
-				-- slotFrame.artifactpowerinfo:SetTextColor(255, 0, 0)
-				
-				-- arcanePower = GetItemLinkArtifactPower(slotLink)
-
-				-- if arcanePower then
-				-- 	slotFrame.artifactpowerinfo:SetText(arcanePower)
-				-- end
-			end
-		end
-	end
-end
-
-function AP:ToggleSettings()
-	self:RegisterEvent("BAG_UPDATE_DELAYED", "bagUpdate")
-	self:RegisterEvent("ARTIFACT_UPDATE", "bagUpdate")
-	self:RegisterEvent("BANKFRAME_OPENED", "bagUpdate")
-	self:RegisterEvent("PLAYERBANKSLOTS_CHANGED", "bagUpdate")
-	self:RegisterEvent("BANKFRAME_CLOSED", "bagUpdate")
-	self:RegisterEvent("BAG_UPDATE", "bagUpdate")
-	self:RegisterEvent("ITEM_LOCKED", "bagUpdate")
-	self:RegisterEvent("ITEM_LOCK_CHANGED", "bagUpdate")
-end
-
 function AP:Initialize()
 	if not SLE.initialized or not E.private.bags.enable then return end
 
 	tooltipScanner = CreateFrame("GameTooltip", tooltipName, nil, "GameTooltipTemplate")
 	empoweringSpellName = GetSpellInfo(EMPOWERING_SPELL_ID)
 
-	T.tinsert(AP.containers, _G["ElvUI_ContainerFrame"])
-	self:SecureHook(B, "OpenBank", function()
-		self:Unhook(B, "OpenBank")
-		T.tinsert(AP.containers, _G["ElvUI_BankContainerFrame"])
-		AP:ToggleSettings()
+	hooksecurefunc(B,"UpdateSlot", SlotUpdate)
+	hooksecurefunc(ElvUI_ContainerFrame,"UpdateSlot", SlotUpdate)
+	self:RegisterEvent("BANKFRAME_OPENED", function()
+		AP:UnregisterEvent("BANKFRAME_OPENED")
+		B:Layout()
 	end)
-
-	AP:ToggleSettings()
 end
 SLE:RegisterModule(AP:GetName())
