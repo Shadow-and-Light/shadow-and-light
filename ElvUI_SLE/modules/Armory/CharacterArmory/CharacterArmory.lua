@@ -1161,6 +1161,7 @@ do --<< Artifact Monitor >>
 		if Legion_ArtifactData.ItemID then
 			self.SecondaryHandSlot.Gradation:SetAlpha(0)
 			self.SecondaryHandSlot.ItemLevel:SetAlpha(0)
+			self.SecondaryHandSlot.ItemEnchant:SetAlpha(0)
 			self.SecondaryHandSlot.EnchantWarning:SetAlpha(0)
 			self.SecondaryHandSlot.EnchantWarning:Disable()
 			self.SecondaryHandSlot.SocketWarning:SetAlpha(0)
@@ -1229,6 +1230,7 @@ do --<< Artifact Monitor >>
 		else
 			self.SecondaryHandSlot.Gradation:SetAlpha(1)
 			self.SecondaryHandSlot.ItemLevel:SetAlpha(1)
+			self.SecondaryHandSlot.ItemEnchant:SetAlpha(1)
 			self.SecondaryHandSlot.EnchantWarning:SetAlpha(1)
 			self.SecondaryHandSlot.EnchantWarning:Enable()
 			self.SecondaryHandSlot.SocketWarning:SetAlpha(1)
