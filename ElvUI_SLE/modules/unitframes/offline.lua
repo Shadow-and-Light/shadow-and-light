@@ -11,7 +11,7 @@ SUF.OfflineTextures = {
 
 function SUF:Construct_Offline(frame, group)
 	local db = E.db.sle.unitframes.unit[group].offline
-	local offline = frame:CreateTexture(frame:GetName().."Offline", "OVERLAY")
+	local offline = frame.RaisedElementParent.TextureParent:CreateTexture(frame:GetName().."Offline", "OVERLAY")
 	offline:SetSize(db.size, db.size)
 	offline:SetPoint("CENTER", frame, "CENTER", db.xOffset, db.yOffset)
 	offline.Group = "ElvUF_"..T.StringToUpper(group)

@@ -70,7 +70,7 @@ function SUF:UpdateRested(frame)
 end
 
 function SUF:InitPlayer()
-	SUF.CombatTest = CreateFrame("Frame", "SLE_CombatIconTest", UIParent)
+	SUF.CombatTest = CreateFrame("Frame", "SLE_CombatIconTest", _G["ElvUF_Player"])
 	SUF.CombatTest:Point("CENTER", _G["ElvUF_Player"].Combat)
 	SUF.CombatTest.texture = SUF.CombatTest:CreateTexture(nil, "OVERLAY")
 	SUF.CombatTest.texture:SetAllPoints()
