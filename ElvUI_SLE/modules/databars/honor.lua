@@ -33,35 +33,16 @@ DB.Honor ={
 }
 
 local function UpdateHonor(self, event, unit)
+	if not E.db.databars.honor.enable then return end
 	if not E.db.sle.databars.honor.longtext then return end
-	if event == "HONOR_PRESTIGE_UPDATE"  and unit ~= "player" then return end
+	if event == "HONOR_PRESTIGE_UPDATE" and unit ~= "player" then return end
 	local bar = self.honorBar
 	local showHonor = T.UnitLevel("player") >= MAX_PLAYER_LEVEL
-	if not showHonor then
-		bar:Hide()
-	else
-		bar:Show()
-
+	if showHonor then
 		local current = T.UnitHonor("player");
 		local max = T.UnitHonorMax("player");
 		local level = T.UnitHonorLevel("player");
-        local levelmax = T.GetMaxPlayerHonorLevel();
-
-		
-        if (level == levelmax) then
-			-- Force the bar to full for the max level
-			bar.statusBar:SetMinMaxValues(0, 1)
-			bar.statusBar:SetValue(1)
-		else
-			bar.statusBar:SetMinMaxValues(0, max)
-			bar.statusBar:SetValue(current)
-		end
-
-		if self.db.honor.hideInVehicle then
-			E:RegisterObjectForVehicleLock(bar, E.UIParent)
-		else
-			E:UnregisterObjectForVehicleLock(bar)
-		end
+		local levelmax = T.GetMaxPlayerHonorLevel();
 
 		local text = ''
 		local textFormat = self.db.honor.textFormat

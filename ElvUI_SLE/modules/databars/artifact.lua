@@ -16,25 +16,15 @@ DB.Art = {
 }
 
 local function UpdateArtifact(self, event)
+	if not E.db.databars.artifact.enable then return end
 	if not E.db.sle.databars.artifact.longtext then return end
 	local bar = self.artifactBar
-	local showArtifact = HasArtifactEquipped();
-	if not showArtifact or (event == "PLAYER_REGEN_DISABLED" and self.db.artifact.hideInCombat) then
-		bar:Hide()
-	elseif showArtifact and (not self.db.artifact.hideInCombat or not InCombatLockdown()) then
-		bar:Show()
 
-		if self.db.artifact.hideInVehicle then
-			E:RegisterObjectForVehicleLock(bar, E.UIParent)
-		else
-			E:UnregisterObjectForVehicleLock(bar)
-		end
-
+	local hasArtifact = HasArtifactEquipped();
+	if hasArtifact then
 		local text = ''
-		local itemID, altItemID, name, icon, totalXP, pointsSpent, quality, artifactAppearanceID, appearanceModID, itemAppearanceID, altItemAppearanceID, altOnTop = C_ArtifactUIGetEquippedArtifactInfo();
+		local totalXP, pointsSpent = T.select(5, C_ArtifactUIGetEquippedArtifactInfo());
 		local numPointsAvailableToSpend, xp, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(pointsSpent, totalXP);
-		bar.statusBar:SetMinMaxValues(0, xpForNextPoint)
-		bar.statusBar:SetValue(xp)
 
 		local textFormat = self.db.artifact.textFormat
 		if textFormat == 'PERCENT' then
