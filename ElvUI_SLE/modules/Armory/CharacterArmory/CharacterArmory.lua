@@ -1257,13 +1257,13 @@ do --<< Artifact Monitor >>
 		if Artifact_ItemID then
 			Legion_ArtifactData.ItemID = Artifact_ItemID
 			Legion_ArtifactData.Rank = Artifact_Rank
-			if E.db.sle.Armory.Character.Artifact.ShortValues then
-				Legion_ArtifactData.Power = E:ShortValue(Artifact_Power)
-			else
-				Legion_ArtifactData.Power = Artifact_Power
-			end
 			Legion_ArtifactData.AvailablePoint, Legion_ArtifactData.XP, Legion_ArtifactData.XPForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(Artifact_Rank, Artifact_Power)
-			Legion_ArtifactData.RemainXP = Legion_ArtifactData.XPForNextPoint - Legion_ArtifactData.XP
+			-- Legion_ArtifactData.RemainXP = Legion_ArtifactData.XPForNextPoint - Legion_ArtifactData.XP --We don't actually use it
+			if E.db.sle.Armory.Character.Artifact.ShortValues then
+				Legion_ArtifactData.Power = E:ShortValue(Legion_ArtifactData.XP)
+			else
+				Legion_ArtifactData.Power = Legion_ArtifactData.XP
+			end
 			
 			if E.db.sle.Armory.Character.Artifact.ShortValues then Legion_ArtifactData.XPForNextPointShort = E:ShortValue(Legion_ArtifactData.XPForNextPoint) end
 			
