@@ -108,41 +108,6 @@ IA.Default_CurrentInspectData = {
 		RB = {}
 	}
 }
---for i = 1, MAX_TALENT_GROUPS do
---	IA.Default_CurrentInspectData.Specialization[i] = {}
---end
-
-
--- IA.MainStats = {	-- STR, INT, AGI, 
--- 	WARRIOR = STR,
--- 	HUNTER = AGI,
--- 	SHAMAN = {
--- 		[(L["Spec_Shaman_Elemental"])] = INT,
--- 		[(L["Spec_Shaman_Enhancement"])] = AGI,
--- 		[(L["Spec_Shaman_Restoration"])] = INT
--- 	},
--- 	MONK = {
--- 		[(L["Spec_Monk_Brewmaster"])] = AGI,
--- 		[(L["Spec_Monk_Mistweaver"])] = INT,
--- 		[(L["Spec_Monk_Windwalker"])] = AGI
--- 	},
--- 	ROGUE = AGI,
--- 	DEATHKNIGHT = STR,
--- 	MAGE = INT,
--- 	DRUID = {
--- 		[(L["Spec_Druid_Balance"])] = INT,
--- 		[(L["Spec_Druid_Feral"])] = AGI,
--- 		[(L["Spec_Druid_Guardian"])] = AGI,
--- 		[(L["Spec_Druid_Restoration"])] = INT
--- 	},
--- 	PALADIN = {
--- 		[(L["Spec_Paladin_Holy"])] = INT,
--- 		[(L["Spec_Paladin_Protection"])] = STR,
--- 		[(L["Spec_Paladin_Retribution"])] = STR
--- 	},
--- 	PRIEST = INT,
--- 	WARLOCK = INT
--- }
 
 
 do --<< Button Script >>--
@@ -218,7 +183,12 @@ do --<< Button Script >>--
 			local CheckSpace = 2
 			
 			for i = 1, _G["GameTooltip"]:NumLines() do
-				CurrentLineText = _G["GameTooltipTextLeft"..i]:GetText()
+				if self.ReplaceTooltipLines[i] then
+					CurrentLineText = self.ReplaceTooltipLines[i]
+					_G['GameTooltipTextLeft'..i]:SetText(CurrentLineText)
+				else
+					CurrentLineText = _G['GameTooltipTextLeft'..i]:GetText()
+				end
 				
 				SetName = CurrentLineText:match('^(.+) %((%d)/(%d)%)$')
 				
@@ -258,7 +228,7 @@ do --<< Button Script >>--
 					
 					break
 				elseif Info.Armory_Constants.CanTransmogrifySlot[self.SlotName] and Info.Armory_Constants.ItemBindString[CurrentLineText] and self.TransmogrifyAnchor.Link then
-					_G["GameTooltipTextLeft"..i]:SetText(E:RGBToHex(1, .5, 1)..TRANSMOGRIFIED_HEADER..'|n'..(T.GetItemInfo(self.TransmogrifyAnchor.Link) or self.TransmogrifyAnchor.Link)..'|r|n'..CurrentLineText)
+					_G['GameTooltipTextLeft'..i]:SetText(E:RGBToHex(1, .5, 1)..TRANSMOGRIFIED_HEADER..'|n'..(T.GetItemInfo(self.TransmogrifyAnchor.Link) or self.TransmogrifyAnchor.Link)..'|r|n'..CurrentLineText)
 				end
 				
 				if CheckSpace == 0 then break end
@@ -305,43 +275,21 @@ do --<< Button Script >>--
 	end
 	
 	
-	function IA:GemSocket_OnEnter()
-		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_RIGHT')
-		
-		local Parent = self:GetParent()
-		
-		if Parent.GemItemID then
-			if T.type(Parent.GemItemID) == 'number' then
-				if T.GetItemInfo(Parent.GemItemID) then
-					_G["GameTooltip"]:SetHyperlink(T.select(2, T.GetItemInfo(Parent.GemItemID)))
-					self:SetScript('OnUpdate', nil)
-				else
-					self:SetScript('OnUpdate', IA.GemSocket_OnEnter)
-					return
-				end
-			else
-				_G["GameTooltip"]:ClearLines()
-				_G["GameTooltip"]:AddLine('|cffffffff'..Parent.GemItemID)
-			end
-		elseif Parent.GemType then
-			_G["GameTooltip"]:ClearLines()
-			_G["GameTooltip"]:AddLine('|cffffffff'.._G["EMPTY_SOCKET_"..Parent.GemType])
-		end
-		
-		_G["GameTooltip"]:Show()
-	end
-	
-	
 	function IA:GemSocket_OnClick()
 		self = self:GetParent()
 		
-		if self.GemItemID and T.type(self.GemItemID) == 'number' then
+		if self.GemItemID then
 			local ItemName, ItemLink = T.GetItemInfo(self.GemItemID)
+			if self.Socket and self.Socket.Link then
+				ItemLink = self.Socket.Link
+			end
 			
-			if not IsShiftKeyDown() then
+			if Button == 'LeftButton' and not IsShiftKeyDown() then
 				SetItemRef(ItemLink, ItemLink, 'LeftButton')
-			else
-				if HandleModifiedItemClick(ItemLink) then
+			elseif IsShiftKeyDown() then
+				if Button == 'RightButton' then
+					ShowUIPanel(SocketInventoryItem(self.SlotID))
+				elseif HandleModifiedItemClick(ItemLink) then
 				elseif _G["BrowseName"] and _G["BrowseName"]:IsVisible() then
 					AuctionFrameBrowse_Reset(_G["BrowseResetButton"])
 					_G["BrowseName"]:SetText(ItemName)
@@ -405,8 +353,6 @@ function IA:ChangePage(Type)
 		end
 	end
 	
-	--self.MainHandSlot:ClearAllPoints()
-	--self.SecondaryHandSlot:ClearAllPoints()
 	if Type == 'Character' then
 		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 			if self[SlotName].ItemLevel then
@@ -414,8 +360,6 @@ function IA:ChangePage(Type)
 				self[SlotName].Gradation:Show()
 			end
 		end
-		--self.MainHandSlot:Point('BOTTOMRIGHT', self.BP, 'TOP', -2, SPACING)
-		--self.SecondaryHandSlot:Point('BOTTOMLEFT', self.BP, 'TOP', 2, SPACING)
 	else
 		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 			if self[SlotName].ItemLevel then
@@ -423,8 +367,6 @@ function IA:ChangePage(Type)
 				self[SlotName].Gradation:Hide()
 			end
 		end
-		--self.MainHandSlot:Point('BOTTOMLEFT', self.BP, 'TOPLEFT', 1, SPACING)
-		--self.SecondaryHandSlot:Point('BOTTOMRIGHT', self.BP, 'TOPRIGHT', -1, SPACING)
 	end
 	
 	self:DisplayMessage(Type)
@@ -466,7 +408,6 @@ function IA:CreateInspectFrame()
 					AISM.RegisteredFunction.InspectArmory = nil
 				end
 				
-				--ENI.CancelInspect(TableIndex)
 				IA:UnregisterEvent('INSPECT_READY')
 				IA:UnregisterEvent('INSPECT_HONOR_UPDATE')
 			end
@@ -581,7 +522,7 @@ function IA:CreateInspectFrame()
 		self.Message = self.MessageFrame.Page.text
 	end
 	
-	do --<< Background >>--
+	do --<< Backdrop >>--
 		self.BG = self:CreateTexture(nil, 'OVERLAY')
 		self.BG:Point('TOPLEFT', self.Tab, 'BOTTOMLEFT', 0, -38)
 		self.BG:Point('BOTTOMRIGHT', self.BP, 'TOPRIGHT')
@@ -724,6 +665,7 @@ function IA:CreateInspectFrame()
 				insets = { left = 0, right = 0, top = 0, bottom = 0}
 			})
 			Slot:SetFrameLevel(CORE_FRAME_LEVEL + 3)
+			Slot.ReplaceTooltipLines = {}
 			Slot:SetScript('OnEnter', self.EquipmentSlot_OnEnter)
 			Slot:SetScript('OnLeave', self.OnLeave)
 			Slot:SetScript('OnClick', self.OnClick)
@@ -740,13 +682,6 @@ function IA:CreateInspectFrame()
 			
 			Slot.Highlight = Slot:CreateTexture('Frame', nil, self)
 			Slot.Highlight:SetInside()
-			--Slot.Highlight:SetTexture("Interface\\AddOns\\ElvUI_SLE\\modules\\Armory\\Media\\Textures\\Gradation")
-			--if Slot.Direction == 'LEFT' then
-				--Slot.Highlight:SetTexCoord(0, 1, 0, 1)
-			--else
-				--Slot.Highlight:SetTexCoord(1, 0, 0, 1)
-			--end
-			--Slot.Highlight:SetAlpha(0.8)
 			Slot.Highlight:SetColorTexture(1, 1, 1, 0.3)
 			Slot:SetHighlightTexture(Slot.Highlight)
 			
@@ -809,7 +744,7 @@ function IA:CreateInspectFrame()
 				-- Gem Socket
 				for i = 1, MAX_NUM_SOCKETS do
 					Slot['Socket'..i] = CreateFrame('Frame', nil, Slot.Gradation)
-					Slot["Socket"..i]:Size(E.db.sle.Armory.Inspect.Gem.SocketSize)
+					Slot['Socket'..i]:Size(E.db.sle.Armory.Inspect.Gem.SocketSize)
 					Slot['Socket'..i]:SetBackdrop({
 						bgFile = E.media.blankTex,
 						edgeFile = E.media.blankTex,
@@ -829,7 +764,7 @@ function IA:CreateInspectFrame()
 					})
 					Slot['Socket'..i].Socket:SetInside()
 					Slot['Socket'..i].Socket:SetFrameLevel(CORE_FRAME_LEVEL + 4)
-					Slot['Socket'..i].Socket:SetScript('OnEnter', self.GemSocket_OnEnter)
+					Slot['Socket'..i].Socket:SetScript('OnEnter', self.OnEnter)
 					Slot['Socket'..i].Socket:SetScript('OnLeave', self.OnLeave)
 					Slot['Socket'..i].Socket:SetScript('OnClick', self.GemSocket_OnClick)
 					
@@ -903,9 +838,6 @@ function IA:CreateInspectFrame()
 		KF:TextSetting(self.Character, nil, { Tag = 'AverageItemLevel', FontSize = 12 }, 'TOP', self.Model)
 	end
 	
-	--self.Model:Point('TOPLEFT', self.HeadSlot)
-	--self.Model:Point('TOPRIGHT', self.HandsSlot)
-	--self.Model:Point('BOTTOM', self.BP, 'TOP', 0, SPACING)
 	do --<< Information Page >>--
 		self.Info = CreateFrame('ScrollFrame', nil, self)
 		self.Info:SetFrameLevel(CORE_FRAME_LEVEL + 20)
@@ -1297,6 +1229,8 @@ function IA:CreateInspectFrame()
 		self.ScanTTForInspecting:SetOwner(UIParent, 'ANCHOR_NONE')
 		self.ScanTT = CreateFrame('GameTooltip', 'InspectArmoryScanTT', nil, 'GameTooltipTemplate')
 		self.ScanTT:SetOwner(UIParent, 'ANCHOR_NONE')
+		self.ScanTT2 = CreateFrame('GameTooltip', 'InspectArmoryScanTT2', nil, 'GameTooltipTemplate')
+		self.ScanTT2:SetOwner(UIParent, 'ANCHOR_NONE')
 	end
 	
 	do --<< UnitPopup Setting >>--
@@ -1391,14 +1325,14 @@ function IA:CreateInspectFrame()
 				Button.notCheckable = 1
 				UIDropDownMenu_AddButton(Button)
 				
-				Button = _G["DropDownList1Button".._G["DropDownList1"].numButtons]
+				Button = _G['DropDownList1Button'.._G["DropDownList1"].numButtons]
 			end
 			
 			Button.value = 'InspectArmory'
 			Button:SetText((' '):rep(T.strlen(ButtonName)))
 			
 			_G["InspectArmory_UnitPopup"]:Show()
-			_G["InspectArmory_UnitPopup"]:SetParent("DropDownList1")
+			_G["InspectArmory_UnitPopup"]:SetParent('DropDownList1')
 			_G["InspectArmory_UnitPopup"]:SetFrameStrata(Button:GetFrameStrata())
 			_G["InspectArmory_UnitPopup"]:SetFrameLevel(Button:GetFrameLevel() + 1)
 			_G["InspectArmory_UnitPopup"]:ClearAllPoints()
@@ -1779,7 +1713,7 @@ IA.InspectUnit = function(UnitID)
 		
 		return
 	else
-		T.twipe(IA.CurrentInspectData)
+		wipe(IA.CurrentInspectData)
 		E:CopyTable(IA.CurrentInspectData, IA.Default_CurrentInspectData)
 		
 		IA.CurrentInspectData.UnitID = UnitID
@@ -1840,8 +1774,10 @@ end
 
 function IA:InspectFrame_DataSetting(DataTable)
 	local SpecTab = DataTable.Specialization.SpecTab or 1
-	local Slot, ErrorDetected, NeedUpdate, NeedUpdateList, R, G, B
+	local ErrorDetected, NeedUpdate, NeedUpdateList, R, G, B, CurrentLineText
 	local ItemCount, ItemTotal = 0, 0
+	
+	local Slot, ItemData, BasicItemLevel, TrueItemLevel, ItemUpgradeID, CurrentUpgrade, MaxUpgrade, ItemType, ItemTexture, GemID, GemLink, GemCount_Default, GemCount_Enable, GemCount_Now, GemCount
 	
 	do	--<< Specialization Page Setting >>--
 		local Name, Texture
@@ -1870,20 +1806,23 @@ function IA:InspectFrame_DataSetting(DataTable)
 	end
 	
 	do	--<< Equipment Slot and Enchant, Gem Setting >>--
-		local ItemData, ItemRarity, BasicItemLevel, TrueItemLevel, ItemUpgradeID, CurrentUpgrade, MaxUpgrade, ItemType, ItemTexture, CurrentLineText, GemID, GemCount_Default, GemCount_Enable, GemCount_Now, GemCount
-		
 		-- Setting except shirt and tabard
 		for _, SlotName in T.pairs(T.type(self.GearUpdated) == 'table' and self.GearUpdated or Info.Armory_Constants.GearList) do
 			Slot = self[SlotName]
-			ErrorDetected, ItemRarity, ItemTexture, R, G, B = nil, nil, nil, 0, 0, 0
+			Slot.Link = DataTable.Gear[SlotName].ItemLink
+			Slot.ItemName = nil
+			Slot.ItemRarity = nil
+			Slot.ItemTexture = nil
 			
-			if SlotName ~= 'ShirtSlot' and SlotName ~= 'TabardSlot' then
+			ErrorDetected, ItemTexture, R, G, B = nil, nil, 0, 0, 0
+			
+			if not (SlotName == 'ShirtSlot' or SlotName == 'TabardSlot') then
 				do --<< Clear Setting >>--
 					NeedUpdate, TrueItemLevel, ItemUpgradeID, CurrentUpgrade, MaxUpgrade, ItemType = nil, nil, nil, nil, nil, nil
 					
-					Slot.Link = nil
-					Slot.ILvL = nil
+					Slot.ILvL = 0
 					Slot.IsEnchanted = nil
+					wipe(Slot.ReplaceTooltipLines)
 					Slot.Gradation.ItemLevel:SetText(nil)
 					Slot.Gradation.ItemEnchant:SetText(nil)
 					for i = 1, MAX_NUM_SOCKETS do
@@ -1908,92 +1847,69 @@ function IA:InspectFrame_DataSetting(DataTable)
 					end
 				end
 				
-				if DataTable.Gear[SlotName].ItemLink then
-					-- _, Slot.Link = T.GetItemInfo(DataTable.Gear[SlotName].ItemLink)
-					Slot.Link = DataTable.Gear[SlotName].ItemLink
-
-					if Slot.Link then
-						do --<< Gem Parts >>--
-							ItemData = { T.split(':', Slot.Link) }
-							
-							if DataTable.Specialization[SpecTab].SpecializationID and DataTable.Specialization[SpecTab].SpecializationID ~= 0 then
-								ItemData[11] = DataTable.Specialization[SpecTab].SpecializationID
-								
-								Slot.Link = ItemData[1]
-								
-								for i = 2, #ItemData do
-									Slot.Link = Slot.Link..':'..ItemData[i]
-								end
+				if Slot.Link then
+					if not Slot.Link:find('%[%]') then -- sometimes itemLink is malformed so we need to update when crashed
+						--<< Prepare Setting >>
+						ItemData = { T.split(':', Slot.Link) }
+						
+						for i = 1, #ItemData do
+							if tonumber(ItemData[i]) then
+								ItemData[i] = tonumber(ItemData[i])
 							end
+						end
+						
+						Slot.ItemName, _, Slot.ItemRarity, BasicItemLevel, _, _, _, _, ItemType, Slot.ItemTexture = T.GetItemInfo(Slot.Link)
+						
+						if DataTable.Specialization[SpecTab].SpecializationID and DataTable.Specialization[SpecTab].SpecializationID ~= 0 then
+							ItemData[11] = DataTable.Specialization[SpecTab].SpecializationID
 							
-							ItemData.FixedLink = ItemData[1]
+							Slot.Link = ItemData[1]
 							
 							for i = 2, #ItemData do
-								if i == 4 or i == 5 or i ==6 or i ==7 then
-									ItemData.FixedLink = ItemData.FixedLink..':'..0
-								else
-									ItemData.FixedLink = ItemData.FixedLink..':'..ItemData[i]
-								end
+								Slot.Link = Slot.Link..':'..ItemData[i]
 							end
-							
-							self:ClearTooltip(self.ScanTT)
-							self.ScanTT:SetHyperlink(ItemData.FixedLink)
-							
+						end
+						
+						do --<< Gem Parts >>--
 							GemCount_Default, GemCount_Now, GemCount = 0, 0, 0
 							
-							-- First, Counting default gem sockets
-							for i = 1, MAX_NUM_SOCKETS do
-								ItemTexture = _G['InspectArmoryScanTTTexture'..i]:GetTexture()
+							if Info.Armory_Constants.ArtifactType[(ItemData[2])] then	-- Artifact Parts
+								GemCount_Default = 3
+								GemCount_Enable = 3
+								GemCount_Now = 3
 								
-								if ItemTexture and ItemTexture:find('Interface\\ItemSocketingFrame\\') then
-									GemCount_Default = GemCount_Default + 1
-									Slot["Socket"..GemCount_Default].GemType = T.upper(gsub(ItemTexture, 'Interface\\ItemSocketingFrame\\UI--EmptySocket--', ''))
-								end
-							end
-							
-							-- Second, Check if slot's item enable to adding a socket
-							GemCount_Enable = GemCount_Default
-							--[[
-							if (SlotName == 'WaistSlot' and DataTable.Level >= 70) or -- buckle
-								((SlotName == 'WristSlot' or SlotName == 'HandsSlot') and (DataTable.Profession[1].Name == GetSpellInfo(110396) and DataTable.Profession[1].Level >= 550 or DataTable.Profession[2].Name == GetSpellInfo(110396) and DataTable.Profession[2].Level >= 550)) then -- BlackSmith
+								self:ClearTooltip(self.ScanTT)
+								self.ScanTT:SetHyperlink(Slot.Link)
 								
-								GemCount_Enable = GemCount_Enable + 1
-								Slot['Socket'..GemCount_Enable].GemType = 'PRISMATIC'
-							end
-							]]
-							
-							
-							self:ClearTooltip(self.ScanTT)
-							self.ScanTT:SetHyperlink(Slot.Link)
-							
-							-- Apply current item's gem setting
-							for i = 1, MAX_NUM_SOCKETS do
-								ItemTexture = _G['InspectArmoryScanTTTexture'..i]:GetTexture()
-								GemID = ItemData[i + 3] ~= '' and tonumber(ItemData[i + 3]) or 0
-								
-								if Slot['Socket'..i].GemType and Info.Armory_Constants.GemColor[Slot['Socket'..i].GemType] then
-									R, G, B = unpack(Info.Armory_Constants.GemColor[Slot['Socket'..i].GemType])
-									Slot['Socket'..i].Socket:SetBackdropColor(R, G, B, .5)
-									Slot['Socket'..i].Socket:SetBackdropBorderColor(R, G, B)
-								else
-									Slot['Socket'..i].Socket:SetBackdropColor(1, 1, 1, .5)
-									Slot['Socket'..i].Socket:SetBackdropBorderColor(1, 1, 1)
-								end
-								
-								if ItemTexture then
-									if E.db.sle.Armory.Inspect.Gem.Display == 'Always' or E.db.sle.Armory.Inspect.Gem.Display == 'MouseoverOnly' and Slot.Mouseovered or E.db.sle.Armory.Inspect.Gem.Display == 'MissingOnly' then
-										Slot['Socket'..i]:Show()
-										Slot.SocketWarning:Point(Slot.Direction, Slot['Socket'..i], (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
+								for i = 1, MAX_NUM_SOCKETS do
+									Slot['Socket'..i].GemType = Info.Armory_Constants.ArtifactType[(ItemData[2])][i]
+									GemID = ItemData[i + 3] ~= '' and ItemData[i + 3] or 0
+									_, GemLink = GetItemGem(Slot.Link, i)
+									Slot.SocketWarning:Point(Slot.Direction, Slot.Socket3, (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
+									
+									if Slot['Socket'..i].GemType and Info.Armory_Constants.GemColor[Slot['Socket'..i].GemType] then
+										R, G, B = unpack(Info.Armory_Constants.GemColor[Slot['Socket'..i].GemType])
+										Slot['Socket'..i].Socket:SetBackdropColor(R, G, B, .5)
+										Slot['Socket'..i].Socket:SetBackdropBorderColor(R, G, B)
+									else
+										R, G, B = 0, 0, 0
+										Slot['Socket'..i].Socket:SetBackdropColor(1, 1, 1, .5)
+										Slot['Socket'..i].Socket:SetBackdropBorderColor(1, 1, 1)
 									end
 									
-									GemCount_Now = GemCount_Now + 1
-									
-									if GemID ~= 0 then
+									Slot['Socket'..i].Socket.Message = format(RELIC_TOOLTIP_TYPE, E:RGBToHex(R, G, B).._G['RELIC_SLOT_TYPE_'..Slot['Socket'..i].GemType])
+									if GemLink then
+										if E.db.sle.Armory.Inspect.Gem.Display == 'Always' or E.db.sle.Armory.Inspect.Gem.Display == 'MouseoverOnly' and Slot.Mouseovered or E.db.sle.Armory.Inspect.Gem.Display == 'MissingOnly' then
+											Slot['Socket'..i]:Show()
+										end
+										
 										GemCount = GemCount + 1
 										Slot['Socket'..i].GemItemID = GemID
+										Slot['Socket'..i].Socket.Link = GemLink
 										
-										_, Slot['Socket'..i].Socket.Link, _, _, _, _, _, _, _, ItemTexture = T.GetItemInfo(GemID)
+										ItemTexture = select(10, T.GetItemInfo(GemID))
 										
+										Slot['Socket'..i].Socket.Message = nil
 										if ItemTexture then
 											Slot['Socket'..i].Texture:SetTexture(ItemTexture)
 										else
@@ -2001,39 +1917,90 @@ function IA:InspectFrame_DataSetting(DataTable)
 										end
 									end
 								end
+							else
+								ItemData.FixedLink = ItemData[1]
 								
-								--[[
-								CurrentLineText = select(2, _G['InspectArmoryScanTTTexture'..i]:GetPoint())
-								CurrentLineText = DataTable.Gear[SlotName]['Gem'..i] or CurrentLineText ~= self.ScanTT and CurrentLineText.GetText and CurrentLineText:GetText():gsub('|cff......', ''):gsub('|r', '') or nil
-								
-								if CurrentLineText then
-									if KF.db.Modules.Armory.Inspect.Gem.Display == 'Always' or KF.db.Modules.Armory.Inspect.Gem.Display == 'MouseoverOnly' and Slot.Mouseovered or KF.db.Modules.Armory.Inspect.Gem.Display == 'MissingOnly' then
-										Slot['Socket'..i]:Show()
-										Slot.SocketWarning:Point(Slot.Direction, Slot['Socket'..i], (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
-									end
-									
-									GemCount_Now = GemCount_Now + 1
-									
-									ItemTexture = ItemTexture or DataTable.Gear[SlotName]['Gem'..i] and select(10, GetItemInfo(DataTable.Gear[SlotName]['Gem'..i])) or nil
-									
-									if not ItemTexture then
-										NeedUpdate = true
-									elseif not Info.Armory_Constants.EmptySocketString[CurrentLineText] then
-										GemCount = GemCount + 1
-										Slot['Socket'..i].GemItemID = CurrentLineText
-										Slot['Socket'..i].Texture:SetTexture(ItemTexture)
+								for i = 2, #ItemData do
+									if i == 4 or i == 5 or i ==6 or i ==7 then
+										ItemData.FixedLink = ItemData.FixedLink..':'
+									else
+										ItemData.FixedLink = ItemData.FixedLink..':'..ItemData[i]
 									end
 								end
+								
+								self:ClearTooltip(self.ScanTT)
+								self.ScanTT:SetHyperlink(ItemData.FixedLink)
+								
+								-- First, Counting default gem sockets
+								for i = 1, MAX_NUM_SOCKETS do
+									ItemTexture = _G['InspectArmoryScanTTTexture'..i]:GetTexture()
+									
+									if ItemTexture and ItemTexture:find('Interface\\ItemSocketingFrame\\') then
+										GemCount_Default = GemCount_Default + 1
+										Slot['Socket'..GemCount_Default].GemType = T.upper(gsub(ItemTexture, 'Interface\\ItemSocketingFrame\\UI--EmptySocket--', ''))
+									end
+								end
+								
+								-- Second, Check if slot's item enable to adding a socket
+								GemCount_Enable = GemCount_Default
+								--[[
+								if (SlotName == 'WaistSlot' and DataTable.Level >= 70) or -- buckle
+									((SlotName == 'WristSlot' or SlotName == 'HandsSlot') and (DataTable.Profession[1].Name == GetSpellInfo(110396) and DataTable.Profession[1].Level >= 550 or DataTable.Profession[2].Name == GetSpellInfo(110396) and DataTable.Profession[2].Level >= 550)) then -- BlackSmith
+									
+									GemCount_Enable = GemCount_Enable + 1
+									Slot['Socket'..GemCount_Enable].GemType = 'PRISMATIC'
+								end
 								]]
-							end
 							
-							if GemCount_Now < GemCount_Default then -- ItemInfo not loaded
-								NeedUpdate = true
+								self:ClearTooltip(self.ScanTT)
+								self.ScanTT:SetHyperlink(Slot.Link)
+								
+								-- Apply current item's gem setting
+								for i = 1, MAX_NUM_SOCKETS do
+									ItemTexture = _G['InspectArmoryScanTTTexture'..i]:GetTexture()
+									GemID = ItemData[i + 3] ~= '' and ItemData[i + 3] or 0
+									_, GemLink = GetItemGem(Slot.Link, i)
+									
+									if Slot['Socket'..i].GemType and Info.Armory_Constants.GemColor[Slot['Socket'..i].GemType] then
+										R, G, B = unpack(Info.Armory_Constants.GemColor[Slot['Socket'..i].GemType])
+										Slot['Socket'..i].Socket:SetBackdropColor(R, G, B, .5)
+										Slot['Socket'..i].Socket:SetBackdropBorderColor(R, G, B)
+									else
+										Slot['Socket'..i].Socket:SetBackdropColor(1, 1, 1, .5)
+										Slot['Socket'..i].Socket:SetBackdropBorderColor(1, 1, 1)
+									end
+									
+									if ItemTexture or GemLink then
+										if E.db.sle.Armory.Inspect.Gem.Display == 'Always' or E.db.sle.Armory.Inspect.Gem.Display == 'MouseoverOnly' and Slot.Mouseovered or E.db.sle.Armory.Inspect.Gem.Display == 'MissingOnly' then
+											Slot['Socket'..i]:Show()
+											Slot.SocketWarning:Point(Slot.Direction, Slot['Socket'..i], (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
+										end
+										
+										GemCount_Now = GemCount_Now + 1
+										
+										if GemID ~= 0 then
+											GemCount = GemCount + 1
+											Slot['Socket'..i].GemItemID = GemID
+											Slot['Socket'..i].Socket.Link = GemLink
+											
+											ItemTexture = select(10, T.GetItemInfo(GemID))
+											
+											if ItemTexture then
+												Slot['Socket'..i].Texture:SetTexture(ItemTexture)
+											else
+												NeedUpdate = true
+											end
+										else
+											Slot['Socket'..i].Socket.Message = '|cffffffff'.._G['EMPTY_SOCKET_'..Slot['Socket'..i].GemType]
+										end
+									end
+								end
+								
+								if GemCount_Now < GemCount_Default then -- ItemInfo not loaded
+									NeedUpdate = true
+								end
 							end
 						end
-						
-						_, _, ItemRarity, BasicItemLevel, _, _, _, _, ItemType, ItemTexture = T.GetItemInfo(Slot.Link)
-						R, G, B = GetItemQualityColor(ItemRarity)
 						
 						--<< Enchant Parts >>--
 						for i = 1, self.ScanTT:NumLines() do
@@ -2078,7 +2045,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 						
 						if BasicItemLevel then
 							if ItemUpgradeID then
-								if ItemUpgradeID == '' or not E.db.sle.Armory.Inspect.Level.ShowUpgradeLevel and ItemRarity == 7 then
+								if ItemUpgradeID == '' or not E.db.sle.Armory.Inspect.Level.ShowUpgradeLevel and Slot.ItemRarity == 7 then
 									ItemUpgradeID = nil
 								elseif CurrentUpgrade or MaxUpgrade then
 									ItemUpgradeID = TrueItemLevel - BasicItemLevel
@@ -2143,7 +2110,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 								if GemCount_Enable > GemCount_Now then
 									if SlotName == 'WaistSlot' then
 										if TrueItemLevel < 300 then
-											_, Slot.SocketWarning.Link = GetItemInfo(41611)	
+											_, Slot.SocketWarning.Link = GetItemInfo(41611)
 										elseif TrueItemLevel < 417 then
 											_, Slot.SocketWarning.Link = GetItemInfo(55054)
 										else
@@ -2192,33 +2159,28 @@ function IA:InspectFrame_DataSetting(DataTable)
 								Slot.TransmogrifyAnchor:Show()
 							end
 						end
+						
+						R, G, B = GetItemQualityColor(Slot.ItemRarity)
 					else
 						NeedUpdate = true
 					end
-				end
-				
-				Slot.Texture:SetTexture(ItemTexture or Slot.EmptyTexture)
-				
-				if NeedUpdate then
-					NeedUpdateList = NeedUpdateList or {}
-					NeedUpdateList[#NeedUpdateList + 1] = SlotName
-				end
-			else
-				Slot.Link = DataTable.Gear[SlotName].ItemLink
-				
-				if Slot.Link then
-					_, _, ItemRarity, _, _, _, _, _, _, ItemTexture = T.GetItemInfo(Slot.Link)
 					
-					if ItemRarity then
-						R, G, B = T.GetItemQualityColor(ItemRarity)
-					else
+					if NeedUpdate then
 						NeedUpdateList = NeedUpdateList or {}
 						NeedUpdateList[#NeedUpdateList + 1] = SlotName
 					end
 				end
+			elseif Slot.Link then
+				_, _, Slot.ItemRarity, _, _, _, _, _, _, Slot.ItemTexture = T.GetItemInfo(Slot.Link)
 				
-				Slot.Texture:SetTexture(ItemTexture or self[SlotName].EmptyTexture)
+				if Slot.ItemRarity then
+					R, G, B = GetItemQualityColor(Slot.ItemRarity)
+				else
+					NeedUpdateList = NeedUpdateList or {}
+					NeedUpdateList[#NeedUpdateList + 1] = SlotName
+				end
 			end
+			Slot.Texture:SetTexture(Slot.ItemTexture or Slot.EmptyTexture)
 			
 			-- Change Gradation
 			if Slot.Link and E.db.sle.Armory.Inspect.Gradation.Display then
@@ -2246,12 +2208,81 @@ function IA:InspectFrame_DataSetting(DataTable)
 	end
 	self.GearUpdated = nil
 	
+	
+	do	--<< Artifact Weapon >>--
+		if (self.MainHandSlot.ItemRarity == 6 or self.SecondaryHandSlot.ItemRarity == 6) and self.MainHandSlot.ILvL ~= self.SecondaryHandSlot.ILvL then
+			local MajorArtifactSlot, MinorArtifactSlot
+			
+			if self.MainHandSlot.ILvL > self.SecondaryHandSlot.ILvL then
+				MajorArtifactSlot = 'MainHandSlot'
+				MinorArtifactSlot = 'SecondaryHandSlot'
+			else
+				MajorArtifactSlot = 'SecondaryHandSlot'
+				MinorArtifactSlot = 'MainHandSlot'
+			end
+			
+			self[MinorArtifactSlot].ILvL = self[MajorArtifactSlot].ILvL
+			
+			if self.MainHandSlot.ItemRarity == 6 and self.SecondaryHandSlot.ItemRarity == 6 then
+				self[MinorArtifactSlot].Gradation.ItemLevel:SetText(self[MinorArtifactSlot].ILvL)
+				
+				-- Find line starting minor artifact's data in major artifact tooltip.
+				local MajorTooltipStartLine, MinorArtifactName, MinorTooltipStartLine, MinorTooltipStartKey
+				
+				self:ClearTooltip(self.ScanTT)
+				self.ScanTT:SetHyperlink(self[MajorArtifactSlot].Link)
+				
+				self:ClearTooltip(self.ScanTT2)
+				self.ScanTT2:SetHyperlink(self[MinorArtifactSlot].Link)
+				
+				for i = 1, self.ScanTT2:NumLines() do
+					if _G['InspectArmoryScanTT2TextLeft'..i]:GetText():find(Info.Armory_Constants.ItemLevelKey) then
+						MinorArtifactName = _G['InspectArmoryScanTT2TextLeft'..(i - 1)]:GetText()
+						self[MinorArtifactSlot].ReplaceTooltipLines[i] = format(ITEM_LEVEL, self[MajorArtifactSlot].ILvL)
+						
+						break
+					end
+				end
+				
+				for i = 2, self.ScanTT:NumLines() do
+					if _G['InspectArmoryScanTTTextLeft'..i]:GetText() == MinorArtifactName then
+						MajorTooltipStartLine = i + 1
+						MinorTooltipStartKey = _G['InspectArmoryScanTTTextLeft'..(i + 1)]:GetText()
+						
+						break
+					end
+				end
+				
+				for i = 1, self.ScanTT2:NumLines() do
+					if _G['InspectArmoryScanTT2TextLeft'..i]:GetText() == MinorTooltipStartKey then
+						MinorTooltipStartLine = i
+						
+						break
+					end
+				end
+				
+				for i = MajorTooltipStartLine, self.ScanTT:NumLines() do
+					CurrentLineText = _G['InspectArmoryScanTTTextLeft'..i]:GetText()
+					
+					if not CurrentLineText:find('"') then
+						self[MinorArtifactSlot].ReplaceTooltipLines[MinorTooltipStartLine] = CurrentLineText
+						
+						MinorTooltipStartLine = MinorTooltipStartLine + 1
+					else
+						break
+					end
+				end
+			end
+		end
+	end
+	
+	
 	do	--<< Average ItemLevel >>--
 		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
-			if SlotName ~= 'ShirtSlot' and SlotName ~= 'TabardSlot' then
+			if not (SlotName == 'ShirtSlot' or SlotName == 'TabardSlot') then
 				Slot = self[SlotName]
 				
-				if Slot.ILvL then
+				if Slot.ILvL > 0 then
 					ItemCount = ItemCount + 1
 					ItemTotal = ItemTotal + Slot.ILvL
 				end
@@ -2259,6 +2290,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 		end
 		self.Character.AverageItemLevel:SetText('|c'..RAID_CLASS_COLORS[DataTable.Class].colorStr..STAT_AVERAGE_ITEM_LEVEL..'|r : '..format('%.2f', ItemTotal / ItemCount))
 	end
+	
 	
 	R, G, B = RAID_CLASS_COLORS[DataTable.Class].r, RAID_CLASS_COLORS[DataTable.Class].g, RAID_CLASS_COLORS[DataTable.Class].b
 	
@@ -2269,6 +2301,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 		self.Title:SetText(Realm..(Realm ~= '' and Title ~= '' and ' / ' or '')..(Title ~= '' and '|cff93daff'..Title or ''))
 		self.Guild:SetText(DataTable.guildName and '<|cff2eb7e4'..DataTable.guildName..'|r>  [|cff2eb7e4'..DataTable.guildRankName..'|r]' or '')
 	end
+	
 	
 	do	--<< Information Page Setting >>--
 		do	-- Profession
@@ -2307,6 +2340,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 		self:ReArrangeCategory()
 	end
 	
+	
 	do	--<< Model and Frame Setting When InspectUnit Changed >>--
 		if self.NeedModelSetting then
 			self.Model:ClearAllPoints()
@@ -2325,8 +2359,8 @@ function IA:InspectFrame_DataSetting(DataTable)
 				self.Model:TryOn(BackSlotItem)
 				self.Model:Undress()
 				
-			for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
-				if T.type(DataTable.Gear[SlotName].Transmogrify) == 'number' then
+				for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
+					if T.type(DataTable.Gear[SlotName].Transmogrify) == 'number' then
 						self.Model:TryOn(DataTable.Gear[SlotName].Transmogrify)
 					elseif DataTable.Gear[SlotName].ItemLink and not (DataTable.Gear[SlotName].Transmogrify and DataTable.Gear[SlotName].Transmogrify == 'NotDisplayed') then
 						self.Model:TryOn(DataTable.Gear[SlotName].ItemLink)
@@ -2384,6 +2418,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 			self:ToggleSpecializationTab(DataTable.Specialization.SpecTab or 1, DataTable)
 		end
 	end
+	
 	
 	self.LastDataSetting = DataTable.Name..(DataTable.Realm and '-'..DataTable.Realm or '')
 	
@@ -2708,7 +2743,7 @@ function IA:Update_Display(Force)
 							SocketVisible = false
 						end
 						
-						if Slot["Socket"..i].GemType and E.db.sle.Armory.Inspect.NoticeMissing and not Slot["Socket"..i].GemItemID then
+						if Slot['Socket'..i].GemType and E.db.sle.Armory.Inspect.NoticeMissing and not Slot['Socket'..i].GemItemID then
 							SocketVisible = true
 						end
 					end
@@ -2780,7 +2815,6 @@ end
 KF.Modules[#KF.Modules + 1] = 'InspectArmory'
 KF.Modules.InspectArmory = function()
 	if E.db.sle.Armory.Inspect.Enable ~= false and not Info.InspectArmory_Activate then
-		--Default_NotifyInspect = NotifyInspect
 		Default_InspectUnit = InspectUnit
 		Default_InspectFrame = _G.InspectFrame
 		
