@@ -432,13 +432,6 @@ function IA:CreateInspectFrame()
 		self.Tab = CreateFrame('Frame', nil, self)
 		self.Tab:Point('TOPLEFT', self, SPACING, -SPACING)
 		self.Tab:Point('BOTTOMRIGHT', self, 'TOPRIGHT', -SPACING, -(SPACING + TAB_HEIGHT))
-		self.Tab:SetBackdrop({
-			bgFile = E.media.normTex,
-			edgeFile = E.media.blankTex,
-			tile = false, tileSize = 0, edgeSize = E.mult,
-			insets = { left = 0, right = 0, top = 0, bottom = 0}
-		})
-		self.Tab:SetBackdropBorderColor(0, 0, 0)
 		KF:TextSetting(self.Tab, ' |cff2eb7e4Knight Inspect', { FontSize = 10, FontStyle = 'OUTLINE' }, 'LEFT', 6, 1)
 		self.Tab:SetScript('OnMouseDown', function() self:StartMoving() end)
 		self.Tab:SetScript('OnMouseUp', function() self:StopMovingOrSizing() end)
@@ -461,14 +454,6 @@ function IA:CreateInspectFrame()
 		self.BP = CreateFrame('Frame', nil, self)
 		self.BP:Point('TOPLEFT', self, 'BOTTOMLEFT', SPACING, SPACING + TAB_HEIGHT)
 		self.BP:Point('BOTTOMRIGHT', self, -SPACING, SPACING)
-		self.BP:SetBackdrop({
-			bgFile = E.media.normTex,
-			edgeFile = E.media.blankTex,
-			tile = false, tileSize = 0, edgeSize = E.mult,
-			insets = { left = 0, right = 0, top = 0, bottom = 0}
-		})
-		self.BP:SetBackdropColor(0.09, 0.3, 0.45)
-		self.BP:SetBackdropBorderColor(0, 0, 0)
 		self.BP:SetFrameLevel(CORE_FRAME_LEVEL + 2)
 		
 		self.MessageFrame = CreateFrame('ScrollFrame', nil, self.BP)
@@ -535,12 +520,6 @@ function IA:CreateInspectFrame()
 			self[ButtonName] = CreateFrame('Button', nil, self.BP)
 			self[ButtonName]:Size(70, 20)
 			self[ButtonName]:SetBackdrop({
-				bgFile = E.media.normTex,
-				edgeFile = E.media.blankTex,
-				tile = false, tileSize = 0, edgeSize = E.mult,
-				insets = { left = 0, right = 0, top = 0, bottom = 0}
-			})
-			self[ButtonName]:SetBackdropBorderColor(0, 0, 0)
 			self[ButtonName]:SetFrameLevel(CORE_FRAME_LEVEL + 1)
 			KF:TextSetting(self[ButtonName], _G[ButtonString], { FontSize = 9, FontStyle = 'OUTLINE' })
 			self[ButtonName]:SetScript('OnEnter', self.Button_OnEnter)
