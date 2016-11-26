@@ -519,7 +519,7 @@ function IA:CreateInspectFrame()
 			
 			self[ButtonName] = CreateFrame('Button', nil, self.BP)
 			self[ButtonName]:Size(70, 20)
-			self[ButtonName]:SetBackdrop({
+			self[ButtonName]:SetTemplate('Transparent')
 			self[ButtonName]:SetFrameLevel(CORE_FRAME_LEVEL + 1)
 			KF:TextSetting(self[ButtonName], _G[ButtonString], { FontSize = 9, FontStyle = 'OUTLINE' })
 			self[ButtonName]:SetScript('OnEnter', self.Button_OnEnter)
