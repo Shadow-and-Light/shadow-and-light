@@ -8,6 +8,7 @@ Fixes:
 - Fixed level up error in played DT
 - Fixed bag sorting freeze the game when showing artifact power in bags is enabled
 - DK's offhand rune will no longer appear on artifact monitor
+- Armory Inspect function is in a more working order
 
 v3.16 11/15/2016
 Additions:
