@@ -507,11 +507,11 @@ function IA:CreateInspectFrame()
 		self.Message = self.MessageFrame.Page.text
 	end
 	
-	do --<< Backdrop >>--
-		self.BG = self:CreateTexture(nil, 'OVERLAY')
-		self.BG:Point('TOPLEFT', self.Tab, 'BOTTOMLEFT', 0, -38)
-		self.BG:Point('BOTTOMRIGHT', self.BP, 'TOPRIGHT')
-	end
+	-- do --<< Backdrop >>--
+	-- 	self.BG = self:CreateTexture(nil, 'OVERLAY')
+	-- 	self.BG:Point('TOPLEFT', self.Tab, 'BOTTOMLEFT', 0, -38)
+	-- 	self.BG:Point('BOTTOMRIGHT', self.BP, 'TOPRIGHT')
+	-- end
 	
 	do --<< Buttons >>--
 		for ButtonName, ButtonString in T.pairs(self.PageList) do
@@ -812,7 +812,16 @@ function IA:CreateInspectFrame()
 		
 		self.MainHandSlot:Point('BOTTOMRIGHT', self.BP, 'TOP', -2, SPACING)
 		self.SecondaryHandSlot:Point('BOTTOMLEFT', self.BP, 'TOP', 2, SPACING)
-		
+
+		do --<< Backdrop >>--
+			self.BG = self:CreateTexture(nil, 'OVERLAY')
+			self.BG:Point('TOPLEFT', self.HeadSlot, 'TOPLEFT')
+			self.BG:Point('RIGHT', self.HandsSlot, 'RIGHT')
+			self.BG:Point('BOTTOM', self.MainHandSlot, 'BOTTOM')
+			-- self.BG:Point('TOPLEFT', self.HeadSlot, 'TOPLEFT', 0, 0)
+			-- self.BG:Point('BOTTOMRIGHT', self.BP, 'TOPRIGHT')
+		end
+
 		-- ItemLevel
 		KF:TextSetting(self.Character, nil, { Tag = 'AverageItemLevel', FontSize = 12 }, 'TOP', self.Model)
 	end
