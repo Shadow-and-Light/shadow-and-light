@@ -366,13 +366,17 @@ end
 
 function LP:PopulateItems()
 	local noItem = false
-	if T.select(2, T.GetItemInfo(6948)) == nil then noItem = true end
+
+	for index, data in T.pairs(LP.PortItems) do
+		if T.select(2, T.GetItemInfo(data[1])) == nil then noItem = true end
+	end
+
 	if noItem then
 		E:Delay(2, LP.PopulateItems)
 	else
-		for i = 1, #LP.PortItems do
-			local id, name, toy = T.unpack(LP.PortItems[i])
-			LP.PortItems[i] = {text = name or T.GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true}
+		for index, data in T.pairs(LP.PortItems) do
+			local id, name, toy = data[1], data[2], data[3]
+			LP.PortItems[index] = {text = name or T.GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true}
 		end
 	end
 end
@@ -394,7 +398,6 @@ function LP:ItemList(check)
 						tmp.text = "|cff636363"..tmp.text.."|r"..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
 						T.tinsert(LP.MainMenu, tmp)
 					else
-						-- tmp.text = tmp.text
 						T.tinsert(LP.MainMenu, data)
 					end
 					
