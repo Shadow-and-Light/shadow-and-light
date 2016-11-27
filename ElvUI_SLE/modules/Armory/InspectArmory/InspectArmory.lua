@@ -527,7 +527,7 @@ function IA:CreateInspectFrame()
 			self[ButtonName]:SetScript('OnClick', function() IA:ChangePage(ButtonName) end)
 			self[ButtonName].ButtonString = _G[ButtonString]
 		end
-		self.CharacterButton:Point('TOPLEFT', self.BP, 'BOTTOMLEFT', SPACING + 1, 2)
+		self.CharacterButton:Point('TOPLEFT', self.BP, 'BOTTOMLEFT', SPACING + 1, -3)
 		self.InfoButton:Point('TOPLEFT', self.CharacterButton, 'TOPRIGHT', SPACING, 0)
 		self.SpecButton:Point('TOPLEFT', self.InfoButton, 'TOPRIGHT', SPACING, 0)
 	end
