@@ -3,6 +3,11 @@ local _G = _G
 local getmetatable = getmetatable
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 
+--This shit should be in Alphabetical Order to make it easier to see what is here or not... DARTH!
+T.GetBuildInfo = GetBuildInfo
+T.GetTalentLink = GetTalentLink
+T.GetPlayerInfoByGUID = GetPlayerInfoByGUID
+T.GetCursorPosition = GetCursorPosition
 --Adding a lot of shit from global functions--
 T.format = format
 T.strlower = strlower
@@ -57,6 +62,10 @@ T.UnitHonorLevel = UnitHonorLevel
 T.GetMaxPlayerHonorLevel = GetMaxPlayerHonorLevel
 T.UnitIsVisible = UnitIsVisible
 T.UnitIsDeadOrGhost = UnitIsDeadOrGhost
+T.HasInspectHonorData = HasInspectHonorData
+T.GetInspectSpecialization = GetInspectSpecialization
+T.SetSmallGuildTabardTextures = SetSmallGuildTabardTextures
+T.GetInventoryItemTexture = GetInventoryItemTexture
 --Class
 T.GetNumClasses = GetNumClasses
 T.GetClassInfo = GetClassInfo
@@ -76,6 +85,7 @@ T.GetItemCount = GetItemCount
 T.IsEquippableItem = IsEquippableItem
 T.GetItemQualityColor = GetItemQualityColor
 T.GetInventoryItemID = GetInventoryItemID
+T.SetItemRef = SetItemRef
 -- T.
 --XP
 T.IsXPUserDisabled = IsXPUserDisabled
@@ -94,6 +104,7 @@ T.GetNumGuildMembers = GetNumGuildMembers
 T.GetGuildRosterInfo = GetGuildRosterInfo
 T.GetGuildRosterMOTD = GetGuildRosterMOTD
 T.GetGuildLogoInfo = GetGuildLogoInfo
+T.GetInspectGuildInfo = GetInspectGuildInfo
 T.CanEditOfficerNote = CanEditOfficerNote
 T.CanEditPublicNote = CanEditPublicNote
 T.InviteUnit = InviteUnit
@@ -137,6 +148,9 @@ T.GetBattlefieldScore = GetBattlefieldScore
 T.CanPrestige = CanPrestige
 T.GetPVPLifetimeStats = GetPVPLifetimeStats
 T.GetPersonalRatedInfo = GetPersonalRatedInfo
+T.GetInspectArenaData = GetInspectArenaData
+T.GetInspectRatedBGData = GetInspectRatedBGData
+T.GetInspectHonorData = GetInspectHonorData
 --Map
 T.GetZoneText = GetZoneText
 T.GetRealZoneText = GetRealZoneText
@@ -156,6 +170,7 @@ T.GetInboxHeaderInfo = GetInboxHeaderInfo
 --Addons
 T.IsAddOnLoaded = IsAddOnLoaded
 T.DisableAddOn = DisableAddOn
+T.SendAddonMessage = SendAddonMessage
 
 T.GetQuestDifficultyColor = GetQuestDifficultyColor
 
