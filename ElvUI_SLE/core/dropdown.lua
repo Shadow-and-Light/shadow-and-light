@@ -188,7 +188,7 @@ function DD:RegisterMenu(menu)
 	if name then
 		DD.RegisteredMenus[name] = menu
 	else
-		SLE:Print("Dropdown not registered. Please chack if it has a name.")
+		SLE:Print("Dropdown not registered. Please check if it has a name.")
 	end
 end
 
