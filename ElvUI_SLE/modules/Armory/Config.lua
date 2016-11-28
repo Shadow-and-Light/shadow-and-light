@@ -778,10 +778,24 @@ local function LoadArmoryConfigTable()
 							end,
 							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end
 						},
+						CurrentClassColor = {
+							type = 'toggle',
+							name = L["Use Inspected Unit Class Color"],
+							order = 2,
+							get = function() return E.db.sle.Armory.Inspect.Gradation.CurrentClassColor end,
+							set = function(_, value)
+								E.db.sle.Armory.Inspect.Gradation.CurrentClassColor = value
+								
+								if _G["InspectArmory"] and _G["InspectArmory"].LastDataSetting then
+									_G["InspectArmory"]:InspectFrame_DataSetting(_G["InspectArmory"].CurrentInspectData)
+								end
+							end,
+							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end
+						},
 						Color = {
 							type = 'color',
 							name = L["Gradient Texture Color"],
-							order = 2,
+							order = 3,
 							get = function() 
 								return E.db.sle.Armory.Inspect.Gradation.Color[1],
 									   E.db.sle.Armory.Inspect.Gradation.Color[2],
@@ -795,7 +809,7 @@ local function LoadArmoryConfigTable()
 									_G["InspectArmory"]:InspectFrame_DataSetting(_G["InspectArmory"].CurrentInspectData)
 								end
 							end,
-							disabled = function() return E.db.sle.Armory.Inspect.Enable == false or E.db.sle.Armory.Inspect.Gradation.Display == false end
+							disabled = function() return E.db.sle.Armory.Inspect.Enable == false or E.db.sle.Armory.Inspect.Gradation.Display == false or E.db.sle.Armory.Inspect.Gradation.CurrentClassColor == true end
 						},
 					}
 				},

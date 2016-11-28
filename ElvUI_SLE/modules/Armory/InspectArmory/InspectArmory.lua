@@ -2162,6 +2162,9 @@ function IA:InspectFrame_DataSetting(DataTable)
 			if ErrorDetected and E.db.sle.Armory.Inspect.NoticeMissing then
 				Slot.Gradation.Texture:SetVertexColor(1, 0, 0)
 				Slot.Gradation.Texture:Show()
+			elseif E.db.sle.Armory.Inspect.Gradation.CurrentClassColor then
+				curR, curG, curB = RAID_CLASS_COLORS[IA.CurrentInspectData.Class].r, RAID_CLASS_COLORS[IA.CurrentInspectData.Class].g, RAID_CLASS_COLORS[IA.CurrentInspectData.Class].b
+				Slot.Gradation.Texture:SetVertexColor(curR, curG, curB)
 			else
 				Slot.Gradation.Texture:SetVertexColor(T.unpack(E.db.sle.Armory.Inspect.Gradation.Color))
 			end

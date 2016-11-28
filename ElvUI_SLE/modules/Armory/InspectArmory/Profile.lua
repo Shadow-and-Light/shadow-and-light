@@ -18,7 +18,8 @@ P.sle.Armory.Inspect = {
 	
 	Gradation = {
 		Display = true,
-		Color = { .41, .83, 1 }
+		Color = { .41, .83, 1 },
+		CurrentClassColor = false
 	},
 	
 	Level = {
