@@ -1,5 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DB = SLE:GetModule("DataBars")
+local EDB = E:GetModule('DataBars')
 --GLOBALS: hooksecurefunc
 local _G = _G
 local strMatchCombat = {}
@@ -89,11 +90,11 @@ local function UpdateReputation(self, event)
 		end
 
 		if textFormat == 'PERCENT' then
-			text = T.format('%s: %d%% [%s]', name, ((value - min) / (max - min) * 100), isFriend and friendText or _G["FACTION_STANDING_LABEL"..ID])
+			text = T.format('%s: %d%% [%s]', name, ((value - min) / (max - min) * 100), isFriend and friendText or standingLabel)
 		elseif textFormat == 'CURMAX' then
-			text = T.format('%s: %s - %s [%s]', name, value - min, max - min, isFriend and friendText or _G["FACTION_STANDING_LABEL"..ID])
+			text = T.format('%s: %s - %s [%s]', name, value - min, max - min, isFriend and friendText or standingLabel)
 		elseif textFormat == 'CURPERC' then
-			text = T.format('%s: %s - %d%% [%s]', name, value - min, ((value - min) / (max - min) * 100), isFriend and friendText or _G["FACTION_STANDING_LABEL"..ID])
+			text = T.format('%s: %s - %d%% [%s]', name, value - min, ((value - min) / (max - min) * 100), isFriend and friendText or standingLabel)
 		end
 
 		bar.text:SetText(text)
@@ -319,4 +320,5 @@ end
 function DB:RepInit()
 	DB:PopulateRepPatterns()
 	hooksecurefunc(E:GetModule('DataBars'), "UpdateReputation", UpdateReputation)
+	EDB:UpdateReputation()
 end
