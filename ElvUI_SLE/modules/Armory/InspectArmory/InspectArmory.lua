@@ -1,11 +1,10 @@
 ﻿if select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_KnightFrame') then return end
-local _G = _G
-
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local KF, Info, Timer = unpack(ElvUI_KnightFrame)
+local _G = _G
+local _
+
 --GLOBALS: CreateFrame, SLE_ArmoryDB, NotifyInspect, InspectUnit, UIParent, hooksecurefunc, UIDROPDOWNMENU_MENU_LEVEL
-local format = format
-local GetBuildInfo = GetBuildInfo
 local NUM_TALENT_COLUMNS,MAX_TALENT_GROUPS = NUM_TALENT_COLUMNS,MAX_TALENT_GROUPS
 local MAX_TALENT_GROUPS, CLASS_TALENT_LEVELS,  MAX_TALENT_TIERS = MAX_TALENT_GROUPS, CLASS_TALENT_LEVELS,  MAX_TALENT_TIERS
 local LIGHTYELLOW_FONT_COLOR_CODE = LIGHTYELLOW_FONT_COLOR_CODE
@@ -15,40 +14,25 @@ local LEVEL = LEVEL
 local MAX_NUM_SOCKETS = MAX_NUM_SOCKETS
 local ITEM_MOD_AGILITY_SHORT, ITEM_MOD_SPIRIT_SHORT, ITEM_MOD_STAMINA_SHORT, ITEM_MOD_STRENGTH_SHORT, ITEM_MOD_INTELLECT_SHORT, ITEM_MOD_CRIT_RATING_SHORT, ITEM_SPELL_TRIGGER_ONUSE = ITEM_MOD_AGILITY_SHORT, ITEM_MOD_SPIRIT_SHORT, ITEM_MOD_STAMINA_SHORT, ITEM_MOD_STRENGTH_SHORT, ITEM_MOD_INTELLECT_SHORT, ITEM_MOD_CRIT_RATING_SHORT, ITEM_SPELL_TRIGGER_ONUSE
 local AGI, SPI, STA, STR, INT, CRIT_ABBR = AGI, SPI, STA, STR, INT, CRIT_ABBR
-local LIGHTYELLOW_FONT_COLOR_CODE, GRAY_FONT_COLOR_CODE = LIGHTYELLOW_FONT_COLOR_CODE, GRAY_FONT_COLOR_CODE
-local LIGHTYELLOW_FONT_COLOR = LIGHTYELLOW_FONT_COLOR
 local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
+local LIGHTYELLOW_FONT_COLOR = LIGHTYELLOW_FONT_COLOR
 local INSPECT_GUILD_NUM_MEMBERS = INSPECT_GUILD_NUM_MEMBERS
 local STAT_AVERAGE_ITEM_LEVEL = STAT_AVERAGE_ITEM_LEVEL
 local TRADE_SKILLS = TRADE_SKILLS
 local PVP, ARENA_2V2, ARENA_3V3, ARENA_5V5, PVP_RATED_BATTLEGROUNDS, GUILD = PVP, ARENA_2V2, ARENA_3V3, ARENA_5V5, PVP_RATED_BATTLEGROUNDS, GUILD
-local SendAddonMessage = SendAddonMessage
 local ShowUIPanel, HideUIPanel = ShowUIPanel, HideUIPanel
-local HandleModifiedItemClick = HandleModifiedItemClick
-local AuctionFrameBrowse_Reset = AuctionFrameBrowse_Reset
-local IsShiftKeyDown = IsShiftKeyDown
-local SetItemRef = SetItemRef
-local GetCursorPosition = GetCursorPosition
-local PlaySound = PlaySound
 local UIDropDownMenu_StopCounting, UIDropDownMenu_StartCounting = UIDropDownMenu_StopCounting, UIDropDownMenu_StartCounting
 local UIDropDownMenu_CreateInfo, UIDropDownMenu_AddButton = UIDropDownMenu_CreateInfo, UIDropDownMenu_AddButton
-local SetSmallGuildTabardTextures = SetSmallGuildTabardTextures
-local GetPlayerInfoByGUID = GetPlayerInfoByGUID
-local HasInspectHonorData = HasInspectHonorData
-local GetInventoryItemTexture = GetInventoryItemTexture
-local GetInspectSpecialization = GetInspectSpecialization
-local GetInspectArenaData, GetInspectRatedBGData, GetInspectHonorData = GetInspectArenaData, GetInspectRatedBGData, GetInspectHonorData
-local GetGuildLogoInfo, GetInspectGuildInfo = GetGuildLogoInfo, GetInspectGuildInfo
-local GetTalentLink = GetTalentLink
-local next = next
+local HandleModifiedItemClick = HandleModifiedItemClick
+local AuctionFrameBrowse_Reset = AuctionFrameBrowse_Reset
+local LIGHTYELLOW_FONT_COLOR_CODE = LIGHTYELLOW_FONT_COLOR_CODE
+local GRAY_FONT_COLOR_CODE = GRAY_FONT_COLOR_CODE
 local NotifyInspect = NotifyInspect
-
 
 --------------------------------------------------------------------------------
 --<< KnightFrame : Upgrade Inspect Frame like Wow-Armory					>>--
 --------------------------------------------------------------------------------
 local IA = InspectArmory or CreateFrame('Frame', 'InspectArmory', E.UIParent)
-local _
 local ClientVersion = select(4, GetBuildInfo())
 local AISM = _G['Armory_InspectSupportModule']
 local ButtonName = INSPECT --L["Knight Inspect"]
@@ -285,7 +269,7 @@ do --<< Button Script >>--
 			end
 			
 			if Button == 'LeftButton' and not IsShiftKeyDown() then
-				SetItemRef(ItemLink, ItemLink, 'LeftButton')
+				T.SetItemRef(ItemLink, ItemLink, 'LeftButton')
 			elseif IsShiftKeyDown() then
 				if Button == 'RightButton' then
 					ShowUIPanel(SocketInventoryItem(self.SlotID))
@@ -328,7 +312,7 @@ do --<< Button Script >>--
 		local ItemName, ItemLink = T.GetItemInfo(self.Link)
 		
 		if not IsShiftKeyDown() then
-			SetItemRef(ItemLink, ItemLink, 'LeftButton')
+			T.SetItemRef(ItemLink, ItemLink, 'LeftButton')
 		else
 			if HandleModifiedItemClick(ItemLink) then
 			elseif _G["BrowseName"] and _G["BrowseName"]:IsVisible() then
@@ -507,12 +491,6 @@ function IA:CreateInspectFrame()
 		self.Message = self.MessageFrame.Page.text
 	end
 	
-	-- do --<< Backdrop >>--
-	-- 	self.BG = self:CreateTexture(nil, 'OVERLAY')
-	-- 	self.BG:Point('TOPLEFT', self.Tab, 'BOTTOMLEFT', 0, -38)
-	-- 	self.BG:Point('BOTTOMRIGHT', self.BP, 'TOPRIGHT')
-	-- end
-	
 	do --<< Buttons >>--
 		for ButtonName, ButtonString in T.pairs(self.PageList) do
 			ButtonName = ButtonName..'Button'
@@ -593,28 +571,28 @@ function IA:CreateInspectFrame()
 		self.Model:Undress()
 		self.Model:SetLight(true, false, 0, 0, 0, 1, 1.0, 1.0, 1.0)
 		self.Model:SetScript('OnMouseDown', function(self, button)
-			self.StartX, self.StartY = GetCursorPosition()
+			self.StartX, self.StartY = T.GetCursorPosition()
 			
 			local EndX, EndY, Z, X, Y
 			if button == 'LeftButton' then
 				IA.Model:SetScript('OnUpdate', function(self)
-					EndX, EndY = GetCursorPosition()
+					EndX, EndY = T.GetCursorPosition()
 					
 					self.rotation = (EndX - self.StartX) / 34 + self:GetFacing()
 					self:SetFacing(self.rotation)
 					
-					self.StartX, self.StartY = GetCursorPosition()
+					self.StartX, self.StartY = T.GetCursorPosition()
 				end)
 			elseif button == 'RightButton' then
 				IA.Model:SetScript('OnUpdate', function(self)
-					EndX, EndY = GetCursorPosition()
+					EndX, EndY = T.GetCursorPosition()
 					
 					Z, X, Y = self:GetPosition(Z, X, Y)
 					X = (EndX - self.StartX) / 45 + X
 					Y = (EndY - self.StartY) / 45 + Y
 					
 					self:SetPosition(Z, X, Y)
-					self.StartX, self.StartY = GetCursorPosition()
+					self.StartX, self.StartY = T.GetCursorPosition()
 				end)
 			end
 		end)
@@ -812,18 +790,18 @@ function IA:CreateInspectFrame()
 		
 		self.MainHandSlot:Point('BOTTOMRIGHT', self.BP, 'TOP', -2, SPACING)
 		self.SecondaryHandSlot:Point('BOTTOMLEFT', self.BP, 'TOP', 2, SPACING)
-
-		do --<< Backdrop >>--
-			self.BG = self:CreateTexture(nil, 'OVERLAY')
-			self.BG:Point('TOPLEFT', self.HeadSlot, 'TOPLEFT')
-			self.BG:Point('RIGHT', self.HandsSlot, 'RIGHT')
-			self.BG:Point('BOTTOM', self.MainHandSlot, 'BOTTOM')
-			-- self.BG:Point('TOPLEFT', self.HeadSlot, 'TOPLEFT', 0, 0)
-			-- self.BG:Point('BOTTOMRIGHT', self.BP, 'TOPRIGHT')
-		end
-
+		
 		-- ItemLevel
 		KF:TextSetting(self.Character, nil, { Tag = 'AverageItemLevel', FontSize = 12 }, 'TOP', self.Model)
+	end
+	
+	do --<< Backdrop >>--
+		self.BG = self:CreateTexture(nil, 'OVERLAY')
+		self.BG:Point('TOPLEFT', self.Tab, 'BOTTOMLEFT', 0, -38)
+		self.BG:Point('BOTTOMRIGHT', self.BP, 'TOPRIGHT')
+		--self.BG:Point('TOPLEFT', self.HeadSlot, 'TOPLEFT')
+		--self.BG:Point('RIGHT', self.HandsSlot, 'RIGHT')
+		--self.BG:Point('BOTTOM', self.MainHandSlot, 'BOTTOM')
 	end
 	
 	do --<< Information Page >>--
@@ -1287,7 +1265,7 @@ function IA:CreateInspectFrame()
 					end
 				end, 'InspectArmory', true)
 				
-				SendAddonMessage('AISM_Inspect', 'AISM_DataRequestForInspecting:'..self.Data.Name..'-'..self.Data.Realm..(InspectWork and '-true' or ''), SendChannel, self.Data.TableIndex)
+				T.SendAddonMessage('AISM_Inspect', 'AISM_DataRequestForInspecting:'..self.Data.Name..'-'..self.Data.Realm..(InspectWork and '-true' or ''), SendChannel, self.Data.TableIndex)
 			end
 			
 			_G["DropDownList1"]:Hide()
@@ -1363,16 +1341,16 @@ function IA:CreateInspectFrame()
 						if DataTable.Realm == Info.MyRealm or Info.CurrentGroupMode ~= 'NoGroup' then
 							isSending = 'AISM_Response'
 							
-							SendAddonMessage('AISM', 'AISM_Check', DataTable.Realm == Info.MyRealm and 'WHISPER' or T.IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or T.upper(Info.CurrentGroupMode), DataTable.Name)
+							T.SendAddonMessage('AISM', 'AISM_Check', DataTable.Realm == Info.MyRealm and 'WHISPER' or T.IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 'INSTANCE_CHAT' or T.upper(Info.CurrentGroupMode), DataTable.Name)
 						end
 					elseif Menu.which == 'GUILD' then
 						isSending = 'AISM_GUILD_CheckResponse'
 						
-						SendAddonMessage('AISM', 'AISM_GUILD_Check', DataTable.Realm == Info.MyRealm and 'WHISPER' or 'GUILD', DataTable.Name)
+						T.SendAddonMessage('AISM', 'AISM_GUILD_Check', DataTable.Realm == Info.MyRealm and 'WHISPER' or 'GUILD', DataTable.Name)
 					elseif DataTable.Realm == Info.MyRealm then
 						isSending = 'AISM_Response'
 						
-						SendAddonMessage('AISM', 'AISM_Check', 'WHISPER', DataTable.Name)
+						T.SendAddonMessage('AISM', 'AISM_Check', 'WHISPER', DataTable.Name)
 					end
 					
 					if isSending then
@@ -1486,7 +1464,7 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 	end
 	
 	if not Name then
-		_, _, _, _, _, Name, Realm = GetPlayerInfoByGUID(InspectedUnitGUID)
+		_, _, _, _, _, Name, Realm = T.GetPlayerInfoByGUID(InspectedUnitGUID)
 	end
 	
 	if not (IA.CurrentInspectData.Name == Name and IA.CurrentInspectData.Realm == Realm) then
@@ -1496,7 +1474,7 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 		IA:INSPECT_HONOR_UPDATE()
 	end
 	
-	_, _, IA.CurrentInspectData.Race, IA.CurrentInspectData.RaceID, IA.CurrentInspectData.GenderID = GetPlayerInfoByGUID(InspectedUnitGUID)
+	_, _, IA.CurrentInspectData.Race, IA.CurrentInspectData.RaceID, IA.CurrentInspectData.GenderID = T.GetPlayerInfoByGUID(InspectedUnitGUID)
 	
 	local NeedReinspect
 	local CurrentSetItem = {}
@@ -1505,7 +1483,7 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 		Slot = IA[SlotName]
 		IA.CurrentInspectData.Gear[SlotName] = IA.CurrentInspectData.Gear[SlotName] or {}
 		
-		SlotTexture = GetInventoryItemTexture(UnitID, Slot.ID)
+		SlotTexture = T.GetInventoryItemTexture(UnitID, Slot.ID)
 		
 		if SlotTexture and SlotTexture..'.blp' ~= Slot.EmptyTexture then
 			SlotLink = T.GetInventoryItemLink(UnitID, Slot.ID)
@@ -1617,7 +1595,7 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 	end
 	
 	-- Specialization / PvP Talents
-	local CurrentSpec = GetInspectSpecialization(UnitID)
+	local CurrentSpec = T.GetInspectSpecialization(UnitID)
 	IA.CurrentInspectData.Specialization[1].SpecializationID = CurrentSpec
 	SLE_ArmoryDB[ClientVersion] = SLE_ArmoryDB[ClientVersion] or { Specialization = {}, PvPTalent = {} }
 	SLE_ArmoryDB[ClientVersion].Specialization[CurrentSpec] = SLE_ArmoryDB[ClientVersion].Specialization[CurrentSpec] or {}
@@ -1817,6 +1795,8 @@ function IA:InspectFrame_DataSetting(DataTable)
 						Slot['Socket'..i].Texture:SetTexture(nil)
 						Slot['Socket'..i].GemItemID = nil
 						Slot['Socket'..i].GemType = nil
+						Slot['Socket'..i].Socket.Link = nil
+						Slot['Socket'..i].Socket.Message = nil
 						Slot['Socket'..i]:Hide()
 					end
 					Slot.EnchantWarning:Hide()
@@ -1903,6 +1883,8 @@ function IA:InspectFrame_DataSetting(DataTable)
 										else
 											NeedUpdate = true
 										end
+									elseif GemID ~= 0 then
+										NeedUpdate = true
 									end
 								end
 							else
@@ -2045,15 +2027,15 @@ function IA:InspectFrame_DataSetting(DataTable)
 							Slot.ILvL = TrueItemLevel or BasicItemLevel
 							
 							if Slot.ItemLevel then
-								Slot.ItemLevel:SetText((ItemUpgradeID and (Info.Armory_Constants.UpgradeColor[ItemUpgradeID] or '|cffffffff') or '')..TrueItemLevel)
+								Slot.ItemLevel:SetText((ItemUpgradeID and (Info.Armory_Constants.UpgradeColor[ItemUpgradeID] or '|cffffffff') or '')..Slot.ILvL)
 							end
 							
 							Slot.Gradation.ItemLevel:SetText(
 								(not TrueItemLevel or BasicItemLevel == TrueItemLevel) and BasicItemLevel
 								or
-								E.db.sle.Armory.Inspect.Level.ShowUpgradeLevel and (Slot.Direction == 'LEFT' and TrueItemLevel..' ' or '')..(ItemUpgradeID and (Info.Armory_Constants.UpgradeColor[ItemUpgradeID] or '|cffaaaaaa')..'(+'..ItemUpgradeID..')|r' or '')..(Slot.Direction == 'RIGHT' and ' '..TrueItemLevel or '')
+								E.db.sle.Armory.Inspect.Level.ShowUpgradeLevel and (Slot.Direction == 'LEFT' and Slot.ILvL..' ' or '')..(ItemUpgradeID and (Info.Armory_Constants.UpgradeColor[ItemUpgradeID] or '|cffaaaaaa')..'(+'..ItemUpgradeID..')|r' or '')..(Slot.Direction == 'RIGHT' and ' '..Slot.ILvL or '')
 								or
-								TrueItemLevel
+								Slot.ILvL
 							)
 						end
 						
@@ -2226,7 +2208,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 				for i = 1, self.ScanTT2:NumLines() do
 					if _G['InspectArmoryScanTT2TextLeft'..i]:GetText():find(Info.Armory_Constants.ItemLevelKey) then
 						MinorArtifactName = _G['InspectArmoryScanTT2TextLeft'..(i - 1)]:GetText()
-						self[MinorArtifactSlot].ReplaceTooltipLines[i] = format(ITEM_LEVEL, self[MajorArtifactSlot].ILvL)
+						self[MinorArtifactSlot].ReplaceTooltipLines[i] = T.format(ITEM_LEVEL, self[MajorArtifactSlot].ILvL)
 						
 						break
 					end
@@ -2319,7 +2301,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 				self.Info.Guild:Show()
 				self.Info.Guild.Banner.Name:SetText('|cff2eb7e4'..DataTable.guildName)
 				self.Info.Guild.Banner.LevelMembers:SetText('|cff77c0ff'..DataTable.guildPoint..'|r Points'..(DataTable.guildNumMembers > 0 and ' / '..format(INSPECT_GUILD_NUM_MEMBERS:gsub('%%d', '%%s'), '|cff77c0ff'..DataTable.guildNumMembers..'|r ') or ''))
-				SetSmallGuildTabardTextures('player', self.Info.Guild.Emblem, self.Info.Guild.BG, self.Info.Guild.Border, DataTable.guildEmblem)
+				T.SetSmallGuildTabardTextures('player', self.Info.Guild.Emblem, self.Info.Guild.BG, self.Info.Guild.Border, DataTable.guildEmblem)
 			else
 				self.Info.Guild:Hide()
 			end
@@ -2366,7 +2348,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 		if not (self.LastDataSetting and self.LastDataSetting == DataTable.Name..(DataTable.Realm and '-'..DataTable.Realm or '')) then
 			--<< Initialize Inspect Page >>--
 			self.Name:SetText('|c'..RAID_CLASS_COLORS[DataTable.Class].colorStr..DataTable.Name)
-			self.LevelRace:SetText(format('|cff%02x%02x%02x%s|r '..LEVEL..'|n%s', GetQuestDifficultyColor(DataTable.Level).r * 255, GetQuestDifficultyColor(DataTable.Level).g * 255, GetQuestDifficultyColor(DataTable.Level).b * 255, DataTable.Level, DataTable.Race))
+			self.LevelRace:SetText(T.format('|cff%02x%02x%02x%s|r '..LEVEL..'|n%s', GetQuestDifficultyColor(DataTable.Level).r * 255, GetQuestDifficultyColor(DataTable.Level).g * 255, GetQuestDifficultyColor(DataTable.Level).b * 255, DataTable.Level, DataTable.Race))
 			self.ClassIcon:SetTexture('Interface\\ICONS\\ClassIcon_'..DataTable.Class)
 			
 			self.Model:SetPosition(-0.5, self.ModelList[DataTable.RaceID][DataTable.GenderID] and self.ModelList[DataTable.RaceID][DataTable.GenderID].x or 0, self.ModelList[DataTable.RaceID][DataTable.GenderID] and self.ModelList[DataTable.RaceID][DataTable.GenderID].y or 0)
@@ -2599,7 +2581,7 @@ function IA:ToggleSpecializationTab(Tab, DataTable)
 				
 				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon.Texture:SetTexture(Arg2)
 				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].text:SetText(Name)
-				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Tooltip.Link = GetTalentLink(Arg1)
+				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Tooltip.Link = T.GetTalentLink(Arg1)
 				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Tooltip.Message = nil
 				
 				if DataTable.Specialization[Tab]['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)][2] == true then
