@@ -13,12 +13,12 @@ Fixes:
 - Fix Artifact/Honor bar doing funny stuff b/c of some unneeded code
 - Location Bar issues SHOULD be fixed
 
+
 v3.16 11/15/2016
 Additions:
 - Added Artifact Power Tracking for weapon on character screen
 - Added tracking of Trial of Valor LFR
 - Added Trial of Valor to raid progression tooltip
-
 
 Fixes:
 - Fixed lua errors when entering instances where player location data isn't available
@@ -28,7 +28,6 @@ Fixes:
 - Fixed QuestGuru skin
 - Fixed random error in coordinate update throttle
 - Fixed an error when acessing bank with no currency tracked in bags
-
 
 Changes:
 - Removed the ability to remotely inspect other S&L users until links are worked out
@@ -62,6 +61,7 @@ Changes:
 Misc:
 - The message about inability to swap equip set should now be shown only once per combat.
 
+
 v3.14 09/12/2016
 Additions:
 - Added an option to disable QuestGuru skin. Skin is now disabled by default.
@@ -81,6 +81,7 @@ Changes:
 - A lot of option groups now have tabs instead of dropdowns
 - Player being in order hall is now more reliably checked
 - Minimap alpha option was removed due to it causing "map blackout" when indoors. Thanks Namekal for paying attention to this after years of people not even mentioning they were changing that option when reporting this bug.
+
 
 v3.13 08/29/2016
 A number of files were deleted in this release. We would suggest to manually remove S&L's folder and install it again instead of just auto updating.
