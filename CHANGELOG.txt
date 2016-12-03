@@ -3,6 +3,7 @@ Additions:
 - Added new icon set to role icons selection
 - Added options for Artifact monitor in Armory
 - Added an option to use (or not) backdrop overlay on player model from ElvUI's character window skin
+- Armory Inspect now lets you select class color of the inspected unit as a gradient option
 
 Fixes:
 - Fixed level up error in played DT
