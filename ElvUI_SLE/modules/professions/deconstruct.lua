@@ -208,14 +208,7 @@ function Pr:DeconstructParser(...)
 	local _, id = T.split(":", itemString)
 	if not id or id == "" then return end
 	if(item and not T.InCombatLockdown()) and (Pr.DeconstructMode == true or (E.global.sle.LOCK.TradeOpen and self:GetOwner():GetName() == "TradeRecipientItem7ItemButton")) then
-		if Pr.DEname then
-			local normalItem = (lib:IsDisenchantable(id) and Pr:IsBreakable(link))
-			local isArtRelic = (class == relicItemTypeLocalized and subclass == relicItemSubTypeLocalized)
-			if normalItem or Pr.ItemTable["Quest"][id] or isArtRelic then
-				r, g, b = 1, 0, 0
-				Pr:ApplyDeconstruct(link, Pr.DEname, r, g, b)
-			end
-		elseif Pr.LOCKname and lib:IsOpenable(id) and not Pr.BlacklistLOCK[item] then
+		if Pr.LOCKname and lib:IsOpenable(id) and not Pr.BlacklistLOCK[item] then
 			r, g, b = 0, 1, 1
 			Pr:ApplyDeconstruct(link, Pr.LOCKname, r, g, b)
 		elseif((Pr.SMITHname or Pr.JEWELname) and lib:IsOpenable(id)) then
@@ -228,6 +221,13 @@ function Pr:DeconstructParser(...)
 		elseif (Pr.MILLname and lib:IsMillable(id)) then
 			r, g, b = 1, 0, 0
 			Pr:ApplyDeconstruct(link, Pr.MILLname, r, g, b)
+		elseif Pr.DEname then
+			local normalItem = (lib:IsDisenchantable(id) and Pr:IsBreakable(link))
+			local isArtRelic = (class == relicItemTypeLocalized and subclass == relicItemSubTypeLocalized)
+			if normalItem or Pr.ItemTable["Quest"][id] or isArtRelic then
+				r, g, b = 1, 0, 0
+				Pr:ApplyDeconstruct(link, Pr.DEname, r, g, b)
+			end
 		end
 	end
 end
