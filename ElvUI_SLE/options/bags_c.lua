@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local ARTIFACT_POWER = ARTIFACT_POWER
-local AP = SLE:GetModule("ArtifactPowerBags")
+local B = E:GetModule("Bags")
 
 local function configTable()
 	if not SLE.initialized then return end
@@ -37,7 +37,7 @@ local function configTable()
 				guiInline = true,
 				name = ARTIFACT_POWER,
 				get = function(info) return E.db.sle.bags.artifactPower[ info[#info] ] end,
-				set = function(info, value) E.db.sle.bags.artifactPower[ info[#info] ] = value; AP:bagUpdate() end,
+				set = function(info, value) E.db.sle.bags.artifactPower[ info[#info] ] = value; B:Layout() end,
 				args = {
 					enable = {
 						order = 1,
@@ -57,7 +57,7 @@ local function configTable()
 							E.db.sle.bags.artifactPower[info[#info]] = {}
 							local t = E.db.sle.bags.artifactPower[info[#info]]
 							t.r, t.g, t.b = r, g, b
-							AP:bagUpdate()
+							B:Layout()
 						end,
 					},
 					short = {
@@ -71,7 +71,7 @@ local function configTable()
 						guiInline = true,
 						name = L["Fonts"],
 						get = function(info) return E.db.sle.bags.artifactPower.fonts[ info[#info] ] end,
-						set = function(info, value) E.db.sle.bags.artifactPower.fonts[ info[#info] ] = value; AP:bagUpdate() end,
+						set = function(info, value) E.db.sle.bags.artifactPower.fonts[ info[#info] ] = value; B:Layout() end,
 						args = {
 							font = {
 								type = "select", dialogControl = 'LSM30_Font',
