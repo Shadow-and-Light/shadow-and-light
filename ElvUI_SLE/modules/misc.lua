@@ -25,7 +25,7 @@ end
 function M:UpdateThreatConfig()
 	if T.IsAddOnLoaded("ElvUI_Config") then
 		if M.db.threat.enable then
-			E.Options.args.general.args.general.args.threatPosition = {
+			E.Options.args.general.args.general.args.threatGroup.args.threatPosition = {
 				order = 42,
 				name = L["Position"],
 				desc = L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."],
@@ -33,7 +33,7 @@ function M:UpdateThreatConfig()
 				func = function() SLE.ACD:SelectGroup("ElvUI", "sle") end,
 			}
 		else
-			E.Options.args.general.args.general.args.threatPosition = {
+			E.Options.args.general.args.general.args.threatGroup.args.threatPosition = {
 				order = 42,
 				type = 'select',
 				name = L["Position"],
