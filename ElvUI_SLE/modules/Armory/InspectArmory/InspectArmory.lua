@@ -558,7 +558,31 @@ function IA:CreateInspectFrame()
 		self.ClassIconSlot:Point('RIGHT', self.Tab, 'BOTTOMRIGHT', -44, -35)
 		self.SpecIconSlot:Point('RIGHT', self.ClassIconSlot, 'LEFT', -SPACING, 0)
 	end
-	
+
+	do --<<Check Transmog>>--
+		self.TransmogViewButton = CreateFrame("Button", nil, self)
+		self.TransmogViewButton:Size(26)
+		self.TransmogViewButton:Point('LEFT', self.ClassIconSlot, 'RIGHT', SPACING, 0)
+		self.TransmogViewButton.texture = self.TransmogViewButton:CreateTexture(nil, 'OVERLAY')
+		self.TransmogViewButton.texture:SetInside()
+		self.TransmogViewButton.texture:SetTexture([[Interface\ICONS\INV_Misc_Desecrated_PlateChest]])
+
+		self.TransmogViewButton:SetScript("OnEnter", function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+			GameTooltip:SetText(VIEW_IN_DRESSUP_FRAME)
+			GameTooltip:Show()
+		end)
+		self.TransmogViewButton:SetScript("OnLeave", function(self)
+			_G["GameTooltip"]:Hide()
+		end)
+		self.TransmogViewButton:SetScript("OnClick", function(self)
+			PlaySound("igMainMenuOptionCheckBoxOn");
+			DressUpSources(C_TransmogCollection.GetInspectSources());
+		end)
+
+		E:GetModule("Skins"):HandleButton(self.TransmogViewButton)
+	end
+
 	do --<< Player Model >>--
 		self.Model = CreateFrame('DressUpModel', nil, self)
 		self.Model:SetFrameStrata('DIALOG')
