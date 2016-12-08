@@ -372,7 +372,7 @@ function IA:DisplayMessage(Type)
 	end
 end
 
-
+local TransmogButtonColors = {}
 function IA:CreateInspectFrame()
 	do --<< Core >>--
 		self:Size(450, 480)
@@ -563,24 +563,30 @@ function IA:CreateInspectFrame()
 		self.TransmogViewButton = CreateFrame("Button", nil, self)
 		self.TransmogViewButton:Size(26)
 		self.TransmogViewButton:Point('LEFT', self.ClassIconSlot, 'RIGHT', SPACING, 0)
+		self.TransmogViewButton:SetBackdrop({
+				bgFile = E.media.blankTex,
+				edgeFile = E.media.blankTex,
+				tile = false, tileSize = 0, edgeSize = E.mult,
+				insets = { left = 0, right = 0, top = 0, bottom = 0}
+			})
 		self.TransmogViewButton.texture = self.TransmogViewButton:CreateTexture(nil, 'OVERLAY')
 		self.TransmogViewButton.texture:SetInside()
 		self.TransmogViewButton.texture:SetTexture([[Interface\ICONS\INV_Misc_Desecrated_PlateChest]])
 
 		self.TransmogViewButton:SetScript("OnEnter", function(self)
+			self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
 			GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
 			GameTooltip:SetText(VIEW_IN_DRESSUP_FRAME)
 			GameTooltip:Show()
 		end)
 		self.TransmogViewButton:SetScript("OnLeave", function(self)
+			self:SetBackdropBorderColor(TransmogButtonColors.R, TransmogButtonColors.G, TransmogButtonColors.B)
 			_G["GameTooltip"]:Hide()
 		end)
 		self.TransmogViewButton:SetScript("OnClick", function(self)
 			PlaySound("igMainMenuOptionCheckBoxOn");
 			DressUpSources(C_TransmogCollection.GetInspectSources());
 		end)
-
-		E:GetModule("Skins"):HandleButton(self.TransmogViewButton)
 	end
 
 	do --<< Player Model >>--
@@ -2388,9 +2394,13 @@ function IA:InspectFrame_DataSetting(DataTable)
 			do --<< Color Setting >>--
 				self.ClassIconSlot:SetBackdropBorderColor(R, G, B)
 				self.SpecIconSlot:SetBackdropBorderColor(R, G, B)
-				
+				self.TransmogViewButton:SetBackdropBorderColor(R, G, B)
+				TransmogButtonColors.R = R
+				TransmogButtonColors.G = G
+				TransmogButtonColors.B = B
+
 				self.Info.BG:SetBackdropBorderColor(R, G, B)
-				
+
 				self.Info.Profession.IconSlot:SetBackdropBorderColor(R, G, B)
 				self.Info.Profession.Tab:SetBackdropColor(R, G, B, .3)
 				self.Info.Profession.Tab:SetBackdropBorderColor(R, G, B)
