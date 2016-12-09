@@ -1,12 +1,12 @@
-﻿-- English localization file for enUS and enGB.
+﻿-- German localization file for deDE.
 local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
-local L = AceLocale:NewLocale("ElvUI", "enUS", true);
+local L = AceLocale:NewLocale("ElvUI", "deDE");
 
 if not L then return; end
 --Popups
-L["MSG_SLE_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cff9482c9Shadow & Light|r. Your version is |cff1784d1%.2f|r (recommended is |cff1784d1%.2f|r). Please update your ElvUI."
-L["This will clear your chat history and reload your UI.\nContinue?"] = true
-L["This will clear your editbox history and reload your UI.\nContinue?"] = true
+L["MSG_SLE_ELV_OUTDATED"] = "Deine Version von ElvUI ist älter wie die empfohlene, die mit |cff9482c9Shadow & Light|r benutzt werden sollte. Deine Version ist |cff1784d1%.2f|r (empfohlen ist |cff1784d1%.2f|r). Bitte update dein ElvUI."
+L["This will clear your chat history and reload your UI.\nContinue?"] = "Dieses wird deinen Chatverlauf leeren und dein UI neuladen.\nFortfahren?"
+L["This will clear your editbox history and reload your UI.\nContinue?"] = "Dieses wird dein Eingabeverlauf leeren und dein UI neuladen.\nFortfahren?"
 L["Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
 L["You have got Loot Confirm and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
 L["You have got OneClickEnchantScroll and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
@@ -52,6 +52,7 @@ Please not that this configs may include some settings you may not yet being fam
 
 Also it may reset/change some options you set in previous steps.]]
 L["|cff1784d1%s|r role was chosen"] = true
+L["Author Presets"] = true
 L["Moving Frames"] = true
 L["Import Profile"] = true
 L["AFK Mode"] = true
