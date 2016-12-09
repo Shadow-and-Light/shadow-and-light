@@ -59,7 +59,7 @@ Fortfahren?]]
 L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"] = [[Dieses wird ein Profil für diese Addons erstellen (wenn aktiviert) und zum erstellten Profil wechseln:
 %s
 
-Continue?]]
+Fortfahren?]]
 
 --Config replacements
 L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."] = "Diese Optionen wurde durch Shadow & Light deaktiviert. Um siw wieder zu aktivieren musst du die S&L Optionen deaktivieren. Klicke hier um zu den Einstellungen zu gelangen."
@@ -119,59 +119,59 @@ L["S&L: Backgrounds"] = "S&L: Hintergründe"
 L["S&L: Misc"] = "S&L: Verschiedenes"
 
 --Actionbars
-L["OOR as Bind Text"] = true
-L["Out Of Range indication will use keybind text instead of the whole icon."] = true
-L["Checked Texture"] = true
-L["Highlight the button of the spell with areal effect untill the area is selected."] = true
-L["Checked Texture Color"] = true
-L["Transparent Backdrop"] = true
-L["Sets actiobars' backgrounds to transparent template."] = true
-L["Transparent Buttons"] = true
-L["Sets actiobars buttons' backgrounds to transparent template."] = true
+L["OOR as Bind Text"] = "OOR als Text"
+L["Out Of Range indication will use keybind text instead of the whole icon."] = "Außer Reichweiten Indikator wird nun den Tastaturbelegungstext anstatt das Symbol benutzen."
+L["Checked Texture"] = "Gedrückte Textur"
+L["Highlight the button of the spell with areal effect until the area is selected."] = "Hebt die Taste von Flächenzaubern hervor bis das Zielgebiet ausgewählt wurde."
+L["Checked Texture Color"] = "Gedrückte Textur Farbe"
+L["Transparent Backdrop"] = "Transparenter Hintergrund"
+L["Sets actiobars' backgrounds to transparent template."] = "Setzt den Aktionsleisten Hintergrund transparent."
+L["Transparent Buttons"] = "Transparente Tasten"
+L["Sets actiobars buttons' backgrounds to transparent template."] = "Setzt die Aktionsleisten Tasten transparent."
 
 --Armory
-L["Average"] = true
-L["Not Enchanted"] = true
-L["Empty Socket"] = true
+L["Average"] = "Durschnitt"
+L["Not Enchanted"] = "Nicht verzaubert"
+L["Empty Socket"] = "Leerer Sockel"
 L["KF"] = true
-L["You can't inspect while dead."] = true
-L["Specialization data seems to be crashed. Please inspect again."] = true
-L["No Specialization"] = true
+L["You can't inspect while dead."] = "Du kannst nicht inspizieren während du tod bist."
+L["Specialization data seems to be crashed. Please inspect again."] = "Spezialisierungsdaten sind wohl gecrashed. Bitte erneut inspizieren."
+L["No Specialization"] = "Keine Spezialisierung"
 L["Character model may differ because it was constructed by the inspect data."] = true
 L["Armory Mode"] = true
-L["Enchant String"] = true
-L["String Replacement"] = true
-L["List of Strings"] = true
-L["Original String"] = true
-L["New String"] = true
-L["Character Armory"] = true
-L["Show Missing Enchants or Gems"] = true
-L["Show Warning Icon"] = true
-L["Select Image"] = true
-L["Custom Image Path"] = true
-L["Gradient"] = true
-L["Gradient Texture Color"] = true
-L["Upgrade Level"] = true
-L["Warning Size"] = true
-L["Warning Only As Icons"] = true
-L["Only Damaged"] = true
-L["Gem Sockets"] = true
-L["Socket Size"] = true
+L["Enchant String"] = "Verzauberungsstring"
+L["String Replacement"] = "String Ersetzung"
+L["List of Strings"] = "Liste von Strings"
+L["Original String"] = "Originaler String"
+L["New String"] = "Neuer String"
+L["Character Armory"] = "Charakter Armory"
+L["Show Missing Enchants or Gems"] = "Zeigt fehlende Verzauberungen oder Sockel"
+L["Show Warning Icon"] = "Zeigt Warnungssymbol"
+L["Select Image"] = "Bild auswählen"
+L["Custom Image Path"] = "Benutzerdefinierter Bildpfad"
+L["Gradient"] = "Verlauf"
+L["Gradient Texture Color"] = "Verlaufs Textur Farbe"
+L["Upgrade Level"] = "Upgrade Stufe"
+L["Warning Size"] = "Warnungsgröße"
+L["Warning Only As Icons"] = "Warnung nur als Symbol"
+L["Only Damaged"] = "Nur beschädigte"
+L["Gem Sockets"] = "Edelstein Sockel"
+L["Socket Size"] = "Sockel Größe"
 L["Inspect Armory"] = true
-L["Full Item Level"] = true
-L["Show both equipped and average item levels."] = true
-L["Item Level Coloring"] = true
+L["Full Item Level"] = "Volles Itemlevel"
+L["Show both equipped and average item levels."] = "Zeigt angelegtes und durchschnittliches Itemlevel"
+L["Item Level Coloring"] = "Itemlevel färbung"
 L["Color code item levels values. Equipped will be gradient, avarage - selected color."] = true
-L["Color of Average"] = true
-L["Sets the color of avarage item level."] = true
-L["Only Relevant Stats"] = true
-L["Show only those primary stats relevant to your spec."] = true
-L["SLE_ARMORY_POINTS_AVAILABLE"] = "%s Point(s) Available!!"
-L["Show ElvUI skin's backdrop overlay"] = true
+L["Color of Average"] = "Farbe vom Durchschnitt"
+L["Sets the color of avarage item level."] = "Setzt die Farbe vom Durchschnitts-Itemlevel"
+L["Only Relevant Stats"] = "Nur relevante Werte"
+L["Show only those primary stats relevant to your spec."] = "Zeigt nur primäre Werte die relevant für deinen Spec sind."
+L["SLE_ARMORY_POINTS_AVAILABLE"] = "%s Punkt(e) Verfügbar!!"
+L["Show ElvUI skin's backdrop overlay"] = "Zeigt ElvUI-Skin Hintergrund Overlay"
 
 --AFK
-L["You Are Away From Keyboard for"] = true
-L["Take care of yourself, Master!"] = true
+L["You Are Away From Keyboard for"] = "Du bist nicht an der Tastatur für"
+L["Take care of yourself, Master!"] = "Pass auf dich auf, Meister!"
 L["SLE_TIPS"] = { --This doesn't need to be translated, every locale can has own tips
 	"Don't stand in the fire!",
 	"Elv: I just utilized my degree in afro engineering and fixed it",
