@@ -7,88 +7,85 @@ if not L then return; end
 L["MSG_SLE_ELV_OUTDATED"] = "Deine Version von ElvUI ist älter wie die empfohlene, die mit |cff9482c9Shadow & Light|r benutzt werden sollte. Deine Version ist |cff1784d1%.2f|r (empfohlen ist |cff1784d1%.2f|r). Bitte update dein ElvUI."
 L["This will clear your chat history and reload your UI.\nContinue?"] = "Dieses wird deinen Chatverlauf leeren und dein UI neuladen.\nFortfahren?"
 L["This will clear your editbox history and reload your UI.\nContinue?"] = "Dieses wird dein Eingabeverlauf leeren und dein UI neuladen.\nFortfahren?"
-L["Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
-L["You have got Loot Confirm and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
-L["You have got OneClickEnchantScroll and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
-L["You have got ElvUI Transparent Actionbar Backdrops and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
-L["SLE_ADVANCED_POPUP_TEXT"] = [[Do you swear that you are an experienced user,
-can read tooltips for options and will not cry for help if you
-horribly break your UI by utilizing additional options?
+L["Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable."] = "Oh gott, du hast ElvUI Enhanced und Shadow & Light gleichzeitig aktiviert. Wähle ein Addon zum Deaktivieren aus."
+L["You have got Loot Confirm and Shadow & Light both enabled at the same time. Select an addon to disable."] = "Du hast Loot Confirm und Shadow & Light gleichzeitig aktiviert. Wähle ein Addon zum Deaktivieren aus."
+L["You have got OneClickEnchantScroll and Shadow & Light both enabled at the same time. Select an addon to disable."] = "Du hast OneClickEnchantScroll und Shadow & Light gleichzeitig aktiviert. Wähle ein Addon zum Deaktivieren aus."
+L["You have got ElvUI Transparent Actionbar Backdrops and Shadow & Light both enabled at the same time. Select an addon to disable."] = "Du hast ElvUI Transparent Actionbar Backdrops und Shadow & Light gleichzeitig aktiviert. Wähle ein Addon zum Deaktivieren aus."
+L["SLE_ADVANCED_POPUP_TEXT"] = [[Schwörst du, dass du ein erfahrener Benutzer bist,
+du kannst Tooltips für Optionen lesen und wirst nicht um Hilfe schreien wenn
+irgendetwas furchtbar schief mit deinem UI passiert mit diesen zusätzlichen Optionen?
 
-If yes, you'll be allowed to enable this option.
+Falls ja, ist es erlaubt fortzufahren.
 ]]
 
---Install--
-L["Moving Frames"] = true
-L["Author Presets"] = true
+--Install
+L["Moving Frames"] = "Bewegbare Fenster"
+L["Author Presets"] = "Author Voreinstellungen"
 L["|cff9482c9Shadow & Light|r Installation"] = true
-L["Welcome to |cff9482c9Shadow & Light|r version %s!"] = true
-L["SLE_INSTALL_WELCOME"] = [[This will take you through a quick install process to setup some Shadow & Light features.
-If you choose to not setup any options through this config, click Skip Process button to finish the installation.
+L["Welcome to |cff9482c9Shadow & Light|r version %s!"] = "Willkommen zu |cff9482c9Shadow & Light|r Version %s!"
+L["SLE_INSTALL_WELCOME"] = [[Dieses führt dich durch ein schnell Installationsprozess um einige Shadow & Light Funktionalitäten einzustellen.
+Wenn du keine Optionen in der Installation auswählen möchtest, klicke auf den Schritt Überspringen Knopf um die Installation zu beenden.
 
-Note that steps to the right marked with * are optional steps unavailable without selecting something in previous steps.]]
-L["This will enable S&L Armory mode components that will show more detailed information at a quick glance on the toons you inspect or your own character."] = true
-L["SLE_ARMORY_INSTALL"] = "Enable S&L Armory\n(Detailed Character & Inspect frames)."
-L["AFK Mode in |cff9482c9Shadow & Light|r is additional settings/elements for standard |cff1784d1ElvUI|r AFK screen."] = true
-L["This option is bound to character and requires a UI reload to take effect."] = true
-L["Shadow & Light Imports"] = true
-L["You can now choose if you want to use one of the authors' set of options. This will change the positioning of some elements as well of other various options."] = true
-L["SLE_Install_Text_AUTHOR"] = [=[This step is optional and only to be used if you are wanting to use one of our configurations. In some cases settings may differ depending on layout options you chose in ElvUI installation.
-Not selecting anything will cause you to skip next step of the installation. 
+Beachte jedoch, dass die Schritte rechts mit * gekennzeichnet die vorherigen Schritte benötigen.]]
+L["This will enable S&L Armory mode components that will show more detailed information at a quick glance on the toons you inspect or your own character."] = "Dieses wird den S&L Armory Mode aktivieren, welcher mehr detaillierte Informationen auf einen Blick anzeigt, wenn du einen Charakter inspizierst oder auf deinem eigenen Charakter Fenster."
+L["SLE_ARMORY_INSTALL"] = "Aktiviere S&L Armory\n(Detaillierte Charakter & Betrachten Fenster)."
+L["AFK Mode in |cff9482c9Shadow & Light|r is additional settings/elements for standard |cff1784d1ElvUI|r AFK screen."] = "Der AFK Mode in |cff9482c9Shadow & Light|r erlaubt zusätzliche Einstellungen/Elemente für den Standard |cff1784d1ElvUI|r AFK Mode."
+L["This option is bound to character and requires a UI reload to take effect."] = "Diese Option ist an den Charakter gebunden und benötigt ein neuladen des UI um aktiv zu werden."
+L["Shadow & Light Imports"] = "Shadow & Light Importierungen"
+L["You can now choose if you want to use one of the authors' set of options. This will change the positioning of some elements as well of other various options."] = "Du kannst jetzt auswählen ob du einige Einstellunge von den Authoren verwenden möchtest. Dieses wird die Positionierung von einigen Elementen verändern und auch einige Optionen."
+L["SLE_Install_Text_AUTHOR"] = [=[Dieser Schritt ist optional und sollte nur ausgewählt werden wenn du die Einstellungen von uns verwenden möchtest. In einigen Fällen sind die Einstellungen unterschiedlich basierend auf den Layout Einstellungen die du in ElvUI gewählt hast.
+Wenn du nichts auswählst, wird vorausgesetzt dass du den nächsten Installationsschritt überspringst. 
 
-A |cff1784d1"%s"|r role was chosen.
+|cff1784d1"%s"|r wurde ausgewählt.
 
-|cffFF0000Warning:|r Please note that the authors' may or may not use any of the layouts/themes you have selected as they may have changed their setup more recently. Also switching between layouts in here may cause some unpredictable and weird results.]=]
-L["Darth's Config"] = true
-L["Repooc's Config"] = true
-L["Affinitii's Config"] = true
-L["Darth's Default Set"] = true
-L["Repooc's Default Set"] = true
-L["Affinitii's Default Set"] = true
-L["Layout & Settings Import"] = true
-L["You have selected to use %s."] = true
-L["SLE_INSTALL_LAYOUT_TEXT2"] = [[Following buttons will import layout/addon settings for the selected config and role.
-Please not that this configs may include some settings you may not yet being familiar with.
+|cffFF0000Achtung:|r Bitte beachte dass die Authoren vielleicht oder vielleicht auch nicht die Layouts/Themes die du ausgewählt hast nicht verwenden. Beachte auch, wenn du zwischen den Layouts hin und her wechselst könnte es auch zu ungewollten Resultaten führen.]=]
+L["Darth's Config"] = "Darth's Einstellungen"
+L["Repooc's Config"] = "Repooc's Einstellungen"
+L["Affinitii's Config"] = "Affinitii's Einstellungen"
+L["Darth's Default Set"] = "Darth's Standardeinstellungen"
+L["Repooc's Default Set"] = "Repooc's Standardeinstellungen"
+L["Affinitii's Default Set"] = "Affinitii's Standardeinstellungen"
+L["Layout & Settings Import"] = "Layout & Einstellungsimportierung"
+L["You have selected to use %s and role %s."] = "Du hast ausgewählt %s und Rolle %s."
+L["SLE_INSTALL_LAYOUT_TEXT2"] = [[Folgende Knöpfe werden Layout/Addon Einstellungen für die gewählte Konfiguration und Rolle verwenden.
+Bitte beachte dass diese Konfiguration vielleicht einige Einstellungen beinhaltet, mit denen du noch nicht vertraut bist.
 
-Also it may reset/change some options you set in previous steps.]]
-L["|cff1784d1%s|r role was chosen"] = true
-L["Author Presets"] = true
-L["Moving Frames"] = true
-L["Import Profile"] = true
+Auch könnte es auch einige Optionen zurücksetzen/ändern die du den vorherigen Schritten ausgewählt hast.]]
+L["|cff1784d1%s|r role was chosen"] = "|cff1784d1%s|r Rolle wurde ausgewählt"
+L["Import Profile"] = "Import Profil"
 L["AFK Mode"] = true
-L["You have selected to use %s and role %s."] = true
-L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"] = [[This action can cause you to lose some of your settings.
-Continue?]]
-L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"] = [[This will create a profile for these addons (if enabled) and switch to it:
+L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"] = [[Diese Aktion könnte bewirken dass du einige Einstellungen verlierst.
+Fortfahren?]]
+L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"] = [[Dieses wird ein Profil für diese Addons erstellen (wenn aktiviert) und zum erstellten Profil wechseln:
 %s
 
 Continue?]]
 
 --Config replacements
-L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."] = true
+L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."] = "Diese Optionen wurde durch Shadow & Light deaktiviert. Um siw wieder zu aktivieren musst du die S&L Optionen deaktivieren. Klicke hier um zu den Einstellungen zu gelangen."
 
 --Core
-L["SLE_LOGIN_MSG"] = "|cff9482c9Shadow & Light|r version |cff1784d1%s%s|r for ElvUI is loaded. Thanks for the usage."
-L["Plugin for |cff1784d1ElvUI|r by\nDarth Predator and Repooc."] = true
-L["Reset All"] = true
-L["Resets all movers & options for S&L."] = true
-L["Reset these options to defaults"] = true
-L["Modules designed for older expantions"] = true
-L["Game Menu Buttons"] = true
-L["Adds |cff9482c9Shadow & Light|r buttons to main game menu."] = true
-L["Advanced Options"] = true
-L["SLE_Advanced_Desc"] = [[Folowing options provide acces to additional customization settings in various modules.
-Is not reccomended to new players or people not experienced in addons' configuration.]]
-L["Allow Advanced Options"] = true
-L["Change Elv's options limits"] = true
-L["Allow |cff9482c9Shadow & Light|r to change some of ElvUI's options limits."] = true
-L["Cyrillics Support"] = true
-L["SLE_CYR_DESC"] = [[If you happen to ocasionaly (or constantly) use Russian alphabet (Cyrillics) for your messages
-and always forget to switch input language afterward when entering slash commands then these options will help you.
-They enable a set of ElvUI's commands to be usable even with wrong input.
+L["SLE_LOGIN_MSG"] = "|cff9482c9Shadow & Light|r Version |cff1784d1%s%s|r für ElvUI ist geladen. Danke dass es benutzt."
+L["Plugin for |cff1784d1ElvUI|r by\nDarth Predator and Repooc."] = "Plugin für |cff1784d1ElvUI|r von\nDarth Predator und Repooc."
+L["Reset All"] = "Alles zurücksetzen"
+L["Resets all movers & options for S&L."] = "Setzt alle Movers & Optionen für S&L zurück."
+L["Reset these options to defaults"] = "Setze die Optionen auf Standard zurück"
+L["Modules designed for older expantions"] = "Module für die älteren Erweiterungen"
+L["Game Menu Buttons"] = "Spielmenü Knopf"
+L["Adds |cff9482c9Shadow & Light|r buttons to main game menu."] = "Füge einen |cff9482c9Shadow & Light|r Knopf zum Spielmeü hinzu."
+L["Advanced Options"] = "Erweiterte Optionen"
+L["SLE_Advanced_Desc"] = [[Folgende Optionen erlauben den Zugriff auf zusätzliche Einstellungen in den verschiedensten Modulen.
+Neuen Spielern oder Spielern die nicht vertraut mit Addon Einstellungen sind, wird nicht geraten diese zu nutzen.]]
+L["Allow Advanced Options"] = "Erlaube erweiterte Optionen"
+L["Change Elv's options limits"] = "Ändere Elv's Optionsbegrenzung"
+L["Allow |cff9482c9Shadow & Light|r to change some of ElvUI's options limits."] = "Erlaubt |cff9482c9Shadow & Light|r dass verändern von einigen ElvUI's Optionsbegrenzungen."
+L["Cyrillics Support"] = "Kyrillischer Support"
+L["SLE_CYR_DESC"] = [[Wenn du ständig (oder selten) das russische Alphabet (Kyrillisches Alphabet) für deine Nachrichten verwendest
+und immer wieder vergisst deine Tastatur umzuschalten wenn du die Slash Befehle benutzt, wird dir diese Option dabei helfen.
+Dieses aktiviert die Benutzung der ElvUI Befehle auch mit nicht umgeschalteter Tastatur.
 ]]
-L["Commands"] = true
-L["SLE_CYR_COM_DESC"] = [[Allows the usage of these common commands with ru input:
+L["Commands"] = "Befehle"
+L["SLE_CYR_COM_DESC"] = [[Erlaubt die Benutzung der Befehle mit russischer Eingabe:
 - /rl
 - /in
 - /ec
@@ -101,8 +98,8 @@ L["SLE_CYR_COM_DESC"] = [[Allows the usage of these common commands with ru inpu
 - /moveui
 - /resetui
 - /kb]]
-L["Dev Commands"] = true
-L["SLE_CYR_DEVCOM_DESC"] = [[Allows the usage of these commands with ru input:
+L["Dev Commands"] = "Dev Befehle"
+L["SLE_CYR_DEVCOM_DESC"] = [[Erlaubt die Benutzung von diesen Befehlen mit russischer Eingabe:
 - /luaerror
 - /frame
 - /framelist
@@ -111,15 +108,15 @@ L["SLE_CYR_DEVCOM_DESC"] = [[Allows the usage of these commands with ru input:
 - /cpuusage
 - /enableblizzard
 
-These are usually used for developing and testing purposes or are extremely rare used by general user.]]
-L["Modules"] = true
-L["Options for different S&L modules."] = true
+Diese Befehle werden mehr für das Testen oder die Entwicklung benutzt und werden daher eher selten von gewöhnlichen Nutzern verwendet.]]
+L["Modules"] = "Module"
+L["Options for different S&L modules."] = "Einstellungen für verschiedene S&L Module."
 
 --Config groups
-L["S&L: All"] = true
-L["S&L: Datatexts"] = true
-L["S&L: Backgrounds"] = true
-L["S&L: Misc"] = true
+L["S&L: All"] = "S&L: Alles"
+L["S&L: Datatexts"] = "S&L: Infotexte"
+L["S&L: Backgrounds"] = "S&L: Hintergründe"
+L["S&L: Misc"] = "S&L: Verschiedenes"
 
 --Actionbars
 L["OOR as Bind Text"] = true

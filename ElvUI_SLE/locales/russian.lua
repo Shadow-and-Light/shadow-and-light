@@ -45,7 +45,7 @@ L["Darth's Default Set"] = "Установлены настройки Дарта
 L["Repooc's Default Set"] = "Установлены настройки Repooc'а"
 L["Affinitii's Default Set"] = "Установлены настройки Affinitii"
 L["Layout & Settings Import"] = "Импорт расположений и настроек"
-L["You have selected to use %s."] = "Вы выбрали %s"
+L["You have selected to use %s and role %s."] = "Вы выбрали %s для роли %s."
 L["SLE_INSTALL_LAYOUT_TEXT2"] = [[Данные опции импортируют расположения/настройки аддонов для выбранных опций и роли.
 Учтите, что эти пресеты могут включать незнакомые вам настройки.
 
@@ -53,7 +53,6 @@ L["SLE_INSTALL_LAYOUT_TEXT2"] = [[Данные опции импортируют
 L["|cff1784d1%s|r role was chosen"] = 'Была выбрана роль |cff1784d1"%s"|r.'
 L["Import Profile"] = "Импорт профиля"
 L["AFK Mode"] = "Режим АФК"
-L["You have selected to use %s and role %s."] = "Вы выбрали %s для роли %s."
 L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"] = [[Это действие может привести к потере некоторых ваших настроек.
 Продолжить?]]
 L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"] = [[Это действие создаст профили для следующих аддонов (если они включены) и переключится на них:

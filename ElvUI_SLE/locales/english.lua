@@ -46,16 +46,14 @@ L["Darth's Default Set"] = true
 L["Repooc's Default Set"] = true
 L["Affinitii's Default Set"] = true
 L["Layout & Settings Import"] = true
-L["You have selected to use %s."] = true
+L["You have selected to use %s and role %s."] = true
 L["SLE_INSTALL_LAYOUT_TEXT2"] = [[Following buttons will import layout/addon settings for the selected config and role.
 Please not that this configs may include some settings you may not yet being familiar with.
 
 Also it may reset/change some options you set in previous steps.]]
 L["|cff1784d1%s|r role was chosen"] = true
-L["Moving Frames"] = true
 L["Import Profile"] = true
 L["AFK Mode"] = true
-L["You have selected to use %s and role %s."] = true
 L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"] = [[This action can cause you to lose some of your settings.
 Continue?]]
 L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"] = [[This will create a profile for these addons (if enabled) and switch to it:
