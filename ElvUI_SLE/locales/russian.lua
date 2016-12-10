@@ -237,7 +237,7 @@ L["Sets height of the frame"] = "Установить высоту фрейма"
 L["Set the texture to use in this frame. Requirements are the same as the chat textures."] = "Устанавливает текстуру этого фрейма. Требования к текстуре такие же, как для текстур чата."
 L["Backdrop Template"] = "Тип фона"
 L["Change the template used for this backdrop."] = "Измените шаблон, используемый при создании этого фона"
-L["Hide in Pet Batlle"] = "Прятать в битвах питомцев"
+L["Hide in Pet Battle"] = "Прятать в битвах питомцев"
 L["Show/Hide this frame during Pet Battles."] = "Показать/скрыть этот фрейм в битвах питомцев"
 
 --Bags
@@ -327,6 +327,7 @@ L["Replace massages about honor points being awarded."] = "Заменять со
 L["Defines the style of changed string. Colored parts will be shown with your selected value color in chat."] = "Определяет стил сообщения. Окрашенные элементы будут отображаться выбранным вами цветом значений."
 L["Award Style"] = "Стиль наград"
 L["HK Style"] = "Стиль почетной победы"
+L["Honor Style"] = true
 
 --Datatexts
 L["D"] = "Дн"

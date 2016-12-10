@@ -240,7 +240,7 @@ L["Sets height of the frame"] = true
 L["Set the texture to use in this frame. Requirements are the same as the chat textures."] = true
 L["Backdrop Template"] = true
 L["Change the template used for this backdrop."] = true
-L["Hide in Pet Batlle"] = true
+L["Hide in Pet Battle"] = true
 L["Show/Hide this frame during Pet Battles."] = true
 
 --Bags
@@ -258,7 +258,7 @@ L["Vehicle Seat Scale"] = true
 
 --Chat
 L["Reported by %s"] = true
-L["Reset Chat History"]= true
+L["Reset Chat History"] = true
 L["Clears your chat history and will reload your UI."] = true
 L["Reset Editbox History"] = true
 L["Clears the editbox history and will reload your UI."] = true
@@ -330,6 +330,7 @@ L["Replace massages about honor points being awarded."] = true
 L["Defines the style of changed string. Colored parts will be shown with your selected value color in chat."] = true
 L["Award Style"] = true
 L["HK Style"] = true
+L["Honor Style"] = true
 
 --Datatexts
 L["D"] = true
