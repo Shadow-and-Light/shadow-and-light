@@ -20,6 +20,17 @@ DB.Honor ={
 		["STYLE8"] = "%s <%s> ("..E["media"].hexvaluecolor.."%s|r|T%s:%s|t)",
 		["STYLE9"] = E["media"].hexvaluecolor.."%s|r <%s> ("..E["media"].hexvaluecolor.."%s|r|T%s:%s|t)",
 	},
+	BonusStyles = {
+		["STYLE1"] = "%s <%s>: +%s (+%s)|T%s:%s|t",
+		["STYLE2"] = "%s <%s>: +"..E["media"].hexvaluecolor.."%s|r ("..E["media"].hexvaluecolor.."%s|r)|T%s:%s|t",
+		["STYLE3"] = E["media"].hexvaluecolor.."%s|r <%s>: +"..E["media"].hexvaluecolor.."%s|r ("..E["media"].hexvaluecolor.."%s|r) |T%s:%s|t",
+		["STYLE4"] = "%s <%s> +%s (%s)|T%s:%s|t",
+		["STYLE5"] = "%s <%s> +"..E["media"].hexvaluecolor.."%s|r ("..E["media"].hexvaluecolor.."%s|r)|T%s:%s|t",
+		["STYLE6"] = E["media"].hexvaluecolor.."%s|r <%s> +"..E["media"].hexvaluecolor.."%s|r ("..E["media"].hexvaluecolor.."%s|r)|T%s:%s|t",
+		["STYLE7"] = "%s <%s> (%s %s|T%s:%s|t)",
+		["STYLE8"] = "%s <%s> ("..E["media"].hexvaluecolor.."%s|r "..E["media"].hexvaluecolor.."%s|r|T%s:%s|t)",
+		["STYLE9"] = E["media"].hexvaluecolor.."%s|r <%s> ("..E["media"].hexvaluecolor.."%s|r"..E["media"].hexvaluecolor.."%s|r|T%s:%s|t)",
+	},
 	AwardStyles = {
 		["STYLE1"] = L["Award"]..": %s|T%s:%s|t",
 		["STYLE2"] = L["Award"]..": "..E["media"].hexvaluecolor.."%s|r|T%s:%s|t",
@@ -85,6 +96,9 @@ function DB:PopulateHonorStrings()
 	pattern = T.rgsub(COMBATLOG_HONORGAIN, T.unpack(symbols))
 	T.tinsert(DB.Honor.Strings, pattern)
 
+	pattern = T.rgsub(COMBATLOG_HONORGAIN_EXHAUSTION1, T.unpack(symbols))
+	T.tinsert(DB.Honor.Strings, pattern)
+
 	pattern = T.rgsub(COMBATLOG_HONORGAIN_NO_RANK, T.unpack(symbols))
 	T.tinsert(DB.Honor.Strings, pattern)
 
@@ -95,13 +109,17 @@ function DB:FilterHonor(event, message, ...)
 	local name, rank, honor
 	if DB.db.honor.chatfilter.enable then
 		for i, v in T.ipairs(DB.Honor.Strings) do
-			name, rank, honor = T.match(message,DB.Honor.Strings[i])
+			name, rank, honor, bonus = T.match(message,DB.Honor.Strings[i])
 			if name then
 				if not honor then
 					honor = rank
 					rank = PVP_RANK_0_0
 				end
-				message = T.format(DB.Honor.Styles[DB.db.honor.chatfilter.style or "STYLE1"], name, rank, honor, DB.Honor.Icon, DB.db.honor.chatfilter.iconsize)
+				if bonus then
+					message = T.format(DB.Honor.BonusStyles[DB.db.honor.chatfilter.style or "STYLE1"], name, rank, honor, bonus, DB.Honor.Icon, DB.db.honor.chatfilter.iconsize)
+				else
+					message = T.format(DB.Honor.Styles[DB.db.honor.chatfilter.style or "STYLE1"], name, rank, honor, DB.Honor.Icon, DB.db.honor.chatfilter.iconsize)
+				end
 				return false, message, ...
 			end
 		end
