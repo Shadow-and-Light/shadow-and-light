@@ -45,7 +45,7 @@ L["Darth's Default Set"] = "Установлены настройки Дарта
 L["Repooc's Default Set"] = "Установлены настройки Repooc'а"
 L["Affinitii's Default Set"] = "Установлены настройки Affinitii"
 L["Layout & Settings Import"] = "Импорт расположений и настроек"
-L["You have selected to use %s."] = "Вы выбрали %s"
+L["You have selected to use %s and role %s."] = "Вы выбрали %s для роли %s."
 L["SLE_INSTALL_LAYOUT_TEXT2"] = [[Данные опции импортируют расположения/настройки аддонов для выбранных опций и роли.
 Учтите, что эти пресеты могут включать незнакомые вам настройки.
 
@@ -53,7 +53,6 @@ L["SLE_INSTALL_LAYOUT_TEXT2"] = [[Данные опции импортируют
 L["|cff1784d1%s|r role was chosen"] = 'Была выбрана роль |cff1784d1"%s"|r.'
 L["Import Profile"] = "Импорт профиля"
 L["AFK Mode"] = "Режим АФК"
-L["You have selected to use %s and role %s."] = "Вы выбрали %s для роли %s."
 L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"] = [[Это действие может привести к потере некоторых ваших настроек.
 Продолжить?]]
 L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"] = [[Это действие создаст профили для следующих аддонов (если они включены) и переключится на них:
@@ -122,7 +121,7 @@ L["S&L: Misc"] = "S&L: Прочее"
 L["OOR as Bind Text"] = "Вне радиуса на назначнии"
 L["Out Of Range indication will use keybind text instead of the whole icon."] = "Индикация о слишком далекой цели будет окрашивать текст назначенной клавиши вместо всей иконки."
 L["Checked Texture"] = "Текстура выделения"
-L["Highlight the button of the spell with areal effect untill the area is selected."] = "Пдсвечивает кнопку с эффектом по области пока не будет выбрана точка применения."
+L["Highlight the button of the spell with areal effect until the area is selected."] = "Пдсвечивает кнопку с эффектом по области пока не будет выбрана точка применения."
 L["Checked Texture Color"] = "Цвет выделения"
 L["Transparent Backdrop"] = "Прозрачный фон"
 L["Sets actiobars' backgrounds to transparent template."] = "Делает фон панелей команд прозрачным."
@@ -238,7 +237,7 @@ L["Sets height of the frame"] = "Установить высоту фрейма"
 L["Set the texture to use in this frame. Requirements are the same as the chat textures."] = "Устанавливает текстуру этого фрейма. Требования к текстуре такие же, как для текстур чата."
 L["Backdrop Template"] = "Тип фона"
 L["Change the template used for this backdrop."] = "Измените шаблон, используемый при создании этого фона"
-L["Hide in Pet Batlle"] = "Прятать в битвах питомцев"
+L["Hide in Pet Battle"] = "Прятать в битвах питомцев"
 L["Show/Hide this frame during Pet Battles."] = "Показать/скрыть этот фрейм в битвах питомцев"
 
 --Bags
@@ -328,6 +327,7 @@ L["Replace massages about honor points being awarded."] = "Заменять со
 L["Defines the style of changed string. Colored parts will be shown with your selected value color in chat."] = "Определяет стил сообщения. Окрашенные элементы будут отображаться выбранным вами цветом значений."
 L["Award Style"] = "Стиль наград"
 L["HK Style"] = "Стиль почетной победы"
+L["Honor Style"] = true
 
 --Datatexts
 L["D"] = "Дн"

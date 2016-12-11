@@ -71,7 +71,7 @@ local function configTable()
 				pethide = {
 					order = 8,
 					type = "toggle",
-					name = L["Hide in Pet Batlle"],
+					name = L["Hide in Pet Battle"],
 					desc = L["Show/Hide this frame during Pet Battles."],
 					set = function(info, value) E.db.sle.backgrounds["bg"..i].pethide = value; BG:RegisterHide(i) end
 				},

@@ -25,7 +25,7 @@ local function configTable()
 				order = 2,
 				type = "toggle",
 				name = L["Checked Texture"],
-				desc = L["Highlight the button of the spell with areal effect untill the area is selected."],
+				desc = L["Highlight the button of the spell with areal effect until the area is selected."],
 				disabled = function() return not E.private.actionbar.enable or (LibStub("Masque", true) and E.private.actionbar.masque.actionbars) end,
 				get = function(info) return E.private.sle.actionbars.checkedtexture end,
 				set = function(info, value) E.private.sle.actionbars.checkedtexture = value; E:StaticPopup_Show('PRIVATE_RL'); end,

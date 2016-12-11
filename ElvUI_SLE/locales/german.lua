@@ -1,91 +1,91 @@
-﻿-- English localization file for enUS and enGB.
+﻿-- German localization file for deDE.
 local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
-local L = AceLocale:NewLocale("ElvUI", "enUS", true);
+local L = AceLocale:NewLocale("ElvUI", "deDE");
 
 if not L then return; end
 --Popups
-L["MSG_SLE_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cff9482c9Shadow & Light|r. Your version is |cff1784d1%.2f|r (recommended is |cff1784d1%.2f|r). Please update your ElvUI."
-L["This will clear your chat history and reload your UI.\nContinue?"] = true
-L["This will clear your editbox history and reload your UI.\nContinue?"] = true
-L["Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
-L["You have got Loot Confirm and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
-L["You have got OneClickEnchantScroll and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
-L["You have got ElvUI Transparent Actionbar Backdrops and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
-L["SLE_ADVANCED_POPUP_TEXT"] = [[Do you swear that you are an experienced user,
-can read tooltips for options and will not cry for help if you
-horribly break your UI by utilizing additional options?
+L["MSG_SLE_ELV_OUTDATED"] = "Deine Version von ElvUI ist älter wie die empfohlene, die mit |cff9482c9Shadow & Light|r benutzt werden sollte. Deine Version ist |cff1784d1%.2f|r (empfohlen ist |cff1784d1%.2f|r). Bitte update dein ElvUI."
+L["This will clear your chat history and reload your UI.\nContinue?"] = "Dieses wird deinen Chatverlauf leeren und dein UI neuladen.\nFortfahren?"
+L["This will clear your editbox history and reload your UI.\nContinue?"] = "Dieses wird dein Eingabeverlauf leeren und dein UI neuladen.\nFortfahren?"
+L["Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable."] = "Oh gott, du hast ElvUI Enhanced und Shadow & Light gleichzeitig aktiviert. Wähle ein Addon zum Deaktivieren aus."
+L["You have got Loot Confirm and Shadow & Light both enabled at the same time. Select an addon to disable."] = "Du hast Loot Confirm und Shadow & Light gleichzeitig aktiviert. Wähle ein Addon zum Deaktivieren aus."
+L["You have got OneClickEnchantScroll and Shadow & Light both enabled at the same time. Select an addon to disable."] = "Du hast OneClickEnchantScroll und Shadow & Light gleichzeitig aktiviert. Wähle ein Addon zum Deaktivieren aus."
+L["You have got ElvUI Transparent Actionbar Backdrops and Shadow & Light both enabled at the same time. Select an addon to disable."] = "Du hast ElvUI Transparent Actionbar Backdrops und Shadow & Light gleichzeitig aktiviert. Wähle ein Addon zum Deaktivieren aus."
+L["SLE_ADVANCED_POPUP_TEXT"] = [[Schwörst du, dass du ein erfahrener Benutzer bist,
+du kannst Tooltips für Optionen lesen und wirst nicht um Hilfe schreien wenn
+irgendetwas furchtbar schief mit deinem UI passiert mit diesen zusätzlichen Optionen?
 
-If yes, you'll be allowed to enable this option.
+Falls ja, ist es erlaubt fortzufahren.
 ]]
 
---Install--
-L["Moving Frames"] = true
-L["Author Presets"] = true
+--Install
+L["Moving Frames"] = "Bewegbare Fenster"
+L["Author Presets"] = "Author Voreinstellungen"
 L["|cff9482c9Shadow & Light|r Installation"] = true
-L["Welcome to |cff9482c9Shadow & Light|r version %s!"] = true
-L["SLE_INSTALL_WELCOME"] = [[This will take you through a quick install process to setup some Shadow & Light features.
-If you choose to not setup any options through this config, click Skip Process button to finish the installation.
+L["Welcome to |cff9482c9Shadow & Light|r version %s!"] = "Willkommen zu |cff9482c9Shadow & Light|r Version %s!"
+L["SLE_INSTALL_WELCOME"] = [[Dieses führt dich durch ein schnell Installationsprozess um einige Shadow & Light Funktionalitäten einzustellen.
+Wenn du keine Optionen in der Installation auswählen möchtest, klicke auf den Schritt Überspringen Knopf um die Installation zu beenden.
 
-Note that steps to the right marked with * are optional steps unavailable without selecting something in previous steps.]]
-L["This will enable S&L Armory mode components that will show more detailed information at a quick glance on the toons you inspect or your own character."] = true
-L["SLE_ARMORY_INSTALL"] = "Enable S&L Armory\n(Detailed Character & Inspect frames)."
-L["AFK Mode in |cff9482c9Shadow & Light|r is additional settings/elements for standard |cff1784d1ElvUI|r AFK screen."] = true
-L["This option is bound to character and requires a UI reload to take effect."] = true
-L["Shadow & Light Imports"] = true
-L["You can now choose if you want to use one of the authors' set of options. This will change the positioning of some elements as well of other various options."] = true
-L["SLE_Install_Text_AUTHOR"] = [=[This step is optional and only to be used if you are wanting to use one of our configurations. In some cases settings may differ depending on layout options you chose in ElvUI installation.
-Not selecting anything will cause you to skip next step of the installation. 
+Beachte jedoch, dass die Schritte rechts mit * gekennzeichnet die vorherigen Schritte benötigen.]]
+L["This will enable S&L Armory mode components that will show more detailed information at a quick glance on the toons you inspect or your own character."] = "Dieses wird den S&L Armory Mode aktivieren, welcher mehr detaillierte Informationen auf einen Blick anzeigt, wenn du einen Charakter inspizierst oder auf deinem eigenen Charakter Fenster."
+L["SLE_ARMORY_INSTALL"] = "Aktiviere S&L Armory\n(Detaillierte Charakter & Betrachten Fenster)."
+L["AFK Mode in |cff9482c9Shadow & Light|r is additional settings/elements for standard |cff1784d1ElvUI|r AFK screen."] = "Der AFK Mode in |cff9482c9Shadow & Light|r erlaubt zusätzliche Einstellungen/Elemente für den Standard |cff1784d1ElvUI|r AFK Mode."
+L["This option is bound to character and requires a UI reload to take effect."] = "Diese Option ist an den Charakter gebunden und benötigt ein neuladen des UI um aktiv zu werden."
+L["Shadow & Light Imports"] = "Shadow & Light Importierungen"
+L["You can now choose if you want to use one of the authors' set of options. This will change the positioning of some elements as well of other various options."] = "Du kannst jetzt auswählen ob du einige Einstellunge von den Authoren verwenden möchtest. Dieses wird die Positionierung von einigen Elementen verändern und auch einige Optionen."
+L["SLE_Install_Text_AUTHOR"] = [=[Dieser Schritt ist optional und sollte nur ausgewählt werden wenn du die Einstellungen von uns verwenden möchtest. In einigen Fällen sind die Einstellungen unterschiedlich basierend auf den Layout Einstellungen die du in ElvUI gewählt hast.
+Wenn du nichts auswählst, wird vorausgesetzt dass du den nächsten Installationsschritt überspringst. 
 
-A |cff1784d1"%s"|r role was chosen.
+|cff1784d1"%s"|r wurde ausgewählt.
 
-|cffFF0000Warning:|r Please note that the authors' may or may not use any of the layouts/themes you have selected as they may have changed their setup more recently. Also switching between layouts in here may cause some unpredictable and weird results.]=]
-L["Darth's Config"] = true
-L["Repooc's Config"] = true
-L["Affinitii's Config"] = true
-L["Darth's Default Set"] = true
-L["Repooc's Default Set"] = true
-L["Affinitii's Default Set"] = true
-L["Layout & Settings Import"] = true
-L["You have selected to use %s and role %s."] = true
-L["SLE_INSTALL_LAYOUT_TEXT2"] = [[Following buttons will import layout/addon settings for the selected config and role.
-Please not that this configs may include some settings you may not yet being familiar with.
+|cffFF0000Achtung:|r Bitte beachte dass die Authoren vielleicht oder vielleicht auch nicht die Layouts/Themes die du ausgewählt hast nicht verwenden. Beachte auch, wenn du zwischen den Layouts hin und her wechselst könnte es auch zu ungewollten Resultaten führen.]=]
+L["Darth's Config"] = "Darth's Einstellungen"
+L["Repooc's Config"] = "Repooc's Einstellungen"
+L["Affinitii's Config"] = "Affinitii's Einstellungen"
+L["Darth's Default Set"] = "Darth's Standardeinstellungen"
+L["Repooc's Default Set"] = "Repooc's Standardeinstellungen"
+L["Affinitii's Default Set"] = "Affinitii's Standardeinstellungen"
+L["Layout & Settings Import"] = "Layout & Einstellungsimportierung"
+L["You have selected to use %s and role %s."] = "Du hast ausgewählt %s und Rolle %s."
+L["SLE_INSTALL_LAYOUT_TEXT2"] = [[Folgende Knöpfe werden Layout/Addon Einstellungen für die gewählte Konfiguration und Rolle verwenden.
+Bitte beachte dass diese Konfiguration vielleicht einige Einstellungen beinhaltet, mit denen du noch nicht vertraut bist.
 
-Also it may reset/change some options you set in previous steps.]]
-L["|cff1784d1%s|r role was chosen"] = true
-L["Import Profile"] = true
+Auch könnte es auch einige Optionen zurücksetzen/ändern die du den vorherigen Schritten ausgewählt hast.]]
+L["|cff1784d1%s|r role was chosen"] = "|cff1784d1%s|r Rolle wurde ausgewählt"
+L["Import Profile"] = "Import Profil"
 L["AFK Mode"] = true
-L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"] = [[This action can cause you to lose some of your settings.
-Continue?]]
-L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"] = [[This will create a profile for these addons (if enabled) and switch to it:
+L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"] = [[Diese Aktion könnte bewirken dass du einige Einstellungen verlierst.
+Fortfahren?]]
+L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"] = [[Dieses wird ein Profil für diese Addons erstellen (wenn aktiviert) und zum erstellten Profil wechseln:
 %s
 
-Continue?]]
+Fortfahren?]]
 
 --Config replacements
-L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."] = true
+L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."] = "Diese Optionen wurde durch Shadow & Light deaktiviert. Um siw wieder zu aktivieren musst du die S&L Optionen deaktivieren. Klicke hier um zu den Einstellungen zu gelangen."
 
 --Core
-L["SLE_LOGIN_MSG"] = "|cff9482c9Shadow & Light|r version |cff1784d1%s%s|r for ElvUI is loaded. Thanks for the usage."
-L["Plugin for |cff1784d1ElvUI|r by\nDarth Predator and Repooc."] = true
-L["Reset All"] = true
-L["Resets all movers & options for S&L."] = true
-L["Reset these options to defaults"] = true
-L["Modules designed for older expantions"] = true
-L["Game Menu Buttons"] = true
-L["Adds |cff9482c9Shadow & Light|r buttons to main game menu."] = true
-L["Advanced Options"] = true
-L["SLE_Advanced_Desc"] = [[Folowing options provide acces to additional customization settings in various modules.
-Is not reccomended to new players or people not experienced in addons' configuration.]]
-L["Allow Advanced Options"] = true
-L["Change Elv's options limits"] = true
-L["Allow |cff9482c9Shadow & Light|r to change some of ElvUI's options limits."] = true
-L["Cyrillics Support"] = true
-L["SLE_CYR_DESC"] = [[If you happen to ocasionaly (or constantly) use Russian alphabet (Cyrillics) for your messages
-and always forget to switch input language afterward when entering slash commands then these options will help you.
-They enable a set of ElvUI's commands to be usable even with wrong input.
+L["SLE_LOGIN_MSG"] = "|cff9482c9Shadow & Light|r Version |cff1784d1%s%s|r für ElvUI ist geladen. Danke dass es benutzt."
+L["Plugin for |cff1784d1ElvUI|r by\nDarth Predator and Repooc."] = "Plugin für |cff1784d1ElvUI|r von\nDarth Predator und Repooc."
+L["Reset All"] = "Alles zurücksetzen"
+L["Resets all movers & options for S&L."] = "Setzt alle Movers & Optionen für S&L zurück."
+L["Reset these options to defaults"] = "Setze die Optionen auf Standard zurück"
+L["Modules designed for older expantions"] = "Module für die älteren Erweiterungen"
+L["Game Menu Buttons"] = "Spielmenü Knopf"
+L["Adds |cff9482c9Shadow & Light|r buttons to main game menu."] = "Füge einen |cff9482c9Shadow & Light|r Knopf zum Spielmeü hinzu."
+L["Advanced Options"] = "Erweiterte Optionen"
+L["SLE_Advanced_Desc"] = [[Folgende Optionen erlauben den Zugriff auf zusätzliche Einstellungen in den verschiedensten Modulen.
+Neuen Spielern oder Spielern die nicht vertraut mit Addon Einstellungen sind, wird nicht geraten diese zu nutzen.]]
+L["Allow Advanced Options"] = "Erlaube erweiterte Optionen"
+L["Change Elv's options limits"] = "Ändere Elv's Optionsbegrenzung"
+L["Allow |cff9482c9Shadow & Light|r to change some of ElvUI's options limits."] = "Erlaubt |cff9482c9Shadow & Light|r dass verändern von einigen ElvUI's Optionsbegrenzungen."
+L["Cyrillics Support"] = "Kyrillischer Support"
+L["SLE_CYR_DESC"] = [[Wenn du ständig (oder selten) das russische Alphabet (Kyrillisches Alphabet) für deine Nachrichten verwendest
+und immer wieder vergisst deine Tastatur umzuschalten wenn du die Slash Befehle benutzt, wird dir diese Option dabei helfen.
+Dieses aktiviert die Benutzung der ElvUI Befehle auch mit nicht umgeschalteter Tastatur.
 ]]
-L["Commands"] = true
-L["SLE_CYR_COM_DESC"] = [[Allows the usage of these common commands with ru input:
+L["Commands"] = "Befehle"
+L["SLE_CYR_COM_DESC"] = [[Erlaubt die Benutzung der Befehle mit russischer Eingabe:
 - /rl
 - /in
 - /ec
@@ -98,8 +98,8 @@ L["SLE_CYR_COM_DESC"] = [[Allows the usage of these common commands with ru inpu
 - /moveui
 - /resetui
 - /kb]]
-L["Dev Commands"] = true
-L["SLE_CYR_DEVCOM_DESC"] = [[Allows the usage of these commands with ru input:
+L["Dev Commands"] = "Dev Befehle"
+L["SLE_CYR_DEVCOM_DESC"] = [[Erlaubt die Benutzung von diesen Befehlen mit russischer Eingabe:
 - /luaerror
 - /frame
 - /framelist
@@ -108,70 +108,70 @@ L["SLE_CYR_DEVCOM_DESC"] = [[Allows the usage of these commands with ru input:
 - /cpuusage
 - /enableblizzard
 
-These are usually used for developing and testing purposes or are extremely rare used by general user.]]
-L["Modules"] = true
-L["Options for different S&L modules."] = true
+Diese Befehle werden mehr für das Testen oder die Entwicklung benutzt und werden daher eher selten von gewöhnlichen Nutzern verwendet.]]
+L["Modules"] = "Module"
+L["Options for different S&L modules."] = "Einstellungen für verschiedene S&L Module."
 
 --Config groups
-L["S&L: All"] = true
-L["S&L: Datatexts"] = true
-L["S&L: Backgrounds"] = true
-L["S&L: Misc"] = true
+L["S&L: All"] = "S&L: Alles"
+L["S&L: Datatexts"] = "S&L: Infotexte"
+L["S&L: Backgrounds"] = "S&L: Hintergründe"
+L["S&L: Misc"] = "S&L: Verschiedenes"
 
 --Actionbars
-L["OOR as Bind Text"] = true
-L["Out Of Range indication will use keybind text instead of the whole icon."] = true
-L["Checked Texture"] = true
-L["Highlight the button of the spell with areal effect until the area is selected."] = true
-L["Checked Texture Color"] = true
-L["Transparent Backdrop"] = true
-L["Sets actiobars' backgrounds to transparent template."] = true
-L["Transparent Buttons"] = true
-L["Sets actiobars buttons' backgrounds to transparent template."] = true
+L["OOR as Bind Text"] = "OOR als Text"
+L["Out Of Range indication will use keybind text instead of the whole icon."] = "Außer Reichweiten Indikator wird nun den Tastaturbelegungstext anstatt das Symbol benutzen."
+L["Checked Texture"] = "Gedrückte Textur"
+L["Highlight the button of the spell with areal effect until the area is selected."] = "Hebt die Taste von Flächenzaubern hervor bis das Zielgebiet ausgewählt wurde."
+L["Checked Texture Color"] = "Gedrückte Textur Farbe"
+L["Transparent Backdrop"] = "Transparenter Hintergrund"
+L["Sets actiobars' backgrounds to transparent template."] = "Setzt den Aktionsleisten Hintergrund transparent."
+L["Transparent Buttons"] = "Transparente Tasten"
+L["Sets actiobars buttons' backgrounds to transparent template."] = "Setzt die Aktionsleisten Tasten transparent."
 
 --Armory
-L["Average"] = true
-L["Not Enchanted"] = true
-L["Empty Socket"] = true
+L["Average"] = "Durschnitt"
+L["Not Enchanted"] = "Nicht verzaubert"
+L["Empty Socket"] = "Leerer Sockel"
 L["KF"] = true
-L["You can't inspect while dead."] = true
-L["Specialization data seems to be crashed. Please inspect again."] = true
-L["No Specialization"] = true
-L["Character model may differ because it was constructed by the inspect data."] = true
+L["You can't inspect while dead."] = "Du kannst nicht inspizieren während du tod bist."
+L["Specialization data seems to be crashed. Please inspect again."] = "Spezialisierungsdaten sind wohl gecrashed. Bitte erneut inspizieren."
+L["No Specialization"] = "Keine Spezialisierung"
+L["Character model may differ because it was constructed by the inspect data."] = "Charakter Model könntet abweichen weil es auf den zu inspizierenden Daten aufbaut."
 L["Armory Mode"] = true
-L["Enchant String"] = true
-L["String Replacement"] = true
-L["List of Strings"] = true
-L["Original String"] = true
-L["New String"] = true
-L["Character Armory"] = true
-L["Show Missing Enchants or Gems"] = true
-L["Show Warning Icon"] = true
-L["Select Image"] = true
-L["Custom Image Path"] = true
-L["Gradient"] = true
-L["Gradient Texture Color"] = true
-L["Upgrade Level"] = true
-L["Warning Size"] = true
-L["Warning Only As Icons"] = true
-L["Only Damaged"] = true
-L["Gem Sockets"] = true
-L["Socket Size"] = true
+L["Enchant String"] = "Verzauberungsstring"
+L["String Replacement"] = "String Ersetzung"
+L["List of Strings"] = "Liste von Strings"
+L["Original String"] = "Originaler String"
+L["New String"] = "Neuer String"
+L["Character Armory"] = "Charakter Armory"
+L["Show Missing Enchants or Gems"] = "Zeigt fehlende Verzauberungen oder Sockel"
+L["Show Warning Icon"] = "Zeigt Warnungssymbol"
+L["Select Image"] = "Bild auswählen"
+L["Custom Image Path"] = "Benutzerdefinierter Bildpfad"
+L["Gradient"] = "Verlauf"
+L["Gradient Texture Color"] = "Verlaufs Textur Farbe"
+L["Upgrade Level"] = "Upgrade Stufe"
+L["Warning Size"] = "Warnungsgröße"
+L["Warning Only As Icons"] = "Warnung nur als Symbol"
+L["Only Damaged"] = "Nur beschädigte"
+L["Gem Sockets"] = "Edelstein Sockel"
+L["Socket Size"] = "Sockel Größe"
 L["Inspect Armory"] = true
-L["Full Item Level"] = true
-L["Show both equipped and average item levels."] = true
-L["Item Level Coloring"] = true
-L["Color code item levels values. Equipped will be gradient, avarage - selected color."] = true
-L["Color of Average"] = true
-L["Sets the color of avarage item level."] = true
-L["Only Relevant Stats"] = true
-L["Show only those primary stats relevant to your spec."] = true
-L["SLE_ARMORY_POINTS_AVAILABLE"] = "%s Point(s) Available!!"
-L["Show ElvUI skin's backdrop overlay"] = true
+L["Full Item Level"] = "Volles Itemlevel"
+L["Show both equipped and average item levels."] = "Zeigt angelegtes und durchschnittliches Itemlevel"
+L["Item Level Coloring"] = "Itemlevel färbung"
+L["Color code item levels values. Equipped will be gradient, avarage - selected color."] = "Farbencode Itemlevel Werte. Ausgerüstet ist gradient, Durschnitt - gewählte Farbe."
+L["Color of Average"] = "Farbe vom Durchschnitt"
+L["Sets the color of avarage item level."] = "Setzt die Farbe vom Durchschnitts-Itemlevel"
+L["Only Relevant Stats"] = "Nur relevante Werte"
+L["Show only those primary stats relevant to your spec."] = "Zeigt nur primäre Werte die relevant für deinen Spec sind."
+L["SLE_ARMORY_POINTS_AVAILABLE"] = "%s Punkt(e) verfügbar!!"
+L["Show ElvUI skin's backdrop overlay"] = "Zeigt ElvUI-Skin Hintergrund Overlay"
 
 --AFK
-L["You Are Away From Keyboard for"] = true
-L["Take care of yourself, Master!"] = true
+L["You Are Away From Keyboard for"] = "Du bist nicht an der Tastatur für"
+L["Take care of yourself, Master!"] = "Pass auf dich auf, Meister!"
 L["SLE_TIPS"] = { --This doesn't need to be translated, every locale can has own tips
 	"Don't stand in the fire!",
 	"Elv: I just utilized my degree in afro engineering and fixed it",
@@ -184,153 +184,153 @@ L["SLE_TIPS"] = { --This doesn't need to be translated, every locale can has own
 	"Need... More... Catgirls... Wait, what?!",
 	"First Aid potions are better then Healthstones. WTF Blizzard?!",
 }
-L["Enable S&L's additional features for AFK screen."] = true
-L["Button restrictions"] = true
-L["Use ElvUI's restrictions for button presses."] = true
-L["Crest"] = true
-L["Faction Crest X-Offset"] = true
-L["Faction Crest Y-Offset"] = true
-L["Race Crest X-Offset"] = true
-L["Race Crest Y-Offset"] = true
-L["Texts Positions"] = true
-L["Date X-Offset"] = true
-L["Date Y-Offset"] = true
-L["Player Info X-Offset"] = true
-L["Player Info Y-Offset"] = true
-L["X-Pack Logo Size"] = true
-L["Template"] = true
-L["Player Model"] = true
-L["Model Animation"] = true
+L["Enable S&L's additional features for AFK screen."] = "Aktiviere S&L zusätzliche AFK Modus Funktionalitäten."
+L["Button restrictions"] = "Tasten Beschränkungen"
+L["Use ElvUI's restrictions for button presses."] = "Benutze ElvUI's Beschränkungen für Tastendruck."
+L["Crest"] = "Wappen"
+L["Faction Crest X-Offset"] = "Fraktions-Wappen X-Versatz"
+L["Faction Crest Y-Offset"] = "Fraktions-Wappen Y-Versatz"
+L["Race Crest X-Offset"] = "Rassen-Wappen X-Versatz"
+L["Race Crest Y-Offset"] = "Rassen-Wappen Y-Versatz"
+L["Texts Positions"] = "Textpositionen"
+L["Date X-Offset"] = "Datums X-Versatz"
+L["Date Y-Offset"] = "Datums Y-Versatz"
+L["Player Info X-Offset"] = "Spielerinfo X-Versatz"
+L["Player Info Y-Offset"] = "Spielerinfo Y-Versatz"
+L["X-Pack Logo Size"] = "Erweiterung Logo Größe"
+L["Template"] = "Vorlage"
+L["Player Model"] = "Spieler Model"
+L["Model Animation"] = "Model Animation"
 L["Test"] = true
-L["Shows a test model with selected animation for 10 seconds. Clicking again will reset timer."] = true
-L["Misc"] = true
-L["Bouncing"] = true
-L["Use bounce on fade in animations."] = true
-L["Animation time"] = true
-L["Time the fade in animation will take. To disable animation set to 0."] = true
-L["Slide"] = true
-L["Slide Sideways"] = true
-L["Fade"] = true
-L["Tip time"] = true
-L["Number of seconds tip will be shown before changed to another."] = true
-L["Title font"] = true
-L["Subitle font"] = true
-L["Date font"] = true
-L["Player info font"] = true
-L["Tips font"] = true
-L["Graphics"] = true
+L["Shows a test model with selected animation for 10 seconds. Clicking again will reset timer."] = "Zeigt ein Test Model mit ausgewählter Animation. Der Timer wird resetted wenn du drauf klickst."
+L["Misc"] = "Verschiedenes"
+L["Bouncing"] = "Springend"
+L["Use bounce on fade in animations."] = "Benutze springend auf verblassenden Animationen."
+L["Animation time"] = "Animationszeit"
+L["Time the fade in animation will take. To disable animation set to 0."] = "Zeit, die die verblassende Animation stattfindet. Um zu deaktiveren setze es auf 0."
+L["Slide"] = "Gleiten"
+L["Slide Sideways"] = "Seitwärts gleiten"
+L["Fade"] = "Verblassen"
+L["Tip time"] = "Hinweiszeit"
+L["Number of seconds tip will be shown before changed to another."] = "Sekunden die der Hinweis angezeigt wird, bevor er wechselt."
+L["Title font"] = "Titel Schriftart"
+L["Subitle font"] = "Untertitel Schriftart"
+L["Date font"] = "Datums Schrifart"
+L["Player info font"] = "Spielerinfo Schriftart"
+L["Tips font"] = "Hinweis Schriftart"
+L["Graphics"] = "Grafiken"
 
 --Auras
-L["Hide Buff Timer"] = true
-L["This hides the time remaining for your buffs."] = true
-L["Hide Debuff Timer"] = true
-L["This hides the time remaining for your debuffs."] = true
+L["Hide Buff Timer"] = "Verstecke Stärkungszauber Timer"
+L["This hides the time remaining for your buffs."] = "Dieses wird den Timer für die Stärkungszauber verstecken."
+L["Hide Debuff Timer"] = "Verstecke Schwächungszauber Timer"
+L["This hides the time remaining for your debuffs."] = "Dieses wird den Timer für die Schwächungszauber verstecken."
 
 --Backgrounds
-L["Backgrounds"] = true
-L["SLE_BG_1"] = "Background 1"
-L["SLE_BG_2"] = "Background 2"
-L["SLE_BG_3"] = "Background 3"
-L["SLE_BG_4"] = "Background 4"
-L["Additional Background Panels"] = true
-L["BG_DESC"] = "Module for creating additional frames that can be used as backgrounds for anything."
-L["Show/Hide this frame."] = true
-L["Sets width of the frame"] = true
-L["Sets height of the frame"] = true
-L["Set the texture to use in this frame. Requirements are the same as the chat textures."] = true
-L["Backdrop Template"] = true
-L["Change the template used for this backdrop."] = true
-L["Hide in Pet Battle"] = true
-L["Show/Hide this frame during Pet Battles."] = true
+L["Backgrounds"] = "Hintergründe"
+L["SLE_BG_1"] = "Hintergrund 1"
+L["SLE_BG_2"] = "Hintergrund 2"
+L["SLE_BG_3"] = "Hintergrund 3"
+L["SLE_BG_4"] = "Hintergrund 4"
+L["Additional Background Panels"] = "Zusätzliche Hintergrundsleisten"
+L["BG_DESC"] = "Modul zum erstellen von zusätzlichen Hintergründen. Diese können für alles verwendet werden."
+L["Show/Hide this frame."] = "Zeige/Verstecke dieses Frame."
+L["Sets width of the frame"] = "Setzt die Breite von dem Frame"
+L["Sets height of the frame"] = "Setzt die Höhe von dem Frame"
+L["Set the texture to use in this frame. Requirements are the same as the chat textures."] = "Setzt die Textur die mit diesem Frame benutzt wird. Anforderung ist die selbe von in Chat Texturen."
+L["Backdrop Template"] = "Hintergrund Vorlage"
+L["Change the template used for this backdrop."] = "Ändere die Vorlage für diesen Hintergrund."
+L["Hide in Pet Battle"] = "Verstecke in Haustierkämpfen"
+L["Show/Hide this frame during Pet Battles."] = "Zeige/Verstecke dieses Frame in Haustierkämpfen."
 
 --Bags
-L["New Item Flash"] = true
-L["Use the Shadow & Light New Item Flash instead of the default ElvUI flash"] = true
-L["Transparent Slots"] = true
-L["Apply transparent template on bag and bank slots."] = true
+L["New Item Flash"] = "Neues Gegenstand Leuchten"
+L["Use the Shadow & Light New Item Flash instead of the default ElvUI flash"] = "Benutze das Shadow & Light Gegenstand Leuchten anstelle vom standard ElvUI."
+L["Transparent Slots"] = "Transparente Flächen"
+L["Apply transparent template on bag and bank slots."] = "Wendet die Transparente Vorlage für Taschen und Bank Flächen an."
 
 --Blizzard
-L["Move Blizzard frames"] = true
-L["Allow some Blizzard frames to be moved around."] = true
-L["Pet Battles skinning"] = true
-L["Make some elements of pet battles movable via toggle anchors."] = true
-L["Vehicle Seat Scale"] = true
+L["Move Blizzard frames"] = "Bewege Blizzard Fenster"
+L["Allow some Blizzard frames to be moved around."] = "Erlaubt das Bewegen einiger Blizzard Fenster"
+L["Pet Battles skinning"] = "Haustierkampf Skin"
+L["Make some elements of pet battles movable via toggle anchors."] = "Erlaubt das Verschieben einiger Haustierkampf Elemente via Anker umschalten."
+L["Vehicle Seat Scale"] = "Fahrzeugsanzeige Skallierung"
 
 --Chat
-L["Reported by %s"] = true
-L["Reset Chat History"] = true
-L["Clears your chat history and will reload your UI."] = true
-L["Reset Editbox History"] = true
-L["Clears the editbox history and will reload your UI."] = true
-L["Guild Master Icon"] = true
-L["Displays an icon near your Guild Master in chat.\n\n|cffFF0000Note:|r Some messages in chat history may disappear on login."] = true
-L["Chat Editbox History"] = true
-L["The amount of messages to save in the editbox history.\n\n|cffFF0000Note:|r To disable, set to 0."] = true
-L["Filter DPS meters' Spam"] = true
-L["Replaces long reports from damage meters with a clickeble hyperlink to reduce chat spam.\nWorks correctly only with general reports such as DPS or HPS. May fail to filter te report of other things"] = true
-L["Texture Alpha"] = true
-L["Allows separate alpha setting for textures in chat"] = true
-L["Chat Frame Justify"] = true
-L["Identify"] = true
-L["Showes the message in each chat frame containing frame's number."] = true
-L["This is %sFrame %s|r"] = true
-L["Loot Icons"] = true
-L["Showes icons of items looted/created near respective messages in chat. Does not affect usual messages."] = true
-L["Frame 1"] = true
-L["Frame 2"] = true
-L["Frame 3"] = true
-L["Frame 4"] = true
-L["Frame 5"] = true
-L["Frame 6"] = true
-L["Frame 7"] = true
-L["Frame 8"] = true
-L["Frame 9"] = true
-L["Frame 10"] = true
-L["Chat Max Messages"] = true
-L["The amount of messages to save in chat window.\n\n|cffFF0000Warning:|r Can increase the amount of memory needed. Also changing this setting will clear the chat in all windows, leaving just lines saved in chat history."] = true
+L["Reported by %s"] = "Berichtet von %s"
+L["Reset Chat History"] = "Chatverlauf zurücksetzen"
+L["Clears your chat history and will reload your UI."] = "Leert dein Chatverlauf und lädt das UI neu."
+L["Reset Editbox History"] = "Eingabeverlauf zurücksetzen"
+L["Clears the editbox history and will reload your UI."] = "Leert dein Eingabeverlauf und lädt das UI neu."
+L["Guild Master Icon"] = "Gildenmeister Symbol"
+L["Displays an icon near your Guild Master in chat.\n\n|cffFF0000Note:|r Some messages in chat history may disappear on login."] = "Zeigt ein Symbol vor dem Gildenmeister Namen im Chat.\n\n|cffFF0000Hinweis:|r Einige Nachrichten im Chatverlauf könnten verschwinden beim Login."
+L["Chat Editbox History"] = "Chat Eingabeverlauf"
+L["The amount of messages to save in the editbox history.\n\n|cffFF0000Note:|r To disable, set to 0."] = "Die Anzahl von Nachrichten die im Eingabeverlauf gespeichert werden.\n\n|cffFF0000Hinweis:|r Zum deaktivieren auf 0 setzen."
+L["Filter DPS meters' Spam"] = "Filtere DPS Meter Spam"
+L["Replaces long reports from damage meters with a clickeble hyperlink to reduce chat spam.\nWorks correctly only with general reports such as DPS or HPS. May fail to filter te report of other things"] = "Ersetzt lange Berichte von Damage Metern mit einem klickbaren Hyperlink um Chatspam zu vermeiden.\nFunktioniert korrekt mit generellen Berichten wie DPS oder HPS. Könnte bei anderen Berichten nicht funktionieren."
+L["Texture Alpha"] = "Textur Alpha"
+L["Allows separate alpha setting for textures in chat"] = "Erlaubt zusätzliche Alpha Einstellungen für die Texturen im Chat."
+L["Chat Frame Justify"] = "Chatfenster Ausrichtung"
+L["Identify"] = "Identifizieren"
+L["Showes the message in each chat frame containing frame's number."] = "Zeigt die Nachricht in jeden Fenster wo die Nummer zutrifft."
+L["This is %sFrame %s|r"] = "Dies ist %sFenster %s|r"
+L["Loot Icons"] = "Beute Symbol"
+L["Showes icons of items looted/created near respective messages in chat. Does not affect usual messages."] = "Zeigt ein Symbol neben dem hergestellten/geplünderten Gegenstand im Chat. Wird nicht auf normale Nachrichten angewandt."
+L["Frame 1"] = "Fenster 1"
+L["Frame 2"] = "Fenster 2"
+L["Frame 3"] = "Fenster 3"
+L["Frame 4"] = "Fenster 4"
+L["Frame 5"] = "Fenster 5"
+L["Frame 6"] = "Fenster 6"
+L["Frame 7"] = "Fenster 7"
+L["Frame 8"] = "Fenster 8"
+L["Frame 9"] = "Fenster 9"
+L["Frame 10"] = "Fenster 10"
+L["Chat Max Messages"] = "Maximale Chatnachrichten"
+L["The amount of messages to save in chat window.\n\n|cffFF0000Warning:|r Can increase the amount of memory needed. Also changing this setting will clear the chat in all windows, leaving just lines saved in chat history."] = "Die Anzahl der Nachrichten die im Chatfenster gespeichert werden.\n\n|cffFF0000Warnung:|r Könnte den Speicherbedarf erhöhen. Wenn du diese Einstellungen änderst, wird dass alle Nacchrichten in allen Fenstern löschen."
 L["Tabs"] = true
-L["Selected Indicator"] = true
-L["Shows you which of docked chat tabs is currently selected."] = true
-L["Chat history size"] = true
-L["Sets how many messages will be stored in history."] = true
-L["Following options determine which channels to save in chat history.\nNote: disabling a channel will immideately delete saved info for that channel."] = true
-L["Alt-Click Invite"] = true
-L["Allows you to invite people by alt-clicking their names in chat."] = true
-L["Invite links"] = true
-L["Convets specified keywords to links that automatically invite message's author to group."] = true
-L["Link Color"] = true
-L["Invite Keywords"] = true
-L["Chat Setup Delay"] = true
-L["Manages the delay before S&L will execute hooks to ElvUI's chat positioning. Prevents some weird positioning issues."] = true
+L["Selected Indicator"] = "Ausgewählt-Indikator"
+L["Shows you which of docked chat tabs is currently selected."] = "Zeigt dir welcher Chat Tab gerade ausgewählt ist."
+L["Chat history size"] = "Chatverlauf Größe"
+L["Sets how many messages will be stored in history."] = "Setzt die Anzahl der Nachrichten die im Verlauf gespeichert werden."
+L["Following options determine which channels to save in chat history.\nNote: disabling a channel will immideately delete saved info for that channel."] = "Folgende Optionen bestimmen aus welchem Kanal der Chatverlauf gespeichert wird.\nHinweis: Wenn ein Kanal deaktiviert wird, wird sofort die gespeicherten Infos gelöscht."
+L["Alt-Click Invite"] = "Alt-Klick Einladung"
+L["Allows you to invite people by alt-clicking their names in chat."] = "Erlaubt dir das Einladen mit Alt-Klick auf den Spielernamen im Chat."
+L["Invite links"] = "Einladungslink"
+L["Convets specified keywords to links that automatically invite message's author to group."] = "Wandelt spezifische Schlüsselwörter in Links um, die dass automatische Einladen erlaubt."
+L["Link Color"] = "Link Farbe"
+L["Invite Keywords"] = "Einladungs-Schlüsselwörter"
+L["Chat Setup Delay"] = "Chateinstellung Verzögerung"
+L["Manages the delay before S&L will execute hooks to ElvUI's chat positioning. Prevents some weird positioning issues."] = "Legt die Verzögerung fest, wann S&L die Chatposition vonn ElvUI verändert. Beugt ungewollten Positionen vor."
 
 --Databars
-L["Full value on Exp Bar"] = true
-L["Changes the way text is shown on exp bar."] = true
-L["Full value on Rep Bar"] = true
-L["Changes the way text is shown on rep bar."] = true
-L["Auto Track Reputation"] = true
-L["Automatically sets reputation tracking to the most recent reputation change."] = true
-L["Change the style of reputation messages."] = true
-L["Reputation increase Style"] = true
-L["Reputation decrease Style"] = true
-L["Output"] = true
-L["Determines in which frame reputation messages will be shown. Auto is for whatever frame has reputation messages enabled via Blizzard options."] = true
-L["Change the style of experience gain messages."] = true
-L["Experience Style"] = true
-L["Full List"] = true
-L["Show all factions affected by the latest reputation change. When disabled only first (in alphabetical order) affected faction will be shown."] = true
-L["Full value on Artifact Bar"] = true
-L["Changes the way text is shown on artifact bar."] = true
-L["Full value on Honor Bar"] = true
-L["Changes the way text is shown on honor bar."] = true
-L["Chat Filters"] = true
-L["Replace massages about honorable kills in chat."] = true
-L["Award"] = true
-L["Replace massages about honor points being awarded."] = true
-L["Defines the style of changed string. Colored parts will be shown with your selected value color in chat."] = true
-L["Award Style"] = true
-L["HK Style"] = true
-L["Honor Style"] = true
+L["Full value on Exp Bar"] = "Voller Wert auf Erfahrungsleiste"
+L["Changes the way text is shown on exp bar."] = "Ändert wie der Text auf der Erfahrungsleiste angezeigt wird."
+L["Full value on Rep Bar"] = "Voller Wert auf Rufleiste"
+L["Changes the way text is shown on rep bar."] = "Ändert wie der Text auf der Rufleiste angezeigt wird"
+L["Auto Track Reputation"] = "Automatisches Rufverfolgen"
+L["Automatically sets reputation tracking to the most recent reputation change."] = "Setzt automatisch die Rufverfolgung zur letzten Fraktion wo Ruf bekommen wurde."
+L["Change the style of reputation messages."] = "Ändert den Stil der Rufnachrichten."
+L["Reputation increase Style"] = "Rufgewinn Stil"
+L["Reputation decrease Style"] = "Rufverlust Stil"
+L["Output"] = "Ausgabe"
+L["Determines in which frame reputation messages will be shown. Auto is for whatever frame has reputation messages enabled via Blizzard options."] = "Legt fest in welchem Fenster die Ruf Nachrichten angezeigt werden. Auto legt fest, wie es in den Blizzard Option ausgewählt wurde."
+L["Change the style of experience gain messages."] = "Ändert den Stil der Erfahrungsgewinn Nachrichten."
+L["Experience Style"] = "Erfahrungs Stil"
+L["Full List"] = "Volle Liste"
+L["Show all factions affected by the latest reputation change. When disabled only first (in alphabetical order) affected faction will be shown."] = "Zeigt alle Fraktion bei zu letzt sich der Ruf verändert hat. Wenn deaktiviert werden nur die ersten (in alphabetischer Reihenfolge) Fraktionen angezeigt bei denen sich was geändert hat."
+L["Full value on Artifact Bar"] = "Voller Wert auf Artefaktleiste"
+L["Changes the way text is shown on artifact bar."] = "Ändert wie der Text auf der Artefaktleiste angezeigt wird."
+L["Full value on Honor Bar"] = "Voller Wert auf der Ehrenleiste"
+L["Changes the way text is shown on honor bar."] = "Ändert wie der Text auf der Ehrenleiste angezeigt wird."
+L["Chat Filters"] = "Chatfilter"
+L["Replace massages about honorable kills in chat."] = "Ersetzt Nachrichten über Ehrenhafte Siege im Chat."
+L["Award"] = "Belohnung"
+L["Replace massages about honor points being awarded."] = "Ersetzt Nachrichten über Ehrenpunkte"
+L["Defines the style of changed string. Colored parts will be shown with your selected value color in chat."] = "Definiert den Stil des geänderten String. Farbige Teile werden mit der ausgewählten Farbe im Chat angezeigt."
+L["Award Style"] = "Belohnungs Stil"
+L["HK Style"] = "Ehrenhafte Siege Stil"
+L["Honor Style"] = "Ehre Stil"
 
 --Datatexts
 L["D"] = true
