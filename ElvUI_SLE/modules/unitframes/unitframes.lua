@@ -10,23 +10,24 @@ function SUF:NewTags()
 	_G["ElvUF"].Tags.Events['health:current:sl-rehok'] = 'UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED'
 	_G["ElvUF"].Tags.Methods['health:current:sl-rehok'] = function(unit)
 		local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
+
 		if (status) then
 			return status
 		else
-		    local curHealth = UnitHealth(unit)
+			local curHealth = UnitHealth(unit)
 			local perHealth = (UnitHealth(unit)/UnitHealthMax(unit))*100
 
-		    if curHealth >= 1e9 then
-		        return format("%.2fB", curHealth / 1e9) .. " | " .. format("%.0f", perHealth)
-		    elseif curHealth >= 1e6 then
-		        return format("%.2fM", curHealth / 1e6) .. " | " .. format("%.0f", perHealth)
-		    elseif curHealth >= 1e3 then
-		        return format("%.0fk", curHealth / 1e3) .. " | " .. format("%.0f", perHealth)
-		    else
-		        return format("%d", curHealth) .. " | " .. format("%.1f", perHealth)
-		    end
+			if curHealth >= 1e9 then
+				return format("%.2fB", curHealth / 1e9) .. " | " .. format("%.0f", perHealth)
+			elseif curHealth >= 1e6 then
+				return format("%.2fM", curHealth / 1e6) .. " | " .. format("%.0f", perHealth)
+			elseif curHealth >= 1e3 then
+				return format("%.0fk", curHealth / 1e3) .. " | " .. format("%.0f", perHealth)
+			else
+				return format("%d", curHealth) .. " | " .. format("%.1f", perHealth)
+			end
 		end
-    end
+	end
 
 	_G["ElvUF"].Tags.Methods["range:sl"] = function(unit)
 		local name, server = T.UnitName(unit)
