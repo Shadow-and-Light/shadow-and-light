@@ -424,11 +424,10 @@ L["Are you sure you want to remove |cff1784d1%s|r from currency datatexts?"] = "
 L["Time Played"] = "Времени в игре"
 L["Account Time Played"] = "Время в игре на аккаунте"
 L["Hide panel background"] = "Скрыть фон"
-L["Don't show this panel, only datatexts assinged to it"] = "Не показывать фон панели, а только назначенные инфо-тексты."
 L["SLE_DT_CURRENCY_WARNING_GOLD"] = [[На вашей панели %s включен инфо-текст "Gold" при активном инфо-тексте "S&L Currency". Для корректной работы "S&L Currency" мы отключаем некоторые функции инфо-текста "Gold". Для избежания данного конфликта вам необходимо заменить один из конфликтующих инфо-текстов.]]
 L["Gold Sorting"] = "Сортировка золота"
 L["Normal"] = "Нормальная"
-L["Reverced"] = "Обратная"
+L["Reversed"] = "Обратная"
 L["Amount"] = "Количество"
 L["Order of each toon. Smaller numbers will go first"] = "Порядок персонажей. Показ в порядке возрастания номера."
 

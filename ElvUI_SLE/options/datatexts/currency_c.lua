@@ -127,7 +127,7 @@ local function configTable()
 						width = "half",
 						values = {
 							["normal"] = L["Normal"],
-							["reverced"] = L["Reverced"],
+							["reversed"] = L["Reversed"],
 						},
 					},
 					method = {
@@ -159,7 +159,7 @@ local function configTable()
 						width = "half",
 						values = {
 							["normal"] = L["Normal"],
-							["reverced"] = L["Reverced"],
+							["reversed"] = L["Reversed"],
 						},
 					},
 					method = {
