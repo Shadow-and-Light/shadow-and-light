@@ -134,4 +134,5 @@ end
 function DB:HonorInit()
 	DB:PopulateHonorStrings()
 	hooksecurefunc(E:GetModule('DataBars'), "UpdateHonor", UpdateHonor)
+	E:GetModule('DataBars'):UpdateHonor()
 end
