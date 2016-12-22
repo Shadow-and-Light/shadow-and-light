@@ -176,7 +176,7 @@ function DTP:update_Guild()
 	if T.IsInGuild() then
 		T.GuildRoster()
 		local guildTotal, online = T.GetNumGuildMembers()
-		for i = 1, T.GetNumGuildMembers() do
+		for i = 1, guildTotal do
 			local _, _, _, _, _, _, _, _, connected, _, _, _, _, isMobile = T.GetGuildRosterInfo(i)
 			if isMobile then
 				online = online + 1
