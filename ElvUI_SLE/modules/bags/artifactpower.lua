@@ -7,28 +7,38 @@ local tooltipName = "SLE_ArtifactPowerTooltipScanner"
 local EMPOWERING_SPELL_ID = 227907
 local empoweringSpellName
 local arcanePower
+local AP_NAME = format("|cFFE6CC80%s|r", ARTIFACT_POWER)
 AP.containers = {}
 
+local apLineIndex
 local function GetItemLinkArtifactPower(slotLink)
 	if slotLink then
-		local itemSpell = GetItemSpell(slotLink)
+		tooltipScanner:ClearLines()
+		tooltipScanner:SetHyperlink(slotLink)
 
-		if itemSpell and itemSpell == empoweringSpellName then
-			tooltipScanner:SetOwner(E.UIParent, "ANCHOR_NONE")
-			tooltipScanner:SetHyperlink(slotLink)
-			local tooltipText = _G[tooltipName.."TextLeft4"]:GetText()
+		local apFound
+		if (_G[tooltipName.."TextLeft2"]:GetText() == AP_NAME) then
+			apLineIndex = 4
+			apFound = true
+		elseif (_G[tooltipName.."TextLeft3"]:GetText() == AP_NAME) then --When using colorblind mode then line 2 becomes the rarity, pushing ap text down 1 line
+			apLineIndex = 5
+			apFound = true
+		end
 
-			if(tooltipText == nil) then
-				return nil
-			end
-
-			local ap = tooltipText:gsub("[,%.]", ""):match("%d.-%s") or ""
-			tooltipScanner:Hide()
-			if E.db.sle.bags.artifactPower.short then ap = E:ShortValue(ap) end
-			return ap
-		else
+		if not (apFound) then
 			return nil
 		end
+
+		local apValue
+		if strfind(_G[tooltipName.."TextLeft"..apLineIndex]:GetText(), "(%d+)[,.%s](%d+)") then
+			apValue = gsub(strmatch(_G[tooltipName.."TextLeft"..apLineIndex]:GetText(), "(%d+[,.%s]%d+)"), "[,.%s]", "")
+			apValue = tonumber(apValue)
+		elseif strfind(_G[tooltipName.."TextLeft"..apLineIndex]:GetText(), "%d+") then
+			apValue = tonumber(strmatch(_G[tooltipName.."TextLeft"..apLineIndex]:GetText(), "%d+"))
+		end
+		if E.db.sle.bags.artifactPower.short then apValue = E:ShortValue(apValue) end
+		
+		return apValue
 	else
 		return nil
 	end
@@ -55,7 +65,6 @@ local function SlotUpdate(self, bagID, slotID)
 		if (frame.artifactpowerinfo) then
 			local slotLink = GetContainerItemLink(bagID,slotID)
 
-
 			arcanePower = GetItemLinkArtifactPower(slotLink)
 			frame.artifactpowerinfo:SetText(arcanePower)
 		end
@@ -68,6 +77,7 @@ function AP:Initialize()
 	if not SLE.initialized or not E.private.bags.enable then return end
 
 	tooltipScanner = CreateFrame("GameTooltip", tooltipName, nil, "GameTooltipTemplate")
+	tooltipScanner:SetOwner(E.UIParent, "ANCHOR_NONE")
 	empoweringSpellName = GetSpellInfo(EMPOWERING_SPELL_ID)
 
 	hooksecurefunc(B,"UpdateSlot", SlotUpdate)
