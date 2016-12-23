@@ -16,7 +16,7 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local RequestTimePlayed = RequestTimePlayed
 local IsShiftKeyDown = IsShiftKeyDown
 local LevelPlayTimeOffset
-local eventRequesting = true
+local eventRequesting = false
 
 local OnEnter = function(self)
 	if not T.InCombatLockdown() and SessionPlayTime then
@@ -115,13 +115,20 @@ local OnEvent = function(self, event, ...)
 		LevelPlayTimeOffset = T.GetTime()
 		ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["TotalTime"] = TotalTime
 		ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["LevelTime"] = LevelTime
+		eventRequesting = false
 	end
 	if event == 'PLAYER_LEVEL_UP' then
-		LastLevelTime = T.floor(LevelPlayTime + (T.GetTime() - (LevelPlayTimeOffset or 0)))
-		ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["LastLevelTime"] = LastLevelTime
-		LevelPlayTime = 1
-		LevelPlayTimeOffset = T.GetTime()
-		ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["Level"] = T.UnitLevel('player')
+		if not LevelPlayTime then
+			eventRequesting = true
+			RequestTimePlayed()
+		else
+			LastLevelTime = T.floor(LevelPlayTime + (T.GetTime() - (LevelPlayTimeOffset or 0)))
+			ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["LastLevelTime"] = LastLevelTime
+			LevelPlayTime = 1
+			LevelPlayTimeOffset = T.GetTime()
+			ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["Level"] = T.UnitLevel('player')
+			eventRequesting = false
+		end
 	end
 	if event == 'PLAYER_ENTERING_WORLD' then
 		self:UnregisterEvent(event)
