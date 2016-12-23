@@ -75,6 +75,8 @@ LP.PortItems = {
 	{128502}, --Hunter's Seeking Crystal
 	{128503}, --Master Hunter's Seeking Crystal
 	{140324, nil, true}, --Mobile Telemancy Beacon
+	{129276}, --Beginner's Guide to Dimensional Rifting
+	{140493}, --Adept's Guide to Dimensional Rifting
 }
 LP.Spells = {
 	["DEATHKNIGHT"] = {
