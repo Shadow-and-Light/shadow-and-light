@@ -1682,6 +1682,8 @@ KF.Modules.CharacterArmory = function()
 		_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', CharacterModelFrame, 0, 0)
 		_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', CharacterModelFrame, 0, 0)
 	end
+
+	CA:ElvOverlayToggle()
 	if SLE._Compatibility["DejaCharacterStats"] then return end
 	--Resize and reposition god damned ilevel text
 	_G["CharacterStatsPane"].ItemLevelFrame:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelCategory, "BOTTOM", 0, 6)
@@ -1689,5 +1691,4 @@ KF.Modules.CharacterArmory = function()
 	hooksecurefunc("PaperDollFrame_UpdateStats", CA.PaperDollFrame_UpdateStats)
 	-- PaperDollFrame_UpdateStats = CA.PaperDollFrame_UpdateStats()
 	CA:ToggleStats()
-	CA:ElvOverlayToggle()
 end
