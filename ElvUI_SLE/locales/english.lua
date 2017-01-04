@@ -183,6 +183,15 @@ L["SLE_TIPS"] = { --This doesn't need to be translated, every locale can has own
 	"Power Level of this guy is not OVER9000!!!!",
 	"Need... More... Catgirls... Wait, what?!",
 	"First Aid potions are better then Healthstones. WTF Blizzard?!",
+	"\"All warfare is based on deception.\"  -Sun Tzu",
+	"For Azeroth!",
+	"No one has seen Alleria and Turalyon for years. Until now!",
+	"\"Slow down!  Life is to be savored!\"  -old Pandaren proverb",
+	"\"In the Light,  we are one.\"  -Vindicator Maraad",
+	"\"There is no good.  No evil.  No light.  There is only powah!\"  -Archbishop Benedictus",
+	"\"A properly accelerated gnome in battle is a thing of terrible beauty.\"  -High Tinker Mekkatorque",
+	"\"Ishnu'alah.  May Elune light your path.\"  -Tyrande Whisperwind",
+	"\"If you will not serve me in this life then you will do so in the next!\"  -Sylvanas Windrunner",
 }
 L["Enable S&L's additional features for AFK screen."] = true
 L["Button restrictions"] = true
