@@ -674,18 +674,18 @@ L["Auto Reward"] = true
 L["Automatically selects areward with higherst selling price when quest is completed. Does not really finish the quest."] = true
 
 --Raid Marks
-L["Raid Markers"] = true
-L["Click to clear the mark."] = true
-L["Click to mark the target."] = true
-L["%sClick to remove all worldmarkers."] = true
-L["%sClick to place a worldmarker."] = true
-L["Raid Marker Bar"] = true
-L["Options for panels providing fast access to raid markers and flares."] = true
-L["Show/Hide raid marks."] = true
-L["Reverse"] = true
-L["Modifier Key"] = true
-L["Set the modifier key for placing world markers."] = true
-L["Visibility State"] = true
+L["Raid Markers"] = "Schlachtzugs-Markierungen"
+L["Click to clear the mark."] = "Klicken um die Marker zu löschen."
+L["Click to mark the target."] = "Klicken um ein Ziel zu markieren."
+L["%sClick to remove all worldmarkers."] = "%sKlicken um alle Weltmarkierungen zu entfernen."
+L["%sClick to place a worldmarker."] = "%sKlicken um ein Weltmarker zu setzen."
+L["Raid Marker Bar"] = "Schlachtzugs-Markierungs-Leiste"
+L["Options for panels providing fast access to raid markers and flares."] = "Option für eine Schlachtzugs-Markierungs-Leiste um schnelleren Zugriff auf Schlachtzugsmarkierung und Weltmarker zu bekommen."
+L["Show/Hide raid marks."] = "Zeige/Verstecke Schlachtzugsmarkierung"
+L["Reverse"] = "Umkehren"
+L["Modifier Key"] = "Modifier Taste"
+L["Set the modifier key for placing world markers."] = "Setzt eine modifierungs Taste um eine Weltmarkierung zu setzen."
+L["Visibility State"] = "Sichtbarkeit"
 
 --Raidroles
 L["Options for customizing Blizzard Raid Manager \"O - > Raid\""] = true
