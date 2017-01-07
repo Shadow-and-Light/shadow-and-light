@@ -56,6 +56,7 @@ end
 LP.PortItems = {
 	{6948}, --Hearthstone
 	{64488, nil, true}, --The Innkeeper's Daughter
+	{142542, nil, true}, --Tome of Town Portal (Diablo Event)
 	{110560, GARRISON_LOCATION_TOOLTIP}, --Garrison Hearthstone
 	{128353}, --Admiral's Compass
 	{140192, DUNGEON_FLOOR_DALARAN1}, --Dalaran Hearthstone
@@ -77,7 +78,6 @@ LP.PortItems = {
 	{140324, nil, true}, --Mobile Telemancy Beacon
 	{129276}, --Beginner's Guide to Dimensional Rifting
 	{140493}, --Adept's Guide to Dimensional Rifting
-	{142542, nil, true}, --Tome of Town Portal (Diablo Event)
 }
 LP.Spells = {
 	["DEATHKNIGHT"] = {
