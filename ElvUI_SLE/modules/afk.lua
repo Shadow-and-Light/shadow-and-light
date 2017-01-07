@@ -354,6 +354,9 @@ end
 function S:Event(event, unit)
 	if not E.db.general.afk then return end
 	if (event == "PLAYER_FLAGS_CHANGED" and unit ~= "player") or event ~= "PLAYER_FLAGS_CHANGED" then return end
+	if (InCombatLockdown() or CinematicFrame:IsShown() or MovieFrame:IsShown()) then return; end
+	--Don't activate afk if player is crafting stuff
+	if (UnitCastingInfo("player") ~= nil) then return end
 	if T.UnitIsAFK("player") then
 		if not SS:GetScript("OnUpdate") then
 			SS:SetScript("OnUpdate", function(self, elapsed) 
@@ -404,7 +407,6 @@ function S:Initialize()
 	S:KeyScript()
 	--Overwriting to get rid of Elv's camera rotation and starting animation
 	function AFK:SetAFK(status)
-		if(T.InCombatLockdown()) then return end
 		if not E.db.general.afk then return end -- To prevent bs from happening
 		if(status) then
 			self.AFKMode:Show()
