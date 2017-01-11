@@ -2555,7 +2555,7 @@ function IA:ToggleSpecializationTab(Tab, DataTable)
 	for i in pairs(IA.Default_CurrentInspectData.Specialization) do
 		if i == 1 then	-- Current Spec
 			if DataTable.Specialization[1].SpecializationID and DataTable.Specialization[1].SpecializationID ~= 0 then
-				_, Name, _, _, _, Arg1 = GetSpecializationInfoByID(DataTable.Specialization[1].SpecializationID)
+				_, Name, _, _, Arg1 = GetSpecializationInfoByID(DataTable.Specialization[1].SpecializationID)
 				
 				if Name then
 					if Info.ClassRole[DataTable.Class][Name] then
