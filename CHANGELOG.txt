@@ -1,3 +1,19 @@
+v3.18 01/11/2017
+Additions:
+- Inspect Armory now has "try this transmog" button from default interface
+- German translation added (we can all blame Merathilis for the typos now)
+- Added more items to the list of teleports in location bar
+Fixes:
+- Honor messages with "rested" honor should now be appropriately styled when the option or it is enabled in databars
+- Hono bar full values should now be avalable right after the loding screen
+- Fixed weird behavior and a level up error in time played DT
+- Fixed character screen overlay option not really working when DejaCharacterStats is enabled
+- Fixed DCS expand button being waaay behing the background
+- Fixed Inspect Armory being broken after 7.1.5
+Changes:
+- Adopted different detection script for artifact power in bags
+- Followed ElvUI's afk screen changes
+
 v3.17
 Additions:
 - Added new icon set to role icons selection
