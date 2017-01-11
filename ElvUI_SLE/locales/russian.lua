@@ -327,7 +327,7 @@ L["Replace massages about honor points being awarded."] = "Заменять со
 L["Defines the style of changed string. Colored parts will be shown with your selected value color in chat."] = "Определяет стил сообщения. Окрашенные элементы будут отображаться выбранным вами цветом значений."
 L["Award Style"] = "Стиль наград"
 L["HK Style"] = "Стиль почетной победы"
-L["Honor Style"] = true
+L["Honor Style"] = "Стиль чести"
 
 --Datatexts
 L["D"] = "Дн"
@@ -349,7 +349,7 @@ L["Bosses killed: "] = "Боссов убито: "
 L["|cffeda55fLeft Click|r to open the friends panel."] = "|cffeda55fЛКМ|r для открытия списка друзей"
 L["|cffeda55fRight Click|r to open configuration panel."] = "|cffeda55fПКМ|r для открытия настроек"
 L["|cffeda55fLeft Click|r a line to whisper a player."] = "|cffeda55fЛКМ|r на строке для сообщения игроку."
-L["|cffeda55fShift+Left Click|r a line to lookup a player."] = true
+-- L["|cffeda55fShift+Left Click|r a line to lookup a player."] = true
 L["|cffeda55fCtrl+Left Click|r a line to edit a note."] = "|cffeda55fCtrl+ЛКМ|r для редактирования заметки."
 L["|cffeda55fMiddleClick|r a line to expand RealID."] = "|cffeda55fКлик клесиком|r по строке для разворота RealID."
 L["|cffeda55fAlt+Left Click|r a line to invite."] = "|cffeda55fAlt+ЛКМ|r по строке для приглашения."
