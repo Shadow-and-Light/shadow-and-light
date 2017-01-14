@@ -379,7 +379,7 @@ function CA:PaperDollFrame_UpdateStats()
 			local stat = PAPERDOLL_STATCATEGORIES[catIndex].stats[statIndex];
 			local showStat = true;
 			if ( showStat and stat.primary ) then
-				local primaryStat = T.select(7, T.GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")));
+				local primaryStat = T.select(6, T.GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")));
 				if ( stat.primary ~= primaryStat ) and E.db.sle.Armory.Character.Stats.OnlyPrimary then
 					showStat = false;
 				end
