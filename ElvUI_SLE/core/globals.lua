@@ -8,6 +8,7 @@ local repooc = slePath..[[SLE_Chat_Logo:0:2|t ]]
 local darth = slePath..[[SLE_Chat_LogoD:0:2|t ]]
 local friend = slePath..[[Chat_Friend:16:16|t ]]
 local test = slePath..[[Chat_Test:16:16|t ]]
+local blizzicon = blizzPath..[[%s:12:12:0:0:64:64:4:60:4:60|t]]
 -- local rpg = slePath..[[Chat_RPG:13:35|t]]
 
 local orc = blizzPath..[[Achievement_Character_Orc_Male:16:16|t ]]
@@ -133,7 +134,7 @@ SLE.SpecialChatIcons = {
 	["US"] = {
 		["Spirestone"] = {
 			["Sifupooc"] = repooc,
-			["Sifpooc"] = repooc,
+			--["Sifpooc"] = repooc,
 			["Dapooc"] = repooc,
 			["Lapooc"] = repooc,
 			["Warpooc"] = repooc,
@@ -164,6 +165,13 @@ SLE.SpecialChatIcons = {
 		["Brill(EU)"] = {
 			["Дартпредатор"] = darth,
 			["Киландра"] = darth,
+		},
+		["Stormrage"] = {
+			["Sifpooc"] = repooc,
+			["Looshana"] = goldicon,
+			["lloosh"] = goldicon,
+			["Looshella"] = goldicon,
+			["Urgfelstorm"] = blizzicon:format("inv_misc_bomb_02"),
 		},
 	},
 	["CN"] = {},
