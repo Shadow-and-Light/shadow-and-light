@@ -172,6 +172,7 @@ SLE.SpecialChatIcons = {
 			["lloosh"] = goldicon,
 			["Looshella"] = goldicon,
 			["Urgfelstorm"] = blizzicon:format("inv_misc_bomb_02"),
+			["Cakenina"] = blizzicon:format("inv_misc_food_145_cake")
 		},
 	},
 	["CN"] = {},
