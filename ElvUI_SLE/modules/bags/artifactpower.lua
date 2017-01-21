@@ -7,14 +7,17 @@ local tooltipName = "SLE_ArtifactPowerTooltipScanner"
 local EMPOWERING_SPELL_ID = 227907
 local empoweringSpellName
 local arcanePower
-local AP_NAME = format("|cFFE6CC80%s|r", ARTIFACT_POWER)
-AP.containers = {}
+local AP_NAME = T.format("|cFFE6CC80%s|r", ARTIFACT_POWER)
+local pcall = pcall
 
 local apLineIndex
 local function GetItemLinkArtifactPower(slotLink)
 	if slotLink then
 		tooltipScanner:ClearLines()
-		tooltipScanner:SetHyperlink(slotLink)
+		local success = pcall(tooltipScanner.SetHyperlink, tooltipScanner, slotLink)
+		if (not success) then
+			return nil
+		end
 
 		local apFound
 		if (_G[tooltipName.."TextLeft2"]:GetText() == AP_NAME) then
@@ -30,11 +33,11 @@ local function GetItemLinkArtifactPower(slotLink)
 		end
 
 		local apValue
-		if strfind(_G[tooltipName.."TextLeft"..apLineIndex]:GetText(), "(%d+)[,.%s](%d+)") then
-			apValue = gsub(strmatch(_G[tooltipName.."TextLeft"..apLineIndex]:GetText(), "(%d+[,.%s]%d+)"), "[,.%s]", "")
-			apValue = tonumber(apValue)
-		elseif strfind(_G[tooltipName.."TextLeft"..apLineIndex]:GetText(), "%d+") then
-			apValue = tonumber(strmatch(_G[tooltipName.."TextLeft"..apLineIndex]:GetText(), "%d+"))
+		if T.find(_G[tooltipName.."TextLeft"..apLineIndex]:GetText(), "(%d+)[,.%s](%d+)") then
+			apValue = T.gsub(strmatch(_G[tooltipName.."TextLeft"..apLineIndex]:GetText(), "(%d+[,.%s]%d+)"), "[,.%s]", "")
+			apValue = T.tonumber(apValue)
+		elseif T.find(_G[tooltipName.."TextLeft"..apLineIndex]:GetText(), "%d+") then
+			apValue = T.tonumber(strmatch(_G[tooltipName.."TextLeft"..apLineIndex]:GetText(), "%d+"))
 		end
 		if E.db.sle.bags.artifactPower.short then apValue = E:ShortValue(apValue) end
 		
@@ -63,10 +66,12 @@ local function SlotUpdate(self, bagID, slotID)
 		frame.artifactpowerinfo:SetTextColor(r, g, b)
 
 		if (frame.artifactpowerinfo) then
-			local slotLink = GetContainerItemLink(bagID,slotID)
-
-			arcanePower = GetItemLinkArtifactPower(slotLink)
-			frame.artifactpowerinfo:SetText(arcanePower)
+			local ID = select(10, T.GetContainerItemInfo(bagID, slotID))
+			local slotLink = T.GetContainerItemLink(bagID,slotID)
+			if (ID and slotLink) then
+				arcanePower = GetItemLinkArtifactPower(slotLink)
+				frame.artifactpowerinfo:SetText(arcanePower)
+			end
 		end
 	elseif not E.db.sle.bags.artifactPower.enable and frame.artifactpowerinfo then
 		frame.artifactpowerinfo:SetText("")
