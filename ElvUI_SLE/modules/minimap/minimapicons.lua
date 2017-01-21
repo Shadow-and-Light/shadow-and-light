@@ -93,22 +93,23 @@ local function SkinButton(Button)
 
 		if Button:IsObjectType('Button') then
 			local ValidIcon = false
-
-			for i = 1, #SMB.WhiteList do
-				if strsub(Name, 1, T.strlen(SMB.WhiteList[i])) == SMB.WhiteList[i] then ValidIcon = true break end
-			end
-
-			if not ValidIcon then
-				for i = 1, #SMB.ignoreButtons do
-					if Name == SMB.ignoreButtons[i] then return end
+			if Name then
+				for i = 1, #SMB.WhiteList do
+					if strsub(Name, 1, T.strlen(SMB.WhiteList[i])) == SMB.WhiteList[i] then ValidIcon = true break end
 				end
 
-				for i = 1, #SMB.GenericIgnores do
-					if strsub(Name, 1, T.strlen(SMB.GenericIgnores[i])) == SMB.GenericIgnores[i] then return end
-				end
+				if not ValidIcon then
+					for i = 1, #SMB.ignoreButtons do
+						if Name == SMB.ignoreButtons[i] then return end
+					end
 
-				for i = 1, #SMB.PartialIgnores do
-					if T.find(Name, SMB.PartialIgnores[i]) ~= nil then return end
+					for i = 1, #SMB.GenericIgnores do
+						if strsub(Name, 1, T.strlen(SMB.GenericIgnores[i])) == SMB.GenericIgnores[i] then return end
+					end
+
+					for i = 1, #SMB.PartialIgnores do
+						if T.find(Name, SMB.PartialIgnores[i]) ~= nil then return end
+					end
 				end
 			end
 
@@ -158,9 +159,7 @@ local function SkinButton(Button)
 			_G["VendomaticButton"]:SetInside()
 			_G["VendomaticButtonIcon"]:SetTexture('Interface\\Icons\\INV_Misc_Rabbit_2')
 			_G["VendomaticButtonIcon"]:SetTexCoord(T.unpack(TexCoords))
-		end
-
-		if Name == 'QueueStatusMinimapButton' then
+		elseif Name == 'QueueStatusMinimapButton' then
 			_G["QueueStatusMinimapButton"]:HookScript('OnUpdate', function(self)
 				_G["QueueStatusMinimapButtonIcon"]:SetFrameLevel(_G["QueueStatusMinimapButton"]:GetFrameLevel() + 1)
 			end)
@@ -244,7 +243,7 @@ function SMB:SkinMinimapButtons()
 	for i = 1, _G["Minimap"]:GetNumChildren() do
 		local object = T.select(i, _G["Minimap"]:GetChildren())
 		if object then
-			if object:IsObjectType('Button') and object:GetName() then
+			if object:IsObjectType('Button') then --and object:GetName() then
 				SkinButton(object)
 			end
 			for _, frame in T.pairs(SMB.AcceptedFrames) do
