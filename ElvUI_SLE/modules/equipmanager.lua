@@ -47,14 +47,14 @@ function EM:IsDungeon(inInstance, instanceType)
 	return false
 end
 
-function EM:HasFishingRaftAura()
-	return UnitAura("player", GetSpellInfo(124036)) ~= nil;
+function EM:IsUsingFishingSet()
+	return self.fishingSetEquipped;
 end
 
 function EM:WrongSet(equipSet, group, inCombat)
 	local inInstance, instanceType = T.IsInInstance()
-	if EM:HasFishingRaftAura() and E.private.sle.equip.FishingRaft.enable then
-		return E.private.sle.equip.FishingRaft.set ~= equipSet, E.private.sle.equip.FishingRaft.set
+	if EM:IsUsingFishingSet() and E.private.sle.equip.FishingSet.enable then
+		return E.private.sle.equip.FishingSet.set ~= equipSet, E.private.sle.equip.FishingSet.set
 	end
 	if inInstance and ((EM.db.timewalkingSet and EM.db[group].timewalking ~= "NONE") or (EM.db.instanceSet and EM.db[group].instance ~= "NONE") or (EM.db.pvpSet and EM.db[group].pvp ~= "NONE")) then
 		if EM:IsTimewalkingDungeon(inInstance, instanceType) and EM.db.timewalkingSet then
@@ -112,12 +112,6 @@ local function Equip(event)
 
 	local spec, equipSet = EM:GetData()
 
-	local shouldHandleUnitAura = E.private.sle.equip.FishingRaft.enable and (EM:HasFishingRaftAura() and equipSet ~= E.private.sle.equip.FishingRaft.set) or (not EM:HasFishingRaftAura() and equipSet == E.private.sle.equip.FishingRaft.set);
-
-	if (event == "UNIT_AURA" and not shouldHandleUnitAura) then
-		return
-	end
-
 	if spec ~= nil then --In case you don't have spec
 		local isWrong, trueSet = EM:WrongSet(equipSet, SpecTable[spec], inCombat)
 		if isWrong and not T.UnitInVehicle("player") then
@@ -159,6 +153,14 @@ function EM:CreateLock()
 	end)
 end
 
+function EM:AddFishingCommand()
+	SLASH_FISH1 = "/fish"
+	function SlashCmdList.FISH(msg, editbox)
+		self.fishingSetEquipped = not self.fishingSetEquipped;
+		Equip()
+	end
+end
+
 function EM:Initialize()
 	EM.db = E.private.sle.equip
 	EM.lock = false
@@ -167,11 +169,9 @@ function EM:Initialize()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", Equip)
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", Equip)
 	self:RegisterEvent("ZONE_CHANGED", Equip)
-	if E.private.sle.equip.FishingRaft.enable then
-		self:RegisterEvent("UNIT_AURA", Equip)
-	end
-	
+
 	self:CreateLock()
+	self:AddFishingCommand()
 end
 
 SLE:RegisterModule(EM:GetName())
