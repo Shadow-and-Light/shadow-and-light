@@ -65,6 +65,22 @@ function SUF:NewTags()
 			return absorb
 		end
 	end
+
+	_G["ElvUF"].Tags.Methods['sl:pvptimer'] = function(unit)
+		if (UnitIsPVPFreeForAll(unit) or UnitIsPVP(unit)) then
+			local timer = GetPVPTimer()
+
+			if timer ~= 301000 and timer ~= -1 then
+				local mins = floor((timer / 1000) / 60)
+				local secs = floor((timer / 1000) - (mins * 60))
+				return ("%01.f:%02.f"):format(mins, secs)
+			else
+				return ""
+			end
+		else
+			return ""
+		end
+	end
 end
 
 function SUF:ConfiguePortrait(frame, dontHide)
@@ -155,7 +171,7 @@ function SUF:Initialize()
 		local _, class, classID = T.GetClassInfo(i)
 		SUF.specNameToRole[class] = {}
 		for j = 1, T.GetNumSpecializationsForClassID(classID) do
-			local _, spec, _, _, _, role = T.GetSpecializationInfoForClassID(classID, j)
+			local _, spec, _, _, role = T.GetSpecializationInfoForClassID(classID, j)
 			SUF.specNameToRole[class][spec] = role
 		end
 	end
@@ -177,6 +193,9 @@ function SUF:Initialize()
 	if E.private.sle.unitframe.resizeHealthPrediction then
 		hooksecurefunc(UF, "Configure_HealthBar", SUF.HealthPredictUpdate)
 	end
+
+	--Hook pvp icons
+	SUF:UpgradePvPIcon()
 
 	SUF:InitStatus()
 
