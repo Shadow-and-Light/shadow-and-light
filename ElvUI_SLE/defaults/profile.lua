@@ -755,6 +755,11 @@ P["sle"] = {
 					["texture"] = "DEFAULT",
 					["customTexture"] = "",
 				},
+				["pvpIconText"] = {
+					["enable"] = false,
+					["xoffset"] = 0,
+					["yoffset"] = 0,
+				},
 				["higherPortrait"] = false,
 				["portraitAlpha"] = 0.35,
 			},

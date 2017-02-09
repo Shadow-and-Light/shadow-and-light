@@ -169,6 +169,20 @@ local function configTable()
 							},
 						},
 					},
+					pvpIconText = {
+						order = 5,
+						type = "group",
+						name = L["PvP & Prestige Icon"],
+						guiInline = true,
+						get = function(info) return E.db.sle.unitframes.unit.player.pvpIconText[ info[#info] ] end,
+						set = function(info, value) E.db.sle.unitframes.unit.player.pvpIconText[ info[#info] ] = value; UF:Configure_PVPIcon(_G["ElvUF_Player"]) end,
+						args = {
+							enable = { order = 1, type = "toggle", name = L["Enable"], },
+							xoffset = { order = 2, type = "range", name = L["X-Offset"], min = -300, max = 300, step = 1 },
+							yoffset = { order = 3, type = "range", name = L["Y-Offset"], min = -150, max = 150, step = 1 },
+						},
+						
+					},
 				},
 			},
 			target = {

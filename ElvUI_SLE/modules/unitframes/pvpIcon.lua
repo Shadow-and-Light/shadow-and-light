@@ -1,17 +1,10 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
 local SUF = SLE:GetModule("UnitFrames")
 local UF = E:GetModule('UnitFrames');
-local _G = _G
-
-local Frames = {
-	"ElvUF_Player",
-	"ElvUF_Target",
-}
 
 function SUF:Create_PvpIconText(frame)
 	local PvP = frame.PvP
 	PvP.text = CreateFrame("Frame", nil, frame)
-	PvP.text:Point("TOP", PvP, "BOTTOM", 0, -4)
 	PvP.text:Size(10,10)
 	PvP.text:SetFrameLevel(PvP:GetParent():GetFrameLevel() + 3)
 
@@ -24,20 +17,19 @@ end
 
 function SUF:Configure_PVPIcon(frame)
 	local PvP = frame.PvP
+	if not PvP.text then return end
 	local iconEnabled = frame:IsElementEnabled('PvP')
 
-	if iconEnabled then
+	if iconEnabled and E.db.sle.unitframes.unit.player.pvpIconText.enable then
 		PvP.text:Show()
+		PvP.text:Point("TOP", PvP, "BOTTOM", E.db.sle.unitframes.unit.player.pvpIconText.xoffset, -4 + E.db.sle.unitframes.unit.player.pvpIconText.yoffset)
 	else
 		PvP.text:Hide()
 	end
 end
 
 function SUF:UpgradePvPIcon()
-	for i = 1, #Frames do
-		local frame = _G[Frames[i]]
-		SUF:Create_PvpIconText(frame)
-	end
+	SUF:Create_PvpIconText(ElvUF_Player)
 
 	hooksecurefunc(UF, "Configure_PVPIcon", SUF.Configure_PVPIcon)
 end
