@@ -465,16 +465,16 @@ L["Ignore zone change"] = true
 L["Swap sets only on specialization change ignoring location change when. Does not influence entering/leaving instances and bg/arena."] = true
 
 --Loot
-L["Loot Dropped:"] = true
+L["Loot Dropped:"] = "Beute:"
 L["Loot Auto Roll"] = true
 L["LOOT_AUTO_DESC"] = "Automatically selects an apropriate roll on dropped loot."
 L["Auto Confirm"] = true
 L["Automatically click OK on BOP items"] = true
-L["Auto Greed"] = true
+L["Auto Greed"] = "Auto Gier"
 L["Automatically greed uncommon (green) quality items at max level"] = true
-L["Auto Disenchant"] = true
+L["Auto Disenchant"] = "Automatisches entzaubern"
 L["Automatically disenchant uncommon (green) quality items at max level"] = true
-L["Loot Quality"] = true
+L["Loot Quality"] = "Beutequalität"
 L["Sets the auto greed/disenchant quality\n\nUncommon: Rolls on Uncommon only\nRare: Rolls on Rares & Uncommon"] = true
 L["Roll based on level."] = true
 L["This will auto-roll if you are above the given level if: You cannot equip the item being rolled on, or the ilevel of your equipped item is higher than the item being rolled on or you have an heirloom equipped in that slot"] = true
@@ -490,13 +490,13 @@ L["Sets the minimum loot threshold to announce."] = true
 L["Select chat channel to announce loot to."] = true
 L["Loot Roll History"] = true
 L["LOOTH_DESC"] = "These are options for tweaking the Loot Roll History window."
-L["Auto hide"] = true
+L["Auto hide"] = "Automatisches Verstecken"
 L["Automaticaly hides Loot Roll Histroy frame when leaving the instance."] = true
 L["Sets the alpha of Loot Roll Histroy frame."] = true
 L["Channels"] = true
 L["Private channels"] = true
-L["Incoming"] = true
-L["Outgoing"] = true
+L["Incoming"] = "Eingehend"
+L["Outgoing"] = "Ausgehend"
 
 --Media
 L["SLE_MEDIA_ZONES"] = {
