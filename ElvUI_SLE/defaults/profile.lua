@@ -460,6 +460,11 @@ P["sle"] = {
 				["size"] = 12,
 				["outline"] = "NONE",
 			},
+			["questFontSuperHuge"] = {
+				["font"] = "PT Sans Narrow",
+				["size"] = 24,
+				["outline"] = "NONE",
+			},
 		},
 	},
 	--Minimap Module

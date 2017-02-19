@@ -1,6 +1,7 @@
 v3.19
 Additions:
 - Added an option for player frame to show pvp text on the prestige icon
+- Added font options for banners' title text (e.g. world quest title)
 Fixes:
 - Fied primary stat missing from the list on character screen
 - Fixed altoholic button not moving to button bar

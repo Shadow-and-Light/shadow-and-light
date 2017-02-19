@@ -363,6 +363,43 @@ local function configTable()
 							},
 						},
 					},
+					questFontSuperHuge = {
+						type = "group",
+						name = L["Banner Big Text"],
+						order = 5,
+						guiInline = true,
+						disabled = function() return not E.private.general.replaceBlizzFonts end,
+						get = function(info) return E.db.sle.media.fonts.questFontSuperHuge[ info[#info] ] end,
+						set = function(info, value) E.db.sle.media.fonts.questFontSuperHuge[ info[#info] ] = value; E:UpdateMedia() end,
+						args = {
+							font = {
+								type = "select", dialogControl = 'LSM30_Font',
+								order = 1,
+								name = L["Font"],
+								desc = "The font used for chat editbox",
+								values = AceGUIWidgetLSMlists.font,	
+							},
+							size = {
+								order = 2,
+								name = L["Font Size"],
+								type = "range",
+								min = 6, max = 48, step = 1,
+							},
+							outline = {
+								order = 3,
+								name = L["Font Outline"],
+								desc = L["Set the font outline."],
+								type = "select",
+								values = {
+									["NONE"] = L["None"],
+									["OUTLINE"] = 'OUTLINE',
+									
+									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
+									["THICKOUTLINE"] = 'THICKOUTLINE',
+								},
+							},
+						},
+					},
 				},
 			},
 		},

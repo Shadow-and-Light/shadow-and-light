@@ -550,6 +550,7 @@ L["Misc Texts"] = true
 L["Mail Text"] = true
 L["Chat Editbox Text"] = true
 L["Gossip and Quest Frames Text"] = true
+L["Banner Big Text"] = true
 
 --Minimap
 L["Minimap Options"] = true
