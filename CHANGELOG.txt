@@ -5,6 +5,8 @@ Fixes:
 - Fied primary stat missing from the list on character screen
 - Fixed altoholic button not moving to button bar
 - Fixed artifact power throwing errors when a caged pet is present in bags
+- Fixed role icons missing on BGs
+- Fixed some localization being broken
 
 v3.18 01/11/2017
 Additions:

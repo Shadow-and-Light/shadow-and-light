@@ -808,11 +808,12 @@ L["Castbar Texture"] = "Текстура полосы заклинаний"
 L["Red Icon"] = "Красная иконка"
 L["Aura Bars Texture"] = "Текстура полос аур"
 L["Higher Overlay Portrait"] = "Наложение портрета над рамкой"
+L["Overlay Portrait Alpha"] = "Прозрачность портрета при наложении"
 L["Makes frame portrait visible regardles of health level when overlay portrait is set."] = "Делает портрет на этой рамке видимым не зависимо от кол-ва оставшегося здоровья при наложении."
 L["Classbar Texture"] = "Текстура классовой полосы"
 L["Resize Health Prediction"] = "Подогнать входящее исцеление"
 L["Slightly chages size of health prediction bars."] = "Немного изменяет размер полос входящего исцеления."
-L["Always Compare Items"] = "Прозрачность портрета при наложении"
+L["Custom Texture"] = "Своя текстура"
 
 
 --Viewport
