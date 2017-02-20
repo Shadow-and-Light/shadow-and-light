@@ -476,7 +476,7 @@ L["Swap sets only on specialization change ignoring location change when. Does n
 --Loot
 L["Loot Dropped:"] = true
 L["Loot Auto Roll"] = true
-L["LOOT_AUTO_DESC"] = "Automatically selects an apropriate roll on dropped loot."
+L["LOOT_AUTO_DESC"] = "Automatically selects an appropriate roll on dropped loot."
 L["Auto Confirm"] = true
 L["Automatically click OK on BOP items"] = true
 L["Auto Greed"] = true
@@ -500,8 +500,8 @@ L["Select chat channel to announce loot to."] = true
 L["Loot Roll History"] = true
 L["LOOTH_DESC"] = "These are options for tweaking the Loot Roll History window."
 L["Auto hide"] = true
-L["Automaticaly hides Loot Roll Histroy frame when leaving the instance."] = true
-L["Sets the alpha of Loot Roll Histroy frame."] = true
+L["Automaticaly hides Loot Roll History frame when leaving the instance."] = true
+L["Sets the alpha of Loot Roll History frame."] = true
 L["Channels"] = true
 L["Private channels"] = true
 L["Incoming"] = true
@@ -826,11 +826,12 @@ L["Castbar Texture"] = true
 L["Red Icon"] = true
 L["Aura Bars Texture"] = true
 L["Higher Overlay Portrait"] = true
+L["Overlay Portrait Alpha"] = true
 L["Makes frame portrait visible regardles of health level when overlay portrait is set."] = true
 L["Classbar Texture"] = true
 L["Resize Health Prediction"] = true
 L["Slightly chages size of health prediction bars."] = true
-L["Always Compare Items"] = true
+L["Custom Texture"] = true
 
 
 --Viewport

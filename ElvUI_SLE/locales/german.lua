@@ -425,7 +425,7 @@ L["Delete character info"] = "Charakterinfo löschen"
 L["Remove selected character from the stored gold values"] = "Ausgewählten Charakter Golddaten löschen"
 L["Are you sure you want to remove |cff1784d1%s|r from currency datatexts?"] = "Bist du dir sicher dass du |cff1784d1%s|r vom Goldinfotext entfernen möchtest?"
 L["Hide panel background"] = "Versteckt Leistenhintergrund"
-L["SLE_DT_CURRENCY_WARNING_GOLD"] = [[Deine Infoleiste %s hat ElvUI's "Goldinfotext" aktiv während "S&L Währüngs-Infotext" ist irgendwo anders ausgewählt ist. Um sicher zu gehen das "S&L Währüngs-Infotext" ordentlich funktioniert, werden einige Funktionen vom "Gold" Infotext deaktiviert. Um den Konflikt zu umgehen, solltest du einen betroffenen Infotext ersetzen.]]
+L["SLE_DT_CURRENCY_WARNING_GOLD"] = [[Deine Infoleiste %s hat ElvUI's "Goldinfotext" aktiv während "S&L Währüngs-Infotext" irgendwo anders ausgewählt ist. Um sicher zu gehen das "S&L Währüngs-Infotext" ordentlich funktioniert, werden einige Funktionen vom "Gold" Infotext deaktiviert. Um den Konflikt zu umgehen, solltest du einen betroffenen Infotext ersetzen.]]
 L["Gold Sorting"] = "Gold Sortierung"
 L["Normal"] = true
 L["Reversed"] = "Umgekehrt"
@@ -438,63 +438,63 @@ L["Use shadows on..."] = "Benutze Schatten auf..."
 
 --Equip Manager
 L["Equipment Manager"] = "Ausrüstungsmanager"
-L["EM_DESC"] = "This module provides different options to automatically change your equipment sets on spec change or entering certain locations. All options are character based."
+L["EM_DESC"] = "Dieses Modul erlaubt dir verschiedene Einstellungen um automatisch dein Ausrüstungsset in verschiedenen Situationen zu benutzen. Alle Einstellungen sind Charakter basierend."
 L["Equipment Set Overlay"] = "Ausrüstungsset Überblendung"
 L["Timewalking"] = "Zeitwanderung"
-L["Show the associated equipment sets for the items in your bags (or bank)."] = true
-L["Here you can choose what equipment sets to use in different situations."] = true
-L["Equip this set when switching to specialization %s."] = true
-L["Equip this set for open world/general use."] = true
-L["Equip this set after entering dungeons or raids."] = true
-L["Equip this set after entering battlegrounds or arens."] = true
-L["Equip this set after enetering a timewalking dungeon."] = true
+L["Show the associated equipment sets for the items in your bags (or bank)."] = "Zeigt die zugehörigen Ausrüstungssets für die Gegenstände in deiner Tasche (oder Bank)."
+L["Here you can choose what equipment sets to use in different situations."] = "Hier kannst du bestimmen welches Ausrüstungsset in bestimmten Situationen benutzt wird."
+L["Equip this set when switching to specialization %s."] = "Rüste dieses Set aus wenn du deine Spezialisierung zu %s änderst."
+L["Equip this set for open world/general use."] = "Rüste diese Set aus für den generellen Gebrauch."
+L["Equip this set after entering dungeons or raids."] = "Rüste dieses Set aus nach dem du eine Instanz/Raid betrittst."
+L["Equip this set after entering battlegrounds or arens."] = "Rüste dieses Set aus nach dem ein Schlachtfeld/Arena betrittst."
+L["Equip this set after enetering a timewalking dungeon."] = "Rüste dieses Set aus nach dem du eine Zeitwanderungsinstanz betrittst."
 L["Use Instance Set"] = "Benutze Instanz Set"
-L["Use a dedicated set for instances and raids."] = true
+L["Use a dedicated set for instances and raids."] = "Benutze ein bestimmtes Set für Instanzen und Raids."
 L["Use PvP Set"] = "Benutze PvP Set"
-L["Use a dedicated set for PvP situations."] = true
+L["Use a dedicated set for PvP situations."] = "Benutzt ein bestimmtes Set für PvP Situationen."
 L["Use Timewalking Set"] = "Benutze Zeitwanderung Set"
-L["Use a dedicated set for timewalking instances."] = true
-L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."] = true
+L["Use a dedicated set for timewalking instances."] = "Benutze ein bestimmtes Set für Zeitwanderungsinstanzen."
+L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."] = "Unmöglich um zum dazugehörigen Ausrüstungsset zu wechseln im Kampf. Nach dem Kampf wird gewechselt."
 L["SLE_EM_LOCK_TITLE"] = "|cff9482c9S&L|r"
-L["SLE_EM_LOCK_TOOLTIP"] = [[This button is designed for temporary disable
-Equip Manager's auto switch gear sets.
-While locked (red colored state) it will disable auto swap.]]
-L["Block button"] = true
-L["Create a button in character frame to allow temp blocking of auto set swap."] = true
-L["Ignore zone change"] = true
-L["Swap sets only on specialization change ignoring location change when. Does not influence entering/leaving instances and bg/arena."] = true
+L["SLE_EM_LOCK_TOOLTIP"] = [[Dieser Knopf ist zum vorübergehenden deaktiveren des
+Ausrüstungsmanager automatischen wechseln.
+Während gesperrt, (red colored state) wird das automatische Wechseln deaktiviert.]]
+L["Block button"] = "Sperrtaste"
+L["Create a button in character frame to allow temp blocking of auto set swap."] = "Erzeugt einen Knopf im Charakterfenster der erlaubt das Autowechseln vom Ausrüstungsset zu deaktivieren."
+L["Ignore zone change"] = "Ignoriere Zonenwechsel"
+L["Swap sets only on specialization change ignoring location change when. Does not influence entering/leaving instances and bg/arena."] = "Wechselt Ausrüstungssets nur wenn die Spezialisierung geändert wird. Beeinflusst nicht das betreten/verlassen von Instanzen und Schlachtfeld/Arena."
 
 --Loot
 L["Loot Dropped:"] = "Beute:"
-L["Loot Auto Roll"] = true
-L["LOOT_AUTO_DESC"] = "Automatically selects an apropriate roll on dropped loot."
-L["Auto Confirm"] = true
-L["Automatically click OK on BOP items"] = true
+L["Loot Auto Roll"] = "Aus Beute automatisch würfeln"
+L["LOOT_AUTO_DESC"] = "Wählt automatisch eine angemessenen Wurf auf gefallene Beute."
+L["Auto Confirm"] = "Automatische Bestätigung"
+L["Automatically click OK on BOP items"] = "Klickt automatisch OK auf BOP Gegenstände"
 L["Auto Greed"] = "Auto Gier"
-L["Automatically greed uncommon (green) quality items at max level"] = true
+L["Automatically greed uncommon (green) quality items at max level"] = "Wählt automatisch Gier auf ungewöhnliche (grüne) Gegenstände auf maximalem Level."
 L["Auto Disenchant"] = "Automatisches entzaubern"
-L["Automatically disenchant uncommon (green) quality items at max level"] = true
+L["Automatically disenchant uncommon (green) quality items at max level"] = "Entzaubert automatisch ungewöhnliche (grüne) Gegenstände auf maximalem Level."
 L["Loot Quality"] = "Beutequalität"
-L["Sets the auto greed/disenchant quality\n\nUncommon: Rolls on Uncommon only\nRare: Rolls on Rares & Uncommon"] = true
-L["Roll based on level."] = true
-L["This will auto-roll if you are above the given level if: You cannot equip the item being rolled on, or the ilevel of your equipped item is higher than the item being rolled on or you have an heirloom equipped in that slot"] = true
-L["Level to start auto-rolling from"] = true
-L["Loot Announcer"] = true
+L["Sets the auto greed/disenchant quality\n\nUncommon: Rolls on Uncommon only\nRare: Rolls on Rares & Uncommon"] = "Setzt die Auto Gier/Entzaubern auf die Qualität\n\nUngewöhnlich: Rollt nur auf ungewöhnliche Gegenstände\nRare: Rollt auf rare & ungewöhnliche Gegenstände"
+L["Roll based on level."] = "Wurf basierend auf Level."
+L["This will auto-roll if you are above the given level if: You cannot equip the item being rolled on, or the ilevel of your equipped item is higher than the item being rolled on or you have an heirloom equipped in that slot"] = "Dieses wird automatisch auf Gegenstände würfeln über dem eingestelltem Level wenn: Du den Gegenstand nicht benutzen kannst oder das Itemlevel von deinem ausgerüstetem Gegenstand höher ist oder du ein Account Gegenstand auf dem Slot trägst."
+L["Level to start auto-rolling from"] = "Level auf dem das Autowürfeln startet"
+L["Loot Announcer"] = "Beute Ankündigung"
 L["AUTOANNOUNCE_DESC"] = "When enabled, will automatically announce the loot when the loot window opens.\n\n|cffFF0000Note:|r Raid Lead, Assist, & Master Looter Only."
-L["Auto Announce"] = true
-L["Manual Override"] = true
-L["Sets the button for manual override."] = true
-L["No Override"] = true
-L["Automatic Override"] = true
-L["Sets the minimum loot threshold to announce."] = true
-L["Select chat channel to announce loot to."] = true
-L["Loot Roll History"] = true
-L["LOOTH_DESC"] = "These are options for tweaking the Loot Roll History window."
+L["Auto Announce"] = "Automatische Ankündigung"
+L["Manual Override"] = "Manuelle Überschreibung"
+L["Sets the button for manual override."] = "Setzt die Taste für die manuelle Überschreibung."
+L["No Override"] = "Keine Überschreibung"
+L["Automatic Override"] = "Automatische Überschreibung"
+L["Sets the minimum loot threshold to announce."] = "Setzt die mindest Schwelle um Beute anzukündigen."
+L["Select chat channel to announce loot to."] = "Wählt den Kanal aus wo der Loot angekündigt wird."
+L["Loot Roll History"] = "Würfelverlauf"
+L["LOOTH_DESC"] = "Dieses sind Einstellungen um das Würfelverlauf Fenster zu bearbeiten."
 L["Auto hide"] = "Automatisches Verstecken"
-L["Automaticaly hides Loot Roll Histroy frame when leaving the instance."] = true
-L["Sets the alpha of Loot Roll Histroy frame."] = true
-L["Channels"] = true
-L["Private channels"] = true
+L["Automaticaly hides Loot Roll History frame when leaving the instance."] = "Versteckt automatisch das Würfelverlaufs Fenster wenn du eine Instanz verlässt."
+L["Sets the alpha of Loot Roll History frame."] = "Setzt den alpha vom Würfelverlaufs Fenster"
+L["Channels"] = "Kanäle"
+L["Private channels"] = "Private Kanäle"
 L["Incoming"] = "Eingehend"
 L["Outgoing"] = "Ausgehend"
 
@@ -541,6 +541,7 @@ L["Misc Texts"] = true
 L["Mail Text"] = true
 L["Chat Editbox Text"] = true
 L["Gossip and Quest Frames Text"] = true
+L["Banner Big Text"] = true
 
 --Minimap
 L["Minimap Options"] = true
@@ -729,6 +730,7 @@ L["We are sorry, but you can't do this now. Try again after the end of this comb
 L["Right-click to drop the item."] = true
 L["Button Size"] = true
 L["Only active buttons"] = true
+
 --Farm
 L["Tilled Soil"] = true
 L["Farm Seed Bars"] = true
@@ -742,6 +744,7 @@ L["Quest Glow"] = true
 L["Show glowing border on seeds needed for any quest in your log."] = true
 L["Dock Buttons To"] = true
 L["Change the position from where seed bars will grow."] = true
+
 --Garrison
 L["Garrison Tools Bar"] = true
 L["Auto Work Orders"] = true
@@ -752,6 +755,7 @@ L["Auto Work Orders for Trading Post"] = true
 L["Automatically queue maximum number of work orders available for Trading Post."] = true
 L["Auto Work Orders for Shipyard"] = true
 L["Automatically queue maximum number of work orders available for Shipyard."] = true
+
 --Class Hall
 L["Class Hall"] = true
 L["Auto Work Orders for equipment"] = true
@@ -816,12 +820,13 @@ L["Castbar Texture"] = true
 L["Red Icon"] = true
 L["Aura Bars Texture"] = true
 L["Higher Overlay Portrait"] = true
+L["Overlay Portrait Alpha"] = true
 L["Makes frame portrait visible regardles of health level when overlay portrait is set."] = true
 L["Classbar Texture"] = true
 L["Resize Health Prediction"] = true
 L["Slightly chages size of health prediction bars."] = true
 L["Always Compare Items"] = true
-
+L["Custom Texture"] = "Benutzerdefinierte Textur"
 
 --Viewport
 L["Viewport"] = true
