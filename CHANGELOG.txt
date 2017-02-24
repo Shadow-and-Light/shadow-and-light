@@ -2,12 +2,14 @@ v3.19
 Additions:
 - Added an option for player frame to show pvp text on the prestige icon
 - Added font options for banners' title text (e.g. world quest title)
+- Added character spesific option to alter offset of dropdown menu of specialization datatext
 Fixes:
 - Fied primary stat missing from the list on character screen
 - Fixed altoholic button not moving to button bar
 - Fixed artifact power throwing errors when a caged pet is present in bags
 - Fixed role icons missing on BGs
 - Fixed some localization being broken
+- Fixed enabling cht datatext panels causing an error
 
 v3.18 01/11/2017
 Additions:

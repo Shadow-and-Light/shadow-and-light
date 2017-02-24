@@ -111,7 +111,7 @@ local function configTable()
 		args = {
 			panels = {
 				type = "group",
-				name = L["Datatexts"],
+				name = L["DataTexts"],
 				order = 1,
 				args = {
 					header = { order = 1, type = "header", name = L["Additional Datatext Panels"] },

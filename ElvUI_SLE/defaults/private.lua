@@ -55,6 +55,13 @@ V["sle"] = {
 		},
 	},
 
+	["dt"] = {
+		["specswitch"] = {
+			["xOffset"] = -15,
+			["yOffset"] = -7,
+		},
+	},
+
 	["bags"] = {
 		["transparentSlots"] = false,
 	},

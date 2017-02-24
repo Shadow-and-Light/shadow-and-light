@@ -60,8 +60,7 @@ function DTP:ReplaceSpecSwitch()
 						specList[index + 1] = nil
 					end
 				end
-				-- EasyMenu(specList, menuFrame, "cursor", -15, -7, "MENU", 2)
-				EasyMenu(specList, menuFrame, "cursor", -15, 50, "MENU", 2)
+				EasyMenu(specList, menuFrame, "cursor", E.private.sle.dt.specswitch.xOffset, E.private.sle.dt.specswitch.yOffset, "MENU", 2)
 			end
 		else
 			DT.tooltip:Hide()
@@ -78,8 +77,7 @@ function DTP:ReplaceSpecSwitch()
 				end
 			end
 
-			-- EasyMenu(menuList, menuFrame, "cursor", -15, -7, "MENU", 2)
-			EasyMenu(menuList, menuFrame, "cursor", -15, 50, "MENU", 2)
+			EasyMenu(menuList, menuFrame, "cursor", E.private.sle.dt.specswitch.xOffset, E.private.sle.dt.specswitch.yOffset, "MENU", 2)
 		end
 	end
 end
