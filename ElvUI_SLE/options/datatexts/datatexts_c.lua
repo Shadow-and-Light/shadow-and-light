@@ -75,7 +75,6 @@ local function configTable()
 						end
 						E:GetModule('Chat'):UpdateAnchors()
 						E:GetModule('Layout'):ToggleChatPanels()
-						E:GetModule('Bags'):PositionBagFrames()
 					end
 				},
 				width = {
