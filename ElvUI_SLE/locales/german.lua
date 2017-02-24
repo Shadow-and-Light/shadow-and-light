@@ -369,7 +369,7 @@ eröffne bitte ein Ticket auf http://git.tukui.org/repooc/elvui-shadowandlight]=
 L["Additional Datatext Panels"] = "Zusätzliche Infotextleisten"
 L["DP_DESC"] = [=[Zusätzliche Infotextleisten.
 8 Leisten mit insgesamt 20 Infotexten.]=]
-L["Some datatexts that Shadow & Light are supplied with, has settings that can be modified to alter the displayed information."] = true
+L["Some datatexts that Shadow & Light are supplied with, has settings that can be modified to alter the displayed information."] = "Einige Infotexte die Shadow & Light bereitgestellt werden, haben Einstellungen die, die angezeigten Informationen abändern können."
 L["Sets size of this panel"] = "Setzt die größe der Leiste"
 L["Don't show this panel, only datatexts assinged to it"] = "Diese Leiste nicht anzeigen, ausser wenn ein Infotext zugewiesen ist"
 L["Override Chat DT Panels"] = "Chat Infotextleisten überschreiben"
