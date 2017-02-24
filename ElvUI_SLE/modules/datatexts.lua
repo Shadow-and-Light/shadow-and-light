@@ -224,6 +224,7 @@ function DTP:Initialize()
 	DTP:HookDurabilityDT()
 	DTP:CreateMailDT()
 	DTP:CreateCurrencyDT()
+	DTP:ReplaceSpecSwitch()
 
 	--Remove char
 	local popup = E.PopupDialogs['SLE_CONFIRM_DELETE_CURRENCY_CHARACTER']
