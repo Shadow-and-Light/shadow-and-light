@@ -378,6 +378,7 @@ please submit ticket at http://git.tukui.org/repooc/elvui-shadowandlight]=]
 L["Additional Datatext Panels"] = true
 L["DP_DESC"] = [=[Additional Datatext Panels.
 8 panels with 20 datatext points total.]=]
+L["Some datatexts that Shadow & Light are supplied with, has settings that can be modified to alter the displayed information."] = true
 L["Sets size of this panel"] = true
 L["Don't show this panel, only datatexts assinged to it"] = true
 L["Override Chat DT Panels"] = true

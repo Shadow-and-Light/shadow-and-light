@@ -366,6 +366,7 @@ http://git.tukui.org/repooc/elvui-shadowandlight]=]
 L["Additional Datatext Panels"] = "Дополнительные панели инфо-текстов"
 L["DP_DESC"] = [=[Дополнительные панели под информационные тексты.
 Всего здесь 8 дополнительных панелей и 20 дополнительных слотов под инфо-тексты.]=]
+L["Some datatexts that Shadow & Light are supplied with, has settings that can be modified to alter the displayed information."] = "Некоторые инфо-тексты, предоставляемые Shadow & LIght, имеют настройки, изменяющие отображаемую информацию."
 L["Sets size of this panel"] = "Установить ширину панели"
 L["Don't show this panel, only datatexts assinged to it"] = "Не показывать саму панель, а только назначенные на нее инфо-тексты"
 L["Override Chat DT Panels"] = "Изменить инфо-панели чата"
