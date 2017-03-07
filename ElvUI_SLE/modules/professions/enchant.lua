@@ -523,7 +523,7 @@ function Pr:EnchantButton()
 		elseif recipeInfo.alternateVerb then
 			button.itemID = Pr.mapSpellToItem[recipeInfo.recipeID]
 			if (not button.itemID) then
-				print(string.format(L["Missing scroll item for spellID %d. Please report this at the Shadow&Light Ticket Tracker."], recipeInfo.recipeID))
+				SLE:Print(string.format(L["Missing scroll item for spellID %d. Please report this at the Shadow&Light Ticket Tracker."], recipeInfo.recipeID))
 			end
 			_G["SLE_EnchScrollButton"]:Show()
 			local scrollnum = T.GetItemCount(38682)
