@@ -47,7 +47,7 @@ local function configTable()
 				type = 'range',
 				name = L["Button Size"],
 				desc = L["The size of the minimap buttons when not anchored to the minimap."],
-				min = 16, max = 40, step = 1,
+				min = 12, max = 40, step = 1,
 				disabled = function() return not E.private.sle.minimap.mapicons.enable end,
 				get = function(info) return E.db.sle.minimap.mapicons.iconsize end,
 				set = function(info, value) E.db.sle.minimap.mapicons.iconsize = value; SMB:Update(SLE_SquareMinimapButtonBar) end,
