@@ -635,6 +635,7 @@ L["Actionbar Autocast"] = true
 L["Show glow on bag button"] = true
 L["Show glow on the deconstruction button in bag when deconstruction mode is enabled.\nApplies on next mode toggle."] = true
 L["Scroll"] = true
+L["Missing scroll item for spellID %d. Please report this at the Shadow&Light Ticket Tracker."] = true
 L["Sets style of glow around item available for deconstruction while in deconstruct mode. Autocast is less intence but also less noticeable."] = true
 L["Enchant Scroll Button"] = true
 L["Create a button for applying selected enchant on the scroll."] = true

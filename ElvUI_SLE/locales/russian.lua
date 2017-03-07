@@ -631,6 +631,7 @@ L["Actionbar Autocast"] = "Эффект автопременения"
 L["Show glow on bag button"] = "Отображать свечение на кнопке"
 L["Show glow on the deconstruction button in bag when deconstruction mode is enabled.\nApplies on next mode toggle."] = "Подсвечивать кнопку режима распыления, когда режим активен\nПрименяется после следующего переключения режима."
 L["Scroll"] = "Свиток"
+L["Missing scroll item for spellID %d. Please report this at the Shadow&Light Ticket Tracker."] = true
 L["Sets style of glow around item available for deconstruction while in deconstruct mode. Autocast is less intence but also less noticeable."] = "Устанавливает стил свечения вокруг предмета, пригодного для распыления, когда режим активен. Атопременение менее яркое, но также менее заметное."
 L["Enchant Scroll Button"] = "Кнопка зачарования свитка"
 L["Create a button for applying selected enchant on the scroll."] = "Создать кнопку для применнеия чар к свитку."
