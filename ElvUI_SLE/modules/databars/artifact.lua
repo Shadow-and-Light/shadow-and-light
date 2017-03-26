@@ -24,7 +24,8 @@ local function UpdateArtifact(self, event)
 	if hasArtifact then
 		local text = ''
 		local totalXP, pointsSpent = T.select(5, C_ArtifactUIGetEquippedArtifactInfo());
-		local numPointsAvailableToSpend, xp, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(pointsSpent, totalXP);
+		local tier = T.select(13, C_ArtifactUIGetEquippedArtifactInfo());
+		local numPointsAvailableToSpend, xp, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(pointsSpent, totalXP, tier);
 
 		local textFormat = self.db.artifact.textFormat
 		if textFormat == 'PERCENT' then
