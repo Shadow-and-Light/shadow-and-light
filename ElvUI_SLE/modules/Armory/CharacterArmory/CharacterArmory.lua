@@ -748,7 +748,7 @@ function CA:ClearTooltip(Tooltip)
 	end
 end
 
-local Artifact_ItemID, Artifact_Power, Artifact_Rank, LockedReason
+local Artifact_ItemID, Artifact_Power, Artifact_Rank, Artifact_Tier, LockedReason
 function CA:Update_Gear()
 	--[[ Get Player Profession
 	
@@ -1226,11 +1226,16 @@ do --<< Artifact Monitor >>
 	
 	
 	function CA:LegionArtifactMonitor_UpdateData()
-		Artifact_ItemID, _, _, _, Artifact_Power, Artifact_Rank = C_ArtifactUI.GetEquippedArtifactInfo()
+		Artifact_ItemID, _, _, _, Artifact_Power, Artifact_Rank,_, _, _, _, _, _, Artifact_Tier = C_ArtifactUI.GetEquippedArtifactInfo()
 		if Artifact_ItemID then
 			Legion_ArtifactData.ItemID = Artifact_ItemID
 			Legion_ArtifactData.Rank = Artifact_Rank
-			Legion_ArtifactData.AvailablePoint, Legion_ArtifactData.XP, Legion_ArtifactData.XPForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(Artifact_Rank, Artifact_Power)
+			Legion_ArtifactData.Tier = Artifact_Tier
+			if E.wowbuild >= 23623 then --7.2
+				Legion_ArtifactData.AvailablePoint, Legion_ArtifactData.XP, Legion_ArtifactData.XPForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(Artifact_Rank, Artifact_Power, Artifact_Tier)
+			else
+				Legion_ArtifactData.AvailablePoint, Legion_ArtifactData.XP, Legion_ArtifactData.XPForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(Artifact_Rank, Artifact_Power)
+			end
 			-- Legion_ArtifactData.RemainXP = Legion_ArtifactData.XPForNextPoint - Legion_ArtifactData.XP --We don't actually use it
 			if E.db.sle.Armory.Character.Artifact.ShortValues then
 				Legion_ArtifactData.Power = E:ShortValue(Legion_ArtifactData.XP)
