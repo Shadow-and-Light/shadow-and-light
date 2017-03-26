@@ -1314,7 +1314,8 @@ do --<< Artifact Monitor >>
 								if SearchingPhase == 1 and SearchingText == ARTIFACT_POWER then
 									SearchingPhase = 2
 								elseif SearchingPhase == 2 and SearchingText:find(ITEM_SPELL_TRIGGER_ONUSE) then
-									CurrentItemPower = tonumber(SearchingText:gsub(',', ''):match('%d+'))
+									CurrentItemPower = T.gsub(strmatch(SearchingText, "(%d+[,.%s]%d+)"), "[,.%s]", "")
+									CurrentItemPower = T.tonumber(CurrentItemPower)
 									TotalPower = TotalPower + CurrentItemPower
 									
 									if not LowestPower or LowestPower > CurrentItemPower then
