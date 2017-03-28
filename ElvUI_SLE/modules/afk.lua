@@ -481,7 +481,7 @@ function S:Initialize()
 
 	SS:HookScript("OnShow", S.Show)
 	SS:HookScript("OnHide", S.Hide)
-	SS.Model:SetScript("OnUpdateModel", nil)
+	SS.Model:SetScript("OnUpdate", nil)
 
 	AFK:OnEvent()
 end

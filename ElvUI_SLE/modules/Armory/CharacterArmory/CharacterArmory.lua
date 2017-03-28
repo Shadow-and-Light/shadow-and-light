@@ -1231,11 +1231,7 @@ do --<< Artifact Monitor >>
 			Legion_ArtifactData.ItemID = Artifact_ItemID
 			Legion_ArtifactData.Rank = Artifact_Rank
 			Legion_ArtifactData.Tier = Artifact_Tier
-			if E.wowbuild >= 23623 then --7.2
-				Legion_ArtifactData.AvailablePoint, Legion_ArtifactData.XP, Legion_ArtifactData.XPForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(Artifact_Rank, Artifact_Power, Artifact_Tier)
-			else
-				Legion_ArtifactData.AvailablePoint, Legion_ArtifactData.XP, Legion_ArtifactData.XPForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(Artifact_Rank, Artifact_Power)
-			end
+			Legion_ArtifactData.AvailablePoint, Legion_ArtifactData.XP, Legion_ArtifactData.XPForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(Artifact_Rank, Artifact_Power, Artifact_Tier)
 			-- Legion_ArtifactData.RemainXP = Legion_ArtifactData.XPForNextPoint - Legion_ArtifactData.XP --We don't actually use it
 			if E.db.sle.Armory.Character.Artifact.ShortValues then
 				Legion_ArtifactData.Power = E:ShortValue(Legion_ArtifactData.XP)

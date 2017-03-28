@@ -26,11 +26,7 @@ local function UpdateArtifact(self, event)
 		local totalXP, pointsSpent = T.select(5, C_ArtifactUIGetEquippedArtifactInfo());
 		local tier = T.select(13, C_ArtifactUIGetEquippedArtifactInfo());
 		local numPointsAvailableToSpend, xp, xpForNextPoint
-		if E.wowbuild >= 23623 then --7.2
-			numPointsAvailableToSpend, xp, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(pointsSpent, totalXP, tier);
-		else
-			numPointsAvailableToSpend, xp, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(pointsSpent, totalXP);
-		end
+		numPointsAvailableToSpend, xp, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(pointsSpent, totalXP, tier);
 
 		local textFormat = self.db.artifact.textFormat
 		if textFormat == 'PERCENT' then

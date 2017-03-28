@@ -1,3 +1,7 @@
+v3.20 03/29/17
+Fixes:
+- Fixed afk screen related error on load
+
 v3.19 03/28/17
 Patch 7.2 compatible. Requires ElvUI 10.46 to run.
 Additions:
