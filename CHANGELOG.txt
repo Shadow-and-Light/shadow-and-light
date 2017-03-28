@@ -1,4 +1,4 @@
-v3.19
+v3.19 03/28/17
 Patch 7.2 compatible. Requires ElvUI 10.46 to run.
 Additions:
 - Added an option for player frame to show pvp text on the prestige icon
