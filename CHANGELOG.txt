@@ -1,4 +1,5 @@
 v3.19
+Patch 7.2 compatible
 Additions:
 - Added an option for player frame to show pvp text on the prestige icon
 - Added font options for banners' title text (e.g. world quest title)
