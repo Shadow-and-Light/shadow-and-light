@@ -1,5 +1,5 @@
 v3.19
-Patch 7.2 compatible
+Patch 7.2 compatible. Requires ElvUI 10.46 to run.
 Additions:
 - Added an option for player frame to show pvp text on the prestige icon
 - Added font options for banners' title text (e.g. world quest title)
