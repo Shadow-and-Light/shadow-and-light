@@ -34,7 +34,7 @@ function ES:UpdateShadows()
 	end
 end
 
-function ES:RegisterShadow(shadow)
+function ES:RegisterShadow(shadow, frame)
 	if shadow.isRegistered then return end
 	ES.shadows[shadow] = true
 	shadow.isRegistered = true
@@ -59,6 +59,7 @@ function ES:CreateShadows()
 			frame.EnhShadow = frame.shadow
 			frame.shadow = nil
 			ES:RegisterShadow(frame.EnhShadow)
+			frame.EnhShadow:SetParent(frame)
 			hooksecurefunc(UF, "Update_"..name.."Frame", ES.UpdateFrame)
 		end
 	end
@@ -71,6 +72,7 @@ function ES:CreateShadows()
 				frame.EnhShadow = frame.shadow
 				frame.shadow = nil
 				ES:RegisterShadow(frame.EnhShadow)
+				frame.EnhShadow:SetParent(frame)
 				hooksecurefunc(UF, "Update_"..name.."Frames", ES.UpdateFrame)
 			end
 		end
@@ -82,6 +84,17 @@ function ES:CreateShadows()
 			frame.EnhShadow = frame.shadow
 			frame.shadow = nil
 			ES:RegisterShadow(frame.EnhShadow)
+			frame.EnhShadow:SetParent(frame.backdrop)
+		end
+		if E.private.sle.module.shadows.actionbars["bar"..i.."buttons"] then
+			for j = 1, 12 do
+				local frame = _G["ElvUI_Bar"..i.."Button"..j]
+				frame:CreateShadow()
+				frame.EnhShadow = frame.shadow
+				frame.shadow = nil
+				ES:RegisterShadow(frame.EnhShadow)
+				frame.EnhShadow:SetParent(frame.backdrop)
+			end
 		end
 	end
 	if E.private.sle.module.shadows.actionbars.stancebar then
@@ -90,6 +103,7 @@ function ES:CreateShadows()
 		frame.EnhShadow = frame.shadow
 		frame.shadow = nil
 		ES:RegisterShadow(frame.EnhShadow)
+		frame.EnhShadow:SetParent(frame.backdrop)
 	end
 	if E.private.sle.module.shadows.actionbars.microbar then
 		local frame = _G["ElvUI_MicroBar"]
@@ -97,6 +111,7 @@ function ES:CreateShadows()
 		frame.EnhShadow = frame.shadow
 		frame.shadow = nil
 		ES:RegisterShadow(frame.EnhShadow)
+		frame.EnhShadow:SetParent(frame.backdrop)
 	end
 	if E.private.sle.module.shadows.actionbars.petbar then
 		local frame = _G["ElvUI_BarPet"]
@@ -104,6 +119,7 @@ function ES:CreateShadows()
 		frame.EnhShadow = frame.shadow
 		frame.shadow = nil
 		ES:RegisterShadow(frame.EnhShadow)
+		frame.EnhShadow:SetParent(frame.backdrop)
 	end
 end
 

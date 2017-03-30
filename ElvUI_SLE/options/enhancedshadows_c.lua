@@ -116,15 +116,30 @@ local function configTable()
 								type = "toggle",
 								name = L["Micro Bar"],
 							},
-							stancebar = {
+							microbarbuttons = {
 								order = 2,
+								type = "toggle",
+								name = L["SLE_EnhShadows_MicroButtons_Option"],
+							},
+							stancebar = {
+								order = 3,
 								type = "toggle",
 								name = L["Stance Bar"],
 							},
+							stancebarbuttons = {
+								order = 4,
+								type = "toggle",
+								name = L["SLE_EnhShadows_StanceButtons_Option"],
+							},
 							petbar = {
-								order = 3,
+								order = 5,
 								type = "toggle",
 								name = L["Pet Bar"],
+							},
+							petbarbuttons = {
+								order = 6,
+								type = "toggle",
+								name = L["SLE_EnhShadows_PetButtons_Option"],
 							},
 						},
 					},
@@ -135,9 +150,14 @@ local function configTable()
 	
 	for i = 1, (SLE._Compatibility["ElvUI_ExtraActionBars"] and 10 or 6) do
 		E.Options.args.sle.args.modules.args.shadows.args.frames.args.actionbars.args["bar"..i] = {
-			order = i + 3,
+			order = i + 6,
 			type = "toggle",
 			name = L["Bar "]..i,
+		}
+		E.Options.args.sle.args.modules.args.shadows.args.frames.args.actionbars.args["bar"..i.."buttons"] = {
+			order = i + 6,
+			type = "toggle",
+			name = T.format(L["SLE_EnhShadows_BarButtons_Option"], i),
 		}
 	end
 end

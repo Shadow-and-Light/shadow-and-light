@@ -445,6 +445,10 @@ L["Order of each toon. Smaller numbers will go first"] = true
 --Enhnced Shadows
 L["Enhanced Shadows"] = true
 L["Use shadows on..."] = true
+L["SLE_EnhShadows_BarButtons_Option"] = "Bar %s Buttons"
+L["SLE_EnhShadows_MicroButtons_Option"] = "Microbar Buttons"
+L["SLE_EnhShadows_StanceButtons_Option"] = "Stance Bar Buttons"
+L["SLE_EnhShadows_PetButtons_Option"] = "Pet Bar Buttons"
 
 --Equip Manager
 L["Equipment Manager"] = true
