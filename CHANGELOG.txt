@@ -1,3 +1,11 @@
+v3.21 03/30/17
+Fixes:
+- Fixed first opening character armory error
+Additions:
+- Added options for bar buttons in enhanced shadows
+Changes:
+- Enhanced shadows for actionbars as a whole now applies to backdrop only and is hidden alongside it
+
 v3.20 03/29/17
 Fixes:
 - Fixed afk screen related error on load
