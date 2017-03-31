@@ -105,13 +105,34 @@ function ES:CreateShadows()
 		ES:RegisterShadow(frame.EnhShadow)
 		frame.EnhShadow:SetParent(frame.backdrop)
 	end
+	if E.private.sle.module.shadows.actionbars.stancebarbuttons then
+		for i = 1, 12 do
+			local frame = _G["ElvUI_StanceBarButton"..i]
+			if not frame then break end
+			frame:CreateShadow()
+			frame.EnhShadow = frame.shadow
+			frame.shadow = nil
+			ES:RegisterShadow(frame.EnhShadow)
+			frame.EnhShadow:SetParent(frame.backdrop)
+		end
+	end
 	if E.private.sle.module.shadows.actionbars.microbar then
 		local frame = _G["ElvUI_MicroBar"]
 		frame:CreateShadow()
 		frame.EnhShadow = frame.shadow
 		frame.shadow = nil
 		ES:RegisterShadow(frame.EnhShadow)
-		frame.EnhShadow:SetParent(frame.backdrop)
+	end
+	if E.private.sle.module.shadows.actionbars.microbarbuttons then
+		for i=1, (#MICRO_BUTTONS) do
+			local frame = _G[MICRO_BUTTONS[i]]
+			if not frame then break end
+			frame:CreateShadow()
+			frame.EnhShadow = frame.shadow
+			frame.shadow = nil
+			ES:RegisterShadow(frame.EnhShadow)
+			frame.EnhShadow:SetParent(frame.backdrop)
+		end
 	end
 	if E.private.sle.module.shadows.actionbars.petbar then
 		local frame = _G["ElvUI_BarPet"]
@@ -120,6 +141,17 @@ function ES:CreateShadows()
 		frame.shadow = nil
 		ES:RegisterShadow(frame.EnhShadow)
 		frame.EnhShadow:SetParent(frame.backdrop)
+	end
+	if E.private.sle.module.shadows.actionbars.petbarbuttons then
+		for i = 1, 12 do
+			local frame = _G["PetActionButton"..i]
+			if not frame then break end
+			frame:CreateShadow()
+			frame.EnhShadow = frame.shadow
+			frame.shadow = nil
+			ES:RegisterShadow(frame.EnhShadow)
+			frame.EnhShadow:SetParent(frame.backdrop)
+		end
 	end
 end
 
