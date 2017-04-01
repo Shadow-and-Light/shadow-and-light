@@ -10,9 +10,28 @@ local arcanePower
 local AP_NAME = T.format("|cFFE6CC80%s|r", ARTIFACT_POWER)
 local pcall = pcall
 
-local apLineIndex
+-- local apLineIndex
+local apItemCache = {}
+local apStringValueMillion = {
+	["enUS"] = "(%d+)[%p%s]?[(%d+)]? million",
+	["enGB"] = "(%d+)[%p%s]?[(%d+)]? million",
+	["ptBR"] = "(%d+)[%p%s]?[(%d+)]? [[milhao][milhoes]]?",
+	["esMX"] = "(%d+)[%p%s]?[(%d+)]? [[millon][millones]]?",
+	["deDE"] = "(%d+)[%p%s]?[(%d+)]? [[Million][Millionen]]?",
+	["esES"] = "(%d+)[%p%s]?[(%d+)]? [[millon][millones]]?",
+	["frFR"] = "(%d+)[%p%s]?[(%d+)]? [[million][millions]]?",
+	["itIT"] = "(%d+)[%p%s]?[(%d+)]? [[milione][milioni]]?",
+	["ruRU"] = "(%d+)[%p%s]?[(%d+)]? млн",
+	["koKR"] = "(%d+)[%p%s]?[(%d+)]??",
+	["zhTW"] = "(%d+)[%p%s]?[(%d+)]??",
+	["zhCN"] = "(%d+)[%p%s]?[(%d+)]??",
+}
+local apStringValueMillionLocal = apStringValueMillion[GetLocale()]
 local function GetItemLinkArtifactPower(slotLink)
-	if slotLink then
+	local apValue
+	if not slotLink then return nil end
+	local itemSpell = GetItemSpell(slotLink)
+	if itemSpell and itemSpell == empoweringSpellName then
 		tooltipScanner:ClearLines()
 		local success = pcall(tooltipScanner.SetHyperlink, tooltipScanner, slotLink)
 		if (not success) then
@@ -20,31 +39,40 @@ local function GetItemLinkArtifactPower(slotLink)
 		end
 
 		local apFound
-		if (_G[tooltipName.."TextLeft2"]:GetText() == AP_NAME) then
-			apLineIndex = 4
-			apFound = true
-		elseif (_G[tooltipName.."TextLeft3"]:GetText() == AP_NAME) then --When using colorblind mode then line 2 becomes the rarity, pushing ap text down 1 line
-			apLineIndex = 5
-			apFound = true
+		for i = 4,5 do
+			local tooltipText = _G[tooltipName.."TextLeft"..i]:GetText()
+			if tooltipText then
+				local digit1, digit2, digit3, ap
+				if T.match(tooltipText, apStringValueMillionLocal) then
+					digit1, digit2 = T.match(tooltipText, apStringValueMillionLocal)
+					if digit2 then
+						ap = T.tonumber(T.format("%s.%s", digit1, digit2)) * 1e6 --Multiply by one million
+					else
+						ap = T.tonumber(digit1) * 1e6 --Multiply by one million
+					end
+				else
+					digit1, digit2, digit3 = T.match(tooltipText,"(%d+)[%p%s]?(%d+)[%p%s]?(%d+)")
+					ap = T.tonumber(T.format("%s%s%s", digit1 or "", digit2 or "", (digit2 and digit3) and digit3 or ""))
+				end
+				
+				if ap then
+					apValue = ap
+					apValue = T.tonumber(apValue)
+					apFound = true
+					break
+				end
+			end
 		end
-
-		if not (apFound) then
-			return nil
-		end
-
-		local apValue
-		if T.find(_G[tooltipName.."TextLeft"..apLineIndex]:GetText(), "(%d+)[,.%s](%d+)") then
-			apValue = T.gsub(strmatch(_G[tooltipName.."TextLeft"..apLineIndex]:GetText(), "(%d+[,.%s]%d+)"), "[,.%s]", "")
-			apValue = T.tonumber(apValue)
-		elseif T.find(_G[tooltipName.."TextLeft"..apLineIndex]:GetText(), "%d+") then
-			apValue = T.tonumber(strmatch(_G[tooltipName.."TextLeft"..apLineIndex]:GetText(), "%d+"))
-		end
-		if E.db.sle.bags.artifactPower.short then apValue = E:ShortValue(apValue) end
 		
-		return apValue
+		if (not apFound) then
+			apItemCache[slotLink] = false --Cache item as not granting AP
+		end
 	else
-		return nil
+		apItemCache[slotLink] = false --Cache item as not granting AP
 	end
+	
+	-- if E.db.sle.bags.artifactPower.short and apValue then apValue = E:ShortValue(apValue) end
+	return apValue
 end
 
 local function SlotUpdate(self, bagID, slotID)
@@ -69,7 +97,16 @@ local function SlotUpdate(self, bagID, slotID)
 			local ID = select(10, T.GetContainerItemInfo(bagID, slotID))
 			local slotLink = T.GetContainerItemLink(bagID,slotID)
 			if (ID and slotLink) then
-				arcanePower = GetItemLinkArtifactPower(slotLink)
+				local arcanePower
+				if apItemCache[slotLink] then
+					if apItemCache[slotLink] ~= false then
+						arcanePower = apItemCache[slotLink]
+					end
+				else
+					arcanePower = GetItemLinkArtifactPower(slotLink)
+					apItemCache[slotLink] = arcanePower
+				end
+				if E.db.sle.bags.artifactPower.short and arcanePower then arcanePower = E:ShortValue(arcanePower) end
 				frame.artifactpowerinfo:SetText(arcanePower)
 			end
 		end

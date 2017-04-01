@@ -1139,6 +1139,24 @@ end
 
 do --<< Artifact Monitor >>
 	local EnchantError, EnchantError_MainHand, EnchantError_SecondaryHand
+	local apItemCache = {}
+	local apStringValueMillion = {
+		["enUS"] = "(%d+)[%p%s]?[(%d+)]? million",
+		["enGB"] = "(%d+)[%p%s]?[(%d+)]? million",
+		["ptBR"] = "(%d+)[%p%s]?[(%d+)]? [[milhao][milhoes]]?",
+		["esMX"] = "(%d+)[%p%s]?[(%d+)]? [[millon][millones]]?",
+		["deDE"] = "(%d+)[%p%s]?[(%d+)]? [[Million][Millionen]]?",
+		["esES"] = "(%d+)[%p%s]?[(%d+)]? [[millon][millones]]?",
+		["frFR"] = "(%d+)[%p%s]?[(%d+)]? [[million][millions]]?",
+		["itIT"] = "(%d+)[%p%s]?[(%d+)]? [[milione][milioni]]?",
+		["ruRU"] = "(%d+)[%p%s]?[(%d+)]? млн",
+		["koKR"] = "(%d+)[%p%s]?[(%d+)]??",
+		["zhTW"] = "(%d+)[%p%s]?[(%d+)]??",
+		["zhCN"] = "(%d+)[%p%s]?[(%d+)]??",
+	}
+	local apStringValueMillionLocal = apStringValueMillion[GetLocale()]
+	local empoweringSpellName = GetSpellInfo(227907)
+
 	function CA:LegionArtifactMonitor_UpdateLayout()
 		if Legion_ArtifactData.ItemID then
 			self.SecondaryHandSlot.Gradation:SetAlpha(0)
@@ -1308,43 +1326,70 @@ do --<< Artifact Monitor >>
 						if GetItemInfo(PowerItemLink) then
 							-- print(GetItemInfo(PowerItemLink))
 							-- print(PowerItemLink)
-							self:ClearTooltip(self.ArtifactMonitor.ScanTT)
-							self.ArtifactMonitor.ScanTT:SetHyperlink(PowerItemLink)
-							SearchingPhase = 1
 							CurrentItemPower = 0
-							
-							for i = 1, self.ArtifactMonitor.ScanTT:NumLines() do
-								SearchingText = CleanString(_G['Knight_CharacterArmory_ArtifactScanTTTextLeft' .. i]:GetText())
-								
-								if SearchingPhase == 1 and SearchingText == ARTIFACT_POWER then
-									SearchingPhase = 2
-								elseif SearchingPhase == 2 and SearchingText:find(ITEM_SPELL_TRIGGER_ONUSE) then
-									CurrentItemPower = T.gsub(strmatch(SearchingText, "(%d+[,.%s]%d+)"), "[,.%s]", "")
-									CurrentItemPower = T.tonumber(CurrentItemPower)
-									TotalPower = TotalPower + CurrentItemPower
-									
+							if apItemCache[PowerItemLink] then
+								if apItemCache[PowerItemLink] ~= false then
+									CurrentItemPower = apItemCache[PowerItemLink]
 									if not LowestPower or LowestPower > CurrentItemPower then
 										LowestPower = CurrentItemPower
 										LowestPower_BagID = BagID
 										LowestPower_SlotID = SlotID
 										LowestPower_Link = PowerItemLink
 									end
-									
-									break
+								end
+							else
+								local itemSpell = GetItemSpell(PowerItemLink)
+								if itemSpell and itemSpell == empoweringSpellName then
+									self:ClearTooltip(self.ArtifactMonitor.ScanTT)
+									local success = pcall(self.ArtifactMonitor.ScanTT.SetHyperlink, self.ArtifactMonitor.ScanTT, PowerItemLink)
+									if success then
+										local apFound
+										for i = 4,5 do
+											local tooltipText = _G["Knight_CharacterArmory_ArtifactScanTTTextLeft"..i]:GetText()
+											if tooltipText then
+												local digit1, digit2, digit3, ap
+												if T.match(tooltipText, apStringValueMillionLocal) then
+													digit1, digit2 = T.match(tooltipText, apStringValueMillionLocal)
+													if digit2 then
+														ap = T.tonumber(T.format("%s.%s", digit1, digit2)) * 1e6 --Multiply by one million
+													else
+														ap = T.tonumber(digit1) * 1e6 --Multiply by one million
+													end
+												else
+													digit1, digit2, digit3 = T.match(tooltipText,"(%d+)[%p%s]?(%d+)[%p%s]?(%d+)")
+													ap = T.tonumber(T.format("%s%s%s", digit1 or "", digit2 or "", (digit2 and digit3) and digit3 or ""))
+												end
+												
+												if ap then
+													CurrentItemPower = ap
+													CurrentItemPower = T.tonumber(CurrentItemPower)
+													apItemCache[PowerItemLink] = CurrentItemPower
+													apFound = true
+													if not LowestPower or LowestPower > CurrentItemPower then
+														LowestPower = CurrentItemPower
+														LowestPower_BagID = BagID
+														LowestPower_SlotID = SlotID
+														LowestPower_Link = PowerItemLink
+													end
+													break
+												end
+											end
+										end
+										
+										if (not apFound) then
+											apItemCache[PowerItemLink] = false --Cache item as not granting AP
+										end
+									end
+								else
+									apItemCache[PowerItemLink] = false --Cache item as not granting AP
 								end
 							end
-							
-							if SearchingPhase == 2 and not (LowestPower and LowestPower > 0) then
-								LowestPower = CurrentItemPower
-								LowestPower_BagID = BagID
-								LowestPower_SlotID = SlotID
-								LowestPower_Link = PowerItemLink
-							end
+							TotalPower = TotalPower + CurrentItemPower
 						end
 					end
 				end
 			end
-			
+
 			if LowestPower then
 				self.ArtifactMonitor.AddPower.Texture:Show()
 				self.ArtifactMonitor.AddPower.Button.Link = LowestPower_Link
