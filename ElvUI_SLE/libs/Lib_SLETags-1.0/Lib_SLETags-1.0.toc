@@ -1,0 +1,8 @@
+## Interface: 70200
+## Title: Lib_SLETags-1.0
+## Notes: Tag system for S&L.
+## Author: Darth Predator, sortokk
+## Version: 1.0.0
+## Dependencies: oUF
+
+Lib_SLETags-1.0.lua
