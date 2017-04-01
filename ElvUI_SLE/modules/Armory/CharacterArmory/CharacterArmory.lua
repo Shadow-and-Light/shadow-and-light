@@ -492,7 +492,7 @@ function CA:Setup_CharacterArmory()
 	-- 	_G["PawnUI_InventoryPawnButton"]:SetPoint('BOTTOMRIGHT', _G["PaperDollFrame"], 'BOTTOMRIGHT', 0, 0)
 	-- end
 
-	do -- Legion : Artifact Weapon Monitor
+	if E.private.sle.Armory.UseArtMonitor then -- Legion : Artifact Weapon Monitor
 		self.ArtifactMonitor = CreateFrame('Frame', nil, self)
 		self.ArtifactMonitor:SetFrameLevel(CharacterFrame_Level + 2)
 		self.ArtifactMonitor:Height(41)
@@ -772,7 +772,7 @@ function CA:Update_Gear()
 	local Slot, ItemLink, ItemData, BasicItemLevel, TrueItemLevel, ItemUpgradeID, CurrentUpgrade, MaxUpgrade, ItemType, UsableEffect, CurrentLineText, GemID, GemLink, GemTexture, GemCount_Default, GemCount_Now, GemCount, IsTransmogrified
 
 	Artifact_ItemID, _, _, _, Artifact_Power, Artifact_Rank = C_ArtifactUI.GetEquippedArtifactInfo()
-	if not self.ArtifactMonitor.Socket1 then CA:ConstructArtSockets() end
+	if self.ArtifactMonitor and not self.ArtifactMonitor.Socket1 then CA:ConstructArtSockets() end
 
 	for _, SlotName in T.pairs(T.type(self.GearUpdated) == 'table' and self.GearUpdated or Info.Armory_Constants.GearList) do
 		Slot = self[SlotName]
@@ -836,25 +836,26 @@ function CA:Update_Gear()
 							wipe(Legion_ArtifactData)
 						end
 							
-						ArtifactMonitor_RequireUpdate = true
+						if self.ArtifactMonitor then ArtifactMonitor_RequireUpdate = true end
 					end
 
 					do --<< Gem Parts >>--
 						GemCount_Default, GemCount_Now, GemCount = 0, 0, 0
 							
 						-- First, Counting default gem sockets
-						if Legion_ArtifactData.ItemID and Legion_ArtifactData.MajorSlot == SlotName then
+						if self.ArtifactMonitor and Legion_ArtifactData.ItemID and Legion_ArtifactData.MajorSlot == SlotName then
 							Slot.GemCount_Enable = C_ArtifactUI.GetEquippedArtifactNumRelicSlots()
 								
 							self:ClearTooltip(self.ScanTT)
 							self.ScanTT:SetInventoryItem('player', Slot.ID)
 							
 							for i = 1, Slot.GemCount_Enable do
-								LockedReason, _, GemTexture, GemLink = C_ArtifactUI.GetEquippedArtifactRelicInfo(i)
+								LockedReason = C_ArtifactUI.GetRelicLockedReason(i)
+								_, _, _, GemLink = C_ArtifactUI.GetEquippedArtifactRelicInfo(i)
 								if GemLink then GemTexture = T.select(10, T.GetItemInfo(GemLink)) end
 								GemID = Info.Armory_Constants.ArtifactType[Legion_ArtifactData.ItemID][i]
 								R, G, B = unpack(Info.Armory_Constants.GemColor[GemID])
-								-- if not LockedReason then
+								if not LockedReason and GemLink then
 									GemCount_Now = GemCount_Now + 1
 
 									self.ArtifactMonitor['Socket'..i].Texture:SetTexture(GemTexture)
@@ -877,15 +878,15 @@ function CA:Update_Gear()
 											Slot['Socket'..i].Socket.Message = format(RELIC_TOOLTIP_TYPE, E:RGBToHex(R, G, B).._G['RELIC_SLOT_TYPE_'..GemID])
 										end
 									end
-								-- else
-									-- Slot.GemCount_Enable = Slot.GemCount_Enable - 1
-									-- if self.ArtifactMonitor['Socket'..i].Socket.Message then
-										-- self.ArtifactMonitor['Socket'..i].Socket.Message = format(LOCKED_RELIC_TOOLTIP_TITLE, E:RGBToHex(R, G, B).._G['RELIC_SLOT_TYPE_'..GemID])..'|r|n'..LockedReason
-										-- Slot['Socket'..i].Socket.Message = format(LOCKED_RELIC_TOOLTIP_TITLE, E:RGBToHex(R, G, B).._G['RELIC_SLOT_TYPE_'..GemID])..'|r|n'..LockedReason
-									-- end
-									-- self.ArtifactMonitor['Socket'..i].Socket:SetBackdropColor(0, 0, 0, .5)
-									-- Slot['Socket'..i].Socket:SetBackdropColor(0, 0, 0, .5)
-								-- end
+								else
+									Slot.GemCount_Enable = Slot.GemCount_Enable - 1
+									if self.ArtifactMonitor['Socket'..i].Socket.Message then
+										self.ArtifactMonitor['Socket'..i].Socket.Message = format(LOCKED_RELIC_TOOLTIP_TITLE, E:RGBToHex(R, G, B).._G['RELIC_SLOT_TYPE_'..GemID])..'|r|n'..LockedReason
+										Slot['Socket'..i].Socket.Message = format(LOCKED_RELIC_TOOLTIP_TITLE, E:RGBToHex(R, G, B).._G['RELIC_SLOT_TYPE_'..GemID])..'|r|n'..LockedReason
+									end
+									self.ArtifactMonitor['Socket'..i].Socket:SetBackdropColor(0, 0, 0, .5)
+									Slot['Socket'..i].Socket:SetBackdropColor(0, 0, 0, .5)
+								end
 									
 								self.ArtifactMonitor['Socket'..i].Socket:SetBackdropBorderColor(R, G, B)
 								self.ArtifactMonitor['Socket'..i].GemType = GemID
@@ -1131,7 +1132,7 @@ function CA:Update_Gear()
 	
 	self.GearUpdated = true
 
-	if ArtifactMonitor_RequireUpdate then
+	if self.ArtifactMonitor and ArtifactMonitor_RequireUpdate then
 		CA:LegionArtifactMonitor_UpdateLayout()
 	end
 end
@@ -1536,7 +1537,7 @@ function CA:UpdateSettings(part)
 		_G["CharacterArmory"]:Update_Gear()
 		_G["CharacterArmory"]:Update_Display(true)
 	end
-	if part == "art" or part == "all" then
+	if (part == "art" or part == "all") and self.ArtifactMonitor then
 		_G["CharacterArmory"].ArtifactMonitor.TraitRank:FontTemplate(E.LSM:Fetch('font', db.Artifact.Font),db.Artifact.FontSize,db.Artifact.FontStyle)
 		_G["CharacterArmory"].ArtifactMonitor.PowerTitle:FontTemplate(E.LSM:Fetch('font', db.Artifact.Font),db.Artifact.FontSize,db.Artifact.FontStyle)
 		_G["CharacterArmory"].ArtifactMonitor.CurrentPower:FontTemplate(E.LSM:Fetch('font', db.Artifact.Font),db.Artifact.FontSize,db.Artifact.FontStyle)
@@ -1549,7 +1550,7 @@ function CA:UpdateSettings(part)
 end
 
 function CA:UpdateIlvlFont()
-	local db = E.db.sle.Armory.Character.ItemLevel
+	local db = E.db.sle.Armory.Character.Stats.ItemLevel
 	_G["CharacterStatsPane"].ItemLevelFrame.Value:FontTemplate(E.LSM:Fetch('font', db.font), db.size or 12, db.outline)
 	_G["CharacterStatsPane"].ItemLevelFrame:SetHeight((db.size or 12) + 4)
 	_G["CharacterStatsPane"].ItemLevelFrame.Background:SetHeight((db.size or 12) + 4)
@@ -1614,10 +1615,12 @@ KF.Modules.CharacterArmory = function()
 		CA:RegisterEvent('COMBAT_LOG_EVENT_UNFILTERED')
 		CA:RegisterEvent('UPDATE_INVENTORY_DURABILITY')
 		CA:RegisterEvent('PLAYER_ENTERING_WORLD')
-		CA.ArtifactMonitor:RegisterEvent('ARTIFACT_UPDATE')
-		CA.ArtifactMonitor:RegisterEvent('ARTIFACT_XP_UPDATE')
-		CA.ArtifactMonitor:RegisterEvent('BAG_UPDATE')
-		CA.ArtifactMonitor:RegisterEvent('PLAYER_ENTERING_WORLD')
+		if CA.ArtifactMonitor then
+			CA.ArtifactMonitor:RegisterEvent('ARTIFACT_UPDATE')
+			CA.ArtifactMonitor:RegisterEvent('ARTIFACT_XP_UPDATE')
+			CA.ArtifactMonitor:RegisterEvent('BAG_UPDATE')
+			CA.ArtifactMonitor:RegisterEvent('PLAYER_ENTERING_WORLD')
+		end
 		
 		--[[
 		KF_KnightArmory.CheckButton:Show()
@@ -1654,7 +1657,7 @@ KF.Modules.CharacterArmory = function()
 		-- Turn off ArmoryFrame
 		CA:Hide()
 		CA:UnregisterAllEvents()
-		CA.ArtifactMonitor:UnregisterAllEvents()
+		if CA.ArtifactMonitor then CA.ArtifactMonitor:UnregisterAllEvents() end
 		
 		--[[
 		KF_KnightArmory.CheckButton:Hide()
@@ -1674,9 +1677,11 @@ KF.Modules.CharacterArmory = function()
 		PaperDollFrame.ExpandButton:SetSize(32, 32)
 		return
 	end
+
 	--Resize and reposition god damned ilevel text
 	_G["CharacterStatsPane"].ItemLevelFrame:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelCategory, "BOTTOM", 0, 6)
 	CA:UpdateIlvlFont()
+
 	hooksecurefunc("PaperDollFrame_UpdateStats", CA.PaperDollFrame_UpdateStats)
 	-- PaperDollFrame_UpdateStats = CA.PaperDollFrame_UpdateStats()
 	CA:ToggleStats()

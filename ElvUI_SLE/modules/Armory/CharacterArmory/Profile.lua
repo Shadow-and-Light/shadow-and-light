@@ -11,12 +11,6 @@ P.sle.Armory.Character = {
 	NoticeMissing = true,
 	MissingIcon = true,
 	
-	ItemLevel = {
-		font = "PT Sans Narrow",
-		size = 12,
-		outline = "NONE",
-	},
-	
 	Backdrop = {
 		SelectedBG = 'Space',
 		CustomAddress = '',
@@ -68,6 +62,11 @@ P.sle.Armory.Character = {
 		IlvlColor = false,
 		AverageColor = {r = 0, g = 1, b = .59},
 		OnlyPrimary = true,
+		ItemLevel = {
+			font = "PT Sans Narrow",
+			size = 12,
+			outline = "NONE",
+		},
 		List = {
 			HEALTH = false,
 			POWER = false,

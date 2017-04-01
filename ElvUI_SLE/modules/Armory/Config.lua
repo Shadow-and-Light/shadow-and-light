@@ -324,11 +324,11 @@ local function LoadArmoryConfigTable()
 						},
 						IlvlFont = {
 							type = 'group',
-							name = L["Font"],
+							name = L["Item Level"],
 							order = 5,
 							guiInline = true,
-							get = function(info) return E.db.sle.Armory.Character.ItemLevel[ info[#info] ] end,
-							set = function(info, value) E.db.sle.Armory.Character.ItemLevel[ info[#info] ] = value; _G["CharacterArmory"]:UpdateIlvlFont() end,
+							get = function(info) return E.db.sle.Armory.Character.Stats.ItemLevel[ info[#info] ] end,
+							set = function(info, value) E.db.sle.Armory.Character.Stats.ItemLevel[ info[#info] ] = value; _G["CharacterArmory"]:UpdateIlvlFont() end,
 							args = {
 								font = {
 									type = 'select', dialogControl = 'LSM30_Font',
@@ -349,7 +349,7 @@ local function LoadArmoryConfigTable()
 									name = L["Font Outline"],
 									order = 3,
 									values = FontStyleList,
-								}
+								},
 							},
 						},
 						Stats = {
@@ -636,32 +636,39 @@ local function LoadArmoryConfigTable()
 					get = function(info) return E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] end,
 					set = function(info, value) E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] = value; _G["CharacterArmory"]:UpdateSettings("art") end,
 					args = {
+						Enable = {
+							type = "toggle",
+							order = 1,
+							name = L["Enable"],
+							get = function(info) return E.private.sle.Armory.UseArtMonitor end,
+							set = function(info, value) E.private.sle.Armory.UseArtMonitor = value; E:StaticPopup_Show("PRIVATE_RL") end,
+						},
 						Font = {
 							type = 'select', dialogControl = 'LSM30_Font',
 							name = L["Font"],
-							order = 1,
+							order = 2,
 							values = function() return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {} end,
-							disabled = function() return E.db.sle.Armory.Character.Enable == false end
+							disabled = function() return E.db.sle.Armory.Character.Enable == false or E.private.sle.Armory.UseArtMonitor == false end,
 						},
 						FontSize = {
 							type = 'range',
 							name = L["Font Size"],
-							order = 2,
+							order = 3,
 							min = 6, max = 22, step = 1,
-							disabled = function() return E.db.sle.Armory.Character.Enable == false end
+							disabled = function() return E.db.sle.Armory.Character.Enable == false or E.private.sle.Armory.UseArtMonitor == false end,
 						},
 						FontStyle = {
 							type = 'select',
 							name = L["Font Outline"],
-							order = 3,
+							order = 4,
 							values = FontStyleList,
-							disabled = function() return E.db.sle.Armory.Character.Enable == false end
+							disabled = function() return E.db.sle.Armory.Character.Enable == false or E.private.sle.Armory.UseArtMonitor == false end,
 						},
 						ShortValues = {
-							order = 4,
+							order = 5,
 							type = "toggle",
 							name = L["Short text"],
-							disabled = function() return E.db.sle.Armory.Character.Enable == false end
+							disabled = function() return E.db.sle.Armory.Character.Enable == false or E.private.sle.Armory.UseArtMonitor == false end,
 						},
 					},
 				},
