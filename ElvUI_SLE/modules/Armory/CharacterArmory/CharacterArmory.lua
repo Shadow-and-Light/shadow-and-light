@@ -1141,18 +1141,18 @@ do --<< Artifact Monitor >>
 	local EnchantError, EnchantError_MainHand, EnchantError_SecondaryHand
 	local apItemCache = {}
 	local apStringValueMillion = {
-		["enUS"] = "(%d+)[%p%s]?[(%d+)]? million",
-		["enGB"] = "(%d+)[%p%s]?[(%d+)]? million",
-		["ptBR"] = "(%d+)[%p%s]?[(%d+)]? [[milhao][milhoes]]?",
-		["esMX"] = "(%d+)[%p%s]?[(%d+)]? [[millon][millones]]?",
-		["deDE"] = "(%d+)[%p%s]?[(%d+)]? [[Million][Millionen]]?",
-		["esES"] = "(%d+)[%p%s]?[(%d+)]? [[millon][millones]]?",
-		["frFR"] = "(%d+)[%p%s]?[(%d+)]? [[million][millions]]?",
-		["itIT"] = "(%d+)[%p%s]?[(%d+)]? [[milione][milioni]]?",
-		["ruRU"] = "(%d+)[%p%s]?[(%d+)]? млн",
-		["koKR"] = "(%d+)[%p%s]?[(%d+)]??",
-		["zhTW"] = "(%d+)[%p%s]?[(%d+)]??",
-		["zhCN"] = "(%d+)[%p%s]?[(%d+)]??",
+		["enUS"] = "(%d*%.?%d+) million",
+		["enGB"] = "(%d*%.?%d+) million",
+		["ptBR"] = "(%d*%.?%d+) [[milhao][milhoes]]?",
+		["esMX"] = "(%d*%.?%d+) [[millon][millones]]?",
+		["deDE"] = "(%d*%.?%d+) [[Million][Millionen]]?",
+		["esES"] = "(%d*%.?%d+) [[millon][millones]]?",
+		["frFR"] = "(%d*%.?%d+) [[million][millions]]?",
+		["itIT"] = "(%d*%.?%d+) [[milione][milioni]]?",
+		["ruRU"] = "(%d*%.?%d+) млн",
+		["koKR"] = "(%d*%.?%d+)?",
+		["zhTW"] = "(%d*%.?%d+)?",
+		["zhCN"] = "(%d*%.?%d+)?",
 	}
 	local apStringValueMillionLocal = apStringValueMillion[GetLocale()]
 	local empoweringSpellName = GetSpellInfo(227907)
@@ -1344,13 +1344,14 @@ do --<< Artifact Monitor >>
 									local success = pcall(self.ArtifactMonitor.ScanTT.SetHyperlink, self.ArtifactMonitor.ScanTT, PowerItemLink)
 									if success then
 										local apFound
-										for i = 4,5 do
+										for i = 5, 1, -1 do
 											local tooltipText = _G["Knight_CharacterArmory_ArtifactScanTTTextLeft"..i]:GetText()
 											if tooltipText then
 												local digit1, digit2, digit3, ap
-												if T.match(tooltipText, apStringValueMillionLocal) then
-													digit1, digit2 = T.match(tooltipText, apStringValueMillionLocal)
-													if digit2 then
+												local value = T.match(tooltipText, apStringValueMillionLocal)
+												if value then
+													digit1, digit2 = T.match(value, "(%d+)[%p%s](%d+)")
+													if digit1 and digit2 then
 														ap = T.tonumber(T.format("%s.%s", digit1, digit2)) * 1e6 --Multiply by one million
 													else
 														ap = T.tonumber(digit1) * 1e6 --Multiply by one million
