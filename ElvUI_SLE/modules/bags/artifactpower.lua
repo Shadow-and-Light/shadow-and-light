@@ -44,20 +44,21 @@ local function GetItemLinkArtifactPower(slotLink)
 			if tooltipText then
 				local digit1, digit2, digit3, ap
 				local value = T.match(tooltipText, apStringValueMillionLocal)
+
 				if value then
 					-- digit1, digit2 = T.match(tooltipText, apStringValueMillionLocal)
 					digit1, digit2 = T.match(value, "(%d+)[%p%s](%d+)")
 					if digit1 and digit2 then
 						ap = T.tonumber(T.format("%s.%s", digit1, digit2)) * 1e6 --Multiply by one million
 					else
-						ap = T.tonumber(digit1) * 1e6 --Multiply by one million
+						ap = T.tonumber(value) * 1e6 --Multiply by one million
 					end
 				else
 					-- digit1, digit2, digit3 = T.match(tooltipText,"(%d+)[%p%s]?(%d+)[%p%s]?(%d+)")
 					digit1, digit2, digit3 = T.match(tooltipText,"(%d+)[%p%s]?(%d+)[%p%s]?(%d+)")
 					ap = T.tonumber(T.format("%s%s%s", digit1 or "", digit2 or "", (digit2 and digit3) and digit3 or ""))
 				end
-				
+
 				if ap then
 					apValue = ap
 					apValue = T.tonumber(apValue)
@@ -66,14 +67,14 @@ local function GetItemLinkArtifactPower(slotLink)
 				end
 			end
 		end
-		
+
 		if (not apFound) then
 			apItemCache[slotLink] = false --Cache item as not granting AP
 		end
 	else
 		apItemCache[slotLink] = false --Cache item as not granting AP
 	end
-	
+
 	-- if E.db.sle.bags.artifactPower.short and apValue then apValue = E:ShortValue(apValue) end
 	return apValue
 end
