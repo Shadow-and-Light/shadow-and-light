@@ -1,4 +1,4 @@
-v3.22 04/09/17
+v3.22 04/09/17 
 Fixes:
 - Fixed error in enhnced shadows module caused by microbar being disabled
 - Fixed icon borders being off
