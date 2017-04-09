@@ -72,11 +72,14 @@ local DungeonRaid = {
 	1166, --Timewarped Badge
 	1191, -- Valor
 	1273, --Seal of Broken Fate
+	1314, --Lingering soul fragment
 }
 
 local PvPPoints = {
 	391, -- Tol Barad
 	1149, --Sightless Eye
+	1356, --Echoes of battle
+	1357, --Echoes of domination
 }
 
 local MiscellaneousCurrency = {
@@ -96,6 +99,7 @@ local MiscellaneousCurrency = {
 	1155, --Ancient Mana
 	1154, --Shadowy Coins
 	1268, --Timeworn Artifact
+	1342, --Legionfall war supplies
 }
 
 local HordeColor = RAID_CLASS_COLORS["DEATHKNIGHT"]
@@ -144,9 +148,9 @@ end
 local function SortGold(a,b)
 	local method = E.db.sle.dt.currency.gold.method
 	if E.db.sle.dt.currency.gold.direction == "normal" then
-		return a[method] < b[method]
-	else
 		return a[method] > b[method]
+	else
+		return a[method] < b[method]
 	end
 end
 
