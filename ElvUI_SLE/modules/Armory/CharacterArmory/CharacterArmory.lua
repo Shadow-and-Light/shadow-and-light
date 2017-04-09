@@ -1,4 +1,4 @@
-if select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_KnightFrame') then return end
+﻿if select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_KnightFrame') then return end
 
 local _G = _G
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
@@ -1141,18 +1141,18 @@ do --<< Artifact Monitor >>
 	local EnchantError, EnchantError_MainHand, EnchantError_SecondaryHand
 	local apItemCache = {}
 	local apStringValueMillion = {
-		["enUS"] = "(%d*%.?%d+) million",
-		["enGB"] = "(%d*%.?%d+) million",
-		["ptBR"] = "(%d*%.?%d+) [[milhao][milhoes]]?",
-		["esMX"] = "(%d*%.?%d+) [[millon][millones]]?",
-		["deDE"] = "(%d*%.?%d+) [[Million][Millionen]]?",
-		["esES"] = "(%d*%.?%d+) [[millon][millones]]?",
-		["frFR"] = "(%d*%.?%d+) [[million][millions]]?",
-		["itIT"] = "(%d*%.?%d+) [[milione][milioni]]?",
-		["ruRU"] = "(%d*%.?%d+) ���",
-		["koKR"] = "(%d*%.?%d+)?",
-		["zhTW"] = "(%d*%.?%d+)?",
-		["zhCN"] = "(%d*%.?%d+)?",
+		["enUS"] = "(%d*[%p%s]?%d+) million",
+		["enGB"] = "(%d*[%p%s]?%d+) million",
+		["ptBR"] = "(%d*[%p%s]?%d+) [[milhão][milhões]]?",
+		["esMX"] = "(%d*[%p%s]?%d+) [[millón][millones]]?",
+		["deDE"] = "(%d*[%p%s]?%d+) [[Million][Millionen]]?",
+		["esES"] = "(%d*[%p%s]?%d+) [[millón][millones]]?",
+		["frFR"] = "(%d*[%p%s]?%d+) [[million][millions]]?",
+		["itIT"] = "(%d*[%p%s]?%d+) [[milione][milioni]]?",
+		["ruRU"] = "(%d*[%p%s]?%d+) млн",
+		["koKR"] = "(%d*[%p%s]?%d+)만",
+		["zhTW"] = "(%d*[%p%s]?%d+)萬",
+		["zhCN"] = "(%d*[%p%s]?%d+)万",
 	}
 	local apStringValueMillionLocal = apStringValueMillion[GetLocale()]
 	local empoweringSpellName = GetSpellInfo(227907)
