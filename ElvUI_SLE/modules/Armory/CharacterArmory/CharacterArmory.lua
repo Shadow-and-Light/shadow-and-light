@@ -1354,7 +1354,7 @@ do --<< Artifact Monitor >>
 													if digit1 and digit2 then
 														ap = T.tonumber(T.format("%s.%s", digit1, digit2)) * 1e6 --Multiply by one million
 													else
-														ap = T.tonumber(digit1) * 1e6 --Multiply by one million
+														ap = T.tonumber(value) * 1e6 --Multiply by one million
 													end
 												else
 													digit1, digit2, digit3 = T.match(tooltipText,"(%d+)[%p%s]?(%d+)[%p%s]?(%d+)")
