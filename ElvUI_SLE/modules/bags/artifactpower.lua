@@ -15,16 +15,16 @@ local apItemCache = {}
 local apStringValueMillion = {
 	["enUS"] = "(%d*[%p%s]?%d+) million",
 	["enGB"] = "(%d*[%p%s]?%d+) million",
-	["ptBR"] = "(%d*[%p%s]?%d+) [[milhao][milhoes]]?",
-	["esMX"] = "(%d*[%p%s]?%d+) [[millon][millones]]?",
+	["ptBR"] = "(%d*[%p%s]?%d+) [[milhão][milhões]]?",
+	["esMX"] = "(%d*[%p%s]?%d+) [[millón][millones]]?",
 	["deDE"] = "(%d*[%p%s]?%d+) [[Million][Millionen]]?",
-	["esES"] = "(%d*[%p%s]?%d+) [[millon][millones]]?",
+	["esES"] = "(%d*[%p%s]?%d+) [[millón][millones]]?",
 	["frFR"] = "(%d*[%p%s]?%d+) [[million][millions]]?",
 	["itIT"] = "(%d*[%p%s]?%d+) [[milione][milioni]]?",
 	["ruRU"] = "(%d*[%p%s]?%d+) млн",
-	["koKR"] = "(%d*[%p%s]?%d+)?",
-	["zhTW"] = "(%d*[%p%s]?%d+)?",
-	["zhCN"] = "(%d*[%p%s]?%d+)?",
+	["koKR"] = "(%d*[%p%s]?%d+)만",
+	["zhTW"] = "(%d*[%p%s]?%d+)萬",
+	["zhCN"] = "(%d*[%p%s]?%d+)万",
 }
 local apStringValueMillionLocal = apStringValueMillion[GetLocale()]
 local function GetItemLinkArtifactPower(slotLink)
