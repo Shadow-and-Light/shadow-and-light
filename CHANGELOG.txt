@@ -1,9 +1,11 @@
-v3.22
+v3.22 04/09/17
 Fixes:
 - Fixed error in enhnced shadows module caused by microbar being disabled
 - Fixed icon borders being off
+- Fixed AP calculation in Armory and bags
 Additions:
 - Added an option to hide artifact monitor in armory. This is character based
+- Added missing currencies in the datatext
 Changes:
 - Settings for item level fonts in stats display of the armory being altered. All the changes for that options made previously will be reset.
 
