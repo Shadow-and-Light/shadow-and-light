@@ -431,6 +431,7 @@ L["Normal"] = "Нормальная"
 L["Reversed"] = "Обратная"
 L["Amount"] = "Количество"
 L["Order of each toon. Smaller numbers will go first"] = "Порядок персонажей. Показ в порядке возрастания номера."
+L["Tracked"] = "Отслеживание"
 
 --Enhnced Shadows
 L["Enhanced Shadows"] = "Улучшенные тени"

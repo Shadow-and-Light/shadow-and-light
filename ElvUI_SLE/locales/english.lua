@@ -441,6 +441,7 @@ L["Normal"] = true
 L["Reversed"] = true
 L["Amount"] = true
 L["Order of each toon. Smaller numbers will go first"] = true
+L["Tracked"] = true
 
 --Enhnced Shadows
 L["Enhanced Shadows"] = true
