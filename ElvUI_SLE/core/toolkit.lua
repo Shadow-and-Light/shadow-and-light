@@ -205,11 +205,6 @@ T.BNGetGameAccountInfo = BNGetGameAccountInfo --6.2.4
 T.BNGetFriendIndex = BNGetFriendIndex
 T.GetFriendInfo = GetFriendInfo
 T.GetNumFriends = GetNumFriends
---Equip
-T.UseEquipmentSet = UseEquipmentSet
-T.GetEquipmentSetInfo = GetEquipmentSetInfo
-T.GetNumEquipmentSets = GetNumEquipmentSets
-T.GetEquipmentSetLocations = GetEquipmentSetLocations
 --Quests
 T.GetQuestLogTitle = GetQuestLogTitle
 T.GetNumQuestLogEntries = GetNumQuestLogEntries

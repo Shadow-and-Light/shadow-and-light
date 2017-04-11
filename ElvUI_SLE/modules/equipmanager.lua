@@ -4,6 +4,10 @@ local GetRealZoneText = GetRealZoneText
 EM.Processing = false
 EM.ErrorShown = false
 
+--GLOBALS: CreateFrame, CharacterFrame, SLASH_FISH1, SlashCmdList
+local C_EquipmentSet = C_EquipmentSet
+local _G = _G
+
 local SpecTable = {
 	[1] = "firstSpec",
 	[2] = "secondSpec",
@@ -14,8 +18,9 @@ local SpecTable = {
 function EM:GetData()
 	local spec = T.GetSpecialization()
 	local equipSet
-	for i = 1, T.GetNumEquipmentSets() do
-		local name, _, _, isEquipped = T.GetEquipmentSetInfo(i)
+	local equipmentSetIDs = C_EquipmentSet.GetEquipmentSetIDs()
+	for index = 1, C_EquipmentSet.GetNumEquipmentSets() do
+		local name, _, _, isEquipped = C_EquipmentSet.GetEquipmentSetInfo(equipmentSetIDs[index]);
 		if isEquipped then
 			equipSet = name
 			break
@@ -36,7 +41,7 @@ end
 local TIMEWALKING_DIFFICULTYID = 24;
 
 function EM:IsTimewalkingDungeon(inInstance, instanceType)
-	if inInstance and (instanceType ==  "scenario" or instanceType == "party" or instanceType == "raid") and select(3, GetInstanceInfo()) == TIMEWALKING_DIFFICULTYID then
+	if inInstance and (instanceType ==  "scenario" or instanceType == "party" or instanceType == "raid") and T.select(3, T.GetInstanceInfo()) == TIMEWALKING_DIFFICULTYID then
 		return true
 	end
 	return false
@@ -115,7 +120,8 @@ local function Equip(event)
 	if spec ~= nil then --In case you don't have spec
 		local isWrong, trueSet = EM:WrongSet(equipSet, SpecTable[spec], inCombat)
 		if isWrong and not T.UnitInVehicle("player") then
-			T.UseEquipmentSet(trueSet)
+			local SetID = C_EquipmentSet.GetEquipmentSetID(trueSet);
+			C_EquipmentSet.UseEquipmentSet(SetID)
 		end
 	end
 end
@@ -125,14 +131,14 @@ function EM:CreateLock()
 	local button = CreateFrame("Button", "SLE_Equip_Lock_Button", CharacterFrame)
 	button:Size(20, 20)
 	button:Point("BOTTOMLEFT", _G["CharacterFrame"], "BOTTOMLEFT", 4, 4)
-	button:SetFrameLevel(CharacterModelFrame:GetFrameLevel() + 2)
+	button:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() + 2)
 	button:SetScript("OnEnter", function(self)
-		GameTooltip:SetOwner(self)
-		GameTooltip:AddLine(L["SLE_EM_LOCK_TOOLTIP"])
-		GameTooltip:Show()
+		_G["GameTooltip"]:SetOwner(self)
+		_G["GameTooltip"]:AddLine(L["SLE_EM_LOCK_TOOLTIP"])
+		_G["GameTooltip"]:Show()
 	end)
 	button:SetScript("OnLeave", function(self)
-		GameTooltip:Hide() 
+		_G["GameTooltip"]:Hide() 
 	end)
 	E:GetModule("Skins"):HandleButton(button)
 

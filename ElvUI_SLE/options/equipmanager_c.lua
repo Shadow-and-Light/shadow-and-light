@@ -10,12 +10,15 @@ local GENERAL = GENERAL
 local TIMEWALKING = L["Timewalking"]
 
 local sets = {}
+local C_EquipmentSet = C_EquipmentSet
 
 local function FillTable()
-	sets = {}
+
+	T.twipe(sets)
 	sets["NONE"] = NONE
-	for i = 1, T.GetNumEquipmentSets() do
-		local name, icon, lessIndex = T.GetEquipmentSetInfo(i)
+	local equipmentSetIDs = C_EquipmentSet.GetEquipmentSetIDs()
+	for index = 1, C_EquipmentSet.GetNumEquipmentSets() do
+		local name, icon, lessIndex = C_EquipmentSet.GetEquipmentSetInfo(equipmentSetIDs[index])
 		if name then
 			sets[name] = name
 		end

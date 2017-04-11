@@ -9,6 +9,7 @@ BI.containers = {}
 BI.infoArray = {}
 BI.equipmentMap = {}
 local EquipmentManager_UnpackLocation = EquipmentManager_UnpackLocation
+local C_EquipmentSet = C_EquipmentSet
 
 local function Utf8Sub(str, start, numChars)
 	local currentIndex = start
@@ -51,11 +52,13 @@ local function BuildEquipmentMap(clear)
 	if clear then return end
 
 	local name, player, bank, bags, slot, bag, key
+	local equipmentSetIDs = C_EquipmentSet.GetEquipmentSetIDs()
 
-	for i = 1, T.GetNumEquipmentSets() do
-		name = T.GetEquipmentSetInfo(i)
-		T.GetEquipmentSetLocations(name, BI.infoArray)
-		for _, location in T.pairs(BI.infoArray) do
+	for index = 1, C_EquipmentSet.GetNumEquipmentSets() do
+		name = C_EquipmentSet.GetEquipmentSetInfo(equipmentSetIDs[index]);
+		local equipmentSetID = C_EquipmentSet.GetEquipmentSetID(name)
+		local SetInfoTable = C_EquipmentSet.GetItemLocations(equipmentSetID)
+		for _, location in T.pairs(SetInfoTable) do
 			if T.type(location) == "number" and (location < -1 or location > 1) then
 				player, bank, bags, _, slot, bag = EquipmentManager_UnpackLocation(location)
 				if ((bank or bags) and slot and bag) then
