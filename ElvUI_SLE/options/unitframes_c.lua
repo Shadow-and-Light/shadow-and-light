@@ -56,6 +56,52 @@ local function configTable()
 		}
 		return config
 	end
+	
+	local function CreateAurasConfig(unitID)
+		local config = {
+			order = 6,
+			name = L["Auras"],
+			type = "group",
+			guiInline = true,
+			args = {
+				buffs = {
+					order = 1,
+					type = "group",
+					guiInline = true,
+					name = L["Buffs"],
+					get = function(info) return E.db.sle.unitframes.unit[unitID].auras.buffs[ info[#info] ] end,
+					set = function(info, value) E.db.sle.unitframes.unit[unitID].auras.buffs[ info[#info] ] = value; end,
+					args = {
+						threshold = {
+							type = "range",
+							order = 1,
+							name = L["Low Threshold"],
+							desc = L["Threshold before text turns red and is in decimal form. Set to -1 for it to never turn red"],
+							min = -1, max = 20, step = 1,
+						},
+					},
+				},
+				debuffs = {
+					order = 2,
+					type = "group",
+					guiInline = true,
+					name = L["Debuffs"],
+					get = function(info) return E.db.sle.unitframes.unit[unitID].auras.debuffs[ info[#info] ] end,
+					set = function(info, value) E.db.sle.unitframes.unit[unitID].auras.debuffs[ info[#info] ] = value; end,
+					args = {
+						threshold = {
+							type = "range",
+							order = 1,
+							name = L["Low Threshold"],
+							desc = L["Threshold before text turns red and is in decimal form. Set to -1 for it to never turn red"],
+							min = -1, max = 20, step = 1,
+						},
+					},
+				},
+			},
+		}
+		return config
+	end
 
 	E.Options.args.sle.args.modules.args.unitframes = {
 		type = "group",
@@ -183,6 +229,7 @@ local function configTable()
 						},
 						
 					},
+					auras = CreateAurasConfig("player"),
 				},
 			},
 			target = {
@@ -205,6 +252,7 @@ local function configTable()
 						get = function(info) return E.db.sle.unitframes.unit.target[ info[#info] ] end,
 						set = function(info, value) E.db.sle.unitframes.unit.target[ info[#info] ] = value; UF:CreateAndUpdateUF('target'); end,
 					},
+					auras = CreateAurasConfig("target"),
 				},
 			},
 			focus = {

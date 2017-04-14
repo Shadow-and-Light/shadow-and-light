@@ -160,6 +160,39 @@ function SUF:HealthPredictUpdate(frame)
 	end
 end
 
+function UF:UpdateAuraTimer(elapsed)
+	self.expiration = self.expiration - elapsed
+	if self.nextupdate > 0 then
+		self.nextupdate = self.nextupdate - elapsed
+		return
+	end
+
+	if(self.expiration <= 0) then
+		self:SetScript('OnUpdate', nil)
+
+		if(self.text:GetFont()) then
+			self.text:SetText('')
+		end
+
+		return
+	end
+
+	local timervalue, formatid
+	local unitID = self:GetParent():GetParent().unitframeType
+	local auraType = self:GetParent().type
+	if unitID and E.db.sle.unitframes.unit[unitID].auras then
+		timervalue, formatid, self.nextupdate = E:GetTimeInfo(self.expiration, E.db.sle.unitframes.unit[unitID].auras[auraType].threshold)
+	else
+		timervalue, formatid, self.nextupdate = E:GetTimeInfo(self.expiration, 4)
+	end
+	if self.text:GetFont() then
+		self.text:SetFormattedText(("%s%s|r"):format(E.TimeColors[formatid], E.TimeFormats[formatid][2]), timervalue)
+	elseif self:GetParent():GetParent().db then
+		self.text:FontTemplate(LSM:Fetch("font", E.db['unitframe'].font), self:GetParent():GetParent().db[auraType].fontSize, E.db['unitframe'].fontOutline)
+		self.text:SetFormattedText(("%s%s|r"):format(E.TimeColors[formatid], E.TimeFormats[formatid][2]), timervalue)
+	end
+end
+
 function SUF:Initialize()
 	if not SLE.initialized or not E.private.unitframe.enable then return end
 	SUF:NewTags()

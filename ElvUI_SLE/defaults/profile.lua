@@ -765,16 +765,40 @@ P["sle"] = {
 					["xoffset"] = 0,
 					["yoffset"] = 0,
 				},
+				["auras"] = {
+					["buffs"] = {
+						["threshold"] = 4,
+					},
+					["debuffs"] = {
+						["threshold"] = 4,
+					},
+				},
 				["higherPortrait"] = false,
 				["portraitAlpha"] = 0.35,
 			},
 			["target"] = {
 				["higherPortrait"] = false,
 				["portraitAlpha"] = 0.35,
+				["auras"] = {
+					["buffs"] = {
+						["threshold"] = 4,
+					},
+					["debuffs"] = {
+						["threshold"] = 4,
+					},
+				},
 			},
 			["focus"] = {
 				["higherPortrait"] = false,
 				["portraitAlpha"] = 0.35,
+				["auras"] = {
+					["buffs"] = {
+						["threshold"] = 4,
+					},
+					["debuffs"] = {
+						["threshold"] = 4,
+					},
+				},
 			},
 			["party"] = {
 				["offline"] = {
@@ -788,6 +812,14 @@ P["sle"] = {
 				["role"] = {
 					["xoffset"] = 0,
 					["yoffset"] = 0,
+				},
+				["auras"] = {
+					["buffs"] = {
+						["threshold"] = 4,
+					},
+					["debuffs"] = {
+						["threshold"] = 4,
+					},
 				},
 				["higherPortrait"] = false,
 				["portraitAlpha"] = 0.35,
@@ -805,6 +837,14 @@ P["sle"] = {
 					["xoffset"] = 0,
 					["yoffset"] = 0,
 				},
+				["auras"] = {
+					["buffs"] = {
+						["threshold"] = 4,
+					},
+					["debuffs"] = {
+						["threshold"] = 4,
+					},
+				},
 				["higherPortrait"] = false,
 				["portraitAlpha"] = 0.35,
 			},
@@ -817,6 +857,14 @@ P["sle"] = {
 					["texture"] = "ALERT",
 					["CustomTexture"] = "",
 				},
+				["auras"] = {
+					["buffs"] = {
+						["threshold"] = 4,
+					},
+					["debuffs"] = {
+						["threshold"] = 4,
+					},
+				},
 				["role"] = {
 					["xoffset"] = 0,
 					["yoffset"] = 0,
@@ -825,10 +873,26 @@ P["sle"] = {
 				["portraitAlpha"] = 0.35,
 			},
 			["boss"] = {
+				["auras"] = {
+					["buffs"] = {
+						["threshold"] = 4,
+					},
+					["debuffs"] = {
+						["threshold"] = 4,
+					},
+				},
 				["higherPortrait"] = false,
 				["portraitAlpha"] = 0.35,
 			},
 			["arena"] = {
+				["auras"] = {
+					["buffs"] = {
+						["threshold"] = 4,
+					},
+					["debuffs"] = {
+						["threshold"] = 4,
+					},
+				},
 				["higherPortrait"] = false,
 				["portraitAlpha"] = 0.35,
 			},
