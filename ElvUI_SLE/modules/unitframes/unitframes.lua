@@ -180,7 +180,7 @@ function UF:UpdateAuraTimer(elapsed)
 	local timervalue, formatid
 	local unitID = self:GetParent():GetParent().unitframeType
 	local auraType = self:GetParent().type
-	if unitID and E.db.sle.unitframes.unit[unitID].auras then
+	if unitID and E.db.sle.unitframes.unit[unitID] and E.db.sle.unitframes.unit[unitID].auras then
 		timervalue, formatid, self.nextupdate = E:GetTimeInfo(self.expiration, E.db.sle.unitframes.unit[unitID].auras[auraType].threshold)
 	else
 		timervalue, formatid, self.nextupdate = E:GetTimeInfo(self.expiration, 4)
