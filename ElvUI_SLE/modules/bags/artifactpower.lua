@@ -26,7 +26,13 @@ local apStringValueMillion = {
 	["zhTW"] = "(%d*[%p%s]?%d+)萬",
 	["zhCN"] = "(%d*[%p%s]?%d+)万",
 }
+local apValueMultiplier = {
+	["koKR"] = 1e4,
+	["zhTW"] = 1e4,
+	["zhCN"] = 1e4,
+}
 local apStringValueMillionLocal = apStringValueMillion[GetLocale()]
+local apValueMultiplierLocal = (apValueMultiplier[GetLocale()] or 1e6) --Fallback to 1e6 which is used by all non-asian clients
 local function GetItemLinkArtifactPower(slotLink)
 	local apValue
 	if not slotLink then return nil end
@@ -48,9 +54,9 @@ local function GetItemLinkArtifactPower(slotLink)
 				if value then
 					digit1, digit2 = T.match(value, "(%d+)[%p%s](%d+)")
 					if digit1 and digit2 then
-						ap = T.tonumber(T.format("%s.%s", digit1, digit2)) * 1e6 --Multiply by one million
+						ap = T.tonumber(T.format("%s.%s", digit1, digit2)) * apValueMultiplierLocal --Multiply by 1 million (or 10.000 for asian clients)
 					else
-						ap = T.tonumber(value) * 1e6 --Multiply by one million
+						ap = T.tonumber(value) * apValueMultiplierLocal --Multiply by 1 million (or 10.000 for asian clients)
 					end
 				else
 					digit1, digit2, digit3 = T.match(tooltipText,"(%d+)[%p%s]?(%d+)[%p%s]?(%d+)")
