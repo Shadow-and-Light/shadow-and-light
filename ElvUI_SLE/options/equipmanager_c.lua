@@ -141,33 +141,6 @@ local function configTable()
 				get = function(info) return EM.db.onlyTalent end,
 				set = function(info, value) EM.db.onlyTalent = value; end,
 			},
-			instanceSet = {
-				type = "toggle",
-				order = 8,
-				name = L["Use Instance Set"],
-				desc = L["Use a dedicated set for instances and raids."],
-				disabled = function() return not EM.db.enable end,
-				get = function(info) return EM.db.instanceSet end,
-				set = function(info, value) EM.db.instanceSet = value; end
-			},
-			timewalkingSet = {
-				type = "toggle",
-				order = 9,
-				name = L["Use Timewalking Set"],
-				desc = L["Use a dedicated set for timewalking instances."],
-				disabled = function() return not EM.db.enable end,
-				get = function(info) return EM.db.timewalkingSet end,
-				set = function(info, value) EM.db.timewalkingSet = value; end
-			},
-			pvpSet = {
-				type = "toggle",
-				order = 10,
-				name = L["Use PvP Set"],
-				desc = L["Use a dedicated set for PvP situations."],
-				disabled = function() return not EM.db.enable end,
-				get = function(info) return EM.db.pvpSet end,
-				set = function(info, value) EM.db.pvpSet = value; end
-			},
 			equipsets = {
 				type = "group",
 				name = PAPERDOLL_EQUIPMENTMANAGER,
@@ -175,15 +148,20 @@ local function configTable()
 				disabled = function() return not EM.db.enable end,
 				guiInline = true,
 				args = {
-					intro = {
+					conditions = {
 						order = 1,
-						type = 'description',
-						name = L["Here you can choose what equipment sets to use in different situations."],
+						type = "input",
+						width = "full",
+						name = L["Equipement conditions"],
+						desc = L["SLE_EM_CONDITIONS_DESC"],
+						get = function(info) return EM.db.conditions end,
+						set = function(info, value) EM.db.conditions = value; EM:UpdateTags() end
 					},
-					firstSpec = ConstructSpecOption(1, 1, "firstSpec"),
-					secondSpec = ConstructSpecOption(2, 2, "secondSpec"),
-					thirdSpec = ConstructSpecOption(3, 3, "thirdSpec"),
-					forthSpec = ConstructSpecOption(4, 4, "forthSpec"),
+					help = {
+						order = 2,
+						type = 'description',
+						name = L["SLE_EM_TAGS_HELP"],
+					},
 				},
 			},
 		},

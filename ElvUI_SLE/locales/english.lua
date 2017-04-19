@@ -455,20 +455,7 @@ L["SLE_EnhShadows_PetButtons_Option"] = "Pet Bar Buttons"
 L["Equipment Manager"] = true
 L["EM_DESC"] = "This module provides different options to automatically change your equipment sets on spec change or entering certain locations. All options are character based."
 L["Equipment Set Overlay"] = true
-L["Timewalking"] = true
 L["Show the associated equipment sets for the items in your bags (or bank)."] = true
-L["Here you can choose what equipment sets to use in different situations."] = true
-L["Equip this set when switching to specialization %s."] = true
-L["Equip this set for open world/general use."] = true
-L["Equip this set after entering dungeons or raids."] = true
-L["Equip this set after entering battlegrounds or arens."] = true
-L["Equip this set after enetering a timewalking dungeon."] = true
-L["Use Instance Set"] = true
-L["Use a dedicated set for instances and raids."] = true
-L["Use PvP Set"] = true
-L["Use a dedicated set for PvP situations."] = true
-L["Use Timewalking Set"] = true
-L["Use a dedicated set for timewalking instances."] = true
 L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."] = true
 L["SLE_EM_LOCK_TITLE"] = "|cff9482c9S&L|r"
 L["SLE_EM_LOCK_TOOLTIP"] = [[This button is designed for temporary disable
@@ -478,6 +465,22 @@ L["Block button"] = true
 L["Create a button in character frame to allow temp blocking of auto set swap."] = true
 L["Ignore zone change"] = true
 L["Swap sets only on specialization change ignoring location change when. Does not influence entering/leaving instances and bg/arena."] = true
+L["Equipement conditions"] = true
+L["SLE_EM_SET_NOT_EXIST"] = "Equipment set |cff9482c9%s|r doesn't exist!"
+L["SLE_EM_TAG_INVALID"] = "Invalid tag: %s"
+L["SLE_EM_CONDITIONS_DESC"] = [[Determines conditions under which specified sets are equipeed.
+This works as macros and controlled by a set of tags as seen below.]]
+L["SLE_EM_TAGS_HELP"] = [[Following tags and parameters are eligible for setting equip condition:
+|cff3cbf27solo|r - when you are solo without any group;
+|cff3cbf27party|r - when you are in a group of any description. Can be of specified size, e.g. [party:4] - if in a group of total size 4;
+|cff3cbf27raid|r - when you are in a raid group. Can be of specified size like party option;
+|cff3cbf27spec|r - specified spec. Usage [spec:<number>] number is the index of desired spec as seen in spec tab;
+|cff3cbf27instance|r - if in instance. Can be of specified instance type - [instance:<type>]. Types are party, raid and scenario. If not specified will be true for any instance;
+|cff3cbf27pvp|r - if on BG, arena or world pvp area. Available arguments: pvp, arena;
+|cff3cbf27difficulty|r - defines the difficulty of the instance. Argumants are: normal, heroic, lfr, challenge, mythic;
+
+Example: [solo] Set1; [party:4, spec:3] Set2; [instance:raid, difficulty:heroic] Set3
+]]
 
 --Loot
 L["Loot Dropped:"] = true

@@ -445,20 +445,7 @@ L["SLE_EnhShadows_PetButtons_Option"] = "Кнопки питомца"
 L["Equipment Manager"] = "Менеджер экипировки"
 L["EM_DESC"] = "Этот модуль предоставляет различные опции для автоматической смены комплектов экипировки при переключении набора талантов или попадании в определенную локацию."
 L['Equipment Set Overlay'] = "Название комплекта"
-L["Timewalking"] = "Путешествия во времени"
 L['Show the associated equipment sets for the items in your bags (or bank).'] = "Отображает название комплекта экипировки, к которому привязан предмет, на его иконке в сумках или банке."
-L["Here you can choose what equipment sets to use in different situations."] = "Здесь Вы можете выбрать какие комплекты экипировки использовать в различных случаях."
-L["Equip this set when switching to specialization %s."] = "Надеть этот комплект при переключении на специализацию %s."
-L["Equip this set for open world/general use."] = "Использовать этот комплект для открытого мира/общего назначения."
-L["Equip this set after entering dungeons or raids."] = "Использовать этот комплект после входа в подземелье или рейд."
-L["Equip this set after entering battlegrounds or arens."] = "Использовать этот комплект на полях боя или арене."
-L["Equip this set after enetering a timewalking dungeon."] = "Использовать этот комплект после входа в подземелье для путешестви во времени."
-L["Use Instance Set"] = "Сет для подземелий"
-L["Use a dedicated set for instances and raids."] = "Использовать отдельный комплект для подземелий и рейдов"
-L["Use PvP Set"] = "Сет для ПвП"
-L["Use a dedicated set for PvP situations."] = "Использовать отдельный комплект для пвп"
-L["Use Timewalking Set"] = "Сет путешествий во времени"
-L["Use a dedicated set for timewalking instances."] = "Использовать отдельный комплект для путешствий во времени."
 L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."] = "Невозможно переключиться на подходящий комплект в бою. Переключение произойдет после окончания боя."
 L["SLE_EM_LOCK_TITLE"] = "|cff9482c9S&L|r"
 L["SLE_EM_LOCK_TOOLTIP"] = [[Эта кнопка позволит временно отключить автоматическую
@@ -468,6 +455,22 @@ L["Block button"] = "Кнопка блокировки"
 L["Create a button in character frame to allow temp blocking of auto set swap."] = "Создать в окне персонажа кнопку, позволяющую временно отключить автоматическую смену комплектов."
 L["Ignore zone change"] = "Игнорировать смену зоны"
 L["Swap sets only on specialization change ignoring location change when. Does not influence entering/leaving instances and bg/arena."] = "Изменять комплект только при смене специализации, игнорируя изменение локации. Не влиет на вход/выход из подземелий и полей боя/арен."
+L["Equipement conditions"] = "Условия экипировки"
+L["SLE_EM_SET_NOT_EXIST"] = "Комплекта |cff9482c9%s|r не существует!"
+L["SLE_EM_TAG_INVALID"] = "Неверный тэг: %s"
+L["SLE_EM_CONDITIONS_DESC"] = [[Определяет условия, при которых будут надеваться указанные сеты.
+Работает по принципу макросов и контроллируется набором тэгов, представленным ниже.]]
+L["SLE_EM_TAGS_HELP"] = [[Следующие тэги и параметры могут использоваться для условий экипировки:
+|cff3cbf27solo|r - когда вы не в группе;
+|cff3cbf27party|r - если вы в любом типе группы. Может быть с заданным размером, например [party:4] - в группе из 4 человек;
+|cff3cbf27raid|r - если вы состояите в рейде. Может быть с заданным размером, аналогино предыдущему;
+|cff3cbf27spec|r - указанная специализация. Использование [spec:<номер>], где номер это прядок специализации на соответствующей вкладке;
+|cff3cbf27instance|r - в подземелье. Может быть определенного типа - [instance:<тип>]. Типы подземелий: party, raid и scenario. Если тип не задан, то быдет использоваться во всех подземельях;
+|cff3cbf27pvp|r - для полей боя, арен и открытых пвп зон. Параметры: pvp, arena;
+|cff3cbf27difficulty|r - Определяет сложность подземелья. Параметры: normal, heroic, lfr, challenge, mythic;
+
+Пример: [solo] Set1; [party:4, spec:3] Set2; [instance:raid, difficulty:heroic] Set3
+]]
 
 --Loot
 L["Loot Dropped:"] = "Список добычи:"

@@ -446,20 +446,7 @@ L["SLE_EnhShadows_PetButtons_Option"] = "Begleitertasten"
 L["Equipment Manager"] = "Ausrüstungsmanager"
 L["EM_DESC"] = "Dieses Modul erlaubt dir verschiedene Einstellungen um automatisch dein Ausrüstungsset in verschiedenen Situationen zu benutzen. Alle Einstellungen sind Charakter basierend."
 L["Equipment Set Overlay"] = "Ausrüstungsset Überblendung"
-L["Timewalking"] = "Zeitwanderung"
 L["Show the associated equipment sets for the items in your bags (or bank)."] = "Zeigt die zugehörigen Ausrüstungssets für die Gegenstände in deiner Tasche (oder Bank)."
-L["Here you can choose what equipment sets to use in different situations."] = "Hier kannst du bestimmen welches Ausrüstungsset in bestimmten Situationen benutzt wird."
-L["Equip this set when switching to specialization %s."] = "Rüste dieses Set aus wenn du deine Spezialisierung zu %s änderst."
-L["Equip this set for open world/general use."] = "Rüste diese Set aus für den generellen Gebrauch."
-L["Equip this set after entering dungeons or raids."] = "Rüste dieses Set aus nach dem du eine Instanz/Raid betrittst."
-L["Equip this set after entering battlegrounds or arens."] = "Rüste dieses Set aus nach dem ein Schlachtfeld/Arena betrittst."
-L["Equip this set after enetering a timewalking dungeon."] = "Rüste dieses Set aus nach dem du eine Zeitwanderungsinstanz betrittst."
-L["Use Instance Set"] = "Benutze Instanz Set"
-L["Use a dedicated set for instances and raids."] = "Benutze ein bestimmtes Set für Instanzen und Raids."
-L["Use PvP Set"] = "Benutze PvP Set"
-L["Use a dedicated set for PvP situations."] = "Benutzt ein bestimmtes Set für PvP Situationen."
-L["Use Timewalking Set"] = "Benutze Zeitwanderung Set"
-L["Use a dedicated set for timewalking instances."] = "Benutze ein bestimmtes Set für Zeitwanderungsinstanzen."
 L["Impossible to switch to appropriate equipment set in combat. Will switch after combat ends."] = "Unmöglich um zum dazugehörigen Ausrüstungsset zu wechseln im Kampf. Nach dem Kampf wird gewechselt."
 L["SLE_EM_LOCK_TITLE"] = "|cff9482c9S&L|r"
 L["SLE_EM_LOCK_TOOLTIP"] = [[Dieser Knopf ist zum vorübergehenden deaktiveren des
@@ -469,6 +456,22 @@ L["Block button"] = "Sperrtaste"
 L["Create a button in character frame to allow temp blocking of auto set swap."] = "Erzeugt einen Knopf im Charakterfenster der erlaubt das Autowechseln vom Ausrüstungsset zu deaktivieren."
 L["Ignore zone change"] = "Ignoriere Zonenwechsel"
 L["Swap sets only on specialization change ignoring location change when. Does not influence entering/leaving instances and bg/arena."] = "Wechselt Ausrüstungssets nur wenn die Spezialisierung geändert wird. Beeinflusst nicht das betreten/verlassen von Instanzen und Schlachtfeld/Arena."
+L["Equipement conditions"] = true
+L["SLE_EM_SET_NOT_EXIST"] = "Equipment set |cff9482c9%s|r doesn't exist!"
+L["SLE_EM_TAG_INVALID"] = "Invalid tag: %s"
+L["SLE_EM_CONDITIONS_DESC"] = [[Determines conditions under which specified sets are equipeed.
+This works as macros and controlled by a set of tags as seen below.]]
+L["SLE_EM_TAGS_HELP"] = [[Following tags and parameters are eligible for setting equip condition:
+|cff3cbf27solo|r - when you are solo without any group;
+|cff3cbf27party|r - when you are in a group of any description. Can be of specified size, e.g. [party:4] - if in a group of total size 4;
+|cff3cbf27raid|r - when you are in a raid group. Can be of specified size like party option;
+|cff3cbf27spec|r - specified spec. Usage [spec:<number>] number is the index of desired spec as seen in spec tab;
+|cff3cbf27instance|r - if in instance. Can be of specified instance type - [instance:<type>]. Types are party, raid and scenario. If not specified will be true for any instance;
+|cff3cbf27pvp|r - if on BG, arena or world pvp area. Available arguments: pvp, arena;
+|cff3cbf27difficulty|r - defines the difficulty of the instance. Argumants are: normal, heroic, lfr, challenge, mythic;
+
+Example: [solo] Set1; [party:4, spec:3] Set2; [instance:raid, difficulty:heroic] Set3
+]]
 
 --Loot
 L["Loot Dropped:"] = "Beute:"
