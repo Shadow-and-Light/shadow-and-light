@@ -205,6 +205,7 @@ function Pr:DeconstructParser(...)
 	local class, subclass = select(6, T.GetItemInfo(item))
 	if not link then return end
 	local itemString = T.match(link, "item[%-?%d:]+")
+	if not itemString then return end
 	local _, id = T.split(":", itemString)
 	if not id or id == "" then return end
 	if(item and not T.InCombatLockdown()) and (Pr.DeconstructMode == true or (E.global.sle.LOCK.TradeOpen and self:GetOwner():GetName() == "TradeRecipientItem7ItemButton")) then
