@@ -2267,7 +2267,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 				for i = MajorTooltipStartLine, self.ScanTT:NumLines() do
 					CurrentLineText = _G['InspectArmoryScanTTTextLeft'..i]:GetText()
 					
-					if not CurrentLineText:find('"') then
+					if not CurrentLineText:find('"') and MinorArtifactSlot and MinorTooltipStartLine then
 						self[MinorArtifactSlot].ReplaceTooltipLines[MinorTooltipStartLine] = CurrentLineText
 						
 						MinorTooltipStartLine = MinorTooltipStartLine + 1
