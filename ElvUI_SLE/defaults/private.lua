@@ -13,7 +13,7 @@ V["sle"] = {
 		["spam"] = false,
 		["onlyTalent"] = false,
 		["conditions"] = "",
-		["conditions"] = "[solo, spec:3] Set1; [solo, spec:2] Set2",
+		["conditions"] = "",
 		["setoverlay"] = false,
 		["lockbutton"] = false,
 	},
