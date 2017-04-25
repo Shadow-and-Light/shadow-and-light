@@ -353,6 +353,13 @@ end
 --Camera rotation script when entering or leaving afk
 function S:Event(event, unit)
 	if not E.db.general.afk then return end
+	if event == "PLAYER_REGEN_DISABLED" then 
+		SS:SetScript("OnUpdate", nil)
+		T.FlipCameraYaw(-degree)
+		degree = 0
+		TipsElapsed = 0
+		return
+	end
 	if (event == "PLAYER_FLAGS_CHANGED" and unit ~= "player") or event ~= "PLAYER_FLAGS_CHANGED" then return end
 	if (InCombatLockdown() or CinematicFrame:IsShown() or MovieFrame:IsShown()) then return; end
 	--Don't activate afk if player is crafting stuff
