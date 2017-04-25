@@ -9,6 +9,8 @@ local C_EquipmentSet = C_EquipmentSet
 local _G = _G
 local gsub = gsub
 
+EM.SetData = {}
+
 local Difficulties = {
 	[1] = 'normal', --5ppl normal
 	[2] = 'heroic', --5ppl heroic
@@ -30,12 +32,12 @@ local Difficulties = {
 }
 
 EM.TagsTable = {
-	["solo"] = function() if IsInGroup() then return false; else return true; end end,
+	["solo"] = function() if T.IsInGroup() then return false; else return true; end end,
 	["party"] = function(size)
 		size = T.tonumber(size)
-		if IsInGroup() then
+		if T.IsInGroup() then
 			if size then
-				if size == GetNumGroupMembers() then return true; else return false; end
+				if size == T.GetNumGroupMembers() then return true; else return false; end
 			else
 				return true
 			end
@@ -45,9 +47,9 @@ EM.TagsTable = {
 	end,
 	["raid"] = function(size)
 		size = T.tonumber(size)
-		if IsInRaid() then
+		if T.IsInRaid() then
 			if size then
-				if size == GetNumGroupMembers() then return true; else return false; end
+				if size == T.GetNumGroupMembers() then return true; else return false; end
 			else
 				return true
 			end
@@ -58,7 +60,7 @@ EM.TagsTable = {
 	["spec"] = function(index)
 		local index = T.tonumber(index)
 		if not index then return false end
-		if index == GetSpecialization() then return true; else return false; end
+		if index == T.GetSpecialization() then return true; else return false; end
 	end,
 	["instance"] = function(dungeonType)
 		local inInstance, InstanceType = T.IsInInstance()
@@ -100,50 +102,78 @@ EM.TagsTable = {
 	end,
 }
 
-function EM:TagsProcess(msg)
+function EM:ConditionTable(option)
+	if not option then return end
 	local pattern = "%[(.-)%]([^;]+)"
-	local data = {}
+	local Conditions = {
+		["options"] = {},
+		["set"] = "",
+	}
+	local condition
+	while option:match(pattern) do
+		condition, option = option:match(pattern)
+		if not(condition and option) then return end
+		T.tinsert(Conditions.options, condition)
+	end
+	Conditions.set = option:gsub("^%s*", "")
+	T.tinsert(EM.SetData, Conditions)
+end
+
+function EM:TagsProcess(msg)
+	T.twipe(EM.SetData)
 	local split_msg = { (";"):split(msg) }
 
 	for i, v in T.ipairs(split_msg) do
 		local split = split_msg[i]
-		local condition, option = split:match(pattern)
-		if (condition and option) then
+		EM:ConditionTable(split)
+	end
+	for i = 1, #EM.SetData do
+		local Conditions = EM.SetData[i]
+		for index = 1, #Conditions.options do
+			local condition = Conditions.options[index]
 			local cnd_table = { (","):split(condition) }
 			local parsed_cmds = {};
 			for j = 1, #cnd_table do
 				local cnd = cnd_table[j];
 				if cnd then
 					local command, argument = (":"):split(cnd)
-					T.tinsert(parsed_cmds, { cmd = command:match("^%s*(.+)%s*$"), arg = argument })
+					local tag = command:match("^%s*(.+)%s*$")
+					if EM.TagsTable[tag] then
+						T.tinsert(parsed_cmds, { cmd = command:match("^%s*(.+)%s*$"), arg = argument })
+					else
+						SLE:ErrorPrint(T.format(L["SLE_EM_TAG_INVALID"], tag))
+						T.twipe(EM.SetData)
+						return
+					end
 				end
 			end
-			T.tinsert(data, { option = option:gsub("^%s*", ""), cmds = parsed_cmds })
+			Conditions.options[index] = {cmds = parsed_cmds}
 		end
 	end
-
-	return data
 end
 
 function EM:TagsConditionsCheck(data)
 	for index,tagInfo in T.ipairs(data) do 
-		local module = tagInfo.module
 		local ok = true
-		for conditionIndex,conditionInfo in T.ipairs(tagInfo.cmds) do
-			local func = conditionInfo["cmd"]
-			if not EM.TagsTable[func] then
-				SLE:ErrorPrint(T.format(L["SLE_EM_TAG_INVALID"], func))
-				return nil
+		for _, option in T.ipairs(tagInfo.options) do
+			if not option.cmds then return end
+			local matches = 0
+			for conditionIndex,conditionInfo in T.ipairs(option.cmds) do
+				local func = conditionInfo["cmd"]
+				if not EM.TagsTable[func] then
+					SLE:ErrorPrint(T.format(L["SLE_EM_TAG_INVALID"], func))
+					return nil
+				end
+				local arg = conditionInfo["arg"]
+				local result = EM.TagsTable[func](arg)
+				if result then 
+					matches = matches + 1
+				else
+					matches = 0
+					break 
+				end
+				if matches == #option.cmds then return tagInfo.set end
 			end
-			local arg = conditionInfo["arg"]
-			local result = EM.TagsTable[func](arg)
-			if not result then 
-				ok = false
-				break 
-			end
-		end
-		if ok then 
-			return tagInfo.option
 		end
 	end
 end
@@ -220,7 +250,7 @@ function EM:CreateLock()
 end
 
 function EM:UpdateTags()
-	EM.SetData = EM:TagsProcess(EM.db.conditions)
+	EM:TagsProcess(EM.db.conditions)
 	Equip()
 end
 
@@ -233,8 +263,8 @@ function EM:Initialize()
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", Equip)
 	self:RegisterEvent("ZONE_CHANGED", Equip)
 
-	EM.SetData = EM:TagsProcess(EM.db.conditions)
-	
+	EM:TagsProcess(EM.db.conditions)
+
 	self:CreateLock()
 end
 
