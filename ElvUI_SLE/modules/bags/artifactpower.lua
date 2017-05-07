@@ -1,14 +1,17 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local AP = SLE:NewModule("ArtifactPowerBags", 'AceHook-3.0', 'AceEvent-3.0')
 local B = E:GetModule('Bags')
+
+--GLOBALS: CreateFrame, hooksecurefunc
 local _G = _G
 local tooltipScanner
 local tooltipName = "SLE_ArtifactPowerTooltipScanner"
 local EMPOWERING_SPELL_ID = 227907
 local empoweringSpellName
 local arcanePower
-local AP_NAME = T.format("|cFFE6CC80%s|r", ARTIFACT_POWER)
+local AP_NAME = format("%s|r", ARTIFACT_POWER)
 local pcall = pcall
+local GetItemSpell = GetItemSpell
 
 -- local apLineIndex
 local apItemCache = {}
@@ -26,13 +29,7 @@ local apStringValueMillion = {
 	["zhTW"] = "(%d*[%p%s]?%d+)萬",
 	["zhCN"] = "(%d*[%p%s]?%d+)万",
 }
-local apValueMultiplier = {
-	["koKR"] = 1e4,
-	["zhTW"] = 1e4,
-	["zhCN"] = 1e4,
-}
 local apStringValueMillionLocal = apStringValueMillion[GetLocale()]
-local apValueMultiplierLocal = (apValueMultiplier[GetLocale()] or 1e6) --Fallback to 1e6 which is used by all non-asian clients
 local function GetItemLinkArtifactPower(slotLink)
 	local apValue
 	if not slotLink then return nil end
@@ -45,18 +42,18 @@ local function GetItemLinkArtifactPower(slotLink)
 		end
 
 		local apFound
-		for i = 5, 1, -1 do
+		for i = 3, 7 do
 			local tooltipText = _G[tooltipName.."TextLeft"..i]:GetText()
-			if tooltipText then
+			if (tooltipText and not T.match(tooltipText, AP_NAME)) then
 				local digit1, digit2, digit3, ap
 				local value = T.match(tooltipText, apStringValueMillionLocal)
 
 				if value then
 					digit1, digit2 = T.match(value, "(%d+)[%p%s](%d+)")
 					if digit1 and digit2 then
-						ap = T.tonumber(T.format("%s.%s", digit1, digit2)) * apValueMultiplierLocal --Multiply by 1 million (or 10.000 for asian clients)
+						ap = T.tonumber(T.format("%s.%s", digit1, digit2)) * 1e6 --Multiply by one million
 					else
-						ap = T.tonumber(value) * apValueMultiplierLocal --Multiply by 1 million (or 10.000 for asian clients)
+						ap = T.tonumber(value) * 1e6 --Multiply by one million
 					end
 				else
 					digit1, digit2, digit3 = T.match(tooltipText,"(%d+)[%p%s]?(%d+)[%p%s]?(%d+)")
@@ -102,7 +99,7 @@ local function SlotUpdate(self, bagID, slotID)
 		frame.artifactpowerinfo:SetTextColor(r, g, b)
 
 		if (frame.artifactpowerinfo) then
-			local ID = select(10, T.GetContainerItemInfo(bagID, slotID))
+			local ID = T.select(10, T.GetContainerItemInfo(bagID, slotID))
 			local slotLink = T.GetContainerItemLink(bagID,slotID)
 			if (ID and slotLink) then
 				local arcanePower
@@ -128,10 +125,10 @@ function AP:Initialize()
 
 	tooltipScanner = CreateFrame("GameTooltip", tooltipName, nil, "GameTooltipTemplate")
 	tooltipScanner:SetOwner(E.UIParent, "ANCHOR_NONE")
-	empoweringSpellName = GetSpellInfo(EMPOWERING_SPELL_ID)
+	empoweringSpellName = T.GetSpellInfo(EMPOWERING_SPELL_ID)
 
 	hooksecurefunc(B,"UpdateSlot", SlotUpdate)
-	hooksecurefunc(ElvUI_ContainerFrame,"UpdateSlot", SlotUpdate)
+	hooksecurefunc(_G["ElvUI_ContainerFrame"],"UpdateSlot", SlotUpdate)
 	self:RegisterEvent("BANKFRAME_OPENED", function()
 		AP:UnregisterEvent("BANKFRAME_OPENED")
 		B:Layout()

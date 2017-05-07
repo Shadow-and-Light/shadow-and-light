@@ -34,6 +34,7 @@ local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllus
 local AnimatedNumericFontStringMixin = AnimatedNumericFontStringMixin
 
 local format = format
+local AP_NAME = format("%s|r", ARTIFACT_POWER)
 
 --------------------------------------------------------------------------------
 --<< KnightFrame : Upgrade Character Frame's Item Info like Wow-Armory		>>--
@@ -769,7 +770,7 @@ function CA:Update_Gear()
 	if Prof2 and Info.Armory_Constants.ProfessionList[Prof2] then self.PlayerProfession[(Info.Armory_Constants.ProfessionList[Prof2].Key)] = Prof2_Level end
 	]]
 	local ErrorDetected, NeedUpdate, NeedUpdateList, R, G, B
-	local Slot, ItemLink, ItemData, BasicItemLevel, TrueItemLevel, ItemUpgradeID, CurrentUpgrade, MaxUpgrade, ItemType, UsableEffect, CurrentLineText, GemID, GemLink, GemTexture, GemCount_Default, GemCount_Now, GemCount, IsTransmogrified
+	local Slot, ItemLink, ItemData, BasicItemLevel, TrueItemLevel, ItemUpgradeID, CurrentUpgrade, MaxUpgrade, ItemType, UsableEffect, CurrentLineText, GemID, GemLink, GemTexture, GemCount_Default, GemCount_Now, GemCount, ItemTexture, IsTransmogrified
 
 	Artifact_ItemID, _, _, _, Artifact_Power, Artifact_Rank = C_ArtifactUI.GetEquippedArtifactInfo()
 	if self.ArtifactMonitor and not self.ArtifactMonitor.Socket1 then CA:ConstructArtSockets() end
@@ -1152,15 +1153,9 @@ do --<< Artifact Monitor >>
 		["ruRU"] = "(%d*[%p%s]?%d+) млн",
 		["koKR"] = "(%d*[%p%s]?%d+)만",
 		["zhTW"] = "(%d*[%p%s]?%d+)萬",
-		["zhCN"] = "(%d*[%p%s]?%d+) 万",
-	}
-	local apValueMultiplier = {
-		["koKR"] = 1e4,
-		["zhTW"] = 1e4,
-		["zhCN"] = 1e4,
+		["zhCN"] = "(%d*[%p%s]?%d+)万",
 	}
 	local apStringValueMillionLocal = apStringValueMillion[GetLocale()]
-	local apValueMultiplierLocal = (apValueMultiplier[GetLocale()] or 1e6) --Fallback to 1e6 which is used by all non-asian clients
 	local empoweringSpellName = GetSpellInfo(227907)
 
 	function CA:LegionArtifactMonitor_UpdateLayout()
@@ -1350,17 +1345,17 @@ do --<< Artifact Monitor >>
 									local success = pcall(self.ArtifactMonitor.ScanTT.SetHyperlink, self.ArtifactMonitor.ScanTT, PowerItemLink)
 									if success then
 										local apFound
-										for i = 5, 1, -1 do
+										for i = 3, 7 do
 											local tooltipText = _G["Knight_CharacterArmory_ArtifactScanTTTextLeft"..i]:GetText()
-											if tooltipText then
+											if (tooltipText and not T.match(tooltipText, AP_NAME)) then
 												local digit1, digit2, digit3, ap
 												local value = T.match(tooltipText, apStringValueMillionLocal)
 												if value then
 													digit1, digit2 = T.match(value, "(%d+)[%p%s](%d+)")
 													if digit1 and digit2 then
-														ap = T.tonumber(T.format("%s.%s", digit1, digit2)) * apValueMultiplierLocal --Multiply by 1 million (or 10.000 for asian clients)
+														ap = T.tonumber(T.format("%s.%s", digit1, digit2)) * 1e6 --Multiply by one million
 													else
-														ap = T.tonumber(value) * apValueMultiplierLocal --Multiply by 1 million (or 10.000 for asian clients)
+														ap = T.tonumber(value) * 1e6 --Multiply by one million
 													end
 												else
 													digit1, digit2, digit3 = T.match(tooltipText,"(%d+)[%p%s]?(%d+)[%p%s]?(%d+)")
