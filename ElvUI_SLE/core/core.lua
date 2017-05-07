@@ -1,7 +1,7 @@
 ﻿local E, L, V, P, G = unpack(ElvUI);
 local EP = LibStub("LibElvUIPlugin-1.0")
 local AddOnName, Engine = ...;
-
+--GLOBALS: hooksecurefunc, LibStub
 local _G = _G
 local tonumber = tonumber
 

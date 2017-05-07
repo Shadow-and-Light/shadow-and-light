@@ -4,9 +4,10 @@ PI.SLE_Auth = ""
 PI.SLE_Word = ""
 local locale = GetLocale()
 
---GLOBALS: SkadaDB, Skada, xCTSavedDB, xCT_Plus
+--GLOBALS: SkadaDB, Skada, xCTSavedDB, xCT_Plus, UIParent
 local _G = _G
 local ENABLE, DISABLE, NONE = ENABLE, DISABLE, NONE
+local ADDONS = ADDONS
 local SetCVar = SetCVar
 local SetAutoDeclineGuildInvites = SetAutoDeclineGuildInvites
 local SetInsertItemsLeftToRight = SetInsertItemsLeftToRight
@@ -593,7 +594,7 @@ function PI:DarthSetup()
 	end
 
 	if T.IsAddOnLoaded("AddOnSkins") then
-		local AS = unpack(AddOnSkins) or nil
+		local AS = T.unpack(_G["AddOnSkins"]) or nil
 		AS.db["EmbedOoC"] = true
 		AS.db["EmbedOoCDelay"] = 5
 		AS.db["Blizzard_AbilityButton"] = true
@@ -1141,25 +1142,25 @@ local function AffinitySetup()
 	local layout = E.db.layoutSet
 	local installMark = E.private["install_complete"]
 	local installMarkSLE = E.private["sle"]["install_complete"]
-	pixel = E.PixelMode  --Pull PixelMode
+	-- pixel = E.PixelMode  --Pull PixelMode
 
-	if IsAddOnLoaded("ElvUI_DTBars2") then
-		table.wipe(dtbarsList)
-		table.wipe(dtbarsTexts)
-		for name, data in pairs(E.global.dtbars) do
+	if T.IsAddOnLoaded("ElvUI_DTBars2") then
+		T.twipe(dtbarsList)
+		T.twipe(dtbarsTexts)
+		for name, data in T.pairs(E.global.dtbars) do
 			if E.db.dtbars and E.db.dtbars[name] then
 				dtbarsList[name] = E.db.dtbars[name]
 				dtbarsTexts[name] = E.db.datatexts.panels[name]
 			end
 		end
 	end
-	table.wipe(E.db)
+	T.twipe(E.db)
 	E:CopyTable(E.db, P)
 
-	table.wipe(E.private)
+	T.twipe(E.private)
 	E:CopyTable(E.private, V)
 
-	if E.db['movers'] then table.wipe(E.db['movers']) else E.db['movers'] = {} end
+	if E.db['movers'] then T.twipe(E.db['movers']) else E.db['movers'] = {} end
 	if not E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = {} end
 	if not E.db["unitframe"]["units"]["raid40"]["customTexts"] then E.db["unitframe"]["units"]["raid40"]["customTexts"] = {} end
 
@@ -1183,37 +1184,37 @@ local function AffinitySetup()
 	E.db["sle"]["minimap"]["mapicons"]["skinmail"] = false
 	E.db["sle"]["minimap"]["mapicons"]["iconmouseover"] = true
 
-	SLE:SetMoverPosition("SLE_DataPanel_8_Mover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 3)
-	SLE:SetMoverPosition("ElvUF_PlayerCastbarMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 96)
+	SLE:SetMoverPosition("SLE_DataPanel_8_Mover", "BOTTOM", _G["ElvUIParent"], "BOTTOM", 0, 3)
+	SLE:SetMoverPosition("ElvUF_PlayerCastbarMover", "BOTTOM", _G["ElvUIParent"], "BOTTOM", 0, 96)
 	SLE:SetMoverPosition("LeftChatMover", "BOTTOMLEFT", UIParent, "BOTTOMLEFT", 0, 21)
-	SLE:SetMoverPosition("ElvUF_RaidMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 449, 511)
-	SLE:SetMoverPosition("BossButton", "TOPLEFT", ElvUIParent, "TOPLEFT", 622, -352)
-	SLE:SetMoverPosition("ElvUF_FocusMover", "BOTTOM", ElvUIParent, "BOTTOM", -63, 436)
-	SLE:SetMoverPosition("ClassBarMover", "BOTTOM", ElvUIParent, "BOTTOM", -337, 500)
-	SLE:SetMoverPosition("SquareMinimapBar", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -4, -211)
-	SLE:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", ElvUIParent, "BOTTOM", 278, 200)
-	SLE:SetMoverPosition("ElvUF_Raid40Mover", "TOPLEFT", ElvUIParent, "TOPLEFT", 447, -468)
-	SLE:SetMoverPosition("ElvAB_1", "BOTTOM", ElvUIParent, "BOTTOM", 0, 59)
-	SLE:SetMoverPosition("ElvAB_2", "BOTTOM", ElvUIParent, "BOTTOM", 0, 25)
-	SLE:SetMoverPosition("ElvAB_4", "BOTTOMLEFT", ElvUIParent, "BOTTOMRIGHT", -413, 200)
-	SLE:SetMoverPosition("AltPowerBarMover", "BOTTOM", ElvUIParent, "BOTTOM", -300, 338)
-	SLE:SetMoverPosition("ElvAB_3", "BOTTOM", ElvUIParent, "BOTTOM", 254, 25)
-	SLE:SetMoverPosition("ElvAB_5", "BOTTOM", ElvUIParent, "BOTTOM", -254, 25)
-	SLE:SetMoverPosition("MMButtonsMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -214, -160)
-	SLE:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", ElvUIParent, "BOTTOM", -278, 200)
-	SLE:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 190)
-	SLE:SetMoverPosition("ShiftAB", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 414, 21)
+	SLE:SetMoverPosition("ElvUF_RaidMover", "BOTTOMLEFT", _G["ElvUIParent"], "BOTTOMLEFT", 449, 511)
+	SLE:SetMoverPosition("BossButton", "TOPLEFT", _G["ElvUIParent"], "TOPLEFT", 622, -352)
+	SLE:SetMoverPosition("ElvUF_FocusMover", "BOTTOM", _G["ElvUIParent"], "BOTTOM", -63, 436)
+	SLE:SetMoverPosition("ClassBarMover", "BOTTOM", _G["ElvUIParent"], "BOTTOM", -337, 500)
+	SLE:SetMoverPosition("SquareMinimapBar", "TOPRIGHT", _G["ElvUIParent"], "TOPRIGHT", -4, -211)
+	SLE:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", _G["ElvUIParent"], "BOTTOM", 278, 200)
+	SLE:SetMoverPosition("ElvUF_Raid40Mover", "TOPLEFT", _G["ElvUIParent"], "TOPLEFT", 447, -468)
+	SLE:SetMoverPosition("ElvAB_1", "BOTTOM", _G["ElvUIParent"], "BOTTOM", 0, 59)
+	SLE:SetMoverPosition("ElvAB_2", "BOTTOM", _G["ElvUIParent"], "BOTTOM", 0, 25)
+	SLE:SetMoverPosition("ElvAB_4", "BOTTOMLEFT", _G["ElvUIParent"], "BOTTOMRIGHT", -413, 200)
+	SLE:SetMoverPosition("AltPowerBarMover", "BOTTOM", _G["ElvUIParent"], "BOTTOM", -300, 338)
+	SLE:SetMoverPosition("ElvAB_3", "BOTTOM", _G["ElvUIParent"], "BOTTOM", 254, 25)
+	SLE:SetMoverPosition("ElvAB_5", "BOTTOM", _G["ElvUIParent"], "BOTTOM", -254, 25)
+	SLE:SetMoverPosition("MMButtonsMover", "TOPRIGHT", _G["ElvUIParent"], "TOPRIGHT", -214, -160)
+	SLE:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", _G["ElvUIParent"], "BOTTOM", -278, 200)
+	SLE:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOM", _G["ElvUIParent"], "BOTTOM", 0, 190)
+	SLE:SetMoverPosition("ShiftAB", "BOTTOMLEFT", _G["ElvUIParent"], "BOTTOMLEFT", 414, 21)
 	SLE:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", 0, 21)
-	SLE:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 414, 21)
-	SLE:SetMoverPosition("ArenaHeaderMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -210, -410)
-	SLE:SetMoverPosition("SLE_DataPanel_6_Mover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 4, 327)
-	SLE:SetMoverPosition("SLE_DataPanel_3_Mover", "BOTTOM", ElvUIParent, "BOTTOM", -254, 3)
-	SLE:SetMoverPosition("BossHeaderMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -210, 435)
-	SLE:SetMoverPosition("ElvUF_PetMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 230)
-	SLE:SetMoverPosition("ElvAB_6", "BOTTOM", ElvUIParent, "BOTTOM", 0, 102)
-	SLE:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 449, 511)
-	SLE:SetMoverPosition("SLE_DataPanel_7_Mover", "BOTTOM", ElvUIParent, "BOTTOM", 254, 3)
-	SLE:SetMoverPosition("PetAB", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -4, -433)
+	SLE:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", _G["ElvUIParent"], "BOTTOMLEFT", 414, 21)
+	SLE:SetMoverPosition("ArenaHeaderMover", "TOPRIGHT", _G["ElvUIParent"], "TOPRIGHT", -210, -410)
+	SLE:SetMoverPosition("SLE_DataPanel_6_Mover", "BOTTOMLEFT", _G["ElvUIParent"], "BOTTOMLEFT", 4, 327)
+	SLE:SetMoverPosition("SLE_DataPanel_3_Mover", "BOTTOM", _G["ElvUIParent"], "BOTTOM", -254, 3)
+	SLE:SetMoverPosition("BossHeaderMover", "BOTTOMRIGHT", _G["ElvUIParent"], "BOTTOMRIGHT", -210, 435)
+	SLE:SetMoverPosition("ElvUF_PetMover", "BOTTOM", _G["ElvUIParent"], "BOTTOM", 0, 230)
+	SLE:SetMoverPosition("ElvAB_6", "BOTTOM", _G["ElvUIParent"], "BOTTOM", 0, 102)
+	SLE:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", _G["ElvUIParent"], "BOTTOMLEFT", 449, 511)
+	SLE:SetMoverPosition("SLE_DataPanel_7_Mover", "BOTTOM", _G["ElvUIParent"], "BOTTOM", 254, 3)
+	SLE:SetMoverPosition("PetAB", "TOPRIGHT", _G["ElvUIParent"], "TOPRIGHT", -4, -433)
 
 	E.db["gridSize"] = 110
 
@@ -1410,9 +1411,9 @@ local function AffinitySetup()
 	E.db["datatexts"]["fontOutline"] = "None"
 	E.db["datatexts"]["battleground"] = false
 
-	if IsAddOnLoaded("ElvUI_DTBars2") then
+	if T.IsAddOnLoaded("ElvUI_DTBars2") then
 		if not E.db.dtbars then E.db.dtbars = {} end
-		for name, data in pairs(E.global.dtbars) do
+		for name, data in T.pairs(E.global.dtbars) do
 			if dtbarsList[name] then
 				E.db.dtbars[name] = dtbarsList[name]
 				E.db.datatexts.panels[name] = dtbarsTexts[name]
@@ -1459,8 +1460,8 @@ local function AffinitySetup()
 
 	E.private["theme"] = "default"
 
-	if AddOnSkins then
-		local AS = unpack(AddOnSkins) or nil
+	if _G["AddOnSkins"] then
+		local AS = T.unpack(_G["AddOnSkins"]) or nil
 		AS.db["Blizzard_WorldStateCaptureBar"] = true
 		AS.db["EmbedSystem"] = false
 		AS.db["EmbedSystemDual"] = true
