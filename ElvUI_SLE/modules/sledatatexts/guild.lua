@@ -9,7 +9,7 @@ local LDB = LibStub("LibDataBroker-1.1"):NewDataObject("S&L Guild",
 	text	= "S&L Guild"
 })
 local _G = _G
-local MyRealm = E.myrealm
+local MyRealm = T.gsub(E.myrealm,'[%s%-]','')
 local frame = CreateFrame("frame")
 
 local tooltip
