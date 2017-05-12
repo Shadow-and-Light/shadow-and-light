@@ -1156,7 +1156,6 @@ do --<< Artifact Monitor >>
 		["zhCN"] = "(%d*[%p%s]?%d+)万",
 	}
 	local apStringValueMillionLocal = apStringValueMillion[GetLocale()]
-	local empoweringSpellName = GetSpellInfo(227907)
 
 	function CA:LegionArtifactMonitor_UpdateLayout()
 		if Legion_ArtifactData.ItemID then
@@ -1339,8 +1338,7 @@ do --<< Artifact Monitor >>
 									end
 								end
 							else
-								local itemSpell = GetItemSpell(PowerItemLink)
-								if itemSpell and itemSpell == empoweringSpellName then
+								if IsArtifactPowerItem(PowerItemLink) then
 									self:ClearTooltip(self.ArtifactMonitor.ScanTT)
 									local success = pcall(self.ArtifactMonitor.ScanTT.SetHyperlink, self.ArtifactMonitor.ScanTT, PowerItemLink)
 									if success then

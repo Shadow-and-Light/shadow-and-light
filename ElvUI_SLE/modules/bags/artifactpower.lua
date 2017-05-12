@@ -6,8 +6,6 @@ local B = E:GetModule('Bags')
 local _G = _G
 local tooltipScanner
 local tooltipName = "SLE_ArtifactPowerTooltipScanner"
-local EMPOWERING_SPELL_ID = 227907
-local empoweringSpellName
 local arcanePower
 local AP_NAME = format("%s|r", ARTIFACT_POWER)
 local pcall = pcall
@@ -33,8 +31,7 @@ local apStringValueMillionLocal = apStringValueMillion[GetLocale()]
 local function GetItemLinkArtifactPower(slotLink)
 	local apValue
 	if not slotLink then return nil end
-	local itemSpell = GetItemSpell(slotLink)
-	if itemSpell and itemSpell == empoweringSpellName then
+	if IsArtifactPowerItem(slotLink) then
 		tooltipScanner:ClearLines()
 		local success = pcall(tooltipScanner.SetHyperlink, tooltipScanner, slotLink)
 		if (not success) then
@@ -125,7 +122,6 @@ function AP:Initialize()
 
 	tooltipScanner = CreateFrame("GameTooltip", tooltipName, nil, "GameTooltipTemplate")
 	tooltipScanner:SetOwner(E.UIParent, "ANCHOR_NONE")
-	empoweringSpellName = T.GetSpellInfo(EMPOWERING_SPELL_ID)
 
 	hooksecurefunc(B,"UpdateSlot", SlotUpdate)
 	hooksecurefunc(_G["ElvUI_ContainerFrame"],"UpdateSlot", SlotUpdate)
