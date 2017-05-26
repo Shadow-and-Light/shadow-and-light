@@ -20,7 +20,7 @@ Pr.ItemTable = {
 		["16884"]=175,["16885"]=250,["29569"]=300,["31952"]=325,["43575"]=350,
 		["43622"]=375,["43624"]=400,["45986"]=400,["63349"]=425,["68729"]=425,
 		["88165"]=450,["88567"]=450,
-		["116920"] = 500,
+		["116920"] = 500,["121331"] = 550,
 	},
 	--Stuff that can't be DEed or should not be by default
 	["DoNotDE"]={
@@ -189,7 +189,7 @@ function Pr:IsUnlockable(itemLink)
 	local bag = slot:GetParent():GetID()
 	local item = _G["TradeFrame"]:IsShown() and T.GetTradeTargetItemLink(7) or T.select(7, T.GetContainerItemInfo(bag, slot:GetID()))
 	if(item == itemLink) then
-		for index = 1, _G["GameTooltip"]:NumLines() do
+		for index = 3, _G["GameTooltip"]:NumLines() do
 			local info = _G['GameTooltipTextLeft' .. index]:GetText()
 			if info == LOCKED then
 				return true
@@ -209,7 +209,7 @@ function Pr:DeconstructParser(...)
 	local _, id = T.split(":", itemString)
 	if not id or id == "" then return end
 	if(item and not T.InCombatLockdown()) and (Pr.DeconstructMode == true or (E.global.sle.LOCK.TradeOpen and self:GetOwner():GetName() == "TradeRecipientItem7ItemButton")) then
-		if Pr.LOCKname and lib:IsOpenable(id) and not Pr.BlacklistLOCK[item] then
+		if Pr.LOCKname and lib:IsOpenable(id) and not Pr.BlacklistLOCK[item] and Pr:IsUnlockable(link) then
 			r, g, b = 0, 1, 1
 			Pr:ApplyDeconstruct(link, Pr.LOCKname, r, g, b)
 		elseif((Pr.SMITHname or Pr.JEWELname) and lib:IsOpenable(id)) then
