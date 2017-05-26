@@ -1,4 +1,4 @@
-local MAJOR, MINOR = 'LibProcessable', 13
+local MAJOR, MINOR = 'LibProcessable', 19
 assert(LibStub, MAJOR .. ' requires LibStub')
 
 local lib, oldMinor = LibStub:NewLibrary(MAJOR, MINOR)
@@ -52,6 +52,7 @@ end
 -- https://gist.github.com/p3lim/57acb053b3efccad0275
 local function GetSkillRequired(class, quality, level)
 	if(class == 2) then
+		-- Weapons
 		if(quality == 2) then
 			if(level > 449) then
 				return 0
@@ -180,6 +181,7 @@ local function GetSkillRequired(class, quality, level)
 			end
 		end
 	elseif(class == 4) then
+		-- Armor
 		if(quality == 2) then
 			if(level > 449) then
 				return 0
@@ -307,33 +309,45 @@ local function GetSkillRequired(class, quality, level)
 				return 25
 			end
 		end
+	elseif(class == 3) then
+		-- Artifact Relics
+		-- TODO: needs refining but is good for now
+		return 1
 	end
 end
 
 local DISENCHANTING = 13262
 --- API to verify if an item can be processed through the Disenchanting skill or garrison buildings.
 -- @name LibProcessable:IsDisenchantable
--- @usage LibStub('LibProcessable'):IsDisenchantable(itemID[, ignoreGarrison[, ignoreGarrisonBuildingRequirement]])
+-- @usage LibStub('LibProcessable'):IsDisenchantable(itemID | itemLink[, ignoreGarrison[, ignoreGarrisonBuildingRequirement]])
 -- @param itemID The itemID of the item to check against
+-- @param itemLink The itemLink of the item to check against
 -- @param ignoreGarrison Ignore the garrison enchanting buildings
 -- @param ignoreGarrisonBuildingRequirement Ignore the garrison enchanting building requirement
 -- @return isDisenchantable Boolean indicating if the player can process the item
 -- @return skillRequired Number representing the required skill to process the item
 -- @return skillLevel Number representing the player's skill in Enchanting
-function lib:IsDisenchantable(itemID, ignoreGarrison, ignoreGarrisonBuildingRequirement)
-	assert(tonumber(itemID), 'itemID needs to be a number or convertable to a number')
-	itemID = tonumber(itemID)
+function lib:IsDisenchantable(item, ignoreGarrison, ignoreGarrisonBuildingRequirement)
+	if(type(item) == 'string') then
+		if(not string.match(item, 'item:(%d+):') and not tonumber(item)) then
+			assert(false, 'item must be an item ID or item Link')
+		end
+
+		if(tonumber(item)) then
+			item = tonumber(item)
+		end
+	end
 
 	if(IsSpellKnown(DISENCHANTING)) then
-		local _, _, quality, level, _, type, _, _, _, _, _, class = GetItemInfo(itemID)
-		if(IsEquippableItem(itemID) and quality and level) then
-			local skillRequired = GetSkillRequired(class, quality, level)
+		local _, _, quality, _, _, _, _, _, _, _, _, class, subClass = GetItemInfo(item)
+		if(class == 2 or class == 4 or (class == 3 and subClass == 11)) then
+			local skillRequired = GetSkillRequired(class, quality, (GetDetailedItemLevelInfo(item)))
 			return skillRequired and skillRequired <= enchantingSkill, skillRequired, enchantingSkill
 		end
 	elseif(not ignoreGarrison and (hasEnchantingBuilding or ignoreGarrisonBuildingRequirement)) then
-		local _, _, quality, level, _, type, _, _, _, _, _, class = GetItemInfo(itemID)
-		if(IsEquippableItem(itemID) and quality and level) then
-			local skillRequired = GetSkillRequired(class, quality, level)
+		local _, _, quality, _, _, _, _, _, _, _, _, class, subClass = GetItemInfo(item)
+		if(class == 2 or class == 4 or (class == 3 and subClass == 11)) then
+			local skillRequired = GetSkillRequired(class, quality, (GetDetailedItemLevelInfo(item)))
 			return skillRequired and skillRequired == 0, skillRequired, enchantingSkill
 		end
 	end
@@ -342,58 +356,95 @@ end
 -- http://www.wowhead.com/items/name:key?filter=86;2;0
 local function GetSkeletonKey(pickLevel)
 	if(pickLevel > 425) then
-		return 82960, 500 -- Ghostly Skeleton Key
+		return 82960, 500, 450 -- Ghostly Skeleton Key
 	elseif(pickLevel > 400) then
-		return 55053, 475 -- Obsidium Skeleton Key
+		return 55053, 475, 425 -- Obsidium Skeleton Key
 	elseif(pickLevel > 375) then
-		return 43853, 430 -- Titanium Skeleton Key
+		return 43853, 430, 400 -- Titanium Skeleton Key
 	elseif(pickLevel > 300) then
-		return 43854, 350 -- Cobalt Skeleton Key
+		return 43854, 350, 375 -- Cobalt Skeleton Key
 	elseif(pickLevel > 200) then
-		return 15872, 275 -- Arcanite Skeleton Key
+		return 15872, 275, 300 -- Arcanite Skeleton Key
 	elseif(pickLevel > 125) then
-		return 15871, 200 -- Truesilver Skeleton Key
+		return 15871, 200, 200 -- Truesilver Skeleton Key
 	elseif(pickLevel > 25) then
-		return 15870, 150 -- Golden Skeleton Key
+		return 15870, 150, 125 -- Golden Skeleton Key
 	else
-		return 15869, 100 -- Silver Skeleton Key
+		return 15869, 100, 25 -- Silver Skeleton Key
 	end
 end
 
 -- http://www.wowhead.com/items/name:lock?filter=86;7;0
 local function GetJeweledLockpick(pickLevel)
 	if(pickLevel <= 750) then
-		return 130250, 1
+		return 130250, 1, 750
 	end
 end
 
-local LOCKPICKING, BLACKSMITHING, JEWELCRAFTING = 1804, 2018, 25229
---- API to verify if an item can be processed through the Lock Pick skill or with Blacksmithing skeleton keys.
--- @name LibProcessable:IsOpenable
--- @usage LibStub('LibProcessable'):IsOpenable(itemID[, ignoreProfessionKeys])
--- @param itemID The itemID of the item to check against
--- @param ignoreProfessionKeys Ignore checking for Skeleton Keys
--- @return isOpenable Boolean indicating if the player can process the item
--- @return skillRequired Number representing the required skill in Lockpicking or Blacksmithing to process the item
--- @return skillLevel Number representing the player's skill in Lockpicking or Blacksmithing
--- @return skeletonKeyItemID Number representing the Skeleton Key, if used
-function lib:IsOpenable(itemID, ignoreProfessionKeys)
+local LOCKPICKING = 1804
+--- API to verify if an item can be opened through Rogue's Lock Pick skill
+-- @name	LibProcessable:IsOpenable
+-- @usage	LibStub('LibProcessable'):IsOpenable(itemID)
+-- @param	itemID		Number	The itemID of the item to check against
+-- @return	isOpenable	Boolean `true` if the player can open the item, `false` otherwise
+-- @return	pickLevel	Number	Represents the required lockpick level of the item
+-- @return	skillLevel	Number	Represents the player's lockpicking skill level
+function lib:IsOpenable(itemID)
 	assert(tonumber(itemID), 'itemID needs to be a number or convertable to a number')
 	itemID = tonumber(itemID)
 
 	local pickLevel = lib.containers[itemID]
 	if(IsSpellKnown(LOCKPICKING)) then
-		local playerSkill = UnitLevel('player') * 5
-		return pickLevel and pickLevel <= playerSkill, pickLevel, playerSkill
-	elseif(not ignoreProfessionKeys and pickLevel) then
-		if(GetSpellBookItemInfo(GetSpellInfo(BLACKSMITHING))) then
-			local skeletonKeyID, skillRequired = GetSkeletonKey(pickLevel)
-			return skillRequired <= blacksmithingSkill, skillRequired, blacksmithingSkill, skeletonKeyID
-		elseif(GetSpellBookItemInfo(GetSpellInfo(JEWELCRAFTING))) then
-			local lockpickID, skillRequired = GetJeweledLockpick(pickLevel)
-			return skillRequired <= jewelcraftingSkill, skillRequired, jewelcraftingSkill, lockpickID
-		end
+		local skillLevel = UnitLevel('player') * 5
+		return pickLevel and pickLevel <= skillLevel, pickLevel, skillLevel
 	end
+end
+
+local BLACKSMITHING, JEWELCRAFTING = 2018, 25229
+--- API to verify if an item can be opened through the players' professions
+-- @name	LibProcessable:IsOpenableProfession
+-- @usage	LibStub('LibProcessable'):IsOpenableProfession(itemID)
+-- @param	itemID			Number	The itemID of the item to check against
+-- @return	isOpenable		Boolean `true` if the player can open the item, `false` otherwise
+-- @return	pickLevel		Number	Represents the required lockpick level of the item
+-- @return	professionData	Table	Containing data relavant to the profession(s) that can open the item with a key
+function lib:IsOpenableProfession(itemID)
+	assert(tonumber(itemID), 'itemID needs to be a number or convertable to a number')
+	itemID = tonumber(itemID)
+
+	local pickLevel = lib.containers[itemID]
+	if(not pickLevel) then
+		return false
+	end
+
+	local professionData, canOpen = {}
+	if(GetSpellBookItemInfo(GetSpellInfo(BLACKSMITHING))) then
+		local professionItemID, skillRequired, skillLevel = GetSkeletonKey(pickLevel)
+		canOpen = skillRequired <= blacksmithingSkill and pickLevel <= skillLevel
+
+		professionData['blacksmithing'] = {
+			skillID = BLACKSMITHING,
+			itemID = professionItemID,
+			skillRequired = skillRequired,
+			skillLevel = blacksmithingSkill,
+			opensLevel = skillLevel
+		}
+	end
+
+	if(GetSpellBookItemInfo(GetSpellInfo(JEWELCRAFTING))) then
+		local professionItemID, skillRequired, skillLevel = GetJeweledLockpick(pickLevel)
+		canOpen = skillRequired <= jewelcraftingSkill and pickLevel <= skillLevel
+
+		professionData['jewelcrafting'] = {
+			skillID = JEWELCRAFTING,
+			itemID = professionItemID,
+			skillRequired = skillRequired,
+			skillLevel = jewelcraftingSkill,
+			opensLevel = skillLevel
+		}
+	end
+
+	return canOpen, pickLevel, professionData
 end
 
 local Handler = CreateFrame('Frame')
@@ -573,6 +624,7 @@ lib.containers = {
 	[88165] = 450, -- Vine-Cracked Junkbox
 	[106895] = 500, -- Iron-Bound Junkbox
 	[116920] = 500, -- True Steel Lockbox
+	[121331] = 550, -- Leystone Lockbox
 }
 
 lib.enchantingBuildings = {
