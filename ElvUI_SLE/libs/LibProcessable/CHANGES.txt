@@ -1,0 +1,12 @@
+tag 28ea586c72dc76fd80edba34ee87f302027010d0 19
+Author:	Adrian L Lange <mail@p3lim.net>
+Date:	Wed May 3 12:49:09 2017 +0200
+
+Tag 19
+
+commit f7f68400206843ca1129d72e391190b76c6c98d7
+Author: Adrian L Lange <mail@p3lim.net>
+Date:   Wed May 3 12:49:03 2017 +0200
+
+    Don't attempt to validate non-container items
+
