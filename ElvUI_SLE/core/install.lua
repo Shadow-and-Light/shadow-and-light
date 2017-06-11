@@ -482,7 +482,6 @@ function PI:DarthSetup()
 		E.db["sle"]["raidmarkers"]["buttonSize"] = 24
 		E.db["sle"]["nameplates"]["showthreat"] = true
 		E.db["sle"]["nameplates"]["targetcount"] = true
-		E.db["sle"]["chat"]["editboxhistory"] = 10
 		E.db["sle"]["chat"]["dpsSpam"] = true
 		E.db["sle"]["chat"]["tab"]["select"] = true
 		E.db["sle"]["datatexts"]["leftchat"]["width"] = 430

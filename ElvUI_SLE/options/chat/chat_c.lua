@@ -44,7 +44,7 @@ local function configTable()
 				order = 6, type = "range",
 				name = L["Chat Editbox History"],
 				desc = L["The amount of messages to save in the editbox history.\n\n|cffFF0000Note:|r To disable, set to 0."],
-				min = 5, max = 20, step = 1,
+				min = 5, max = 50, step = 1,
 				get = function(info) return E.db.sle.chat.editboxhistory end,
 				set = function(info, value) E.db.sle.chat.editboxhistory = value; end,
 			},

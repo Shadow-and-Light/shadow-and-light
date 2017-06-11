@@ -105,7 +105,7 @@ P["sle"] = {
 			["alpha"] = 0.5,
 		},
 		["combathide"] = "NONE",
-		["editboxhistory"] = 5,
+		["editboxhistory"] = 20,
 		["justify"] = {
 			["frame1"] = "LEFT",
 			["frame2"] = "LEFT",
