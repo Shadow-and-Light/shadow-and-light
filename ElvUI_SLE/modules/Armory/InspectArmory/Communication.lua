@@ -288,7 +288,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 	
 	
 	--<< Specialization String >>--
-	local ActiveSpec = GetActiveSpecGroup()
+	local ActiveSpec = GetSpecialization()
 	local SpecTable = {}
 	local GroupArray = {}
 	for i = 1, playerNumSpecGroup do
@@ -302,7 +302,7 @@ if not AISM.Revision or AISM.Revision < Revision then
 	function AISM:GetPlayerSpecSetting()
 		local DataString, Spec, Talent, isSelected
 		
-		ActiveSpec = T.GetActiveSpecGroup()
+		ActiveSpec = T.GetSpecialization()
 		
 		if self.PlayerData.ActiveSpec ~= ActiveSpec then
 			self.PlayerData.ActiveSpec = ActiveSpec
