@@ -199,9 +199,9 @@ function Pr:IsUnlockable(itemLink)
 	return false
 end
 
-function Pr:DeconstructParser(...)
+function Pr:DeconstructParser(tt)
 	if not Pr.DeconstructMode then return end
-	local item, link = self:GetItem()
+	local item, link = tt:GetItem()
 	local class, subclass = select(6, T.GetItemInfo(item))
 	if not link then return end
 	local itemString = T.match(link, "item[%-?%d:]+")
@@ -334,7 +334,7 @@ function Pr:InitializeDeconstruct()
 
 	_G["ElvUI_ContainerFrame"]:HookScript("OnHide", Hiding)
 
-	_G["GameTooltip"]:HookScript('OnTooltipSetItem', Pr.DeconstructParser)
+	self:SecureHookScript(GameTooltip, "OnTooltipSetItem", "DeconstructParser")
 
 	Pr:Blacklisting("DE")
 	Pr:Blacklisting("LOCK")
