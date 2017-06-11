@@ -51,7 +51,6 @@ local function skinObjectiveBar(self, block, line)
 		bar.BarFrame2:Hide()
 		bar.BarFrame3:Hide()
 		bar.BarGlow:Kill()
-		bar:SetSize(225, 18)
 
 		bar:SetStatusBarTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
 		local COLOR
@@ -77,7 +76,6 @@ local function skinObjectiveBar(self, block, line)
 		progressBar.styled = true
 	end
 
-	if icon then icon:Hide() end
 	bar.IconBG:Hide()
 end
 
