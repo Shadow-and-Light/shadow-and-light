@@ -1,3 +1,20 @@
+v3.23
+Addition:
+- Replaced equipment manager options with a new option. Now you can use tag system to make spec switching more flexible
+- Added an option to set a threshold on unitframe auras for showing decimals
+Fixes:
+- Probably fixed a rare error in deconstruct mode when item info could not be adequately processed
+- Should have fixed the camera issues with afk screen closing
+- Fixed some errors in inspect
+- Fixed relam names in guild datatext for realms consisting of 2 words
+- Fixed decoonstruct mode not accounting for legion lockboxes
+- Fixed giant black box for world quests progress bars in objective tracker
+Changes:
+- Replaced deprecated functions
+- Accounted for ElvUI's chat changes
+- Preventing taints for tooltips in 7.2.5
+- Using ElvUI's functions to calculate AP in bags
+
 v3.22 04/09/17
 Fixes:
 - Fixed error in enhnced shadows module caused by microbar being disabled
