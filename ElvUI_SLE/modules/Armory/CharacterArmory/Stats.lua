@@ -22,7 +22,6 @@ local GetHaste = GetHaste
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local PaperDollFrame_SetLabelAndText = PaperDollFrame_SetLabelAndText
 local UnitSex = UnitSex
-local PaperDollFrame_UpdateStats = PaperDollFrame_UpdateStats
 local PaperDollFrame_SetItemLevel = PaperDollFrame_SetItemLevel
 local GetItemLevelColor = GetItemLevelColor
 local MovementSpeed_OnEnter, MovementSpeed_OnUpdate = MovementSpeed_OnEnter, MovementSpeed_OnUpdate
