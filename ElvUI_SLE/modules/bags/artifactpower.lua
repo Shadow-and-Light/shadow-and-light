@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local AP = SLE:NewModule("ArtifactPowerBags", 'AceHook-3.0', 'AceEvent-3.0')
-local B = E:GetModule('Bags')
+local B, DB = SLE:GetElvModules("Bags", "DataBars")
 
 --GLOBALS: CreateFrame, hooksecurefunc
 local _G = _G
@@ -10,72 +10,6 @@ local arcanePower
 local AP_NAME = format("%s|r", ARTIFACT_POWER)
 local pcall = pcall
 local GetItemSpell = GetItemSpell
-
--- local apLineIndex
-local apItemCache = {}
-local apStringValueMillion = {
-	["enUS"] = "(%d*[%p%s]?%d+) million",
-	["enGB"] = "(%d*[%p%s]?%d+) million",
-	["ptBR"] = "(%d*[%p%s]?%d+) [[milhão][milhões]]?",
-	["esMX"] = "(%d*[%p%s]?%d+) [[millón][millones]]?",
-	["deDE"] = "(%d*[%p%s]?%d+) [[Million][Millionen]]?",
-	["esES"] = "(%d*[%p%s]?%d+) [[millón][millones]]?",
-	["frFR"] = "(%d*[%p%s]?%d+) [[million][millions]]?",
-	["itIT"] = "(%d*[%p%s]?%d+) [[milione][milioni]]?",
-	["ruRU"] = "(%d*[%p%s]?%d+) млн",
-	["koKR"] = "(%d*[%p%s]?%d+)만",
-	["zhTW"] = "(%d*[%p%s]?%d+)萬",
-	["zhCN"] = "(%d*[%p%s]?%d+)万",
-}
-local apStringValueMillionLocal = apStringValueMillion[GetLocale()]
-local function GetItemLinkArtifactPower(slotLink)
-	local apValue
-	if not slotLink then return nil end
-	if IsArtifactPowerItem(slotLink) then
-		tooltipScanner:ClearLines()
-		local success = pcall(tooltipScanner.SetHyperlink, tooltipScanner, slotLink)
-		if (not success) then
-			return nil
-		end
-
-		local apFound
-		for i = 3, 7 do
-			local tooltipText = _G[tooltipName.."TextLeft"..i]:GetText()
-			if (tooltipText and not T.match(tooltipText, AP_NAME)) then
-				local digit1, digit2, digit3, ap
-				local value = T.match(tooltipText, apStringValueMillionLocal)
-
-				if value then
-					digit1, digit2 = T.match(value, "(%d+)[%p%s](%d+)")
-					if digit1 and digit2 then
-						ap = T.tonumber(T.format("%s.%s", digit1, digit2)) * 1e6 --Multiply by one million
-					else
-						ap = T.tonumber(value) * 1e6 --Multiply by one million
-					end
-				else
-					digit1, digit2, digit3 = T.match(tooltipText,"(%d+)[%p%s]?(%d+)[%p%s]?(%d+)")
-					ap = T.tonumber(T.format("%s%s%s", digit1 or "", digit2 or "", (digit2 and digit3) and digit3 or ""))
-				end
-
-				if ap then
-					apValue = ap
-					apValue = T.tonumber(apValue)
-					apFound = true
-					break
-				end
-			end
-		end
-
-		if (not apFound) then
-			apItemCache[slotLink] = false --Cache item as not granting AP
-		end
-	else
-		apItemCache[slotLink] = false --Cache item as not granting AP
-	end
-
-	return apValue
-end
-
 
 local function SlotUpdate(self, bagID, slotID)
 	if (not bagID or not slotID) or bagID == -3 then return end
@@ -99,17 +33,9 @@ local function SlotUpdate(self, bagID, slotID)
 			local ID = T.select(10, T.GetContainerItemInfo(bagID, slotID))
 			local slotLink = T.GetContainerItemLink(bagID,slotID)
 			if (ID and slotLink) then
-				local arcanePower
-				if apItemCache[slotLink] then
-					if apItemCache[slotLink] ~= false then
-						arcanePower = apItemCache[slotLink]
-					end
-				else
-					arcanePower = GetItemLinkArtifactPower(slotLink)
-					apItemCache[slotLink] = arcanePower
-				end
+				local arcanePower = DB:GetAPForItem(slotLink)
 				if E.db.sle.bags.artifactPower.short and arcanePower then arcanePower = E:ShortValue(arcanePower) end
-				frame.artifactpowerinfo:SetText(arcanePower)
+				if arcanePower ~= "0" then frame.artifactpowerinfo:SetText(arcanePower) end
 			end
 		end
 	elseif not E.db.sle.bags.artifactPower.enable and frame.artifactpowerinfo then
