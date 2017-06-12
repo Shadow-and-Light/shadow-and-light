@@ -134,7 +134,7 @@ function SLE:Initialize()
 	SLE:BuildGameMenu()
 	SLE:CyrillicsInit()
 
-	if E.private.sle.install_complete == nil or tonumber(E.private.sle.install_complete) < 3 then
+	if not E.private.sle.install_complete or (E.private.sle.install_complete ~= "BETA" and tonumber(E.private.sle.install_complete) < 3) then
 		E:GetModule("PluginInstaller"):Queue(SLE.installTable)
 	end
 	if not E.private.sle.characterGoldsSorting[E.myrealm] then E.private.sle.characterGoldsSorting[E.myrealm] = {} end

@@ -20,30 +20,7 @@ local function DarthHeal()
 	E.db["unitframe"]["units"]["raid"]["health"]["frequentUpdates"] = true
 	E.db["unitframe"]["units"]["raid"]["height"] = 22
 
-	E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 200
-
-	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
-
-	E.db["movers"]["ElvUF_PlayerCastbarMover"] = nil
-	E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,285,36"
-	E.db["movers"]["PetAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,522,124"
-	E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,743,166"
-	E.db["movers"]["ClassBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,527,251"
-	E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-283,121"
-	E.db["movers"]["VehicleSeatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,522,32"
-	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,222,113"
-	E.db["movers"]["ElvUF_FocusMover"] = "BOTTOM,ElvUIParent,BOTTOM,250,56"
-	E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-303,264"
-	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,527,191"
-	E.db["movers"]["ElvUF_PetMover"] = "BOTTOM,ElvUIParent,BOTTOM,-283,140"
-	E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,-300,330"
-	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-186"
-	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-523,187"
-	E.db["movers"]["PlayerNameplate"] = nil
-	if T.IsAddOnLoaded("ElvUI_AuraBarsMovers") then
-		E.db["movers"]["ElvUF_PlayerAuraMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,345,210"
-		E.db["movers"]["ElvUF_TargetAuraMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-341,207"
-	end
+	E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,309,429"
 end
 
 function PI:DarthSetup()
@@ -72,10 +49,14 @@ function PI:DarthSetup()
 
 	--General
 	do
-		E.db["general"]["totems"]["size"] = 30
 		E.db["general"]["totems"]["growthDirection"] = "HORIZONTAL"
+		E.db["general"]["totems"]["size"] = 30
 		E.db["general"]["threat"]["enable"] = false
 		E.db["general"]["stickyFrames"] = false
+		E.db["general"]["vendorGrays"] = true
+		E.db["general"]["bordercolor"]["r"] = 0
+		E.db["general"]["bordercolor"]["g"] = 0
+		E.db["general"]["bordercolor"]["b"] = 0
 		E.db["general"]["minimap"]["locationText"] = "HIDE"
 		E.db["general"]["bottomPanel"] = false
 		E.db["general"]["objectiveFrameHeight"] = 640
@@ -126,10 +107,11 @@ function PI:DarthSetup()
 		E.db["actionbar"]["backdropSpacingConverted"] = true
 		E.db["actionbar"]["font"] = "PT Sans Narrow"
 		E.db["actionbar"]["fontOutline"] = "OUTLINE"
+		E.db["actionbar"]["stanceBar"]["point"] = "BOTTOMLEFT"
 		E.db["actionbar"]["stanceBar"]["buttonspacing"] = -1
 		E.db["actionbar"]["stanceBar"]["buttonsPerRow"] = 1
-		E.db["actionbar"]["stanceBar"]["style"] = "classic"
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 28
+		E.db["actionbar"]["stanceBar"]["style"] = "classic"
 		E.db["actionbar"]["keyDown"] = false
 	end
 	--Auras
@@ -228,6 +210,8 @@ function PI:DarthSetup()
 		E.db["nameplates"]["castNoInterruptColor"]["r"] = 0.85882352941176
 		E.db["nameplates"]["statusbar"] = "ElvUI Gloss"
 		E.db["nameplates"]["fontSize"] = 12
+		E.db["nameplates"]["clickThrough"]["personal"] = true
+		E.db["nameplates"]["classbar"]["enable"] = false
 		E.db["nameplates"]["reactions"]["good"]["b"] = 0.10980392156863
 		E.db["nameplates"]["reactions"]["good"]["g"] = 0.74901960784314
 		E.db["nameplates"]["reactions"]["good"]["r"] = 0.082352941176471
@@ -259,12 +243,12 @@ function PI:DarthSetup()
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["powerbar"]["height"] = 4
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["powerbar"]["enable"] = true
 		E.db["nameplates"]["units"]["PLAYER"]["enable"] = true
-		E.db["nameplates"]["units"]["PLAYER"]["alwaysShow"] = true
 		E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["enable"] = false
 		E.db["nameplates"]["units"]["PLAYER"]["healthbar"]["width"] = 120
 		E.db["nameplates"]["units"]["PLAYER"]["castbar"]["enable"] = false
 		E.db["nameplates"]["units"]["PLAYER"]["buffs"]["enable"] = false
 		E.db["nameplates"]["units"]["PLAYER"]["clickthrough"] = true
+		E.db["nameplates"]["units"]["PLAYER"]["useStaticPosition"] = true
 	end
 	--Tooltips
 	do
@@ -327,7 +311,10 @@ function PI:DarthSetup()
 		E.db["unitframe"]["units"]["player"]["height"] = 40
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 225
-		E.db["unitframe"]["units"]["player"]["pvp"]["text_format"] = "[pvptimer]"
+		E.db["unitframe"]["units"]["player"]["pvp"]["text_format"] = ""
+		E.db["unitframe"]["units"]["player"]["pvpIcon"]["enable"] = true
+		E.db["unitframe"]["units"]["player"]["pvpIcon"]["xOffset"] = -30
+		E.db["unitframe"]["units"]["player"]["pvpIcon"]["anchorPoint"] = "LEFT"
 
 		E.db["unitframe"]["units"]["target"]["portrait"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["portrait"]["camDistanceScale"] = 3
@@ -360,6 +347,9 @@ function PI:DarthSetup()
 		E.db["unitframe"]["units"]["target"]["name"]["yOffset"] = 13
 		E.db["unitframe"]["units"]["target"]["name"]["text_format"] = " [difficultycolor][level] [namecolor][name:medium] [shortclassification]"
 		E.db["unitframe"]["units"]["target"]["name"]["position"] = "TOPLEFT"
+		E.db["unitframe"]["units"]["target"]["pvpIcon"]["enable"] = true
+		E.db["unitframe"]["units"]["target"]["pvpIcon"]["xOffset"] = 30
+		E.db["unitframe"]["units"]["target"]["pvpIcon"]["anchorPoint"] = "RIGHT"
 
 		E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = false
 		E.db["unitframe"]["units"]["targettarget"]["width"] = 100
@@ -469,6 +459,7 @@ function PI:DarthSetup()
 		E.db["sle"]["loot"]["autoroll"]["autoconfirm"] = true
 		E.db["sle"]["loot"]["autoroll"]["autogreed"] = true
 		E.db["sle"]["orderhall"]["autoOrder"]["enable"] = true
+		E.db["sle"]["orderhall"]["autoOrder"]["autoEquip"] = true
 		E.db["sle"]["uibuttons"]["point"] = "TOPRIGHT"
 		E.db["sle"]["uibuttons"]["enable"] = true
 		E.db["sle"]["uibuttons"]["spacing"] = 1
@@ -506,6 +497,7 @@ function PI:DarthSetup()
 		E.db["sle"]["unitframes"]["unit"]["player"]["rested"]["xoffset"] = 208
 		E.db["sle"]["unitframes"]["unit"]["player"]["rested"]["yoffset"] = -35
 		E.db["sle"]["unitframes"]["unit"]["player"]["higherPortrait"] = true
+		E.db["sle"]["unitframes"]["unit"]["player"]["pvpIconText"]["enable"] = true
 		E.db["sle"]["unitframes"]["unit"]["target"]["higherPortrait"] = true
 		E.db["sle"]["unitframes"]["unit"]["target"]["portraitAlpha"] = 1
 		E.db["sle"]["minimap"]["locPanel"]["enable"] = true
@@ -532,6 +524,7 @@ function PI:DarthSetup()
 		E.db["sle"]["Armory"]["Character"]["Durability"]["FontSize"] = 10
 		E.db["sle"]["Armory"]["Character"]["Level"]["FontSize"] = 12
 		E.db["sle"]["Armory"]["Character"]["Backdrop"]["SelectedBG"] = "TheEmpire"
+		E.db["sle"]["Armory"]["Character"]["Backdrop"]["Overlay"] = false
 	end
 	--Movers
 	do
@@ -566,7 +559,7 @@ function PI:DarthSetup()
 		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-220,186"
 		E.db["movers"]["ObjectiveFrameMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,98,-4"
 		E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-59,-299"
-		E.db["movers"]["ShiftAB"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,761,138"
+		E.db["movers"]["ShiftAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,761,29"
 		E.db["movers"]["HonorBarMover"] = "TOP,ElvUIParent,TOP,0,-29"
 		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-59,-299"
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,-267,142"

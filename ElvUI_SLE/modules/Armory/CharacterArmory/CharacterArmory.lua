@@ -1292,7 +1292,7 @@ do --<< Artifact Monitor >>
 		end
 		return str
 	end
-	local PowerItemLink, SearchingText, SearchingPhase, CurrentItemPower, TotalPower, LowestPower, LowestPower_BagID, LowestPower_SlotID, LowestPower_Link
+	local PowerItemLink, SearchingText, SearchingPhase, CurrentItemPower, TotalPower
 	function CA:LegionArtifactMonitor_SearchPowerItem()
 		if not self.ArtifactMonitor.UpdateData then
 			CA:LegionArtifactMonitor_UpdateData()
@@ -1304,16 +1304,17 @@ do --<< Artifact Monitor >>
 			TotalPower = ElvUI_DataBars:GetArtifactPowerInBags()
 
 			if TotalPower then
-				self.ArtifactMonitor.AddPower.Texture:Show()
-				self.ArtifactMonitor.AddPower.Button.Link = LowestPower_Link
 
 				if TotalPower > 0 then
+					self.ArtifactMonitor.AddPower.Texture:Show()
 					if E.db.sle.Armory.Character.Artifact.ShortValues then
 						self.ArtifactMonitor.BarExpected.AvailablePower:SetText(KF:Color_Value('+'..E:ShortValue(TotalPower)))
 					else
 						self.ArtifactMonitor.BarExpected.AvailablePower:SetText(KF:Color_Value('+'..BreakUpLargeNumbers(TotalPower)))
 					end
 				else
+					self.ArtifactMonitor.AddPower.Texture:Hide()
+					self.ArtifactMonitor.AddPower.Texture:Hide()
 					self.ArtifactMonitor.BarExpected.AvailablePower:SetText()
 				end
 			else
