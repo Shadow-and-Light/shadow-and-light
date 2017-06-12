@@ -14,6 +14,7 @@ Changes:
 - Accounted for ElvUI's chat changes
 - Preventing taints for tooltips in 7.2.5
 - Using ElvUI's functions to calculate AP in bags
+- Altered Darth's install profile. healer layout now looks caster-ish
 
 v3.22 04/09/17
 Fixes:
