@@ -35,7 +35,7 @@ local function SlotUpdate(self, bagID, slotID)
 			if (ID and slotLink) then
 				local arcanePower = DB:GetAPForItem(slotLink)
 				if E.db.sle.bags.artifactPower.short and arcanePower then arcanePower = E:ShortValue(arcanePower) end
-				if arcanePower ~= "0" then frame.artifactpowerinfo:SetText(arcanePower) end
+				if (arcanePower ~= "0" and arcanePower ~= 0) then frame.artifactpowerinfo:SetText(arcanePower) end
 			end
 		end
 	elseif not E.db.sle.bags.artifactPower.enable and frame.artifactpowerinfo then
