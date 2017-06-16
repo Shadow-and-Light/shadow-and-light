@@ -15,7 +15,7 @@ local function GetBattleFieldIndexFromUnitName(name)
 end
 
 function SUF:UpdateRoleIcon()
-	local lfdrole = self.LFDRole
+	local lfdrole = self.GroupRoleIndicator
 	if not self.db then return; end
 	local db = self.db.roleIcon;
 	if (not db) or (db and not db.enable) then
@@ -61,11 +61,11 @@ function SUF:SetRoleIcons()
 			local group = T.select(i, header:GetChildren())
 			for j = 1, group:GetNumChildren() do
 			local unitbutton = T.select(j, group:GetChildren())
-				if unitbutton.LFDRole and unitbutton.LFDRole.Override and not unitbutton.LFDRole.sleRoleSetup then
-					unitbutton.LFDRole.Override = SUF.UpdateRoleIcon
+				if unitbutton.GroupRoleIndicator and unitbutton.GroupRoleIndicator.Override and not unitbutton.GroupRoleIndicator.sleRoleSetup then
+					unitbutton.GroupRoleIndicator.Override = SUF.UpdateRoleIcon
 					unitbutton:UnregisterEvent("UNIT_CONNECTION")
 					unitbutton:RegisterEvent("UNIT_CONNECTION", SUF.UpdateRoleIcon)
-					unitbutton.LFDRole.sleRoleSetup = true
+					unitbutton.GroupRoleIndicator.sleRoleSetup = true
 				end
 			end
 		end

@@ -28,10 +28,10 @@ function SUF:Update_GroupFrames(frame)
 			frame:DisableElement('SLE_Offline')
 		end
 	end
-	-- if frame.db.roleIcon.enable and frame.LFDRole then
-		-- frame.LFDRole:ClearAllPoints()
+	-- if frame.db.roleIcon.enable and frame.GroupRoleIndicator then
+		-- frame.GroupRoleIndicator:ClearAllPoints()
 		-- local x, y = self:GetPositionOffset(frame.db.roleIcon.position, 1)
-		-- frame.LFDRole:ClearAllPoints()
-		-- frame.LFDRole:Point(frame.db.roleIcon.position, frame.Health, frame.db.roleIcon.position, x + db.role.xoffset, y + db.role.yoffset)
+		-- frame.GroupRoleIndicator:ClearAllPoints()
+		-- frame.GroupRoleIndicator:Point(frame.db.roleIcon.position, frame.Health, frame.db.roleIcon.position, x + db.role.xoffset, y + db.role.yoffset)
 	-- end
 end

@@ -163,7 +163,7 @@ local function configTable()
 						name = L["Combat Icon"],
 						guiInline = true,
 						get = function(info) return E.db.sle.unitframes.unit.player.combatico[ info[#info] ] end,
-						set = function(info, value) E.db.sle.unitframes.unit.player.combatico[ info[#info] ] = value; ElvUF_Player.Combat:PostUpdate(); SUF:TestCombat() end,
+						set = function(info, value) E.db.sle.unitframes.unit.player.combatico[ info[#info] ] = value; ElvUF_Player.CombatIndicator:PostUpdate(); SUF:TestCombat() end,
 						args = {
 							xoffset = { order = 1, type = 'range', name = L["X-Offset"], min = -300, max = 300, step = 1 },
 							yoffset = { order = 2, type = 'range', name = L["Y-Offset"], min = -150, max = 150, step = 1 },

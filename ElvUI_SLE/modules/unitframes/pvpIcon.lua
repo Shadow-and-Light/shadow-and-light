@@ -3,7 +3,7 @@ local SUF = SLE:GetModule("UnitFrames")
 local UF = E:GetModule('UnitFrames');
 
 function SUF:Create_PvpIconText(frame)
-	local PvP = frame.PvP
+	local PvP = frame.PvPIndicator
 	PvP.text = CreateFrame("Frame", nil, frame)
 	PvP.text:Size(10,10)
 	PvP.text:SetFrameLevel(PvP:GetParent():GetFrameLevel() + 3)
@@ -16,7 +16,7 @@ function SUF:Create_PvpIconText(frame)
 end
 
 function SUF:Configure_PVPIcon(frame)
-	local PvP = frame.PvP
+	local PvP = frame.PvPIndicator
 	if not PvP.text then return end
 	local iconEnabled = frame:IsElementEnabled('PvP')
 

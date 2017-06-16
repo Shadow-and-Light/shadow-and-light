@@ -76,7 +76,6 @@ function DTP:ReplaceSpecSwitch()
 					menuList[index + 2] = nil
 				end
 			end
-
 			EasyMenu(menuList, menuFrame, "cursor", E.private.sle.dt.specswitch.xOffset, E.private.sle.dt.specswitch.yOffset, "MENU", 2)
 		end
 	end

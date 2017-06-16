@@ -154,9 +154,9 @@ function SUF:UpdateHealComm(unit, myIncomingHeal, allIncomingHeal, totalAbsorb)
 end
 
 function SUF:HealthPredictUpdate(frame)
-	if frame.HealPrediction and (not frame.HealPrediction.SLEPredicHook and frame.HealPrediction.PostUpdate) then
-		frame.HealPrediction.PostUpdate = SUF.UpdateHealComm
-		frame.HealPrediction.SLEPredicHook = true
+	if frame.HealthPrediction and (not frame.HealthPrediction.SLEPredicHook and frame.HealthPrediction.PostUpdate) then
+		frame.HealthPrediction.PostUpdate = SUF.UpdateHealComm
+		frame.HealthPrediction.SLEPredicHook = true
 	end
 end
 

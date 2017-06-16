@@ -80,7 +80,7 @@ end
 function SUF:UpdateClass(frame)
 	local bars = frame[frame.ClassBar]
 	local texture = E.LSM:Fetch("statusbar", E.db.sle.unitframes.statusTextures.classTexture)
-	if (frame.ClassBar == 'ClassIcons' or frame.ClassBar == 'Runes') then
+	if (frame.ClassBar == 'ClassPower' or frame.ClassBar == 'Runes') then
 		for i = 1, (UF.classMaxResourceBar[E.myclass] or 0) do
 			if i <= frame.MAX_CLASS_BAR then
 				bars[i]:SetStatusBarTexture(texture)
