@@ -1,3 +1,9 @@
+v3.24
+Fixes:
+- Fixed AP in bags showing 0 for non-AP items after ElvUI update
+Changes:
+- Account for changes in ElvUI v10.55
+
 v3.23 06/12/17
 Addition:
 - Replaced equipment manager options with a new option. Now you can use tag system to make spec switching more flexible
