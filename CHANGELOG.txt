@@ -1,4 +1,4 @@
-v3.24
+v3.24 06/17/17
 Fixes:
 - Fixed AP in bags showing 0 for non-AP items after ElvUI update
 Changes:
