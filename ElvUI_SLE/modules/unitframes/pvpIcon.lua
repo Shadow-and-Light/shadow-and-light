@@ -18,7 +18,7 @@ end
 function SUF:Configure_PVPIcon(frame)
 	local PvP = frame.PvPIndicator
 	if not PvP.text then return end
-	local iconEnabled = frame:IsElementEnabled('PvP')
+	local iconEnabled = frame:IsElementEnabled('PvPIndicator')
 
 	if iconEnabled and E.db.sle.unitframes.unit.player.pvpIconText.enable then
 		PvP.text:Show()
