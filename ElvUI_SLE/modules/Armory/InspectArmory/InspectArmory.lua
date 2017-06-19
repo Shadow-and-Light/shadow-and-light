@@ -645,12 +645,7 @@ function IA:CreateInspectFrame()
 			-- Slot
 			Slot = CreateFrame('Button', nil, self)
 			Slot:Size(SLOT_SIZE)
-			Slot:SetBackdrop({
-				bgFile = E.media.blankTex,
-				edgeFile = E.media.blankTex,
-				tile = false, tileSize = 0, edgeSize = E.mult,
-				insets = { left = 0, right = 0, top = 0, bottom = 0}
-			})
+			Slot:SetTemplate("Transparent")
 			Slot:SetFrameLevel(CORE_FRAME_LEVEL + 3)
 			Slot.ReplaceTooltipLines = {}
 			Slot:SetScript('OnEnter', self.EquipmentSlot_OnEnter)
