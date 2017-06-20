@@ -459,6 +459,8 @@ L["Swap sets only on specialization change ignoring location change when. Does n
 L["Equipement conditions"] = true
 L["SLE_EM_SET_NOT_EXIST"] = "Equipment set |cff9482c9%s|r doesn't exist!"
 L["SLE_EM_TAG_INVALID"] = "Invalid tag: %s"
+L["SLE_EM_TAG_INVALID_TALENT_TIER"] = "Invalid argument for talent tag. Tier is |cff9482c9%s|r, should be from 1 to 7."
+L["SLE_EM_TAG_INVALID_TALENT_COLUMN"] = "Invalid argument for talent tag. Column is |cff9482c9%s|r, should be from 1 to 3."
 L["SLE_EM_CONDITIONS_DESC"] = [[Determines conditions under which specified sets are equipeed.
 This works as macros and controlled by a set of tags as seen below.]]
 L["SLE_EM_TAGS_HELP"] = [[Following tags and parameters are eligible for setting equip condition:
@@ -466,6 +468,7 @@ L["SLE_EM_TAGS_HELP"] = [[Following tags and parameters are eligible for setting
 |cff3cbf27party|r - when you are in a group of any description. Can be of specified size, e.g. [party:4] - if in a group of total size 4;
 |cff3cbf27raid|r - when you are in a raid group. Can be of specified size like party option;
 |cff3cbf27spec|r - specified spec. Usage [spec:<number>] number is the index of desired spec as seen in spec tab;
+|cff3cbf27talent|r - specified talent. Usage [talent:<tier>/<column>] tier is the row going from 1 on lvl 15 to 7 and lvl 100, column is the column in said row from 1 to 3;
 |cff3cbf27instance|r - if in instance. Can be of specified instance type - [instance:<type>]. Types are party, raid and scenario. If not specified will be true for any instance;
 |cff3cbf27pvp|r - if on BG, arena or world pvp area. Available arguments: pvp, arena;
 |cff3cbf27difficulty|r - defines the difficulty of the instance. Argumants are: normal, heroic, lfr, challenge, mythic;
