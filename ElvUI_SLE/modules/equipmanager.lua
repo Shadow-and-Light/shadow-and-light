@@ -62,6 +62,16 @@ EM.TagsTable = {
 		if not index then return false end
 		if index == T.GetSpecialization() then return true; else return false; end
 	end,
+	["talent"] = function(tier, column)
+		if not (tier or column) then return false end
+		local index = T.GetSpecialization()
+		local _, _, _, selected = GetTalentInfo(tier, column, index)
+		if selected then
+			return true
+		else
+			return false
+		end
+	end,
 	["instance"] = function(dungeonType)
 		local inInstance, InstanceType = T.IsInInstance()
 		if inInstance then
@@ -137,9 +147,20 @@ function EM:TagsProcess(msg)
 				local cnd = cnd_table[j];
 				if cnd then
 					local command, argument = (":"):split(cnd)
+					local argTable = {}
+					if ("/"):split(argument) then
+						local put
+						while argument and ("/"):split(argument) do
+							put, argument = ("/"):split(argument)
+							T.tinsert(argTable, put)
+						end
+					else
+						T.tinsert(argTable, argument)
+					end
+					
 					local tag = command:match("^%s*(.+)%s*$")
 					if EM.TagsTable[tag] then
-						T.tinsert(parsed_cmds, { cmd = command:match("^%s*(.+)%s*$"), arg = argument })
+						T.tinsert(parsed_cmds, { cmd = command:match("^%s*(.+)%s*$"), arg = argTable })
 					else
 						SLE:ErrorPrint(T.format(L["SLE_EM_TAG_INVALID"], tag))
 						T.twipe(EM.SetData)
@@ -165,7 +186,7 @@ function EM:TagsConditionsCheck(data)
 					return nil
 				end
 				local arg = conditionInfo["arg"]
-				local result = EM.TagsTable[func](arg)
+				local result = EM.TagsTable[func](T.unpack(arg))
 				if result then 
 					matches = matches + 1
 				else
