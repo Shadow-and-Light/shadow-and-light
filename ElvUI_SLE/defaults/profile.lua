@@ -704,6 +704,7 @@ P["sle"] = {
 				["nightmare"] = true,
 				["trial"] = true,
 				["nighthold"] = true,
+				["sargeras"] = true,
 			},
 		},
 	},

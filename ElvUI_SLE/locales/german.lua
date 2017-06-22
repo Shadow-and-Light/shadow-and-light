@@ -780,6 +780,7 @@ L["Tooltip X-offset"] = true
 L["Offset the tooltip on the X-axis."] = true
 L["Tooltip Y-offset"] = true
 L["Offset the tooltip on the Y-axis."] = true
+L["RAID_TOS"] = "ToS"
 L["RAID_NH"] = "NH"
 L["RAID_TOV"] = "ToV"
 L["RAID_EN"] = "EN"
