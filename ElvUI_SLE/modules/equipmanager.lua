@@ -64,6 +64,8 @@ EM.TagsTable = {
 	end,
 	["talent"] = function(tier, column)
 		if not (tier or column) then return false end
+		tier = T.tonumber(tier)
+		column = T.tonumber(column)
 		if tier < 0 or tier > 7 then SLE:ErrorPrint(T.format(L["SLE_EM_TAG_INVALID_TALENT_TIER"], tier)) return false end
 		if column < 0 or column > 3 then SLE:ErrorPrint(T.format(L["SLE_EM_TAG_INVALID_TALENT_COLUMN"], column)) return false end
 		local index = T.GetSpecialization()
