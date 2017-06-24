@@ -470,6 +470,7 @@ L["SLE_EM_SET_NOT_EXIST"] = "Equipment set |cff9482c9%s|r doesn't exist!"
 L["SLE_EM_TAG_INVALID"] = "Invalid tag: %s"
 L["SLE_EM_TAG_INVALID_TALENT_TIER"] = "Invalid argument for talent tag. Tier is |cff9482c9%s|r, should be from 1 to 7."
 L["SLE_EM_TAG_INVALID_TALENT_COLUMN"] = "Invalid argument for talent tag. Column is |cff9482c9%s|r, should be from 1 to 3."
+L["SLE_EM_TAG_DOT_WARNING"] = "Wrong separator for conditions detected. You need to use commas instead of dots."
 L["SLE_EM_CONDITIONS_DESC"] = [[Determines conditions under which specified sets are equipeed.
 This works as macros and controlled by a set of tags as seen below.]]
 L["SLE_EM_TAGS_HELP"] = [[Following tags and parameters are eligible for setting equip condition:

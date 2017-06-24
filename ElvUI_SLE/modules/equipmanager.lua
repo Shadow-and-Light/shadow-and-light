@@ -64,8 +64,7 @@ EM.TagsTable = {
 	end,
 	["talent"] = function(tier, column)
 		if not (tier or column) then return false end
-		tier = T.tonumber(tier)
-		column = T.tonumber(column)
+		if not (T.tonumber(tier) or T.tonumber(column)) then return false end
 		if tier < 0 or tier > 7 then SLE:ErrorPrint(T.format(L["SLE_EM_TAG_INVALID_TALENT_TIER"], tier)) return false end
 		if column < 0 or column > 3 then SLE:ErrorPrint(T.format(L["SLE_EM_TAG_INVALID_TALENT_COLUMN"], column)) return false end
 		local index = T.GetSpecialization()
@@ -152,23 +151,27 @@ function EM:TagsProcess(msg)
 				if cnd then
 					local command, argument = (":"):split(cnd)
 					local argTable = {}
-					if ("/"):split(argument) then
-						local put
-						while argument and ("/"):split(argument) do
-							put, argument = ("/"):split(argument)
-							T.tinsert(argTable, put)
+					if T.find(argument, ".") then
+						SLE:ErrorPrint(L["SLE_EM_TAG_DOT_WARNING"])
+					else
+						if ("/"):split(argument) then
+							local put
+							while argument and ("/"):split(argument) do
+								put, argument = ("/"):split(argument)
+								T.tinsert(argTable, put)
+							end
+						else
+							T.tinsert(argTable, argument)
 						end
-					else
-						T.tinsert(argTable, argument)
-					end
-					
-					local tag = command:match("^%s*(.+)%s*$")
-					if EM.TagsTable[tag] then
-						T.tinsert(parsed_cmds, { cmd = command:match("^%s*(.+)%s*$"), arg = argTable })
-					else
-						SLE:ErrorPrint(T.format(L["SLE_EM_TAG_INVALID"], tag))
-						T.twipe(EM.SetData)
-						return
+						
+						local tag = command:match("^%s*(.+)%s*$")
+						if EM.TagsTable[tag] then
+							T.tinsert(parsed_cmds, { cmd = command:match("^%s*(.+)%s*$"), arg = argTable })
+						else
+							SLE:ErrorPrint(T.format(L["SLE_EM_TAG_INVALID"], tag))
+							T.twipe(EM.SetData)
+							return
+						end
 					end
 				end
 			end
