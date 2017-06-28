@@ -1,3 +1,11 @@
+v3.26 06/28/17
+Changes:
+- Changed the way tomtom waypoints are ignored by minimap button skinning process
+Fixes:
+- 2 new currencies are back to the corresponding datatext, could swear I added those some time ago but who knows
+- Corrected min ilvl required for Tomb of Sargeras LFR
+
+
 v3.25 06/28/17
 Fixes:
 - Fixed another black box instead of icon on quest progression
