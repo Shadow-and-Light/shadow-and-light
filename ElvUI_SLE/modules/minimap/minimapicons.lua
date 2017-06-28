@@ -89,17 +89,11 @@ SMB.AddButtonsToBar = {
 
 local function SkinButton(Button)
 	if not Button.isSkinned then
-		if TomTomLocals and Button.point then
-			if Button.point.uid then
-				if Button.point.uid.title then
-					if Button.point.uid.title == TomTomLocals["TomTom waypoint"] then
-						Button.isSkinned = true
-						return
-					end
-				end
-			end
-		end
 		local Name = Button:GetName()
+		if TomTom and not Name and (Button.icon and (Button.icon:GetTexture() == "Interface\\AddOns\\TomTom\\Images\\GoldGreenDot" or Button.icon:GetTexture() == "Interface\\AddOns\\TomTom\\Images\\MinimapArrow-Green") ) then
+			Button.isSkinned = true
+			return
+		end
 
 		if Button:IsObjectType('Button') then
 			local ValidIcon = false
