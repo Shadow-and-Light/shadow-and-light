@@ -89,6 +89,7 @@ local MiscellaneousCurrency = {
 	777, -- Timeless Coins
 	944, -- Artifact Fragment?
 	789, -- Bloody Coin
+	1416, --Coins of Air
 	823, -- Apexis Crystal
 	980, -- Dingy Iron Coins
 	824, -- Garrison
@@ -100,6 +101,7 @@ local MiscellaneousCurrency = {
 	1154, --Shadowy Coins
 	1268, --Timeworn Artifact
 	1342, --Legionfall war supplies
+	1501, --Writhing Essence
 }
 
 local HordeColor = RAID_CLASS_COLORS["DEATHKNIGHT"]
