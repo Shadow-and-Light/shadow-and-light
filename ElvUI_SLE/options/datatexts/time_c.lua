@@ -72,6 +72,7 @@ local function configTable()
 							nightmare = { order = 1, type = "toggle", name = T.GetMapNameByID(1094) },
 							trial = { order = 2, type = "toggle", name = T.GetMapNameByID(1114) },
 							palace = { order = 3, type = "toggle", name = T.GetMapNameByID(1088) },
+							tomb = { order = 4, type = "toggle", name = T.GetMapNameByID(1147) },
 						},
 					},
 				},

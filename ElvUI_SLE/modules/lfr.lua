@@ -170,6 +170,61 @@ local function EightShift(id1, id2)
 	end
 end
 
+--For 9 boss raid
+local function NineKill(id1, id2, id3, id4)
+	local killNum = 0
+	local bosses = {} --cause fuck blizz ordering
+	--1st part
+	bosses = {1, 3, 5}
+	for i =1, #bosses do
+		_, _, isKilled = T.GetLFGDungeonEncounterInfo(id1, bosses[i]);
+		if (isKilled) then killNum = killNum + 1 end
+	end
+	T.twipe(bosses)
+	--2nd part
+	bosses = {2, 4, 6}
+	for i =1, #bosses do 
+		_, _, isKilled = T.GetLFGDungeonEncounterInfo(id2, bosses[i]);
+		if (isKilled) then killNum = killNum + 1 end
+	end
+	T.twipe(bosses)
+	--3nd part
+	for i =7,8 do 
+		_, _, isKilled = T.GetLFGDungeonEncounterInfo(id3, i);
+		if (isKilled) then killNum = killNum + 1 end
+	end
+	-- 4th part
+	_, _, isKilled = T.GetLFGDungeonEncounterInfo(id4, 9);
+	if (isKilled) then killNum = killNum + 1 end
+
+	LFR:BossCount(killNum, 9)
+end
+
+local function NineShift(id1, id2, id3, id4)
+	local bosses = {} --cause fuck blizz ordering
+	-- 1st part
+	bosses = {1, 3, 5}
+	for i =1, #bosses do 
+		bossName, _, isKilled, isIneligible = T.GetLFGDungeonEncounterInfo(id1, bosses[i]);
+		LFR:BossStatus(bossName, isKilled, isIneligible)
+	end
+	T.twipe(bosses)
+	--2nd part
+	bosses = {2, 4, 6}
+	for i =1, #bosses do  
+		bossName, _, isKilled, isIneligible = T.GetLFGDungeonEncounterInfo(id2, bosses[i]);
+		LFR:BossStatus(bossName, isKilled, isIneligible)
+	end
+	T.twipe(bosses)
+	for i =7,8 do --3nd part
+		bossName, _, isKilled, isIneligible = T.GetLFGDungeonEncounterInfo(id3, i);
+		LFR:BossStatus(bossName, isKilled, isIneligible)
+	end
+	-- 4rd part
+	bossName, _, isKilled, isIneligible = T.GetLFGDungeonEncounterInfo(id4, 9);
+	LFR:BossStatus(bossName, isKilled, isIneligible)
+end
+
 --For 10 boss raid
 local function TenKill(id1, id2, id3, id4)
 	local killNum = 0
@@ -455,6 +510,14 @@ local function Trial()
 	end
 end
 
+local function TombOfSargeras()
+	if IsShiftKeyDown() then
+		NineShift(1494,1495,1496,1497);
+	else
+		NineKill(1494,1495,1496,1497);
+	end
+end
+
 LFR.Req = {
 	["Cata"] = {3, 85},
 	["MoP"] = {4, 90},
@@ -539,6 +602,12 @@ LFR.Legion = {
 		["ilevel"] = 835,
 		["map"] = 1088,
 		["func"] = Suramar,
+	},
+	[4] = {
+		["name"] = "tomb",
+		["ilevel"] = 835,
+		["map"] = 1147,
+		["func"] = TombOfSargeras,
 	},
 }
 

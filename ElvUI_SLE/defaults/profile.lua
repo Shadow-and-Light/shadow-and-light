@@ -360,6 +360,7 @@ P["sle"] = {
 			["nightmare"] = false,
 			["trial"] = false,
 			["palace"] = false,
+			["tomb"] = false,
 		},
 	},
 	--Loot 
