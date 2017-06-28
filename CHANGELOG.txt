@@ -1,3 +1,14 @@
+v3.25 06/28/17
+Fixes:
+- Fixed another black box instead of icon on quest progression
+- Fixed prestige icon pvp timer
+- Fixed white borders in inspect armory when thin borders are disabled
+- Fixed skinning for tomtom stuff
+Additions:
+- Added [talent] tag for equip manager
+- Added Tomb of Sargers to tooltip raid progression and LFR lockout in time DT
+
+
 v3.24 06/17/17
 Fixes:
 - Fixed AP in bags showing 0 for non-AP items after ElvUI update
