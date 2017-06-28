@@ -605,7 +605,7 @@ LFR.Legion = {
 	},
 	[4] = {
 		["name"] = "tomb",
-		["ilevel"] = 835,
+		["ilevel"] = 860,
 		["map"] = 1147,
 		["func"] = TombOfSargeras,
 	},
