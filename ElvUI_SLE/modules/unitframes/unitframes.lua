@@ -160,23 +160,7 @@ function SUF:HealthPredictUpdate(frame)
 	end
 end
 
-function UF:UpdateAuraTimer(elapsed)
-	self.expiration = self.expiration - elapsed
-	if self.nextupdate > 0 then
-		self.nextupdate = self.nextupdate - elapsed
-		return
-	end
-
-	if(self.expiration <= 0) then
-		self:SetScript('OnUpdate', nil)
-
-		if(self.text:GetFont()) then
-			self.text:SetText('')
-		end
-
-		return
-	end
-
+local function UpdateAuraTimer(self, elapsed)
 	local timervalue, formatid
 	local unitID = self:GetParent():GetParent().unitframeType
 	local auraType = self:GetParent().type
@@ -231,6 +215,8 @@ function SUF:Initialize()
 	SUF:UpgradePvPIcon()
 
 	SUF:InitStatus()
+	
+	hooksecurefunc(UF, "UpdateAuraTimer", UpdateAuraTimer)
 
 	function SUF:ForUpdateAll()
 		SUF:SetRoleIcons()
