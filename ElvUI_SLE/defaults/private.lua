@@ -13,7 +13,6 @@ V["sle"] = {
 		["spam"] = false,
 		["onlyTalent"] = false,
 		["conditions"] = "",
-		["conditions"] = "",
 		["setoverlay"] = false,
 		["lockbutton"] = false,
 	},
