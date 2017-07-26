@@ -64,7 +64,6 @@ local function skinObjectiveBar(self, block, line)
 		bar.backdrop:Point("TOPLEFT", bar, -1, 1)
 		bar.backdrop:Point("BOTTOMRIGHT", bar, 1, -1)
 		bar:SetFrameStrata('HIGH')
-		bar.newIconBg:SetTemplate("NoBackdrop")
 
 		flare:Hide()
 
