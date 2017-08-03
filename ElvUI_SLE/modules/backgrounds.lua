@@ -67,9 +67,8 @@ end
 
 function BG:CreateAndUpdateFrames()
 	for i = 1, 4 do
-		if not BG["Frame_"..i] then BG["Frame_"..i] = self:CreateFrame(i) end
-		BG:Positions(i)
-		BG:FramesSize(i)
+		if not BG["Frame_"..i] then BG["Frame_"..i] = self:CreateFrame(i) BG:Positions(i) end
+				BG:FramesSize(i)
 		BG:FrameTemplate(i)
 		BG:Alpha(i)
 		if not E.CreatedMovers["SLE_BG_"..i.."_Mover"] then E:CreateMover(BG["Frame_"..i], "SLE_BG_"..i.."_Mover", L["SLE_BG_"..i], nil, nil, nil, "S&L,S&L BG") end
