@@ -1724,7 +1724,7 @@ IA.InspectUnit = function(UnitID)
 		IA:RegisterEvent('INSPECT_READY')
 		IA:RegisterEvent('INSPECT_HONOR_UPDATE')
 		
-		SLE:Print(format(L["Try inspecting %s. Sometimes this work will take few second for waiting server's response."], '|c'..RAID_CLASS_COLORS[IA.CurrentInspectData.Class].colorStr..IA.CurrentInspectData.Name..(IA.CurrentInspectData.Realm and '-'..IA.CurrentInspectData.Realm or '')..'|r')..(UnitID == 'mouseover' and ' '..L['Mouseover Inspect must hold your mouse position until inspect is over.'] or ''))
+		if E.db.sle.Armory.Inspect.InspectMessage then SLE:Print(format(L["Try inspecting %s. Sometimes this work will take few second for waiting server's response."], '|c'..RAID_CLASS_COLORS[IA.CurrentInspectData.Class].colorStr..IA.CurrentInspectData.Name..(IA.CurrentInspectData.Realm and '-'..IA.CurrentInspectData.Realm or '')..'|r')..(UnitID == 'mouseover' and ' '..L['Mouseover Inspect must hold your mouse position until inspect is over.'] or '')) end
 		IA.Inspector:Show()
 		
 		return true

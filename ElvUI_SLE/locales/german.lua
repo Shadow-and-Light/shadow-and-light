@@ -168,6 +168,10 @@ L["Only Relevant Stats"] = "Nur relevante Werte"
 L["Show only those primary stats relevant to your spec."] = "Zeigt nur primäre Werte die relevant für deinen Spec sind."
 L["SLE_ARMORY_POINTS_AVAILABLE"] = "%s Punkt(e) verfügbar!!"
 L["Show ElvUI skin's backdrop overlay"] = "Zeigt ElvUI-Skin Hintergrund Overlay"
+L["Try inspecting %s. Sometimes this work will take few second for waiting server's response."] = true
+L['Inspect is canceled because target was changed or lost.'] = true
+L["You can't inspect while dead."] = true
+L["Show Inspection message in chat"] = true
 
 --AFK
 L["You Are Away From Keyboard for"] = "Du bist nicht an der Tastatur für"

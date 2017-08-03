@@ -167,6 +167,10 @@ L["Only Relevant Stats"] = "Только подходящие"
 L["Show only those primary stats relevant to your spec."] = "Отображает только те основные характеристики, что подходят вашей текущей специализации."
 L["SLE_ARMORY_POINTS_AVAILABLE"] = "Очков доступно: %s"
 L["Show ElvUI skin's backdrop overlay"] = "Отображать фон скина ElvUI"
+L["Try inspecting %s. Sometimes this work will take few second for waiting server's response."] = "Осматриваю %s. Можеть занять несколько секунд ожидания ответа сервера."
+L['Inspect is canceled because target was changed or lost.'] = "Осмотр отменет, т.к. цель была изменена или потеряна."
+L["You can't inspect while dead."] = "Мертвые не осматривают."
+L["Show Inspection message in chat"] = "Отображать сообщение об осмотре в чате."
 
 --AFK
 L["You Are Away From Keyboard for"] = "Вы отошли на"
