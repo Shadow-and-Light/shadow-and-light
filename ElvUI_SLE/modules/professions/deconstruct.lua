@@ -120,7 +120,7 @@ function Pr:BuildBlacklistLOCK(...)
 	end
 end
 
-function Pr:ApplyDeconstruct(itemLink, spell, r, g, b)
+function Pr:ApplyDeconstruct(itemLink, spell, spellType, r, g, b)
 	local slot = T.GetMouseFocus()
 	local bag = slot:GetParent():GetID()
 	if not _G["ElvUI_ContainerFrame"].Bags[bag] then return end
@@ -141,8 +141,8 @@ function Pr:ApplyDeconstruct(itemLink, spell, r, g, b)
 		-- end
 	elseif (T.GetContainerItemLink(bag, slot:GetID()) == itemLink) then
 		Pr.DeconstructionReal.ID = T.match(itemLink, 'item:(%d+):')
-		Pr.DeconstructionReal:SetAttribute("type1","spell")
-		Pr.DeconstructionReal:SetAttribute('spell', spell)
+		Pr.DeconstructionReal:SetAttribute("type1",spellType)
+		Pr.DeconstructionReal:SetAttribute(spellType, spell)
 		Pr.DeconstructionReal:SetAttribute('target-bag', bag)
 		Pr.DeconstructionReal:SetAttribute('target-slot', slot:GetID())
 		Pr.DeconstructionReal:SetAllPoints(slot)
@@ -172,7 +172,7 @@ function Pr:IsBreakable(link)
 	return false
 end
 
-function Pr:LockSkill(id)
+--[[function Pr:LockSkill(id)
 	if E.myclass == "ROGUE" then
 		if Pr.ItemTable["Pick"][id] <= (T.UnitLevel("player") * 5) then return true end
 	end
@@ -184,14 +184,14 @@ function Pr:IsLocked(link)
 	local id = T.match(link, 'item:(%d+)')
 	if (Pr.ItemTable["Pick"][id] and not Pr.BlacklistLOCK[name] and Pr:LockSkill(id)) then return true end
 	return false
-end
+end]]
 
 function Pr:IsUnlockable(itemLink)
 	local slot = T.GetMouseFocus()
 	local bag = slot:GetParent():GetID()
 	local item = _G["TradeFrame"]:IsShown() and T.GetTradeTargetItemLink(7) or T.select(7, T.GetContainerItemInfo(bag, slot:GetID()))
 	if(item == itemLink) then
-		for index = 3, _G["GameTooltip"]:NumLines() do
+		for index = 2, _G["GameTooltip"]:NumLines() do
 			local info = _G['GameTooltipTextLeft' .. index]:GetText()
 			if info == LOCKED then
 				return true
@@ -204,32 +204,35 @@ end
 function Pr:DeconstructParser(tt)
 	if not Pr.DeconstructMode then return end
 	local item, link = tt:GetItem()
-	local class, subclass = select(6, T.GetItemInfo(item))
 	if not link then return end
 	local itemString = T.match(link, "item[%-?%d:]+")
 	if not itemString then return end
 	local _, id = T.split(":", itemString)
 	if not id or id == "" then return end
 	if(item and not T.InCombatLockdown()) and (Pr.DeconstructMode == true or (E.global.sle.LOCK.TradeOpen and self:GetOwner():GetName() == "TradeRecipientItem7ItemButton")) then
-		if Pr.LOCKname and lib:IsOpenable(id) and not Pr.BlacklistLOCK[item] and Pr:IsUnlockable(link) then
+		if lib:IsOpenable(id) and Pr:IsUnlockable(link) then
 			r, g, b = 0, 1, 1
-			Pr:ApplyDeconstruct(link, Pr.LOCKname, r, g, b)
-		elseif((Pr.SMITHname or Pr.JEWELname) and lib:IsOpenable(id)) then
+			Pr:ApplyDeconstruct(link, Pr.LOCKname, "spell", r, g, b)
+		elseif lib:IsOpenableProfession(id) and Pr:IsUnlockable(link) then
 			r, g, b = 0, 1, 1
 			local hasKey = HaveKey()
-			Pr:ApplyDeconstruct(link, hasKey, r, g, b)
-		elseif (Pr.PROSPECTname and lib:IsProspectable(id)) then
+			Pr:ApplyDeconstruct(link, hasKey, "item", r, g, b)
+		elseif lib:IsProspectable(id) then
 			r, g, b = 1, 0, 0
-			Pr:ApplyDeconstruct(link, Pr.PROSPECTname, r, g, b)
-		elseif (Pr.MILLname and lib:IsMillable(id)) then
+			Pr:ApplyDeconstruct(link, Pr.PROSPECTname, "spell", r, g, b)
+		elseif lib:IsMillable(id) then
 			r, g, b = 1, 0, 0
-			Pr:ApplyDeconstruct(link, Pr.MILLname, r, g, b)
+			Pr:ApplyDeconstruct(link, Pr.MILLname, "spell", r, g, b)
 		elseif Pr.DEname then
+			local isArtRelic, class, subclass
 			local normalItem = (lib:IsDisenchantable(id) and Pr:IsBreakable(link))
-			local isArtRelic = (class == relicItemTypeLocalized and subclass == relicItemSubTypeLocalized)
+			if not normalItem then
+				class, subclass = T.select(6, T.GetItemInfo(item))
+				isArtRelic = (class == relicItemTypeLocalized and subclass == relicItemSubTypeLocalized)
+			end
 			if normalItem or Pr.ItemTable["Quest"][id] or isArtRelic then
 				r, g, b = 1, 0, 0
-				Pr:ApplyDeconstruct(link, Pr.DEname, r, g, b)
+				Pr:ApplyDeconstruct(link, Pr.DEname, "spell", r, g, b)
 			end
 		end
 	end

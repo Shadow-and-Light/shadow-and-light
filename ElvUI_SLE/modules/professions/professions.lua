@@ -2,7 +2,6 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Pr = SLE:NewModule("Professions", "AceHook-3.0", "AceEvent-3.0")
 --GLOBALS: LoadAddOn, TradeSkillFrame_SetSelection
 local _G = _G
-local ITEM_MILLABLE, ITEM_PROSPECTABLE = ITEM_MILLABLE, ITEM_PROSPECTABLE
 
 Pr.DEname, Pr.LOCKname, Pr.SMITHname = false, false, false
 
@@ -38,7 +37,7 @@ function Pr:Initialize()
 	if not SLE.initialized then return end
 
 	if not T.IsAddOnLoaded("Blizzard_TradeSkillUI") then LoadAddOn("Blizzard_TradeSkillUI") end
-	--Next line is to fix other guys' code cause they fell like being assholes and morons
+	--Next line is to fix other guys' code cause they feel like being assholes and morons
 	if SLE._Compatibility["TradeSkillMaster"] and not TradeSkillFrame.RecipeList.collapsedCategories then TradeSkillFrame.RecipeList.collapsedCategories = {} end
 	Pr:UpdateSkills()
 	_G["TradeSkillFrame"]:HookScript("OnShow", function(self)
