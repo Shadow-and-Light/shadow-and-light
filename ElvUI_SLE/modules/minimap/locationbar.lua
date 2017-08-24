@@ -372,7 +372,7 @@ function LP:PopulateItems()
 	local noItem = false
 
 	for index, data in T.pairs(LP.PortItems) do
-		if T.select(2, T.GetItemInfo(data[1])) == nil then noItem = true end
+		if T.select(2, T.GetItemInfo(data[1])) == nil and (data[1] ~= 152964 and E.wowbuild < 24896) then noItem = true end
 	end
 
 	if noItem then
