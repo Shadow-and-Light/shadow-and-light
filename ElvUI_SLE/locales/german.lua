@@ -832,7 +832,6 @@ L["LFG Icons"] = true
 L["Choose what icon set will unitframes and chat use."] = true
 L["Offline Indicator"] = true
 L["Shows an icon on party or raid unitframes for people that are offline."] = true
-L["Texture"] = true
 L["Statusbars"] = true
 L["Power Texture"] = true
 L["Castbar Texture"] = true
