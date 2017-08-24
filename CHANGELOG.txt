@@ -1,3 +1,13 @@
+v3.27
+Changes:
+- Changed the way aura threshold works to avoid incompatibility with CustomTweaks
+- Changed calls for playing sounds to account for patch 7.3
+- Altered the way deconstruct checks are executed. Should be more consistent now
+Fixes:
+- Fixed backround positioning resetting
+Additions:
+- Added an option to disable inspecting message in chat
+
 v3.26 06/28/17
 Changes:
 - Changed the way tomtom waypoints are ignored by minimap button skinning process
