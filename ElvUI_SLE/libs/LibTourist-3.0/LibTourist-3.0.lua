@@ -114,9 +114,9 @@ local entrancePortals_y = {}
 local zoneIDtoContinentID = {}
 
 -- HELPER AND LOOKUP FUNCTIONS -------------------------------------------------------------
-
+local type = type
 local function PLAYER_LEVEL_UP(self, level)
-	playerLevel = level or UnitLevel("player")
+	playerLevel = (level and level ~= true) and level or UnitLevel("player")
 	for k in pairs(recZones) do
 		recZones[k] = nil
 	end
