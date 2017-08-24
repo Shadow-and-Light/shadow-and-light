@@ -384,7 +384,11 @@ function IA:CreateInspectFrame()
 		self:SetClampedToScreen(true)
 		self:Point('CENTER', E.UIParent)
 		self:SetScript('OnHide', function()
-			PlaySound(SOUNDKIT.IG_CHARACTER_INFO_CLOSE)
+			if E.wowbuild < 24896 then --7.2.5
+				PlaySound('igCharacterInfoClose')
+			else --7.3
+				PlaySound(SOUNDKIT.IG_CHARACTER_INFO_CLOSE)
+			end
 			
 			if self.CurrentInspectData.Name then
 				local TableIndex = self.CurrentInspectData.Name..(IA.CurrentInspectData.Realm and IA.CurrentInspectData.Realm ~= '' and IA.CurrentInspectData.Realm ~= Info.MyRealm and '-'..IA.CurrentInspectData.Realm or '')
