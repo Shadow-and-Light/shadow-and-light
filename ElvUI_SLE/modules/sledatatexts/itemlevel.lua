@@ -86,7 +86,7 @@ local function OnEnter(self)
 end
 
 local function ValueColorUpdate(hex, r, g, b)
-	displayString = T.join("", "|cffffffff%s:|r", " ", hex, "%d / %d|r")
+	displayString = T.join("", "%s:", " ", hex, "%d / %d|r")
 	if lastPanel ~= nil then OnEvent(lastPanel) end
 end
 E["valueColorUpdateFuncs"][ValueColorUpdate] = true

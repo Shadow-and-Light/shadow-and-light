@@ -182,14 +182,14 @@ function DTP:update_Guild()
 				online = online + 1
 			end
 		end
-		local text = E.db.sle.dt.guild.textStyle == "Default" and "|cffffffff"..GUILD..": |r" or E.db.sle.dt.guild.textStyle == "NoText" and "" or E.db.sle.dt.guild.textStyle == "Icon" and "|TInterface\\ICONS\\Achievement_Dungeon_HEROIC_GloryoftheRaider:12|t: "
+		local text = E.db.sle.dt.guild.textStyle == "Default" and GUILD..": " or E.db.sle.dt.guild.textStyle == "NoText" and "" or E.db.sle.dt.guild.textStyle == "Icon" and "|TInterface\\ICONS\\Achievement_Dungeon_HEROIC_GloryoftheRaider:12|t: "
 		if E.db.sle.dt.guild.totals then
 			LDB.text = --[["|cff82c5ff"]]text..valueColor(online).."/"..valueColor(guildTotal)--[["|r"]]
 		else
 			LDB.text = text..valueColor(online)
 		end
 	else
-		LDB.text = "|cffffffff"..L["No Guild"].."|r"
+		LDB.text = L["No Guild"]
 	end
 end
 
