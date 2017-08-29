@@ -62,6 +62,10 @@ function PI:DarthSetup()
 		E.db["general"]["objectiveFrameHeight"] = 640
 		E.db["general"]["bonusObjectivePosition"] = "RIGHT"
 		E.db["general"]["hideErrorFrame"] = false
+		E.db["general"]["valuecolor"]["a"] = 1
+		E.db["general"]["valuecolor"]["r"] = 0
+		E.db["general"]["valuecolor"]["g"] = 0.66666666666667
+		E.db["general"]["valuecolor"]["b"] = 0
 	end
 	--Actionbars
 	do

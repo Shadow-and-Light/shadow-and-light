@@ -27,23 +27,23 @@ function EC:UpdateActionbars()
 end
 
 function EC:UpdateUitframes()
-	E.Options.args.unitframe.args.boss.args.spacing.min = -4
-	E.Options.args.unitframe.args.arena.args.spacing.min = -4
+	E.Options.args.unitframe.args.boss.args.generalGroup.args.spacing.min = -4
+	E.Options.args.unitframe.args.arena.args.generalGroup.args.spacing.min = -4
 
-	E.Options.args.unitframe.args.party.args.general.args.positionsGroup.args.horizontalSpacing.min = -4
-	E.Options.args.unitframe.args.party.args.general.args.positionsGroup.args.verticalSpacing.min = -4
+	E.Options.args.unitframe.args.party.args.generalGroup.args.positionsGroup.args.horizontalSpacing.min = -4
+	E.Options.args.unitframe.args.party.args.generalGroup.args.positionsGroup.args.verticalSpacing.min = -4
 
-	E.Options.args.unitframe.args.raid.args.general.args.positionsGroup.args.horizontalSpacing.min = -4
-	E.Options.args.unitframe.args.raid.args.general.args.positionsGroup.args.verticalSpacing.min = -4
+	E.Options.args.unitframe.args.raid.args.generalGroup.args.positionsGroup.args.horizontalSpacing.min = -4
+	E.Options.args.unitframe.args.raid.args.generalGroup.args.positionsGroup.args.verticalSpacing.min = -4
 
-	E.Options.args.unitframe.args.raid40.args.general.args.positionsGroup.args.horizontalSpacing.min = -4
-	E.Options.args.unitframe.args.raid40.args.general.args.positionsGroup.args.verticalSpacing.min = -4
+	E.Options.args.unitframe.args.raid40.args.generalGroup.args.positionsGroup.args.horizontalSpacing.min = -4
+	E.Options.args.unitframe.args.raid40.args.generalGroup.args.positionsGroup.args.verticalSpacing.min = -4
 
-	E.Options.args.unitframe.args.raidpet.args.general.args.positionsGroup.args.horizontalSpacing.min = -4
-	E.Options.args.unitframe.args.raidpet.args.general.args.positionsGroup.args.verticalSpacing.min = -4
+	E.Options.args.unitframe.args.raidpet.args.generalGroup.args.positionsGroup.args.horizontalSpacing.min = -4
+	E.Options.args.unitframe.args.raidpet.args.generalGroup.args.positionsGroup.args.verticalSpacing.min = -4
 
-	E.Options.args.unitframe.args.tank.args.general.args.verticalSpacing.min = -4
-	E.Options.args.unitframe.args.assist.args.general.args.verticalSpacing.min = -4
+	E.Options.args.unitframe.args.tank.args.generalGroup.args.verticalSpacing.min = -4
+	E.Options.args.unitframe.args.assist.args.generalGroup.args.verticalSpacing.min = -4
 	
 	for unit, settings in T.pairs(E.Options.args.unitframe.args) do
 		if E.Options.args.unitframe.args[unit].args and E.Options.args.unitframe.args[unit].args.portrait then

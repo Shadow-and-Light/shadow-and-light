@@ -725,10 +725,18 @@ local function LoadArmoryConfigTable()
 					end,
 					disabled = function() return not E.db.sle.Armory.Inspect.Enable or not E.db.sle.Armory.Inspect.NoticeMissing end,
 				},
+				InspectMessage = {
+					type = 'toggle',
+					name = L["Show Inspection message in chat"],
+					order = 3,
+					disabled = function() return not E.db.sle.Armory.Inspect.Enable end,
+					get = function() return E.db.sle.Armory.Inspect.InspectMessage end,
+					set = function(_, value) E.db.sle.Armory.Inspect.InspectMessage = value end,
+				},
 				Backdrop = {
 					type = 'group',
 					name = L["Backdrop"],
-					order = 3,
+					order = 4,
 					args = {
 						SelectedBG = {
 							type = 'select',

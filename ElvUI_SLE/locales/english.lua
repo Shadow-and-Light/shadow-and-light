@@ -168,6 +168,10 @@ L["Only Relevant Stats"] = true
 L["Show only those primary stats relevant to your spec."] = true
 L["SLE_ARMORY_POINTS_AVAILABLE"] = "%s Point(s) Available!!"
 L["Show ElvUI skin's backdrop overlay"] = true
+L["Try inspecting %s. Sometimes this work will take few second for waiting server's response."] = true
+L['Inspect is canceled because target was changed or lost.'] = true
+L["You can't inspect while dead."] = true
+L["Show Inspection message in chat"] = true
 
 --AFK
 L["You Are Away From Keyboard for"] = true
@@ -834,7 +838,6 @@ L["LFG Icons"] = true
 L["Choose what icon set will unitframes and chat use."] = true
 L["Offline Indicator"] = true
 L["Shows an icon on party or raid unitframes for people that are offline."] = true
-L["Texture"] = true
 L["Statusbars"] = true
 L["Power Texture"] = true
 L["Castbar Texture"] = true

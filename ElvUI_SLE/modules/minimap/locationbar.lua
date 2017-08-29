@@ -73,6 +73,7 @@ LP.PortItems = {
 	{43824, nil, true}, --The Schools of Arcane Magic - Mastery
 	{64457}, --The Last Relic of Argus
 	{141605}, --Flight Masters's Whistle
+	{152964}, --Krokul Flute
 	{128502}, --Hunter's Seeking Crystal
 	{128503}, --Master Hunter's Seeking Crystal
 	{140324, nil, true}, --Mobile Telemancy Beacon
@@ -371,7 +372,7 @@ function LP:PopulateItems()
 	local noItem = false
 
 	for index, data in T.pairs(LP.PortItems) do
-		if T.select(2, T.GetItemInfo(data[1])) == nil then noItem = true end
+		if T.select(2, T.GetItemInfo(data[1])) == nil and (data[1] ~= 152964 and E.wowbuild < 24896) then noItem = true end
 	end
 
 	if noItem then

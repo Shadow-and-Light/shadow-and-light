@@ -20,6 +20,8 @@ local BossBanner_BeginAnims = BossBanner_BeginAnims
 local PlaySound = PlaySound
 local CancelPetPVPDuel = C_PetBattles.CancelPVPDuel
 
+local SOUNDKIT = SOUNDKIT
+
 function PvP:Release()
 	if (PvP.db.rebirth and not HasSoulstone()) or not PvP.db.rebirth then RepopMe() end
 end
@@ -116,7 +118,13 @@ function PvP:Initialize()
 					self.SubTitle:Hide();
 					self:Show();
 					BossBanner_BeginAnims(self);
-					if E.private.sle.pvp.KBbanner.sound then PlaySound("UI_Raid_Boss_Defeated") end
+					if E.private.sle.pvp.KBbanner.sound then
+						if E.wowbuild < 24896 then --7.2.5
+							PlaySound("UI_Raid_Boss_Defeated")
+						else --7.3
+							PlaySound(SOUNDKIT.UI_RAID_BOSS_DEFEATED)
+						end
+					end
 				end
 			end
 		end)

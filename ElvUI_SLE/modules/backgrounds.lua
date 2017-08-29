@@ -67,8 +67,7 @@ end
 
 function BG:CreateAndUpdateFrames()
 	for i = 1, 4 do
-		if not BG["Frame_"..i] then BG["Frame_"..i] = self:CreateFrame(i) end
-		BG:Positions(i)
+		if not BG["Frame_"..i] then BG["Frame_"..i] = self:CreateFrame(i) BG:Positions(i) end
 		BG:FramesSize(i)
 		BG:FrameTemplate(i)
 		BG:Alpha(i)
