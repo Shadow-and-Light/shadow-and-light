@@ -1,3 +1,7 @@
+v3.28
+Additions:
+- Added missed currencies to the datatext
+
 v3.27 08/29/17
 Changes:
 - Changed the way aura threshold works to avoid incompatibility with CustomTweaks
