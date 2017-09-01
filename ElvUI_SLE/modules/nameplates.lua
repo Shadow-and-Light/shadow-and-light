@@ -122,6 +122,7 @@ end
 
 function N:NAME_PLATE_UNIT_REMOVED(event, unit, frame, ...)
 	local frame = frame or NP:GetNamePlateForUnit(unit);
+	if not frame.UnitFrame then return end
 	frame.UnitFrame.unit = nil
 	frame.UnitFrame.threatInfo:SetText("")
 	frame.UnitFrame.targetcount:SetText("")
