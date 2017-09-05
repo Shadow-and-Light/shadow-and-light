@@ -11,7 +11,7 @@
 	<Script file='datatexts.lua'/>
 	<Script file='elvConfig.lua'/>
 	<Script file='equipmanager.lua'/>
-	<Script file='enhancedshdows.lua'/>
+	<Script file='enhancedshadows.lua'/>
 	<Script file='toolbars.lua'/>
 	<Script file='garrison.lua'/>
 	<Script file='orderhall.lua'/>

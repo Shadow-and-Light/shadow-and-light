@@ -102,7 +102,7 @@ local _CompList = {
 	"ElvUI_Enhanced",
 	"DejaCharacterStats",
 	"ElvUI_ExtraActionBars",
-	"ElvUI_KitUI",
+	"ElvUI_NenaUI",
 	"TradeSkillMaster",
 	"WorldQuestTracker",
 }
