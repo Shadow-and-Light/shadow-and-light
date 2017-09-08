@@ -79,6 +79,7 @@ LP.PortItems = {
 	{140324, nil, true}, --Mobile Telemancy Beacon
 	{129276}, --Beginner's Guide to Dimensional Rifting
 	{140493}, --Adept's Guide to Dimensional Rifting
+	[112059, nil, true], --Wormhole Generator: Argus
 }
 LP.Spells = {
 	["DEATHKNIGHT"] = {
