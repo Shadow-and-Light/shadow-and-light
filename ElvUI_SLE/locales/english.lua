@@ -74,8 +74,8 @@ L["Modules designed for older expantions"] = true
 L["Game Menu Buttons"] = true
 L["Adds |cff9482c9Shadow & Light|r buttons to main game menu."] = true
 L["Advanced Options"] = true
-L["SLE_Advanced_Desc"] = [[Folowing options provide acces to additional customization settings in various modules.
-Is not reccomended to new players or people not experienced in addons' configuration.]]
+L["SLE_Advanced_Desc"] = [[The following options provide access to additional customization settings in various modules.
+It is not reccomended to new players or people not experienced in addons' configuration.]]
 L["Allow Advanced Options"] = true
 L["Change Elv's options limits"] = true
 L["Allow |cff9482c9Shadow & Light|r to change some of ElvUI's options limits."] = true
