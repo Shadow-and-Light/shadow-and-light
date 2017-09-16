@@ -165,9 +165,9 @@ local function UpdateAuraTimer(self, elapsed)
 	local unitID = self:GetParent():GetParent().unitframeType
 	local auraType = self:GetParent().type
 	if unitID and E.db.sle.unitframes.unit[unitID] and E.db.sle.unitframes.unit[unitID].auras then
-		timervalue, formatid, self.nextupdate = E:GetTimeInfo(self.expiration, E.db.sle.unitframes.unit[unitID].auras[auraType].threshold)
+		timervalue, formatid, self.nextupdate = E:GetTimeInfo(self.expirationSaved, E.db.sle.unitframes.unit[unitID].auras[auraType].threshold)
 	else
-		timervalue, formatid, self.nextupdate = E:GetTimeInfo(self.expiration, 4)
+		timervalue, formatid, self.nextupdate = E:GetTimeInfo(self.expirationSaved, 4)
 	end
 	if self.text:GetFont() then
 		self.text:SetFormattedText(("%s%s|r"):format(E.TimeColors[formatid], E.TimeFormats[formatid][2]), timervalue)
