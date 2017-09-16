@@ -13,7 +13,7 @@ end
 N.GroupMembers = {}
 
 hooksecurefunc(NP, 'NAME_PLATE_CREATED', function(self, event, frame)
-	local myPlate = frame.UnitFrame
+	local myPlate = frame.unitFrame
 	if not myPlate then return end
 
 	if not myPlate.threatInfo then
@@ -63,8 +63,8 @@ function N:UpdateCount(event,unit,force)
 	if force and (T.IsInRaid() or T.IsInGroup()) then N:UpdateRoster() end
 	local target
 	for _, frame in T.pairs(GetNamePlates()) do
-		if(frame and frame.UnitFrame) then
-			local plate = frame.UnitFrame
+		if(frame and frame.unitFrame) then
+			local plate = frame.unitFrame
 			plate.targetcount:SetText("")
 			plate.targetCount = 0
 			if N.db.targetcount and plate.targetcount then
@@ -122,11 +122,11 @@ end
 
 function N:NAME_PLATE_UNIT_REMOVED(event, unit, frame, ...)
 	local frame = frame or NP:GetNamePlateForUnit(unit);
-	if not frame.UnitFrame then return end
-	frame.UnitFrame.unit = nil
-	frame.UnitFrame.threatInfo:SetText("")
-	frame.UnitFrame.targetcount:SetText("")
-	frame.UnitFrame.targetCount = 0
+	if not frame.unitFrame then return end
+	frame.unitFrame.unit = nil
+	frame.unitFrame.threatInfo:SetText("")
+	frame.unitFrame.targetcount:SetText("")
+	frame.unitFrame.targetCount = 0
 end
 
 function N:Initialize()
