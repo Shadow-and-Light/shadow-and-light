@@ -33,7 +33,8 @@ Pr.ItemTable = {
 		["11287"] = true, --Lesser Magic Wand
 		["11288"] = true, --Greater Magic Wand
 		["116985"] = true, --Archeology Mail Hat
-		["136630"] = true, --Eng reagent rifle
+		["136629"] = true, --Eng reagent rifle
+		["136630"] = true, --Eng reagent rifle 2
 	},
 	--Bnet bound treasures in Pandaria
 	["PandariaBoA"] = {
