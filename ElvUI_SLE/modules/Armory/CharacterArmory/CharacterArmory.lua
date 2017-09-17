@@ -1254,9 +1254,9 @@ do --<< Artifact Monitor >>
 			
 			self.ArtifactMonitor:Show()
 			if (GetLocale() == "ruRU") then
-				self.ArtifactMonitor.TraitRank:SetText(LEVEL..' : '..COLORSTRING_ARTIFACT..Artifact_Rank)
+				self.ArtifactMonitor.TraitRank:SetText(KF:Color_Value(LEVEL..' : '..COLORSTRING_ARTIFACT..Artifact_Rank))
 			else
-				self.ArtifactMonitor.TraitRank:SetText(RANK..' : '..COLORSTRING_ARTIFACT..Artifact_Rank)
+				self.ArtifactMonitor.TraitRank:SetText(KF:Color_Value(RANK..' : '..COLORSTRING_ARTIFACT..Artifact_Rank))
 			end
 			if E.db.sle.Armory.Character.Artifact.ShortValues then
 				self.ArtifactMonitor.CurrentPower:SetText(Legion_ArtifactData.Power)
@@ -1627,6 +1627,10 @@ KF.Modules.CharacterArmory = function()
 		_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', CharacterModelFrame, 0, 0)
 		_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', CharacterModelFrame, 0, 0)
 	end
+	
+	hooksecurefunc(E, "UpdateMedia", function(self)
+		CA.ArtifactMonitor.BarExpected:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
+	end)
 
 	CA:ElvOverlayToggle()
 	if SLE._Compatibility["DejaCharacterStats"] then
