@@ -77,7 +77,7 @@ hooksecurefunc(NP, 'Update_ThreatList', function(self, myPlate)
 end)
 
 function N:UpdateCount(event,unit,force)
-	if (not T.find(unit, "raid") and not T.find(unit, "party") and not (unit == "player" and force) ) or T.find(unit, "pet") then return end
+	if (not T.find(unit, "raid") and not T.find(unit, "party") and not (unit == "player" and force) and not N.TestSoloTarget) or T.find(unit, "pet") then return end
 	if force and (T.IsInRaid() or T.IsInGroup()) then N:UpdateRoster() end
 	local target
 	for _, frame in T.pairs(GetNamePlates()) do
@@ -98,6 +98,15 @@ function N:UpdateCount(event,unit,force)
 							if not (plate.targetCount == 0) then
 								plate.targetcount:SetText(T.format('[%d]', plate.targetCount))
 							end
+						end
+					end
+				end
+				if N.TestSoloTarget then
+					plate.guid = T.UnitGUID(plate.unit)
+					if plate.guid and T.UnitExists("target") then
+						if T.UnitGUID("target") == plate.guid then plate.targetCount = plate.targetCount + 1 end
+						if not (plate.targetCount == 0) then
+							plate.targetcount:SetText(T.format('[%d]', plate.targetCount))
 						end
 					end
 				end
