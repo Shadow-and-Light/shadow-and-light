@@ -557,8 +557,18 @@ P["sle"] = {
 	},
 	--Nameplate Options
 	["nameplates"] = {
-		["showthreat"] = false,
-		["targetcount"] = false,
+		["threat"] = {
+			["enable"] = false,
+			["font"] = "PT Sans Narrow",
+			["fontOutline"] = "OUTLINE",
+			["size"] = 12,
+		},
+		["targetcount"] = {
+			["enable"] = false,
+			["font"] = "PT Sans Narrow",
+			["fontOutline"] = "OUTLINE",
+			["size"] = 12,
+		},
 		["visibleRange"] = 60,
 	},
 	--Order Halls
