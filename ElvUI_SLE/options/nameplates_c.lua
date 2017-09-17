@@ -8,8 +8,6 @@ local function configTable()
 		name = L["NamePlates"],
 		order = 14,
 		disabled = function() return not E.private.nameplates.enable end,
-		-- get = function(info) return E.db.sle.nameplates[ info[#info] ] end,
-		-- set = function(info, value) E.db.sle.nameplates[ info[#info] ] = value; E:GetModule('NamePlates'):ConfigureAll() end,
 		args = {
 			header = {
 				order = 1,
@@ -28,7 +26,6 @@ local function configTable()
 						name = L["Enable"],
 						desc = L["Display the number of party / raid members targetting the nameplate unit."],
 						get = function(info) return E.db.sle.nameplates.targetcount[ info[#info] ] end,
-						-- set = function(info, value) E.db.sle.nameplates.targetcount[ info[#info] ] = value; NP:ConfigureAll() end,
 						set = function(info, value) E.db.sle.nameplates.targetcount[ info[#info] ] = value; NP:ConfigureAll() end,
 					},
 					font = {
