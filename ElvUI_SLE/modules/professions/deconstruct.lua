@@ -211,6 +211,7 @@ function Pr:DeconstructParser(tt)
 	local _, id = T.split(":", itemString)
 	if not id or id == "" then return end
 	if(item and not T.InCombatLockdown()) and (Pr.DeconstructMode == true or (E.global.sle.LOCK.TradeOpen and self:GetOwner():GetName() == "TradeRecipientItem7ItemButton")) then
+		local r, g, b
 		if lib:IsOpenable(id) and Pr:IsUnlockable(link) then
 			r, g, b = 0, 1, 1
 			Pr:ApplyDeconstruct(link, Pr.LOCKname, "spell", r, g, b)
