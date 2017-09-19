@@ -503,17 +503,19 @@ function LP:PLAYER_ENTERING_WORLD()
 end
 
 function LP:ZONE_CHANGED_NEW_AREA()
-	if not LP.db.enable then return end
+	--if not LP.db.enable then return end
 	LP:OrderHallToggle()
 end
 
 function LP:OrderHallToggle()
-	if (C_Garrison.IsPlayerInGarrison(LE_GARRISON_TYPE_7_0)) and LP.db.orderhallhide then
-		--print("I have entered my class hall")
-		loc_panel:Hide()
-	elseif not loc_panel:IsShown() then
-		--print("I have left my class hall")
-		loc_panel:Show()
+	if LP.db.enable then
+		if (C_Garrison.IsPlayerInGarrison(LE_GARRISON_TYPE_7_0)) and LP.db.orderhallhide then
+			--print("I have entered my class hall")
+			loc_panel:Hide()
+		elseif not loc_panel:IsShown() then
+			--print("I have left my class hall")
+			loc_panel:Show()
+		end
 	end
 end
 

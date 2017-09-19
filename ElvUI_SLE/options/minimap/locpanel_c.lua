@@ -13,7 +13,7 @@ local function configTable()
 				type = "toggle",
 				name = L["Enable"],
 				order = 1,
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Toggle() end,
+				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Toggle(); LP:OrderHallToggle() end,
 			},
 			linkcoords = {
 				type = "toggle",
