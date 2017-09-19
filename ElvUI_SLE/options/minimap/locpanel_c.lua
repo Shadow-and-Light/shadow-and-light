@@ -71,7 +71,12 @@ local function configTable()
 				name = L["Hide In Combat"],
 				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; end,
 			},
-			
+			orderhallhide = {
+				order = 9,
+				type = "toggle",
+				name = L["Hide In Class Hall"],
+				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:OrderHallToggle() end,
+			},
 			location = {
 				order = 20,
 				type = "group",
