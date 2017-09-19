@@ -534,7 +534,6 @@ function LP:Initialize()
  	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
  	LP:RegisterEvent("PLAYER_ENTERING_WORLD")
 	LP:RegisterEvent("UNIT_AURA")
-	
 end
 
 SLE:RegisterModule(LP:GetName())
