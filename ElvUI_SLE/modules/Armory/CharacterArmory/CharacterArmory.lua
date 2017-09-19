@@ -1630,6 +1630,7 @@ KF.Modules.CharacterArmory = function()
 	
 	hooksecurefunc(E, "UpdateMedia", function(self)
 		CA.ArtifactMonitor.BarExpected:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
+		CA:LegionArtifactMonitor_UpdateData()
 	end)
 
 	CA:ElvOverlayToggle()
