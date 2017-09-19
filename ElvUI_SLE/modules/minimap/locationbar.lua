@@ -366,6 +366,7 @@ function LP:Toggle()
 		loc_panel:Hide()
 		E:DisableMover(loc_panel.mover:GetName())
 	end
+	LP:UNIT_AURA(nil, "player")
 end
 
 function LP:PopulateItems()
@@ -499,23 +500,14 @@ end
 function LP:PLAYER_ENTERING_WORLD()
 	local x, y = T.GetPlayerMapPosition("player")
 	if x then LP.RestrictedArea = false else LP.RestrictedArea = true end
-	LP:OrderHallToggle()
+	LP:UNIT_AURA(nil, "player")
 end
 
-function LP:ZONE_CHANGED_NEW_AREA()
-	--if not LP.db.enable then return end
-	LP:OrderHallToggle()
-end
-
-function LP:OrderHallToggle()
-	if LP.db.enable then
-		if (C_Garrison.IsPlayerInGarrison(LE_GARRISON_TYPE_7_0)) and LP.db.orderhallhide then
-			--print("I have entered my class hall")
-			loc_panel:Hide()
-		elseif not loc_panel:IsShown() then
-			--print("I have left my class hall")
-			loc_panel:Show()
-		end
+function LP:UNIT_AURA(event, unit)
+	if unit ~= "player" then return end
+	if LP.db.enable and LP.db.orderhallhide then
+		local inOrderHall = C_Garrison.IsPlayerInGarrison(LE_GARRISON_TYPE_7_0);
+		loc_panel:SetShown(not inOrderHall);
 	end
 end
 
@@ -541,7 +533,8 @@ function LP:Initialize()
 	LP:RegisterEvent("PLAYER_REGEN_DISABLED")
  	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
  	LP:RegisterEvent("PLAYER_ENTERING_WORLD")
-	LP:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	LP:RegisterEvent("UNIT_AURA")
+	
 end
 
 SLE:RegisterModule(LP:GetName())

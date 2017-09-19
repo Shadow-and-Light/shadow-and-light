@@ -595,6 +595,7 @@ L["Automatic Width"] = true
 L["Change width based on the zone name length."] = true
 L["Update Throttle"] = true
 L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."] = true
+L["Hide In Class Hall"] = true
 L["Full Location"] = true
 L["Color Type"] = true
 L["Custom Color"] = true

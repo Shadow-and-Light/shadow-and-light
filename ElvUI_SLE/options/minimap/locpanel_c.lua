@@ -13,7 +13,7 @@ local function configTable()
 				type = "toggle",
 				name = L["Enable"],
 				order = 1,
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Toggle(); LP:OrderHallToggle() end,
+				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Toggle(); end,
 			},
 			linkcoords = {
 				type = "toggle",
@@ -75,7 +75,7 @@ local function configTable()
 				order = 9,
 				type = "toggle",
 				name = L["Hide In Class Hall"],
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:OrderHallToggle() end,
+				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Toggle(); end,
 			},
 			location = {
 				order = 20,
