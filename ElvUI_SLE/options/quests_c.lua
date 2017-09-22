@@ -29,7 +29,7 @@ local function configTable()
 				type = "toggle",
 				order = 2,
 				name = L["Auto Reward"],
-				desc = L["Automatically selects areward with higherst selling price when quest is completed. Does not really finish the quest."],
+				desc = L["Automatically selects a reward with higherst selling price when quest is completed. Does not really finish the quest."],
 				get = function(info) return E.db.sle.quests.autoReward end,
 				set = function(info, value) E.db.sle.quests.autoReward = value; end,
 			},

@@ -696,7 +696,7 @@ L["Play sound when Kkilling blows popup is shown."] = "Проигрывать з
 --Quests
 L["Rested"] = "Отдых"
 L["Auto Reward"] = "Автоматическая награда"
-L["Automatically selects areward with higherst selling price when quest is completed. Does not really finish the quest."] = "Автоматическивыбирать награду с наивысшей стоимостью при сдаче квеста."
+L["Automatically selects a reward with higherst selling price when quest is completed. Does not really finish the quest."] = "Автоматическивыбирать награду с наивысшей стоимостью при сдаче квеста."
 
 --Raid Marks
 L["Raid Markers"] = "Рейдовые Метки"

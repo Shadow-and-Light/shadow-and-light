@@ -700,7 +700,7 @@ L["Play sound when Kkilling blows popup is shown."] = true
 --Quests
 L["Rested"] = true
 L["Auto Reward"] = true
-L["Automatically selects areward with higherst selling price when quest is completed. Does not really finish the quest."] = true
+L["Automatically selects a reward with higherst selling price when quest is completed. Does not really finish the quest."] = true
 
 --Raid Marks
 L["Raid Markers"] = true
