@@ -88,7 +88,7 @@ local function configTable()
 			zero = CreateCurrencyConfig(8, L["Show Zero Currency"], 'Zero'),
 			icons = CreateCurrencyConfig(9, L["Show Icons"], 'Icons'),
 			faction = CreateCurrencyConfig(10, L["Show Faction Totals"], 'Faction'),
-			unused = CreateCurrencyConfig(11, L["Show Unsed Currency"], 'Unused'),
+			unused = CreateCurrencyConfig(11, L["Show Unused Currencies"], 'Unused'),
 			delete = {
 				order = 12,
 				type = "select",

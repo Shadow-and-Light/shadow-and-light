@@ -41,7 +41,7 @@ local function configTable()
 				order = 4,
 				type = "description",
 				hidden = function() return not E.global.sle.advanced.general end,
-				name = "\n"..L["Following options determine which channels to save in chat history.\nNote: disabling a channel will immideately delete saved info for that channel."],
+				name = "\n"..L["Following options determine which channels to save in chat history.\nNote: disabling a channel will immediately delete saved info for that channel."],
 			},
 			CHAT_MSG_INSTANCE_CHAT = CreateHistoryChannel("CHAT_MSG_INSTANCE_CHAT", 5),
 			CHAT_MSG_INSTANCE_CHAT_LEADER = CreateHistoryChannel("CHAT_MSG_INSTANCE_CHAT_LEADER", 6),

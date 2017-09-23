@@ -125,9 +125,9 @@ L["Checked Texture"] = "Gedrückte Textur"
 L["Highlight the button of the spell with areal effect until the area is selected."] = "Hebt die Taste von Flächenzaubern hervor bis das Zielgebiet ausgewählt wurde."
 L["Checked Texture Color"] = "Gedrückte Textur Farbe"
 L["Transparent Backdrop"] = "Transparenter Hintergrund"
-L["Sets actiobars' backgrounds to transparent template."] = "Setzt den Aktionsleisten Hintergrund transparent."
+L["Sets actionbar's background to transparent template."] = "Setzt den Aktionsleisten Hintergrund transparent."
 L["Transparent Buttons"] = "Transparente Tasten"
-L["Sets actiobars buttons' backgrounds to transparent template."] = "Setzt die Aktionsleisten Tasten transparent."
+L["Sets actionbar button's background to transparent template."] = "Setzt die Aktionsleisten Tasten transparent."
 
 --Armory
 L["Average"] = "Durschnitt"
@@ -161,9 +161,9 @@ L["Inspect Armory"] = true
 L["Full Item Level"] = "Volles Itemlevel"
 L["Show both equipped and average item levels."] = "Zeigt angelegtes und durchschnittliches Itemlevel"
 L["Item Level Coloring"] = "Itemlevel färbung"
-L["Color code item levels values. Equipped will be gradient, avarage - selected color."] = "Farbencode Itemlevel Werte. Ausgerüstet ist gradient, Durschnitt - gewählte Farbe."
+L["Color code item levels values. Equipped will be gradient, average - selected color."] = "Farbencode Itemlevel Werte. Ausgerüstet ist gradient, Durschnitt - gewählte Farbe."
 L["Color of Average"] = "Farbe vom Durchschnitt"
-L["Sets the color of avarage item level."] = "Setzt die Farbe vom Durchschnitts-Itemlevel"
+L["Sets the color of average item level."] = "Setzt die Farbe vom Durchschnitts-Itemlevel"
 L["Only Relevant Stats"] = "Nur relevante Werte"
 L["Show only those primary stats relevant to your spec."] = "Zeigt nur primäre Werte die relevant für deinen Spec sind."
 L["SLE_ARMORY_POINTS_AVAILABLE"] = "%s Punkt(e) verfügbar!!"
@@ -218,7 +218,7 @@ L["Fade"] = "Verblassen"
 L["Tip time"] = "Hinweiszeit"
 L["Number of seconds tip will be shown before changed to another."] = "Sekunden die der Hinweis angezeigt wird, bevor er wechselt."
 L["Title font"] = "Titel Schriftart"
-L["Subitle font"] = "Untertitel Schriftart"
+L["Subtitle font"] = "Untertitel Schriftart"
 L["Date font"] = "Datums Schrifart"
 L["Player info font"] = "Spielerinfo Schriftart"
 L["Tips font"] = "Hinweis Schriftart"
@@ -271,15 +271,15 @@ L["Displays an icon near your Guild Master in chat.\n\n|cffFF0000Note:|r Some me
 L["Chat Editbox History"] = "Chat Eingabeverlauf"
 L["The amount of messages to save in the editbox history.\n\n|cffFF0000Note:|r To disable, set to 0."] = "Die Anzahl von Nachrichten die im Eingabeverlauf gespeichert werden.\n\n|cffFF0000Hinweis:|r Zum deaktivieren auf 0 setzen."
 L["Filter DPS meters' Spam"] = "Filtere DPS Meter Spam"
-L["Replaces long reports from damage meters with a clickeble hyperlink to reduce chat spam.\nWorks correctly only with general reports such as DPS or HPS. May fail to filter te report of other things"] = "Ersetzt lange Berichte von Damage Metern mit einem klickbaren Hyperlink um Chatspam zu vermeiden.\nFunktioniert korrekt mit generellen Berichten wie DPS oder HPS. Könnte bei anderen Berichten nicht funktionieren."
+L["Replaces long reports from damage meters with a clickable hyperlink to reduce chat spam.\nWorks correctly only with general reports such as DPS or HPS. May fail to filter the report of other things."] = "Ersetzt lange Berichte von Damage Metern mit einem klickbaren Hyperlink um Chatspam zu vermeiden.\nFunktioniert korrekt mit generellen Berichten wie DPS oder HPS. Könnte bei anderen Berichten nicht funktionieren."
 L["Texture Alpha"] = "Textur Alpha"
 L["Allows separate alpha setting for textures in chat"] = "Erlaubt zusätzliche Alpha Einstellungen für die Texturen im Chat."
 L["Chat Frame Justify"] = "Chatfenster Ausrichtung"
 L["Identify"] = "Identifizieren"
-L["Showes the message in each chat frame containing frame's number."] = "Zeigt die Nachricht in jeden Fenster wo die Nummer zutrifft."
+L["Shows the message in each chat frame containing frame's number."] = "Zeigt die Nachricht in jeden Fenster wo die Nummer zutrifft."
 L["This is %sFrame %s|r"] = "Dies ist %sFenster %s|r"
 L["Loot Icons"] = "Beute Symbol"
-L["Showes icons of items looted/created near respective messages in chat. Does not affect usual messages."] = "Zeigt ein Symbol neben dem hergestellten/geplünderten Gegenstand im Chat. Wird nicht auf normale Nachrichten angewandt."
+L["Shows icons of items looted/created near respective messages in chat. Does not affect usual messages."] = "Zeigt ein Symbol neben dem hergestellten/geplünderten Gegenstand im Chat. Wird nicht auf normale Nachrichten angewandt."
 L["Frame 1"] = "Fenster 1"
 L["Frame 2"] = "Fenster 2"
 L["Frame 3"] = "Fenster 3"
@@ -297,11 +297,11 @@ L["Selected Indicator"] = "Ausgewählt-Indikator"
 L["Shows you which of docked chat tabs is currently selected."] = "Zeigt dir welcher Chat Tab gerade ausgewählt ist."
 L["Chat history size"] = "Chatverlauf Größe"
 L["Sets how many messages will be stored in history."] = "Setzt die Anzahl der Nachrichten die im Verlauf gespeichert werden."
-L["Following options determine which channels to save in chat history.\nNote: disabling a channel will immideately delete saved info for that channel."] = "Folgende Optionen bestimmen aus welchem Kanal der Chatverlauf gespeichert wird.\nHinweis: Wenn ein Kanal deaktiviert wird, wird sofort die gespeicherten Infos gelöscht."
+L["Following options determine which channels to save in chat history.\nNote: disabling a channel will immediately delete saved info for that channel."] = "Folgende Optionen bestimmen aus welchem Kanal der Chatverlauf gespeichert wird.\nHinweis: Wenn ein Kanal deaktiviert wird, wird sofort die gespeicherten Infos gelöscht."
 L["Alt-Click Invite"] = "Alt-Klick Einladung"
 L["Allows you to invite people by alt-clicking their names in chat."] = "Erlaubt dir das Einladen mit Alt-Klick auf den Spielernamen im Chat."
 L["Invite links"] = "Einladungslink"
-L["Convets specified keywords to links that automatically invite message's author to group."] = "Wandelt spezifische Schlüsselwörter in Links um, die dass automatische Einladen erlaubt."
+L["Converts specified keywords to links that automatically invite message's author to group."] = "Wandelt spezifische Schlüsselwörter in Links um, die dass automatische Einladen erlaubt."
 L["Link Color"] = "Link Farbe"
 L["Invite Keywords"] = "Einladungs-Schlüsselwörter"
 L["Chat Setup Delay"] = "Chateinstellung Verzögerung"
@@ -369,13 +369,13 @@ L["No Mail"] = "Keine Post"
 L["Range"] = "Reichweite"
 L["SLE_AUTHOR_INFO"] = "Shadow & Light von Darth Predator & Repooc"
 L["SLE_CONTACTS"] = [=[Wenn du Vorschläge oder einen Fehlerreport hast,
-eröffne bitte ein Ticket auf http://git.tukui.org/repooc/elvui-shadowandlight]=]
+eröffne bitte ein Ticket auf https://git.tukui.org/Darth_Predator/elvui-shadowandlight]=]
 L["Additional Datatext Panels"] = "Zusätzliche Infotextleisten"
 L["DP_DESC"] = [=[Zusätzliche Infotextleisten.
 8 Leisten mit insgesamt 20 Infotexten.]=]
 L["Some datatexts that Shadow & Light are supplied with, has settings that can be modified to alter the displayed information."] = "Einige Infotexte die Shadow & Light bereitgestellt werden, haben Einstellungen die, die angezeigten Informationen abändern können."
 L["Sets size of this panel"] = "Setzt die größe der Leiste"
-L["Don't show this panel, only datatexts assinged to it"] = "Diese Leiste nicht anzeigen, ausser wenn ein Infotext zugewiesen ist"
+L["Don't show this panel, only datatexts assigned to it."] = "Diese Leiste nicht anzeigen, ausser wenn ein Infotext zugewiesen ist"
 L["Override Chat DT Panels"] = "Chat Infotextleisten überschreiben"
 L["This will have S&L handle chat datatext panels and place them below the left & right chat panels.\n\n|cffFF0000Note:|r When you first enabled, you may need to move the chat panels up to see your datatext panels."] = "Dieses erlaubt das S&L die Chatinfotexte bearbeitet und sie unter dem rechten und linken Chatfenster positioniert.\n\n|cffFF0000Hinweis:|r Bei erstmaliger Aktivierung musst du vielleicht die Chatfenster nach oben bewegen um die Infotexte zu sehen."
 L["S&L Datatexts"] = "S&L Infotexte"
@@ -392,8 +392,8 @@ L["Show Miscellaneous Currency"] = "Zeige Verschiedene Währungen"
 L["Show Zero Currency"] = "Zeige Null Währung"
 L["Show Icons"] = "Zeige Symbol"
 L["Show Faction Totals"] = "Zeige Fraktionen Total"
-L["Show Unsed Currency"] = "Zeige ungenutzte Währung"
-L["These options are for modifing the Shadow & Light Friends datatext."] = "Diese Optionen sind zum bearbeiten des Shadow & Light Freundes-Infotexts."
+L["Show Unused Currencies"] = "Zeige ungenutzte Währung"
+L["These options are for modifying the Shadow & Light Friends datatext."] = "Diese Optionen sind zum bearbeiten des Shadow & Light Freundes-Infotexts."
 L["Hide In Combat"] = "Im Kampf verstecken"
 L["Will not show the tooltip while in combat."] = "Währung du dich im Kampf befindest, wird der Tooltip nicht angezeigt."
 L["Hide Friends"] = "Freunde verstecken"
@@ -404,11 +404,11 @@ L["Show total friends in the datatext."] = "Zeigt die Gesamtanzahl der Freunde i
 L["Hide Hints"] = "Hinweise verstecken"
 L["Hide the hints in the tooltip."] = "Verstecke Hinweise im Tooltip"
 L["Expand RealID"] = "RealID erweitern"
-L["Display realid with two lines to view broadcasts."] = "Zeigt die RealID in zwei Zeilen an, um die Statusnachrichten zu sehen."
+L["Display RealID with two lines to view broadcasts."] = "Zeigt die RealID in zwei Zeilen an, um die Statusnachrichten zu sehen."
 L["Autohide Delay:"] = "Autoverstecken Verzögerung:"
 L["Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext."] = "Ändert die Tooltip"
 L["S&L Guild"] = "S&L Gilde"
-L["These options are for modifing the Shadow & Light Guild datatext."] = "Diese Optionen sind zum Verändern des Shadow & Light Gilden-Infotext"
+L["These options are for modifying the Shadow & Light Guild datatext."] = "Diese Optionen sind zum Verändern des Shadow & Light Gilden-Infotext"
 L["Show total guild members in the datatext."] = "Zeige die Gesamtzahl der Gildenmitglieder im Infotext."
 L["Hide MOTD"] = "Verstecke GNDT"
 L["Hide the guild's Message of the Day in the tooltip."] = "Versteckt die Gildennachricht des Tages im Tooltip."
@@ -417,7 +417,7 @@ L["Minimize the Guild Datatext."] = "Minimiert den Gilden-Infotext."
 L["Hide Guild Name"] = "Verstecke den Gildennamen"
 L["Hide the guild's name in the tooltip."] = "Versteckt den Gildennamen im Tooltip."
 L["S&L Mail"] = "S&L Post"
-L["These options are for modifing the Shadow & Light Mail datatext."] = "Diese Optionen sind zum Verändern des Shadow & Light Post-Infotext."
+L["These options are for modifying the Shadow & Light Mail datatext."] = "Diese Optionen sind zum Verändern des Shadow & Light Post-Infotext."
 L["Minimap icon"] = "Minikarten Symbol"
 L["If enabled will show new mail icon on minimap."] = "Wenn aktiviert, wird das Postsymbol an der Minikarte angezeigt."
 L["Options below are for standard ElvUI's durability datatext."] = "Folgende Optionen sinnd für den Standard ElvUI Haltbarkeits-Infotext."
@@ -438,7 +438,7 @@ L["Amount"] = "Anzahl"
 L["Order of each toon. Smaller numbers will go first"] = "Anordnung von jedem Twink. Kleiner Zahlen werden zu erst angezeigt."
 L["Tracked"] = "Verfolgt"
 
---Enhnced Shadows
+--Enhanced Shadows
 L["Enhanced Shadows"] = "Erweiterte Schatten"
 L["Use shadows on..."] = "Benutze Schatten auf..."
 L["SLE_EnhShadows_BarButtons_Option"] = "Leiste %s Tasten"
@@ -460,13 +460,13 @@ L["Block button"] = "Sperrtaste"
 L["Create a button in character frame to allow temp blocking of auto set swap."] = "Erzeugt einen Knopf im Charakterfenster der erlaubt das Autowechseln vom Ausrüstungsset zu deaktivieren."
 L["Ignore zone change"] = "Ignoriere Zonenwechsel"
 L["Swap sets only on specialization change ignoring location change when. Does not influence entering/leaving instances and bg/arena."] = "Wechselt Ausrüstungssets nur wenn die Spezialisierung geändert wird. Beeinflusst nicht das betreten/verlassen von Instanzen und Schlachtfeld/Arena."
-L["Equipement conditions"] = true
+L["Equipment conditions"] = true
 L["SLE_EM_SET_NOT_EXIST"] = "Equipment set |cff9482c9%s|r doesn't exist!"
 L["SLE_EM_TAG_INVALID"] = "Invalid tag: %s"
 L["SLE_EM_TAG_INVALID_TALENT_TIER"] = "Invalid argument for talent tag. Tier is |cff9482c9%s|r, should be from 1 to 7."
 L["SLE_EM_TAG_INVALID_TALENT_COLUMN"] = "Invalid argument for talent tag. Column is |cff9482c9%s|r, should be from 1 to 3."
 L["SLE_EM_TAG_DOT_WARNING"] = "Wrong separator for conditions detected. You need to use commas instead of dots."
-L["SLE_EM_CONDITIONS_DESC"] = [[Determines conditions under which specified sets are equipeed.
+L["SLE_EM_CONDITIONS_DESC"] = [[Determines conditions under which specified sets are equipped.
 This works as macros and controlled by a set of tags as seen below.]]
 L["SLE_EM_TAGS_HELP"] = [[Following tags and parameters are eligible for setting equip condition:
 |cff3cbf27solo|r - when you are solo without any group;
@@ -476,7 +476,7 @@ L["SLE_EM_TAGS_HELP"] = [[Following tags and parameters are eligible for setting
 |cff3cbf27talent|r - specified talent. Usage [talent:<tier>/<column>] tier is the row going from 1 on lvl 15 to 7 and lvl 100, column is the column in said row from 1 to 3;
 |cff3cbf27instance|r - if in instance. Can be of specified instance type - [instance:<type>]. Types are party, raid and scenario. If not specified will be true for any instance;
 |cff3cbf27pvp|r - if on BG, arena or world pvp area. Available arguments: pvp, arena;
-|cff3cbf27difficulty|r - defines the difficulty of the instance. Argumants are: normal, heroic, lfr, challenge, mythic;
+|cff3cbf27difficulty|r - defines the difficulty of the instance. Arguments are: normal, heroic, lfr, challenge, mythic;
 
 Example: [solo] Set1; [party:4, spec:3] Set2; [instance:raid, difficulty:heroic] Set3
 ]]
@@ -494,7 +494,7 @@ L["Automatically disenchant uncommon (green) quality items at max level"] = "Ent
 L["Loot Quality"] = "Beutequalität"
 L["Sets the auto greed/disenchant quality\n\nUncommon: Rolls on Uncommon only\nRare: Rolls on Rares & Uncommon"] = "Setzt die Auto Gier/Entzaubern auf die Qualität\n\nUngewöhnlich: Rollt nur auf ungewöhnliche Gegenstände\nRare: Rollt auf rare & ungewöhnliche Gegenstände"
 L["Roll based on level."] = "Wurf basierend auf Level."
-L["This will auto-roll if you are above the given level if: You cannot equip the item being rolled on, or the ilevel of your equipped item is higher than the item being rolled on or you have an heirloom equipped in that slot"] = "Dieses wird automatisch auf Gegenstände würfeln über dem eingestelltem Level wenn: Du den Gegenstand nicht benutzen kannst oder das Itemlevel von deinem ausgerüstetem Gegenstand höher ist oder du ein Account Gegenstand auf dem Slot trägst."
+L["This will auto-roll if you are above the given level if: You cannot equip the item being rolled on, or the iLevel of your equipped item is higher than the item being rolled on or you have an heirloom equipped in that slot"] = "Dieses wird automatisch auf Gegenstände würfeln über dem eingestelltem Level wenn: Du den Gegenstand nicht benutzen kannst oder das Itemlevel von deinem ausgerüstetem Gegenstand höher ist oder du ein Account Gegenstand auf dem Slot trägst."
 L["Level to start auto-rolling from"] = "Level auf dem das Autowürfeln startet"
 L["Loot Announcer"] = "Beute Ankündigung"
 L["AUTOANNOUNCE_DESC"] = "When enabled, will automatically announce the loot when the loot window opens.\n\n|cffFF0000Note:|r Raid Lead, Assist, & Master Looter Only."
@@ -508,7 +508,7 @@ L["Select chat channel to announce loot to."] = "Wählt den Kanal aus wo der Loo
 L["Loot Roll History"] = "Würfelverlauf"
 L["LOOTH_DESC"] = "Dieses sind Einstellungen um das Würfelverlauf Fenster zu bearbeiten."
 L["Auto hide"] = "Automatisches Verstecken"
-L["Automaticaly hides Loot Roll History frame when leaving the instance."] = "Versteckt automatisch das Würfelverlaufs Fenster wenn du eine Instanz verlässt."
+L["Automatically hides Loot Roll History frame when leaving the instance."] = "Versteckt automatisch das Würfelverlaufs Fenster wenn du eine Instanz verlässt."
 L["Sets the alpha of Loot Roll History frame."] = "Setzt den alpha vom Würfelverlaufs Fenster"
 L["Channels"] = "Kanäle"
 L["Private channels"] = "Private Kanäle"
@@ -521,7 +521,7 @@ L["SLE_MEDIA_ZONES"] = {
 	"Moscow",
 	"Moon Base",
 	"Goblin Spa Resort",
-	"Illuminaty Headquaters",
+	"Illuminati Headquarters",
 	"Elv's Closet",
 	"BlizzCon",
 }
@@ -631,20 +631,20 @@ L["A different look/feel vehicle bar"] = true
 
 --Nameplates
 L["Target Count"] = true
-L["Display the number of party / raid members targetting the nameplate unit."] = true
+L["Display the number of party / raid members targeting the nameplate unit."] = true
 L["Threat Text"] = true
 L["Display threat level as text on targeted, boss or mouseover nameplate."] = true
 
 --Professions
 L["Deconstruct Mode"] = true
-L["Create a button in your bag frame to switch to deconstrution mode allowing you to easily disenchant/mill/prospect and pick locks."] = true
+L["Create a button in your bag frame to switch to deconstruction mode allowing you to easily disenchant/mill/prospect and pick locks."] = true
 L["Actionbar Proc"] = true
 L["Actionbar Autocast"] = true
 L["Show glow on bag button"] = true
 L["Show glow on the deconstruction button in bag when deconstruction mode is enabled.\nApplies on next mode toggle."] = true
 L["Scroll"] = "Rolle"
 L["Missing scroll item for spellID %d. Please report this at the Shadow&Light Ticket Tracker."] = "Fehlende Rollen Item für ZauberID %d. Bitte berichte es auf den Shadow&Light Ticket Tracker."
-L["Sets style of glow around item available for deconstruction while in deconstruct mode. Autocast is less intence but also less noticeable."] = true
+L["Sets style of glow around item available for deconstruction while in deconstruct mode. Autocast is less intense but also less noticeable."] = true
 L["Enchant Scroll Button"] = true
 L["Create a button for applying selected enchant on the scroll."] = true
 L["Following options are global and will be applied to all characters on account."] = true
@@ -686,12 +686,12 @@ L["Announce"] = true
 L["Announce in chat if duel was rejected."] = true
 L["Show your PvP killing blows as a popup."] = true
 L["KB Sound"] = true
-L["Play sound when Kkilling blows popup is shown."] = true
+L["Play sound when killing blows popup is shown."] = true
 
 --Quests
 L["Rested"] = true
 L["Auto Reward"] = true
-L["Automatically selects a reward with higherst selling price when quest is completed. Does not really finish the quest."] = true
+L["Automatically selects a reward with highest selling price when quest is completed. Does not really finish the quest."] = true
 
 --Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"
@@ -840,10 +840,10 @@ L["Red Icon"] = true
 L["Aura Bars Texture"] = true
 L["Higher Overlay Portrait"] = true
 L["Overlay Portrait Alpha"] = true
-L["Makes frame portrait visible regardles of health level when overlay portrait is set."] = true
+L["Makes frame portrait visible regardless of health level when overlay portrait is set."] = true
 L["Classbar Texture"] = true
 L["Resize Health Prediction"] = true
-L["Slightly chages size of health prediction bars."] = true
+L["Slightly changes size of health prediction bars."] = true
 L["Always Compare Items"] = true
 L["Custom Texture"] = "Benutzerdefinierte Textur"
 
@@ -861,19 +861,19 @@ L["Set the offset from the bottom border of the screen."] = true
 --Help
 L["About/Help"] = true
 L["About"] = true
-L["SLE_DESC"] = [=[|cff9482c9Shadow & Light|r is an extention of ElvUI. It adds:
+L["SLE_DESC"] = [=[|cff9482c9Shadow & Light|r is an extension of ElvUI. It adds:
 - a lot of new features 
 - more customization options for existing ones
 
-|cff3cbf27Note:|r It is compatible with most of addons and ElvUI plugins available. But some functions may be unaccesable to avoid possible conflicts.]=]
+|cff3cbf27Note:|r It is compatible with most of addons and ElvUI plugins available. But some functions may be unavailable to avoid possible conflicts.]=]
 L["Links"] = true
 L["LINK_DESC"] = [[Following links will direct you to the Shadow & Light's pages on various sites.]]
 
 --FAQ--
 L["FAQ_DESC"] = "This section contains some questions about ElvUI and Shadow & Light."
 L["FAQ_Elv_1"] = [[|cff30ee30Q: Where can I cat ElvUI support?|r
-|cff9482c9A:|r Best way is official forum - tukui.org/forums/
-For bug reports you can also use bug tracker - git.tukui.org/Elv/elvui/issues]]
+|cff9482c9A:|r Best way is official forum - https://www.tukui.org/forum/
+For bug reports you can also use bug tracker - https://git.tukui.org/elvui/elvui/issues]]
 L["FAQ_Elv_2"] = [[|cff30ee30Q: Do I need to have good English in order to do so?|r
 |cff9482c9A:|r English is official language of tukui.org forums so most posts in there are in English.
 But this doesn't mean it's the only language used there. You will be able to find posts in Spanish, French, German, Russian, Italian, etc.
@@ -899,7 +899,7 @@ L["FAQ_Elv_5"] = [[|cff30ee30Q: What are ElvUI slash (chat) commands?|r
 /moveui - Allows to move stuff around
 /resetui - Resets your entire UI]]
 L["FAQ_sle_1"] = [[|cff30ee30Q: What to do if I encounter an error is Shadow & Light?|r
-|cff9482c9A:|r Pretty much the same as for ElvUI (see it's faq section ) but you'll have to provide S&L version too.]]
+|cff9482c9A:|r Pretty much the same as for ElvUI (see it's FAQ section) but you'll have to provide S&L version too.]]
 L["FAQ_sle_2"] = [[|cff30ee30Q: Does Shadow & Light have the same language policy as ElvUI?|r
 |cff9482c9A:|r Yes. But S&L actually have two official languages - English and Russian.]]
 L["FAQ_sle_3"] = [[|cff30ee30Q: Why are layouts' screenshots on download page are different from what I see in game?|r

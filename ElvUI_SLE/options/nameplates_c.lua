@@ -24,7 +24,7 @@ local function configTable()
 						type = "toggle",
 						order = 1,
 						name = L["Enable"],
-						desc = L["Display the number of party / raid members targetting the nameplate unit."],
+						desc = L["Display the number of party / raid members targeting the nameplate unit."],
 						get = function(info) return E.db.sle.nameplates.targetcount[ info[#info] ] end,
 						set = function(info, value) E.db.sle.nameplates.targetcount[ info[#info] ] = value; NP:ConfigureAll() end,
 					},

@@ -93,7 +93,7 @@ local function configTable()
 						order = 2,
 						type = "toggle",
 						name = L["KB Sound"],
-						desc = L["Play sound when Kkilling blows popup is shown."],
+						desc = L["Play sound when killing blows popup is shown."],
 						disabled = function() return not E.private.sle.pvp.KBbanner.enable end,
 					},
 				},

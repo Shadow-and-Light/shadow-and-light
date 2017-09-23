@@ -12,7 +12,7 @@ local function configTable()
 			header = {
 				order = 1,
 				type = "description",
-				name = L["These options are for modifing the Shadow & Light Friends datatext."],
+				name = L["These options are for modifying the Shadow & Light Friends datatext."],
 			},
 			combat = {
 				order = 2,
@@ -69,7 +69,7 @@ local function configTable()
 				order = 8,
 				type = "toggle",
 				name = L["Expand RealID"],
-				desc = L["Display realid with two lines to view broadcasts."],
+				desc = L["Display RealID with two lines to view broadcasts."],
 				get = function(info) return E.db.sle.dt.friends.expandBNBroadcast end,
 				set = function(info, value) E.db.sle.dt.friends.expandBNBroadcast = value; end,
 			},

@@ -152,7 +152,7 @@ local function configTable()
 						order = 1,
 						type = "input",
 						width = "full",
-						name = L["Equipement conditions"],
+						name = L["Equipment conditions"],
 						desc = L["SLE_EM_CONDITIONS_DESC"],
 						get = function(info) return EM.db.conditions end,
 						set = function(info, value) EM.db.conditions = value; EM:UpdateTags() end

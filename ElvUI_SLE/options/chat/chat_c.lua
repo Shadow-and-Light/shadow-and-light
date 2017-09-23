@@ -60,7 +60,7 @@ local function configTable()
 			dpsSpam = {
 				order = 8, type = "toggle",
 				name = L["Filter DPS meters' Spam"],
-				desc = L["Replaces long reports from damage meters with a clickeble hyperlink to reduce chat spam.\nWorks correctly only with general reports such as DPS or HPS. May fail to filter te report of other things"],
+				desc = L["Replaces long reports from damage meters with a clickable hyperlink to reduce chat spam.\nWorks correctly only with general reports such as DPS or HPS. May fail to filter the report of other things."],
 				get = function(info) return E.db.sle.chat.dpsSpam end,
 				set = function(info, value)	E.db.sle.chat.dpsSpam = value; C:SpamFilter() end,
 			},
@@ -125,7 +125,7 @@ local function configTable()
 					identify = {
 						order = 12, type = "execute",
 						name = L["Identify"],
-						desc = L["Showes the message in each chat frame containing frame's number."],
+						desc = L["Shows the message in each chat frame containing frame's number."],
 						func = function() C:IdentifyChatFrames() end,
 					},
 				},
@@ -147,7 +147,7 @@ local function configTable()
 						order = 2,
 						type = "toggle",
 						name = L["Invite links"],
-						desc = L["Convets specified keywords to links that automatically invite message's author to group."],
+						desc = L["Converts specified keywords to links that automatically invite message's author to group."],
 						set = function(info, value) E.db.sle.chat.invite[ info[#info] ]  = value; C:SpamFilter() end,
 					},
 					color = {

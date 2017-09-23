@@ -12,7 +12,7 @@ local function configTable()
 			header = {
 				order = 1,
 				type = "description",
-				name = L["These options are for modifing the Shadow & Light Guild datatext."],
+				name = L["These options are for modifying the Shadow & Light Guild datatext."],
 			},
 			combat = {
 				order = 2,

@@ -145,7 +145,7 @@ local function configTable()
 					higherPortrait = {
 						order = 1, type = "toggle",
 						name = L["Higher Overlay Portrait"],
-						desc = L["Makes frame portrait visible regardles of health level when overlay portrait is set."],
+						desc = L["Makes frame portrait visible regardless of health level when overlay portrait is set."],
 						get = function(info) return E.db.sle.unitframes.unit.player[ info[#info] ] end,
 						set = function(info, value) E.db.sle.unitframes.unit.player[ info[#info] ] = value; UF:CreateAndUpdateUF('player'); end,
 					},
@@ -240,7 +240,7 @@ local function configTable()
 					higherPortrait = {
 						order = 1, type = "toggle",
 						name = L["Higher Overlay Portrait"],
-						desc = L["Makes frame portrait visible regardles of health level when overlay portrait is set."],
+						desc = L["Makes frame portrait visible regardless of health level when overlay portrait is set."],
 						get = function(info) return E.db.sle.unitframes.unit.target[ info[#info] ] end,
 						set = function(info, value) E.db.sle.unitframes.unit.target[ info[#info] ] = value; UF:CreateAndUpdateUF('target'); end,
 					},
@@ -263,7 +263,7 @@ local function configTable()
 					higherPortrait = {
 						order = 1, type = "toggle",
 						name = L["Higher Overlay Portrait"],
-						desc = L["Makes frame portrait visible regardles of health level when overlay portrait is set."],
+						desc = L["Makes frame portrait visible regardless of health level when overlay portrait is set."],
 						get = function(info) return E.db.sle.unitframes.unit.focus[ info[#info] ] end,
 						set = function(info, value) E.db.sle.unitframes.unit.focus[ info[#info] ] = value; UF:CreateAndUpdateUF('focus'); end,
 					},
@@ -293,7 +293,7 @@ local function configTable()
 					higherPortrait = {
 						order = 2, type = "toggle",
 						name = L["Higher Overlay Portrait"],
-						desc = L["Makes frame portrait visible regardles of health level when overlay portrait is set."],
+						desc = L["Makes frame portrait visible regardless of health level when overlay portrait is set."],
 						get = function(info) return E.db.sle.unitframes.unit.party[ info[#info] ] end,
 						set = function(info, value) E.db.sle.unitframes.unit.party[ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('party') end,
 					},
@@ -324,7 +324,7 @@ local function configTable()
 					higherPortrait = {
 						order = 2, type = "toggle",
 						name = L["Higher Overlay Portrait"],
-						desc = L["Makes frame portrait visible regardles of health level when overlay portrait is set."],
+						desc = L["Makes frame portrait visible regardless of health level when overlay portrait is set."],
 						get = function(info) return E.db.sle.unitframes.unit.raid[ info[#info] ] end,
 						set = function(info, value) E.db.sle.unitframes.unit.raid[ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('raid') end,
 					},
@@ -355,7 +355,7 @@ local function configTable()
 					higherPortrait = {
 						order = 2, type = "toggle",
 						name = L["Higher Overlay Portrait"],
-						desc = L["Makes frame portrait visible regardles of health level when overlay portrait is set."],
+						desc = L["Makes frame portrait visible regardless of health level when overlay portrait is set."],
 						get = function(info) return E.db.sle.unitframes.unit.raid40[ info[#info] ] end,
 						set = function(info, value) E.db.sle.unitframes.unit.raid40[ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('raid40') end,
 					},
@@ -378,7 +378,7 @@ local function configTable()
 					higherPortrait = {
 						order = 1, type = "toggle",
 						name = L["Higher Overlay Portrait"],
-						desc = L["Makes frame portrait visible regardles of health level when overlay portrait is set."],
+						desc = L["Makes frame portrait visible regardless of health level when overlay portrait is set."],
 						get = function(info) return E.db.sle.unitframes.unit.boss[ info[#info] ] end,
 						set = function(info, value) E.db.sle.unitframes.unit.boss[ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('boss') end,
 					},
@@ -400,7 +400,7 @@ local function configTable()
 					higherPortrait = {
 						order = 1, type = "toggle",
 						name = L["Higher Overlay Portrait"],
-						desc = L["Makes frame portrait visible regardles of health level when overlay portrait is set."],
+						desc = L["Makes frame portrait visible regardless of health level when overlay portrait is set."],
 						get = function(info) return E.db.sle.unitframes.unit.arena[ info[#info] ] end,
 						set = function(info, value) E.db.sle.unitframes.unit.arena[ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('arena') end,
 					},
@@ -487,7 +487,7 @@ local function configTable()
 						order = 13,
 						type = "toggle",
 						name = L["Resize Health Prediction"],
-						desc = L["Slightly chages size of health prediction bars."],
+						desc = L["Slightly changes size of health prediction bars."],
 						get = function(info) return E.private.sle.unitframe.resizeHealthPrediction end,
 						set = function(info, value) E.private.sle.unitframe.resizeHealthPrediction = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},

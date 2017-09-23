@@ -19,7 +19,7 @@ local function configTable()
 			header = {
 				order = 1,
 				type = "description",
-				name = L["These options are for modifing the Shadow & Light Mail datatext."],
+				name = L["These options are for modifying the Shadow & Light Mail datatext."],
 			},
 			icon = {
 				order = 2,

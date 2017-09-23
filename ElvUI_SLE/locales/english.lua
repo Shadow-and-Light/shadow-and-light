@@ -74,13 +74,13 @@ L["Modules designed for older expantions"] = true
 L["Game Menu Buttons"] = true
 L["Adds |cff9482c9Shadow & Light|r buttons to main game menu."] = true
 L["Advanced Options"] = true
-L["SLE_Advanced_Desc"] = [[Folowing options provide acces to additional customization settings in various modules.
-Is not reccomended to new players or people not experienced in addons' configuration.]]
+L["SLE_Advanced_Desc"] = [[Following options provide access to additional customization settings in various modules.
+Is not recommended to new players or people not experienced in addon's configuration.]]
 L["Allow Advanced Options"] = true
 L["Change Elv's options limits"] = true
 L["Allow |cff9482c9Shadow & Light|r to change some of ElvUI's options limits."] = true
 L["Cyrillics Support"] = true
-L["SLE_CYR_DESC"] = [[If you happen to ocasionaly (or constantly) use Russian alphabet (Cyrillics) for your messages
+L["SLE_CYR_DESC"] = [[If you happen to occasionally (or constantly) use Russian alphabet (Cyrillics) for your messages
 and always forget to switch input language afterward when entering slash commands then these options will help you.
 They enable a set of ElvUI's commands to be usable even with wrong input.
 ]]
@@ -125,9 +125,9 @@ L["Checked Texture"] = true
 L["Highlight the button of the spell with areal effect until the area is selected."] = true
 L["Checked Texture Color"] = true
 L["Transparent Backdrop"] = true
-L["Sets actiobars' backgrounds to transparent template."] = true
+L["Sets actionbar's background to transparent template."] = true
 L["Transparent Buttons"] = true
-L["Sets actiobars buttons' backgrounds to transparent template."] = true
+L["Sets actionbar button's background to transparent template."] = true
 
 --Armory
 L["Average"] = true
@@ -161,9 +161,9 @@ L["Inspect Armory"] = true
 L["Full Item Level"] = true
 L["Show both equipped and average item levels."] = true
 L["Item Level Coloring"] = true
-L["Color code item levels values. Equipped will be gradient, avarage - selected color."] = true
+L["Color code item levels values. Equipped will be gradient, average - selected color."] = true
 L["Color of Average"] = true
-L["Sets the color of avarage item level."] = true
+L["Sets the color of average item level."] = true
 L["Only Relevant Stats"] = true
 L["Show only those primary stats relevant to your spec."] = true
 L["SLE_ARMORY_POINTS_AVAILABLE"] = "%s Point(s) Available!!"
@@ -227,7 +227,7 @@ L["Fade"] = true
 L["Tip time"] = true
 L["Number of seconds tip will be shown before changed to another."] = true
 L["Title font"] = true
-L["Subitle font"] = true
+L["Subtitle font"] = true
 L["Date font"] = true
 L["Player info font"] = true
 L["Tips font"] = true
@@ -280,15 +280,15 @@ L["Displays an icon near your Guild Master in chat.\n\n|cffFF0000Note:|r Some me
 L["Chat Editbox History"] = true
 L["The amount of messages to save in the editbox history.\n\n|cffFF0000Note:|r To disable, set to 0."] = true
 L["Filter DPS meters' Spam"] = true
-L["Replaces long reports from damage meters with a clickeble hyperlink to reduce chat spam.\nWorks correctly only with general reports such as DPS or HPS. May fail to filter te report of other things"] = true
+L["Replaces long reports from damage meters with a clickable hyperlink to reduce chat spam.\nWorks correctly only with general reports such as DPS or HPS. May fail to filter the report of other things."] = true
 L["Texture Alpha"] = true
 L["Allows separate alpha setting for textures in chat"] = true
 L["Chat Frame Justify"] = true
 L["Identify"] = true
-L["Showes the message in each chat frame containing frame's number."] = true
+L["Shows the message in each chat frame containing frame's number."] = true
 L["This is %sFrame %s|r"] = true
 L["Loot Icons"] = true
-L["Showes icons of items looted/created near respective messages in chat. Does not affect usual messages."] = true
+L["Shows icons of items looted/created near respective messages in chat. Does not affect usual messages."] = true
 L["Frame 1"] = true
 L["Frame 2"] = true
 L["Frame 3"] = true
@@ -306,11 +306,11 @@ L["Selected Indicator"] = true
 L["Shows you which of docked chat tabs is currently selected."] = true
 L["Chat history size"] = true
 L["Sets how many messages will be stored in history."] = true
-L["Following options determine which channels to save in chat history.\nNote: disabling a channel will immideately delete saved info for that channel."] = true
+L["Following options determine which channels to save in chat history.\nNote: disabling a channel will immediately delete saved info for that channel."] = true
 L["Alt-Click Invite"] = true
 L["Allows you to invite people by alt-clicking their names in chat."] = true
 L["Invite links"] = true
-L["Convets specified keywords to links that automatically invite message's author to group."] = true
+L["Converts specified keywords to links that automatically invite message's author to group."] = true
 L["Link Color"] = true
 L["Invite Keywords"] = true
 L["Chat Setup Delay"] = true
@@ -378,13 +378,13 @@ L["No Mail"] = true
 L["Range"] = true
 L["SLE_AUTHOR_INFO"] = "Shadow & Light by Darth Predator & Repooc"
 L["SLE_CONTACTS"] = [=[If you have suggestions or a bug report,
-please submit ticket at http://git.tukui.org/repooc/elvui-shadowandlight]=]
+please submit ticket at https://git.tukui.org/Darth_Predator/elvui-shadowandlight]=]
 L["Additional Datatext Panels"] = true
 L["DP_DESC"] = [=[Additional Datatext Panels.
 8 panels with 20 datatext points total.]=]
 L["Some datatexts that Shadow & Light are supplied with, has settings that can be modified to alter the displayed information."] = true
 L["Sets size of this panel"] = true
-L["Don't show this panel, only datatexts assinged to it"] = true
+L["Don't show this panel, only datatexts assigned to it."] = true
 L["Override Chat DT Panels"] = true
 L["This will have S&L handle chat datatext panels and place them below the left & right chat panels.\n\n|cffFF0000Note:|r When you first enabled, you may need to move the chat panels up to see your datatext panels."] = true
 L["S&L Datatexts"] = true
@@ -401,8 +401,8 @@ L["Show Miscellaneous Currency"] = true
 L["Show Zero Currency"] = true
 L["Show Icons"] = true
 L["Show Faction Totals"] = true
-L["Show Unsed Currency"] = true
-L["These options are for modifing the Shadow & Light Friends datatext."] = true
+L["Show Unused Currencies"] = true
+L["These options are for modifying the Shadow & Light Friends datatext."] = true
 L["Hide In Combat"] = true
 L["Will not show the tooltip while in combat."] = true
 L["Hide Friends"] = true
@@ -413,11 +413,11 @@ L["Show total friends in the datatext."] = true
 L["Hide Hints"] = true
 L["Hide the hints in the tooltip."] = true
 L["Expand RealID"] = true
-L["Display realid with two lines to view broadcasts."] = true
+L["Display RealID with two lines to view broadcasts."] = true
 L["Autohide Delay:"] = true
 L["Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext."] = true
 L["S&L Guild"] = true
-L["These options are for modifing the Shadow & Light Guild datatext."] = true
+L["These options are for modifying the Shadow & Light Guild datatext."] = true
 L["Show total guild members in the datatext."] = true
 L["Hide MOTD"] = true
 L["Hide the guild's Message of the Day in the tooltip."] = true
@@ -426,7 +426,7 @@ L["Minimize the Guild Datatext."] = true
 L["Hide Guild Name"] = true
 L["Hide the guild's name in the tooltip."] = true
 L["S&L Mail"] = true
-L["These options are for modifing the Shadow & Light Mail datatext."] = true
+L["These options are for modifying the Shadow & Light Mail datatext."] = true
 L["Minimap icon"] = true
 L["If enabled will show new mail icon on minimap."] = true
 L["Options below are for standard ElvUI's durability datatext."] = true
@@ -447,7 +447,7 @@ L["Amount"] = true
 L["Order of each toon. Smaller numbers will go first"] = true
 L["Tracked"] = true
 
---Enhnced Shadows
+--Enhanced Shadows
 L["Enhanced Shadows"] = true
 L["Use shadows on..."] = true
 L["SLE_EnhShadows_BarButtons_Option"] = "Bar %s Buttons"
@@ -469,13 +469,13 @@ L["Block button"] = true
 L["Create a button in character frame to allow temp blocking of auto set swap."] = true
 L["Ignore zone change"] = true
 L["Swap sets only on specialization change ignoring location change when. Does not influence entering/leaving instances and bg/arena."] = true
-L["Equipement conditions"] = true
+L["Equipment conditions"] = true
 L["SLE_EM_SET_NOT_EXIST"] = "Equipment set |cff9482c9%s|r doesn't exist!"
 L["SLE_EM_TAG_INVALID"] = "Invalid tag: %s"
 L["SLE_EM_TAG_INVALID_TALENT_TIER"] = "Invalid argument for talent tag. Tier is |cff9482c9%s|r, should be from 1 to 7."
 L["SLE_EM_TAG_INVALID_TALENT_COLUMN"] = "Invalid argument for talent tag. Column is |cff9482c9%s|r, should be from 1 to 3."
 L["SLE_EM_TAG_DOT_WARNING"] = "Wrong separator for conditions detected. You need to use commas instead of dots."
-L["SLE_EM_CONDITIONS_DESC"] = [[Determines conditions under which specified sets are equipeed.
+L["SLE_EM_CONDITIONS_DESC"] = [[Determines conditions under which specified sets are equipped.
 This works as macros and controlled by a set of tags as seen below.]]
 L["SLE_EM_TAGS_HELP"] = [[Following tags and parameters are eligible for setting equip condition:
 |cff3cbf27solo|r - when you are solo without any group;
@@ -485,7 +485,7 @@ L["SLE_EM_TAGS_HELP"] = [[Following tags and parameters are eligible for setting
 |cff3cbf27talent|r - specified talent. Usage [talent:<tier>/<column>] tier is the row going from 1 on lvl 15 to 7 and lvl 100, column is the column in said row from 1 to 3;
 |cff3cbf27instance|r - if in instance. Can be of specified instance type - [instance:<type>]. Types are party, raid and scenario. If not specified will be true for any instance;
 |cff3cbf27pvp|r - if on BG, arena or world pvp area. Available arguments: pvp, arena;
-|cff3cbf27difficulty|r - defines the difficulty of the instance. Argumants are: normal, heroic, lfr, challenge, mythic;
+|cff3cbf27difficulty|r - defines the difficulty of the instance. Arguments are: normal, heroic, lfr, challenge, mythic;
 
 Example: [solo] Set1; [party:4, spec:3] Set2; [instance:raid, difficulty:heroic] Set3
 ]]
@@ -503,7 +503,7 @@ L["Automatically disenchant uncommon (green) quality items at max level"] = true
 L["Loot Quality"] = true
 L["Sets the auto greed/disenchant quality\n\nUncommon: Rolls on Uncommon only\nRare: Rolls on Rares & Uncommon"] = true
 L["Roll based on level."] = true
-L["This will auto-roll if you are above the given level if: You cannot equip the item being rolled on, or the ilevel of your equipped item is higher than the item being rolled on or you have an heirloom equipped in that slot"] = true
+L["This will auto-roll if you are above the given level if: You cannot equip the item being rolled on, or the iLevel of your equipped item is higher than the item being rolled on or you have an heirloom equipped in that slot"] = true
 L["Level to start auto-rolling from"] = true
 L["Loot Announcer"] = true
 L["AUTOANNOUNCE_DESC"] = "When enabled, will automatically announce the loot when the loot window opens.\n\n|cffFF0000Note:|r Raid Lead, Assist, & Master Looter Only."
@@ -517,7 +517,7 @@ L["Select chat channel to announce loot to."] = true
 L["Loot Roll History"] = true
 L["LOOTH_DESC"] = "These are options for tweaking the Loot Roll History window."
 L["Auto hide"] = true
-L["Automaticaly hides Loot Roll History frame when leaving the instance."] = true
+L["Automatically hides Loot Roll History frame when leaving the instance."] = true
 L["Sets the alpha of Loot Roll History frame."] = true
 L["Channels"] = true
 L["Private channels"] = true
@@ -530,7 +530,7 @@ L["SLE_MEDIA_ZONES"] = {
 	"Moscow",
 	"Moon Base",
 	"Goblin Spa Resort",
-	"Illuminaty Headquaters",
+	"Illuminati Headquarters",
 	"Elv's Closet",
 	"BlizzCon",
 }
@@ -640,20 +640,20 @@ L["A different look/feel vehicle bar"] = true
 
 --Nameplates
 L["Target Count"] = true
-L["Display the number of party / raid members targetting the nameplate unit."] = true
+L["Display the number of party / raid members targeting the nameplate unit."] = true
 L["Threat Text"] = true
 L["Display threat level as text on targeted, boss or mouseover nameplate."] = true
 
 --Professions
 L["Deconstruct Mode"] = true
-L["Create a button in your bag frame to switch to deconstrution mode allowing you to easily disenchant/mill/prospect and pick locks."] = true
+L["Create a button in your bag frame to switch to deconstruction mode allowing you to easily disenchant/mill/prospect and pick locks."] = true
 L["Actionbar Proc"] = true
 L["Actionbar Autocast"] = true
 L["Show glow on bag button"] = true
 L["Show glow on the deconstruction button in bag when deconstruction mode is enabled.\nApplies on next mode toggle."] = true
 L["Scroll"] = true
 L["Missing scroll item for spellID %d. Please report this at the Shadow&Light Ticket Tracker."] = true
-L["Sets style of glow around item available for deconstruction while in deconstruct mode. Autocast is less intence but also less noticeable."] = true
+L["Sets style of glow around item available for deconstruction while in deconstruct mode. Autocast is less intense but also less noticeable."] = true
 L["Enchant Scroll Button"] = true
 L["Create a button for applying selected enchant on the scroll."] = true
 L["Following options are global and will be applied to all characters on account."] = true
@@ -695,12 +695,12 @@ L["Announce"] = true
 L["Announce in chat if duel was rejected."] = true
 L["Show your PvP killing blows as a popup."] = true
 L["KB Sound"] = true
-L["Play sound when Kkilling blows popup is shown."] = true
+L["Play sound when killing blows popup is shown."] = true
 
 --Quests
 L["Rested"] = true
 L["Auto Reward"] = true
-L["Automatically selects a reward with higherst selling price when quest is completed. Does not really finish the quest."] = true
+L["Automatically selects a reward with highest selling price when quest is completed. Does not really finish the quest."] = true
 
 --Raid Marks
 L["Raid Markers"] = true
@@ -846,10 +846,10 @@ L["Red Icon"] = true
 L["Aura Bars Texture"] = true
 L["Higher Overlay Portrait"] = true
 L["Overlay Portrait Alpha"] = true
-L["Makes frame portrait visible regardles of health level when overlay portrait is set."] = true
+L["Makes frame portrait visible regardless of health level when overlay portrait is set."] = true
 L["Classbar Texture"] = true
 L["Resize Health Prediction"] = true
-L["Slightly chages size of health prediction bars."] = true
+L["Slightly changes size of health prediction bars."] = true
 L["Custom Texture"] = true
 
 
@@ -867,19 +867,19 @@ L["Set the offset from the bottom border of the screen."] = true
 --Help
 L["About/Help"] = true
 L["About"] = true
-L["SLE_DESC"] = [=[|cff9482c9Shadow & Light|r is an extention of ElvUI. It adds:
+L["SLE_DESC"] = [=[|cff9482c9Shadow & Light|r is an extension of ElvUI. It adds:
 - a lot of new features 
 - more customization options for existing ones
 
-|cff3cbf27Note:|r It is compatible with most of addons and ElvUI plugins available. But some functions may be unaccesable to avoid possible conflicts.]=]
+|cff3cbf27Note:|r It is compatible with most of addons and ElvUI plugins available. But some functions may be unavailable to avoid possible conflicts.]=]
 L["Links"] = true
 L["LINK_DESC"] = [[Following links will direct you to the Shadow & Light's pages on various sites.]]
 
 --FAQ--
 L["FAQ_DESC"] = "This section contains some questions about ElvUI and Shadow & Light."
 L["FAQ_Elv_1"] = [[|cff30ee30Q: Where can I cat ElvUI support?|r
-|cff9482c9A:|r Best way is official forum - tukui.org/forums/
-For bug reports you can also use bug tracker - git.tukui.org/Elv/elvui/issues]]
+|cff9482c9A:|r Best way is official forum - https://www.tukui.org/forum/
+For bug reports you can also use bug tracker - https://git.tukui.org/elvui/elvui/issues]]
 L["FAQ_Elv_2"] = [[|cff30ee30Q: Do I need to have good English in order to do so?|r
 |cff9482c9A:|r English is official language of tukui.org forums so most posts in there are in English.
 But this doesn't mean it's the only language used there. You will be able to find posts in Spanish, French, German, Russian, Italian, etc.
@@ -905,7 +905,7 @@ L["FAQ_Elv_5"] = [[|cff30ee30Q: What are ElvUI slash (chat) commands?|r
 /moveui - Allows to move stuff around
 /resetui - Resets your entire UI]]
 L["FAQ_sle_1"] = [[|cff30ee30Q: What to do if I encounter an error is Shadow & Light?|r
-|cff9482c9A:|r Pretty much the same as for ElvUI (see it's faq section ) but you'll have to provide S&L version too.]]
+|cff9482c9A:|r Pretty much the same as for ElvUI (see it's FAQ section) but you'll have to provide S&L version too.]]
 L["FAQ_sle_2"] = [[|cff30ee30Q: Does Shadow & Light have the same language policy as ElvUI?|r
 |cff9482c9A:|r Yes. But S&L actually have two official languages - English and Russian.]]
 L["FAQ_sle_3"] = [[|cff30ee30Q: Why are layouts' screenshots on download page are different from what I see in game?|r

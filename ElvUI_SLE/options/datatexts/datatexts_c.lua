@@ -25,7 +25,7 @@ local function configTable()
 				hide = {
 					order = 3, type = "toggle",
 					name = L["Hide panel background"],
-					desc = L["Don't show this panel, only datatexts assinged to it"],
+					desc = L["Don't show this panel, only datatexts assigned to it."],
 					disabled = function() return not E.db.sle.datatexts["panel"..i].enabled end,
 					get = function(info) return E.db.sle.datatexts["panel"..i].noback end,
 					set = function(info, value) E.db.sle.datatexts["panel"..i].noback = value; DTP:Template(i) end,
@@ -95,7 +95,7 @@ local function configTable()
 				noborders = {
 					order = 13, type = "toggle",
 					name = L["Hide panel background"],
-					desc = L["Don't show this panel, only datatexts assinged to it"],
+					desc = L["Don't show this panel, only datatexts assigned to it."],
 					get = function(info) return E.db.sle.datatexts[name][ info[#info] ] end,
 					set = function(info, value) E.db.sle.datatexts[name][ info[#info] ] = value; E:GetModule("Layout"):SetDataPanelStyle() end,
 				},

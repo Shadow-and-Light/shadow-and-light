@@ -294,14 +294,14 @@ local function LoadArmoryConfigTable()
 							order = 2,
 							type = "toggle",
 							name = L["Item Level Coloring"],
-							desc = L["Color code item levels values. Equipped will be gradient, avarage - selected color."],
+							desc = L["Color code item levels values. Equipped will be gradient, average - selected color."],
 							disabled = function() return SLE._Compatibility["DejaCharacterStats"] or not E.db.sle.Armory.Character.Stats.IlvlFull end,
 						},
 						AverageColor = {
 							type = 'color',
 							order = 3,
 							name = L["Color of Average"],
-							desc = L["Sets the color of avarage item level."],
+							desc = L["Sets the color of average item level."],
 							hasAlpha = false,
 							disabled = function() return SLE._Compatibility["DejaCharacterStats"] or not E.db.sle.Armory.Character.Stats.IlvlFull end,
 							get = function(info)

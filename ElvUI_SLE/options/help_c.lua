@@ -81,7 +81,7 @@ local function configTable()
 					},
 					gitlablink = {
 						order = 5, type = 'input', width = 'full', name = L["GitLab Link / Report Errors"],
-						get = function(info) return 'http://git.tukui.org/repooc/elvui-shadowandlight' end,
+						get = function(info) return 'https://git.tukui.org/Darth_Predator/elvui-shadowandlight' end,
 					},
 				},
 			},

@@ -107,7 +107,7 @@ local function configTable()
 				disabled = function() return not E.private.sle.module.screensaver end,
 				args = {
 					title = CreateFont(1, L["Title font"], "title"),
-					subtitle = CreateFont(2, L["Subitle font"], "subtitle"),
+					subtitle = CreateFont(2, L["Subtitle font"], "subtitle"),
 					date = CreateFont(3,L["Date font"], "date"),
 					player = CreateFont(4,L["Player info font"], "player"),
 					tips = CreateFont(5,L["Tips font"], "tips"),
