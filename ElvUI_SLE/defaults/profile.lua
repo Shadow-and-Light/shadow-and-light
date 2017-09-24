@@ -932,11 +932,7 @@ P.datatexts.panels["SLE_DataPanel_2"] = {
 	["middle"] = '',
 	["right"] = '',
 }
-P.datatexts.panels["SLE_DataPanel_3"] = {
-	["left"] = '',
-	["middle"] = 'Version',
-	["right"] = '',
-}	
+P.datatexts.panels["SLE_DataPanel_3"] = 'Version'
 P.datatexts.panels["SLE_DataPanel_4"] = {
 	["left"] = '',
 	["middle"] = '',
@@ -952,11 +948,7 @@ P.datatexts.panels["SLE_DataPanel_6"] = {
 	["middle"] = '',
 	["right"] = '',
 }
-P.datatexts.panels["SLE_DataPanel_7"] = {
-	["left"] = '',
-	["middle"] = '',
-	["right"] = '',
-}
+P.datatexts.panels["SLE_DataPanel_7"] = ''
 P.datatexts.panels["SLE_DataPanel_8"] = {
 	["left"] = '',
 	["middle"] = '',
