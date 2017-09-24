@@ -1,6 +1,8 @@
 v3.28
 Additions:
 - Added missed currencies to the datatext
+Fixes:
+- Missing options to set datapanel datatext on panels 3 & 7
 
 v3.27 08/29/17
 Changes:
