@@ -31,36 +31,36 @@ function N:UpdatePlateFonts()
 end
 
 function N:CreateNameplate(event, frame)
-	local myPlate = frame.unitFrame
-	if not myPlate then return end
+	local plate = frame.unitFrame
+	if not plate then return end
 
-	if not myPlate.threatInfo then
-		myPlate.threatInfo = myPlate.HealthBar:CreateFontString(nil, "OVERLAY")
-		myPlate.threatInfo:SetPoint("BOTTOMLEFT", myPlate.HealthBar, "BOTTOMLEFT", 1, 2)
-		myPlate.threatInfo:SetJustifyH("LEFT")
+	if not plate.threatInfo then
+		plate.threatInfo = plate.HealthBar:CreateFontString(nil, "OVERLAY")
+		plate.threatInfo:SetPoint("BOTTOMLEFT", plate.HealthBar, "BOTTOMLEFT", 1, 2)
+		plate.threatInfo:SetJustifyH("LEFT")
 	end
-	if not myPlate.targetcount then
-		myPlate.targetcount = myPlate.HealthBar:CreateFontString(nil, "OVERLAY")
-		myPlate.targetcount:SetPoint('BOTTOMRIGHT', myPlate.HealthBar, 'BOTTOMRIGHT', 1, 2)
-		myPlate.targetcount:SetJustifyH("RIGHT")
-		myPlate.targetCount = 0
+	if not plate.targetcount then
+		plate.targetcount = plate.HealthBar:CreateFontString(nil, "OVERLAY")
+		plate.targetcount:SetPoint('BOTTOMRIGHT', plate.HealthBar, 'BOTTOMRIGHT', 1, 2)
+		plate.targetcount:SetJustifyH("RIGHT")
+		plate.targetCount = 0
 	end
-	myPlate.threatInfo:FontTemplate(E.LSM:Fetch("font", N.db.threat.font), N.db.threat.size, N.db.threat.fontOutline)
-	myPlate.targetcount:FontTemplate(E.LSM:Fetch("font", N.db.targetcount.font), N.db.targetcount.size, N.db.targetcount.fontOutline)
-	myPlate.targetcount:SetText()
+	plate.threatInfo:FontTemplate(E.LSM:Fetch("font", N.db.threat.font), N.db.threat.size, N.db.threat.fontOutline)
+	plate.targetcount:FontTemplate(E.LSM:Fetch("font", N.db.targetcount.font), N.db.targetcount.size, N.db.targetcount.fontOutline)
+	plate.targetcount:SetText()
 end
 
 hooksecurefunc(NP, 'Update_ThreatList', function(self, myPlate)
-	if not myPlate then return end
+	if not plate then return end
 
-	if myPlate.threatInfo then
-		myPlate.threatInfo:SetText()
+	if plate.threatInfo then
+		plate.threatInfo:SetText()
 
-		if E.db.sle.nameplates.threat.enable and myPlate.UnitType == "ENEMY_NPC" then
-			local unit = myPlate.unit
+		if E.db.sle.nameplates.threat.enable and plate.UnitType == "ENEMY_NPC" then
+			local unit = plate.unit
 			if not unit then
 				for i=1, 4 do
-					if myPlate.guid == T.UnitGUID(T.format('boss%d', i)) then
+					if plate.guid == T.UnitGUID(T.format('boss%d', i)) then
 						unit = T.format('boss%d', i)
 						break
 					end
@@ -69,7 +69,7 @@ hooksecurefunc(NP, 'Update_ThreatList', function(self, myPlate)
 			if unit and not T.UnitIsPlayer(unit) and T.UnitCanAttack('player', unit) then
 				local status, percent = T.select(2, T.UnitDetailedThreatSituation('player', unit))
 				if (status) then
-					myPlate.threatInfo:SetFormattedText('%s%.0f%%|r', Hex(T.GetThreatStatusColor(status)), percent or "")
+					plate.threatInfo:SetFormattedText('%s%.0f%%|r', Hex(T.GetThreatStatusColor(status)), percent or "")
 				end
 			end
 		end
@@ -152,8 +152,8 @@ end
 function N:NAME_PLATE_UNIT_REMOVED(event, unit, frame, ...)
 	local frame = frame or NP:GetNamePlateForUnit(unit);
 	if not frame.unitFrame then return end
-	frame.unitFrame.threatInfo:SetText("")
-	frame.unitFrame.targetcount:SetText("")
+	if frame.unitFrame.threatInfo then frame.unitFrame.threatInfo:SetText("") end
+	if frame.unitFrame.targetcount then frame.unitFrame.targetcount:SetText("") end
 	frame.unitFrame.targetCount = 0
 end
 
