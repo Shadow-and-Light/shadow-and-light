@@ -475,8 +475,8 @@ function PI:DarthSetup()
 		E.db["sle"]["tooltip"]["showFaction"] = true
 		E.db["sle"]["raidmarkers"]["spacing"] = -1
 		E.db["sle"]["raidmarkers"]["buttonSize"] = 24
-		E.db["sle"]["nameplates"]["showthreat"] = true
-		E.db["sle"]["nameplates"]["targetcount"] = true
+		E.db["sle"]["nameplates"]["threat"]["enable"] = true
+		E.db["sle"]["nameplates"]["targetcount"]["enable"] = true
 		E.db["sle"]["chat"]["dpsSpam"] = true
 		E.db["sle"]["chat"]["tab"]["select"] = true
 		E.db["sle"]["datatexts"]["leftchat"]["width"] = 430
@@ -1160,8 +1160,8 @@ local function AffinitySetup()
 	if not E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = {} end
 	if not E.db["unitframe"]["units"]["raid40"]["customTexts"] then E.db["unitframe"]["units"]["raid40"]["customTexts"] = {} end
 
-	E.db["sle"]["nameplates"]["showthreat"] = true
-	E.db["sle"]["nameplates"]["targetcount"] = true
+	E.db["sle"]["nameplates"]["threat"]["enable"] = true
+	E.db["sle"]["nameplates"]["targetcount"]["enable"] = true
 	E.db["sle"]["datatexts"]["chathandle"] = true
 	E.db["sle"]["datatexts"]["panel3"]["enabled"] = true
 	E.db["sle"]["datatexts"]["panel3"]["transparent"] = true
