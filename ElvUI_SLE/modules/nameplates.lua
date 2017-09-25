@@ -195,6 +195,21 @@ function N:Initialize()
 
 	E:Delay(.3, function() N:UpdateCount(nil,"player", true) end)
 	function N:ForUpdateAll()
+		--DB converts
+		if E.db.sle.nameplates.targetcount and T.type(E.db.sle.nameplates.targetcount) == "boolean" then
+			local oldEnable = E.db.sle.nameplates.targetcount
+			E.db.sle.nameplates.targetcount = {
+				["enable"] = oldEnable,
+				["font"] = "PT Sans Narrow",
+				["size"] = 12,
+				["fontOutline"] = "OUTLINE",
+			}
+		end
+		if E.db.sle.nameplates.showthreat then
+			E.db.sle.nameplates.threat.enable = E.db.sle.nameplates.showthreat
+			E.db.sle.nameplates.showthreat = nil
+		end
+	
 		N.db = E.db.sle.nameplates
 	end
 end
