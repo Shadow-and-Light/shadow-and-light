@@ -196,7 +196,7 @@ function N:Initialize()
 	E:Delay(.3, function() N:UpdateCount(nil,"player", true) end)
 	function N:ForUpdateAll()
 		--DB converts
-		if E.db.sle.nameplates.targetcount and T.type(E.db.sle.nameplates.targetcount) == "boolean" then
+		if (E.db.sle.nameplates.targetcount and T.type(E.db.sle.nameplates.targetcount) == "boolean") or not E.db.sle.nameplates.targetcount then
 			local oldEnable = E.db.sle.nameplates.targetcount
 			E.db.sle.nameplates.targetcount = {
 				["enable"] = oldEnable,
