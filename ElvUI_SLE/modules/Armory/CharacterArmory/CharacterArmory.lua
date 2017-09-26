@@ -1297,6 +1297,10 @@ do --<< Artifact Monitor >>
 		if not self.ArtifactMonitor.UpdateData then
 			CA:LegionArtifactMonitor_UpdateData()
 		end
+		if not self.ArtifactMonitor.BarExpected.InitialLoadCheck then
+			CA:LegionArtifactMonitor_UpdateData()
+			self.ArtifactMonitor.BarExpected.InitialLoadCheck = true
+		end
 		
 		-- LowestPower = nil
 		
@@ -1589,6 +1593,8 @@ KF.Modules.CharacterArmory = function()
 		]]
 		_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', CharacterArmory, -8, 0)
 		_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', CharacterArmory, 8, 0)
+		
+		CA:LegionArtifactMonitor_UpdateData()
 	elseif Info.CharacterArmory_Activate then
 		Info.CharacterArmory_Activate = nil
 		
