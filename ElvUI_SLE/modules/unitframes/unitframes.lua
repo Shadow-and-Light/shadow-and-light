@@ -86,7 +86,7 @@ end
 function SUF:ConfiguePortrait(frame, dontHide)
 	local db = E.db.sle.unitframes.unit
 	local portrait = frame.Portrait
-	if portrait.SLEHooked then return end
+	if portrait.SLEHooked or not db[frame.unitframeType] then return end
 	hooksecurefunc(portrait, "PostUpdate", SUF.PortraitUpdate)
 	portrait.SLEHooked = true
 end

@@ -789,6 +789,18 @@ P["sle"] = {
 				["higherPortrait"] = false,
 				["portraitAlpha"] = 0.35,
 			},
+			["pet"] = {
+				["higherPortrait"] = false,
+				["portraitAlpha"] = 0.35,
+				["auras"] = {
+					["buffs"] = {
+						["threshold"] = 4,
+					},
+					["debuffs"] = {
+						["threshold"] = 4,
+					},
+				},
+			},
 			["target"] = {
 				["higherPortrait"] = false,
 				["portraitAlpha"] = 0.35,
