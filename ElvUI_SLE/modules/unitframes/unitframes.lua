@@ -86,25 +86,12 @@ end
 function SUF:ConfiguePortrait(frame, dontHide)
 	local db = E.db.sle.unitframes.unit
 	local portrait = frame.Portrait
-	if not portrait.SLEHooked then
-		hooksecurefunc(portrait, "PostUpdate", SUF.PortraitUpdate)
-		portrait.SLEHooked = true
-	end
-	if (db[frame.unitframeType] and db[frame.unitframeType].higherPortrait) and frame.USE_PORTRAIT_OVERLAY then
-		if not frame.Health.HigherPortrait then
-			frame.Health.HigherPortrait = CreateFrame("Frame", frame:GetName().."HigherPortrait", frame)
-			frame.Health.HigherPortrait:SetFrameLevel(frame.Health:GetFrameLevel() + 4)
-			frame.Health.HigherPortrait:SetPoint("TOPLEFT", frame.Health, "TOPLEFT")
-			frame.Health.HigherPortrait:SetPoint("BOTTOMRIGHT", frame.Health, "BOTTOMRIGHT", 0, 0.5)
-		end
-		portrait:ClearAllPoints()
-		if frame.db.portrait.style == '3D' then portrait:SetFrameLevel(frame.Health.HigherPortrait:GetFrameLevel()) end
-		portrait:SetAllPoints(frame.Health.HigherPortrait)
-		frame.Health.bg:SetParent(frame.Health)
-	end
+	if portrait.SLEHooked then return end
+	hooksecurefunc(portrait, "PostUpdate", SUF.PortraitUpdate)
+	portrait.SLEHooked = true
 end
 
-function SUF:PortraitUpdate(unit)
+function SUF:PortraitUpdate(unit, ...)
 	local frame = self:GetParent()
 	local dbElv = frame.db
 	if not dbElv then return end
@@ -113,6 +100,18 @@ function SUF:PortraitUpdate(unit)
 	if db[frame.unitframeType] and portrait.enable and self:GetParent().USE_PORTRAIT_OVERLAY then
 		self:SetAlpha(0);
 		self:SetAlpha(db[frame.unitframeType].portraitAlpha);
+	end
+	if (db[frame.unitframeType] and db[frame.unitframeType].higherPortrait) and frame.USE_PORTRAIT_OVERLAY then
+		if not frame.Health.HigherPortrait then
+			frame.Health.HigherPortrait = CreateFrame("Frame", frame:GetName().."HigherPortrait", frame)
+			frame.Health.HigherPortrait:SetFrameLevel(frame.Health:GetFrameLevel() + 4)
+			frame.Health.HigherPortrait:SetPoint("TOPLEFT", frame.Health, "TOPLEFT")
+			frame.Health.HigherPortrait:SetPoint("BOTTOMRIGHT", frame.Health, "BOTTOMRIGHT", 0, 0.5)
+		end
+		self:ClearAllPoints()
+		if frame.db.portrait.style == '3D' then self:SetFrameLevel(frame.Health.HigherPortrait:GetFrameLevel()) end
+		self:SetAllPoints(frame.Health.HigherPortrait)
+		frame.Health.bg:SetParent(frame.Health)
 	end
 end
 
