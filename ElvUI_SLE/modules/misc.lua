@@ -43,7 +43,7 @@ function M:UpdateThreatConfig()
 					['RIGHTCHAT'] = L["Right Chat"],
 				},
 				get = function(info) return E.db.general.threat.position end,
-				set = function(info, value) E.db.general.threat[ info[#info] ] = value; T:UpdatePosition() end,
+				set = function(info, value) E.db.general.threat.position = value; Tr:UpdatePosition() end,
 			}
 		end
 	end
