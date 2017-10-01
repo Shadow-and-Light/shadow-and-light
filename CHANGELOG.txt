@@ -1,6 +1,12 @@
-v3.28
+v3.28 10/1/17
 Additions:
 - Added missed currencies to the datatext
+- Added "Hide in class hall" for location bar
+- Added options for threat and target count on nameplates
+Fixes:
+- Fixed bug in config for threat bar settings
+- Fixed "damn elusive" bug with portrait overlay
+- Compatibility fixes to work with ElvUI 10.64
 
 v3.27 08/29/17
 Changes:
