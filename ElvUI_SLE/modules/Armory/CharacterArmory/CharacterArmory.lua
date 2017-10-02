@@ -1635,6 +1635,7 @@ KF.Modules.CharacterArmory = function()
 	end
 	
 	hooksecurefunc(E, "UpdateMedia", function(self)
+		if not CA.ArtifactMonitor then return end
 		CA.ArtifactMonitor.BarExpected:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
 		CA:LegionArtifactMonitor_UpdateData()
 	end)
