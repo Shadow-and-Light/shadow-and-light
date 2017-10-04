@@ -397,7 +397,7 @@ function LDB.OnEnter(self)
 						if isDND then
 							status = BUSY_ICON
 						end
-						if note and note ~= "" then note = "|cffff8800{"..note.."}|r" end
+						if note and note ~= "" then note = "|cffff8800"..note.."|r" end
 							
 						T.tinsert(realid_table, {
 							GIVENNAME = givenName,
