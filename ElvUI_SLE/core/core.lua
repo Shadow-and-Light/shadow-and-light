@@ -1,9 +1,10 @@
 ﻿local E, L, V, P, G = unpack(ElvUI);
 local EP = LibStub("LibElvUIPlugin-1.0")
 local AddOnName, Engine = ...;
---GLOBALS: hooksecurefunc, LibStub
 local _G = _G
 local tonumber = tonumber
+
+--GLOBALS: hooksecurefunc, LibStub, GetAddOnMetadata, CreateFrame, GetAddOnEnableState, BINDING_HEADER_SLE
 
 local SLE = LibStub("AceAddon-3.0"):NewAddon(AddOnName, "AceConsole-3.0", "AceEvent-3.0", 'AceTimer-3.0', 'AceHook-3.0');
 SLE.callbacks = SLE.callbacks or LibStub("CallbackHandler-1.0"):New(SLE)
