@@ -701,6 +701,9 @@ P["sle"] = {
 				["subOutline"] = "OUTLINE",
 			},
 		},
+		["talkinghead"] = {
+			["hide"] = false,
+		},
 	},
 	--Tooltip
 	["tooltip"] = {

@@ -263,6 +263,28 @@ local function configTable()
 					},
 				},
 			},
+			blizzardframes = {
+				order = 40,
+				type = "group",
+				name = "Blizzard",
+				args = {
+					talkinghead = {
+						order = 1,
+						name = L["Talking Head Frame"],
+						type = "group",
+						args = {
+							hide = {
+								order = 1,
+								type = "toggle",
+								name = HIDE,
+								desc = L["Hide the talking head frame at the top center of the screen."],
+								get = function(info) return E.db.sle.skins.talkinghead.hide end,
+								set = function(info, value) E.db.sle.skins.talkinghead.hide = value; E:StaticPopup_Show("CONFIG_RL") end,
+							},
+						},
+					},
+				},
+			},
 		},
 	}
 
