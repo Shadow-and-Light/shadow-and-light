@@ -119,10 +119,10 @@ function SUF:UpdateHealComm(unit, myIncomingHeal, allIncomingHeal, totalAbsorb, 
 	local frame = self.parent
 	local previousTexture = frame.Health:GetStatusBarTexture();
 
-	UF.UpdateFillBar(frame, previousTexture, self.healAbsorbBar, healAbsorb, true);
-	previousTexture = UF.UpdateFillBar(frame, previousTexture, self.myBar, myIncomingHeal);
-	previousTexture = UF.UpdateFillBar(frame, previousTexture, self.otherBar, allIncomingHeal);
-	previousTexture = UF.UpdateFillBar(frame, previousTexture, self.absorbBar, totalAbsorb);
+	UF:UpdateFillBar(frame, previousTexture, self.healAbsorbBar, healAbsorb, true);
+	previousTexture = UF:UpdateFillBar(frame, previousTexture, self.myBar, myIncomingHeal);
+	previousTexture = UF:UpdateFillBar(frame, previousTexture, self.otherBar, allIncomingHeal);
+	previousTexture = UF:UpdateFillBar(frame, previousTexture, self.absorbBar, totalAbsorb);
 end
 
 function SUF:HealthPredictUpdate(frame)
