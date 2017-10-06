@@ -180,4 +180,6 @@ function ES:Initialize()
 	end
 end
 
+_G.EnhancedShadows = ES;
+
 SLE:RegisterModule(ES:GetName())
