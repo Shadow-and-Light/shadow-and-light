@@ -115,47 +115,20 @@ function SUF:PortraitUpdate(unit, ...)
 	end
 end
 
-local function UpdateFillBar(frame, previousTexture, bar, amount)
-	if ( amount == 0 ) then
-		bar:Hide();
-		return previousTexture;
-	end
-
-	local orientation = frame.Health:GetOrientation()
-	local first = false
-	bar:ClearAllPoints()
-	if previousTexture == frame.Health:GetStatusBarTexture() then first = true end
-	if orientation == 'HORIZONTAL' then
-		bar:Point("TOPLEFT", previousTexture, "TOPRIGHT");
-		bar:Point("BOTTOMLEFT", previousTexture, "BOTTOMRIGHT",0,first and -1 or 0);
-	else
-		bar:Point("BOTTOMRIGHT", previousTexture, "TOPRIGHT");
-		bar:Point("BOTTOMLEFT", previousTexture, "TOPLEFT");
-	end
-
-	local totalWidth, totalHeight = frame.Health:GetSize();
-	if orientation == 'HORIZONTAL' then
-		bar:Width(totalWidth);
-	else
-		bar:Height(totalHeight);
-	end
-
-	return bar:GetStatusBarTexture();
-end
-
-function SUF:UpdateHealComm(unit, myIncomingHeal, allIncomingHeal, totalAbsorb)
+function SUF:UpdateHealComm(unit, myIncomingHeal, allIncomingHeal, totalAbsorb, healAbsorb)
 	local frame = self.parent
 	local previousTexture = frame.Health:GetStatusBarTexture();
 
-	previousTexture = UpdateFillBar(frame, previousTexture, self.myBar, myIncomingHeal);
-	previousTexture = UpdateFillBar(frame, previousTexture, self.otherBar, allIncomingHeal);
-	previousTexture = UpdateFillBar(frame, previousTexture, self.absorbBar, totalAbsorb);
+	UF.UpdateFillBar(frame, previousTexture, self.healAbsorbBar, healAbsorb, true);
+	previousTexture = UF.UpdateFillBar(frame, previousTexture, self.myBar, myIncomingHeal);
+	previousTexture = UF.UpdateFillBar(frame, previousTexture, self.otherBar, allIncomingHeal);
+	previousTexture = UF.UpdateFillBar(frame, previousTexture, self.absorbBar, totalAbsorb);
 end
 
 function SUF:HealthPredictUpdate(frame)
-	if frame.HealthPrediction and (not frame.HealthPrediction.SLEPredicHook and frame.HealthPrediction.PostUpdate) then
-		frame.HealthPrediction.PostUpdate = SUF.UpdateHealComm
-		frame.HealthPrediction.SLEPredicHook = true
+	if frame.HealthPrediction and (not frame.HealthPrediction.SLEPredictHook and frame.HealthPrediction.PostUpdate) then
+		hooksecurefunc(frame.HealthPrediction, "PostUpdate", SUF.UpdateHealComm)
+		frame.HealthPrediction.SLEPredictHook = true
 	end
 end
 
