@@ -57,7 +57,7 @@ function N:CreateNameplate(event, frame)
 	end
 end
 
-hooksecurefunc(NP, 'Update_ThreatList', function(self, myPlate)
+hooksecurefunc(NP, 'Update_ThreatList', function(self, plate)
 	if not plate then return end
 
 	if plate.threatInfo then
