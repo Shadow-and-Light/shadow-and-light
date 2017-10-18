@@ -307,7 +307,7 @@ function CA:Setup_CharacterArmory()
 	--<< Average Item Level >>--
 	-- KF:TextSetting(self, nil, { Tag = 'AverageItemLevel', FontSize = 12 }, 'BOTTOM', CharacterModelFrame, 'TOP', 0, 14)
 	-- local function ValueColorUpdate()
-	-- 	self.AverageItemLevel:SetText(KF:Color_Value(STAT_AVERAGE_ITEM_LEVEL)..' : '..format('%.2f', select(2, GetAverageItemLevel())))
+		-- self.AverageItemLevel:SetText(KF:Color_Value(STAT_AVERAGE_ITEM_LEVEL)..' : '..format('%.2f', select(2, GetAverageItemLevel())))
 	-- end
 	-- E.valueColorUpdateFuncs[ValueColorUpdate] = true
 	
