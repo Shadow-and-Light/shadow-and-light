@@ -491,6 +491,13 @@ local function LoadArmoryConfigTable()
 							order = 6,
 							values = FontStyleList,
 							disabled = function() return E.db.sle.Armory.Character.Enable == false end
+						},
+						ItemColor = {
+							type = 'toggle',
+							name = L["Item Level Coloring"],
+							order = 7,
+							set = function(_, value) E.db.sle.Armory.Character.Level.ItemColor = value; _G["CharacterArmory"]:Update_Gear() end,
+							disabled = function() return E.db.sle.Armory.Character.Enable == false end
 						}
 					}
 				},

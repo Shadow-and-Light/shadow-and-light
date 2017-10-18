@@ -28,6 +28,7 @@ P.sle.Armory.Character = {
 		Font = "PT Sans Narrow",
 		FontSize = 10,
 		FontStyle = "OUTLINE",
+		ItemColor = false,
 	},
 	
 	Enchant = {

@@ -1052,7 +1052,9 @@ function CA:Update_Gear()
 							or
 							TrueItemLevel
 						)
-						Slot.ItemLevel:SetTextColor(R, G, B)
+						if E.db.sle.Armory.Character.Level.ItemColor then
+							Slot.ItemLevel:SetTextColor(R, G, B)
+						end
 					end
 					
 					if E.db.sle.Armory.Character.NoticeMissing ~= false then
