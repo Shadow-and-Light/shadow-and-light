@@ -351,7 +351,6 @@ function CA:Setup_CharacterArmory()
 			if E.db.sle.Armory.Character.Level.Display == 'Hide' then
 				Slot.ItemLevel:Hide()
 			end
-			
 			-- Enchantment Name
 			KF:TextSetting(Slot, nil, { Tag = 'ItemEnchant',
 				Font = E.db.sle.Armory.Character.Enchant.Font,
