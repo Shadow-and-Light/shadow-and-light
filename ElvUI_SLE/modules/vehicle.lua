@@ -2,6 +2,8 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local EVB = SLE:NewModule("EnhancedVehicleBar")
 local AB = E:GetModule("ActionBars");
 local LAB = LibStub("LibActionButton-1.0-ElvUI")
+local Masque = LibStub("Masque", true)
+local MasqueGroup = Masque and Masque:Group("ElvUI", "ActionBars")
 local ES
 --GLOBALS: CreateFrame, hooksecurefunc, UIParent
 local _G = _G
@@ -63,7 +65,12 @@ function EVB:CreateExtraButtonSet()
 
 		if i == 12 then
 			bar.buttons[i]:SetState(12, "custom", AB.customExitButton)
-		end	
+		end
+
+		--Masuqe Support
+		if MasqueGroup and E.private.actionbar.masque.actionbars then
+			bar.buttons[i]:AddToMasque(MasqueGroup)
+		end
 
 		bar.buttons[i]:Size(self.size);
 
@@ -74,7 +81,7 @@ function EVB:CreateExtraButtonSet()
 			bar.buttons[i]:SetPoint('LEFT', prev, 'RIGHT', self.spacing, 0)
 		end
 
-		AB:StyleButton(bar.buttons[i], nil, nil, true);
+		AB:StyleButton(bar.buttons[i], nil, MasqueGroup and E.private.actionbar.masque.actionbars and true or nil);
 		if E.private.sle.actionbars.transparentButtons then bar.buttons[i].backdrop:SetTemplate('Transparent') end
 		bar.buttons[i]:SetCheckedTexture("")
 		RegisterStateDriver(bar.buttons[i], 'visibility', '[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] show; hide')
@@ -118,7 +125,7 @@ function EVB:Initialize()
 	if not E.private.sle.vehicle.enable or not E.private.actionbar.enable then return end;
 
 	ES = SLE._Compatibility["ElvUI_NenaUI"] and ElvUI_NenaUI[1]:GetModule("EnhancedShadows") or SLE:GetModule("EnhancedShadows")
-	
+
 	local visibility = "[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] hide;"
 	local page = T.format("[vehicleui] %d; [possessbar] %d; [overridebar] %d; [shapeshift] 13;", GetVehicleBarIndex(), GetVehicleBarIndex(), GetOverrideBarIndex());
 	local bindButtons = "ACTIONBUTTON";
@@ -173,7 +180,7 @@ function EVB:Initialize()
 
 	AB:UpdateButtonConfig(bar, bindButtons);
 	AB:PositionAndSizeBar("bar1")
-	
+
 	function EVB:ForUpdateAll()
 		EVB:ButtonsSize()
 		EVB:BarSize()
