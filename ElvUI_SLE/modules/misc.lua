@@ -17,7 +17,7 @@ function M:UpdateThreatPosition()
 	Tr.bar:SetInside(M.db.threat.position)
 	Tr.bar:SetParent(M.db.threat.position)
 
-	Tr.bar.text:FontTemplate(nil, E.db.general.threat.textSize)
+	Tr.bar.text:FontTemplate(nil, E.db.general.threat.textSize, E.db.general.threat.textOutline)
 	Tr.bar:SetFrameStrata('MEDIUM')
 	Tr.bar:SetAlpha(1)
 end
