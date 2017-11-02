@@ -1054,6 +1054,8 @@ function CA:Update_Gear()
 						)
 						if E.db.sle.Armory.Character.Level.ItemColor then
 							Slot.ItemLevel:SetTextColor(R, G, B)
+						else
+							Slot.ItemLevel:SetTextColor(1, 1, 1)
 						end
 					end
 					
