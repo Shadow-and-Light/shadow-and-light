@@ -148,12 +148,13 @@ function EM:TagsProcess(msg)
 			for j = 1, #cnd_table do
 				local cnd = cnd_table[j];
 				if cnd then
+					print(cnd)
 					local command, argument = (":"):split(cnd)
 					local argTable = {}
-					if T.find(argument, "%.") then
+					if argument and T.find(argument, "%.") then
 						SLE:ErrorPrint(L["SLE_EM_TAG_DOT_WARNING"])
 					else
-						if ("/"):split(argument) then
+						if argument and ("/"):split(argument) then
 							local put
 							while argument and ("/"):split(argument) do
 								put, argument = ("/"):split(argument)
