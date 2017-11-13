@@ -2,7 +2,6 @@
 local C = SLE:GetModule("Chat")
 local CH = E:GetModule("Chat")
 local _G = _G
-local random = random
 
 local historyEvents = {
 	"CHAT_MSG_INSTANCE_CHAT",
@@ -27,10 +26,6 @@ local historyEvents = {
 local function PrepareMessage(author, message)
 	return author:upper() .. message
 end
-local function GetTimeForSavedMessage()
-	local randomTime = T.select(2, ("."):split(T.GetTime() or "0."..random(1, 999), 2)) or 0
-	return T.time().."."..randomTime
-end
 local msgList, msgCount, msgTime = {}, {}, {}
 
 function C:ChatHistoryToggle(option)
@@ -44,9 +39,12 @@ function C:ChatHistoryToggle(option)
 end
 
 function C:ClearUnusedHistory()
-	for id, data in T.pairs(_G["ElvCharacterDB"].ChatLog) do
-		if T.type(data) == "table" and E.private.sle.chat.chatHistory[data[20]] == false then
-			_G["ElvCharacterDB"].ChatLog[id] = nil
+	local data = _G["ElvCharacterDB"].ChatHistoryLog
+	if data and T.next(data) then
+		for i in T.ipairs(data) do
+			if T.type(data[i]) == "table" and E.private.sle.chat.chatHistory[data[i][50]] == false then
+				T.tremove(_G["ElvCharacterDB"].ChatHistoryLog, i)
+			end
 		end
 	end
 end
@@ -121,6 +119,9 @@ function C:HystoryOverwrite()
 	end
 
 	function CH:SaveChatHistory(event, ...)
+		if not self.db.chatHistory then return end
+		local data = _G["ElvCharacterDB"].ChatHistoryLog
+
 		if self.db.throttleInterval ~= 0 and (event == 'CHAT_MSG_SAY' or event == 'CHAT_MSG_YELL' or event == 'CHAT_MSG_CHANNEL') then
 			self:ChatThrottleHandler(event, ...)
 
@@ -139,22 +140,16 @@ function C:HystoryOverwrite()
 		end
 
 		if #temp > 0 then
-			temp[20] = event
-			local timeForMessage = GetTimeForSavedMessage()
-			_G["ElvCharacterDB"].ChatLog[timeForMessage] = temp
+			temp[50] = event
+			temp[51] = T.time()
+			temp[52] = temp[13]>0 and CH:GetBNFriendColor(temp[2], temp[13]) or CH:GetColorName(event, ...)
 
-			local c, k = 0
-			for id, data in T.pairs(_G["ElvCharacterDB"].ChatLog) do
-				c = c + 1
-				if (not k) or k > id then
-					k = id
-				end
-			end
-
-			if c > E.private.sle.chat.chatHistory.size then
-				_G["ElvCharacterDB"].ChatLog[k] = nil
+			T.tinsert(data, temp)
+			while #data >= E.private.sle.chat.chatHistory.size do
+				T.tremove(data, 1)
 			end
 		end
+		temp = nil -- Destory!
 	end
 end
 

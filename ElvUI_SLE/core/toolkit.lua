@@ -132,6 +132,7 @@ T.twipe = table.wipe
 T.unpack = unpack
 T.select = select
 T.sort = sort
+T.next = next
 --Camera
 T.FlipCameraYaw = FlipCameraYaw
 --Instance
