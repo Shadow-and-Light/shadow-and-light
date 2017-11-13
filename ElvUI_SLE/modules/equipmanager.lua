@@ -148,7 +148,6 @@ function EM:TagsProcess(msg)
 			for j = 1, #cnd_table do
 				local cnd = cnd_table[j];
 				if cnd then
-					print(cnd)
 					local command, argument = (":"):split(cnd)
 					local argTable = {}
 					if argument and T.find(argument, "%.") then
