@@ -66,9 +66,6 @@ SLE.region = false
 --Toonlists
 SLE.SpecialChatIcons = {
 	["EU"] = {
-		["Sylvanas"] = {
-			["Neeka"] = darth,
-		},
 		["DarkmoonFaire"] = {
 			["Shaylith"] = darth,
 			["Yandria"] = darth,
@@ -86,11 +83,6 @@ SLE.SpecialChatIcons = {
 		["TheSha'tar"] = {
 			["Lelora"] = darth,
 			["Alamira"] = darth,
-		},
-		["СвежевательДуш"] = {
-			--Darth's toons
-			["Большойгном"] = test, --Testing toon
-			["Фергесон"] = friend
 		},
 		["ВечнаяПесня"] = {
 			--Darth's toons
@@ -116,6 +108,9 @@ SLE.SpecialChatIcons = {
 			["Нерререанн"] = test,
 			["Аргусил"] = orc
 		},
+		["Пиратскаябухта"] = {
+			["Брэгари"] = test
+		},
 		["Ревущийфьорд"] = {
 			["Рыжая"] = friend,
 			["Рыжа"] = friend,
@@ -124,14 +119,27 @@ SLE.SpecialChatIcons = {
 			["Маразм"] = classTable.shaman,
 			["Брэгар"] = test
 		},
-		["Пиратскаябухта"] = {
-			["Брэгари"] = test
+		["СвежевательДуш"] = {
+			--Darth's toons
+			["Большойгном"] = test, --Testing toon
+			["Фергесон"] = friend
 		},
 		["ЧерныйШрам"] = {
 			["Емалия"] = friend,
 		},
 	},
 	["US"] = {
+		["Andorhal"] = {
+			["Dapooc"] = repooc,
+			["Rovert"] = repooc,
+			["Sliceoflife"] = repooc
+		},
+		["Illidan"] = {
+			--Darth's toon
+			["Darthpred"] = darth,
+			--Repooc's Toon
+			["Repooc"] = repooc,
+		},
 		["Spirestone"] = {
 			["Sifupooc"] = repooc,
 			--["Sifpooc"] = repooc,
@@ -147,25 +155,6 @@ SLE.SpecialChatIcons = {
 			["Alooshy"] = goldicon,
 			["Aloosh"] = goldicon
 		},
-		["Illidan"] = {
-			--Darth's toon
-			["Darthpred"] = darth,
-			--Repooc's Toon
-			["Repooc"] = repooc,
-		},
-		["WyrmrestAccord"] = {
-			["Dapooc"] = repooc,
-		},
-		["Andorhal"] = {
-			["Dapooc"] = repooc,
-			["Rovert"] = repooc,
-			["Sliceoflife"] = repooc
-		},
-		--Teh PTR
-		["Brill(EU)"] = {
-			["Дартпредатор"] = darth,
-			["Киландра"] = darth,
-		},
 		["Stormrage"] = {
 			["Sifpooc"] = repooc,
 			["Looshana"] = goldicon,
@@ -174,8 +163,17 @@ SLE.SpecialChatIcons = {
 			["Urgfelstorm"] = blizzicon:format("inv_misc_bomb_02"),
 			["Cakenina"] = blizzicon:format("inv_misc_food_145_cake")
 		},
+		["WyrmrestAccord"] = {
+			["Dapooc"] = repooc,
+		},
 	},
 	["CN"] = {},
 	["KR"] = {},
 	["TW"] = {},
+	["PTR"] = {
+		["Brill(EU)"] = {
+			["Дартпредатор"] = darth,
+			["Киландра"] = darth,
+		},
+	},
 }

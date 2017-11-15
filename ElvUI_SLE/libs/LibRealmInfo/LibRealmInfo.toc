@@ -1,0 +1,21 @@
+## Interface: 70200
+## Version: 11
+
+## Title: Lib: Realm Info
+## Notes: Library to provide information about realms.
+## Notes-deDE: Bibliothek, um Informationen über Realms zu liefern.
+## Notes-esES: Biblioteca para proporcionar información sobre reinos.
+## Notes-esMX: Biblioteca para proporcionar información sobre reinos.
+
+## Author: Phanx
+## X-Email: addons@phanx.net
+## X-Copyright: Copyright (c) 2014-2017 Phanx. All rights reserved.
+## X-Website: https://github.com/phanx-wow/LibRealmInfo
+## X-Curse-Project-ID: 83224
+## X-WoWI-ID: 22987
+
+## LoadOnDemand: 1
+## OptionalDeps: LibStub
+LibStub\LibStub.lua
+
+LibRealmInfo.lua
