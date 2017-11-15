@@ -1241,6 +1241,7 @@ do --<< Artifact Monitor >>
 	
 	
 	function CA:LegionArtifactMonitor_UpdateData()
+		if not self.ArtifactMonitor then return end
 		Artifact_ItemID, _, _, _, Artifact_Power, Artifact_Rank,_, _, _, _, _, _, Artifact_Tier = C_ArtifactUI.GetEquippedArtifactInfo()
 		if Artifact_ItemID then
 			Legion_ArtifactData.ItemID = Artifact_ItemID
