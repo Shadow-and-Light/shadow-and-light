@@ -17,6 +17,7 @@ C.SelectedStrings = {
 	["ARROWDOWN"] = [[|TInterface\BUTTONS\UI-MicroStream-Green:%s|t%s]],
 }
 function C:SetSelectedTab(isForced)
+	if C.CreatedFrames == 0 then C:DelaySetSelectedTab() return end
 	local selectedId = _G["GeneralDockManager"].selected:GetID()
 	
 	--Set/Remove brackets and set alpha of chat tabs
@@ -63,5 +64,5 @@ function C:InitTabs()
 	hooksecurefunc("FCF_Close", C.SetSelectedTab)
 	hooksecurefunc("FCF_OpenNewWindow", C.DelaySetSelectedTab)
 	hooksecurefunc("FCF_OpenTemporaryWindow", C.OpenTemporaryWindow)
-	C:SetSelectedTab()
+	C:DelaySetSelectedTab()
 end
