@@ -152,7 +152,7 @@ end
 function SUF:Initialize()
 	if not SLE.initialized or not E.private.unitframe.enable then return end
 	SUF:NewTags()
-	SUF:InitPlayer()
+	-- SUF:InitPlayer()
 
 	--Raid stuff
 	SUF.specNameToRole = {}
