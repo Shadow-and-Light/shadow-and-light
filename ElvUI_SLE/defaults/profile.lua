@@ -762,20 +762,6 @@ P["sle"] = {
 	["unitframes"] = {
 		["unit"] = {
 			["player"] = {
-				["combatico"] = {
-					["xoffset"] = 0,
-					["yoffset"] = 0,
-					["size"] = 19,
-					["texture"] = "DEFAULT",
-					["red"] = true,
-				},
-				["rested"] = {
-					["xoffset"] = 0,
-					["yoffset"] = 0,
-					["size"] = 22,
-					["texture"] = "DEFAULT",
-					["customTexture"] = "",
-				},
 				["pvpIconText"] = {
 					["enable"] = false,
 					["xoffset"] = 0,
