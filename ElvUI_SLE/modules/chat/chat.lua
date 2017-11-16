@@ -88,7 +88,7 @@ local function GetChatIcon(sender)
 	senderRealm = senderRealm or C.PlayerRealm
 	senderRealm = T.gsub(senderRealm, ' ', '')
 
-	if specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
+	if specialChatIcons and specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
 		return specialChatIcons[senderRealm][senderName]
 	end
 
