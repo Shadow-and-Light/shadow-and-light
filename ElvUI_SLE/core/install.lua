@@ -319,7 +319,13 @@ function PI:DarthSetup()
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["xOffset"] = -30
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["anchorPoint"] = "LEFT"
-
+		E.db["unitframe"]["units"]["player"]["RestIcon"]["anchorPoint"] = "BOTTOMRIGHT"
+		E.db["unitframe"]["units"]["player"]["RestIcon"]["xOffset"] = 9
+		E.db["unitframe"]["units"]["player"]["RestIcon"]["yOffset"] = 0
+		E.db["unitframe"]["units"]["player"]["CombatIcon"]["anchorPoint"] = "TOPRIGHT"
+		E.db["unitframe"]["units"]["player"]["CombatIcon"]["size"] = 32
+		E.db["unitframe"]["units"]["player"]["CombatIcon"]["xOffset"] = 13
+		E.db["unitframe"]["units"]["player"]["CombatIcon"]["yOffset"] = -7
 		E.db["unitframe"]["units"]["target"]["portrait"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["portrait"]["camDistanceScale"] = 3
 		E.db["unitframe"]["units"]["target"]["portrait"]["overlay"] = true
@@ -493,13 +499,7 @@ function PI:DarthSetup()
 		E.db["sle"]["unitframes"]["statusTextures"]["auraTexture"] = "Ohi Tribal4"
 		E.db["sle"]["unitframes"]["statusTextures"]["castTexture"] = "Ohi Tribal4"
 		E.db["sle"]["unitframes"]["statusTextures"]["classTexture"] = "ElvUI Gloss"
-		E.db["sle"]["unitframes"]["unit"]["player"]["combatico"]["xoffset"] = 112
-		E.db["sle"]["unitframes"]["unit"]["player"]["combatico"]["red"] = false
-		E.db["sle"]["unitframes"]["unit"]["player"]["combatico"]["size"] = 32
-		E.db["sle"]["unitframes"]["unit"]["player"]["combatico"]["yoffset"] = 5
 		E.db["sle"]["unitframes"]["unit"]["player"]["portraitAlpha"] = 1
-		E.db["sle"]["unitframes"]["unit"]["player"]["rested"]["xoffset"] = 208
-		E.db["sle"]["unitframes"]["unit"]["player"]["rested"]["yoffset"] = -35
 		E.db["sle"]["unitframes"]["unit"]["player"]["higherPortrait"] = true
 		E.db["sle"]["unitframes"]["unit"]["player"]["pvpIconText"]["enable"] = true
 		E.db["sle"]["unitframes"]["unit"]["target"]["higherPortrait"] = true
@@ -529,6 +529,8 @@ function PI:DarthSetup()
 		E.db["sle"]["Armory"]["Character"]["Level"]["FontSize"] = 12
 		E.db["sle"]["Armory"]["Character"]["Backdrop"]["SelectedBG"] = "TheEmpire"
 		E.db["sle"]["Armory"]["Character"]["Backdrop"]["Overlay"] = false
+		E.db["sle"]["bags"]["artifactPower"]["enable"] = true
+		E.db["sle"]["bags"]["artifactPower"]["short"] = true
 	end
 	--Movers
 	do
