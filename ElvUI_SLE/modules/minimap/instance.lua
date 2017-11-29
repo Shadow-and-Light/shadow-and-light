@@ -3,6 +3,10 @@ local I = SLE:NewModule("InstDif",'AceHook-3.0', 'AceEvent-3.0')
 local sub = string.utf8sub
 --GLOBALS: CreateFrame
 local _G = _G
+local GetDifficultyInfo = GetDifficultyInfo
+
+I.BlizzDif = _G["MiniMapInstanceDifficulty"]
+I.BlizzCM = _G["MiniMapChallengeMode"]
 
 local Difficulties = {
 	[1] = 'normal', --5ppl normal
@@ -27,11 +31,11 @@ local Difficulties = {
 function I:CreateText()
 	I.frame = CreateFrame("Frame", "MiniMapDifFrame", _G["Minimap"])
 	I.frame:Size(50, 20)
-	-- I.frame:Point("CENTER", UIParent)
 	I.frame.text = I.frame:CreateFontString(nil, 'OVERLAY')
 	I.frame.text:SetPoint("CENTER", I.frame, "CENTER")
 	I.frame.icon = I.frame:CreateFontString(nil, 'OVERLAY')
 	I.frame.icon:SetPoint("LEFT", I.frame.text, "RIGHT", 4, 0)
+	
 	self:SetFonts()
 end
 
@@ -43,20 +47,16 @@ end
 
 function I:InstanceCheck()
 	local isInstance, InstanseType = T.IsInInstance()
-	local s = false
-	if isInstance and InstanseType ~= "pvp" then
-		if InstanseType ~= "arena" then
-			s = true
-		end
-	end
-
-	return s
+	local show = false
+	if isInstance and InstanseType ~= "pvp" and InstanseType ~= "arena" then show = true end
+	return show
 end
 
 function I:GuildEmblem()
 	-- table
 	local char = {}
 	-- check if Blizzard_GuildUI is loaded
+	if not T.IsAddOnLoaded("Blizzard_GuildUI") then LoadAddOn("Blizzard_GuildUI") end
 	if _G["GuildFrameTabardEmblem"] then
 		char.guildTexCoord = {_G["GuildFrameTabardEmblem"]:GetTexCoord()}
 	else
@@ -71,13 +71,6 @@ end
 
 function I:UpdateFrame()
 	local db = I.db
-	if T.IsInInstance() then
-		if db.enable then
-			_G["MiniMapInstanceDifficulty"]:Hide()
-		elseif not db.enable and not _G["MiniMapInstanceDifficulty"]:IsShown() then
-			_G["MiniMapInstanceDifficulty"]:Show()
-		end
-	end
 	I.frame:Point("TOPLEFT", _G["Minimap"], "TOPLEFT", db.xoffset, db.yoffset)
 	I:SetFonts()
 	if db.enable then
@@ -99,12 +92,13 @@ function I:GetColor(dif)
 end
 
 function I:GenerateText(event, guild, force)
-	local text
+	local text, groupType, isHeroic, isChallengeMode, difficulty, difficultyName, instanceGroupSize
 	if not I:InstanceCheck() then 
 		I.frame.text:SetText("")
 		I.frame.icon:SetText("")
 	else
-		local _, _, difficulty, difficultyName, _, _, _, _, instanceGroupSize = T.GetInstanceInfo()
+		groupType, difficulty, difficultyName, _, _, _, _, instanceGroupSize = T.select(2, T.GetInstanceInfo())
+		isHeroic, isChallengeMode = T.select(3, GetDifficultyInfo(difficulty))
 		local r, g, b = I:GetColor(difficulty)
 		if (difficulty >= 3 and difficulty <= 7) or difficulty == 9 or E.db.sle.minimap.instance.onlyNumber then
 			text = T.format("|cff%02x%02x%02x%s|r", r, g, b, instanceGroupSize)
@@ -117,15 +111,26 @@ function I:GenerateText(event, guild, force)
 			local logo = I:GuildEmblem()
 			I.frame.icon:SetText(logo)
 		end
+		if I.db.enable then
+			I.BlizzDif:Hide()
+			I.BlizzCM:Hide()
+		else
+			if not I.BlizzDif:IsShown() and (groupType == "raid" or isHeroic) then
+				I.BlizzDif:Show()
+			elseif not I.BlizzCM:IsShown() and isChallengeMode then
+				I.BlizzCM:Show()
+			end
+		end
 	end
+	I:UpdateFrame()
 end
 
 function I:Initialize()
 	if not SLE.initialized or not E.private.general.minimap.enable then return end
 	I.db = E.db.sle.minimap.instance
-	I.db.flag = nil
 	self:CreateText()
-	_G["MiniMapInstanceDifficulty"]:HookScript("OnShow", function(self) if I.db.enable then self:Hide() end end)
+	I.BlizzDif:HookScript("OnShow", function(self) if I.db.enable then self:Hide() end end)
+	I.BlizzCM:HookScript("OnShow", function(self) if I.db.enable then self:Hide() end end)
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "GenerateText")
 	self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "GenerateText")
 	self:RegisterEvent("GUILD_PARTY_STATE_UPDATED", "GenerateText")
