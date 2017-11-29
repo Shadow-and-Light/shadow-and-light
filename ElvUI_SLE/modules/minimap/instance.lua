@@ -107,7 +107,7 @@ function I:GenerateText(event, guild, force)
 			text = T.format(instanceGroupSize.." |cff%02x%02x%02x%s|r", r, g, b, difficultyName)
 		end
 		I.frame.text:SetText(text)
-		if guild or force then
+		if (guild or force) and not isChallengeMode then
 			local logo = I:GuildEmblem()
 			I.frame.icon:SetText(logo)
 		end
