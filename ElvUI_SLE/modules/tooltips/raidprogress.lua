@@ -74,6 +74,21 @@ RP.bosses = {
 		},
 		"sargeras",
 	},
+	{ -- Antorus, the Burning Throne
+        { -- Mythic
+            11956, 11959, 11962, 11965, 11968, 11971, 11974, 11977, 11980, 11983, 11986
+        },
+        { -- Heroic
+            11955, 11958, 11961, 11964, 11967, 11970, 11973, 11976, 11979, 11982, 11985
+        },
+        { -- Normal
+            11954, 11957, 11960, 11963, 11966, 11969, 11972, 11975, 11978, 11981, 11984
+        },
+		{ -- LFR
+            12117, 12118, 12119, 12120, 12121, 12122, 12123, 12124, 12125, 12126, 12127
+        },
+		"antorus",
+	},
 }
 RP.Raids = {
 	["LONG"] = {
@@ -81,12 +96,14 @@ RP.Raids = {
 		T.GetMapNameByID(1114),
 		T.GetMapNameByID(1088),
 		T.GetMapNameByID(1147),
+		T.GetMapNameByID(1188),
 	},
 	["SHORT"] = {
 		L["RAID_EN"],
 		L["RAID_TOV"],
 		L["RAID_NH"],
 		L["RAID_TOS"],
+		L["RAID_ANTO"],
 	},
 }
 RP.modes = { 

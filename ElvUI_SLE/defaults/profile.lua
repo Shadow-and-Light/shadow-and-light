@@ -720,6 +720,7 @@ P["sle"] = {
 				["trial"] = true,
 				["nighthold"] = true,
 				["sargeras"] = true,
+				["antorus"] = true,
 			},
 		},
 	},
