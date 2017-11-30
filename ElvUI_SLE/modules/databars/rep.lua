@@ -102,7 +102,7 @@ local function UpdateReputation(self, event)
 end
 
 function DB:ChatMsgCombat(event, ...)
-	if not DB.db.rep.autotrack then return end
+	if not DB.db.rep or not DB.db.rep.autotrack then return end
 
 	local messg = ...
 	local found
@@ -121,7 +121,7 @@ function DB:ChatMsgCombat(event, ...)
 end
 
 function DB:CombatTextUpdate(event, ...)
-	if not DB.db.rep.autotrack then return end
+	if not DB.db.rep or not DB.db.rep.autotrack then return end
 
 	local messagetype, faction, amount = ...
 	if messagetype ~= "FACTION" then return end
@@ -135,7 +135,7 @@ function DB:CombatTextUpdate(event, ...)
 end
 
 function DB:ChatMsgSys(event, ...)
-	if not DB.db.rep.autotrack then return end
+	if not DB.db.rep or not DB.db.rep.autotrack then return end
 
 	local messg = ...
 	local found
@@ -239,7 +239,7 @@ end
 
 function DB:FilterReputation(event, message, ...)
 	local faction, rep, bonus
-	if DB.db.rep.chatfilter.enable then
+	if DB.db.rep and DB.db.rep.chatfilter.enable then
 		for i, v in T.ipairs(DB.RepIncreaseStrings) do
 			faction, rep, bonus = T.match(message, DB.RepIncreaseStrings[i])
 			if faction then
@@ -270,7 +270,7 @@ function DB:ScanFactions()
 end
 DB.RepChatFrames = {}
 function DB:NewRepString(event, ...)
-	if not DB.db.rep.chatfilter.enable then return end
+	if not DB.db.rep or not DB.db.rep.chatfilter.enable then return end
 	local stop = false
 	local tempfactions = T.GetNumFactions()
 	if (tempfactions > self.factions) then
