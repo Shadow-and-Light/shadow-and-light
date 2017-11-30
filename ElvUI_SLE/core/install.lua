@@ -204,18 +204,7 @@ function PI:DarthSetup()
 	end
 	--Nameplates
 	do
-		E.db["nameplates"]["clampToScreen"] = true
-		E.db["nameplates"]["lowHealthThreshold"] = 0
-		E.db["nameplates"]["font"] = "PT Sans Narrow"
-		E.db["nameplates"]["fontOutline"] = "OUTLINE"
-		E.db["nameplates"]["threat"]["beingTankedByTank"] = false
-		E.db["nameplates"]["castNoInterruptColor"]["b"] = 0.12549019607843
-		E.db["nameplates"]["castNoInterruptColor"]["g"] = 0.098039215686274
-		E.db["nameplates"]["castNoInterruptColor"]["r"] = 0.85882352941176
-		E.db["nameplates"]["statusbar"] = "ElvUI Gloss"
 		E.db["nameplates"]["fontSize"] = 12
-		E.db["nameplates"]["clickThrough"]["personal"] = true
-		E.db["nameplates"]["classbar"]["enable"] = false
 		E.db["nameplates"]["reactions"]["good"]["b"] = 0.10980392156863
 		E.db["nameplates"]["reactions"]["good"]["g"] = 0.74901960784314
 		E.db["nameplates"]["reactions"]["good"]["r"] = 0.082352941176471
@@ -228,31 +217,41 @@ function PI:DarthSetup()
 		E.db["nameplates"]["reactions"]["neutral"]["b"] = 0.062745098039216
 		E.db["nameplates"]["reactions"]["neutral"]["g"] = 0.81176470588235
 		E.db["nameplates"]["reactions"]["neutral"]["r"] = 0.92156862745098
+		E.db["nameplates"]["statusbar"] = "ElvUI Gloss"
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["healthbar"]["enable"] = true
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["powerbar"]["height"] = 4
-		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["powerbar"]["height"] = 4
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["powerbar"]["enable"] = true
-		E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 6
+		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["powerbar"]["height"] = 4
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["enable"] = true
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["format"] = "CURRENT_PERCENT"
-		E.db["nameplates"]["units"]["ENEMY_NPC"]["powerbar"]["height"] = 4
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 6
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["powerbar"]["enable"] = true
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["powerbar"]["height"] = 4
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["enable"] = false
-		E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["xOffset"] = 20
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["yOffset"] = 14
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["numAuras"] = 6
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["enable"] = true
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "CURRENT_PERCENT"
-		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["powerbar"]["height"] = 4
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["powerbar"]["enable"] = true
-		E.db["nameplates"]["units"]["PLAYER"]["enable"] = true
-		E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["enable"] = false
+		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["powerbar"]["height"] = 4
+		E.db["nameplates"]["units"]["PLAYER"]["useStaticPosition"] = true
 		E.db["nameplates"]["units"]["PLAYER"]["healthbar"]["width"] = 120
 		E.db["nameplates"]["units"]["PLAYER"]["castbar"]["enable"] = false
-		E.db["nameplates"]["units"]["PLAYER"]["buffs"]["enable"] = false
+		E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["enable"] = false
 		E.db["nameplates"]["units"]["PLAYER"]["clickthrough"] = true
-		E.db["nameplates"]["units"]["PLAYER"]["useStaticPosition"] = true
+		E.db["nameplates"]["units"]["PLAYER"]["buffs"]["enable"] = false
+		E.db["nameplates"]["units"]["PLAYER"]["visibility"]["showWithTarget"] = true
+		E.db["nameplates"]["units"]["PLAYER"]["enable"] = true
+		E.db["nameplates"]["lowHealthThreshold"] = 0
+		E.db["nameplates"]["clampToScreen"] = true
+		E.db["nameplates"]["clickThrough"]["personal"] = true
+		E.db["nameplates"]["threat"]["beingTankedByTank"] = false
+		E.db["nameplates"]["castNoInterruptColor"]["b"] = 0.12549019607843
+		E.db["nameplates"]["castNoInterruptColor"]["g"] = 0.098039215686274
+		E.db["nameplates"]["castNoInterruptColor"]["r"] = 0.85882352941176
+		E.db["nameplates"]["classbar"]["enable"] = false
 	end
 	--Tooltips
 	do
@@ -593,19 +592,29 @@ function PI:DarthSetup()
 
 	if T.IsAddOnLoaded("AddOnSkins") then
 		local AS = T.unpack(_G["AddOnSkins"]) or nil
-		AS.db["EmbedOoC"] = true
-		AS.db["EmbedOoCDelay"] = 5
-		AS.db["Blizzard_AbilityButton"] = true
-		AS.db["EmbedSystemDual"] = true
-		AS.db["LoginMsg"] = false
-		AS.db["Blizzard_ExtraActionButton"] = true
-		AS.db["DBMFont"] = "PT Sans Narrow"
-		AS.db["DBMSkinHalf"] = true
+		AS.db["EmbedOoCDelay"] = 3,
+		AS.db["Blizzard_AbilityButton"] = true,
+		AS.db["Blizzard_Transmogrify"] = false,
+		AS.db["ParchmentRemover"] = false,
+		AS.db["Parchment"] = true,
+		AS.db["EmbedIsHidden"] = true,
+		AS.db["LoginMsg"] = false,
+		AS.db["EmbedRight"] = "Skada",
+		AS.db["EmbedLeft"] = "Skada",
+		AS.db["DBMFont"] = "PT Sans Narrow",
+		AS.db["Blizzard_ExtraActionButton"] = true,
+		AS.db["WeakAuraIconCooldown"] = true,
+		AS.db["EmbedOoC"] = true,
+		AS.db["EmbedSystemDual"] = true,
+		AS.db["MasterPlan"] = true,
+		AS.db["DBMSkinHalf"] = true,
 	end
 
 	E.private["general"]["normTex"] = "Ohi MetalSheet"
 	E.private["general"]["glossTex"] = "Ohi MetalSheet"
 	E.private["general"]["minimap"]["hideClassHallReport"] = true
+	
+	E.private["skins"]["blizzard"]["questChoice"] = false
 
 	E.private["sle"]["module"]["screensaver"] = true
 	E.private["sle"]["uibuttons"]["style"] = "dropdown"
