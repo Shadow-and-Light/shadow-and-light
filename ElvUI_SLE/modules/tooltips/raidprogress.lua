@@ -145,13 +145,13 @@ function RP:UpdateProgression(guid)
 end
 
 function RP:SetProgressionInfo(guid, tt)
-	if RP.Cache[guid] then
+	if RP.Cache[guid] and RP.Cache[guid].header then
 		local updated = 0
 		for i=1, tt:NumLines() do
 			local leftTipText = _G["GameTooltipTextLeft"..i]
 			for raid = 1, #RP.Raids["LONG"] do
 				for level = 1, 4 do
-					if (leftTipText:GetText() and leftTipText:GetText():find(RP.Raids[E.db.sle.tooltip.RaidProg.NameStyle][raid]) and leftTipText:GetText():find(RP.modes[E.db.sle.tooltip.RaidProg.DifStyle][level])) then
+					if (leftTipText:GetText() and leftTipText:GetText():find(RP.Raids[E.db.sle.tooltip.RaidProg.NameStyle][raid]) and leftTipText:GetText():find(RP.modes[E.db.sle.tooltip.RaidProg.DifStyle][level]) and (RP.Cache[guid].header[raid][level] and RP.Cache[guid].info[raid][level])) then
 						-- update found tooltip text line
 						local rightTipText = _G["GameTooltipTextRight"..i]
 						leftTipText:SetText(RP.Cache[guid].header[raid][level])
