@@ -851,8 +851,6 @@ L["Makes frame portrait visible regardless of health level when overlay portrait
 L["Classbar Texture"] = true
 L["Resize Health Prediction"] = true
 L["Slightly changes size of health prediction bars."] = true
-L["Custom Texture"] = true
-
 
 --Viewport
 L["Viewport"] = true

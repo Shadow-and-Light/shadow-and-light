@@ -846,7 +846,6 @@ L["Classbar Texture"] = true
 L["Resize Health Prediction"] = true
 L["Slightly changes size of health prediction bars."] = true
 L["Always Compare Items"] = true
-L["Custom Texture"] = "Benutzerdefinierte Textur"
 
 --Viewport
 L["Viewport"] = true
