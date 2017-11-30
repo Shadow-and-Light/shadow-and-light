@@ -1,3 +1,22 @@
+v3.29 
+Changes:
+- Take changes in oUF into consideration
+- Account for changes in chat history
+- Combat icon and rested icon options removed due to those being in core ElvUI now
+Additions:
+- Option to hide annoying NPCs talking about stuff in the middle of your screen
+- Option to color item levels as item rarity in armory
+- Vehicle actionbar now supports Masque
+- Raid progression for Antorus in tooltips
+Fixes:
+- Fixed talent equip tag working incorrectly
+- Fixed a number of wird things in armory
+- Fix numbers for weird resolutions
+- Fix the script always expecting additional arguments for equip tags
+- Chat tabs selected indicator not properly updating sometimes
+- Fixed instance indicator showing flags when it shouldn't
+- Fixed a number of weird errors everywhere
+
 v3.28 10/1/17
 Additions:
 - Added missed currencies to the datatext
