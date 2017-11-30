@@ -794,6 +794,7 @@ L["RAID_TOS"] = "ToS"
 L["RAID_NH"] = "NH"
 L["RAID_TOV"] = "ToV"
 L["RAID_EN"] = "EN"
+L["RAID_ANTO"] = "ATBT"
 L["Raid Progression"] = true
 L["Show raid experience of character in tooltip (requires holding shift)."] = true
 L["Name Style"] = true
