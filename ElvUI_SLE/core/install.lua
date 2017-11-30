@@ -592,22 +592,22 @@ function PI:DarthSetup()
 
 	if T.IsAddOnLoaded("AddOnSkins") then
 		local AS = T.unpack(_G["AddOnSkins"]) or nil
-		AS.db["EmbedOoCDelay"] = 3,
-		AS.db["Blizzard_AbilityButton"] = true,
-		AS.db["Blizzard_Transmogrify"] = false,
-		AS.db["ParchmentRemover"] = false,
-		AS.db["Parchment"] = true,
-		AS.db["EmbedIsHidden"] = true,
-		AS.db["LoginMsg"] = false,
-		AS.db["EmbedRight"] = "Skada",
-		AS.db["EmbedLeft"] = "Skada",
-		AS.db["DBMFont"] = "PT Sans Narrow",
-		AS.db["Blizzard_ExtraActionButton"] = true,
-		AS.db["WeakAuraIconCooldown"] = true,
-		AS.db["EmbedOoC"] = true,
-		AS.db["EmbedSystemDual"] = true,
-		AS.db["MasterPlan"] = true,
-		AS.db["DBMSkinHalf"] = true,
+		AS.db["EmbedOoCDelay"] = 3
+		AS.db["Blizzard_AbilityButton"] = true
+		AS.db["Blizzard_Transmogrify"] = false
+		AS.db["ParchmentRemover"] = false
+		AS.db["Parchment"] = true
+		AS.db["EmbedIsHidden"] = true
+		AS.db["LoginMsg"] = false
+		AS.db["EmbedRight"] = "Skada"
+		AS.db["EmbedLeft"] = "Skada"
+		AS.db["DBMFont"] = "PT Sans Narrow"
+		AS.db["Blizzard_ExtraActionButton"] = true
+		AS.db["WeakAuraIconCooldown"] = true
+		AS.db["EmbedOoC"] = true
+		AS.db["EmbedSystemDual"] = true
+		AS.db["MasterPlan"] = true
+		AS.db["DBMSkinHalf"] = true
 	end
 
 	E.private["general"]["normTex"] = "Ohi MetalSheet"
