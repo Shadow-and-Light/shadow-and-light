@@ -1,4 +1,4 @@
-v3.29 
+v3.29 12/1/17
 Changes:
 - Take changes in oUF into consideration
 - Account for changes in chat history
@@ -10,7 +10,7 @@ Additions:
 - Raid progression for Antorus in tooltips
 Fixes:
 - Fixed talent equip tag working incorrectly
-- Fixed a number of wird things in armory
+- Fixed a number of weird things in armory
 - Fix numbers for weird resolutions
 - Fix the script always expecting additional arguments for equip tags
 - Chat tabs selected indicator not properly updating sometimes
