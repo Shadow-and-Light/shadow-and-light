@@ -417,7 +417,7 @@ function SLE:GetRegion()
 	SLE.region = region
 	if not SLE.region then
 		if not IsTestBuild() then
-			SLE.region = T.format("An error happened. Your region is unknown. Realm: %s. RID: %s. Please report your realm name and the region you are playing in to |cff1784d1Shadow & Light|r authors.", E.myrealm, rid)
+			SLE.region = T.format("An error happened. Your region is unknown. Realm: %s. RID: %s. Please report your realm name and the region you are playing in to |cff1784d1Shadow & Light|r authors.", E.myrealm, rid or "nil")
 			SLE:Print(SLE.region)
 		end
 		SLE.region = "PTR"

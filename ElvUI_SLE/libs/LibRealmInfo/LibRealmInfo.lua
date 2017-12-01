@@ -515,7 +515,8 @@ realmData = {
 	[1923] = "Ясеневый лес|Ashenvale,PVP,ruRU,Vindication,EU",
 	[502]  = "Aszune,PVE,enGB,Reckoning / Abrechnung,EU",
 	[1597] = "Auchindoun,PVP,enGB,Vindication,EU",
-	[503]  = "Azjol-Nerub,PVE,enGB,Cruelty / Crueldad,EU",
+	-- [503]  = "Azjol-Nerub,PVE,enGB,Cruelty / Crueldad,EU",
+	[1396]  = "Azjol-Nerub,PVE,enGB,Cruelty / Crueldad,EU",
 	[579]  = "Azshara,PVP,deDE,Glutsturm / Emberstorm,EU",
 	[1922] = "Азурегос|Azuregos,PVE,ruRU,Vindication,EU",
 	[1417] = "Azuremyst,PVE,enGB,Glutsturm / Emberstorm,EU",
@@ -1275,7 +1276,8 @@ connectionData = {
 	"500,619", -- Aggramar / Hellscream
 	"1587,501", -- Hellfire / Arathor
 	"633,630,1087,1392,556", -- Kor’gall / Bloodfeather / Executus / Burning Steppes / Shattered Hand
-	"503,623", -- Azjol-Nerub / Quel'Thalas
+	-- "503,623", -- Azjol-Nerub / Quel'Thalas
+	"1396,623", -- Azjol-Nerub / Quel'Thalas
 	"1588,507", -- Ghostlands / Dragonblight
 	"1389,1415,1314", -- Darkspear / Terokkar / Saurfang
 	"502,548", -- Aszune / Shadowsong
