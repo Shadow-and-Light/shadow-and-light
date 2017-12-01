@@ -112,7 +112,6 @@ function I:GenerateText(event, guild, force)
 			local logo = I:GuildEmblem()
 			I.frame.icon:SetText(logo)
 		end
-		guild = true
 		if I.db.enable then
 			I.BlizzDif:Hide()
 			I.BlizzCM:Hide()
