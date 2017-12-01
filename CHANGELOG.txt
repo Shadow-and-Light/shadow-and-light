@@ -1,3 +1,7 @@
+v3.30
+Fixes:
+- Fixed region check for chat history throwing unintended errors. Also made it more aware of non existant values. Blizzard changed relmIDs around again *sigh*
+
 v3.29 12/1/17
 Changes:
 - Take changes in oUF into consideration
