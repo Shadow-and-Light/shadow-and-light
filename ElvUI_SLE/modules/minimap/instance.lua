@@ -6,6 +6,7 @@ local _G = _G
 local GetDifficultyInfo = GetDifficultyInfo
 
 I.BlizzDif = _G["MiniMapInstanceDifficulty"]
+I.BlizzGDif = _G["GuildInstanceDifficulty"]
 I.BlizzCM = _G["MiniMapChallengeMode"]
 
 local Difficulties = {
@@ -111,14 +112,18 @@ function I:GenerateText(event, guild, force)
 			local logo = I:GuildEmblem()
 			I.frame.icon:SetText(logo)
 		end
+		guild = true
 		if I.db.enable then
 			I.BlizzDif:Hide()
 			I.BlizzCM:Hide()
+			I.BlizzGDif:Hide()
 		else
-			if not I.BlizzDif:IsShown() and (groupType == "raid" or isHeroic) then
+			if not I.BlizzDif:IsShown() and (groupType == "raid" or isHeroic) and not guild then
 				I.BlizzDif:Show()
-			elseif not I.BlizzCM:IsShown() and isChallengeMode then
+			elseif not I.BlizzCM:IsShown() and isChallengeMode and not guild then
 				I.BlizzCM:Show()
+			elseif guild or force then
+				I.BlizzGDif:Show()
 			end
 		end
 	end
@@ -129,7 +134,9 @@ function I:Initialize()
 	if not SLE.initialized or not E.private.general.minimap.enable then return end
 	I.db = E.db.sle.minimap.instance
 	self:CreateText()
+	
 	I.BlizzDif:HookScript("OnShow", function(self) if I.db.enable then self:Hide() end end)
+	I.BlizzGDif:HookScript("OnShow", function(self) if I.db.enable then self:Hide() end end)
 	I.BlizzCM:HookScript("OnShow", function(self) if I.db.enable then self:Hide() end end)
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "GenerateText")
 	self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "GenerateText")
