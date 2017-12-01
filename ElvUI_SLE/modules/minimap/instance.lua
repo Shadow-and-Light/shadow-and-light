@@ -94,9 +94,9 @@ end
 
 function I:GenerateText(event, guild, force)
 	local text, groupType, isHeroic, isChallengeMode, difficulty, difficultyName, instanceGroupSize
+	I.frame.icon:SetText("")
 	if not I:InstanceCheck() then 
 		I.frame.text:SetText("")
-		I.frame.icon:SetText("")
 	else
 		groupType, difficulty, difficultyName, _, _, _, _, instanceGroupSize = T.select(2, T.GetInstanceInfo())
 		isHeroic, isChallengeMode = T.select(3, GetDifficultyInfo(difficulty))
