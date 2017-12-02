@@ -285,6 +285,58 @@ local function TenShift(id1, id2, id3, id4)
 	LFR:BossStatus(bossName, isKilled, isIneligible)
 end
 
+--For 11 boss raid
+local function ElevenKill(id1, id2, id3, id4)
+	local killNum = 0
+	--1st part
+	for i =1, 3 do
+		_, _, isKilled = T.GetLFGDungeonEncounterInfo(id1, i);
+		if (isKilled) then killNum = killNum + 1 end
+	end
+	--2nd part
+	for i =4, 6 do 
+		_, _, isKilled = T.GetLFGDungeonEncounterInfo(id2, i);
+		if (isKilled) then killNum = killNum + 1 end
+	end
+	--3rd part
+	for i =7, 9 do
+		_, _, isKilled = T.GetLFGDungeonEncounterInfo(id3, i);
+		if (isKilled) then killNum = killNum + 1 end
+	end
+	-- 4th part
+	for i =10, 11 do
+		_, _, isKilled = T.GetLFGDungeonEncounterInfo(id4, i);
+		if (isKilled) then killNum = killNum + 1 end
+	end
+
+	LFR:BossCount(killNum, 10)
+end
+
+local function ElevenShift(id1, id2, id3, id4)
+	--1st part
+	for i =1, 3 do 
+		bossName, _, isKilled, isIneligible = T.GetLFGDungeonEncounterInfo(id1, i);
+		LFR:BossStatus(bossName, isKilled, isIneligible)
+	end
+	--2nd part
+	-- bosses = {3, 5, 8}
+	for i =4, 6 do  
+		bossName, _, isKilled, isIneligible = T.GetLFGDungeonEncounterInfo(id2, i);
+		LFR:BossStatus(bossName, isKilled, isIneligible)
+	end
+	--3rd part
+	-- bosses = {4, 6, 9}
+	for i =7, 9 do   
+		bossName, _, isKilled, isIneligible = T.GetLFGDungeonEncounterInfo(id3, i);
+		LFR:BossStatus(bossName, isKilled, isIneligible)
+	end
+	--4th part
+	for i =10, 11 do   
+		bossName, _, isKilled, isIneligible = T.GetLFGDungeonEncounterInfo(id4, i);
+		LFR:BossStatus(bossName, isKilled, isIneligible)
+	end
+end
+
 --For 12 boss raid
 local function TwelveKill(id1, id2, id3, id4)
 	local killNum = 0
@@ -518,6 +570,14 @@ local function TombOfSargeras()
 	end
 end
 
+local function Antorus()
+	if IsShiftKeyDown() then
+		ElevenShift(1610,1611,1612,1613);
+	else
+		ElevenKill(1610,1611,1612,1613);
+	end
+end
+
 LFR.Req = {
 	["Cata"] = {3, 85},
 	["MoP"] = {4, 90},
@@ -608,6 +668,12 @@ LFR.Legion = {
 		["ilevel"] = 860,
 		["map"] = 1147,
 		["func"] = TombOfSargeras,
+	},
+	[5] = {
+		["name"] = "antorus",
+		["ilevel"] = 890,
+		["map"] = 1188,
+		["func"] = Antorus,
 	},
 }
 

@@ -361,6 +361,7 @@ P["sle"] = {
 			["trial"] = false,
 			["palace"] = false,
 			["tomb"] = false,
+			["antorus"] = false,
 		},
 	},
 	--Loot 
