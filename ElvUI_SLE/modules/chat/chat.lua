@@ -30,6 +30,35 @@ local function Style(self, frame)
 	end)
 end
 
+local changedEditboxPosition --keep track if we change the position of the chat editbox
+local function handleChatEditBox(chat, editbox)
+	local noBackdrop = (E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "RIGHT")
+	editbox:ClearAllPoints()
+
+	if E.db.sle.datatexts.chathandle then --taken from CH:UpdateAnchors with modified offsets
+		if not E.db.datatexts.leftChatPanel and E.db.chat.editBoxPosition == 'BELOW_CHAT' then -- difference backdrop offset; no backdrop offset
+			editbox:Point("TOPLEFT", chat, "BOTTOMLEFT", noBackdrop and -4 or -4, noBackdrop and -7 or -7) --[[ -3, -6; 0, -3 ]]
+			editbox:Point("BOTTOMRIGHT", chat, "BOTTOMRIGHT", noBackdrop and 6 or 6, -LeftChatTab:GetHeight()-(noBackdrop and 7 or 7)) --[[ -4, 6; -1, 3 ]]
+		elseif E.db.chat.editBoxPosition == 'BELOW_CHAT' then
+			editbox:SetAllPoints(LeftChatDataPanel)
+		else
+			editbox:Point("BOTTOMLEFT", chat, "TOPLEFT", noBackdrop and -4 or -1, noBackdrop and 1 or 1) --[[ -3, 0; 0, -3 ]]
+			editbox:Point("TOPRIGHT", chat, "TOPRIGHT", noBackdrop and 6 or 3, LeftChatTab:GetHeight()+(noBackdrop and 1 or 1)) --[[ -4, 0; -1, -3 ]]
+		end
+	else --not using SLE so put these back. clone from CH:UpdateAnchors
+		if not E.db.datatexts.leftChatPanel and E.db.chat.editBoxPosition == 'BELOW_CHAT' then
+			editbox:Point("TOPLEFT", chat, "BOTTOMLEFT", noBackdrop and -1 or -4, noBackdrop and -1 or -4)
+			editbox:Point("BOTTOMRIGHT", chat, "BOTTOMRIGHT", noBackdrop and 10 or 7, -LeftChatTab:GetHeight()-(noBackdrop and 1 or 4))
+		elseif E.db.chat.editBoxPosition == 'BELOW_CHAT' then
+			editbox:SetAllPoints(LeftChatDataPanel)
+		else
+			editbox:Point("BOTTOMLEFT", chat, "TOPLEFT", noBackdrop and -1 or -1, noBackdrop and 1 or 4)
+			editbox:Point("TOPRIGHT", chat, "TOPRIGHT", noBackdrop and 10 or 4, LeftChatTab:GetHeight()+(noBackdrop and 1 or 4))
+		end
+		changedEditboxPosition = nil --drop this so additional calls here won't do anything unless the option `chathandle` is reenabled and redisabled
+	end
+end
+
 local function PositionChat(self, override)
 	if C.CreatedFrames == 0 then return end
 	if ((T.InCombatLockdown() and not override and self.initialMove) or (IsMouseButtonDown("LeftButton") and not override)) then return end
@@ -43,7 +72,16 @@ local function PositionChat(self, override)
 		end
 		return
 	end
-	if not E.db.sle.datatexts.chathandle then return end
+	if not E.db.sle.datatexts.chathandle then
+		if changedEditboxPosition then
+			chat = _G[T.format("ChatFrame%d", 1)]
+			if chat and chat.editBox then
+				handleChatEditBox(chat, chat.editBox) --restore original elvui editbox position
+			end
+		end
+		return
+	end
+	changedEditboxPosition = true
 	for i=1, C.CreatedFrames do
 		local BASE_OFFSET = 57 + E.Spacing*3
 		chat = _G[T.format("ChatFrame%d", i)]
@@ -66,8 +104,12 @@ local function PositionChat(self, override)
 		else --Left Chat
 			if id ~= 2 and not (id > NUM_CHAT_WINDOWS) then
 				BASE_OFFSET = BASE_OFFSET - (24 + E.Spacing*4)
+				chat:ClearAllPoints()
 				chat:SetPoint("BOTTOMLEFT", LeftChatPanel, "BOTTOMLEFT", 4, 7)
 				chat:Size(E.db.chat.panelWidth - 10, E.db.chat.panelHeight - BASE_OFFSET)
+				if id == 1 and chat.editBox then
+					handleChatEditBox(chat, chat.editBox) --update edit box position
+				end
 			end
 		end
 	end
