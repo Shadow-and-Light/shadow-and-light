@@ -29,6 +29,9 @@ local AuctionFrameBrowse_Reset = AuctionFrameBrowse_Reset
 local LIGHTYELLOW_FONT_COLOR_CODE = LIGHTYELLOW_FONT_COLOR_CODE
 local GRAY_FONT_COLOR_CODE = GRAY_FONT_COLOR_CODE
 local NotifyInspect = NotifyInspect
+local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
+local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
+local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllusionSourceInfo
 
 --------------------------------------------------------------------------------
 --<< KnightFrame : Upgrade Inspect Frame like Wow-Armory					>>--
@@ -371,6 +374,16 @@ function IA:DisplayMessage(Type)
 	else
 		self.MessageFrame:Hide()
 	end
+end
+
+function IA:Illusion_OnEnter()
+	_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOM')
+	_G["GameTooltip"]:AddLine(self.Link, 1, 1, 1)
+	_G["GameTooltip"]:Show()
+end
+
+function IA:Illusion_OnLeave()
+	_G["GameTooltip"]:Hide()
 end
 
 local TransmogButtonColors = {}
@@ -790,6 +803,26 @@ function IA:CreateInspectFrame()
 					else
 						Slot.TransmogrifyAnchor.Texture:SetTexCoord(1, 0, 0, 1)
 					end
+				end
+				-- Illusion
+				if Info.Armory_Constants.CanIllusionSlot[SlotName] then
+					Slot.IllusionAnchor = CreateFrame('Button', nil, Slot)
+					Slot.IllusionAnchor:Size(18)
+					Slot.IllusionAnchor:SetBackdrop({
+						bgFile = E.media.blankTex,
+						edgeFile = E.media.blankTex,
+						tile = false, tileSize = 0, edgeSize = E.mult,
+						insets = { left = 0, right = 0, top = 0, bottom = 0}
+					})
+					Slot.IllusionAnchor:SetFrameLevel(Slot:GetFrameLevel() + 2)
+					Slot.IllusionAnchor:Point('CENTER', Slot, 'BOTTOM', 0, -2)
+					Slot.IllusionAnchor:SetScript('OnEnter', self.Illusion_OnEnter)
+					Slot.IllusionAnchor:SetScript('OnLeave', self.Illusion_OnLeave)
+					
+					Slot.IllusionAnchor.Texture = Slot.IllusionAnchor:CreateTexture(nil, 'OVERLAY')
+					Slot.IllusionAnchor.Texture:SetInside()
+					Slot.IllusionAnchor.Texture:SetTexCoord(.1, .9, .1, .9)
+					Slot.IllusionAnchor:Hide()
 				end
 			end
 			
@@ -1486,6 +1519,7 @@ end
 function IA:INSPECT_READY(InspectedUnitGUID)
 	local TableIndex = IA.CurrentInspectData.Name..(IA.CurrentInspectData.Realm and '-'..IA.CurrentInspectData.Realm or '')
 	local UnitID = TableIndex
+	-- local UnitID = IA.CurrentInspectData.UnitID
 	local Name, Realm = T.UnitFullName(UnitID)
 	
 	if not Name then
@@ -1511,6 +1545,7 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 	local Slot, SlotTexture, SlotLink, CheckSpace, R, G, B, TooltipText, TransmogrifiedItem, SetName, SetItemCount, SetItemMax, SetOptionCount
 	for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 		Slot = IA[SlotName]
+		if Slot.IllusionAnchor then Slot.IllusionAnchor:Hide() end
 		IA.CurrentInspectData.Gear[SlotName] = IA.CurrentInspectData.Gear[SlotName] or {}
 		
 		SlotTexture = T.GetInventoryItemTexture(UnitID, Slot.ID)
@@ -1529,6 +1564,17 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 				TransmogrifiedItem = nil
 				CheckSpace = 2
 				SetOptionCount = 1
+				
+				--<< Illusion Parts >>--
+				if Slot.IllusionAnchor then
+					IsIllusion, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(Slot.ID, LE_TRANSMOG_TYPE_ILLUSION)
+					if IsIllusion then
+						Slot.IllusionAnchor.Texture:SetTexture(ItemTexture)
+						_, _, Slot.IllusionAnchor.Link = C_TransmogCollection_GetIllusionSourceInfo(T.select(3, C_Transmog_GetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_ILLUSION)))
+						
+						Slot.IllusionAnchor:Show()
+					end
+				end
 				
 				for i = 1, IA.ScanTTForInspecting:NumLines() do
 					TooltipText = _G['InspectArmoryScanTT_ITextLeft'..i]:GetText()
