@@ -1,4 +1,11 @@
-v3.30
+v3.31 12/6/17
+Additions:
+- LFR completion info in time datatext.
+Fixes:
+- Inspect aromory shows illusion now.
+- Chat history now works again.
+
+v3.30 12/1/17
 Fixes:
 - Fixed region check for chat history throwing unintended errors. Also made it more aware of non existant values. Blizzard changed relmIDs around again *sigh*
 
