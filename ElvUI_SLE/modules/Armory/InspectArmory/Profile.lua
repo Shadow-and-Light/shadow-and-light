@@ -14,7 +14,9 @@ P.sle.Armory.Inspect = {
 	
 	Backdrop = {
 		SelectedBG = 'Space',
-		CustomAddress = ''
+		CustomAddress = '',
+		Overlay = false,
+		OverlayAlpha = 0.3,
 	},
 	
 	Gradation = {

@@ -779,6 +779,24 @@ local function LoadArmoryConfigTable()
 							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end,
 							hidden = function() return E.db.sle.Armory.Inspect.Backdrop.SelectedBG ~= 'CUSTOM' end
 						},
+						Ovrlay = {
+							type = 'toggle',
+							name = L["Overlay"],
+							order = 3,
+							disabled = function() return not E.db.sle.Armory.Inspect.Enable end,
+							get = function() return E.db.sle.Armory.Inspect.Backdrop.Overlay end,
+							set = function(_, value) E.db.sle.Armory.Inspect.Backdrop.Overlay = value; _G["InspectArmory"]:ToggleOverlay() end,
+						},
+						OvrlayAlpha = {
+							type = 'range',
+							name = L["Alpha"],
+							order = 4,
+							isPercent = true,
+							min = 0,max = 1,step = 0.01,
+							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end,
+							get = function() return E.db.sle.Armory.Inspect.Backdrop.OverlayAlpha end,
+							set = function(_, value) E.db.sle.Armory.Inspect.Backdrop.OverlayAlpha = value; _G["InspectArmory"]:UpdateSettings("overlay") end
+						},
 					}
 				},
 				Gradation = {

@@ -861,10 +861,13 @@ function IA:CreateInspectFrame()
 	do --<< Backdrop >>--
 		self.BG = self:CreateTexture(nil, 'OVERLAY')
 		self.BG:Point('TOPLEFT', self.Tab, 'BOTTOMLEFT', 0, -38)
-		self.BG:Point('BOTTOMRIGHT', self.BP, 'TOPRIGHT')
-		--self.BG:Point('TOPLEFT', self.HeadSlot, 'TOPLEFT')
-		--self.BG:Point('RIGHT', self.HandsSlot, 'RIGHT')
-		--self.BG:Point('BOTTOM', self.MainHandSlot, 'BOTTOM')
+	end
+	
+	do --<< Overlay >>--
+		self.BGOverlay = self:CreateTexture(nil, 'OVERLAY')
+		self.BGOverlay:SetAllPoints(self.BG)
+		self.BGOverlay:SetColorTexture(0,0,0, E.db.sle.Armory.Inspect.Backdrop.OverlayAlpha)
+		self.BGOverlay:SetDrawLayer("OVERLAY", 1)
 	end
 	
 	do --<< Information Page >>--
@@ -1477,7 +1480,6 @@ function IA:CreateInspectFrame()
 	self.CreateInspectFrame = nil
 end
 
-
 function IA:ClearTooltip(Tooltip)
 	local TooltipName = Tooltip:GetName()
 	
@@ -1488,7 +1490,6 @@ function IA:ClearTooltip(Tooltip)
 		_G[TooltipName..'Texture'..i]:Point('TOPLEFT', Tooltip)
 	end
 end
-
 
 function IA:INSPECT_HONOR_UPDATE()
 	local Rating, Played, Won
@@ -1514,7 +1515,6 @@ function IA:INSPECT_HONOR_UPDATE()
 		IA:InspectFrame_PvPSetting(IA.CurrentInspectData)
 	end
 end
-
 
 function IA:INSPECT_READY(InspectedUnitGUID)
 	local TableIndex = IA.CurrentInspectData.Name..(IA.CurrentInspectData.Realm and '-'..IA.CurrentInspectData.Realm or '')
@@ -1732,7 +1732,6 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 	end
 end
 
-
 IA.InspectUnit = function(UnitID)
 	if UnitID == 'mouseover' and not T.UnitExists('mouseover') and T.UnitExists('target') or UnitID ~= 'target' and T.UnitIsUnit(UnitID, 'target') then
 		UnitID = 'target'
@@ -1782,7 +1781,6 @@ IA.InspectUnit = function(UnitID)
 	end
 end
 
-
 function IA:ShowFrame(DataTable)
 	self.GET_ITEM_INFO_RECEIVED = nil
 	self:UnregisterEvent('GET_ITEM_INFO_RECEIVED')
@@ -1812,7 +1810,6 @@ function IA:ShowFrame(DataTable)
 		end
 	end)
 end
-
 
 function IA:InspectFrame_DataSetting(DataTable)
 	local SpecTab = DataTable.Specialization.SpecTab or 1
@@ -2478,7 +2475,6 @@ function IA:InspectFrame_DataSetting(DataTable)
 	self:Update_Display(true)
 end
 
-
 function IA:InspectFrame_PvPSetting(DataTable)
 	local Arg1, Arg2, Arg3
 	local NeedExpand = 0
@@ -2559,7 +2555,6 @@ function IA:InspectFrame_PvPSetting(DataTable)
 	self:ReArrangeCategory()
 end
 
-
 function IA:ReArrangeCategory()
 	local InfoPage_Height = 0
 	local PrevCategory
@@ -2590,7 +2585,6 @@ function IA:ReArrangeCategory()
 	self.Info.Page:Height(InfoPage_Height)
 	self.ScrollFrame_OnMouseWheel(self.Info, 0)
 end
-
 
 function IA:ToggleSpecializationTab(Tab, DataTable)
 	local Name, Arg1, Arg2, R, G, B
@@ -2747,7 +2741,6 @@ function IA:ToggleSpecializationTab(Tab, DataTable)
 	self.LastSpecTab = Tab
 end
 
-
 function IA:Update_BG()
 	if E.db.sle.Armory.Inspect.Backdrop.SelectedBG == 'HIDE' then
 		self.BG:SetTexture(nil)
@@ -2757,7 +2750,6 @@ function IA:Update_BG()
 		self.BG:SetTexture(Info.Armory_Constants.BlizzardBackdropList[E.db.sle.Armory.Inspect.Backdrop.SelectedBG] or 'Interface\\AddOns\\ElvUI_SLE\\modules\\Armory\\Media\\Textures\\'..E.db.sle.Armory.Inspect.Backdrop.SelectedBG)
 	end
 end
-
 
 function IA:Update_Display(Force)
 	local Slot, Mouseover, SocketVisible
@@ -2863,6 +2855,17 @@ function IA:UpdateSettings(part)
 			end
 		end
 	end
+	if part == "overlay" or part == "all" then
+		self.BGOverlay:SetColorTexture(0,0,0, E.db.sle.Armory.Inspect.Backdrop.OverlayAlpha)
+	end
+end
+
+function IA:ToggleOverlay()
+	if E.db.sle.Armory.Inspect.Backdrop.Overlay then
+		self.BGOverlay:Show()
+	else
+		self.BGOverlay:Hide()
+	end
 end
 
 KF.Modules[#KF.Modules + 1] = 'InspectArmory'
@@ -2886,4 +2889,6 @@ KF.Modules.InspectArmory = function()
 		
 		Info.InspectArmory_Activate = nil
 	end
+	
+	IA:ToggleOverlay()
 end
