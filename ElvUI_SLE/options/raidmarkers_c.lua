@@ -116,6 +116,13 @@ local function configTable()
 				disabled = function() return E.db.sle.raidmarkers.visibility ~= "CUSTOM" or not E.db.sle.raidmarkers.enable end,
 				set = function(info, value) E.db.sle.raidmarkers.customVisibility = value; RM:Visibility() end,
 			},
+			mouseover = {
+				order = 14,
+				type = "toggle",
+				name = L["Mouseover"],
+				disabled = function() return not E.db.sle.raidmarkers.enable end,
+				set = function(info, value) E.db.sle.raidmarkers.mouseover = value; RM:UpdateMouseover() end,
+			},
 		},
 	}
 end

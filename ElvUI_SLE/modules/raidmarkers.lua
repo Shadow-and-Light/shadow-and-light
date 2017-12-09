@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local RM = SLE:NewModule('RaidMarkers');
+local RM = SLE:NewModule('RaidMarkers', 'AceHook-3.0');
 --GLOBALS: CreateFrame
 local _G = _G
 local GameTooltip = GameTooltip
@@ -32,9 +32,17 @@ function RM:Make(name, command, description)
 	btn:RegisterForClicks("AnyDown")
 end
 
+function RM:Bar_OnEnter()
+	RM.frame:SetAlpha(1)
+end
+
+function RM:Bar_OnLeave()
+	if RM.db.mouseover then RM.frame:SetAlpha(0) end
+end
+
 function RM:CreateButtons()
 	for k, layout in T.ipairs(layouts) do
-		local button = CreateFrame("Button", T.format("RaidMarkerBarButton%d", k), RM.frame, "SecureActionButtonTemplate")
+		local button = CreateFrame("Button", T.format("SLE_RaidMarkerBarButton%d", k), RM.frame, "SecureActionButtonTemplate")
 		button:SetHeight(E.db.sle.raidmarkers.buttonSize)
 		button:SetWidth(E.db.sle.raidmarkers.buttonSize)
 		button:SetTemplate('Transparent')
@@ -81,12 +89,16 @@ function RM:UpdateWorldMarkersAndTooltips()
 				GameTooltip:AddLine(i == 9 and T.format("%s\n%s", L["Click to clear the mark."], T.format(L["%sClick to remove all worldmarkers."], button.modifier:upper()))
 					or T.format("%s\n%s", L["Click to mark the target."], T.format(L["%sClick to place a worldmarker."], button.modifier:upper())), 1, 1, 1)
 				GameTooltip:Show()
+				RM.frame:SetAlpha(1)
 			end)
 		end
 
 		button:SetScript("OnLeave", function(self)
 			self:SetBackdropBorderColor(0, 0, 0)
-			GameTooltip:Hide() 
+			GameTooltip:Hide()
+			if RM.db.mouseover then
+				RM.frame:SetAlpha(0)
+			end
 		end)
 	end
 end
@@ -147,6 +159,11 @@ function RM:Visibility()
 	end
 end
 
+function RM:UpdateMouseover()
+	RM:Bar_OnEnter()
+	RM:Bar_OnLeave()
+end
+
 function RM:Backdrop()
 	if E.db.sle.raidmarkers.backdrop then
 		self.frame.backdrop:Show()
@@ -157,6 +174,7 @@ end
 
 function RM:Initialize()
 	if not SLE.initialized then return end
+	RM.db = E.db.sle.raidmarkers
 
 	RM:Make("SLE_RaidFlare1", "/clearworldmarker 1\n/worldmarker 1", "Blue Flare")
 	RM:Make("SLE_RaidFlare2", "/clearworldmarker 2\n/worldmarker 2", "Green Flare")
@@ -169,7 +187,7 @@ function RM:Initialize()
 
 	RM:Make("SLE_ClearRaidFlares", "/clearworldmarker 0", "Clear All Flares")
 
-	self.frame = CreateFrame("Frame", "RaidMarkerBar", E.UIParent, "SecureHandlerStateTemplate")
+	self.frame = CreateFrame("Frame", "SLE_RaidMarkerBar", E.UIParent, "SecureHandlerStateTemplate")
 	self.frame:SetResizable(false)
 	self.frame:SetClampedToScreen(true)
 	self.frame:SetFrameStrata('LOW')
@@ -177,6 +195,9 @@ function RM:Initialize()
 	self.frame:ClearAllPoints()
 	self.frame:Point("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -1, 200)
 	self.frame.buttons = {}
+	
+	self:HookScript(self.frame, 'OnEnter', 'Bar_OnEnter');
+	self:HookScript(self.frame, 'OnLeave', 'Bar_OnLeave');
 
 	self.frame.backdrop:SetAllPoints()
 
@@ -185,11 +206,12 @@ function RM:Initialize()
 	self:CreateButtons()
 
 	function RM:ForUpdateAll()
-		RM.db = E.db.sle.quests
+		RM.db = E.db.sle.raidmarkers
 		self:Visibility()
 		self:Backdrop()
 		self:UpdateBar()
 		self:UpdateWorldMarkersAndTooltips()
+		self:UpdateMouseover()
 	end
 
 	self:ForUpdateAll()

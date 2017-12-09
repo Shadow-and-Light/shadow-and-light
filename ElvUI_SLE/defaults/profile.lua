@@ -621,6 +621,7 @@ P["sle"] = {
 		["orientation"] = 'HORIZONTAL',
 		["modifier"] = 'shift-',
 		["reverse"] = false,
+		["mouseover"] = false,
 	},
 	--Screensaver
 	["screensaver"] = {
