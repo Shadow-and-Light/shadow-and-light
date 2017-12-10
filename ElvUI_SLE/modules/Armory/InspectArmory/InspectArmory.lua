@@ -861,6 +861,7 @@ function IA:CreateInspectFrame()
 	do --<< Backdrop >>--
 		self.BG = self:CreateTexture(nil, 'OVERLAY')
 		self.BG:Point('TOPLEFT', self.Tab, 'BOTTOMLEFT', 0, -38)
+		self.BG:Point('BOTTOMRIGHT', self.BP, 'TOPRIGHT')
 	end
 	
 	do --<< Overlay >>--
