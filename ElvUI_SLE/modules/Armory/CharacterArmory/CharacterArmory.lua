@@ -1568,7 +1568,9 @@ KF.Modules.CharacterArmory = function()
 		_G["CharacterModelFrame"].BackgroundTopRight:Hide()
 		_G["CharacterModelFrame"].BackgroundBotLeft:Hide()
 		_G["CharacterModelFrame"].BackgroundBotRight:Hide()
-		_G["CharacterModelFrame"].backdrop:Hide()
+		if _G["CharacterModelFrame"].backdrop then
+			_G["CharacterModelFrame"].backdrop:Hide()
+		end
 		
 		if _G["PaperDollFrame"]:IsShown() then
 			_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and 650 or 444)
