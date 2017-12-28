@@ -101,7 +101,7 @@ SLE.SpecialChatIcons = {
 			--Darth's friends
 			["Леани"] = friend,
 			["Кайрия"] = friend,
-			["Дендрин"] = frined,
+			["Дендрин"] = friend,
 			["Аргрут"] = friend,
 			--Da tester lol
 			["Харореанн"] = test,
