@@ -52,6 +52,7 @@ B.AddonsList = {
 	["Blizzard_ArchaeologyUI"] = "ArchaeologyFrame",
 	["Blizzard_AuctionUI"] = "AuctionFrame",
 	["Blizzard_Calendar"] = "CalendarFrame",
+	['Blizzard_ChallengesUI'] = "ChallengesKeystoneFrame",
 	["Blizzard_Collections"] = "CollectionsJournal",
 	["Blizzard_EncounterJournal"] = "EncounterJournal",
 	["Blizzard_GarrisonUI"] = {"GarrisonLandingPage", "GarrisonMissionFrame", "GarrisonCapacitiveDisplayFrame", "GarrisonBuildingFrame", "GarrisonRecruiterFrame", "GarrisonRecruitSelectFrame", "GarrisonShipyardFrame"},
@@ -70,6 +71,11 @@ B.AddonsList = {
 }
 
 function B:MakeMovable(frame)
+	if not frame then
+		SLE:ErrorPrint("Doesn't exist: "..B.Frames[i])
+		return
+	end
+
 	if frame then
 		frame:EnableMouse(true)
 		frame:SetMovable(true)
@@ -115,7 +121,7 @@ function B:Initialize()
 	if E.private.sle.module.blizzmove then
 		for i = 1, #B.Frames do
 			local frame = _G[B.Frames[i]]
-			if frame then B:MakeMovable(frame) else SLE:ErrorPrint("Doesn't exist: "..B.Frames[i]) end
+			if frame then B:MakeMovable(frame) end
 		end
 		self:RegisterEvent("ADDON_LOADED", "Addons")
 	end
