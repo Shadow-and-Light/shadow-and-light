@@ -442,6 +442,14 @@ local function LoadArmoryConfigTable()
 							set = function(Info, r, g, b, a) E.db.sle.Armory.Character.Gradation.Color = { r, g, b, a }; _G["CharacterArmory"]:Update_Gear() end,
 							disabled = function() return E.db.sle.Armory.Character.Enable == false or E.db.sle.Armory.Character.Gradation.Display == false end
 						},
+						ItemQuality = {
+							type = 'toggle',
+							name = COLORBLIND_ITEM_QUALITY,
+							order = 1,
+							get = function() return E.db.sle.Armory.Character.Gradation.ItemQuality end,
+							set = function(_, value) E.db.sle.Armory.Character.Gradation.ItemQuality = value; _G["CharacterArmory"]:Update_Gear() end,
+							disabled = function() return E.db.sle.Armory.Character.Enable == false end
+						}
 					}
 				},
 				Level = {

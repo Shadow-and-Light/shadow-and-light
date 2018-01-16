@@ -1125,6 +1125,11 @@ function CA:Update_Gear()
 		if ErrorDetected and E.db.sle.Armory.Character.NoticeMissing then
 			Slot.Gradation:SetVertexColor(1, 0, 0)
 			Slot.Gradation:Show()
+		end
+		if ItemLink and E.db.sle.Armory.Character.Gradation.ItemQuality then
+			_, _, Slot.ItemRarity, _, _, _, _, _, _ = T.GetItemInfo(ItemLink)
+			R, G, B = T.GetItemQualityColor(Slot.ItemRarity)
+			Slot.Gradation:SetVertexColor(R, G, B)
 		else
 			Slot.Gradation:SetVertexColor(T.unpack(E.db.sle.Armory.Character.Gradation.Color))
 		end

@@ -19,7 +19,8 @@ P.sle.Armory.Character = {
 	
 	Gradation = {
 		Display = true,
-		Color = { .41, .83, 1 }
+		Color = { .41, .83, 1 },
+		ItemQuality = false,
 	},
 	
 	Level = {
