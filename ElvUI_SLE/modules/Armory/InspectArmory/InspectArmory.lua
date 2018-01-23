@@ -1567,15 +1567,15 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 				SetOptionCount = 1
 				
 				--<< Illusion Parts >>--
-				if Slot.IllusionAnchor then
-					IsIllusion, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(Slot.ID, LE_TRANSMOG_TYPE_ILLUSION)
-					if IsIllusion then
-						Slot.IllusionAnchor.Texture:SetTexture(ItemTexture)
-						_, _, Slot.IllusionAnchor.Link = C_TransmogCollection_GetIllusionSourceInfo(T.select(3, C_Transmog_GetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_ILLUSION)))
+				-- if Slot.IllusionAnchor then
+					-- IsIllusion, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(Slot.ID, LE_TRANSMOG_TYPE_ILLUSION)
+					-- if IsIllusion then
+						-- Slot.IllusionAnchor.Texture:SetTexture(ItemTexture)
+						-- _, _, Slot.IllusionAnchor.Link = C_TransmogCollection_GetIllusionSourceInfo(T.select(3, C_Transmog_GetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_ILLUSION)))
 						
-						Slot.IllusionAnchor:Show()
-					end
-				end
+						-- Slot.IllusionAnchor:Show()
+					-- end
+				-- end
 				
 				for i = 1, IA.ScanTTForInspecting:NumLines() do
 					TooltipText = _G['InspectArmoryScanTT_ITextLeft'..i]:GetText()
