@@ -1,3 +1,16 @@
+v3.32 01/23/18
+Additions:
+- Added overlay option for armory inspect
+- Added raid markers mouseover option
+- Added an option to color armory gradient textures to reflect item quality
+- Added option to disable tooltips on raid marker bar
+Fixes:
+- Fixed dungeon difficulty flag acting weird
+- Fixed artifact databar throwing errors on recieving a lot of AP
+Misc:
+- Temporary disabled inspect armory illusion check until we find a reliable way to perform checks
+
+
 v3.31 12/6/17
 Additions:
 - LFR completion info in time datatext.
