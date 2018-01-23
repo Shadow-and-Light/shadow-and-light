@@ -715,6 +715,7 @@ L["Reverse"] = true
 L["Modifier Key"] = true
 L["Set the modifier key for placing world markers."] = true
 L["Visibility State"] = true
+L["No tooltips"] = true
 
 --Raidroles
 L["Options for customizing Blizzard Raid Manager \"O - > Raid\""] = true

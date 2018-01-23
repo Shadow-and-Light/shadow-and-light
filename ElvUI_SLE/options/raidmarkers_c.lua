@@ -123,6 +123,13 @@ local function configTable()
 				disabled = function() return not E.db.sle.raidmarkers.enable end,
 				set = function(info, value) E.db.sle.raidmarkers.mouseover = value; RM:UpdateMouseover() end,
 			},
+			notooltip = {
+				order = 15,
+				type = "toggle",
+				name = L["No tooltips"],
+				disabled = function() return not E.db.sle.raidmarkers.enable end,
+				set = function(info, value) E.db.sle.raidmarkers.notooltip = value; end,
+			},
 		},
 	}
 end

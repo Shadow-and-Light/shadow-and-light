@@ -711,6 +711,7 @@ L["Reverse"] = "Обратный порядок"
 L["Modifier Key"] = "Модификатор"
 L["Set the modifier key for placing world markers."] = "Модификатор для установки меток на земле."
 L["Visibility State"] = "Видимость"
+L["No tooltips"] = "Без подсказок"
 
 --Raidroles
 L["Options for customizing Blizzard Raid Manager \"O - > Raid\""] = "Опции настройки менеджера рейда \"О -> Рейд\""

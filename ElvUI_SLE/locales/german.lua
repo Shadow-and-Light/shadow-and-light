@@ -706,6 +706,7 @@ L["Reverse"] = "Umkehren"
 L["Modifier Key"] = "Modifier Taste"
 L["Set the modifier key for placing world markers."] = "Setzt eine modifierungs Taste um eine Weltmarkierung zu setzen."
 L["Visibility State"] = "Sichtbarkeit"
+L["No tooltips"] = true
 
 --Raidroles
 L["Options for customizing Blizzard Raid Manager \"O - > Raid\""] = true

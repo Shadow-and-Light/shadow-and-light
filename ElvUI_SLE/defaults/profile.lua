@@ -622,6 +622,7 @@ P["sle"] = {
 		["modifier"] = 'shift-',
 		["reverse"] = false,
 		["mouseover"] = false,
+		["notooltip"] = false,
 	},
 	--Screensaver
 	["screensaver"] = {
