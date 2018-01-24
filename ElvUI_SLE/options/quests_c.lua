@@ -96,6 +96,17 @@ local function configTable()
 						name = RAIDS,
 						values = settings,
 					},
+					combat = {
+						order = 10,
+						type = "select",
+						name = COMBAT,
+						values = {
+							["FULL"] = DEFAULT,
+							["COLLAPSED"] = MINIMIZE,
+							["HIDE"] = HIDE,
+							["NONE"] = NONE,
+						},
+					},
 				},
 			},
 		},
