@@ -1517,6 +1517,21 @@ function IA:INSPECT_HONOR_UPDATE()
 	end
 end
 
+local patternForIllusionLine = TRANSMOGRIFIED_ENCHANT:gsub("%%s", "(.+)")
+function scanForIllusion(tt)
+    if tt:IsForbidden() then return end
+    for i=1, tt:NumLines() do
+        local tiptext = _G["InspectArmoryScanTT_ITextLeft"..i]
+        local linetext = tiptext:GetText()
+        if linetext then
+            local illusion = linetext:match(patternForIllusionLine)
+            if illusion then
+                return illusion
+            end
+        end
+    end
+end
+
 function IA:INSPECT_READY(InspectedUnitGUID)
 	local TableIndex = IA.CurrentInspectData.Name..(IA.CurrentInspectData.Realm and '-'..IA.CurrentInspectData.Realm or '')
 	local UnitID = TableIndex
@@ -1567,7 +1582,7 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 				SetOptionCount = 1
 				
 				--<< Illusion Parts >>--
-				-- if Slot.IllusionAnchor then
+				if Slot.IllusionAnchor then
 					-- IsIllusion, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(Slot.ID, LE_TRANSMOG_TYPE_ILLUSION)
 					-- if IsIllusion then
 						-- Slot.IllusionAnchor.Texture:SetTexture(ItemTexture)
@@ -1575,7 +1590,10 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 						
 						-- Slot.IllusionAnchor:Show()
 					-- end
-				-- end
+					local tt = InspectArmoryScanTT_I
+					local illusionText = scanForIllusion(tt)
+					print(illusionText)
+				end
 				
 				for i = 1, IA.ScanTTForInspecting:NumLines() do
 					TooltipText = _G['InspectArmoryScanTT_ITextLeft'..i]:GetText()
