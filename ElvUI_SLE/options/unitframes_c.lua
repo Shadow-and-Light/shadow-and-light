@@ -56,6 +56,39 @@ local function configTable()
 		return config
 	end
 	
+	local function CreateDeadConfig(group)
+		local config = {
+			order = 6,
+			type = "group",
+			name = L["Dead Indicator"],
+			get = function(info) return E.db.sle.unitframes.unit[group].dead[ info[#info] ] end,
+			set = function(info, value) E.db.sle.unitframes.unit[group].dead[ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup(group) end,
+			args = {
+				enable = { order = 1, type = "toggle", name = L["Enable"] },
+				size = { order = 2, type = 'range', name = L["Size"], min = 10, max = 120, step = 1 },
+				xOffset = { order = 3, type = 'range', name = L["X-Offset"], min = -600, max = 600, step = 1 },
+				yOffset = { order = 4, type = 'range', name = L["Y-Offset"], min = -600, max = 600, step = 1 },
+				texture = {
+					order = 5,
+					type = "select",
+					name = L["Texture"],
+					values = {
+						["SKULL"] = [[|TInterface\LootFrame\LootPanel-Icon:14|t]],
+						["CUSTOM"] = CUSTOM,
+					},
+				},
+				CustomTexture = {
+					order = 6,
+					type = 'input',
+					width = 'full',
+					name = L["Custom Texture"],
+					disabled = function() return E.db.sle.unitframes.unit[group].dead.texture ~= "CUSTOM" end,
+				},
+			},
+		}
+		return config
+	end
+	
 	local function CreatePortraitConfig(unitID)
 		local config = {
 			order = 1,
@@ -224,6 +257,7 @@ local function configTable()
 					},
 					portrait = CreatePortraitConfig("party"),
 					offline = CreateOfflineConfig("party"),
+					dead = CreateOfflineConfig("party"),
 					auras = CreateAurasConfig("party"),
 				},
 			},
@@ -242,6 +276,7 @@ local function configTable()
 					},
 					portrait = CreatePortraitConfig("raid"),
 					offline = CreateOfflineConfig("raid"),
+					dead = CreateOfflineConfig("raid"),
 					auras = CreateAurasConfig("raid"),
 				},
 			},
@@ -260,6 +295,7 @@ local function configTable()
 					},
 					portrait = CreatePortraitConfig("raid40"),
 					offline = CreateOfflineConfig("raid40"),
+					dead = CreateOfflineConfig("raid40"),
 					auras = CreateAurasConfig("raid40"),
 				},
 			},

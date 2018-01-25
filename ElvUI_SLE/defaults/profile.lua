@@ -828,6 +828,14 @@ P["sle"] = {
 					["texture"] = "ALERT",
 					["CustomTexture"] = "",
 				},
+				["dead"] = {
+					["enable"] = false,
+					["size"] = 36,
+					["xOffset"] = 0,
+					["yOffset"] = 0,
+					["texture"] = "SKULL",
+					["CustomTexture"] = "",
+				},
 				["role"] = {
 					["xoffset"] = 0,
 					["yoffset"] = 0,
@@ -852,6 +860,14 @@ P["sle"] = {
 					["texture"] = "ALERT",
 					["CustomTexture"] = "",
 				},
+				["dead"] = {
+					["enable"] = false,
+					["size"] = 36,
+					["xOffset"] = 0,
+					["yOffset"] = 0,
+					["texture"] = "SKULL",
+					["CustomTexture"] = "",
+				},
 				["role"] = {
 					["xoffset"] = 0,
 					["yoffset"] = 0,
@@ -874,6 +890,14 @@ P["sle"] = {
 					["xOffset"] = 0,
 					["yOffset"] = 0,
 					["texture"] = "ALERT",
+					["CustomTexture"] = "",
+				},
+				["dead"] = {
+					["enable"] = false,
+					["size"] = 36,
+					["xOffset"] = 0,
+					["yOffset"] = 0,
+					["texture"] = "SKULL",
 					["CustomTexture"] = "",
 				},
 				["auras"] = {
