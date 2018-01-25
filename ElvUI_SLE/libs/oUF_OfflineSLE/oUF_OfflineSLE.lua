@@ -15,7 +15,7 @@ local Update = function(self, event, unit)
 end
 
 local Path = function(self, ...)
-	return (self.Health.Override or Update) (self, ...)
+	return (self.Offline.Override or Update) (self, ...)
 end
 
 local Enable = function(self, unit)
@@ -30,8 +30,8 @@ local Enable = function(self, unit)
 end
 
 local Disable = function(self)
-	local offline = self.Health
-	if(offline) then
+	local offline = self.Offline
+	if (offline) then
 		self:UnregisterEvent('UNIT_CONNECTION', Path)
 		self.Offline:Hide()
 	end
