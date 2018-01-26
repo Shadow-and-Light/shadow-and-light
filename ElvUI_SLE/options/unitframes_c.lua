@@ -74,6 +74,9 @@ local function configTable()
 					name = L["Texture"],
 					values = {
 						["SKULL"] = [[|TInterface\LootFrame\LootPanel-Icon:14|t]],
+						["SKULL1"] = [[|TInterface\AddOns\ElvUI_SLE\media\textures\SKULL:14|t]],
+						["SKULL2"] = [[|TInterface\AddOns\ElvUI_SLE\media\textures\SKULL1:14|t]],
+						["SKULL3"] = [[|TInterface\AddOns\ElvUI_SLE\media\textures\SKULL2:14|t]],
 						["CUSTOM"] = CUSTOM,
 					},
 				},
