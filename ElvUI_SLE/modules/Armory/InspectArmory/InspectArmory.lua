@@ -377,8 +377,9 @@ function IA:DisplayMessage(Type)
 end
 
 function IA:Illusion_OnEnter()
-	_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOM')
-	_G["GameTooltip"]:AddLine(self.Link, 1, 1, 1)
+	if not self.Link then return end
+	_G["GameTooltip"]:SetOwner(self, 'ANCHOR_TOPRIGHT')
+	_G["GameTooltip"]:AddLine("|cffffa6d2"..self.Link.."|r", 1, 1, 1)
 	_G["GameTooltip"]:Show()
 end
 
@@ -674,21 +675,21 @@ function IA:CreateInspectFrame()
 			Slot.SlotName = SlotName
 			Slot.Direction = i%2 == 1 and 'LEFT' or 'RIGHT'
 			Slot.ID, Slot.EmptyTexture = T.GetInventorySlotInfo(SlotName)
-			
+
 			Slot.Texture = Slot:CreateTexture(nil, 'OVERLAY')
 			Slot.Texture:SetTexCoord(T.unpack(E.TexCoords))
 			Slot.Texture:SetInside()
 			Slot.Texture:SetTexture(Slot.EmptyTexture)
-			
+
 			Slot.Highlight = Slot:CreateTexture('Frame', nil, self)
 			Slot.Highlight:SetInside()
 			Slot.Highlight:SetColorTexture(1, 1, 1, 0.3)
 			Slot:SetHighlightTexture(Slot.Highlight)
-			
+
 			if not (SlotName == 'MainHandSlot' or SlotName == 'SecondaryHandSlot') then
 				KF:TextSetting(Slot, nil, { Tag = 'ItemLevel', FontSize = 10, FontStyle = 'OUTLINE', }, 'TOP', Slot, 0, -3)
 			end
-			
+
 			-- Gradation
 			Slot.Gradation = CreateFrame('Frame', nil, Slot)
 			Slot.Gradation:Size(130, SLOT_SIZE + 4)
@@ -702,11 +703,11 @@ function IA:CreateInspectFrame()
 			else
 				Slot.Gradation.Texture:SetTexCoord(1, 0, 0, 1)
 			end
-			
+
 			if not E.db.sle.Armory.Inspect.Gradation.Display then
 				Slot.Gradation.Texture:Hide()
 			end
-			
+
 			if not (SlotName == 'ShirtSlot' or SlotName == 'TabardSlot') then
 				-- Item Level
 				KF:TextSetting(Slot.Gradation, nil, { Tag = 'ItemLevel',
@@ -715,11 +716,11 @@ function IA:CreateInspectFrame()
 					FontStyle = E.db.sle.Armory.Inspect.Level.FontStyle,
 					directionH = Slot.Direction
 				}, 'TOP'..Slot.Direction, Slot, 'TOP'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 or -2, -1)
-				
+
 				if E.db.sle.Armory.Inspect.Level.Display == 'Hide' then
 					Slot.Gradation.ItemLevel:Hide()
 				end
-				
+
 				-- Enchantment
 				KF:TextSetting(Slot.Gradation, nil, { Tag = 'ItemEnchant',
 					Font = E.db.sle.Armory.Inspect.Enchant.Font,
@@ -731,7 +732,7 @@ function IA:CreateInspectFrame()
 				if E.db.sle.Armory.Inspect.Enchant.Display == 'Hide' then
 					Slot.Gradation.ItemEnchant:Hide()
 				end
-				
+
 				Slot.EnchantWarning = CreateFrame('Button', nil, Slot.Gradation)
 				Slot.EnchantWarning:Size(E.db.sle.Armory.Inspect.Enchant.WarningSize)
 				Slot.EnchantWarning.Texture = Slot.EnchantWarning:CreateTexture(nil, 'OVERLAY')
@@ -740,7 +741,7 @@ function IA:CreateInspectFrame()
 				Slot.EnchantWarning:Point(Slot.Direction, Slot.Gradation.ItemEnchant, Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 3 or -3, 0)
 				Slot.EnchantWarning:SetScript('OnEnter', self.OnEnter)
 				Slot.EnchantWarning:SetScript('OnLeave', self.OnLeave)
-				
+
 				-- Gem Socket
 				for i = 1, MAX_NUM_SOCKETS do
 					Slot['Socket'..i] = CreateFrame('Frame', nil, Slot.Gradation)
@@ -775,7 +776,7 @@ function IA:CreateInspectFrame()
 				Slot.Socket1:Point('BOTTOM'..Slot.Direction, Slot, 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 2)
 				Slot.Socket2:Point(Slot.Direction, Slot.Socket1, Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 1 or -1, 0)
 				Slot.Socket3:Point(Slot.Direction, Slot.Socket2, Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 1 or -1, 0)
-				
+
 				Slot.SocketWarning = CreateFrame('Button', nil, Slot.Gradation)
 				Slot.SocketWarning:Size(E.db.sle.Armory.Inspect.Gem.WarningSize)
 				Slot.SocketWarning.Texture = Slot.SocketWarning:CreateTexture(nil, 'OVERLAY')
@@ -783,7 +784,7 @@ function IA:CreateInspectFrame()
 				Slot.SocketWarning.Texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\modules\\Armory\\Media\\Textures\\Warning-Small')
 				Slot.SocketWarning:SetScript('OnEnter', self.OnEnter)
 				Slot.SocketWarning:SetScript('OnLeave', self.OnLeave)
-				
+
 				if Info.Armory_Constants.CanTransmogrifySlot[SlotName] then
 					Slot.TransmogrifyAnchor = CreateFrame('Button', nil, Slot.Gradation)
 					Slot.TransmogrifyAnchor:Size(12)
@@ -818,10 +819,11 @@ function IA:CreateInspectFrame()
 					Slot.IllusionAnchor:Point('CENTER', Slot, 'BOTTOM', 0, -2)
 					Slot.IllusionAnchor:SetScript('OnEnter', self.Illusion_OnEnter)
 					Slot.IllusionAnchor:SetScript('OnLeave', self.Illusion_OnLeave)
-					
+
 					Slot.IllusionAnchor.Texture = Slot.IllusionAnchor:CreateTexture(nil, 'OVERLAY')
 					Slot.IllusionAnchor.Texture:SetInside()
 					Slot.IllusionAnchor.Texture:SetTexCoord(.1, .9, .1, .9)
+					Slot.IllusionAnchor.Texture:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\InspectIllusion]])
 					Slot.IllusionAnchor:Hide()
 				end
 			end
@@ -839,7 +841,7 @@ function IA:CreateInspectFrame()
 		self.TabardSlot:Point('BOTTOMLEFT', self.WristSlot, 'TOPLEFT', 0, SPACING)
 		self.WristSlot:Point('LEFT', self.BP, 1, 0)
 		self.WristSlot:Point('BOTTOM', self.MainHandSlot, 'TOP', 0, SPACING)
-		
+
 		-- Slot Location : Right
 		self.HandsSlot:Point('BOTTOMRIGHT', self.WaistSlot, 'TOPRIGHT', 0, SPACING)
 		self.WaistSlot:Point('BOTTOMRIGHT', self.LegsSlot, 'TOPRIGHT', 0, SPACING)
@@ -850,7 +852,7 @@ function IA:CreateInspectFrame()
 		self.Trinket0Slot:Point('BOTTOMRIGHT', self.Trinket1Slot, 'TOPRIGHT', 0, SPACING)
 		self.Trinket1Slot:Point('RIGHT', self.BP, -1, 0)
 		self.Trinket1Slot:Point('BOTTOM', self.SecondaryHandSlot, 'TOP', 0, SPACING)
-		
+
 		self.MainHandSlot:Point('BOTTOMRIGHT', self.BP, 'TOP', -2, SPACING)
 		self.SecondaryHandSlot:Point('BOTTOMLEFT', self.BP, 'TOP', 2, SPACING)
 		
@@ -1519,17 +1521,18 @@ end
 
 local patternForIllusionLine = TRANSMOGRIFIED_ENCHANT:gsub("%%s", "(.+)")
 function scanForIllusion(tt)
-    if tt:IsForbidden() then return end
-    for i=1, tt:NumLines() do
-        local tiptext = _G["InspectArmoryScanTT_ITextLeft"..i]
-        local linetext = tiptext:GetText()
-        if linetext then
-            local illusion = linetext:match(patternForIllusionLine)
-            if illusion then
-                return illusion
-            end
-        end
-    end
+	if tt:IsForbidden() then return end
+	for i=1, tt:NumLines() do
+		local tiptext = _G["InspectArmoryScanTT_ITextLeft"..i]
+		local linetext = tiptext:GetText()
+		if linetext then
+			local illusion = linetext:match(patternForIllusionLine)
+			if illusion then
+				return illusion, true
+			end
+		end
+	end
+	return "", false
 end
 
 function IA:INSPECT_READY(InspectedUnitGUID)
@@ -1583,16 +1586,9 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 				
 				--<< Illusion Parts >>--
 				if Slot.IllusionAnchor then
-					-- IsIllusion, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(Slot.ID, LE_TRANSMOG_TYPE_ILLUSION)
-					-- if IsIllusion then
-						-- Slot.IllusionAnchor.Texture:SetTexture(ItemTexture)
-						-- _, _, Slot.IllusionAnchor.Link = C_TransmogCollection_GetIllusionSourceInfo(T.select(3, C_Transmog_GetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_ILLUSION)))
-						
-						-- Slot.IllusionAnchor:Show()
-					-- end
-					local tt = InspectArmoryScanTT_I
-					local illusionText = scanForIllusion(tt)
-					print(illusionText)
+					local shouldShow
+					Slot.IllusionAnchor.Link, shouldShow = scanForIllusion(InspectArmoryScanTT_I)
+					if shouldShow then Slot.IllusionAnchor:Show() end
 				end
 				
 				for i = 1, IA.ScanTTForInspecting:NumLines() do
