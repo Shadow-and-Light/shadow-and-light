@@ -806,23 +806,31 @@ function IA:CreateInspectFrame()
 				end
 				-- Illusion
 				if Info.Armory_Constants.CanIllusionSlot[SlotName] then
-					Slot.IllusionAnchor = CreateFrame('Button', nil, Slot)
-					Slot.IllusionAnchor:Size(18)
-					Slot.IllusionAnchor:SetBackdrop({
-						bgFile = E.media.blankTex,
-						edgeFile = E.media.blankTex,
-						tile = false, tileSize = 0, edgeSize = E.mult,
-						insets = { left = 0, right = 0, top = 0, bottom = 0}
-					})
-					Slot.IllusionAnchor:SetFrameLevel(Slot:GetFrameLevel() + 2)
-					Slot.IllusionAnchor:Point('CENTER', Slot, 'BOTTOM', 0, -2)
-					Slot.IllusionAnchor:SetScript('OnEnter', self.Illusion_OnEnter)
-					Slot.IllusionAnchor:SetScript('OnLeave', self.Illusion_OnLeave)
+					-- Slot.IllusionAnchor = CreateFrame('Button', nil, Slot)
+					Slot.IllusionAnchor = Slot:CreateFontString(nil, "OVERLAY")
+					Slot.IllusionAnchor:FontTemplate(nil, 12, "OUTLINE")
+					if SlotName == "MainHandSlot" then
+						Slot.IllusionAnchor:Point("TOPRIGHT", Slot, "BOTTOMRIGHT", -4, -2)
+					else
+						Slot.IllusionAnchor:Point("TOPLEFT", Slot, "BOTTOMLEFT", 4, -2)
+					end
+					Slot.IllusionAnchor:SetText("")
+					--[[ Slot.IllusionAnchor:Size(18)
+					-- Slot.IllusionAnchor:SetBackdrop({
+						-- bgFile = E.media.blankTex,
+						-- edgeFile = E.media.blankTex,
+						-- tile = false, tileSize = 0, edgeSize = E.mult,
+						-- insets = { left = 0, right = 0, top = 0, bottom = 0}
+					-- })
+					-- Slot.IllusionAnchor:SetFrameLevel(Slot:GetFrameLevel() + 2)
+					-- Slot.IllusionAnchor:Point('CENTER', Slot, 'BOTTOM', 0, -2)
+					-- Slot.IllusionAnchor:SetScript('OnEnter', self.Illusion_OnEnter)
+					-- Slot.IllusionAnchor:SetScript('OnLeave', self.Illusion_OnLeave)
 					
-					Slot.IllusionAnchor.Texture = Slot.IllusionAnchor:CreateTexture(nil, 'OVERLAY')
-					Slot.IllusionAnchor.Texture:SetInside()
-					Slot.IllusionAnchor.Texture:SetTexCoord(.1, .9, .1, .9)
-					Slot.IllusionAnchor:Hide()
+					-- Slot.IllusionAnchor.Texture = Slot.IllusionAnchor:CreateTexture(nil, 'OVERLAY')
+					-- Slot.IllusionAnchor.Texture:SetInside()
+					-- Slot.IllusionAnchor.Texture:SetTexCoord(.1, .9, .1, .9)
+					-- Slot.IllusionAnchor:Hide()]]
 				end
 			end
 			
@@ -1561,7 +1569,7 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 	local Slot, SlotTexture, SlotLink, CheckSpace, R, G, B, TooltipText, TransmogrifiedItem, SetName, SetItemCount, SetItemMax, SetOptionCount
 	for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 		Slot = IA[SlotName]
-		if Slot.IllusionAnchor then Slot.IllusionAnchor:Hide() end
+		if Slot.IllusionAnchor then Slot.IllusionAnchor:SetText("") end
 		IA.CurrentInspectData.Gear[SlotName] = IA.CurrentInspectData.Gear[SlotName] or {}
 		
 		SlotTexture = T.GetInventoryItemTexture(UnitID, Slot.ID)
@@ -1583,16 +1591,15 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 				
 				--<< Illusion Parts >>--
 				if Slot.IllusionAnchor then
-					-- IsIllusion, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(Slot.ID, LE_TRANSMOG_TYPE_ILLUSION)
-					-- if IsIllusion then
-						-- Slot.IllusionAnchor.Texture:SetTexture(ItemTexture)
-						-- _, _, Slot.IllusionAnchor.Link = C_TransmogCollection_GetIllusionSourceInfo(T.select(3, C_Transmog_GetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_ILLUSION)))
-						
-						-- Slot.IllusionAnchor:Show()
-					-- end
-					local tt = InspectArmoryScanTT_I
-					local illusionText = scanForIllusion(tt)
-					print(illusionText)
+					local illusionText = scanForIllusion(InspectArmoryScanTT_I)
+					if illusionText then
+						if Slot.SlotName == "MainHandSlot" then
+							illusionText = "|cffffa6d2"..illusionText.."|r |TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\InspectIllusion:14:14|t"
+						else
+							illusionText = "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\InspectIllusion:14:14|t |cffffa6d2"..illusionText.."|r"
+						end
+						Slot.IllusionAnchor:SetText(illusionText)
+					end
 				end
 				
 				for i = 1, IA.ScanTTForInspecting:NumLines() do
