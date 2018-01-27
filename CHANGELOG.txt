@@ -4,8 +4,10 @@ Additions:
 - Added an option for dead indicator for party/raid/raid40 frames
 Fixes:
 - Transparent bag slots now aknowlages reagent bank as a bag
+- Fixed errors on removing gold data for character
 Misc:
 - Illusions are back to armory inspect.
+- Accounted for yet another realm id being changed
 
 v3.32 01/23/18
 Additions:
