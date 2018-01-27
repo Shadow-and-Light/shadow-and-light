@@ -5,7 +5,7 @@ Additions:
 Fixes:
 - Transparent bag slots now aknowlages reagent bank as a bag
 Misc:
-- Illusions are back to armory inspect. In text form this time.
+- Illusions are back to armory inspect.
 
 v3.32 01/23/18
 Additions:
