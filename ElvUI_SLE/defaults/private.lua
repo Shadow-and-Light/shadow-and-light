@@ -103,6 +103,11 @@ V["sle"] = {
 				["microbarbuttons"] = false,
 				["petbarbuttons"] = false,
 			},
+			["minimap"] = false,
+			["chat"] = {
+				["left"] = false,
+				["right"] = false,
+			},
 		},
 	},
 	
