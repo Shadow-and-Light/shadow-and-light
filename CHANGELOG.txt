@@ -2,6 +2,7 @@ v3.33
 Additions:
 - Added an option to set a quest log state based on being in combat
 - Added an option for dead indicator for party/raid/raid40 frames
+- Enhanced shadows are now supporting minimap (with data panels if enabled) and chat panels
 Fixes:
 - Transparent bag slots now aknowlages reagent bank as a bag
 - Fixed errors on removing gold data for character
