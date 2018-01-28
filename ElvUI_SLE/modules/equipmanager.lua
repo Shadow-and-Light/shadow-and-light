@@ -112,6 +112,9 @@ EM.TagsTable = {
 			return false;
 		end
 	end,
+	["NoCondition"] = function()
+		return true	
+	end,
 }
 
 function EM:ConditionTable(option)
@@ -141,40 +144,44 @@ function EM:TagsProcess(msg)
 	end
 	for i = 1, #EM.SetData do
 		local Conditions = EM.SetData[i]
-		for index = 1, #Conditions.options do
-			local condition = Conditions.options[index]
-			local cnd_table = { (","):split(condition) }
-			local parsed_cmds = {};
-			for j = 1, #cnd_table do
-				local cnd = cnd_table[j];
-				if cnd then
-					local command, argument = (":"):split(cnd)
-					local argTable = {}
-					if argument and T.find(argument, "%.") then
-						SLE:ErrorPrint(L["SLE_EM_TAG_DOT_WARNING"])
-					else
-						if argument and ("/"):split(argument) then
-							local put
-							while argument and ("/"):split(argument) do
-								put, argument = ("/"):split(argument)
-								T.tinsert(argTable, put)
+		if #Conditions.options == 0 then
+			Conditions.options[1] = {cmds = {{cmd = "NoCondition", arg = {}}}}
+		else
+			for index = 1, #Conditions.options do
+				local condition = Conditions.options[index]
+				local cnd_table = { (","):split(condition) }
+				local parsed_cmds = {};
+				for j = 1, #cnd_table do
+					local cnd = cnd_table[j];
+					if cnd then
+						local command, argument = (":"):split(cnd)
+						local argTable = {}
+						if argument and T.find(argument, "%.") then
+							SLE:ErrorPrint(L["SLE_EM_TAG_DOT_WARNING"])
+						else
+							if argument and ("/"):split(argument) then
+								local put
+								while argument and ("/"):split(argument) do
+									put, argument = ("/"):split(argument)
+									T.tinsert(argTable, put)
+								end
+							else
+								T.tinsert(argTable, argument)
 							end
-						else
-							T.tinsert(argTable, argument)
-						end
-						
-						local tag = command:match("^%s*(.+)%s*$")
-						if EM.TagsTable[tag] then
-							T.tinsert(parsed_cmds, { cmd = command:match("^%s*(.+)%s*$"), arg = argTable })
-						else
-							SLE:ErrorPrint(T.format(L["SLE_EM_TAG_INVALID"], tag))
-							T.twipe(EM.SetData)
-							return
+							
+							local tag = command:match("^%s*(.+)%s*$")
+							if EM.TagsTable[tag] then
+								T.tinsert(parsed_cmds, { cmd = command:match("^%s*(.+)%s*$"), arg = argTable })
+							else
+								SLE:ErrorPrint(T.format(L["SLE_EM_TAG_INVALID"], tag))
+								T.twipe(EM.SetData)
+								return
+							end
 						end
 					end
 				end
+				Conditions.options[index] = {cmds = parsed_cmds}
 			end
-			Conditions.options[index] = {cmds = parsed_cmds}
 		end
 	end
 end
@@ -192,6 +199,7 @@ function EM:TagsConditionsCheck(data)
 					return nil
 				end
 				local arg = conditionInfo["arg"]
+				local arg1, arg2, arg3 = T.unpack(arg)
 				local result = EM.TagsTable[func](T.unpack(arg))
 				if result then 
 					matches = matches + 1
@@ -207,6 +215,7 @@ end
 
 local function Equip(event)
 	if EM.Processing or EM.lock then return end
+	if event == "PLAYER_ENTERING_WORLD" then EM:UnregisterEvent(event) end
 	if event == "ZONE_CHANGED" and EM.db.onlyTalent then return end
 	EM.Processing = true
 	local inCombat = false
@@ -287,6 +296,7 @@ function EM:Initialize()
 	if not SLE.initialized then return end
 	if not EM.db.enable then return end
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", Equip)
+	self:RegisterEvent("LOADING_SCREEN_DISABLED", Equip)
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", Equip)
 	self:RegisterEvent("ZONE_CHANGED", Equip)
 
