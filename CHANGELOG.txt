@@ -8,7 +8,7 @@ Fixes:
 Misc:
 - Illusions are back to armory inspect.
 - Accounted for yet another realm id being changed
-
+- Eqiup manager now understands no conditions sets. E.g. "[instance] Set1; Set2" will equip Set1 while in dungeon and Set2 in any other situation.
 v3.32 01/23/18
 Additions:
 - Added overlay option for armory inspect
