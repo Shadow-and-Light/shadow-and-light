@@ -3,9 +3,9 @@ local SUF = SLE:GetModule("UnitFrames")
 
 SUF.DeadTextures = {
 	["SKULL"] = [[Interface\LootFrame\LootPanel-Icon]],
-	["SKULL1"] = [[Interface\\AddOns\\ElvUI_SLE\\media\\textures\\SKULL]],
-	["SKULL2"] = [[Interface\\AddOns\\ElvUI_SLE\\media\\textures\\SKULL1]],
-	["SKULL3"] = [[Interface\\AddOns\\ElvUI_SLE\\media\\textures\\SKULL2]],
+	["SKULL1"] = [[Interface\AddOns\ElvUI_SLE\media\textures\SKULL]],
+	["SKULL2"] = [[Interface\AddOns\ElvUI_SLE\media\textures\SKULL1]],
+	["SKULL3"] = [[Interface\AddOns\ElvUI_SLE\media\textures\SKULL2]],
 }
 
 function SUF:Construct_Dead(frame, group)
