@@ -135,6 +135,7 @@ function EM:ConditionTable(option)
 end
 
 function EM:TagsProcess(msg)
+	if msg == "" then return end
 	T.twipe(EM.SetData)
 	local split_msg = { (";"):split(msg) }
 
