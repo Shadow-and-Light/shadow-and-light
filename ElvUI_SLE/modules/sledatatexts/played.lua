@@ -130,7 +130,7 @@ local OnEvent = function(self, event, ...)
 			eventRequesting = false
 		end
 	end
-	if event == 'PLAYER_ENTERING_WORLD' then
+	if event == 'LOADING_SCREEN_DISABLED' then
 		self:UnregisterEvent(event)
 		if not T.IsAddOnLoaded('DataStore_Characters') and not eventRequesting then
 			eventRequesting = true
@@ -163,4 +163,4 @@ local OnMouseDown = function(self, button)
 		end
 	end
 end
-DT:RegisterDatatext('S&L Time Played', {'TIME_PLAYED_MSG', 'PLAYER_LEVEL_UP', 'PLAYER_ENTERING_WORLD' , 'PLAYER_LOGOUT'}, OnEvent, OnUpdate, OnMouseDown, OnEnter, OnLeave)
+DT:RegisterDatatext('S&L Time Played', {'TIME_PLAYED_MSG', 'PLAYER_LEVEL_UP', 'LOADING_SCREEN_DISABLED' , 'PLAYER_LOGOUT'}, OnEvent, OnUpdate, OnMouseDown, OnEnter, OnLeave)

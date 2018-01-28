@@ -235,7 +235,7 @@ function CA:Setup_CharacterArmory()
 	--<< Updater >>--
 	local args
 	self:SetScript('OnEvent', function(self, Event, ...)
-		if Event == 'SOCKET_INFO_SUCCESS' or Event == 'ITEM_UPGRADE_MASTER_UPDATE' or Event == 'TRANSMOGRIFY_SUCCESS' or Event == 'PLAYER_ENTERING_WORLD' then
+		if Event == 'SOCKET_INFO_SUCCESS' or Event == 'ITEM_UPGRADE_MASTER_UPDATE' or Event == 'TRANSMOGRIFY_SUCCESS' or Event == 'LOADING_SCREEN_DISABLED' then
 
 			self.GearUpdated = nil
 			self:SetScript('OnUpdate', self.ScanData)
@@ -512,7 +512,7 @@ function CA:Setup_CharacterArmory()
 		self.ArtifactMonitor:SetScript('OnEvent', function(_, Event)
 			if Event == 'ARTIFACT_UPDATE' or Event == 'ARTIFACT_XP_UPDATE' then
 				self.ArtifactMonitor.UpdateData = nil
-			elseif Event == 'BAG_UPDATE' or Event == 'PLAYER_ENTERING_WORLD' then
+			elseif Event == 'BAG_UPDATE' or Event == 'LOADING_SCREEN_DISABLED' then
 				self.ArtifactMonitor.SearchPowerItem = nil
 			end
 		end)
@@ -1590,12 +1590,12 @@ KF.Modules.CharacterArmory = function()
 		CA:RegisterEvent('TRANSMOGRIFY_SUCCESS')
 		CA:RegisterEvent('COMBAT_LOG_EVENT_UNFILTERED')
 		CA:RegisterEvent('UPDATE_INVENTORY_DURABILITY')
-		CA:RegisterEvent('PLAYER_ENTERING_WORLD')
+		CA:RegisterEvent('LOADING_SCREEN_DISABLED')
 		if CA.ArtifactMonitor then
 			CA.ArtifactMonitor:RegisterEvent('ARTIFACT_UPDATE')
 			CA.ArtifactMonitor:RegisterEvent('ARTIFACT_XP_UPDATE')
 			CA.ArtifactMonitor:RegisterEvent('BAG_UPDATE')
-			CA.ArtifactMonitor:RegisterEvent('PLAYER_ENTERING_WORLD')
+			CA.ArtifactMonitor:RegisterEvent('LOADING_SCREEN_DISABLED')
 		end
 		
 		--[[

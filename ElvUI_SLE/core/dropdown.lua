@@ -177,7 +177,8 @@ function DD:GetCooldown(CDtype, id)
 	return nil
 end
 
-function DD:HideMenus()
+function DD:HideMenus(event)
+	if event == "PLAYER_ENTERING_WORLD" then self:UnregisterEvent(event) end
 	for name, menu in T.pairs(DD.RegisteredMenus) do
 		menu:Hide()
 	end
@@ -194,6 +195,7 @@ end
 
 function DD:Initialize()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "HideMenus")
+	self:RegisterEvent("LOADING_SCREEN_DISABLED", "HideMenus")
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "HideMenus")
 end
 

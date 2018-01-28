@@ -34,4 +34,4 @@ local function ValueColorUpdate(hex, r, g, b)
 end
 E["valueColorUpdateFuncs"][ValueColorUpdate] = true
 
-DT:RegisterDatatext("Version", {'PLAYER_ENTERING_WORLD'}, OnEvent, Update, Click, OnEnter)
+DT:RegisterDatatext("Version", {'LOADING_SCREEN_DISABLED'}, OnEvent, Update, Click, OnEnter)
