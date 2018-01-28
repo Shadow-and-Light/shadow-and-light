@@ -199,7 +199,6 @@ function EM:TagsConditionsCheck(data)
 					return nil
 				end
 				local arg = conditionInfo["arg"]
-				local arg1, arg2, arg3 = T.unpack(arg)
 				local result = EM.TagsTable[func](T.unpack(arg))
 				if result then 
 					matches = matches + 1
