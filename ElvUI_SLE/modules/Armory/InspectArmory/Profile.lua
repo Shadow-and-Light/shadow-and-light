@@ -22,7 +22,8 @@ P.sle.Armory.Inspect = {
 	Gradation = {
 		Display = true,
 		Color = { .41, .83, 1 },
-		CurrentClassColor = false
+		CurrentClassColor = false,
+		ItemQuality = false,
 	},
 	
 	Level = {
@@ -30,7 +31,8 @@ P.sle.Armory.Inspect = {
 		ShowUpgradeLevel = false,
 		Font = "PT Sans Narrow",
 		FontSize = 10,
-		FontStyle = "OUTLINE"
+		FontStyle = "OUTLINE",
+		ItemColor = false,
 	},
 	
 	Enchant = {

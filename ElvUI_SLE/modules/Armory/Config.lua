@@ -894,6 +894,15 @@ local function LoadArmoryConfigTable()
 							end,
 							disabled = function() return E.db.sle.Armory.Inspect.Enable == false or E.db.sle.Armory.Inspect.Gradation.Display == false or E.db.sle.Armory.Inspect.Gradation.CurrentClassColor == true end
 						},
+						ItemQuality = {
+							type = 'toggle',
+							name = COLORBLIND_ITEM_QUALITY,
+							order = 4,
+							get = function() return E.db.sle.Armory.Inspect.Gradation.ItemQuality end,
+							set = function(_, value) E.db.sle.Armory.Inspect.Gradation.ItemQuality = value; end,
+							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end
+						}
+
 					}
 				},
 				Level = {
@@ -958,7 +967,15 @@ local function LoadArmoryConfigTable()
 							order = 6,
 							values = FontStyleList,
 							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end
-						}
+						},
+						ItemColor = {
+							type = 'toggle',
+							name = L["Item Level Coloring"],
+							order = 7,
+							get = function(info) return E.db.sle.Armory.Inspect.Level.ItemColor end,
+							set = function(_, value) E.db.sle.Armory.Inspect.Level.ItemColor = value; end,
+							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end
+						},
 					}
 				},
 				Enchant = {

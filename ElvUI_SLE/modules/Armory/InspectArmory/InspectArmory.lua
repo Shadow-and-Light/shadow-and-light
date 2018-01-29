@@ -2283,6 +2283,13 @@ function IA:InspectFrame_DataSetting(DataTable)
 					NeedUpdateList[#NeedUpdateList + 1] = SlotName
 				end
 			end
+			if Slot.Gradation.ItemLevel then
+				if E.db.sle.Armory.Inspect.Level.ItemColor then
+					Slot.Gradation.ItemLevel:SetTextColor(R,G,B)
+				else
+					Slot.Gradation.ItemLevel:SetTextColor(1,1,1)
+				end
+			end
 			Slot.Texture:SetTexture(Slot.ItemTexture or Slot.EmptyTexture)
 			
 			-- Change Gradation
@@ -2295,6 +2302,8 @@ function IA:InspectFrame_DataSetting(DataTable)
 			if ErrorDetected and E.db.sle.Armory.Inspect.NoticeMissing then
 				Slot.Gradation.Texture:SetVertexColor(1, 0, 0)
 				Slot.Gradation.Texture:Show()
+			elseif Slot.Link and E.db.sle.Armory.Inspect.Gradation.ItemQuality then
+				Slot.Gradation.Texture:SetVertexColor(R, G, B)
 			elseif E.db.sle.Armory.Inspect.Gradation.CurrentClassColor then
 				curR, curG, curB = RAID_CLASS_COLORS[IA.CurrentInspectData.Class].r, RAID_CLASS_COLORS[IA.CurrentInspectData.Class].g, RAID_CLASS_COLORS[IA.CurrentInspectData.Class].b
 				Slot.Gradation.Texture:SetVertexColor(curR, curG, curB)
