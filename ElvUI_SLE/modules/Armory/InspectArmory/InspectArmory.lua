@@ -328,7 +328,6 @@ do --<< Button Script >>--
 	end
 end
 
-
 function IA:ChangePage(Type)
 	for PageType in T.pairs(self.PageList) do
 		if self[PageType] then
@@ -359,7 +358,6 @@ function IA:ChangePage(Type)
 	
 	self:DisplayMessage(Type)
 end
-
 
 function IA:DisplayMessage(Type)
 	if self[Type].Message then
@@ -430,7 +428,7 @@ function IA:CreateInspectFrame()
 		self.DisplayUpdater:SetScript('OnShow', function() if Info.InspectArmory_Activate then  self:Update_Display(true) end end)
 		self.DisplayUpdater:SetScript('OnUpdate', function() if Info.InspectArmory_Activate then  self:Update_Display() end end)
 	end
-	
+
 	do --<< Tab >>--
 		self.Tab = CreateFrame('Frame', nil, self)
 		self.Tab:Point('TOPLEFT', self, SPACING, -SPACING)
@@ -439,7 +437,7 @@ function IA:CreateInspectFrame()
 		self.Tab:SetScript('OnMouseDown', function() self:StartMoving() end)
 		self.Tab:SetScript('OnMouseUp', function() self:StopMovingOrSizing() end)
 	end
-	
+
 	do --<< Close Button >>--
 		self.Close = CreateFrame('Button', nil, self.Tab)
 		self.Close:Size(TAB_HEIGHT - 8)
@@ -452,28 +450,28 @@ function IA:CreateInspectFrame()
 		self.Close:SetScript('OnClick', function() HideUIPanel(self) end)
 		self.Close.ButtonString = 'X'
 	end
-	
+
 	do --<< Bottom Panel >>--
 		self.BP = CreateFrame('Frame', nil, self)
 		self.BP:Point('TOPLEFT', self, 'BOTTOMLEFT', SPACING, SPACING + TAB_HEIGHT)
 		self.BP:Point('BOTTOMRIGHT', self, -SPACING, SPACING)
 		self.BP:SetFrameLevel(CORE_FRAME_LEVEL + 2)
-		
+
 		self.MessageFrame = CreateFrame('ScrollFrame', nil, self.BP)
 		self.MessageFrame:Point('TOPLEFT', self.BP, SPACING * 2 + TAB_HEIGHT, 0)
 		self.MessageFrame:Point('BOTTOMRIGHT', self.BP, -10, 1)
 		self.MessageFrame.UpdateInterval = 3
 		self.MessageFrame.ScrollSpeed = 1
-		
+
 		local PageWidth
 		local VisibleWidth
 		self.MessageFrame:SetScript('OnUpdate', function(self, Elapsed)
 			PageWidth = self.Page:GetWidth()
 			VisibleWidth = self:GetWidth()
-			
+
 			if PageWidth > VisibleWidth then
 				self.UpdatedTime = (self.UpdatedTime or -self.UpdateInterval) + Elapsed
-				
+
 				if self.UpdatedTime > 0 then
 					if self.Offset then
 						self.Offset = self.Offset - self.ScrollSpeed
@@ -481,7 +479,7 @@ function IA:CreateInspectFrame()
 						self.UpdatedTime = nil
 						self.Offset = 0
 					end
-					
+
 					self.Page:ClearAllPoints()
 					if self.Offset < VisibleWidth - PageWidth then
 						self.UpdatedTime = -self.UpdateInterval - 2
@@ -495,25 +493,25 @@ function IA:CreateInspectFrame()
 				end
 			end
 		end)
-		
+
 		self.MessageFrame.Icon = self.MessageFrame:CreateTexture(nil, 'OVERLAY')
 		self.MessageFrame.Icon:Size(TAB_HEIGHT)
 		self.MessageFrame.Icon:Point('TOPLEFT', self.BP, 'TOPLEFT', SPACING * 2, -1)
 		self.MessageFrame.Icon:SetTexture('Interface\\HELPFRAME\\HelpIcon-ReportAbuse')
-		
+
 		self.MessageFrame.Page = CreateFrame('Frame', nil, self.MessageFrame)
 		self.MessageFrame:SetScrollChild(self.MessageFrame.Page)
 		self.MessageFrame.Page:Point('TOPLEFT', self.MessageFrame)
 		self.MessageFrame.Page:Point('BOTTOMLEFT', self.MessageFrame)
 		KF:TextSetting(self.MessageFrame.Page, '', { FontSize = 10, FontStyle = 'OUTLINE', directionH = 'LEFT' }, 'LEFT', self.MessageFrame.Page)
-		
+
 		self.Message = self.MessageFrame.Page.text
 	end
-	
+
 	do --<< Buttons >>--
 		for ButtonName, ButtonString in T.pairs(self.PageList) do
 			ButtonName = ButtonName..'Button'
-			
+
 			self[ButtonName] = CreateFrame('Button', nil, self.BP)
 			self[ButtonName]:Size(70, 20)
 			self[ButtonName]:SetTemplate('Transparent')
@@ -528,7 +526,7 @@ function IA:CreateInspectFrame()
 		self.InfoButton:Point('TOPLEFT', self.CharacterButton, 'TOPRIGHT', SPACING, 0)
 		self.SpecButton:Point('TOPLEFT', self.InfoButton, 'TOPRIGHT', SPACING, 0)
 	end
-	
+
 	do --<< Bookmark Star >>--
 		self.Bookmark = CreateFrame('CheckButton', nil, self)
 		self.Bookmark:Size(24)
@@ -551,15 +549,27 @@ function IA:CreateInspectFrame()
 		self.Bookmark:Point('LEFT', self.Tab, 'BOTTOMLEFT', 7, -34)
 		self.Bookmark:Hide()
 	end
-	
+
 	do --<< Texts >>--
-		KF:TextSetting(self, nil, { Tag = 'Name', FontSize = 22, FontStyle = 'OUTLINE', }, 'LEFT', self.Bookmark, 'RIGHT', 9, 0)
-		KF:TextSetting(self, nil, { Tag = 'Title', FontSize = 9, FontStyle = 'OUTLINE', }, 'BOTTOMLEFT', self.Name, 'TOPLEFT', 2, 5)
-		KF:TextSetting(self, nil, { Tag = 'LevelRace', FontSize = 10, directionH = 'LEFT', }, 'BOTTOMLEFT', self.Name, 'BOTTOMRIGHT', 5, 2)
-		KF:TextSetting(self, nil, { Tag = 'Guild', FontSize = 10, directionH = 'LEFT', }, 'TOPLEFT', self.Name, 'BOTTOMLEFT', 4, -5)
+		KF:TextSetting(self, nil, { Tag = 'Name', Font = E.db.sle.Armory.Inspect.Name.Font,
+					FontSize = E.db.sle.Armory.Inspect.Name.FontSize,
+					FontStyle = E.db.sle.Armory.Inspect.Name.FontStyle },
+				'LEFT', self.Bookmark, 'RIGHT', 9, 0)
+		KF:TextSetting(self, nil, { Tag = 'Title', Font = E.db.sle.Armory.Inspect.Title.Font,
+					FontSize = E.db.sle.Armory.Inspect.Title.FontSize,
+					FontStyle = E.db.sle.Armory.Inspect.Title.FontStyle },
+				'BOTTOMLEFT', self.Name, 'TOPLEFT', 2, 5)
+		KF:TextSetting(self, nil, { Tag = 'LevelRace', Font = E.db.sle.Armory.Inspect.LevelRace.Font,
+					FontSize = E.db.sle.Armory.Inspect.LevelRace.FontSize,
+					FontStyle = E.db.sle.Armory.Inspect.LevelRace.FontStyle },
+				'BOTTOMLEFT', self.Name, 'BOTTOMRIGHT', 5, 2)
+		KF:TextSetting(self, nil, { Tag = 'Guild', Font = E.db.sle.Armory.Inspect.Guild.Font,
+					FontSize = E.db.sle.Armory.Inspect.Guild.FontSize,
+					FontStyle = E.db.sle.Armory.Inspect.Guild.FontStyle },
+				'TOPLEFT', self.Name, 'BOTTOMLEFT', 4, -5)
 		self.Guild:Point('RIGHT', self, -44, 0)
 	end
-	
+
 	do --<< Class, Specialization Icon >>--
 		for _, FrameName in T.pairs({ 'SpecIcon', 'ClassIcon', }) do
 			self[FrameName..'Slot'] = CreateFrame('Frame', nil, self)
@@ -621,7 +631,7 @@ function IA:CreateInspectFrame()
 		self.Model:SetLight(true, false, 0, 0, 0, 1, 1.0, 1.0, 1.0)
 		self.Model:SetScript('OnMouseDown', function(self, button)
 			self.StartX, self.StartY = T.GetCursorPosition()
-			
+
 			local EndX, EndY, Z, X, Y
 			if button == 'LeftButton' then
 				IA.Model:SetScript('OnUpdate', function(self)
@@ -655,10 +665,10 @@ function IA:CreateInspectFrame()
 			self:SetPosition(Z, X, Y)
 		end)
 	end
-	
+
 	do --<< Equipment Slots >>--
 		self.Character = CreateFrame('Frame', nil, self)
-		
+
 		local Slot
 		for i, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 			-- Slot
@@ -671,7 +681,7 @@ function IA:CreateInspectFrame()
 			Slot:SetScript('OnLeave', self.OnLeave)
 			Slot:SetScript('OnClick', self.OnClick)
 			KF:TextSetting(Slot, '', { FontSize = 12, FontStyle = 'OUTLINE' })
-			
+
 			Slot.SlotName = SlotName
 			Slot.Direction = i%2 == 1 and 'LEFT' or 'RIGHT'
 			Slot.ID, Slot.EmptyTexture = T.GetInventorySlotInfo(SlotName)
@@ -687,7 +697,11 @@ function IA:CreateInspectFrame()
 			Slot:SetHighlightTexture(Slot.Highlight)
 
 			if not (SlotName == 'MainHandSlot' or SlotName == 'SecondaryHandSlot') then
-				KF:TextSetting(Slot, nil, { Tag = 'ItemLevel', FontSize = 10, FontStyle = 'OUTLINE', }, 'TOP', Slot, 0, -3)
+				KF:TextSetting(Slot, nil, { Tag = 'ItemLevel',
+					Font = E.db.sle.Armory.Inspect.Level.Font,
+					FontSize = E.db.sle.Armory.Inspect.Level.FontSize,
+					FontStyle = E.db.sle.Armory.Inspect.Level.FontStyle,
+				}, 'TOP', Slot, 0, -3)
 			end
 
 			-- Gradation
@@ -728,7 +742,7 @@ function IA:CreateInspectFrame()
 					FontStyle = E.db.sle.Armory.Inspect.Enchant.FontStyle,
 					directionH = Slot.Direction
 				}, Slot.Direction, Slot, Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 2 or -2, 1)
-				
+
 				if E.db.sle.Armory.Inspect.Enchant.Display == 'Hide' then
 					Slot.Gradation.ItemEnchant:Hide()
 				end
@@ -755,7 +769,7 @@ function IA:CreateInspectFrame()
 					Slot['Socket'..i]:SetBackdropColor(0, 0, 0, 1)
 					Slot['Socket'..i]:SetBackdropBorderColor(0, 0, 0)
 					Slot['Socket'..i]:SetFrameLevel(CORE_FRAME_LEVEL + 3)
-					
+
 					Slot['Socket'..i].Socket = CreateFrame('Button', nil, Slot['Socket'..i])
 					Slot['Socket'..i].Socket:SetBackdrop({
 						bgFile = E.media.blankTex,
@@ -768,7 +782,7 @@ function IA:CreateInspectFrame()
 					Slot['Socket'..i].Socket:SetScript('OnEnter', self.OnEnter)
 					Slot['Socket'..i].Socket:SetScript('OnLeave', self.OnLeave)
 					Slot['Socket'..i].Socket:SetScript('OnClick', self.GemSocket_OnClick)
-					
+
 					Slot['Socket'..i].Texture = Slot['Socket'..i].Socket:CreateTexture(nil, 'OVERLAY')
 					Slot['Socket'..i].Texture:SetTexCoord(.1, .9, .1, .9)
 					Slot['Socket'..i].Texture:SetInside()
@@ -793,12 +807,12 @@ function IA:CreateInspectFrame()
 					Slot.TransmogrifyAnchor:SetScript('OnEnter', self.Transmogrify_OnEnter)
 					Slot.TransmogrifyAnchor:SetScript('OnLeave', self.Transmogrify_OnLeave)
 					Slot.TransmogrifyAnchor:SetScript('OnClick', self.Transmogrify_OnClick)
-					
+
 					Slot.TransmogrifyAnchor.Texture = Slot.TransmogrifyAnchor:CreateTexture(nil, 'OVERLAY')
 					Slot.TransmogrifyAnchor.Texture:SetInside()
 					Slot.TransmogrifyAnchor.Texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\modules\\Armory\\Media\\Textures\\Anchor')
 					Slot.TransmogrifyAnchor.Texture:SetVertexColor(1, .5, 1)
-					
+
 					if Slot.Direction == 'LEFT' then
 						Slot.TransmogrifyAnchor.Texture:SetTexCoord(0, 1, 0, 1)
 					else
@@ -827,10 +841,10 @@ function IA:CreateInspectFrame()
 					Slot.IllusionAnchor:Hide()
 				end
 			end
-			
+
 			self[SlotName] = Slot
 		end
-		
+
 		-- Slot Location : Left
 		self.HeadSlot:Point('BOTTOMLEFT', self.NeckSlot, 'TOPLEFT', 0, SPACING)
 		self.NeckSlot:Point('BOTTOMLEFT', self.ShoulderSlot, 'TOPLEFT', 0, SPACING)
@@ -855,30 +869,34 @@ function IA:CreateInspectFrame()
 
 		self.MainHandSlot:Point('BOTTOMRIGHT', self.BP, 'TOP', -2, SPACING)
 		self.SecondaryHandSlot:Point('BOTTOMLEFT', self.BP, 'TOP', 2, SPACING)
-		
+
 		-- ItemLevel
-		KF:TextSetting(self.Character, nil, { Tag = 'AverageItemLevel', FontSize = 12 }, 'TOP', self.Model)
+		KF:TextSetting(self.Character, nil, { Tag = 'AverageItemLevel',
+			Font = E.db.sle.Armory.Inspect.Level.Font,
+			FontSize = E.db.sle.Armory.Inspect.Level.FontSize,
+			FontStyle = E.db.sle.Armory.Inspect.Level.FontStyle, },
+		'TOP', self.Model)
 	end
-	
+
 	do --<< Backdrop >>--
 		self.BG = self:CreateTexture(nil, 'OVERLAY')
 		self.BG:Point('TOPLEFT', self.Tab, 'BOTTOMLEFT', 0, -38)
 		self.BG:Point('BOTTOMRIGHT', self.BP, 'TOPRIGHT')
 	end
-	
+
 	do --<< Overlay >>--
 		self.BGOverlay = self:CreateTexture(nil, 'OVERLAY')
 		self.BGOverlay:SetAllPoints(self.BG)
 		self.BGOverlay:SetColorTexture(0,0,0, E.db.sle.Armory.Inspect.Backdrop.OverlayAlpha)
 		self.BGOverlay:SetDrawLayer("OVERLAY", 1)
 	end
-	
+
 	do --<< Information Page >>--
 		self.Info = CreateFrame('ScrollFrame', nil, self)
 		self.Info:SetFrameLevel(CORE_FRAME_LEVEL + 20)
 		self.Info:EnableMouseWheel(1)
 		self.Info:SetScript('OnMouseWheel', self.ScrollFrame_OnMouseWheel)
-		
+
 		self.Info.BG = CreateFrame('Frame', nil, self.Info)
 		self.Info.BG:SetFrameLevel(CORE_FRAME_LEVEL + 10)
 		self.Info.BG:Point('TOPLEFT', self.HeadSlot, 'TOPRIGHT', SPACING, 0)
@@ -891,16 +909,16 @@ function IA:CreateInspectFrame()
 			insets = { left = 0, right = 0, top = 0, bottom = 0}
 		})
 		self.Info.BG:SetBackdropColor(0, 0, 0, .7)
-		
+
 		self.Info:Point('TOPLEFT', self.Info.BG, 4, -4)
 		self.Info:Point('BOTTOMRIGHT', self.Info.BG, -4, 7)
-		
+
 		self.Info.Page = CreateFrame('Frame', nil, self.Info)
 		self.Info:SetScrollChild(self.Info.Page)
 		self.Info.Page:SetFrameLevel(CORE_FRAME_LEVEL + 11)
 		self.Info.Page:Point('TOPLEFT', self.Info, 0, 2)
 		self.Info.Page:Point('TOPRIGHT', self.Info, 0, 2)
-		
+
 		for _, CategoryType in T.pairs(IA.InfoPageCategoryList) do
 			self.Info[CategoryType] = CreateFrame('ScrollFrame', nil, self.Info.Page)
 			self.Info[CategoryType]:SetFrameLevel(CORE_FRAME_LEVEL + 12)
@@ -915,7 +933,7 @@ function IA:CreateInspectFrame()
 			self.Info[CategoryType]:Point('LEFT', self.Info.Page)
 			self.Info[CategoryType]:Point('RIGHT', self.Info.Page)
 			self.Info[CategoryType]:Height(INFO_TAB_SIZE + SPACING * 2)
-			
+
 			self.Info[CategoryType].IconSlot = CreateFrame('Frame', nil, self.Info[CategoryType])
 			self.Info[CategoryType].IconSlot:Size(INFO_TAB_SIZE)
 			self.Info[CategoryType].IconSlot:SetBackdrop({
@@ -928,7 +946,7 @@ function IA:CreateInspectFrame()
 			self.Info[CategoryType].Icon = self.Info[CategoryType].IconSlot:CreateTexture(nil, 'OVERLAY')
 			self.Info[CategoryType].Icon:SetTexCoord(T.unpack(E.TexCoords))
 			self.Info[CategoryType].Icon:SetInside()
-			
+
 			self.Info[CategoryType].Tab = CreateFrame('Frame', nil, self.Info[CategoryType])
 			self.Info[CategoryType].Tab:Point('TOPLEFT', self.Info[CategoryType].IconSlot, 'TOPRIGHT', 1, 0)
 			self.Info[CategoryType].Tab:Point('BOTTOMRIGHT', self.Info[CategoryType], 'TOPRIGHT', -SPACING, -(SPACING + INFO_TAB_SIZE))
@@ -938,25 +956,25 @@ function IA:CreateInspectFrame()
 				tile = false, tileSize = 0, edgeSize = E.mult,
 				insets = { left = 0, right = 0, top = 0, bottom = 0}
 			})
-			
+
 			self.Info[CategoryType].Tooltip = CreateFrame('Button', nil, self.Info[CategoryType])
 			self.Info[CategoryType].Tooltip:Point('TOPLEFT', self.Info[CategoryType].Icon)
 			self.Info[CategoryType].Tooltip:Point('BOTTOMRIGHT', self.Info[CategoryType].Tab)
 			self.Info[CategoryType].Tooltip:SetFrameLevel(CORE_FRAME_LEVEL + 19)
 			self.Info[CategoryType].Tooltip:SetScript('OnClick', IA.Category_OnClick)
-			
+
 			self.Info[CategoryType].Page = CreateFrame('Frame', nil, self.Info[CategoryType])
 			self.Info[CategoryType]:SetScrollChild(self.Info[CategoryType].Page)
 			self.Info[CategoryType].Page:SetFrameLevel(CORE_FRAME_LEVEL + 13)
 			self.Info[CategoryType].Page:Point('TOPLEFT', self.Info[CategoryType].IconSlot, 'BOTTOMLEFT', 0, -SPACING)
 			self.Info[CategoryType].Page:Point('BOTTOMRIGHT', self.Info[CategoryType], -SPACING, SPACING)
 		end
-		
+
 		do -- Profession Part
 			KF:TextSetting(self.Info.Profession.Tab, TRADE_SKILLS, { FontSize = 10 }, 'LEFT', 6, 1)
 			self.Info.Profession.CategoryHeight = INFO_TAB_SIZE + 34 + SPACING * 3
 			self.Info.Profession.Icon:SetTexture('Interface\\Icons\\Trade_BlackSmithing')
-			
+
 			for i = 1, 2 do
 				self.Info.Profession['Prof'..i] = CreateFrame('Frame', nil, self.Info.Profession.Page)
 				self.Info.Profession['Prof'..i]:Size(20)
@@ -967,11 +985,11 @@ function IA:CreateInspectFrame()
 					insets = { left = 0, right = 0, top = 0, bottom = 0}
 				})
 				self.Info.Profession['Prof'..i]:SetBackdropBorderColor(0, 0, 0)
-				
+
 				self.Info.Profession['Prof'..i].Icon = self.Info.Profession['Prof'..i]:CreateTexture(nil, 'OVERLAY')
 				self.Info.Profession["Prof"..i].Icon:SetTexCoord(T.unpack(E.TexCoords))
 				self.Info.Profession['Prof'..i].Icon:SetInside()
-				
+
 				self.Info.Profession['Prof'..i].BarFrame = CreateFrame('Frame', nil, self.Info.Profession['Prof'..i])
 				self.Info.Profession['Prof'..i].BarFrame:Size(136, 5)
 				self.Info.Profession['Prof'..i].BarFrame:SetBackdrop({
@@ -983,64 +1001,68 @@ function IA:CreateInspectFrame()
 				self.Info.Profession['Prof'..i].BarFrame:SetBackdropColor(0, 0, 0)
 				self.Info.Profession['Prof'..i].BarFrame:SetBackdropBorderColor(0, 0, 0)
 				self.Info.Profession['Prof'..i].BarFrame:Point('BOTTOMLEFT', self.Info.Profession['Prof'..i], 'BOTTOMRIGHT', SPACING, 0)
-				
+
 				self.Info.Profession['Prof'..i].Bar = CreateFrame('StatusBar', nil, self.Info.Profession['Prof'..i].BarFrame)
 				self.Info.Profession['Prof'..i].Bar:SetInside()
 				self.Info.Profession['Prof'..i].Bar:SetStatusBarTexture(E.media.normTex)
 				self.Info.Profession['Prof'..i].Bar:SetMinMaxValues(0, 800)
-				
+
 				KF:TextSetting(self.Info.Profession['Prof'..i], nil, { Tag = 'Level', FontSize = 10 }, 'TOP', self.Info.Profession['Prof'..i].Icon)
 				self.Info.Profession['Prof'..i].Level:Point('RIGHT', self.Info.Profession['Prof'..i].Bar)
-				
+
 				KF:TextSetting(self.Info.Profession['Prof'..i], nil, { Tag = 'Name', FontSize = 10, directionH = 'LEFT' }, 'TOP', self.Info.Profession['Prof'..i].Icon)
 				self.Info.Profession['Prof'..i].Name:Point('LEFT', self.Info.Profession['Prof'..i].Bar)
 				self.Info.Profession['Prof'..i].Name:Point('RIGHT', self.Info.Profession['Prof'..i].Level, 'LEFT', -SPACING, 0)
 			end
-			
+
 			self.Info.Profession.Prof1:Point('TOPLEFT', self.Info.Profession.Page, 6, -7)
 			self.Info.Profession.Prof2:Point('TOPLEFT', self.Info.Profession.Page, 'TOP', 6, -7)
 		end
-		
+
 		do -- PvP Category
-			KF:TextSetting(self.Info.PvP.Tab, PVP, { FontSize = 10 }, 'LEFT', 6, 1)
+			KF:TextSetting(self.Info.PvP.Tab, PVP, { Font = E.db.sle.Armory.Inspect.infoTabs.Font,
+					FontSize = E.db.sle.Armory.Inspect.infoTabs.FontSize,
+					FontStyle = E.db.sle.Armory.Inspect.infoTabs.FontStyle }, 'LEFT', 6, 1)
 			self.Info.PvP.CategoryHeight = 182
 			self.Info.PvP.Icon:SetTexture('Interface\\Icons\\achievement_bg_killxenemies_generalsroom')
-			
+
 			self.Info.PvP.Mark = CreateFrame('ScrollFrame', nil, self.Info.PvP.Page)
 			self.Info.PvP.Mark:SetFrameLevel(CORE_FRAME_LEVEL + 11)
 			self.Info.PvP.Mark:SetHeight(82)
 			self.Info.PvP.Mark:Point('TOPLEFT', self.Info.PvP.Icon, 'BOTTOMLEFT', 0, -SPACING * 2)
 			self.Info.PvP.Mark:Point('TOPRIGHT', self.Info.PvP.Tab, 'BOTTOMRIGHT', -SPACING, -SPACING * 2)
-			
+
 			self.Info.PvP.Mark.Display = self.Info.PvP.Mark:CreateTexture(nil, 'BACKGROUND', nil, 1)
 			self.Info.PvP.Mark.Display:SetAtlas('titleprestige-title-bg')
 			self.Info.PvP.Mark.Display:SetInside()
-			
+
 			self.Info.PvP.Mark.Icon = self.Info.PvP.Mark:CreateTexture(nil, 'BACKGROUND', nil, 2)
-			
+
 			self.Info.PvP.Mark.Circle = self.Info.PvP.Mark:CreateTexture(nil, 'BACKGROUND', nil, 3)
 			self.Info.PvP.Mark.Circle:SetAtlas('Talent-RingWithDot')
 			self.Info.PvP.Mark.Circle:Size(60)
 			self.Info.PvP.Mark.Circle:Point('LEFT', self.Info.PvP.Display, 75, 8)
 			self.Info.PvP.Mark.Icon:Point('TOPLEFT', self.Info.PvP.Mark.Circle, 9, -9)
 			self.Info.PvP.Mark.Icon:Point('BOTTOMRIGHT', self.Info.PvP.Mark.Circle, -9, 9)
-			
+
 			self.Info.PvP.Mark.Wreath = self.Info.PvP.Mark:CreateTexture(nil, 'BACKGROUND', nil, 4)
 			self.Info.PvP.Mark.Wreath:SetAtlas('titleprestige-wreath')
 			self.Info.PvP.Mark.Wreath:SetBlendMode('BLEND')
 			self.Info.PvP.Mark.Wreath:Size(80, 48)
 			self.Info.PvP.Mark.Wreath:Point('BOTTOM', self.Info.PvP.Mark.Circle, 0, -10)
-			
-			KF:TextSetting(self.Info.PvP.Mark, '', { FontSize = 10, directionH = 'LEFT' }, 'LEFT', self.Info.PvP.Mark.Circle, 'RIGHT', 20, 0)
+
+			KF:TextSetting(self.Info.PvP.Mark, '', { Font = E.db.sle.Armory.Inspect.pvpText.Font,
+					FontSize = E.db.sle.Armory.Inspect.pvpText.FontSize,
+					FontStyle = E.db.sle.Armory.Inspect.pvpText.FontStyle, directionH = 'LEFT' }, 'LEFT', self.Info.PvP.Mark.Circle, 'RIGHT', 20, 0)
 			self.Info.PvP.Mark.text:Point('TOPRIGHT', self.Info.PvP.Mark.Display, -16, -2)
 			self.Info.PvP.Mark.text:Point('BOTTOMRIGHT', self.Info.PvP.Mark.Display, -16, 10)
 			self.Info.PvP.Mark.text:SetSpacing(6)
-			
+
 			for _, Type in T.pairs({ '2vs2', '3vs3', 'RB' }) do
 				self.Info.PvP[Type] = CreateFrame('Frame', nil, self.Info.PvP.Page)
 				self.Info.PvP[Type]:SetFrameLevel(CORE_FRAME_LEVEL + 15)
 				self.Info.PvP[Type]:Size(110, 60)
-				
+
 				self.Info.PvP[Type].Rank = self.Info.PvP.Page:CreateTexture(nil, 'OVERLAY')
 				self.Info.PvP[Type].Rank:SetTexture('Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-SHIELDS')
 				self.Info.PvP[Type].Rank:SetTexCoord(0, .5, 0, .5)
@@ -1060,51 +1082,69 @@ function IA:CreateInspectFrame()
 				self.Info.PvP[Type].RankNoLeaf:Point('CENTER', self.Info.PvP[Type].Rank, 0, 2)
 				self.Info.PvP[Type].RankNoLeaf:SetVertexColor(.2, .4, 1)
 				self.Info.PvP[Type].RankNoLeaf:Size(80, 65)
-				
-				KF:TextSetting(self.Info.PvP[Type], nil, { Tag = 'Type', FontSize = 10, FontStyle = 'OUTLINE' }, 'TOPLEFT', self.Info.PvP[Type])
+
+				KF:TextSetting(self.Info.PvP[Type], nil, { Tag = 'Type', Font = E.db.sle.Armory.Inspect.pvpType.Font,
+					FontSize = E.db.sle.Armory.Inspect.pvpType.FontSize,
+					FontStyle = E.db.sle.Armory.Inspect.pvpType.FontStyle },
+				'TOPLEFT', self.Info.PvP[Type])
 				self.Info.PvP[Type].Type:Point('TOPRIGHT', self.Info.PvP[Type])
 				self.Info.PvP[Type].Type:SetHeight(22)
-				KF:TextSetting(self.Info.PvP[Type], nil, { Tag = 'Rating', FontSize = 22, FontStyle = 'OUTLINE' }, 'CENTER', self.Info.PvP[Type].Rank, 0, 3)
-				KF:TextSetting(self.Info.PvP[Type], nil, { Tag = 'Record', FontSize = 10, FontStyle = 'OUTLINE' }, 'TOP', self.Info.PvP[Type].Rank, 'BOTTOM', 0, 12)
+				KF:TextSetting(self.Info.PvP[Type], nil, { Tag = 'Rating', Font = E.db.sle.Armory.Inspect.pvpRating.Font,
+					FontSize = E.db.sle.Armory.Inspect.pvpRating.FontSize,
+					FontStyle = E.db.sle.Armory.Inspect.pvpRating.FontStyle },
+				'CENTER', self.Info.PvP[Type].Rank, 0, 3)
+				KF:TextSetting(self.Info.PvP[Type], nil, { Tag = 'Record', Font = E.db.sle.Armory.Inspect.pvpRating.Font,
+					FontSize = E.db.sle.Armory.Inspect.pvpRating.FontSize,
+					FontStyle = E.db.sle.Armory.Inspect.pvpRating.FontStyle },
+				'TOP', self.Info.PvP[Type].Rank, 'BOTTOM', 0, 12)
 			end
 			self.Info.PvP['2vs2']:Point('RIGHT', self.Info.PvP['3vs3'], 'LEFT', SPACING, 0)
 			self.Info.PvP['2vs2'].Type:SetText(ARENA_2V2)
-			
+
 			self.Info.PvP['3vs3']:Point('TOP', self.Info.PvP.Mark, 'BOTTOM', 0, -SPACING)
 			self.Info.PvP['3vs3'].Type:SetText(ARENA_3V3)
-			
+
 			self.Info.PvP.RB:Point('LEFT', self.Info.PvP['3vs3'], 'RIGHT', -SPACING, 0)
 			self.Info.PvP.RB.Type:SetText(PVP_RATED_BATTLEGROUNDS)
 		end
-		
+
 		do -- Guild Category
-			KF:TextSetting(self.Info.Guild.Tab, GUILD, { FontSize = 10 }, 'LEFT', 6, 1)
+			KF:TextSetting(self.Info.Guild.Tab, GUILD, { Font = E.db.sle.Armory.Inspect.infoTabs.Font,
+					FontSize = E.db.sle.Armory.Inspect.infoTabs.FontSize,
+					FontStyle = E.db.sle.Armory.Inspect.infoTabs.FontStyle},
+				'LEFT', 6, 1)
 			self.Info.Guild.CategoryHeight = INFO_TAB_SIZE + 66 + SPACING * 3
 			self.Info.Guild.Icon:SetTexture('Interface\\Icons\\ACHIEVEMENT_GUILDPERK_MASSRESURRECTION')
-			
+
 			self.Info.Guild.Banner = CreateFrame('Frame', nil, self.Info.Guild.Page)
 			self.Info.Guild.Banner:SetInside()
 			self.Info.Guild.Banner:SetFrameLevel(CORE_FRAME_LEVEL + 13)
-			
+
 			self.Info.Guild.BG = self.Info.Guild.Banner:CreateTexture(nil, 'BACKGROUND')
 			self.Info.Guild.BG:Size(33, 44)
 			self.Info.Guild.BG:SetTexCoord(.00781250, .32812500, .01562500, .84375000)
 			self.Info.Guild.BG:SetTexture('Interface\\GuildFrame\\GuildDifficulty')
 			self.Info.Guild.BG:Point('TOP', self.Info.Guild.Page)
-			
+
 			self.Info.Guild.Border = self.Info.Guild.Banner:CreateTexture(nil, 'ARTWORK')
 			self.Info.Guild.Border:Size(33, 44)
 			self.Info.Guild.Border:SetTexCoord(.34375000, .66406250, .01562500, .84375000)
 			self.Info.Guild.Border:SetTexture('Interface\\GuildFrame\\GuildDifficulty')
 			self.Info.Guild.Border:Point('CENTER', self.Info.Guild.BG)
-			
+
 			self.Info.Guild.Emblem = self.Info.Guild.Banner:CreateTexture(nil, 'OVERLAY')
 			self.Info.Guild.Emblem:Size(16)
 			self.Info.Guild.Emblem:SetTexture('Interface\\GuildFrame\\GuildEmblems_01')
 			self.Info.Guild.Emblem:Point('CENTER', self.Info.Guild.BG, 0, 2)
-			
-			KF:TextSetting(self.Info.Guild.Banner, nil, { Tag = 'Name', FontSize = 14 }, 'TOP', self.Info.Guild.BG, 'BOTTOM', 0, 7)
-			KF:TextSetting(self.Info.Guild.Banner, nil, { Tag = 'LevelMembers', FontSize = 9 }, 'TOP', self.Info.Guild.Banner.Name, 'BOTTOM', 0, -2)
+
+			KF:TextSetting(self.Info.Guild.Banner, nil, { Tag = 'Name', Font = E.db.sle.Armory.Inspect.guildName.Font,
+					FontSize = E.db.sle.Armory.Inspect.guildName.FontSize,
+					FontStyle = E.db.sle.Armory.Inspect.guildName.FontStyle },
+				'TOP', self.Info.Guild.BG, 'BOTTOM', 0, 7)
+			KF:TextSetting(self.Info.Guild.Banner, nil, { Tag = 'LevelMembers', Font = E.db.sle.Armory.Inspect.guildMembers.Font,
+					FontSize = E.db.sle.Armory.Inspect.guildMembers.FontSize,
+					FontStyle = E.db.sle.Armory.Inspect.guildMembers.FontStyle },
+			'TOP', self.Info.Guild.Banner.Name, 'BOTTOM', 0, -2)
 		end
 	end
 	
@@ -1175,7 +1215,9 @@ function IA:CreateInspectFrame()
 				self.Spec['Spec'..i].Click:Point('BOTTOMRIGHT', self.Spec['Spec'..i])
 				self.Spec['Spec'..i].Click:SetFrameLevel(CORE_FRAME_LEVEL + 14)
 				
-				KF:TextSetting(self.Spec['Spec'..i], nil, { FontSize = 10, FontStyle = 'OUTLINE' }, 'TOPLEFT', self.Spec['Spec'..i].Icon, 'TOPRIGHT', SPACING, 0)
+				KF:TextSetting(self.Spec['Spec'..i], nil, { Font = E.db.sle.Armory.Inspect.Spec.Font,
+					FontSize = E.db.sle.Armory.Inspect.Spec.FontSize,
+					FontStyle = E.db.sle.Armory.Inspect.Spec.FontStyle }, 'TOPLEFT', self.Spec['Spec'..i].Icon, 'TOPRIGHT', SPACING, 0)
 				self.Spec['Spec'..i].text:Point('BOTTOMRIGHT', 0, -4)
 				
 				self.Spec['Spec'..i].Texture = self.Spec['Spec'..i].Icon:CreateTexture(nil, 'OVERLAY')
@@ -1241,7 +1283,10 @@ function IA:CreateInspectFrame()
 				self.Spec["Talent"..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon.Texture:SetTexCoord(T.unpack(E.TexCoords))
 				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon.Texture:SetInside()
 				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon:Point('LEFT', self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)], SPACING, 0)
-				KF:TextSetting(self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)], nil, { FontSize = 9, directionH = 'LEFT' }, 'TOPLEFT', self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon, 'TOPRIGHT', SPACING, SPACING)
+				KF:TextSetting(self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)], nil, { Font = E.db.sle.Armory.Inspect.Spec.Font,
+					FontSize = E.db.sle.Armory.Inspect.Spec.FontSize,
+					FontStyle = E.db.sle.Armory.Inspect.Spec.FontStyle
+					, directionH = 'LEFT' }, 'TOPLEFT', self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon, 'TOPRIGHT', SPACING, SPACING)
 				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].text:Point('BOTTOMLEFT', self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Icon, 'BOTTOMRIGHT', SPACING, -SPACING)
 				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].text:Point('RIGHT', -SPACING, 0)
 				
@@ -2367,6 +2412,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 	do	--<< Information Page Setting >>--
 		do	-- Profession
 			for i = 1, 2 do
+				for k,v in pairs(DataTable.Profession[i]) do print(k,v) end
 				if DataTable.Profession[i].Name then
 					self.Info.Profession:Show()
 					self.Info.Profession['Prof'..i].Bar:SetValue(DataTable.Profession[i].Level)
@@ -2841,8 +2887,12 @@ function IA:UpdateSettings(part)
 		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 			if _G["InspectArmory"][SlotName] and _G["InspectArmory"][SlotName].Gradation and _G["InspectArmory"][SlotName].Gradation.ItemLevel then
 				_G["InspectArmory"][SlotName].Gradation.ItemLevel:FontTemplate(E.LSM:Fetch('font', db.Level.Font),db.Level.FontSize,db.Level.FontStyle)
+				if not (SlotName == 'MainHandSlot' or SlotName == 'SecondaryHandSlot') then
+					_G["InspectArmory"][SlotName].ItemLevel:FontTemplate(E.LSM:Fetch('font', db.Level.Font),db.Level.FontSize,db.Level.FontStyle)
+				end
 			end
 		end
+		self.Character.AverageItemLevel:FontTemplate(E.LSM:Fetch('font', db.Level.Font),db.Level.FontSize,db.Level.FontStyle)
 	end
 	if part == "ench" or part == "all" then
 		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
@@ -2871,7 +2921,52 @@ function IA:UpdateSettings(part)
 		end
 	end
 	if part == "overlay" or part == "all" then
-		self.BGOverlay:SetColorTexture(0,0,0, E.db.sle.Armory.Inspect.Backdrop.OverlayAlpha)
+		self.BGOverlay:SetColorTexture(0,0,0, db.Backdrop.OverlayAlpha)
+	end
+	if part == "tabs" or part == "all" then
+		for ButtonName, ButtonString in T.pairs(self.PageList) do
+			self.CharacterButton.text:FontTemplate(E.LSM:Fetch('font', db.tabsText.Font), db.tabsText.FontSize, db.tabsText.FontStyle)
+			self.InfoButton.text:FontTemplate(E.LSM:Fetch('font', db.tabsText.Font), db.tabsText.FontSize, db.tabsText.FontStyle)
+			self.SpecButton.text:FontTemplate(E.LSM:Fetch('font', db.tabsText.Font), db.tabsText.FontSize, db.tabsText.FontStyle)
+		end
+	end
+	if part == "nameText" or part == "all" then
+		self.Name:FontTemplate(E.LSM:Fetch('font', db.Name.Font), db.Name.FontSize, db.Name.FontStyle)
+	end
+	if part == "titleText" or part == "all" then
+		self.Title:FontTemplate(E.LSM:Fetch('font', db.Title.Font), db.Title.FontSize, db.Title.FontStyle)
+	end
+	if part == "levelText" or part == "all" then
+		self.LevelRace:FontTemplate(E.LSM:Fetch('font', db.LevelRace.Font), db.LevelRace.FontSize, db.LevelRace.FontStyle)
+	end
+	if part == "guildText" or part == "all" then
+		self.Guild:FontTemplate(E.LSM:Fetch('font', db.Guild.Font), db.Guild.FontSize, db.Guild.FontStyle)
+	end
+	if part == "infoTabs" or part == "all" then
+		self.Info.PvP.Tab.text:FontTemplate(E.LSM:Fetch('font', db.infoTabs.Font), db.infoTabs.FontSize, db.infoTabs.FontStyle)
+		self.Info.Guild.Tab.text:FontTemplate(E.LSM:Fetch('font', db.infoTabs.Font), db.infoTabs.FontSize, db.infoTabs.FontStyle)
+	end
+	if part == "pvp" or part == "all" then
+		self.Info.PvP.Mark.text:FontTemplate(E.LSM:Fetch('font', db.pvpText.Font), db.pvpText.FontSize, db.pvpText.FontStyle)
+		for _, Type in T.pairs({ '2vs2', '3vs3', 'RB' }) do
+			self.Info.PvP[Type].Type:FontTemplate(E.LSM:Fetch('font', db.pvpType.Font), db.pvpType.FontSize, db.pvpType.FontStyle)
+			self.Info.PvP[Type].Rating:FontTemplate(E.LSM:Fetch('font', db.pvpRating.Font), db.pvpRating.FontSize, db.pvpRating.FontStyle)
+			self.Info.PvP[Type].Record:FontTemplate(E.LSM:Fetch('font', db.pvpRecord.Font), db.pvpRecord.FontSize, db.pvpRecord.FontStyle)
+		end
+	end
+	if part == "guild" or part == "all" then
+		self.Info.Guild.Banner.Name:FontTemplate(E.LSM:Fetch('font', db.guildName.Font), db.guildName.FontSize, db.guildName.FontStyle)
+		self.Info.Guild.Banner.LevelMembers:FontTemplate(E.LSM:Fetch('font', db.guildMembers.Font), db.guildMembers.FontSize, db.guildMembers.FontStyle)
+	end
+	if part == "spec" or part == "all" then
+		for i in pairs(IA.Default_CurrentInspectData.Specialization) do
+			self.Spec['Spec'..i].text:FontTemplate(E.LSM:Fetch('font', db.Spec.Font), db.Spec.FontSize, db.Spec.FontStyle)
+		end
+		for i = 1, MAX_TALENT_TIERS do
+			for k = 1, NUM_TALENT_COLUMNS do
+				self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].text:FontTemplate(E.LSM:Fetch('font', db.Spec.Font), db.Spec.FontSize, db.Spec.FontStyle)
+			end
+		end
 	end
 end
 
@@ -2896,7 +2991,9 @@ KF.Modules.InspectArmory = function()
 		
 		InspectUnit = IA.InspectUnit
 		InspectFrame = IA.Inspector
-		
+
+		-- IA:UpdateSettings("all")
+
 		Info.InspectArmory_Activate = true
 	elseif Info.InspectArmory_Activate then
 		InspectUnit = Default_InspectUnit
