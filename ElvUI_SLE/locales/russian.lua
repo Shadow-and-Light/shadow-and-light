@@ -171,6 +171,14 @@ L["Try inspecting %s. Sometimes this work will take few second for waiting serve
 L['Inspect is canceled because target was changed or lost.'] = "Осмотр отменет, т.к. цель была изменена или потеряна."
 L["You can't inspect while dead."] = "Мертвые не осматривают."
 L["Show Inspection message in chat"] = "Отображать сообщение об осмотре в чате."
+L["Font Size"] = "Размер шрифта"
+L["General Fonts"] = "Общие шрифты"
+L["Title"] = "Звание"
+L["Level and race"] = "Уровень и раса"
+L["Info Fonts"] = "Шрифты информации"
+L["Block names"] = "Названия блоков"
+L["PvP Type"] = "Режим PvP"
+L["Spec Fonts"] = "Шрифты спека"
 
 --AFK
 L["You Are Away From Keyboard for"] = "Вы отошли на"

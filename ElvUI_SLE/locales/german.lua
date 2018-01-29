@@ -172,6 +172,14 @@ L["Try inspecting %s. Sometimes this work will take few second for waiting serve
 L['Inspect is canceled because target was changed or lost.'] = "Betrachten wurde abgebrochen weil das Ziel geändert oder verloren wurde."
 L["You can't inspect while dead."] = "Während du tod bist kannst du nicht betrachten."
 L["Show Inspection message in chat"] = "Zeige Betrachten Nachricht im Chat"
+L["Font Size"] = true
+L["General Fonts"] = true
+L["Title"] = true
+L["Level and race"] = true
+L["Info Fonts"] = true
+L["Block names"] = true
+L["PvP Type"] = true
+L["Spec Fonts"] = true
 
 --AFK
 L["You Are Away From Keyboard for"] = "Du bist nicht an der Tastatur für"

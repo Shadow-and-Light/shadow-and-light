@@ -172,6 +172,14 @@ L["Try inspecting %s. Sometimes this work will take few second for waiting serve
 L['Inspect is canceled because target was changed or lost.'] = true
 L["You can't inspect while dead."] = true
 L["Show Inspection message in chat"] = true
+L["Font Size"] = true
+L["General Fonts"] = true
+L["Title"] = true
+L["Level and race"] = true
+L["Info Fonts"] = true
+L["Block names"] = true
+L["PvP Type"] = true
+L["Spec Fonts"] = true
 
 --AFK
 L["You Are Away From Keyboard for"] = true
