@@ -188,7 +188,7 @@ function C:SetItemRef(link, text, button, chatframe)
 		InviteUnit(id)
 		return nil
 	end
-	return self.hooks.SetItemRef(link, text, button)
+	return self.hooks.SetItemRef(link, text, button, chatframe)
 end
 
 function C:SpamFilter()
