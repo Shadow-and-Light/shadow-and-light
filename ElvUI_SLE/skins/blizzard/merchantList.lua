@@ -421,8 +421,9 @@ local function List_MerchantUpdate()
 		local button = buttons[i];
 		button.hover = nil;
 		if ( offset <= numMerchantItems ) then
-			--API name, texture, price, quantity, numAvailable, isUsable, extendedCost = GetMerchantItemInfo(index)
-			local name, texture, price, quantity, numAvailable, isUsable, extendedCost = GetMerchantItemInfo(offset);
+			--API name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost = GetMerchantItemInfo(index)
+			local name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost = GetMerchantItemInfo(offset);
+			local canAfford = CanAffordMerchantItem(offset);
 			local link = GetMerchantItemLink(offset);
 			local subtext = "";
 			local r, g, b = 0.5, 0.5, 0.5;
@@ -484,11 +485,16 @@ local function List_MerchantUpdate()
 				button.money:SetTextColor(1, 1, 1);
 			end
 			
-			if ( numAvailable == 0 ) then
+			local merchantItemID = GetMerchantItemID(offset);
+			local isHeirloom = merchantItemID and C_Heirloom.IsItemHeirloom(merchantItemID);
+			local isKnownHeirloom = isHeirloom and C_Heirloom.PlayerHasHeirloom(merchantItemID);
+			local tintRed = not isPurchasable or (not isUsable and not isHeirloom) or not canAfford;
+			
+			if ( numAvailable == 0 or isKnownHeirloom ) then
 				button.highlight:SetVertexColor(0.5, 0.5, 0.5, 0.5);
 				button.highlight:Show();
 				button.isShown = 1;
-			elseif ( not isUsable ) then
+			elseif tintRed then
 				button.highlight:SetVertexColor(1, 0.2, 0.2, 0.5);
 				button.highlight:Show();
 				button.isShown = 1;

@@ -14,6 +14,7 @@ local SetItemButtonNameFrameVertexColor, SetItemButtonSlotVertexColor, SetItemBu
 
 local RETRIEVING_ITEM_INFO, RETRIEVING_ITEM_INFO, MOUNT, ITEM_SPELL_KNOWN, SEARCH = RETRIEVING_ITEM_INFO, RETRIEVING_ITEM_INFO, MOUNT, ITEM_SPELL_KNOWN, SEARCH
 local MISCELLANEOUS = MISCELLANEOUS
+local MAX_MONEY_DISPLAY_WIDTH = 120;
 
 local RECIPE = GetItemClassInfo(LE_ITEM_CLASS_RECIPE)
 local searchBox
@@ -183,20 +184,21 @@ local function UpdateMerchantInfo()
 		local merchantMoney = _G["MerchantItem" .. i .. "MoneyFrame"];
 		local merchantAltCurrency = _G["MerchantItem" .. i .. "AltCurrencyFrame"];
 		if (index <= visibleMerchantItems) then
-			name, texture, price, quantity, numAvailable, isUsable, extendedCost = GetMerchantItemInfo(indexes[index]);
+			name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost = GetMerchantItemInfo(indexes[index]);
 			if (name ~= nil) then
+				local canAfford = CanAffordMerchantItem(index);
 				_G["MerchantItem"..i.."Name"]:SetText(name);
 				SetItemButtonCount(itemButton, quantity);
 				SetItemButtonStock(itemButton, numAvailable);
 				SetItemButtonTexture(itemButton, texture);
 
-				-- update item's currency info
-				if ( extendedCost and (price <= 0) ) then
+				if ( extendedCost and (price <= 0) ) then -- update item's currency info
 					itemButton.price = nil;
 					itemButton.extendedCost = true;
+					itemButton.name = name;
 					itemButton.link = GetMerchantItemLink(indexes[index]);
 					itemButton.texture = texture;
-					MerchantFrame_UpdateAltCurrency(indexes[index], i);
+					MerchantFrame_UpdateAltCurrency(index, i, canAfford);
 					merchantAltCurrency:ClearAllPoints();
 					merchantAltCurrency:SetPoint("BOTTOMLEFT", "MerchantItem"..i.."NameFrame", "BOTTOMLEFT", 0, 31);
 					merchantMoney:Hide();
@@ -204,10 +206,17 @@ local function UpdateMerchantInfo()
 				elseif ( extendedCost and (price > 0) ) then
 					itemButton.price = price;
 					itemButton.extendedCost = true;
+					itemButton.name = name;
 					itemButton.link = GetMerchantItemLink(indexes[index]);
 					itemButton.texture = texture;
-					MerchantFrame_UpdateAltCurrency(indexes[index], i);
+					local altCurrencyWidth = MerchantFrame_UpdateAltCurrency(index, i, canAfford);
+					MoneyFrame_SetMaxDisplayWidth(merchantMoney, MAX_MONEY_DISPLAY_WIDTH - altCurrencyWidth);
 					MoneyFrame_Update(merchantMoney:GetName(), price);
+					local color;
+					if (canAfford == false) then
+						color = "red";
+					end
+					SetMoneyFrameColor(merchantMoney:GetName(), color);
 					merchantAltCurrency:ClearAllPoints();
 					merchantAltCurrency:SetPoint("LEFT", merchantMoney:GetName(), "RIGHT", -14, 0);
 					merchantAltCurrency:Show();
@@ -215,33 +224,50 @@ local function UpdateMerchantInfo()
 				else
 					itemButton.price = price;
 					itemButton.extendedCost = nil;
+					itemButton.name = name;
 					itemButton.link = GetMerchantItemLink(indexes[index]);
 					itemButton.texture = texture;
+					MoneyFrame_SetMaxDisplayWidth(merchantMoney, MAX_MONEY_DISPLAY_WIDTH);
 					MoneyFrame_Update(merchantMoney:GetName(), price);
+					local color;
+					if (canAfford == false) then
+						color = "red";
+					end
+					SetMoneyFrameColor(merchantMoney:GetName(), color);
 					merchantAltCurrency:Hide();
 					merchantMoney:Show();
 				end
 
-				quality = 1;
-				if (itemButton.link) and not IgnoreCurrency[name] then
-					_, _, quality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, _, itemSellPrice = T.GetItemInfo(itemButton.link);
-				end
+				-- quality = 1;
+				-- if (itemButton.link) and not IgnoreCurrency[name] then
+					-- _, _, quality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, _, itemSellPrice = T.GetItemInfo(itemButton.link);
+				-- end
 
-				-- set color
-				r, g, b = T.GetItemQualityColor(quality);
-				_G["MerchantItem" .. i .. "Name"]:SetTextColor(r, g, b);
+				--set color
+				-- r, g, b = T.GetItemQualityColor(quality);
+				-- _G["MerchantItem" .. i .. "Name"]:SetTextColor(r, g, b);
+				MerchantFrameItem_UpdateQuality(merchantButton, itemButton.link);
+				
+				local merchantItemID = GetMerchantItemID(index);
+				local isHeirloom = merchantItemID and C_Heirloom.IsItemHeirloom(merchantItemID);
+				local isKnownHeirloom = isHeirloom and C_Heirloom.PlayerHasHeirloom(merchantItemID);
 
+				itemButton.showNonrefundablePrompt = isHeirloom;
+				
 				itemButton.hasItem = true;
 				itemButton:SetID(indexes[index]);
 				itemButton:Show();
+				
+				local tintRed = not isPurchasable or (not isUsable and not isHeirloom);
+				
 				local colorMult = 1.0;
 				local detailColor = {};
 				local slotColor = {};
 				-- unavailable items (limited stock, bought out) are darkened
-				if ( numAvailable == 0 ) then
+				if ( numAvailable == 0 or isKnownHeirloom) then
 					colorMult = 0.5;
 				end
-				if ( not isUsable ) then
+				if ( tintRed ) then
 					slotColor = {r = 1.0, g = 0, b = 0};
 					detailColor = {r = 1.0, g = 0, b = 0};
 				else
@@ -271,6 +297,7 @@ local function UpdateMerchantInfo()
 		else
 			itemButton.price = nil;
 			itemButton.hasItem = nil;
+			itemButton.name = nil;
 			itemButton:Hide();
 			SetItemButtonNameFrameVertexColor(merchantButton, 0.5, 0.5, 0.5);
 			SetItemButtonSlotVertexColor(merchantButton,0.4, 0.4, 0.4);
