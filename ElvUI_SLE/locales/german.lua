@@ -264,6 +264,8 @@ L["Apply transparent template on bag and bank slots."] = "Wendet die Transparent
 --Blizzard
 L["Move Blizzard frames"] = "Bewege Blizzard Fenster"
 L["Allow some Blizzard frames to be moved around."] = "Erlaubt das Bewegen einiger Blizzard Fenster"
+L["Remember"] = true
+L["Remember positions of frames after moving them."] = true
 L["Pet Battles skinning"] = "Haustierkampf Skin"
 L["Make some elements of pet battles movable via toggle anchors."] = "Erlaubt das Verschieben einiger Haustierkampf Elemente via Anker umschalten."
 L["Vehicle Seat Scale"] = "Fahrzeugsanzeige Skallierung"

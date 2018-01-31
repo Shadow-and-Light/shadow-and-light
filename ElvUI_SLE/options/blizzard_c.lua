@@ -15,12 +15,29 @@ local function configTable()
 				name = "Blizzard",
 			},
 			blizzmove = {
-				order = 1,
-				type = "toggle",
+				order = 12,
+				type = "group",
 				name = L["Move Blizzard frames"],
-				desc = L["Allow some Blizzard frames to be moved around."],
-				get = function(info) return E.private.sle.module.blizzmove end,
-				set = function(info, value) E.private.sle.module.blizzmove = value; E:StaticPopup_Show("PRIVATE_RL") end,
+				guiInline = true,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						desc = L["Allow some Blizzard frames to be moved around."],
+						get = function(info) return E.private.sle.module.blizzmove.enable end,
+						set = function(info, value) E.private.sle.module.blizzmove.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
+					},
+					remember = {
+						order = 2,
+						type = "toggle",
+						name = L["Remember"],
+						desc = L["Remember positions of frames after moving them."],
+						get = function(info) return E.private.sle.module.blizzmove.remember end,
+						set = function(info, value) E.private.sle.module.blizzmove.remember = value; end,
+						disabled = function() return not E.private.sle.module.blizzmove.enable end,
+					},
+				}
 			},
 			rumouseover = {
 				order = 2,

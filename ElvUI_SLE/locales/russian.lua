@@ -261,6 +261,8 @@ L["Apply transparent template on bag and bank slots."] = "Использоват
 --Blizzard
 L["Move Blizzard frames"] = "Перемещение фреймов Blizzard"
 L["Allow some Blizzard frames to be moved around."] = "Разрешить перемещение некоторых фреймов Blizzard."
+L["Remember"] = "Запомнить"
+L["Remember positions of frames after moving them."] = "Запомнить позицию фрейма после перемещения."
 L["Pet Battles skinning"] = "Скин битв питомцев"
 L["Make some elements of pet battles movable via toggle anchors."] = "Дает возможность перемещать некоторые элементы боев питомцев при пмощи фиксаторов."
 L["Vehicle Seat Scale"] = "Масштаб фрейма транспорта."

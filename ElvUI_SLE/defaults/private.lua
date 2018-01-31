@@ -63,7 +63,11 @@ V["sle"] = {
 
 	["module"] = {
 		["screensaver"] = false,
-		["blizzmove"] = true,
+		["blizzmove"] = {
+			["enable"] = true,
+			["remember"] = false,
+			["points"] = {},
+		},
 		["shadows"] = {
 			["vehicle"] = false,
 			["player"] = false,

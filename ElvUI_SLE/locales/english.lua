@@ -273,6 +273,8 @@ L["Apply transparent template on bag and bank slots."] = true
 --Blizzard
 L["Move Blizzard frames"] = true
 L["Allow some Blizzard frames to be moved around."] = true
+L["Remember"] = true
+L["Remember positions of frames after moving them."] = true
 L["Pet Battles skinning"] = true
 L["Make some elements of pet battles movable via toggle anchors."] = true
 L["Vehicle Seat Scale"] = true
