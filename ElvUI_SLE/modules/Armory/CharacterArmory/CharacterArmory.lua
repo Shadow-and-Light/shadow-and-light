@@ -326,7 +326,7 @@ function CA:Setup_CharacterArmory()
 		_G["Character"..SlotName]:SetFrameLevel(Slot:GetFrameLevel() + 1)
 		
 		-- Gradation
-		Slot.Gradation = Slot:CreateTexture(nil, 'OVERLAY')
+		Slot.Gradation = Slot:CreateTexture(nil, 'ARTWORK')
 		Slot.Gradation:SetInside()
 		Slot.Gradation:SetTexture('Interface\\AddOns\\ElvUI_SLE\\modules\\Armory\\Media\\Textures\\Gradation')
 		if Slot.Direction == 'LEFT' then
