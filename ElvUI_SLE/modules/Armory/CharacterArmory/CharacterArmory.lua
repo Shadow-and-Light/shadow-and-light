@@ -1494,6 +1494,12 @@ function CA:UpdateSettings(part)
 			if _G["CharacterArmory"][SlotName] and _G["CharacterArmory"][SlotName].SocketWarning then
 				_G["CharacterArmory"][SlotName].SocketWarning:Size(db.Gem.WarningSize)
 			end
+			if _G["CharacterArmory"].ArtifactMonitor then
+				for i = 1, C_ArtifactUI.GetEquippedArtifactNumRelicSlots() or 3 do
+					-- CA.ArtifactMonitor['Socket'..i] = CreateFrame('Frame', nil, CA.ArtifactMonitor)
+					_G["CharacterArmory"].ArtifactMonitor['Socket'..i]:Size(E.db.sle.Armory.Character.Gem.SocketSize)
+				end
+			end
 		end
 	end
 	if part == "dur" or part == "all" then
