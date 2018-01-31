@@ -392,7 +392,7 @@ function CA:Setup_CharacterArmory()
 				})
 				Slot["Socket"..i]:SetBackdropColor(0, 0, 0, 1)
 				Slot["Socket"..i]:SetBackdropBorderColor(0, 0, 0)
-				Slot["Socket"..i]:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() - 1)
+				Slot["Socket"..i]:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel())
 				
 				Slot["Socket"..i].SlotID = Slot.ID
 				Slot["Socket"..i].SocketNumber = i
