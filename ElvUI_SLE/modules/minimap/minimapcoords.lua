@@ -93,7 +93,7 @@ function MM:CreateCoordsFrame()
 	MM:UpdateCoordinatesPosition()
 end
 
-function MM:PLAYER_ENTERING_WORLD()
+function MM:LOADING_SCREEN_DISABLED()
 	local x = T.GetPlayerMapPosition("player")
 	if not x then
 		MM.RestrictedArea = true
@@ -125,7 +125,7 @@ end
 function MM:Initialize()
 	if not SLE.initialized or not E.private.general.minimap.enable then return end
 
-	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+	self:RegisterEvent("LOADING_SCREEN_DISABLED")
 	hooksecurefunc(M, 'UpdateSettings', MM.UpdateSettings)
 
 	MM:UpdateSettings()

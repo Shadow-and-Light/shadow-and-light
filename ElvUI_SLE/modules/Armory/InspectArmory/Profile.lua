@@ -22,7 +22,8 @@ P.sle.Armory.Inspect = {
 	Gradation = {
 		Display = true,
 		Color = { .41, .83, 1 },
-		CurrentClassColor = false
+		CurrentClassColor = false,
+		ItemQuality = false,
 	},
 	
 	Level = {
@@ -30,7 +31,8 @@ P.sle.Armory.Inspect = {
 		ShowUpgradeLevel = false,
 		Font = "PT Sans Narrow",
 		FontSize = 10,
-		FontStyle = "OUTLINE"
+		FontStyle = "OUTLINE",
+		ItemColor = false,
 	},
 	
 	Enchant = {
@@ -46,5 +48,75 @@ P.sle.Armory.Inspect = {
 		Display = 'Always', -- Always, MouseoverOnly, Hide
 		SocketSize = 10,
 		WarningSize = 12
-	}
+	},
+	--Fonts--
+	--Tabs
+	tabsText = {
+		Font = "PT Sans Narrow",
+		FontSize = 9,
+		FontStyle = "OUTLINE",
+	},
+	--Model
+	Name = {
+		Font = "PT Sans Narrow",
+		FontSize = 22,
+		FontStyle = "OUTLINE",
+	},
+	Title = {
+		Font = "PT Sans Narrow",
+		FontSize = 9,
+		FontStyle = "OUTLINE",
+	},
+	LevelRace = {
+		Font = "PT Sans Narrow",
+		FontSize = 10,
+		FontStyle = "OUTLINE",
+	},
+	Guild = {
+		Font = "PT Sans Narrow",
+		FontSize = 10,
+		FontStyle = "OUTLINE",
+	},
+	--Info
+	infoTabs = {
+		Font = "PT Sans Narrow",
+		FontSize = 10,
+		FontStyle = "OUTLINE",
+	},
+	pvpText = {
+		Font = "PT Sans Narrow",
+		FontSize = 10,
+		FontStyle = "OUTLINE",
+	},
+	pvpType = {
+		Font = "PT Sans Narrow",
+		FontSize = 10,
+		FontStyle = "OUTLINE",
+	},
+	pvpRating = {
+		Font = "PT Sans Narrow",
+		FontSize = 22,
+		FontStyle = "OUTLINE",
+	},
+	pvpRecord = {
+		Font = "PT Sans Narrow",
+		FontSize = 10,
+		FontStyle = "OUTLINE",
+	},
+	guildName = {
+		Font = "PT Sans Narrow",
+		FontSize = 14,
+		FontStyle = "OUTLINE",
+	},
+	guildMembers = {
+		Font = "PT Sans Narrow",
+		FontSize = 9,
+		FontStyle = "OUTLINE",
+	},
+	--Spec
+	Spec = {
+		Font = "PT Sans Narrow",
+		FontSize = 10,
+		FontStyle = "OUTLINE",
+	},
 }

@@ -28,13 +28,14 @@ function Q:ChangeState(event)
 	if not Q.db then return end
 	if not Q.db.visibility then return end
 	if not Q.db.visibility.enable then return end
-	if T.InCombatLockdown() then self:RegisterEvent("PLAYER_REGEN_ENABLED", "ChangeState") return end
-	if event == "PLAYER_REGEN_ENABLED" then self:UnregisterEvent("PLAYER_REGEN_ENABLED") end
+	if T.InCombatLockdown() and event ~= "PLAYER_REGEN_DISABLED" then return end
+	local inCombat = event == "PLAYER_REGEN_DISABLED" and true or false
 
-	if C_Garrison.IsPlayerInGarrison(2) then
+	if inCombat and Q.db.visibility.combat ~= "NONE" then
+		statedriver[Q.db.visibility.combat](Q.frame)
+	elseif C_Garrison.IsPlayerInGarrison(2) then
 		statedriver[Q.db.visibility.garrison](Q.frame)
-	--here be order halls
-	elseif C_Garrison.IsPlayerInGarrison(3) then
+	elseif C_Garrison.IsPlayerInGarrison(3) then --here be order halls
 		statedriver[Q.db.visibility.orderhall](Q.frame)
 	elseif IsResting() then
 		statedriver[Q.db.visibility.rested](Q.frame)
@@ -119,8 +120,12 @@ function Q:Initialize()
 	if not SLE.initialized then return end
 	Q.db = E.db.sle.quests
 	Q.frame = ObjectiveTrackerFrame
-	self:RegisterEvent("PLAYER_ENTERING_WORLD", "ChangeState")
+
+	self:RegisterEvent("LOADING_SCREEN_DISABLED", "ChangeState")
 	self:RegisterEvent("PLAYER_UPDATE_RESTING", "ChangeState")
+	self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "ChangeState")
+	self:RegisterEvent("PLAYER_REGEN_ENABLED", "ChangeState")
+	self:RegisterEvent("PLAYER_REGEN_DISABLED", "ChangeState")
 
 	self:RegisterEvent("QUEST_COMPLETE");
 

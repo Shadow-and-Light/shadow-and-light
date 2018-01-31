@@ -191,20 +191,20 @@ function DTP:CreateAndUpdatePanels()
 end
 
 function DTP:DeleteCurrencyEntry(data)
-	if ElvDB['gold'][data.realm][data.name] then
+	if ElvDB['gold'][data.realm] and ElvDB['gold'][data.realm][data.name] then
 		ElvDB['gold'][data.realm][data.name] = nil;
 	end
-	if ElvDB['class'] then
+	if ElvDB['class'] and ElvDB['class'][data.realm] then
 		if ElvDB['class'][data.realm][data.name] then
 			ElvDB['class'][data.realm][data.name] = nil;
 		end
 	end
-	if ElvDB['faction'] then
-		if ElvDB['faction'][data.realm][FACTION_ALLIANCE][data.name] then
-			ElvDB['faction'][data.realm][FACTION_ALLIANCE][data.name] = nil;
+	if ElvDB['faction'] and ElvDB['faction'][data.realm] then
+		if ElvDB['faction'][data.realm]["Alliance"][data.name] then
+			ElvDB['faction'][data.realm]["Alliance"][data.name] = nil;
 		end
-		if ElvDB['faction'][data.realm][FACTION_HORDE][data.name] then
-			ElvDB['faction'][data.realm][FACTION_HORDE][data.name] = nil;
+		if ElvDB['faction'][data.realm]["Horde"][data.name] then
+			ElvDB['faction'][data.realm]["Horde"][data.name] = nil;
 		end
 	end
 	SLE.ACD:ConfigTableChanged(nil, "ElvUI")

@@ -52,8 +52,13 @@ local function configTable()
 						type = "toggle",
 						name = L["Enhanced Vehicle Bar"],
 					},
-					unitframes = {
+					minimap = {
 						order = 2,
+						type = "toggle",
+						name = L["Minimap"],
+					},
+					unitframes = {
+						order = 10,
 						type = "group",
 						name = L["UnitFrames"],
 						args = {
@@ -105,7 +110,7 @@ local function configTable()
 						},
 					},
 					actionbars = {
-						order = 10,
+						order = 11,
 						type = "group",
 						name = L["ActionBars"],
 						get = function(info) return E.private.sle.module.shadows.actionbars[info[#info]] end,
@@ -140,6 +145,25 @@ local function configTable()
 								order = 6,
 								type = "toggle",
 								name = L["SLE_EnhShadows_PetButtons_Option"],
+							},
+						},
+					},
+					chat = {
+						order = 12,
+						type = "group",
+						name = L["Chat"],
+						get = function(info) return E.private.sle.module.shadows.chat[info[#info]] end,
+						set = function(info, value) E.private.sle.module.shadows.chat[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+						args = {
+							left = {
+								order = 1,
+								type = "toggle",
+								name = L["LeftChat"],
+							},
+							right = {
+								order = 2,
+								type = "toggle",
+								name = L["RightChat"],
 							},
 						},
 					},

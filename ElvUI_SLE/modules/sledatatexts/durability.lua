@@ -73,5 +73,5 @@ function DTP:HookDurabilityDT()
 	end
 	E["valueColorUpdateFuncs"][ValueColorUpdate] = true
 
-	DT:RegisterDatatext('Durability', {'PLAYER_ENTERING_WORLD', "UPDATE_INVENTORY_DURABILITY", "MERCHANT_SHOW"}, OnEvent, nil, Click, OnEnter)
+	DT:RegisterDatatext('Durability', {'LOADING_SCREEN_DISABLED', "UPDATE_INVENTORY_DURABILITY", "MERCHANT_SHOW"}, OnEvent, nil, Click, OnEnter)
 end

@@ -153,6 +153,27 @@ function ES:CreateShadows()
 			frame.EnhShadow:SetParent(frame.backdrop)
 		end
 	end
+	if E.private.sle.module.shadows.minimap then
+		local frame = _G["MMHolder"]
+		frame:CreateShadow()
+		frame.EnhShadow = frame.shadow
+		frame.shadow = nil
+		ES:RegisterShadow(frame.EnhShadow)
+	end
+	if E.private.sle.module.shadows.chat.left then
+		local frame = _G["LeftChatPanel"]
+		frame:CreateShadow()
+		frame.EnhShadow = frame.shadow
+		frame.shadow = nil
+		ES:RegisterShadow(frame.EnhShadow)
+	end
+	if E.private.sle.module.shadows.chat.right then
+		local frame = _G["RightChatPanel"]
+		frame:CreateShadow()
+		frame.EnhShadow = frame.shadow
+		frame.shadow = nil
+		ES:RegisterShadow(frame.EnhShadow)
+	end
 end
 
 function ES:UpdateShadow(shadow)

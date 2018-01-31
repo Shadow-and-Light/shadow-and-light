@@ -1,3 +1,19 @@
+v3.33
+Additions:
+- Added an option to set a quest log state based on being in combat
+- Added an option for dead indicator for party/raid/raid40 frames
+- Enhanced shadows are now supporting minimap (with data panels if enabled) and chat panels
+- Movable frames can now remember positions. Character based.
+Fixes:
+- Transparent bag slots now aknowlages reagent bank as a bag
+- Fixed errors on removing gold data for character
+- Fixed error in chat on sending a channel to new tab (it took too long, I know)
+- Fix inspect error for new Races. Thx Benedice
+Misc:
+- Illusions are back to armory inspect.
+- Accounted for yet another realm id being changed
+- Eqiup manager now understands no conditions sets. E.g. "[instance] Set1; Set2" will equip Set1 while in dungeon and Set2 in any other situation.
+
 v3.32 01/23/18
 Additions:
 - Added overlay option for armory inspect

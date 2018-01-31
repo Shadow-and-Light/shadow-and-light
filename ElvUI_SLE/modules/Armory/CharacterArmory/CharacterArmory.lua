@@ -235,7 +235,7 @@ function CA:Setup_CharacterArmory()
 	--<< Updater >>--
 	local args
 	self:SetScript('OnEvent', function(self, Event, ...)
-		if Event == 'SOCKET_INFO_SUCCESS' or Event == 'ITEM_UPGRADE_MASTER_UPDATE' or Event == 'TRANSMOGRIFY_SUCCESS' or Event == 'PLAYER_ENTERING_WORLD' then
+		if Event == 'SOCKET_INFO_SUCCESS' or Event == 'ITEM_UPGRADE_MASTER_UPDATE' or Event == 'TRANSMOGRIFY_SUCCESS' or Event == 'LOADING_SCREEN_DISABLED' then
 
 			self.GearUpdated = nil
 			self:SetScript('OnUpdate', self.ScanData)
@@ -326,7 +326,7 @@ function CA:Setup_CharacterArmory()
 		_G["Character"..SlotName]:SetFrameLevel(Slot:GetFrameLevel() + 1)
 		
 		-- Gradation
-		Slot.Gradation = Slot:CreateTexture(nil, 'OVERLAY')
+		Slot.Gradation = Slot:CreateTexture(nil, 'ARTWORK')
 		Slot.Gradation:SetInside()
 		Slot.Gradation:SetTexture('Interface\\AddOns\\ElvUI_SLE\\modules\\Armory\\Media\\Textures\\Gradation')
 		if Slot.Direction == 'LEFT' then
@@ -392,7 +392,7 @@ function CA:Setup_CharacterArmory()
 				})
 				Slot["Socket"..i]:SetBackdropColor(0, 0, 0, 1)
 				Slot["Socket"..i]:SetBackdropBorderColor(0, 0, 0)
-				Slot["Socket"..i]:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() + 1)
+				Slot["Socket"..i]:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel())
 				
 				Slot["Socket"..i].SlotID = Slot.ID
 				Slot["Socket"..i].SocketNumber = i
@@ -512,7 +512,7 @@ function CA:Setup_CharacterArmory()
 		self.ArtifactMonitor:SetScript('OnEvent', function(_, Event)
 			if Event == 'ARTIFACT_UPDATE' or Event == 'ARTIFACT_XP_UPDATE' then
 				self.ArtifactMonitor.UpdateData = nil
-			elseif Event == 'BAG_UPDATE' or Event == 'PLAYER_ENTERING_WORLD' then
+			elseif Event == 'BAG_UPDATE' or Event == 'LOADING_SCREEN_DISABLED' then
 				self.ArtifactMonitor.SearchPowerItem = nil
 			end
 		end)
@@ -1494,6 +1494,12 @@ function CA:UpdateSettings(part)
 			if _G["CharacterArmory"][SlotName] and _G["CharacterArmory"][SlotName].SocketWarning then
 				_G["CharacterArmory"][SlotName].SocketWarning:Size(db.Gem.WarningSize)
 			end
+			if _G["CharacterArmory"].ArtifactMonitor then
+				for i = 1, C_ArtifactUI.GetEquippedArtifactNumRelicSlots() or 3 do
+					-- CA.ArtifactMonitor['Socket'..i] = CreateFrame('Frame', nil, CA.ArtifactMonitor)
+					_G["CharacterArmory"].ArtifactMonitor['Socket'..i]:Size(E.db.sle.Armory.Character.Gem.SocketSize)
+				end
+			end
 		end
 	end
 	if part == "dur" or part == "all" then
@@ -1590,12 +1596,12 @@ KF.Modules.CharacterArmory = function()
 		CA:RegisterEvent('TRANSMOGRIFY_SUCCESS')
 		CA:RegisterEvent('COMBAT_LOG_EVENT_UNFILTERED')
 		CA:RegisterEvent('UPDATE_INVENTORY_DURABILITY')
-		CA:RegisterEvent('PLAYER_ENTERING_WORLD')
+		CA:RegisterEvent('LOADING_SCREEN_DISABLED')
 		if CA.ArtifactMonitor then
 			CA.ArtifactMonitor:RegisterEvent('ARTIFACT_UPDATE')
 			CA.ArtifactMonitor:RegisterEvent('ARTIFACT_XP_UPDATE')
 			CA.ArtifactMonitor:RegisterEvent('BAG_UPDATE')
-			CA.ArtifactMonitor:RegisterEvent('PLAYER_ENTERING_WORLD')
+			CA.ArtifactMonitor:RegisterEvent('LOADING_SCREEN_DISABLED')
 		end
 		
 		--[[

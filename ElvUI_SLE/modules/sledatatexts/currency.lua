@@ -257,7 +257,7 @@ local function OnEvent(self, event, ...)
 		end
 	end
 
-	if event == 'PLAYER_ENTERING_WORLD' or event == 'SPELLS_CHANGED' then
+	if event == 'LOADING_SCREEN_DISABLED' or event == 'SPELLS_CHANGED' then
 		JEWELCRAFTING = nil
 		for k, v in T.pairs({T.GetProfessions()}) do
 			if v then
@@ -366,5 +366,5 @@ local function OnEnter(self)
 end
 
 function DTP:CreateCurrencyDT()
-	DT:RegisterDatatext('S&L Currency', {'PLAYER_ENTERING_WORLD', 'PLAYER_MONEY', 'SEND_MAIL_MONEY_CHANGED', 'SEND_MAIL_COD_CHANGED', 'PLAYER_TRADE_MONEY', 'TRADE_MONEY_CHANGED', 'SPELLS_CHANGED'}, OnEvent, nil, Click, OnEnter)
+	DT:RegisterDatatext('S&L Currency', {'LOADING_SCREEN_DISABLED', 'PLAYER_MONEY', 'SEND_MAIL_MONEY_CHANGED', 'SEND_MAIL_COD_CHANGED', 'PLAYER_TRADE_MONEY', 'TRADE_MONEY_CHANGED', 'SPELLS_CHANGED'}, OnEvent, nil, Click, OnEnter)
 end

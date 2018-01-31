@@ -172,6 +172,14 @@ L["Try inspecting %s. Sometimes this work will take few second for waiting serve
 L['Inspect is canceled because target was changed or lost.'] = "Betrachten wurde abgebrochen weil das Ziel geändert oder verloren wurde."
 L["You can't inspect while dead."] = "Während du tod bist kannst du nicht betrachten."
 L["Show Inspection message in chat"] = "Zeige Betrachten Nachricht im Chat"
+L["Font Size"] = true
+L["General Fonts"] = true
+L["Title"] = true
+L["Level and race"] = true
+L["Info Fonts"] = true
+L["Block names"] = true
+L["PvP Type"] = true
+L["Spec Fonts"] = true
 
 --AFK
 L["You Are Away From Keyboard for"] = "Du bist nicht an der Tastatur für"
@@ -256,6 +264,8 @@ L["Apply transparent template on bag and bank slots."] = "Wendet die Transparent
 --Blizzard
 L["Move Blizzard frames"] = "Bewege Blizzard Fenster"
 L["Allow some Blizzard frames to be moved around."] = "Erlaubt das Bewegen einiger Blizzard Fenster"
+L["Remember"] = true
+L["Remember positions of frames after moving them."] = true
 L["Pet Battles skinning"] = "Haustierkampf Skin"
 L["Make some elements of pet battles movable via toggle anchors."] = "Erlaubt das Verschieben einiger Haustierkampf Elemente via Anker umschalten."
 L["Vehicle Seat Scale"] = "Fahrzeugsanzeige Skallierung"
@@ -835,6 +845,7 @@ L["Combat Icon"] = true
 L["LFG Icons"] = true
 L["Choose what icon set will unitframes and chat use."] = true
 L["Offline Indicator"] = true
+L["Dead Indicator"] = true
 L["Shows an icon on party or raid unitframes for people that are offline."] = true
 L["Statusbars"] = true
 L["Power Texture"] = true

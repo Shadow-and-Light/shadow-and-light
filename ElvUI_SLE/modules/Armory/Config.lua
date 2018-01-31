@@ -697,6 +697,41 @@ local function LoadArmoryConfigTable()
 			return E.db.sle.Armory.Inspect.Enable ~= false and (TrueColor == '' and '' or TrueColor and '|c'..TrueColor or KF:Color_Value()) or FalseColor and '|c'..FalseColor or ''
 		end
 		
+		local function CreateFontsOptions(index, Name, Arg, maxSize)
+			local config = {
+				order = index,
+				name = Name,
+				type = "group",
+				guiInline = true,
+				disabled = function() return E.db.sle.Armory.Inspect.Enable == false end,
+				get = function(info) return E.db.sle.Armory.Inspect[(info[#info - 1])][(info[#info])] end,
+				set = function(info, value) E.db.sle.Armory.Inspect[(info[#info - 1])][(info[#info])] = value; _G["InspectArmory"]:UpdateSettings(Arg) end,
+				args = {
+					Font = {
+						type = 'select', dialogControl = 'LSM30_Font',
+						name = L["Font"],
+						order = 1,
+						values = function()
+							return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
+						end,
+					},
+					FontSize = {
+						type = 'range',
+						name = L["Font Size"],
+						order = 2,
+						min = 6,max = maxSize,step = 1,
+					},
+					FontStyle = {
+						type = 'select',
+						name = L["Font Outline"],
+						order = 3,
+						values = FontStyleList,
+					},
+				},
+			}
+			return config
+		end
+		
 		E.Options.args.sle.args.modules.args.Armory.args.IAEnable = {
 			type = 'toggle',
 			name = L["Inspect Armory"],
@@ -859,6 +894,15 @@ local function LoadArmoryConfigTable()
 							end,
 							disabled = function() return E.db.sle.Armory.Inspect.Enable == false or E.db.sle.Armory.Inspect.Gradation.Display == false or E.db.sle.Armory.Inspect.Gradation.CurrentClassColor == true end
 						},
+						ItemQuality = {
+							type = 'toggle',
+							name = COLORBLIND_ITEM_QUALITY,
+							order = 4,
+							get = function() return E.db.sle.Armory.Inspect.Gradation.ItemQuality end,
+							set = function(_, value) E.db.sle.Armory.Inspect.Gradation.ItemQuality = value; end,
+							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end
+						}
+
 					}
 				},
 				Level = {
@@ -923,7 +967,15 @@ local function LoadArmoryConfigTable()
 							order = 6,
 							values = FontStyleList,
 							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end
-						}
+						},
+						ItemColor = {
+							type = 'toggle',
+							name = L["Item Level Coloring"],
+							order = 7,
+							get = function(info) return E.db.sle.Armory.Inspect.Level.ItemColor end,
+							set = function(_, value) E.db.sle.Armory.Inspect.Level.ItemColor = value; end,
+							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end
+						},
 					}
 				},
 				Enchant = {
@@ -1033,6 +1085,40 @@ local function LoadArmoryConfigTable()
 							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end
 						},
 					}
+				},
+				GeneralFonts = {
+					order = 20,
+					name = L["General Fonts"],
+					type = "group",
+					args = {
+						Name = CreateFontsOptions(1, NAME, "nameText", 40),
+						Title = CreateFontsOptions(2, L["Title"], "titleText", 30),
+						LevelRace = CreateFontsOptions(3, L["Level and race"], "levelText", 30),
+						Guild = CreateFontsOptions(4, GUILD, "guildText", 30),
+						tabsText = CreateFontsOptions(5, L["Tabs"], "tabs", 20),
+					},
+				},
+				InfoFonts = {
+					order = 21,
+					name = L["Info Fonts"],
+					type = "group",
+					args = {
+						infoTabs = CreateFontsOptions(1, L["Block names"], "infoTabs", 30),
+						pvpText = CreateFontsOptions(2, HONOR, "pvp", 18),
+						pvpType = CreateFontsOptions(3, L["PvP Type"], "pvp", 30),
+						pvpRating = CreateFontsOptions(4, RATING, "pvp", 40),
+						pvpRecord = CreateFontsOptions(5, BEST, "pvp", 30),
+						guildName = CreateFontsOptions(6, GUILD, "guild", 22),
+						guildMembers = CreateFontsOptions(7, MEMBERS, "guild", 20),
+					},
+				},
+				SpecFonts = {
+					order = 22,
+					name = L["Spec Fonts"],
+					type = "group",
+					args = {
+						Spec = CreateFontsOptions(1, SPECIALIZATION, "spec", 20),
+					},
 				},
 			}
 		}

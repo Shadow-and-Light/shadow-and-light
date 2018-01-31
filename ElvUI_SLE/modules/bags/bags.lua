@@ -161,6 +161,7 @@ function SB:HookBags(isBank, force)
 		for slotID = 1, 98 do
 			local slot = _G["ElvUIReagentBankFrameItem"..slotID];
 			self:HookSlot(slot, REAGENTBANK_CONTAINER, slotID);
+			if slot.template ~= "Transparent" and E.private.sle.bags.transparentSlots then slot:SetTemplate('Transparent') end
 		end
 		self.hookedBags[REAGENTBANK_CONTAINER] = true;
 	end
