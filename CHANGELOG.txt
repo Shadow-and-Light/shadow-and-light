@@ -7,6 +7,7 @@ Fixes:
 - Transparent bag slots now aknowlages reagent bank as a bag
 - Fixed errors on removing gold data for character
 - Fixed error in chat on sending a channel to new tab (it took too long, I know)
+- Fix inspect error for new Races. Thx Benedice
 Misc:
 - Illusions are back to armory inspect.
 - Accounted for yet another realm id being changed
