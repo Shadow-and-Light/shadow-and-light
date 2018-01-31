@@ -1,4 +1,4 @@
-v3.33
+v3.33 01/31/2018
 Additions:
 - Added an option to set a quest log state based on being in combat
 - Added an option for dead indicator for party/raid/raid40 frames
@@ -13,6 +13,7 @@ Misc:
 - Illusions are back to armory inspect.
 - Accounted for yet another realm id being changed
 - Eqiup manager now understands no conditions sets. E.g. "[instance] Set1; Set2" will equip Set1 while in dungeon and Set2 in any other situation.
+- Gem slots in character armory now showld be positioned under enchant text
 
 v3.32 01/23/18
 Additions:
