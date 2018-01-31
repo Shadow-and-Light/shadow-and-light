@@ -73,7 +73,11 @@ IA.ModelList = {
 	Troll = 			{ RaceID = 8, 	[2] = { r = -6.85 }, 								[3] = { x = .03, y = .03, r = -6.89 }},
 	BloodElf = 	{ RaceID = 10, 	[2] = { x = -.02, y = -.01, r = -6.53 }, 	[3] = { x = .1, y = -.03, r = -6.89 }},
 	Goblin = 		{ RaceID = 9, 	[2] = { x = .01, y = -.03, r = -6.57 }, 		[3] = { y = -.05, r = -6.61 }},
-	Pandaren = 	{ RaceID = 24, 	[2] = { x = .08, r = -6.85 }, 					[3] = { x = .14, y = .06, r = -6.72 }}
+	Pandaren = 	{ RaceID = 24, 	[2] = { x = .08, r = -6.85 }, 					[3] = { x = .14, y = .06, r = -6.72 }},
+	Nightborne = 	{ RaceID = 27, 	[2] = { x = -.04, y = -.02, r = -5.74 }, 					[3] = { y = -.02, r = -5.74 }},
+	HighmountainTauren = 	{ RaceID = 28, 	[2] = { x = .08, y = .08, r = -6.79 }, 					[3] = { x = .1, y = -.16, r = -6.70 }},
+	VoidElf = 	{ RaceID = 29, 	[2] = { x = -.02, y = -.01, r = -6.53 }, 					[3] = { x = .1, y = -.03, r = -6.89 }},
+	LightforgedDraenei = 	{ RaceID = 30, 	[2] = { x = -.09, r = -5.76 }, 					[3] = { x = -.05, y = -.06, r = -5.7 }}
 }
 IA.CurrentInspectData = {}
 IA.Default_CurrentInspectData = {
