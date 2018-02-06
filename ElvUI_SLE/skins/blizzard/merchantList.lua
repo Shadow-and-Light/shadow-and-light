@@ -488,7 +488,7 @@ local function List_MerchantUpdate()
 			local merchantItemID = GetMerchantItemID(offset);
 			local isHeirloom = merchantItemID and C_Heirloom.IsItemHeirloom(merchantItemID);
 			local isKnownHeirloom = isHeirloom and C_Heirloom.PlayerHasHeirloom(merchantItemID);
-			local tintRed = not isPurchasable or (not isUsable and not isHeirloom) or not canAfford;
+			local tintRed = not isPurchasable or (not isUsable and not isHeirloom) or (canAfford == false);
 			
 			if ( numAvailable == 0 or isKnownHeirloom ) then
 				button.highlight:SetVertexColor(0.5, 0.5, 0.5, 0.5);
