@@ -1,3 +1,9 @@
+v3.34 02/01/2018
+Fixes:
+- Allied races' crests are now shown in afk screen. No more green squares of doom.
+Misc:
+- Merchant skin augmentations now should account for latest API changes.
+
 v3.33 01/31/2018
 Additions:
 - Added an option to set a quest log state based on being in combat
