@@ -6,6 +6,7 @@ SUF.DeadTextures = {
 	["SKULL1"] = [[Interface\AddOns\ElvUI_SLE\media\textures\SKULL]],
 	["SKULL2"] = [[Interface\AddOns\ElvUI_SLE\media\textures\SKULL1]],
 	["SKULL3"] = [[Interface\AddOns\ElvUI_SLE\media\textures\SKULL2]],
+	["SKULL4"] = [[Interface\AddOns\ElvUI_SLE\media\textures\SKULL3]],
 }
 
 function SUF:Construct_Dead(frame, group)
