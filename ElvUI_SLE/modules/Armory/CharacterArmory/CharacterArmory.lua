@@ -1493,8 +1493,9 @@ function CA:UpdateSettings(part)
 			end
 			if _G["CharacterArmory"].ArtifactMonitor then
 				for i = 1, C_ArtifactUI.GetEquippedArtifactNumRelicSlots() or 3 do
-					-- CA.ArtifactMonitor['Socket'..i] = CreateFrame('Frame', nil, CA.ArtifactMonitor)
-					_G["CharacterArmory"].ArtifactMonitor['Socket'..i]:Size(E.db.sle.Armory.Character.Gem.SocketSize)
+					if _G["CharacterArmory"].ArtifactMonitor['Socket'..i] then
+						_G["CharacterArmory"].ArtifactMonitor['Socket'..i]:Size(E.db.sle.Armory.Character.Gem.SocketSize)
+					end
 				end
 			end
 		end

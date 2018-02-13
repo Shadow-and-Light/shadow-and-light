@@ -1525,6 +1525,10 @@ local function StartSetup()
 end
 
 local function SetupAddons()
+	if AddOnSkins and (not EmbedSystem_LeftWindow or not EmbedSystem_LeftWindow) then
+		local AS = T.unpack(AddOnSkins)
+		AS:Embed_Check(true)
+	end
 	if PI.SLE_Auth == "DARTH" then
 		local list = "Skada\nxCT+"
 		E.PopupDialogs['SLE_INSTALL_SETTINGS_ADDONS'].text = T.format(L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"], list)
