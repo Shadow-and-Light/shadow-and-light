@@ -788,6 +788,7 @@ function PI:DarthAddons()
 				}, -- [2]
 			},
 		}
+
 		Skada.db:SetProfile(profileName)
 	end
 	if xCTSavedDB and T.IsAddOnLoaded("xCT+") then
