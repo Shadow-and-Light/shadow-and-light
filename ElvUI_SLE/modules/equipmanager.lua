@@ -216,7 +216,7 @@ end
 local function Equip(event)
 	if EM.Processing or EM.lock then return end
 	if event == "PLAYER_ENTERING_WORLD" then EM:UnregisterEvent(event) end
-	if event == "ZONE_CHANGED" and EM.db.onlyTalent then return end
+	if (event == "ZONE_CHANGED" or event == "LOADING_SCREEN_DISABLED") and EM.db.onlyTalent then return end
 	EM.Processing = true
 	local inCombat = false
 	E:Delay(1, function() EM.Processing = false end)
