@@ -1,4 +1,4 @@
-local MAJOR, MINOR = 'LibProcessable', 19
+local MAJOR, MINOR = 'LibProcessable', 23
 assert(LibStub, MAJOR .. ' requires LibStub')
 
 local lib, oldMinor = LibStub:NewLibrary(MAJOR, MINOR)
@@ -49,285 +49,16 @@ function lib:IsProspectable(itemID)
 	end
 end
 
--- https://gist.github.com/p3lim/57acb053b3efccad0275
-local function GetSkillRequired(class, quality, level)
-	if(class == 2) then
-		-- Weapons
-		if(quality == 2) then
-			if(level > 449) then
-				return 0
-			elseif(level > 416) then
-				return 475
-			elseif(level > 403) then
-				return 475
-			elseif(level > 390) then
-				return 475
-			elseif(level > 377) then
-				return 475
-			elseif(level > 363) then
-				return 475
-			elseif(level > 312) then
-				return 425
-			elseif(level > 305) then
-				return 425
-			elseif(level > 289) then
-				return 425
-			elseif(level > 272) then
-				return 425
-			elseif(level > 200) then
-				return 425
-			elseif(level > 153) then
-				return 350
-			elseif(level > 120) then
-				return 325
-			elseif(level > 99) then
-				return 275
-			elseif(level > 79) then
-				return 225
-			elseif(level > 65) then
-				return 225
-			elseif(level > 60) then
-				return 225
-			elseif(level > 55) then
-				return 200
-			elseif(level > 50) then
-				return 175
-			elseif(level > 45) then
-				return 150
-			elseif(level > 40) then
-				return 125
-			elseif(level > 35) then
-				return 100
-			elseif(level > 30) then
-				return 75
-			elseif(level > 25) then
-				return 50
-			elseif(level > 20) then
-				return 25
-			else
-				return 1
-			end
-		elseif(quality == 3) then
-			if(level > 499) then
-				return 0
-			elseif(level > 424) then
-				return 550
-			elseif(level > 377) then
-				return 525
-			elseif(level > 316) then
-				return 450
-			elseif(level > 200) then
-				return 450
-			elseif(level > 166) then
-				return 325
-			elseif(level > 115) then
-				return 325
-			elseif(level > 99) then
-				return 275
-			elseif(level > 79) then
-				return 225
-			elseif(level > 65) then
-				return 225
-			elseif(level > 60) then
-				return 225
-			elseif(level > 55) then
-				return 200
-			elseif(level > 50) then
-				return 175
-			elseif(level > 45) then
-				return 150
-			elseif(level > 40) then
-				return 125
-			elseif(level > 35) then
-				return 100
-			elseif(level > 30) then
-				return 75
-			elseif(level > 25) then
-				return 50
-			else
-				return 25
-			end
-		elseif(quality == 4) then
-			if(level > 599) then
-				return 0
-			elseif(level > 419) then
-				return 575
-			elseif(level > 299) then
-				return 475
-			elseif(level > 199) then
-				return 375
-			elseif(level > 99) then
-				return 300
-			elseif(level > 65) then
-				return 225
-			elseif(level > 60) then
-				return 225
-			elseif(level > 55) then
-				return 200
-			elseif(level > 50) then
-				return 175
-			elseif(level > 45) then
-				return 150
-			elseif(level > 40) then
-				return 125
-			elseif(level > 35) then
-				return 100
-			elseif(level > 30) then
-				return 75
-			elseif(level > 25) then
-				return 50
-			else
-				return 25
-			end
-		end
-	elseif(class == 4) then
-		-- Armor
-		if(quality == 2) then
-			if(level > 449) then
-				return 0
-			elseif(level > 416) then
-				return 475
-			elseif(level > 403) then
-				return 475
-			elseif(level > 390) then
-				return 475
-			elseif(level > 377) then
-				return 475
-			elseif(level > 363) then
-				return 475
-			elseif(level > 312) then
-				return 425
-			elseif(level > 305) then
-				return 425
-			elseif(level > 289) then
-				return 425
-			elseif(level > 272) then
-				return 425
-			elseif(level > 200) then
-				return 425
-			elseif(level > 153) then
-				return 350
-			elseif(level > 120) then
-				return 325
-			elseif(level > 99) then
-				return 275
-			elseif(level > 79) then
-				return 225
-			elseif(level > 65) then
-				return 225
-			elseif(level > 60) then
-				return 225
-			elseif(level > 55) then
-				return 200
-			elseif(level > 50) then
-				return 175
-			elseif(level > 45) then
-				return 150
-			elseif(level > 40) then
-				return 125
-			elseif(level > 35) then
-				return 100
-			elseif(level > 30) then
-				return 75
-			elseif(level > 25) then
-				return 50
-			elseif(level > 20) then
-				return 25
-			else
-				return 1
-			end
-		elseif(quality == 3) then
-			if(level > 499) then
-				return 0
-			elseif(level > 424) then
-				return 550
-			elseif(level > 377) then
-				return 525
-			elseif(level > 316) then
-				return 450
-			elseif(level > 200) then
-				return 450
-			elseif(level > 166) then
-				return 325
-			elseif(level > 115) then
-				return 325
-			elseif(level > 99) then
-				return 275
-			elseif(level > 79) then
-				return 225
-			elseif(level > 65) then
-				return 225
-			elseif(level > 60) then
-				return 225
-			elseif(level > 55) then
-				return 200
-			elseif(level > 50) then
-				return 175
-			elseif(level > 45) then
-				return 150
-			elseif(level > 40) then
-				return 125
-			elseif(level > 35) then
-				return 100
-			elseif(level > 30) then
-				return 75
-			elseif(level > 25) then
-				return 50
-			else
-				return 25
-			end
-		elseif(quality == 4) then
-			if(level > 599) then
-				return 0
-			elseif(level > 419) then
-				return 575
-			elseif(level > 299) then
-				return 475
-			elseif(level > 199) then
-				return 375
-			elseif(level > 99) then
-				return 300
-			elseif(level > 65) then
-				return 225
-			elseif(level > 60) then
-				return 225
-			elseif(level > 55) then
-				return 200
-			elseif(level > 50) then
-				return 175
-			elseif(level > 45) then
-				return 150
-			elseif(level > 40) then
-				return 125
-			elseif(level > 35) then
-				return 100
-			elseif(level > 30) then
-				return 75
-			elseif(level > 25) then
-				return 50
-			else
-				return 25
-			end
-		end
-	elseif(class == 3) then
-		-- Artifact Relics
-		-- TODO: needs refining but is good for now
-		return 1
-	end
-end
-
 local DISENCHANTING = 13262
---- API to verify if an item can be processed through the Disenchanting skill or garrison buildings.
+--- API to verify if an item can be processed through the Disenchanting profession ability.
 -- @name LibProcessable:IsDisenchantable
--- @usage LibStub('LibProcessable'):IsDisenchantable(itemID | itemLink[, ignoreGarrison[, ignoreGarrisonBuildingRequirement]])
+-- @usage LibStub('LibProcessable'):IsDisenchantable(itemID | itemLink)
 -- @param itemID The itemID of the item to check against
 -- @param itemLink The itemLink of the item to check against
--- @param ignoreGarrison Ignore the garrison enchanting buildings
--- @param ignoreGarrisonBuildingRequirement Ignore the garrison enchanting building requirement
 -- @return isDisenchantable Boolean indicating if the player can process the item
 -- @return skillRequired Number representing the required skill to process the item
 -- @return skillLevel Number representing the player's skill in Enchanting
-function lib:IsDisenchantable(item, ignoreGarrison, ignoreGarrisonBuildingRequirement)
+function lib:IsDisenchantable(item)
 	if(type(item) == 'string') then
 		if(not string.match(item, 'item:(%d+):') and not tonumber(item)) then
 			assert(false, 'item must be an item ID or item Link')
@@ -340,15 +71,8 @@ function lib:IsDisenchantable(item, ignoreGarrison, ignoreGarrisonBuildingRequir
 
 	if(IsSpellKnown(DISENCHANTING)) then
 		local _, _, quality, _, _, _, _, _, _, _, _, class, subClass = GetItemInfo(item)
-		if(class == 2 or class == 4 or (class == 3 and subClass == 11)) then
-			local skillRequired = GetSkillRequired(class, quality, (GetDetailedItemLevelInfo(item)))
-			return skillRequired and skillRequired <= enchantingSkill, skillRequired, enchantingSkill
-		end
-	elseif(not ignoreGarrison and (hasEnchantingBuilding or ignoreGarrisonBuildingRequirement)) then
-		local _, _, quality, _, _, _, _, _, _, _, _, class, subClass = GetItemInfo(item)
-		if(class == 2 or class == 4 or (class == 3 and subClass == 11)) then
-			local skillRequired = GetSkillRequired(class, quality, (GetDetailedItemLevelInfo(item)))
-			return skillRequired and skillRequired == 0, skillRequired, enchantingSkill
+		if(self.specialItems.enchanting[itemID] or ((class == 2 or class == 4 or (class == 3 and subClass == 11)) and (quality >= 2 and quality <= 4))) then
+			return true, 1, enchantingSkill
 		end
 	end
 end
@@ -566,7 +290,8 @@ lib.herbs = {
 	[124104] = 0, -- Fjarnskaggl
 	[124105] = 0, -- Starlight Rose
 	[124106] = 0, -- Felwort
-	[128304] = 0, -- Yseralline Seed (this might be an error in the data files)
+	[128304] = 0, -- Yseralline Seed
+	[151565] = 0, -- Astral Glory
 }
 
 -- https://gist.github.com/p3lim/5c0363251db4a110017b
@@ -590,6 +315,7 @@ lib.ores = {
 	[72103] = 600, -- White Trillium Ore
 	[123918] = 0, -- Leystone Ore
 	[123919] = 0, -- Felslate
+	[151564] = 0, -- Empyrium
 }
 
 -- http://www.wowhead.com/items?filter=10:161:128;1:1:1;::
@@ -631,4 +357,13 @@ lib.enchantingBuildings = {
 	[93] = true,
 	[125] = true,
 	[126] = true,
+}
+
+lib.specialItems = {
+	enchanting = {
+		-- These items are used as part of the Legion enchanting quest line
+		[137195] = 1, -- Highmountain Armor
+		[137221] = 1, -- Enchanted Raven Sigil
+		[137286] = 1, -- Fel-Crusted Rune
+	}
 }
