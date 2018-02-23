@@ -671,6 +671,13 @@ function CA:ScanData()
 	elseif self.NeedUpdate then
 		self:SetScript('OnUpdate', self.ScanData)
 	end
+	_G["CharacterModelFrame"].BackgroundTopLeft:Hide()
+	_G["CharacterModelFrame"].BackgroundTopRight:Hide()
+	_G["CharacterModelFrame"].BackgroundBotLeft:Hide()
+	_G["CharacterModelFrame"].BackgroundBotRight:Hide()
+	if _G["CharacterModelFrame"].backdrop then
+		_G["CharacterModelFrame"].backdrop:Hide()
+	end
 end
 
 function CA:Update_Durability()
@@ -1575,13 +1582,13 @@ KF.Modules.CharacterArmory = function()
 		_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"])
 		_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
 		_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
-		_G["CharacterModelFrame"].BackgroundTopLeft:Hide()
-		_G["CharacterModelFrame"].BackgroundTopRight:Hide()
-		_G["CharacterModelFrame"].BackgroundBotLeft:Hide()
-		_G["CharacterModelFrame"].BackgroundBotRight:Hide()
-		if _G["CharacterModelFrame"].backdrop then
-			_G["CharacterModelFrame"].backdrop:Hide()
-		end
+		-- _G["CharacterModelFrame"].BackgroundTopLeft:Hide()
+		-- _G["CharacterModelFrame"].BackgroundTopRight:Hide()
+		-- _G["CharacterModelFrame"].BackgroundBotLeft:Hide()
+		-- _G["CharacterModelFrame"].BackgroundBotRight:Hide()
+		-- if _G["CharacterModelFrame"].backdrop then
+			-- _G["CharacterModelFrame"].backdrop:Hide()
+		-- end
 
 		if _G["PaperDollFrame"]:IsShown() then
 			_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and 650 or 444)
