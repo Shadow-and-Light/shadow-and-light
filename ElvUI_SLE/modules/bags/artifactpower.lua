@@ -7,7 +7,6 @@ local _G = _G
 local tooltipScanner
 local tooltipName = "SLE_ArtifactPowerTooltipScanner"
 local arcanePower
-local AP_NAME = format("%s|r", ARTIFACT_POWER)
 local pcall = pcall
 local GetItemSpell = GetItemSpell
 
@@ -52,6 +51,10 @@ local function SlotUpdate(self, bagID, slotID)
 		frame.artifactpowerinfo = frame:CreateFontString(nil, 'OVERLAY')
 		frame.artifactpowerinfo:Point("BOTTOMLEFT", 2, 2)
 	end
+	if (not frame.petLevelInfo) and E.db.sle.bags.petLevel.enable then
+		frame.petLevelInfo = frame:CreateFontString(nil, 'OVERLAY')
+		frame.petLevelInfo:Point("BOTTOMLEFT", 2, 2)
+	end
 
 	if E.db.sle.bags.artifactPower.enable then
 		frame.artifactpowerinfo:FontTemplate(E.LSM:Fetch("font", E.db.sle.bags.artifactPower.fonts.font), E.db.sle.bags.artifactPower.fonts.size, E.db.sle.bags.artifactPower.fonts.outline)
@@ -76,6 +79,24 @@ local function SlotUpdate(self, bagID, slotID)
 		end
 	elseif not E.db.sle.bags.artifactPower.enable and frame.artifactpowerinfo then
 		frame.artifactpowerinfo:SetText("")
+	end
+	
+	if E.db.sle.bags.petLevel.enable then 
+		frame.petLevelInfo:FontTemplate(E.LSM:Fetch("font", E.db.sle.bags.petLevel.fonts.font), E.db.sle.bags.petLevel.fonts.size, E.db.sle.bags.petLevel.fonts.outline)
+		frame.petLevelInfo:SetText("")
+		
+		local itemLink, _, _, ID = T.select(7, T.GetContainerItemInfo(bagID, slotID))
+		if not ID then return end
+		local itemSubType = T.select(7,T.GetItemInfo(ID))
+		if itemSubType == "BattlePet" then
+			local itemString = T.gsub(itemLink, "|H", "")
+			local _, _, level = T.split(":", itemString)
+			frame.petLevelInfo:SetText(level)
+		else
+			frame.petLevelInfo:SetText("")
+		end
+	elseif not E.db.sle.bags.petLevel.enable and frame.petLevelInfo then
+		frame.petLevelInfo:SetText("")
 	end
 end
 
