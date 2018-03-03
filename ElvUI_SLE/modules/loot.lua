@@ -254,6 +254,7 @@ function LT:LootShow()
 
 	if (not instance and LT.db.history.autohide) then
 		_G["LootHistoryFrame"]:Hide()
+		if SLE._Compatibility["ElvUI_PagedLootHistory"] then _G["ElvUI_PagedLootHistoryFrame"]:Hide() end
 	end
 end
 
