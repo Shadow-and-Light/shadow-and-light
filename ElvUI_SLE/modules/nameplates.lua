@@ -84,34 +84,34 @@ hooksecurefunc(NP, 'Update_ThreatList', function(self, plate)
 end)
 
 function N:UpdateCount(event,unit,force)
+	if N.db.targetcount == nil or not N.db.targetcount.enable then return end
 	if (not T.find(unit, "raid") and not T.find(unit, "party") and not (unit == "player" and force) and not N.TestSoloTarget) or T.find(unit, "pet") then return end
-	if force and (T.IsInRaid() or T.IsInGroup()) then N:UpdateRoster() end
+	local isGrouped = T.IsInRaid() or T.IsInGroup()
 	local target
+	if force and isGrouped then N:UpdateRoster() end
 	for _, frame in T.pairs(GetNamePlates()) do
 		if(frame and frame.unitFrame) then
 			local plate = frame.unitFrame
 			plate.targetcount:SetText("")
 			plate.targetCount = 0
-			if N.db.targetcount.enable and plate.targetcount then
-				if T.IsInRaid() or T.IsInGroup() then
-					for name, unitid in T.pairs(N.GroupMembers) do
-						if not T.UnitIsUnit(unitid,"player") and plate.unit then
-							target = T.format("%starget", unitid)
-							plate.guid = T.UnitGUID(plate.unit)
-							if plate.guid and T.UnitExists(target) then
-								if T.UnitGUID(target) == plate.guid then plate.targetCount = plate.targetCount + 1 end
-							end
+			if isGrouped then
+				for _, unitid in T.pairs(N.GroupMembers) do
+					if not T.UnitIsUnit(unitid,"player") and plate.unit then
+						target = T.format("%starget", unitid)
+						plate.guid = T.UnitGUID(plate.unit)
+						if plate.guid and T.UnitExists(target) then
+							if T.UnitGUID(target) == plate.guid then plate.targetCount = plate.targetCount + 1 end
 						end
 					end
 				end
-				if N.TestSoloTarget then
-					plate.guid = T.UnitGUID(plate.unit)
-					if plate.guid and T.UnitExists("target") then
-						if T.UnitGUID("target") == plate.guid then plate.targetCount = plate.targetCount + 1 end
-					end
-				end
-				if not (plate.targetCount == 0) then plate.targetcount:SetText(T.format('[%d]', plate.targetCount))	end
 			end
+			if N.TestSoloTarget then
+				plate.guid = T.UnitGUID(plate.unit)
+				if plate.guid and T.UnitExists("target") then
+					if T.UnitGUID("target") == plate.guid then plate.targetCount = plate.targetCount + 1 end
+				end
+			end
+			if not (plate.targetCount == 0) then plate.targetcount:SetText(T.format('[%d]', plate.targetCount))	end
 		end
 	end
 end
@@ -165,21 +165,6 @@ end
 
 function N:Initialize()
 	if not SLE.initialized or not E.private.nameplates.enable then return end
-	--DB converts
-	if E.db.sle.nameplates.targetcount and T.type(E.db.sle.nameplates.targetcount) == "boolean" then
-		local oldEnable = E.db.sle.nameplates.targetcount
-		E.db.sle.nameplates.targetcount = {
-			["enable"] = oldEnable,
-			["font"] = "PT Sans Narrow",
-			["size"] = 12,
-			["fontOutline"] = "OUTLINE",
-		}
-	end
-	if E.db.sle.nameplates.showthreat then
-		E.db.sle.nameplates.threat.enable = E.db.sle.nameplates.showthreat
-		E.db.sle.nameplates.showthreat = nil
-	end
-	
 	N.db = E.db.sle.nameplates
 	
 	hooksecurefunc(NP, 'NAME_PLATE_CREATED', N.CreateNameplate)
@@ -193,21 +178,6 @@ function N:Initialize()
 
 	E:Delay(.3, function() N:UpdateCount(nil,"player", true) end)
 	function N:ForUpdateAll()
-		--DB converts
-		if (E.db.sle.nameplates.targetcount and T.type(E.db.sle.nameplates.targetcount) == "boolean") or not E.db.sle.nameplates.targetcount then
-			local oldEnable = E.db.sle.nameplates.targetcount
-			E.db.sle.nameplates.targetcount = {
-				["enable"] = oldEnable,
-				["font"] = "PT Sans Narrow",
-				["size"] = 12,
-				["fontOutline"] = "OUTLINE",
-			}
-		end
-		if E.db.sle.nameplates.showthreat then
-			E.db.sle.nameplates.threat.enable = E.db.sle.nameplates.showthreat
-			E.db.sle.nameplates.showthreat = nil
-		end
-	
 		N.db = E.db.sle.nameplates
 	end
 end
