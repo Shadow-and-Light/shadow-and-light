@@ -1571,17 +1571,23 @@ end
 local patternForIllusionLine = TRANSMOGRIFIED_ENCHANT:gsub("%%s", "(.+)")
 function scanForIllusion(tt)
 	if tt:IsForbidden() then return end
+	local TrueItemLevel = nil
 	for i=1, tt:NumLines() do
 		local tiptext = _G["InspectArmoryScanTT_ITextLeft"..i]
 		local linetext = tiptext:GetText()
 		if linetext then
+			if linetext:find(Info.Armory_Constants.ItemLevelKey_Alt) then
+				TrueItemLevel = T.tonumber(linetext:match(Info.Armory_Constants.ItemLevelKey_Alt))
+			elseif linetext:find(Info.Armory_Constants.ItemLevelKey) then
+				TrueItemLevel = T.tonumber(linetext:match(Info.Armory_Constants.ItemLevelKey))
+			end
 			local illusion = linetext:match(patternForIllusionLine)
 			if illusion then
-				return illusion, true
+				return illusion, true, TrueItemLevel
 			end
 		end
 	end
-	return "", false
+	return "", false, TrueItemLevel
 end
 
 function IA:INSPECT_READY(InspectedUnitGUID)
@@ -1611,6 +1617,7 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 	local NeedReinspect
 	local CurrentSetItem = {}
 	local Slot, SlotTexture, SlotLink, CheckSpace, R, G, B, TooltipText, TransmogrifiedItem, SetName, SetItemCount, SetItemMax, SetOptionCount
+	local TrueItemLevel
 	for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 		Slot = IA[SlotName]
 		if Slot.IllusionAnchor then Slot.IllusionAnchor:Hide() end
@@ -1636,7 +1643,8 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 				--<< Illusion Parts >>--
 				if Slot.IllusionAnchor then
 					local shouldShow
-					Slot.IllusionAnchor.Link, shouldShow = scanForIllusion(InspectArmoryScanTT_I)
+					Slot.IllusionAnchor.Link, shouldShow, TrueItemLevel = scanForIllusion(IA.ScanTTForInspecting)
+					IA.CurrentInspectData.Gear[SlotName].TrueItemLevel = TrueItemLevel
 					if shouldShow then Slot.IllusionAnchor:Show() end
 				end
 				
@@ -2149,6 +2157,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 						
 						--<< ItemLevel Parts >>--
 						ItemUpgradeID = ItemData[12]
+						if IA.CurrentInspectData.Gear[SlotName].TrueItemLevel then TrueItemLevel = IA.CurrentInspectData.Gear[SlotName].TrueItemLevel end
 						
 						if BasicItemLevel then
 							if ItemUpgradeID then
