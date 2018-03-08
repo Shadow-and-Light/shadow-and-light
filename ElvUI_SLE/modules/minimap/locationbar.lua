@@ -41,6 +41,11 @@ LP.MainMenu = {}
 LP.SecondaryMenu = {}
 LP.RestrictedArea = false
 
+LP.ListUpdating = false
+LP.ListBuilding = false
+LP.InfoUpdatingTimer = nil
+
+
 local function GetDirection()
 	local x, y = _G["SLE_LocationPanel"]:GetCenter()
 	local screenHeight = GetScreenHeight()
@@ -254,7 +259,8 @@ function LP:OnClick(btn)
 			ToggleFrame(_G["WorldMapFrame"])
 		end
 	elseif btn == "RightButton" and LP.db.portals.enable and not T.InCombatLockdown() then
-		LP:PopulateDropdown()
+		if LP.ListBuilding then SLE:ErrorPrint(L["Info for some items is not available yet. Please try again later"]) end
+		LP:PopulateDropdown(true)
 	end
 end
 
@@ -373,12 +379,14 @@ function LP:PopulateItems()
 	local noItem = false
 
 	for index, data in T.pairs(LP.PortItems) do
-		if T.select(2, T.GetItemInfo(data[1])) == nil and (data[1] ~= 152964 and E.wowbuild < 24896) then noItem = true end
+		if T.select(2, T.GetItemInfo(data[1])) == nil then noItem = true end
 	end
 
 	if noItem then
+		LP.ListBuilding = true
 		E:Delay(2, LP.PopulateItems)
 	else
+		LP.ListBuilding = false
 		for index, data in T.pairs(LP.PortItems) do
 			local id, name, toy = data[1], data[2], data[3]
 			LP.PortItems[index] = {text = name or T.GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true}
@@ -387,16 +395,14 @@ function LP:PopulateItems()
 end
 
 function LP:ItemList(check)
+	if LP.db.portals.HSplace then T.tinsert(LP.MainMenu, {text = L["Hearthstone Location"]..": "..GetBindLocation(), title = true, nohighlight = true}) end
+	T.tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
 	for i = 1, #LP.PortItems do
 		local tmp = {}
 		local data = LP.PortItems[i]
 		local ID, isToy = data.secure.ID, data.secure.isToy
-		if (not isToy and SLE:BagSearch(ID)) or (isToy and PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID)) then
-			if check then 
-				if LP.db.portals.HSplace then T.tinsert(LP.MainMenu, {text = L["Hearthstone Location"]..": "..GetBindLocation(), title = true, nohighlight = true}) end
-				T.tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
-				return true 
-			else
+		if isToy and C_ToyBox.IsToyUsable(ID) == nil then return false end
+		if (not isToy and SLE:BagSearch(ID) and IsUsableItem(ID)) or (isToy and PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID)) then
 				if data.text then
 					local cd = DD:GetCooldown("Item", ID)
 					E:CopyTable(tmp, data)
@@ -408,9 +414,9 @@ function LP:ItemList(check)
 					end
 					
 				end
-			end
 		end
 	end
+	return true
 end
 
 function LP:SpellList(list, dropdown, check)
@@ -436,7 +442,16 @@ function LP:SpellList(list, dropdown, check)
 	end
 end
 
-function LP:PopulateDropdown()
+local attempts = 0
+
+function LP:PopulateDropdown(click)
+	if LP.ListUpdating and click then
+		SLE:Print(L["Update canceled."])
+		LP.ListUpdating = false
+		if LP.InfoUpdatingTimer then LP:CancelTimer(LP.InfoUpdatingTimer) end
+		return
+	end
+	LP.InfoUpdatingTimer = nil
 	if LP.Menu2:IsShown() then ToggleFrame(LP.Menu2) end
 	if #LP.MainMenu > 0 then
 		SLE:DropDown(LP.MainMenu, LP.Menu1)
@@ -444,9 +459,16 @@ function LP:PopulateDropdown()
 	end
 	local anchor, point = GetDirection()
 	local MENU_WIDTH
-	if LP:ItemList(true) then
-		LP:ItemList() 
+	local full_list = LP:ItemList()
+	if not full_list then 
+		attempts = attempts + 1
+		if not LP.ListUpdating then SLE:ErrorPrint(L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."]); LP.ListUpdating = true end
+		if not LP.InfoUpdatingTimer then LP.InfoUpdatingTimer = LP:ScheduleTimer(LP.PopulateDropdown, 1) end
+		T.twipe(LP.MainMenu)
+		return
 	end
+	if LP.ListUpdating then LP.ListUpdating = false; SLE:Print(L["Update complete. Opening menu."]) end
+
 	if LP:SpellList(LP.Spells[E.myclass], nil, true) or  LP:SpellList(LP.Spells.challenge, nil, true) or E.myclass == "MAGE" then
 		T.tinsert(LP.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
 		LP:SpellList(LP.Spells[E.myclass], LP.MainMenu)
@@ -534,6 +556,8 @@ function LP:Initialize()
  	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
  	LP:RegisterEvent("PLAYER_ENTERING_WORLD")
 	LP:RegisterEvent("UNIT_AURA")
+	
+	LP:CreatePortalButtons()
 end
 
 SLE:RegisterModule(LP:GetName())

@@ -632,6 +632,10 @@ L["Show the name on location your Heathstone is bound to."] = "Показыва�
 L["Only Number"] = "Только цифры"
 L["Horizontal Growth"] = "Горизонтаьный рост"
 L["Vertical Growth"] = "Вертикальный рост"
+L["Info for some items is not available yet. Please try again later"] = "Информация о некоторых предметах пока недоступна. Зайдите попозже."
+L["Update canceled."] = "Обновление отменено."
+L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = "Информация о предмете недоступна. Ждем-с. Меню откроется автоматически, когда вся информация будет доступна. Вызовите меню повторно во время обновления для отмены."
+L["Update complete. Opening menu."] = "Обновление завершено. Открываю меню."
 
 --Miscs
 L["Error Frame"] = "Фрейм ошибок"
