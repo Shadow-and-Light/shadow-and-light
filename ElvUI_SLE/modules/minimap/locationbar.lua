@@ -45,7 +45,6 @@ LP.ListUpdating = false
 LP.ListBuilding = false
 LP.InfoUpdatingTimer = nil
 
-
 local function GetDirection()
 	local x, y = _G["SLE_LocationPanel"]:GetCenter()
 	local screenHeight = GetScreenHeight()
@@ -60,6 +59,8 @@ end
 --{ItemID, ButtonText, isToy}
 LP.Hearthstones = {
 	{6948}, --Hearthstone
+	{93672, nil, true}, --Dark Portal
+	{54452, nil, true}, --Etherial Portal
 	{142542, nil, true}, --Tome of Town Portal (Diablo Event)
 	{64488, nil, true}, --The Innkeeper's Daughter
 }
@@ -70,13 +71,6 @@ LP.PortItems = {
 	{140192, DUNGEON_FLOOR_DALARAN1}, --Dalaran Hearthstone
 	{37863}, --Grim Guzzler
 	{52251}, --Jaina's Locket
-	{48933, nil, true}, --Wormhole Generator: Northrend
-	{87215, nil, true}, --Wormhole Generator: Pandaria
-	{112059, nil, true}, --Wormhole Centrifuge
-	{18986, nil, true}, --Ultrasafe Transporter: Gadgetzan
-	{30544, nil, true}, --Ultrasafe Transporter: Toshley's Station
-	{18984, nil, true}, --Dimensional Ripper - Everlook
-	{30542, nil, true}, --Dimensional Ripper - Area 52
 	{58487}, --Potion of Deepholm
 	{43824, nil, true}, --The Schools of Arcane Magic - Mastery
 	{64457}, --The Last Relic of Argus
@@ -86,7 +80,19 @@ LP.PortItems = {
 	{140324, nil, true}, --Mobile Telemancy Beacon
 	{129276}, --Beginner's Guide to Dimensional Rifting
 	{140493}, --Adept's Guide to Dimensional Rifting
-	{112059, nil, true}, --Wormhole Generator: Argus
+	{95567, nil, true}, --Kirin Tor beakon
+	{95568, nil, true}, --Sunreaver beakon
+	{87548}, --Pandaria Arch
+}
+LP.EngineerItems = {
+	{18984, nil, true}, --Dimensional Ripper - Everlook
+	{18986, nil, true}, --Ultrasafe Transporter: Gadgetzan
+	{30542, nil, true}, --Dimensional Ripper - Area 52
+	{30544, nil, true}, --Ultrasafe Transporter: Toshley's Station
+	{48933, nil, true}, --Wormhole Generator: Northrend
+	{87215, nil, true}, --Wormhole Generator: Pandaria
+	{112059, nil, true}, --Wormhole Centrifuge
+	{151652, nil, true}, --Wormhole Generator: Argus
 }
 LP.Spells = {
 	["DEATHKNIGHT"] = {
@@ -262,7 +268,7 @@ function LP:OnClick(btn)
 			ToggleFrame(_G["WorldMapFrame"])
 		end
 	elseif btn == "RightButton" and LP.db.portals.enable and not T.InCombatLockdown() then
-		if LP.ListBuilding then SLE:ErrorPrint(L["Info for some items is not available yet. Please try again later"]) end
+		if LP.ListBuilding then SLE:ErrorPrint(L["Info for some items is not available yet. Please try again later"]) return end
 		LP:PopulateDropdown(true)
 	end
 end
@@ -387,6 +393,9 @@ function LP:PopulateItems()
 	for index, data in T.pairs(LP.PortItems) do
 		if T.select(2, T.GetItemInfo(data[1])) == nil then noItem = true end
 	end
+	for index, data in T.pairs(LP.EngineerItems) do
+		if T.select(2, T.GetItemInfo(data[1])) == nil then noItem = true end
+	end
 
 	if noItem then
 		LP.ListBuilding = true
@@ -395,11 +404,15 @@ function LP:PopulateItems()
 		LP.ListBuilding = false
 		for index, data in T.pairs(LP.Hearthstones) do
 			local id, name, toy = data[1], data[2], data[3]
-			LP.Hearthstones[index] = {text = name or T.GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true}
+			LP.Hearthstones[index] = {text = name or T.GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
 		end
 		for index, data in T.pairs(LP.PortItems) do
 			local id, name, toy = data[1], data[2], data[3]
-			LP.PortItems[index] = {text = name or T.GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true}
+			LP.PortItems[index] = {text = name or T.GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
+		end
+		for index, data in T.pairs(LP.EngineerItems) do
+			local id, name, toy = data[1], data[2], data[3]
+			LP.EngineerItems[index] = {text = name or T.GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
 		end
 	end
 end
@@ -407,13 +420,15 @@ end
 function LP:ItemList(check)
 	if LP.db.portals.HSplace then T.tinsert(LP.MainMenu, {text = L["Hearthstone Location"]..": "..GetBindLocation(), title = true, nohighlight = true}) end
 	T.tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
-
-	for i = 1, #LP.Hearthstones do
-		local tmp = {}
-		local data = LP.Hearthstones[i]
-		local ID, isToy = data.secure.ID, data.secure.isToy
-		if isToy and C_ToyBox.IsToyUsable(ID) == nil then return false end
-		if (not isToy and SLE:BagSearch(ID) and IsUsableItem(ID)) or (isToy and PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID)) then
+	
+	if LP.db.portals.showHearthstones then
+		for i = 1, #LP.Hearthstones do
+			local tmp = {}
+			local data = LP.Hearthstones[i]
+			local ID, isToy = data.secure.ID, data.secure.isToy
+			isToy = (LP.db.portals.showToys and isToy)
+			if not LP.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox.IsToyUsable(ID) == nil) then return false end
+			if (not isToy and (SLE:BagSearch(ID) and T.IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID))) then
 				if data.text then
 					local cd = DD:GetCooldown("Item", ID)
 					E:CopyTable(tmp, data)
@@ -425,18 +440,43 @@ function LP:ItemList(check)
 					end
 					break
 				end
+			end
 		end
 	end
+
 	for i = 1, #LP.PortItems do
 		local tmp = {}
 		local data = LP.PortItems[i]
 		local ID, isToy = data.secure.ID, data.secure.isToy
-		if isToy and C_ToyBox.IsToyUsable(ID) == nil then return false end
-		if (not isToy and SLE:BagSearch(ID) and IsUsableItem(ID)) or (isToy and PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID)) then
+		isToy = (LP.db.portals.showToys and isToy)
+		if not LP.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox.IsToyUsable(ID) == nil) then return false end
+		if ((not isToy and (SLE:BagSearch(ID) and T.IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID)))) then
+			if data.text then
+				local cd = DD:GetCooldown("Item", ID)
+				E:CopyTable(tmp, data)
+				if cd or (T.tonumber(cd) and T.tonumber(cd) > 2) then
+					tmp.text = "|cff636363"..tmp.text.."|r"..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
+					T.tinsert(LP.MainMenu, tmp)
+				else
+					T.tinsert(LP.MainMenu, data)
+				end
+				
+			end
+		end
+	end
+
+	if LP.db.portals.showEngineer and LP.isEngineer then
+		T.tinsert(LP.MainMenu, {text = LP.EngineerName..":", title = true, nohighlight = true})
+		for i = 1, #LP.EngineerItems do
+			local tmp = {}
+			local data = LP.EngineerItems[i]
+			local ID, isToy = data.secure.ID, data.secure.isToy
+			if not LP.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox.IsToyUsable(ID) == nil) then return false end
+			if (not isToy and (SLE:BagSearch(ID) and T.IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID))) then
 				if data.text then
 					local cd = DD:GetCooldown("Item", ID)
 					E:CopyTable(tmp, data)
-					if cd or (T.tonumber(cd) and T.tonumber(cd) > 1.5) then
+					if cd or (T.tonumber(cd) and T.tonumber(cd) > 2) then
 						tmp.text = "|cff636363"..tmp.text.."|r"..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
 						T.tinsert(LP.MainMenu, tmp)
 					else
@@ -444,6 +484,7 @@ function LP:ItemList(check)
 					end
 					
 				end
+			end
 		end
 	end
 	return true
@@ -480,55 +521,54 @@ function LP:PopulateDropdown(click)
 		return
 	end
 	LP.InfoUpdatingTimer = nil
-	if LP.Menu2:IsShown() then ToggleFrame(LP.Menu2) end
-	if #LP.MainMenu > 0 then
-		SLE:DropDown(LP.MainMenu, LP.Menu1)
-		return
-	end
-	local anchor, point = GetDirection()
-	local MENU_WIDTH
+	if LP.Menu1:IsShown() then ToggleFrame(LP.Menu1) return end
+	if LP.Menu2:IsShown() then ToggleFrame(LP.Menu2) return end
 	local full_list = LP:ItemList()
 	if not full_list then 
 		if not LP.ListUpdating then SLE:ErrorPrint(L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."]); LP.ListUpdating = true end
-		if not LP.InfoUpdatingTimer then LP.InfoUpdatingTimer = LP:ScheduleTimer(LP.PopulateDropdown, 1) end
+		if not LP.InfoUpdatingTimer then LP.InfoUpdatingTimer = LP:ScheduleTimer(LP.PopulateDropdown, 3) end
 		T.twipe(LP.MainMenu)
 		return
 	end
 	if LP.ListUpdating then LP.ListUpdating = false; SLE:Print(L["Update complete. Opening menu."]) end
+	local anchor, point = GetDirection()
+	local MENU_WIDTH
 
-	if LP:SpellList(LP.Spells[E.myclass], nil, true) or  LP:SpellList(LP.Spells.challenge, nil, true) or E.myclass == "MAGE" then
-		T.tinsert(LP.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
-		LP:SpellList(LP.Spells[E.myclass], LP.MainMenu)
-		if LP:SpellList(LP.Spells.challenge, nil, true) then
-			T.tinsert(LP.MainMenu, {text = CHALLENGE_MODE.." >>",icon = SLE:GetIconFromID("achiev", 6378), func = function() 
-				T.twipe(LP.SecondaryMenu)
-				MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
-				T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); LP:PopulateDropdown() end})
-				T.tinsert(LP.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
-				LP:SpellList(LP.Spells.challenge, LP.SecondaryMenu)
-				T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
-				SLE:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
-			end})
-		end
-		if E.myclass == "MAGE" then
-			T.tinsert(LP.MainMenu, {text = L["Teleports"].." >>", icon = SLE:GetIconFromID("spell", 53140), func = function() 
-				T.twipe(LP.SecondaryMenu)
-				MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
-				T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() T.twipe(LP.MainMenu); LP:PopulateDropdown() end})
-				T.tinsert(LP.SecondaryMenu, {text = L["Teleports"]..":", title = true, nohighlight = true})
-				LP:SpellList(LP.Spells["teleports"][faction], LP.SecondaryMenu)
-				T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
-				SLE:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
-			end})
-			T.tinsert(LP.MainMenu, {text = L["Portals"].." >>",icon = SLE:GetIconFromID("spell", 53142), func = function() 
-				T.twipe(LP.SecondaryMenu)
-				MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
-				T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() T.twipe(LP.MainMenu); LP:PopulateDropdown() end})
-				T.tinsert(LP.SecondaryMenu, {text = L["Portals"]..":", title = true, nohighlight = true})
-				LP:SpellList(LP.Spells["portals"][faction], LP.SecondaryMenu)
-				T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
-				SLE:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
-			end})
+	if LP.db.portals.showSpells then
+		if LP:SpellList(LP.Spells[E.myclass], nil, true) or  LP:SpellList(LP.Spells.challenge, nil, true) or E.myclass == "MAGE" then
+			T.tinsert(LP.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
+			LP:SpellList(LP.Spells[E.myclass], LP.MainMenu)
+			if LP:SpellList(LP.Spells.challenge, nil, true) then
+				T.tinsert(LP.MainMenu, {text = CHALLENGE_MODE.." >>",icon = SLE:GetIconFromID("achiev", 6378), func = function() 
+					T.twipe(LP.SecondaryMenu)
+					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
+					T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); LP:PopulateDropdown() end})
+					T.tinsert(LP.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
+					LP:SpellList(LP.Spells.challenge, LP.SecondaryMenu)
+					T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
+					SLE:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
+				end})
+			end
+			if E.myclass == "MAGE" then
+				T.tinsert(LP.MainMenu, {text = L["Teleports"].." >>", icon = SLE:GetIconFromID("spell", 53140), func = function() 
+					T.twipe(LP.SecondaryMenu)
+					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
+					T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() T.twipe(LP.MainMenu); LP:PopulateDropdown() end})
+					T.tinsert(LP.SecondaryMenu, {text = L["Teleports"]..":", title = true, nohighlight = true})
+					LP:SpellList(LP.Spells["teleports"][faction], LP.SecondaryMenu)
+					T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
+					SLE:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
+				end})
+				T.tinsert(LP.MainMenu, {text = L["Portals"].." >>",icon = SLE:GetIconFromID("spell", 53142), func = function() 
+					T.twipe(LP.SecondaryMenu)
+					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
+					T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() T.twipe(LP.MainMenu); LP:PopulateDropdown() end})
+					T.tinsert(LP.SecondaryMenu, {text = L["Portals"]..":", title = true, nohighlight = true})
+					LP:SpellList(LP.Spells["portals"][faction], LP.SecondaryMenu)
+					T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
+					SLE:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
+				end})
+			end
 		end
 	end
 	T.tinsert(LP.MainMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu1) end})
@@ -536,6 +576,23 @@ function LP:PopulateDropdown(click)
 	SLE:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
 
 	collectgarbage('collect');
+end
+
+function LP:GetProf()
+	LP.EngineerName = T.GetSpell(4036)
+	LP:CHAT_MSG_SKILL()
+end
+
+function LP:CHAT_MSG_SKILL()
+	local prof1, prof2 = T.GetProfessions()
+	if prof1 then
+		local name, _, rank = T.GetProfessionInfo(prof1)
+		if name == LP.EngineerName then LP.isEngineer = true return end
+	end
+	if prof2 then
+		local name, _, rank = T.GetProfessionInfo(prof2)
+		if name == LP.EngineerName then LP.isEngineer = true return end
+	end
 end
 
 function LP:PLAYER_REGEN_DISABLED()
@@ -565,6 +622,7 @@ function LP:Initialize()
 	if not SLE.initialized then return end
 	faction = T.UnitFactionGroup('player')
 	LP:PopulateItems()
+	LP:GetProf()
 
 	LP.elapsed = 0
 	LP:CreateLocationPanel()
@@ -583,6 +641,7 @@ function LP:Initialize()
  	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
  	LP:RegisterEvent("PLAYER_ENTERING_WORLD")
 	LP:RegisterEvent("UNIT_AURA")
+	LP:RegisterEvent("CHAT_MSG_SKILL")
 	
 	LP:CreatePortalButtons()
 end
