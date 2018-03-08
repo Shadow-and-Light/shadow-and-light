@@ -23,6 +23,8 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 local collectgarbage = collectgarbage
 
+local factionToken = UnitFactionGroup('player')
+
 LP.CDformats = {
 	["DEFAULT"] = [[ (%s |TInterface\FriendsFrame\StatusIcon-Away:16|t)]],
 	["DEFAULT_ICONFIRST"] = [[ (|TInterface\FriendsFrame\StatusIcon-Away:16|t %s)]],

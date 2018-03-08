@@ -2,7 +2,6 @@
 	<!--Core-->
 	<Script file='core_c.lua'/>
 	<Script file='skins_c.lua'/>
-	<Script file='misc_c.lua'/>
 	<Script file='legacy_c.lua'/>
 	<Script file='afk_c.lua'/>
 	<Script file='unitframes_c.lua'/>

@@ -95,7 +95,7 @@ local function configTable()
 					credits = {
 						order = 2,
 						type = "description",
-						name = L["ELVUI_SLE_CREDITS"]..'\n\n\n'..L["Submodules and Coding:"]..'\n\n'..L["ELVUI_SLE_CODERS"]..'\n\n\n'..L["Other Support:"]..'\n\n'..L["ELVUI_SLE_MISC"],
+						name = L["ELVUI_SLE_CREDITS"]..'\n\n\n'..L["Submodules and Coding:"]..'\n\n'..L["ELVUI_SLE_CODERS"]..'\n\n\n'..L["ELVUI_SLE_DONORS_TITLE"]..'\n\n\n'..L["ELVUI_SLE_DONORS"]..'\n\n\n'..L["Other Support:"]..'\n\n'..L["ELVUI_SLE_MISC"],
 					},
 				},
 			},

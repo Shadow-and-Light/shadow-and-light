@@ -643,7 +643,6 @@ local function Create_ListButton(frame, i)
 	local iteminfo = button:CreateFontString("ARTWORK", "$parentItemInfo")
 	button.iteminfo = iteminfo;
 	iteminfo:SetFont(E.LSM:Fetch('font', E.db.sle.skins.merchant.list.subFont), E.db.sle.skins.merchant.list.subSize, E.db.sle.skins.merchant.list.subOutline)
-	-- iteminfo:SetPoint("BOTTOMLEFT", 30.4, 3);
 	iteminfo:SetPoint("BOTTOMLEFT", icon, "BOTTOMRIGHT", 4, -3);
 	iteminfo:SetJustifyH("LEFT");
 

@@ -168,19 +168,10 @@ local function SkinProvingGroundButtons()
 	sb:ClearAllPoints()
 	sb:SetPoint('TOPLEFT', block.MedalIcon, 'BOTTOMLEFT', -4, -5)
 	sb:SetSize(200, 15)
-
-	-- Create a little border around the Bar.
-	-- local sb2 = sb:GetParent():CreateTexture(nil, 'BACKGROUND')
-	-- sb2:SetPoint('TOPLEFT', sb, -1, 1)
-	-- sb2:SetPoint('BOTTOMRIGHT', sb, 1, -1)
-	-- sb2:SetTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
-	-- sb2:SetAlpha(0.5)
-	-- sb2:SetVertexColor(unpack(E.media.backdropcolor))
 end
 
 local function ObjectiveReskin()
 	if T.IsAddOnLoaded("Blizzard_ObjectiveTracker") then
-		-- _G["ObjectiveTrackerFrame"]:CreateBackdrop()
 		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.sle.skins.objectiveTracker.enable ~= true then return end
 		-- Objective Tracker Bar
 		hooksecurefunc(_G["BONUS_OBJECTIVE_TRACKER_MODULE"], "AddProgressBar", skinObjectiveBar) 

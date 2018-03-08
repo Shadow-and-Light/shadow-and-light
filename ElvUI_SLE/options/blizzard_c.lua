@@ -55,7 +55,6 @@ local function configTable()
 				isPercent = true,
 				get = function(info) return E.db.sle.blizzard[ info[#info] ] end,
 				set = function(info, value) E.db.sle.blizzard[ info[#info] ] = value; B:VehicleScale() end,
-				-- disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
 			},
 			errorframe = {
 				order = 11,

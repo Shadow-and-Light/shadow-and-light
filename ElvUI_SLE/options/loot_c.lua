@@ -268,7 +268,6 @@ local function configTable()
 				type = "group",
 				name = L["Loot Icons"],
 				order = 11,
-				-- guiInline = true,
 				args = {
 					enable = {
 						order = 1,

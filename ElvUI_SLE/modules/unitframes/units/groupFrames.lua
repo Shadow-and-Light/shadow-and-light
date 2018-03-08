@@ -45,11 +45,4 @@ function SUF:Update_GroupFrames(frame)
 			frame:DisableElement('SLE_Dead')
 		end
 	end
-
-	-- if frame.db.roleIcon.enable and frame.GroupRoleIndicator then
-		-- frame.GroupRoleIndicator:ClearAllPoints()
-		-- local x, y = self:GetPositionOffset(frame.db.roleIcon.position, 1)
-		-- frame.GroupRoleIndicator:ClearAllPoints()
-		-- frame.GroupRoleIndicator:Point(frame.db.roleIcon.position, frame.Health, frame.db.roleIcon.position, x + db.role.xoffset, y + db.role.yoffset)
-	-- end
 end

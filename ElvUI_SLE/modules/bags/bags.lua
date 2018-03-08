@@ -97,14 +97,13 @@ function SB:HookSlot(slot, bagID, slotID)
 	flashAnim1:SetChildKey("flashTex");
 	flashAnim1:SetFromAlpha(0);
 	flashAnim1:SetToAlpha(1);
-	--flashAnim1:SetSmoothing("IN");
 	flashAnim1:SetDuration(0.2);
 	flashAnim1:SetOrder(1);
+	
 	local flashAnim2 = flashAnimGroup:CreateAnimation("Alpha");
 	flashAnim2:SetChildKey("flashTex");
 	flashAnim2:SetFromAlpha(1);
 	flashAnim2:SetToAlpha(0);
-	--flashAnim2:SetSmoothing("OUT");
 	flashAnim2:SetDuration(0.2);
 	flashAnim2:SetOrder(2);
 	slot.flashAnim = flashAnimGroup;
@@ -113,7 +112,6 @@ function SB:HookSlot(slot, bagID, slotID)
 	glowAnimGroup:SetLooping("REPEAT");
 	local glowFlash1 = glowAnimGroup:CreateAnimation("Alpha");
 	glowFlash1:SetChildKey("backdrop");
-	--glowFlash1:SetStartDelay(0.4);
 	glowFlash1:SetDuration(0.8);
 	glowFlash1:SetOrder(1);
 	glowFlash1:SetFromAlpha(1);

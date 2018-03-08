@@ -86,14 +86,12 @@ local function configTable()
 				type = "range",
 				min = -100, max = 100, step = 1,
 				name = L["X-Offset"],
-				-- desc = L["Datatext will flash if durability shown will be equal or lower that this value. Set to -1 to disable"],
 			},
 			yOffset = {
 				order = 1,
 				type = "range",
 				min = -100, max = 100, step = 1,
 				name = L["Y-Offset"],
-				-- desc = L["Datatext will flash if durability shown will be equal or lower that this value. Set to -1 to disable"],
 			},
 		},
 	}

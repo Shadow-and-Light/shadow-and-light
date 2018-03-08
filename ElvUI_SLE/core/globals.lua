@@ -122,7 +122,6 @@ SLE.SpecialChatIcons = {
 		["СвежевательДуш"] = {
 			--Darth's toons
 			["Большойгном"] = test, --Testing toon
-			["Фергесон"] = friend
 		},
 		["ЧерныйШрам"] = {
 			["Емалия"] = friend,

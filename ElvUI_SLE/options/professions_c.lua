@@ -19,7 +19,6 @@ local function configTable()
 				order = 2,
 				type = "group",
 				name = L["Deconstruct Mode"],
-				-- guiInline = true,
 				args = {
 					enable = {
 						order = 1,
@@ -58,7 +57,6 @@ local function configTable()
 				order = 3,
 				type = "group",
 				name = T.GetSpell(158716),
-				-- guiInline = true,
 				args = {
 					enchScroll = {
 						order = 1,
@@ -130,7 +128,6 @@ local function configTable()
 				order = 4,
 				type = "group",
 				name = T.GetSpell(1804),
-				-- guiInline = true,
 				args = {
 					infos = {
 						order = 1,
@@ -163,7 +160,6 @@ local function configTable()
 				order = 5,
 				type = "group",
 				name = T.GetSpell(7620),
-				-- guiInline = true,
 				args = {
 					easycast = {
 						order = 1,

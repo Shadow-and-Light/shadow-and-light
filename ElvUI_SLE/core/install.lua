@@ -1179,7 +1179,6 @@ local function AffinitySetup()
 	E.db["sle"]["datatexts"]["panel3"]["transparent"] = true
 	E.db["sle"]["datatexts"]["panel3"]["width"] = 100
 	E.db["sle"]["datatexts"]["panel5"]["width"] = 100
-	-- E.db["sle"]["datatexts"]["panel6"]["enabled"] = true
 	E.db["sle"]["datatexts"]["panel7"]["enabled"] = true
 	E.db["sle"]["datatexts"]["panel7"]["transparent"] = true
 	E.db["sle"]["datatexts"]["panel7"]["width"] = 100
@@ -1681,20 +1680,3 @@ SLE.installTable = {
 	},
 	["StepTitlesColorSelected"] = {.53,.53,.93},
 }
-
--- SLE.installTable2 = {
-	-- ["Name"] = "S&L2",
-	-- ["tutorialImage"] = [[Interface\AddOns\ElvUI_SLE\media\textures\SLE_Banner]],
-	-- ["Pages"] = {
-		-- [1] = function()
-			-- _G["PluginInstallFrame"].SubTitle:SetText(format(L["Welcome to |cff1784d1Shadow & Light|r 42342 version %s!"], SLE.version))
-			-- _G["PluginInstallFrame"].Desc1:SetText(L["This will take you through a quick install process to setup some Shadow & Light features.\nIf you choose to not setup any options through this config, click Skip Process button to finish the installation."])
-			-- _G["PluginInstallFrame"].Desc2:SetText("")
-			-- _G["PluginInstallFrame"].Desc3:SetText(L["Please press the continue button to go onto the next step."])
-
-			-- _G["PluginInstallFrame"].Option1:Show()
-			-- _G["PluginInstallFrame"].Option1:SetScript("OnClick", InstallComplete)
-			-- _G["PluginInstallFrame"].Option1:SetText(L["Skip Process"])
-		-- end,
-	-- },
--- }

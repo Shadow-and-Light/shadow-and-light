@@ -19,17 +19,14 @@ local function CustomRollCall()
 end
 
 function UB:ConfigSetup(menu)
-	--UB:CreateSeparator("Config", "SLE_StartSeparator", 1, 2)
 	menu:CreateDropdownButton("Config", "Elv", "|cff1784d1ElvUI|r", L["ElvUI Config"], L["Click to toggle config window"],  function() if T.InCombatLockdown() then return end; E:ToggleConfig() end, nil, true)
 	menu:CreateDropdownButton("Config", "SLE", "|cff9482c9S&L|r", L["S&L Config"], L["Click to toggle Shadow & Light config group"],  function() if T.InCombatLockdown() then return end; E:ToggleConfig(); SLE.ACD:SelectGroup("ElvUI", "sle") end, nil, true)
 	menu:CreateSeparator("Config", "First", 4, 2)
 	menu:CreateDropdownButton( "Config", "Reload", "/reloadui", L["Reload UI"], L["Click to reload your interface"],  function() ReloadUI() end, nil, true)
 	menu:CreateDropdownButton("Config", "MoveUI", "/moveui", L["Move UI"], L["Click to unlock moving ElvUI elements"],  function() if T.InCombatLockdown() then return end; E:ToggleConfigMode() end, nil, true)
-	--UB:CreateSeparator("Config", "SLE_EndSeparator", 1, 2)
 end
 
 function UB:AddonSetup(menu)
-	--UB:CreateSeparator("Addon", "SLE_StartSeparator", 1, 2)
 	menu:CreateDropdownButton("Addon", "Manager", L["AddOns"], L["AddOns Manager"], L["Click to toggle the AddOn Manager frame."],  function() _G["GameMenuButtonAddons"]:Click() end, nil, true)
 
 	menu:CreateDropdownButton("Addon", "DBM", L["Boss Mod"], L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], function() DBM:LoadGUI() end, "DBM-Core")
@@ -45,7 +42,6 @@ function UB:AddonSetup(menu)
 
 	--Always keep at the bottom--
 	menu:CreateDropdownButton("Addon", "WowLua", "WowLua", nil, nil, function() SlashCmdList["WOWLUA"]("") end, "WowLua", false)
-	--UB:CreateSeparator("Addon", "SLE_EndSeparator", 1, 2)
 end
 
 function UB:StatusSetup(menu)

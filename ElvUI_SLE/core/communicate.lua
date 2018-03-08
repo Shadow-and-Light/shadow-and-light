@@ -31,7 +31,6 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 					elseif message == 'slesay' then
 						message = "SLEinfo"..ID
 					end
-					-- BNSendGameData(presenceID, 'SLE_DEV_INFO', message)
 					BNSendGameData(toonID, 'SLE_DEV_INFO', message)
 				end
 			end

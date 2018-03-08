@@ -410,9 +410,7 @@ end
 --Trying to determine the region player is in, not entirely reliable cause based on a client not an actual region id
 function SLE:GetRegion()
 	local lib = LibStub("LibRealmInfo")
-	-- local guid = UnitGUID("player")
 	if not GetPlayerInfoByGUID(E.myguid) then return end
-	-- local rid, _, _, _, _, _, region = lib:GetRealmInfoByUnit("player")
 	local rid, _, _, _, _, _, region = lib:GetRealmInfoByGUID(E.myguid)
 	SLE.region = region
 	if not SLE.region then

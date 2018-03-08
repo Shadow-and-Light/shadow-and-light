@@ -70,13 +70,10 @@ end
 
 function MM:CreateCoordsFrame()
 	MM.coordspanel = CreateFrame('Frame', "SLE_CoordsPanel", _G["Minimap"])
-	-- MM.coordspanel = CreateFrame('Frame', "SLE_CoordsPanel", E.UIParent)
 	MM.coordspanel:Point("BOTTOM", _G["Minimap"], "BOTTOM", 0, 0)
 	MM.coordspanel.WidthValue = 0
-	-- MM.coordspanel:CreateBackdrop()
 
 	MM.coordspanel.Text = MM.coordspanel:CreateFontString(nil, "OVERLAY")
-	-- MM.coordspanel.Text:SetAllPoints(MM.coordspanel)
 	MM.coordspanel.Text:SetPoint("CENTER", MM.coordspanel)
 	MM.coordspanel.Text:SetWordWrap(false)
 

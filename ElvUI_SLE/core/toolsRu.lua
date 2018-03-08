@@ -46,6 +46,3 @@ function SLE:CyrillicsInit()
 	if E.global.sle.advanced.cyrillics.commands or GetLocale() == "ruRU" then SLE:CyrCommands() end
 	if E.global.sle.advanced.cyrillics.devCommands or GetLocale() == "ruRU" then SLE:CyrDevCommands() end
 end
--- if GetLocale() ~= "ruRU" then return end
-
-

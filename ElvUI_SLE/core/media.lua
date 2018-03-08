@@ -38,7 +38,7 @@ end
 function M:SetBlizzFonts()
 	if E.private.general.replaceBlizzFonts then
 		local db = E.db.sle.media.fonts
-	-- print(E.db.sle.media, db)
+
 		_G["ZoneTextString"]:SetFont(E.LSM:Fetch('font', db.zone.font), db.zone.size, db.zone.outline) -- Main zone name
 		_G["PVPInfoTextString"]:SetFont(E.LSM:Fetch('font', db.pvp.font), db.pvp.size, db.pvp.outline) -- PvP status for main zone
 		_G["PVPArenaTextString"]:SetFont(E.LSM:Fetch('font', db.pvp.font), db.pvp.size, db.pvp.outline) -- PvP status for subzone
@@ -116,7 +116,6 @@ function M:Initialize()
 	hooksecurefunc(E, "UpdateBlizzardFonts", M.SetBlizzFonts)
 	hooksecurefunc("SetZoneText", ZoneTextPos)
 	M:SetBlizzFonts()
-	--E:CreateMover(ZoneTextFrame, "ZoneTextMover", "ZoneTextMover", nil, nil, nil, "S&L,S&L MISC")
 	
 	SLE.UpdateFunctions["Media"] = M.Update
 end

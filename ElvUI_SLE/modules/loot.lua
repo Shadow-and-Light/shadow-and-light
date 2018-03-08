@@ -332,7 +332,6 @@ function LT:Initialize()
 	end
 	LT:Update()
 	hooksecurefunc(M, 'START_LOOT_ROLL', function(self, event, id) LT:HandleRoll(event, id) end)
-	-- hooksecurefunc("LootHistoryFrame_FullUpdate", )
 	LT:LootIconToggle()
 end
 

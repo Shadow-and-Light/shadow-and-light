@@ -238,14 +238,6 @@ local function UpdateMerchantInfo()
 					merchantMoney:Show();
 				end
 
-				-- quality = 1;
-				-- if (itemButton.link) and not IgnoreCurrency[name] then
-					-- _, _, quality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, _, itemSellPrice = T.GetItemInfo(itemButton.link);
-				-- end
-
-				--set color
-				-- r, g, b = T.GetItemQualityColor(quality);
-				-- _G["MerchantItem" .. i .. "Name"]:SetTextColor(r, g, b);
 				MerchantFrameItem_UpdateQuality(merchantButton, itemButton.link);
 				
 				local merchantItemID = GetMerchantItemID(index);
@@ -271,7 +263,6 @@ local function UpdateMerchantInfo()
 					slotColor = {r = 1.0, g = 0, b = 0};
 					detailColor = {r = 1.0, g = 0, b = 0};
 				else
-					-- print(itemType)
 					if not isKnown(itemButton.link, itemType, itemSubType) then
 						slotColor = {r = 1.0, g = 1.0, b = 1.0};
 						detailColor = {r = 0.5, g = 0.5, b = 0.5};

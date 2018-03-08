@@ -91,9 +91,6 @@ function DB:PopulateExpPatterns()
 	pattern = T.rgsub(COMBATLOG_XPGAIN_FIRSTPERSON,T.unpack(symbols))
 	T.tinsert(DB.Exp.Strings.Normal, pattern)
 	
-	-- pattern = T.rgsub(COMBATLOG_XPGAIN_QUEST,T.unpack(symbols))
-	-- T.tinsert(DB.Exp.Strings, pattern)
-	
 	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION1,T.unpack(symbols))
 	T.tinsert(DB.Exp.Strings.Bonus, pattern)
 	
@@ -135,12 +132,6 @@ function DB:PopulateExpPatterns()
 	
 	pattern = T.rgsub(COMBATLOG_XPGAIN_FIRSTPERSON_RAID,T.unpack(symbols))
 	T.tinsert(DB.Exp.Strings.FirstPenalty, pattern)
-	
-	-- pattern = T.rgsub(COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED_GROUP,T.unpack(symbols))
-	-- T.tinsert(DB.Exp.Strings, pattern)
-	
-	-- pattern = T.rgsub(COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED_RAID,T.unpack(symbols))
-	-- T.tinsert(DB.Exp.Strings, pattern)
 end
 
 function DB:FilterExperience(event, message, ...)

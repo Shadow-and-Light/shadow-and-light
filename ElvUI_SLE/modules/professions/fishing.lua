@@ -85,7 +85,7 @@ function Pr:FishCasting()
 				FL:SaveTooltipText();
 			end
 			Pr.LastCastTime = T.GetTime();
-			-- autopoleframe:Show();
+
 			FL:InvokeFishing();
 		end
 	FL:OverrideClick(HideAwayAll);

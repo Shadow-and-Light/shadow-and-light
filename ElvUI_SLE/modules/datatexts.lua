@@ -232,7 +232,6 @@ function DTP:Initialize()
 	
 	-- hooksecurefunc(DT, "LoadDataTexts", DTP.MouseoverHook)
 	hooksecurefunc(DT, "LoadDataTexts", DTP.LoadDTHook)
-	-- :UpdateSettings()
 	hooksecurefunc(MM, "UpdateSettings", DTP.LoadDTHook)
 	DTP:LoadDTHook()
 end

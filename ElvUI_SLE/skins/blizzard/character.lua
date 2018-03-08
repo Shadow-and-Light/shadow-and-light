@@ -64,10 +64,6 @@ local function LoadSkin()
 	for _, object in T.pairs(charframe) do
 		_G[object]:StripTextures()
 	end
-	
-	-- CharacterModelFrameBackgroundOverlay:SetPoint('TOPLEFT', CharacterArmory, -8, 0)
-	-- CharacterModelFrameBackgroundOverlay:SetPoint('BOTTOMRIGHT', CharacterArmory, 8, 0)
-	-- CharacterModelFrameBackgroundOverlay:SetSize()
 end
 
 hooksecurefunc(S, "Initialize", LoadSkin)
