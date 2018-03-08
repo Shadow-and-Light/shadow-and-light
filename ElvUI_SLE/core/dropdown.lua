@@ -118,6 +118,10 @@ function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 				btn.text:SetTextColor(1, 1, 1)
 			end
 			if list[i].secure then
+				btn:SetAttribute("type", nil)
+				-- btn:SetAttribute("item", nil)
+				-- btn:SetAttribute("spell", nil)
+				-- btn:SetAttribute("macrotext", nil)
 				btn.secure = list[i].secure
 				btn:SetAttribute("type", btn.secure.buttonType)
 				if btn.secure.buttonType == "item" then
