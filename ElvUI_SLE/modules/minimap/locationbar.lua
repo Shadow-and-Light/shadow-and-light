@@ -58,10 +58,13 @@ local function GetDirection()
 end
 
 --{ItemID, ButtonText, isToy}
-LP.PortItems = {
+LP.Hearthstones = {
 	{6948}, --Hearthstone
-	{64488, nil, true}, --The Innkeeper's Daughter
 	{142542, nil, true}, --Tome of Town Portal (Diablo Event)
+	{64488, nil, true}, --The Innkeeper's Daughter
+}
+
+LP.PortItems = {
 	{110560, GARRISON_LOCATION_TOOLTIP}, --Garrison Hearthstone
 	{128353}, --Admiral's Compass
 	{140192, DUNGEON_FLOOR_DALARAN1}, --Dalaran Hearthstone
@@ -378,6 +381,9 @@ end
 function LP:PopulateItems()
 	local noItem = false
 
+	for index, data in T.pairs(LP.Hearthstones) do
+		if T.select(2, T.GetItemInfo(data[1])) == nil then noItem = true end
+	end
 	for index, data in T.pairs(LP.PortItems) do
 		if T.select(2, T.GetItemInfo(data[1])) == nil then noItem = true end
 	end
@@ -387,6 +393,10 @@ function LP:PopulateItems()
 		E:Delay(2, LP.PopulateItems)
 	else
 		LP.ListBuilding = false
+		for index, data in T.pairs(LP.Hearthstones) do
+			local id, name, toy = data[1], data[2], data[3]
+			LP.Hearthstones[index] = {text = name or T.GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true}
+		end
 		for index, data in T.pairs(LP.PortItems) do
 			local id, name, toy = data[1], data[2], data[3]
 			LP.PortItems[index] = {text = name or T.GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true}
@@ -397,6 +407,26 @@ end
 function LP:ItemList(check)
 	if LP.db.portals.HSplace then T.tinsert(LP.MainMenu, {text = L["Hearthstone Location"]..": "..GetBindLocation(), title = true, nohighlight = true}) end
 	T.tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
+
+	for i = 1, #LP.Hearthstones do
+		local tmp = {}
+		local data = LP.Hearthstones[i]
+		local ID, isToy = data.secure.ID, data.secure.isToy
+		if isToy and C_ToyBox.IsToyUsable(ID) == nil then return false end
+		if (not isToy and SLE:BagSearch(ID) and IsUsableItem(ID)) or (isToy and PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID)) then
+				if data.text then
+					local cd = DD:GetCooldown("Item", ID)
+					E:CopyTable(tmp, data)
+					if cd or (T.tonumber(cd) and T.tonumber(cd) > 1.5) then
+						tmp.text = "|cff636363"..tmp.text.."|r"..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
+						T.tinsert(LP.MainMenu, tmp)
+					else
+						T.tinsert(LP.MainMenu, data)
+					end
+					break
+				end
+		end
+	end
 	for i = 1, #LP.PortItems do
 		local tmp = {}
 		local data = LP.PortItems[i]
@@ -442,8 +472,6 @@ function LP:SpellList(list, dropdown, check)
 	end
 end
 
-local attempts = 0
-
 function LP:PopulateDropdown(click)
 	if LP.ListUpdating and click then
 		SLE:Print(L["Update canceled."])
@@ -461,7 +489,6 @@ function LP:PopulateDropdown(click)
 	local MENU_WIDTH
 	local full_list = LP:ItemList()
 	if not full_list then 
-		attempts = attempts + 1
 		if not LP.ListUpdating then SLE:ErrorPrint(L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."]); LP.ListUpdating = true end
 		if not LP.InfoUpdatingTimer then LP.InfoUpdatingTimer = LP:ScheduleTimer(LP.PopulateDropdown, 1) end
 		T.twipe(LP.MainMenu)
