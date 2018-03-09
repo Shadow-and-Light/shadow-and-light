@@ -84,11 +84,13 @@ local function SlotUpdate(self, bagID, slotID)
 	if E.db.sle.bags.petLevel.enable then 
 		frame.petLevelInfo:FontTemplate(E.LSM:Fetch("font", E.db.sle.bags.petLevel.fonts.font), E.db.sle.bags.petLevel.fonts.size, E.db.sle.bags.petLevel.fonts.outline)
 		frame.petLevelInfo:SetText("")
+		local r,g,b = E.db.sle.bags.petLevel.color.r, E.db.sle.bags.petLevel.color.g, E.db.sle.bags.petLevel.color.b
+		frame.petLevelInfo:SetTextColor(r, g, b)
 		
 		local itemLink, _, _, ID = T.select(7, T.GetContainerItemInfo(bagID, slotID))
 		if not ID then return end
 		local itemSubType = T.select(7,T.GetItemInfo(ID))
-		if itemSubType == "BattlePet" then
+		if itemSubType == AP.PetSubType then
 			local itemString = T.gsub(itemLink, "|H", "")
 			local _, _, level = T.split(":", itemString)
 			frame.petLevelInfo:SetText(level)
@@ -100,11 +102,21 @@ local function SlotUpdate(self, bagID, slotID)
 	end
 end
 
+function AP:GET_ITEM_INFO_RECEIVED(event, ID)
+	if ID ~= 82800 then return end
+	AP.PetSubType = T.select(7,T.GetItemInfo(82800))
+	if not itemName then AP:RegisterEvent("GET_ITEM_INFO_RECEIVED") return end
+	if event == "GET_ITEM_INFO_RECEIVED" then AP:UnregisterEvent("GET_ITEM_INFO_RECEIVED") end
+end
+
 function AP:Initialize()
 	if not SLE.initialized or not E.private.bags.enable then return end
 
 	tooltipScanner = CreateFrame("GameTooltip", tooltipName, nil, "GameTooltipTemplate")
 	tooltipScanner:SetOwner(E.UIParent, "ANCHOR_NONE")
+	
+	--Getting battle pet subtype
+	AP:GET_ITEM_INFO_RECEIVED(nil, 82800)
 
 	hooksecurefunc(B,"UpdateSlot", SlotUpdate)
 	hooksecurefunc(_G["ElvUI_ContainerFrame"],"UpdateSlot", SlotUpdate)
