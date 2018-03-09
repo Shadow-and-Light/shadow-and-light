@@ -12,10 +12,10 @@ Changes:
 - AP counter on items now showing billions earlier for small bag slot sizes
 - Change the logic of hiding default background for character window, should be more reliable
 - Account for quest log minimize button change in ElvUI
-- Changed the way inspect armory gets artifact ilvl, it's now aware of crucible
 - Relocation menu in location panel got a little bit of patience. Before it just ignored items with missing info, now it will wait for all info being available.
 This will fix some items missing from the list, but in exchange the wait time to open menu can dramatically increase depending on how much addons are taxing server request queue. This is on player to player basis, different people will get different results.
 If the wait time is just too much, there is an option to use old ways and ignore missing info, it will become available again sooner or later (probably after 3-4 menu reopenings). Additionally there are some new options on what items/spells to show.
+- Relocation menu will now only show one of general "hearthstone" items. E.g. the hearthstone itself or other toys sharing cooldown with it. No point in showing 3-5 rows of basically same stuff.
 
 v3.34 02/01/2018
 Fixes:
