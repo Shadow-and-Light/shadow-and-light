@@ -114,7 +114,7 @@ function AP:Initialize()
 
 	tooltipScanner = CreateFrame("GameTooltip", tooltipName, nil, "GameTooltipTemplate")
 	tooltipScanner:SetOwner(E.UIParent, "ANCHOR_NONE")
-	
+
 	--Getting battle pet subtype
 	AP:GET_ITEM_INFO_RECEIVED(nil, 82800)
 
