@@ -420,7 +420,7 @@ end
 function LP:ItemList(check)
 	if LP.db.portals.HSplace then T.tinsert(LP.MainMenu, {text = L["Hearthstone Location"]..": "..GetBindLocation(), title = true, nohighlight = true}) end
 	T.tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
-
+	
 	if LP.db.portals.showHearthstones then
 		for i = 1, #LP.Hearthstones do
 			local tmp = {}
@@ -438,6 +438,7 @@ function LP:ItemList(check)
 					else
 						T.tinsert(LP.MainMenu, data)
 					end
+					break
 				end
 			end
 		end
@@ -459,6 +460,7 @@ function LP:ItemList(check)
 				else
 					T.tinsert(LP.MainMenu, data)
 				end
+				
 			end
 		end
 	end
@@ -480,6 +482,7 @@ function LP:ItemList(check)
 					else
 						T.tinsert(LP.MainMenu, data)
 					end
+					
 				end
 			end
 		end
@@ -492,8 +495,8 @@ function LP:SpellList(list, dropdown, check)
 		local tmp = {}
 		local data = list[i]
 		if T.IsSpellKnown(data.secure.ID) then
-			if check then
-				return true
+			if check then 
+				return true 
 			else
 				if data.text then
 					local cd = DD:GetCooldown("Spell", data.secure.ID)
