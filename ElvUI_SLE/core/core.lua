@@ -74,7 +74,7 @@ function SLE:IncompatibleAddOn(addon, module, optiontable, value)
 end
 
 function SLE:CheckIncompatible()
-	if SLE._Compatibility["ElvUI_Enhanced"] and not E.global.ignoreEnhancedIncompatible then
+	if SLE._Compatibility["ElvUI_Enhanced"] then
 		E:StaticPopup_Show('ENHANCED_SLE_INCOMPATIBLE')
 		return true
 	end
@@ -132,6 +132,9 @@ function SLE:Initialize()
 	if E.db.general.loginmessage then
 		Toolkit.print(Toolkit.format(L["SLE_LOGIN_MSG"], E["media"].hexvaluecolor, SLE.version))
 	end
+
+	--Remove this variable, will not give the option to disable this warning.
+	E.global.ignoreEnhancedIncompatible = nil
 
 	SLE:BuildGameMenu()
 	SLE:CyrillicsInit()
