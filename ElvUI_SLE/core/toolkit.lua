@@ -568,7 +568,7 @@ end
 
 --AF stuff
 function SLE:IsFoolsDay()
-	if T.find(date(), '03/15/') and not E.global.aprilFoolsSLE and not T.IsAddOnLoaded("ElvUI_SLE_Dev") then
+	if T.find(date(), '04/01/') and not E.global.aprilFoolsSLE and not T.IsAddOnLoaded("ElvUI_SLE_Dev") then
 		return true;
 	else
 		return false;
