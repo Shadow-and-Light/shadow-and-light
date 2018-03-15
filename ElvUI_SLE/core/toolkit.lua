@@ -481,9 +481,12 @@ end
 
 --New API
 local function LevelUpBG(frame, topcolor, bottomcolor)
+	if not frame then return end
 	frame.bg = frame:CreateTexture(nil, 'BACKGROUND')
 	frame.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	frame.bg:SetPoint('CENTER')
+	local w, h = frame:GetSize()
+	frame.bg:SetSize(w,h)
 	frame.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
 	frame.bg:SetVertexColor(1, 1, 1, 0.7)
 
@@ -561,4 +564,50 @@ while object do
 	end
 
 	object = EnumerateFrames(object)
+end
+
+--AF stuff
+function SLE:IsFoolsDay()
+	if T.find(date(), '03/15/') and not E.global.aprilFoolsSLE and not T.IsAddOnLoaded("ElvUI_SLE_Dev") then
+		return true;
+	else
+		return false;
+	end
+end
+
+function SLE:CreateSplashScreen()
+	local f = CreateFrame('Frame', 'SLE_SplashScreen', E.UIParent)
+	f:Size(400, 200)
+	f:SetPoint('CENTER')
+	f:SetFrameStrata('TOOLTIP')
+	f:LevelUpBG()
+	f:SetAlpha(0)
+
+	f.logo = f:CreateTexture(nil, 'OVERLAY')
+	f.logo:Size(240, 120)
+	f.logo:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\SLE_Banner]])
+	f.logo:Point('TOP', f, 'TOP', 0. -60)
+
+	f.version = f:CreateFontString(nil, 'OVERLAY')
+	f.version:FontTemplate(nil, 14, nil)
+	f.version:Point('TOP', f.logo, 'BOTTOM')
+	f.version:SetText(L["SLE_BENIK_AF"])
+end
+
+local function HideSplashScreen()
+	SLE_SplashScreen:Hide()
+	E:Delay(0.5, function() assert(false, L["SLE_ERRORS_AF"][random(#L["SLE_ERRORS_AF"])]) end)
+	E.global.aprilFoolsSLE = true
+end
+
+local function FadeSplashScreen()
+	E:Delay(10, function()
+		E:UIFrameFadeOut(SLE_SplashScreen, 1, 1, 0)
+		SLE_SplashScreen.fadeInfo.finishedFunc = HideSplashScreen
+	end)
+end
+
+function SLE:ShowSplashScreen()
+	E:UIFrameFadeIn(SLE_SplashScreen, 2, 0, 1)
+	SLE_SplashScreen.fadeInfo.finishedFunc = FadeSplashScreen
 end

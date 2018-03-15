@@ -963,3 +963,23 @@ L["ELVUI_SLE_MISC"] = [=[BuG - for always hilariously breaking stuff
 TheSamaKutra
 The rest of TukUI community
 ]=]
+
+L["SLE_BENIK_AF"] = [[Due to a high amount of stuff IRL, |cff9482c9Shadow & Light|r team took a vacation.
+
+While we are away |cfffe7b2cBenik|r was so kind to take care of our work and provide support for |cff9482c9S&L|r!
+If you encounter any problems or errors with |cff9482c9S&L|r please post on tukui.org in BenikUI section.
+And remember: if anything breaks it's all Benik's fault! Use hashtag |cfffe7b2c#IBlameBenik|r when posting about errors!]]
+L["SLE_ERRORS_AF"] = {
+	"Apparently Merathilis drank too much and managed to moonfire spam our power conduit! You need to fix it immediately!",
+	"We are happy to announce that our #IBlameBenik campaign is getting more successful each minute! Don't forget to blame Benik as well!",
+	"WARNING! Darth stole a nuke button and now demands the ransom of 500 million gold and several draenei maids. Hide in the closest bomb shelter and prepare to play Fallout IRL!",
+	"There is something wrong with your interface. Standby, we are attempting to fix this! We don't take any responsibility in case the things get even worse.",
+	"The Holy Order of Imperial Inquisition found heretical materials on your PC! Thus your house and the planet will be subjected to Exterminatus in The Name Of The Emperor!",
+	"BEARS! The heck are bears doing in your UI?!",
+	"Benik changed the locales around a little bit. We hope you can speak Turkish!",
+	"The ice stone has melted! Our servers are flooded, sorry for the inconvenience",
+	"YOU ARE NOT PREPARED!!!",
+	"ElvUI encountered an expected amount of unreasonable responses from Blizzard servers and will be closed soon. Please contact your closest goblin engineer for additional info.",
+	"You no take candle! Or we’ll tell Benik!",
+	"1 error, 1 prayer, help raise funds for drunk coding",
+}
