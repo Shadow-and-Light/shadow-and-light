@@ -950,6 +950,7 @@ Benik, The Slacker
 Blazeflack
 Boradan
 Camealion
+Merathilis, The Confused
 Nils Ruesch
 Omega1970
 Pvtschlag
@@ -964,22 +965,22 @@ TheSamaKutra
 The rest of TukUI community
 ]=]
 
-L["SLE_BENIK_AF"] = [[Due to a high amount of stuff IRL, |cff9482c9Shadow & Light|r team took a vacation.
+L["SLE_BENIK_AF"] = [[Wegen zu viel Real Life Streß, hat das |cff9482c9Shadow & Light|r Team Urlaub genommen.
 
-While we are away |cfffe7b2cBenik|r was so kind to take care of our work and provide support for |cff9482c9S&L|r!
-If you encounter any problems or errors with |cff9482c9S&L|r please post on tukui.org in BenikUI section.
-And remember: if anything breaks it's all Benik's fault! Use hashtag |cfffe7b2c#IBlameBenik|r when posting about errors!]]
+Während unserer Abwesenheit ist |cfffe7b2cBenik|r so nett und unsere Arbeit und des Support für |cff9482c9S&L|r!
+Wenn irgendwelche Fehler bemerkst mit |cff9482c9S&L|r, poste sie bitte auf tukui.org in der BenikUI Sektion.
+Und bedenke: Wenn irgendetwas nicht funktioniert, ist es Benik's Schuld! Benutze das Hashtag |cfffe7b2c#IBlameBenik|r wenn du Fehler postest!]]
 L["SLE_ERRORS_AF"] = {
-	"Apparently Merathilis drank too much and managed to moonfire spam our power conduit! You need to fix it immediately!",
-	"We are happy to announce that our #IBlameBenik campaign is getting more successful each minute! Don't forget to blame Benik as well!",
-	"WARNING! Darth stole a nuke button and now demands the ransom of 500 million gold and several draenei maids. Hide in the closest bomb shelter and prepare to play Fallout IRL!",
-	"There is something wrong with your interface. Standby, we are attempting to fix this! We don't take any responsibility in case the things get even worse.",
-	"The Holy Order of Imperial Inquisition found heretical materials on your PC! Thus your house and the planet will be subjected to Exterminatus in The Name Of The Emperor!",
-	"BEARS! The heck are bears doing in your UI?!",
-	"Benik changed the locales around a little bit. We hope you can speak Turkish!",
-	"The ice stone has melted! Our servers are flooded, sorry for the inconvenience",
-	"YOU ARE NOT PREPARED!!!",
-	"ElvUI encountered an expected amount of unreasonable responses from Blizzard servers and will be closed soon. Please contact your closest goblin engineer for additional info.",
-	"You no take candle! Or we’ll tell Benik!",
-	"1 error, 1 prayer, help raise funds for drunk coding",
+	"Ausversehen hat Merathilis zu viel getrunken und es hinbekommen zu viel Moonfire auf unsere Stromleitung zu spammen! Du musst das sofort beheben!",
+	"Wir sind froh zu Berichten dass unsere #IBlameBenik Kampagne jede Minute erfolgreicher wird! Vergess bitte auch du nicht Benik zu flamen!",
+	"WARNUNG! Darth hat einen nuklear Code gestohlen und verlangt jetzt 500 Millionen Gold und ein paar draeneische Jungfrauen. Versteckt euch im nähesten Bunker um Fallout IRL zu spielen!",
+	"Irgendetwas stimmt mit deinem Interface nicht. Bitte warten, wir versuchen es zu reparieren! Wir übernehmen keine Verantwortung wenn die Dinge schlimmer werden.",
+	"Der Imperiale Rat hat merkwürdiges Zeugs auf deinem PC gefunden! So dass dein Haus und der Planet Exterminatus überhändigt wird, im Namen des Imperators!",
+	"BÄREN! Was zum Teufel suchen Bären in deiner UI?!",
+	"Benik hat die Lokaliserung etwas verändert. Wir hoffen dass ihr Türkisch könnt!",
+	"Der Eisberg ist geschmolzen! Unsere Server sind überflutet, tschuldigung für die Unannehmlichkeiten",
+	"IHR WISST NICHT WAS EUCH ERWARTET!!!",
+	"ElvUI hat eine ungewöhnliche hohe Anzahl von Rückmeldungen von den Servern bekommen und wird in kürze beendet. Bitte kontaktiere den nähesten Goblin Ingenieur um weiter Infos zu erhalten.",
+	"Du nicht nehmen Kerze! Oder wir werden es Benik sagen!",
+	"1 Fehler, 1 Gebet, bitte spendet für besoffene Coder.",
 }

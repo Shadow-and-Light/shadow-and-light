@@ -955,6 +955,7 @@ Benik, The Slacker
 Blazeflack
 Boradan
 Camealion
+Merathilis, The Confused
 Nils Ruesch
 Omega1970
 Pvtschlag
