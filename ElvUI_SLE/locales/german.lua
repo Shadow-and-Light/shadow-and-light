@@ -256,8 +256,6 @@ L["Hide in Pet Battle"] = "Verstecke in Haustierkämpfen"
 L["Show/Hide this frame during Pet Battles."] = "Zeige/Verstecke dieses Frame in Haustierkämpfen."
 
 --Bags
-L["New Item Flash"] = "Neues Gegenstand Leuchten"
-L["Use the Shadow & Light New Item Flash instead of the default ElvUI flash"] = "Benutze das Shadow & Light Gegenstand Leuchten anstelle vom standard ElvUI."
 L["Transparent Slots"] = "Transparente Flächen"
 L["Apply transparent template on bag and bank slots."] = "Wendet die Transparente Vorlage für Taschen und Bank Flächen an."
 

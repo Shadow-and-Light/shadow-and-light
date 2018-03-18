@@ -23,14 +23,6 @@ local function configTable()
 				get = function(info) return E.private.sle.bags.transparentSlots end,
 				set = function(info, value)	E.private.sle.bags.transparentSlots = value; E:StaticPopup_Show('PRIVATE_RL') end,
 			},
-			lootflash = {
-				order = 5,
-				type = "toggle",
-				name = L["New Item Flash"],
-				desc = L["Use the Shadow & Light New Item Flash instead of the default ElvUI flash"],
-				get = function(info) return E.db.sle.bags.lootflash end,
-				set = function(info, value)	E.db.sle.bags.lootflash = value end,
-			},
 			artefact = {
 				order = 20,
 				type = "group",

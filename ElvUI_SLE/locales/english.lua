@@ -265,8 +265,6 @@ L["Hide in Pet Battle"] = true
 L["Show/Hide this frame during Pet Battles."] = true
 
 --Bags
-L["New Item Flash"] = true
-L["Use the Shadow & Light New Item Flash instead of the default ElvUI flash"] = true
 L["Transparent Slots"] = true
 L["Apply transparent template on bag and bank slots."] = true
 

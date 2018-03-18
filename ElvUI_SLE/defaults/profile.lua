@@ -75,7 +75,6 @@ P["sle"] = {
 	},
 	--Bags
 	["bags"] = {
-		["lootflash"] = true,
 		["artifactPower"] = {
 			["enable"] = false,
 			["color"] = {r = 230, g = 204, b = 128},

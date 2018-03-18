@@ -253,8 +253,6 @@ L["Hide in Pet Battle"] = "Прятать в битвах питомцев"
 L["Show/Hide this frame during Pet Battles."] = "Показать/скрыть этот фрейм в битвах питомцев"
 
 --Bags
-L["New Item Flash"] = "Мерцание новых предметов"
-L["Use the Shadow & Light New Item Flash instead of the default ElvUI flash"] = "Использовать полное мерцание Shadow & Light вместо обычного из ElvUI."
 L["Transparent Slots"] = "Прозрачные слоты"
 L["Apply transparent template on bag and bank slots."] = "Использовать прозрачный фон для слотов в сумках и банке."
 
