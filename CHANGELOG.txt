@@ -1,4 +1,4 @@
-v3.35
+v3.35 03/23/2018
 Fixes:
 - Fixed list style merchant window showing a lot of red stuff
 - Fixed Skada error on applying profile from install
@@ -9,6 +9,7 @@ Additions:
 - New icon for dead indicator
 - Options for showing the level of caged pet in bags
 Changes:
+- New item flash option removed, ElvUI now has it's own.
 - AP counter on items now showing billions earlier for small bag slot sizes
 - Change the logic of hiding default background for character window, should be more reliable
 - Account for quest log minimize button change in ElvUI
