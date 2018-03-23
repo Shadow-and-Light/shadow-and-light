@@ -113,7 +113,7 @@ end
 
 -- For Emarald Nightmare
 -- What the actual fuck, Blizz? What the fuck is this shit? You can't fucking make all your LFR following the same fucking pattern?
--- Do I need to make an exclusive function or every raid in existance now?
+-- Do I need to make an exclusive function or every raid in existence now?
 local function NightmareKill(id1, id2, id3)
 	local killNum = 0
 	for i =1,3 do --1st part
