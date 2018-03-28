@@ -499,12 +499,12 @@ P["sle"] = {
 			["iconmouseover"] = false,
 			["iconsize"] = 27,
 			["iconperrow"] = 12,
-			["pethide"] = false,
 			["skindungeon"] = false,
 			["skinmail"] = false,
 			["spacing"] = 4,
 			["growth_hor"] = "Right",
 			["growth_vert"] = "Down",
+			["visibility"] = "[petbattle] hide; show",
 		},
 		["instance"] = {
 			["enable"] = false,
