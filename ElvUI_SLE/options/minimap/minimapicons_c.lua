@@ -30,8 +30,8 @@ local function configTable()
 				name = L["Skin Dungeon"],
 				desc = L["Skin dungeon icon."],
 				disabled = function() return not E.private.sle.minimap.mapicons.enable end,
-				get = function(info) return E.db.sle.minimap.mapicons.skindungeon end,
-				set = function(info, value) E.db.sle.minimap.mapicons.skindungeon = value; E:StaticPopup_Show("PRIVATE_RL") end,
+				get = function(info) return E.private.sle.minimap.mapicons.skindungeon end,
+				set = function(info, value) E.private.sle.minimap.mapicons.skindungeon = value; E:StaticPopup_Show("PRIVATE_RL") end,
 			},
 			skinmail = {
 				order = 4,
@@ -39,11 +39,20 @@ local function configTable()
 				name = L["Skin Mail"],
 				desc = L["Skin mail icon."],
 				disabled = function() return not E.private.sle.minimap.mapicons.enable end,
-				get = function(info) return E.db.sle.minimap.mapicons.skinmail end,
-				set = function(info, value) E.db.sle.minimap.mapicons.skinmail = value; E:StaticPopup_Show("PRIVATE_RL") end,
+				get = function(info) return E.private.sle.minimap.mapicons.skinmail end,
+				set = function(info, value) E.private.sle.minimap.mapicons.skinmail = value; E:StaticPopup_Show("PRIVATE_RL") end,
+			},
+			skingarrison = {
+				order = 5,
+				type = 'toggle',
+				name = L["Skin garrison"],
+				desc = L["Skin garrison landing page button."],
+				disabled = function() return not E.private.sle.minimap.mapicons.enable end,
+				get = function(info) return E.private.sle.minimap.mapicons.skingarrison end,
+				set = function(info, value) E.private.sle.minimap.mapicons.skingarrison = value; E:StaticPopup_Show("PRIVATE_RL") end,
 			},
 			iconsize = {
-				order = 5,
+				order = 10,
 				type = 'range',
 				name = L["Button Size"],
 				desc = L["The size of the minimap buttons when not anchored to the minimap."],
@@ -53,7 +62,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.minimap.mapicons.iconsize = value; SMB:Update(SLE_SquareMinimapButtonBar) end,
 			},
 			iconperrow = {
-				order = 6,
+				order = 11,
 				type = 'range',
 				name = L["Icons Per Row"],
 				desc = L["Anchor mode for displaying the minimap buttons are skinned."],
@@ -63,7 +72,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.minimap.mapicons.iconperrow = value; SMB:Update(SLE_SquareMinimapButtonBar) end,
 			},
 			spacing = {
-				order = 7,
+				order = 12,
 				type = 'range',
 				name = L["Button Spacing"],
 				min = -4, max = 10, step = 1,
@@ -72,7 +81,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.minimap.mapicons.spacing = value; SMB:Update(SLE_SquareMinimapButtonBar) end,
 			},
 			iconmouseover = {
-				order = 8,
+				order = 13,
 				name = L["Mouse Over"],
 				desc = L["Show minimap buttons on mouseover."],
 				type = "toggle",
@@ -81,7 +90,7 @@ local function configTable()
 				set = function(info, value) E.db.sle.minimap.mapicons.iconmouseover = value; SMB:ChangeMouseOverSetting() end,
 			},
 			template = {
-				order = 9,
+				order = 14,
 				name = L["Backdrop Template"],
 				type = "select",
 				disabled = function() return not E.private.sle.minimap.mapicons.enable or not E.private.sle.minimap.mapicons.barenable end,
@@ -94,7 +103,7 @@ local function configTable()
 				},
 			},
 			growth_hor = {
-				order = 10,
+				order = 15,
 				name = L["Horizontal Growth"],
 				type = "select",
 				disabled = function() return not E.private.sle.minimap.mapicons.enable or not E.private.sle.minimap.mapicons.barenable end,
@@ -106,7 +115,7 @@ local function configTable()
 				},
 			},
 			growth_vert = {
-				order = 11,
+				order = 16,
 				name = L["Vertical Growth"],
 				type = "select",
 				disabled = function() return not E.private.sle.minimap.mapicons.enable or not E.private.sle.minimap.mapicons.barenable end,
@@ -117,6 +126,15 @@ local function configTable()
 					["Up"] = L["Up"],
 				},
 			},
+			visibility = {
+					order = 17,
+					type = 'input',
+					width = 'full',
+					name = L["Visibility State"],
+					disabled = function() return not E.private.sle.minimap.mapicons.enable or not E.private.sle.minimap.mapicons.barenable end,
+					get = function(info) return E.db.sle.minimap.mapicons.visibility end,
+					set = function(info, value) E.db.sle.minimap.mapicons.visibility = value; SMB:UpdateVisibility() end,
+				},
 		},
 	}
 end
