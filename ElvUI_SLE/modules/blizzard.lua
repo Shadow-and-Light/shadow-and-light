@@ -190,6 +190,8 @@ function B:Initialize()
 	if not SLE.initialized then return end
 	B.addonCount = 0
 	if E.private.sle.module.blizzmove and T.type(E.private.sle.module.blizzmove) == "boolean" then E.private.sle.module.blizzmove = V.sle.module.blizzmove end --Old setting conversions
+	PVPReadyDialog:Hide()
+	if not B.pvpreadydialogreset then E.private.sle.module.blizzmove.points["PVPReadyDialog"] = nil; B.pvpreadydialogreset = true end
 	if E.private.sle.module.blizzmove.enable then
 		for i = 1, #B.Frames do
 			B:MakeMovable(B.Frames[i])
