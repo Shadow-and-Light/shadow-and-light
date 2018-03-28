@@ -118,7 +118,11 @@ local function OnDragStop(self)
 	local Name = self:GetName()
 	if E.private.sle.module.blizzmove.remember then
 		local a, b, c, d, e = self:GetPoint()
-		b = self:GetParent():GetName() or UIParent
+		if self:GetParent() then 
+			b = self:GetParent():GetName() or UIParent
+		else
+			b = UIParent
+		end
 		if Name == "QuestFrame" or Name == "GossipFrame" then
 			E.private.sle.module.blizzmove.points["GossipFrame"] = {a, b, c, d, e}
 			E.private.sle.module.blizzmove.points["QuestFrame"] = {a, b, c, d, e}
