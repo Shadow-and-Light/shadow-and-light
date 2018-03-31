@@ -18,7 +18,6 @@ B.Frames = {
 	"BonusRollMoneyWonFrame",
 	"CharacterFrame",
 	"ChatConfigFrame",
-	"CinematicFrame",
 	"DressUpFrame",
 	"FriendsFrame",
 	"FriendsFriendsFrame",
