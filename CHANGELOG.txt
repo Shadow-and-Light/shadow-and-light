@@ -1,3 +1,13 @@
+v3.36
+Fixes:
+- Some pvp frames were bastards to reposition. Should work fine now.
+Additions:
+- Minimap icons bar now shows you the visibility option
+- Minimap icons bar now has garrison button skinning option
+Changes:
+- Some minimap skinning options are now character based instead of profile based. Makes more sense considering they require a reload anyways.
+
+
 v3.35 03/23/2018
 Fixes:
 - Fixed list style merchant window showing a lot of red stuff
