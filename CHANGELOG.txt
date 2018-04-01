@@ -1,4 +1,8 @@
-v3.36
+v3.37 04/01/2018
+Changes:
+- Change the logic of pvp frame fixing from the last version. Now it checks on each character separately instead of all at once. Will result in BG invite frame position being reset if position saving was enabled.
+
+v3.36 03/31/2018
 Fixes:
 - Some pvp frames were bastards to reposition. Should work fine now.
 Additions:
@@ -6,7 +10,6 @@ Additions:
 - Minimap icons bar now has garrison button skinning option
 Changes:
 - Some minimap skinning options are now character based instead of profile based. Makes more sense considering they require a reload anyways.
-
 
 v3.35 03/23/2018
 Fixes:
