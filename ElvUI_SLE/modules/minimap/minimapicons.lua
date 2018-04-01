@@ -183,14 +183,14 @@ local function SkinButton(Button)
 				end
 			end)
 			SMB.bar:HookScript('OnUpdate', function()
-				if E.db.sle.minimap.mapicons.skindungeon then
+				if E.private.sle.minimap.mapicons.skindungeon then
 					Frame:Show()
 				else
 					Frame:Hide()
 				end
 			end)
 			_G["QueueStatusMinimapButton"]:HookScript('OnShow', function()
-				if E.db.sle.minimap.mapicons.skindungeon then
+				if E.private.sle.minimap.mapicons.skindungeon then
 					Frame:Show()
 				else
 					Frame:Hide()
@@ -220,7 +220,7 @@ local function SkinButton(Button)
 			Frame:SetScript('OnEnter', OnEnter)
 			Frame:SetScript('OnLeave', OnLeave)
 			Frame:SetScript('OnUpdate', function(self)
-				if E.db.sle.minimap.mapicons.skinmail then
+				if E.private.sle.minimap.mapicons.skinmail then
 					Frame:Show()
 					Frame:SetPoint(_G["MiniMapMailFrame"]:GetPoint())
 				else
@@ -228,7 +228,7 @@ local function SkinButton(Button)
 				end
 			end)
 			_G["MiniMapMailFrame"]:HookScript('OnShow', function(self)
-				if E.db.sle.minimap.mapicons.skinmail then
+				if E.private.sle.minimap.mapicons.skinmail then
 					_G["MiniMapMailIcon"]:SetVertexColor(0, 1, 0)
 				end
 			end)
