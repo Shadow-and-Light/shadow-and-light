@@ -193,7 +193,8 @@ function B:Initialize()
 	if not SLE.initialized then return end
 	B.addonCount = 0
 	if E.private.sle.module.blizzmove and T.type(E.private.sle.module.blizzmove) == "boolean" then E.private.sle.module.blizzmove = V.sle.module.blizzmove end --Old setting conversions
-	if not E.global.sle.pvpreadydialogreset then E.private.sle.module.blizzmove.points["PVPReadyDialog"] = nil; E.global.sle.pvpreadydialogreset = true end
+	E.global.sle.pvpreadydialogreset = nil
+	if not E.private.sle.pvpreadydialogreset then E.private.sle.module.blizzmove.points["PVPReadyDialog"] = nil; E.private.sle.pvpreadydialogreset = true end
 	PVPReadyDialog:Hide()
 	if E.private.sle.module.blizzmove.enable then
 		for i = 1, #B.Frames do
@@ -219,8 +220,6 @@ function B:Initialize()
 		B:VehicleScale()
 		B:ErrorFrameSize()
 	end
-	
-	
 end
 
 SLE:RegisterModule(B:GetName())
