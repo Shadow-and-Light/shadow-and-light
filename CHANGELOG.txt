@@ -1,3 +1,7 @@
+v3.38
+Fixes:
+- Fixed some icons missing from minimap icons bar after v3.36
+
 v3.37 04/01/2018
 Changes:
 - Change the logic of pvp frame fixing from the last version. Now it checks on each character separately instead of all at once. Will result in BG invite frame position being reset if position saving was enabled.
