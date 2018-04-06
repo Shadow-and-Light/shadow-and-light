@@ -2379,7 +2379,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 						break
 					end
 				end
-				
+				if not MajorTooltipStartLine then MajorTooltipStartLine = 1 end
 				for i = MajorTooltipStartLine, self.ScanTT:NumLines() do
 					CurrentLineText = _G['InspectArmoryScanTTTextLeft'..i]:GetText()
 					
