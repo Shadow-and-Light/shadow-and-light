@@ -31,6 +31,7 @@ local function configTable()
 				values = {
 					["Default"] = DEFAULT,
 					["Transparent"] = L["Transparent"],
+					["NoBackdrop"] = L["NoBackdrop"],
 				},
 			},
 			autowidth = {
