@@ -142,7 +142,11 @@ function C:HystoryOverwrite()
 		if #temp > 0 then
 			temp[50] = event
 			temp[51] = T.time()
-			temp[52] = temp[13]>0 and CH:GetBNFriendColor(temp[2], temp[13]) or CH:GetColorName(event, ...)
+
+			local coloredName, battleTag
+			if temp[13] > 0 then coloredName, battleTag = CH:GetBNFriendColor(temp[2], temp[13], true) end
+			if battleTag then temp[53] = battleTag end -- store the battletag so we can replace arg2 later in the function
+			temp[52] = coloredName or CH:GetColoredName(event, ...)
 
 			T.tinsert(data, temp)
 			while #data >= E.private.sle.chat.chatHistory.size do
