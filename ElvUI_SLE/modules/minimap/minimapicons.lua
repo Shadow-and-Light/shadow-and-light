@@ -85,6 +85,7 @@ SMB.AddButtonsToBar = {
 	'QueueStatusMinimapButton',
 	'MiniMapMailFrame',
 	"ItemRackMinimapFrame",
+	"GarrisonLandingPageMinimapButton",
 }
 
 local function SkinButton(Button)
