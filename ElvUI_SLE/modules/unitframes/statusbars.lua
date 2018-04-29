@@ -4,6 +4,8 @@ local UF = E:GetModule('UnitFrames');
 --GLOBALS: hooksecurefunc
 local _G = _G
 local MAX_BOSS_FRAMES = MAX_BOSS_FRAMES
+local max = math.max
+local MAX_COMBO_POINTS = MAX_COMBO_POINTS
 
 SUF.powerbars = {}
 
@@ -81,7 +83,8 @@ function SUF:UpdateClass(frame)
 	local bars = frame[frame.ClassBar]
 	local texture = E.LSM:Fetch("statusbar", E.db.sle.unitframes.statusTextures.classTexture)
 	if (frame.ClassBar == 'ClassPower' or frame.ClassBar == 'Runes') then
-		for i = 1, (UF.classMaxResourceBar[E.myclass] or 0) do
+		local maxClassBarButtons = max(UF.classMaxResourceBar[E.myclass] or 0, MAX_COMBO_POINTS)
+		for i = 1, maxClassBarButtons do
 			if i <= frame.MAX_CLASS_BAR then
 				bars[i]:SetStatusBarTexture(texture)
 			end
