@@ -12,16 +12,6 @@ local AutoCastShine_AutoCastStart, AutoCastShine_AutoCastStop = AutoCastShine_Au
 Pr.DeconstructMode = false
 local relicItemTypeLocalized, relicItemSubTypeLocalized
 Pr.ItemTable = {
-	--Various lockboxes
-	["Pick"]={
-		["4632"]=1,["4633"]=25,["4634"]=70,["4636"]=125,["4637"]=175,["4638"]=225,
-		["5758"]=225,["5759"]=225,["5760"]=225,["6354"]=1,["6355"]=70,
-		["12033"]=275,["13875"]=175,["13918"]=250,["16882"]=1,["16883"]=70,
-		["16884"]=175,["16885"]=250,["29569"]=300,["31952"]=325,["43575"]=350,
-		["43622"]=375,["43624"]=400,["45986"]=400,["63349"]=425,["68729"]=425,
-		["88165"]=450,["88567"]=450,
-		["116920"] = 500,["121331"] = 550,
-	},
 	--Stuff that can't be DEed or should not be by default
 	["DoNotDE"]={
 		["49715"] = true, --Rose helm
@@ -173,28 +163,14 @@ function Pr:IsBreakable(link)
 	return false
 end
 
---[[function Pr:LockSkill(id)
-	if E.myclass == "ROGUE" then
-		if Pr.ItemTable["Pick"][id] <= (T.UnitLevel("player") * 5) then return true end
-	end
-	return false
-end
-
-function Pr:IsLocked(link)
-	local name = T.GetItemInfo(link)
-	local id = T.match(link, 'item:(%d+)')
-	if (Pr.ItemTable["Pick"][id] and not Pr.BlacklistLOCK[name] and Pr:LockSkill(id)) then return true end
-	return false
-end]]
-
 function Pr:IsUnlockable(itemLink)
 	local slot = T.GetMouseFocus()
 	local bag = slot:GetParent():GetID()
 	local item = _G["TradeFrame"]:IsShown() and T.GetTradeTargetItemLink(7) or T.select(7, T.GetContainerItemInfo(bag, slot:GetID()))
 	if(item == itemLink) then
-		for index = 2, _G["GameTooltip"]:NumLines() do
+		for index = 2, 5 do
 			local info = _G['GameTooltipTextLeft' .. index]:GetText()
-			if info == LOCKED then
+			if T.find(info, LOCKED) then
 				return true
 			end
 		end
