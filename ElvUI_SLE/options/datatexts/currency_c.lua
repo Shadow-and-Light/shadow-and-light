@@ -44,6 +44,12 @@ local function configTable()
 				},
 			},
 		}
+		if not ElvDB["gold"][E.myrealm] then
+			ElvDB = ElvDB or { };
+			ElvDB['gold'] = ElvDB['gold'] or {};
+			ElvDB['gold'][E.myrealm] = ElvDB['gold'][E.myrealm] or {};
+			ElvDB['gold'][E.myrealm][E.myname] = ElvDB['gold'][E.myrealm][E.myname] or GetMoney();
+		end
 		for k,_ in T.pairs(ElvDB["gold"][E.myrealm]) do
 			config.args[k] = {
 				type = "select",
