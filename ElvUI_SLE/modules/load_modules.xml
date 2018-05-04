@@ -13,7 +13,7 @@
 	<Script file='equipmanager.lua'/>
 	<Script file='enhancedshadows.lua'/>
 	<Script file='toolbars.lua'/>
-	<Script file='garrison.lua'/>
+	<Include file='legacy\load_legacy.xml'/>
 	<Script file='orderhall.lua'/>
 	<Script file='lfr.lua'/>
 	<Script file='loot.lua'/>
