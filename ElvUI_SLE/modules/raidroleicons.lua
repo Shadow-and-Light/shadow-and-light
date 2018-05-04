@@ -10,7 +10,7 @@ function B:CreateAndUpdateIcons()
 	local members = T.GetNumGroupMembers()
 	for i = 1, members do
 		local frame = _G["RaidGroupButton"..i]
-		if (frame and not frame.subframes) or not E.db.sle.raidmanager then E:Delay(1, B.CreateAndUpdateIcons); return end
+		if not frame or (frame and not frame.subframes) or not E.db.sle.raidmanager then E:Delay(1, B.CreateAndUpdateIcons); return end
 		local parent = E.db.sle.raidmanager.level and frame.subframes.level or frame.subframes.class
 		if E.db.sle.raidmanager.level then
 			frame.subframes.level:Show()
