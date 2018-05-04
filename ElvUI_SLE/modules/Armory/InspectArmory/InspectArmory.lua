@@ -2425,7 +2425,6 @@ function IA:InspectFrame_DataSetting(DataTable)
 	do	--<< Information Page Setting >>--
 		do	-- Profession
 			for i = 1, 2 do
-				for k,v in pairs(DataTable.Profession[i]) do print(k,v) end
 				if DataTable.Profession[i].Name then
 					self.Info.Profession:Show()
 					self.Info.Profession['Prof'..i].Bar:SetValue(DataTable.Profession[i].Level)
