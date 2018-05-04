@@ -7,7 +7,6 @@ local MAX_HONOR_LEVEL = MAX_HONOR_LEVEL
 local COMBATLOG_HONORGAIN, COMBATLOG_HONORGAIN_NO_RANK, COMBATLOG_HONORAWARD = COMBATLOG_HONORGAIN, COMBATLOG_HONORGAIN_NO_RANK, COMBATLOG_HONORAWARD
 local PVP_RANK_0_0 = PVP_RANK_0_0
 
-local faction = UnitFactionGroup('player')
 DB.Honor ={
 	Styles = {
 		["STYLE1"] = "%s <%s>: +%s|T%s:%s|t",
@@ -40,7 +39,7 @@ DB.Honor ={
 		["STYLE6"] = "|TInterface\\Icons\\ACHIEVEMENT_GUILDPERK_MRPOPULARITY_RANK2:14:14|t: "..E["media"].hexvaluecolor.."%s|r|T%s:%s|t",
 	},
 	Strings = {},
-	Icon = [[Interface\AddOns\ElvUI_SLE\media\textures\]]..faction,
+	Icon = [[Interface\AddOns\ElvUI_SLE\media\textures\]]..SLE.myfaction,
 }
 
 local function UpdateHonor(self, event, unit)

@@ -6,7 +6,6 @@ local COMBATLOG_HONORGAIN, COMBATLOG_HONORGAIN_NO_RANK, COMBATLOG_HONORAWARD = C
 local PVP_RANK_0_0 =PVP_RANK_0_0
 local GetCurrencyInfo = GetCurrencyInfo
 PvP.HonorStrings = {}
-local FactionToken = UnitFactionGroup("player")
 local bit_band = bit.band
 local BG_Opponents = {
 }
@@ -69,7 +68,7 @@ function PvP:OpponentsTable()
 	T.twipe(BG_Opponents)
 	for index = 1, T.GetNumBattlefieldScores() do
 		local name, _, _, _, _, faction, _, _, classToken = T.GetBattlefieldScore(index)
-		if (FactionToken == "Horde" and faction == 1) or (FactionToken == "Alliance" and faction == 0) then
+		if (SLE.myfaction == "Horde" and faction == 1) or (SLE.myfaction == "Alliance" and faction == 0) then
 			BG_Opponents[name] = classToken
 		end
 	end

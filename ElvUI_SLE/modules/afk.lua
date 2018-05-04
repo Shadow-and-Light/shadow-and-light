@@ -9,7 +9,6 @@ local SS
 local Name, Level, GuildName, GuildRank, month, week, AnimTime, testM
 local Class, ClassToken = T.UnitClass("player")
 local Race, RaceToken = T.UnitRace("player")
-local FactionToken, Faction = T.UnitFactionGroup("player")
 local Color = RAID_CLASS_COLORS[ClassToken]
 local CrestPath = [[Interface\AddOns\ElvUI_SLE\media\textures\crests\]]
 local TipsElapsed, TipNum, TipThrottle, OldTip, degree = 0, 1, 15, 0, 0
@@ -82,7 +81,7 @@ function S:Setup()
 	SS.ExPack.texture:SetAllPoints(SS.ExPack)
 	SS.ExPack.texture:SetTexture([[Interface\Glues\Common\LegionLogo.blp]])
 	SS.ExPack.texture:SetTexCoord(0, 1, 0, 0.25)
-	SS.FactCrest:SetTexture(CrestPath..FactionToken)
+	SS.FactCrest:SetTexture(CrestPath..SLE.myfaction)
 	SS.RaceCrest = SS:CreateTexture(nil, 'ARTWORK')
 	SS.RaceCrest:SetTexture(CrestPath..RaceToken)
 	SS.sle = SS:CreateTexture(nil, 'OVERLAY')

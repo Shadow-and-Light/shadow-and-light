@@ -249,11 +249,9 @@ local function OnEvent(self, event, ...)
 
 		self.text:SetText(E:FormatMoney(NewMoney, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins))
 
-		local FactionToken, Faction = T.UnitFactionGroup('player')
-
 		ElvDB["gold"][E.myrealm][E.myname] = NewMoney
-		if (FactionToken ~= "Neutral") then
-			ElvDB["faction"][E.myrealm][FactionToken][E.myname] = NewMoney
+		if (SLE.myfaction ~= "Neutral") then
+			ElvDB["faction"][E.myrealm][SLE.myfaction][E.myname] = NewMoney
 		end
 	end
 
