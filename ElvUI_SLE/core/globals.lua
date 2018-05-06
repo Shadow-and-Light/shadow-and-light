@@ -98,6 +98,7 @@ SLE.SpecialChatIcons = {
 			["Крениг"] = darth,
 			["Мейжи"] = darth,
 			["Тисандри"] = darth,
+			["Мемри"] = darth,
 			--Darth's friends
 			["Леани"] = friend,
 			["Кайрия"] = friend,
@@ -118,10 +119,6 @@ SLE.SpecialChatIcons = {
 			--Some people
 			["Маразм"] = classTable.shaman,
 			["Брэгар"] = test
-		},
-		["СвежевательДуш"] = {
-			--Darth's toons
-			["Большойгном"] = test, --Testing toon
 		},
 		["ЧерныйШрам"] = {
 			["Емалия"] = friend,
