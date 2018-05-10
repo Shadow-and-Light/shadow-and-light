@@ -19,7 +19,7 @@ local function ShowMinimap()
 end
 
 local function CreateCoords()
-	local x, y = T.GetPlayerMapPosition("player")
+	local x, y = T.GetPlayerMapPosition(0, "player"):GetXY()
 	if x then x = T.format(E.db.sle.minimap.coords.format, x * 100) else x = "0" end
 	if y then y = T.format(E.db.sle.minimap.coords.format, y * 100) else y = "0" end
 	
@@ -91,8 +91,8 @@ function MM:CreateCoordsFrame()
 end
 
 function MM:LOADING_SCREEN_DISABLED()
-	local x = T.GetPlayerMapPosition("player")
-	if not x then
+	local position = T.GetPlayerMapPosition(0, "player")
+	if not position then
 		MM.RestrictedArea = true
 	else
 		MM.RestrictedArea = false
