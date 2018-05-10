@@ -704,7 +704,9 @@ L["Ingore Poles"] = true
 L["If enabled will start fishing even if you don't have fishing pole equipped. Will not work if you have fish key set to \"None\"."] = true
 L["Fish Key"] = true
 L["Hold this button while clicking to allow fishing action."] = true
-
+L["SLE_Prof_Relure_Error"] = "Can't use lure due to threshlod. Time left: %.1f seconds."
+L["Re-lure Threshold"] = true
+L["Time after the previous attemp to apply a lure before the next attempt will occure."] = true
 
 --PvP
 L["Functions dedicated to player versus player modes."] = true

@@ -187,8 +187,18 @@ local function configTable()
 						get = function(info) return E.private.sle.professions.fishing.UseLures end,
 						set = function(info, value) E.private.sle.professions.fishing.UseLures = value; end,
 					},
-					IgnorePole = {
+					relureThreshold = {
 						order = 4,
+						type = 'range',
+						name = L["Re-lure Threshold"],
+						desc = L["Time after the previous attemp to apply a lure before the next attempt will occure."],
+						min = 1, max = 15, step = 1,
+						disabled = function() return not E.private.sle.professions.fishing.EasyCast or not E.private.sle.professions.fishing.UseLures end,
+						get = function(info) return E.private.sle.professions.fishing.relureThreshold end,
+						set = function(info, value) E.private.sle.professions.fishing.relureThreshold = value; end,
+					},
+					IgnorePole = {
+						order = 5,
 						name = L["Ignore Poles"],
 						desc = L["If enabled will start fishing even if you don't have fishing pole equipped. Will not work if you have fish key set to \"None\"."],
 						type = "toggle",
@@ -197,7 +207,7 @@ local function configTable()
 						set = function(info, value) E.private.sle.professions.fishing.IgnorePole = value; end,
 					},
 					CastButton = {
-						order = 5,
+						order = 6,
 						name = L["Fish Key"],
 						desc = L["Hold this button while clicking to allow fishing action."],
 						type = "select",

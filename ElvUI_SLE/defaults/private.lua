@@ -61,6 +61,7 @@ V["sle"] = {
 			["UseLures"] = true,
 			["IgnorePole"] = false,
 			["CastButton"] = "Shift",
+			["relureThreshold"] = 8,
 		},
 	},
 

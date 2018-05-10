@@ -701,7 +701,9 @@ L["Ignore Poles"] = "Без удочки"
 L["If enabled will start fishing even if you don't have fishing pole equipped. Will not work if you have fish key set to \"None\"."] = "При включении будет начинать рыбачить даже без надетой удочки. Не будет работать, если модификатор рыбалки выставлен на \"Нет\"."
 L["Fish Key"] = "Модификатор рыбалки"
 L["Hold this button while clicking to allow fishing action."] = "Удерживайте эту кнопку для быстрой рыбалки."
-
+L["SLE_Prof_Relure_Error"] = "Не могу использовать приманку из-за заданного интервала задержки. Осталось времени: %.1f секунд."
+L["Re-lure Threshold"] = "Задержка наживки"
+L["Time after the previous attemp to apply a lure before the next attempt will occure."] = "Время после последней попытки использования наживки, через котороне наживка вновь будет автоматически применяться."
 
 --PvP
 L["Functions dedicated to player versus player modes."] = "Функции для режима игрок Против Игрока."

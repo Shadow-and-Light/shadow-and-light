@@ -21,24 +21,26 @@ local function HideAwayAll(self, button, down)
 end
 
 function Pr:GetUpdateLure()
-	local lureinventory, useinventory = FL:GetLureInventory();
+	-- local lureinventory, useinventory = FL:GetLureInventory();
 
 	if E.private.sle.professions.fishing.UseLures then
 		-- only apply a lure if we're actually fishing with a "real" pole
 		if (FL:IsFishingPole()) then
 			-- Let's wait a bit so that the enchant can show up before we lure again
 			if ( Pr.LastLure and Pr.LastLure.time and ((Pr.LastLure.time - T.GetTime()) > 0) ) then
+				SLE:Print(T.format(L["SLE_Prof_Relure_Error"], Pr.LastLure.time - T.GetTime()))
 				return false;
 			end
 
 			if ( Pr.LastLure ) then
 				Pr.LastLure.time = nil;
+				Pr.LureState = 0
 			end
 
 			local skill, _, _, _ = FL:GetCurrentSkill();
 			if (skill > 0) then
 				local NextLure, NextState;
-				local pole, tempenchant = FL:GetPoleBonus();
+				local tempenchant = FL:GetPoleBonus();
 				local state, bestlure = FL:FindBestLure(tempenchant, Pr.LureState);
 				if ( state and bestlure and tempenchant == 0 ) then
 					NextState = state;
@@ -56,7 +58,7 @@ function Pr:GetUpdateLure()
 						Pr.AddingLure = true;
 						Pr.LastLure = DoLure;
 						Pr.LureState = NextState;
-						Pr.LastLure.time = T.GetTime() + Pr.RELURE_DELAY;
+						Pr.LastLure.time = T.GetTime() + E.private.sle.professions.fishing.relureThreshold;
 						local id = DoLure.id;
 						local name = DoLure.n;
 						return true, id, name; 
@@ -123,7 +125,7 @@ function Pr:FishingInitialize()
 	Pr.LastLure = nil
 	Pr.LureState = 0
 	Pr.LastCastTime = nil
-	Pr.RELURE_DELAY = 8 --Wait before trying to lure again 3 (cast time) + 5 second wait
+	-- Pr.RELURE_DELAY = 8 --Wait before trying to lure again 3 (cast time) + 5 second wait
 	Pr.FishingUpdateFrame = CreateFrame("Frame", "SLE_FishingUpdateFrame", E.UIParent)
 	Pr.FishingUpdateFrame:SetScript("OnUpdate", function(self)
 		local stop = true;
@@ -131,7 +133,7 @@ function Pr:FishingInitialize()
 			FL:ResetOverride();
 			if ( Pr.AddingLure ) then
 				local sp, sub, txt, tex, st, et, trade, int = UnitChannelInfo("player");
-				local _, lure = FL:GetPoleBonus();
+				local lure = FL:GetPoleBonus();
 				if ( not sp or not Pr.LastLure or (lure and lure == Pr.LastLure.b) ) then
 					Pr.AddingLure = false;
 					FL:UpdateLureInventory();
@@ -146,6 +148,7 @@ function Pr:FishingInitialize()
 	end)
 	Pr.FishingUpdateFrame:Hide()
 
+	FL:GetPoleType()
 	FL:CreateSAButton()
 	FL:SetSAMouseEvent()
 	TrapWorldMouse()
