@@ -25,10 +25,15 @@ FishLib.caughtSoFar = 0;
 FishLib.gearcheck = true;
 FishLib.hasgear = false;
 
-local PROFESSIONS_FISHING = PROFESSIONS_FISHING
--- local LIB_PROFESSIONS_FISHING
+local PROFESSIONS_FISHING, INVSLOT_MAINHAND = PROFESSIONS_FISHING, INVSLOT_MAINHAND
+local ipairs = ipairs
 local GetInventoryItemLink = GetInventoryItemLink
 local GetWeaponEnchantInfo = GetWeaponEnchantInfo
+local UnitBuff = UnitBuff
+local GetItemCooldown = GetItemCooldown
+local GetProfessions, GetProfessionInfo = GetProfessions, GetProfessionInfo
+local GetItemInfo = GetItemInfo
+local HasAction, IsAttackAction, GetActionTexture = HasAction, IsAttackAction, GetActionTexture
 
 local LureEffects = {
 	[263] = 25,
@@ -446,14 +451,6 @@ function FishLib:IsFishingReady(partial)
 	end
 end
 
-function FishLib:OnFishingBobber()
-   if ( GameTooltip:IsVisible() and GameTooltip:GetAlpha() == 1 ) then
-		local text = self:GetTooltipText() or self:GetLastTooltipText();
-		-- let a partial match work (for translations)
-		return ( text and string.find(text, self:GetBobberName() ) );
-	end
-end
-
 local ACTIONDOUBLEWAIT = 0.4;
 local MINACTIONDOUBLECLICK = 0.05;
 
@@ -470,16 +467,14 @@ function FishLib:CheckForDoubleClick(button)
 		local pressTime = GetTime();
 		local doubleTime = pressTime - self.lastClickTime;
 		if ( (doubleTime < ACTIONDOUBLEWAIT) and (doubleTime > MINACTIONDOUBLECLICK) ) then
-			if ( not self.watchBobber or not self:OnFishingBobber() ) then
+			if ( not self.watchBobber ) then
 				self.lastClickTime = nil;
 				return true;
 			end
 		end
 	end
 	self.lastClickTime = GetTime();
-	if ( self:OnFishingBobber() ) then
-		GameTooltip:Hide();
-	end
+
 	return false;
 end
 
@@ -579,8 +574,8 @@ function FishLib:SetSAMouseEvent(buttonevent)
 		self.buttonevent = buttonevent;
 		local btn = getglobal(SABUTTONNAME);
 		if ( btn ) then
-			btn:RegisterForClicks(nil);		
-			btn:RegisterForClicks(self.buttonevent);		
+			btn:RegisterForClicks(nil);
+			btn:RegisterForClicks(self.buttonevent);
 		end
 		return true;
 	end
@@ -593,7 +588,7 @@ function FishLib:InvokeFishing(useaction)
 		return;
 	end
 	local _, name = self:GetFishingSkillInfo();
-	local findid = self:GetFishingActionBarID();	  
+	local findid = self:GetFishingActionBarID();
 	if ( not useaction or not findid ) then
 		btn:SetAttribute("type", "spell");
 		btn:SetAttribute("spell", name);
@@ -646,23 +641,6 @@ function FishLib:ClickSAButton()
 	end
 	btn:Click(self:GetSAMouseButton());
 end
---[[
--- Taken from wowwiki tooltip handling suggestions
-local function EnumerateTooltipLines_helper(...)
-	local lines = {};
-	for i = 1, select("#", ...) do
-		local region = select(i, ...)
-		if region and region:GetObjectType() == "FontString" then
-			local text = region:GetText() -- string or nil
-			tinsert(lines, text or "");
-		end
-	end
-	return lines;
-end
-
-function FishLib:EnumerateTooltipLines(tooltip)
-	 return EnumerateTooltipLines_helper(tooltip:GetRegions())
-end]]
 
 -- if we have a fishing pole, return the bonus from the pole
 -- and the bonus from a lure, if any, separately

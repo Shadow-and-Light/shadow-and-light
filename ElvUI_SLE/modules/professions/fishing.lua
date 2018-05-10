@@ -21,8 +21,6 @@ local function HideAwayAll(self, button, down)
 end
 
 function Pr:GetUpdateLure()
-	-- local lureinventory, useinventory = FL:GetLureInventory();
-
 	if E.private.sle.professions.fishing.UseLures then
 		-- only apply a lure if we're actually fishing with a "real" pole
 		if (FL:IsFishingPole()) then
@@ -82,10 +80,6 @@ function Pr:FishCasting()
 		if (update and id) then
 			FL:InvokeLuring(id);
 		else
-			if ( not FL:GetLastTooltipText() or not FL:OnFishingBobber() ) then
-				-- watch for fishing holes
-				FL:SaveTooltipText();
-			end
 			Pr.LastCastTime = T.GetTime();
 
 			FL:InvokeFishing();
@@ -125,7 +119,6 @@ function Pr:FishingInitialize()
 	Pr.LastLure = nil
 	Pr.LureState = 0
 	Pr.LastCastTime = nil
-	-- Pr.RELURE_DELAY = 8 --Wait before trying to lure again 3 (cast time) + 5 second wait
 	Pr.FishingUpdateFrame = CreateFrame("Frame", "SLE_FishingUpdateFrame", E.UIParent)
 	Pr.FishingUpdateFrame:SetScript("OnUpdate", function(self)
 		local stop = true;
