@@ -15,7 +15,7 @@ function SA:UpdateAura(button, index)
 	local isDebuff
 	local filter = button:GetParent():GetAttribute('filter')
 	local unit = button:GetParent():GetAttribute("unit")
-	local name, _, _, _, dtype, duration, expiration = T.UnitAura(unit, index, filter)
+	local name, _, _, dtype, duration, expiration = T.UnitAura(unit, index, filter)
 
 	if (name) then
 		if T.UnitBuff('player', name) then
