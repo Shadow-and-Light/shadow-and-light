@@ -156,10 +156,10 @@ T.GetInspectHonorData = GetInspectHonorData
 T.GetZoneText = GetZoneText
 T.GetRealZoneText = GetRealZoneText
 T.GetMinimapZoneText = GetMinimapZoneText
-T.GetMapNameByID = GetMapNameByID
-T.GetCurrentMapAreaID = GetCurrentMapAreaID
+T.GetMapNameByID = C_Map.GetMapInfo
+T.GetCurrentMapAreaID = C_Map.GetCurrentMapAreaID
 T.GetSubZoneText = GetSubZoneText
-T.GetPlayerMapPosition = GetPlayerMapPosition
+T.GetPlayerMapPosition = C_Map.GetPlayerMapPosition
 T.GetZonePVPInfo = GetZonePVPInfo
 --Currency
 T.GetCurrencyListSize = GetCurrencyListSize
@@ -374,6 +374,14 @@ function SLE:Reset(group)
 		E:ResetMovers(L["Raid Utility"])
 	end
 	E:UpdateAll()
+end
+
+function SLE:GetMapInfo(id, arg)
+	local MapInfo = C_Map.GetMapInfo(id)
+	if not MapInfo then return UNKNOWN end
+	-- for k,v in pairs(MapInfo) do print(k,v) end
+	if arg == "all" then return MapInfo["name"], MapInfo["mapID"], MapInfo["parentMapID"], MapInfo["mapType"] end
+	return MapInfo[arg]
 end
 
 --When we need to get mutiple modules in a file
