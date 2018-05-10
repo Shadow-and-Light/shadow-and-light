@@ -201,7 +201,7 @@ LP.Spells = {
 }
 
 local function CreateCoords()
-	local x, y = T.GetPlayerMapPosition("player")
+	local x, y = T.GetPlayerMapPosition(0, "player"):GetXY()
 	if x then x = T.format(LP.db.format, x * 100) else x = "0" end
 	if y then y = T.format(LP.db.format, y * 100) else y = "0" end
 	
@@ -603,8 +603,8 @@ function LP:PLAYER_REGEN_ENABLED()
 end
 
 function LP:PLAYER_ENTERING_WORLD()
-	local x, y = T.GetPlayerMapPosition("player")
-	if x then LP.RestrictedArea = false else LP.RestrictedArea = true end
+	local position = T.GetPlayerMapPosition(0, "player")
+	if position then LP.RestrictedArea = false else LP.RestrictedArea = true end
 	LP:UNIT_AURA(nil, "player")
 end
 
