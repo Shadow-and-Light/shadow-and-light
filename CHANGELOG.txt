@@ -1,6 +1,16 @@
 v3.38
 Fixes:
 - Fixed some icons missing from minimap icons bar after v3.36
+- Fixed (probably) a random armory error caused by invalid item data from artifact weapons
+- Fixed tab fonts for inspect armory not applying on load
+- Fixed garrison report button jumping around after loading screens
+- Fixed deconstruct mode not working on lockpick with a colorblind mode in wow emabled
+- Fixed broken custom textures for classbar when suddenly a new section is added
+- Fixed an error in config when no gold data is available for some reason
+Additions:
+- Added a no backdrop variant for location panel templates
+Changes:
+- Updated LibRealmInfo
 
 v3.37 04/01/2018
 Changes:
