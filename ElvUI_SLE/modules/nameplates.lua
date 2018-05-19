@@ -165,12 +165,26 @@ end
 
 function N:Initialize()
 	if not SLE.initialized or not E.private.nameplates.enable then return end
+	if E.db.sle.nameplates.targetcount and T.type(E.db.sle.nameplates.targetcount) == "boolean" then
+		local oldEnable = E.db.sle.nameplates.targetcount
+		E.db.sle.nameplates.targetcount = {
+			["enable"] = oldEnable,
+			["font"] = "PT Sans Narrow",
+			["size"] = 12,
+			["fontOutline"] = "OUTLINE",
+		}
+	end
+	if E.db.sle.nameplates.showthreat then
+		E.db.sle.nameplates.threat.enable = E.db.sle.nameplates.showthreat
+		E.db.sle.nameplates.showthreat = nil
+	end
+
 	N.db = E.db.sle.nameplates
-	
+
 	hooksecurefunc(NP, 'NAME_PLATE_CREATED', N.CreateNameplate)
 	hooksecurefunc(NP, "UpdateFonts", N.UpdateFonts)
 	hooksecurefunc(NP, "UpdateAllFrame", N.UpdateAllFrame)
-	
+
 	self:RegisterEvent("GROUP_ROSTER_UPDATE", "StartRosterUpdate")
 	self:RegisterEvent("UNIT_TARGET", "UpdateCount")
 	self:RegisterEvent("NAME_PLATE_UNIT_REMOVED")
@@ -179,6 +193,20 @@ function N:Initialize()
 	E:Delay(.3, function() N:UpdateCount(nil,"player", true) end)
 	function N:ForUpdateAll()
 		N.db = E.db.sle.nameplates
+
+		if E.db.sle.nameplates.targetcount and T.type(E.db.sle.nameplates.targetcount) == "boolean" then
+			local oldEnable = E.db.sle.nameplates.targetcount
+			E.db.sle.nameplates.targetcount = {
+				["enable"] = oldEnable,
+				["font"] = "PT Sans Narrow",
+				["size"] = 12,
+				["fontOutline"] = "OUTLINE",
+			}
+		end
+		if E.db.sle.nameplates.showthreat then
+			E.db.sle.nameplates.threat.enable = E.db.sle.nameplates.showthreat
+			E.db.sle.nameplates.showthreat = nil
+		end
 	end
 end
 
