@@ -671,12 +671,14 @@ function CA:ScanData()
 	elseif self.NeedUpdate then
 		self:SetScript('OnUpdate', self.ScanData)
 	end
-	_G["CharacterModelFrame"].BackgroundTopLeft:Hide()
-	_G["CharacterModelFrame"].BackgroundTopRight:Hide()
-	_G["CharacterModelFrame"].BackgroundBotLeft:Hide()
-	_G["CharacterModelFrame"].BackgroundBotRight:Hide()
-	if _G["CharacterModelFrame"].backdrop then
-		_G["CharacterModelFrame"].backdrop:Hide()
+	if _G["CharacterModelFrame"] and _G["CharacterModelFrame"].BackgroundTopLeft and _G["CharacterModelFrame"].BackgroundTopLeft:IsShown() then
+		_G["CharacterModelFrame"].BackgroundTopLeft:Hide()
+		_G["CharacterModelFrame"].BackgroundTopRight:Hide()
+		_G["CharacterModelFrame"].BackgroundBotLeft:Hide()
+		_G["CharacterModelFrame"].BackgroundBotRight:Hide()
+		if _G["CharacterModelFrame"].backdrop then
+			_G["CharacterModelFrame"].backdrop:Hide()
+		end
 	end
 end
 
@@ -1372,6 +1374,8 @@ function CA:Update_BG()
 		self.BG:SetTexture(nil)
 	elseif E.db.sle.Armory.Character.Backdrop.SelectedBG == 'CUSTOM' then
 		self.BG:SetTexture(E.db.sle.Armory.Character.Backdrop.CustomAddress)
+	elseif E.db.sle.Armory.Character.Backdrop.SelectedBG == 'CLASS' then
+		self.BG:SetTexture("Interface\\AddOns\\ElvUI_SLE\\modules\\Armory\\Media\\Textures\\"..E.myclass)
 	else
 		self.BG:SetTexture(Info.Armory_Constants.BlizzardBackdropList[E.db.sle.Armory.Character.Backdrop.SelectedBG] or 'Interface\\AddOns\\ElvUI_SLE\\modules\\Armory\\Media\\Textures\\'..E.db.sle.Armory.Character.Backdrop.SelectedBG)
 	end
@@ -1418,10 +1422,9 @@ function CA:Update_Display(Force)
 					Slot.Socket1:Point('BOTTOM'..Slot.Direction, _G["Character"..SlotName], 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 or -2, 2)
 				end
 			end
-			
-			
+
 			SocketVisible = nil
-			
+
 			if Slot.Socket1 then
 				for i = 1, MAX_NUM_SOCKETS do
 					if E.db.sle.Armory.Character.Gem.Display == 'Always' or Mouseover and E.db.sle.Armory.Character.Gem.Display == 'MouseoverOnly' then

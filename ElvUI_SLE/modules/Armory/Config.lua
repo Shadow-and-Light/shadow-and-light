@@ -210,7 +210,8 @@ local function LoadArmoryConfigTable()
 		["6"] = 'Horde-text',
 		["7"] = 'Alliance-bliz',
 		["8"] = 'Horde-bliz',
-		["9"] = 'Arena-bliz'
+		["9"] = 'Arena-bliz',
+		["10"] = 'CLASS',
 	}
 
 	local BackgroundList = {
@@ -223,7 +224,8 @@ local function LoadArmoryConfigTable()
 		["6"] = FACTION_HORDE,
 		["7"] = FACTION_ALLIANCE..' 2',
 		["8"] = FACTION_HORDE..' 2',
-		["9"] = ARENA
+		["9"] = ARENA,
+		["10"] = CLASS,
 	}
 
 	local DisplayMethodList = {
