@@ -222,7 +222,10 @@ function Tools:PopulateBar(bar)
 	if not bar.Buttons then bar.Buttons = {} end
 	for id, data in T.pairs(bar.Items) do
 		T.tinsert(bar.Buttons, Tools:CreateToolsButton(id, bar, "item", data[1], data[10], true, E.db.sle.legacy.farm))
-		T.sort(bar.Buttons, function(a, b) return a.sortname < b.sortname end)
+		T.sort(bar.Buttons, function(a, b)
+			if not a or not b then return true end
+			return a.sortname < b.sortname
+		end)
 	end
 end
 
