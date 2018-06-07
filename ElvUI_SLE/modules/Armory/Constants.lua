@@ -25,6 +25,35 @@ local ITEM_BIND_ON_PICKUP = ITEM_BIND_ON_PICKUP
 local ITEM_BIND_TO_ACCOUNT = ITEM_BIND_TO_ACCOUNT
 local ITEM_BIND_TO_BNETACCOUNT = ITEM_BIND_TO_BNETACCOUNT
 
+Info.BackgroundsTextures = {
+	Keys = {
+		["0"] = 'HIDE',
+		["1"] = 'CUSTOM',
+		["2"] = 'Space',
+		["3"] = 'TheEmpire',
+		["4"] = 'Castle',
+		["5"] = 'Alliance-text',
+		["6"] = 'Horde-text',
+		["7"] = 'Alliance-bliz',
+		["8"] = 'Horde-bliz',
+		["9"] = 'Arena-bliz',
+		["10"] = 'CLASS',
+	},
+	Config = {
+		["0"] = HIDE,
+		["1"] = CUSTOM,
+		["2"] = "Space",
+		["3"] = "The Empire",
+		["4"] = "Castle",
+		["5"] = FACTION_ALLIANCE,
+		["6"] = FACTION_HORDE,
+		["7"] = FACTION_ALLIANCE..' 2',
+		["8"] = FACTION_HORDE..' 2',
+		["9"] = ARENA,
+		["10"] = CLASS,
+	},
+}
+
 Info.Armory_Constants = {
 	ItemLevelKey = ITEM_LEVEL:gsub('%%d', '(.+)'),
 	ItemLevelKey_Alt = ITEM_LEVEL_ALT:gsub('%%d', '.+'):gsub('%(.+%)', '%%((.+)%%)'),

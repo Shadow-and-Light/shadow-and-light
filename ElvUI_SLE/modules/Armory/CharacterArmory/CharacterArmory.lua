@@ -680,6 +680,17 @@ function CA:ScanData()
 			_G["CharacterModelFrame"].backdrop:Hide()
 		end
 	end
+
+	if _G["CharacterModelFrame"]:GetHeight() == 320 then
+		_G["CharacterModelFrame"]:ClearAllPoints()
+		_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"])
+		_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
+		_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
+
+		_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', CharacterArmory, -8, 0)
+		_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', CharacterArmory, 8, 0)
+		CA:ElvOverlayToggle()
+	end
 end
 
 function CA:Update_Durability()
@@ -1379,6 +1390,8 @@ function CA:Update_BG()
 	else
 		self.BG:SetTexture(Info.Armory_Constants.BlizzardBackdropList[E.db.sle.Armory.Character.Backdrop.SelectedBG] or 'Interface\\AddOns\\ElvUI_SLE\\modules\\Armory\\Media\\Textures\\'..E.db.sle.Armory.Character.Backdrop.SelectedBG)
 	end
+	
+	--CA:AdditionalTextures_Update()
 end
 
 function CA:Update_Display(Force)
@@ -1559,7 +1572,7 @@ KF.Modules[#KF.Modules + 1] = 'CharacterArmory'
 KF.Modules.CharacterArmory = function()
 	if E.private.sle.Armory then E.db.sle.Armory.Character.ItemLevel = E.private.sle.Armory.ItemLevel; E.db.sle.Armory.ItemLevel = nil end --DB converts
 
-	if E.db.sle.Armory.Character.Enable ~= false then
+	if E.db.sle.Armory.Character.Enable then
 		Info.CharacterArmory_Activate = true
 
 		-- Setting frame
@@ -1585,13 +1598,6 @@ KF.Modules.CharacterArmory = function()
 		_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"])
 		_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
 		_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
-		-- _G["CharacterModelFrame"].BackgroundTopLeft:Hide()
-		-- _G["CharacterModelFrame"].BackgroundTopRight:Hide()
-		-- _G["CharacterModelFrame"].BackgroundBotLeft:Hide()
-		-- _G["CharacterModelFrame"].BackgroundBotRight:Hide()
-		-- if _G["CharacterModelFrame"].backdrop then
-			-- _G["CharacterModelFrame"].backdrop:Hide()
-		-- end
 
 		if _G["PaperDollFrame"]:IsShown() then
 			_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and 650 or 444)
