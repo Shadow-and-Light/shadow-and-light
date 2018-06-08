@@ -1810,23 +1810,9 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 			end
 		end
 	end
-	
-	SLE_ArmoryDB[ClientVersion].PvPTalent = SLE_ArmoryDB[ClientVersion].PvPTalent or {}
-	SLE_ArmoryDB[ClientVersion].PvPTalent[CurrentSpec] = SLE_ArmoryDB[ClientVersion].PvPTalent[CurrentSpec] or {}
-	for i = 1, MAX_PVP_TALENT_TIERS do
-		local selectedTalentID = C_SpecializationInfo.GetInspectSelectedPvpTalent(IA.CurrentInspectData.UnitID, i);
-		if selectedTalentID then TalentID = GetPvpTalentInfoByID(selectedTalentID) end
 
-		TalentID = TalentID or SLE_ArmoryDB[ClientVersion].PvPTalent[CurrentSpec][i]
-		isSelected = selectedTalentID or false
-		
-		if TalentID then
-			SLE_ArmoryDB[ClientVersion].PvPTalent[CurrentSpec][i] = TalentID
-			
-			IA.CurrentInspectData.Specialization[2]['PvPTalent'..i] = { TalentID, isSelected }
-		else
-			NeedReinspect = true
-		end
+	for i = 1, MAX_PVP_TALENT_TIERS do
+		IA.CurrentInspectData.Specialization[2]['PvPTalent'..i] = C_SpecializationInfo.GetInspectSelectedPvpTalent(IA.CurrentInspectData.UnitID, i);
 	end
 
 	-- Guild
@@ -2698,7 +2684,8 @@ function IA:ToggleSpecializationTab(Tab, DataTable)
 			self.Spec['TalentTier'..i]:Hide()
 		end
 		for i = 1, MAX_PVP_TALENT_TIERS do
-			Arg1,Name,Arg2 = GetPvpTalentInfoByID(DataTable.Specialization[Tab]['PvPTalent'..i][1])
+			Arg1,Name,Arg2 = nil,nil,nil
+			if DataTable.Specialization[Tab]['PvPTalent'..i] then Arg1,Name,Arg2 = GetPvpTalentInfoByID(DataTable.Specialization[Tab]['PvPTalent'..i]) end
 			if (Arg1) then
 				self.Spec['PvPTalentSlot'..i].Icon.Texture:SetTexture(Arg2)
 				self.Spec['PvPTalentSlot'..i].text:SetText(Name)
