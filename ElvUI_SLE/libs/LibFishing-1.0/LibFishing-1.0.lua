@@ -418,7 +418,7 @@ function FishLib:GetPoleType()
 	if ( not fp_itemtype ) then
 		_,_,_,_,fp_itemtype,fp_subtype = self:GetItemInfo(6256);
 		if ( not fp_itemtype ) then
-			C_Timer.After(3, FishLib.GetPoleType)
+			C_Timer.After(3, function() FishLib:GetPoleType() end)
 			return
 		end
 	end
