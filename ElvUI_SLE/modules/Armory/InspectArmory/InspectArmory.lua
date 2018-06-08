@@ -1979,54 +1979,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 						do --<< Gem Parts >>--
 							GemCount_Default, GemCount_Now, GemCount = 0, 0, 0
 							
-							if Info.Armory_Constants.ArtifactType[(ItemData[2])] then	-- Artifact Parts
-								GemCount_Default = 3
-								GemCount_Enable = 3
-								GemCount_Now = 3
-								
-								self:ClearTooltip(self.ScanTT)
-								self.ScanTT:SetHyperlink(Slot.Link)
-								
-								for i = 1, MAX_NUM_SOCKETS do
-									Slot['Socket'..i].GemType = Info.Armory_Constants.ArtifactType[(ItemData[2])][i]
-									GemID = ItemData[i + 3] ~= '' and ItemData[i + 3] or 0
-									_, GemLink = GetItemGem(Slot.Link, i)
-									Slot.SocketWarning:Point(Slot.Direction, Slot.Socket3, (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
-									
-									if Slot['Socket'..i].GemType and Info.Armory_Constants.GemColor[Slot['Socket'..i].GemType] then
-										R, G, B = unpack(Info.Armory_Constants.GemColor[Slot['Socket'..i].GemType])
-										Slot['Socket'..i].Socket:SetBackdropColor(R, G, B, .5)
-										Slot['Socket'..i].Socket:SetBackdropBorderColor(R, G, B)
-									else
-										R, G, B = 0, 0, 0
-										Slot['Socket'..i].Socket:SetBackdropColor(1, 1, 1, .5)
-										Slot['Socket'..i].Socket:SetBackdropBorderColor(1, 1, 1)
-									end
-									
-									Slot['Socket'..i].Socket.Message = format(RELIC_TOOLTIP_TYPE, E:RGBToHex(R, G, B).._G['RELIC_SLOT_TYPE_'..Slot['Socket'..i].GemType])
-									if GemLink then
-										if E.db.sle.Armory.Inspect.Gem.Display == 'Always' or E.db.sle.Armory.Inspect.Gem.Display == 'MouseoverOnly' and Slot.Mouseovered or E.db.sle.Armory.Inspect.Gem.Display == 'MissingOnly' then
-											Slot['Socket'..i]:Show()
-										end
-										
-										GemCount = GemCount + 1
-										Slot['Socket'..i].GemItemID = GemID
-										Slot['Socket'..i].Socket.Link = GemLink
-										
-										ItemTexture = select(10, T.GetItemInfo(GemID))
-										
-										Slot['Socket'..i].Socket.Message = nil
-										if ItemTexture then
-											Slot['Socket'..i].Texture:SetTexture(ItemTexture)
-										else
-											NeedUpdate = true
-										end
-									elseif GemID ~= 0 then
-										NeedUpdate = true
-									end
-								end
-							else
-								ItemData.FixedLink = ItemData[1]
+							ItemData.FixedLink = ItemData[1]
 								
 								for i = 2, #ItemData do
 									if i == 4 or i == 5 or i ==6 or i ==7 then
@@ -2108,7 +2061,6 @@ function IA:InspectFrame_DataSetting(DataTable)
 									NeedUpdate = true
 								end
 							end
-						end
 						
 						--<< Enchant Parts >>--
 						for i = 1, self.ScanTT:NumLines() do
@@ -2327,75 +2279,6 @@ function IA:InspectFrame_DataSetting(DataTable)
 		return true
 	end
 	self.GearUpdated = nil
-	
-	
-	do	--<< Artifact Weapon >>--
-		if (self.MainHandSlot.ItemRarity == 6 or self.SecondaryHandSlot.ItemRarity == 6) and self.MainHandSlot.ILvL ~= self.SecondaryHandSlot.ILvL then
-			local MajorArtifactSlot, MinorArtifactSlot
-			
-			if self.MainHandSlot.ILvL > self.SecondaryHandSlot.ILvL then
-				MajorArtifactSlot = 'MainHandSlot'
-				MinorArtifactSlot = 'SecondaryHandSlot'
-			else
-				MajorArtifactSlot = 'SecondaryHandSlot'
-				MinorArtifactSlot = 'MainHandSlot'
-			end
-			
-			self[MinorArtifactSlot].ILvL = self[MajorArtifactSlot].ILvL
-			
-			if self.MainHandSlot.ItemRarity == 6 and self.SecondaryHandSlot.ItemRarity == 6 then
-				self[MinorArtifactSlot].Gradation.ItemLevel:SetText(self[MinorArtifactSlot].ILvL)
-				
-				-- Find line starting minor artifact's data in major artifact tooltip.
-				local MajorTooltipStartLine, MinorArtifactName, MinorTooltipStartLine, MinorTooltipStartKey
-				
-				self:ClearTooltip(self.ScanTT)
-				self.ScanTT:SetHyperlink(self[MajorArtifactSlot].Link)
-				
-				self:ClearTooltip(self.ScanTT2)
-				self.ScanTT2:SetHyperlink(self[MinorArtifactSlot].Link)
-				
-				for i = 1, self.ScanTT2:NumLines() do
-					if _G['InspectArmoryScanTT2TextLeft'..i]:GetText():find(Info.Armory_Constants.ItemLevelKey) then
-						MinorArtifactName = _G['InspectArmoryScanTT2TextLeft'..(i - 1)]:GetText()
-						self[MinorArtifactSlot].ReplaceTooltipLines[i] = T.format(ITEM_LEVEL, self[MajorArtifactSlot].ILvL)
-						
-						break
-					end
-				end
-				
-				for i = 2, self.ScanTT:NumLines() do
-					if _G['InspectArmoryScanTTTextLeft'..i]:GetText() == MinorArtifactName then
-						MajorTooltipStartLine = i + 1
-						MinorTooltipStartKey = _G['InspectArmoryScanTTTextLeft'..(i + 1)]:GetText()
-						
-						break
-					end
-				end
-				
-				for i = 1, self.ScanTT2:NumLines() do
-					if _G['InspectArmoryScanTT2TextLeft'..i]:GetText() == MinorTooltipStartKey then
-						MinorTooltipStartLine = i
-						
-						break
-					end
-				end
-				if not MajorTooltipStartLine then MajorTooltipStartLine = 1 end
-				for i = MajorTooltipStartLine, self.ScanTT:NumLines() do
-					CurrentLineText = _G['InspectArmoryScanTTTextLeft'..i]:GetText()
-					
-					if not CurrentLineText:find('"') and MinorArtifactSlot and MinorTooltipStartLine then
-						self[MinorArtifactSlot].ReplaceTooltipLines[MinorTooltipStartLine] = CurrentLineText
-						
-						MinorTooltipStartLine = MinorTooltipStartLine + 1
-					else
-						break
-					end
-				end
-			end
-		end
-	end
-	
 	
 	do	--<< Average ItemLevel >>--
 		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
