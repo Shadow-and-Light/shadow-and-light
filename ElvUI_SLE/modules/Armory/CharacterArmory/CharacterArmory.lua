@@ -34,7 +34,6 @@ local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllus
 local AnimatedNumericFontStringMixin = AnimatedNumericFontStringMixin
 
 local format = format
-local AP_NAME = format("%s|r", ARTIFACT_POWER)
 
 --------------------------------------------------------------------------------
 --<< KnightFrame : Upgrade Character Frame's Item Info like Wow-Armory		>>--
@@ -47,8 +46,6 @@ local DefaultPosition = {
 	InsetDefaultPoint = { _G["CharacterFrameInsetRight"]:GetPoint() },
 	CharacterMainHandSlot = { _G["CharacterMainHandSlot"]:GetPoint() }	
 }
-local Legion_ArtifactData = {}
-local COLORSTRING_ARTIFACT = E:RGBToHex(BAG_ITEM_QUALITY_COLORS[LE_ITEM_QUALITY_ARTIFACT].r, BAG_ITEM_QUALITY_COLORS[LE_ITEM_QUALITY_ARTIFACT].g, BAG_ITEM_QUALITY_COLORS[LE_ITEM_QUALITY_ARTIFACT].b)
 
 local linkCache = {};
 
@@ -132,7 +129,6 @@ do --<< Button Script >>--
 		end
 	end
 
-	local INVTYPE_ARTIFACT_RELIC = GetItemSubClassInfo(LE_ITEM_CLASS_GEM, 11)
 	function CA:GemSocket_OnRecieveDrag()
 		self = self:GetParent()
 		
@@ -143,11 +139,7 @@ do --<< Button Script >>--
 			if CursorType == 'item' and T.select(6, T.GetItemInfo(ItemLink)) == AUCTION_CATEGORY_GEMS then
 				ShowUIPanel(SocketInventoryItem(self.SlotID))
 
-				if ItemSubType == INVTYPE_ARTIFACT_RELIC then
-					ArtifactFrame.PerksTab.TitleContainer:OnRelicSlotClicked(ArtifactFrame.PerksTab.TitleContainer['RelicSlot'..self.SocketNumber])
-				else
-					ClickSocketButton(self.SocketNumber)
-				end
+				ClickSocketButton(self.SocketNumber)
 			end
 		end
 	end
@@ -491,169 +483,6 @@ function CA:Setup_CharacterArmory()
 	-- 	_G["PawnUI_InventoryPawnButton"]:SetPoint('BOTTOMRIGHT', _G["PaperDollFrame"], 'BOTTOMRIGHT', 0, 0)
 	-- end
 
-	if E.private.sle.Armory.UseArtMonitor then -- Legion : Artifact Weapon Monitor
-		self.ArtifactMonitor = CreateFrame('Frame', nil, self)
-		self.ArtifactMonitor:SetFrameLevel(CharacterFrame_Level + 2)
-		self.ArtifactMonitor:Height(41)
-		self.ArtifactMonitor:Point('RIGHT', CharacterTrinket1Slot)
-		self.ArtifactMonitor:SetScript('OnShow', function() CA:LegionArtifactMonitor_SearchPowerItem() end)
-		self.ArtifactMonitor:SetScript('OnUpdate', function(_, Elapsed)
-			self.ArtifactMonitor.CurrentPower:UpdateAnimatedValue(Elapsed)
-			
-			if not self.ArtifactMonitor.UpdateData then
-				CA:LegionArtifactMonitor_UpdateData()
-			end
-			
-			if not self.ArtifactMonitor.SearchPowerItem then
-				CA:LegionArtifactMonitor_SearchPowerItem()
-			end
-		end)
-		self.ArtifactMonitor:SetScript('OnEvent', function(_, Event)
-			if Event == 'ARTIFACT_UPDATE' or Event == 'ARTIFACT_XP_UPDATE' then
-				self.ArtifactMonitor.UpdateData = nil
-			elseif Event == 'BAG_UPDATE' or Event == 'LOADING_SCREEN_DISABLED' then
-				self.ArtifactMonitor.SearchPowerItem = nil
-			end
-		end)
-		
-		-- Gradation
-		self.ArtifactMonitor.Gradation = self.ArtifactMonitor:CreateTexture(nil, 'OVERLAY')
-		self.ArtifactMonitor.Gradation:Width(130)
-		self.ArtifactMonitor.Gradation:Point('TOPLEFT', E.Border, -E.Border)
-		self.ArtifactMonitor.Gradation:Point('BOTTOMLEFT', E.Border, E.Border)
-		self.ArtifactMonitor.Gradation:SetTexture('Interface\\AddOns\\ElvUI_KnightFrame\\Modules\\Armory\\Media\\Graphics\\Gradation')
-		self.ArtifactMonitor.Gradation:SetTexCoord(0, 1, 0, 1)
-		
-		-- Power StatusBar
-		self.ArtifactMonitor.BarBorder = CreateFrame('Frame', nil, self.ArtifactMonitor)
-		self.ArtifactMonitor.BarBorder:Height(5)
-		self.ArtifactMonitor.BarBorder:Point('BOTTOMLEFT', 40, 4 + E.Border)
-		self.ArtifactMonitor.BarBorder:Point('RIGHT')
-		self.ArtifactMonitor.BarBorder:SetBackdrop({
-			bgFile = E.media.normTex,
-			edgeFile = E.media.blankTex,
-			tile = false, tileSize = 0, edgeSize = E.mult,
-			insets = { left = 0, right = 0, top = 0, bottom = 0}
-		})
-		self.ArtifactMonitor.BarBorder:SetBackdropColor(.25, .25, .25)
-		self.ArtifactMonitor.BarBorder:SetBackdropBorderColor(0, 0, 0)
-		
-		self.ArtifactMonitor.Bar = CreateFrame('StatusBar', nil, self.ArtifactMonitor.BarBorder, 'AnimatedStatusBarTemplate')
-		self.ArtifactMonitor.Bar:SetFrameLevel(CharacterFrame_Level + 4)
-		self.ArtifactMonitor.Bar:SetStatusBarTexture(E.media.blankTex)
-		self.ArtifactMonitor.Bar:SetStatusBarColor(BAG_ITEM_QUALITY_COLORS[LE_ITEM_QUALITY_ARTIFACT].r, BAG_ITEM_QUALITY_COLORS[LE_ITEM_QUALITY_ARTIFACT].g, BAG_ITEM_QUALITY_COLORS[LE_ITEM_QUALITY_ARTIFACT].b)
-		self.ArtifactMonitor.Bar:SetInside()
-		self.ArtifactMonitor.Bar:EnableMouse(false)
-		self.ArtifactMonitor.Bar.SparkBurstMove:Height(3)
-		self.ArtifactMonitor.BarExpected = CreateFrame('StatusBar', nil, self.ArtifactMonitor.BarBorder)
-		self.ArtifactMonitor.BarExpected:SetFrameLevel(CharacterFrame_Level + 3)
-		self.ArtifactMonitor.BarExpected:SetStatusBarTexture(E.media.blankTex)
-		self.ArtifactMonitor.BarExpected:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
-		self.ArtifactMonitor.BarExpected:SetInside()
-		self.ArtifactMonitor.BarExpected:EnableMouse(false)
-		E:Flash(self.ArtifactMonitor.BarExpected, 1, true)
-		
-		-- Gem Socket
-		CA:ConstructArtSockets()
-		
-		self.ArtifactMonitor.SocketWarning = CreateFrame('Button', nil, self.ArtifactMonitor)
-		self.ArtifactMonitor.SocketWarning:Size(E.db.sle.Armory.Character.Enchant.WarningSize)
-		self.ArtifactMonitor.SocketWarning:RegisterForClicks('AnyUp')
-		self.ArtifactMonitor.SocketWarning.Texture = self.ArtifactMonitor.SocketWarning:CreateTexture(nil, 'OVERLAY')
-		self.ArtifactMonitor.SocketWarning.Texture:SetInside()
-		self.ArtifactMonitor.SocketWarning.Texture:SetTexture('Interface\\AddOns\\ElvUI_KnightFrame\\Modules\\Armory\\Media\\Graphics\\Warning-Small')
-		self.ArtifactMonitor.SocketWarning:SetScript('OnEnter', self.OnEnter)
-		self.ArtifactMonitor.SocketWarning:SetScript('OnLeave', self.OnLeave)
-		self.ArtifactMonitor.SocketWarning:Point('RIGHT', self.ArtifactMonitor.Socket3, 'LEFT', -3, 0)
-		
-		-- Current Artifact Power
-		KF:TextSetting(self.ArtifactMonitor, ARTIFACT_POWER..' : ', { Tag = 'PowerTitle',
-			Font = E.db.sle.Armory.Character.Artifact.Font,
-			FontSize = E.db.sle.Armory.Character.Artifact.FontSize,
-			FontStyle = E.db.sle.Armory.Character.Artifact.FontStyle,
-			directionH = 'LEFT'
-		}, 'BOTTOMLEFT', self.ArtifactMonitor.BarBorder, 'TOPLEFT', 0, 4 + E.Border)
-		
-		KF:TextSetting(self.ArtifactMonitor, nil, { Tag = 'CurrentPower',
-			Font = E.db.sle.Armory.Character.Artifact.Font,
-			FontSize = E.db.sle.Armory.Character.Artifact.FontSize,
-			FontStyle = E.db.sle.Armory.Character.Artifact.FontStyle,
-			directionH = 'LEFT'
-		}, 'LEFT', self.ArtifactMonitor.PowerTitle, 'RIGHT', 0, 0)
-		Mixin(self.ArtifactMonitor.CurrentPower, AnimatedNumericFontStringMixin)
-		self.ArtifactMonitor.CurrentPower:SetTextColor(BAG_ITEM_QUALITY_COLORS[LE_ITEM_QUALITY_ARTIFACT].r, BAG_ITEM_QUALITY_COLORS[LE_ITEM_QUALITY_ARTIFACT].g, BAG_ITEM_QUALITY_COLORS[LE_ITEM_QUALITY_ARTIFACT].b)
-		
-		-- Available Artifact Power
-		KF:TextSetting(self.ArtifactMonitor.BarExpected, nil, { Tag = 'AvailablePower',
-			Font = E.db.sle.Armory.Character.Artifact.Font,
-			FontSize = E.db.sle.Armory.Character.Artifact.FontSize,
-			FontStyle = E.db.sle.Armory.Character.Artifact.FontStyle,
-			directionH = 'LEFT'
-		}, 'TOPRIGHT', self.ArtifactMonitor.BarBorder, 'BOTTOMRIGHT', 0, -1)
-		
-		-- Artifact Traits Rank
-		KF:TextSetting(self.ArtifactMonitor, nil, { Tag = 'TraitRank',
-			Font = E.db.sle.Armory.Character.Artifact.Font,
-			FontSize = E.db.sle.Armory.Character.Artifact.FontSize,
-			FontStyle = E.db.sle.Armory.Character.Artifact.FontStyle,
-			directionH = 'LEFT'
-		}, 'BOTTOMLEFT', self.ArtifactMonitor.PowerTitle, 'TOPLEFT', 0, 3)
-		
-		-- Require Artifact Power
-		KF:TextSetting(self.ArtifactMonitor, nil, { Tag = 'RequirePower',
-			Font = E.db.sle.Armory.Character.Artifact.Font,
-			FontSize = E.db.sle.Armory.Character.Artifact.FontSize,
-			FontStyle = E.db.sle.Armory.Character.Artifact.FontStyle,
-			directionH = 'RIGHT'
-		}, 'BOTTOM', self.ArtifactMonitor.BarBorder, 'TOP', 0, 4 + E.Border)
-		self.ArtifactMonitor.RequirePower:Point('RIGHT', self.ArtifactMonitor)
-		self.ArtifactMonitor.CurrentPower:Point('RIGHT', self.ArtifactMonitor.RequirePower, 'LEFT', -4, 0)
-		
-		-- Message
-		KF:TextSetting(self.ArtifactMonitor.BarExpected, nil, { Tag = 'Message',
-			Font = E.db.sle.Armory.Character.Artifact.Font,
-			FontSize = E.db.sle.Armory.Character.Artifact.FontSize,
-			FontStyle = E.db.sle.Armory.Character.Artifact.FontStyle,
-			directionH = 'RIGHT'
-		}, 'BOTTOMRIGHT', self.ArtifactMonitor.RequirePower, 'TOPRIGHT', 0, 2)
-		
-		self.ArtifactMonitor.AddPower = CreateFrame('Frame', nil, self.ArtifactMonitor)
-		self.ArtifactMonitor.AddPower:Point('BOTTOMLEFT', 39, 0)
-		self.ArtifactMonitor.AddPower:Point('TOPRIGHT')
-		
-		self.ArtifactMonitor.AddPower.Texture = self.ArtifactMonitor.AddPower:CreateTexture(nil, 'OVERLAY')
-		self.ArtifactMonitor.AddPower.Texture:Size(15)
-		self.ArtifactMonitor.AddPower.Texture:SetTexture('Interface\\GLUES\\CharacterSelect\\Glue-Char-Up')
-		self.ArtifactMonitor.AddPower.Texture:Point('LEFT', self.ArtifactMonitor.TraitRank, 'RIGHT', 1, 0)
-		self.ArtifactMonitor.AddPower.Texture:Hide()
-		
-		self.ArtifactMonitor.AddPower.Button = CreateFrame('Button', nil, self.ArtifactMonitor.AddPower)
-		self.ArtifactMonitor.AddPower.Button:SetInside()
-		self.ArtifactMonitor.AddPower.Button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-		self.ArtifactMonitor.AddPower.Button:SetFrameLevel(CharacterFrame_Level + 6)
-		self.ArtifactMonitor.AddPower.Button:SetScript('OnEnter', self.OnEnter)
-		self.ArtifactMonitor.AddPower.Button:SetScript('OnLeave', self.OnLeave)
-		self.ArtifactMonitor.AddPower.Button:SetScript('OnClick', function(self, btn)
-			if E.private.bags.enable and btn == "LeftButton" then
-				OpenAllBags()
-				ElvUI_ContainerFrameEditBox:SetText('POWER')
-				CA.ArtifactMonitor.NowSearchingPowerItem = true
-			elseif btn == "RightButton" then
-				ShowUIPanel(SocketInventoryItem(16))
-			end
-		end)
-
-		self.ArtifactMonitor.ScanTT = CreateFrame('GameTooltip', 'Knight_CharacterArmory_ArtifactScanTT', nil, 'GameTooltipTemplate')
-		self.ArtifactMonitor.ScanTT:SetOwner(UIParent, 'ANCHOR_NONE')
-		
-		self.ArtifactMonitor:Hide()
-		
-		if E.private.bags.enable then
-			hooksecurefunc(ElvUI_BagModule, 'CloseBags', function() self:LegionArtifactMonitor_ClearPowerItemSearching() end)
-			ElvUI_ContainerFrame:HookScript('OnHide', function() self:LegionArtifactMonitor_ClearPowerItemSearching() end)
-		end
-	end
-
 	self.Setup_CharacterArmory = nil
 end
 
@@ -726,49 +555,6 @@ function CA:ClearTooltip(Tooltip)
 		_G[TooltipName..'Texture'..i]:SetTexture(nil)
 		_G[TooltipName..'Texture'..i]:ClearAllPoints()
 		_G[TooltipName..'Texture'..i]:Point('TOPLEFT', Tooltip)
-	end
-end
-
-local Artifact_ItemID, Artifact_Power, Artifact_Rank, Artifact_Tier, LockedReason
-
-function CA:ConstructArtSockets() --Creating gem slots for artifact. Apparently having it to be done on load actually fails
-	local CharacterFrame_Level = CharacterModelFrame:GetFrameLevel()
-	for i = 1, C_ArtifactUI.GetEquippedArtifactNumRelicSlots() or 3 do
-		CA.ArtifactMonitor['Socket'..i] = CreateFrame('Frame', nil, CA.ArtifactMonitor)
-		CA.ArtifactMonitor['Socket'..i]:Size(E.db.sle.Armory.Character.Gem.SocketSize)
-		CA.ArtifactMonitor['Socket'..i]:SetBackdrop({
-			bgFile = E.media.blankTex,
-			edgeFile = E.media.blankTex,
-			tile = false, tileSize = 0, edgeSize = E.mult,
-			insets = { left = 0, right = 0, top = 0, bottom = 0}
-		})
-		CA.ArtifactMonitor['Socket'..i]:SetBackdropColor(0, 0, 0, 1)
-		CA.ArtifactMonitor['Socket'..i]:SetBackdropBorderColor(0, 0, 0)
-		CA.ArtifactMonitor['Socket'..i]:SetFrameLevel(CharacterFrame_Level + 4)
-		
-		CA.ArtifactMonitor['Socket'..i].SlotID = 16
-		CA.ArtifactMonitor['Socket'..i].SocketNumber = i
-		
-		CA.ArtifactMonitor['Socket'..i].Socket = CreateFrame('Button', nil, CA.ArtifactMonitor['Socket'..i])
-		CA.ArtifactMonitor['Socket'..i].Socket:SetBackdrop({
-			bgFile = E.media.blankTex,
-			edgeFile = E.media.blankTex,
-			tile = false, tileSize = 0, edgeSize = E.mult,
-			insets = { left = 0, right = 0, top = 0, bottom = 0}
-		})
-		CA.ArtifactMonitor['Socket'..i].Socket:SetInside()
-		CA.ArtifactMonitor['Socket'..i].Socket:SetFrameLevel(CharacterFrame_Level + 5)
-		CA.ArtifactMonitor['Socket'..i].Socket:RegisterForClicks('AnyUp', 'RightButtonDown')
-		CA.ArtifactMonitor['Socket'..i].Socket:SetScript('OnEnter', CA.OnEnter)
-		CA.ArtifactMonitor['Socket'..i].Socket:SetScript('OnLeave', CA.OnLeave)
-		CA.ArtifactMonitor['Socket'..i].Socket:SetScript('OnClick', CA.GemSocket_OnClick)
-		CA.ArtifactMonitor['Socket'..i].Socket:SetScript('OnReceiveDrag', CA.GemSocket_OnRecieveDrag)
-		
-		CA.ArtifactMonitor['Socket'..i].Texture = CA.ArtifactMonitor['Socket'..i].Socket:CreateTexture(nil, 'OVERLAY')
-		CA.ArtifactMonitor['Socket'..i].Texture:SetTexCoord(.1, .9, .1, .9)
-		CA.ArtifactMonitor['Socket'..i].Texture:SetInside()
-		
-		CA.ArtifactMonitor['Socket'..i]:Point('CENTER', CA.MainHandSlot['Socket'..i])
 	end
 end
 
@@ -1076,10 +862,6 @@ function CA:Update_Gear()
 	end
 
 	self.GearUpdated = true
-
-	if self.ArtifactMonitor and ArtifactMonitor_RequireUpdate then
-		CA:LegionArtifactMonitor_UpdateLayout()
-	end
 end
 
 function CA:Update_BG()
@@ -1216,13 +998,6 @@ function CA:UpdateSettings(part)
 			if _G["CharacterArmory"][SlotName] and _G["CharacterArmory"][SlotName].SocketWarning then
 				_G["CharacterArmory"][SlotName].SocketWarning:Size(db.Gem.WarningSize)
 			end
-			if _G["CharacterArmory"].ArtifactMonitor then
-				for i = 1, C_ArtifactUI.GetEquippedArtifactNumRelicSlots() or 3 do
-					if _G["CharacterArmory"].ArtifactMonitor['Socket'..i] then
-						_G["CharacterArmory"].ArtifactMonitor['Socket'..i]:Size(E.db.sle.Armory.Character.Gem.SocketSize)
-					end
-				end
-			end
 		end
 	end
 	if part == "dur" or part == "all" then
@@ -1305,12 +1080,6 @@ KF.Modules.CharacterArmory = function()
 		CA:RegisterEvent('COMBAT_LOG_EVENT_UNFILTERED')
 		CA:RegisterEvent('UPDATE_INVENTORY_DURABILITY')
 		CA:RegisterEvent('LOADING_SCREEN_DISABLED')
-		if CA.ArtifactMonitor then
-			CA.ArtifactMonitor:RegisterEvent('ARTIFACT_UPDATE')
-			CA.ArtifactMonitor:RegisterEvent('ARTIFACT_XP_UPDATE')
-			CA.ArtifactMonitor:RegisterEvent('BAG_UPDATE')
-			CA.ArtifactMonitor:RegisterEvent('LOADING_SCREEN_DISABLED')
-		end
 		
 		--[[
 		KF_KnightArmory.CheckButton:Show()
@@ -1358,12 +1127,6 @@ KF.Modules.CharacterArmory = function()
 		_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', CharacterModelFrame, 0, 0)
 		_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', CharacterModelFrame, 0, 0)
 	end
-	
-	hooksecurefunc(E, "UpdateMedia", function(self)
-		if (not E.db.sle.Armory.Character.Enable) or (not CA.ArtifactMonitor) then return end
-		CA.ArtifactMonitor.BarExpected:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
-		CA:LegionArtifactMonitor_UpdateData()
-	end)
 
 	CA:ElvOverlayToggle()
 	if SLE._Compatibility["DejaCharacterStats"] then
