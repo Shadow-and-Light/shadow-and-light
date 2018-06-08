@@ -31,7 +31,9 @@ local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
 local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
 local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
 local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllusionSourceInfo
+local HasAnyUnselectedPowers = C_AzeriteEmpoweredItem.HasAnyUnselectedPowers
 local AnimatedNumericFontStringMixin = AnimatedNumericFontStringMixin
+local ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow = ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow
 
 local format = format
 
@@ -312,6 +314,26 @@ function CA:Setup_CharacterArmory()
 		Slot.Direction = i%2 == 1 and 'LEFT' or 'RIGHT'
 		Slot.ID, Slot.EmptyTexture = T.GetInventorySlotInfo(SlotName)
 		Slot:Point(Slot.Direction, _G["Character"..SlotName], Slot.Direction == 'LEFT' and -1 or 1, 0)
+
+		--Azerite
+		hooksecurefunc(_G["Character"..SlotName], "DisplayAsAzeriteItem", function(self, itemLocation)
+			self.AzeriteTexture:Hide()
+		end)
+		hooksecurefunc(_G["Character"..SlotName], "DisplayAsAzeriteEmpoweredItem", function(self, itemLocation)
+			self.AzeriteTexture:Hide()
+			self.AvailableTraitFrame:Hide()
+			if HasAnyUnselectedPowers(itemLocation) then
+				ActionButton_ShowOverlayGlow(self)
+			else
+				ActionButton_HideOverlayGlow(self)
+			end
+		end)
+		_G["Character"..SlotName].RankFrame:StripTextures()
+		_G["Character"..SlotName].RankFrame:SetTemplate("Transparent")
+		_G["Character"..SlotName].RankFrame:SetSize(15, 16)
+		_G["Character"..SlotName].RankFrame:SetPoint('BOTTOM'..Slot.Direction, Slot, 1,2)
+		_G["Character"..SlotName].RankFrame.Label:SetPoint("CENTER", _G["Character"..SlotName].RankFrame)
+		Slot.RankFrame = _G["Character"..SlotName].RankFrame
 		
 		-- Grow each equipment slot's frame level
 		_G["Character"..SlotName]:SetFrameLevel(Slot:GetFrameLevel() + 1)
@@ -819,6 +841,10 @@ function CA:Update_Gear()
 							
 							Slot.IllusionAnchor:Show()
 						end
+					end
+					--<<Azerite>>--
+					if Slot.RankFrame:IsShown() then
+						Slot.RankFrame:SetBackdropBorderColor(R, G, B)
 					end
 				else
 					NeedUpdate = true
