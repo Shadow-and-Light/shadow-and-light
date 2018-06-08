@@ -166,61 +166,6 @@ local function configTable()
 					},
 				},
 			},
-			artifact = {
-				order = 3,
-				type = "group",
-				name = L["Artifact Bar"],
-				args = {
-					goElv = {
-						order = 1,
-						type = 'execute',
-						name = "ElvUI: "..L["Artifact Bar"],
-						func = function() SLE.ACD:SelectGroup("ElvUI", "databars", "artifact") end,
-					},
-					longtext = {
-						order = 2,
-						type = "toggle",
-						name = L["Full value on Artifact Bar"],
-						desc = L["Changes the way text is shown on artifact bar."],
-						get = function(info) return E.db.sle.databars.artifact.longtext end,
-						set = function(info, value) E.db.sle.databars.artifact.longtext = value; EDB:UpdateArtifact() end,
-					},
-					chatfilters = {
-						order = 3,
-						type = "group",
-						guiInline = true,
-						name = L["Chat Filters"],
-						get = function(info) return E.db.sle.databars.artifact.chatfilter[ info[#info] ] end,
-						set = function(info, value) E.db.sle.databars.artifact.chatfilter[ info[#info] ] = value; end,
-						args = {
-							enable = {
-								order = 1,
-								type = "toggle",
-								name = L["Enable"],
-								desc = L["Change the style of experience gain messages."],
-								set = function(info, value) E.db.sle.databars.artifact.chatfilter[ info[#info] ] = value; DB:RegisterFilters() end,
-							},
-							iconsize = {
-								order = 2,
-								type = "range",
-								name = L["Icon Size"],
-								disabled = function() return not E.db.sle.databars.artifact.chatfilter.enable end,
-								min = 8, max = 32, step = 1,
-							},
-							style = {
-								order = 3,
-								type = "select",
-								name = L["Style"],
-								disabled = function() return not E.db.sle.databars.artifact.chatfilter.enable end,
-								values = {
-									["STYLE1"] = T.format(DB.Art.Styles["STYLE1"], [[Interface\AddOns\ElvUI_SLE\media\textures\Skull_Event]],14, NAME, 300),
-									["STYLE2"] = T.format(DB.Art.Styles["STYLE2"], [[Interface\AddOns\ElvUI_SLE\media\textures\Skull_Event]],14, NAME, 300),
-								},
-							},
-						},
-					},
-				},
-			},
 			honor = {
 				order = 4,
 				type = "group",
