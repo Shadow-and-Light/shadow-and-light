@@ -61,6 +61,7 @@ Info.Armory_Constants = {
 	ItemSetBonusKey = ITEM_SET_BONUS:gsub('%%s', '(.+)'),
 	ItemUpgradeKey = ITEM_UPGRADE_TOOLTIP_FORMAT:gsub('%%d', '(.+)'),
 	HonorLevel = HONOR_LEVEL_LABEL:gsub('%%d', '%%s'),
+	HonorKills = INSPECT_HONORABLE_KILLS:gsub('%%d', '%%s'):gsub("|cffffd200", ""),
 	--TransmogrifiedKey = TRANSMOGRIFIED:gsub('%%s', '(.+)'),
 	
 	GearList = {
