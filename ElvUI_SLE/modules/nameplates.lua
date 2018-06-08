@@ -180,11 +180,11 @@ function N:Initialize()
 	end
 
 	N.db = E.db.sle.nameplates
-
+	
 	hooksecurefunc(NP, 'NAME_PLATE_CREATED', N.CreateNameplate)
 	hooksecurefunc(NP, "UpdateFonts", N.UpdateFonts)
 	hooksecurefunc(NP, "UpdateAllFrame", N.UpdateAllFrame)
-
+	
 	self:RegisterEvent("GROUP_ROSTER_UPDATE", "StartRosterUpdate")
 	self:RegisterEvent("UNIT_TARGET", "UpdateCount")
 	self:RegisterEvent("NAME_PLATE_UNIT_REMOVED")

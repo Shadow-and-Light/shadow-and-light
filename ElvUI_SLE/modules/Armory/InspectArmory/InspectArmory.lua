@@ -1828,6 +1828,7 @@ IA.InspectUnit = function(UnitID)
 		IA.CurrentInspectData.PrestigeLevel = UnitPrestige(UnitID)
 		IA.CurrentInspectData.Name, IA.CurrentInspectData.Realm = T.UnitFullName(UnitID)
 		_, IA.CurrentInspectData.Class, IA.CurrentInspectData.ClassID = T.UnitClass(UnitID)
+		if E.db.sle.Armory.Inspect.Backdrop.SelectedBG == 'CLASS' then IA:Update_BG() end
 		IA.CurrentInspectData.guildName, IA.CurrentInspectData.guildRankName = T.GetGuildInfo(UnitID)
 		
 		IA.CurrentInspectData.Realm = IA.CurrentInspectData.Realm ~= '' and IA.CurrentInspectData.Realm ~= Info.MyRealm and IA.CurrentInspectData.Realm or nil
@@ -2819,6 +2820,12 @@ function IA:Update_BG()
 		self.BG:SetTexture(nil)
 	elseif E.db.sle.Armory.Inspect.Backdrop.SelectedBG == 'CUSTOM' then
 		self.BG:SetTexture(E.db.sle.Armory.Inspect.Backdrop.CustomAddress)
+	elseif E.db.sle.Armory.Inspect.Backdrop.SelectedBG == 'CLASS' then
+		if IA.CurrentInspectData.Class then 
+			self.BG:SetTexture("Interface\\AddOns\\ElvUI_SLE\\modules\\Armory\\Media\\Textures\\"..IA.CurrentInspectData.Class)
+		else
+			self.BG:SetTexture(nil)
+		end
 	else
 		self.BG:SetTexture(Info.Armory_Constants.BlizzardBackdropList[E.db.sle.Armory.Inspect.Backdrop.SelectedBG] or 'Interface\\AddOns\\ElvUI_SLE\\modules\\Armory\\Media\\Textures\\'..E.db.sle.Armory.Inspect.Backdrop.SelectedBG)
 	end
