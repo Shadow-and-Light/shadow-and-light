@@ -224,6 +224,7 @@ function Tools:PopulateBar(bar)
 		T.tinsert(bar.Buttons, Tools:CreateToolsButton(id, bar, "item", data[1], data[10], true, E.db.sle.legacy.farm))
 		T.sort(bar.Buttons, function(a, b)
 			if not a or not b then return true end
+			if not a.sortname or not b.sortname then return true end
 			return a.sortname < b.sortname
 		end)
 	end
@@ -277,9 +278,9 @@ end
 function Tools:Initialize()
 	if not SLE.initialized then return end
 
-	function Tools:ForUpdateAll()
-		Tools:UpdateLayout()
-	end
+	-- function Tools:ForUpdateAll()
+		-- Tools:UpdateLayout()
+	-- end
 end
 
 SLE:RegisterModule(Tools:GetName())
