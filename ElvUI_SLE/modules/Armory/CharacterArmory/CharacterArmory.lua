@@ -733,7 +733,7 @@ local Artifact_ItemID, Artifact_Power, Artifact_Rank, Artifact_Tier, LockedReaso
 
 function CA:ConstructArtSockets() --Creating gem slots for artifact. Apparently having it to be done on load actually fails
 	local CharacterFrame_Level = CharacterModelFrame:GetFrameLevel()
-	for i = 1, C_ArtifactUI.GetEquippedArtifactNumRelicSlots() or 3 do
+	for i = 1, 3 do
 		CA.ArtifactMonitor['Socket'..i] = CreateFrame('Frame', nil, CA.ArtifactMonitor)
 		CA.ArtifactMonitor['Socket'..i]:Size(E.db.sle.Armory.Character.Gem.SocketSize)
 		CA.ArtifactMonitor['Socket'..i]:SetBackdrop({
@@ -788,13 +788,18 @@ function CA:Update_Gear()
 	local Slot, ItemLink, ItemData, BasicItemLevel, TrueItemLevel, ItemUpgradeID, CurrentUpgrade, MaxUpgrade, ItemType, UsableEffect, CurrentLineText, GemID, GemLink, GemTexture, GemCount_Default, GemCount_Now, GemCount, ItemTexture, IsTransmogrified
 
 	Artifact_ItemID, _, _, _, Artifact_Power, Artifact_Rank = C_ArtifactUI.GetEquippedArtifactInfo()
-	if self.ArtifactMonitor and not self.ArtifactMonitor.Socket1 then CA:ConstructArtSockets() end
+	if self.ArtifactMonitor and not self.ArtifactMonitor.Socket1 then 
+		E:Delay(0.2, function() CA:ConstructArtSockets() end)
+		return true
+	end
 
+	-- print(T.type(self.GearUpdated) == 'table' and self.GearUpdated or Info.Armory_Constants.GearList)
 	for _, SlotName in T.pairs(T.type(self.GearUpdated) == 'table' and self.GearUpdated or Info.Armory_Constants.GearList) do
 		Slot = self[SlotName]
 		ItemLink = T.GetInventoryItemLink('player', Slot.ID)
 		-- if ItemLink then local DaName = GetItemInfo(ItemLink); print(DaName, GetDetailedItemLevelInfo(ItemLink)) end
 		ErrorDetected = nil
+		-- print(ItemLink)
 
 		if not (SlotName == 'ShirtSlot' or SlotName == 'TabardSlot') then
 			do --<< Clear Setting >>--
@@ -1007,6 +1012,7 @@ function CA:Update_Gear()
 					end
 
 					--<< Enchant Parts >>--
+					Slot.ItemEnchant:SetText("")
 					for i = 1, self.ScanTT:NumLines() do
 						CurrentLineText = _G["Knight_CharacterArmory_ScanTTTextLeft"..i]:GetText()
 						if CurrentLineText:find(Info.Armory_Constants.ItemLevelKey_Alt) then
@@ -1120,33 +1126,36 @@ function CA:Update_Gear()
 				else
 					NeedUpdate = true
 				end
-
 			end
 
 			if NeedUpdate then
 				NeedUpdateList = NeedUpdateList or {}
 				table.insert(NeedUpdateList, SlotName)
-				--NeedUpdateList[#NeedUpdateList + 1] = SlotName
 			end
 		end
 
 		-- Change Gradation
-		-- if not NeedUpdate then
-			if ItemLink and E.db.sle.Armory.Character.Gradation.Display then
-				Slot.Gradation:Show()
-			else
-				Slot.Gradation:Hide()
-			end
+		if ItemLink and E.db.sle.Armory.Character.Gradation.Display then
+			Slot.Gradation:Show()
+		else
+			Slot.Gradation:Hide()
+		end
 
-			if ErrorDetected and E.db.sle.Armory.Character.NoticeMissing then
-				Slot.Gradation:SetVertexColor(1, 0, 0)
-				Slot.Gradation:Show()
-			end
-		if not NeedUpdate then
+		if ErrorDetected and E.db.sle.Armory.Character.NoticeMissing then
+			Slot.Gradation:SetVertexColor(1, 0, 0)
+			Slot.Gradation:Show()
+		end
+
+		if not NeedUpdate and Slot.Gradation then
 			if ItemLink and E.db.sle.Armory.Character.Gradation.ItemQuality then
 				_, _, Slot.ItemRarity, _, _, _, _, _, _ = T.GetItemInfo(ItemLink)
-				R, G, B = T.GetItemQualityColor(Slot.ItemRarity)
-				Slot.Gradation:SetVertexColor(R, G, B)
+				if Slot.ItemRarity then
+					R, G, B = T.GetItemQualityColor(Slot.ItemRarity)
+					Slot.Gradation:SetVertexColor(R, G, B)
+				else
+					NeedUpdateList = NeedUpdateList or {}
+					table.insert(NeedUpdateList, SlotName)
+				end
 			else
 				Slot.Gradation:SetVertexColor(T.unpack(E.db.sle.Armory.Character.Gradation.Color))
 			end
@@ -1619,7 +1628,7 @@ KF.Modules.CharacterArmory = function()
 			CA.ArtifactMonitor:RegisterEvent('BAG_UPDATE')
 			CA.ArtifactMonitor:RegisterEvent('LOADING_SCREEN_DISABLED')
 		end
-		
+
 		--[[
 		KF_KnightArmory.CheckButton:Show()
 		KF_KnightArmory_NoticeMissing:EnableMouse(true)
@@ -1628,8 +1637,9 @@ KF.Modules.CharacterArmory = function()
 		]]
 		_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', CharacterArmory, -8, 0)
 		_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', CharacterArmory, 8, 0)
-		
+
 		CA:LegionArtifactMonitor_UpdateData()
+
 	elseif Info.CharacterArmory_Activate then
 		Info.CharacterArmory_Activate = nil
 		
@@ -1669,7 +1679,7 @@ KF.Modules.CharacterArmory = function()
 		_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', CharacterModelFrame, 0, 0)
 		_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', CharacterModelFrame, 0, 0)
 	end
-	
+
 	hooksecurefunc(E, "UpdateMedia", function(self)
 		if (not E.db.sle.Armory.Character.Enable) or (not CA.ArtifactMonitor) then return end
 		CA.ArtifactMonitor.BarExpected:SetStatusBarColor(unpack(E.media.rgbvaluecolor))
@@ -1687,9 +1697,10 @@ KF.Modules.CharacterArmory = function()
 
 	--Resize and reposition god damned ilevel text
 	_G["CharacterStatsPane"].ItemLevelFrame:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelCategory, "BOTTOM", 0, 6)
+
 	CA:UpdateIlvlFont()
 
 	hooksecurefunc("PaperDollFrame_UpdateStats", CA.PaperDollFrame_UpdateStats)
-	-- PaperDollFrame_UpdateStats = CA.PaperDollFrame_UpdateStats()
+
 	CA:ToggleStats()
 end
