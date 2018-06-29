@@ -11,6 +11,7 @@
 	<Include file='datatexts\load_datatexts.xml'/>
 	<Script file='actionbars_c.lua'/>
 	<Script file='blizzard_c.lua'/>
+	<Script file='cooldowns_c.lua'/>
 	<Script file='help_c.lua'/>
 	<Script file='media_c.lua'/>
 	<Script file='auras_c.lua'/>
