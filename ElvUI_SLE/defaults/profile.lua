@@ -14,13 +14,6 @@ P["sle"] = {
 		["hideBuffsTimer"] = false,
 		["hideDebuffsTimer"] = false,
 	},
-	["cooldowns"] = {
-		["enable"] = false,
-		["mmssThreshold"] = 600,
-		['font'] = "PT Sans Narrow",
-		['fontOutline'] = "OUTLINE",
-		['fontSize'] = 18,
-	},
 	--Backgrounds
 	["backgrounds"] = {
 		["bg1"] = {

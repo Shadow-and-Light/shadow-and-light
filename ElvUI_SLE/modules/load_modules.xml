@@ -8,7 +8,6 @@
 	<Include file='bags\load_bags.xml'/>
 	<Script file='blizzard.lua'/>
 	<Include file='chat\load_chat.xml'/>
-	<Script file='cooldowns.lua'/>
 	<Script file='datatexts.lua'/>
 	<Script file='elvConfig.lua'/>
 	<Script file='equipmanager.lua'/>
