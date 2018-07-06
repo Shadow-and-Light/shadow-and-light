@@ -337,6 +337,7 @@ function CA:ToggleStats()
 end
 
 function CA:PaperDollFrame_UpdateStats()
+	if not CA:IsShown() then return end
 	totalShown = 0
 	local total, equipped = T.GetAverageItemLevel()
 	if E.db.sle.Armory.Character.Stats.IlvlFull then
