@@ -26,12 +26,17 @@ local AGI, SPI, STA, STR, INT, CRIT_ABBR = AGI, SPI, STA, STR, INT, CRIT_ABBR
 local LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION = LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION
 local STAT_AVERAGE_ITEM_LEVEL = STAT_AVERAGE_ITEM_LEVEL
 local CHARACTERFRAME_EXPANDED_WIDTH = CHARACTERFRAME_EXPANDED_WIDTH
+local AzeriteTooltipTitle = AZERITE_POWER_UNLOCKED_AT_LEVEL:gsub("%%d+", ""):gsub("- ", "")
+local RED_FONT_COLOR = RED_FONT_COLOR
+local GREEN_FONT_COLOR = GREEN_FONT_COLOR
 
 local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
 local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
 local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
 local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllusionSourceInfo
 local HasAnyUnselectedPowers = C_AzeriteEmpoweredItem.HasAnyUnselectedPowers
+local C_AzeriteEmpoweredItem_GetAllTierInfo = C_AzeriteEmpoweredItem.GetAllTierInfo
+local C_AzeriteItem_GetPowerLevel = C_AzeriteItem.GetPowerLevel
 local AnimatedNumericFontStringMixin = AnimatedNumericFontStringMixin
 local ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow = ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow
 
@@ -157,6 +162,28 @@ do --<< Button Script >>--
 	function CA:Transmogrify_OnLeave()
 		self.Texture:SetVertexColor(1, .5, 1)
 		
+		_G["GameTooltip"]:Hide()
+	end
+
+	function CA:Azerite_OnEnter()
+		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
+		_G["GameTooltip"]:AddLine(AzeriteTooltipTitle..":")
+		local r,g,b
+		local infoTable = C_AzeriteEmpoweredItem_GetAllTierInfo(self.itemLocation)
+		local powerLevel = CA.AzeritePowerLevel or 0
+		for tier = 1, 3 do
+			if powerLevel >= infoTable[tier].unlockLevel then
+				r,g,b = GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b
+			else
+				r,g,b = RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b
+			end
+			_G["GameTooltip"]:AddLine(GARRISON_TIER.." "..tier.." - "..LEVEL.." "..infoTable[tier].unlockLevel, r, g, b)
+		end
+
+		_G["GameTooltip"]:Show()
+	end
+
+	function CA:Azerite_OnLeave()
 		_G["GameTooltip"]:Hide()
 	end
 
@@ -323,6 +350,7 @@ function CA:Setup_CharacterArmory()
 			local isAzeriteEmpoweredItem = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(itemLocation);
 			if isAzeriteEmpoweredItem then
 				CA[SlotName].AzeriteAnchor:Show()
+				CA[SlotName].AzeriteAnchor.itemLocation = itemLocation
 			else
 				CA[SlotName].AzeriteAnchor:Hide()
 				ActionButton_HideOverlayGlow(self)
@@ -336,17 +364,21 @@ function CA:Setup_CharacterArmory()
 				ActionButton_HideOverlayGlow(self)
 			end
 		end)
-		
+
+		hooksecurefunc(_G["Character"..SlotName], "DisplayAsAzeriteItem", function(self, itemLocation)
+			CA.AzeritePowerLevel = C_AzeriteItem_GetPowerLevel(itemLocation)
+		end)
+
 		_G["Character"..SlotName].RankFrame:StripTextures()
 		_G["Character"..SlotName].RankFrame:SetTemplate("Transparent")
 		_G["Character"..SlotName].RankFrame:SetSize(15, 16)
 		_G["Character"..SlotName].RankFrame:SetPoint('BOTTOM'..Slot.Direction, Slot, 1,2)
 		_G["Character"..SlotName].RankFrame.Label:SetPoint("CENTER", _G["Character"..SlotName].RankFrame)
 		Slot.RankFrame = _G["Character"..SlotName].RankFrame
-		
+
 		-- Grow each equipment slot's frame level
 		_G["Character"..SlotName]:SetFrameLevel(Slot:GetFrameLevel() + 1)
-		
+
 		-- Gradation
 		Slot.Gradation = Slot:CreateTexture(nil, 'ARTWORK')
 		Slot.Gradation:SetInside()
@@ -476,14 +508,16 @@ function CA:Setup_CharacterArmory()
 
 		-- Azerite
 		Slot.AzeriteAnchor = CreateFrame('Button', nil, Slot)
-		Slot.AzeriteAnchor:Size(16)
+		Slot.AzeriteAnchor:Size(14)
 		Slot.AzeriteAnchor:SetFrameLevel(Slot:GetFrameLevel() + 2)
 		Slot.AzeriteAnchor:Point('TOP'..Slot.Direction, Slot, Slot.Direction == 'LEFT' and -2 or 2, -1)
+		Slot.AzeriteAnchor:SetScript('OnEnter', self.Azerite_OnEnter)
+		Slot.AzeriteAnchor:SetScript('OnLeave', self.Azerite_OnLeave)
 
 		Slot.AzeriteAnchor.Texture = Slot.AzeriteAnchor:CreateTexture(nil, 'OVERLAY')
 		Slot.AzeriteAnchor.Texture:SetInside()
 		Slot.AzeriteAnchor.Texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\modules\\Armory\\Media\\Textures\\Anchor')
-		Slot.AzeriteAnchor.Texture:SetVertexColor(.9, .8, .5)
+		Slot.AzeriteAnchor.Texture:SetVertexColor(.77,.05,.13)
 
 		if Slot.Direction == 'LEFT' then
 			Slot.AzeriteAnchor.Texture:SetTexCoord(0, 1, 1, 0)
