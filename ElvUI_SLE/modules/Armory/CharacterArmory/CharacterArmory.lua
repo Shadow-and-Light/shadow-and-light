@@ -315,19 +315,28 @@ function CA:Setup_CharacterArmory()
 		Slot.ID, Slot.EmptyTexture = T.GetInventorySlotInfo(SlotName)
 		Slot:Point(Slot.Direction, _G["Character"..SlotName], Slot.Direction == 'LEFT' and -1 or 1, 0)
 
-		--Azerite
-		hooksecurefunc(_G["Character"..SlotName], "DisplayAsAzeriteItem", function(self, itemLocation)
-			self.AzeriteTexture:Hide()
-		end)
-		hooksecurefunc(_G["Character"..SlotName], "DisplayAsAzeriteEmpoweredItem", function(self, itemLocation)
+		-- Azerite
+		hooksecurefunc(_G["Character"..SlotName], "SetAzeriteItem", function(self, itemLocation)
+			if not itemLocation or not CA[SlotName].AzeriteAnchor then return end
 			self.AzeriteTexture:Hide()
 			self.AvailableTraitFrame:Hide()
+			local isAzeriteEmpoweredItem = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(itemLocation);
+			if isAzeriteEmpoweredItem then
+				CA[SlotName].AzeriteAnchor:Show()
+			else
+				CA[SlotName].AzeriteAnchor:Hide()
+				ActionButton_HideOverlayGlow(self)
+			end
+		end)
+
+		hooksecurefunc(_G["Character"..SlotName], "DisplayAsAzeriteEmpoweredItem", function(self, itemLocation)
 			if HasAnyUnselectedPowers(itemLocation) then
 				ActionButton_ShowOverlayGlow(self)
 			else
 				ActionButton_HideOverlayGlow(self)
 			end
 		end)
+		
 		_G["Character"..SlotName].RankFrame:StripTextures()
 		_G["Character"..SlotName].RankFrame:SetTemplate("Transparent")
 		_G["Character"..SlotName].RankFrame:SetSize(15, 16)
@@ -464,6 +473,25 @@ function CA:Setup_CharacterArmory()
 				
 				Slot.TransmogrifyAnchor:Hide()
 			end
+
+		-- Azerite
+		Slot.AzeriteAnchor = CreateFrame('Button', nil, Slot)
+		Slot.AzeriteAnchor:Size(16)
+		Slot.AzeriteAnchor:SetFrameLevel(Slot:GetFrameLevel() + 2)
+		Slot.AzeriteAnchor:Point('TOP'..Slot.Direction, Slot, Slot.Direction == 'LEFT' and -2 or 2, -1)
+
+		Slot.AzeriteAnchor.Texture = Slot.AzeriteAnchor:CreateTexture(nil, 'OVERLAY')
+		Slot.AzeriteAnchor.Texture:SetInside()
+		Slot.AzeriteAnchor.Texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\modules\\Armory\\Media\\Textures\\Anchor')
+		Slot.AzeriteAnchor.Texture:SetVertexColor(.9, .8, .5)
+
+		if Slot.Direction == 'LEFT' then
+			Slot.AzeriteAnchor.Texture:SetTexCoord(0, 1, 1, 0)
+		else
+			Slot.AzeriteAnchor.Texture:SetTexCoord(1, 0, 1, 0)
+		end
+
+		Slot.AzeriteAnchor:Hide()
 
 			-- Illusion
 			if Info.Armory_Constants.CanIllusionSlot[SlotName] then
