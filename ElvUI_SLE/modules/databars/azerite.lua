@@ -8,15 +8,17 @@ local format = string.format
 --WoW API / Variables
 local C_AzeriteItem_GetAzeriteItemXPInfo = C_AzeriteItem.GetAzeriteItemXPInfo
 local C_AzeriteItem_GetPowerLevel = C_AzeriteItem.GetPowerLevel
+local C_AzeriteItem_FindActiveAzeriteItem = C_AzeriteItem.FindActiveAzeriteItem
 
 local function UpdateAzerite(self, event, unit)
+	print("woot")
 	if not E.db.sle.databars.azerite.longtext then return end
 	if (event == "UNIT_INVENTORY_CHANGED" and unit ~= "player") then
 		return
 	end
 
 	local bar = self.azeriteBar
-	
+	local azeriteItemLocation = C_AzeriteItem_FindActiveAzeriteItem()
 	if azeriteItemLocation and (not self.db.azerite.hideInCombat or not T.InCombatLockdown()) then
 		local text = ''
 		local xp, totalLevelXP = C_AzeriteItem_GetAzeriteItemXPInfo(azeriteItemLocation)

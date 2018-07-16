@@ -260,8 +260,8 @@ local function configTable()
 						type = "toggle",
 						name = L["Full value on Azerite Bar"],
 						desc = L["Changes the way text is shown on azerite bar."],
-						get = function(info) return E.db.sle.databars.honor.longtext end,
-						set = function(info, value) E.db.sle.databars.honor.longtext = value; EDB:UpdateAzerite() end,
+						get = function(info) return E.db.sle.databars.azerite.longtext end,
+						set = function(info, value) E.db.sle.databars.azerite.longtext = value; EDB:UpdateAzerite() end,
 					},
 					--[[chatfilters = {
 						order = 3,
