@@ -211,7 +211,7 @@ end
 function LP:CreateLocationPanel()
 	loc_panel = CreateFrame('Frame', "SLE_LocationPanel", E.UIParent)
 	loc_panel:Point('TOP', E.UIParent, 'TOP', 0, -E.mult -22)
-	loc_panel:SetFrameStrata('LOW')
+	loc_panel:SetFrameStrata('MEDIUM')
 	loc_panel:SetFrameLevel(2)
 	loc_panel:EnableMouse(true)
 	loc_panel:SetScript('OnMouseUp', LP.OnClick)
