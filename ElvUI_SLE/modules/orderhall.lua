@@ -25,11 +25,13 @@ end
 
 function OH:Initialize()
 	if not SLE.initialized then return end
-	OH.db = E.db.sle.orderhall
+	if E.db.sle.orderhall then E.db.sle.orderhall = nil end
+	OH.db = E.db.sle.legacy.orderhall
 	OH.clicked = false
 
 	function OH:ForUpdateAll()
-		OH.db = E.db.sle.orderhall
+		if E.db.sle.orderhall then E.db.sle.orderhall = nil end
+		OH.db = E.db.sle.legacy.orderhall
 	end
 
 	self:RegisterEvent("SHIPMENT_CRAFTER_INFO");

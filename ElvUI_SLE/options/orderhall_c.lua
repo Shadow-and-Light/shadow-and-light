@@ -4,7 +4,7 @@ local EXPANSION_NAME5 = EXPANSION_NAME5
 local HallName = _G["ORDER_HALL_"..E.myclass]
 local function configTable()
 	if not SLE.initialized then return end
-	E.Options.args.sle.args.modules.args.orderhall = {
+	E.Options.args.sle.args.modules.args.legacy.args.orderhall = {
 		type = "group",
 		name = L["Class Hall"],
 		order = 15,
@@ -19,8 +19,8 @@ local function configTable()
 				type = "group",
 				name = L["Auto Work Orders"],
 				guiInline = true,
-				get = function(info) return E.db.sle.orderhall.autoOrder[ info[#info] ] end,
-				set = function(info, value) E.db.sle.orderhall.autoOrder[ info[#info] ] = value end,
+				get = function(info) return E.db.sle.legacy.orderhall.autoOrder[ info[#info] ] end,
+				set = function(info, value) E.db.sle.legacy.orderhall.autoOrder[ info[#info] ] = value end,
 				args = {
 					enable = {
 						order = 1,
@@ -32,7 +32,7 @@ local function configTable()
 						order = 2,
 						type = "toggle",
 						name = L["Auto Work Orders for equipment"],
-						disabled = function() return not E.db.sle.orderhall.autoOrder.enable end,
+						disabled = function() return not E.db.sle.legacy.orderhall.autoOrder.enable end,
 					},
 				},
 			},
