@@ -259,6 +259,17 @@ function SMB:SkinMinimapButtons()
 			end
 		end
 	end
+	if _G["OutfitterMinimapButton"] and not _G["OutfitterMinimapButton"].isSkinned then
+		for i = 1, _G["OutfitterMinimapButton"]:GetNumRegions() do
+			local Region = T.select(i, _G["OutfitterMinimapButton"]:GetRegions())
+			if Region:GetObjectType() == 'Texture' then
+				local Texture = Region:GetTexture()
+				if Texture and T.find(Texture, 'Outfitter') then Region:SetTexture(nil) end
+				break
+			end
+		end
+		SkinButton(OutfitterMinimapButton)
+	end
 	if E.private.sle.minimap.mapicons.skingarrison then
 		function GarrisonLandingPageMinimapButton_UpdateIcon(self)
 			local garrisonType = C_Garrison.GetLandingPageGarrisonType();
