@@ -1,3 +1,19 @@
+v3.39 [July 17th 2018]
+This is the first version for Battle For Azeroth expantion. This will not work untill patch hits your region.
+This will also require appropriate version of ElvUI to function.
+
+Fixes:
+- Fixed chat problem for CN realms
+- Armory should not be broken on load if item quality info is not available
+- Fixed Outfitter minimap button not being skinned with appropriate option enabled
+Changes:
+- Artifact releated features are now removed
+- Strata of some elements was risen so they will not fall under minimap
+- Order hall options are now in the legacy section. Related options were reset
+Additions:
+- Azerite items indicator for armory. Looks kinda like transmog indicator but in the different position
+- Portrait and aura options for more single unitframes
+
 v3.38 [June 7th 2018]
 This is probably the last release version before BfA hits.
 Any further fixes will be only available via alpha build.
