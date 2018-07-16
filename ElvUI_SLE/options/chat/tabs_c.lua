@@ -35,7 +35,7 @@ local function configTable()
 			color = {
 				type = 'color',
 				order = 3,
-				name = L["Color"],
+				name = COLOR,
 				hasAlpha = false,
 				disabled = function() return not E.db.sle.chat.tab.select or not (E.db.sle.chat.tab.style == "DEFAULT" or E.db.sle.chat.tab.style == "SQUARE" or E.db.sle.chat.tab.style == "HALFDEFAULT") end,
 				get = function(info)

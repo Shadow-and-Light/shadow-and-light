@@ -15,7 +15,7 @@ local function configTable()
 			shadowcolor = {
 				type = "color",
 				order = 1,
-				name = L["Color"],
+				name = COLOR,
 				hasAlpha = false,
 				get = function(info)
 					local t = E.db.sle.shadows[info[#info]]
@@ -158,12 +158,12 @@ local function configTable()
 							left = {
 								order = 1,
 								type = "toggle",
-								name = L["LeftChat"],
+								name = L["Left Chat"],
 							},
 							right = {
 								order = 2,
 								type = "toggle",
-								name = L["RightChat"],
+								name = L["Right Chat"],
 							},
 						},
 					},
