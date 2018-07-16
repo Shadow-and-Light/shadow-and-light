@@ -75,16 +75,6 @@ P["sle"] = {
 	},
 	--Bags
 	["bags"] = {
-		["artifactPower"] = {
-			["enable"] = false,
-			["color"] = {r = 230, g = 204, b = 128},
-			["short"] = false,
-			["fonts"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 12,
-				["outline"] = "OUTLINE",
-			},
-		},
 		["petLevel"] = {
 			["enable"] = false,
 			["color"] = {r = 230, g = 204, b = 128},
