@@ -6,8 +6,8 @@ local function configTable()
 	if not SLE.initialized then return end
 	E.Options.args.sle.args.modules.args.legacy.args.orderhall = {
 		type = "group",
-		name = L["Class Hall"],
-		order = 15,
+		name = L["Class Hall"].." ("..EXPANSION_NAME6..")",
+		order = 3,
 		args = {
 			header = {
 				order = 1,

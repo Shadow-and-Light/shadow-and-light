@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<!--Core-->
+	<Script file='legacy_c.lua'/>
+	<Script file='farm_c.lua'/>
+	<Script file='garrison_c.lua'/>
+	<Script file='orderhall_c.lua'/>
+
+</Ui>

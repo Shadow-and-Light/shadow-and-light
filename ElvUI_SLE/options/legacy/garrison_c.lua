@@ -6,7 +6,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.legacy.args.garrison = {
 		type = "group",
 		name = GARRISON_LOCATION_TOOLTIP.." ("..EXPANSION_NAME5..")",
-		order = 1,
+		order = 2,
 		args = {
 			header = {
 				order = 1,
