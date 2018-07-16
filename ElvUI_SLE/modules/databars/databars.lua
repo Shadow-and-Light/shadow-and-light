@@ -34,7 +34,7 @@ function DB:Initialize()
 
 	DB:ExpInit()
 	DB:RepInit()
-	DB:ArtInit()
+	DB:AzeriteInit()
 	DB:HonorInit()
 	DB:ForUpdateAll()
 

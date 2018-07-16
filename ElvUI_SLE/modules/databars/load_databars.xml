@@ -3,4 +3,5 @@
 	<Script file='exp.lua'/>
 	<Script file='rep.lua'/>
 	<Script file='honor.lua'/>
+	<Script file='azerite.lua'/>
 </Ui>

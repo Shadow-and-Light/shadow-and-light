@@ -138,7 +138,7 @@ P["sle"] = {
 			["color"] = {r = 1, g = 1, b = 0},
 		},
 	},
-	--Datbars
+	--Databars
 	["databars"] = {
 		["exp"] = {
 			["longtext"] = false,
@@ -169,7 +169,7 @@ P["sle"] = {
 				["awardStyle"] = "STYLE1",
 			},
 		},
-		["artifact"] = {
+		["azerite"] = {
 			["longtext"] = false,
 			["chatfilter"] = {
 				["enable"] = false,
@@ -344,6 +344,12 @@ P["sle"] = {
 			["seedor"] = "TOP",
 			["quest"] = false,
 			["enable"] = false,
+		},
+		["orderhall"] = {
+			["autoOrder"] = {
+				["enable"] = false,
+				["autoEquip"] = false,
+			},
 		},
 	},
 	--LFR options
@@ -585,12 +591,7 @@ P["sle"] = {
 		["visibleRange"] = 60,
 	},
 	--Order Halls
-	["orderhall"] = {
-		["autoOrder"] = {
-			["enable"] = false,
-			["autoEquip"] = false,
-		},
-	},
+
 	--Quests
 	["quests"] = {
 		["visibility"] = {
