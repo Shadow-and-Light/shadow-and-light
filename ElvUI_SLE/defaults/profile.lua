@@ -806,6 +806,18 @@ P["sle"] = {
 					},
 				},
 			},
+			["pettarget"] = {
+				["higherPortrait"] = false,
+				["portraitAlpha"] = 0.35,
+				["auras"] = {
+					["buffs"] = {
+						["threshold"] = 4,
+					},
+					["debuffs"] = {
+						["threshold"] = 4,
+					},
+				},
+			},
 			["target"] = {
 				["higherPortrait"] = false,
 				["portraitAlpha"] = 0.35,
@@ -818,7 +830,43 @@ P["sle"] = {
 					},
 				},
 			},
+			["targettarget"] = {
+				["higherPortrait"] = false,
+				["portraitAlpha"] = 0.35,
+				["auras"] = {
+					["buffs"] = {
+						["threshold"] = 4,
+					},
+					["debuffs"] = {
+						["threshold"] = 4,
+					},
+				},
+			},
+			["targettargettarget"] = {
+				["higherPortrait"] = false,
+				["portraitAlpha"] = 0.35,
+				["auras"] = {
+					["buffs"] = {
+						["threshold"] = 4,
+					},
+					["debuffs"] = {
+						["threshold"] = 4,
+					},
+				},
+			},
 			["focus"] = {
+				["higherPortrait"] = false,
+				["portraitAlpha"] = 0.35,
+				["auras"] = {
+					["buffs"] = {
+						["threshold"] = 4,
+					},
+					["debuffs"] = {
+						["threshold"] = 4,
+					},
+				},
+			},
+			["focustarget"] = {
 				["higherPortrait"] = false,
 				["portraitAlpha"] = 0.35,
 				["auras"] = {
