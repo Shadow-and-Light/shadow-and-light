@@ -728,6 +728,7 @@ L["Play sound when killing blows popup is shown."] = true
 L["Rested"] = true
 L["Auto Reward"] = true
 L["Automatically selects a reward with highest selling price when quest is completed. Does not really finish the quest."] = true
+L["Quest Log Toggle"] = true
 
 --Raid Marks
 L["Raid Markers"] = true

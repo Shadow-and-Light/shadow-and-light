@@ -725,6 +725,7 @@ L["Play sound when killing blows popup is shown."] = "Проигрывать з�
 L["Rested"] = "Отдых"
 L["Auto Reward"] = "Автоматическая награда"
 L["Automatically selects a reward with highest selling price when quest is completed. Does not really finish the quest."] = "Автоматическивыбирать награду с наивысшей стоимостью при сдаче квеста."
+L["Quest Log Toggle"] = "Переключение списка заданий"
 
 --Raid Marks
 L["Raid Markers"] = "Рейдовые Метки"
