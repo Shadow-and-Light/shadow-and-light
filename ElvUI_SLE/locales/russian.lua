@@ -806,6 +806,7 @@ L["Auto Work Orders for Trading Post"] = "Авто. заказы в торгов
 L["Automatically queue maximum number of work orders available for Trading Post."] = "Автоматически делать максимальное количество заказов для торговой лавки."
 L["Auto Work Orders for Shipyard"] = "Авто. заказы на верфи"
 L["Automatically queue maximum number of work orders available for Shipyard."] = "Автоматически делать максимальное количество заказов для верфи."
+L["Toolbar"] = "Инструменты"
 --Class Hall
 L["Class Hall"] = "Оплот класса"
 L["Auto Work Orders for equipment"] = "Авто. заказы на экипировку"

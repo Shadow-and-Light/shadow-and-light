@@ -810,6 +810,7 @@ L["Auto Work Orders for Trading Post"] = true
 L["Automatically queue maximum number of work orders available for Trading Post."] = true
 L["Auto Work Orders for Shipyard"] = true
 L["Automatically queue maximum number of work orders available for Shipyard."] = true
+L["Toolbar"] = true
 --Class Hall
 L["Class Hall"] = true
 L["Auto Work Orders for equipment"] = true
