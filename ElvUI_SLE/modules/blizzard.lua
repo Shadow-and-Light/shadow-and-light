@@ -67,7 +67,6 @@ B.Frames = {
 B.AddonsList = {
 	["Blizzard_AchievementUI"] = { "AchievementFrame" },
 	["Blizzard_ArchaeologyUI"] = { "ArchaeologyFrame" },
-	["Blizzard_ArtifactUI"] = { "ArtifactRelicForgeFrame" },
 	["Blizzard_AuctionUI"] = { "AuctionFrame" },
 	["Blizzard_BarberShopUI"] = { "BarberShopFrame" },
 	["Blizzard_BindingUI"] = { "KeyBindingFrame" },
