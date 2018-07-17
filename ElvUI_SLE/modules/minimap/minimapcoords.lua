@@ -19,7 +19,7 @@ local function ShowMinimap()
 end
 
 local function CreateCoords()
-	local playerPosition = T.GetPlayerMapPosition(0, "player"):GetXY()
+	local playerPosition = T.GetPlayerMapPosition(0, "player")
 	local x, y
 	if playerPosition then
 		x, y = playerPosition:GetXY()

@@ -201,7 +201,8 @@ LP.Spells = {
 }
 
 local function CreateCoords()
-	local playerPosition = T.GetPlayerMapPosition(0, "player"):GetXY()
+	local playerPosition = T.GetPlayerMapPosition(0, "player")
+	print(playerPosition)
 	local x, y
 	if playerPosition then
 		x, y = playerPosition:GetXY()
