@@ -1,3 +1,7 @@
+v3.399 [July 18th 2018]
+Fixes:
+- Quick fix for copy-paste error in coordinates aquisition
+
 v3.39 [July 17th 2018]
 This is the first version for Battle For Azeroth expantion. This will not work untill patch hits your region.
 This will also require appropriate version of ElvUI to function.
