@@ -1,5 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="bags.lua"/>
 	<Script file="baginfo.lua"/>
-	<Script file="artifactpower.lua"/>
 </Ui>

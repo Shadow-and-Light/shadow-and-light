@@ -2,7 +2,7 @@
 	<!--Core-->
 	<Script file='core_c.lua'/>
 	<Script file='skins_c.lua'/>
-	<Script file='legacy_c.lua'/>
+	<Include file='legacy\load_legacy.xml'/>
 	<Script file='afk_c.lua'/>
 	<Script file='unitframes_c.lua'/>
 	<Script file='professions_c.lua'/>
@@ -19,13 +19,10 @@
 	<Script file='backgrounds_c.lua'/>
 	<Script file='equipmanager_c.lua'/>
 	<Script file='enhancedshadows_c.lua'/>
-	<Script file='farm_c.lua'/>
-	<Script file='garrison_c.lua'/>
-	<Script file='orderhall_c.lua'/>
 	<Script file='loot_c.lua'/>
 	<Script file='nameplates_c.lua'/>
 	<Script file='raidmarkers_c.lua'/>
-	<Script file='tooltip_c.lua'/>
+	<!--<Script file='tooltip_c.lua'/>-->
 	<Script file='uibuttons_c.lua'/>
 	<Script file='databars_c.lua'/>
 	<Script file='quests_c.lua'/>

@@ -1,4 +1,4 @@
-﻿## Interface: 70300
+﻿## Interface: 80000
 ## Title: |cff1784d1ElvUI|r |cff9482c9Shadow & Light|r
 ## Author: Darth Predator, Repooc
 ## Version: 3.38
@@ -8,7 +8,7 @@
 ## RequiredDeps: ElvUI
 ## OptionalDeps: AddonSkins, BigWigs, Clique, Hermes, xCT+
 ## DefaultState: Enabled
-## X-ElvVersion: 10.74
+## X-ElvVersion: 10.75
 ## SavedVariables: SLE_ArmoryDB
 
 

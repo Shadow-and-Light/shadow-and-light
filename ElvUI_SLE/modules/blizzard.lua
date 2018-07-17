@@ -67,7 +67,6 @@ B.Frames = {
 B.AddonsList = {
 	["Blizzard_AchievementUI"] = { "AchievementFrame" },
 	["Blizzard_ArchaeologyUI"] = { "ArchaeologyFrame" },
-	["Blizzard_ArtifactUI"] = { "ArtifactRelicForgeFrame" },
 	["Blizzard_AuctionUI"] = { "AuctionFrame" },
 	["Blizzard_BarberShopUI"] = { "BarberShopFrame" },
 	["Blizzard_BindingUI"] = { "KeyBindingFrame" },
@@ -180,8 +179,14 @@ end
 
 function B:VehicleScale()
 	local frame = _G["VehicleSeatIndicator"]
-	frame:SetScale(B.db.vehicleSeatScale)
-	frame.mover:SetSize(B.db.vehicleSeatScale * frame:GetWidth(), B.db.vehicleSeatScale * frame:GetHeight())
+	local uiScale = UIParent:GetScale()
+	local frameScale = uiScale * B.db.vehicleSeatScale
+	frame:SetScale(frameScale)
+	if frame.mover then
+		frame.mover:SetSize(frameScale * frame:GetWidth(), frameScale * frame:GetHeight())
+	else
+		E:Delay(1, B.VehicleScale)
+	end
 end
 
 function B:ErrorFrameSize()

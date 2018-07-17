@@ -75,16 +75,6 @@ P["sle"] = {
 	},
 	--Bags
 	["bags"] = {
-		["artifactPower"] = {
-			["enable"] = false,
-			["color"] = {r = 230, g = 204, b = 128},
-			["short"] = false,
-			["fonts"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 12,
-				["outline"] = "OUTLINE",
-			},
-		},
 		["petLevel"] = {
 			["enable"] = false,
 			["color"] = {r = 230, g = 204, b = 128},
@@ -138,7 +128,7 @@ P["sle"] = {
 			["color"] = {r = 1, g = 1, b = 0},
 		},
 	},
-	--Datbars
+	--Databars
 	["databars"] = {
 		["exp"] = {
 			["longtext"] = false,
@@ -169,7 +159,7 @@ P["sle"] = {
 				["awardStyle"] = "STYLE1",
 			},
 		},
-		["artifact"] = {
+		["azerite"] = {
 			["longtext"] = false,
 			["chatfilter"] = {
 				["enable"] = false,
@@ -344,6 +334,12 @@ P["sle"] = {
 			["seedor"] = "TOP",
 			["quest"] = false,
 			["enable"] = false,
+		},
+		["orderhall"] = {
+			["autoOrder"] = {
+				["enable"] = false,
+				["autoEquip"] = false,
+			},
 		},
 	},
 	--LFR options
@@ -585,12 +581,7 @@ P["sle"] = {
 		["visibleRange"] = 60,
 	},
 	--Order Halls
-	["orderhall"] = {
-		["autoOrder"] = {
-			["enable"] = false,
-			["autoEquip"] = false,
-		},
-	},
+
 	--Quests
 	["quests"] = {
 		["visibility"] = {
@@ -806,6 +797,18 @@ P["sle"] = {
 					},
 				},
 			},
+			["pettarget"] = {
+				["higherPortrait"] = false,
+				["portraitAlpha"] = 0.35,
+				["auras"] = {
+					["buffs"] = {
+						["threshold"] = 4,
+					},
+					["debuffs"] = {
+						["threshold"] = 4,
+					},
+				},
+			},
 			["target"] = {
 				["higherPortrait"] = false,
 				["portraitAlpha"] = 0.35,
@@ -818,7 +821,43 @@ P["sle"] = {
 					},
 				},
 			},
+			["targettarget"] = {
+				["higherPortrait"] = false,
+				["portraitAlpha"] = 0.35,
+				["auras"] = {
+					["buffs"] = {
+						["threshold"] = 4,
+					},
+					["debuffs"] = {
+						["threshold"] = 4,
+					},
+				},
+			},
+			["targettargettarget"] = {
+				["higherPortrait"] = false,
+				["portraitAlpha"] = 0.35,
+				["auras"] = {
+					["buffs"] = {
+						["threshold"] = 4,
+					},
+					["debuffs"] = {
+						["threshold"] = 4,
+					},
+				},
+			},
 			["focus"] = {
+				["higherPortrait"] = false,
+				["portraitAlpha"] = 0.35,
+				["auras"] = {
+					["buffs"] = {
+						["threshold"] = 4,
+					},
+					["debuffs"] = {
+						["threshold"] = 4,
+					},
+				},
+			},
+			["focustarget"] = {
 				["higherPortrait"] = false,
 				["portraitAlpha"] = 0.35,
 				["auras"] = {

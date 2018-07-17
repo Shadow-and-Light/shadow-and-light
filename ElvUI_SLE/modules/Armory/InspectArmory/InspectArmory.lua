@@ -49,6 +49,8 @@ local SPACING = 3
 local INFO_TAB_SIZE = 22
 local TALENT_SLOT_SIZE = 26
 
+local MAX_PVP_TALENT_TIERS = 4
+
 local HeadSlotItem = 134110
 local BackSlotItem = 134111
 local InspectorInterval = 0.25
@@ -1045,7 +1047,7 @@ function IA:CreateInspectFrame()
 			self.Info.PvP.Mark.Circle = self.Info.PvP.Mark:CreateTexture(nil, 'BACKGROUND', nil, 3)
 			self.Info.PvP.Mark.Circle:SetAtlas('Talent-RingWithDot')
 			self.Info.PvP.Mark.Circle:Size(60)
-			self.Info.PvP.Mark.Circle:Point('LEFT', self.Info.PvP.Display, 75, 8)
+			self.Info.PvP.Mark.Circle:Point('LEFT', self.Info.PvP.Display, 35, 8)
 			self.Info.PvP.Mark.Icon:Point('TOPLEFT', self.Info.PvP.Mark.Circle, 9, -9)
 			self.Info.PvP.Mark.Icon:Point('BOTTOMRIGHT', self.Info.PvP.Mark.Circle, -9, 9)
 
@@ -1305,6 +1307,57 @@ function IA:CreateInspectFrame()
 			self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + 1)]:Point('RIGHT', self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + 2)], 'LEFT', -2, 0)
 			self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + 2)]:Point('CENTER', self.Spec['TalentTier'..i])
 			self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + 3)]:Point('LEFT', self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + 2)], 'RIGHT', 2, 0)
+		end
+		
+		for i = 1, MAX_PVP_TALENT_TIERS do
+			self.Spec['PvPTalentTier'..i] = CreateFrame('Frame', nil, self.Spec.Page)
+			self.Spec['PvPTalentTier'..i]:SetBackdrop({
+				bgFile = E.media.blankTex,
+				edgeFile = E.media.blankTex,
+				tile = false, tileSize = 0, edgeSize = E.mult,
+				insets = { left = 0, right = 0, top = 0, bottom = 0}
+			})
+			self.Spec['PvPTalentTier'..i]:SetBackdropColor(.08, .08, .08)
+			self.Spec['PvPTalentTier'..i]:SetBackdropBorderColor(0, 0, 0)
+			self.Spec['PvPTalentTier'..i]:SetFrameLevel(CORE_FRAME_LEVEL + 13)
+			self.Spec['PvPTalentTier'..i]:Size(352, TALENT_SLOT_SIZE + SPACING * 2)
+			
+				self.Spec['PvPTalentSlot'..i] = CreateFrame('Frame', nil, self.Spec['PvPTalentTier'..i])
+				self.Spec['PvPTalentSlot'..i]:SetBackdrop({
+					bgFile = E.media.blankTex,
+					edgeFile = E.media.blankTex,
+					tile = false, tileSize = 0, edgeSize = E.mult,
+					insets = { left = 0, right = 0, top = 0, bottom = 0}
+				})
+				self.Spec['PvPTalentSlot'..i]:SetFrameLevel(CORE_FRAME_LEVEL + 14)
+				self.Spec['PvPTalentSlot'..i]:Size(348, TALENT_SLOT_SIZE)
+				self.Spec['PvPTalentSlot'..i].Icon = CreateFrame('Frame', nil, self.Spec['PvPTalentSlot'..i])
+				self.Spec['PvPTalentSlot'..i].Icon:Size(20)
+				self.Spec['PvPTalentSlot'..i].Icon:SetBackdrop({
+					bgFile = E.media.blankTex,
+					edgeFile = E.media.blankTex,
+					tile = false, tileSize = 0, edgeSize = E.mult,
+					insets = { left = 0, right = 0, top = 0, bottom = 0}
+				})
+				self.Spec['PvPTalentSlot'..i].Icon.Texture = self.Spec['PvPTalentSlot'..i].Icon:CreateTexture(nil, 'OVERLAY')
+				self.Spec["PvPTalentSlot"..i].Icon.Texture:SetTexCoord(T.unpack(E.TexCoords))
+				self.Spec['PvPTalentSlot'..i].Icon.Texture:SetInside()
+				self.Spec['PvPTalentSlot'..i].Icon:Point('LEFT', self.Spec['PvPTalentSlot'..i], SPACING, 0)
+				KF:TextSetting(self.Spec['PvPTalentSlot'..i], nil, { Font = E.db.sle.Armory.Inspect.Spec.Font,
+					FontSize = E.db.sle.Armory.Inspect.Spec.FontSize,
+					FontStyle = E.db.sle.Armory.Inspect.Spec.FontStyle
+					, directionH = 'LEFT' }, 'TOPLEFT', self.Spec['PvPTalentSlot'..i].Icon, 'TOPRIGHT', SPACING, SPACING)
+				self.Spec['PvPTalentSlot'..i].text:Point('BOTTOMLEFT', self.Spec['PvPTalentSlot'..i].Icon, 'BOTTOMRIGHT', SPACING, -SPACING)
+				self.Spec['PvPTalentSlot'..i].text:Point('RIGHT', -SPACING, 0)
+				
+				self.Spec['PvPTalentSlot'..i].Tooltip = CreateFrame('Button', nil, self.Spec['PvPTalentSlot'..i])
+				self.Spec['PvPTalentSlot'..i].Tooltip:SetFrameLevel(CORE_FRAME_LEVEL + 15)
+				self.Spec['PvPTalentSlot'..i].Tooltip:SetInside()
+				self.Spec['PvPTalentSlot'..i].Tooltip:SetScript('OnClick', self.OnClick)
+				self.Spec['PvPTalentSlot'..i].Tooltip:SetScript('OnEnter', self.OnEnter)
+				self.Spec['PvPTalentSlot'..i].Tooltip:SetScript('OnLeave', self.OnLeave)
+			
+			self.Spec['PvPTalentSlot'..i]:Point('CENTER', self.Spec['PvPTalentTier'..i])
 		end
 	end
 	
@@ -1757,27 +1810,11 @@ function IA:INSPECT_READY(InspectedUnitGUID)
 			end
 		end
 	end
-	
-	SLE_ArmoryDB[ClientVersion].PvPTalent = SLE_ArmoryDB[ClientVersion].PvPTalent or {}
-	SLE_ArmoryDB[ClientVersion].PvPTalent[CurrentSpec] = SLE_ArmoryDB[ClientVersion].PvPTalent[CurrentSpec] or {}
+
 	for i = 1, MAX_PVP_TALENT_TIERS do
-		for k = 1, MAX_PVP_TALENT_COLUMNS do
-			TalentID, _, _, isSelected = GetPvpTalentInfo(i, k, 1, true, UnitID)
-			
-			TalentID = TalentID or SLE_ArmoryDB[ClientVersion].PvPTalent[CurrentSpec][((i - 1) * MAX_PVP_TALENT_COLUMNS + k)]
-			isSelected = isSelected or false
-			
-			if TalentID then
-				SLE_ArmoryDB[ClientVersion].PvPTalent[CurrentSpec][((i - 1) * MAX_PVP_TALENT_COLUMNS + k)] = TalentID
-				
-				IA.CurrentInspectData.Specialization[2]['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)] = { TalentID, isSelected }
-			else
-				NeedReinspect = true
-			end
-		end
+		IA.CurrentInspectData.Specialization[2]['PvPTalent'..i] = C_SpecializationInfo.GetInspectSelectedPvpTalent(IA.CurrentInspectData.UnitID, i);
 	end
-	
-	
+
 	-- Guild
 	IA.CurrentInspectData.guildPoint, IA.CurrentInspectData.guildNumMembers = GetInspectGuildInfo(UnitID)
 	IA.CurrentInspectData.guildEmblem = { GetGuildLogoInfo(UnitID) }
@@ -1825,7 +1862,6 @@ IA.InspectUnit = function(UnitID)
 		IA.CurrentInspectData.Title = T.UnitPVPName(UnitID)
 		IA.CurrentInspectData.Level = T.UnitLevel(UnitID)
 		IA.CurrentInspectData.HonorLevel = T.UnitHonorLevel(UnitID)
-		IA.CurrentInspectData.PrestigeLevel = UnitPrestige(UnitID)
 		IA.CurrentInspectData.Name, IA.CurrentInspectData.Realm = T.UnitFullName(UnitID)
 		_, IA.CurrentInspectData.Class, IA.CurrentInspectData.ClassID = T.UnitClass(UnitID)
 		if E.db.sle.Armory.Inspect.Backdrop.SelectedBG == 'CLASS' then IA:Update_BG() end
@@ -1901,12 +1937,8 @@ function IA:InspectFrame_DataSetting(DataTable)
 			self.SpecIcon:SetTexture('Interface\\ICONS\\INV_Misc_QuestionMark')
 			self.Spec.Spec1.Texture:SetTexture('Interface\\ICONS\\INV_Misc_QuestionMark')
 		end
-		
-		if DataTable.PrestigeLevel > 0 then
-			self.Spec.Spec2.Texture:SetTexture(GetPrestigeInfo(DataTable.PrestigeLevel))
-		else
-			self.Spec.Spec2.Texture:SetTexture('Interface\\Icons\\achievement_bg_killxenemies_generalsroom')
-		end
+
+		self.Spec.Spec2.Texture:SetTexture('Interface\\Icons\\achievement_bg_killxenemies_generalsroom')
 	end
 	
 	do	--<< Equipment Slot and Enchant, Gem Setting >>--
@@ -1979,54 +2011,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 						do --<< Gem Parts >>--
 							GemCount_Default, GemCount_Now, GemCount = 0, 0, 0
 							
-							if Info.Armory_Constants.ArtifactType[(ItemData[2])] then	-- Artifact Parts
-								GemCount_Default = 3
-								GemCount_Enable = 3
-								GemCount_Now = 3
-								
-								self:ClearTooltip(self.ScanTT)
-								self.ScanTT:SetHyperlink(Slot.Link)
-								
-								for i = 1, MAX_NUM_SOCKETS do
-									Slot['Socket'..i].GemType = Info.Armory_Constants.ArtifactType[(ItemData[2])][i]
-									GemID = ItemData[i + 3] ~= '' and ItemData[i + 3] or 0
-									_, GemLink = GetItemGem(Slot.Link, i)
-									Slot.SocketWarning:Point(Slot.Direction, Slot.Socket3, (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
-									
-									if Slot['Socket'..i].GemType and Info.Armory_Constants.GemColor[Slot['Socket'..i].GemType] then
-										R, G, B = unpack(Info.Armory_Constants.GemColor[Slot['Socket'..i].GemType])
-										Slot['Socket'..i].Socket:SetBackdropColor(R, G, B, .5)
-										Slot['Socket'..i].Socket:SetBackdropBorderColor(R, G, B)
-									else
-										R, G, B = 0, 0, 0
-										Slot['Socket'..i].Socket:SetBackdropColor(1, 1, 1, .5)
-										Slot['Socket'..i].Socket:SetBackdropBorderColor(1, 1, 1)
-									end
-									
-									Slot['Socket'..i].Socket.Message = format(RELIC_TOOLTIP_TYPE, E:RGBToHex(R, G, B).._G['RELIC_SLOT_TYPE_'..Slot['Socket'..i].GemType])
-									if GemLink then
-										if E.db.sle.Armory.Inspect.Gem.Display == 'Always' or E.db.sle.Armory.Inspect.Gem.Display == 'MouseoverOnly' and Slot.Mouseovered or E.db.sle.Armory.Inspect.Gem.Display == 'MissingOnly' then
-											Slot['Socket'..i]:Show()
-										end
-										
-										GemCount = GemCount + 1
-										Slot['Socket'..i].GemItemID = GemID
-										Slot['Socket'..i].Socket.Link = GemLink
-										
-										ItemTexture = select(10, T.GetItemInfo(GemID))
-										
-										Slot['Socket'..i].Socket.Message = nil
-										if ItemTexture then
-											Slot['Socket'..i].Texture:SetTexture(ItemTexture)
-										else
-											NeedUpdate = true
-										end
-									elseif GemID ~= 0 then
-										NeedUpdate = true
-									end
-								end
-							else
-								ItemData.FixedLink = ItemData[1]
+							ItemData.FixedLink = ItemData[1]
 								
 								for i = 2, #ItemData do
 									if i == 4 or i == 5 or i ==6 or i ==7 then
@@ -2108,7 +2093,6 @@ function IA:InspectFrame_DataSetting(DataTable)
 									NeedUpdate = true
 								end
 							end
-						end
 						
 						--<< Enchant Parts >>--
 						for i = 1, self.ScanTT:NumLines() do
@@ -2328,75 +2312,6 @@ function IA:InspectFrame_DataSetting(DataTable)
 	end
 	self.GearUpdated = nil
 	
-	
-	do	--<< Artifact Weapon >>--
-		if (self.MainHandSlot.ItemRarity == 6 or self.SecondaryHandSlot.ItemRarity == 6) and self.MainHandSlot.ILvL ~= self.SecondaryHandSlot.ILvL then
-			local MajorArtifactSlot, MinorArtifactSlot
-			
-			if self.MainHandSlot.ILvL > self.SecondaryHandSlot.ILvL then
-				MajorArtifactSlot = 'MainHandSlot'
-				MinorArtifactSlot = 'SecondaryHandSlot'
-			else
-				MajorArtifactSlot = 'SecondaryHandSlot'
-				MinorArtifactSlot = 'MainHandSlot'
-			end
-			
-			self[MinorArtifactSlot].ILvL = self[MajorArtifactSlot].ILvL
-			
-			if self.MainHandSlot.ItemRarity == 6 and self.SecondaryHandSlot.ItemRarity == 6 then
-				self[MinorArtifactSlot].Gradation.ItemLevel:SetText(self[MinorArtifactSlot].ILvL)
-				
-				-- Find line starting minor artifact's data in major artifact tooltip.
-				local MajorTooltipStartLine, MinorArtifactName, MinorTooltipStartLine, MinorTooltipStartKey
-				
-				self:ClearTooltip(self.ScanTT)
-				self.ScanTT:SetHyperlink(self[MajorArtifactSlot].Link)
-				
-				self:ClearTooltip(self.ScanTT2)
-				self.ScanTT2:SetHyperlink(self[MinorArtifactSlot].Link)
-				
-				for i = 1, self.ScanTT2:NumLines() do
-					if _G['InspectArmoryScanTT2TextLeft'..i]:GetText():find(Info.Armory_Constants.ItemLevelKey) then
-						MinorArtifactName = _G['InspectArmoryScanTT2TextLeft'..(i - 1)]:GetText()
-						self[MinorArtifactSlot].ReplaceTooltipLines[i] = T.format(ITEM_LEVEL, self[MajorArtifactSlot].ILvL)
-						
-						break
-					end
-				end
-				
-				for i = 2, self.ScanTT:NumLines() do
-					if _G['InspectArmoryScanTTTextLeft'..i]:GetText() == MinorArtifactName then
-						MajorTooltipStartLine = i + 1
-						MinorTooltipStartKey = _G['InspectArmoryScanTTTextLeft'..(i + 1)]:GetText()
-						
-						break
-					end
-				end
-				
-				for i = 1, self.ScanTT2:NumLines() do
-					if _G['InspectArmoryScanTT2TextLeft'..i]:GetText() == MinorTooltipStartKey then
-						MinorTooltipStartLine = i
-						
-						break
-					end
-				end
-				if not MajorTooltipStartLine then MajorTooltipStartLine = 1 end
-				for i = MajorTooltipStartLine, self.ScanTT:NumLines() do
-					CurrentLineText = _G['InspectArmoryScanTTTextLeft'..i]:GetText()
-					
-					if not CurrentLineText:find('"') and MinorArtifactSlot and MinorTooltipStartLine then
-						self[MinorArtifactSlot].ReplaceTooltipLines[MinorTooltipStartLine] = CurrentLineText
-						
-						MinorTooltipStartLine = MinorTooltipStartLine + 1
-					else
-						break
-					end
-				end
-			end
-		end
-	end
-	
-	
 	do	--<< Average ItemLevel >>--
 		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 			if not (SlotName == 'ShirtSlot' or SlotName == 'TabardSlot') then
@@ -2611,17 +2526,17 @@ function IA:InspectFrame_PvPSetting(DataTable)
 	-- Arg1 : Prestige Texture
 	-- Arg2 : Prestige Name
 	
-	if DataTable.PrestigeLevel > 0 then
-		Arg1, Arg2 = GetPrestigeInfo(DataTable.PrestigeLevel)
+	-- if DataTable.PrestigeLevel > 0 then
+		-- Arg1, Arg2 = GetPrestigeInfo(DataTable.PrestigeLevel)
 		
-		self.Info.PvP.Mark.Icon:SetTexture(Arg1)
-		Arg2 = '* '..KF:Color_Class(DataTable.Class, Arg2)..'|n'
-	else
+		-- self.Info.PvP.Mark.Icon:SetTexture(Arg1)
+		-- Arg2 = '* '..KF:Color_Class(DataTable.Class, Arg2)..'|n'
+	-- else
 		SetPortraitToTexture(self.Info.PvP.Mark.Icon, 'Interface\\Icons\\achievement_bg_killxenemies_generalsroom')
 		Arg2 = ''
-	end
+	-- end
 	
-	Arg2 = Arg2..'* '..format(Info.Armory_Constants.HonorLevel, KF:Color_Class(DataTable.Class, DataTable.HonorLevel))..'|n* '..SCORE_HONORABLE_KILLS..' : '..KF:Color_Class(DataTable.Class, DataTable.PvP.Honor)
+	Arg2 = Arg2..'* '..format(Info.Armory_Constants.HonorLevel, KF:Color_Class(DataTable.Class, DataTable.HonorLevel))..'|n* '..format(Info.Armory_Constants.HonorKills, KF:Color_Class(DataTable.Class, DataTable.PvP.Honor))
 	
 	self.Info.PvP.Mark.text:SetText(Arg2)
 	
@@ -2724,8 +2639,11 @@ function IA:ToggleSpecializationTab(Tab, DataTable)
 	end
 	
 	R, G, B = RAID_CLASS_COLORS[DataTable.Class].r, RAID_CLASS_COLORS[DataTable.Class].g, RAID_CLASS_COLORS[DataTable.Class].b
-	
+
 	if Tab == 1 then	-- Current Spec
+		for i = 1, MAX_PVP_TALENT_TIERS do
+			self.Spec['PvPTalentTier'..i]:Hide()
+		end
 		for i = 1, MAX_TALENT_TIERS do
 			for k = 1, NUM_TALENT_COLUMNS do
 				Arg1, Name, Arg2 = GetTalentInfoByID(DataTable.Specialization[Tab]['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)][1], 1)
@@ -2755,60 +2673,45 @@ function IA:ToggleSpecializationTab(Tab, DataTable)
 					end
 				end
 			end
-			
+
 			self.Spec['TalentTier'..i]:Point('TOP', self.Spec['TalentTier'..(i - 1)], 'BOTTOM', 0, -SPACING-2)
 			self.Spec['TalentTier'..i]:Show()
 		end
 		
 		self.Spec.TalentTier1:Point('TOP', self.Spec.Page, 0, -2)
 	elseif Tab == 2 then	-- PvP Talents
+		for i = 1, MAX_TALENT_TIERS do
+			self.Spec['TalentTier'..i]:Hide()
+		end
 		for i = 1, MAX_PVP_TALENT_TIERS do
-			for k = 1, MAX_PVP_TALENT_COLUMNS do
-				if self.Spec['Talent'..((i - 1) * MAX_PVP_TALENT_COLUMNS + k)] then
-					Arg1, Name, Arg2 = GetPvpTalentInfoByID(DataTable.Specialization[Tab]['Talent'..((i - 1) * MAX_PVP_TALENT_COLUMNS + k)][1], 1)
-					
-					self.Spec['Talent'..((i - 1) * MAX_PVP_TALENT_COLUMNS + k)].Icon.Texture:SetTexture(Arg2)
-					self.Spec['Talent'..((i - 1) * MAX_PVP_TALENT_COLUMNS + k)].text:SetText(Name)
-					self.Spec['Talent'..((i - 1) * MAX_PVP_TALENT_COLUMNS + k)].Tooltip.Link = GetPvpTalentLink(Arg1)
-					self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Tooltip.Message = nil
-					
-					if DataTable.Specialization[Tab]['Talent'..((i - 1) * MAX_PVP_TALENT_COLUMNS + k)][2] == true then
-						self.Spec['Talent'..((i - 1) * MAX_PVP_TALENT_COLUMNS + k)]:SetBackdropColor(R, G, B, .3)
-						self.Spec['Talent'..((i - 1) * MAX_PVP_TALENT_COLUMNS + k)]:SetBackdropBorderColor(R, G, B)
-						self.Spec['Talent'..((i - 1) * MAX_PVP_TALENT_COLUMNS + k)].Icon:SetBackdropBorderColor(R, G, B)
-						self.Spec['Talent'..((i - 1) * MAX_PVP_TALENT_COLUMNS + k)].Icon.Texture:SetDesaturated(false)
-						self.Spec['Talent'..((i - 1) * MAX_PVP_TALENT_COLUMNS + k)].text:SetTextColor(1, 1, 1)
-					else
-						self.Spec['Talent'..((i - 1) * MAX_PVP_TALENT_COLUMNS + k)]:SetBackdropColor(.1, .1, .1)
-						self.Spec['Talent'..((i - 1) * MAX_PVP_TALENT_COLUMNS + k)]:SetBackdropBorderColor(0, 0, 0)
-						self.Spec['Talent'..((i - 1) * MAX_PVP_TALENT_COLUMNS + k)].Icon:SetBackdropBorderColor(0, 0, 0)
-						self.Spec['Talent'..((i - 1) * MAX_PVP_TALENT_COLUMNS + k)].Icon.Texture:SetDesaturated(true)
-						
-						if DataTable.Level < MAX_PLAYER_LEVEL_TABLE[LE_EXPANSION_LEVEL_CURRENT] or DataTable.HonorLevel < Info.Armory_Constants.PvPTalentRequireLevel[(i - 1) * MAX_PVP_TALENT_COLUMNS + k] then
-							self.Spec['Talent'..((i - 1) * MAX_PVP_TALENT_COLUMNS + k)].text:SetTextColor(.7, .3, .3)
-							self.Spec['Talent'..((i - 1) * NUM_TALENT_COLUMNS + k)].Tooltip.Message = '|cffff0000'..UNLOCKED_AT_HONOR_LEVEL:format(Info.Armory_Constants.PvPTalentRequireLevel[(i - 1) * MAX_PVP_TALENT_COLUMNS + k])
-						else
-							self.Spec['Talent'..((i - 1) * MAX_PVP_TALENT_COLUMNS + k)].text:SetTextColor(.5, .5, .5)
-						end
-					end
-				end
+			Arg1,Name,Arg2 = nil,nil,nil
+			if DataTable.Specialization[Tab]['PvPTalent'..i] then Arg1,Name,Arg2 = GetPvpTalentInfoByID(DataTable.Specialization[Tab]['PvPTalent'..i]) end
+			if (Arg1) then
+				self.Spec['PvPTalentSlot'..i].Icon.Texture:SetTexture(Arg2)
+				self.Spec['PvPTalentSlot'..i].text:SetText(Name)
+				self.Spec['PvPTalentSlot'..i].Tooltip.Link = GetPvpTalentLink(Arg1)
+
+				self.Spec['PvPTalentSlot'..i]:SetBackdropColor(R, G, B, .3)
+				self.Spec['PvPTalentSlot'..i]:SetBackdropBorderColor(R, G, B)
+				self.Spec['PvPTalentSlot'..i].Icon:SetBackdropBorderColor(R, G, B)
+				self.Spec['PvPTalentSlot'..i].Icon.Texture:SetDesaturated(false)
+				self.Spec['PvPTalentSlot'..i].text:SetTextColor(1, 1, 1)
+			else
+				self.Spec['PvPTalentSlot'..i].Icon.Texture:SetTexture("Interface\\Buttons\\UI-GroupLoot-Pass-Up")
+				self.Spec['PvPTalentSlot'..i].text:SetText(TALENT_NOT_SELECTED)
+				self.Spec['PvPTalentSlot'..i].Tooltip.Link = nil
+
+				self.Spec['PvPTalentSlot'..i]:SetBackdropColor(.1, .1, .1)
+				self.Spec['PvPTalentSlot'..i]:SetBackdropBorderColor(0, 0, 0)
+				self.Spec['PvPTalentSlot'..i].Icon:SetBackdropBorderColor(0, 0, 0)
+				self.Spec['PvPTalentSlot'..i].Icon.Texture:SetDesaturated(true)
 			end
-			
-			self.Spec['TalentTier'..i]:Point('TOP', self.Spec['TalentTier'..(i - 1)], 'BOTTOM', 0, -SPACING-7)
-			
-			if DataTable.Level < MAX_PLAYER_LEVEL_TABLE[LE_EXPANSION_LEVEL_CURRENT] then
-				self.Spec.Message = format(L['PvP talents become available at level %s.'], E:RGBToHex(1, .5, .5)..'110|r')
-				IA:ChangePage('SpecButton')
-			end
+
+			self.Spec['PvPTalentTier'..i]:Point('TOP', self.Spec['PvPTalentTier'..(i - 1)], 'BOTTOM', 0, -SPACING)
+			self.Spec['PvPTalentTier'..i]:Show()
 		end
-		
-		if MAX_TALENT_TIERS > MAX_PVP_TALENT_TIERS then
-			for i = MAX_PVP_TALENT_TIERS + 1, MAX_TALENT_TIERS do
-				self.Spec['TalentTier'..i]:Hide()
-			end
-		end
-		
-		self.Spec.TalentTier1:Point('TOP', self.Spec.Page, 0, -7)
+
+		self.Spec.PvPTalentTier1:Point('TOP', self.Spec.Page, 0, -7)
 	end
 	
 	self:DisplayMessage('Spec')

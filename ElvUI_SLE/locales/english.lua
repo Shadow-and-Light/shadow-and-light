@@ -340,8 +340,8 @@ L["Change the style of experience gain messages."] = true
 L["Experience Style"] = true
 L["Full List"] = true
 L["Show all factions affected by the latest reputation change. When disabled only first (in alphabetical order) affected faction will be shown."] = true
-L["Full value on Artifact Bar"] = true
-L["Changes the way text is shown on artifact bar."] = true
+L["Full value on Azerite Bar"] = true
+L["Changes the way text is shown on azerite bar."] = true
 L["Full value on Honor Bar"] = true
 L["Changes the way text is shown on honor bar."] = true
 L["Chat Filters"] = true
@@ -704,7 +704,9 @@ L["Ingore Poles"] = true
 L["If enabled will start fishing even if you don't have fishing pole equipped. Will not work if you have fish key set to \"None\"."] = true
 L["Fish Key"] = true
 L["Hold this button while clicking to allow fishing action."] = true
-
+L["SLE_Prof_Relure_Error"] = "Can't use lure due to threshlod. Time left: %.1f seconds."
+L["Re-lure Threshold"] = true
+L["Time after the previous attemp to apply a lure before the next attempt will occure."] = true
 
 --PvP
 L["Functions dedicated to player versus player modes."] = true
@@ -726,6 +728,7 @@ L["Play sound when killing blows popup is shown."] = true
 L["Rested"] = true
 L["Auto Reward"] = true
 L["Automatically selects a reward with highest selling price when quest is completed. Does not really finish the quest."] = true
+L["Quest Log Toggle"] = true
 
 --Raid Marks
 L["Raid Markers"] = true
@@ -798,6 +801,9 @@ L["Quest Glow"] = true
 L["Show glowing border on seeds needed for any quest in your log."] = true
 L["Dock Buttons To"] = true
 L["Change the position from where seed bars will grow."] = true
+L["S&L: Farm Seed Bars"] = true
+L["S&L: Farm Tool Bar"] = true
+L["S&L: Farm Portal Bar"] = true
 --Garrison
 L["Garrison Tools Bar"] = true
 L["Auto Work Orders"] = true
@@ -808,6 +814,8 @@ L["Auto Work Orders for Trading Post"] = true
 L["Automatically queue maximum number of work orders available for Trading Post."] = true
 L["Auto Work Orders for Shipyard"] = true
 L["Automatically queue maximum number of work orders available for Shipyard."] = true
+L["Toolbar"] = true
+L["S&L: Garrison Tools Bar"] = true
 --Class Hall
 L["Class Hall"] = true
 L["Auto Work Orders for equipment"] = true

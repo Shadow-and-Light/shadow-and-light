@@ -615,52 +615,9 @@ local function LoadArmoryConfigTable()
 							min = 6,max = 50,step = 1,
 							disabled = function() return E.db.sle.Armory.Character.Enable == false end
 						},
-					}
-				},
-				Artifact = {
-					type = 'group',
-					order = 14,
-					name = ITEM_QUALITY6_DESC,
-					get = function(info) return E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] end,
-					set = function(info, value) E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] = value; _G["CharacterArmory"]:UpdateSettings("art") end,
-					args = {
-						Enable = {
-							type = "toggle",
-							order = 1,
-							name = L["Enable"],
-							get = function(info) return E.private.sle.Armory.UseArtMonitor end,
-							set = function(info, value) E.private.sle.Armory.UseArtMonitor = value; E:StaticPopup_Show("PRIVATE_RL") end,
-						},
-						Font = {
-							type = 'select', dialogControl = 'LSM30_Font',
-							name = L["Font"],
-							order = 2,
-							values = function() return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {} end,
-							disabled = function() return E.db.sle.Armory.Character.Enable == false or E.private.sle.Armory.UseArtMonitor == false end,
-						},
-						FontSize = {
-							type = 'range',
-							name = L["Font Size"],
-							order = 3,
-							min = 6, max = 22, step = 1,
-							disabled = function() return E.db.sle.Armory.Character.Enable == false or E.private.sle.Armory.UseArtMonitor == false end,
-						},
-						FontStyle = {
-							type = 'select',
-							name = L["Font Outline"],
-							order = 4,
-							values = FontStyleList,
-							disabled = function() return E.db.sle.Armory.Character.Enable == false or E.private.sle.Armory.UseArtMonitor == false end,
-						},
-						ShortValues = {
-							order = 5,
-							type = "toggle",
-							name = L["Short text"],
-							disabled = function() return E.db.sle.Armory.Character.Enable == false or E.private.sle.Armory.UseArtMonitor == false end,
-						},
 					},
 				},
-			}
+			},
 		}
 	end
 

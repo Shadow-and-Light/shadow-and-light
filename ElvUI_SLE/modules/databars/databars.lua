@@ -17,11 +17,6 @@ function DB:RegisterFilters()
 	else
 		ChatFrame_RemoveMessageEventFilter("CHAT_MSG_COMBAT_XP_GAIN", self.FilterExperience)
 	end
-	if E.db.sle.databars.artifact.chatfilter.enable then
-		ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", self.FilterArtExperience)
-	else
-		ChatFrame_RemoveMessageEventFilter("CHAT_MSG_SYSTEM", self.FilterArtExperience)
-	end
 	if E.db.sle.databars.honor.chatfilter.enable then
 		ChatFrame_AddMessageEventFilter("CHAT_MSG_COMBAT_HONOR_GAIN", self.FilterHonor)
 	else
@@ -39,7 +34,7 @@ function DB:Initialize()
 
 	DB:ExpInit()
 	DB:RepInit()
-	DB:ArtInit()
+	DB:AzeriteInit()
 	DB:HonorInit()
 	DB:ForUpdateAll()
 

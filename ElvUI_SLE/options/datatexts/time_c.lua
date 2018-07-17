@@ -1,7 +1,7 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
 local RAID_FINDER = RAID_FINDER
 local RAIDS = RAIDS
-local EXPANSION_NAME3, EXPANSION_NAME4, EXPANSION_NAME5, EXPANSION_NAME6 = EXPANSION_NAME3, EXPANSION_NAME4, EXPANSION_NAME5, EXPANSION_NAME6
+local EXPANSION_NAME3, EXPANSION_NAME4, EXPANSION_NAME5, EXPANSION_NAME6, EXPANSION_NAME7 = EXPANSION_NAME3, EXPANSION_NAME4, EXPANSION_NAME5, EXPANSION_NAME6, EXPANSION_NAME7
 
 
 local function configTable()
@@ -17,7 +17,7 @@ local function configTable()
 				name = L["LFR Lockout"],
 				desc = L["Show/Hide LFR lockout info in time datatext's tooltip."],
 				get = function(info) return E.db.sle.lfr.enabled end,
-				set = function(info, value) E.db.sle.lfr.enabled = value; end
+				set = function(info, value) E.db.sle.lfr.enabled = value; end,
 			},
 			raids = {
 				order = 2, type = "group",
@@ -33,7 +33,7 @@ local function configTable()
 						get = function(info) return E.db.sle.lfr.cata[ info[#info] ] end,
 						set = function(info, value) E.db.sle.lfr.cata[ info[#info] ] = value; end,
 						args = {
-							ds = { order = 1, type = "toggle", name = T.GetMapNameByID(824) },
+							ds = { order = 1, type = "toggle", name = SLE:GetMapInfo(409, "name") },
 						},
 					},
 					MoP = {
@@ -43,11 +43,11 @@ local function configTable()
 						get = function(info) return E.db.sle.lfr.mop[ info[#info] ] end,
 						set = function(info, value) E.db.sle.lfr.mop[ info[#info] ] = value; end,
 						args = {
-							mv = { order = 1, type = "toggle", name = T.GetMapNameByID(896) },
-							hof = { order = 2, type = "toggle", name = T.GetMapNameByID(897) },
-							toes = { order = 3, type = "toggle", name = T.GetMapNameByID(886) },
-							tot = { order = 4, type = "toggle", name = T.GetMapNameByID(930) },
-							soo = { order = 5, type = "toggle", name = T.GetMapNameByID(953) },
+							mv = { order = 1, type = "toggle", name = SLE:GetMapInfo(471, "name") },
+							hof = { order = 2, type = "toggle", name = SLE:GetMapInfo(474, "name") },
+							toes = { order = 3, type = "toggle", name = SLE:GetMapInfo(456, "name") },
+							tot = { order = 4, type = "toggle", name = SLE:GetMapInfo(508, "name") },
+							soo = { order = 5, type = "toggle", name = SLE:GetMapInfo(556, "name") },
 						},
 					},
 					WoD = {
@@ -57,9 +57,9 @@ local function configTable()
 						get = function(info) return E.db.sle.lfr.wod[ info[#info] ] end,
 						set = function(info, value) E.db.sle.lfr.wod[ info[#info] ] = value; end,
 						args = {
-							hm = { order = 1, type = "toggle", name = T.GetMapNameByID(994) },
-							brf = { order = 2, type = "toggle", name = T.GetMapNameByID(988) },
-							hfc = { order = 3, type = "toggle", name = T.GetMapNameByID(1026) },
+							hm = { order = 1, type = "toggle", name = SLE:GetMapInfo(610, "name") },
+							brf = { order = 2, type = "toggle", name = SLE:GetMapInfo(596, "name")},
+							hfc = { order = 3, type = "toggle", name = SLE:GetMapInfo(661, "name") },
 						},
 					},
 					Legion = {
@@ -69,11 +69,23 @@ local function configTable()
 						get = function(info) return E.db.sle.lfr.legion[ info[#info] ] end,
 						set = function(info, value) E.db.sle.lfr.legion[ info[#info] ] = value; end,
 						args = {
-							nightmare = { order = 1, type = "toggle", name = T.GetMapNameByID(1094) },
-							trial = { order = 2, type = "toggle", name = T.GetMapNameByID(1114) },
-							palace = { order = 3, type = "toggle", name = T.GetMapNameByID(1088) },
-							tomb = { order = 4, type = "toggle", name = T.GetMapNameByID(1147) },
-							antorus = { order = 5, type = "toggle", name = T.GetMapNameByID(1188) },
+							nightmare = { order = 1, type = "toggle", name = SLE:GetMapInfo(777 , "name") },
+							trial = { order = 2, type = "toggle", name = SLE:GetMapInfo(806, "name") },
+							palace = { order = 3, type = "toggle", name = SLE:GetMapInfo(764, "name") },
+							tomb = { order = 4, type = "toggle", name = SLE:GetMapInfo(850 , "name") },
+							antorus = { order = 5, type = "toggle", name = SLE:GetMapInfo(909, "name") },
+						},
+					},
+					BFA = {
+						order = 5, type = "group",
+						name = EXPANSION_NAME7,
+						guiInline = true,
+						get = function(info) return E.db.sle.lfr.legion[ info[#info] ] end,
+						set = function(info, value) E.db.sle.lfr.legion[ info[#info] ] = value; end,
+						args = {
+							soon = {
+								order = 1, type = "description", name = "Soon™",
+							},
 						},
 					},
 				},

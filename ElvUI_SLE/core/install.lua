@@ -117,6 +117,10 @@ function PI:DarthSetup()
 		E.db["actionbar"]["stanceBar"]["buttonsize"] = 28
 		E.db["actionbar"]["stanceBar"]["style"] = "classic"
 		E.db["actionbar"]["keyDown"] = false
+		E.db["actionbar"]["cooldown"]["fonts"]["enable"] = true
+		E.db["actionbar"]["cooldown"]["fonts"]["fontSize"] = 16
+		E.db["actionbar"]["cooldown"]["mmssThreshold"] = 900
+		E.db["actionbar"]["cooldown"]["checkSeconds"] = true
 	end
 	--Auras
 	do
@@ -153,10 +157,10 @@ function PI:DarthSetup()
 	end
 	--Databars
 	do
-		E.db["databars"]["artifact"]["orientation"] = "HORIZONTAL"
-		E.db["databars"]["artifact"]["textFormat"] = "CURMAX"
-		E.db["databars"]["artifact"]["height"] = 10
-		E.db["databars"]["artifact"]["width"] = 380
+		E.db["databars"]["azerite"]["orientation"] = "HORIZONTAL"
+		E.db["databars"]["azerite"]["textFormat"] = "CURMAX"
+		E.db["databars"]["azerite"]["height"] = 10
+		E.db["databars"]["azerite"]["width"] = 380
 		E.db["databars"]["reputation"]["reverseFill"] = true
 		E.db["databars"]["reputation"]["orientation"] = "HORIZONTAL"
 		E.db["databars"]["reputation"]["height"] = 10
@@ -434,9 +438,7 @@ function PI:DarthSetup()
 	end
 	--S&L
 	do
-		E.db["sle"]["databars"]["artifact"]["longtext"] = true
-		E.db["sle"]["databars"]["artifact"]["chatfilter"]["enable"] = true
-		E.db["sle"]["databars"]["artifact"]["chatfilter"]["style"] = "STYLE2"
+		E.db["sle"]["databars"]["azerite"]["longtext"] = true
 		E.db["sle"]["databars"]["honor"]["chatfilter"]["awardStyle"] = "STYLE2"
 		E.db["sle"]["databars"]["honor"]["chatfilter"]["style"] = "STYLE8"
 		E.db["sle"]["databars"]["honor"]["chatfilter"]["enable"] = true
@@ -467,8 +469,6 @@ function PI:DarthSetup()
 		E.db["sle"]["loot"]["enable"] = true
 		E.db["sle"]["loot"]["autoroll"]["autoconfirm"] = true
 		E.db["sle"]["loot"]["autoroll"]["autogreed"] = true
-		E.db["sle"]["orderhall"]["autoOrder"]["enable"] = true
-		E.db["sle"]["orderhall"]["autoOrder"]["autoEquip"] = true
 		E.db["sle"]["uibuttons"]["point"] = "TOPRIGHT"
 		E.db["sle"]["uibuttons"]["enable"] = true
 		E.db["sle"]["uibuttons"]["spacing"] = 1
@@ -528,8 +528,7 @@ function PI:DarthSetup()
 		E.db["sle"]["Armory"]["Character"]["Level"]["FontSize"] = 12
 		E.db["sle"]["Armory"]["Character"]["Backdrop"]["SelectedBG"] = "TheEmpire"
 		E.db["sle"]["Armory"]["Character"]["Backdrop"]["Overlay"] = false
-		E.db["sle"]["bags"]["artifactPower"]["enable"] = true
-		E.db["sle"]["bags"]["artifactPower"]["short"] = true
+		E.db["sle"]["Armory"]["Character"]["Gradation"]["ItemQuality"] = true
 	end
 	--Movers
 	do
@@ -559,7 +558,7 @@ function PI:DarthSetup()
 		E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,0,-65"
 		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,-125,19"
 		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,444,19"
-		E.db["movers"]["ArtifactBarMover"] = "TOP,ElvUIParent,TOP,0,-20"
+		E.db["movers"]["AzeriteBarMover"] = "TOP,ElvUIParent,TOP,0,-20"
 		E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-3,188"
 		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-220,186"
 		E.db["movers"]["ObjectiveFrameMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,98,-4"
@@ -1398,6 +1397,7 @@ local function AffinitySetup()
 	E.db["unitframe"]["colors"]["transparentHealth"] = true
 	E.db["unitframe"]["colors"]["transparentCastbar"] = true
 	E.db["unitframe"]["colors"]["transparentAurabars"] = true
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["enable"] = false
 
 	E.db["datatexts"]["minimapPanels"] = false
 	E.db["datatexts"]["fontSize"] = 12
