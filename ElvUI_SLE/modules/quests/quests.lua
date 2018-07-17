@@ -71,7 +71,7 @@ function Q:ChangeState(event)
 			WorldQuestTrackerAddon.TrackerHeight = y
 		end
 
-		WorldQuestTrackerAddon.RefreshAnchor()
+		WorldQuestTrackerAddon.RefreshTrackerAnchor()
 	end
 end
 
