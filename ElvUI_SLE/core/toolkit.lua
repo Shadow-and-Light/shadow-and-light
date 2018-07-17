@@ -377,6 +377,7 @@ function SLE:Reset(group)
 end
 
 function SLE:GetMapInfo(id, arg)
+	if not arg then return end
 	local MapInfo = C_Map.GetMapInfo(id)
 	if not MapInfo then return UNKNOWN end
 	-- for k,v in pairs(MapInfo) do print(k,v) end
