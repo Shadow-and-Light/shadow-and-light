@@ -801,6 +801,9 @@ L["Quest Glow"] = true
 L["Show glowing border on seeds needed for any quest in your log."] = true
 L["Dock Buttons To"] = true
 L["Change the position from where seed bars will grow."] = true
+L["S&L: Farm Seed Bars"] = true
+L["S&L: Farm Tool Bar"] = true
+L["S&L: Farm Portal Bar"] = true
 --Garrison
 L["Garrison Tools Bar"] = true
 L["Auto Work Orders"] = true
@@ -812,6 +815,7 @@ L["Automatically queue maximum number of work orders available for Trading Post.
 L["Auto Work Orders for Shipyard"] = true
 L["Automatically queue maximum number of work orders available for Shipyard."] = true
 L["Toolbar"] = true
+L["S&L: Garrison Tools Bar"] = true
 --Class Hall
 L["Class Hall"] = true
 L["Auto Work Orders for equipment"] = true

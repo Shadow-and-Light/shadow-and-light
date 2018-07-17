@@ -797,6 +797,9 @@ L["Quest Glow"] = "Свечение заданий"
 L["Show glowing border on seeds needed for any quest in your log."] = "Показывать светящуюся границу на семенах, необходимых на какое-либо из взятых заданий из Вашего журнала."
 L["Dock Buttons To"] = "Прикрепить кнопки к"
 L["Change the position from where seed bars will grow."] = "Изменить сторону, с которой будут расти панели семян."
+L["S&L: Farm Seed Bars"] = "S&L: Семена"
+L["S&L: Farm Tool Bar"] = "S&L: Инструменты фермы"
+L["S&L: Farm Portal Bar"] = "S&L: Порталы фермы "
 --Garrison
 L["Garrison Tools Bar"] = "Панель гарнизона"
 L["Auto Work Orders"] = "Автоматические заказы"
@@ -808,6 +811,7 @@ L["Automatically queue maximum number of work orders available for Trading Post.
 L["Auto Work Orders for Shipyard"] = "Авто. заказы на верфи"
 L["Automatically queue maximum number of work orders available for Shipyard."] = "Автоматически делать максимальное количество заказов для верфи."
 L["Toolbar"] = "Инструменты"
+L["S&L: Garrison Tools Bar"] = "S&L: Инструменты гарнизона"
 --Class Hall
 L["Class Hall"] = "Оплот класса"
 L["Auto Work Orders for equipment"] = "Авто. заказы на экипировку"
