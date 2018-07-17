@@ -528,6 +528,7 @@ function PI:DarthSetup()
 		E.db["sle"]["Armory"]["Character"]["Level"]["FontSize"] = 12
 		E.db["sle"]["Armory"]["Character"]["Backdrop"]["SelectedBG"] = "TheEmpire"
 		E.db["sle"]["Armory"]["Character"]["Backdrop"]["Overlay"] = false
+		E.db["sle"]["Armory"]["Character"]["Gradation"]["ItemQuality"] = true
 	end
 	--Movers
 	do
