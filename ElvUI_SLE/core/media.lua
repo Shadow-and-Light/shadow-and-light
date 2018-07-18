@@ -59,6 +59,16 @@ function M:SetBlizzFonts()
 			else
 				COLOR = E.db.sle.skins.objectiveTracker.colorHeader
 			end
+
+			if not _G["ObjectiveTrackerFrame"].SLEHookedFonts then
+				hooksecurefunc("ObjectiveTracker_Update", function(reason, id) 
+					-- _G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
+					_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
+					_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
+					_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
+				end)
+				_G["ObjectiveTrackerFrame"].SLEHookedFonts = true
+			end
 			_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
 			_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
 			_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
@@ -115,7 +125,7 @@ function M:Initialize()
 	M:TextWidth()
 	hooksecurefunc(E, "UpdateBlizzardFonts", M.SetBlizzFonts)
 	hooksecurefunc("SetZoneText", ZoneTextPos)
-	E:Delay(2, M.SetBlizzFonts)
+	M.SetBlizzFonts()
 	
 	SLE.UpdateFunctions["Media"] = M.Update
 end
