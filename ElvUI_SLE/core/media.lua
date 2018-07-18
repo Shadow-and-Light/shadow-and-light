@@ -115,7 +115,7 @@ function M:Initialize()
 	M:TextWidth()
 	hooksecurefunc(E, "UpdateBlizzardFonts", M.SetBlizzFonts)
 	hooksecurefunc("SetZoneText", ZoneTextPos)
-	M:SetBlizzFonts()
+	E:Delay(2, M.SetBlizzFonts)
 	
 	SLE.UpdateFunctions["Media"] = M.Update
 end
