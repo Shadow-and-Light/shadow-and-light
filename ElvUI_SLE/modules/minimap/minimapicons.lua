@@ -122,6 +122,7 @@ local function SkinButton(Button)
 			Button:SetHighlightTexture(nil)
 			Button:SetDisabledTexture(nil)
 			if Name == "GarrisonLandingPageMinimapButton" then Button:SetScale(1) end
+			if Name == "GRM_MinimapButton" then GRM_MinimapButtonBorder:Hide() end
 		end
 
 		for i = 1, Button:GetNumRegions() do
