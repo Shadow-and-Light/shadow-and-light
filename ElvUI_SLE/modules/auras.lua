@@ -11,28 +11,17 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local C_Timer = C_Timer
 
 function SA:UpdateAura(button, index)
-	if not SA.db.hideBuffsTimer and not SA.db.hideDebuffsTimer then return end
-	local isDebuff
+	if not SA.db.hideBuffsTimer and not SA.db.hideDebuffsTimer then button.time:Show() return end
 	local filter = button:GetParent():GetAttribute('filter')
 	local unit = button:GetParent():GetAttribute("unit")
 	local name, _, _, dtype, duration, expiration = T.UnitAura(unit, index, filter)
 
 	if (name) then
-		if T.UnitBuff('player', name) then
-			isDebuff = false
-		elseif T.UnitDebuff('player', name) then
-			isDebuff = true
-		end
-
-		if isDebuff == false and SA.db.hideBuffsTimer then
+		if filter == "HARMFUL" and SA.db.hideDebuffsTimer then
 			button.time:Hide()
-		elseif isDebuff == false then
-			button.time:Show()
-		end
-
-		if isDebuff == true and SA.db.hideDebuffsTimer then
+		elseif filter == "HELPFUL" and SA.db.hideBuffsTimer then
 			button.time:Hide()
-		elseif isDebuff == true then
+		else
 			button.time:Show()
 		end
 	end
