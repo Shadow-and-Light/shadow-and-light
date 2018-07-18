@@ -1,3 +1,9 @@
+v3.40 [July 18th 2018]
+Fixes:
+- Fixed copy-paste fails in minimap module
+- Fixed WQT compatibility code
+- Fixed auras not hiding texts
+
 v3.399 [July 18th 2018]
 Fixes:
 - Quick fix for copy-paste error in coordinates aquisition
