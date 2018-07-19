@@ -573,6 +573,8 @@ L["Mail Text"] = "Текст письма"
 L["Chat Editbox Text"] = "Текст поля ввода"
 L["Gossip and Quest Frames Text"] = "Текст окон заданий и диалогов"
 L["Banner Big Text"] = "Большой текст баннеров"
+L["Objective Tracker Header Text"] = "Заголовки списка заданий"
+L["Objective Tracker Text"] = "Текст списка заданий"
 
 --Minimap
 L["Minimap Options"] = "Опции миникарты"

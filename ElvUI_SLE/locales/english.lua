@@ -576,6 +576,8 @@ L["Mail Text"] = true
 L["Chat Editbox Text"] = true
 L["Gossip and Quest Frames Text"] = true
 L["Banner Big Text"] = true
+L["Objective Tracker Header Text"] = true
+L["Objective Tracker Text"] = true
 
 --Minimap
 L["Minimap Options"] = true
