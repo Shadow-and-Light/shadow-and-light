@@ -17,12 +17,14 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local TopBannerManager_Show = TopBannerManager_Show
 local BossBanner_BeginAnims = BossBanner_BeginAnims
 local PlaySound = PlaySound
+local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
+local GetSortedSelfResurrectOptions = GetSortedSelfResurrectOptions
 local CancelPetPVPDuel = C_PetBattles.CancelPVPDuel
 
 local SOUNDKIT = SOUNDKIT
 
 function PvP:Release()
-	if (PvP.db.rebirth and not HasSoulstone()) or not PvP.db.rebirth then RepopMe() end
+	if (PvP.db.rebirth and not GetSortedSelfResurrectOptions()) or not PvP.db.rebirth then RepopMe() end
 end
 
 function PvP:Dead()
@@ -36,15 +38,6 @@ function PvP:Dead()
 	for index = 1, T.GetNumWorldPVPAreas() do
 		local _, localizedName, isActive, canQueue = T.GetWorldPVPAreaInfo(index)
 		if (T.GetRealZoneText() == localizedName and isActive) or (T.GetRealZoneText() == localizedName and canQueue) then PvP:Release() end
-	end
-end
-
-function PvP:UpdatePvPHolder()
-	if PvP.CaptureBar1 then
-		PvP.CaptureBar1:HookScript("OnShow", function(self) self:SetPoint("TOP", PvP.AlwaysUpFrame, "BOTTOM", 0, -10) end)
-		PvP.CaptureBar1:Hide()
-		PvP.CaptureBar1:Show()
-		PvP:UnregisterEvent("UPDATE_WORLD_STATES")
 	end
 end
 
@@ -74,8 +67,8 @@ function PvP:OpponentsTable()
 	end
 end
 
-function PvP:LogParse(event, ...)
-	local _, subevent, _, _, Caster, _, _, _, TargetName, TargetFlags = ...
+function PvP:LogParse()
+	local _, subevent, _, _, Caster, _, _, _, TargetName, TargetFlags = CombatLogGetCurrentEventInfo()
 	if subevent == "PARTY_KILL" then
 		local mask = bit_band(TargetFlags, COMBATLOG_OBJECT_TYPE_PLAYER)
 		if Caster == E.myname and (BG_Opponents[TargetName] or mask > 0) then
@@ -88,17 +81,21 @@ end
 function PvP:Initialize()
 	if not SLE.initialized then return end
 	PvP.db = E.db.sle.pvp
-	PvP.AlwaysUpFrame = _G["WorldStateAlwaysUpFrame"]
-	PvP.CaptureBar1 = _G["WorldStateCaptureBar1"]
+	PvP.ScoreWidget = _G["UIWidgetTopCenterContainerFrame"]
+
 	--AutoRes event
 	self:RegisterEvent("PLAYER_DEAD", "Dead");
 	--Mover for pvp info
 	PvP.holder = CreateFrame("Frame", "SLE_PvPHolder", E.UIParent)
 	PvP.holder:SetSize(10, 58)
 	PvP.holder:SetPoint("TOP", E.UIParent, "TOP", -5, -15)
-	PvP.AlwaysUpFrame:ClearAllPoints()
-	PvP.AlwaysUpFrame:SetPoint("CENTER", PvP.holder)
-	self:RegisterEvent("UPDATE_WORLD_STATES", "UpdatePvPHolder")
+	PvP.ScoreWidget:ClearAllPoints()
+	PvP.ScoreWidget:SetPoint("CENTER", PvP.holder)
+
+	hooksecurefunc(UIWidgetManager.registeredWidgetSetContainers[2], "layoutFunc", function(widgetContainer, sortedWidgets)
+		widgetContainer:ClearAllPoints()
+		widgetContainer:SetPoint("TOP", PvP.ScoreWidget, "BOTTOM", 0, -10)
+	end)
 	E:CreateMover(PvP.holder, "PvPMover", "PvP", nil, nil, nil, "ALL,S&L,S&L MISC")
 
 	self:RegisterEvent("DUEL_REQUESTED", "Duels")
@@ -107,7 +104,7 @@ function PvP:Initialize()
 	function PvP:ForUpdateAll()
 		PvP.db = E.db.sle.pvp
 	end
-	
+
 	if E.private.sle.pvp.KBbanner.enable then
 		hooksecurefunc(_G["BossBanner"], "PlayBanner", function(self, data)
 			if ( data ) then
@@ -118,11 +115,7 @@ function PvP:Initialize()
 					self:Show();
 					BossBanner_BeginAnims(self);
 					if E.private.sle.pvp.KBbanner.sound then
-						if E.wowbuild < 24896 then --7.2.5
-							PlaySound("UI_Raid_Boss_Defeated")
-						else --7.3
-							PlaySound(SOUNDKIT.UI_RAID_BOSS_DEFEATED)
-						end
+						PlaySound(SOUNDKIT.UI_RAID_BOSS_DEFEATED)
 					end
 				end
 			end
