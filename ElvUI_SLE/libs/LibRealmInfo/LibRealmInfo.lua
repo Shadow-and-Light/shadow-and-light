@@ -107,7 +107,6 @@ function lib:GetRealmInfoByID(id)
 	end
 
 	local realm = realmData[id]
-	for k,v in pairs(realm) do print(k,v) end
 	if realm and realm.name then
 		return realm.id, realm.name, realm.nameForAPI, realm.rules, realm.locale, nil, realm.region, realm.timezone, shallowCopy(realm.connections), realm.englishName, realm.englishNameForAPI
 	end
