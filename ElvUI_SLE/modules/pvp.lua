@@ -24,7 +24,8 @@ local CancelPetPVPDuel = C_PetBattles.CancelPVPDuel
 local SOUNDKIT = SOUNDKIT
 
 function PvP:Release()
-	if (PvP.db.rebirth and not GetSortedSelfResurrectOptions()) or not PvP.db.rebirth then RepopMe() end
+	local resOptions = GetSortedSelfResurrectOptions()
+	if (PvP.db.rebirth and not resOptions[1]) or not PvP.db.rebirth then print("Should repop") RepopMe() end
 end
 
 function PvP:Dead()
