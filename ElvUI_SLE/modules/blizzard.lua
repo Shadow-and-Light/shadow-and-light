@@ -74,6 +74,7 @@ B.AddonsList = {
 	["Blizzard_Calendar"] = { "CalendarCreateEventFrame", "CalendarFrame", "CalendarViewEventFrame", "CalendarViewHolidayFrame" },
 	["Blizzard_ChallengesUI"] = { "ChallengesKeystoneFrame" }, -- 'ChallengesLeaderboardFrame'
 	["Blizzard_Collections"] = { "CollectionsJournal" },
+	["Blizzard_Communities"] = { "CommunitiesFrame" },
 	["Blizzard_EncounterJournal"] = { "EncounterJournal" },
 	["Blizzard_GarrisonUI"] = { "GarrisonLandingPage", "GarrisonMissionFrame", "GarrisonCapacitiveDisplayFrame", "GarrisonBuildingFrame", "GarrisonRecruiterFrame", "GarrisonRecruitSelectFrame", "GarrisonShipyardFrame" },
 	["Blizzard_GMChatUI"] = { "GMChatStatusFrame" },
