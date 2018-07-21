@@ -159,7 +159,7 @@ T.GetMinimapZoneText = GetMinimapZoneText
 T.GetMapNameByID = C_Map.GetMapInfo
 T.GetCurrentMapAreaID = C_Map.GetCurrentMapAreaID
 T.GetSubZoneText = GetSubZoneText
-T.GetPlayerMapPosition = C_Map.GetPlayerMapPosition
+T.GetBestMapForUnit = C_Map.GetBestMapForUnit
 T.GetZonePVPInfo = GetZonePVPInfo
 --Currency
 T.GetCurrencyListSize = GetCurrencyListSize
