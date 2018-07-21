@@ -21,9 +21,8 @@ end
 function MM:UpdateCoords(elapsed)
 	MM.coordspanel.elapsed = (MM.coordspanel.elapsed or 0) + elapsed
 	if MM.coordspanel.elapsed < E.db.sle.minimap.coords.throttle then return end
-	local mapID = T.GetBestMapForUnit("player")
 	if E.MapInfo.mapID then
-		local x, y = E:GetPlayerMapPos(mapID)
+		local x, y = E.MapInfo.x, E.MapInfo.y
 		if x then x = T.format(E.db.sle.minimap.coords.format, x * 100) else x = "0" end
 		if y then y = T.format(E.db.sle.minimap.coords.format, y * 100) else y = "0" end
 		if x == "0" or x == "0.0" or x == "0.00" then x = "-" end

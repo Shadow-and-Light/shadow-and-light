@@ -268,9 +268,8 @@ function LP:UpdateCoords(elapsed)
 	LP.elapsed = LP.elapsed + elapsed
 	if LP.elapsed < (LP.db.throttle or 0.2) then return end
 	--Coords
-	local mapID = T.GetBestMapForUnit("player")
 	if E.MapInfo.mapID then
-		local x, y = E:GetPlayerMapPos(mapID)
+		local x, y = E.MapInfo.x, E.MapInfo.y
 		if x then x = T.format(LP.db.format, x * 100) else x = "0" end
 		if y then y = T.format(LP.db.format, y * 100) else y = "0" end
 		if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
