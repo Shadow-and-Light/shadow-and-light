@@ -163,7 +163,7 @@ function C:ParseChatEventInv(event, msg, sender, ...)
 	return false, msg, sender, ...
 end
 
-function C:SetItemRef(link, text, button, chatframe)
+local function SetItemRef(link, text, button, chatframe)
 	local linktype, id = T.split(":", link)
 	if C.db.dpsSpam then
 		if linktype == "SLD" then
@@ -185,10 +185,14 @@ function C:SetItemRef(link, text, button, chatframe)
 		InviteUnit(id)
 		return nil
 	elseif linktype == "invite" then
-		InviteUnit(id)
+		if T.find(id, "|K") then --Bnet whisper
+			local bnetID = T.match(id, "|K%w(%d+)")
+			FriendsFrame_BattlenetInvite(nil, bnetID)
+		else
+			InviteUnit(id)
+		end
 		return nil
 	end
-	return self.hooks.SetItemRef(link, text, button, chatframe)
 end
 
 function C:SpamFilter()
@@ -223,7 +227,7 @@ end
 function C:InitLinks()
 	C:SpamFilter()
 	C:CreateInvKeys()
-	C:RawHook("SetItemRef", true)
+	hooksecurefunc("SetItemRef", SetItemRef)
 	-- Borrowed from Deadly Boss Mods
 	do
 		local old = ItemRefTooltip.SetHyperlink -- we have to hook this function since the default ChatFrame code assumes that all links except for player and channel links are valid arguments for this function
