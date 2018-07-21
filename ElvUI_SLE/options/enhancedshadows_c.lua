@@ -1,5 +1,5 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-if SLE._Compatibility["ElvUI_NenaUI"] then return end
+if SLE._Compatibility["ElvUI_ChaoticUI"] then return end
 local ES = SLE:GetModule("EnhancedShadows")
 
 local function configTable()
