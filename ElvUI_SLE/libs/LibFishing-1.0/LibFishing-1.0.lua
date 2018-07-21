@@ -28,6 +28,7 @@ FishLib.hasgear = false;
 local PROFESSIONS_FISHING, INVSLOT_MAINHAND = PROFESSIONS_FISHING, INVSLOT_MAINHAND
 local ipairs = ipairs
 local GetInventoryItemLink = GetInventoryItemLink
+local GetInventoryItemID = GetInventoryItemID
 local GetWeaponEnchantInfo = GetWeaponEnchantInfo
 local UnitBuff = UnitBuff
 local GetItemCooldown = GetItemCooldown
@@ -425,11 +426,15 @@ function FishLib:GetPoleType()
 	return fp_itemtype, fp_subtype;
 end
 
+local UNDERLIGHT_ANGLER_ITEM_ID = 133755
 function FishLib:IsFishingPole(itemLink)
 	if (not itemLink) then
 		itemLink = GetInventoryItemLink("player", INVSLOT_MAINHAND);
 	end
 	if ( itemLink ) then
+		if (GetInventoryItemID("player", INVSLOT_MAINHAND) == UNDERLIGHT_ANGLER_ITEM_ID) then
+			return true;
+		end
 		local _,_,_,_,itemtype,subtype = self:GetItemInfo(itemLink);
 		if ( fp_itemtype and fp_subtype ) then
 			return (itemtype == fp_itemtype) and (subtype == fp_subtype);
