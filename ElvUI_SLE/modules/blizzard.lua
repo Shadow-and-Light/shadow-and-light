@@ -133,7 +133,6 @@ local function OnDragStop(self)
 	end
 end
 
-
 function B:MakeMovable(frameName)
 	local frame = _G[frameName]
 	if not frame then
@@ -191,13 +190,10 @@ end
 
 function B:VehicleScale()
 	local frame = _G["VehicleSeatIndicator"]
-	local uiScale = UIParent:GetScale()
-	local frameScale = uiScale * B.db.vehicleSeatScale
+	local frameScale = B.db.vehicleSeatScale
 	frame:SetScale(frameScale)
 	if frame.mover then
 		frame.mover:SetSize(frameScale * frame:GetWidth(), frameScale * frame:GetHeight())
-	else
-		E:Delay(1, B.VehicleScale)
 	end
 end
 
@@ -230,7 +226,8 @@ function B:Initialize()
 
 	end
 
-	E:Delay(1, B.VehicleScale)
+	hooksecurefunc(VehicleSeatIndicator,"SetPoint", B.VehicleScale)
+
 	B:ErrorFrameSize()
 	function B:ForUpdateAll()
 		B.db = E.db.sle.blizzard
