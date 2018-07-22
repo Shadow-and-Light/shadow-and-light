@@ -53,7 +53,7 @@ end
 function EVB:CreateExtraButtonSet()
 	local bar = self.bar
 	bar.buttons = {}
-	for i = 1, 7 do
+	for i = 1, EVB.NumButtons do
 		i = i == 7 and 12 or i
 
 		bar.buttons[i] = LAB:CreateButton(i, T.format(bar:GetName().."Button%d", i), bar, nil);
@@ -100,6 +100,7 @@ function EVB:ButtonsSize()
 			self.bar.buttons[i]:SetPoint('LEFT', prev, 'RIGHT', self.spacing, 0)
 		end
 	end
+	if not self.bar.buttons[12] then return end
 	self.bar.buttons[12]:Size(self.size);
 	self.bar.buttons[12]:SetPoint('LEFT', self.bar.buttons[6], 'RIGHT', self.spacing, 0)
 end
@@ -111,7 +112,7 @@ function EVB:BarSize()
 	self.size = E.db.sle.actionbars.vehicle.buttonsize
 	self.spacing = E.db.sle.actionbars.vehicle.buttonspacing
 
-	bar:SetWidth((self.size * 7) + (self.spacing * 6) + 4);
+	bar:SetWidth((self.size * EVB.NumButtons) + (self.spacing * (EVB.NumButtons-1)) + 4);
 	bar:SetHeight(self.size + 4);
 end
 
@@ -123,7 +124,7 @@ end
 function EVB:Initialize()
 	if not SLE.initialized then return end
 	if not E.private.sle.vehicle.enable or not E.private.actionbar.enable then return end;
-
+	EVB.NumButtons = E.private.sle.vehicle.numButtons
 	ES = SLE._Compatibility["ElvUI_ChaoticUI"] and ElvUI_ChaoticUI[1]:GetModule("EnhancedShadows") or SLE:GetModule("EnhancedShadows")
 
 	local visibility = "[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] hide;"
