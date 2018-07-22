@@ -34,7 +34,7 @@ local function configTable()
 						name = L["Remember"],
 						desc = L["Remember positions of frames after moving them."],
 						get = function(info) return E.private.sle.module.blizzmove.remember end,
-						set = function(info, value) E.private.sle.module.blizzmove.remember = value; end,
+						set = function(info, value) E.private.sle.module.blizzmove.remember = value; E:StaticPopup_Show("PRIVATE_RL") end,
 						disabled = function() return not E.private.sle.module.blizzmove.enable end,
 					},
 				}

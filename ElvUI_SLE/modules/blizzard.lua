@@ -100,6 +100,10 @@ B.AddonsList = {
 local function LoadPosition(self)
 	if self.IsMoving == true then return end
 	local Name = self:GetName()
+	if not self:GetPoint() then
+		self:SetPoint('TOPLEFT', 'UIParent', 'TOPLEFT', 16, -116)
+	end
+
 	if E.private.sle.module.blizzmove.remember and E.private.sle.module.blizzmove.points[Name] then
 		self:ClearAllPoints()
 		self:SetPoint(T.unpack(E.private.sle.module.blizzmove.points[Name]))
@@ -133,15 +137,13 @@ local function OnDragStop(self)
 	end
 end
 
-function B:MakeMovable(frameName)
-	local frame = _G[frameName]
+
+function B:MakeMovable(Name)
+	local frame = _G[Name]
 	if not frame then
 		SLE:ErrorPrint("Frame to move doesn't exist: "..(frameName or "Unknown"))
 		return
 	end
-
-	local Name = frame:GetName()
-	if not Name then return end
 
 	if Name == "AchievementFrame" then AchievementFrameHeader:EnableMouse(false) end
 
@@ -167,6 +169,10 @@ function B:MakeMovable(frameName)
 
 	C_Timer.After(0, function()
 		if E.private.sle.module.blizzmove.remember and E.private.sle.module.blizzmove.points[Name] then
+			if not frame:GetPoint() then
+				frame:SetPoint('TOPLEFT', 'UIParent', 'TOPLEFT', 16, -116)
+			end
+
 			frame:ClearAllPoints()
 			frame:SetPoint(T.unpack(E.private.sle.module.blizzmove.points[Name]))
 		end
@@ -190,10 +196,13 @@ end
 
 function B:VehicleScale()
 	local frame = _G["VehicleSeatIndicator"]
-	local frameScale = B.db.vehicleSeatScale
+	local uiScale = UIParent:GetScale()
+	local frameScale = uiScale * B.db.vehicleSeatScale
 	frame:SetScale(frameScale)
 	if frame.mover then
 		frame.mover:SetSize(frameScale * frame:GetWidth(), frameScale * frame:GetHeight())
+	else
+		E:Delay(1, B.VehicleScale)
 	end
 end
 
@@ -226,8 +235,7 @@ function B:Initialize()
 
 	end
 
-	hooksecurefunc(VehicleSeatIndicator,"SetPoint", B.VehicleScale)
-
+	E:Delay(1, B.VehicleScale)
 	B:ErrorFrameSize()
 	function B:ForUpdateAll()
 		B.db = E.db.sle.blizzard
