@@ -155,6 +155,17 @@ function B:MakeMovable(frameName)
 	frame:HookScript("OnDragStop", OnDragStop)
 	frame:HookScript("OnHide", OnDragStop)
 
+	if E.private.sle.module.blizzmove.remember then
+		frame.ignoreFramePositionManager = true
+		if UIPanelWindows[Name] then
+			for Key in T.pairs(UIPanelWindows[Name]) do
+				if Key == 'area' or Key == "pushable" then
+					UIPanelWindows[Name][Key] = nil
+				end
+			end
+		end
+	end
+
 	C_Timer.After(0, function()
 		if E.private.sle.module.blizzmove.remember and E.private.sle.module.blizzmove.points[Name] then
 			frame:ClearAllPoints()
