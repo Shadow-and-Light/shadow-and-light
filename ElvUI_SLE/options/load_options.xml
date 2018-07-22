@@ -22,7 +22,7 @@
 	<Script file='loot_c.lua'/>
 	<Script file='nameplates_c.lua'/>
 	<Script file='raidmarkers_c.lua'/>
-	<!--<Script file='tooltip_c.lua'/>-->
+	<Script file='tooltip_c.lua'/>
 	<Script file='uibuttons_c.lua'/>
 	<Script file='databars_c.lua'/>
 	<Script file='quests_c.lua'/>
