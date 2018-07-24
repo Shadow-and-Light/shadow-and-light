@@ -67,9 +67,10 @@ local function UpdateCooldown(anchor)
 end
 
 local function UpdateBar(bar, layoutfunc, zonecheck, anchor, buttons, category, returnDB)
+	local db = returnDB()
+	if not db.enable then bar:Hide() return end
 	bar:Show()
 
-	local db = returnDB()
 	local count = layoutfunc(bar, anchor, buttons, category, db)
 	if (db.enable and (count and count > 0) and zonecheck() and not T.InCombatLockdown()) then
 		bar:Show()
@@ -130,6 +131,7 @@ function Tools:UpdateLayout(event, unit) --don't touch
 		if anchor.mover then
 			if anchor.EnableMover() then
 				E:EnableMover(anchor.mover:GetName())
+				anchor.Resize(anchor)
 			else
 				E:DisableMover(anchor.mover:GetName())
 			end
@@ -138,7 +140,6 @@ function Tools:UpdateLayout(event, unit) --don't touch
 			local bar = anchor.Bars[anchor.BarsName..i]
 			UpdateBar(bar, anchor.UpdateBarLayout, bar.zonecheck, anchor, bar.Buttons, bar.id, anchor.ReturnDB)
 		end
-		anchor.Resize(anchor)
 	end
 end
 
@@ -278,9 +279,11 @@ end
 function Tools:Initialize()
 	if not SLE.initialized then return end
 
-	-- function Tools:ForUpdateAll()
-		-- Tools:UpdateLayout()
-	-- end
+	E:Delay(3, function() Tools:UpdateLayout() end)
+
+	function Tools:ForUpdateAll()
+		Tools:UpdateLayout()
+	end
 end
 
 SLE:RegisterModule(Tools:GetName())
