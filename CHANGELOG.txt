@@ -1,4 +1,4 @@
-v3.41
+v3.42
 Required version of ElvUi is 10.78
 Fixes:
 - PvP is even more fixed now™
@@ -15,7 +15,7 @@ Changes:
 - Due to blizz API being broken (as usual!) we can't get boss kill info on pre-Legion LFR raids. Options for tracking those were removed.
 
 
-v3.40 [July 19th 2018]
+v3.41 [July 19th 2018]
 Fixes:
 - Fixed some datatexts trying to register events no longer existing
 - Fixed quest log fonts reseting to default all the time
