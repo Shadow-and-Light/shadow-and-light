@@ -578,48 +578,57 @@ local function Antorus()
 	end
 end
 
+local function Uldir()
+	if IsShiftKeyDown() then
+		EightShift(1731,1732); --1733
+	else
+		EightKill(1731,1732); --1733
+	end
+end
+
 LFR.Req = {
 	["Cata"] = {3, 85},
 	["MoP"] = {4, 90},
 	["WoD"] = {5, 100},
 	["Legion"] = {6, 110},
+	["BFA"] = {7, 120},
 }
 LFR.Cata = {
 	[1] = {
 		["name"] = 'ds',
-		["ilevel"] = 372,
-		["map"] = 824,
+		["ilevel"] = 108,
+		["map"] = 409,
 		["func"] = DragonSoul,
 	},
 }
 LFR.MoP = {
 	[1] = {
 		["name"] = 'mv',
-		["ilevel"] = 460,
-		["map"] = 896,
+		["ilevel"] = 116,
+		["map"] = 471,
 		["func"] = Mogushan,
 	},
 	[2] = {
 		["name"] = 'hof',
-		["ilevel"] = 470,
+		["ilevel"] = 116,
 		["map"] = 897,
 		["func"] = HoF,
 	},
 	[3] = {
 		["name"] = 'toes',
-		["ilevel"] = 470,
+		["ilevel"] = 116,
 		["map"] = 886,
 		["func"] = ToES,
 	},
 	[4] = {
 		["name"] = 'tot',
-		["ilevel"] = 480,
+		["ilevel"] = 116,
 		["map"] = 930,
 		["func"] = ToT,
 	},
 	[5] = {
 		["name"] = 'soo',
-		["ilevel"] = 496,
+		["ilevel"] = 116,
 		["map"] = 953,
 		["func"] = SoO,
 	},
@@ -627,61 +636,68 @@ LFR.MoP = {
 LFR.WoD = {
 	[1] = {
 		["name"] = 'hm',
-		["ilevel"] = 615,
-		["map"] = 994,
+		["ilevel"] = 136,
+		["map"] = 610,
 		["func"] = HM,
 	},
 	[2] = {
 		["name"] = 'brf',
-		["ilevel"] = 635,
-		["map"] = 988,
+		["ilevel"] = 136,
+		["map"] = 596,
 		["func"] = BRF,
 	},
 	[3] = {
 		["name"] = 'hfc',
-		["ilevel"] = 650,
-		["map"] = 1026,
+		["ilevel"] = 138,
+		["map"] = 661,
 		["func"] = HFC,
 	},
 }
 LFR.Legion = {
 	[1] = {
 		["name"] = 'nightmare',
-		["ilevel"] = 825,
-		["map"] = 1094,
+		["ilevel"] = 160,
+		["map"] = 777,
 		["func"] = Nightmare,
 	},
 	[2] = {
 		["name"] = 'trial',
-		["ilevel"] = 825,
-		["map"] = 1114,
+		["ilevel"] = 160,
+		["map"] = 806,
 		["func"] = Trial,
 	},
 	[3] = {
 		["name"] = 'palace',
-		["ilevel"] = 835,
-		["map"] = 1088,
+		["ilevel"] = 162,
+		["map"] = 764,
 		["func"] = Suramar,
 	},
 	[4] = {
 		["name"] = "tomb",
-		["ilevel"] = 860,
-		["map"] = 1147,
+		["ilevel"] = 172,
+		["map"] = 850,
 		["func"] = TombOfSargeras,
 	},
 	[5] = {
 		["name"] = "antorus",
-		["ilevel"] = 890,
-		["map"] = 1188,
+		["ilevel"] = 184,
+		["map"] = 909,
 		["func"] = Antorus,
+	},
+}
+LFR.BFA = {
+	[1] = {
+		["name"] = "uldir",
+		["ilevel"] = 300,
+		["map"] = 1148,
+		["func"] = Uldir,
 	},
 }
 
 function LFR:CheckOptions()
-	if LFR.db.cata.ds or LFR:CheckMoP() or LFR:CheckWoD() or LFR:CheckLegion() then return true end
+	if LFR.db.cata.ds or LFR:CheckMoP() or LFR:CheckWoD() or LFR:CheckLegion() or LFR:CheckBFA() then return true end
 	return false
 end
-
 function LFR:CheckCata()
 	if LFR.db.cata.ds then return true else return false end
 end
@@ -689,7 +705,7 @@ function LFR:CheckMoP()
 	for k, v in T.pairs(LFR.db.mop) do
 		if v == true then
 			return v
-      end
+		end
 	end
 	return false
 end
@@ -697,7 +713,23 @@ function LFR:CheckWoD()
 	for k, v in T.pairs(LFR.db.wod) do
 		if v == true then
 			return v
-      end
+		end
+	end
+	return false
+end
+function LFR:CheckLegion()
+	for k, v in T.pairs(LFR.db.legion) do
+		if v == true then
+			return v
+		end
+	end
+	return false
+end
+function LFR:CheckBFA()
+	for k, v in T.pairs(LFR.db.bfa) do
+		if v == true then
+			return v
+		end
 	end
 	return false
 end
@@ -710,7 +742,7 @@ function LFR:BuildGroup(lvl, ilvl, expack)
 	for i = 1, #(LFR[expack]) do
 		local db = LFR[expack][i]
 		if LFR.db[small][db.name] then
-			DT.tooltip:AddLine(" "..T.GetMapNameByID(db.map))
+			DT.tooltip:AddLine(" "..SLE:GetMapInfo(db.map, "name"))
 			if lvl >= req and ilvl >= db.ilevel then
 				db.func()
 			else
@@ -721,14 +753,7 @@ function LFR:BuildGroup(lvl, ilvl, expack)
 	DT.tooltip:AddLine(" ")
 end
 
-function LFR:CheckLegion()
-	for k, v in T.pairs(LFR.db.legion) do
-		if v == true then
-			return v
-      end
-	end
-	return false
-end
+
 
 function LFR:Show()
 	local lvl = T.UnitLevel("player")
@@ -739,10 +764,11 @@ function LFR:Show()
 		DT.tooltip:AddLine(" "..L["You didn't select any instance to track."])
 		return
 	end
-	LFR:BuildGroup(lvl, ilvl, "Cata")
-	LFR:BuildGroup(lvl, ilvl, "MoP")
-	LFR:BuildGroup(lvl, ilvl, "WoD")
+	LFR:BuildGroup(lvl, ilvl, "BFA")
 	LFR:BuildGroup(lvl, ilvl, "Legion")
+	LFR:BuildGroup(lvl, ilvl, "WoD")
+	LFR:BuildGroup(lvl, ilvl, "MoP")
+	LFR:BuildGroup(lvl, ilvl, "Cata")
 end
 
 function LFR:BossStatus(bossName, isKilled, isIneligible)
