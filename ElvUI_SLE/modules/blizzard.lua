@@ -165,6 +165,7 @@ function B:MakeMovable(Name)
 				end
 			end
 		end
+		if not UISpecialFrames[Name] then T.tinsert(UISpecialFrames, Name) end
 	end
 
 	C_Timer.After(0, function()
