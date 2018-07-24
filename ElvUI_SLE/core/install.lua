@@ -161,6 +161,7 @@ function PI:DarthSetup()
 		E.db["databars"]["azerite"]["textFormat"] = "CURMAX"
 		E.db["databars"]["azerite"]["height"] = 10
 		E.db["databars"]["azerite"]["width"] = 380
+		E.db["databars"]["azerite"]["textSize"] = 10
 		E.db["databars"]["reputation"]["reverseFill"] = true
 		E.db["databars"]["reputation"]["orientation"] = "HORIZONTAL"
 		E.db["databars"]["reputation"]["height"] = 10
@@ -173,6 +174,7 @@ function PI:DarthSetup()
 		E.db["databars"]["honor"]["textFormat"] = "CURMAX"
 		E.db["databars"]["honor"]["height"] = 10
 		E.db["databars"]["honor"]["width"] = 380
+		E.db["databars"]["honor"]["textSize"] = 10
 	end
 	--Datatexts
 	do
@@ -558,13 +560,13 @@ function PI:DarthSetup()
 		E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,0,-65"
 		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,-125,19"
 		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,444,19"
-		E.db["movers"]["AzeriteBarMover"] = "TOP,ElvUIParent,TOP,0,-20"
+		E.db["movers"]["AzeriteBarMover"] = "TOP,ElvUIParent,TOP,0,-29"
 		E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-3,188"
 		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-220,186"
 		E.db["movers"]["ObjectiveFrameMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,98,-4"
 		E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-59,-299"
 		E.db["movers"]["ShiftAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,761,29"
-		E.db["movers"]["HonorBarMover"] = "TOP,ElvUIParent,TOP,0,-29"
+		E.db["movers"]["HonorBarMover"] = "TOP,ElvUIParent,TOP,0,-20"
 		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-59,-299"
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,-267,142"
 		E.db["movers"]["PvPMover"] = "TOP,ElvUIParent,TOP,-5,-59"
