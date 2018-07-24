@@ -367,6 +367,9 @@ P["sle"] = {
 			["tomb"] = false,
 			["antorus"] = false,
 		},
+		["bfa"] = {
+			["uldir"] = false,
+		},
 	},
 	--Loot 
 	["loot"] = {
