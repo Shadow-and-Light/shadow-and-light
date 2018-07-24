@@ -26,42 +26,42 @@ local function configTable()
 				get = function(info) return E.db.sle.lfr[ info[#info] ] end,
 				set = function(info, value) E.db.sle.lfr[ info[#info] ] = value; end,
 				args = {
-					Cata = {
-						order = expackNum, type = "group",
-						name = EXPANSION_NAME3,
-						guiInline = true,
-						get = function(info) return E.db.sle.lfr.cata[ info[#info] ] end,
-						set = function(info, value) E.db.sle.lfr.cata[ info[#info] ] = value; end,
-						args = {
-							ds = { order = 1, type = "toggle", name = SLE:GetMapInfo(409, "name") },
-						},
-					},
-					MoP = {
-						order = expackNum-1, type = "group",
-						name = EXPANSION_NAME4,
-						guiInline = true,
-						get = function(info) return E.db.sle.lfr.mop[ info[#info] ] end,
-						set = function(info, value) E.db.sle.lfr.mop[ info[#info] ] = value; end,
-						args = {
-							mv = { order = 1, type = "toggle", name = SLE:GetMapInfo(471, "name") },
-							hof = { order = 2, type = "toggle", name = SLE:GetMapInfo(474, "name") },
-							toes = { order = 3, type = "toggle", name = SLE:GetMapInfo(456, "name") },
-							tot = { order = 4, type = "toggle", name = SLE:GetMapInfo(508, "name") },
-							soo = { order = 5, type = "toggle", name = SLE:GetMapInfo(556, "name") },
-						},
-					},
-					WoD = {
-						order = expackNum-2, type = "group",
-						name = EXPANSION_NAME5,
-						guiInline = true,
-						get = function(info) return E.db.sle.lfr.wod[ info[#info] ] end,
-						set = function(info, value) E.db.sle.lfr.wod[ info[#info] ] = value; end,
-						args = {
-							hm = { order = 1, type = "toggle", name = SLE:GetMapInfo(610, "name") },
-							brf = { order = 2, type = "toggle", name = SLE:GetMapInfo(596, "name")},
-							hfc = { order = 3, type = "toggle", name = SLE:GetMapInfo(661, "name") },
-						},
-					},
+					-- Cata = {
+						-- order = expackNum, type = "group",
+						-- name = EXPANSION_NAME3,
+						-- guiInline = true,
+						-- get = function(info) return E.db.sle.lfr.cata[ info[#info] ] end,
+						-- set = function(info, value) E.db.sle.lfr.cata[ info[#info] ] = value; end,
+						-- args = {
+							-- ds = { order = 1, type = "toggle", name = SLE:GetMapInfo(409, "name") },
+						-- },
+					-- },
+					-- MoP = {
+						-- order = expackNum-1, type = "group",
+						-- name = EXPANSION_NAME4,
+						-- guiInline = true,
+						-- get = function(info) return E.db.sle.lfr.mop[ info[#info] ] end,
+						-- set = function(info, value) E.db.sle.lfr.mop[ info[#info] ] = value; end,
+						-- args = {
+							-- mv = { order = 1, type = "toggle", name = SLE:GetMapInfo(471, "name") },
+							-- hof = { order = 2, type = "toggle", name = SLE:GetMapInfo(474, "name") },
+							-- toes = { order = 3, type = "toggle", name = SLE:GetMapInfo(456, "name") },
+							-- tot = { order = 4, type = "toggle", name = SLE:GetMapInfo(508, "name") },
+							-- soo = { order = 5, type = "toggle", name = SLE:GetMapInfo(556, "name") },
+						-- },
+					-- },
+					-- WoD = {
+						-- order = expackNum-2, type = "group",
+						-- name = EXPANSION_NAME5,
+						-- guiInline = true,
+						-- get = function(info) return E.db.sle.lfr.wod[ info[#info] ] end,
+						-- set = function(info, value) E.db.sle.lfr.wod[ info[#info] ] = value; end,
+						-- args = {
+							-- hm = { order = 1, type = "toggle", name = SLE:GetMapInfo(610, "name") },
+							-- brf = { order = 2, type = "toggle", name = SLE:GetMapInfo(596, "name")},
+							-- hfc = { order = 3, type = "toggle", name = SLE:GetMapInfo(661, "name") },
+						-- },
+					-- },
 					Legion = {
 						order = expackNum-3, type = "group",
 						name = EXPANSION_NAME6,
@@ -83,10 +83,7 @@ local function configTable()
 						get = function(info) return E.db.sle.lfr.bfa[ info[#info] ] end,
 						set = function(info, value) E.db.sle.lfr.bfa[ info[#info] ] = value; end,
 						args = {
-							-- soon = {
-								-- order = 1, type = "description", name = "Soon™",
 							uldir = { order = 1, type = "toggle", name = SLE:GetMapInfo(1148 , "name") },
-							-- },
 						},
 					},
 				},
