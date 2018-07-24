@@ -137,6 +137,7 @@ T.next = next
 T.FlipCameraYaw = FlipCameraYaw
 --Instance
 T.IsInInstance = IsInInstance
+T.GetLFGDungeonNumEncounters = GetLFGDungeonNumEncounters
 T.GetLFGDungeonEncounterInfo = GetLFGDungeonEncounterInfo
 T.GetInstanceInfo = GetInstanceInfo
 --Combat

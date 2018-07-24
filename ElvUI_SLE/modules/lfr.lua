@@ -15,7 +15,7 @@ local IsShiftKeyDown = IsShiftKeyDown
 
 local bossName, _, isKilled, isIneligible
 local ExpackColor = "|cff9482c9"
-
+--[[
 --For 3 boss raid
 local function ThreeKill(id)
 	local killNum = 0
@@ -464,9 +464,9 @@ local function FourteenShift(id1, id2, id3, id4)
 		bossName, _, isKilled, isIneligible = T.GetLFGDungeonEncounterInfo(id4, i);
 		LFR:BossStatus(bossName, isKilled, isIneligible)
 	end
-end
+end]]
 
-local function DragonSoul()
+--[[local function DragonSoul()
 	if IsShiftKeyDown() then
 		EightShift(416, 417)
 	else
@@ -536,60 +536,36 @@ local function HFC()
 	else
 		HFCKill(982, 983, 984, 985, 986);
 	end
-end
+end]]
 
 local function Nightmare()
-	if IsShiftKeyDown() then
-		NightmareShift(1287,1288,1289);
-	else
-		NightmareKill(1287,1288,1289);
-	end
+	LFR:GetRaidLockInfo(1287,1288,1289);
 end
 
 local function Suramar()
-	if IsShiftKeyDown() then
-		TenShift(1290,1291,1292,1293);
-	else
-		TenKill(1290,1291,1292,1293);
-	end
+	LFR:GetRaidLockInfo(1290,1291,1292,1293);
 end
 
 local function Trial()
-	if IsShiftKeyDown() then
-		ThreeShift(1411);
-	else
-		ThreeKill(1411);
-	end
+	LFR:GetRaidLockInfo(1411);
 end
 
 local function TombOfSargeras()
-	if IsShiftKeyDown() then
-		NineShift(1494,1495,1496,1497);
-	else
-		NineKill(1494,1495,1496,1497);
-	end
+	LFR:GetRaidLockInfo(1494,1495,1496,1497);
 end
 
 local function Antorus()
-	if IsShiftKeyDown() then
-		ElevenShift(1610,1611,1612,1613);
-	else
-		ElevenKill(1610,1611,1612,1613);
-	end
+	LFR:GetRaidLockInfo(1610,1611,1612,1613)
 end
 
 local function Uldir()
-	if IsShiftKeyDown() then
-		EightShift(1731,1732); --1733
-	else
-		EightKill(1731,1732); --1733
-	end
+	LFR:GetRaidLockInfo(1731,1732,1733)
 end
 
 LFR.Req = {
-	["Cata"] = {3, 85},
-	["MoP"] = {4, 90},
-	["WoD"] = {5, 100},
+	-- ["Cata"] = {3, 85},
+	-- ["MoP"] = {4, 90},
+	-- ["WoD"] = {5, 100},
 	["Legion"] = {6, 110},
 	["BFA"] = {7, 120},
 }
@@ -753,7 +729,26 @@ function LFR:BuildGroup(lvl, ilvl, expack)
 	DT.tooltip:AddLine(" ")
 end
 
-
+function LFR:GetRaidLockInfo(...)
+	local raidIDs = {...}
+	local count = 0
+	local killNum = 0
+	for i = 1, #raidIDs do
+		local numEncounters = GetLFGDungeonNumEncounters(raidIDs[i])
+		count = count + numEncounters
+		for j = 1, numEncounters do
+			local bossName, _, isKilled = GetLFGDungeonEncounterInfo(raidIDs[i], j);
+			if IsShiftKeyDown() then
+				LFR:BossStatus(bossName, isKilled, isIneligible)
+			else
+				if (isKilled) then killNum = killNum + 1 end
+			end
+		end
+	end
+	if not IsShiftKeyDown() then
+		LFR:BossCount(killNum, count)
+	end
+end
 
 function LFR:Show()
 	local lvl = T.UnitLevel("player")
@@ -766,9 +761,9 @@ function LFR:Show()
 	end
 	LFR:BuildGroup(lvl, ilvl, "BFA")
 	LFR:BuildGroup(lvl, ilvl, "Legion")
-	LFR:BuildGroup(lvl, ilvl, "WoD")
-	LFR:BuildGroup(lvl, ilvl, "MoP")
-	LFR:BuildGroup(lvl, ilvl, "Cata")
+	-- LFR:BuildGroup(lvl, ilvl, "WoD")
+	-- LFR:BuildGroup(lvl, ilvl, "MoP")
+	-- LFR:BuildGroup(lvl, ilvl, "Cata")
 end
 
 function LFR:BossStatus(bossName, isKilled, isIneligible)
@@ -792,9 +787,15 @@ end
 
 function LFR:Initialize()
 	if not SLE.initialized then return end
+	if E.db.sle.lfr.cata then E.db.sle.lfr.cata = nil end
+	if E.db.sle.lfr.mop then E.db.sle.lfr.mop = nil end
+	if E.db.sle.lfr.wod then E.db.sle.lfr.wod = nil end
 	LFR.db = E.db.sle.lfr
 
 	function LFR:ForUpdateAll()
+		if E.db.sle.lfr.cata then E.db.sle.lfr.cata = nil end
+		if E.db.sle.lfr.mop then E.db.sle.lfr.mop = nil end
+		if E.db.sle.lfr.wod then E.db.sle.lfr.wod = nil end
 		LFR.db = E.db.sle.lfr
 	end
 end
