@@ -671,10 +671,10 @@ LFR.BFA = {
 }
 
 function LFR:CheckOptions()
-	if LFR.db.cata.ds or LFR:CheckMoP() or LFR:CheckWoD() or LFR:CheckLegion() or LFR:CheckBFA() then return true end
+	if LFR:CheckLegion() or LFR:CheckBFA() then return true end
 	return false
 end
-function LFR:CheckCata()
+--[[function LFR:CheckCata()
 	if LFR.db.cata.ds then return true else return false end
 end
 function LFR:CheckMoP()
@@ -692,7 +692,7 @@ function LFR:CheckWoD()
 		end
 	end
 	return false
-end
+end]]
 function LFR:CheckLegion()
 	for k, v in T.pairs(LFR.db.legion) do
 		if v == true then
