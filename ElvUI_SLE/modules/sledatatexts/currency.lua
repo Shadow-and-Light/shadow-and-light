@@ -48,6 +48,8 @@ local ArchaeologyFragments = {
 	1174, --Demonic
 	1172, --Highborn
 	1173, --Highmountain tauren
+	1534, --Zandalari
+	1535, --Drust
 }
 
 local CookingAwards = {
@@ -73,6 +75,7 @@ local DungeonRaid = {
 	1191, -- Valor
 	1273, --Seal of Broken Fate
 	1314, --Lingering soul fragment
+	1580, --Seal of Wartorn Fate
 }
 
 local PvPPoints = {
@@ -80,6 +83,7 @@ local PvPPoints = {
 	1149, --Sightless Eye
 	1356, --Echoes of battle
 	1357, --Echoes of domination
+	1602, --Conquest
 }
 
 local MiscellaneousCurrency = {
@@ -105,6 +109,17 @@ local MiscellaneousCurrency = {
 	1506, --Argus Waystone
 	1299, --Brawler's Gold
 	1508, --Veiled Argunite
+	1533, --Wakening Essence
+	1565, --Rich Azerite Fragment
+	1710, --Seafarer's Dubloon
+	1560, --War Resources
+	1587, --War Supplies
+	1379, --Trial of Style Token
+	1388, --Armor Scraps
+	1401, --Stronghold Supplies
+	1540, --Wood
+	1541, --Iron
+	1559, --Essence of Storms
 }
 
 local HordeColor = RAID_CLASS_COLORS["DEATHKNIGHT"]
@@ -152,10 +167,14 @@ end
 
 local function SortGold(a,b)
 	local method = E.db.sle.dt.currency.gold.method
-	if E.db.sle.dt.currency.gold.direction == "normal" then
-		return a[method] > b[method]
-	else
+	if method == "name" and E.db.sle.dt.currency.gold.direction == "normal" then
 		return a[method] < b[method]
+	elseif method == "amount" and E.db.sle.dt.currency.gold.direction == "normal" then
+		return a[method] > b[method]
+	elseif method == "amount" and E.db.sle.dt.currency.gold.direction ~= "normal" then
+		return a[method] < b[method]
+	else
+		return a[method] > b[method]
 	end
 end
 
@@ -280,7 +299,7 @@ local function Click(self, btn)
 			DT.tooltip:Hide();
 		end
 	else
-		ToggleAllBags()
+		ToggleCharacter("TokenFrame")
 	end
 end
 
@@ -333,8 +352,8 @@ local function OnEnter(self)
 	DT.tooltip:AddLine' '
 	DT.tooltip:AddLine(L["Server: "])
 	if GetOption('Faction') then
-		DT.tooltip:AddDoubleLine(T.format('%s: ', FACTION_HORDE), E:FormatMoney(HordeGold, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), HordeColor.r, HordeColor.g, HordeColor.b, 1, 1, 1)
 		DT.tooltip:AddDoubleLine(T.format('%s: ', FACTION_ALLIANCE), E:FormatMoney(AllianceGold, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), AllianceColor.r, AllianceColor.g, AllianceColor.b, 1, 1, 1)
+		DT.tooltip:AddDoubleLine(T.format('%s: ', FACTION_HORDE), E:FormatMoney(HordeGold, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), HordeColor.r, HordeColor.g, HordeColor.b, 1, 1, 1)
 	end
 	DT.tooltip:AddDoubleLine(L["Total: "], E:FormatMoney(totalGold, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), 1, 1, 1, 1, 1, 1)
 
