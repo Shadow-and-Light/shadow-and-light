@@ -57,7 +57,9 @@ function M:LoadConfig(event, addon)
 end
 
 function M:SetViewport()
+	if SLE._Compatibility["SunnArt"] then return end
 	local scale = 768 / UIParent:GetHeight()
+	_G["WorldFrame"]:ClearAllPoints()
 	_G["WorldFrame"]:SetPoint("TOPLEFT", ( M.db.viewport.left * scale ), -( M.db.viewport.top * scale ) )
 	_G["WorldFrame"]:SetPoint("BOTTOMRIGHT", -( M.db.viewport.right * scale ), ( M.db.viewport.bottom * scale ) )
 end
