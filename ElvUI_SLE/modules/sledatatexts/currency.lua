@@ -167,7 +167,7 @@ end
 
 local function SortGold(a,b)
 	local method = E.db.sle.dt.currency.gold.method
-	if method == "name" and E.db.sle.dt.currency.gold.direction == "normal" then
+	if method == "name" or method == "order" and E.db.sle.dt.currency.gold.direction == "normal" then
 		return a[method] < b[method]
 	elseif method == "amount" and E.db.sle.dt.currency.gold.direction == "normal" then
 		return a[method] > b[method]
