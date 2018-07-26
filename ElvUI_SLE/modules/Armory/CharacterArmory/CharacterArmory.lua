@@ -698,7 +698,6 @@ function CA:Update_Gear()
 							end
 				
 							-- Second, Check if slot's item enable to adding a socket
-							-- Slot.GemCount_Enable = GemCount_Default
 							--[[
 							if (SlotName == 'WaistSlot' and UnitLevel('player') >= 70) or -- buckle
 								((SlotName == 'WristSlot' or SlotName == 'HandsSlot') and self.PlayerProfession.BlackSmithing and self.PlayerProfession.BlackSmithing >= 550) then -- BlackSmith
@@ -733,7 +732,6 @@ function CA:Update_Gear()
 									end
 
 									GemCount_Now = GemCount_Now + 1
-									-- print(GemTexture, )
 
 									if GemID ~= 0 then
 										GemCount = GemCount + 1
@@ -765,6 +763,7 @@ function CA:Update_Gear()
 					Slot.ItemEnchant:SetText("")
 					for i = 1, self.ScanTT:NumLines() do
 						CurrentLineText = _G["Knight_CharacterArmory_ScanTTTextLeft"..i]:GetText()
+						-- print(i, CurrentLineText:gsub("|cff", ""))
 						if CurrentLineText:find(Info.Armory_Constants.ItemLevelKey_Alt) then
 								TrueItemLevel = T.tonumber(CurrentLineText:match(Info.Armory_Constants.ItemLevelKey_Alt))
 						elseif CurrentLineText:find(Info.Armory_Constants.ItemLevelKey) then
