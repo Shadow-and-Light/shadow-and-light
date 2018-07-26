@@ -691,7 +691,6 @@ function CA:Update_Gear()
 							-- First, Counting default gem sockets
 							for i = 1, MAX_NUM_SOCKETS do
 								GemTexture = _G["Knight_CharacterArmory_ScanTTTexture"..i]:GetTexture()
-								
 								if GemTexture and GemTexture:find('Interface\\ItemSocketingFrame\\') then
 									GemCount_Default = GemCount_Default + 1
 									Slot["Socket"..GemCount_Default].GemType = T.upper(T.gsub(GemTexture, 'Interface\\ItemSocketingFrame\\UI--EmptySocket--', ''))
@@ -699,7 +698,7 @@ function CA:Update_Gear()
 							end
 				
 							-- Second, Check if slot's item enable to adding a socket
-							Slot.GemCount_Enable = GemCount_Default
+							-- Slot.GemCount_Enable = GemCount_Default
 							--[[
 							if (SlotName == 'WaistSlot' and UnitLevel('player') >= 70) or -- buckle
 								((SlotName == 'WristSlot' or SlotName == 'HandsSlot') and self.PlayerProfession.BlackSmithing and self.PlayerProfession.BlackSmithing >= 550) then -- BlackSmith
@@ -734,6 +733,7 @@ function CA:Update_Gear()
 									end
 
 									GemCount_Now = GemCount_Now + 1
+									-- print(GemTexture, )
 
 									if GemID ~= 0 then
 										GemCount = GemCount + 1
@@ -748,7 +748,8 @@ function CA:Update_Gear()
 											NeedUpdate = true
 										end
 									else
-											Slot['Socket'..i].Socket.Message = '|cffffffff'.._G['EMPTY_SOCKET_'..Slot['Socket'..i].GemType]
+										if Slot['Socket'..i].GemType == nil then Slot['Socket'..i].GemType = 'PRISMATIC' GemCount_Default = GemCount_Default + 1 end
+										Slot['Socket'..i].Socket.Message = '|cffffffff'.._G['EMPTY_SOCKET_'..Slot['Socket'..i].GemType]
 									end
 								end
 							end
@@ -757,6 +758,7 @@ function CA:Update_Gear()
 							if GemCount_Now < GemCount_Default then -- ItemInfo not loaded
 								NeedUpdate = true
 							end
+							Slot.GemCount_Enable = GemCount_Default
 						end
 
 					--<< Enchant Parts >>--
