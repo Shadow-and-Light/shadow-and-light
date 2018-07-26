@@ -379,9 +379,15 @@ end
 
 function SLE:GetMapInfo(id, arg)
 	if not arg then return end
-	local MapInfo = C_Map.GetMapInfo(id)
+	local MapInfo
+	if T.MapInfoTable[id] then
+		MapInfo = T.MapInfoTable[id]
+	else
+		MapInfo = C_Map.GetMapInfo(id)
+		T.MapInfoTable[id] = MapInfo
+		print("woot")
+	end
 	if not MapInfo then return UNKNOWN end
-	-- for k,v in pairs(MapInfo) do print(k,v) end
 	if arg == "all" then return MapInfo["name"], MapInfo["mapID"], MapInfo["parentMapID"], MapInfo["mapType"] end
 	return MapInfo[arg]
 end
