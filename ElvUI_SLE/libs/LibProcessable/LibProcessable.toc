@@ -1,6 +1,6 @@
-## Interface: 70300
+## Interface: 80000
 ## Author: p3lim
-## Version: 23
+## Version: 31
 ## Title: Lib: Processable
 ## Notes: Library that lets you easily check if you can process resources
 ## OptionalDeps: LibStub
@@ -8,6 +8,6 @@
 ## X-Curse-Project-ID: 88553
 ## X-WoWI-ID: 23440
 
-
+LibStub\LibStub.lua
 
 embed.xml
