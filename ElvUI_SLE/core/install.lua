@@ -144,7 +144,7 @@ function PI:DarthSetup()
 		E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
 		E.db["bags"]["bagSize"] = 33
 		E.db["bags"]["junkIcon"] = true
-		E.db["bags"]["itemLevelThreshold"] = 650
+		E.db["bags"]["itemLevelThreshold"] = 140
 	end
 	--Chat
 	do
