@@ -89,7 +89,7 @@ end
 local function Zone(event)
 	local shouldShow = false
 	for name, anchor in T.pairs(Tools.RegisteredAnchors) do
-		if not anchor.ShouldShow or anchor.ShouldShow() then
+		if anchor.ReturnDB().enable and (not anchor.ShouldShow or anchor.ShouldShow()) then
 			shouldShow = true
 			break
 		end
