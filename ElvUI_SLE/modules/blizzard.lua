@@ -108,6 +108,12 @@ local function LoadPosition(self)
 		self:ClearAllPoints()
 		self:SetPoint(T.unpack(E.private.sle.module.blizzmove.points[Name]))
 	end
+	
+	if Name == "QuestFrame" then
+		_G["GossipFrame"]:Hide()
+	elseif Name == "GossipFrame" then
+		_G["QuestFrame"]:Hide()
+	end
 end
 
 local function OnDragStart(self)
