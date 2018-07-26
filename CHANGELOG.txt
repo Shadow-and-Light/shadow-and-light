@@ -1,4 +1,4 @@
-v3.42
+v3.42 [July 26th 2018]
 Fixes:
 - PvP is even more fixed now™
 - Fixed community links now working
