@@ -92,11 +92,11 @@ RP.bosses = {
 }
 RP.Raids = {
 	["LONG"] = {
-		T.GetMapNameByID(1094),
-		T.GetMapNameByID(1114),
-		T.GetMapNameByID(1088),
-		T.GetMapNameByID(1147),
-		T.GetMapNameByID(1188),
+		SLE:GetMapInfo(777 , "name"),
+		SLE:GetMapInfo(806, "name"),
+		SLE:GetMapInfo(764, "name"),
+		SLE:GetMapInfo(850 , "name"),
+		SLE:GetMapInfo(909, "name"),
 	},
 	["SHORT"] = {
 		L["RAID_EN"],
