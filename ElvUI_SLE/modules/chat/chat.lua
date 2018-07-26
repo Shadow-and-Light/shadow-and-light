@@ -122,7 +122,7 @@ local function GetChatIcon(sender)
 		SLE:GetRegion()
 		specialChatIcons = SLE.SpecialChatIcons[SLE.region]
 	end
-	local senderName, senderRealm
+	local senderName, senderRealm, icon
 	if sender then
 		senderName, senderRealm = T.split('-', sender)
 	else
@@ -132,15 +132,13 @@ local function GetChatIcon(sender)
 	senderRealm = T.gsub(senderRealm, ' ', '')
 
 	if specialChatIcons and specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
-		return specialChatIcons[senderRealm][senderName]
+		icon = specialChatIcons[senderRealm][senderName]
+	end
+	if T.IsInGuild() and C.db.guildmaster then
+		if senderName == C.GMName and senderRealm == C.GMRealm then icon = icon and (leader..icon) or leader end
 	end
 
-	if not T.IsInGuild() then return nil end
-	if not C.db.guildmaster then return nil end
-	if senderName == C.GMName and senderRealm == C.GMRealm then
-		return leader 
-	end
-	return nil
+	return icon
 end
 
 function C:GMCheck()
