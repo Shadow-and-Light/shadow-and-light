@@ -1,18 +1,26 @@
 v3.42
-Required version of ElvUi is 10.78
 Fixes:
 - PvP is even more fixed now™
 - Fixed community links now working
 - Fixed rare font chage error
 - Fixed some weird behavior in movable frames (WIP)
+- Fixed objective tracker reseting fonts
+- Fixed armory throwing errors at items enhanced with buckes
+- Fixed sorting in currency dt (@DTuloJr)
+- Fixed progression tooltip errors
 Additions:
 - Community frame is now movable
 - Added korean locale by meloppy (WIP)
-- Vehhicke bar now has the option to lower number of buttons shown
+- Vehicle bar now has the option to lower number of buttons shown
+- Added Sunn Viewports compatibility
 Changes:
-- Changed the way to get coordinates to accomodate for ElvUI's changes and preventing possible memory leak
+- Changed the way to get coordinates to accomodate for ElvUI's changes and preventing possible memory leak (this will be fully functional once ElvUI 10.78 is released)
 - Changed vehicle seat scaling script. Should be more reliable now
 - Due to blizz API being broken (as usual!) we can't get boss kill info on pre-Legion LFR raids. Options for tracking those were removed.
+- Toolbars movers are no longer visible when those are disabled
+- Re-enabled tooltip section config that was disabled during beta
+Misc:
+- LibProcessable updated
 
 
 v3.41 [July 19th 2018]
