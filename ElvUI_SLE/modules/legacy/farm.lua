@@ -377,8 +377,8 @@ function Farm:CreateFarmPortals()
 	portalBar.Items = {}
 	portalBar.zonecheck = CanSeed
 
-	for index = 1, #FarmPortals[SLE.myfaction] do
-		local itemID = FarmPortals[SLE.myfaction][index]
+	for index = 1, #FarmPortals[E.myfaction] do
+		local itemID = FarmPortals[E.myfaction][index]
 		portalBar.Items[itemID] = itemID
 	end
 	PortalAnchor.Bars["SLE_FarmPortalToolbar1"] = portalBar

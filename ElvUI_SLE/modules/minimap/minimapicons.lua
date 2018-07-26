@@ -275,7 +275,7 @@ function SMB:SkinMinimapButtons()
 		function GarrisonLandingPageMinimapButton_UpdateIcon(self)
 			local garrisonType = C_Garrison.GetLandingPageGarrisonType();
 			if (garrisonType == LE_GARRISON_TYPE_6_0) then
-				self.faction = SLE.myfaction
+				self.faction = E.myfaction
 				if ( self.faction == "Horde" ) then
 					self:GetNormalTexture():SetAtlas("GarrLanding-MinimapIcon-Horde-Up", true)
 				else

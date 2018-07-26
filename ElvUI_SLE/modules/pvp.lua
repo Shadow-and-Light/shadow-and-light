@@ -62,7 +62,7 @@ function PvP:OpponentsTable()
 	T.twipe(BG_Opponents)
 	for index = 1, T.GetNumBattlefieldScores() do
 		local name, _, _, _, _, faction, _, _, classToken = T.GetBattlefieldScore(index)
-		if (SLE.myfaction == "Horde" and faction == 1) or (SLE.myfaction == "Alliance" and faction == 0) then
+		if (E.myfaction == "Horde" and faction == 1) or (E.myfaction == "Alliance" and faction == 0) then
 			BG_Opponents[name] = classToken
 		end
 	end

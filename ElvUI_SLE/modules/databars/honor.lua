@@ -39,7 +39,7 @@ DB.Honor ={
 		["STYLE6"] = "|TInterface\\Icons\\ACHIEVEMENT_GUILDPERK_MRPOPULARITY_RANK2:14:14|t: "..E["media"].hexvaluecolor.."%s|r|T%s:%s|t",
 	},
 	Strings = {},
-	Icon = [[Interface\AddOns\ElvUI_SLE\media\textures\]]..SLE.myfaction,
+	Icon = [[Interface\AddOns\ElvUI_SLE\media\textures\]]..E.myfaction,
 }
 
 local function UpdateHonor(self, event, unit)

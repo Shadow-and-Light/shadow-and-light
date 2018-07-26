@@ -56,7 +56,7 @@ local function CanGarrisonBar()
 	if not E.db.sle.legacy.garrison.toolbar.enable then return end
 	local show = false
 
-	if T.GetMinimapZoneText() == garrisonzones[1] or T.GetMinimapZoneText() == garrisonzones[SLE.myfaction == "Horde" and 2 or 3] then show = true end
+	if T.GetMinimapZoneText() == garrisonzones[1] or T.GetMinimapZoneText() == garrisonzones[E.myfaction == "Horde" and 2 or 3] then show = true end
 	return show
 end
 
