@@ -66,6 +66,8 @@ function M:SetBlizzFonts()
 					_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', E.db.sle.media.fonts.objectiveHeader.font), E.db.sle.media.fonts.objectiveHeader.size, E.db.sle.media.fonts.objectiveHeader.outline)
 					_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', E.db.sle.media.fonts.objectiveHeader.font), E.db.sle.media.fonts.objectiveHeader.size, E.db.sle.media.fonts.objectiveHeader.outline)
 					_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', E.db.sle.media.fonts.objectiveHeader.font), E.db.sle.media.fonts.objectiveHeader.size, E.db.sle.media.fonts.objectiveHeader.outline)
+					_G["WORLD_QUEST_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', E.db.sle.media.fonts.objectiveHeader.font), E.db.sle.media.fonts.objectiveHeader.size, E.db.sle.media.fonts.objectiveHeader.outline)
+					_G["BONUS_OBJECTIVE_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', E.db.sle.media.fonts.objectiveHeader.font), E.db.sle.media.fonts.objectiveHeader.size, E.db.sle.media.fonts.objectiveHeader.outline)
 				end)
 				_G["ObjectiveTrackerFrame"].SLEHookedFonts = true
 			end
