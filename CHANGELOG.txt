@@ -1,3 +1,7 @@
+v3.421 [July 27th 2018]
+Fixes:
+- Fixed coordinates seemed to not get correct info most of the time
+
 v3.42 [July 26th 2018]
 Fixes:
 - PvP is even more fixed now™
