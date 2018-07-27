@@ -201,9 +201,10 @@ LP.Spells = {
 }
 
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
+local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
 local function CreateCoords()
 	local x, y = 0, 0
-	local playerPosition = C_Map_GetBestMapForUnit(0, "player")
+	local playerPosition = C_Map_GetPlayerMapPosition( C_Map_GetBestMapForUnit("player"), "player" )
 	if playerPosition then x, y = playerPosition:GetXY() end
 	x = T.format(LP.db.format, x * 100)
 	y = T.format(LP.db.format, y * 100)
