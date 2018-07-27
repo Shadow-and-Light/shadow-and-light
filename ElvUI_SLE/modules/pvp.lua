@@ -25,7 +25,7 @@ local SOUNDKIT = SOUNDKIT
 
 function PvP:Release()
 	local resOptions = GetSortedSelfResurrectOptions()
-	if (PvP.db.rebirth and not resOptions[1]) or not PvP.db.rebirth then print("Should repop") RepopMe() end
+	if (PvP.db.rebirth and not resOptions[1]) or not PvP.db.rebirth then RepopMe() end
 end
 
 function PvP:Dead()
