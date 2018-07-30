@@ -4,7 +4,11 @@ local S = E:GetModule("Skins")
 -- GLOBALS: CreateFrame, hooksecurefunc
 local _G = _G
 local UseItemByName = UseItemByName
-local C_TradeSkillUI = C_TradeSkillUI
+local GetTradeSkillLine = C_TradeSkillUI.GetTradeSkillLine
+local GetRecipeInfo = C_TradeSkillUI.GetRecipeInfo
+local IsTradeSkillLinked = C_TradeSkillUI.IsTradeSkillLinked
+local IsTradeSkillGuild = C_TradeSkillUI.IsTradeSkillGuild
+local CraftRecipe = C_TradeSkillUI.CraftRecipe
 Pr.DErank = 0
 
 Pr.mapSpellToItem = {
@@ -446,47 +450,48 @@ function Pr:EnchantButton()
 		button:SetPoint("TOPRIGHT", _G["TradeSkillFrame"].DetailsFrame.CreateButton, "TOPLEFT")
 	end
 	button:SetScript("OnClick", function()
-		if (IsShiftKeyDown() and button.itemID) then
-			local activeEditBox = ChatEdit_GetActiveWindow()
-			if activeEditBox then
-				local _, link = T.GetItemInfo(button.itemID)
-				ChatEdit_InsertLink(link)
-			end
-		else
-			C_TradeSkillUI.CraftRecipe(_G["TradeSkillFrame"].DetailsFrame.selectedRecipeID)
+		-- if (IsShiftKeyDown() and button.itemID) then
+			-- local activeEditBox = ChatEdit_GetActiveWindow()
+			-- if activeEditBox then
+				-- local _, link = T.GetItemInfo(button.itemID)
+				-- ChatEdit_InsertLink(link)
+			-- end
+		-- else
+			CraftRecipe(_G["TradeSkillFrame"].DetailsFrame.selectedRecipeID)
 			UseItemByName(38682)
-		end
+		-- end
 	end)
-	button:SetScript("OnEnter", function()
-		if button.itemID then
-			GameTooltip:SetOwner(button)
-			GameTooltip:SetItemByID(button.itemID)
-		end
-	end)
-	button:SetScript("OnLeave", function()
-		GameTooltip:Hide()
-	end)
+	-- button:SetScript("OnEnter", function()
+		-- if button.itemID then
+			-- GameTooltip:SetOwner(button)
+			-- GameTooltip:SetItemByID(button.itemID)
+		-- end
+	-- end)
+	-- button:SetScript("OnLeave", function()
+		-- GameTooltip:Hide()
+	-- end)
 	button:SetMotionScriptsWhileDisabled(true)
 	local EnchName = T.GetSpellInfo(7411)
 
 	local function UpdateScrollButton(frame)
 		if not frame.selectedRecipeID then return end
-		local _, CURRENT_TRADESKILL = C_TradeSkillUI.GetTradeSkillLine()
+		local CURRENT_TRADESKILL = T.select(7, GetTradeSkillLine())
 		if CURRENT_TRADESKILL ~= EnchName then _G["SLE_EnchScrollButton"]:Hide() return end
 
-		local recipeInfo = C_TradeSkillUI.GetRecipeInfo(frame.selectedRecipeID)
+		local recipeInfo = GetRecipeInfo(frame.selectedRecipeID)
+
 		if not recipeInfo then return end
-		if C_TradeSkillUI.IsTradeSkillGuild() or C_TradeSkillUI.IsTradeSkillLinked() then
+		if IsTradeSkillGuild() or IsTradeSkillLinked() then
 			_G["SLE_EnchScrollButton"]:Hide()
 		elseif recipeInfo.alternateVerb then
-			button.itemID = Pr.mapSpellToItem[recipeInfo.recipeID]
-			if (not button.itemID) then
-				SLE:Print(string.format(L["Missing scroll item for spellID %d. Please report this at the Shadow&Light Ticket Tracker."], recipeInfo.recipeID))
-			end
+			-- button.itemID = Pr.mapSpellToItem[recipeInfo.recipeID]
+			-- if (not button.itemID) then
+				-- SLE:Print(string.format(L["Missing scroll item for spellID %d. Please report this at the Shadow&Light Ticket Tracker."], recipeInfo.recipeID))
+			-- end
 			_G["SLE_EnchScrollButton"]:Show()
 			local scrollnum = T.GetItemCount(38682)
 			_G["SLE_EnchScrollButton"]:SetText(string.format("%s (%d)", L['Scroll'], scrollnum))
-			if recipeInfo.craftable and scrollnum > 0 then
+			if recipeInfo.craftable and recipeInfo.learned and scrollnum > 0 then
 				_G["SLE_EnchScrollButton"]:Enable()
 			else
 				_G["SLE_EnchScrollButton"]:Disable()
