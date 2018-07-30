@@ -91,30 +91,11 @@ B.AddonsList = {
 	["Blizzard_OrderHallUI"] = { "OrderHallTalentFrame" },
 	["Blizzard_QuestChoice"] = { "QuestChoiceFrame" },
 	["Blizzard_TalentUI"] = { "PlayerTalentFrame" },
-	["Blizzard_TalkingHeadUI"] = { "TalkingHeadFrame" },
+	-- ["Blizzard_TalkingHeadUI"] = { "TalkingHeadFrame" },
 	["Blizzard_TradeSkillUI"] = { "TradeSkillFrame" },
 	["Blizzard_TrainerUI"] = { "ClassTrainerFrame" },
 	["Blizzard_VoidStorageUI"] = { "VoidStorageFrame" },
 }
-
-local function LoadPosition(self)
-	if self.IsMoving == true then return end
-	local Name = self:GetName()
-	if not self:GetPoint() then
-		self:SetPoint('TOPLEFT', 'UIParent', 'TOPLEFT', 16, -116)
-	end
-
-	if E.private.sle.module.blizzmove.remember and E.private.sle.module.blizzmove.points[Name] then
-		self:ClearAllPoints()
-		self:SetPoint(T.unpack(E.private.sle.module.blizzmove.points[Name]))
-	end
-	
-	if Name == "QuestFrame" then
-		_G["GossipFrame"]:Hide()
-	elseif Name == "GossipFrame" then
-		_G["QuestFrame"]:Hide()
-	end
-end
 
 local function OnDragStart(self)
 	self.IsMoving = true
@@ -143,6 +124,30 @@ local function OnDragStop(self)
 	end
 end
 
+local function LoadPosition(self)
+	if self.IsMoving == true then return end
+	local Name = self:GetName()
+	if not self:GetPoint() then
+		self:SetPoint('TOPLEFT', 'UIParent', 'TOPLEFT', 16, -116, true)
+		OnDragStop(self)
+	end
+
+	if E.private.sle.module.blizzmove.remember and E.private.sle.module.blizzmove.points[Name] then
+		self:ClearAllPoints()
+		local a,b,c,d,e = T.unpack(E.private.sle.module.blizzmove.points[Name])
+		self:SetPoint(a,b,c,d,e, true)
+	end
+
+	if Name == "QuestFrame" then
+		_G["GossipFrame"]:Hide()
+	elseif Name == "GossipFrame" then
+		_G["QuestFrame"]:Hide()
+	end
+end
+
+function B:RewritePoint(anchor, parent, point, x, y, SLEcalled)
+	if not SLEcalled then LoadPosition(self) end
+end
 
 function B:MakeMovable(Name)
 	local frame = _G[Name]
@@ -161,6 +166,7 @@ function B:MakeMovable(Name)
 	frame:HookScript("OnDragStart", OnDragStart)
 	frame:HookScript("OnDragStop", OnDragStop)
 	frame:HookScript("OnHide", OnDragStop)
+	hooksecurefunc(frame, "SetPoint", B.RewritePoint)
 
 	if E.private.sle.module.blizzmove.remember then
 		frame.ignoreFramePositionManager = true
@@ -177,11 +183,13 @@ function B:MakeMovable(Name)
 	C_Timer.After(0, function()
 		if E.private.sle.module.blizzmove.remember and E.private.sle.module.blizzmove.points[Name] then
 			if not frame:GetPoint() then
-				frame:SetPoint('TOPLEFT', 'UIParent', 'TOPLEFT', 16, -116)
+				frame:SetPoint('TOPLEFT', 'UIParent', 'TOPLEFT', 16, -116, true)
+				OnDragStop(frame)
 			end
 
 			frame:ClearAllPoints()
-			frame:SetPoint(T.unpack(E.private.sle.module.blizzmove.points[Name]))
+			local a,b,c,d,e = T.unpack(E.private.sle.module.blizzmove.points[Name])
+			frame:SetPoint(a,b,c,d,e, true)
 		end
 	end)
 
@@ -227,7 +235,7 @@ function B:Initialize()
 			B:MakeMovable(B.Frames[i])
 		end
 		self:RegisterEvent("ADDON_LOADED", "Addons")
-		
+
 		-- Check Forced Loaded AddOns
 		for AddOn, Table in T.pairs(B.AddonsList) do
 			if IsAddOnLoaded(AddOn) then
@@ -236,7 +244,6 @@ function B:Initialize()
 				end
 			end
 		end
-
 	end
 
 	hooksecurefunc(VehicleSeatIndicator,"SetPoint", B.VehicleScale)
