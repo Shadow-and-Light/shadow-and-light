@@ -105,7 +105,6 @@ local MiscellaneousCurrency = {
 	1154, --Shadowy Coins
 	1268, --Timeworn Artifact
 	1342, --Legionfall war supplies
-	1501, --Writhing Essence
 	1506, --Argus Waystone
 	1299, --Brawler's Gold
 	1508, --Veiled Argunite
