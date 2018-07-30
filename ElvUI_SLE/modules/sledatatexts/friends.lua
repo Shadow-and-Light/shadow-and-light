@@ -16,6 +16,7 @@ local ONE_MONTH = 30 * ONE_DAY;
 local ONE_YEAR = 12 * ONE_MONTH;
 
 local MINIMIZE = MINIMIZE
+local FRIENDS = FRIENDS
 local BNET_BROADCAST_SENT_TIME = BNET_BROADCAST_SENT_TIME
 local RED_FONT_COLOR_CODE = RED_FONT_COLOR_CODE
 local CHAT_FLAG_AFK = CHAT_FLAG_AFK
@@ -212,7 +213,7 @@ function DTP:update_Friends()
 	local bnTotal, bnOnline = T.BNGetNumFriends()
 	local totalOnline = friendsOnline + bnOnline
 	local totalFriends = friendsTotal + bnTotal
-	local text = E.db.sle.dt.friends.textStyle == "Default" and L["Friends"]..": " or E.db.sle.dt.friends.textStyle == "NoText" and "" or E.db.sle.dt.friends.textStyle == "Icon" and "|TInterface\\ICONS\\Achievement_Reputation_01:12|t: "
+	local text = E.db.sle.dt.friends.textStyle == "Default" and FRIENDS..": " or E.db.sle.dt.friends.textStyle == "NoText" and "" or E.db.sle.dt.friends.textStyle == "Icon" and "|TInterface\\ICONS\\Achievement_Reputation_01:12|t: "
 	if E.db.sle.dt.friends.totals then
 		LDB.text = text..valueColor(totalOnline).."/"..valueColor(totalFriends)
 	else
