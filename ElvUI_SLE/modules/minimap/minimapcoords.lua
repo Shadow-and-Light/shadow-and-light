@@ -18,30 +18,13 @@ local function ShowMinimap()
 	end
 end
 
-local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
-local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
-local function CreateCoords()
-	local x, y = 0, 0
-	local playerPosition = C_Map_GetPlayerMapPosition( C_Map_GetBestMapForUnit("player"), "player" )
-	if playerPosition then x, y = playerPosition:GetXY() end
-	x = T.format(E.db.sle.minimap.coords.format, x * 100)
-	y = T.format(E.db.sle.minimap.coords.format, y * 100)
-
-	return x, y
-end
-
 function MM:UpdateCoords(elapsed)
 	MM.coordspanel.elapsed = (MM.coordspanel.elapsed or 0) + elapsed
 	if MM.coordspanel.elapsed < E.db.sle.minimap.coords.throttle then return end
-	if T.tonumber(E.version) >= 10.78 and E.MapInfo then
+	if E.MapInfo then
 		local x, y = E.MapInfo.x, E.MapInfo.y
 		if x then x = T.format(E.db.sle.minimap.coords.format, x * 100) else x = "0" end
 		if y then y = T.format(E.db.sle.minimap.coords.format, y * 100) else y = "0" end
-		if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
-		if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
-		MM.coordspanel.Text:SetText(x.." , "..y)
-	elseif T.tonumber(E.version) < 10.78 then
-		local x, y = CreateCoords()
 		if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
 		if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
 		MM.coordspanel.Text:SetText(x.." , "..y)

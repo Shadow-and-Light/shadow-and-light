@@ -200,18 +200,6 @@ LP.Spells = {
 	},
 }
 
-local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
-local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
-local function CreateCoords()
-	local x, y = 0, 0
-	local playerPosition = C_Map_GetPlayerMapPosition( C_Map_GetBestMapForUnit("player"), "player" )
-	if playerPosition then x, y = playerPosition:GetXY() end
-	x = T.format(LP.db.format, x * 100)
-	y = T.format(LP.db.format, y * 100)
-
-	return x, y
-end
-
 function LP:CreateLocationPanel()
 	loc_panel = CreateFrame('Frame', "SLE_LocationPanel", E.UIParent)
 	loc_panel:Point('TOP', E.UIParent, 'TOP', 0, -E.mult -22)
@@ -281,7 +269,7 @@ function LP:UpdateCoords(elapsed)
 	if LP.elapsed < (LP.db.throttle or 0.2) then return end
 	--Coords
 
-	if T.tonumber(E.version) >= 10.78 and E.MapInfo then
+	if E.MapInfo then
 		local x, y = E.MapInfo.x, E.MapInfo.y
 		if x then x = T.format(LP.db.format, x * 100) else x = "0" end
 		if y then y = T.format(LP.db.format, y * 100) else y = "0" end
@@ -289,12 +277,9 @@ function LP:UpdateCoords(elapsed)
 		if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
 		loc_panel.Xcoord.Text:SetText(x)
 		loc_panel.Ycoord.Text:SetText(y)
-	elseif T.tonumber(E.version) < 10.78 then
-		local x, y = CreateCoords()
-		if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
-		if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
-		loc_panel.Xcoord.Text:SetText(x)
-		loc_panel.Ycoord.Text:SetText(y)
+	else
+		loc_panel.Xcoord.Text:SetText("-")
+		loc_panel.Ycoord.Text:SetText("-")
 	end
 	--Coords coloring
 	local colorC = {r = 1, g = 1, b = 1}
