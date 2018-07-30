@@ -109,7 +109,7 @@ function Gar:CreateToolbars()
 
 	GarrisonAnchor.Resize(GarrisonAnchor)
 	E:CreateMover(GarrisonAnchor, "SLE_GarrisonToolMover", L["S&L: Garrison Tools Bar"], nil, nil, nil, "ALL,S&L,S&L MISC")
-
+	E:DisableMover("SLE_GarrisonToolMover")
 	return GarrisonAnchor
 end
 

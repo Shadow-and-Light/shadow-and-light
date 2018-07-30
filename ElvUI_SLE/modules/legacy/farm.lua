@@ -280,7 +280,7 @@ function Farm:CreateFarmSeeds()
 
 	SeedAnchor.Resize(SeedAnchor)
 	E:CreateMover(SeedAnchor, "SLE_FarmSeedMover", L["S&L: Farm Seed Bars"], nil, nil, nil, "ALL,S&L,S&L MISC")
-
+	E:DisableMover("SLE_FarmSeedMover")
 	return SeedAnchor
 end
 
@@ -332,7 +332,7 @@ function Farm:CreateFarmTools()
 
 	ToolAnchor.Resize(ToolAnchor)
 	E:CreateMover(ToolAnchor, "SLE_FarmToolMover", L["S&L: Farm Tool Bar"], nil, nil, nil, "ALL,S&L,S&L MISC")
-
+	E:DisableMover("SLE_FarmToolMover")
 	return ToolAnchor
 end
 
@@ -385,7 +385,7 @@ function Farm:CreateFarmPortals()
 
 	PortalAnchor.Resize(PortalAnchor)
 	E:CreateMover(PortalAnchor, "SLE_FarmPortalMover", L["S&L: Farm Portal Bar"], nil, nil, nil, "ALL,S&L,S&L MISC")
-
+	E:DisableMover("SLE_FarmPortalMover")
 	return PortalAnchor
 end
 

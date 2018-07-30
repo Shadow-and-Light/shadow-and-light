@@ -279,7 +279,8 @@ end
 function Tools:Initialize()
 	if not SLE.initialized then return end
 
-	E:Delay(3, function() Tools:UpdateLayout() end)
+	-- E:Delay(3, function() Tools:UpdateLayout() end)
+	Tools:UpdateLayout()
 
 	function Tools:ForUpdateAll()
 		Tools:UpdateLayout()
