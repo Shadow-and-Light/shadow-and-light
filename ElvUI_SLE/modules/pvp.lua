@@ -93,9 +93,11 @@ function PvP:Initialize()
 	PvP.ScoreWidget:ClearAllPoints()
 	PvP.ScoreWidget:SetPoint("CENTER", PvP.holder)
 
-	hooksecurefunc(UIWidgetManager.registeredWidgetSetContainers[2], "layoutFunc", function(widgetContainer, sortedWidgets)
+	hooksecurefunc(UIWidgetManager.registeredWidgetSetContainers[2], "layoutFunc", function(widgetContainer, sortedWidgets, ...)
 		widgetContainer:ClearAllPoints()
-		widgetContainer:SetPoint("TOP", PvP.ScoreWidget, "BOTTOM", 0, -10)
+	end)
+	hooksecurefunc(UIWidgetBelowMinimapContainerFrame, "ClearAllPoints", function(self)
+		self:SetPoint("TOP", PvP.ScoreWidget, "BOTTOM", 0, -10)
 	end)
 	E:CreateMover(PvP.holder, "PvPMover", "PvP", nil, nil, nil, "ALL,S&L,S&L MISC")
 
