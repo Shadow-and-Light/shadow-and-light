@@ -6,6 +6,7 @@ local RC = LibStub("LibRangeCheck-2.0")
 local _G = _G
 local UnitGetTotalAbsorbs = UnitGetTotalAbsorbs
 local UnitHonorLevel = UnitHonorLevel
+local UnitIsPVP = UnitIsPVP
 
 function SUF:NewTags()
 	_G["ElvUF"].Tags.Events['health:current:sl-rehok'] = 'UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED'
@@ -85,7 +86,7 @@ function SUF:NewTags()
 	
 	_G["ElvUF"].Tags.Events['sl:pvplevel'] = "HONOR_LEVEL_UPDATE"
 	_G["ElvUF"].Tags.Methods['sl:pvplevel'] = function(unit)
-		return UnitHonorLevel(unit)
+		return UnitIsPVP(unit) and UnitHonorLevel(unit) or ""
 	end
 end
 
