@@ -57,14 +57,16 @@ local function BuildEquipmentMap(clear)
 	for index = 1, C_EquipmentSet.GetNumEquipmentSets() do
 		name = C_EquipmentSet.GetEquipmentSetInfo(equipmentSetIDs[index]);
 		local equipmentSetID = C_EquipmentSet.GetEquipmentSetID(name)
-		local SetInfoTable = C_EquipmentSet.GetItemLocations(equipmentSetID)
-		for _, location in T.pairs(SetInfoTable) do
-			if T.type(location) == "number" and (location < -1 or location > 1) then
-				player, bank, bags, _, slot, bag = EquipmentManager_UnpackLocation(location)
-				if ((bank or bags) and slot and bag) then
-					key = MapKey(bag, slot)
-					BI.equipmentMap[key] = BI.equipmentMap[key] or {}
-					T.tinsert(BI.equipmentMap[key], name)
+		if equipmentSetID then
+			local SetInfoTable = C_EquipmentSet.GetItemLocations(equipmentSetID)
+			for _, location in T.pairs(SetInfoTable) do
+				if T.type(location) == "number" and (location < -1 or location > 1) then
+					player, bank, bags, _, slot, bag = EquipmentManager_UnpackLocation(location)
+					if ((bank or bags) and slot and bag) then
+						key = MapKey(bag, slot)
+						BI.equipmentMap[key] = BI.equipmentMap[key] or {}
+						T.tinsert(BI.equipmentMap[key], name)
+					end
 				end
 			end
 		end
