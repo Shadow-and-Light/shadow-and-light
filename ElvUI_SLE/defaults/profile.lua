@@ -776,6 +776,7 @@ P["sle"] = {
 					["enable"] = false,
 					["xoffset"] = 0,
 					["yoffset"] = 0,
+					["level"] = true,
 				},
 				["auras"] = {
 					["buffs"] = {
@@ -815,6 +816,9 @@ P["sle"] = {
 			["target"] = {
 				["higherPortrait"] = false,
 				["portraitAlpha"] = 0.35,
+				["pvpIconText"] = {
+					["level"] = true,
+				},
 				["auras"] = {
 					["buffs"] = {
 						["threshold"] = 4,

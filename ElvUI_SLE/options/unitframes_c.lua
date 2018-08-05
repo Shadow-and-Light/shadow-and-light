@@ -4,6 +4,7 @@ local SUF = SLE:GetModule("UnitFrames")
 local texPath = [[Interface\AddOns\ElvUI_SLE\media\textures\role\]]
 local texPathE = [[Interface\AddOns\ElvUI\media\textures\]]
 local CUSTOM = CUSTOM
+local LEVEL = LEVEL
 
 local function configTable()
 	if not SLE.initialized then return end
@@ -213,6 +214,7 @@ local function configTable()
 							enable = { order = 1, type = "toggle", name = L["Enable"], },
 							xoffset = { order = 2, type = "range", name = L["X-Offset"], min = -300, max = 300, step = 1 },
 							yoffset = { order = 3, type = "range", name = L["Y-Offset"], min = -150, max = 150, step = 1 },
+							level = { order = 4, type = "toggle", name = LEVEL, },
 						},
 						
 					},
@@ -243,6 +245,17 @@ local function configTable()
 				name = L["Target Frame"],
 				args = {
 					portrait = CreatePortraitConfig("target"),
+					pvpIconText = {
+						order = 5,
+						type = "group",
+						name = L["PvP & Prestige Icon"],
+						get = function(info) return E.db.sle.unitframes.unit.target.pvpIconText[ info[#info] ] end,
+						set = function(info, value) E.db.sle.unitframes.unit.target.pvpIconText[ info[#info] ] = value; UF:Configure_PVPIcon(_G["ElvUF_Target"]) end,
+						args = {
+							level = { order = 4, type = "toggle", name = LEVEL, },
+						},
+						
+					},
 					auras = CreateAurasConfig("target"),
 				},
 			},
