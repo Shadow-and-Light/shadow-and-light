@@ -84,7 +84,7 @@ end
 function LT:PopulateTable(qualityPassed)
 	for i = 1, T.GetNumLootItems() do
 		if T.GetLootSlotType(i) == 1 then 
-			local _, item, quantity, quality = T.GetLootSlotInfo(i)
+			local _, item, quantity, _, quality = T.GetLootSlotInfo(i)
 			local link, ilvl
 
 			if quality >= qualityPassed then
