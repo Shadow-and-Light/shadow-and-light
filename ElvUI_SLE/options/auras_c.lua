@@ -6,7 +6,7 @@ local function configTable()
 		type = "group",
 		name = BUFFOPTIONS_LABEL,
 		order = 4,
-		disabled = function() return not E.private.auras.enable end,
+		disabled = function() return (not E.private.auras.enable or SLE._Compatibility["ElvUI_VisualAuraTimers"]) end,
 		args = {
 			header = {
 				order = 1,

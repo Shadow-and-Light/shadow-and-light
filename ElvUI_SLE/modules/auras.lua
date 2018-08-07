@@ -28,7 +28,7 @@ function SA:UpdateAura(button, index)
 end
 
 function SA:Initialize()
-	if not SLE.initialized or E.private.auras.enable ~= true then return end
+	if not SLE.initialized or E.private.auras.enable ~= true or SLE._Compatibility["ElvUI_VisualAuraTimers"] then return end
 	SA.db = E.db.sle.auras
 	hooksecurefunc(A, 'UpdateAura', SA.UpdateAura)
 

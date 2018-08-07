@@ -105,6 +105,7 @@ local _CompList = {
 	"TradeSkillMaster",
 	"WorldQuestTracker",
 	"ElvUI_PagedLootHistory",
+	"ElvUI_VisualAuraTimers",
 	"SunnArt",
 }
 for i = 1, #_CompList do
