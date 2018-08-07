@@ -970,6 +970,22 @@ local function LoadArmoryConfigTable()
 							set = function(_, value) E.db.sle.Armory.Inspect.Level.ItemColor = value; end,
 							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end
 						},
+						xOffset = {
+							type = 'range',
+							name = L["X-Offset"],
+							order = 8,
+							min = -40, max = 150, step = 1,
+							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end,
+							set = function(_, value) E.db.sle.Armory.Inspect.Level.xOffset = value; _G["InspectArmory"]:Update_Display(true) end,
+						},
+						yOffset = {
+							type = 'range',
+							name = L["Y-Offset"],
+							order = 8,
+							min = -22, max = 3, step = 1,
+							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end,
+							set = function(_, value) E.db.sle.Armory.Inspect.Level.yOffset = value; _G["InspectArmory"]:Update_Display(true) end,
+						},
 					}
 				},
 				Enchant = {
@@ -1040,7 +1056,23 @@ local function LoadArmoryConfigTable()
 							order = 7,
 							values = FontStyleList,
 							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end
-						}
+						},
+						xOffset = {
+							type = 'range',
+							name = L["X-Offset"],
+							order = 8,
+							min = -2, max = 40, step = 1,
+							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end,
+							set = function(_, value) E.db.sle.Armory.Inspect.Enchant.xOffset = value; _G["InspectArmory"]:Update_Display(true) end,
+						},
+						yOffset = {
+							type = 'range',
+							name = L["Y-Offset"],
+							order = 8,
+							min = -13, max = 13, step = 1,
+							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end,
+							set = function(_, value) E.db.sle.Armory.Inspect.Enchant.yOffset = value; _G["InspectArmory"]:Update_Display(true) end,
+						},
 					}
 				},
 				Gem = {
@@ -1077,6 +1109,22 @@ local function LoadArmoryConfigTable()
 							order = 3,
 							min = 6,max = 50,step = 1,
 							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end
+						},
+						xOffset = {
+							type = 'range',
+							name = L["X-Offset"],
+							order = 8,
+							min = -40, max = 150, step = 1,
+							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end,
+							set = function(_, value) E.db.sle.Armory.Inspect.Gem.xOffset = value; _G["InspectArmory"]:Update_Display(true) end,
+						},
+						yOffset = {
+							type = 'range',
+							name = L["Y-Offset"],
+							order = 8,
+							min = -3, max = 22, step = 1,
+							disabled = function() return E.db.sle.Armory.Inspect.Enable == false end,
+							set = function(_, value) E.db.sle.Armory.Inspect.Gem.yOffset = value; _G["InspectArmory"]:Update_Display(true) end,
 						},
 					}
 				},

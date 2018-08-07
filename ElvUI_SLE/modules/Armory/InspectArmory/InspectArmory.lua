@@ -730,15 +730,15 @@ function IA:CreateInspectFrame()
 
 			if not (SlotName == 'ShirtSlot' or SlotName == 'TabardSlot') then
 				-- Item Level
-				KF:TextSetting(Slot.Gradation, nil, { Tag = 'ItemLevel',
+				KF:TextSetting(Slot, nil, { Tag = 'ItemLevel',
 					Font = E.db.sle.Armory.Inspect.Level.Font,
 					FontSize = E.db.sle.Armory.Inspect.Level.FontSize,
 					FontStyle = E.db.sle.Armory.Inspect.Level.FontStyle,
 					directionH = Slot.Direction
-				}, 'TOP'..Slot.Direction, Slot, 'TOP'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 or -2, -1)
+				}, 'TOP'..Slot.Direction, Slot, 'TOP'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 + E.db.sle.Armory.Inspect.Level.xOffset or -2 - E.db.sle.Armory.Inspect.Level.xOffset, -1 + E.db.sle.Armory.Inspect.Level.yOffset)
 
 				if E.db.sle.Armory.Inspect.Level.Display == 'Hide' then
-					Slot.Gradation.ItemLevel:Hide()
+					Slot.ItemLevel:Hide()
 				end
 
 				-- Enchantment
@@ -747,13 +747,13 @@ function IA:CreateInspectFrame()
 					FontSize = E.db.sle.Armory.Inspect.Enchant.FontSize,
 					FontStyle = E.db.sle.Armory.Inspect.Enchant.FontStyle,
 					directionH = Slot.Direction
-				}, Slot.Direction, Slot, Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 2 or -2, 1)
+				}, Slot.Direction, Slot, Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 2 + E.db.sle.Armory.Inspect.Enchant.xOffset or -2 - E.db.sle.Armory.Inspect.Enchant.xOffset, 1 + E.db.sle.Armory.Inspect.Enchant.yOffset)
 
 				if E.db.sle.Armory.Inspect.Enchant.Display == 'Hide' then
 					Slot.Gradation.ItemEnchant:Hide()
 				end
 
-				Slot.EnchantWarning = CreateFrame('Button', nil, Slot.Gradation)
+				Slot.EnchantWarning = CreateFrame('Button', nil, Slot)
 				Slot.EnchantWarning:Size(E.db.sle.Armory.Inspect.Enchant.WarningSize)
 				Slot.EnchantWarning.Texture = Slot.EnchantWarning:CreateTexture(nil, 'OVERLAY')
 				Slot.EnchantWarning.Texture:SetInside()
@@ -764,7 +764,7 @@ function IA:CreateInspectFrame()
 
 				-- Gem Socket
 				for i = 1, MAX_NUM_SOCKETS do
-					Slot['Socket'..i] = CreateFrame('Frame', nil, Slot.Gradation)
+					Slot['Socket'..i] = CreateFrame('Frame', nil, Slot)
 					Slot['Socket'..i]:Size(E.db.sle.Armory.Inspect.Gem.SocketSize)
 					Slot['Socket'..i]:SetBackdrop({
 						bgFile = E.media.blankTex,
@@ -793,11 +793,11 @@ function IA:CreateInspectFrame()
 					Slot['Socket'..i].Texture:SetTexCoord(.1, .9, .1, .9)
 					Slot['Socket'..i].Texture:SetInside()
 				end
-				Slot.Socket1:Point('BOTTOM'..Slot.Direction, Slot, 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 2)
+				Slot.Socket1:Point('BOTTOM'..Slot.Direction, Slot, 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 + E.db.sle.Armory.Inspect.Gem.xOffset or -2 - E.db.sle.Armory.Inspect.Gem.xOffset, 2 + E.db.sle.Armory.Inspect.Gem.yOffset)
 				Slot.Socket2:Point(Slot.Direction, Slot.Socket1, Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 1 or -1, 0)
 				Slot.Socket3:Point(Slot.Direction, Slot.Socket2, Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 1 or -1, 0)
 
-				Slot.SocketWarning = CreateFrame('Button', nil, Slot.Gradation)
+				Slot.SocketWarning = CreateFrame('Button', nil, Slot)
 				Slot.SocketWarning:Size(E.db.sle.Armory.Inspect.Gem.WarningSize)
 				Slot.SocketWarning.Texture = Slot.SocketWarning:CreateTexture(nil, 'OVERLAY')
 				Slot.SocketWarning.Texture:SetInside()
@@ -1959,7 +1959,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 					Slot.ILvL = 0
 					Slot.IsEnchanted = nil
 					wipe(Slot.ReplaceTooltipLines)
-					Slot.Gradation.ItemLevel:SetText(nil)
+					Slot.ItemLevel:SetText(nil)
 					Slot.Gradation.ItemEnchant:SetText(nil)
 					for i = 1, MAX_NUM_SOCKETS do
 						Slot['Socket'..i].Texture:SetTexture(nil)
@@ -2152,7 +2152,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 								Slot.ItemLevel:SetText((ItemUpgradeID and (Info.Armory_Constants.UpgradeColor[ItemUpgradeID] or '|cffffffff') or '')..Slot.ILvL)
 							end
 							
-							Slot.Gradation.ItemLevel:SetText(
+							Slot.ItemLevel:SetText(
 								(not TrueItemLevel or BasicItemLevel == TrueItemLevel) and BasicItemLevel
 								or
 								E.db.sle.Armory.Inspect.Level.ShowUpgradeLevel and (Slot.Direction == 'LEFT' and Slot.ILvL..' ' or '')..(ItemUpgradeID and (Info.Armory_Constants.UpgradeColor[ItemUpgradeID] or '|cffaaaaaa')..'(+'..ItemUpgradeID..')|r' or '')..(Slot.Direction == 'RIGHT' and ' '..Slot.ILvL or '')
@@ -2272,11 +2272,11 @@ function IA:InspectFrame_DataSetting(DataTable)
 					NeedUpdateList[#NeedUpdateList + 1] = SlotName
 				end
 			end
-			if Slot.Gradation.ItemLevel then
+			if Slot.ItemLevel then
 				if E.db.sle.Armory.Inspect.Level.ItemColor then
-					Slot.Gradation.ItemLevel:SetTextColor(R,G,B)
+					Slot.ItemLevel:SetTextColor(R,G,B)
 				else
-					Slot.Gradation.ItemLevel:SetTextColor(1,1,1)
+					Slot.ItemLevel:SetTextColor(1,1,1)
 				end
 			end
 			Slot.Texture:SetTexture(Slot.ItemTexture or Slot.EmptyTexture)
@@ -2742,12 +2742,13 @@ function IA:Update_Display(Force)
 			Slot = self[SlotName]
 			Mouseover = Slot.Gradation:IsMouseOver()
 			
-			if Slot.Gradation.ItemLevel then
+			if Slot.ItemLevel then
 				if E.db.sle.Armory.Inspect.Level.Display == 'Always' or Mouseover and E.db.sle.Armory.Inspect.Level.Display == 'MouseoverOnly' then
-					Slot.Gradation.ItemLevel:Show()
+					Slot.ItemLevel:Show()
 				else
-					Slot.Gradation.ItemLevel:Hide()
+					Slot.ItemLevel:Hide()
 				end
+				Slot.ItemLevel:Point('TOP'..Slot.Direction, Slot, 'TOP'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 + E.db.sle.Armory.Inspect.Level.xOffset or -2-E.db.sle.Armory.Inspect.Level.xOffset, -1+E.db.sle.Armory.Inspect.Level.yOffset)
 			end
 			
 			if Slot.Gradation.ItemEnchant then
@@ -2756,11 +2757,13 @@ function IA:Update_Display(Force)
 				elseif E.db.sle.Armory.Inspect.Enchant.Display ~= 'Always' and not (E.db.sle.Armory.Inspect.NoticeMissing and not Slot.IsEnchanted) then
 					Slot.Gradation.ItemEnchant:Hide()
 				end
+				Slot.Gradation.ItemEnchant:Point(Slot.Direction, Slot, Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 2 + E.db.sle.Armory.Inspect.Enchant.xOffset or -2 - E.db.sle.Armory.Inspect.Enchant.xOffset, 1 + E.db.sle.Armory.Inspect.Enchant.yOffset)
 			end
 			
 			SocketVisible = nil
 			
 			if Slot.Socket1 then
+				Slot.Socket1:Point('BOTTOM'..Slot.Direction, Slot, 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 + E.db.sle.Armory.Inspect.Gem.xOffset or -2 - E.db.sle.Armory.Inspect.Gem.xOffset, 2 + E.db.sle.Armory.Inspect.Gem.yOffset)
 				for i = 1, MAX_NUM_SOCKETS do
 					if E.db.sle.Armory.Inspect.Gem.Display == 'Always' or Mouseover and E.db.sle.Armory.Inspect.Gem.Display == 'MouseoverOnly' then
 						if Slot['Socket'..i].GemType then
@@ -2807,8 +2810,8 @@ function IA:UpdateSettings(part)
 	if db.Enable and _G["InspectArmory"].CreateInspectFrame then _G["InspectArmory"]:CreateInspectFrame() end
 	if part == "ilvl" or part == "all" then
 		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
-			if _G["InspectArmory"][SlotName] and _G["InspectArmory"][SlotName].Gradation and _G["InspectArmory"][SlotName].Gradation.ItemLevel then
-				_G["InspectArmory"][SlotName].Gradation.ItemLevel:FontTemplate(E.LSM:Fetch('font', db.Level.Font),db.Level.FontSize,db.Level.FontStyle)
+			if _G["InspectArmory"][SlotName] and _G["InspectArmory"][SlotName].Gradation and _G["InspectArmory"][SlotName].ItemLevel then
+				_G["InspectArmory"][SlotName].ItemLevel:FontTemplate(E.LSM:Fetch('font', db.Level.Font),db.Level.FontSize,db.Level.FontStyle)
 				if not (SlotName == 'MainHandSlot' or SlotName == 'SecondaryHandSlot') then
 					_G["InspectArmory"][SlotName].ItemLevel:FontTemplate(E.LSM:Fetch('font', db.Level.Font),db.Level.FontSize,db.Level.FontStyle)
 				end

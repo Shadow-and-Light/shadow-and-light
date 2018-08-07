@@ -33,6 +33,8 @@ P.sle.Armory.Inspect = {
 		FontSize = 10,
 		FontStyle = "OUTLINE",
 		ItemColor = false,
+		xOffset = 0,
+		yOffset = 0,
 	},
 	
 	Enchant = {
@@ -41,13 +43,17 @@ P.sle.Armory.Inspect = {
 		WarningIconOnly = false,
 		Font = "PT Sans Narrow",
 		FontSize = 8,
-		FontStyle = "OUTLINE"
+		FontStyle = "OUTLINE",
+		xOffset = 0,
+		yOffset = 0,
 	},
 	
 	Gem = {
 		Display = 'Always', -- Always, MouseoverOnly, Hide
 		SocketSize = 10,
-		WarningSize = 12
+		WarningSize = 12,
+		xOffset = 0,
+		yOffset = 0,
 	},
 	--Fonts--
 	--Tabs
