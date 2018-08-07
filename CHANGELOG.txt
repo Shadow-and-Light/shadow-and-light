@@ -1,3 +1,18 @@
+v3.43
+This version has a hard requirement for ElvUI v10.78+ to work
+Fixes:
+- Fixed toolbars movers still showing up on load.
+- Fixed enchant scroll button not showing up.
+- Fixed loot announcement not seeing quality of intems. Not that this feature is relevant withou master looter anyways.
+- Potentially fixed bag error when equipement set ID was passed as nil.
+Changes:
+- Changed the way armory checks for weapon enchants. Should be showing warnings for correct weapons now.
+- Movable Blizzard frames should be fully functional again.
+Additions:
+- PvP indicator icon can now show exact honor level for the unit. You don't need to guess now.
+- Armory now has options for text offsets.
+- Addedd VAT compatibility
+
 v3.421 [July 27th 2018]
 Fixes:
 - Fixed coordinates seemed to not get correct info most of the time
