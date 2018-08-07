@@ -22,7 +22,7 @@ local SMARTBUFF_MinimapButton_CheckPos, SMARTBUFF_MinimapButton_OnUpdate
 
 local function OnEnter(self)
 	UIFrameFadeIn(SMB.bar, 0.2, SMB.bar:GetAlpha(), 1)
-	if self:GetName() ~= 'SMB.bar' then
+	if self ~= SMB.bar then
 		self:SetBackdropBorderColor(.7, 0, .7)
 	end
 end
@@ -32,7 +32,7 @@ local function OnLeave(self)
 	if E.db.sle.minimap.mapicons.iconmouseover then
 		UIFrameFadeOut(SMB.bar, 0.2, SMB.bar:GetAlpha(), 0)
 	end
-	if self:GetName() ~= 'SMB.bar' then
+	if self ~= SMB.bar then
 		self:SetBackdropBorderColor(T.unpack(BorderColor))
 	end
 end
