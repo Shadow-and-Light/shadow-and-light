@@ -63,23 +63,25 @@ IA.PageList = { Character = 'CHARACTER', Info = 'INFO', Spec = 'TALENTS' }
 IA.InfoPageCategoryList = { 'Profession', 'PvP', 'Guild' }
 IA.UnitPopupList = { FRIEND = true, GUILD = true, RAID = true, FOCUS = true, PLAYER = true, PARTY = true, RAID_PLAYER = true }
 IA.ModelList = {
-	Human =		{ RaceID = 1, 	[2] = { x = -.02, y = -.04, r = -5.76 }, 	[3] = { x = -.02, y = -.07, r = -5.74 }},
-	Dwarf = 		{ RaceID = 3, 	[2] = { x = -.02 }, 								[3] = { x = -.05, y = -.09, r = -5.74 }},
-	NightElf = 		{ RaceID = 4, 	[2] = { x = -.04, y = -.02, r = -5.74 }, 	[3] = { y = -.02, r = -5.74 }},
-	Gnome = 		{ RaceID = 7, 	[2] = { y = -.1 },									[3] = { x = -.04, y = -.1 }},
-	Draenei = 	{ RaceID = 11, 	[2] = { x = -.09, r = -5.76 }, 					[3] = { x = -.05, y = -.06, r = -5.7 }},
-	Worgen = 	{ RaceID = 22, 	[2] = { y = .1 }, 									[3] = { x = -.14, r = -5.9 }},
-	Orc = 			{ RaceID = 2, 	[2] = { y = -.02, r = -6.63 }, 					[3] = { x = .03, y = -.04, r = -6.86 }},
-	Scourge = 	{ RaceID = 5, 	[2] = { x = -.01, y = -.06, r = -6.5 }, 		[3] = { y = -.04, r = -6.85 }},
-	Tauren = 		{ RaceID = 6, 	[2] = { x = .08, y = .08, r = -6.79 }, 		[3] = { x = .1, y = -.16, r = -6.70 }},
-	Troll = 			{ RaceID = 8, 	[2] = { r = -6.85 }, 								[3] = { x = .03, y = .03, r = -6.89 }},
-	BloodElf = 	{ RaceID = 10, 	[2] = { x = -.02, y = -.01, r = -6.53 }, 	[3] = { x = .1, y = -.03, r = -6.89 }},
-	Goblin = 		{ RaceID = 9, 	[2] = { x = .01, y = -.03, r = -6.57 }, 		[3] = { y = -.05, r = -6.61 }},
-	Pandaren = 	{ RaceID = 24, 	[2] = { x = .08, r = -6.85 }, 					[3] = { x = .14, y = .06, r = -6.72 }},
-	Nightborne = 	{ RaceID = 27, 	[2] = { x = -.04, y = -.02, r = -5.74 }, 					[3] = { y = -.02, r = -5.74 }},
-	HighmountainTauren = 	{ RaceID = 28, 	[2] = { x = .08, y = .08, r = -6.79 }, 					[3] = { x = .1, y = -.16, r = -6.70 }},
-	VoidElf = 	{ RaceID = 29, 	[2] = { x = -.02, y = -.01, r = -6.53 }, 					[3] = { x = .1, y = -.03, r = -6.89 }},
-	LightforgedDraenei = 	{ RaceID = 30, 	[2] = { x = -.09, r = -5.76 }, 					[3] = { x = -.05, y = -.06, r = -5.7 }}
+	Human = { RaceID = 1, [2] = { x = -.02, y = -.04, r = -5.76 }, [3] = { x = -.02, y = -.07, r = -5.74 }},
+	Orc = { RaceID = 2, [2] = { y = -.02, r = -6.63 }, [3] = { x = .03, y = -.04, r = -6.86 }},
+	Dwarf = { RaceID = 3, [2] = { x = -.02 }, [3] = { x = -.05, y = -.09, r = -5.74 }},
+	NightElf = { RaceID = 4, [2] = { x = -.04, y = -.02, r = -5.74 }, [3] = { y = -.02, r = -5.74 }},
+	Scourge = { RaceID = 5, [2] = { x = -.01, y = -.06, r = -6.5 }, [3] = { y = -.04, r = -6.85 }},
+	Tauren = { RaceID = 6, [2] = { x = .08, y = .08, r = -6.79 }, [3] = { x = .1, y = -.16, r = -6.70 }},
+	Gnome = { RaceID = 7, [2] = { y = -.1 }, [3] = { x = -.04, y = -.1 }},
+	Troll = { RaceID = 8, [2] = { r = -6.85 }, [3] = { x = .03, y = .03, r = -6.89 }},
+	Goblin = { RaceID = 9, [2] = { x = .01, y = -.03, r = -6.57 }, [3] = { y = -.05, r = -6.61 }},
+	BloodElf = 	{ RaceID = 10, [2] = { x = -.02, y = -.01, r = -6.53 }, [3] = { x = .1, y = -.03, r = -6.89 }},
+	Draenei = { RaceID = 11, [2] = { x = -.09, r = -5.76 }, [3] = { x = -.05, y = -.06, r = -5.7 }},
+	Worgen = { RaceID = 22, [2] = { y = .1 }, [3] = { x = -.14, r = -5.9 }},
+	Pandaren = { RaceID = 24, [2] = { x = .08, r = -6.85 }, [3] = { x = .14, y = .06, r = -6.72 }},
+	Nightborne = { RaceID = 27, [2] = { x = -.04, y = -.02, r = -5.74 }, [3] = { y = -.02, r = -5.74 }},
+	HighmountainTauren = { RaceID = 28, [2] = { x = .08, y = .08, r = -6.79 }, [3] = { x = .1, y = -.16, r = -6.70 }},
+	VoidElf = { RaceID = 29, [2] = { x = -.02, y = -.01, r = -6.53 }, [3] = { x = .1, y = -.03, r = -6.89 }},
+	LightforgedDraenei = { RaceID = 30, [2] = { x = -.09, r = -5.76 }, [3] = { x = -.05, y = -.06, r = -5.7 }},
+	MagharOrc = { RaceID = 36, [2] = { y = -.02, r = -6.63 }, [3] = { x = .03, y = -.04, r = -6.86 }},
+	DarkIronDwarf = { RaceID = 34, [2] = { x = -.02 }, [3] = { x = -.05, y = -.09, r = -5.74 }},
 }
 IA.CurrentInspectData = {}
 IA.Default_CurrentInspectData = {
