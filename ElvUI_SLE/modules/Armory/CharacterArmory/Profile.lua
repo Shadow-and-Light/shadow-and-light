@@ -30,6 +30,8 @@ P.sle.Armory.Character = {
 		FontSize = 10,
 		FontStyle = "OUTLINE",
 		ItemColor = false,
+		xOffset = 0,
+		yOffset = 0,
 	},
 	
 	Enchant = {
@@ -39,6 +41,8 @@ P.sle.Armory.Character = {
 		Font = "PT Sans Narrow",
 		FontSize = 8,
 		FontStyle = "OUTLINE",
+		xOffset = 0,
+		yOffset = 0,
 	},
 	
 	Durability = {
@@ -46,12 +50,16 @@ P.sle.Armory.Character = {
 		Font = "PT Sans Narrow",
 		FontSize = 9,
 		FontStyle = "OUTLINE",
+		xOffset = 0,
+		yOffset = 0,
 	},
 	
 	Gem = {
 		Display = 'Always', -- Always, MouseoverOnly, Hide
 		SocketSize = 10,
-		WarningSize = 12
+		WarningSize = 12,
+		xOffset = 0,
+		yOffset = 0,
 	},
 	Stats = {
 		IlvlFull = false,

@@ -313,7 +313,8 @@ function CA:Setup_CharacterArmory()
 		Slot:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() + 1)
 		Slot.Direction = i%2 == 1 and 'LEFT' or 'RIGHT'
 		Slot.ID, Slot.EmptyTexture = T.GetInventorySlotInfo(SlotName)
-		Slot:Point(Slot.Direction, _G["Character"..SlotName], Slot.Direction == 'LEFT' and -1 or 1, 0)
+		-- Slot:Point(Slot.Direction, _G["Character"..SlotName], Slot.Direction == 'LEFT' and -1 or 1, 0)
+		Slot:Point(Slot.Direction, _G["Character"..SlotName], 0, 0)
 
 		-- Azerite
 		hooksecurefunc(_G["Character"..SlotName], "SetAzeriteItem", function(self, itemLocation)
@@ -363,12 +364,14 @@ function CA:Setup_CharacterArmory()
 		
 		if SlotName ~= 'ShirtSlot' and SlotName ~= 'TabardSlot' then
 			-- Item Level
-			KF:TextSetting(Slot, nil, { Tag = 'ItemLevel',
+			KF:TextSetting(_G["Character"..SlotName], nil, { Tag = 'ItemLevel',
 				Font = E.db.sle.Armory.Character.Level.Font,
 				FontSize = E.db.sle.Armory.Character.Level.FontSize,
 				FontStyle = E.db.sle.Armory.Character.Level.FontStyle,
 				directionH = Slot.Direction
-			}, 'TOP'..Slot.Direction, _G["Character"..SlotName], 'TOP'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 or -2, -1)
+			}, 'TOP'..Slot.Direction, _G["Character"..SlotName], 'TOP'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 + E.db.sle.Armory.Character.Level.xOffset or -2-E.db.sle.Armory.Character.Level.xOffset, -1+E.db.sle.Armory.Character.Level.yOffset)
+			
+			Slot.ItemLevel = _G["Character"..SlotName].ItemLevel
 			
 			if E.db.sle.Armory.Character.Level.Display == 'Hide' then
 				Slot.ItemLevel:Hide()
@@ -379,7 +382,7 @@ function CA:Setup_CharacterArmory()
 				FontSize = E.db.sle.Armory.Character.Enchant.FontSize,
 				FontStyle = E.db.sle.Armory.Character.Enchant.FontStyle,
 				directionH = Slot.Direction
-			}, Slot.Direction, _G["Character"..SlotName], Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 2 or -2, 1)
+			}, Slot.Direction, _G["Character"..SlotName], Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 2 + E.db.sle.Armory.Character.Enchant.xOffset or -2 - E.db.sle.Armory.Character.Enchant.xOffset, 1 + E.db.sle.Armory.Character.Enchant.yOffset)
 			
 			if E.db.sle.Armory.Character.Enchant.Display == 'Hide' then
 				Slot.ItemEnchant:Hide()
@@ -395,12 +398,14 @@ function CA:Setup_CharacterArmory()
 			Slot.EnchantWarning:SetScript('OnLeave', self.OnLeave)
 			
 			-- Durability
-			KF:TextSetting(Slot, nil, { Tag = 'Durability',
+			KF:TextSetting(_G["Character"..SlotName], nil, { Tag = 'Durability',
 				Font = E.db.sle.Armory.Character.Durability.Font,
 				FontSize = E.db.sle.Armory.Character.Durability.FontSize,
 				FontStyle = E.db.sle.Armory.Character.Durability.FontStyle,
 				directionH = Slot.Direction
-			}, 'BOTTOM'..Slot.Direction, _G["Character"..SlotName], 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 or -2, 3)
+			}, 'TOP'..Slot.Direction, _G["Character"..SlotName], 'TOP'..Slot.Direction, Slot.Direction == 'LEFT' and 0 + E.db.sle.Armory.Character.Durability.xOffset or 0 - E.db.sle.Armory.Character.Durability.xOffset, -3 + E.db.sle.Armory.Character.Durability.yOffset)
+			
+			Slot.Durability = _G["Character"..SlotName].Durability
 			
 			-- Gem Socket
 			for i = 1, MAX_NUM_SOCKETS do
@@ -414,7 +419,7 @@ function CA:Setup_CharacterArmory()
 				})
 				Slot["Socket"..i]:SetBackdropColor(0, 0, 0, 1)
 				Slot["Socket"..i]:SetBackdropBorderColor(0, 0, 0)
-				Slot["Socket"..i]:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel())
+				Slot["Socket"..i]:SetFrameLevel(_G["Character"..SlotName]:GetFrameLevel() + 5)
 				
 				Slot["Socket"..i].SlotID = Slot.ID
 				Slot["Socket"..i].SocketNumber = i
@@ -438,6 +443,7 @@ function CA:Setup_CharacterArmory()
 				Slot["Socket"..i].Texture:SetTexCoord(.1, .9, .1, .9)
 				Slot["Socket"..i].Texture:SetInside()
 			end
+			Slot.Socket1:Point('BOTTOM'..Slot.Direction, _G["Character"..SlotName], 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 + E.db.sle.Armory.Character.Gem.xOffset or -2 - E.db.sle.Armory.Character.Gem.xOffset, 2 + E.db.sle.Armory.Character.Gem.yOffset)
 			Slot.Socket2:Point(Slot.Direction, Slot.Socket1, Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 1 or -1, 0)
 			Slot.Socket3:Point(Slot.Direction, Slot.Socket2, Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 1 or -1, 0)
 			
@@ -582,15 +588,8 @@ function CA:Update_Durability()
 		if CurrentDurability and MaxDurability and not (E.db.sle.Armory.Character.Durability.Display == 'DamagedOnly' and CurrentDurability == MaxDurability) then
 			R, G, B = E:ColorGradient((CurrentDurability / MaxDurability), 1, 0, 0, 1, 1, 0, 0, 1, 0)
 			Slot.Durability:SetFormattedText("%s%.0f%%|r", E:RGBToHex(R, G, B), (CurrentDurability / MaxDurability) * 100)
-			
-			if (E.db.sle.Armory.Character.Durability.Display == 'MouseoverOnly' and not Slot:IsMouseOver()) or E.db.sle.Armory.Character.Durability.Display == 'Hide' then
-				Slot.Socket1:Point('BOTTOM'..Slot.Direction, _G["Character"..SlotName], 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 or -2, 2)
-			else
-				Slot.Socket1:Point('BOTTOM'..Slot.Direction, Slot.Durability, 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Durability:GetText() and (Slot.Direction == 'LEFT' and 3 or -1) or 0, Slot.Durability:GetText() and -1 or 0)
-			end
 		elseif Slot.Durability then
 			Slot.Durability:SetText('')
-			Slot.Socket1:Point('BOTTOM'..Slot.Direction, _G["Character"..SlotName], 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 3)
 		end
 	end
 	
@@ -948,6 +947,7 @@ function CA:Update_Display(Force)
 				else
 					Slot.ItemLevel:Hide()
 				end
+				Slot.ItemLevel:Point('TOP'..Slot.Direction, _G["Character"..SlotName], 'TOP'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 + E.db.sle.Armory.Character.Level.xOffset or -2-E.db.sle.Armory.Character.Level.xOffset, -1+E.db.sle.Armory.Character.Level.yOffset)
 			end
 			
 			if Slot.ItemEnchant then
@@ -956,29 +956,22 @@ function CA:Update_Display(Force)
 				elseif E.db.sle.Armory.Character.Enchant.Display ~= 'Always' and not (E.db.sle.Armory.Character.NoticeMissing and not Slot.IsEnchanted) then
 					Slot.ItemEnchant:Hide()
 				end
+				Slot.ItemEnchant:Point(Slot.Direction, _G["Character"..SlotName], Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 2 + E.db.sle.Armory.Character.Enchant.xOffset or -2 - E.db.sle.Armory.Character.Enchant.xOffset, 1 + E.db.sle.Armory.Character.Enchant.yOffset)
 			end
 			
 			if Slot.Durability then
 				if E.db.sle.Armory.Character.Durability.Display == 'Always' or Mouseover and E.db.sle.Armory.Character.Durability.Display == 'MouseoverOnly' or E.db.sle.Armory.Character.Durability.Display == 'DamagedOnly' then
 					Slot.Durability:Show()
-					
-					if Slot.Socket1 then
-						if Slot.Durability:GetText() == '' or E.db.sle.Armory.Character.Durability.Display == 'MouseoverOnly' and not Mouseover then
-							Slot.Socket1:Point('BOTTOM'..Slot.Direction, _G["Character"..SlotName], 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 or -2, 2)
-						else
-							Slot.Socket1:Point('BOTTOM'..Slot.Direction, Slot.Durability, 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Durability:GetText() and (Slot.Direction == 'LEFT' and 3 or -1) or 0, Slot.Durability:GetText() and -1 or 0)
-						end
-					end
 				else
 					Slot.Durability:Hide()
-					
-					Slot.Socket1:Point('BOTTOM'..Slot.Direction, _G["Character"..SlotName], 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 or -2, 2)
 				end
+				Slot.Durability:Point('TOP'..Slot.Direction, _G["Character"..SlotName], 'TOP'..Slot.Direction, Slot.Direction == 'LEFT' and 0 + E.db.sle.Armory.Character.Durability.xOffset or 0 - E.db.sle.Armory.Character.Durability.xOffset, -3 + E.db.sle.Armory.Character.Durability.yOffset)
 			end
 
 			SocketVisible = nil
 
 			if Slot.Socket1 then
+				Slot.Socket1:Point('BOTTOM'..Slot.Direction, _G["Character"..SlotName], 'BOTTOM'..(Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 2 + E.db.sle.Armory.Character.Gem.xOffset or -2 - E.db.sle.Armory.Character.Gem.xOffset, 2 + E.db.sle.Armory.Character.Gem.yOffset)
 				for i = 1, MAX_NUM_SOCKETS do
 					if E.db.sle.Armory.Character.Gem.Display == 'Always' or Mouseover and E.db.sle.Armory.Character.Gem.Display == 'MouseoverOnly' then
 						if Slot["Socket"..i].GemType then

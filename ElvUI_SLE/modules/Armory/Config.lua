@@ -479,7 +479,23 @@ local function LoadArmoryConfigTable()
 							order = 7,
 							set = function(_, value) E.db.sle.Armory.Character.Level.ItemColor = value; _G["CharacterArmory"]:Update_Gear() end,
 							disabled = function() return E.db.sle.Armory.Character.Enable == false end
-						}
+						},
+						xOffset = {
+							type = 'range',
+							name = L["X-Offset"],
+							order = 8,
+							min = -40, max = 150, step = 1,
+							disabled = function() return E.db.sle.Armory.Character.Enable == false end,
+							set = function(_, value) E.db.sle.Armory.Character.Level.xOffset = value; _G["CharacterArmory"]:Update_Display(true) end,
+						},
+						yOffset = {
+							type = 'range',
+							name = L["Y-Offset"],
+							order = 8,
+							min = -22, max = 3, step = 1,
+							disabled = function() return E.db.sle.Armory.Character.Enable == false end,
+							set = function(_, value) E.db.sle.Armory.Character.Level.yOffset = value; _G["CharacterArmory"]:Update_Display(true) end,
+						},
 					}
 				},
 				Enchant = {
@@ -535,7 +551,23 @@ local function LoadArmoryConfigTable()
 							order = 7,
 							values = FontStyleList,
 							disabled = function() return E.db.sle.Armory.Character.Enable == false end
-						}
+						},
+						xOffset = {
+							type = 'range',
+							name = L["X-Offset"],
+							order = 8,
+							min = -2, max = 40, step = 1,
+							disabled = function() return E.db.sle.Armory.Character.Enable == false end,
+							set = function(_, value) E.db.sle.Armory.Character.Enchant.xOffset = value; _G["CharacterArmory"]:Update_Display(true) end,
+						},
+						yOffset = {
+							type = 'range',
+							name = L["Y-Offset"],
+							order = 8,
+							min = -13, max = 13, step = 1,
+							disabled = function() return E.db.sle.Armory.Character.Enable == false end,
+							set = function(_, value) E.db.sle.Armory.Character.Enchant.yOffset = value; _G["CharacterArmory"]:Update_Display(true) end,
+						},
 					}
 				},
 				Durability = {
@@ -583,7 +615,23 @@ local function LoadArmoryConfigTable()
 							order = 5,
 							values = FontStyleList,
 							disabled = function() return E.db.sle.Armory.Character.Enable == false end
-						}
+						},
+						xOffset = {
+							type = 'range',
+							name = L["X-Offset"],
+							order = 8,
+							min = -2, max = 150, step = 1,
+							disabled = function() return E.db.sle.Armory.Character.Enable == false end,
+							set = function(_, value) E.db.sle.Armory.Character.Durability.xOffset = value; _G["CharacterArmory"]:Update_Display(true) end,
+						},
+						yOffset = {
+							type = 'range',
+							name = L["Y-Offset"],
+							order = 8,
+							min = -22, max = 3, step = 1,
+							disabled = function() return E.db.sle.Armory.Character.Enable == false end,
+							set = function(_, value) E.db.sle.Armory.Character.Durability.yOffset = value; _G["CharacterArmory"]:Update_Display(true) end,
+						},
 					}
 				},
 				Gem = {
@@ -614,6 +662,22 @@ local function LoadArmoryConfigTable()
 							order = 3,
 							min = 6,max = 50,step = 1,
 							disabled = function() return E.db.sle.Armory.Character.Enable == false end
+						},
+						xOffset = {
+							type = 'range',
+							name = L["X-Offset"],
+							order = 8,
+							min = -40, max = 150, step = 1,
+							disabled = function() return E.db.sle.Armory.Character.Enable == false end,
+							set = function(_, value) E.db.sle.Armory.Character.Gem.xOffset = value; _G["CharacterArmory"]:Update_Display(true) end,
+						},
+						yOffset = {
+							type = 'range',
+							name = L["Y-Offset"],
+							order = 8,
+							min = -3, max = 22, step = 1,
+							disabled = function() return E.db.sle.Armory.Character.Enable == false end,
+							set = function(_, value) E.db.sle.Armory.Character.Gem.yOffset = value; _G["CharacterArmory"]:Update_Display(true) end,
 						},
 					},
 				},
