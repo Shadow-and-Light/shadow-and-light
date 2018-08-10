@@ -1602,7 +1602,7 @@ SLE.installTable = {
 
 			_G["PluginInstallFrame"].Option1:Show()
 			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function()
-				E.private.sle.module.blizzmove = true;
+				E.private.sle.module.blizzmove.enable = true;
 				_G["PluginInstallStepComplete"].message = L["Move Blizzard frames"].." ".."Set to |cff00FF00"..ENABLE.."|r"
 				_G["PluginInstallStepComplete"]:Show()
 			end)
@@ -1610,7 +1610,7 @@ SLE.installTable = {
 
 			_G["PluginInstallFrame"].Option2:Show()
 			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function()
-				E.private.sle.module.blizzmove = false;
+				E.private.sle.module.blizzmove.enable = false;
 				_G["PluginInstallStepComplete"].message = L["Move Blizzard frames"].." ".."Set to |cffFF0000"..DISABLE.."|r"
 				_G["PluginInstallStepComplete"]:Show()
 			end)
