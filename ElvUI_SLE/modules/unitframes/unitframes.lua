@@ -84,9 +84,10 @@ function SUF:NewTags()
 		end
 	end
 	
-	_G["ElvUF"].Tags.Events['sl:pvplevel'] = "HONOR_LEVEL_UPDATE"
+	_G["ElvUF"].Tags.Events['sl:pvplevel'] = "HONOR_LEVEL_UPDATE PLAYER_FLAGS_CHANGED"
 	_G["ElvUF"].Tags.Methods['sl:pvplevel'] = function(unit)
-		return UnitIsPVP(unit) and UnitHonorLevel(unit) or ""
+		-- if unit ~= "target" and unit ~= "player" then return "" end
+		return (UnitIsPVP(unit) and UnitHonorLevel(unit) > 0) and UnitHonorLevel(unit) or ""
 	end
 end
 
