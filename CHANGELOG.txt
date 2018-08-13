@@ -12,6 +12,7 @@ Additions:
 - PvP indicator icon can now show exact honor level for the unit. You don't need to guess now.
 - Armory now has options for text offsets. With introduction of this change durability text was moved inside item icon.
 - Addedd VAT compatibility
+- Added an option to change minimap coordinates color
 
 v3.421 [July 27th 2018]
 Fixes:
