@@ -1,4 +1,4 @@
-v3.43
+v3.43 [August 13th 2018]
 This version has a hard requirement for ElvUI v10.78+ to work
 Fixes:
 - Fixed toolbars movers still showing up on load.
