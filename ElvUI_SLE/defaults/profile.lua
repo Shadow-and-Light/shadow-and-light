@@ -488,6 +488,7 @@ P["sle"] = {
 			["fontSize"] = 12,
 			["fontOutline"] = "OUTLINE",
 			["throttle"] = 0.2,
+			["color"] = {r = 1,g = 1,b = 1},
 		},
 		["buttons"] = {
 			["anchor"] = "NOANCHOR",

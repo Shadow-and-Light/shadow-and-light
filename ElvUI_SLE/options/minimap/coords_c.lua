@@ -97,6 +97,22 @@ local function configTable()
 							["THICKOUTLINE"] = 'THICKOUTLINE',
 						},
 					},
+					color = {
+						type = 'color',
+						order = 4,
+						name = L["Color"],
+						get = function(info)
+							local t = E.db.sle.minimap.coords[ info[#info] ]
+							local d = P.sle.minimap.coords[info[#info]]
+							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+						end,
+						set = function(info, r, g, b, a)
+							E.db.sle.minimap.coords[ info[#info] ] = {}
+							local t = E.db.sle.minimap.coords[ info[#info] ]
+							t.r, t.g, t.b, t.a = r, g, b, a
+							MM:SetCoordsColor()
+						end,
+					},
 				},
 			},
 		},

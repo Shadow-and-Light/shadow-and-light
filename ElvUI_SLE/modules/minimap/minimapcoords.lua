@@ -90,6 +90,7 @@ function MM:UpdateSettings()
 		MM:CreateCoordsFrame()
 	end
 	MM:CoordFont()
+	MM:SetCoordsColor()
 	MM:CoordsSize()
 
 	MM.coordspanel:SetPoint(E.db.sle.minimap.coords.position, _G["Minimap"])
@@ -102,6 +103,11 @@ function MM:UpdateSettings()
 		MM.coordspanel:Show()
 	end
 	MM:HideMinimapRegister()
+end
+
+function MM:SetCoordsColor()
+	local color = E.db.sle.minimap.coords.color
+	MM.coordspanel.Text:SetTextColor(color.r, color.g, color.b)
 end
 
 function MM:Initialize()
