@@ -69,6 +69,7 @@ end
 
 function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, parent, customWidth, justify)
 	if T.InCombatLockdown() then return end
+	frame.maxWidth = BUTTON_WIDTH
 	if not frame.buttons then
 		frame.buttons = {}
 		frame:SetFrameStrata("DIALOG")
@@ -101,7 +102,7 @@ function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 			btn.text:SetJustifyH(justify or "LEFT")
 			btn:Show()
 			btn:Height(BUTTON_HEIGHT)
-			btn:Width(customWidth or BUTTON_WIDTH)
+
 			local icon = ""
 			if list[i].icon then
 				icon = "|T"..list[i].icon..":14:14|t "
@@ -117,6 +118,14 @@ function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 			else
 				btn.text:SetTextColor(1, 1, 1)
 			end
+
+			if customWidth and customWidth == "auto" then
+				if frame.maxWidth < btn.text:GetStringWidth() then frame.maxWidth = btn.text:GetStringWidth() end
+				btn:Width(btn.text:GetStringWidth())
+			else
+				btn:Width(customWidth or BUTTON_WIDTH)
+			end
+
 			if list[i].secure then
 				btn:SetAttribute("type", nil)
 				-- btn:SetAttribute("item", nil)
@@ -153,7 +162,11 @@ function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 		end
 
 		frame:Height((#list * BUTTON_HEIGHT) + PADDING * 2 + TitleCount * (2 * TITLE_OFFSET) - AddOffset * TITLE_OFFSET)
-		frame:Width(customWidth or (BUTTON_WIDTH + PADDING * 2))
+		if customWidth and customWidth == "auto" then
+			frame:Width(frame.maxWidth + PADDING * 2)
+		else
+			frame:Width(customWidth or (BUTTON_WIDTH + PADDING * 2))
+		end
 
 		frame:ClearAllPoints()
 		if FramePoint == "CURSOR" then
