@@ -663,7 +663,7 @@ function CA:Update_Gear()
 				end
 			end
 			if ItemLink then
-				if not ItemLink:find('%[%]') or ItemLink:find('%[]') then -- sometimes itemLink is malformed so we need to update when crashed
+				if not ItemLink:find('%[%]') then -- sometimes itemLink is malformed so we need to update when crashed
 
 					ItemData = { T.split(':', ItemLink) }
 
