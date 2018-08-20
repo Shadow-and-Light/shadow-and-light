@@ -31,7 +31,7 @@ local GarTools = {
 	},
 }
 
-function Gar:SHIPMENT_CRAFTER_INFO(event, success, _, maxShipments, plotID)
+function Gar:SHIPMENT_CRAFTER_INFO(event, success, shipmentCount, maxShipments, ownedShipments, plotID)
 	if not _G["GarrisonCapacitiveDisplayFrame"] then return end --Just in case
 	if not C_Garrison.IsPlayerInGarrison(2) and not C_Garrison.IsOnShipyardMap() then return end
 	local n = _G["GarrisonCapacitiveDisplayFrame"].available or 0

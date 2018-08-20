@@ -341,6 +341,11 @@ P["sle"] = {
 				["autoEquip"] = false,
 			},
 		},
+		["warwampaign"] = {
+			["autoOrder"] = {
+				["enable"] = false,
+			},
+		}
 	},
 	--LFR options
 	["lfr"] = {
