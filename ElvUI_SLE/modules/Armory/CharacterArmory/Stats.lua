@@ -187,19 +187,19 @@ function PaperDollFrame_SetParry(statFrame, unit)
 end
 
 -- Block Chance
-function PaperDollFrame_SetBlock(statFrame, unit)
-	if (unit ~= "player") then
-		statFrame:Hide();
-		return;
-	end
+-- function PaperDollFrame_SetBlock(statFrame, unit)
+	-- if (unit ~= "player") then
+		-- statFrame:Hide();
+		-- return;
+	-- end
 
-	local chance = GetBlockChance();
+	-- local chance = GetBlockChance();
 -- PaperDollFrame_SetLabelAndText Format Change
-	PaperDollFrame_SetLabelAndText(statFrame, STAT_BLOCK, T.format("%.2f%%", chance), false, chance);
-	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..T.format(PAPERDOLLFRAME_TOOLTIP_FORMAT, BLOCK_CHANCE).." "..T.format("%.2f", chance).."%"..FONT_COLOR_CODE_CLOSE;
-	statFrame.tooltip2 = T.format(CR_BLOCK_TOOLTIP, GetShieldBlock());
-	statFrame:Show();
-end
+	-- PaperDollFrame_SetLabelAndText(statFrame, STAT_BLOCK, T.format("%.2f%%", chance), false, chance);
+	-- statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..T.format(PAPERDOLLFRAME_TOOLTIP_FORMAT, BLOCK_CHANCE).." "..T.format("%.2f", chance).."%"..FONT_COLOR_CODE_CLOSE;
+	-- statFrame.tooltip2 = T.format(CR_BLOCK_TOOLTIP, GetShieldBlock());
+	-- statFrame:Show();
+-- end
 
 -- Crit Chance
 function PaperDollFrame_SetCritChance(statFrame, unit)
@@ -281,22 +281,22 @@ function PaperDollFrame_SetHaste(statFrame, unit)
 	statFrame:Show();
 end
 
-local PAPERDOLL_AttributesIndexDefaultStats ={
-	[1] = "HEALTH",
-	[2] = "POWER",
-	[3] = "ALTERNATEMANA",
-	[4] = "ATTACK_DAMAGE",
-	[5] = "ATTACK_AP",
-	[6] = "ATTACK_ATTACKSPEED",
-	[7] = "SPELLPOWER",
-	[8] = "ENERGY_REGEN",
-	[9] = "RUNE_REGEN",
-	[10] = "FOCUS_REGEN",
-	[11] = "MOVESPEED",
-}
+function CA:CreateStatCategory(catName, text, noop)
+	if not _G["CharacterStatsPane"][catName] then
+		_G["CharacterStatsPane"][catName] = CreateFrame("Frame", nil, _G["CharacterStatsPane"], "CharacterStatFrameCategoryTemplate")
+		_G["CharacterStatsPane"][catName].Title:SetText(text)
+		_G["CharacterStatsPane"][catName]:StripTextures()
+		_G["CharacterStatsPane"][catName]:CreateBackdrop("Transparent")
+		_G["CharacterStatsPane"][catName].backdrop:ClearAllPoints()
+		_G["CharacterStatsPane"][catName].backdrop:SetPoint("CENTER")
+		_G["CharacterStatsPane"][catName].backdrop:SetWidth(150)
+		_G["CharacterStatsPane"][catName].backdrop:SetHeight(18)
+	end
+	return catName
+end
 
 function CA:ResetAllStats()
-	PAPERDOLL_STATCATEGORIES= {
+	PAPERDOLL_STATCATEGORIES = {
 		[1] = {
 			categoryFrame = "AttributesCategory",
 			stats = {
@@ -304,11 +304,26 @@ function CA:ResetAllStats()
 				[2] = { stat = "AGILITY", primary = LE_UNIT_STAT_AGILITY },
 				[3] = { stat = "INTELLECT", primary = LE_UNIT_STAT_INTELLECT },
 				[4] = { stat = "STAMINA" },
-				[5] = { stat = "ARMOR" },
-				[6] = { stat = "MANAREGEN", roles =  { "HEALER" } },
+				[5] = { stat = "HEALTH" },
+				[6] = { stat = "POWER" },
+				[7] = { stat = "ALTERNATEMANA" },
+				[8] = { stat = "MOVESPEED" },
 			},
 		},
 		[2] = {
+			categoryFrame = CA:CreateStatCategory("OffenseCategory", STAT_CATEGORY_ATTACK),
+			stats = {
+				[1] = { stat = "ATTACK_DAMAGE", hideAt = 0 },
+				[2] = { stat = "ATTACK_AP", hideAt = 0 },
+				[3] = { stat = "ATTACK_ATTACKSPEED", hideAt = 0 },
+				[4] = { stat = "SPELLPOWER", hideAt = 0 },
+				[5] = { stat = "MANAREGEN", roles =  { "HEALER" } },
+				[6] = { stat = "ENERGY_REGEN", hideAt = 0 },
+				[7] = { stat = "FOCUS_REGEN", hideAt = 0 },
+				[8] = { stat = "RUNE_REGEN", hideAt = 0 },
+			},
+		},
+		[3] = {
 			categoryFrame = "EnhancementsCategory",
 			stats = {
 				[1] = { stat = "CRITCHANCE", hideAt = 0 },
@@ -316,10 +331,17 @@ function CA:ResetAllStats()
 				[3] = { stat = "MASTERY", hideAt = 0 },
 				[4] = { stat = "VERSATILITY", hideAt = 0 },
 				[5] = { stat = "LIFESTEAL", hideAt = 0 },
-				[6] = { stat = "AVOIDANCE", hideAt = 0 },
-				[7] = { stat = "DODGE", roles =  { "TANK" } },
-				[8] = { stat = "PARRY", hideAt = 0, roles =  { "TANK" } },
-				[9] = { stat = "BLOCK", hideAt = 0, roles =  { "TANK" } },
+			},
+		},
+		[4] = {
+			categoryFrame = CA:CreateStatCategory("DefenceCategory", DEFENSE),
+			stats = {
+				[1] = { stat = "ARMOR", roles =  { "TANK" } },
+				[2] = { stat = "AVOIDANCE", hideAt = 0 },
+				[3] = { stat = "DODGE", roles =  { "TANK" } },
+				[4] = { stat = "PARRY", hideAt = 0, roles = {"TANK"} },
+				[5] = { stat = "BLOCK", hideAt = 0, roles = {"TANK"} },
+				[6] = { stat = "STAGGER", hideAt = 0, roles = {"TANK"}, classes = {"MONK"} },
 			},
 		},
 	};
@@ -327,12 +349,6 @@ end
 
 function CA:ToggleStats()
 	CA:ResetAllStats()
-	for _, value in T.pairs(PAPERDOLL_AttributesIndexDefaultStats) do
-		local checked = E.db.sle.Armory.Character.Stats.List[value]
-		if checked then
-			T.tinsert(PAPERDOLL_STATCATEGORIES[1].stats, { stat = T.format("%s", value) })
-		end
-	end
 	PaperDollFrame_UpdateStats();
 end
 
@@ -352,11 +368,11 @@ function CA:PaperDollFrame_UpdateStats()
 		_G["CharacterStatsPane"].ItemLevelFrame.Value:SetTextColor(GetItemLevelColor())
 		PaperDollFrame_SetItemLevel(_G["CharacterStatsPane"].ItemLevelFrame, "player");
 	end
-
+	_G["CharacterStatsPane"].ItemLevelCategory:SetPoint("TOP", _G["CharacterStatsPane"], "TOP", 0, 8)
 	_G["CharacterStatsPane"].AttributesCategory:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelFrame, "BOTTOM", 0, 6)
 
 	local level = T.UnitLevel("player");
-	local categoryYOffset = 6;
+	local categoryYOffset = 8;
 	local statYOffset = 0;
 
 	_G["CharacterStatsPane"].ItemLevelCategory:Show();
@@ -392,7 +408,16 @@ function CA:PaperDollFrame_UpdateStats()
 						break;
 					end
 				end
-				showStat = foundRole;
+				if foundRole and stat.classes then
+					for _, statClass in T.pairs(stat.classes) do
+						if ( E.myclass == statClass ) then
+							showStat = true;
+							break;
+						end
+					end
+				else
+					showStat = foundRole;
+				end
 			end
 			if ( showStat ) then
 				statFrame.onEnterFunc = nil;
