@@ -421,7 +421,7 @@ function CA:PaperDollFrame_UpdateStats()
 					showStat = foundRole;
 				end
 			end
-			if stat.power and stat.power == powerType then showStat = false end
+			if stat.power and stat.power ~= powerType then showStat = false end
 			if ( showStat ) then
 				statFrame.onEnterFunc = nil;
 				PAPERDOLL_STATINFO[stat.stat].updateFunc(statFrame, "player");
