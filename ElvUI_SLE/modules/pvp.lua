@@ -86,7 +86,7 @@ function PvP:Initialize()
 	--AutoRes event
 	self:RegisterEvent("PLAYER_DEAD", "Dead");
 
-	if E.db.movers["PvPMover"] then E.db.movers["PvPMover"] = nil end
+	if E.db.movers["PvPMover"] then E.db.movers["TopCenterContainerMover"] = E.db.movers["PvPMover"]; E.db.movers["PvPMover"] = nil end
 
 	self:RegisterEvent("DUEL_REQUESTED", "Duels")
 	self:RegisterEvent("PET_BATTLE_PVP_DUEL_REQUESTED", "Duels")
