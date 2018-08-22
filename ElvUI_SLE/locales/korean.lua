@@ -226,10 +226,10 @@ L["Tips font"] = "팁 글씨"
 L["Graphics"] = "그래픽"
 
 --Auras
-L["Hide Buff Timer"] = true
-L["This hides the time remaining for your buffs."] = true
-L["Hide Debuff Timer"] = true
-L["This hides the time remaining for your debuffs."] = true
+L["Hide Buff Timer"] = "강화효과 시간 숨김"
+L["This hides the time remaining for your buffs."] = "자신의 강화효과의 남은 지속시간을 숨깁니다."
+L["Hide Debuff Timer"] = "약화효과 시간 숨김"
+L["This hides the time remaining for your debuffs."] = "자신의 약화효과의 남은 지속시간을 숨깁니다."
 
 --Backgrounds
 L["Backgrounds"] = "배경"
@@ -243,14 +243,14 @@ L["Show/Hide this frame."] = "이 프레임 표시/숨김"
 L["Sets width of the frame"] = "프레임 넓이 지정"
 L["Sets height of the frame"] = "프레임 높이 지정"
 L["Set the texture to use in this frame. Requirements are the same as the chat textures."] = "이 프레임에 사용할 텍스쳐를 설정합니다. 대화창 텍스쳐와 요구사항이 동일합니다."
-L["Backdrop Template"] = true
-L["Change the template used for this backdrop."] = true
+L["Backdrop Template"] = "배경 형태"
+L["Change the template used for this backdrop."] = "이 배경에 쓰일 형태를 지정합니다."
 L["Hide in Pet Battle"] = "애완동물대전시 숨김"
 L["Show/Hide this frame during Pet Battles."] = "애완동물 대전을 하는동안 표시하거나 숨깁니다."
 
 --Bags
-L["Transparent Slots"] = true
-L["Apply transparent template on bag and bank slots."] = true
+L["Transparent Slots"] = "투명한 칸"
+L["Apply transparent template on bag and bank slots."] = "가방과 은행 칸을 투명한 형태로 설정합니다."
 
 --Blizzard
 L["Move Blizzard frames"] = "블리자드 프레임 이동"
@@ -258,8 +258,8 @@ L["Allow some Blizzard frames to be moved around."] = "몇몇 블리자드 프�
 L["Remember"] = "기억하기"
 L["Remember positions of frames after moving them."] = "프레임을 이동하고 난 뒤 위치를 기억합니다."
 L["Pet Battles skinning"] = true
-L["Make some elements of pet battles movable via toggle anchors."] = true
-L["Vehicle Seat Scale"] = true
+L["Make some elements of pet battles movable via toggle anchors."] = "true"
+L["Vehicle Seat Scale"] = "탈것 좌석 크기"
 
 --Chat
 L["Reported by %s"] = true
@@ -842,15 +842,15 @@ L["AddOns Manager"] = "애드온 관리자"
 L["Click to toggle the AddOn Manager frame."] = "클릭하여 애드온 관리자창을 켜고끕니다."
 L["Boss Mod"] = "보스 모드"
 L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."] = "클릭하여 활성화한 보스 모드에서 환경설정 창을 켜고끕니다."
-L["UB_DESC"] = "This adds a small bar with some useful buttons which acts as a small menu for common things."
+L["UB_DESC"] = "유용한 버튼으로 이루어진 작은 바를 추가합니다."
 L["Minimum Roll Value"] = "주사위 최소값"
 L["The lower limit for custom roll button."] = "사용자 지정 주사위 버튼에 사용할 낮은 한도입니다."
 L["Maximum Roll Value"] = "주사위 최대값"
 L["The higher limit for custom roll button."] = "사용자 지정 주사위 버튼에 사용할 높은 한도입니다."
-L["Quick Action"] = true
-L["Use quick access (on right click) for this button."] = true
+L["Quick Action"] = "빠른 실행"
+L["Use quick access (on right click) for this button."] = "이 버튼에 빠른 접근(우클릭시 작동)을 사용합니다."
 L["Function"] = "기능"
-L["Function called by quick access."] = true
+L["Function called by quick access."] = "빠른 접근으로 호출될 기능"
 L["UI Buttons Strata"] = true
 
 --Unitframes
