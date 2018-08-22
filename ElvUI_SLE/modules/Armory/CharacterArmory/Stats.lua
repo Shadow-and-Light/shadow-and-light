@@ -371,7 +371,6 @@ function CA:PaperDollFrame_UpdateStats()
 	_G["CharacterStatsPane"].ItemLevelCategory:SetPoint("TOP", _G["CharacterStatsPane"], "TOP", 0, 8)
 	_G["CharacterStatsPane"].AttributesCategory:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelFrame, "BOTTOM", 0, 6)
 
-	local level = T.UnitLevel("player");
 	local categoryYOffset = 8;
 	local statYOffset = 0;
 
@@ -447,7 +446,7 @@ function CA:PaperDollFrame_UpdateStats()
 	end
 	-- release the current stat frame
 	_G["CharacterStatsPane"].statsFramePool:Release(statFrame);
-	if totalShown > 16 then
+	if totalShown > 15 then
 		CA.Scrollbar:Show()
 	else
 		CA.Scrollbar:Hide()
@@ -497,7 +496,7 @@ CharacterStatsPane.ClassBackground:SetPoint("CENTER")
 -- Enable mousewheel scrolling
 CA.ScrollFrame:EnableMouseWheel(true)
 CA.ScrollFrame:SetScript("OnMouseWheel", function(self, delta)
-	if totalShown > 16 then
+	if totalShown > 15 then
 		CA.Scrollbar:SetMinMaxValues(1, 45)  
 	else
 		CA.Scrollbar:SetMinMaxValues(1, 1) 
