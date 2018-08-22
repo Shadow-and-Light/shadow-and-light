@@ -304,23 +304,23 @@ function CA:ResetAllStats()
 				[2] = { stat = "AGILITY", primary = LE_UNIT_STAT_AGILITY },
 				[3] = { stat = "INTELLECT", primary = LE_UNIT_STAT_INTELLECT },
 				[4] = { stat = "STAMINA" },
-				[5] = { stat = "HEALTH" },
-				[6] = { stat = "POWER" },
-				[7] = { stat = "ALTERNATEMANA" },
-				[8] = { stat = "MOVESPEED" },
+				[5] = { stat = "HEALTH", option = true },
+				[6] = { stat = "POWER", option = true },
+				[7] = { stat = "ALTERNATEMANA", option = true, classes = {"PRIEST", "SHAMAN", "DRUID"} },
+				[8] = { stat = "MOVESPEED", option = true },
 			},
 		},
 		[2] = {
 			categoryFrame = CA:CreateStatCategory("OffenseCategory", STAT_CATEGORY_ATTACK),
 			stats = {
-				[1] = { stat = "ATTACK_DAMAGE", hideAt = 0 },
-				[2] = { stat = "ATTACK_AP", hideAt = 0 },
-				[3] = { stat = "ATTACK_ATTACKSPEED", hideAt = 0 },
-				[4] = { stat = "SPELLPOWER", hideAt = 0 },
-				[5] = { stat = "MANAREGEN", roles =  { "HEALER" } },
-				[6] = { stat = "ENERGY_REGEN", hideAt = 0 },
-				[7] = { stat = "FOCUS_REGEN", hideAt = 0 },
-				[8] = { stat = "RUNE_REGEN", hideAt = 0 },
+				[1] = { stat = "ATTACK_DAMAGE", option = true, hideAt = 0 },
+				[2] = { stat = "ATTACK_AP", option = true, hideAt = 0 },
+				[3] = { stat = "ATTACK_ATTACKSPEED", option = true, hideAt = 0 },
+				[4] = { stat = "SPELLPOWER", option = true, hideAt = 0 },
+				[5] = { stat = "MANAREGEN", power = "MANA" },
+				[6] = { stat = "ENERGY_REGEN", power = "ENERGY", hideAt = 0, roles = {"TANK", "DAMAGER"},  classes = {"ROUGE", "DRUID", "MONK"} },
+				[7] = { stat = "FOCUS_REGEN", power = "FOCUS", hideAt = 0, classes = {"HUNTER"} },
+				[8] = { stat = "RUNE_REGEN", power = "RUNIC_POWER", hideAt = 0, classes = {"DEATHKNIGHT"} },
 			},
 		},
 		[3] = {
@@ -338,8 +338,8 @@ function CA:ResetAllStats()
 			stats = {
 				[1] = { stat = "ARMOR", roles =  { "TANK" } },
 				[2] = { stat = "AVOIDANCE", hideAt = 0 },
-				[3] = { stat = "DODGE", roles =  { "TANK" } },
-				[4] = { stat = "PARRY", hideAt = 0, roles = {"TANK"} },
+				[3] = { stat = "DODGE",},
+				[4] = { stat = "PARRY", hideAt = 0, },
 				[5] = { stat = "BLOCK", hideAt = 0, roles = {"TANK"} },
 				[6] = { stat = "STAGGER", hideAt = 0, roles = {"TANK"}, classes = {"MONK"} },
 			},
@@ -379,6 +379,8 @@ function CA:PaperDollFrame_UpdateStats()
 
 	local spec = T.GetSpecialization();
 	local role = T.GetSpecializationRole(spec);
+	local _, powerType = UnitPowerType("player")
+	-- print(T.GetSpecializationInfo(spec))
 
 	_G["CharacterStatsPane"].statsFramePool:ReleaseAll();
 	-- we need a stat frame to first do the math to know if we need to show the stat frame
@@ -393,6 +395,7 @@ function CA:PaperDollFrame_UpdateStats()
 		for statIndex = 1, #PAPERDOLL_STATCATEGORIES[catIndex].stats do
 			local stat = PAPERDOLL_STATCATEGORIES[catIndex].stats[statIndex];
 			local showStat = true;
+			if stat.option and not E.db.sle.Armory.Character.Stats.List[stat.stat] then showStat = false end
 			if ( showStat and stat.primary ) then
 				local primaryStat = T.select(6, T.GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")));
 				if ( stat.primary ~= primaryStat ) and E.db.sle.Armory.Character.Stats.OnlyPrimary then
@@ -418,6 +421,7 @@ function CA:PaperDollFrame_UpdateStats()
 					showStat = foundRole;
 				end
 			end
+			if stat.power and stat.power == powerType then showStat = false end
 			if ( showStat ) then
 				statFrame.onEnterFunc = nil;
 				PAPERDOLL_STATINFO[stat.stat].updateFunc(statFrame, "player");
@@ -434,7 +438,7 @@ function CA:PaperDollFrame_UpdateStats()
 					if statFrame:IsShown() then
 						totalShown = totalShown + 1
 						numStatInCat = numStatInCat + 1;
-						statFrame.Background:SetShown((numStatInCat % 2) == 0);
+						-- statFrame.Background:SetShown((numStatInCat % 2) == 0);
 						lastAnchor = statFrame;
 					end
 					-- done with this stat frame, get the next one
