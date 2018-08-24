@@ -258,7 +258,7 @@ function LP:OnClick(btn)
 					message = T.format("%s (%s)", zoneText, coords)
 				end
 			ChatEdit_ActivateChat(edit_box)
-			edit_box:Insert(message) 
+			edit_box:Insert(message)
 		else
 			ToggleFrame(_G["WorldMapFrame"])
 		end
@@ -418,7 +418,7 @@ end
 function LP:ItemList(check)
 	if LP.db.portals.HSplace then T.tinsert(LP.MainMenu, {text = L["Hearthstone Location"]..": "..GetBindLocation(), title = true, nohighlight = true}) end
 	T.tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
-	
+
 	if LP.db.portals.showHearthstones then
 		for i = 1, #LP.Hearthstones do
 			local tmp = {}
@@ -458,7 +458,7 @@ function LP:ItemList(check)
 				else
 					T.tinsert(LP.MainMenu, data)
 				end
-				
+
 			end
 		end
 	end
@@ -480,7 +480,7 @@ function LP:ItemList(check)
 					else
 						T.tinsert(LP.MainMenu, data)
 					end
-					
+
 				end
 			end
 		end
@@ -493,8 +493,8 @@ function LP:SpellList(list, dropdown, check)
 		local tmp = {}
 		local data = list[i]
 		if T.IsSpellKnown(data.secure.ID) then
-			if check then 
-				return true 
+			if check then
+				return true
 			else
 				if data.text then
 					local cd = DD:GetCooldown("Spell", data.secure.ID)
@@ -522,7 +522,7 @@ function LP:PopulateDropdown(click)
 	if LP.Menu1:IsShown() then ToggleFrame(LP.Menu1) return end
 	if LP.Menu2:IsShown() then ToggleFrame(LP.Menu2) return end
 	local full_list = LP:ItemList()
-	if not full_list then 
+	if not full_list then
 		if not LP.ListUpdating then SLE:ErrorPrint(L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."]); LP.ListUpdating = true end
 		if not LP.InfoUpdatingTimer then LP.InfoUpdatingTimer = LP:ScheduleTimer(LP.PopulateDropdown, 3) end
 		T.twipe(LP.MainMenu)
@@ -537,7 +537,7 @@ function LP:PopulateDropdown(click)
 			T.tinsert(LP.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
 			LP:SpellList(LP.Spells[E.myclass], LP.MainMenu)
 			if LP:SpellList(LP.Spells.challenge, nil, true) then
-				T.tinsert(LP.MainMenu, {text = CHALLENGE_MODE.." >>",icon = SLE:GetIconFromID("achiev", 6378), func = function() 
+				T.tinsert(LP.MainMenu, {text = CHALLENGE_MODE.." >>",icon = SLE:GetIconFromID("achiev", 6378), func = function()
 					T.twipe(LP.SecondaryMenu)
 					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
 					T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() T.twipe(LP.MainMenu); ToggleFrame(LP.Menu2); LP:PopulateDropdown() end})
@@ -548,7 +548,7 @@ function LP:PopulateDropdown(click)
 				end})
 			end
 			if E.myclass == "MAGE" then
-				T.tinsert(LP.MainMenu, {text = L["Teleports"].." >>", icon = SLE:GetIconFromID("spell", 53140), func = function() 
+				T.tinsert(LP.MainMenu, {text = L["Teleports"].." >>", icon = SLE:GetIconFromID("spell", 53140), func = function()
 					T.twipe(LP.SecondaryMenu)
 					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
 					T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() T.twipe(LP.MainMenu); ToggleFrame(LP.Menu2); LP:PopulateDropdown() end})
@@ -557,7 +557,7 @@ function LP:PopulateDropdown(click)
 					T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
 					SLE:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
 				end})
-				T.tinsert(LP.MainMenu, {text = L["Portals"].." >>",icon = SLE:GetIconFromID("spell", 53142), func = function() 
+				T.tinsert(LP.MainMenu, {text = L["Portals"].." >>",icon = SLE:GetIconFromID("spell", 53142), func = function()
 					T.twipe(LP.SecondaryMenu)
 					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
 					T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() T.twipe(LP.MainMenu); ToggleFrame(LP.Menu2) LP:PopulateDropdown() end})
@@ -594,11 +594,11 @@ function LP:CHAT_MSG_SKILL()
 end
 
 function LP:PLAYER_REGEN_DISABLED()
-	if LP.db.combathide then loc_panel:Hide() end
+	if LP.db.combathide then loc_panel:SetAlpha(0) end
 end
 
 function LP:PLAYER_REGEN_ENABLED()
-	if LP.db.enable then loc_panel:Show() end
+	if LP.db.enable then loc_panel:SetAlpha(1) end
 end
 
 function LP:UNIT_AURA(event, unit)
@@ -632,7 +632,7 @@ function LP:Initialize()
  	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
 	LP:RegisterEvent("UNIT_AURA")
 	LP:RegisterEvent("CHAT_MSG_SKILL")
-	
+
 	LP:CreatePortalButtons()
 end
 
