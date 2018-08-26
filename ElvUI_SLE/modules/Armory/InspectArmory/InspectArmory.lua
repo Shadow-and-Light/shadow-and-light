@@ -173,7 +173,7 @@ do --<< Button Script >>--
 		
 		if self.Link then
 			_G["GameTooltip"]:SetOwner(self, 'ANCHOR_RIGHT')
-			_G["GameTooltip"]:SetHyperlink(self.Link)
+			_G["GameTooltip"]:SetInventoryItem(IA.CurrentInspectData.UnitID, self.ID)
 			
 			local CurrentLineText, SetName, TooltipText, CurrentTextType
 			local CheckSpace = 2
