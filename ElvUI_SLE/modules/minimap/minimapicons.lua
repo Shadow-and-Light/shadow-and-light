@@ -287,10 +287,18 @@ function SMB:SkinMinimapButtons()
 				self.title = GARRISON_LANDING_PAGE_TITLE;
 				self.description = MINIMAP_GARRISON_LANDING_PAGE_TOOLTIP;
 			elseif (garrisonType == LE_GARRISON_TYPE_7_0) then
-				local _, className = UnitClass("player");
-				self:GetNormalTexture():SetAtlas("legionmission-landingbutton-"..className.."-up", true);
+				self:GetNormalTexture():SetAtlas("legionmission-landingbutton-"..E.myclass.."-up", true);
 				self.title = ORDER_HALL_LANDING_PAGE_TITLE;
 				self.description = MINIMAP_ORDER_HALL_LANDING_PAGE_TOOLTIP;
+			elseif (garrisonType == LE_GARRISON_TYPE_8_0) then
+				self.faction = E.myfaction
+				if ( self.faction == "Horde" ) then
+					self:GetNormalTexture():SetAtlas("bfa-landingbutton-horde-up", true);
+				else
+					self:GetNormalTexture():SetAtlas("bfa-landingbutton-alliance-up", true);
+				end
+				self.title = GARRISON_TYPE_8_0_LANDING_PAGE_TITLE;
+				self.description = GARRISON_TYPE_8_0_LANDING_PAGE_TOOLTIP;
 			end
 		end
 		SkinButton(GarrisonLandingPageMinimapButton)
