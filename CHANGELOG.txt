@@ -1,3 +1,14 @@
+v3.44
+Fixes:
+- Fixes for taints in location bar
+- Fixes for QuestGuru skin
+- Fixed war camapaign button when skinned
+Additions:
+- New mage portals to location panel
+- More stats added to armory
+Changes:
+- PvP mover removed. ElvUI deals with that now.
+
 v3.43 [August 13th 2018]
 This version has a hard requirement for ElvUI v10.78+ to work
 Fixes:
