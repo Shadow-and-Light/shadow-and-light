@@ -342,7 +342,7 @@ function CA:Setup_CharacterArmory()
 		_G["Character"..SlotName].RankFrame:SetTemplate("Transparent")
 		_G["Character"..SlotName].RankFrame:SetSize(15, 16)
 		_G["Character"..SlotName].RankFrame:SetPoint('BOTTOM'..Slot.Direction, Slot, 1,2)
-		_G["Character"..SlotName].RankFrame.Label:SetPoint("CENTER", _G["Character"..SlotName].RankFrame)
+		_G["Character"..SlotName].RankFrame.Label:SetPoint("CENTER", _G["Character"..SlotName].RankFrame, 2, 0)
 		Slot.RankFrame = _G["Character"..SlotName].RankFrame
 
 		-- Grow each equipment slot's frame level
