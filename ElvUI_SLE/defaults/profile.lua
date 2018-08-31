@@ -141,6 +141,7 @@ P["sle"] = {
 		["rep"] = {
 			["longtext"] = false,
 			["autotrack"] = false,
+			["ignoreGuild"] = true,
 			["chatfilter"] = {
 				["enable"] = false,
 				["iconsize"] = 12,
