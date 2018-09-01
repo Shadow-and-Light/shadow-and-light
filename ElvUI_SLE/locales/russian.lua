@@ -179,6 +179,7 @@ L["Info Fonts"] = "Шрифты информации"
 L["Block names"] = "Названия блоков"
 L["PvP Type"] = "Режим PvP"
 L["Spec Fonts"] = "Шрифты спека"
+L["Azerite Level Position"] = "Позиция уровня азерита"
 
 --AFK
 L["You Are Away From Keyboard for"] = "Вы отошли на"

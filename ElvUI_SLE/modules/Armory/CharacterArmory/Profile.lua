@@ -4,12 +4,16 @@ local E, L, V, P, G = unpack(ElvUI)
 local KF, Info, Timer = unpack(ElvUI_KnightFrame)
 
 P.sle.Armory = P.sle.Armory or {}
-	
+
 P.sle.Armory.Character = {
 	Enable = true,
 	
 	NoticeMissing = true,
 	MissingIcon = true,
+	AzeritePosition = {
+		xOffset = 0,
+		yOffset = 0,
+	},
 	
 	Backdrop = {
 		SelectedBG = 'Space',

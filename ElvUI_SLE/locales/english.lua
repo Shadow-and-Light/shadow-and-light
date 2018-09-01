@@ -180,6 +180,7 @@ L["Info Fonts"] = true
 L["Block names"] = true
 L["PvP Type"] = true
 L["Spec Fonts"] = true
+L["Azerite Level Position"] = true
 
 --AFK
 L["You Are Away From Keyboard for"] = true

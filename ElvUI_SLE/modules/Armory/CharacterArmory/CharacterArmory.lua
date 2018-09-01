@@ -340,9 +340,9 @@ function CA:Setup_CharacterArmory()
 
 		_G["Character"..SlotName].RankFrame:StripTextures()
 		_G["Character"..SlotName].RankFrame:SetTemplate("Transparent")
-		_G["Character"..SlotName].RankFrame:SetSize(15, 16)
-		_G["Character"..SlotName].RankFrame:SetPoint('BOTTOM'..Slot.Direction, Slot, 1,2)
-		_G["Character"..SlotName].RankFrame.Label:SetPoint("CENTER", _G["Character"..SlotName].RankFrame, 2, 0)
+		_G["Character"..SlotName].RankFrame:SetSize(16, 16)
+		_G["Character"..SlotName].RankFrame:SetPoint("BOTTOMLEFT", Slot, 0 + E.db.sle.Armory.Character.AzeritePosition.xOffset, 2 + E.db.sle.Armory.Character.AzeritePosition.yOffset)
+		_G["Character"..SlotName].RankFrame.Label:SetPoint("CENTER", _G["Character"..SlotName].RankFrame, 1, 0)
 		Slot.RankFrame = _G["Character"..SlotName].RankFrame
 
 		-- Grow each equipment slot's frame level
@@ -1060,6 +1060,8 @@ function CA:UpdateSettings(part)
 		_G["CharacterArmory"]:Update_BG()
 	end
 	if part == "gear" or part == "all" then
+		_G["CharacterNeckSlot"].RankFrame:ClearAllPoints()
+		_G["CharacterNeckSlot"].RankFrame:SetPoint("BOTTOMLEFT", CA["NeckSlot"], 0 + E.db.sle.Armory.Character.AzeritePosition.xOffset, 2 + E.db.sle.Armory.Character.AzeritePosition.yOffset)
 		_G["CharacterArmory"]:Update_Gear()
 		_G["CharacterArmory"]:Update_Display(true)
 	end
