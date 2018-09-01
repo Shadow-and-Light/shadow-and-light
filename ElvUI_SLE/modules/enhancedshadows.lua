@@ -41,12 +41,48 @@ function ES:RegisterShadow(shadow, frame)
 end
 
 function ES:UpdateFrame(frame, db)
-	if not frame or not frame.EnhShadow then return end
+	if not frame then return end
 	local size = E.db.sle.shadows.size
-	if frame.USE_MINI_POWERBAR then
-		frame.EnhShadow:SetOutside(frame.Health, size, size)
-	else
+	if frame.Health.EnhShadow then
+		frame.Health.EnhShadow:SetOutside(frame.Health, size, size)
+	end
+	if frame.Power.EnhShadow then
+		frame.Power.EnhShadow:SetOutside(frame.Power, size, size)
+	end
+	if frame.EnhShadow then
 		frame.EnhShadow:SetOutside(frame, size, size)
+	end
+end
+
+function ES:CreateFrameShadow(frame, parent)
+	if not frame then return end
+	--UF Health
+	if frame.Health then
+		frame.Health:CreateShadow()
+		frame.Health.EnhShadow = frame.Health.shadow
+		frame.Health.shadow = nil
+		ES:RegisterShadow(frame.Health.EnhShadow)
+		frame.Health.EnhShadow:SetParent(frame.Health)
+	end
+	--UF Power
+	if frame.Power then
+		frame.Power:CreateShadow()
+		frame.Power.EnhShadow = frame.Power.shadow
+		frame.Power.shadow = nil
+		ES:RegisterShadow(frame.Power.EnhShadow)
+		frame.Power.EnhShadow:SetParent(frame.Power)
+	end
+	--if it is not UF at all
+	if not frame.Health and not frame.Power then
+		frame:CreateShadow()
+		frame.EnhShadow = frame.shadow
+		frame.shadow = nil
+		ES:RegisterShadow(frame.EnhShadow)
+		if parent and parent ~= "none" then 
+			frame.EnhShadow:SetParent(parent)
+		elseif not parent then
+			frame.EnhShadow:SetParent(frame)
+		end
 	end
 end
 
@@ -54,12 +90,7 @@ function ES:CreateShadows()
 	for i = 1, #UFrames do
 		local unit, name = T.unpack(UFrames[i])
 		if E.private.sle.module.shadows[unit] then
-			local frame = _G["ElvUF_"..name]
-			frame:CreateShadow()
-			frame.EnhShadow = frame.shadow
-			frame.shadow = nil
-			ES:RegisterShadow(frame.EnhShadow)
-			frame.EnhShadow:SetParent(frame)
+			ES:CreateFrameShadow(_G["ElvUF_"..name],_G["ElvUF_"..name])
 			hooksecurefunc(UF, "Update_"..name.."Frame", ES.UpdateFrame)
 		end
 	end
@@ -67,112 +98,56 @@ function ES:CreateShadows()
 		local unit, name, num = T.unpack(UGroups[i])
 		if E.private.sle.module.shadows[unit] then
 			for j = 1, num do
-				local frame = _G["ElvUF_"..name..j]
-				frame:CreateShadow()
-				frame.EnhShadow = frame.shadow
-				frame.shadow = nil
-				ES:RegisterShadow(frame.EnhShadow)
-				frame.EnhShadow:SetParent(frame)
+				ES:CreateFrameShadow(_G["ElvUF_"..name..j], _G["ElvUF_"..name..j])
 				hooksecurefunc(UF, "Update_"..name.."Frames", ES.UpdateFrame)
 			end
 		end
 	end
 	for i=1, Abars do
 		if E.private.sle.module.shadows.actionbars["bar"..i] then
-			local frame = _G["ElvUI_Bar"..i]
-			frame:CreateShadow()
-			frame.EnhShadow = frame.shadow
-			frame.shadow = nil
-			ES:RegisterShadow(frame.EnhShadow)
-			frame.EnhShadow:SetParent(frame.backdrop)
+			ES:CreateFrameShadow( _G["ElvUI_Bar"..i],  _G["ElvUI_Bar"..i].backdrop)
 		end
 		if E.private.sle.module.shadows.actionbars["bar"..i.."buttons"] then
 			for j = 1, 12 do
-				local frame = _G["ElvUI_Bar"..i.."Button"..j]
-				frame:CreateShadow()
-				frame.EnhShadow = frame.shadow
-				frame.shadow = nil
-				ES:RegisterShadow(frame.EnhShadow)
-				frame.EnhShadow:SetParent(frame.backdrop)
+				ES:CreateFrameShadow(_G["ElvUI_Bar"..i.."Button"..j], _G["ElvUI_Bar"..i.."Button"..j].backdrop)
 			end
 		end
 	end
 	if E.private.sle.module.shadows.actionbars.stancebar then
-		local frame = _G["ElvUI_StanceBar"]
-		frame:CreateShadow()
-		frame.EnhShadow = frame.shadow
-		frame.shadow = nil
-		ES:RegisterShadow(frame.EnhShadow)
-		frame.EnhShadow:SetParent(frame.backdrop)
+		ES:CreateFrameShadow(_G["ElvUI_StanceBar"], _G["ElvUI_StanceBar"].backdrop)
 	end
 	if E.private.sle.module.shadows.actionbars.stancebarbuttons then
 		for i = 1, 12 do
-			local frame = _G["ElvUI_StanceBarButton"..i]
-			if not frame then break end
-			frame:CreateShadow()
-			frame.EnhShadow = frame.shadow
-			frame.shadow = nil
-			ES:RegisterShadow(frame.EnhShadow)
-			frame.EnhShadow:SetParent(frame.backdrop)
+			if not _G["ElvUI_StanceBarButton"..i] then break end
+			ES:CreateFrameShadow(_G["ElvUI_StanceBarButton"..i], _G["ElvUI_StanceBarButton"..i].backdrop)
 		end
 	end
 	if E.private.sle.module.shadows.actionbars.microbar then
-		local frame = _G["ElvUI_MicroBar"]
-		frame:CreateShadow()
-		frame.EnhShadow = frame.shadow
-		frame.shadow = nil
-		ES:RegisterShadow(frame.EnhShadow)
+		ES:CreateFrameShadow(_G["ElvUI_MicroBar"], "none")
 	end
 	if E.private.sle.module.shadows.actionbars.microbarbuttons then
 		for i=1, (#MICRO_BUTTONS) do
-			local frame = _G[MICRO_BUTTONS[i]]
-			if not frame then break end
-			frame:CreateShadow()
-			frame.EnhShadow = frame.shadow
-			frame.shadow = nil
-			ES:RegisterShadow(frame.EnhShadow)
-			frame.EnhShadow:SetParent(frame.backdrop)
+			if not _G[MICRO_BUTTONS[i]] then break end
+			ES:CreateFrameShadow(_G[MICRO_BUTTONS[i]], _G[MICRO_BUTTONS[i]].backdrop)
 		end
 	end
 	if E.private.sle.module.shadows.actionbars.petbar then
-		local frame = _G["ElvUI_BarPet"]
-		frame:CreateShadow()
-		frame.EnhShadow = frame.shadow
-		frame.shadow = nil
-		ES:RegisterShadow(frame.EnhShadow)
-		frame.EnhShadow:SetParent(frame.backdrop)
+		ES:CreateFrameShadow(_G["ElvUI_BarPet"], _G["ElvUI_BarPet"].backdrop)
 	end
 	if E.private.sle.module.shadows.actionbars.petbarbuttons then
 		for i = 1, 12 do
-			local frame = _G["PetActionButton"..i]
-			if not frame then break end
-			frame:CreateShadow()
-			frame.EnhShadow = frame.shadow
-			frame.shadow = nil
-			ES:RegisterShadow(frame.EnhShadow)
-			frame.EnhShadow:SetParent(frame.backdrop)
+			if not _G["PetActionButton"..i] then break end
+			ES:CreateFrameShadow(_G["PetActionButton"..i], _G["PetActionButton"..i].backdrop)
 		end
 	end
 	if E.private.sle.module.shadows.minimap then
-		local frame = _G["MMHolder"]
-		frame:CreateShadow()
-		frame.EnhShadow = frame.shadow
-		frame.shadow = nil
-		ES:RegisterShadow(frame.EnhShadow)
+		ES:CreateFrameShadow(_G["MMHolder"], "none")
 	end
 	if E.private.sle.module.shadows.chat.left then
-		local frame = _G["LeftChatPanel"]
-		frame:CreateShadow()
-		frame.EnhShadow = frame.shadow
-		frame.shadow = nil
-		ES:RegisterShadow(frame.EnhShadow)
+		ES:CreateFrameShadow(_G["LeftChatPanel"], "none")
 	end
 	if E.private.sle.module.shadows.chat.right then
-		local frame = _G["RightChatPanel"]
-		frame:CreateShadow()
-		frame.EnhShadow = frame.shadow
-		frame.shadow = nil
-		ES:RegisterShadow(frame.EnhShadow)
+		ES:CreateFrameShadow(_G["RightChatPanel"], "none")
 	end
 end
 
