@@ -180,6 +180,7 @@ L["Info Fonts"] = true
 L["Block names"] = true
 L["PvP Type"] = true
 L["Spec Fonts"] = true
+L["Azerite Level Position"] = true
 
 --AFK
 L["You Are Away From Keyboard for"] = true
@@ -331,6 +332,8 @@ L["Full value on Rep Bar"] = true
 L["Changes the way text is shown on rep bar."] = true
 L["Auto Track Reputation"] = true
 L["Automatically sets reputation tracking to the most recent reputation change."] = true
+L["Ignore Guild Reputation"] = true
+L["Ignore guild reputation gains when autotracking."] = true
 L["Change the style of reputation messages."] = true
 L["Reputation increase Style"] = true
 L["Reputation decrease Style"] = true

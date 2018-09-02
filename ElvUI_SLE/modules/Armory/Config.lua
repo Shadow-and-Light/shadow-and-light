@@ -328,7 +328,7 @@ local function LoadArmoryConfigTable()
 						Stats = {
 							type = 'group',
 							name = STAT_CATEGORY_ATTRIBUTES,
-							order = 6,
+							order = 7,
 							guiInline = true,
 							get = function(info) return E.db.sle.Armory.Character.Stats.List[ info[#info] ] end,
 							set = function(info, value) E.db.sle.Armory.Character.Stats.List[ info[#info] ] = value; _G["CharacterArmory"]:ToggleStats() end,
@@ -497,6 +497,28 @@ local function LoadArmoryConfigTable()
 							set = function(_, value) E.db.sle.Armory.Character.Level.yOffset = value; _G["CharacterArmory"]:Update_Display(true) end,
 						},
 					}
+				},
+				AzeritePosition = {
+					order = 8,
+					type = 'group',
+					name = L["Azerite Level Position"],
+					get = function(info) return E.db.sle.Armory.Character.AzeritePosition[(info[#info])] end,
+					set = function(info, value) E.db.sle.Armory.Character.AzeritePosition[(info[#info])] = value; _G["CharacterArmory"]:UpdateSettings("gear") end,
+					disabled = function() return not E.db.sle.Armory.Character.Enable end,
+					args = {
+						xOffset = {
+							type = 'range',
+							name = L["X-Offset"],
+							order = 1,
+							min = -6,max = 30,step = 1,
+						},
+						yOffset = {
+							type = 'range',
+							name = L["Y-Offset"],
+							order = 2,
+							min = -6,max = 30,step = 1,
+						},
+					},
 				},
 				Enchant = {
 					type = 'group',

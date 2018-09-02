@@ -8,7 +8,6 @@ local function LoadSkin()
 	if not E.private.sle.skins.questguru.enable then return end
 	_G["QuestGuru"]:StripTextures()
 	_G["QuestGuruPortraitFrame"]:Kill()
-	_G["QGC_FramePortrait"]:Kill()
 	_G["QuestGuruInset"]:StripTextures()
 	_G["QuestGuru"]:SetTemplate("Transparent")
 
@@ -27,10 +26,10 @@ local function LoadSkin()
 
 	_G["QuestGuru"].abandon.RightSeparator:Kill()
 	_G["QuestGuru"].push.RightSeparator:Kill()
-	_G["QuestGuru"].Track.RightSeparator:Kill()
+	_G["QuestGuru"].track.RightSeparator:Kill()
 	S:HandleButton(_G["QuestGuru"].abandon)
 	S:HandleButton(_G["QuestGuru"].push)
-	S:HandleButton(_G["QuestGuru"].Track)
+	S:HandleButton(_G["QuestGuru"].track)
 	S:HandleCloseButton(_G["QuestGuruCloseButton"])
 
 	local CloseButton = _G["QuestGuruText"]:GetParent()

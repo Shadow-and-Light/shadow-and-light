@@ -179,6 +179,7 @@ L["Info Fonts"] = "정보 글씨"
 L["Block names"] = "이름 차단"
 L["PvP Type"] = "PVP 종류"
 L["Spec Fonts"] = "전문화 글씨"
+L["Azerite Level Position"] = true
 
 --AFK
 L["You Are Away From Keyboard for"] = "다음 시간 동안 자리를 비우고 계십니다. "
@@ -315,6 +316,8 @@ L["Full value on Rep Bar"] = "평판 바 실수치 사용"
 L["Changes the way text is shown on rep bar."] = "평판 바 문자 표기 방식을 변경합니다."
 L["Auto Track Reputation"] = "평판 자동 추적"
 L["Automatically sets reputation tracking to the most recent reputation change."] = "가장 최근에 변화한 평판을 자동적으로 추적하도록 설정합니다."
+L["Ignore Guild Reputation"] = true
+L["Ignore guild reputation gains when autotracking."] = true
 L["Change the style of reputation messages."] = "평판관련 메시지의 스타일을 변경합니다."
 L["Reputation increase Style"] = "평판 증가 스타일"
 L["Reputation decrease Style"] = "평판 감소 스타일"

@@ -1,3 +1,19 @@
+v3.44 [September 2nd 2018]
+Fixes:
+- Fixes for taints in location bar
+- Fixes for QuestGuru skin
+- Fixed war camapaign button when skinned
+- Fixed azerite items in Inspect
+- Fixed inspect transmog indicator (still can bug out on first inspect per session)
+- Fixed auto track of reputation
+Additions:
+- New mage portals to location panel
+- More stats added to armory
+- Added options for positioning Hearth if Azeroth's level thingy
+Changes:
+- PvP mover removed. ElvUI deals with that now.
+- Enhanced shadows now are applied to power/health bars separately on unitframes
+
 v3.43 [August 13th 2018]
 This version has a hard requirement for ElvUI v10.78+ to work
 Fixes:

@@ -180,6 +180,7 @@ L["Info Fonts"] = true
 L["Block names"] = true
 L["PvP Type"] = true
 L["Spec Fonts"] = true
+L["Azerite Level Position"] = true
 
 --AFK
 L["You Are Away From Keyboard for"] = "Du bist nicht an der Tastatur für"
@@ -322,6 +323,8 @@ L["Full value on Rep Bar"] = "Voller Wert auf Rufleiste"
 L["Changes the way text is shown on rep bar."] = "Ändert wie der Text auf der Rufleiste angezeigt wird"
 L["Auto Track Reputation"] = "Automatisches Rufverfolgen"
 L["Automatically sets reputation tracking to the most recent reputation change."] = "Setzt automatisch die Rufverfolgung zur letzten Fraktion bei der Ruf bekommen wurde."
+L["Ignore Guild Reputation"] = true
+L["Ignore guild reputation gains when autotracking."] = true
 L["Change the style of reputation messages."] = "Ändert den Stil der Rufnachrichten."
 L["Reputation increase Style"] = "Rufgewinn Stil"
 L["Reputation decrease Style"] = "Rufverlust Stil"

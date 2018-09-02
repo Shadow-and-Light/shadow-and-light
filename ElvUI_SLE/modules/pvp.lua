@@ -82,18 +82,11 @@ end
 function PvP:Initialize()
 	if not SLE.initialized then return end
 	PvP.db = E.db.sle.pvp
-	PvP.ScoreWidget = _G["UIWidgetTopCenterContainerFrame"]
 
 	--AutoRes event
 	self:RegisterEvent("PLAYER_DEAD", "Dead");
-	--Mover for pvp info
-	PvP.holder = CreateFrame("Frame", "SLE_PvPHolder", E.UIParent)
-	PvP.holder:SetSize(10, 58)
-	PvP.holder:SetPoint("TOP", E.UIParent, "TOP", -5, -15)
-	PvP.ScoreWidget:ClearAllPoints()
-	PvP.ScoreWidget:SetPoint("CENTER", PvP.holder)
 
-	E:CreateMover(PvP.holder, "PvPMover", "PvP", nil, nil, nil, "ALL,S&L,S&L MISC")
+	if E.db.movers["PvPMover"] then E.db.movers["TopCenterContainerMover"] = E.db.movers["PvPMover"]; E.db.movers["PvPMover"] = nil end
 
 	self:RegisterEvent("DUEL_REQUESTED", "Duels")
 	self:RegisterEvent("PET_BATTLE_PVP_DUEL_REQUESTED", "Duels")

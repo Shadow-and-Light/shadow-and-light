@@ -2,6 +2,7 @@
 	<!--Core-->
 	<Script file='core_c.lua'/>
 	<Script file='skins_c.lua'/>
+	<Script file='warcampaign_c.lua'/>
 	<Include file='legacy\load_legacy.xml'/>
 	<Script file='afk_c.lua'/>
 	<Script file='unitframes_c.lua'/>

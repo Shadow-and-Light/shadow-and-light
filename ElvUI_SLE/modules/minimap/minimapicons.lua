@@ -91,9 +91,12 @@ SMB.AddButtonsToBar = {
 local function SkinButton(Button)
 	if not Button.isSkinned then
 		local Name = Button:GetName()
-		if TomTom and not Name and (Button.icon and (Button.icon:GetTexture() == "Interface\\AddOns\\TomTom\\Images\\GoldGreenDot" or Button.icon:GetTexture() == "Interface\\AddOns\\TomTom\\Images\\MinimapArrow-Green") ) then
-			Button.isSkinned = true
-			return
+		if TomTom and not Name and Button.icon then
+			local texture = Button.icon:GetTexture()
+			if T.find(texture, "TomTom") then
+				Button.isSkinned = true
+				return
+			end
 		end
 
 		if Button:IsObjectType('Button') then
@@ -284,10 +287,18 @@ function SMB:SkinMinimapButtons()
 				self.title = GARRISON_LANDING_PAGE_TITLE;
 				self.description = MINIMAP_GARRISON_LANDING_PAGE_TOOLTIP;
 			elseif (garrisonType == LE_GARRISON_TYPE_7_0) then
-				local _, className = UnitClass("player");
-				self:GetNormalTexture():SetAtlas("legionmission-landingbutton-"..className.."-up", true);
+				self:GetNormalTexture():SetAtlas("legionmission-landingbutton-"..E.myclass.."-up", true);
 				self.title = ORDER_HALL_LANDING_PAGE_TITLE;
 				self.description = MINIMAP_ORDER_HALL_LANDING_PAGE_TOOLTIP;
+			elseif (garrisonType == LE_GARRISON_TYPE_8_0) then
+				self.faction = E.myfaction
+				if ( self.faction == "Horde" ) then
+					self:GetNormalTexture():SetAtlas("bfa-landingbutton-horde-up", true);
+				else
+					self:GetNormalTexture():SetAtlas("bfa-landingbutton-alliance-up", true);
+				end
+				self.title = GARRISON_TYPE_8_0_LANDING_PAGE_TITLE;
+				self.description = GARRISON_TYPE_8_0_LANDING_PAGE_TOOLTIP;
 			end
 		end
 		SkinButton(GarrisonLandingPageMinimapButton)

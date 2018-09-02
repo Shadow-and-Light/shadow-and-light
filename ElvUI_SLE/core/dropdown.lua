@@ -67,9 +67,87 @@ local function CreateListButton(frame)
 	return button
 end
 
+function SLE:DropdownList(list, frame, customWidth, justify)
+	for i=1, #list do
+		frame.buttons[i] = frame.buttons[i] or CreateListButton(frame)
+		local btn = frame.buttons[i]
+
+		btn.func = list[i].func or nil
+		btn.nohighlight = list[i].nohighlight
+		btn.text:SetJustifyH(justify or "LEFT")
+		btn:Show()
+		btn:Height(BUTTON_HEIGHT)
+
+		local icon = ""
+		if list[i].icon then
+			icon = "|T"..list[i].icon..":14:14|t "
+		end
+
+		btn.text:SetText(icon..list[i].text)
+		if list[i].title then
+			frame.TitleCount = frame.TitleCount + 1
+			btn.text:SetTextColor(0.98, 0.95, 0.05)
+			if list[i].ending or i == 1 or list[i-1].title then
+				frame.AddOffset = frame.AddOffset + 1
+			end
+		else
+			btn.text:SetTextColor(1, 1, 1)
+		end
+
+		if customWidth and customWidth == "auto" then
+			if frame.maxWidth < btn.text:GetStringWidth() then
+				frame.maxWidth = btn.text:GetStringWidth()
+				frame.TitleCount = 0
+				frame.AddOffset = 0
+				SLE:DropdownList(list, frame, customWidth, justify)
+				return
+			end
+			btn:Width(frame.maxWidth)
+		else
+			btn:Width(customWidth or BUTTON_WIDTH)
+		end
+
+		if list[i].secure then
+			btn:SetAttribute("type", nil)
+			-- btn:SetAttribute("item", nil)
+			-- btn:SetAttribute("spell", nil)
+			-- btn:SetAttribute("macrotext", nil)
+			btn.secure = list[i].secure
+			btn:SetAttribute("type", btn.secure.buttonType)
+			if btn.secure.buttonType == "item" then
+				local name = T.GetItemInfo(btn.secure.ID)
+				btn:SetAttribute("item", name)
+			elseif btn.secure.buttonType == "spell" then
+				local name = T.GetSpellInfo(btn.secure.ID)
+				btn:SetAttribute("spell", name)
+			elseif btn.secure.buttonType == "macro" then
+				btn:SetAttribute("macrotext", btn.secure.ID)
+			else
+				SLE:ErrorPrint("Wrong argument for button type: "..btn.secure.buttonType)
+			end
+		end
+		btn.UseTooltip = list[i].UseTooltip
+		if list[i].TooltipText then btn.TooltipText = list[i].TooltipText end
+
+		local MARGIN = 10
+		if justify then
+			if justify == "RIGHT" then MARGIN = -10 end
+			if justify == "CENTER" then MARGIN = 0 end
+		end
+
+		if i == 1 then
+			btn:Point("TOPLEFT", frame, "TOPLEFT", MARGIN, -PADDING)
+		else
+			btn:Point("TOPLEFT", frame.buttons[i-1], "BOTTOMLEFT", 0, -((list[i-1].title or list[i].title) and TITLE_OFFSET or 0))
+		end
+	end
+end
+
 function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, parent, customWidth, justify)
 	if T.InCombatLockdown() then return end
 	frame.maxWidth = BUTTON_WIDTH
+	frame.TitleCount = 0
+	frame.AddOffset = 0
 	if not frame.buttons then
 		frame.buttons = {}
 		frame:SetFrameStrata("DIALOG")
@@ -89,79 +167,11 @@ function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 	if not frame:IsShown() then
 		xOffset = xOffset or 0
 		yOffset = yOffset or 0
-		local TitleCount = 0
-		local AddOffset = 0
 
 		if not parent then FramePoint = "CURSOR" end
-		for i=1, #list do
-			frame.buttons[i] = frame.buttons[i] or CreateListButton(frame)
-			local btn = frame.buttons[i]
+		SLE:DropdownList(list, frame, customWidth, justify)
 
-			btn.func = list[i].func or nil
-			btn.nohighlight = list[i].nohighlight
-			btn.text:SetJustifyH(justify or "LEFT")
-			btn:Show()
-			btn:Height(BUTTON_HEIGHT)
-
-			local icon = ""
-			if list[i].icon then
-				icon = "|T"..list[i].icon..":14:14|t "
-			end
-
-			btn.text:SetText(icon..list[i].text)
-			if list[i].title then
-				TitleCount = TitleCount + 1
-				btn.text:SetTextColor(0.98, 0.95, 0.05)
-				if list[i].ending or i == 1 or list[i-1].title then
-					AddOffset = AddOffset + 1
-				end
-			else
-				btn.text:SetTextColor(1, 1, 1)
-			end
-
-			if customWidth and customWidth == "auto" then
-				if frame.maxWidth < btn.text:GetStringWidth() then frame.maxWidth = btn.text:GetStringWidth() end
-				btn:Width(btn.text:GetStringWidth())
-			else
-				btn:Width(customWidth or BUTTON_WIDTH)
-			end
-
-			if list[i].secure then
-				btn:SetAttribute("type", nil)
-				-- btn:SetAttribute("item", nil)
-				-- btn:SetAttribute("spell", nil)
-				-- btn:SetAttribute("macrotext", nil)
-				btn.secure = list[i].secure
-				btn:SetAttribute("type", btn.secure.buttonType)
-				if btn.secure.buttonType == "item" then
-					local name = T.GetItemInfo(btn.secure.ID)
-					btn:SetAttribute("item", name)
-				elseif btn.secure.buttonType == "spell" then
-					local name = T.GetSpellInfo(btn.secure.ID)
-					btn:SetAttribute("spell", name)
-				elseif btn.secure.buttonType == "macro" then
-					btn:SetAttribute("macrotext", btn.secure.ID)
-				else
-					SLE:ErrorPrint("Wrong argument for button type: "..btn.secure.buttonType)
-				end
-			end
-			btn.UseTooltip = list[i].UseTooltip
-			if list[i].TooltipText then btn.TooltipText = list[i].TooltipText end
-
-			local MARGIN = 10
-			if justify then
-				if justify == "RIGHT" then MARGIN = -10 end
-				if justify == "CENTER" then MARGIN = 0 end
-			end
-
-			if i == 1 then
-				btn:Point("TOPLEFT", frame, "TOPLEFT", MARGIN, -PADDING)
-			else
-				btn:Point("TOPLEFT", frame.buttons[i-1], "BOTTOMLEFT", 0, -((list[i-1].title or list[i].title) and TITLE_OFFSET or 0))
-			end
-		end
-
-		frame:Height((#list * BUTTON_HEIGHT) + PADDING * 2 + TitleCount * (2 * TITLE_OFFSET) - AddOffset * TITLE_OFFSET)
+		frame:Height((#list * BUTTON_HEIGHT) + PADDING * 2 + frame.TitleCount * (2 * TITLE_OFFSET) - frame.AddOffset * TITLE_OFFSET)
 		if customWidth and customWidth == "auto" then
 			frame:Width(frame.maxWidth + PADDING * 2)
 		else

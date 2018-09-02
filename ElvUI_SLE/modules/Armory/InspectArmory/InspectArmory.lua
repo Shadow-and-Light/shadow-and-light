@@ -173,7 +173,7 @@ do --<< Button Script >>--
 		
 		if self.Link then
 			_G["GameTooltip"]:SetOwner(self, 'ANCHOR_RIGHT')
-			_G["GameTooltip"]:SetHyperlink(self.Link)
+			_G["GameTooltip"]:SetInventoryItem(IA.CurrentInspectData.UnitID, self.ID)
 			
 			local CurrentLineText, SetName, TooltipText, CurrentTextType
 			local CheckSpace = 2
@@ -294,45 +294,22 @@ do --<< Button Script >>--
 			end
 		end
 	end
-	
-	
+
 	function IA:Transmogrify_OnEnter()
 		self.Texture:SetVertexColor(1, .8, 1)
 		
 		if self.Link then
-			if T.GetItemInfo(self.Link) then
-				self:SetScript('OnUpdate', nil)
-				_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
-				_G["GameTooltip"]:SetHyperlink(T.select(2, T.GetItemInfo(self.Link)))
-				_G["GameTooltip"]:Show()
-			else
-				self:SetScript('OnUpdate', IA.Transmogrify_OnEnter)
-			end
+			_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
+			_G["GameTooltip"]:SetText(self.Link)
+			_G["GameTooltip"]:Show()
 		end
 	end
-	
-	
+
 	function IA:Transmogrify_OnLeave()
 		self:SetScript('OnUpdate', nil)
 		self.Texture:SetVertexColor(1, .5, 1)
 		
 		_G["GameTooltip"]:Hide()
-	end
-	
-	
-	function IA:Transmogrify_OnClick(Button)
-		local ItemName, ItemLink = T.GetItemInfo(self.Link)
-		
-		if not IsShiftKeyDown() then
-			T.SetItemRef(ItemLink, ItemLink, 'LeftButton')
-		else
-			if HandleModifiedItemClick(ItemLink) then
-			elseif _G["BrowseName"] and _G["BrowseName"]:IsVisible() then
-				AuctionFrameBrowse_Reset(_G["BrowseResetButton"])
-				_G["BrowseName"]:SetText(ItemName)
-				_G["BrowseName"]:SetFocus()
-			end
-		end
 	end
 end
 
@@ -814,7 +791,6 @@ function IA:CreateInspectFrame()
 					Slot.TransmogrifyAnchor:Point('BOTTOM'..Slot.Direction, Slot, Slot.Direction == 'LEFT' and -3 or 3, -3)
 					Slot.TransmogrifyAnchor:SetScript('OnEnter', self.Transmogrify_OnEnter)
 					Slot.TransmogrifyAnchor:SetScript('OnLeave', self.Transmogrify_OnLeave)
-					Slot.TransmogrifyAnchor:SetScript('OnClick', self.Transmogrify_OnClick)
 
 					Slot.TransmogrifyAnchor.Texture = Slot.TransmogrifyAnchor:CreateTexture(nil, 'OVERLAY')
 					Slot.TransmogrifyAnchor.Texture:SetInside()
@@ -2247,9 +2223,10 @@ function IA:InspectFrame_DataSetting(DataTable)
 						
 						--<< Transmogrify Parts >>--
 						if Slot.TransmogrifyAnchor then
+							Slot.TransmogrifyAnchor:Hide()
 							Slot.TransmogrifyAnchor.Link = DataTable.Gear[SlotName].Transmogrify ~= 'NotDisplayed' and DataTable.Gear[SlotName].Transmogrify or nil
-							
-							if T.type(Slot.TransmogrifyAnchor.Link) == 'number' then
+
+							if Slot.TransmogrifyAnchor.Link and T.type(Slot.TransmogrifyAnchor.Link) ~= 'number' then
 								Slot.TransmogrifyAnchor:Show()
 							end
 						end

@@ -3,7 +3,7 @@ local OH = SLE:NewModule("OrderHall", 'AceEvent-3.0')
 local _G = _G
 local C_Garrison = C_Garrison
 
-function OH:SHIPMENT_CRAFTER_INFO(event, success, _, maxShipments, plotID)
+function OH:SHIPMENT_CRAFTER_INFO(event, success, shipmentCount, maxShipments, ownedShipments, plotID)
 	if not _G["GarrisonCapacitiveDisplayFrame"] then return end --Just in case
 	if not C_Garrison.IsPlayerInGarrison(3) then return end
 	local n = _G["GarrisonCapacitiveDisplayFrame"].available or 0

@@ -213,6 +213,8 @@ local function ChatPanels()
 		SLE:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", 0, 19 + E.Spacing*2)
 		E:SetMoversPositions()
 	end
+	LeftChatToggleButton:ClearAllPoints()
+	RightChatToggleButton:ClearAllPoints()
 	LeftChatToggleButton:Point('BOTTOMLEFT', LeftChatPanel, 'BOTTOMLEFT', 0, -(19 + E.Spacing*2))
 	RightChatToggleButton:Point('BOTTOMRIGHT', RightChatPanel, 'BOTTOMRIGHT', 0, -(19 + E.Spacing*2))
 
@@ -327,6 +329,7 @@ function C:Initialize()
 	end
 
 	hooksecurefunc(LO, "ToggleChatPanels", ChatPanels)
+	hooksecurefunc(LO, "RepositionChatDataPanels", ChatPanels)
 	hooksecurefunc(CH, "PositionChat", PositionChat)
 	hooksecurefunc(CH, "StyleChat", Style)
 	hooksecurefunc(E, "UpdateMedia", ChatTextures)

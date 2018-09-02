@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DB = SLE:GetModule("DataBars")
 local EDB = E:GetModule('DataBars')
 --GLOBALS: hooksecurefunc
@@ -41,15 +41,20 @@ DB.RepDecreaseStyles = {
 	["STYLE2"] = "|T"..DB.Icons.Rep..":%s|t %s: |cffD80909%s|r.",
 }
 
-T.tinsert(strMatchCombat, (T.gsub(FACTION_STANDING_INCREASED,"%%%d?%$?s", "(.+)")))
-T.tinsert(strMatchCombat, (T.gsub(FACTION_STANDING_INCREASED_GENERIC,"%%%d?%$?s", "(.+)")))
-T.tinsert(strMatchCombat, (T.gsub(FACTION_STANDING_INCREASED_BONUS,"%%%d?%$?s", "(.+)")))
-T.tinsert(strMatchCombat, (T.gsub(FACTION_STANDING_INCREASED_DOUBLE_BONUS,"%%%d?%$?s", "(.+)")))
-T.tinsert(strMatchCombat, (T.gsub(FACTION_STANDING_INCREASED_ACH_BONUS,"%%%d?%$?s", "(.+)")))
-local strChangeMatch = (T.gsub(FACTION_STANDING_CHANGED,"%%%d?%$?s", "(.+)"))
+
+local a, b, c, d = "([%(%)%.%%%+%-%*%?%[%^%$])", "%%%1", "%%%%[ds]", "(.-)"
+local formatFactionStanding = function(str) return str:gsub(a, b):gsub(c, d) end
+
+T.tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED)))
+T.tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_GENERIC)))
+T.tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_BONUS)))
+T.tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_DOUBLE_BONUS)))
+T.tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_ACH_BONUS)))
+
+local strChangeMatch = (formatFactionStanding(FACTION_STANDING_CHANGED))
 local strGuildChangeMatch = {}
-T.tinsert(strGuildChangeMatch, (T.gsub(FACTION_STANDING_CHANGED_GUILD,"%%%d?%$?s", "(.+)")))
-T.tinsert(strGuildChangeMatch, (T.gsub(FACTION_STANDING_CHANGED_GUILDNAME,"%%%d?%$?s", "(.+)")))
+T.tinsert(strGuildChangeMatch, (formatFactionStanding(FACTION_STANDING_CHANGED_GUILD)))
+T.tinsert(strGuildChangeMatch, (formatFactionStanding(FACTION_STANDING_CHANGED_GUILDNAME)))
 
 local backupColor = FACTION_BAR_COLORS[1]
 local FactionStandingLabelUnknown = UNKNOWN
@@ -109,10 +114,10 @@ function DB:ChatMsgCombat(event, ...)
 	for i, v in T.ipairs(strMatchCombat) do
 		found = (T.match(messg,strMatchCombat[i]))
 		if found then
-			if GUILD and guildName and (found == GUILD) then
+			if GUILD and guildName and (found == GUILD) and not DB.db.rep.ignoreGuild then
 				found = guildName
 			end
-			break
+			break 
 		end
 	end
 	if found then
