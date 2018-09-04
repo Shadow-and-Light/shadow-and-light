@@ -43,10 +43,10 @@ end
 function ES:UpdateFrame(frame, db)
 	if not frame then return end
 	local size = E.db.sle.shadows.size
-	if frame.Health.EnhShadow then
+	if frame.Health and frame.Health.EnhShadow then
 		frame.Health.EnhShadow:SetOutside(frame.Health, size, size)
 	end
-	if frame.Power.EnhShadow then
+	if frame.Power and frame.Power.EnhShadow then
 		frame.Power.EnhShadow:SetOutside(frame.Power, size, size)
 	end
 	if frame.EnhShadow then
@@ -54,26 +54,28 @@ function ES:UpdateFrame(frame, db)
 	end
 end
 
-function ES:CreateFrameShadow(frame, parent)
+function ES:CreateFrameShadow(frame, parent, legacy)
 	if not frame then return end
-	--UF Health
-	if frame.Health then
-		frame.Health:CreateShadow()
-		frame.Health.EnhShadow = frame.Health.shadow
-		frame.Health.shadow = nil
-		ES:RegisterShadow(frame.Health.EnhShadow)
-		frame.Health.EnhShadow:SetParent(frame.Health)
+	if not legacy then
+		--UF Health
+		if frame.Health then
+			frame.Health:CreateShadow()
+			frame.Health.EnhShadow = frame.Health.shadow
+			frame.Health.shadow = nil
+			ES:RegisterShadow(frame.Health.EnhShadow)
+			frame.Health.EnhShadow:SetParent(frame.Health)
+		end
+		--UF Power
+		if frame.Power then
+			frame.Power:CreateShadow()
+			frame.Power.EnhShadow = frame.Power.shadow
+			frame.Power.shadow = nil
+			ES:RegisterShadow(frame.Power.EnhShadow)
+			frame.Power.EnhShadow:SetParent(frame.Power)
+		end
 	end
-	--UF Power
-	if frame.Power then
-		frame.Power:CreateShadow()
-		frame.Power.EnhShadow = frame.Power.shadow
-		frame.Power.shadow = nil
-		ES:RegisterShadow(frame.Power.EnhShadow)
-		frame.Power.EnhShadow:SetParent(frame.Power)
-	end
-	--if it is not UF at all
-	if not frame.Health and not frame.Power then
+	--if it is not UF at all or old way is enabled
+	if legacy or (not frame.Health and not frame.Power) then
 		frame:CreateShadow()
 		frame.EnhShadow = frame.shadow
 		frame.shadow = nil
@@ -90,7 +92,7 @@ function ES:CreateShadows()
 	for i = 1, #UFrames do
 		local unit, name = T.unpack(UFrames[i])
 		if E.private.sle.module.shadows[unit] then
-			ES:CreateFrameShadow(_G["ElvUF_"..name],_G["ElvUF_"..name])
+			ES:CreateFrameShadow(_G["ElvUF_"..name],_G["ElvUF_"..name], E.private.sle.module.shadows[unit.."Legacy"])
 			hooksecurefunc(UF, "Update_"..name.."Frame", ES.UpdateFrame)
 		end
 	end
@@ -98,7 +100,7 @@ function ES:CreateShadows()
 		local unit, name, num = T.unpack(UGroups[i])
 		if E.private.sle.module.shadows[unit] then
 			for j = 1, num do
-				ES:CreateFrameShadow(_G["ElvUF_"..name..j], _G["ElvUF_"..name..j])
+				ES:CreateFrameShadow(_G["ElvUF_"..name..j], _G["ElvUF_"..name..j], E.private.sle.module.shadows[unit.."Legacy"])
 				hooksecurefunc(UF, "Update_"..name.."Frames", ES.UpdateFrame)
 			end
 		end
