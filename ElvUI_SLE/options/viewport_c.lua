@@ -5,7 +5,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.viewport = {
 		type = "group",
 		name = L["Viewport"],
-		order = 22,
+		order = 1,
 		hidden = function() return not E.global.sle.advanced.general end,
 		get = function(info) return E.db.sle.misc.viewport[ info[#info] ] end,
 		set = function(info, value) E.db.sle.misc.viewport[ info[#info] ] = value; M:SetViewport() end,

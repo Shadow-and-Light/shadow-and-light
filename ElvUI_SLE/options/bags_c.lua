@@ -5,7 +5,7 @@ local B = E:GetModule("Bags")
 local function configTable()
 	if not SLE.initialized then return end
 	E.Options.args.sle.args.modules.args.bags = {
-		order = 6,
+		order = 1,
 		type = "group",
 		name = L["Bags"],
 		disabled = function() return not E.private.bags.enable end,

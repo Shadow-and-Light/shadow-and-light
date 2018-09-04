@@ -6,7 +6,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.raidmanager = {
 		type = "group",
 		name = RAID_CONTROL,
-		order = 19,
+		order = 1,
 		disabled = function() return SLE._Compatibility["oRA3"] end,
 		get = function(info) return E.db.sle.raidmanager[ info[#info] ] end,
 		set = function(info, value) E.db.sle.raidmanager[ info[#info] ] = value; B:CreateAndUpdateIcons() end,

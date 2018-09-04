@@ -20,7 +20,7 @@ local function configTable()
 	end
 
 	E.Options.args.sle.args.modules.args.chat = {
-		order = 7,
+		order = 1,
 		type = "group",
 		name = L["Chat"],
 		childGroups = 'tab',

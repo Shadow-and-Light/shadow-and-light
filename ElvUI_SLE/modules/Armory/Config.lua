@@ -26,7 +26,7 @@ local function LoadArmoryConfigTable()
 	E.Options.args.sle.args.modules.args.Armory = {
 		type = 'group',
 		name = L["Armory Mode"],
-		order = 3,
+		order = 1,
 		childGroups = 'tab',
 		args = {
 			Credit = {

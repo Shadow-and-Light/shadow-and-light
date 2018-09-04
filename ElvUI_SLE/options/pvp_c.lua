@@ -9,7 +9,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.pvp = {
 		type = "group",
 		name = PVP,
-		order = 16,
+		order = 1,
 		args = {
 			header = {
 				order = 1,

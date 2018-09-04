@@ -5,7 +5,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.warcampaign = {
 		type = "group",
 		name = WAR_CAMPAIGN,
-		order = 3,
+		order = 1,
 		args = {
 			header = {
 				order = 1,

@@ -9,7 +9,7 @@ local function configTable()
 		type = "group",
 		name = L["DataBars"],
 		childGroups = 'tab',
-		order = 10,
+		order = 1,
 		args = {
 			exp = {
 				order = 1,

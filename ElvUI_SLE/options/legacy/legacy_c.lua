@@ -7,7 +7,7 @@ local function configTable()
 		type = "group",
 		name = SLE.Russian and ITEM_QUALITY7_DESC or LFG_LIST_LEGACY,
 		desc = L["Modules designed for older expantions"],
-		order = 11,
+		order = 1,
 		childGroups = 'tab',
 		args = {
 		},

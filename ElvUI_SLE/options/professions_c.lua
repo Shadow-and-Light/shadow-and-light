@@ -7,7 +7,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.professions = {
 		type = "group",
 		name = TRADE_SKILLS,
-		order = 15,
+		order = 1,
 		childGroups = 'tab',
 		args = {
 			header = {

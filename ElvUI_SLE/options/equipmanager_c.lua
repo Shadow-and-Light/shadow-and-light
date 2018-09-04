@@ -95,7 +95,7 @@ local function configTable()
 	
 	E.Options.args.sle.args.modules.args.equipmanager = {
 		type = 'group',
-		order = 9,
+		order = 1,
 		name = L["Equipment Manager"],
 		args = {
 			header = {

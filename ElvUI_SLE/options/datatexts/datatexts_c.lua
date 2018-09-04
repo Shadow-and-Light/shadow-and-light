@@ -106,7 +106,7 @@ local function configTable()
 
 	--Datatext panels
 	E.Options.args.sle.args.modules.args.datatext = {
-		order = 8, type = "group", name = L["DataTexts"],
+		order = 1, type = "group", name = L["DataTexts"],
 		childGroups = "tab",
 		args = {
 			panels = {

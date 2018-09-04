@@ -5,7 +5,7 @@ local M = SLE:GetModule("Misc")
 local function configTable()
 	if not SLE.initialized then return end
 	E.Options.args.sle.args.modules.args.blizz = {
-		order = 6,
+		order = 1,
 		type = "group",
 		name = "Blizzard",
 		args = {

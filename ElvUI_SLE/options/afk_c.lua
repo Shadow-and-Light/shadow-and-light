@@ -80,7 +80,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.screensaver = {
 		type = "group",
 		name = L["AFK Mode"],
-		order = 2,
+		order = 1,
 		childGroups = 'tab',
 		disabled = function() return not E.db.general.afk end,
 		args = {

@@ -6,7 +6,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.minimap = {
 		type = "group",
 		name = MINIMAP_LABEL,
-		order = 13,
+		order = 1,
 		childGroups = 'tab',
 		args = {
 			header = {

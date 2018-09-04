@@ -6,7 +6,7 @@ local CUSTOM = CUSTOM
 local function configTable()
 	if not SLE.initialized then return end
 	E.Options.args.sle.args.modules.args.raidmarkerbars = {
-		order = 18,
+		order = 1,
 		type = "group",
 		name = L["Raid Markers"],
 		get = function(info) return E.db.sle.raidmarkers[ info[#info] ] end,

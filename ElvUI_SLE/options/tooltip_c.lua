@@ -4,7 +4,7 @@ local RP = SLE:GetModule("RaidProgress")
 local function configTable()
 	if not SLE.initialized then return end
 	E.Options.args.sle.args.modules.args.tooltip = {
-		order = 20,
+		order = 1,
 		type = "group",
 		disabled = function() return not E.private.toltip.enable end,
 		get = function(info) return E.db.sle.tooltip[ info[#info] ] end,

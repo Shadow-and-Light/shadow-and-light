@@ -19,7 +19,7 @@ local function configTable()
 	end
 	
 	E.Options.args.sle.args.modules.args.loot = {
-		order = 12,
+		order = 1,
 		type = "group",
 		name = L["Loot"],
 		childGroups = 'tab',

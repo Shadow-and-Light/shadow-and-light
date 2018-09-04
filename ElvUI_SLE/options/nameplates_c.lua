@@ -6,7 +6,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.nameplate = {
 		type = "group",
 		name = L["NamePlates"],
-		order = 14,
+		order = 1,
 		disabled = function() return not E.private.nameplates.enable end,
 		args = {
 			header = {

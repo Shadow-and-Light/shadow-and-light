@@ -5,7 +5,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.auras = {
 		type = "group",
 		name = BUFFOPTIONS_LABEL,
-		order = 4,
+		order = 1,
 		disabled = function() return (not E.private.auras.enable or SLE._Compatibility["ElvUI_VisualAuraTimers"]) end,
 		args = {
 			header = {

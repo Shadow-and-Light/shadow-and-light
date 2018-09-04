@@ -106,7 +106,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.backgrounds = {
 		type = "group",
 		name = L["Backgrounds"],
-		order = 5,
+		order = 1,
 		childGroups = 'tab',
 		args = {
 			header = {

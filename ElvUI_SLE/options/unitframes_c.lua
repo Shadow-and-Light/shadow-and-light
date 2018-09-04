@@ -167,7 +167,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.unitframes = {
 		type = "group",
 		name = L["UnitFrames"],
-		order = 22,
+		order = 1,
 		childGroups = 'tab',
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {

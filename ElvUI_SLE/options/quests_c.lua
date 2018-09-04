@@ -18,7 +18,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.quests = {
 		type = "group",
 		name = QUESTS_LABEL,
-		order = 17,
+		order = 1,
 		args = {
 			header = {
 				order = 1,

@@ -6,7 +6,7 @@ local function configTable()
 	if not SLE.initialized then return end
 
 	E.Options.args.sle.args.modules.args.shadows = {
-		order = 5,
+		order = 1,
 		type = "group",
 		name = L["Enhanced Shadows"],
 		get = function(info) return E.db.sle.shadows[info[#info]] end,
@@ -43,7 +43,7 @@ local function configTable()
 				order = 4,
 				type = "group",
 				name = L["Use shadows on..."],
-				guiInline = true,
+				-- guiInline = true,
 				get = function(info) return E.private.sle.module.shadows[info[#info]] end,
 				set = function(info, value) E.private.sle.module.shadows[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 				args = {
@@ -67,45 +67,90 @@ local function configTable()
 								type = "toggle",
 								name = L["Player Frame"],
 							},
+							playerLegacy = {
+								order = 2,
+								type = "toggle",
+								name = L["Classic"],
+							},
 							target = {
-								order = 1,
+								order = 5,
 								type = "toggle",
 								name = L["Target Frame"],
 							},
+							targetLegacy = {
+								order = 6,
+								type = "toggle",
+								name = L["Classic"],
+							},
 							targettarget = {
-								order = 1,
+								order = 10,
 								type = "toggle",
 								name = L["TargetTarget Frame"],
 							},
+							targettargetLegacy = {
+								order = 11,
+								type = "toggle",
+								name = L["Classic"],
+							},
 							focus = {
-								order = 1,
+								order = 15,
 								type = "toggle",
 								name = L["Focus Frame"],
 							},
+							focusLegacy = {
+								order = 16,
+								type = "toggle",
+								name = L["Classic"],
+							},
 							focustarget = {
-								order = 1,
+								order = 20,
 								type = "toggle",
 								name = L["FocusTarget Frame"],
 							},
+							focustargetLegacy = {
+								order = 21,
+								type = "toggle",
+								name = L["Classic"],
+							},
 							pet = {
-								order = 1,
+								order = 25,
 								type = "toggle",
 								name = L["Pet Frame"],
 							},
+							petLegacy = {
+								order = 26,
+								type = "toggle",
+								name = L["Classic"],
+							},
 							pettarget = {
-								order = 1,
+								order = 30,
 								type = "toggle",
 								name = L["PetTarget Frame"],
 							},
+							pettargetLegacy = {
+								order = 31,
+								type = "toggle",
+								name = L["Classic"],
+							},
 							boss = {
-								order = 1,
+								order = 35,
 								type = "toggle",
 								name = L["Boss Frames"],
 							},
+							bossLegacy = {
+								order = 36,
+								type = "toggle",
+								name = L["Classic"],
+							},
 							arena = {
-								order = 1,
+								order = 40,
 								type = "toggle",
 								name = L["Arena Frames"],
+							},
+							arenaLegacy = {
+								order = 41,
+								type = "toggle",
+								name = L["Classic"],
 							},
 						},
 					},
