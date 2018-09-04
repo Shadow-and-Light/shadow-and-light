@@ -7,6 +7,7 @@ local UnitAffectingCombat = UnitAffectingCombat
 local IsAddOnLoaded = IsAddOnLoaded
 local select = select
 
+--[[
 function AS:EmbedSystem_WindowResize()
 	if UnitAffectingCombat('player') or not AS.EmbedSystemCreated then return end
 	local ChatPanel = AS:CheckOption('EmbedRightChat') and _G["RightChatPanel"] or _G["LeftChatPanel"]
@@ -39,3 +40,4 @@ function AS:EmbedSystem_WindowResize()
 		E.Options.args.addonskins.args.embed.args.EmbedLeftWidth.max = floor(_G["EmbedSystem_MainWindow"]:GetWidth() * .75)
 	end
 end
+]]

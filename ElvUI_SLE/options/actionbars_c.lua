@@ -65,6 +65,7 @@ local function configTable()
 				desc = L["Sets actionbar button's background to transparent template."],
 				get = function(info) return E.private.sle.actionbars.transparentButtons end,
 				set = function(info, value) E.private.sle.actionbars.transparentButtons = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+				disabled = function() return IsAddOnLoaded("Masque") end,
 			},
 			vehicle = {
 				type = "group",
