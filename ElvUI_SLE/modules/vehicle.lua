@@ -82,7 +82,14 @@ function EVB:CreateExtraButtonSet()
 		end
 
 		AB:StyleButton(bar.buttons[i], nil, MasqueGroup and E.private.actionbar.masque.actionbars and true or nil);
-		if E.private.sle.actionbars.transparentButtons then bar.buttons[i].backdrop:SetTemplate('Transparent') end
+
+		if E.private.sle.actionbars.transparentButtons then
+			-- Disable this call if Masque is loaded
+			if IsAddOnLoaded("Masque") then return; end
+
+			bar.buttons[i].backdrop:SetTemplate('Transparent')
+		end
+
 		bar.buttons[i]:SetCheckedTexture("")
 		RegisterStateDriver(bar.buttons[i], 'visibility', '[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] show; hide')
 
