@@ -101,7 +101,7 @@ SMB.AddButtonsToBar = {
 local function SkinButton(Button)
 	if not Button.isSkinned then
 		local Name = Button:GetName()
-		if TomTom and not Name and Button.icon and HBDpins then
+		if not Name and HBDpins and Button.icon then
 			for button,data in T.pairs(HBDpins.minimapPins) do
 				if Button == button then
 					Button.isSkinned = true
