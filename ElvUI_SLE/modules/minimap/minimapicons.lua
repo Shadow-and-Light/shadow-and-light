@@ -9,6 +9,8 @@ local strsub, ceil = strsub, ceil
 local BorderColor = E["media"].bordercolor
 local TexCoords = { 0.1, 0.9, 0.1, 0.9 }
 
+local HBDpins --For TomTom stuff
+
 if E.private.sle == nil then E.private.sle = {} end
 if E.private.sle.minimap == nil then E.private.sle.minimap = {} end
 if E.private.sle.minimap.mapicons == nil then E.private.sle.minimap.mapicons = {} end
@@ -47,6 +49,8 @@ end
 
 SMB.SkinnedMinimapButtons = {}
 SMB.ignoreButtons = {
+	'BattlefieldMinimap',
+	'ButtonCollectFrame',
 	'ElvConfigToggle',
 	'GameTimeFrame',
 	'HelpOpenTicketButton',
@@ -57,13 +61,19 @@ SMB.ignoreButtons = {
 }
 SMB.GenericIgnores = {
 	'Archy',
+	'Cork',
+	'DugisArrowMinimapPoint',
 	'GatherMatePin',
 	'GatherNote',
 	'GuildInstance',
+	'GuildMap3Mini',
 	'HandyNotesPin',
+	'LibRockConfig-1.0_MinimapButton',
 	'MinimMap',
+	'NauticusMiniIcon',
 	'poiMinimap',
 	'Spy_MapNoteList_mini',
+	'WestPointer',
 	'ZGVMarker',
 }
 SMB.PartialIgnores = {
@@ -91,13 +101,22 @@ SMB.AddButtonsToBar = {
 local function SkinButton(Button)
 	if not Button.isSkinned then
 		local Name = Button:GetName()
-		if TomTom and not Name and Button.icon then
+		if TomTom and not Name and Button.icon and HBDpins then
+			for button,data in T.pairs(HBDpins.minimapPins) do
+				if Button == button then
+					Button.isSkinned = true
+					return
+				end
+			end
+		end
+		--Old way to deal with tomtom. Maybe will need it at some time in the future
+		--[[if TomTom and not Name and Button.icon then
 			local texture = Button.icon:GetTexture()
-			if T.find(texture, "TomTom") then
+			if T.find(texture, "TomTom") or T.find(texture, "WoWPro") then
 				Button.isSkinned = true
 				return
 			end
-		end
+		end]]
 
 		if Button:IsObjectType('Button') then
 			local ValidIcon = false
@@ -391,6 +410,8 @@ function SMB:Initialize()
 	E.db.sle.minimap.mapicons.skindungeon = nil
 
 	_G["QueueStatusMinimapButton"]:SetParent(_G["Minimap"])
+
+	if TomTom then HBDpins = LibStub("HereBeDragons-Pins-2.0") end
 
 	SMB.bar = CreateFrame('Frame', 'SLE_SquareMinimapButtonBar', E.UIParent)
 	SMB.bar:Hide()
