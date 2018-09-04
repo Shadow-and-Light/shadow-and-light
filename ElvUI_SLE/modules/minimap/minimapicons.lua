@@ -411,7 +411,7 @@ function SMB:Initialize()
 
 	_G["QueueStatusMinimapButton"]:SetParent(_G["Minimap"])
 
-	if TomTom then HBDpins = LibStub("HereBeDragons-Pins-2.0") end
+	HBDpins = LibStub("HereBeDragons-Pins-2.0", true)
 
 	SMB.bar = CreateFrame('Frame', 'SLE_SquareMinimapButtonBar', E.UIParent)
 	SMB.bar:Hide()
