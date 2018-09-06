@@ -128,14 +128,12 @@ do --<< Button Script >>--
 			end)
 		end
 	end
-	
-	
+
 	function IA:OnLeave()
 		self:SetScript('OnUpdate', nil)
 		_G["GameTooltip"]:Hide()
 	end
-	
-	
+
 	function IA:OnClick()
 		if self.Link then
 			if HandleModifiedItemClick(self.Link) then
@@ -146,20 +144,17 @@ do --<< Button Script >>--
 			end
 		end
 	end
-	
-	
+
 	function IA:Button_OnEnter()
 		self:SetBackdropBorderColor(T.unpack(E.media.rgbvaluecolor))
 		self.text:SetText(KF:Color_Value(self.ButtonString))
 	end
-	
-	
+
 	function IA:Button_OnLeave()
 		self:SetBackdropBorderColor(T.unpack(E.media.bordercolor))
 		self.text:SetText(self.ButtonString)
 	end
-	
-	
+
 	function IA:EquipmentSlot_OnEnter()
 		if Info.Armory_Constants.CanTransmogrifySlot[self.SlotName] and T.type(self.TransmogrifyLink) == 'number' and not T.GetItemInfo(self.TransmogrifyLink) then
 			self:SetScript('OnUpdate', function()
@@ -233,8 +228,7 @@ do --<< Button Script >>--
 			_G["GameTooltip"]:Show()
 		end
 	end
-	
-	
+
 	function IA:ScrollFrame_OnMouseWheel(Spinning)
 		local Page = self:GetScrollChild()
 		local PageHeight = Page:GetHeight()
@@ -260,8 +254,7 @@ do --<< Button Script >>--
 		Page:Point('TOPLEFT', self, 0, self.Offset)
 		Page:Point('TOPRIGHT', self, 0, self.Offset)
 	end
-	
-	
+
 	function IA:Category_OnClick()
 		self = self:GetParent()
 		
@@ -269,8 +262,7 @@ do --<< Button Script >>--
 		
 		IA:ReArrangeCategory()
 	end
-	
-	
+
 	function IA:GemSocket_OnClick()
 		self = self:GetParent()
 		
@@ -299,7 +291,7 @@ do --<< Button Script >>--
 		self.Texture:SetVertexColor(1, .8, 1)
 		
 		if self.Link then
-			_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
+			_G["GameTooltip"]:SetOwner(self, 'ANCHOR_RIGHT')
 			_G["GameTooltip"]:SetText(self.Link)
 			_G["GameTooltip"]:Show()
 		end
@@ -325,18 +317,18 @@ function IA:ChangePage(Type)
 		end
 	end
 	
-	if Type == 'Character' then
+	if Type ~= 'Character' then
 		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 			if self[SlotName].ItemLevel then
 				self[SlotName].ItemLevel:Hide()
-				self[SlotName].Gradation:Show()
+				self[SlotName].Gradation:Hide()
 			end
 		end
 	else
 		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 			if self[SlotName].ItemLevel then
 				self[SlotName].ItemLevel:Show()
-				self[SlotName].Gradation:Hide()
+				self[SlotName].Gradation:Show()
 			end
 		end
 	end
@@ -732,7 +724,7 @@ function IA:CreateInspectFrame()
 					Slot.Gradation.ItemEnchant:Hide()
 				end
 
-				Slot.EnchantWarning = CreateFrame('Button', nil, Slot)
+				Slot.EnchantWarning = CreateFrame('Button', nil, Slot.Gradation)
 				Slot.EnchantWarning:Size(E.db.sle.Armory.Inspect.Enchant.WarningSize)
 				Slot.EnchantWarning.Texture = Slot.EnchantWarning:CreateTexture(nil, 'OVERLAY')
 				Slot.EnchantWarning.Texture:SetInside()
@@ -743,7 +735,7 @@ function IA:CreateInspectFrame()
 
 				-- Gem Socket
 				for i = 1, MAX_NUM_SOCKETS do
-					Slot['Socket'..i] = CreateFrame('Frame', nil, Slot)
+					Slot['Socket'..i] = CreateFrame('Frame', nil, Slot.Gradation)
 					Slot['Socket'..i]:Size(E.db.sle.Armory.Inspect.Gem.SocketSize)
 					Slot['Socket'..i]:SetBackdrop({
 						bgFile = E.media.blankTex,
@@ -776,7 +768,7 @@ function IA:CreateInspectFrame()
 				Slot.Socket2:Point(Slot.Direction, Slot.Socket1, Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 1 or -1, 0)
 				Slot.Socket3:Point(Slot.Direction, Slot.Socket2, Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', Slot.Direction == 'LEFT' and 1 or -1, 0)
 
-				Slot.SocketWarning = CreateFrame('Button', nil, Slot)
+				Slot.SocketWarning = CreateFrame('Button', nil, Slot.Gradation)
 				Slot.SocketWarning:Size(E.db.sle.Armory.Inspect.Gem.WarningSize)
 				Slot.SocketWarning.Texture = Slot.SocketWarning:CreateTexture(nil, 'OVERLAY')
 				Slot.SocketWarning.Texture:SetInside()
@@ -785,7 +777,7 @@ function IA:CreateInspectFrame()
 				Slot.SocketWarning:SetScript('OnLeave', self.OnLeave)
 
 				if Info.Armory_Constants.CanTransmogrifySlot[SlotName] then
-					Slot.TransmogrifyAnchor = CreateFrame('Button', nil, Slot.Gradation)
+					Slot.TransmogrifyAnchor = CreateFrame('Button', nil, Slot)
 					Slot.TransmogrifyAnchor:Size(12)
 					Slot.TransmogrifyAnchor:SetFrameLevel(CORE_FRAME_LEVEL + 4)
 					Slot.TransmogrifyAnchor:Point('BOTTOM'..Slot.Direction, Slot, Slot.Direction == 'LEFT' and -3 or 3, -3)
