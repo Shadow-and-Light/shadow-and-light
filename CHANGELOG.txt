@@ -1,3 +1,15 @@
+v3.45 [September 7th 2018]
+Fixes:
+- Any addon that creates pins on minimap using HereBeDragons lib will now be ignored while skinning minimap buttons.
+- Fixed vehicle bar breaking with masque.
+- Addons embedded via AddOnSkins should now position themselves properly
+- Fixed inspect armory hiding item level texts when it shouldn't
+Additions:
+- Enhanced shadows now have option to return UF shadow to how those were prior to v3.44
+- Armory stats pane now has an option to enable/disable nearly every stat possible (not all though)
+Changes:
+- Some frames should not be present on screen at the same time while using the functionality of moving blizzard frames around. E.g. Main Menu and some option screens.
+
 v3.44 [September 2nd 2018]
 Fixes:
 - Fixes for taints in location bar
