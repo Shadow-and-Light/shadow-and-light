@@ -100,6 +100,15 @@ B.AddonsList = {
 	["Blizzard_VoidStorageUI"] = { "VoidStorageFrame" },
 }
 
+B.ExlusiveFrames = {
+	["QuestFrame"] = { "GossipFrame", },
+	["GossipFrame"] = { "QuestFrame", },
+	["GameMenuFrame"] = { "VideoOptionsFrame", "InterfaceOptionsFrame", "HelpFrame",},
+	["VideoOptionsFrame"] = { "GameMenuFrame",},
+	["InterfaceOptionsFrame"] = { "GameMenuFrame",},
+	["HelpFrame"] = { "GameMenuFrame",},
+}
+
 local function OnDragStart(self)
 	self.IsMoving = true
 	self:StartMoving()
@@ -141,10 +150,8 @@ local function LoadPosition(self)
 		self:SetPoint(a,b,c,d,e, true)
 	end
 
-	if Name == "QuestFrame" then
-		_G["GossipFrame"]:Hide()
-	elseif Name == "GossipFrame" then
-		_G["QuestFrame"]:Hide()
+	if B.ExlusiveFrames[Name] then
+		for _, name in T.pairs(B.ExlusiveFrames[Name]) do _G[name]:Hide() end
 	end
 end
 
