@@ -76,17 +76,32 @@ P.sle.Armory.Character = {
 			outline = "NONE",
 		},
 		List = {
+			--General
 			HEALTH = false,
 			POWER = false,
 			ALTERNATEMANA = false,
-			ATTACK_DAMAGE = false,
+			MOVESPEED = true,
+			--Attack
+			ATTACK_DAMAGE = true,
 			ATTACK_AP = false,
 			ATTACK_ATTACKSPEED = false,
-			SPELLPOWER = false,
+			SPELLPOWER = true,
+			MANAREGEN = false,
 			ENERGY_REGEN = false,
 			RUNE_REGEN = false,
 			FOCUS_REGEN = false,
-			MOVESPEED = false,
+			--Enhancements
+			CRITCHANCE = true,
+			HASTE = true,
+			MASTERY = true,
+			VERSATILITY = true,
+			LIFESTEAL = true,
+			--Defense
+			ARMOR = true,
+			AVOIDANCE = true,
+			DODGE = true,
+			PARRY = true,
+			BLOCK = true,
 		},
 	},
 }

@@ -12,6 +12,12 @@ local ALTERNATE_RESOURCE_TEXT, DAMAGE, ATTACK_POWER, ATTACK_SPEED, STAT_SPELLPOW
 local FACTION_ALLIANCE, FACTION_HORDE, ARENA, NONE, STAT_CATEGORY_ATTRIBUTES, STAT_CATEGORY_ATTRIBUTES = FACTION_ALLIANCE, FACTION_HORDE, ARENA, NONE, STAT_CATEGORY_ATTRIBUTES, STAT_CATEGORY_ATTRIBUTES
 local ADD, DELETE, HEALTH = ADD, DELETE, HEALTH
 local CUSTOM = CUSTOM
+local STAT_AVERAGE_ITEM_LEVEL = STAT_AVERAGE_ITEM_LEVEL
+local STAT_CATEGORY_ATTRIBUTES = STAT_CATEGORY_ATTRIBUTES
+local STAT_CATEGORY_ATTACK = STAT_CATEGORY_ATTACK
+local STAT_CATEGORY_ENHANCEMENTS = STAT_CATEGORY_ENHANCEMENTS
+local DEFENSE = DEFENSE
+
 
 if not (KF and KF.Modules and (KF.Modules.CharacterArmory or KF.Modules.InspectArmory)) then return end
 
@@ -257,78 +263,86 @@ local function LoadArmoryConfigTable()
 					get = function(info) return E.db.sle.Armory.Character.Stats[ info[#info] ] end,
 					set = function(info, value) E.db.sle.Armory.Character.Stats[ info[#info] ] = value; PaperDollFrame_UpdateStats() end,
 					args = {
-						IlvlFull = {
-							order = 1,
-							type = "toggle",
-							name = L["Full Item Level"],
-							desc = L["Show both equipped and average item levels."],
-						},
-						IlvlColor = {
-							order = 2,
-							type = "toggle",
-							name = L["Item Level Coloring"],
-							desc = L["Color code item levels values. Equipped will be gradient, average - selected color."],
-							disabled = function() return SLE._Compatibility["DejaCharacterStats"] or not E.db.sle.Armory.Character.Stats.IlvlFull end,
-						},
-						AverageColor = {
-							type = 'color',
-							order = 3,
-							name = L["Color of Average"],
-							desc = L["Sets the color of average item level."],
-							hasAlpha = false,
-							disabled = function() return SLE._Compatibility["DejaCharacterStats"] or not E.db.sle.Armory.Character.Stats.IlvlFull end,
-							get = function(info)
-								local t = E.db.sle.Armory.Character.Stats[ info[#info] ]
-								local d = P.sle.Armory.Character.Stats[info[#info]]
-								return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-							end,
-							set = function(info, r, g, b, a)
-								E.db.sle.Armory.Character.Stats[ info[#info] ] = {}
-								local t = E.db.sle.Armory.Character.Stats[ info[#info] ]
-								t.r, t.g, t.b, t.a = r, g, b, a
-								PaperDollFrame_UpdateStats()
-							end,
-						},
 						OnlyPrimary = {
-							order = 4,
+							order = 1,
 							type = "toggle",
 							name = L["Only Relevant Stats"],
 							desc = L["Show only those primary stats relevant to your spec."],
 						},
-						IlvlFont = {
-							type = 'group',
-							name = L["Item Level"],
-							order = 5,
+						ItemLevel = {
+							order = 2,
+							type = "group",
+							name = STAT_AVERAGE_ITEM_LEVEL,
 							guiInline = true,
-							get = function(info) return E.db.sle.Armory.Character.Stats.ItemLevel[ info[#info] ] end,
-							set = function(info, value) E.db.sle.Armory.Character.Stats.ItemLevel[ info[#info] ] = value; _G["CharacterArmory"]:UpdateIlvlFont() end,
 							args = {
-								font = {
-									type = 'select', dialogControl = 'LSM30_Font',
-									name = L["Font"],
+								IlvlFull = {
 									order = 1,
-									values = function()
-										return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
+									type = "toggle",
+									name = L["Full Item Level"],
+									desc = L["Show both equipped and average item levels."],
+								},
+								IlvlColor = {
+									order = 2,
+									type = "toggle",
+									name = L["Item Level Coloring"],
+									desc = L["Color code item levels values. Equipped will be gradient, average - selected color."],
+									disabled = function() return SLE._Compatibility["DejaCharacterStats"] or not E.db.sle.Armory.Character.Stats.IlvlFull end,
+								},
+								AverageColor = {
+									type = 'color',
+									order = 3,
+									name = L["Color of Average"],
+									desc = L["Sets the color of average item level."],
+									hasAlpha = false,
+									disabled = function() return SLE._Compatibility["DejaCharacterStats"] or not E.db.sle.Armory.Character.Stats.IlvlFull end,
+									get = function(info)
+										local t = E.db.sle.Armory.Character.Stats[ info[#info] ]
+										local d = P.sle.Armory.Character.Stats[info[#info]]
+										return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+									end,
+									set = function(info, r, g, b, a)
+										E.db.sle.Armory.Character.Stats[ info[#info] ] = {}
+										local t = E.db.sle.Armory.Character.Stats[ info[#info] ]
+										t.r, t.g, t.b, t.a = r, g, b, a
+										PaperDollFrame_UpdateStats()
 									end,
 								},
-								size = {
-									type = 'range',
-									name = L["Font Size"],
-									order = 2,
-									min = 6,max = 22,step = 1,
-								},
-								outline = {
-									type = 'select',
-									name = L["Font Outline"],
-									order = 3,
-									values = FontStyleList,
+								IlvlFont = {
+									type = 'group',
+									name = L["Fonts"],
+									order = 4,
+									guiInline = true,
+									get = function(info) return E.db.sle.Armory.Character.Stats.ItemLevel[ info[#info] ] end,
+									set = function(info, value) E.db.sle.Armory.Character.Stats.ItemLevel[ info[#info] ] = value; _G["CharacterArmory"]:UpdateIlvlFont() end,
+									args = {
+										font = {
+											type = 'select', dialogControl = 'LSM30_Font',
+											name = L["Font"],
+											order = 1,
+											values = function()
+												return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
+											end,
+										},
+										size = {
+											type = 'range',
+											name = L["Font Size"],
+											order = 2,
+											min = 6,max = 22,step = 1,
+										},
+										outline = {
+											type = 'select',
+											name = L["Font Outline"],
+											order = 3,
+											values = FontStyleList,
+										},
+									},
 								},
 							},
 						},
-						Stats = {
-							type = 'group',
+						Attributes = {
+							order = 3,
+							type = "group",
 							name = STAT_CATEGORY_ATTRIBUTES,
-							order = 7,
 							guiInline = true,
 							get = function(info) return E.db.sle.Armory.Character.Stats.List[ info[#info] ] end,
 							set = function(info, value) E.db.sle.Armory.Character.Stats.List[ info[#info] ] = value; _G["CharacterArmory"]:ToggleStats() end,
@@ -336,14 +350,56 @@ local function LoadArmoryConfigTable()
 								HEALTH = { order = 1,type = "toggle",name = HEALTH,},
 								POWER = { order = 2,type = "toggle",name = _G[T.select(2, UnitPowerType("player"))],},
 								ALTERNATEMANA = { order = 3,type = "toggle",name = ALTERNATE_RESOURCE_TEXT,},
-								ATTACK_DAMAGE = { order = 4,type = "toggle",name = DAMAGE,},
-								ATTACK_AP = { order = 5,type = "toggle",name = ATTACK_POWER,},
-								ATTACK_ATTACKSPEED = { order = 6,type = "toggle",name = ATTACK_SPEED,},
-								SPELLPOWER = { order = 7,type = "toggle",name = STAT_SPELLPOWER,},
-								ENERGY_REGEN = { order = 8,type = "toggle",name = STAT_ENERGY_REGEN,},
-								RUNE_REGEN = { order = 9,type = "toggle",name = STAT_RUNE_REGEN,},
-								FOCUS_REGEN = { order = 10,type = "toggle",name = STAT_FOCUS_REGEN,},
-								MOVESPEED = { order = 11,type = "toggle",name = STAT_SPEED,},
+								MOVESPEED = { order = 4,type = "toggle",name = STAT_SPEED,},
+							},
+						},
+						Attack = {
+							order = 4,
+							type = "group",
+							name = STAT_CATEGORY_ATTACK,
+							guiInline = true,
+							get = function(info) return E.db.sle.Armory.Character.Stats.List[ info[#info] ] end,
+							set = function(info, value) E.db.sle.Armory.Character.Stats.List[ info[#info] ] = value; _G["CharacterArmory"]:ToggleStats() end,
+							args = {
+								ATTACK_DAMAGE = { order = 1,type = "toggle",name = DAMAGE,},
+								ATTACK_AP = { order = 2,type = "toggle",name = ATTACK_POWER,},
+								ATTACK_ATTACKSPEED = { order = 3,type = "toggle",name = ATTACK_SPEED,},
+								SPELLPOWER = { order = 4,type = "toggle",name = STAT_SPELLPOWER,},
+								MANAREGEN = { order = 5,type = "toggle",name = MANA_REGEN,},
+								ENERGY_REGEN = { order = 6,type = "toggle",name = STAT_ENERGY_REGEN,},
+								RUNE_REGEN = { order = 7,type = "toggle",name = STAT_RUNE_REGEN,},
+								FOCUS_REGEN = { order = 8,type = "toggle",name = STAT_FOCUS_REGEN,},
+							},
+						},
+						Enhancements = {
+							order = 5,
+							type = "group",
+							name = STAT_CATEGORY_ENHANCEMENTS,
+							guiInline = true,
+							get = function(info) return E.db.sle.Armory.Character.Stats.List[ info[#info] ] end,
+							set = function(info, value) E.db.sle.Armory.Character.Stats.List[ info[#info] ] = value; _G["CharacterArmory"]:ToggleStats() end,
+							args = {
+								CRITCHANCE = { order = 1,type = "toggle",name = STAT_CRITICAL_STRIKE,},
+								HASTE = { order = 2,type = "toggle",name = STAT_HASTE,},
+								MASTERY = { order = 3,type = "toggle",name = STAT_MASTERY,},
+								VERSATILITY = { order = 4,type = "toggle",name = STAT_VERSATILITY,},
+								LIFESTEAL = { order = 5,type = "toggle",name = STAT_LIFESTEAL,},
+							},
+						},
+						Defence = {
+							order = 6,
+							type = "group",
+							name = DEFENSE,
+							guiInline = true,
+							get = function(info) return E.db.sle.Armory.Character.Stats.List[ info[#info] ] end,
+							set = function(info, value) E.db.sle.Armory.Character.Stats.List[ info[#info] ] = value; _G["CharacterArmory"]:ToggleStats() end,
+							args = {
+								ARMOR = { order = 1,type = "toggle",name = STAT_ARMOR,},
+								AVOIDANCE = { order = 2,type = "toggle",name = STAT_AVOIDANCE,},
+								DODGE = { order = 3,type = "toggle",name = STAT_DODGE,},
+								PARRY = { order = 4,type = "toggle",name = STAT_PARRY,},
+								BLOCK = { order = 5,type = "toggle",name = STAT_BLOCK,},
+								-- STAGGER = { order = 6,type = "toggle",name = STAT_STAGGER,},
 							},
 						},
 					},
