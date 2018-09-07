@@ -273,7 +273,7 @@ function CA:Setup_CharacterArmory()
 	end)
 	hooksecurefunc('PaperDollFrame_SetLevel', function()
 		if Info.CharacterArmory_Activate then 
-			_G["CharacterLevelText"]:SetText('|c'..RAID_CLASS_COLORS[E.myclass].colorStr.._G["CharacterLevelText"]:GetText())
+		_G["CharacterLevelText"]:SetText(_G["CharacterLevelText"]:GetText())
 
 			_G["CharacterFrameTitleText"]:ClearAllPoints()
 			_G["CharacterFrameTitleText"]:Point('TOP', self, 0, 35)
