@@ -154,7 +154,7 @@ function EVB:Initialize()
 	EVB:BarBackdrop()
 	if E.private.sle.module.shadows.vehicle then
 		bar:CreateShadow();
-		ES:RegisterShadow(bar.shadow);
+		ES:RegisterFrameShadows(bar);
 	end
 
 	bar:SetPoint("BOTTOM", 0, 34);
