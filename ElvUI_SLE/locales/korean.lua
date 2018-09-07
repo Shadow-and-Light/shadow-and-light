@@ -959,7 +959,7 @@ Pvtschlag
 Shenzo
 Simpy, The Heretic
 Sinaris
-Sortokk
+Whiro
 Swordyy
 ]=]
 L["ELVUI_SLE_DONORS_TITLE"] = "Thanks to these awesome people for supporting our work via donations:"
