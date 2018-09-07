@@ -1,3 +1,7 @@
+v3.451 [September 7th 2018]
+Fixes:
+- Fixed typo resulting in errors on load.
+
 v3.45 [September 7th 2018]
 Fixes:
 - Any addon that creates pins on minimap using HereBeDragons lib will now be ignored while skinning minimap buttons.
