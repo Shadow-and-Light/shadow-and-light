@@ -975,8 +975,8 @@ Pvtschlag
 Shenzo
 Simpy, The Heretic
 Sinaris
-Whiro
 Swordyy
+Whiro
 ]=]
 L["ELVUI_SLE_DONORS_TITLE"] = "Thanks to these awesome people for supporting our work via donations:"
 L["ELVUI_SLE_DONORS"] = [[Andre Edwards
