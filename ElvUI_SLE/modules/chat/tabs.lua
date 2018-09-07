@@ -21,8 +21,8 @@ function C:SetSelectedTab(isForced)
 	local selectedId = _G["GeneralDockManager"].selected:GetID()
 	
 	--Set/Remove brackets and set alpha of chat tabs
-	for i=1, C.CreatedFrames do
-		local tab = _G[T.format("ChatFrame%sTab", i)]
+	for chatID = 1, C.CreatedFrames do
+		local tab = _G[T.format("ChatFrame%sTab", chatID)]
 		if tab.isDocked then
 			--Brackets
 			if selectedId == tab:GetID() and C.db.tab.select then
@@ -45,6 +45,8 @@ function C:SetSelectedTab(isForced)
 				end
 			end
 		end
+		--Prevent chat tabs changing width on each click.
+		PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, tab.textWidth);
 	end
 end
 
@@ -52,11 +54,18 @@ function C:OpenTemporaryWindow()
 	local chatID = FCF_GetCurrentChatFrameID()
 	local tab = _G[T.format("ChatFrame%sTab", chatID)]
 	tab.origText = (FCF_GetChatWindowInfo(tab:GetID()))
-	E:Delay(0.2, function() CH:PositionChat(); C:SetSelectedTab() end)
+	E:Delay(0.2, function() C:SetSelectedTab(); C:SetTabWidth() end)
+end
+
+function C:SetTabWidth()
+	for chatID = 1, C.CreatedFrames do
+		local tab = _G[T.format("ChatFrame%sTab",  chatID)]
+		PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, tab.textWidth);
+	end
 end
 
 function C:DelaySetSelectedTab()
-	E:Delay(0.2, function() CH:PositionChat(); C:SetSelectedTab() end)
+	E:Delay(0.2, function() C:SetSelectedTab(); C:SetTabWidth() end)
 end
 
 function C:InitTabs()
@@ -64,5 +73,6 @@ function C:InitTabs()
 	hooksecurefunc("FCF_Close", C.SetSelectedTab)
 	hooksecurefunc("FCF_OpenNewWindow", C.DelaySetSelectedTab)
 	hooksecurefunc("FCF_OpenTemporaryWindow", C.OpenTemporaryWindow)
+	hooksecurefunc("FCF_DockUpdate", C.SetTabWidth)
 	C:DelaySetSelectedTab()
 end
