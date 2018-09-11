@@ -482,20 +482,14 @@ function CA:Setup_CharacterArmory()
 
 		-- Azerite
 		Slot.AzeriteAnchor = CreateFrame('Button', nil, Slot)
-		Slot.AzeriteAnchor:Size(14)
-		Slot.AzeriteAnchor:SetFrameLevel(Slot:GetFrameLevel() + 2)
+		Slot.AzeriteAnchor:Size(41)
+		Slot.AzeriteAnchor:SetFrameLevel(Slot:GetFrameLevel() + 1)
 		Slot.AzeriteAnchor:Point('TOP'..Slot.Direction, Slot, Slot.Direction == 'LEFT' and -2 or 2, -1)
 
 		Slot.AzeriteAnchor.Texture = Slot.AzeriteAnchor:CreateTexture(nil, 'OVERLAY')
+		Slot.AzeriteAnchor.Texture:SetAtlas("AzeriteIconFrame")
+		Slot.AzeriteAnchor.Texture:SetTexCoord(0,1,0,1)
 		Slot.AzeriteAnchor.Texture:SetInside()
-		Slot.AzeriteAnchor.Texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\modules\\Armory\\Media\\Textures\\Anchor')
-		Slot.AzeriteAnchor.Texture:SetVertexColor(.77,.05,.13)
-
-		if Slot.Direction == 'LEFT' then
-			Slot.AzeriteAnchor.Texture:SetTexCoord(0, 1, 1, 0)
-		else
-			Slot.AzeriteAnchor.Texture:SetTexCoord(1, 0, 1, 0)
-		end
 
 		Slot.AzeriteAnchor:Hide()
 
