@@ -13,9 +13,6 @@ B.Frames = {
 	"AddonList",
 	"AudioOptionsFrame",
 	"BankFrame",
-	"BonusRollFrame",
-	"BonusRollLootWonFrame",
-	"BonusRollMoneyWonFrame",
 	"CharacterFrame",
 	"ChatConfigFrame",
 	"DressUpFrame",
@@ -62,6 +59,12 @@ B.Frames = {
 	"TutorialFrame",
 	"VideoOptionsFrame",
 	"WorldMapFrame",
+}
+
+B.TempOnly = {
+	["BonusRollFrame"] = true,
+	["BonusRollLootWonFrame"] = true,
+	["BonusRollMoneyWonFrame"] = true,
 }
 
 B.AddonsList = {
@@ -118,7 +121,7 @@ local function OnDragStop(self)
 	self:StopMovingOrSizing()
 	self.IsMoving = false
 	local Name = self:GetName()
-	if E.private.sle.module.blizzmove.remember then
+	if E.private.sle.module.blizzmove.remember and not B.TempOnly[Name] then
 		local a, b, c, d, e = self:GetPoint()
 		if self:GetParent() then 
 			b = self:GetParent():GetName() or UIParent
@@ -241,6 +244,9 @@ function B:Initialize()
 	if not E.private.sle.pvpreadydialogreset then E.private.sle.module.blizzmove.points["PVPReadyDialog"] = nil; E.private.sle.pvpreadydialogreset = true end
 	PVPReadyDialog:Hide()
 	if E.private.sle.module.blizzmove.enable then
+		for Name, _ in T.pairs(B.TempOnly) do
+			if E.private.sle.module.blizzmove.points[Name] then E.private.sle.module.blizzmove.points[Name] = nil end
+		end
 		for i = 1, #B.Frames do
 			B:MakeMovable(B.Frames[i])
 		end
