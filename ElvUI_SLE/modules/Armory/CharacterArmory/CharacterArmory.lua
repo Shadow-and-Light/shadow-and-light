@@ -539,22 +539,22 @@ end
 function CA:ScanData()
 	self.NeedUpdate = nil
 	if not self.DurabilityUpdated then
-		print("Update_Durability: ", self:Update_Durability())
+		if KF.DebugEnabled then print("Update_Durability: ", self:Update_Durability()) end
 		self.NeedUpdate = self:Update_Durability() or self.NeedUpdate
 	end
-	print("1: ", self.NeedUpdate)
+	if KF.DebugEnabled then print("1: ", self.NeedUpdate) end
 	if self.GearUpdated ~= true then
-		print("Update_Gear: ", self:Update_Gear())
+		if KF.DebugEnabled then print("Update_Gear: ", self:Update_Gear()) end
 		self.NeedUpdate = self:Update_Gear() or self.NeedUpdate
 	end
-	print("2: ", self.NeedUpdate)
+	if KF.DebugEnabled then print("2: ", self.NeedUpdate) end
 	if not self.NeedUpdate and self:IsShown() then
 		self:SetScript('OnUpdate', nil)
 		self:Update_Display(true)
 	elseif self.NeedUpdate then
 		self:SetScript('OnUpdate', self.ScanData)
 	end
-	print("3: ", self.NeedUpdate)
+	if KF.DebugEnabled then print("3: ", self.NeedUpdate) end
 	if _G["CharacterModelFrame"] and _G["CharacterModelFrame"].BackgroundTopLeft and _G["CharacterModelFrame"].BackgroundTopLeft:IsShown() then
 		_G["CharacterModelFrame"].BackgroundTopLeft:Hide()
 		_G["CharacterModelFrame"].BackgroundTopRight:Hide()
