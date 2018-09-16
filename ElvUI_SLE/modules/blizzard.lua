@@ -9,6 +9,7 @@ local RegisterForDrag = RegisterForDrag
 local StartMoving = StartMoving
 local StopMovingOrSizing = StopMovingOrSizing
 
+--Frames to move
 B.Frames = {
 	"AddonList",
 	"AudioOptionsFrame",
@@ -61,12 +62,14 @@ B.Frames = {
 	"WorldMapFrame",
 }
 
+--These should be only temporary movable due to complications
 B.TempOnly = {
 	["BonusRollFrame"] = true,
 	["BonusRollLootWonFrame"] = true,
 	["BonusRollMoneyWonFrame"] = true,
 }
 
+--Blizz addons that load later
 B.AddonsList = {
 	["Blizzard_AchievementUI"] = { "AchievementFrame" },
 	["Blizzard_AlliedRacesUI"] = { "AlliedRacesFrame" },
@@ -97,12 +100,12 @@ B.AddonsList = {
 	["Blizzard_QuestChoice"] = { "QuestChoiceFrame" },
 	["Blizzard_ScrappingMachineUI"] = { "ScrappingMachineFrame" },
 	["Blizzard_TalentUI"] = { "PlayerTalentFrame" },
-	-- ["Blizzard_TalkingHeadUI"] = { "TalkingHeadFrame" },
 	["Blizzard_TradeSkillUI"] = { "TradeSkillFrame" },
 	["Blizzard_TrainerUI"] = { "ClassTrainerFrame" },
 	["Blizzard_VoidStorageUI"] = { "VoidStorageFrame" },
 }
 
+--These should not be on screen at the same time
 B.ExlusiveFrames = {
 	["QuestFrame"] = { "GossipFrame", },
 	["GossipFrame"] = { "QuestFrame", },
@@ -110,6 +113,14 @@ B.ExlusiveFrames = {
 	["VideoOptionsFrame"] = { "GameMenuFrame",},
 	["InterfaceOptionsFrame"] = { "GameMenuFrame",},
 	["HelpFrame"] = { "GameMenuFrame",},
+}
+
+--These should not be added to "close on escape" list cause this breaks a lot of shit
+B.NoSpecialFrames = {
+	["StaticPopup1"] = true,
+	["StaticPopup2"] = true,
+	["StaticPopup3"] = true,
+	["StaticPopup4"] = true,
 }
 
 local function OnDragStart(self)
@@ -181,6 +192,7 @@ function B:MakeMovable(Name)
 	frame:HookScript("OnHide", OnDragStop)
 	hooksecurefunc(frame, "SetPoint", B.RewritePoint)
 
+	--Removing stuff from auto positioning and putting them in "close on esc" list
 	if E.private.sle.module.blizzmove.remember then
 		frame.ignoreFramePositionManager = true
 		if UIPanelWindows[Name] then
@@ -190,9 +202,10 @@ function B:MakeMovable(Name)
 				end
 			end
 		end
-		if not UISpecialFrames[Name] then T.tinsert(UISpecialFrames, Name) end
+		if not B.NoSpecialFrames[Name] and not UISpecialFrames[Name] then T.tinsert(UISpecialFrames, Name) end
 	end
 
+	--Putting stuff on respected saved positions
 	C_Timer.After(0, function()
 		if E.private.sle.module.blizzmove.remember and E.private.sle.module.blizzmove.points[Name] then
 			if not frame:GetPoint() then
@@ -239,11 +252,15 @@ function B:Initialize()
 	B.db = E.db.sle.blizzard
 	if not SLE.initialized then return end
 	B.addonCount = 0
+	--DB conversion
 	if E.private.sle.module.blizzmove and T.type(E.private.sle.module.blizzmove) == "boolean" then E.private.sle.module.blizzmove = V.sle.module.blizzmove end --Old setting conversions
 	E.global.sle.pvpreadydialogreset = nil
 	if not E.private.sle.pvpreadydialogreset then E.private.sle.module.blizzmove.points["PVPReadyDialog"] = nil; E.private.sle.pvpreadydialogreset = true end
+
 	PVPReadyDialog:Hide()
+
 	if E.private.sle.module.blizzmove.enable then
+		--Remove these from saved variables so the script will not attempt to mess with them
 		for Name, _ in T.pairs(B.TempOnly) do
 			if E.private.sle.module.blizzmove.points[Name] then E.private.sle.module.blizzmove.points[Name] = nil end
 		end
