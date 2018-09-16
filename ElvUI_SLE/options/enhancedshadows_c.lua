@@ -212,6 +212,75 @@ local function configTable()
 							},
 						},
 					},
+					datatexts = {
+						order = 13,
+						type = "group",
+						name = L["DataTexts"],
+						get = function(info) return E.private.sle.module.shadows.datatexts[info[#info]] end,
+						set = function(info, value) E.private.sle.module.shadows.datatexts[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+						args = {
+							leftchat = {
+								order = 1,
+								type = "toggle",
+								name = L["Left Chat"],
+							},
+							rightchat = {
+								order = 2,
+								type = "toggle",
+								name = L["Right Chat"],
+							},
+							-- leftminipanel = {
+								-- order = 3,
+								-- type = "toggle",
+								-- name = L["LeftMiniPanel"],
+							-- },
+							-- rightminipanel = {
+								-- order = 4,
+								-- type = "toggle",
+								-- name = L["RightMiniPanel"],
+							-- },
+							panel1 = {
+								order = 11,
+								type = "toggle",
+								name = L["SLE_DataPanel_1"],
+							},
+							panel2 = {
+								order = 12,
+								type = "toggle",
+								name = L["SLE_DataPanel_2"],
+							},
+							panel3 = {
+								order = 13,
+								type = "toggle",
+								name = L["SLE_DataPanel_3"],
+							},
+							panel4 = {
+								order = 14,
+								type = "toggle",
+								name = L["SLE_DataPanel_4"],
+							},
+							panel5 = {
+								order = 15,
+								type = "toggle",
+								name = L["SLE_DataPanel_5"],
+							},
+							panel6 = {
+								order = 16,
+								type = "toggle",
+								name = L["SLE_DataPanel_6"],
+							},
+							panel7 = {
+								order = 17,
+								type = "toggle",
+								name = L["SLE_DataPanel_7"],
+							},
+							panel8 = {
+								order = 18,
+								type = "toggle",
+								name = L["SLE_DataPanel_8"],
+							},
+						},
+					},
 				},
 			},
 		},

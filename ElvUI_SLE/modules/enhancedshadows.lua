@@ -26,6 +26,21 @@ local UGroups = {
 	{"arena", "Arena", 5},
 }
 
+local Datapanels = {
+	["leftchat"] = "LeftChatDataPanel",
+	["righchat"] = "RightChatDataPanel",
+	["panel1"] = "SLE_DataPanel_1",
+	["panel2"] = "SLE_DataPanel_2",
+	["panel3"] = "SLE_DataPanel_3",
+	["panel4"] = "SLE_DataPanel_4",
+	["panel5"] = "SLE_DataPanel_5",
+	["panel6"] = "SLE_DataPanel_6",
+	["panel7"] = "SLE_DataPanel_7",
+	["panel8"] = "SLE_DataPanel_8",
+	-- ["leftminipanel"] = "LeftMiniPanel",
+	-- ["rightminipanel"] = "RightMiniPanel",
+}
+
 function ES:UpdateShadows()
 	if UnitAffectingCombat('player') then ES:RegisterEvent('PLAYER_REGEN_ENABLED', ES.UpdateShadows) return end
 
@@ -96,67 +111,80 @@ function ES:CreateFrameShadow(frame, parent, legacy)
 end
 
 function ES:CreateShadows()
-	for i = 1, #UFrames do
-		local unit, name = T.unpack(UFrames[i])
-		if E.private.sle.module.shadows[unit] then
-			ES:CreateFrameShadow(_G["ElvUF_"..name],_G["ElvUF_"..name], E.private.sle.module.shadows[unit.."Legacy"])
-			hooksecurefunc(UF, "Update_"..name.."Frame", ES.UpdateFrame)
+	--Unitframes--
+	do
+		for i = 1, #UFrames do
+			local unit, name = T.unpack(UFrames[i])
+			if E.private.sle.module.shadows[unit] then
+				ES:CreateFrameShadow(_G["ElvUF_"..name],_G["ElvUF_"..name], E.private.sle.module.shadows[unit.."Legacy"])
+				hooksecurefunc(UF, "Update_"..name.."Frame", ES.UpdateFrame)
+			end
 		end
-	end
-	for i = 1, #UGroups do
-		local unit, name, num = T.unpack(UGroups[i])
-		if E.private.sle.module.shadows[unit] then
-			for j = 1, num do
-				ES:CreateFrameShadow(_G["ElvUF_"..name..j], _G["ElvUF_"..name..j], E.private.sle.module.shadows[unit.."Legacy"])
-				hooksecurefunc(UF, "Update_"..name.."Frames", ES.UpdateFrame)
+		for i = 1, #UGroups do
+			local unit, name, num = T.unpack(UGroups[i])
+			if E.private.sle.module.shadows[unit] then
+				for j = 1, num do
+					ES:CreateFrameShadow(_G["ElvUF_"..name..j], _G["ElvUF_"..name..j], E.private.sle.module.shadows[unit.."Legacy"])
+					hooksecurefunc(UF, "Update_"..name.."Frames", ES.UpdateFrame)
+				end
 			end
 		end
 	end
-	for i=1, Abars do
-		if E.private.sle.module.shadows.actionbars["bar"..i] then
-			ES:CreateFrameShadow( _G["ElvUI_Bar"..i],  _G["ElvUI_Bar"..i].backdrop)
+	--Actionbars--
+	do
+		for i=1, Abars do
+			if E.private.sle.module.shadows.actionbars["bar"..i] then
+				ES:CreateFrameShadow( _G["ElvUI_Bar"..i],  _G["ElvUI_Bar"..i].backdrop)
+			end
+			if E.private.sle.module.shadows.actionbars["bar"..i.."buttons"] then
+				for j = 1, 12 do
+					ES:CreateFrameShadow(_G["ElvUI_Bar"..i.."Button"..j], _G["ElvUI_Bar"..i.."Button"..j].backdrop)
+				end
+			end
 		end
-		if E.private.sle.module.shadows.actionbars["bar"..i.."buttons"] then
-			for j = 1, 12 do
-				ES:CreateFrameShadow(_G["ElvUI_Bar"..i.."Button"..j], _G["ElvUI_Bar"..i.."Button"..j].backdrop)
+		if E.private.sle.module.shadows.actionbars.stancebar then
+			ES:CreateFrameShadow(_G["ElvUI_StanceBar"], _G["ElvUI_StanceBar"].backdrop)
+		end
+		if E.private.sle.module.shadows.actionbars.stancebarbuttons then
+			for i = 1, 12 do
+				if not _G["ElvUI_StanceBarButton"..i] then break end
+				ES:CreateFrameShadow(_G["ElvUI_StanceBarButton"..i], _G["ElvUI_StanceBarButton"..i].backdrop)
+			end
+		end
+		if E.private.sle.module.shadows.actionbars.microbar then
+			ES:CreateFrameShadow(_G["ElvUI_MicroBar"], "none")
+		end
+		if E.private.sle.module.shadows.actionbars.microbarbuttons then
+			for i=1, (#MICRO_BUTTONS) do
+				if not _G[MICRO_BUTTONS[i]] then break end
+				ES:CreateFrameShadow(_G[MICRO_BUTTONS[i]], _G[MICRO_BUTTONS[i]].backdrop)
+			end
+		end
+		if E.private.sle.module.shadows.actionbars.petbar then
+			ES:CreateFrameShadow(_G["ElvUI_BarPet"], _G["ElvUI_BarPet"].backdrop)
+		end
+		if E.private.sle.module.shadows.actionbars.petbarbuttons then
+			for i = 1, 12 do
+				if not _G["PetActionButton"..i] then break end
+				ES:CreateFrameShadow(_G["PetActionButton"..i], _G["PetActionButton"..i].backdrop)
 			end
 		end
 	end
-	if E.private.sle.module.shadows.actionbars.stancebar then
-		ES:CreateFrameShadow(_G["ElvUI_StanceBar"], _G["ElvUI_StanceBar"].backdrop)
+	--Datatexts--
+	for panel,state in T.pairs(E.private.sle.module.shadows.datatexts) do
+		if state then ES:CreateFrameShadow(_G[Datapanels[panel]],"none") end
 	end
-	if E.private.sle.module.shadows.actionbars.stancebarbuttons then
-		for i = 1, 12 do
-			if not _G["ElvUI_StanceBarButton"..i] then break end
-			ES:CreateFrameShadow(_G["ElvUI_StanceBarButton"..i], _G["ElvUI_StanceBarButton"..i].backdrop)
+	--Misc--
+	do
+		if E.private.sle.module.shadows.minimap then
+			ES:CreateFrameShadow(_G["MMHolder"], "none")
 		end
-	end
-	if E.private.sle.module.shadows.actionbars.microbar then
-		ES:CreateFrameShadow(_G["ElvUI_MicroBar"], "none")
-	end
-	if E.private.sle.module.shadows.actionbars.microbarbuttons then
-		for i=1, (#MICRO_BUTTONS) do
-			if not _G[MICRO_BUTTONS[i]] then break end
-			ES:CreateFrameShadow(_G[MICRO_BUTTONS[i]], _G[MICRO_BUTTONS[i]].backdrop)
+		if E.private.sle.module.shadows.chat.left then
+			ES:CreateFrameShadow(_G["LeftChatPanel"], "none")
 		end
-	end
-	if E.private.sle.module.shadows.actionbars.petbar then
-		ES:CreateFrameShadow(_G["ElvUI_BarPet"], _G["ElvUI_BarPet"].backdrop)
-	end
-	if E.private.sle.module.shadows.actionbars.petbarbuttons then
-		for i = 1, 12 do
-			if not _G["PetActionButton"..i] then break end
-			ES:CreateFrameShadow(_G["PetActionButton"..i], _G["PetActionButton"..i].backdrop)
+		if E.private.sle.module.shadows.chat.right then
+			ES:CreateFrameShadow(_G["RightChatPanel"], "none")
 		end
-	end
-	if E.private.sle.module.shadows.minimap then
-		ES:CreateFrameShadow(_G["MMHolder"], "none")
-	end
-	if E.private.sle.module.shadows.chat.left then
-		ES:CreateFrameShadow(_G["LeftChatPanel"], "none")
-	end
-	if E.private.sle.module.shadows.chat.right then
-		ES:CreateFrameShadow(_G["RightChatPanel"], "none")
 	end
 end
 
@@ -185,6 +213,7 @@ function ES:Initialize()
 	end
 end
 
+--Compatibility thing
 _G.EnhancedShadows = ES;
 
 SLE:RegisterModule(ES:GetName())
