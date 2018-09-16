@@ -1,3 +1,13 @@
+v3.46 [September 16th 2018]
+Fixes:
+- Fixed release spirit popup hiding when you try to look at death recap
+Additions:
+- Enhanced shadows can now be applied to datatext panels (not for minimap though)
+Changes:
+- Changed how player class/level line in armory looks for some locales
+- Azerite indicator in character screen now looks like default blizz
+- Some blizz frames can no longer be moved permanently due to some other issues surfacing out of this
+
 v3.451 [September 7th 2018]
 Fixes:
 - Fixed typo resulting in errors on load.
