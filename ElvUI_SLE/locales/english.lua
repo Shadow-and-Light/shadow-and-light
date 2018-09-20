@@ -324,6 +324,7 @@ L["Link Color"] = true
 L["Invite Keywords"] = true
 L["Chat Setup Delay"] = true
 L["Manages the delay before S&L will execute hooks to ElvUI's chat positioning. Prevents some weird positioning issues."] = true
+L["Attempt to resize chat tabs to stop title throttling. This may cause unwanted results with many tabs."] = true
 
 --Databars
 L["Full value on Exp Bar"] = true

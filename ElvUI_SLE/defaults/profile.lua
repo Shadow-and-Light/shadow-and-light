@@ -120,6 +120,7 @@ P["sle"] = {
 			["select"] = false,
 			["style"] = "DEFAULT",
 			["color"] = {r = 1, g = 1, b = 1},
+			["resize"] = false,
 		},
 		["invite"] = {
 			["altInv"] = false,

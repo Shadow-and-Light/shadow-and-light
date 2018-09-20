@@ -32,9 +32,15 @@ local function configTable()
 					["ARROWDOWN"] = [[|TInterface\BUTTONS\UI-MicroStream-Green:26|t]]..NAME,
 				}
 			},
+			resize = {
+				order = 3,
+				type = "toggle",
+				name = L["Automatic Width"],
+				desc = L["Attempt to resize chat tabs to stop title throttling. This may cause unwanted results with many tabs."],
+			},
 			color = {
 				type = 'color',
-				order = 3,
+				order = 10,
 				name = COLOR,
 				hasAlpha = false,
 				disabled = function() return not E.db.sle.chat.tab.select or not (E.db.sle.chat.tab.style == "DEFAULT" or E.db.sle.chat.tab.style == "SQUARE" or E.db.sle.chat.tab.style == "HALFDEFAULT") end,

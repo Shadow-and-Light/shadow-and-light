@@ -7,6 +7,7 @@ local _G = _G
 local FCF_GetChatWindowInfo = FCF_GetChatWindowInfo
 local FCF_GetCurrentChatFrameID = FCF_GetCurrentChatFrameID
 local PanelTemplates_TabResize = PanelTemplates_TabResize
+local GENERAL_CHAT_DOCK = GENERAL_CHAT_DOCK
 
 C.SelectedStrings = {
 	["DEFAULT"] = "|cff%02x%02x%02x>|r %s |cff%02x%02x%02x<|r",
@@ -16,6 +17,19 @@ C.SelectedStrings = {
 	["ARROWRIGHT"] = [[|TInterface\BUTTONS\UI-SpellbookIcon-NextPage-Up:%s|t%s]],
 	["ARROWDOWN"] = [[|TInterface\BUTTONS\UI-MicroStream-Green:%s|t%s]],
 }
+
+function C:ApplySelectedTabIndicator(tab, title)
+	local color = C.db.tab.color
+	if C.db.tab.style == "DEFAULT" or C.db.tab.style == "SQUARE" then
+		tab.text:SetText(T.format(C.SelectedStrings[C.db.tab.style], color.r * 255, color.g * 255, color.b * 255, title, color.r * 255, color.g * 255, color.b * 255))
+	elseif C.db.tab.style == "HALFDEFAULT" then
+		tab.text:SetText(T.format(C.SelectedStrings[C.db.tab.style], color.r * 255, color.g * 255, color.b * 255, title))
+	else
+		tab.text:SetText(T.format(C.SelectedStrings[C.db.tab.style], (E.db.chat.tabFontSize + 12), title))
+	end
+	tab.hasBracket = true
+end
+
 function C:SetSelectedTab(isForced)
 	if C.CreatedFrames == 0 then C:DelaySetSelectedTab() return end
 	local selectedId = _G["GeneralDockManager"].selected:GetID()
@@ -26,17 +40,8 @@ function C:SetSelectedTab(isForced)
 		if tab.isDocked then
 			--Brackets
 			if selectedId == tab:GetID() and C.db.tab.select then
-				if tab.hasBracket ~= true or isForced then
-					local color = C.db.tab.color
-					if C.db.tab.style == "DEFAULT" or C.db.tab.style == "SQUARE" then
-						tab.text:SetText(T.format(C.SelectedStrings[C.db.tab.style], color.r * 255, color.g * 255, color.b * 255, (FCF_GetChatWindowInfo(tab:GetID())), color.r * 255, color.g * 255, color.b * 255))
-					elseif C.db.tab.style == "HALFDEFAULT" then
-						tab.text:SetText(T.format(C.SelectedStrings[C.db.tab.style], color.r * 255, color.g * 255, color.b * 255, (FCF_GetChatWindowInfo(tab:GetID()))))
-					else
-						tab.text:SetText(T.format(C.SelectedStrings[C.db.tab.style], (E.db.chat.tabFontSize + 12), (FCF_GetChatWindowInfo(tab:GetID()))))
-					end
-					tab.hasBracket = true
-				end
+				local title = FCF_GetChatWindowInfo(tab:GetID())
+				if tab.hasBracket ~= true or isForced then C:ApplySelectedTabIndicator(tab, title) end
 			else
 				if tab.hasBracket == true then
 					local tabText = tab.isTemporary and tab.origText or (FCF_GetChatWindowInfo(tab:GetID()))
@@ -46,7 +51,11 @@ function C:SetSelectedTab(isForced)
 			end
 		end
 		--Prevent chat tabs changing width on each click.
-		PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, tab.textWidth);
+		-- if C.db.tab.resize then
+			PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, tab.textWidth);
+		-- else
+			-- FCFDock_UpdateTabs(GENERAL_CHAT_DOCK, true)
+		-- end
 	end
 end
 
@@ -58,10 +67,14 @@ function C:OpenTemporaryWindow()
 end
 
 function C:SetTabWidth()
-	for chatID = 1, C.CreatedFrames do
-		local tab = _G[T.format("ChatFrame%sTab",  chatID)]
-		PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, tab.textWidth);
-	end
+	-- if C.db.tab.resize then
+		for chatID = 1, C.CreatedFrames do
+			local tab = _G[T.format("ChatFrame%sTab",  chatID)]
+			PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, tab.textWidth);
+		end
+	-- else
+		-- FCFDock_UpdateTabs(GENERAL_CHAT_DOCK, true)
+	-- end
 end
 
 function C:DelaySetSelectedTab()
@@ -74,5 +87,6 @@ function C:InitTabs()
 	hooksecurefunc("FCF_OpenNewWindow", C.DelaySetSelectedTab)
 	hooksecurefunc("FCF_OpenTemporaryWindow", C.OpenTemporaryWindow)
 	hooksecurefunc("FCF_DockUpdate", C.SetTabWidth)
+
 	C:DelaySetSelectedTab()
 end
