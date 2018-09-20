@@ -131,7 +131,7 @@ T.tcopy = table.copy
 T.twipe = table.wipe
 T.unpack = unpack
 T.select = select
-T.sort = sort
+T.sort = table.sort
 T.next = next
 --Camera
 T.FlipCameraYaw = FlipCameraYaw
