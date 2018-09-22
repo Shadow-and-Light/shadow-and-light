@@ -8,18 +8,41 @@ local function configTable()
 		order = 15,
 		type = "group",
 		name = L["Tabs"],
-		-- guiInline = true,
 		get = function(info) return E.db.sle.chat.tab[ info[#info] ] end,
 		set = function(info, value) E.db.sle.chat.tab[ info[#info] ] = value; C:SetSelectedTab(true) end,
 		args = {
-			select = {
+			resize = {
 				order = 1,
+				type = "select",
+				name = L["Automatic Width"],
+				-- desc = L["Attempt to resize chat tabs to stop title throttling. This may cause unwanted results with many tabs."],
+				values = {
+					["None"] = NONE,
+					["Blizzard"] = "Blizzard",
+					["Title"] = L["Title Width"],
+					["Custom"] = CUSTOM,
+				}
+			},
+			customWidth = {
+				order = 2,
+				type = "range",
+				name = L["Width"],
+				disabled = function() return E.db.sle.chat.tab.resize ~= "Custom" end,
+				min = 10, max = 100, step = 1,
+			},
+			spacer = {
+				order = 3,
+				type = "description",
+				name = "",
+			},
+			select = {
+				order = 4,
 				type = "toggle",
 				name = L["Selected Indicator"],
 				desc = L["Shows you which of docked chat tabs is currently selected."],
 			},
 			style = {
-				order = 2,
+				order = 5,
 				type = "select",
 				name = L["Style"],
 				disabled = function() return not E.db.sle.chat.tab.select end,
@@ -31,12 +54,6 @@ local function configTable()
 					["ARROWRIGHT"] = [[|TInterface\BUTTONS\UI-SpellbookIcon-NextPage-Up:26|t]]..NAME,
 					["ARROWDOWN"] = [[|TInterface\BUTTONS\UI-MicroStream-Green:26|t]]..NAME,
 				}
-			},
-			resize = {
-				order = 3,
-				type = "toggle",
-				name = L["Automatic Width"],
-				desc = L["Attempt to resize chat tabs to stop title throttling. This may cause unwanted results with many tabs."],
 			},
 			color = {
 				type = 'color',

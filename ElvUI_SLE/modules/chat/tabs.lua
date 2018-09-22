@@ -51,10 +51,11 @@ function C:SetSelectedTab(isForced)
 			end
 		end
 		--Prevent chat tabs changing width on each click.
-		if C.db.tab.resize then
-			PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, tab.textWidth);
-		else
+		if C.db.tab.resize == "Blizzard" then
 			FCFDock_UpdateTabs(GENERAL_CHAT_DOCK, true)
+		else
+			local width = (C.db.tab.resize == "None" and tab.origWidth) or (C.db.tab.resize == "Title" and tab.textWidth) or (C.db.tab.resize == "Custom" and C.db.tab.customWidth)
+			PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, width);
 		end
 	end
 end
@@ -62,18 +63,20 @@ end
 function C:OpenTemporaryWindow()
 	local chatID = FCF_GetCurrentChatFrameID()
 	local tab = _G[T.format("ChatFrame%sTab", chatID)]
+	tab.origWidth = tab:GetWidth()
 	tab.origText = (FCF_GetChatWindowInfo(tab:GetID()))
 	E:Delay(0.2, function() C:SetSelectedTab(); C:SetTabWidth() end)
 end
 
 function C:SetTabWidth()
-	if C.db.tab.resize then
+	if C.db.tab.resize == "Blizzard" then
+		FCFDock_UpdateTabs(GENERAL_CHAT_DOCK, true)
+	else
 		for chatID = 1, C.CreatedFrames do
 			local tab = _G[T.format("ChatFrame%sTab",  chatID)]
-			PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, tab.textWidth);
+			local width = (C.db.tab.resize == "None" and tab.origWidth) or (C.db.tab.resize == "Title" and tab.textWidth) or (C.db.tab.resize == "Custom" and C.db.tab.customWidth)
+			PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, width);PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, C.db.tab.resize == "None" and tab.origWidth or tab.textWidth);
 		end
-	else
-		FCFDock_UpdateTabs(GENERAL_CHAT_DOCK, true)
 	end
 end
 
@@ -81,10 +84,21 @@ function C:DelaySetSelectedTab()
 	E:Delay(0.2, function() C:SetSelectedTab(); C:SetTabWidth() end)
 end
 
+local function OpenNewWindow(name, noDefaultChannels)
+	local chatTab, chatWidth
+	for i=1, NUM_CHAT_WINDOWS do
+		chatTab = _G["ChatFrame"..i.."Tab"];
+		chatWidth = chatTab:GetWidth()
+		chatTab.origWidth = chatWidth
+	end
+	E:Delay(0.2, function() C:SetSelectedTab(); C:SetTabWidth() end)
+end
+
 function C:InitTabs()
+	if C.db.tab.resize == true then C.db.tab.resize = "None" end
 	hooksecurefunc("FCFDockOverflowListButton_OnClick", C.SetSelectedTab)
 	hooksecurefunc("FCF_Close", C.SetSelectedTab)
-	hooksecurefunc("FCF_OpenNewWindow", C.DelaySetSelectedTab)
+	hooksecurefunc("FCF_OpenNewWindow", OpenNewWindow)
 	hooksecurefunc("FCF_OpenTemporaryWindow", C.OpenTemporaryWindow)
 	hooksecurefunc("FCF_DockUpdate", C.SetTabWidth)
 
