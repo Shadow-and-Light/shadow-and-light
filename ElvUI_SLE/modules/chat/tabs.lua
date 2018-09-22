@@ -51,11 +51,11 @@ function C:SetSelectedTab(isForced)
 			end
 		end
 		--Prevent chat tabs changing width on each click.
-		-- if C.db.tab.resize then
+		if C.db.tab.resize then
 			PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, tab.textWidth);
-		-- else
-			-- FCFDock_UpdateTabs(GENERAL_CHAT_DOCK, true)
-		-- end
+		else
+			FCFDock_UpdateTabs(GENERAL_CHAT_DOCK, true)
+		end
 	end
 end
 
@@ -67,14 +67,14 @@ function C:OpenTemporaryWindow()
 end
 
 function C:SetTabWidth()
-	-- if C.db.tab.resize then
+	if C.db.tab.resize then
 		for chatID = 1, C.CreatedFrames do
 			local tab = _G[T.format("ChatFrame%sTab",  chatID)]
 			PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, tab.textWidth);
 		end
-	-- else
-		-- FCFDock_UpdateTabs(GENERAL_CHAT_DOCK, true)
-	-- end
+	else
+		FCFDock_UpdateTabs(GENERAL_CHAT_DOCK, true)
+	end
 end
 
 function C:DelaySetSelectedTab()
