@@ -1,3 +1,7 @@
+v3.471 [September 23rd 2018]
+Fixes:
+- This time raid progress really works. I blame Benik!
+
 v3.47 [September 23rd 2018]
 Fixes:
 - Uldir raid progress (and options for it) should be properly showin in tooltips now
