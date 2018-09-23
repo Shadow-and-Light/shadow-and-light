@@ -592,7 +592,6 @@ P["sle"] = {
 		},
 		["visibleRange"] = 60,
 	},
-	--Order Halls
 
 	--Quests
 	["quests"] = {
@@ -734,11 +733,12 @@ P["sle"] = {
 			["NameStyle"] = "SHORT",
 			["DifStyle"] = "SHORT",
 			["raids"] = {
-				["nightmare"] = true,
-				["trial"] = true,
-				["nighthold"] = true,
-				["sargeras"] = true,
-				["antorus"] = true,
+				["nightmare"] = false,
+				["trial"] = false,
+				["nighthold"] = false,
+				["sargeras"] = false,
+				["antorus"] = false,
+				["uldir"] = true,
 			},
 		},
 	},
