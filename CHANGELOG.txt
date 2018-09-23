@@ -1,3 +1,9 @@
+v3.47 [September 23rd 2018]
+Fixes:
+- Uldir raid progress (and options for it) should be properly showin in tooltips now
+Additions:
+- An option to control chat tab resize was added. Apparently automatic script was not judging it right.
+
 v3.46 [September 16th 2018]
 Fixes:
 - Fixed release spirit popup hiding when you try to look at death recap
