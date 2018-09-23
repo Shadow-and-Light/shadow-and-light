@@ -120,7 +120,7 @@ RP.Raids = {
 		L["RAID_NH"],
 		L["RAID_TOS"],
 		L["RAID_ANTO"],
-		L["RAID_ULDIR"],
+		SLE:GetMapInfo(1148, "name"),
 	},
 }
 RP.modes = { 
@@ -220,10 +220,9 @@ local function AchieveReady(event, GUID)
 	TT:UnregisterEvent("INSPECT_ACHIEVEMENT_READY")
 end
 
-local function OnInspectInfo(self, tt, unit, level, r, g, b, numTries)
+local function OnInspectInfo(self, tt, unit, r, g, b)
 	if T.InCombatLockdown() then return end
 	if not E.db.sle.tooltip.RaidProg.enable then return end
-	if not level or level < MAX_PLAYER_LEVEL then return end
 	if not (unit and T.CanInspect(unit)) then return end
 	
 	local guid = T.UnitGUID(unit)
