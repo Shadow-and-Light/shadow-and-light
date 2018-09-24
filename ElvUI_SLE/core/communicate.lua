@@ -1,7 +1,7 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local BNET_CLIENT_WOW = BNET_CLIENT_WOW
 local BNSendGameData = BNSendGameData
-local SendAddonMessage = SendAddonMessage
+local C_ChatInfo_SendAddonMessage = C_ChatInfo.SendAddonMessage
 local _G = _G
 
 -- GLOBALS: RegisterAddonMessagePrefix, CreateFrame
@@ -11,10 +11,10 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if prefix == 'SLE_DEV_REQ' then 
 			local message = "wut?"
-			SendAddonMessage('SLE_USER_REQ', message, channel)
+			C_ChatInfo_SendAddonMessage('SLE_USER_REQ', message, channel)
 		elseif prefix == 'SLE_USER_INFO' then
 			local message = T.UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
-			SendAddonMessage('SLE_DEV_INFO', message, channel)
+			C_ChatInfo_SendAddonMessage('SLE_DEV_INFO', message, channel)
 		end
 	elseif event == "BN_CHAT_MSG_ADDON" then
 		if (sender == E.myname.."-"..E.myrealm:gsub(' ','')) then return end
