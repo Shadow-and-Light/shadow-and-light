@@ -7,7 +7,7 @@ local function configTable()
 	E.Options.args.modulecontrol.args.modulecopy.args.sle = {
 		order = 11,
 		type = 'group',
-		name = "|cff9482c9Shadow & Light|r",
+		name = SLE.Title,
 		-- desc = L["Core |cfffe7b2cElvUI|r options."],
 		childGroups = "tab",
 		disabled = E.Options.args.profiles.args.copyfrom.disabled,
