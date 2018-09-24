@@ -16,27 +16,28 @@ function AS:EmbedSystem_WindowResize()
 	local TopLeft = ChatData == _G["RightChatDataPanel"] and (E.db.datatexts.rightChatPanel and 'TOPLEFT' or 'BOTTOMLEFT') or ChatData == _G["LeftChatDataPanel"] and (E.db.datatexts.leftChatPanel and 'TOPLEFT' or 'BOTTOMLEFT')
 	local yOffset = (ChatData == _G["RightChatDataPanel"] and E.db.datatexts.rightChatPanel and (1 - E.Spacing)) or (ChatData == _G["LeftChatDataPanel"] and E.db.datatexts.leftChatPanel and (1 - E.Spacing)) or (-E.Spacing)
 	local xOffset
-	_G["EmbedSystem_MainWindow"]:SetParent(ChatPanel)
-	_G["EmbedSystem_MainWindow"]:ClearAllPoints()
+	local Main, Left, Right = _G["EmbedSystem_MainWindow"], _G["EmbedSystem_LeftWindow"], _G["EmbedSystem_RightWindow"]
+	Main:SetParent(ChatPanel)
+	Main:ClearAllPoints()
 
 	if E.db.sle.datatexts.chathandle then
 		xOffset, yOffset = select(4, ChatTab:GetPoint())
-		_G["EmbedSystem_MainWindow"]:SetPoint('BOTTOMLEFT', ChatPanel, 'BOTTOMLEFT', 0, -1)
+		Main:SetPoint('BOTTOMLEFT', ChatPanel, 'BOTTOMLEFT', 0, -1)
 	else
-		_G["EmbedSystem_MainWindow"]:SetPoint('BOTTOMLEFT', ChatData, TopLeft, 0, yOffset)
+		Main:SetPoint('BOTTOMLEFT', ChatData, TopLeft, 0, yOffset)
 	end
 
-	_G["EmbedSystem_MainWindow"]:SetPoint('TOPRIGHT', ChatTab, AS:CheckOption('EmbedBelowTop') and 'BOTTOMRIGHT' or 'TOPRIGHT', xOffset or 0, AS:CheckOption('EmbedBelowTop') and -1 or -yOffset)
+	Main:SetPoint('TOPRIGHT', ChatTab, AS:CheckOption('EmbedBelowTop') and 'BOTTOMRIGHT' or 'TOPRIGHT', xOffset or 0, AS:CheckOption('EmbedBelowTop') and -1 or -yOffset)
 
-	_G["EmbedSystem_LeftWindow"]:SetSize(AS:CheckOption('EmbedLeftWidth'), _G["EmbedSystem_MainWindow"]:GetHeight())
-	_G["EmbedSystem_RightWindow"]:SetSize((_G["EmbedSystem_MainWindow"]:GetWidth() - AS:CheckOption('EmbedLeftWidth')), _G["EmbedSystem_MainWindow"]:GetHeight())
+	Left:SetSize(AS:CheckOption('EmbedLeftWidth'), Main:GetHeight())
+	Right:SetSize((Main:GetWidth() - AS:CheckOption('EmbedLeftWidth')), Main:GetHeight())
 
-	_G["EmbedSystem_LeftWindow"]:SetPoint('LEFT', _G["EmbedSystem_MainWindow"], 'LEFT', 0, 0)
-	_G["EmbedSystem_RightWindow"]:SetPoint('RIGHT', _G["EmbedSystem_MainWindow"], 'RIGHT', 0, 0)
+	Left:SetPoint('LEFT', Main, 'LEFT', 0, 0)
+	Right:SetPoint('RIGHT', Main, 'RIGHT', 0, 0)
 
 	-- Dynamic Range
 	if IsAddOnLoaded('ElvUI_Config') then
-		E.Options.args.addonskins.args.embed.args.EmbedLeftWidth.min = floor(_G["EmbedSystem_MainWindow"]:GetWidth() * .25)
-		E.Options.args.addonskins.args.embed.args.EmbedLeftWidth.max = floor(_G["EmbedSystem_MainWindow"]:GetWidth() * .75)
+		E.Options.args.addonskins.args.embed.args.EmbedLeftWidth.min = floor(Main:GetWidth() * .25)
+		E.Options.args.addonskins.args.embed.args.EmbedLeftWidth.max = floor(Main:GetWidth() * .75)
 	end
 end

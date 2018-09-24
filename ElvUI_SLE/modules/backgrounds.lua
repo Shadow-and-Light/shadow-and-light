@@ -1,6 +1,8 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local BG = SLE:NewModule('Backgrounds', 'AceHook-3.0');
 local CreateFrame = CreateFrame
+
+--Default positions table. ID is passed everywhere so when positioning stuff I can just unpack by id and not writing a line for every BG.
 BG.pos = {
 		[1] = {"BOTTOM", "BOTTOM", 0, 21},
 		[2] = {"BOTTOMRIGHT", "BOTTOM", -((E.eyefinity or E.screenwidth)/4 + 32)/2 - 1, 21, 21},
@@ -8,8 +10,8 @@ BG.pos = {
 		[4] = {"BOTTOM", "BOTTOM", 0, E.screenheight/6 + 9},
 	}
 
-function BG:CreateFrame(i)
-	local frame = CreateFrame("Frame", "SLE_BG_"..i, E.UIParent)
+function BG:CreateFrame(id)
+	local frame = CreateFrame("Frame", "SLE_BG_"..id, E.UIParent)
 	frame:SetFrameStrata("BACKGROUND")
 	frame.texture = frame:CreateTexture(nil, 'OVERLAY')
 	frame.texture:Point('TOPLEFT', frame, 'TOPLEFT', 2, -2)
@@ -20,62 +22,62 @@ function BG:CreateFrame(i)
 	return frame
 end
 
-function BG:Positions(i)
+function BG:Positions(id)
 	local anchor, point, x, y = T.unpack(BG.pos[i])
-	BG["Frame_"..i]:SetPoint(anchor, E.UIParent, point, x, y)
+	BG["Frame_"..id]:SetPoint(anchor, E.UIParent, point, x, y)
 end
 
 function BG:UpdateTexture(i)
-	BG["Frame_"..i].texture:SetTexture(BG.db["bg"..i].texture)
+	BG["Frame_"..id].texture:SetTexture(BG.db["bg"..id].texture)
 end
 
-function BG:FramesSize(i)
-	BG["Frame_"..i]:SetSize(BG.db["bg"..i].width, BG.db["bg"..i].height)
+function BG:FramesSize(id)
+	BG["Frame_"..id]:SetSize(BG.db["bg"..id].width, BG.db["bg"..id].height)
 end
 
-function BG:Alpha(i)
-	BG["Frame_"..i]:SetAlpha(BG.db["bg"..i].alpha)
+function BG:Alpha(id)
+	BG["Frame_"..id]:SetAlpha(BG.db["bg"..id].alpha)
 end
 
-function BG:FrameTemplate(i)
-	BG["Frame_"..i]:SetTemplate(BG.db["bg"..i].template, true)
+function BG:FrameTemplate(id)
+	BG["Frame_"..id]:SetTemplate(BG.db["bg"..id].template, true)
 end
 
-function BG:RegisterHide(i)
-	if BG.db["bg"..i].pethide then
-		E:RegisterPetBattleHideFrames(BG["Frame_"..i], E.UIParent, "BACKGROUND")
+function BG:RegisterHide(id)
+	if BG.db["bg"..id].pethide then
+		E:RegisterPetBattleHideFrames(BG["Frame_"..id], E.UIParent, "BACKGROUND")
 	else
-		E:UnregisterPetBattleHideFrames(BG["Frame_"..i])
+		E:UnregisterPetBattleHideFrames(BG["Frame_"..id])
 	end
 end
 
-function BG:FramesVisibility(i)
-	if BG.db["bg"..i].enabled then
-		BG["Frame_"..i]:Show()
-		E:EnableMover(BG["Frame_"..i].mover:GetName())
-		RegisterStateDriver(BG["Frame_"..i], "visibility", BG.db["bg"..i].visibility)
+function BG:FramesVisibility(id)
+	if BG.db["bg"..id].enabled then
+		BG["Frame_"..id]:Show()
+		E:EnableMover(BG["Frame_"..id].mover:GetName())
+		RegisterStateDriver(BG["Frame_"..id], "visibility", BG.db["bg"..id].visibility)
 	else
-		BG["Frame_"..i]:Hide()
-		E:DisableMover(BG["Frame_"..i].mover:GetName())
-		UnregisterStateDriver(BG["Frame_"..i], "visibility")
+		BG["Frame_"..id]:Hide()
+		E:DisableMover(BG["Frame_"..id].mover:GetName())
+		UnregisterStateDriver(BG["Frame_"..id], "visibility")
 	end
 end
 
-function BG:MouseCatching(i)
-	BG["Frame_"..i]:EnableMouse(not(BG.db["bg"..i].clickthrough))
+function BG:MouseCatching(id)
+	BG["Frame_"..id]:EnableMouse(not(BG.db["bg"..id].clickthrough))
 end
 
 function BG:CreateAndUpdateFrames()
-	for i = 1, 4 do
-		if not BG["Frame_"..i] then BG["Frame_"..i] = self:CreateFrame(i) BG:Positions(i) end
-		BG:FramesSize(i)
-		BG:FrameTemplate(i)
-		BG:Alpha(i)
-		if not E.CreatedMovers["SLE_BG_"..i.."_Mover"] then E:CreateMover(BG["Frame_"..i], "SLE_BG_"..i.."_Mover", L["SLE_BG_"..i], nil, nil, nil, "S&L,S&L BG") end
-		BG:FramesVisibility(i)
-		BG:MouseCatching(i)
-		BG:UpdateTexture(i)
-		BG:RegisterHide(i)
+	for id = 1, 4 do
+		if not BG["Frame_"..id] then BG["Frame_"..id] = self:CreateFrame(id) BG:Positions(id) end
+		BG:FramesSize(id)
+		BG:FrameTemplate(id)
+		BG:Alpha(id)
+		if not E.CreatedMovers["SLE_BG_"..id.."_Mover"] then E:CreateMover(BG["Frame_"..id], "SLE_BG_"..id.."_Mover", L["SLE_BG_"..id], nil, nil, nil, "S&L,S&L BG") end
+		BG:FramesVisibility(id)
+		BG:MouseCatching(id)
+		BG:UpdateTexture(id)
+		BG:RegisterHide(id)
 	end
 end
 

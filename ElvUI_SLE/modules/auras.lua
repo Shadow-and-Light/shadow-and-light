@@ -4,11 +4,11 @@ local A = E:GetModule("Auras")
 local Masque = LibStub("Masque", true)
 local MasqueGroup = Masque and Masque:Group("ElvUI", "Consolidated Buffs")
 --GLOBALS: hooksecurefunc
-local _G = _G
+--[[local _G = _G
 local NUM_LE_RAID_BUFF_TYPES = NUM_LE_RAID_BUFF_TYPES
 local GameTooltip = GameTooltip
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
-local C_Timer = C_Timer
+local C_Timer = C_Timer]]
 
 function SA:UpdateAura(button, index)
 	if not SA.db.hideBuffsTimer and not SA.db.hideDebuffsTimer then button.time:Show() return end
@@ -28,6 +28,7 @@ function SA:UpdateAura(button, index)
 end
 
 function SA:Initialize()
+	--Don't run this if option disabled or VisualAuraTimers is enabled cause it has the same functionality
 	if not SLE.initialized or E.private.auras.enable ~= true or SLE._Compatibility["ElvUI_VisualAuraTimers"] then return end
 	SA.db = E.db.sle.auras
 	hooksecurefunc(A, 'UpdateAura', SA.UpdateAura)

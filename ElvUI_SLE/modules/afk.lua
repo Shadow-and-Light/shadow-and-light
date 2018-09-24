@@ -76,11 +76,11 @@ function S:Setup()
 
 	--Crests, emblems and stuff
 	SS.ExPack = CreateFrame("Button", nil, SS.Top)
-	SS.ExPack:SetScript("OnClick", S.AbortAFK)
+	SS.ExPack:SetScript("OnClick", S.AbortAFK) --Allow to exit afk screen by clicking on the crest
 	SS.ExPack.texture = SS:CreateTexture(nil, 'OVERLAY')
 	SS.ExPack.texture:SetAllPoints(SS.ExPack)
 	SS.ExPack.texture:SetTexture([[Interface\Glues\Common\Glues-WoW-BattleforAzerothLogo.blp]])
-	-- SS.ExPack.texture:SetTexCoord(0, 1, 0, 0.25)
+	-- SS.ExPack.texture:SetTexCoord(0, 1, 0, 0.25) --this was for legion logo
 	SS.FactCrest:SetTexture(CrestPath..E.myfaction)
 	SS.RaceCrest = SS:CreateTexture(nil, 'ARTWORK')
 	SS.RaceCrest:SetTexture(CrestPath..RaceToken)
@@ -299,6 +299,7 @@ function S:SetupType()
 		SS.Bottom:SetAlpha(1)
 	end
 end
+
 --Testing model positioning
 function S:TestShow()
 	if AnimTime then AnimTime:Cancel() end
@@ -323,6 +324,7 @@ function S:AnimTestFinished()
 	SS.testmodel:SetAnimation(testM)
 end
 
+--Updating date/time texts
 function S:UpdateTimer()
 	TipsElapsed = TipsElapsed + 1
 	month = SLE.Russian and SLE.RuMonths[T.tonumber(T.date("%m"))] or T.date("%B")
@@ -384,6 +386,7 @@ end
 
 function S:KeyScript()--Dealing with on key down script
 	if S.db.keydown then
+		--Default script for key detection. Ignores modifires and screenshot button
 		SS:SetScript("OnKeyDown", S.OnKeyDown)
 	else
 		SS:SetScript("OnKeyDown", nil)

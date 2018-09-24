@@ -128,10 +128,12 @@ local function OnDragStart(self)
 	self:StartMoving()
 end
 
+--When stop moving (or hiding), remember frame's positions.
 local function OnDragStop(self)
 	self:StopMovingOrSizing()
 	self.IsMoving = false
 	local Name = self:GetName()
+	--Saving positions only if option is enabled and frame is not temporary movable
 	if E.private.sle.module.blizzmove.remember and not B.TempOnly[Name] then
 		local a, b, c, d, e = self:GetPoint()
 		if self:GetParent() then 
@@ -139,6 +141,7 @@ local function OnDragStop(self)
 		else
 			b = UIParent
 		end
+		--These 2 frames should always be in the same place. So aving coordinates for then at the same time
 		if Name == "QuestFrame" or Name == "GossipFrame" then
 			E.private.sle.module.blizzmove.points["GossipFrame"] = {a, b, c, d, e}
 			E.private.sle.module.blizzmove.points["QuestFrame"] = {a, b, c, d, e}
@@ -150,9 +153,11 @@ local function OnDragStop(self)
 	end
 end
 
+--On show set saved position
 local function LoadPosition(self)
 	if self.IsMoving == true then return end
 	local Name = self:GetName()
+	--Some frames don't have set positions when show script runs (e.g. CharacterFrame). For those set default position and save that.
 	if not self:GetPoint() then
 		self:SetPoint('TOPLEFT', 'UIParent', 'TOPLEFT', 16, -116, true)
 		OnDragStop(self)
@@ -164,23 +169,26 @@ local function LoadPosition(self)
 		self:SetPoint(a,b,c,d,e, true)
 	end
 
+	--If this frame has others that showld not be shown at the same time, hide those
 	if B.ExlusiveFrames[Name] then
 		for _, name in T.pairs(B.ExlusiveFrames[Name]) do _G[name]:Hide() end
 	end
 end
 
+--Hooking this to movable frames' SetPoint.
+--Blizz love to move some frames when stuff happens, so if SetPoint is not passing an additional arg we call SetPoint again with saved position.
 function B:RewritePoint(anchor, parent, point, x, y, SLEcalled)
 	if not SLEcalled then LoadPosition(self) end
 end
 
 function B:MakeMovable(Name)
 	local frame = _G[Name]
-	if not frame then
+	if not frame then --Frame in the list was removed since the last time I checked
 		SLE:ErrorPrint("Frame to move doesn't exist: "..(frameName or "Unknown"))
 		return
 	end
 
-	if Name == "AchievementFrame" then AchievementFrameHeader:EnableMouse(false) end
+	if Name == "AchievementFrame" then AchievementFrameHeader:EnableMouse(false) end --Cause achievement frame is a bitch
 
 	frame:EnableMouse(true)
 	frame:SetMovable(true)
@@ -202,6 +210,7 @@ function B:MakeMovable(Name)
 				end
 			end
 		end
+		--Putting to the "close on esc" list. Unless frames are specificallu excluded.
 		if not B.NoSpecialFrames[Name] and not UISpecialFrames[Name] then T.tinsert(UISpecialFrames, Name) end
 	end
 
@@ -232,6 +241,7 @@ function B:Addons(event, addon)
 		B:MakeMovable(addon)
 	end
 	B.addonCount = B.addonCount + 1
+	--If every blizz addon is loaded we don't need to listen to thise event
 	if B.addonCount == #B.AddonsList then B:UnregisterEvent(event) end
 end
 
