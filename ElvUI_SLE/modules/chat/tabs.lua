@@ -4,11 +4,19 @@ local CH = E:GetModule('Chat')
 local _G = _G
 --GLOBALS: hooksecurefunc
 
-local FCF_GetChatWindowInfo = FCF_GetChatWindowInfo
+local FCFDockScrollFrame_JumpToTab = FCFDockScrollFrame_JumpToTab
 local FCF_GetCurrentChatFrameID = FCF_GetCurrentChatFrameID
+local FCFDock_GetSelectedWindow = FCFDock_GetSelectedWindow
+local FCFTab_UpdateAlpha = FCFTab_UpdateAlpha
+local FCFTab_UpdateColors = FCFTab_UpdateColors
+local FCFDock_ScrollToSelectedTab = FCFDock_ScrollToSelectedTab
+local FCFDock_CalculateTabSize = FCFDock_CalculateTabSize
 local PanelTemplates_TabResize = PanelTemplates_TabResize
-local GENERAL_CHAT_DOCK = GENERAL_CHAT_DOCK
 
+--This variable is used to see if overflow button should be shown when using non-blizz width
+C.TotalTabsWidth = 0
+
+--Styles for selected indicator
 C.SelectedStrings = {
 	["DEFAULT"] = "|cff%02x%02x%02x>|r %s |cff%02x%02x%02x<|r",
 	["SQUARE"] = "|cff%02x%02x%02x[|r %s |cff%02x%02x%02x]|r",
@@ -18,6 +26,7 @@ C.SelectedStrings = {
 	["ARROWDOWN"] = [[|TInterface\BUTTONS\UI-MicroStream-Green:%s|t%s]],
 }
 
+--Apply selected indicator to tab
 function C:ApplySelectedTabIndicator(tab, title)
 	local color = C.db.tab.color
 	if C.db.tab.style == "DEFAULT" or C.db.tab.style == "SQUARE" then
@@ -27,80 +36,113 @@ function C:ApplySelectedTabIndicator(tab, title)
 	else
 		tab.text:SetText(T.format(C.SelectedStrings[C.db.tab.style], (E.db.chat.tabFontSize + 12), title))
 	end
-	tab.hasBracket = true
 end
 
-function C:SetSelectedTab(isForced)
-	if C.CreatedFrames == 0 then C:DelaySetSelectedTab() return end
-	local selectedId = _G["GeneralDockManager"].selected:GetID()
-	
-	--Set/Remove brackets and set alpha of chat tabs
-	for chatID = 1, C.CreatedFrames do
-		local tab = _G[T.format("ChatFrame%sTab", chatID)]
-		if tab.isDocked then
-			--Brackets
-			if selectedId == tab:GetID() and C.db.tab.select then
-				local title = FCF_GetChatWindowInfo(tab:GetID())
-				if tab.hasBracket ~= true or isForced then C:ApplySelectedTabIndicator(tab, title) end
-			else
-				if tab.hasBracket == true then
-					local tabText = tab.isTemporary and tab.origText or (FCF_GetChatWindowInfo(tab:GetID()))
-					tab.text:SetText(tabText)
-					tab.hasBracket = false
+--Full update tabs function. Hooking to it allows to set size and selection at the same time.
+--Most of the content is default blizz function with sligh modifications
+function C:FCFDock_UpdateTabs(dock, forceUpdate)
+	if ( not dock.isDirty and not forceUpdate ) then --No changes have been made since the last update.
+		return;
+	end
+
+	local scrollChild = dock.scrollFrame:GetScrollChild();
+	local lastDockedStaticTab = nil;
+	local lastDockedDynamicTab = nil;
+
+	local numDynFrames = 0;	--Number of dynamicly sized frames.
+	local selectedDynIndex = nil;
+
+	C.TotalTabsWidth = 0 --Reseting saved combined width
+
+	for index, chatFrame in ipairs(dock.DOCKED_CHAT_FRAMES) do
+		local chatTab = _G[chatFrame:GetName().."Tab"];
+		chatTab.text:SetText(chatFrame.name) --Reseting tab name
+		if ( chatFrame == FCFDock_GetSelectedWindow(dock) ) and C.db.tab.select then --Tab is selected and option is enabled
+			C:ApplySelectedTabIndicator(chatTab, chatFrame.name)
+		end
+
+		--Resizing tabs, don't need to do that if blizz sizing is selected
+		if C.db.tab.resize ~= "Blizzard" then
+			local width = (C.db.tab.resize == "None" and chatTab.origWidth) or (C.db.tab.resize == "Title" and chatTab.textWidth) or (C.db.tab.resize == "Custom" and C.db.tab.customWidth)
+			C.TotalTabsWidth = C.TotalTabsWidth + width
+			if ( chatFrame.isStaticDocked ) then
+				chatTab:SetParent(dock);
+				PanelTemplates_TabResize(chatTab, chatTab.isTemporary and 20 or 10, nil, nil, nil, width);
+				if ( lastDockedStaticTab ) then
+					chatTab:SetPoint("LEFT", lastDockedStaticTab, "RIGHT", 0, 0);
+				else
+					chatTab:SetPoint("LEFT", dock, "LEFT", 0, 0);
 				end
+				lastDockedStaticTab = chatTab;
+			else
+				chatTab:SetParent(scrollChild);
+				numDynFrames = numDynFrames + 1;
+
+				if ( FCFDock_GetSelectedWindow(dock) == chatFrame ) then
+					selectedDynIndex = numDynFrames;
+				end
+
+				if ( lastDockedDynamicTab ) then
+					chatTab:SetPoint("LEFT", lastDockedDynamicTab, "RIGHT", 0, 0);
+				else
+					chatTab:SetPoint("LEFT", scrollChild, "LEFT", 0, 0);
+				end
+				lastDockedDynamicTab = chatTab;
 			end
 		end
-		--Prevent chat tabs changing width on each click.
-		if C.db.tab.resize == "Blizzard" then
-			FCFDock_UpdateTabs(GENERAL_CHAT_DOCK, true)
-		else
-			local width = (C.db.tab.resize == "None" and tab.origWidth) or (C.db.tab.resize == "Title" and tab.textWidth) or (C.db.tab.resize == "Custom" and C.db.tab.customWidth)
-			PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, width);
+	end
+
+	--If blizz sizing is selected then messing around with scroll frame is unnessesary
+	if C.db.tab.resize == "Blizzard" then return end
+	local dynTabSize = FCFDock_CalculateTabSize(dock, numDynFrames); --Usually this returns "hasOverflow" as well, but I use my own variable for that
+	local hasOverflow = C.TotalTabsWidth > E.db.chat.panelWidth
+
+	--Dynamically resize tabs
+	for index, chatFrame in ipairs(dock.DOCKED_CHAT_FRAMES) do
+		if ( not chatFrame.isStaticDocked ) then
+			local chatTab = _G[chatFrame:GetName().."Tab"];
+			PanelTemplates_TabResize(chatTab, chatTab.sizePadding or 0, dynTabSize);
 		end
 	end
-end
 
-function C:OpenTemporaryWindow()
-	local chatID = FCF_GetCurrentChatFrameID()
-	local tab = _G[T.format("ChatFrame%sTab", chatID)]
-	tab.origWidth = tab:GetWidth()
-	tab.origText = (FCF_GetChatWindowInfo(tab:GetID()))
-	E:Delay(0.2, function() C:SetSelectedTab(); C:SetTabWidth() end)
-end
-
-function C:SetTabWidth()
-	if C.db.tab.resize == "Blizzard" then
-		FCFDock_UpdateTabs(GENERAL_CHAT_DOCK, true)
+	dock.scrollFrame:SetPoint("LEFT", lastDockedStaticTab, "RIGHT", 0, 0);
+	if ( hasOverflow ) then
+		dock.overflowButton:Show();
+		dock.scrollFrame:SetPoint("BOTTOMRIGHT", dock.overflowButton, "BOTTOMLEFT", 0, 0);
 	else
-		for chatID = 1, C.CreatedFrames do
-			local tab = _G[T.format("ChatFrame%sTab",  chatID)]
-			local width = (C.db.tab.resize == "None" and tab.origWidth) or (C.db.tab.resize == "Title" and tab.textWidth) or (C.db.tab.resize == "Custom" and C.db.tab.customWidth)
-			PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, width);PanelTemplates_TabResize(tab, tab.isTemporary and 20 or 10, nil, nil, nil, C.db.tab.resize == "None" and tab.origWidth or tab.textWidth);
-		end
+		dock.overflowButton:Hide();
+		dock.scrollFrame:SetPoint("BOTTOMRIGHT", dock, "BOTTOMRIGHT", 0, -5);
 	end
-end
 
-function C:DelaySetSelectedTab()
-	E:Delay(0.2, function() C:SetSelectedTab(); C:SetTabWidth() end)
-end
+	--Cache some of this data on the scroll frame for animating to the selected tab.
+	dock.scrollFrame.dynTabSize = dynTabSize;
+	dock.scrollFrame.numDynFrames = numDynFrames;
+	dock.scrollFrame.selectedDynIndex = selectedDynIndex;
 
-local function OpenNewWindow(name, noDefaultChannels)
-	local chatTab, chatWidth
-	for i=1, NUM_CHAT_WINDOWS do
-		chatTab = _G["ChatFrame"..i.."Tab"];
-		chatWidth = chatTab:GetWidth()
-		chatTab.origWidth = chatWidth
-	end
-	E:Delay(0.2, function() C:SetSelectedTab(); C:SetTabWidth() end)
+	dock.isDirty = false;
+
+	--This may be needed to return for check in FCFDock_OnUpdate
+	-- return FCFDock_ScrollToSelectedTab(dock)
 end
 
 function C:InitTabs()
 	if C.db.tab.resize == true then C.db.tab.resize = "None" end
-	hooksecurefunc("FCFDockOverflowListButton_OnClick", C.SetSelectedTab)
-	hooksecurefunc("FCF_Close", C.SetSelectedTab)
-	hooksecurefunc("FCF_OpenNewWindow", OpenNewWindow)
-	hooksecurefunc("FCF_OpenTemporaryWindow", C.OpenTemporaryWindow)
-	hooksecurefunc("FCF_DockUpdate", C.SetTabWidth)
 
-	C:DelaySetSelectedTab()
+	--Getting initial chat tabs width, so other stuff will work
+	if C.CreatedFrames == 0 then
+		--Not all tabs have been styled yet
+		E:Delay(0.2, C.InitTabs)
+		return
+	else
+		for id = 1, C.CreatedFrames do _G["ChatFrame"..id.."Tab"].origWidth = _G["ChatFrame"..id.."Tab"]:GetWidth() end
+	end
+
+	--Hooking to chat updating function
+	hooksecurefunc("FCFDock_UpdateTabs", function(dock, forceUpdate) C:FCFDock_UpdateTabs(dock, forceUpdate) end)
+	--Without this hooked previous hook will never execute automatically apart from specific situations
+	hooksecurefunc("FCFDock_SelectWindow", function(dock, chatFrame) FCFDock_UpdateTabs(dock, true) end)
+
+	--Calling in update after hooks. Why 2 times? No idea, doesn't work otherwise
+	FCF_DockUpdate()
+	FCF_DockUpdate()
 end

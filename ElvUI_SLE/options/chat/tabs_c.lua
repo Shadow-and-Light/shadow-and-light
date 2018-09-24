@@ -9,7 +9,7 @@ local function configTable()
 		type = "group",
 		name = L["Tabs"],
 		get = function(info) return E.db.sle.chat.tab[ info[#info] ] end,
-		set = function(info, value) E.db.sle.chat.tab[ info[#info] ] = value; C:SetSelectedTab(true) end,
+		set = function(info, value) E.db.sle.chat.tab[ info[#info] ] = value; FCF_DockUpdate() end,
 		args = {
 			resize = {
 				order = 1,
@@ -70,7 +70,7 @@ local function configTable()
 					E.db.sle.chat.tab[ info[#info] ] = {}
 					local t = E.db.sle.chat.tab[ info[#info] ]
 					t.r, t.g, t.b = r, g, b
-					C:SetSelectedTab(true)
+					FCF_DockUpdate()
 				end,
 			},
 		},
