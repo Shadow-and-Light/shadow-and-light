@@ -118,7 +118,7 @@ P["sle"] = {
 		},
 		["tab"] = {
 			["select"] = false,
-			["style"] = "DEFAULT",
+			["style"] = "Blizzard",
 			["color"] = {r = 1, g = 1, b = 1},
 			["resize"] = "None",
 			["customWidth"] = 50,
