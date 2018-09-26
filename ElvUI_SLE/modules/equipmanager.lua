@@ -31,8 +31,11 @@ local Difficulties = {
 	[24] = 'timewalking', --Timewalking
 }
 
+--Table of tags conditions for gear switching
 EM.TagsTable = {
+	--self explanatory
 	["solo"] = function() if T.IsInGroup() then return false; else return true; end end,
+	--if in party. Can use [party:size] with size as an argument. If group size equals to provided number. Without number true for any group
 	["party"] = function(size)
 		size = T.tonumber(size)
 		if T.IsInGroup() then
@@ -45,6 +48,7 @@ EM.TagsTable = {
 			return false
 		end
 	end,
+	--if in raid. Can use [raid:size] with size as an argument. If raid size equals to provided number. Without number true for any raid
 	["raid"] = function(size)
 		size = T.tonumber(size)
 		if T.IsInRaid() then
@@ -57,11 +61,13 @@ EM.TagsTable = {
 			return false
 		end
 	end,
+	--if spec index. Index is required. 1, 2, 3 or 4 (for droodz)
 	["spec"] = function(index)
 		local index = T.tonumber(index)
 		if not index then return false end
 		if index == T.GetSpecialization() then return true; else return false; end
 	end,
+	--Talent selected. [talent:tier/column] 
 	["talent"] = function(tier, column)
 		local tier, column = T.tonumber(tier), T.tonumber(column)
 		if not (tier or column) then return false end
@@ -74,6 +80,7 @@ EM.TagsTable = {
 			return false
 		end
 	end,
+	--If in instanse. Optional arg [instance:type] - party, raid, scenario
 	["instance"] = function(dungeonType)
 		local inInstance, InstanceType = T.IsInInstance()
 		if inInstance then
@@ -86,6 +93,7 @@ EM.TagsTable = {
 			return false
 		end
 	end,
+	--If in pvp zone. [pvp:type] - pvp, arena
 	["pvp"] = function(pvpType)
 		local inInstance, InstanceType = T.IsInInstance()
 		if inInstance then
@@ -102,6 +110,7 @@ EM.TagsTable = {
 			return false
 		end
 	end,
+	--Instance difficulty. normal, heroic, etc
 	["difficulty"] = function(difficulty)
 		if not T.IsInInstance() then return false end
 		if not difficulty then return false end
@@ -112,6 +121,7 @@ EM.TagsTable = {
 			return false;
 		end
 	end,
+	--Well, it's just true :D
 	["NoCondition"] = function()
 		return true	
 	end,

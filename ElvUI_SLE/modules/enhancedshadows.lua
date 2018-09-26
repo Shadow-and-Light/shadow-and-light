@@ -9,59 +9,75 @@ local Abars = SLE._Compatibility["ElvUI_ExtraActionBars"] and 10 or 6
 local _G = _G
 local UnitAffectingCombat = UnitAffectingCombat
 
-ES.shadows = {}
+--Registered shadows table
+ES.CreatedShadows = {}
 
-local UFrames = {
-	{"player", "Player"},
-	{"target", "Target"},
-	{"targettarget", "TargetTarget"},
-	{"focus", "Focus"},
-	{"focustarget", "FocusTarget"},
-	{"pet", "Pet"},
-	{"pettarget", "PetTarget"},
+--The table for frames groupped based on similariy
+ES.FramesToShadow = {
+	["UFrames"] = {
+		--unit, FrameName var
+		{"player", "Player"},
+		{"target", "Target"},
+		{"targettarget", "TargetTarget"},
+		{"focus", "Focus"},
+		{"focustarget", "FocusTarget"},
+		{"pet", "Pet"},
+		{"pettarget", "PetTarget"},
+	},
+	["UGroups"] = {
+		--unit, FrameName var, number of frames
+		{"boss", "Boss", 5},
+		{"arena", "Arena", 5},
+	},
+	["Datapanels"] = {
+		["leftchat"] = "LeftChatDataPanel",
+		["righchat"] = "RightChatDataPanel",
+		["panel1"] = "SLE_DataPanel_1",
+		["panel2"] = "SLE_DataPanel_2",
+		["panel3"] = "SLE_DataPanel_3",
+		["panel4"] = "SLE_DataPanel_4",
+		["panel5"] = "SLE_DataPanel_5",
+		["panel6"] = "SLE_DataPanel_6",
+		["panel7"] = "SLE_DataPanel_7",
+		["panel8"] = "SLE_DataPanel_8",
+		-- ["leftminipanel"] = "LeftMiniPanel",
+		-- ["rightminipanel"] = "RightMiniPanel",
+	},
 }
 
-local UGroups = {
-	{"boss", "Boss", 5},
-	{"arena", "Arena", 5},
-}
-
-local Datapanels = {
-	["leftchat"] = "LeftChatDataPanel",
-	["righchat"] = "RightChatDataPanel",
-	["panel1"] = "SLE_DataPanel_1",
-	["panel2"] = "SLE_DataPanel_2",
-	["panel3"] = "SLE_DataPanel_3",
-	["panel4"] = "SLE_DataPanel_4",
-	["panel5"] = "SLE_DataPanel_5",
-	["panel6"] = "SLE_DataPanel_6",
-	["panel7"] = "SLE_DataPanel_7",
-	["panel8"] = "SLE_DataPanel_8",
-	-- ["leftminipanel"] = "LeftMiniPanel",
-	-- ["rightminipanel"] = "RightMiniPanel",
-}
-
+--Updating all shadows
 function ES:UpdateShadows()
 	if UnitAffectingCombat('player') then ES:RegisterEvent('PLAYER_REGEN_ENABLED', ES.UpdateShadows) return end
 
-	for frame, _ in T.pairs(ES.shadows) do
+	for frame, _ in T.pairs(ES.CreatedShadows) do
 		ES:UpdateShadow(frame)
 	end
 end
 
-function ES:RegisterFrameShadows(frame)
-	local shadow = frame.shadow or frame.Shadow
-	if not shadow or shadow.isRegistered then return end
-	ES.shadows[shadow] = true
-	shadow.isRegistered = true
+--Update specific shadow
+function ES:UpdateShadow(shadow)
+	local ShadowColor = E.db.sle.shadows.shadowcolor
+	local r, g, b = ShadowColor['r'], ShadowColor['g'], ShadowColor['b']
+	if E.db.sle.shadows.classcolor then r, g, b = ClassColor['r'], ClassColor['g'], ClassColor['b'] end
+
+	local size = E.db.sle.shadows.size
+	shadow:SetOutside(shadow:GetParent(), size, size)
+	shadow:SetBackdrop({
+		edgeFile = Border, edgeSize = E:Scale(size > 3 and size or 3),
+		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
+	})
+	shadow:SetBackdropColor(r, g, b, 0)
+	shadow:SetBackdropBorderColor(r, g, b, 0.9)
 end
 
+--Regestering shadows and putting them to a table for easy tracking since they don't have actual names
 function ES:RegisterShadow(shadow)
-	if shadow.isRegistered then return end
-	ES.shadows[shadow] = true
+	if not shadow or shadow.isRegistered then return end
+	ES.CreatedShadows[shadow] = true
 	shadow.isRegistered = true
 end
 
+--Update shadows for UF, hooked to UF's own update function
 function ES:UpdateFrame(frame, db)
 	if not frame then return end
 	local size = E.db.sle.shadows.size
@@ -76,9 +92,10 @@ function ES:UpdateFrame(frame, db)
 	end
 end
 
+--Creating shadows for provided frame
 function ES:CreateFrameShadow(frame, parent, legacy)
 	if not frame then return end
-	if not legacy then
+	if not legacy then --If using new style with health and power having separated shadows
 		--UF Health
 		if frame.Health then
 			frame.Health:CreateShadow()
@@ -113,15 +130,15 @@ end
 function ES:CreateShadows()
 	--Unitframes--
 	do
-		for i = 1, #UFrames do
-			local unit, name = T.unpack(UFrames[i])
+		for i = 1, #ES.FramesToShadow.UFrames do
+			local unit, name = T.unpack(ES.FramesToShadow.UFrames[i])
 			if E.private.sle.module.shadows[unit] then
 				ES:CreateFrameShadow(_G["ElvUF_"..name],_G["ElvUF_"..name], E.private.sle.module.shadows[unit.."Legacy"])
 				hooksecurefunc(UF, "Update_"..name.."Frame", ES.UpdateFrame)
 			end
 		end
-		for i = 1, #UGroups do
-			local unit, name, num = T.unpack(UGroups[i])
+		for i = 1, #ES.FramesToShadow.UGroups do
+			local unit, name, num = T.unpack(ES.FramesToShadow.UGroups[i])
 			if E.private.sle.module.shadows[unit] then
 				for j = 1, num do
 					ES:CreateFrameShadow(_G["ElvUF_"..name..j], _G["ElvUF_"..name..j], E.private.sle.module.shadows[unit.."Legacy"])
@@ -133,36 +150,26 @@ function ES:CreateShadows()
 	--Actionbars--
 	do
 		for i=1, Abars do
-			if E.private.sle.module.shadows.actionbars["bar"..i] then
-				ES:CreateFrameShadow( _G["ElvUI_Bar"..i],  _G["ElvUI_Bar"..i].backdrop)
-			end
+			if E.private.sle.module.shadows.actionbars["bar"..i] then ES:CreateFrameShadow( _G["ElvUI_Bar"..i],  _G["ElvUI_Bar"..i].backdrop) end
 			if E.private.sle.module.shadows.actionbars["bar"..i.."buttons"] then
-				for j = 1, 12 do
-					ES:CreateFrameShadow(_G["ElvUI_Bar"..i.."Button"..j], _G["ElvUI_Bar"..i.."Button"..j].backdrop)
-				end
+				for j = 1, 12 do ES:CreateFrameShadow(_G["ElvUI_Bar"..i.."Button"..j], _G["ElvUI_Bar"..i.."Button"..j].backdrop) end
 			end
 		end
-		if E.private.sle.module.shadows.actionbars.stancebar then
-			ES:CreateFrameShadow(_G["ElvUI_StanceBar"], _G["ElvUI_StanceBar"].backdrop)
-		end
+		if E.private.sle.module.shadows.actionbars.stancebar then ES:CreateFrameShadow(_G["ElvUI_StanceBar"], _G["ElvUI_StanceBar"].backdrop) end
 		if E.private.sle.module.shadows.actionbars.stancebarbuttons then
 			for i = 1, 12 do
 				if not _G["ElvUI_StanceBarButton"..i] then break end
 				ES:CreateFrameShadow(_G["ElvUI_StanceBarButton"..i], _G["ElvUI_StanceBarButton"..i].backdrop)
 			end
 		end
-		if E.private.sle.module.shadows.actionbars.microbar then
-			ES:CreateFrameShadow(_G["ElvUI_MicroBar"], "none")
-		end
+		if E.private.sle.module.shadows.actionbars.microbar then ES:CreateFrameShadow(_G["ElvUI_MicroBar"], "none") end
 		if E.private.sle.module.shadows.actionbars.microbarbuttons then
 			for i=1, (#MICRO_BUTTONS) do
 				if not _G[MICRO_BUTTONS[i]] then break end
 				ES:CreateFrameShadow(_G[MICRO_BUTTONS[i]], _G[MICRO_BUTTONS[i]].backdrop)
 			end
 		end
-		if E.private.sle.module.shadows.actionbars.petbar then
-			ES:CreateFrameShadow(_G["ElvUI_BarPet"], _G["ElvUI_BarPet"].backdrop)
-		end
+		if E.private.sle.module.shadows.actionbars.petbar then ES:CreateFrameShadow(_G["ElvUI_BarPet"], _G["ElvUI_BarPet"].backdrop) end
 		if E.private.sle.module.shadows.actionbars.petbarbuttons then
 			for i = 1, 12 do
 				if not _G["PetActionButton"..i] then break end
@@ -171,36 +178,15 @@ function ES:CreateShadows()
 		end
 	end
 	--Datatexts--
-	for panel,state in T.pairs(E.private.sle.module.shadows.datatexts) do
-		if state then ES:CreateFrameShadow(_G[Datapanels[panel]],"none") end
+	for panel,enabled in T.pairs(E.private.sle.module.shadows.datatexts) do
+		if enabled then ES:CreateFrameShadow(_G[ES.FramesToShadow.Datapanels[panel]],"none") end
 	end
 	--Misc--
 	do
-		if E.private.sle.module.shadows.minimap then
-			ES:CreateFrameShadow(_G["MMHolder"], "none")
-		end
-		if E.private.sle.module.shadows.chat.left then
-			ES:CreateFrameShadow(_G["LeftChatPanel"], "none")
-		end
-		if E.private.sle.module.shadows.chat.right then
-			ES:CreateFrameShadow(_G["RightChatPanel"], "none")
-		end
+		if E.private.sle.module.shadows.minimap then ES:CreateFrameShadow(_G["MMHolder"], "none") end
+		if E.private.sle.module.shadows.chat.left then ES:CreateFrameShadow(_G["LeftChatPanel"], "none") end
+		if E.private.sle.module.shadows.chat.right then ES:CreateFrameShadow(_G["RightChatPanel"], "none") end
 	end
-end
-
-function ES:UpdateShadow(shadow)
-	local ShadowColor = E.db.sle.shadows.shadowcolor
-	local r, g, b = ShadowColor['r'], ShadowColor['g'], ShadowColor['b']
-	if E.db.sle.shadows.classcolor then r, g, b = ClassColor['r'], ClassColor['g'], ClassColor['b'] end
-
-	local size = E.db.sle.shadows.size
-	shadow:SetOutside(shadow:GetParent(), size, size)
-	shadow:SetBackdrop({
-		edgeFile = Border, edgeSize = E:Scale(size > 3 and size or 3),
-		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
-	})
-	shadow:SetBackdropColor(r, g, b, 0)
-	shadow:SetBackdropBorderColor(r, g, b, 0.9)
 end
 
 function ES:Initialize()
