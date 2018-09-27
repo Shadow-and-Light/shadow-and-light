@@ -538,138 +538,121 @@ local function HFC()
 	end
 end]]
 
-local function Nightmare()
-	LFR:GetRaidLockInfo(1287,1288,1289);
-end
-
-local function Suramar()
-	LFR:GetRaidLockInfo(1290,1291,1292,1293);
-end
-
-local function Trial()
-	LFR:GetRaidLockInfo(1411);
-end
-
-local function TombOfSargeras()
-	LFR:GetRaidLockInfo(1494,1495,1496,1497);
-end
-
-local function Antorus()
-	LFR:GetRaidLockInfo(1610,1611,1612,1613)
-end
-
-local function Uldir()
-	LFR:GetRaidLockInfo(1731,1732,1733)
-end
-
-LFR.Req = {
-	-- ["Cata"] = {3, 85},
-	-- ["MoP"] = {4, 90},
-	-- ["WoD"] = {5, 100},
-	["Legion"] = {6, 110},
-	["BFA"] = {7, 120},
-}
-LFR.Cata = {
-	[1] = {
-		["name"] = 'ds',
-		["ilevel"] = 108,
-		["map"] = 409,
-		["func"] = DragonSoul,
+--Da grand table of every bit of info used by everything else
+LFR.InstanceData = {
+	["ExpackData"] = {
+		["Cata"] = { ["index"] = 3, ["maxLevel"] = 85},
+		["MoP"] = { ["index"] = 4, ["maxLevel"] = 90},
+		["WoD"] = { ["index"] = 5, ["maxLevel"] = 100},
+		["Legion"] = { ["index"] = 6, ["maxLevel"] = 110},
+		["BFA"] = { ["index"] = 7, ["maxLevel"] = 120},
 	},
-}
-LFR.MoP = {
-	[1] = {
-		["name"] = 'mv',
-		["ilevel"] = 116,
-		["map"] = 471,
-		["func"] = Mogushan,
-	},
-	[2] = {
-		["name"] = 'hof',
-		["ilevel"] = 116,
-		["map"] = 897,
-		["func"] = HoF,
-	},
-	[3] = {
-		["name"] = 'toes',
-		["ilevel"] = 116,
-		["map"] = 886,
-		["func"] = ToES,
-	},
-	[4] = {
-		["name"] = 'tot',
-		["ilevel"] = 116,
-		["map"] = 930,
-		["func"] = ToT,
-	},
-	[5] = {
-		["name"] = 'soo',
-		["ilevel"] = 116,
-		["map"] = 953,
-		["func"] = SoO,
-	},
-}
-LFR.WoD = {
-	[1] = {
-		["name"] = 'hm',
-		["ilevel"] = 136,
-		["map"] = 610,
-		["func"] = HM,
-	},
-	[2] = {
-		["name"] = 'brf',
-		["ilevel"] = 136,
-		["map"] = 596,
-		["func"] = BRF,
-	},
-	[3] = {
-		["name"] = 'hfc',
-		["ilevel"] = 138,
-		["map"] = 661,
-		["func"] = HFC,
-	},
-}
-LFR.Legion = {
-	[1] = {
-		["name"] = 'nightmare',
-		["ilevel"] = 160,
-		["map"] = 777,
-		["func"] = Nightmare,
-	},
-	[2] = {
-		["name"] = 'trial',
-		["ilevel"] = 160,
-		["map"] = 806,
-		["func"] = Trial,
-	},
-	[3] = {
-		["name"] = 'palace',
-		["ilevel"] = 162,
-		["map"] = 764,
-		["func"] = Suramar,
-	},
-	[4] = {
-		["name"] = "tomb",
-		["ilevel"] = 172,
-		["map"] = 850,
-		["func"] = TombOfSargeras,
-	},
-	[5] = {
-		["name"] = "antorus",
-		["ilevel"] = 184,
-		["map"] = 909,
-		["func"] = Antorus,
-	},
-}
-LFR.BFA = {
-	[1] = {
-		["name"] = "uldir",
-		["ilevel"] = 300,
-		["map"] = 1148,
-		["func"] = Uldir,
+	["Raids"] = { --Using numbers cause this way I can use for i = 1,# to order instances correctly
+		["Cata"] = {
+			[1] = {
+				["name"] = 'ds',
+				["ilevel"] = 108,
+				["map"] = 409,
+				["func"] = DragonSoul,
+				-- ["dungeonIDs"] = {},
+			},
+		},
+		["MoP"] = {
+			[1] = {
+				["name"] = 'mv',
+				["ilevel"] = 116,
+				["map"] = 471,
+				-- ["dungeonIDs"] = {},
+			},
+			[2] = {
+				["name"] = 'hof',
+				["ilevel"] = 116,
+				["map"] = 897,
+				-- ["dungeonIDs"] = {},
+			},
+			[3] = {
+				["name"] = 'toes',
+				["ilevel"] = 116,
+				["map"] = 886,
+				-- ["dungeonIDs"] = {},
+			},
+			[4] = {
+				["name"] = 'tot',
+				["ilevel"] = 116,
+				["map"] = 930,
+				-- ["dungeonIDs"] = {},
+			},
+			[5] = {
+				["name"] = 'soo',
+				["ilevel"] = 116,
+				["map"] = 953,
+				-- ["dungeonIDs"] = {},
+			},
+		},
+		["WoD"] = {
+			[1] = {
+				["name"] = 'hm',
+				["ilevel"] = 136,
+				["map"] = 610,
+				-- ["dungeonIDs"] = {},
+			},
+			[2] = {
+				["name"] = 'brf',
+				["ilevel"] = 136,
+				["map"] = 596,
+				-- ["dungeonIDs"] = {},
+			},
+			[3] = {
+				["name"] = 'hfc',
+				["ilevel"] = 138,
+				["map"] = 661,
+				-- ["dungeonIDs"] = {},
+			},
+		},
+		["Legion"] = {
+			[1] = {
+				["name"] = 'nightmare',
+				["ilevel"] = 160,
+				["map"] = 777,
+				["dungeonIDs"] = {1287,1288,1289},
+			},
+			[2] = {
+				["name"] = 'trial',
+				["ilevel"] = 160,
+				["map"] = 806,
+				["dungeonIDs"] = {1411},
+			},
+			[3] = {
+				["name"] = 'palace',
+				["ilevel"] = 162,
+				["map"] = 764,
+				["dungeonIDs"] = {1290,1291,1292,1293},
+			},
+			[4] = {
+				["name"] = "tomb",
+				["ilevel"] = 172,
+				["map"] = 850,
+				["dungeonIDs"] = {1494,1495,1496,1497},
+			},
+			[5] = {
+				["name"] = "antorus",
+				["ilevel"] = 184,
+				["map"] = 909,
+				["dungeonIDs"] = {1610,1611,1612,1613},
+			},
+		},
+		["BFA"] = {
+			[1] = {
+				["name"] = "uldir",
+				["ilevel"] = 300,
+				["map"] = 1148,
+				["dungeonIDs"] = {1731,1732,1733},
+			},
+		},
 	},
 }
 
+--Chacking if tracking of an expack dungeons is enabled
 function LFR:CheckOptions()
 	if LFR:CheckLegion() or LFR:CheckBFA() then return true end
 	return false
@@ -710,46 +693,50 @@ function LFR:CheckBFA()
 	return false
 end
 
-function LFR:BuildGroup(lvl, ilvl, expack)
-	local n, req = T.unpack(LFR.Req[expack])
-	local small = T.strlower(expack)
-	if not LFR["Check"..expack]() then return end
-	DT.tooltip:AddLine(ExpackColor.."< ".._G["EXPANSION_NAME"..n].." >|r")
-	for i = 1, #(LFR[expack]) do
-		local db = LFR[expack][i]
-		if LFR.db[small][db.name] then
-			DT.tooltip:AddLine(" "..SLE:GetMapInfo(db.map, "name"))
-			if lvl >= req and ilvl >= db.ilevel then
-				db.func()
+--Creating a group of info for dungeons of expack passed. Also player level and ilvl are passed
+function LFR:BuildGroup(expack, lvl, ilvl)
+	if not LFR["Check"..expack]() then return end --If nothing in this expack is selected to be tracked then our work is done
+	local small = T.strlower(expack) --making lower case version of expack name for checking options
+	DT.tooltip:AddLine(ExpackColor.."< ".._G["EXPANSION_NAME"..LFR.InstanceData["ExpackData"][expack].index].." >|r") --Da title!
+	for i = 1, #(LFR.InstanceData["Raids"][expack]) do
+		local instanceInfo = LFR.InstanceData["Raids"][expack][i]
+		if LFR.db[small][instanceInfo.name] then
+			DT.tooltip:AddLine(" "..SLE:GetMapInfo(instanceInfo.map, "name"))
+			--Check for dungeon requirements
+			if lvl >= LFR.InstanceData["ExpackData"][expack].maxLevel and ilvl >= instanceInfo.ilevel then
+				LFR:GetRaidLockInfo(T.unpack(instanceInfo.dungeonIDs)) --Adding info about bosses to the tooltip for this dungeon
 			else
 				DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
 			end
 		end
 	end
+	--Add a separator from any possible following info
 	DT.tooltip:AddLine(" ")
 end
 
+--Info about passed dungeon IDs. Don't feed map IDs, those are different.
 function LFR:GetRaidLockInfo(...)
-	local raidIDs = {...}
-	local count = 0
-	local killNum = 0
-	for i = 1, #raidIDs do
-		local numEncounters = GetLFGDungeonNumEncounters(raidIDs[i])
-		count = count + numEncounters
+	local dungeonIDs = {...} --All provided IDs
+	local numBosses = 0 --Total number of bosses in the dungeon
+	local killNum = 0 --How many were already killed
+	for i = 1, #dungeonIDs do
+		local numEncounters = T.GetLFGDungeonNumEncounters(dungeonIDs[i])
+		numBosses = numBosses + numEncounters
 		for j = 1, numEncounters do
-			local bossName, _, isKilled = GetLFGDungeonEncounterInfo(raidIDs[i], j);
-			if IsShiftKeyDown() then
+			local bossName, _, isKilled = T.GetLFGDungeonEncounterInfo(dungeonIDs[i], j);
+			if IsShiftKeyDown() then --Show detailed info
 				LFR:BossStatus(bossName, isKilled, isIneligible)
 			else
 				if (isKilled) then killNum = killNum + 1 end
 			end
 		end
 	end
-	if not IsShiftKeyDown() then
-		LFR:BossCount(killNum, count)
+	if not IsShiftKeyDown() then --Show just killed/total
+		LFR:BossCount(killNum, numBosses)
 	end
 end
 
+--Injecting into tooltip
 function LFR:Show()
 	local lvl = T.UnitLevel("player")
 	local ilvl = T.GetAverageItemLevel()
@@ -759,13 +746,16 @@ function LFR:Show()
 		DT.tooltip:AddLine(" "..L["You didn't select any instance to track."])
 		return
 	end
-	LFR:BuildGroup(lvl, ilvl, "BFA")
-	LFR:BuildGroup(lvl, ilvl, "Legion")
-	-- LFR:BuildGroup(lvl, ilvl, "WoD")
-	-- LFR:BuildGroup(lvl, ilvl, "MoP")
-	-- LFR:BuildGroup(lvl, ilvl, "Cata")
+
+	--Building dungeons info
+	LFR:BuildGroup("BFA", lvl, ilvl)
+	LFR:BuildGroup("Legion", lvl, ilvl)
+	-- LFR:BuildGroup("WoD", lvl, ilvl)
+	-- LFR:BuildGroup("MoP", lvl, ilvl)
+	-- LFR:BuildGroup("Cata", lvl, ilvl)
 end
 
+--Detailed info about bosses in the wing
 function LFR:BossStatus(bossName, isKilled, isIneligible)
 	if not bossName then return end
 	if (isKilled) then
@@ -777,16 +767,18 @@ function LFR:BossStatus(bossName, isKilled, isIneligible)
 	end
 end
 
-function LFR:BossCount(killNum, count)
-	if killNum == count then
-		DT.tooltip:AddLine(" "..L["Bosses killed: "]..killNum.."/"..count, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
+--Da line "kill/total"
+function LFR:BossCount(killNum, numBosses)
+	if killNum == numBosses then
+		DT.tooltip:AddLine(" "..L["Bosses killed: "]..killNum.."/"..numBosses, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
 	else
-		DT.tooltip:AddLine(" "..L["Bosses killed: "]..killNum.."/"..count, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b)
+		DT.tooltip:AddLine(" "..L["Bosses killed: "]..killNum.."/"..numBosses, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b)
 	end
 end
 
 function LFR:Initialize()
 	if not SLE.initialized then return end
+	--DB conversions
 	if E.db.sle.lfr.cata then E.db.sle.lfr.cata = nil end
 	if E.db.sle.lfr.mop then E.db.sle.lfr.mop = nil end
 	if E.db.sle.lfr.wod then E.db.sle.lfr.wod = nil end
