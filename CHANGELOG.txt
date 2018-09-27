@@ -1,8 +1,7 @@
 v3.48
 Changes:
 - Tab handling functions were rewritten. Now with any sizing option selected they should properly do "overflow" behavior and show select dropdown buttons for tabs not on screen.
-Known issues:
-- Blizz functions for getting LFR data are in even more broken than before. For some dungeons they return a lot of incorrect data. Considering atually disabling LFR tracking alltogether.
+- LFR info on in time datatext will only show active wings info. Blizz functions for getting LFR data are in even more broken than before so they return wrong info about wings and raids you can't get into by using LFG tool.
 
 v3.471 [September 23rd 2018]
 Fixes:

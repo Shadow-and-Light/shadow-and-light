@@ -3,6 +3,7 @@ local DT = E:GetModule('DataTexts')
 local DTP = SLE:GetModule('Datatexts')
 local LFR = SLE:GetModule("LFR")
 
+--Put everything in function so nothing attempts to execute when time dt doesn't exist
 function DTP:HookTimeDT()
 local enteredFrame = false;
 

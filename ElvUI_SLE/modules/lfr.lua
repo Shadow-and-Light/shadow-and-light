@@ -98,7 +98,7 @@ function LFR:BuildGroup(expack, lvl, ilvl)
 		if LFR.db[small][instanceInfo.name] then
 			DT.tooltip:AddLine(" "..SLE:GetMapInfo(instanceInfo.map, "name"))
 			--Check for dungeon requirements
-			if lvl >= LFR.InstanceData["ExpackData"][expack].maxLevel and ilvl >= instanceInfo.ilevel then
+			if lvl == LFR.InstanceData["ExpackData"][expack].maxLevel and ilvl >= instanceInfo.ilevel then
 				LFR:GetRaidLockInfo(T.unpack(instanceInfo.dungeonIDs)) --Adding info about bosses to the tooltip for this dungeon
 			else
 				DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
@@ -115,14 +115,18 @@ function LFR:GetRaidLockInfo(...)
 	local numBosses = 0 --Total number of bosses in the dungeon
 	local killNum = 0 --How many were already killed
 	for i = 1, #dungeonIDs do
-		local numEncounters = T.GetLFGDungeonNumEncounters(dungeonIDs[i])
-		numBosses = numBosses + numEncounters
-		for j = 1, numEncounters do
-			local bossName, _, isKilled = T.GetLFGDungeonEncounterInfo(dungeonIDs[i], j);
-			if IsShiftKeyDown() then --Show detailed info
-				LFR:BossStatus(bossName, isKilled, isIneligible)
-			else
-				if (isKilled) then killNum = killNum + 1 end
+		local isAvailable, isAvailableToPlayer = T.IsLFGDungeonJoinable(dungeonIDs[i])
+		--Only count this wing if it is actually available
+		if isAvailable or isAvailableToPlayer then
+			local numEncounters = T.GetLFGDungeonNumEncounters(dungeonIDs[i])
+			numBosses = numBosses + numEncounters
+			for j = 1, numEncounters do
+				local bossName, _, isKilled = T.GetLFGDungeonEncounterInfo(dungeonIDs[i], j);
+				if IsShiftKeyDown() then --Show detailed info
+					LFR:BossStatus(bossName, isKilled, isIneligible)
+				else
+					if (isKilled) then killNum = killNum + 1 end
+				end
 			end
 		end
 	end

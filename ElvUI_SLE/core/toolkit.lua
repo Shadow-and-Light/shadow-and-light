@@ -140,6 +140,7 @@ T.IsInInstance = IsInInstance
 T.GetLFGDungeonNumEncounters = GetLFGDungeonNumEncounters
 T.GetLFGDungeonEncounterInfo = GetLFGDungeonEncounterInfo
 T.GetInstanceInfo = GetInstanceInfo
+T.IsLFGDungeonJoinable = IsLFGDungeonJoinable
 --Combat
 T.InCombatLockdown = InCombatLockdown
 --PvP
