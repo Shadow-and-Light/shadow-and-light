@@ -214,7 +214,7 @@ function EM:TagsConditionsCheck(data)
 				--Getting function that determines if condition is met
 				local tagFunc = conditionInfo["condition"]
 				--If tag contains nil (tho previous checks should have this covere already) or not actually a function
-				if not EM.TagsTable[tagFunc] or T.type(tagFunc) ~= "function" then
+				if not EM.TagsTable[tagFunc] or T.type(EM.TagsTable[tagFunc]) ~= "function" then
 					SLE:ErrorPrint(T.format(L["SLE_EM_TAG_INVALID"], tagFunc))
 					return nil
 				end
