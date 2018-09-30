@@ -11,7 +11,9 @@ local PickupContainerItem, DeleteCursorItem = PickupContainerItem, DeleteCursorI
 Tools.RegisteredAnchors = {}
 Tools.buttoncounts = {} --To kepp number of items
 
+--Checking for changes in inventory (e.g. item counts)
 function Tools:InventoryUpdate(event)
+	--Not updating in combat. Cause taints
 	if T.InCombatLockdown() then
 		Tools:RegisterEvent("PLAYER_REGEN_ENABLED", "InventoryUpdate")
 		return
@@ -20,16 +22,18 @@ function Tools:InventoryUpdate(event)
  	end
 
 	local updateRequired = false
+	--Running an inventory check for all anchors created.
 	for name, anchor in T.pairs(Tools.RegisteredAnchors) do
 		if not anchor.InventroyCheck then assert(false, "Anchor named "..name.."doesn't have inventory update.") return end
 		if anchor.InventroyCheck() then updateRequired = true; break end
 	end
 
 	if event and event ~= "BAG_UPDATE_COOLDOWN" and updateRequired == true then
-		Tools:UpdateLayout()
+		Tools:UpdateLayout() --Update everything!
 	end
 end
 
+--The function to update layout of the bar. Generally used as anchor.UpdateBarLayout function
 Tools.UpdateBarLayout = function(bar, anchor, buttons, category, db)
 	if not db.enable then return end
 	local count = 0
@@ -55,8 +59,9 @@ Tools.UpdateBarLayout = function(bar, anchor, buttons, category, db)
 	return count
 end
 
+--Update cooldowns for passed anchor
 local function UpdateCooldown(anchor)
-	if not anchor.ShouldShow() then return end
+	if not anchor.ShouldShow() then return end --Don't do shit if anchor is not supposed to be seen anyways
 
 	for i = 1, anchor.NumBars do
 		local bar = anchor.Bars[anchor.BarsName..i]
@@ -121,12 +126,14 @@ function Tools:UpdateLayout(event, unit) --don't touch
 	if event == "UNIT_QUEST_LOG_CHANGED" then
 		if unit == "player" then E:Delay(1, Tools.UpdateLayout) else return end
 	end 
+	--not in combat. now idea how this can happen, but still
 	if T.InCombatLockdown() then
 		Tools:RegisterEvent("PLAYER_REGEN_ENABLED", "UpdateLayout")	
 		return
 	else
 		Tools:UnregisterEvent("PLAYER_REGEN_ENABLED")
  	end
+	--Update every single bar and mover
 	for name, anchor in T.pairs(Tools.RegisteredAnchors) do
 		if anchor.mover then
 			if anchor.EnableMover() then
@@ -143,21 +150,28 @@ function Tools:UpdateLayout(event, unit) --don't touch
 	end
 end
 
+--What happens when you click on stuff
 local function onClick(self, mousebutton)
+	--Da left button
 	if mousebutton == "LeftButton" then
+		--If in combat and this bar doesn't contain macro yet
 		if T.InCombatLockdown() and not self.macro then
 			SLE:Print(L["We are sorry, but you can't do this now. Try again after the end of this combat."])
 			return
 		end
+		--Setting up a type for button. This what can't be done in combat
 		self:SetAttribute("type", self.buttonType)
 		self:SetAttribute(self.buttonType, self.sortname)
 		local bar = self:GetParent()
+		--If this bar was supposed to have auto target feature, then do it!
 		if bar.Autotarget then bar.Autotarget(self) end
+		--If cooldowns are supposed to be here
 		if self.cooldown then 
 			self.cooldown:SetCooldown(T.GetItemCooldown(self.itemId))
 		end
+		--Applying setup mark
 		if not self.macro then self.macro = true end
-	elseif mousebutton == "RightButton" and self.allowDrop then
+	elseif mousebutton == "RightButton" and self.allowDrop then --if right click and item is allowed to be destroied
 		self:SetAttribute("type", "click")
 		local container, slot = SLE:BagSearch(self.itemId)
 		if container and slot then
@@ -168,6 +182,7 @@ local function onClick(self, mousebutton)
 	Tools:InventoryUpdate()
 end
 
+--OnEnter. Tooltips and stuff
 local function onEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 2, 4)
 	GameTooltip:ClearLines()
@@ -179,10 +194,12 @@ local function onEnter(self)
 	GameTooltip:Show()
 end
 
+--Hide da tooltip
 local function onLeave()
 	GameTooltip:Hide() 
 end
 
+--Creating the button
 function Tools:CreateToolsButton(index, owner, buttonType, name, texture, allowDrop, db)
 	size = db.buttonsize
 	local button = CreateFrame("Button", T.format("ToolsButton%d", index), owner, "SecureActionButtonTemplate")
@@ -204,6 +221,7 @@ function Tools:CreateToolsButton(index, owner, buttonType, name, texture, allowD
 	button.text:SetFont(E.media.normFont, 12, "OUTLINE")
 	button.text:SetPoint("BOTTOMRIGHT", button, 1, 2)
 
+	--If this thing has a cooldown
 	if T.select(3, T.GetItemCooldown(button.itemId)) == 1 then
 		button.cooldown = CreateFrame("Cooldown", T.format("ToolsButton%dCooldown", index), button)
 		button.cooldown:SetAllPoints(button)
@@ -217,20 +235,29 @@ function Tools:CreateToolsButton(index, owner, buttonType, name, texture, allowD
 	return button
 end
 
+--Putting stuff to the bar
 function Tools:PopulateBar(bar)
 	bar = _G[bar]
 	if not bar then return end
 	if not bar.Buttons then bar.Buttons = {} end
 	for id, data in T.pairs(bar.Items) do
-		T.tinsert(bar.Buttons, Tools:CreateToolsButton(id, bar, "item", data[1], data[10], true, E.db.sle.legacy.farm))
-		T.sort(bar.Buttons, function(a, b)
-			if not a or not b then return true end
-			if not a.sortname or not b.sortname then return true end
-			return a.sortname < b.sortname
-		end)
+		T.tinsert(bar.Buttons, Tools:CreateToolsButton(id, bar, "item", data.name, data.texture, true, E.db.sle.legacy.farm))
 	end
+	--This is my nightmare
+	T.sort(bar.Buttons, function(a, b)
+		if (not a or (a and not a.sortname)) and (not b or (b and not b.sortname)) then
+			return false
+		elseif (not a or (a and not a.sortname)) and b then
+			return false
+		elseif (not b or (b and not b.sortname)) and a then
+			return true
+		end
+		
+		return a.sortname < b.sortname
+	end)
 end
 
+--Creating basically everything
 function Tools:CreateFrames()
 	for name, anchor in T.pairs(Tools.RegisteredAnchors) do
 		if not anchor.Initialized then
@@ -248,9 +275,11 @@ function Tools:CreateFrames()
 		Tools.EventsRegistered = true
 	end
 
+	--Check if we are actually in da zone
 	E:Delay(5, Zone)
 end
 
+--Rewriting init item IDs with actual item info
 local function RecreateAnchor(anchor)
 	for bar, data in T.pairs(anchor.Bars) do
 		for id, info in T.pairs(data.Items) do
@@ -258,7 +287,8 @@ local function RecreateAnchor(anchor)
 				E:Delay(5, function() RecreateAnchor(anchor) end)
 				return
 			else
-				data.Items[id] = { T.GetItemInfo(id) }
+				local itemName,_,_,_,_,_,_,_,_,itemIcon = T.GetItemInfo(id)
+				data.Items[id] = { name = itemName, texture = itemIcon }
 			end
 		end
 	end
@@ -270,6 +300,8 @@ local function RecreateAnchor(anchor)
 	end
 end
 
+--Creating anchors. Passing function to actually create main frame at set up other nessesary functions
+--Should be used in the file for actual submodule you want to add a toolbar for
 function Tools:RegisterForBar(func)
 	local anchor = func()
 
