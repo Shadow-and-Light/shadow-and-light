@@ -13,7 +13,7 @@ local RED_FONT_COLOR = RED_FONT_COLOR
 local GREEN_FONT_COLOR = GREEN_FONT_COLOR
 local IsShiftKeyDown = IsShiftKeyDown
 
-local bossName, _, isKilled, isIneligible
+local bossName, _, isKilled
 local ExpackColor = "|cff9482c9"
 
 --Da grand table of every bit of info used by everything else
@@ -123,7 +123,7 @@ function LFR:GetRaidLockInfo(...)
 			for j = 1, numEncounters do
 				local bossName, _, isKilled = T.GetLFGDungeonEncounterInfo(dungeonIDs[i], j);
 				if IsShiftKeyDown() then --Show detailed info
-					LFR:BossStatus(bossName, isKilled, isIneligible)
+					LFR:BossStatus(bossName, isKilled)
 				else
 					if (isKilled) then killNum = killNum + 1 end
 				end
@@ -152,12 +152,10 @@ function LFR:Show()
 end
 
 --Detailed info about bosses in the wing
-function LFR:BossStatus(bossName, isKilled, isIneligible)
+function LFR:BossStatus(bossName, isKilled)
 	if not bossName then return end
 	if (isKilled) then
 		DT.tooltip:AddDoubleLine(" "..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
-	elseif (isIneligible) then
-		DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE_INELIGIBLE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
 	else
 		DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
 	end
