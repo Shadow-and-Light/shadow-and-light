@@ -332,7 +332,7 @@ function LT:AddLootIcons(event, message, ...)
 	if LT.db.looticons.channels[event] then
 		local function IconForLink(link) --function to get the iconized message
 			local texture = T.GetItemIcon(link)
-			return (LT.db.looticons.position == "LEFT") and "\124T" .. texture .. ":" .. LT.db.looticons.size .. "\124t" .. link or link .. "\124T" .. texture .. ":" .. LT.db.looticons.size .. "\124t"
+			return (LT.db.looticons.position == "LEFT") and "\124T" .. texture .. ":" .. LT.db.looticons.size .. ":"..LT.db.looticons.size..":0:0:64:64:4:60:4:60\124t" .. link or link .. "\124T" .. texture .. ":" .. LT.db.looticons.size .. ":"..LT.db.looticons.size..":0:0:64:64:4:60:4:60\124t"
 		end
 		message = T.gsub(message, "(\124c%x+\124Hitem:.-\124h\124r)", IconForLink)
 	end
