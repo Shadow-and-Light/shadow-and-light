@@ -115,7 +115,7 @@ SLE.SpecialChatIcons = {
 		["Ревущийфьорд"] = {
 			["Рыжая"] = friend,
 			["Рыжа"] = friend,
-			["Шензори"] = classTable.hunter,
+			["Шензо"] = classTable.hunter,
 			--Some people
 			["Маразм"] = classTable.shaman,
 			["Брэгар"] = test
