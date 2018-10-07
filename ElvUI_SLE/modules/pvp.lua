@@ -42,6 +42,7 @@ function PvP:Dead()
 	end
 end
 
+--Cancel duels
 function PvP:Duels(event, name)
 	local cancelled = false
 	if event == "DUEL_REQUESTED" and PvP.db.duels.regular then
@@ -58,23 +59,25 @@ function PvP:Duels(event, name)
 	end
 end
 
+--Duilding opponents table for boss banner
 function PvP:OpponentsTable()
 	T.twipe(BG_Opponents)
 	for index = 1, T.GetNumBattlefieldScores() do
 		local name, _, _, _, _, faction, _, _, classToken = T.GetBattlefieldScore(index)
 		if (E.myfaction == "Horde" and faction == 1) or (E.myfaction == "Alliance" and faction == 0) then
-			BG_Opponents[name] = classToken
+			BG_Opponents[name] = classToken --Saving oponents class to use for coloring
 		end
 	end
 end
 
+--Parse combat log for killing blows
 function PvP:LogParse()
 	local _, subevent, _, _, Caster, _, _, _, TargetName, TargetFlags = CombatLogGetCurrentEventInfo()
 	if subevent == "PARTY_KILL" then
-		local mask = bit_band(TargetFlags, COMBATLOG_OBJECT_TYPE_PLAYER)
-		if Caster == E.myname and (BG_Opponents[TargetName] or mask > 0) then
-			if mask > 0 and BG_Opponents[TargetName] then TargetName = "|c"..RAID_CLASS_COLORS[BG_Opponents[TargetName]].colorStr..TargetName.."|r" end
-			TopBannerManager_Show(_G["BossBanner"], { name = TargetName, mode = "PVPKILL" });
+		local mask = bit_band(TargetFlags, COMBATLOG_OBJECT_TYPE_PLAYER) --Don't ask me, it's some dark magic. If bit mask for this is positive, it means a player was killed
+		if Caster == E.myname and (BG_Opponents[TargetName] or mask > 0) then --If this is my kill and target is a player (world) or in the oponents table (BGs)
+			if mask > 0 and BG_Opponents[TargetName] then TargetName = "|c"..RAID_CLASS_COLORS[BG_Opponents[TargetName]].colorStr..TargetName.."|r" end --Color dat name into class color. Only for BGs
+			TopBannerManager_Show(_G["BossBanner"], { name = TargetName, mode = "SLE_PVPKILL" }); --Show boss banner with own mode and a dead person's name instead of boss name
 		end
 	end
 end
@@ -96,9 +99,10 @@ function PvP:Initialize()
 	end
 
 	if E.private.sle.pvp.KBbanner.enable then
+		--Hook to blizz function for boss kill banner
 		hooksecurefunc(_G["BossBanner"], "PlayBanner", function(self, data)
 			if ( data ) then
-				if ( data.mode == "PVPKILL" ) then
+				if ( data.mode == "SLE_PVPKILL" ) then
 					self.Title:SetText(data.name);
 					self.Title:Show();
 					self.SubTitle:Hide();
