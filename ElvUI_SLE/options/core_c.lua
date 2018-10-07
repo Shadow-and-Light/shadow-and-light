@@ -70,7 +70,7 @@ local function configTable()
 						type = "toggle",
 						name = L["Enable"],
 						get = function(info) return E.db.sle.misc.threat.enable end,
-						set = function(info, value) E.db.sle.misc.threat.enable = value; M:UpdateThreatConfig(); M:UpdateThreatPosition() end,
+						set = function(info, value) E.db.sle.misc.threat.enable = value; M:Threat_UpdateConfig(); M:Threat_UpdatePosition() end,
 					},
 					position = {
 						order = 2,

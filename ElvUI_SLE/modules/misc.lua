@@ -4,14 +4,16 @@ local Tr = E:GetModule('Threat');
 --GLOBALS: hooksecurefunc, UIParent
 local _G = _G
 local ShowUIPanel, HideUIPanel = ShowUIPanel, HideUIPanel
-local find = string.find
 
-function M:RUReset()
-	local a = E.db.sle.blizzard.rumouseover and 0 or 1
-	_G["RaidUtility_ShowButton"]:SetAlpha(a)
+--Threat
+function M:ElvUIConfig_OnLoad(event, addon)
+	if addon ~= "ElvUI_Config" then return end
+
+	M:Threat_UpdateConfig()
+	M:UnregisterEvent("ADDON_LOADED")
 end
 
-function M:UpdateThreatPosition()
+function M:Threat_UpdatePosition()
 	if not E.db.general.threat.enable or not M.db.threat or not M.db.threat.enable then return end
 
 	Tr.bar:SetInside(M.db.threat.position)
@@ -22,7 +24,7 @@ function M:UpdateThreatPosition()
 	Tr.bar:SetAlpha(1)
 end
 
-function M:UpdateThreatConfig()
+function M:Threat_UpdateConfig()
 	if T.IsAddOnLoaded("ElvUI_Config") then
 		if M.db.threat.enable then
 			E.Options.args.general.args.threatGroup.args.threatPosition = {
@@ -49,19 +51,67 @@ function M:UpdateThreatConfig()
 	end
 end
 
-function M:LoadConfig(event, addon)
-	if addon ~= "ElvUI_Config" then return end
-
-	M:UpdateThreatConfig()
-	M:UnregisterEvent("ADDON_LOADED")
-end
-
+--Viewports
 function M:SetViewport()
-	if SLE._Compatibility["SunnArt"] then return end
+	if SLE._Compatibility["SunnArt"] then return end --Other viewport addon is enabled
 	local scale = 768 / UIParent:GetHeight()
 	_G["WorldFrame"]:ClearAllPoints()
 	_G["WorldFrame"]:SetPoint("TOPLEFT", ( M.db.viewport.left * scale ), -( M.db.viewport.top * scale ) )
 	_G["WorldFrame"]:SetPoint("BOTTOMRIGHT", -( M.db.viewport.right * scale ), ( M.db.viewport.bottom * scale ) )
+end
+
+--Raid utility
+function M:RaidUtility_SetMouseoverAlpha()
+	local a = E.db.sle.blizzard.rumouseover and 0 or 1
+	_G["RaidUtility_ShowButton"]:SetAlpha(a)
+end
+
+function M:RaidUtility_OnDragStop()
+	local point, anchor, point2, x, y = mover:GetPoint()
+	frame:ClearAllPoints()
+	if T.find(point, "BOTTOM") then
+		frame:SetPoint(point, anchor, point2, x, y)
+	else
+		frame:SetPoint(point, anchor, point2, x, y)
+	end
+end
+
+function M:RaidUtility_OnEnter()
+	if not E.db.sle.blizzard.rumouseover then return end
+	self:SetAlpha(1)
+end
+
+function M:RaidUtility_OnLeave()
+	if not E.db.sle.blizzard.rumouseover then return end
+	self:SetAlpha(0)
+end
+
+function M:RaidUtility_Hook()
+	--Creating mover for the button
+	E:CreateMover(_G["RaidUtility_ShowButton"], "RaidUtility_Mover", L["Raid Utility"], nil, nil, nil, "ALL,S&L,S&L MISC")
+	local mover = _G["RaidUtility_Mover"]
+	local frame = _G["RaidUtility_ShowButton"]
+	--Setting default point and stuff
+	if E.db.movers == nil then E.db.movers = {} end
+
+	--Making frame actually following mover around
+	mover:HookScript("OnDragStart", function(self) 
+		frame:ClearAllPoints()
+		frame:SetPoint("CENTER", self)
+	end)
+	mover:HookScript("OnDragStop", M.RaidUtility_OnDragStop)
+
+	if E.db.movers.RaidUtility_Mover == nil then
+		frame:ClearAllPoints()
+		frame:SetPoint("TOP", E.UIParent, "TOP", -400, E.Border)
+	else
+		M:RaidUtility_OnDragStop()
+	end
+
+	frame:RegisterForDrag("") --No buttons for drag
+	frame:HookScript("OnEnter", M.RaidUtility_OnEnter)
+	frame:HookScript("OnLeave", M.RaidUtility_OnLeave)
+	M.RaidUtility_OnLeave(frame)
 end
 
 function M:Initialize()
@@ -69,67 +119,26 @@ function M:Initialize()
 	M.db = E.db.sle.misc
 	E:CreateMover(_G["UIErrorsFrame"], "UIErrorsFrameMover", L["Error Frame"], nil, nil, nil, "ALL,S&L,S&L MISC")
 
-	--GhostFrame Mover.
+	--GhostFrame Mover
 	ShowUIPanel(_G["GhostFrame"])
 	E:CreateMover(_G["GhostFrame"], "GhostFrameMover", L["Ghost Frame"], nil, nil, nil, "ALL,S&L,S&L MISC")
 	HideUIPanel(_G["GhostFrame"])
 
 	--Raid Utility
-	if _G["RaidUtility_ShowButton"] then
-		E:CreateMover(_G["RaidUtility_ShowButton"], "RaidUtility_Mover", L["Raid Utility"], nil, nil, nil, "ALL,S&L,S&L MISC")
-		local mover = _G["RaidUtility_Mover"]
-		local frame = _G["RaidUtility_ShowButton"]
-		if E.db.movers == nil then E.db.movers = {} end
+	if _G["RaidUtility_ShowButton"] then M:RaidUtility_Hook() end
 
-		mover:HookScript("OnDragStart", function(self) 
-			frame:ClearAllPoints()
-			frame:SetPoint("CENTER", self)
-		end)
-
-		local function Enter(self)
-			if not E.db.sle.blizzard.rumouseover then return end
-			self:SetAlpha(1)
-		end
-
-		local function Leave(self)
-			if not E.db.sle.blizzard.rumouseover then return end
-			self:SetAlpha(0)
-		end
-
-		local function dropfix()
-			local point, anchor, point2, x, y = mover:GetPoint()
-			frame:ClearAllPoints()
-			if find(point, "BOTTOM") then
-				frame:SetPoint(point, anchor, point2, x, y)
-			else
-				frame:SetPoint(point, anchor, point2, x, y)
-			end
-		end
-
-		mover:HookScript("OnDragStop", dropfix)
-
-		if E.db.movers.RaidUtility_Mover == nil then
-			frame:ClearAllPoints()
-			frame:SetPoint("TOP", E.UIParent, "TOP", -400, E.Border)
-		else
-			dropfix()
-		end
-		frame:RegisterForDrag("")
-		frame:HookScript("OnEnter", Enter)
-		frame:HookScript("OnLeave", Leave)
-		Leave(frame)
-	end
-
+	--Threat
 	hooksecurefunc(Tr, 'UpdatePosition', M.UpdateThreatPosition)
-	M:RegisterEvent("ADDON_LOADED", "LoadConfig")
-	M:UpdateThreatPosition()
+	M:RegisterEvent("ADDON_LOADED", "ElvUIConfig_OnLoad")
+	M:Threat_UpdatePosition()
 
+	--Viewport
 	M:SetViewport()
 
 	function M:ForUpdateAll()
 		M.db = E.db.sle.misc
-		M:UpdateThreatConfig()
-		M:UpdateThreatPosition()
+		M:Threat_UpdateConfig()
+		M:Threat_UpdatePosition()
 		M:SetViewport()
 	end
 end
