@@ -34,7 +34,7 @@ local function configTable()
 						name = L["Font"],
 						values = AceGUIWidgetLSMlists.font,
 						get = function(info) return E.db.sle.nameplates.targetcount[ info[#info] ] end,
-						set = function(info, value) E.db.sle.nameplates.targetcount[ info[#info] ] = value; NP:UpdatePlateFonts() end,
+						set = function(info, value) E.db.sle.nameplates.targetcount[ info[#info] ] = value; NP:UpdateAllPlateFonts() end,
 					},
 					size = {
 						order = 5,
@@ -42,7 +42,7 @@ local function configTable()
 						type = "range",
 						min = 4, max = 25, step = 1,
 						get = function(info) return E.db.sle.nameplates.targetcount[ info[#info] ] end,
-						set = function(info, value) E.db.sle.nameplates.targetcount[ info[#info] ] = value; NP:UpdatePlateFonts() end,
+						set = function(info, value) E.db.sle.nameplates.targetcount[ info[#info] ] = value; NP:UpdateAllPlateFonts() end,
 					},
 					fontOutline = {
 						order = 6,
@@ -56,7 +56,7 @@ local function configTable()
 							['THICKOUTLINE'] = 'THICKOUTLINE',
 						},
 						get = function(info) return E.db.sle.nameplates.targetcount[ info[#info] ] end,
-						set = function(info, value) E.db.sle.nameplates.targetcount[ info[#info] ] = value; NP:UpdatePlateFonts() end,
+						set = function(info, value) E.db.sle.nameplates.targetcount[ info[#info] ] = value; NP:UpdateAllPlateFonts() end,
 					},
 				},
 			},
@@ -80,7 +80,7 @@ local function configTable()
 						name = L["Font"],
 						values = AceGUIWidgetLSMlists.font,
 						get = function(info) return E.db.sle.nameplates.threat[ info[#info] ] end,
-						set = function(info, value) E.db.sle.nameplates.threat[ info[#info] ] = value; NP:UpdatePlateFonts() end,
+						set = function(info, value) E.db.sle.nameplates.threat[ info[#info] ] = value; NP:UpdateAllPlateFonts() end,
 					},
 					size = {
 						order = 5,
@@ -88,7 +88,7 @@ local function configTable()
 						type = "range",
 						min = 4, max = 25, step = 1,
 						get = function(info) return E.db.sle.nameplates.threat[ info[#info] ] end,
-						set = function(info, value) E.db.sle.nameplates.threat[ info[#info] ] = value; NP:UpdatePlateFonts() end,
+						set = function(info, value) E.db.sle.nameplates.threat[ info[#info] ] = value; NP:UpdateAllPlateFonts() end,
 					},
 					fontOutline = {
 						order = 6,
@@ -102,7 +102,7 @@ local function configTable()
 							['THICKOUTLINE'] = 'THICKOUTLINE',
 						},
 						get = function(info) return E.db.sle.nameplates.threat[ info[#info] ] end,
-						set = function(info, value) E.db.sle.nameplates.threat[ info[#info] ] = value; NP:UpdatePlateFonts() end,
+						set = function(info, value) E.db.sle.nameplates.threat[ info[#info] ] = value; NP:UpdateAllPlateFonts() end,
 					},
 				},
 			},
