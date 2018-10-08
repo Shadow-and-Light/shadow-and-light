@@ -4,8 +4,8 @@ local Pr
 local B = E:GetModule('Bags')
 --GLOBALS: hooksecurefunc
 local _G = _G
-local REAGENTBANK_CONTAINER = REAGENTBANK_CONTAINER
 
+--Updating slot for deconstruct glow hide when item disappears
 function SB:UpdateSlot(bagID, slotID)
 	if (self.Bags[bagID] and self.Bags[bagID].numSlots ~= T.GetContainerNumSlots(bagID)) or not self.Bags[bagID] or not self.Bags[bagID][slotID] then
 		return;
@@ -20,59 +20,34 @@ function SB:UpdateSlot(bagID, slotID)
 	end
 end
 
-function SB:UpdateReagentSlot(slotID)
-	local bagID = REAGENTBANK_CONTAINER;
-	local slot = _G["ElvUIReagentBankFrameItem"..slotID];
-	if not slot then return end;
-end
-
-function SB:HookSlot(slot, bagID, slotID)
-	if bagID == REAGENTBANK_CONTAINER and E.private.sle.bags.transparentSlots and not slot.SLErarity then
-			slot.SLErarity = true
-			B:UpdateReagentSlot(slotID)
-	end
-end
-
-function SB:HookBags(isBank, force)
+function SB:HookBags(isBank)
 	local slot
 	for _, bagFrame in T.pairs(B.BagFrames) do
+		--Hooking slots for deconstruct. Bank is not allowed
+		if not bagFrame.SLE_DeconstructHooked and not isBank then
+			hooksecurefunc(bagFrame, "UpdateSlot", SB.UpdateSlot)
+			bagFrame.SLE_UpdateHooked = true
+		end
+		--Applying transparent template for all current slots
 		for _, bagID in T.pairs(bagFrame.BagIDs) do
-			if (not self.hookedBags[bagID])then
-				for slotID = 1, T.GetContainerNumSlots(bagID) do
-					if bagFrame.Bags[bagID] then
-						slot = bagFrame.Bags[bagID][slotID];
-						self:HookSlot(slot, bagID, slotID);
-					end
-				end
-				self.hookedBags[bagID] = true;
-			elseif self.hookedBags[bagID] and force then
-				for slotID = 1, T.GetContainerNumSlots(bagID) do
-					if bagFrame.Bags[bagID] then
-						if force == bagFrame.Bags[bagID][slotID] then self:HookSlot(force, bagID, slotID) end
-					end
-				end
-			end
 			for slotID = 1, T.GetContainerNumSlots(bagID) do
 				if bagFrame.Bags[bagID] then
 					slot = bagFrame.Bags[bagID][slotID];
-					if slot.template ~= "Transparent" and E.private.sle.bags.transparentSlots then slot:SetTemplate('Transparent') end
+					if E.private.sle.bags.transparentSlots and slot.template ~= "Transparent" then slot:SetTemplate('Transparent') end
 				end
 			end
 		end
 	end
-
-	if (_G["ElvUIReagentBankFrameItem1"] and not self.hookedBags[REAGENTBANK_CONTAINER]) then
+	--Applying transparent template for reagent bank
+	if E.private.sle.bags.transparentSlots and _G["ElvUIReagentBankFrameItem1"] and _G["ElvUIReagentBankFrameItem1"].template ~= "Transparent" then
 		for slotID = 1, 98 do
 			local slot = _G["ElvUIReagentBankFrameItem"..slotID];
-			self:HookSlot(slot, REAGENTBANK_CONTAINER, slotID);
-			if slot.template ~= "Transparent" and E.private.sle.bags.transparentSlots then slot:SetTemplate('Transparent') end
+			if slot.template ~= "Transparent" then slot:SetTemplate('Transparent') end
 		end
-		self.hookedBags[REAGENTBANK_CONTAINER] = true;
 	end
 end
 
 function SB:Initialize()
-	self.hookedBags = {};
 	if not SLE.initialized or not E.private.bags.enable then return end
 
 	function SB:ForUpdateAll()
@@ -80,11 +55,35 @@ function SB:Initialize()
 	end
 	SB:ForUpdateAll()
 
-	local BUpdateSlot = B.UpdateSlot;
+	--Applying stuff to already existing bags
 	self:HookBags();
-	hooksecurefunc(B, "Layout", function()
-		self:HookBags()
+	hooksecurefunc(B, "Layout", function(self, isBank)
+		SB:HookBags(isBank)
 	end);
+	
+	--This table is for initial update of a frame, cause applying transparent trmplate breaks color borders
+	SB.InitialUpdates = {
+		Bank = false,
+		ReagentBank = false,
+		ReagentBankButton = false,
+	}
+
+	--Fix borders for bag frames
+	hooksecurefunc(B, "OpenBank", function()
+		if not SB.InitialUpdates.Bank then --For bank, just update on first show
+			B:Layout(true)
+			SB.InitialUpdates.Bank = true
+		end
+		if not SB.InitialUpdates.ReagentBankButton then --For reagent bank, hook to toggle button and update layout when first clicked
+			_G["ElvUI_BankContainerFrame"].reagentToggle:HookScript("OnClick", function()
+				if not SB.InitialUpdates.ReagentBank then
+					B:Layout(true)
+					SB.InitialUpdates.ReagentBank = true
+				end
+			end)
+			SB.InitialUpdates.ReagentBankButton = true
+		end
+	end)
 end
 
 SLE:RegisterModule(SB:GetName())
