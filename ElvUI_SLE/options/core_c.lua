@@ -26,7 +26,7 @@ local function configTable()
 	--Main options group
 	E.Options.args.sle = {
 		type = "group",
-		name = "|cff9482c9Shadow & Light|r",
+		name = SLE.Title,
 		desc = L["Plugin for |cff1784d1ElvUI|r by\nDarth Predator and Repooc."],
 		order = 50,
 		args = {

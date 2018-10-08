@@ -251,3 +251,21 @@ G["sle"] = {
 		},
 	},
 }
+
+G["profileCopy"]["sle"] = {
+	["actionbars"] = {
+		["general"] = true,
+	},
+	["auras"] = {
+		["general"] = true,
+	},
+	["backgrounds"] = {
+		["bg1"] = true,
+		["bg2"] = true,
+		["bg3"] = true,
+		["bg4"] = true,
+	},
+	["bags"] = {
+		["petLevel"] = true,
+	},
+}
