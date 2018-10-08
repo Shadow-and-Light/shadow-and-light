@@ -69,6 +69,8 @@ function SB:HookBags(isBank, force)
 		end
 		self.hookedBags[REAGENTBANK_CONTAINER] = true;
 	end
+
+	B:UpdateAllSlots()
 end
 
 function SB:Initialize()
