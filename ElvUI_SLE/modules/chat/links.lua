@@ -48,7 +48,7 @@ C.spamFirstLines = {
 	"^Skada:(.*)??(.*):$", -- Skada zhTW
 	"^(.*) Done for (.*)$", -- TinyDPS
 	"^Numeration: (.*)$", -- Numeration
-	"^Details!: (.*) for (.*)$" -- Details!
+	"^Details!:(.*)$" -- Details!
 }
 C.spamNextLines = {
 	"^(%d+)\. (.*)$", --Recount, Details! and Skada
