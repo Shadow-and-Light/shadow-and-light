@@ -116,9 +116,9 @@ local MiscellaneousCurrency = {
 	1379, --Trial of Style Token
 	1388, --Armor Scraps
 	1401, --Stronghold Supplies
-	1540, --Wood
-	1541, --Iron
-	1559, --Essence of Storms
+	-- 1540, --Wood
+	-- 1541, --Iron
+	-- 1559, --Essence of Storms
 }
 
 local HordeColor = RAID_CLASS_COLORS["DEATHKNIGHT"]
