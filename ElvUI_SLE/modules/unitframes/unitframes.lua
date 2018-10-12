@@ -123,23 +123,6 @@ function SUF:PortraitUpdate(unit, ...)
 	end
 end
 
-function SUF:UpdateHealComm(unit, myIncomingHeal, allIncomingHeal, totalAbsorb, healAbsorb)
-	local frame = self.parent
-	local previousTexture = frame.Health:GetStatusBarTexture();
-
-	UF:UpdateFillBar(frame, previousTexture, self.healAbsorbBar, healAbsorb, true);
-	previousTexture = UF:UpdateFillBar(frame, previousTexture, self.myBar, myIncomingHeal);
-	previousTexture = UF:UpdateFillBar(frame, previousTexture, self.otherBar, allIncomingHeal);
-	previousTexture = UF:UpdateFillBar(frame, previousTexture, self.absorbBar, totalAbsorb);
-end
-
-function SUF:HealthPredictUpdate(frame)
-	if frame.HealthPrediction and (not frame.HealthPrediction.SLEPredictHook and frame.HealthPrediction.PostUpdate) then
-		hooksecurefunc(frame.HealthPrediction, "PostUpdate", SUF.UpdateHealComm)
-		frame.HealthPrediction.SLEPredictHook = true
-	end
-end
-
 local function UpdateAuraTimer(self, elapsed)
 	local timervalue, formatid
 	local unitID = self:GetParent():GetParent().unitframeType
@@ -166,6 +149,9 @@ end
 
 function SUF:Initialize()
 	if not SLE.initialized or not E.private.unitframe.enable then return end
+	--DB convert
+	if E.private.sle.unitframe.resizeHealthPrediction then E.private.sle.unitframe.resizeHealthPrediction = nil end
+
 	SUF:NewTags()
 	-- SUF:InitPlayer()
 
@@ -194,9 +180,6 @@ function SUF:Initialize()
 	hooksecurefunc(UF, "Update_Raid40Frames", SUF.Update_GroupFrames)
 	--Portrait overlay
 	hooksecurefunc(UF, "Configure_Portrait", SUF.ConfiguePortrait)
-	if E.private.sle.unitframe.resizeHealthPrediction then
-		hooksecurefunc(UF, "Configure_HealthBar", SUF.HealthPredictUpdate)
-	end
 
 	--Hook pvp icons
 	SUF:UpgradePvPIcon()
