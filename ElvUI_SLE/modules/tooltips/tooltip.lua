@@ -8,21 +8,6 @@ local _G = _G
 
 --GLOBALS: UIParent, hooksecurefunc
 
-local function AnchorFrameToMouse()
-	if not SLE.initialized or not E.private.tooltip.enable then return end
-	if not E.db.tooltip.cursorAnchor or (E.db.sle.tooltip.xOffset == 0 and E.db.sle.tooltip.yOffset == 0) then return end
-
-	local frame = GameTooltip
-	if frame:GetAnchorType() ~= "ANCHOR_CURSOR" then return end
-
-	local x, y = GetCursorPosition();
-	local scale = frame:GetEffectiveScale();
-	local tipWidth = frame:GetWidth();
-
-	frame:ClearAllPoints();
-	frame:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", (x/scale + (E.db.sle.tooltip.xOffset - tipWidth/2)), (y/scale + E.db.sle.tooltip.yOffset));
-end
-
 local function OnTooltipSetUnit(self, tt)
 	if not SLE.initialized then return end
 	if not E.db.sle.tooltip.showFaction then return end
@@ -49,8 +34,6 @@ end
 local function Init()
 	if not E.private.tooltip.enable then return end
 	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", OnTooltipSetUnit)
-
-	hooksecurefunc(TT, "CheckBackdropColor", AnchorFrameToMouse)
 
 	SLE:SetCompareItems() --Blizz cvar for item compare
 end

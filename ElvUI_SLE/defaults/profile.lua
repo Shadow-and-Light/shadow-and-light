@@ -720,8 +720,6 @@ P["sle"] = {
 	--Tooltip
 	["tooltip"] = {
 		["showFaction"] = false,
-		["xOffset"] = 0,
-		["yOffset"] = 0,
 		["alwaysCompareItems"] = false,
 		["RaidProg"] = {
 			["enable"] = false,

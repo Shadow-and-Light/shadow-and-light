@@ -35,40 +35,6 @@ local function configTable()
 				disabled = function() return not E.private.tooltip.enable end,
 				set = function(info, value) E.db.sle.tooltip.alwaysCompareItems = value; SLE:SetCompareItems() end,
 			},
-			offset = {
-				type = "group",
-				name = L["Tooltip Cursor Offset"],
-				order = 7,
-				guiInline = true,
-				set = function(info, value) E.db.sle.tooltip[ info[#info] ] = value end,
-				disabled = function() return not E.private.tooltip.enable or not E.db.tooltip.cursorAnchor end,
-				args = {
-					intro = {
-						order = 1,
-						type = 'description',
-						name = L["TTOFFSET_DESC"],
-					},
-					space1 = {
-						order = 2,
-						type = 'description',
-						name = "",
-					},
-					xOffset = {
-						order = 31,
-						type = 'range',
-						name = L["Tooltip X-offset"],
-						desc = L["Offset the tooltip on the X-axis."],
-						min = -200, max = 200, step = 1,
-					},
-					yOffset = {
-						order = 32,
-						type = 'range',
-						name = L["Tooltip Y-offset"],
-						desc = L["Offset the tooltip on the Y-axis."],
-						min = -200, max = 200, step = 1,
-					},
-				},
-			},
 			RaidProg = {
 				type = "group",
 				name = L["Raid Progression"],
