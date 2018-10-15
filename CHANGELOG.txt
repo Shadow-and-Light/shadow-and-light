@@ -1,7 +1,17 @@
 v3.48
+Requires ElvUI 10.83 to run
+Additions:
+- Support for module copy feature
+Fixes:
+- Fixed (probably) Details chat report not turning into a link.
+- Fixed some cases of quality color in bags/bank  not applying on first opening.
 Changes:
 - Tab handling functions were rewritten. Now with any sizing option selected they should properly do "overflow" behavior and show select dropdown buttons for tabs not on screen.
 - LFR info on in time datatext will only show active wings info. Blizz functions for getting LFR data are in even more broken than before so they return wrong info about wings and raids you can't get into by using LFG tool.
+- Attempting to deal with weird sorting errors in toolbars. Not sure if that will help.
+- Removed 3 currencies used by warfronts only from currency datatext.
+- Removed an option to reposition incoming healing bars.
+- Removed tooltip offset options for tooltip showing up at cursor position. This is in default ElvUI now.
 
 v3.471 [September 23rd 2018]
 Fixes:
