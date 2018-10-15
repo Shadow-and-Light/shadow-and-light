@@ -498,11 +498,6 @@ P["sle"] = {
 			["throttle"] = 0.2,
 			["color"] = {r = 1,g = 1,b = 1},
 		},
-		["buttons"] = {
-			["anchor"] = "NOANCHOR",
-			["size"] = 24,
-			["mouseover"] = false,
-		},
 		["mapicons"] = {
 			["iconmouseover"] = false,
 			["iconsize"] = 27,
@@ -640,59 +635,59 @@ P["sle"] = {
 	},
 	--Screensaver
 	["screensaver"] = {
-			["keydown"] = false,
-			["title"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 28,
-				["outline"] = "OUTLINE",
-			},
-			["subtitle"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 15,
-				["outline"] = "OUTLINE",
-			},
-			["date"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 15,
-				["outline"] = "OUTLINE",
-				["xOffset"] = 0,
-				["yOffset"] = 0,
-				["hour24"] = true,
-			},
-			["player"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 15,
-				["outline"] = "OUTLINE",
-				["xOffset"] = 0,
-				["yOffset"] = 0,
-			},
-			["tips"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 20,
-				["outline"] = "OUTLINE",
-			},
-			["crest"] = {
-				["size"] = 128,
-				["xOffset_faction"] = 0,
-				["yOffset_faction"] = 0,
-				["xOffset_race"] = 0,
-				["yOffset_race"] = 0,
-			},
-			["xpack"] = 150,
-			["height"] = 135,
-			["playermodel"] = {
-				["anim"] = 4,
-				["distance"] = 4.5,
-				["holderXoffset"] = 0,
-				["holderYoffset"] = 0,
-				["rotation"] = 0,
-			},
-			["animTime"] = 0,
-			["animBounce"] = true,
-			["animType"] = "SlideIn",
-			["tipThrottle"] = 15,
-			["panelTemplate"] = "Transparent",
+		["keydown"] = false,
+		["title"] = {
+			["font"] = "PT Sans Narrow",
+			["size"] = 28,
+			["outline"] = "OUTLINE",
 		},
+		["subtitle"] = {
+			["font"] = "PT Sans Narrow",
+			["size"] = 15,
+			["outline"] = "OUTLINE",
+		},
+		["date"] = {
+			["font"] = "PT Sans Narrow",
+			["size"] = 15,
+			["outline"] = "OUTLINE",
+			["xOffset"] = 0,
+			["yOffset"] = 0,
+			["hour24"] = true,
+		},
+		["player"] = {
+			["font"] = "PT Sans Narrow",
+			["size"] = 15,
+			["outline"] = "OUTLINE",
+			["xOffset"] = 0,
+			["yOffset"] = 0,
+		},
+		["tips"] = {
+			["font"] = "PT Sans Narrow",
+			["size"] = 20,
+			["outline"] = "OUTLINE",
+		},
+		["crest"] = {
+			["size"] = 128,
+			["xOffset_faction"] = 0,
+			["yOffset_faction"] = 0,
+			["xOffset_race"] = 0,
+			["yOffset_race"] = 0,
+		},
+		["xpack"] = 150,
+		["height"] = 135,
+		["playermodel"] = {
+			["anim"] = 4,
+			["distance"] = 4.5,
+			["holderXoffset"] = 0,
+			["holderYoffset"] = 0,
+			["rotation"] = 0,
+		},
+		["animTime"] = 0,
+		["animBounce"] = true,
+		["animType"] = "SlideIn",
+		["tipThrottle"] = 15,
+		["panelTemplate"] = "Transparent",
+	},
 	--Shadows
 	['shadows'] = { 
 		['shadowcolor'] = { ['r'] = 0, ['g'] = 0, ['b'] = 0 },
@@ -1014,7 +1009,6 @@ P["sle"] = {
 			["classTexture"] = "ElvUI Norm",
 		},
 	},
-
 }
 
 --Datatexts

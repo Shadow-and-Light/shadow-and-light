@@ -268,4 +268,113 @@ G["profileCopy"]["sle"] = {
 	["bags"] = {
 		["petLevel"] = true,
 	},
+	["blizzard"] = {
+		["general"] = true,
+	},
+	["chat"] = {
+		["general"] = true,
+		["justify"] = true,
+		["tab"] = true,
+		["invite"] = true,
+	},
+	["databars"] = {
+		["experience"] = true,
+		["reputation"] = true,
+		["honor"] = true,
+		["azerite"] = true,
+	},
+	["datatexts"] = {
+		["panel1"] = true,
+		["panel2"] = true,
+		["panel3"] = true,
+		["panel4"] = true,
+		["panel5"] = true,
+		["panel6"] = true,
+		["panel7"] = true,
+		["panel8"] = true,
+		["leftchat"] = true,
+		["rightchat"] = true,
+		["general"] = true,
+	},
+	["dt"] = {
+		["friends"] = true,
+		["guild"] = true,
+		["mail"] = true,
+		["durability"] = true,
+		["currency"] = true,
+		["regen"] = true,
+	},
+	["legacy"] = {
+		["garrison"] = true,
+		["farm"] = true,
+		["orderhall"] = true,
+		["warwampaign"] = true,
+	},
+	["lfr"] = {
+		["general"] = true,
+	},
+	["loot"] = {
+		["general"] = true,
+		["autoroll"] = true,
+		["announcer"] = true,
+		["history"] = true,
+		["looticons"] = true,
+	},
+	["media"] = {
+		["general"] = true,
+	},
+	["minimap"] = {
+		["coords"] = true,
+		["mapicons"] = true,
+		["instance"] = true,
+		["locPanel"] = true,
+	},
+	["nameplates"] = {
+		["general"] = true,
+	},
+	["quests"] = {
+		["general"] = true,
+	},
+	["pvp"] = {
+		["general"] = true,
+	},
+	["raidmanager"] = {
+		["general"] = true,
+	},
+	["raidmarkers"] = {
+		["general"] = true,
+	},
+	["screensaver"] = {
+		["general"] = true,
+	},
+	["shadows"] = {
+		["general"] = true,
+	},
+	["skins"] = {
+		["general"] = true,
+	},
+	["tooltip"] = {
+		["general"] = true,
+	},
+	["uibuttons"] = {
+		["general"] = true,
+	},
+	["unitframes"] = {
+		["general"] = true,
+		["unit"] = {
+			["player"] = true,
+			["target"] = true,
+			["targettarget"] = true,
+			["targettargettarget"] = true,
+			["focus"] = true,
+			["focustarget"] = true,
+			["pet"] = true,
+			["pettarget"] = true,
+			["party"] = true,
+			["raid"] = true,
+			["raid40"] = true,
+			["boss"] = true,
+			["arena"] = true,
+		},
+	},
 }
