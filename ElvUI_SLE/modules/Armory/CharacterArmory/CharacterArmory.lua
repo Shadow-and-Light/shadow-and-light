@@ -403,7 +403,7 @@ function CA:Setup_CharacterArmory()
 				FontSize = E.db.sle.Armory.Character.Durability.FontSize,
 				FontStyle = E.db.sle.Armory.Character.Durability.FontStyle,
 				directionH = Slot.Direction
-			}, 'TOP'..Slot.Direction, _G["Character"..SlotName], 'TOP'..Slot.Direction, Slot.Direction == 'LEFT' and 0 + E.db.sle.Armory.Character.Durability.xOffset or 0 - E.db.sle.Armory.Character.Durability.xOffset, -3 + E.db.sle.Armory.Character.Durability.yOffset)
+			}, 'TOP'..Slot.Direction, _G["Character"..SlotName], 'TOP'..Slot.Direction, Slot.Direction == 'LEFT' and 2 + E.db.sle.Armory.Character.Durability.xOffset or 0 - E.db.sle.Armory.Character.Durability.xOffset, -3 + E.db.sle.Armory.Character.Durability.yOffset)
 			
 			Slot.Durability = _G["Character"..SlotName].Durability
 			
@@ -963,7 +963,7 @@ function CA:Update_Display(Force)
 				else
 					Slot.Durability:Hide()
 				end
-				Slot.Durability:Point('TOP'..Slot.Direction, _G["Character"..SlotName], 'TOP'..Slot.Direction, Slot.Direction == 'LEFT' and 0 + E.db.sle.Armory.Character.Durability.xOffset or 0 - E.db.sle.Armory.Character.Durability.xOffset, -3 + E.db.sle.Armory.Character.Durability.yOffset)
+				Slot.Durability:Point('TOP'..Slot.Direction, _G["Character"..SlotName], 'TOP'..Slot.Direction, Slot.Direction == 'LEFT' and 2 + E.db.sle.Armory.Character.Durability.xOffset or 0 - E.db.sle.Armory.Character.Durability.xOffset, -3 + E.db.sle.Armory.Character.Durability.yOffset)
 			end
 
 			SocketVisible = nil
