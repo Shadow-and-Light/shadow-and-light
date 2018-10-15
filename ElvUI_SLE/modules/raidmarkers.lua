@@ -6,6 +6,7 @@ local GameTooltip = GameTooltip
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 
+--Visiblity state strings to use based on settings
 RM.VisibilityStates = {
 	["DEFAULT"] = "[noexists, nogroup] hide; show",
 	["INPARTY"] = "[group] show; [petbattle] hide; hide",
@@ -24,6 +25,7 @@ local layouts = {
 	[9] = {RT = 0, WM = 0}, -- clear target/worldmarker
 }
 
+--Creating stuff for keybinds
 function RM:Make(name, command, description)
 	_G["BINDING_NAME_CLICK "..name..":LeftButton"] = description
 	local btn = CreateFrame("Button", name, nil, "SecureActionButtonTemplate")
@@ -32,6 +34,7 @@ function RM:Make(name, command, description)
 	btn:RegisterForClicks("AnyDown")
 end
 
+--On enter/leave functions
 function RM:Bar_OnEnter()
 	RM.frame:SetAlpha(1)
 end
@@ -40,33 +43,33 @@ function RM:Bar_OnLeave()
 	if RM.db.mouseover then RM.frame:SetAlpha(0) end
 end
 
-function RM:CreateButtons()
-	for k, layout in T.ipairs(layouts) do
-		local button = CreateFrame("Button", T.format("SLE_RaidMarkerBarButton%d", k), RM.frame, "SecureActionButtonTemplate")
-		button:SetHeight(E.db.sle.raidmarkers.buttonSize)
-		button:SetWidth(E.db.sle.raidmarkers.buttonSize)
-		button:SetTemplate('Transparent')
 
-		local image = button:CreateTexture(nil, "ARTWORK")
-		image:SetAllPoints()
-		image:SetTexture(k == 9 and "Interface\\BUTTONS\\UI-GroupLoot-Pass-Up" or T.format("Interface\\TargetingFrame\\UI-RaidTargetingIcon_%d", k))
+function RM:CreateButton(index)
+	local info = layouts[index]
+	local target, worldmarker = info.RT, info.WM
+	local button = CreateFrame("Button", T.format("SLE_RaidMarkerBarButton%d", index), RM.frame, "SecureActionButtonTemplate")
+	button:Size(E.db.sle.raidmarkers.buttonSize)
+	button:SetTemplate('Transparent')
 
-		local target, worldmarker = layout.RT, layout.WM
+	button.icon = button:CreateTexture(nil, "ARTWORK")
+	button.icon:SetAllPoints()
+	button.icon:SetTexture(index == 9 and "Interface\\BUTTONS\\UI-GroupLoot-Pass-Up" or T.format("Interface\\TargetingFrame\\UI-RaidTargetingIcon_%d", index))
 
-		if target then
-			button:SetAttribute("type1", "macro")
-			button:SetAttribute("macrotext1", T.format("/tm %d", k == 9 and 0 or k))
-		end
-
-		button:RegisterForClicks("AnyDown")
-		self.frame.buttons[k] = button
+	if target then
+		button:SetAttribute("type1", "macro")
+		button:SetAttribute("macrotext1", T.format("/tm %d", index == 9 and 0 or index))
 	end
+
+	button:RegisterForClicks("AnyDown")
+
+	return button
 end
 
+--So this is a big function to setup macro texts and stuff for all the buttons
 function RM:UpdateWorldMarkersAndTooltips()
-	for i = 1, 9 do
-		local target, worldmarker = layouts[i].RT, layouts[i].WM
-		local button = self.frame.buttons[i]
+	for index = 1, 9 do
+		local target, worldmarker = layouts[index].RT, layouts[index].WM
+		local button = self.frame.buttons[index]
 
 		if target and not worldmarker then
 			button:SetScript("OnEnter", function(self)
@@ -74,21 +77,21 @@ function RM:UpdateWorldMarkersAndTooltips()
 				if E.db.sle.raidmarkers.notooltip then return end
 				GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
 				GameTooltip:SetText(L["Raid Markers"])
-				GameTooltip:AddLine(i == 9 and L["Click to clear the mark."] or L["Click to mark the target."], 1, 1, 1)
+				GameTooltip:AddLine(index == 9 and L["Click to clear the mark."] or L["Click to mark the target."], 1, 1, 1)
 				GameTooltip:Show()
 			end)
 		else
 			local modifier = E.db.sle.raidmarkers.modifier or "shift-"
 			button:SetAttribute(T.format("%stype1", modifier), "macro")
 			button.modifier = modifier
-			button:SetAttribute(T.format("%smacrotext1", modifier), worldmarker == 0 and "/cwm all" or T.format("/cwm %d\n/wm %d", worldmarker, worldmarker))
+			button:SetAttribute(T.format("%smacrotext1", modifier), worldmarker == 0 and "/cwm 0" or T.format("/cwm %d\n/wm %d", worldmarker, worldmarker))
 
 			button:SetScript("OnEnter", function(self)
 				self:SetBackdropBorderColor(.7, .7, 0)
 				if E.db.sle.raidmarkers.notooltip then return end
 				GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
 				GameTooltip:SetText(L["Raid Markers"])
-				GameTooltip:AddLine(i == 9 and T.format("%s\n%s", L["Click to clear the mark."], T.format(L["%sClick to remove all worldmarkers."], button.modifier:upper()))
+				GameTooltip:AddLine(index == 9 and T.format("%s\n%s", L["Click to clear the mark."], T.format(L["%sClick to remove all worldmarkers."], button.modifier:upper()))
 					or T.format("%s\n%s", L["Click to mark the target."], T.format(L["%sClick to place a worldmarker."], button.modifier:upper())), 1, 1, 1)
 				GameTooltip:Show()
 				RM.frame:SetAlpha(1)
@@ -105,6 +108,7 @@ function RM:UpdateWorldMarkersAndTooltips()
 	end
 end
 
+--Size and orientation updates
 function RM:UpdateBar(update)
 	local height, width
 
@@ -119,18 +123,17 @@ function RM:UpdateBar(update)
 	self.frame:SetWidth(width)
 	self.frame:SetHeight(height)
 	local head, tail
-	for i = 9, 1, -1 do
-		local button = self.frame.buttons[i]
-		local prev = self.frame.buttons[i + 1]
+	for index = 9, 1, -1 do
+		local button = self.frame.buttons[index]
+		local prev = self.frame.buttons[index + 1]
 		button:ClearAllPoints()
 
-		button:SetWidth(E.db.sle.raidmarkers.buttonSize)
-		button:SetHeight(E.db.sle.raidmarkers.buttonSize)
-		
+		button:Size(E.db.sle.raidmarkers.buttonSize)
+
 		if E.db.sle.raidmarkers.orientation == "VERTICAL" then
 			head = E.db.sle.raidmarkers.reverse and "BOTTOM" or "TOP"
 			tail = E.db.sle.raidmarkers.reverse and "TOP" or "BOTTOM"
-			if i == 9 then
+			if index == 9 then
 				button:SetPoint(head, 0, (E.db.sle.raidmarkers.reverse and 2 or -2))
 			else
 				button:SetPoint(head, prev, tail, 0, E.db.sle.raidmarkers.spacing*(E.db.sle.raidmarkers.reverse and 1 or -1))
@@ -138,7 +141,7 @@ function RM:UpdateBar(update)
 		else
 			head = E.db.sle.raidmarkers.reverse and "RIGHT" or "LEFT"
 			tail = E.db.sle.raidmarkers.reverse and "LEFT" or "RIGHT"
-			if i == 9 then
+			if index == 9 then
 				button:SetPoint(head, (E.db.sle.raidmarkers.reverse and -2 or 2), 0)
 			else
 				button:SetPoint(head, prev, tail, E.db.sle.raidmarkers.spacing*(E.db.sle.raidmarkers.reverse and -1 or 1), 0)
@@ -178,6 +181,7 @@ function RM:Initialize()
 	if not SLE.initialized then return end
 	RM.db = E.db.sle.raidmarkers
 
+	--Keybinds
 	RM:Make("SLE_RaidFlare1", "/clearworldmarker 1\n/worldmarker 1", "Blue Flare")
 	RM:Make("SLE_RaidFlare2", "/clearworldmarker 2\n/worldmarker 2", "Green Flare")
 	RM:Make("SLE_RaidFlare3", "/clearworldmarker 3\n/worldmarker 3", "Purple Flare")
@@ -186,33 +190,35 @@ function RM:Initialize()
 	RM:Make("SLE_RaidFlare6", "/clearworldmarker 6\n/worldmarker 6", "Orange Flare")
 	RM:Make("SLE_RaidFlare7", "/clearworldmarker 7\n/worldmarker 7", "White Flare")
 	RM:Make("SLE_RaidFlare8", "/clearworldmarker 8\n/worldmarker 8", "Skull Flare")
-
 	RM:Make("SLE_ClearRaidFlares", "/clearworldmarker 0", "Clear All Flares")
 
+	--Create mark frame
 	self.frame = CreateFrame("Frame", "SLE_RaidMarkerBar", E.UIParent, "SecureHandlerStateTemplate")
 	self.frame:SetResizable(false)
 	self.frame:SetClampedToScreen(true)
 	self.frame:SetFrameStrata('LOW')
 	self.frame:CreateBackdrop('Transparent')
+	self.frame.backdrop:SetAllPoints()
 	self.frame:ClearAllPoints()
 	self.frame:Point("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -1, 200)
 	self.frame.buttons = {}
-	
+
 	self:HookScript(self.frame, 'OnEnter', 'Bar_OnEnter');
 	self:HookScript(self.frame, 'OnLeave', 'Bar_OnLeave');
-
-	self.frame.backdrop:SetAllPoints()
+	
+	for index = 1, 9 do
+		self.frame.buttons[index] = self:CreateButton(index)
+	end
+	self:UpdateWorldMarkersAndTooltips()
 
 	E:CreateMover(self.frame, "RaidMarkerBarAnchor", L["Raid Marker Bar"], nil, nil, nil, "ALL,S&L,S&L MISC")
-
-	self:CreateButtons()
 
 	function RM:ForUpdateAll()
 		RM.db = E.db.sle.raidmarkers
 		self:Visibility()
 		self:Backdrop()
+		-- self:UpdateWorldMarkersAndTooltips()
 		self:UpdateBar()
-		self:UpdateWorldMarkersAndTooltips()
 		self:UpdateMouseover()
 	end
 
