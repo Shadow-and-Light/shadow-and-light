@@ -51,36 +51,35 @@ local function UpdateHonor(self, event, unit)
 	if showHonor then
 		local current = T.UnitHonor("player");
 		local max = T.UnitHonorMax("player");
-		local level = T.UnitHonorLevel("player");
-		local levelmax = T.GetMaxPlayerHonorLevel();
+
+		--Guard against division by zero, which appears to be an issue when zoning in/out of dungeons
+		if max == 0 then max = 1 end
 
 		local text = ''
 		local textFormat = self.db.honor.textFormat
 
 		if textFormat == 'PERCENT' then
-			if (T.CanPrestige()) then
-				text = PVP_HONOR_PRESTIGE_AVAILABLE
-			elseif (level == levelmax) then
-				text = MAX_HONOR_LEVEL
-			else
-				text = T.format('%d%%', current / max * 100)
-			end
+			text = T.format('%d%%', current / max * 100)
 		elseif textFormat == 'CURMAX' then
-			if (T.CanPrestige()) then
-				text = PVP_HONOR_PRESTIGE_AVAILABLE
-			elseif (level == levelmax) then
-				text = MAX_HONOR_LEVEL
-			else
-				text = T.format('%s - %s', current, max)
-			end
+			text = T.format('%s - %s', current, max)
 		elseif textFormat == 'CURPERC' then
-			if (T.CanPrestige()) then
-				text = PVP_HONOR_PRESTIGE_AVAILABLE
-			elseif (level == levelmax) then
-				text = MAX_HONOR_LEVEL
-			else
-				text = T.format('%s - %d%%', current, current / max * 100)
-			end
+			text = T.format('%s - %d%%', current, current / max * 100)
+		end
+		
+		if textFormat == 'PERCENT' then
+			text = format('%d%%', current / max * 100)
+		elseif textFormat == 'CURMAX' then
+			text = format('%s - %s', current, max)
+		elseif textFormat == 'CURPERC' then
+			text = format('%s - %d%%', current, current / max * 100)
+		elseif textFormat == 'CUR' then
+			text = format('%s', current)
+		elseif textFormat == 'REM' then
+			text = format('%s', max-current)
+		elseif textFormat == 'CURREM' then
+			text = format('%s - %s', current), max-current)
+		elseif textFormat == 'CURPERCREM' then
+			text = format('%s - %d%% (%s)', current, current / max * 100, max - current)
 		end
 
 		bar.text:SetText(text)

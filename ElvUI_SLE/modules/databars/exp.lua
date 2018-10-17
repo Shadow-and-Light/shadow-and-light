@@ -61,21 +61,37 @@ local function UpdateExperience(self, event)
 		local textFormat = E.db.databars.experience.textFormat
 
 		if rested and rested > 0 then
-				if textFormat == 'PERCENT' then
-					text = T.format('%d%%  '..L["Rested:"]..' %d%%', cur / max * 100, rested / max * 100)
-				elseif textFormat == 'CURMAX' then
-					text = T.format('%s - %s  '..L["Rested:"]..' %s', cur, max, rested)
-				elseif textFormat == 'CURPERC' then
-					text = T.format('%s - %d%%  '..L["Rested:"]..' %s [%d%%]', cur, cur / max * 100, rested, rested / max * 100)
-				end
+			if textFormat == 'PERCENT' then
+				text = format('%d%% R:%d%%', cur / max * 100, rested / max * 100)
+			elseif textFormat == 'CURMAX' then
+				text = format('%s - %s R:%s', cur, max, rested)
+			elseif textFormat == 'CURPERC' then
+				text = format('%s - %d%% R:%s [%d%%]', cur, cur / max * 100, rested, rested / max * 100)
+			elseif textFormat == 'CUR' then
+				text = format('%s R:%s', cur, rested)
+			elseif textFormat == 'REM' then
+				text = format('%s R:%s', max - cur, rested)
+			elseif textFormat == 'CURREM' then
+				text = format('%s - %s R:%s', cur, max - cur, rested)
+			elseif textFormat == 'CURPERCREM' then
+				text = format('%s - %d%% (%s) R:%s', cur, cur / max * 100, max - cur, rested)
+			end
 		else
-				if textFormat == 'PERCENT' then
-					text = T.format('%d%%', cur / max * 100)
-				elseif textFormat == 'CURMAX' then
-					text = T.format('%s - %s', cur, max)
-				elseif textFormat == 'CURPERC' then
-					text = T.format('%s - %d%%', cur, cur / max * 100)
-				end
+			if textFormat == 'PERCENT' then
+				text = format('%d%%', cur / max * 100)
+			elseif textFormat == 'CURMAX' then
+				text = format('%s - %s', cur, max)
+			elseif textFormat == 'CURPERC' then
+				text = format('%s - %d%%', cur, cur / max * 100)
+			elseif textFormat == 'CUR' then
+				text = format('%s', cur)
+			elseif textFormat == 'REM' then
+				text = format('%s', max - cur)
+			elseif textFormat == 'CURREM' then
+				text = format('%s - %s', cur, max - cur)
+			elseif textFormat == 'CURPERCREM' then
+				text = format('%s - %d%% (%s)', cur, cur / max * 100, max - cur)
+			end
 		end
 
 		bar.text:SetText(text)

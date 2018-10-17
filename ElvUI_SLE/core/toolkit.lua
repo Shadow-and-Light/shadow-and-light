@@ -148,7 +148,6 @@ T.GetNumWorldPVPAreas = GetNumWorldPVPAreas
 T.GetWorldPVPAreaInfo = GetWorldPVPAreaInfo
 T.GetNumBattlefieldScores = GetNumBattlefieldScores
 T.GetBattlefieldScore = GetBattlefieldScore
-T.CanPrestige = CanPrestige
 T.GetPVPLifetimeStats = GetPVPLifetimeStats
 T.GetPersonalRatedInfo = GetPersonalRatedInfo
 T.GetInspectArenaData = GetInspectArenaData
