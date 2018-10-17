@@ -88,7 +88,7 @@ end
 
 function M:RaidUtility_Hook()
 	--Creating mover for the button
-	E:CreateMover(_G["RaidUtility_ShowButton"], "RaidUtility_Mover", L["Raid Utility"], nil, nil, nil, "ALL,S&L,S&L MISC")
+	E:CreateMover(_G["RaidUtility_ShowButton"], "RaidUtility_Mover", RAID_CONTROL, nil, nil, nil, "ALL,S&L,S&L MISC")
 	local mover = _G["RaidUtility_Mover"]
 	local frame = _G["RaidUtility_ShowButton"]
 	--Setting default point and stuff
