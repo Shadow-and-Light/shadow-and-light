@@ -77,7 +77,7 @@ local function UpdateHonor(self, event, unit)
 		elseif textFormat == 'REM' then
 			text = format('%s', max-current)
 		elseif textFormat == 'CURREM' then
-			text = format('%s - %s', current), max-current)
+			text = format('%s - %s', current, max-current)
 		elseif textFormat == 'CURPERCREM' then
 			text = format('%s - %d%% (%s)', current, current / max * 100, max - current)
 		end
