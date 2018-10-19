@@ -119,6 +119,9 @@ LP.Spells = {
 	},
 	["WARLOCK"] = {},
 	["WARRIOR"] = {},
+	["DarkIronDwarf"] = {
+		[1] = {text = T.GetSpellInfo(265225),icon = SLE:GetIconFromID("spell", 265225),secure = {buttonType = "spell",ID = 265225}, UseTooltip = true}, -- Mole Machine (Dark Iron Dwarfs)
+	},
 	["teleports"] = {
 		["Horde"] = {
 			[1] = {text = T.GetSpellInfo(3563),icon = SLE:GetIconFromID("spell", 3563),secure = {buttonType = "spell",ID = 3563}, UseTooltip = true},-- TP:Undercity
@@ -533,7 +536,7 @@ function LP:PopulateDropdown(click)
 	local MENU_WIDTH
 
 	if LP.db.portals.showSpells then
-		if LP:SpellList(LP.Spells[E.myclass], nil, true) or  LP:SpellList(LP.Spells.challenge, nil, true) or E.myclass == "MAGE" then
+		if LP:SpellList(LP.Spells[E.myclass], nil, true) or  LP:SpellList(LP.Spells.challenge, nil, true) or E.myclass == "MAGE" or E.myrace == "DarkIronDwarf" then
 			T.tinsert(LP.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
 			LP:SpellList(LP.Spells[E.myclass], LP.MainMenu)
 			if LP:SpellList(LP.Spells.challenge, nil, true) then
@@ -566,6 +569,9 @@ function LP:PopulateDropdown(click)
 					T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
 					SLE:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
 				end})
+			end
+			if E.myrace == "DarkIronDwarf" then
+				LP:SpellList(LP.Spells[E.myrace], LP.MainMenu)
 			end
 		end
 	end
