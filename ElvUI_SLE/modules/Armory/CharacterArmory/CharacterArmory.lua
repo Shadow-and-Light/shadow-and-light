@@ -628,7 +628,11 @@ function CA:Update_Gear()
 		ErrorDetected = nil
 
 		if not (SlotName == 'ShirtSlot' or SlotName == 'TabardSlot') then
-			do --<< Clear Setting >>--
+			local ItemInfoAvailable
+			if ItemLink then
+				ItemInfoAvailable = T.GetItemInfo(ItemLink)
+			end
+			if ItemInfoAvailable then --<< Clear Setting >>--
 				NeedUpdate, TrueItemLevel, UsableEffect, ItemUpgradeID, CurrentUpgrade, MaxUpgrade, ItemType, ItemTexture, IsTransmogrified = nil, nil, nil, nil, nil, nil, nil, nil, nil
 				Slot.ItemRarity = nil
 				Slot.ItemLevel:SetText(nil)
@@ -660,11 +664,14 @@ function CA:Update_Gear()
 					Slot.IllusionAnchor.Link = nil
 					Slot.IllusionAnchor:Hide()
 				end
+			else
+				NeedUpdate = true
 			end
-			if ItemLink then
+			if ItemLink and ItemInfoAvailable then
 				if not ItemLink:find('%[%]') then -- sometimes itemLink is malformed so we need to update when crashed
 
 					ItemData = { T.split(':', ItemLink) }
+					local ItemInfoAvailable
 
 					_, _, Slot.ItemRarity, BasicItemLevel, _, _, _, _, ItemType = T.GetItemInfo(ItemLink)
 					R, G, B = T.GetItemQualityColor(Slot.ItemRarity)
@@ -873,6 +880,8 @@ function CA:Update_Gear()
 				else
 					NeedUpdate = true
 				end
+			else
+				NeedUpdate = true
 			end
 
 			if NeedUpdate then
