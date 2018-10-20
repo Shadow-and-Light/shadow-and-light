@@ -58,6 +58,8 @@ end
 --{ItemID, ButtonText, isToy}
 LP.Hearthstones = {
 	{6948}, --Hearthstone
+	{163045, nil, true}, --Hallow HS
+	{162973, nil, true}, --Winter HS
 	{93672, nil, true}, --Dark Portal
 	{54452, nil, true}, --Etherial Portal
 	{142542, nil, true}, --Tome of Town Portal (Diablo Event)
