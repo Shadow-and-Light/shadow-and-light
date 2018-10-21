@@ -184,7 +184,7 @@ end
 function B:MakeMovable(Name)
 	local frame = _G[Name]
 	if not frame then --Frame in the list was removed since the last time I checked
-		SLE:ErrorPrint("Frame to move doesn't exist: "..(frameName or "Unknown"))
+		SLE:Print("Frame to move doesn't exist: "..(frameName or "Unknown"), "error")
 		return
 	end
 

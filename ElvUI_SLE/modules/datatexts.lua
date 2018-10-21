@@ -93,7 +93,7 @@ function DTP:LoadDTHook()
 			for panelName, datatext in T.pairs(DTP.GoldCache) do
 				--Message about this particular panel having gold dt
 				local message = T.format(L["SLE_DT_CURRENCY_WARNING_GOLD"], "|cff1784d1"..L[panelName].."|r")
-				SLE:ErrorPrint(message)
+				SLE:Print(message, "warning")
 				--Unregister all events for this gold dt to prevent weird shit on currency
 				if datatext then datatext:UnregisterAllEvents() end
 			end

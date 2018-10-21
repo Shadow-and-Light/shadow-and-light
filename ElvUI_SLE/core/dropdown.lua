@@ -123,7 +123,7 @@ function SLE:DropdownList(list, frame, customWidth, justify)
 			elseif btn.secure.buttonType == "macro" then
 				btn:SetAttribute("macrotext", btn.secure.ID)
 			else
-				SLE:ErrorPrint("Wrong argument for button type: "..btn.secure.buttonType)
+				SLE:Print("Wrong argument for button type: "..btn.secure.buttonType, "error")
 			end
 		end
 		btn.UseTooltip = list[i].UseTooltip

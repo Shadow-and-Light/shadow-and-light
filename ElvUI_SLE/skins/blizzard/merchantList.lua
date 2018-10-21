@@ -747,7 +747,7 @@ local function MerchantListSkinInit()
 		E:Delay(0.25, function() List_CurrencyUpdate(); List_MerchantUpdate(); MerchantUpdating = false end)
 	end)
 	if not locale[GetLocale()] then
-		SLE:ErrorPrint("Your language is unavailable for selected merchant style. We would appretiate if ou contact us and provide needed translations.")
+		SLE:Print("Your language is unavailable for selected merchant style. We would appretiate if you contact us and provide needed translations.", "warning")
 	end
 	CreateFrame("GameTooltip", "SLE_Merchant_HiddenTooltip", UIParent, "GameTooltipTemplate");
 end

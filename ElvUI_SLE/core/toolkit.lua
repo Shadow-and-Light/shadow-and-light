@@ -302,12 +302,14 @@ function SLE:AddTutorials()
 end
 
 --S&L print
-function SLE:Print(msg)
-	T.print(E["media"].hexvaluecolor..'S&L:|r', msg)
-end
-
-function SLE:ErrorPrint(msg)
-	T.print("|cffFF0000S&L Error:|r", msg)
+function SLE:Print(msg, type)
+	if type == "error" then
+		(_G[E.db.general.messageRedirect] or DEFAULT_CHAT_FRAME):AddMessage(strjoin("", "|cffFF0000S&L Error:|r ", msg))
+	elseif type == "warning" then
+		(_G[E.db.general.messageRedirect] or DEFAULT_CHAT_FRAME):AddMessage(strjoin("", "|cffD3CF00S&L Info:|r ", msg))
+	else
+		(_G[E.db.general.messageRedirect] or DEFAULT_CHAT_FRAME):AddMessage(strjoin("", E["media"].hexvaluecolor, "S&L Message:|r ", msg))
+	end
 end
 
 --A function to ensure any files which set movers will be recognised as text by git.

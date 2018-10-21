@@ -1537,7 +1537,7 @@ function IA:CreateInspectFrame()
 								NotifyInspect(UnitID)
 								return
 							else
-								SLE:ErrorPrint(L['Inspect is canceled because target was changed or lost.'])
+								SLE:Print(L['Inspect is canceled because target was changed or lost.'], "error")
 							end
 						end
 					end
@@ -1819,7 +1819,7 @@ IA.InspectUnit = function(UnitID)
 	if not T.UnitIsPlayer(UnitID) then
 		return
 	elseif T.UnitIsDeadOrGhost('player') then
-		SLE:ErrorPrint(L["You can't inspect while dead."])
+		SLE:Print(L["You can't inspect while dead."], "error")
 		return
 	elseif not T.UnitIsVisible(UnitID) then
 		

@@ -268,7 +268,7 @@ function LP:OnClick(btn)
 			ToggleFrame(_G["WorldMapFrame"])
 		end
 	elseif btn == "RightButton" and LP.db.portals.enable and not T.InCombatLockdown() then
-		if LP.ListBuilding then SLE:ErrorPrint(L["Info for some items is not available yet. Please try again later"]) return end
+		if LP.ListBuilding then SLE:Print(L["Info for some items is not available yet. Please try again later"], "error") return end
 		LP:PopulateDropdown(true)
 	end
 end
@@ -542,7 +542,7 @@ function LP:PopulateDropdown(click)
 	if LP.Menu2:IsShown() then ToggleFrame(LP.Menu2) return end
 	local full_list = LP:ItemList()
 	if not full_list then
-		if not LP.ListUpdating then SLE:ErrorPrint(L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."]); LP.ListUpdating = true end
+		if not LP.ListUpdating then SLE:Print(L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."], "error"); LP.ListUpdating = true end
 		if not LP.InfoUpdatingTimer then LP.InfoUpdatingTimer = LP:ScheduleTimer(LP.PopulateDropdown, 3) end
 		T.twipe(LP.MainMenu)
 		return

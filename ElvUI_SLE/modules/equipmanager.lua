@@ -70,8 +70,8 @@ EM.TagsTable = {
 	["talent"] = function(tier, column)
 		local tier, column = T.tonumber(tier), T.tonumber(column)
 		if not (tier or column) then return false end
-		if tier < 0 or tier > 7 then SLE:ErrorPrint(T.format(L["SLE_EM_TAG_INVALID_TALENT_TIER"], tier)) return false end
-		if column < 0 or column > 3 then SLE:ErrorPrint(T.format(L["SLE_EM_TAG_INVALID_TALENT_COLUMN"], column)) return false end
+		if tier < 0 or tier > 7 then SLE:Print(T.format(L["SLE_EM_TAG_INVALID_TALENT_TIER"], tier), "error") return false end
+		if column < 0 or column > 3 then SLE:Print(T.format(L["SLE_EM_TAG_INVALID_TALENT_COLUMN"], column), "error") return false end
 		local _, _, _, selected = T.GetTalentInfo(tier, column, 1)
 		if selected then
 			return true
@@ -171,7 +171,7 @@ function EM:TagsProcess(msg)
 						local command, argument = (":"):split(tagString) --Split actual core tag from arguments
 						local argTable = {} --List of arguments to pass later
 						if argument and T.find(argument, "%.") then --If dot is found then warn the user of a typo. This is a high class establishment, we use commas here.
-							SLE:ErrorPrint(L["SLE_EM_TAG_DOT_WARNING"])
+							SLE:Print(L["SLE_EM_TAG_DOT_WARNING"], "error")
 						else
 							if argument and ("/"):split(argument) then --if tag happened to have 2+ argumants
 								local former
@@ -189,7 +189,7 @@ function EM:TagsProcess(msg)
 								T.tinsert(CommandsInfo, { condition = command:match("^%s*(.+)%s*$"), args = argTable })
 							else
 								--We don't use that kind of tag in this neighborhood
-								SLE:ErrorPrint(T.format(L["SLE_EM_TAG_INVALID"], tag))
+								SLE:Print(T.format(L["SLE_EM_TAG_INVALID"], tag), "error")
 								--Wipe the table and stop executing cause since one tag is wrong the string will fail to execute anyways
 								T.twipe(EM.Conditions)
 								return
@@ -215,7 +215,7 @@ function EM:TagsConditionsCheck(data)
 				local tagFunc = conditionInfo["condition"]
 				--If tag contains nil (tho previous checks should have this covere already) or not actually a function
 				if not EM.TagsTable[tagFunc] or T.type(EM.TagsTable[tagFunc]) ~= "function" then
-					SLE:ErrorPrint(T.format(L["SLE_EM_TAG_INVALID"], tagFunc))
+					SLE:Print(T.format(L["SLE_EM_TAG_INVALID"], tagFunc), "error")
 					return nil
 				end
 				--Getting arguments table and use it to call a tag check
@@ -280,7 +280,7 @@ local function Equip(event)
 			end
 		else
 			--if id of specifiet set is not peresent (e.g. no set named like trueSet exists), you should probably revisit your tag line
-			SLE:ErrorPrint(T.format(L["SLE_EM_SET_NOT_EXIST"], trueSet))
+			SLE:Print(T.format(L["SLE_EM_SET_NOT_EXIST"], trueSet), "error")
 		end
 	end
 end
