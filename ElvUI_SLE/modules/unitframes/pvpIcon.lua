@@ -47,7 +47,7 @@ function SUF:Configure_PVPIcon(frame)
 			PvP.SLE_timerText:Hide()
 		end
 	end
-	if E.db.sle.unitframes.unit[frame.unit].pvpIconText.SLE_levelText then
+	if E.db.sle.unitframes.unit[frame.unit] and E.db.sle.unitframes.unit[frame.unit].pvpIconText.SLE_levelText then
 		PvP.SLE_levelText:Show()
 		PvP.SLE_levelText:Point("CENTER", PvP, "BOTTOM", 0, 0)
 	else
