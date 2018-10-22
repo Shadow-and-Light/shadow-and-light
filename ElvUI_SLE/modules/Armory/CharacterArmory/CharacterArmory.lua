@@ -632,7 +632,7 @@ function CA:Update_Gear()
 			if ItemLink then
 				ItemInfoAvailable = T.GetItemInfo(ItemLink)
 			end
-			if ItemInfoAvailable then --<< Clear Setting >>--
+			if ItemInfoAvailable or not ItemLink then --<< Clear Setting >>--
 				NeedUpdate, TrueItemLevel, UsableEffect, ItemUpgradeID, CurrentUpgrade, MaxUpgrade, ItemType, ItemTexture, IsTransmogrified = nil, nil, nil, nil, nil, nil, nil, nil, nil
 				Slot.ItemRarity = nil
 				Slot.ItemLevel:SetText(nil)
