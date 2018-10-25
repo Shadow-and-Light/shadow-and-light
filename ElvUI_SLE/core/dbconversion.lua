@@ -1,0 +1,1 @@
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
