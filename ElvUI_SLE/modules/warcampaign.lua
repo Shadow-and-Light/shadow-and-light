@@ -8,15 +8,7 @@ function mod:SHIPMENT_CRAFTER_INFO(event, success, shipmentCount, maxShipments, 
 	local n = _G["GarrisonCapacitiveDisplayFrame"].available or 0
 	if clicked or n == 0 or not E.db.sle.legacy.warwampaign.autoOrder.enable then return end
 	clicked = true
-	-- local ID = C_Garrison.GetOwnedBuildingInfo(plotID)
-	-- local nope = buildID[ID]
-	-- if nope then
-		-- if Gar.db.autoOrder["auto"..nope] then
-			-- _G["GarrisonCapacitiveDisplayFrame"].CreateAllWorkOrdersButton:Click()
-		-- end
-	-- else
-		_G["GarrisonCapacitiveDisplayFrame"].CreateAllWorkOrdersButton:Click()
-	-- end
+	_G["GarrisonCapacitiveDisplayFrame"].CreateAllWorkOrdersButton:Click()
 end
 
 function mod:SHIPMENT_CRAFTER_CLOSED()
