@@ -133,7 +133,7 @@ function SLE:Initialize()
 
 	--Annoying message
 	if E.db.general.loginmessage then
-		Toolkit.print(Toolkit.format(L["SLE_LOGIN_MSG"], E["media"].hexvaluecolor, SLE.version))
+		SLE:Print(Toolkit.format(L["SLE_LOGIN_MSG"], E["media"].hexvaluecolor, SLE.version), "info")
 	end
 
 	SLE:BuildGameMenu()
