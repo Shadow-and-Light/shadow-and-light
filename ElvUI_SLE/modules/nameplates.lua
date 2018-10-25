@@ -5,10 +5,6 @@ local rosterTimer
 
 local GetNamePlates = C_NamePlate.GetNamePlates
 
-local function RGBToHex(r, g, b)
-	return T.format('|cFF%02x%02x%02x', r * 255, g * 255, b * 255)
-end
-
 --Table to cache the members of player's group
 N.GroupMembers = {}
 
@@ -57,7 +53,7 @@ hooksecurefunc(NP, 'Update_ThreatList', function(self, plate)
 			if unit and not T.UnitIsPlayer(unit) and T.UnitCanAttack('player', unit) then
 				local status, percent = T.select(2, T.UnitDetailedThreatSituation('player', unit))
 				if (status) then
-					plate.SLE_threatInfo:SetFormattedText('%s%.0f%%|r', RGBToHex(T.GetThreatStatusColor(status)), percent or "")
+					plate.SLE_threatInfo:SetFormattedText('%s%.0f%%|r', E:RGBToHex(T.GetThreatStatusColor(status)), percent or "")
 				end
 			end
 		end
