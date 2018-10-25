@@ -217,7 +217,6 @@ function S:Show()
 		GuildName, GuildRank = T.GetGuildInfo("player")
 	end
 	SS.PlayerName:SetText(T.format("|c%s%s|r", Color.colorStr, Name))
-	SS.Guild:SetText(T.format(GuildName and "|cff00AAFF<%s>|r" or L["No Guild"], GuildName))
 	SS.GuildRank:SetText(T.format(GuildRank and "|cff00AAFF"..RANK..": %s|r" or "", GuildRank))
 	SS.Subtitle:SetText(L["Take care of yourself, Master!"])
 	SS.PlayerInfo:SetText(T.format("%s\n|c%s%s|r, %s %s", E.myrealm, Color.colorStr, Class, LEVEL, Level))
@@ -345,6 +344,7 @@ function S:UpdateTimer()
 	end
 end
 
+local degreeMultyplier = 10
 --Camera rotation script when entering or leaving afk
 function S:Event(event, unit)
 	if not E.db.general.afk then return end
@@ -362,8 +362,8 @@ function S:Event(event, unit)
 	if T.UnitIsAFK("player") then
 		if not SS:GetScript("OnUpdate") then
 			SS:SetScript("OnUpdate", function(self, elapsed) 
-				T.FlipCameraYaw(elapsed*10)
-				degree = degree + elapsed*10
+				T.FlipCameraYaw(elapsed*degreeMultyplier)
+				degree = degree + elapsed*degreeMultyplier
 			end)
 		end
 	else
@@ -372,12 +372,6 @@ function S:Event(event, unit)
 		degree = 0
 		TipsElapsed = 0
 	end
-end
-
---Rotating Camera
-function S:UpdateCamera(elapsed)
-	T.FlipCameraYaw(elapsed*10)
-	degree = degree + elapsed*10
 end
 
 function S:AnimFinished()
@@ -397,6 +391,20 @@ function S:AbortAFK()
 	if T.UnitIsAFK("player") then SendChatMessage("" ,"AFK" ) end
 end
 
+function S:SetAFK_Hook(status)
+	if not E.db.general.afk then return end -- To prevent bs from happening
+	if status then
+		MoveViewLeftStop()
+		if(IsInGuild()) then GuildName, GuildRank = T.GetGuildInfo("player") end
+		SS.Guild:SetText(T.format(GuildName and "|cff00AAFF<%s>|r" or L["No Guild"], GuildName))
+
+		SS.Model:SetUnit("player")
+		SS.Model:SetAnimation(S.db.playermodel.anim)
+		self.startTime = T.GetTime()
+		self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
+	end
+end
+
 function S:Initialize()
 	if not SLE.initialized then return end
 	SS = AFK.AFKMode
@@ -408,53 +416,9 @@ function S:Initialize()
 	S.OnKeyDown = SS:GetScript("OnKeyDown")
 	if not E.private.sle.module.screensaver then return end
 	S:KeyScript()
+
 	--Overwriting to get rid of Elv's camera rotation and starting animation
-	function AFK:SetAFK(status)
-		if not E.db.general.afk then return end -- To prevent bs from happening
-		if(status) then
-			self.AFKMode:Show()
-			CloseAllBags()
-			UIParent:Hide()
-
-			if S.db.enable then
-				SS.Model:SetUnit("player")
-				SS.Model:SetAnimation(S.db.playermodel.anim)
-				self.startTime = T.GetTime()
-				self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
-			else
-				self.AFKMode.bottom.model.curAnimation = "wave"
-				self.AFKMode.bottom.model.startTime = T.GetTime()
-				self.AFKMode.bottom.model.duration = 2.3
-				self.AFKMode.bottom.model:SetUnit("player")
-				self.AFKMode.bottom.model.isIdle = nil
-				self.AFKMode.bottom.model:SetAnimation(67)
-				self.AFKMode.bottom.model.idleDuration = 40
-				self.startTime = T.GetTime()
-				self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
-			end
-			self.AFKMode.chat:RegisterEvent("CHAT_MSG_WHISPER")
-			self.AFKMode.chat:RegisterEvent("CHAT_MSG_BN_WHISPER")
-			self.AFKMode.chat:RegisterEvent("CHAT_MSG_GUILD")
-
-			self.isAFK = true
-		elseif(self.isAFK) then
-			UIParent:Show()
-			self.AFKMode:Hide()
-
-			self:CancelTimer(self.timer)
-			self:CancelTimer(self.animTimer)
-			self.AFKMode.bottom.time:SetText("00:00")
-
-			self.AFKMode.chat:UnregisterAllEvents()
-			self.AFKMode.chat:Clear()
-			if(_G["PVEFrame"]:IsShown()) then --odd bug, frame is blank
-				PVEFrame_ToggleFrame()
-				PVEFrame_ToggleFrame()
-			end
-
-			self.isAFK = false
-		end
-	end
+	hooksecurefunc(AFK, "SetAFK", S.SetAFK_Hook)
 
 	hooksecurefunc(AFK, "OnEvent", S.Event)
 	hooksecurefunc(AFK, "UpdateTimer", S.UpdateTimer)
@@ -465,6 +429,7 @@ function S:Initialize()
 	SS.Guild = SS.Bottom.guild
 	SS.timePassed = SS.Bottom.time
 	SS.Model = SS.Bottom.model
+
 	S:Setup()
 	S:ModelHolderPos()
 	
