@@ -269,6 +269,7 @@ function S:Hide()
 	SS.Model:SetAlpha((S.db.animTime > 0 and 0) or 1)
 	SS.ScrollFrame:SetAlpha((S.db.animTime > 0 and 0) or 1)
 	S:SetupType()
+	TipsElapsed = 0
 end
 
 function S:SetupType()
@@ -353,6 +354,7 @@ function S:Event(event, unit)
 		T.FlipCameraYaw(-degree)
 		degree = 0
 		TipsElapsed = 0
+		SS.timePassed:SetFormattedText("00:00")
 		return
 	end
 	if (event == "PLAYER_FLAGS_CHANGED" and unit ~= "player") or event ~= "PLAYER_FLAGS_CHANGED" then return end
@@ -371,6 +373,7 @@ function S:Event(event, unit)
 		T.FlipCameraYaw(-degree)
 		degree = 0
 		TipsElapsed = 0
+		SS.timePassed:SetFormattedText("00:00")
 	end
 end
 
@@ -391,24 +394,23 @@ function S:AbortAFK()
 	if T.UnitIsAFK("player") then SendChatMessage("" ,"AFK" ) end
 end
 
+--Hook to Elv's set afk
 function S:SetAFK_Hook(status)
 	if not E.db.general.afk then return end -- To prevent bs from happening
 	if status then
-		MoveViewLeftStop()
+		MoveViewLeftStop() --Stop Elv's stupid camera
 		if(IsInGuild()) then GuildName, GuildRank = T.GetGuildInfo("player") end
-		SS.Guild:SetText(T.format(GuildName and "|cff00AAFF<%s>|r" or L["No Guild"], GuildName))
-
+		SS.Guild:SetText(T.format(GuildName and "|cff00AAFF<%s>|r" or L["No Guild"], GuildName)) --Setting good looking guild name line
+		--Own model animation
 		SS.Model:SetUnit("player")
 		SS.Model:SetAnimation(S.db.playermodel.anim)
-		self.startTime = T.GetTime()
-		self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
 	end
 end
 
 function S:Initialize()
 	if not SLE.initialized then return end
 	SS = AFK.AFKMode
-	if type(E.db.sle.screensaver.crest) == "number" then
+	if T.type(E.db.sle.screensaver.crest) == "number" then
 		E.db.sle.screensaver.crest = nil
 		E.db.sle.screensaver.crest = P.sle.screensaver.crest
 	end
@@ -417,7 +419,7 @@ function S:Initialize()
 	if not E.private.sle.module.screensaver then return end
 	S:KeyScript()
 
-	--Overwriting to get rid of Elv's camera rotation and starting animation
+	--Hooking to Elv's stuff to get rid of his camera rotation, cause turns out it is shit
 	hooksecurefunc(AFK, "SetAFK", S.SetAFK_Hook)
 
 	hooksecurefunc(AFK, "OnEvent", S.Event)
@@ -432,14 +434,14 @@ function S:Initialize()
 
 	S:Setup()
 	S:ModelHolderPos()
-	
+
 	function S:ForUpdateAll()
 		S.db = E.db.sle.screensaver
 		S:SetupAnimations()
 		S:Hide()
 		S:KeyScript()
 	end
-	
+
 	S:ForUpdateAll()
 
 	SS:HookScript("OnShow", S.Show)
