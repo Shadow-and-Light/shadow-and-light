@@ -76,6 +76,7 @@ local DungeonRaid = {
 	1273, --Seal of Broken Fate
 	1314, --Lingering soul fragment
 	1580, --Seal of Wartorn Fate
+	1718, --Azerite Impurity
 }
 
 local PvPPoints = {
@@ -119,6 +120,8 @@ local MiscellaneousCurrency = {
 	-- 1540, --Wood
 	-- 1541, --Iron
 	-- 1559, --Essence of Storms
+	1717, --7th Legion Commendation
+	1716, --Honorbound Commendation
 }
 
 local HordeColor = RAID_CLASS_COLORS["DEATHKNIGHT"]
@@ -183,39 +186,41 @@ local function GetCurrency(CurrencyTable, Text)
 	local ShownTable = {}
 	for key, id in T.pairs(CurrencyTable) do
 		local name, amount, texture, week, weekmax, maxed, discovered = GetCurrencyInfo(id)
-		local LeftString = GetOption('Icons') and T.format('%s %s', T.format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture), name) or name
-		local RightString = amount
-		local unused = SLE:SimpleTable(HiddenCurrency, name) or nil
+		if name and name ~= "" then
+			local LeftString = GetOption('Icons') and T.format('%s %s', T.format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture), name) or name
+			local RightString = amount
+			local unused = SLE:SimpleTable(HiddenCurrency, name) or nil
 
-		if maxed > 0 then
-			RightString = T.format('%s / %s', amount, maxed)
-		end
+			if maxed > 0 then
+				RightString = T.format('%s / %s', amount, maxed)
+			end
 
-		local r1, g1, b1 = 1, 1, 1
-		for i = 1, GetNumWatchedTokens() do
-			local _, _, _, itemID = GetBackpackCurrencyInfo(i)
-			if id == itemID then
-				r1, g1, b1 = .24, .54, .78
+			local r1, g1, b1 = 1, 1, 1
+			for i = 1, GetNumWatchedTokens() do
+				local _, _, _, itemID = GetBackpackCurrencyInfo(i)
+				if id == itemID then
+					r1, g1, b1 = .24, .54, .78
+				end
 			end
-		end
-		local r2, g2, b2 = r1, g1, b1
-		if maxed > 0 and (amount == maxed) or weekmax > 0 and (week == weekmax) then r2, g2, b2 = .77, .12, .23 end
-		if not (amount == 0 and not GetOption('Zero') and r1 == 1) and discovered and not unused then
-			if not Seperator then
-				DT.tooltip:AddLine(' ')
-				DT.tooltip:AddLine(Text)
-				Seperator = true
+			local r2, g2, b2 = r1, g1, b1
+			if maxed > 0 and (amount == maxed) or weekmax > 0 and (week == weekmax) then r2, g2, b2 = .77, .12, .23 end
+			if not (amount == 0 and not GetOption('Zero') and r1 == 1) and discovered and not unused then
+				if not Seperator then
+					DT.tooltip:AddLine(' ')
+					DT.tooltip:AddLine(Text)
+					Seperator = true
+				end
+				T.tinsert(ShownTable,
+					{
+						name = name,
+						left = LeftString,
+						right = RightString,
+						r1 = r1, g1 = g1, b1 = b1,
+						r2 = r2, g2 = g2, b2 = b2,
+						amount = amount
+					}
+				)
 			end
-			T.tinsert(ShownTable,
-				{
-					name = name,
-					left = LeftString,
-					right = RightString,
-					r1 = r1, g1 = g1, b1 = b1,
-					r2 = r2, g2 = g2, b2 = b2,
-					amount = amount
-				}
-			)
 		end
 	end
 	sort(ShownTable, SortCurrency)
