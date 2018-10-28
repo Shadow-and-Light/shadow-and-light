@@ -105,24 +105,7 @@ RP.bosses = {
 		"uldir",
 	},
 }
-RP.Raids = {
-	["LONG"] = {
-		SLE:GetMapInfo(777 , "name"),
-		SLE:GetMapInfo(806, "name"),
-		SLE:GetMapInfo(764, "name"),
-		SLE:GetMapInfo(850 , "name"),
-		SLE:GetMapInfo(909, "name"),
-		SLE:GetMapInfo(1148, "name"),
-	},
-	["SHORT"] = {
-		L["RAID_EN"],
-		L["RAID_TOV"],
-		L["RAID_NH"],
-		L["RAID_TOS"],
-		L["RAID_ANTO"],
-		SLE:GetMapInfo(1148, "name"),
-	},
-}
+RP.Raids = {}
 RP.modes = { 
 	["LONG"] = {
 		PLAYER_DIFFICULTY6,
@@ -137,6 +120,25 @@ RP.modes = {
 		utf8sub(PLAYER_DIFFICULTY3, 1 , 1),
 	},
 }
+
+local function PopulateRaidsTable()
+	RP.Raids["LONG"] = {
+		SLE:GetMapInfo(777 , "name"),
+		SLE:GetMapInfo(806, "name"),
+		SLE:GetMapInfo(764, "name"),
+		SLE:GetMapInfo(850 , "name"),
+		SLE:GetMapInfo(909, "name"),
+		SLE:GetMapInfo(1148, "name"),
+	}
+	RP.Raids["SHORT"] = {
+		L["RAID_EN"],
+		L["RAID_TOV"],
+		L["RAID_NH"],
+		L["RAID_TOS"],
+		L["RAID_ANTO"],
+		SLE:GetMapInfo(1148, "name"),
+	}
+end
 
 function RP:GetProgression(guid)
 	local kills, complete, pos = 0, false, 0
@@ -249,6 +251,7 @@ local function OnInspectInfo(self, tt, unit, r, g, b)
 end
 
 function RP:Initialize()
+	PopulateRaidsTable()
 	hooksecurefunc(TT, 'ShowInspectInfo', OnInspectInfo) 
 end
 

@@ -61,58 +61,6 @@ function SLE:ConfigCats() --Additional mover groups
 	E.ConfigModeLocalizedStrings["S&L MISC"] = L["S&L: Misc"]
 end
 
-function SLE:IncompatibleAddOn(addon, module, optiontable, value)
-	E.PopupDialogs["SLE_INCOMPATIBLE_ADDON"].button1 = addon
-	E.PopupDialogs["SLE_INCOMPATIBLE_ADDON"].button2 = 'S&L: '..module
-	E.PopupDialogs["SLE_INCOMPATIBLE_ADDON"].addon = addon
-	E.PopupDialogs["SLE_INCOMPATIBLE_ADDON"].module = module
-	E.PopupDialogs["SLE_INCOMPATIBLE_ADDON"].optiontable = optiontable
-	E.PopupDialogs["SLE_INCOMPATIBLE_ADDON"].value = value
-	E.PopupDialogs["SLE_INCOMPATIBLE_ADDON"].showAlert = true
-	E:StaticPopup_Show('SLE_INCOMPATIBLE_ADDON', addon, module)
-end
-
-function SLE:CheckIncompatible()
-	if SLE._Compatibility["ElvUI_Enhanced"] then
-		E:StaticPopup_Show('ENHANCED_SLE_INCOMPATIBLE')
-		return true
-	end
-	if Toolkit.IsAddOnLoaded('SquareMinimapButtons') and E.private.sle.minimap.mapicons.enable then
-		SLE:IncompatibleAddOn('SquareMinimapButtons', 'SquareMinimapButtons', E.private.sle.minimap.mapicons, "enable")
-		return true
-	end
-	if Toolkit.IsAddOnLoaded('LootConfirm') then
-		E:StaticPopup_Show('LOOTCONFIRM_SLE_INCOMPATIBLE')
-		return true
-	end
-	if Toolkit.IsAddOnLoaded('ElvUITransparentActionbars') then
-		E:StaticPopup_Show('TRANSAB_SLE_INCOMPATIBLE')
-		return true
-	end
-	return false
-end
-
-local GetAddOnEnableState = GetAddOnEnableState
---Check if some stuff happens to be enable
-SLE._Compatibility = {}
-local _CompList = {
-	"oRA3",
-	"ElvUI_CustomTweaks",
-	"ElvUI_MerathilisUI",
-	"ElvUI_Enhanced",
-	"DejaCharacterStats",
-	"ElvUI_ExtraActionBars",
-	"ElvUI_ChaoticUI",
-	"TradeSkillMaster",
-	"WorldQuestTracker",
-	"ElvUI_PagedLootHistory",
-	"ElvUI_VisualAuraTimers",
-	"SunnArt",
-}
-for i = 1, #_CompList do
-	if GetAddOnEnableState(E.myname, _CompList[i]) == 0 then SLE._Compatibility[_CompList[i]] = nil else SLE._Compatibility[_CompList[i]] = true end
-end
-
 function SLE:Initialize()
 	--ElvUI's version check
 	if SLE.elvV < 10 then return end
@@ -122,6 +70,7 @@ function SLE:Initialize()
 		return --Not loading shit if version is too old, prevents shit from being broken
 	end
 	if SLE:CheckIncompatible() then return end
+	SLE:DatabaseConversions()
 	SLE:ConfigCats()
 	self.initialized = true
 	self:InitializeModules(); --Load Modules
