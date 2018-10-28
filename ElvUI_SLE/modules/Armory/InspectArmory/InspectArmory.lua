@@ -82,6 +82,8 @@ IA.ModelList = {
 	LightforgedDraenei = { RaceID = 30, [2] = { x = -.09, r = -5.76 }, [3] = { x = -.05, y = -.06, r = -5.7 }},
 	MagharOrc = { RaceID = 36, [2] = { y = -.02, r = -6.63 }, [3] = { x = .03, y = -.04, r = -6.86 }},
 	DarkIronDwarf = { RaceID = 34, [2] = { x = -.02 }, [3] = { x = -.05, y = -.09, r = -5.74 }},
+	ZandalariTroll = { RaceID = 31, [2] = { r = -6.85 }, [3] = { x = .03, y = .03, r = -6.89 }},
+	KulTiran = { RaceID = 32, [2] = { x = -.02, y = -.04, r = -5.76 }, [3] = { x = -.02, y = -.07, r = -5.74 }},
 }
 IA.CurrentInspectData = {}
 IA.Default_CurrentInspectData = {
