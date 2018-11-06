@@ -144,9 +144,9 @@ Info.Armory_Constants = {
 		['Alliance-bliz'] = [[Interface\LFGFrame\UI-PVP-BACKGROUND-Alliance]],
 		['Horde-bliz'] = [[Interface\LFGFrame\UI-PVP-BACKGROUND-Horde]],
 		['Arena-bliz'] = [[Interface\PVPFrame\PvpBg-NagrandArena-ToastBG]]
-	}
+	},
 
-	AzeriteTraitAvailableColor = {0.95, 0.95, 0.32, 1}
+	AzeriteTraitAvailableColor = {0.95, 0.95, 0.32, 1},
 }
 	
 for ProfessionID, ProfessionKey in pairs({
