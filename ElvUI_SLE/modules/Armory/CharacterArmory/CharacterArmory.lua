@@ -5,6 +5,7 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local KF, Info, Timer = unpack(ElvUI_KnightFrame)
 local ElvUI_BagModule, ElvUI_DataBars = SLE:GetElvModules("Bags", "DataBars")
 local Lib_Search = LibStub('LibItemSearch-1.2-ElvUI')
+local LCG = LibStub('LibCustomGlow-1.0')
 --GLOBALS: CreateFrame, UIParent, SLE_ArmoryDB, hooksecurefunc, GetInventoryItemGems
 
 local _
@@ -326,15 +327,15 @@ function CA:Setup_CharacterArmory()
 				CA[SlotName].AzeriteAnchor:Show()
 			else
 				CA[SlotName].AzeriteAnchor:Hide()
-				ActionButton_HideOverlayGlow(self)
+				LCG.PixelGlow_Stop(self)
 			end
 		end)
 
 		hooksecurefunc(_G["Character"..SlotName], "DisplayAsAzeriteEmpoweredItem", function(self, itemLocation)
 			if HasAnyUnselectedPowers(itemLocation) then
-				ActionButton_ShowOverlayGlow(self)
+				LCG.PixelGlow_Start(self, Info.Armory_Constants.AzeriteTraitAvailableColor, nil,-0.25,nil, 3)
 			else
-				ActionButton_HideOverlayGlow(self)
+				LCG.PixelGlow_Stop(self)
 			end
 		end)
 
