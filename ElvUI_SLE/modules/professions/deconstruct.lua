@@ -2,6 +2,7 @@
 local Pr = SLE:GetModule("Professions")
 local B = E:GetModule("Bags")
 local lib = LibStub("LibProcessable")
+local LCG = LibStub('LibCustomGlow-1.0')
 --GLOBALS: hooksecurefunc, CreateFrame
 local _G = _G
 local VIDEO_OPTIONS_ENABLED, VIDEO_OPTIONS_DISABLED = VIDEO_OPTIONS_ENABLED, VIDEO_OPTIONS_DISABLED
@@ -117,6 +118,7 @@ function Pr:ApplyDeconstruct(itemLink, spell, spellType, r, g, b)
 	if not _G["ElvUI_ContainerFrame"].Bags[bag] then return end
 	Pr.DeconstructionReal.Bag = bag
 	Pr.DeconstructionReal.Slot = slot:GetID()
+	local color = {r,g,b,1}
 	if (E.global.sle.LOCK.TradeOpen and T.GetTradeTargetItemLink(7) == itemLink and _G["GameTooltip"]:GetOwner():GetName() == "TradeRecipientItem7ItemButton") then
 			Pr.DeconstructionReal.ID = T.match(itemLink, 'item:(%d+):')
 			Pr.DeconstructionReal:SetAttribute('type1', 'macro')
@@ -127,7 +129,8 @@ function Pr:ApplyDeconstruct(itemLink, spell, spellType, r, g, b)
 			if E.private.sle.professions.deconButton.style == "BIG" then
 				ActionButton_ShowOverlayGlow(Pr.DeconstructionReal)
 			elseif E.private.sle.professions.deconButton.style == "SMALL" then
-				AutoCastShine_AutoCastStart(Pr.DeconstructionReal, r, g, b)
+				-- AutoCastShine_AutoCastStart(Pr.DeconstructionReal, r, g, b)
+				AutoCastShine_AutoCastStart(Pr.DeconstructionReal, color, 5,nil,2)
 			end
 		-- end
 	elseif (T.GetContainerItemLink(bag, slot:GetID()) == itemLink) then
@@ -140,9 +143,13 @@ function Pr:ApplyDeconstruct(itemLink, spell, spellType, r, g, b)
 		Pr.DeconstructionReal:Show()
 
 		if E.private.sle.professions.deconButton.style == "BIG" then
+			-- ActionButton_ShowOverlayGlow(Pr.DeconstructionReal)
 			ActionButton_ShowOverlayGlow(Pr.DeconstructionReal)
 		elseif E.private.sle.professions.deconButton.style == "SMALL" then
-			AutoCastShine_AutoCastStart(Pr.DeconstructionReal, r, g, b)
+			-- AutoCastShine_AutoCastStart(Pr.DeconstructionReal, r, g, b)
+			LCG.AutoCastGlow_Start(Pr.DeconstructionReal, color, 5,nil,2)
+		elseif E.private.sle.professions.deconButton.style == "PIXEL" then
+			LCG.PixelGlow_Start(Pr.DeconstructionReal, color, nil, nil, nil, 4)
 		end
 	end
 end
@@ -272,7 +279,9 @@ function Pr:ConstructRealDecButton()
 			self:SetAlpha(1)
 			if _G["GameTooltip"] then _G["GameTooltip"]:Hide() end
 			self:Hide()
-			AutoCastShine_AutoCastStop(self)
+			-- AutoCastShine_AutoCastStop(self)
+			LCG.AutoCastGlow_Stop(self)
+			LCG.ButtonGlow_Stop(self)
 			ActionButton_HideOverlayGlow(self)
 		end
 	end

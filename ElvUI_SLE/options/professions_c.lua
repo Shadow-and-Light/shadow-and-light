@@ -39,6 +39,7 @@ local function configTable()
 						values = {
 							["BIG"] = L["Actionbar Proc"],
 							["SMALL"] = L["Actionbar Autocast"],
+							["PIXEL"] = L["Pixel"],
 							["NO"] = NONE,
 						},
 					},
