@@ -530,51 +530,51 @@ function SLE:MovableButtonSettings(db, key, value, remove, movehere)
 end
 
 function SLE:CreateMovableButtons(Order, Name, CanRemove, db, key)
-		local moveItemFrom, moveItemTo
-		local config = {
-			order = Order,
-			dragdrop = true,
-			type = "multiselect",
-			name = Name,
-			dragOnLeave = function() end, --keep this here
-			dragOnEnter = function(info)
-				moveItemTo = info.obj.value
-			end,
-			dragOnMouseDown = function(info)
-				moveItemFrom, moveItemTo = info.obj.value, nil
-			end,
-			dragOnMouseUp = function(info)
-				SLE:MovableButtonSettings(db, key, moveItemTo, nil, moveItemFrom) --add it in the new spot
-				moveItemFrom, moveItemTo = nil, nil
-			end,
-			stateSwitchGetText = function(info, TEXT)
-				local text = T.GetItemInfo(T.tonumber(TEXT))
-				info.userdata.text = text
-				return text
-			end,
-			stateSwitchOnClick = function(info)
-				SLE:MovableButtonSettings(db, key, moveItemFrom)
-			end,
-			values = function()
-				local str = db[key]
-				if str == "" then return nil end
-				return {T.split(",",str)}
-			end,
-			get = function(info, value)
-				local str = db[key]
-				if str == "" then return nil end
-				local tbl = {T.split(",",str)}
-				return tbl[value]
-			end,
-			set = function(info, value) end,
-		}
-		if CanRemove then --This allows to remove shit
-			config.dragOnClick = function(info)
-				SLE:MovableButtonSettings(db, key, moveItemFrom, true)
-			end
+	local moveItemFrom, moveItemTo
+	local config = {
+		order = Order,
+		dragdrop = true,
+		type = "multiselect",
+		name = Name,
+		dragOnLeave = function() end, --keep this here
+		dragOnEnter = function(info)
+			moveItemTo = info.obj.value
+		end,
+		dragOnMouseDown = function(info)
+			moveItemFrom, moveItemTo = info.obj.value, nil
+		end,
+		dragOnMouseUp = function(info)
+			SLE:MovableButtonSettings(db, key, moveItemTo, nil, moveItemFrom) --add it in the new spot
+			moveItemFrom, moveItemTo = nil, nil
+		end,
+		stateSwitchGetText = function(info, TEXT)
+			local text = T.GetItemInfo(T.tonumber(TEXT))
+			info.userdata.text = text
+			return text
+		end,
+		stateSwitchOnClick = function(info)
+			SLE:MovableButtonSettings(db, key, moveItemFrom)
+		end,
+		values = function()
+			local str = db[key]
+			if str == "" then return nil end
+			return {T.split(",",str)}
+		end,
+		get = function(info, value)
+			local str = db[key]
+			if str == "" then return nil end
+			local tbl = {T.split(",",str)}
+			return tbl[value]
+		end,
+		set = function(info, value) end,
+	}
+	if CanRemove then --This allows to remove shit
+		config.dragOnClick = function(info)
+			SLE:MovableButtonSettings(db, key, moveItemFrom, true)
 		end
-		return config
 	end
+	return config
+end
 
 --New API
 local function LevelUpBG(frame, topcolor, bottomcolor)
