@@ -3,43 +3,7 @@ local LP = SLE:GetModule("LocationPanel")
 local DEFAULT, CUSTOM = DEFAULT, CUSTOM
 local function configTable()
 	if not SLE.initialized then return end
-	
-	local function CreateHSPrio()
-		local config = {
-			type = "group",
-			order = 12,
-			guiInline = true,
-			name = L["HS Toys Order"],
-			hidden = function() return not E.db.sle.minimap.locPanel.portals.showHearthstones end,
-			args = {},
-		}
-		for key,_ in T.pairs(E.db.sle.minimap.locPanel.portals.hsPrio) do
-			config.args[key] = {
-				type = "select",
-				name = T.GetItemInfo(key),
-				order = T.tonumber(key),
-				width = "full",
-				get = function(info) return (E.db.sle.minimap.locPanel.portals.hsPrio[key] or 1) end,
-				set = function(info, value) E.db.sle.minimap.locPanel.portals.hsPrio[key] = value end,
-				values = {
-					[1] = "1",
-					[2] = "2",
-					[3] = "3",
-					[4] = "4",
-					[5] = "5",
-					[6] = "6",
-					[7] = "7",
-					[8] = "8",
-					[9] = "9",
-					[10] = "10",
-					[11] = "11",
-					[12] = "12",
-				},
-			}
-		end
-		return config
-	end
-	
+
 	E.Options.args.sle.args.modules.args.minimap.args.locPanel = {
 		type = "group",
 		name = L["Location Panel"],
@@ -264,7 +228,7 @@ local function configTable()
 						name = L["Show hearthstones"],
 						desc = L["Show hearthstone type items in the list."],
 					},
-					hsProprity = CreateHSPrio(),
+					hsProprity = SLE:CreateMovableButtons(22, L["HS Toys Order"], false, E.db.sle.minimap.locPanel.portals, "hsPrio"),
 					showToys = {
 						type = "toggle",
 						order = 20,

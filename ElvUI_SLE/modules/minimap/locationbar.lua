@@ -428,6 +428,9 @@ function LP:ItemList(check)
 		local priority = 100
 		local ShownHearthstone
 		local tmp = {}
+		local hsPrio = {T.split(",", E.db.sle.minimap.locPanel.portals.hsPrio)}
+		local hsRealPrio = {}
+		for key = 1, #hsPrio do hsRealPrio[hsPrio[key]] = key end
 		for i = 1, #LP.Hearthstones do
 			local data = LP.Hearthstones[i]
 			local ID, isToy = data.secure.ID, data.secure.isToy
@@ -439,7 +442,7 @@ function LP:ItemList(check)
 						ShownHearthstone = data
 						break
 					else
-						local curPriorirty = E.db.sle.minimap.locPanel.portals.hsPrio[T.tostring(ID)]
+						local curPriorirty = hsRealPrio[T.tostring(ID)]
 						if curPriorirty < priority then
 							priority = curPriorirty
 							ShownHearthstone = data
@@ -477,7 +480,6 @@ function LP:ItemList(check)
 				else
 					T.tinsert(LP.MainMenu, data)
 				end
-
 			end
 		end
 	end
