@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local CP = E:GetModule('CopyProfile')
+local CP
 
 local function CreateBackgrounds()
 	local config = CP:CreateModuleConfigGroup(L["Backgrounds"], "backgrounds", "sle")
@@ -345,6 +345,9 @@ local function CreateUnitframesConfig()
 end
 
 local function configTable()
+	if not E.Options.args.modulecontrol then return end
+	CP = E:GetModule('CopyProfile')
+
 	E.Options.args.modulecontrol.args.modulecopy.args.sle = {
 		order = 11,
 		type = 'group',
