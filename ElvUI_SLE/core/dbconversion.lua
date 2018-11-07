@@ -4,9 +4,11 @@
 
 --Convers all the things!
 function SLE:DatabaseConversions()
-	-- for profile, data in T.pairs(ElvDB.profiles) do
+	for profile, data in T.pairs(ElvDB.profiles) do
 		-- if profile ~= "Minimalistic" then
 			-- print(profile)
 		-- end
-	-- end
+		if T.type(data.sle.minimap.locPanel.portals.hsPrio) == "table" then
+			data.sle.minimap.locPanel.portals.hsPrio = P.sle.minimap.locPanel.portals.hsPrio
+		end
 end
