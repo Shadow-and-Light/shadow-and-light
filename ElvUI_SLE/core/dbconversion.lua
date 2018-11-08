@@ -8,7 +8,7 @@ function SLE:DatabaseConversions()
 		-- if profile ~= "Minimalistic" then
 			-- print(profile)
 		-- end
-		if T.type(E.db.sle.minimap.locPanel.portals.hsPrio) == "table" then
+		if data and data.sle and data.sle.minimap and data.sle.minimap.portals and T.type(data.sle.minimap.locPanel.portals.hsPrio) == "table" then
 			data.sle.minimap.locPanel.portals.hsPrio = P.sle.minimap.locPanel.portals.hsPrio
 		end
 	end
