@@ -11,4 +11,5 @@ function SLE:DatabaseConversions()
 		if T.type(data.sle.minimap.locPanel.portals.hsPrio) == "table" then
 			data.sle.minimap.locPanel.portals.hsPrio = P.sle.minimap.locPanel.portals.hsPrio
 		end
+	end
 end
