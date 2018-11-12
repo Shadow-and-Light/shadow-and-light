@@ -1,5 +1,5 @@
-local MAJOR_VERSION = "LibCustomGlow-1.0"
-local MINOR_VERSION = 7
+local MAJOR_VERSION = "LibCustomGlow-1.0-Darth"
+local MINOR_VERSION = 8
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib, oldversion = LibStub:NewLibrary(MAJOR_VERSION, MINOR_VERSION)
 if not lib then return end
@@ -8,12 +8,17 @@ local Masque = LibStub("Masque", true)
 local textureList = {
  ["empty"] = [[Interface\AdventureMap\BrokenIsles\AM_29]],
  ["white"] = [[Interface\BUTTONS\WHITE8X8]],
- ["shine"] = [[Interface\Challenges\challenges-metalglow]]
-}
+ ["shine"] = [[Interface\Artifacts\Artifacts]]
+
+ }
 
 function lib.RegisterTextures(texture,id)
     textureList[id] = texture    
 end
+
+lib.glowList = {}
+lib.startList = {}
+lib.stopList = {}
 
 local GlowParent = UIParent
 
@@ -291,6 +296,11 @@ function lib.PixelGlow_Stop(r,key)
     end
 end
 
+table.insert(lib.glowList, "Pixel Glow")
+lib.startList["Pixel Glow"] = lib.PixelGlow_Start
+lib.stopList["Pixel Glow"] = lib.PixelGlow_Stop
+
+
 --Autocast Glow Funcitons--
 local function acUpdate(self,elapsed)
     local width,height = self:GetSize()
@@ -349,9 +359,9 @@ function lib.AutoCastGlow_Start(r,color,N,frequency,scale,xOffset,yOffset,key)
     yOffset = yOffset or 0    
     key = key or ""
     
-    addFrameAndTex(r,color,"_AutoCastGlow",key,N*4,xOffset,yOffset,textureList.shine,{0,1,0,1},true)
+    addFrameAndTex(r,color,"_AutoCastGlow",key,N*4,xOffset,yOffset,textureList.shine,{0.8115234375,0.9169921875,0.8798828125,0.9853515625},true)
     local f = r["_AutoCastGlow"..key]       
-    local sizes = {10,8,6,4}
+    local sizes = {7,6,5,4}
     for k,size in pairs(sizes) do
         for i = 1,N do
             f.textures[i+N*(k-1)]:SetSize(size*scale,size*scale)            
@@ -376,6 +386,10 @@ function lib.AutoCastGlow_Stop(r,key)
         GlowFramePool:Release(r["_AutoCastGlow"..key])
     end
 end
+
+table.insert(lib.glowList, "Autocast Shine")
+lib.startList["Autocast Shine"] = lib.AutoCastGlow_Start
+lib.stopList["Autocast Shine"] = lib.AutoCastGlow_Stop
 
 --Action Button Glow--
 local function ButtonGlowResetter(framePool,frame)
@@ -446,6 +460,15 @@ local function AnimIn_OnFinished(group)
 	frame.outerGlowOver:SetAlpha(0.0)
 	frame.outerGlowOver:SetSize(frameWidth, frameHeight)
 	frame.ants:SetAlpha(not(frame.color) and 1.0 or frame.color[4])
+end
+
+local function AnimIn_OnStop(group)
+	local frame = group:GetParent()
+	local frameWidth, frameHeight = frame:GetSize()
+	frame.spark:SetAlpha(0)
+	frame.innerGlow:SetAlpha(0)
+	frame.innerGlowOver:SetAlpha(0.0)
+	frame.outerGlowOver:SetAlpha(0.0)
 end
 
 local function bgHide(self)
@@ -524,6 +547,7 @@ local function configureButtonGlow(f,alpha)
 	CreateAlphaAnim(f.animIn, "innerGlow",      1, 0.2, alpha, 0, 0.3, false)
 	CreateAlphaAnim(f.animIn, "ants",           1, 0.2, 0, alpha, 0.3, true)
 	f.animIn:SetScript("OnPlay", AnimIn_OnPlay)
+	f.animIn:SetScript("OnStop", AnimIn_OnStop)
 	f.animIn:SetScript("OnFinished", AnimIn_OnFinished)
 	
 	f.animOut = f:CreateAnimationGroup()
@@ -555,7 +579,7 @@ end
 
 local ButtonGlowTextures = {["spark"] = true,["innerGlow"] = true,["innerGlowOver"] = true,["outerGlow"] = true,["outerGlowOver"] = true,["ants"] = true}
 
-function lib.ButtonGlow_Start(r,color,frequency)
+function lib.ButtonGlow_Start(r,color,frequency, key)
 	if not r then
 		return
 	end 
@@ -566,8 +590,12 @@ function lib.ButtonGlow_Start(r,color,frequency)
 	else
 		throttle = 0.01
 	end	
-	if r._ButtonGlow then
-		local f = r._ButtonGlow
+	
+	addFrameAndTex(r,color,"_ButtonGlow",key) --,N*4,xOffset,yOffset,textureList.shine,{0.8115234375,0.9169921875,0.8798828125,0.9853515625},true)
+	-- local f = r["_ButtonGlow"..key]
+	
+	if r["_ButtonGlow"..key] then
+		local f = r["_ButtonGlow"..key]
 		if f.animOut:IsPlaying() then
 			f.animOut:Stop()
 			f.animIn:Play()
@@ -597,7 +625,8 @@ function lib.ButtonGlow_Start(r,color,frequency)
 		else
 			updateAlphaAnim(f,color and color[4] or 1)
 		end
-		r._ButtonGlow = f
+		-- r["_ButtonGlow"..key] = f
+		addFrameAndTex(r,color,"_ButtonGlow",key)
 		local width,height = r:GetSize()
 		f:SetParent(r)
 		f:SetFrameLevel(r:GetFrameLevel()+8)
@@ -632,14 +661,28 @@ function lib.ButtonGlow_Start(r,color,frequency)
 end
 
 function lib.ButtonGlow_Stop(r)
-	if r._ButtonGlow then
-		if r._ButtonGlow.animIn:IsPlaying() then
-			r._ButtonGlow.animIn:Stop()
-		end
-		if r:IsVisible() then
-			r._ButtonGlow.animOut:Play()
-		else
-			ButtonGlowPool:Release(r._ButtonGlow)
-		end
+	if not r then
+		return
+	end
+	
+	key = key or ""
+	-- if r._ButtonGlow then
+		-- if r._ButtonGlow.animIn:IsPlaying() then
+			-- r._ButtonGlow.animIn:Stop()
+			-- ButtonGlowPool:Release(r._ButtonGlow)
+		-- elseif r:IsVisible() then
+			-- r._ButtonGlow.animOut:Play()
+		-- else
+			-- ButtonGlowPool:Release(r._ButtonGlow)
+		-- end
+	-- end
+	if not r["_ButtonGlow"..key] then
+		return false
+	else
+		GlowFramePool:Release(r["_ButtonGlow"..key])
 	end
 end
+
+table.insert(lib.glowList, "Action Button Glow")
+lib.startList["Action Button Glow"] = lib.ButtonGlow_Start
+lib.stopList["Action Button Glow"] = lib.ButtonGlow_Stop
