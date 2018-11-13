@@ -2,7 +2,7 @@
 local Pr = SLE:GetModule("Professions")
 local B = E:GetModule("Bags")
 local lib = LibStub("LibProcessable")
-local LCG = LibStub('LibCustomGlow-1.0-Darth')
+local LCG = LibStub('LibCustomGlow-1.0')
 --GLOBALS: hooksecurefunc, CreateFrame
 local _G = _G
 local VIDEO_OPTIONS_ENABLED, VIDEO_OPTIONS_DISABLED = VIDEO_OPTIONS_ENABLED, VIDEO_OPTIONS_DISABLED

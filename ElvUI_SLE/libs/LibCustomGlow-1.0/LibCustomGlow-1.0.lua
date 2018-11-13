@@ -1,4 +1,4 @@
-local MAJOR_VERSION = "LibCustomGlow-1.0-Darth"
+local MAJOR_VERSION = "LibCustomGlow-1.0"
 local MINOR_VERSION = 8
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib, oldversion = LibStub:NewLibrary(MAJOR_VERSION, MINOR_VERSION)
@@ -86,6 +86,7 @@ local function addFrameAndTex(r,color,name,key,N,xOffset,yOffset,texture,texCoor
         r[name..key]:SetFrameLevel(r:GetFrameLevel()+8)
         r[name..key].name = name..key
     end
+	print(name..key)
     local f = r[name..key]
     f:SetPoint("TOPLEFT",r,"TOPLEFT",-xOffset,yOffset)
     f:SetPoint("BOTTOMRIGHT",r,"BOTTOMRIGHT",xOffset,-yOffset)
@@ -579,7 +580,7 @@ end
 
 local ButtonGlowTextures = {["spark"] = true,["innerGlow"] = true,["innerGlowOver"] = true,["outerGlow"] = true,["outerGlowOver"] = true,["ants"] = true}
 
-function lib.ButtonGlow_Start(r,color,frequency, key)
+function lib.ButtonGlow_Start(r,color,frequency)
 	if not r then
 		return
 	end 
@@ -590,12 +591,8 @@ function lib.ButtonGlow_Start(r,color,frequency, key)
 	else
 		throttle = 0.01
 	end	
-	
-	addFrameAndTex(r,color,"_ButtonGlow",key) --,N*4,xOffset,yOffset,textureList.shine,{0.8115234375,0.9169921875,0.8798828125,0.9853515625},true)
-	-- local f = r["_ButtonGlow"..key]
-	
-	if r["_ButtonGlow"..key] then
-		local f = r["_ButtonGlow"..key]
+	if r._ButtonGlow then
+		local f = r._ButtonGlow
 		if f.animOut:IsPlaying() then
 			f.animOut:Stop()
 			f.animIn:Play()
@@ -625,8 +622,7 @@ function lib.ButtonGlow_Start(r,color,frequency, key)
 		else
 			updateAlphaAnim(f,color and color[4] or 1)
 		end
-		-- r["_ButtonGlow"..key] = f
-		addFrameAndTex(r,color,"_ButtonGlow",key)
+		r._ButtonGlow = f
 		local width,height = r:GetSize()
 		f:SetParent(r)
 		f:SetFrameLevel(r:GetFrameLevel()+8)
@@ -661,25 +657,15 @@ function lib.ButtonGlow_Start(r,color,frequency, key)
 end
 
 function lib.ButtonGlow_Stop(r)
-	if not r then
-		return
-	end
-	
-	key = key or ""
-	-- if r._ButtonGlow then
-		-- if r._ButtonGlow.animIn:IsPlaying() then
-			-- r._ButtonGlow.animIn:Stop()
-			-- ButtonGlowPool:Release(r._ButtonGlow)
-		-- elseif r:IsVisible() then
-			-- r._ButtonGlow.animOut:Play()
-		-- else
-			-- ButtonGlowPool:Release(r._ButtonGlow)
-		-- end
-	-- end
-	if not r["_ButtonGlow"..key] then
-		return false
-	else
-		GlowFramePool:Release(r["_ButtonGlow"..key])
+	if r._ButtonGlow then
+		if r._ButtonGlow.animIn:IsPlaying() then
+			r._ButtonGlow.animIn:Stop()
+			ButtonGlowPool:Release(r._ButtonGlow)
+		elseif r:IsVisible() then
+			r._ButtonGlow.animOut:Play()
+		else
+			ButtonGlowPool:Release(r._ButtonGlow)
+		end
 	end
 end
 
