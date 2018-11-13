@@ -659,6 +659,7 @@ function CA:Update_Gear()
 					Slot.TransmogrifyAnchor.SourceID = nil
 					Slot.TransmogrifyAnchor.Link = nil
 					Slot.TransmogrifyAnchor:Hide()
+					LCG.AutoCastGlow_Stop(_G["Character"..SlotName],"_TransmogGlow")
 				end
 				
 				if Slot.IllusionAnchor then
@@ -862,6 +863,7 @@ function CA:Update_Gear()
 					if Slot.TransmogrifyAnchor and C_Transmog_GetSlotInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE) then
 						Slot.TransmogrifyAnchor.Link = T.select(6, C_TransmogCollection_GetAppearanceSourceInfo(T.select(3, C_Transmog_GetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE))));
 						Slot.TransmogrifyAnchor:Show()
+						LCG.AutoCastGlow_Start(_G["Character"..SlotName],{1, .5, 1, 1},6,0.25,1.2,nil,nil,"_TransmogGlow")
 					end
 					--<< Illusion Parts >>--
 					if Slot.IllusionAnchor then

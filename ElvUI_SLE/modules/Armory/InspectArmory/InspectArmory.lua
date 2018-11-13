@@ -40,6 +40,7 @@ local IA = InspectArmory or CreateFrame('Frame', 'InspectArmory', E.UIParent)
 local ClientVersion = select(4, GetBuildInfo())
 local AISM = _G['Armory_InspectSupportModule']
 local ButtonName = INSPECT --L["Knight Inspect"]
+local LCG = LibStub('LibCustomGlow-1.0')
 
 local CORE_FRAME_LEVEL = 10
 local SLOT_SIZE = 37
@@ -1950,6 +1951,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 					if Slot.TransmogrifyAnchor then
 						Slot.TransmogrifyAnchor.Link = nil
 						Slot.TransmogrifyAnchor:Hide()
+						LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
 					end
 					
 					if Slot.ItemLevel then
@@ -2222,6 +2224,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 
 							if Slot.TransmogrifyAnchor.Link and T.type(Slot.TransmogrifyAnchor.Link) ~= 'number' then
 								Slot.TransmogrifyAnchor:Show()
+								LCG.AutoCastGlow_Start(Slot,{1, .5, 1, 1},6,0.25,1.2,nil,nil,"_TransmogGlow")
 							end
 						end
 						
