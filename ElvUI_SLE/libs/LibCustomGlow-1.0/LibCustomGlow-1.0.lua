@@ -86,7 +86,6 @@ local function addFrameAndTex(r,color,name,key,N,xOffset,yOffset,texture,texCoor
         r[name..key]:SetFrameLevel(r:GetFrameLevel()+8)
         r[name..key].name = name..key
     end
-	print(name..key)
     local f = r[name..key]
     f:SetPoint("TOPLEFT",r,"TOPLEFT",-xOffset,yOffset)
     f:SetPoint("BOTTOMRIGHT",r,"BOTTOMRIGHT",xOffset,-yOffset)
