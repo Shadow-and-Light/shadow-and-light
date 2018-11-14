@@ -305,9 +305,9 @@ end
 --S&L print
 function SLE:Print(msg, type)
 	if type == "error" then
-		(_G[E.db.general.messageRedirect] or DEFAULT_CHAT_FRAME):AddMessage(strjoin("", "|cffFF0000S&L Error:|r ", msg))
+		(_G[E.db.general.messageRedirect] or DEFAULT_CHAT_FRAME):AddMessage(strjoin("", "|cffff0000S&L Error:|r ", msg))
 	elseif type == "warning" then
-		(_G[E.db.general.messageRedirect] or DEFAULT_CHAT_FRAME):AddMessage(strjoin("", "|cffD3CF00S&L Warning:|r ", msg))
+		(_G[E.db.general.messageRedirect] or DEFAULT_CHAT_FRAME):AddMessage(strjoin("", "|cffd3cf00S&L Warning:|r ", msg))
 	elseif type == "info" then
 		(_G[E.db.general.messageRedirect] or DEFAULT_CHAT_FRAME):AddMessage(strjoin("", "|cff14adcdS&L Info:|r ", msg))
 	else
