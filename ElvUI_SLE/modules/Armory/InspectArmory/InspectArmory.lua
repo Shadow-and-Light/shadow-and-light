@@ -86,6 +86,37 @@ IA.ModelList = {
 	ZandalariTroll = { RaceID = 31, [2] = { r = -6.85 }, [3] = { x = .03, y = .03, r = -6.89 }},
 	KulTiran = { RaceID = 32, [2] = { x = -.02, y = -.04, r = -5.76 }, [3] = { x = -.02, y = -.07, r = -5.74 }},
 }
+IA.Races = {}
+IA.FactionsRaceIDs = {
+	["Alliance"] = {
+		["1"] = true,
+		["3"] = true,
+		["4"] = true,
+		["7"] = true,
+		["11"] = true,
+		["22"] = true,
+		["24"] = true,
+		["29"] = true,
+		["30"] = true,
+		["32"] = true,
+		["34"] = true,
+
+	},
+	["Horde"] = {
+		["2"] = true,
+		["5"] = true,
+		["6"] = true,
+		["8"] = true,
+		["9"] = true,
+		["10"] = true,
+		["24"] = true,
+		["27"] = true,
+		["28"] = true,
+		["31"] = true,
+		["36"] = true,
+	},
+}
+
 IA.CurrentInspectData = {}
 IA.Default_CurrentInspectData = {
 	Gear = {
@@ -107,7 +138,6 @@ IA.Default_CurrentInspectData = {
 		RB = {}
 	}
 }
-
 
 do --<< Button Script >>--
 	function IA:OnEnter()
@@ -168,15 +198,20 @@ do --<< Button Script >>--
 			end)
 			return
 		end
-		
+
 		if self.Link then
 			_G["GameTooltip"]:SetOwner(self, 'ANCHOR_RIGHT')
 			_G["GameTooltip"]:SetInventoryItem(IA.CurrentInspectData.UnitID, self.ID)
+			--if tooltip text is missing due to target being unavailable, fallback to give default item tooltip.
+			--Will cause Azerute gear to loose trait tooltips, also no transmog info will be available.
+			--If this fails to provide info, then the one inspecting is out of luck
+			if not _G['GameTooltipTextLeft1']:GetText() then print("woot") _G["GameTooltip"]:SetHyperlink(self.Link) end
 			
-			local CurrentLineText, SetName, TooltipText, CurrentTextType
+			local CurrentLineText, PreviousLineText, SetName, TooltipText, CurrentTextType
 			local CheckSpace = 2
 			
 			for i = 1, _G["GameTooltip"]:NumLines() do
+				if not PreviousLineText then PreviousLineText = "" end
 				if self.ReplaceTooltipLines[i] then
 					CurrentLineText = self.ReplaceTooltipLines[i]
 					_G['GameTooltipTextLeft'..i]:SetText(CurrentLineText)
@@ -217,14 +252,49 @@ do --<< Button Script >>--
 							end
 						end
 					end
-					
 					_G['GameTooltipTextLeft'..i]:SetText(string.gsub(CurrentLineText, ' %(%d/', ' %('..SetCount..'/', 1))
-					
 					break
-				elseif Info.Armory_Constants.CanTransmogrifySlot[self.SlotName] and Info.Armory_Constants.ItemBindString[CurrentLineText] and self.TransmogrifyAnchor.Link then
-					_G['GameTooltipTextLeft'..i]:SetText(E:RGBToHex(1, .5, 1)..TRANSMOGRIFIED_HEADER..'|n'..(T.GetItemInfo(self.TransmogrifyAnchor.Link) or self.TransmogrifyAnchor.Link)..'|r|n'..CurrentLineText)
+				elseif Info.Armory_Constants.CanTransmogrifySlot[self.SlotName] and Info.Armory_Constants.TransmogHeader[PreviousLineText] and self.TransmogrifyAnchor.Link then
+					_G['GameTooltipTextLeft'..(i-1)]:SetText(E:RGBToHex(1, .5, 1)..TRANSMOGRIFIED_HEADER..'|n'..(T.GetItemInfo(self.TransmogrifyAnchor.Link) or self.TransmogrifyAnchor.Link)..'|r')
+					_G['GameTooltipTextLeft'..(i)]:SetText(nil)
+				elseif T.find(CurrentLineText, Info.Armory_Constants.ItemRaceKey) then
+					local startN, endN, TheRest = T.find(CurrentLineText, Info.Armory_Constants.ItemRaceKey)
+					local races = {T.split(",", TheRest)}
+					local newString, icon
+					local R,G,B = _G['GameTooltipTextLeft'..i]:GetTextColor()
+					local restricted = false
+					if R < 0.6 and G < 0.6 and B < 0.6 then
+						restricted = true
+					end
+
+					for id = 1, #races do
+						local ID = T.tostring(races[id])
+						ID = T.gsub(ID, " ", "")
+						if IA.Races[ID] then
+							local raceID = IA.Races[ID][3]
+							if raceID ~= 24 then
+								raceID = T.tostring(raceID)
+								if IA.FactionsRaceIDs["Alliance"][raceID] and not newString then
+									newString = FACTION_ALLIANCE
+									icon = [[|TInterface\AddOns\ElvUI_SLE\media\textures\Alliance:12:12|t ]]
+									break
+								elseif IA.FactionsRaceIDs["Horde"][raceID] and not newString then
+									newString = FACTION_HORDE
+									icon = [[|TInterface\AddOns\ElvUI_SLE\media\textures\Horde:12:12|t ]]
+									break
+								end
+							end
+						end
+					end
+					if newString then
+						if E.myLocalizedFaction ~= newString or (E.myLocalizedFaction == newString and restricted) then
+							newString = [[|TInterface\Buttons\UI-GroupLoot-Pass-Up:12:12|t ]]..newString
+						end
+						local fcolor = faction == "Horde" and RED_FONT_COLOR_CODE or  "|cff0070dd"
+						 _G['GameTooltipTextLeft'..i]:SetText(fcolor..(icon or "")..newString.."|r: "..TheRest)
+					 end
 				end
-				
+				PreviousLineText = CurrentLineText
 				if CheckSpace == 0 then break end
 			end
 			
@@ -1535,7 +1605,7 @@ function IA:CreateInspectFrame()
 						if UnitID then
 							local Name, Realm = UnitFullName(UnitID)
 							Realm = Realm ~= '' and Realm ~= Info.MyRealm and Realm or nil
-							
+
 							if Name and Name == self.CurrentInspectData.Name and Realm == self.CurrentInspectData.Realm then
 								NotifyInspect(UnitID)
 								return
@@ -1830,7 +1900,7 @@ IA.InspectUnit = function(UnitID)
 	else
 		wipe(IA.CurrentInspectData)
 		E:CopyTable(IA.CurrentInspectData, IA.Default_CurrentInspectData)
-		
+
 		IA.CurrentInspectData.UnitID = UnitID
 		IA.CurrentInspectData.Title = T.UnitPVPName(UnitID)
 		IA.CurrentInspectData.Level = T.UnitLevel(UnitID)
@@ -1839,9 +1909,9 @@ IA.InspectUnit = function(UnitID)
 		_, IA.CurrentInspectData.Class, IA.CurrentInspectData.ClassID = T.UnitClass(UnitID)
 		if E.db.sle.Armory.Inspect.Backdrop.SelectedBG == 'CLASS' then IA:Update_BG() end
 		IA.CurrentInspectData.guildName, IA.CurrentInspectData.guildRankName = T.GetGuildInfo(UnitID)
-		
+
 		IA.CurrentInspectData.Realm = IA.CurrentInspectData.Realm ~= '' and IA.CurrentInspectData.Realm ~= Info.MyRealm and IA.CurrentInspectData.Realm or nil
-		
+
 		IA.ReinspectCount = 0
 		IA.NeedModelSetting = true
 		IA.ForbidUpdatePvPInformation = true
@@ -1858,7 +1928,8 @@ end
 function IA:ShowFrame(DataTable)
 	self.GET_ITEM_INFO_RECEIVED = nil
 	self:UnregisterEvent('GET_ITEM_INFO_RECEIVED')
-	
+
+	local shouldUpdate = false
 	for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 		if DataTable.Gear[SlotName] and DataTable.Gear[SlotName].ItemLink and not T.GetItemInfo(DataTable.Gear[SlotName].ItemLink) then
 			if not self.GET_ITEM_INFO_RECEIVED then
@@ -1866,12 +1937,12 @@ function IA:ShowFrame(DataTable)
 			end
 		end
 	end
-	
-	if self.GET_ITEM_INFO_RECEIVED then
+
+	if shouldUpdate then
 		self:RegisterEvent('GET_ITEM_INFO_RECEIVED')
 		return
 	end
-	
+
 	self.Updater:Show()
 	self.Updater:SetScript('OnUpdate', function()
 		if not self:InspectFrame_DataSetting(DataTable) then
@@ -2881,6 +2952,16 @@ end
 
 KF.Modules[#KF.Modules + 1] = 'InspectArmory'
 KF.Modules.InspectArmory = function()
+	if not T.next(IA.Races) then
+		for id = 1, 40 do
+			local raceInfo = C_CreatureInfo.GetRaceInfo(id)
+			if raceInfo then
+				local localized, name, id = raceInfo.raceName, raceInfo.clientFileString, raceInfo.raceID
+				local ID = T.gsub(localized, " ", "")
+				if not IA.Races[ID] then IA.Races[ID] = {localized, name, id} end
+			end
+		end
+	end
 	if E.db.sle.Armory.Inspect.Enable ~= false and not Info.InspectArmory_Activate then
 		Default_InspectUnit = InspectUnit
 		Default_InspectFrame = _G.InspectFrame

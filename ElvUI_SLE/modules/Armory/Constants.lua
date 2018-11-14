@@ -60,6 +60,7 @@ Info.Armory_Constants = {
 	EnchantKey = ENCHANTED_TOOLTIP_LINE:gsub('%%s', '(.+)'),
 	ItemSetBonusKey = ITEM_SET_BONUS:gsub('%%s', '(.+)'),
 	ItemUpgradeKey = ITEM_UPGRADE_TOOLTIP_FORMAT:gsub('%%d', '(.+)'),
+	ItemRaceKey = ITEM_RACES_ALLOWED:gsub('%%s', '(.+)'),
 	HonorLevel = HONOR_LEVEL_LABEL:gsub('%%d', '%%s'),
 	HonorKills = INSPECT_HONORABLE_KILLS:gsub('%%d', '%%s'):gsub("|cffffd200", ""),
 	--TransmogrifiedKey = TRANSMOGRIFIED:gsub('%%s', '(.+)'),
@@ -125,6 +126,9 @@ Info.Armory_Constants = {
 		[ITEM_BIND_ON_PICKUP] = true,
 		[ITEM_BIND_TO_ACCOUNT] = true,
 		[ITEM_BIND_TO_BNETACCOUNT] = true
+	},
+	TransmogHeader = { 
+		[TRANSMOGRIFIED_HEADER] = true
 	},
 	
 	CanTransmogrifySlot = {
