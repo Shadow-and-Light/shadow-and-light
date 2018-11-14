@@ -205,7 +205,7 @@ do --<< Button Script >>--
 			--if tooltip text is missing due to target being unavailable, fallback to give default item tooltip.
 			--Will cause Azerute gear to loose trait tooltips, also no transmog info will be available.
 			--If this fails to provide info, then the one inspecting is out of luck
-			if not _G['GameTooltipTextLeft1']:GetText() then print("woot") _G["GameTooltip"]:SetHyperlink(self.Link) end
+			if not _G['GameTooltipTextLeft1']:GetText() then _G["GameTooltip"]:SetHyperlink(self.Link) end
 			
 			local CurrentLineText, PreviousLineText, SetName, TooltipText, CurrentTextType
 			local CheckSpace = 2
