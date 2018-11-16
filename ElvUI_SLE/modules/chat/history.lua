@@ -2,6 +2,7 @@
 local C = SLE:GetModule("Chat")
 local CH = E:GetModule("Chat")
 local _G = _G
+local F
 
 local historyEvents = {
 	"CHAT_MSG_INSTANCE_CHAT",
@@ -121,6 +122,13 @@ function C:HystoryOverwrite()
 	function CH:SaveChatHistory(event, ...)
 		if not self.db.chatHistory then return end
 		local data = _G["ElvCharacterDB"].ChatHistoryLog
+		
+		if _G["DarthUI"] then
+			if not F then F = DarthUI[1]:GetModule("Darth_FuckSpammers") end
+			if event == "CHAT_MSG_CHANNEL" and F.Buyers(self, event, ...) then return end
+			if event == "CHAT_MSG_WHISPER_INFORM" and F.HideOutgoing(self, event, ...) then return end
+			if event == "CHAT_MSG_WHISPER" and F.HideIncoming(self, event, ...) then return end
+		end
 
 		if self.db.throttleInterval ~= 0 and (event == 'CHAT_MSG_SAY' or event == 'CHAT_MSG_YELL' or event == 'CHAT_MSG_CHANNEL') then
 			self:ChatThrottleHandler(event, ...)
@@ -174,6 +182,7 @@ function C:InitHistory()
 		end
 	end
 
-	C:HystoryOverwrite()
+	-- C:HystoryOverwrite()
 	C:ChatHistoryToggle()
 end
+C:HystoryOverwrite()
