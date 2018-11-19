@@ -136,6 +136,10 @@ Info.Armory_Constants = {
 		HandsSlot = true, WaistSlot = true, LegsSlot = true, FeetSlot = true, MainHandSlot = true, SecondaryHandSlot = true
 	},
 
+	AzeriteSlot = {
+		HeadSlot = true, ShoulderSlot = true, ChestSlot = true,
+	},
+
 	CanIllusionSlot = {
 		MainHandSlot = true, SecondaryHandSlot = true
 	},

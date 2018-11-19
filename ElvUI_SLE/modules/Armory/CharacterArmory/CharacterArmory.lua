@@ -319,7 +319,12 @@ function CA:Setup_CharacterArmory()
 
 		-- Azerite
 		hooksecurefunc(_G["Character"..SlotName], "SetAzeriteItem", function(self, itemLocation)
-			if not itemLocation or not CA[SlotName].AzeriteAnchor then return end
+			if not CA[SlotName].AzeriteAnchor then return end
+			if not itemLocation then
+				CA[SlotName].AzeriteAnchor:Hide()
+				LCG.PixelGlow_Stop(self, "_AzeriteTraitGlow")
+				return
+			end
 			self.AzeriteTexture:Hide()
 			self.AvailableTraitFrame:Hide()
 			local isAzeriteEmpoweredItem = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(itemLocation);
@@ -327,15 +332,15 @@ function CA:Setup_CharacterArmory()
 				CA[SlotName].AzeriteAnchor:Show()
 			else
 				CA[SlotName].AzeriteAnchor:Hide()
-				LCG.PixelGlow_Stop(self)
+				LCG.PixelGlow_Stop(self, "_AzeriteTraitGlow")
 			end
 		end)
 
 		hooksecurefunc(_G["Character"..SlotName], "DisplayAsAzeriteEmpoweredItem", function(self, itemLocation)
 			if HasAnyUnselectedPowers(itemLocation) then
-				LCG.PixelGlow_Start(self, Info.Armory_Constants.AzeriteTraitAvailableColor, nil,-0.25,nil, 3)
+				LCG.PixelGlow_Start(self, Info.Armory_Constants.AzeriteTraitAvailableColor, nil,-0.25,nil, 3, nil,nil,nil, "_AzeriteTraitGlow")
 			else
-				LCG.PixelGlow_Stop(self)
+				LCG.PixelGlow_Stop(self, "_AzeriteTraitGlow")
 			end
 		end)
 
@@ -482,17 +487,19 @@ function CA:Setup_CharacterArmory()
 			end
 
 		-- Azerite
-		Slot.AzeriteAnchor = CreateFrame('Button', nil, Slot)
-		Slot.AzeriteAnchor:Size(41)
-		Slot.AzeriteAnchor:SetFrameLevel(Slot:GetFrameLevel() + 1)
-		Slot.AzeriteAnchor:Point('TOP'..Slot.Direction, Slot, Slot.Direction == 'LEFT' and -2 or 2, -1)
+		if Info.Armory_Constants.AzeriteSlot[SlotName] then
+			Slot.AzeriteAnchor = CreateFrame('Button', nil, Slot)
+			Slot.AzeriteAnchor:Size(41)
+			Slot.AzeriteAnchor:SetFrameLevel(Slot:GetFrameLevel() + 1)
+			Slot.AzeriteAnchor:Point('TOP'..Slot.Direction, Slot, Slot.Direction == 'LEFT' and -2 or 2, -1)
 
-		Slot.AzeriteAnchor.Texture = Slot.AzeriteAnchor:CreateTexture(nil, 'OVERLAY')
-		Slot.AzeriteAnchor.Texture:SetAtlas("AzeriteIconFrame")
-		Slot.AzeriteAnchor.Texture:SetTexCoord(0,1,0,1)
-		Slot.AzeriteAnchor.Texture:SetInside()
+			Slot.AzeriteAnchor.Texture = Slot.AzeriteAnchor:CreateTexture(nil, 'OVERLAY')
+			Slot.AzeriteAnchor.Texture:SetAtlas("AzeriteIconFrame")
+			Slot.AzeriteAnchor.Texture:SetTexCoord(0,1,0,1)
+			Slot.AzeriteAnchor.Texture:SetInside()
 
-		Slot.AzeriteAnchor:Hide()
+			Slot.AzeriteAnchor:Hide()
+		end
 
 			-- Illusion
 			if Info.Armory_Constants.CanIllusionSlot[SlotName] then
@@ -661,6 +668,12 @@ function CA:Update_Gear()
 					Slot.TransmogrifyAnchor:Hide()
 					LCG.AutoCastGlow_Stop(_G["Character"..SlotName],"_TransmogGlow")
 				end
+				
+				-- if Slot.AzeriteAnchor then
+					-- Slot.AzeriteAnchor:Hide()
+					-- CA[SlotName].AzeriteAnchor:Hide()
+					-- LCG.PixelGlow_Stop(_G["Character"..SlotName], "_AzeriteTraitGlow")
+				-- end
 				
 				if Slot.IllusionAnchor then
 					Slot.IllusionAnchor.Link = nil
