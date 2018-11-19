@@ -669,12 +669,6 @@ function CA:Update_Gear()
 					LCG.AutoCastGlow_Stop(_G["Character"..SlotName],"_TransmogGlow")
 				end
 				
-				-- if Slot.AzeriteAnchor then
-					-- Slot.AzeriteAnchor:Hide()
-					-- CA[SlotName].AzeriteAnchor:Hide()
-					-- LCG.PixelGlow_Stop(_G["Character"..SlotName], "_AzeriteTraitGlow")
-				-- end
-				
 				if Slot.IllusionAnchor then
 					Slot.IllusionAnchor.Link = nil
 					Slot.IllusionAnchor:Hide()
