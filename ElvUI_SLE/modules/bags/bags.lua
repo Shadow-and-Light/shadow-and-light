@@ -15,9 +15,7 @@ function SB:UpdateSlot(bagID, slotID)
 	if not Pr then Pr = SLE:GetModule("Professions") end
 	if not Pr.DeconstructionReal then return end
 	if Pr.DeconstructionReal:IsShown() and Pr.DeconstructionReal.Bag == bagID and Pr.DeconstructionReal.Slot == slotID then
-		print(bagID, slotID, slot.hasItem)
 		if not slot.hasItem then
-		-- if Pr.DeconstructionReal:IsShown() and not slot.hasItem then
 			B:Tooltip_Hide()
 			Pr.DeconstructionReal:OnLeave()
 		end

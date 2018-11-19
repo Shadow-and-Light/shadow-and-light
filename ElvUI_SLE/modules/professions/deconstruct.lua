@@ -114,6 +114,7 @@ end
 
 function Pr:ApplyDeconstruct(itemLink, spell, spellType, r, g, b)
 	local slot = T.GetMouseFocus()
+	if slot == Pr.DeconstructionReal then return end
 	local bag = slot:GetParent():GetID()
 	if not _G["ElvUI_ContainerFrame"].Bags[bag] then return end
 	Pr.DeconstructionReal.Bag = bag
