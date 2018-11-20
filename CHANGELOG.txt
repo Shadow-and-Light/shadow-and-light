@@ -1,10 +1,19 @@
-v3.48
+v3.48 [November 21st 2018]
 Requires ElvUI 10.83 to run
 Additions:
 - Support for module copy feature
+- Added new event hearthstones and dark iron racial to loc panel menu
+- Added an option of priority for your hearthstone toys instead of it being hardcoded
+- Added 8.1 currencies for new warfront and azerite gear
+- Armory now uses custon glows for indicating transmog and azerite trait available
 Fixes:
 - Fixed (probably) Details chat report not turning into a link.
 - Fixed some cases of quality color in bags/bank  not applying on first opening.
+- Fixed Armory durability text default offset being a little bit off on some items
+- Attempt to avoid another case of item info absence causing graphical glitches in character armory
+- Fixed pvp level text not showing up
+- Fixed AzeriteTooltip compatibility with armory
+- Probably fixed double transmog lines on inspected gear
 Changes:
 - Tab handling functions were rewritten. Now with any sizing option selected they should properly do "overflow" behavior and show select dropdown buttons for tabs not on screen.
 - LFR info on in time datatext will only show active wings info. Blizz functions for getting LFR data are in even more broken than before so they return wrong info about wings and raids you can't get into by using LFG tool.
@@ -12,6 +21,17 @@ Changes:
 - Removed 3 currencies used by warfronts only from currency datatext.
 - Removed an option to reposition incoming healing bars.
 - Removed tooltip offset options for tooltip showing up at cursor position. This is in default ElvUI now.
+- Changed inspect logic to fallback to default item info if you lost target with inspect window opened. That will result in items not showing transmog and azerite traits.
+Misc:
+- Attempt to request instanse info less often for minimap indicator
+- Backend change to afk screen working logic.
+
+WIP and To Do:
+These are probably going to appear in the next "planned" release for patch 8.1
+- Apply font to all
+- Options for glows in character armory
+- Some repositioning for "overflow" chat tabs
+- Overhawl of S&L currency datatext
 
 v3.471 [September 23rd 2018]
 Fixes:
