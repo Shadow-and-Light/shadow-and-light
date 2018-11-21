@@ -128,7 +128,7 @@ function M:Initialize()
 	if _G["RaidUtility_ShowButton"] then M:RaidUtility_Hook() end
 
 	--Threat
-	hooksecurefunc(Tr, 'UpdatePosition', M.UpdateThreatPosition)
+	hooksecurefunc(Tr, 'UpdatePosition', M.Threat_UpdatePosition)
 	M:RegisterEvent("ADDON_LOADED", "ElvUIConfig_OnLoad")
 	M:Threat_UpdatePosition()
 
