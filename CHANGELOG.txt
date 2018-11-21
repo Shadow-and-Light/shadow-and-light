@@ -31,7 +31,7 @@ These are probably going to appear in the next "planned" release for patch 8.1
 - Apply font to all
 - Options for glows in character armory
 - Some repositioning for "overflow" chat tabs
-- Overhawl of S&L currency datatext
+- Overhaul of S&L currency datatext
 
 v3.471 [September 23rd 2018]
 Fixes:
