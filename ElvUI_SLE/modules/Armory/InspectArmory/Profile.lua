@@ -27,7 +27,7 @@ P.sle.Armory.Inspect = {
 	},
 	
 	Transmog = {
-		enableGlow = true,
+		enableGlow = false,
 		enableArrow = true,
 		glowNumber = 3,
 		glowOffset = 1,

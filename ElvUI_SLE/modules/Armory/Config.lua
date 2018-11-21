@@ -594,6 +594,7 @@ local function LoadArmoryConfigTable()
 							order = 2,
 							type = "toggle",
 							name = L["Enable Arrow"],
+							desc = L["Enables a small arrow-like indicator on the item slot. Howering over this arrow will show the item this slot is transmogged into."],
 						},
 						glowNumber = {
 							type = 'range',
@@ -1246,7 +1247,7 @@ local function LoadArmoryConfigTable()
 					type = 'group',
 					name = L["Transmog"],
 					get = function(info) return E.db.sle.Armory.Inspect.Transmog[(info[#info])] end,
-					set = function(info, value) E.db.sle.Armory.Inspect.Transmog[(info[#info])] = value; _G["InspectArmory"]:UpdateSettings("gear") end,
+					set = function(info, value) E.db.sle.Armory.Inspect.Transmog[(info[#info])] = value; _G["InspectArmory"]:UpdateSettings("transmog") end,
 					disabled = function() return not E.db.sle.Armory.Inspect.Enable end,
 					args = {
 						enableGlow = {
@@ -1258,6 +1259,7 @@ local function LoadArmoryConfigTable()
 							order = 2,
 							type = "toggle",
 							name = L["Enable Arrow"],
+							desc = L["Enables a small arrow-like indicator on the item slot. Howering over this arrow will show the item this slot is transmogged into."],
 						},
 						glowNumber = {
 							type = 'range',

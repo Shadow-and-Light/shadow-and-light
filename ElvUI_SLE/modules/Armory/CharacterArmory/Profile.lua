@@ -28,7 +28,7 @@ P.sle.Armory.Character = {
 	},
 	
 	Transmog = {
-		enableGlow = true,
+		enableGlow = false,
 		enableArrow = true,
 		glowNumber = 3,
 		glowOffset = 1,

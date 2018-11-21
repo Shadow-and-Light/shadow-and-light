@@ -2879,6 +2879,22 @@ function IA:UpdateSettings(part)
 			end
 		end
 	end
+	if part == "transmog" or part == "all" then
+		for SlotName, _ in T.pairs(Info.Armory_Constants.CanTransmogrifySlot) do
+			local Slot = _G["InspectArmory"][SlotName]
+			LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
+			if Slot and Slot.TransmogrifyAnchor then
+				if Slot.TransmogrifyAnchor.Link and T.type(Slot.TransmogrifyAnchor.Link) ~= 'number' then
+					if E.db.sle.Armory.Inspect.Transmog.enableArrow then Slot.TransmogrifyAnchor:Show() else Slot.TransmogrifyAnchor:Hide() end
+					if E.db.sle.Armory.Inspect.Transmog.enableGlow then
+						LCG.AutoCastGlow_Start(Slot,{1, .5, 1, 1},E.db.sle.Armory.Inspect.Transmog.glowNumber,0.25,1,E.db.sle.Armory.Inspect.Transmog.glowOffset,E.db.sle.Armory.Inspect.Transmog.glowOffset,"_TransmogGlow")
+					else
+						LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
+					end
+				end
+			end
+		end
+	end
 	if part == "gem" or part == "all" then
 		for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 			for i = 1, MAX_NUM_SOCKETS do
@@ -2891,17 +2907,6 @@ function IA:UpdateSettings(part)
 			for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 				if _G["InspectArmory"][SlotName] and _G["InspectArmory"][SlotName].SocketWarning then
 					_G["InspectArmory"][SlotName].SocketWarning:Size(db.Gem.WarningSize)
-				end
-			end
-			if Slot.TransmogrifyAnchor then
-				if Slot.TransmogrifyAnchor.Link and T.type(Slot.TransmogrifyAnchor.Link) ~= 'number' then
-					if E.db.sle.Armory.Inspect.Transmog.enableArrow then Slot.TransmogrifyAnchor:Show() else Slot.TransmogrifyAnchor:Hide() end
-					if E.db.sle.Armory.Inspect.Transmog.enableGlow then
-						print("huh")
-						LCG.AutoCastGlow_Start(Slot,{1, .5, 1, 1},E.db.sle.Armory.Inspect.Transmog.glowNumber,0.25,1,E.db.sle.Armory.Inspect.Transmog.glowOffset,E.db.sle.Armory.Inspect.Transmog.glowOffset,"_TransmogGlow")
-					else
-						LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
-					end
 				end
 			end
 		end

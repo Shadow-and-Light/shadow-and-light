@@ -180,6 +180,12 @@ L["Block names"] = "이름 차단"
 L["PvP Type"] = "PVP 종류"
 L["Spec Fonts"] = "전문화 글씨"
 L["Azerite Level Position"] = true
+L["Transmog"] = true
+L["Enable Glow"] = true
+L["Enable Arrow"] = true
+L["Enables a small arrow-like indicator on the item slot. Howering over this arrow will show the item this slot is transmogged into."] = true
+L["Glow Number"] = true
+L["Glow Offset"] = true
 
 --AFK
 L["You Are Away From Keyboard for"] = "다음 시간 동안 자리를 비우고 계십니다. "
