@@ -2294,9 +2294,12 @@ function IA:InspectFrame_DataSetting(DataTable)
 							Slot.TransmogrifyAnchor.Link = DataTable.Gear[SlotName].Transmogrify ~= 'NotDisplayed' and DataTable.Gear[SlotName].Transmogrify or nil
 
 							if Slot.TransmogrifyAnchor.Link and T.type(Slot.TransmogrifyAnchor.Link) ~= 'number' then
-								Slot.TransmogrifyAnchor:Show()
-								LCG.AutoCastGlow_Start(Slot,{1, .5, 1, 1},6,0.25,1.2,nil,nil,"_TransmogGlow")
+								if E.db.sle.Armory.Inspect.Transmog.enableArrow then Slot.TransmogrifyAnchor:Show() end
+								if E.db.sle.Armory.Inspect.Transmog.enableGlow then LCG.AutoCastGlow_Start(Slot,{1, .5, 1, 1},E.db.sle.Armory.Inspect.Transmog.glowNumber,0.25,1,E.db.sle.Armory.Inspect.Transmog.glowOffset,E.db.sle.Armory.Inspect.Transmog.glowOffset,"_TransmogGlow") end
 							end
+								-- Slot.TransmogrifyAnchor:Show()
+								-- LCG.AutoCastGlow_Start(Slot,{1, .5, 1, 1},6,0.25,1.2,nil,nil,"_TransmogGlow")
+							-- end
 						end
 						
 						R, G, B = GetItemQualityColor(Slot.ItemRarity)
@@ -2888,6 +2891,17 @@ function IA:UpdateSettings(part)
 			for _, SlotName in T.pairs(Info.Armory_Constants.GearList) do
 				if _G["InspectArmory"][SlotName] and _G["InspectArmory"][SlotName].SocketWarning then
 					_G["InspectArmory"][SlotName].SocketWarning:Size(db.Gem.WarningSize)
+				end
+			end
+			if Slot.TransmogrifyAnchor then
+				if Slot.TransmogrifyAnchor.Link and T.type(Slot.TransmogrifyAnchor.Link) ~= 'number' then
+					if E.db.sle.Armory.Inspect.Transmog.enableArrow then Slot.TransmogrifyAnchor:Show() else Slot.TransmogrifyAnchor:Hide() end
+					if E.db.sle.Armory.Inspect.Transmog.enableGlow then
+						print("huh")
+						LCG.AutoCastGlow_Start(Slot,{1, .5, 1, 1},E.db.sle.Armory.Inspect.Transmog.glowNumber,0.25,1,E.db.sle.Armory.Inspect.Transmog.glowOffset,E.db.sle.Armory.Inspect.Transmog.glowOffset,"_TransmogGlow")
+					else
+						LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
+					end
 				end
 			end
 		end

@@ -408,7 +408,7 @@ local function LoadArmoryConfigTable()
 				Backdrop = {
 					type = 'group',
 					name = L["Backdrop"],
-					order = 3,
+					order = 4,
 					args = {
 						SelectedBG = {
 							type = 'select',
@@ -577,10 +577,44 @@ local function LoadArmoryConfigTable()
 						},
 					},
 				},
+				Transmog = {
+					order = 9,
+					type = 'group',
+					name = L["Transmog"],
+					get = function(info) return E.db.sle.Armory.Character.Transmog[(info[#info])] end,
+					set = function(info, value) E.db.sle.Armory.Character.Transmog[(info[#info])] = value; _G["CharacterArmory"]:UpdateSettings("gear") end,
+					disabled = function() return not E.db.sle.Armory.Character.Enable end,
+					args = {
+						enableGlow = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable Glow"],
+						},
+						enableArrow = {
+							order = 2,
+							type = "toggle",
+							name = L["Enable Arrow"],
+						},
+						glowNumber = {
+							type = 'range',
+							name = L["Glow Number"],
+							order = 3,
+							min = 2,max = 8,step = 1,
+							disabled = function() return not E.db.sle.Armory.Character.Transmog.enableGlow end,
+						},
+						glowOffset = {
+							type = 'range',
+							name = L["Glow Offset"],
+							order = 4,
+							min = -2,max = 4,step = 1,
+							disabled = function() return not E.db.sle.Armory.Character.Transmog.enableGlow end,
+						},
+					},
+				},
 				Enchant = {
 					type = 'group',
 					name = L["Enchant String"],
-					order = 9,
+					order = 10,
 					get = function(info) return E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] end,
 					set = function(info, value) E.db.sle.Armory.Character[(info[#info - 1])][(info[#info])] = value;  _G["CharacterArmory"]:UpdateSettings("ench") end,
 					args = {
@@ -1206,6 +1240,40 @@ local function LoadArmoryConfigTable()
 							set = function(_, value) E.db.sle.Armory.Inspect.Gem.yOffset = value; _G["InspectArmory"]:Update_Display(true) end,
 						},
 					}
+				},
+				Transmog = {
+					order = 12,
+					type = 'group',
+					name = L["Transmog"],
+					get = function(info) return E.db.sle.Armory.Inspect.Transmog[(info[#info])] end,
+					set = function(info, value) E.db.sle.Armory.Inspect.Transmog[(info[#info])] = value; _G["InspectArmory"]:UpdateSettings("gear") end,
+					disabled = function() return not E.db.sle.Armory.Inspect.Enable end,
+					args = {
+						enableGlow = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable Glow"],
+						},
+						enableArrow = {
+							order = 2,
+							type = "toggle",
+							name = L["Enable Arrow"],
+						},
+						glowNumber = {
+							type = 'range',
+							name = L["Glow Number"],
+							order = 3,
+							min = 2,max = 8,step = 1,
+							disabled = function() return not E.db.sle.Armory.Inspect.Transmog.enableGlow end,
+						},
+						glowOffset = {
+							type = 'range',
+							name = L["Glow Offset"],
+							order = 4,
+							min = -2,max = 4,step = 1,
+							disabled = function() return not E.db.sle.Armory.Inspect.Transmog.enableGlow end,
+						},
+					},
 				},
 				GeneralFonts = {
 					order = 20,

@@ -26,6 +26,13 @@ P.sle.Armory.Inspect = {
 		ItemQuality = false,
 	},
 	
+	Transmog = {
+		enableGlow = true,
+		enableArrow = true,
+		glowNumber = 3,
+		glowOffset = 1,
+	},
+	
 	Level = {
 		Display = 'Always', -- Always, MouseoverOnly, Hide
 		ShowUpgradeLevel = false,
