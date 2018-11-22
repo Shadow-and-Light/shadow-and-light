@@ -1,3 +1,17 @@
+v3.482 [November 22nd 2018]
+Additions:
+- Added more options for stat fonts in character screen for armory
+Fixes:
+- Fixed chat tabs throwing errors on creation
+- Fixed some modules not functioning due to forgotten function rename
+
+WIP and To Do:
+These are probably going to appear in the next "planned" release for patch 8.1, unless something unexpected happens
+- Apply font to all
+- Some repositioning for "overflow" chat tabs
+- Overhaul of S&L currency datatext
+
+
 v3.481 [November 21st 2018]
 Additions:
 - Option for transmog glows in armory. Azerite traits are not going to change from how they are unless a massive request wave happens.
