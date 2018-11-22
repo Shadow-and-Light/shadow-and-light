@@ -186,6 +186,7 @@ L["Enable Arrow"] = true
 L["Enables a small arrow-like indicator on the item slot. Howering over this arrow will show the item this slot is transmogged into."] = true
 L["Glow Number"] = true
 L["Glow Offset"] = true
+L["Categories"] = true
 
 --AFK
 L["You Are Away From Keyboard for"] = "다음 시간 동안 자리를 비우고 계십니다. "

@@ -308,40 +308,10 @@ local function LoadArmoryConfigTable()
 										PaperDollFrame_UpdateStats()
 									end,
 								},
-								IlvlFont = {
-									type = 'group',
-									name = L["Fonts"],
-									order = 4,
-									guiInline = true,
-									get = function(info) return E.db.sle.Armory.Character.Stats.ItemLevel[ info[#info] ] end,
-									set = function(info, value) E.db.sle.Armory.Character.Stats.ItemLevel[ info[#info] ] = value; _G["CharacterArmory"]:UpdateIlvlFont() end,
-									args = {
-										font = {
-											type = 'select', dialogControl = 'LSM30_Font',
-											name = L["Font"],
-											order = 1,
-											values = function()
-												return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
-											end,
-										},
-										size = {
-											type = 'range',
-											name = L["Font Size"],
-											order = 2,
-											min = 6,max = 22,step = 1,
-										},
-										outline = {
-											type = 'select',
-											name = L["Font Outline"],
-											order = 3,
-											values = FontStyleList,
-										},
-									},
-								},
 							},
 						},
 						Attributes = {
-							order = 3,
+							order = 10,
 							type = "group",
 							name = STAT_CATEGORY_ATTRIBUTES,
 							guiInline = true,
@@ -355,7 +325,7 @@ local function LoadArmoryConfigTable()
 							},
 						},
 						Attack = {
-							order = 4,
+							order = 11,
 							type = "group",
 							name = STAT_CATEGORY_ATTACK,
 							guiInline = true,
@@ -373,7 +343,7 @@ local function LoadArmoryConfigTable()
 							},
 						},
 						Enhancements = {
-							order = 5,
+							order = 12,
 							type = "group",
 							name = STAT_CATEGORY_ENHANCEMENTS,
 							guiInline = true,
@@ -388,7 +358,7 @@ local function LoadArmoryConfigTable()
 							},
 						},
 						Defence = {
-							order = 6,
+							order = 13,
 							type = "group",
 							name = DEFENSE,
 							guiInline = true,
@@ -401,6 +371,104 @@ local function LoadArmoryConfigTable()
 								PARRY = { order = 4,type = "toggle",name = STAT_PARRY,},
 								BLOCK = { order = 5,type = "toggle",name = STAT_BLOCK,},
 								-- STAGGER = { order = 6,type = "toggle",name = STAT_STAGGER,},
+							},
+						},
+					},
+				},
+				Fonts = {
+					type = "group",
+					name = STAT_CATEGORY_ATTRIBUTES..": "..L["Fonts"],
+					-- guiInline = true,
+					order = 3,
+					args = {
+						IlvlFont = {
+							type = 'group',
+							name = STAT_AVERAGE_ITEM_LEVEL,
+							order = 1,
+							guiInline = true,
+							get = function(info) return E.db.sle.Armory.Character.Stats.ItemLevel[ info[#info] ] end,
+							set = function(info, value) E.db.sle.Armory.Character.Stats.ItemLevel[ info[#info] ] = value; _G["CharacterArmory"]:UpdateIlvlFont() end,
+							args = {
+								font = {
+									type = 'select', dialogControl = 'LSM30_Font',
+									name = L["Font"],
+									order = 1,
+									values = function()
+										return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
+									end,
+								},
+								size = {
+									type = 'range',
+									name = L["Font Size"],
+									order = 2,
+									min = 6,max = 22,step = 1,
+								},
+								outline = {
+									type = 'select',
+									name = L["Font Outline"],
+									order = 3,
+									values = FontStyleList,
+								},
+							},
+						},
+						statFonts = {
+							type = 'group',
+							name = STAT_CATEGORY_ATTRIBUTES,
+							order = 2,
+							guiInline = true,
+							get = function(info) return E.db.sle.Armory.Character.Stats.statFonts[ info[#info] ] end,
+							set = function(info, value) E.db.sle.Armory.Character.Stats.statFonts[ info[#info] ] = value; _G["CharacterArmory"]:PaperDollFrame_UpdateStats() end,
+							args = {
+								font = {
+									type = 'select', dialogControl = 'LSM30_Font',
+									name = L["Font"],
+									order = 1,
+									values = function()
+										return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
+									end,
+								},
+								size = {
+									type = 'range',
+									name = L["Font Size"],
+									order = 2,
+									min = 6,max = 22,step = 1,
+								},
+								outline = {
+									type = 'select',
+									name = L["Font Outline"],
+									order = 3,
+									values = FontStyleList,
+								},
+							},
+						},
+						catFonts = {
+							type = 'group',
+							name = L["Categories"],
+							order = 3,
+							guiInline = true,
+							get = function(info) return E.db.sle.Armory.Character.Stats.catFonts[ info[#info] ] end,
+							set = function(info, value) E.db.sle.Armory.Character.Stats.catFonts[ info[#info] ] = value; _G["CharacterArmory"]:PaperDollFrame_UpdateStats() end,
+							args = {
+								font = {
+									type = 'select', dialogControl = 'LSM30_Font',
+									name = L["Font"],
+									order = 1,
+									values = function()
+										return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
+									end,
+								},
+								size = {
+									type = 'range',
+									name = L["Font Size"],
+									order = 2,
+									min = 6,max = 22,step = 1,
+								},
+								outline = {
+									type = 'select',
+									name = L["Font Outline"],
+									order = 3,
+									values = FontStyleList,
+								},
 							},
 						},
 					},

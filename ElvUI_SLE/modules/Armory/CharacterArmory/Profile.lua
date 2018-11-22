@@ -82,6 +82,16 @@ P.sle.Armory.Character = {
 			size = 12,
 			outline = "NONE",
 		},
+		statFonts = {
+			font = "PT Sans Narrow",
+			size = 12,
+			outline = "NONE",
+		},
+		catFonts = {
+			font = "PT Sans Narrow",
+			size = 12,
+			outline = "NONE",
+		},
 		List = {
 			--General
 			HEALTH = false,

@@ -360,6 +360,7 @@ function CA:PaperDollFrame_UpdateStats()
 	local statYOffset = 0;
 
 	_G["CharacterStatsPane"].ItemLevelCategory:Show();
+	_G["CharacterStatsPane"].ItemLevelCategory.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.Armory.Character.Stats.catFonts.font), E.db.sle.Armory.Character.Stats.catFonts.size, E.db.sle.Armory.Character.Stats.catFonts.outline)
 	_G["CharacterStatsPane"].ItemLevelFrame:Show();
 
 	local spec = T.GetSpecialization();
@@ -376,6 +377,7 @@ function CA:PaperDollFrame_UpdateStats()
 
 	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
 		local catFrame = _G["CharacterStatsPane"][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame];
+		catFrame.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.Armory.Character.Stats.catFonts.font), E.db.sle.Armory.Character.Stats.catFonts.size, E.db.sle.Armory.Character.Stats.catFonts.outline)
 		local numStatInCat = 0;
 		for statIndex = 1, #PAPERDOLL_STATCATEGORIES[catIndex].stats do
 			local stat = PAPERDOLL_STATCATEGORIES[catIndex].stats[statIndex];
@@ -410,8 +412,8 @@ function CA:PaperDollFrame_UpdateStats()
 			if ( showStat ) then
 				statFrame.onEnterFunc = nil;
 				PAPERDOLL_STATINFO[stat.stat].updateFunc(statFrame, "player");
-				statFrame.Label:FontTemplate(E.LSM:Fetch('font', E.db.sle.Armory.Character.Stats.ItemLevel.font), 12, E.db.sle.Armory.Character.Stats.ItemLevel.outline)
-				statFrame.Value:FontTemplate(E.LSM:Fetch('font', E.db.sle.Armory.Character.Stats.ItemLevel.font), 12, E.db.sle.Armory.Character.Stats.ItemLevel.outline)
+				statFrame.Label:FontTemplate(E.LSM:Fetch('font', E.db.sle.Armory.Character.Stats.statFonts.font), E.db.sle.Armory.Character.Stats.statFonts.size, E.db.sle.Armory.Character.Stats.statFonts.outline)
+				statFrame.Value:FontTemplate(E.LSM:Fetch('font', E.db.sle.Armory.Character.Stats.statFonts.font), E.db.sle.Armory.Character.Stats.statFonts.size, E.db.sle.Armory.Character.Stats.statFonts.outline)
 				if ( not stat.hideAt or stat.hideAt ~= statFrame.numericValue ) then
 					if ( numStatInCat == 0 ) then
 						if ( lastAnchor ) then

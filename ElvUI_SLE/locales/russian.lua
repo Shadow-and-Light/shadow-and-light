@@ -186,6 +186,7 @@ L["Enable Arrow"] = "Включить стрелку"
 L["Enables a small arrow-like indicator on the item slot. Howering over this arrow will show the item this slot is transmogged into."] = "отображать индикатор в виде стрелки на слоте. При наведении курсора на стрелку будет показываться название предмета трансмогрификации."
 L["Glow Number"] = "Элементов свечения"
 L["Glow Offset"] = "Отступ свечения"
+L["Categories"] = "Категории"
 
 --AFK
 L["You Are Away From Keyboard for"] = "Вы отошли на"
