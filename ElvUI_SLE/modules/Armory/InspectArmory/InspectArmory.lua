@@ -218,8 +218,10 @@ do --<< Button Script >>--
 				else
 					CurrentLineText = _G['GameTooltipTextLeft'..i]:GetText()
 				end
+				
+				if not CurrentLineText then CurrentLineText = "" end
 
-				SetName = CurrentLineText and CurrentLineText:match('^(.+) %((%d)/(%d)%)$') or nil
+				SetName = CurrentLineText:match('^(.+) %((%d)/(%d)%)$') or nil
 				
 				if SetName and type(IA.SetItem[SetName]) == 'table' then
 					local SetCount, SetOptionCount = 0, 0
