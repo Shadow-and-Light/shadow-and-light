@@ -56,7 +56,7 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 
 	for index, chatFrame in ipairs(dock.DOCKED_CHAT_FRAMES) do
 		local chatTab = _G[chatFrame:GetName().."Tab"];
-		chatTab.text:SetText(chatFrame.name) --Reseting tab name
+		if chatTab.text then chatTab.text:SetText(chatFrame.name) end --Reseting tab name
 		if ( chatFrame == FCFDock_GetSelectedWindow(dock) ) and C.db.tab.select then --Tab is selected and option is enabled
 			C:ApplySelectedTabIndicator(chatTab, chatFrame.name)
 		end
