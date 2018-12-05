@@ -988,7 +988,8 @@ Chun Kim
 Cyntia McCarthy
 Jonathan Sweet
 Nicholas Caldecutt
-Richard Gardner]]
+Richard Gardner
+Tony Ellis]]
 L["ELVUI_SLE_MISC"] = [=[BuG - for always hilariously breaking stuff
 TheSamaKutra
 The rest of TukUI community

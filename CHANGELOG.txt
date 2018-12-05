@@ -1,3 +1,10 @@
+v3.49
+Additions:
+- Added apply font to all option. It is under media section.
+- Added an option to hide player model in afk screen
+Fixes:
+- Fixed another instance of AzeriteTooltip incompatibility
+
 v3.482 [November 22nd 2018]
 Additions:
 - Added more options for stat fonts in character screen for armory
