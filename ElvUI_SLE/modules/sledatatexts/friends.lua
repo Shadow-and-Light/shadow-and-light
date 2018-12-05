@@ -22,6 +22,7 @@ local RED_FONT_COLOR_CODE = RED_FONT_COLOR_CODE
 local CHAT_FLAG_AFK = CHAT_FLAG_AFK
 local CHAT_FLAG_DND = CHAT_FLAG_DND
 local LASTONLINE_SECS, LASTONLINE_MINUTES, LASTONLINE_HOURS, LASTONLINE_DAYS, LASTONLINE_MONTHS, LASTONLINE_YEARS = LASTONLINE_SECS, LASTONLINE_MINUTES, LASTONLINE_HOURS, LASTONLINE_DAYS, LASTONLINE_MONTHS, LASTONLINE_YEARS
+local COMMUNITIES_PRESENCE_MOBILE_CHAT = COMMUNITIES_PRESENCE_MOBILE_CHAT
 
 local ShowFriends = ShowFriends
 local IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown = IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown
@@ -449,26 +450,32 @@ function LDB.OnEnter(self)
 						line = tooltip:SetCell(line, 5, player["ZONENAME"])
 						line = tooltip:SetCell(line, 6, player["FCOLOR"] .. player["REALMNAME"] .. "|r")
 					elseif player["CLIENT"] == "App" then
-							line = tooltip:SetCell(line, 5, "|cff82c5ffDesktop Application|r")
-							line = tooltip:SetCell(line, 6, "|cff01b2f1Battle.net|r")
+						line = tooltip:SetCell(line, 5, "|cff82c5ffDesktop Application|r")
+						line = tooltip:SetCell(line, 6, "|cff01b2f1Battle.net|r")
+					elseif player["CLIENT"] == "BSAp" then
+						-- line = tooltip:SetCell(line, 5, "|cff82c5ffMobile|r")
+						line = tooltip:SetCell(line, 5, "|cff82c5ff"..COMMUNITIES_PRESENCE_MOBILE_CHAT.."|r")
+						line = tooltip:SetCell(line, 6, "|cff01b2f1Battle.net|r")
 					else
 						line = tooltip:SetCell(line, 5, player["GAMETEXT"])
 						if player["CLIENT"] == "S2" then
 							line = tooltip:SetCell(line, 6, "|cff82c5ffStarCraft 2|r")
-						end
-
-						if player["CLIENT"] == "D3" then
+						elseif player["CLIENT"] == "S1" then
+							line = tooltip:SetCell(line, 6, "|cff82c5ffStarCraft|r")
+						elseif player["CLIENT"] == "D3" then
 							line = tooltip:SetCell(line, 6, "|cffad835aDiablo 3|r")
-						end
-						
-						if player["CLIENT"] == wtcgString then
+						elseif player["CLIENT"] == wtcgString then
 							line = tooltip:SetCell(line, 6, "|cff82c5ffHearthstone|r")
-						end
-						if player["CLIENT"] == "Hero" then
+						elseif player["CLIENT"] == "Hero" then
 							line = tooltip:SetCell(line, 6, "|cff82c5ffHeroes of The Storm|r")
-						end
-						if player["CLIENT"] == "Pro" then
+						elseif player["CLIENT"] == "Pro" then
 							line = tooltip:SetCell(line, 6, "|cff82c5ffOverwatch|r")
+						elseif player["CLIENT"] == "DST2" then
+							line = tooltip:SetCell(line, 6, "|cffffffffDestiny 2|r")
+						elseif player["CLIENT"] == "VIPR" then
+							line = tooltip:SetCell(line, 6, "CoD")
+						else
+							print(player["GIVENNAME"], player["CLIENT"])
 						end
 					end
 
