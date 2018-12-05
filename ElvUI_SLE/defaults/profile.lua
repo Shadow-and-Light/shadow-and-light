@@ -677,6 +677,7 @@ P["sle"] = {
 		["xpack"] = 150,
 		["height"] = 135,
 		["playermodel"] = {
+			["enable"] = true,
 			["anim"] = 4,
 			["distance"] = 4.5,
 			["holderXoffset"] = 0,
