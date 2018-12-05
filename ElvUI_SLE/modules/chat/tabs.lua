@@ -54,7 +54,7 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 
 	C.TotalTabsWidth = 0 --Reseting saved combined width
 
-	for index, chatFrame in ipairs(dock.DOCKED_CHAT_FRAMES) do
+	for index, chatFrame in T.ipairs(dock.DOCKED_CHAT_FRAMES) do
 		local chatTab = _G[chatFrame:GetName().."Tab"];
 		if chatTab.text then chatTab.text:SetText(chatFrame.name) end --Reseting tab name
 		if ( chatFrame == FCFDock_GetSelectedWindow(dock) ) and C.db.tab.select then --Tab is selected and option is enabled
@@ -93,12 +93,15 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 	end
 
 	--If blizz sizing is selected then messing around with scroll frame is unnessesary
-	if C.db.tab.resize == "Blizzard" then return end
-	local dynTabSize = FCFDock_CalculateTabSize(dock, numDynFrames); --Usually this returns "hasOverflow" as well, but I use my own variable for that
+	if C.db.tab.resize == "Blizzard" then
+		dock.scrollFrame:SetPoint("BOTTOMRIGHT", dock, "BOTTOMRIGHT", 0, 3);
+		return
+	end
+	local dynTabSize, origOverflow = FCFDock_CalculateTabSize(dock, numDynFrames); --Usually this returns "hasOverflow" as well, but I use my own variable for that
 	local hasOverflow = C.TotalTabsWidth > E.db.chat.panelWidth
 
 	--Dynamically resize tabs
-	for index, chatFrame in ipairs(dock.DOCKED_CHAT_FRAMES) do
+	for index, chatFrame in T.ipairs(dock.DOCKED_CHAT_FRAMES) do
 		if ( not chatFrame.isStaticDocked ) then
 			local chatTab = _G[chatFrame:GetName().."Tab"];
 			PanelTemplates_TabResize(chatTab, chatTab.sizePadding or 0, dynTabSize);
@@ -106,13 +109,12 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 	end
 
 	dock.scrollFrame:SetPoint("LEFT", lastDockedStaticTab, "RIGHT", 0, 0);
-	if ( hasOverflow ) then
+	if ( hasOverflow or origOverflow) then
 		dock.overflowButton:Show();
-		dock.scrollFrame:SetPoint("BOTTOMRIGHT", dock.overflowButton, "BOTTOMLEFT", 0, 0);
 	else
 		dock.overflowButton:Hide();
-		dock.scrollFrame:SetPoint("BOTTOMRIGHT", dock, "BOTTOMRIGHT", 0, -5);
 	end
+	dock.scrollFrame:SetPoint("BOTTOMRIGHT", dock, "BOTTOMRIGHT", 0, 3);
 
 	--Cache some of this data on the scroll frame for animating to the selected tab.
 	dock.scrollFrame.dynTabSize = dynTabSize;
@@ -145,4 +147,8 @@ function C:InitTabs()
 	--Calling in update after hooks. Why 2 times? No idea, doesn't work otherwise
 	FCF_DockUpdate()
 	FCF_DockUpdate()
+
+	--Repositioning of dock frame
+	GeneralDockManagerScrollFrame:SetHeight(20)
+	GeneralDockManagerScrollFrame:Point("BOTTOMRIGHT", GeneralDockManager, "BOTTOMRIGHT",0,3)
 end
