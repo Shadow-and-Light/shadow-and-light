@@ -31,7 +31,7 @@ ES.FramesToShadow = {
 	},
 	["Datapanels"] = {
 		["leftchat"] = "LeftChatDataPanel",
-		["righchat"] = "RightChatDataPanel",
+		["rightchat"] = "RightChatDataPanel",
 		["panel1"] = "SLE_DataPanel_1",
 		["panel2"] = "SLE_DataPanel_2",
 		["panel3"] = "SLE_DataPanel_3",
