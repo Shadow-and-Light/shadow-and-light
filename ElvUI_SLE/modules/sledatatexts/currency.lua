@@ -19,8 +19,7 @@ local SHOW_CONQUEST_LEVEL = SHOW_CONQUEST_LEVEL
 local FACTION_HORDE = FACTION_HORDE
 local FACTION_ALLIANCE = FACTION_ALLIANCE
 local ARCHAEOLOGY_RUNE_STONES = ARCHAEOLOGY_RUNE_STONES
-local CALENDAR_TYPE_DUNGEON = CALENDAR_TYPE_DUNGEON
-local CALENDAR_TYPE_RAID = CALENDAR_TYPE_RAID
+local GROUP_FINDER = GROUP_FINDER
 local PLAYER_V_PLAYER = PLAYER_V_PLAYER
 local MISCELLANEOUS = MISCELLANEOUS
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
@@ -142,11 +141,11 @@ end
 local HiddenCurrency = {}
 
 local function UnusedCheck()
-	-- if GetOption('Unused') then HiddenCurrency = {}; return end
 	T.twipe(HiddenCurrency)
+	if GetOption('Unused') then return end
 	for i = 1, T.GetCurrencyListSize() do
-		local name, _, _, isUnused = GetCurrencyListInfo(i)
-		if isUnused then
+		local name, isHeader, _, isUnused = GetCurrencyListInfo(i)
+		if not isHeader and isUnused then
 			if not SLE:SimpleTable(HiddenCurrency, name) then
 				T.tinsert(HiddenCurrency,#(HiddenCurrency)+1, name)
 			end
@@ -307,6 +306,29 @@ local function Click(self, btn)
 	end
 end
 
+local HeaderListExpanded = {}
+local function ToggleCurrencies(open)
+	for i = T.GetCurrencyListSize(), 1, -1 do
+		local name, isHeader, isExpanded = GetCurrencyListInfo(i)
+		if open then
+			if not HeaderListExpanded[name] and isHeader and isExpanded then
+				HeaderListExpanded[name] = true
+			else
+				ExpandCurrencyList(i, 1)
+			end
+		else
+			if isHeader then
+				if not HeaderListExpanded[name] then
+					ExpandCurrencyList(i, 0)
+				else
+					HeaderListExpanded[name] = nil
+				end
+			end
+		end
+	end
+	TokenFrame_Update()
+end
+
 local function OnEnter(self)
 	if T.InCombatLockdown() then return end
 	DT:SetupTooltip(self)
@@ -361,6 +383,8 @@ local function OnEnter(self)
 	end
 	DT.tooltip:AddDoubleLine(L["Total: "], E:FormatMoney(totalGold, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), 1, 1, 1, 1, 1, 1)
 
+	ToggleCurrencies(true)
+
 	if ARCHAEOLOGY ~= nil and GetOption('Archaeology') then
 		GetCurrency(ArchaeologyFragments, T.format('%s %s:', ARCHAEOLOGY, ARCHAEOLOGY_RUNE_STONES))
 	end
@@ -371,7 +395,7 @@ local function OnEnter(self)
 		GetCurrency(JewelcraftingTokens, T.format("%s:", JEWELCRAFTING))
 	end
 	if GetOption('Raid') then
-		GetCurrency(DungeonRaid, T.format('%s & %s:', CALENDAR_TYPE_DUNGEON, CALENDAR_TYPE_RAID))
+		GetCurrency(DungeonRaid, T.format("%s:", GROUP_FINDER))
 	end
 	if GetOption('PvP') then
 		GetCurrency(PvPPoints, T.format("%s:", PLAYER_V_PLAYER))
@@ -379,6 +403,8 @@ local function OnEnter(self)
 	if GetOption('Miscellaneous') then
 		GetCurrency(MiscellaneousCurrency, T.format("%s:", MISCELLANEOUS))
 	end
+
+	ToggleCurrencies(false)
 
 	DT.tooltip:AddLine' '
 	DT.tooltip:AddLine(resetInfoFormatter)
