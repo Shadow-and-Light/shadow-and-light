@@ -247,7 +247,7 @@ local function OnEvent(self, event, ...)
 	local OldMoney = ElvDB["gold"][E.myrealm][E.myname] or NewMoney
 
 	local calculateChange = false;
-	
+
 	if (NewMoney == 0) then
 		if (self.seenZeroAlready) then
 			calculateChange = true
@@ -306,6 +306,8 @@ local function Click(self, btn)
 	end
 end
 
+C_Timer.NewTicker(60, function () C_WowTokenPublic.UpdateMarketPrice() end)
+
 local HeaderListExpanded = {}
 local function ToggleCurrencies(open)
 	for i = T.GetCurrencyListSize(), 1, -1 do
@@ -341,7 +343,7 @@ local function OnEnter(self)
 	elseif (Profit-Spent)>0 then
 		DT.tooltip:AddDoubleLine(L["Profit:"], E:FormatMoney(Profit-Spent, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), 0, 1, 0, 1, 1, 1)
 	end
-	DT.tooltip:AddLine' '
+	DT.tooltip:AddLine(' ')
 
 	local totalGold, AllianceGold, HordeGold = 0, 0, 0
 	DT.tooltip:AddLine(L["Character: "])
@@ -375,7 +377,7 @@ local function OnEnter(self)
 		DT.tooltip:AddDoubleLine(t.name == E.myname and t.name.." |TInterface\\RAIDFRAME\\ReadyCheck-Ready:12|t" or t.name, t.amountText, t.r, t.g, t.b, 1, 1, 1)
 	end
 
-	DT.tooltip:AddLine' '
+	DT.tooltip:AddLine(' ')
 	DT.tooltip:AddLine(L["Server: "])
 	if GetOption('Faction') then
 		DT.tooltip:AddDoubleLine(T.format('%s: ', FACTION_ALLIANCE), E:FormatMoney(AllianceGold, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), AllianceColor.r, AllianceColor.g, AllianceColor.b, 1, 1, 1)
@@ -406,7 +408,12 @@ local function OnEnter(self)
 
 	ToggleCurrencies(false)
 
-	DT.tooltip:AddLine' '
+	if E.db.sle.dt.currency.Token then
+		DT.tooltip:AddLine(' ')
+		DT.tooltip:AddDoubleLine(ITEM_QUALITY8_DESC.."|TInterface\\Icons\\WoW_Token01:12:12:0:0:64:64:4:60:4:60|t", E:FormatMoney(C_WowTokenPublic.GetCurrentMarketPrice(), E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), 1, 1, 1, 1, 1, 1)
+	end
+
+	DT.tooltip:AddLine(' ')
 	DT.tooltip:AddLine(resetInfoFormatter)
 
 	DT.tooltip:Show()

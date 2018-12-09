@@ -243,7 +243,7 @@ P["sle"] = {
 			["alpha"] = 1,
 			["transparent"] = false,
 			["noback"] = false,
-			
+
 		},
 		["leftchat"] = {
 			["enabled"] = true,
@@ -302,6 +302,7 @@ P["sle"] = {
 			["Icons"] = true,
 			["Faction"] = true,
 			["Unused"] = true,
+			["Token"] = true,
 			["gold"] = {
 				["direction"] = "normal",
 				["method"] = "name",
@@ -379,7 +380,7 @@ P["sle"] = {
 			["uldir"] = false,
 		},
 	},
-	--Loot 
+	--Loot
 	["loot"] = {
 		["enable"] = false,
 		["autoroll"] = {
@@ -691,7 +692,7 @@ P["sle"] = {
 		["panelTemplate"] = "Transparent",
 	},
 	--Shadows
-	['shadows'] = { 
+	['shadows'] = {
 		['shadowcolor'] = { ['r'] = 0, ['g'] = 0, ['b'] = 0 },
 		['classcolor'] = false,
 		['size'] = 3,
