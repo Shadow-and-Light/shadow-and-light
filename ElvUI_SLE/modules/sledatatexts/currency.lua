@@ -412,7 +412,7 @@ local function OnEnter(self)
 		local DaToken = C_WowTokenPublic.GetCurrentMarketPrice()
 		if DaToken and DaToken ~= "" then
 			DT.tooltip:AddLine(' ')
-			DT.tooltip:AddDoubleLine(ITEM_QUALITY8_DESC.."|TInterface\\Icons\\WoW_Token01:12:12:0:0:64:64:4:60:4:60|t", E:FormatMoney(DaToken, "SHORTINT", not E.db.datatexts.goldCoins), 1, 1, 1, 1, 1, 1)
+			DT.tooltip:AddDoubleLine(ITEM_QUALITY8_DESC.."|TInterface\\Icons\\WoW_Token01:12:12:0:0:64:64:4:60:4:60|t", E:FormatMoney(DaToken, "SHORTINT", not E.db.datatexts.goldCoins), 1, 1, 1)
 		end
 	end
 
