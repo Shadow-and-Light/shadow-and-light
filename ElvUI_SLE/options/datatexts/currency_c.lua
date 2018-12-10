@@ -1,5 +1,7 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
 
+local CHARACTER, NONE = CHARACTER, NONE
+
 local function configTable()
 	if not SLE.initialized then return end
 
@@ -32,7 +34,7 @@ local function configTable()
 	local function CreateCustomToonList()
 		local config = {
 			name = CUSTOM,
-			order = 3,
+			order = 10,
 			type = "group",
 			guiInline = true,
 			hidden = function() return E.db.sle.dt.currency.gold.method ~= "order" end,
@@ -146,6 +148,40 @@ local function configTable()
 							["name"] = NAME,
 							["amount"] = L["Amount"],
 							["order"] = CUSTOM,
+						},
+					},
+					throttle = {
+						order = 3,
+						type = "group",
+						name = L["Gold Throttle"],
+						get = function(info) return E.db.sle.dt.currency.gold.throttle[ info[#info] ] end,
+						set = function(info, value) E.db.sle.dt.currency.gold.throttle[ info[#info] ] = value end,
+						args = {
+							mode = {
+								order = 1,
+								name = L["Mode"],
+								type = "select",
+								values = {
+									["NONE"] = NONE,
+									["AMOUNT"] = L["Amount"],
+									["CHAR"] = CHARACTER,
+								},
+							},
+							goldAmount = {
+								order = 2,
+								type = "range",
+								name = L["Amount"],
+								desc = L["Amount of gold needed on a character to show it in the list"],
+								min = 0, max = 1000000, step = 1,
+								hidden = function() return E.db.sle.dt.currency.gold.throttle.mode ~= "AMOUNT" end,
+							},
+							numChars = {
+								order = 2,
+								type = "range",
+								name = CHARACTER,
+								min = 1, max = 20, step = 1,
+								hidden = function() return E.db.sle.dt.currency.gold.throttle.mode ~= "CHAR" end,
+							},
 						},
 					},
 					customSort = CreateCustomToonList(),

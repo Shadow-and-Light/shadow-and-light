@@ -306,6 +306,11 @@ P["sle"] = {
 			["gold"] = {
 				["direction"] = "normal",
 				["method"] = "name",
+				["throttle"] = {
+					["mode"] = "NONE",
+					["numChars"] = 5,
+					["goldAmount"] = 5000,
+				},
 			},
 			["cur"] = {
 				["direction"] = "normal",

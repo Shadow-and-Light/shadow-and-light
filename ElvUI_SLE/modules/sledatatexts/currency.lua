@@ -105,7 +105,7 @@ local MiscellaneousCurrency = {
 	1154, --Shadowy Coins
 	1268, --Timeworn Artifact
 	1342, --Legionfall war supplies
-	1506, --Argus Waystone
+	-- 1506, --Argus Waystone
 	1299, --Brawler's Gold
 	1508, --Veiled Argunite
 	1533, --Wakening Essence
@@ -353,15 +353,17 @@ local function OnEnter(self)
 			local class = ElvDB["class"][E.myrealm][k]
 			local color = RAID_CLASS_COLORS[class or "PRIEST"]
 			local order = E.private.sle.characterGoldsSorting[E.myrealm][k] or 1
-			T.tinsert(ShownGold,
-				{
-					name = k,
-					amount = ElvDB["gold"][E.myrealm][k],
-					amountText = E:FormatMoney(ElvDB["gold"][E.myrealm][k], E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins),
-					r = color.r, g = color.g, b =color.b,
-					order = order,
-				}
-			)
+			if k == E.myname or E.db.sle.dt.currency.gold.throttle.mode ~= "AMOUNT" or (E.db.sle.dt.currency.gold.throttle.mode == "AMOUNT" and ElvDB["gold"][E.myrealm][k] >= (E.db.sle.dt.currency.gold.throttle.goldAmount * 10000)) then
+				T.tinsert(ShownGold,
+					{
+						name = k,
+						amount = ElvDB["gold"][E.myrealm][k],
+						amountText = E:FormatMoney(ElvDB["gold"][E.myrealm][k], E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins),
+						r = color.r, g = color.g, b =color.b,
+						order = order,
+					}
+				)
+			end
 			if ElvDB["faction"][E.myrealm]["Alliance"][k] then
 				AllianceGold = AllianceGold + ElvDB["gold"][E.myrealm][k]
 			end
@@ -373,8 +375,10 @@ local function OnEnter(self)
 	end
 	sort(ShownGold, SortGold)
 	for i = 1, #ShownGold do
-		local t = ShownGold[i]
-		DT.tooltip:AddDoubleLine(t.name == E.myname and t.name.." |TInterface\\RAIDFRAME\\ReadyCheck-Ready:12|t" or t.name, t.amountText, t.r, t.g, t.b, 1, 1, 1)
+		if E.db.sle.dt.currency.gold.throttle.mode ~= "CHAR" or (E.db.sle.dt.currency.gold.throttle.mode == "CHAR" and i <= E.db.sle.dt.currency.gold.throttle.numChars) or ShownGold[i].name == E.myname then
+			local t = ShownGold[i]
+			DT.tooltip:AddDoubleLine(t.name == E.myname and t.name.." |TInterface\\RAIDFRAME\\ReadyCheck-Ready:12|t" or t.name, t.amountText, t.r, t.g, t.b, 1, 1, 1)
+		end
 	end
 
 	DT.tooltip:AddLine(' ')
@@ -412,7 +416,7 @@ local function OnEnter(self)
 		local DaToken = C_WowTokenPublic.GetCurrentMarketPrice()
 		if DaToken and DaToken ~= "" then
 			DT.tooltip:AddLine(' ')
-			DT.tooltip:AddDoubleLine(ITEM_QUALITY8_DESC.."|TInterface\\Icons\\WoW_Token01:12:12:0:0:64:64:4:60:4:60|t", E:FormatMoney(DaToken, "SHORTINT", not E.db.datatexts.goldCoins), 1, 1, 1)
+			DT.tooltip:AddDoubleLine(ITEM_QUALITY8_DESC.."|TInterface\\Icons\\WoW_Token01:12:12:0:0:64:64:4:60:4:60|t", E:FormatMoney(DaToken, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), 1, 1, 1, 1, 1, 1)
 		end
 	end
 

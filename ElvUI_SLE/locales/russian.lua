@@ -52,7 +52,6 @@ L["SLE_INSTALL_LAYOUT_TEXT2"] = [[Данные опции импортируют
 Также это пожет сбросить/изменить некоторые из опций, выбранных вами на предыдущих шагах.]]
 L["|cff1784d1%s|r role was chosen"] = 'Была выбрана роль |cff1784d1"%s"|r.'
 L["Import Profile"] = "Импорт профиля"
-L["AFK Mode"] = "Режим АФК"
 L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"] = [[Это действие может привести к потере некоторых ваших настроек.
 Продолжить?]]
 L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"] = [[Это действие создаст профили для следующих аддонов (если они включены) и переключится на них:
@@ -455,6 +454,9 @@ L["Reversed"] = "Обратная"
 L["Amount"] = "Количество"
 L["Order of each toon. Smaller numbers will go first"] = "Порядок персонажей. Показ в порядке возрастания номера."
 L["Tracked"] = "Отслеживание"
+L["Gold Throttle"] = "Фильтрация золота"
+L["Mode"] = "Режим"
+L["Amount of gold needed on a character to show it in the list"] = "Кол-во золота, которое должно быть на персонаже, чтобы он отображался в списке."
 
 --Enhanced Shadows
 L["Enhanced Shadows"] = "Улучшенные тени"
