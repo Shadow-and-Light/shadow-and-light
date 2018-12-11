@@ -1,6 +1,10 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local M = SLE:GetModule('Media')
 
+local allFont = "PT Sans Narrow"
+local allSize = 12
+local allOutline = "OUTLINE"
+
 local function configTable()
 	if not SLE.initialized then return end
 	E.Options.args.sle.args.media = {
@@ -282,7 +286,6 @@ local function configTable()
 								values = {
 									["NONE"] = L["None"],
 									["OUTLINE"] = 'OUTLINE',
-									
 									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
 									["THICKOUTLINE"] = 'THICKOUTLINE',
 								},
@@ -399,6 +402,56 @@ local function configTable()
 								},
 							},
 						},
+					},
+				},
+			},
+			applyAll = {
+				type = "group",
+				name = L["Apply Font To All"],
+				order = 60,
+				args = {
+					font = {
+						type = "select", dialogControl = 'LSM30_Font',
+						order = 1,
+						name = L["Font"],
+						desc = "The font used for chat editbox",
+						values = AceGUIWidgetLSMlists.font,
+						get = function(info) return allFont end,
+						set = function(info, value) allFont = value; end,
+					},
+					size = {
+						order = 2,
+						name = L["Font Size"],
+						type = "range",
+						min = 6, max = 20, step = 1,
+						get = function(info) return allSize end,
+						set = function(info, value) allSize = value; end,
+					},
+					outline = {
+						order = 3,
+						name = L["Font Outline"],
+						desc = L["Set the font outline."],
+						type = "select",
+						get = function(info) return allOutline end,
+						set = function(info, value) allOutline = value; end,
+						values = {
+							["NONE"] = L["None"],
+							["OUTLINE"] = 'OUTLINE',
+							["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
+							["THICKOUTLINE"] = 'THICKOUTLINE',
+						},
+					},
+					applyFontToAll = {
+						order = 4,
+						type = 'execute',
+						name = L["Apply Font To All"],
+						-- desc = L["Applies the font and font size settings throughout the entire user interface. Note: Some font size settings will be skipped due to them having a smaller font size by default."],
+						func = function()
+							E.PopupDialogs["SLE_APPLY_FONT_WARNING"].allFont = allFont
+							E.PopupDialogs["SLE_APPLY_FONT_WARNING"].allSize = allSize
+							E.PopupDialogs["SLE_APPLY_FONT_WARNING"].allOutline = allOutline
+							E:StaticPopup_Show("SLE_APPLY_FONT_WARNING");
+						end,
 					},
 				},
 			},

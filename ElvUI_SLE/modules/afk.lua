@@ -167,7 +167,7 @@ function S:SetupAnimations()
 		S:SlideSide(SS.Bottom)
 		S:FadeIn(SS.Bottom)
 
-		S:FadeIn(SS.Model)
+		if S.db.playermodel.enable then S:FadeIn(SS.Model) end
 
 		S:FadeIn(SS.ExPack)
 		S:FadeIn(SS.FactCrest)
@@ -222,12 +222,18 @@ function S:Show()
 	SS.PlayerInfo:SetText(T.format("%s\n|c%s%s|r, %s %s", E.myrealm, Color.colorStr, Class, LEVEL, Level))
 
 	--Positioning model
+	if S.db.playermodel.enable then
+		SS.Model:Show()
+		SS.Model:SetAnimation(S.db.playermodel.anim)
+		SS.Model:SetScript("OnAnimFinished", S.AnimFinished)
+	else
+		SS.Model:Hide()
+		SS.Model:SetScript("OnAnimFinished", nil)
+	end
 	SS.Model:SetCamDistanceScale(S.db.playermodel.distance)
 	if SS.Model:GetFacing() ~= (S.db.playermodel.rotation / 60) then
 		SS.Model:SetFacing(S.db.playermodel.rotation / 60)
 	end
-	SS.Model:SetAnimation(S.db.playermodel.anim)
-	SS.Model:SetScript("OnAnimFinished", S.AnimFinished)
 
 	--Animations
 	if S.db.animTime > 0 then

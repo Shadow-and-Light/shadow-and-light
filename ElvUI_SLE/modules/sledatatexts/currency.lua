@@ -19,8 +19,7 @@ local SHOW_CONQUEST_LEVEL = SHOW_CONQUEST_LEVEL
 local FACTION_HORDE = FACTION_HORDE
 local FACTION_ALLIANCE = FACTION_ALLIANCE
 local ARCHAEOLOGY_RUNE_STONES = ARCHAEOLOGY_RUNE_STONES
-local CALENDAR_TYPE_DUNGEON = CALENDAR_TYPE_DUNGEON
-local CALENDAR_TYPE_RAID = CALENDAR_TYPE_RAID
+local GROUP_FINDER = GROUP_FINDER
 local PLAYER_V_PLAYER = PLAYER_V_PLAYER
 local MISCELLANEOUS = MISCELLANEOUS
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
@@ -106,7 +105,7 @@ local MiscellaneousCurrency = {
 	1154, --Shadowy Coins
 	1268, --Timeworn Artifact
 	1342, --Legionfall war supplies
-	1506, --Argus Waystone
+	-- 1506, --Argus Waystone
 	1299, --Brawler's Gold
 	1508, --Veiled Argunite
 	1533, --Wakening Essence
@@ -142,11 +141,11 @@ end
 local HiddenCurrency = {}
 
 local function UnusedCheck()
-	-- if GetOption('Unused') then HiddenCurrency = {}; return end
 	T.twipe(HiddenCurrency)
+	if GetOption('Unused') then return end
 	for i = 1, T.GetCurrencyListSize() do
-		local name, _, _, isUnused = GetCurrencyListInfo(i)
-		if isUnused then
+		local name, isHeader, _, isUnused = GetCurrencyListInfo(i)
+		if not isHeader and isUnused then
 			if not SLE:SimpleTable(HiddenCurrency, name) then
 				T.tinsert(HiddenCurrency,#(HiddenCurrency)+1, name)
 			end
@@ -248,7 +247,7 @@ local function OnEvent(self, event, ...)
 	local OldMoney = ElvDB["gold"][E.myrealm][E.myname] or NewMoney
 
 	local calculateChange = false;
-	
+
 	if (NewMoney == 0) then
 		if (self.seenZeroAlready) then
 			calculateChange = true
@@ -307,6 +306,29 @@ local function Click(self, btn)
 	end
 end
 
+local HeaderListExpanded = {}
+local function ToggleCurrencies(open)
+	for i = T.GetCurrencyListSize(), 1, -1 do
+		local name, isHeader, isExpanded = GetCurrencyListInfo(i)
+		if open then
+			if not HeaderListExpanded[name] and isHeader and isExpanded then
+				HeaderListExpanded[name] = true
+			else
+				ExpandCurrencyList(i, 1)
+			end
+		else
+			if isHeader then
+				if not HeaderListExpanded[name] then
+					ExpandCurrencyList(i, 0)
+				else
+					HeaderListExpanded[name] = nil
+				end
+			end
+		end
+	end
+	TokenFrame_Update()
+end
+
 local function OnEnter(self)
 	if T.InCombatLockdown() then return end
 	DT:SetupTooltip(self)
@@ -319,7 +341,7 @@ local function OnEnter(self)
 	elseif (Profit-Spent)>0 then
 		DT.tooltip:AddDoubleLine(L["Profit:"], E:FormatMoney(Profit-Spent, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), 0, 1, 0, 1, 1, 1)
 	end
-	DT.tooltip:AddLine' '
+	DT.tooltip:AddLine(' ')
 
 	local totalGold, AllianceGold, HordeGold = 0, 0, 0
 	DT.tooltip:AddLine(L["Character: "])
@@ -329,15 +351,17 @@ local function OnEnter(self)
 			local class = ElvDB["class"][E.myrealm][k]
 			local color = RAID_CLASS_COLORS[class or "PRIEST"]
 			local order = E.private.sle.characterGoldsSorting[E.myrealm][k] or 1
-			T.tinsert(ShownGold,
-				{
-					name = k,
-					amount = ElvDB["gold"][E.myrealm][k],
-					amountText = E:FormatMoney(ElvDB["gold"][E.myrealm][k], E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins),
-					r = color.r, g = color.g, b =color.b,
-					order = order,
-				}
-			)
+			if k == E.myname or E.db.sle.dt.currency.gold.throttle.mode ~= "AMOUNT" or (E.db.sle.dt.currency.gold.throttle.mode == "AMOUNT" and ElvDB["gold"][E.myrealm][k] >= (E.db.sle.dt.currency.gold.throttle.goldAmount * 10000)) then
+				T.tinsert(ShownGold,
+					{
+						name = k,
+						amount = ElvDB["gold"][E.myrealm][k],
+						amountText = E:FormatMoney(ElvDB["gold"][E.myrealm][k], E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins),
+						r = color.r, g = color.g, b =color.b,
+						order = order,
+					}
+				)
+			end
 			if ElvDB["faction"][E.myrealm]["Alliance"][k] then
 				AllianceGold = AllianceGold + ElvDB["gold"][E.myrealm][k]
 			end
@@ -349,17 +373,21 @@ local function OnEnter(self)
 	end
 	sort(ShownGold, SortGold)
 	for i = 1, #ShownGold do
-		local t = ShownGold[i]
-		DT.tooltip:AddDoubleLine(t.name == E.myname and t.name.." |TInterface\\RAIDFRAME\\ReadyCheck-Ready:12|t" or t.name, t.amountText, t.r, t.g, t.b, 1, 1, 1)
+		if E.db.sle.dt.currency.gold.throttle.mode ~= "CHAR" or (E.db.sle.dt.currency.gold.throttle.mode == "CHAR" and i <= E.db.sle.dt.currency.gold.throttle.numChars) or ShownGold[i].name == E.myname then
+			local t = ShownGold[i]
+			DT.tooltip:AddDoubleLine(t.name == E.myname and t.name.." |TInterface\\RAIDFRAME\\ReadyCheck-Ready:12|t" or t.name, t.amountText, t.r, t.g, t.b, 1, 1, 1)
+		end
 	end
 
-	DT.tooltip:AddLine' '
+	DT.tooltip:AddLine(' ')
 	DT.tooltip:AddLine(L["Server: "])
 	if GetOption('Faction') then
 		DT.tooltip:AddDoubleLine(T.format('%s: ', FACTION_ALLIANCE), E:FormatMoney(AllianceGold, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), AllianceColor.r, AllianceColor.g, AllianceColor.b, 1, 1, 1)
 		DT.tooltip:AddDoubleLine(T.format('%s: ', FACTION_HORDE), E:FormatMoney(HordeGold, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), HordeColor.r, HordeColor.g, HordeColor.b, 1, 1, 1)
 	end
 	DT.tooltip:AddDoubleLine(L["Total: "], E:FormatMoney(totalGold, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), 1, 1, 1, 1, 1, 1)
+
+	ToggleCurrencies(true)
 
 	if ARCHAEOLOGY ~= nil and GetOption('Archaeology') then
 		GetCurrency(ArchaeologyFragments, T.format('%s %s:', ARCHAEOLOGY, ARCHAEOLOGY_RUNE_STONES))
@@ -371,7 +399,7 @@ local function OnEnter(self)
 		GetCurrency(JewelcraftingTokens, T.format("%s:", JEWELCRAFTING))
 	end
 	if GetOption('Raid') then
-		GetCurrency(DungeonRaid, T.format('%s & %s:', CALENDAR_TYPE_DUNGEON, CALENDAR_TYPE_RAID))
+		GetCurrency(DungeonRaid, T.format("%s:", GROUP_FINDER))
 	end
 	if GetOption('PvP') then
 		GetCurrency(PvPPoints, T.format("%s:", PLAYER_V_PLAYER))
@@ -380,7 +408,17 @@ local function OnEnter(self)
 		GetCurrency(MiscellaneousCurrency, T.format("%s:", MISCELLANEOUS))
 	end
 
-	DT.tooltip:AddLine' '
+	ToggleCurrencies(false)
+
+	if E.db.sle.dt.currency.Token then
+		local DaToken = C_WowTokenPublic.GetCurrentMarketPrice()
+		if DaToken and DaToken ~= "" then
+			DT.tooltip:AddLine(' ')
+			DT.tooltip:AddDoubleLine(ITEM_QUALITY8_DESC.."|TInterface\\Icons\\WoW_Token01:12:12:0:0:64:64:4:60:4:60|t", E:FormatMoney(DaToken, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), 1, 1, 1, 1, 1, 1)
+		end
+	end
+
+	DT.tooltip:AddLine(' ')
 	DT.tooltip:AddLine(resetInfoFormatter)
 
 	DT.tooltip:Show()

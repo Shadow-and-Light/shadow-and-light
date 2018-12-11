@@ -202,8 +202,15 @@ local function configTable()
 						name = L["Player Model"],
 						order = 2,
 						args = {
-							modelanim = {
+							enable = {
 								order = 1,
+								type = "toggle",
+								name = L["Enable"],
+								get = function(info) return E.db.sle.screensaver.playermodel.enable end,
+								set = function(info, value) E.db.sle.screensaver.playermodel.enable = value end,
+							},
+							modelanim = {
+								order = 2,
 								name = L["Model Animation"],
 								type = "select",
 								get = function(info) return E.db.sle.screensaver.playermodel.anim end,

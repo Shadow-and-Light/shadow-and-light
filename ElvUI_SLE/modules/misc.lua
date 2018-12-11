@@ -67,7 +67,8 @@ function M:RaidUtility_SetMouseoverAlpha()
 end
 
 function M:RaidUtility_OnDragStop()
-	local point, anchor, point2, x, y = mover:GetPoint()
+	local point, anchor, point2, x, y = self:GetPoint()
+	local frame = _G["RaidUtility_ShowButton"]
 	frame:ClearAllPoints()
 	if T.find(point, "BOTTOM") then
 		frame:SetPoint(point, anchor, point2, x, y)
@@ -91,6 +92,7 @@ function M:RaidUtility_Hook()
 	E:CreateMover(_G["RaidUtility_ShowButton"], "RaidUtility_Mover", RAID_CONTROL, nil, nil, nil, "ALL,S&L,S&L MISC")
 	local mover = _G["RaidUtility_Mover"]
 	local frame = _G["RaidUtility_ShowButton"]
+
 	--Setting default point and stuff
 	if E.db.movers == nil then E.db.movers = {} end
 
@@ -105,7 +107,7 @@ function M:RaidUtility_Hook()
 		frame:ClearAllPoints()
 		frame:SetPoint("TOP", E.UIParent, "TOP", -400, E.Border)
 	else
-		M:RaidUtility_OnDragStop()
+		M.RaidUtility_OnDragStop(mover)
 	end
 
 	frame:RegisterForDrag("") --No buttons for drag

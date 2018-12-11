@@ -243,7 +243,7 @@ P["sle"] = {
 			["alpha"] = 1,
 			["transparent"] = false,
 			["noback"] = false,
-			
+
 		},
 		["leftchat"] = {
 			["enabled"] = true,
@@ -302,9 +302,15 @@ P["sle"] = {
 			["Icons"] = true,
 			["Faction"] = true,
 			["Unused"] = true,
+			["Token"] = true,
 			["gold"] = {
 				["direction"] = "normal",
 				["method"] = "name",
+				["throttle"] = {
+					["mode"] = "NONE",
+					["numChars"] = 5,
+					["goldAmount"] = 5000,
+				},
 			},
 			["cur"] = {
 				["direction"] = "normal",
@@ -379,7 +385,7 @@ P["sle"] = {
 			["uldir"] = false,
 		},
 	},
-	--Loot 
+	--Loot
 	["loot"] = {
 		["enable"] = false,
 		["autoroll"] = {
@@ -677,6 +683,7 @@ P["sle"] = {
 		["xpack"] = 150,
 		["height"] = 135,
 		["playermodel"] = {
+			["enable"] = true,
 			["anim"] = 4,
 			["distance"] = 4.5,
 			["holderXoffset"] = 0,
@@ -690,7 +697,7 @@ P["sle"] = {
 		["panelTemplate"] = "Transparent",
 	},
 	--Shadows
-	['shadows'] = { 
+	['shadows'] = {
 		['shadowcolor'] = { ['r'] = 0, ['g'] = 0, ['b'] = 0 },
 		['classcolor'] = false,
 		['size'] = 3,

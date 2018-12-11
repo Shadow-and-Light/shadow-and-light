@@ -53,7 +53,6 @@ Please not that this configs may include some settings you may not yet being fam
 Also it may reset/change some options you set in previous steps.]]
 L["|cff1784d1%s|r role was chosen"] = true
 L["Import Profile"] = true
-L["AFK Mode"] = true
 L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"] = [[This action can cause you to lose some of your settings.
 Continue?]]
 L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"] = [[This will create a profile for these addons (if enabled) and switch to it:
@@ -465,6 +464,9 @@ L["Reversed"] = true
 L["Amount"] = true
 L["Order of each toon. Smaller numbers will go first"] = true
 L["Tracked"] = true
+L["Gold Throttle"] = true
+L["Mode"] = true
+L["Amount of gold needed on a character to show it in the list"] = true
 
 --Enhanced Shadows
 L["Enhanced Shadows"] = true
@@ -988,7 +990,8 @@ Chun Kim
 Cyntia McCarthy
 Jonathan Sweet
 Nicholas Caldecutt
-Richard Gardner]]
+Richard Gardner
+Tony Ellis]]
 L["ELVUI_SLE_MISC"] = [=[BuG - for always hilariously breaking stuff
 TheSamaKutra
 The rest of TukUI community

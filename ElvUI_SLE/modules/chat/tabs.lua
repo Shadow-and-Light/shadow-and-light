@@ -54,7 +54,7 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 
 	C.TotalTabsWidth = 0 --Reseting saved combined width
 
-	for index, chatFrame in ipairs(dock.DOCKED_CHAT_FRAMES) do
+	for index, chatFrame in T.ipairs(dock.DOCKED_CHAT_FRAMES) do
 		local chatTab = _G[chatFrame:GetName().."Tab"];
 		if chatTab.text then chatTab.text:SetText(chatFrame.name) end --Reseting tab name
 		if ( chatFrame == FCFDock_GetSelectedWindow(dock) ) and C.db.tab.select then --Tab is selected and option is enabled
@@ -94,11 +94,11 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 
 	--If blizz sizing is selected then messing around with scroll frame is unnessesary
 	if C.db.tab.resize == "Blizzard" then return end
-	local dynTabSize = FCFDock_CalculateTabSize(dock, numDynFrames); --Usually this returns "hasOverflow" as well, but I use my own variable for that
+	local dynTabSize, origOverflow = FCFDock_CalculateTabSize(dock, numDynFrames); --Usually this returns "hasOverflow" as well, but I use my own variable for that
 	local hasOverflow = C.TotalTabsWidth > E.db.chat.panelWidth
 
 	--Dynamically resize tabs
-	for index, chatFrame in ipairs(dock.DOCKED_CHAT_FRAMES) do
+	for index, chatFrame in T.ipairs(dock.DOCKED_CHAT_FRAMES) do
 		if ( not chatFrame.isStaticDocked ) then
 			local chatTab = _G[chatFrame:GetName().."Tab"];
 			PanelTemplates_TabResize(chatTab, chatTab.sizePadding or 0, dynTabSize);
@@ -106,7 +106,7 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 	end
 
 	dock.scrollFrame:SetPoint("LEFT", lastDockedStaticTab, "RIGHT", 0, 0);
-	if ( hasOverflow ) then
+	if ( hasOverflow or origOverflow ) then
 		dock.overflowButton:Show();
 		dock.scrollFrame:SetPoint("BOTTOMRIGHT", dock.overflowButton, "BOTTOMLEFT", 0, 0);
 	else

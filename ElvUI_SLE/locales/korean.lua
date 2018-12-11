@@ -52,7 +52,6 @@ Please not that this configs may include some settings you may not yet being fam
 Also it may reset/change some options you set in previous steps.]]
 L["|cff1784d1%s|r role was chosen"] = "|cff1784d1%s|r 역할 선택됨"
 L["Import Profile"] = "프로필 불러오기"
-L["AFK Mode"] = "자리비움 모드"
 L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"] = [[This action can cause you to lose some of your settings.
 Continue?]]
 L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"] = [[This will create a profile for these addons (if enabled) and switch to it:
@@ -449,6 +448,9 @@ L["Reversed"] = '반대로"'
 L["Amount"] = "수량"
 L["Order of each toon. Smaller numbers will go first"] = true
 L["Tracked"] = true
+L["Gold Throttle"] = true
+L["Mode"] = true
+L["Amount of gold needed on a character to show it in the list"] = true
 
 --Enhanced Shadows
 L["Enhanced Shadows"] = "그림자 향상"
