@@ -1,4 +1,5 @@
 v3.49 [December 12, 2018]
+This is for patch 8.1, should work fine on 8.0 as well
 Additions:
 - Added apply font to all option. It is under media section.
 - Added an option to hide player model in afk screen
