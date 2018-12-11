@@ -7,6 +7,7 @@ Additions:
 Fixes:
 - Fixed another instance of AzeriteTooltip incompatibility
 - Fixed enhanced shadows not working for right chat data panel
+- Fixed viewport being for some reason failing to apply on sertain settings combo due to some magic and global frames shortcuts not working
 
 v3.482 [November 22nd 2018]
 Additions:
