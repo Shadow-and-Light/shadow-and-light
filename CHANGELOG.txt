@@ -1,9 +1,12 @@
-v3.49
+v3.49 [December 12, 2018]
 Additions:
 - Added apply font to all option. It is under media section.
 - Added an option to hide player model in afk screen
+- Added token price to currency dt (with option)
+- Added some option for currency dt to show less than your full 18 characters list for gold. No more tooltip going off-screen!
 Fixes:
 - Fixed another instance of AzeriteTooltip incompatibility
+- Fixed enhanced shadows not working for right chat data panel
 
 v3.482 [November 22nd 2018]
 Additions:
