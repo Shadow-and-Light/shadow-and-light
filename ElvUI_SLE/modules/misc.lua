@@ -89,9 +89,10 @@ end
 
 function M:RaidUtility_Hook()
 	--Creating mover for the button
-	E:CreateMover(_G["RaidUtility_ShowButton"], "RaidUtility_Mover", RAID_CONTROL, nil, nil, nil, "ALL,S&L,S&L MISC")
-	local mover = _G["RaidUtility_Mover"]
 	local frame = _G["RaidUtility_ShowButton"]
+	if not frame then return end --Just in case
+	E:CreateMover(frame, "RaidUtility_Mover", RAID_CONTROL, nil, nil, nil, "ALL,S&L,S&L MISC")
+	local mover = _G["RaidUtility_Mover"]
 
 	--Setting default point and stuff
 	if E.db.movers == nil then E.db.movers = {} end
