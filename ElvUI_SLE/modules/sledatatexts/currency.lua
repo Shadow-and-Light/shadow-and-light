@@ -306,8 +306,6 @@ local function Click(self, btn)
 	end
 end
 
-C_Timer.NewTicker(60, function () C_WowTokenPublic.UpdateMarketPrice() end)
-
 local HeaderListExpanded = {}
 local function ToggleCurrencies(open)
 	for i = T.GetCurrencyListSize(), 1, -1 do
