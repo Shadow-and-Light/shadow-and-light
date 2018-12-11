@@ -70,6 +70,8 @@ local function UpdateReputation(self, event)
 		local text = ''
 		local textFormat = E.db.databars.reputation.textFormat
 		local color = FACTION_BAR_COLORS[reaction] or backupColor
+		local maxMinDiff = max - min
+		if (maxMinDiff == 0) then maxMinDiff = 1 end
 		bar.statusBar:SetStatusBarColor(color.r, color.g, color.b)
 
 		bar.statusBar:SetMinMaxValues(min, max)
@@ -95,19 +97,19 @@ local function UpdateReputation(self, event)
 		end
 
 		if textFormat == 'PERCENT' then
-			text = format('%s: %d%% [%s]', name, ((value - min) / (max - min) * 100), isFriend and friendText or standingLabel)
+			text = format('%s: %d%% [%s]', name, ((value - min) / (maxMinDiff) * 100), isFriend and friendText or standingLabel)
 		elseif textFormat == 'CURMAX' then
-			text = format('%s: %s - %s [%s]', name, (value - min), (max - min), isFriend and friendText or standingLabel)
+			text = format('%s: %s - %s [%s]', name, (value - min), (maxMinDiff), isFriend and friendText or standingLabel)
 		elseif textFormat == 'CURPERC' then
-			text = format('%s: %s - %d%% [%s]', name, (value - min), ((value - min) / (max - min) * 100), isFriend and friendText or standingLabel)
+			text = format('%s: %s - %d%% [%s]', name, (value - min), ((value - min) / (maxMinDiff) * 100), isFriend and friendText or standingLabel)
 		elseif textFormat == 'CUR' then
 			text = format('%s: %s [%s]', name, (value - min), isFriend and friendText or standingLabel)
 		elseif textFormat == 'REM' then
-			text = format('%s: %s [%s]', name, ((max - min) - (value-min)), isFriend and friendText or standingLabel)
+			text = format('%s: %s [%s]', name, ((maxMinDiff) - (value-min)), isFriend and friendText or standingLabel)
 		elseif textFormat == 'CURREM' then
-			text = format('%s: %s - %s [%s]', name, (value - min), ((max - min) - (value-min)), isFriend and friendText or standingLabel)
+			text = format('%s: %s - %s [%s]', name, (value - min), ((maxMinDiff) - (value-min)), isFriend and friendText or standingLabel)
 		elseif textFormat == 'CURPERCREM' then
-			text = format('%s: %s - %d%% (%s) [%s]', name, (value - min), ((value - min) / (max - min) * 100), ((max - min) - (value-min)), isFriend and friendText or standingLabel)
+			text = format('%s: %s - %d%% (%s) [%s]', name, (value - min), ((value - min) / (maxMinDiff) * 100), ((maxMinDiff) - (value-min)), isFriend and friendText or standingLabel)
 		end
 
 		bar.text:SetText(text)
