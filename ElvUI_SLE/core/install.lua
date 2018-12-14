@@ -1632,9 +1632,9 @@ SLE.installTable = {
 			-- _G["PluginInstallFrame"].Option2:SetScript('OnClick', function() PI.SLE_Auth = "REPOOC"; _G["PluginInstallFrame"].Next:Click() end)
 			-- _G["PluginInstallFrame"].Option2:SetText(L["Repooc's Config"])
 
-			_G["PluginInstallFrame"].Option2:Show()
-			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() PI.SLE_Auth = "AFFINITY"; _G["PluginInstallFrame"].Next:Click() end)
-			_G["PluginInstallFrame"].Option2:SetText(L["Affinitii's Config"])
+			-- _G["PluginInstallFrame"].Option2:Show()
+			-- _G["PluginInstallFrame"].Option2:SetScript('OnClick', function() PI.SLE_Auth = "AFFINITY"; _G["PluginInstallFrame"].Next:Click() end)
+			-- _G["PluginInstallFrame"].Option2:SetText(L["Affinitii's Config"])
 
 			_G["PluginInstallFrame"]:Size(550, 500)
 		end,
