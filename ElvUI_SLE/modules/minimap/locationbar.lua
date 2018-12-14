@@ -6,7 +6,6 @@ local loc_panel
 local COORDS_WIDTH = 35 -- Coord panels width
 
 local _G = _G
-local cluster = _G["MinimapCluster"]
 local GetScreenHeight = GetScreenHeight
 local CreateFrame = CreateFrame
 local ToggleFrame = ToggleFrame
