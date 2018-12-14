@@ -35,7 +35,7 @@ function UB:AddonSetup(menu)
 	menu:CreateSeparator("Addon", "First", 4, 2)
 	menu:CreateDropdownButton("Addon", "Altoholic", "Altoholic", nil, nil, function() Altoholic:ToggleUI() end, "Altoholic")
 	menu:CreateDropdownButton("Addon", "AtlasLoot", "AtlasLoot", nil, nil, function() AtlasLoot.GUI:Toggle() end, "AtlasLoot")
-	menu:CreateDropdownButton("Addon", "WeakAuras", "WeakAuras", nil, nil, function() SlashCmdList.WEAKAURAS() end, "WeakAuras")
+	menu:CreateDropdownButton("Addon", "WeakAuras", "WeakAuras", nil, nil, function() SlashCmdList.WEAKAURAS("") end, "WeakAuras")
 	menu:CreateDropdownButton("Addon", "xCT", "xCT+", nil, nil, function() xCT_Plus:ToggleConfigTool() end, "xCT+")
 	menu:CreateDropdownButton("Addon", "Swatter", "Swatter", nil, nil, function() Swatter.ErrorShow() end, "!Swatter")
 
