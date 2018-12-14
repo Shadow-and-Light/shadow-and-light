@@ -241,6 +241,7 @@ function CA:Setup_CharacterArmory()
 				self:SetScript('OnUpdate', self.ScanData)
 			end
 		elseif Event == 'PLAYER_EQUIPMENT_CHANGED' then
+			if KF.DebugEnabled then print("UPDATE_INVENTORY_DURABILITY") end
 			args = ...
 			args = SlotIDList[args]
 			
@@ -257,6 +258,7 @@ function CA:Setup_CharacterArmory()
 			end
 		elseif Event == 'UPDATE_INVENTORY_DURABILITY' then
 			self.DurabilityUpdated = nil
+			if KF.DebugEnabled then print("UPDATE_INVENTORY_DURABILITY") end
 			self:SetScript('OnUpdate', self.ScanData)
 		end
 	end)
