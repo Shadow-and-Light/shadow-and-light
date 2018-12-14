@@ -79,7 +79,7 @@ B.AddonsList = {
 	["Blizzard_BarberShopUI"] = { "BarberShopFrame" },
 	["Blizzard_BindingUI"] = { "KeyBindingFrame" },
 	["Blizzard_BlackMarketUI"] = { "BlackMarketFrame" },
-	["Blizzard_Calendar"] = { "CalendarCreateEventFrame", "CalendarFrame", "CalendarViewEventFrame", "CalendarViewHolidayFrame" },
+	["Blizzard_Calendar"] = { "CalendarCreateEventFrame", "CalendarFrame" },
 	["Blizzard_ChallengesUI"] = { "ChallengesKeystoneFrame" }, -- 'ChallengesLeaderboardFrame'
 	["Blizzard_Collections"] = { "CollectionsJournal" },
 	["Blizzard_Communities"] = { "CommunitiesFrame" },
@@ -258,6 +258,11 @@ function B:ErrorFrameSize()
 	_G["UIErrorsFrame"]:SetSize(B.db.errorframe.width, B.db.errorframe.height) --512 x 60
 end
 
+local ToDelete = {
+	["CalendarViewEventFrame"] = true,
+	["CalendarViewHolidayFrame"] = true,
+}
+
 function B:Initialize()
 	B.db = E.db.sle.blizzard
 	if not SLE.initialized then return end
@@ -266,6 +271,9 @@ function B:Initialize()
 	if E.private.sle.module.blizzmove and T.type(E.private.sle.module.blizzmove) == "boolean" then E.private.sle.module.blizzmove = V.sle.module.blizzmove end --Old setting conversions
 	E.global.sle.pvpreadydialogreset = nil
 	if not E.private.sle.pvpreadydialogreset then E.private.sle.module.blizzmove.points["PVPReadyDialog"] = nil; E.private.sle.pvpreadydialogreset = true end
+	for Name, _ in T.pairs(ToDelete) do
+		if E.private.sle.module.blizzmove.points[Name] then E.private.sle.module.blizzmove.points[Name] = nil end
+	end
 
 	PVPReadyDialog:Hide()
 
