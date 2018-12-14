@@ -98,7 +98,7 @@ SMB.AddButtonsToBar = {
 	"GarrisonLandingPageMinimapButton",
 }
 
-local function SkinButton(Button)
+function SMB:SkinButton(Button)
 	if not Button.isSkinned then
 		local Name = Button:GetName()
 		if not Name and HBDpins and Button.icon then
@@ -273,11 +273,11 @@ function SMB:SkinMinimapButtons()
 		local object = T.select(i, _G["Minimap"]:GetChildren())
 		if object then
 			if object:IsObjectType('Button') then --and object:GetName() then
-				SkinButton(object)
+				SMB:SkinButton(object)
 			end
 			for _, frame in T.pairs(SMB.AcceptedFrames) do
 				if object:IsObjectType('Frame') and object:GetName() == frame then
-					SkinButton(object)
+					SMB:SkinButton(object)
 				end
 			end
 		end
@@ -291,7 +291,7 @@ function SMB:SkinMinimapButtons()
 				break
 			end
 		end
-		SkinButton(OutfitterMinimapButton)
+		SMB:SkinButton(OutfitterMinimapButton)
 	end
 	if E.private.sle.minimap.mapicons.skingarrison then
 		function GarrisonLandingPageMinimapButton_UpdateIcon(self)
@@ -320,7 +320,7 @@ function SMB:SkinMinimapButtons()
 				self.description = GARRISON_TYPE_8_0_LANDING_PAGE_TOOLTIP;
 			end
 		end
-		SkinButton(GarrisonLandingPageMinimapButton)
+		SMB:SkinButton(GarrisonLandingPageMinimapButton)
 	end
 end
 
