@@ -275,6 +275,7 @@ end
 function LP:UpdateCoords(elapsed)
 	LP.elapsed = LP.elapsed + elapsed
 	if LP.elapsed < (LP.db.throttle or 0.2) then return end
+	if not LP.db.format then return end
 	--Coords
 
 	if E.MapInfo then
