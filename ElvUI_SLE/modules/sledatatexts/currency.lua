@@ -23,6 +23,7 @@ local ARCHAEOLOGY_RUNE_STONES = ARCHAEOLOGY_RUNE_STONES
 local GROUP_FINDER = GROUP_FINDER
 local PLAYER_V_PLAYER = PLAYER_V_PLAYER
 local MISCELLANEOUS = MISCELLANEOUS
+local ITEM_QUALITY8_DESC = ITEM_QUALITY8_DESC
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local IsLoggedIn = IsLoggedIn
 local BreakUpLargeNumbers = BreakUpLargeNumbers
@@ -418,7 +419,7 @@ local function OnEnter(self)
 	ToggleCurrencies(false)
 
 	DT.tooltip:AddLine(' ')
-	DT.tooltip:AddDoubleLine(L["WoW Token:"], E:FormatMoney(C_WowTokenPublic.GetCurrentMarketPrice() or 0, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), 1, 1, 1, 1, 1, 1)
+	DT.tooltip:AddDoubleLine(ITEM_QUALITY8_DESC.."|TInterface\\Icons\\WoW_Token01:12:12:0:0:64:64:4:60:4:60|t", E:FormatMoney(C_WowTokenPublic.GetCurrentMarketPrice() or 0, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), 1, 1, 1, 1, 1, 1)
 
 	DT.tooltip:AddLine(' ')
 	DT.tooltip:AddLine(resetInfoFormatter)
