@@ -1,3 +1,9 @@
+v3.492 [Decamber 19, 2018]
+Fixes:
+- Localtion panel coordinates link is now working again
+Changes:
+- Event description frame in calendar is now not movable to avoid positioning issues.
+
 v3.491 [December 14, 2018]
 - Fuck blizzard
 - Fuck blizzard
@@ -33,7 +39,7 @@ Fixes:
 WIP and To Do:
 These are probably going to appear in the next "planned" release for patch 8.1, unless something unexpected happens
 - Apply font to all
-- Some repositioning for "overflow" chat tabs
+-Some repositioning for "overflow" chat tabs
 - Overhaul of S&L currency datatext
 
 
