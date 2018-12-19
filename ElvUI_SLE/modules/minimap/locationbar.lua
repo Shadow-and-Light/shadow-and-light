@@ -208,6 +208,16 @@ LP.Spells = {
 	},
 }
 
+local function CreateCoords()
+	if LP.db.format == nil then return end
+
+	local x, y = E.MapInfo.x or 0, E.MapInfo.y or 0
+	if x then x = format(LP.db.format, x * 100) else x = "0" or " " end
+	if y then y = format(LP.db.format, y * 100) else y = "0" or " " end
+
+	return x, y
+end
+
 function LP:CreateLocationPanel()
 	loc_panel = CreateFrame('Frame', "SLE_LocationPanel", E.UIParent)
 	loc_panel:Point('TOP', E.UIParent, 'TOP', 0, -E.mult -22)
