@@ -302,7 +302,6 @@ P["sle"] = {
 			["Icons"] = true,
 			["Faction"] = true,
 			["Unused"] = true,
-			["Token"] = true,
 			["gold"] = {
 				["direction"] = "normal",
 				["method"] = "name",
