@@ -8,6 +8,8 @@ local guildName
 local abs = math.abs
 local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
 local ExpandFactionHeader, CollapseFactionHeader = ExpandFactionHeader, CollapseFactionHeader
+local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
+local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
 local next = next
 local collapsed = {}
 
@@ -118,7 +120,6 @@ end
 
 function DB:ChatMsgCombat(event, ...)
 	if not DB.db.rep or not DB.db.rep.autotrack then return end
-
 	local messg = ...
 	local found
 	for i, v in T.ipairs(strMatchCombat) do
@@ -127,7 +128,7 @@ function DB:ChatMsgCombat(event, ...)
 			if GUILD and guildName and (found == GUILD) and not DB.db.rep.ignoreGuild then
 				found = guildName
 			end
-			break 
+			break
 		end
 	end
 	if found then
@@ -275,11 +276,17 @@ end
 function DB:ScanFactions()
 	self.factions = T.GetNumFactions();
 	for i = 1, self.factions do
-		local name, _, standingID, _, _, barValue, _, _, isHeader, _, hasRep = T.GetFactionInfo(i)
+		local name, _, standingID, _, _, barValue, _, _, isHeader, _, hasRep, _, _, factionID = T.GetFactionInfo(i)
 		if (not isHeader or hasRep) and name then
 			self.factionVars[name] = self.factionVars[name] or {}
 			self.factionVars[name].Standing = standingID
-			self.factionVars[name].Value = barValue
+			if C_Reputation_IsFactionParagon(factionID) then
+				local currentValue = C_Reputation_GetFactionParagonInfo(factionID);
+				self.factionVars[name].Value = currentValue
+				self.factionVars[name].isParagon = true
+			else
+				self.factionVars[name].Value = barValue
+			end
 		end
 	end
 end
@@ -306,6 +313,10 @@ function DB:NewRepString(event, ...)
 		local friendID, _, _, _, _, _, friendTextLevel = T.GetFriendshipReputation(factionID);
 		local currentRank, maxRank = T.GetFriendshipReputationRanks(factionID);
 		if (not isHeader or hasRep) and self.factionVars[name] then
+			if self.factionVars[name].isParagon then
+				local currentValue = C_Reputation_GetFactionParagonInfo(factionID);
+				barValue = currentValue
+			end
 			local diff = barValue - self.factionVars[name].Value
 			if diff > 0 then
 				StyleTable = "RepIncreaseStyles"
