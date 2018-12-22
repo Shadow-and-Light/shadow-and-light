@@ -1,3 +1,7 @@
+v3.493
+Fixes:
+- Rep text now properly shows reputation gains toward that sweet (not) paragon chest
+
 v3.492 [Decamber 19, 2018]
 Fixes:
 - Localtion panel coordinates link is now working again
