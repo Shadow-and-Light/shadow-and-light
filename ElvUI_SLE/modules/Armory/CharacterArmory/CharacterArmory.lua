@@ -241,7 +241,7 @@ function CA:Setup_CharacterArmory()
 				self:SetScript('OnUpdate', self.ScanData)
 			end
 		elseif Event == 'PLAYER_EQUIPMENT_CHANGED' then
-			if KF.DebugEnabled then print("UPDATE_INVENTORY_DURABILITY") end
+			if KF.DebugEnabled then print("PLAYER_EQUIPMENT_CHANGED") end
 			args = ...
 			args = SlotIDList[args]
 			
@@ -256,7 +256,7 @@ function CA:Setup_CharacterArmory()
 				self.GearUpdated = nil
 				self:SetScript('OnUpdate', self.ScanData)
 			end
-		elseif Event == 'UPDATE_INVENTORY_DURABILITY' then
+		elseif Event == 'UPDATE_INVENTORY_DURABILITY' and self.DurabilityUpdated then
 			self.DurabilityUpdated = nil
 			if KF.DebugEnabled then print("UPDATE_INVENTORY_DURABILITY") end
 			self:SetScript('OnUpdate', self.ScanData)
@@ -552,7 +552,7 @@ function CA:ScanData()
 		if KF.DebugEnabled then print("Update_Durability: ", self:Update_Durability()) end
 		self.NeedUpdate = self:Update_Durability() or self.NeedUpdate
 	end
-	if KF.DebugEnabled then print("1: ", self.NeedUpdate) end
+	if KF.DebugEnabled then print("1: ", self.NeedUpdate, self.GearUpdated) end
 	if self.GearUpdated ~= true then
 		if KF.DebugEnabled then print("Update_Gear: ", self:Update_Gear()) end
 		self.NeedUpdate = self:Update_Gear() or self.NeedUpdate
@@ -642,7 +642,7 @@ function CA:Update_Gear()
 			if ItemLink then
 				ItemInfoAvailable = T.GetItemInfo(ItemLink)
 			end
-			if ItemInfoAvailable or not ItemLink then --<< Clear Setting >>--
+			if not ItemLink or ItemInfoAvailable then --<< Clear Setting >>--
 				NeedUpdate, TrueItemLevel, UsableEffect, ItemUpgradeID, CurrentUpgrade, MaxUpgrade, ItemType, ItemTexture, IsTransmogrified = nil, nil, nil, nil, nil, nil, nil, nil, nil
 				Slot.ItemRarity = nil
 				Slot.ItemLevel:SetText(nil)
@@ -892,11 +892,13 @@ function CA:Update_Gear()
 				else
 					NeedUpdate = true
 				end
-			else
-				NeedUpdate = true
+			-- else
+				-- print(SlotName)
+				-- NeedUpdate = true
 			end
 
 			if NeedUpdate then
+				if KF.DebugEnabled then print("Slot need update: ", SlotName) end
 				NeedUpdateList = NeedUpdateList or {}
 				table.insert(NeedUpdateList, SlotName)
 			end
