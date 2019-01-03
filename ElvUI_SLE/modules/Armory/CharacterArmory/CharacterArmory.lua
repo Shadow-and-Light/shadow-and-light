@@ -557,9 +557,10 @@ function CA:ScanData()
 		if KF.DebugEnabled then print("Update_Gear: ", self:Update_Gear()) end
 		self.NeedUpdate = self:Update_Gear() or self.NeedUpdate
 	end
-	if KF.DebugEnabled then print("2: ", self.NeedUpdate) end
+	if KF.DebugEnabled then print("2: ", self.NeedUpdate, self:IsShown()) end
 	if not self.NeedUpdate and self:IsShown() then
 		self:SetScript('OnUpdate', nil)
+		if KF.DebugEnabled then print("2: ", self:Update_Display(true)) end
 		self:Update_Display(true)
 	elseif self.NeedUpdate then
 		self:SetScript('OnUpdate', self.ScanData)
