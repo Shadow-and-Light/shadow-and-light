@@ -258,6 +258,7 @@ function CA:Setup_CharacterArmory()
 			end
 		elseif Event == 'UPDATE_INVENTORY_DURABILITY' and self.DurabilityUpdated then
 			self.DurabilityUpdated = nil
+			-- self.GearUpdated = nil
 			if KF.DebugEnabled then print("UPDATE_INVENTORY_DURABILITY") end
 			self:SetScript('OnUpdate', self.ScanData)
 		end
@@ -557,10 +558,9 @@ function CA:ScanData()
 		if KF.DebugEnabled then print("Update_Gear: ", self:Update_Gear()) end
 		self.NeedUpdate = self:Update_Gear() or self.NeedUpdate
 	end
-	if KF.DebugEnabled then print("2: ", self.NeedUpdate, self:IsShown()) end
+	if KF.DebugEnabled then print("2: ", self.NeedUpdate) end
 	if not self.NeedUpdate and self:IsShown() then
 		self:SetScript('OnUpdate', nil)
-		if KF.DebugEnabled then print("2: ", self:Update_Display(true)) end
 		self:Update_Display(true)
 	elseif self.NeedUpdate then
 		self:SetScript('OnUpdate', self.ScanData)
@@ -742,7 +742,7 @@ function CA:Update_Gear()
 								Slot["Socket"..i].Socket:SetBackdropBorderColor(1, 1, 1)
 							end
 
-							if (GemTexture and GemTexture ~= "") or GemLink then
+							if GemTexture or GemLink then
 								if E.db.sle.Armory.Character.Gem.Display == 'Always' or E.db.sle.Armory.Character.Gem.Display == 'MouseoverOnly' and Slot.Mouseovered or E.db.sle.Armory.Character.Gem.Display == 'MissingOnly' then
 									Slot["Socket"..i]:Show()
 									Slot.SocketWarning:Point(Slot.Direction, Slot["Socket"..i], (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
