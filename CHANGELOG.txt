@@ -1,6 +1,14 @@
 v3.493
+Additions:
+- Armory and afk screen now support Wakanda trolls and humans living on ships
+- Character armory option to color ilvl text based on quality now allows you to select another variant - based on items ilvl compared to average equipped ilvl. Same or higher ilvl will be green, all below will become more red the bigger the difference is.
+This one will probably be not accurate for low level toons due to math used here is some afroengineering™ and based on max level toons ilvl numbers.
 Fixes:
 - Rep text now properly shows reputation gains toward that sweet (not) paragon chest
+- Fixed icons on datatetxs not following mouseover on load or changing datatexts
+- DBM icon for skinned minimap button is now correct
+Misc:
+- Some profile db conversion was added to account for ilvl text coloring option. Last one with hearthstone priority went withoput problems, but who knows. Just keep an eye on it.
 
 v3.492 [Decamber 19, 2018]
 Fixes:
