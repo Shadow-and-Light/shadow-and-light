@@ -156,7 +156,7 @@ function SMB:SkinButton(Button)
 					Region:SetTexture(nil)
 				else
 					if Name == 'BagSync_MinimapButton' then Region:SetTexture('Interface\\AddOns\\BagSync\\media\\icon') end
-					if Name == 'DBMMinimapButton' then Region:SetTexture('Interface\\Icons\\INV_Helmet_87') end
+					if Name == 'LibDBIcon10_DBM' then Region:SetTexture('Interface\\Icons\\INV_Helmet_87') end
 					if Name == 'SmartBuff_MiniMapButton' then Region:SetTexture(T.select(3, T.GetSpellInfo(12051))) end
 					if Name == 'MiniMapMailFrame' then
 						Region:ClearAllPoints()
