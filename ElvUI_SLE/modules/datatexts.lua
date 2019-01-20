@@ -22,15 +22,25 @@ DTP.Names = {}
 DTP.GoldCache = {}
 
 --Mouseover functions for panels and datatexts on them
-local function Bar_OnEnter(self)
-	if DTP.db["panel"..self.Num].mouseover then
-		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), DTP.db["panel"..self.Num].alpha)
+local function SubDTAlpha(panel, alpha)
+	for slot = 1, panel.numPoints do
+		local localtion = DT.PointLocation[slot]
+		panel.dataPanels[localtion]:SetAlpha(alpha)
 	end
 end
 
-local function Bar_OnLeave(self)
+local function Bar_OnEnter(self)
+	if DTP.db["panel"..self.Num].mouseover then
+		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), DTP.db["panel"..self.Num].alpha)
+		SubDTAlpha(self, DTP.db["panel"..self.Num].alpha)
+	end
+end
+
+local function Bar_OnLeave(self, settingForce)
 	if DTP.db["panel"..self.Num].mouseover then
 		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+		if settingForce then SubDTAlpha(self, DTP.db["panel"..self.Num].alpha) end
+		SubDTAlpha(self, 0)
 	end
 end
 
@@ -38,6 +48,7 @@ local function Button_OnEnter(self)
 	local bar = self:GetParent()
 	if DTP.db["panel"..bar.Num].mouseover then
 		E:UIFrameFadeIn(bar, 0.2, bar:GetAlpha(), DTP.db["panel"..bar.Num].alpha)
+		SubDTAlpha(bar, DTP.db["panel"..bar.Num].alpha)
 	end
 end
 
@@ -45,6 +56,7 @@ local function Button_OnLeave(self)
 	local bar = self:GetParent()
 	if DTP.db["panel"..bar.Num].mouseover then
 		E:UIFrameFadeOut(bar, 0.2, bar:GetAlpha(), 0)
+		SubDTAlpha(bar, 0)
 	end
 end
 
@@ -85,6 +97,8 @@ function DTP:LoadDTHook()
 				end
 			end
 		end
+		--This should help with icons not following data panels 
+		if DTP.Names[panelName] then  E:Delay(0.1, function() Bar_OnLeave(panel, true) end) end
 	end
 	--Throttle for the amount of times this message is called. This func is called for every single change in DT options, so having it flood the chat is bad
 	if OnLoadThrottle then
@@ -98,7 +112,7 @@ function DTP:LoadDTHook()
 				if datatext then datatext:UnregisterAllEvents() end
 			end
 		end
-		--1 second reset time should be enough to suppress all exessive automatic calls
+		--1 second reset time should be enough to suppress all excessive automatic calls
 		E:Delay(1, function() OnLoadThrottle = true end)
 	end
 end
@@ -133,8 +147,10 @@ end
 function DTP:Mouseover(id)
 	if DTP.db["panel"..id].mouseover then
 		self["Panel_"..id]:SetAlpha(0)
+		SubDTAlpha(self["Panel_"..id], 0)
 	else
 		self["Panel_"..id]:SetAlpha(DTP.db["panel"..id].alpha)
+		SubDTAlpha(self["Panel_"..id], DTP.db["panel"..id].alpha)
 	end
 end
 
