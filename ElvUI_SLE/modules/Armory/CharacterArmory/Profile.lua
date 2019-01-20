@@ -40,7 +40,7 @@ P.sle.Armory.Character = {
 		Font = "PT Sans Narrow",
 		FontSize = 10,
 		FontStyle = "OUTLINE",
-		ItemColor = false,
+		ItemColor = "NONE",
 		xOffset = 0,
 		yOffset = 0,
 	},

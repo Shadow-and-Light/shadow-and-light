@@ -599,11 +599,16 @@ local function LoadArmoryConfigTable()
 							disabled = function() return E.db.sle.Armory.Character.Enable == false end
 						},
 						ItemColor = {
-							type = 'toggle',
+							type = 'select',
 							name = L["Item Level Coloring"],
 							order = 7,
 							set = function(_, value) E.db.sle.Armory.Character.Level.ItemColor = value; _G["CharacterArmory"]:Update_Gear() end,
-							disabled = function() return E.db.sle.Armory.Character.Enable == false end
+							disabled = function() return E.db.sle.Armory.Character.Enable == false end,
+							values = {
+								["NONE"] = NONE,
+								["QUALITY"] = COLORBLIND_ITEM_QUALITY,
+								["GRADIENT"] = L["Gradient"],
+							},
 						},
 						xOffset = {
 							type = 'range',

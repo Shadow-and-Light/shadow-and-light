@@ -632,6 +632,8 @@ function CA:Update_Gear()
 	local ErrorDetected, NeedUpdate, NeedUpdateList, R, G, B
 	local Slot, ItemLink, ItemData, BasicItemLevel, TrueItemLevel, ItemUpgradeID, CurrentUpgrade, MaxUpgrade, ItemType, UsableEffect, CurrentLineText, GemID, GemLink, GemTexture, GemCount_Default, GemCount_Now, GemCount, ItemTexture, IsTransmogrified
 
+	local totalIlvl, equippedIlvl = T.GetAverageItemLevel()
+
 	for _, SlotName in T.pairs(T.type(self.GearUpdated) == 'table' and self.GearUpdated or Info.Armory_Constants.GearList) do
 		Slot = self[SlotName]
 		ItemLink = T.GetInventoryItemLink('player', Slot.ID)
@@ -836,8 +838,17 @@ function CA:Update_Gear()
 							or
 							TrueItemLevel
 						)
-						if E.db.sle.Armory.Character.Level.ItemColor then
+						if E.db.sle.Armory.Character.Level.ItemColor == "QUALITY" then
 							Slot.ItemLevel:SetTextColor(R, G, B)
+						elseif E.db.sle.Armory.Character.Level.ItemColor == "GRADIENT" then
+							local diff = TrueItemLevel - equippedIlvl
+							local aR, aG, aB
+							if diff >= 0 then
+								aR, aG, aB = 0,1,0
+							else
+								aR, aG, aB = E:ColorGradient(-(3/diff), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+							end
+								Slot.ItemLevel:SetTextColor(aR, aG, aB)
 						else
 							Slot.ItemLevel:SetTextColor(1, 1, 1)
 						end
