@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local SUF = SLE:GetModule("UnitFrames")
 local UF = E:GetModule('UnitFrames');
 --GLOBALS: hooksecurefunc
@@ -16,7 +16,7 @@ function SUF:BuildStatusTable()
 	for _, unitName in T.pairs(UF.units) do
 		local frameNameUnit = E:StringTitle(unitName)
 		frameNameUnit = T.gsub(frameNameUnit, "t(arget)", "T%1")
-		
+
 		local unitframe = _G["ElvUF_"..frameNameUnit]
 		if unitframe and unitframe.Power then SUF.powerbars[unitframe.Power] = true end
 	end
@@ -24,7 +24,7 @@ function SUF:BuildStatusTable()
 	for unit, unitgroup in T.pairs(UF.groupunits) do
 		local frameNameUnit = E:StringTitle(unit)
 		frameNameUnit = T.gsub(frameNameUnit, "t(arget)", "T%1")
-		
+
 		local unitframe = _G["ElvUF_"..frameNameUnit]
 		if unitframe and unitframe.Power then SUF.powerbars[unitframe.Power] = true end
 	end
@@ -44,7 +44,6 @@ function SUF:CastBarHook()
 		if castbar then
 			hooksecurefunc(castbar, "PostCastStart", SUF.PostCast)
 			hooksecurefunc(castbar, "PostCastInterruptible", SUF.PostCast)
-			hooksecurefunc(castbar, "PostChannelStart", SUF.PostCast)
 		end
 	end
 
@@ -53,7 +52,6 @@ function SUF:CastBarHook()
 		if castbar then
 			hooksecurefunc(castbar, "PostCastStart", SUF.PostCast)
 			hooksecurefunc(castbar, "PostCastInterruptible", SUF.PostCast)
-			hooksecurefunc(castbar, "PostChannelStart", SUF.PostCast)
 		end
 	end
 
@@ -62,7 +60,6 @@ function SUF:CastBarHook()
 		if castbar then
 			hooksecurefunc(castbar, "PostCastStart", SUF.PostCast)
 			hooksecurefunc(castbar, "PostCastInterruptible", SUF.PostCast)
-			hooksecurefunc(castbar, "PostChannelStart", SUF.PostCast)
 		end
 	end
 end
