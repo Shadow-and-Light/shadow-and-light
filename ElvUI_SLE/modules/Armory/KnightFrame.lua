@@ -321,5 +321,41 @@ if not (select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_Kn
 			_G["InspectArmory"]:UpdateSettings("all")
 		end
 	end
+	
+	--Hijack SImpy's shit
+	local M = E:GetModule("Misc")
+	function M:ToggleItemLevelInfo(setupCharacterPage)
+		if setupCharacterPage then
+			M:CreateSlotStrings(_G.CharacterFrame, 'Character')
+		end
+
+		if E.db.general.displayCharacterInfo and not E.db.sle.Armory.Character.Enable then
+			M:RegisterEvent('PLAYER_EQUIPMENT_CHANGED', 'UpdateCharacterInfo')
+			M:RegisterEvent('PLAYER_AVG_ITEM_LEVEL_UPDATE', 'UpdateCharacterItemLevel')
+			_G.CharacterStatsPane.ItemLevelFrame.Value:Hide()
+
+			if not _G.CharacterFrame.CharacterInfoHooked then
+				_G.CharacterFrame:HookScript('OnShow', M.UpdateCharacterInfo)
+				_G.CharacterFrame.CharacterInfoHooked = true
+			end
+
+			if not setupCharacterPage then
+				M:UpdateCharacterInfo()
+			end
+		else
+			M:UnregisterEvent('PLAYER_EQUIPMENT_CHANGED')
+			M:UnregisterEvent('PLAYER_AVG_ITEM_LEVEL_UPDATE')
+			_G.CharacterStatsPane.ItemLevelFrame.Value:Show()
+			M:ClearPageInfo(_G.CharacterFrame, 'Character')
+		end
+
+		if E.db.general.displayInspectInfo and not E.db.sle.Armory.Inspect.Enable then
+			M:RegisterEvent('INSPECT_READY', 'UpdateInspectInfo')
+		else
+			M:UnregisterEvent('INSPECT_READY')
+			M:ClearPageInfo(_G.InspectFrame, 'Inspect')
+		end
+	end
+
 	SLE:RegisterModule(KF:GetName())
 end

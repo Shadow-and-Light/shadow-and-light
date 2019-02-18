@@ -2,6 +2,7 @@
 
 local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
 local KF, Info, Timer = unpack(ElvUI_KnightFrame)
+local M = E:GetModule("Misc")
 --GLOBALS: SLE_ArmoryDB, AceGUIWidgetLSMlists, PaperDollFrame_UpdateStats
 local _G = _G
 -- local PaperDollFrame_UpdateStats = PaperDollFrame_UpdateStats
@@ -231,7 +232,7 @@ local function LoadArmoryConfigTable()
 			order = 2,
 			desc = '',
 			get = function() return E.db.sle.Armory.Character.Enable end,
-			set = function(_, value) E.db.sle.Armory.Character.Enable = value; KF.Modules.CharacterArmory() end
+			set = function(_, value) E.db.sle.Armory.Character.Enable = value; KF.Modules.CharacterArmory() M:ToggleItemLevelInfo() end
 		}
 		
 		local SelectedCABG
@@ -918,7 +919,7 @@ local function LoadArmoryConfigTable()
 			name = L["Inspect Armory"],
 			order = 3,
 			get = function() return E.db.sle.Armory.Inspect.Enable end,
-			set = function(_, value) E.db.sle.Armory.Inspect.Enable = value; KF.Modules.InspectArmory() end
+			set = function(_, value) E.db.sle.Armory.Inspect.Enable = value; KF.Modules.InspectArmory() M:ToggleItemLevelInfo() end
 		}
 		
 		E.Options.args.sle.args.modules.args.Armory.args.Inspect = {

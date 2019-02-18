@@ -494,9 +494,8 @@ function IA:CreateInspectFrame()
 		self.Close = CreateFrame('Button', nil, self.Tab)
 		self.Close:Size(TAB_HEIGHT - 8)
 		self.Close:SetTemplate()
-		self.Close.backdropTexture:SetVertexColor(0.1, 0.1, 0.1)
 		self.Close:Point('RIGHT', -4, 0)
-		KF:TextSetting(self.Close, 'X', { FontSize = 13, }, 'CENTER', 1, 0)
+		KF:TextSetting(self.Close, 'X', { FontSize = 13, }, 'CENTER', 2, 0)
 		self.Close:SetScript('OnEnter', self.Button_OnEnter)
 		self.Close:SetScript('OnLeave', self.Button_OnLeave)
 		self.Close:SetScript('OnClick', function() HideUIPanel(self) end)
@@ -1198,7 +1197,7 @@ function IA:CreateInspectFrame()
 			'TOP', self.Info.Guild.Banner.Name, 'BOTTOM', 0, -2)
 		end
 	end
-	
+
 	do --<< Specialization Page >>--
 		self.Spec = CreateFrame('ScrollFrame', nil, self)
 		self.Spec:SetFrameLevel(CORE_FRAME_LEVEL + 16)
@@ -1405,7 +1404,7 @@ function IA:CreateInspectFrame()
 			self.Spec['PvPTalentSlot'..i]:Point('CENTER', self.Spec['PvPTalentTier'..i])
 		end
 	end
-	
+
 	do --<< Scanning Tooltip >>--
 		self.ScanTTForInspecting = CreateFrame('GameTooltip', 'InspectArmoryScanTT_I', nil, 'GameTooltipTemplate')
 		self.ScanTTForInspecting:SetOwner(UIParent, 'ANCHOR_NONE')
@@ -1414,7 +1413,7 @@ function IA:CreateInspectFrame()
 		self.ScanTT2 = CreateFrame('GameTooltip', 'InspectArmoryScanTT2', nil, 'GameTooltipTemplate')
 		self.ScanTT2:SetOwner(UIParent, 'ANCHOR_NONE')
 	end
-	
+
 	do --<< UnitPopup Setting >>--
 		_G["InspectArmory_UnitPopup"].Highlight = _G["InspectArmory_UnitPopup"]:CreateTexture(nil, 'BACKGROUND')
 		_G["InspectArmory_UnitPopup"].Highlight:SetTexture('Interface\\QuestFrame\\UI-QuestTitleHighlight')
@@ -1586,12 +1585,12 @@ function IA:CreateInspectFrame()
 			end
 		end)
 	end
-	
+
 	do --<< Updater >>--
 		self.Updater = CreateFrame('Frame')
 		self.Updater:Hide()
 	end
-	
+
 	do --<< Inspector >>--
 		self.Inspector = CreateFrame('Frame')
 		self.Inspector:SetScript('OnUpdate', function(_, elapsed)
@@ -1625,7 +1624,7 @@ function IA:CreateInspectFrame()
 		end)
 		self.Inspector:Hide()
 	end
-	
+
 	HideUIPanel(self)
 	self.CreateInspectFrame = nil
 end
@@ -2991,7 +2990,7 @@ KF.Modules.InspectArmory = function()
 			IA:CreateInspectFrame()
 		end
 		IA:Update_BG()
-		
+
 		InspectUnit = IA.InspectUnit
 		InspectFrame = IA.Inspector
 
@@ -3004,6 +3003,5 @@ KF.Modules.InspectArmory = function()
 		
 		Info.InspectArmory_Activate = nil
 	end
-	
 	IA:ToggleOverlay()
 end
