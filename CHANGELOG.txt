@@ -1,3 +1,8 @@
+v3.51 [February 24th, 2019]
+Requires ElvUI 10.88 to work properly
+Misc:
+- Adjustments needed to work with ElvUI 10.88 error free (hopefully)
+
 v3.5 [January 22nd, 2019]
 Additions:
 - Armory and afk screen now support Wakanda trolls and humans living on ships
@@ -11,7 +16,7 @@ Misc:
 - Some profile db conversion was added to account for ilvl text coloring option. Last one with hearthstone priority went withoput problems, but who knows. Just keep an eye on it.
 - More attempts to fix seemingly random issue with character armory breaking on equipping new gear. If it breaks again, I'll need as much info of what happened for about a minute period before everything went to hell.
 
-v3.492 [Decamber 19, 2018]
+v3.492 [December 19, 2018]
 Fixes:
 - Localtion panel coordinates link is now working again
 Changes:
