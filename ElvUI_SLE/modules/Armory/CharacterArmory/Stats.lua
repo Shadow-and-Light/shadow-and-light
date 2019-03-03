@@ -321,11 +321,11 @@ function CA:ResetAllStats()
 		[4] = {
 			categoryFrame = CA:CreateStatCategory("DefenceCategory", DEFENSE),
 			stats = {
-				[1] = { stat = "ARMOR", option = true, roles =  { "TANK" } },
+				[1] = { stat = "ARMOR", option = true, },
 				[2] = { stat = "AVOIDANCE", option = true, hideAt = 0 },
 				[3] = { stat = "DODGE", option = true,},
 				[4] = { stat = "PARRY", option = true, hideAt = 0, },
-				[5] = { stat = "BLOCK", option = true, hideAt = 0, roles = {"TANK"} },
+				[5] = { stat = "BLOCK", option = true, hideAt = 0, },
 				[6] = { stat = "STAGGER", hideAt = 0, roles = {"TANK"}, classes = {"MONK"} },
 			},
 		},
