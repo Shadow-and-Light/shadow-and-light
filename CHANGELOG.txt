@@ -1,3 +1,8 @@
+v3.511 [March 3rd, 2019]
+Fixes:
+- Disabling armory now should correctly allow ElvUI to display gear ilvl and enchants (I blame Simpy)
+- Fixed stats and stat scrollbar being broken (Still blaming Simpy)
+
 v3.51 [February 24th, 2019]
 Requires ElvUI 10.88 to work properly
 Misc:
