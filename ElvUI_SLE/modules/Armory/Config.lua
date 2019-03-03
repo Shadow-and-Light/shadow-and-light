@@ -232,7 +232,7 @@ local function LoadArmoryConfigTable()
 			order = 2,
 			desc = '',
 			get = function() return E.db.sle.Armory.Character.Enable end,
-			set = function(_, value) E.db.sle.Armory.Character.Enable = value; KF.Modules.CharacterArmory() M:ToggleItemLevelInfo() end
+			set = function(_, value) E.db.sle.Armory.Character.Enable = value; KF.Modules.CharacterArmory() M:ToggleItemLevelInfo(); PaperDollFrame_UpdateStats() end
 		}
 		
 		local SelectedCABG

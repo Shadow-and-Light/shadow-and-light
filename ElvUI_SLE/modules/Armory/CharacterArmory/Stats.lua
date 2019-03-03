@@ -338,7 +338,6 @@ function CA:ToggleStats()
 end
 
 function CA:PaperDollFrame_UpdateStats()
-	if not CA:IsShown() then return end
 	totalShown = 0
 	local total, equipped = T.GetAverageItemLevel()
 	if E.db.sle.Armory.Character.Stats.IlvlFull then
@@ -439,7 +438,6 @@ function CA:PaperDollFrame_UpdateStats()
 	end
 	-- release the current stat frame
 	_G["CharacterStatsPane"].statsFramePool:Release(statFrame);
-	-- if totalShown > 14 then
 	if totalShown > 26 - E.db.sle.Armory.Character.Stats.ItemLevel.size then
 		CA.Scrollbar:Show()
 	else
@@ -490,7 +488,6 @@ CharacterStatsPane.ClassBackground:SetPoint("CENTER")
 -- Enable mousewheel scrolling
 CA.ScrollFrame:EnableMouseWheel(true)
 CA.ScrollFrame:SetScript("OnMouseWheel", function(self, delta)
-	-- if totalShown > 14 then
 	if totalShown > 26 - E.db.sle.Armory.Character.Stats.ItemLevel.size then
 		CA.Scrollbar:SetMinMaxValues(1, 45)  
 	else

@@ -322,14 +322,14 @@ if not (select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_Kn
 		end
 	end
 	
-	--Hijack SImpy's shit
+	--Hijack Simpy's shit
 	local M = E:GetModule("Misc")
 	function M:ToggleItemLevelInfo(setupCharacterPage)
 		if setupCharacterPage then
 			M:CreateSlotStrings(_G.CharacterFrame, 'Character')
 		end
 
-		if E.db.general.displayCharacterInfo and not E.db.sle.Armory.Character.Enable then
+		if E.db.general.itemLevel.displayCharacterInfo and not E.db.sle.Armory.Character.Enable then
 			M:RegisterEvent('PLAYER_EQUIPMENT_CHANGED', 'UpdateCharacterInfo')
 			M:RegisterEvent('PLAYER_AVG_ITEM_LEVEL_UPDATE', 'UpdateCharacterItemLevel')
 			_G.CharacterStatsPane.ItemLevelFrame.Value:Hide()
@@ -349,13 +349,29 @@ if not (select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_Kn
 			M:ClearPageInfo(_G.CharacterFrame, 'Character')
 		end
 
-		if E.db.general.displayInspectInfo and not E.db.sle.Armory.Inspect.Enable then
+		if E.db.general.itemLevel.displayInspectInfo and not E.db.sle.Armory.Inspect.Enable then
 			M:RegisterEvent('INSPECT_READY', 'UpdateInspectInfo')
 		else
 			M:UnregisterEvent('INSPECT_READY')
 			M:ClearPageInfo(_G.InspectFrame, 'Inspect')
 		end
 	end
+
+	hooksecurefunc(M, "UpdateAverageString", function(self, frame, which, iLevelDB)
+		local isCharPage = which == 'Character'
+		if not isCharPage then return end
+		local total, equipped = T.GetAverageItemLevel()
+		if E.db.sle.Armory.Character.Stats.IlvlFull then
+			if E.db.sle.Armory.Character.Stats.IlvlColor then
+				local R, G, B = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+				local avColor = E.db.sle.Armory.Character.Stats.AverageColor
+				_G["CharacterFrame"].ItemLevelText:SetFormattedText("%s%.2f|r |cffffffff/|r %s%.2f|r", E:RGBToHex(R, G, B), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
+			else
+				_G["CharacterFrame"].ItemLevelText:SetFormattedText("%.2f / %.2f", equipped, total)
+			end
+		end
+	end)
+	--Stop hijacking Simpy's shit
 
 	SLE:RegisterModule(KF:GetName())
 end

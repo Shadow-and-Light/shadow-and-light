@@ -617,6 +617,41 @@ function CA:ClearTooltip(Tooltip)
 	end
 end
 
+function CA:ClearSlotInfo(SlotName)
+	local slot = self[SlotName]
+	slot.ItemRarity = nil
+	slot.ItemLevel:SetText(nil)
+	slot.IsEnchanted = nil
+	slot.ItemEnchant:SetText(nil)
+	slot.ItemEnchant.Message = nil
+	slot.GemCount_Enable = nil
+	for i = 1, MAX_NUM_SOCKETS do
+		slot["Socket"..i].Texture:SetTexture(nil)
+		slot["Socket"..i].Socket.Link = nil
+		slot["Socket"..i].Socket.Message = nil
+		slot["Socket"..i].GemItemID = nil
+		slot["Socket"..i].GemType = nil
+		slot["Socket"..i]:Hide()
+	end
+	slot.EnchantWarning:Hide()
+	slot.EnchantWarning.Message = nil
+	slot.SocketWarning:Point(slot.Direction, slot.Socket1)
+	slot.SocketWarning:Hide()
+	slot.SocketWarning.Link = nil
+	slot.SocketWarning.Message = nil
+	if slot.TransmogrifyAnchor then
+		slot.TransmogrifyAnchor.SourceID = nil
+		slot.TransmogrifyAnchor.Link = nil
+		slot.TransmogrifyAnchor:Hide()
+		LCG.AutoCastGlow_Stop(_G["Character"..SlotName],"_TransmogGlow")
+	end
+	
+	if slot.IllusionAnchor then
+		slot.IllusionAnchor.Link = nil
+		slot.IllusionAnchor:Hide()
+	end
+end
+
 function CA:Update_Gear()
 	--[[ Get Player Profession
 	
@@ -647,37 +682,7 @@ function CA:Update_Gear()
 			end
 			if not ItemLink or ItemInfoAvailable then --<< Clear Setting >>--
 				NeedUpdate, TrueItemLevel, UsableEffect, ItemUpgradeID, CurrentUpgrade, MaxUpgrade, ItemType, ItemTexture, IsTransmogrified = nil, nil, nil, nil, nil, nil, nil, nil, nil
-				Slot.ItemRarity = nil
-				Slot.ItemLevel:SetText(nil)
-				Slot.IsEnchanted = nil
-				Slot.ItemEnchant:SetText(nil)
-				Slot.ItemEnchant.Message = nil
-				Slot.GemCount_Enable = nil
-				for i = 1, MAX_NUM_SOCKETS do
-					Slot["Socket"..i].Texture:SetTexture(nil)
-					Slot["Socket"..i].Socket.Link = nil
-					Slot["Socket"..i].Socket.Message = nil
-					Slot["Socket"..i].GemItemID = nil
-					Slot["Socket"..i].GemType = nil
-					Slot["Socket"..i]:Hide()
-				end
-				Slot.EnchantWarning:Hide()
-				Slot.EnchantWarning.Message = nil
-				Slot.SocketWarning:Point(Slot.Direction, Slot.Socket1)
-				Slot.SocketWarning:Hide()
-				Slot.SocketWarning.Link = nil
-				Slot.SocketWarning.Message = nil
-				if Slot.TransmogrifyAnchor then
-					Slot.TransmogrifyAnchor.SourceID = nil
-					Slot.TransmogrifyAnchor.Link = nil
-					Slot.TransmogrifyAnchor:Hide()
-					LCG.AutoCastGlow_Stop(_G["Character"..SlotName],"_TransmogGlow")
-				end
-				
-				if Slot.IllusionAnchor then
-					Slot.IllusionAnchor.Link = nil
-					Slot.IllusionAnchor:Hide()
-				end
+				self:ClearSlotInfo(SlotName)
 			else
 				NeedUpdate = true
 			end
@@ -1102,12 +1107,14 @@ end
 
 function CA:UpdateIlvlFont()
 	local db = E.db.sle.Armory.Character.Stats.ItemLevel
+	local Size = (db.size or 12) + 4
 	_G["CharacterStatsPane"].ItemLevelFrame.Value:FontTemplate(E.LSM:Fetch('font', db.font), db.size or 12, db.outline)
-	_G["CharacterStatsPane"].ItemLevelFrame:SetHeight((db.size or 12) + 4)
-	_G["CharacterStatsPane"].ItemLevelFrame.Background:SetHeight((db.size or 12) + 4)
+	_G["CharacterFrame"].ItemLevelText:FontTemplate(E.LSM:Fetch('font', db.font), db.size or 12, db.outline)
+	_G["CharacterStatsPane"].ItemLevelFrame:SetHeight(Size)
+	_G["CharacterStatsPane"].ItemLevelFrame.Background:SetHeight(Size)
 	if _G["CharacterStatsPane"].ItemLevelFrame.leftGrad then
-		_G["CharacterStatsPane"].ItemLevelFrame.leftGrad:SetHeight((db.size or 12) + 4)
-		_G["CharacterStatsPane"].ItemLevelFrame.rightGrad:SetHeight((db.size or 12) + 4)
+		_G["CharacterStatsPane"].ItemLevelFrame.leftGrad:SetHeight(Size)
+		_G["CharacterStatsPane"].ItemLevelFrame.rightGrad:SetHeight(Size)
 	end
 end
 
@@ -1143,6 +1150,7 @@ KF.Modules.CharacterArmory = function()
 
 		CA:ScanData()
 		CA:Update_BG()
+		CA:Update_Gear()
 
 		-- Model Frame
 		_G["CharacterModelFrame"]:ClearAllPoints()
@@ -1199,6 +1207,9 @@ KF.Modules.CharacterArmory = function()
 		_G["CharacterModelFrame"].backdrop:Show()
 		
 		-- Turn off ArmoryFrame
+		for _, SlotName in T.pairs(T.type(CA.GearUpdated) == 'table' and CA.GearUpdated or Info.Armory_Constants.GearList) do
+			if not (SlotName == 'ShirtSlot' or SlotName == 'TabardSlot') then CA:ClearSlotInfo(SlotName) end
+		end
 		CA:Hide()
 		CA:UnregisterAllEvents()
 		
