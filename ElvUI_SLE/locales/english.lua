@@ -988,6 +988,7 @@ L["ELVUI_SLE_DONORS"] = [[Andre Edwards
 Anthony Ross
 Chun Kim
 Cyntia McCarthy
+Joe Quarles
 Jonathan Sweet
 Katherine Clarkson
 Nicholas Caldecutt
