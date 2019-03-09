@@ -137,6 +137,7 @@ local function OnDragStop(self)
 		local a, b, c, d, e = self:GetPoint()
 		if self:GetParent() then 
 			b = self:GetParent():GetName() or UIParent
+			if not _G[b] then b = UIParent end
 		else
 			b = UIParent
 		end
