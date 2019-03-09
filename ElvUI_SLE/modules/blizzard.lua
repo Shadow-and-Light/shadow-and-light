@@ -131,7 +131,6 @@ end
 --When stop moving (or hiding), remember frame's positions.
 local function OnDragStop(self)
 	self:StopMovingOrSizing()
-	self.IsMoving = false
 	local Name = self:GetName()
 	--Saving positions only if option is enabled and frame is not temporary movable
 	if E.private.sle.module.blizzmove.remember and not B.TempOnly[Name] then
@@ -151,6 +150,7 @@ local function OnDragStop(self)
 	else
 		self:SetUserPlaced(false)
 	end
+	self.IsMoving = false
 end
 
 --On show set saved position
@@ -201,7 +201,7 @@ function B:MakeMovable(Name)
 	hooksecurefunc(frame, "SetPoint", B.RewritePoint)
 
 	--Removing stuff from auto positioning and putting them in "close on esc" list
-	if E.private.sle.module.blizzmove.remember then
+	--[[if E.private.sle.module.blizzmove.remember then
 		frame.ignoreFramePositionManager = true
 		if UIPanelWindows[Name] then
 			for Key in T.pairs(UIPanelWindows[Name]) do
@@ -212,7 +212,7 @@ function B:MakeMovable(Name)
 		end
 		--Putting to the "close on esc" list. Unless frames are specificallu excluded.
 		if not B.NoSpecialFrames[Name] and not UISpecialFrames[Name] then T.tinsert(UISpecialFrames, Name) end
-	end
+	end]]
 
 	--Putting stuff on respected saved positions
 	C_Timer.After(0, function()
