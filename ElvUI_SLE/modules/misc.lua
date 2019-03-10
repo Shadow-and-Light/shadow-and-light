@@ -54,7 +54,7 @@ end
 --Viewports
 function M:SetViewport()
 	if SLE._Compatibility["SunnArt"] then return end --Other viewport addon is enabled
-	local scale = 768 / UIParent:GetHeight()
+	local scale = E.global.general.UIScale
 	_G["WorldFrame"]:ClearAllPoints()
 	_G["WorldFrame"]:SetPoint("TOPLEFT", ( M.db.viewport.left * scale ), -( M.db.viewport.top * scale ) )
 	_G["WorldFrame"]:SetPoint("BOTTOMRIGHT", -( M.db.viewport.right * scale ), ( M.db.viewport.bottom * scale ) )
@@ -137,6 +137,7 @@ function M:Initialize()
 
 	--Viewport
 	M:SetViewport()
+	hooksecurefunc(E, "PixelScaleChanged", M.SetViewport)
 
 	function M:ForUpdateAll()
 		M.db = E.db.sle.misc
