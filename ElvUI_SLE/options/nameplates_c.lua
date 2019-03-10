@@ -1,6 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local NP = E:GetModule('NamePlates')
-local N = SLE:GetModule('Nameplates')
 
 local function configTable()
 	if not SLE.initialized then return end
@@ -20,30 +19,26 @@ local function configTable()
 				order = 2,
 				name = L["Target Count"],
 				guiInline = true,
+				get = function(info) return E.db.sle.nameplates.targetcount[ info[#info] ] end,
+				set = function(info, value) E.db.sle.nameplates.targetcount[ info[#info] ] = value; NP:ConfigureAll() end,
 				args = {
 					enable = {
 						type = "toggle",
 						order = 1,
 						name = L["Enable"],
 						desc = L["Display the number of party / raid members targeting the nameplate unit."],
-						get = function(info) return E.db.sle.nameplates.targetcount[ info[#info] ] end,
-						set = function(info, value) E.db.sle.nameplates.targetcount[ info[#info] ] = value; NP:ConfigureAll() end,
 					},
 					font = {
 						type = "select", dialogControl = 'LSM30_Font',
 						order = 4,
 						name = L["Font"],
 						values = AceGUIWidgetLSMlists.font,
-						get = function(info) return E.db.sle.nameplates.targetcount[ info[#info] ] end,
-						set = function(info, value) E.db.sle.nameplates.targetcount[ info[#info] ] = value; N:UpdateFonts() end,
 					},
 					size = {
 						order = 5,
 						name = FONT_SIZE,
 						type = "range",
 						min = 4, max = 25, step = 1,
-						get = function(info) return E.db.sle.nameplates.targetcount[ info[#info] ] end,
-						set = function(info, value) E.db.sle.nameplates.targetcount[ info[#info] ] = value; N:UpdateFonts() end,
 					},
 					fontOutline = {
 						order = 6,
@@ -56,8 +51,6 @@ local function configTable()
 							['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
 							['THICKOUTLINE'] = 'THICKOUTLINE',
 						},
-						get = function(info) return E.db.sle.nameplates.targetcount[ info[#info] ] end,
-						set = function(info, value) E.db.sle.nameplates.targetcount[ info[#info] ] = value; N:UpdateFonts() end,
 					},
 				},
 			},
@@ -66,30 +59,26 @@ local function configTable()
 				order = 3,
 				name = L["Threat Text"],
 				guiInline = true,
+				get = function(info) return E.db.sle.nameplates.threat[ info[#info] ] end,
+				set = function(info, value) E.db.sle.nameplates.threat[ info[#info] ] = value; NP:ConfigureAll() end,
 				args = {
 					enable = {
 						type = "toggle",
 						order = 1,
 						name = L["Enable"],
 						desc = L["Display threat level as text on targeted, boss or mouseover nameplate."],
-						get = function(info) return E.db.sle.nameplates.threat[ info[#info] ] end,
-						set = function(info, value) E.db.sle.nameplates.threat[ info[#info] ] = value; NP:ConfigureAll() end,
 					},
 					font = {
 						type = "select", dialogControl = 'LSM30_Font',
 						order = 4,
 						name = L["Font"],
 						values = AceGUIWidgetLSMlists.font,
-						get = function(info) return E.db.sle.nameplates.threat[ info[#info] ] end,
-						set = function(info, value) E.db.sle.nameplates.threat[ info[#info] ] = value; N:UpdateFonts() end,
 					},
 					size = {
 						order = 5,
 						name = FONT_SIZE,
 						type = "range",
 						min = 4, max = 25, step = 1,
-						get = function(info) return E.db.sle.nameplates.threat[ info[#info] ] end,
-						set = function(info, value) E.db.sle.nameplates.threat[ info[#info] ] = value; N:UpdateFonts() end,
 					},
 					fontOutline = {
 						order = 6,
@@ -102,8 +91,6 @@ local function configTable()
 							['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
 							['THICKOUTLINE'] = 'THICKOUTLINE',
 						},
-						get = function(info) return E.db.sle.nameplates.threat[ info[#info] ] end,
-						set = function(info, value) E.db.sle.nameplates.threat[ info[#info] ] = value; N:UpdateFonts() end,
 					},
 				},
 			},

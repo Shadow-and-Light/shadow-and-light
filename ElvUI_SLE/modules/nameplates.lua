@@ -8,26 +8,15 @@ local GetNamePlates = C_NamePlate.GetNamePlates
 --Table to cache the members of player's group
 N.GroupMembers = {}
 
---Fonts update
-function N:UpdateFonts()
-	for Font in pairs(NP.FontStrings.SLE.Threat) do
-		Font:SetFont(E.LSM:Fetch("font", N.db.threat.font), N.db.threat.size, N.db.threat.fontOutline)
-	end
-	for Font in pairs(NP.FontStrings.SLE.Counter) do
-		Font:SetFont(E.LSM:Fetch("font", N.db.targetcount.font), N.db.targetcount.size, N.db.targetcount.fontOutline)
-	end
-end
-
 function N:CreateThreatIndicator(nameplate)
 	nameplate.SLE_threatInfo = nameplate.Health:CreateFontString(nil, "OVERLAY")
 	nameplate.SLE_threatInfo:SetPoint("BOTTOMLEFT", nameplate.Health, "BOTTOMLEFT", 1, 2)
 	nameplate.SLE_threatInfo:SetJustifyH("LEFT")
-	nameplate.SLE_threatInfo:FontTemplate(E.LSM:Fetch("font", N.db.threat.font), N.db.threat.size, N.db.threat.fontOutline)
+	nameplate.SLE_threatInfo:SetFont(E.LSM:Fetch("font", N.db.threat.font), N.db.threat.size, N.db.threat.fontOutline)
 end
 
-hooksecurefunc(NP, 'PostUpdateThreat', function(self, threat, unit)
+hooksecurefunc(NP, 'ThreatIndicator_PostUpdate', function(threat, unit)
 	if not threat.__owner then return end
-
 	if threat.__owner.SLE_threatInfo then
 		threat.__owner.SLE_threatInfo:SetText() --Reseting text to empty
 
@@ -43,9 +32,11 @@ hooksecurefunc(NP, 'PostUpdateThreat', function(self, threat, unit)
 			if unit and not T.UnitIsPlayer(unit) and T.UnitCanAttack('player', unit) then
 				local status, percent = T.select(2, T.UnitDetailedThreatSituation('player', unit))
 				if (status) then
-					threat.__owner.SLE_threatInfo:SetFormattedText('%s%.0f%%|r', E:RGBToHex(T.GetThreatStatusColor(status)), percent or "woot")
+					threat.__owner.SLE_threatInfo:SetFormattedText('%s%.0f%%|r', E:RGBToHex(T.GetThreatStatusColor(status)), percent or "")
 				end
 			end
+		else
+			threat.__owner.SLE_threatInfo:SetText("")
 		end
 	end
 end)
@@ -55,7 +46,7 @@ function N:CreateTargetCounter(nameplate)
 	nameplate.SLE_targetcount:SetPoint('BOTTOMRIGHT', nameplate.Health, 'BOTTOMRIGHT', 1, 2)
 	nameplate.SLE_targetcount:SetJustifyH("RIGHT")
 	nameplate.SLE_TargetedByCounter = 0
-	nameplate.SLE_targetcount:FontTemplate(E.LSM:Fetch("font", N.db.targetcount.font), N.db.targetcount.size, N.db.targetcount.fontOutline)
+	nameplate.SLE_targetcount:SetFont(E.LSM:Fetch("font", N.db.targetcount.font), N.db.targetcount.size, N.db.targetcount.fontOutline)
 	nameplate.SLE_targetcount:SetText()
 end
 
@@ -135,25 +126,27 @@ function N:NamePlateCallBackSLE(nameplate, event, unit)
 	end
 end
 
-function N:UpdateAllFrame(frame)
-	if(frame == self.PlayerFrame__) then return end
-
-	local unit = frame.unit
-	N:NAME_PLATE_UNIT_REMOVED("NAME_PLATE_UNIT_REMOVED", unit)
-	N:NAME_PLATE_UNIT_ADDED("NAME_PLATE_UNIT_ADDED", unit)
-end
-
 --Creating additional nameplate elements
 function N:CreateNameplate(frame, unit)
 	if not frame or not unit then return end
 
 	if not frame.SLE_threatInfo then
 		N:CreateThreatIndicator(frame)
-		NP.FontStrings.SLE.Threat[frame.SLE_threatInfo] = true
 	end
 	if not frame.SLE_targetcount then
 		N:CreateTargetCounter(frame)
-		NP.FontStrings.SLE.Counter[frame.SLE_targetcount] = true
+	end
+end
+
+
+function N:UpdatePlate(nameplate)
+	if nameplate.SLE_threatInfo then
+		nameplate.SLE_threatInfo:SetFont(E.LSM:Fetch("font", N.db.threat.font), N.db.threat.size, N.db.threat.fontOutline)
+		if not N.db.threat.enable then nameplate.SLE_threatInfo:SetText("") end
+	end
+	if nameplate.SLE_targetcount then
+		nameplate.SLE_targetcount:SetFont(E.LSM:Fetch("font", N.db.targetcount.font), N.db.targetcount.size, N.db.targetcount.fontOutline)
+		if N.db.targetcount.enable then N:UpdateCount(nil,"player", true) else nameplate.SLE_targetcount:SetText(""); nameplate.SLE_TargetedByCounter = 0 end
 	end
 end
 
@@ -175,16 +168,10 @@ function N:Initialize()
 	end
 
 	N.db = E.db.sle.nameplates
-
 	--Hooking to ElvUI's nameplates
-	NP.FontStrings.SLE = {
-		Threat = {},
-		Counter = {},
-	}
+	hooksecurefunc(NP, "Style", N.CreateNameplate)
+	hooksecurefunc(NP, "UpdatePlate", N.UpdatePlate)
 
-	hooksecurefunc(NP, 'Style', N.CreateNameplate)
-	hooksecurefunc(NP, "Update_Fonts", N.UpdateFonts)
-	
 	self:RegisterEvent("GROUP_ROSTER_UPDATE", "StartRosterUpdate")
 	self:RegisterEvent("UNIT_TARGET", "UpdateCount")
 	hooksecurefunc(NP, "NamePlateCallBack", N.NamePlateCallBackSLE)
