@@ -452,7 +452,7 @@ CA.ScrollframeParentFrame:SetSize(198, 352)
 CA.ScrollframeParentFrame:SetPoint("TOP", CharacterFrameInsetRight, "TOP", 0, -4)
 
 --Scrollframe 
-CA.ScrollFrame = CreateFrame("ScrollFrame", nil, CA.ScrollframeParentFrame)
+CA.ScrollFrame = CreateFrame("ScrollFrame", "SLE_Armory_Scroll", CA.ScrollframeParentFrame)
 CA.ScrollFrame:SetPoint("TOP")
 CA.ScrollFrame:SetSize(CA.ScrollframeParentFrame:GetSize())
 
