@@ -246,15 +246,6 @@ function B:Addons(event, addon)
 	if B.addonCount == #B.AddonsList then B:UnregisterEvent(event) end
 end
 
-function B:VehicleScale()
-	local frame = _G["VehicleSeatIndicator"]
-	local frameScale = B.db.vehicleSeatScale
-	frame:SetScale(frameScale)
-	if frame.mover then
-		frame.mover:SetSize(frameScale * frame:GetWidth(), frameScale * frame:GetHeight())
-	end
-end
-
 function B:ErrorFrameSize()
 	_G["UIErrorsFrame"]:SetSize(B.db.errorframe.width, B.db.errorframe.height) --512 x 60
 end
@@ -298,11 +289,9 @@ function B:Initialize()
 		end
 	end
 
-	hooksecurefunc(VehicleSeatIndicator,"SetPoint", B.VehicleScale)
 	B:ErrorFrameSize()
 	function B:ForUpdateAll()
 		B.db = E.db.sle.blizzard
-		B:VehicleScale()
 		B:ErrorFrameSize()
 	end
 end

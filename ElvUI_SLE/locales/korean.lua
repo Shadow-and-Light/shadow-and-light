@@ -266,7 +266,6 @@ L["Remember"] = "기억하기"
 L["Remember positions of frames after moving them."] = "프레임을 이동하고 난 뒤 위치를 기억합니다."
 L["Pet Battles skinning"] = true
 L["Make some elements of pet battles movable via toggle anchors."] = "true"
-L["Vehicle Seat Scale"] = "탈것 좌석 크기"
 
 --Chat
 L["Reported by %s"] = true

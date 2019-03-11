@@ -47,15 +47,6 @@ local function configTable()
 				get = function(info) return E.db.sle.blizzard.rumouseover end,
 				set = function(info, value) E.db.sle.blizzard.rumouseover = value; M:RaidUtility_SetMouseoverAlpha() end,
 			},
-			vehicleSeatScale = {
-				order = 3,
-				type = 'range',
-				name = L["Vehicle Seat Scale"],
-				min = 0.1, max = 3, step = 0.01,
-				isPercent = true,
-				get = function(info) return E.db.sle.blizzard[ info[#info] ] end,
-				set = function(info, value) E.db.sle.blizzard[ info[#info] ] = value; B:VehicleScale() end,
-			},
 			errorframe = {
 				order = 11,
 				type = "group",
