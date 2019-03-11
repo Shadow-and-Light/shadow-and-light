@@ -100,7 +100,7 @@ local function configTable()
 			type = 'group',
 			name = L["Portrait"],
 			get = function(info) return E.db.sle.unitframes.unit[unitID][ info[#info] ] end,
-			set = function(info, value) E.db.sle.unitframes.unit[unitID][ info[#info] ] = value; UF:CreateAndUpdateUF('player'); end,
+			set = function(info, value) E.db.sle.unitframes.unit[unitID][ info[#info] ] = value; UF:CreateAndUpdateUF(unitID); end,
 			args = {
 				higherPortrait = {
 					order = 1, type = "toggle",
