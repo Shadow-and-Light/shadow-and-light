@@ -462,15 +462,17 @@ function LP:ItemList(check)
 				end
 			end
 		end
-		local data = ShownHearthstone
-		local ID, isToy = data.secure.ID, data.secure.isToy
-		local cd = DD:GetCooldown("Item", ID)
-		E:CopyTable(tmp, data)
-		if cd or (T.tonumber(cd) and T.tonumber(cd) > 1.5) then
-			tmp.text = "|cff636363"..tmp.text.."|r"..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
-			T.tinsert(LP.MainMenu, tmp)
-		else
-			T.tinsert(LP.MainMenu, data)
+		if ShownHearthstone then
+			local data = ShownHearthstone
+			local ID, isToy = data.secure.ID, data.secure.isToy
+			local cd = DD:GetCooldown("Item", ID)
+			E:CopyTable(tmp, data)
+			if cd or (T.tonumber(cd) and T.tonumber(cd) > 1.5) then
+				tmp.text = "|cff636363"..tmp.text.."|r"..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
+				T.tinsert(LP.MainMenu, tmp)
+			else
+				T.tinsert(LP.MainMenu, data)
+			end
 		end
 	end
 
