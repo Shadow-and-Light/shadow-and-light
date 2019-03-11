@@ -81,7 +81,7 @@ L["Allow |cff9482c9Shadow & Light|r to change some of ElvUI's options limits."] 
 L["Cyrillics Support"] = true
 L["SLE_CYR_DESC"] = [[If you happen to occasionally (or constantly) use Russian alphabet (Cyrillics) for your messages
 and always forget to switch input language afterward when entering slash commands then these options will help you.
-They enable a set of ElvUI's commands to be usable even with wrong input.
+They enable a set of ElvUI's commands to be usable even with wrong input. Always active on Ru locale.
 ]]
 L["Commands"] = true
 L["SLE_CYR_COM_DESC"] = [[Allows the usage of these common commands with ru input:
