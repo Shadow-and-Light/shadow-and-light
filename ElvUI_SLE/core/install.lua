@@ -240,7 +240,6 @@ function PI:DarthSetup()
 	end
 	--Nameplates
 	do
-		E.db["nameplates"]["questIconSize"] = 24
 		E.db["nameplates"]["lowHealthThreshold"] = 0
 		E.db["nameplates"]["statusbar"] = "Polished Wood"
 		E.db["nameplates"]["clickThrough"]["personal"] = true
@@ -276,6 +275,9 @@ function PI:DarthSetup()
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["enable"] = true
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["height"] = 4
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["yOffset"] = -9
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["questIconSize"] = 24
+
+		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIconSize"] = 24
 
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["filters"]["priority"] = "Blacklist,Personal,CCDebuffs"
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["yOffset"] = 10
