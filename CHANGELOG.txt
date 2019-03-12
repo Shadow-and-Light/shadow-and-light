@@ -1,3 +1,18 @@
+v3.52 [March 12th, 2019]
+Version for patch 8.1.5. Please do not update to this version if it is tuesday and you play on EU.
+Changes:
+- Vehicle seat option removed. ElvUI's core option is enough.
+- New ElvUI nameplates support (probably shouldn't blow up)
+- Viewport (if you know where it is) is now following new scaling system in ElvUI. Max/min values are still the same. If those somehow will happen to not be enough, let me know.
+- New install layout. Keep in mind that those are settings I play with, thus assuming you'll love it at the first glance is wrong.
+Fixes:
+- Fixed errors for order hall/ war campaign talent frame dropping errors when opened for the first time with movable blizz frames enabled (and set to record positions)
+This fix overrules old code to prevent some frames randomly jumping around. They shouldn't behave like crazy, but keep a tranq rifle just in case.
+- A check was put in place to prevent unknown force from populating saved positions for frames with some next level crazy stuff, resulting in inability to export private options.
+- Fixed an error in location panel when trying to open portal menu with no hearthstone of any description being in the inventory or toybox.
+- Fixed copy-paste fail in unitframes options causing portrait settings applying only after ui reload
+- Another attempt at finding the root of Armory breaking at random. If this doesn't help, I'll need more test info.
+
 v3.511 [March 3rd, 2019]
 Fixes:
 - Disabling armory now should correctly allow ElvUI to display gear ilvl and enchants (I blame Simpy)
