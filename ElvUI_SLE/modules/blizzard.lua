@@ -231,7 +231,6 @@ function B:MakeMovable(Name)
 end
 
 function B:Addons(event, addon)
-	print(addon)
 	addon = B.AddonsList[addon]
 	if not addon then return end
 	if T.type(addon) == "table" then
@@ -277,6 +276,7 @@ function B:Initialize()
 		for i = 1, #B.Frames do
 			B:MakeMovable(B.Frames[i])
 		end
+
 		self:RegisterEvent("ADDON_LOADED", "Addons")
 
 		-- Check Forced Loaded AddOns
