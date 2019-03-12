@@ -693,6 +693,7 @@ function CA:Update_Gear()
 					local ItemInfoAvailable
 
 					_, _, Slot.ItemRarity, BasicItemLevel, _, _, _, _, ItemType = T.GetItemInfo(ItemLink)
+					if not Slot.ItemRarity then NeedUpdate = true return end
 					R, G, B = T.GetItemQualityColor(Slot.ItemRarity)
 
 					do --<< Gem Parts >>--
