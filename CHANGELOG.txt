@@ -1,5 +1,7 @@
 v3.52 [March 12th, 2019]
 Version for patch 8.1.5. Please do not update to this version if it is tuesday and you play on EU.
+Additions:
+- Totally forgot raids exist. Added LFR tracking options for Dazar'Alor and Crucible of Storms. Also added those to raid progression (which also should be working again)
 Changes:
 - Vehicle seat option removed. ElvUI's core option is enough.
 - New ElvUI nameplates support (probably shouldn't blow up)
@@ -12,6 +14,11 @@ This fix overrules old code to prevent some frames randomly jumping around. They
 - Fixed an error in location panel when trying to open portal menu with no hearthstone of any description being in the inventory or toybox.
 - Fixed copy-paste fail in unitframes options causing portrait settings applying only after ui reload
 - Another attempt at finding the root of Armory breaking at random. If this doesn't help, I'll need more test info.
+
+Possible issues:
+- I wasn't able to test how S&L's quest log collapce/hide feature works with ElvUI's feature to hide in arenas.
+Probably will have issues. Please report if you notice something off.
+- Some frames will be auto repositioning other frames on first ever load after latest movable frames changes. After that everything should be fine.
 
 v3.511 [March 3rd, 2019]
 Fixes:
