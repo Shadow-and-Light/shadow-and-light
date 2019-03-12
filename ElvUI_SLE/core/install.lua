@@ -607,6 +607,7 @@ function PI:DarthSetup()
 		E.db["sle"]["dt"]["durability"]["threshold"] = 30
 		E.db["sle"]["dt"]["durability"]["gradient"] = true
 
+		E.db["sle"]["datatexts"]["chathandle"] = true
 		E.db["sle"]["datatexts"]["leftchat"]["width"] = 458
 		E.db["sle"]["datatexts"]["panel7"]["enabled"] = true
 		E.db["sle"]["datatexts"]["panel7"]["pethide"] = false

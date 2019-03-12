@@ -257,7 +257,7 @@ P["sle"] = {
 			["alpha"] = 1,
 			["noborders"] = false,
 		},
-		["chathandle"] = true,
+		["chathandle"] = false,
 	},
 	--SLE Datatexts
 	["dt"] = {
