@@ -61,7 +61,7 @@ local function configTable()
 		local name = T.strlower(chat)
 		local db = chat == "LeftChat" and "leftChatPanel" or "rightChatPanel"
 		local config = {
-			order = 18 + i, type = "group", name = L[chat],
+			order = 18 + i, type = "group", name = chat == "LeftChat" and L["Datatext Panel (Left)"] or L["Datatext Panel (Right)"],
 			args = {
 				enabled = {
 					order = 1, type = "toggle",
