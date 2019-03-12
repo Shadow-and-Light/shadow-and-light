@@ -1,5 +1,5 @@
 v3.52 [March 12th, 2019]
-Version for patch 8.1.5. Please do not update to this version if it is tuesday and you play on EU.
+Version for patch 8.1.5 and ElvUI v11. Please do not update to this version if it is tuesday and you play on EU.
 Additions:
 - Totally forgot raids exist. Added LFR tracking options for Dazar'Alor and Crucible of Storms. Also added those to raid progression (which also should be working again)
 Changes:
