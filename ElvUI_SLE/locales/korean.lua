@@ -832,6 +832,7 @@ L["Raid Progression"] = "레이드 진도"
 L["Show raid experience of character in tooltip (requires holding shift)."] = "툴팁에 캐릭터의 공격대 경험을 표시합니다.(쉬프트 누르고 있을 때)"
 L["Name Style"] = "이름 스타일"
 L["Difficulty Style"] = "난이도 스타일"
+L["Short"] = true
 
 --UI Buttons
 L["S&L UI Buttons"] = "S&L UI 버튼"

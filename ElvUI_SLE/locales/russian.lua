@@ -844,6 +844,7 @@ L["Raid Progression"] = "Рейдовый прогресс"
 L["Show raid experience of character in tooltip (requires holding shift)."] = "Отображает рейдовый опыт данного персонажа (требуется зажатый shift)"
 L["Name Style"] = "Стиль названия"
 L["Difficulty Style"] = "Стиль сложности"
+L["Short"] = "Короткий"
 
 --UI Buttons
 L["S&L UI Buttons"] = "Меню S&L"

@@ -848,6 +848,7 @@ L["Raid Progression"] = true
 L["Show raid experience of character in tooltip (requires holding shift)."] = true
 L["Name Style"] = true
 L["Difficulty Style"] = true
+L["Short"] = true
 
 --UI Buttons
 L["S&L UI Buttons"] = true
