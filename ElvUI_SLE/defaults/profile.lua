@@ -382,6 +382,8 @@ P["sle"] = {
 		},
 		["bfa"] = {
 			["uldir"] = false,
+			["daz"] = false,
+			["sc"] = false,
 		},
 	},
 	--Loot
@@ -739,6 +741,8 @@ P["sle"] = {
 				["sargeras"] = false,
 				["antorus"] = false,
 				["uldir"] = true,
+				["daz"] = true,
+				["sc"] = true,
 			},
 		},
 	},

@@ -62,11 +62,33 @@ LFR.InstanceData = {
 				["map"] = 1148,
 				["dungeonIDs"] = {1731,1732,1733},
 			},
+			[3] = {
+				["name"] = "sc",
+				["ilevel"] = 350,
+				["map"] = 1345,
+				["dungeonIDs"] = {1951},
+			},
 		},
 	},
 }
 
---Chacking if tracking of an expack dungeons is enabled
+if E.myfaction == "Horde" then
+	LFR.InstanceData["Raids"]["BFA"][2] = {
+		["name"] = "daz",
+		["ilevel"] = 350,
+		["map"] = 1358,
+		["dungeonIDs"] = {1948, 1949, 1950},
+	}
+else
+	LFR.InstanceData["Raids"]["BFA"][2] = {
+		["name"] = "daz",
+		["ilevel"] = 350,
+		["map"] = 1358,
+		["dungeonIDs"] = {1945, 1946, 1947},
+	}
+end
+
+--Checking if tracking of an expack dungeons is enabled
 function LFR:CheckOptions()
 	if LFR:CheckLegion() or LFR:CheckBFA() then return true end
 	return false

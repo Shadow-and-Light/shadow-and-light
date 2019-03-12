@@ -84,6 +84,8 @@ local function configTable()
 							sargeras = { order = -47, type = "toggle", name = SLE:GetMapInfo(850 , "name") },
 							antorus = { order = -46, type = "toggle", name = SLE:GetMapInfo(909, "name") },
 							uldir = { order = -45, type = "toggle", name = SLE:GetMapInfo(1148, "name") },
+							daz = { order = -44, type = "toggle", name = SLE:GetMapInfo(1358, "name") },
+							sc = { order = -43, type = "toggle", name = SLE:GetMapInfo(1345, "name") },
 						},
 					},
 				},

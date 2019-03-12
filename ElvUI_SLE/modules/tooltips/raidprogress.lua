@@ -104,6 +104,36 @@ RP.bosses = {
 		},
 		"uldir",
 	},
+	{ -- Dazar'Alor
+		{ -- Mythic
+			13331, 13348, 13353, 13362, 13366, 13370, 13374, 13378, 13382,
+		},
+		{ -- Heroic
+			13330, 13347, 13351, 13361, 13365, 13369, 13373, 13377, 13381,
+		},
+		{ -- Normal
+			13329, 13346, 13350, 13359, 13364, 13368, 13372, 13376, 13380,
+		},
+		{ -- LFR
+			13328, 13344, 13349, 13358, 13363, 13367, 13371, 13375, 13379,
+		},
+	"daz",
+	},
+	{ -- Storm Crucible
+		{ -- Mythic
+			13407, 13413, 
+		},
+		{ -- Heroic
+			13406, 13412, 
+		},
+		{ -- Normal
+			13405, 13411, 
+		},
+		{ -- LFR
+			13404, 13408, 
+		},
+		"sc",
+	},
 }
 RP.Raids = {}
 RP.modes = { 
@@ -129,6 +159,8 @@ local function PopulateRaidsTable()
 		SLE:GetMapInfo(850 , "name"),
 		SLE:GetMapInfo(909, "name"),
 		SLE:GetMapInfo(1148, "name"),
+		SLE:GetMapInfo(1358, "name"),
+		SLE:GetMapInfo(1345, "name"),
 	}
 	RP.Raids["SHORT"] = {
 		L["RAID_EN"],
@@ -137,6 +169,8 @@ local function PopulateRaidsTable()
 		L["RAID_TOS"],
 		L["RAID_ANTO"],
 		SLE:GetMapInfo(1148, "name"),
+		L["RAID_DAZALOR"],
+		L["RAID_STORMCRUS"],
 	}
 end
 
@@ -222,7 +256,7 @@ local function AchieveReady(event, GUID)
 	TT:UnregisterEvent("INSPECT_ACHIEVEMENT_READY")
 end
 
-local function OnInspectInfo(self, tt, unit, r, g, b)
+local function OnInspectInfo(self, tt, unit, numTries, r, g, b)
 	if T.InCombatLockdown() then return end
 	if not E.db.sle.tooltip.RaidProg.enable then return end
 	if not (unit and T.CanInspect(unit)) then return end
@@ -252,7 +286,7 @@ end
 
 function RP:Initialize()
 	PopulateRaidsTable()
-	hooksecurefunc(TT, 'ShowInspectInfo', OnInspectInfo) 
+	hooksecurefunc(TT, 'AddInspectInfo', OnInspectInfo)
 end
 
 SLE:RegisterModule(RP:GetName())

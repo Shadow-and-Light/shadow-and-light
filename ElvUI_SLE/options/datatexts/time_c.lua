@@ -84,6 +84,8 @@ local function configTable()
 						set = function(info, value) E.db.sle.lfr.bfa[ info[#info] ] = value; end,
 						args = {
 							uldir = { order = 1, type = "toggle", name = SLE:GetMapInfo(1148 , "name") },
+							daz = { order = 2, type = "toggle", name = SLE:GetMapInfo(1358 , "name") },
+							sc = { order = 3, type = "toggle", name = SLE:GetMapInfo(1345 , "name") },
 						},
 					},
 				},
