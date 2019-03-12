@@ -135,7 +135,7 @@ local function configTable()
 					},
 				},
 			},
-			announcer = {
+			--[[announcer = {
 				order = 2,
 				type = "group",
 				name = L["Loot Announcer"],
@@ -227,7 +227,7 @@ local function configTable()
 						},
 					},
 				},
-			},
+			},]]
 			history = {
 				order = 3,
 				type = "group",

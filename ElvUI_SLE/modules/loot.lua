@@ -222,11 +222,11 @@ end
 
 --Dealing with events
 function LT:HandleEvent(event, ...)
-	if event == "LOOT_OPENED" then --We open loot, should we announce it?
-		if LT.db.announcer.enable then
-			LT:Announce(event)
-		end
-	end
+	-- if event == "LOOT_OPENED" then --We open loot, should we announce it?
+		-- if LT.db.announcer.enable then
+			-- LT:Announce(event)
+		-- end
+	-- end
 
 	--No auto confirmation of BoP enabled? Not doing shit. Otherwise - confirm and loot
 	if not LT.db.autoroll.autoconfirm then return end
