@@ -84,7 +84,11 @@ B.AddonsList = {
 	["Blizzard_Collections"] = { "CollectionsJournal" },
 	["Blizzard_Communities"] = { "CommunitiesFrame" },
 	["Blizzard_EncounterJournal"] = { "EncounterJournal" },
-	["Blizzard_GarrisonUI"] = { "GarrisonLandingPage", "GarrisonMissionFrame", "GarrisonCapacitiveDisplayFrame", "GarrisonBuildingFrame", "GarrisonRecruiterFrame", "GarrisonRecruitSelectFrame", "GarrisonShipyardFrame" },
+	["Blizzard_GarrisonUI"] = {
+		"GarrisonLandingPage", "GarrisonMissionFrame", "GarrisonCapacitiveDisplayFrame",
+		"GarrisonBuildingFrame", "GarrisonRecruiterFrame", "GarrisonRecruitSelectFrame",
+		"GarrisonShipyardFrame", "OrderHallMissionFrame", "BFAMissionFrame",
+	},
 	["Blizzard_GMChatUI"] = { "GMChatStatusFrame" },
 	["Blizzard_GMSurveyUI"] = { "GMSurveyFrame" },
 	["Blizzard_GuildBankUI"] = { "GuildBankFrame" },
@@ -123,6 +127,18 @@ B.NoSpecialFrames = {
 	["StaticPopup4"] = true,
 }
 
+B.FramesAreaAlter = {
+	["GarrisonMissionFrame"] = "left",
+	["OrderHallMissionFrame"] = "left",
+	["BFAMissionFrame"] = "left",
+}
+
+B.SpecialDefaults = {
+	["GarrisonMissionFrame"] = { "CENTER", _G.UIParent, "CENTER", 0, 0 },
+	["OrderHallMissionFrame"] = { "CENTER", _G.UIParent, "CENTER", 0, 0 },
+	["BFAMissionFrame"] = { "CENTER", _G.UIParent, "CENTER", 0, 0 },
+}
+
 local function OnDragStart(self)
 	self.IsMoving = true
 	self:StartMoving()
@@ -148,6 +164,7 @@ local function OnDragStop(self)
 		else
 			E.private.sle.module.blizzmove.points[Name] = {a, b, c, d, e}
 		end
+		self:SetUserPlaced(true)
 	else
 		self:SetUserPlaced(false)
 	end
@@ -160,7 +177,12 @@ local function LoadPosition(self)
 	local Name = self:GetName()
 	--Some frames don't have set positions when show script runs (e.g. CharacterFrame). For those set default position and save that.
 	if not self:GetPoint() then
-		self:SetPoint('TOPLEFT', 'UIParent', 'TOPLEFT', 16, -116, true)
+		if B.SpecialDefaults[Name] then
+			local a,b,c,d,e = T.unpack(B.SpecialDefaults[Name])
+			self:SetPoint(a,b,c,d,e, true)
+		else
+			self:SetPoint('TOPLEFT', 'UIParent', 'TOPLEFT', 16, -116, true)
+		end
 		OnDragStop(self)
 	end
 
@@ -170,7 +192,7 @@ local function LoadPosition(self)
 		self:SetPoint(a,b,c,d,e, true)
 	end
 
-	--If this frame has others that showld not be shown at the same time, hide those
+	--If this frame has others that should not be shown at the same time, hide those
 	if B.ExlusiveFrames[Name] then
 		for _, name in T.pairs(B.ExlusiveFrames[Name]) do _G[name]:Hide() end
 	end
@@ -185,7 +207,7 @@ end
 function B:MakeMovable(Name)
 	local frame = _G[Name]
 	if not frame then --Frame in the list was removed since the last time I checked
-		SLE:Print("Frame to move doesn't exist: "..(frameName or "Unknown"), "error")
+		SLE:Print("Frame to move doesn't exist: "..(Name or "Unknown"), "error")
 		return
 	end
 
@@ -201,37 +223,15 @@ function B:MakeMovable(Name)
 	frame:HookScript("OnHide", OnDragStop)
 	hooksecurefunc(frame, "SetPoint", B.RewritePoint)
 
-	--Removing stuff from auto positioning and putting them in "close on esc" list
-	--[[if E.private.sle.module.blizzmove.remember then
-		frame.ignoreFramePositionManager = true
-		if UIPanelWindows[Name] then
-			for Key in T.pairs(UIPanelWindows[Name]) do
-				if Key == 'area' or Key == "pushable" then
-					UIPanelWindows[Name][Key] = nil
-				end
-			end
-		end
-		--Putting to the "close on esc" list. Unless frames are specificallu excluded.
-		if not B.NoSpecialFrames[Name] and not UISpecialFrames[Name] then T.tinsert(UISpecialFrames, Name) end
-	end]]
-
-	--Putting stuff on respected saved positions
-	C_Timer.After(0, function()
-		if E.private.sle.module.blizzmove.remember and E.private.sle.module.blizzmove.points[Name] then
-			if not frame:GetPoint() then
-				frame:SetPoint('TOPLEFT', 'UIParent', 'TOPLEFT', 16, -116, true)
-				OnDragStop(frame)
-			end
-
-			frame:ClearAllPoints()
-			local a,b,c,d,e = T.unpack(E.private.sle.module.blizzmove.points[Name])
-			frame:SetPoint(a,b,c,d,e, true)
-		end
-	end)
-
+	--Removing stuff from auto positioning
+	frame.ignoreFramePositionManager = true --Doesn't do much, but just in case
+	if B.FramesAreaAlter[Name] then
+		if UIPanelWindows[Name] and UIPanelWindows[Name].area then UIPanelWindows[Name].area = B.FramesAreaAlter[Name] end
+	end
 end
 
 function B:Addons(event, addon)
+	print(addon)
 	addon = B.AddonsList[addon]
 	if not addon then return end
 	if T.type(addon) == "table" then
@@ -242,7 +242,7 @@ function B:Addons(event, addon)
 		B:MakeMovable(addon)
 	end
 	B.addonCount = B.addonCount + 1
-	--If every blizz addon is loaded we don't need to listen to thise event
+	--If every blizz addon is loaded we don't need to listen to these event
 	if B.addonCount == #B.AddonsList then B:UnregisterEvent(event) end
 end
 
