@@ -6,7 +6,9 @@ Changes:
 - Vehicle seat option removed. ElvUI's core option is enough.
 - New ElvUI nameplates support (probably shouldn't blow up)
 - Viewport (if you know where it is) is now following new scaling system in ElvUI. Max/min values are still the same. If those somehow will happen to not be enough, let me know.
-- New install layout. Keep in mind that those are settings I play with, thus assuming you'll love it at the first glance is wrong.
+- New install layout. Keep in mind that those are settings I play with, thus assuming you'll love it at the first glance is wrong. Also this is a "basic" frame of what I use, not included most class/character specific stuff.
+So if you are not sure if you should use it, don't. You'll save both your and my time on weird questions like "what on earth is this chtulhu shaped thing on my nameplate?"
+- Moving chat data panels down is now off by default
 Fixes:
 - Fixed errors for order hall/ war campaign talent frame dropping errors when opened for the first time with movable blizz frames enabled (and set to record positions)
 This fix overrules old code to prevent some frames randomly jumping around. They shouldn't behave like crazy, but keep a tranq rifle just in case.
