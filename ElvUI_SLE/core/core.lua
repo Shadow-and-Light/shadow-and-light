@@ -63,7 +63,7 @@ end
 
 function SLE:Initialize()
 	--ElvUI's version check
-	if SLE.elvV < 10 or E.wowbuild < 29622 then return end
+	if SLE.elvV < 11 then return end
 
 	if SLE.elvV < SLE.elvR then
 		E:StaticPopup_Show("VERSION_MISMATCH")
