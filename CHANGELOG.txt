@@ -1,3 +1,10 @@
+v3.521 [March 13th, 2019]
+Fixes:
+- Fixed install layout profile not having correct raid frame visibility. It should be [nogroup] hide; show
+Changes:
+- Moving chat datapanels down is still off by default. I'll just reiterate this one again. I want default looks of s&l be as close to original ElvUI as possible. Armory being obvious exception.
+Option to enbale that back is under /ec - S&L - Modules - Datatext - Override Chat DT Panels
+
 v3.52 [March 12th, 2019]
 Version for patch 8.1.5 and ElvUI v11. Please do not update to this version if it is tuesday and you play on EU.
 Additions:
