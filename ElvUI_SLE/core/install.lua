@@ -54,6 +54,7 @@ function PI:DarthSetup()
 		E.db["general"]["stickyFrames"] = false
 		E.db["general"]["hideErrorFrame"] = false
 		E.db["general"]["talkingHeadFrameScale"] = 0.8
+		E.db["general"]["talkingHeadFrameBackdrop"] = true
 		E.db["general"]["objectiveFrameHeight"] = 400
 		E.db["general"]["vehicleSeatIndicatorSize"] = 88
 		E.db["general"]["autoRepair"] = "PLAYER"
