@@ -241,25 +241,25 @@ function PI:DarthSetup()
 	end
 	--Nameplates
 	do
+		E.db["v11NamePlateReset"] = true
+
 		E.db["nameplates"]["lowHealthThreshold"] = 0
 		E.db["nameplates"]["statusbar"] = "Polished Wood"
 		E.db["nameplates"]["clickThrough"]["personal"] = true
 		E.db["nameplates"]["clampToScreen"] = true
 
-		E.db["nameplates"]["classbar"]["height"] = 8
-		E.db["nameplates"]["classbar"]["yOffset"] = 10
-		E.db["nameplates"]["classbar"]["width"] = 147
-
 		E.db["nameplates"]["threat"]["beingTankedByTank"] = false
 
-		E.db["nameplates"]["units"]["PLAYER"]["useStaticPosition"] = true
-		E.db["nameplates"]["units"]["PLAYER"]["castbar"]["enable"] = false
 		E.db["nameplates"]["units"]["PLAYER"]["enable"] = true
 		E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["enable"] = false
-		E.db["nameplates"]["units"]["PLAYER"]["pvpindicator"]["showBadge"] = false
 		E.db["nameplates"]["units"]["PLAYER"]["buffs"]["enable"] = false
+		E.db["nameplates"]["units"]["PLAYER"]["useStaticPosition"] = true
+		E.db["nameplates"]["units"]["PLAYER"]["showWithTarget"] = true
+		E.db["nameplates"]["units"]["PLAYER"]["showInCombat"] = true
+		E.db["nameplates"]["units"]["PLAYER"]["castbar"]["enable"] = false
 		E.db["nameplates"]["units"]["PLAYER"]["power"]["yOffset"] = -10
-		E.db["nameplates"]["units"]["PLAYER"]["visibility"]["showWithTarget"] = true
+		E.db["nameplates"]["units"]["PLAYER"]["classpower"]["width"] = 146
+		E.db["nameplates"]["units"]["PLAYER"]["classpower"]["yOffset"] = 9
 
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 10
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterrupt"] = false
