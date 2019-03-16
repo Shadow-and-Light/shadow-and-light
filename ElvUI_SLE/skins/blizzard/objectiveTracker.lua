@@ -220,7 +220,7 @@ local function ObjectiveReskin()
 		hooksecurefunc(_G["DEFAULT_OBJECTIVE_TRACKER_MODULE"], "AddTimerBar", SkinTimerBar)
 		hooksecurefunc(_G["SCENARIO_CONTENT_TRACKER_MODULE"], "Update", SkinScenarioButtons)
 		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
-		hooksecurefunc("Scenario_ChallengeMode_ShowBlock", SkinChallengeModeBlock)
+		-- hooksecurefunc("Scenario_ChallengeMode_ShowBlock", SkinChallengeModeBlock)
 		-- Another ProgressBar in the ObjectiveTracker counting as Scenario (e.g. Legion Pre-Event)
 		hooksecurefunc(SCENARIO_TRACKER_MODULE, "AddProgressBar", function(self, block, line, criteriaIndex)
 			local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line];
