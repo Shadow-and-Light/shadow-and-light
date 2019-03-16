@@ -12,7 +12,7 @@ function N:CreateThreatIndicator(nameplate)
 	nameplate.SLE_threatInfo = nameplate.Health:CreateFontString(nil, "OVERLAY")
 	nameplate.SLE_threatInfo:SetPoint("BOTTOMLEFT", nameplate.Health, "BOTTOMLEFT", 1, 2)
 	nameplate.SLE_threatInfo:SetJustifyH("LEFT")
-	nameplate.SLE_threatInfo:SetFont(E.LSM:Fetch("font", N.db.threat.font), N.db.threat.size, N.db.threat.fontOutline)
+	nameplate.SLE_threatInfo:SetFont(E.LSM:Fetch("font", E.db.sle.nameplates.threat.font), E.db.sle.nameplates.threat.size, E.db.sle.nameplates.threat.fontOutline)
 end
 
 hooksecurefunc(NP, 'ThreatIndicator_PostUpdate', function(threat, unit)
@@ -46,12 +46,12 @@ function N:CreateTargetCounter(nameplate)
 	nameplate.SLE_targetcount:SetPoint('BOTTOMRIGHT', nameplate.Health, 'BOTTOMRIGHT', 1, 2)
 	nameplate.SLE_targetcount:SetJustifyH("RIGHT")
 	nameplate.SLE_TargetedByCounter = 0
-	nameplate.SLE_targetcount:SetFont(E.LSM:Fetch("font", N.db.targetcount.font), N.db.targetcount.size, N.db.targetcount.fontOutline)
+	nameplate.SLE_targetcount:SetFont(E.LSM:Fetch("font", E.db.sle.nameplates.targetcount.font), E.db.sle.nameplates.targetcount.size, E.db.sle.nameplates.targetcount.fontOutline)
 	nameplate.SLE_targetcount:SetText()
 end
 
 function N:UpdateCount(event,unit,force)
-	if N.db.targetcount == nil or not N.db.targetcount.enable then return end
+	if E.db.sle.nameplates.targetcount == nil or not E.db.sle.nameplates.targetcount.enable then return end
 	if (not T.find(unit, "raid") and not T.find(unit, "party") and not (unit == "player" and force) and not N.TestSoloTarget) or T.find(unit, "pet") then return end
 	local isGrouped = T.IsInRaid() or T.IsInGroup()
 	local target
@@ -141,12 +141,12 @@ end
 
 function N:UpdatePlate(nameplate)
 	if nameplate.SLE_threatInfo then
-		nameplate.SLE_threatInfo:SetFont(E.LSM:Fetch("font", N.db.threat.font), N.db.threat.size, N.db.threat.fontOutline)
-		if not N.db.threat.enable then nameplate.SLE_threatInfo:SetText("") end
+		nameplate.SLE_threatInfo:SetFont(E.LSM:Fetch("font", E.db.sle.nameplates.threat.font), E.db.sle.nameplates.threat.size, E.db.sle.nameplates.threat.fontOutline)
+		if not E.db.sle.nameplates.threat.enable then nameplate.SLE_threatInfo:SetText("") end
 	end
 	if nameplate.SLE_targetcount then
-		nameplate.SLE_targetcount:SetFont(E.LSM:Fetch("font", N.db.targetcount.font), N.db.targetcount.size, N.db.targetcount.fontOutline)
-		if N.db.targetcount.enable then N:UpdateCount(nil,"player", true) else nameplate.SLE_targetcount:SetText(""); nameplate.SLE_TargetedByCounter = 0 end
+		nameplate.SLE_targetcount:SetFont(E.LSM:Fetch("font", E.db.sle.nameplates.targetcount.font), E.db.sle.nameplates.targetcount.size, E.db.sle.nameplates.targetcount.fontOutline)
+		if E.db.sle.nameplates.targetcount.enable then N:UpdateCount(nil,"player", true) else nameplate.SLE_targetcount:SetText(""); nameplate.SLE_TargetedByCounter = 0 end
 	end
 end
 
@@ -167,7 +167,6 @@ function N:Initialize()
 		E.db.sle.nameplates.showthreat = nil
 	end
 
-	N.db = E.db.sle.nameplates
 	--Hooking to ElvUI's nameplates
 	hooksecurefunc(NP, "Style", N.CreateNameplate)
 	hooksecurefunc(NP, "UpdatePlate", N.UpdatePlate)
@@ -180,7 +179,6 @@ function N:Initialize()
 	E:Delay(.3, function() N:UpdateCount(nil,"player", true) end)
 
 	function N:ForUpdateAll()
-		N.db = E.db.sle.nameplates
 		--Additional DB conversion
 		if E.db.sle.nameplates.targetcount and T.type(E.db.sle.nameplates.targetcount) == "boolean" then
 			local oldEnable = E.db.sle.nameplates.targetcount
