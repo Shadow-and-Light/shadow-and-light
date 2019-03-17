@@ -126,13 +126,15 @@ end
 --Challengemode/M+
 -- local function Scenario_ChallengeMode_ShowBlock(timerID, elapsedTime, timeLimit)
 local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
-	local block = ScenarioChallengeModeBlock
-	-- we have to independently resize the artwork
-	-- because we're messing with the tracker width >_>
+	local object = ScenarioChallengeModeBlock
 	if not E.private.sle.skins.objectiveTracker.scenarioBG then
-
-		block.TimerBGBack:Hide()
-		block.TimerBG:Hide()
+		for i = 1, object:GetNumRegions() do
+			local region = select(i, object:GetRegions())
+			if region and region:IsObjectType('Texture') then --and region:IsObjectType(which) then
+				-- print(type(region), region:GetAtlas())
+				if region:GetAtlas() == "ChallengeMode-Timer" then region:SetAlpha(0) end
+			end
+		end
 	end
 end
 
