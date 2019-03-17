@@ -130,16 +130,10 @@ local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
 	-- we have to independently resize the artwork
 	-- because we're messing with the tracker width >_>
 	if not E.private.sle.skins.objectiveTracker.scenarioBG then
-		-- pop-up artwork
-		block.NormalBG:Hide()
 
-		-- pop-up final artwork
-		block.FinalBG:Hide()
+		block.TimerBGBack:Hide()
+		block.TimerBG:Hide()
 	end
-
-	-- pop-up glow
-	block.GlowTexture:SetSize(width+20, 75)
-	block.GlowTexture.AlphaAnim.Play = dummy
 end
 
 -- Proving grounds
@@ -220,7 +214,7 @@ local function ObjectiveReskin()
 		hooksecurefunc(_G["DEFAULT_OBJECTIVE_TRACKER_MODULE"], "AddTimerBar", SkinTimerBar)
 		hooksecurefunc(_G["SCENARIO_CONTENT_TRACKER_MODULE"], "Update", SkinScenarioButtons)
 		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
-		-- hooksecurefunc("Scenario_ChallengeMode_ShowBlock", SkinChallengeModeBlock)
+		hooksecurefunc("Scenario_ChallengeMode_ShowBlock", SkinChallengeModeBlock)
 		-- Another ProgressBar in the ObjectiveTracker counting as Scenario (e.g. Legion Pre-Event)
 		hooksecurefunc(SCENARIO_TRACKER_MODULE, "AddProgressBar", function(self, block, line, criteriaIndex)
 			local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line];
