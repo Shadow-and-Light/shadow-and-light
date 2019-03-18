@@ -532,6 +532,8 @@ function CA:Setup_CharacterArmory()
 		
 		SlotIDList[Slot.ID] = SlotName
 		self[SlotName] = Slot
+
+		if T.IsAddOnLoaded("Outfitter") then _G["OutfitterEnable"..SlotName]:SetFrameLevel(7) end
 	end
 	
 	-- _G["GameTooltip"] for counting gem sockets and getting enchant effects
