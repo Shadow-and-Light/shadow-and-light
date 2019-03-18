@@ -231,7 +231,8 @@ function SMB:SkinButton(Button)
 				self:Size(E.db.sle.minimap.mapicons.iconsize)
 				self:SetFrameStrata(_G["QueueStatusMinimapButton"]:GetFrameStrata())
 				self:SetFrameLevel(_G["QueueStatusMinimapButton"]:GetFrameLevel())
-				self:SetPoint(_G["QueueStatusMinimapButton"]:GetPoint())
+				-- self:SetPoint(_G["QueueStatusMinimapButton"]:GetPoint())
+				self:SetPoint("CENTER", _G["QueueStatusMinimapButton"], "CENTER", 0,0)
 			end)
 		elseif Name == 'MiniMapMailFrame' then
 			local Frame = CreateFrame('Frame', 'MailDummyFrame', E.private.sle.minimap.mapicons.barenable and SMB.bar or Minimap)
@@ -246,7 +247,7 @@ function SMB:SkinButton(Button)
 			Frame:SetScript('OnUpdate', function(self)
 				if E.private.sle.minimap.mapicons.skinmail then
 					Frame:Show()
-					Frame:SetPoint(_G["MiniMapMailFrame"]:GetPoint())
+					Frame:SetPoint("CENTER", _G["MiniMapMailFrame"], "CENTER", 0,0)
 				else
 					Frame:Hide()
 				end
@@ -293,7 +294,7 @@ function SMB:SkinMinimapButtons()
 		end
 		SMB:SkinButton(OutfitterMinimapButton)
 	end
-	if E.private.sle.minimap.mapicons.skingarrison then
+	if E.private.sle.minimap.mapicons.skingarrison and not E.private.general.minimap.hideClassHallReport then
 		function GarrisonLandingPageMinimapButton_UpdateIcon(self)
 			local garrisonType = C_Garrison.GetLandingPageGarrisonType();
 			if (garrisonType == LE_GARRISON_TYPE_6_0) then
@@ -379,7 +380,18 @@ function SMB:Update()
 			Frame:SetBackdropColor(0, 0, 0, 0)
 			Frame:SetParent(SMB.bar)
 			Frame:ClearAllPoints()
-			Frame:Point('TOPLEFT', SMB.bar, 'TOPLEFT', xOffset, yOffset)
+			local anchor, point
+			if E.db.sle.minimap.mapicons.growth_hor == "Right" and E.db.sle.minimap.mapicons.growth_vert == "Down" then
+				anchor = "TOPLEFT"
+			elseif E.db.sle.minimap.mapicons.growth_hor == "Left" and E.db.sle.minimap.mapicons.growth_vert == "Down" then
+				anchor = "TOPRIGHT"
+			elseif E.db.sle.minimap.mapicons.growth_hor == "Right" and E.db.sle.minimap.mapicons.growth_vert == "Up" then
+				anchor = "BOTTOMLEFT"
+			else
+				anchor = "BOTTOMRIGHT"
+			end
+			-- Frame:Point('TOPLEFT', SMB.bar, 'TOPLEFT', xOffset, yOffset)
+			Frame:Point(anchor, SMB.bar, anchor, xOffset, yOffset)
 			Frame:SetSize(E.db.sle.minimap.mapicons.iconsize, E.db.sle.minimap.mapicons.iconsize)
 			Frame:SetFrameStrata('MEDIUM')
 			Frame:SetFrameLevel(3)
