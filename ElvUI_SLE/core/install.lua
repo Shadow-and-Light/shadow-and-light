@@ -994,12 +994,12 @@ function PI:DarthOldSetup()
 		E.db["nameplates"]["colors"]["castNoInterruptColor"]["b"] = 0.12549019607843
 		E.db["nameplates"]["colors"]["castNoInterruptColor"]["g"] = 0.098039215686274
 		E.db["nameplates"]["colors"]["castNoInterruptColor"]["r"] = 0.85882352941176
+		E.db["nameplates"]["colors"]["tapped"]["b"] = 0.72549019607843
+		E.db["nameplates"]["colors"]["tapped"]["g"] = 0.72549019607843
+		E.db["nameplates"]["colors"]["tapped"]["r"] = 0.72549019607843
 		E.db["nameplates"]["colors"]["reactions"]["good"]["b"] = 0.10980392156863
 		E.db["nameplates"]["colors"]["reactions"]["good"]["g"] = 0.74901960784314
 		E.db["nameplates"]["colors"]["reactions"]["good"]["r"] = 0.082352941176471
-		E.db["nameplates"]["colors"]["reactions"]["tapped"]["b"] = 0.72549019607843
-		E.db["nameplates"]["colors"]["reactions"]["tapped"]["g"] = 0.72549019607843
-		E.db["nameplates"]["colors"]["reactions"]["tapped"]["r"] = 0.72549019607843
 		E.db["nameplates"]["colors"]["reactions"]["bad"]["b"] = 0.050980392156863
 		E.db["nameplates"]["colors"]["reactions"]["bad"]["g"] = 0
 		E.db["nameplates"]["colors"]["reactions"]["bad"]["r"] = 0.93725490196078
