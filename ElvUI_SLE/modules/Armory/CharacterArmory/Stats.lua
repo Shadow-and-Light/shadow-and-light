@@ -489,7 +489,7 @@ CharacterStatsPane.ClassBackground:SetPoint("CENTER")
 CA.ScrollFrame:EnableMouseWheel(true)
 CA.ScrollFrame:SetScript("OnMouseWheel", function(self, delta)
 	if totalShown > 26 - E.db.sle.Armory.Character.Stats.ItemLevel.size then
-		CA.Scrollbar:SetMinMaxValues(1, 45)  
+		CA.Scrollbar:SetMinMaxValues(1, 100)
 	else
 		CA.Scrollbar:SetMinMaxValues(1, 1) 
 	end
