@@ -154,7 +154,7 @@ function C:HystoryOverwrite()
 			temp[i] = T.select(i, ...) or false
 		end
 
-		if #temp > 0 and not CH:MessageIsProtected(tempHistory[1]) then
+		if #temp > 0 and not CH:MessageIsProtected(temp[1]) then
 			temp[50] = event
 			temp[51] = T.time()
 
