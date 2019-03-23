@@ -50,6 +50,13 @@ function C:ClearUnusedHistory()
 	end
 end
 
+function C:HistorySizeCHanged()
+	local data = _G["ElvCharacterDB"].ChatHistoryLog
+	while #data >= E.private.sle.chat.chatHistory.size do
+		T.tremove(data, 1)
+	end
+end
+
 --Replacing stuff needed for functioning of the module
 function C:HystoryOverwrite()
 	function CH:CHAT_MSG_YELL(event, message, author, ...)
@@ -148,20 +155,22 @@ function C:HystoryOverwrite()
 		end
 
 		if #temp > 0 then
-			temp[50] = event
-			temp[51] = T.time()
+			if not strmatch(tempHistory[1],'^|Kv%d-|k$') then -- ignore guild protection
+				temp[50] = event
+				temp[51] = T.time()
 
-			local coloredName, battleTag
-			if temp[13] > 0 then coloredName, battleTag = CH:GetBNFriendColor(temp[2], temp[13], true) end
-			if battleTag then temp[53] = battleTag end -- store the battletag so we can replace arg2 later in the function
-			temp[52] = coloredName or CH:GetColoredName(event, ...)
+				local coloredName, battleTag
+				if temp[13] > 0 then coloredName, battleTag = CH:GetBNFriendColor(temp[2], temp[13], true) end
+				if battleTag then temp[53] = battleTag end -- store the battletag so we can replace arg2 later in the function
+				temp[52] = coloredName or CH:GetColoredName(event, ...)
 
-			T.tinsert(data, temp)
-			while #data >= E.private.sle.chat.chatHistory.size do
-				T.tremove(data, 1)
+				T.tinsert(data, temp)
+				while #data >= E.private.sle.chat.chatHistory.size do
+					T.tremove(data, 1)
+				end
 			end
 		end
-		temp = nil -- Destory!
+		-- temp = nil -- Destory!
 	end
 end
 
