@@ -154,20 +154,18 @@ function C:HystoryOverwrite()
 			temp[i] = T.select(i, ...) or false
 		end
 
-		if #temp > 0 then
-			if not strmatch(tempHistory[1],'^|Kv%d-|k$') then -- ignore guild protection
-				temp[50] = event
-				temp[51] = T.time()
+		if #temp > 0 and not CH:MessageIsProtected(tempHistory[1]) then
+			temp[50] = event
+			temp[51] = T.time()
 
-				local coloredName, battleTag
-				if temp[13] > 0 then coloredName, battleTag = CH:GetBNFriendColor(temp[2], temp[13], true) end
-				if battleTag then temp[53] = battleTag end -- store the battletag so we can replace arg2 later in the function
-				temp[52] = coloredName or CH:GetColoredName(event, ...)
+			local coloredName, battleTag
+			if temp[13] > 0 then coloredName, battleTag = CH:GetBNFriendColor(temp[2], temp[13], true) end
+			if battleTag then temp[53] = battleTag end -- store the battletag so we can replace arg2 later in the function
+			temp[52] = coloredName or CH:GetColoredName(event, ...)
 
-				T.tinsert(data, temp)
-				while #data >= E.private.sle.chat.chatHistory.size do
-					T.tremove(data, 1)
-				end
+			T.tinsert(data, temp)
+			while #data >= E.private.sle.chat.chatHistory.size do
+				T.tremove(data, 1)
 			end
 		end
 		-- temp = nil -- Destory!
