@@ -135,7 +135,7 @@ function EVB:Initialize()
 	ES = SLE._Compatibility["ElvUI_ChaoticUI"] and ElvUI_ChaoticUI[1]:GetModule("EnhancedShadows") or SLE:GetModule("EnhancedShadows")
 
 	local visibility = "[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] hide;"
-	local page = T.format("[vehicleui] %d; [possessbar] %d; [overridebar] %d; [shapeshift] 13;", GetVehicleBarIndex(), GetVehicleBarIndex(), GetOverrideBarIndex());
+	local page = T.format("[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13;", GetOverrideBarIndex(), GetVehicleBarIndex(), GetVehicleBarIndex());
 	local bindButtons = "ACTIONBUTTON";
 
 	hooksecurefunc(AB, "PositionAndSizeBar", function(self, barName)
