@@ -1,8 +1,8 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local CP
+local MC
 
 local function CreateBackgrounds()
-	local config = CP:CreateModuleConfigGroup(L["Backgrounds"], "backgrounds", "sle")
+	local config = MC:CreateModuleConfigGroup(L["Backgrounds"], "backgrounds", "sle")
 	for i = 1, 4 do
 		config.args["bg"..i] = {
 			order = 1+i,
@@ -16,7 +16,7 @@ local function CreateBackgrounds()
 	return config
 end
 local function CreateBags()
-	local config = CP:CreateModuleConfigGroup(L["Bags"], "bags", "sle")
+	local config = MC:CreateModuleConfigGroup(L["Bags"], "bags", "sle")
 	config.args.petLevel = {
 		order = 2,
 		type = "toggle",
@@ -28,7 +28,7 @@ local function CreateBags()
 	return config
 end
 local function CreateChat()
-	local config = CP:CreateModuleConfigGroup(L["Chat"], "chat", "sle")
+	local config = MC:CreateModuleConfigGroup(L["Chat"], "chat", "sle")
 	config.args.justify = {
 		order = 2,
 		type = "toggle",
@@ -54,7 +54,7 @@ local function CreateChat()
 	return config
 end
 local function CreateDatatbarsConfig()
-	local config = CP:CreateModuleConfigGroup(L["DataBars"], "databars", "sle")
+	local config = MC:CreateModuleConfigGroup(L["DataBars"], "databars", "sle")
 
 	config.args.experience = {
 		order = 2,
@@ -88,7 +88,7 @@ local function CreateDatatbarsConfig()
 	return config
 end
 local function CreateDatatextsConfig()
-	local config = CP:CreateModuleConfigGroup(L["DataTexts"], "datatexts", "sle")
+	local config = MC:CreateModuleConfigGroup(L["DataTexts"], "datatexts", "sle")
 	for i = 1, 8 do
 		config.args["panel"..i] = {
 			order = 1 + i,
@@ -116,7 +116,7 @@ local function CreateDatatextsConfig()
 	return config
 end
 local function CreateSLEDatatextsConfig()
-	local config = CP:CreateModuleConfigGroup(L["S&L Datatexts"], "dt", "sle")
+	local config = MC:CreateModuleConfigGroup(L["S&L Datatexts"], "dt", "sle")
 	config.args.friends = {
 		order = 2,
 		type = "toggle",
@@ -164,7 +164,7 @@ local function CreateSLEDatatextsConfig()
 	return config
 end
 local function CreateLegacyConfig()
-	local config = CP:CreateModuleConfigGroup(SLE.Russian and ITEM_QUALITY7_DESC or LFG_LIST_LEGACY, "legacy", "sle")
+	local config = MC:CreateModuleConfigGroup(SLE.Russian and ITEM_QUALITY7_DESC or LFG_LIST_LEGACY, "legacy", "sle")
 	config.args.farm = {
 		order = 2,
 		type = "toggle",
@@ -197,7 +197,7 @@ local function CreateLegacyConfig()
 	return config
 end
 local function CreateLootConfig()
-	local config = CP:CreateModuleConfigGroup(L["Loot"], "loot", "sle")
+	local config = MC:CreateModuleConfigGroup(L["Loot"], "loot", "sle")
 	config.args.autoroll = {
 		order = 2,
 		type = "toggle",
@@ -230,7 +230,7 @@ local function CreateLootConfig()
 	return config
 end
 local function CreateMinimapConfig()
-	local config = CP:CreateModuleConfigGroup(MINIMAP_LABEL, "minimap", "sle")
+	local config = MC:CreateModuleConfigGroup(MINIMAP_LABEL, "minimap", "sle")
 	config.args.coords = {
 		order = 2,
 		type = "toggle",
@@ -264,7 +264,7 @@ local function CreateMinimapConfig()
 end
 
 local function CreateUnitframesConfig()
-	local config = CP:CreateModuleConfigGroup(L["UnitFrames"], "unitframes", "sle")
+	local config = MC:CreateModuleConfigGroup(L["UnitFrames"], "unitframes", "sle")
 	config.args.unit = {
 		order = 2,
 		type = "group",
@@ -346,7 +346,7 @@ end
 
 local function configTable()
 	if not E.Options.args.modulecontrol then return end
-	CP = E:GetModule('CopyProfile')
+	MC = E:GetModule('ModuleCopy')
 
 	E.Options.args.modulecontrol.args.modulecopy.args.sle = {
 		order = 11,
@@ -360,30 +360,30 @@ local function configTable()
 				type = "header",
 				name = L["|cff9482c9Shadow & Light|r options"],
 			},
-			actionbar = CP:CreateModuleConfigGroup(L["ActionBars"], "actionbars", "sle"),
-			auras = CP:CreateModuleConfigGroup(L["Auras"], "auras", "sle"),
+			actionbar = MC:CreateModuleConfigGroup(L["ActionBars"], "actionbars", "sle"),
+			auras = MC:CreateModuleConfigGroup(L["Auras"], "auras", "sle"),
 			backgrounds = CreateBackgrounds(),
 			bags = CreateBags(),
-			blizzard = CP:CreateModuleConfigGroup("Blizzard", "blizzard", "sle"),
+			blizzard = MC:CreateModuleConfigGroup("Blizzard", "blizzard", "sle"),
 			chat = CreateChat(),
 			databars = CreateDatatbarsConfig(),
 			datatexts = CreateDatatextsConfig(),
 			dt = CreateSLEDatatextsConfig(),
 			legacy = CreateLegacyConfig(),
-			lfr = CP:CreateModuleConfigGroup(RAID_FINDER, "lfr", "sle"),
+			lfr = MC:CreateModuleConfigGroup(RAID_FINDER, "lfr", "sle"),
 			loot = CreateLootConfig(),
-			media = CP:CreateModuleConfigGroup(L["Media"], "media", "sle"),
+			media = MC:CreateModuleConfigGroup(L["Media"], "media", "sle"),
 			minimap = CreateMinimapConfig(),
-			nameplates = CP:CreateModuleConfigGroup(L["NamePlates"], "nameplates", "sle"),
-			quests = CP:CreateModuleConfigGroup(QUESTS_LABEL, "quests", "sle"),
-			pvp = CP:CreateModuleConfigGroup(PVP, "pvp", "sle"),
-			raidmanager = CP:CreateModuleConfigGroup(RAID_CONTROL, "raidmanager", "sle"),
-			raidmarkers = CP:CreateModuleConfigGroup(L["Raid Markers"], "raidmarkers", "sle"),
-			screensaver = CP:CreateModuleConfigGroup(L["AFK Mode"], "screensaver", "sle"),
-			shadows = CP:CreateModuleConfigGroup(L["Enhanced Shadows"], "shadows", "sle"),
-			skins = CP:CreateModuleConfigGroup(L["Skins"], "skins", "sle"),
-			tooltip = CP:CreateModuleConfigGroup(L["Tooltip"], "tooltip", "sle"),
-			uibuttons = CP:CreateModuleConfigGroup(L["UI Buttons"], "uibuttons", "sle"),
+			nameplates = MC:CreateModuleConfigGroup(L["NamePlates"], "nameplates", "sle"),
+			quests = MC:CreateModuleConfigGroup(QUESTS_LABEL, "quests", "sle"),
+			pvp = MC:CreateModuleConfigGroup(PVP, "pvp", "sle"),
+			raidmanager = MC:CreateModuleConfigGroup(RAID_CONTROL, "raidmanager", "sle"),
+			raidmarkers = MC:CreateModuleConfigGroup(L["Raid Markers"], "raidmarkers", "sle"),
+			screensaver = MC:CreateModuleConfigGroup(L["AFK Mode"], "screensaver", "sle"),
+			shadows = MC:CreateModuleConfigGroup(L["Enhanced Shadows"], "shadows", "sle"),
+			skins = MC:CreateModuleConfigGroup(L["Skins"], "skins", "sle"),
+			tooltip = MC:CreateModuleConfigGroup(L["Tooltip"], "tooltip", "sle"),
+			uibuttons = MC:CreateModuleConfigGroup(L["UI Buttons"], "uibuttons", "sle"),
 			unitframes = CreateUnitframesConfig(),
 		},
 	}
