@@ -88,13 +88,13 @@ function RM:UpdateWorldMarkersAndTooltips()
 
 			button:SetScript("OnEnter", function(self)
 				self:SetBackdropBorderColor(.7, .7, 0)
+				RM.frame:SetAlpha(1)
 				if E.db.sle.raidmarkers.notooltip then return end
 				GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
 				GameTooltip:SetText(L["Raid Markers"])
 				GameTooltip:AddLine(index == 9 and T.format("%s\n%s", L["Click to clear the mark."], T.format(L["%sClick to remove all worldmarkers."], button.modifier:upper()))
 					or T.format("%s\n%s", L["Click to mark the target."], T.format(L["%sClick to place a worldmarker."], button.modifier:upper())), 1, 1, 1)
 				GameTooltip:Show()
-				RM.frame:SetAlpha(1)
 			end)
 		end
 
