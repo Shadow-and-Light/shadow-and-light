@@ -4,7 +4,7 @@ local clicked
 
 function mod:SHIPMENT_CRAFTER_INFO(event, success, shipmentCount, maxShipments, ownedShipments, plotID)
 	if not _G["GarrisonCapacitiveDisplayFrame"] then return end --Just in case
-	if GarrisonCapacitiveDisplayFrame.containerID ~= 239 then return end
+	if GarrisonCapacitiveDisplayFrame.containerID == nil or (GarrisonCapacitiveDisplayFrame.containerID and GarrisonCapacitiveDisplayFrame.containerID ~= 239) then return end
 	local n = _G["GarrisonCapacitiveDisplayFrame"].available or 0
 	if clicked or n == 0 or not E.db.sle.legacy.warwampaign.autoOrder.enable then return end
 	clicked = true
