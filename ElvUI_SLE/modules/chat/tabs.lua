@@ -28,13 +28,13 @@ C.SelectedStrings = {
 
 --Apply selected indicator to tab
 function C:ApplySelectedTabIndicator(tab, title)
-	local color = C.db.tab.color
-	if C.db.tab.style == "DEFAULT" or C.db.tab.style == "SQUARE" then
-		tab.text:SetText(T.format(C.SelectedStrings[C.db.tab.style], color.r * 255, color.g * 255, color.b * 255, title, color.r * 255, color.g * 255, color.b * 255))
-	elseif C.db.tab.style == "HALFDEFAULT" then
-		tab.text:SetText(T.format(C.SelectedStrings[C.db.tab.style], color.r * 255, color.g * 255, color.b * 255, title))
+	local color = E.db.sle.chat.tab.color
+	if E.db.sle.chat.tab.style == "DEFAULT" or E.db.sle.chat.tab.style == "SQUARE" then
+		tab.text:SetText(T.format(C.SelectedStrings[E.db.sle.chat.tab.style], color.r * 255, color.g * 255, color.b * 255, title, color.r * 255, color.g * 255, color.b * 255))
+	elseif E.db.sle.chat.tab.style == "HALFDEFAULT" then
+		tab.text:SetText(T.format(C.SelectedStrings[E.db.sle.chat.tab.style], color.r * 255, color.g * 255, color.b * 255, title))
 	else
-		tab.text:SetText(T.format(C.SelectedStrings[C.db.tab.style], (E.db.chat.tabFontSize + 12), title))
+		tab.text:SetText(T.format(C.SelectedStrings[E.db.sle.chat.tab.style], (E.db.chat.tabFontSize + 12), title))
 	end
 end
 
@@ -57,13 +57,13 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 	for index, chatFrame in T.ipairs(dock.DOCKED_CHAT_FRAMES) do
 		local chatTab = _G[chatFrame:GetName().."Tab"];
 		if chatTab.text then chatTab.text:SetText(chatFrame.name) end --Reseting tab name
-		if ( chatFrame == FCFDock_GetSelectedWindow(dock) ) and C.db.tab.select then --Tab is selected and option is enabled
+		if ( chatFrame == FCFDock_GetSelectedWindow(dock) ) and E.db.sle.chat.tab.select then --Tab is selected and option is enabled
 			C:ApplySelectedTabIndicator(chatTab, chatFrame.name)
 		end
 
 		--Resizing tabs, don't need to do that if blizz sizing is selected
-		if C.db.tab.resize ~= "Blizzard" then
-			local width = (C.db.tab.resize == "None" and chatTab.origWidth) or (C.db.tab.resize == "Title" and chatTab.textWidth) or (C.db.tab.resize == "Custom" and C.db.tab.customWidth)
+		if E.db.sle.chat.tab.resize ~= "Blizzard" then
+			local width = (E.db.sle.chat.tab.resize == "None" and chatTab.origWidth) or (E.db.sle.chat.tab.resize == "Title" and chatTab.textWidth) or (E.db.sle.chat.tab.resize == "Custom" and E.db.sle.chat.tab.customWidth)
 			C.TotalTabsWidth = C.TotalTabsWidth + width
 			if ( chatFrame.isStaticDocked ) then
 				chatTab:SetParent(dock);
@@ -93,7 +93,7 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 	end
 
 	--If blizz sizing is selected then messing around with scroll frame is unnessesary
-	if C.db.tab.resize == "Blizzard" then return end
+	if E.db.sle.chat.tab.resize == "Blizzard" then return end
 	local dynTabSize, origOverflow = FCFDock_CalculateTabSize(dock, numDynFrames); --Usually this returns "hasOverflow" as well, but I use my own variable for that
 	local hasOverflow = C.TotalTabsWidth > E.db.chat.panelWidth
 
@@ -126,7 +126,7 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 end
 
 function C:InitTabs()
-	if C.db.tab.resize == true then C.db.tab.resize = "None" end
+	if E.db.sle.chat.tab.resize == true then E.db.sle.chat.tab.resize = "None" end
 
 	--Getting initial chat tabs width, so other stuff will work
 	if C.CreatedFrames == 0 then

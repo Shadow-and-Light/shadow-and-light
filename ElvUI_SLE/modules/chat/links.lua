@@ -148,7 +148,7 @@ function C:ParseChatEvent(event, msg, sender, ...)
 end
 
 function C:ParseChatEventInv(event, msg, sender, ...)
-	local hex = E:RGBToHex(C.db.invite.color.r,C.db.invite.color.g,C.db.invite.color.b)
+	local hex = E:RGBToHex(E.db.sle.chat.invite.color.r,E.db.sle.chat.invite.color.g,E.db.sle.chat.invite.color.b)
 	for _,allevents in T.ipairs(C.InvLinkEvents) do
 		if event == allevents then
 			for key,_ in pairs(invKeys) do
@@ -165,7 +165,7 @@ end
 
 local function SetItemRef(link, text, button, chatframe)
 	local linktype, id = T.split(":", link)
-	if C.db.dpsSpam then
+	if E.db.sle.chat.dpsSpam then
 		if linktype == "SLD" then
 			local meterID = T.tonumber(id)
 			-- put stuff in the ItemRefTooltip from FrameXML
@@ -196,7 +196,7 @@ local function SetItemRef(link, text, button, chatframe)
 end
 
 function C:SpamFilter()
-	if C.db.dpsSpam then
+	if E.db.sle.chat.dpsSpam then
 		for _,event in T.ipairs(C.ChannelEvents) do
 			ChatFrame_AddMessageEventFilter(event, self.ParseChatEvent)
 		end
@@ -209,7 +209,7 @@ function C:SpamFilter()
 			C.Meterspam = false
 		end
 	end
-	if C.db.invite.invLinks then
+	if E.db.sle.chat.invite.invLinks then
 		for _,event in T.ipairs(C.InvLinkEvents) do
 			ChatFrame_AddMessageEventFilter(event, self.ParseChatEventInv)
 		end

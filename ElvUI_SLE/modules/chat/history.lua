@@ -183,7 +183,7 @@ function C:InitHistory()
 				end
 			end
 			T.tinsert(_G["ElvCharacterDB"].ChatEditHistory, #(_G["ElvCharacterDB"].ChatEditHistory) + 1, line)
-			if #(_G["ElvCharacterDB"].ChatEditHistory) > C.db.editboxhistory then
+			if #(_G["ElvCharacterDB"].ChatEditHistory) > E.db.sle.chat.editboxhistory then
 				T.tremove(_G["ElvCharacterDB"].ChatEditHistory, 1)
 			end
 		end

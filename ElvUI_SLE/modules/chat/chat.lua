@@ -120,7 +120,6 @@ local function PositionChat(self, override)
 end
 
 local function GetChatIcon(sender)
-	if not C.db then C.db = E.db.sle.chat end
 	if not specialChatIcons then 
 		SLE:GetRegion()
 		specialChatIcons = SLE.SpecialChatIcons[SLE.region]
@@ -137,7 +136,7 @@ local function GetChatIcon(sender)
 	if specialChatIcons and specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
 		icon = specialChatIcons[senderRealm][senderName]
 	end
-	if T.IsInGuild() and C.db.guildmaster then
+	if T.IsInGuild() and E.db.sle.chat.guildmaster then
 		if senderName == C.GMName and senderRealm == C.GMRealm then icon = icon and (leader..icon) or leader end
 	end
 
@@ -164,7 +163,7 @@ end
 
 function C:GMIconUpdate()
 	if E.private.chat.enable ~= true then return end
-	if C.db.guildmaster then
+	if E.db.sle.chat.guildmaster then
 		self:RegisterEvent('GUILD_ROSTER_UPDATE', Roster)
 		C:GMCheck()
 	else
@@ -175,13 +174,13 @@ end
 
 function C:Combat(event)
 	--To get rid of "script ran too long" in links
-	if C.db.combathide == "NONE" or not C.db.combathide then return end
+	if E.db.sle.chat.combathide == "NONE" or not E.db.sle.chat.combathide then return end
 	if event == "PLAYER_REGEN_DISABLED" then
-		if C.db.combathide == "BOTH" or C.db.combathide == "RIGHT" then
+		if E.db.sle.chat.combathide == "BOTH" or E.db.sle.chat.combathide == "RIGHT" then
 			RightChatPanel:Hide()
 			RightChatToggleButton:Hide()
 		end
-		if C.db.combathide == "BOTH" or C.db.combathide == "LEFT" then
+		if E.db.sle.chat.combathide == "BOTH" or E.db.sle.chat.combathide == "LEFT" then
 			LeftChatPanel:Hide()
 			LeftChatToggleButton:Hide()
 		end
@@ -277,10 +276,10 @@ end
 
 local function ChatTextures()
 	if not E.db["general"] or not E.private["general"] then return end --Prevent rare nil value errors
-	if not C.db or not C.db.textureAlpha or not C.db.textureAlpha.enable then return end --our option enable check
+	if not E.db.sle.chat or not E.db.sle.chat.textureAlpha or not E.db.sle.chat.textureAlpha.enable then return end --our option enable check
 
 	if LeftChatPanel and LeftChatPanel.tex and RightChatPanel and RightChatPanel.tex then
-		local a = C.db.textureAlpha.alpha or 0.5
+		local a = E.db.sle.chat.textureAlpha.alpha or 0.5
 		LeftChatPanel.tex:SetAlpha(a)
 		RightChatPanel.tex:SetAlpha(a)
 	end
@@ -288,7 +287,7 @@ end
 
 function C:JustifyChat(i)
 	local frame = _G["ChatFrame"..i]
-	frame:SetJustifyH(C.db.justify["frame"..i] or "LEFT")
+	frame:SetJustifyH(E.db.sle.chat.justify["frame"..i] or "LEFT")
 end
 
 function C:IdentifyChatFrames()
@@ -319,10 +318,8 @@ hooksecurefunc(CH, "Initialize", C.UpdateChatMax)
 
 function C:Initialize()
 	if not SLE.initialized or not E.private.chat.enable then return end
-	C.db = E.db.sle.chat
 
 	function C:ForUpdateAll()
-		C.db = E.db.sle.chat
 		C:GMIconUpdate()
 		C:CreateInvKeys()
 		C:SpamFilter()
@@ -337,7 +334,7 @@ function C:Initialize()
 	hooksecurefunc(CH, "StyleChat", Style)
 	hooksecurefunc(E, "UpdateMedia", ChatTextures)
 
-	if C.db.guildmaster then
+	if E.db.sle.chat.guildmaster then
 		self:RegisterEvent('GUILD_ROSTER_UPDATE', Roster)
 		C:GMCheck()
 	end
