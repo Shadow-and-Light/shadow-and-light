@@ -45,6 +45,7 @@ L["Darth's Default Set"] = true
 L["Repooc's Default Set"] = true
 L["Affinitii's Default Set"] = true
 L["Layout & Settings Import"] = true
+L["Layout Old"] = true
 L["You have selected to use %s and role %s."] = true
 L["SLE_INSTALL_LAYOUT_TEXT2"] = [[Following buttons will import layout/addon settings for the selected config and role.
 Please not that this configs may include some settings you may not yet being familiar with.

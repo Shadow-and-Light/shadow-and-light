@@ -45,6 +45,7 @@ L["Darth's Default Set"] = "Установлены настройки Дарта
 L["Repooc's Default Set"] = "Установлены настройки Repooc'а"
 L["Affinitii's Default Set"] = "Установлены настройки Affinitii"
 L["Layout & Settings Import"] = "Импорт расположений и настроек"
+L["Layout Old"] = "Старое расположение"
 L["You have selected to use %s and role %s."] = "Вы выбрали %s для роли %s."
 L["SLE_INSTALL_LAYOUT_TEXT2"] = [[Данные опции импортируют расположения/настройки аддонов для выбранных опций и роли.
 Учтите, что эти пресеты могут включать незнакомые вам настройки.

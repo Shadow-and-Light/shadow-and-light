@@ -46,6 +46,7 @@ L["Darth's Default Set"] = "Darth's Standardeinstellungen"
 L["Repooc's Default Set"] = "Repooc's Standardeinstellungen"
 L["Affinitii's Default Set"] = "Affinitii's Standardeinstellungen"
 L["Layout & Settings Import"] = "Layout & Einstellungsimportierung"
+L["Layout Old"] = true
 L["You have selected to use %s and role %s."] = "Du hast %s und Rolle %s ausgewählt."
 L["SLE_INSTALL_LAYOUT_TEXT2"] = [[Folgende Knöpfe werden Layout/Addon Einstellungen für die gewählte Konfiguration und Rolle verwenden.
 Bitte beachte dass diese Konfiguration vielleicht einige Einstellungen beinhaltet, mit denen du noch nicht vertraut bist.
