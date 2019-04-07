@@ -1,3 +1,18 @@
+v3.53 [April 7th, 2019]
+Fixes:
+- Fixed applying layout reseting nameplates again
+- Fixed M+ banner not disappearing when corresponding option is enabled. Statusbar skin and affix style comming at later date.
+- Fixed minimap button bar breaking when changing directions
+- Fixed Outfitter checkboxes not visible
+- Fixed Armory stat scroll not being large enough
+- Fixed vehicle bar not thinking crabs are vehicles
+- Fixed tooltip appearing for a split-second on raid markers when tooltips are turned off for those
+- Fixed war campaing auto order
+- Fixed some profile swap errors
+
+Known issues:
+Armory items breaking is still under investigation.
+
 v3.521 [March 13th, 2019]
 Fixes:
 - Fixed install layout profile not having correct raid frame visibility. It should be [nogroup] hide; show
