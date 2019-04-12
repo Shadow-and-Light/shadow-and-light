@@ -82,6 +82,7 @@ function M:SetBlizzFonts()
 			_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
 			_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
 			_G["BONUS_OBJECTIVE_TRACKER_MODULE"].Header.Text:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
+			_G["WORLD_QUEST_TRACKER_MODULE"].Header.Text:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
 			MakeFont(_G["ObjectiveFont"], E.LSM:Fetch('font', db.objective.font), db.objective.size, db.objective.outline)
 			if M.BonusObjectiveBarText then M.BonusObjectiveBarText:SetFont(E.LSM:Fetch('font', db.objective.font), db.objective.size, db.objective.outline) end
 		end
