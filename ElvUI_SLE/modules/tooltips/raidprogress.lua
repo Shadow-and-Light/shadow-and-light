@@ -13,126 +13,159 @@ RP.Cache = {}
 RP.playerGUID = UnitGUID("player")
 RP.highestKill = 0
 
-RP.bosses = {
+RP.encounters = {
 	{ -- Emerald Nightmare
-		{ --Mythic
-			10914, 10923, 10927, 10919, 10931, 10935, 10939, 
+		["option"] = "nightmare",
+		["statIDs"] = {
+			{ --Mythic
+				10914, 10923, 10927, 10919, 10931, 10935, 10939, 
+			},
+			{ -- Herioc
+				10913, 10922, 10926, 10917, 10930, 10934, 10938, 
+			},
+			{ -- Normal
+				10912, 10921, 10925, 10916, 10929, 10933, 10937, 
+			},
+			{ -- LFR
+				10911, 10920, 10924, 10915, 10928, 10932, 10936, 
+			},
 		},
-		{ -- Herioc
-			10913, 10922, 10926, 10917, 10930, 10934, 10938, 
-		},
-		{ -- Normal
-			10912, 10921, 10925, 10916, 10929, 10933, 10937, 
-		},
-		{ -- LFR
-			10911, 10920, 10924, 10915, 10928, 10932, 10936, 
-		},
-		"nightmare",
 	},
 	{ --Trial of Valor
-		{ --Mythic
-			11410, 11414, 11418,
+		["option"] = "trial",
+		["statIDs"] = {
+			{ --Mythic
+				11410, 11414, 11418,
+			},
+			{ -- Heroic
+				11409, 11413, 11417,
+			},
+			{ -- Normal
+				11408, 11412, 11416,
+			},
+			{ -- LFR
+				11407, 11411, 11415,
+			},
 		},
-		{ -- Heroic
-			11409, 11413, 11417,
-		},
-		{ -- Normal
-			11408, 11412, 11416,
-		},
-		{ -- LFR
-			11407, 11411, 11415,
-		},
-		"trial",
 	},
 	{ -- Nighthold
-		{ --Mythic
-			10943, 10947, 10951, 10955, 10960, 10964, 10968, 10972, 10976, 10980
+		["option"] = "nighthold",
+		["statIDs"] = {
+			{ --Mythic
+				10943, 10947, 10951, 10955, 10960, 10964, 10968, 10972, 10976, 10980
+			},
+			{ -- Heroic
+				10942, 10946, 10950, 10954, 10959, 10963, 10967, 10971, 10975, 10979
+			},
+			{ -- Normal
+				10941, 10945, 10949, 10953, 10957, 10962, 10966, 10970, 10974, 10978
+			},
+			{ -- LFR
+				10940, 10944, 10948, 10952, 10956, 10961, 10965, 10969, 10973, 10977
+			},
 		},
-		{ -- Heroic
-			10942, 10946, 10950, 10954, 10959, 10963, 10967, 10971, 10975, 10979
-		},
-		{ -- Normal
-			10941, 10945, 10949, 10953, 10957, 10962, 10966, 10970, 10974, 10978
-		},
-		{ -- LFR
-			10940, 10944, 10948, 10952, 10956, 10961, 10965, 10969, 10973, 10977
-		},
-		"nighthold",
 	},
 	{ -- Tomb of Sargeras
-		{ -- Mythic
-			11880, 11884, 11888, 11892, 11896, 11900, 11904, 11908, 11912
+		["option"] = "sargeras",
+		["statIDs"] = {
+			{ -- Mythic
+				11880, 11884, 11888, 11892, 11896, 11900, 11904, 11908, 11912
+			},
+			{ -- Heroic
+				11879, 11883, 11887, 11891, 11895, 11899, 11903, 11907, 11911
+			},
+			{ -- Normal
+				11878, 11882, 11886, 11890, 11894, 11898, 11902, 11906, 11910
+			},
+			{ -- LFR
+				11877, 11881, 11885, 11889, 11893, 11897, 11901, 11905, 11909
+			},
 		},
-		{ -- Heroic
-			11879, 11883, 11887, 11891, 11895, 11899, 11903, 11907, 11911
-		},
-		{ -- Normal
-			11878, 11882, 11886, 11890, 11894, 11898, 11902, 11906, 11910
-		},
-		{ -- LFR
-			11877, 11881, 11885, 11889, 11893, 11897, 11901, 11905, 11909
-		},
-		"sargeras",
 	},
 	{ -- Antorus, the Burning Throne
-		{ -- Mythic
-			11956, 11959, 11962, 11965, 11968, 11971, 11974, 11977, 11980, 11983, 11986
+		
+		["option"] = "antorus",
+		["statIDs"] = {
+			{ -- Mythic
+				11956, 11959, 11962, 11965, 11968, 11971, 11974, 11977, 11980, 11983, 11986
+			},
+			{ -- Heroic
+				11955, 11958, 11961, 11964, 11967, 11970, 11973, 11976, 11979, 11982, 11985
+			},
+			{ -- Normal
+				11954, 11957, 11960, 11963, 11966, 11969, 11972, 11975, 11978, 11981, 11984
+			},
+			{ -- LFR
+				12117, 12118, 12119, 12120, 12121, 12122, 12123, 12124, 12125, 12126, 12127
+			},
 		},
-		{ -- Heroic
-			11955, 11958, 11961, 11964, 11967, 11970, 11973, 11976, 11979, 11982, 11985
-		},
-		{ -- Normal
-			11954, 11957, 11960, 11963, 11966, 11969, 11972, 11975, 11978, 11981, 11984
-		},
-		{ -- LFR
-			12117, 12118, 12119, 12120, 12121, 12122, 12123, 12124, 12125, 12126, 12127
-		},
-		"antorus",
 	},
 	{ -- Uldir
-		{ -- Mythic
-			12789, 12793, 12797, 12801, 12805, 12811, 12816, 12820,
+		["option"] = "uldir",
+		["statIDs"] = {
+			{ -- Mythic
+				12789, 12793, 12797, 12801, 12805, 12811, 12816, 12820,
+			},
+			{ -- Heroic
+				12788, 12792, 12796, 12800, 12804, 12810, 12815, 12819,
+			},
+			{ -- Normal
+				12787, 12791, 12795, 12799, 12803, 12809, 12814, 12818,
+			},
+			{ -- LFR
+				12786, 12790, 12794, 12798, 12802, 12808, 12813, 12817,
+			},
 		},
-		{ -- Heroic
-			12788, 12792, 12796, 12800, 12804, 12810, 12815, 12819,
-		},
-		{ -- Normal
-			12787, 12791, 12795, 12799, 12803, 12809, 12814, 12818,
-		},
-		{ -- LFR
-			12786, 12790, 12794, 12798, 12802, 12808, 12813, 12817,
-		},
-		"uldir",
+		
 	},
 	{ -- Dazar'Alor
-		{ -- Mythic
-			13331, 13348, 13353, 13362, 13366, 13370, 13374, 13378, 13382,
+		["option"] = "daz",
+		["Alliance"] = {
+			{ -- Mythic
+				13331, 13348, 13353, 13362, 13366, 13370, 13374, 13378, 13382,
+			},
+			{ -- Heroic
+				13330, 13347, 13351, 13361, 13365, 13369, 13373, 13377, 13381,
+			},
+			{ -- Normal
+				13329, 13346, 13350, 13359, 13364, 13368, 13372, 13376, 13380,
+			},
+			{ -- LFR
+				13328, 13344, 13349, 13358, 13363, 13367, 13371, 13375, 13379,
+			},
 		},
-		{ -- Heroic
-			13330, 13347, 13351, 13361, 13365, 13369, 13373, 13377, 13381,
+		["Horde"] = {
+			{ -- Mythic
+				13331, 13336, 13357, 13362, 13366, 13370, 13374, 13378, 13382,
+			},
+			{ -- Heroic
+				13330, 13334, 13356, 13361, 13365, 13369, 13373, 13377, 13381,
+			},
+			{ -- Normal
+				13329, 13333, 13355, 13359, 13364, 13368, 13372, 13376, 13380,
+			},
+			{ -- LFR
+				13328, 13332, 13354, 13358, 13363, 13367, 13371, 13375, 13379,
+			},
 		},
-		{ -- Normal
-			13329, 13346, 13350, 13359, 13364, 13368, 13372, 13376, 13380,
-		},
-		{ -- LFR
-			13328, 13344, 13349, 13358, 13363, 13367, 13371, 13375, 13379,
-		},
-	"daz",
+		true,
 	},
 	{ -- Storm Crucible
-		{ -- Mythic
-			13407, 13413, 
+		["option"] = "sc",
+		["statIDs"] = {
+			{ -- Mythic
+				13407, 13413, 
+			},
+			{ -- Heroic
+				13406, 13412, 
+			},
+			{ -- Normal
+				13405, 13411, 
+			},
+			{ -- LFR
+				13404, 13408, 
+			},
 		},
-		{ -- Heroic
-			13406, 13412, 
-		},
-		{ -- Normal
-			13405, 13411, 
-		},
-		{ -- LFR
-			13404, 13408, 
-		},
-		"sc",
 	},
 }
 RP.Raids = {}
@@ -179,15 +212,15 @@ function RP:GetProgression(guid)
 	local statFunc = guid == RP.playerGUID and T.GetStatistic or T.GetComparisonStatistic
 	
 	for raid = 1, #RP.Raids["LONG"] do
-		local option = RP.bosses[raid][5]
+		local option = RP.encounters[raid].option
 		if E.db.sle.tooltip.RaidProg.raids[option] then
 			RP.Cache[guid].header[raid] = {}
 			RP.Cache[guid].info[raid] = {}
-			for level = 1, 4 do
+			local statTable = RP.encounters[raid][E.myfaction] or RP.encounters[raid].statIDs
+			for level = 1, #statTable do
 				RP.highestKill = 0
-				for statInfo = 1, #RP.bosses[raid][level] do
-					local bossTable = RP.bosses[raid][level][statInfo]
-					kills = T.tonumber((statFunc(bossTable)))
+				for statInfo = 1, #statTable[level] do
+					kills = T.tonumber((statFunc(statTable[level][statInfo])))
 					if kills and kills > 0 then
 						RP.highestKill = RP.highestKill + 1
 					end
@@ -195,8 +228,8 @@ function RP:GetProgression(guid)
 				pos = RP.highestKill
 				if (RP.highestKill > 0) then
 					RP.Cache[guid].header[raid][level] = T.format("%s [%s]:", RP.Raids[E.db.sle.tooltip.RaidProg.NameStyle][raid], RP.modes[E.db.sle.tooltip.RaidProg.DifStyle][level])
-					RP.Cache[guid].info[raid][level] = T.format("%d/%d", RP.highestKill, #RP.bosses[raid][level])
-					if RP.highestKill == #RP.bosses[raid][level] then
+					RP.Cache[guid].info[raid][level] = T.format("%d/%d", RP.highestKill, #statTable[level])
+					if RP.highestKill == #statTable[level] then
 						break
 					end
 				end
@@ -235,7 +268,7 @@ function RP:SetProgressionInfo(guid, tt)
 		-- add progression tooltip line
 		if RP.highestKill > 0 then tt:AddLine(" ") end
 		for raid = 1, #RP.Raids["LONG"] do
-			local option = RP.bosses[raid][5]
+			local option = RP.encounters[raid].option
 			if E.db.sle.tooltip.RaidProg.raids[option] then
 				for level = 1, 4 do
 					tt:AddDoubleLine(RP.Cache[guid].header[raid][level], RP.Cache[guid].info[raid][level], nil, nil, nil, 1, 1, 1)
