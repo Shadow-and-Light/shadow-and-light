@@ -226,7 +226,7 @@ function RP:GetProgression(guid)
 					end
 				end
 				pos = RP.highestKill
-				if (RP.highestKill > 0) then
+				if RP.highestKill > 0 or RP.ShowZeroesMode then
 					RP.Cache[guid].header[raid][level] = T.format("%s [%s]:", RP.Raids[E.db.sle.tooltip.RaidProg.NameStyle][raid], RP.modes[E.db.sle.tooltip.RaidProg.DifStyle][level])
 					RP.Cache[guid].info[raid][level] = T.format("%d/%d", RP.highestKill, #statTable[level])
 					if RP.highestKill == #statTable[level] then
