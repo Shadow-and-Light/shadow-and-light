@@ -1,4 +1,5 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local RM = SLE:GetModule('RaidMarkers')
 local SHIFT_KEY, CTRL_KEY, ALT_KEY = SHIFT_KEY, CTRL_KEY, ALT_KEY
 local AGGRO_WARNING_IN_PARTY = AGGRO_WARNING_IN_PARTY

@@ -1,4 +1,5 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local Q = SLE:GetModule("Quests")
 local DEFAULT, MINIMIZE, HIDE = DEFAULT, MINIMIZE, HIDE
 local QUESTS_LABEL = QUESTS_LABEL

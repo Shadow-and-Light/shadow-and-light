@@ -1,4 +1,5 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 if SLE._Compatibility["ElvUI_ChaoticUI"] then return end
 local ES = SLE:GetModule("EnhancedShadows")
 
@@ -285,7 +286,7 @@ local function configTable()
 			},
 		},
 	}
-	
+
 	for i = 1, (SLE._Compatibility["ElvUI_ExtraActionBars"] and 10 or 6) do
 		E.Options.args.sle.args.modules.args.shadows.args.frames.args.actionbars.args["bar"..i] = {
 			order = i + 6,

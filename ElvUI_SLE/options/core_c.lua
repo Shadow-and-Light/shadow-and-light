@@ -1,4 +1,5 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local M = SLE:GetModule("Misc")
 local SETTINGS = SETTINGS
 local LFG_LIST_LEGACY = LFG_LIST_LEGACY
@@ -112,7 +113,7 @@ local function configTable()
 						order = 2,
 						type = "toggle",
 						name = L["Allow Advanced Options"],
-						set = function(info, value) 
+						set = function(info, value)
 							if value == true and not E.global.sle.advanced.confirmed then E:StaticPopup_Show("SLE_ADVANCED_POPUP"); return end
 							E.global.sle.advanced[ info[#info] ] = value;
 						end,

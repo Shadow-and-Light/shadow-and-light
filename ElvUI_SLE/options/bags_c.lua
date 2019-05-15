@@ -1,4 +1,5 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, T, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local ARTIFACT_POWER, AUCTION_CATEGORY_BATTLE_PETS = ARTIFACT_POWER, AUCTION_CATEGORY_BATTLE_PETS
 local B = E:GetModule("Bags")
 
@@ -64,7 +65,7 @@ local function configTable()
 								type = "select", dialogControl = 'LSM30_Font',
 								order = 1,
 								name = L["Font"],
-								values = AceGUIWidgetLSMlists.font,	
+								values = AceGUIWidgetLSMlists.font,
 							},
 							size = {
 								order = 2,
@@ -80,7 +81,7 @@ local function configTable()
 								values = {
 									["NONE"] = L["None"],
 									["OUTLINE"] = 'OUTLINE',
-									
+
 									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
 									["THICKOUTLINE"] = 'THICKOUTLINE',
 								},

@@ -1,4 +1,5 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, T, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local S = SLE:GetModule("Screensaver")
 local floor = floor
 
@@ -17,7 +18,7 @@ local function configTable()
 					type = "select", dialogControl = 'LSM30_Font',
 					order = 1,
 					name = L["Font"],
-					values = AceGUIWidgetLSMlists.font,	
+					values = AceGUIWidgetLSMlists.font,
 				},
 				size = {
 					order = 2,

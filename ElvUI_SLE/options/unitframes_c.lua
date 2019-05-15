@@ -1,4 +1,5 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
+﻿local SLE, T, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local UF = E:GetModule('UnitFrames');
 local SUF = SLE:GetModule("UnitFrames")
 local texPath = [[Interface\AddOns\ElvUI_SLE\media\textures\role\]]
@@ -19,7 +20,7 @@ local function configTable()
 		TOP = 'TOP',
 		BOTTOM = 'BOTTOM',
 	};
-	
+
 	local function CreateOfflineConfig(group)
 		local config = {
 			order = 5,
@@ -56,7 +57,7 @@ local function configTable()
 		}
 		return config
 	end
-	
+
 	local function CreateDeadConfig(group)
 		local config = {
 			order = 6,
@@ -93,7 +94,7 @@ local function configTable()
 		}
 		return config
 	end
-	
+
 	local function CreatePortraitConfig(unitID)
 		local config = {
 			order = 1,
@@ -115,10 +116,10 @@ local function configTable()
 				},
 			},
 		}
-		
+
 		return config
 	end
-	
+
 	local function CreateAurasConfig(unitID)
 		local config = {
 			order = 6,
@@ -216,7 +217,7 @@ local function configTable()
 							yoffset = { order = 3, type = "range", name = L["Y-Offset"], min = -150, max = 150, step = 1 },
 							level = { order = 4, type = "toggle", name = LEVEL, },
 						},
-						
+
 					},
 					auras = CreateAurasConfig("player"),
 				},
@@ -254,7 +255,7 @@ local function configTable()
 						args = {
 							level = { order = 4, type = "toggle", name = LEVEL, },
 						},
-						
+
 					},
 					auras = CreateAurasConfig("target"),
 				},

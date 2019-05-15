@@ -1,4 +1,5 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
+﻿local SLE, T, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 
 local CHARACTER, NONE = CHARACTER, NONE
 
@@ -30,7 +31,7 @@ local function configTable()
 		}
 		return config
 	end
-	
+
 	local function CreateCustomToonList()
 		local config = {
 			name = CUSTOM,
@@ -114,7 +115,7 @@ local function configTable()
 					end
 					return names;
 				end,
-				set = function(info, value) 
+				set = function(info, value)
 					local name, realm, realm2 = strsplit("-", value);
 					if realm2 then realm = realm.."-"..realm2 end
 					E.PopupDialogs['SLE_CONFIRM_DELETE_CURRENCY_CHARACTER'].text = T.format(L["Are you sure you want to remove |cff1784d1%s|r from currency datatexts?"], name..(realm and "-"..realm or ""))

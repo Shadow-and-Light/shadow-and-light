@@ -1,4 +1,5 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, T, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local A = SLE:GetModule("Actionbars")
 local AB = E:GetModule('ActionBars');
 local EVB = SLE:GetModule("EnhancedVehicleBar")

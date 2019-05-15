@@ -1,4 +1,5 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
+﻿local SLE, T, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local EM = SLE:GetModule('EquipManager')
 local NONE = NONE
 local PAPERDOLL_EQUIPMENTMANAGER = PAPERDOLL_EQUIPMENTMANAGER
@@ -28,7 +29,7 @@ end
 
 local function configTable()
 	if not SLE.initialized then return end
-	
+
 	local function ConstructSpecOption(ORDER, ID, OPTION)
 		local SpecID, SpecName = T.GetSpecializationInfo(ID)
 		if not SpecID then return nil end
@@ -51,7 +52,7 @@ local function configTable()
 					name = GENERAL,
 					desc = L["Equip this set for open world/general use."],
 					values = function()
-						FillTable() 
+						FillTable()
 						return sets
 					end,
 				},
@@ -62,7 +63,7 @@ local function configTable()
 					disabled = function() return not EM.db.instanceSet end,
 					desc = L["Equip this set after entering dungeons or raids."],
 					values = function()
-						FillTable() 
+						FillTable()
 						return sets
 					end,
 				},
@@ -84,7 +85,7 @@ local function configTable()
 					disabled = function() return not EM.db.pvpSet end,
 					desc = L["Equip this set after entering battlegrounds or arens."],
 					values = function()
-						FillTable() 
+						FillTable()
 						return sets
 					end,
 				},
@@ -92,7 +93,7 @@ local function configTable()
 		}
 		return config
 	end
-	
+
 	E.Options.args.sle.args.modules.args.equipmanager = {
 		type = 'group',
 		order = 1,
@@ -118,7 +119,7 @@ local function configTable()
 			setoverlay = {
 				type = "toggle",
 				order = 5,
-				name = L["Equipment Set Overlay"],	
+				name = L["Equipment Set Overlay"],
 				desc = L["Show the associated equipment sets for the items in your bags (or bank)."],
 				disabled = function() return not E.private.bags.enable end,
 				get = function(info) return EM.db.setoverlay end,

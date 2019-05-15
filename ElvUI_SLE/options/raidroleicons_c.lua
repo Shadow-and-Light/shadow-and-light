@@ -1,4 +1,5 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, T, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local B = SLE:GetModule("BlizzRaid")
 local RAID_CONTROL = RAID_CONTROL
 local function configTable()

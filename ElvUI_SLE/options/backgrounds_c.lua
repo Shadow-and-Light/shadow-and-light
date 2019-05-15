@@ -1,4 +1,5 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
+﻿local SLE, T, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local BG = SLE:GetModule('Backgrounds')
 
 local function configTable()
@@ -50,7 +51,7 @@ local function configTable()
 					width = 'full',
 					name = L["Texture"],
 					desc = L["Set the texture to use in this frame. Requirements are the same as the chat textures."],
-					set = function(info, value) 
+					set = function(info, value)
 						E.db.sle.backgrounds["bg"..i].texture = value
 						E:UpdateMedia()
 						BG:UpdateTexture(i)

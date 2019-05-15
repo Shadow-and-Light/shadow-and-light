@@ -1,4 +1,5 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, T, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local Sk = SLE:GetModule("Skins")
 
 local function configTable()
@@ -202,7 +203,7 @@ local function configTable()
 								type = "select", dialogControl = 'LSM30_Font',
 								order = 1,
 								name = L["Item Name Font"],
-								values = AceGUIWidgetLSMlists.font,	
+								values = AceGUIWidgetLSMlists.font,
 							},
 							nameSize = {
 								order = 2,
@@ -225,7 +226,7 @@ local function configTable()
 								type = "select", dialogControl = 'LSM30_Font',
 								order = 4,
 								name = L["Item Info Font"],
-								values = AceGUIWidgetLSMlists.font,	
+								values = AceGUIWidgetLSMlists.font,
 							},
 							subSize = {
 								order = 5,

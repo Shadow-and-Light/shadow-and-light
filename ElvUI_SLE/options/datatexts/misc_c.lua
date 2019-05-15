@@ -1,4 +1,5 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
+﻿local SLE, T, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local DTP = SLE:GetModule('Datatexts')
 local DT = E:GetModule('DataTexts')
 local datatexts = {}
@@ -48,7 +49,7 @@ local function configTable()
 				type = "toggle",
 				name = L["Gradient"],
 				desc = L["If enabled will color durability text based on it's value."],
-				
+
 			},
 			threshold = {
 				order = 3,

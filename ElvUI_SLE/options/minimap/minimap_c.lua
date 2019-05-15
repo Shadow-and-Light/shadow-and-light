@@ -1,4 +1,5 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, T, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local MM = SLE:GetModule("Minimap")
 local MINIMAP_LABEL = MINIMAP_LABEL
 local function configTable()
