@@ -1,3 +1,11 @@
+v3.54 [May 16th, 2019]
+Fixes:
+- Fixed coloring for quest log underlines
+- Fixed wrong raid progress tooltipp
+Changes:
+- Sort of support for changes in ElvUI 11.11
+
+
 v3.53 [April 7th, 2019]
 Fixes:
 - Fixed applying layout reseting nameplates again
