@@ -10,7 +10,7 @@ local function OnEvent(self, event, ...)
 end
 
 local function Click()
-	E:ToggleConfig()
+	E:ToggleOptionsUI()
 	SLE.ACD:SelectGroup("ElvUI", "sle")
 end
 
