@@ -47,7 +47,7 @@ local function configTable()
 				type = 'execute',
 				name = L["Install"],
 				desc = L["Run the installation process."],
-				func = function() E:GetModule("PluginInstaller"):Queue(SLE.installTable); E:ToggleConfig();  end,
+				func = function() E:GetModule("PluginInstaller"):Queue(SLE.installTable); E:ToggleOptionsUI();  end,
 			},
 			infoButton = CreateButton(5, L["About/Help"], "help"),
 			Reset = {

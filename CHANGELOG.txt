@@ -1,10 +1,13 @@
+v3.55 [May 31st, 2019]
+Changes:
+- ToggleConfig and ToggleConfigMode was renamed, this fixes the calls to those functions
+
 v3.54 [May 16th, 2019]
 Fixes:
 - Fixed coloring for quest log underlines
 - Fixed wrong raid progress tooltipp
 Changes:
 - Sort of support for changes in ElvUI 11.11
-
 
 v3.53 [April 7th, 2019]
 Fixes:
