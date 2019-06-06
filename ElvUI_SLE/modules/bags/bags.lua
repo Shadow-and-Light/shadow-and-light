@@ -16,7 +16,7 @@ function SB:UpdateSlot(bagID, slotID)
 	if not Pr.DeconstructionReal then return end
 	if Pr.DeconstructionReal:IsShown() and Pr.DeconstructionReal.Bag == bagID and Pr.DeconstructionReal.Slot == slotID then
 		if not slot.hasItem then
-			B:Tooltip_Hide()
+			GameTooltip_Hide()
 			Pr.DeconstructionReal:OnLeave()
 		end
 	end
@@ -62,7 +62,7 @@ function SB:Initialize()
 	hooksecurefunc(B, "Layout", function(self, isBank)
 		SB:HookBags(isBank)
 	end);
-	
+
 	--This table is for initial update of a frame, cause applying transparent trmplate breaks color borders
 	SB.InitialUpdates = {
 		Bank = false,

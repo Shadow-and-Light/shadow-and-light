@@ -126,7 +126,7 @@ function Pr:ApplyDeconstruct(itemLink, spell, spellType, r, g, b)
 			Pr.DeconstructionReal:SetAttribute('macrotext', T.format('/cast %s\n/run ClickTargetTradeButton(7)', spell))
 			Pr.DeconstructionReal:SetAllPoints(_G["TradeRecipientItem7ItemButton"])
 			Pr.DeconstructionReal:Show()
-			
+
 			if E.private.sle.professions.deconButton.style == "BIG" then
 				ActionButton_ShowOverlayGlow(Pr.DeconstructionReal)
 			elseif E.private.sle.professions.deconButton.style == "SMALL" then
@@ -167,7 +167,7 @@ function Pr:IsBreakable(link)
 		if Pr.ItemTable["Fishing"][item] and E.global.sle.DE.IgnoreFishing then return false end
 		if Pr.BlacklistDE[name] then return false end
 		return true
-	end 
+	end
 	return false
 end
 
@@ -241,7 +241,7 @@ function Pr:Construct_BagButton()
 	Pr.DeconstructButton.ttText = L["Deconstruct Mode"]
 	Pr.DeconstructButton.ttText2 = T.format(L["Allow you to disenchant/mill/prospect/unlock items.\nClick to toggle.\nCurrent state: %s."], Pr:GetDeconMode())
 	Pr.DeconstructButton:SetScript("OnEnter", B.Tooltip_Show)
-	Pr.DeconstructButton:SetScript("OnLeave", B.Tooltip_Hide)
+	Pr.DeconstructButton:SetScript("OnLeave", GameTooltip_Hide)
 	Pr.DeconstructButton:SetPoint("RIGHT", _G["ElvUI_ContainerFrame"].bagsButton, "LEFT", -5, 0)
 	Pr.DeconstructButton:SetNormalTexture("Interface\\ICONS\\INV_Rod_Cobalt")
 	Pr.DeconstructButton:GetNormalTexture():SetTexCoord(T.unpack(E.TexCoords))
