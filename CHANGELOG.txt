@@ -1,6 +1,6 @@
 v3.55 [June 6th, 2019]
 Fixes:
-- Fixed tooltip issues with deconstruct button.
+- Fixed tooltip issues with deconstruct button. It should now hide correctly.
 
 v3.55 [May 31st, 2019]
 Changes:
