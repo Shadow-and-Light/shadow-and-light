@@ -934,7 +934,7 @@ While you follow some simple rules of common sense everyone will be ok with you 
 Keep in mind that you can still get an answer in English cause the person answering can be unable to speak your language.]]
 L["FAQ_Elv_3"] = [[|cff30ee30Q: What info do I need to provide in a bug report?|r
 |cff9482c9A:|r First you need to ensure the error really comes from ElvUI.
-To do so you need to disable all other addons except of ElvUI and ElvUI_Config.
+To do so you need to disable all other addons except of ElvUI and ElvUI_OptionsUI.
 You can do this by typing "/luaerror on" (without quotes).
 If error didn't disappear then you need to send us a bug report.
 In it you'll need to provide ElvUI version ("latest" is not a valid version number), the text of the error, screenshot if needed.
