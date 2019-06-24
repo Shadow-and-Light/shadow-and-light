@@ -36,7 +36,7 @@ function AS:EmbedSystem_WindowResize()
 	Right:SetPoint('RIGHT', Main, 'RIGHT', 0, 0)
 
 	-- Dynamic Range
-	if IsAddOnLoaded('ElvUI_Config') then
+	if IsAddOnLoaded('ElvUI_OptionsUI') then
 		E.Options.args.addonskins.args.embed.args.EmbedLeftWidth.min = floor(Main:GetWidth() * .25)
 		E.Options.args.addonskins.args.embed.args.EmbedLeftWidth.max = floor(Main:GetWidth() * .75)
 	end

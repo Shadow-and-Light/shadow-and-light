@@ -244,7 +244,7 @@ end
 
 --If ElvUI's config is opened then do alterations and unregistering da event
 local function LoadConfig(event, addon)
-	if addon ~= "ElvUI_Config" then return end
+	if addon ~= "ElvUI_OptionsUI" then return end
 
 	LT:Update()
 	LT:UnregisterEvent("ADDON_LOADED")
@@ -255,7 +255,7 @@ function LT:Toggle()
 	if LT.db.enable then
 		self:RegisterEvent("LOOT_OPENED", "HandleEvent")
 		self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
-		if not T.IsAddOnLoaded("ElvUI_Config") then --How can this be not loaded at this point? On /rl or login into the game ofc
+		if not T.IsAddOnLoaded("ElvUI_OptionsUI") then --How can this be not loaded at this point? On /rl or login into the game ofc
 			self:RegisterEvent("ADDON_LOADED", LoadConfig)
 		end
 	else
@@ -296,7 +296,7 @@ end
 --Module update
 function LT:Update()
 	--Setting Elv's option to button that leads to my shit if the module is enabled
-	if T.IsAddOnLoaded("ElvUI_Config") then
+	if T.IsAddOnLoaded("ElvUI_OptionsUI") then
 		if LT.db.autoroll.enable then
 			E.Options.args.general.args.misc.args.autoRoll = {
 				order = 6,

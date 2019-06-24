@@ -7,7 +7,7 @@ local ShowUIPanel, HideUIPanel = ShowUIPanel, HideUIPanel
 
 --Threat
 function M:ElvUIConfig_OnLoad(event, addon)
-	if addon ~= "ElvUI_Config" then return end
+	if addon ~= "ElvUI_OptionsUI" then return end
 
 	M:Threat_UpdateConfig()
 	M:UnregisterEvent("ADDON_LOADED")
@@ -25,7 +25,7 @@ function M:Threat_UpdatePosition()
 end
 
 function M:Threat_UpdateConfig()
-	if T.IsAddOnLoaded("ElvUI_Config") then
+	if T.IsAddOnLoaded("ElvUI_OptionsUI") then
 		if M.db.threat.enable then
 			E.Options.args.general.args.threatGroup.args.threatPosition = {
 				order = 42,

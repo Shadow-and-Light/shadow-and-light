@@ -550,7 +550,7 @@ end
 function lib:CreateOptions(menu, default, groupName, groupTitle)
 	menu:RegisterEvent("ADDON_LOADED")
 	menu:SetScript("OnEvent", function(self, event, addon) 
-		if addon ~= "ElvUI_Config" then return end
+		if addon ~= "ElvUI_OptionsUI" then return end
 		self:UnregisterEvent("ADDON_LOADED")
 		GenerateTable(self, default, groupName, groupTitle)
 	end)
