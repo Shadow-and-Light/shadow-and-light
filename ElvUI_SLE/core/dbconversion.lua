@@ -26,6 +26,14 @@ function SLE:DatabaseConversions()
 						if T.type(data.sle.minimap.locPanel.portals.hsPrio) == "table" then
 							data.sle.minimap.locPanel.portals.hsPrio = P.sle.minimap.locPanel.portals.hsPrio
 						end
+					elseif data.sle.minimap.locPanel.portals and data.sle.minimap.locPanel.portals.hsPrio then
+						local tbl = {T.split(",", data.sle.minimap.locPanel.portals.hsPrio)}
+						local tblP = {T.split(",", P.sle.minimap.locPanel.portals.hsPrio)}
+						if #tbl < #tblP then
+							for i = #tbl+1, #tblP do
+								data.sle.minimap.locPanel.portals.hsPrio = data.sle.minimap.locPanel.portals.hsPrio .. "," .. tblP[i]
+							end
+						end
 					end
 				end
 			end

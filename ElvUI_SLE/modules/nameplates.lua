@@ -10,7 +10,7 @@ N.GroupMembers = {}
 
 function N:CreateThreatIndicator(nameplate)
 	nameplate.SLE_threatInfo = nameplate.Health:CreateFontString(nil, "OVERLAY")
-	nameplate.SLE_threatInfo:SetPoint("BOTTOMLEFT", nameplate.Health, "BOTTOMLEFT", 1, 2)
+	nameplate.SLE_threatInfo:SetPoint("BOTTOMLEFT", nameplate.Health, "BOTTOMLEFT", E.db.sle.nameplates.threat.xoffset, E.db.sle.nameplates.threat.yoffset)
 	nameplate.SLE_threatInfo:SetJustifyH("LEFT")
 	nameplate.SLE_threatInfo:SetFont(E.LSM:Fetch("font", E.db.sle.nameplates.threat.font), E.db.sle.nameplates.threat.size, E.db.sle.nameplates.threat.fontOutline)
 end
@@ -43,7 +43,7 @@ end)
 
 function N:CreateTargetCounter(nameplate)
 	nameplate.SLE_targetcount = nameplate.Health:CreateFontString(nil, "OVERLAY")
-	nameplate.SLE_targetcount:SetPoint('BOTTOMRIGHT', nameplate.Health, 'BOTTOMRIGHT', 1, 2)
+	nameplate.SLE_targetcount:SetPoint('BOTTOMRIGHT', nameplate.Health, 'BOTTOMRIGHT', E.db.sle.nameplates.targetcount.xoffset, E.db.sle.nameplates.targetcount.yoffset)
 	nameplate.SLE_targetcount:SetJustifyH("RIGHT")
 	nameplate.SLE_TargetedByCounter = 0
 	nameplate.SLE_targetcount:SetFont(E.LSM:Fetch("font", E.db.sle.nameplates.targetcount.font), E.db.sle.nameplates.targetcount.size, E.db.sle.nameplates.targetcount.fontOutline)
@@ -142,10 +142,12 @@ end
 function N:UpdatePlate(nameplate)
 	if nameplate.SLE_threatInfo then
 		nameplate.SLE_threatInfo:SetFont(E.LSM:Fetch("font", E.db.sle.nameplates.threat.font), E.db.sle.nameplates.threat.size, E.db.sle.nameplates.threat.fontOutline)
+		nameplate.SLE_threatInfo:SetPoint("BOTTOMLEFT", nameplate.Health, "BOTTOMLEFT", E.db.sle.nameplates.threat.xoffset, E.db.sle.nameplates.threat.yoffset)
 		if not E.db.sle.nameplates.threat.enable then nameplate.SLE_threatInfo:SetText("") end
 	end
 	if nameplate.SLE_targetcount then
 		nameplate.SLE_targetcount:SetFont(E.LSM:Fetch("font", E.db.sle.nameplates.targetcount.font), E.db.sle.nameplates.targetcount.size, E.db.sle.nameplates.targetcount.fontOutline)
+		nameplate.SLE_targetcount:SetPoint('BOTTOMRIGHT', nameplate.Health, 'BOTTOMRIGHT', E.db.sle.nameplates.targetcount.xoffset, E.db.sle.nameplates.targetcount.yoffset)
 		if E.db.sle.nameplates.targetcount.enable then N:UpdateCount(nil,"player", true) else nameplate.SLE_targetcount:SetText(""); nameplate.SLE_TargetedByCounter = 0 end
 	end
 end
