@@ -1,3 +1,11 @@
+v3.56 [June 25, 2019]
+Additions:
+- Added more hearthstone type items to the portal menu
+- Added offset options for target and threat indicators on nameplates
+Changes:
+- Accounted for changes in ElvUI
+- Higher overlay portrait option was removed. Core ElvUI now
+
 v3.551 [June 6th, 2019]
 Fixes:
 - Fixed tooltip issues with deconstruct button. It should now hide correctly.
