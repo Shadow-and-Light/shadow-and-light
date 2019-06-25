@@ -103,11 +103,11 @@ local function configTable()
 			get = function(info) return E.db.sle.unitframes.unit[unitID][ info[#info] ] end,
 			set = function(info, value) E.db.sle.unitframes.unit[unitID][ info[#info] ] = value; UF:CreateAndUpdateUF(unitID); end,
 			args = {
-				higherPortrait = {
-					order = 1, type = "toggle",
-					name = L["Higher Overlay Portrait"],
-					desc = L["Makes frame portrait visible regardless of health level when overlay portrait is set."],
-				},
+				-- higherPortrait = {
+					-- order = 1, type = "toggle",
+					-- name = L["Higher Overlay Portrait"],
+					-- desc = L["Makes frame portrait visible regardless of health level when overlay portrait is set."],
+				-- },
 				portraitAlpha = {
 					order = 2, type = 'range',
 					name = L["Overlay Portrait Alpha"],
