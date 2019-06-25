@@ -62,7 +62,11 @@ LP.Hearthstones = {
 	{93672, nil, true}, --Dark Portal
 	{54452, nil, true}, --Etherial Portal
 	{142542, nil, true}, --Tome of Town Portal (Diablo Event)
-	{64488, nil, true}, --The Innkeeper's Daughter
+	{165669, nil, true}, 
+	{165670, nil, true}, 
+	{165802, nil, true}, 
+	{166746, nil, true}, 
+	{166747, nil, true}, 
 }
 
 LP.PortItems = {
