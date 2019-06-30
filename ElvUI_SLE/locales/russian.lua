@@ -31,7 +31,7 @@ L["AFK Mode in |cff9482c9Shadow & Light|r is additional settings/elements for st
 L["This option is bound to character and requires a UI reload to take effect."] = "Эта опция привязана к персонажу и требует перезагрузки для активации."
 L["Shadow & Light Imports"] = "Импорт Shadow & Light"
 L["You can now choose if you want to use one of the authors' set of options. This will change the positioning of some elements as well of other various options."] = "Вы можете использовать набор настроек, используемый одним из представленных людей. Будут изменены положения элементов и другие настройки."
-L["SLE_Install_Text_AUTHOR"] = [=[Этот шаг опционален и должен использоваться только в  случае, если вы собираетесь использовать одну из наших конфигурацй. В зависимости от выбланного расположения в установке ElvUI результат может отличться.
+L["SLE_Install_Text_AUTHOR"] = [=[Этот шаг опционален и должен использоваться только в  случае, если вы собираетесь использовать одну из наших конфигурацй. В зависимости от выбранного расположения в установке ElvUI результат может отличться.
 Если вы не выберете ни один из вариантов, то следующий шаг установки будет автоматически пропущен.
 
 Была выбрана роль |cff1784d1"%s"|r.
