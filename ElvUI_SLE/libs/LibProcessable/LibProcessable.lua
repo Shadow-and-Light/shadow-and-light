@@ -228,6 +228,7 @@ lib.ores = {
 	[152579] = true, -- Storm Silver Ore
 	[152512] = true, -- Monelite Ore
 	[152513] = true, -- Platinum Ore
+	[168185] = true, -- Osmenite Ore
 }
 
 --[[ LibProcessable.herbs
@@ -315,6 +316,7 @@ lib.herbs = {
 	[152506] = true, -- Star Moss
 	[152505] = true, -- Riverbud
 	[152510] = true, -- Anchor Weed
+	[168487] = true, -- Zinanthid
 }
 
 --[[ LibProcessable.enchantingItems
@@ -370,4 +372,5 @@ lib.containers = {
 	[106895] = 500, -- Iron-Bound Junkbox
 	[116920] = 500, -- True Steel Lockbox
 	[121331] = 550, -- Leystone Lockbox
+	[169475] = 600, -- Barnacled Lockbox
 }
