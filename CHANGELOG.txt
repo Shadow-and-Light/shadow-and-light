@@ -1,3 +1,8 @@
+v3.561 [July 1, 2019]
+Additions:
+- Added new engineer wormholes to teleport menu
+- Added new ore and herb to the list of items deconstruct mode can deal with
+
 v3.56 [June 25, 2019]
 Additions:
 - Added more hearthstone type items to the portal menu
