@@ -1,3 +1,8 @@
+v3.562 [July 3, 2019]
+Fixes:
+- Fixed Darth's noob mistake resulting in portrait alpha not giving a damn about the settings
+- Fixed 2 threat position options showing up out of the blue
+
 v3.561 [July 1, 2019]
 Additions:
 - Added new engineer wormholes to teleport menu
