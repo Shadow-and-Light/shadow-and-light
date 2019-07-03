@@ -179,7 +179,7 @@ function SUF:Initialize()
 	hooksecurefunc(UF, "Update_RaidFrames", SUF.Update_GroupFrames)
 	hooksecurefunc(UF, "Update_Raid40Frames", SUF.Update_GroupFrames)
 	--Portrait overlay
-	-- hooksecurefunc(UF, "Configure_Portrait", SUF.ConfiguePortrait)
+	hooksecurefunc(UF, "Configure_Portrait", SUF.ConfiguePortrait)
 
 	--Hook pvp icons
 	SUF:UpgradePvPIcon()
