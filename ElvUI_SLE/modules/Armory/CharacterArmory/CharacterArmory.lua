@@ -35,6 +35,7 @@ local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllus
 local HasAnyUnselectedPowers = C_AzeriteEmpoweredItem.HasAnyUnselectedPowers
 local AnimatedNumericFontStringMixin = AnimatedNumericFontStringMixin
 local ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow = ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow
+local C_AzeriteEssence = C_AzeriteEssence
 
 local format = format
 
@@ -654,6 +655,85 @@ function CA:ClearSlotInfo(SlotName)
 	end
 end
 
+local SlotID_To_MilestoneID = {
+	[1] = 115,
+	[2] = 116,
+	[3] = 117,
+}
+
+function CA:DrawGemSlots(Slot, numGems, ItemData, ItemLink)
+	local GemCount_Default, GemCount_Now, GemCount = 0, 0, 0
+	for i = 1, numGems do
+		GemTexture = _G["Knight_CharacterArmory_ScanTTTexture"..i]:GetTexture()
+		if GemTexture and GemTexture:find('Interface\\ItemSocketingFrame\\') then
+			GemCount_Default = GemCount_Default + 1
+			Slot["Socket"..GemCount_Default].GemType = T.upper(T.gsub(GemTexture, 'Interface\\ItemSocketingFrame\\UI--EmptySocket--', ''))
+		end
+	end
+	
+	self:ClearTooltip(self.ScanTT)
+	self.ScanTT:SetInventoryItem('player', Slot.ID)
+
+	
+	-- Apply current item's gem setting
+	for i = 1, numGems do
+		local _, GemID, GemLink, GemTexture, NeedUpdate
+		if Slot.isArtifact == "Neck" then
+			local ID = SlotID_To_MilestoneID[i]
+			GemID = C_AzeriteEssence.GetMilestoneEssence(ID)
+			if GemID then
+				local rank = C_AzeriteEssence.GetEssenceInfo(GemID).rank
+				GemTexture = C_AzeriteEssence.GetEssenceInfo(GemID).icon
+				GemLink = C_AzeriteEssence.GetEssenceHyperlink(GemID, rank)
+			else --if essence is not there
+				GemTexture = ""
+				GemID = 0
+			end
+		else
+			GemTexture = _G['Knight_CharacterArmory_ScanTTTexture'..i]:GetTexture()
+			GemID = ItemData[i + 3] ~= '' and tonumber(ItemData[i + 3]) or 0
+			_, GemLink = GetItemGem(ItemLink, i)
+		end
+
+		if Slot["Socket"..i].GemType and Info.Armory_Constants.GemColor[Slot["Socket"..i].GemType] then
+			R, G, B = T.unpack(Info.Armory_Constants.GemColor[Slot["Socket"..i].GemType])
+			Slot["Socket"..i].Socket:SetBackdropColor(R, G, B, .5)
+			Slot["Socket"..i].Socket:SetBackdropBorderColor(R, G, B)
+		else
+			Slot["Socket"..i].Socket:SetBackdropColor(1, 1, 1, .5)
+			Slot["Socket"..i].Socket:SetBackdropBorderColor(1, 1, 1)
+		end
+
+		if GemTexture or GemLink then
+			if E.db.sle.Armory.Character.Gem.Display == 'Always' or E.db.sle.Armory.Character.Gem.Display == 'MouseoverOnly' and Slot.Mouseovered or E.db.sle.Armory.Character.Gem.Display == 'MissingOnly' then
+				Slot["Socket"..i]:Show()
+				Slot.SocketWarning:Point(Slot.Direction, Slot["Socket"..i], (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
+			end
+
+			GemCount_Now = GemCount_Now + 1
+
+			if GemID ~= 0 then
+				GemCount = GemCount + 1
+				Slot["Socket"..i].GemItemID = GemID
+				Slot["Socket"..i].Socket.Link = GemLink
+
+				if Slot.isArtifact == "" then GemTexture = T.select(10, T.GetItemInfo(GemID)) end --This only is needed when we are dealing with regular gems
+
+				if GemTexture then
+					Slot["Socket"..i].Texture:SetTexture(GemTexture)
+				else
+					NeedUpdate = true
+				end
+			else
+				if Slot['Socket'..i].GemType == nil then Slot['Socket'..i].GemType = 'PRISMATIC' GemCount_Default = GemCount_Default + 1 end
+				Slot['Socket'..i].Socket.Message = '|cffffffff'.._G['EMPTY_SOCKET_'..Slot['Socket'..i].GemType]
+			end
+		end
+	end
+	
+	return GemCount_Default, GemCount_Now, GemCount, NeedUpdate
+end
+
 function CA:Update_Gear()
 	--[[ Get Player Profession
 	
@@ -699,10 +779,9 @@ function CA:Update_Gear()
 					R, G, B = T.GetItemQualityColor(Slot.ItemRarity)
 
 					do --<< Gem Parts >>--
-						GemCount_Default, GemCount_Now, GemCount = 0, 0, 0
-							
 						-- First, Counting default gem sockets
 						ItemData.FixedLink = ItemData[1]
+						Slot.isArtifact = ""
 
 						for i = 2, #ItemData do
 							if i == 4 or i == 5 or i == 6 or i == 7 then
@@ -716,67 +795,15 @@ function CA:Update_Gear()
 						self.ScanTT:SetHyperlink(ItemData.FixedLink)
 
 						-- First, Counting default gem sockets
-						for i = 1, MAX_NUM_SOCKETS do
-							GemTexture = _G["Knight_CharacterArmory_ScanTTTexture"..i]:GetTexture()
-							if GemTexture and GemTexture:find('Interface\\ItemSocketingFrame\\') then
-								GemCount_Default = GemCount_Default + 1
-								Slot["Socket"..GemCount_Default].GemType = T.upper(T.gsub(GemTexture, 'Interface\\ItemSocketingFrame\\UI--EmptySocket--', ''))
-							end
-						end
+						if SlotName == 'NeckSlot' and Slot.ItemRarity == 6 and C_AzeriteEssence.CanOpenUI() then
+							local milestones = C_AzeriteEssence.GetMilestones()
+							local BaseGems = 1
+							if milestones[6].unlocked then BaseGems = 3 elseif milestones[3].unlocked then BaseGems = 2 end
+							Slot.isArtifact = "Neck"
 
-						-- Second, Check if slot's item enable to adding a socket
-						--[[
-						if (SlotName == 'WaistSlot' and UnitLevel('player') >= 70) or -- buckle
-							((SlotName == 'WristSlot' or SlotName == 'HandsSlot') and self.PlayerProfession.BlackSmithing and self.PlayerProfession.BlackSmithing >= 550) then -- BlackSmith
-
-							GemCount_Enable = GemCount_Enable + 1
-							Slot["Socket'..GemCount_Enable].GemType = 'PRISMATIC'
-						end
-						]]
-
-						self:ClearTooltip(self.ScanTT)
-						self.ScanTT:SetInventoryItem('player', Slot.ID)
-
-						-- Apply current item's gem setting
-						for i = 1, MAX_NUM_SOCKETS do
-							GemTexture = _G['Knight_CharacterArmory_ScanTTTexture'..i]:GetTexture()
-							GemID = ItemData[i + 3] ~= '' and tonumber(ItemData[i + 3]) or 0
-							_, GemLink = GetItemGem(ItemLink, i)
-
-							if Slot["Socket"..i].GemType and Info.Armory_Constants.GemColor[Slot["Socket"..i].GemType] then
-								R, G, B = T.unpack(Info.Armory_Constants.GemColor[Slot["Socket"..i].GemType])
-								Slot["Socket"..i].Socket:SetBackdropColor(R, G, B, .5)
-								Slot["Socket"..i].Socket:SetBackdropBorderColor(R, G, B)
-							else
-								Slot["Socket"..i].Socket:SetBackdropColor(1, 1, 1, .5)
-								Slot["Socket"..i].Socket:SetBackdropBorderColor(1, 1, 1)
-							end
-
-							if GemTexture or GemLink then
-								if E.db.sle.Armory.Character.Gem.Display == 'Always' or E.db.sle.Armory.Character.Gem.Display == 'MouseoverOnly' and Slot.Mouseovered or E.db.sle.Armory.Character.Gem.Display == 'MissingOnly' then
-									Slot["Socket"..i]:Show()
-									Slot.SocketWarning:Point(Slot.Direction, Slot["Socket"..i], (Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT'), Slot.Direction == 'LEFT' and 3 or -3, 0)
-								end
-
-								GemCount_Now = GemCount_Now + 1
-
-								if GemID ~= 0 then
-									GemCount = GemCount + 1
-									Slot["Socket"..i].GemItemID = GemID
-									Slot["Socket"..i].Socket.Link = GemLink
-
-									GemTexture = T.select(10, T.GetItemInfo(GemID))
-
-									if GemTexture then
-										Slot["Socket"..i].Texture:SetTexture(GemTexture)
-									else
-										NeedUpdate = true
-									end
-								else
-									if Slot['Socket'..i].GemType == nil then Slot['Socket'..i].GemType = 'PRISMATIC' GemCount_Default = GemCount_Default + 1 end
-									Slot['Socket'..i].Socket.Message = '|cffffffff'.._G['EMPTY_SOCKET_'..Slot['Socket'..i].GemType]
-								end
-							end
+							GemCount_Default, GemCount_Now, GemCount, NeedUpdate = CA:DrawGemSlots(Slot, BaseGems, ItemData, ItemLink)
+						else
+							GemCount_Default, GemCount_Now, GemCount, NeedUpdate = CA:DrawGemSlots(Slot, MAX_NUM_SOCKETS, ItemData, ItemLink)
 						end
 
 						--print(SlotName..' : ', GemCount_Default, GemCount_Enable, GemCount_Now, GemCount)
