@@ -132,7 +132,7 @@ function EVB:Initialize()
 	if not SLE.initialized then return end
 	if not E.private.sle.vehicle.enable or not E.private.actionbar.enable then return end;
 	EVB.NumButtons = E.private.sle.vehicle.numButtons
-	ES = SLE._Compatibility["ElvUI_ChaoticUI"] and ElvUI_ChaoticUI[1]:GetModule("EnhancedShadows") or SLE:GetModule("EnhancedShadows")
+	ES = SLE._Compatibility["ElvUI_NihilistUI"] and ElvUI_NihilistUI[1]:GetModule("EnhancedShadows") or SLE:GetModule("EnhancedShadows")
 
 	local visibility = "[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] hide;"
 	local page = T.format("[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13;", GetOverrideBarIndex(), GetVehicleBarIndex(), GetVehicleBarIndex());
