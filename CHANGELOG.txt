@@ -1,3 +1,10 @@
+v3.563 [July 17, 2019]
+Additions:
+- Added new role icons
+- Added prismatic manapearl to currency dt
+Fixes:
+- Armory now reliably detects essences, not showing damn empty gems. They are now full gems!
+
 v3.562 [July 3, 2019]
 Fixes:
 - Fixed Darth's noob mistake resulting in portrait alpha not giving a damn about the settings
