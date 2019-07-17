@@ -123,6 +123,7 @@ local MiscellaneousCurrency = {
 	-- 1559, --Essence of Storms
 	1717, --7th Legion Commendation
 	1716, --Honorbound Commendation
+	1721, -- Prismatic Manapearl
 }
 
 local HordeColor = RAID_CLASS_COLORS["DEATHKNIGHT"]
