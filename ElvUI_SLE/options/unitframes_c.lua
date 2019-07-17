@@ -197,6 +197,7 @@ local function configTable()
 					["Blizzard"] = "Blizzard ".."|T"..texPath.."blizz-tank:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."blizz-healer:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."blizz-dps:15:15:0:0:64:64:2:56:2:56|t ",
 					["MiirGui"] = "MiirGui ".."|T"..texPath.."mg-tank:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."mg-healer:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."mg-dps:15:15:0:0:64:64:2:56:2:56|t ",
 					["Lyn"] = "Lyn ".."|T"..texPath.."lyn-tank:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."lyn-healer:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."lyn-dps:15:15:0:0:64:64:2:56:2:56|t ",
+					["Philmod"] = "Philmod ".."|T"..texPath.."philmod-tank:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."philmod-healer:15:15:0:0:64:64:2:56:2:56|t ".."|T"..texPath.."philmod-dps:15:15:0:0:64:64:2:56:2:56|t ",
 				},
 			},
 			player = {
