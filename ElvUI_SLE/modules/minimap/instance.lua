@@ -41,8 +41,8 @@ function I:CreateText()
 end
 
 function I:SetFonts()
-	I.frame.text:SetFont(E.LSM:Fetch('font', I.db.font), I.db.fontSize, I.db.fontOutline)
-	I.frame.icon:SetFont(E.LSM:Fetch('font', I.db.font), I.db.fontSize, I.db.fontOutline)
+	I.frame.text:SetFont(E.LSM:Fetch('font', E.db.sle.minimap.instance.font), E.db.sle.minimap.instance.fontSize, E.db.sle.minimap.instance.fontOutline)
+	I.frame.icon:SetFont(E.LSM:Fetch('font', E.db.sle.minimap.instance.font), E.db.sle.minimap.instance.fontSize, E.db.sle.minimap.instance.fontOutline)
 end
 
 
