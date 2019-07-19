@@ -17,4 +17,4 @@ local function LoadSkin()
 	end)
 end
 
-S:RegisterSkin('Pawn', LoadSkin)
+S:AddCallbackForAddon("Pawn", "Pawn", LoadSkin)
