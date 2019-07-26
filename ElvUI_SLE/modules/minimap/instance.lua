@@ -146,7 +146,7 @@ function I:Initialize()
 	self:RegisterEvent("LOADING_SCREEN_DISABLED", "GenerateText")
 	self:RegisterEvent("GROUP_ROSTER_UPDATE", "GenerateText")
 	-- self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "GenerateText")
-	-- self:RegisterEvent("GUILD_PARTY_STATE_UPDATED", "GenerateText")
+	self:RegisterEvent("GUILD_PARTY_STATE_UPDATED", "GenerateText")
 	self:UpdateFrame()
 	hooksecurefunc("MiniMapInstanceDifficulty_Update", I.GenerateText)
 
