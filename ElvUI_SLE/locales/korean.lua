@@ -67,6 +67,7 @@ L["SLE_LOGIN_MSG"] = "|cff9482c9Shadow & Light|r version |cff1784d1%s%s|r for El
 L["Plugin for |cff1784d1ElvUI|r by\nDarth Predator and Repooc."] = true
 L["Reset All"] = "모두 초기화"
 L["Resets all movers & options for S&L."] = "S&L의 모든 이동요소와 설정을 초기화합니다."
+L["WARNING: This will reset all movers & options for S&L and reload the screen."] = true
 L["Reset these options to defaults"] = "이 항목들 기본값으로 초기화"
 L["Modules designed for older expantions"] = true
 L["Game Menu Buttons"] = "게임 메뉴 버튼"
