@@ -8,7 +8,7 @@ local tonumber = tonumber
 
 local SLE = LibStub("AceAddon-3.0"):NewAddon(AddOnName, "AceConsole-3.0", "AceEvent-3.0", 'AceTimer-3.0', 'AceHook-3.0');
 SLE.callbacks = SLE.callbacks or LibStub("CallbackHandler-1.0"):New(SLE)
- 
+
 SLE.version = GetAddOnMetadata("ElvUI_SLE", "Version")
 SLE.Title = format("|cff9482c9%s |r", "Shadow & Light")
 
@@ -43,12 +43,6 @@ function SLE:OnInitialize()
 	--Incompatibility stuff will go here
 	SLE:AddTutorials()
 end
-
-local f=CreateFrame("Frame")
-f:RegisterEvent("PLAYER_LOGIN")
-f:SetScript("OnEvent", function()
-	SLE:Initialize()
-end)
 
 function SLE:ConfigCats() --Additional mover groups
 	Toolkit.tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L");
@@ -94,7 +88,7 @@ function SLE:Initialize()
 	if not E.private.sle.characterGoldsSorting[E.myrealm] then E.private.sle.characterGoldsSorting[E.myrealm] = {} end
 
 	LibStub("LibElvUIPlugin-1.0"):RegisterPlugin(AddOnName, GetOptions) --Registering as plugin
-	
+
 	if SLE:IsFoolsDay() then
 		if Toolkit.IsAddOnLoaded('ElvUI_BenikUI') and E.db.benikui.general.splashScreen then
 			_G["BenikUISplashScreen"]:HookScript("OnHide", function() SLE:ShowSplashScreen() end)
@@ -105,3 +99,7 @@ function SLE:Initialize()
 		end
 	end
 end
+
+hooksecurefunc(E, "Initialize", function()
+	SLE:Initialize()
+end)
