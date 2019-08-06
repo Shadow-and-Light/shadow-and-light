@@ -100,6 +100,4 @@ function SLE:Initialize()
 	end
 end
 
-hooksecurefunc(E, "Initialize", function()
-	SLE:Initialize()
-end)
+E.Libs.EP:HookInitialize(SLE, SLE.Initialize)
