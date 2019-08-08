@@ -152,7 +152,7 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 	dock.isDirty = false;
 
 	--This may be needed to return for check in FCFDock_OnUpdate
-	-- return FCFDock_ScrollToSelectedTab(dock)
+	return FCFDock_ScrollToSelectedTab(dock)
 end
 
 function C:InitTabs()
