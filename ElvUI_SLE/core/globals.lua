@@ -12,7 +12,10 @@ local blizzicon = blizzPath..[[%s:12:12:0:0:64:64:4:60:4:60|t]]
 -- local rpg = slePath..[[Chat_RPG:13:35|t]]
 
 local orc = blizzPath..[[Achievement_Character_Orc_Male:16:16|t ]]
+local coppericon = [[|TInterface\MONEYFRAME\UI-CopperIcon:12:12|t]]
+local silvericon = [[|TInterface\MONEYFRAME\UI-SilverIcon:12:12|t]]
 local goldicon = [[|TInterface\MONEYFRAME\UI-GoldIcon:12:12|t]]
+
 local classTable = {
 	deathknight = blizzPath..[[ClassIcon_DeathKnight:16:16|t ]],
 	demonhunter = blizzPath..[[ClassIcon_DemonHunter:16:16|t ]],
@@ -153,11 +156,11 @@ SLE.SpecialChatIcons = {
 		},
 		["Stormrage"] = {
 			["Sifpooc"] = repooc,
-			["Looshana"] = goldicon,
-			["Lloosh"] = goldicon,
-			["Looshella"] = goldicon,
+			["Looshana"] = coppericon,
+			["Lloosh"] = coppericon,
+			["Looshella"] = coppericon,
 			["Urgfelstorm"] = blizzicon:format("inv_misc_bomb_02"),
-			["Cakenina"] = blizzicon:format("inv_misc_food_145_cake")
+			["Vaxum"] = goldicon
 		},
 		["WyrmrestAccord"] = {
 			["Dapooc"] = repooc,
