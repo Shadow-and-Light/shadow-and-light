@@ -12,9 +12,6 @@ local FCFTab_UpdateColors = FCFTab_UpdateColors
 local FCFDock_ScrollToSelectedTab = FCFDock_ScrollToSelectedTab
 local PanelTemplates_TabResize = PanelTemplates_TabResize
 
---This variable is used to see if overflow button should be shown when using non-blizz width
-C.TotalTabsWidth = 0
-
 --Styles for selected indicator
 C.SelectedStrings = {
 	["DEFAULT"] = "|cff%02x%02x%02x>|r %s |cff%02x%02x%02x<|r",
@@ -38,7 +35,7 @@ function C:ApplySelectedTabIndicator(tab, title)
 end
 
 --Analog for blizz dynamic chat framers calculation, used only here. Based on original blizz function with altered numbers and shit
-local function SLE_FCFDock_CalculateTabSize(dock, numDynFrames, sleWidth)
+local function SLE_FCFDock_CalculateTabSize(dock, numDynFrames, sleWidth, sleTotalCustomWidth)
 	local MIN_SIZE, MAX_SIZE = 60, 100;
 	local scrollSize = dock.scrollFrame:GetWidth() + (dock.overflowButton:IsShown() and dock.overflowButton.width or 0); --We want the total width assuming no overflow button.
 
@@ -47,7 +44,7 @@ local function SLE_FCFDock_CalculateTabSize(dock, numDynFrames, sleWidth)
 		return MAX_SIZE, false;
 	end
 
-	if (C.TotalTabsWidth > scrollSize) or ( scrollSize / MIN_SIZE < numDynFrames ) then
+	if (sleTotalCustomWidth > scrollSize) or ( scrollSize / MIN_SIZE < numDynFrames ) then
 		--Not everything fits, so we'll need room for the overflow button.
 		scrollSize = scrollSize - dock.overflowButton.width;
 	end
@@ -82,9 +79,8 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 	local numDynFrames = 0;	--Number of dynamicly sized frames.
 	local selectedDynIndex = nil;
 
-	C.TotalTabsWidth = 0 --Reseting saved combined width
-	--Determain width for non blizzard resize. Needed cause I fucked up in the past allowing it for non-scroll tabs only
-	local sleWidth
+	local sleTotalCustomWidth = 0 --This variable is used to see if overflow button should be shown when using non-blizz width
+	local sleWidth --Determain width for non blizzard resize. Needed cause I fucked up in the past allowing it for non-scroll tabs only
 
 	for index, chatFrame in T.ipairs(dock.DOCKED_CHAT_FRAMES) do
 		local chatTab = _G[chatFrame:GetName().."Tab"];
@@ -122,14 +118,14 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 					chatTab:SetPoint("LEFT", scrollChild, "LEFT", 0, 0);
 				end
 				lastDockedDynamicTab = chatTab;
-				C.TotalTabsWidth = C.TotalTabsWidth + sleWidth
+				sleTotalCustomWidth = sleTotalCustomWidth + sleWidth
 			end
 		end
 	end
 
 	--If blizz sizing is selected then messing around with scroll frame is unnessesary
 	if E.db.sle.chat.tab.resize == "Blizzard" then return end
-	local dynTabSize, hasOverflow = SLE_FCFDock_CalculateTabSize(dock, numDynFrames, sleWidth) --Call for own dynamic size calc, cause blizz one fuck up custom sized due to not even knowing we do custom shit
+	local dynTabSize, hasOverflow = SLE_FCFDock_CalculateTabSize(dock, numDynFrames, sleWidth, sleTotalCustomWidth) --Call for own dynamic size calc, cause blizz one fuck up custom sized due to not even knowing we do custom shit
 
 	--Dynamically resize tabs
 	for index, chatFrame in T.ipairs(dock.DOCKED_CHAT_FRAMES) do
