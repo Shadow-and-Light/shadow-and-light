@@ -3,7 +3,7 @@ local DT = E:GetModule('DataTexts')
 local DTP = SLE:GetModule('Datatexts')
 local HAVE_MAIL_FROM = HAVE_MAIL_FROM
 
-local Mail_Icon = [[|TInterface\MINIMAP\TRACKING\Mailbox.tga:14:14|t]];
+local Mail_Icon = [[|TInterface\MINIMAP\TRACKING\Mailbox.blp:14:14|t]];
 local frame = MiniMapMailFrame
 local OldShow = frame.Show
 local HasNewMail = HasNewMail

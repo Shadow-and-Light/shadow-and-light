@@ -79,7 +79,7 @@ function S:Setup()
 	SS.ExPack:SetScript("OnClick", S.AbortAFK) --Allow to exit afk screen by clicking on the crest
 	SS.ExPack.texture = SS:CreateTexture(nil, 'OVERLAY')
 	SS.ExPack.texture:SetAllPoints(SS.ExPack)
-	SS.ExPack.texture:SetTexture([[Interface\Glues\Common\Glues-WoW-BattleforAzerothLogo.tga]])
+	SS.ExPack.texture:SetTexture([[Interface\Glues\Common\Glues-WoW-BattleforAzerothLogo.blp]])
 	-- SS.ExPack.texture:SetTexCoord(0, 1, 0, 0.25) --this was for legion logo
 	SS.FactCrest:SetTexture(CrestPath..E.myfaction)
 	SS.RaceCrest = SS:CreateTexture(nil, 'ARTWORK')
