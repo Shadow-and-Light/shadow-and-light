@@ -5,6 +5,7 @@ Fixes:
 - Fixed chat tab width being weird.
 - Fixed datatext panels throwing errors in some cases when importing settings.
 - Fixed some non-global strings to defy the global locale selection.
+- Probably fixed instance indicator not recognizing guild groups.
 
 v3.563 [July 17, 2019]
 Additions:
