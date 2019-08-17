@@ -7,4 +7,4 @@ By ((two)) three lazy asses lol :D
 ^ REALLY LAZY ASSES
 Doing test commit
 Some people like Kiritsu and placo have no life and want to start shit
-Test
+Testing new git setup
