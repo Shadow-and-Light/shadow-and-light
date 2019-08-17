@@ -167,6 +167,23 @@ RP.encounters = {
 			},
 		},
 	},
+	{ -- Eternal Palace
+		["option"] = "ep",
+		["statIDs"] = {
+			{ -- Mythic
+				13590, 13594, 13598, 13603, 13607, 13611, 13615, 13619,
+			},
+			{ -- Heroic
+				 13589, 13593, 13597, 13602, 13606, 13610, 13614, 13618,
+			},
+			{ -- Normal
+				13588, 13592, 13596, 13601, 13605, 13609, 13613, 13617,
+			},
+			{ -- LFR
+				13587, 13591, 13595, 13600, 13604, 13608, 13612, 13616,
+			},
+		},
+	},
 }
 RP.Raids = {}
 RP.modes = { 
@@ -194,6 +211,7 @@ local function PopulateRaidsTable()
 		SLE:GetMapInfo(1148, "name"),
 		SLE:GetMapInfo(1358, "name"),
 		SLE:GetMapInfo(1345, "name"),
+		SLE:GetMapInfo(1512, "name")
 	}
 	RP.Raids["SHORT"] = {
 		L["RAID_EN"],
@@ -204,6 +222,7 @@ local function PopulateRaidsTable()
 		SLE:GetMapInfo(1148, "name"),
 		L["RAID_DAZALOR"],
 		L["RAID_STORMCRUS"],
+		L["RAID_ETERNALPALACE"],
 	}
 end
 

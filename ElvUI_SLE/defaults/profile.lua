@@ -384,6 +384,7 @@ P["sle"] = {
 			["uldir"] = false,
 			["daz"] = false,
 			["sc"] = false,
+			["ep"] = false,
 		},
 	},
 	--Loot
@@ -747,6 +748,7 @@ P["sle"] = {
 				["uldir"] = true,
 				["daz"] = true,
 				["sc"] = true,
+				["ep"] = true,
 			},
 		},
 	},

@@ -87,6 +87,7 @@ local function configTable()
 							uldir = { order = -45, type = "toggle", name = SLE:GetMapInfo(1148, "name") },
 							daz = { order = -44, type = "toggle", name = SLE:GetMapInfo(1358, "name") },
 							sc = { order = -43, type = "toggle", name = SLE:GetMapInfo(1345, "name") },
+							ep = { order = -42, type = "toggle", name = SLE:GetMapInfo(1512, "name") },
 						},
 					},
 				},

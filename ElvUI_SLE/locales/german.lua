@@ -839,6 +839,7 @@ L["RAID_EN"] = "EN"
 L["RAID_ANTO"] = "Antorus"
 L["RAID_DAZALOR"] = "BfDA"
 L["RAID_STORMCRUS"] = "SC"
+L["RAID_ETERNALPALACE"] = "EP"
 L["Raid Progression"] = true
 L["Show raid experience of character in tooltip (requires holding shift)."] = true
 L["Name Style"] = true
