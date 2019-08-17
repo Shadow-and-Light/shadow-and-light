@@ -288,3 +288,13 @@ E.PopupDialogs["SLE_APPLY_FONT_WARNING"] = {
 	whileDead = 1,
 	hideOnEscape = false,
 }
+
+E.PopupDialogs["SLE_RESET_ALL"] = {
+	text = L["WARNING: This will reset all movers & options for S&L and reload the screen."],
+	button1 = ACCEPT,
+	button2 = CANCEL,
+	OnAccept = function() SLE:Reset("all") end,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = false,
+}

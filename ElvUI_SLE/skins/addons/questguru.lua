@@ -37,4 +37,4 @@ local function LoadSkin()
 	S:HandleButton(CloseButton)
 end
 
-S:RegisterSkin('QuestGuru', LoadSkin)
+S:AddCallbackForAddon("QuestGuru", "QuestGuru", LoadSkin)

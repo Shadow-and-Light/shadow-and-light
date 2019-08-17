@@ -67,6 +67,7 @@ L["SLE_LOGIN_MSG"] = "|cff9482c9Shadow & Light|r версии |cff1784d1%s%s|r �
 L["Plugin for |cff1784d1ElvUI|r by\nDarth Predator and Repooc."] = "Плагин для |cff1784d1ElvUI|r  от\nDarth Predator'а и Repooc'а"
 L["Reset All"] = "Сбросить все"
 L["Resets all movers & options for S&L."] = "Сбросить все фиксаторы и опции S&L"
+L["WARNING: This will reset all movers & options for S&L and reload the screen."] = true
 L["Reset these options to defaults"] = "Восстановить умолчания для этих опций"
 L["Modules designed for older expantions"] = "Модули для предыдущих дополнений"
 L["Game Menu Buttons"] = "Кнопки главного меню"

@@ -29,7 +29,7 @@ local function configTable()
 				type = "range",
 				name = L["Width"],
 				disabled = function() return E.db.sle.chat.tab.resize ~= "Custom" end,
-				min = 10, max = 100, step = 1,
+				min = 45, max = 100, step = 1,
 			},
 			spacer = {
 				order = 3,

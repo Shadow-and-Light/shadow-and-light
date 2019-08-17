@@ -19,7 +19,7 @@ local function OnTooltipSetUnit(self, tt)
 
 		if not faction then faction = "Neutral" end
 
-		_G["GameTooltipTextLeft1"]:SetText("|T"..iconPath..faction..".blp:15:15:0:0:64:64:2:56:2:56|t "..text)
+		_G["GameTooltipTextLeft1"]:SetText("|T"..iconPath..faction..".tga:15:15:0:0:64:64:2:56:2:56|t "..text)
 	end
 end
 
