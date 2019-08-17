@@ -1,4 +1,4 @@
-v3.565 [August XX, 2019] --Testing something
+v3.565 [August XX, 2019] --Testing
 Additions:
 -
 Fixes:
