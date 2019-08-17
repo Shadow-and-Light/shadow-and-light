@@ -30,6 +30,7 @@ local function SubDTAlpha(panel, alpha)
 end
 
 local function Bar_OnEnter(self)
+	if not self.Num then return end
 	if DTP.db["panel"..self.Num].mouseover then
 		E:UIFrameFadeIn(self, 0.2, self:GetAlpha(), DTP.db["panel"..self.Num].alpha)
 		SubDTAlpha(self, DTP.db["panel"..self.Num].alpha)
@@ -37,6 +38,7 @@ local function Bar_OnEnter(self)
 end
 
 local function Bar_OnLeave(self, settingForce)
+	if not self.Num then return end
 	if DTP.db["panel"..self.Num].mouseover then
 		E:UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 		if settingForce then SubDTAlpha(self, DTP.db["panel"..self.Num].alpha) end
@@ -46,6 +48,7 @@ end
 
 local function Button_OnEnter(self)
 	local bar = self:GetParent()
+	if not bar.Num then return end
 	if DTP.db["panel"..bar.Num].mouseover then
 		E:UIFrameFadeIn(bar, 0.2, bar:GetAlpha(), DTP.db["panel"..bar.Num].alpha)
 		SubDTAlpha(bar, DTP.db["panel"..bar.Num].alpha)
@@ -54,6 +57,7 @@ end
 
 local function Button_OnLeave(self)
 	local bar = self:GetParent()
+	if not bar.Num then return end
 	if DTP.db["panel"..bar.Num].mouseover then
 		E:UIFrameFadeOut(bar, 0.2, bar:GetAlpha(), 0)
 		SubDTAlpha(bar, 0)
