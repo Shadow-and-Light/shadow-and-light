@@ -1,8 +1,10 @@
-v3.565 [August XX, 2019] --Testing
-Additions:
--
+v3.564 [August XX, 2019] --Testing
+Changes:
+- Changed format of textures used. It is recommended to manually delete S&L folder and install again to avoid duplicate textures with the same format.
 Fixes:
--
+- Fixed chat tab width being weird.
+- Fixed datatext panels throwing errors in some cases when importing settings.
+- Fixed some non-global strings to defy the global locale selection.
 
 v3.563 [July 17, 2019]
 Additions:
