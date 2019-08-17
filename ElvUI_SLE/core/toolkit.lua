@@ -500,9 +500,6 @@ function SLE:UpdateAll()
 end
 
 --Movable buttons in config stuff. Some Simpy's billshit applied
-local function MovableButton_Value(value)
-	return T.gsub(value,'([%(%)%.%%%+%-%*%?%[%^%$])','%%%1')
-end
 local function MovableButton_Match(s,v)
 	local m1, m2, m3, m4 = "^"..v.."$", "^"..v..",", ","..v.."$", ","..v..","
 	return (T.match(s, m1) and m1) or (T.match(s, m2) and m2) or (T.match(s, m3) and m3) or (T.match(s, m4) and v..",")
@@ -510,7 +507,7 @@ end
 function SLE:MovableButtonSettings(db, key, value, remove, movehere)
 	local str = db[key]
 	if not db or not str or not value then return end
-	local found = MovableButton_Match(str, MovableButton_Value(value))
+	local found = MovableButton_Match(str, E:EscapeString(value))
 	if found and movehere then
 		local tbl, sv, sm = {T.split(",", str)}
 		for i in T.ipairs(tbl) do
