@@ -27,12 +27,10 @@ function SLE:DatabaseConversions()
 							data.sle.minimap.locPanel.portals.hsPrio = P.sle.minimap.locPanel.portals.hsPrio
 						end
 					elseif data.sle.minimap.locPanel.portals and data.sle.minimap.locPanel.portals.hsPrio then
-						local tbl = {T.split(",", data.sle.minimap.locPanel.portals.hsPrio)}
-						local tblP = {T.split(",", P.sle.minimap.locPanel.portals.hsPrio)}
-						if #tbl < #tblP then
-							for i = #tbl + 1, #tblP do
-								data.sle.minimap.locPanel.portals.hsPrio = data.sle.minimap.locPanel.portals.hsPrio .. "," .. tblP[i]
-							end
+						local CurrentDefault = P.sle.minimap.locPanel.portals.hsPrio
+						local CurrentSettings = data.sle.minimap.locPanel.portals.hsPrio
+						for hs in CurrentDefault:gmatch("%d+") do
+							if not CurrentSettings:match(hs) then CurrentSettings = CurrentSettings .. "," .. hs end
 						end
 					end
 				end
