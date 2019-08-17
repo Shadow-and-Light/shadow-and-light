@@ -1,4 +1,4 @@
-v3.564 [August XX, 2019] --Testing
+v3.564 [August 17, 2019]
 Changes:
 - Changed format of textures used. It is recommended to manually delete S&L folder and install again to avoid duplicate textures with the same format.
 Fixes:
