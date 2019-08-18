@@ -1,5 +1,4 @@
-﻿local SLE, T, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 
 local function configTable()
 	if not SLE.initialized then return end

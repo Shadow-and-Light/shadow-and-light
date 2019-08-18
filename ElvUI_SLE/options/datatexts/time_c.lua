@@ -1,5 +1,4 @@
-﻿local SLE, T, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local RAID_FINDER = RAID_FINDER
 local RAIDS = RAIDS
 local EXPANSION_NAME3, EXPANSION_NAME4, EXPANSION_NAME5, EXPANSION_NAME6, EXPANSION_NAME7 = EXPANSION_NAME3, EXPANSION_NAME4, EXPANSION_NAME5, EXPANSION_NAME6, EXPANSION_NAME7

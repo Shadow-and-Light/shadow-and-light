@@ -1,5 +1,4 @@
-﻿local SLE, T, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local LT = SLE:GetModule('Loot')
 local _G = _G
 local ITEM_QUALITY2_DESC, ITEM_QUALITY3_DESC, ITEM_QUALITY4_DESC = ITEM_QUALITY2_DESC, ITEM_QUALITY3_DESC, ITEM_QUALITY4_DESC

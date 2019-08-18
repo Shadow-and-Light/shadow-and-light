@@ -1,5 +1,4 @@
-﻿local SLE, T, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local UF = E:GetModule('UnitFrames');
 local SUF = SLE:GetModule("UnitFrames")
 local texPath = [[Interface\AddOns\ElvUI_SLE\media\textures\role\]]

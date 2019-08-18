@@ -1,5 +1,6 @@
 ﻿local E, _, V, P, G = unpack(ElvUI);
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local locale = (E.global.general.locale and E.global.general.locale ~= "auto") and E.global.general.locale or GetLocale()
+local L = E.Libs.ACL:GetLocale('ElvUI', locale)
 local EP = LibStub("LibElvUIPlugin-1.0")
 local AddOnName, Engine = ...;
 local _G = _G
@@ -22,6 +23,8 @@ local Toolkit = {}
 
 SLE.elvV = tonumber(E.version)
 SLE.elvR = tonumber(GetAddOnMetadata("ElvUI_SLE", "X-ElvVersion"))
+
+print(L)
 
 --Setting up table to unpack. Why? no idea
 Engine[1] = SLE
