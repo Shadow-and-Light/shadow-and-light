@@ -8,10 +8,10 @@ It means that any time ElvUI gets updated, you will not have to worry about it o
 Originally this project started as two personal edits of ElvUI by Darth Predator and I (Repooc).  For technical support reasons and other reasons as well, we have moved to a combined effort on this external edit of the ElvUI.  Shadow & Light does not disable or hinder the normal function of ElvUI but does add additional features that are not yet implemented or will not be added to ElvUI.
 You'll find Shadow & Light options under it's own configuration category in ElvUI's config section by typing /ec
 
-Suggestions/Concerns:
+**Suggestions/Concerns:**
 - [Ticket System](https://git.tukui.org/Darth_Predator/elvui-shadowandlight/issues "This link takes you to the ticket system on git.tukui.org, please make an account and submit your ticket.")
 
-Download Locations:
+**Download Locations:**
 - [Tukui](https://www.tukui.org/addons.php?id=38 "This link takes you to the Tukui.org website, you may download it here.")
 - [Curse](http://www.curse.com/addons/wow/shadow-and-light-edit "This link takes you to the Curse.com website, you may download it here and help support the developers.")
 
@@ -39,7 +39,7 @@ Download Locations:
 - Skinned Raid Marker Bar
 - And more!
 
-**Skins:**\
+**Skins:**
 - Additional features for ElvUI skins:
 - Pet Battles
 - Objective Tracker
@@ -48,18 +48,18 @@ Download Locations:
 **Included Addons:**
 - [UI Buttons by Swordyy](http://www.tukui.org/forums/profile.php?id=7616 "This idea by Swordyy.")
 
-Did we forget anyone? O_o
+*Did we forget anyone? O_o*
 
 **Technical Support:**
 If you have any questions or concerns, we want to hear about it.  You are welcome to post it via the [url=https://git.tukui.org/Darth_Predator/elvui-shadowandlight/issues]Ticket System[/url]. 
 
 Darth Predator and I will do our best to address everyone's concern.  We typically need some information from you other than the problem you are having.  Before posting, PLEASE, make sure you are running the latest version of Shadow & Light as well as ElvUI and that you **DISABLE ALL** addons except for those two and try to reproduce the issue.  It is important that you do that so we can narrow down what is causing the problem in the first place.
 
-Information to provide when posting:
-1.) Shadow & Light Version
-2.) ElvUI Version
-3.) Provide lua errors
-4.) Provide a screenshot if possible
-5.) Detailed description of the issue on when it happens, how it happens, whatever you did to reproduce it.
-6.) Just to be clear, Disable ALL Addons except for ElvUI and Shadow & Light
+**Information to provide when posting:**
+- Shadow & Light Version
+- ElvUI Version
+- Provide lua errors
+- Provide a screenshot if possible
+- Detailed description of the issue on when it happens, how it happens, whatever you did to reproduce it.
+- Just to be clear, Disable ALL Addons except for ElvUI and Shadow & Light
 With that said, happy gaming and enjoy the addon!
