@@ -15,8 +15,7 @@ Download Locations:
 - [Tukui](https://www.tukui.org/addons.php?id=38 "This link takes you to the Tukui.org website, you may download it here.")
 - [Curse](http://www.curse.com/addons/wow/shadow-and-light-edit "This link takes you to the Curse.com website, you may download it here and help support the developers.")
 
-<details>
-<summary>**Features:**</summary>
+**Features:**  
 - Armory Mode Style Character & Inspect frame
 - Go afk in style with our Afk feature
 - Customize various texts including, Zone, Chat editbox, Mailbox
@@ -39,8 +38,6 @@ Download Locations:
 - Skinned Minimap buttons
 - Skinned Raid Marker Bar
 - And more!
-
-</details>
 
 Skins:
 - Additional features for ElvUI skins:
