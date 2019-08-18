@@ -12,50 +12,45 @@ Suggestions/Concerns:
 - [Ticket System](https://git.tukui.org/Darth_Predator/elvui-shadowandlight/issues "This link takes you to the ticket system on git.tukui.org, please make an account and submit your ticket.")
 
 Download Locations:
-[url=https://www.tukui.org/addons.php?id=38]Tukui[/url]
-[url=http://www.curse.com/addons/wow/shadow-and-light-edit]Curse[/url]
+- [Tukui](https://www.tukui.org/addons.php?id=38 "This link takes you to the Tukui.org website, you may download it here.")
+- [Curse](http://www.curse.com/addons/wow/shadow-and-light-edit "This link takes you to the Curse.com website, you may download it here and help support the developers.")
 
 Features:
-[list]Armory Mode Style Character & Inspect frame
-[*]Go afk in style with our Afk feature
-[*]Customize various texts including, Zone, Chat editbox, Mailbox
-[*]Add Coordinates on the Minimap
-[*]Show full values for Exp/Rep Bars
-[*]Customizable background panels.
-[*]Additional datatext panels for those tha want to display more info
-[*]Option to have S&L Handle Chat Datatext Panels to be docked below the chat windows
-[*]Customizable size of chat history stored
-[*]Customize Combat Icon position on player unitframe.
-[*]Equipment Manager for ability to swap equipment sets based on zone/instance/spec, can even display equipment set name on items in your bags.
-[*]Farmer Module for easier farm management.
-[*]LFR progression in Time Datatext.
-[*]Loot Announcer module adds ability to announce loot to selected channel
-[*]Misc Custom UI Button (Quickly access ElvUI Config, ReloadUI, Toggle Move Anchors, Boss mod config/options (DBM, DXE, or Bigwigs), Addons Manager (stAddOnManager or ACP)
-[*]Modified Installation Process (Includes settings that each of the authors play with and now includes Affinitii's UI.)
-[*]Movable Pet Battle Actionbar
-[*]Movable Raid Utility menu.
-[*]PvP Auto Release
-[*]Skinned Minimap buttons
-[*]Skinned Raid Marker Bar
-[*]And more!
-[/list]
+Armory Mode Style Character & Inspect frame
+- Go afk in style with our Afk feature
+- Customize various texts including, Zone, Chat editbox, Mailbox
+- Add Coordinates on the Minimap
+- Show full values for Exp/Rep Bars
+- Customizable background panels.
+- Additional datatext panels for those tha want to display more info
+- Option to have S&L Handle Chat Datatext Panels to be docked below the chat windows
+- Customizable size of chat history stored
+- Customize Combat Icon position on player unitframe.
+- Equipment Manager for ability to swap equipment sets based on zone/instance/spec, can even display equipment set name on items in your bags.
+- Farmer Module for easier farm management.
+- LFR progression in Time Datatext.
+- Loot Announcer module adds ability to announce loot to selected channel
+- Misc Custom UI Button (Quickly access ElvUI Config, ReloadUI, Toggle Move Anchors, Boss mod config/options (DBM, DXE, or Bigwigs), Addons Manager (stAddOnManager or ACP)
+- Modified Installation Process (Includes settings that each of the authors play with and now includes Affinitii's UI.)
+- Movable Pet Battle Actionbar
+- Movable Raid Utility menu.
+- PvP Auto Release
+- Skinned Minimap buttons
+- Skinned Raid Marker Bar
+- And more!
 
+Skins:
+Additional features for ElvUI skins:
+- Pet Battles
+- Objective Tracker
+- Merchant
 
-[color="#3e8ac6"][b]Skins:[/b][/color]
-[list]Additional features for ElvUI skins:
-[*]Pet Battles
-[*]Objective Tracker
-[*]Merchant
-
-[/list]
-
-[color="#3e8ac6"][b]Included Addons:[/b][/color]
-[list]UI buttons idea by [url=http://www.tukui.org/forums/profile.php?id=7616]Swordyy[/url]
-[/list]
+Included Addons:
+UI buttons idea by [url=http://www.tukui.org/forums/profile.php?id=7616]Swordyy[/url]
 
 Did we forget anyone? O_o
 
-[color="#ff0000"][b]Technical Support:[/b][/color]
+Technical Support:
 If you have any questions or concerns, we want to hear about it.  You are welcome to post it via the [url=https://git.tukui.org/Darth_Predator/elvui-shadowandlight/issues]Ticket System[/url]. 
 
 Darth Predator and I will do our best to address everyone's concern.  We typically need some information from you other than the problem you are having.  Before posting, PLEASE, make sure you are running the latest version of Shadow & Light as well as ElvUI and that you <b>DISABLE ALL</b> addons except for those two and try to reproduce the issue.  It is important that you do that so we can narrow down what is causing the problem in the first place.
