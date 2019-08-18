@@ -39,13 +39,13 @@ Download Locations:
 - Skinned Raid Marker Bar
 - And more!
 
-Skins:
+**Skins:**\
 - Additional features for ElvUI skins:
 - Pet Battles
 - Objective Tracker
 - Merchant
 
-Included Addons:
+**Included Addons:**
 - [UI Buttons by Swordyy](http://www.tukui.org/forums/profile.php?id=7616 "This idea by Swordyy.")
 
 Did we forget anyone? O_o
