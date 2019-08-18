@@ -8,16 +8,14 @@ It means that any time ElvUI gets updated, you will not have to worry about it o
 Originally this project started as two personal edits of ElvUI by Darth Predator and I (Repooc).  For technical support reasons and other reasons as well, we have moved to a combined effort on this external edit of the ElvUI.  Shadow & Light does not disable or hinder the normal function of ElvUI but does add additional features that are not yet implemented or will not be added to ElvUI.
 You'll find Shadow & Light options under it's own configuration category in ElvUI's config section by typing /ec
 
-[color="#3e8ac6"][b]Suggestions/Concerns:[/b][/color]
-[list][url=https://git.tukui.org/Darth_Predator/elvui-shadowandlight/issues]Ticket System[/url]
-[/list]
+Suggestions/Concerns:
+- [Ticket System](https://git.tukui.org/Darth_Predator/elvui-shadowandlight/issues "This link takes you to the ticket system on git.tukui.org, please make an account and submit your ticket.")
 
-[color="#3e8ac6"][b]Download Locations:[/b][/color]
-[list][url=https://www.tukui.org/addons.php?id=38]Tukui[/url]
-[*][url=http://www.curse.com/addons/wow/shadow-and-light-edit]Curse[/url]
-[/list]
+Download Locations:
+[url=https://www.tukui.org/addons.php?id=38]Tukui[/url]
+[url=http://www.curse.com/addons/wow/shadow-and-light-edit]Curse[/url]
 
-[color="#3e8ac6"][b]Features:[/b][/color]
+Features:
 [list]Armory Mode Style Character & Inspect frame
 [*]Go afk in style with our Afk feature
 [*]Customize various texts including, Zone, Chat editbox, Mailbox
