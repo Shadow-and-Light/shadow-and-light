@@ -24,8 +24,6 @@ local Toolkit = {}
 SLE.elvV = tonumber(E.version)
 SLE.elvR = tonumber(GetAddOnMetadata("ElvUI_SLE", "X-ElvVersion"))
 
-print(L)
-
 --Setting up table to unpack. Why? no idea
 Engine[1] = SLE
 Engine[2] = Toolkit
