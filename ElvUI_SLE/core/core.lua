@@ -57,14 +57,13 @@ function SLE:ConfigCats() --Additional mover groups
 	E.ConfigModeLocalizedStrings["S&L MISC"] = L["S&L: Misc"]
 end
 
-function SLE:Initialize()
-	--ElvUI's version check
-	if SLE.elvV < 11 then return end
+--ElvUI's version check
+if SLE.elvV < 11 or (SLE.elvV < SLE.elvR) then
+	E:Delay(2, function() E:StaticPopup_Show("VERSION_MISMATCH") end) --Delay cause if I try to show it right away, then it wouldn't really show up
+	return --Not loading shit if version is too old, prevents shit from being broken
+end
 
-	if SLE.elvV < SLE.elvR then
-		E:StaticPopup_Show("VERSION_MISMATCH")
-		return --Not loading shit if version is too old, prevents shit from being broken
-	end
+function SLE:Initialize()
 	if SLE:CheckIncompatible() then return end
 	SLE:DatabaseConversions()
 	SLE:ConfigCats()
