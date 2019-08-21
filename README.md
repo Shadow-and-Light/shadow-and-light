@@ -34,7 +34,6 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 - LFR progression in Time Datatext.
 - Loot Announcer module adds ability to announce loot to selected channel
 - Misc Custom UI Button (Quickly access ElvUI Config, ReloadUI, Toggle Move Anchors, Boss mod config/options (DBM, DXE, or Bigwigs), Addons Manager (stAddOnManager or ACP)
-- Modified Installation Process (Includes settings that each of the authors play with and now includes Affinitii's UI.)
 - Movable Pet Battle Actionbar
 - Movable Raid Utility menu.
 - PvP Auto Release
