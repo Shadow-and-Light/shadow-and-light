@@ -1,6 +1,9 @@
 ﻿local E, _, V, P, G = unpack(ElvUI);
-local locale = (E.global.general.locale and E.global.general.locale ~= "auto") and E.global.general.locale or GetLocale()
-local L = E.Libs.ACL:GetLocale('ElvUI', locale)
+-- local locale = (E.global.general.locale and E.global.general.locale ~= "auto") and E.global.general.locale or GetLocale()
+local locale = E.global.general.locale
+
+-- local L = E.Libs.ACL:GetLocale('ElvUI', locale)
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale)
 local EP = LibStub("LibElvUIPlugin-1.0")
 local AddOnName, Engine = ...;
 local _G = _G
@@ -83,6 +86,7 @@ function SLE:Initialize()
 	SLE:BuildGameMenu()
 	SLE:CyrillicsInit()
 
+	if not tonumber(E.private.sle.install_complete) then E.private.sle.install_complete = "BETA" end
 	if not E.private.sle.install_complete or (E.private.sle.install_complete ~= "BETA" and tonumber(E.private.sle.install_complete) < 3) then
 		E:GetModule("PluginInstaller"):Queue(SLE.installTable)
 	end
