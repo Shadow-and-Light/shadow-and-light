@@ -6,12 +6,11 @@ Originally this project started as two personal edits of ElvUI by Darth Predator
 You'll find Shadow & Light options under it's own configuration category in ElvUI's config section by typing /ec
 
 [color="#3e8ac6"][b]Suggestions/Concerns:[/b][/color]
-[list][url=https://git.tukui.org/Darth_Predator/elvui-shadowandlight/issues]Ticket System[/url]
+[list][url=https://git.tukui.org/shadow-and-light/shadow-and-light/issues]Ticket System[/url]
 [/list]
 
 [color="#3e8ac6"][b]Download Locations:[/b][/color]
 [list][url=https://www.tukui.org/addons.php?id=38]Tukui[/url]
-[*][url=http://www.wowinterface.com/downloads/fileinfo.php?id=20927]Wowinterface[/url]
 [*][url=http://www.curse.com/addons/wow/shadow-and-light-edit]Curse[/url]
 [/list]
 
@@ -31,7 +30,6 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 [*]LFR progression in Time Datatext.
 [*]Loot Announcer module adds ability to announce loot to selected channel
 [*]Misc Custom UI Button (Quickly access ElvUI Config, ReloadUI, Toggle Move Anchors, Boss mod config/options (DBM, DXE, or Bigwigs), Addons Manager (stAddOnManager or ACP)
-[*]Modified Installation Process (Includes settings that each of the authors play with and now includes Affinitii's UI.)
 [*]Movable Pet Battle Actionbar
 [*]Movable Raid Utility menu.
 [*]PvP Auto Release
