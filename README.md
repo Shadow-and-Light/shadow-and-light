@@ -57,7 +57,7 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 
 **Technical Support:**
 
-If you have any questions or concerns, we want to hear about it.  You are welcome to post it via the [Ticket System](https://git.tukui.org/Darth_Predator/elvui-shadowandlight/issues). 
+If you have any questions or concerns, we want to hear about it.  You are welcome to post it via the [Ticket System](https://git.tukui.org/shadow-and-light/shadow-and-light/issues). 
 
 Darth Predator and I will do our best to address everyone's concern.  We typically need some information from you other than the problem you are having.  Before posting, PLEASE, make sure you are running the latest version of Shadow & Light as well as ElvUI and that you **DISABLE ALL** addons except for those two and try to reproduce the issue.  It is important that you do that so we can narrow down what is causing the problem in the first place.
 
