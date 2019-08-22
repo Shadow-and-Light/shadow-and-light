@@ -10,7 +10,7 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 
 
 **Suggestions/Concerns:**
-- [Ticket System](https://git.tukui.org/Darth_Predator/elvui-shadowandlight/issues "This link takes you to the ticket system on git.tukui.org, please make an account and submit your ticket.")
+- [Ticket System](https://git.tukui.org/shadow-and-light/shadow-and-light/issues "This link takes you to the ticket system on git.tukui.org, please make an account and submit your ticket.")
 
 
 **Download Locations:**
