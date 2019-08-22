@@ -50,7 +50,7 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 
 
 **Included Addons:**
-- [UI Buttons by Swordyy](http://www.tukui.org/forums/profile.php?id=7616 "This idea by Swordyy.")
+- [UI Buttons by Swordyy](http://www.tukui.org/ "This idea by Swordyy.")
 
 *Did we forget anyone? O_o*
 
