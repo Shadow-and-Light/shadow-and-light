@@ -11,5 +11,3 @@ This addon is free to use and the authors hereby grants you the following rights
 3.     This copyright notice shall be included in all copies or substantial portions of the Software.
 
 All rights not explicitly addressed in this license are reserved by the copyright holders.
-
-Quick Test
