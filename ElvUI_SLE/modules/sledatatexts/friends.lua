@@ -377,7 +377,7 @@ function LDB.OnEnter(self)
 				T.twipe(realid_table)
 				for i = 1, numBNOnline do
 					local presenceID, givenName, bTag, _, _, toonID, gameClient, isOnline, lastOnline, isAFK, isDND, broadcast, note, _, castTime = T.BNGetFriendInfo(i)
-					local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = T.BNGetGameAccountInfo(toonID or 0)
+					local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText, _, _, canSoR, _, _, _, _, playerGUID, WoWProjectID = T.BNGetGameAccountInfo(toonID or 0)
 					local broadcastTime = ""
 					if castTime then
 						broadcastTime = T.format(BNET_BROADCAST_SENT_TIME, sletime_Conversion(castTime));
@@ -416,7 +416,8 @@ function LDB.OnEnter(self)
 							REALMNAME = realmName,
 							GAMETEXT = gameText,
 							NOTE = note,
-							PRESENCEID = presenceID
+							PRESENCEID = presenceID,
+							WOWPROJECTID = WoWProjectID,
 							})
 					end
 				end
@@ -447,8 +448,13 @@ function LDB.OnEnter(self)
 						"|cff82c5ff" .. player["GIVENNAME"] .. "|r" .. broadcast_flag)
 
 					if player["CLIENT"] == "WoW" then
-						line = tooltip:SetCell(line, 5, player["ZONENAME"])
-						line = tooltip:SetCell(line, 6, player["FCOLOR"] .. player["REALMNAME"] .. "|r")
+						if player["WOWPROJECTID"] == 2 then
+							line = tooltip:SetCell(line, 5, player["ZONENAME"])
+							line = tooltip:SetCell(line, 6, "WoW Classic")
+						else
+							line = tooltip:SetCell(line, 5, player["ZONENAME"])
+							line = tooltip:SetCell(line, 6, player["FCOLOR"] .. player["REALMNAME"] .. "|r")
+						end
 					elseif player["CLIENT"] == "App" then
 						line = tooltip:SetCell(line, 5, "|cff82c5ffDesktop Application|r")
 						line = tooltip:SetCell(line, 6, "|cff01b2f1Battle.net|r")
