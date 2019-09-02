@@ -40,7 +40,7 @@ function S:Media()
 	SS.FactCrest:SetSize(S.db.crest.size, S.db.crest.size)
 	SS.RaceCrest:SetSize(S.db.crest.size, S.db.crest.size)
 	SS.Elv:SetSize(S.db.xpack, S.db.xpack/2)
-	SS.sle:SetSize(S.db.xpack, S.db.xpack/2)
+	SS.sle:SetSize(2*S.db.xpack, S.db.xpack/2)
 end
 
 function S:Setup()
