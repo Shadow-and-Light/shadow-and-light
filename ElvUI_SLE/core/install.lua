@@ -1666,6 +1666,8 @@ SLE.installTable = {
 	["Name"] = "|cff9482c9Shadow & Light|r",
 	["Title"] = L["|cff9482c9Shadow & Light|r Installation"],
 	["tutorialImage"] = [[Interface\AddOns\ElvUI_SLE\media\textures\SLE_Banner]],
+	["tutorialImageSize"] = {400, 100},
+	["tutorialImagePoint"] = {0, 20},
 	["Pages"] = {
 		[1] = function()
 			_G["PluginInstallFrame"].SubTitle:SetText(T.format(L["Welcome to |cff9482c9Shadow & Light|r version %s!"], SLE.version))
