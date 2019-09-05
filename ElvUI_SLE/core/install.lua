@@ -742,7 +742,6 @@ function PI:DarthSetup()
 
 	E.private["sle"]["module"]["screensaver"] = true
 	E.private["sle"]["pvpreadydialogreset"] = true
-	E.private["sle"]["bags"]["transparentSlots"] = true
 	E.private["sle"]["skins"]["objectiveTracker"]["scenarioBG"] = true
 	E.private["sle"]["skins"]["merchant"]["enable"] = true
 	E.private["sle"]["skins"]["merchant"]["style"] = "List"
@@ -1408,7 +1407,6 @@ function PI:DarthOldSetup()
 	E.private["sle"]["module"]["screensaver"] = true
 	E.private["sle"]["uibuttons"]["style"] = "dropdown"
 	E.private["sle"]["uibuttons"]["transparent"] = "Transparent"
-	E.private["sle"]["bags"]["transparentSlots"] = true
 	E.private["sle"]["minimap"]["mapicons"]["enable"] = true
 	E.private["sle"]["unitframe"]["resizeHealthPrediction"] = true
 	E.private["sle"]["unitframe"]["statusbarTextures"]["cast"] = true

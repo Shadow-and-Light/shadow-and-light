@@ -15,14 +15,6 @@ local function configTable()
 				type = "header",
 				name = L["Bags"],
 			},
-			transparentSlots = {
-				order = 2,
-				type = "toggle",
-				name = L["Transparent Slots"],
-				desc = L["Apply transparent template on bag and bank slots."],
-				get = function(info) return E.private.sle.bags.transparentSlots end,
-				set = function(info, value)	E.private.sle.bags.transparentSlots = value; E:StaticPopup_Show('PRIVATE_RL') end,
-			},
 			petLevel = {
 				order = 21,
 				type = "group",

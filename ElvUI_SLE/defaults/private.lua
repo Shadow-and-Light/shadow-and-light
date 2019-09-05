@@ -38,10 +38,6 @@ V["sle"] = {
 		},
 	},
 
-	["bags"] = {
-		["transparentSlots"] = false,
-	},
-
 	["vehicle"] = {
 		["enable"] = false,
 		["numButtons"] = 7,

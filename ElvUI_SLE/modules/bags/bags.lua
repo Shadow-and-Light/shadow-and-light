@@ -30,22 +30,6 @@ function SB:HookBags(isBank)
 			hooksecurefunc(bagFrame, "UpdateSlot", SB.UpdateSlot)
 			bagFrame.SLE_UpdateHooked = true
 		end
-		--Applying transparent template for all current slots
-		for _, bagID in T.pairs(bagFrame.BagIDs) do
-			for slotID = 1, T.GetContainerNumSlots(bagID) do
-				if bagFrame.Bags[bagID] then
-					slot = bagFrame.Bags[bagID][slotID];
-					if E.private.sle.bags.transparentSlots and slot.template ~= "Transparent" then slot:SetTemplate('Transparent') end
-				end
-			end
-		end
-	end
-	--Applying transparent template for reagent bank
-	if E.private.sle.bags.transparentSlots and _G["ElvUIReagentBankFrameItem1"] and _G["ElvUIReagentBankFrameItem1"].template ~= "Transparent" then
-		for slotID = 1, 98 do
-			local slot = _G["ElvUIReagentBankFrameItem"..slotID];
-			if slot.template ~= "Transparent" then slot:SetTemplate('Transparent') end
-		end
 	end
 end
 
