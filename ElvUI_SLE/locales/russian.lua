@@ -261,8 +261,6 @@ L["Hide in Pet Battle"] = "Прятать в битвах питомцев"
 L["Show/Hide this frame during Pet Battles."] = "Показать/скрыть этот фрейм в битвах питомцев"
 
 --Bags
-L["Transparent Slots"] = "Прозрачные слоты"
-L["Apply transparent template on bag and bank slots."] = "Использовать прозрачный фон для слотов в сумках и банке."
 
 --Blizzard
 L["Move Blizzard frames"] = "Перемещение фреймов Blizzard"

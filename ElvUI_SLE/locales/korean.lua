@@ -32,7 +32,7 @@ L["This option is bound to character and requires a UI reload to take effect."] 
 L["Shadow & Light Imports"] = "Shadow & Light 불러오기"
 L["You can now choose if you want to use one of the authors' set of options. This will change the positioning of some elements as well of other various options."] = "사용하기를 원한다면 저자가 만들어놓은 설정 묶음을 지금 선택하실 수 있습니다. 이는 잘 정리된 다양한 사항으로 몇몇 요소의 위치를 바꾸게 됩니다."
 L["SLE_Install_Text_AUTHOR"] = [=[This step is optional and only to be used if you are wanting to use one of our configurations. In some cases settings may differ depending on layout options you chose in ElvUI installation.
-Not selecting anything will cause you to skip next step of the installation. 
+Not selecting anything will cause you to skip next step of the installation.
 
 A |cff1784d1"%s"|r role was chosen.
 
@@ -136,7 +136,7 @@ L["KF"] = true
 L["You can't inspect while dead."] = "죽은 동안엔 살펴보기를 할 수 없습니다."
 L["Specialization data seems to be crashed. Please inspect again."] = "특성 정보가 잘못 로드되었습니다. 대상을 다시 살펴보길 권장합니다."
 L["No Specialization"] = "전문화 없음"
-L["Character model may differ because it was constructed by the inspect data."] ="대상에게서 전송받은 데이터로 재현한 캐릭터 모델입니다. 캐릭터의 생김세가 다를 수 있습니다." 
+L["Character model may differ because it was constructed by the inspect data."] ="대상에게서 전송받은 데이터로 재현한 캐릭터 모델입니다. 캐릭터의 생김세가 다를 수 있습니다."
 L["Armory Mode"] = "전정실 모드"
 L["Enchant String"] = "마법 부여"
 L["String Replacement"] = true
@@ -257,8 +257,6 @@ L["Hide in Pet Battle"] = "애완동물대전시 숨김"
 L["Show/Hide this frame during Pet Battles."] = "애완동물 대전을 하는동안 표시하거나 숨깁니다."
 
 --Bags
-L["Transparent Slots"] = "투명한 칸"
-L["Apply transparent template on bag and bank slots."] = "가방과 은행 칸을 투명한 형태로 설정합니다."
 
 --Blizzard
 L["Move Blizzard frames"] = "블리자드 프레임 이동"
@@ -901,7 +899,7 @@ L["Set the offset from the bottom border of the screen."] = true
 L["About/Help"] = true
 L["About"] = true
 L["SLE_DESC"] = [=[|cff9482c9Shadow & Light|r is an extension of ElvUI. It adds:
-- a lot of new features 
+- a lot of new features
 - more customization options for existing ones
 
 |cff3cbf27Note:|r It is compatible with most of addons and ElvUI plugins available. But some functions may be unavailable to avoid possible conflicts.]=]

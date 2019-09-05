@@ -33,7 +33,7 @@ L["This option is bound to character and requires a UI reload to take effect."] 
 L["Shadow & Light Imports"] = "Shadow & Light Importierungen"
 L["You can now choose if you want to use one of the autors' set of options. This will change the positioning of some elements as well of other various options."] = "Du kannst jetzt auswählen ob du einige Einstellunge von den Autoren verwenden möchtest. Dieses wird die Positionierung von einigen Elementen verändern und auch einige Optionen."
 L["SLE_Install_Text_AUTHOR"] = [=[Dieser Schritt ist optional und sollte nur ausgewählt werden, wenn du die Einstellungen von uns verwenden möchtest. In einigen Fällen sind die Einstellungen unterschiedlich, basierend auf den Layout Einstellungen die du in ElvUI gewählt hast.
-Wenn du nichts auswählst, wird vorausgesetzt dass du den nächsten Installationsschritt überspringst. 
+Wenn du nichts auswählst, wird vorausgesetzt dass du den nächsten Installationsschritt überspringst.
 
 |cff1784d1"%s"|r wurde ausgewählt.
 
@@ -264,8 +264,6 @@ L["Hide in Pet Battle"] = "Verstecke in Haustierkämpfen"
 L["Show/Hide this frame during Pet Battles."] = "Zeige/Verstecke dieses Frame in Haustierkämpfen."
 
 --Bags
-L["Transparent Slots"] = "Transparente Flächen"
-L["Apply transparent template on bag and bank slots."] = "Wendet die Transparente Vorlage für Taschen und Bank Flächen an."
 
 --Blizzard
 L["Move Blizzard frames"] = "Bewege Blizzard Fenster"
@@ -910,7 +908,7 @@ L["Set the offset from the bottom border of the screen."] = true
 L["About/Help"] = true
 L["About"] = true
 L["SLE_DESC"] = [=[|cff9482c9Shadow & Light|r is an extension of ElvUI. It adds:
-- a lot of new features 
+- a lot of new features
 - more customization options for existing ones
 
 |cff3cbf27Note:|r It is compatible with most of addons and ElvUI plugins available. But some functions may be unavailable to avoid possible conflicts.]=]
