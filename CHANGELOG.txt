@@ -1,5 +1,13 @@
 v3.565 []
-- Testing commit
+Additions:
+- Apparently Darth forgot Eternal Palace exists. Now its progress is tracked in tooltips and LFR lockouts are present in time dt.
+Changes:
+- Removed Bags and Actionbars transparent buttons options. ElvUI deal with those now.
+Fixes:
+- Fixed clean or first time install errors for locales, this compliments changes in ElvUI.
+- Fixed movable frames causing a pletera of errors for "restricted" frames.
+- FIxed (probably) datatext panel errors poping up from time to time.
+- S&L Friends datatext now can tell apart retail and classic
 
 v3.564 [August 17, 2019]
 Changes:
