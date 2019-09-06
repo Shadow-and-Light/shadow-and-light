@@ -91,38 +91,6 @@ function SUF:NewTags()
 	end
 end
 
-function SUF:ConfiguePortrait(frame, dontHide)
-	local db = E.db.sle.unitframes.unit
-	local portrait = frame.Portrait
-	if portrait.SLEHooked or not db[frame.unitframeType] then return end
-	hooksecurefunc(portrait, "PostUpdate", SUF.PortraitUpdate)
-	portrait.SLEHooked = true
-end
-
-function SUF:PortraitUpdate(unit, ...)
-	local frame = self:GetParent()
-	local dbElv = frame.db
-	if not dbElv then return end
-	local db = E.db.sle.unitframes.unit
-	local portrait = dbElv.portrait
-	if db[frame.unitframeType] and portrait.enable and self:GetParent().USE_PORTRAIT_OVERLAY then
-		self:SetAlpha(0);
-		self:SetAlpha(db[frame.unitframeType].portraitAlpha);
-	end
-	-- if (db[frame.unitframeType] and db[frame.unitframeType].higherPortrait) and frame.USE_PORTRAIT_OVERLAY then
-		-- if not frame.Health.HigherPortrait then
-			-- frame.Health.HigherPortrait = CreateFrame("Frame", frame:GetName().."HigherPortrait", frame)
-			-- frame.Health.HigherPortrait:SetFrameLevel(frame.Health:GetFrameLevel() + 4)
-			-- frame.Health.HigherPortrait:SetPoint("TOPLEFT", frame.Health, "TOPLEFT")
-			-- frame.Health.HigherPortrait:SetPoint("BOTTOMRIGHT", frame.Health, "BOTTOMRIGHT", 0, 0.5)
-		-- end
-		-- self:ClearAllPoints()
-		-- if frame.db.portrait.style == '3D' then self:SetFrameLevel(frame.Health.HigherPortrait:GetFrameLevel()) end
-		-- self:SetAllPoints(frame.Health.HigherPortrait)
-		-- frame.Health.bg:SetParent(frame.Health)
-	-- end
-end
-
 local function UpdateAuraTimer(self, elapsed)
 	local timervalue, formatid
 	local unitID = self:GetParent():GetParent().unitframeType
@@ -178,8 +146,6 @@ function SUF:Initialize()
 	hooksecurefunc(UF, "Update_PartyFrames", SUF.Update_GroupFrames)
 	hooksecurefunc(UF, "Update_RaidFrames", SUF.Update_GroupFrames)
 	hooksecurefunc(UF, "Update_Raid40Frames", SUF.Update_GroupFrames)
-	--Portrait overlay
-	hooksecurefunc(UF, "Configure_Portrait", SUF.ConfiguePortrait)
 
 	--Hook pvp icons
 	SUF:UpgradePvPIcon()

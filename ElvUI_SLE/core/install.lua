@@ -328,6 +328,8 @@ function PI:DarthSetup()
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["portrait"]["camDistanceScale"] = 3
 		E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = true
+		E.db["unitframe"]["units"]["player"]["portrait"]["fullOverlay"] = true
+		E.db["unitframe"]["units"]["player"]["portrait"]["overlayAlpha"] = 1
 		E.db["unitframe"]["units"]["player"]["raidicon"]["attachTo"] = "TOPLEFT"
 		E.db["unitframe"]["units"]["player"]["raidicon"]["yOffset"] = 17
 		E.db["unitframe"]["units"]["player"]["raidicon"]["xOffset"] = -20
@@ -389,6 +391,8 @@ function PI:DarthSetup()
 		E.db["unitframe"]["units"]["target"]["portrait"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["portrait"]["camDistanceScale"] = 3
 		E.db["unitframe"]["units"]["target"]["portrait"]["overlay"] = true
+		E.db["unitframe"]["units"]["target"]["portrait"]["fullOverlay"] = true
+		E.db["unitframe"]["units"]["target"]["portrait"]["overlayAlpha"] = 1
 		E.db["unitframe"]["units"]["target"]["orientation"] = "LEFT"
 		E.db["unitframe"]["units"]["target"]["power"]["attachTextTo"] = "InfoPanel"
 		E.db["unitframe"]["units"]["target"]["power"]["powerPrediction"] = true
@@ -635,13 +639,6 @@ function PI:DarthSetup()
 		E.db["sle"]["datatexts"]["panel8"]["pethide"] = false
 		E.db["sle"]["datatexts"]["panel8"]["width"] = 470
 		E.db["sle"]["datatexts"]["panel8"]["transparent"] = true
-
-		E.db["sle"]["unitframes"]["unit"]["target"]["portraitAlpha"] = 1
-		E.db["sle"]["unitframes"]["unit"]["target"]["higherPortrait"] = true
-		E.db["sle"]["unitframes"]["unit"]["player"]["portraitAlpha"] = 1
-		E.db["sle"]["unitframes"]["unit"]["player"]["pvpIconText"]["enable"] = true
-		E.db["sle"]["unitframes"]["unit"]["player"]["pvpIconText"]["yoffset"] = -4
-		E.db["sle"]["unitframes"]["unit"]["player"]["higherPortrait"] = true
 
 		E.db["sle"]["nameplates"]["targetcount"]["enable"] = true
 		E.db["sle"]["nameplates"]["threat"]["enable"] = true
@@ -1079,6 +1076,8 @@ function PI:DarthOldSetup()
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["portrait"]["camDistanceScale"] = 3
 		E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = true
+		E.db["unitframe"]["units"]["player"]["portrait"]["fullOverlay"] = true
+		E.db["unitframe"]["units"]["player"]["portrait"]["overlayAlpha"] = 1
 		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 22
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 220
 		E.db["unitframe"]["units"]["player"]["customTexts"] = {}
@@ -1115,9 +1114,12 @@ function PI:DarthOldSetup()
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["size"] = 32
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["xOffset"] = 13
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["yOffset"] = -7
+
 		E.db["unitframe"]["units"]["target"]["portrait"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["portrait"]["camDistanceScale"] = 3
 		E.db["unitframe"]["units"]["target"]["portrait"]["overlay"] = true
+		E.db["unitframe"]["units"]["target"]["portrait"]["fullOverlay"] = true
+		E.db["unitframe"]["units"]["target"]["portrait"]["overlayAlpha"] = 1
 		E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 200
 		E.db["unitframe"]["units"]["target"]["customTexts"] = {}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Absorb"] = {}
@@ -1288,11 +1290,7 @@ function PI:DarthOldSetup()
 		E.db["sle"]["unitframes"]["statusTextures"]["auraTexture"] = "Ohi Tribal4"
 		E.db["sle"]["unitframes"]["statusTextures"]["castTexture"] = "Ohi Tribal4"
 		E.db["sle"]["unitframes"]["statusTextures"]["classTexture"] = "ElvUI Gloss"
-		E.db["sle"]["unitframes"]["unit"]["player"]["portraitAlpha"] = 1
-		E.db["sle"]["unitframes"]["unit"]["player"]["higherPortrait"] = true
 		E.db["sle"]["unitframes"]["unit"]["player"]["pvpIconText"]["enable"] = true
-		E.db["sle"]["unitframes"]["unit"]["target"]["higherPortrait"] = true
-		E.db["sle"]["unitframes"]["unit"]["target"]["portraitAlpha"] = 1
 		E.db["sle"]["minimap"]["locPanel"]["enable"] = true
 		E.db["sle"]["minimap"]["locPanel"]["width"] = 310
 		E.db["sle"]["minimap"]["instance"]["enable"] = true
