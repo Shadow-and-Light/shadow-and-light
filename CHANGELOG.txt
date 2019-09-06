@@ -1,4 +1,5 @@
-v3.565 []
+v3.57 [September 6th, 2019]
+Requires ElvUI 11.22.
 Additions:
 - Apparently Darth forgot Eternal Palace exists. Now its progress is tracked in tooltips and LFR lockouts are present in time dt.
 Changes:
