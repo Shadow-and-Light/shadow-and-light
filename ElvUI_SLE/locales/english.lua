@@ -125,8 +125,6 @@ L["Highlight the button of the spell with areal effect until the area is selecte
 L["Checked Texture Color"] = true
 L["Transparent Backdrop"] = true
 L["Sets actionbar's background to transparent template."] = true
-L["Transparent Buttons"] = true
-L["Sets actionbar button's background to transparent template."] = true
 
 --Armory
 L["Average"] = true

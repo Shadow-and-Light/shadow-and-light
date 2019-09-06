@@ -126,8 +126,6 @@ L["Highlight the button of the spell with areal effect until the area is selecte
 L["Checked Texture Color"] = "Gedrückte Textur Farbe"
 L["Transparent Backdrop"] = "Transparenter Hintergrund"
 L["Sets actionbar's background to transparent template."] = "Setzt den Aktionsleisten Hintergrund transparent."
-L["Transparent Buttons"] = "Transparente Tasten"
-L["Sets actionbar button's background to transparent template."] = "Setzt die Aktionsleisten Tasten transparent."
 
 --Armory
 L["Average"] = "Durschnitt"

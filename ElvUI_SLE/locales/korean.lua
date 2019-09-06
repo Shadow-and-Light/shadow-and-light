@@ -125,8 +125,6 @@ L["Highlight the button of the spell with areal effect until the area is selecte
 L["Checked Texture Color"] = true
 L["Transparent Backdrop"] = "투명한 배경"
 L["Sets actionbar's background to transparent template."] = "행동단축바 배경을 투명한 형태로 설정합니다."
-L["Transparent Buttons"] = "투명한 버튼"
-L["Sets actionbar button's background to transparent template."] = "행동단축바 버튼 배경을 투명한 형태로 설정합니다."
 
 --Armory
 L["Average"] = "평균"
