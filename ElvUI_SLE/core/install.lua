@@ -92,6 +92,7 @@ function PI:DarthSetup()
 	--Actionbars
 	do
 		E.db["actionbar"]["backdropSpacingConverted"] = true
+		E.db["actionbar"]["transparent"] = true
 
 		E.db["actionbar"]["bar1"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["bar1"]["buttonsPerRow"] = 6
@@ -159,6 +160,7 @@ function PI:DarthSetup()
 	end
 	--Bags
 	do
+		E.db["bags"]["transparent"] = true
 		E.db["bags"]["countFontSize"] = 12
 		E.db["bags"]["itemLevelFont"] = "PT Sans Narrow"
 		E.db["bags"]["itemLevelThreshold"] = 140
@@ -742,6 +744,7 @@ function PI:DarthSetup()
 
 	E.private["sle"]["module"]["screensaver"] = true
 	E.private["sle"]["pvpreadydialogreset"] = true
+	E.private["sle"]["pvpreadydialogreset"] = true
 	E.private["sle"]["skins"]["objectiveTracker"]["scenarioBG"] = true
 	E.private["sle"]["skins"]["merchant"]["enable"] = true
 	E.private["sle"]["skins"]["merchant"]["style"] = "List"
@@ -841,6 +844,7 @@ function PI:DarthOldSetup()
 	end
 	--Actionbars
 	do
+		E.db["actionbar"]["transparent"] = true
 		E.db["actionbar"]["bar1"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["bar1"]["backdropSpacing"] = 0
 		E.db["actionbar"]["bar1"]["buttonsPerRow"] = 4
@@ -905,6 +909,7 @@ function PI:DarthOldSetup()
 	end
 	--Bags
 	do
+		E.db["bags"]["transparent"] = true
 		E.db["bags"]["itemLevelFont"] = "PT Sans Narrow"
 		E.db["bags"]["currencyFormat"] = "ICON"
 		E.db["bags"]["itemLevelFontSize"] = 11
