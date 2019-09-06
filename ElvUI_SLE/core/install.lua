@@ -744,11 +744,9 @@ function PI:DarthSetup()
 
 	E.private["sle"]["module"]["screensaver"] = true
 	E.private["sle"]["pvpreadydialogreset"] = true
-	E.private["sle"]["pvpreadydialogreset"] = true
 	E.private["sle"]["skins"]["objectiveTracker"]["scenarioBG"] = true
 	E.private["sle"]["skins"]["merchant"]["enable"] = true
 	E.private["sle"]["skins"]["merchant"]["style"] = "List"
-	E.private["sle"]["actionbars"]["transparentButtons"] = true
 	E.private["sle"]["equip"]["setoverlay"] = true
 	E.private["sle"]["minimap"]["mapicons"]["enable"] = true
 	E.private["sle"]["chat"]["chatHistory"]["CHAT_MSG_GUILD_ACHIEVEMENT"] = false
@@ -1423,7 +1421,6 @@ function PI:DarthOldSetup()
 	E.private["sle"]["skins"]["merchant"]["style"] = "List"
 	E.private["sle"]["skins"]["objectiveTracker"]["scenarioBG"] = true
 	E.private["sle"]["equip"]["setoverlay"] = true
-	E.private["sle"]["actionbars"]["transparentButtons"] = true
 
 	E.global["sle"]["advanced"]["optionsLimits"] = true
 	E.global["sle"]["advanced"]["cyrillics"]["commands"] = true
