@@ -58,15 +58,6 @@ local function configTable()
 				get = function(info) return E.private.sle.actionbars.transparentBackdrop end,
 				set = function(info, value) E.private.sle.actionbars.transparentBackdrop = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 			},
-			transparentButtons = {
-				order = 5,
-				type = "toggle",
-				name = L["Transparent Buttons"],
-				desc = L["Sets actionbar button's background to transparent template."],
-				get = function(info) return E.private.sle.actionbars.transparentButtons end,
-				set = function(info, value) E.private.sle.actionbars.transparentButtons = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-				disabled = function() return IsAddOnLoaded("Masque") end,
-			},
 			vehicle = {
 				type = "group",
 				name = L["Enhanced Vehicle Bar"],

@@ -184,7 +184,6 @@ V["sle"] = {
 		["checkedtexture"] = false,
 		["checkedColor"] = {r = 0, g = 1, b = 0, a = 0.3},
 		["transparentBackdrop"] = false,
-		["transparentButtons"] = false,
 	},
 	["skins"] = {
 		["objectiveTracker"] = {

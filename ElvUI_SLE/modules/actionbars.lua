@@ -27,22 +27,6 @@ function A:BarsBackdrop()
 
 end
 
-function A:ButtonsBackdrop()
-	for i = 1, A.MaxBars do
-		for k = 1, 12 do
-			if _G["ElvUI_Bar"..i.."Button"..k].backdrop then
-				_G["ElvUI_Bar"..i.."Button"..k].backdrop:SetTemplate('Transparent')
-			end
-		end
-	end
-	-- Pet Buttons
-	for i = 1, NUM_PET_ACTION_SLOTS do
-		if _G["PetActionButton"..i].backdrop then
-			_G["PetActionButton"..i].backdrop:SetTemplate('Transparent')
-		end
-	end
-end
-
 function A:Initialize()
 	if not SLE.initialized or E.private.actionbar.enable ~= true then return; end
 	A.MaxBars = SLE._Compatibility["ElvUI_ExtraActionBars"] and 10 or 6 --In case ExtraActionBars is enabled. Cause 7+ bars will not be affected otherwise
@@ -93,7 +77,6 @@ function A:Initialize()
 	--Make stuff transparent after a short delay. Otherwise some elements may not be present yet.
 	C_Timer_After(0.3, function()
 		if E.private.sle.actionbars.transparentBackdrop then A:BarsBackdrop() end
-		if E.private.sle.actionbars.transparentButtons then A:ButtonsBackdrop() end
 	end)
 end
 
