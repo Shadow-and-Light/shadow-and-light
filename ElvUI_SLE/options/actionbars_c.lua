@@ -50,14 +50,6 @@ local function configTable()
 					end
 				end,
 			},
-			transparentBackdrop = {
-				order = 4,
-				type = "toggle",
-				name = L["Transparent Backdrop"],
-				desc = L["Sets actionbar's background to transparent template."],
-				get = function(info) return E.private.sle.actionbars.transparentBackdrop end,
-				set = function(info, value) E.private.sle.actionbars.transparentBackdrop = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-			},
 			vehicle = {
 				type = "group",
 				name = L["Enhanced Vehicle Bar"],

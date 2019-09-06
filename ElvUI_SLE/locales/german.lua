@@ -124,8 +124,6 @@ L["Out Of Range indication will use keybind text instead of the whole icon."] = 
 L["Checked Texture"] = "Gedrückte Textur"
 L["Highlight the button of the spell with areal effect until the area is selected."] = "Hebt die Taste von Flächenzaubern hervor bis das Zielgebiet ausgewählt wurde."
 L["Checked Texture Color"] = "Gedrückte Textur Farbe"
-L["Transparent Backdrop"] = "Transparenter Hintergrund"
-L["Sets actionbar's background to transparent template."] = "Setzt den Aktionsleisten Hintergrund transparent."
 
 --Armory
 L["Average"] = "Durschnitt"

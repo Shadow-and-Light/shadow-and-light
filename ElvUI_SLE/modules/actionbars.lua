@@ -9,24 +9,6 @@ local C_Timer_After = C_Timer.After
 
 A.CheckedTextures = {}
 
-function A:BarsBackdrop()
-	-- Actionbar backdrops
-	for i = 1, A.MaxBars do
-		if _G["ElvUI_Bar"..i].backdrop then
-			_G["ElvUI_Bar"..i].backdrop:SetTemplate('Transparent')
-		end
-	end
-
-	-- Other bar backdrops
-	local Bars = {_G["ElvUI_BarPet"], _G["ElvUI_StanceBar"], _G["ElvUI_TotemBar"], _G["ElvUIBags"]}
-	for _, frame in T.pairs(Bars) do
-		if frame.backdrop then
-			frame.backdrop:SetTemplate('Transparent')
-		end
-	end
-
-end
-
 function A:Initialize()
 	if not SLE.initialized or E.private.actionbar.enable ~= true then return; end
 	A.MaxBars = SLE._Compatibility["ElvUI_ExtraActionBars"] and 10 or 6 --In case ExtraActionBars is enabled. Cause 7+ bars will not be affected otherwise
@@ -73,11 +55,6 @@ function A:Initialize()
 			AB:PositionAndSizeBar('bar'..i)
 		end
 	end
-
-	--Make stuff transparent after a short delay. Otherwise some elements may not be present yet.
-	C_Timer_After(0.3, function()
-		if E.private.sle.actionbars.transparentBackdrop then A:BarsBackdrop() end
-	end)
 end
 
 SLE:RegisterModule(A:GetName())

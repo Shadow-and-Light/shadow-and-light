@@ -123,8 +123,6 @@ L["Out Of Range indication will use keybind text instead of the whole icon."] = 
 L["Checked Texture"] = true
 L["Highlight the button of the spell with areal effect until the area is selected."] = true
 L["Checked Texture Color"] = true
-L["Transparent Backdrop"] = true
-L["Sets actionbar's background to transparent template."] = true
 
 --Armory
 L["Average"] = true
