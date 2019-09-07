@@ -232,16 +232,19 @@ local function ChatPanels()
 end
 
 local function SetDataPanelStyle()
-	local transparent = E.db.datatexts.panelTransparency and "Transparent" or nil
-	local template = E.db.datatexts.panelBackdrop and transparent or "NoBackdrop"
+	local miniStyle = E.db.datatexts.panelTransparency and "Transparent" or nil
+	local panelStyle = (not E.db.datatexts.panelBackdrop) and "NoBackdrop" or miniStyle
 
-	_G.LeftChatDataPanel:SetTemplate(template, true)
-	_G.LeftChatToggleButton:SetTemplate(template, true)
-	_G.RightChatDataPanel:SetTemplate(template, true)
-	_G.RightChatToggleButton:SetTemplate(template, true)
+	local miniGlossTex = (not miniStyle and true) or nil
+	local panelGlossTex = (not panelStyle and true) or nil
 
-	_G.LeftMiniPanel:SetTemplate(transparent, true)
-	_G.RightMiniPanel:SetTemplate(transparent, true)
+	_G.LeftChatDataPanel:SetTemplate(panelStyle, panelGlossTex)
+	_G.LeftChatToggleButton:SetTemplate(panelStyle, panelGlossTex)
+	_G.RightChatDataPanel:SetTemplate(panelStyle, panelGlossTex)
+	_G.RightChatToggleButton:SetTemplate(panelStyle, panelGlossTex)
+
+	_G.LeftMiniPanel:SetTemplate(miniStyle, miniGlossTex)
+	_G.RightMiniPanel:SetTemplate(miniStyle, miniGlossTex)
 end
 
 local function CreateChatPanels()
