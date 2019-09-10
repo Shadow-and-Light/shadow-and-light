@@ -16,6 +16,7 @@ irgendetwas furchtbar schief mit deinem UI passiert mit diesen zusätzlichen Opt
 
 Falls ja, ist es erlaubt fortzufahren.
 ]]
+L["SLE_DB_CONVERT_COMPLETE_TEXT"] = "S&L converted uotdated entries in its database.\n\n|cff14adcdFollowing profiles were updated:|r\n%s\n\n|cff14adcdPrivate settings were updated for the following characters:|r\n%s\n\nYou may now continue to play :)"
 
 --Install
 L["Moving Frames"] = "Bewegbare Fenster"
