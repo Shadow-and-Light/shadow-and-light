@@ -309,11 +309,6 @@ function B:ErrorFrameSize()
 	_G["UIErrorsFrame"]:SetSize(B.db.errorframe.width, B.db.errorframe.height) --512 x 60
 end
 
-local ToDelete = {
-	["CalendarViewEventFrame"] = true,
-	["CalendarViewHolidayFrame"] = true,
-}
-
 local function CompatibilityChecks()
 	if SLE._Compatibility["Mapster"] then B.Frames["WorldMapFrame"] = false end
 end
@@ -322,21 +317,11 @@ function B:Initialize()
 	B.db = E.db.sle.blizzard
 	if not SLE.initialized then return end
 	B.addonCount = 0
-	--DB conversion
-	if E.private.sle.module.blizzmove and T.type(E.private.sle.module.blizzmove) == "boolean" then E.private.sle.module.blizzmove = V.sle.module.blizzmove end --Old setting conversions
-	E.global.sle.pvpreadydialogreset = nil
-	if not E.private.sle.pvpreadydialogreset then E.private.sle.module.blizzmove.points["PVPReadyDialog"] = nil; E.private.sle.pvpreadydialogreset = true end
-	for Name, _ in T.pairs(ToDelete) do
-		if E.private.sle.module.blizzmove.points[Name] then E.private.sle.module.blizzmove.points[Name] = nil end
-	end
 
 	PVPReadyDialog:Hide()
 
 	if E.private.sle.module.blizzmove.enable then
 		CompatibilityChecks()
-		for Name, _ in T.pairs(B.TempOnly) do --Remove these from saved variables so the script will not attempt to mess with them, cause they are not ment to be moved permanently
-			if E.private.sle.module.blizzmove.points[Name] then E.private.sle.module.blizzmove.points[Name] = nil end
-		end
 		for FrameName, state in T.pairs(B.Frames) do
 			if state then B:MakeMovable(FrameName) end
 		end
