@@ -19,6 +19,7 @@ local _CompList = {
 	"SquareMinimapButtons", --Module incompatible
 	"LootConfirm", --Module incompatible
 	"SquareMinimapButtons", --Module incompatible
+	"Mapster", --Module partially incompatible
 }
 --Populate compatibility checks table
 for i = 1, #_CompList do
