@@ -298,3 +298,11 @@ E.PopupDialogs["SLE_RESET_ALL"] = {
 	whileDead = 1,
 	hideOnEscape = false,
 }
+
+E.PopupDialogs["SLE_CONVERSION_COMPLETE"] = {
+	text = L["SLE_DB_CONVERT_COMPLETE_TEXT"],
+	button1 = OKAY,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = false,
+}
