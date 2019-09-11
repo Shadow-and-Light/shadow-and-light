@@ -15,7 +15,7 @@ L["SLE_ADVANCED_POPUP_TEXT"] = [[숙련된 사용자로서 툴팁을 제대로 �
 
 동의하시면, 이 설정을 활성화하여 사용하실 수 있습니다.
 ]]
-L["SLE_DB_CONVERT_COMPLETE_TEXT"] = "S&L converted uotdated entries in its database.\n\n|cff14adcdFollowing profiles were updated:|r\n%s\n\n|cff14adcdPrivate settings were updated for the following characters:|r\n%s\n\nYou may now continue to play :)"
+L["SLE_DB_CONVERT_COMPLETE_TEXT"] = "S&L converted outdated entries in its database.\n\n|cff14adcdFollowing profiles were updated:|r\n%s\n\n|cff14adcdPrivate settings were updated for the following characters:|r\n%s\n\nYou may now continue to play :)"
 
 --Install--
 L["Moving Frames"] = "프레임 이동"

@@ -16,7 +16,7 @@ horribly break your UI by utilizing additional options?
 
 If yes, you'll be allowed to enable this option.
 ]]
-L["SLE_DB_CONVERT_COMPLETE_TEXT"] = "S&L converted uotdated entries in its database.\n\n|cff14adcdFollowing profiles were updated:|r\n%s\n\n|cff14adcdPrivate settings were updated for the following characters:|r\n%s\n\nYou may now continue to play :)"
+L["SLE_DB_CONVERT_COMPLETE_TEXT"] = "S&L converted outdated entries in its database.\n\n|cff14adcdFollowing profiles were updated:|r\n%s\n\n|cff14adcdPrivate settings were updated for the following characters:|r\n%s\n\nYou may now continue to play :)"
 
 --Install--
 L["Moving Frames"] = true
