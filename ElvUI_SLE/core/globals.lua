@@ -12,8 +12,8 @@ local blizzicon = blizzPath..[[%s:12:12:0:0:64:64:4:60:4:60|t]]
 -- local rpg = slePath..[[Chat_RPG:13:35|t]]
 
 local orc = blizzPath..[[Achievement_Character_Orc_Male:16:16|t ]]
-local coppericon = [[|TInterface\MONEYFRAME\UI-CopperIcon:12:12|t]]
---local silvericon = [[|TInterface\MONEYFRAME\UI-SilverIcon:12:12|t]]
+--local coppericon = [[|TInterface\MONEYFRAME\UI-CopperIcon:12:12|t]]
+local silvericon = [[|TInterface\MONEYFRAME\UI-SilverIcon:12:12|t]]
 local goldicon = [[|TInterface\MONEYFRAME\UI-GoldIcon:12:12|t]]
 
 local classTable = {
@@ -149,16 +149,16 @@ SLE.SpecialChatIcons = {
 			["Cursewordz"] = repooc,
 			--Adapt Roster
 			--["Mylune"] = friend,
-			["Loosh"] = coppericon,
-			["Looshana"] = coppericon,
-			["Alooshy"] = coppericon,
-			["Aloosh"] = coppericon
+			["Loosh"] = silvericon,
+			["Looshana"] = silvericon,
+			["Alooshy"] = silvericon,
+			["Aloosh"] = silvericon
 		},
 		["Stormrage"] = {
 			["Sifpooc"] = repooc,
-			["Looshana"] = coppericon,
-			["Lloosh"] = coppericon,
-			["Looshella"] = coppericon,
+			["Looshana"] = silvericon,
+			["Lloosh"] = silvericon,
+			["Looshella"] = silvericon,
 			["Urgfelstorm"] = blizzicon:format("inv_misc_bomb_02"),
 			["Vaxum"] = goldicon
 		},
