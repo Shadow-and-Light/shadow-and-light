@@ -141,26 +141,17 @@ SLE.SpecialChatIcons = {
 		},
 		["Spirestone"] = {
 			["Sifupooc"] = repooc,
-			--["Sifpooc"] = repooc,
 			["Dapooc"] = repooc,
 			["Lapooc"] = repooc,
 			["Warpooc"] = repooc,
 			["Repooc"] = repooc,
-			["Cursewordz"] = repooc,
-			--Adapt Roster
-			--["Mylune"] = friend,
-			["Loosh"] = silvericon,
-			["Looshana"] = silvericon,
-			["Alooshy"] = silvericon,
-			["Aloosh"] = silvericon
+			["Cursewordz"] = repooc
 		},
 		["Stormrage"] = {
 			["Sifpooc"] = repooc,
-			["Looshana"] = silvericon,
-			["Lloosh"] = silvericon,
-			["Looshella"] = silvericon,
 			["Urgfelstorm"] = blizzicon:format("inv_misc_bomb_02"),
-			["Vaxum"] = goldicon
+			["Vaxum"] = goldicon,
+			["Lloosh"] = silvericon --Patreon & Repooc's Guild Mate
 		},
 		["WyrmrestAccord"] = {
 			["Dapooc"] = repooc,
