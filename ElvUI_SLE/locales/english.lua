@@ -980,7 +980,8 @@ Swordyy
 Whiro
 ]=]
 L["ELVUI_SLE_DONORS_TITLE"] = "Thanks to these awesome people for supporting our work via donations:"
-L["ELVUI_SLE_DONORS"] = [[Andre Edwards
+L["ELVUI_SLE_DONORS"] = [[Ali A
+Andre Edwards
 Anthony Ross
 Chun Kim
 Cyntia McCarthy

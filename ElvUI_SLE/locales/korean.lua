@@ -965,16 +965,6 @@ Whiro
 Swordyy
 ]=]
 L["ELVUI_SLE_DONORS_TITLE"] = "Thanks to these awesome people for supporting our work via donations:"
-L["ELVUI_SLE_DONORS"] = [[Andre Edwards
-Chun Kim
-Cyntia McCarthy
-Jonathan Sweet
-Nicholas Caldecutt
-Richard Gardner]]
-L["ELVUI_SLE_MISC"] = [=[BuG - for always hilariously breaking stuff
-TheSamaKutra
-The rest of TukUI community
-]=]
 
 L["SLE_BENIK_AF"] = [[Due to a high amount of stuff IRL, |cff9482c9Shadow & Light|r team took a vacation.
 

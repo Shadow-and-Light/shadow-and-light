@@ -973,10 +973,6 @@ Whiro
 Swordyy
 ]=]
 L["ELVUI_SLE_DONORS_TITLE"] = "Thanks to these awesome people for supporting our work via donations:"
-L["ELVUI_SLE_MISC"] = [=[BuG - for always hilariously breaking stuff
-TheSamaKutra
-The rest of TukUI community
-]=]
 
 L["SLE_BENIK_AF"] = [[Wegen zu viel Real Life Streß, hat das |cff9482c9Shadow & Light|r Team Urlaub genommen.
 
