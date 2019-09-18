@@ -678,7 +678,7 @@ function SLE:CreateSplashScreen()
 	f:SetAlpha(0)
 
 	f.logo = f:CreateTexture(nil, 'OVERLAY')
-	f.logo:Size(240, 120)
+	f.logo:Size(240, 60)
 	f.logo:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\SLE_Banner]])
 	f.logo:Point('TOP', f, 'TOP', 0. -60)
 
