@@ -12,22 +12,23 @@ local function configTable()
 		}
 		return question
 	end
+
 	--Main options group
 	E.Options.args.sle.args.help = {
 		type = 'group',
-		name = L["About/Help"],
+		name = L["About/Help"]..[[ |TInterface\MINIMAP\TRACKING\OBJECTICONS:14:14:0:0:256:64:60:90:32:64|t]],
 		order = 100,
 		childGroups = 'tab',
 		args = {
 			about = {
-				type = 'group', name = L["About"], order = 1,
+				type = 'group', name = L["About"].." "..E.NewSign, order = 1,
 				args = {
 					content = { order = 1, type = 'description', fontSize = 'medium', name = L["SLE_DESC"] },
 				},
 			},
 			faq = {
 				type = 'group',
-				name = 'FAQ',
+				name = [[FAQ |TInterface\MINIMAP\TRACKING\OBJECTICONS:14:14:0:0:256:64:60:90:32:64|t]],
 				order = 5,
 				childGroups = "select",
 				args = {
@@ -61,27 +62,78 @@ local function configTable()
 			},
 			links = {
 				type = 'group',
-				name = L["Links"],
+				name = L["Links"]..[[ |TInterface\MINIMAP\TRACKING\FlightMaster:16:16|t]],
 				order = 10,
 				args = {
 					desc = {
 						order = 1, type = 'description', fontSize = 'medium', name = L["LINK_DESC"]
 					},
 					tukuilink = {
-						order = 2, type = 'input', width = 'full', name = 'TukUI.org',
-						get = function(info) return 'http://www.tukui.org/addons/index.php?act=view&id=42' end,
-					},
-					wowilink = {
-						order = 3, type = 'input', width = 'full', name = 'WoWInterface',
-						get = function(info) return 'http://www.wowinterface.com/downloads/info20927-ElvUIShadowLight.html' end,
+						order = 2, type = 'input', width = 'full', name = "TukUI.org",
+						get = function(info) return "http://www.tukui.org/addons/index.php?act=view&id=42" end,
 					},
 					curselink= {
-						order = 4, type = 'input', width = 'full', name = 'Curse.com',
-						get = function(info) return 'http://www.curse.com/addons/wow/shadow-and-light-edit' end,
+						order = 3, type = 'input', width = 'full', name = "Curse.com",
+						get = function(info) return "http://www.curse.com/addons/wow/shadow-and-light-edit" end,
 					},
 					gitlablink = {
-						order = 5, type = 'input', width = 'full', name = L["GitLab Link / Report Errors"],
-						get = function(info) return 'https://git.tukui.org/Darth_Predator/elvui-shadowandlight' end,
+						order = 4, type = 'input', width = 'full', name = L["GitLab Link / Report Errors"],
+						get = function(info) return "https://git.tukui.org/shadow-and-light/shadow-and-light" end,
+					},
+					patreon = {
+						order = 10, type = 'input', width = 'full', name = "Patreon |TInterface\\MONEYFRAME\\UI-GoldIcon:14:14|t",
+						get = function(info) return "https://patreon.com/shadow_and_light" end,
+					},
+					donate = {
+						order = 11, type = 'input', width = 'full', name = L["Donate"].." |TInterface\\MONEYFRAME\\UI-GoldIcon:14:14|t",
+						get = function(info) return "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EJB4DRU7QZYMG&source=url" end,
+					},
+				},
+			},
+			patrons = {
+				order = 100,
+				type = 'group',
+				-- name = L["Patrons"]..[[ |TInterface\MONEYFRAME\UI-GoldIcon:14:14|t]],
+				name = L["Patrons"]..[[ |TInterface\BUTTONS\UI-GroupLoot-Coin-Up:16:16|t]],
+				args = {
+					patreonheader = { order = 1, type = "header", name = L["Patrons"] },
+					patrons = {
+						order = 2,
+						type = "group",
+						guiInline = true,
+						name = L["Patrons"],
+						args = {
+							desc = {
+								order = 1,
+								type = "description",
+								name = L["ELVUI_SLE_PATREON_TITLE"]..'\n\n',
+							},
+							list = {
+								order = 2,
+								type = "description",
+								width = "half",
+								name = L["ELVUI_SLE_PATRONS"],
+							},
+						},
+					},
+					donors = {
+						order = 3,
+						type = "group",
+						guiInline = true,
+						name = L["Donors"],
+						args = {
+							desc = {
+								order = 1,
+								type = "description",
+								name = L["ELVUI_SLE_DONORS_TITLE"]..'\n\n',
+							},
+							list = {
+								order = 2,
+								type = "description",
+								width = "half",
+								name = L["ELVUI_SLE_DONORS"],
+							},
+						},
 					},
 				},
 			},
@@ -89,13 +141,52 @@ local function configTable()
 			credits = {
 				order = 400,
 				type = 'group',
-				name = L["Credits"],
+				name = L["Credits"]..[[ |TInterface\AddOns\ElvUI_SLE\media\textures\Chat_Test:14:14|t]],
 				args = {
 					creditheader = { order = 1, type = "header", name = L["Credits"] },
-					credits = {
+					creditsdesc = {
 						order = 2,
 						type = "description",
-						name = L["ELVUI_SLE_CREDITS"]..'\n\n\n'..L["Submodules and Coding:"]..'\n\n'..L["ELVUI_SLE_CODERS"]..'\n\n\n'..L["ELVUI_SLE_DONORS_TITLE"]..'\n\n\n'..L["ELVUI_SLE_DONORS"]..'\n\n\n'..L["Other Support:"]..'\n\n'..L["ELVUI_SLE_MISC"],
+						name = L["ELVUI_SLE_CREDITS"].."\n\n",
+					},
+					coding = {
+						order = 3,
+						type = "group",
+						guiInline = true,
+						name = L["Submodules and Coding:"],
+						args = {
+							list = {
+								order = 1,
+								type = "description",
+								name = L["ELVUI_SLE_CODERS"],
+							},
+						},
+					},
+					-- credits = {
+						-- order = 3,
+						-- type = "group",
+						-- guiInline = true,
+						-- name = "",
+						-- args = {
+							-- list = {
+								-- order = 1,
+								-- type = "description",
+								-- name = L["ELVUI_SLE_MISC"],
+							-- },
+						-- },
+					-- },
+					misc = {
+						order = 4,
+						type = "group",
+						guiInline = true,
+						name = L["Other Support:"],
+						args = {
+							list = {
+								order = 1,
+								type = "description",
+								name = L["ELVUI_SLE_MISC"],
+							},
+						},
 					},
 				},
 			},

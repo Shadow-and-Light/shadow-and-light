@@ -900,6 +900,7 @@ L["SLE_DESC"] = [=[|cff9482c9Shadow & Light|r is an extension of ElvUI. It adds:
 |cff3cbf27Note:|r It is compatible with most of addons and ElvUI plugins available. But some functions may be unavailable to avoid possible conflicts.]=]
 L["Links"] = "링크"
 L["LINK_DESC"] = [[Following links will direct you to the Shadow & Light's pages on various sites.]]
+L["Donate"] = true
 
 --FAQ--
 L["FAQ_DESC"] = "This section contains some questions about ElvUI and Shadow & Light."
@@ -945,26 +946,12 @@ L["FAQ_sle_5"] = [[|cff30ee30Q: How can I get in touch with you guys?|r
 
 --Credits--
 L["ELVUI_SLE_CREDITS"] = "We would like to point out the following people for helping us create this addon with testing, coding, and other stuff."
-L["ELVUI_SLE_CODERS"] = [=[Elv
-Tukz
-Affinitii
-Arstraea
-Azilroka
-Benik, The Slacker
-Blazeflack
-Boradan
-Camealion
-Merathilis, The Confused
-Nils Ruesch
-Omega1970
-Pvtschlag
-Shenzo
-Simpy, The Heretic
-Sinaris
-Whiro
-Swordyy
-]=]
+L["Submodules and Coding:"] = true
+L["Other Support:"] = true
 L["ELVUI_SLE_DONORS_TITLE"] = "Thanks to these awesome people for supporting our work via donations:"
+L["ELVUI_SLE_PATREON_TITLE"] = "Many thanks to our awesome patrons, who provided financial support for the development of this addon:"
+L["Patrons"] = true
+L["Donors"] = true
 
 L["SLE_BENIK_AF"] = [[Due to a high amount of stuff IRL, |cff9482c9Shadow & Light|r team took a vacation.
 
