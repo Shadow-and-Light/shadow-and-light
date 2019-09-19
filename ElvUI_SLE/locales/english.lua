@@ -984,6 +984,7 @@ Whiro
 ]=]
 L["ELVUI_SLE_MISC"] = [=[BuG - for always hilariously breaking stuff
 TheSamaKutra
+RZ_Digital - for making our new aswesome logo
 The rest of TukUI community
 ]=]
 L["ELVUI_SLE_DONORS_TITLE"] = "Thanks to these awesome people for supporting our work via one time donations:"
