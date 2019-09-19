@@ -4,7 +4,7 @@ local format = format
 --Chat icon paths--
 local slePath = [[|TInterface\AddOns\ElvUI_SLE\media\textures\]]
 local blizzPath = [[|TInterface\ICONS\]]
-local repooc = slePath..[[SLE_Chat_Logo:12:28|t ]]
+local repooc = slePath..[[SLE_Chat_Logo:12:24|t ]]
 local darth = slePath..[[SLE_Chat_Logo:12:24|t ]]
 local friend = slePath..[[Chat_Friend:16:16|t ]]
 local test = slePath..[[Chat_Test:16:16|t ]]
