@@ -914,23 +914,23 @@ L["Donate"] = true
 --FAQ--
 L["FAQ_DESC"] = "This section contains some questions about ElvUI and Shadow & Light."
 L["FAQ_Elv_1"] = [[|cff30ee30Q: Where can I get ElvUI support?|r
-|cff9482c9A:|r Best way is official forum - https://www.tukui.org/forum/
-For bug reports you can also use bug tracker - https://git.tukui.org/elvui/elvui/issues]]
+|cff9482c9A:|r The best way would be the official forum - https://www.tukui.org/forum/
+To report a bug, you can use the issue tracker located at https://git.tukui.org/elvui/elvui/issues]]
 L["FAQ_Elv_2"] = [[|cff30ee30Q: Do I need to have good English in order to do so?|r
-|cff9482c9A:|r English is official language of tukui.org forums so most posts in there are in English.
-But this doesn't mean it's the only language used there. You will be able to find posts in Spanish, French, German, Russian, Italian, etc.
-While you follow some simple rules of common sense everyone will be ok with you posting in your native language. Like stating said language in the topic's title.
-Keep in mind that you can still get an answer in English cause the person answering can be unable to speak your language.]]
-L["FAQ_Elv_3"] = [[|cff30ee30Q: What info do I need to provide in a bug report?|r
+|cff9482c9A:|r English is the official language of the tukui.org forums, so most posts there are in English.
+This doesn't mean it's the only language used there though. You will be able to find posts in Spanish, French, German, Russian, Italian, etc.
+As long as you can follow some simple rules of common sense, like stating said language in the topic's title, everyone will be ok with you posting in your native language.
+Keep in mind that you may still get an answer in English as the person answering you may not be able to speak your language.]]
+L["FAQ_Elv_3"] = [[|cff30ee30Q: What information do I need to provide report a bug?|r
 |cff9482c9A:|r First you need to ensure the error really comes from ElvUI.
 To do so you need to disable all other addons except of ElvUI and ElvUI_OptionsUI.
 You can do this by typing "/luaerror on" (without quotes).
-If error didn't disappear then you need to send us a bug report.
-In it you'll need to provide ElvUI version ("latest" is not a valid version number), the text of the error, screenshot if needed.
-The more info you'll give us on how to reproduce said error the faster it will be fixed.]]
-L["FAQ_Elv_4"] = [[|cff30ee30Q: Why some options are not applied on other characters while using the same profile?|r
-|cff9482c9A:|r ElvUI has three kinds of options. First (profile) is stored in your profile, second (private) is stored on a character basis, third (global) are applied across all character regardless of profile used.
-In this case you most likely came across the option of type two.]]
+If error didn't disappear, then you should send us a bug report.
+In the report, you'll need to provide the ElvUI version ("latest" is not a valid version number), the text of the error, screenshot is possible.
+The more info you give us on how to reproduce the error, the faster it is to possibly get it fixed.]]
+L["FAQ_Elv_4"] = [[|cff30ee30Q: Why are some options not applied on other characters while using the same profile?|r
+|cff9482c9A:|r ElvUI has three kinds of options.  First (profile) is stored in your profile, second (private) is stored on a character basis, third (global) are applied across all character regardless of profile used.
+In this case you most likely came across the option of type two which is private and those options are based per character.]]
 L["FAQ_Elv_5"] = [[|cff30ee30Q: What are ElvUI slash (chat) commands?|r
 |cff9482c9A:|r ElvUI has a lot of different chat commands used for different purposes. They are:
 /ec or /elvui - Opening config window
@@ -941,7 +941,7 @@ L["FAQ_Elv_5"] = [[|cff30ee30Q: What are ElvUI slash (chat) commands?|r
 /egrid - Sets the size of a grid in toggle anchors mode
 /moveui - Allows to move stuff around
 /resetui - Resets your entire UI]]
-L["FAQ_sle_1"] = [[|cff30ee30Q: What to do if I encounter an error is Shadow & Light?|r
+L["FAQ_sle_1"] = [[|cff30ee30Q: What do I do if I encounter an error is Shadow & Light?|r
 |cff9482c9A:|r Pretty much the same as for ElvUI (see it's FAQ section) but you'll have to provide S&L version too.]]
 L["FAQ_sle_2"] = [[|cff30ee30Q: Does Shadow & Light have the same language policy as ElvUI?|r
 |cff9482c9A:|r Yes but S&L actually has two official languages - English and Russian.]]
@@ -949,9 +949,9 @@ L["FAQ_sle_3"] = [[|cff30ee30Q: Why are the layout's screenshots on download pag
 |cff9482c9A:|r Because we just forgot to update those.]]
 L["FAQ_sle_4"] = [[|cff30ee30Q: Why do I see some weird icons near some people's names in chat?|r
 |cff9482c9A:|r Those icons are provided by S&L and are associated with people we'd like to highlight in any way.
-For example: |TInterface\AddOns\ElvUI_SLE\media\textures\SLE_Chat_LogoD:0:2|t is the icon for Darth's characters and |TInterface\AddOns\ElvUI_SLE\media\textures\SLE_Chat_Logo:0:2|t is for Repooc's. |TInterface\AddOns\ElvUI_SLE\media\textures\Chat_Test:16:16|t is awarded to those who help find bugs.]]
+For example: |TInterface\AddOns\ElvUI_SLE\media\textures\SLE_Chat_Logo:14:14|t is the main icon for development team of Shadow & Light, and |TInterface\AddOns\ElvUI_SLE\media\textures\SLE_Chat_Logo_Alt:14:14|t is another one that Repooc likes to use. |TInterface\AddOns\ElvUI_SLE\media\textures\Chat_Test:16:16|t is awarded to those who help find bugs.]]
 L["FAQ_sle_5"] = [[|cff30ee30Q: How can I get in touch with you guys?|r
-|cff9482c9A:|r For obvious reasons, we are not giving out our contact details freely. So your best bet is using tukui.org forums.]]
+|cff9482c9A:|r For obvious reasons, we are not giving out our contact details freely. So your best bet is using tukui.org forums or even in our Discord. ]]
 
 --Credits--
 L["ELVUI_SLE_CREDITS"] = "We would like to point out the following people for helping us create this addon with testing, coding, and other stuff."
