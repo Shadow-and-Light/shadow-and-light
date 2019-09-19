@@ -18,3 +18,4 @@ Merathilis: full permission
 Benik: full permission
 Azilroka: full permission
 NihilisticPandemonium: full permission
+Simpy: full permission
