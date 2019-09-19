@@ -955,7 +955,7 @@ L["FAQ_sle_3"] = [[|cff30ee30Q: Why are the layout's screenshots on download pag
 |cff9482c9A:|r Because we just forgot to update those.]]
 L["FAQ_sle_4"] = [[|cff30ee30Q: Why do I see some weird icons near some people's names in chat?|r
 |cff9482c9A:|r Those icons are provided by S&L and are associated with people we'd like to highlight in any way.
-For example: |TInterface\AddOns\ElvUI_SLE\media\textures\SLE_Chat_Logo:14:14|t is the main icon for development team of Shadow & Light, and |TInterface\AddOns\ElvUI_SLE\media\textures\SLE_Chat_Logo_Alt:14:14|t is another one that Repooc likes to use. |TInterface\AddOns\ElvUI_SLE\media\textures\Chat_Test:16:16|t is awarded to those who help find bugs.]]
+For example: |TInterface\AddOns\ElvUI_SLE\media\textures\SLE_Chat_Logo:15:15|t is the main icon for development team of Shadow & Light, and |TInterface\AddOns\ElvUI_SLE\media\textures\SLE_Chat_Logo_Alt:15:15|t is another one that Repooc likes to use. |TInterface\AddOns\ElvUI_SLE\media\textures\Chat_Test:16:16|t is awarded to those who help find bugs.]]
 L["FAQ_sle_5"] = [[|cff30ee30Q: How can I get in touch with you guys?|r
 |cff9482c9A:|r For obvious reasons, we are not giving out our contact details freely. So your best bet is using tukui.org forums or even in our Discord. ]]
 
