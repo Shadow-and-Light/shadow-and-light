@@ -9,6 +9,20 @@ P["sle"] = {
 			["template"] = "Transparent",
 		},
 	},
+	--Armory
+	["armory"] = {
+		["character"] = {
+			["enable"] = false,
+			["background"] = {
+				["selectedBG"] = "Space",
+				["customTexture"] = "",
+				["overlay"] = true,
+			},
+		},
+		["inspect"] = {
+			["enable"] = false,
+		},
+	},
 	--Auras
 	["auras"] = {
 		["hideBuffsTimer"] = false,
@@ -600,7 +614,6 @@ P["sle"] = {
 		},
 		["visibleRange"] = 60,
 	},
-
 	--Quests
 	["quests"] = {
 		["visibility"] = {
