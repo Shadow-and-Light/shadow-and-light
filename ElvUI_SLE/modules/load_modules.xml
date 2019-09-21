@@ -2,6 +2,7 @@
 	<Script file='AddOnSkins.lua'/>
 	<Script file='actionbars.lua'/>
 	<Script file='afk.lua'/>
+	<Include file='armory\load_armory.xml'/>
 	<Script file='auras.lua'/>
 	<Script file='backgrounds.lua'/>
 	<Include file='bags\load_bags.xml'/>
