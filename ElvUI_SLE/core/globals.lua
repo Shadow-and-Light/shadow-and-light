@@ -16,6 +16,27 @@ local orc = blizzPath..[[Achievement_Character_Orc_Male:16:16|t ]]
 local silvericon = [[|TInterface\MONEYFRAME\UI-SilverIcon:12:12|t]]
 local goldicon = [[|TInterface\MONEYFRAME\UI-GoldIcon:12:12|t]]
 
+SLE.ArmoryConfigBackgroundValues = {
+	BackgroundValues = {
+		["HIDE"] = HIDE,
+		["CUSTOM"] = CUSTOM,
+		["Space"] = "Space",
+		["TheEmpire"] = "The Empire",
+		["Castle"] = "Castle",
+		["Alliance-text"] = FACTION_ALLIANCE,
+		["Horde-text"] = FACTION_HORDE,
+		["Alliance-bliz"] = FACTION_ALLIANCE.." 2",
+		["Horde-bliz"] = FACTION_HORDE.." 2",
+		["Arena-bliz"] = ARENA,
+		["CLASS"] = CLASS,
+	},
+	BlizzardBackdropList = {
+		["Alliance-bliz"] = [[Interface\LFGFrame\UI-PVP-BACKGROUND-Alliance]],
+		["Horde-bliz"] = [[Interface\LFGFrame\UI-PVP-BACKGROUND-Horde]],
+		["Arena-bliz"] = [[Interface\PVPFrame\PvpBg-NagrandArena-ToastBG]]
+	},
+}
+
 local classTable = {
 	deathknight = blizzPath..[[ClassIcon_DeathKnight:16:16|t ]],
 	demonhunter = blizzPath..[[ClassIcon_DemonHunter:16:16|t ]],
