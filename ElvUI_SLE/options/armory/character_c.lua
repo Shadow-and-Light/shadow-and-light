@@ -1,0 +1,53 @@
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local Armory = SLE:GetModule("Armory_Core")
+local CA = SLE:GetModule("Armory_Character")
+
+local function configTable()
+	if not SLE.initialized then return end
+	
+	E.Options.args.sle.args.modules.args.armory.args.character = {
+		type = 'group',
+		name = L["Character Armory"],
+		order = 400,
+		args = {
+			background = {
+				type = 'group',
+				name = L["Backdrop"],
+				order = 4,
+				args = {
+					selectedBG = {
+						type = 'select',
+						name = L["Select Image"],
+						order = 1,
+						get = function() return E.db.sle.armory.character.background.selectedBG end,
+						-- set = function(_, value) E.db.sle.armory.character.background.selectedBG = value; --[[_G["CharacterArmory"]:UpdateSettings("bg")]] end,
+						set = function(_, value) E.db.sle.armory.character.background.selectedBG = value; CA:Update_BG() end,
+						-- values = function() return Info.BackgroundsTextures.Config end,
+						values = function() return SLE.ArmoryConfigBackgroundValues.BackgroundValues end,
+						-- disabled = function() return E.db.sle.Armory.Character.Enable == false end
+					},
+					CustomAddress = {
+						type = 'input',
+						name = L["Custom Image Path"],
+						order = 2,
+						get = function() return E.db.sle.Armory.Character.Backdrop.CustomAddress end,
+						set = function(_, value) E.db.sle.Armory.Character.Backdrop.CustomAddress = value; --[[_G["CharacterArmory"]:UpdateSettings("bg")]] end,
+						width = 'double',
+						-- disabled = function() return E.db.sle.Armory.Character.Enable == false end,
+						hidden = function() return E.db.sle.armory.character.background.selectedBG ~= 'CUSTOM' end
+					},
+					Overlay = {
+						type = "toggle",
+						order = 3,
+						name = L["Overlay"],
+						desc = L["Show ElvUI skin's backdrop overlay"],
+						get = function() return E.db.sle.armory.character.background.overlay end,
+						set = function(_, value) E.db.sle.armory.character.background.overlay = value; --[[_G["CharacterArmory"]:ElvOverlayToggle()]] end
+					},
+				}
+			},
+		},
+	}
+end
+
+T.tinsert(SLE.Configs, configTable)
