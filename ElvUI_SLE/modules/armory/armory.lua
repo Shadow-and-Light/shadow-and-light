@@ -8,7 +8,7 @@ Armory.Constants = {}
 local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
 
 --<<Class-to-Spec and localizing stuffs>>--
-local ClassToSpec = {
+--[[local ClassToSpec = {
 	["DEATHKNIGHT"] = {
 		["Blood"] = 250, ["Frost"] = 251, ["Unholy"] = 252,
 	},
@@ -54,7 +54,7 @@ for ClassName, Spec_ID_Table in T.pairs(ClassToSpec) do
 	-- for SpecName, ID in T.pairs(Spec_ID_Table) do
 		-- _, L["SLE_Armory_"..ClassName.."_"..SpecName] = GetSpecializationInfoByID(ID)
 	-- end
-end
+end]]
 
 	--Create ench replacement string DB
 	if type(SLE_ArmoryDB) ~= "table" then
@@ -67,13 +67,41 @@ Armory.Constants.GearList = {
 	"HeadSlot", "HandsSlot", "NeckSlot", "WaistSlot", "ShoulderSlot", "LegsSlot", "BackSlot", "FeetSlot", "ChestSlot", "Finger0Slot",
 	"ShirtSlot", "Finger1Slot", "TabardSlot", "Trinket0Slot", "WristSlot", "Trinket1Slot", "SecondaryHandSlot", "MainHandSlot"
 }
+Armory.Constants.ReverseGemPosition = {
+	["SecondaryHandSlot"] = "RIGHT",
+	["MainHandSlot"] = "LEFT",
+}
 
 Armory.Constants.AzeriteTraitAvailableColor = {0.95, 0.95, 0.32, 1}
+
+function Armory:BuildCharacterDefaultsCache()
+	Armory.Constants.CA_Defaults = {}
+	for i, SlotName in T.pairs(Armory.Constants.GearList) do
+		Armory.Constants.CA_Defaults[SlotName] = {}
+		local Slot = _G["Character"..SlotName]
+		Slot.Direction = i%2 == 1 and "LEFT" or "RIGHT"
+		if Armory.Constants.ReverseGemPosition[SlotName] then Slot.Direction = Armory.Constants.ReverseGemPosition[SlotName] end
+		-- print(SlotName)
+		if Slot.iLvlText then
+			print(SlotName, Slot.Direction)
+			Armory.Constants.CA_Defaults[SlotName]["iLvlText"] = { Slot.iLvlText:GetPoint() } 
+			Armory.Constants.CA_Defaults[SlotName]["textureSlot1"] = { Slot.textureSlot1:GetPoint() }
+			for i = 2, 10 do
+				if Slot["textureSlot"..i] then Slot["textureSlot"..i]:ClearAllPoints(); Slot["textureSlot"..i]:Point(Slot.Direction, Slot["textureSlot"..(i-1)], Slot.Direction == "LEFT" and "RIGHT" or "LEFT", 0,0) end
+			end
+			Armory.Constants.CA_Defaults[SlotName]["enchantText"] = { Slot.enchantText:GetPoint() }
+		end
+		if SlotName == "NeckSlot" then
+			Armory.Constants.CA_Defaults[SlotName]["RankFrame"] = { Slot.RankFrame:GetPoint() }
+		end
+	end
+end
 
 function Armory:Initialize()
 	-- for i = 1, #KF.Modules do
 		-- KF.Modules[(KF.Modules[i])]()
 	-- end
+	Armory:BuildCharacterDefaultsCache()
 	SLE:GetModule("Armory_Character"):LoadAndSetup()
 	
 	function Armory:ForUpdateAll()
