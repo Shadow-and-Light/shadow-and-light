@@ -27,7 +27,7 @@ function CA:BuildLayout()
 
 	--Making model frame big enough
 	_G["CharacterModelFrame"]:ClearAllPoints()
-	_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"])
+	_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"], 0, 5)
 	_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
 	_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
 
@@ -48,8 +48,8 @@ function CA:BuildLayout()
 	end
 
 	--Overlay resize to match new width
-	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', _G["PaperDollFrame"], -8, 0)
-	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', _G["PaperDollFrame"], 8, 0)
+	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', _G["CharacterModelFrame"], -8, 0)
+	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', _G["CharacterModelFrame"], 8, 0)
 
 	--<< Background >>--
 	_G["PaperDollFrame"].SLE_Armory_BG = _G["PaperDollFrame"]:CreateTexture(nil, 'OVERLAY')
@@ -67,7 +67,7 @@ function CA:BuildLayout()
 		-- Slot:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() + 1)
 	-- end
 	
-	for i, SlotName in T.pairs(Armory.Info.GearList) do
+	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		local Slot = _G["Character"..SlotName]
 
 		-- Azerite
@@ -91,7 +91,7 @@ function CA:BuildLayout()
 
 		hooksecurefunc(_G["Character"..SlotName], "DisplayAsAzeriteEmpoweredItem", function(self, itemLocation)
 			if HasAnyUnselectedPowers(itemLocation) then
-				LCG.PixelGlow_Start(self, Armory.Info.AzeriteTraitAvailableColor, nil,-0.25,nil, 3, nil,nil,nil, "_AzeriteTraitGlow")
+				LCG.PixelGlow_Start(self, Armory.Constants.AzeriteTraitAvailableColor, nil,-0.25,nil, 3, nil,nil,nil, "_AzeriteTraitGlow")
 			else
 				LCG.PixelGlow_Stop(self, "_AzeriteTraitGlow")
 			end
@@ -122,7 +122,7 @@ function CA:BuildLayout()
 			_G["CharacterFrameInsetRight"]:SetPoint(T.unpack(DefaultPosition.InsetDefaultPoint))
 		end
 	end)
-	hooksecurefunc('PaperDollFrame_SetLevel', function()
+	--[[hooksecurefunc('PaperDollFrame_SetLevel', function()
 		-- if Info.CharacterArmory_Activate then 
 		_G["CharacterLevelText"]:SetText(_G["CharacterLevelText"]:GetText())
 			--_G["PaperDollFrame"] was self in old days
@@ -133,32 +133,32 @@ function CA:BuildLayout()
 			_G["CharacterLevelText"]:SetPoint('TOP', _G["CharacterFrameTitleText"], 'BOTTOM', 0, 2)
 			_G["CharacterLevelText"]:SetParent(_G["PaperDollFrame"])
 		-- end
-	end)
+	end)]]
 end
 
 
 --<<<<<Updating settings>>>>>--
 function CA:Update_BG()
-	-- if E.db.sle.Armory.Character.Backdrop.SelectedBG == 'HIDE' then
-		-- _G["PaperDollFrame"].SLE_Armory_BG:SetTexture(nil)
-	-- elseif E.db.sle.Armory.Character.Backdrop.SelectedBG == 'CUSTOM' then
-		-- _G["PaperDollFrame"].SLE_Armory_BG:SetTexture(E.db.sle.Armory.Character.Backdrop.CustomAddress)
-	-- elseif E.db.sle.Armory.Character.Backdrop.SelectedBG == 'CLASS' then
-		print(E.db.sle.Armory.Character.Backdrop.SelectedBG)
-		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture([[Interface\AddOns\ElvUI_SLE\modules\armory\textures\]]..E.myclass)
-	-- else
-		-- _G["PaperDollFrame"].SLE_Armory_BG:SetTexture(Armory.Info.BackgroundsTextures.BlizzardBackdropList[E.db.sle.Armory.Character.Backdrop.SelectedBG] or [[Interface\AddOns\ElvUI_SLE\modules\Old_Armory\Media\Textures\]]..E.db.sle.Armory.Character.Backdrop.SelectedBG)
-	-- end
+	print(E.db.sle.armory.character.background.selectedBG)
+	if E.db.sle.armory.character.background.selectedBG == 'HIDE' then
+		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture(nil)
+	elseif E.db.sle.armory.character.background.selectedBG == 'CUSTOM' then
+		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture(E.db.sle.armory.character.background.customTexture)
+	elseif E.db.sle.armory.character.background.selectedBG == 'CLASS' then
+		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\armory\]]..E.myclass)
+	else
+		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture(SLE.ArmoryConfigBackgroundValues.BlizzardBackdropList[E.db.sle.armory.character.background.selectedBG] or [[Interface\AddOns\ElvUI_SLE\media\textures\armory\]]..E.db.sle.armory.character.background.selectedBG)
+	end
 	
 	--CA:AdditionalTextures_Update()
 end
 
 function CA:ElvOverlayToggle() --Toggle dat Overlay
-	-- if E.db.sle.Armory.Character.Backdrop.Overlay then
-		-- _G["CharacterModelFrameBackgroundOverlay"]:Show()
-	-- else
+	if E.db.sle.armory.character.background.overlay then
+		_G["CharacterModelFrameBackgroundOverlay"]:Show()
+	else
 		_G["CharacterModelFrameBackgroundOverlay"]:Hide()
-	-- end
+	end
 end
 
 function CA:LoadAndSetup()

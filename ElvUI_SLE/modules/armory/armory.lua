@@ -2,7 +2,7 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 if select(2, GetAddOnInfo("ElvUI_KnightFrame")) and IsAddOnLoaded("ElvUI_KnightFrame") then return end --Don't break korean code :D
 local Armory = SLE:NewModule("Armory_Core", "AceEvent-3.0", "AceConsole-3.0", "AceHook-3.0");
 
-Armory.Info = {}
+Armory.Constants = {}
 
 --Cache--
 local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
@@ -63,46 +63,12 @@ end
 		}
 	end
 
-Armory.Info.BackgroundsTextures = {
-	Keys = {
-		["0"] = "HIDE",
-		["1"] = "CUSTOM",
-		["2"] = "Space",
-		["3"] = "TheEmpire",
-		["4"] = "Castle",
-		["5"] = "Alliance-text",
-		["6"] = "Horde-text",
-		["7"] = "Alliance-bliz",
-		["8"] = "Horde-bliz",
-		["9"] = "Arena-bliz",
-		["10"] = "CLASS",
-	},
-	Config = {
-		["0"] = HIDE,
-		["1"] = CUSTOM,
-		["2"] = "Space",
-		["3"] = "The Empire",
-		["4"] = "Castle",
-		["5"] = FACTION_ALLIANCE,
-		["6"] = FACTION_HORDE,
-		["7"] = FACTION_ALLIANCE.." 2",
-		["8"] = FACTION_HORDE.." 2",
-		["9"] = ARENA,
-		["10"] = CLASS,
-	},
-	BlizzardBackdropList = {
-		["Alliance-bliz"] = [[Interface\LFGFrame\UI-PVP-BACKGROUND-Alliance]],
-		["Horde-bliz"] = [[Interface\LFGFrame\UI-PVP-BACKGROUND-Horde]],
-		["Arena-bliz"] = [[Interface\PVPFrame\PvpBg-NagrandArena-ToastBG]]
-	},
-}
-
-Armory.Info.GearList = {
+Armory.Constants.GearList = {
 	"HeadSlot", "HandsSlot", "NeckSlot", "WaistSlot", "ShoulderSlot", "LegsSlot", "BackSlot", "FeetSlot", "ChestSlot", "Finger0Slot",
 	"ShirtSlot", "Finger1Slot", "TabardSlot", "Trinket0Slot", "WristSlot", "Trinket1Slot", "SecondaryHandSlot", "MainHandSlot"
 }
 
-Armory.Info.AzeriteTraitAvailableColor = {0.95, 0.95, 0.32, 1}
+Armory.Constants.AzeriteTraitAvailableColor = {0.95, 0.95, 0.32, 1}
 
 function Armory:Initialize()
 	-- for i = 1, #KF.Modules do
