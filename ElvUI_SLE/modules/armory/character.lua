@@ -104,25 +104,14 @@ function CA:BuildLayout()
 			-- Slot.RankFrame:SetPoint("BOTTOMLEFT", Slot, 0 + E.db.sle.Armory.Character.AzeritePosition.xOffset, 2 + E.db.sle.Armory.Character.AzeritePosition.yOffset)
 			-- Slot.RankFrame.Label:SetPoint("CENTER", Slot.RankFrame, 1, 0)
 		-- end
-		if Slot.iLvlText then
-			local a,b,c,d,e = Slot.iLvlText:GetPoint()
-			Slot.iLvlText:Point(a,b,c,d,e + 100)
-			a,b,c,d,e = Slot.textureSlot1:GetPoint()
-			Slot.textureSlot1:Point(a,b,c,d,e + 200)
-		end
 	end
 	
 	--<<<Hooking some shit!>>>--
-
-	-- hooksecurefunc('CharacterFrame_Collapse', function() if Info.CharacterArmory_Activate and _G["PaperDollFrame"]:IsShown() then _G["CharacterFrame"]:SetWidth(448) end end)
-	-- hooksecurefunc('CharacterFrame_Expand', function() if Info.CharacterArmory_Activate and _G["PaperDollFrame"]:IsShown() then _G["CharacterFrame"]:SetWidth(650) end end)
 	hooksecurefunc('CharacterFrame_Collapse', function()
-		if not E.db.sle.armory.character.enable then return end
-		if _G["PaperDollFrame"]:IsShown() then _G["CharacterFrame"]:SetWidth(448) end
+		if E.db.sle.armory.character.enable and _G["PaperDollFrame"]:IsShown() then _G["CharacterFrame"]:SetWidth(448) end
 	end)
 	hooksecurefunc('CharacterFrame_Expand', function()
-		if not E.db.sle.armory.character.enable then return end
-		if _G["PaperDollFrame"]:IsShown() then _G["CharacterFrame"]:SetWidth(650) end
+		if E.db.sle.armory.character.enable and _G["PaperDollFrame"]:IsShown() then _G["CharacterFrame"]:SetWidth(650) end
 	end)
 	hooksecurefunc('ToggleCharacter', function(frameType)
 		if not E.db.sle.armory.character.enable then return end
