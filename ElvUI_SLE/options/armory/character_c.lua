@@ -15,7 +15,7 @@ local function configTable()
 			ilvl = {
 				type = 'group',
 				name = L["Item Level"],
-				order = 7,
+				order = 1,
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_ItemLevel() end,
 				args = {
@@ -33,14 +33,56 @@ local function configTable()
 					xOffset = {
 						type = 'range',
 						name = L["X-Offset"],
-						order = 8,
+						order = 10,
 						min = -40, max = 150, step = 1,
 					},
 					yOffset = {
 						type = 'range',
 						name = L["Y-Offset"],
-						order = 8,
+						order = 11,
 						min = -22, max = 3, step = 1,
+					},
+				}
+			},
+			enchant = {
+				type = 'group',
+				name = L["Enchant String"],
+				order = 2,
+				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
+				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_Enchant() end,
+				args = {
+					xOffset = {
+						type = 'range',
+						name = L["X-Offset"],
+						order = 10,
+						min = -2, max = 40, step = 1,
+					},
+					yOffset = {
+						type = 'range',
+						name = L["Y-Offset"],
+						order = 11,
+						min = -13, max = 13, step = 1,
+					},
+				}
+			},
+			gem = {
+				type = 'group',
+				name = L["Gem Sockets"],
+				order = 3,
+				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
+				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_Gems() end,
+				args = {
+					xOffset = {
+						type = 'range',
+						name = L["X-Offset"],
+						order = 10,
+						min = -40, max = 150, step = 1,
+					},
+					yOffset = {
+						type = 'range',
+						name = L["Y-Offset"],
+						order = 11,
+						min = -3, max = 22, step = 1,
 					},
 				}
 			},
