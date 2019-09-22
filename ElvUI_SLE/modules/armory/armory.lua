@@ -81,9 +81,7 @@ function Armory:BuildCharacterDefaultsCache()
 		local Slot = _G["Character"..SlotName]
 		Slot.Direction = i%2 == 1 and "LEFT" or "RIGHT"
 		if Armory.Constants.ReverseGemPosition[SlotName] then Slot.Direction = Armory.Constants.ReverseGemPosition[SlotName] end
-		-- print(SlotName)
 		if Slot.iLvlText then
-			print(SlotName, Slot.Direction)
 			Armory.Constants.CA_Defaults[SlotName]["iLvlText"] = { Slot.iLvlText:GetPoint() } 
 			Armory.Constants.CA_Defaults[SlotName]["textureSlot1"] = { Slot.textureSlot1:GetPoint() }
 			for i = 2, 10 do
