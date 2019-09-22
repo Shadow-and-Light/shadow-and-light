@@ -24,16 +24,16 @@ local function configTable()
 						set = function(_, value) E.db.sle.armory.character.background.selectedBG = value; CA:Update_BG() end,
 						values = function() return SLE.ArmoryConfigBackgroundValues.BackgroundValues end,
 					},
-					CustomAddress = {
+					customTexture = {
 						type = 'input',
 						name = L["Custom Image Path"],
 						order = 2,
-						get = function() return E.db.sle.Armory.Character.Backdrop.CustomAddress end,
-						set = function(_, value) E.db.sle.Armory.Character.Backdrop.CustomAddress = value; CA:Update_BG() end,
+						get = function() return E.db.sle.armory.character.background.customTexture end,
+						set = function(_, value) E.db.sle.armory.character.background.customTexture = value; CA:Update_BG() end,
 						width = 'double',
 						hidden = function() return E.db.sle.armory.character.background.selectedBG ~= 'CUSTOM' end
 					},
-					Overlay = {
+					overlay = {
 						type = "toggle",
 						order = 3,
 						name = L["Overlay"],
