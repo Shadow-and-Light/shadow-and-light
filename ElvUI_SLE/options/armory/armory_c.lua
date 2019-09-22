@@ -17,7 +17,7 @@ local function configTable()
 				order = 2,
 				desc = '',
 				get = function() return E.db.sle.armory.character.enable end,
-				set = function(_, value) E.db.sle.armory.character.enable = value; SLE:GetModule("Armory_Character"):LoadAndSetup() end
+				set = function(_, value) E.db.sle.armory.character.enable = value; SLE:GetModule("Armory_Character"):LoadAndSetup(); end
 			},
 			IA_enable = {
 				type = 'toggle',

@@ -1,6 +1,7 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Armory = SLE:GetModule("Armory_Core")
 local CA = SLE:GetModule("Armory_Character")
+local M = E:GetModule("Misc")
 
 local function configTable()
 	if not SLE.initialized then return end
@@ -11,6 +12,38 @@ local function configTable()
 		order = 400,
 		disabled = function() return E.db.sle.armory.character.enable == false end,
 		args = {
+			ilvl = {
+				type = 'group',
+				name = L["Item Level"],
+				order = 7,
+				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
+				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_ItemLevel() end,
+				args = {
+					colorType = {
+						type = 'select',
+						name = L["Item Level Coloring"],
+						order = 7,
+						set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; M:UpdateCharacterInfo() end,
+						values = {
+							["NONE"] = NONE,
+							["QUALITY"] = COLORBLIND_ITEM_QUALITY,
+							["GRADIENT"] = L["Gradient"],
+						},
+					},
+					xOffset = {
+						type = 'range',
+						name = L["X-Offset"],
+						order = 8,
+						min = -40, max = 150, step = 1,
+					},
+					yOffset = {
+						type = 'range',
+						name = L["Y-Offset"],
+						order = 8,
+						min = -22, max = 3, step = 1,
+					},
+				}
+			},
 			background = {
 				type = 'group',
 				name = L["Backdrop"],

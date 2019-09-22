@@ -14,48 +14,16 @@ local DefaultPosition = {
 }
 local PANEL_DEFAULT_WIDTH = PANEL_DEFAULT_WIDTH
 
---Changing the looks of the window
+--Adding new stuffs for armory only
 function CA:BuildLayout()
-	-- Setting frame
-	_G["CharacterFrame"]:SetHeight(444)
-
-	-- Move right equipment slots
-	_G["CharacterHandsSlot"]:SetPoint('TOPRIGHT', _G["CharacterFrameInsetRight"], 'TOPLEFT', -4, -2)
-
-	-- Move bottom equipment slots
-	_G["CharacterMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["PaperDollItemsFrame"], 'BOTTOMLEFT', 185, 14)
-
-	--Making model frame big enough
-	_G["CharacterModelFrame"]:ClearAllPoints()
-	_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"], 0, 5)
-	_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
-	_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
-
-	if _G["PaperDollFrame"]:IsShown() then --Setting up width for the main frame
-		_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and 650 or 444)
-		_G["CharacterFrameInsetRight"]:SetPoint('TOPLEFT', _G["CharacterFrameInset"], 'TOPRIGHT', 110, 0)
-	end
-	
-	--This will hide default background stuff. I could make it being shown, but not feeling like figuring out how to stretch the damn texture.
-	if _G["CharacterModelFrame"] and _G["CharacterModelFrame"].BackgroundTopLeft and _G["CharacterModelFrame"].BackgroundTopLeft:IsShown() then
-		_G["CharacterModelFrame"].BackgroundTopLeft:Hide()
-		_G["CharacterModelFrame"].BackgroundTopRight:Hide()
-		_G["CharacterModelFrame"].BackgroundBotLeft:Hide()
-		_G["CharacterModelFrame"].BackgroundBotRight:Hide()
-		if _G["CharacterModelFrame"].backdrop then
-			_G["CharacterModelFrame"].backdrop:Hide()
-		end
-	end
-
-	--Overlay resize to match new width
-	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', _G["CharacterModelFrame"], -8, 0)
-	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', _G["CharacterModelFrame"], 8, 0)
 
 	--<< Background >>--
-	_G["PaperDollFrame"].SLE_Armory_BG = _G["PaperDollFrame"]:CreateTexture(nil, 'OVERLAY')
-	_G["PaperDollFrame"].SLE_Armory_BG:Point('TOPLEFT', _G["CharacterModelFrame"], -4, 5)
-	_G["PaperDollFrame"].SLE_Armory_BG:Point('BOTTOMRIGHT', _G["CharacterModelFrame"], 4, 0)
-	CA:Update_BG()
+	if not _G["PaperDollFrame"].SLE_Armory_BG then
+		_G["PaperDollFrame"].SLE_Armory_BG = _G["PaperDollFrame"]:CreateTexture(nil, 'OVERLAY')
+		_G["PaperDollFrame"].SLE_Armory_BG:Point('TOPLEFT', _G["CharacterModelFrame"], -4, 0)
+		_G["PaperDollFrame"].SLE_Armory_BG:Point('BOTTOMRIGHT', _G["CharacterModelFrame"], 4, 0)
+	end
+	_G["PaperDollFrame"].SLE_Armory_BG:Hide()
 	
 	--<<This may be unnessesary>>--
 	--Change Model Frame's frameLevel. Cause background is not so back-ish
@@ -79,7 +47,7 @@ function CA:BuildLayout()
 				return
 			end
 			-- self.AzeriteTexture:Hide()
-			-- self.AvailableTraitFrame:Hide()
+			if E.db.sle.armory.character.enable then self.AvailableTraitFrame:Hide() end
 			local isAzeriteEmpoweredItem = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(itemLocation);
 			if isAzeriteEmpoweredItem then
 				-- CA[SlotName].AzeriteAnchor:Show()
@@ -124,26 +92,112 @@ function CA:BuildLayout()
 			_G["CharacterFrameInsetRight"]:SetPoint(T.unpack(DefaultPosition.InsetDefaultPoint))
 		end
 	end)
-	--[[hooksecurefunc('PaperDollFrame_SetLevel', function()
-		-- if Info.CharacterArmory_Activate then 
-		_G["CharacterLevelText"]:SetText(_G["CharacterLevelText"]:GetText())
-			--_G["PaperDollFrame"] was self in old days
-			_G["CharacterFrameTitleText"]:ClearAllPoints()
-			_G["CharacterFrameTitleText"]:Point('TOP', _G["PaperDollFrame"], 0, 35)
-			_G["CharacterFrameTitleText"]:SetParent(_G["PaperDollFrame"])
-			_G["CharacterLevelText"]:ClearAllPoints()
-			_G["CharacterLevelText"]:SetPoint('TOP', _G["CharacterFrameTitleText"], 'BOTTOM', 0, 2)
-			_G["CharacterLevelText"]:SetParent(_G["PaperDollFrame"])
-		-- end
-	end)]]
 end
 
---Changing shit back
-function CA:UnbuildLayout()
+--<<<<<Updating settings>>>>>--
+function CA:Update_BG()
+	if E.db.sle.armory.character.background.selectedBG == 'HIDE' then
+		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture(nil)
+	elseif E.db.sle.armory.character.background.selectedBG == 'CUSTOM' then
+		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture(E.db.sle.armory.character.background.customTexture)
+	elseif E.db.sle.armory.character.background.selectedBG == 'CLASS' then
+		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\armory\]]..E.myclass)
+	else
+		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture(SLE.ArmoryConfigBackgroundValues.BlizzardBackdropList[E.db.sle.armory.character.background.selectedBG] or [[Interface\AddOns\ElvUI_SLE\media\textures\armory\]]..E.db.sle.armory.character.background.selectedBG)
+	end
+	
+	--CA:AdditionalTextures_Update()
+end
+
+function CA:Update_ItemLevel()
+	for i, SlotName in T.pairs(Armory.Constants.GearList) do
+		local Slot = _G["Character"..SlotName]
+		
+		if Slot.iLvlText then
+			Slot.iLvlText:ClearAllPoints()
+			Slot.iLvlText:Point("TOP"..Slot.Direction, _G["Character"..SlotName], "TOP"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.ilvl.xOffset or -2-E.db.sle.armory.character.ilvl.xOffset, -1+E.db.sle.armory.character.ilvl.yOffset)
+		end
+	end
+end
+
+function CA:Update_Enchant()
+	for i, SlotName in T.pairs(Armory.Constants.GearList) do
+		local Slot = _G["Character"..SlotName]
+		
+		if Slot.enchantText then
+			Slot.enchantText:ClearAllPoints()
+			Slot.enchantText:Point(Slot.Direction, _G["Character"..SlotName], Slot.Direction == "LEFT" and "RIGHT" or "LEFT", Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.enchant.xOffset or -2-E.db.sle.armory.character.enchant.xOffset, 1+E.db.sle.armory.character.enchant.yOffset)
+		end
+	end
+end
+
+function CA:Update_Gems()
+	for i, SlotName in T.pairs(Armory.Constants.GearList) do
+		local Slot = _G["Character"..SlotName]
+		
+		if Slot.textureSlot1 then
+			Slot.textureSlot1:ClearAllPoints()
+			Slot.textureSlot1:Point('BOTTOM'..Slot.Direction, _G["Character"..SlotName], "BOTTOM"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.gem.xOffset or -2-E.db.sle.armory.character.gem.xOffset, 2+E.db.sle.armory.character.gem.yOffset)
+		end
+	end
+end
+
+function CA:ElvOverlayToggle() --Toggle dat Overlay
+	if E.db.sle.armory.character.background.overlay then
+		_G["CharacterModelFrameBackgroundOverlay"]:Show()
+	else
+		_G["CharacterModelFrameBackgroundOverlay"]:Hide()
+	end
+end
+
+function CA:Enable()
+	-- Setting frame
+	_G["CharacterFrame"]:SetHeight(444)
+
+	-- Move right equipment slots
+	_G["CharacterHandsSlot"]:SetPoint('TOPRIGHT', _G["CharacterFrameInsetRight"], 'TOPLEFT', -4, -2)
+
+	-- Move bottom equipment slots
+	_G["CharacterMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["PaperDollItemsFrame"], 'BOTTOMLEFT', 185, 14)
+
+	--Making model frame big enough
+	_G["CharacterModelFrame"]:ClearAllPoints()
+	_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"], 0, 5)
+	_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
+	_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
+
+	if _G["PaperDollFrame"]:IsShown() then --Setting up width for the main frame
+		_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and 650 or 444)
+		_G["CharacterFrameInsetRight"]:SetPoint('TOPLEFT', _G["CharacterFrameInset"], 'TOPRIGHT', 110, 0)
+	end
+	
+	--This will hide default background stuff. I could make it being shown, but not feeling like figuring out how to stretch the damn texture.
+	if _G["CharacterModelFrame"] and _G["CharacterModelFrame"].BackgroundTopLeft and _G["CharacterModelFrame"].BackgroundTopLeft:IsShown() then
+		_G["CharacterModelFrame"].BackgroundTopLeft:Hide()
+		_G["CharacterModelFrame"].BackgroundTopRight:Hide()
+		_G["CharacterModelFrame"].BackgroundBotLeft:Hide()
+		_G["CharacterModelFrame"].BackgroundBotRight:Hide()
+		if _G["CharacterModelFrame"].backdrop then
+			_G["CharacterModelFrame"].backdrop:Hide()
+		end
+	end
+
+	--Overlay resize to match new width
+	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', _G["CharacterModelFrame"], -4, 0)
+	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', _G["CharacterModelFrame"], 4, 0)
+	
+	--Activating background
+	_G["PaperDollFrame"].SLE_Armory_BG:Show()
+	CA:Update_BG()
+	CA:Update_ItemLevel()
+	CA:Update_Enchant()
+	CA:Update_Gems()
+end
+
+function CA:Disable()
 	-- Setting frame to default
 	_G["CharacterFrame"]:SetHeight(424)
 	_G["CharacterFrame"]:SetWidth(_G["PaperDollFrame"]:IsShown() and _G["CharacterFrame"].Expanded and CHARACTERFRAME_EXPANDED_WIDTH or PANEL_DEFAULT_WIDTH)
-	--print(_G["CharacterFrame"]:GetWidth())
 	_G["CharacterFrameInsetRight"]:SetPoint(T.unpack(DefaultPosition.InsetDefaultPoint))
 	
 	-- Move rightside equipment slots to default position
@@ -166,43 +220,24 @@ function CA:UnbuildLayout()
 		local Slot = _G["Character"..SlotName]
 		if Armory.Constants.CA_Defaults[SlotName] then
 			for element, points in T.pairs(Armory.Constants.CA_Defaults[SlotName]) do
+				Slot[element]:ClearAllPoints()
 				Slot[element]:Point(T.unpack(points))
 			end
 		end
 	end
-end
-
-
---<<<<<Updating settings>>>>>--
-function CA:Update_BG()
-	if E.db.sle.armory.character.background.selectedBG == 'HIDE' then
-		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture(nil)
-	elseif E.db.sle.armory.character.background.selectedBG == 'CUSTOM' then
-		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture(E.db.sle.armory.character.background.customTexture)
-	elseif E.db.sle.armory.character.background.selectedBG == 'CLASS' then
-		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\armory\]]..E.myclass)
-	else
-		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture(SLE.ArmoryConfigBackgroundValues.BlizzardBackdropList[E.db.sle.armory.character.background.selectedBG] or [[Interface\AddOns\ElvUI_SLE\media\textures\armory\]]..E.db.sle.armory.character.background.selectedBG)
-	end
 	
-	--CA:AdditionalTextures_Update()
-end
-
-function CA:ElvOverlayToggle() --Toggle dat Overlay
-	if E.db.sle.armory.character.background.overlay then
-		_G["CharacterModelFrameBackgroundOverlay"]:Show()
-	else
-		_G["CharacterModelFrameBackgroundOverlay"]:Hide()
-	end
+	if _G["PaperDollFrame"].SLE_Armory_BG then _G["PaperDollFrame"].SLE_Armory_BG:Hide() end
 end
 
 function CA:LoadAndSetup()
+		CA:BuildLayout()
 		if E.db.sle.armory.character.enable then
-			CA:BuildLayout()
-			-- CA:ElvOverlayToggle()
+			CA:Enable()
 		else
-			CA:UnbuildLayout()
+			CA:Disable()
 		end
+		CA:ElvOverlayToggle()
+		for i, SlotName in T.pairs(Armory.Constants.AzeriteSlot) do PaperDollItemSlotButton_Update(_G["Character"..SlotName]) end
 
 	print("Woooooooooooooooo")
 end
