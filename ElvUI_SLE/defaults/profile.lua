@@ -13,6 +13,19 @@ P["sle"] = {
 	["armory"] = {
 		["character"] = {
 			["enable"] = false,
+			["ilvl"] = {
+				["colorType"] = "NONE",
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+			},
+			["enchant"] = {
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+			},
+			["gem"] = {
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+			},
 			["background"] = {
 				["selectedBG"] = "Space",
 				["customTexture"] = "",

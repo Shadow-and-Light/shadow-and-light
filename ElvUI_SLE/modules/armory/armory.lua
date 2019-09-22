@@ -67,6 +67,9 @@ Armory.Constants.GearList = {
 	"HeadSlot", "HandsSlot", "NeckSlot", "WaistSlot", "ShoulderSlot", "LegsSlot", "BackSlot", "FeetSlot", "ChestSlot", "Finger0Slot",
 	"ShirtSlot", "Finger1Slot", "TabardSlot", "Trinket0Slot", "WristSlot", "Trinket1Slot", "SecondaryHandSlot", "MainHandSlot"
 }
+Armory.Constants.AzeriteSlot = {
+	"HeadSlot", "ShoulderSlot", "ChestSlot",
+}
 Armory.Constants.ReverseGemPosition = {
 	["SecondaryHandSlot"] = "RIGHT",
 	["MainHandSlot"] = "LEFT",
@@ -80,7 +83,7 @@ function Armory:BuildCharacterDefaultsCache()
 		Armory.Constants.CA_Defaults[SlotName] = {}
 		local Slot = _G["Character"..SlotName]
 		Slot.Direction = i%2 == 1 and "LEFT" or "RIGHT"
-		if Armory.Constants.ReverseGemPosition[SlotName] then Slot.Direction = Armory.Constants.ReverseGemPosition[SlotName] end
+		-- if Armory.Constants.ReverseGemPosition[SlotName] then Slot.Direction = Armory.Constants.ReverseGemPosition[SlotName] end
 		if Slot.iLvlText then
 			Armory.Constants.CA_Defaults[SlotName]["iLvlText"] = { Slot.iLvlText:GetPoint() } 
 			Armory.Constants.CA_Defaults[SlotName]["textureSlot1"] = { Slot.textureSlot1:GetPoint() }
@@ -101,6 +104,79 @@ function Armory:Initialize()
 	-- end
 	Armory:BuildCharacterDefaultsCache()
 	SLE:GetModule("Armory_Character"):LoadAndSetup()
+
+	--Hijack Simpy's shit
+	local M = E:GetModule("Misc")
+	function M:UpdatePageStrings(i, iLevelDB, inspectItem, iLvl, enchant, gems, essences, enchantColors, itemLevelColors, which)
+		iLevelDB[i] = iLvl
+
+		inspectItem.enchantText:SetText(enchant)
+		if enchantColors then
+			inspectItem.enchantText:SetTextColor(unpack(enchantColors))
+		end
+
+		inspectItem.iLvlText:SetText(iLvl)
+		if itemLevelColors then
+			which = T.lower(which) --to know which settings table to use
+			if E.db.sle.armory[which] and E.db.sle.armory[which].enable then --If settings table actually exists and armory for it is enabled
+				if E.db.sle.armory[which].ilvl.colorType == "QUALITY" then
+					inspectItem.iLvlText:SetTextColor(unpack(itemLevelColors)) --Busyness as usual
+				elseif E.db.sle.armory[which].ilvl.colorType == "GRADIENT" then
+					local equippedIlvl = which == "character" and T.select(2, T.GetAverageItemLevel()) or E:CalculateAverageItemLevel(iLevelDB, _G["inspectFrame"].unit)
+					local diff = iLvl - equippedIlvl
+					local aR, aG, aB
+					if diff >= 0 then
+						aR, aG, aB = 0,1,0
+					else
+						aR, aG, aB = E:ColorGradient(-(3/diff), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+					end
+					inspectItem.iLvlText:SetTextColor(aR, aG, aB)
+				else
+					inspectItem.iLvlText:SetTextColor(1, 1, 1)
+				end
+			else
+				inspectItem.iLvlText:SetTextColor(unpack(itemLevelColors))
+			end
+		end
+
+		for x = 1, 10 do
+			local texture = inspectItem["textureSlot"..x]
+			local backdrop = inspectItem["textureSlotBackdrop"..x]
+
+			if gems and next(gems) then
+				local index, gem = next(gems)
+				texture:SetTexture(gem)
+				backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
+				backdrop:Show()
+				gems[index] = nil
+			elseif essences and next(essences) then
+				local index, essence = next(essences)
+
+				local r, g, b
+				if essence[2] == 'tooltip-heartofazerothessence-major' then
+					r, g, b = 0.8, 0.7, 0
+				else -- 'tooltip-heartofazerothessence-minor'
+					r, g, b = 0.4, 0.4, 0.4
+				end
+
+				local selected = essence[1]
+				texture:SetTexture(selected)
+				backdrop:SetBackdropBorderColor(r, g, b)
+				backdrop:Show()
+
+				if selected then
+					backdrop:SetBackdropColor(0,0,0,0)
+				else
+					backdrop:SetBackdropColor(unpack(E.media.backdropcolor))
+				end
+
+				essences[index] = nil
+			else
+				texture:SetTexture()
+				backdrop:Hide()
+			end
+		end
+	end
 	
 	function Armory:ForUpdateAll()
 		-- _G["CharacterArmory"]:UpdateSettings("all")
