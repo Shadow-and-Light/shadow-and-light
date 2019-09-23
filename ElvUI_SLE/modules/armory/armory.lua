@@ -14,6 +14,8 @@ local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetApp
 local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
 local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllusionSourceInfo
 
+local HandleModifiedItemClick = HandleModifiedItemClick
+
 --<<Class-to-Spec and localizing stuffs>>--
 --[[local ClassToSpec = {
 	["DEATHKNIGHT"] = {
@@ -104,8 +106,6 @@ function Armory:BuildCharacterDefaultsCache()
 	end
 end
 
-Armory.TransmogIndicators = {}
-
 function Armory:UpdatePageInfo(frame, which, guid, event)
 	local window = T.lower(which)
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
@@ -123,6 +123,35 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 				Slot.TransmogInfo:Hide()
 				LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
 			end
+		end
+	end
+end
+
+--<<<<<Transmog functions>>>>>--
+function Armory:Transmog_OnEnter()
+	self.Texture:SetVertexColor(1, .8, 1)
+
+	_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
+	_G["GameTooltip"]:SetHyperlink(self.Link)
+	_G["GameTooltip"]:Show()
+end
+
+function Armory:Transmog_OnLeave()
+	self.Texture:SetVertexColor(1, .5, 1)
+	_G["GameTooltip"]:Hide()
+end
+
+function Armory:Transmog_OnClick(button)
+	local ItemName, ItemLink = T.GetItemInfo(self.Link)
+	
+	if not IsShiftKeyDown() then
+		T.SetItemRef(ItemLink, ItemLink, 'LeftButton')
+	else
+		if HandleModifiedItemClick(ItemLink) then
+		elseif _G["BrowseName"] and _G["BrowseName"]:IsVisible() then
+			AuctionFrameBrowse_Reset(_G["BrowseResetButton"])
+			_G["BrowseName"]:SetText(ItemName)
+			_G["BrowseName"]:SetFocus()
 		end
 	end
 end
