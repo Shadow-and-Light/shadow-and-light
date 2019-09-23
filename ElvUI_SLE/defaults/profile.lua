@@ -27,7 +27,7 @@ P["sle"] = {
 				["yOffset"] = 0,
 			},
 			["transmog"] = {
-				["enableGlow"] = true,
+				["enableGlow"] = false,
 				["enableArrow"] = true,
 				["glowNumber"] = 4,
 				["glowOffset"] = 1,
