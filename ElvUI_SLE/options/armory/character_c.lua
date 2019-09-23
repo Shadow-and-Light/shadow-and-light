@@ -86,10 +86,44 @@ local function configTable()
 					},
 				}
 			},
+			transmog = {
+				order = 4,
+				type = 'group',
+				name = L["Transmog"],
+				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
+				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; Armory:UpdatePageInfo(_G.CharacterFrame, "Character") end,
+				args = {
+					enableGlow = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable Glow"],
+					},
+					enableArrow = {
+						order = 2,
+						type = "toggle",
+						name = L["Enable Arrow"],
+						desc = L["Enables a small arrow-like indicator on the item slot. Howering over this arrow will show the item this slot is transmogged into."],
+					},
+					glowNumber = {
+						type = 'range',
+						name = L["Glow Number"],
+						order = 3,
+						min = 2,max = 8,step = 1,
+						disabled = function() return not E.db.sle.armory.character.transmog.enableGlow end,
+					},
+					glowOffset = {
+						type = 'range',
+						name = L["Glow Offset"],
+						order = 4,
+						min = -2,max = 4,step = 1,
+						disabled = function() return not E.db.sle.armory.character.transmog.enableGlow end,
+					},
+				},
+			},
 			background = {
 				type = 'group',
 				name = L["Backdrop"],
-				order = 4,
+				order = 10,
 				args = {
 					selectedBG = {
 						type = 'select',
