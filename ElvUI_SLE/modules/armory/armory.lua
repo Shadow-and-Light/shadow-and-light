@@ -105,17 +105,9 @@ function Armory:Initialize()
 	Armory:BuildCharacterDefaultsCache()
 	SLE:GetModule("Armory_Character"):LoadAndSetup()
 
-	--Hijack Simpy's shit
 	local M = E:GetModule("Misc")
-	function M:UpdatePageStrings(i, iLevelDB, inspectItem, iLvl, enchant, gems, essences, enchantColors, itemLevelColors, which)
-		iLevelDB[i] = iLvl
-
-		inspectItem.enchantText:SetText(enchant)
-		if enchantColors then
-			inspectItem.enchantText:SetTextColor(unpack(enchantColors))
-		end
-
-		inspectItem.iLvlText:SetText(iLvl)
+	hooksecurefunc(M, "UpdatePageStrings", function(self, i, iLevelDB, inspectItem, iLvl, enchant, gems, essences, enchantColors, itemLevelColors, which)
+		--print("hooksecurefunc fired")
 		if itemLevelColors then
 			which = T.lower(which) --to know which settings table to use
 			if E.db.sle.armory[which] and E.db.sle.armory[which].enable then --If settings table actually exists and armory for it is enabled
@@ -138,45 +130,7 @@ function Armory:Initialize()
 				inspectItem.iLvlText:SetTextColor(unpack(itemLevelColors))
 			end
 		end
-
-		for x = 1, 10 do
-			local texture = inspectItem["textureSlot"..x]
-			local backdrop = inspectItem["textureSlotBackdrop"..x]
-
-			if gems and next(gems) then
-				local index, gem = next(gems)
-				texture:SetTexture(gem)
-				backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
-				backdrop:Show()
-				gems[index] = nil
-			elseif essences and next(essences) then
-				local index, essence = next(essences)
-
-				local r, g, b
-				if essence[2] == 'tooltip-heartofazerothessence-major' then
-					r, g, b = 0.8, 0.7, 0
-				else -- 'tooltip-heartofazerothessence-minor'
-					r, g, b = 0.4, 0.4, 0.4
-				end
-
-				local selected = essence[1]
-				texture:SetTexture(selected)
-				backdrop:SetBackdropBorderColor(r, g, b)
-				backdrop:Show()
-
-				if selected then
-					backdrop:SetBackdropColor(0,0,0,0)
-				else
-					backdrop:SetBackdropColor(unpack(E.media.backdropcolor))
-				end
-
-				essences[index] = nil
-			else
-				texture:SetTexture()
-				backdrop:Hide()
-			end
-		end
-	end
+	end)
 	
 	function Armory:ForUpdateAll()
 		-- _G["CharacterArmory"]:UpdateSettings("all")
