@@ -37,8 +37,9 @@ function CA:BuildLayout()
 	
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		local Slot = _G["Character"..SlotName]
+		Slot.ID = T.GetInventorySlotInfo(SlotName)
 
-		-- Azerite
+		--<<Azerite>>--
 		hooksecurefunc(_G["Character"..SlotName], "SetAzeriteItem", function(self, itemLocation)
 			-- if not CA[SlotName].AzeriteAnchor then return end
 			if not itemLocation then
@@ -72,6 +73,30 @@ function CA:BuildLayout()
 			-- Slot.RankFrame:SetPoint("BOTTOMLEFT", Slot, 0 + E.db.sle.Armory.Character.AzeritePosition.xOffset, 2 + E.db.sle.Armory.Character.AzeritePosition.yOffset)
 			-- Slot.RankFrame.Label:SetPoint("CENTER", Slot.RankFrame, 1, 0)
 		-- end
+		
+		--<<Transmog>>--
+		if Armory.Constants.CanTransmogrify[SlotName] then
+			Slot.TransmogInfo = CreateFrame('Button', SlotName.."_SLE_TransmogInfo", Slot)
+			Slot.TransmogInfo:Size(12)
+			Slot.TransmogInfo:SetFrameLevel(Slot:GetFrameLevel() + 2)
+			Slot.TransmogInfo:Point('BOTTOM'..Slot.Direction, Slot, Slot.Direction == 'LEFT' and -2 or 2, -1)
+			Slot.TransmogInfo:SetScript('OnEnter', self.Transmog_OnEnter)
+			Slot.TransmogInfo:SetScript('OnLeave', self.Transmog_OnLeave)
+			Slot.TransmogInfo:SetScript('OnClick', self.Transmog_OnClick)
+
+			Slot.TransmogInfo.Texture = Slot.TransmogInfo:CreateTexture(nil, 'OVERLAY')
+			Slot.TransmogInfo.Texture:SetInside()
+			Slot.TransmogInfo.Texture:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\armory\anchor]])
+			Slot.TransmogInfo.Texture:SetVertexColor(1, .5, 1)
+
+			if Slot.Direction == 'LEFT' then
+				Slot.TransmogInfo.Texture:SetTexCoord(0, 1, 0, 1)
+			else
+				Slot.TransmogInfo.Texture:SetTexCoord(1, 0, 0, 1)
+			end
+
+			Slot.TransmogInfo:Hide()
+		end
 	end
 	
 	--<<<Hooking some shit!>>>--
@@ -92,6 +117,37 @@ function CA:BuildLayout()
 			_G["CharacterFrameInsetRight"]:SetPoint(T.unpack(DefaultPosition.InsetDefaultPoint))
 		end
 	end)
+end
+
+--<<<<<Transmog functions>>>>>--
+function CA:Transmog_OnEnter()
+	self.Texture:SetVertexColor(1, .8, 1)
+
+	_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
+	_G["GameTooltip"]:SetHyperlink(self.Link)
+	_G["GameTooltip"]:Show()
+end
+
+function CA:Transmog_OnLeave()
+	self.Texture:SetVertexColor(1, .5, 1)
+	_G["GameTooltip"]:Hide()
+end
+
+function CA:Transmog_OnClick(button)
+
+-- function CA:Transmogrify_OnClick(Button)
+	local ItemName, ItemLink = T.GetItemInfo(self.Link)
+	
+	if not IsShiftKeyDown() then
+		SetItemRef(ItemLink, ItemLink, 'LeftButton')
+	else
+		if HandleModifiedItemClick(ItemLink) then
+		elseif _G["BrowseName"] and _G["BrowseName"]:IsVisible() then
+			AuctionFrameBrowse_Reset(_G["BrowseResetButton"])
+			_G["BrowseName"]:SetText(ItemName)
+			_G["BrowseName"]:SetFocus()
+		end
+	end
 end
 
 --<<<<<Updating settings>>>>>--

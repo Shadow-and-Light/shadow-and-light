@@ -26,6 +26,12 @@ P["sle"] = {
 				["xOffset"] = 0,
 				["yOffset"] = 0,
 			},
+			["transmog"] = {
+				["enableGlow"] = true,
+				["enableArrow"] = true,
+				["glowNumber"] = 4,
+				["glowOffset"] = 1,
+			},
 			["background"] = {
 				["selectedBG"] = "Space",
 				["customTexture"] = "",

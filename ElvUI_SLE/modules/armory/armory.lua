@@ -1,11 +1,18 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 if select(2, GetAddOnInfo("ElvUI_KnightFrame")) and IsAddOnLoaded("ElvUI_KnightFrame") then return end --Don't break korean code :D
 local Armory = SLE:NewModule("Armory_Core", "AceEvent-3.0", "AceConsole-3.0", "AceHook-3.0");
+local LCG = LibStub('LibCustomGlow-1.0')
 
 Armory.Constants = {}
 
 --Cache--
 local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
+local LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION = LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION
+
+local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
+local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
+local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
+local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllusionSourceInfo
 
 --<<Class-to-Spec and localizing stuffs>>--
 --[[local ClassToSpec = {
@@ -70,9 +77,9 @@ Armory.Constants.GearList = {
 Armory.Constants.AzeriteSlot = {
 	"HeadSlot", "ShoulderSlot", "ChestSlot",
 }
-Armory.Constants.ReverseGemPosition = {
-	["SecondaryHandSlot"] = "RIGHT",
-	["MainHandSlot"] = "LEFT",
+Armory.Constants.CanTransmogrify = {
+	["HeadSlot"] = true, ["ShoulderSlot"] = true, ["BackSlot"] = true, ["ChestSlot"] = true, ["WristSlot"] = true,
+	["HandsSlot"] = true, ["WaistSlot"] = true, ["LegsSlot"] = true, ["FeetSlot"] = true, ["MainHandSlot"] = true, ["SecondaryHandSlot"] = true
 }
 
 Armory.Constants.AzeriteTraitAvailableColor = {0.95, 0.95, 0.32, 1}
@@ -83,7 +90,6 @@ function Armory:BuildCharacterDefaultsCache()
 		Armory.Constants.CA_Defaults[SlotName] = {}
 		local Slot = _G["Character"..SlotName]
 		Slot.Direction = i%2 == 1 and "LEFT" or "RIGHT"
-		-- if Armory.Constants.ReverseGemPosition[SlotName] then Slot.Direction = Armory.Constants.ReverseGemPosition[SlotName] end
 		if Slot.iLvlText then
 			Armory.Constants.CA_Defaults[SlotName]["iLvlText"] = { Slot.iLvlText:GetPoint() } 
 			Armory.Constants.CA_Defaults[SlotName]["textureSlot1"] = { Slot.textureSlot1:GetPoint() }
@@ -94,6 +100,28 @@ function Armory:BuildCharacterDefaultsCache()
 		end
 		if SlotName == "NeckSlot" then
 			Armory.Constants.CA_Defaults[SlotName]["RankFrame"] = { Slot.RankFrame:GetPoint() }
+		end
+	end
+end
+
+Armory.TransmogIndicators = {}
+
+function Armory:UpdatePageInfo(frame, which, guid, event)
+	local window = T.lower(which)
+	for i, SlotName in T.pairs(Armory.Constants.GearList) do
+		print(i)
+		local Slot = _G[which..SlotName]
+		if Slot.TransmogInfo then
+			if E.db.sle.armory[window].enable and C_Transmog_GetSlotInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE) then
+				print("Enabled")
+				Slot.TransmogInfo.Link = T.select(6, C_TransmogCollection_GetAppearanceSourceInfo(T.select(3, C_Transmog_GetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE))));
+				if E.db.sle.armory[window].transmog.enableArrow then Slot.TransmogInfo:Show() print(SlotName.." Show") end
+				if E.db.sle.armory[window].transmog.enableGlow then LCG.AutoCastGlow_Start(Slot,{1, .5, 1, 1},E.db.sle.armory[window].transmog.glowNumber,0.25,1,E.db.sle.armory[window].transmog.glowOffset,E.db.sle.armory[window].transmog.glowOffset,"_TransmogGlow") end
+			else
+				Slot.TransmogInfo:Hide()
+				LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
+				print(SlotName.." Hide")
+			end
 		end
 	end
 end
@@ -130,7 +158,8 @@ function Armory:Initialize()
 			end
 		end
 	end)
-	
+	hooksecurefunc(M, "UpdatePageInfo", Armory.UpdatePageInfo)
+
 	function Armory:ForUpdateAll()
 		-- _G["CharacterArmory"]:UpdateSettings("all")
 		-- if not SLE._Compatibility["DejaCharacterStats"] then
