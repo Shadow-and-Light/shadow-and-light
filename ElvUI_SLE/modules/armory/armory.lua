@@ -107,7 +107,6 @@ function Armory:Initialize()
 
 	local M = E:GetModule("Misc")
 	hooksecurefunc(M, "UpdatePageStrings", function(self, i, iLevelDB, inspectItem, iLvl, enchant, gems, essences, enchantColors, itemLevelColors, which)
-		--print("hooksecurefunc fired")
 		if itemLevelColors then
 			which = T.lower(which) --to know which settings table to use
 			if E.db.sle.armory[which] and E.db.sle.armory[which].enable then --If settings table actually exists and armory for it is enabled
