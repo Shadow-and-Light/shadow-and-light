@@ -1,6 +1,7 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Armory = SLE:GetModule("Armory_Core")
 -- local CA = SLE:GetModule("Armory_Character")
+local _G = _G
 
 local function configTable()
 	if not SLE.initialized then return end
@@ -17,7 +18,7 @@ local function configTable()
 				order = 2,
 				desc = '',
 				get = function() return E.db.sle.armory.character.enable end,
-				set = function(_, value) E.db.sle.armory.character.enable = value; SLE:GetModule("Armory_Character"):LoadAndSetup(); end
+				set = function(_, value) E.db.sle.armory.character.enable = value; SLE:GetModule("Armory_Character"):LoadAndSetup(); Armory:UpdatePageInfo(_G.CharacterFrame, "Character") end
 			},
 			IA_enable = {
 				type = 'toggle',
