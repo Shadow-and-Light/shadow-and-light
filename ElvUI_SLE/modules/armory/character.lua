@@ -80,9 +80,9 @@ function CA:BuildLayout()
 			Slot.TransmogInfo:Size(12)
 			Slot.TransmogInfo:SetFrameLevel(Slot:GetFrameLevel() + 2)
 			Slot.TransmogInfo:Point('BOTTOM'..Slot.Direction, Slot, Slot.Direction == 'LEFT' and -2 or 2, -1)
-			Slot.TransmogInfo:SetScript('OnEnter', self.Transmog_OnEnter)
-			Slot.TransmogInfo:SetScript('OnLeave', self.Transmog_OnLeave)
-			Slot.TransmogInfo:SetScript('OnClick', self.Transmog_OnClick)
+			Slot.TransmogInfo:SetScript('OnEnter', Armory.Transmog_OnEnter)
+			Slot.TransmogInfo:SetScript('OnLeave', Armory.Transmog_OnLeave)
+			Slot.TransmogInfo:SetScript('OnClick', Armory.Transmog_OnClick)
 
 			Slot.TransmogInfo.Texture = Slot.TransmogInfo:CreateTexture(nil, 'OVERLAY')
 			Slot.TransmogInfo.Texture:SetInside()
@@ -117,37 +117,6 @@ function CA:BuildLayout()
 			_G["CharacterFrameInsetRight"]:SetPoint(T.unpack(DefaultPosition.InsetDefaultPoint))
 		end
 	end)
-end
-
---<<<<<Transmog functions>>>>>--
-function CA:Transmog_OnEnter()
-	self.Texture:SetVertexColor(1, .8, 1)
-
-	_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
-	_G["GameTooltip"]:SetHyperlink(self.Link)
-	_G["GameTooltip"]:Show()
-end
-
-function CA:Transmog_OnLeave()
-	self.Texture:SetVertexColor(1, .5, 1)
-	_G["GameTooltip"]:Hide()
-end
-
-function CA:Transmog_OnClick(button)
-
--- function CA:Transmogrify_OnClick(Button)
-	local ItemName, ItemLink = T.GetItemInfo(self.Link)
-	
-	if not IsShiftKeyDown() then
-		SetItemRef(ItemLink, ItemLink, 'LeftButton')
-	else
-		if HandleModifiedItemClick(ItemLink) then
-		elseif _G["BrowseName"] and _G["BrowseName"]:IsVisible() then
-			AuctionFrameBrowse_Reset(_G["BrowseResetButton"])
-			_G["BrowseName"]:SetText(ItemName)
-			_G["BrowseName"]:SetFocus()
-		end
-	end
 end
 
 --<<<<<Updating settings>>>>>--
