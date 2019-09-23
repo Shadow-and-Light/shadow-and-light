@@ -14,6 +14,8 @@ local DefaultPosition = {
 }
 local PANEL_DEFAULT_WIDTH = PANEL_DEFAULT_WIDTH
 
+CA.ElementsCreated = false
+
 --Adding new stuffs for armory only
 function CA:BuildLayout()
 
@@ -274,6 +276,10 @@ function CA:Disable()
 	
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		local Slot = _G["Character"..SlotName]
+		-- if Slot.TransmogInfo then
+			-- Slot.TransmogInfo:Hide()
+			-- LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
+		-- end
 		if Armory.Constants.CA_Defaults[SlotName] then
 			for element, points in T.pairs(Armory.Constants.CA_Defaults[SlotName]) do
 				Slot[element]:ClearAllPoints()
@@ -285,15 +291,18 @@ function CA:Disable()
 	if _G["PaperDollFrame"].SLE_Armory_BG then _G["PaperDollFrame"].SLE_Armory_BG:Hide() end
 end
 
+function CA:ToggleArmory()
+	if E.db.sle.armory.character.enable then
+		CA:Enable()
+	else
+		CA:Disable()
+	end
+	for i, SlotName in T.pairs(Armory.Constants.AzeriteSlot) do PaperDollItemSlotButton_Update(_G["Character"..SlotName]) end
+end
+
 function CA:LoadAndSetup()
 		CA:BuildLayout()
-		if E.db.sle.armory.character.enable then
-			CA:Enable()
-		else
-			CA:Disable()
-		end
+		CA:ToggleArmory()
 		CA:ElvOverlayToggle()
-		for i, SlotName in T.pairs(Armory.Constants.AzeriteSlot) do PaperDollItemSlotButton_Update(_G["Character"..SlotName]) end
 
-	print("Woooooooooooooooo")
 end

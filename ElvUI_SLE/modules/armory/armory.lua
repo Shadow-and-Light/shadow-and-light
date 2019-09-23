@@ -109,18 +109,19 @@ Armory.TransmogIndicators = {}
 function Armory:UpdatePageInfo(frame, which, guid, event)
 	local window = T.lower(which)
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
-		print(i)
 		local Slot = _G[which..SlotName]
 		if Slot.TransmogInfo then
 			if E.db.sle.armory[window].enable and C_Transmog_GetSlotInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE) then
-				print("Enabled")
 				Slot.TransmogInfo.Link = T.select(6, C_TransmogCollection_GetAppearanceSourceInfo(T.select(3, C_Transmog_GetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE))));
-				if E.db.sle.armory[window].transmog.enableArrow then Slot.TransmogInfo:Show() print(SlotName.." Show") end
-				if E.db.sle.armory[window].transmog.enableGlow then LCG.AutoCastGlow_Start(Slot,{1, .5, 1, 1},E.db.sle.armory[window].transmog.glowNumber,0.25,1,E.db.sle.armory[window].transmog.glowOffset,E.db.sle.armory[window].transmog.glowOffset,"_TransmogGlow") end
+				if E.db.sle.armory[window].transmog.enableArrow then Slot.TransmogInfo:Show() else Slot.TransmogInfo:Hide() end
+				if E.db.sle.armory[window].transmog.enableGlow then
+					LCG.AutoCastGlow_Start(Slot,{1, .5, 1, 1},E.db.sle.armory[window].transmog.glowNumber,0.25,1,E.db.sle.armory[window].transmog.glowOffset,E.db.sle.armory[window].transmog.glowOffset,"_TransmogGlow")
+				else
+					LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
+				end
 			else
 				Slot.TransmogInfo:Hide()
 				LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
-				print(SlotName.." Hide")
 			end
 		end
 	end
