@@ -24,26 +24,26 @@ function CA:BuildLayout()
 		_G["PaperDollFrame"].SLE_Armory_BG:Point('BOTTOMRIGHT', _G["CharacterModelFrame"], 4, 0)
 	end
 	_G["PaperDollFrame"].SLE_Armory_BG:Hide()
-	
-	--<<This may be unnessesary>>--
-	--Change Model Frame's frameLevel. Cause background is not so back-ish
-	-- _G["CharacterModelFrame"]:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() + 5)
 
-	--So now gear slots are on the same level as background. Make then higher!
-	-- for i, SlotName in T.pairs(Armory.Info.GearList) do
-		-- local Slot = _G["Character"..SlotName]
-		-- Slot:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() + 1)
-	-- end
-	
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		local Slot = _G["Character"..SlotName]
 		Slot.ID = T.GetInventorySlotInfo(SlotName)
+		
+		for t = 1, 3 do
+			if Slot["textureSlot"..t] then
+				Slot["SLE_Gem"..t] = CreateFrame("Frame", nil, Slot)
+				Slot["SLE_Gem"..t]:SetPoint("TOPLEFT", Slot["textureSlot"..t])
+				Slot["SLE_Gem"..t]:SetPoint("BOTTOMRIGHT", Slot["textureSlot"..t])
+				Slot["SLE_Gem"..t]:SetScript("OnEnter", Armory.Gem_OnEnter)
+				Slot["SLE_Gem"..t]:SetScript("OnLeave", Armory.Tooltip_OnLeave)
+				--Variables for use in some stuff
+				Slot["SLE_Gem"..t].frame = "character"
+			end
+		end
 
 		--<<Azerite>>--
 		hooksecurefunc(_G["Character"..SlotName], "SetAzeriteItem", function(self, itemLocation)
-			-- if not CA[SlotName].AzeriteAnchor then return end
 			if not itemLocation then
-				-- CA[SlotName].AzeriteAnchor:Hide()
 				LCG.PixelGlow_Stop(self, "_AzeriteTraitGlow")
 				return
 			end
@@ -51,9 +51,7 @@ function CA:BuildLayout()
 			if E.db.sle.armory.character.enable then self.AvailableTraitFrame:Hide() end
 			local isAzeriteEmpoweredItem = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(itemLocation);
 			if isAzeriteEmpoweredItem then
-				-- CA[SlotName].AzeriteAnchor:Show()
 			else
-				-- CA[SlotName].AzeriteAnchor:Hide()
 				LCG.PixelGlow_Stop(self, "_AzeriteTraitGlow")
 			end
 		end)

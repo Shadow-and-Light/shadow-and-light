@@ -124,6 +124,32 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 				LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
 			end
 		end
+		Armory:UpdateGemInfo(Slot, which)
+	end
+end
+
+---tore gem info in our hidden frame
+function Armory:UpdateGemInfo(Slot, which)
+	local itemLink = T.GetInventoryItemLink(which == "Character" and "player" or frame.unit, Slot.ID)
+	if itemLink then
+		for i = 1, 3 do
+			local GemLink = T.select(2, GetItemGem(itemLink, i))
+			Slot["SLE_Gem"..i].Link = GemLink
+		end
+	end
+end
+
+---<<<Global Hide tooltip func for armory>>>---
+function Armory:Tooltip_OnLeave()
+	_G["GameTooltip"]:Hide()
+end
+
+---<<<Show Gem on mouse over>>>---
+function Armory:Gem_OnEnter()
+	if E.db.sle.armory[self.frame].enable and self.Link then --Only do stuff if armory is enabled or the gem is present
+		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_RIGHT')
+		_G["GameTooltip"]:SetHyperlink(self.Link)
+		_G["GameTooltip"]:Show()
 	end
 end
 
