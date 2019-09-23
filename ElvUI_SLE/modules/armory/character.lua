@@ -14,8 +14,6 @@ local DefaultPosition = {
 }
 local PANEL_DEFAULT_WIDTH = PANEL_DEFAULT_WIDTH
 
-CA.ElementsCreated = false
-
 --Adding new stuffs for armory only
 function CA:BuildLayout()
 
@@ -276,10 +274,6 @@ function CA:Disable()
 	
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		local Slot = _G["Character"..SlotName]
-		-- if Slot.TransmogInfo then
-			-- Slot.TransmogInfo:Hide()
-			-- LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
-		-- end
 		if Armory.Constants.CA_Defaults[SlotName] then
 			for element, points in T.pairs(Armory.Constants.CA_Defaults[SlotName]) do
 				Slot[element]:ClearAllPoints()
