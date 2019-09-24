@@ -481,8 +481,6 @@ function LDB.OnEnter(self)
 							line = tooltip:SetCell(line, 6, "|cffffffffDestiny 2|r")
 						elseif player["CLIENT"] == "VIPR" then
 							line = tooltip:SetCell(line, 6, "CoD")
-						else
-							print(player["GIVENNAME"], player["CLIENT"])
 						end
 					end
 
