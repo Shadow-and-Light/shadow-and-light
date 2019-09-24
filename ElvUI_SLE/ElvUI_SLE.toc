@@ -11,7 +11,6 @@
 ## X-ElvVersion: 11.23
 ## SavedVariables: SLE_ArmoryDB
 
-
 libs\load_libs.xml
 locales\load_locales.xml
 media\load_media.xml
