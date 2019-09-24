@@ -1,9 +1,7 @@
 v3.58 [September 24th, 2019]
 Requires ElvUI 11.23 or higher
 Additions:
-- 
-Changes:
-- 
+- DB conversion now will be less under the rug. It will now tell you if anything was changed in its own popup.
 Fixes:
 - Character Armory Fixed
 - Friends Datatext Fixed
