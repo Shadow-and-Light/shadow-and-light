@@ -204,7 +204,7 @@ T.GetRaidRosterInfo = GetRaidRosterInfo
 --Friend
 T.BNGetNumFriends = BNGetNumFriends
 T.BNGetFriendInfo = BNGetFriendInfo
-T.BNGetGameAccountInfo = BNGetGameAccountInfo --6.2.4
+T.BNGetFriendGameAccountInfo = BNGetFriendGameAccountInfo --8.2.5
 T.BNGetFriendIndex = BNGetFriendIndex
 T.GetFriendInfo = GetFriendInfo
 T.GetFriendInfoByIndex = C_FriendList.GetFriendInfoByIndex
