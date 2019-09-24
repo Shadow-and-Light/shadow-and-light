@@ -207,7 +207,9 @@ T.BNGetFriendInfo = BNGetFriendInfo
 T.BNGetGameAccountInfo = BNGetGameAccountInfo --6.2.4
 T.BNGetFriendIndex = BNGetFriendIndex
 T.GetFriendInfo = GetFriendInfo
-T.GetNumFriends = GetNumFriends
+T.GetFriendInfoByIndex = C_FriendList.GetFriendInfoByIndex
+T.GetNumFriends = C_FriendList.GetNumFriends
+T.GetNumOnlineFriends = C_FriendList.GetNumOnlineFriends
 --Quests
 T.GetQuestLogTitle = GetQuestLogTitle
 T.GetNumQuestLogEntries = GetNumQuestLogEntries
