@@ -1,3 +1,13 @@
+v3.58 [September 24th, 2019]
+Requires ElvUI 11.23 or higher
+Additions:
+- 
+Changes:
+- 
+Fixes:
+- Character Armory Fixed
+- Friends Datatext Fixed
+
 v3.57 [September 6th, 2019]
 Requires ElvUI 11.22.
 Additions:
@@ -8,7 +18,7 @@ Changes:
 Fixes:
 - Fixed clean or first time install errors for locales, this compliments changes in ElvUI.
 - Fixed movable frames causing a pletera of errors for "restricted" frames.
-- FIxed (probably) datatext panel errors poping up from time to time.
+- Fixed (probably) datatext panel errors poping up from time to time.
 - S&L Friends datatext now can tell apart retail and classic
 
 v3.564 [August 17, 2019]
