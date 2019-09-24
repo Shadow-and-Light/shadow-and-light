@@ -45,7 +45,6 @@ B.Frames = {
 	["ReadyCheckFrame"] = true,
 	["ReportCheatingDialog"] = true,
 	["RolePollPopup"] = true,
-	["ScrollOfResurrectionSelectionFrame"] = true,
 	["SpellBookFrame"] = true,
 	["SplashFrame"] = true,
 	["StackSplitFrame"] = true,
