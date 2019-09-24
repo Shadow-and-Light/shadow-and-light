@@ -210,7 +210,8 @@ end
 
 function DTP:update_Friends()
 	ShowFriends()
-	local friendsTotal, friendsOnline = T.GetNumFriends()
+	local friendsTotal = T.GetNumFriends()
+	local friendsOnline = T.GetNumOnlineFriends()
 	local bnTotal, bnOnline = T.BNGetNumFriends()
 	local totalOnline = friendsOnline + bnOnline
 	local totalFriends = friendsTotal + bnTotal
@@ -341,7 +342,7 @@ function LDB.OnEnter(self)
 	end
 
 	local _, numBNOnline = T.BNGetNumFriends()
-	local _, numFriendsOnline = T.GetNumFriends()
+	local numFriendsOnline = T.GetNumOnlineFriends()
 
 	if (numBNOnline > 0) or (numFriendsOnline > 0) then
 		line = tooltip:AddLine()
@@ -587,7 +588,7 @@ end)
 
 function frame:PLAYER_LOGIN()
 	local _, numBNOnline = T.BNGetNumFriends()
-	local _, numFriendsOnline = T.GetNumFriends()
+	local numFriendsOnline = T.GetNumOnlineFriends()
 
 	if (numBNOnline > 0) or (numFriendsOnline > 0) then
 		if numBNOnline > 0 then
