@@ -468,10 +468,10 @@ function IA:CreateInspectFrame()
 			self.LastDataSetting = nil
 			
 			self.Model:ClearAllPoints()
-			self.Model:Point('TOPLEFT', UIParent)
-			self.Model:Point('BOTTOMRIGHT', UIParent, 'TOPLEFT')
+			self.Model:SetPoint('TOPLEFT', UIParent)
+			self.Model:SetPoint('BOTTOMRIGHT', UIParent, 'TOPLEFT')
 		end)
-		self:SetScript('OnShow', function() self.Model:Point('TOPRIGHT', self.HandsSlot) end)
+		self:SetScript('OnShow', function() self.Model:SetPoint('TOPRIGHT', self.HandsSlot) end)
 		self:SetScript('OnEvent', function(self, Event, ...) if self[Event] then self[Event](Event, ...) end end)
 		
 		_G["UIPanelWindows"].InspectArmory = { area = 'left', pushable = 1, whileDead = 1 }
@@ -2074,9 +2074,9 @@ function IA:InspectFrame_DataSetting(DataTable)
 								for i = 1, MAX_NUM_SOCKETS do
 									ItemTexture = _G['InspectArmoryScanTTTexture'..i]:GetTexture()
 									
-									if ItemTexture and ItemTexture:find('Interface\\ItemSocketingFrame\\') then
+									if ItemTexture and T.type(GemTexture) == "number" then
 										GemCount_Default = GemCount_Default + 1
-										Slot['Socket'..GemCount_Default].GemType = T.upper(gsub(ItemTexture, 'Interface\\ItemSocketingFrame\\UI--EmptySocket--', ''))
+										Slot['Socket'..GemCount_Default].GemType = ItemTexture
 									end
 								end
 								
@@ -2130,7 +2130,7 @@ function IA:InspectFrame_DataSetting(DataTable)
 												NeedUpdate = true
 											end
 										else
-											Slot['Socket'..i].Socket.Message = '|cffffffff'.._G['EMPTY_SOCKET_'..Slot['Socket'..i].GemType]
+											Slot['Socket'..i].Socket.Message = '|cffffffff'.._G['EMPTY_SOCKET_PRISMATIC']
 										end
 									end
 								end
@@ -2430,9 +2430,9 @@ function IA:InspectFrame_DataSetting(DataTable)
 	do	--<< Model and Frame Setting When InspectUnit Changed >>--
 		if self.NeedModelSetting then
 			self.Model:ClearAllPoints()
-			self.Model:Point('TOPLEFT', self.HeadSlot)
-			self.Model:Point('TOPRIGHT', self.HandsSlot)
-			self.Model:Point('BOTTOM', self.BP, 'TOP', 0, SPACING)
+			self.Model:SetPoint('TOPLEFT', self.HeadSlot)
+			self.Model:SetPoint('TOPRIGHT', self.HandsSlot)
+			self.Model:SetPoint('BOTTOM', self.BP, 'TOP', 0, SPACING)
 			
 			if DataTable.UnitID and UnitIsVisible(DataTable.UnitID) then
 				self.Model:SetUnit(DataTable.UnitID)

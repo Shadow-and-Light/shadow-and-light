@@ -665,12 +665,12 @@ function CA:DrawGemSlots(Slot, numGems, ItemData, ItemLink)
 	local GemCount_Default, GemCount_Now, GemCount = 0, 0, 0
 	for i = 1, numGems do
 		GemTexture = _G["Knight_CharacterArmory_ScanTTTexture"..i]:GetTexture()
-		if GemTexture and GemTexture:find('Interface\\ItemSocketingFrame\\') then
+		if GemTexture and T.type(GemTexture) == "number" then
 			GemCount_Default = GemCount_Default + 1
-			Slot["Socket"..GemCount_Default].GemType = T.upper(T.gsub(GemTexture, 'Interface\\ItemSocketingFrame\\UI--EmptySocket--', ''))
+			Slot["Socket"..GemCount_Default].GemType = GemTexture
 		end
 	end
-	
+
 	self:ClearTooltip(self.ScanTT)
 	self.ScanTT:SetInventoryItem('player', Slot.ID)
 
@@ -725,8 +725,8 @@ function CA:DrawGemSlots(Slot, numGems, ItemData, ItemLink)
 					NeedUpdate = true
 				end
 			else
-				if Slot['Socket'..i].GemType == nil then Slot['Socket'..i].GemType = 'PRISMATIC' GemCount_Default = GemCount_Default + 1 end
-				Slot['Socket'..i].Socket.Message = '|cffffffff'.._G['EMPTY_SOCKET_'..Slot['Socket'..i].GemType]
+				if Slot['Socket'..i].GemType == nil then Slot['Socket'..i].GemType = "PRISMATIC" GemCount_Default = GemCount_Default + 1 end
+				Slot['Socket'..i].Socket.Message = '|cffffffff'.._G['EMPTY_SOCKET_PRISMATIC'] --..Slot['Socket'..i].GemType]
 			end
 		end
 	end
