@@ -209,6 +209,7 @@ local function valueColor(totals)
 end
 
 function DTP:update_Friends()
+	if not E.db or not E.db.sle or not E.db.sle.dt or not E.db.sle.dt.friends then return end
 	ShowFriends()
 	local friendsTotal = T.GetNumFriends()
 	local friendsOnline = T.GetNumOnlineFriends()
