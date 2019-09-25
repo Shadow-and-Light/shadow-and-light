@@ -29,6 +29,7 @@ function CA:BuildLayout()
 		local Slot = _G["Character"..SlotName]
 		Slot.ID = T.GetInventorySlotInfo(SlotName)
 		
+		--Create gems
 		for t = 1, 3 do
 			if Slot["textureSlot"..t] then
 				Slot["SLE_Gem"..t] = CreateFrame("Frame", nil, Slot)
@@ -39,6 +40,21 @@ function CA:BuildLayout()
 				--Variables for use in some stuff
 				Slot["SLE_Gem"..t].frame = "character"
 			end
+		end
+
+		-- Gradation
+		if Slot.iLvlText then
+			Slot.SLE_Gradient = Slot:CreateTexture(nil, "BORDER")
+			Slot.SLE_Gradient:SetPoint(Slot.Direction, Slot, Slot.Direction == "LEFT" and "RIGHT" or "LEFT", 0, 0)
+			Slot.SLE_Gradient:Size(89, 41)
+			Slot.SLE_Gradient:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\armory\Gradation]])
+			if Slot.Direction == 'LEFT' then
+				Slot.SLE_Gradient:SetTexCoord(0, 1, 0, 1)
+			else
+				Slot.SLE_Gradient:SetTexCoord(1, 0, 0, 1)
+			end
+			Slot.iLvlText:SetTextColor(1, 1, 1)
+			Slot.SLE_Gradient:Hide()
 		end
 
 		--<<Azerite>>--
@@ -113,6 +129,18 @@ function CA:BuildLayout()
 			_G["CharacterFrameInsetRight"]:SetPoint('TOPLEFT', _G["CharacterFrameInset"], 'TOPRIGHT', 110, 0)
 		else
 			_G["CharacterFrameInsetRight"]:SetPoint(T.unpack(DefaultPosition.InsetDefaultPoint))
+		end
+	end)
+	hooksecurefunc('PaperDollFrame_SetLevel', function()
+		if E.db.sle.armory.character.enable then 
+			_G["CharacterLevelText"]:SetText(_G["CharacterLevelText"]:GetText())
+
+			_G["CharacterFrameTitleText"]:ClearAllPoints()
+			_G["CharacterFrameTitleText"]:Point('TOP',  _G["CharacterModelFrame"], 0, 45)
+			_G["CharacterFrameTitleText"]:SetParent(_G["CharacterFrame"])
+			_G["CharacterLevelText"]:ClearAllPoints()
+			_G["CharacterLevelText"]:SetPoint('TOP', _G["CharacterFrameTitleText"], 'BOTTOM', 0, 2)
+			_G["CharacterLevelText"]:SetParent(_G["CharacterFrame"])
 		end
 	end)
 end
@@ -215,6 +243,16 @@ function CA:Enable()
 	CA:Update_ItemLevel()
 	CA:Update_Enchant()
 	CA:Update_Gems()
+	-- for i, SlotName in T.pairs(Armory.Constants.GearList) do
+		-- local Slot = _G["Character"..SlotName]
+		-- if Slot.SLE_Gradient then
+			-- if E.db.sle.armory.character.gradient.enable then
+				-- Slot.SLE_Gradient:Show()
+			-- else
+				-- Slot.SLE_Gradient:Hide()
+			-- end
+		-- end
+	-- end
 end
 
 function CA:Disable()
@@ -247,6 +285,7 @@ function CA:Disable()
 				Slot[element]:Point(T.unpack(points))
 			end
 		end
+		-- if Slot.SLE_Gradient then Slot.SLE_Gradient:Hide() end
 	end
 	
 	if _G["PaperDollFrame"].SLE_Armory_BG then _G["PaperDollFrame"].SLE_Armory_BG:Hide() end

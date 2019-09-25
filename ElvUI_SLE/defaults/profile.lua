@@ -26,6 +26,11 @@ P["sle"] = {
 				["xOffset"] = 0,
 				["yOffset"] = 0,
 			},
+			["gradient"] = {
+				["enable"] = true,
+				["color"] = { .41, .83, 1 },
+				["quality"] = false,
+			},
 			["transmog"] = {
 				["enableGlow"] = false,
 				["enableArrow"] = true,

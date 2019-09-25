@@ -120,6 +120,36 @@ local function configTable()
 					},
 				},
 			},
+			gradient = {
+					type = 'group',
+					name = L["Gradient"],
+					order = 5,
+					get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
+					set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; M:UpdateCharacterInfo() end,
+					args = {
+						enable = {
+							type = 'toggle',
+							name = L["Enable"],
+							order = 1,
+						},
+						color = {
+							type = 'color',
+							name = L["Gradient Texture Color"],
+							order = 2,
+							get = function(info) 
+								return T.unpack(E.db.sle.armory.character[(info[#info - 1])][(info[#info])])
+							end,
+							set = function(info, r, g, b, a) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = { r, g, b, a }; M:UpdateCharacterInfo() end,
+							disabled = function() return E.db.sle.armory.character.enable == false or E.db.sle.armory.character.gradient.enable == false end,
+						},
+						quality = {
+							type = 'toggle',
+							name = COLORBLIND_ITEM_QUALITY,
+							order = 3,
+							disabled = function() return E.db.sle.armory.character.enable == false or E.db.sle.armory.character.gradient.enable == false end,
+						}
+					}
+				},
 			background = {
 				type = 'group',
 				name = L["Backdrop"],

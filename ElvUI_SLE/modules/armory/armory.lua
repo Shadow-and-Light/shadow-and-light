@@ -106,6 +106,7 @@ function Armory:BuildCharacterDefaultsCache()
 	end
 end
 
+--Updates the frame
 function Armory:UpdatePageInfo(frame, which, guid, event)
 	local window = T.lower(which)
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
@@ -128,7 +129,43 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 	end
 end
 
----tore gem info in our hidden frame
+--Updates ilvl and everything tied to the item somehow
+function Armory:UpdatePageStrings(i, iLevelDB, Slot, iLvl, enchant, gems, essences, enchantColors, itemLevelColors, which)
+	if itemLevelColors then
+		which = T.lower(which) --to know which settings table to use
+		if E.db.sle.armory[which] and E.db.sle.armory[which].enable then --If settings table actually exists and armory for it is enabled
+			if E.db.sle.armory[which].ilvl.colorType == "QUALITY" then
+				Slot.iLvlText:SetTextColor(unpack(itemLevelColors)) --Busyness as usual
+			elseif E.db.sle.armory[which].ilvl.colorType == "GRADIENT" then
+				local equippedIlvl = which == "character" and T.select(2, T.GetAverageItemLevel()) or E:CalculateAverageItemLevel(iLevelDB, _G["inspectFrame"].unit)
+				local diff = iLvl - equippedIlvl
+				local aR, aG, aB
+				if diff >= 0 then
+					aR, aG, aB = 0,1,0
+				else
+					aR, aG, aB = E:ColorGradient(-(3/diff), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+				end
+				Slot.iLvlText:SetTextColor(aR, aG, aB)
+			else
+				Slot.iLvlText:SetTextColor(1, 1, 1)
+			end
+		else
+			Slot.iLvlText:SetTextColor(unpack(itemLevelColors))
+		end
+		if Slot.SLE_Gradient then --Probably not actually neccesary, but just in case
+			if E.db.sle.armory[which].enable and E.db.sle.armory[which].gradient.enable and iLvl then
+				Slot.SLE_Gradient:Show()
+				if E.db.sle.armory[which].gradient.quality then Slot.SLE_Gradient:SetVertexColor(unpack(itemLevelColors)) else Slot.SLE_Gradient:SetVertexColor(T.unpack(E.db.sle.armory[which].gradient.color)) end
+			else
+				Slot.SLE_Gradient:Hide()
+			end
+		end
+	else
+		if Slot.SLE_Gradient then Slot.SLE_Gradient:Hide() end
+	end
+end
+
+---Store gem info in our hidden frame
 function Armory:UpdateGemInfo(Slot, which)
 	local itemLink = T.GetInventoryItemLink(which == "Character" and "player" or frame.unit, Slot.ID)
 	if itemLink then
@@ -190,31 +227,8 @@ function Armory:Initialize()
 	SLE:GetModule("Armory_Character"):LoadAndSetup()
 
 	local M = E:GetModule("Misc")
-	hooksecurefunc(M, "UpdatePageStrings", function(self, i, iLevelDB, inspectItem, iLvl, enchant, gems, essences, enchantColors, itemLevelColors, which)
-		if itemLevelColors then
-			which = T.lower(which) --to know which settings table to use
-			if E.db.sle.armory[which] and E.db.sle.armory[which].enable then --If settings table actually exists and armory for it is enabled
-				if E.db.sle.armory[which].ilvl.colorType == "QUALITY" then
-					inspectItem.iLvlText:SetTextColor(unpack(itemLevelColors)) --Busyness as usual
-				elseif E.db.sle.armory[which].ilvl.colorType == "GRADIENT" then
-					local equippedIlvl = which == "character" and T.select(2, T.GetAverageItemLevel()) or E:CalculateAverageItemLevel(iLevelDB, _G["inspectFrame"].unit)
-					local diff = iLvl - equippedIlvl
-					local aR, aG, aB
-					if diff >= 0 then
-						aR, aG, aB = 0,1,0
-					else
-						aR, aG, aB = E:ColorGradient(-(3/diff), 1, 0, 0, 1, 1, 0, 0, 1, 0)
-					end
-					inspectItem.iLvlText:SetTextColor(aR, aG, aB)
-				else
-					inspectItem.iLvlText:SetTextColor(1, 1, 1)
-				end
-			else
-				inspectItem.iLvlText:SetTextColor(unpack(itemLevelColors))
-			end
-		end
-	end)
 	hooksecurefunc(M, "UpdatePageInfo", Armory.UpdatePageInfo)
+	hooksecurefunc(M, "UpdatePageStrings", Armory.UpdatePageStrings)
 
 	function Armory:ForUpdateAll()
 		-- _G["CharacterArmory"]:UpdateSettings("all")
