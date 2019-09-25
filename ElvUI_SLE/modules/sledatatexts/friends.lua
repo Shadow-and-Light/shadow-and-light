@@ -215,7 +215,7 @@ function DTP:update_Friends()
 	local bnTotal, bnOnline = T.BNGetNumFriends()
 	local totalOnline = friendsOnline + bnOnline
 	local totalFriends = friendsTotal + bnTotal
-	local text = E.db.sle.dt.friends.textStyle == "Default" and FRIENDS..": " or E.db.sle.dt.friends.textStyle == "NoText" and "" or E.db.sle.dt.friends.textStyle == "Icon" and "|TInterface\\ICONS\\Achievement_Reputation_01:12|t: "
+	local text = E.db.sle.dt.friends.textStyle == "Default" and FRIENDS..": " or E.db.sle.dt.friends.textStyle == "NoText" and "" or E.db.sle.dt.friends.textStyle == "Icon" and "|TInterface\\ICONS\\Achievement_Reputation_01:12|t: " or ""
 	if E.db.sle.dt.friends.totals then
 		LDB.text = text..valueColor(totalOnline).."/"..valueColor(totalFriends)
 	else
