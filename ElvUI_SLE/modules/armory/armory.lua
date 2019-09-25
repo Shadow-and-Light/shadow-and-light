@@ -129,13 +129,18 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 	end
 end
 
+function Armory:ProcessEnchant(which, Slot, enchant, fullEnchantText)
+		Slot.enchantText:SetText(fullEnchantText) --Just this for now
+end
+
 --Updates ilvl and everything tied to the item somehow
-function Armory:UpdatePageStrings(i, iLevelDB, Slot, iLvl, enchant, gems, essences, enchantColors, itemLevelColors, which)
+function Armory:UpdatePageStrings(i, iLevelDB, Slot, iLvl, enchant, gems, essences, enchantColors, itemLevelColors, which, fullEnchantText)
 	if itemLevelColors then
 		which = T.lower(which) --to know which settings table to use
 		if E.db.sle.armory[which] and E.db.sle.armory[which].enable then --If settings table actually exists and armory for it is enabled
+			if Slot.enchantText and not (enchant == nil or fullEnchantText == nil) then Armory:ProcessEnchant(which, Slot, enchant, fullEnchantText) end
 			if E.db.sle.armory[which].ilvl.colorType == "QUALITY" then
-				Slot.iLvlText:SetTextColor(unpack(itemLevelColors)) --Busyness as usual
+				Slot.iLvlText:SetTextColor(T.unpack(itemLevelColors)) --Busyness as usual
 			elseif E.db.sle.armory[which].ilvl.colorType == "GRADIENT" then
 				local equippedIlvl = which == "character" and T.select(2, T.GetAverageItemLevel()) or E:CalculateAverageItemLevel(iLevelDB, _G["inspectFrame"].unit)
 				local diff = iLvl - equippedIlvl
@@ -150,7 +155,7 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, iLvl, enchant, gems, essenc
 				Slot.iLvlText:SetTextColor(1, 1, 1)
 			end
 		else
-			Slot.iLvlText:SetTextColor(unpack(itemLevelColors))
+			Slot.iLvlText:SetTextColor(T.unpack(itemLevelColors))
 		end
 		if Slot.SLE_Gradient then --Probably not actually neccesary, but just in case
 			if E.db.sle.armory[which].enable and E.db.sle.armory[which].gradient.enable and iLvl then
