@@ -25,6 +25,7 @@ P["sle"] = {
 			["gem"] = {
 				["xOffset"] = 0,
 				["yOffset"] = 0,
+				["size"] = 10,
 			},
 			["gradient"] = {
 				["enable"] = true,
@@ -45,6 +46,41 @@ P["sle"] = {
 		},
 		["inspect"] = {
 			["enable"] = false,
+			["ilvl"] = {
+				["colorType"] = "NONE",
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+			},
+			["enchant"] = {
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+			},
+			["gem"] = {
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+				["size"] = 10,
+			},
+			["gradient"] = {
+				["enable"] = true,
+				["color"] = { .41, .83, 1 },
+				["quality"] = false,
+			},
+			["transmog"] = {
+				["enableGlow"] = false,
+				["enableArrow"] = true,
+				["glowNumber"] = 4,
+				["glowOffset"] = 1,
+			},
+			["background"] = {
+				["selectedBG"] = "Space",
+				["customTexture"] = "",
+				["overlay"] = true,
+			},
+		},
+		["enchantString"] = {
+			["enable"] = true,
+			-- ["fullText"] = false,
+			["replacement"] = true,
 		},
 	},
 	--Auras
