@@ -8,6 +8,8 @@ local _G = _G
 
 --Adding new stuffs for armory only
 function IA:BuildLayout()
+	InspectGuildFrameBanner:ClearAllPoints()
+	InspectGuildFrameBanner:Point("TOP", InspectFrameInset, "TOP", 0, -4)
 
 	--<< Background >>--
 	if not _G["InspectPaperDollFrame"].SLE_Armory_BG then
