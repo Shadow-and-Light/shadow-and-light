@@ -44,9 +44,9 @@ function CA:BuildLayout()
 
 		-- Gradation
 		if Slot.iLvlText then
-			Slot.SLE_Gradient = Slot:CreateTexture(nil, "BORDER")
-			Slot.SLE_Gradient:SetPoint(Slot.Direction, Slot, Slot.Direction == "LEFT" and "RIGHT" or "LEFT", 0, 0)
-			Slot.SLE_Gradient:Size(89, 41)
+			Slot.SLE_Gradient = Slot:CreateTexture(nil, "BACKGROUND")
+			Slot.SLE_Gradient:SetPoint(Slot.Direction, Slot, Slot.Direction, 0, 0)
+			Slot.SLE_Gradient:Size(132, 41)
 			Slot.SLE_Gradient:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\armory\Gradation]])
 			if Slot.Direction == 'LEFT' then
 				Slot.SLE_Gradient:SetTexCoord(0, 1, 0, 1)
@@ -189,6 +189,9 @@ function CA:Update_Gems()
 		if Slot.textureSlot1 then
 			Slot.textureSlot1:ClearAllPoints()
 			Slot.textureSlot1:Point('BOTTOM'..Slot.Direction, _G["Character"..SlotName], "BOTTOM"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.gem.xOffset or -2-E.db.sle.armory.character.gem.xOffset, 2+E.db.sle.armory.character.gem.yOffset)
+			for i = 1, 3 do
+				Slot["textureSlot"..i]:Size(E.db.sle.armory.character.gem.size)
+			end
 		end
 	end
 end
@@ -279,13 +282,15 @@ function CA:Disable()
 	
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		local Slot = _G["Character"..SlotName]
-		if Armory.Constants.CA_Defaults[SlotName] then
-			for element, points in T.pairs(Armory.Constants.CA_Defaults[SlotName]) do
+		if Armory.Constants.Character_Defaults[SlotName] then
+			for element, points in T.pairs(Armory.Constants.Character_Defaults[SlotName]) do
 				Slot[element]:ClearAllPoints()
 				Slot[element]:Point(T.unpack(points))
 			end
 		end
-		-- if Slot.SLE_Gradient then Slot.SLE_Gradient:Hide() end
+		if Slot.textureSlot1 then
+			for i = 1, 3 do Slot["textureSlot"..i]:Size(14) end
+		end
 	end
 	
 	if _G["PaperDollFrame"].SLE_Armory_BG then _G["PaperDollFrame"].SLE_Armory_BG:Hide() end
