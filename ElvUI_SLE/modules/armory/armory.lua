@@ -2,6 +2,7 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 if select(2, GetAddOnInfo("ElvUI_KnightFrame")) and IsAddOnLoaded("ElvUI_KnightFrame") then return end --Don't break korean code :D
 local Armory = SLE:NewModule("Armory_Core", "AceEvent-3.0", "AceConsole-3.0", "AceHook-3.0");
 local LCG = LibStub('LibCustomGlow-1.0')
+local CA, IA, SA
 
 Armory.Constants = {}
 
@@ -66,11 +67,11 @@ for ClassName, Spec_ID_Table in T.pairs(ClassToSpec) do
 end]]
 
 	--Create ench replacement string DB
-	if type(SLE_ArmoryDB) ~= "table" then
-		SLE_ArmoryDB = {
-			EnchantString = {}
-		}
-	end
+if not SLE_ArmoryDB or T.type(SLE_ArmoryDB) ~= "table" then
+	SLE_ArmoryDB = {
+		EnchantString = {}
+	}
+end
 
 Armory.Constants.GearList = {
 	"HeadSlot", "HandsSlot", "NeckSlot", "WaistSlot", "ShoulderSlot", "LegsSlot", "BackSlot", "FeetSlot", "ChestSlot", "Finger0Slot",
@@ -85,25 +86,30 @@ Armory.Constants.CanTransmogrify = {
 }
 
 Armory.Constants.AzeriteTraitAvailableColor = {0.95, 0.95, 0.32, 1}
+Armory.Constants.Character_Defaults_Cached = false
+Armory.Constants.Inspect_Defaults_Cached = false
+Armory.Constants.Character_Defaults = {}
+Armory.Constants.Inspect_Defaults = {}
 
-function Armory:BuildCharacterDefaultsCache()
-	Armory.Constants.CA_Defaults = {}
+--Remembering default positions of stuff
+function Armory:BuildFrameDefaultsCache(which)
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
-		Armory.Constants.CA_Defaults[SlotName] = {}
-		local Slot = _G["Character"..SlotName]
+		Armory.Constants[which.."_Defaults"][SlotName] = {}
+		local Slot = _G[which..SlotName]
 		Slot.Direction = i%2 == 1 and "LEFT" or "RIGHT"
 		if Slot.iLvlText then
-			Armory.Constants.CA_Defaults[SlotName]["iLvlText"] = { Slot.iLvlText:GetPoint() } 
-			Armory.Constants.CA_Defaults[SlotName]["textureSlot1"] = { Slot.textureSlot1:GetPoint() }
+			Armory.Constants[which.."_Defaults"][SlotName]["iLvlText"] = { Slot.iLvlText:GetPoint() } 
+			Armory.Constants[which.."_Defaults"][SlotName]["textureSlot1"] = { Slot.textureSlot1:GetPoint() }
 			for i = 2, 10 do
 				if Slot["textureSlot"..i] then Slot["textureSlot"..i]:ClearAllPoints(); Slot["textureSlot"..i]:Point(Slot.Direction, Slot["textureSlot"..(i-1)], Slot.Direction == "LEFT" and "RIGHT" or "LEFT", 0,0) end
 			end
-			Armory.Constants.CA_Defaults[SlotName]["enchantText"] = { Slot.enchantText:GetPoint() }
+			Armory.Constants[which.."_Defaults"][SlotName]["enchantText"] = { Slot.enchantText:GetPoint() }
 		end
-		if SlotName == "NeckSlot" then
-			Armory.Constants.CA_Defaults[SlotName]["RankFrame"] = { Slot.RankFrame:GetPoint() }
+		if SlotName == "NeckSlot" and Slot.RankFrame then
+			Armory.Constants[which.."_Defaults"][SlotName]["RankFrame"] = { Slot.RankFrame:GetPoint() }
 		end
 	end
+	Armory.Constants[which.."_Defaults_Cached"] = true
 end
 
 --Updates the frame
@@ -127,10 +133,6 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 		end
 		Armory:UpdateGemInfo(Slot, which)
 	end
-end
-
-function Armory:ProcessEnchant(which, Slot, enchant, fullEnchantText)
-		Slot.enchantText:SetText(fullEnchantText) --Just this for now
 end
 
 --Updates ilvl and everything tied to the item somehow
@@ -157,10 +159,10 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, iLvl, enchant, gems, essenc
 		else
 			Slot.iLvlText:SetTextColor(T.unpack(itemLevelColors))
 		end
-		if Slot.SLE_Gradient then --Probably not actually neccesary, but just in case
+		if Slot.SLE_Gradient then --First call for this function for inspect is before gradient is created. To avoid errors
 			if E.db.sle.armory[which].enable and E.db.sle.armory[which].gradient.enable and iLvl then
 				Slot.SLE_Gradient:Show()
-				if E.db.sle.armory[which].gradient.quality then Slot.SLE_Gradient:SetVertexColor(unpack(itemLevelColors)) else Slot.SLE_Gradient:SetVertexColor(T.unpack(E.db.sle.armory[which].gradient.color)) end
+				if E.db.sle.armory[which].gradient.quality then Slot.SLE_Gradient:SetVertexColor(T.unpack(itemLevelColors)) else Slot.SLE_Gradient:SetVertexColor(T.unpack(E.db.sle.armory[which].gradient.color)) end
 			else
 				Slot.SLE_Gradient:Hide()
 			end
@@ -172,13 +174,29 @@ end
 
 ---Store gem info in our hidden frame
 function Armory:UpdateGemInfo(Slot, which)
-	local itemLink = T.GetInventoryItemLink(which == "Character" and "player" or frame.unit, Slot.ID)
+	local itemLink = T.GetInventoryItemLink(which == "Character" and "player" or _G["InspectFrame"].unit, Slot.ID)
 	if itemLink then
 		for i = 1, 3 do
+			if not Slot["SLE_Gem"..i] then return end
 			local GemLink = T.select(2, GetItemGem(itemLink, i))
 			Slot["SLE_Gem"..i].Link = GemLink
 		end
 	end
+end
+
+--Deals with dem enchants
+function Armory:ProcessEnchant(which, Slot, enchant, fullEnchantText)
+	if not E.db.sle.armory.enchantString.enable then return end
+	-- if E.db.sle.armory.enchantString.fullText then
+		if E.db.sle.armory.enchantString.replacement then
+			for enchString, enchData in T.pairs(SLE_ArmoryDB.EnchantString) do
+				if enchData.original and enchData.new then
+					fullEnchantText = T.gsub(fullEnchantText, enchData.original, enchData.new)
+				end
+			end
+		end
+		Slot.enchantText:SetText(fullEnchantText)
+	-- end
 end
 
 ---<<<Global Hide tooltip func for armory>>>---
@@ -224,14 +242,28 @@ function Armory:Transmog_OnClick(button)
 	end
 end
 
+function Armory:UpdateInspectInfo()
+	if not Armory.Constants.Inspect_Defaults_Cached then
+		Armory:BuildFrameDefaultsCache("Inspect")
+		IA:LoadAndSetup()
+	end
+end
+
 function Armory:Initialize()
 	-- for i = 1, #KF.Modules do
 		-- KF.Modules[(KF.Modules[i])]()
 	-- end
-	Armory:BuildCharacterDefaultsCache()
-	SLE:GetModule("Armory_Character"):LoadAndSetup()
+	Armory:BuildFrameDefaultsCache("Character")
+	
+
+	CA = SLE:GetModule("Armory_Character")
+	IA = SLE:GetModule("Armory_Inspect")
+	-- SA = SLE:GetModule("Armory_Stats")
+
+	CA:LoadAndSetup()
 
 	local M = E:GetModule("Misc")
+	hooksecurefunc(M, "UpdateInspectInfo", Armory.UpdateInspectInfo)
 	hooksecurefunc(M, "UpdatePageInfo", Armory.UpdatePageInfo)
 	hooksecurefunc(M, "UpdatePageStrings", Armory.UpdatePageStrings)
 
