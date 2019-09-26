@@ -3,4 +3,6 @@
 	<Script file='armory_c.lua'/>
 	<Script file='character_c.lua'/>
 	<Script file='inspect_c.lua'/>
+	<Script file='enchant_c.lua'/>
+	<!-- <Script file='stats_c.lua'/> -->
 </Ui>

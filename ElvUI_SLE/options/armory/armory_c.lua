@@ -19,7 +19,6 @@ local function configTable()
 				order = 2,
 				desc = '',
 				get = function() return E.db.sle.armory.character.enable end,
-				-- set = function(_, value) E.db.sle.armory.character.enable = value; SLE:GetModule("Armory_Character"):ToggleArmory(); Armory:UpdatePageInfo(_G.CharacterFrame, "Character") end
 				set = function(_, value) E.db.sle.armory.character.enable = value; SLE:GetModule("Armory_Character"):ToggleArmory(); M:UpdatePageInfo(_G.CharacterFrame, "Character") end
 			},
 			IA_enable = {
@@ -28,7 +27,7 @@ local function configTable()
 				order = 3,
 				desc = '',
 				get = function() return E.db.sle.armory.inspect.enable end,
-				set = function(_, value) E.db.sle.armory.inspect.enable = value; SLE:GetModule("Armory_Inspect"):ToggleArmory() end
+				set = function(_, value) E.db.sle.armory.inspect.enable = value; SLE:GetModule("Armory_Inspect"):ToggleArmory(); M:UpdatePageInfo(_G.InspectFrame, "Inspect") end
 			},
 		},
 	}
