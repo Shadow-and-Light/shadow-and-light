@@ -44,6 +44,14 @@ function SLE:DatabaseConversions()
 						end
 					end
 				end
+				if data.sle.datatexts then
+					if data.sle.datatexts.rightchat then
+						if data.sle.datatexts.rightchat.noborders then data.sle.datatexts.rightchat.noborders = nil; profileChanged = true end
+					end
+					if data.sle.datatexts.leftchat then
+						if data.sle.datatexts.leftchat.noborders then data.sle.datatexts.leftchat.noborders = nil; profileChanged = true end
+					end
+				end
 				if profileChanged then
 					if ProfileNames == NONE then
 						ProfileNames = profile
