@@ -92,13 +92,6 @@ local function configTable()
 					get = function(info) return E.db.sle.datatexts[name].alpha end,
 					set = function(info, value) E.db.sle.datatexts[name].alpha = value; DTP:ChatResize() end,
 				},
-				noborders = {
-					order = 13, type = "toggle",
-					name = L["Hide panel background"],
-					desc = L["Don't show this panel, only datatexts assigned to it."],
-					get = function(info) return E.db.sle.datatexts[name][ info[#info] ] end,
-					set = function(info, value) E.db.sle.datatexts[name][ info[#info] ] = value; E:GetModule("Layout"):SetDataPanelStyle() end,
-				},
 			},
 		}
 		return config
