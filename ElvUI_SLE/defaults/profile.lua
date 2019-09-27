@@ -249,13 +249,11 @@ P["sle"] = {
 			["enabled"] = true,
 			["width"] = 396,
 			["alpha"] = 1,
-			["noborders"] = false,
 		},
 		["rightchat"] = {
 			["enabled"] = true,
 			["width"] = 396,
 			["alpha"] = 1,
-			["noborders"] = false,
 		},
 		["chathandle"] = false,
 	},
