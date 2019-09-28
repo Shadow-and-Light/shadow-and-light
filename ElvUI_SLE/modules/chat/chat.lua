@@ -231,22 +231,6 @@ local function ChatPanels()
 	RightChatDataPanel:Height(20)
 end
 
-local function SetDataPanelStyle()
-	local miniStyle = E.db.datatexts.panelTransparency and "Transparent" or nil
-	local panelStyle = (not E.db.datatexts.panelBackdrop) and "NoBackdrop" or miniStyle
-
-	local miniGlossTex = (not miniStyle and true) or nil
-	local panelGlossTex = (not panelStyle and true) or nil
-
-	_G.LeftChatDataPanel:SetTemplate(panelStyle, panelGlossTex)
-	_G.LeftChatToggleButton:SetTemplate(panelStyle, panelGlossTex)
-	_G.RightChatDataPanel:SetTemplate(panelStyle, panelGlossTex)
-	_G.RightChatToggleButton:SetTemplate(panelStyle, panelGlossTex)
-
-	_G.LeftMiniPanel:SetTemplate(miniStyle, miniGlossTex)
-	_G.RightMiniPanel:SetTemplate(miniStyle, miniGlossTex)
-end
-
 local function CreateChatPanels()
 	local SPACING = E.Border*3 - E.Spacing
 	--Left Chat
@@ -358,12 +342,10 @@ function C:Initialize()
 	end
 
 	C:InitHistory()
-	LO:SetDataPanelStyle()
 
 	C:InitTabs()
 end
 hooksecurefunc(LO, "CreateChatPanels", CreateChatPanels)
-hooksecurefunc(LO, "SetDataPanelStyle", SetDataPanelStyle)
 CH:AddPluginIcons(GetChatIcon)
 
 SLE:RegisterModule(C:GetName())
