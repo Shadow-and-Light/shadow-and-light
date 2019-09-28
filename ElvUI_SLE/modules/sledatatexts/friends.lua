@@ -230,8 +230,9 @@ local function Entry_OnMouseUp(frame, info, button)
 	if button == "LeftButton" then
 		if IsAltKeyDown() then
 			if i_type == "realid" then
-				local presenceID, presenceName, battleTag, isBattleTagPresence, toonName, toonID = T.BNGetFriendInfo(T.BNGetFriendIndex(presence_id))
-				local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = T.BNGetGameAccountInfo(toonID or 0)
+				--local _, presenceName, battleTag, isBattleTagPresence, toonName, toonID = T.BNGetFriendInfo(T.BNGetFriendIndex(presence_id))
+				local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = T.BNGetFriendGameAccountInfo(T.BNGetFriendIndex(presence_id), 1)
+
 				if E.myrealm == realmName then
 					T.InviteUnit(toon_name)
 				else
@@ -379,7 +380,7 @@ function LDB.OnEnter(self)
 				T.twipe(realid_table)
 				for i = 1, numBNOnline do
 					local presenceID, givenName, bTag, _, _, toonID, gameClient, isOnline, lastOnline, isAFK, isDND, broadcast, note, _, castTime = T.BNGetFriendInfo(i)
-					local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText, _, _, canSoR, _, _, _, _, playerGUID, WoWProjectID = T.BNGetFriendGameAccountInfo(i , 1)
+					local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText, _, _, canSoR, _, _, _, _, playerGUID, WoWProjectID = T.BNGetFriendGameAccountInfo(i, 1)
 					local broadcastTime = ""
 					if castTime then
 						broadcastTime = T.format(BNET_BROADCAST_SENT_TIME, sletime_Conversion(castTime));
