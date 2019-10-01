@@ -1001,7 +1001,8 @@ L["ELVUI_SLE_PATREON_TITLE"] = "Many thanks to our awesome patrons, who provided
 L["Patrons"] = true
 L["Donors"] = true
 L["ELVUI_SLE_PATRONS"] = [[Ali A
-Andre Edwards]]
+Andre Edwards
+Peter aka Pete]]
 
 L["SLE_BENIK_AF"] = [[Due to a high amount of stuff IRL, |cff9482c9Shadow & Light|r team took a vacation.
 
