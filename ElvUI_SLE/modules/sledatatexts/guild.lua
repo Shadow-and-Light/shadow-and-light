@@ -1,11 +1,8 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
 local DT = E:GetModule('DataTexts')
-local DTP = SLE:GetModule('Datatexts')
 local LibQTip = LibStub('LibQTip-1.0')
 
 local _G = _G
-local ipairs, sort, wipe, ceil = ipairs, sort, wipe, ceil
-local format, strfind, strjoin, strsplit = format, strfind, strjoin, strsplit
 local IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown = IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown
 local StaticPopup_Show = StaticPopup_Show
 --[[  Might use to mimic ElvUI rep bar in tooltip
@@ -209,7 +206,7 @@ local function SetGuildSort(cell, sortsection)
 end
 
 local function BuildGuildTable()
-	wipe(guildTable)
+	T.wipe(guildTable)
 
 	local totalMembers = T.GetNumGuildMembers()
 	for i = 1, totalMembers do
@@ -244,7 +241,7 @@ end
 
 local eventHandlers = {
 	['CHAT_MSG_SYSTEM'] = function(self, arg1)
-		if(FRIEND_ONLINE ~= nil and arg1 and strfind(arg1, FRIEND_ONLINE)) then
+		if(FRIEND_ONLINE ~= nil and arg1 and T.strfind(arg1, FRIEND_ONLINE)) then
 			resendRequest = true
 		end
 	end,
@@ -342,8 +339,8 @@ function OnEnter(self, _, noUpdate)
 	if guildName and guildRank then
 		--Displays guild name
 		line = tooltip:AddLine()
-		tooltip:SetCell(line, 1, format(guildInfoString, guildName), ttHeaderFont, "LEFT", 4)
-		tooltip:SetCell(line, 5, format(guildInfoString2, online, total), ttHeaderFont, "RIGHT", 4)
+		tooltip:SetCell(line, 1, T.format(guildInfoString, guildName), ttHeaderFont, "LEFT", 4)
+		tooltip:SetCell(line, 5, T.format(guildInfoString2, online, total), ttHeaderFont, "RIGHT", 4)
 
 		--Displays guild rank
 		line = tooltip:AddLine()
@@ -400,7 +397,7 @@ function OnEnter(self, _, noUpdate)
 	tooltip:SetCellScript(line, 7, "OnMouseUp", HideOnMouseUp, "hide_guild_onotes")
 	tooltip:AddSeparator()
 
-	for _, info in ipairs(guildTable) do
+	for _, info in T.ipairs(guildTable) do
 		local classc = (_G.CUSTOM_CLASS_COLORS and _G.CUSTOM_CLASS_COLORS[info[9]]) or _G.RAID_CLASS_COLORS[info[9]]
  
 		line = tooltip:AddLine()
