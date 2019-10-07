@@ -137,6 +137,7 @@ T.select = select
 T.sort = table.sort
 T.tconcat = table.concat
 T.next = next
+T.wipe = wipe
 --Camera
 T.FlipCameraYaw = FlipCameraYaw
 --Instance
@@ -192,6 +193,9 @@ T.upper = string.upper
 T.StringToUpper = function(str)
 	return (T.gsub(str, "^%l", T.upper))
 end
+T.strfind = strfind
+T.strjoin = strjoin
+T.strsplit = strsplit
 --Math
 T.floor = floor
 T.tonumber = tonumber
