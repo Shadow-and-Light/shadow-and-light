@@ -10,17 +10,17 @@ if not lib then return end -- No upgrade needed
 ------------------------------------------------------------------------------
 local _G = getfenv(0)
 
-local type = type
 local select = select
 local error = error
 local pairs, ipairs = pairs, ipairs
-local tonumber, tostring = tonumber, tostring
 local strfind = string.find
 local math = math
 local min, max = math.min, math.max
 local setmetatable = setmetatable
 local tinsert, tremove = tinsert, tremove
 local wipe = wipe
+local tonumber, tostring = tonumber, tostring
+local type = type
 
 local CreateFrame = CreateFrame
 local UIParent = UIParent
@@ -70,9 +70,9 @@ local SetFrameScript, ClearFrameScripts
 ------------------------------------------------------------------------------
 -- Cache debugging.
 ------------------------------------------------------------------------------
---[===[@debug@
+-- @debug @
 local usedTables, usedFrames, usedTooltips = 0, 0, 0
---@end-debug@]===]
+--@end-debug@
 
 ------------------------------------------------------------------------------
 -- Internal constants to tweak the layout
@@ -84,18 +84,19 @@ local CELL_MARGIN_V = 3
 ------------------------------------------------------------------------------
 -- Public library API
 ------------------------------------------------------------------------------
---- Create or retrieve the tooltip with the given key. 
+--- Create or retrieve the tooltip with the given key.
 -- If additional arguments are passed, they are passed to :SetColumnLayout for the acquired tooltip.
 -- @name LibQTip:Acquire(key[, numColumns, column1Justification, column2justification, ...])
--- @param key string or table - the tooltip key. Any value that can be used as a table key is accepted though you should try to provide unique keys to avoid conflicts. 
--- Numbers and booleans should be avoided and strings should be carefully chosen to avoid namespace clashes - no "MyTooltip" - you have been warned! 
--- @return tooltip Frame object - the acquired tooltip. 
+-- @param key string or table - the tooltip key. Any value that can be used as a table key is accepted though you should try to provide unique keys to avoid conflicts.
+-- Numbers and booleans should be avoided and strings should be carefully chosen to avoid namespace clashes - no "MyTooltip" - you have been warned!
+-- @return tooltip Frame object - the acquired tooltip.
 -- @usage Acquire a tooltip with at least 5 columns, justification : left, center, left, left, left
 -- <pre>local tip = LibStub('LibQTip-1.0'):Acquire('MyFooBarTooltip', 5, "LEFT", "CENTER")</pre>
 function lib:Acquire(key, ...)
 	if key == nil then
 		error("attempt to use a nil key", 2)
 	end
+
 	local tooltip = activeTooltips[key]
 
 	if not tooltip then
@@ -104,14 +105,15 @@ function lib:Acquire(key, ...)
 		activeTooltips[key] = tooltip
 	end
 
-	if select('#', ...) > 0 then
+	if select("#", ...) > 0 then
 		-- Here we catch any error to properly report it for the calling code
 		local ok, msg = pcall(tooltip.SetColumnLayout, tooltip, ...)
 
 		if not ok then
 			error(msg, 2)
-		end 
+		end
 	end
+
 	return tooltip
 end
 
@@ -121,6 +123,7 @@ function lib:Release(tooltip)
 	if not key or activeTooltips[key] ~= tooltip then
 		return
 	end
+
 	ReleaseTooltip(tooltip)
 	activeTooltips[key] = nil
 end
@@ -129,7 +132,8 @@ function lib:IsAcquired(key)
 	if key == nil then
 		error("attempt to use a nil key", 2)
 	end
-	return not not activeTooltips[key]
+
+	return not (not activeTooltips[key])
 end
 
 function lib:IterateTooltips()
@@ -155,7 +159,9 @@ local function ReleaseFrame(frame)
 	frame:SetParent(nil)
 	frame:ClearAllPoints()
 	frame:SetBackdrop(nil)
+
 	ClearFrameScripts(frame)
+
 	tinsert(frameHeap, frame)
 	--[===[@debug@
 	usedFrames = usedFrames - 1
@@ -165,7 +171,7 @@ end
 ------------------------------------------------------------------------------
 -- Dirty layout handler
 ------------------------------------------------------------------------------
-lib.layoutCleaner = lib.layoutCleaner or CreateFrame('Frame')
+lib.layoutCleaner = lib.layoutCleaner or CreateFrame("Frame")
 
 local layoutCleaner = lib.layoutCleaner
 layoutCleaner.registry = layoutCleaner.registry or {}
@@ -177,33 +183,44 @@ end
 
 function layoutCleaner:CleanupLayouts()
 	self:Hide()
+
 	for tooltip in pairs(self.registry) do
 		FixCellSizes(tooltip)
 	end
+
 	wipe(self.registry)
 end
-layoutCleaner:SetScript('OnUpdate', layoutCleaner.CleanupLayouts)
+
+layoutCleaner:SetScript("OnUpdate", layoutCleaner.CleanupLayouts)
 
 ------------------------------------------------------------------------------
 -- CellProvider and Cell
 ------------------------------------------------------------------------------
 function providerPrototype:AcquireCell()
 	local cell = tremove(self.heap)
+
 	if not cell then
 		cell = setmetatable(CreateFrame("Frame", nil, UIParent), self.cellMetatable)
-		if type(cell.InitializeCell) == 'function' then
+
+		if type(cell.InitializeCell) == "function" then
 			cell:InitializeCell()
 		end
 	end
+
 	self.cells[cell] = true
+
 	return cell
 end
 
 function providerPrototype:ReleaseCell(cell)
-	if not self.cells[cell] then return end
-	if type(cell.ReleaseCell) == 'function' then
+	if not self.cells[cell] then
+		return
+	end
+
+	if type(cell.ReleaseCell) == "function" then
 		cell:ReleaseCell()
 	end
+
 	self.cells[cell] = nil
 	tinsert(self.heap, cell)
 end
@@ -218,6 +235,7 @@ end
 
 function lib:CreateCellProvider(baseProvider)
 	local cellBaseMetatable, cellBasePrototype
+
 	if baseProvider and baseProvider.GetCellPrototype then
 		cellBasePrototype, cellBaseMetatable = baseProvider:GetCellPrototype()
 	else
@@ -301,7 +319,9 @@ function labelPrototype:getContentHeight()
 	return height
 end
 
-function labelPrototype:GetPosition() return self._line, self._column end
+function labelPrototype:GetPosition()
+	return self._line, self._column
+end
 
 ------------------------------------------------------------------------------
 -- Tooltip cache
@@ -325,8 +345,10 @@ function AcquireTooltip()
 		local scrollChild = CreateFrame("Frame", nil, tooltip.scrollFrame)
 		scrollFrame:SetScrollChild(scrollChild)
 		tooltip.scrollChild = scrollChild
+
 		setmetatable(tooltip, tipMetatable)
 	end
+
 	--[===[@debug@
 	usedTooltips = usedTooltips + 1
 	--@end-debug@]===]
@@ -338,8 +360,8 @@ function ReleaseTooltip(tooltip)
 	if tooltip.releasing then
 		return
 	end
+
 	tooltip.releasing = true
-	
 	tooltip:Hide()
 	
 	if tooltip.OnRelease then
@@ -349,11 +371,11 @@ function ReleaseTooltip(tooltip)
 		end
 		tooltip.OnRelease = nil
 	end
-	
+
 	tooltip.releasing = nil
 	tooltip.key = nil
 	tooltip.step = nil
-	
+
 	ClearTooltipScripts(tooltip)
 
 	tooltip:SetAutoHideDelay(nil)
@@ -370,6 +392,7 @@ function ReleaseTooltip(tooltip)
 	for i, column in ipairs(tooltip.columns) do
 		tooltip.columns[i] = ReleaseFrame(column)
 	end
+
 	tooltip.columns = ReleaseTable(tooltip.columns)
 	tooltip.lines = ReleaseTable(tooltip.lines)
 	tooltip.colspans = ReleaseTable(tooltip.colspans)
@@ -391,6 +414,7 @@ function AcquireCell(tooltip, provider)
 	cell:SetParent(tooltip.scrollChild)
 	cell:SetFrameLevel(tooltip.scrollChild:GetFrameLevel() + 3)
 	cell._provider = provider
+
 	return cell
 end
 
@@ -450,6 +474,7 @@ function InitializeTooltip(tooltip, key)
 		tooltip:SetBackdropColor(GameTooltip:GetBackdropColor())
 		tooltip:SetBackdropBorderColor(GameTooltip:GetBackdropBorderColor())
 	end
+
 	tooltip:SetScale(GameTooltip:GetScale())
 	tooltip:SetAlpha(1)
 	tooltip:SetFrameStrata("TOOLTIP")
@@ -481,24 +506,28 @@ function tipPrototype:SetDefaultProvider(myProvider)
 	if not myProvider then
 		return
 	end
+
 	self.labelProvider = myProvider
 end
 
-function tipPrototype:GetDefaultProvider() return self.labelProvider end
+function tipPrototype:GetDefaultProvider()
+	return self.labelProvider
+end
 
 local function checkJustification(justification, level, silent)
 	if justification ~= "LEFT" and justification ~= "CENTER" and justification ~= "RIGHT" then
 		if silent then
 			return false
 		end
-		error("invalid justification, must one of LEFT, CENTER or RIGHT, not: "..tostring(justification), level+1)
+		error("invalid justification, must one of LEFT, CENTER or RIGHT, not: " .. tostring(justification), level + 1)
 	end
+
 	return true
 end
 
 function tipPrototype:SetColumnLayout(numColumns, ...)
-	if type(numColumns) ~= "number" or numColumns < 1  then
-		error("number of columns must be a positive number, not: "..tostring(numColumns), 2)
+	if type(numColumns) ~= "number" or numColumns < 1 then
+		error("number of columns must be a positive number, not: " .. tostring(numColumns), 2)
 	end
 
 	for i = 1, numColumns do
@@ -520,6 +549,7 @@ function tipPrototype:AddColumn(justification)
 
 	local colNum = #self.columns + 1
 	local column = self.columns[colNum] or AcquireFrame(self.scrollChild)
+
 	column:SetFrameLevel(self.scrollChild:GetFrameLevel() + 1)
 	column.justification = justification
 	column.width = 0
@@ -535,15 +565,16 @@ function tipPrototype:AddColumn(justification)
 	else
 		column:SetPoint("LEFT", self.scrollChild)
 	end
+
 	column:Show()
 	self.columns[colNum] = column
+
 	return colNum
 end
 
 ------------------------------------------------------------------------------
 -- Convenient methods
 ------------------------------------------------------------------------------
-
 function tipPrototype:Release()
 	lib:Release(self)
 end
@@ -555,7 +586,6 @@ end
 ------------------------------------------------------------------------------
 -- Script hooks
 ------------------------------------------------------------------------------
-
 local RawSetScript = lib.frameMetatable.__index.SetScript
 
 function ClearTooltipScripts(tooltip)
@@ -580,7 +610,7 @@ function tipPrototype:SetScript(scriptType, handler)
 end
 
 -- That might break some addons ; those addons were breaking other
--- addons' tooltip though. 
+-- addons' tooltip though.
 function tipPrototype:HookScript()
 	geterrorhandler()(":HookScript is not allowed on LibQTip tooltips")
 end
@@ -645,6 +675,7 @@ function tipPrototype:UpdateScrolling(maxheight)
 		if maxheight and tipsize - shrink > maxheight then
 			shrink = tipsize - maxheight
 		end
+
 		self:SetHeight(2 * TOOLTIP_PADDING + self.height - shrink)
 		self:SetWidth(2 * TOOLTIP_PADDING + self.width + 20)
 		self.scrollFrame:SetPoint("RIGHT", self, "RIGHT", -(TOOLTIP_PADDING + 20), 0)
@@ -666,18 +697,22 @@ function tipPrototype:UpdateScrolling(maxheight)
 			slider:SetScript("OnValueChanged", slider_OnValueChanged)
 			slider:SetValue(0)
 		end
+
 		self.slider:SetMinMaxValues(0, shrink)
 		self.slider:Show()
+
 		self:EnableMouseWheel(true)
 		self:SetScript("OnMouseWheel", tooltip_OnMouseWheel)
 	else
 		self:SetHeight(2 * TOOLTIP_PADDING + self.height)
 		self:SetWidth(2 * TOOLTIP_PADDING + self.width)
+
 		self.scrollFrame:SetPoint("RIGHT", self, "RIGHT", -TOOLTIP_PADDING, 0)
 
 		if self.slider then
 			self.slider:SetValue(0)
 			self.slider:Hide()
+
 			self:EnableMouseWheel(false)
 			self:SetScript("OnMouseWheel", nil)
 		end
@@ -694,10 +729,14 @@ function tipPrototype:Clear()
 				ReleaseCell(cell)
 			end
 		end
+
 		ReleaseTable(line.cells)
+
 		line.cells = nil
 		line.is_header = nil
+
 		ReleaseFrame(line)
+
 		self.lines[i] = nil
 	end
 
@@ -705,9 +744,12 @@ function tipPrototype:Clear()
 		column.width = 0
 		column:SetWidth(1)
 	end
+
 	wipe(self.colspans)
+
 	self.cell_margin_h = nil
 	self.cell_margin_v = nil
+
 	ResetTooltipSize(self)
 end
 
@@ -719,6 +761,7 @@ function tipPrototype:SetCellMarginH(size)
 	if not size or type(size) ~= "number" or size < 0 then
 		error("Margin size must be a positive number or zero.", 2)
 	end
+
 	self.cell_margin_h = size
 end
 
@@ -730,6 +773,7 @@ function tipPrototype:SetCellMarginV(size)
 	if not size or type(size) ~= "number" or size < 0 then
 		error("Margin size must be a positive number or zero.", 2)
 	end
+
 	self.cell_margin_v = size
 end
 
@@ -776,13 +820,16 @@ function FixCellSizes(tooltip)
 	while next(colspans) do
 		local maxNeedCols = nil
 		local maxNeedWidthPerCol = 0
+
 		-- calculate the colspan with the highest additional width need per column
 		for colRange, width in pairs(colspans) do
 			local left, right = colRange:match("^(%d+)%-(%d+)$")
+
 			left, right = tonumber(left), tonumber(right)
 			for col = left, right-1 do
 				width = width - columns[col].width - h_margin
 			end
+
 			width = width - columns[right].width
 			if width <=0 then
 				colspans[colRange] = nil

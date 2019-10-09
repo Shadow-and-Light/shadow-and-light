@@ -1,3 +1,7 @@
+v3.60 [Octorber , 2019]
+Changes:
+- Guild datatext was rewritten and now seems more responsive to guild roster updates vs previous version and some minor visual changes
+
 v3.59 [September 25th, 2019]
 Fixes:
 - Fixed some friends and db conversion errors that sliped through the cracks

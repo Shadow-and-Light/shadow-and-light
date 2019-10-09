@@ -100,6 +100,7 @@ T.SetWatchedFactionIndex = SetWatchedFactionIndex
 T.IsInGuild = IsInGuild
 T.GuildRoster = GuildRoster
 T.GetGuildInfo = GetGuildInfo
+T.GuildInfoGuildRoster = C_GuildInfo.GuildRoster
 T.GetNumGuildMembers = GetNumGuildMembers
 T.GetGuildRosterInfo = GetGuildRosterInfo
 T.GetGuildRosterMOTD = GetGuildRosterMOTD
@@ -107,7 +108,9 @@ T.GetGuildLogoInfo = GetGuildLogoInfo
 T.GetInspectGuildInfo = GetInspectGuildInfo
 T.CanEditOfficerNote = CanEditOfficerNote
 T.CanEditPublicNote = CanEditPublicNote
+T.SetGuildRosterSelection = SetGuildRosterSelection
 T.InviteUnit = InviteUnit
+T.ToggleGuildFrame = ToggleGuildFrame
 --Professions
 T.GetProfessions = GetProfessions
 T.GetProfessionInfo = GetProfessionInfo
@@ -134,6 +137,7 @@ T.select = select
 T.sort = table.sort
 T.tconcat = table.concat
 T.next = next
+T.wipe = wipe
 --Camera
 T.FlipCameraYaw = FlipCameraYaw
 --Instance
@@ -190,6 +194,9 @@ T.lower = string.lower
 T.StringToUpper = function(str)
 	return (T.gsub(str, "^%l", T.upper))
 end
+T.strfind = strfind
+T.strjoin = strjoin
+T.strsplit = strsplit
 --Math
 T.floor = floor
 T.tonumber = tonumber
@@ -207,6 +214,7 @@ T.BNGetNumFriends = BNGetNumFriends
 T.BNGetFriendInfo = BNGetFriendInfo
 T.BNGetFriendGameAccountInfo = BNGetFriendGameAccountInfo --8.2.5
 T.BNGetFriendIndex = BNGetFriendIndex
+T.BNet_GetValidatedCharacterName = BNet_GetValidatedCharacterName
 T.GetFriendInfo = GetFriendInfo
 T.GetFriendInfoByIndex = C_FriendList.GetFriendInfoByIndex
 T.GetNumFriends = C_FriendList.GetNumFriends
