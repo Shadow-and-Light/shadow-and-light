@@ -12,10 +12,15 @@ local function configTable()
 		order = 400,
 		disabled = function() return E.db.sle.armory.character.enable == false end,
 		args = {
+			title = {
+				type = "header",
+				name = L["Character Armory"],
+				order = 1,
+			},
 			ilvl = {
 				type = 'group',
 				name = L["Item Level"],
-				order = 1,
+				order = 2,
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_ItemLevel() end,
 				args = {
@@ -47,7 +52,7 @@ local function configTable()
 			enchant = {
 				type = 'group',
 				name = L["Enchant String"],
-				order = 2,
+				order = 3,
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_Enchant() end,
 				args = {
@@ -68,7 +73,7 @@ local function configTable()
 			gem = {
 				type = 'group',
 				name = L["Gem Sockets"],
-				order = 3,
+				order = 4,
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_Gems() end,
 				args = {
@@ -87,22 +92,22 @@ local function configTable()
 				}
 			},
 			transmog = {
-				order = 4,
+				order = 5,
 				type = 'group',
 				name = L["Transmog"],
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; Armory:UpdatePageInfo(_G.CharacterFrame, "Character") end,
 				args = {
-					enableGlow = {
-						order = 1,
-						type = "toggle",
-						name = L["Enable Glow"],
-					},
 					enableArrow = {
-						order = 2,
+						order = 1,
 						type = "toggle",
 						name = L["Enable Arrow"],
 						desc = L["Enables a small arrow-like indicator on the item slot. Howering over this arrow will show the item this slot is transmogged into."],
+					},
+					enableGlow = {
+						order = 2,
+						type = "toggle",
+						name = L["Enable Glow"],
 					},
 					glowNumber = {
 						type = 'range',
@@ -123,7 +128,7 @@ local function configTable()
 			gradient = {
 					type = 'group',
 					name = L["Gradient"],
-					order = 5,
+					order = 6,
 					get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
 					set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; M:UpdateCharacterInfo() end,
 					args = {

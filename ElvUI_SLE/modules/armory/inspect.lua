@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-if select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_KnightFrame') then return end --Don't break korean code :D
+if T.select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_KnightFrame') then return end --Don't break korean code :D
 local Armory = SLE:GetModule("Armory_Core")
 local IA = SLE:NewModule("Armory_Inspect", "AceEvent-3.0", "AceConsole-3.0", "AceHook-3.0");
 local M = E:GetModule("Misc")
@@ -24,7 +24,7 @@ function IA:BuildLayout()
 		Slot.ID = T.GetInventorySlotInfo(SlotName)
 		
 		--Create gems
-		for t = 1, 3 do
+		for t = 1, 5 do
 			if Slot["textureSlot"..t] then
 				Slot["SLE_Gem"..t] = CreateFrame("Frame", nil, Slot)
 				Slot["SLE_Gem"..t]:SetPoint("TOPLEFT", Slot["textureSlot"..t])
@@ -75,6 +75,38 @@ function IA:BuildLayout()
 			Slot.TransmogInfo:Hide()
 		end
 	end
+
+	do --<<Check Transmog>>--
+		_G["InspectFrame"].SLE_TransmogViewButton = CreateFrame("Button", nil, _G["InspectFrame"])
+		_G["InspectFrame"].SLE_TransmogViewButton:Size(30)
+		_G["InspectFrame"].SLE_TransmogViewButton:Point("BOTTOMRIGHT", _G["InspectHandsSlot"], "TOPRIGHT", 0, 4)
+		_G["InspectFrame"].SLE_TransmogViewButton:SetBackdrop({
+				bgFile = E.media.blankTex,
+				edgeFile = E.media.blankTex,
+				tile = false, tileSize = 0, edgeSize = E.mult,
+				insets = { left = 0, right = 0, top = 0, bottom = 0}
+			})
+		_G["InspectFrame"].SLE_TransmogViewButton.texture = _G["InspectFrame"].SLE_TransmogViewButton:CreateTexture(nil, 'OVERLAY')
+		_G["InspectFrame"].SLE_TransmogViewButton.texture:SetInside()
+		_G["InspectFrame"].SLE_TransmogViewButton.texture:SetTexture([[Interface\ICONS\INV_Misc_Desecrated_PlateChest]])
+		_G["InspectFrame"].SLE_TransmogViewButton.texture:SetTexCoord(T.unpack(E.TexCoords))
+
+		_G["InspectFrame"].SLE_TransmogViewButton:SetScript("OnEnter", function(self)
+			self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
+			GameTooltip:SetOwner(self, "ANCHOR_TOP")
+			GameTooltip:SetText(VIEW_IN_DRESSUP_FRAME)
+			GameTooltip:Show()
+		end)
+		_G["InspectFrame"].SLE_TransmogViewButton:SetScript("OnLeave", function(self)
+			-- self:SetBackdropBorderColor(TransmogButtonColors.R, TransmogButtonColors.G, TransmogButtonColors.B)
+			self:SetBackdropBorderColor(1, 1, 1)
+			_G["GameTooltip"]:Hide()
+		end)
+		_G["InspectFrame"].SLE_TransmogViewButton:SetScript("OnClick", function(self)
+			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);
+			DressUpSources(C_TransmogCollection.GetInspectSources());
+		end)
+	end
 end
 
 function IA:Update_BG()
@@ -120,9 +152,7 @@ function IA:Update_Gems()
 		if Slot.textureSlot1 then
 			Slot.textureSlot1:ClearAllPoints()
 			Slot.textureSlot1:Point('BOTTOM'..Slot.Direction, _G["Inspect"..SlotName], "BOTTOM"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.inspect.gem.xOffset or -2-E.db.sle.armory.inspect.gem.xOffset, 2+E.db.sle.armory.inspect.gem.yOffset)
-			for i = 1, 3 do
-				Slot["textureSlot"..i]:Size(E.db.sle.armory.inspect.gem.size)
-			end
+			for i = 1, 5 do Slot["textureSlot"..i]:Size(E.db.sle.armory.inspect.gem.size) end
 		end
 	end
 end
@@ -133,7 +163,7 @@ function IA:Enable()
 	_G["InspectFrame"]:Size(450, 444)
 	
 	_G["InspectFrame"].ItemLevelText:ClearAllPoints()
-	_G["InspectFrame"].ItemLevelText:Point("TOP",_G["InspectModelFrame"], "TOP", 0, -2)
+	_G["InspectFrame"].ItemLevelText:Point("BOTTOM",_G["InspectModelFrame"], "TOP", 0, 2)
 
 	-- Move bottom equipment slots
 	_G["InspectMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["InspectPaperDollItemsFrame"], 'BOTTOMLEFT', 185, 14)
@@ -143,7 +173,10 @@ function IA:Enable()
 	_G["InspectModelFrame"]:SetPoint('TOPLEFT', _G["InspectHeadSlot"], 0, 5)
 	_G["InspectModelFrame"]:SetPoint('RIGHT', _G["InspectHandsSlot"])
 	_G["InspectModelFrame"]:SetPoint('BOTTOM', _G["InspectMainHandSlot"])
-	
+
+	_G["InspectPaperDollFrame"].ViewButton:Hide()
+	_G["InspectFrame"].SLE_TransmogViewButton:Show()
+
 	--This will hide default background stuff. I could make it being shown, but not feeling like figuring out how to stretch the damn texture.
 	if _G["InspectModelFrame"] and _G["InspectModelFrame"].BackgroundTopLeft and _G["InspectModelFrame"].BackgroundTopLeft:IsShown() then
 		_G["InspectModelFrame"].BackgroundTopLeft:Hide()
@@ -181,6 +214,9 @@ function IA:Disable()
 	_G["InspectModelFrame"].BackgroundBotRight:Show()
 	_G["InspectModelFrame"].backdrop:Show()
 
+	_G["InspectPaperDollFrame"].ViewButton:Show()
+	_G["InspectFrame"].SLE_TransmogViewButton:Hide()
+
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		local Slot = _G["Inspect"..SlotName]
 		if Armory.Constants.Inspect_Defaults[SlotName] then
@@ -190,7 +226,7 @@ function IA:Disable()
 			end
 		end
 		if Slot.textureSlot1 then
-			for i = 1, 3 do Slot["textureSlot"..i]:Size(14) end
+			for i = 1, 5 do Slot["textureSlot"..i]:Size(14) end
 		end
 	end
 

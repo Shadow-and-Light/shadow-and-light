@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-if select(2, GetAddOnInfo("ElvUI_KnightFrame")) and IsAddOnLoaded("ElvUI_KnightFrame") then return end --Don't break korean code :D
+if T.select(2, GetAddOnInfo("ElvUI_KnightFrame")) and IsAddOnLoaded("ElvUI_KnightFrame") then return end --Don't break korean code :D
 local Armory = SLE:NewModule("Armory_Core", "AceEvent-3.0", "AceConsole-3.0", "AceHook-3.0");
 local LCG = LibStub('LibCustomGlow-1.0')
 local CA, IA, SA
@@ -115,23 +115,26 @@ end
 --Updates the frame
 function Armory:UpdatePageInfo(frame, which, guid, event)
 	local window = T.lower(which)
+	local unit = (which == 'Character' and 'player') or frame.unit
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		local Slot = _G[which..SlotName]
-		if Slot.TransmogInfo then
-			if E.db.sle.armory[window].enable and C_Transmog_GetSlotInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE) then
-				Slot.TransmogInfo.Link = T.select(6, C_TransmogCollection_GetAppearanceSourceInfo(T.select(3, C_Transmog_GetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE))));
-				if E.db.sle.armory[window].transmog.enableArrow then Slot.TransmogInfo:Show() else Slot.TransmogInfo:Hide() end
-				if E.db.sle.armory[window].transmog.enableGlow then
-					LCG.AutoCastGlow_Start(Slot,{1, .5, 1, 1},E.db.sle.armory[window].transmog.glowNumber,0.25,1,E.db.sle.armory[window].transmog.glowOffset,E.db.sle.armory[window].transmog.glowOffset,"_TransmogGlow")
+		if Slot then
+			if Slot.TransmogInfo then
+				if E.db.sle.armory[window].enable and C_Transmog_GetSlotInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE) then
+					Slot.TransmogInfo.Link = T.select(6, C_TransmogCollection_GetAppearanceSourceInfo(T.select(3, C_Transmog_GetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE))));
+					if E.db.sle.armory[window].transmog.enableArrow then Slot.TransmogInfo:Show() else Slot.TransmogInfo:Hide() end
+					if E.db.sle.armory[window].transmog.enableGlow then
+						LCG.AutoCastGlow_Start(Slot,{1, .5, 1, 1},E.db.sle.armory[window].transmog.glowNumber,0.25,1,E.db.sle.armory[window].transmog.glowOffset,E.db.sle.armory[window].transmog.glowOffset,"_TransmogGlow")
+					else
+						LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
+					end
 				else
+					Slot.TransmogInfo:Hide()
 					LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
 				end
-			else
-				Slot.TransmogInfo:Hide()
-				LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
 			end
+			Armory:UpdateGemInfo(Slot, which)
 		end
-		Armory:UpdateGemInfo(Slot, which)
 	end
 end
 
@@ -144,7 +147,7 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, iLvl, enchant, gems, essenc
 			if E.db.sle.armory[which].ilvl.colorType == "QUALITY" then
 				Slot.iLvlText:SetTextColor(T.unpack(itemLevelColors)) --Busyness as usual
 			elseif E.db.sle.armory[which].ilvl.colorType == "GRADIENT" then
-				local equippedIlvl = which == "character" and T.select(2, T.GetAverageItemLevel()) or E:CalculateAverageItemLevel(iLevelDB, _G["inspectFrame"].unit)
+				local equippedIlvl = which == "character" and T.select(2, T.GetAverageItemLevel()) or E:CalculateAverageItemLevel(iLevelDB, _G["InspectFrame"].unit)
 				local diff = iLvl - equippedIlvl
 				local aR, aG, aB
 				if diff >= 0 then
@@ -176,9 +179,20 @@ end
 function Armory:UpdateGemInfo(Slot, which)
 	local itemLink = T.GetInventoryItemLink(which == "Character" and "player" or _G["InspectFrame"].unit, Slot.ID)
 	if itemLink then
-		for i = 1, 3 do
+		for i = 1, 5 do
+			local GemLink
 			if not Slot["SLE_Gem"..i] then return end
-			local GemLink = T.select(2, GetItemGem(itemLink, i))
+			if which == "Character" and Slot.ID == 2 then
+				GemID = C_AzeriteEssence.GetMilestoneEssence(i+114)
+				if GemID then
+					local rank = C_AzeriteEssence.GetEssenceInfo(GemID).rank
+					GemLink = C_AzeriteEssence.GetEssenceHyperlink(GemID, rank)
+				-- else --if essence is not there
+					-- GemID = 0
+				end
+			else
+				GemLink = T.select(2, GetItemGem(itemLink, i))
+			end
 			Slot["SLE_Gem"..i].Link = GemLink
 		end
 	end
@@ -254,7 +268,10 @@ function Armory:Initialize()
 		-- KF.Modules[(KF.Modules[i])]()
 	-- end
 	Armory:BuildFrameDefaultsCache("Character")
-	
+
+	--May be usefull later
+	Armory.ScanTT = CreateFrame('GameTooltip', 'SLE_Armory_ScanTT', nil, 'GameTooltipTemplate')
+	Armory.ScanTT:SetOwner(UIParent, 'ANCHOR_NONE')
 
 	CA = SLE:GetModule("Armory_Character")
 	IA = SLE:GetModule("Armory_Inspect")

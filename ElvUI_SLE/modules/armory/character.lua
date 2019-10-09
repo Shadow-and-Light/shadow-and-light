@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-if select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_KnightFrame') then return end --Don't break korean code :D
+if T.select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_KnightFrame') then return end --Don't break korean code :D
 local Armory = SLE:GetModule("Armory_Core")
 local CA = SLE:NewModule("Armory_Character", "AceEvent-3.0", "AceConsole-3.0", "AceHook-3.0");
 local LCG = LibStub('LibCustomGlow-1.0')
@@ -30,7 +30,7 @@ function CA:BuildLayout()
 		Slot.ID = T.GetInventorySlotInfo(SlotName)
 		
 		--Create gems
-		for t = 1, 3 do
+		for t = 1, 5 do
 			if Slot["textureSlot"..t] then
 				Slot["SLE_Gem"..t] = CreateFrame("Frame", nil, Slot)
 				Slot["SLE_Gem"..t]:SetPoint("TOPLEFT", Slot["textureSlot"..t])
@@ -189,7 +189,7 @@ function CA:Update_Gems()
 		if Slot.textureSlot1 then
 			Slot.textureSlot1:ClearAllPoints()
 			Slot.textureSlot1:Point('BOTTOM'..Slot.Direction, _G["Character"..SlotName], "BOTTOM"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.gem.xOffset or -2-E.db.sle.armory.character.gem.xOffset, 2+E.db.sle.armory.character.gem.yOffset)
-			for i = 1, 3 do
+			for i = 1, 5 do
 				Slot["textureSlot"..i]:Size(E.db.sle.armory.character.gem.size)
 			end
 		end
@@ -289,7 +289,7 @@ function CA:Disable()
 			end
 		end
 		if Slot.textureSlot1 then
-			for i = 1, 3 do Slot["textureSlot"..i]:Size(14) end
+			for i = 1, 5 do Slot["textureSlot"..i]:Size(14) end
 		end
 	end
 	
