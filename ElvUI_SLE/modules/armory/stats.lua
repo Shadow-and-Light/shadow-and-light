@@ -333,7 +333,6 @@ function SA:ToggleArmory()
 	end
 	PaperDollFrame_UpdateStats()
 	M:UpdateCharacterItemLevel()
-	-- SA:UpdateIlvlFont()
 	if not E.db.general.itemLevel.displayCharacterInfo then
 		_G["CharacterFrame"].ItemLevelText:SetText('')
 	end
@@ -348,5 +347,8 @@ function SA:LoadAndSetup()
 	SA:BuildScrollBar()
 	SA:BuildNewStats()
 	SA:ToggleArmory()
+
+	_G["CharacterFrame"]:HookScript("OnShow", SA.UpdateCharacterItemLevel)
+
 	_G["CharacterFrame"].ItemLevelText:SetText('')
 end
