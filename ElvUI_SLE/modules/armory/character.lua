@@ -28,6 +28,13 @@ function CA:BuildLayout()
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		local Slot = _G["Character"..SlotName]
 		Slot.ID = T.GetInventorySlotInfo(SlotName)
+		-- print(Slot.ID, SlotName)
+		-- Slot:HookScript("OnEnter", function(self)
+			-- for i = 1, GameTooltip:NumLines() do
+				-- CurrentLineText = _G["GameTooltipTextLeft"..i]:GetText()
+				-- print(i, CurrentLineText)
+			-- end
+		-- end)
 		
 		--Create gems
 		for t = 1, 5 do

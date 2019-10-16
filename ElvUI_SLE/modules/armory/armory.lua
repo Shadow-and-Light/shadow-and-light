@@ -178,6 +178,7 @@ end
 ---Store gem info in our hidden frame
 function Armory:UpdateGemInfo(Slot, which)
 	local itemLink = T.GetInventoryItemLink(which == "Character" and "player" or _G["InspectFrame"].unit, Slot.ID)
+	
 	if itemLink then
 		for i = 1, 5 do
 			local GemLink
@@ -220,6 +221,7 @@ end
 
 ---<<<Show Gem on mouse over>>>---
 function Armory:Gem_OnEnter()
+	-- print(self.Link)
 	if E.db.sle.armory[self.frame].enable and self.Link then --Only do stuff if armory is enabled or the gem is present
 		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_RIGHT')
 		_G["GameTooltip"]:SetHyperlink(self.Link)
@@ -275,9 +277,10 @@ function Armory:Initialize()
 
 	CA = SLE:GetModule("Armory_Character")
 	IA = SLE:GetModule("Armory_Inspect")
-	-- SA = SLE:GetModule("Armory_Stats")
+	SA = SLE:GetModule("Armory_Stats")
 
 	CA:LoadAndSetup()
+	SA:LoadAndSetup()
 
 	local M = E:GetModule("Misc")
 	hooksecurefunc(M, "UpdateInspectInfo", Armory.UpdateInspectInfo)

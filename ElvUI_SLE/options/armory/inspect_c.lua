@@ -9,7 +9,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.armory.args.inspect = {
 		type = 'group',
 		name = L["Inspect Armory"],
-		order = 500,
+		order = 20,
 		disabled = function() return E.db.sle.armory.inspect.enable == false end,
 		args = {
 			title = {

@@ -11,7 +11,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.armory.args.enchantString = {
 		type = 'group',
 		name = L["Enchant String"],
-		order = 700,
+		order = 40,
 		disabled = function() return E.db.sle.armory.character.enable == false and E.db.sle.armory.inspect.enable == false end,
 		args = {
 			enable = {

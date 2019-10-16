@@ -2,5 +2,5 @@
 	<Script file="armory.lua"/>
 	<Script file="character.lua"/>
 	<Script file="inspect.lua"/>
-	<!-- <Script file="stats.lua"/> -->
+	<Script file="stats.lua"/>
 </Ui>

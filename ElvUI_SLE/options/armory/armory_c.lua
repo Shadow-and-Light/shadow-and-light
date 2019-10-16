@@ -3,6 +3,7 @@ local Armory = SLE:GetModule("Armory_Core")
 -- local CA = SLE:GetModule("Armory_Character")
 local M = E:GetModule("Misc")
 local _G = _G
+local STAT_CATEGORY_ATTRIBUTES = STAT_CATEGORY_ATTRIBUTES
 
 local function configTable()
 	if not SLE.initialized then return end
@@ -28,6 +29,15 @@ local function configTable()
 				desc = '',
 				get = function() return E.db.sle.armory.inspect.enable end,
 				set = function(_, value) E.db.sle.armory.inspect.enable = value; SLE:GetModule("Armory_Inspect"):ToggleArmory(); M:UpdatePageInfo(_G.InspectFrame, "Inspect") end
+			},
+			SA_enable = {
+				type = 'toggle',
+				name = STAT_CATEGORY_ATTRIBUTES,
+				order = 3,
+				desc = '',
+				disabled = function() return SLE._Compatibility["DejaCharacterStats"] end,
+				get = function() return E.db.sle.armory.stats.enable end,
+				set = function(_, value) E.db.sle.armory.stats.enable = value; SLE:GetModule("Armory_Stats"):ToggleArmory(); end
 			},
 		},
 	}

@@ -9,7 +9,7 @@ local function configTable()
 	E.Options.args.sle.args.modules.args.armory.args.character = {
 		type = 'group',
 		name = L["Character Armory"],
-		order = 400,
+		order = 10,
 		disabled = function() return E.db.sle.armory.character.enable == false end,
 		args = {
 			title = {
