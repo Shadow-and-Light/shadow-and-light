@@ -39,6 +39,14 @@ P["sle"] = {
 				["glowNumber"] = 4,
 				["glowOffset"] = 1,
 			},
+			["durability"] = {
+				["display"] = "Always", -- Always, MouseoverOnly, DamagedOnly, Hide
+				["font"] = "PT Sans Narrow",
+				["fontSize"] = 9,
+				["fontStyle"] = "OUTLINE",
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+			},
 			["background"] = {
 				["selectedBG"] = "Space",
 				["customTexture"] = "",

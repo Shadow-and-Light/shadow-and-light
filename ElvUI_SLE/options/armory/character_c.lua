@@ -5,7 +5,14 @@ local M = E:GetModule("Misc")
 
 local function configTable()
 	if not SLE.initialized then return end
-	
+
+	local FontStyleList = {
+		NONE = NONE,
+		OUTLINE = 'OUTLINE',
+		MONOCHROMEOUTLINE = 'MONOCROMEOUTLINE',
+		THICKOUTLINE = 'THICKOUTLINE'
+	}
+
 	E.Options.args.sle.args.modules.args.armory.args.character = {
 		type = 'group',
 		name = L["Character Armory"],
@@ -134,35 +141,89 @@ local function configTable()
 				},
 			},
 			gradient = {
-					type = 'group',
-					name = L["Gradient"],
-					order = 14,
-					get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
-					set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; M:UpdateCharacterInfo() end,
-					args = {
-						enable = {
-							type = 'toggle',
-							name = L["Enable"],
-							order = 1,
-						},
-						color = {
-							type = 'color',
-							name = L["Gradient Texture Color"],
-							order = 2,
-							get = function(info) 
-								return T.unpack(E.db.sle.armory.character[(info[#info - 1])][(info[#info])])
-							end,
-							set = function(info, r, g, b, a) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = { r, g, b, a }; M:UpdateCharacterInfo() end,
-							disabled = function() return E.db.sle.armory.character.enable == false or E.db.sle.armory.character.gradient.enable == false end,
-						},
-						quality = {
-							type = 'toggle',
-							name = COLORBLIND_ITEM_QUALITY,
-							order = 3,
-							disabled = function() return E.db.sle.armory.character.enable == false or E.db.sle.armory.character.gradient.enable == false end,
-						}
+				type = 'group',
+				name = L["Gradient"],
+				order = 14,
+				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
+				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; M:UpdateCharacterInfo() end,
+				args = {
+					enable = {
+						type = 'toggle',
+						name = L["Enable"],
+						order = 1,
+					},
+					color = {
+						type = 'color',
+						name = L["Gradient Texture Color"],
+						order = 2,
+						get = function(info) 
+							return T.unpack(E.db.sle.armory.character[(info[#info - 1])][(info[#info])])
+						end,
+						set = function(info, r, g, b, a) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = { r, g, b, a }; M:UpdateCharacterInfo() end,
+						disabled = function() return E.db.sle.armory.character.enable == false or E.db.sle.armory.character.gradient.enable == false end,
+					},
+					quality = {
+						type = 'toggle',
+						name = COLORBLIND_ITEM_QUALITY,
+						order = 3,
+						disabled = function() return E.db.sle.armory.character.enable == false or E.db.sle.armory.character.gradient.enable == false end,
 					}
-				},
+				}
+			},
+			durability = {
+				type = 'group',
+				name = DURABILITY,
+				order = 11,
+				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
+				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; M:UpdateCharacterInfo() end,
+				args = {
+					display = {
+						type = 'select',
+						name = L["Visibility"],
+						order = 1,
+						values = {
+							Always = L["Always Display"],
+							DamagedOnly = L["Only Damaged"],
+							Hide = HIDE
+						},
+					},
+					space = {
+						type = 'description',
+						name = '',
+						order = 2
+					},
+					font = {
+						type = 'select', dialogControl = 'LSM30_Font',
+						name = L["Font"],
+						order = 3,
+						values = function() return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {} end,
+					},
+					fontSize = {
+						type = 'range',
+						name = L["Font Size"],
+						order = 4,
+						min = 6, max = 22, step = 1,
+					},
+					fontStyle = {
+						type = 'select',
+						name = L["Font Outline"],
+						order = 5,
+						values = FontStyleList,
+					},
+					xOffset = {
+						type = 'range',
+						name = L["X-Offset"],
+						order = 8,
+						min = -2, max = 150, step = 1,
+					},
+					yOffset = {
+						type = 'range',
+						name = L["Y-Offset"],
+						order = 8,
+						min = -22, max = 3, step = 1,
+					},
+				}
+			},
 			background = {
 				type = 'group',
 				name = L["Backdrop"],

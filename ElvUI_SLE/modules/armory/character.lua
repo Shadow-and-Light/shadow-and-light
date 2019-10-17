@@ -64,6 +64,11 @@ function CA:BuildLayout()
 			Slot.SLE_Gradient:Hide()
 		end
 
+		--<<Durability>>--
+		Slot["SLE_Durability"] = Slot:CreateFontString(nil, "OVERLAY")
+		-- slot.iLvlText:FontTemplate(LSM:Fetch("font", itemLevelFont), itemLevelFontSize, itemLevelFontOutline)
+		-- Slot["SLE_Durability"]:Point("BOTTOM", Slot, x, y)
+
 		--<<Missing Warning>>--
 		Slot["SLE_Warning"] = CreateFrame("Frame", nil, Slot)
 		if SlotName == "MainHandSlot" or SlotName == "SecondaryHandSlot" then
@@ -172,6 +177,22 @@ function CA:BuildLayout()
 	end)
 end
 
+function CA:Calculate_Durability(which, Slot)
+	if Slot["SLE_Durability"] then
+		if E.db.sle.armory.character.enable and E.db.sle.armory.character.durability.display ~= "Hide" then
+			local current, maximum = T.GetInventoryItemDurability(Slot.ID)
+			if current and maximum and not (E.db.sle.armory.character.durability.display == 'DamagedOnly' and current == maximum) then
+				local r, g, b = E:ColorGradient((current / maximum), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+				Slot["SLE_Durability"]:SetFormattedText("%s%.0f%%|r", E:RGBToHex(r, g, b), (current / maximum) * 100)
+			else
+				Slot["SLE_Durability"]:SetText('')
+			end
+		else
+			Slot["SLE_Durability"]:SetText('')
+		end
+	end
+end
+
 --<<<<<Updating settings>>>>>--
 function CA:Update_BG()
 	if E.db.sle.armory.character.background.selectedBG == 'HIDE' then
@@ -219,6 +240,16 @@ function CA:Update_Gems()
 			for i = 1, Armory.Constants.MaxGemSlots do
 				Slot["textureSlot"..i]:Size(E.db.sle.armory.character.gem.size)
 			end
+		end
+	end
+end
+
+function CA:Update_Durability()
+	for i, SlotName in T.pairs(Armory.Constants.GearList) do
+		local Slot = _G["Character"..SlotName]
+	if Slot.SLE_Durability then
+			Slot.SLE_Durability:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.character.durability.font), E.db.sle.armory.character.fontSize,E.db.sle.armory.character.fontStyle)
+			Slot.SLE_Durability:Point("TOP"..Slot.Direction, _G["Character"..SlotName], "TOP"..Slot.Direction, Slot.Direction == "LEFT" and 2 + E.db.sle.armory.character.durability.xOffset or 0 - E.db.sle.armory.character.durability.xOffset, -3 + E.db.sle.armory.character.durability.yOffset)
 		end
 	end
 end
@@ -273,6 +304,7 @@ function CA:Enable()
 	CA:Update_ItemLevel()
 	CA:Update_Enchant()
 	CA:Update_Gems()
+	CA:Update_Durability()
 end
 
 function CA:Disable()
@@ -309,6 +341,7 @@ function CA:Disable()
 			for i = 1, Armory.Constants.MaxGemSlots do Slot["textureSlot"..i]:Size(14) end
 		end
 		if Slot.SLE_Warning then Slot.SLE_Warning:Hide() end
+		if Slot.SLE_Durability then Slot["SLE_Durability"]:SetText('') end
 	end
 	
 	if _G["PaperDollFrame"].SLE_Armory_BG then _G["PaperDollFrame"].SLE_Armory_BG:Hide() end
