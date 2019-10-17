@@ -153,6 +153,7 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 			end
 		end
 	end
+	if which == "Character" then CA:Update_Durability() end
 end
 
 --Updates ilvl and everything tied to the item somehow

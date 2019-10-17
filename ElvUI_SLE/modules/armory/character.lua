@@ -66,8 +66,6 @@ function CA:BuildLayout()
 
 		--<<Durability>>--
 		Slot["SLE_Durability"] = Slot:CreateFontString(nil, "OVERLAY")
-		-- slot.iLvlText:FontTemplate(LSM:Fetch("font", itemLevelFont), itemLevelFontSize, itemLevelFontOutline)
-		-- Slot["SLE_Durability"]:Point("BOTTOM", Slot, x, y)
 
 		--<<Missing Warning>>--
 		Slot["SLE_Warning"] = CreateFrame("Frame", nil, Slot)
@@ -204,8 +202,6 @@ function CA:Update_BG()
 	else
 		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture(SLE.ArmoryConfigBackgroundValues.BlizzardBackdropList[E.db.sle.armory.character.background.selectedBG] or [[Interface\AddOns\ElvUI_SLE\media\textures\armory\]]..E.db.sle.armory.character.background.selectedBG)
 	end
-	
-	--CA:AdditionalTextures_Update()
 end
 
 function CA:Update_ItemLevel()
@@ -214,7 +210,7 @@ function CA:Update_ItemLevel()
 		
 		if Slot.iLvlText then
 			Slot.iLvlText:ClearAllPoints()
-			Slot.iLvlText:Point("TOP"..Slot.Direction, _G["Character"..SlotName], "TOP"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.ilvl.xOffset or -2-E.db.sle.armory.character.ilvl.xOffset, -1+E.db.sle.armory.character.ilvl.yOffset)
+			Slot.iLvlText:Point("TOP"..Slot.Direction, Slot, "TOP"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.ilvl.xOffset or -2-E.db.sle.armory.character.ilvl.xOffset, -1+E.db.sle.armory.character.ilvl.yOffset)
 		end
 	end
 end
@@ -225,7 +221,7 @@ function CA:Update_Enchant()
 		
 		if Slot.enchantText then
 			Slot.enchantText:ClearAllPoints()
-			Slot.enchantText:Point(Slot.Direction, _G["Character"..SlotName], Slot.Direction == "LEFT" and "RIGHT" or "LEFT", Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.enchant.xOffset or -2-E.db.sle.armory.character.enchant.xOffset, 1+E.db.sle.armory.character.enchant.yOffset)
+			Slot.enchantText:Point(Slot.Direction, Slot, Slot.Direction == "LEFT" and "RIGHT" or "LEFT", Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.enchant.xOffset or -2-E.db.sle.armory.character.enchant.xOffset, 1+E.db.sle.armory.character.enchant.yOffset)
 		end
 	end
 end
@@ -236,7 +232,7 @@ function CA:Update_Gems()
 		
 		if Slot.textureSlot1 then
 			Slot.textureSlot1:ClearAllPoints()
-			Slot.textureSlot1:Point('BOTTOM'..Slot.Direction, _G["Character"..SlotName], "BOTTOM"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.gem.xOffset or -2-E.db.sle.armory.character.gem.xOffset, 2+E.db.sle.armory.character.gem.yOffset)
+			Slot.textureSlot1:Point('BOTTOM'..Slot.Direction, Slot, "BOTTOM"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.gem.xOffset or -2-E.db.sle.armory.character.gem.xOffset, 2+E.db.sle.armory.character.gem.yOffset)
 			for i = 1, Armory.Constants.MaxGemSlots do
 				Slot["textureSlot"..i]:Size(E.db.sle.armory.character.gem.size)
 			end
@@ -247,8 +243,8 @@ end
 function CA:Update_Durability()
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		local Slot = _G["Character"..SlotName]
-	if Slot.SLE_Durability then
-			Slot.SLE_Durability:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.character.durability.font), E.db.sle.armory.character.fontSize,E.db.sle.armory.character.fontStyle)
+		if Slot.SLE_Durability then
+			Slot.SLE_Durability:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.character.durability.font), E.db.sle.armory.character.durability.fontSize, E.db.sle.armory.character.durability.fontStyle)
 			Slot.SLE_Durability:Point("TOP"..Slot.Direction, _G["Character"..SlotName], "TOP"..Slot.Direction, Slot.Direction == "LEFT" and 2 + E.db.sle.armory.character.durability.xOffset or 0 - E.db.sle.armory.character.durability.xOffset, -3 + E.db.sle.armory.character.durability.yOffset)
 		end
 	end

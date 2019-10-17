@@ -174,8 +174,8 @@ local function configTable()
 				type = 'group',
 				name = DURABILITY,
 				order = 11,
-				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
-				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; M:UpdateCharacterInfo() end,
+				get = function(info) return E.db.sle.armory.character.durability[(info[#info])] end,
+				set = function(info, value) E.db.sle.armory.character.durability[(info[#info])] = value; M:UpdateCharacterInfo() end,
 				args = {
 					display = {
 						type = 'select',
