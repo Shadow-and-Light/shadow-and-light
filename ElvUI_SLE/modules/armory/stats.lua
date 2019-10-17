@@ -343,6 +343,7 @@ function SA:LoadAndSetup()
 	hooksecurefunc("PaperDollFrame_UpdateStats", SA.PaperDollFrame_UpdateStats)
 	hooksecurefunc(M, "UpdateCharacterItemLevel", SA.UpdateCharacterItemLevel)
 	hooksecurefunc(M, "ToggleItemLevelInfo", SA.UpdateCharacterItemLevel)
+	hooksecurefunc(M, "UpdateAverageString", SA.UpdateCharacterItemLevel)
 
 	SA:BuildScrollBar()
 	SA:BuildNewStats()
