@@ -17,10 +17,18 @@ local function configTable()
 				name = L["Character Armory"],
 				order = 1,
 			},
+			showWarning = {
+				order = 2,
+				type = "toggle",
+				name = L["Show Warning Icon"],
+				desc = L["Show Missing Enchants or Gems"],
+				get = function(info) return E.db.sle.armory.character[(info[#info])] end,
+				set = function(info, value) E.db.sle.armory.character[(info[#info])] = value; M:UpdateCharacterInfo() end,
+			},
 			ilvl = {
 				type = 'group',
 				name = L["Item Level"],
-				order = 2,
+				order = 10,
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_ItemLevel() end,
 				args = {
@@ -52,7 +60,7 @@ local function configTable()
 			enchant = {
 				type = 'group',
 				name = L["Enchant String"],
-				order = 3,
+				order = 11,
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_Enchant() end,
 				args = {
@@ -73,7 +81,7 @@ local function configTable()
 			gem = {
 				type = 'group',
 				name = L["Gem Sockets"],
-				order = 4,
+				order = 12,
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_Gems() end,
 				args = {
@@ -92,7 +100,7 @@ local function configTable()
 				}
 			},
 			transmog = {
-				order = 5,
+				order = 13,
 				type = 'group',
 				name = L["Transmog"],
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
@@ -128,7 +136,7 @@ local function configTable()
 			gradient = {
 					type = 'group',
 					name = L["Gradient"],
-					order = 6,
+					order = 14,
 					get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
 					set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; M:UpdateCharacterInfo() end,
 					args = {
@@ -158,7 +166,7 @@ local function configTable()
 			background = {
 				type = 'group',
 				name = L["Backdrop"],
-				order = 10,
+				order = 20,
 				args = {
 					selectedBG = {
 						type = 'select',

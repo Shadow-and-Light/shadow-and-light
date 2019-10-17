@@ -286,10 +286,10 @@ function Armory:Transmog_OnClick(button)
 end
 
 function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant)
-	local window = T.lower(which)
-	if not Slot["SLE_Warning"] then return end
+	if not Slot["SLE_Warning"] then return end --Shit happens
 	Slot["SLE_Warning"].Reason = nil --Clear message, cause disabling armory doesn't affect those otherwise
-	if not E.db.sle.armory[window] or not E.db.sle.armory[window].enable then return end
+	local window = T.lower(which)
+	if not (E.db.sle.armory[window] and E.db.sle.armory[window].enable and E.db.sle.armory[window].showWarning) then Slot["SLE_Warning"]:Hide(); return end --if something is disdbled
 	local SlotName = T.gsub(Slot:GetName(), which, "")
 	if not SlotName then return end --No slot?
 	local noChant, noGem = false, false
@@ -312,13 +312,14 @@ function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant)
 		local message = ""
 		if noGem then message = message.."|cffff0000"..L["Empty Socket"].."|r\n" end
 		if noChant then message = message.."|cffff0000"..L["Not Enchanted"].."|r\n" end
-		Slot["SLE_Warning"].Reason = message ~= "" and message or nil
+		Slot["SLE_Warning"].Reason = message or nil
 		Slot["SLE_Warning"]:Show()
 	else
 		Slot["SLE_Warning"]:Hide()
 	end
 end
 
+--Actually only needed only on first load of inspect frame, cause I can't alter shit on the rame that doesn't exist yet
 function Armory:UpdateInspectInfo()
 	if not Armory.Constants.Inspect_Defaults_Cached then
 		Armory:BuildFrameDefaultsCache("Inspect")

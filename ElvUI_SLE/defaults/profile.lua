@@ -13,6 +13,7 @@ P["sle"] = {
 	["armory"] = {
 		["character"] = {
 			["enable"] = false,
+			["showWarning"] = true,
 			["ilvl"] = {
 				["colorType"] = "NONE",
 				["xOffset"] = 0,
@@ -46,6 +47,7 @@ P["sle"] = {
 		},
 		["inspect"] = {
 			["enable"] = false,
+			["showWarning"] = true,
 			["ilvl"] = {
 				["colorType"] = "NONE",
 				["xOffset"] = 0,
