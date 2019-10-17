@@ -131,6 +131,7 @@ end
 
 --Updates the frame
 function Armory:UpdatePageInfo(frame, which, guid, event)
+	if not (frame and which) then return end
 	local window = T.lower(which)
 	local unit = (which == 'Character' and 'player') or frame.unit
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
@@ -309,7 +310,7 @@ function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant)
 	end
 	if (noChant or noGem) then --If anything us missing
 		local message = ""
-		if noGem then message = message.."|cffff5678"..L["Empty Socket"].."|r\n" end
+		if noGem then message = message.."|cffff0000"..L["Empty Socket"].."|r\n" end
 		if noChant then message = message.."|cffff0000"..L["Not Enchanted"].."|r\n" end
 		Slot["SLE_Warning"].Reason = message ~= "" and message or nil
 		Slot["SLE_Warning"]:Show()

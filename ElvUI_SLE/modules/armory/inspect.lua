@@ -178,6 +178,7 @@ end
 
 
 function IA:Enable()
+	if not _G["InspectFrame"] then return end
 	-- _G["InspectFrame"]:Size(450, 480)
 	_G["InspectFrame"]:Size(450, 444)
 	
@@ -218,6 +219,7 @@ function IA:Enable()
 end
 
 function IA:Disable()
+	if not _G["InspectFrame"] then return end
 	_G["InspectFrame"]:Size(338, 424)
 	
 	-- Move bottom equipment slots to default position
