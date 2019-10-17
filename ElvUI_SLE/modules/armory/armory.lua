@@ -81,19 +81,20 @@ Armory.Constants.AzeriteSlot = {
 	"HeadSlot", "ShoulderSlot", "ChestSlot",
 }
 Armory.Constants.CanTransmogrify = {
-	-- ["HeadSlot"] = true,
-	-- ["ShoulderSlot"] = true,
-	-- ["BackSlot"] = true,
-	-- ["ChestSlot"] = true,
-	-- ["WristSlot"] = true,
-	-- ["HandsSlot"] = true,
-	-- ["WaistSlot"] = true,
-	-- ["LegsSlot"] = true,
-	-- ["FeetSlot"] = true,
-	["Finger0Slot"] = true,
-	["Finger1Slot"] = true,
+	["HeadSlot"] = true,
+	["ShoulderSlot"] = true,
+	["BackSlot"] = true,
+	["ChestSlot"] = true,
+	["WristSlot"] = true,
+	["HandsSlot"] = true,
+	["WaistSlot"] = true,
+	["LegsSlot"] = true,
+	["FeetSlot"] = true,
 	["MainHandSlot"] = true,
 	["SecondaryHandSlot"] = true
+}
+Armory.Constants.EnchantableSlots = {
+	["Finger0Slot"] = true, ["Finger1Slot"] = true, ["MainHandSlot"] = true, ["SecondaryHandSlot"] = true,
 }
 
 Armory.Constants.AzeriteTraitAvailableColor = {0.95, 0.95, 0.32, 1}
@@ -101,6 +102,10 @@ Armory.Constants.Character_Defaults_Cached = false
 Armory.Constants.Inspect_Defaults_Cached = false
 Armory.Constants.Character_Defaults = {}
 Armory.Constants.Inspect_Defaults = {}
+Armory.Constants.WarningTexture = [[Interface\AddOns\ElvUI_SLE\media\textures\armory\Warning-Small]]
+Armory.Constants.GradientTexture = [[Interface\AddOns\ElvUI_SLE\media\textures\armory\Gradation]]
+Armory.Constants.TransmogTexture = [[Interface\AddOns\ElvUI_SLE\media\textures\armory\anchor]]
+Armory.Constants.MaxGemSlots = 5
 
 --Remembering default positions of stuff
 function Armory:BuildFrameDefaultsCache(which)
@@ -184,6 +189,7 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, iLvl, enchant, gems, essenc
 	else
 		if Slot.SLE_Gradient then Slot.SLE_Gradient:Hide() end
 	end
+	--If put inside "if itemLevelColors" condition will not actually hide gem links/warnings on empty slots
 	Armory:UpdateGemInfo(Slot, which)
 	Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant)
 end
@@ -191,7 +197,7 @@ end
 ---Store gem info in our hidden frame
 function Armory:UpdateGemInfo(Slot, which)
 	local itemLink = T.GetInventoryItemLink(which == "Character" and "player" or _G["InspectFrame"].unit, Slot.ID)
-	for i = 1, 5 do
+	for i = 1, Armory.Constants.MaxGemSlots do
 		local GemLink
 		if not Slot["SLE_Gem"..i] then return end
 		if itemLink then
@@ -241,10 +247,8 @@ end
 
 ---<<<Show what the fuck is wrong with this item>>>---
 function Armory:Warning_OnEnter()
-	-- print(self.Link)
-	if E.db.sle.armory[self.frame].enable and self.Reason then --Only do stuff if armory is enabled or the gem is present
+	if E.db.sle.armory[self.frame].enable and self.Reason then --Only do stuff if armory is enabled and something is actually missing
 		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_RIGHT')
-		-- _G["GameTooltip"]:SetHyperlink(self.Link)
 		_G["GameTooltip"]:AddLine(self.Reason, 1, 1, 1)
 		_G["GameTooltip"]:Show()
 	end
@@ -280,16 +284,14 @@ function Armory:Transmog_OnClick(button)
 end
 
 function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant)
-	print(which)
 	local window = T.lower(which)
-	Slot["SLE_Warning"].Reason = nil
+	if not Slot["SLE_Warning"] then return end
+	Slot["SLE_Warning"].Reason = nil --Clear message, cause disabling armory doesn't affect those otherwise
 	if not E.db.sle.armory[window] or not E.db.sle.armory[window].enable then return end
-	-- if not iLvl then return end
 	local SlotName = T.gsub(Slot:GetName(), which, "")
 	if not SlotName then return end --No slot?
-	-- print(SlotName)
 	local noChant, noGem = false, false
-	if iLvl and Armory.Constants.CanTransmogrify[SlotName] and not enchant then --Item should be enchanted, but no string actually sent. This bastard is slacking
+	if iLvl and Armory.Constants.EnchantableSlots[SlotName] and not enchant then --Item should be enchanted, but no string actually sent. This bastard is slacking
 		local itemLink = T.GetInventoryItemLink(which == "Character" and "player" or _G["InspectFrame"].unit, Slot.ID)
 		local classID, subclassID = T.select(12, GetItemInfo(itemLink))
 		if classID == 4 and subclassID == 6 then --Shields are special
@@ -299,19 +301,15 @@ function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant)
 		end
 	end 
 	if gems and not essences then --If gems found, but those are not essences
-		for i = 1, 5 do
+		for i = 1, Armory.Constants.MaxGemSlots do
 			local texture = Slot["textureSlot"..i]
 			if (texture and texture:GetTexture()) and (Slot["SLE_Gem"..i] and not Slot["SLE_Gem"..i].Link) then noGem = true; break end --If there is a texture (e.g. actual slot), but no link = no gem installed
 		end
 	end
 	if (noChant or noGem) then --If anything us missing
 		local message = ""
-		if noGem then
-			message = message.."|cffff5678"..L["Empty Socket"].."|r\n"
-		end
-		if noChant then
-			message = message.."|cffff0000"..L["Not Enchanted"].."|r\n"
-		end
+		if noGem then message = message.."|cffff5678"..L["Empty Socket"].."|r\n" end
+		if noChant then message = message.."|cffff0000"..L["Not Enchanted"].."|r\n" end
 		Slot["SLE_Warning"].Reason = message ~= "" and message or nil
 		Slot["SLE_Warning"]:Show()
 	else
@@ -327,9 +325,6 @@ function Armory:UpdateInspectInfo()
 end
 
 function Armory:Initialize()
-	-- for i = 1, #KF.Modules do
-		-- KF.Modules[(KF.Modules[i])]()
-	-- end
 	Armory:BuildFrameDefaultsCache("Character")
 
 	--May be usefull later

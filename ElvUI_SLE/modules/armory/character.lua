@@ -37,7 +37,7 @@ function CA:BuildLayout()
 		-- end)
 		
 		--<<Create gems>>--
-		for t = 1, 5 do
+		for t = 1, Armory.Constants.MaxGemSlots do
 			if Slot["textureSlot"..t] then
 				Slot["SLE_Gem"..t] = CreateFrame("Frame", nil, Slot)
 				Slot["SLE_Gem"..t]:SetPoint("TOPLEFT", Slot["textureSlot"..t])
@@ -54,7 +54,7 @@ function CA:BuildLayout()
 			Slot.SLE_Gradient = Slot:CreateTexture(nil, "BACKGROUND")
 			Slot.SLE_Gradient:SetPoint(Slot.Direction, Slot, Slot.Direction, 0, 0)
 			Slot.SLE_Gradient:Size(132, 41)
-			Slot.SLE_Gradient:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\armory\Gradation]])
+			Slot.SLE_Gradient:SetTexture(Armory.Constants.GradientTexture)
 			if Slot.Direction == 'LEFT' then
 				Slot.SLE_Gradient:SetTexCoord(0, 1, 0, 1)
 			else
@@ -72,11 +72,12 @@ function CA:BuildLayout()
 
 		Slot["SLE_Warning"].texture = Slot["SLE_Warning"]:CreateTexture(nil, "BACKGROUND")
 		Slot["SLE_Warning"].texture:SetInside()
-		Slot["SLE_Warning"].texture:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\armory\Warning-Small]])
+		Slot["SLE_Warning"].texture:SetTexture(Armory.Constants.WarningTexture)
 		
 		Slot["SLE_Warning"]:SetScript("OnEnter", Armory.Warning_OnEnter)
 		Slot["SLE_Warning"]:SetScript("OnLeave", Armory.Tooltip_OnLeave)
 		Slot["SLE_Warning"]:Hide()
+
 		--<<Azerite>>--
 		hooksecurefunc(_G["Character"..SlotName], "SetAzeriteItem", function(self, itemLocation)
 			if not itemLocation then
@@ -120,7 +121,7 @@ function CA:BuildLayout()
 
 			Slot.TransmogInfo.Texture = Slot.TransmogInfo:CreateTexture(nil, 'OVERLAY')
 			Slot.TransmogInfo.Texture:SetInside()
-			Slot.TransmogInfo.Texture:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\armory\anchor]])
+			Slot.TransmogInfo.Texture:SetTexture(Armory.Constants.TransmogTexture)
 			Slot.TransmogInfo.Texture:SetVertexColor(1, .5, 1)
 
 			if Slot.Direction == 'LEFT' then
@@ -209,7 +210,7 @@ function CA:Update_Gems()
 		if Slot.textureSlot1 then
 			Slot.textureSlot1:ClearAllPoints()
 			Slot.textureSlot1:Point('BOTTOM'..Slot.Direction, _G["Character"..SlotName], "BOTTOM"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.gem.xOffset or -2-E.db.sle.armory.character.gem.xOffset, 2+E.db.sle.armory.character.gem.yOffset)
-			for i = 1, 5 do
+			for i = 1, Armory.Constants.MaxGemSlots do
 				Slot["textureSlot"..i]:Size(E.db.sle.armory.character.gem.size)
 			end
 		end
@@ -266,16 +267,6 @@ function CA:Enable()
 	CA:Update_ItemLevel()
 	CA:Update_Enchant()
 	CA:Update_Gems()
-	-- for i, SlotName in T.pairs(Armory.Constants.GearList) do
-		-- local Slot = _G["Character"..SlotName]
-		-- if Slot.SLE_Gradient then
-			-- if E.db.sle.armory.character.gradient.enable then
-				-- Slot.SLE_Gradient:Show()
-			-- else
-				-- Slot.SLE_Gradient:Hide()
-			-- end
-		-- end
-	-- end
 end
 
 function CA:Disable()
@@ -309,9 +300,9 @@ function CA:Disable()
 			end
 		end
 		if Slot.textureSlot1 then
-			for i = 1, 5 do Slot["textureSlot"..i]:Size(14) end
+			for i = 1, Armory.Constants.MaxGemSlots do Slot["textureSlot"..i]:Size(14) end
 		end
-		if Slot.SLE_Warning then print(SlotName) Slot.SLE_Warning:Hide() end
+		if Slot.SLE_Warning then Slot.SLE_Warning:Hide() end
 	end
 	
 	if _G["PaperDollFrame"].SLE_Armory_BG then _G["PaperDollFrame"].SLE_Armory_BG:Hide() end

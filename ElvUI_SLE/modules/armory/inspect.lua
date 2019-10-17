@@ -23,8 +23,8 @@ function IA:BuildLayout()
 		local Slot = _G["Inspect"..SlotName]
 		Slot.ID = T.GetInventorySlotInfo(SlotName)
 		
-		--Create gems
-		for t = 1, 5 do
+		--<<Create gems>>--
+		for t = 1, Armory.Constants.MaxGemSlots do
 			if Slot["textureSlot"..t] then
 				Slot["SLE_Gem"..t] = CreateFrame("Frame", nil, Slot)
 				Slot["SLE_Gem"..t]:SetPoint("TOPLEFT", Slot["textureSlot"..t])
@@ -36,12 +36,12 @@ function IA:BuildLayout()
 			end
 		end
 
-		-- Gradation
+		--<<Gradation>>--
 		if Slot.iLvlText then
 			Slot.SLE_Gradient = Slot:CreateTexture(nil, "BACKGROUND")
 			Slot.SLE_Gradient:SetPoint(Slot.Direction, Slot, Slot.Direction, 0, 0)
 			Slot.SLE_Gradient:Size(132, 41)
-			Slot.SLE_Gradient:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\armory\Gradation]])
+			Slot.SLE_Gradient:SetTexture(Armory.Constants.GradientTexture)
 			if Slot.Direction == 'LEFT' then
 				Slot.SLE_Gradient:SetTexCoord(0, 1, 0, 1)
 			else
@@ -50,6 +50,20 @@ function IA:BuildLayout()
 			Slot.iLvlText:SetTextColor(1, 1, 1)
 			Slot.SLE_Gradient:Hide()
 		end
+
+		--<<Missing Warning>>--
+		Slot["SLE_Warning"] = CreateFrame("Frame", nil, Slot)
+		Slot["SLE_Warning"]:Size(8, 41)
+		Slot["SLE_Warning"]:SetPoint(Slot.Direction == "LEFT" and "RIGHT" or "LEFT", Slot, Slot.Direction, 0, 0)
+		Slot["SLE_Warning"].frame = "inspect"
+
+		Slot["SLE_Warning"].texture = Slot["SLE_Warning"]:CreateTexture(nil, "BACKGROUND")
+		Slot["SLE_Warning"].texture:SetInside()
+		Slot["SLE_Warning"].texture:SetTexture(Armory.Constants.WarningTexture)
+		
+		Slot["SLE_Warning"]:SetScript("OnEnter", Armory.Warning_OnEnter)
+		Slot["SLE_Warning"]:SetScript("OnLeave", Armory.Tooltip_OnLeave)
+		Slot["SLE_Warning"]:Hide()
 
 		--<<Transmog>>--
 		if Armory.Constants.CanTransmogrify[SlotName] then
@@ -63,7 +77,7 @@ function IA:BuildLayout()
 
 			Slot.TransmogInfo.Texture = Slot.TransmogInfo:CreateTexture(nil, 'OVERLAY')
 			Slot.TransmogInfo.Texture:SetInside()
-			Slot.TransmogInfo.Texture:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\armory\anchor]])
+			Slot.TransmogInfo.Texture:SetTexture(Armory.Constants.TransmogTexture)
 			Slot.TransmogInfo.Texture:SetVertexColor(1, .5, 1)
 
 			if Slot.Direction == 'LEFT' then
@@ -152,7 +166,7 @@ function IA:Update_Gems()
 		if Slot.textureSlot1 then
 			Slot.textureSlot1:ClearAllPoints()
 			Slot.textureSlot1:Point('BOTTOM'..Slot.Direction, _G["Inspect"..SlotName], "BOTTOM"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.inspect.gem.xOffset or -2-E.db.sle.armory.inspect.gem.xOffset, 2+E.db.sle.armory.inspect.gem.yOffset)
-			for i = 1, 5 do Slot["textureSlot"..i]:Size(E.db.sle.armory.inspect.gem.size) end
+			for i = 1, Armory.Constants.MaxGemSlots do Slot["textureSlot"..i]:Size(E.db.sle.armory.inspect.gem.size) end
 		end
 	end
 end
@@ -226,8 +240,9 @@ function IA:Disable()
 			end
 		end
 		if Slot.textureSlot1 then
-			for i = 1, 5 do Slot["textureSlot"..i]:Size(14) end
+			for i = 1, Armory.Constants.MaxGemSlots do Slot["textureSlot"..i]:Size(14) end
 		end
+		if Slot.SLE_Warning then Slot.SLE_Warning:Hide() end
 	end
 
 	if _G["InspectPaperDollFrame"].SLE_Armory_BG then _G["InspectPaperDollFrame"].SLE_Armory_BG:Hide() end
