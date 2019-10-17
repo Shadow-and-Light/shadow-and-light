@@ -66,8 +66,13 @@ function CA:BuildLayout()
 
 		--<<Missing Warning>>--
 		Slot["SLE_Warning"] = CreateFrame("Frame", nil, Slot)
-		Slot["SLE_Warning"]:Size(8, 41)
-		Slot["SLE_Warning"]:SetPoint(Slot.Direction == "LEFT" and "RIGHT" or "LEFT", Slot, Slot.Direction, 0, 0)
+		if SlotName == "MainHandSlot" or SlotName == "SecondaryHandSlot" then
+			Slot["SLE_Warning"]:Size(41, 8)
+			Slot["SLE_Warning"]:SetPoint("TOP", Slot, "BOTTOM", 0, 0)
+		else
+			Slot["SLE_Warning"]:Size(8, 41)
+			Slot["SLE_Warning"]:SetPoint(Slot.Direction == "LEFT" and "RIGHT" or "LEFT", Slot, Slot.Direction, 0, 0)
+		end
 		Slot["SLE_Warning"].frame = "character"
 
 		Slot["SLE_Warning"].texture = Slot["SLE_Warning"]:CreateTexture(nil, "BACKGROUND")
