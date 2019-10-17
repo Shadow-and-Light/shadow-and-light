@@ -36,7 +36,7 @@ function CA:BuildLayout()
 			-- end
 		-- end)
 		
-		--Create gems
+		--<<Create gems>>--
 		for t = 1, 5 do
 			if Slot["textureSlot"..t] then
 				Slot["SLE_Gem"..t] = CreateFrame("Frame", nil, Slot)
@@ -49,7 +49,7 @@ function CA:BuildLayout()
 			end
 		end
 
-		-- Gradation
+		--<<Gradation>>--
 		if Slot.iLvlText then
 			Slot.SLE_Gradient = Slot:CreateTexture(nil, "BACKGROUND")
 			Slot.SLE_Gradient:SetPoint(Slot.Direction, Slot, Slot.Direction, 0, 0)
@@ -64,6 +64,19 @@ function CA:BuildLayout()
 			Slot.SLE_Gradient:Hide()
 		end
 
+		--<<Missing Warning>>--
+		Slot["SLE_Warning"] = CreateFrame("Frame", nil, Slot)
+		Slot["SLE_Warning"]:Size(8, 41)
+		Slot["SLE_Warning"]:SetPoint(Slot.Direction == "LEFT" and "RIGHT" or "LEFT", Slot, Slot.Direction, 0, 0)
+		Slot["SLE_Warning"].frame = "character"
+
+		Slot["SLE_Warning"].texture = Slot["SLE_Warning"]:CreateTexture(nil, "BACKGROUND")
+		Slot["SLE_Warning"].texture:SetInside()
+		Slot["SLE_Warning"].texture:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\armory\Warning-Small]])
+		
+		Slot["SLE_Warning"]:SetScript("OnEnter", Armory.Warning_OnEnter)
+		Slot["SLE_Warning"]:SetScript("OnLeave", Armory.Tooltip_OnLeave)
+		Slot["SLE_Warning"]:Hide()
 		--<<Azerite>>--
 		hooksecurefunc(_G["Character"..SlotName], "SetAzeriteItem", function(self, itemLocation)
 			if not itemLocation then
@@ -298,6 +311,7 @@ function CA:Disable()
 		if Slot.textureSlot1 then
 			for i = 1, 5 do Slot["textureSlot"..i]:Size(14) end
 		end
+		if Slot.SLE_Warning then print(SlotName) Slot.SLE_Warning:Hide() end
 	end
 	
 	if _G["PaperDollFrame"].SLE_Armory_BG then _G["PaperDollFrame"].SLE_Armory_BG:Hide() end

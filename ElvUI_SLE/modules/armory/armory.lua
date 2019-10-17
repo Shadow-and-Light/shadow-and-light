@@ -81,8 +81,19 @@ Armory.Constants.AzeriteSlot = {
 	"HeadSlot", "ShoulderSlot", "ChestSlot",
 }
 Armory.Constants.CanTransmogrify = {
-	["HeadSlot"] = true, ["ShoulderSlot"] = true, ["BackSlot"] = true, ["ChestSlot"] = true, ["WristSlot"] = true,
-	["HandsSlot"] = true, ["WaistSlot"] = true, ["LegsSlot"] = true, ["FeetSlot"] = true, ["MainHandSlot"] = true, ["SecondaryHandSlot"] = true
+	-- ["HeadSlot"] = true,
+	-- ["ShoulderSlot"] = true,
+	-- ["BackSlot"] = true,
+	-- ["ChestSlot"] = true,
+	-- ["WristSlot"] = true,
+	-- ["HandsSlot"] = true,
+	-- ["WaistSlot"] = true,
+	-- ["LegsSlot"] = true,
+	-- ["FeetSlot"] = true,
+	["Finger0Slot"] = true,
+	["Finger1Slot"] = true,
+	["MainHandSlot"] = true,
+	["SecondaryHandSlot"] = true
 }
 
 Armory.Constants.AzeriteTraitAvailableColor = {0.95, 0.95, 0.32, 1}
@@ -133,7 +144,6 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 					LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
 				end
 			end
-			Armory:UpdateGemInfo(Slot, which)
 		end
 	end
 end
@@ -141,13 +151,13 @@ end
 --Updates ilvl and everything tied to the item somehow
 function Armory:UpdatePageStrings(i, iLevelDB, Slot, iLvl, enchant, gems, essences, enchantColors, itemLevelColors, which, fullEnchantText)
 	if itemLevelColors then
-		which = T.lower(which) --to know which settings table to use
-		if E.db.sle.armory[which] and E.db.sle.armory[which].enable then --If settings table actually exists and armory for it is enabled
-			if Slot.enchantText and not (enchant == nil or fullEnchantText == nil) then Armory:ProcessEnchant(which, Slot, enchant, fullEnchantText) end
-			if E.db.sle.armory[which].ilvl.colorType == "QUALITY" then
+		local window = T.lower(which) --to know which settings table to use
+		if E.db.sle.armory[window] and E.db.sle.armory[window].enable then --If settings table actually exists and armory for it is enabled
+			if Slot.enchantText and not (enchant == nil or fullEnchantText == nil) then Armory:ProcessEnchant(window, Slot, enchant, fullEnchantText) end
+			if E.db.sle.armory[window].ilvl.colorType == "QUALITY" then
 				Slot.iLvlText:SetTextColor(T.unpack(itemLevelColors)) --Busyness as usual
-			elseif E.db.sle.armory[which].ilvl.colorType == "GRADIENT" then
-				local equippedIlvl = which == "character" and T.select(2, T.GetAverageItemLevel()) or E:CalculateAverageItemLevel(iLevelDB, _G["InspectFrame"].unit)
+			elseif E.db.sle.armory[window].ilvl.colorType == "GRADIENT" then
+				local equippedIlvl = window == "character" and T.select(2, T.GetAverageItemLevel()) or E:CalculateAverageItemLevel(iLevelDB, _G["InspectFrame"].unit)
 				local diff = iLvl - equippedIlvl
 				local aR, aG, aB
 				if diff >= 0 then
@@ -162,10 +172,11 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, iLvl, enchant, gems, essenc
 		else
 			Slot.iLvlText:SetTextColor(T.unpack(itemLevelColors))
 		end
+		--This block is separate cause disabling armory will not hide dem gradients otherwise
 		if Slot.SLE_Gradient then --First call for this function for inspect is before gradient is created. To avoid errors
-			if E.db.sle.armory[which].enable and E.db.sle.armory[which].gradient.enable and iLvl then
+			if E.db.sle.armory[window].enable and E.db.sle.armory[window].gradient.enable and iLvl then
 				Slot.SLE_Gradient:Show()
-				if E.db.sle.armory[which].gradient.quality then Slot.SLE_Gradient:SetVertexColor(T.unpack(itemLevelColors)) else Slot.SLE_Gradient:SetVertexColor(T.unpack(E.db.sle.armory[which].gradient.color)) end
+				if E.db.sle.armory[window].gradient.quality then Slot.SLE_Gradient:SetVertexColor(T.unpack(itemLevelColors)) else Slot.SLE_Gradient:SetVertexColor(T.unpack(E.db.sle.armory[window].gradient.color)) end
 			else
 				Slot.SLE_Gradient:Hide()
 			end
@@ -173,29 +184,28 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, iLvl, enchant, gems, essenc
 	else
 		if Slot.SLE_Gradient then Slot.SLE_Gradient:Hide() end
 	end
+	Armory:UpdateGemInfo(Slot, which)
+	Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant)
 end
 
 ---Store gem info in our hidden frame
 function Armory:UpdateGemInfo(Slot, which)
 	local itemLink = T.GetInventoryItemLink(which == "Character" and "player" or _G["InspectFrame"].unit, Slot.ID)
-	
-	if itemLink then
-		for i = 1, 5 do
-			local GemLink
-			if not Slot["SLE_Gem"..i] then return end
+	for i = 1, 5 do
+		local GemLink
+		if not Slot["SLE_Gem"..i] then return end
+		if itemLink then
 			if which == "Character" and Slot.ID == 2 then
 				GemID = C_AzeriteEssence.GetMilestoneEssence(i+114)
 				if GemID then
 					local rank = C_AzeriteEssence.GetEssenceInfo(GemID).rank
 					GemLink = C_AzeriteEssence.GetEssenceHyperlink(GemID, rank)
-				-- else --if essence is not there
-					-- GemID = 0
 				end
 			else
 				GemLink = T.select(2, GetItemGem(itemLink, i))
 			end
-			Slot["SLE_Gem"..i].Link = GemLink
 		end
+		Slot["SLE_Gem"..i].Link = GemLink
 	end
 end
 
@@ -229,6 +239,17 @@ function Armory:Gem_OnEnter()
 	end
 end
 
+---<<<Show what the fuck is wrong with this item>>>---
+function Armory:Warning_OnEnter()
+	-- print(self.Link)
+	if E.db.sle.armory[self.frame].enable and self.Reason then --Only do stuff if armory is enabled or the gem is present
+		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_RIGHT')
+		-- _G["GameTooltip"]:SetHyperlink(self.Link)
+		_G["GameTooltip"]:AddLine(self.Reason, 1, 1, 1)
+		_G["GameTooltip"]:Show()
+	end
+end
+
 --<<<<<Transmog functions>>>>>--
 function Armory:Transmog_OnEnter()
 	self.Texture:SetVertexColor(1, .8, 1)
@@ -255,6 +276,46 @@ function Armory:Transmog_OnClick(button)
 			_G["BrowseName"]:SetText(ItemName)
 			_G["BrowseName"]:SetFocus()
 		end
+	end
+end
+
+function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant)
+	print(which)
+	local window = T.lower(which)
+	Slot["SLE_Warning"].Reason = nil
+	if not E.db.sle.armory[window] or not E.db.sle.armory[window].enable then return end
+	-- if not iLvl then return end
+	local SlotName = T.gsub(Slot:GetName(), which, "")
+	if not SlotName then return end --No slot?
+	-- print(SlotName)
+	local noChant, noGem = false, false
+	if iLvl and Armory.Constants.CanTransmogrify[SlotName] and not enchant then --Item should be enchanted, but no string actually sent. This bastard is slacking
+		local itemLink = T.GetInventoryItemLink(which == "Character" and "player" or _G["InspectFrame"].unit, Slot.ID)
+		local classID, subclassID = T.select(12, GetItemInfo(itemLink))
+		if classID == 4 and subclassID == 6 then --Shields are special
+			noChant = false
+		else
+			noChant = true
+		end
+	end 
+	if gems and not essences then --If gems found, but those are not essences
+		for i = 1, 5 do
+			local texture = Slot["textureSlot"..i]
+			if (texture and texture:GetTexture()) and (Slot["SLE_Gem"..i] and not Slot["SLE_Gem"..i].Link) then noGem = true; break end --If there is a texture (e.g. actual slot), but no link = no gem installed
+		end
+	end
+	if (noChant or noGem) then --If anything us missing
+		local message = ""
+		if noGem then
+			message = message.."|cffff5678"..L["Empty Socket"].."|r\n"
+		end
+		if noChant then
+			message = message.."|cffff0000"..L["Not Enchanted"].."|r\n"
+		end
+		Slot["SLE_Warning"].Reason = message ~= "" and message or nil
+		Slot["SLE_Warning"]:Show()
+	else
+		Slot["SLE_Warning"]:Hide()
 	end
 end
 
