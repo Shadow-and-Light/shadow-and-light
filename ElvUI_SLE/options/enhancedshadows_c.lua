@@ -67,45 +67,90 @@ local function configTable()
 								type = "toggle",
 								name = L["Player Frame"],
 							},
+							playerLegacy = {
+								order = 2,
+								type = "toggle",
+								name = L["Classic"],
+							},
 							target = {
 								order = 5,
 								type = "toggle",
 								name = L["Target Frame"],
+							},
+							targetLegacy = {
+								order = 6,
+								type = "toggle",
+								name = L["Classic"],
 							},
 							targettarget = {
 								order = 10,
 								type = "toggle",
 								name = L["TargetTarget Frame"],
 							},
+							targettargetLegacy = {
+								order = 11,
+								type = "toggle",
+								name = L["Classic"],
+							},
 							focus = {
 								order = 15,
 								type = "toggle",
 								name = L["Focus Frame"],
+							},
+							focusLegacy = {
+								order = 16,
+								type = "toggle",
+								name = L["Classic"],
 							},
 							focustarget = {
 								order = 20,
 								type = "toggle",
 								name = L["FocusTarget Frame"],
 							},
+							focustargetLegacy = {
+								order = 21,
+								type = "toggle",
+								name = L["Classic"],
+							},
 							pet = {
 								order = 25,
 								type = "toggle",
 								name = L["Pet Frame"],
+							},
+							petLegacy = {
+								order = 26,
+								type = "toggle",
+								name = L["Classic"],
 							},
 							pettarget = {
 								order = 30,
 								type = "toggle",
 								name = L["PetTarget Frame"],
 							},
+							pettargetLegacy = {
+								order = 31,
+								type = "toggle",
+								name = L["Classic"],
+							},
 							boss = {
 								order = 35,
 								type = "toggle",
 								name = L["Boss Frames"],
 							},
+							bossLegacy = {
+								order = 36,
+								type = "toggle",
+								name = L["Classic"],
+							},
 							arena = {
 								order = 40,
 								type = "toggle",
 								name = L["Arena Frames"],
+							},
+							arenaLegacy = {
+								order = 41,
+								type = "toggle",
+								name = L["Classic"],
 							},
 						},
 					},
