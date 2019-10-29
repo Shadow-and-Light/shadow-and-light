@@ -157,16 +157,18 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 end
 
 --Updates ilvl and everything tied to the item somehow
-function Armory:UpdatePageStrings(i, iLevelDB, Slot, iLvl, enchant, gems, essences, enchantColors, itemLevelColors, which, fullEnchantText)
-	if itemLevelColors then
+-- M:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which) -- `which` is used by plugins
+function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which) -- `which` is used by plugins
+-- function Armory:UpdatePageStrings(i, iLevelDB, Slot, iLvl, enchant, gems, essences, enchantColors, itemLevelColors, which, fullEnchantText)
+	if slotInfo.itemLevelColors then
 		local window = T.lower(which) --to know which settings table to use
 		if E.db.sle.armory[window] and E.db.sle.armory[window].enable then --If settings table actually exists and armory for it is enabled
-			if Slot.enchantText and not (enchant == nil or fullEnchantText == nil) then Armory:ProcessEnchant(window, Slot, enchant, fullEnchantText) end
+			if Slot.enchantText and not (slotInfo.enchantTextShort == nil or slotInfo.enchantText == nil) then Armory:ProcessEnchant(window, Slot, slotInfo.enchantTextShort, slotInfo.enchantText) end
 			if E.db.sle.armory[window].ilvl.colorType == "QUALITY" then
-				Slot.iLvlText:SetTextColor(T.unpack(itemLevelColors)) --Busyness as usual
+				Slot.iLvlText:SetTextColor(T.unpack(slotInfo.itemLevelColors)) --Busyness as usual
 			elseif E.db.sle.armory[window].ilvl.colorType == "GRADIENT" then
 				local equippedIlvl = window == "character" and T.select(2, T.GetAverageItemLevel()) or E:CalculateAverageItemLevel(iLevelDB, _G["InspectFrame"].unit)
-				local diff = iLvl - equippedIlvl
+				local diff = slotInfo.iLvl - equippedIlvl
 				local aR, aG, aB
 				if diff >= 0 then
 					aR, aG, aB = 0,1,0
@@ -178,13 +180,13 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, iLvl, enchant, gems, essenc
 				Slot.iLvlText:SetTextColor(1, 1, 1)
 			end
 		else
-			Slot.iLvlText:SetTextColor(T.unpack(itemLevelColors))
+			Slot.iLvlText:SetTextColor(T.unpack(slotInfo.itemLevelColors))
 		end
 		--This block is separate cause disabling armory will not hide dem gradients otherwise
 		if Slot.SLE_Gradient then --First call for this function for inspect is before gradient is created. To avoid errors
-			if E.db.sle.armory[window].enable and E.db.sle.armory[window].gradient.enable and iLvl then
+			if E.db.sle.armory[window].enable and E.db.sle.armory[window].gradient.enable and slotInfo.iLvl then
 				Slot.SLE_Gradient:Show()
-				if E.db.sle.armory[window].gradient.quality then Slot.SLE_Gradient:SetVertexColor(T.unpack(itemLevelColors)) else Slot.SLE_Gradient:SetVertexColor(T.unpack(E.db.sle.armory[window].gradient.color)) end
+				if E.db.sle.armory[window].gradient.quality then Slot.SLE_Gradient:SetVertexColor(T.unpack(slotInfo.itemLevelColors)) else Slot.SLE_Gradient:SetVertexColor(T.unpack(E.db.sle.armory[window].gradient.color)) end
 			else
 				Slot.SLE_Gradient:Hide()
 			end
@@ -192,24 +194,37 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, iLvl, enchant, gems, essenc
 	else
 		if Slot.SLE_Gradient then Slot.SLE_Gradient:Hide() end
 	end
-	--If put inside "if itemLevelColors" condition will not actually hide gem links/warnings on empty slots
+	--If put inside "if slotInfo.itemLevelColors" condition will not actually hide gem links/warnings on empty slots
 	Armory:UpdateGemInfo(Slot, which)
-	Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant)
+	Armory:CheckForMissing(which, Slot, slotInfo.iLvl, slotInfo.gems, slotInfo.essences, slotInfo.enchantTextShort)
 	CA:Calculate_Durability(which, Slot)
 end
 
 ---Store gem info in our hidden frame
 function Armory:UpdateGemInfo(Slot, which)
-	local itemLink = T.GetInventoryItemLink(which == "Character" and "player" or _G["InspectFrame"].unit, Slot.ID)
+	local unit = which == "Character" and "player" or (_G["InspectFrame"] and _G["InspectFrame"].unit)
+	if not unit then return end
+	local itemLink = T.GetInventoryItemLink(unit, Slot.ID)
 	for i = 1, Armory.Constants.MaxGemSlots do
 		local GemLink
 		if not Slot["SLE_Gem"..i] then return end
 		if itemLink then
-			if which == "Character" and Slot.ID == 2 then
-				GemID = C_AzeriteEssence.GetMilestoneEssence(i+114)
-				if GemID then
-					local rank = C_AzeriteEssence.GetEssenceInfo(GemID).rank
-					GemLink = C_AzeriteEssence.GetEssenceHyperlink(GemID, rank)
+			if Slot.ID == 2 then
+				local window = T.lower(which)
+				-- inspectItem["textureSlotBackdrop"..x]
+				if E.db.sle.armory[window] and E.db.sle.armory[window].enable then
+					if which == "Character" and Slot["textureSlotEssenceType"..i] then
+						Slot["textureSlotEssenceType"..i]:Hide()
+					elseif which == "Inspect" and Slot["textureSlotBackdrop"..i] then
+						Slot["textureSlotBackdrop"..i]:Hide()
+					end
+				end
+				if which == "Character" then
+					GemID = C_AzeriteEssence.GetMilestoneEssence(i+114) --Milestones are starting with 115, thus 114 + milestone
+					if GemID then
+						local rank = C_AzeriteEssence.GetEssenceInfo(GemID).rank
+						GemLink = C_AzeriteEssence.GetEssenceHyperlink(GemID, rank)
+					end
 				end
 			else
 				GemLink = T.select(2, GetItemGem(itemLink, i))
@@ -220,17 +235,17 @@ function Armory:UpdateGemInfo(Slot, which)
 end
 
 --Deals with dem enchants
-function Armory:ProcessEnchant(which, Slot, enchant, fullEnchantText)
+function Armory:ProcessEnchant(which, Slot, enchantTextShort, enchantText)
 	if not E.db.sle.armory.enchantString.enable then return end
 	-- if E.db.sle.armory.enchantString.fullText then
 		if E.db.sle.armory.enchantString.replacement then
 			for enchString, enchData in T.pairs(SLE_ArmoryDB.EnchantString) do
 				if enchData.original and enchData.new then
-					fullEnchantText = T.gsub(fullEnchantText, enchData.original, enchData.new)
+					enchantText = T.gsub(enchantText, enchData.original, enchData.new)
 				end
 			end
 		end
-		Slot.enchantText:SetText(fullEnchantText)
+		Slot.enchantText:SetText(enchantText)
 	-- end
 end
 
@@ -304,7 +319,7 @@ function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant)
 			noChant = true
 		end
 	end 
-	if gems and not essences then --If gems found, but those are not essences
+	if gems and not Slot.ID ~= 2 then --If gems found and not neck
 		for i = 1, Armory.Constants.MaxGemSlots do
 			local texture = Slot["textureSlot"..i]
 			if (texture and texture:GetTexture()) and (Slot["SLE_Gem"..i] and not Slot["SLE_Gem"..i].Link) then noGem = true; break end --If there is a texture (e.g. actual slot), but no link = no gem installed

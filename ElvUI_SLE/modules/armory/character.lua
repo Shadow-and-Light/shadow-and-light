@@ -3,6 +3,7 @@ if T.select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_Knigh
 local Armory = SLE:GetModule("Armory_Core")
 local CA = SLE:NewModule("Armory_Character", "AceEvent-3.0", "AceConsole-3.0", "AceHook-3.0");
 local LCG = LibStub('LibCustomGlow-1.0')
+local M = E:GetModule("Misc")
 
 local _G = _G
 local HasAnyUnselectedPowers = C_AzeriteEmpoweredItem.HasAnyUnselectedPowers
@@ -325,6 +326,7 @@ function CA:Disable()
 	_G["CharacterModelFrame"].BackgroundBotRight:Show()
 	_G["CharacterModelFrame"].backdrop:Show()
 	
+	CA:Update_Durability() --Required for elements update
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		local Slot = _G["Character"..SlotName]
 		if Armory.Constants.Character_Defaults[SlotName] then
@@ -350,6 +352,7 @@ function CA:ToggleArmory()
 		CA:Disable()
 	end
 	for i, SlotName in T.pairs(Armory.Constants.AzeriteSlot) do PaperDollItemSlotButton_Update(_G["Character"..SlotName]) end
+	M:UpdatePageInfo(_G.CharacterFrame, "Character")
 end
 
 function CA:LoadAndSetup()
