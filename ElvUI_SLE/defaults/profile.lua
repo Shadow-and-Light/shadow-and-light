@@ -9,6 +9,140 @@ P["sle"] = {
 			["template"] = "Transparent",
 		},
 	},
+	--Armory
+	["armory"] = {
+		["character"] = {
+			["enable"] = false,
+			["showWarning"] = true,
+			["ilvl"] = {
+				["colorType"] = "NONE",
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+			},
+			["enchant"] = {
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+			},
+			["gem"] = {
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+				["size"] = 10,
+			},
+			["gradient"] = {
+				["enable"] = true,
+				["color"] = { .41, .83, 1 },
+				["quality"] = false,
+			},
+			["transmog"] = {
+				["enableGlow"] = false,
+				["enableArrow"] = true,
+				["glowNumber"] = 4,
+				["glowOffset"] = 1,
+			},
+			["durability"] = {
+				["display"] = "Always", -- Always, MouseoverOnly, DamagedOnly, Hide
+				["font"] = "PT Sans Narrow",
+				["fontSize"] = 10,
+				["fontStyle"] = "OUTLINE",
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+			},
+			["background"] = {
+				["selectedBG"] = "Space",
+				["customTexture"] = "",
+				["overlay"] = true,
+			},
+		},
+		["inspect"] = {
+			["enable"] = false,
+			["showWarning"] = true,
+			["ilvl"] = {
+				["colorType"] = "NONE",
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+			},
+			["enchant"] = {
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+			},
+			["gem"] = {
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+				["size"] = 10,
+			},
+			["gradient"] = {
+				["enable"] = true,
+				["color"] = { .41, .83, 1 },
+				["quality"] = false,
+			},
+			["transmog"] = {
+				["enableGlow"] = false,
+				["enableArrow"] = true,
+				["glowNumber"] = 4,
+				["glowOffset"] = 1,
+			},
+			["background"] = {
+				["selectedBG"] = "Space",
+				["customTexture"] = "",
+				["overlay"] = true,
+			},
+		},
+		["stats"] = {
+			["enable"] = true,
+			["itemLevel"] = {
+				["font"] = "PT Sans Narrow",
+				["size"] = 12,
+				["outline"] = "NONE",
+			},
+			["IlvlFull"] = true,
+			["IlvlColor"] = false,
+			["AverageColor"] = {r = 0, g = 1, b = .59},
+			["OnlyPrimary"] = true,
+			["statFonts"] = {
+				["font"] = "PT Sans Narrow",
+				["size"] = 12,
+				["outline"] = "NONE",
+			},
+			["catFonts"] = {
+				["font"] = "PT Sans Narrow",
+				["size"] = 12,
+				["outline"] = "NONE",
+			},
+			["List"] = {
+				--General
+				HEALTH = false,
+				POWER = false,
+				ALTERNATEMANA = false,
+				MOVESPEED = true,
+				--Attack
+				ATTACK_DAMAGE = true,
+				ATTACK_AP = false,
+				ATTACK_ATTACKSPEED = false,
+				SPELLPOWER = true,
+				MANAREGEN = false,
+				ENERGY_REGEN = false,
+				RUNE_REGEN = false,
+				FOCUS_REGEN = false,
+				--Enhancements
+				CRITCHANCE = true,
+				HASTE = true,
+				MASTERY = true,
+				VERSATILITY = true,
+				LIFESTEAL = true,
+				--Defense
+				ARMOR = true,
+				AVOIDANCE = true,
+				DODGE = true,
+				PARRY = true,
+				BLOCK = true,
+			},
+		},
+		["enchantString"] = {
+			["enable"] = true,
+			-- ["fullText"] = false,
+			["replacement"] = true,
+		},
+	},
 	--Auras
 	["auras"] = {
 		["hideBuffsTimer"] = false,
@@ -598,7 +732,6 @@ P["sle"] = {
 		},
 		["visibleRange"] = 60,
 	},
-
 	--Quests
 	["quests"] = {
 		["visibility"] = {

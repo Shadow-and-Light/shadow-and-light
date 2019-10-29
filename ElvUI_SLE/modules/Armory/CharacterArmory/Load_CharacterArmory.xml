@@ -1,5 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="Profile.lua"/>
-	<Script file="CharacterArmory.lua"/>
-	<Script file="Stats.lua"/>
-</Ui>

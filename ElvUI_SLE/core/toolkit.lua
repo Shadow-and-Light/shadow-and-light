@@ -190,6 +190,7 @@ T.gsub = gsub
 T.find = string.find
 T.print = print
 T.upper = string.upper
+T.lower = string.lower
 T.StringToUpper = function(str)
 	return (T.gsub(str, "^%l", T.upper))
 end
