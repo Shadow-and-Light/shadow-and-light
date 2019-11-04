@@ -5,7 +5,14 @@ local M = E:GetModule("Misc")
 
 local function configTable()
 	if not SLE.initialized then return end
-	
+
+	local FontStyleList = {
+		NONE = NONE,
+		OUTLINE = 'OUTLINE',
+		MONOCHROMEOUTLINE = 'MONOCROMEOUTLINE',
+		THICKOUTLINE = 'THICKOUTLINE'
+	}
+
 	E.Options.args.sle.args.modules.args.armory.args.inspect = {
 		type = 'group',
 		name = L["Inspect Armory"],
