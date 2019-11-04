@@ -8,6 +8,7 @@ local _G = _G
 local math_min, math_max= math.min, math.max
 
 SA.totalShown = 0
+SA.BaseScrollValue = 25 --This defines if scrollbar should be shown via bullshit calculation
 
 SA.OriginalPaperdollStats = PAPERDOLL_STATCATEGORIES
 
@@ -147,7 +148,7 @@ function SA:BuildScrollBar() --Creating new scroll
 	-- Enable mousewheel scrolling
 	SA.ScrollFrame:EnableMouseWheel(true)
 	SA.ScrollFrame:SetScript("OnMouseWheel", function(self, delta)
-		if SA.totalShown > 26 - E.db.sle.armory.stats.itemLevel.size then
+		if SA.totalShown > SA.BaseScrollValue - E.db.sle.armory.stats.itemLevel.size then
 			SA.Scrollbar:SetMinMaxValues(1, 100)
 		else
 			SA.Scrollbar:SetMinMaxValues(1, 1) 
@@ -182,30 +183,31 @@ function SA:UpdateCharacterItemLevel()
 end
 
 function SA:PaperDollFrame_UpdateStats()
-	if not E.db.sle.armory.stats.enable then return end
 	SA.totalShown = 0
-	local total, equipped = T.GetAverageItemLevel()
-	if E.db.sle.armory.stats.IlvlFull then
-		if E.db.sle.armory.stats.IlvlColor then
-			local R, G, B = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
-			local avColor = E.db.sle.armory.stats.AverageColor
-			_G["CharacterStatsPane"].ItemLevelFrame.Value:SetFormattedText("%s%.2f|r |cffffffff/|r %s%.2f|r", E:RGBToHex(R, G, B), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
+	if E.db.sle.armory.stats.enable then
+		local total, equipped = T.GetAverageItemLevel()
+		if E.db.sle.armory.stats.IlvlFull then
+			if E.db.sle.armory.stats.IlvlColor then
+				local R, G, B = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+				local avColor = E.db.sle.armory.stats.AverageColor
+				_G["CharacterStatsPane"].ItemLevelFrame.Value:SetFormattedText("%s%.2f|r |cffffffff/|r %s%.2f|r", E:RGBToHex(R, G, B), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
+			else
+				_G["CharacterStatsPane"].ItemLevelFrame.Value:SetFormattedText("%.2f / %.2f", equipped, total)
+			end
 		else
-			_G["CharacterStatsPane"].ItemLevelFrame.Value:SetFormattedText("%.2f / %.2f", equipped, total)
+			_G["CharacterStatsPane"].ItemLevelFrame.Value:SetTextColor(GetItemLevelColor())
+			PaperDollFrame_SetItemLevel(_G["CharacterStatsPane"].ItemLevelFrame, "player");
 		end
-	else
-		_G["CharacterStatsPane"].ItemLevelFrame.Value:SetTextColor(GetItemLevelColor())
-		PaperDollFrame_SetItemLevel(_G["CharacterStatsPane"].ItemLevelFrame, "player");
+
+		_G["CharacterStatsPane"].ItemLevelCategory:SetPoint("TOP", _G["CharacterStatsPane"], "TOP", 0, 8)
+		_G["CharacterStatsPane"].AttributesCategory:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelFrame, "BOTTOM", 0, 6)
+
+		local categoryYOffset = 8;
+		local statYOffset = 0;
+
 	end
-
-	_G["CharacterStatsPane"].ItemLevelCategory:SetPoint("TOP", _G["CharacterStatsPane"], "TOP", 0, 8)
-	_G["CharacterStatsPane"].AttributesCategory:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelFrame, "BOTTOM", 0, 6)
-
-	local categoryYOffset = 8;
-	local statYOffset = 0;
-
 	_G["CharacterStatsPane"].ItemLevelCategory:Show();
-	_G["CharacterStatsPane"].ItemLevelCategory.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.catFonts.font), E.db.sle.armory.stats.catFonts.size, E.db.sle.armory.stats.catFonts.outline)
+	_G["CharacterStatsPane"].ItemLevelCategory.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.font or E.db.general.itemLevel.itemLevelFont), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.size or (E.db.general.itemLevel.itemLevelFontSize or 12), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.outline or NONE)
 	_G["CharacterStatsPane"].ItemLevelFrame:Show();
 
 	local spec = T.GetSpecialization();
@@ -221,13 +223,13 @@ function SA:PaperDollFrame_UpdateStats()
 	local lastAnchor;
 	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
 		local catFrame = _G["CharacterStatsPane"][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame];
-		catFrame.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.catFonts.font), E.db.sle.armory.stats.catFonts.size, E.db.sle.armory.stats.catFonts.outline)
+		catFrame.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.font or E.db.general.itemLevel.itemLevelFont), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.size or (E.db.general.itemLevel.itemLevelFontSize or 12), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.outline or NONE)
 		local numStatInCat = 0;
 
 		for statIndex = 1, #PAPERDOLL_STATCATEGORIES[catIndex].stats do
 			local stat = PAPERDOLL_STATCATEGORIES[catIndex].stats[statIndex];
 			local showStat = true;
-			if stat.option and not E.db.sle.armory.stats.List[stat.stat] then showStat = false end
+			if E.db.sle.armory.stats.enable and stat.option and not E.db.sle.armory.stats.List[stat.stat] then showStat = false end
 			if ( showStat and stat.primary ) then
 				local primaryStat = T.select(6, T.GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")));
 				if ( stat.primary ~= primaryStat ) and E.db.sle.armory.stats.OnlyPrimary then
@@ -257,8 +259,8 @@ function SA:PaperDollFrame_UpdateStats()
 			if ( showStat ) then
 				statFrame.onEnterFunc = nil;
 				PAPERDOLL_STATINFO[stat.stat].updateFunc(statFrame, "player");
-				statFrame.Label:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.statFonts.font), E.db.sle.armory.stats.statFonts.size, E.db.sle.armory.stats.statFonts.outline)
-				statFrame.Value:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.statFonts.font), E.db.sle.armory.stats.statFonts.size, E.db.sle.armory.stats.statFonts.outline)
+				statFrame.Label:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.enable and  E.db.sle.armory.stats.statFonts.font or E.db.sle.armory.stats.statFonts.font), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statFonts.size or (E.db.general.itemLevel.itemLevelFontSize or 12), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statFonts.outline or NONE)
+				statFrame.Value:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.enable and  E.db.sle.armory.stats.statFonts.font or E.db.sle.armory.stats.statFonts.font), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statFonts.size or (E.db.general.itemLevel.itemLevelFontSize or 12), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statFonts.outline or NONE)
 				if ( not stat.hideAt or stat.hideAt ~= statFrame.numericValue ) then
 					if ( numStatInCat == 0 ) then
 						if ( lastAnchor ) then
@@ -274,8 +276,8 @@ function SA:PaperDollFrame_UpdateStats()
 						numStatInCat = numStatInCat + 1;
 						-- statFrame.Background:SetShown((numStatInCat % 2) == 0);
 						statFrame.Background:SetShown(false)
-						statFrame.leftGrad:Hide()
-						statFrame.rightGrad:Hide()
+						if statFrame.leftGrad then statFrame.leftGrad:Hide() end
+						if statFrame.rightGrad then statFrame.rightGrad:Hide() end
 						lastAnchor = statFrame;
 					end
 					-- done with this stat frame, get the next one
@@ -288,7 +290,7 @@ function SA:PaperDollFrame_UpdateStats()
 	-- release the current stat frame
 	_G["CharacterStatsPane"].statsFramePool:Release(statFrame);
 	if SA.Scrollbar then
-		if SA.totalShown > 26 - E.db.sle.armory.stats.itemLevel.size then
+		if SA.totalShown > SA.BaseScrollValue - E.db.sle.armory.stats.itemLevel.size then
 			SA.Scrollbar:Show()
 		else
 			SA.Scrollbar:Hide()

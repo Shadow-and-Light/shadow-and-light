@@ -154,6 +154,7 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 		end
 	end
 	if which == "Character" then CA:Update_Durability() end
+	Armory:UpdateSharedStringsFonts(which)
 end
 
 --Updates ilvl and everything tied to the item somehow
@@ -231,6 +232,25 @@ function Armory:UpdateGemInfo(Slot, which)
 			end
 		end
 		Slot["SLE_Gem"..i].Link = GemLink
+	end
+end
+
+function Armory:UpdateSharedStringsFonts(which)
+	local window = T.lower(which)
+	for i, SlotName in T.pairs(Armory.Constants.GearList) do
+		local Slot = _G[which..SlotName]
+		if Slot.iLvlText then
+			local fontIlvl, sizeIlvl, outlineIlvl, fontEnch, sizeEnch, outlineEnch
+			if E.db.sle.armory[window].enable then
+				fontIlvl, sizeIlvl, outlineIlvl = E.db.sle.armory[window].ilvl.font, E.db.sle.armory[window].ilvl.fontSize, E.db.sle.armory[window].ilvl.fontStyle
+				fontEnch, sizeEnch, outlineEnch = E.db.sle.armory[window].enchant.font, E.db.sle.armory[window].enchant.fontSize, E.db.sle.armory[window].enchant.fontStyle
+			else
+				fontIlvl, sizeIlvl, outlineIlvl = E.db.general.itemLevel.itemLevelFont, E.db.general.itemLevel.itemLevelFontSize or 12, E.db.general.itemLevel.itemLevelFontOutline or "OUTLINE"
+				fontEnch, sizeEnch, outlineEnch = E.db.general.itemLevel.itemLevelFont, E.db.general.itemLevel.itemLevelFontSize or 12, E.db.general.itemLevel.itemLevelFontOutline or "OUTLINE"
+			end
+			Slot.iLvlText:FontTemplate(E.LSM:Fetch('font', fontIlvl), sizeIlvl, outlineIlvl)
+			Slot.enchantText:FontTemplate(E.LSM:Fetch('font', fontEnch), sizeEnch, outlineEnch)
+		end
 	end
 end
 

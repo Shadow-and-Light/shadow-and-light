@@ -18,10 +18,16 @@ P["sle"] = {
 				["colorType"] = "NONE",
 				["xOffset"] = 0,
 				["yOffset"] = 0,
+				["font"] = "PT Sans Narrow",
+				["fontSize"] = 12,
+				["fontStyle"] = "OUTLINE",
 			},
 			["enchant"] = {
 				["xOffset"] = 0,
 				["yOffset"] = 0,
+				["font"] = "PT Sans Narrow",
+				["fontSize"] = 12,
+				["fontStyle"] = "OUTLINE",
 			},
 			["gem"] = {
 				["xOffset"] = 0,
@@ -60,10 +66,16 @@ P["sle"] = {
 				["colorType"] = "NONE",
 				["xOffset"] = 0,
 				["yOffset"] = 0,
+				["font"] = "PT Sans Narrow",
+				["fontSize"] = 12,
+				["fontStyle"] = "OUTLINE",
 			},
 			["enchant"] = {
 				["xOffset"] = 0,
 				["yOffset"] = 0,
+				["font"] = "PT Sans Narrow",
+				["fontSize"] = 12,
+				["fontStyle"] = "OUTLINE",
 			},
 			["gem"] = {
 				["xOffset"] = 0,

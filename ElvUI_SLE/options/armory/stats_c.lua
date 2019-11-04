@@ -110,7 +110,7 @@ local function configTable()
 						order = 2,
 						-- guiInline = true,
 						get = function(info) return E.db.sle.armory.stats.statFonts[ info[#info] ] end,
-						set = function(info, value) E.db.sle.armory.stats.statFonts[ info[#info] ] = value; SA:PaperDollFrame_UpdateStats()end,
+						set = function(info, value) E.db.sle.armory.stats.statFonts[ info[#info] ] = value; SA:PaperDollFrame_UpdateStats() end,
 						args = {
 							font = {
 								type = 'select', dialogControl = 'LSM30_Font',

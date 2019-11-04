@@ -37,12 +37,12 @@ local function configTable()
 				name = L["Item Level"],
 				order = 10,
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
-				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_ItemLevel() end,
+				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_ItemLevel(); Armory:UpdateSharedStringsFonts("Character") end,
 				args = {
 					colorType = {
 						type = 'select',
 						name = L["Item Level Coloring"],
-						order = 7,
+						order = 1,
 						set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; M:UpdateCharacterInfo() end,
 						values = {
 							["NONE"] = NONE,
@@ -62,6 +62,24 @@ local function configTable()
 						order = 11,
 						min = -22, max = 3, step = 1,
 					},
+					font = {
+						type = 'select', dialogControl = 'LSM30_Font',
+						name = L["Font"],
+						order = 20,
+						values = function() return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {} end,
+					},
+					fontSize = {
+						type = 'range',
+						name = L["Font Size"],
+						order = 21,
+						min = 6, max = 22, step = 1,
+					},
+					fontStyle = {
+						type = 'select',
+						name = L["Font Outline"],
+						order = 22,
+						values = FontStyleList,
+					},
 				}
 			},
 			enchant = {
@@ -69,8 +87,26 @@ local function configTable()
 				name = L["Enchant String"],
 				order = 11,
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
-				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_Enchant() end,
+				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_Enchant(); Armory:UpdateSharedStringsFonts("Character") end,
 				args = {
+					font = {
+						type = 'select', dialogControl = 'LSM30_Font',
+						name = L["Font"],
+						order = 1,
+						values = function() return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {} end,
+					},
+					fontSize = {
+						type = 'range',
+						name = L["Font Size"],
+						order = 2,
+						min = 6, max = 22, step = 1,
+					},
+					fontStyle = {
+						type = 'select',
+						name = L["Font Outline"],
+						order = 3,
+						values = FontStyleList,
+					},
 					xOffset = {
 						type = 'range',
 						name = L["X-Offset"],
