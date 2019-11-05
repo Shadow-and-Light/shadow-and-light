@@ -9,8 +9,13 @@ local function configTable()
 		name = L["Skins"],
 		childGroups = 'tab',
 		args = {
-			info = {
+			header = {
 				order = 1,
+				type = "header",
+				name = L["Skins"],
+			},
+			info = {
+				order = 2,
 				type = "description",
 				name = L["SLE_SKINS_DESC"],
 			},

@@ -17,13 +17,18 @@ local function configTable()
 	E.Options.args.sle.args.help = {
 		type = 'group',
 		name = L["About/Help"]..[[ |TInterface\MINIMAP\TRACKING\OBJECTICONS:14:14:0:0:256:64:60:90:32:64|t]],
-		order = 100,
+		order = 90,
 		childGroups = 'tab',
 		args = {
+			header = {
+				order = 1,
+				type = "header",
+				name = L["About/Help"],
+			},
 			about = {
-				type = 'group', name = L["About"].." "..E.NewSign, order = 1,
+				type = 'group', name = L["About"].." "..E.NewSign, order = 2,
 				args = {
-					content = { order = 1, type = 'description', fontSize = 'medium', name = L["SLE_DESC"] },
+					content = { order = 2, type = 'description', fontSize = 'medium', name = "\n"..L["SLE_DESC"] },
 				},
 			},
 			faq = {
@@ -39,7 +44,7 @@ local function configTable()
 						name = L["FAQ_DESC"],
 					},
 					elvui = {
-						type = 'group', order = 1, name = "ElvUI",
+						type = 'group', order = 10, name = "ElvUI",
 						args = {
 							q1 = CreateQuestion(1, L["FAQ_Elv_1"]),
 							q2 = CreateQuestion(2, L["FAQ_Elv_2"]),
@@ -49,7 +54,7 @@ local function configTable()
 						},
 					},
 					sle = {
-						type = 'group', order = 2, name = "Shadow & Light",
+						type = 'group', order = 20, name = "Shadow & Light",
 						args = {
 							q1 = CreateQuestion(1, L["FAQ_sle_1"]),
 							q2 = CreateQuestion(2, L["FAQ_sle_2"]),

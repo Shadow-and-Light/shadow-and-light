@@ -2,6 +2,7 @@
 	<!--Core-->
 	<Script file='core_c.lua'/>
 	<Script file='skins_c.lua'/>
+	<Script file='advanced_c.lua'/>
 	<Script file='warcampaign_c.lua'/>
 	<Include file='legacy\load_legacy.xml'/>
 	<Include file='armory\load_armory.xml'/>
@@ -24,6 +25,7 @@
 	<Script file='loot_c.lua'/>
 	<Script file='nameplates_c.lua'/>
 	<Script file='raidmarkers_c.lua'/>
+	<Script file='threat_c.lua'/>
 	<Script file='tooltip_c.lua'/>
 	<Script file='uibuttons_c.lua'/>
 	<Script file='databars_c.lua'/>
