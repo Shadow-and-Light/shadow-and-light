@@ -113,6 +113,7 @@ function Armory:BuildFrameDefaultsCache(which)
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		Armory.Constants[which.."_Defaults"][SlotName] = {}
 		local Slot = _G[which..SlotName]
+		if not Slot then E:Delay(1, function() Armory:BuildFrameDefaultsCache(which) end); return end
 		Slot.Direction = i%2 == 1 and "LEFT" or "RIGHT"
 		if Slot.iLvlText then
 			Armory.Constants[which.."_Defaults"][SlotName]["iLvlText"] = { Slot.iLvlText:GetPoint() } 
