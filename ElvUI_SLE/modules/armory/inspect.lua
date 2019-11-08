@@ -42,6 +42,7 @@ function IA:BuildLayout()
 			Slot.SLE_Gradient:SetPoint(Slot.Direction, Slot, Slot.Direction, 0, 0)
 			Slot.SLE_Gradient:Size(132, 41)
 			Slot.SLE_Gradient:SetTexture(Armory.Constants.GradientTexture)
+			Slot.SLE_Gradient:SetVertexColor(T.unpack(E.db.sle.armory.inspect.gradient.color))
 			if Slot.Direction == 'LEFT' then
 				Slot.SLE_Gradient:SetTexCoord(0, 1, 0, 1)
 			else
@@ -215,8 +216,8 @@ function IA:Enable()
 	IA:Update_ItemLevel()
 	IA:Update_Enchant()
 	IA:Update_Gems()
-	
-	M:UpdateInspectInfo()
+
+	if E.db.general.itemLevel.displayInspectInfo then M:UpdateInspectInfo() end
 end
 
 function IA:Disable()
@@ -266,7 +267,19 @@ function IA:ToggleArmory()
 	end
 end
 
+function IA:PreSetup()
+	IA:RegisterEvent("INSPECT_READY", function()
+		if not E.db.general.itemLevel.displayInspectInfo then
+			Armory:UpdateInspectInfo();
+			IA:UnregisterEvent("INSPECT_READY")
+			M:ClearPageInfo(_G["InspectFrame"], "Inspect")
+		end
+	end)
+end
+
 function IA:LoadAndSetup()
 	IA:BuildLayout()
 	IA:ToggleArmory()
+	--For future use. I may consider returning to cache for inspect. Cause it actually never broke
+	-- _G["InspectFrame"]:UnregisterEvent("PLAYER_TARGET_CHANGED");
 end

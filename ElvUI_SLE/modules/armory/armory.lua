@@ -1,6 +1,7 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 if T.select(2, GetAddOnInfo("ElvUI_KnightFrame")) and IsAddOnLoaded("ElvUI_KnightFrame") then return end --Don't break korean code :D
 local Armory = SLE:NewModule("Armory_Core", "AceEvent-3.0", "AceConsole-3.0", "AceHook-3.0");
+local M = E:GetModule("Misc")
 local LCG = LibStub('LibCustomGlow-1.0')
 local CA, IA, SA
 
@@ -359,9 +360,25 @@ end
 
 --Actually only needed only on first load of inspect frame, cause I can't alter shit on the rame that doesn't exist yet
 function Armory:UpdateInspectInfo()
+	if not _G["InspectFrame"] then return end --In case update for frame is called before it is actually created
 	if not Armory.Constants.Inspect_Defaults_Cached then
 		Armory:BuildFrameDefaultsCache("Inspect")
 		IA:LoadAndSetup()
+	end
+	if E.db.sle.armory.inspect.enable then M:UpdatePageInfo(_G["InspectFrame"], "Inspect") end
+	if not E.db.general.itemLevel.displayInspectInfo then M:ClearPageInfo(_G["InspectFrame"], "Inspect") end
+end
+
+function Armory:UpdateCharacterInfo()
+	if E.db.sle.armory.character.enable then M:UpdatePageInfo(_G["CharacterFrame"], "Character") end
+	if not E.db.general.itemLevel.displayCharacterInfo then M:ClearPageInfo(_G["CharacterFrame"], "Character") end
+end
+
+function Armory:ToggleItemLevelInfo(setupCharacterPage)
+	if _G["InspectFrame"] and _G["InspectFrame"]:IsShown() and E.db.general.itemLevel.displayInspectInfo then
+		M:UpdateInspectInfo()
+	else
+		M:ClearPageInfo(_G["InspectFrame"], "Inspect")
 	end
 end
 
@@ -369,20 +386,24 @@ function Armory:Initialize()
 	Armory:BuildFrameDefaultsCache("Character")
 
 	--May be usefull later
-	Armory.ScanTT = CreateFrame('GameTooltip', 'SLE_Armory_ScanTT', nil, 'GameTooltipTemplate')
+	Armory.ScanTT = CreateFrame("GameTooltip", "SLE_Armory_ScanTT", nil, "GameTooltipTemplate")
 	Armory.ScanTT:SetOwner(UIParent, 'ANCHOR_NONE')
 
 	CA = SLE:GetModule("Armory_Character")
 	IA = SLE:GetModule("Armory_Inspect")
 	SA = SLE:GetModule("Armory_Stats")
 
-	CA:LoadAndSetup()
-	SA:LoadAndSetup()
-
-	local M = E:GetModule("Misc")
 	hooksecurefunc(M, "UpdateInspectInfo", Armory.UpdateInspectInfo)
+	hooksecurefunc(M, "UpdateCharacterInfo", Armory.UpdateCharacterInfo)
 	hooksecurefunc(M, "UpdatePageInfo", Armory.UpdatePageInfo)
 	hooksecurefunc(M, "UpdatePageStrings", Armory.UpdatePageStrings)
+	hooksecurefunc(M, "ToggleItemLevelInfo", Armory.ToggleItemLevelInfo)
+
+	CA:LoadAndSetup()
+	SA:LoadAndSetup()
+	IA:PreSetup()
+
+	Armory:UpdateCharacterInfo()
 
 	function Armory:ForUpdateAll()
 		-- _G["CharacterArmory"]:UpdateSettings("all")

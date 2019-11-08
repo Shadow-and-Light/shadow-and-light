@@ -20,7 +20,12 @@ local function configTable()
 				order = 2,
 				desc = '',
 				get = function() return E.db.sle.armory.character.enable end,
-				set = function(_, value) E.db.sle.armory.character.enable = value; SLE:GetModule("Armory_Character"):ToggleArmory(); --[[M:UpdatePageInfo(_G.CharacterFrame, "Character")]] end
+				set = function(_, value)
+					E.db.sle.armory.character.enable = value;
+					SLE:GetModule("Armory_Character"):ToggleArmory();
+					M:UpdatePageInfo(_G.CharacterFrame, "Character")
+					if not E.db.general.itemLevel.displayCharacterInfo then M:ClearPageInfo(_G.CharacterFrame, "Character") end
+				end,
 			},
 			IA_enable = {
 				type = 'toggle',
@@ -28,7 +33,13 @@ local function configTable()
 				order = 3,
 				desc = '',
 				get = function() return E.db.sle.armory.inspect.enable end,
-				set = function(_, value) E.db.sle.armory.inspect.enable = value; SLE:GetModule("Armory_Inspect"):ToggleArmory(); M:UpdatePageInfo(_G.InspectFrame, "Inspect") end
+				-- set = function(_, value) E.db.sle.armory.inspect.enable = value; SLE:GetModule("Armory_Inspect"):ToggleArmory(); M:UpdatePageInfo(_G.InspectFrame, "Inspect") end
+				set = function(_, value)
+					E.db.sle.armory.inspect.enable = value;
+					SLE:GetModule("Armory_Inspect"):ToggleArmory();
+					M:UpdatePageInfo(_G.InspectFrame, "Inspect") --Putting this under the elv's option check just breaks the shit out of the frame
+					if not E.db.general.itemLevel.displayInspectInfo then M:ClearPageInfo(_G.InspectFrame, "Inspect") end --Clear the infos if those are actually not supposed to be shown.
+				end,
 			},
 			SA_enable = {
 				type = 'toggle',

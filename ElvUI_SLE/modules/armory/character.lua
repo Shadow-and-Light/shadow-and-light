@@ -56,6 +56,7 @@ function CA:BuildLayout()
 			Slot.SLE_Gradient:SetPoint(Slot.Direction, Slot, Slot.Direction, 0, 0)
 			Slot.SLE_Gradient:Size(132, 41)
 			Slot.SLE_Gradient:SetTexture(Armory.Constants.GradientTexture)
+			Slot.SLE_Gradient:SetVertexColor(T.unpack(E.db.sle.armory.character.gradient.color))
 			if Slot.Direction == 'LEFT' then
 				Slot.SLE_Gradient:SetTexCoord(0, 1, 0, 1)
 			else
@@ -302,6 +303,8 @@ function CA:Enable()
 	CA:Update_Enchant()
 	CA:Update_Gems()
 	CA:Update_Durability()
+
+	if E.db.general.itemLevel.displayCharacterInfo then M:UpdatePageInfo(_G["CharacterFrame"], "Character") end
 end
 
 function CA:Disable()
@@ -352,7 +355,6 @@ function CA:ToggleArmory()
 		CA:Disable()
 	end
 	for i, SlotName in T.pairs(Armory.Constants.AzeriteSlot) do PaperDollItemSlotButton_Update(_G["Character"..SlotName]) end
-	M:UpdatePageInfo(_G.CharacterFrame, "Character")
 end
 
 function CA:LoadAndSetup()
