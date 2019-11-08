@@ -4,22 +4,23 @@ local GetAddOnEnableState = GetAddOnEnableState
 --Check if some stuff happens to be enable
 SLE._Compatibility = {}
 local _CompList = {
-	"oRA3",
+	"DejaCharacterStats", --Cause armory
 	"ElvUI_CustomTweaks",
-	"ElvUI_MerathilisUI",
 	"ElvUI_Enhanced",
-	"DejaCharacterStats",
 	"ElvUI_ExtraActionBars",
+	"ElvUI_MerathilisUI",
 	"ElvUI_NihilistUI",
-	"TradeSkillMaster",
-	"WorldQuestTracker",
 	"ElvUI_PagedLootHistory",
 	"ElvUI_VisualAuraTimers",
-	"SunnArt",
-	"SquareMinimapButtons", --Module incompatible
 	"LootConfirm", --Module incompatible
-	"SquareMinimapButtons", --Module incompatible
 	"Mapster", --Module partially incompatible
+	"Pawn", --Cause armory
+	"SquareMinimapButtons", --Module incompatible
+	"SquareMinimapButtons", --Module incompatible
+	"SunnArt",
+	"TradeSkillMaster",
+	"WorldQuestTracker",
+	"oRA3",
 }
 --Populate compatibility checks table
 for i = 1, #_CompList do

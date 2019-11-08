@@ -358,7 +358,6 @@ function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant)
 	end
 end
 
---Actually only needed only on first load of inspect frame, cause I can't alter shit on the rame that doesn't exist yet
 function Armory:UpdateInspectInfo()
 	if not _G["InspectFrame"] then return end --In case update for frame is called before it is actually created
 	if not Armory.Constants.Inspect_Defaults_Cached then
@@ -405,13 +404,19 @@ function Armory:Initialize()
 
 	Armory:UpdateCharacterInfo()
 
-	function Armory:ForUpdateAll()
-		-- _G["CharacterArmory"]:UpdateSettings("all")
-		-- if not SLE._Compatibility["DejaCharacterStats"] then
-			-- _G["CharacterArmory"]:ToggleStats()
-			-- _G["CharacterArmory"]:UpdateIlvlFont()
-		-- end
-		-- _G["InspectArmory"]:UpdateSettings("all")
+	--Move Pawn buttons. Cause Pawn buttons happen to be overlapped by some shit
+	if SLE._Compatibility["Pawn"] then
+		PawnUI_InventoryPawnButton:SetFrameLevel(PawnUI_InventoryPawnButton:GetFrameLevel() + 5)
+		hooksecurefunc("PawnUI_InventoryPawnButton_Move", function()
+			if PawnCommon.ButtonPosition == PawnButtonPositionRight then
+				PawnUI_InventoryPawnButton:ClearAllPoints()
+				if PaperDollFrame.ExpandButton then --Try not to break Pawn's DCS innate compatibility
+					PawnUI_InventoryPawnButton:SetPoint("TOPRIGHT", "CharacterTrinket1Slot", "BOTTOMRIGHT", -31, -8)
+				else
+					PawnUI_InventoryPawnButton:SetPoint("TOPRIGHT", "CharacterTrinket1Slot", "BOTTOMRIGHT", -1, -8)
+				end
+			end
+		end)
 	end
 end
 
