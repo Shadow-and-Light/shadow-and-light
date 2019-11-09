@@ -1,6 +1,10 @@
-v3.60 [Octorber , 2019]
+v3.60 [November , 2019]
+Requires ElvUI 11.24
+Fixes:
+- Fixed chat datatpanels no backdrop mode 
 Changes:
 - Guild datatext was rewritten and now seems more responsive to guild roster updates vs previous version and some minor visual changes
+- Armory mode is now new and shiny. Some stuff is still missing (e.g. being able to see inspect info with target leaving), but the base is in working order and needs to be tested in real world before we'll be concentrating on small visuals.
 
 v3.59 [September 25th, 2019]
 Fixes:
