@@ -11,7 +11,7 @@ end
 
 local function Click()
 	E:ToggleOptionsUI()
-	SLE.ACD:SelectGroup("ElvUI", "sle")
+	E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "sle")
 end
 
 local function OnEnter(self)

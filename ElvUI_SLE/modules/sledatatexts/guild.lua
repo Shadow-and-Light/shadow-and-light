@@ -299,7 +299,7 @@ local function OnClick(self, button)
 
 	if button == "RightButton" then
 		E:ToggleOptionsUI()
-		SLE.ACD:SelectGroup("ElvUI", "sle", "modules", "datatext", "sldatatext", "slguild")
+		E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "sle", "modules", "datatext", "sldatatext", "slguild")
 	end
 end
 

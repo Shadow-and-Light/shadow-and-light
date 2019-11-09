@@ -309,7 +309,7 @@ function LDB:OnClick(button)
 
 	if button == "RightButton" then
 		E:ToggleOptionsUI()
-		SLE.ACD:SelectGroup("ElvUI", "sle", "modules", "datatext", "sldatatext", "slfriends")
+		E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "sle", "modules", "datatext", "sldatatext", "slfriends")
 	end
 end
 

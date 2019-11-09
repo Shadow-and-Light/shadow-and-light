@@ -14,10 +14,15 @@ local function configTable()
 		order = 1,
 		childGroups = "tab",
 		args = {
+			info = {
+				order = 1,
+				type = "description",
+				name = L["SLE_Armory_Info"].."\n",
+			},
 			CA_enable = {
 				type = "toggle",
 				name = L["Character Armory"],
-				order = 2,
+				order = 10,
 				desc = '',
 				get = function() return E.db.sle.armory.character.enable end,
 				set = function(_, value)
@@ -30,7 +35,7 @@ local function configTable()
 			IA_enable = {
 				type = 'toggle',
 				name = L["Inspect Armory"],
-				order = 3,
+				order = 11,
 				desc = '',
 				get = function() return E.db.sle.armory.inspect.enable end,
 				-- set = function(_, value) E.db.sle.armory.inspect.enable = value; SLE:GetModule("Armory_Inspect"):ToggleArmory(); M:UpdatePageInfo(_G.InspectFrame, "Inspect") end
@@ -44,11 +49,17 @@ local function configTable()
 			SA_enable = {
 				type = 'toggle',
 				name = STAT_CATEGORY_ATTRIBUTES,
-				order = 3,
+				order = 12,
 				desc = '',
 				disabled = function() return SLE._Compatibility["DejaCharacterStats"] end,
 				get = function() return E.db.sle.armory.stats.enable end,
 				set = function(_, value) E.db.sle.armory.stats.enable = value; SLE:GetModule("Armory_Stats"):ToggleArmory(); end
+			},
+			GoToElv = {
+				order = 100,
+				type = "execute",
+				name = "ElvUI: "..L["Item Level"],
+				func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "general", "blizzUIImprovements") end,
 			},
 		},
 	}

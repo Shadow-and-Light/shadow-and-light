@@ -20,7 +20,7 @@ local function configTable()
 						order = 1,
 						type = 'execute',
 						name = "ElvUI: "..XPBAR_LABEL,
-						func = function() SLE.ACD:SelectGroup("ElvUI", "databars", "experience") end,
+						func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "databars", "experience") end,
 					},
 					longtext = {
 						order = 2,
@@ -75,7 +75,7 @@ local function configTable()
 						order = 1,
 						type = 'execute',
 						name = "ElvUI: "..REPUTATION,
-						func = function() SLE.ACD:SelectGroup("ElvUI", "databars", "reputation") end,
+						func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "databars", "reputation") end,
 					},
 					longtext = {
 						order = 2,
@@ -184,7 +184,7 @@ local function configTable()
 						order = 1,
 						type = 'execute',
 						name = "ElvUI: "..HONOR,
-						func = function() SLE.ACD:SelectGroup("ElvUI", "databars", "honor") end,
+						func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "databars", "honor") end,
 					},
 					longtext = {
 						order = 2,
@@ -262,7 +262,7 @@ local function configTable()
 						order = 1,
 						type = 'execute',
 						name = "ElvUI: "..L["Azerite Bar"],
-						func = function() SLE.ACD:SelectGroup("ElvUI", "databars", "azerite") end,
+						func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "databars", "azerite") end,
 					},
 					longtext = {
 						order = 2,

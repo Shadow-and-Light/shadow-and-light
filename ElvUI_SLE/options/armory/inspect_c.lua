@@ -38,6 +38,7 @@ local function configTable()
 				order = 10,
 				get = function(info) return E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = value; IA:Update_ItemLevel(); Armory:UpdateSharedStringsFonts("Inspect") end,
+				disabled = function() return E.db.general.itemLevel.displayInspectInfo == false end,
 				args = {
 					colorType = {
 						type = 'select',
@@ -88,6 +89,7 @@ local function configTable()
 				order = 11,
 				get = function(info) return E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = value; IA:Update_Enchant(); Armory:UpdateSharedStringsFonts("Inspect") end,
+				disabled = function() return E.db.general.itemLevel.displayInspectInfo == false end,
 				args = {
 					font = {
 						type = 'select', dialogControl = 'LSM30_Font',
@@ -127,6 +129,7 @@ local function configTable()
 				order = 12,
 				get = function(info) return E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = value; IA:Update_Gems() end,
+				disabled = function() return E.db.general.itemLevel.displayInspectInfo == false end,
 				args = {
 					xOffset = {
 						type = 'range',
@@ -228,14 +231,6 @@ local function configTable()
 						width = 'double',
 						hidden = function() return E.db.sle.armory.inspect.background.selectedBG ~= 'CUSTOM' end
 					},
-					-- overlay = {
-						-- type = "toggle",
-						-- order = 3,
-						-- name = L["Overlay"],
-						-- desc = L["Show ElvUI skin's backdrop overlay"],
-						-- get = function() return E.db.sle.armory.inspect.background.overlay end,
-						-- set = function(_, value) E.db.sle.armory.inspect.background.overlay = value; IA:ElvOverlayToggle() end
-					-- },
 				}
 			},
 		},

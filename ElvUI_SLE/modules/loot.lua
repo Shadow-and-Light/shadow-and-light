@@ -303,7 +303,7 @@ function LT:Update()
 				name = L["Auto Greed/DE"],
 				desc = L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."],
 				type = "execute",
-				func = function() SLE.ACD:SelectGroup("ElvUI", "sle", "modules", "loot") end,
+				func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "sle", "modules", "loot") end,
 			}
 		else
 			E.Options.args.general.args.misc.args.autoRoll = {

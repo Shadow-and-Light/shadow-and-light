@@ -32,7 +32,7 @@ function M:Threat_UpdateConfig()
 				name = L["Position"],
 				desc = L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."],
 				type = "execute",
-				func = function() SLE.ACD:SelectGroup("ElvUI", "sle") end,
+				func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "sle") end,
 			}
 		else
 			E.Options.args.general.args.threatGroup.args.position = {

@@ -38,6 +38,7 @@ local function configTable()
 				order = 10,
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_ItemLevel(); Armory:UpdateSharedStringsFonts("Character") end,
+				disabled = function() return E.db.general.itemLevel.displayCharacterInfo == false end,
 				args = {
 					colorType = {
 						type = 'select',
@@ -88,6 +89,7 @@ local function configTable()
 				order = 11,
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_Enchant(); Armory:UpdateSharedStringsFonts("Character") end,
+				disabled = function() return E.db.general.itemLevel.displayCharacterInfo == false end,
 				args = {
 					font = {
 						type = 'select', dialogControl = 'LSM30_Font',
@@ -127,6 +129,7 @@ local function configTable()
 				order = 12,
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_Gems() end,
+				disabled = function() return E.db.general.itemLevel.displayCharacterInfo == false end,
 				args = {
 					xOffset = {
 						type = 'range',
@@ -209,7 +212,7 @@ local function configTable()
 			durability = {
 				type = 'group',
 				name = DURABILITY,
-				order = 11,
+				order = 15,
 				get = function(info) return E.db.sle.armory.character.durability[(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.character.durability[(info[#info])] = value; M:UpdateCharacterInfo() end,
 				args = {

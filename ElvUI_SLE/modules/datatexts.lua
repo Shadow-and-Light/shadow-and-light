@@ -249,7 +249,7 @@ function DTP:DeleteCurrencyEntry(data)
 			ElvDB['faction'][data.realm]["Horde"][data.name] = nil;
 		end
 	end
-	SLE.ACD:ConfigTableChanged(nil, "ElvUI")
+	E.Libs["AceConfigDialog"]:ConfigTableChanged(nil, "ElvUI")
 end
 
 function DTP:Initialize()

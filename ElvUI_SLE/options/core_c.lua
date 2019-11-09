@@ -4,8 +4,6 @@ local SETTINGS = SETTINGS
 local LFG_LIST_LEGACY = LFG_LIST_LEGACY
 local function configTable()
 	if not SLE.initialized then return end
-	local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
-	SLE.ACD = ACD
 	E.Options.args.ElvUI_Header.name = E.Options.args.ElvUI_Header.name.." + |cff9482c9Shadow & Light|r"..T.format(": |cff99ff33%s|r",SLE.version)
 
 	local function CreateButton(number, text, ...)
@@ -19,7 +17,7 @@ local function configTable()
 			order = number,
 			type = 'execute',
 			name = text,
-			func = function() ACD:SelectGroup("ElvUI", "sle", T.unpack(path)) end,
+			func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "sle", T.unpack(path)) end,
 		}
 		return config
 	end
@@ -29,7 +27,8 @@ local function configTable()
 		name = SLE.Title,
 		childGroups = "tab",
 		desc = L["Plugin for |cff1784d1ElvUI|r by\nDarth Predator and Repooc."],
-		order = 50,
+		-- order = -4,
+		order = 6,
 		args = {
 			header = {
 				order = 1,
@@ -79,6 +78,20 @@ local function configTable()
 			},
 		},
 	}
+	-- E.Options.args.separator1 = {
+		-- order = 3,
+		-- type = "group",
+		-- name = "<<< Info/Controls >>>",
+		-- disabled = true,
+		-- args = {},
+	-- }
+	-- E.Options.args.separator2 = {
+		-- order = 6,
+		-- type = "group",
+		-- name = "<<< "..E.Options.args.plugins.name.." >>>",
+		-- disabled = true,
+		-- args = {},
+	-- }
 end
 
 T.tinsert(SLE.Configs, configTable)
