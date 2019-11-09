@@ -1,5 +1,5 @@
 v3.60 [November , 2019]
-Requires ElvUI 11.24
+Requires ElvUI 11.25
 Fixes:
 - Fixed chat datatpanels no backdrop mode 
 Changes:
