@@ -575,17 +575,17 @@ function PI:DarthSetup()
 		E.db["sle"]["media"]["fonts"]["subzone"]["font"] = "Old Cyrillic"
 		E.db["sle"]["media"]["fonts"]["pvp"]["font"] = "Old Cyrillic"
 
-		E.db["sle"]["Armory"]["Character"]["Enchant"]["FontSize"] = 11
-		E.db["sle"]["Armory"]["Character"]["Stats"]["IlvlFull"] = true
-		E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["POWER"] = true
-		E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["HEALTH"] = true
-		E.db["sle"]["Armory"]["Character"]["Stats"]["IlvlColor"] = true
-		E.db["sle"]["Armory"]["Character"]["Backdrop"]["Overlay"] = false
-		E.db["sle"]["Armory"]["Character"]["Durability"]["FontSize"] = 10
-		E.db["sle"]["Armory"]["Character"]["Gradation"]["ItemQuality"] = true
-		E.db["sle"]["Armory"]["Character"]["Level"]["FontSize"] = 12
-		E.db["sle"]["Armory"]["Inspect"]["Level"]["FontSize"] = 12
-		E.db["sle"]["Armory"]["Inspect"]["Enchant"]["FontSize"] = 10
+		E.db["sle"]["armory"]["character"]["enchant"]["fontSize"] = 11
+		E.db["sle"]["armory"]["character"]["background"]["overlay"] = false
+		E.db["sle"]["armory"]["character"]["durability"]["fontSize"] = 10
+		E.db["sle"]["armory"]["character"]["gradient"]["quality"] = true
+		E.db["sle"]["armory"]["character"]["ilvl"]["fontSize"] = 12
+		E.db["sle"]["armory"]["inspect"]["ilvl"]["fontSize"] = 12
+		E.db["sle"]["armory"]["inspect"]["enchant"]["fontSize"] = 10
+		E.db["sle"]["armory"]["stats"]["List"]["POWER"] = true
+		E.db["sle"]["armory"]["stats"]["List"]["HEALTH"] = true
+		E.db["sle"]["armory"]["stats"]["IlvlColor"] = true
+		E.db["sle"]["armory"]["stats"]["IlvlFull"] = true
 
 		E.db["sle"]["chat"]["tab"]["select"] = true
 		E.db["sle"]["chat"]["dpsSpam"] = true
@@ -762,19 +762,19 @@ function PI:DarthSetup()
 			E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Avoidance"
 			E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["middle"] = "Versatility"
 			E.db["unitframe"]["units"]["raid"]["power"]["enable"] = true
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["SPELLPOWER"] = false
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_DAMAGE"] = true
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_AP"] = true
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_ATTACKSPEED"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["SPELLPOWER"] = false
+			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_DAMAGE"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_AP"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_ATTACKSPEED"] = true
 		elseif layout == 'dpsMelee' then
 			E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Attack Power"
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["SPELLPOWER"] = false
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_DAMAGE"] = true
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_AP"] = true
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_ATTACKSPEED"] = true
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ENERGY_REGEN"] = true
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["RUNE_REGEN"] = true
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["FOCUS_REGEN"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["SPELLPOWER"] = false
+			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_DAMAGE"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_AP"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_ATTACKSPEED"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["ENERGY_REGEN"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["RUNE_REGEN"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["FOCUS_REGEN"] = true
 		elseif layout == 'healer' then DarthHeal()
 		end
 		E.db.layoutSet = layout
@@ -1303,20 +1303,20 @@ function PI:DarthOldSetup()
 		E.db["sle"]["pvp"]["autorelease"] = true
 		E.db["sle"]["skins"]["merchant"]["list"]["subSize"] = 11
 		E.db["sle"]["skins"]["merchant"]["list"]["nameSize"] = 12
-		E.db["sle"]["Armory"]["Inspect"]["Level"]["FontSize"] = 12
-		E.db["sle"]["Armory"]["Inspect"]["Enchant"]["FontSize"] = 10
-		E.db["sle"]["Armory"]["Character"]["Enchant"]["FontSize"] = 11
-		E.db["sle"]["Armory"]["Character"]["Stats"]["IlvlColor"] = true
-		E.db["sle"]["Armory"]["Character"]["Stats"]["IlvlFull"] = true
-		E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["SPELLPOWER"] = true
-		E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["HEALTH"] = true
-		E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["POWER"] = true
-		E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["MOVESPEED"] = true
-		E.db["sle"]["Armory"]["Character"]["Durability"]["FontSize"] = 10
-		E.db["sle"]["Armory"]["Character"]["Level"]["FontSize"] = 12
-		E.db["sle"]["Armory"]["Character"]["Backdrop"]["SelectedBG"] = "TheEmpire"
-		E.db["sle"]["Armory"]["Character"]["Backdrop"]["Overlay"] = false
-		E.db["sle"]["Armory"]["Character"]["Gradation"]["ItemQuality"] = true
+		E.db["sle"]["armory"]["inspect"]["ilvl"]["fontSize"] = 12
+		E.db["sle"]["armory"]["inspect"]["enchant"]["fontSize"] = 10
+		E.db["sle"]["armory"]["character"]["enchant"]["fontSize"] = 11
+		E.db["sle"]["armory"]["stats"]["IlvlColor"] = true
+		E.db["sle"]["armory"]["stats"]["IlvlFull"] = true
+		E.db["sle"]["armory"]["stats"]["List"]["SPELLPOWER"] = true
+		E.db["sle"]["armory"]["stats"]["List"]["HEALTH"] = true
+		E.db["sle"]["armory"]["stats"]["List"]["POWER"] = true
+		E.db["sle"]["armory"]["stats"]["List"]["MOVESPEED"] = true
+		E.db["sle"]["armory"]["Character"]["durability"]["fontSize"] = 10
+		E.db["sle"]["armory"]["Character"]["ilvl"]["fontSize"] = 12
+		E.db["sle"]["armory"]["Character"]["background"]["selectedBG"] = "TheEmpire"
+		E.db["sle"]["armory"]["Character"]["background"]["overlay"] = false
+		E.db["sle"]["armory"]["Character"]["gradient"]["quality"] = true
 	end
 	--Movers
 	do
@@ -1432,19 +1432,19 @@ function PI:DarthOldSetup()
 			E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Avoidance"
 			E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["middle"] = "Versatility"
 			E.db["unitframe"]["units"]["raid"]["power"]["enable"] = true
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["SPELLPOWER"] = false
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_DAMAGE"] = true
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_AP"] = true
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_ATTACKSPEED"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["SPELLPOWER"] = false
+			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_DAMAGE"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_AP"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_ATTACKSPEED"] = true
 		elseif layout == 'dpsMelee' then
 			E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Attack Power"
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["SPELLPOWER"] = false
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_DAMAGE"] = true
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_AP"] = true
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ATTACK_ATTACKSPEED"] = true
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["ENERGY_REGEN"] = true
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["RUNE_REGEN"] = true
-			E.db["sle"]["Armory"]["Character"]["Stats"]["List"]["FOCUS_REGEN"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["SPELLPOWER"] = false
+			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_DAMAGE"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_AP"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_ATTACKSPEED"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["ENERGY_REGEN"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["RUNE_REGEN"] = true
+			E.db["sle"]["armory"]["stats"]["List"]["FOCUS_REGEN"] = true
 		elseif layout == 'healer' then DarthOldHeal()
 		end
 		E.db.layoutSet = layout
@@ -1685,11 +1685,11 @@ SLE.installTable = {
 			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cffFF0000Low|r"])
 
 			_G["PluginInstallFrame"].Option1:Show()
-			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() E.db.sle.Armory.Character.Enable = true; E.db.sle.Armory.Inspect.Enable = true; KF.Modules.CharacterArmory() end)
+			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() E.db.sle.armory.character.enable = true; E.db.sle.armory.inspect.enable = true; SLE:GetModule("Armory_Character"):ToggleArmory(); SLE:GetModule("Armory_Inspect"):ToggleArmory() end)
 			_G["PluginInstallFrame"].Option1:SetText(ENABLE)
 
 			_G["PluginInstallFrame"].Option2:Show()
-			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() E.db.sle.Armory.Character.Enable = false; E.db.sle.Armory.Inspect.Enable = false; KF.Modules.CharacterArmory() end)
+			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() E.db.sle.armory.character.enable = false; E.db.sle.armory.inspect.enable = false; SLE:GetModule("Armory_Character"):ToggleArmory(); SLE:GetModule("Armory_Inspect"):ToggleArmory() end)
 			_G["PluginInstallFrame"].Option2:SetText(DISABLE)
 		end,
 		[3] = function()

@@ -78,20 +78,6 @@ local function configTable()
 			},
 		},
 	}
-	-- E.Options.args.separator1 = {
-		-- order = 3,
-		-- type = "group",
-		-- name = "<<< Info/Controls >>>",
-		-- disabled = true,
-		-- args = {},
-	-- }
-	-- E.Options.args.separator2 = {
-		-- order = 6,
-		-- type = "group",
-		-- name = "<<< "..E.Options.args.plugins.name.." >>>",
-		-- disabled = true,
-		-- args = {},
-	-- }
 end
 
 T.tinsert(SLE.Configs, configTable)
