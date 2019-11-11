@@ -131,6 +131,12 @@ local function configTable()
 				set = function(info, value) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = value; IA:Update_Gems() end,
 				disabled = function() return E.db.general.itemLevel.displayInspectInfo == false end,
 				args = {
+					size = {
+						type = 'range',
+						name = L["Size"],
+						order = 1,
+						min = 8, max = 30, step = 1,
+					},
 					xOffset = {
 						type = 'range',
 						name = L["X-Offset"],
