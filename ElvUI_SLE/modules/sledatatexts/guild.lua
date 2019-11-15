@@ -133,6 +133,7 @@ local list_sort = {
 
 local function inGroup(name)
 	local shortName, realmName = strsplit("-", name)
+	realmName = gsub(E.myrealm,'[%s%-]','')
 
 	if E.myrealm == realmName then name = shortName end
 	if T.GetNumSubgroupMembers() > 0 and T.UnitInParty(name) then
@@ -432,7 +433,7 @@ function OnEnter(self, _, noUpdate)
 				line = tooltip:SetCell(line, 7, info.note)
 			else				
 				line = tooltip:SetCell(line, 7, info.note)
-				line = tooltip:SetCell(line, 8, "Officer: " .. info.officerNote)
+				line = tooltip:SetCell(line, 8, "[" .. info.officerNote .. "]")
 			end
 		end
 
