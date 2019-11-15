@@ -428,7 +428,12 @@ function OnEnter(self, _, noUpdate)
 		line = tooltip:SetCell(line, 6, info.rank)
 
 		if not E.db.sle.dt.guild.hide_guild_onotes then
-			line = tooltip:SetCell(line, 7, info.note .. info.officerNote)
+			if (info.officerNote == "") or (info.officerNote == nil) then
+				line = tooltip:SetCell(line, 7, info.note)
+			else				
+				line = tooltip:SetCell(line, 7, info.note)
+				line = tooltip:SetCell(line, 8, "Officer: " .. info.officerNote)
+			end
 		end
 
 		tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, info.name)
