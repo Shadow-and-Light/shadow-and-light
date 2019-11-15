@@ -144,6 +144,16 @@ local function inGroup(name)
 	return false
 end
 
+local function onServer(name)
+	local shortName, realmName = strsplit("-", name)
+
+	if E.myrealm == realmName then
+		return shortName
+	else
+		return name
+	end
+end
+
 local function nametoindex(name)
 	local nameFromRoster
 
@@ -413,7 +423,7 @@ function OnEnter(self, _, noUpdate)
 		line = tooltip:AddLine()
 		line = tooltip:SetCell(line, 1, ColoredLevel(info.level))
 		line = tooltip:SetCell(line, 2, info.status)
-		line = tooltip:SetCell(line, 3, T.format(nameString, classc.r*255,classc.g*255,classc.b*255, info.name) .. (inGroup(info.name) and GROUP_CHECKMARK or ""))
+		line = tooltip:SetCell(line, 3, T.format(nameString, classc.r*255,classc.g*255,classc.b*255, onServer(info.name)) .. (inGroup(info.name) and GROUP_CHECKMARK or ""))
 		line = tooltip:SetCell(line, 5, info.zone or "???")
 		line = tooltip:SetCell(line, 6, info.rank)
 
