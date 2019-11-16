@@ -5,9 +5,6 @@ V["skins"]["addons"] = {
 }
 
 V["sle"] = {
-	["Armory"] = {
-		["UseArtMonitor"] = true,
-	},
 	["equip"] = {
 		["enable"] = false,
 		["spam"] = false,
