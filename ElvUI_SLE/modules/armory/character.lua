@@ -244,6 +244,7 @@ function CA:Update_Durability()
 			Slot.SLE_Durability:Point("TOP"..Slot.Direction, _G["Character"..SlotName], "TOP"..Slot.Direction, Slot.Direction == "LEFT" and 2 + E.db.sle.armory.character.durability.xOffset or 0 - E.db.sle.armory.character.durability.xOffset, -3 + E.db.sle.armory.character.durability.yOffset)
 		end
 	end
+	CA.DurabilityFontSet = true
 end
 
 function CA:ElvOverlayToggle() --Toggle dat Overlay
@@ -355,4 +356,13 @@ function CA:LoadAndSetup()
 	CA:BuildLayout()
 	CA:ToggleArmory()
 	CA:ElvOverlayToggle()
+	-- hooksecurefunc("ToggleCharacter", function(frameType)
+		-- if frameType ~= "PaperDollFrame" and frameType ~= "PetPaperDollFrame" then
+			-- _G["CharacterFrame"]:SetWidth(PANEL_DEFAULT_WIDTH)
+		-- elseif Info.CharacterArmory_Activate and frameType == "PaperDollFrame" then
+			-- _G["CharacterFrameInsetRight"]:SetPoint('TOPLEFT', _G["CharacterFrameInset"], 'TOPRIGHT', 110, 0)
+		-- else
+			-- _G["CharacterFrameInsetRight"]:SetPoint(T.unpack(DefaultPosition.InsetDefaultPoint))
+		-- end
+	-- end)
 end

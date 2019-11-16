@@ -149,7 +149,7 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 	--If put inside "if slotInfo.itemLevelColors" condition will not actually hide gem links/warnings on empty slots
 	Armory:UpdateGemInfo(Slot, which)
 	Armory:CheckForMissing(which, Slot, slotInfo.iLvl, slotInfo.gems, slotInfo.essences, slotInfo.enchantTextShort)
-	CA:Calculate_Durability(which, Slot)
+	if CA.DurabilityFontSet then CA:Calculate_Durability(which, Slot) end
 end
 
 ---Store gem info in our hidden frame
