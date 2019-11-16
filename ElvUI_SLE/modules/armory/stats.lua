@@ -13,13 +13,22 @@ SA.BaseScrollValue = 25 --This defines if scrollbar should be shown via bullshit
 SA.OriginalPaperdollStats = PAPERDOLL_STATCATEGORIES
 
 --Replacing broken Blizz function and adding some decimals
---Atteack speed
+-- function PaperDollFrame_SetMovementSpeed(statFrame, unit)
+	-- statFrame.wasSwimming = nil;
+	-- statFrame.unit = unit;
+	-- MovementSpeed_OnUpdate(statFrame);
+
+	-- statFrame.onEnterFunc = MovementSpeed_OnEnter;
+
+	-- statFrame:Show();
+-- end
+
 function PaperDollFrame_SetAttackSpeed(statFrame, unit)
 	local meleeHaste = GetMeleeHaste();
 	local speed, offhandSpeed = UnitAttackSpeed(unit);
 	local displaySpeedxt
 
-	local displaySpeed = T.format("%.2f", speed);
+	local displaySpeed =  T.format("%.2f", speed);
 	if ( offhandSpeed ) then
 		offhandSpeed = T.format("%.2f", offhandSpeed);
 	end
@@ -32,6 +41,210 @@ function PaperDollFrame_SetAttackSpeed(statFrame, unit)
 
 	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..T.format(PAPERDOLLFRAME_TOOLTIP_FORMAT, ATTACK_SPEED).." "..displaySpeed..FONT_COLOR_CODE_CLOSE;
 	statFrame.tooltip2 = T.format(STAT_ATTACK_SPEED_BASE_TOOLTIP, BreakUpLargeNumbers(meleeHaste));
+
+	statFrame:Show();
+end
+
+function PaperDollFrame_SetVersatility(statFrame, unit)
+	if ( unit ~= "player" ) then
+		statFrame:Hide();
+		return;
+	end
+
+	local versatility = GetCombatRating(CR_VERSATILITY_DAMAGE_DONE);
+	local versatilityDamageBonus = GetCombatRatingBonus(CR_VERSATILITY_DAMAGE_DONE) + GetVersatilityBonus(CR_VERSATILITY_DAMAGE_DONE);
+	local versatilityDamageTakenReduction = GetCombatRatingBonus(CR_VERSATILITY_DAMAGE_TAKEN) + GetVersatilityBonus(CR_VERSATILITY_DAMAGE_TAKEN);
+
+	if E.db.sle.armory.stats.decimals then --Alters format
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_VERSATILITY, T.format("%.2f%%", versatilityDamageBonus) .. " / " .. T.format("%.2f%%", versatilityDamageTakenReduction), false, versatilityDamageBonus)
+	else
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_VERSATILITY, versatilityDamageBonus, true, versatilityDamageBonus)
+	end
+
+	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. T.format(VERSATILITY_TOOLTIP_FORMAT, STAT_VERSATILITY, versatilityDamageBonus, versatilityDamageTakenReduction) .. FONT_COLOR_CODE_CLOSE;
+	statFrame.tooltip2 = T.format(CR_VERSATILITY_TOOLTIP, versatilityDamageBonus, versatilityDamageTakenReduction, BreakUpLargeNumbers(versatility), versatilityDamageBonus, versatilityDamageTakenReduction);
+
+	statFrame:Show();
+end
+
+function PaperDollFrame_SetMastery(statFrame, unit)
+	if ( unit ~= "player" ) then
+		statFrame:Hide();
+		return;
+	end
+	if (T.UnitLevel("player") < SHOW_MASTERY_LEVEL) then
+		statFrame:Hide();
+		return;
+	end
+
+	local mastery = GetMasteryEffect();
+	if E.db.sle.armory.stats.decimals then
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_MASTERY, T.format("%.2f%%", mastery), false, mastery)
+	else
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_MASTERY, mastery, true, mastery)
+	end
+	statFrame.onEnterFunc = Mastery_OnEnter;
+	statFrame:Show();
+end
+
+function PaperDollFrame_SetLifesteal(statFrame, unit)
+	if ( unit ~= "player" ) then
+		statFrame:Hide();
+		return;
+	end
+
+	local lifesteal = GetLifesteal();
+	if E.db.sle.armory.stats.decimals then
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_LIFESTEAL, T.format("%.2f%%", lifesteal), false, lifesteal)
+	else
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_LIFESTEAL, lifesteal, true, lifesteal)
+	end
+	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. T.format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_LIFESTEAL) .. " " .. T.format("%.2f%%", lifesteal) .. FONT_COLOR_CODE_CLOSE;
+
+	statFrame.tooltip2 = T.format(CR_LIFESTEAL_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(CR_LIFESTEAL)), GetCombatRatingBonus(CR_LIFESTEAL));
+
+	statFrame:Show();
+end
+
+function PaperDollFrame_SetAvoidance(statFrame, unit)
+	if ( unit ~= "player" ) then
+		statFrame:Hide();
+		return;
+	end
+
+	local avoidance = GetAvoidance();
+-- PaperDollFrame_SetLabelAndText Format Change
+	if E.db.sle.armory.stats.decimals then
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_AVOIDANCE, T.format("%.2f%%", avoidance), false, avoidance)
+	else
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_AVOIDANCE, avoidance, true, avoidance)
+	end
+	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. T.format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_AVOIDANCE) .. " " .. T.format("%.2f%%", avoidance) .. FONT_COLOR_CODE_CLOSE;
+
+	statFrame.tooltip2 = T.format(CR_AVOIDANCE_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(CR_AVOIDANCE)), GetCombatRatingBonus(CR_AVOIDANCE));
+
+	statFrame:Show();
+end
+
+function PaperDollFrame_SetDodge(statFrame, unit)
+	if (unit ~= "player") then
+		statFrame:Hide();
+		return;
+	end
+
+	local chance = GetDodgeChance();
+-- PaperDollFrame_SetLabelAndText Format Change
+	if E.db.sle.armory.stats.decimals then
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_DODGE, T.format("%.2f%%", chance), false, chance)
+	else
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_DODGE, chance, true, chance);
+	end
+	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..T.format(PAPERDOLLFRAME_TOOLTIP_FORMAT, DODGE_CHANCE).." "..T.format("%.2f", chance).."%"..FONT_COLOR_CODE_CLOSE;
+	statFrame.tooltip2 = T.format(CR_DODGE_TOOLTIP, GetCombatRating(CR_DODGE), GetCombatRatingBonus(CR_DODGE));
+	statFrame:Show();
+end
+
+function PaperDollFrame_SetParry(statFrame, unit)
+	if (unit ~= "player") then
+		statFrame:Hide();
+		return;
+	end
+
+	local chance = GetParryChance();
+-- PaperDollFrame_SetLabelAndText Format Change
+	if E.db.sle.armory.stats.decimals then
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_PARRY, T.format("%.2f%%", chance), false, chance)
+	else
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_PARRY, chance, true, chance)
+	end
+	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..T.format(PAPERDOLLFRAME_TOOLTIP_FORMAT, PARRY_CHANCE).." "..T.format("%.2f", chance).."%"..FONT_COLOR_CODE_CLOSE;
+	statFrame.tooltip2 = T.format(CR_PARRY_TOOLTIP, GetCombatRating(CR_PARRY), GetCombatRatingBonus(CR_PARRY));
+	statFrame:Show();
+end
+
+function PaperDollFrame_SetCritChance(statFrame, unit)
+	if ( unit ~= "player" ) then
+		statFrame:Hide();
+		return;
+	end
+
+	local rating;
+	local spellCrit, rangedCrit, meleeCrit;
+	local critChance;
+
+	-- Start at 2 to skip physical damage
+	local holySchool = 2;
+	local minCrit = GetSpellCritChance(holySchool);
+	statFrame.spellCrit = {};
+	statFrame.spellCrit[holySchool] = minCrit;
+	local spellCrit;
+	for i=(holySchool+1), MAX_SPELL_SCHOOLS do
+		spellCrit = GetSpellCritChance(i);
+		minCrit = math_min(minCrit, spellCrit);
+		statFrame.spellCrit[i] = spellCrit;
+	end
+	spellCrit = minCrit
+	rangedCrit = GetRangedCritChance();
+	meleeCrit = GetCritChance();
+
+	if (spellCrit >= rangedCrit and spellCrit >= meleeCrit) then
+		critChance = spellCrit;
+		rating = CR_CRIT_SPELL;
+	elseif (rangedCrit >= meleeCrit) then
+		critChance = rangedCrit;
+		rating = CR_CRIT_RANGED;
+	else
+		critChance = meleeCrit;
+		rating = CR_CRIT_MELEE;
+	end
+-- PaperDollFrame_SetLabelAndText Format Change
+	if E.db.sle.armory.stats.decimals then
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_CRITICAL_STRIKE, T.format("%.2f%%", critChance), false, critChance)
+	else
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_CRITICAL_STRIKE, critChance, true, critChance)
+	end
+	
+
+	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..T.format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_CRITICAL_STRIKE).." "..T.format("%.2f%%", critChance)..FONT_COLOR_CODE_CLOSE;
+	local extraCritChance = GetCombatRatingBonus(rating);
+	local extraCritRating = GetCombatRating(rating);
+	if (GetCritChanceProvidesParryEffect()) then
+		statFrame.tooltip2 = T.format(CR_CRIT_PARRY_RATING_TOOLTIP, BreakUpLargeNumbers(extraCritRating), extraCritChance, GetCombatRatingBonusForCombatRatingValue(CR_PARRY, extraCritRating));
+	else
+		statFrame.tooltip2 = T.format(CR_CRIT_TOOLTIP, BreakUpLargeNumbers(extraCritRating), extraCritChance);
+	end
+	statFrame:Show();
+end
+
+function PaperDollFrame_SetHaste(statFrame, unit)
+	if ( unit ~= "player" ) then
+		statFrame:Hide();
+		return;
+	end
+
+	local haste = GetHaste();
+	local rating = CR_HASTE_MELEE;
+
+	local hasteFormatString;
+	if (haste < 0) then
+		hasteFormatString = RED_FONT_COLOR_CODE.."%s"..FONT_COLOR_CODE_CLOSE;
+	else
+		hasteFormatString = "%s";
+	end
+-- PaperDollFrame_SetLabelAndText Format Change
+	if E.db.sle.armory.stats.decimals then
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_HASTE, T.format(hasteFormatString, T.format("%.2f%%", haste)), false, haste)
+	else
+		PaperDollFrame_SetLabelAndText(statFrame, STAT_HASTE, T.format(hasteFormatString, T.format("%d%%", haste + 0.5)), false, haste)
+	end
+	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. T.format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_HASTE) .. " " .. T.format(hasteFormatString, T.format("%.2f%%", haste)) .. FONT_COLOR_CODE_CLOSE;
+
+	local _, class = T.UnitClass(unit);
+	statFrame.tooltip2 = _G["STAT_HASTE_"..class.."_TOOLTIP"];
+	if (not statFrame.tooltip2) then
+		statFrame.tooltip2 = STAT_HASTE_TOOLTIP;
+	end
+	statFrame.tooltip2 = statFrame.tooltip2 .. T.format(STAT_HASTE_BASE_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(rating)), GetCombatRatingBonus(rating));
 
 	statFrame:Show();
 end
@@ -335,6 +548,18 @@ function SA:UpdateIlvlFont()
 	end
 end
 
+-- function SA:ToggleDecimals(toggle)
+	-- if toggle == "disable" or not E.db.sle.armory.stats.decimals then
+		-- for name, func in T.pairs(SA.OriginalPaperdollFunctions) do
+			-- _G[name] = func
+		-- end
+	-- else
+		-- for name, func in T.pairs(SA.OriginalPaperdollFunctions) do
+			-- _G[name] = SA[name]
+		-- end
+	-- end
+-- end
+
 function SA:ToggleArmory()
 	PAPERDOLL_STATCATEGORIES = E.db.sle.armory.stats.enable and SA.AlteredPaperdollStats or SA.OriginalPaperdollStats
 	if E.db.sle.armory.stats.enable then
@@ -342,11 +567,12 @@ function SA:ToggleArmory()
 		_G["CharacterStatsPane"]["DefenceCategory"]:Show()
 		_G["CharacterStatsPane"].ItemLevelFrame:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelCategory, "BOTTOM", 0, 6)
 		_G["CharacterFrame"].ItemLevelText:SetText('')
-
+		-- SA:ToggleDecimals("enable")
 	else
 		_G["CharacterStatsPane"]["OffenseCategory"]:Hide()
 		_G["CharacterStatsPane"]["DefenceCategory"]:Hide()
 		_G["CharacterStatsPane"].ItemLevelFrame:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelCategory, "BOTTOM", 0, 0)
+		-- SA:ToggleDecimals("disable")
 		SA.Scrollbar:Hide()
 	end
 	PaperDollFrame_UpdateStats()

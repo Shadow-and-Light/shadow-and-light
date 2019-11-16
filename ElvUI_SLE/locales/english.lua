@@ -184,6 +184,8 @@ L["Enables a small arrow-like indicator on the item slot. Howering over this arr
 L["Glow Number"] = true
 L["Glow Offset"] = true
 L["Categories"] = true
+L["Decimals"] = true
+L["Show stats with decimals."] = true
 
 --AFK
 L["You Are Away From Keyboard for"] = true

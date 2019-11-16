@@ -184,6 +184,8 @@ L["Enables a small arrow-like indicator on the item slot. Howering over this arr
 L["Glow Number"] = "Элементов свечения"
 L["Glow Offset"] = "Отступ свечения"
 L["Categories"] = "Категории"
+L["Decimals"] = "Десятичные доли"
+L["Show stats with decimals."] = "От ображать характеристики с десятичными долями."
 
 --AFK
 L["You Are Away From Keyboard for"] = "Вы отошли на"
