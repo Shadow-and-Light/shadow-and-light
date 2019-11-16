@@ -81,9 +81,12 @@ local list_sort = {
 		return a["TOONNAME"] < b["TOONNAME"]
 	end,
 	LEVEL =	function(a, b)
-		if a["LEVEL"] < b["LEVEL"] then
+		local first, second = a["LEVEL"], b["LEVEL"]
+		if not T.tonumber(first) then first = 0 end
+		if not T.tonumber(second) then second = 0 end
+		if first < second then
 			return true
-		elseif a["LEVEL"] > b["LEVEL"] then
+		elseif first > second then
 			return false
 		else  -- TOONNAME
 			return a["TOONNAME"] < b["TOONNAME"]
@@ -120,9 +123,12 @@ local list_sort = {
 		return a["TOONNAME"] > b["TOONNAME"]
 	end,
 	revLEVEL = function(a, b)
-		if a["LEVEL"] > b["LEVEL"] then
+		local first, second = a["LEVEL"], b["LEVEL"]
+		if not T.tonumber(first) then first = 0 end
+		if not T.tonumber(second) then second = 0 end
+		if first > second then
 			return true
-		elseif a["LEVEL"] < b["LEVEL"] then
+		elseif first < second then
 			return false
 		else  -- TOONNAME
 			return a["TOONNAME"] < b["TOONNAME"]
