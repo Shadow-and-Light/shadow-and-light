@@ -146,23 +146,17 @@ function CA:BuildLayout()
 	end
 	
 	--<<<Hooking some shit!>>>--
-	hooksecurefunc('CharacterFrame_Collapse', function()
+	hooksecurefunc("CharacterFrame_Collapse", function()
 		if E.db.sle.armory.character.enable and _G["PaperDollFrame"]:IsShown() then _G["CharacterFrame"]:SetWidth(448) end
 	end)
-	hooksecurefunc('CharacterFrame_Expand', function()
+	hooksecurefunc("CharacterFrame_Expand", function()
 		if E.db.sle.armory.character.enable and _G["PaperDollFrame"]:IsShown() then _G["CharacterFrame"]:SetWidth(650) end
 	end)
-	hooksecurefunc('ToggleCharacter', function(frameType)
-		if not E.db.sle.armory.character.enable then return end
-		if frameType ~= "PaperDollFrame" and frameType ~= "PetPaperDollFrame" then
-			_G["CharacterFrame"]:SetWidth(PANEL_DEFAULT_WIDTH)
-		-- elseif Info.CharacterArmory_Activate and frameType == "PaperDollFrame" then
-		elseif frameType == "PaperDollFrame" then
-			_G["CharacterFrameInsetRight"]:SetPoint('TOPLEFT', _G["CharacterFrameInset"], 'TOPRIGHT', 110, 0)
-		else
-			_G["CharacterFrameInsetRight"]:SetPoint(T.unpack(DefaultPosition.InsetDefaultPoint))
-		end
+	hooksecurefunc("CharacterFrame_ShowSubFrame", function(frameName)
+		if frameName ~= "ReputationFrame" then return end
+		_G["CharacterFrame"]:SetWidth(PANEL_DEFAULT_WIDTH)
 	end)
+
 	hooksecurefunc('PaperDollFrame_SetLevel', function()
 		if E.db.sle.armory.character.enable then 
 			_G["CharacterLevelText"]:SetText(_G["CharacterLevelText"]:GetText())
