@@ -1,3 +1,13 @@
+v3.61 [November , 2019]
+Fixes:
+- Fixed stats scrollbar feeling like doubling itself
+- Some fixes for guild dt. Blame Repooc.
+- Sorting fixed for friends. Still blame Repooc.
+- Fixed install trying to serach for deprecated table
+- Fixed armory trying to convince people they need to enchant their off-hands
+Misc:
+- Added forgotten option for gems in the armory
+
 v3.60 [November 10th, 2019]
 Requires ElvUI 11.25
 Fixes:
