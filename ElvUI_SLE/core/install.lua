@@ -1678,7 +1678,6 @@ SLE.installTable = {
 			_G["PluginInstallFrame"].Option1:SetText(L["Skip Process"])
 		end,
 		[2] = function()
-			local KF, Info, Timer = T.unpack(_G["ElvUI_KnightFrame"])
 			_G["PluginInstallFrame"].SubTitle:SetText(L["Armory Mode"])
 			_G["PluginInstallFrame"].Desc1:SetText(L["SLE_ARMORY_INSTALL"])
 			_G["PluginInstallFrame"].Desc2:SetText(L["This will enable S&L Armory mode components that will show more detailed information at a quick glance on the toons you inspect or your own character."])
