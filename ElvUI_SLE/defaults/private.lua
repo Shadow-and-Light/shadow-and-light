@@ -248,6 +248,11 @@ if G["profileCopy"] then
 		["actionbars"] = {
 			["general"] = true,
 		},
+		["armory"] = {
+			["character"] = true,
+			["inspect"] = true,
+			["stats"] = true,
+		},
 		["auras"] = {
 			["general"] = true,
 		},

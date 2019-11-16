@@ -1,6 +1,29 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local MC
 
+local function CreateArmory()
+	local config = MC:CreateModuleConfigGroup(L["Armory Mode"], "armory", "sle")
+	config.get = function(info) return E.global.profileCopy.sle.armory[ info[#info] ] end
+	config.set = function(info, value) E.global.profileCopy.sle.armory[ info[#info] ] = value; end
+	config.args["character"] = {
+		order = 2,
+		type = "toggle",
+		name = L["Character Armory"],
+	}
+	config.args["inspect"] = {
+		order = 3,
+		type = "toggle",
+		name = L["Inspect Armory"],
+	}
+	config.args["stats"] = {
+		order = 4,
+		type = "toggle",
+		name = STAT_CATEGORY_ATTRIBUTES,
+	}
+
+	return config
+end
+
 local function CreateBackgrounds()
 	local config = MC:CreateModuleConfigGroup(L["Backgrounds"], "backgrounds", "sle")
 	for i = 1, 4 do
@@ -361,6 +384,7 @@ local function configTable()
 				name = L["|cff9482c9Shadow & Light|r options"],
 			},
 			actionbar = MC:CreateModuleConfigGroup(L["ActionBars"], "actionbars", "sle"),
+			armory = CreateArmory(),
 			auras = MC:CreateModuleConfigGroup(L["Auras"], "auras", "sle"),
 			backgrounds = CreateBackgrounds(),
 			bags = CreateBags(),
