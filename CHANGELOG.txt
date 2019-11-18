@@ -10,6 +10,7 @@ Armory:
 - Gradient textures will now also indicate missing stuff
 - Decimal values for stats are now working again
 - Module copy is now supporting armory
+- Added forgotten option for overlay on inspect frame. Blame Darth.
 
 
 v3.60 [November 10th, 2019]
@@ -155,7 +156,7 @@ v3.5 [January 22nd, 2019]
 Additions:
 - Armory and afk screen now support Wakanda trolls and humans living on ships
 - Character armory option to color ilvl text based on quality now allows you to select another variant - based on items ilvl compared to average equipped ilvl. Same or higher ilvl will be green, all below will become more red the bigger the difference is.
-This one will probably be not accurate for low level toons due to math used here is some afroengineering™ and based on max level toons ilvl numbers.
+This one will probably be not accurate for low level toons due to math used here is some afroengineeringï¿½ and based on max level toons ilvl numbers.
 Fixes:
 - Rep text now properly shows reputation gains toward that sweet (not) paragon chest
 - Fixed icons on datatetxs not following mouseover on load or changing datatexts
@@ -328,7 +329,7 @@ Fixes:
 
 v3.42 [July 26th 2018]
 Fixes:
-- PvP is even more fixed now™
+- PvP is even more fixed nowï¿½
 - Fixed community links now working
 - Fixed rare font chage error
 - Fixed some weird behavior in movable frames (WIP)
