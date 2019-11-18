@@ -178,6 +178,14 @@ function IA:Update_Gems()
 	end
 end
 
+function IA:ElvOverlayToggle() --Toggle dat Overlay
+	if not _G["InspectFrame"] then return end
+	if E.db.sle.armory.inspect.background.overlay then
+		_G["InspectModelFrameBackgroundOverlay"]:Show()
+	else
+		_G["InspectModelFrameBackgroundOverlay"]:Hide()
+	end
+end
 
 function IA:Enable()
 	if not _G["InspectFrame"] then return end
@@ -209,6 +217,9 @@ function IA:Enable()
 			_G["InspectModelFrame"].backdrop:Hide()
 		end
 	end
+
+	_G["InspectModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', _G["InspectModelFrame"], -4, 0)
+	_G["InspectModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', _G["InspectModelFrame"], 4, 0)
 
 	--Activating background and updating stuff
 	_G["InspectPaperDollFrame"].SLE_Armory_BG:Show()
@@ -280,6 +291,7 @@ end
 function IA:LoadAndSetup()
 	IA:BuildLayout()
 	IA:ToggleArmory()
+	IA:ElvOverlayToggle()
 	--For future use. I may consider returning to cache for inspect. Cause it actually never broke
 	-- _G["InspectFrame"]:UnregisterEvent("PLAYER_TARGET_CHANGED");
 end

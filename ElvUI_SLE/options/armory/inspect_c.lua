@@ -237,6 +237,14 @@ local function configTable()
 						width = 'double',
 						hidden = function() return E.db.sle.armory.inspect.background.selectedBG ~= 'CUSTOM' end
 					},
+					overlay = {
+						type = "toggle",
+						order = 3,
+						name = L["Overlay"],
+						desc = L["Show ElvUI skin's backdrop overlay"],
+						get = function() return E.db.sle.armory.inspect.background.overlay end,
+						set = function(_, value) E.db.sle.armory.inspect.background.overlay = value; IA:ElvOverlayToggle() end
+					},
 				}
 			},
 		},
