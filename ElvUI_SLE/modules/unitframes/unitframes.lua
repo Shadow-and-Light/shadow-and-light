@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local UF = E:GetModule('UnitFrames');
 local SUF = SLE:NewModule("UnitFrames", "AceEvent-3.0")
 local RC = LibStub("LibRangeCheck-2.0")
@@ -91,6 +91,14 @@ function SUF:NewTags()
 	end
 end
 
+-- Ad the tags to the ElvUI Options
+E:AddTagInfo("sl:pvptimer", "Shadow&Light", "")
+E:AddTagInfo("sl:pvplevel", "Shadow&Light", "")
+E:AddTagInfo("absorbs:sl-short", "Shadow&Light", "")
+E:AddTagInfo("absorbs:sl-full", "Shadow&Light", "")
+E:AddTagInfo("health:current:sl-rehok", "Shadow&Light", "")
+E:AddTagInfo("range:sl", "Shadow&Light", "")
+
 local function UpdateAuraTimer(self, elapsed)
 	local timervalue, formatid
 	local unitID = self:GetParent():GetParent().unitframeType
@@ -151,7 +159,7 @@ function SUF:Initialize()
 	SUF:UpgradePvPIcon()
 
 	SUF:InitStatus()
-	
+
 	hooksecurefunc(UF, "UpdateAuraTimer", UpdateAuraTimer)
 
 	function SUF:ForUpdateAll()
