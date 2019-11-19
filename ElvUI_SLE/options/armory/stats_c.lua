@@ -28,8 +28,14 @@ local function configTable()
 				name = L["Only Relevant Stats"],
 				desc = L["Show only those primary stats relevant to your spec."],
 			},
-			ItemLevel = {
+			decimals = {
 				order = 2,
+				type = "toggle",
+				name = L["Decimals"],
+				desc = L["Show stats with decimals."],
+			},
+			ItemLevel = {
+				order = 10,
 				type = "group",
 				name = STAT_AVERAGE_ITEM_LEVEL,
 				guiInline = true,
@@ -73,7 +79,7 @@ local function configTable()
 				type = "group",
 				name = STAT_CATEGORY_ATTRIBUTES..": "..L["Fonts"],
 				guiInline = true,
-				order = 3,
+				order = 20,
 				args = {
 					IlvlFont = {
 						type = 'group',
