@@ -68,7 +68,8 @@ function SUF:NewTags()
 		end
 	end
 
-	_G["ElvUF"].Tags.Methods['sl:pvptimer'] = function(unit)
+	ElvUF.Tags.OnUpdateThrottle["sl:pvptimer"] = 1
+	_G["ElvUF"].Tags.Methods["sl:pvptimer"] = function(unit)
 		if (UnitIsPVPFreeForAll(unit) or UnitIsPVP(unit)) then
 			local timer = GetPVPTimer()
 
@@ -77,10 +78,10 @@ function SUF:NewTags()
 				local secs = floor((timer / 1000) - (mins * 60))
 				return ("%01.f:%02.f"):format(mins, secs)
 			else
-				return ""
+				return "PvP"
 			end
 		else
-			return ""
+			return nil
 		end
 	end
 
@@ -89,15 +90,17 @@ function SUF:NewTags()
 		-- if unit ~= "target" and unit ~= "player" then return "" end
 		return (UnitIsPVP(unit) and UnitHonorLevel(unit) > 0) and UnitHonorLevel(unit) or ""
 	end
+	
+	-- Ad the tags to the ElvUI Options
+	E:AddTagInfo("sl:pvptimer", "Shadow&Light", L["SLE_Tag_sl-pvptimer"])
+	E:AddTagInfo("sl:pvplevel", "Shadow&Light", L["SLE_Tag_sl-pvplevel"])
+	E:AddTagInfo("absorbs:sl-short", "Shadow&Light", L["SLE_Tag_absorb-sl-short"])
+	E:AddTagInfo("absorbs:sl-full", "Shadow&Light", L["SLE_Tag_absorb-sl-full"])
+	-- E:AddTagInfo("health:current:sl-rehok", "Shadow&Light", L["SLE_Tag_health-current-rehok"])
+	E:AddTagInfo("range:sl", "Shadow&Light", L["SLE_Tag_range-sl"])
 end
 
--- Ad the tags to the ElvUI Options
-E:AddTagInfo("sl:pvptimer", "Shadow&Light", "")
-E:AddTagInfo("sl:pvplevel", "Shadow&Light", "")
-E:AddTagInfo("absorbs:sl-short", "Shadow&Light", "")
-E:AddTagInfo("absorbs:sl-full", "Shadow&Light", "")
-E:AddTagInfo("health:current:sl-rehok", "Shadow&Light", "")
-E:AddTagInfo("range:sl", "Shadow&Light", "")
+
 
 local function UpdateAuraTimer(self, elapsed)
 	local timervalue, formatid

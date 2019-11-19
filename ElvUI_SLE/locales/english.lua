@@ -897,6 +897,14 @@ L["Classbar Texture"] = true
 L["Resize Health Prediction"] = true
 L["Slightly changes size of health prediction bars."] = true
 
+--Unitframes, tags
+L["SLE_Tag_sl-pvptimer"] = "Slightly altered version of \"pvptimer\" tag. Features no \"PvP\" string in front of the timer."
+L["SLE_Tag_sl-pvplevel"] = "Shows unit's honor level."
+L["SLE_Tag_absorb-sl-short"] = "Slightly altered version of \"absorbs\" tag. Show 0 when no absorbs present. Value is shortened."
+L["SLE_Tag_absorb-sl-full"] = "Slightly altered version of \"absorbs\" tag. Show 0 when no absorbs present. Absolute value."
+-- L["SLE_Tag_health-current-rehok"] = true
+L["SLE_Tag_range-sl"] = "Shows approximate range between you and the unit."
+
 --Viewport
 L["Viewport"] = true
 L["Left Offset"] = true

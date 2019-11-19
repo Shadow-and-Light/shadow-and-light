@@ -894,6 +894,14 @@ L["Classbar Texture"] = "Текстура классовой полосы"
 L["Resize Health Prediction"] = "Подогнать входящее исцеление"
 L["Slightly changes size of health prediction bars."] = "Немного изменяет размер полос входящего исцеления."
 
+--Unitframes, tags
+L["SLE_Tag_sl-pvptimer"] = "Альтернативная версия \"pvptimer\". Не отображает надпись \"PvP\"."
+L["SLE_Tag_sl-pvplevel"] = "Показывает уровень чести юнита."
+L["SLE_Tag_absorb-sl-short"] = "Альтернативная версия \"absorbs\". Показывает 0, когда нет эффектов поглощения. Короткое значение"
+L["SLE_Tag_absorb-sl-full"] = "Альтернативная версия \"absorbs\". Показывает 0, когда нет эффектов поглощения. Полное значение"
+-- L["SLE_Tag_health-current-rehok"] = true
+L["SLE_Tag_range-sl"] = "Показывает примерное расстояние до юнита.."
+
 --Viewport
 L["Viewport"] = true
 L["Left Offset"] = "Отступ слева"
