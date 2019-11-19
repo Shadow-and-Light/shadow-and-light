@@ -127,6 +127,7 @@ L["Checked Texture Color"] = true
 
 --Armory
 L["SLE_Armory_Info"] = "Armory is designed to provide standard ElvUI item info in a different way. Keep in mind that display of enchantments, gems and item levels is only available when corresponding ElvUI option is enabled. Use button below to visit mentioned feature's config section."
+L["SLE_Armory_SkinDisabled"] = "You disabled all the skins, so we disabled all Armory features to avoid graphics being broken as heck. What esle did you expect?"
 L["Average"] = "평균"
 L["Not Enchanted"] = "마부 없음"
 L["Empty Socket"] = "보석 없음"

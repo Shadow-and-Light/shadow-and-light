@@ -17,7 +17,8 @@ local function configTable()
 		type = 'group',
 		name = L["Character Armory"],
 		order = 10,
-		disabled = function() return E.db.sle.armory.character.enable == false end,
+		disabled = function() return not E.db.sle.armory.character.enable end,
+		hidden = function() return not E.private.skins.blizzard.character end,
 		args = {
 			title = {
 				type = "header",

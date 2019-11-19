@@ -18,6 +18,7 @@ local function configTable()
 		name = STAT_CATEGORY_ATTRIBUTES,
 		order = 30,
 		disabled = function() return SLE._Compatibility["DejaCharacterStats"] or not E.db.sle.armory.stats.enable end,
+		hidden = function() return not E.private.skins.blizzard.character end,
 		get = function(info) return E.db.sle.armory.stats[ info[#info] ] end,
 		set = function(info, value) E.db.sle.armory.stats[ info[#info] ] = value; PaperDollFrame_UpdateStats(); M:UpdateCharacterItemLevel(); end,
 		args = {
@@ -27,14 +28,8 @@ local function configTable()
 				name = L["Only Relevant Stats"],
 				desc = L["Show only those primary stats relevant to your spec."],
 			},
-			decimals = {
-				order = 2,
-				type = "toggle",
-				name = L["Decimals"],
-				desc = L["Show stats with decimals."],
-			},
 			ItemLevel = {
-				order = 10,
+				order = 2,
 				type = "group",
 				name = STAT_AVERAGE_ITEM_LEVEL,
 				guiInline = true,
@@ -78,7 +73,7 @@ local function configTable()
 				type = "group",
 				name = STAT_CATEGORY_ATTRIBUTES..": "..L["Fonts"],
 				guiInline = true,
-				order = 20,
+				order = 3,
 				args = {
 					IlvlFont = {
 						type = 'group',

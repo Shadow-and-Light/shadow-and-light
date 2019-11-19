@@ -85,6 +85,7 @@ end
 --Updates the frame
 function Armory:UpdatePageInfo(frame, which, guid, event)
 	if not (frame and which) then return end
+	if not Armory:CheckOptions(which) then return end 
 	local window = T.lower(which)
 	local unit = (which == 'Character' and 'player') or frame.unit
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
@@ -112,6 +113,7 @@ end
 
 --Updates ilvl and everything tied to the item somehow
 function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
+	if not Armory:CheckOptions(which) then return end 
 	if slotInfo.itemLevelColors then
 		local window = T.lower(which) --to know which settings table to use
 		if E.db.sle.armory[window] and E.db.sle.armory[window].enable then --If settings table actually exists and armory for it is enabled
@@ -324,35 +326,46 @@ function Armory:UpdateCharacterInfo()
 end
 
 function Armory:ToggleItemLevelInfo(setupCharacterPage)
-	if _G["InspectFrame"] and _G["InspectFrame"]:IsShown() and E.db.general.itemLevel.displayInspectInfo then
+	if _G["InspectFrame"] and _G["InspectFrame"]:IsShown() and Armory:CheckOptions("Inspect") and E.db.general.itemLevel.displayInspectInfo then
 		M:UpdateInspectInfo()
 	else
 		M:ClearPageInfo(_G["InspectFrame"], "Inspect")
 	end
 end
 
+function Armory:CheckOptions(which)
+	if not E.private.skins.blizzard.enable then return false end
+	if (which == "Character" and not E.private.skins.blizzard.character) or (which == "Inspect" and not E.private.skins.blizzard.inspect) then return false end
+	return true
+end
+
 function Armory:Initialize()
-	Armory:BuildFrameDefaultsCache("Character")
+	if not Armory:CheckOptions() then return end
+	
 
 	--May be usefull later
 	Armory.ScanTT = CreateFrame("GameTooltip", "SLE_Armory_ScanTT", nil, "GameTooltipTemplate")
 	Armory.ScanTT:SetOwner(UIParent, 'ANCHOR_NONE')
 
-	CA = SLE:GetModule("Armory_Character")
-	IA = SLE:GetModule("Armory_Inspect")
-	SA = SLE:GetModule("Armory_Stats")
-
-	hooksecurefunc(M, "UpdateInspectInfo", Armory.UpdateInspectInfo)
-	hooksecurefunc(M, "UpdateCharacterInfo", Armory.UpdateCharacterInfo)
 	hooksecurefunc(M, "UpdatePageInfo", Armory.UpdatePageInfo)
 	hooksecurefunc(M, "UpdatePageStrings", Armory.UpdatePageStrings)
 	hooksecurefunc(M, "ToggleItemLevelInfo", Armory.ToggleItemLevelInfo)
 
-	CA:LoadAndSetup()
-	SA:LoadAndSetup()
-	IA:PreSetup()
+	if Armory:CheckOptions("Character") then
+		CA = SLE:GetModule("Armory_Character")
+		SA = SLE:GetModule("Armory_Stats")
+		Armory:BuildFrameDefaultsCache("Character")
+		hooksecurefunc(M, "UpdateCharacterInfo", Armory.UpdateCharacterInfo)
+		CA:LoadAndSetup()
+		SA:LoadAndSetup()
+		Armory:UpdateCharacterInfo()
+	end
 
-	Armory:UpdateCharacterInfo()
+	if Armory:CheckOptions("Inspect") then
+		IA = SLE:GetModule("Armory_Inspect")
+		hooksecurefunc(M, "UpdateInspectInfo", Armory.UpdateInspectInfo)
+		IA:PreSetup()
+	end
 
 	--Move Pawn buttons. Cause Pawn buttons happen to be overlapped by some shit
 	if SLE._Compatibility["Pawn"] then

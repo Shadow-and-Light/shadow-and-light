@@ -12,7 +12,8 @@ local function configTable()
 		type = 'group',
 		name = L["Enchant String"],
 		order = 40,
-		disabled = function() return E.db.sle.armory.character.enable == false and E.db.sle.armory.inspect.enable == false end,
+		disabled = function() return not (E.db.sle.armory.character.enable and E.db.sle.armory.inspect.enable) end,
+		hidden = function() return not E.private.skins.blizzard.character and not E.private.skins.blizzard.inspect end,
 		args = {
 			enable = {
 				order = 1,
