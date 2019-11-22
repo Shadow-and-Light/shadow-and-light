@@ -134,8 +134,10 @@ local list_sort = {
 local function inGroup(name)
 	local shortName, realmName = strsplit("-", name)
 	realmName = gsub(realmName,'[%s%-]','')
+	
+	local myrealm = gsub(E.myrealm,'[%s%-]','')
+	if myrealm == realmName then name = shortName end
 
-	if E.myrealm == realmName then name = shortName end
 	if T.GetNumSubgroupMembers() > 0 and T.UnitInParty(name) then
 		return true
 	elseif T.GetNumGroupMembers() > 0 and T.UnitInRaid(name) then
@@ -210,7 +212,6 @@ local function SetGuildSort(cell, sortsection)
 	OnEnter(LDB_ANCHOR)
 end
 
-local PLAYER_REALM = gsub(E.myrealm,'[%s%-]','')
 local function BuildGuildTable()
 	T.wipe(guildTable)
 
@@ -236,7 +237,6 @@ local function BuildGuildTable()
 		zone = (isMobile and not connected) and REMOTE_CHAT or zone
 
 		if connected or isMobile then
-			local newName = gsub(name,'%-'..PLAYER_REALM,'')
 			guildTable[#guildTable + 1] = {
 				name = name,				--1
 				rank = rank,				--2
