@@ -1,4 +1,4 @@
-local MAJOR, MINOR = 'LibProcessable', 31
+local MAJOR, MINOR = 'LibProcessable', 37
 assert(LibStub, MAJOR .. ' requires LibStub')
 
 local lib, oldMinor = LibStub:NewLibrary(MAJOR, MINOR)
@@ -6,13 +6,18 @@ if(not lib) then
 	return
 end
 
+local CLASSIC = select(4, GetBuildInfo()) == 11302
+
 local professions = {}
-
 --[[ LibProcessable:IsMillable(_item[, ignoreMortar]_)
-Returns `true`/`false` wether the player can mill the given item, and `true`/`false` if using the [Draenic Mortar](http://www.wowhead.com/item=114942).
+Returns whether the player can mill the given item.
 
+**Arguments:**
 * `item`: item ID or link
-* `ignoreMortar`: `true`/`false` if the [Draenic Mortar](http://www.wowhead.com/item=114942) should be ignored or not, if the player has one
+* `ignoreMortar`: whether the [Draenic Mortar](http://www.wowhead.com/item=114942) should be ignored or not _(boolean, optional)_
+
+**Return values:**
+* `isMillable`: Whether or not the player can mill the given item _(boolean)_
 --]]
 function lib:IsMillable(itemID, ignoreMortar)
 	if(type(itemID) == 'string') then
@@ -29,12 +34,16 @@ function lib:IsMillable(itemID, ignoreMortar)
 end
 
 --[[ LibProcessable:IsProspectable(_item_)
-Returns `true`/`false` wether the player can prospect the given item.
+Returns whether the player can prospect the given item.
 
-**NB**: Outland and Pandaria ores have actual skill level requirements which this addon does not check for.
+**Note**: Outland and Pandaria ores have actual skill level requirements which this addon does not check for.  
 See [issue #14](https://github.com/p3lim-wow/LibProcessable/issues/14) for more information.
 
+**Arguments:**
 * `item`: item ID or link
+
+**Return values:**
+* `isProspectable`: Whether or not the player can prospect the given item _(boolean)_
 --]]
 function lib:IsProspectable(itemID)
 	if(type(itemID) == 'string') then
@@ -48,12 +57,16 @@ function lib:IsProspectable(itemID)
 end
 
 --[[ LibProcessable:IsDisenchantable(_item_)
-Returns `true`/`false` wether the player can disenchant the given item.
+Returns whether the player can disenchant the given item.
 
-**NB**: Many items that are not disenchantable will still return as `true`, as the amount of such
+**Note**: Many items that are not disenchantable will still return as `true`, as the amount of such
 items and the volatility of that list is too much effort to keep up to date and accurate.
 
+**Arguments:**
 * `item`: item ID or link
+
+**Return values:**
+* `isDisenchantable`: Whether or not the player can disenchant the given item _(boolean)_
 --]]
 function lib:IsDisenchantable(item)
 	local itemID = item
@@ -105,10 +118,21 @@ local function GetJeweledLockpick(pickLevel)
 	end
 end
 
---[[ LibProcessable:IsOpenable(_item_)
-Returns `true`/`false` wether the player can open the given item with a class ability.
+-- https://www.wowhead.com/items/name:unlock?filter=86;15;0
+local function GetScrollUnlocking(pickLevel)
+	if(pickLevel <= 600 and GetItemCount(169825) > 0) then
+		return 169825, 759, 1 -- Scroll of Unlocking
+	end
+end
 
+--[[ LibProcessable:IsOpenable(_item_)
+Returns whether the player can open the given item with a class ability.
+
+**Arguments:**
 * `item`: item ID or link
+
+**Return values:**
+* `isOpenable`: Whether or not the player can open the given item _(boolean)_
 --]]
 function lib:IsOpenable(itemID)
 	if(type(itemID) == 'string') then
@@ -123,10 +147,17 @@ function lib:IsOpenable(itemID)
 end
 
 --[[ LibProcessable:IsOpenableProfession(_item_)
-Returns `true`/`false` wether the player can open the given item with a profession, and the `itemID`
-of the item used to open with, if any.
+Returns the profession data if the given item can be opened by a profession item that the player
+posesses.
 
+**Arguments:**
 * `item`: item ID or link
+
+**Return values:**
+* `skillRequired`:        The skill required in the profession category _(number)_
+* `professionID`:         The profession ID _(number)_
+* `professionCategoryID`: The profession category ID associated with the unlocking item _(number)_
+* `professionItem`:       The itemID for the unlocking item _(number)_
 --]]
 function lib:IsOpenableProfession(itemID)
 	assert(tonumber(itemID), 'itemID needs to be a number or convertable to a number')
@@ -134,28 +165,33 @@ function lib:IsOpenableProfession(itemID)
 
 	local pickLevel = lib.containers[itemID]
 	if(not pickLevel) then
-		return false
+		return
 	end
 
 	if(self:HasProfession(164)) then -- Blacksmithing
 		local itemID, categoryID, skillLevelRequired = GetSkeletonKey(pickLevel)
 		if(itemID) then
-			local skillLevel = GetProfessionSkill(164, categoryID)
-			return skillLevel >= skillLevelRequired, 164, itemID
+			return skillLevelRequired, 164, categoryID, itemID
 		end
 	end
 
-	if(self:HasProfession(755)) then
+	if(self:HasProfession(755)) then -- Jewelcrafting
 		local itemID, categoryID, skillLevelRequired = GetJeweledLockpick(pickLevel)
 		if(itemID) then
-			local skillLevel = GetProfessionSkill(755, categoryID)
-			return skillLevel >= skillLevelRequired, 755, itemID
+			return skillLevelRequired, 755, categoryID, itemID
+		end
+	end
+
+	if(self:HasProfession(773)) then -- Inscription
+		local itemID, categoryID, skillLevelRequired = GetScrollUnlocking(pickLevel)
+		if(itemID) then
+			return skillLevelRequired, 773, categoryID, itemID
 		end
 	end
 end
 
 --[[ LibProcessable:HasProfession(_professionID_)
-Returns `true`/`false` wether the player has the given profession.
+Returns whether the player has the given profession.
 
 Here's a table with the profession ID for each profession.
 
@@ -173,26 +209,68 @@ Here's a table with the profession ID for each profession.
 | Skinning        | 393           |
 | Tailoring       | 197           |
 
-* `professionID`: a profession's ID
+**Arguments:**
+* `professionID`: The profession ID
+
+**Return values:**
+* `hasProfession`: Whether or not the player has the profession _(boolean)_
 --]]
 function lib:HasProfession(professionID)
 	return not not professions[professionID]
 end
+
+--[[ LibProcessable:GetProfessionCategories(_professionID_)
+Returns data of all category IDs for a given (valid) profession, indexed by the expansion level index.
+
+**Arguments:**
+* `professionID`: The profession ID _(number)_
+
+**Return values:**
+* `categories`: Profession categories _(table)_
+--]]
+function lib:GetProfessionCategories(professionID)
+	local professionCategories = lib.professionCategories[professionID]
+	return professionCategories and CopyTable(professionCategories)
+end
+
+local classicIDs = {
+	[(GetSpellInfo(2259))] = 171, -- Alchemy
+	[(GetSpellInfo(2018))] = 164, -- Blacksmithing
+	[(GetSpellInfo(7411))] = 333, -- Enchanting
+	[(GetSpellInfo(4036))] = 202, -- Engineering
+	[(GetSpellInfo(9134))] = 182, -- Herbalism (spell from gloves with +5 herbalism)
+	[(GetSpellInfo(2108))] = 165, -- Leatherworking
+	[(GetSpellInfo(2575))] = 186, -- Mining
+	[(GetSpellInfo(8613))] = 393, -- Skinning
+	[(GetSpellInfo(3908))] = 197, -- Tailoring
+}
 
 local Handler = CreateFrame('Frame')
 Handler:RegisterEvent('SKILL_LINES_CHANGED')
 Handler:SetScript('OnEvent', function(self, event, ...)
 	table.wipe(professions)
 
-	local first, second = GetProfessions()
-	if(first) then
-		local _, _, _, _, _, _, professionID = GetProfessionInfo(first)
-		professions[professionID] = true
-	end
+	if(CLASSIC) then
+		-- all professions are spells in the first spellbook tab
+		local _, _, offset, numSpells = GetSpellTabInfo(1)
+		for index = offset + 1, offset + numSpells do
+			-- iterate through all the spells to find the professions
+			local professionID = classicIDs[(GetSpellBookItemName(index, BOOKTYPE_SPELL))]
+			if(professionID) then
+				professions[professionID] = true
+			end
+		end
+	else
+		local first, second = GetProfessions()
+		if(first) then
+			local _, _, _, _, _, _, professionID = GetProfessionInfo(first)
+			professions[professionID] = true
+		end
 
-	if(second) then
-		local _, _, _, _, _, _, professionID = GetProfessionInfo(second)
-		professions[professionID] = true
+		if(second) then
+			local _, _, _, _, _, _, professionID = GetProfessionInfo(second)
+			professions[professionID] = true
+		end
 	end
 end)
 
@@ -228,13 +306,14 @@ lib.ores = {
 	[152579] = true, -- Storm Silver Ore
 	[152512] = true, -- Monelite Ore
 	[152513] = true, -- Platinum Ore
+	[155830] = true, -- Runic Core, BfA Jewelcrafting Quest
 	[168185] = true, -- Osmenite Ore
 }
 
 --[[ LibProcessable.herbs
 Table of all herbs that can be milled by a scribe.
 
-See [LibProcessable:IsMillable()](LibProcessable#libprocessableismillableitemignoremortar).
+See [LibProcessable:IsMillable()](LibProcessable#libprocessableismillableitem-ignoremortar).
 --]]
 lib.herbs = {
 	-- http://www.wowhead.com/spell=51005/milling#milled-from:0+1+17-20
@@ -316,7 +395,7 @@ lib.herbs = {
 	[152506] = true, -- Star Moss
 	[152505] = true, -- Riverbud
 	[152510] = true, -- Anchor Weed
-	[168487] = true, -- Zinanthid
+	[168487] = true, -- Zin'anthid
 }
 
 --[[ LibProcessable.enchantingItems
@@ -343,6 +422,8 @@ lib.containers = {
 	-- http://www.wowhead.com/items?filter=10:161:128;1:1:1;::
 	[4632] = 1, -- Ornate Bronze Lockbox
 	[6354] = 1, -- Small Locked Chest
+	[6712] = 1, -- Practice Lock (Classic)
+	[7209] = 1, -- Tazan's Satchel
 	[16882] = 1, -- Battered Junkbox
 	[4633] = 25, -- Heavy Bronze Lockbox
 	[4634] = 70, -- Iron Lockbox
@@ -373,4 +454,122 @@ lib.containers = {
 	[116920] = 500, -- True Steel Lockbox
 	[121331] = 550, -- Leystone Lockbox
 	[169475] = 600, -- Barnacled Lockbox
+}
+
+--[[ LibProcessable.professionCategories
+Table of all professionIDs and their respective categories, indexed by expansion ID.
+
+See [LibProcessable:GetProfessionCategories()](LibProcessable#libprocessablegetprofessioncategoriesprofessionid).
+--]]
+lib.professionCategories = {
+	[171] = { -- Alchemy
+		604, -- Classic
+		602, -- Outland
+		600, -- Northrend
+		598, -- Cataclysm
+		596, -- Pandaria
+		332, -- Draenor
+		433, -- Legion
+		592, -- Zandalari/Kul Tiran
+	},
+	[164] = { -- Blacksmithing
+		590, -- Classic
+		584, -- Outland
+		577, -- Northrend
+		569, -- Cataclysm
+		553, -- Pandaria
+		389, -- Draenor
+		426, -- Legion
+		542, -- Zandalari/Kul Tiran
+	},
+	[333] = { -- Enchanting
+		667, -- Classic
+		665, -- Outland
+		663, -- Northrend
+		661, -- Cataclysm
+		656, -- Pandaria
+		348, -- Draenor
+		443, -- Legion
+		647, -- Zandalari/Kul Tiran
+	},
+	[202] = { -- Engineering
+		419, -- Classic
+		719, -- Outland
+		717, -- Northrend
+		715, -- Cataclysm
+		713, -- Pandaria
+		347, -- Draenor
+		469, -- Legion
+		709, -- Zandalari/Kul Tiran
+	},
+	[182] = { -- Herbalism
+		1044, -- Classic
+		1042, -- Outland
+		1040, -- Northrend
+		1038, -- Cataclysm
+		1036, -- Pandaria
+		1034, -- Draenor
+		456, -- Legion
+		1029, -- Zandalari/Kul Tiran
+	},
+	[773] = { -- Inscription
+		415, -- Classic
+		769, -- Outland
+		767, -- Northrend
+		765, -- Cataclysm
+		763, -- Pandaria
+		410, -- Draenor
+		450, -- Legion
+		759, -- Zandalari/Kul Tiran
+	},
+	[755] = { -- Jewelcrafting
+		372, -- Classic
+		815, -- Outland
+		813, -- Northrend
+		811, -- Cataclysm
+		809, -- Pandaria
+		373, -- Draenor
+		464, -- Legion
+		805, -- Zandalari/Kul Tiran
+	},
+	[165] = { -- Leatherworking
+		379, -- Classic
+		882, -- Outland
+		880, -- Northrend
+		878, -- Cataclysm
+		876, -- Pandaria
+		380, -- Draenor
+		460, -- Legion
+		871, -- Zandalari/Kul Tiran
+	},
+	[186] = { -- Mining
+		1078, -- Classic
+		1076, -- Outland
+		1074, -- Northrend
+		1072, -- Cataclysm
+		1070, -- Pandaria
+		nil, -- Draenor
+		425, -- Legion
+		1065, -- Zandalari/Kul Tiran
+	},
+	[393] = { -- Skinning
+		1060, -- Classic
+		1058, -- Outland
+		1056, -- Northrend
+		1054, -- Cataclysm
+		nil, -- Pandaria
+		nil, -- Draenor
+		459, -- Legion
+		1046, -- Zandalari/Kul Tiran
+	},
+	[197] = { -- Tailoring
+		362, -- Classic
+		956, -- Outland
+		954, -- Northrend
+		952, -- Cataclysm
+		950, -- Pandaria
+		369, -- Draenor
+		430, -- Legion
+		942, -- Zandalari/Kul Tiran
+	},
 }

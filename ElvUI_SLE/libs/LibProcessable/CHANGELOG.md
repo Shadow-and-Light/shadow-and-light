@@ -1,8 +1,8 @@
 # Lib: Processable
 
-## [31](https://github.com/p3lim-wow/LibProcessable/tree/31) (2018-07-24)
-[Full Changelog](https://github.com/p3lim-wow/LibProcessable/compare/30...31)
+## [37](https://github.com/p3lim-wow/LibProcessable/tree/37) (2019-09-05)
+[Full Changelog](https://github.com/p3lim-wow/LibProcessable/compare/36...37)
 
 - Update version  
-- I give up  
-    See issue #14 for more information  
+- Simplify the classic profession check  
+    Might not be accurate or complete  

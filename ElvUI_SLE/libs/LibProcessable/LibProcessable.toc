@@ -1,6 +1,6 @@
 ## Interface: 80000
 ## Author: p3lim
-## Version: 31
+## Version: 37
 ## Title: Lib: Processable
 ## Notes: Library that lets you easily check if you can process resources
 ## OptionalDeps: LibStub
