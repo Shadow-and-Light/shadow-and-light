@@ -71,11 +71,11 @@ local list_sort = {
 		end
 	end,
 	RANKINDEX =	function(a, b)
-		if not a.rank or not b.rank then
+		if not a.rankIndex or not b.rankIndex then
 			return false
-		elseif a.rank > b.rank then
+		elseif a.rankIndex > b.rankIndex then
 			return true
-		elseif a.rank < b.rank then
+		elseif a.rankIndex < b.rankIndex then
 			return false
 		else -- TOONNAME
 			return a.name < b.name
@@ -108,11 +108,11 @@ local list_sort = {
 		end
 	end,
 	revRANKINDEX = function(a, b)
-		if not a.rank or not b.rank then
+		if not a.rankIndex or not b.rankIndex then
 			return false
-		elseif a.rank < b.rank then
+		elseif a.rankIndex < b.rankIndex then
 			return true
-		elseif a.rank > b.rank then
+		elseif a.rankIndex > b.rankIndex then
 			return false
 		else -- TOONNAME
 			return a.name < b.name
