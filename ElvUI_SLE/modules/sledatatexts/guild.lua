@@ -133,7 +133,7 @@ local list_sort = {
 
 local function inGroup(name)
 	local shortName, realmName = strsplit("-", name)
-	realmName = gsub(E.myrealm,'[%s%-]','')
+	realmName = gsub(realmName,'[%s%-]','')
 
 	if E.myrealm == realmName then name = shortName end
 	if T.GetNumSubgroupMembers() > 0 and T.UnitInParty(name) then
