@@ -1,7 +1,7 @@
 v3.61 [November , 2019]
 Fixes:
 - Fixed stats scrollbar feeling like doubling itself
-- Some fixes for guild dt. Blame Repooc.
+- Some fixes for guild dt. Blame Repooc. (He's right, I have found more since this message lol)
 - Sorting fixed for friends. Still blame Repooc.
 - Fixed install trying to serach for deprecated table
 - Fixed armory trying to convince people they need to enchant their off-hands
