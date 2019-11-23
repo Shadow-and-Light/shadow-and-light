@@ -1,6 +1,7 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
 local DT = E:GetModule('DataTexts')
 local LibQTip = LibStub('LibQTip-1.0')
+local DT_myrealm = gsub(E.myrealm,"[%s%-]","")
 
 local _G = _G
 local IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown = IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown
@@ -131,13 +132,15 @@ local list_sort = {
 	end
 }
 
-local function inGroup(name)
+local function nameShorten(name)
 	local shortName, realmName = strsplit("-", name)
-	realmName = gsub(realmName,'[%s%-]','')
-	
-	local myrealm = gsub(E.myrealm,'[%s%-]','')
-	if myrealm == realmName then name = shortName end
+	realmName = gsub(realmName,"[%s%-]","")
 
+	return shortName, realmName
+end
+
+local function inGroup(name)
+	local shortName, realmName = nameShorten(name)
 	if T.GetNumSubgroupMembers() > 0 and T.UnitInParty(name) then
 		return true
 	elseif T.GetNumGroupMembers() > 0 and T.UnitInRaid(name) then
@@ -148,9 +151,8 @@ local function inGroup(name)
 end
 
 local function onServer(name)
-	local shortName, realmName = strsplit("-", name)
-
-	if E.myrealm == realmName then
+	local shortName, realmName = nameShorten(name)
+	if DT_myrealm == realmName then
 		return shortName
 	else
 		return name
