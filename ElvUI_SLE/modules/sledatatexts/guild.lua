@@ -141,6 +141,8 @@ end
 
 local function inGroup(name)
 	local shortName, realmName = nameShorten(name)
+
+	if DT_myrealm == realmName then name = shortName end
 	if T.GetNumSubgroupMembers() > 0 and T.UnitInParty(name) then
 		return true
 	elseif T.GetNumGroupMembers() > 0 and T.UnitInRaid(name) then
