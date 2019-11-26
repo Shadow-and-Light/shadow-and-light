@@ -11,7 +11,6 @@ local _CompList = {
 	"ElvUI_MerathilisUI",
 	"ElvUI_NihilistUI",
 	"ElvUI_PagedLootHistory",
-	"ElvUI_VisualAuraTimers",
 	"LootConfirm", --Module incompatible
 	"Mapster", --Module partially incompatible
 	"Pawn", --Cause armory
