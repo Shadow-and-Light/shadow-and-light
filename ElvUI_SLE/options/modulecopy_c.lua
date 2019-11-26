@@ -385,7 +385,6 @@ local function configTable()
 			},
 			actionbar = MC:CreateModuleConfigGroup(L["ActionBars"], "actionbars", "sle"),
 			armory = CreateArmory(),
-			auras = MC:CreateModuleConfigGroup(L["Auras"], "auras", "sle"),
 			backgrounds = CreateBackgrounds(),
 			bags = CreateBags(),
 			blizzard = MC:CreateModuleConfigGroup("Blizzard", "blizzard", "sle"),
