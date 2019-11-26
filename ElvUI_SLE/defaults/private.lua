@@ -253,9 +253,6 @@ if G["profileCopy"] then
 			["inspect"] = true,
 			["stats"] = true,
 		},
-		["auras"] = {
-			["general"] = true,
-		},
 		["backgrounds"] = {
 			["bg1"] = true,
 			["bg2"] = true,

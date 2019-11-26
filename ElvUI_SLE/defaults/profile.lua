@@ -156,11 +156,6 @@ P["sle"] = {
 			["replacement"] = true,
 		},
 	},
-	--Auras
-	["auras"] = {
-		["hideBuffsTimer"] = false,
-		["hideDebuffsTimer"] = false,
-	},
 	--Backgrounds
 	["backgrounds"] = {
 		["bg1"] = {
