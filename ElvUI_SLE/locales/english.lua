@@ -1000,8 +1000,11 @@ The rest of TukUI community
 ]=]
 L["ELVUI_SLE_DONORS_TITLE"] = "Thanks to these awesome people for supporting our work via one time donations:"
 L["ELVUI_SLE_DONORS"] = [[Anthony Ross
+Bogdan Vozniuk
+Christopher Yallalee
 Chun Kim
 Cyntia McCarthy
+Jason Grier
 Joe Quarles
 Jonathan Sweet
 Katherine Clarkson
