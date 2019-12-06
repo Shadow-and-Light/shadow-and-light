@@ -1,4 +1,6 @@
-v3.61 [November , 2019]
+v3.61 [December 6th , 2019]
+Changes:
+- Aura options are gone, cause core ElvUI happened.
 Fixes:
 - Fixed stats scrollbar feeling like doubling itself
 - Some fixes for guild dt. Blame Repooc. (He's right, I have found more since this message lol)
@@ -11,7 +13,6 @@ Armory:
 - Decimal values for stats are now working again
 - Module copy is now supporting armory
 - Added forgotten option for overlay on inspect frame. Blame Darth.
-
 
 v3.60 [November 10th, 2019]
 Requires ElvUI 11.25
