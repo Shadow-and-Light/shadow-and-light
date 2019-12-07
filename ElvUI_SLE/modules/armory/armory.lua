@@ -8,8 +8,9 @@ local CA, IA, SA
 Armory.Constants = {}
 
 --Cache--
-local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
+-- local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
 local LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION = LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION
+local TRANSMOGRIFIED_HEADER = TRANSMOGRIFIED_HEADER
 
 local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
 local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
@@ -82,6 +83,33 @@ function Armory:BuildFrameDefaultsCache(which)
 	Armory.Constants[which.."_Defaults_Cached"] = true
 end
 
+function Armory:ClearTooltip(Tooltip)
+	local TooltipName = Tooltip:GetName()
+	
+	Tooltip:ClearLines()
+	for i = 1, 10 do
+		_G[TooltipName.."Texture"..i]:SetTexture(nil)
+		_G[TooltipName.."Texture"..i]:ClearAllPoints()
+		_G[TooltipName.."Texture"..i]:Point("TOPLEFT", Tooltip)
+	end
+end
+
+function Armory:GetTransmogInfo(Slot, which, unit)
+	local transmogLink, TooltipText
+	Armory:ClearTooltip(Armory.ScanTT)
+	Armory.ScanTT:SetInventoryItem(unit, Slot.ID)
+
+	for i = 1, Armory.ScanTT:NumLines() do
+		TooltipText = _G["SLE_Armory_ScanTTTextLeft"..i]:GetText()
+
+		if TooltipText:match(TRANSMOGRIFIED_HEADER) then
+			transmogLink = _G["SLE_Armory_ScanTTTextLeft"..(i + 1)]:GetText()
+			Armory:ClearTooltip(Armory.ScanTT)
+			return transmogLink
+		end
+	end
+end
+
 --Updates the frame
 function Armory:UpdatePageInfo(frame, which, guid, event)
 	if not (frame and which) then return end
@@ -92,8 +120,12 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 		local Slot = _G[which..SlotName]
 		if Slot then
 			if Slot.TransmogInfo then
-				if E.db.sle.armory[window].enable and C_Transmog_GetSlotInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE) then
+				if which == "Character" then
 					Slot.TransmogInfo.Link = T.select(6, C_TransmogCollection_GetAppearanceSourceInfo(T.select(3, C_Transmog_GetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE))));
+				else
+					Slot.TransmogInfo.Link = Armory:GetTransmogInfo(Slot, which, unit)
+				end
+				if E.db.sle.armory[window].enable and Slot.TransmogInfo.Link then
 					if E.db.sle.armory[window].transmog.enableArrow then Slot.TransmogInfo:Show() else Slot.TransmogInfo:Hide() end
 					if E.db.sle.armory[window].transmog.enableGlow then
 						LCG.AutoCastGlow_Start(Slot,{1, .5, 1, 1},E.db.sle.armory[window].transmog.glowNumber,0.25,1,E.db.sle.armory[window].transmog.glowOffset,E.db.sle.armory[window].transmog.glowOffset,"_TransmogGlow")
@@ -101,6 +133,7 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 						LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
 					end
 				else
+					Slot.TransmogInfo.Link = nil
 					Slot.TransmogInfo:Hide()
 					LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
 				end
@@ -248,10 +281,20 @@ end
 
 --<<<<<Transmog functions>>>>>--
 function Armory:Transmog_OnEnter()
+	if not self.Link then return end
 	self.Texture:SetVertexColor(1, .8, 1)
 
-	_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
-	_G["GameTooltip"]:SetHyperlink(self.Link)
+	_G["GameTooltip"]:SetOwner(self, "ANCHOR_RIGHT")
+	if self.isInspect then
+		local inspectLink = T.select(2, T.GetItemInfo(self.Link)) --In case the client actually decides to give us the info
+		if inspectLink then
+			_G["GameTooltip"]:SetHyperlink(inspectLink)
+		else
+			_G["GameTooltip"]:SetText(self.Link)
+		end
+	else
+		_G["GameTooltip"]:SetHyperlink(self.Link)
+	end
 	_G["GameTooltip"]:Show()
 end
 

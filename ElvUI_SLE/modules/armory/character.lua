@@ -111,15 +111,7 @@ function CA:BuildLayout()
 				LCG.PixelGlow_Stop(self, "_AzeriteTraitGlow")
 			end
 		end)
-		
-		-- if SlotName == "NeckSlot" then
-			-- Slot.RankFrame:StripTextures()
-			-- Slot.RankFrame:SetTemplate("Transparent")
-			-- Slot.RankFrame:SetSize(16, 16)
-			-- Slot.RankFrame:SetPoint("BOTTOMLEFT", Slot, 0 + E.db.sle.Armory.Character.AzeritePosition.xOffset, 2 + E.db.sle.Armory.Character.AzeritePosition.yOffset)
-			-- Slot.RankFrame.Label:SetPoint("CENTER", Slot.RankFrame, 1, 0)
-		-- end
-		
+
 		--<<Transmog>>--
 		if Armory.Constants.CanTransmogrify[SlotName] then
 			Slot.TransmogInfo = CreateFrame('Button', SlotName.."_SLE_TransmogInfo", Slot)

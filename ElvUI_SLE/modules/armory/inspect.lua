@@ -87,6 +87,8 @@ function IA:BuildLayout()
 			Slot.TransmogInfo.Texture:SetTexture(Armory.Constants.TransmogTexture)
 			Slot.TransmogInfo.Texture:SetVertexColor(1, .5, 1)
 
+			Slot.TransmogInfo.isInspect = true
+
 			if Slot.Direction == 'LEFT' then
 				Slot.TransmogInfo.Texture:SetTexCoord(0, 1, 0, 1)
 			else
