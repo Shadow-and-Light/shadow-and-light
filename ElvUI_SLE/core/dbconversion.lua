@@ -18,18 +18,6 @@ function SLE:DatabaseConversions()
 		local profileChanged = false
 		if data then
 			if data.sle then
-				if data.sle.Armory then
-					if data.sle.Armory.Character then
-						if data.sle.Armory.Character.Level then
-							if data.sle.Armory.Character.Level.ItemColor then
-								if T.type(data.sle.Armory.Character.Level.ItemColor) == "boolean" then
-									data.sle.Armory.Character.Level.ItemColor = P.sle.Armory.Character.Level.ItemColor
-									profileChanged = true
-								end
-							end
-						end
-					end
-				end
 				if data.sle.minimap and data.sle.minimap.locPanel then
 					if data.sle.minimap.portals then
 						if T.type(data.sle.minimap.locPanel.portals.hsPrio) == "table" then
