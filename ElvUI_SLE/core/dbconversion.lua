@@ -18,6 +18,7 @@ function SLE:DatabaseConversions()
 		local profileChanged = false
 		if data then
 			if data.sle then
+				if data.sle.Armory then data.sle.Armory = nil; profileChanged = true end
 				if data.sle.minimap and data.sle.minimap.locPanel then
 					if data.sle.minimap.portals then
 						if T.type(data.sle.minimap.locPanel.portals.hsPrio) == "table" then
