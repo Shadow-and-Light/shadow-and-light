@@ -9,7 +9,7 @@ local CharacterNames = NONE
 
 --Convers all the things!
 function SLE:DatabaseConversions()
-	if ElvDB.SLE_DB_Ver == SLE.version and not SLE_Test then return end --Only execute all this shit when current database is actually outdated.
+	if ElvDB.SLE_DB_Ver == SLE.DBversion and not SLE_Test then return end --Only execute all this shit when current database is actually outdated.
 	--Profile options conversion
 	for profile, data in T.pairs(ElvDB.profiles) do
 		-- if profile ~= "Minimalistic" then
@@ -87,6 +87,6 @@ function SLE:DatabaseConversions()
 		end
 	end
 
-	if not SLE_Test then ElvDB.SLE_DB_Ver = SLE.version end
+	if not SLE_Test then ElvDB.SLE_DB_Ver = SLE.DBversion end
 	E:StaticPopup_Show("SLE_CONVERSION_COMPLETE", ProfileNames, CharacterNames)
 end
