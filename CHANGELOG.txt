@@ -1,3 +1,7 @@
+v3.62 [December 7th , 2019]
+Fixes:
+- Fixed old armory dbconversion code that kept S&L from loading
+
 v3.61 [December 6th , 2019]
 Changes:
 - Aura options are gone, cause core ElvUI happened.
