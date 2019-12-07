@@ -18,7 +18,7 @@ local function configTable()
 		name = L["Inspect Armory"],
 		order = 20,
 		disabled = function() return not E.db.sle.armory.inspect.enable end,
-		hidden = function() return not E.private.skins.blizzard.inspect end,
+		hidden = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.inspect end,
 		args = {
 			title = {
 				type = "header",

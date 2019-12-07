@@ -18,7 +18,7 @@ local function configTable()
 		name = STAT_CATEGORY_ATTRIBUTES,
 		order = 30,
 		disabled = function() return SLE._Compatibility["DejaCharacterStats"] or not E.db.sle.armory.stats.enable end,
-		hidden = function() return not E.private.skins.blizzard.character end,
+		hidden = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.character end,
 		get = function(info) return E.db.sle.armory.stats[ info[#info] ] end,
 		set = function(info, value) E.db.sle.armory.stats[ info[#info] ] = value; PaperDollFrame_UpdateStats(); M:UpdateCharacterItemLevel(); end,
 		args = {
