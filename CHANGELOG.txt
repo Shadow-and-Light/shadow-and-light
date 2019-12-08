@@ -1,3 +1,12 @@
+v3.63 [December , 2019]
+Fixes:
+- Inspect transmog info being wrong. Now it will roll back to just name if no item link is available.
+- Fixed potential incompatibility with DejaCharacterStats
+Additions:
+- Added an option to control note and officer note text color in guild dt
+Changes:
+- Since people apparently can't put two and two together, Armory config group will be show yet again with skins disabled providing no options and a text explanation. Hopefully people can at least read.
+
 v3.62 [December 7th , 2019]
 Fixes:
 - Fixed old armory dbconversion code that kept S&L from loading
