@@ -424,7 +424,8 @@ function OnEnter(self, _, noUpdate)
 
 	for _, info in T.ipairs(guildTable) do
 		local classc = (_G.CUSTOM_CLASS_COLORS and _G.CUSTOM_CLASS_COLORS[info.class]) or _G.RAID_CLASS_COLORS[info.class]
- 
+		local onoteColor = E.db.sle.dt.guild.onoteColor
+
 		line = tooltip:AddLine()
 		line = tooltip:SetCell(line, 1, ColoredLevel(info.level))
 		line = tooltip:SetCell(line, 2, info.status)
@@ -437,7 +438,8 @@ function OnEnter(self, _, noUpdate)
 				line = tooltip:SetCell(line, 7, info.note)
 			else				
 				line = tooltip:SetCell(line, 7, info.note)
-				line = tooltip:SetCell(line, 8, "[" .. info.officerNote .. "]")
+				line = tooltip:SetCell(line, 8, T.format(nameString, onoteColor.r*255,onoteColor.g*255,onoteColor.b*255, info.officerNote or ""))
+				-- line = tooltip:SetCell(line, 8, "[" .. info.officerNote .. "]")
 			end
 		end
 

@@ -75,6 +75,21 @@ local function configTable()
 				get = function(info) return E.db.sle.dt.guild.tooltipAutohide end,
 				set = function(info, value) E.db.sle.dt.guild.tooltipAutohide = value; end,
 			},
+			onoteColor = {
+				type = "color",
+				order = 11,
+				name = "Officer Note Text Color",
+				hasAlpha = false,
+				get = function(info)
+					local t = E.db.sle.dt.guild[info[#info]]
+					return t.r, t.g, t.b, t.a
+				end,
+				set = function(info, r, g, b)
+					E.db.sle.dt.guild[info[#info]] = {}
+					local t = E.db.sle.dt.guild[info[#info]]
+					t.r, t.g, t.b = r, g, b
+				end,
+			},
 		},
 	}
 end
