@@ -424,6 +424,7 @@ P["sle"] = {
 			["totals"] = false,
 			["textStyle"] = "Default",
 			["onoteColor"] = { r = 0, g = 1, b = 0 },
+			["noteColor"] = { r = 1, g = 1, b = 0 },
 		},
 		["mail"] = {
 			["icon"] = true,

@@ -26,6 +26,7 @@ local noGuildString = ""
 local guildInfoString = "%s"
 local guildInfoString2 = GUILD..": %d/%d"
 local nameString = "|cff%02x%02x%02x%s|r"
+local onoteString = "|cff%02x%02x%02x[%s]|r"
 local guildTable, guildMotD, lastPanel = {}, ""
 local tooltip
 local LDB_ANCHOR
@@ -425,6 +426,7 @@ function OnEnter(self, _, noUpdate)
 	for _, info in T.ipairs(guildTable) do
 		local classc = (_G.CUSTOM_CLASS_COLORS and _G.CUSTOM_CLASS_COLORS[info.class]) or _G.RAID_CLASS_COLORS[info.class]
 		local onoteColor = E.db.sle.dt.guild.onoteColor
+		local noteColor = E.db.sle.dt.guild.noteColor
 
 		line = tooltip:AddLine()
 		line = tooltip:SetCell(line, 1, ColoredLevel(info.level))
@@ -434,11 +436,10 @@ function OnEnter(self, _, noUpdate)
 		line = tooltip:SetCell(line, 6, info.rank)
 
 		if not E.db.sle.dt.guild.hide_guild_onotes then
-			if (info.officerNote == "") or (info.officerNote == nil) then
-				line = tooltip:SetCell(line, 7, info.note)
-			else				
-				line = tooltip:SetCell(line, 7, info.note)
-				line = tooltip:SetCell(line, 8, T.format(nameString, onoteColor.r*255,onoteColor.g*255,onoteColor.b*255, info.officerNote or ""))
+			line = tooltip:SetCell(line, 7, T.format(nameString, noteColor.r*255, noteColor.g*255, noteColor.b*255, info.note or ""))
+			if (info.officerNote and info.officerNote ~= "") then
+				-- line = tooltip:SetCell(line, 7, info.note)
+				line = tooltip:SetCell(line, 8, T.format(onoteString, onoteColor.r*255, onoteColor.g*255, onoteColor.b*255, info.officerNote or ""))
 				-- line = tooltip:SetCell(line, 8, "[" .. info.officerNote .. "]")
 			end
 		end
