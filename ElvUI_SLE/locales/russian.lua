@@ -455,6 +455,8 @@ L["Tracked"] = "Отслеживание"
 L["Gold Throttle"] = "Фильтрация золота"
 L["Mode"] = "Режим"
 L["Amount of gold needed on a character to show it in the list"] = "Кол-во золота, которое должно быть на персонаже, чтобы он отображался в списке."
+L["Public Note Text Color"] = "Цвет заметки"
+L["Officer Note Text Color"] = "Цвет офицерской заметки"
 
 --Enhanced Shadows
 L["Enhanced Shadows"] = "Улучшенные тени"

@@ -464,6 +464,8 @@ L["Tracked"] = true
 L["Gold Throttle"] = true
 L["Mode"] = true
 L["Amount of gold needed on a character to show it in the list"] = true
+L["Public Note Text Color"] = true
+L["Officer Note Text Color"] = true
 
 --Enhanced Shadows
 L["Enhanced Shadows"] = true

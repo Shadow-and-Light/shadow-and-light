@@ -78,11 +78,12 @@ local function configTable()
 			noteColor = {
 				type = "color",
 				order = 11,
-				name = "Public Note Text Color",
+				name = L["Public Note Text Color"],
 				hasAlpha = false,
 				get = function(info)
 					local t = E.db.sle.dt.guild[info[#info]]
-					return t.r, t.g, t.b, t.a
+					local d = P.sle.dt.guild[info[#info]]
+					return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 				end,
 				set = function(info, r, g, b)
 					E.db.sle.dt.guild[info[#info]] = {}
@@ -93,11 +94,12 @@ local function configTable()
 			onoteColor = {
 				type = "color",
 				order = 12,
-				name = "Officer Note Text Color",
+				name = L["Officer Note Text Color"],
 				hasAlpha = false,
 				get = function(info)
 					local t = E.db.sle.dt.guild[info[#info]]
-					return t.r, t.g, t.b, t.a
+					local d = P.sle.dt.guild[info[#info]]
+					return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 				end,
 				set = function(info, r, g, b)
 					E.db.sle.dt.guild[info[#info]] = {}
