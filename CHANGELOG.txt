@@ -2,7 +2,7 @@ v3.63 [December , 2019]
 Fixes:
 - Inspect transmog info being wrong. Now it will roll back to just name if no item link is available.
 - Fixed potential incompatibility with DejaCharacterStats
-- Item Level Gradient option error fixed
+- Item Level Gradient option error fixed (Blame Darth)
 Additions:
 - Added an option to control note and officer note text color in guild dt
 Changes:
