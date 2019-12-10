@@ -146,7 +146,7 @@ end
 
 --Updates ilvl and everything tied to the item somehow
 function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
-	if not Armory:CheckOptions(which) then return end 
+	if not Armory:CheckOptions(which) then return end
 	if slotInfo.itemLevelColors then
 		local window = T.lower(which) --to know which settings table to use
 		if E.db.sle.armory[window] and E.db.sle.armory[window].enable then --If settings table actually exists and armory for it is enabled
@@ -155,7 +155,12 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 				Slot.iLvlText:SetTextColor(T.unpack(slotInfo.itemLevelColors)) --Busyness as usual
 			elseif E.db.sle.armory[window].ilvl.colorType == "GRADIENT" then
 				local equippedIlvl = window == "character" and T.select(2, T.GetAverageItemLevel()) or E:CalculateAverageItemLevel(iLevelDB, _G["InspectFrame"].unit)
-				local diff = slotInfo.iLvl - equippedIlvl
+				local diff
+				if slotInfo.iLvl then
+					diff = slotInfo.iLvl - equippedIlvl
+				else
+					diff = 0
+				end
 				local aR, aG, aB
 				if diff >= 0 then
 					aR, aG, aB = 0,1,0
