@@ -83,6 +83,12 @@ function SLE:Initialize()
 	if E.db.general.loginmessage then
 		SLE:Print(Toolkit.format(L["SLE_LOGIN_MSG"], E["media"].hexvaluecolor, SLE.version), "info")
 	end
+	
+	hooksecurefunc(E, "PLAYER_ENTERING_WORLD", function(self, _, initLogin)
+		if initLogin or not ElvDB.SLErrorDisabledAddOns then
+			ElvDB.SLErrorDisabledAddOns = {}
+		end
+	end)
 
 	SLE:BuildGameMenu()
 	SLE:CyrillicsInit()
