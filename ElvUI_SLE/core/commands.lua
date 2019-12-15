@@ -7,7 +7,7 @@ function SLE:LuaError(msg)
 			local name = GetAddOnInfo(i)
 			if (name ~= 'ElvUI' and name ~= 'ElvUI_OptionsUI' and name ~= 'ElvUI_SLE' and name ~= 'ElvUI_SLE_Dev') and E:IsAddOnEnabled(name) then
 				DisableAddOn(name, E.myname)
-				ElvDB.LuaErrorDisabledAddOns[name] = i
+				ElvDB.SLErrorDisabledAddOns[name] = i
 			end
 		end
 
@@ -19,12 +19,12 @@ function SLE:LuaError(msg)
 			SLE:Print('Lua errors off.')
 		end
 
-		if next(ElvDB.LuaErrorDisabledAddOns) then
-			for name in pairs(ElvDB.LuaErrorDisabledAddOns) do
+		if next(ElvDB.SLErrorDisabledAddOns) then
+			for name in pairs(ElvDB.SLErrorDisabledAddOns) do
 				EnableAddOn(name, E.myname)
 			end
 
-			wipe(ElvDB.LuaErrorDisabledAddOns)
+			wipe(ElvDB.SLErrorDisabledAddOns)
 			ReloadUI()
 		end
     else
