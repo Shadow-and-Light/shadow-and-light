@@ -5,6 +5,7 @@ Fixes:
 - Item Level Gradient option error fixed (Blame Darth)
 Additions:
 - Added an option to control note and officer note text color in guild dt
+- Added slash command /slerror that works just like ElvUI's /luaerror but keeps S&L enabled
 Changes:
 - Since people apparently can't put two and two together, Armory config group will be show yet again with skins disabled providing no options and a text explanation. Hopefully people can at least read.
 
