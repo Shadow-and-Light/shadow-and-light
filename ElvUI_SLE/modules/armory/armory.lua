@@ -95,6 +95,7 @@ function Armory:ClearTooltip(Tooltip)
 end
 
 function Armory:GetTransmogInfo(Slot, which, unit)
+	if not which or not unit then return nil end
 	local transmogLink, TooltipText
 	Armory:ClearTooltip(Armory.ScanTT)
 	Armory.ScanTT:SetInventoryItem(unit, Slot.ID)
@@ -122,8 +123,10 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 			if Slot.TransmogInfo then
 				if which == "Character" then
 					Slot.TransmogInfo.Link = T.select(6, C_TransmogCollection_GetAppearanceSourceInfo(T.select(3, C_Transmog_GetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE))));
-				else
+				elseif which == "Inspect" then
 					Slot.TransmogInfo.Link = Armory:GetTransmogInfo(Slot, which, unit)
+				else
+					return
 				end
 				if E.db.sle.armory[window].enable and Slot.TransmogInfo.Link then
 					if E.db.sle.armory[window].transmog.enableArrow then Slot.TransmogInfo:Show() else Slot.TransmogInfo:Hide() end
