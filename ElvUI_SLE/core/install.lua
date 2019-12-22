@@ -1312,11 +1312,11 @@ function PI:DarthOldSetup()
 		E.db["sle"]["armory"]["stats"]["List"]["HEALTH"] = true
 		E.db["sle"]["armory"]["stats"]["List"]["POWER"] = true
 		E.db["sle"]["armory"]["stats"]["List"]["MOVESPEED"] = true
-		E.db["sle"]["armory"]["сharacter"]["durability"]["fontSize"] = 10
-		E.db["sle"]["armory"]["сharacter"]["ilvl"]["fontSize"] = 12
-		E.db["sle"]["armory"]["сharacter"]["background"]["selectedBG"] = "TheEmpire"
-		E.db["sle"]["armory"]["сharacter"]["background"]["overlay"] = false
-		E.db["sle"]["armory"]["сharacter"]["gradient"]["quality"] = true
+		-- E.db["sle"]["armory"]["сharacter"]["durability"]["fontSize"] = 10
+		-- E.db["sle"]["armory"]["сharacter"]["ilvl"]["fontSize"] = 12
+		-- E.db["sle"]["armory"]["сharacter"]["background"]["selectedBG"] = "TheEmpire"
+		-- E.db["sle"]["armory"]["сharacter"]["background"]["overlay"] = false
+		-- E.db["sle"]["armory"]["сharacter"]["gradient"]["quality"] = true
 	end
 	--Movers
 	do
