@@ -1,4 +1,4 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local PI = E:GetModule("PluginInstaller")
 PI.SLE_Auth = ""
 PI.SLE_Word = ""
@@ -301,7 +301,7 @@ function PI:DarthSetup()
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["height"] = 12
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["format"] = "[health:current-percent]"
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["fontSize"] = 14
-		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["filters"]["maxDuration"] = 0
+		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["maxDuration"] = 0
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["yOffset"] = 40
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["fontSize"] = 14
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = "[name:medium]"
