@@ -1,4 +1,4 @@
-﻿-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local PI = E:GetModule("PluginInstaller")
 PI.SLE_Auth = ""
 PI.SLE_Word = ""
