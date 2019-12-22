@@ -1306,17 +1306,17 @@ function PI:DarthOldSetup()
 		E.db["sle"]["armory"]["inspect"]["ilvl"]["fontSize"] = 12
 		E.db["sle"]["armory"]["inspect"]["enchant"]["fontSize"] = 10
 		E.db["sle"]["armory"]["character"]["enchant"]["fontSize"] = 11
+		E.db["sle"]["armory"]["character"]["durability"]["fontSize"] = 10
+		E.db["sle"]["armory"]["character"]["ilvl"]["fontSize"] = 12
+		E.db["sle"]["armory"]["character"]["background"]["selectedBG"] = "TheEmpire"
+		E.db["sle"]["armory"]["character"]["background"]["overlay"] = false
+		E.db["sle"]["armory"]["character"]["gradient"]["quality"] = true
 		E.db["sle"]["armory"]["stats"]["IlvlColor"] = true
 		E.db["sle"]["armory"]["stats"]["IlvlFull"] = true
 		E.db["sle"]["armory"]["stats"]["List"]["SPELLPOWER"] = true
 		E.db["sle"]["armory"]["stats"]["List"]["HEALTH"] = true
 		E.db["sle"]["armory"]["stats"]["List"]["POWER"] = true
 		E.db["sle"]["armory"]["stats"]["List"]["MOVESPEED"] = true
-		E.db["sle"]["armory"]["character"]["durability"]["fontSize"] = 10
-		E.db["sle"]["armory"]["character"]["ilvl"]["fontSize"] = 12
-		E.db["sle"]["armory"]["character"]["background"]["selectedBG"] = "TheEmpire"
-		E.db["sle"]["armory"]["character"]["background"]["overlay"] = false
-		E.db["sle"]["armory"]["character"]["gradient"]["quality"] = true
 	end
 	--Movers
 	do
