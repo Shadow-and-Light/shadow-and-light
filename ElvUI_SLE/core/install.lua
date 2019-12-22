@@ -292,7 +292,7 @@ function PI:DarthSetup()
 
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIconSize"] = 24
 
-		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["filters"]["priority"] = "Blacklist,Personal,CCDebuffs"
+		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["priority"] = "Blacklist,Personal,CCDebuffs"
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["yOffset"] = 10
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["enable"] = true
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["height"] = 4
@@ -1312,11 +1312,11 @@ function PI:DarthOldSetup()
 		E.db["sle"]["armory"]["stats"]["List"]["HEALTH"] = true
 		E.db["sle"]["armory"]["stats"]["List"]["POWER"] = true
 		E.db["sle"]["armory"]["stats"]["List"]["MOVESPEED"] = true
-		E.db["sle"]["armory"]["Character"]["durability"]["fontSize"] = 10
-		E.db["sle"]["armory"]["Character"]["ilvl"]["fontSize"] = 12
-		E.db["sle"]["armory"]["Character"]["background"]["selectedBG"] = "TheEmpire"
-		E.db["sle"]["armory"]["Character"]["background"]["overlay"] = false
-		E.db["sle"]["armory"]["Character"]["gradient"]["quality"] = true
+		E.db["sle"]["armory"]["сharacter"]["durability"]["fontSize"] = 10
+		E.db["sle"]["armory"]["сharacter"]["ilvl"]["fontSize"] = 12
+		E.db["sle"]["armory"]["сharacter"]["background"]["selectedBG"] = "TheEmpire"
+		E.db["sle"]["armory"]["сharacter"]["background"]["overlay"] = false
+		E.db["sle"]["armory"]["сharacter"]["gradient"]["quality"] = true
 	end
 	--Movers
 	do
