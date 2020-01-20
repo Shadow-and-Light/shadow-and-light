@@ -187,6 +187,7 @@ L["Glow Offset"] = true
 L["Categories"] = true
 L["Decimals"] = true
 L["Show stats with decimals."] = true
+L["Corruption / Resist"] = true
 
 --AFK
 L["You Are Away From Keyboard for"] = true

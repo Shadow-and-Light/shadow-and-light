@@ -187,6 +187,7 @@ L["Glow Offset"] = "Отступ свечения"
 L["Categories"] = "Категории"
 L["Decimals"] = "Десятичные доли"
 L["Show stats with decimals."] = "От ображать характеристики с десятичными долями."
+L["Corruption / Resist"] = "Порча / Резист"
 
 --AFK
 L["You Are Away From Keyboard for"] = "Вы отошли на"

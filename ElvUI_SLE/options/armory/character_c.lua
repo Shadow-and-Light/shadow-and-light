@@ -270,6 +270,71 @@ local function configTable()
 					},
 				}
 			},
+			corruption = {
+				type = 'group',
+				name = T.GetSpellInfo(172),
+				order = 16,
+				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
+				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:UpdateCorruptionText(); CA:UpdateCorruptionLevel() end,
+				disabled = function() return E.db.general.itemLevel.displayCharacterInfo == false end,
+				args = {
+					valueColor = {
+						type = 'toggle',
+						name = L["Value Color"],
+						order = 1,
+					},
+					style = {
+						type = 'select',
+						name = L["Text Format"],
+						order = 2,
+						values = {
+							["TOTAL"] = TOTAL,
+							["COR-RES"] = L["Corruption / Resist"],
+							["Hide"] = HIDE,
+						},
+					},
+					space = {
+						order = 3,
+						type = "description",
+						name = "",
+					},
+					xOffset = {
+						type = 'range',
+						name = L["X-Offset"],
+						order = 10,
+						min = -10, max = 70, step = 1,
+					},
+					yOffset = {
+						type = 'range',
+						name = L["Y-Offset"],
+						order = 11,
+						min = -40, max = 40, step = 1,
+					},
+					space2 = {
+						order = 15,
+						type = "description",
+						name = "",
+					},
+					font = {
+						type = 'select', dialogControl = 'LSM30_Font',
+						name = L["Font"],
+						order = 20,
+						values = function() return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {} end,
+					},
+					fontSize = {
+						type = 'range',
+						name = L["Font Size"],
+						order = 21,
+						min = 6, max = 32, step = 1,
+					},
+					fontStyle = {
+						type = 'select',
+						name = L["Font Outline"],
+						order = 22,
+						values = FontStyleList,
+					},
+				}
+			},
 			background = {
 				type = 'group',
 				name = L["Backdrop"],

@@ -53,6 +53,15 @@ P["sle"] = {
 				["xOffset"] = 0,
 				["yOffset"] = 0,
 			},
+			["corruption"] = {
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+				["font"] = "PT Sans Narrow",
+				["fontSize"] = 15,
+				["fontStyle"] = "OUTLINE",
+				["valueColor"] = false,
+				["style"] = "TOTAL",
+			},
 			["background"] = {
 				["selectedBG"] = "Space",
 				["customTexture"] = "",

@@ -374,6 +374,7 @@ end
 function Armory:UpdateCharacterInfo()
 	if E.db.sle.armory.character.enable then M:UpdatePageInfo(_G["CharacterFrame"], "Character") end
 	if not E.db.general.itemLevel.displayCharacterInfo then M:ClearPageInfo(_G["CharacterFrame"], "Character") end
+	CA:UpdateCorruptionLevel()
 end
 
 function Armory:ToggleItemLevelInfo(setupCharacterPage)
@@ -390,9 +391,18 @@ function Armory:CheckOptions(which)
 	return true
 end
 
+function Armory:HandleCorruption()
+	local CorruptionIcon = _G["CharacterFrame"].SLE_Corruption
+	CorruptionIcon:ClearAllPoints()
+	if E.db.sle.armory.character.enable or E.db.sle.armory.stats.enable then
+		CorruptionIcon:SetPoint("LEFT", _G["PaperDollSidebarTab3"], "RIGHT", -4, -8)
+	else
+		CorruptionIcon:SetPoint("RIGHT", _G["CharacterStatsPane"].ItemLevelFrame, "RIGHT", 29, -8)
+	end
+end
+
 function Armory:Initialize()
 	if not Armory:CheckOptions() then return end
-	
 
 	--May be usefull later
 	Armory.ScanTT = CreateFrame("GameTooltip", "SLE_Armory_ScanTT", nil, "GameTooltipTemplate")
