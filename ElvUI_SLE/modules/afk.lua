@@ -84,6 +84,7 @@ function S:Setup()
 	SS.FactCrest:SetTexture(CrestPath..E.myfaction)
 	SS.RaceCrest = SS:CreateTexture(nil, 'ARTWORK')
 	SS.RaceCrest:SetTexture(CrestPath..RaceToken)
+	SLE:TextureExists(CrestPath..RaceToken, SS.RaceCrest, CrestPath..E.myfaction)
 	SS.sle = SS:CreateTexture(nil, 'OVERLAY')
 	SS.sle:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\SLE_Banner]])
 
