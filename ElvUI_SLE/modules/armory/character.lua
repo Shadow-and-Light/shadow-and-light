@@ -145,8 +145,10 @@ function CA:BuildLayout()
 		if E.db.sle.armory.character.enable and _G["PaperDollFrame"]:IsShown() then _G["CharacterFrame"]:SetWidth(650) end
 	end)
 	hooksecurefunc("CharacterFrame_ShowSubFrame", function(frameName)
-		if frameName ~= "ReputationFrame" then return end
-		_G["CharacterFrame"]:SetWidth(PANEL_DEFAULT_WIDTH)
+		if frameName == "PaperDollFrame" or frameName == "PetPaperDollFrame" then return end
+		if _G["CharacterFrame"]:GetWidth() > PANEL_DEFAULT_WIDTH + 1 then
+			_G["CharacterFrame"]:SetWidth(PANEL_DEFAULT_WIDTH)
+		end
 	end)
 
 	hooksecurefunc('PaperDollFrame_SetLevel', function()
@@ -164,27 +166,27 @@ function CA:BuildLayout()
 	
 	--<<Corruption>>--
 	_G["CharacterFrame"].SLE_Corruption = CreateFrame("Frame", "SLE_CharacterCorruptionButton", _G["CharacterFrame"])
-	_G["CharacterFrame"].SLE_Corruption:SetSize(60, 100)
-	_G["CharacterFrame"].SLE_Corruption:SetPoint("RIGHT", _G["CharacterStatsPane"].ItemLevelFrame, "RIGHT", 29, -8) --Default for blizz corruption
+	_G["CharacterFrame"].SLE_Corruption:SetSize(48, 80)
+	_G["CharacterFrame"].SLE_Corruption:SetPoint("RIGHT", _G["CharacterStatsPane"].ItemLevelFrame, "RIGHT", Armory.Constants.Corruption.DefaultX, Armory.Constants.Corruption.DefaultY) --Default for blizz corruption
 	_G["CharacterFrame"].SLE_Corruption:SetScript("OnEnter", CharacterFrameCorruption_OnEnter)
 	_G["CharacterFrame"].SLE_Corruption:SetScript("OnLeave", CharacterFrameCorruption_OnLeave)
 	_G["CharacterFrame"].SLE_Corruption:SetScript("OnEvent", CharacterFrameCorruption_OnEvent)
-	
+
 	--deal with the events
 	_G["CharacterFrame"].SLE_Corruption:RegisterEvent("COMBAT_RATING_UPDATE");
 	_G["CharacterFrame"].SLE_Corruption:RegisterEvent("PLAYER_ENTERING_WORLD");
 	_G["CharacterFrame"].SLE_Corruption:RegisterEvent("SPELL_TEXT_UPDATE");
-	
+
 	_G["CharacterStatsPane"].ItemLevelFrame.Corruption:UnregisterEvent("COMBAT_RATING_UPDATE");
 	_G["CharacterStatsPane"].ItemLevelFrame.Corruption:UnregisterEvent("PLAYER_ENTERING_WORLD");
 	_G["CharacterStatsPane"].ItemLevelFrame.Corruption:UnregisterEvent("SPELL_TEXT_UPDATE");
 	_G["CharacterStatsPane"].ItemLevelFrame.Corruption:SetScript("OnEvent", nil)
 	_G["CharacterStatsPane"].ItemLevelFrame.Corruption:Hide()
-	
+
 	_G["CharacterFrame"].SLE_Corruption.Eye = _G["CharacterFrame"].SLE_Corruption:CreateTexture(nil, "OVERLAY")
 	_G["CharacterFrame"].SLE_Corruption.Eye:SetInside()
 	_G["CharacterFrame"].SLE_Corruption.Eye:SetAtlas("Nzoth-charactersheet-icon")
-	
+
 	_G["CharacterFrame"].SLE_Corruption.Level = _G["CharacterFrame"].SLE_Corruption:CreateFontString(nil, "OVERLAY")
 	_G["CharacterFrame"].SLE_Corruption.Level:SetPoint("CENTER", _G["CharacterFrame"].SLE_Corruption, "CENTER", 1 + E.db.sle.armory.character.corruption.xOffset, 8 + E.db.sle.armory.character.corruption.yOffset)
 end
@@ -399,13 +401,4 @@ function CA:LoadAndSetup()
 	CA:BuildLayout()
 	CA:ToggleArmory()
 	CA:ElvOverlayToggle()
-	-- hooksecurefunc("ToggleCharacter", function(frameType)
-		-- if frameType ~= "PaperDollFrame" and frameType ~= "PetPaperDollFrame" then
-			-- _G["CharacterFrame"]:SetWidth(PANEL_DEFAULT_WIDTH)
-		-- elseif Info.CharacterArmory_Activate and frameType == "PaperDollFrame" then
-			-- _G["CharacterFrameInsetRight"]:SetPoint('TOPLEFT', _G["CharacterFrameInset"], 'TOPRIGHT', 110, 0)
-		-- else
-			-- _G["CharacterFrameInsetRight"]:SetPoint(T.unpack(DefaultPosition.InsetDefaultPoint))
-		-- end
-	-- end)
 end

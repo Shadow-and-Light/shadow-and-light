@@ -49,6 +49,9 @@ Armory.Constants.CanTransmogrify = {
 Armory.Constants.EnchantableSlots = {
 	["Finger0Slot"] = true, ["Finger1Slot"] = true, ["MainHandSlot"] = true, ["SecondaryHandSlot"] = true,
 }
+Armory.Constants.Corruption = {
+	["DefaultX"] = 5, ["DefaultY"] = -8,
+}
 
 Armory.Constants.AzeriteTraitAvailableColor = {0.95, 0.95, 0.32, 1}
 Armory.Constants.Character_Defaults_Cached = false
@@ -394,10 +397,11 @@ end
 function Armory:HandleCorruption()
 	local CorruptionIcon = _G["CharacterFrame"].SLE_Corruption
 	CorruptionIcon:ClearAllPoints()
+	CorruptionIcon:SetParent(_G["SLE_Armory_Scroll"])
 	if E.db.sle.armory.character.enable or E.db.sle.armory.stats.enable then
-		CorruptionIcon:SetPoint("LEFT", _G["PaperDollSidebarTab3"], "RIGHT", -4, -8)
+		CorruptionIcon:SetPoint("LEFT", _G["CharacterFrame"], "TOPRIGHT", -34, -54)
 	else
-		CorruptionIcon:SetPoint("RIGHT", _G["CharacterStatsPane"].ItemLevelFrame, "RIGHT", 29, -8)
+		CorruptionIcon:SetPoint("RIGHT", _G["CharacterStatsPane"].ItemLevelFrame, "RIGHT", Armory.Constants.Corruption.DefaultX, Armory.Constants.Corruption.DefaultY)
 	end
 end
 
