@@ -269,7 +269,11 @@ function B:RewritePoint(anchor, parent, point, x, y, SLEcalled)
 	if not SLEcalled then LoadPosition(self) end
 end
 
-function B:MakeMovable(Name)
+function B:MakeMovable(Name, AddOn)
+	if Name == true then
+		E:Delay(1, function() B:Addons(nil, AddOn) end)
+		return
+	end
 	local frame = _G[Name]
 	if not frame then --Frame in the list was removed since the last time I checked
 		SLE:Print("Frame to move doesn't exist: "..(Name or "Unknown"), "error")
@@ -294,7 +298,7 @@ function B:Addons(event, addon)
 	if not B.AddonsList[addon] then return end
 	if T.type(B.AddonsList[addon]) == "table" then
 		for FrameName, state in T.pairs(B.AddonsList[addon]) do
-			if state then B:MakeMovable(FrameName) end
+			if state then B:MakeMovable(FrameName, addon) end
 		end
 	else
 		if B.AddonsList[addon] then B:MakeMovable(addon) end
@@ -331,7 +335,7 @@ function B:Initialize()
 		for AddOn, Table in T.pairs(B.AddonsList) do
 			if IsAddOnLoaded(AddOn) then
 				for _, frame in T.pairs(Table) do
-					B:MakeMovable(frame)
+					B:MakeMovable(frame, AddOn)
 				end
 			end
 		end
