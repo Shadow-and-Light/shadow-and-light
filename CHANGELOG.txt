@@ -1,3 +1,10 @@
+v3.65 [, 2020]
+Fixes:
+- Fixed some frames not being movable when the option was enabled. This also fixes some incompatibilities with Rarity.
+- Fixed reputation and currency tabs being totally broken when you move character frame away from its default place without "remember position" option enabled.
+Additions:
+- Corruption eye now moves itself so the scrollbar will not be able to overlay it. Also some options for it to show your corruption levels without mouseovering. 
+
 v3.64 [December 23rd, 2019]
 Fixes:
 - Fixed install errors
