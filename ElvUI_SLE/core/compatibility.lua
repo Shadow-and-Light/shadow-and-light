@@ -7,7 +7,6 @@ local _CompList = {
 	"DejaCharacterStats", --Cause armory
 	"ElvUI_CustomTweaks",
 	"ElvUI_Enhanced",
-	"ElvUI_ExtraActionBars",
 	"ElvUI_MerathilisUI",
 	"ElvUI_NihilistUI",
 	"ElvUI_PagedLootHistory",

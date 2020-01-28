@@ -11,10 +11,10 @@ A.CheckedTextures = {}
 
 function A:Initialize()
 	if not SLE.initialized or E.private.actionbar.enable ~= true then return; end
-	A.MaxBars = SLE._Compatibility["ElvUI_ExtraActionBars"] and 10 or 6 --In case ExtraActionBars is enabled. Cause 7+ bars will not be affected otherwise
+	A.MaxBars = 10 --In case ExtraActionBars is enabled. Cause 7+ bars will not be affected otherwise
 
 	--Making OOR indication use keybind text
-	if E.private.sle.actionbars.oorBind then 
+	if E.private.sle.actionbars.oorBind then
 		hooksecurefunc(AB, "UpdateButtonConfig", function(self, bar, buttonName)
 			if T.InCombatLockdown() then return end
 
@@ -39,7 +39,7 @@ function A:Initialize()
 			if not A.CheckedTextures[barName] then A.CheckedTextures[barName] = {} end
 			for i=1, NUM_ACTIONBAR_BUTTONS do
 				local button = bar.buttons[i];
-				if button.SetCheckedTexture then 
+				if button.SetCheckedTexture then
 					if not A.CheckedTextures[barName][i] then
 						A.CheckedTextures[barName][i] = button:CreateTexture(button:GetName().."CheckedTexture", "OVERLAY")
 					end

@@ -4,7 +4,7 @@ local ES = SLE:NewModule('EnhancedShadows', 'AceEvent-3.0')
 local AB, UF = SLE:GetElvModules("ActionBars", "UnitFrames")
 local ClassColor = RAID_CLASS_COLORS[E.myclass]
 local Border, LastSize
-local Abars = SLE._Compatibility["ElvUI_ExtraActionBars"] and 10 or 6
+local Abars = 10
 --GLOBALS: hooksecurefunc
 local _G = _G
 local UnitAffectingCombat = UnitAffectingCombat
@@ -119,7 +119,7 @@ function ES:CreateFrameShadow(frame, parent, legacy)
 		frame.EnhShadow = frame.shadow
 		frame.shadow = nil
 		ES:RegisterShadow(frame.EnhShadow)
-		if parent and parent ~= "none" then 
+		if parent and parent ~= "none" then
 			frame.EnhShadow:SetParent(parent)
 		elseif not parent then
 			frame.EnhShadow:SetParent(frame)

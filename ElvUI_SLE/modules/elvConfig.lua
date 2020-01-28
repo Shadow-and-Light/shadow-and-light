@@ -13,19 +13,8 @@ end
 
 --Changing actionbars options. Allowing negative minimum button spacing
 function EC:UpdateActionbars()
-	local extra = SLE._Compatibility["ElvUI_ExtraActionBars"]
-	if extra then --If ExtraActionBars loaded
-		if not E.Options.args.blazeplugins then --Blaze's options sectiot, setup a delay and exit
-			E:Delay(0.1, EC.UpdateActionbars)
-			return
-		end
-		--Change stuff for additional bars
-		for i = 7, 10 do
-			E.Options.args.blazeplugins.args.EAB.args['bar'..i].args.buttonspacing.min = -4
-		end
-	end
 	--Change stuff for regular bars
-	for i=1, 6 do
+	for i=1, 10 do
 		E.Options.args.actionbar.args['bar'..i].args.buttonspacing.min = -4
 	end
 	E.Options.args.actionbar.args.barPet.args.buttonspacing.min = -4

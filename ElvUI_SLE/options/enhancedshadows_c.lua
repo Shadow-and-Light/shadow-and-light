@@ -286,7 +286,7 @@ local function configTable()
 		},
 	}
 
-	for i = 1, (SLE._Compatibility["ElvUI_ExtraActionBars"] and 10 or 6) do
+	for i = 1, 10 do
 		E.Options.args.sle.args.modules.args.shadows.args.frames.args.actionbars.args["bar"..i] = {
 			order = i + 6,
 			type = "toggle",
