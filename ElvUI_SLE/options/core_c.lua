@@ -4,7 +4,7 @@ local SETTINGS = SETTINGS
 local LFG_LIST_LEGACY = LFG_LIST_LEGACY
 local function configTable()
 	if not SLE.initialized then return end
-	E.Options.args.ElvUI_Header.name = E.Options.args.ElvUI_Header.name.." + |cff9482c9Shadow & Light|r"..T.format(": |cff99ff33%s|r",SLE.version)
+	E.Options.name = E.Options.name.." + |cff9482c9Shadow & Light|r"..T.format(": |cff99ff33%s|r",SLE.version)
 
 	local function CreateButton(number, text, ...)
 		local path = {}
