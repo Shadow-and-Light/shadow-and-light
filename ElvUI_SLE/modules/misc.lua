@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local M = SLE:NewModule("Misc", 'AceHook-3.0', 'AceEvent-3.0')
 local Tr = E:GetModule('Threat');
 --GLOBALS: hooksecurefunc, UIParent
@@ -27,7 +27,7 @@ end
 function M:Threat_UpdateConfig()
 	if T.IsAddOnLoaded("ElvUI_OptionsUI") then
 		if M.db.threat.enable then
-			E.Options.args.general.args.threatGroup.args.position = {
+			E.Options.args.general.args.general.args.threatGroup.args.position = {
 				order = 42,
 				name = L["Position"],
 				desc = L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."],
@@ -35,7 +35,7 @@ function M:Threat_UpdateConfig()
 				func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "sle") end,
 			}
 		else
-			E.Options.args.general.args.threatGroup.args.position = {
+			E.Options.args.general.args.general.args.threatGroup.args.position = {
 				order = 42,
 				type = 'select',
 				name = L["Position"],
@@ -98,7 +98,7 @@ function M:RaidUtility_Hook()
 	if E.db.movers == nil then E.db.movers = {} end
 
 	--Making frame actually following mover around
-	mover:HookScript("OnDragStart", function(self) 
+	mover:HookScript("OnDragStart", function(self)
 		frame:ClearAllPoints()
 		frame:SetPoint("CENTER", self)
 	end)

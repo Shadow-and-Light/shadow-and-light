@@ -153,11 +153,11 @@ function LT:Announce(event)
 		--Seeing if this loot is currently being processed/announced
 		for i = 1,NumLootItems do
 			if T.GetLootSlotType(i) == 1 then
-				for j = 1, t do --For 1 to num of looted items 
+				for j = 1, t do --For 1 to num of looted items
 					if T.GetLootSlotLink(i) == LT.LootTemp[j] then
 						check = true --we've seen this, quit
 					end
-				end 
+				end
 			end
 		end
 
@@ -298,7 +298,7 @@ function LT:Update()
 	--Setting Elv's option to button that leads to my shit if the module is enabled
 	if T.IsAddOnLoaded("ElvUI_OptionsUI") then
 		if LT.db.autoroll.enable then
-			E.Options.args.general.args.misc.args.autoRoll = {
+			E.Options.args.general.args.general.args.autoRoll = {
 				order = 6,
 				name = L["Auto Greed/DE"],
 				desc = L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."],
@@ -306,7 +306,7 @@ function LT:Update()
 				func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "sle", "modules", "loot") end,
 			}
 		else
-			E.Options.args.general.args.misc.args.autoRoll = {
+			E.Options.args.general.args.general.args.autoRoll = {
 				order = 6,
 				name = L["Auto Greed/DE"],
 				desc = L["Automatically select greed or disenchant (when available) on green quality items. This will only work if you are the max level."],
