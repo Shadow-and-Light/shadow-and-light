@@ -28,6 +28,7 @@ local Difficulties = {
 	[17] = 'lfr', --10-30 LFR
 	[23] = 'mythic', --5ppl mythic
 	[24] = 'timewalking', --Timewalking
+	[33] = 'timewalking', -- Timewalking Raids
 }
 
 --Table of tags conditions for gear switching
@@ -66,7 +67,7 @@ EM.TagsTable = {
 		if not index then return false end
 		if index == T.GetSpecialization() then return true; else return false; end
 	end,
-	--Talent selected. [talent:tier/column] 
+	--Talent selected. [talent:tier/column]
 	["talent"] = function(tier, column)
 		local tier, column = T.tonumber(tier), T.tonumber(column)
 		if not (tier or column) then return false end
@@ -122,7 +123,7 @@ EM.TagsTable = {
 	end,
 	--Well, it's just true :D
 	["NoCondition"] = function()
-		return true	
+		return true
 	end,
 }
 
@@ -206,7 +207,7 @@ end
 
 --Checking if some tag condition is true for the provided conditions table
 function EM:TagsConditionsCheck(data)
-	for index,tagInfo in T.ipairs(data) do 
+	for index,tagInfo in T.ipairs(data) do
 		for _, option in T.ipairs(tagInfo.options) do
 			if not option.commands then return end --if for some unimaginable reason this is missing, better stop doing everything
 			local matches = 0 --Number of conditions passed in this tag check
@@ -222,11 +223,11 @@ function EM:TagsConditionsCheck(data)
 				local args = conditionInfo["args"]
 				local result = EM.TagsTable[tagFunc](T.unpack(args))
 				--if check returns true then we have a match
-				if result then 
+				if result then
 					matches = matches + 1
 				else
 					matches = 0
-					break 
+					break
 				end
 				--if every check matches then this condition is met, returning result
 				if matches == #option.commands then return tagInfo.set end
@@ -298,7 +299,7 @@ function EM:CreateLock()
 		_G["GameTooltip"]:Show()
 	end)
 	button:SetScript("OnLeave", function(self)
-		_G["GameTooltip"]:Hide() 
+		_G["GameTooltip"]:Hide()
 	end)
 	E:GetModule("Skins"):HandleButton(button)
 
