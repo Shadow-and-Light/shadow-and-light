@@ -286,6 +286,8 @@ local function Equip(event)
 	end
 end
 
+EM.Equip = Equip
+
 --Creating a lock button. Prevents gear from auto equip
 function EM:CreateLock()
 	if _G["SLE_Equip_Lock_Button"] or not EM.db.lockbutton then return end
