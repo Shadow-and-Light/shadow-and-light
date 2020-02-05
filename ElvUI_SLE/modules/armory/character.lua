@@ -166,11 +166,19 @@ function CA:BuildLayout()
 	
 	--<<Corruption>>--
 	_G["CharacterFrame"].SLE_Corruption = CreateFrame("Frame", "SLE_CharacterCorruptionButton", _G["CharacterFrame"])
+	_G["CharacterFrame"].SLE_Corruption.ThrottleRating = false
 	_G["CharacterFrame"].SLE_Corruption:SetSize(48, 80)
 	_G["CharacterFrame"].SLE_Corruption:SetPoint("RIGHT", _G["CharacterStatsPane"].ItemLevelFrame, "RIGHT", Armory.Constants.Corruption.DefaultX, Armory.Constants.Corruption.DefaultY) --Default for blizz corruption
 	_G["CharacterFrame"].SLE_Corruption:SetScript("OnEnter", CharacterFrameCorruption_OnEnter)
 	_G["CharacterFrame"].SLE_Corruption:SetScript("OnLeave", CharacterFrameCorruption_OnLeave)
-	_G["CharacterFrame"].SLE_Corruption:SetScript("OnEvent", CharacterFrameCorruption_OnEvent)
+	_G["CharacterFrame"].SLE_Corruption:SetScript("OnEvent", function(self, event, ...)
+		CharacterFrameCorruption_OnEvent(self, event)
+		if (event == "COMBAT_RATING_UPDATE" and not self.ThrottleRating) or event == "PLAYER_ENTERING_WORLD" then
+			CA:UpdateCorruptionLevel()
+			self.ThrottleRating = true
+			E:Delay(1, function() _G["CharacterFrame"].SLE_Corruption.ThrottleRating = false end)
+		end
+	end)
 
 	--deal with the events
 	_G["CharacterFrame"].SLE_Corruption:RegisterEvent("COMBAT_RATING_UPDATE");
