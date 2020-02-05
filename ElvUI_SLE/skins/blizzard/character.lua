@@ -5,7 +5,7 @@ local _G = _G
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable == true and E.private.skins.blizzard.character == true then return end
-	if E.db.sle.Armory and not E.db.sle.Armory.Character.Enable then return end
+	if E.db.sle.armory and not E.db.sle.armory.character.Enable then return end
 
 	local slots = {
 		"HeadSlot", "NeckSlot", "ShoulderSlot", "BackSlot", "ChestSlot", "ShirtSlot",
@@ -66,4 +66,4 @@ local function LoadSkin()
 	end
 end
 
-hooksecurefunc(S, "Initialize", LoadSkin)
+-- hooksecurefunc(S, "Initiaыlize", LoadSkin)

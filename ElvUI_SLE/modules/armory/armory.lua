@@ -377,7 +377,7 @@ end
 function Armory:UpdateCharacterInfo()
 	if E.db.sle.armory.character.enable then M:UpdatePageInfo(_G["CharacterFrame"], "Character") end
 	if not E.db.general.itemLevel.displayCharacterInfo then M:ClearPageInfo(_G["CharacterFrame"], "Character") end
-	CA:UpdateCorruptionLevel()
+	-- CA:UpdateCorruptionLevel()
 end
 
 function Armory:ToggleItemLevelInfo(setupCharacterPage)
