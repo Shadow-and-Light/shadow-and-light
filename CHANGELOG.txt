@@ -1,3 +1,7 @@
+v3.66 [February 6th, 2020]
+Fixes:
+- Quick fix for DCS compatibility.
+
 v3.65 [February 5th, 2020]
 Changes:
 - Vehicle bar is now in core ElvUI. Go complain to Simpy about it :D
