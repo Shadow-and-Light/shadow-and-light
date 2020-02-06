@@ -164,6 +164,7 @@ function CA:BuildLayout()
 		end
 	end)
 	
+	if SLE._Compatibility["DejaCharacterStats"] then return end
 	--<<Corruption>>--
 	_G["CharacterFrame"].SLE_Corruption = CreateFrame("Frame", "SLE_CharacterCorruptionButton", _G["CharacterFrame"])
 	_G["CharacterFrame"].SLE_Corruption.ThrottleRating = false
@@ -284,12 +285,14 @@ function CA:ElvOverlayToggle() --Toggle dat Overlay
 end
 
 function CA:UpdateCorruptionText()
+	if SLE._Compatibility["DejaCharacterStats"] then return end
 	local fontIlvl, sizeIlvl, outlineIlvl = E.db.sle.armory.character.corruption.font, E.db.sle.armory.character.corruption.fontSize, E.db.sle.armory.character.corruption.fontStyle
 	_G["CharacterFrame"].SLE_Corruption.Level:FontTemplate(E.LSM:Fetch('font', fontIlvl), sizeIlvl, outlineIlvl)
 	_G["CharacterFrame"].SLE_Corruption.Level:SetPoint("CENTER", _G["CharacterFrame"].SLE_Corruption, "CENTER", 1 + E.db.sle.armory.character.corruption.xOffset, 8 + E.db.sle.armory.character.corruption.yOffset)
 end
 
 function CA:UpdateCorruptionLevel()
+	if SLE._Compatibility["DejaCharacterStats"] then return end --Shouldn't be required, just in case
 	local corruption = GetCorruption();
 	local corruptionResistance = GetCorruptionResistance();
 	local totalCorruption = math.max(corruption - corruptionResistance, 0);

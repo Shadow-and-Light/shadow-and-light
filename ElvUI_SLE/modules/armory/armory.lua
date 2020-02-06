@@ -395,6 +395,7 @@ function Armory:CheckOptions(which)
 end
 
 function Armory:HandleCorruption()
+	if SLE._Compatibility["DejaCharacterStats"] then return end
 	local CorruptionIcon = _G["CharacterFrame"].SLE_Corruption
 	CorruptionIcon:ClearAllPoints()
 	CorruptionIcon:SetParent(_G["SLE_Armory_Scroll"])

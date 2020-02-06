@@ -65,7 +65,7 @@ local function configTable()
 				order = 13,
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; SLE:GetModule("Armory_Character"):UpdateCorruptionText(); SLE:GetModule("Armory_Character"):UpdateCorruptionLevel() end,
-				disabled = function() return not (E.db.sle.armory.character.enable or E.db.sle.armory.stats.enable) end,
+				disabled = function() return not (E.db.sle.armory.character.enable or E.db.sle.armory.stats.enable or SLE._Compatibility["DejaCharacterStats"]) end,
 				args = {
 					valueColor = {
 						type = 'toggle',
