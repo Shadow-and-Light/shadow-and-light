@@ -308,6 +308,16 @@ function CA:UpdateCorruptionLevel()
 	end
 end
 
+--Fuck blizzard and theur moon logic
+function CA:FixFuckingBlizzardLogic()
+	local milestones = C_AzeriteEssence.GetMilestones();
+	for i, milestoneInfo in ipairs(milestones) do
+		if milestoneInfo.slot then
+			T.tinsert(Armory.Constants.EssenceMilestones, milestoneInfo.ID)
+		end
+	end
+end
+
 function CA:Enable()
 	-- Setting frame
 	_G["CharacterFrame"]:SetHeight(444)
@@ -410,6 +420,7 @@ end
 
 function CA:LoadAndSetup()
 	CA:BuildLayout()
+	CA:FixFuckingBlizzardLogic()
 	CA:ToggleArmory()
 	CA:ElvOverlayToggle()
 end

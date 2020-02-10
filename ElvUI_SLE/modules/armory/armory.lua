@@ -63,6 +63,8 @@ Armory.Constants.WarningTexture = [[Interface\AddOns\ElvUI\Media\Textures\Minima
 Armory.Constants.GradientTexture = [[Interface\AddOns\ElvUI_SLE\media\textures\armory\Gradation]]
 Armory.Constants.TransmogTexture = [[Interface\AddOns\ElvUI_SLE\media\textures\armory\anchor]]
 Armory.Constants.MaxGemSlots = 5
+Armory.Constants.EssenceMilestones = {}
+
 
 --Remembering default positions of stuff
 function Armory:BuildFrameDefaultsCache(which)
@@ -217,8 +219,8 @@ function Armory:UpdateGemInfo(Slot, which)
 						Slot["textureSlotBackdrop"..i]:Hide()
 					end
 				end
-				if which == "Character" then
-					GemID = C_AzeriteEssence.GetMilestoneEssence(i+114) --Milestones are starting with 115, thus 114 + milestone
+				if which == "Character" and Armory.Constants.EssenceMilestones[i] then
+					GemID = C_AzeriteEssence.GetMilestoneEssence(Armory.Constants.EssenceMilestones[i]) --Blizz messed up milestones IDs so using a god damned cache table
 					if GemID then
 						local rank = C_AzeriteEssence.GetEssenceInfo(GemID).rank
 						GemLink = C_AzeriteEssence.GetEssenceHyperlink(GemID, rank)
