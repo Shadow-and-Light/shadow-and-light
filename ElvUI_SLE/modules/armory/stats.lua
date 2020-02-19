@@ -8,11 +8,7 @@ local _G = _G
 local math_min, math_max= math.min, math.max
 
 SA.totalShown = 0
-SA.BaseScrollValue = 25 --This defines if scrollbar should be shown via bullshit calculation
-
 SA.OriginalPaperdollStats = PAPERDOLL_STATCATEGORIES
-
-
 
 function SA:BuildNewStats()
 	SA:CreateStatCategory("OffenseCategory", STAT_CATEGORY_ATTACK)
@@ -89,25 +85,25 @@ function SA:BuildScrollBar() --Creating new scroll
 	SA.ScrollframeParentFrame:SetSize(198, 352)
 	SA.ScrollframeParentFrame:SetPoint("TOP",  _G["CharacterFrameInsetRight"], "TOP", 0, -4)
 
-	--Scrollframe 
+	--Scrollframe
 	SA.ScrollFrame = CreateFrame("ScrollFrame", "SLE_Armory_Scroll", SA.ScrollframeParentFrame)
 	SA.ScrollFrame:SetPoint("TOP")
 	SA.ScrollFrame:SetSize(SA.ScrollframeParentFrame:GetSize())
 
-	--Scrollbar 
-	SA.Scrollbar = CreateFrame("Slider", nil, SA.ScrollFrame, "UIPanelScrollBarTemplate") 
-	SA.Scrollbar:SetPoint("TOPLEFT",  _G["CharacterFrameInsetRight"], "TOPRIGHT", -12, -20) 
-	SA.Scrollbar:SetPoint("BOTTOMLEFT",  _G["CharacterFrameInsetRight"], "BOTTOMRIGHT", -12, 18) 
-	SA.Scrollbar:SetMinMaxValues(1, 2) 
-	SA.Scrollbar:SetValueStep(1) 
+	--Scrollbar
+	SA.Scrollbar = CreateFrame("Slider", nil, SA.ScrollFrame, "UIPanelScrollBarTemplate")
+	SA.Scrollbar:SetPoint("TOPLEFT",  _G["CharacterFrameInsetRight"], "TOPRIGHT", -12, -20)
+	SA.Scrollbar:SetPoint("BOTTOMLEFT",  _G["CharacterFrameInsetRight"], "BOTTOMRIGHT", -12, 18)
+	SA.Scrollbar:SetMinMaxValues(1, 2)
+	SA.Scrollbar:SetValueStep(1)
 	SA.Scrollbar.scrollStep = 1
-	SA.Scrollbar:SetValue(0) 
-	SA.Scrollbar:SetWidth(8) 
-	SA.Scrollbar:SetScript("OnValueChanged", function (self, value) 
-		self:GetParent():SetVerticalScroll(value) 
+	SA.Scrollbar:SetValue(0)
+	SA.Scrollbar:SetWidth(8)
+	SA.Scrollbar:SetScript("OnValueChanged", function (self, value)
+		self:GetParent():SetVerticalScroll(value)
 	end)
 	E:GetModule("Skins"):HandleScrollBar(SA.Scrollbar)
-	SA.Scrollbar:Hide() 
+	SA.Scrollbar:Hide()
 
 	--SA.ScrollChild Frame
 	SA.ScrollChild = CreateFrame("Frame", nil, SA.ScrollFrame)
@@ -117,7 +113,7 @@ function SA:BuildScrollBar() --Creating new scroll
 	CharacterStatsPane:ClearAllPoints()
 	CharacterStatsPane:SetParent(SA.ScrollChild)
 	CharacterStatsPane:SetSize(SA.ScrollChild:GetSize())
-	CharacterStatsPane:SetPoint("TOP", SA.ScrollChild, "TOP", 0, 0) 
+	CharacterStatsPane:SetPoint("TOP", SA.ScrollChild, "TOP", 0, 0)
 
 	CharacterStatsPane.ClassBackground:ClearAllPoints()
 	CharacterStatsPane.ClassBackground:SetParent( _G["CharacterFrameInsetRight"])
@@ -126,10 +122,10 @@ function SA:BuildScrollBar() --Creating new scroll
 	-- Enable mousewheel scrolling
 	SA.ScrollFrame:EnableMouseWheel(true)
 	SA.ScrollFrame:SetScript("OnMouseWheel", function(self, delta)
-		if SA.totalShown > SA.BaseScrollValue - E.db.sle.armory.stats.itemLevel.size then
-			SA.Scrollbar:SetMinMaxValues(1, 100)
+		if SA.totalShown > 12 then
+			SA.Scrollbar:SetMinMaxValues(1, 45)
 		else
-			SA.Scrollbar:SetMinMaxValues(1, 1) 
+			SA.Scrollbar:SetMinMaxValues(1, 1)
 		end
 
 		local cur_val = SA.Scrollbar:GetValue()
@@ -143,20 +139,20 @@ function SA:BuildScrollBar() --Creating new scroll
 			SA.Scrollbar:SetValue(cur_val)
 		end
 	end)
-	
-	PaperDollSidebarTab1:HookScript("OnShow", function(self,event) 
+
+	PaperDollSidebarTab1:HookScript("OnShow", function(self,event)
 		SA.ScrollframeParentFrame:Show()
 	end)
 
-	PaperDollSidebarTab1:HookScript("OnClick", function(self,event) 
+	PaperDollSidebarTab1:HookScript("OnClick", function(self,event)
 		SA.ScrollframeParentFrame:Show()
 	end)
 
-	PaperDollSidebarTab2:HookScript("OnClick", function(self,event) 
+	PaperDollSidebarTab2:HookScript("OnClick", function(self,event)
 		SA.ScrollframeParentFrame:Hide()
 	end)
 
-	PaperDollSidebarTab3:HookScript("OnClick", function(self,event) 
+	PaperDollSidebarTab3:HookScript("OnClick", function(self,event)
 		SA.ScrollframeParentFrame:Hide()
 	end)
 end
@@ -284,7 +280,7 @@ function SA:PaperDollFrame_UpdateStats()
 	-- release the current stat frame
 	_G["CharacterStatsPane"].statsFramePool:Release(statFrame);
 	if SA.Scrollbar then
-		if SA.totalShown > SA.BaseScrollValue - E.db.sle.armory.stats.itemLevel.size then
+		if SA.totalShown > 12 then
 			SA.Scrollbar:Show()
 		else
 			SA.Scrollbar:Hide()
@@ -519,7 +515,6 @@ function SA:ReplaceBlizzFunctions()
 		else
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_CRITICAL_STRIKE, critChance, true, critChance)
 		end
-		
 
 		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..T.format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_CRITICAL_STRIKE).." "..T.format("%.2f%%", critChance)..FONT_COLOR_CODE_CLOSE;
 		local extraCritChance = GetCombatRatingBonus(rating);
@@ -564,7 +559,6 @@ function SA:ReplaceBlizzFunctions()
 
 		statFrame:Show();
 	end
-
 end
 
 function SA:LoadAndSetup()
