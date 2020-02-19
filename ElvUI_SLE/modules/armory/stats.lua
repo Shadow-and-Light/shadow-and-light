@@ -123,7 +123,7 @@ function SA:BuildScrollBar() --Creating new scroll
 	SA.ScrollFrame:EnableMouseWheel(true)
 	SA.ScrollFrame:SetScript("OnMouseWheel", function(self, delta)
 		if SA.totalShown > 12 then
-			SA.Scrollbar:SetMinMaxValues(1, 45)
+			SA.Scrollbar:SetMinMaxValues(1, 100)
 		else
 			SA.Scrollbar:SetMinMaxValues(1, 1)
 		end
@@ -516,6 +516,7 @@ function SA:ReplaceBlizzFunctions()
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_CRITICAL_STRIKE, critChance, true, critChance)
 		end
 
+
 		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..T.format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_CRITICAL_STRIKE).." "..T.format("%.2f%%", critChance)..FONT_COLOR_CODE_CLOSE;
 		local extraCritChance = GetCombatRatingBonus(rating);
 		local extraCritRating = GetCombatRating(rating);
@@ -559,6 +560,7 @@ function SA:ReplaceBlizzFunctions()
 
 		statFrame:Show();
 	end
+
 end
 
 function SA:LoadAndSetup()
