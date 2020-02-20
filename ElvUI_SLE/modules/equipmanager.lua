@@ -336,6 +336,7 @@ function EM:Initialize()
 	self:RegisterEvent("LOADING_SCREEN_DISABLED", Equip)
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", Equip)
 	self:RegisterEvent("ZONE_CHANGED", Equip)
+	self:RegisterEvent("PLAYER_LEVEL_CHANGED", Equip)
 
 	--Initial apply options
 	EM:TagsProcess(EM.db.conditions)
