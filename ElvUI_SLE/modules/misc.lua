@@ -137,6 +137,7 @@ function M:Initialize()
 
 	--Viewport
 	M:SetViewport()
+	M:RegisterEvent("CINEMATIC_STOP", M.SetViewport)
 	hooksecurefunc(E, "PixelScaleChanged", M.SetViewport)
 
 	function M:ForUpdateAll()
