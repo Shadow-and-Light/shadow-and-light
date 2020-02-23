@@ -327,6 +327,14 @@ function EM:UpdateTags()
 	Equip()
 end
 
+EM.Events = {}
+function EM:RegisterNewEvent(event)
+	if not self.Events[event] then
+		self:RegisterEvent(event, Equip)
+		self.Events[event] = true
+	end
+end
+
 function EM:Initialize()
 	EM.db = E.private.sle.equip
 	EM.lock = false
@@ -336,7 +344,6 @@ function EM:Initialize()
 	self:RegisterEvent("LOADING_SCREEN_DISABLED", Equip)
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", Equip)
 	self:RegisterEvent("ZONE_CHANGED", Equip)
-	self:RegisterEvent("PLAYER_LEVEL_CHANGED", Equip)
 
 	--Initial apply options
 	EM:TagsProcess(EM.db.conditions)
