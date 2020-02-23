@@ -69,7 +69,6 @@ function M:SetViewport()
 	_G["WorldFrame"]:ClearAllPoints()
 	_G["WorldFrame"]:SetPoint("TOPLEFT", ( M.db.viewport.left * scale ), -( M.db.viewport.top * scale ) )
 	_G["WorldFrame"]:SetPoint("BOTTOMRIGHT", -( M.db.viewport.right * scale ), ( M.db.viewport.bottom * scale ) )
-	print("Viewport")
 end
 
 --Raid utility
@@ -151,13 +150,10 @@ function M:Initialize()
 	function CinematicFrame_CancelCinematic()
 		if ( CinematicFrame.isRealCinematic ) then
 			StopCinematic();
-			print("Ima cancelled")
 		elseif ( CanCancelScene() ) then
 			CancelScene();
-			print("Ima cancelled")
 		else
 			VehicleExit();
-			print("Ima vehicle")
 		end
 		
 	end
