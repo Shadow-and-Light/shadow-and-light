@@ -116,6 +116,26 @@ function Armory:GetTransmogInfo(Slot, which, unit)
 	end
 end
 
+function Armory:GetCorruptionInfo(Slot, which, unit)
+	if not which or not unit or not Slot.ID then return nil end
+	local TooltipText
+	Armory:ClearTooltip(Armory.ScanTT)
+	Armory.ScanTT:SetInventoryItem(unit, Slot.ID)
+
+	for i = 1, Armory.ScanTT:NumLines() do
+		TooltipText = _G["SLE_Armory_ScanTTTextLeft"..i]:GetText()
+
+		if TooltipText:match(ITEM_MOD_CORRUPTION) then
+			TooltipText = T.gsub(TooltipText, TooltipText:match(ITEM_MOD_CORRUPTION), "")
+			return "cor", TooltipText
+		elseif TooltipText:match(ITEM_MOD_CORRUPTION_RESISTANCE) then
+			TooltipText = T.gsub(TooltipText, TooltipText:match(ITEM_MOD_CORRUPTION_RESISTANCE), "")
+			return "res", TooltipText
+		end
+	end
+	return false, 0
+end
+
 --Updates the frame
 function Armory:UpdatePageInfo(frame, which, guid, event)
 	if not (frame and which) then return end
@@ -145,6 +165,13 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 					Slot.TransmogInfo:Hide()
 					LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
 				end
+			end
+			local isCorruption, CorValue = Armory:GetCorruptionInfo(Slot, which, unit)
+			if isCorruption then
+				local text = Slot.iLvlText:GetText()
+				if isCorruption == "cor" then CorValue = "|cff956DD1"..CorValue.."|r" else CorValue = "|cffFFD100"..CorValue.."|r" end
+				if Slot.Direction == "LEFT" then text = text.." "..CorValue else text = CorValue.." "..text end
+				Slot.iLvlText:SetText(text)
 			end
 		end
 	end
