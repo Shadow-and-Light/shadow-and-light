@@ -237,6 +237,7 @@ function Armory:UpdateGemInfo(Slot, which)
 		if not Slot["SLE_Gem"..i] then return end
 		if itemLink then
 			if Slot.ID == 2 then
+				if not CA.HearthMilestonesCached then CA:FixFuckingBlizzardLogic() end
 				local window = T.lower(which)
 				-- inspectItem["textureSlotBackdrop"..x]
 				if E.db.sle.armory[window] and E.db.sle.armory[window].enable then

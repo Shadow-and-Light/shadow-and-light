@@ -15,6 +15,8 @@ local DefaultPosition = {
 }
 local PANEL_DEFAULT_WIDTH = PANEL_DEFAULT_WIDTH
 
+CA.HearthMilestonesCached = false
+
 --Adding new stuffs for armory only
 function CA:BuildLayout()
 
@@ -289,10 +291,12 @@ function CA:UpdateCorruptionText()
 	local fontIlvl, sizeIlvl, outlineIlvl = E.db.sle.armory.character.corruption.font, E.db.sle.armory.character.corruption.fontSize, E.db.sle.armory.character.corruption.fontStyle
 	_G["CharacterFrame"].SLE_Corruption.Level:FontTemplate(E.LSM:Fetch('font', fontIlvl), sizeIlvl, outlineIlvl)
 	_G["CharacterFrame"].SLE_Corruption.Level:SetPoint("CENTER", _G["CharacterFrame"].SLE_Corruption, "CENTER", 1 + E.db.sle.armory.character.corruption.xOffset, 8 + E.db.sle.armory.character.corruption.yOffset)
+	CA.CorruptionFontSet = true
 end
 
 function CA:UpdateCorruptionLevel()
 	if SLE._Compatibility["DejaCharacterStats"] then return end --Shouldn't be required, just in case
+	if not CA.CorruptionFontSet then return end
 	local corruption = GetCorruption();
 	local corruptionResistance = GetCorruptionResistance();
 	local totalCorruption = math.max(corruption - corruptionResistance, 0);
@@ -311,11 +315,13 @@ end
 --Fuck blizzard and theur moon logic
 function CA:FixFuckingBlizzardLogic()
 	local milestones = C_AzeriteEssence.GetMilestones();
+	if not milestones then return end
 	for i, milestoneInfo in ipairs(milestones) do
 		if milestoneInfo.slot then
 			T.tinsert(Armory.Constants.EssenceMilestones, milestoneInfo.ID)
 		end
 	end
+	CA.HearthMilestonesCached = true
 end
 
 function CA:Enable()
@@ -420,7 +426,6 @@ end
 
 function CA:LoadAndSetup()
 	CA:BuildLayout()
-	CA:FixFuckingBlizzardLogic()
 	CA:ToggleArmory()
 	CA:ElvOverlayToggle()
 end
