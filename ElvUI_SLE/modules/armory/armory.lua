@@ -74,7 +74,7 @@ function Armory:BuildFrameDefaultsCache(which)
 		if not Slot then E:Delay(1, function() Armory:BuildFrameDefaultsCache(which) end); return end
 		Slot.Direction = i%2 == 1 and "LEFT" or "RIGHT"
 		if Slot.iLvlText then
-			Armory.Constants[which.."_Defaults"][SlotName]["iLvlText"] = { Slot.iLvlText:GetPoint() } 
+			Armory.Constants[which.."_Defaults"][SlotName]["iLvlText"] = { Slot.iLvlText:GetPoint() }
 			Armory.Constants[which.."_Defaults"][SlotName]["textureSlot1"] = { Slot.textureSlot1:GetPoint() }
 			for i = 2, 10 do
 				if Slot["textureSlot"..i] then Slot["textureSlot"..i]:ClearAllPoints(); Slot["textureSlot"..i]:Point(Slot.Direction, Slot["textureSlot"..(i-1)], Slot.Direction == "LEFT" and "RIGHT" or "LEFT", 0,0) end
@@ -90,7 +90,7 @@ end
 
 function Armory:ClearTooltip(Tooltip)
 	local TooltipName = Tooltip:GetName()
-	
+
 	Tooltip:ClearLines()
 	for i = 1, 10 do
 		_G[TooltipName.."Texture"..i]:SetTexture(nil)
@@ -139,7 +139,7 @@ end
 --Updates the frame
 function Armory:UpdatePageInfo(frame, which, guid, event)
 	if not (frame and which) then return end
-	if not Armory:CheckOptions(which) then return end 
+	if not Armory:CheckOptions(which) then return end
 	local window = T.lower(which)
 	local unit = (which == 'Character' and 'player') or frame.unit
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
@@ -175,8 +175,9 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 			end
 		end
 	end
-	if which == "Character" then CA:Update_Durability() end
-	Armory:UpdateSharedStringsFonts(which)
+	if which == "Character" then
+		CA:Update_Durability()
+	end
 end
 
 --Updates ilvl and everything tied to the item somehow
@@ -260,6 +261,10 @@ function Armory:UpdateGemInfo(Slot, which)
 		end
 		Slot["SLE_Gem"..i].Link = GemLink
 	end
+end
+
+function Armory:CreateSlotStrings(_, which)
+	Armory:UpdateSharedStringsFonts(which)
 end
 
 function Armory:UpdateSharedStringsFonts(which)
@@ -346,7 +351,7 @@ end
 
 function Armory:Transmog_OnClick(button)
 	local ItemName, ItemLink = T.GetItemInfo(self.Link)
-	
+
 	if not IsShiftKeyDown() then
 		T.SetItemRef(ItemLink, ItemLink, 'LeftButton')
 	else
@@ -375,7 +380,7 @@ function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant)
 		else
 			noChant = true
 		end
-	end 
+	end
 	if gems and Slot.ID ~= 2 then --If gems found and not neck
 		for i = 1, Armory.Constants.MaxGemSlots do
 			local texture = Slot["textureSlot"..i]
@@ -446,6 +451,8 @@ function Armory:Initialize()
 	hooksecurefunc(M, "UpdatePageInfo", Armory.UpdatePageInfo)
 	hooksecurefunc(M, "UpdatePageStrings", Armory.UpdatePageStrings)
 	hooksecurefunc(M, "ToggleItemLevelInfo", Armory.ToggleItemLevelInfo)
+	hooksecurefunc(M, "UpdateInspectPageFonts", Armory.UpdateSharedStringsFonts)
+	hooksecurefunc(M, "CreateSlotStrings", Armory.CreateSlotStrings)
 
 	if Armory:CheckOptions("Character") then
 		CA = SLE:GetModule("Armory_Character")
