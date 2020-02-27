@@ -130,7 +130,7 @@ local function configTable()
 				order = 12,
 				get = function(info) return E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = value; IA:Update_Gems() end,
-				disabled = function() return E.db.general.itemLevel.displayInspectInfo == false o not E.db.sle.armory.inspect.enable end,
+				disabled = function() return E.db.general.itemLevel.displayInspectInfo == false or not E.db.sle.armory.inspect.enable end,
 				args = {
 					size = {
 						type = 'range',
