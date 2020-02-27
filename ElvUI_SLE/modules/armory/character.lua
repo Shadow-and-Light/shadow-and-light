@@ -137,6 +137,12 @@ function CA:BuildLayout()
 
 			Slot.TransmogInfo:Hide()
 		end
+
+		--<<Corruption>>--
+		if not SLE._Compatibility["CorruptionTooltips"] then
+			Slot["CorText"] = Slot:CreateFontString(nil, "OVERLAY")
+			Slot["CorText"]:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.character.corruptionText.font), E.db.sle.armory.character.corruptionText.fontSize, E.db.sle.armory.character.corruptionText.fontStyle)
+		end
 	end
 	
 	--<<<Hooking some shit!>>>--
@@ -249,6 +255,18 @@ function CA:Update_Enchant()
 		if Slot.enchantText then
 			Slot.enchantText:ClearAllPoints()
 			Slot.enchantText:Point(Slot.Direction, Slot, Slot.Direction == "LEFT" and "RIGHT" or "LEFT", Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.enchant.xOffset or -2-E.db.sle.armory.character.enchant.xOffset, 1+E.db.sle.armory.character.enchant.yOffset)
+		end
+	end
+end
+
+function CA:Update_SlotCorruption()
+	if SLE._Compatibility["CorruptionTooltips"] then return end
+	for i, SlotName in T.pairs(Armory.Constants.GearList) do
+		local Slot = _G["Character"..SlotName]
+
+		if Slot.CorText then
+			Slot.CorText:ClearAllPoints()
+			Slot.CorText:Point("TOP"..Slot.Direction, Slot, "TOP"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 25+E.db.sle.armory.character.corruptionText.xOffset or -25-E.db.sle.armory.character.corruptionText.xOffset, -1+E.db.sle.armory.character.corruptionText.yOffset)
 		end
 	end
 end
@@ -366,6 +384,7 @@ function CA:Enable()
 	CA:Update_ItemLevel()
 	CA:Update_Enchant()
 	CA:Update_Gems()
+	CA:Update_SlotCorruption()
 	CA:Update_Durability()
 
 	if E.db.general.itemLevel.displayCharacterInfo then M:UpdatePageInfo(_G["CharacterFrame"], "Character") end

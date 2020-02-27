@@ -62,6 +62,14 @@ P["sle"] = {
 				["valueColor"] = false,
 				["style"] = "TOTAL",
 			},
+			["corruptionText"] = {
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+				["font"] = "PT Sans Narrow",
+				["fontSize"] = 12,
+				["fontStyle"] = "OUTLINE",
+				["style"] = "AMOUNT/SPELL",
+			},
 			["background"] = {
 				["selectedBG"] = "Space",
 				["customTexture"] = "",
@@ -101,6 +109,14 @@ P["sle"] = {
 				["enableArrow"] = true,
 				["glowNumber"] = 4,
 				["glowOffset"] = 1,
+			},
+			["corruptionText"] = {
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+				["font"] = "PT Sans Narrow",
+				["fontSize"] = 12,
+				["fontStyle"] = "OUTLINE",
+				["style"] = "AMOUNT/SPELL",
 			},
 			["background"] = {
 				["selectedBG"] = "Space",

@@ -39,7 +39,7 @@ local function configTable()
 				order = 10,
 				get = function(info) return E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = value; IA:Update_ItemLevel(); Armory:UpdateSharedStringsFonts("Inspect") end,
-				disabled = function() return E.db.general.itemLevel.displayInspectInfo == false end,
+				disabled = function() return E.db.general.itemLevel.displayInspectInfo == false or not E.db.sle.armory.inspect.enable end,
 				args = {
 					colorType = {
 						type = 'select',
@@ -90,7 +90,7 @@ local function configTable()
 				order = 11,
 				get = function(info) return E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = value; IA:Update_Enchant(); Armory:UpdateSharedStringsFonts("Inspect") end,
-				disabled = function() return E.db.general.itemLevel.displayInspectInfo == false end,
+				disabled = function() return E.db.general.itemLevel.displayInspectInfo == false or not E.db.sle.armory.inspect.enable end,
 				args = {
 					font = {
 						type = 'select', dialogControl = 'LSM30_Font',
@@ -130,7 +130,7 @@ local function configTable()
 				order = 12,
 				get = function(info) return E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = value; IA:Update_Gems() end,
-				disabled = function() return E.db.general.itemLevel.displayInspectInfo == false end,
+				disabled = function() return E.db.general.itemLevel.displayInspectInfo == false o not E.db.sle.armory.inspect.enable end,
 				args = {
 					size = {
 						type = 'range',
@@ -215,6 +215,72 @@ local function configTable()
 						disabled = function() return E.db.sle.armory.inspect.enable == false or E.db.sle.armory.inspect.gradient.enable == false end,
 					}
 				}
+			},
+			corruptionText = {
+				type = "group",
+				order = 19,
+				name = T.GetSpellInfo(172),
+				get = function(info) return E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] end,
+				set = function(info, value) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = value; IA:Update_SlotCorruption(); Armory:UpdateSharedStringsFonts("Inspect"); Armory:UpdateInspectInfo() end,
+				disabled = function() return not E.db.sle.armory.inspect.enable or SLE._Compatibility["CorruptionTooltips"] end,
+				args = {
+					style = {
+						type = 'select',
+						name = L["Text Format"],
+						order = 2,
+						values = {
+							["AMOUNT/SPELL"] = L["Amount"].." / "..SPELLS,
+							["AMOUNT"] = L["Amount"],
+							["SPELL"] = SPELLS,
+							["Hide"] = HIDE,
+						},
+					},
+					space = {
+						order = 3,
+						type = "description",
+						name = "",
+					},
+					xOffset = {
+						type = 'range',
+						name = L["X-Offset"],
+						order = 10,
+						min = -10, max = 70, step = 1,
+					},
+					yOffset = {
+						type = 'range',
+						name = L["Y-Offset"],
+						order = 11,
+						min = -40, max = 40, step = 1,
+					},
+					space2 = {
+						order = 15,
+						type = "description",
+						name = "",
+					},
+					font = {
+						type = 'select', dialogControl = 'LSM30_Font',
+						name = L["Font"],
+						order = 20,
+						values = function() return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {} end,
+					},
+					fontSize = {
+						type = 'range',
+						name = L["Font Size"],
+						order = 21,
+						min = 6, max = 32, step = 1,
+					},
+					fontStyle = {
+						type = 'select',
+						name = L["Font Outline"],
+						order = 22,
+						values = {
+							NONE = NONE,
+							OUTLINE = 'OUTLINE',
+							MONOCHROMEOUTLINE = 'MONOCROMEOUTLINE',
+							THICKOUTLINE = 'THICKOUTLINE'
+						},
+					},
+				},
 			},
 			background = {
 				type = 'group',

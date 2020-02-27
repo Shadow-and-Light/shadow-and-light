@@ -342,8 +342,21 @@ function SLE:MismatchText()
 	return text
 end
 
---For when we dramatically change some options
-function SLE:FixDatabase()
+--To get stuff from item link. Got this from suspctz
+function SLE:GetItemSplit(itemLink)
+	local itemString = T.match(itemLink, "item:([%-?%d:]+)")
+	local itemSplit = {}
+
+	-- Split data into a table
+	for _, v in T.ipairs({T.split(":", itemString)}) do
+	if v == "" then
+		itemSplit[#itemSplit + 1] = 0
+	else
+		itemSplit[#itemSplit + 1] = T.tonumber(v)
+	end
+	end
+
+	return itemSplit
 end
 
 --Reseting shit

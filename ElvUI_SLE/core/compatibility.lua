@@ -19,6 +19,7 @@ local _CompList = {
 	"TradeSkillMaster",
 	"WorldQuestTracker",
 	"oRA3",
+	"CorruptionTooltips", --Corruption tooltips is basically ther same as corruption submod for armory + it changes the tooltip line I match so don't create stuff if this is running
 }
 --Populate compatibility checks table
 for i = 1, #_CompList do
