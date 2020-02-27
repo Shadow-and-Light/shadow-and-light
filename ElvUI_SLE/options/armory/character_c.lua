@@ -303,7 +303,7 @@ local function configTable()
 						type = 'range',
 						name = L["X-Offset"],
 						order = 10,
-						min = -10, max = 70, step = 1,
+						min = -100, max = 70, step = 1,
 					},
 					yOffset = {
 						type = 'range',
