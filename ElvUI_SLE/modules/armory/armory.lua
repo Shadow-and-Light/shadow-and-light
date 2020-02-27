@@ -271,6 +271,7 @@ function Armory:UpdateSharedStringsFonts(which)
 	local window = T.lower(which)
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		local Slot = _G[which..SlotName]
+		if not Slot then return end
 		if Slot.iLvlText then
 			local fontIlvl, sizeIlvl, outlineIlvl, fontEnch, sizeEnch, outlineEnch
 			if E.db.sle.armory[window].enable then
