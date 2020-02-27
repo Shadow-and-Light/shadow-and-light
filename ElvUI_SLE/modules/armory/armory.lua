@@ -267,7 +267,7 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 							if E.db.sle.armory[window].corruptionText.style == "AMOUNT/SPELL" then
 								CorValue = CorValue.." / "..CorSpell
 							elseif E.db.sle.armory[window].corruptionText.style == "SPELL" then
-								CorValue = CorSpell
+								CorValue = CorSpell or ""
 							end
 							CorValue = "|cff956DD1"..CorValue.."|r" --Color purple
 						else
