@@ -69,6 +69,7 @@ P["sle"] = {
 				["fontSize"] = 12,
 				["fontStyle"] = "OUTLINE",
 				["style"] = "AMOUNT/SPELL",
+				["icon"] = false,
 			},
 			["background"] = {
 				["selectedBG"] = "Space",
@@ -117,6 +118,7 @@ P["sle"] = {
 				["fontSize"] = 12,
 				["fontStyle"] = "OUTLINE",
 				["style"] = "AMOUNT/SPELL",
+				["icon"] = false,
 			},
 			["background"] = {
 				["selectedBG"] = "Space",

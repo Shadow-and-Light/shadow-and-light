@@ -139,10 +139,8 @@ function CA:BuildLayout()
 		end
 
 		--<<Corruption>>--
-		if not SLE._Compatibility["CorruptionTooltips"] then
-			Slot["CorText"] = Slot:CreateFontString(nil, "OVERLAY")
-			Slot["CorText"]:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.character.corruptionText.font), E.db.sle.armory.character.corruptionText.fontSize, E.db.sle.armory.character.corruptionText.fontStyle)
-		end
+		Slot["CorText"] = Slot:CreateFontString(nil, "OVERLAY")
+		Slot["CorText"]:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.character.corruptionText.font), E.db.sle.armory.character.corruptionText.fontSize, E.db.sle.armory.character.corruptionText.fontStyle)
 	end
 	
 	--<<<Hooking some shit!>>>--
@@ -260,7 +258,6 @@ function CA:Update_Enchant()
 end
 
 function CA:Update_SlotCorruption()
-	if SLE._Compatibility["CorruptionTooltips"] then return end
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		local Slot = _G["Character"..SlotName]
 

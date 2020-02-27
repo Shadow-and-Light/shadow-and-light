@@ -222,18 +222,23 @@ local function configTable()
 				name = T.GetSpellInfo(172),
 				get = function(info) return E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = value; IA:Update_SlotCorruption(); Armory:UpdateSharedStringsFonts("Inspect"); Armory:UpdateInspectInfo() end,
-				disabled = function() return not E.db.sle.armory.inspect.enable or SLE._Compatibility["CorruptionTooltips"] end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.inspect end,
 				args = {
 					style = {
 						type = 'select',
 						name = L["Text Format"],
-						order = 2,
+						order = 1,
 						values = {
 							["AMOUNT/SPELL"] = L["Amount"].." / "..SPELLS,
 							["AMOUNT"] = L["Amount"],
 							["SPELL"] = SPELLS,
 							["Hide"] = HIDE,
 						},
+					},
+					icon = {
+						order = 2,
+						name = L["Icon"],
+						type = "toggle",
 					},
 					space = {
 						order = 3,

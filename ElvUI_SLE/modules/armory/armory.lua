@@ -180,6 +180,7 @@ end
 function Armory:GetCorruptionInfo(Slot, which, unit)
 	if not Slot.itemLink then return nil end 
 	if not which or not unit then return nil end
+	local window = T.lower(which)
 	if IsCorruptedItem(Slot.itemLink) or Slot.ID == 15 then
 		local TooltipText
 		Armory:ClearTooltip(Armory.ScanTT)
@@ -188,7 +189,10 @@ function Armory:GetCorruptionInfo(Slot, which, unit)
 		for i = 1, Armory.ScanTT:NumLines() do
 			TooltipText = _G["SLE_Armory_ScanTTTextLeft"..i]:GetText()
 
-			if TooltipText:match(ITEM_MOD_CORRUPTION) then
+			if TooltipText:match(ITEM_MOD_CORRUPTION_RESISTANCE) then
+				TooltipText = T.gsub(TooltipText, TooltipText:match(ITEM_MOD_CORRUPTION_RESISTANCE), "")
+				return "res", TooltipText, nil
+			elseif TooltipText:match(ITEM_MOD_CORRUPTION) then
 				TooltipText = T.gsub(TooltipText, TooltipText:match(ITEM_MOD_CORRUPTION), "")
 
 				--Iteration to get corruption spell from bunus ID. Got the script from suspctz
@@ -207,16 +211,16 @@ function Armory:GetCorruptionInfo(Slot, which, unit)
 						if Spells[bonus_id] ~= nil then
 							local name, rank, icon = T.GetSpellInfo(Spells[bonus_id][3])
 							if Spells[bonus_id][2] ~= "" then rank = Spells[bonus_id][2] else rank = "" end
-							-- corruptionSpell = "|T"..icon..":0|t "..name.." "..rank
-							corruptionSpell = name.." "..rank
+							if E.db.sle.armory[window].corruptionText.icon then
+								corruptionSpell = "|T"..icon..":0|t "..name.." "..rank
+							else
+								corruptionSpell = name.." "..rank
+							end
 						end
 					end
 				end
 
 				return "cor", TooltipText, corruptionSpell
-			elseif TooltipText:match(ITEM_MOD_CORRUPTION_RESISTANCE) then
-				TooltipText = T.gsub(TooltipText, TooltipText:match(ITEM_MOD_CORRUPTION_RESISTANCE), "")
-				return "res", TooltipText, nil
 			end
 		end
 	end
@@ -265,7 +269,7 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 					if isCorruption then
 						if isCorruption == "cor" then
 							if E.db.sle.armory[window].corruptionText.style == "AMOUNT/SPELL" then
-								CorValue = CorValue.." / "..CorSpell
+								CorValue = CorValue..CorSpell
 							elseif E.db.sle.armory[window].corruptionText.style == "SPELL" then
 								CorValue = CorSpell or ""
 							end

@@ -276,18 +276,23 @@ local function configTable()
 				name = T.GetSpellInfo(172),
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_SlotCorruption(); Armory:UpdateSharedStringsFonts("Character"); Armory:UpdateCharacterInfo() end,
-				disabled = function() return not E.db.sle.armory.character.enable or SLE._Compatibility["CorruptionTooltips"] end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.character end,
 				args = {
 					style = {
 						type = 'select',
 						name = L["Text Format"],
-						order = 2,
+						order = 1,
 						values = {
 							["AMOUNT/SPELL"] = L["Amount"].." / "..SPELLS,
 							["AMOUNT"] = L["Amount"],
 							["SPELL"] = SPELLS,
 							["Hide"] = HIDE,
 						},
+					},
+					icon = {
+						order = 2,
+						name = L["Icon"],
+						type = "toggle",
 					},
 					space = {
 						order = 3,
