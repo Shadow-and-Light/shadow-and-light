@@ -438,11 +438,11 @@ function CA:ToggleArmory()
 	Armory:HandleCorruption()
 
 	for i, SlotName in T.pairs(Armory.Constants.AzeriteSlot) do PaperDollItemSlotButton_Update(_G["Character"..SlotName]) end
+	Armory:UpdateSharedStringsFonts("Character")
 end
 
 function CA:LoadAndSetup()
 	CA:BuildLayout()
 	CA:ToggleArmory()
 	CA:ElvOverlayToggle()
-	Armory:UpdateSharedStringsFonts("Character")
 end
