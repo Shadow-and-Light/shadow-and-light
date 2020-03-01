@@ -431,10 +431,10 @@ end
 function CA:ToggleArmory()
 	if E.db.sle.armory.character.enable then
 		CA:Enable()
-		Armory:UpdateSharedStringsFonts("Character")
 	else
 		CA:Disable()
 	end
+	M:UpdateInspectPageFonts("Character")
 	CA:UpdateCorruptionText()
 	Armory:HandleCorruption()
 

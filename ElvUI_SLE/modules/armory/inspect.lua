@@ -294,6 +294,7 @@ function IA:ToggleArmory()
 	else
 		IA:Disable()
 	end
+	M:UpdateInspectPageFonts("Inspect")
 end
 
 function IA:PreSetup()
