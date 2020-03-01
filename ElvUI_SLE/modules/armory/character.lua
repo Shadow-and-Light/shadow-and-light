@@ -444,4 +444,5 @@ function CA:LoadAndSetup()
 	CA:BuildLayout()
 	CA:ToggleArmory()
 	CA:ElvOverlayToggle()
+	Armory:UpdateSharedStringsFonts("Character")
 end
