@@ -431,6 +431,7 @@ end
 function CA:ToggleArmory()
 	if E.db.sle.armory.character.enable then
 		CA:Enable()
+		Armory:UpdateSharedStringsFonts("Character")
 	else
 		CA:Disable()
 	end
@@ -438,7 +439,6 @@ function CA:ToggleArmory()
 	Armory:HandleCorruption()
 
 	for i, SlotName in T.pairs(Armory.Constants.AzeriteSlot) do PaperDollItemSlotButton_Update(_G["Character"..SlotName]) end
-	Armory:UpdateSharedStringsFonts("Character")
 end
 
 function CA:LoadAndSetup()
