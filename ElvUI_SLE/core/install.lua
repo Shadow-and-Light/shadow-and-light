@@ -1012,7 +1012,7 @@ function PI:DarthOldSetup()
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["height"] = 4
 
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["enable"] = true
-		E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["format"] = "CURRENT_PERCENT"
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["format"] = "[CURRENT_PERCENT]"
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 6
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["enable"] = true
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["height"] = 4
@@ -1023,7 +1023,7 @@ function PI:DarthOldSetup()
 
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["numAuras"] = 6
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["enable"] = true
-		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["format"] = "CURRENT_PERCENT"
+		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["format"] = "[CURRENT_PERCENT]"
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["enable"] = true
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["height"] = 4
 
