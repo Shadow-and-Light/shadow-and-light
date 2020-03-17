@@ -121,6 +121,10 @@ EM.TagsTable = {
 			return false;
 		end
 	end,
+	["effectivelevel"] = function(level)
+		local _level = T.UnitEffectiveLevel("player")
+		return _level == tonumber(level)
+	end,
 	--Well, it's just true :D
 	["NoCondition"] = function()
 		return true
@@ -344,6 +348,7 @@ function EM:Initialize()
 	self:RegisterEvent("LOADING_SCREEN_DISABLED", Equip)
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", Equip)
 	self:RegisterEvent("ZONE_CHANGED", Equip)
+	self:RegisterEvent("PLAYER_LEVEL_CHANGED", Equip)
 
 	--Initial apply options
 	EM:TagsProcess(EM.db.conditions)
