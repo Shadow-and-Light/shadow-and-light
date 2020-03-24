@@ -29,6 +29,7 @@ local Difficulties = {
 	[23] = 'mythic', --5ppl mythic
 	[24] = 'timewalking', --Timewalking
 	[33] = 'timewalking', -- Timewalking Raids
+	[152] = "horrificvision", -- Horrific Vision of Stormwind|Orgrimmar
 }
 
 --Table of tags conditions for gear switching
