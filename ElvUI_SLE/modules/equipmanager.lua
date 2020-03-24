@@ -240,6 +240,8 @@ function EM:TagsConditionsCheck(data)
 	end
 end
 
+local equippedSets = {}
+
 --Equipping stuff
 local function Equip(event)
 	--If equip is in process or lock button is checked, then return
@@ -262,14 +264,13 @@ local function Equip(event)
 	end
 
 	--Figuring out the hell should be equipped
-	local equippedSet
+	T.wipe(equippedSets)
 	local equipmentSetIDs = C_EquipmentSet.GetEquipmentSetIDs()
 	--If any actual equip set is on
 	for index = 1, C_EquipmentSet.GetNumEquipmentSets() do
 		local name, _, _, isEquipped = C_EquipmentSet.GetEquipmentSetInfo(equipmentSetIDs[index]);
-		if isEquipped then --Set found, leaving
-			equippedSet = name
-			break
+		if isEquipped then --Set found
+			T.tinsert(equippedSets, name)
 		end
 	end
 	--What actually should be equipped, based on tags
@@ -280,7 +281,7 @@ local function Equip(event)
 		local SetID = C_EquipmentSet.GetEquipmentSetID(trueSet)
 		if SetID then
 			--If it is not what's equipped right now, then put it on.
-			if not equippedSet or (equippedSet and trueSet ~= equippedSet) then
+			if #equippedSets == 0 or not T.tContains(equippedSets, trueSet) then
 				C_EquipmentSet.UseEquipmentSet(SetID)
 			end
 		else

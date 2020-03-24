@@ -139,6 +139,7 @@ T.sort = table.sort
 T.tconcat = table.concat
 T.next = next
 T.wipe = wipe
+T.tContains = tContains
 --Camera
 T.FlipCameraYaw = FlipCameraYaw
 --Instance
