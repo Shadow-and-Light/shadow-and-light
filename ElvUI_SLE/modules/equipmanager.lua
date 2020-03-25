@@ -29,6 +29,14 @@ local Difficulties = {
 	[23] = 'mythic', --5ppl mythic
 	[24] = 'timewalking', --Timewalking
 	[33] = 'timewalking', -- Timewalking Raids
+	[34] = "pvp",
+	[38] = "normal", -- Normal Scenario (Islands)
+	[39] = "heroic", -- Heroic Scenario (Islands)
+	[40] = "mythic", -- Mythic Scenario (Islands)
+	[45] = "pvp", -- PvP Scenario (Islands)
+	[147] = "normal", -- Warfront
+	[149] = "heroic", -- Heroic Warfront
+	[151] = "timewalking", -- LFR Timewalking Raids
 	[152] = "horrificvision", -- Horrific Vision of Stormwind|Orgrimmar
 }
 
