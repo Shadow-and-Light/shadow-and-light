@@ -70,7 +70,7 @@ local function configTable()
 							playerLegacy = {
 								order = 2,
 								type = "toggle",
-								name = L["Classic"],
+								name = L["Player Frame Classic"],
 							},
 							target = {
 								order = 5,
@@ -80,7 +80,7 @@ local function configTable()
 							targetLegacy = {
 								order = 6,
 								type = "toggle",
-								name = L["Classic"],
+								name = L["Target Frame Classic"],
 							},
 							targettarget = {
 								order = 10,
@@ -90,7 +90,7 @@ local function configTable()
 							targettargetLegacy = {
 								order = 11,
 								type = "toggle",
-								name = L["Classic"],
+								name = L["TargetTarget Frame Classic"],
 							},
 							focus = {
 								order = 15,
@@ -100,7 +100,7 @@ local function configTable()
 							focusLegacy = {
 								order = 16,
 								type = "toggle",
-								name = L["Classic"],
+								name = L["Focus Frame Classic"],
 							},
 							focustarget = {
 								order = 20,
@@ -110,7 +110,7 @@ local function configTable()
 							focustargetLegacy = {
 								order = 21,
 								type = "toggle",
-								name = L["Classic"],
+								name = L["FocusTarget Frame Classic"],
 							},
 							pet = {
 								order = 25,
@@ -120,7 +120,7 @@ local function configTable()
 							petLegacy = {
 								order = 26,
 								type = "toggle",
-								name = L["Classic"],
+								name = L["Pet Frame Classic"],
 							},
 							pettarget = {
 								order = 30,
@@ -130,7 +130,7 @@ local function configTable()
 							pettargetLegacy = {
 								order = 31,
 								type = "toggle",
-								name = L["Classic"],
+								name = L["PetTarget Frame Classic"],
 							},
 							boss = {
 								order = 35,
@@ -140,7 +140,7 @@ local function configTable()
 							bossLegacy = {
 								order = 36,
 								type = "toggle",
-								name = L["Classic"],
+								name = L["Boss Frames Classic"],
 							},
 							arena = {
 								order = 40,
@@ -150,7 +150,7 @@ local function configTable()
 							arenaLegacy = {
 								order = 41,
 								type = "toggle",
-								name = L["Classic"],
+								name = L["Arena Frames Classic"],
 							},
 						},
 					},
