@@ -131,11 +131,40 @@ local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
 		for i = 1, object:GetNumRegions() do
 			local region = select(i, object:GetRegions())
 			if region and region:IsObjectType('Texture') then --and region:IsObjectType(which) then
-				-- print(type(region), region:GetAtlas())
 				if region:GetAtlas() == "ChallengeMode-Timer" then region:SetAlpha(0) end
 			end
 		end
 	end
+	S:HandleStatusBar(object.StatusBar);
+	object.TimerBG:Kill();
+	object.TimerBGBack:Kill();
+end
+
+local function SkinAffixes(block,affixes)
+	local num = #affixes;
+	for i = 1, num do
+		local affixFrame = block.Affixes[i];
+		local affixID = affixes[i];
+		if affixFrame then
+			if not affixFrame.SLE_Icon then
+				affixFrame.SLE_Icon = affixFrame:CreateTexture(nil, "OVERLAY")
+				affixFrame.SLE_Icon:SetAllPoints()
+			end
+			affixFrame:StripTextures()
+			local _, _, filedataid = C_ChallengeMode.GetAffixInfo(affixID);
+			affixFrame.SLE_Icon:SetTexture(filedataid)
+			affixFrame.SLE_Icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+		end
+	end
+end
+
+function ScenarioChallengeModeAffixMixin:SetUp(affixID)
+	local _, _, filedataid = C_ChallengeMode.GetAffixInfo(affixID);
+	SetPortraitToTexture(self.Portrait, filedataid);
+
+	self.affixID = affixID;
+
+	self:Show();
 end
 
 -- Proving grounds
@@ -217,6 +246,7 @@ local function ObjectiveReskin()
 		hooksecurefunc(_G["SCENARIO_CONTENT_TRACKER_MODULE"], "Update", SkinScenarioButtons)
 		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
 		hooksecurefunc("Scenario_ChallengeMode_ShowBlock", SkinChallengeModeBlock)
+		hooksecurefunc("Scenario_ChallengeMode_SetUpAffixes", SkinAffixes)
 		-- Another ProgressBar in the ObjectiveTracker counting as Scenario (e.g. Legion Pre-Event)
 		hooksecurefunc(SCENARIO_TRACKER_MODULE, "AddProgressBar", function(self, block, line, criteriaIndex)
 			local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line];
