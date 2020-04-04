@@ -540,7 +540,7 @@ function Armory:HandleCorruption()
 	local CorruptionIcon = _G["CharacterFrame"].SLE_Corruption
 	CorruptionIcon:ClearAllPoints()
 	CorruptionIcon:SetParent(_G["SLE_Armory_Scroll"])
-	if E.db.sle.armory.character.enable or E.db.sle.armory.stats.enable then
+	if E.db.sle.armory.character.corruption.position == "SLE" and (E.db.sle.armory.character.enable or E.db.sle.armory.stats.enable) then
 		CorruptionIcon:SetPoint("LEFT", _G["CharacterFrame"], "TOPRIGHT", -34, -54)
 	else
 		CorruptionIcon:SetPoint("RIGHT", _G["CharacterStatsPane"].ItemLevelFrame, "RIGHT", Armory.Constants.Corruption.DefaultX, Armory.Constants.Corruption.DefaultY)

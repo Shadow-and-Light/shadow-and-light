@@ -54,6 +54,7 @@ P["sle"] = {
 				["yOffset"] = 0,
 			},
 			["corruption"] = {
+				["position"] = "SLE",
 				["xOffset"] = 0,
 				["yOffset"] = 0,
 				["font"] = "PT Sans Narrow",

@@ -39,8 +39,8 @@ function EC:UpdateUitframes()
 	E.Options.args.unitframe.args.groupUnits.args.raidpet.args.generalGroup.args.positionsGroup.args.horizontalSpacing.min = -4
 	E.Options.args.unitframe.args.groupUnits.args.raidpet.args.generalGroup.args.positionsGroup.args.verticalSpacing.min = -4
 	--Tanks/ASssists
-	E.Options.args.unitframe.args.groupUnits.args.tank.args.generalGroup.args.verticalSpacing.min = -4
-	E.Options.args.unitframe.args.groupUnits.args.assist.args.generalGroup.args.verticalSpacing.min = -4
+	-- E.Options.args.unitframe.args.groupUnits.args.tank.args.generalGroup.args.verticalSpacing.min = -4
+	-- E.Options.args.unitframe.args.groupUnits.args.assist.args.generalGroup.args.verticalSpacing.min = -4
 	--Camera for frames with portraits
 	for unit, settings in T.pairs(E.Options.args.unitframe.args.individualUnits.args) do
 		if E.Options.args.unitframe.args.individualUnits.args[unit].args and E.Options.args.unitframe.args.individualUnits.args[unit].args.portrait then
