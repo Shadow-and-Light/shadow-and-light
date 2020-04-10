@@ -186,6 +186,11 @@ function CA:BuildLayout()
 			E:Delay(1, function() _G["CharacterFrame"].SLE_Corruption.ThrottleRating = false end)
 		end
 	end)
+	if SLE._Compatibility["CorruptionTooltips"] then
+		local CT = LibStub("AceAddon-3.0"):GetAddon("CorruptionTooltips")
+		CT:SecureHookScript(_G["CharacterFrame"].SLE_Corruption, "OnEnter", "SummaryEnter")
+		CT:SecureHookScript(_G["CharacterFrame"].SLE_Corruption, "OnLeave", "SummaryLeave")
+	end
 
 	--deal with the events
 	_G["CharacterFrame"].SLE_Corruption:RegisterEvent("COMBAT_RATING_UPDATE");
