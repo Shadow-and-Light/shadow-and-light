@@ -287,7 +287,7 @@ end
 function LT:LootShow()
 	local instance = T.IsInInstance()
 
-	if (not instance and E.db.sle.loot.history.autohide) then
+	if (not instance and LT.db.history.autohide) then
 		_G["LootHistoryFrame"]:Hide()
 		if SLE._Compatibility["ElvUI_PagedLootHistory"] then _G["ElvUI_PagedLootHistoryFrame"]:Hide() end
 	end
