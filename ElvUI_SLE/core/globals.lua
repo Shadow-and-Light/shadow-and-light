@@ -79,6 +79,11 @@ SLE.rolePaths = {
 		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\lyn-healer]],
 		DAMAGER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\lyn-dps]]
 	},
+	["Philmod"] = {
+		TANK = [[Interface\AddOns\ElvUI_SLE\media\textures\role\philmod-tank]],
+		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\philmod-healer]],
+		DAMAGER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\philmod-dps]]
+	},
 }
 
 --Epty Tables
