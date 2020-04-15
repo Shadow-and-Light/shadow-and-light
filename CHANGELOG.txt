@@ -6,7 +6,6 @@ Fixes:
 - Fixed some armory mode issues for non max level characters (possibly maxed as well)
 - Fixed (Maybe) Cinematic issues
 Additions:
-- CorruptionTooltips compatibility was added on main tooltip for the eye
 - Ability to slightly adjust the Eye on character sheet
 - Added Echoes of Ny'alotha to currency datatext
 - Added corruption/resist values on armory mode
