@@ -175,6 +175,7 @@ end
 function IA:Update_SlotCorruption()
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		local Slot = _G["Inspect"..SlotName]
+		if not Slot then return end
 
 		if Slot.CorText then
 			Slot.CorText:ClearAllPoints()
