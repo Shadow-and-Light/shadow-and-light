@@ -1,4 +1,4 @@
-v3.67
+v3.67 [April 15th, 2020]
 Fixes:
 - Fixed Philmod LFG Role icons not working correctly
 - Fixed Darth's install where nameplates used the wrong tag for health text format on Enemy NPC and Enemy Player
