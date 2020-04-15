@@ -1,3 +1,21 @@
+v3.67
+Fixes:
+- Fixed Philmod LFG Role icons not working correctly
+- Fixed Darth's install where nameplates used the wrong tag for health text format on Enemy NPC and Enemy Player
+- Fixed item level font not updating correctly on armory page
+- Fixed some armory mode issues for non max level characters (possibly maxed as well)
+- Fixed (Maybe) Cinematic issues
+Additions:
+- CorruptionTooltips compatibility was added on main tooltip for the eye
+- Ability to slightly adjust the Eye on character sheet
+- Added Echoes of Ny'alotha to currency datatext
+- Added corruption/resist values on armory mode
+- Added effectivelevel equipment manager tag
+Changes:
+- Make affixes and timers look better (ex: Challenge Modes)
+- Clear up the Enhanced Shadows config section
+- Tweaked scrollbar on character sheet stats to possibly help with reported issues
+
 v3.66 [February 6th, 2020]
 Fixes:
 - Quick fix for DCS compatibility.
