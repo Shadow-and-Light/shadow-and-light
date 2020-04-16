@@ -100,7 +100,8 @@ function SA:BuildScrollBar() --Creating new scroll
 	SA.Scrollbar:SetValue(0)
 	SA.Scrollbar:SetWidth(8)
 	SA.Scrollbar:SetScript("OnValueChanged", function (self, value)
-		self:GetParent():SetVerticalScroll(value)
+		local offset = value > 1 and self:GetParent():GetVerticalScrollRange()/(SA.totalShown*Armory.Constants.Stats.ScrollStepMultiplier) or 1
+		self:GetParent():SetVerticalScroll(value*offset)
 	end)
 	E:GetModule("Skins"):HandleScrollBar(SA.Scrollbar)
 	SA.Scrollbar:Hide()
@@ -122,22 +123,9 @@ function SA:BuildScrollBar() --Creating new scroll
 	-- Enable mousewheel scrolling
 	SA.ScrollFrame:EnableMouseWheel(true)
 	SA.ScrollFrame:SetScript("OnMouseWheel", function(self, delta)
-		if SA.totalShown > 12 then
-			SA.Scrollbar:SetMinMaxValues(1, 100)
-		else
-			SA.Scrollbar:SetMinMaxValues(1, 1)
-		end
-
 		local cur_val = SA.Scrollbar:GetValue()
-		local min_val, max_val = SA.Scrollbar:GetMinMaxValues()
 
-		if delta < 0 and cur_val < max_val then
-			cur_val = math_min(max_val, cur_val + 22)
-			SA.Scrollbar:SetValue(cur_val)
-		elseif delta > 0 and cur_val > min_val then
-			cur_val = math_max(min_val, cur_val - 22)
-			SA.Scrollbar:SetValue(cur_val)
-		end
+		SA.Scrollbar:SetValue(cur_val - delta*SA.totalShown) --This controls the speed of the scroll
 	end)
 
 	PaperDollSidebarTab1:HookScript("OnShow", function(self,event)
@@ -275,16 +263,19 @@ function SA:PaperDollFrame_UpdateStats()
 				end
 			end
 		end
-		catFrame:SetShown(numStatInCat > 0);
+		catFrame:SetShown(numStatInCat > 0)
 	end
 	-- release the current stat frame
 	_G["CharacterStatsPane"].statsFramePool:Release(statFrame);
 	if SA.Scrollbar then
 		if SA.totalShown > 12 then
+			SA.Scrollbar:SetMinMaxValues(1, SA.totalShown*Armory.Constants.Stats.ScrollStepMultiplier)
 			SA.Scrollbar:Show()
 		else
+			SA.Scrollbar:SetMinMaxValues(1, 1)
 			SA.Scrollbar:Hide()
 		end
+		SA.Scrollbar:SetValue(SA.Scrollbar:GetValue())
 	end
 end
 

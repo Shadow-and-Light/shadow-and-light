@@ -125,6 +125,9 @@ Armory.Constants.GradientTexture = [[Interface\AddOns\ElvUI_SLE\media\textures\a
 Armory.Constants.TransmogTexture = [[Interface\AddOns\ElvUI_SLE\media\textures\armory\anchor]]
 Armory.Constants.MaxGemSlots = 5
 Armory.Constants.EssenceMilestones = {}
+Armory.Constants.Stats = {
+	ScrollStepMultiplier = 5,
+}
 
 
 --Remembering default positions of stuff
