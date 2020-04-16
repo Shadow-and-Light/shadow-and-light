@@ -303,7 +303,7 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 			elseif E.db.sle.armory[window].ilvl.colorType == "GRADIENT" then
 				local equippedIlvl = window == "character" and T.select(2, T.GetAverageItemLevel()) or E:CalculateAverageItemLevel(iLevelDB, _G["InspectFrame"].unit)
 				local diff
-				if slotInfo.iLvl then
+				if slotInfo.iLvl and (equippedIlvl and T.type(equippedIlvl) ~= "boolean") then
 					diff = slotInfo.iLvl - equippedIlvl
 				else
 					diff = 0
