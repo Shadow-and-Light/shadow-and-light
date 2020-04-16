@@ -498,6 +498,7 @@ L["SLE_EM_TAGS_HELP"] = [[Следующие тэги и параметры мо
 |cff3cbf27instance|r - в подземелье. Может быть определенного типа - [instance:<тип>]. Типы подземелий: party, raid и scenario. Если тип не задан, то быдет использоваться во всех подземельях;
 |cff3cbf27pvp|r - для полей боя, арен и открытых пвп зон. Параметры: pvp, arena;
 |cff3cbf27difficulty|r - Определяет сложность подземелья. Параметры: normal, heroic, lfr, challenge, mythic;
+|cff3cbf27effectivelevel|r - Nihilist can fill this in later lol
 
 Пример: [solo] Set1; [party:4, spec:3] Set2; [instance:raid, difficulty:heroic] Set3
 ]]
