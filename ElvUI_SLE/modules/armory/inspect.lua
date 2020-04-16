@@ -153,7 +153,8 @@ end
 function IA:Update_ItemLevel()
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		local Slot = _G["Inspect"..SlotName]
-		
+		if not Slot then return end
+
 		if Slot.iLvlText then
 			Slot.iLvlText:ClearAllPoints()
 			Slot.iLvlText:Point("TOP"..Slot.Direction, _G["Inspect"..SlotName], "TOP"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.inspect.ilvl.xOffset or -2-E.db.sle.armory.inspect.ilvl.xOffset, -1+E.db.sle.armory.inspect.ilvl.yOffset)
@@ -164,7 +165,8 @@ end
 function IA:Update_Enchant()
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		local Slot = _G["Inspect"..SlotName]
-		
+		if not Slot then return end
+
 		if Slot.enchantText then
 			Slot.enchantText:ClearAllPoints()
 			Slot.enchantText:Point(Slot.Direction, _G["Inspect"..SlotName], Slot.Direction == "LEFT" and "RIGHT" or "LEFT", Slot.Direction == "LEFT" and 2+E.db.sle.armory.inspect.enchant.xOffset or -2-E.db.sle.armory.inspect.enchant.xOffset, 1+E.db.sle.armory.inspect.enchant.yOffset)
@@ -187,7 +189,8 @@ end
 function IA:Update_Gems()
 	for i, SlotName in T.pairs(Armory.Constants.GearList) do
 		local Slot = _G["Inspect"..SlotName]
-		
+		if not Slot then return end
+
 		if Slot.textureSlot1 then
 			Slot.textureSlot1:ClearAllPoints()
 			Slot.textureSlot1:Point('BOTTOM'..Slot.Direction, _G["Inspect"..SlotName], "BOTTOM"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.inspect.gem.xOffset or -2-E.db.sle.armory.inspect.gem.xOffset, 2+E.db.sle.armory.inspect.gem.yOffset)
