@@ -69,6 +69,9 @@ function SLE:DatabaseConversions()
 						if data.sle.module.blizzmove.points["BonusRollMoneyWonFrame"] then data.sle.module.blizzmove.points["BonusRollMoneyWonFrame"] = nil; privateChanged = true; end
 					end
 				end
+				if data.sle.equip then
+					if data.sle.equip.onlyTalent then data.sle.equip.onlyTalent = nil end
+				end
 				if privateChanged then
 					if CharacterNames == NONE then
 						CharacterNames = private

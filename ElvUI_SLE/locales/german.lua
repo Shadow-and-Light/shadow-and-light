@@ -499,7 +499,7 @@ L["SLE_EM_TAGS_HELP"] = [[Following tags and parameters are eligible for setting
 |cff3cbf27instance|r - if in instance. Can be of specified instance type - [instance:<type>]. Types are party, raid and scenario. If not specified will be true for any instance;
 |cff3cbf27pvp|r - if on BG, arena or world pvp area. Available arguments: pvp, arena;
 |cff3cbf27difficulty|r - defines the difficulty of the instance. Arguments are: normal, heroic, lfr, challenge, mythic;
-|cff3cbf27effectivelevel|r - Nihilist can fill this in later lol
+|cff3cbf27effectivelevel|r - effective level refers to your level when you are scaled, e.g. timewalking
 
 Example: [solo] Set1; [party:4, spec:3] Set2; [instance:raid, difficulty:heroic] Set3
 ]]

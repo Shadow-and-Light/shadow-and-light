@@ -1,5 +1,5 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local EM = SLE:NewModule('EquipManager', 'AceHook-3.0', 'AceEvent-3.0')
+local EM = SLE:NewModule("EquipManager", "AceHook-3.0", "AceEvent-3.0")
 local GetRealZoneText = GetRealZoneText
 EM.Processing = false
 
@@ -252,13 +252,11 @@ end
 local equippedSets = {}
 
 --Equipping stuff
-local function Equip(event)
+local function Equip(event, ...)
 	--If equip is in process or lock button is checked, then return
 	if EM.Processing or EM.lock then return end
 	--Only equip stuff on first load
 	if event == "PLAYER_ENTERING_WORLD" then EM:UnregisterEvent(event) end
-	--If zone changed and option for only swap on talent change is enabled, then return
-	if (event == "ZONE_CHANGED" or event == "LOADING_SCREEN_DISABLED") and EM.db.onlyTalent then return end
 	EM.Processing = true
 
 	--Usualy it takes around a second to equip everything
@@ -357,8 +355,8 @@ function EM:Initialize()
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", Equip)
 	self:RegisterEvent("LOADING_SCREEN_DISABLED", Equip)
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", Equip)
-	self:RegisterEvent("ZONE_CHANGED", Equip)
 	self:RegisterEvent("PLAYER_LEVEL_CHANGED", Equip)
+	self:RegisterEvent("GROUP_ROSTER_UPDATE", Equip)
 
 	--Initial apply options
 	EM:TagsProcess(EM.db.conditions)

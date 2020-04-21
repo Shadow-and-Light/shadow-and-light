@@ -132,15 +132,6 @@ local function configTable()
 				get = function(info) return EM.db.lockbutton end,
 				set = function(info, value) EM.db.lockbutton = value; E:StaticPopup_Show("PRIVATE_RL") end
 			},
-			onlyTalent = {
-				type = "toggle",
-				order = 7,
-				name = L["Ignore zone change"],
-				desc = L["Swap sets only on specialization change ignoring location change when. Does not influence entering/leaving instances and bg/arena."],
-				disabled = function() return not EM.db.enable end,
-				get = function(info) return EM.db.onlyTalent end,
-				set = function(info, value) EM.db.onlyTalent = value; end,
-			},
 			equipsets = {
 				type = "group",
 				name = PAPERDOLL_EQUIPMENTMANAGER,
