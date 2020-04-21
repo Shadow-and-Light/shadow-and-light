@@ -428,6 +428,7 @@ function CA:Disable()
 		end
 		if Slot.SLE_Warning then Slot.SLE_Warning:Hide() end
 		if Slot.SLE_Durability then Slot["SLE_Durability"]:SetText('') end
+		if Slot.CorText then Slot["CorText"]:SetText('') end
 	end
 	
 	if _G["PaperDollFrame"].SLE_Armory_BG then _G["PaperDollFrame"].SLE_Armory_BG:Hide() end
