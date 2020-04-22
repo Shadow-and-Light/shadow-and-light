@@ -267,7 +267,7 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 			end
 			if Slot.CorText then --Setting corruption text if it actually exists for the slot
 				Slot.CorText:SetText("")
-				if E.db.sle.armory[window].corruptionText.style ~= "Hide" then
+				if E.db.sle.armory[window].corruptionText.style ~= "Hide" and E.db.sle.armory.character.enable then
 					local isCorruption, CorValue, CorSpell = Armory:GetCorruptionInfo(Slot, which, unit)
 					if isCorruption then
 						if isCorruption == "cor" then
