@@ -1,3 +1,13 @@
+v3.70
+Fixes:
+- Fixed corruption text from sticking around after disabling character armory
+- Hopefully squashed scrollbar issues on the character frame
+- Fix weird inspect bug
+Additions:
+- Added /slstatus for our status panel like elvui so we can help troubleshoot S&L users
+Changes:
+- Changed effectivelevel description to be more helpful
+
 v3.69 [April 15th, 2020]
 Fixes:
 - Fixed multiple errors found in inspect section of the Armory Mode
