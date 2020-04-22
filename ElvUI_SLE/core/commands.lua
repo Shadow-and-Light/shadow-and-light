@@ -39,4 +39,5 @@ end
 function SLE:LoadCommands()
 	--Slash Commands
 	self:RegisterChatCommand('slerror', 'LuaError')
+	self:RegisterChatCommand('slstatus', 'ShowStatusReport')
 end
