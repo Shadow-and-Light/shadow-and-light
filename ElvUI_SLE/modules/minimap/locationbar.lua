@@ -69,6 +69,7 @@ LP.Hearthstones = {
 	{166746, nil, true}, 
 	{166747, nil, true},
 	{168907, nil, true}, --Holographic Digitalization Hearthstone
+	{172179, nil, true}, --Eternal Traveller
 }
 
 LP.PortItems = {
