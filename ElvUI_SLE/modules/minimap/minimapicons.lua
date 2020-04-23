@@ -364,7 +364,7 @@ function SMB:Update()
 				end
 			end
 		end
-		if Frame:IsVisible() and not (Name == 'QueueStatusMinimapButton' or Name == 'MiniMapMailFrame') or Exception then
+		if Frame:IsVisible() and not (Name == "QueueStatusMinimapButton" or Name == "MiniMapMailFrame" or Name == "LibDBIcon10_LegionToDoMinimap") or Exception then
 			AnchorX = AnchorX + 1
 			ActualButtons = ActualButtons + 1
 			if AnchorX > MaxX then
