@@ -82,6 +82,9 @@ B.AddonsList = {
 	["Blizzard_AuctionUI"] = {
 		["AuctionFrame"] = true,
 	},
+	["Blizzard_AuctionHouseUI"] = {
+		["AuctionHouseFrame"] = true,
+	},
 	["Blizzard_AzeriteUI"] = {
 		["AzeriteEmpoweredItemUI"] = true,
 	},
