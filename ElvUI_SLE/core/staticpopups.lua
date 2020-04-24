@@ -199,85 +199,85 @@ E.PopupDialogs["SLE_APPLY_FONT_WARNING"] = {
 		E.db.sle.skins.merchant.list.nameSize = fontSize
 		E.db.sle.skins.merchant.list.nameOutline = fontOutline
 
-		E.db.sle.Armory.Character.Level.Font = font
-		E.db.sle.Armory.Character.Level.FontSize = fontSize
-		E.db.sle.Armory.Character.Level.FontStyle = fontOutline
+		E.db.sle.armory.character.ilvl.font = font
+		E.db.sle.armory.character.ilvl.fontSize = fontSize
+		E.db.sle.armory.character.ilvl.fontStyle = fontOutline
 
-		E.db.sle.Armory.Character.Enchant.Font = font
-		-- E.db.sle.Armory.Character.Enchant.FontSize = fontSize
-		E.db.sle.Armory.Character.Enchant.FontStyle = fontOutline
+		E.db.sle.armory.character.enchant.font = font
+		-- E.db.sle.armory.character.enchant.fontSize = fontSize
+		E.db.sle.armory.character.enchant.fontStyle = fontOutline
 
-		E.db.sle.Armory.Character.Stats.ItemLevel.font = font
-		E.db.sle.Armory.Character.Stats.ItemLevel.size = fontSize
-		E.db.sle.Armory.Character.Stats.ItemLevel.outline = fontOutline
+		E.db.sle.armory.stats.itemLevel.font = font
+		E.db.sle.armory.stats.itemLevel.size = fontSize
+		E.db.sle.armory.stats.itemLevel.outline = fontOutline
 
-		E.db.sle.Armory.Character.Stats.statFonts.font = font
-		E.db.sle.Armory.Character.Stats.statFonts.size = fontSize
-		E.db.sle.Armory.Character.Stats.statFonts.outline = fontOutline
+		E.db.sle.armory.stats.statFonts.font = font
+		E.db.sle.armory.stats.statFonts.size = fontSize
+		E.db.sle.armory.stats.statFonts.outline = fontOutline
 
-		E.db.sle.Armory.Character.Stats.catFonts.font = font
-		E.db.sle.Armory.Character.Stats.catFonts.size = fontSize
-		E.db.sle.Armory.Character.Stats.catFonts.outline = fontOutline
+		E.db.sle.armory.stats.catFonts.font = font
+		E.db.sle.armory.stats.catFonts.size = fontSize
+		E.db.sle.armory.stats.catFonts.outline = fontOutline
 
-		E.db.sle.Armory.Inspect.Level.Font = font
-		E.db.sle.Armory.Inspect.Level.FontSize = fontSize
-		E.db.sle.Armory.Inspect.Level.FontStyle = fontOutline
+		E.db.sle.armory.inspect.ilvl.font = font
+		E.db.sle.armory.inspect.ilvl.fontSize = fontSize
+		E.db.sle.armory.inspect.ilvl.fontStyle = fontOutline
 
-		E.db.sle.Armory.Inspect.Enchant.Font = font
-		-- E.db.sle.Armory.Inspect.Enchant.FontSize = fontSize
-		E.db.sle.Armory.Inspect.Enchant.FontStyle = fontOutline
+		E.db.sle.armory.inspect.enchant.font = font
+		-- E.db.sle.armory.inspect.enchant.fontSize = fontSize
+		E.db.sle.armory.inspect.enchant.fontStyle = fontOutline
 
-		E.db.sle.Armory.Inspect.tabsText.Font = font
-		-- E.db.sle.Armory.Inspect.tabsText.FontSize = fontSize
-		E.db.sle.Armory.Inspect.tabsText.FontStyle = fontOutline
+		-- E.db.sle.armory.inspect.tabsText.Font = font
+		-- E.db.sle.armory.inspect.tabsText.FontSize = fontSize
+		-- E.db.sle.armory.inspect.tabsText.FontStyle = fontOutline
 
-		E.db.sle.Armory.Inspect.Name.Font = font
-		-- E.db.sle.Armory.Inspect.Name.FontSize = fontSize
-		E.db.sle.Armory.Inspect.Name.FontStyle = fontOutline
+		-- E.db.sle.armory.inspect.Name.Font = font
+		-- E.db.sle.armory.inspect.Name.FontSize = fontSize
+		-- E.db.sle.armory.inspect.Name.FontStyle = fontOutline
 
-		E.db.sle.Armory.Inspect.Title.Font = font
-		-- E.db.sle.Armory.Inspect.Title.FontSize = fontSize
-		E.db.sle.Armory.Inspect.Title.FontStyle = fontOutline
+		-- E.db.sle.armory.inspect.Title.Font = font
+		-- E.db.sle.armory.inspect.Title.FontSize = fontSize
+		-- E.db.sle.armory.inspect.Title.FontStyle = fontOutline
 
-		E.db.sle.Armory.Inspect.LevelRace.Font = font
-		-- E.db.sle.Armory.Inspect.LevelRace.FontSize = fontSize
-		E.db.sle.Armory.Inspect.LevelRace.FontStyle = fontOutline
+		-- E.db.sle.armory.inspect.LevelRace.Font = font
+		-- E.db.sle.armory.inspect.LevelRace.FontSize = fontSize
+		-- E.db.sle.armory.inspect.LevelRace.FontStyle = fontOutline
 
-		E.db.sle.Armory.Inspect.Guild.Font = font
-		-- E.db.sle.Armory.Inspect.Guild.FontSize = fontSize
-		E.db.sle.Armory.Inspect.Guild.FontStyle = fontOutline
+		-- E.db.sle.armory.inspect.Guild.Font = font
+		-- E.db.sle.armory.inspect.Guild.FontSize = fontSize
+		-- E.db.sle.armory.inspect.Guild.FontStyle = fontOutline
 
-		E.db.sle.Armory.Inspect.infoTabs.Font = font
-		-- E.db.sle.Armory.Inspect.infoTabs.FontSize = fontSize
-		E.db.sle.Armory.Inspect.infoTabs.FontStyle = fontOutline
+		-- E.db.sle.armory.inspect.infoTabs.Font = font
+		-- E.db.sle.armory.inspect.infoTabs.FontSize = fontSize
+		-- E.db.sle.armory.inspect.infoTabs.FontStyle = fontOutline
 
-		E.db.sle.Armory.Inspect.pvpText.Font = font
-		-- E.db.sle.Armory.Inspect.pvpText.FontSize = fontSize
-		E.db.sle.Armory.Inspect.pvpText.FontStyle = fontOutline
+		-- E.db.sle.armory.inspect.pvpText.Font = font
+		-- E.db.sle.armory.inspect.pvpText.FontSize = fontSize
+		-- E.db.sle.armory.inspect.pvpText.FontStyle = fontOutline
 
-		E.db.sle.Armory.Inspect.pvpType.Font = font
-		-- E.db.sle.Armory.Inspect.pvpType.FontSize = fontSize
-		E.db.sle.Armory.Inspect.pvpType.FontStyle = fontOutline
+		-- E.db.sle.armory.inspect.pvpType.Font = font
+		-- E.db.sle.armory.inspect.pvpType.FontSize = fontSize
+		-- E.db.sle.armory.inspect.pvpType.FontStyle = fontOutline
 
-		E.db.sle.Armory.Inspect.pvpRating.Font = font
-		-- E.db.sle.Armory.Inspect.pvpRating.FontSize = fontSize
-		E.db.sle.Armory.Inspect.pvpRating.FontStyle = fontOutline
+		-- E.db.sle.armory.inspect.pvpRating.Font = font
+		-- E.db.sle.armory.inspect.pvpRating.FontSize = fontSize
+		-- E.db.sle.armory.inspect.pvpRating.FontStyle = fontOutline
 
-		E.db.sle.Armory.Inspect.pvpRecord.Font = font
-		-- E.db.sle.Armory.Inspect.pvpRecord.FontSize = fontSize
-		E.db.sle.Armory.Inspect.pvpRecord.FontStyle = fontOutline
+		-- E.db.sle.armory.inspect.pvpRecord.Font = font
+		-- E.db.sle.armory.inspect.pvpRecord.FontSize = fontSize
+		-- E.db.sle.armory.inspect.pvpRecord.FontStyle = fontOutline
 
-		E.db.sle.Armory.Inspect.guildName.Font = font
-		-- E.db.sle.Armory.Inspect.guildName.FontSize = fontSize
-		E.db.sle.Armory.Inspect.guildName.FontStyle = fontOutline
+		-- E.db.sle.armory.inspect.guildName.Font = font
+		-- E.db.sle.armory.inspect.guildName.FontSize = fontSize
+		-- E.db.sle.armory.inspect.guildName.FontStyle = fontOutline
 
-		E.db.sle.Armory.Inspect.guildMembers.Font = font
-		-- E.db.sle.Armory.Inspect.guildMembers.FontSize = fontSize
-		E.db.sle.Armory.Inspect.guildMembers.FontStyle = fontOutline
+		-- E.db.sle.armory.inspect.guildMembers.Font = font
+		-- E.db.sle.armory.inspect.guildMembers.FontSize = fontSize
+		-- E.db.sle.armory.inspect.guildMembers.FontStyle = fontOutline
 
-		E.db.sle.Armory.Inspect.Spec.Font = font
-		-- E.db.sle.Armory.Inspect.Spec.FontSize = fontSize
-		E.db.sle.Armory.Inspect.Spec.FontStyle = fontOutline
+		-- E.db.sle.armory.inspect.Spec.Font = font
+		-- E.db.sle.armory.inspect.Spec.FontSize = fontSize
+		-- E.db.sle.armory.inspect.Spec.FontStyle = fontOutline
 
 		E:UpdateAll(true)
 	end,
