@@ -6,6 +6,7 @@ Fixes:
 - Fixed not able to move the Auction House when you enable movable frames in Blizzard module
 - Fixed a minimap icon from not being catched
 - Added new Eternal Traveler hearthstone
+- Fix for UpdateAllFonts option to not error for Armory mode
 Additions:
 - Added /slstatus for our status panel like elvui so we can help troubleshoot S&L users
 Changes:
