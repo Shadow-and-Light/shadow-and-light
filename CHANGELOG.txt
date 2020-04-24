@@ -3,6 +3,9 @@ Fixes:
 - Fixed corruption text from sticking around after disabling character armory
 - Hopefully squashed scrollbar issues on the character frame
 - Fix weird inspect bug
+- Fixed not able to move the Auction House when you enable movable frames in Blizzard module
+- Fixed a minimap icon from not being catched
+- Added new Eternal Traveler hearthstone
 Additions:
 - Added /slstatus for our status panel like elvui so we can help troubleshoot S&L users
 Changes:
