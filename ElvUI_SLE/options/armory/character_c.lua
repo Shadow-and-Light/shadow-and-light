@@ -276,7 +276,6 @@ local function configTable()
 				name = T.GetSpellInfo(172),
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; CA:Update_SlotCorruption(); Armory:UpdateSharedStringsFonts("Character"); Armory:UpdateCharacterInfo() end,
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.character end,
 				args = {
 					style = {
 						type = 'select',
