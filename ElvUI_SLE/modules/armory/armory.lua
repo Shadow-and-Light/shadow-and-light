@@ -572,6 +572,7 @@ function Armory:Initialize()
 		SA:LoadAndSetup()
 		Armory:UpdateCharacterInfo()
 	end
+	if _G["CharacterFrame"].SLE_Corruption then _G["CharacterFrame"].SLE_Corruption:SetFrameLevel(_G["CharacterStatsPane"].ItemLevelFrame:GetFrameLevel() + 5) end --This fixes wrong mouseover for blizz position of the eye
 
 	if Armory:CheckOptions("Inspect") then
 		IA = SLE:GetModule("Armory_Inspect")
