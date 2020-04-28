@@ -188,8 +188,9 @@ function CA:BuildLayout()
 	end)
 	if SLE._Compatibility["CorruptionTooltips"] then
 		local CT = LibStub("AceAddon-3.0"):GetAddon("CorruptionTooltips")
-		CT:SecureHookScript(_G["CharacterFrame"].SLE_Corruption, "OnEnter", "SummaryEnter")
-		CT:SecureHookScript(_G["CharacterFrame"].SLE_Corruption, "OnLeave", "SummaryLeave")
+		local Summary = CT:GetModule("Summary")
+		Summary:SecureHookScript(_G["CharacterFrame"].SLE_Corruption, "OnEnter", "SummaryEnter")
+		Summary:SecureHookScript(_G["CharacterFrame"].SLE_Corruption, "OnLeave", "SummaryLeave")
 	end
 
 	--deal with the events
@@ -308,6 +309,7 @@ end
 
 function CA:UpdateCorruptionText()
 	if SLE._Compatibility["DejaCharacterStats"] then return end
+	if not _G["CharacterFrame"].SLE_Corruption then return end
 	local fontIlvl, sizeIlvl, outlineIlvl = E.db.sle.armory.character.corruption.font, E.db.sle.armory.character.corruption.fontSize, E.db.sle.armory.character.corruption.fontStyle
 	_G["CharacterFrame"].SLE_Corruption.Level:FontTemplate(E.LSM:Fetch('font', fontIlvl), sizeIlvl, outlineIlvl)
 	_G["CharacterFrame"].SLE_Corruption.Level:SetPoint("CENTER", _G["CharacterFrame"].SLE_Corruption, "CENTER", 1 + E.db.sle.armory.character.corruption.xOffset, 8 + E.db.sle.armory.character.corruption.yOffset)
