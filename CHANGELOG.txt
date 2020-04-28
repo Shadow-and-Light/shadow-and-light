@@ -1,4 +1,4 @@
-v3.70
+v3.70 [April 28, 2020]
 Fixes:
 - Fixed corruption text from sticking around after disabling character armory
 - Hopefully squashed scrollbar issues on the character frame
