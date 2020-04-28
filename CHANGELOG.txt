@@ -7,6 +7,8 @@ Fixes:
 - Fixed a minimap icon from not being catched
 - Added new Eternal Traveler hearthstone
 - Fix for UpdateAllFonts option to not error for Armory mode
+- Fixed CorruptionTooltips compatibility issues
+- Fixed corruption eye not detecting mouse being over it, thus not showing tootlip, when in blizzard default position
 Additions:
 - Added /slstatus for our status panel like elvui so we can help troubleshoot S&L users
 Changes:
