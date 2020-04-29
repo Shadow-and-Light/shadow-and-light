@@ -1664,7 +1664,6 @@ SLE.installTable = {
 	["Name"] = "|cff9482c9Shadow & Light|r",
 	["Title"] = L["|cff9482c9Shadow & Light|r Installation"],
 	["tutorialImage"] = [[Interface\AddOns\ElvUI_SLE\media\textures\SLE_Banner]],
-	["tutorialImage2"] = "",
 	["tutorialImageSize"] = {400, 100},
 	["tutorialImagePoint"] = {0, 20},
 	["Pages"] = {
