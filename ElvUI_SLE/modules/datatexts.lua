@@ -281,6 +281,7 @@ function DTP:Initialize()
 	hooksecurefunc(DT, "LoadDataTexts", DTP.LoadDTHook)
 	hooksecurefunc(MM, "UpdateSettings", DTP.LoadDTHook)
 	DTP:LoadDTHook()
+	DT:LoadDataTexts()
 end
 
 SLE:RegisterModule(DTP:GetName())
