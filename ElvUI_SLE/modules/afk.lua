@@ -39,7 +39,8 @@ function S:Media()
 	SS.ExPack:SetSize(S.db.xpack, S.db.xpack/2)
 	SS.FactCrest:SetSize(S.db.crest.size, S.db.crest.size)
 	SS.RaceCrest:SetSize(S.db.crest.size, S.db.crest.size)
-	SS.Elv:SetSize(S.db.xpack, S.db.xpack/2)
+	SS.ElvTop:SetSize(S.db.xpack, S.db.xpack/2)
+	SS.ElvBottom:SetSize(S.db.xpack, S.db.xpack/2)
 	SS.sle:SetSize(2*S.db.xpack, S.db.xpack/2)
 end
 
@@ -111,7 +112,8 @@ function S:Setup()
 	SS.timePassed:Point("LEFT", SS.AFKtitle, "RIGHT", 4, -1)
 	SS.ExPack:Point("CENTER", SS.Top, "BOTTOM", 0, 0)
 	SS.Time:Point("TOP", SS.Date, "BOTTOM", 0, -2)
-	SS.Elv:SetPoint("CENTER", SS.Bottom, "TOP", -(T.GetScreenWidth()/10), 0)
+	SS.ElvTop:SetPoint("CENTER", SS.Bottom, "TOP", -(T.GetScreenWidth()/10), 0)
+	SS.ElvBottom:SetPoint("CENTER", SS.Bottom, "CENTER", -(T.GetScreenWidth()/10), 68)
 	SS.sle:SetPoint("CENTER", SS.Bottom, "TOP", (T.GetScreenWidth()/10), 0)
 	SS.PlayerName:ClearAllPoints()
 	SS.Guild:ClearAllPoints()
@@ -174,7 +176,8 @@ function S:SetupAnimations()
 		S:FadeIn(SS.FactCrest)
 		S:FadeIn(SS.RaceCrest)
 		S:FadeIn(SS.sle)
-		S:FadeIn(SS.Elv)
+		S:FadeIn(SS.ElvTop)
+		S:FadeIn(SS.ElvBottom)
 
 		S:FadeIn(SS.ScrollFrame)
 	end
@@ -272,7 +275,8 @@ function S:Hide()
 	SS.FactCrest:SetAlpha((S.db.animTime > 0 and 0) or 1)
 	SS.RaceCrest:SetAlpha((S.db.animTime > 0 and 0) or 1)
 	SS.sle:SetAlpha((S.db.animTime > 0 and 0) or 1)
-	SS.Elv:SetAlpha((S.db.animTime > 0 and 0) or 1)
+	SS.ElvTop:SetAlpha((S.db.animTime > 0 and 0) or 1)
+	SS.ElvBottom:SetAlpha((S.db.animTime > 0 and 0) or 1)
 	SS.Model:SetAlpha((S.db.animTime > 0 and 0) or 1)
 	SS.ScrollFrame:SetAlpha((S.db.animTime > 0 and 0) or 1)
 	S:SetupType()
@@ -432,7 +436,8 @@ function S:Initialize()
 	hooksecurefunc(AFK, "OnEvent", S.Event)
 	hooksecurefunc(AFK, "UpdateTimer", S.UpdateTimer)
 	SS.Bottom = SS.bottom
-	SS.Elv = SS.Bottom.logo
+	SS.ElvTop = SS.Bottom.LogoTop
+	SS.ElvBottom = SS.Bottom.LogoBottom
 	SS.FactCrest = SS.Bottom.faction
 	SS.PlayerName = SS.Bottom.name
 	SS.Guild = SS.Bottom.guild
