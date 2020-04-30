@@ -593,7 +593,7 @@ L["Objective Tracker Text"] = "Текст списка заданий"
 
 --Minimap
 L["Minimap Options"] = "Опции миникарты"
-L["MINIMAP_DESC"] = "Эти опции влияют на различные функции миникарты.  Некоторые опции погут не работать, если вы отключите миникарты в основных настройках ElvUI."
+L["MINIMAP_DESC"] = "Эти опции влияют на различные функции миникарты.  Некоторые опции могут не работать, если вы отключите миникарты в основных настройках ElvUI."
 L["Hide minimap in combat."] = "Скрыть миникарту в бою"
 L["Minimap Alpha"] = "Прозрачность миникарты"
 L["Minimap Coordinates"] = "Координаты на миникарте"
@@ -766,7 +766,7 @@ L["Show role icons"] = "Показывать иконки роли"
 L["Show level"] = "Показывать уровень"
 
 --Skins
-L["SLE_SKINS_DESC"] = [[Эта секция предназанчена для модификации существующий в ElvUI скионв.
+L["SLE_SKINS_DESC"] = [[Эта секция предназначена для модификации существующих в ElvUI скинов.
 
 Некоторые опции могут быть недоступны, если отключен соответствующий скин в настройках ElvUI.]]
 L["Pet Battle Status"] = "Статус битвы питомцев"
@@ -880,7 +880,7 @@ L["Function called by quick access."] = "Функция для вызова бы
 L["UI Buttons Strata"] = "Слой меню"
 
 --Unitframes
-L["Options for customizing unit frames. Please don't change these setting when ElvUI's testing frames for bosses and arena teams are shown. That will make them invisible until retoggling."] = "Опции для дополнительной настройки рамок юнитов. Пожалуйста, не изменяйте эти настройки в то же время, кода включен тестовый режим рамок боссов и арены в ElvUI. Это сделает их невидимыми до повторного включения."
+L["Options for customizing unit frames. Please don't change these setting when ElvUI's testing frames for bosses and arena teams are shown. That will make them invisible until retoggling."] = "Опции для дополнительной настройки рамок юнитов. Пожалуйста, не изменяйте эти настройки в то же время, когда включен тестовый режим рамок боссов и арены в ElvUI. Это сделает их невидимыми до повторного включения."
 L["Player Frame Indicators"] = "Индикаторы игрока"
 L["Combat Icon"] = "Иконка боя"
 L["LFG Icons"] = "Иконки ЛФГ"
