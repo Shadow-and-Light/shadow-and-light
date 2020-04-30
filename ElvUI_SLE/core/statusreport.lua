@@ -20,7 +20,7 @@ local function EStatusFrame()
     StatusFrame.Section1.Content.Line1.Text:SetText(versionlist)
 end
 
-hooksecurefunc(E, "CreateStatusFrame", EStatusFrame)
+hooksecurefunc(E, "UpdateStatusFrame", EStatusFrame)
 
 --Replicate ElvUI status panel for us to troubleshoot as well since I couldnt think of a way to hook other addons enabled like I did with version
 local function AreOtherAddOnsEnabled()
