@@ -1,3 +1,7 @@
+v3.72 [April 30, 2020]
+Fixes:
+- Fixed guid datatext error
+
 v3.71 [April 30, 2020]
 Fixes:
 - Fixed some issues where datatexts were not loading for S&L datatext panels
