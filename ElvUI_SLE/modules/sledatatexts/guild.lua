@@ -297,8 +297,6 @@ local eventHandlers = {
 	["GUILD_MOTD"] = function (self, arg1)
 		guildMotD = arg1
 	end,
-	["ELVUI_FORCE_RUN"] = E.noop,
-	["ELVUI_COLOR_UPDATE"] = E.noop,
 }
 
 local function OnEvent(self, event, ...)
