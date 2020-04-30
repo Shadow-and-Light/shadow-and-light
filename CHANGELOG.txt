@@ -1,3 +1,7 @@
+v3.73 [April 30, 2020]
+Fixes:
+- Fixed guid datatext error (Round 2)
+
 v3.72 [April 30, 2020]
 Fixes:
 - Fixed guid datatext error
