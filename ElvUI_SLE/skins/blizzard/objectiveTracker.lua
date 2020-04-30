@@ -135,7 +135,13 @@ local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
 			end
 		end
 	end
-	S:HandleStatusBar(object.StatusBar);
+	local COLOR
+	if E.private.sle.skins.objectiveTracker.class then
+		COLOR = classColor
+	else
+		COLOR = E.private.sle.skins.objectiveTracker.color
+	end
+	S:HandleStatusBar(object.StatusBar, {COLOR.r, COLOR.g, COLOR.b});
 	object.TimerBG:Kill();
 	object.TimerBGBack:Kill();
 end
