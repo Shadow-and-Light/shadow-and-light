@@ -164,7 +164,7 @@ end
 
 function DTP:Size(id)
 	self["Panel_"..id]:Size(DTP.db["panel"..id].width, 20)
-	DT:UpdateAllDimensions()
+	DT.UpdatePanelDimensions(self["Panel_"..id])
 end
 
 function DTP:Toggle(id)
