@@ -4,6 +4,7 @@ Fixes:
 - Fixed luaerror in /estatus in ElvUI 11.39
 Changes:
 - Timer bar for keys now uses color set in the objective skin in S&L settings
+
 v3.70 [April 28, 2020]
 Fixes:
 - Fixed corruption text from sticking around after disabling character armory
