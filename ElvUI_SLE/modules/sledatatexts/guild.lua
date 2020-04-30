@@ -266,8 +266,9 @@ end
 
 local resendRequest = false
 local eventHandlers = {
-	['CHAT_MSG_SYSTEM'] = function(self, arg1)
-		if(FRIEND_ONLINE ~= nil and arg1 and T.strfind(arg1, FRIEND_ONLINE)) then
+	["PLAYER_GUILD_UPDATE"] = C_GuildInfo_GuildRoster,
+	["CHAT_MSG_SYSTEM"] = function(_, arg1)
+		if FRIEND_ONLINE ~= nil and arg1 and strfind(arg1, FRIEND_ONLINE) then
 			resendRequest = true
 		end
 	end,
@@ -276,14 +277,14 @@ local eventHandlers = {
 	["PLAYER_ENTERING_WORLD"] = function()
 		if not _G.GuildFrame and T.IsInGuild() then
 			LoadAddOn("Blizzard_GuildUI")
-			T.GuildInfoGuildRoster()
+			C_GuildInfo_GuildRoster()
 		end
 	end,
 	-- Guild Roster updated, so rebuild the guild table
 	["GUILD_ROSTER_UPDATE"] = function(self)
 		if(resendRequest) then
 			resendRequest = false
-			return T.GuildInfoGuildRoster()
+			return C_GuildInfo_GuildRoster()
 		else
 			BuildGuildTable()
 			UpdateGuildMessage()
@@ -292,7 +293,6 @@ local eventHandlers = {
 			end
 		end
 	end,
-	["PLAYER_GUILD_UPDATE"] = T.GuildInfoGuildRoster,
 	-- our guild message of the day changed
 	["GUILD_MOTD"] = function (self, arg1)
 		guildMotD = arg1
@@ -303,7 +303,10 @@ local function OnEvent(self, event, ...)
 	lastPanel = self
 
 	if T.IsInGuild() then
-		eventHandlers[event](self, ...)
+		-- eventHandlers[event](self, ...)
+		local func = eventHandlers[event]
+		if func then func(self, ...) end
+	
 		local totalMembers = T.GetNumGuildMembers()
 		local textStyle = E.db.sle.dt.guild.textStyle == "Default" and GUILD..": " or E.db.sle.dt.guild.textStyle == "NoText" and "" or E.db.sle.dt.guild.textStyle == "Icon" and "|TInterface\\ICONS\\Achievement_Reputation_01:12|t: " or ""
 		if E.db.sle.dt.guild.totals then
@@ -494,4 +497,4 @@ local function ValueColorUpdate(hex)
 end
 E.valueColorUpdateFuncs[ValueColorUpdate] = true
 
-DT:RegisterDatatext('S&L Guild', {'PLAYER_ENTERING_WORLD', 'CHAT_MSG_SYSTEM', "GUILD_ROSTER_UPDATE", "PLAYER_GUILD_UPDATE", "GUILD_MOTD"}, OnEvent, nil, OnClick, OnEnter)
+DT:RegisterDatatext('S&L Guild', {'CHAT_MSG_SYSTEM', "GUILD_ROSTER_UPDATE", "PLAYER_GUILD_UPDATE", "GUILD_MOTD"}, OnEvent, nil, OnClick, OnEnter)
