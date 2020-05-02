@@ -13,5 +13,4 @@
 	<Script file='install.lua'/>
 	<Script file='staticpopups.lua'/>
 	<Script file='commands.lua'/>
-	<Script file='statusreport.lua'/>
 </Ui>
