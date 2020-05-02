@@ -44,7 +44,7 @@ local function SkinVendorItems(i)
 		self:SetTexture("")
 	end)
 	hooksecurefunc(iconBorder, 'Hide', function(self)
- 		self:GetParent():SetBackdropBorderColor(unpack(E.media.bordercolor))
+ 		self:GetParent():SetBackdropBorderColor(T.unpack(E.media.bordercolor))
  	end)
 
 	_G["MerchantItem"..i.."MoneyFrame"]:ClearAllPoints()

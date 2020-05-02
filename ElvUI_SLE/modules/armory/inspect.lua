@@ -119,7 +119,7 @@ function IA:BuildLayout()
 		_G["InspectFrame"].SLE_TransmogViewButton.texture:SetTexCoord(T.unpack(E.TexCoords))
 
 		_G["InspectFrame"].SLE_TransmogViewButton:SetScript("OnEnter", function(self)
-			self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
+			self:SetBackdropBorderColor(T.unpack(E["media"].rgbvaluecolor))
 			GameTooltip:SetOwner(self, "ANCHOR_TOP")
 			GameTooltip:SetText(VIEW_IN_DRESSUP_FRAME)
 			GameTooltip:Show()
