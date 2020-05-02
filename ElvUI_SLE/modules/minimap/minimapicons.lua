@@ -6,7 +6,6 @@ local _G = _G
 local RegisterStateDriver = RegisterStateDriver
 
 local strsub, ceil = strsub, ceil
-local BorderColor = E["media"].bordercolor
 local TexCoords = { 0.1, 0.9, 0.1, 0.9 }
 
 local HBDpins --For TomTom stuff
@@ -25,7 +24,7 @@ local SMARTBUFF_MinimapButton_CheckPos, SMARTBUFF_MinimapButton_OnUpdate
 local function OnEnter(self)
 	UIFrameFadeIn(SMB.bar, 0.2, SMB.bar:GetAlpha(), 1)
 	if self ~= SMB.bar then
-		self:SetBackdropBorderColor(.7, 0, .7)
+		self:SetBackdropBorderColor(T.unpack(E["media"].rgbvaluecolor))
 	end
 end
 
@@ -35,7 +34,7 @@ local function OnLeave(self)
 		UIFrameFadeOut(SMB.bar, 0.2, SMB.bar:GetAlpha(), 0)
 	end
 	if self ~= SMB.bar then
-		self:SetBackdropBorderColor(T.unpack(BorderColor))
+		self:SetBackdropBorderColor(T.unpack(E["media"].bordercolor))
 	end
 end
 
@@ -364,7 +363,7 @@ function SMB:Update()
 				end
 			end
 		end
-		if Frame:IsVisible() and not (Name == "QueueStatusMinimapButton" or Name == "MiniMapMailFrame" or Name == "LibDBIcon10_LegionToDoMinimap") or Exception then
+		if Frame:IsVisible() and not (Name == "QueueStatusMinimapButton" or Name == "MiniMapMailFrame") or Exception then
 			AnchorX = AnchorX + 1
 			ActualButtons = ActualButtons + 1
 			if AnchorX > MaxX then
@@ -399,6 +398,11 @@ function SMB:Update()
 			Frame:SetScript('OnDragStop', function() end)
 			Frame:HookScript('OnEnter', OnEnter)
 			Frame:HookScript('OnLeave', OnLeave)
+			if Name == "LibDBIcon10_LegionToDoMinimap" then
+				Frame:HookScript('OnEvent', function(self, event, ...)
+					if event == "ADDON_LOADED" then Frame:Point(anchor, SMB.bar, anchor, xOffset, yOffset) end
+				end)
+			end
 			if Maxed then ActualButtons = ButtonsPerRow end
 
 			local BarWidth = (Spacing + ((Size * (ActualButtons * Mult)) + ((Spacing * (ActualButtons - 1)) * Mult) + (Spacing * Mult)))
