@@ -101,7 +101,6 @@ function DTP:Initialize()
 
 	--Hooking to default functions to remove gold conflicts
 	hooksecurefunc(DT, "LoadDataTexts", DTP.LoadDTHook)
-	DTP:LoadDTHook()
 end
 
 SLE:RegisterModule(DTP:GetName())
