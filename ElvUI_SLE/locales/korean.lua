@@ -114,7 +114,6 @@ L["Options for different S&L modules."] = "여러가지 S&L의 모듈을 설정�
 
 --Config groups
 L["S&L: All"] = "S&L: 전체"
-L["S&L: Datatexts"] = "S&L: 정보문자"
 L["S&L: Backgrounds"] = "S&L: 배경"
 L["S&L: Misc"] = "S&L: 기타"
 
@@ -350,14 +349,6 @@ L["Honor Style"] = "명예 스타일"
 L["D"] = true
 L["Previous Level:"] = true
 L["Account Time Played"] = true
-L["SLE_DataPanel_1"] = "S&L 정보 패널 1"
-L["SLE_DataPanel_2"] = "S&L 정보 패널 2"
-L["SLE_DataPanel_3"] = "S&L 정보 패널 3"
-L["SLE_DataPanel_4"] = "S&L 정보 패널 4"
-L["SLE_DataPanel_5"] = "S&L 정보 패널 5"
-L["SLE_DataPanel_6"] = "S&L 정보 패널 6"
-L["SLE_DataPanel_7"] = "S&L 정보 패널 7"
-L["SLE_DataPanel_8"] = "S&L 정보 패널 8"
 L["This LFR isn't available for your level/gear."] = "이 공격대 찾기는 당신의 레벨/장비에서 이용할 수 없습니다."
 L["You didn't select any instance to track."] = "추적할 인스턴스를 선택하지 않았습니다."
 L["Bosses killed: "] = "보스 처치"

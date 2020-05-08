@@ -114,7 +114,6 @@ L["Options for different S&L modules."] = true
 
 --Config groups
 L["S&L: All"] = true
-L["S&L: Datatexts"] = true
 L["S&L: Backgrounds"] = true
 L["S&L: Misc"] = true
 
@@ -365,14 +364,6 @@ L["Honor Style"] = true
 L["D"] = true
 L["Previous Level:"] = true
 L["Account Time Played"] = true
-L["SLE_DataPanel_1"] = "S&L Data Panel 1"
-L["SLE_DataPanel_2"] = "S&L Data Panel 2"
-L["SLE_DataPanel_3"] = "S&L Data Panel 3"
-L["SLE_DataPanel_4"] = "S&L Data Panel 4"
-L["SLE_DataPanel_5"] = "S&L Data Panel 5"
-L["SLE_DataPanel_6"] = "S&L Data Panel 6"
-L["SLE_DataPanel_7"] = "S&L Data Panel 7"
-L["SLE_DataPanel_8"] = "S&L Data Panel 8"
 L["This LFR isn't available for your level/gear."] = true
 L["You didn't select any instance to track."] = true
 L["Bosses killed: "] = true

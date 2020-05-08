@@ -110,34 +110,6 @@ local function CreateDatatbarsConfig()
 
 	return config
 end
-local function CreateDatatextsConfig()
-	local config = MC:CreateModuleConfigGroup(L["DataTexts"], "datatexts", "sle")
-	for i = 1, 8 do
-		config.args["panel"..i] = {
-			order = 1 + i,
-			type = "toggle",
-			name = L["SLE_DataPanel_"..i],
-			get = function(info) return E.global.profileCopy.sle.datatexts[ info[#info] ] end,
-			set = function(info, value) E.global.profileCopy.sle.datatexts[ info[#info] ] = value; end
-		}
-	end
-	config.args.leftchat = {
-		order = 10,
-		type = "toggle",
-		name = L["leftchat"],
-		get = function(info) return E.global.profileCopy.sle.datatexts[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.datatexts[ info[#info] ] = value; end
-	}
-	config.args.rightchat = {
-		order = 11,
-		type = "toggle",
-		name = L["rightchat"],
-		get = function(info) return E.global.profileCopy.sle.datatexts[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.datatexts[ info[#info] ] = value; end
-	}
-
-	return config
-end
 local function CreateSLEDatatextsConfig()
 	local config = MC:CreateModuleConfigGroup(L["S&L Datatexts"], "dt", "sle")
 	config.args.friends = {
@@ -390,7 +362,6 @@ local function configTable()
 			blizzard = MC:CreateModuleConfigGroup("Blizzard", "blizzard", "sle"),
 			chat = CreateChat(),
 			databars = CreateDatatbarsConfig(),
-			datatexts = CreateDatatextsConfig(),
 			dt = CreateSLEDatatextsConfig(),
 			legacy = CreateLegacyConfig(),
 			lfr = MC:CreateModuleConfigGroup(RAID_FINDER, "lfr", "sle"),

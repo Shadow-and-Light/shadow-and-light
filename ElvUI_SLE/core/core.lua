@@ -53,8 +53,6 @@ end
 function SLE:ConfigCats() --Additional mover groups
 	Toolkit.tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L");
 	E.ConfigModeLocalizedStrings["S&L"] = L["S&L: All"]
-	Toolkit.tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L DT");
-	E.ConfigModeLocalizedStrings["S&L DT"] = L["S&L: Datatexts"]
 	Toolkit.tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L BG");
 	E.ConfigModeLocalizedStrings["S&L BG"] = L["S&L: Backgrounds"]
 	Toolkit.tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L MISC");
