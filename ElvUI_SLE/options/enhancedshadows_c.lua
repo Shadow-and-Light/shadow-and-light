@@ -239,46 +239,46 @@ local function configTable()
 								-- type = "toggle",
 								-- name = L["RightMiniPanel"],
 							-- },
-							panel1 = {
-								order = 11,
-								type = "toggle",
-								name = L["SLE_DataPanel_1"],
-							},
-							panel2 = {
-								order = 12,
-								type = "toggle",
-								name = L["SLE_DataPanel_2"],
-							},
-							panel3 = {
-								order = 13,
-								type = "toggle",
-								name = L["SLE_DataPanel_3"],
-							},
-							panel4 = {
-								order = 14,
-								type = "toggle",
-								name = L["SLE_DataPanel_4"],
-							},
-							panel5 = {
-								order = 15,
-								type = "toggle",
-								name = L["SLE_DataPanel_5"],
-							},
-							panel6 = {
-								order = 16,
-								type = "toggle",
-								name = L["SLE_DataPanel_6"],
-							},
-							panel7 = {
-								order = 17,
-								type = "toggle",
-								name = L["SLE_DataPanel_7"],
-							},
-							panel8 = {
-								order = 18,
-								type = "toggle",
-								name = L["SLE_DataPanel_8"],
-							},
+							-- panel1 = {
+							-- 	order = 11,
+							-- 	type = "toggle",
+							-- 	name = L["SLE_DataPanel_1"],
+							-- },
+							-- panel2 = {
+							-- 	order = 12,
+							-- 	type = "toggle",
+							-- 	name = L["SLE_DataPanel_2"],
+							-- },
+							-- panel3 = {
+							-- 	order = 13,
+							-- 	type = "toggle",
+							-- 	name = L["SLE_DataPanel_3"],
+							-- },
+							-- panel4 = {
+							-- 	order = 14,
+							-- 	type = "toggle",
+							-- 	name = L["SLE_DataPanel_4"],
+							-- },
+							-- panel5 = {
+							-- 	order = 15,
+							-- 	type = "toggle",
+							-- 	name = L["SLE_DataPanel_5"],
+							-- },
+							-- panel6 = {
+							-- 	order = 16,
+							-- 	type = "toggle",
+							-- 	name = L["SLE_DataPanel_6"],
+							-- },
+							-- panel7 = {
+							-- 	order = 17,
+							-- 	type = "toggle",
+							-- 	name = L["SLE_DataPanel_7"],
+							-- },
+							-- panel8 = {
+							-- 	order = 18,
+							-- 	type = "toggle",
+							-- 	name = L["SLE_DataPanel_8"],
+							-- },
 						},
 					},
 				},
