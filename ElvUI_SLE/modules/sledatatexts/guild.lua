@@ -186,7 +186,7 @@ local function Entry_OnMouseUp(frame, fullName, button)
 		if IsAltKeyDown() then T.InviteUnit(fullName) return end --Invite guild member to party
 		if IsShiftKeyDown() then T.SetItemRef("player:"..fullName, "|Hplayer:"..fullName.."|h["..fullName.."|h", "LeftButton") return end --Perform a who query on guild member
 		if IsControlKeyDown() then
-			if T.CanEditPublicNote() then
+			if (fullName == E.mynameRealm:gsub(' ','')) or T.CanEditPublicNote() then
 				T.SetGuildRosterSelection(nametoindex(fullName))
 				StaticPopup_Show("SET_GUILDPLAYERNOTE")
 				return
