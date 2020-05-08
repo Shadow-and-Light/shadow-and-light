@@ -221,25 +221,25 @@ function PI:DarthSetup()
 		E.db["datatexts"]["fontOutline"] = "OUTLINE"
 		E.db["datatexts"]["noCombatHover"] = true
 
-		E.db["datatexts"]["panels"]["SLE_DataPanel_7"] = "System"
+		-- E.db["datatexts"]["panels"]["SLE_DataPanel_7"] = "System"
 
-		E.db["datatexts"]["panels"]["RightChatDataPanel"]["right"] = "Talent/Loot Specialization"
-		E.db["datatexts"]["panels"]["RightChatDataPanel"]["left"] = "Mastery"
-		E.db["datatexts"]["panels"]["RightChatDataPanel"]["middle"] = "S&L Item Level"
+		E.db["datatexts"]["panels"]["RightChatDataPanel"][1] = "Mastery"
+		E.db["datatexts"]["panels"]["RightChatDataPanel"][2] = "S&L Item Level"
+		E.db["datatexts"]["panels"]["RightChatDataPanel"][3] = "Talent/Loot Specialization"
 
-		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = "Combat/Arena Time"
-		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["right"] = "S&L Guild"
+		E.db["datatexts"]["panels"]["LeftChatDataPanel"][1] = "Combat/Arena Time"
+		E.db["datatexts"]["panels"]["LeftChatDataPanel"][3] = "S&L Guild"
 
-		E.db["datatexts"]["panels"]["SLE_DataPanel_6"]["right"] = "Bags"
-		E.db["datatexts"]["panels"]["SLE_DataPanel_6"]["left"] = "S&L Friends"
-		E.db["datatexts"]["panels"]["SLE_DataPanel_6"]["middle"] = "S&L Currency"
+		-- E.db["datatexts"]["panels"]["SLE_DataPanel_6"]["right"] = "Bags"
+		-- E.db["datatexts"]["panels"]["SLE_DataPanel_6"]["left"] = "S&L Friends"
+		-- E.db["datatexts"]["panels"]["SLE_DataPanel_6"]["middle"] = "S&L Currency"
 
-		E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["right"] = "Haste"
-		E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Spell/Heal Power"
-		E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["middle"] = "Crit Chance"
+		-- E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["right"] = "Haste"
+		-- E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Spell/Heal Power"
+		-- E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["middle"] = "Crit Chance"
 
-		E.db["datatexts"]["panels"]["LeftMiniPanel"] = "S&L Time Played"
-		E.db["datatexts"]["panels"]["RightMiniPanel"] = "Time"
+		E.db["datatexts"]["panels"]["MinimapPanel"][1] = "S&L Time Played"
+		E.db["datatexts"]["panels"]["MinimapPanel"][2] = "Time"
 
 		if T.IsAddOnLoaded("ElvUI_DTBars2") then
 			if not E.db.dtbars then E.db.dtbars = {} end
@@ -624,21 +624,21 @@ function PI:DarthSetup()
 		E.db["sle"]["dt"]["durability"]["threshold"] = 30
 		E.db["sle"]["dt"]["durability"]["gradient"] = true
 
-		E.db["sle"]["datatexts"]["chathandle"] = true
-		E.db["sle"]["datatexts"]["leftchat"]["width"] = 458
-		E.db["sle"]["datatexts"]["panel7"]["enabled"] = true
-		E.db["sle"]["datatexts"]["panel7"]["pethide"] = false
-		E.db["sle"]["datatexts"]["panel7"]["width"] = 253
-		E.db["sle"]["datatexts"]["panel7"]["transparent"] = true
-		E.db["sle"]["datatexts"]["panel6"]["enabled"] = true
-		E.db["sle"]["datatexts"]["panel6"]["pethide"] = false
-		E.db["sle"]["datatexts"]["panel6"]["width"] = 470
-		E.db["sle"]["datatexts"]["panel6"]["transparent"] = true
-		E.db["sle"]["datatexts"]["rightchat"]["width"] = 458
-		E.db["sle"]["datatexts"]["panel8"]["enabled"] = true
-		E.db["sle"]["datatexts"]["panel8"]["pethide"] = false
-		E.db["sle"]["datatexts"]["panel8"]["width"] = 470
-		E.db["sle"]["datatexts"]["panel8"]["transparent"] = true
+		-- E.db["sle"]["datatexts"]["chathandle"] = true
+		-- E.db["sle"]["datatexts"]["leftchat"]["width"] = 458
+		-- E.db["sle"]["datatexts"]["panel7"]["enabled"] = true
+		-- E.db["sle"]["datatexts"]["panel7"]["pethide"] = false
+		-- E.db["sle"]["datatexts"]["panel7"]["width"] = 253
+		-- E.db["sle"]["datatexts"]["panel7"]["transparent"] = true
+		-- E.db["sle"]["datatexts"]["panel6"]["enabled"] = true
+		-- E.db["sle"]["datatexts"]["panel6"]["pethide"] = false
+		-- E.db["sle"]["datatexts"]["panel6"]["width"] = 470
+		-- E.db["sle"]["datatexts"]["panel6"]["transparent"] = true
+		-- E.db["sle"]["datatexts"]["rightchat"]["width"] = 458
+		-- E.db["sle"]["datatexts"]["panel8"]["enabled"] = true
+		-- E.db["sle"]["datatexts"]["panel8"]["pethide"] = false
+		-- E.db["sle"]["datatexts"]["panel8"]["width"] = 470
+		-- E.db["sle"]["datatexts"]["panel8"]["transparent"] = true
 
 		E.db["sle"]["nameplates"]["targetcount"]["enable"] = true
 		E.db["sle"]["nameplates"]["threat"]["enable"] = true
@@ -759,15 +759,15 @@ function PI:DarthSetup()
 	if layout then
 		if layout == 'tank' then
 			E.db["nameplates"]["threat"]["beingTankedByTank"] = true
-			E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Avoidance"
-			E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["middle"] = "Versatility"
+			-- E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Avoidance"
+			-- E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["middle"] = "Versatility"
 			E.db["unitframe"]["units"]["raid"]["power"]["enable"] = true
 			E.db["sle"]["armory"]["stats"]["List"]["SPELLPOWER"] = false
 			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_DAMAGE"] = true
 			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_AP"] = true
 			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_ATTACKSPEED"] = true
 		elseif layout == 'dpsMelee' then
-			E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Attack Power"
+			-- E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Attack Power"
 			E.db["sle"]["armory"]["stats"]["List"]["SPELLPOWER"] = false
 			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_DAMAGE"] = true
 			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_AP"] = true
@@ -956,20 +956,20 @@ function PI:DarthOldSetup()
 		E.db["datatexts"]["fontOutline"] = "OUTLINE"
 		E.db["datatexts"]["panelTransparency"] = true
 		E.db["datatexts"]["time24"] = true
-		E.db["datatexts"]["panels"]["SLE_DataPanel_7"] = "System"
-		E.db["datatexts"]["panels"]["RightChatDataPanel"]["right"] = "Talent/Loot Specialization"
-		E.db["datatexts"]["panels"]["RightChatDataPanel"]["left"] = "Mastery"
-		E.db["datatexts"]["panels"]["RightChatDataPanel"]["middle"] = "S&L Item Level"
-		E.db["datatexts"]["panels"]["SLE_DataPanel_6"]["right"] = "Bags"
-		E.db["datatexts"]["panels"]["SLE_DataPanel_6"]["left"] = "S&L Friends"
-		E.db["datatexts"]["panels"]["SLE_DataPanel_6"]["middle"] = "S&L Currency"
-		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = "Combat/Arena Time"
-		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["right"] = "S&L Guild"
-		E.db["datatexts"]["panels"]["RightMiniPanel"] = "Time"
-		E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["right"] = "Haste"
-		E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Spell/Heal Power"
-		E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["middle"] = "Crit Chance"
-		E.db["datatexts"]["panels"]["LeftMiniPanel"] = "S&L Time Played"
+		-- E.db["datatexts"]["panels"]["SLE_DataPanel_7"] = "System"
+		E.db["datatexts"]["panels"]["RightChatDataPanel"][1] = "Mastery"
+		E.db["datatexts"]["panels"]["RightChatDataPanel"][2] = "S&L Item Level"
+		E.db["datatexts"]["panels"]["RightChatDataPanel"][3] = "Talent/Loot Specialization"
+		E.db["datatexts"]["panels"]["LeftChatDataPanel"][1] = "Combat/Arena Time"
+		E.db["datatexts"]["panels"]["LeftChatDataPanel"][3] = "S&L Guild"
+		-- E.db["datatexts"]["panels"]["SLE_DataPanel_6"]["left"] = "S&L Friends"
+		-- E.db["datatexts"]["panels"]["SLE_DataPanel_6"]["middle"] = "S&L Currency"
+		-- E.db["datatexts"]["panels"]["SLE_DataPanel_6"]["right"] = "Bags"
+		E.db["datatexts"]["panels"]["MinimapPanel"][1] = "S&L Time Played"
+		E.db["datatexts"]["panels"]["MinimapPanel"][2] = "Time"
+		-- E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["right"] = "Haste"
+		-- E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Spell/Heal Power"
+		-- E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["middle"] = "Crit Chance"
 		if T.IsAddOnLoaded("ElvUI_DTBars2") then
 			if not E.db.dtbars then E.db.dtbars = {} end
 			for name, data in T.pairs(E.global.dtbars) do
@@ -1272,21 +1272,21 @@ function PI:DarthOldSetup()
 		E.db["sle"]["nameplates"]["targetcount"]["enable"] = true
 		E.db["sle"]["chat"]["dpsSpam"] = true
 		E.db["sle"]["chat"]["tab"]["select"] = true
-		E.db["sle"]["datatexts"]["chathandle"] = true
-		E.db["sle"]["datatexts"]["leftchat"]["width"] = 458
-		E.db["sle"]["datatexts"]["panel7"]["enabled"] = true
-		E.db["sle"]["datatexts"]["panel7"]["pethide"] = false
-		E.db["sle"]["datatexts"]["panel7"]["width"] = 253
-		E.db["sle"]["datatexts"]["panel7"]["transparent"] = true
-		E.db["sle"]["datatexts"]["panel6"]["enabled"] = true
-		E.db["sle"]["datatexts"]["panel6"]["pethide"] = false
-		E.db["sle"]["datatexts"]["panel6"]["width"] = 470
-		E.db["sle"]["datatexts"]["panel6"]["transparent"] = true
-		E.db["sle"]["datatexts"]["rightchat"]["width"] = 458
-		E.db["sle"]["datatexts"]["panel8"]["enabled"] = true
-		E.db["sle"]["datatexts"]["panel8"]["pethide"] = false
-		E.db["sle"]["datatexts"]["panel8"]["width"] = 470
-		E.db["sle"]["datatexts"]["panel8"]["transparent"] = true
+		-- E.db["sle"]["datatexts"]["chathandle"] = true
+		-- E.db["sle"]["datatexts"]["leftchat"]["width"] = 458
+		-- E.db["sle"]["datatexts"]["panel7"]["enabled"] = true
+		-- E.db["sle"]["datatexts"]["panel7"]["pethide"] = false
+		-- E.db["sle"]["datatexts"]["panel7"]["width"] = 253
+		-- E.db["sle"]["datatexts"]["panel7"]["transparent"] = true
+		-- E.db["sle"]["datatexts"]["panel6"]["enabled"] = true
+		-- E.db["sle"]["datatexts"]["panel6"]["pethide"] = false
+		-- E.db["sle"]["datatexts"]["panel6"]["width"] = 470
+		-- E.db["sle"]["datatexts"]["panel6"]["transparent"] = true
+		-- E.db["sle"]["datatexts"]["rightchat"]["width"] = 458
+		-- E.db["sle"]["datatexts"]["panel8"]["enabled"] = true
+		-- E.db["sle"]["datatexts"]["panel8"]["pethide"] = false
+		-- E.db["sle"]["datatexts"]["panel8"]["width"] = 470
+		-- E.db["sle"]["datatexts"]["panel8"]["transparent"] = true
 		E.db["sle"]["unitframes"]["statusTextures"]["auraTexture"] = "Ohi Tribal4"
 		E.db["sle"]["unitframes"]["statusTextures"]["castTexture"] = "Ohi Tribal4"
 		E.db["sle"]["unitframes"]["statusTextures"]["classTexture"] = "ElvUI Gloss"
@@ -1429,15 +1429,15 @@ function PI:DarthOldSetup()
 	if layout then
 		if layout == 'tank' then
 			E.db["nameplates"]["threat"]["beingTankedByTank"] = true
-			E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Avoidance"
-			E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["middle"] = "Versatility"
+			-- E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Avoidance"
+			-- E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["middle"] = "Versatility"
 			E.db["unitframe"]["units"]["raid"]["power"]["enable"] = true
 			E.db["sle"]["armory"]["stats"]["List"]["SPELLPOWER"] = false
 			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_DAMAGE"] = true
 			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_AP"] = true
 			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_ATTACKSPEED"] = true
 		elseif layout == 'dpsMelee' then
-			E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Attack Power"
+			-- E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Attack Power"
 			E.db["sle"]["armory"]["stats"]["List"]["SPELLPOWER"] = false
 			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_DAMAGE"] = true
 			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_AP"] = true
