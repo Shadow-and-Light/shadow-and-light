@@ -29,7 +29,7 @@ local function Style(self, frame)
 	-- Prevent text from jumping from left to right when tab is clicked.
 	hooksecurefunc(tab, "SetWidth", function(self)
 		self.text:ClearAllPoints()
-		self.text:SetPoint("CENTER", self, "CENTER", 0, -4)
+		self.text:SetPoint("CENTER", self, "CENTER", 0, 0)
 	end)
 end
 
