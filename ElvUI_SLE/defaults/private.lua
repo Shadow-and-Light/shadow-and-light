@@ -119,6 +119,10 @@ V["sle"] = {
 				["left"] = false,
 				["right"] = false,
 			},
+			["datatexts"] = {
+				["leftchat"] = false,
+				["righchat"] = false,
+			},
 		},
 	},
 	

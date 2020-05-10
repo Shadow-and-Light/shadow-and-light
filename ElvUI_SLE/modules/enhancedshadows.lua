@@ -32,16 +32,6 @@ ES.FramesToShadow = {
 	["Datapanels"] = {
 		["leftchat"] = "LeftChatDataPanel",
 		["rightchat"] = "RightChatDataPanel",
-		-- ["panel1"] = "SLE_DataPanel_1",
-		-- ["panel2"] = "SLE_DataPanel_2",
-		-- ["panel3"] = "SLE_DataPanel_3",
-		-- ["panel4"] = "SLE_DataPanel_4",
-		-- ["panel5"] = "SLE_DataPanel_5",
-		-- ["panel6"] = "SLE_DataPanel_6",
-		-- ["panel7"] = "SLE_DataPanel_7",
-		-- ["panel8"] = "SLE_DataPanel_8",
-		-- ["leftminipanel"] = "LeftMiniPanel",
-		-- ["rightminipanel"] = "RightMiniPanel",
 	},
 }
 
@@ -189,8 +179,14 @@ function ES:CreateShadows()
 		if E.private.sle.module.shadows.minimap then
 			ES:CreateFrameShadow(_G["MMHolder"], "none")
 		end
-		if E.private.sle.module.shadows.chat.left then ES:CreateFrameShadow(_G["LeftChatPanel"], "none") end
-		if E.private.sle.module.shadows.chat.right then ES:CreateFrameShadow(_G["RightChatPanel"], "none") end
+		if E.private.sle.module.shadows.chat.left then
+			ES:CreateFrameShadow(_G["LeftChatPanel"], "none")
+			-- ES:CreateFrameShadow(_G["LeftChatToggleButton"], "none")
+		end
+		if E.private.sle.module.shadows.chat.right then
+			ES:CreateFrameShadow(_G["RightChatPanel"], "none")
+			-- ES:CreateFrameShadow(_G["RightChatToggleButton"], "none")
+		end
 	end
 end
 

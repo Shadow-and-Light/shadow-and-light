@@ -212,25 +212,25 @@ local function configTable()
 							},
 						},
 					},
-					-- datatexts = {
-					-- 	order = 13,
-					-- 	type = "group",
-					-- 	name = L["DataTexts"],
-					-- 	get = function(info) return E.private.sle.module.shadows.datatexts[info[#info]] end,
-					-- 	set = function(info, value) E.private.sle.module.shadows.datatexts[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-					-- 	args = {
-					-- 		leftchat = {
-					-- 			order = 1,
-					-- 			type = "toggle",
-					-- 			name = L["Left Chat"],
-					-- 		},
-					-- 		rightchat = {
-					-- 			order = 2,
-					-- 			type = "toggle",
-					-- 			name = L["Right Chat"],
-					-- 		},
-					-- 	},
-					-- },
+					datatexts = {
+						order = 13,
+						type = "group",
+						name = L["DataTexts"],
+						get = function(info) return E.private.sle.module.shadows.datatexts[info[#info]] end,
+						set = function(info, value) E.private.sle.module.shadows.datatexts[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+						args = {
+							leftchat = {
+								order = 1,
+								type = "toggle",
+								name = L["Left Chat"],
+							},
+							rightchat = {
+								order = 2,
+								type = "toggle",
+								name = L["Right Chat"],
+							},
+						},
+					},
 				},
 			},
 		},
