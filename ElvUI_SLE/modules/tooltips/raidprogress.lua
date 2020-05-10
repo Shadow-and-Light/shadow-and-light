@@ -184,6 +184,23 @@ RP.encounters = {
 			},
 		},
 	},
+	{ -- Ni'alotha
+		["option"] = "nzoth",
+		["statIDs"] = {
+			{ -- Mythic
+				14082, 14094, 14098, 14105, 14110, 14120, 14211, 14126, 14130, 14134, 14138,
+			},
+			{ -- Heroic
+				14080, 14093, 14097, 14104, 14109, 14119, 14210, 14125, 14129, 14133, 14137,
+			},
+			{ -- Normal
+				14079, 14091, 14096, 14102, 14108, 14118, 14208, 14124, 14128, 14132, 14136,
+			},
+			{ -- LFR
+				14078, 14089, 14095, 14101, 14107, 14117, 14207, 14123, 14127, 14131, 14135,
+			},
+		},
+	},
 }
 RP.Raids = {}
 RP.modes = { 
@@ -211,7 +228,8 @@ local function PopulateRaidsTable()
 		SLE:GetMapInfo(1148, "name"),
 		SLE:GetMapInfo(1358, "name"),
 		SLE:GetMapInfo(1345, "name"),
-		SLE:GetMapInfo(1512, "name")
+		SLE:GetMapInfo(1512, "name"),
+		SLE:GetMapInfo(1580, "name"),
 	}
 	RP.Raids["SHORT"] = {
 		L["RAID_EN"],
@@ -223,6 +241,7 @@ local function PopulateRaidsTable()
 		L["RAID_DAZALOR"],
 		L["RAID_STORMCRUS"],
 		L["RAID_ETERNALPALACE"],
+		SLE:GetMapInfo(1580, "name"),
 	}
 end
 

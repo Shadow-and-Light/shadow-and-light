@@ -74,6 +74,12 @@ LFR.InstanceData = {
 				["map"] = 1512,
 				["dungeonIDs"] = {2009,2010,2011},
 			},
+			[5] = {
+				["name"] = "nzoth",
+				["ilevel"] = 410,
+				["map"] = 1580,
+				["dungeonIDs"] = {2036,2037,2038,2039},
+			},
 		},
 	},
 }

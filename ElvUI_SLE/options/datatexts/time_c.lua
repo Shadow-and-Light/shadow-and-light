@@ -87,6 +87,7 @@ local function configTable()
 							daz = { order = 2, type = "toggle", name = SLE:GetMapInfo(1358 , "name") },
 							sc = { order = 3, type = "toggle", name = SLE:GetMapInfo(1345 , "name") },
 							ep = { order = 4, type = "toggle", name = SLE:GetMapInfo(1512 , "name") },
+							nzoth = { order = 5, type = "toggle", name = SLE:GetMapInfo(1580 , "name") },
 						},
 					},
 				},
