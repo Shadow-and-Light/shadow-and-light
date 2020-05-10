@@ -180,13 +180,22 @@ function ES:CreateShadows()
 	for panel,enabled in T.pairs(E.private.sle.module.shadows.datatexts) do
 		if enabled then
 			if panel == "leftchat" then
-				_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameStrata('LOW')
-				_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameLevel(0)
+				if not E.private.sle.module.shadows.chat.left then
+					_G["LeftChatToggleButton"]:SetFrameStrata('LOW')
+					_G["LeftChatToggleButton"]:SetFrameLevel(0)
+					_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameStrata('LOW')
+					_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameLevel(0)
+				end
+
 				ES:CreateFrameShadow(_G["LeftChatToggleButton"], "none")
 				ES:CreateFrameShadow(_G[ES.FramesToShadow.Datapanels[panel]], "none")
 			elseif panel == "rightchat" then
-				_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameStrata('LOW')
-				_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameLevel(0)
+				if not E.private.sle.module.shadows.chat.right then
+					_G["RightChatToggleButton"]:SetFrameStrata('LOW')
+					_G["RightChatToggleButton"]:SetFrameLevel(0)
+					_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameStrata('LOW')
+					_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameLevel(0)
+				end
 				ES:CreateFrameShadow(_G["RightChatToggleButton"], "none")
 				ES:CreateFrameShadow(_G[ES.FramesToShadow.Datapanels[panel]], "none")
 			elseif (panel ~= leftchat) or (panel ~= rightchat) then
@@ -208,9 +217,17 @@ function ES:CreateShadows()
 			ES:CreateFrameShadow(_G["MMHolder"], "none")
 		end
 		if E.private.sle.module.shadows.chat.left then
+			if not E.private.sle.module.shadows.datatexts.leftchat then
+				_G["LeftChatPanel"]:SetFrameStrata('LOW')
+				_G["LeftChatPanel"]:SetFrameLevel(0)
+			end
 			ES:CreateFrameShadow(_G["LeftChatPanel"], "none")
 		end
 		if E.private.sle.module.shadows.chat.right then
+			if not E.private.sle.module.shadows.datatexts.rightchat then
+				_G["RightChatPanel"]:SetFrameStrata('LOW')
+				_G["RightChatPanel"]:SetFrameLevel(0)
+			end
 			ES:CreateFrameShadow(_G["RightChatPanel"], "none")
 		end
 	end
