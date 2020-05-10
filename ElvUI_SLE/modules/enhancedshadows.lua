@@ -48,6 +48,7 @@ ES.FramesToShadow = {
 --Updating all shadows
 function ES:UpdateShadows()
 	if UnitAffectingCombat('player') then ES:RegisterEvent('PLAYER_REGEN_ENABLED', ES.UpdateShadows) return end
+	ES:UnregisterEvent('PLAYER_ENTERING_WORLD')
 
 	for frame, _ in T.pairs(ES.CreatedShadows) do
 		ES:UpdateShadow(frame)
@@ -116,6 +117,8 @@ function ES:CreateFrameShadow(frame, parent, legacy)
 	end
 	--if it is not UF at all or old way is enabled
 	if legacy or (not frame.Health and not frame.Power) then
+		-- E:Dump(MMHolder)
+		
 		frame:CreateShadow()
 		frame.EnhShadow = frame.shadow
 		frame.shadow = nil
@@ -184,7 +187,9 @@ function ES:CreateShadows()
 	end
 	--Misc--
 	do
-		if E.private.sle.module.shadows.minimap then ES:CreateFrameShadow(_G["MMHolder"], "none") end
+		if E.private.sle.module.shadows.minimap then
+			ES:CreateFrameShadow(_G["MMHolder"], "none")
+		end
 		if E.private.sle.module.shadows.chat.left then ES:CreateFrameShadow(_G["LeftChatPanel"], "none") end
 		if E.private.sle.module.shadows.chat.right then ES:CreateFrameShadow(_G["RightChatPanel"], "none") end
 	end
@@ -193,6 +198,8 @@ end
 function ES:Initialize()
 	if not SLE.initialized then return end
 	Border = E.LSM:Fetch('border', 'ElvUI GlowBorder')
+	self:RegisterEvent('PLAYER_ENTERING_WORLD', ES.UpdateShadows)
+
 	ES:CreateShadows()
 	ES:UpdateShadows()
 	function ES:ForUpdateAll()
