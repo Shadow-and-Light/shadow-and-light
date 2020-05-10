@@ -131,7 +131,6 @@ V["sle"] = {
 			},
 		},
 	},
-	
 	["unitframe"] = {
 		["resizeHealthPrediction"] = false,
 		["statusbarTextures"] = {
@@ -141,7 +140,6 @@ V["sle"] = {
 			["class"] = false,
 		},
 	},
-	
 	["chat"] = {
 		["chatMax"] = 128,
 		["chatHistory"] = {

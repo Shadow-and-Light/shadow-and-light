@@ -235,8 +235,8 @@ local function configTable()
 						order = 13,
 						type = "group",
 						name = L["DataBars"],
-						get = function(info) return E.private.sle.module.shadows.databarss[info[#info]] end,
-						set = function(info, value) E.private.sle.module.shadows.databarss[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+						get = function(info) return E.private.sle.module.shadows.databars[info[#info]] end,
+						set = function(info, value) E.private.sle.module.shadows.databars[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 						args = {
 							honorbar = {
 								order = 1,
