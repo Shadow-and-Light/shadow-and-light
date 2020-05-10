@@ -91,7 +91,6 @@ function ES:UpdateFrame(frame, db)
 	if frame.EnhShadow then
 		frame.EnhShadow:SetOutside(frame, size, size)
 	end
-	ES:UpdateShadows()
 end
 
 --Creating shadows for provided frame
