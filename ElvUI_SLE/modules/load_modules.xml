@@ -1,5 +1,4 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file='AddOnSkins.lua'/>
 	<Script file='actionbars.lua'/>
 	<Script file='afk.lua'/>
 	<Include file='armory\load_armory.xml'/>
