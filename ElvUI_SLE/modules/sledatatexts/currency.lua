@@ -433,5 +433,5 @@ local function OnEnter(self)
 end
 
 function DTP:CreateCurrencyDT()
-	DT:RegisterDatatext('S&L Currency', {'LOADING_SCREEN_DISABLED', 'PLAYER_MONEY', 'SEND_MAIL_MONEY_CHANGED', 'SEND_MAIL_COD_CHANGED', 'PLAYER_TRADE_MONEY', 'TRADE_MONEY_CHANGED', 'SPELLS_CHANGED'}, OnEvent, nil, Click, OnEnter)
+	DT:RegisterDatatext('S&L Currency', 'S&L', {'LOADING_SCREEN_DISABLED', 'PLAYER_MONEY', 'SEND_MAIL_MONEY_CHANGED', 'SEND_MAIL_COD_CHANGED', 'PLAYER_TRADE_MONEY', 'TRADE_MONEY_CHANGED', 'SPELLS_CHANGED'}, OnEvent, nil, Click, OnEnter)
 end

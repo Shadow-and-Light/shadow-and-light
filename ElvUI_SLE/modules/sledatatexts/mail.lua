@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
 local DTP = SLE:GetModule('Datatexts')
 local HAVE_MAIL_FROM = HAVE_MAIL_FROM
@@ -39,7 +39,7 @@ local function OnEvent(self, event, ...)
 
 	if event == "UPDATE_PENDING_MAIL" or event == "PLAYER_ENTERING_WORLD" or event =="PLAYER_LOGIN" then
 
-		newMail = HasNewMail() 
+		newMail = HasNewMail()
 
 		if unreadMail ~= newMail then
 			unreadMail = newMail
@@ -91,5 +91,5 @@ local function OnEnter(self)
 end
 
 function DTP:CreateMailDT()
-	DT:RegisterDatatext('S&L Mail', {'PLAYER_ENTERING_WORLD', 'MAIL_INBOX_UPDATE', 'UPDATE_PENDING_MAIL', 'MAIL_CLOSED', 'PLAYER_LOGIN','MAIL_SHOW'}, OnEvent, OnUpdate, nil, OnEnter)
+	DT:RegisterDatatext('S&L Mail', 'S&L', {'PLAYER_ENTERING_WORLD', 'MAIL_INBOX_UPDATE', 'UPDATE_PENDING_MAIL', 'MAIL_CLOSED', 'PLAYER_LOGIN','MAIL_SHOW'}, OnEvent, OnUpdate, nil, OnEnter)
 end

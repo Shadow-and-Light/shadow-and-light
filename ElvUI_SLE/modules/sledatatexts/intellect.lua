@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
 local INTELLECT_COLON = INTELLECT_COLON
 local displayNumberString = ''
@@ -11,11 +11,11 @@ end
 
 local function ValueColorUpdate(hex, r, g, b)
 	displayNumberString = T.join("", "%s ", hex, "%.f|r")
-	
+
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)
 	end
 end
 E["valueColorUpdateFuncs"][ValueColorUpdate] = true
 
-DT:RegisterDatatext('Intellect', { "UNIT_STATS", "UNIT_AURA", "ACTIVE_TALENT_GROUP_CHANGED", "PLAYER_TALENT_UPDATE"}, OnEvent)
+DT:RegisterDatatext('Intellect', 'S&L', { "UNIT_STATS", "UNIT_AURA", "ACTIVE_TALENT_GROUP_CHANGED", "PLAYER_TALENT_UPDATE"}, OnEvent)

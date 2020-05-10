@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local LibQTip = LibStub('LibQTip-1.0')
 local DTP = SLE:GetModule('Datatexts')
 local LDB = LibStub("LibDataBroker-1.1"):NewDataObject("S&L Friends",
@@ -37,7 +37,7 @@ local function sletime_Conversion(timeDifference, isAbsolute)
       timeDifference = T.time() - timeDifference;
    end
    local year, month, day, hour, minute;
-   
+
    if ( timeDifference < ONE_MINUTE ) then
       return LASTONLINE_SECS;
    elseif ( timeDifference >= ONE_MINUTE and timeDifference < ONE_HOUR ) then
@@ -199,12 +199,12 @@ FillLocalizedClassList(classes_male, false)
 
 for token, localizedName in T.pairs(classes_female) do
 	color = RAID_CLASS_COLORS[token]
-	CLASS_COLORS[localizedName] = T.format("%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255) 
+	CLASS_COLORS[localizedName] = T.format("%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255)
 end
 
 for token, localizedName in T.pairs(classes_male) do
 	color = RAID_CLASS_COLORS[token]
-	CLASS_COLORS[localizedName] = T.format("%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255) 
+	CLASS_COLORS[localizedName] = T.format("%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255)
 end
 
 local function valueColor(totals)
@@ -279,7 +279,7 @@ local function Entry_OnMouseUp(frame, info, button)
 				end
 			end
 			if not name then name = full_name..":"..presence_id end
-			SetItemRef( "BNplayer:"..name, T.format("|HBNplayer:%1$s|h[%1$s]|h", name), "LeftButton" )     
+			SetItemRef( "BNplayer:"..name, T.format("|HBNplayer:%1$s|h[%1$s]|h", name), "LeftButton" )
 		else
 			SetItemRef( "player:"..full_name, T.format("|Hplayer:%1$s|h[%1$s]|h", full_name), "LeftButton" )
 		end
@@ -391,7 +391,7 @@ function LDB.OnEnter(self)
 					if castTime then
 						broadcastTime = T.format(BNET_BROADCAST_SENT_TIME, sletime_Conversion(castTime));
 					end
-					
+
 					local fcolor
 					local status = ""
 					if toonName then
@@ -409,7 +409,7 @@ function LDB.OnEnter(self)
 							status = BUSY_ICON
 						end
 						if note and note ~= "" then note = "|cffff8800"..note.."|r" end
-							
+
 						T.tinsert(realid_table, {
 							GIVENNAME = givenName,
 							SURNAME = bTag or "",
@@ -588,8 +588,8 @@ end
 
 frame:SetScript("OnEvent", function(self, event, ...)
 	if self[event] then
-		return self[event](self, event, ...) 
-	end 
+		return self[event](self, event, ...)
+	end
 end)
 
 function frame:PLAYER_LOGIN()

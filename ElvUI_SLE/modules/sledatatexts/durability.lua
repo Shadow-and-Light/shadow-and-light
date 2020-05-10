@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
 local DTP = SLE:GetModule('Datatexts')
 local HEADSLOT, SHOULDERSLOT, CHESTSLOT, WRISTSLOT, HANDSSLOT, WAISTSLOT, LEGSSLOT, FEETSLOT, MAINHANDSLOT, SECONDARYHANDSLOT = HEADSLOT, SHOULDERSLOT, CHESTSLOT, WRISTSLOT, HANDSSLOT, WAISTSLOT, LEGSSLOT, FEETSLOT, MAINHANDSLOT, SECONDARYHANDSLOT
@@ -73,5 +73,5 @@ function DTP:HookDurabilityDT()
 	end
 	E["valueColorUpdateFuncs"][ValueColorUpdate] = true
 
-	DT:RegisterDatatext('Durability', {'LOADING_SCREEN_DISABLED', "UPDATE_INVENTORY_DURABILITY", "MERCHANT_SHOW"}, OnEvent, nil, Click, OnEnter)
+	DT:RegisterDatatext('Durability', 'S&L', {'LOADING_SCREEN_DISABLED', "UPDATE_INVENTORY_DURABILITY", "MERCHANT_SHOW"}, OnEvent, nil, Click, OnEnter)
 end

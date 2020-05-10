@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
 local LibQTip = LibStub('LibQTip-1.0')
 local DT_myrealm = gsub(E.myrealm,"[%s%-]","")
@@ -306,7 +306,7 @@ local function OnEvent(self, event, ...)
 		-- eventHandlers[event](self, ...)
 		local func = eventHandlers[event]
 		if func then func(self, ...) end
-	
+
 		local totalMembers = T.GetNumGuildMembers()
 		local textStyle = E.db.sle.dt.guild.textStyle == "Default" and GUILD..": " or E.db.sle.dt.guild.textStyle == "NoText" and "" or E.db.sle.dt.guild.textStyle == "Icon" and "|TInterface\\ICONS\\Achievement_Reputation_01:12|t: " or ""
 		if E.db.sle.dt.guild.totals then
@@ -497,4 +497,4 @@ local function ValueColorUpdate(hex)
 end
 E.valueColorUpdateFuncs[ValueColorUpdate] = true
 
-DT:RegisterDatatext('S&L Guild', {'CHAT_MSG_SYSTEM', "GUILD_ROSTER_UPDATE", "PLAYER_GUILD_UPDATE", "GUILD_MOTD"}, OnEvent, nil, OnClick, OnEnter)
+DT:RegisterDatatext('S&L Guild', 'S&L', {'CHAT_MSG_SYSTEM', "GUILD_ROSTER_UPDATE", "PLAYER_GUILD_UPDATE", "GUILD_MOTD"}, OnEvent, nil, OnClick, OnEnter)

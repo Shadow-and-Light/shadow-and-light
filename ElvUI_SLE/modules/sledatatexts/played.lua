@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
 --GLOBALS: ElvDB
 local ChatFrame_TimeBreakDown = ChatFrame_TimeBreakDown
@@ -68,7 +68,7 @@ local OnUpdate = function(self, elapsed)
 		text:SetText(TIME_PLAYED_MSG)
 		self.text = text
 	end
-	
+
 	if TotalPlayTime and LevelPlayTime and SessionPlayTime then
 		local Day, Hour, Minute, Second
 		if T.UnitLevel('player') ~= MAX_PLAYER_LEVEL then
@@ -163,4 +163,4 @@ local OnMouseDown = function(self, button)
 		end
 	end
 end
-DT:RegisterDatatext('S&L Time Played', {'TIME_PLAYED_MSG', 'PLAYER_LEVEL_UP', 'LOADING_SCREEN_DISABLED' , 'PLAYER_LOGOUT'}, OnEvent, OnUpdate, OnMouseDown, OnEnter, OnLeave)
+DT:RegisterDatatext('S&L Time Played', 'S&L', {'TIME_PLAYED_MSG', 'PLAYER_LEVEL_UP', 'LOADING_SCREEN_DISABLED' , 'PLAYER_LOGOUT'}, OnEvent, OnUpdate, OnMouseDown, OnEnter, OnLeave)

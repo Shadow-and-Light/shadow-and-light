@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
 local DTP = SLE:GetModule('Datatexts')
 local LFR = SLE:GetModule("LFR")
@@ -36,7 +36,7 @@ local function OnUpdate(self, t)
 	if enteredFrame then
 		OnEnter(self)
 	end
-	
+
 	int = 5
 end
 

@@ -27,11 +27,11 @@ end
 
 local function ValueColorUpdate(hex, r, g, b)
 	displayString = T.join("", "%s", hex, "%s|r", " : Shadow & Light v", hex, "%s|r")
-	
+
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)
 	end
 end
 E["valueColorUpdateFuncs"][ValueColorUpdate] = true
 
-DT:RegisterDatatext("Version", {'LOADING_SCREEN_DISABLED'}, OnEvent, Update, Click, OnEnter)
+DT:RegisterDatatext("Version", 'S&L', {'LOADING_SCREEN_DISABLED'}, OnEvent, Update, Click, OnEnter)
