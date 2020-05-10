@@ -214,10 +214,6 @@ function ES:CreateShadows()
 			ES:CreateFrameShadow(_G["RightChatPanel"], "none")
 		end
 	end
-	do
-		ES:CreateFrameShadow(_G["ElvUI_HonorBar"], "none")
-		ES:CreateFrameShadow(_G["ElvUI_ExperienceBar"], "none")
-	end
 end
 
 function ES:Initialize()
