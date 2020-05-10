@@ -218,15 +218,19 @@ function ES:CreateShadows()
 		end
 		if E.private.sle.module.shadows.chat.left then
 			if not E.private.sle.module.shadows.datatexts.leftchat then
-				_G["LeftChatPanel"]:SetFrameStrata('LOW')
-				_G["LeftChatPanel"]:SetFrameLevel(0)
+				_G["LeftChatToggleButton"]:SetFrameStrata('BACKGROUND')
+				_G["LeftChatToggleButton"]:SetFrameLevel(0)
+				_G["LeftChatDataPanel"]:SetFrameStrata('BACKGROUND')
+				_G["LeftChatDataPanel"]:SetFrameLevel(0)
 			end
 			ES:CreateFrameShadow(_G["LeftChatPanel"], "none")
 		end
 		if E.private.sle.module.shadows.chat.right then
 			if not E.private.sle.module.shadows.datatexts.rightchat then
-				_G["RightChatPanel"]:SetFrameStrata('LOW')
-				_G["RightChatPanel"]:SetFrameLevel(0)
+				_G["RightChatToggleButton"]:SetFrameStrata('BACKGROUND')
+				_G["RightChatToggleButton"]:SetFrameLevel(0)
+				_G["RightChatDataPanel"]:SetFrameStrata('BACKGROUND')
+				_G["RightChatDataPanel"]:SetFrameLevel(0)
 			end
 			ES:CreateFrameShadow(_G["RightChatPanel"], "none")
 		end
