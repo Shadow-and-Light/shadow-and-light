@@ -123,6 +123,12 @@ V["sle"] = {
 				["leftchat"] = false,
 				["righchat"] = false,
 			},
+			["databars"] = {
+				["honorbar"] = false,
+				["expbar"] = false,
+				["repbar"] = false,
+				["azeritebar"] = false,
+			},
 		},
 	},
 	

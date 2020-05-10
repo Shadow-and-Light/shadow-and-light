@@ -231,6 +231,35 @@ local function configTable()
 							},
 						},
 					},
+					databars = {
+						order = 13,
+						type = "group",
+						name = L["DataBars"],
+						get = function(info) return E.private.sle.module.shadows.databarss[info[#info]] end,
+						set = function(info, value) E.private.sle.module.shadows.databarss[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+						args = {
+							honorbar = {
+								order = 1,
+								type = "toggle",
+								name = L["HONOR"],
+							},
+							expbar = {
+								order = 1,
+								type = "toggle",
+								name = L["XPBAR_LABEL"],
+							},
+							repbar = {
+								order = 1,
+								type = "toggle",
+								name = L["REPUTATION"],
+							},
+							azeritebar = {
+								order = 1,
+								type = "toggle",
+								name = L["Azerite Bar"],
+							},
+						},
+					},					
 				},
 			},
 		},

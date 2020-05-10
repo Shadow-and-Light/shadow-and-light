@@ -33,6 +33,12 @@ ES.FramesToShadow = {
 		["leftchat"] = "LeftChatDataPanel",
 		["rightchat"] = "RightChatDataPanel",
 	},
+	["databars"] = {
+		["honorbar"] = "ElvUI_HonorBar",
+		["expbar"] = "ElvUI_ExperienceBar",
+		["repbar"] = "ElvUI_ReputationBar",
+		["azeritebar"] = "ElvUI_AzeriteBar",
+	},
 }
 
 --Updating all shadows
@@ -188,6 +194,14 @@ function ES:CreateShadows()
 			end
 		end
 	end
+
+	--Databars Examples: Honor, Reputation, Experience, Azerite
+	for panel, enabled in T.pairs(E.private.sle.module.shadows.databars) do
+		if enabled then
+			ES:CreateFrameShadow(_G[ES.FramesToShadow.databars[panel]], "none")
+		end
+	end
+
 	--Misc--
 	do
 		if E.private.sle.module.shadows.minimap then
@@ -199,6 +213,10 @@ function ES:CreateShadows()
 		if E.private.sle.module.shadows.chat.right then
 			ES:CreateFrameShadow(_G["RightChatPanel"], "none")
 		end
+	end
+	do
+		ES:CreateFrameShadow(_G["ElvUI_HonorBar"], "none")
+		ES:CreateFrameShadow(_G["ElvUI_ExperienceBar"], "none")
 	end
 end
 
