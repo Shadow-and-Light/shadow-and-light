@@ -172,7 +172,21 @@ function ES:CreateShadows()
 	end
 	--Datatexts--
 	for panel,enabled in T.pairs(E.private.sle.module.shadows.datatexts) do
-		if enabled then ES:CreateFrameShadow(_G[ES.FramesToShadow.Datapanels[panel]],"none") end
+		if enabled then
+			if panel == "leftchat" then
+				_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameStrata('LOW')
+				_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameLevel(0)
+				ES:CreateFrameShadow(_G["LeftChatToggleButton"], "none")
+				ES:CreateFrameShadow(_G[ES.FramesToShadow.Datapanels[panel]], "none")
+			elseif panel == "rightchat" then
+				_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameStrata('LOW')
+				_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameLevel(0)
+				ES:CreateFrameShadow(_G["RightChatToggleButton"], "none")
+				ES:CreateFrameShadow(_G[ES.FramesToShadow.Datapanels[panel]], "none")
+			elseif (panel ~= leftchat) or (panel ~= rightchat) then
+				ES:CreateFrameShadow(_G[ES.FramesToShadow.Datapanels[panel]], "none")
+			end
+		end
 	end
 	--Misc--
 	do
@@ -181,11 +195,9 @@ function ES:CreateShadows()
 		end
 		if E.private.sle.module.shadows.chat.left then
 			ES:CreateFrameShadow(_G["LeftChatPanel"], "none")
-			-- ES:CreateFrameShadow(_G["LeftChatToggleButton"], "none")
 		end
 		if E.private.sle.module.shadows.chat.right then
 			ES:CreateFrameShadow(_G["RightChatPanel"], "none")
-			-- ES:CreateFrameShadow(_G["RightChatToggleButton"], "none")
 		end
 	end
 end
@@ -193,6 +205,7 @@ end
 function ES:Initialize()
 	if not SLE.initialized then return end
 	Border = E.LSM:Fetch('border', 'ElvUI GlowBorder')
+
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', ES.UpdateShadows)
 
 	ES:CreateShadows()
