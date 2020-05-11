@@ -1,11 +1,12 @@
 local parent, ns = ...
 local oUF = ElvUF or oUF
 local _G = _G
+local UnitIsConnected = UnitIsConnected
 
 local Update = function(self, event, unit)
 	if(self.unit ~= unit) or not unit then return end
 	local offline = self.Offline
-	local dc = self.Health.disconnected
+	local dc = not UnitIsConnected(unit)
 
 	if dc or _G[offline.Group].isForced then
 		offline:Show()
