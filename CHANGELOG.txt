@@ -1,3 +1,21 @@
+v3.75
+Fixes:
+- Fix AFK screen
+- Another attempt to fix some lingering minimap icons
+- Fixed not able to set your public note from the S&L guild datatext
+- Fixed offline indicator from now showing
+- Another fix for corruption module in S&L Armory
+Changes:
+- Adjust some Russian locales so it doesn't look like a drunk wrote them
+- Removed S&L Status Report as ElvUI has revamped theirs to show plugins and their version numbers
+- Small adjustment to background panels min height
+- Removed S&L Datatext Panels as ElvUI now lets you create and customize your own
+- Removed option to handle chat as ElvUI made the changes we were looking for
+Additions:
+- Added Ni'aloth to raid progression module
+- Enhanced Shadows now support databars like exp, rep, honor
+
+
 v3.74 [April 30, 2020]
 Fixes:
 - Fixed guid datatext error (Round 3)
