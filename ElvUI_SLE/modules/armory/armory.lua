@@ -201,7 +201,7 @@ function Armory:GetCorruptionInfo(Slot, which, unit)
 				--Iteration to get corruption spell from bunus ID. Got the script from suspctz
 				local itemSplit = SLE:GetItemSplit(Slot.itemLink)
 				local bonuses = {}
-				local corruptionSpell
+				local corruptionSpell = ""
 				
 				for index= 1, itemSplit[13] do
 					bonuses[#bonuses + 1] = itemSplit[13 + index]
