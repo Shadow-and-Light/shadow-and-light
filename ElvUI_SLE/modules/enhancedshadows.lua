@@ -8,6 +8,7 @@ local Abars = 10
 --GLOBALS: hooksecurefunc
 local _G = _G
 local UnitAffectingCombat = UnitAffectingCombat
+local SIDE_BUTTON = E.db.chat.hideChatToggles and 0 or 19
 
 --Registered shadows table
 ES.CreatedShadows = {}
@@ -180,8 +181,8 @@ function ES:CreateShadows()
 		if enabled then
 			if panel == "leftchat" then
 				ES.DummyPanels.LeftChat = CreateFrame("Frame", nil, _G[ES.FramesToShadow.Datapanels[panel]])
-				ES.DummyPanels.LeftChat:Point("TOPLEFT", _G["LeftChatPanel"], "BOTTOMLEFT", 0,0)
-				ES.DummyPanels.LeftChat:Point("BOTTOMRIGHT", _G[ES.FramesToShadow.Datapanels[panel]], "BOTTOMRIGHT", 0,0)
+				ES.DummyPanels.LeftChat:Point("TOPLEFT", _G[ES.FramesToShadow.Datapanels[panel]], "TOPLEFT", -SIDE_BUTTON, 0)
+				ES.DummyPanels.LeftChat:Point("BOTTOMRIGHT", _G[ES.FramesToShadow.Datapanels[panel]], "BOTTOMRIGHT", 0, 0)
 				ES.DummyPanels.LeftChat:SetFrameStrata("LOW")
 				if not E.private.sle.module.shadows.chat.left then
 					_G["LeftChatToggleButton"]:SetFrameStrata('LOW')
@@ -194,8 +195,8 @@ function ES:CreateShadows()
 				
 			elseif panel == "rightchat" then
 				ES.DummyPanels.RightChat = CreateFrame("Frame", nil, _G[ES.FramesToShadow.Datapanels[panel]])
-				ES.DummyPanels.RightChat:Point("TOPRIGHT", _G["RightChatPanel"], "BOTTOMRIGHT", 0,0)
-				ES.DummyPanels.RightChat:Point("BOTTOMLEFT", _G[ES.FramesToShadow.Datapanels[panel]], "BOTTOMLEFT", 0,0)
+				ES.DummyPanels.RightChat:Point("TOPRIGHT", _G[ES.FramesToShadow.Datapanels[panel]], "TOPRIGHT", SIDE_BUTTON, 0)
+				ES.DummyPanels.RightChat:Point("BOTTOMLEFT", _G[ES.FramesToShadow.Datapanels[panel]], "BOTTOMLEFT", 0, 0)
 				ES.DummyPanels.RightChat:SetFrameStrata("LOW")
 				if not E.private.sle.module.shadows.chat.right then
 					_G["RightChatToggleButton"]:SetFrameStrata('LOW')
