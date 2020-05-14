@@ -194,8 +194,9 @@ function ES:CreateShadows()
 				
 			elseif panel == "rightchat" then
 				ES.DummyPanels.RightChat = CreateFrame("Frame", nil, _G[ES.FramesToShadow.Datapanels[panel]])
-				ES.DummyPanels.RightChat:Point("TOPRIGHT", _G["RightChatPanel"], "TOPRIGHT", 0,0)
+				ES.DummyPanels.RightChat:Point("TOPRIGHT", _G["RightChatPanel"], "BOTTOMRIGHT", 0,0)
 				ES.DummyPanels.RightChat:Point("BOTTOMLEFT", _G[ES.FramesToShadow.Datapanels[panel]], "BOTTOMLEFT", 0,0)
+				ES.DummyPanels.RightChat:SetFrameStrata("LOW")
 				if not E.private.sle.module.shadows.chat.right then
 					_G["RightChatToggleButton"]:SetFrameStrata('LOW')
 					_G["RightChatToggleButton"]:SetFrameLevel(0)
