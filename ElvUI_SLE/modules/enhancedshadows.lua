@@ -91,7 +91,7 @@ function ES:UpdateFrame(frame, db)
 end
 
 --Creating shadows for provided frame
-function ES:CreateFrameShadow(frame, parent, legacy, offsets)
+function ES:CreateFrameShadow(frame, parent, legacy)
 	if not frame then return end
 	if not legacy then --If using new style with health and power having separated shadows
 		--UF Health
