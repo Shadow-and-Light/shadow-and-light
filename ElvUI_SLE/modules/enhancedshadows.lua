@@ -11,6 +11,7 @@ local UnitAffectingCombat = UnitAffectingCombat
 
 --Registered shadows table
 ES.CreatedShadows = {}
+ES.DummyPanels = {}
 
 --The table for frames groupped based on similariy
 ES.FramesToShadow = {
@@ -90,7 +91,7 @@ function ES:UpdateFrame(frame, db)
 end
 
 --Creating shadows for provided frame
-function ES:CreateFrameShadow(frame, parent, legacy)
+function ES:CreateFrameShadow(frame, parent, legacy, offsets)
 	if not frame then return end
 	if not legacy then --If using new style with health and power having separated shadows
 		--UF Health
@@ -112,8 +113,6 @@ function ES:CreateFrameShadow(frame, parent, legacy)
 	end
 	--if it is not UF at all or old way is enabled
 	if legacy or (not frame.Health and not frame.Power) then
-		-- E:Dump(MMHolder)
-		
 		frame:CreateShadow()
 		frame.EnhShadow = frame.shadow
 		frame.shadow = nil
@@ -180,6 +179,10 @@ function ES:CreateShadows()
 	for panel,enabled in T.pairs(E.private.sle.module.shadows.datatexts) do
 		if enabled then
 			if panel == "leftchat" then
+				ES.DummyPanels.LeftChat = CreateFrame("Frame", nil, _G[ES.FramesToShadow.Datapanels[panel]])
+				ES.DummyPanels.LeftChat:Point("TOPLEFT", _G["LeftChatPanel"], "BOTTOMLEFT", 0,0)
+				ES.DummyPanels.LeftChat:Point("BOTTOMRIGHT", _G[ES.FramesToShadow.Datapanels[panel]], "BOTTOMRIGHT", 0,0)
+				ES.DummyPanels.LeftChat:SetFrameStrata("LOW")
 				if not E.private.sle.module.shadows.chat.left then
 					_G["LeftChatToggleButton"]:SetFrameStrata('LOW')
 					_G["LeftChatToggleButton"]:SetFrameLevel(0)
@@ -187,17 +190,20 @@ function ES:CreateShadows()
 					_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameLevel(0)
 				end
 
-				ES:CreateFrameShadow(_G["LeftChatToggleButton"], "none")
-				ES:CreateFrameShadow(_G[ES.FramesToShadow.Datapanels[panel]], "none")
+				ES:CreateFrameShadow(ES.DummyPanels.LeftChat, "none")
+				
 			elseif panel == "rightchat" then
+				ES.DummyPanels.RightChat = CreateFrame("Frame", nil, _G[ES.FramesToShadow.Datapanels[panel]])
+				ES.DummyPanels.RightChat:Point("TOPRIGHT", _G["RightChatPanel"], "TOPRIGHT", 0,0)
+				ES.DummyPanels.RightChat:Point("BOTTOMLEFT", _G[ES.FramesToShadow.Datapanels[panel]], "BOTTOMLEFT", 0,0)
 				if not E.private.sle.module.shadows.chat.right then
 					_G["RightChatToggleButton"]:SetFrameStrata('LOW')
 					_G["RightChatToggleButton"]:SetFrameLevel(0)
 					_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameStrata('LOW')
 					_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameLevel(0)
 				end
-				ES:CreateFrameShadow(_G["RightChatToggleButton"], "none")
-				ES:CreateFrameShadow(_G[ES.FramesToShadow.Datapanels[panel]], "none")
+
+				ES:CreateFrameShadow(ES.DummyPanels.RightChat, "none")
 			elseif (panel ~= leftchat) or (panel ~= rightchat) then
 				ES:CreateFrameShadow(_G[ES.FramesToShadow.Datapanels[panel]], "none")
 			end
@@ -217,21 +223,9 @@ function ES:CreateShadows()
 			ES:CreateFrameShadow(_G["MMHolder"], "none")
 		end
 		if E.private.sle.module.shadows.chat.left then
-			if not E.private.sle.module.shadows.datatexts.leftchat then
-				_G["LeftChatToggleButton"]:SetFrameStrata('BACKGROUND')
-				_G["LeftChatToggleButton"]:SetFrameLevel(0)
-				_G["LeftChatDataPanel"]:SetFrameStrata('BACKGROUND')
-				_G["LeftChatDataPanel"]:SetFrameLevel(0)
-			end
 			ES:CreateFrameShadow(_G["LeftChatPanel"], "none")
 		end
 		if E.private.sle.module.shadows.chat.right then
-			if not E.private.sle.module.shadows.datatexts.rightchat then
-				_G["RightChatToggleButton"]:SetFrameStrata('BACKGROUND')
-				_G["RightChatToggleButton"]:SetFrameLevel(0)
-				_G["RightChatDataPanel"]:SetFrameStrata('BACKGROUND')
-				_G["RightChatDataPanel"]:SetFrameLevel(0)
-			end
 			ES:CreateFrameShadow(_G["RightChatPanel"], "none")
 		end
 	end
