@@ -74,27 +74,6 @@ local function configTable()
 			},
 		},
 	}
-	E.Options.args.sle.args.modules.args.datatext.args.sldatatext.args.specswitch = {
-		type = "group",
-		name = SPECIALIZATION,
-		order = 8,
-		get = function(info) return E.private.sle.dt.specswitch[ info[#info] ] end,
-		set = function(info, value) E.private.sle.dt.specswitch[ info[#info] ] = value; end,
-		args = {
-			xOffset = {
-				order = 1,
-				type = "range",
-				min = -100, max = 100, step = 1,
-				name = L["X-Offset"],
-			},
-			yOffset = {
-				order = 1,
-				type = "range",
-				min = -100, max = 100, step = 1,
-				name = L["Y-Offset"],
-			},
-		},
-	}
 end
 
 T.tinsert(SLE.Configs, configTable)
