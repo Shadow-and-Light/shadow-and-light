@@ -39,10 +39,6 @@ function DB:Initialize()
 	DB:ForUpdateAll()
 
 	self:RegisterEvent("CHAT_MSG_COMBAT_FACTION_CHANGE", "ChatMsgCombat")
-	self:RegisterEvent("COMBAT_TEXT_UPDATE", "CombatTextUpdate")
-	self:RegisterEvent("CHAT_MSG_SYSTEM", "ChatMsgSys")
-	self:RegisterEvent("PLAYER_LOGIN", "PlayerRepLogin")
-	self:RegisterEvent("PLAYER_GUILD_UPDATE", "PlayerGuildRepUdate")
 	self:RegisterEvent("UPDATE_FACTION", "NewRepString")
 	DB:NewRepString()
 end

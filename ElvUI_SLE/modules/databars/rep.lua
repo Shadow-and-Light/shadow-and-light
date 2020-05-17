@@ -11,10 +11,8 @@ local ExpandFactionHeader, CollapseFactionHeader = ExpandFactionHeader, Collapse
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
 local next = next
-local collapsed = {}
 
 --strings and shit
-local GUILD = GUILD
 local FACTION_STANDING_INCREASED = FACTION_STANDING_INCREASED
 local FACTION_STANDING_INCREASED_GENERIC = FACTION_STANDING_INCREASED_GENERIC
 local FACTION_STANDING_INCREASED_BONUS = FACTION_STANDING_INCREASED_BONUS
@@ -22,7 +20,6 @@ local FACTION_STANDING_INCREASED_DOUBLE_BONUS = FACTION_STANDING_INCREASED_DOUBL
 local FACTION_STANDING_INCREASED_ACH_BONUS = FACTION_STANDING_INCREASED_ACH_BONUS
 local FACTION_STANDING_CHANGED = FACTION_STANDING_CHANGED
 local FACTION_STANDING_CHANGED_GUILD = FACTION_STANDING_CHANGED_GUILD
-local FACTION_STANDING_CHANGED_GUILDNAME = FACTION_STANDING_CHANGED_GUILDNAME
 local FACTION_STANDING_DECREASED = FACTION_STANDING_DECREASED
 local FACTION_STANDING_DECREASED_GENERIC = FACTION_STANDING_DECREASED_GENERIC
 
@@ -53,15 +50,10 @@ T.tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_BONU
 T.tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_DOUBLE_BONUS)))
 T.tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_ACH_BONUS)))
 
-local strChangeMatch = (formatFactionStanding(FACTION_STANDING_CHANGED))
-local strGuildChangeMatch = {}
-T.tinsert(strGuildChangeMatch, (formatFactionStanding(FACTION_STANDING_CHANGED_GUILD)))
-T.tinsert(strGuildChangeMatch, (formatFactionStanding(FACTION_STANDING_CHANGED_GUILDNAME)))
-
 local backupColor = FACTION_BAR_COLORS[1]
 local FactionStandingLabelUnknown = UNKNOWN
 local function UpdateReputation(self, event)
-	if not E.db.sle.databars.rep.longtext or not SLE.initialized then return end
+	if not SLE.initialized or not E.db.sle.databars.rep.longtext then return end
 	local bar = self.repBar
 	local ID
 	local isFriend, friendText, standingLabel
@@ -118,125 +110,6 @@ local function UpdateReputation(self, event)
 	end
 end
 
-function DB:ChatMsgCombat(event, ...)
-	if not DB.db.rep or not DB.db.rep.autotrack then return end
-	local messg = ...
-	local found
-	for i, v in T.ipairs(strMatchCombat) do
-		found = (T.match(messg,strMatchCombat[i]))
-		if found then
-			if GUILD and guildName and (found == GUILD) and not DB.db.rep.ignoreGuild then
-				found = guildName
-			end
-			break
-		end
-	end
-	if found then
-		DB:setWatchedFaction(found)
-	end
-end
-
-function DB:CombatTextUpdate(event, ...)
-	if not DB.db.rep or not DB.db.rep.autotrack then return end
-
-	local messagetype, faction, amount = ...
-	if messagetype ~= "FACTION" then return end
-	if (not amount) or (amount < 0) then return end
-	if GUILD and faction and guildName and (faction == GUILD) then
-		faction = guildName
-	end
-	if faction then
-		DB:setWatchedFaction(faction)
-	end
-end
-
-function DB:ChatMsgSys(event, ...)
-	if not DB.db.rep or not DB.db.rep.autotrack then return end
-
-	local messg = ...
-	local found
-	local newfaction = (T.match(messg,strChangeMatch)) and T.select(2,T.match(messg,strChangeMatch))
-	if newfaction then
-		if guildName and (newfaction == GUILD) then
-			found = guildName
-		else
-			found = newfaction
-		end
-	else
-		local guildfaction
-		for i, v in T.ipairs(strGuildChangeMatch) do
-			guildfaction = (T.match(messg,strGuildChangeMatch[i]))
-			if guildfaction then
-				break
-			end
-		end
-		if guildfaction and guildName then
-			found = guildName
-		end
-	end
-	if found then
-		DB:setWatchedFaction(found)
-	end
-end
-
-function DB:PlayerRepLogin()
-	if T.IsInGuild() then
-		guildName = (T.GetGuildInfo("player"))
-		if not guildName then 
-			DB:RegisterEvent("GUILD_ROSTER_UPDATE", 'PlayerGuildRosterUpdate')
-		end
-	end
-end
-
-function DB:PlayerGuildRosterUpdate()
-	if not SLE.initialized  then return end
-	if T.IsInGuild() then
-		guildName = (T.GetGuildInfo("player"))
-	end
-	if guildName then
-		DB:UnregisterEvent("GUILD_ROSTER_UPDATE")
-	end
-end
-
-function DB:PlayerGuildRepUdate()
-	if T.IsInGuild() then
-		guildName = (T.GetGuildInfo("player"))
-		if not guildName then 
-			DB:RegisterEvent("GUILD_ROSTER_UPDATE", 'PlayerGuildRosterUpdate')
-		end
-	else
-		guildName = nil
-	end
-end
-
-function DB:setWatchedFaction(faction)
-	if not SLE.initialized then return end
-	T.twipe(collapsed)
-	local i,j = 1, T.GetNumFactions()
-	while i <= j do
-		local name,_,_,_,_,_,_,_,isHeader,isCollapsed,_,isWatched = T.GetFactionInfo(i)
-		if name == faction then
-			if not (isWatched or T.IsFactionInactive(i)) then
-				T.SetWatchedFactionIndex(i)
-			end
-			break
-		end
-		if isHeader and isCollapsed then
-			ExpandFactionHeader(i)
-			collapsed[i] = true
-			j = T.GetNumFactions()
-		end
-		i = i+1
-	end
-	if next(collapsed) then
-		for k=i,1,-1 do
-			if collapsed[k] then
-				CollapseFactionHeader(k)
-			end
-		end
-	end
-end
-
 function DB:PopulateRepPatterns()
 	local symbols = {'%.$','%(','%)','|3%-7%%%(%%s%%%)','%%s([^%%])','%+','%%d','%%.1f','%%.','%%(','%%)','(.-)','(.-)%1','%%+','(%%d-)','(%%d-)'}
 	local pattern
@@ -290,6 +163,7 @@ function DB:ScanFactions()
 		end
 	end
 end
+
 DB.RepChatFrames = {}
 function DB:NewRepString(event, ...)
 	if not DB.db.rep or not DB.db.rep.chatfilter.enable then return end
@@ -312,12 +186,14 @@ function DB:NewRepString(event, ...)
 		local name, _, standingID, barMin, barMax, barValue, _, _, isHeader, _, hasRep, _, _, factionID = T.GetFactionInfo(factionIndex)
 		local friendID, _, _, _, _, _, friendTextLevel = T.GetFriendshipReputation(factionID);
 		local currentRank, maxRank = T.GetFriendshipReputationRanks(factionID);
+
 		if (not isHeader or hasRep) and self.factionVars[name] then
 			if self.factionVars[name].isParagon then
 				local currentValue = C_Reputation_GetFactionParagonInfo(factionID);
 				barValue = currentValue
 			end
 			local diff = barValue - self.factionVars[name].Value
+
 			if diff > 0 then
 				StyleTable = "RepIncreaseStyles"
 			elseif diff < 0 then
@@ -325,18 +201,22 @@ function DB:NewRepString(event, ...)
 			end
 			if StyleTable then
 				local change = abs(barValue - self.factionVars[name].Value)
+
 				if DB.db.rep.chatfilter.chatframe == "AUTO" then
 					for n = 1, #(DB.RepChatFrames) do
 						local chatframe = _G[DB.RepChatFrames[n]]
 						chatframe:AddMessage(T.format(DB[StyleTable][DB.db.rep.chatfilter.style] , DB.db.rep.chatfilter.iconsize, name, diff))
+
 						if not E.db.sle.databars.rep.chatfilter.showAll then stop = true; break end
 					end
 				else
 					local chatframe = _G[DB.db.rep.chatfilter.chatframe]
 					chatframe:AddMessage(T.format(DB[StyleTable][DB.db.rep.chatfilter.style] , DB.db.rep.chatfilter.iconsize, name, diff))
+
 					if not E.db.sle.databars.rep.chatfilter.showAll then stop = true; break end
 				end
 				self.factionVars[name].Value = barValue
+
 				if stop then return end
 			end
 		end
