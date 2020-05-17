@@ -3,14 +3,21 @@ local DT = E:GetModule('DataTexts')
 local DTP = SLE:GetModule('Datatexts')
 
 local HEADSLOT, SHOULDERSLOT, CHESTSLOT, WRISTSLOT, HANDSSLOT, WAISTSLOT, LEGSSLOT, FEETSLOT, MAINHANDSLOT, SECONDARYHANDSLOT = HEADSLOT, SHOULDERSLOT, CHESTSLOT, WRISTSLOT, HANDSSLOT, WAISTSLOT, LEGSSLOT, FEETSLOT, MAINHANDSLOT, SECONDARYHANDSLOT
-local DURABILITY = DURABILITY
 local ToggleCharacter = ToggleCharacter
+local DURABILITY = DURABILITY
+local InCombatLockdown = InCombatLockdown
+local GetInventoryItemTexture = GetInventoryItemTexture
+local GetInventoryItemLink = GetInventoryItemLink
+local GetMoneyString = GetMoneyString
 
 function DTP:HookDurabilityDT()
-	local displayString, lastPanel = ""
+	local displayString, lastPanel = DURABILITY..": %s%d%%|r"
+	local displayStringa = ""
+	local repairCostString = REPAIR_COST
 	local tooltipString = "%d%%"
-	local totalDurability = 0
 	local invDurability = {}
+	local totalDurability = 0
+
 	local slots = {
 		[1] = _G.INVTYPE_HEAD,
 		[3] = _G.INVTYPE_SHOULDER,
@@ -27,6 +34,7 @@ function DTP:HookDurabilityDT()
 	local function OnEvent(self, event, ...)
 		lastPanel = self
 		totalDurability = 100
+		totalRepairCost = 0
 
 		for index in T.pairs(slots) do
 			local current, max = T.GetInventoryItemDurability(index)
@@ -37,6 +45,8 @@ function DTP:HookDurabilityDT()
 				if ((current/max) * 100) < totalDurability then
 					totalDurability = (current/max) * 100
 				end
+
+				totalRepairCost = totalRepairCost + select(3, E.ScanTooltip:SetInventoryItem("player", index))
 			end
 		end
 
@@ -47,16 +57,17 @@ function DTP:HookDurabilityDT()
 		end
 
 		if E.db.sle.dt.durability.gradient then
-			local r,g,b = E:ColorGradient(totalDurability/100, .9,.2,.2, .9,.9,.2, .2,.9,.2)
+			local r,g,b = E:ColorGradient(totalDurability * .01, .9,.2,.2, .9,.9,.2, .2,.9,.2)
 			local hex = E:RGBToHex(r,g,b)
 
-			self.text:SetFormattedText("%s: %s%d%%|r", DURABILITY, hex, totalDurability)
+			self.text:SetFormattedText(displayString, hex, totalDurability)
 		else
-			self.text:SetFormattedText(displayString, totalDurability)
+			self.text:SetFormattedText(displayStringa, totalDurability)
 		end
 	end
 
 	local function Click()
+		if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
 		ToggleCharacter("PaperDollFrame")
 	end
 
@@ -64,14 +75,19 @@ function DTP:HookDurabilityDT()
 		DT:SetupTooltip(self)
 
 		for slot, durability in T.pairs(invDurability) do
-			DT.tooltip:AddDoubleLine(slots[slot], T.format(tooltipString, durability), 1, 1, 1, E:ColorGradient(durability * 0.01, 1, 0, 0, 1, 1, 0, 0, 1, 0))
+			DT.tooltip:AddDoubleLine(format('|T%s:14:14:0:0:64:64:4:60:4:60|t  %s', GetInventoryItemTexture("player", slot), GetInventoryItemLink("player", slot)), format(tooltipString, durability), 1, 1, 1, E:ColorGradient(durability * 0.01, 1, 0, 0, 1, 1, 0, 0, 1, 0))
+		end
+
+		if totalRepairCost > 0 then
+			DT.tooltip:AddLine(" ")
+			DT.tooltip:AddDoubleLine(repairCostString, GetMoneyString(totalRepairCost), .6, .8, 1, 1, 1, 1)
 		end
 
 		DT.tooltip:Show()
 	end
 
 	local function ValueColorUpdate(hex, r, g, b)
-		displayString = T.join("", DURABILITY, ": ", hex, "%d%%|r")
+		displayStringa = T.join("", DURABILITY, ": ", hex, "%d%%|r")
 
 		if lastPanel ~= nil then
 			OnEvent(lastPanel, 'ELVUI_COLOR_UPDATE')
