@@ -27,14 +27,6 @@ V["sle"] = {
 			["skingarrison"] = false,
 		},
 	},
-
-	["dt"] = {
-		["specswitch"] = {
-			["xOffset"] = -15,
-			["yOffset"] = -7,
-		},
-	},
-
 	["vehicle"] = {
 		["enable"] = false,
 		["numButtons"] = 7,
