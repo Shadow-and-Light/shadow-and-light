@@ -28,8 +28,8 @@ local function Style(self, frame)
 
 	-- Prevent text from jumping from left to right when tab is clicked.
 	hooksecurefunc(tab, "SetWidth", function(self)
-		self.text:ClearAllPoints()
-		self.text:SetPoint("CENTER", self, "CENTER", 0, 0)
+		self.Text:ClearAllPoints()
+		self.Text:SetPoint("CENTER", self, "CENTER", 0, 0)
 	end)
 end
 
@@ -164,9 +164,6 @@ function C:Initialize()
 		end
 	end
 
-	-- hooksecurefunc(LO, "ToggleChatPanels", ChatPanels)
-	-- hooksecurefunc(LO, "RepositionChatDataPanels", ChatPanels)
-	-- hooksecurefunc(CH, "PositionChat", PositionChat)
 	hooksecurefunc(CH, "StyleChat", Style)
 	hooksecurefunc(E, "UpdateMedia", ChatTextures)
 
@@ -195,7 +192,7 @@ function C:Initialize()
 
 	C:InitTabs()
 end
--- hooksecurefunc(LO, "CreateChatPanels", CreateChatPanels)
+
 CH:AddPluginIcons(GetChatIcon)
 
 SLE:RegisterModule(C:GetName())
