@@ -26,11 +26,11 @@ C.SelectedStrings = {
 function C:ApplySelectedTabIndicator(tab, title)
 	local color = E.db.sle.chat.tab.color
 	if E.db.sle.chat.tab.style == "DEFAULT" or E.db.sle.chat.tab.style == "SQUARE" then
-		tab.text:SetText(T.format(C.SelectedStrings[E.db.sle.chat.tab.style], color.r * 255, color.g * 255, color.b * 255, title, color.r * 255, color.g * 255, color.b * 255))
+		tab.Text:SetText(T.format(C.SelectedStrings[E.db.sle.chat.tab.style], color.r * 255, color.g * 255, color.b * 255, title, color.r * 255, color.g * 255, color.b * 255))
 	elseif E.db.sle.chat.tab.style == "HALFDEFAULT" then
-		tab.text:SetText(T.format(C.SelectedStrings[E.db.sle.chat.tab.style], color.r * 255, color.g * 255, color.b * 255, title))
+		tab.Text:SetText(T.format(C.SelectedStrings[E.db.sle.chat.tab.style], color.r * 255, color.g * 255, color.b * 255, title))
 	else
-		tab.text:SetText(T.format(C.SelectedStrings[E.db.sle.chat.tab.style], (E.db.chat.tabFontSize + 12), title))
+		tab.Text:SetText(T.format(C.SelectedStrings[E.db.sle.chat.tab.style], (E.db.chat.tabFontSize + 12), title))
 	end
 end
 
@@ -84,7 +84,7 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 
 	for index, chatFrame in T.ipairs(dock.DOCKED_CHAT_FRAMES) do
 		local chatTab = _G[chatFrame:GetName().."Tab"];
-		if chatTab.text then chatTab.text:SetText(chatFrame.name) end --Reseting tab name
+		if chatTab.Text then chatTab.Text:SetText(chatFrame.name) end --Reseting tab name
 		if ( chatFrame == FCFDock_GetSelectedWindow(dock) ) and E.db.sle.chat.tab.select then --Tab is selected and option is enabled
 			C:ApplySelectedTabIndicator(chatTab, chatFrame.name)
 		end
