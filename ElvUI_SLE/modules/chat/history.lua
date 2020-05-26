@@ -1,9 +1,11 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local C = SLE:GetModule("Chat")
 local CH = E:GetModule("Chat")
+
 local _G = _G
 local F
 
+local msgList, msgCount, msgTime = {}, {}, {}
 local historyEvents = {
 	"CHAT_MSG_INSTANCE_CHAT",
 	"CHAT_MSG_INSTANCE_CHAT_LEADER",
@@ -24,23 +26,26 @@ local historyEvents = {
 	"CHAT_MSG_WHISPER_INFORM",
 	"CHAT_MSG_YELL",
 }
+
 local function PrepareMessage(author, message)
 	return author:upper() .. message
 end
-local msgList, msgCount, msgTime = {}, {}, {}
 
 function C:ChatHistoryToggle(option)
 	for i = 1, #historyEvents do
 		CH:UnregisterEvent(historyEvents[i])
+
 		if E.private.sle.chat.chatHistory[historyEvents[i]] then
 			CH:RegisterEvent(historyEvents[i], "SaveChatHistory")
 		end
 	end
+
 	if option then C:ClearUnusedHistory() end
 end
 
 function C:ClearUnusedHistory()
 	local data = _G["ElvCharacterDB"].ChatHistoryLog
+
 	if data and T.next(data) then
 		for i in T.ipairs(data) do
 			if T.type(data[i]) == "table" and E.private.sle.chat.chatHistory[data[i][50]] == false then
@@ -52,6 +57,7 @@ end
 
 function C:HistorySizeCHanged()
 	local data = _G["ElvCharacterDB"].ChatHistoryLog
+
 	while #data >= E.private.sle.chat.chatHistory.size do
 		T.tremove(data, 1)
 	end
@@ -63,10 +69,15 @@ function C:HystoryOverwrite()
 		local blockFlag = false
 		local msg = PrepareMessage(author, message)
 
-		if msg == nil then return CH.FindURL(self, event, message, author, ...) end
+		if msg == nil then
+			return CH.FindURL(self, event, message, author, ...)
+		end
 
 		-- ignore player messages
-		if author == C.PlayerName then return CH.FindURL(self, event, message, author, ...) end
+		if author == C.PlayerName then
+			return CH.FindURL(self, event, message, author, ...)
+		end
+
 		if msgList[msg] and msgCount[msg] > 1 and CH.db.throttleInterval ~= 0 then
 			if T.difftime(T.time(), msgTime[msg]) <= CH.db.throttleInterval then
 				blockFlag = true
@@ -93,6 +104,7 @@ function C:HystoryOverwrite()
 
 		if arg2 ~= "" then
 			local message = PrepareMessage(arg2, arg1)
+
 			if msgList[message] == nil then
 				msgList[message] = true
 				msgCount[message] = 1
@@ -108,7 +120,10 @@ function C:HystoryOverwrite()
 		local msg = PrepareMessage(author, message)
 
 		-- ignore player messages
-		if author == C.PlayerName then return CH.FindURL(self, event, message, author, ...) end
+		if author == C.PlayerName then
+			return CH.FindURL(self, event, message, author, ...)
+		end
+
 		if msgList[msg] and CH.db.throttleInterval ~= 0 then
 			if T.difftime(T.time(), msgTime[msg]) <= CH.db.throttleInterval then
 				blockFlag = true
@@ -116,7 +131,7 @@ function C:HystoryOverwrite()
 		end
 
 		if blockFlag then
-			return true;
+			return true
 		else
 			if CH.db.throttleInterval ~= 0 then
 				msgTime[msg] = T.time()
@@ -142,14 +157,16 @@ function C:HystoryOverwrite()
 
 			local message, author = ...
 			local msg = PrepareMessage(author, message)
+
 			if author ~= C.PlayerName and msgList[msg] then
 				if T.difftime(T.time(), msgTime[msg]) <= CH.db.throttleInterval then
-					return;
+					return
 				end
 			end
 		end
 
 		local temp = {}
+
 		for i = 1, T.select('#', ...) do
 			temp[i] = T.select(i, ...) or false
 		end
@@ -159,11 +176,13 @@ function C:HystoryOverwrite()
 			temp[51] = T.time()
 
 			local coloredName, battleTag
+
 			if temp[13] > 0 then coloredName, battleTag = CH:GetBNFriendColor(temp[2], temp[13], true) end
 			if battleTag then temp[53] = battleTag end -- store the battletag so we can replace arg2 later in the function
-			temp[52] = coloredName or CH:GetColoredName(event, ...)
+			temp[52] = coloredName or CH:GetColoredName(event, nil, ...)
 
 			T.tinsert(data, temp)
+
 			while #data >= E.private.sle.chat.chatHistory.size do
 				T.tremove(data, 1)
 			end
@@ -175,14 +194,24 @@ end
 function C:InitHistory()
 	--Overwriting stuff cause fuck this shit
 	function CH:ChatEdit_AddHistory(editBox, line)
-		if T.find(line, "/rl") then return; end
-		if ( T.strlen(line) > 0 ) then
-			for i, text in T.pairs(_G["ElvCharacterDB"].ChatEditHistory) do
+		-- if T.find(line, "/rl") then return end
+		line = line and strtrim(line)
+
+		if line and T.strlen(line) > 0 then
+			for _, command in next, CH.SecureSlashCMD do
+				if strmatch(line, command) then
+					return
+				end
+			end
+
+			for index, text in T.pairs(_G["ElvCharacterDB"].ChatEditHistory) do
 				if text == line then
 					return
 				end
 			end
+
 			T.tinsert(_G["ElvCharacterDB"].ChatEditHistory, #(_G["ElvCharacterDB"].ChatEditHistory) + 1, line)
+
 			if #(_G["ElvCharacterDB"].ChatEditHistory) > E.db.sle.chat.editboxhistory then
 				T.tremove(_G["ElvCharacterDB"].ChatEditHistory, 1)
 			end
