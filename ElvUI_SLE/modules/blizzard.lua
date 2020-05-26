@@ -154,9 +154,9 @@ B.AddonsList = {
 	["Blizzard_ItemUpgradeUI"] = {
 		["ItemUpgradeFrame"] = true,
 	},
-	["Blizzard_LookingForGuildUI"] = {
-		["LookingForGuildFrame"] = true,
-	},
+	-- ["Blizzard_LookingForGuildUI"] = {
+	-- 	["LookingForGuildFrame"] = true,
+	-- },
 	["Blizzard_MacroUI"] = {
 		["MacroFrame"] = true,
 	},
