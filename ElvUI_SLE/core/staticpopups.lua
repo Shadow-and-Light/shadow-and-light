@@ -13,27 +13,6 @@ E.PopupDialogs["VERSION_MISMATCH"] = {
 	whileDead = 1,
 	preferredIndex = 3,
 }
-
---Chat stuff
-E.PopupDialogs["SLE_CHAT_HISTORY_CLEAR"] = {
-	text = L["This will clear your chat history and reload your UI.\nContinue?"],
-	button1 = ACCEPT,
-	button2 = CANCEL,
-	OnAccept = function(self) if _G["ElvCharacterDB"].ChatHistoryLog then T.twipe(_G["ElvCharacterDB"].ChatHistoryLog); ReloadUI() end end,
-	timeout = 0,
-	whileDead = 1,
-	hideOnEscape = false,
-}
-
-E.PopupDialogs["SLE_EDIT_HISTORY_CLEAR"] = {
-	text = L["This will clear your editbox history and reload your UI.\nContinue?"],
-	button1 = ACCEPT,
-	button2 = CANCEL,
-	OnAccept = function(self) if _G["ElvCharacterDB"].ChatEditHistory then T.twipe(_G["ElvCharacterDB"].ChatEditHistory); ReloadUI() end end,
-	timeout = 0,
-	whileDead = 1,
-	hideOnEscape = false,
-}
 --Do you sware you are not an idiot
 E.PopupDialogs["SLE_ADVANCED_POPUP"] = {
 	text = L["SLE_ADVANCED_POPUP_TEXT"],

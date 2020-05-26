@@ -135,23 +135,6 @@ function C:IdentifyChatFrames()
 	end
 end
 
-local firstDump = true
-function C:UpdateChatMax()
-	if SLE._Compatibility["ElvUI_CustomTweaks"] then return end
-	for _, frameName in T.pairs(_G["CHAT_FRAMES"]) do
-		local frame = _G[frameName]
-		frame:SetMaxLines(E.private.sle.chat.chatMax)
-	end
-	local whisper = E.db.chat.whisperSound
-	E.db.chat.whisperSound = "None"
-	if not firstDump then 
-		CH:DisplayChatHistory()
-		firstDump = false
-	end
-	E.db.chat.whisperSound = whisper
-end
-hooksecurefunc(CH, "Initialize", C.UpdateChatMax)
-
 function C:Initialize()
 	if not SLE.initialized or not E.private.chat.enable then return end
 
@@ -187,8 +170,6 @@ function C:Initialize()
 	for i = 1, NUM_CHAT_WINDOWS do
 		C:JustifyChat(i)
 	end
-
-	C:InitHistory()
 
 	C:InitTabs()
 end

@@ -587,7 +587,7 @@ function PI:DarthSetup()
 		E.db["sle"]["armory"]["stats"]["IlvlColor"] = true
 		E.db["sle"]["armory"]["stats"]["IlvlFull"] = true
 
-		E.db["sle"]["chat"]["tab"]["select"] = true
+		-- E.db["sle"]["chat"]["tab"]["select"] = true
 		E.db["sle"]["chat"]["dpsSpam"] = true
 
 		E.db["sle"]["loot"]["autoroll"]["autoconfirm"] = true
@@ -746,8 +746,8 @@ function PI:DarthSetup()
 	E.private["sle"]["skins"]["merchant"]["style"] = "List"
 	E.private["sle"]["equip"]["setoverlay"] = true
 	E.private["sle"]["minimap"]["mapicons"]["enable"] = true
-	E.private["sle"]["chat"]["chatHistory"]["CHAT_MSG_GUILD_ACHIEVEMENT"] = false
-	E.private["sle"]["chat"]["chatHistory"]["CHAT_MSG_EMOTE"] = false
+	-- E.private["sle"]["chat"]["chatHistory"]["CHAT_MSG_GUILD_ACHIEVEMENT"] = false
+	-- E.private["sle"]["chat"]["chatHistory"]["CHAT_MSG_EMOTE"] = false
 	E.private["sle"]["uibuttons"]["style"] = "dropdown"
 
 	E.global["general"]["commandBarSetting"] = "DISABLED"
@@ -1271,7 +1271,7 @@ function PI:DarthOldSetup()
 		E.db["sle"]["nameplates"]["threat"]["enable"] = true
 		E.db["sle"]["nameplates"]["targetcount"]["enable"] = true
 		E.db["sle"]["chat"]["dpsSpam"] = true
-		E.db["sle"]["chat"]["tab"]["select"] = true
+		-- E.db["sle"]["chat"]["tab"]["select"] = true
 		-- E.db["sle"]["datatexts"]["chathandle"] = true
 		-- E.db["sle"]["datatexts"]["leftchat"]["width"] = 458
 		-- E.db["sle"]["datatexts"]["panel7"]["enabled"] = true
@@ -1413,8 +1413,8 @@ function PI:DarthOldSetup()
 	E.private["sle"]["unitframe"]["statusbarTextures"]["cast"] = true
 	E.private["sle"]["unitframe"]["statusbarTextures"]["class"] = true
 	E.private["sle"]["unitframe"]["statusbarTextures"]["aura"] = true
-	E.private["sle"]["chat"]["chatHistory"]["CHAT_MSG_GUILD_ACHIEVEMENT"] = false
-	E.private["sle"]["chat"]["chatHistory"]["CHAT_MSG_EMOTE"] = false
+	-- E.private["sle"]["chat"]["chatHistory"]["CHAT_MSG_GUILD_ACHIEVEMENT"] = false
+	-- E.private["sle"]["chat"]["chatHistory"]["CHAT_MSG_EMOTE"] = false
 	E.private["sle"]["skins"]["merchant"]["enable"] = true
 	E.private["sle"]["skins"]["merchant"]["style"] = "List"
 	E.private["sle"]["skins"]["objectiveTracker"]["scenarioBG"] = true

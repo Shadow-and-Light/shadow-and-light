@@ -273,7 +273,6 @@ P["sle"] = {
 			["alpha"] = 0.5,
 		},
 		["combathide"] = "NONE",
-		["editboxhistory"] = 20,
 		["justify"] = {
 			["frame1"] = "LEFT",
 			["frame2"] = "LEFT",
@@ -287,9 +286,6 @@ P["sle"] = {
 			["frame10"] = "LEFT",
 		},
 		["tab"] = {
-			["select"] = false,
-			["style"] = "DEFAULT",
-			["color"] = {r = 1, g = 1, b = 1},
 			["resize"] = "Blizzard",
 			["customWidth"] = 50,
 		},
