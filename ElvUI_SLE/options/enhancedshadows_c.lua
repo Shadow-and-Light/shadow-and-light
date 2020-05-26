@@ -181,8 +181,8 @@ local function configTable()
 				order = 5,
 				type = "group",
 				name = L["UnitFrames"],
-				get = function(info) return E.private.sle.module.shadows.chat[info[#info]] end,
-				set = function(info, value) E.private.sle.module.shadows.chat[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+				get = function(info) return E.private.sle.module.shadows[info[#info]] end,
+				set = function(info, value) E.private.sle.module.shadows[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 				args = {
 					player = {
 						order = 1,
