@@ -146,6 +146,63 @@ function ES:CreateShadows()
 			end
 		end
 	end
+
+	-- Party Shadows
+	if E.private.sle.module.shadows.party then
+		do
+			local header = _G['ElvUF_Party']
+			for i = 1, header:GetNumChildren() do
+				local group = select(i, header:GetChildren())
+
+				for j = 1, group:GetNumChildren() do
+					local unitbutton = select(j, group:GetChildren())
+					if unitbutton then
+						ES:CreateFrameShadow(unitbutton, "none", E.private.sle.module.shadows.partyLegacy)
+						-- hooksecurefunc(UF, "Update_PartyFrames", ES.UpdateFrame)
+					end
+				end
+			end
+		end
+	end
+
+	-- Raid Shadows
+	if E.private.sle.module.shadows.raid then
+		do
+			local header = _G['ElvUF_Raid']
+
+			for i = 1, header:GetNumChildren() do
+				local group = select(i, header:GetChildren())
+
+				for j = 1, group:GetNumChildren() do
+					local unitbutton = select(j, group:GetChildren())
+					if unitbutton then
+						ES:CreateFrameShadow(unitbutton, "none", E.private.sle.module.shadows.raidLegacy)
+						-- hooksecurefunc(UF, "Update_PartyFrames", ES.UpdateFrame)
+					end
+				end
+			end
+		end
+	end
+
+	-- Raid-40 Shadows
+	if E.private.sle.module.shadows.raid40 then
+		do
+			local header = _G['ElvUF_Raid40']
+
+			for i = 1, header:GetNumChildren() do
+				local group = select(i, header:GetChildren())
+
+				for j = 1, group:GetNumChildren() do
+					local unitbutton = select(j, group:GetChildren())
+					if unitbutton then
+						ES:CreateFrameShadow(unitbutton, "none", E.private.sle.module.shadows.raid40Legacy)
+						-- hooksecurefunc(UF, "Update_PartyFrames", ES.UpdateFrame)
+					end
+				end
+			end
+		end
+	end
+
 	--Actionbars--
 	do
 		for i=1, Abars do

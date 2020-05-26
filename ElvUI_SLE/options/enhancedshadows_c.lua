@@ -245,13 +245,43 @@ local function configTable()
 						type = "toggle",
 						name = L["FocusTarget Frame Classic"],
 					},
-					pet = {
+					party = {
+						order = 22,
+						type = "toggle",
+						name = L["Party Frame"],
+					},
+					partyLegacy = {
+						order = 23,
+						type = "toggle",
+						name = L["Party Frame Classic"],
+					},
+					raid = {
+						order = 24,
+						type = "toggle",
+						name = L["Raid Frame"],
+					},
+					raidLegacy = {
 						order = 25,
+						type = "toggle",
+						name = L["Raid Frame Classic"],
+					},
+					raid40 = {
+						order = 26,
+						type = "toggle",
+						name = L["Raid40 Frame"],
+					},
+					raid40Legacy = {
+						order = 27,
+						type = "toggle",
+						name = L["Raid40 Frame Classic"],
+					},
+					pet = {
+						order = 28,
 						type = "toggle",
 						name = L["Pet Frame"],
 					},
 					petLegacy = {
-						order = 26,
+						order = 29,
 						type = "toggle",
 						name = L["Pet Frame Classic"],
 					},
