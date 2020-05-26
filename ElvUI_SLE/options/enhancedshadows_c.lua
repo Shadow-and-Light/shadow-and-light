@@ -17,11 +17,10 @@ local function configTable()
 				type = "color",
 				order = 1,
 				name = COLOR,
-				hasAlpha = false,
 				get = function(info)
 					local t = E.db.sle.shadows[info[#info]]
 					local d = P.sle.shadows[info[#info]]
-					return t.r, t.g, t.b, d.r, d.g, d.b
+					return t.r, t.g, t.b, t.a, d.r, d.g, d.b
 				end,
 				set = function(info, r, g, b)
 					E.db.sle.shadows[info[#info]] = {}
