@@ -5,6 +5,7 @@ Fixes:
 - Fixed not able to set your public note from the S&L guild datatext
 - Fixed offline indicator from now showing
 - Another fix for corruption module in S&L Armory
+- Fixed Enhanced Shadows options
 Changes:
 - Adjust some Russian locales so it doesn't look like a drunk wrote them
 - Removed S&L Status Report as ElvUI has revamped theirs to show plugins and their version numbers
