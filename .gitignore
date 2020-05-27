@@ -180,3 +180,6 @@ pip-log.txt
 .idea/vcs.xml
 .idea/workspace.xml
 *.iml
+
+# Luacheck's Cache
+.luacheckcache
