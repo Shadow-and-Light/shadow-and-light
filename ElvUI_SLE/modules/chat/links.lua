@@ -38,11 +38,11 @@ C.InvLinkEvents = {
 
 C.spamFirstLines = {
 	"^Recount - (.*)$", --Recount
-	"^Skada: (.*) for (.*):$", -- Skada enUS 
-	"^Skada: (.*) por (.*):$", -- Skada esES/ptBR 
-	"^Skada: (.*) fur (.*):$", -- Skada deDE 
-	"^Skada: (.*) pour (.*):$", -- Skada frFR 
-	"^Skada: (.*) per (.*):$", -- Skada itIT 
+	"^Skada: (.*) for (.*):$", -- Skada enUS
+	"^Skada: (.*) por (.*):$", -- Skada esES/ptBR
+	"^Skada: (.*) fur (.*):$", -- Skada deDE
+	"^Skada: (.*) pour (.*):$", -- Skada frFR
+	"^Skada: (.*) per (.*):$", -- Skada itIT
 	"^(.*) ? Skada ?? (.*):$", -- Skada koKR
 	"^Отчёт Skada: (.*), с (.*):$", -- Skada ruRU
 	"^Skada??(.*)?(.*):$", -- Skada zhCN
@@ -52,7 +52,7 @@ C.spamFirstLines = {
 	"^Details!:(.*)$" -- Details!
 }
 C.spamNextLines = {
-	"^(%d+)\. (.*)$", --Recount, Details! and Skada
+	"^(%d+)%. (.*)$", --Recount, Details! and Skada
 	"^(.*)   (.*)$", --Additional Skada
 	"^Numeration: (.*)$", -- Numeration
 	"^[+-]%d+.%d", -- Numeration Deathlog Details
@@ -172,7 +172,7 @@ function C:ParseChatEventInv(event, msg, sender, ...)
 	for _,allevents in T.ipairs(C.InvLinkEvents) do
 		if event == allevents then
 			for key,_ in pairs(invKeys) do
-				if T.find(msg, key) then 
+				if T.find(msg, key) then
 					msg = T.gsub(msg, key, T.format("|Hinvite:"..sender.."|h"..hex.."[%s]|r|h", key))
 
 					break
