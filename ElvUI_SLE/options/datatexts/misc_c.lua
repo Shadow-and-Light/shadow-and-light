@@ -1,10 +1,7 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DTP = SLE:GetModule('Datatexts')
 local DT = E:GetModule('DataTexts')
-local datatexts = {}
-local RAID_FINDER = RAID_FINDER
-local RAIDS = RAIDS
-local EXPANSION_NAME3, EXPANSION_NAME4, EXPANSION_NAME5, EXPANSION_NAME6 = EXPANSION_NAME3, EXPANSION_NAME4, EXPANSION_NAME5, EXPANSION_NAME6
+
 local DURABILITY = DURABILITY
 local MANA_REGEN = MANA_REGEN
 

@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins');
 local Sk = SLE:NewModule("Skins")
+
 --GLOBALS: CreateFrame
 local _G = _G
 
@@ -35,7 +35,6 @@ function Sk:Media()
 end
 
 function Sk:Initialize()
-	
 	function Sk:ForUpdateAll()
 		Sk:Update_ObjectiveTrackerUnderlinesVisibility()
 		Sk:Update_ObjectiveTrackerUnderlinesColor()

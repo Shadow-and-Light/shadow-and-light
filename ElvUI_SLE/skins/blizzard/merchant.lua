@@ -12,7 +12,7 @@ local GetMerchantItemInfo, GetMerchantItemLink = GetMerchantItemInfo, GetMerchan
 local SetItemButtonCount, SetItemButtonStock, SetItemButtonTexture = SetItemButtonCount, SetItemButtonStock, SetItemButtonTexture
 local SetItemButtonNameFrameVertexColor, SetItemButtonSlotVertexColor, SetItemButtonTextureVertexColor, SetItemButtonNormalTextureVertexColor = SetItemButtonNameFrameVertexColor, SetItemButtonSlotVertexColor, SetItemButtonTextureVertexColor, SetItemButtonNormalTextureVertexColor
 
-local RETRIEVING_ITEM_INFO, RETRIEVING_ITEM_INFO, MOUNT, ITEM_SPELL_KNOWN, SEARCH = RETRIEVING_ITEM_INFO, RETRIEVING_ITEM_INFO, MOUNT, ITEM_SPELL_KNOWN, SEARCH
+local RETRIEVING_ITEM_INFO, MOUNT, ITEM_SPELL_KNOWN, SEARCH = RETRIEVING_ITEM_INFO, MOUNT, ITEM_SPELL_KNOWN, SEARCH
 local MISCELLANEOUS = MISCELLANEOUS
 local MAX_MONEY_DISPLAY_WIDTH = 120;
 
@@ -20,6 +20,7 @@ local RECIPE = GetItemClassInfo(LE_ITEM_CLASS_RECIPE)
 local searchBox
 local searching = ""
 
+--  TODO:  Dont think this is needed either
 local IgnoreCurrency = {
 	[GetCurrencyInfo(994)] = true,
 }
@@ -314,7 +315,7 @@ local function RebuildMerchantFrame()
 	 -- alter the position of the buyback item slot on the merchant tab
 	_G["MerchantBuyBackItem"]:ClearAllPoints()
 	_G["MerchantBuyBackItem"]:SetPoint("TOPLEFT", _G["MerchantItem10"], "BOTTOMLEFT", -14, -20)
-	
+
 	-- move the next/previous page buttons
 	_G["MerchantPrevPageButton"]:ClearAllPoints();
 	_G["MerchantPrevPageButton"]:SetPoint("CENTER", _G["MerchantFrame"], "BOTTOM", 50, 70);

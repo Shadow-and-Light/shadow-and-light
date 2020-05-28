@@ -202,7 +202,7 @@ local function configTable()
 						type = 'color',
 						name = L["Gradient Texture Color"],
 						order = 2,
-						get = function(info) 
+						get = function(info)
 							return unpack(E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])])
 						end,
 						set = function(info, r, g, b, a) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = { r, g, b, a }; M:UpdateInspectInfo() end,

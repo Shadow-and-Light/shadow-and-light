@@ -985,13 +985,13 @@ function PI:DarthOldSetup()
 	--Nameplates
 	do
 		E.db["v11NamePlateReset"] = true
-	
+
 		E.db["nameplates"]["fontSize"] = 12
 		E.db["nameplates"]["statusbar"] = "ElvUI Gloss"
 		E.db["nameplates"]["clampToScreen"] = true
 		E.db["nameplates"]["clickThrough"]["personal"] = true
 		E.db["nameplates"]["lowHealthThreshold"] = 0
-		
+
 		E.db["nameplates"]["colors"]["castNoInterruptColor"]["b"] = 0.12549019607843
 		E.db["nameplates"]["colors"]["castNoInterruptColor"]["g"] = 0.098039215686274
 		E.db["nameplates"]["colors"]["castNoInterruptColor"]["r"] = 0.85882352941176
@@ -1007,7 +1007,7 @@ function PI:DarthOldSetup()
 		E.db["nameplates"]["colors"]["reactions"]["neutral"]["b"] = 0.062745098039216
 		E.db["nameplates"]["colors"]["reactions"]["neutral"]["g"] = 0.81176470588235
 		E.db["nameplates"]["colors"]["reactions"]["neutral"]["r"] = 0.92156862745098
-		
+
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["enable"] = true
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["height"] = 4
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["enable"] = true
@@ -1404,7 +1404,7 @@ function PI:DarthOldSetup()
 	E.private["general"]["normTex"] = "Ohi MetalSheet"
 	E.private["general"]["glossTex"] = "Ohi MetalSheet"
 	E.private["general"]["minimap"]["hideClassHallReport"] = true
-	
+
 	E.private["skins"]["blizzard"]["questChoice"] = false
 
 	E.private["sle"]["module"]["screensaver"] = true
@@ -1759,8 +1759,6 @@ SLE.installTable = {
 			_G["PluginInstallFrame"].Desc2:SetText(L["SLE_INSTALL_LAYOUT_TEXT2"])
 			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 
-			
-
 			if PI.SLE_Auth == "DARTH" then
 				_G["PluginInstallFrame"].Option1:Show()
 				_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() StartSetup("DARTH") end)
@@ -1769,7 +1767,7 @@ SLE.installTable = {
 				_G["PluginInstallFrame"].Option2:Show()
 				_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() PI.SLE_Auth = "DARTHOLD"; StartSetup("DARTHOLD") end)
 				_G["PluginInstallFrame"].Option2:SetText(L["Layout Old"])
-				
+
 				_G["PluginInstallFrame"].Option3:Show()
 				_G["PluginInstallFrame"].Option3:SetScript('OnClick', function() SetupAddons("DARTH") end)
 				_G["PluginInstallFrame"].Option3:SetText(ADDONS)
@@ -1782,7 +1780,7 @@ SLE.installTable = {
 				_G["PluginInstallFrame"].Option1:Show()
 				_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() StartSetup("AFFINITY") end)
 				_G["PluginInstallFrame"].Option1:SetText(L["Layout"])
-				
+
 				_G["PluginInstallFrame"].Option2:Show()
 				_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() SetupAddons("AFFINITY") end)
 				_G["PluginInstallFrame"].Option2:SetText(ADDONS)

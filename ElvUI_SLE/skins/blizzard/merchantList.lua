@@ -97,8 +97,8 @@ local locale = {
 	},
 	zhCN = {
 		REQUIRES_LEVEL = "需要等级 (%d+)",
-		LEVEL = "等级 %d",	
-		REQUIRES_REPUTATION = "需要 .+ %- (.+)",	
+		LEVEL = "等级 %d",
+		REQUIRES_REPUTATION = "需要 .+ %- (.+)",
 		REQUIRES_REPUTATION_NAME = "需要 (.+) %- .+",
 		REQUIRES_SKILL = "需要(.+)%((%d+)%)",
 		REQUIRES = "需要(.+)",
@@ -106,7 +106,7 @@ local locale = {
 	zhTW = {
 		REQUIRES_LEVEL = "需要等级 (%d+)",
 		LEVEL = "等级 %d",
-		REQUIRES_REPUTATION = "需要 .+ %- (.+)",	
+		REQUIRES_REPUTATION = "需要 .+ %- (.+)",
 		REQUIRES_REPUTATION_NAME = "需要 (.+) %- .+",
 		REQUIRES_SKILL = "需要(.+)%((%d+)%)",
 		REQUIRES = "需要(.+)",
@@ -267,7 +267,7 @@ local function List_GetError(link, itemType, itemSubType)
 					end
 				end
 			end
-
+			--  TODO: Come back to these later as they are declared 2 times in the same block
 			local text = _G["SLE_Merchant_HiddenTooltipTextRight"..i];
 			local r, g, b = text:GetTextColor();
 			local gettext = text:GetText();
@@ -399,7 +399,7 @@ local function List_UpdateAltCurrency(button, index, i)
 	tinsert(currency_frames, button.money)
 
 	lastFrame = nil
-	for i,frame in ipairs(currency_frames) do
+	for i, frame in ipairs(currency_frames) do
 		if i == 1 then
 			frame:SetPoint("RIGHT", -2, 6);
 		else

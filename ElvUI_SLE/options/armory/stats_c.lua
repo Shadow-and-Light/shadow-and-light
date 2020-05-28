@@ -1,5 +1,4 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local Armory = SLE:GetModule("Armory_Core")
 local SA = SLE:GetModule("Armory_Stats")
 local M = E:GetModule("Misc")
 
@@ -69,7 +68,7 @@ local function configTable()
 							E.db.sle.armory.stats[ info[#info] ] = {}
 							local t = E.db.sle.armory.stats[ info[#info] ]
 							t.r, t.g, t.b, t.a = r, g, b, a
-							M:UpdateCharacterItemLevel() 
+							M:UpdateCharacterItemLevel()
 							PaperDollFrame_UpdateStats()
 						end,
 					},
@@ -235,7 +234,6 @@ local function configTable()
 					},
 				},
 			},
-			
 		},
 	}
 end

@@ -27,7 +27,7 @@ local function configTable()
 		local config = {
 			order = i, type = "toggle", name = text,
 			get = function(info) return E.db.sle.dt.currency[name] end,
-			set = function(info, value) E.db.sle.dt.currency[name] = value; end,
+			set = function(info, value) E.db.sle.dt.currency[name] = value end,
 		}
 		return config
 	end
@@ -48,12 +48,12 @@ local function configTable()
 			},
 		}
 		if not ElvDB["gold"][E.myrealm] then
-			ElvDB = ElvDB or { };
-			ElvDB['gold'] = ElvDB['gold'] or {};
-			ElvDB['gold'][E.myrealm] = ElvDB['gold'][E.myrealm] or {};
-			ElvDB['gold'][E.myrealm][E.myname] = ElvDB['gold'][E.myrealm][E.myname] or GetMoney();
+			ElvDB = ElvDB or { }
+			ElvDB['gold'] = ElvDB['gold'] or {}
+			ElvDB['gold'][E.myrealm] = ElvDB['gold'][E.myrealm] or {}
+			ElvDB['gold'][E.myrealm][E.myname] = ElvDB['gold'][E.myrealm][E.myname] or GetMoney()
 		end
-		for k,_ in pairs(ElvDB["gold"][E.myrealm]) do
+		for k, _ in pairs(ElvDB["gold"][E.myrealm]) do
 			config.args[k] = {
 				type = "select",
 				name = k,

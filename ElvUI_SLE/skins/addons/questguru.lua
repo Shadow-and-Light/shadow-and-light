@@ -1,8 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule('Skins');
-local Sk = SLE:GetModule("Skins")
 local _G = _G
-local unpack = unpack
 
 local function LoadSkin()
 	if not E.private.sle.skins.questguru.enable then return end

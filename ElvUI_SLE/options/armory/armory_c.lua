@@ -144,7 +144,7 @@ local function configTable()
 				type = "execute",
 				name = "ElvUI: "..L["Item Level"],
 				func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "general", "blizzUIImprovements") end,
-				hidden = function() 
+				hidden = function()
 					if not E.private.skins.blizzard.enable then return true end
 					return not (E.private.skins.blizzard.character or E.private.skins.blizzard.inspect)
 				end,
@@ -154,7 +154,7 @@ local function configTable()
 				order = 500,
 				type = "description",
 				name = "|cffff0000 !!!|r "..L["SLE_Armory_SkinDisabled"].." |cffff0000 !!!|r",
-				hidden = function() 
+				hidden = function()
 					if not E.private.skins.blizzard.enable then return false end
 					return (E.private.skins.blizzard.character or E.private.skins.blizzard.inspect)
 				end,
@@ -164,7 +164,7 @@ local function configTable()
 				type = "execute",
 				name = "ElvUI: "..L["Skins"],
 				func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "skins") end,
-				hidden = function() 
+				hidden = function()
 					if not E.private.skins.blizzard.enable then return false end
 					return (E.private.skins.blizzard.character or E.private.skins.blizzard.inspect)
 				end,

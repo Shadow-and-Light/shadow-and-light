@@ -1,6 +1,5 @@
 ﻿local E, _, V, P, G = unpack(ElvUI);
 -- local locale = (E.global.general.locale and E.global.general.locale ~= "auto") and E.global.general.locale or GetLocale()
-local locale = E.global.general.locale
 
 -- local L = E.Libs.ACL:GetLocale('ElvUI', locale)
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale)
@@ -83,7 +82,7 @@ function SLE:Initialize()
 	if E.db.general.loginmessage then
 		SLE:Print(format(L["SLE_LOGIN_MSG"], E["media"].hexvaluecolor, SLE.version), "info")
 	end
-	
+
 	hooksecurefunc(E, "PLAYER_ENTERING_WORLD", function(self, _, initLogin)
 		if initLogin or not ElvDB.SLErrorDisabledAddOns then
 			ElvDB.SLErrorDisabledAddOns = {}

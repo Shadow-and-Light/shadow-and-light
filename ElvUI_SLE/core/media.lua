@@ -131,7 +131,7 @@ function M:Initialize()
 	hooksecurefunc(E, "UpdateBlizzardFonts", M.SetBlizzFonts)
 	hooksecurefunc("SetZoneText", ZoneTextPos)
 	M.SetBlizzFonts()
-	
+
 	SLE.UpdateFunctions["Media"] = M.Update
 end
 

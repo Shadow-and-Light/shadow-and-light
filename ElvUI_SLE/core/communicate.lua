@@ -12,10 +12,10 @@ local C_ChatInfo_SendAddonMessage = C_ChatInfo.SendAddonMessage
 local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
 		if prefix == 'SLE_DEV_REQ' then 
-			local message = "wut?"
+			message = "wut?"
 			C_ChatInfo_SendAddonMessage('SLE_USER_REQ', message, channel)
 		elseif prefix == 'SLE_USER_INFO' then
-			local message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
+			message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
 			C_ChatInfo_SendAddonMessage('SLE_DEV_INFO', message, channel)
 		end
 	elseif event == "BN_CHAT_MSG_ADDON" then
@@ -26,7 +26,7 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 			for i = 1, numBNetOnline do
 				local presenceID, _, _, _, _, toonID, client, isOnline = BNGetFriendInfo(i)
 				if isOnline and client == BNET_CLIENT_WOW then
-					local message, ID = strsplit("#", message)
+					message, ID = strsplit("#", message)
 
 					if message == 'userlist' then
 						message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;

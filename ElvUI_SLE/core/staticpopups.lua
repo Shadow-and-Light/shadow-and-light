@@ -2,7 +2,6 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local CLOSE = CLOSE
 local ACCEPT = ACCEPT
 local CANCEL = CANCEL
-local _G = _G
 local ReloadUI = ReloadUI
 
 --Version check
@@ -13,12 +12,13 @@ E.PopupDialogs["VERSION_MISMATCH"] = {
 	whileDead = 1,
 	preferredIndex = 3,
 }
+
 --Do you sware you are not an idiot
 E.PopupDialogs["SLE_ADVANCED_POPUP"] = {
 	text = L["SLE_ADVANCED_POPUP_TEXT"],
 	button1 = L["I Swear"],
 	button2 = DECLINE,
-	OnAccept = function() 
+	OnAccept = function()
 		E.global.sle.advanced.confirmed = true
 		E.global.sle.advanced.general = true
 	end,

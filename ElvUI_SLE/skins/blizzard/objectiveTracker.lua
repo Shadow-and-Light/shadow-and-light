@@ -105,7 +105,9 @@ end
 -- Scenario buttons
 local function SkinScenarioButtons()
 	local block = ScenarioStageBlock
-	local _, currentStage, numStages, flags = C_Scenario.GetInfo()
+
+	--  TODO:  Shouldn't need this since you aren't using any of the variables u set Darth
+	-- local _, currentStage, numStages, flags = C_Scenario.GetInfo()
 
 	-- we have to independently resize the artwork
 	-- because we're messing with the tracker width >_>
@@ -223,7 +225,7 @@ local function ObjectiveReskin()
 	if IsAddOnLoaded("Blizzard_ObjectiveTracker") then
 		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.sle.skins.objectiveTracker.enable ~= true then return end
 		-- Objective Tracker Bar
-		hooksecurefunc(_G["BONUS_OBJECTIVE_TRACKER_MODULE"], "AddProgressBar", skinObjectiveBar) 
+		hooksecurefunc(_G["BONUS_OBJECTIVE_TRACKER_MODULE"], "AddProgressBar", skinObjectiveBar)
 		-- World Quests can be bonus objective type
 		hooksecurefunc(_G["WORLD_QUEST_TRACKER_MODULE"], "AddProgressBar", skinObjectiveBar)
 
