@@ -203,7 +203,7 @@ local function configTable()
 						name = L["Gradient Texture Color"],
 						order = 2,
 						get = function(info) 
-							return T.unpack(E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])])
+							return unpack(E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])])
 						end,
 						set = function(info, r, g, b, a) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = { r, g, b, a }; M:UpdateInspectInfo() end,
 						disabled = function() return E.db.sle.armory.inspect.enable == false or E.db.sle.armory.inspect.gradient.enable == false end,
@@ -219,7 +219,7 @@ local function configTable()
 			corruptionText = {
 				type = "group",
 				order = 19,
-				name = T.GetSpellInfo(172),
+				name = GetSpellInfo(172),
 				get = function(info) return E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = value; IA:Update_SlotCorruption(); Armory:UpdateSharedStringsFonts("Inspect"); Armory:UpdateInspectInfo() end,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.inspect end,
@@ -323,4 +323,4 @@ local function configTable()
 	}
 end
 
-T.tinsert(SLE.Configs, configTable)
+tinsert(SLE.Configs, configTable)

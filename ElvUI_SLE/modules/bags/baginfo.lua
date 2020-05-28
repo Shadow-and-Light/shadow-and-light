@@ -1,7 +1,9 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
 local BI = SLE:NewModule('BagInfo', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 local B = E:GetModule('Bags')
+
 local _G = _G
+local format = format
 local byte = string.byte
 
 local updateTimer
@@ -33,7 +35,7 @@ local function Utf8Sub(str, start, numChars)
 end
 
 local function MapKey(bag, slot)
-	return T.format("%d_%d", bag, slot)
+	return format("%d_%d", bag, slot)
 end
 
 local quickFormat = {
@@ -45,8 +47,8 @@ local quickFormat = {
 
 local function BuildEquipmentMap(clear)
 	-- clear mapped names
-	for k, v in T.pairs(BI.equipmentMap) do
-		T.twipe(v)
+	for k, v in pairs(BI.equipmentMap) do
+		wipe(v)
 	end
 
 	if clear then return end
@@ -59,13 +61,13 @@ local function BuildEquipmentMap(clear)
 		local equipmentSetID = C_EquipmentSet.GetEquipmentSetID(name)
 		if equipmentSetID then
 			local SetInfoTable = C_EquipmentSet.GetItemLocations(equipmentSetID)
-			for _, location in T.pairs(SetInfoTable) do
-				if T.type(location) == "number" and (location < -1 or location > 1) then
+			for _, location in pairs(SetInfoTable) do
+				if type(location) == "number" and (location < -1 or location > 1) then
 					player, bank, bags, _, slot, bag = EquipmentManager_UnpackLocation(location)
 					if ((bank or bags) and slot and bag) then
 						key = MapKey(bag, slot)
 						BI.equipmentMap[key] = BI.equipmentMap[key] or {}
-						T.tinsert(BI.equipmentMap[key], name)
+						tinsert(BI.equipmentMap[key], name)
 					end
 				end
 			end
@@ -98,9 +100,9 @@ local function UpdateBagInformation(clear)
 	updateTimer = nil
 
 	BuildEquipmentMap(clear)
-	for _, container in T.pairs(BI.containers) do
-		for _, bagID in T.ipairs(container.BagIDs) do
-			for slotID = 1, T.GetContainerNumSlots(bagID) do
+	for _, container in pairs(BI.containers) do
+		for _, bagID in ipairs(container.BagIDs) do
+			for slotID = 1, GetContainerNumSlots(bagID) do
 				UpdateContainerFrame(container.Bags[bagID][slotID], bagID, slotID)
 			end
 		end
@@ -133,10 +135,10 @@ end
 function BI:Initialize()
 	if not SLE.initialized or not E.private.bags.enable then return end
 
-	T.tinsert(BI.containers, _G["ElvUI_ContainerFrame"])
+	tinsert(BI.containers, _G["ElvUI_ContainerFrame"])
 	self:SecureHook(B, "OpenBank", function()
 		self:Unhook(B, "OpenBank")
-		T.tinsert(BI.containers, _G["ElvUI_BankContainerFrame"])
+		tinsert(BI.containers, _G["ElvUI_BankContainerFrame"])
 		BI:ToggleSettings()
 	end)
 

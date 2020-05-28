@@ -3,7 +3,10 @@ local DT = E:GetModule('DataTexts')
 local LibQTip = LibStub('LibQTip-1.0')
 local DT_myrealm = gsub(E.myrealm,"[%s%-]","")
 
+-- GLOBALS: unpack, select
 local _G = _G
+local format = format
+local UnitInRaid, UnitInParty = UnitInRaid, UnitInParty
 local IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown = IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown
 local StaticPopup_Show = StaticPopup_Show
 --[[  Might use to mimic ElvUI rep bar in tooltip
@@ -144,9 +147,9 @@ local function inGroup(name)
 	local shortName, realmName = nameShorten(name)
 
 	if DT_myrealm == realmName then name = shortName end
-	if T.GetNumSubgroupMembers() > 0 and T.UnitInParty(name) then
+	if GetNumSubgroupMembers() > 0 and UnitInParty(name) then
 		return true
-	elseif T.GetNumGroupMembers() > 0 and T.UnitInRaid(name) then
+	elseif GetNumGroupMembers() > 0 and UnitInRaid(name) then
 		return true
 	end
 
@@ -165,8 +168,8 @@ end
 local function nametoindex(name)
 	local nameFromRoster
 
-	for i = 1, T.GetNumGuildMembers() do
-		nameFromRoster = T.GetGuildRosterInfo(i)
+	for i = 1, GetNumGuildMembers() do
+		nameFromRoster = GetGuildRosterInfo(i)
 
 		if name == nameFromRoster then
 			return i
@@ -176,27 +179,27 @@ end
 
 local function ColoredLevel(level)
 	if level ~= "" then
-		local color = T.GetQuestDifficultyColor(level)
-		return T.format("|cff%02x%02x%02x%d|r", color.r * 255, color.g * 255, color.b * 255, level)
+		local color = GetQuestDifficultyColor(level)
+		return format("|cff%02x%02x%02x%d|r", color.r * 255, color.g * 255, color.b * 255, level)
 	end
 end
 
 local function Entry_OnMouseUp(frame, fullName, button)
 	if button == "LeftButton" then
-		if IsAltKeyDown() then T.InviteUnit(fullName) return end --Invite guild member to party
-		if IsShiftKeyDown() then T.SetItemRef("player:"..fullName, "|Hplayer:"..fullName.."|h["..fullName.."|h", "LeftButton") return end --Perform a who query on guild member
+		if IsAltKeyDown() then InviteUnit(fullName) return end --Invite guild member to party
+		if IsShiftKeyDown() then SetItemRef("player:"..fullName, "|Hplayer:"..fullName.."|h["..fullName.."|h", "LeftButton") return end --Perform a who query on guild member
 		if IsControlKeyDown() then
-			if (fullName == E.mynameRealm:gsub(' ','')) or T.CanEditPublicNote() then
-				T.SetGuildRosterSelection(nametoindex(fullName))
+			if (fullName == E.mynameRealm:gsub(' ','')) or CanEditPublicNote() then
+				SetGuildRosterSelection(nametoindex(fullName))
 				StaticPopup_Show("SET_GUILDPLAYERNOTE")
 				return
 			end
 		end
-		T.SetItemRef( "player:"..fullName, T.format("|Hplayer:%1$s|h[%1$s]|h", fullName), "LeftButton" )
+		SetItemRef( "player:"..fullName, format("|Hplayer:%1$s|h[%1$s]|h", fullName), "LeftButton" )
 	elseif button == "RightButton" then
 		if IsControlKeyDown() then
-			if T.CanEditOfficerNote() then
-				T.SetGuildRosterSelection(nametoindex(fullName))
+			if CanEditOfficerNote() then
+				SetGuildRosterSelection(nametoindex(fullName))
 				StaticPopup_Show("SET_GUILDOFFICERNOTE")
 			end
 		end
@@ -218,11 +221,11 @@ local function SetGuildSort(cell, sortsection)
 end
 
 local function BuildGuildTable()
-	T.wipe(guildTable)
+	wipe(guildTable)
 
-	local totalMembers = T.GetNumGuildMembers()
+	local totalMembers = GetNumGuildMembers()
 	for i = 1, totalMembers do
-		local name, rank, rankIndex, level, _, zone, note, officerNote, connected, memberstatus, className, _, _, isMobile, _, _, guid = T.GetGuildRosterInfo(i)
+		local name, rank, rankIndex, level, _, zone, note, officerNote, connected, memberstatus, className, _, _, isMobile, _, _, guid = GetGuildRosterInfo(i)
 		if not name then return end
 
 		if memberstatus == 1 then
@@ -261,7 +264,7 @@ local function BuildGuildTable()
 end
 
 local function UpdateGuildMessage()
-	guildMotD = T.GetGuildRosterMOTD()
+	guildMotD = GetGuildRosterMOTD()
 end
 
 local resendRequest = false
@@ -275,7 +278,7 @@ local eventHandlers = {
 	-- when we enter the world and guildframe is not available then
 	-- load guild frame, update guild message and guild xp
 	["PLAYER_ENTERING_WORLD"] = function()
-		if not _G.GuildFrame and T.IsInGuild() then
+		if not _G.GuildFrame and IsInGuild() then
 			LoadAddOn("Blizzard_GuildUI")
 			C_GuildInfo_GuildRoster()
 		end
@@ -288,7 +291,7 @@ local eventHandlers = {
 		else
 			BuildGuildTable()
 			UpdateGuildMessage()
-			if T.GetMouseFocus() == self then
+			if GetMouseFocus() == self then
 				self:GetScript("OnEnter")(self, nil, true)
 			end
 		end
@@ -302,12 +305,12 @@ local eventHandlers = {
 local function OnEvent(self, event, ...)
 	lastPanel = self
 
-	if T.IsInGuild() then
+	if IsInGuild() then
 		-- eventHandlers[event](self, ...)
 		local func = eventHandlers[event]
 		if func then func(self, ...) end
 
-		local totalMembers = T.GetNumGuildMembers()
+		local totalMembers = GetNumGuildMembers()
 		local textStyle = E.db.sle.dt.guild.textStyle == "Default" and GUILD..": " or E.db.sle.dt.guild.textStyle == "NoText" and "" or E.db.sle.dt.guild.textStyle == "Icon" and "|TInterface\\ICONS\\Achievement_Reputation_01:12|t: " or ""
 		if E.db.sle.dt.guild.totals then
 			self.text:SetFormattedText(displayTotalsString, textStyle, #guildTable, totalMembers)
@@ -321,7 +324,7 @@ end
 
 local function OnClick(self, button)
 	if button == "LeftButton" then
-		T.ToggleGuildFrame(1)
+		ToggleGuildFrame(1)
 	end
 
 	if button == "RightButton" then
@@ -331,8 +334,8 @@ local function OnClick(self, button)
 end
 
 function OnEnter(self, _, noUpdate)
-	if not T.IsInGuild() then return end
-	if E.db.sle.dt.guild.combat and T.InCombatLockdown() then return end
+	if not IsInGuild() then return end
+	if E.db.sle.dt.guild.combat and InCombatLockdown() then return end
 
 	LDB_ANCHOR = self
 
@@ -360,16 +363,16 @@ function OnEnter(self, _, noUpdate)
 		tooltip:AddLine()
 	end
 
-	local guildName, guildRank = T.GetGuildInfo('player')
-	local total, _, online = T.GetNumGuildMembers()
+	local guildName, guildRank = GetGuildInfo('player')
+	local total, _, online = GetNumGuildMembers()
 	if #guildTable == 0 then BuildGuildTable() end
-	T.sort(guildTable, list_sort[E.db.sle.dt.guild["sortGuild"]])
+	sort(guildTable, list_sort[E.db.sle.dt.guild["sortGuild"]])
 
 	if guildName and guildRank then
 		--Displays guild name
 		line = tooltip:AddLine()
-		tooltip:SetCell(line, 1, T.format(guildInfoString, guildName), ttHeaderFont, "LEFT", 4)
-		tooltip:SetCell(line, 5, T.format(guildInfoString2, online, total), ttHeaderFont, "RIGHT", 4)
+		tooltip:SetCell(line, 1, format(guildInfoString, guildName), ttHeaderFont, "LEFT", 4)
+		tooltip:SetCell(line, 5, format(guildInfoString2, online, total), ttHeaderFont, "RIGHT", 4)
 
 		--Displays guild rank
 		line = tooltip:AddLine()
@@ -388,7 +391,7 @@ function OnEnter(self, _, noUpdate)
 
 		if not E.db.sle.dt.guild.minimize_gmotd then
 			line = tooltip:AddLine()
-			tooltip:SetCell(line, 1, "|cff00ff00"..T.GetGuildRosterMOTD().."|r", "LEFT", 0, nil, nil, nil, 100)
+			tooltip:SetCell(line, 1, "|cff00ff00"..GetGuildRosterMOTD().."|r", "LEFT", 0, nil, nil, nil, 100)
 		end
 
 		tooltip:AddLine(" ")
@@ -424,7 +427,7 @@ function OnEnter(self, _, noUpdate)
 	tooltip:SetCellScript(line, 7, "OnMouseUp", HideOnMouseUp, "hide_guild_onotes")
 	tooltip:AddSeparator()
 
-	for _, info in T.ipairs(guildTable) do
+	for _, info in ipairs(guildTable) do
 		local classc = (_G.CUSTOM_CLASS_COLORS and _G.CUSTOM_CLASS_COLORS[info.class]) or _G.RAID_CLASS_COLORS[info.class]
 		local onoteColor = E.db.sle.dt.guild.onoteColor
 		local noteColor = E.db.sle.dt.guild.noteColor
@@ -432,15 +435,15 @@ function OnEnter(self, _, noUpdate)
 		line = tooltip:AddLine()
 		line = tooltip:SetCell(line, 1, ColoredLevel(info.level))
 		line = tooltip:SetCell(line, 2, info.status)
-		line = tooltip:SetCell(line, 3, T.format(nameString, classc.r*255,classc.g*255,classc.b*255, onServer(info.name)) .. (inGroup(info.name) and GROUP_CHECKMARK or ""))
+		line = tooltip:SetCell(line, 3, format(nameString, classc.r*255,classc.g*255,classc.b*255, onServer(info.name)) .. (inGroup(info.name) and GROUP_CHECKMARK or ""))
 		line = tooltip:SetCell(line, 5, info.zone or "???")
 		line = tooltip:SetCell(line, 6, info.rank)
 
 		if not E.db.sle.dt.guild.hide_guild_onotes then
-			line = tooltip:SetCell(line, 7, T.format(nameString, noteColor.r*255, noteColor.g*255, noteColor.b*255, info.note or ""))
+			line = tooltip:SetCell(line, 7, format(nameString, noteColor.r*255, noteColor.g*255, noteColor.b*255, info.note or ""))
 			if (info.officerNote and info.officerNote ~= "") then
 				-- line = tooltip:SetCell(line, 7, info.note)
-				line = tooltip:SetCell(line, 8, T.format(onoteString, onoteColor.r*255, onoteColor.g*255, onoteColor.b*255, info.officerNote or ""))
+				line = tooltip:SetCell(line, 8, format(onoteString, onoteColor.r*255, onoteColor.g*255, onoteColor.b*255, info.officerNote or ""))
 				-- line = tooltip:SetCell(line, 8, "[" .. info.officerNote .. "]")
 			end
 		end
@@ -482,7 +485,7 @@ function OnEnter(self, _, noUpdate)
 	tooltip:Show()
 
 	if not noUpdate then
-		T.GuildInfoGuildRoster()
+		C_GuildInfo.GuildRoster()
 	end
 end
 

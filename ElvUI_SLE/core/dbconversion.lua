@@ -11,7 +11,7 @@ local CharacterNames = NONE
 function SLE:DatabaseConversions()
 	if ElvDB.SLE_DB_Ver == SLE.DBversion and not SLE_Test then return end --Only execute all this shit when current database is actually outdated.
 	--Profile options conversion
-	for profile, data in T.pairs(ElvDB.profiles) do
+	for profile, data in pairs(ElvDB.profiles) do
 		-- if profile ~= "Minimalistic" then
 		-- print(profile)
 		-- end
@@ -21,7 +21,7 @@ function SLE:DatabaseConversions()
 				if data.sle.Armory then data.sle.Armory = nil; profileChanged = true end
 				if data.sle.minimap and data.sle.minimap.locPanel then
 					if data.sle.minimap.portals then
-						if T.type(data.sle.minimap.locPanel.portals.hsPrio) == "table" then
+						if type(data.sle.minimap.locPanel.portals.hsPrio) == "table" then
 							data.sle.minimap.locPanel.portals.hsPrio = P.sle.minimap.locPanel.portals.hsPrio
 							profileChanged = true
 						end
@@ -52,14 +52,14 @@ function SLE:DatabaseConversions()
 		end
 	end
 	--Private options convert
-	for private, data in T.pairs(ElvPrivateDB.profiles) do
+	for private, data in pairs(ElvPrivateDB.profiles) do
 		local privateChanged = false
 		if data then
 			if data.sle then
 				if data.sle.module then
 					if data.sle.module.blizzmove then
 						if not data.sle.module.blizzmove.points then data.sle.module.blizzmove.points = {} end
-						if data.sle.module.blizzmove and T.type(data.sle.module.blizzmove) == "boolean" then data.sle.module.blizzmove = V.sle.module.blizzmove; privateChanged = true; end --Ancient setting conversions
+						if data.sle.module.blizzmove and type(data.sle.module.blizzmove) == "boolean" then data.sle.module.blizzmove = V.sle.module.blizzmove; privateChanged = true; end --Ancient setting conversions
 						if not data.sle.pvpreadydialogreset then data.sle.module.blizzmove.points["PVPReadyDialog"] = nil; data.sle.pvpreadydialogreset = true; privateChanged = true; end
 						if data.sle.module.blizzmove.points["CalendarViewEventFrame"] then data.sle.module.blizzmove.points["CalendarViewEventFrame"] = nil; privateChanged = true; end
 						if data.sle.module.blizzmove.points["CalendarViewHolidayFrame"] then data.sle.module.blizzmove.points["CalendarViewHolidayFrame"] = nil; privateChanged = true; end

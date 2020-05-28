@@ -1,9 +1,11 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local M = SLE:NewModule("Misc", 'AceHook-3.0', 'AceEvent-3.0')
 local Tr = E:GetModule('Threat');
+
 --GLOBALS: hooksecurefunc, UIParent
 local _G = _G
 local ShowUIPanel, HideUIPanel = ShowUIPanel, HideUIPanel
+local IsAddOnLoaded = IsAddOnLoaded
 
 --Threat
 function M:ElvUIConfig_OnLoad(event, addon)
@@ -25,7 +27,7 @@ function M:Threat_UpdatePosition()
 end
 
 function M:Threat_UpdateConfig()
-	if T.IsAddOnLoaded("ElvUI_OptionsUI") then
+	if IsAddOnLoaded("ElvUI_OptionsUI") then
 		if M.db.threat.enable then
 			E.Options.args.general.args.general.args.threatGroup.args.position = {
 				order = 42,
@@ -81,7 +83,7 @@ function M:RaidUtility_OnDragStop()
 	local point, anchor, point2, x, y = self:GetPoint()
 	local frame = _G["RaidUtility_ShowButton"]
 	frame:ClearAllPoints()
-	if T.find(point, "BOTTOM") then
+	if strfind(point, "BOTTOM") then
 		frame:SetPoint(point, anchor, point2, x, y)
 	else
 		frame:SetPoint(point, anchor, point2, x, y)

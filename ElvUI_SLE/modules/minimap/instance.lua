@@ -1,8 +1,11 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local I = SLE:NewModule("InstDif",'AceHook-3.0', 'AceEvent-3.0')
-local sub = string.utf8sub
+
 --GLOBALS: CreateFrame
 local _G = _G
+local format = format
+local sub = string.utf8sub
+local IsAddOnLoaded = IsAddOnLoaded
 local GetDifficultyInfo = GetDifficultyInfo
 
 I.BlizzDif = _G["MiniMapInstanceDifficulty"]
@@ -36,7 +39,7 @@ function I:CreateText()
 	I.frame.text:SetPoint("CENTER", I.frame, "CENTER")
 	I.frame.icon = I.frame:CreateFontString(nil, 'OVERLAY')
 	I.frame.icon:SetPoint("LEFT", I.frame.text, "RIGHT", 4, 0)
-	
+
 	self:SetFonts()
 end
 
@@ -47,7 +50,7 @@ end
 
 
 function I:InstanceCheck()
-	local isInstance, InstanseType = T.IsInInstance()
+	local isInstance, InstanseType = IsInInstance()
 	local show = false
 	if isInstance and InstanseType ~= "pvp" and InstanseType ~= "arena" then show = true end
 	return show
@@ -57,13 +60,13 @@ function I:GuildEmblem()
 	-- table
 	local char = {}
 	-- check if Blizzard_GuildUI is loaded
-	if not T.IsAddOnLoaded("Blizzard_GuildUI") then LoadAddOn("Blizzard_GuildUI") end
+	if not IsAddOnLoaded("Blizzard_GuildUI") then LoadAddOn("Blizzard_GuildUI") end
 	if _G["GuildFrameTabardEmblem"] then
 		char.guildTexCoord = {_G["GuildFrameTabardEmblem"]:GetTexCoord()}
 	else
 		char.guildTexCoord = false
 	end
-	if T.IsInGuild() and char.guildTexCoord then
+	if IsInGuild() and char.guildTexCoord then
 		return "|TInterface\\GuildFrame\\GuildEmblemsLG_01:24:24:-4:1:32:32:"..(char.guildTexCoord[1]*32)..":"..(char.guildTexCoord[7]*32)..":"..(char.guildTexCoord[2]*32)..":"..(char.guildTexCoord[8]*32).."|t"
 	else
 		return ""
@@ -95,17 +98,18 @@ end
 function I:GenerateText(event, guild, force)
 	local text, groupType, isHeroic, isChallengeMode, difficulty, difficultyName, instanceGroupSize
 	I.frame.icon:SetText("")
-	if not I:InstanceCheck() then 
+	if not I:InstanceCheck() then
 		I.frame.text:SetText("")
 	else
-		groupType, difficulty, difficultyName, _, _, _, _, instanceGroupSize = T.select(2, T.GetInstanceInfo())
-		isHeroic, isChallengeMode = T.select(3, GetDifficultyInfo(difficulty))
+		--  TODO: Revisit this as this doesnt seem right
+		groupType, difficulty, difficultyName, _, _, _, _, instanceGroupSize = select(2, GetInstanceInfo())
+		isHeroic, isChallengeMode = select(3, GetDifficultyInfo(difficulty))
 		local r, g, b = I:GetColor(difficulty)
 		if (difficulty >= 3 and difficulty <= 7) or difficulty == 9 or E.db.sle.minimap.instance.onlyNumber then
-			text = T.format("|cff%02x%02x%02x%s|r", r, g, b, instanceGroupSize)
+			text = format("|cff%02x%02x%02x%s|r", r, g, b, instanceGroupSize)
 		else
 			difficultyName = sub(difficultyName, 1 , 1)
-			text = T.format(instanceGroupSize.." |cff%02x%02x%02x%s|r", r, g, b, difficultyName)
+			text = format(instanceGroupSize.." |cff%02x%02x%02x%s|r", r, g, b, difficultyName)
 		end
 		I.frame.text:SetText(text)
 		-- guild = true
@@ -139,7 +143,7 @@ function I:Initialize()
 	if not SLE.initialized or not E.private.general.minimap.enable then return end
 	I.db = E.db.sle.minimap.instance
 	self:CreateText()
-	
+
 	I.BlizzDif:HookScript("OnShow", function(self) if I.db.enable then self:Hide() end end)
 	I.BlizzGDif:HookScript("OnShow", function(self) if I.db.enable then self:Hide() end end)
 	I.BlizzCM:HookScript("OnShow", function(self) if I.db.enable then self:Hide() end end)

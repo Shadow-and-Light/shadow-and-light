@@ -354,10 +354,10 @@ local function configTable()
 		},
 	}
 	if E.private.sle.uibuttons.style == "dropdown" then
-		for k, v in T.pairs(UB.Holder.Addon) do
-			if k ~= "Toggle" and T.type(v) == "table" and (v.HasScript and v:HasScript("OnClick")) then E.Options.args.sle.args.modules.args.uibuttons.args.Addon.args.called.values[k] = k end
+		for k, v in pairs(UB.Holder.Addon) do
+			if k ~= "Toggle" and type(v) == "table" and (v.HasScript and v:HasScript("OnClick")) then E.Options.args.sle.args.modules.args.uibuttons.args.Addon.args.called.values[k] = k end
 		end
 	end
 end
 
-T.tinsert(SLE.Configs, configTable)
+tinsert(SLE.Configs, configTable)

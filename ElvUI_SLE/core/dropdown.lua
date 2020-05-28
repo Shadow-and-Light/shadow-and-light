@@ -4,14 +4,16 @@ local DD = SLE:NewModule("Dropdowns", "AceEvent-3.0")
 DD.RegisteredMenus = {}
 
 --Cache global variables
-local tinsert = tinsert
+local tinsert, format = tinsert, format
+local GetTime = GetTime
+
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local ToggleFrame = ToggleFrame
 local GetCursorPosition = GetCursorPosition
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: UIParent, UISpecialFrames,
+-- GLOBALS: UIParent, UISpecialFrames
 local _G = _G
 
 local PADDING = 10
@@ -115,10 +117,10 @@ function SLE:DropdownList(list, frame, customWidth, justify)
 			btn.secure = list[i].secure
 			btn:SetAttribute("type", btn.secure.buttonType)
 			if btn.secure.buttonType == "item" then
-				local name = T.GetItemInfo(btn.secure.ID)
+				local name = GetItemInfo(btn.secure.ID)
 				btn:SetAttribute("item", name)
 			elseif btn.secure.buttonType == "spell" then
-				local name = T.GetSpellInfo(btn.secure.ID)
+				local name = GetSpellInfo(btn.secure.ID)
 				btn:SetAttribute("spell", name)
 			elseif btn.secure.buttonType == "macro" then
 				btn:SetAttribute("macrotext", btn.secure.ID)
@@ -144,7 +146,7 @@ function SLE:DropdownList(list, frame, customWidth, justify)
 end
 
 function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, parent, customWidth, justify)
-	if T.InCombatLockdown() then return end
+	if InCombatLockdown() then return end
 	frame.maxWidth = BUTTON_WIDTH
 	frame.TitleCount = 0
 	frame.AddOffset = 0
@@ -152,7 +154,7 @@ function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 		frame.buttons = {}
 		frame:SetFrameStrata("DIALOG")
 		frame:SetClampedToScreen(true)
-		T.tinsert(UISpecialFrames, frame:GetName())
+		tinsert(UISpecialFrames, frame:GetName())
 		frame:Hide()
 	end
 	for i=1, #frame.buttons do
@@ -196,9 +198,9 @@ function DD:GetCooldown(CDtype, id)
 	local cd, formatID
 	local start, duration = T["Get"..CDtype.."Cooldown"](id)
 	if start > 0 then
-		cd = duration - (T.GetTime() - start)
+		cd = duration - (GetTime() - start)
 		cd, formatID = E:GetTimeInfo(cd, 0)
-		cd = T.format(E.TimeFormats[formatID][3], cd)
+		cd = format(E.TimeFormats[formatID][3], cd)
 		return cd
 	end
 	return nil
@@ -206,7 +208,7 @@ end
 
 function DD:HideMenus(event)
 	if event == "PLAYER_ENTERING_WORLD" then self:UnregisterEvent(event) end
-	for name, menu in T.pairs(DD.RegisteredMenus) do
+	for name, menu in pairs(DD.RegisteredMenus) do
 		menu:Hide()
 	end
 end

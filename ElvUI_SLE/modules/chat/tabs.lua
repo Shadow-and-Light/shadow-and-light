@@ -60,7 +60,7 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 	local sleTotalCustomWidth = 0 --This variable is used to see if overflow button should be shown when using non-blizz width
 	local sleWidth --Determain width for non blizzard resize. Needed cause I fucked up in the past allowing it for non-scroll tabs only
 
-	for index, chatFrame in T.ipairs(dock.DOCKED_CHAT_FRAMES) do
+	for index, chatFrame in ipairs(dock.DOCKED_CHAT_FRAMES) do
 		local chatTab = _G[chatFrame:GetName().."Tab"];
 
 		--Resizing tabs, don't need to do that if blizz sizing is selected
@@ -102,7 +102,7 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 	local dynTabSize, hasOverflow = SLE_FCFDock_CalculateTabSize(dock, numDynFrames, sleWidth, sleTotalCustomWidth) --Call for own dynamic size calc, cause blizz one fuck up custom sized due to not even knowing we do custom shit
 
 	--Dynamically resize tabs
-	for index, chatFrame in T.ipairs(dock.DOCKED_CHAT_FRAMES) do
+	for index, chatFrame in ipairs(dock.DOCKED_CHAT_FRAMES) do
 		if ( not chatFrame.isStaticDocked ) then
 			local chatTab = _G[chatFrame:GetName().."Tab"];
 			PanelTemplates_TabResize(chatTab, chatTab.sizePadding or 0, dynTabSize);

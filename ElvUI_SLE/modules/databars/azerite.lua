@@ -18,12 +18,12 @@ local function UpdateAzerite(self, event, unit)
 
 	local bar = self.azeriteBar
 	local azeriteItemLocation = C_AzeriteItem_FindActiveAzeriteItem()
-	if azeriteItemLocation and (not self.db.azerite.hideInCombat or not T.InCombatLockdown()) then
+	if azeriteItemLocation and (not self.db.azerite.hideInCombat or not InCombatLockdown()) then
 		local text = ''
 		local xp, totalLevelXP = C_AzeriteItem_GetAzeriteItemXPInfo(azeriteItemLocation)
 		local xpToNextLevel = totalLevelXP - xp
 		local currentLevel = C_AzeriteItem_GetPowerLevel(azeriteItemLocation)
-		
+
 		local textFormat = self.db.azerite.textFormat
 		if textFormat == 'PERCENT' then
 			text = format('%s%% [%s]', floor(xp / totalLevelXP * 100), currentLevel)

@@ -23,7 +23,7 @@ function BG:CreateFrame(id)
 end
 
 function BG:Positions(id)
-	local anchor, point, x, y = T.unpack(BG.pos[id])
+	local anchor, point, x, y = unpack(BG.pos[id])
 	BG["Frame_"..id]:SetPoint(anchor, E.UIParent, point, x, y)
 end
 

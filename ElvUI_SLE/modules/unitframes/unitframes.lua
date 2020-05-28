@@ -2,8 +2,12 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local UF = E:GetModule('UnitFrames');
 local SUF = SLE:NewModule("UnitFrames", "AceEvent-3.0")
 local RC = LibStub("LibRangeCheck-2.0")
+
 --GLOBALS: hooksecurefunc, CreateFrame
 local _G = _G
+local format = format
+local UnitName = UnitName
+
 local UnitGetTotalAbsorbs = UnitGetTotalAbsorbs
 local UnitHonorLevel = UnitHonorLevel
 local UnitIsPVP = UnitIsPVP
@@ -32,17 +36,17 @@ function SUF:NewTags()
 	end
 
 	_G["ElvUF"].Tags.Methods["range:sl"] = function(unit)
-		local name, server = T.UnitName(unit)
+		local name, server = UnitName(unit)
 		local rangeText = ''
 		local min, max = RC:GetRange(unit)
 		local curMin = min
 		local curMax = max
 
 		if(server and server ~= "") then
-			name = T.format("%s-%s", name, server)
+			name = format("%s-%s", name, server)
 		end
 
-		if min and max and (name ~= T.UnitName('player')) then
+		if min and max and (name ~= UnitName('player')) then
 			rangeText = curMin.."-"..curMax
 		end
 		return rangeText
@@ -136,11 +140,11 @@ function SUF:Initialize()
 
 	--Raid stuff
 	SUF.specNameToRole = {}
-	for i = 1, T.GetNumClasses() do
-		local _, class, classID = T.GetClassInfo(i)
+	for i = 1, GetNumClasses() do
+		local _, class, classID = GetClassInfo(i)
 		SUF.specNameToRole[class] = {}
-		for j = 1, T.GetNumSpecializationsForClassID(classID) do
-			local _, spec, _, _, role = T.GetSpecializationInfoForClassID(classID, j)
+		for j = 1, GetNumSpecializationsForClassID(classID) do
+			local _, spec, _, _, role = GetSpecializationInfoForClassID(classID, j)
 			SUF.specNameToRole[class][spec] = role
 		end
 	end

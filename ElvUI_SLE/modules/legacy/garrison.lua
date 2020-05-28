@@ -56,12 +56,13 @@ local function CanGarrisonBar()
 	if not E.db.sle.legacy.garrison.toolbar.enable then return end
 	local show = false
 
-	if T.GetMinimapZoneText() == garrisonzones[1] or T.GetMinimapZoneText() == garrisonzones[E.myfaction == "Horde" and 2 or 3] then show = true end
+	if GetMinimapZoneText() == garrisonzones[1] or GetMinimapZoneText() == garrisonzones[E.myfaction == "Horde" and 2 or 3] then show = true end
 	return show
 end
 
 function Gar:CreateToolbars()
-	GarrisonAnchor = CreateFrame("Frame", "SLE_GarrisonToolbarAnchor", E.UIParent)
+	--  TODO: This GarrisonAnchor was global and dont think it was intended... keep an eye out for issues if any reported due to old module
+	local GarrisonAnchor = CreateFrame("Frame", "SLE_GarrisonToolbarAnchor", E.UIParent)
 	GarrisonAnchor:SetFrameStrata("BACKGROUND")
 	GarrisonAnchor:Point("LEFT", E.UIParent, "LEFT", 24, 0);
 
@@ -73,8 +74,8 @@ function Gar:CreateToolbars()
 	GarrisonAnchor.ShouldShow = CanGarrisonBar
 	GarrisonAnchor.InventroyCheck = function()
 		local change = false
-		for _, button in T.ipairs(GarrisonAnchor.Bars["SLE_GarrisonToolbar1"].Buttons) do
-			button.items = T.GetItemCount(button.itemId)
+		for _, button in ipairs(GarrisonAnchor.Bars["SLE_GarrisonToolbar1"].Buttons) do
+			button.items = GetItemCount(button.itemId)
 			if not Tools.buttoncounts[button.itemId] then
 				Tools.buttoncounts[button.itemId] = button.items
 			end

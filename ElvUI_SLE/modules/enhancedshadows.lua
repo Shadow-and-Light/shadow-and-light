@@ -48,7 +48,7 @@ function ES:UpdateShadows()
 	if UnitAffectingCombat('player') then ES:RegisterEvent('PLAYER_REGEN_ENABLED', ES.UpdateShadows) return end
 	ES:UnregisterEvent('PLAYER_ENTERING_WORLD')
 
-	for frame, _ in T.pairs(ES.CreatedShadows) do
+	for frame, _ in pairs(ES.CreatedShadows) do
 		ES:UpdateShadow(frame)
 	end
 end
@@ -130,14 +130,14 @@ function ES:CreateShadows()
 	--Unitframes--
 	do
 		for i = 1, #ES.FramesToShadow.UFrames do
-			local unit, name = T.unpack(ES.FramesToShadow.UFrames[i])
+			local unit, name = unpack(ES.FramesToShadow.UFrames[i])
 			if E.private.sle.module.shadows[unit] then
 				ES:CreateFrameShadow(_G["ElvUF_"..name],_G["ElvUF_"..name], E.private.sle.module.shadows[unit.."Legacy"])
 				hooksecurefunc(UF, "Update_"..name.."Frame", ES.UpdateFrame)
 			end
 		end
 		for i = 1, #ES.FramesToShadow.UGroups do
-			local unit, name, num = T.unpack(ES.FramesToShadow.UGroups[i])
+			local unit, name, num = unpack(ES.FramesToShadow.UGroups[i])
 			if E.private.sle.module.shadows[unit] then
 				for j = 1, num do
 					ES:CreateFrameShadow(_G["ElvUF_"..name..j], _G["ElvUF_"..name..j], E.private.sle.module.shadows[unit.."Legacy"])
@@ -234,7 +234,7 @@ function ES:CreateShadows()
 		end
 	end
 	--Datatexts--
-	for panel,enabled in T.pairs(E.private.sle.module.shadows.datatexts) do
+	for panel,enabled in pairs(E.private.sle.module.shadows.datatexts) do
 		if enabled then
 			if panel == "leftchat" then
 				ES.DummyPanels.LeftChat = CreateFrame("Frame", nil, _G[ES.FramesToShadow.Datapanels[panel]])
@@ -270,7 +270,7 @@ function ES:CreateShadows()
 	end
 
 	--Databars Examples: Honor, Reputation, Experience, Azerite
-	for panel, enabled in T.pairs(E.private.sle.module.shadows.databars) do
+	for panel, enabled in pairs(E.private.sle.module.shadows.databars) do
 		if enabled then
 			ES:CreateFrameShadow(_G[ES.FramesToShadow.databars[panel]], "none")
 		end

@@ -188,7 +188,7 @@ local function configTable()
 						name = STAT_CATEGORY_ATTRIBUTES,
 						args = {
 							HEALTH = { order = 1,type = "toggle",name = HEALTH,},
-							POWER = { order = 2,type = "toggle",name = _G[T.select(2, UnitPowerType("player"))],},
+							POWER = { order = 2,type = "toggle",name = _G[select(2, UnitPowerType("player"))],},
 							ALTERNATEMANA = { order = 3,type = "toggle",name = ALTERNATE_RESOURCE_TEXT,},
 							MOVESPEED = { order = 4,type = "toggle",name = STAT_SPEED,},
 						},
@@ -240,4 +240,4 @@ local function configTable()
 	}
 end
 
-T.tinsert(SLE.Configs, configTable)
+tinsert(SLE.Configs, configTable)

@@ -1,11 +1,14 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
-local SPELL_FAILED_BAD_IMPLICIT_TARGETS = SPELL_FAILED_BAD_IMPLICIT_TARGETS
 local RC = LibStub("LibRangeCheck-2.0")
+
+local UnitName = UnitName
+local SPELL_FAILED_BAD_IMPLICIT_TARGETS = SPELL_FAILED_BAD_IMPLICIT_TARGETS
+
 local displayString = ''
 local lastPanel
-local int = 1
 local curMin, curMax
+local int = 1
 local updateTargetRange = false
 local forceUpdate = false
 
@@ -32,7 +35,7 @@ local function OnUpdate(self, t)
 end
 
 local function OnEvent(self, event)
-	updateTargetRange = T.UnitName("target") ~= nil
+	updateTargetRange = UnitName("target") ~= nil
 	int = 0
 	if updateTargetRange then
 		forceUpdate = true
@@ -42,7 +45,7 @@ local function OnEvent(self, event)
 end
 
 local function ValueColorUpdate(hex, r, g, b)
-	displayString = T.join("", "%s: ", hex, "%d|r-", hex, "%d|r")
+	displayString = strjoin("", "%s: ", hex, "%d|r-", hex, "%d|r")
 
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)

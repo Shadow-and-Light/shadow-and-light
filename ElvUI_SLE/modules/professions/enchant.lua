@@ -453,7 +453,7 @@ function Pr:EnchantButton()
 		-- if (IsShiftKeyDown() and button.itemID) then
 			-- local activeEditBox = ChatEdit_GetActiveWindow()
 			-- if activeEditBox then
-				-- local _, link = T.GetItemInfo(button.itemID)
+				-- local _, link = GetItemInfo(button.itemID)
 				-- ChatEdit_InsertLink(link)
 			-- end
 		-- else
@@ -471,11 +471,11 @@ function Pr:EnchantButton()
 		-- GameTooltip:Hide()
 	-- end)
 	button:SetMotionScriptsWhileDisabled(true)
-	local EnchName = T.GetSpellInfo(7411)
+	local EnchName = GetSpellInfo(7411)
 
 	local function UpdateScrollButton(frame)
 		if not frame.selectedRecipeID then return end
-		local CURRENT_TRADESKILL = T.select(7, GetTradeSkillLine())
+		local CURRENT_TRADESKILL = select(7, GetTradeSkillLine())
 		if CURRENT_TRADESKILL ~= EnchName then _G["SLE_EnchScrollButton"]:Hide() return end
 
 		local recipeInfo = GetRecipeInfo(frame.selectedRecipeID)
@@ -489,7 +489,7 @@ function Pr:EnchantButton()
 				-- SLE:Print(string.format(L["Missing scroll item for spellID %d. Please report this at the Shadow&Light Ticket Tracker."], recipeInfo.recipeID))
 			-- end
 			_G["SLE_EnchScrollButton"]:Show()
-			local scrollnum = T.GetItemCount(38682)
+			local scrollnum = GetItemCount(38682)
 			_G["SLE_EnchScrollButton"]:SetText(string.format("%s (%d)", L['Scroll'], scrollnum))
 			if recipeInfo.craftable and recipeInfo.learned and scrollnum > 0 then
 				_G["SLE_EnchScrollButton"]:Enable()

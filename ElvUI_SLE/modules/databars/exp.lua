@@ -1,7 +1,8 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DB = SLE:GetModule("DataBars")
---GLOBALS: hooksecurefunc
---strings and shit
+
+--GLOBALS: unpack, select, hooksecurefunc
+local UnitLevel = UnitLevel
 local COMBATLOG_XPGAIN_FIRSTPERSON, COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED = COMBATLOG_XPGAIN_FIRSTPERSON, COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED
 local COMBATLOG_XPGAIN_EXHAUSTION1, COMBATLOG_XPGAIN_EXHAUSTION2, COMBATLOG_XPGAIN_EXHAUSTION4, COMBATLOG_XPGAIN_EXHAUSTION5 = COMBATLOG_XPGAIN_EXHAUSTION1, COMBATLOG_XPGAIN_EXHAUSTION2, COMBATLOG_XPGAIN_EXHAUSTION4, COMBATLOG_XPGAIN_EXHAUSTION5
 local COMBATLOG_XPGAIN_EXHAUSTION1_GROUP, COMBATLOG_XPGAIN_EXHAUSTION2_GROUP, COMBATLOG_XPGAIN_EXHAUSTION4_GROUP, COMBATLOG_XPGAIN_EXHAUSTION5_GROUP = COMBATLOG_XPGAIN_EXHAUSTION1_GROUP, COMBATLOG_XPGAIN_EXHAUSTION2_GROUP, COMBATLOG_XPGAIN_EXHAUSTION4_GROUP, COMBATLOG_XPGAIN_EXHAUSTION5_GROUP
@@ -54,9 +55,9 @@ local function UpdateExperience(self, event)
 	if not E.db.sle.databars.exp.longtext then return end
 	local bar = self.expBar
 
-	if not T.UnitLevel('player') == MAX_PLAYER_LEVEL or not T.IsXPUserDisabled() then
+	if not UnitLevel('player') == MAX_PLAYER_LEVEL or not IsXPUserDisabled() then
 		local cur, max = self:GetXP('player')
-		local rested = T.GetXPExhaustion()
+		local rested = GetXPExhaustion()
 		local text = ''
 		local textFormat = E.db.databars.experience.textFormat
 
@@ -101,63 +102,63 @@ end
 function DB:PopulateExpPatterns()
 	local symbols = {'%(','%)','%.','([-+])','|4.-;','%%[sd]','%%%d%$[sd]','%%(','%%)','%%.','%%%1','.-','(.-)','(.-)'}
 	local pattern
-	pattern = T.rgsub(COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED, T.unpack(symbols));
-	T.tinsert(DB.Exp.Strings.NoName, pattern)
+	pattern = T.rgsub(COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED, unpack(symbols));
+	tinsert(DB.Exp.Strings.NoName, pattern)
 
-	pattern = T.rgsub(COMBATLOG_XPGAIN_FIRSTPERSON,T.unpack(symbols))
-	T.tinsert(DB.Exp.Strings.Normal, pattern)
-	
-	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION1,T.unpack(symbols))
-	T.tinsert(DB.Exp.Strings.Bonus, pattern)
-	
-	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION2,T.unpack(symbols))
-	T.tinsert(DB.Exp.Strings.Bonus, pattern)
-	
-	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION4,T.unpack(symbols))
-	T.tinsert(DB.Exp.Strings.Penalty, pattern)
-	
-	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION5,T.unpack(symbols))
-	T.tinsert(DB.Exp.Strings.Penalty, pattern)
-	
-	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION1_GROUP,T.unpack(symbols))
-	T.tinsert(DB.Exp.Strings.BonusGroup, pattern)
-	
-	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION2_GROUP,T.unpack(symbols))
-	T.tinsert(DB.Exp.Strings.BonusGroup, pattern)
-	
-	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION4_GROUP,T.unpack(symbols))
-	T.tinsert(DB.Exp.Strings.PenaltyGroup, pattern)
-	
-	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION5_GROUP,T.unpack(symbols))
-	T.tinsert(DB.Exp.Strings.PenaltyGroup, pattern)
-	
-	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION1_RAID,T.unpack(symbols))
-	T.tinsert(DB.Exp.Strings.BonusRaid, pattern)
-	
-	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION2_RAID,T.unpack(symbols))
-	T.tinsert(DB.Exp.Strings.BonusRaid, pattern)
-	
-	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION4_RAID,T.unpack(symbols))
-	T.tinsert(DB.Exp.Strings.PenaltyRaid, pattern)
-	
-	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION5_RAID,T.unpack(symbols))
-	T.tinsert(DB.Exp.Strings.PenaltyRaid, pattern)
-	
-	pattern = T.rgsub(COMBATLOG_XPGAIN_FIRSTPERSON_GROUP,T.unpack(symbols))
-	T.tinsert(DB.Exp.Strings.FirstBonus, pattern)
-	
-	pattern = T.rgsub(COMBATLOG_XPGAIN_FIRSTPERSON_RAID,T.unpack(symbols))
-	T.tinsert(DB.Exp.Strings.FirstPenalty, pattern)
+	pattern = T.rgsub(COMBATLOG_XPGAIN_FIRSTPERSON,unpack(symbols))
+	tinsert(DB.Exp.Strings.Normal, pattern)
+
+	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION1,unpack(symbols))
+	tinsert(DB.Exp.Strings.Bonus, pattern)
+
+	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION2,unpack(symbols))
+	tinsert(DB.Exp.Strings.Bonus, pattern)
+
+	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION4,unpack(symbols))
+	tinsert(DB.Exp.Strings.Penalty, pattern)
+
+	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION5,unpack(symbols))
+	tinsert(DB.Exp.Strings.Penalty, pattern)
+
+	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION1_GROUP,unpack(symbols))
+	tinsert(DB.Exp.Strings.BonusGroup, pattern)
+
+	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION2_GROUP,unpack(symbols))
+	tinsert(DB.Exp.Strings.BonusGroup, pattern)
+
+	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION4_GROUP,unpack(symbols))
+	tinsert(DB.Exp.Strings.PenaltyGroup, pattern)
+
+	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION5_GROUP,unpack(symbols))
+	tinsert(DB.Exp.Strings.PenaltyGroup, pattern)
+
+	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION1_RAID,unpack(symbols))
+	tinsert(DB.Exp.Strings.BonusRaid, pattern)
+
+	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION2_RAID,unpack(symbols))
+	tinsert(DB.Exp.Strings.BonusRaid, pattern)
+
+	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION4_RAID,unpack(symbols))
+	tinsert(DB.Exp.Strings.PenaltyRaid, pattern)
+
+	pattern = T.rgsub(COMBATLOG_XPGAIN_EXHAUSTION5_RAID,unpack(symbols))
+	tinsert(DB.Exp.Strings.PenaltyRaid, pattern)
+
+	pattern = T.rgsub(COMBATLOG_XPGAIN_FIRSTPERSON_GROUP,unpack(symbols))
+	tinsert(DB.Exp.Strings.FirstBonus, pattern)
+
+	pattern = T.rgsub(COMBATLOG_XPGAIN_FIRSTPERSON_RAID,unpack(symbols))
+	tinsert(DB.Exp.Strings.FirstPenalty, pattern)
 end
 
 function DB:FilterExperience(event, message, ...)
 	local name, exp, bonus, reason, addbonus
 	if DB.db.exp.chatfilter.enable then
-		for type, patterns in T.pairs(DB.Exp.Strings) do
+		for type, patterns in pairs(DB.Exp.Strings) do
 			for i = 1, #patterns do
-				name, exp, bonus, reason, addbonus = T.match(message, "^"..DB.Exp.Strings[type][i].."$")
+				name, exp, bonus, reason, addbonus = strmatch(message, "^"..DB.Exp.Strings[type][i].."$")
 				if name then
-					message = T.format(DB.Exp.Styles[DB.db.exp.chatfilter.style][type] , DB.db.exp.chatfilter.iconsize, name, exp, SLE.Russian and reason or bonus, SLE.Russian and bonus or reason, addbonus)
+					message = format(DB.Exp.Styles[DB.db.exp.chatfilter.style][type] , DB.db.exp.chatfilter.iconsize, name, exp, SLE.Russian and reason or bonus, SLE.Russian and bonus or reason, addbonus)
 					return false, message, ...
 				end
 			end

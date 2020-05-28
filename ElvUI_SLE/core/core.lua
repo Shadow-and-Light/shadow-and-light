@@ -5,9 +5,11 @@ local locale = E.global.general.locale
 -- local L = E.Libs.ACL:GetLocale('ElvUI', locale)
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale)
 local EP = LibStub("LibElvUIPlugin-1.0")
-local AddOnName, Engine = ...;
+local AddOnName, Engine = ...
+
 local _G = _G
-local tonumber = tonumber
+local format, tonumber = format, tonumber
+local IsAddOnLoaded = IsAddOnLoaded
 
 --GLOBALS: hooksecurefunc, LibStub, GetAddOnMetadata, CreateFrame, GetAddOnEnableState, BINDING_HEADER_SLE
 
@@ -40,7 +42,7 @@ _G[AddOnName] = Engine;
 
 --A function to concentrate options from different modules to a single table used in plugin reg
 local function GetOptions()
-	for _, func in Toolkit.pairs(SLE.Configs) do
+	for _, func in pairs(SLE.Configs) do
 		func()
 	end
 end
@@ -51,11 +53,11 @@ function SLE:OnInitialize()
 end
 
 function SLE:ConfigCats() --Additional mover groups
-	Toolkit.tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L");
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L");
 	E.ConfigModeLocalizedStrings["S&L"] = L["S&L: All"]
-	Toolkit.tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L BG");
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L BG");
 	E.ConfigModeLocalizedStrings["S&L BG"] = L["S&L: Backgrounds"]
-	Toolkit.tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L MISC");
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L MISC");
 	E.ConfigModeLocalizedStrings["S&L MISC"] = L["S&L: Misc"]
 end
 
@@ -79,7 +81,7 @@ function SLE:Initialize()
 
 	--Annoying message
 	if E.db.general.loginmessage then
-		SLE:Print(Toolkit.format(L["SLE_LOGIN_MSG"], E["media"].hexvaluecolor, SLE.version), "info")
+		SLE:Print(format(L["SLE_LOGIN_MSG"], E["media"].hexvaluecolor, SLE.version), "info")
 	end
 	
 	hooksecurefunc(E, "PLAYER_ENTERING_WORLD", function(self, _, initLogin)
@@ -98,12 +100,12 @@ function SLE:Initialize()
 	end
 	if not E.private.sle.characterGoldsSorting[E.myrealm] then E.private.sle.characterGoldsSorting[E.myrealm] = {} end
 
-	LibStub("LibElvUIPlugin-1.0"):RegisterPlugin(AddOnName, GetOptions) --Registering as plugin
+	EP:RegisterPlugin(AddOnName, GetOptions) --Registering as plugin
 
 	if SLE:IsFoolsDay() then
-		if Toolkit.IsAddOnLoaded('ElvUI_BenikUI') and E.db.benikui.general.splashScreen then
+		if IsAddOnLoaded('ElvUI_BenikUI') and E.db.benikui.general.splashScreen then
 			_G["BenikUISplashScreen"]:HookScript("OnHide", function() SLE:ShowSplashScreen() end)
-		elseif Toolkit.IsAddOnLoaded('ElvUI_BenikUI') and not E.db.benikui.general.splashScreen then
+		elseif IsAddOnLoaded('ElvUI_BenikUI') and not E.db.benikui.general.splashScreen then
 			SLE:ShowSplashScreen()
 		else
 			SLE:ShowSplashScreen()

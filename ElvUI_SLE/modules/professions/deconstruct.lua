@@ -3,8 +3,10 @@ local Pr = SLE:GetModule("Professions")
 local B = E:GetModule("Bags")
 local lib = LibStub("LibProcessable")
 local LCG = LibStub('LibCustomGlow-1.0')
+
 --GLOBALS: hooksecurefunc, CreateFrame
 local _G = _G
+local format = format
 local VIDEO_OPTIONS_ENABLED, VIDEO_OPTIONS_DISABLED = VIDEO_OPTIONS_ENABLED, VIDEO_OPTIONS_DISABLED
 local LOCKED = LOCKED
 local ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow = ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow
@@ -77,8 +79,8 @@ Pr.BlacklistDE = {}
 Pr.BlacklistLOCK = {}
 
 local function HaveKey()
-	for key in T.pairs(Pr.Keys) do
-		if(T.GetItemCount(key) > 0) then
+	for key in pairs(Pr.Keys) do
+		if(GetItemCount(key) > 0) then
 			return key
 		end
 	end
@@ -86,15 +88,15 @@ end
 
 function Pr:Blacklisting(skill)
 	local ignoreItems = E.global.sle[skill].Blacklist
-	ignoreItems = T.gsub(ignoreItems, ',%s', ',') --remove spaces that follow a comma
-	Pr["BuildBlacklist"..skill](self, T.split(",", ignoreItems))
+	ignoreItems = gsub(ignoreItems, ',%s', ',') --remove spaces that follow a comma
+	Pr["BuildBlacklist"..skill](self, strsplit(",", ignoreItems))
 end
 
 function Pr:BuildBlacklistDE(...)
-	T.twipe(Pr.BlacklistDE)
-	for index = 1, T.select('#', ...) do
-		local name = T.select(index, ...)
-		local isLink = T.GetItemInfo(name)
+	wipe(Pr.BlacklistDE)
+	for index = 1, select('#', ...) do
+		local name = select(index, ...)
+		local isLink = GetItemInfo(name)
 		if isLink then
 			Pr.BlacklistDE[isLink] = true
 		end
@@ -102,10 +104,10 @@ function Pr:BuildBlacklistDE(...)
 end
 
 function Pr:BuildBlacklistLOCK(...)
-	T.twipe(Pr.BlacklistLOCK)
-	for index = 1, T.select('#', ...) do
-		local name = T.select(index, ...)
-		local isLink = T.GetItemInfo(name)
+	wipe(Pr.BlacklistLOCK)
+	for index = 1, select('#', ...) do
+		local name = select(index, ...)
+		local isLink = GetItemInfo(name)
 		if isLink then
 			Pr.BlacklistLOCK[isLink] = true
 		end
@@ -113,17 +115,17 @@ function Pr:BuildBlacklistLOCK(...)
 end
 
 function Pr:ApplyDeconstruct(itemLink, spell, spellType, r, g, b)
-	local slot = T.GetMouseFocus()
+	local slot = GetMouseFocus()
 	if slot == Pr.DeconstructionReal then return end
 	local bag = slot:GetParent():GetID()
 	if not _G["ElvUI_ContainerFrame"].Bags[bag] then return end
 	Pr.DeconstructionReal.Bag = bag
 	Pr.DeconstructionReal.Slot = slot:GetID()
 	local color = {r,g,b,1}
-	if (E.global.sle.LOCK.TradeOpen and T.GetTradeTargetItemLink(7) == itemLink and _G["GameTooltip"]:GetOwner():GetName() == "TradeRecipientItem7ItemButton") then
-			Pr.DeconstructionReal.ID = T.match(itemLink, 'item:(%d+):')
+	if (E.global.sle.LOCK.TradeOpen and GetTradeTargetItemLink(7) == itemLink and _G["GameTooltip"]:GetOwner():GetName() == "TradeRecipientItem7ItemButton") then
+			Pr.DeconstructionReal.ID = strmatch(itemLink, 'item:(%d+):')
 			Pr.DeconstructionReal:SetAttribute('type1', 'macro')
-			Pr.DeconstructionReal:SetAttribute('macrotext', T.format('/cast %s\n/run ClickTargetTradeButton(7)', spell))
+			Pr.DeconstructionReal:SetAttribute('macrotext', format('/cast %s\n/run ClickTargetTradeButton(7)', spell))
 			Pr.DeconstructionReal:SetAllPoints(_G["TradeRecipientItem7ItemButton"])
 			Pr.DeconstructionReal:Show()
 
@@ -134,8 +136,8 @@ function Pr:ApplyDeconstruct(itemLink, spell, spellType, r, g, b)
 				AutoCastShine_AutoCastStart(Pr.DeconstructionReal, color, 5,nil,2)
 			end
 		-- end
-	elseif (T.GetContainerItemLink(bag, slot:GetID()) == itemLink) then
-		Pr.DeconstructionReal.ID = T.match(itemLink, 'item:(%d+):')
+	elseif (GetTradeTargetItemLink(bag, slot:GetID()) == itemLink) then
+		Pr.DeconstructionReal.ID = strmatch(itemLink, 'item:(%d+):')
 		Pr.DeconstructionReal:SetAttribute("type1",spellType)
 		Pr.DeconstructionReal:SetAttribute(spellType, spell)
 		Pr.DeconstructionReal:SetAttribute('target-bag', bag)
@@ -157,9 +159,9 @@ end
 
 function Pr:IsBreakable(link)
 	if not link then return false end
-	local name, _, quality, ilvl,_,_,_,_,equipSlot = T.GetItemInfo(link)
-	local item = T.match(link, 'item:(%d+):')
-	if(T.IsEquippableItem(link) and quality and quality > 1 and quality < 5 and equipSlot ~= "INVTYPE_BAG") then
+	local name, _, quality, ilvl,_,_,_,_,equipSlot = GetItemInfo(link)
+	local item = strmatch(link, 'item:(%d+):')
+	if(IsEquippableItem(link) and quality and quality > 1 and quality < 5 and equipSlot ~= "INVTYPE_BAG") then
 		if E.global.sle.DE.IgnoreTabards and equipSlot == "INVTYPE_TABARD" then return false end
 		if Pr.ItemTable["DoNotDE"][item] then return false end
 		if Pr.ItemTable["PandariaBoA"][item] and E.global.sle.DE.IgnorePanda then return false end
@@ -172,13 +174,13 @@ function Pr:IsBreakable(link)
 end
 
 function Pr:IsUnlockable(itemLink)
-	local slot = T.GetMouseFocus()
+	local slot = GetMouseFocus()
 	local bag = slot:GetParent():GetID()
-	local item = _G["TradeFrame"]:IsShown() and T.GetTradeTargetItemLink(7) or T.select(7, T.GetContainerItemInfo(bag, slot:GetID()))
+	local item = _G["TradeFrame"]:IsShown() and GetTradeTargetItemLink(7) or select(7, GetContainerItemInfo(bag, slot:GetID()))
 	if(item == itemLink) then
 		for index = 2, 5 do
 			local info = _G['GameTooltipTextLeft' .. index]:GetText()
-			if T.find(info, LOCKED) then
+			if strfind(info, LOCKED) then
 				return true
 			end
 		end
@@ -190,11 +192,11 @@ function Pr:DeconstructParser(tt)
 	if not Pr.DeconstructMode then return end
 	local item, link = tt:GetItem()
 	if not link then return end
-	local itemString = T.match(link, "item[%-?%d:]+")
+	local itemString = strmatch(link, "item[%-?%d:]+")
 	if not itemString then return end
-	local _, id = T.split(":", itemString)
+	local _, id = strsplit(":", itemString)
 	if not id or id == "" then return end
-	if(item and not T.InCombatLockdown()) and (Pr.DeconstructMode == true or (E.global.sle.LOCK.TradeOpen and self:GetOwner():GetName() == "TradeRecipientItem7ItemButton")) then
+	if(item and not InCombatLockdown()) and (Pr.DeconstructMode == true or (E.global.sle.LOCK.TradeOpen and self:GetOwner():GetName() == "TradeRecipientItem7ItemButton")) then
 		local r, g, b
 		if lib:IsOpenable(id) and Pr:IsUnlockable(link) then
 			r, g, b = 0, 1, 1
@@ -213,7 +215,7 @@ function Pr:DeconstructParser(tt)
 			local isArtRelic, class, subclass
 			local normalItem = (lib:IsDisenchantable(id) and Pr:IsBreakable(link))
 			if not normalItem then
-				class, subclass = T.select(6, T.GetItemInfo(item))
+				class, subclass = select(6, GetItemInfo(item))
 				isArtRelic = (class == relicItemTypeLocalized and subclass == relicItemSubTypeLocalized)
 			end
 			if normalItem or Pr.ItemTable["Quest"][id] or isArtRelic then
@@ -239,16 +241,16 @@ function Pr:Construct_BagButton()
 	Pr.DeconstructButton:SetSize(16 + E.Border, 16 + E.Border)
 	Pr.DeconstructButton:SetTemplate()
 	Pr.DeconstructButton.ttText = L["Deconstruct Mode"]
-	Pr.DeconstructButton.ttText2 = T.format(L["Allow you to disenchant/mill/prospect/unlock items.\nClick to toggle.\nCurrent state: %s."], Pr:GetDeconMode())
+	Pr.DeconstructButton.ttText2 = format(L["Allow you to disenchant/mill/prospect/unlock items.\nClick to toggle.\nCurrent state: %s."], Pr:GetDeconMode())
 	Pr.DeconstructButton:SetScript("OnEnter", B.Tooltip_Show)
 	Pr.DeconstructButton:SetScript("OnLeave", GameTooltip_Hide)
 	Pr.DeconstructButton:SetPoint("RIGHT", _G["ElvUI_ContainerFrame"].bagsButton, "LEFT", -5, 0)
 	Pr.DeconstructButton:SetNormalTexture("Interface\\ICONS\\INV_Rod_Cobalt")
-	Pr.DeconstructButton:GetNormalTexture():SetTexCoord(T.unpack(E.TexCoords))
+	Pr.DeconstructButton:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
 	Pr.DeconstructButton:GetNormalTexture():SetInside()
 
 	Pr.DeconstructButton:StyleButton(nil, true)
-	Pr.DeconstructButton:SetScript("OnClick", function(self,...)
+	Pr.DeconstructButton:SetScript("OnClick", function(self, ...)
 		Pr.DeconstructMode = not Pr.DeconstructMode
 		if Pr.DeconstructMode then
 			Pr.DeconstructButton:SetNormalTexture("Interface\\ICONS\\INV_Rod_EnchantedCobalt")
@@ -257,7 +259,7 @@ function Pr:Construct_BagButton()
 			Pr.DeconstructButton:SetNormalTexture("Interface\\ICONS\\INV_Rod_Cobalt")
 			ActionButton_HideOverlayGlow(Pr.DeconstructButton)
 		end
-		Pr.DeconstructButton.ttText2 = T.format(L["Allow you to disenchant/mill/prospect/unlock items.\nClick to toggle.\nCurrent state: %s."], Pr:GetDeconMode())
+		Pr.DeconstructButton.ttText2 = format(L["Allow you to disenchant/mill/prospect/unlock items.\nClick to toggle.\nCurrent state: %s."], Pr:GetDeconMode())
 		B.Tooltip_Show(self)
 	end)
 	--Moving Elv's stuff
@@ -272,7 +274,7 @@ function Pr:ConstructRealDecButton()
 	Pr.DeconstructionReal.TipLines = {}
 
 	Pr.DeconstructionReal.OnLeave = function(self)
-		if(T.InCombatLockdown()) then
+		if(InCombatLockdown()) then
 			self:SetAlpha(0)
 			self:RegisterEvent('PLAYER_REGEN_ENABLED')
 		else
@@ -305,7 +307,7 @@ end
 
 local function Get_ArtRelic()
 	local noItem = false
-	if T.select(2, T.GetItemInfo(132342)) == nil then noItem = true end
+	if select(2, GetItemInfo(132342)) == nil then noItem = true end
 	if noItem then
 		E:Delay(5, Get_ArtRelic)
 	else

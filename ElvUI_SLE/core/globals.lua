@@ -1,5 +1,4 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local format = format
 
 --Chat icon paths--
 local slePath = [[|TInterface\AddOns\ElvUI_SLE\media\textures\]]

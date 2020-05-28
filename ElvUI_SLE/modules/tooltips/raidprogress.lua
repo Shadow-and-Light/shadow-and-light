@@ -1,9 +1,13 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local RP = SLE:NewModule("RaidProgress", "AceHook-3.0", "AceEvent-3.0")
 local TT = E:GetModule('Tooltip');
---GLOBALS: hooksecurefunc, AchievementFrame_DisplayComparison
-local MAX_PLAYER_LEVEL = MAX_PLAYER_LEVEL
+
+--GLOBALS: select, unpack, hooksecurefunc, AchievementFrame_DisplayComparison
 local _G = _G
+local format = format
+local GetTime = GetTime
+local IsAddOnLoaded = IsAddOnLoaded
+local UnitExists = UnitExists
 local utf8sub = string.utf8sub
 local ClearAchievementComparisonUnit = ClearAchievementComparisonUnit
 local SetAchievementComparisonUnit = SetAchievementComparisonUnit
@@ -247,7 +251,7 @@ end
 
 function RP:GetProgression(guid)
 	local kills, complete, pos = 0, false, 0
-	local statFunc = guid == RP.playerGUID and T.GetStatistic or T.GetComparisonStatistic
+	local statFunc = guid == RP.playerGUID and GetStatistic or GetComparisonStatistic
 	
 	for raid = 1, #RP.Raids["LONG"] do
 		local option = RP.encounters[raid].option
@@ -258,15 +262,15 @@ function RP:GetProgression(guid)
 			for level = 1, #statTable do
 				RP.highestKill = 0
 				for statInfo = 1, #statTable[level] do
-					kills = T.tonumber((statFunc(statTable[level][statInfo])))
+					kills = tonumber((statFunc(statTable[level][statInfo])))
 					if kills and kills > 0 then
 						RP.highestKill = RP.highestKill + 1
 					end
 				end
 				pos = RP.highestKill
 				if RP.highestKill > 0 or RP.ShowZeroesMode then
-					RP.Cache[guid].header[raid][level] = T.format("%s [%s]:", RP.Raids[E.db.sle.tooltip.RaidProg.NameStyle][raid], RP.modes[E.db.sle.tooltip.RaidProg.DifStyle][level])
-					RP.Cache[guid].info[raid][level] = T.format("%d/%d", RP.highestKill, #statTable[level])
+					RP.Cache[guid].header[raid][level] = format("%s [%s]:", RP.Raids[E.db.sle.tooltip.RaidProg.NameStyle][raid], RP.modes[E.db.sle.tooltip.RaidProg.DifStyle][level])
+					RP.Cache[guid].info[raid][level] = format("%d/%d", RP.highestKill, #statTable[level])
 					if RP.highestKill == #statTable[level] then
 						break
 					end
@@ -280,7 +284,7 @@ function RP:UpdateProgression(guid)
 	RP.Cache[guid] = RP.Cache[guid] or {}
 	RP.Cache[guid].header = RP.Cache[guid].header or {}
 	RP.Cache[guid].info =  RP.Cache[guid].info or {}
-	RP.Cache[guid].timer = T.GetTime()
+	RP.Cache[guid].timer = GetTime()
 
 	RP:GetProgression(guid)
 end
@@ -319,7 +323,7 @@ end
 local function AchieveReady(event, GUID)
 	if (TT.compareGUID ~= GUID) then return end
 	local unit = "mouseover"
-	if T.UnitExists(unit) then
+	if UnitExists(unit) then
 		RP:UpdateProgression(GUID)
 		_G["GameTooltip"]:SetUnit(unit)
 	end
@@ -328,17 +332,17 @@ local function AchieveReady(event, GUID)
 end
 
 local function OnInspectInfo(self, tt, unit, numTries, r, g, b)
-	if T.InCombatLockdown() then return end
+	if InCombatLockdown() then return end
 	if not E.db.sle.tooltip.RaidProg.enable then return end
-	if not (unit and T.CanInspect(unit)) then return end
-	
-	local guid = T.UnitGUID(unit)
-	if not RP.Cache[guid] or (T.GetTime() - RP.Cache[guid].timer) > 600 then
+	if not (unit and CanInspect(unit)) then return end
+
+	local guid = UnitGUID(unit)
+	if not RP.Cache[guid] or (GetTime() - RP.Cache[guid].timer) > 600 then
 		if guid == RP.playerGUID then
 			RP:UpdateProgression(guid)
 		else
 			ClearAchievementComparisonUnit()
-			if not self.loadedComparison and T.select(2, T.IsAddOnLoaded("Blizzard_AchievementUI")) then
+			if not self.loadedComparison and select(2, IsAddOnLoaded("Blizzard_AchievementUI")) then
 				AchievementFrame_DisplayComparison(unit)
 				HideUIPanel(_G["AchievementFrame"])
 				ClearAchievementComparisonUnit()

@@ -1,12 +1,14 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
 local SUF = SLE:GetModule("UnitFrames")
 local UF = E:GetModule('UnitFrames');
-local _G = _G
+
+-- GLOBALS: unpack, select
+local random = random
 
 local function GetBattleFieldIndexFromUnitName(name)
 	local nameFromIndex
-	for index = 1, T.GetNumBattlefieldScores() do
-		nameFromIndex = T.GetBattlefieldScore(index)
+	for index = 1, GetNumBattlefieldScores() do
+		nameFromIndex = GetBattlefieldScore(index)
 		if nameFromIndex == name then
 			return index
 		end
@@ -22,30 +24,30 @@ function SUF:UpdateRoleIcon()
 		lfdrole:Hide()
 		return
 	end
-	
-	local isInstance, instanceType = T.IsInInstance()
+
+	local isInstance, instanceType = IsInInstance()
 	local role
 	if isInstance and instanceType == "pvp" then
-		local name = T.GetUnitName(self.unit, true)
+		local name = GetUnitName(self.unit, true)
 		local index = GetBattleFieldIndexFromUnitName(name)
 		if index then
-			local _, _, _, _, _, _, _, _, classToken, _, _, _, _, _, _, talentSpec = T.GetBattlefieldScore(index)
+			local _, _, _, _, _, _, _, _, classToken, _, _, _, _, _, _, talentSpec = GetBattlefieldScore(index)
 			if classToken and talentSpec then
 				role = SUF.specNameToRole[classToken][talentSpec]
 			else
-				role = T.UnitGroupRolesAssigned(self.unit) --Fallback
+				role = UnitGroupRolesAssigned(self.unit) --Fallback
 			end
 		else
-			role = T.UnitGroupRolesAssigned(self.unit) --Fallback
+			role = UnitGroupRolesAssigned(self.unit) --Fallback
 		end
 	else
-		role = T.UnitGroupRolesAssigned(self.unit)
+		role = UnitGroupRolesAssigned(self.unit)
 		if self.isForced and role == 'NONE' then
-			local rnd = T.random(1, 3)
+			local rnd = random(1, 3)
 			role = rnd == 1 and "TANK" or (rnd == 2 and "HEALER" or (rnd == 3 and "DAMAGER"))
 		end
 	end
-	if (self.isForced or T.UnitIsConnected(self.unit)) and ((role == "DAMAGER" and db.damager) or (role == "HEALER" and db.healer) or (role == "TANK" and db.tank)) then
+	if (self.isForced or UnitIsConnected(self.unit)) and ((role == "DAMAGER" and db.damager) or (role == "HEALER" and db.healer) or (role == "TANK" and db.tank)) then
 		lfdrole:SetTexture(SLE.rolePaths[E.db.sle.unitframes.roleicons][role])
 		lfdrole:Show()
 	else
@@ -54,13 +56,13 @@ function SUF:UpdateRoleIcon()
 end
 
 function SUF:SetRoleIcons()
-	for _, header in T.pairs(UF.headers) do
+	for _, header in pairs(UF.headers) do
 		local name = header.groupName
 		local db = UF.db["units"][name]
 		for i = 1, header:GetNumChildren() do
-			local group = T.select(i, header:GetChildren())
+			local group = select(i, header:GetChildren())
 			for j = 1, group:GetNumChildren() do
-			local unitbutton = T.select(j, group:GetChildren())
+			local unitbutton = select(j, group:GetChildren())
 				if unitbutton.GroupRoleIndicator and unitbutton.GroupRoleIndicator.Override and not unitbutton.GroupRoleIndicator.sleRoleSetup then
 					unitbutton.GroupRoleIndicator.Override = SUF.UpdateRoleIcon
 					unitbutton:UnregisterEvent("UNIT_CONNECTION")

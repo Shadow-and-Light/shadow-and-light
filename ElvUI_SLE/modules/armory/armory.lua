@@ -1,26 +1,23 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-if T.select(2, GetAddOnInfo("ElvUI_KnightFrame")) and IsAddOnLoaded("ElvUI_KnightFrame") then return end --Don't break korean code :D
+if select(2, GetAddOnInfo("ElvUI_KnightFrame")) and IsAddOnLoaded("ElvUI_KnightFrame") then return end --Don't break korean code :D
 local Armory = SLE:NewModule("Armory_Core", "AceEvent-3.0", "AceConsole-3.0", "AceHook-3.0");
 local M = E:GetModule("Misc")
 local LCG = LibStub('LibCustomGlow-1.0')
-local CA, IA, SA
 
-Armory.Constants = {}
-
---Cache--
--- local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
+local GetAverageItemLevel = GetAverageItemLevel
 local LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION = LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION
 local TRANSMOGRIFIED_HEADER = TRANSMOGRIFIED_HEADER
-
 local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
 local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
 local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
 local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllusionSourceInfo
-
 local HandleModifiedItemClick = HandleModifiedItemClick
 
-	--Create ench replacement string DB
-if not SLE_ArmoryDB or T.type(SLE_ArmoryDB) ~= "table" then
+local CA, IA, SA
+Armory.Constants = {}
+
+--Create ench replacement string DB
+if not SLE_ArmoryDB or type(SLE_ArmoryDB) ~= "table" then
 	SLE_ArmoryDB = {
 		EnchantString = {}
 	}
@@ -132,7 +129,7 @@ Armory.Constants.Stats = {
 
 --Remembering default positions of stuff
 function Armory:BuildFrameDefaultsCache(which)
-	for i, SlotName in T.pairs(Armory.Constants.GearList) do
+	for i, SlotName in pairs(Armory.Constants.GearList) do
 		Armory.Constants[which.."_Defaults"][SlotName] = {}
 		local Slot = _G[which..SlotName]
 		if not Slot then E:Delay(1, function() Armory:BuildFrameDefaultsCache(which) end); return end
@@ -183,7 +180,7 @@ end
 function Armory:GetCorruptionInfo(Slot, which, unit)
 	if not Slot.itemLink then return nil end 
 	if not which or not unit then return nil end
-	local window = T.lower(which)
+	local window = strlower(which)
 	if IsCorruptedItem(Slot.itemLink) or Slot.ID == 15 then
 		local TooltipText
 		Armory:ClearTooltip(Armory.ScanTT)
@@ -193,26 +190,26 @@ function Armory:GetCorruptionInfo(Slot, which, unit)
 			TooltipText = _G["SLE_Armory_ScanTTTextLeft"..i]:GetText()
 
 			if TooltipText:match(ITEM_MOD_CORRUPTION_RESISTANCE) then
-				TooltipText = T.gsub(TooltipText, TooltipText:match(ITEM_MOD_CORRUPTION_RESISTANCE), "")
+				TooltipText = gsub(TooltipText, TooltipText:match(ITEM_MOD_CORRUPTION_RESISTANCE), "")
 				return "res", TooltipText, nil
 			elseif TooltipText:match(ITEM_MOD_CORRUPTION) then
-				TooltipText = T.gsub(TooltipText, TooltipText:match(ITEM_MOD_CORRUPTION), "")
+				TooltipText = gsub(TooltipText, TooltipText:match(ITEM_MOD_CORRUPTION), "")
 
 				--Iteration to get corruption spell from bunus ID. Got the script from suspctz
 				local itemSplit = SLE:GetItemSplit(Slot.itemLink)
 				local bonuses = {}
 				local corruptionSpell = ""
-				
+
 				for index= 1, itemSplit[13] do
 					bonuses[#bonuses + 1] = itemSplit[13 + index]
 				end
 
 				if #bonuses > 0 then
 					local Spells = Armory.Constants.CorruptionSpells
-					for i, bonus_id in T.pairs(bonuses) do
-						bonus_id = T.tostring(bonus_id)
+					for i, bonus_id in pairs(bonuses) do
+						bonus_id = tostring(bonus_id)
 						if Spells[bonus_id] ~= nil then
-							local name, rank, icon = T.GetSpellInfo(Spells[bonus_id][3])
+							local name, rank, icon = GetSpellInfo(Spells[bonus_id][3])
 							if Spells[bonus_id][2] ~= "" then rank = Spells[bonus_id][2] else rank = "" end
 							if E.db.sle.armory[window].corruptionText.icon then
 								corruptionSpell = "|T"..icon..":0|t "..name.." "..rank
@@ -235,18 +232,18 @@ end
 function Armory:UpdatePageInfo(frame, which, guid, event)
 	if not (frame and which) then return end
 	if not Armory:CheckOptions(which) then return end
-	local window = T.lower(which)
+	local window = strlower(which)
 	local unit = (which == 'Character' and 'player') or frame.unit
 	if which == "Character" then
 		CA:Update_Durability()
 		CA:Update_SlotCorruption()
 	end
-	for i, SlotName in T.pairs(Armory.Constants.GearList) do
+	for i, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G[which..SlotName]
 		if Slot then
 			if Slot.TransmogInfo then
 				if which == "Character" then
-					Slot.TransmogInfo.Link = T.select(6, C_TransmogCollection_GetAppearanceSourceInfo(T.select(3, C_Transmog_GetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE))));
+					Slot.TransmogInfo.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(Slot.ID, LE_TRANSMOG_TYPE_APPEARANCE))));
 				elseif which == "Inspect" then
 					Slot.TransmogInfo.Link = Armory:GetTransmogInfo(Slot, which, unit)
 				else
@@ -293,17 +290,17 @@ end
 --Updates ilvl and everything tied to the item somehow
 function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 	if not Armory:CheckOptions(which) then return end
-	Slot.itemLink = T.GetInventoryItemLink((which == "Character" and "player") or _G["InspectFrame"].unit, Slot.ID)
+	Slot.itemLink = GetInventoryItemLink((which == "Character" and "player") or _G["InspectFrame"].unit, Slot.ID)
 	if slotInfo.itemLevelColors then
-		local window = T.lower(which) --to know which settings table to use
+		local window = strlower(which) --to know which settings table to use
 		if E.db.sle.armory[window] and E.db.sle.armory[window].enable then --If settings table actually exists and armory for it is enabled
 			if Slot.enchantText and not (slotInfo.enchantTextShort == nil or slotInfo.enchantText == nil) then Armory:ProcessEnchant(window, Slot, slotInfo.enchantTextShort, slotInfo.enchantText) end
 			if E.db.sle.armory[window].ilvl.colorType == "QUALITY" then
-				Slot.iLvlText:SetTextColor(T.unpack(slotInfo.itemLevelColors)) --Busyness as usual
+				Slot.iLvlText:SetTextColor(unpack(slotInfo.itemLevelColors)) --Busyness as usual
 			elseif E.db.sle.armory[window].ilvl.colorType == "GRADIENT" then
-				local equippedIlvl = window == "character" and T.select(2, T.GetAverageItemLevel()) or E:CalculateAverageItemLevel(iLevelDB, _G["InspectFrame"].unit)
+				local equippedIlvl = window == "character" and select(2, GetAverageItemLevel()) or E:CalculateAverageItemLevel(iLevelDB, _G["InspectFrame"].unit)
 				local diff
-				if slotInfo.iLvl and (equippedIlvl and T.type(equippedIlvl) ~= "boolean") then
+				if slotInfo.iLvl and (equippedIlvl and type(equippedIlvl) ~= "boolean") then
 					diff = slotInfo.iLvl - equippedIlvl
 				else
 					diff = 0
@@ -319,13 +316,13 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 				Slot.iLvlText:SetTextColor(1, 1, 1)
 			end
 		else
-			Slot.iLvlText:SetTextColor(T.unpack(slotInfo.itemLevelColors))
+			Slot.iLvlText:SetTextColor(unpack(slotInfo.itemLevelColors))
 		end
 		--This block is separate cause disabling armory will not hide dem gradients otherwise
 		if Slot.SLE_Gradient then --First call for this function for inspect is before gradient is created. To avoid errors
 			if E.db.sle.armory[window].enable and E.db.sle.armory[window].gradient.enable and slotInfo.iLvl then
 				Slot.SLE_Gradient:Show()
-				if E.db.sle.armory[window].gradient.quality then Slot.SLE_Gradient:SetVertexColor(T.unpack(slotInfo.itemLevelColors)) else Slot.SLE_Gradient:SetVertexColor(T.unpack(E.db.sle.armory[window].gradient.color)) end
+				if E.db.sle.armory[window].gradient.quality then Slot.SLE_Gradient:SetVertexColor(unpack(slotInfo.itemLevelColors)) else Slot.SLE_Gradient:SetVertexColor(unpack(E.db.sle.armory[window].gradient.color)) end
 			else
 				Slot.SLE_Gradient:Hide()
 			end
@@ -349,7 +346,7 @@ function Armory:UpdateGemInfo(Slot, which)
 		if Slot.itemLink then
 			if Slot.ID == 2 then
 				if not CA.HearthMilestonesCached then CA:FixFuckingBlizzardLogic() end
-				local window = T.lower(which)
+				local window = strlower(which)
 				if E.db.sle.armory[window] and E.db.sle.armory[window].enable then
 					if which == "Character" and Slot["textureSlotEssenceType"..i] then
 						Slot["textureSlotEssenceType"..i]:Hide()
@@ -358,14 +355,15 @@ function Armory:UpdateGemInfo(Slot, which)
 					end
 				end
 				if which == "Character" and Armory.Constants.EssenceMilestones[i] then
-					GemID = C_AzeriteEssence.GetMilestoneEssence(Armory.Constants.EssenceMilestones[i]) --Blizz messed up milestones IDs so using a god damned cache table
+					--  TODO: Check on this GemID as it was global and not local
+					local GemID = C_AzeriteEssence.GetMilestoneEssence(Armory.Constants.EssenceMilestones[i]) --Blizz messed up milestones IDs so using a god damned cache table
 					if GemID then
 						local rank = C_AzeriteEssence.GetEssenceInfo(GemID).rank
 						GemLink = C_AzeriteEssence.GetEssenceHyperlink(GemID, rank)
 					end
 				end
 			else
-				GemLink = T.select(2, GetItemGem(Slot.itemLink, i))
+				GemLink = select(2, GetItemGem(Slot.itemLink, i))
 			end
 		end
 		Slot["SLE_Gem"..i].Link = GemLink
@@ -377,8 +375,8 @@ function Armory:CreateSlotStrings(_, which)
 end
 
 function Armory:UpdateSharedStringsFonts(which)
-	local window = T.lower(which)
-	for i, SlotName in T.pairs(Armory.Constants.GearList) do
+	local window = strlower(which)
+	for i, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G[which..SlotName]
 		if not Slot then return end
 		if Slot.iLvlText then
@@ -403,9 +401,9 @@ end
 function Armory:ProcessEnchant(which, Slot, enchantTextShort, enchantText)
 	if not E.db.sle.armory.enchantString.enable then return end
 	if E.db.sle.armory.enchantString.replacement then
-		for enchString, enchData in T.pairs(SLE_ArmoryDB.EnchantString) do
+		for enchString, enchData in pairs(SLE_ArmoryDB.EnchantString) do
 			if enchData.original and enchData.new then
-				enchantText = T.gsub(enchantText, enchData.original, enchData.new)
+				enchantText = gsub(enchantText, enchData.original, enchData.new)
 			end
 		end
 	end
@@ -442,7 +440,7 @@ function Armory:Transmog_OnEnter()
 
 	_G["GameTooltip"]:SetOwner(self, "ANCHOR_RIGHT")
 	if self.isInspect then
-		local inspectLink = T.select(2, T.GetItemInfo(self.Link)) --In case the client actually decides to give us the info
+		local inspectLink = select(2, GetItemInfo(self.Link)) --In case the client actually decides to give us the info
 		if inspectLink then
 			_G["GameTooltip"]:SetHyperlink(inspectLink)
 		else
@@ -460,10 +458,10 @@ function Armory:Transmog_OnLeave()
 end
 
 function Armory:Transmog_OnClick(button)
-	local ItemName, ItemLink = T.GetItemInfo(self.Link)
+	local ItemName, ItemLink = GetItemInfo(self.Link)
 
 	if not IsShiftKeyDown() then
-		T.SetItemRef(ItemLink, ItemLink, 'LeftButton')
+		SetItemRef(ItemLink, ItemLink, 'LeftButton')
 	else
 		if HandleModifiedItemClick(ItemLink) then
 		elseif _G["BrowseName"] and _G["BrowseName"]:IsVisible() then
@@ -477,13 +475,13 @@ end
 function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant)
 	if not Slot["SLE_Warning"] then return end --Shit happens
 	Slot["SLE_Warning"].Reason = nil --Clear message, cause disabling armory doesn't affect those otherwise
-	local window = T.lower(which)
+	local window = strlower(which)
 	if not (E.db.sle.armory[window] and E.db.sle.armory[window].enable and E.db.sle.armory[window].showWarning) then Slot["SLE_Warning"]:Hide(); return end --if something is disdbled
-	local SlotName = T.gsub(Slot:GetName(), which, "")
+	local SlotName = gsub(Slot:GetName(), which, "")
 	if not SlotName then return end --No slot?
 	local noChant, noGem = false, false
 	if iLvl and Armory.Constants.EnchantableSlots[SlotName] and not enchant then --Item should be enchanted, but no string actually sent. This bastard is slacking
-		local classID, subclassID = T.select(12, GetItemInfo(Slot.itemLink))
+		local classID, subclassID = select(12, GetItemInfo(Slot.itemLink))
 		if (classID == 4 and subclassID == 6) or (classID == 4 and subclassID == 0 and Slot.ID == 17) then --Shields are special
 			noChant = false
 		else

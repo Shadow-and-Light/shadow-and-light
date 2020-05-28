@@ -1,11 +1,11 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local A = SLE:NewModule("Actionbars", 'AceHook-3.0', 'AceEvent-3.0')
 local AB = E:GetModule('ActionBars');
+
 --GLOBALS: hooksecurefunc, LibStub
 local _G = _G
-local NUM_PET_ACTION_SLOTS = NUM_PET_ACTION_SLOTS
+local format = format
 local NUM_ACTIONBAR_BUTTONS = NUM_ACTIONBAR_BUTTONS
-local C_Timer_After = C_Timer.After
 
 A.CheckedTextures = {}
 
@@ -16,18 +16,18 @@ function A:Initialize()
 	--Making OOR indication use keybind text
 	if E.private.sle.actionbars.oorBind then
 		hooksecurefunc(AB, "UpdateButtonConfig", function(self, bar, buttonName)
-			if T.InCombatLockdown() then return end
+			if InCombatLockdown() then return end
 
 			bar.buttonConfig.outOfRangeColoring = "hotkey"
-			for i, button in T.pairs(bar.buttons) do
-				bar.buttonConfig.keyBoundTarget = T.format(buttonName.."%d", i)
+			for i, button in pairs(bar.buttons) do
+				bar.buttonConfig.keyBoundTarget = format(buttonName.."%d", i)
 				button.keyBoundTarget = bar.buttonConfig.keyBoundTarget
 
 				button:UpdateConfig(bar.buttonConfig)
 			end
 		end)
 		--Calling for update since at this point all default updates are done
-		for barName, bar in T.pairs(AB["handledBars"]) do
+		for barName, bar in pairs(AB["handledBars"]) do
 			AB:UpdateButtonConfig(bar, bar.bindButtons)
 		end
 	end

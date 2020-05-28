@@ -1,9 +1,19 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local LT = SLE:NewModule('Loot','AceHook-3.0', 'AceEvent-3.0')
 local M = E:GetModule('Misc')
+
 --GLOBALS: hooksecurefunc, ChatFrame_AddMessageEventFilter, ChatFrame_RemoveMessageEventFilter, UIParent
 local _G = _G
+local IsAddOnLoaded = IsAddOnLoaded
 local ConfirmLootSlot = ConfirmLootSlot
+local UnitLevel = UnitLevel
+local QUEUED_STATUS_UNKNOWN = QUEUED_STATUS_UNKNOWN
+local LOOT_ROLL_TYPE_GREED = LOOT_ROLL_TYPE_GREED
+local IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown = IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown
+local SendChatMessage = SendChatMessage
+local RollOnLoot, ConfirmLootRoll, CloseLoot = RollOnLoot, ConfirmLootRoll, CloseLoot
+
+local check = false
 
 LT.PlayerLevel = 0
 LT.MaxPlayerLevel = 0
@@ -16,12 +26,6 @@ LT.LootEvents = { --Events to handle with rolls and stuff
 LT.Loot = {}
 LT.LootTemp = {}
 LT.Numbers = {}
-local check = false
-local QUEUED_STATUS_UNKNOWN = QUEUED_STATUS_UNKNOWN
-local LOOT_ROLL_TYPE_GREED = LOOT_ROLL_TYPE_GREED
-local IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown = IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown
-local SendChatMessage = SendChatMessage
-local RollOnLoot, ConfirmLootRoll, CloseLoot = RollOnLoot, ConfirmLootRoll, CloseLoot
 
 LT.IconChannels = {
 	"CHAT_MSG_BN_CONVERSATION","CHAT_MSG_BN_WHISPER","CHAT_MSG_BN_WHISPER_INFORM",
@@ -34,8 +38,8 @@ LT.IconChannels = {
 --Checking for master looter/raid leadr/assist role.
 --Since ML was removed, this is pretty much useless
 local function Check()
-	for x = 1, T.GetNumGroupMembers() do
-		local name, rank, _, _, _, _, _, _, _, _, isML = T.GetRaidRosterInfo(x)
+	for x = 1, GetNumGroupMembers() do
+		local name, rank, _, _, _, _, _, _, _, _, isML = GetRaidRosterInfo(x)
 		if name == E.myname then
 			if isML then
 				return true
@@ -80,8 +84,8 @@ local function Merge()
 		if i ~= checking then
 			LT.Numbers[i] = LT.Numbers[i] + LT.Numbers[checking] --Increase item count by whatever dupe's count was
 			--Remove found item from both item list and item count cache
-			T.tremove(LT.Numbers, checking)
-			T.tremove(LT.Loot, checking)
+			tremove(LT.Numbers, checking)
+			tremove(LT.Loot, checking)
 			--Now we have one less line to announce
 			LT.LootItems = LT.LootItems - 1
 		end
@@ -90,14 +94,14 @@ end
 
 --Putting stuff in current loot table
 function LT:PopulateTable(qualityPassed)
-	for i = 1, T.GetNumLootItems() do
-		if T.GetLootSlotType(i) == 1 then --If this loot is actually an item
-			local _, item, quantity, _, quality = T.GetLootSlotInfo(i)
+	for i = 1, GetNumLootItems() do
+		if GetLootSlotType(i) == 1 then --If this loot is actually an item
+			local _, item, quantity, _, quality = GetLootSlotInfo(i)
 			local link, ilvl
 
 			if quality >= qualityPassed then --If this is not a filthy grey (or whatever filtered quality is)
-				link = T.GetLootSlotLink(i)
-				ilvl = T.select(4, T.GetItemInfo(link)) or QUEUED_STATUS_UNKNOWN
+				link = GetLootSlotLink(i)
+				ilvl = select(4, GetItemInfo(link)) or QUEUED_STATUS_UNKNOWN
 
 				--Increasing how many items there were in da loot
 				LT.LootItems = LT.LootItems + 1
@@ -114,10 +118,10 @@ end
 
 --Figuring out what channel to announce to
 local function Channel()
-	if LT.db.announcer.channel ~= "SAY" and T.IsPartyLFG() then
+	if LT.db.announcer.channel ~= "SAY" and IsPartyLFG() then
 		return "INSTANCE_CHAT"
 	end
-	if LT.db.announcer.channel == "RAID" and not T.IsInRaid() then
+	if LT.db.announcer.channel == "RAID" and not IsInRaid() then
 		return "PARTY"
 	end
 	return LT.db.announcer.channel
@@ -133,8 +137,8 @@ function LT:AnnounceList()
 		end
 
 		if i == LT.LootItems then --Table finished = announce complete => nuke it
-			T.twipe(LT.Loot)
-			T.twipe(LT.Numbers)
+			wipe(LT.Loot)
+			wipe(LT.Numbers)
 			LT.LootItems = 0
 		end
 	end
@@ -143,18 +147,18 @@ end
 local t = 0
 --Time to figure out what to announce
 function LT:Announce(event)
-	if not T.IsInGroup() then return end -- not in group, exit.
+	if not IsInGroup() then return end -- not in group, exit.
 
-	local NumLootItems = T.GetNumLootItems()
+	local NumLootItems = GetNumLootItems()
 	--Setting quality filter threshold
 	local quality = LT.db.announcer.quality == "EPIC" and 4 or LT.db.announcer.quality == "RARE" and 3 or LT.db.announcer.quality == "UNCOMMON" and 2
 	--If auto annouce and you are eligible or in group and modifier selected is pressed, do stuff
-	if (Check() and LT.db.announcer.auto) or (LT:ModifierCheck() and (T.IsInGroup() or T.IsInRaid())) then
+	if (Check() and LT.db.announcer.auto) or (LT:ModifierCheck() and (IsInGroup() or IsInRaid())) then
 		--Seeing if this loot is currently being processed/announced
 		for i = 1,NumLootItems do
-			if T.GetLootSlotType(i) == 1 then
+			if GetLootSlotType(i) == 1 then
 				for j = 1, t do --For 1 to num of looted items
-					if T.GetLootSlotLink(i) == LT.LootTemp[j] then
+					if GetLootSlotLink(i) == LT.LootTemp[j] then
 						check = true --we've seen this, quit
 					end
 				end
@@ -172,8 +176,8 @@ function LT:Announce(event)
 
 		--Put all this stuff to temp table for check one of this function
 		for i = 1, NumLootItems do
-			if T.GetLootSlotType(i) == 1 then
-				LT.LootTemp[i] = T.GetLootSlotLink(i)
+			if GetLootSlotType(i) == 1 then
+				LT.LootTemp[i] = GetLootSlotLink(i)
 			end
 		end
 		--Setting t for later checks and reseting announce state
@@ -188,9 +192,9 @@ function LT:HandleRoll(event, id)
 	if not LT.db.autoroll.enable then return end --Auto rolling disabled? GTFO
 	if not (LT.db.autoroll.autogreed or LT.db.autoroll.autode) then return end --If not auto greed on stuff or auto DE shit, gtfo
 
-	local _, name, _, quality, _, _, _, disenchant = T.GetLootRollItemInfo(id)
-	local link = T.GetLootRollItemLink(id)
-	local itemID = T.tonumber(T.match(link, 'item:(%d+)'))
+	local _, name, _, quality, _, _, _, disenchant = GetLootRollItemInfo(id)
+	local link = GetLootRollItemLink(id)
+	local itemID = tonumber(match(link, 'item:(%d+)'))
 
 	--if this is one of bullshit craft items from old dungeons (e.g. frost orb), you are rtolling greed regardless
 	if itemID == 43102 or itemID == 52078 then
@@ -198,15 +202,15 @@ function LT:HandleRoll(event, id)
 	end
 
 	--If XP gain is disabled, we count current level as max level
-	if T.IsXPUserDisabled() then LT.MaxPlayerLevel = LT.PlayerLevel end
+	if IsXPUserDisabled() then LT.MaxPlayerLevel = LT.PlayerLevel end
 	--Don't roll if yout level is not high enough
 	if (LT.db.autoroll.bylevel and LT.PlayerLevel < LT.db.autoroll.level) and LT.PlayerLevel ~= LT.MaxPlayerLevel then return end
 
 	if LT.db.autoroll.bylevel then --If you are over selected level (Motly on leveling process, where you may need greens)
-		if T.IsEquippableItem(link) then --If equippable, then figure out if this is an upgrade for you
-			local _, _, _, ilvl, _, _, _, _, slot = T.GetItemInfo(link)
-			local itemLink = T.GetInventoryItemLink('player', slot)
-			local matchItemLevel = itemLink and T.select(4, T.GetItemInfo(itemLink)) or 1
+		if IsEquippableItem(link) then --If equippable, then figure out if this is an upgrade for you
+			local _, _, _, ilvl, _, _, _, _, slot = GetItemInfo(link)
+			local itemLink = GetInventoryItemLink('player', slot)
+			local matchItemLevel = itemLink and select(4, GetItemInfo(itemLink)) or 1
 			if quality ~= 7 and matchItemLevel < ilvl then return end --If legendary or have higher ilvl than item you have in the same slot, don't roll
 		end
 	end
@@ -234,7 +238,7 @@ function LT:HandleEvent(event, ...)
 		local arg1, arg2 = ...
 		ConfirmLootRoll(arg1, arg2)
 	elseif event == "LOOT_OPENED" or event == "LOOT_BIND_CONFIRM" then
-		local count = T.GetNumLootItems()
+		local count = GetNumLootItems()
 		if count == 0 then CloseLoot() return end
 		for numslot = 1, count do
 			ConfirmLootSlot(numslot)
@@ -255,7 +259,7 @@ function LT:Toggle()
 	if LT.db.enable then
 		self:RegisterEvent("LOOT_OPENED", "HandleEvent")
 		self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
-		if not T.IsAddOnLoaded("ElvUI_OptionsUI") then --How can this be not loaded at this point? On /rl or login into the game ofc
+		if not IsAddOnLoaded("ElvUI_OptionsUI") then --How can this be not loaded at this point? On /rl or login into the game ofc
 			self:RegisterEvent("ADDON_LOADED", LoadConfig)
 		end
 	else
@@ -285,7 +289,7 @@ end
 
 --Hide loot history frame on exiting dungeon
 function LT:LootShow()
-	local instance = T.IsInInstance()
+	local instance = IsInInstance()
 
 	if (not instance and LT.db.history.autohide) then
 		_G["LootHistoryFrame"]:Hide()
@@ -296,7 +300,7 @@ end
 --Module update
 function LT:Update()
 	--Setting Elv's option to button that leads to my shit if the module is enabled
-	if T.IsAddOnLoaded("ElvUI_OptionsUI") then
+	if IsAddOnLoaded("ElvUI_OptionsUI") then
 		if LT.db.autoroll.enable then
 			E.Options.args.general.args.general.args.autoRoll = {
 				order = 6,
@@ -331,10 +335,10 @@ function LT:AddLootIcons(event, message, ...)
 	--if icons are enabled in this channel, doing icon stuff
 	if LT.db.looticons.channels[event] then
 		local function IconForLink(link) --function to get the iconized message
-			local texture = T.GetItemIcon(link)
+			local texture = GetItemIcon(link)
 			return (LT.db.looticons.position == "LEFT") and "\124T" .. texture .. ":" .. LT.db.looticons.size .. ":"..LT.db.looticons.size..":0:0:64:64:4:60:4:60\124t" .. link or link .. "\124T" .. texture .. ":" .. LT.db.looticons.size .. ":"..LT.db.looticons.size..":0:0:64:64:4:60:4:60\124t"
 		end
-		message = T.gsub(message, "(\124c%x+\124Hitem:.-\124h\124r)", IconForLink)
+		message = gsub(message, "(\124c%x+\124Hitem:.-\124h\124r)", IconForLink)
 	end
 	return false, message, ...
 end
@@ -364,8 +368,8 @@ function LT:Initialize()
 		LT:LootIconToggle()
 	end
 
-	LT.MaxPlayerLevel = T.GetMaxPlayerLevel()
-	LT.PlayerLevel = T.UnitLevel('player')
+	LT.MaxPlayerLevel = GetMaxPlayerLevel()
+	LT.PlayerLevel = UnitLevel('player')
 
 	--Azil made this, blame him if something fucked up
 	if E.db.general and LT.db.autoroll.enable then

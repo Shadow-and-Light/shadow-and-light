@@ -1,11 +1,13 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local CH, LO = SLE:GetElvModules("Chat", "Layout")
 local C = SLE:NewModule("Chat",  'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+
 --GLOBALS:  UIParent, LeftChatPanel, LeftChatDataPanel, LeftChatToggleButton, LeftChatTab, RightChatPanel,
 --GLOBALS:  RightChatDataPanel, RightChatToggleButton, RightChatTab, hooksecurefunc
 
 local _G = _G
-local _
+local format = format
+
 local sub = string.sub
 local leader = [[|TInterface\GroupFrame\UI-Group-LeaderIcon:12:12|t]]
 local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
@@ -15,7 +17,7 @@ local specialChatIcons
 C.GuildMaster = ""
 C.GMName = ""
 C.GMRealm = ""
-C.PlayerRealm = T.gsub(E.myrealm,'[%s%-]','')
+C.PlayerRealm = gsub(E.myrealm,'[%s%-]','')
 C.PlayerName = E.myname.."-"..C.PlayerRealm
 C.CreatedFrames = 0;
 
@@ -40,17 +42,17 @@ local function GetChatIcon(sender)
 	end
 	local senderName, senderRealm, icon
 	if sender then
-		senderName, senderRealm = T.split('-', sender)
+		senderName, senderRealm = strsplit('-', sender)
 	else
 		senderName = E.myname
 	end
 	senderRealm = senderRealm or C.PlayerRealm
-	senderRealm = T.gsub(senderRealm, ' ', '')
+	senderRealm = gsub(senderRealm, ' ', '')
 
 	if specialChatIcons and specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
 		icon = specialChatIcons[senderRealm][senderName]
 	end
-	if T.IsInGuild() and E.db.sle.chat.guildmaster then
+	if IsInGuild() and E.db.sle.chat.guildmaster then
 		if senderName == C.GMName and senderRealm == C.GMRealm then icon = icon and (leader..icon) or leader end
 	end
 
@@ -59,16 +61,16 @@ end
 
 function C:GMCheck()
 	local name, rank
-	if T.GetNumGuildMembers() == 0 and T.IsInGuild() then E:Delay(2, C.GMCheck); return end
-	if not T.IsInGuild() then C.GuildMaster = ""; C.GMName = ''; C.GMRealm = ''; return end
-	for i = 1, T.GetNumGuildMembers() do
-		name, _, rank = T.GetGuildRosterInfo(i)
+	if GetNumGuildMembers() == 0 and IsInGuild() then E:Delay(2, C.GMCheck); return end
+	if not IsInGuild() then C.GuildMaster = ""; C.GMName = ''; C.GMRealm = ''; return end
+	for i = 1, GetNumGuildMembers() do
+		name, _, rank = GetGuildRosterInfo(i)
 		if rank == 0 then break end
 	end
 	C.GuildMaster = name
-	if C.GuildMaster then C.GMName, C.GMRealm = T.split('-', C.GuildMaster) end
+	if C.GuildMaster then C.GMName, C.GMRealm = strsplit('-', C.GuildMaster) end
 	C.GMRealm = C.GMRealm or C.PlayerRealm
-	C.GMRealm = T.gsub(C.GMRealm, ' ', '')
+	C.GMRealm = gsub(C.GMRealm, ' ', '')
 end
 
 local function Roster(event, update)
@@ -130,7 +132,7 @@ function C:IdentifyChatFrames()
 	for i = 1, 18 do
 		local frame = _G["ChatFrame"..i]
 		if frame then
-			frame:AddMessage(T.format(L["This is %sFrame %s|r"], E["media"].hexvaluecolor, i), 1.0, 1.0, 0)
+			frame:AddMessage(format(L["This is %sFrame %s|r"], E["media"].hexvaluecolor, i), 1.0, 1.0, 0)
 		end
 	end
 end

@@ -7,7 +7,7 @@ local _G = _G
 
 --Updating slot for deconstruct glow hide when item disappears
 function SB:UpdateSlot(bagID, slotID)
-	if (self.Bags[bagID] and self.Bags[bagID].numSlots ~= T.GetContainerNumSlots(bagID)) or not self.Bags[bagID] or not self.Bags[bagID][slotID] then
+	if (self.Bags[bagID] and self.Bags[bagID].numSlots ~= GetContainerNumSlots(bagID)) or not self.Bags[bagID] or not self.Bags[bagID][slotID] then
 		return;
 	end
 
@@ -23,8 +23,7 @@ function SB:UpdateSlot(bagID, slotID)
 end
 
 function SB:HookBags(isBank)
-	local slot
-	for _, bagFrame in T.pairs(B.BagFrames) do
+	for _, bagFrame in pairs(B.BagFrames) do
 		--Hooking slots for deconstruct. Bank is not allowed
 		if not bagFrame.SLE_DeconstructHooked and not isBank then
 			hooksecurefunc(bagFrame, "UpdateSlot", SB.UpdateSlot)

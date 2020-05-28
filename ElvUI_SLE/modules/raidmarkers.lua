@@ -1,7 +1,9 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local RM = SLE:NewModule('RaidMarkers', 'AceHook-3.0');
+
 --GLOBALS: CreateFrame
 local _G = _G
+local format = format
 local GameTooltip = GameTooltip
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
@@ -47,17 +49,17 @@ end
 function RM:CreateButton(index)
 	local info = layouts[index]
 	local target, worldmarker = info.RT, info.WM
-	local button = CreateFrame("Button", T.format("SLE_RaidMarkerBarButton%d", index), RM.frame, "SecureActionButtonTemplate")
+	local button = CreateFrame("Button", format("SLE_RaidMarkerBarButton%d", index), RM.frame, "SecureActionButtonTemplate")
 	button:Size(E.db.sle.raidmarkers.buttonSize)
 	button:SetTemplate('Transparent')
 
 	button.icon = button:CreateTexture(nil, "ARTWORK")
 	button.icon:SetAllPoints()
-	button.icon:SetTexture(index == 9 and "Interface\\BUTTONS\\UI-GroupLoot-Pass-Up" or T.format("Interface\\TargetingFrame\\UI-RaidTargetingIcon_%d", index))
+	button.icon:SetTexture(index == 9 and "Interface\\BUTTONS\\UI-GroupLoot-Pass-Up" or format("Interface\\TargetingFrame\\UI-RaidTargetingIcon_%d", index))
 
 	if target then
 		button:SetAttribute("type1", "macro")
-		button:SetAttribute("macrotext1", T.format("/tm %d", index == 9 and 0 or index))
+		button:SetAttribute("macrotext1", format("/tm %d", index == 9 and 0 or index))
 	end
 
 	button:RegisterForClicks("AnyDown")
@@ -82,9 +84,9 @@ function RM:UpdateWorldMarkersAndTooltips()
 			end)
 		else
 			local modifier = E.db.sle.raidmarkers.modifier or "shift-"
-			button:SetAttribute(T.format("%stype1", modifier), "macro")
+			button:SetAttribute(format("%stype1", modifier), "macro")
 			button.modifier = modifier
-			button:SetAttribute(T.format("%smacrotext1", modifier), worldmarker == 0 and "/cwm 0" or T.format("/cwm %d\n/wm %d", worldmarker, worldmarker))
+			button:SetAttribute(format("%smacrotext1", modifier), worldmarker == 0 and "/cwm 0" or format("/cwm %d\n/wm %d", worldmarker, worldmarker))
 
 			button:SetScript("OnEnter", function(self)
 				self:SetBackdropBorderColor(.7, .7, 0)
@@ -92,8 +94,8 @@ function RM:UpdateWorldMarkersAndTooltips()
 				if E.db.sle.raidmarkers.notooltip then return end
 				GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
 				GameTooltip:SetText(L["Raid Markers"])
-				GameTooltip:AddLine(index == 9 and T.format("%s\n%s", L["Click to clear the mark."], T.format(L["%sClick to remove all worldmarkers."], button.modifier:upper()))
-					or T.format("%s\n%s", L["Click to mark the target."], T.format(L["%sClick to place a worldmarker."], button.modifier:upper())), 1, 1, 1)
+				GameTooltip:AddLine(index == 9 and format("%s\n%s", L["Click to clear the mark."], format(L["%sClick to remove all worldmarkers."], button.modifier:upper()))
+					or format("%s\n%s", L["Click to mark the target."], format(L["%sClick to place a worldmarker."], button.modifier:upper())), 1, 1, 1)
 				GameTooltip:Show()
 			end)
 		end

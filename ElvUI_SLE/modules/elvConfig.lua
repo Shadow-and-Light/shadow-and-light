@@ -42,12 +42,12 @@ function EC:UpdateUitframes()
 	-- E.Options.args.unitframe.args.groupUnits.args.tank.args.generalGroup.args.verticalSpacing.min = -4
 	-- E.Options.args.unitframe.args.groupUnits.args.assist.args.generalGroup.args.verticalSpacing.min = -4
 	--Camera for frames with portraits
-	for unit, settings in T.pairs(E.Options.args.unitframe.args.individualUnits.args) do
+	for unit, settings in pairs(E.Options.args.unitframe.args.individualUnits.args) do
 		if E.Options.args.unitframe.args.individualUnits.args[unit].args and E.Options.args.unitframe.args.individualUnits.args[unit].args.portrait then
 			E.Options.args.unitframe.args.individualUnits.args[unit].args.portrait.args.camDistanceScale.max = 7
 		end
 	end
-	for unit, settings in T.pairs(E.Options.args.unitframe.args.groupUnits.args) do
+	for unit, settings in pairs(E.Options.args.unitframe.args.groupUnits.args) do
 		if E.Options.args.unitframe.args.groupUnits.args[unit].args and E.Options.args.unitframe.args.groupUnits.args[unit].args.portrait then
 			E.Options.args.unitframe.args.groupUnits.args[unit].args.portrait.args.camDistanceScale.max = 7
 		end

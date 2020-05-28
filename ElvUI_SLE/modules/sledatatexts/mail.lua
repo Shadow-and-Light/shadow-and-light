@@ -53,7 +53,7 @@ local function OnEvent(self, event, ...)
 
 	if event == "MAIL_INBOX_UPDATE" or event == "MAIL_SHOW" or event == "MAIL_CLOSED" then
 		for i = 1, GetInboxNumItems() do
-			local _, _, _, _, _, _, _, _, wasRead = T.GetInboxHeaderInfo(i);
+			local _, _, _, _, _, _, _, _, wasRead = GetInboxHeaderInfo(i);
 			if( not wasRead ) then
 				newMail = true;
 				break;

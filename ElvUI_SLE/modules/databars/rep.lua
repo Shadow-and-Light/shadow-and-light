@@ -1,8 +1,10 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DB = SLE:GetModule("DataBars")
 local EDB = E:GetModule('DataBars')
+
 --GLOBALS: hooksecurefunc
 local _G = _G
+local format = format
 local strMatchCombat = {}
 local guildName
 local abs = math.abs
@@ -44,11 +46,11 @@ DB.RepDecreaseStyles = {
 local a, b, c, d = "([%(%)%.%%%+%-%*%?%[%^%$])", "%%%1", "%%%%[ds]", "(.-)"
 local formatFactionStanding = function(str) return str:gsub(a, b):gsub(c, d) end
 
-T.tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED)))
-T.tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_GENERIC)))
-T.tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_BONUS)))
-T.tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_DOUBLE_BONUS)))
-T.tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_ACH_BONUS)))
+tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED)))
+tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_GENERIC)))
+tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_BONUS)))
+tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_DOUBLE_BONUS)))
+tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_ACH_BONUS)))
 
 local backupColor = FACTION_BAR_COLORS[1]
 local FactionStandingLabelUnknown = UNKNOWN
@@ -57,8 +59,8 @@ local function UpdateReputation(self, event)
 	local bar = self.repBar
 	local ID
 	local isFriend, friendText, standingLabel
-	local name, reaction, min, max, value = T.GetWatchedFactionInfo()
-	local numFactions = T.GetNumFactions();
+	local name, reaction, min, max, value = GetWatchedFactionInfo()
+	local numFactions = GetNumFactions();
 
 	if name then
 		local text = ''
@@ -72,8 +74,8 @@ local function UpdateReputation(self, event)
 		bar.statusBar:SetValue(value)
 
 		for i=1, numFactions do
-			local factionName, _, standingID,_,_,_,_,_,_,_,_,_,_, factionID = T.GetFactionInfo(i);
-			local friendID, friendRep, friendMaxRep, _, _, _, friendTextLevel = T.GetFriendshipReputation(factionID);
+			local factionName, _, standingID,_,_,_,_,_,_,_,_,_,_, factionID = GetFactionInfo(i);
+			local friendID, friendRep, friendMaxRep, _, _, _, friendTextLevel = GetFriendshipReputation(factionID);
 			if factionName == name then
 				if friendID ~= nil then
 					isFriend = true
@@ -113,30 +115,30 @@ end
 function DB:PopulateRepPatterns()
 	local symbols = {'%.$','%(','%)','|3%-7%%%(%%s%%%)','%%s([^%%])','%+','%%d','%%.1f','%%.','%%(','%%)','(.-)','(.-)%1','%%+','(%%d-)','(%%d-)'}
 	local pattern
-	pattern = T.rgsub(FACTION_STANDING_INCREASED, T.unpack(symbols));
-	T.tinsert(DB.RepIncreaseStrings, pattern)
+	pattern = T.rgsub(FACTION_STANDING_INCREASED, unpack(symbols));
+	tinsert(DB.RepIncreaseStrings, pattern)
 
-	pattern = T.rgsub(FACTION_STANDING_INCREASED_ACH_BONUS, T.unpack(symbols));
-	T.tinsert(DB.RepIncreaseStrings, pattern)
+	pattern = T.rgsub(FACTION_STANDING_INCREASED_ACH_BONUS, unpack(symbols));
+	tinsert(DB.RepIncreaseStrings, pattern)
 
-	pattern = T.rgsub(FACTION_STANDING_DECREASED, T.unpack(symbols))
-	T.tinsert(DB.RepDecreaseStrings, pattern)
+	pattern = T.rgsub(FACTION_STANDING_DECREASED, unpack(symbols))
+	tinsert(DB.RepDecreaseStrings, pattern)
 
-	pattern = T.rgsub(FACTION_STANDING_DECREASED_GENERIC, T.unpack(symbols))
-	T.tinsert(DB.RepDecreaseStrings, pattern)
+	pattern = T.rgsub(FACTION_STANDING_DECREASED_GENERIC, unpack(symbols))
+	tinsert(DB.RepDecreaseStrings, pattern)
 end
 
 function DB:FilterReputation(event, message, ...)
 	local faction, rep, bonus
 	if DB.db.rep and DB.db.rep.chatfilter.enable then
-		for i, v in T.ipairs(DB.RepIncreaseStrings) do
-			faction, rep, bonus = T.match(message, DB.RepIncreaseStrings[i])
+		for i, v in ipairs(DB.RepIncreaseStrings) do
+			faction, rep, bonus = strmatch(message, DB.RepIncreaseStrings[i])
 			if faction then
 				return true
 			end
 		end
-		for i, v in T.ipairs(DB.RepDecreaseStrings) do
-			faction, rep = T.match(message, DB.RepDecreaseStrings[i])
+		for i, v in ipairs(DB.RepDecreaseStrings) do
+			faction, rep = strmatch(message, DB.RepDecreaseStrings[i])
 			if faction then
 				return true
 			end
@@ -147,9 +149,9 @@ function DB:FilterReputation(event, message, ...)
 end
 
 function DB:ScanFactions()
-	self.factions = T.GetNumFactions();
+	self.factions = GetNumFactions();
 	for i = 1, self.factions do
-		local name, _, standingID, _, _, barValue, _, _, isHeader, _, hasRep, _, _, factionID = T.GetFactionInfo(i)
+		local name, _, standingID, _, _, barValue, _, _, isHeader, _, hasRep, _, _, factionID = GetFactionInfo(i)
 		if (not isHeader or hasRep) and name then
 			self.factionVars[name] = self.factionVars[name] or {}
 			self.factionVars[name].Standing = standingID
@@ -168,24 +170,24 @@ DB.RepChatFrames = {}
 function DB:NewRepString(event, ...)
 	if not DB.db.rep or not DB.db.rep.chatfilter.enable then return end
 	local stop = false
-	local tempfactions = T.GetNumFactions()
+	local tempfactions = GetNumFactions()
 	if (tempfactions > self.factions) then
 		self:ScanFactions()
 		self.factions = tempfactions
 	end
 	if DB.db.rep.chatfilter.chatframe == "AUTO" then
-		T.twipe(DB.RepChatFrames)
+		wipe(DB.RepChatFrames)
 		for i = 1, NUM_CHAT_WINDOWS do
 			if SLE:SimpleTable(_G["ChatFrame"..i]["messageTypeList"], "COMBAT_FACTION_CHANGE") then
-				T.tinsert(DB.RepChatFrames, "ChatFrame"..i)
+				tinsert(DB.RepChatFrames, "ChatFrame"..i)
 			end
 		end
 	end
-	for factionIndex = 1, T.GetNumFactions() do
+	for factionIndex = 1, GetNumFactions() do
 		local StyleTable = nil
-		local name, _, standingID, barMin, barMax, barValue, _, _, isHeader, _, hasRep, _, _, factionID = T.GetFactionInfo(factionIndex)
-		local friendID, _, _, _, _, _, friendTextLevel = T.GetFriendshipReputation(factionID);
-		local currentRank, maxRank = T.GetFriendshipReputationRanks(factionID);
+		local name, _, standingID, barMin, barMax, barValue, _, _, isHeader, _, hasRep, _, _, factionID = GetFactionInfo(factionIndex)
+		local friendID, _, _, _, _, _, friendTextLevel = GetFriendshipReputation(factionID);
+		local currentRank, maxRank = GetFriendshipReputationRanks(factionID);
 
 		if (not isHeader or hasRep) and self.factionVars[name] then
 			if self.factionVars[name].isParagon then
@@ -200,20 +202,27 @@ function DB:NewRepString(event, ...)
 				StyleTable = "RepDecreaseStyles"
 			end
 			if StyleTable then
+				--  TODO:  local change doesnt do anything revisit this
 				local change = abs(barValue - self.factionVars[name].Value)
 
 				if DB.db.rep.chatfilter.chatframe == "AUTO" then
 					for n = 1, #(DB.RepChatFrames) do
 						local chatframe = _G[DB.RepChatFrames[n]]
-						chatframe:AddMessage(T.format(DB[StyleTable][DB.db.rep.chatfilter.style] , DB.db.rep.chatfilter.iconsize, name, diff))
+						chatframe:AddMessage(format(DB[StyleTable][DB.db.rep.chatfilter.style] , DB.db.rep.chatfilter.iconsize, name, diff))
 
-						if not E.db.sle.databars.rep.chatfilter.showAll then stop = true; break end
+						if not E.db.sle.databars.rep.chatfilter.showAll then
+							stop = true
+							break
+						end
 					end
 				else
 					local chatframe = _G[DB.db.rep.chatfilter.chatframe]
-					chatframe:AddMessage(T.format(DB[StyleTable][DB.db.rep.chatfilter.style] , DB.db.rep.chatfilter.iconsize, name, diff))
+					chatframe:AddMessage(format(DB[StyleTable][DB.db.rep.chatfilter.style] , DB.db.rep.chatfilter.iconsize, name, diff))
 
-					if not E.db.sle.databars.rep.chatfilter.showAll then stop = true; break end
+					if not E.db.sle.databars.rep.chatfilter.showAll then
+						stop = true
+						break
+					end
 				end
 				self.factionVars[name].Value = barValue
 

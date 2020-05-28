@@ -8,7 +8,7 @@ local GetManaRegen = GetManaRegen
 
 local function OnEvent(self, event, unit)
 	local baseMR, castingMR = GetManaRegen()
-	if T.InCombatLockdown() then
+	if InCombatLockdown() then
 		self.text:SetFormattedText(E.db.sle.dt.regen.short and displayNumberStringShort or displayNumberString, E.db.sle.dt.regen.short and "Mp5" or MANA_REGEN, E.db.sle.dt.regen.short and E:ShortValue(castingMR*5) or castingMR*5)
 	else
 		self.text:SetFormattedText(E.db.sle.dt.regen.short and displayNumberStringShort or displayNumberString, E.db.sle.dt.regen.short and "Mp5" or MANA_REGEN,  E.db.sle.dt.regen.short and E:ShortValue(baseMR*5) or baseMR*5)
@@ -18,8 +18,8 @@ local function OnEvent(self, event, unit)
 end
 
 local function ValueColorUpdate(hex, r, g, b)
-	displayNumberString = T.join("", "%s: ", hex, "%.2f|r")
-	displayNumberStringShort = T.join("", "%s: ", hex, "%s|r")
+	displayNumberString = strjoin("", "%s: ", hex, "%.2f|r")
+	displayNumberStringShort = strjoin("", "%s: ", hex, "%s|r")
 
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)

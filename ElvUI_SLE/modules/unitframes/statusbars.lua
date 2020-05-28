@@ -11,19 +11,19 @@ SUF.powerbars = {}
 
 --PowerBar Texture
 function SUF:BuildStatusTable()
-	T.twipe(SUF.powerbars)
+	wipe(SUF.powerbars)
 
-	for _, unitName in T.pairs(UF.units) do
+	for _, unitName in pairs(UF.units) do
 		local frameNameUnit = E:StringTitle(unitName)
-		frameNameUnit = T.gsub(frameNameUnit, "t(arget)", "T%1")
+		frameNameUnit = gsub(frameNameUnit, "t(arget)", "T%1")
 
 		local unitframe = _G["ElvUF_"..frameNameUnit]
 		if unitframe and unitframe.Power then SUF.powerbars[unitframe.Power] = true end
 	end
 
-	for unit, unitgroup in T.pairs(UF.groupunits) do
+	for unit, unitgroup in pairs(UF.groupunits) do
 		local frameNameUnit = E:StringTitle(unit)
-		frameNameUnit = T.gsub(frameNameUnit, "t(arget)", "T%1")
+		frameNameUnit = gsub(frameNameUnit, "t(arget)", "T%1")
 
 		local unitframe = _G["ElvUF_"..frameNameUnit]
 		if unitframe and unitframe.Power then SUF.powerbars[unitframe.Power] = true end
@@ -38,7 +38,7 @@ end
 
 function SUF:CastBarHook()
 	local units = {"Player", "Target", "Focus"}
-	for _, unit in T.pairs(units) do
+	for _, unit in pairs(units) do
 		local unitframe = _G["ElvUF_"..unit];
 		local castbar = unitframe and unitframe.Castbar
 		if castbar then
@@ -95,7 +95,7 @@ function SUF:UpdateStatusBars()
 	if E.private.sle.unitframe.statusbarTextures.power then
 		local powerTexture = E.LSM:Fetch("statusbar", E.db.sle.unitframes.statusTextures.powerTexture)
 
-		for powerbar in T.pairs(SUF.powerbars) do
+		for powerbar in pairs(SUF.powerbars) do
 			if powerbar and powerbar:GetObjectType() == "StatusBar" and not powerbar.isTransparent then
 				powerbar:SetStatusBarTexture(powerTexture)
 			elseif powerbar and powerbar:GetObjectType() == "Texture" then

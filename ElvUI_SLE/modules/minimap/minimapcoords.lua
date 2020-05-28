@@ -1,8 +1,10 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local M = E:GetModule('Minimap')
 local MM = SLE:NewModule("Minimap", 'AceHook-3.0', 'AceEvent-3.0')
+
 --GLOBALS: CreateFrame, hooksecurefunc
 local _G = _G
+local format = format
 local cluster = _G["MinimapCluster"]
 local UIFrameFadeIn = UIFrameFadeIn
 
@@ -13,7 +15,7 @@ local function HideMinimap()
 end
 
 local function ShowMinimap()
-	if not T.InCombatLockdown() then
+	if not InCombatLockdown() then
 		UIFrameFadeIn(cluster, 0.2, cluster:GetAlpha(), 1)
 	end
 end
@@ -23,8 +25,8 @@ function MM:UpdateCoords(elapsed)
 	if MM.coordspanel.elapsed < E.db.sle.minimap.coords.throttle then return end
 	if E.MapInfo then
 		local x, y = E.MapInfo.x, E.MapInfo.y
-		if x then x = T.format(E.db.sle.minimap.coords.format, x * 100) else x = "0" end
-		if y then y = T.format(E.db.sle.minimap.coords.format, y * 100) else y = "0" end
+		if x then x = format(E.db.sle.minimap.coords.format, x * 100) else x = "0" end
+		if y then y = format(E.db.sle.minimap.coords.format, y * 100) else y = "0" end
 		if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
 		if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
 		MM.coordspanel.Text:SetText(x.." , "..y)

@@ -1,23 +1,23 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local M = SLE:GetModule("Misc")
-local SETTINGS = SETTINGS
-local LFG_LIST_LEGACY = LFG_LIST_LEGACY
+
+local format = format
+
 local function configTable()
 	if not SLE.initialized then return end
-	E.Options.name = E.Options.name.." + |cff9482c9Shadow & Light|r"..T.format(": |cff99ff33%s|r",SLE.version)
+	E.Options.name = E.Options.name.." + |cff9482c9Shadow & Light|r"..format(": |cff99ff33%s|r",SLE.version)
 
 	local function CreateButton(number, text, ...)
 		local path = {}
-		local num = T.select("#", ...)
+		local num = select("#", ...)
 		for i = 1, num do
-			local name = T.select(i, ...)
-			T.tinsert(path, #(path)+1, name)
+			local name = select(i, ...)
+			tinsert(path, #(path)+1, name)
 		end
 		local config = {
 			order = number,
 			type = 'execute',
 			name = text,
-			func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "sle", T.unpack(path)) end,
+			func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "sle", unpack(path)) end,
 		}
 		return config
 	end
@@ -33,7 +33,7 @@ local function configTable()
 			header = {
 				order = 1,
 				type = "header",
-				name = "|cff9482c9Shadow & Light|r"..T.format(": |cff99ff33%s|r", SLE.version),
+				name = "|cff9482c9Shadow & Light|r"..format(": |cff99ff33%s|r", SLE.version),
 			},
 			logo = {
 				type = 'description',
@@ -80,4 +80,4 @@ local function configTable()
 	}
 end
 
-T.tinsert(SLE.Configs, configTable)
+tinsert(SLE.Configs, configTable)

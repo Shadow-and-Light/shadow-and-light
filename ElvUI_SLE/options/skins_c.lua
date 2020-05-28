@@ -1,6 +1,8 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Sk = SLE:GetModule("Skins")
 
+local IsAddOnLoaded = IsAddOnLoaded
+
 local function configTable()
 	if not SLE.initialized then return end
 	E.Options.args.sle.args.skins = {
@@ -293,7 +295,7 @@ local function configTable()
 		},
 	}
 
-	if T.IsAddOnLoaded("QuestGuru") then
+	if IsAddOnLoaded("QuestGuru") then
 		E.Options.args.sle.args.skins.args.QuestGuru = {
 			order = 12,
 			type = "group",
@@ -316,4 +318,4 @@ local function configTable()
 	end
 end
 
-T.tinsert(SLE.Configs, configTable)
+tinsert(SLE.Configs, configTable)

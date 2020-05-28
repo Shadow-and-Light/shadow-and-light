@@ -1,19 +1,17 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
---LFR boss status calculations--
 local DT = E:GetModule('DataTexts')
 local LFR = SLE:NewModule("LFR")
+
 local _G = _G
---strings
+local strlower = strlower
+local UnitLevel, GetAverageItemLevel = UnitLevel, GetAverageItemLevel
 local RAID_FINDER = RAID_FINDER
 local BOSS_DEAD = BOSS_DEAD
-local BOSS_ALIVE_INELIGIBLE = BOSS_ALIVE_INELIGIBLE
 local BOSS_ALIVE = BOSS_ALIVE
---stuff
 local RED_FONT_COLOR = RED_FONT_COLOR
 local GREEN_FONT_COLOR = GREEN_FONT_COLOR
 local IsShiftKeyDown = IsShiftKeyDown
 
-local bossName, _, isKilled
 local ExpackColor = "|cff9482c9"
 
 --Da grand table of every bit of info used by everything else
@@ -106,7 +104,7 @@ function LFR:CheckOptions()
 	return false
 end
 function LFR:CheckLegion()
-	for k, v in T.pairs(LFR.db.legion) do
+	for k, v in pairs(LFR.db.legion) do
 		if v == true then
 			return v
 		end
@@ -114,7 +112,7 @@ function LFR:CheckLegion()
 	return false
 end
 function LFR:CheckBFA()
-	for k, v in T.pairs(LFR.db.bfa) do
+	for k, v in pairs(LFR.db.bfa) do
 		if v == true then
 			return v
 		end
@@ -125,7 +123,7 @@ end
 --Creating a group of info for dungeons of expack passed. Also player level and ilvl are passed
 function LFR:BuildGroup(expack, lvl, ilvl)
 	if not LFR["Check"..expack]() then return end --If nothing in this expack is selected to be tracked then our work is done
-	local small = T.strlower(expack) --making lower case version of expack name for checking options
+	local small = strlower(expack) --making lower case version of expack name for checking options
 	DT.tooltip:AddLine(ExpackColor.."< ".._G["EXPANSION_NAME"..LFR.InstanceData["ExpackData"][expack].index].." >|r") --Da title!
 	for i = 1, #(LFR.InstanceData["Raids"][expack]) do
 		local instanceInfo = LFR.InstanceData["Raids"][expack][i]
@@ -133,7 +131,7 @@ function LFR:BuildGroup(expack, lvl, ilvl)
 			DT.tooltip:AddLine(" "..SLE:GetMapInfo(instanceInfo.map, "name"))
 			--Check for dungeon requirements
 			if lvl == LFR.InstanceData["ExpackData"][expack].maxLevel and ilvl >= instanceInfo.ilevel then
-				LFR:GetRaidLockInfo(T.unpack(instanceInfo.dungeonIDs)) --Adding info about bosses to the tooltip for this dungeon
+				LFR:GetRaidLockInfo(unpack(instanceInfo.dungeonIDs)) --Adding info about bosses to the tooltip for this dungeon
 			else
 				DT.tooltip:AddLine(" "..L["This LFR isn't available for your level/gear."])
 			end
@@ -149,13 +147,13 @@ function LFR:GetRaidLockInfo(...)
 	local numBosses = 0 --Total number of bosses in the dungeon
 	local killNum = 0 --How many were already killed
 	for i = 1, #dungeonIDs do
-		local isAvailable, isAvailableToPlayer = T.IsLFGDungeonJoinable(dungeonIDs[i])
+		local isAvailable, isAvailableToPlayer = IsLFGDungeonJoinable(dungeonIDs[i])
 		--Only count this wing if it is actually available
 		if isAvailable or isAvailableToPlayer then
-			local numEncounters = T.GetLFGDungeonNumEncounters(dungeonIDs[i])
+			local numEncounters = GetLFGDungeonNumEncounters(dungeonIDs[i])
 			numBosses = numBosses + numEncounters
 			for j = 1, numEncounters do
-				local bossName, _, isKilled = T.GetLFGDungeonEncounterInfo(dungeonIDs[i], j);
+				local bossName, _, isKilled = GetLFGDungeonEncounterInfo(dungeonIDs[i], j);
 				if IsShiftKeyDown() then --Show detailed info
 					LFR:BossStatus(bossName, isKilled)
 				else
@@ -171,8 +169,8 @@ end
 
 --Injecting into tooltip
 function LFR:Show()
-	local lvl = T.UnitLevel("player")
-	local ilvl = T.GetAverageItemLevel()
+	local lvl = UnitLevel("player")
+	local ilvl = GetAverageItemLevel()
 	DT.tooltip:AddLine(" ")
 	DT.tooltip:AddLine(RAID_FINDER)
 	if not LFR:CheckOptions() then

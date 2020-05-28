@@ -2,6 +2,8 @@
 if SLE._Compatibility["ElvUI_NihilistUI"] then return end
 local ES = SLE:GetModule("EnhancedShadows")
 
+local format = format
+
 local function configTable()
 	if not SLE.initialized then return end
 
@@ -342,9 +344,9 @@ local function configTable()
 		E.Options.args.sle.args.modules.args.shadows.args.actionbars.args["bar"..i.."buttons"] = {
 			order = i + 7,
 			type = "toggle",
-			name = T.format(L["SLE_EnhShadows_BarButtons_Option"], i),
+			name = format(L["SLE_EnhShadows_BarButtons_Option"], i),
 		}
 	end
 end
 
-T.tinsert(SLE.Configs, configTable)
+tinsert(SLE.Configs, configTable)

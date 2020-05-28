@@ -1,4 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+
+local format = format
 local CHARACTER, NONE = CHARACTER, NONE
 
 local function configTable()
@@ -51,7 +53,7 @@ local function configTable()
 			ElvDB['gold'][E.myrealm] = ElvDB['gold'][E.myrealm] or {};
 			ElvDB['gold'][E.myrealm][E.myname] = ElvDB['gold'][E.myrealm][E.myname] or GetMoney();
 		end
-		for k,_ in T.pairs(ElvDB["gold"][E.myrealm]) do
+		for k,_ in pairs(ElvDB["gold"][E.myrealm]) do
 			config.args[k] = {
 				type = "select",
 				name = k,
@@ -106,7 +108,7 @@ local function configTable()
 					for rk,_ in OrderedPairs(ElvDB['gold']) do
 						for k,_ in OrderedPairs(ElvDB['gold'][rk]) do
 							if ElvDB['gold'][rk][k] then
-								local name = T.format("%s-%s", k, rk);
+								local name = format("%s-%s", k, rk);
 								names[name] = name;
 							end
 						end
@@ -116,7 +118,7 @@ local function configTable()
 				set = function(info, value)
 					local name, realm, realm2 = strsplit("-", value);
 					if realm2 then realm = realm.."-"..realm2 end
-					E.PopupDialogs['SLE_CONFIRM_DELETE_CURRENCY_CHARACTER'].text = T.format(L["Are you sure you want to remove |cff1784d1%s|r from currency datatexts?"], name..(realm and "-"..realm or ""))
+					E.PopupDialogs['SLE_CONFIRM_DELETE_CURRENCY_CHARACTER'].text = format(L["Are you sure you want to remove |cff1784d1%s|r from currency datatexts?"], name..(realm and "-"..realm or ""))
 					E:StaticPopup_Show('SLE_CONFIRM_DELETE_CURRENCY_CHARACTER', nil, nil, { ["name"] = name, ["realm"] = realm });
 				end,
 			},
@@ -221,4 +223,4 @@ local function configTable()
 	}
 end
 
-T.tinsert(SLE.Configs, configTable)
+tinsert(SLE.Configs, configTable)

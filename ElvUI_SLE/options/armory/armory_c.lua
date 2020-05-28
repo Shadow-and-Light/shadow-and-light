@@ -61,7 +61,7 @@ local function configTable()
 			},
 			corruption = {
 				type = 'group',
-				name = T.GetSpellInfo(172),
+				name = GetSpellInfo(172),
 				order = 13,
 				get = function(info) return E.db.sle.armory.character[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = value; SLE:GetModule("Armory_Character"):UpdateCorruptionText(); SLE:GetModule("Armory_Character"):UpdateCorruptionLevel() end,
@@ -173,4 +173,4 @@ local function configTable()
 	}
 end
 
-T.tinsert(SLE.Configs, configTable)
+tinsert(SLE.Configs, configTable)

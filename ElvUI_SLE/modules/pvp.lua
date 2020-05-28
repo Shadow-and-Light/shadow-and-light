@@ -1,15 +1,13 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
 local PvP = SLE:NewModule('PVP','AceHook-3.0', 'AceEvent-3.0')
+
 --GLOBALS: hooksecurefunc, CreateFrame
-local RepopMe, HasSoulstone = RepopMe, HasSoulstone
-local COMBATLOG_HONORGAIN, COMBATLOG_HONORGAIN_NO_RANK, COMBATLOG_HONORAWARD = COMBATLOG_HONORGAIN, COMBATLOG_HONORGAIN_NO_RANK, COMBATLOG_HONORAWARD
-local PVP_RANK_0_0 =PVP_RANK_0_0
-local GetCurrencyInfo = GetCurrencyInfo
-PvP.HonorStrings = {}
-local bit_band = bit.band
-local BG_Opponents = {
-}
 local _G = _G
+local format = format
+local GetBattlefieldScore = GetBattlefieldScore
+
+local RepopMe = RepopMe
+local bit_band = bit.band
 local CancelDuel = CancelDuel
 local StaticPopup_Hide = StaticPopup_Hide
 local COMBATLOG_OBJECT_TYPE_PLAYER = COMBATLOG_OBJECT_TYPE_PLAYER
@@ -20,8 +18,10 @@ local PlaySound = PlaySound
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local GetSortedSelfResurrectOptions = GetSortedSelfResurrectOptions
 local CancelPetPVPDuel = C_PetBattles.CancelPVPDuel
-
 local SOUNDKIT = SOUNDKIT
+
+local BG_Opponents = {}
+PvP.HonorStrings = {}
 
 function PvP:Release()
 	local resOptions = GetSortedSelfResurrectOptions()
@@ -29,16 +29,16 @@ function PvP:Release()
 end
 
 function PvP:Dead()
-	local inInstance, instanceType = T.IsInInstance()
+	local inInstance, instanceType = IsInInstance()
 	if not PvP.db.autorelease then return end --Option disabled = do jack shit
 	if (inInstance and instanceType == "pvp") then
 		PvP:Release()
 		return --To prevent the rest of the function from execution when not needed
 	end
 	-- auto resurrection for world PvP area...when active
-	for index = 1, T.GetNumWorldPVPAreas() do
-		local _, localizedName, isActive, canQueue = T.GetWorldPVPAreaInfo(index)
-		if (T.GetRealZoneText() == localizedName and isActive) or (T.GetRealZoneText() == localizedName and canQueue) then PvP:Release() end
+	for index = 1, GetNumWorldPVPAreas() do
+		local _, localizedName, isActive, canQueue = GetWorldPVPAreaInfo(index)
+		if (GetRealZoneText() == localizedName and isActive) or (GetRealZoneText() == localizedName and canQueue) then PvP:Release() end
 	end
 end
 
@@ -55,15 +55,15 @@ function PvP:Duels(event, name)
 		cancelled = "PET"
 	end
 	if cancelled then
-		SLE:Print(T.format(L["SLE_DuelCancel_"..cancelled], name))
+		SLE:Print(format(L["SLE_DuelCancel_"..cancelled], name))
 	end
 end
 
 --Duilding opponents table for boss banner
 function PvP:OpponentsTable()
-	T.twipe(BG_Opponents)
-	for index = 1, T.GetNumBattlefieldScores() do
-		local name, _, _, _, _, faction, _, _, classToken = T.GetBattlefieldScore(index)
+	wipe(BG_Opponents)
+	for index = 1, GetNumBattlefieldScores() do
+		local name, _, _, _, _, faction, _, _, classToken = GetBattlefieldScore(index)
 		if (E.myfaction == "Horde" and faction == 1) or (E.myfaction == "Alliance" and faction == 0) then
 			BG_Opponents[name] = classToken --Saving oponents class to use for coloring
 		end

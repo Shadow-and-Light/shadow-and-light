@@ -2,10 +2,11 @@
 local M = E:GetModule('Minimap')
 local MM, DD = SLE:GetModules("Minimap", "Dropdowns")
 local LP = SLE:NewModule("LocationPanel", "AceTimer-3.0", "AceEvent-3.0")
-local loc_panel
-local COORDS_WIDTH = 35 -- Coord panels width
+
 
 local _G = _G
+local format = format
+local IsAddOnLoaded = IsAddOnLoaded
 local GetScreenHeight = GetScreenHeight
 local CreateFrame = CreateFrame
 local ToggleFrame = ToggleFrame
@@ -18,6 +19,8 @@ local CHALLENGE_MODE = CHALLENGE_MODE
 local PlayerHasToy = PlayerHasToy
 local C_ToyBox = C_ToyBox
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
+local loc_panel
+local COORDS_WIDTH = 35 -- Coord panels width
 
 local collectgarbage = collectgarbage
 
@@ -105,115 +108,115 @@ LP.EngineerItems = {
 }
 LP.Spells = {
 	["DEATHKNIGHT"] = {
-		[1] = {text =  T.GetSpellInfo(50977),icon = SLE:GetIconFromID("spell", 50977),secure = {buttonType = "spell",ID = 50977}, UseTooltip = true},
+		[1] = {text =  GetSpellInfo(50977),icon = SLE:GetIconFromID("spell", 50977),secure = {buttonType = "spell",ID = 50977}, UseTooltip = true},
 	},
 	["DEMONHUNTER"] = {},
 	["DRUID"] = {
-		[1] = {text =  T.GetSpellInfo(18960),icon = SLE:GetIconFromID("spell", 18960),secure = {buttonType = "spell",ID = 18960}, UseTooltip = true},--Moonglade
-		[2] = {text =  T.GetSpellInfo(147420),icon = SLE:GetIconFromID("spell", 147420),secure = {buttonType = "spell",ID = 147420}, UseTooltip = true},--One With Nature
-		[3] = {text =  T.GetSpellInfo(193753),icon = SLE:GetIconFromID("spell", 193753),secure = {buttonType = "spell",ID = 193753}, UseTooltip = true},--Druid ClassHall
+		[1] = {text =  GetSpellInfo(18960),icon = SLE:GetIconFromID("spell", 18960),secure = {buttonType = "spell",ID = 18960}, UseTooltip = true},--Moonglade
+		[2] = {text =  GetSpellInfo(147420),icon = SLE:GetIconFromID("spell", 147420),secure = {buttonType = "spell",ID = 147420}, UseTooltip = true},--One With Nature
+		[3] = {text =  GetSpellInfo(193753),icon = SLE:GetIconFromID("spell", 193753),secure = {buttonType = "spell",ID = 193753}, UseTooltip = true},--Druid ClassHall
 	},
 	["HUNTER"] = {},
 	["MAGE"] = {
-		[1] = {text =  T.GetSpellInfo(193759),icon = SLE:GetIconFromID("spell", 193759),secure = {buttonType = "spell",ID = 193759}, UseTooltip = true}, --Guardian place
+		[1] = {text =  GetSpellInfo(193759),icon = SLE:GetIconFromID("spell", 193759),secure = {buttonType = "spell",ID = 193759}, UseTooltip = true}, --Guardian place
 	},
 	["MONK"] = {
-		[1] = {text =  T.GetSpellInfo(126892),icon = SLE:GetIconFromID("spell", 126892),secure = {buttonType = "spell",ID = 126892}, UseTooltip = true},-- Zen Pilgrimage
-		[2] = {text =  T.GetSpellInfo(126895),icon = SLE:GetIconFromID("spell", 126895),secure = {buttonType = "spell",ID = 126895}, UseTooltip = true},-- Zen Pilgrimage: Return
+		[1] = {text =  GetSpellInfo(126892),icon = SLE:GetIconFromID("spell", 126892),secure = {buttonType = "spell",ID = 126892}, UseTooltip = true},-- Zen Pilgrimage
+		[2] = {text =  GetSpellInfo(126895),icon = SLE:GetIconFromID("spell", 126895),secure = {buttonType = "spell",ID = 126895}, UseTooltip = true},-- Zen Pilgrimage: Return
 	},
 	["PALADIN"] = {},
 	["PRIEST"] = {},
 	["ROGUE"] = {},
 	["SHAMAN"] = {
-		[1] = {text =  T.GetSpellInfo(556),icon = SLE:GetIconFromID("spell", 556),secure = {buttonType = "spell",ID = 556}, UseTooltip = true},
+		[1] = {text =  GetSpellInfo(556),icon = SLE:GetIconFromID("spell", 556),secure = {buttonType = "spell",ID = 556}, UseTooltip = true},
 	},
 	["WARLOCK"] = {},
 	["WARRIOR"] = {},
 	["DarkIronDwarf"] = {
-		[1] = {text = T.GetSpellInfo(265225),icon = SLE:GetIconFromID("spell", 265225),secure = {buttonType = "spell",ID = 265225}, UseTooltip = true}, -- Mole Machine (Dark Iron Dwarfs)
+		[1] = {text = GetSpellInfo(265225),icon = SLE:GetIconFromID("spell", 265225),secure = {buttonType = "spell",ID = 265225}, UseTooltip = true}, -- Mole Machine (Dark Iron Dwarfs)
 	},
 	["teleports"] = {
 		["Horde"] = {
-			[1] = {text = T.GetSpellInfo(3563),icon = SLE:GetIconFromID("spell", 3563),secure = {buttonType = "spell",ID = 3563}, UseTooltip = true},-- TP:Undercity
-			[2] = {text = T.GetSpellInfo(3566),icon = SLE:GetIconFromID("spell", 3566),secure = {buttonType = "spell",ID = 3566}, UseTooltip = true},-- TP:Thunder Bluff
-			[3] = {text = T.GetSpellInfo(3567),icon = SLE:GetIconFromID("spell", 3567),secure = {buttonType = "spell",ID = 3567}, UseTooltip = true},-- TP:Orgrimmar
-			[4] = {text = T.GetSpellInfo(32272),icon = SLE:GetIconFromID("spell", 32272),secure = {buttonType = "spell",ID = 32272}, UseTooltip = true},-- TP:Silvermoon
-			[5] = {text = T.GetSpellInfo(49358),icon = SLE:GetIconFromID("spell", 49358),secure = {buttonType = "spell",ID = 49358}, UseTooltip = true},-- TP:Stonard
-			[6] = {text = T.GetSpellInfo(35715),icon = SLE:GetIconFromID("spell", 35715),secure = {buttonType = "spell",ID = 35715}, UseTooltip = true},-- TP:Shattrath
-			[7] = {text = T.GetSpellInfo(53140),icon = SLE:GetIconFromID("spell", 53140),secure = {buttonType = "spell",ID = 53140}, UseTooltip = true},-- TP:Dalaran - Northrend
-			[8] = {text = T.GetSpellInfo(88344),icon = SLE:GetIconFromID("spell", 88344),secure = {buttonType = "spell",ID = 88344}, UseTooltip = true},-- TP:Tol Barad
-			[9] = {text = T.GetSpellInfo(132627),icon = SLE:GetIconFromID("spell", 132627),secure = {buttonType = "spell",ID = 132627}, UseTooltip = true},-- TP:Vale of Eternal Blossoms
-			[10] = {text = T.GetSpellInfo(120145),icon = SLE:GetIconFromID("spell", 120145),secure = {buttonType = "spell",ID = 120145}, UseTooltip = true},-- TP:Ancient Dalaran
-			[11] = {text = T.GetSpellInfo(176242),icon = SLE:GetIconFromID("spell", 176242),secure = {buttonType = "spell",ID = 176242}, UseTooltip = true},-- TP:Warspear
-			[12] = {text = T.GetSpellInfo(224869),icon = SLE:GetIconFromID("spell", 224869),secure = {buttonType = "spell",ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
-			[13] = {text = T.GetSpellInfo(281404),icon = SLE:GetIconFromID("spell", 281404),secure = {buttonType = "spell",ID = 281404}, UseTooltip = true},-- TP:Dazar'alor
+			[1] = {text = GetSpellInfo(3563),icon = SLE:GetIconFromID("spell", 3563),secure = {buttonType = "spell",ID = 3563}, UseTooltip = true},-- TP:Undercity
+			[2] = {text = GetSpellInfo(3566),icon = SLE:GetIconFromID("spell", 3566),secure = {buttonType = "spell",ID = 3566}, UseTooltip = true},-- TP:Thunder Bluff
+			[3] = {text = GetSpellInfo(3567),icon = SLE:GetIconFromID("spell", 3567),secure = {buttonType = "spell",ID = 3567}, UseTooltip = true},-- TP:Orgrimmar
+			[4] = {text = GetSpellInfo(32272),icon = SLE:GetIconFromID("spell", 32272),secure = {buttonType = "spell",ID = 32272}, UseTooltip = true},-- TP:Silvermoon
+			[5] = {text = GetSpellInfo(49358),icon = SLE:GetIconFromID("spell", 49358),secure = {buttonType = "spell",ID = 49358}, UseTooltip = true},-- TP:Stonard
+			[6] = {text = GetSpellInfo(35715),icon = SLE:GetIconFromID("spell", 35715),secure = {buttonType = "spell",ID = 35715}, UseTooltip = true},-- TP:Shattrath
+			[7] = {text = GetSpellInfo(53140),icon = SLE:GetIconFromID("spell", 53140),secure = {buttonType = "spell",ID = 53140}, UseTooltip = true},-- TP:Dalaran - Northrend
+			[8] = {text = GetSpellInfo(88344),icon = SLE:GetIconFromID("spell", 88344),secure = {buttonType = "spell",ID = 88344}, UseTooltip = true},-- TP:Tol Barad
+			[9] = {text = GetSpellInfo(132627),icon = SLE:GetIconFromID("spell", 132627),secure = {buttonType = "spell",ID = 132627}, UseTooltip = true},-- TP:Vale of Eternal Blossoms
+			[10] = {text = GetSpellInfo(120145),icon = SLE:GetIconFromID("spell", 120145),secure = {buttonType = "spell",ID = 120145}, UseTooltip = true},-- TP:Ancient Dalaran
+			[11] = {text = GetSpellInfo(176242),icon = SLE:GetIconFromID("spell", 176242),secure = {buttonType = "spell",ID = 176242}, UseTooltip = true},-- TP:Warspear
+			[12] = {text = GetSpellInfo(224869),icon = SLE:GetIconFromID("spell", 224869),secure = {buttonType = "spell",ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
+			[13] = {text = GetSpellInfo(281404),icon = SLE:GetIconFromID("spell", 281404),secure = {buttonType = "spell",ID = 281404}, UseTooltip = true},-- TP:Dazar'alor
 		},
 		["Alliance"] = {
-			[1] = {text = T.GetSpellInfo(3561),icon = SLE:GetIconFromID("spell", 3561),secure = {buttonType = "spell",ID = 3561}, UseTooltip = true},-- TP:Stormwind
-			[2] = {text = T.GetSpellInfo(3562),icon = SLE:GetIconFromID("spell", 3562),secure = {buttonType = "spell",ID = 3562}, UseTooltip = true},-- TP:Ironforge
-			[3] = {text = T.GetSpellInfo(3565),icon = SLE:GetIconFromID("spell", 3565),secure = {buttonType = "spell",ID = 3565}, UseTooltip = true},-- TP:Darnassus
-			[4] = {text = T.GetSpellInfo(32271),icon = SLE:GetIconFromID("spell", 32271),secure = {buttonType = "spell",ID = 32271}, UseTooltip = true},-- TP:Exodar
-			[5] = {text = T.GetSpellInfo(49359),icon = SLE:GetIconFromID("spell", 49359),secure = {buttonType = "spell",ID = 49359}, UseTooltip = true},-- TP:Theramore
-			[6] = {text = T.GetSpellInfo(33690),icon = SLE:GetIconFromID("spell", 33690),secure = {buttonType = "spell",ID = 33690}, UseTooltip = true},-- TP:Shattrath
-			[7] = {text = T.GetSpellInfo(53140),icon = SLE:GetIconFromID("spell", 53140),secure = {buttonType = "spell",ID = 53140}, UseTooltip = true},-- TP:Dalaran - Northrend
-			[8] = {text = T.GetSpellInfo(88342),icon = SLE:GetIconFromID("spell", 88342),secure = {buttonType = "spell",ID = 88342}, UseTooltip = true},-- TP:Tol Barad
-			[9] = {text = T.GetSpellInfo(132621),icon = SLE:GetIconFromID("spell", 132621),secure = {buttonType = "spell",ID = 132621}, UseTooltip = true},-- TP:Vale of Eternal Blossoms
-			[10] = {text = T.GetSpellInfo(120145),icon = SLE:GetIconFromID("spell", 120145),secure = {buttonType = "spell",ID = 120145}, UseTooltip = true},-- TP:Ancient Dalaran
-			[11] = {text = T.GetSpellInfo(176248),icon = SLE:GetIconFromID("spell", 176248),secure = {buttonType = "spell",ID = 176248}, UseTooltip = true},-- TP:StormShield
-			[12] = {text = T.GetSpellInfo(224869),icon = SLE:GetIconFromID("spell", 224869),secure = {buttonType = "spell",ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
-			[13] = {text = T.GetSpellInfo(281403),icon = SLE:GetIconFromID("spell", 281403),secure = {buttonType = "spell",ID = 281403}, UseTooltip = true},-- TP:Boralus
+			[1] = {text = GetSpellInfo(3561),icon = SLE:GetIconFromID("spell", 3561),secure = {buttonType = "spell",ID = 3561}, UseTooltip = true},-- TP:Stormwind
+			[2] = {text = GetSpellInfo(3562),icon = SLE:GetIconFromID("spell", 3562),secure = {buttonType = "spell",ID = 3562}, UseTooltip = true},-- TP:Ironforge
+			[3] = {text = GetSpellInfo(3565),icon = SLE:GetIconFromID("spell", 3565),secure = {buttonType = "spell",ID = 3565}, UseTooltip = true},-- TP:Darnassus
+			[4] = {text = GetSpellInfo(32271),icon = SLE:GetIconFromID("spell", 32271),secure = {buttonType = "spell",ID = 32271}, UseTooltip = true},-- TP:Exodar
+			[5] = {text = GetSpellInfo(49359),icon = SLE:GetIconFromID("spell", 49359),secure = {buttonType = "spell",ID = 49359}, UseTooltip = true},-- TP:Theramore
+			[6] = {text = GetSpellInfo(33690),icon = SLE:GetIconFromID("spell", 33690),secure = {buttonType = "spell",ID = 33690}, UseTooltip = true},-- TP:Shattrath
+			[7] = {text = GetSpellInfo(53140),icon = SLE:GetIconFromID("spell", 53140),secure = {buttonType = "spell",ID = 53140}, UseTooltip = true},-- TP:Dalaran - Northrend
+			[8] = {text = GetSpellInfo(88342),icon = SLE:GetIconFromID("spell", 88342),secure = {buttonType = "spell",ID = 88342}, UseTooltip = true},-- TP:Tol Barad
+			[9] = {text = GetSpellInfo(132621),icon = SLE:GetIconFromID("spell", 132621),secure = {buttonType = "spell",ID = 132621}, UseTooltip = true},-- TP:Vale of Eternal Blossoms
+			[10] = {text = GetSpellInfo(120145),icon = SLE:GetIconFromID("spell", 120145),secure = {buttonType = "spell",ID = 120145}, UseTooltip = true},-- TP:Ancient Dalaran
+			[11] = {text = GetSpellInfo(176248),icon = SLE:GetIconFromID("spell", 176248),secure = {buttonType = "spell",ID = 176248}, UseTooltip = true},-- TP:StormShield
+			[12] = {text = GetSpellInfo(224869),icon = SLE:GetIconFromID("spell", 224869),secure = {buttonType = "spell",ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
+			[13] = {text = GetSpellInfo(281403),icon = SLE:GetIconFromID("spell", 281403),secure = {buttonType = "spell",ID = 281403}, UseTooltip = true},-- TP:Boralus
 		},
 	},
 	["portals"] = {
 		["Horde"] = {
-			[1] = {text = T.GetSpellInfo(11418),icon = SLE:GetIconFromID("spell", 11418),secure = {buttonType = "spell",ID = 11418}, UseTooltip = true},-- P:Undercity
-			[2] = {text = T.GetSpellInfo(11420),icon = SLE:GetIconFromID("spell", 11420),secure = {buttonType = "spell",ID = 11420}, UseTooltip = true}, -- P:Thunder Bluff
-			[3] = {text = T.GetSpellInfo(11417),icon = SLE:GetIconFromID("spell", 11417),secure = {buttonType = "spell",ID = 11417}, UseTooltip = true},-- P:Orgrimmar
-			[4] = {text = T.GetSpellInfo(32267),icon = SLE:GetIconFromID("spell", 32267),secure = {buttonType = "spell",ID = 32267}, UseTooltip = true},-- P:Silvermoon
-			[5] = {text = T.GetSpellInfo(49361),icon = SLE:GetIconFromID("spell", 49361),secure = {buttonType = "spell",ID = 49361}, UseTooltip = true},-- P:Stonard
-			[6] = {text = T.GetSpellInfo(35717),icon = SLE:GetIconFromID("spell", 35717),secure = {buttonType = "spell",ID = 35717}, UseTooltip = true},-- P:Shattrath
-			[7] = {text = T.GetSpellInfo(53142),icon = SLE:GetIconFromID("spell", 53142),secure = {buttonType = "spell",ID = 53142}, UseTooltip = true},-- P:Dalaran - Northred
-			[8] = {text = T.GetSpellInfo(88346),icon = SLE:GetIconFromID("spell", 88346),secure = {buttonType = "spell",ID = 88346}, UseTooltip = true},-- P:Tol Barad
-			[9] = {text = T.GetSpellInfo(120146),icon = SLE:GetIconFromID("spell", 120146),secure = {buttonType = "spell",ID = 120146}, UseTooltip = true},-- P:Ancient Dalaran
-			[10] = {text = T.GetSpellInfo(132626),icon = SLE:GetIconFromID("spell", 132626),secure = {buttonType = "spell",ID = 132626}, UseTooltip = true},-- P:Vale of Eternal Blossoms
-			[11] = {text = T.GetSpellInfo(176244),icon = SLE:GetIconFromID("spell", 176244),secure = {buttonType = "spell",ID = 176244}, UseTooltip = true},-- P:Warspear
-			[12] = {text = T.GetSpellInfo(224871),icon = SLE:GetIconFromID("spell", 224871),secure = {buttonType = "spell",ID = 224871}, UseTooltip = true},-- P:Dalaran - BI
-			[13] = {text = T.GetSpellInfo(281402),icon = SLE:GetIconFromID("spell", 281402),secure = {buttonType = "spell",ID = 281402}, UseTooltip = true},-- P:Dazar'alor
+			[1] = {text = GetSpellInfo(11418),icon = SLE:GetIconFromID("spell", 11418),secure = {buttonType = "spell",ID = 11418}, UseTooltip = true},-- P:Undercity
+			[2] = {text = GetSpellInfo(11420),icon = SLE:GetIconFromID("spell", 11420),secure = {buttonType = "spell",ID = 11420}, UseTooltip = true}, -- P:Thunder Bluff
+			[3] = {text = GetSpellInfo(11417),icon = SLE:GetIconFromID("spell", 11417),secure = {buttonType = "spell",ID = 11417}, UseTooltip = true},-- P:Orgrimmar
+			[4] = {text = GetSpellInfo(32267),icon = SLE:GetIconFromID("spell", 32267),secure = {buttonType = "spell",ID = 32267}, UseTooltip = true},-- P:Silvermoon
+			[5] = {text = GetSpellInfo(49361),icon = SLE:GetIconFromID("spell", 49361),secure = {buttonType = "spell",ID = 49361}, UseTooltip = true},-- P:Stonard
+			[6] = {text = GetSpellInfo(35717),icon = SLE:GetIconFromID("spell", 35717),secure = {buttonType = "spell",ID = 35717}, UseTooltip = true},-- P:Shattrath
+			[7] = {text = GetSpellInfo(53142),icon = SLE:GetIconFromID("spell", 53142),secure = {buttonType = "spell",ID = 53142}, UseTooltip = true},-- P:Dalaran - Northred
+			[8] = {text = GetSpellInfo(88346),icon = SLE:GetIconFromID("spell", 88346),secure = {buttonType = "spell",ID = 88346}, UseTooltip = true},-- P:Tol Barad
+			[9] = {text = GetSpellInfo(120146),icon = SLE:GetIconFromID("spell", 120146),secure = {buttonType = "spell",ID = 120146}, UseTooltip = true},-- P:Ancient Dalaran
+			[10] = {text = GetSpellInfo(132626),icon = SLE:GetIconFromID("spell", 132626),secure = {buttonType = "spell",ID = 132626}, UseTooltip = true},-- P:Vale of Eternal Blossoms
+			[11] = {text = GetSpellInfo(176244),icon = SLE:GetIconFromID("spell", 176244),secure = {buttonType = "spell",ID = 176244}, UseTooltip = true},-- P:Warspear
+			[12] = {text = GetSpellInfo(224871),icon = SLE:GetIconFromID("spell", 224871),secure = {buttonType = "spell",ID = 224871}, UseTooltip = true},-- P:Dalaran - BI
+			[13] = {text = GetSpellInfo(281402),icon = SLE:GetIconFromID("spell", 281402),secure = {buttonType = "spell",ID = 281402}, UseTooltip = true},-- P:Dazar'alor
 		},
 		["Alliance"] = {
-			[1] = {text = T.GetSpellInfo(10059),icon = SLE:GetIconFromID("spell", 10059),secure = {buttonType = "spell",ID = 10059}, UseTooltip = true},-- P:Stormwind
-			[2] = {text = T.GetSpellInfo(11416),icon = SLE:GetIconFromID("spell", 11416),secure = {buttonType = "spell",ID = 11416}, UseTooltip = true},-- P:Ironforge
-			[3] = {text = T.GetSpellInfo(11419),icon = SLE:GetIconFromID("spell", 11419),secure = {buttonType = "spell",ID = 11419}, UseTooltip = true},-- P:Darnassus
-			[4] = {text = T.GetSpellInfo(32266),icon = SLE:GetIconFromID("spell", 32266),secure = {buttonType = "spell",ID = 32266}, UseTooltip = true},-- P:Exodar
-			[5] = {text = T.GetSpellInfo(49360),icon = SLE:GetIconFromID("spell", 49360),secure = {buttonType = "spell",ID = 49360}, UseTooltip = true},-- P:Theramore
-			[6] = {text = T.GetSpellInfo(33691),icon = SLE:GetIconFromID("spell", 33691),secure = {buttonType = "spell",ID = 33691}, UseTooltip = true},-- P:Shattrath
-			[7] = {text = T.GetSpellInfo(53142),icon = SLE:GetIconFromID("spell", 53142),secure = {buttonType = "spell",ID = 53142}, UseTooltip = true},-- P:Dalaran - Northred
-			[8] = {text = T.GetSpellInfo(88345),icon = SLE:GetIconFromID("spell", 88345),secure = {buttonType = "spell",ID = 88345}, UseTooltip = true},-- P:Tol Barad
-			[9] = {text = T.GetSpellInfo(120146),icon = SLE:GetIconFromID("spell", 120146),secure = {buttonType = "spell",ID = 120146}, UseTooltip = true},-- P:Ancient Dalaran
-			[10] = {text = T.GetSpellInfo(132620),icon = SLE:GetIconFromID("spell", 132620),secure = {buttonType = "spell",ID = 132620}, UseTooltip = true},-- P:Vale of Eternal Blossoms
-			[11] = {text = T.GetSpellInfo(176246),icon = SLE:GetIconFromID("spell", 176246),secure = {buttonType = "spell",ID = 176246}, UseTooltip = true},-- P:StormShield
-			[12] = {text = T.GetSpellInfo(224871),icon = SLE:GetIconFromID("spell", 224871),secure = {buttonType = "spell",ID = 224871}, UseTooltip = true},-- P:Dalaran - BI
-			[13] = {text = T.GetSpellInfo(281400),icon = SLE:GetIconFromID("spell", 281400),secure = {buttonType = "spell",ID = 281400}, UseTooltip = true},-- P:Boralus
+			[1] = {text = GetSpellInfo(10059),icon = SLE:GetIconFromID("spell", 10059),secure = {buttonType = "spell",ID = 10059}, UseTooltip = true},-- P:Stormwind
+			[2] = {text = GetSpellInfo(11416),icon = SLE:GetIconFromID("spell", 11416),secure = {buttonType = "spell",ID = 11416}, UseTooltip = true},-- P:Ironforge
+			[3] = {text = GetSpellInfo(11419),icon = SLE:GetIconFromID("spell", 11419),secure = {buttonType = "spell",ID = 11419}, UseTooltip = true},-- P:Darnassus
+			[4] = {text = GetSpellInfo(32266),icon = SLE:GetIconFromID("spell", 32266),secure = {buttonType = "spell",ID = 32266}, UseTooltip = true},-- P:Exodar
+			[5] = {text = GetSpellInfo(49360),icon = SLE:GetIconFromID("spell", 49360),secure = {buttonType = "spell",ID = 49360}, UseTooltip = true},-- P:Theramore
+			[6] = {text = GetSpellInfo(33691),icon = SLE:GetIconFromID("spell", 33691),secure = {buttonType = "spell",ID = 33691}, UseTooltip = true},-- P:Shattrath
+			[7] = {text = GetSpellInfo(53142),icon = SLE:GetIconFromID("spell", 53142),secure = {buttonType = "spell",ID = 53142}, UseTooltip = true},-- P:Dalaran - Northred
+			[8] = {text = GetSpellInfo(88345),icon = SLE:GetIconFromID("spell", 88345),secure = {buttonType = "spell",ID = 88345}, UseTooltip = true},-- P:Tol Barad
+			[9] = {text = GetSpellInfo(120146),icon = SLE:GetIconFromID("spell", 120146),secure = {buttonType = "spell",ID = 120146}, UseTooltip = true},-- P:Ancient Dalaran
+			[10] = {text = GetSpellInfo(132620),icon = SLE:GetIconFromID("spell", 132620),secure = {buttonType = "spell",ID = 132620}, UseTooltip = true},-- P:Vale of Eternal Blossoms
+			[11] = {text = GetSpellInfo(176246),icon = SLE:GetIconFromID("spell", 176246),secure = {buttonType = "spell",ID = 176246}, UseTooltip = true},-- P:StormShield
+			[12] = {text = GetSpellInfo(224871),icon = SLE:GetIconFromID("spell", 224871),secure = {buttonType = "spell",ID = 224871}, UseTooltip = true},-- P:Dalaran - BI
+			[13] = {text = GetSpellInfo(281400),icon = SLE:GetIconFromID("spell", 281400),secure = {buttonType = "spell",ID = 281400}, UseTooltip = true},-- P:Boralus
 		},
 	},
 	["challenge"] = {
-		[1] = {text = T.GetSpellInfo(131204),icon = SLE:GetIconFromID("spell", 131204),secure = {buttonType = "spell",ID = 131204}, UseTooltip = true},-- Jade serpent
-		[2] = {text = T.GetSpellInfo(131205),icon = SLE:GetIconFromID("spell", 131205),secure = {buttonType = "spell",ID = 131205}, UseTooltip = true}, -- Brew
-		[3] = {text = T.GetSpellInfo(131206),icon = SLE:GetIconFromID("spell", 131206),secure = {buttonType = "spell",ID = 131206}, UseTooltip = true},-- Shado-pan
-		[4] = {text = T.GetSpellInfo(131222),icon = SLE:GetIconFromID("spell", 131222),secure = {buttonType = "spell",ID = 131222}, UseTooltip = true},-- Mogu
-		[5] = {text = T.GetSpellInfo(131225),icon = SLE:GetIconFromID("spell", 131225),secure = {buttonType = "spell",ID = 131225}, UseTooltip = true},-- Setting sun
-		[6] = {text = T.GetSpellInfo(131231),icon = SLE:GetIconFromID("spell", 131231),secure = {buttonType = "spell",ID = 131231}, UseTooltip = true},-- Scarlet blade
-		[7] = {text = T.GetSpellInfo(131229),icon = SLE:GetIconFromID("spell", 131229),secure = {buttonType = "spell",ID = 131229}, UseTooltip = true},-- scarlet mitre
-		[8] = {text = T.GetSpellInfo(131232),icon = SLE:GetIconFromID("spell", 131232),secure = {buttonType = "spell",ID = 131232}, UseTooltip = true},-- Scholo
-		[9] = {text = T.GetSpellInfo(131228),icon = SLE:GetIconFromID("spell", 131228),secure = {buttonType = "spell",ID = 131228}, UseTooltip = true},-- Black ox
-		[10] = {text = T.GetSpellInfo(159895),icon = SLE:GetIconFromID("spell", 159895),secure = {buttonType = "spell",ID = 159895}, UseTooltip = true},-- bloodmaul
-		[11] = {text = T.GetSpellInfo(159902),icon = SLE:GetIconFromID("spell", 159902),secure = {buttonType = "spell",ID = 159902}, UseTooltip = true},-- burning mountain
-		[12] = {text = T.GetSpellInfo(159899),icon = SLE:GetIconFromID("spell", 159899),secure = {buttonType = "spell",ID = 159899}, UseTooltip = true},-- crescent moon
-		[13] = {text = T.GetSpellInfo(159900),icon = SLE:GetIconFromID("spell", 159900),secure = {buttonType = "spell",ID = 159900}, UseTooltip = true},-- dark rail
-		[14] = {text = T.GetSpellInfo(159896),icon = SLE:GetIconFromID("spell", 159896),secure = {buttonType = "spell",ID = 159896}, UseTooltip = true},-- iron prow
-		[15] = {text = T.GetSpellInfo(159898),icon = SLE:GetIconFromID("spell", 159898),secure = {buttonType = "spell",ID = 159898}, UseTooltip = true},-- Skies
-		[16] = {text = T.GetSpellInfo(159901),icon = SLE:GetIconFromID("spell", 159901),secure = {buttonType = "spell",ID = 159901}, UseTooltip = true},-- Verdant
-		[17] = {text = T.GetSpellInfo(159897),icon = SLE:GetIconFromID("spell", 159897),secure = {buttonType = "spell",ID = 159897}, UseTooltip = true},-- Vigilant
+		[1] = {text = GetSpellInfo(131204),icon = SLE:GetIconFromID("spell", 131204),secure = {buttonType = "spell",ID = 131204}, UseTooltip = true},-- Jade serpent
+		[2] = {text = GetSpellInfo(131205),icon = SLE:GetIconFromID("spell", 131205),secure = {buttonType = "spell",ID = 131205}, UseTooltip = true}, -- Brew
+		[3] = {text = GetSpellInfo(131206),icon = SLE:GetIconFromID("spell", 131206),secure = {buttonType = "spell",ID = 131206}, UseTooltip = true},-- Shado-pan
+		[4] = {text = GetSpellInfo(131222),icon = SLE:GetIconFromID("spell", 131222),secure = {buttonType = "spell",ID = 131222}, UseTooltip = true},-- Mogu
+		[5] = {text = GetSpellInfo(131225),icon = SLE:GetIconFromID("spell", 131225),secure = {buttonType = "spell",ID = 131225}, UseTooltip = true},-- Setting sun
+		[6] = {text = GetSpellInfo(131231),icon = SLE:GetIconFromID("spell", 131231),secure = {buttonType = "spell",ID = 131231}, UseTooltip = true},-- Scarlet blade
+		[7] = {text = GetSpellInfo(131229),icon = SLE:GetIconFromID("spell", 131229),secure = {buttonType = "spell",ID = 131229}, UseTooltip = true},-- scarlet mitre
+		[8] = {text = GetSpellInfo(131232),icon = SLE:GetIconFromID("spell", 131232),secure = {buttonType = "spell",ID = 131232}, UseTooltip = true},-- Scholo
+		[9] = {text = GetSpellInfo(131228),icon = SLE:GetIconFromID("spell", 131228),secure = {buttonType = "spell",ID = 131228}, UseTooltip = true},-- Black ox
+		[10] = {text = GetSpellInfo(159895),icon = SLE:GetIconFromID("spell", 159895),secure = {buttonType = "spell",ID = 159895}, UseTooltip = true},-- bloodmaul
+		[11] = {text = GetSpellInfo(159902),icon = SLE:GetIconFromID("spell", 159902),secure = {buttonType = "spell",ID = 159902}, UseTooltip = true},-- burning mountain
+		[12] = {text = GetSpellInfo(159899),icon = SLE:GetIconFromID("spell", 159899),secure = {buttonType = "spell",ID = 159899}, UseTooltip = true},-- crescent moon
+		[13] = {text = GetSpellInfo(159900),icon = SLE:GetIconFromID("spell", 159900),secure = {buttonType = "spell",ID = 159900}, UseTooltip = true},-- dark rail
+		[14] = {text = GetSpellInfo(159896),icon = SLE:GetIconFromID("spell", 159896),secure = {buttonType = "spell",ID = 159896}, UseTooltip = true},-- iron prow
+		[15] = {text = GetSpellInfo(159898),icon = SLE:GetIconFromID("spell", 159898),secure = {buttonType = "spell",ID = 159898}, UseTooltip = true},-- Skies
+		[16] = {text = GetSpellInfo(159901),icon = SLE:GetIconFromID("spell", 159901),secure = {buttonType = "spell",ID = 159901}, UseTooltip = true},-- Verdant
+		[17] = {text = GetSpellInfo(159897),icon = SLE:GetIconFromID("spell", 159897),secure = {buttonType = "spell",ID = 159897}, UseTooltip = true},-- Vigilant
 	},
 }
 
@@ -263,29 +266,29 @@ function LP:CreateLocationPanel()
 	LP.Menu2:SetTemplate("Transparent", true)
 	DD:RegisterMenu(LP.Menu1)
 	DD:RegisterMenu(LP.Menu2)
-	LP.Menu1:SetScript("OnHide", function() T.twipe(LP.MainMenu) end)
-	LP.Menu2:SetScript("OnHide", function() T.twipe(LP.SecondaryMenu) end)
+	LP.Menu1:SetScript("OnHide", function() wipe(LP.MainMenu) end)
+	LP.Menu2:SetScript("OnHide", function() wipe(LP.SecondaryMenu) end)
 end
 
 function LP:OnClick(btn)
-	local zoneText = T.GetRealZoneText() or UNKNOWN;
+	local zoneText = GetRealZoneText() or UNKNOWN;
 	if btn == "LeftButton" then
 		if IsShiftKeyDown() and LP.db.linkcoords then
 			local edit_box = ChatEdit_ChooseBoxForSend()
 			local x, y = CreateCoords()
 			local message
 			local coords = x..", "..y
-				if zoneText ~= T.GetSubZoneText() then
-					message = T.format("%s: %s (%s)", zoneText, T.GetSubZoneText(), coords)
+				if zoneText ~= GetSubZoneText() then
+					message = format("%s: %s (%s)", zoneText, GetSubZoneText(), coords)
 				else
-					message = T.format("%s (%s)", zoneText, coords)
+					message = format("%s (%s)", zoneText, coords)
 				end
 			ChatEdit_ActivateChat(edit_box)
 			edit_box:Insert(message)
 		else
 			ToggleFrame(_G["WorldMapFrame"])
 		end
-	elseif btn == "RightButton" and LP.db.portals.enable and not T.InCombatLockdown() then
+	elseif btn == "RightButton" and LP.db.portals.enable and not InCombatLockdown() then
 		if LP.ListBuilding then SLE:Print(L["Info for some items is not available yet. Please try again later"], "error") return end
 		LP:PopulateDropdown(true)
 	end
@@ -299,8 +302,8 @@ function LP:UpdateCoords(elapsed)
 
 	if E.MapInfo then
 		local x, y = E.MapInfo.x, E.MapInfo.y
-		if x then x = T.format(LP.db.format, x * 100) else x = "0" end
-		if y then y = T.format(LP.db.format, y * 100) else y = "0" end
+		if x then x = format(LP.db.format, x * 100) else x = "0" end
+		if y then y = format(LP.db.format, y * 100) else y = "0" end
 		if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
 		if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
 		loc_panel.Xcoord.Text:SetText(x)
@@ -312,11 +315,11 @@ function LP:UpdateCoords(elapsed)
 	--Coords coloring
 	local colorC = {r = 1, g = 1, b = 1}
 	if LP.db.colorType_Coords == "REACTION" then
-		local inInstance, _ = T.IsInInstance()
+		local inInstance, _ = IsInInstance()
 		if inInstance then
 			colorC = {r = 1, g = 0.1,b =  0.1}
 		else
-			local pvpType = T.GetZonePVPInfo()
+			local pvpType = GetZonePVPInfo()
 			colorC = LP.ReactionColors[pvpType] or {r = 1, g = 1, b = 0}
 		end
 	elseif LP.db.colorType_Coords == "CUSTOM" then
@@ -328,8 +331,8 @@ function LP:UpdateCoords(elapsed)
 	loc_panel.Ycoord.Text:SetTextColor(colorC.r, colorC.g, colorC.b)
 
 	--Location
-	local subZoneText = T.GetMinimapZoneText() or ""
-	local zoneText = T.GetRealZoneText() or UNKNOWN;
+	local subZoneText = GetMinimapZoneText() or ""
+	local zoneText = GetRealZoneText() or UNKNOWN;
 	local displayLine
 	if LP.db.zoneText then
 		if (subZoneText ~= "") and (subZoneText ~= zoneText) then
@@ -347,11 +350,11 @@ function LP:UpdateCoords(elapsed)
 	if displayLine ~= "" then
 		local color = {r = 1, g = 1, b = 1}
 		if LP.db.colorType == "REACTION" then
-			local inInstance, _ = T.IsInInstance()
+			local inInstance, _ = IsInInstance()
 			if inInstance then
 				color = {r = 1, g = 0.1,b =  0.1}
 			else
-				local pvpType = T.GetZonePVPInfo()
+				local pvpType = GetZonePVPInfo()
 				color = LP.ReactionColors[pvpType] or {r = 1, g = 1, b = 0}
 			end
 		elseif LP.db.colorType == "CUSTOM" then
@@ -389,7 +392,7 @@ function LP:Template()
 end
 
 function LP:CheckForIncompatible()
-	if T.IsAddOnLoaded('ElvUI_LocLite') and E.db.sle.minimap.locPanel.enable then
+	if IsAddOnLoaded('ElvUI_LocLite') and E.db.sle.minimap.locPanel.enable then
 		SLE:IncompatibleAddOn('ElvUI_LocLite', 'Location Panel', E.db.sle.minimap.locPanel.enable, "enable")
 	end
 end
@@ -409,14 +412,14 @@ end
 function LP:PopulateItems()
 	local noItem = false
 
-	for index, data in T.pairs(LP.Hearthstones) do
-		if T.select(2, T.GetItemInfo(data[1])) == nil then noItem = true end
+	for index, data in pairs(LP.Hearthstones) do
+		if select(2, GetItemInfo(data[1])) == nil then noItem = true end
 	end
-	for index, data in T.pairs(LP.PortItems) do
-		if T.select(2, T.GetItemInfo(data[1])) == nil then noItem = true end
+	for index, data in pairs(LP.PortItems) do
+		if select(2, GetItemInfo(data[1])) == nil then noItem = true end
 	end
-	for index, data in T.pairs(LP.EngineerItems) do
-		if T.select(2, T.GetItemInfo(data[1])) == nil then noItem = true end
+	for index, data in pairs(LP.EngineerItems) do
+		if select(2, GetItemInfo(data[1])) == nil then noItem = true end
 	end
 
 	if noItem then
@@ -424,30 +427,30 @@ function LP:PopulateItems()
 		E:Delay(2, LP.PopulateItems)
 	else
 		LP.ListBuilding = false
-		for index, data in T.pairs(LP.Hearthstones) do
+		for index, data in pairs(LP.Hearthstones) do
 			local id, name, toy = data[1], data[2], data[3]
-			LP.Hearthstones[index] = {text = name or T.GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
+			LP.Hearthstones[index] = {text = name or GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
 		end
-		for index, data in T.pairs(LP.PortItems) do
+		for index, data in pairs(LP.PortItems) do
 			local id, name, toy = data[1], data[2], data[3]
-			LP.PortItems[index] = {text = name or T.GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
+			LP.PortItems[index] = {text = name or GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
 		end
-		for index, data in T.pairs(LP.EngineerItems) do
+		for index, data in pairs(LP.EngineerItems) do
 			local id, name, toy = data[1], data[2], data[3]
-			LP.EngineerItems[index] = {text = name or T.GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
+			LP.EngineerItems[index] = {text = name or GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
 		end
 	end
 end
 
 function LP:ItemList(check)
-	if LP.db.portals.HSplace then T.tinsert(LP.MainMenu, {text = L["Hearthstone Location"]..": "..GetBindLocation(), title = true, nohighlight = true}) end
-	T.tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
+	if LP.db.portals.HSplace then tinsert(LP.MainMenu, {text = L["Hearthstone Location"]..": "..GetBindLocation(), title = true, nohighlight = true}) end
+	tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
 
 	if LP.db.portals.showHearthstones then
 		local priority = 100
 		local ShownHearthstone
 		local tmp = {}
-		local hsPrio = {T.split(",", E.db.sle.minimap.locPanel.portals.hsPrio)}
+		local hsPrio = {strsplit(",", E.db.sle.minimap.locPanel.portals.hsPrio)}
 		local hsRealPrio = {}
 		for key = 1, #hsPrio do hsRealPrio[hsPrio[key]] = key end
 		for i = 1, #LP.Hearthstones do
@@ -455,13 +458,13 @@ function LP:ItemList(check)
 			local ID, isToy = data.secure.ID, data.secure.isToy
 			isToy = (LP.db.portals.showToys and isToy)
 			if not LP.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox.IsToyUsable(ID) == nil) then return false end
-			if (not isToy and (SLE:BagSearch(ID) and T.IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID))) then
+			if (not isToy and (SLE:BagSearch(ID) and IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID))) then
 				if data.text then
 					if not isToy then
 						ShownHearthstone = data
 						break
 					else
-						local curPriorirty = hsRealPrio[T.tostring(ID)]
+						local curPriorirty = hsRealPrio[tostring(ID)]
 						if curPriorirty < priority then
 							priority = curPriorirty
 							ShownHearthstone = data
@@ -476,11 +479,11 @@ function LP:ItemList(check)
 			local ID, isToy = data.secure.ID, data.secure.isToy
 			local cd = DD:GetCooldown("Item", ID)
 			E:CopyTable(tmp, data)
-			if cd or (T.tonumber(cd) and T.tonumber(cd) > 1.5) then
-				tmp.text = "|cff636363"..tmp.text.."|r"..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
-				T.tinsert(LP.MainMenu, tmp)
+			if cd or (tonumber(cd) and tonumber(cd) > 1.5) then
+				tmp.text = "|cff636363"..tmp.text.."|r"..format(LP.CDformats[LP.db.portals.cdFormat], cd)
+				tinsert(LP.MainMenu, tmp)
 			else
-				T.tinsert(LP.MainMenu, data)
+				tinsert(LP.MainMenu, data)
 			end
 		end
 	end
@@ -491,36 +494,36 @@ function LP:ItemList(check)
 		local ID, isToy = data.secure.ID, data.secure.isToy
 		isToy = (LP.db.portals.showToys and isToy)
 		if not LP.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox.IsToyUsable(ID) == nil) then return false end
-		if ((not isToy and (SLE:BagSearch(ID) and T.IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID)))) then
+		if ((not isToy and (SLE:BagSearch(ID) and IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID)))) then
 			if data.text then
 				local cd = DD:GetCooldown("Item", ID)
 				E:CopyTable(tmp, data)
-				if cd or (T.tonumber(cd) and T.tonumber(cd) > 2) then
-					tmp.text = "|cff636363"..tmp.text.."|r"..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
-					T.tinsert(LP.MainMenu, tmp)
+				if cd or (tonumber(cd) and tonumber(cd) > 2) then
+					tmp.text = "|cff636363"..tmp.text.."|r"..format(LP.CDformats[LP.db.portals.cdFormat], cd)
+					tinsert(LP.MainMenu, tmp)
 				else
-					T.tinsert(LP.MainMenu, data)
+					tinsert(LP.MainMenu, data)
 				end
 			end
 		end
 	end
 
 	if LP.db.portals.showEngineer and LP.isEngineer then
-		T.tinsert(LP.MainMenu, {text = LP.EngineerName..":", title = true, nohighlight = true})
+		tinsert(LP.MainMenu, {text = LP.EngineerName..":", title = true, nohighlight = true})
 		for i = 1, #LP.EngineerItems do
 			local tmp = {}
 			local data = LP.EngineerItems[i]
 			local ID, isToy = data.secure.ID, data.secure.isToy
 			if not LP.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox.IsToyUsable(ID) == nil) then return false end
-			if (not isToy and (SLE:BagSearch(ID) and T.IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID))) then
+			if (not isToy and (SLE:BagSearch(ID) and IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID))) then
 				if data.text then
 					local cd = DD:GetCooldown("Item", ID)
 					E:CopyTable(tmp, data)
-					if cd or (T.tonumber(cd) and T.tonumber(cd) > 2) then
-						tmp.text = "|cff636363"..tmp.text.."|r"..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
-						T.tinsert(LP.MainMenu, tmp)
+					if cd or (tonumber(cd) and tonumber(cd) > 2) then
+						tmp.text = "|cff636363"..tmp.text.."|r"..format(LP.CDformats[LP.db.portals.cdFormat], cd)
+						tinsert(LP.MainMenu, tmp)
 					else
-						T.tinsert(LP.MainMenu, data)
+						tinsert(LP.MainMenu, data)
 					end
 
 				end
@@ -534,18 +537,18 @@ function LP:SpellList(list, dropdown, check)
 	for i = 1, #list do
 		local tmp = {}
 		local data = list[i]
-		if T.IsSpellKnown(data.secure.ID) then
+		if IsSpellKnown(data.secure.ID) then
 			if check then
 				return true
 			else
 				if data.text then
 					local cd = DD:GetCooldown("Spell", data.secure.ID)
-					if cd or (T.tonumber(cd) and T.tonumber(cd) > 1.5) then
+					if cd or (tonumber(cd) and tonumber(cd) > 1.5) then
 						E:CopyTable(tmp, data)
-						tmp.text = "|cff636363"..tmp.text.."|r"..T.format(LP.CDformats[LP.db.portals.cdFormat], cd)
-						T.tinsert(dropdown, tmp)
+						tmp.text = "|cff636363"..tmp.text.."|r"..format(LP.CDformats[LP.db.portals.cdFormat], cd)
+						tinsert(dropdown, tmp)
 					else
-						T.tinsert(dropdown, data)
+						tinsert(dropdown, data)
 					end
 				end
 			end
@@ -567,7 +570,7 @@ function LP:PopulateDropdown(click)
 	if not full_list then
 		if not LP.ListUpdating then SLE:Print(L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."], "error"); LP.ListUpdating = true end
 		if not LP.InfoUpdatingTimer then LP.InfoUpdatingTimer = LP:ScheduleTimer(LP.PopulateDropdown, 3) end
-		T.twipe(LP.MainMenu)
+		wipe(LP.MainMenu)
 		return
 	end
 	if LP.ListUpdating then LP.ListUpdating = false; SLE:Print(L["Update complete. Opening menu."]) end
@@ -576,36 +579,36 @@ function LP:PopulateDropdown(click)
 
 	if LP.db.portals.showSpells then
 		if LP:SpellList(LP.Spells[E.myclass], nil, true) or  LP:SpellList(LP.Spells.challenge, nil, true) or E.myclass == "MAGE" or E.myrace == "DarkIronDwarf" then
-			T.tinsert(LP.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
+			tinsert(LP.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
 			LP:SpellList(LP.Spells[E.myclass], LP.MainMenu)
 			if LP:SpellList(LP.Spells.challenge, nil, true) then
-				T.tinsert(LP.MainMenu, {text = CHALLENGE_MODE.." >>",icon = SLE:GetIconFromID("achiev", 6378), func = function()
-					T.twipe(LP.SecondaryMenu)
+				tinsert(LP.MainMenu, {text = CHALLENGE_MODE.." >>",icon = SLE:GetIconFromID("achiev", 6378), func = function()
+					wipe(LP.SecondaryMenu)
 					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
-					T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() T.twipe(LP.MainMenu); ToggleFrame(LP.Menu2); LP:PopulateDropdown() end})
-					T.tinsert(LP.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
+					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() wipe(LP.MainMenu); ToggleFrame(LP.Menu2); LP:PopulateDropdown() end})
+					tinsert(LP.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
 					LP:SpellList(LP.Spells.challenge, LP.SecondaryMenu)
-					T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
+					tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() wipe(LP.MainMenu); wipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
 					SLE:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
 				end})
 			end
 			if E.myclass == "MAGE" then
-				T.tinsert(LP.MainMenu, {text = L["Teleports"].." >>", icon = SLE:GetIconFromID("spell", 53140), func = function()
-					T.twipe(LP.SecondaryMenu)
+				tinsert(LP.MainMenu, {text = L["Teleports"].." >>", icon = SLE:GetIconFromID("spell", 53140), func = function()
+					wipe(LP.SecondaryMenu)
 					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
-					T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() T.twipe(LP.MainMenu); ToggleFrame(LP.Menu2); LP:PopulateDropdown() end})
-					T.tinsert(LP.SecondaryMenu, {text = L["Teleports"]..":", title = true, nohighlight = true})
+					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() wipe(LP.MainMenu); ToggleFrame(LP.Menu2); LP:PopulateDropdown() end})
+					tinsert(LP.SecondaryMenu, {text = L["Teleports"]..":", title = true, nohighlight = true})
 					LP:SpellList(LP.Spells["teleports"][E.myfaction], LP.SecondaryMenu)
-					T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
+					tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() wipe(LP.MainMenu); wipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
 					SLE:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
 				end})
-				T.tinsert(LP.MainMenu, {text = L["Portals"].." >>",icon = SLE:GetIconFromID("spell", 53142), func = function()
-					T.twipe(LP.SecondaryMenu)
+				tinsert(LP.MainMenu, {text = L["Portals"].." >>",icon = SLE:GetIconFromID("spell", 53142), func = function()
+					wipe(LP.SecondaryMenu)
 					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
-					T.tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() T.twipe(LP.MainMenu); ToggleFrame(LP.Menu2) LP:PopulateDropdown() end})
-					T.tinsert(LP.SecondaryMenu, {text = L["Portals"]..":", title = true, nohighlight = true})
+					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() wipe(LP.MainMenu); ToggleFrame(LP.Menu2) LP:PopulateDropdown() end})
+					tinsert(LP.SecondaryMenu, {text = L["Portals"]..":", title = true, nohighlight = true})
 					LP:SpellList(LP.Spells["portals"][E.myfaction], LP.SecondaryMenu)
-					T.tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
+					tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() wipe(LP.MainMenu); wipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
 					SLE:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
 				end})
 			end
@@ -614,7 +617,7 @@ function LP:PopulateDropdown(click)
 			end
 		end
 	end
-	T.tinsert(LP.MainMenu, {text = CLOSE, title = true, ending = true, func = function() T.twipe(LP.MainMenu); T.twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu1) end})
+	tinsert(LP.MainMenu, {text = CLOSE, title = true, ending = true, func = function() wipe(LP.MainMenu); wipe(LP.SecondaryMenu); ToggleFrame(LP.Menu1) end})
 	MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
 	SLE:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
 
@@ -627,13 +630,13 @@ function LP:GetProf()
 end
 
 function LP:CHAT_MSG_SKILL()
-	local prof1, prof2 = T.GetProfessions()
+	local prof1, prof2 = GetProfessions()
 	if prof1 then
-		local name, _, rank = T.GetProfessionInfo(prof1)
+		local name, _, rank = GetProfessionInfo(prof1)
 		if name == LP.EngineerName then LP.isEngineer = true return end
 	end
 	if prof2 then
-		local name, _, rank = T.GetProfessionInfo(prof2)
+		local name, _, rank = GetProfessionInfo(prof2)
 		if name == LP.EngineerName then LP.isEngineer = true return end
 	end
 end

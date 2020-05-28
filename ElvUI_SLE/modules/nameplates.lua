@@ -1,9 +1,13 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local NP = E:GetModule('NamePlates')
 local N = SLE:NewModule("Nameplates", 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
-local rosterTimer
 
+-- GLOBALS: unpack, select, format, UnitName, hooksecurefunc, UnitIsPlayer, C_NamePlate
+local format = format
 local GetNamePlates = C_NamePlate.GetNamePlates
+local UnitName, UnitExists = UnitName, UnitExists
+
+local rosterTimer
 
 --Table to cache the members of player's group
 N.GroupMembers = {}
@@ -23,16 +27,16 @@ hooksecurefunc(NP, 'ThreatIndicator_PostUpdate', function(threat, unit)
 		if E.db.sle.nameplates.threat.enable and threat.__owner.frameType == "ENEMY_NPC" then
 			if not unit then
 				for i=1, 4 do
-					if threat.__owner.guid == T.UnitGUID(T.format('boss%d', i)) then
-						unit = T.format('boss%d', i)
+					if threat.__owner.guid == UnitGUID(format('boss%d', i)) then
+						unit = format('boss%d', i)
 						break
 					end
 				end
 			end
-			if unit and not T.UnitIsPlayer(unit) and T.UnitCanAttack('player', unit) then
-				local status, percent = T.select(2, T.UnitDetailedThreatSituation('player', unit))
+			if unit and not UnitIsPlayer(unit) and UnitCanAttack('player', unit) then
+				local status, percent = select(2, UnitDetailedThreatSituation('player', unit))
 				if (status) then
-					threat.__owner.SLE_threatInfo:SetFormattedText('%s%.0f%%|r', E:RGBToHex(T.GetThreatStatusColor(status)), percent or "")
+					threat.__owner.SLE_threatInfo:SetFormattedText('%s%.0f%%|r', E:RGBToHex(GetThreatStatusColor(status)), percent or "")
 				end
 			end
 		else
@@ -52,12 +56,12 @@ end
 
 function N:UpdateCount(event,unit,force)
 	if E.db.sle.nameplates.targetcount == nil or not E.db.sle.nameplates.targetcount.enable then return end
-	if (not T.find(unit, "raid") and not T.find(unit, "party") and not (unit == "player" and force) and not N.TestSoloTarget) or T.find(unit, "pet") then return end
-	local isGrouped = T.IsInRaid() or T.IsInGroup()
+	if (not strfind(unit, "raid") and not strfind(unit, "party") and not (unit == "player" and force) and not N.TestSoloTarget) or strfind(unit, "pet") then return end
+	local isGrouped = IsInRaid() or IsInGroup()
 	local target
 	--Forced update of the roster. Usually on load
 	if force and isGrouped then N:UpdateRoster() end
-	for _, frame in T.pairs(GetNamePlates()) do
+	for _, frame in pairs(GetNamePlates()) do
 		if(frame and frame.unitFrame) then
 			local plate = frame.unitFrame
 			--Reset couunter
@@ -65,39 +69,39 @@ function N:UpdateCount(event,unit,force)
 			plate.SLE_TargetedByCounter = 0
 			--If in group, then update counter
 			if isGrouped then
-				for _, unitid in T.pairs(N.GroupMembers) do --For every unit in roster
-					if not T.UnitIsUnit(unitid,"player") and plate.unit then
-						target = T.format("%starget", unitid) --Get group member's target
-						plate.guid = T.UnitGUID(plate.unit) --Find unit's guid
-						if plate.guid and T.UnitExists(target) then --If target exists and plate actually has unit, then someone actually targets this plate
-							if T.UnitGUID(target) == plate.guid then plate.SLE_TargetedByCounter = plate.SLE_TargetedByCounter + 1 end
+				for _, unitid in pairs(N.GroupMembers) do --For every unit in roster
+					if not UnitIsUnit(unitid,"player") and plate.unit then
+						target = format("%starget", unitid) --Get group member's target
+						plate.guid = UnitGUID(plate.unit) --Find unit's guid
+						if plate.guid and UnitExists(target) then --If target exists and plate actually has unit, then someone actually targets this plate
+							if UnitGUID(target) == plate.guid then plate.SLE_TargetedByCounter = plate.SLE_TargetedByCounter + 1 end
 						end
 					end
 				end
 			end
 			--If debug mode is set
 			if N.TestSoloTarget then
-				plate.guid = T.UnitGUID(plate.unit)
-				if plate.guid and T.UnitExists("target") then
-					if T.UnitGUID("target") == plate.guid then plate.SLE_TargetedByCounter = plate.SLE_TargetedByCounter + 1 end
+				plate.guid = UnitGUID(plate.unit)
+				if plate.guid and UnitExists("target") then
+					if UnitGUID("target") == plate.guid then plate.SLE_TargetedByCounter = plate.SLE_TargetedByCounter + 1 end
 				end
 			end
-			if not (plate.SLE_TargetedByCounter == 0) then plate.SLE_targetcount:SetText(T.format('[%d]', plate.SLE_TargetedByCounter))	end
+			if not (plate.SLE_TargetedByCounter == 0) then plate.SLE_targetcount:SetText(format('[%d]', plate.SLE_TargetedByCounter))	end
 		end
 	end
 end
 
 --Adding people to roster table
 local function AddToRoster(unitId)
-	local unitName = T.UnitName(unitId)
+	local unitName = UnitName(unitId)
 	if unitName then N.GroupMembers[unitName] = unitId end
 end
 
 function N:UpdateRoster()
-	T.twipe(N.GroupMembers)
+	wipe(N.GroupMembers)
 
-	local groupSize = T.IsInRaid() and T.GetNumGroupMembers() or T.IsInGroup() and T.GetNumSubgroupMembers() or 0
-	local groupType = T.IsInRaid() and "raid" or T.IsInGroup() and "party" or "solo"
+	local groupSize = IsInRaid() and GetNumGroupMembers() or IsInGroup() and GetNumSubgroupMembers() or 0
+	local groupType = IsInRaid() and "raid" or IsInGroup() and "party" or "solo"
 
 	for index = 1, groupSize do AddToRoster(groupType..index) end
 
@@ -155,7 +159,7 @@ end
 function N:Initialize()
 	if not SLE.initialized or not E.private.nameplates.enable then return end
 	--DB Conversion
-	if E.db.sle.nameplates.targetcount and T.type(E.db.sle.nameplates.targetcount) == "boolean" then
+	if E.db.sle.nameplates.targetcount and type(E.db.sle.nameplates.targetcount) == "boolean" then
 		local oldEnable = E.db.sle.nameplates.targetcount
 		E.db.sle.nameplates.targetcount = {
 			["enable"] = oldEnable,
@@ -182,7 +186,7 @@ function N:Initialize()
 
 	function N:ForUpdateAll()
 		--Additional DB conversion
-		if E.db.sle.nameplates.targetcount and T.type(E.db.sle.nameplates.targetcount) == "boolean" then
+		if E.db.sle.nameplates.targetcount and type(E.db.sle.nameplates.targetcount) == "boolean" then
 			local oldEnable = E.db.sle.nameplates.targetcount
 			E.db.sle.nameplates.targetcount = {
 				["enable"] = oldEnable,

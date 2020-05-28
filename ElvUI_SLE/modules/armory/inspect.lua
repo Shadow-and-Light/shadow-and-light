@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-if T.select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_KnightFrame') then return end --Don't break korean code :D
+if select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_KnightFrame') then return end --Don't break korean code :D
 local Armory = SLE:GetModule("Armory_Core")
 local IA = SLE:NewModule("Armory_Inspect", "AceEvent-3.0", "AceConsole-3.0", "AceHook-3.0");
 local M = E:GetModule("Misc")
@@ -19,10 +19,10 @@ function IA:BuildLayout()
 	end
 	_G["InspectPaperDollFrame"].SLE_Armory_BG:Hide()
 
-	for i, SlotName in T.pairs(Armory.Constants.GearList) do
+	for i, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G["Inspect"..SlotName]
-		Slot.ID = T.GetInventorySlotInfo(SlotName)
-		
+		Slot.ID = GetInventorySlotInfo(SlotName)
+
 		--<<Create gems>>--
 		for t = 1, Armory.Constants.MaxGemSlots do
 			if Slot["textureSlot"..t] then
@@ -42,7 +42,7 @@ function IA:BuildLayout()
 			Slot.SLE_Gradient:SetPoint(Slot.Direction, Slot, Slot.Direction, 0, 0)
 			Slot.SLE_Gradient:Size(132, 41)
 			Slot.SLE_Gradient:SetTexture(Armory.Constants.GradientTexture)
-			Slot.SLE_Gradient:SetVertexColor(T.unpack(E.db.sle.armory.inspect.gradient.color))
+			Slot.SLE_Gradient:SetVertexColor(unpack(E.db.sle.armory.inspect.gradient.color))
 			if Slot.Direction == 'LEFT' then
 				Slot.SLE_Gradient:SetTexCoord(0, 1, 0, 1)
 			else
@@ -116,10 +116,10 @@ function IA:BuildLayout()
 		_G["InspectFrame"].SLE_TransmogViewButton.texture = _G["InspectFrame"].SLE_TransmogViewButton:CreateTexture(nil, 'OVERLAY')
 		_G["InspectFrame"].SLE_TransmogViewButton.texture:SetInside()
 		_G["InspectFrame"].SLE_TransmogViewButton.texture:SetTexture([[Interface\ICONS\INV_Misc_Desecrated_PlateChest]])
-		_G["InspectFrame"].SLE_TransmogViewButton.texture:SetTexCoord(T.unpack(E.TexCoords))
+		_G["InspectFrame"].SLE_TransmogViewButton.texture:SetTexCoord(unpack(E.TexCoords))
 
 		_G["InspectFrame"].SLE_TransmogViewButton:SetScript("OnEnter", function(self)
-			self:SetBackdropBorderColor(T.unpack(E["media"].rgbvaluecolor))
+			self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
 			GameTooltip:SetOwner(self, "ANCHOR_TOP")
 			GameTooltip:SetText(VIEW_IN_DRESSUP_FRAME)
 			GameTooltip:Show()
@@ -151,7 +151,7 @@ function IA:Update_BG()
 end
 
 function IA:Update_ItemLevel()
-	for i, SlotName in T.pairs(Armory.Constants.GearList) do
+	for i, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G["Inspect"..SlotName]
 		if not Slot then return end
 
@@ -163,7 +163,7 @@ function IA:Update_ItemLevel()
 end
 
 function IA:Update_Enchant()
-	for i, SlotName in T.pairs(Armory.Constants.GearList) do
+	for i, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G["Inspect"..SlotName]
 		if not Slot then return end
 
@@ -175,7 +175,7 @@ function IA:Update_Enchant()
 end
 
 function IA:Update_SlotCorruption()
-	for i, SlotName in T.pairs(Armory.Constants.GearList) do
+	for i, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G["Inspect"..SlotName]
 		if not Slot then return end
 
@@ -187,7 +187,7 @@ function IA:Update_SlotCorruption()
 end
 
 function IA:Update_Gems()
-	for i, SlotName in T.pairs(Armory.Constants.GearList) do
+	for i, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G["Inspect"..SlotName]
 		if not Slot then return end
 
@@ -273,12 +273,12 @@ function IA:Disable()
 	_G["InspectPaperDollFrame"].ViewButton:Show()
 	_G["InspectFrame"].SLE_TransmogViewButton:Hide()
 
-	for i, SlotName in T.pairs(Armory.Constants.GearList) do
+	for i, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G["Inspect"..SlotName]
 		if Armory.Constants.Inspect_Defaults[SlotName] then
-			for element, points in T.pairs(Armory.Constants.Inspect_Defaults[SlotName]) do
+			for element, points in pairs(Armory.Constants.Inspect_Defaults[SlotName]) do
 				Slot[element]:ClearAllPoints()
-				Slot[element]:Point(T.unpack(points))
+				Slot[element]:Point(unpack(points))
 			end
 		end
 		if Slot.textureSlot1 then

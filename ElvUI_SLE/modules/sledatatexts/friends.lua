@@ -8,7 +8,11 @@ local LDB = LibStub("LibDataBroker-1.1"):NewDataObject("S&L Friends",
 	label	= "S&L Friends",
 	text	= "S&L Friends"
 })
+
+-- GLOBALS: unpack, select
 local _G = _G
+local format, time = format, time
+local UnitInRaid, UnitInParty = UnitInRaid, UnitInParty
 local ONE_MINUTE = 60;
 local ONE_HOUR = 60 * ONE_MINUTE;
 local ONE_DAY = 24 * ONE_HOUR;
@@ -34,22 +38,22 @@ local realid_table = {}
 
 local function sletime_Conversion(timeDifference, isAbsolute)
    if ( not isAbsolute ) then
-      timeDifference = T.time() - timeDifference;
+      timeDifference = time() - timeDifference;
    end
    local year, month, day, hour, minute;
 
    if ( timeDifference < ONE_MINUTE ) then
       return LASTONLINE_SECS;
    elseif ( timeDifference >= ONE_MINUTE and timeDifference < ONE_HOUR ) then
-      return T.format(LASTONLINE_MINUTES, T.floor(timeDifference / ONE_MINUTE));
+      return format(LASTONLINE_MINUTES, floor(timeDifference / ONE_MINUTE));
    elseif ( timeDifference >= ONE_HOUR and timeDifference < ONE_DAY ) then
-      return T.format(LASTONLINE_HOURS, T.floor(timeDifference / ONE_HOUR));
+      return format(LASTONLINE_HOURS, floor(timeDifference / ONE_HOUR));
    elseif ( timeDifference >= ONE_DAY and timeDifference < ONE_MONTH ) then
-      return T.format(LASTONLINE_DAYS, T.floor(timeDifference / ONE_DAY));
+      return format(LASTONLINE_DAYS, floor(timeDifference / ONE_DAY));
    elseif ( timeDifference >= ONE_MONTH and timeDifference < ONE_YEAR ) then
-      return T.format(LASTONLINE_MONTHS, T.floor(timeDifference / ONE_MONTH));
+      return format(LASTONLINE_MONTHS, floor(timeDifference / ONE_MONTH));
    else
-      return T.format(LASTONLINE_YEARS, T.floor(timeDifference / ONE_YEAR));
+      return format(LASTONLINE_YEARS, floor(timeDifference / ONE_YEAR));
    end
 end
 
@@ -82,8 +86,8 @@ local list_sort = {
 	end,
 	LEVEL =	function(a, b)
 		local first, second = a["LEVEL"], b["LEVEL"]
-		if not T.tonumber(first) then first = 0 end
-		if not T.tonumber(second) then second = 0 end
+		if not tonumber(first) then first = 0 end
+		if not tonumber(second) then second = 0 end
 		if first < second then
 			return true
 		elseif first > second then
@@ -124,8 +128,8 @@ local list_sort = {
 	end,
 	revLEVEL = function(a, b)
 		local first, second = a["LEVEL"], b["LEVEL"]
-		if not T.tonumber(first) then first = 0 end
-		if not T.tonumber(second) then second = 0 end
+		if not tonumber(first) then first = 0 end
+		if not tonumber(second) then second = 0 end
 		if first > second then
 			return true
 		elseif first < second then
@@ -164,9 +168,9 @@ local list_sort = {
 }
 
 local function inGroup(name)
-	if T.GetNumSubgroupMembers() > 0 and T.UnitInParty(name) then
+	if GetNumSubgroupMembers() > 0 and UnitInParty(name) then
 		return true
-	elseif T.GetNumGroupMembers() > 0 and T.UnitInRaid(name) then
+	elseif GetNumGroupMembers() > 0 and UnitInRaid(name) then
 		return true
 	end
 
@@ -176,8 +180,8 @@ end
 local function nameIndex(name)
 	local lookupname
 
-	for i = 1, T.GetNumFriends() do
-		lookupname = T.GetFriendInfo(i)
+	for i = 1, C_FriendList.GetNumFriends() do
+		lookupname = GetFriendInfo(i)
 		if lookupname == name then
 			return i
 		end
@@ -186,8 +190,8 @@ end
 
 local function ColoredLevel(level)
 	if level ~= "" then
-		local color = T.GetQuestDifficultyColor(level)
-		return T.format("|cff%02x%02x%02x%d|r", color.r * 255, color.g * 255, color.b * 255, level)
+		local color = GetQuestDifficultyColor(level)
+		return format("|cff%02x%02x%02x%d|r", color.r * 255, color.g * 255, color.b * 255, level)
 	end
 end
 
@@ -197,29 +201,29 @@ local classes_female, classes_male = {}, {}
 FillLocalizedClassList(classes_female, true)
 FillLocalizedClassList(classes_male, false)
 
-for token, localizedName in T.pairs(classes_female) do
+for token, localizedName in pairs(classes_female) do
 	color = RAID_CLASS_COLORS[token]
-	CLASS_COLORS[localizedName] = T.format("%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255)
+	CLASS_COLORS[localizedName] = format("%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255)
 end
 
-for token, localizedName in T.pairs(classes_male) do
+for token, localizedName in pairs(classes_male) do
 	color = RAID_CLASS_COLORS[token]
-	CLASS_COLORS[localizedName] = T.format("%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255)
+	CLASS_COLORS[localizedName] = format("%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255)
 end
 
 local function valueColor(totals)
 	if totals ~= "" then
 		local color = E.db.general.valuecolor
-		return T.format("|cff%02x%02x%02x%d|r", color.r * 255, color.g * 255, color.b * 255, totals)
+		return format("|cff%02x%02x%02x%d|r", color.r * 255, color.g * 255, color.b * 255, totals)
 	end
 end
 
 function DTP:update_Friends()
 	if not E.db or not E.db.sle or not E.db.sle.dt or not E.db.sle.dt.friends then return end
 	ShowFriends()
-	local friendsTotal = T.GetNumFriends()
-	local friendsOnline = T.GetNumOnlineFriends()
-	local bnTotal, bnOnline = T.BNGetNumFriends()
+	local friendsTotal = C_FriendList.GetNumFriends()
+	local friendsOnline = C_FriendList.GetNumOnlineFriends()
+	local bnTotal, bnOnline = BNGetNumFriends()
 	local totalOnline = friendsOnline + bnOnline
 	local totalFriends = friendsTotal + bnTotal
 	local text = E.db.sle.dt.friends.textStyle == "Default" and FRIENDS..": " or E.db.sle.dt.friends.textStyle == "NoText" and "" or E.db.sle.dt.friends.textStyle == "Icon" and "|TInterface\\ICONS\\Achievement_Reputation_01:12|t: " or ""
@@ -231,22 +235,22 @@ function DTP:update_Friends()
 end
 
 local function Entry_OnMouseUp(frame, info, button)
-	local i_type, toon_name, full_name, presence_id = T.split(":", info)
+	local i_type, toon_name, full_name, presence_id = strsplit(":", info)
 
 	if button == "LeftButton" then
 		if IsAltKeyDown() then
 			if i_type == "realid" then
-				--local _, presenceName, battleTag, isBattleTagPresence, toonName, toonID = T.BNGetFriendInfo(T.BNGetFriendIndex(presence_id))
-				local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = T.BNGetFriendGameAccountInfo(T.BNGetFriendIndex(presence_id), 1)
+				--local _, presenceName, battleTag, isBattleTagPresence, toonName, toonID = BNGetFriendInfo(BNGetFriendIndex(presence_id))
+				local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetFriendGameAccountInfo(BNGetFriendIndex(presence_id), 1)
 
 				if E.myrealm == realmName then
-					T.InviteUnit(toon_name)
+					InviteUnit(toon_name)
 				else
-					T.InviteUnit(toon_name.."-"..realmName)
+					InviteUnit(toon_name.."-"..realmName)
 				end
 				return
 			else
-				T.InviteUnit(toon_name)
+				InviteUnit(toon_name)
 				return
 			end
 		end
@@ -259,8 +263,8 @@ local function Entry_OnMouseUp(frame, info, button)
 		if IsControlKeyDown() then
 			if i_type == "friends" then
 				_G["FriendsFrame"].NotesID = nameIndex(toon_name)
- 				StaticPopup_Show("SET_FRIENDNOTE", T.GetFriendInfo(_G["FriendsFrame"].NotesID))
- 				return
+				StaticPopup_Show("SET_FRIENDNOTE", GetFriendInfo(_G["FriendsFrame"].NotesID))
+				return
 			end
 
 			if i_type == "realid" then
@@ -272,16 +276,16 @@ local function Entry_OnMouseUp(frame, info, button)
 
 		if i_type == "realid" then
 			local name
-			for _, player in T.ipairs(realid_table) do
+			for _, player in ipairs(realid_table) do
 				if player["GIVENNAME"] == presence_id and player["CLIENT"] == "Hero" then
 					name = presence_id..":"..player["PRESENCEID"]
 					break
 				end
 			end
 			if not name then name = full_name..":"..presence_id end
-			SetItemRef( "BNplayer:"..name, T.format("|HBNplayer:%1$s|h[%1$s]|h", name), "LeftButton" )
+			SetItemRef( "BNplayer:"..name, format("|HBNplayer:%1$s|h[%1$s]|h", name), "LeftButton" )
 		else
-			SetItemRef( "player:"..full_name, T.format("|Hplayer:%1$s|h[%1$s]|h", full_name), "LeftButton" )
+			SetItemRef( "player:"..full_name, format("|Hplayer:%1$s|h[%1$s]|h", full_name), "LeftButton" )
 		end
 	elseif button == "RightButton" then
 		if IsControlKeyDown() then
@@ -322,7 +326,7 @@ end
 function LDB.OnLeave() end
 
 function LDB.OnEnter(self)
-	if E.db.sle.dt.friends.combat and T.InCombatLockdown() then return end
+	if E.db.sle.dt.friends.combat and InCombatLockdown() then return end
 	LDB_ANCHOR = self
 
 	if LibQTip:IsAcquired("ShadowLightFriends") then
@@ -349,8 +353,8 @@ function LDB.OnEnter(self)
 		tooltip:AddLine(" ")
 	end
 
-	local _, numBNOnline = T.BNGetNumFriends()
-	local numFriendsOnline = T.GetNumOnlineFriends()
+	local _, numBNOnline = BNGetNumFriends()
+	local numFriendsOnline = C_FriendList.GetNumOnlineFriends()
 
 	if (numBNOnline > 0) or (numFriendsOnline > 0) then
 		line = tooltip:AddLine()
@@ -383,13 +387,13 @@ function LDB.OnEnter(self)
 			tooltip:AddSeparator()
 
 			if numBNOnline > 0 then
-				T.twipe(realid_table)
+				wipe(realid_table)
 				for i = 1, numBNOnline do
-					local presenceID, givenName, bTag, _, _, toonID, gameClient, isOnline, lastOnline, isAFK, isDND, broadcast, note, _, castTime = T.BNGetFriendInfo(i)
-					local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText, _, _, canSoR, _, _, _, _, playerGUID, WoWProjectID = T.BNGetFriendGameAccountInfo(i, 1)
+					local presenceID, givenName, bTag, _, _, toonID, gameClient, isOnline, lastOnline, isAFK, isDND, broadcast, note, _, castTime = BNGetFriendInfo(i)
+					local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText, _, _, canSoR, _, _, _, _, playerGUID, WoWProjectID = BNGetFriendGameAccountInfo(i, 1)
 					local broadcastTime = ""
 					if castTime then
-						broadcastTime = T.format(BNET_BROADCAST_SENT_TIME, sletime_Conversion(castTime));
+						broadcastTime = format(BNET_BROADCAST_SENT_TIME, sletime_Conversion(castTime));
 					end
 
 					local fcolor
@@ -410,7 +414,7 @@ function LDB.OnEnter(self)
 						end
 						if note and note ~= "" then note = "|cffff8800"..note.."|r" end
 
-						T.tinsert(realid_table, {
+						tinsert(realid_table, {
 							GIVENNAME = givenName,
 							SURNAME = bTag or "",
 							LEVEL = level,
@@ -432,10 +436,10 @@ function LDB.OnEnter(self)
 				end
 
 				if (E.db.sle.dt.friends["sortBN"] ~= "REALID") and (E.db.sle.dt.friends["sortBN"] ~= "revREALID") then
-					T.sort(realid_table, list_sort[E.db.sle.dt.friends["sortBN"]])
+					sort(realid_table, list_sort[E.db.sle.dt.friends["sortBN"]])
 				end
 
-				for _, player in T.ipairs(realid_table) do
+				for _, player in ipairs(realid_table) do
 					local broadcast_flag
 					if not E.db.sle.dt.friends.expandBNBroadcast and player["BROADCAST_TEXT"] ~= "" then
 						broadcast_flag = " " .. BROADCAST_ICON
@@ -448,10 +452,10 @@ function LDB.OnEnter(self)
 					line = tooltip:SetCell(line, 2, player["STATUS"])
 					if player["CLIENT"] ~= "Hero" then
 						line = tooltip:SetCell(line, 3,
-						T.format("|cff%s%s",CLASS_COLORS[player["CLASS"]] or "B8B8B8", player["TOONNAME"] .. "|r")..
+						format("|cff%s%s",CLASS_COLORS[player["CLASS"]] or "B8B8B8", player["TOONNAME"] .. "|r")..
 						(inGroup(player["TOONNAME"]) and GROUP_CHECKMARK or ""))
 					else
-						line = tooltip:SetCell(line, 3, T.format(""))
+						line = tooltip:SetCell(line, 3, format(""))
 					end
 					line = tooltip:SetCell(line, 4,
 						"|cff82c5ff" .. player["GIVENNAME"] .. "|r" .. broadcast_flag)
@@ -496,12 +500,12 @@ function LDB.OnEnter(self)
 						line = tooltip:SetCell(line, 7, player["NOTE"])
 					end
 
-					tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, T.format("realid:%s:%s:%d", player["TOONNAME"], player["GIVENNAME"], player["PRESENCEID"]))
+					tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, format("realid:%s:%s:%d", player["TOONNAME"], player["GIVENNAME"], player["PRESENCEID"]))
 
 					if E.db.sle.dt.friends.expandBNBroadcast and player["BROADCAST_TEXT"] ~= "" then
 						line = tooltip:AddLine()
 						line = tooltip:SetCell(line, 1, BROADCAST_ICON .. " |cff7b8489" .. player["BROADCAST_TEXT"] .. "|r "..player["BROADCAST_TIME"], "LEFT", 0)
-						tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, T.format("realid:%s:%s:%d", player["TOONNAME"], player["GIVENNAME"], player["PRESENCEID"]))
+						tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, format("realid:%s:%s:%d", player["TOONNAME"], player["GIVENNAME"], player["PRESENCEID"]))
 					end
 				end
 				tooltip:AddLine(" ")
@@ -510,7 +514,7 @@ function LDB.OnEnter(self)
 			if numFriendsOnline > 0 then
 				local friend_table = {}
 				for i = 1,numFriendsOnline do
-					local toonName, level, class, zoneName, connected, status, note = T.GetFriendInfo(i)
+					local toonName, level, class, zoneName, connected, status, note = GetFriendInfo(i)
 					note = note and "|cffff8800{"..note.."}|r" or ""
 
 					if status == CHAT_FLAG_AFK then
@@ -519,7 +523,7 @@ function LDB.OnEnter(self)
 						status = BUSY_ICON
 					end
 
-					T.tinsert(friend_table, {
+					tinsert(friend_table, {
 						TOONNAME = toonName,
 						LEVEL = level,
 						CLASS = class,
@@ -531,22 +535,22 @@ function LDB.OnEnter(self)
 				end
 
 				if (E.db.sle.dt.friends["sortBN"] ~= "REALID") and (E.db.sle.dt.friends["sortBN"] ~= "revREALID") then
-					T.sort(friend_table, list_sort[E.db.sle.dt.friends["sortBN"]])
+					sort(friend_table, list_sort[E.db.sle.dt.friends["sortBN"]])
 				else
-					T.sort(friend_table, list_sort["TOONNAME"])
+					sort(friend_table, list_sort["TOONNAME"])
 				end
 
-				for _, player in T.ipairs(friend_table) do
+				for _, player in ipairs(friend_table) do
 					line = tooltip:AddLine()
 					line = tooltip:SetCell(line, 1, ColoredLevel(player["LEVEL"]))
 					line = tooltip:SetCell(line, 2, player["STATUS"])
 					line = tooltip:SetCell(line, 3,
-						T.format("|cff%s%s", CLASS_COLORS[player["CLASS"]] or "ffffff", player["TOONNAME"] .. "|r") .. (inGroup(player["TOONNAME"]) and GROUP_CHECKMARK or ""));
+						format("|cff%s%s", CLASS_COLORS[player["CLASS"]] or "ffffff", player["TOONNAME"] .. "|r") .. (inGroup(player["TOONNAME"]) and GROUP_CHECKMARK or ""));
 					line = tooltip:SetCell(line, 5, player["ZONENAME"])
 					if not E.db.sle.dt.friends.hideFriendsNotes then
 						line = tooltip:SetCell(line, 7, player["NOTE"])
 					end
-					tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, T.format("friends:%s:%s", player["TOONNAME"], player["TOONNAME"]))
+					tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, format("friends:%s:%s", player["TOONNAME"], player["TOONNAME"]))
 				end
 			end
 		end
@@ -593,14 +597,14 @@ frame:SetScript("OnEvent", function(self, event, ...)
 end)
 
 function frame:PLAYER_LOGIN()
-	local _, numBNOnline = T.BNGetNumFriends()
-	local numFriendsOnline = T.GetNumOnlineFriends()
+	local _, numBNOnline = BNGetNumFriends()
+	local numFriendsOnline = C_FriendList.GetNumOnlineFriends()
 
 	if (numBNOnline > 0) or (numFriendsOnline > 0) then
 		if numBNOnline > 0 then
 			for i = 1, numBNOnline do
-					local presenceID, givenName, bTag, _, _, toonID, gameClient, isOnline, lastOnline, isAFK, isDND, broadcast, note, _, castTime = T.BNGetFriendInfo(i)
-					local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = T.BNGetFriendGameAccountInfo(i, 1)
+				local presenceID, givenName, bTag, _, _, toonID, gameClient, isOnline, lastOnline, isAFK, isDND, broadcast, note, _, castTime = BNGetFriendInfo(i)
+				local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetFriendGameAccountInfo(i, 1)
 			end
 		end
 	end

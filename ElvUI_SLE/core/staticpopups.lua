@@ -37,8 +37,8 @@ E.PopupDialogs['SLE_CONFIRM_DELETE_CURRENCY_CHARACTER'] = {
 --Incompatibility messages
 E.PopupDialogs["ENHANCED_SLE_INCOMPATIBLE"] = {
 	text = L["Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable."],
-	OnAccept = function() T.DisableAddOn("ElvUI_Enhanced"); ReloadUI() end,
-	OnCancel = function() T.DisableAddOn("ElvUI_SLE"); ReloadUI() end,
+	OnAccept = function() DisableAddOn("ElvUI_Enhanced"); ReloadUI() end,
+	OnCancel = function() DisableAddOn("ElvUI_SLE"); ReloadUI() end,
 	button1 = 'ElvUI Enhanced',
 	button2 = 'Shadow & Light',
 	timeout = 0,
@@ -48,8 +48,8 @@ E.PopupDialogs["ENHANCED_SLE_INCOMPATIBLE"] = {
 
 E.PopupDialogs["LOOTCONFIRM_SLE_INCOMPATIBLE"] = {
 	text = L["You have got Loot Confirm and Shadow & Light both enabled at the same time. Select an addon to disable."],
-	OnAccept = function() T.DisableAddOn("LootConfirm"); ReloadUI() end,
-	OnCancel = function() T.DisableAddOn("ElvUI_SLE"); ReloadUI() end,
+	OnAccept = function() DisableAddOn("LootConfirm"); ReloadUI() end,
+	OnCancel = function() DisableAddOn("ElvUI_SLE"); ReloadUI() end,
 	button1 = 'Loot Confirm',
 	button2 = 'Shadow & Light',
 	timeout = 0,
@@ -59,8 +59,8 @@ E.PopupDialogs["LOOTCONFIRM_SLE_INCOMPATIBLE"] = {
 
 E.PopupDialogs["TRANSAB_SLE_INCOMPATIBLE"] = {
 	text = L["You have got ElvUI Transparent Actionbar Backdrops and Shadow & Light both enabled at the same time. Select an addon to disable."],
-	OnAccept = function() T.DisableAddOn("ElvUITransparentActionbars"); ReloadUI() end,
-	OnCancel = function() T.DisableAddOn("ElvUI_SLE"); ReloadUI() end,
+	OnAccept = function() DisableAddOn("ElvUITransparentActionbars"); ReloadUI() end,
+	OnCancel = function() DisableAddOn("ElvUI_SLE"); ReloadUI() end,
 	button1 = 'Transparent Actionbar Backdrops',
 	button2 = 'Shadow & Light',
 	timeout = 0,
@@ -69,8 +69,8 @@ E.PopupDialogs["TRANSAB_SLE_INCOMPATIBLE"] = {
 }
 
 E.PopupDialogs["SLE_INCOMPATIBLE_ADDON"] = {
-	text = T.gsub(L["INCOMPATIBLE_ADDON"], "ElvUI", "Shadow & Light"),
-	OnAccept = function(self) T.DisableAddOn(E.PopupDialogs["SLE_INCOMPATIBLE_ADDON"].addon); ReloadUI(); end,
+	text = gsub(L["INCOMPATIBLE_ADDON"], "ElvUI", "Shadow & Light"),
+	OnAccept = function(self) DisableAddOn(E.PopupDialogs["SLE_INCOMPATIBLE_ADDON"].addon); ReloadUI(); end,
 	OnCancel = function(self) E.PopupDialogs["SLE_INCOMPATIBLE_ADDON"].optiontable[E.PopupDialogs["SLE_INCOMPATIBLE_ADDON"].value] = false; ReloadUI(); end,
 	timeout = 0,
 	whileDead = 1,

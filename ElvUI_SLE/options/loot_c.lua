@@ -10,7 +10,7 @@ local function configTable()
 		local config = {
 			order = Order,
 			type = "toggle",
-			name = _G[Name] or _G[T.gsub(Name, "CHAT_MSG_", "")],
+			name = _G[Name] or _G[gsub(Name, "CHAT_MSG_", "")],
 			disabled = function() return not E.db.sle.loot.looticons.enable end,
 			get = function(info) return E.db.sle.loot.looticons.channels[Name] end,
 			set = function(info, value) E.db.sle.loot.looticons.channels[Name] = value end,
@@ -129,7 +129,7 @@ local function configTable()
 						type = "range",
 						name = L["Level to start auto-rolling from"],
 						disabled = function() return not E.db.sle.loot.enable or not E.db.sle.loot.autoroll.enable end,
-						min = 1, max = T.GetMaxPlayerLevel(), step = 1,
+						min = 1, max = GetMaxPlayerLevel(), step = 1,
 						get = function(info) return E.db.sle.loot.autoroll.level end,
 						set = function(info, value) E.db.sle.loot.autoroll.level = value; end,
 					},
@@ -384,4 +384,4 @@ local function configTable()
 	}
 end
 
-T.tinsert(SLE.Configs, configTable)
+tinsert(SLE.Configs, configTable)

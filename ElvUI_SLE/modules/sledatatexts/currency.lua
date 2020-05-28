@@ -1,19 +1,20 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
 local DTP = SLE:GetModule('Datatexts')
+
 --GLOBALS: ElvDB
+local format, sort = format, sort
 local abs, mod = abs, mod
-local sort = sort
 local GetMoney, GetCurrencyInfo, GetNumWatchedTokens, GetBackpackCurrencyInfo, GetCurrencyListInfo = GetMoney, GetCurrencyInfo, GetNumWatchedTokens, GetBackpackCurrencyInfo, GetCurrencyListInfo
 
 local Ticker
 local defaultColor = { 1, 1, 1 }
 local Profit = 0
 local Spent = 0
-local copperFormatter = T.join("", "%d", L.copperabbrev)
-local silverFormatter = T.join("", "%d", L.silverabbrev, " %.2d", L.copperabbrev)
-local goldFormatter =  T.join("", "%s", L.goldabbrev, " %.2d", L.silverabbrev, " %.2d", L.copperabbrev)
-local resetInfoFormatter = T.join("", "|cffaaaaaa", L["Reset Data: Hold Shift + Right Click"], "|r")
+local copperFormatter = strjoin("", "%d", L.copperabbrev)
+local silverFormatter = strjoin("", "%d", L.silverabbrev, " %.2d", L.copperabbrev)
+local goldFormatter =  strjoin("", "%s", L.goldabbrev, " %.2d", L.silverabbrev, " %.2d", L.copperabbrev)
+local resetInfoFormatter = strjoin("", "|cffaaaaaa", L["Reset Data: Hold Shift + Right Click"], "|r")
 local JEWELCRAFTING, COOKING, ARCHAEOLOGY
 --Strings and shit
 local SHOW_CONQUEST_LEVEL = SHOW_CONQUEST_LEVEL
@@ -147,13 +148,13 @@ end
 local HiddenCurrency = {}
 
 local function UnusedCheck()
-	T.twipe(HiddenCurrency)
+	wipe(HiddenCurrency)
 	if GetOption('Unused') then return end
-	for i = 1, T.GetCurrencyListSize() do
+	for i = 1, GetCurrencyListSize() do
 		local name, isHeader, _, isUnused = GetCurrencyListInfo(i)
 		if not isHeader and isUnused then
 			if not SLE:SimpleTable(HiddenCurrency, name) then
-				T.tinsert(HiddenCurrency,#(HiddenCurrency)+1, name)
+				tinsert(HiddenCurrency,#(HiddenCurrency)+1, name)
 			end
 		else
 			if SLE:SimpleTable(HiddenCurrency, name) then
@@ -189,15 +190,15 @@ local function GetCurrency(CurrencyTable, Text)
 	local Seperator = false
 	UnusedCheck()
 	local ShownTable = {}
-	for key, id in T.pairs(CurrencyTable) do
+	for key, id in pairs(CurrencyTable) do
 		local name, amount, texture, week, weekmax, maxed, discovered = GetCurrencyInfo(id)
 		if name and name ~= "" then
-			local LeftString = GetOption('Icons') and T.format('%s %s', T.format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture), name) or name
+			local LeftString = GetOption('Icons') and format('%s %s', format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture), name) or name
 			local RightString = amount
 			local unused = SLE:SimpleTable(HiddenCurrency, name) or nil
 
 			if maxed > 0 then
-				RightString = T.format('%s / %s', amount, maxed)
+				RightString = format('%s / %s', amount, maxed)
 			end
 
 			local r1, g1, b1 = 1, 1, 1
@@ -215,7 +216,7 @@ local function GetCurrency(CurrencyTable, Text)
 					DT.tooltip:AddLine(Text)
 					Seperator = true
 				end
-				T.tinsert(ShownTable,
+				tinsert(ShownTable,
 					{
 						name = name,
 						left = LeftString,
@@ -250,7 +251,7 @@ local function OnEvent(self, event, ...)
 	ElvDB["gold"][E.myrealm][E.myname] = ElvDB["gold"][E.myrealm][E.myname] or NewMoney;
 	ElvDB["class"] = ElvDB["class"] or {};
 	ElvDB["class"][E.myrealm] = ElvDB["class"][E.myrealm] or {};
-	ElvDB["class"][E.myrealm][E.myname] = T.select(2, T.UnitClass('player'))
+	ElvDB["class"][E.myrealm][E.myname] = select(2, T.UnitClass('player'))
 	ElvDB["faction"] = ElvDB["faction"] or {};
 	ElvDB["faction"][E.myrealm] = ElvDB["faction"][E.myrealm] or {};
 	ElvDB["faction"][E.myrealm]["Horde"] = ElvDB["faction"][E.myrealm]["Horde"] or {};
@@ -291,9 +292,9 @@ local function OnEvent(self, event, ...)
 
 	if event == 'LOADING_SCREEN_DISABLED' or event == 'SPELLS_CHANGED' then
 		JEWELCRAFTING = nil
-		for k, v in T.pairs({T.GetProfessions()}) do
+		for k, v in pairs({GetProfessions()}) do
 			if v then
-				local name, _, _, _, _, _, skillid = T.GetProfessionInfo(v)
+				local name, _, _, _, _, _, skillid = GetProfessionInfo(v)
 				if skillid == 755 then
 					JEWELCRAFTING = name
 				elseif skillid == 185 then
@@ -320,7 +321,7 @@ end
 
 local HeaderListExpanded = {}
 local function ToggleCurrencies(open)
-	for i = T.GetCurrencyListSize(), 1, -1 do
+	for i = GetCurrencyListSize(), 1, -1 do
 		local name, isHeader, isExpanded = GetCurrencyListInfo(i)
 		if open then
 			if not HeaderListExpanded[name] and isHeader and isExpanded then
@@ -342,7 +343,7 @@ local function ToggleCurrencies(open)
 end
 
 local function OnEnter(self)
-	if T.InCombatLockdown() then return end
+	if InCombatLockdown() then return end
 	DT:SetupTooltip(self)
 
 	DT.tooltip:AddLine(L["Session:"])
@@ -358,13 +359,13 @@ local function OnEnter(self)
 	local totalGold, AllianceGold, HordeGold = 0, 0, 0
 	DT.tooltip:AddLine(L["Character: "])
 	local ShownGold = {}
-	for k,_ in T.pairs(ElvDB["gold"][E.myrealm]) do
+	for k,_ in pairs(ElvDB["gold"][E.myrealm]) do
 		if ElvDB["gold"][E.myrealm][k] then
 			local class = ElvDB["class"][E.myrealm][k]
 			local color = RAID_CLASS_COLORS[class or "PRIEST"]
 			local order = E.private.sle.characterGoldsSorting[E.myrealm][k] or 1
 			if k == E.myname or E.db.sle.dt.currency.gold.throttle.mode ~= "AMOUNT" or (E.db.sle.dt.currency.gold.throttle.mode == "AMOUNT" and ElvDB["gold"][E.myrealm][k] >= (E.db.sle.dt.currency.gold.throttle.goldAmount * 10000)) then
-				T.tinsert(ShownGold,
+				tinsert(ShownGold,
 					{
 						-- The function here is a hook that NihilistUI uses to add some textures to the gold datatext, if you change this please let nihilist know.
 						name = (DTP.CustomGoldDatatext and DTP.CustomGoldDatatext(k) or "")..k,
@@ -395,30 +396,30 @@ local function OnEnter(self)
 	DT.tooltip:AddLine(' ')
 	DT.tooltip:AddLine(L["Server: "])
 	if GetOption('Faction') then
-		DT.tooltip:AddDoubleLine(T.format('%s: ', FACTION_ALLIANCE), E:FormatMoney(AllianceGold, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), AllianceColor.r, AllianceColor.g, AllianceColor.b, 1, 1, 1)
-		DT.tooltip:AddDoubleLine(T.format('%s: ', FACTION_HORDE), E:FormatMoney(HordeGold, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), HordeColor.r, HordeColor.g, HordeColor.b, 1, 1, 1)
+		DT.tooltip:AddDoubleLine(format('%s: ', FACTION_ALLIANCE), E:FormatMoney(AllianceGold, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), AllianceColor.r, AllianceColor.g, AllianceColor.b, 1, 1, 1)
+		DT.tooltip:AddDoubleLine(format('%s: ', FACTION_HORDE), E:FormatMoney(HordeGold, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), HordeColor.r, HordeColor.g, HordeColor.b, 1, 1, 1)
 	end
 	DT.tooltip:AddDoubleLine(L["Total: "], E:FormatMoney(totalGold, E.db.datatexts.goldFormat or "BLIZZARD", not E.db.datatexts.goldCoins), 1, 1, 1, 1, 1, 1)
 
 	ToggleCurrencies(true)
 
 	if ARCHAEOLOGY ~= nil and GetOption('Archaeology') then
-		GetCurrency(ArchaeologyFragments, T.format('%s %s:', ARCHAEOLOGY, ARCHAEOLOGY_RUNE_STONES))
+		GetCurrency(ArchaeologyFragments, format('%s %s:', ARCHAEOLOGY, ARCHAEOLOGY_RUNE_STONES))
 	end
 	if COOKING ~= nil and GetOption('Cooking') then
-		GetCurrency(CookingAwards, T.format("%s:", COOKING))
+		GetCurrency(CookingAwards, format("%s:", COOKING))
 	end
 	if JEWELCRAFTING ~= nil and GetOption('Jewelcrafting') then
-		GetCurrency(JewelcraftingTokens, T.format("%s:", JEWELCRAFTING))
+		GetCurrency(JewelcraftingTokens, format("%s:", JEWELCRAFTING))
 	end
 	if GetOption('Raid') then
-		GetCurrency(DungeonRaid, T.format("%s:", GROUP_FINDER))
+		GetCurrency(DungeonRaid, format("%s:", GROUP_FINDER))
 	end
 	if GetOption('PvP') then
-		GetCurrency(PvPPoints, T.format("%s:", PLAYER_V_PLAYER))
+		GetCurrency(PvPPoints, format("%s:", PLAYER_V_PLAYER))
 	end
 	if GetOption('Miscellaneous') then
-		GetCurrency(MiscellaneousCurrency, T.format("%s:", MISCELLANEOUS))
+		GetCurrency(MiscellaneousCurrency, format("%s:", MISCELLANEOUS))
 	end
 
 	ToggleCurrencies(false)

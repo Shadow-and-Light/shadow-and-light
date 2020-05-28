@@ -1,10 +1,13 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
 local Tools = SLE:NewModule("Toolbars", 'AceHook-3.0', 'AceEvent-3.0')
+
 --GLOBALS: CreateFrame, hooksecurefunc, UIParent
+local _G = _G
+local format = format
+
 local size
 local Zcheck = false
-local _G = _G
 local GameTooltip = GameTooltip
 local PickupContainerItem, DeleteCursorItem = PickupContainerItem, DeleteCursorItem
 
@@ -14,16 +17,16 @@ Tools.buttoncounts = {} --To kepp number of items
 --Checking for changes in inventory (e.g. item counts)
 function Tools:InventoryUpdate(event)
 	--Not updating in combat. Cause taints
-	if T.InCombatLockdown() then
+	if InCombatLockdown() then
 		Tools:RegisterEvent("PLAYER_REGEN_ENABLED", "InventoryUpdate")
 		return
 	else
 		Tools:UnregisterEvent("PLAYER_REGEN_ENABLED")
- 	end
+	end
 
 	local updateRequired = false
 	--Running an inventory check for all anchors created.
-	for name, anchor in T.pairs(Tools.RegisteredAnchors) do
+	for name, anchor in pairs(Tools.RegisteredAnchors) do
 		if not anchor.InventroyCheck then assert(false, "Anchor named "..name.."doesn't have inventory update.") return end
 		if anchor.InventroyCheck() then updateRequired = true; break end
 	end
@@ -40,7 +43,7 @@ Tools.UpdateBarLayout = function(bar, anchor, buttons, category, db)
 
 	bar:ClearAllPoints()
 	bar:Point("LEFT", anchor, "LEFT", 0, 0)
-	for i, button in T.ipairs(buttons) do
+	for i, button in ipairs(buttons) do
 		button:ClearAllPoints()
 		if not button.items then Tools:InventoryUpdate() end
 		if not db.active or button.items > 0 then
@@ -52,10 +55,10 @@ Tools.UpdateBarLayout = function(bar, anchor, buttons, category, db)
 			button:Hide()
 		end
 	end
-	
+
 	bar:Width(1)
 	bar:Height(db.buttonsize+2)
-	
+
 	return count
 end
 
@@ -65,8 +68,8 @@ local function UpdateCooldown(anchor)
 
 	for i = 1, anchor.NumBars do
 		local bar = anchor.Bars[anchor.BarsName..i]
-		for _, button in T.ipairs(bar.Buttons) do
-			if button.cooldown then button.cooldown:SetCooldown(T.GetItemCooldown(button.itemId)) end
+		for _, button in ipairs(bar.Buttons) do
+			if button.cooldown then button.cooldown:SetCooldown(GetItemCooldown(button.itemId)) end
 		end
 	end
 end
@@ -77,7 +80,7 @@ local function UpdateBar(bar, layoutfunc, zonecheck, anchor, buttons, category, 
 	bar:Show()
 
 	local count = layoutfunc(bar, anchor, buttons, category, db)
-	if (db.enable and (count and count > 0) and zonecheck() and not T.InCombatLockdown()) then
+	if (db.enable and (count and count > 0) and zonecheck() and not InCombatLockdown()) then
 		bar:Show()
 	else
 		bar:Hide()
@@ -86,14 +89,14 @@ end
 
 function Tools:BAG_UPDATE_COOLDOWN()
 	Tools:InventoryUpdate()
-	for name, anchor in T.pairs(Tools.RegisteredAnchors) do
+	for name, anchor in pairs(Tools.RegisteredAnchors) do
 		UpdateCooldown(anchor)
 	end
 end
 
 local function Zone(event)
 	local shouldShow = false
-	for name, anchor in T.pairs(Tools.RegisteredAnchors) do
+	for name, anchor in pairs(Tools.RegisteredAnchors) do
 		if anchor.ReturnDB().enable and (not anchor.ShouldShow or anchor.ShouldShow()) then
 			shouldShow = true
 			break
@@ -125,16 +128,16 @@ function Tools:UpdateLayout(event, unit) --don't touch
 	--For updating borders after quest was complited. for some reason events fires before quest disappeares from log
 	if event == "UNIT_QUEST_LOG_CHANGED" then
 		if unit == "player" then E:Delay(1, Tools.UpdateLayout) else return end
-	end 
+	end
 	--not in combat. now idea how this can happen, but still
-	if T.InCombatLockdown() then
-		Tools:RegisterEvent("PLAYER_REGEN_ENABLED", "UpdateLayout")	
+	if InCombatLockdown() then
+		Tools:RegisterEvent("PLAYER_REGEN_ENABLED", "UpdateLayout")
 		return
 	else
 		Tools:UnregisterEvent("PLAYER_REGEN_ENABLED")
- 	end
+	end
 	--Update every single bar and mover
-	for name, anchor in T.pairs(Tools.RegisteredAnchors) do
+	for name, anchor in pairs(Tools.RegisteredAnchors) do
 		if anchor.mover then
 			if anchor.EnableMover() then
 				E:EnableMover(anchor.mover:GetName())
@@ -155,7 +158,7 @@ local function onClick(self, mousebutton)
 	--Da left button
 	if mousebutton == "LeftButton" then
 		--If in combat and this bar doesn't contain macro yet
-		if T.InCombatLockdown() and not self.macro then
+		if InCombatLockdown() and not self.macro then
 			SLE:Print(L["We are sorry, but you can't do this now. Try again after the end of this combat."])
 			return
 		end
@@ -166,8 +169,8 @@ local function onClick(self, mousebutton)
 		--If this bar was supposed to have auto target feature, then do it!
 		if bar.Autotarget then bar.Autotarget(self) end
 		--If cooldowns are supposed to be here
-		if self.cooldown then 
-			self.cooldown:SetCooldown(T.GetItemCooldown(self.itemId))
+		if self.cooldown then
+			self.cooldown:SetCooldown(GetItemCooldown(self.itemId))
 		end
 		--Applying setup mark
 		if not self.macro then self.macro = true end
@@ -187,7 +190,7 @@ local function onEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 2, 4)
 	GameTooltip:ClearLines()
 	GameTooltip:AddLine(" ")
-	GameTooltip:SetItemByID(self.itemId) 
+	GameTooltip:SetItemByID(self.itemId)
 	if self.allowDrop then
 		GameTooltip:AddLine(L["Right-click to drop the item."])
 	end
@@ -196,13 +199,13 @@ end
 
 --Hide da tooltip
 local function onLeave()
-	GameTooltip:Hide() 
+	GameTooltip:Hide()
 end
 
 --Creating the button
 function Tools:CreateToolsButton(index, owner, buttonType, name, texture, allowDrop, db)
 	size = db.buttonsize
-	local button = CreateFrame("Button", T.format("ToolsButton%d", index), owner, "SecureActionButtonTemplate")
+	local button = CreateFrame("Button", format("ToolsButton%d", index), owner, "SecureActionButtonTemplate")
 	button:Size(size, size)
 	S:HandleButton(button)
 
@@ -222,8 +225,8 @@ function Tools:CreateToolsButton(index, owner, buttonType, name, texture, allowD
 	button.text:SetPoint("BOTTOMRIGHT", button, 1, 2)
 
 	--If this thing has a cooldown
-	if T.select(3, T.GetItemCooldown(button.itemId)) == 1 then
-		button.cooldown = CreateFrame("Cooldown", T.format("ToolsButton%dCooldown", index), button)
+	if select(3, GetItemCooldown(button.itemId)) == 1 then
+		button.cooldown = CreateFrame("Cooldown", format("ToolsButton%dCooldown", index), button)
 		button.cooldown:SetAllPoints(button)
 		E:RegisterCooldown(button.cooldown)
 	end
@@ -231,7 +234,7 @@ function Tools:CreateToolsButton(index, owner, buttonType, name, texture, allowD
 	button:HookScript("OnEnter", onEnter)
 	button:HookScript("OnLeave", onLeave)
 	button:SetScript("OnMouseDown", onClick)
-	
+
 	return button
 end
 
@@ -240,11 +243,11 @@ function Tools:PopulateBar(bar)
 	bar = _G[bar]
 	if not bar then return end
 	if not bar.Buttons then bar.Buttons = {} end
-	for id, data in T.pairs(bar.Items) do
-		T.tinsert(bar.Buttons, Tools:CreateToolsButton(id, bar, "item", data.name, data.texture, true, E.db.sle.legacy.farm))
+	for id, data in pairs(bar.Items) do
+		tinsert(bar.Buttons, Tools:CreateToolsButton(id, bar, "item", data.name, data.texture, true, E.db.sle.legacy.farm))
 	end
 	--This is my nightmare
-	T.sort(bar.Buttons, function(a, b)
+	sort(bar.Buttons, function(a, b)
 		if (not a or (a and not a.sortname)) and (not b or (b and not b.sortname)) then
 			return false
 		elseif (not a or (a and not a.sortname)) and b then
@@ -252,16 +255,16 @@ function Tools:PopulateBar(bar)
 		elseif (not b or (b and not b.sortname)) and a then
 			return true
 		end
-		
+
 		return a.sortname < b.sortname
 	end)
 end
 
 --Creating basically everything
 function Tools:CreateFrames()
-	for name, anchor in T.pairs(Tools.RegisteredAnchors) do
+	for name, anchor in pairs(Tools.RegisteredAnchors) do
 		if not anchor.Initialized then
-			for bar, data in T.pairs(anchor.Bars) do
+			for bar, data in pairs(anchor.Bars) do
 				Tools:PopulateBar(bar)
 			end
 			anchor.Initialized = true
@@ -281,19 +284,19 @@ end
 
 --Rewriting init item IDs with actual item info
 local function RecreateAnchor(anchor)
-	for bar, data in T.pairs(anchor.Bars) do
-		for id, info in T.pairs(data.Items) do
-			if T.type(info) == "number" and T.GetItemInfo(id) == nil then 
+	for bar, data in pairs(anchor.Bars) do
+		for id, info in pairs(data.Items) do
+			if type(info) == "number" and GetItemInfo(id) == nil then
 				E:Delay(5, function() RecreateAnchor(anchor) end)
 				return
 			else
-				local itemName,_,_,_,_,_,_,_,_,itemIcon = T.GetItemInfo(id)
+				local itemName,_,_,_,_,_,_,_,_,itemIcon = GetItemInfo(id)
 				data.Items[id] = { name = itemName, texture = itemIcon }
 			end
 		end
 	end
 
-	if not anchor.Initialized then 
+	if not anchor.Initialized then
 		local name = anchor:GetName()
 		Tools.RegisteredAnchors[name] = anchor
 		Tools:CreateFrames()

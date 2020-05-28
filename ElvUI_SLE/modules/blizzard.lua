@@ -246,10 +246,10 @@ local function LoadPosition(self)
 	local Name = self:GetName()
 	if not self:GetPoint() then --Some frames don't have set positions when show script runs (e.g. CharacterFrame). For those set default position and save that.
 		if B.SpecialDefaults[Name] then
-			local a,b,c,d,e = T.unpack(B.SpecialDefaults[Name])
+			local a,b,c,d,e = unpack(B.SpecialDefaults[Name])
 			self:SetPoint(a,b,c,d,e, true)
 		elseif B.OriginalDefaults[Name] then
-			local a,b,c,d,e = T.unpack(B.OriginalDefaults[Name])
+			local a,b,c,d,e = unpack(B.OriginalDefaults[Name])
 			self:SetPoint(a,b,c,d,e, true)
 		else
 			self:SetPoint('TOPLEFT', UIParent, 'TOPLEFT', 16, -116, true)
@@ -259,11 +259,11 @@ local function LoadPosition(self)
 
 	if E.private.sle.module.blizzmove.remember and E.private.sle.module.blizzmove.points[Name] then
 		self:ClearAllPoints()
-		local a,b,c,d,e = T.unpack(E.private.sle.module.blizzmove.points[Name])
+		local a,b,c,d,e = unpack(E.private.sle.module.blizzmove.points[Name])
 		self:SetPoint(a,b,c,d,e, true)
 	end
 
-	if B.ExlusiveFrames[Name] then for _, name in T.pairs(B.ExlusiveFrames[Name]) do _G[name]:Hide() end end --If this frame has others that should not be shown at the same time, hide those
+	if B.ExlusiveFrames[Name] then for _, name in pairs(B.ExlusiveFrames[Name]) do _G[name]:Hide() end end --If this frame has others that should not be shown at the same time, hide those
 end
 
 --Hooking this to movable frames' SetPoint.
@@ -299,8 +299,8 @@ end
 
 function B:Addons(event, addon)
 	if not B.AddonsList[addon] then return end
-	if T.type(B.AddonsList[addon]) == "table" then
-		for FrameName, state in T.pairs(B.AddonsList[addon]) do
+	if type(B.AddonsList[addon]) == "table" then
+		for FrameName, state in pairs(B.AddonsList[addon]) do
 			if state then B:MakeMovable(FrameName, addon) end
 		end
 	else
@@ -328,16 +328,16 @@ function B:Initialize()
 
 	if E.private.sle.module.blizzmove.enable then
 		CompatibilityChecks()
-		for FrameName, state in T.pairs(B.Frames) do
+		for FrameName, state in pairs(B.Frames) do
 			if state then B:MakeMovable(FrameName) end
 		end
 
 		self:RegisterEvent("ADDON_LOADED", "Addons")
 
 		-- Check Forced Loaded AddOns
-		for AddOn, Table in T.pairs(B.AddonsList) do
+		for AddOn, Table in pairs(B.AddonsList) do
 			if IsAddOnLoaded(AddOn) then
-				for _, frame in T.pairs(Table) do
+				for _, frame in pairs(Table) do
 					B:MakeMovable(frame, AddOn)
 				end
 			end
@@ -345,7 +345,7 @@ function B:Initialize()
 
 		--Removing stuff from auto positioning
 		self:Hook('UIParent_ManageFramePosition', function()
-			for FrameName, state in T.pairs(B.Frames) do
+			for FrameName, state in pairs(B.Frames) do
 				local frame = _G[FrameName]
 				if state and frame and frame:IsShown() then LoadPosition(frame) end
 			end

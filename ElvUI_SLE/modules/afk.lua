@@ -1,17 +1,10 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local AFK = E:GetModule("AFK")
 local S = SLE:NewModule("Screensaver", 'AceHook-3.0', 'AceEvent-3.0')
-S.Animations = {}
-S.Fading = {}
---GLOBALS: hooksecurefunc, UIParent
-local _G = _G
-local SS
-local Name, Level, GuildName, GuildRank, month, week, AnimTime, testM
-local Class, ClassToken = T.UnitClass("player")
-local Race, RaceToken = T.UnitRace("player")
-local Color = RAID_CLASS_COLORS[ClassToken]
-local CrestPath = [[Interface\AddOns\ElvUI_SLE\media\textures\crests\]]
-local TipsElapsed, TipNum, TipThrottle, OldTip, degree = 0, 1, 15, 0, 0
+
+--GLOBALS: unpack, select, hooksecurefunc, UIParent
+local format, random, date = format, random, date
+local UnitPVPName, UnitLevel, UnitClass, UnitRace, UnitIsAFK = UnitPVPName, UnitLevel, UnitClass, UnitRace, UnitIsAFK
 local RANK = RANK
 local LEVEL = LEVEL
 local CloseAllBags = CloseAllBags
@@ -20,6 +13,17 @@ local CreateAnimationGroup = CreateAnimationGroup
 local C_Timer = C_Timer
 local SendChatMessage = SendChatMessage
 local PVEFrame_ToggleFrame = PVEFrame_ToggleFrame
+
+local SS
+local Name, Level, GuildName, GuildRank, month, week, AnimTime, testM
+local Class, ClassToken = UnitClass("player")
+local Race, RaceToken = UnitRace("player")
+local Color = RAID_CLASS_COLORS[ClassToken]
+local CrestPath = [[Interface\AddOns\ElvUI_SLE\media\textures\crests\]]
+local TipsElapsed, TipNum, TipThrottle, OldTip, degree = 0, 1, 15, 0, 0
+
+S.Animations = {}
+S.Fading = {}
 
 function S:Media()
 	--Updating all the shits!
@@ -48,7 +52,7 @@ function S:Setup()
 	--Creating top panel
 	SS.Top = CreateFrame("Frame", nil, SS)
 	SS.Top:SetFrameLevel(0)
-	SS.Top:SetWidth(T.GetScreenWidth() + (E.Border*2))
+	SS.Top:SetWidth(GetScreenWidth() + (E.Border*2))
 
 	--Creating additional strings
 	SS.AFKtitle = SS.Top:CreateFontString(nil, "OVERLAY")
@@ -57,14 +61,14 @@ function S:Setup()
 	SS.PlayerInfo = SS.Top:CreateFontString(nil, "OVERLAY")
 	SS.Date = SS.Top:CreateFontString(nil, "OVERAY")
 	SS.Time = SS.Top:CreateFontString(nil, "OVERLAY")
-	
+
 	--Changing Elv's strings
 	SS.GuildRank = SS.Bottom:CreateFontString(nil, 'OVERLAY')
 	SS.GuildRank:FontTemplate(nil, 20)
 	SS.GuildRank:SetText("Stuff")
 	SS.GuildRank:SetPoint("TOP", SS.Bottom.guild, "BOTTOM", 0, -2)
 	SS.GuildRank:SetTextColor(0.7, 0.7, 0.7)
-	
+
 	--Frame for tips
 	SS.ScrollFrame = CreateFrame("ScrollingMessageFrame", nil, SS)
 	SS.ScrollFrame:SetFading(false)
@@ -95,7 +99,7 @@ function S:Setup()
 
 	--Test model
 	SS.testmodel = CreateFrame("PlayerModel", "SLE_ScreenTestModel", E.UIParent)
-	SS.testmodel:SetSize(T.GetScreenWidth() * 2, T.GetScreenHeight() * 2) --Like in the original model
+	SS.testmodel:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2) --Like in the original model
 	SS.testmodel:SetPoint("CENTER", SS.Model)
 	SS.testmodel:Hide()
 
@@ -112,9 +116,9 @@ function S:Setup()
 	SS.timePassed:Point("LEFT", SS.AFKtitle, "RIGHT", 4, -1)
 	SS.ExPack:Point("CENTER", SS.Top, "BOTTOM", 0, 0)
 	SS.Time:Point("TOP", SS.Date, "BOTTOM", 0, -2)
-	SS.ElvTop:SetPoint("CENTER", SS.Bottom, "TOP", -(T.GetScreenWidth()/10), 0)
-	SS.ElvBottom:SetPoint("CENTER", SS.Bottom, "CENTER", -(T.GetScreenWidth()/10), 68)
-	SS.sle:SetPoint("CENTER", SS.Bottom, "TOP", (T.GetScreenWidth()/10), 0)
+	SS.ElvTop:SetPoint("CENTER", SS.Bottom, "TOP", -(GetScreenWidth()/10), 0)
+	SS.ElvBottom:SetPoint("CENTER", SS.Bottom, "CENTER", -(GetScreenWidth()/10), 68)
+	SS.sle:SetPoint("CENTER", SS.Bottom, "TOP", (GetScreenWidth()/10), 0)
 	SS.PlayerName:ClearAllPoints()
 	SS.Guild:ClearAllPoints()
 	SS.GuildRank:ClearAllPoints()
@@ -137,7 +141,7 @@ function S:SlideIn(frame)
 	if not frame.anim.SlideIn then
 		frame.anim.SlideIn = frame.anim:CreateAnimation("Move")
 		frame.anim.SlideIn:SetRounded(false)
-		T.tinsert(S.Animations, frame.anim.SlideIn)
+		tinsert(S.Animations, frame.anim.SlideIn)
 	end
 end
 function S:SlideSide(frame)
@@ -145,7 +149,7 @@ function S:SlideSide(frame)
 	if not frame.anim.SlideSide then
 		frame.anim.SlideSide = frame.anim:CreateAnimation("Move")
 		frame.anim.SlideSide:SetRounded(false)
-		T.tinsert(S.Animations, frame.anim.SlideSide)
+		tinsert(S.Animations, frame.anim.SlideSide)
 	end
 end
 function S:FadeIn(frame)
@@ -153,9 +157,9 @@ function S:FadeIn(frame)
 	if not frame.anim.FadeIn then
 		frame.anim.FadeIn = frame.anim:CreateAnimation("Fade")
 		frame.anim.FadeIn:SetChange(1)
-		T.tinsert(S.Animations, frame.anim.FadeIn)
+		tinsert(S.Animations, frame.anim.FadeIn)
 		if frame ~= SS.Top or frame ~= SS.Bottom then
-			T.tinsert(S.Fading, frame.anim.FadeIn)
+			tinsert(S.Fading, frame.anim.FadeIn)
 		end
 	end
 end
@@ -195,7 +199,7 @@ function S:ModelHolderPos()
 end
 
 function S:Show()
-	Level, Name, TipNum = T.UnitLevel("player"), T.UnitPVPName("player"), T.random(1, #L["SLE_TIPS"])
+	Level, Name, TipNum = UnitLevel("player"), UnitPVPName("player"), random(1, #L["SLE_TIPS"])
 
 	--Resizings
 	SS.Top:SetHeight(S.db.height)
@@ -208,22 +212,22 @@ function S:Show()
 	SS.RaceCrest:ClearAllPoints()
 	SS.Date:ClearAllPoints()
 	SS.PlayerInfo:ClearAllPoints()
-	SS.FactCrest:Point("CENTER", SS.Top, "BOTTOM", -(T.GetScreenWidth()/6) + S.db.crest.xOffset_faction, 0 + S.db.crest.yOffset_faction)
-	SS.RaceCrest:Point("CENTER", SS.Top, "BOTTOM", (T.GetScreenWidth()/6) + S.db.crest.xOffset_race, 0 + S.db.crest.yOffset_race)
+	SS.FactCrest:Point("CENTER", SS.Top, "BOTTOM", -(GetScreenWidth()/6) + S.db.crest.xOffset_faction, 0 + S.db.crest.yOffset_faction)
+	SS.RaceCrest:Point("CENTER", SS.Top, "BOTTOM", (GetScreenWidth()/6) + S.db.crest.xOffset_race, 0 + S.db.crest.yOffset_race)
 	SS.Date:Point("RIGHT", SS.Top, "RIGHT", -40 + S.db.date.xOffset, 10 + S.db.date.yOffset)
-	SS.PlayerInfo:Point("RIGHT", SS.TOP, "RIGHT", -(T.GetScreenWidth()/6), 0)
+	SS.PlayerInfo:Point("RIGHT", SS.TOP, "RIGHT", -(GetScreenWidth()/6), 0)
 
 	--Resizing chat
 	SS.chat:SetHeight(SS.Top:GetHeight())
 
 	--Setting texts
-	if T.IsInGuild() then
-		GuildName, GuildRank = T.GetGuildInfo("player")
+	if IsInGuild() then
+		GuildName, GuildRank = GetGuildInfo("player")
 	end
-	SS.PlayerName:SetText(T.format("|c%s%s|r", Color.colorStr, Name))
-	SS.GuildRank:SetText(T.format(GuildRank and "|cff00AAFF"..RANK..": %s|r" or "", GuildRank))
+	SS.PlayerName:SetText(format("|c%s%s|r", Color.colorStr, Name))
+	SS.GuildRank:SetText(format(GuildRank and "|cff00AAFF"..RANK..": %s|r" or "", GuildRank))
 	SS.Subtitle:SetText(L["Take care of yourself, Master!"])
-	SS.PlayerInfo:SetText(T.format("%s\n|c%s%s|r, %s %s", E.myrealm, Color.colorStr, Class, LEVEL, Level))
+	SS.PlayerInfo:SetText(format("%s\n|c%s%s|r, %s %s", E.myrealm, Color.colorStr, Class, LEVEL, Level))
 
 	--Positioning model
 	if S.db.playermodel.enable then
@@ -338,18 +342,18 @@ end
 --Updating date/time texts
 function S:UpdateTimer()
 	TipsElapsed = TipsElapsed + 1
-	month = SLE.Russian and SLE.RuMonths[T.tonumber(T.date("%m"))] or T.date("%B")
-	week = SLE.Russian and SLE.RuWeek[T.tonumber(T.date("%w"))+1] or T.date("%A")
+	month = SLE.Russian and SLE.RuMonths[tonumber(date("%m"))] or date("%B")
+	week = SLE.Russian and SLE.RuWeek[tonumber(date("%w"))+1] or date("%A")
 	if S.db.date.hour24 then
-		SS.Time:SetText(T.format("%s", T.date("%H|cff00AAFF:|r%M|cff00AAFF:|r%S")))
+		SS.Time:SetText(format("%s", date("%H|cff00AAFF:|r%M|cff00AAFF:|r%S")))
 	else
-		SS.Time:SetText(T.format("%s", T.date("%I|cff00AAFF:|r%M|cff00AAFF:|r%S %p")))
+		SS.Time:SetText(format("%s", date("%I|cff00AAFF:|r%M|cff00AAFF:|r%S %p")))
 	end
-	SS.Date:SetText(T.date("%d").." "..month..", |cff00AAFF"..week.."|r")
+	SS.Date:SetText(date("%d").." "..month..", |cff00AAFF"..week.."|r")
 
 	if TipsElapsed > S.db.tipThrottle then
-		TipNum = T.random(1, #L["SLE_TIPS"])
-		while TipNum == OldTip do TipNum = T.random(1, #L["SLE_TIPS"]) end
+		TipNum = random(1, #L["SLE_TIPS"])
+		while TipNum == OldTip do TipNum = random(1, #L["SLE_TIPS"]) end
 		SS.ScrollFrame:AddMessage(L["SLE_TIPS"][TipNum], 1, 1, 1) 
 		OldTip = TipNum
 		TipsElapsed = 0
@@ -362,7 +366,7 @@ function S:Event(event, unit)
 	if not E.db.general.afk then return end
 	if event == "PLAYER_REGEN_DISABLED" then 
 		SS:SetScript("OnUpdate", nil)
-		T.FlipCameraYaw(-degree)
+		FlipCameraYaw(-degree)
 		degree = 0
 		TipsElapsed = 0
 		SS.timePassed:SetFormattedText("00:00")
@@ -372,16 +376,16 @@ function S:Event(event, unit)
 	if (InCombatLockdown() or CinematicFrame:IsShown() or MovieFrame:IsShown()) then return; end
 	--Don't activate afk if player is crafting stuff
 	if (UnitCastingInfo("player") ~= nil) then return end
-	if T.UnitIsAFK("player") then
+	if UnitIsAFK("player") then
 		if not SS:GetScript("OnUpdate") then
 			SS:SetScript("OnUpdate", function(self, elapsed) 
-				T.FlipCameraYaw(elapsed*degreeMultyplier)
+				FlipCameraYaw(elapsed*degreeMultyplier)
 				degree = degree + elapsed*degreeMultyplier
 			end)
 		end
 	else
 		SS:SetScript("OnUpdate", nil)
-		T.FlipCameraYaw(-degree)
+		FlipCameraYaw(-degree)
 		degree = 0
 		TipsElapsed = 0
 		SS.timePassed:SetFormattedText("00:00")
@@ -402,7 +406,7 @@ function S:KeyScript()--Dealing with on key down script
 end
 
 function S:AbortAFK()
-	if T.UnitIsAFK("player") then SendChatMessage("" ,"AFK" ) end
+	if UnitIsAFK("player") then SendChatMessage("" ,"AFK" ) end
 end
 
 --Hook to Elv's set afk
@@ -410,8 +414,8 @@ function S:SetAFK_Hook(status)
 	if not E.db.general.afk then return end -- To prevent bs from happening
 	if status then
 		MoveViewLeftStop() --Stop Elv's stupid camera
-		if(IsInGuild()) then GuildName, GuildRank = T.GetGuildInfo("player") end
-		SS.Guild:SetText(T.format(GuildName and "|cff00AAFF<%s>|r" or L["No Guild"], GuildName)) --Setting good looking guild name line
+		if(IsInGuild()) then GuildName, GuildRank = GetGuildInfo("player") end
+		SS.Guild:SetText(format(GuildName and "|cff00AAFF<%s>|r" or L["No Guild"], GuildName)) --Setting good looking guild name line
 		--Own model animation
 		SS.Model:SetUnit("player")
 		SS.Model:SetAnimation(S.db.playermodel.anim)
@@ -421,7 +425,7 @@ end
 function S:Initialize()
 	if not SLE.initialized then return end
 	SS = AFK.AFKMode
-	if T.type(E.db.sle.screensaver.crest) == "number" then
+	if type(E.db.sle.screensaver.crest) == "number" then
 		E.db.sle.screensaver.crest = nil
 		E.db.sle.screensaver.crest = P.sle.screensaver.crest
 	end

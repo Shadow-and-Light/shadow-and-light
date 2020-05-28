@@ -3,10 +3,11 @@ local EM = SLE:NewModule("EquipManager", "AceHook-3.0", "AceEvent-3.0")
 local GetRealZoneText = GetRealZoneText
 EM.Processing = false
 
---GLOBALS: CreateFrame, CharacterFrame, SLASH_FISH1, SlashCmdList
-local C_EquipmentSet = C_EquipmentSet
+--GLOBALS: unpack, select, CreateFrame, CharacterFrame
 local _G = _G
-local gsub = gsub
+local format, gsub = format, gsub
+local UnitEffectiveLevel = UnitEffectiveLevel
+local C_EquipmentSet = C_EquipmentSet
 
 EM.Conditions = {}
 
@@ -43,13 +44,17 @@ local Difficulties = {
 --Table of tags conditions for gear switching
 EM.TagsTable = {
 	--self explanatory
-	["solo"] = function() if T.IsInGroup() then return false; else return true; end end,
+	["solo"] = function() if IsInGroup() then return false; else return true; end end,
 	--if in party. Can use [party:size] with size as an argument. If group size equals to provided number. Without number true for any group
 	["party"] = function(size)
-		size = T.tonumber(size)
-		if T.IsInGroup() then
+		size = tonumber(size)
+		if IsInGroup() then
 			if size then
-				if size == T.GetNumGroupMembers() then return true; else return false; end
+				if size == GetNumGroupMembers() then
+					return true
+				else
+					return false
+				end
 			else
 				return true
 			end
@@ -59,10 +64,14 @@ EM.TagsTable = {
 	end,
 	--if in raid. Can use [raid:size] with size as an argument. If raid size equals to provided number. Without number true for any raid
 	["raid"] = function(size)
-		size = T.tonumber(size)
-		if T.IsInRaid() then
+		size = tonumber(size)
+		if IsInRaid() then
 			if size then
-				if size == T.GetNumGroupMembers() then return true; else return false; end
+				if size == GetNumGroupMembers() then
+					return true
+				else
+					return false
+				end
 			else
 				return true
 			end
@@ -72,17 +81,21 @@ EM.TagsTable = {
 	end,
 	--if spec index. Index is required. 1, 2, 3 or 4 (for droodz)
 	["spec"] = function(index)
-		local index = T.tonumber(index)
+		index = tonumber(index)
 		if not index then return false end
-		if index == T.GetSpecialization() then return true; else return false; end
+		if index == GetSpecialization() then
+			return true
+		else
+			return false
+		end
 	end,
 	--Talent selected. [talent:tier/column]
 	["talent"] = function(tier, column)
-		local tier, column = T.tonumber(tier), T.tonumber(column)
+		local tier, column = tonumber(tier), tonumber(column)
 		if not (tier or column) then return false end
-		if tier < 0 or tier > 7 then SLE:Print(T.format(L["SLE_EM_TAG_INVALID_TALENT_TIER"], tier), "error") return false end
-		if column < 0 or column > 3 then SLE:Print(T.format(L["SLE_EM_TAG_INVALID_TALENT_COLUMN"], column), "error") return false end
-		local _, _, _, selected = T.GetTalentInfo(tier, column, 1)
+		if tier < 0 or tier > 7 then SLE:Print(format(L["SLE_EM_TAG_INVALID_TALENT_TIER"], tier), "error") return false end
+		if column < 0 or column > 3 then SLE:Print(format(L["SLE_EM_TAG_INVALID_TALENT_COLUMN"], column), "error") return false end
+		local _, _, _, selected = GetTalentInfo(tier, column, 1)
 		if selected then
 			return true
 		else
@@ -91,7 +104,7 @@ EM.TagsTable = {
 	end,
 	--If in instanse. Optional arg [instance:type] - party, raid, scenario
 	["instance"] = function(dungeonType)
-		local inInstance, InstanceType = T.IsInInstance()
+		local inInstance, InstanceType = IsInInstance()
 		if inInstance then
 			if dungeonType then
 				if InstanceType == dungeonType then return true; else return false; end
@@ -104,7 +117,7 @@ EM.TagsTable = {
 	end,
 	--If in pvp zone. [pvp:type] - pvp, arena
 	["pvp"] = function(pvpType)
-		local inInstance, InstanceType = T.IsInInstance()
+		local inInstance, InstanceType = IsInInstance()
 		if inInstance then
 			if pvpType and (InstanceType == "pvp" or InstanceType == "arena") then
 				if InstanceType == pvpType then return true; else return false; end
@@ -112,18 +125,18 @@ EM.TagsTable = {
 				if InstanceType == "pvp" or InstanceType == "arena" then return true; else return false; end
 			end
 		else
-			for i = 1, T.GetNumWorldPVPAreas() do
-				local _, localizedName, isActive, canQueue = T.GetWorldPVPAreaInfo(i)
-				if (T.GetRealZoneText() == localizedName and isActive) or (T.GetRealZoneText() == localizedName and canQueue) then return true end
+			for i = 1, GetNumWorldPVPAreas() do
+				local _, localizedName, isActive, canQueue = GetWorldPVPAreaInfo(i)
+				if (GetRealZoneText() == localizedName and isActive) or (GetRealZoneText() == localizedName and canQueue) then return true end
 			end
 			return false
 		end
 	end,
 	--Instance difficulty. normal, heroic, etc
 	["difficulty"] = function(difficulty)
-		if not T.IsInInstance() then return false end
+		if not IsInInstance() then return false end
 		if not difficulty then return false end
-		local difID = T.select(3, T.GetInstanceInfo())
+		local difID = select(3, GetInstanceInfo())
 		if difficulty == Difficulties[difID] then
 			return true;
 		else
@@ -131,7 +144,7 @@ EM.TagsTable = {
 		end
 	end,
 	["effectivelevel"] = function(level)
-		local _level = T.UnitEffectiveLevel("player")
+		local _level = UnitEffectiveLevel("player")
 		return _level == tonumber(level)
 	end,
 	--Well, it's just true :D
@@ -152,20 +165,20 @@ function EM:BuildingConditions(option)
 	while option:match(pattern) do --If matched that means eligible condition tag is found, e.g. [tag:arg]
 		condition, option = option:match(pattern)
 		if not(condition and option) then return end
-		T.tinsert(SetInfo.options, condition)
+		tinsert(SetInfo.options, condition)
 	end
 	SetInfo.set = option:gsub("^%s*", "")
-	T.tinsert(EM.Conditions, SetInfo)
+	tinsert(EM.Conditions, SetInfo)
 end
 
 --Function to setup a table of calls for conditions provided by user
 function EM:TagsProcess(msg)
 	if msg == "" then return end --No conditions were passed. Whya the hell this module is even enabled then?!
-	T.twipe(EM.Conditions)
+	wipe(EM.Conditions)
 	local MsgSections = { (";"):split(msg) } --Splitting message (e.g. option line) to short parts by a separator symbol ";"
 
 	--Cycling through table to add conditions contained in every section to the table
-	for i, v in T.ipairs(MsgSections) do
+	for i, v in ipairs(MsgSections) do
 		local section = MsgSections[i]
 		EM:BuildingConditions(section)
 	end
@@ -184,28 +197,28 @@ function EM:TagsProcess(msg)
 					if tagString then --If it exists. Otherwise how the fuck it happened to be in the table in the first place, but better be safe than sorry.
 						local command, argument = (":"):split(tagString) --Split actual core tag from arguments
 						local argTable = {} --List of arguments to pass later
-						if argument and T.find(argument, "%.") then --If dot is found then warn the user of a typo. This is a high class establishment, we use commas here.
+						if argument and strfind(argument, "%.") then --If dot is found then warn the user of a typo. This is a high class establishment, we use commas here.
 							SLE:Print(L["SLE_EM_TAG_DOT_WARNING"], "error")
 						else
 							if argument and ("/"):split(argument) then --if tag happened to have 2+ argumants
 								local former
 								while argument and ("/"):split(argument) do
 									former, argument = ("/"):split(argument)
-									T.tinsert(argTable, former)
+									tinsert(argTable, former)
 								end
 							else
-								T.tinsert(argTable, argument)
+								tinsert(argTable, argument)
 							end
 
 							--Find the tag in provided tag list
 							local tag = command:match("^%s*(.+)%s*$")
 							if EM.TagsTable[tag] then --If tag is registered, add stuff to the table
-								T.tinsert(CommandsInfo, { condition = command:match("^%s*(.+)%s*$"), args = argTable })
+								tinsert(CommandsInfo, { condition = command:match("^%s*(.+)%s*$"), args = argTable })
 							else
 								--We don't use that kind of tag in this neighborhood
-								SLE:Print(T.format(L["SLE_EM_TAG_INVALID"], tag), "error")
+								SLE:Print(format(L["SLE_EM_TAG_INVALID"], tag), "error")
 								--Wipe the table and stop executing cause since one tag is wrong the string will fail to execute anyways
-								T.twipe(EM.Conditions)
+								wipe(EM.Conditions)
 								return
 							end
 						end
@@ -220,21 +233,21 @@ end
 
 --Checking if some tag condition is true for the provided conditions table
 function EM:TagsConditionsCheck(data)
-	for index,tagInfo in T.ipairs(data) do
-		for _, option in T.ipairs(tagInfo.options) do
+	for index,tagInfo in ipairs(data) do
+		for _, option in ipairs(tagInfo.options) do
 			if not option.commands then return end --if for some unimaginable reason this is missing, better stop doing everything
 			local matches = 0 --Number of conditions passed in this tag check
-			for conditionIndex,conditionInfo in T.ipairs(option.commands) do
+			for conditionIndex,conditionInfo in ipairs(option.commands) do
 				--Getting function that determines if condition is met
 				local tagFunc = conditionInfo["condition"]
 				--If tag contains nil (tho previous checks should have this covere already) or not actually a function
-				if not EM.TagsTable[tagFunc] or T.type(EM.TagsTable[tagFunc]) ~= "function" then
-					SLE:Print(T.format(L["SLE_EM_TAG_INVALID"], tagFunc), "error")
+				if not EM.TagsTable[tagFunc] or type(EM.TagsTable[tagFunc]) ~= "function" then
+					SLE:Print(format(L["SLE_EM_TAG_INVALID"], tagFunc), "error")
 					return nil
 				end
 				--Getting arguments table and use it to call a tag check
 				local args = conditionInfo["args"]
-				local result = EM.TagsTable[tagFunc](T.unpack(args))
+				local result = EM.TagsTable[tagFunc](unpack(args))
 				--if check returns true then we have a match
 				if result then
 					matches = matches + 1
@@ -262,7 +275,7 @@ local function Equip(event, ...)
 	--Usualy it takes around a second to equip everything
 	E:Delay(1, function() EM.Processing = false end)
 	--Don't try to equip in combat. it wouldn't work anyways
-	if T.InCombatLockdown() then
+	if InCombatLockdown() then
 		EM:RegisterEvent("PLAYER_REGEN_ENABLED", Equip)
 		return
 	end
@@ -271,13 +284,13 @@ local function Equip(event, ...)
 	end
 
 	--Figuring out the hell should be equipped
-	T.wipe(equippedSets)
+	wipe(equippedSets)
 	local equipmentSetIDs = C_EquipmentSet.GetEquipmentSetIDs()
 	--If any actual equip set is on
 	for index = 1, C_EquipmentSet.GetNumEquipmentSets() do
 		local name, _, _, isEquipped = C_EquipmentSet.GetEquipmentSetInfo(equipmentSetIDs[index]);
 		if isEquipped then --Set found
-			T.tinsert(equippedSets, name)
+			tinsert(equippedSets, name)
 		end
 	end
 	--What actually should be equipped, based on tags
@@ -288,12 +301,12 @@ local function Equip(event, ...)
 		local SetID = C_EquipmentSet.GetEquipmentSetID(trueSet)
 		if SetID then
 			--If it is not what's equipped right now, then put it on.
-			if #equippedSets == 0 or not T.tContains(equippedSets, trueSet) then
+			if #equippedSets == 0 or not tContains(equippedSets, trueSet) then
 				C_EquipmentSet.UseEquipmentSet(SetID)
 			end
 		else
 			--if id of specifiet set is not peresent (e.g. no set named like trueSet exists), you should probably revisit your tag line
-			SLE:Print(T.format(L["SLE_EM_SET_NOT_EXIST"], trueSet), "error")
+			SLE:Print(format(L["SLE_EM_SET_NOT_EXIST"], trueSet), "error")
 		end
 	end
 end

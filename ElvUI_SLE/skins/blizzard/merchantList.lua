@@ -192,8 +192,8 @@ local function ListItem_OnLeave(self)
 end
 
 local function ListItem_OnHide()
-	T.twipe(errors);
-	T.twipe(currencies);
+	wipe(errors);
+	wipe(currencies);
 end
 
 local function List_GetError(link, itemType, itemSubType)
@@ -235,7 +235,7 @@ local function List_GetError(link, itemType, itemSubType)
 					errormsg = errormsg..LEVEL:format(level);
 				end
 
-				local reputation, factionName = T.match(gettext, REQUIRES_REPUTATION);
+				local reputation, factionName = strmatch(gettext, REQUIRES_REPUTATION);
 				if ( reputation ) then
 					errormsg = errormsg..reputation;
 					if not factionName then factionName = gettext:match(REQUIRES_REPUTATION_NAME); end
@@ -292,7 +292,7 @@ local function List_AltCurrencyFrame_Update(item, texture, cost, itemID, currenc
 	if ( itemID ~= 0 or currencyName) then
 		local currency = currencies[itemID] or currencies[currencyName];
 		if ( currency and currency < cost or not currency ) then
-			if T.GetItemCount(itemID, true) >= cost then
+			if GetItemCount(itemID, true) >= cost then
 				item.count:SetTextColor(1, 1, 0);
 			else
 				item.count:SetTextColor(1, 0, 0);
@@ -316,15 +316,15 @@ local function List_AltCurrencyFrame_Update(item, texture, cost, itemID, currenc
 end
 
 local function List_CurrencyUpdate()
-	T.twipe(currencies);
+	wipe(currencies);
 
-	local limit = T.GetCurrencyListSize();
+	local limit = GetCurrencyListSize();
 
 	for i=1, limit do
 		local name, isHeader, _, _, _, count, icon, maximum, hasWeeklyLimit, currentWeeklyAmount, _, itemID = GetCurrencyListInfo(i);
 		if ( not isHeader and itemID ) then
-			currencies[T.tonumber(itemID)] = count;
-			if ( not isHeader and itemID and T.tonumber(itemID) <= 9 ) then
+			currencies[tonumber(itemID)] = count;
+			if ( not isHeader and itemID and tonumber(itemID) <= 9 ) then
 				currencies[name] = count;
 			end
 		elseif ( not isHeader and not itemID ) then
@@ -333,19 +333,19 @@ local function List_CurrencyUpdate()
 	end
 
 	for i=INVSLOT_FIRST_EQUIPPED, INVSLOT_LAST_EQUIPPED, 1 do
-		local itemID = T.GetInventoryItemID("player", i);
+		local itemID = GetInventoryItemID("player", i);
 		if ( itemID ) then
-			currencies[T.tonumber(itemID)] = 1;
+			currencies[tonumber(itemID)] = 1;
 		end
 	end
 
 	for bagID=0, NUM_BAG_SLOTS, 1 do
-		local numSlots = T.GetContainerNumSlots(bagID);
+		local numSlots = GetContainerNumSlots(bagID);
 		for slotID=1, numSlots, 1 do
-			local itemID = T.GetContainerItemID(bagID, slotID);
+			local itemID = GetContainerItemID(bagID, slotID);
 			if ( itemID ) then
-				local count = T.select(2, T.GetContainerItemInfo(bagID, slotID));
-				itemID = T.tonumber(itemID);
+				local count = select(2, GetContainerItemInfo(bagID, slotID));
+				itemID = tonumber(itemID);
 				local currency = currencies[itemID];
 				if ( currency ) then
 					currencies[itemID] = currency+count;
@@ -357,13 +357,14 @@ local function List_CurrencyUpdate()
 	end
 end
 
+--  TODO: Think the i is incorrect
 local function List_UpdateAltCurrency(button, index, i)
 	local currency_frames = {};
 	local lastFrame;
 	local itemCount = GetMerchantItemCostInfo(index);
 
 	if ( itemCount > 0 ) then
-		for i=1, MAX_ITEM_COST do
+		for i = 1, MAX_ITEM_COST do
 			local itemTexture, itemValue, itemLink, currencyName = GetMerchantItemCostItem(index, i);
 			local item = button.item[i];
 			item.index = index;
@@ -375,8 +376,8 @@ local function List_UpdateAltCurrency(button, index, i)
 				item.pointType = nil;
 				item.itemLink = itemLink;
 			end
-			
-			local itemID = T.tonumber((itemLink or "item:0"):match("item:(%d+)"));
+
+			local itemID = tonumber((itemLink or "item:0"):match("item:(%d+)"));
 			List_AltCurrencyFrame_Update(item, itemTexture, itemValue, itemID, currencyName);
 
 			if ( not itemTexture ) then
@@ -384,21 +385,21 @@ local function List_UpdateAltCurrency(button, index, i)
 			else
 				lastFrame = item;
 				lastFrame._dbg_name = "item"..i
-				T.tinsert(currency_frames, item)
+				tinsert(currency_frames, item)
 				item:Show();
 			end
 		end
 	else
-		for i=1, MAX_ITEM_COST do
+		for i = 1, MAX_ITEM_COST do
 			button.item[i]:Hide();
 		end
 	end
 
 	button.money._dbg_name = "money"
-	T.tinsert(currency_frames, button.money)
+	tinsert(currency_frames, button.money)
 
 	lastFrame = nil
-	for i,frame in T.ipairs(currency_frames) do
+	for i,frame in ipairs(currency_frames) do
 		if i == 1 then
 			frame:SetPoint("RIGHT", -2, 6);
 		else
@@ -415,7 +416,7 @@ end
 local function List_MerchantUpdate()
 	local self = _G["SLE_ListMerchantFrame"]
 	local numMerchantItems = GetMerchantNumItems();
-	
+
 	FauxScrollFrame_Update(self.scrollframe, numMerchantItems, 10, 29.4, nil, nil, nil, nil, nil, nil, 1);
 	for i=1, 10 do
 		local offset = i+FauxScrollFrame_GetOffset(self.scrollframe);
@@ -429,12 +430,12 @@ local function List_MerchantUpdate()
 			local subtext = "";
 			local r, g, b = 0.5, 0.5, 0.5;
 			local _, itemRarity, itemType, itemSubType, equipSlot;
-			local iLevel, iLevelText;
+			local iLevel
 			if ( link ) then
 				--API name, link, quality, iLevel, reqLevel, class, subclass, maxStack, equipSlot, texture, vendorPrice = GetItemInfo(itemID) or GetItemInfo("itemName") or GetItemInfo("itemLink")
-				_, _, itemRarity, iLevel, _, itemType, itemSubType, _, equipSlot = T.GetItemInfo(link);
+				_, _, itemRarity, iLevel, _, itemType, itemSubType, _, equipSlot = GetItemInfo(link);
 				if itemRarity then
-					r, g, b = T.GetItemQualityColor(itemRarity);
+					r, g, b = GetItemQualityColor(itemRarity);
 					button.itemname:SetTextColor(r, g, b);
 				end
 				if itemSubType then
@@ -448,11 +449,11 @@ local function List_MerchantUpdate()
 				else
 					button.iteminfo:SetText("");
 				end
-				
+
 				local alpha = 0.3;
-				if ( searching == "" or searching == SEARCH:lower() or name:lower():match(searching) 
-					or ( itemRarity and ( T.tostring(itemRarity):lower():match(searching) or _G["ITEM_QUALITY"..T.tostring(itemRarity).."_DESC"]:lower():match(searching) ) )
-					or ( itemType and itemType:lower():match(searching) ) 
+				if ( searching == "" or searching == SEARCH:lower() or name:lower():match(searching)
+					or ( itemRarity and ( tostring(itemRarity):lower():match(searching) or _G["ITEM_QUALITY"..tostring(itemRarity).."_DESC"]:lower():match(searching) ) )
+					or ( itemType and itemType:lower():match(searching) )
 					or ( itemSubType and itemSubType:lower():match(searching) )
 					) then
 					alpha = 1;
@@ -461,11 +462,11 @@ local function List_MerchantUpdate()
 			else
 				button.iteminfo:SetText(subtext);
 			end
-			
+
 			button.itemname:SetText((numAvailable >= 0 and "|cffffffff["..numAvailable.."]|r " or "")..(quantity > 1 and "|cffffffff"..quantity.."x|r " or "")..(name or "|cffff0000"..RETRIEVING_ITEM_INFO));
 			button.icon:SetTexture(texture);
 			button.icon:SetTexCoord(unpack(E.TexCoords));
-			
+
 			List_UpdateAltCurrency(button, offset, i);
 			if ( extendedCost and price <= 0 ) then
 				button.price = nil;
@@ -480,18 +481,18 @@ local function List_MerchantUpdate()
 				button.extendedCost = nil;
 				button.money:SetText(GetCoinTextureString(price));
 			end
-			
+
 			if ( GetMoney() < price ) then
 				button.money:SetTextColor(1, 0, 0);
 			else
 				button.money:SetTextColor(1, 1, 1);
 			end
-			
+
 			local merchantItemID = GetMerchantItemID(offset);
 			local isHeirloom = merchantItemID and C_Heirloom.IsItemHeirloom(merchantItemID);
 			local isKnownHeirloom = isHeirloom and C_Heirloom.PlayerHasHeirloom(merchantItemID);
 			local tintRed = not isPurchasable or (not isUsable and not isHeirloom) or (canAfford == false);
-			
+
 			if ( numAvailable == 0 or isKnownHeirloom ) then
 				button.highlight:SetVertexColor(0.5, 0.5, 0.5, 0.5);
 				button.highlight:Show();
@@ -501,7 +502,8 @@ local function List_MerchantUpdate()
 				button.highlight:Show();
 				button.isShown = 1;
 
-				local errors = List_GetError(link, itemType, itemSubType);
+				-- TODO: Check if this works as Darth had local errors but was alread declared
+				errors = List_GetError(link, itemType, itemSubType);
 				if ( errors ) then
 					button.iteminfo:SetText("|cffd00000"..subtext.." - "..errors.."|r");
 				end
@@ -509,7 +511,9 @@ local function List_MerchantUpdate()
 				button.highlight:SetVertexColor(r, g, b, 0.5);
 				button.highlight:Hide();
 				button.isShown = nil;
-				local errors = List_GetError(link, itemType, itemSubType);
+
+				-- TODO: Check if this works as Darth had local errors but was alread declared
+				errors = List_GetError(link, itemType, itemSubType);
 				if ( errors ) then
 					button.highlight:SetVertexColor(1, 0.2, 0.2, 0.5);
 					button.highlight:Show();
@@ -517,7 +521,7 @@ local function List_MerchantUpdate()
 					button.iteminfo:SetText("|cffd00000"..subtext.." - "..errors.."|r");
 				end
 			end
-			
+
 			button.r = r;
 			button.g = g;
 			button.b = b;
@@ -683,7 +687,7 @@ local function Create_ListButton(frame, i)
 		item.count = count;
 		count:SetPoint("RIGHT", icon, "LEFT", -2, 0);
 	end
-	
+
 	buttons[i] = button;
 end
 
@@ -735,7 +739,7 @@ local function MerchantListSkinInit()
 
 	_G["MerchantBuyBackItem"]:ClearAllPoints();
 	_G["MerchantBuyBackItem"]:SetPoint("TOPRIGHT", frame.scrollframe, "BOTTOMRIGHT", 17, -12);
-	local delete = { _G["MerchantNextPageButton"], _G["MerchantPrevPageButton"], _G["MerchantPageText"] } 
+	local delete = { _G["MerchantNextPageButton"], _G["MerchantPrevPageButton"], _G["MerchantPageText"] }
 	for i = 1, #delete do
 		delete[i]:Hide()
 		delete[i].Show = function() end;

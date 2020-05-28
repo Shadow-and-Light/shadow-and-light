@@ -36,8 +36,8 @@ function DTP:HookDurabilityDT()
 		totalDurability = 100
 		totalRepairCost = 0
 
-		for index in T.pairs(slots) do
-			local current, max = T.GetInventoryItemDurability(index)
+		for index in pairs(slots) do
+			local current, max = GetInventoryItemDurability(index)
 
 			if current then
 				invDurability[index] = (current/max)*100
@@ -74,7 +74,7 @@ function DTP:HookDurabilityDT()
 	local function OnEnter(self)
 		DT:SetupTooltip(self)
 
-		for slot, durability in T.pairs(invDurability) do
+		for slot, durability in pairs(invDurability) do
 			DT.tooltip:AddDoubleLine(format('|T%s:14:14:0:0:64:64:4:60:4:60|t  %s', GetInventoryItemTexture("player", slot), GetInventoryItemLink("player", slot)), format(tooltipString, durability), 1, 1, 1, E:ColorGradient(durability * 0.01, 1, 0, 0, 1, 1, 0, 0, 1, 0))
 		end
 
@@ -87,7 +87,7 @@ function DTP:HookDurabilityDT()
 	end
 
 	local function ValueColorUpdate(hex, r, g, b)
-		displayStringa = T.join("", DURABILITY, ": ", hex, "%d%%|r")
+		displayStringa = strjoin("", DURABILITY, ": ", hex, "%d%%|r")
 
 		if lastPanel ~= nil then
 			OnEvent(lastPanel, 'ELVUI_COLOR_UPDATE')

@@ -1,11 +1,10 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local PI = E:GetModule("PluginInstaller")
-PI.SLE_Auth = ""
-PI.SLE_Word = ""
-local locale = GetLocale()
 
 --GLOBALS: SkadaDB, Skada, xCTSavedDB, xCT_Plus, UIParent
 local _G = _G
+local format = format
+local IsAddOnLoaded = IsAddOnLoaded
 local ENABLE, DISABLE, NONE = ENABLE, DISABLE, NONE
 local ADDONS = ADDONS
 local SetCVar = SetCVar
@@ -15,6 +14,9 @@ local GetCVarBool, StopMusic, ReloadUI = GetCVarBool, StopMusic, ReloadUI
 
 local dtbarsList = {}
 local dtbarsTexts = {}
+
+PI.SLE_Auth = ""
+PI.SLE_Word = ""
 
 local function DarthHeal()
 	E.db["unitframe"]["units"]["raid"]["health"]["frequentUpdates"] = true
@@ -38,10 +40,10 @@ function PI:DarthSetup()
 	local installMark = E.private["install_complete"]
 	local installMarkSLE = E.private["sle"]["install_complete"]
 
-	if T.IsAddOnLoaded("ElvUI_DTBars2") then
-		T.twipe(dtbarsList)
-		T.twipe(dtbarsTexts)
-		for name, data in T.pairs(E.global.dtbars) do
+	if IsAddOnLoaded("ElvUI_DTBars2") then
+		wipe(dtbarsList)
+		wipe(dtbarsTexts)
+		for name, data in pairs(E.global.dtbars) do
 			if E.db.dtbars and E.db.dtbars[name] then
 				dtbarsList[name] = E.db.dtbars[name]
 				dtbarsTexts[name] = E.db.datatexts.panels[name]
@@ -49,15 +51,15 @@ function PI:DarthSetup()
 		end
 	end
 
-	T.twipe(E.db)
+	wipe(E.db)
 	E:CopyTable(E.db, P)
 
-	T.twipe(E.private)
+	wipe(E.private)
 	E:CopyTable(E.private, V)
 
 	E:ResetMovers("")
 	if not E.db["movers"] then E.db["movers"] = {} end
-	-- if E.db['movers'] then T.twipe(E.db['movers']) else E.db['movers'] = {} end
+	-- if E.db['movers'] then wipe(E.db['movers']) else E.db['movers'] = {} end
 
 	--General
 	do
@@ -241,9 +243,9 @@ function PI:DarthSetup()
 		E.db["datatexts"]["panels"]["MinimapPanel"][1] = "S&L Time Played"
 		E.db["datatexts"]["panels"]["MinimapPanel"][2] = "Time"
 
-		if T.IsAddOnLoaded("ElvUI_DTBars2") then
+		if IsAddOnLoaded("ElvUI_DTBars2") then
 			if not E.db.dtbars then E.db.dtbars = {} end
-			for name, data in T.pairs(E.global.dtbars) do
+			for name, data in pairs(E.global.dtbars) do
 				if dtbarsList[name] then
 					E.db.dtbars[name] = dtbarsList[name]
 					E.db.datatexts.panels[name] = dtbarsTexts[name]
@@ -708,7 +710,7 @@ function PI:DarthSetup()
 		E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,1,0"
 	end
 
-	if T.IsAddOnLoaded("ElvUI_AuraBarsMovers") then
+	if IsAddOnLoaded("ElvUI_AuraBarsMovers") then
 		E.db["abm"]["target"] = true
 		E.db["abm"]["player"] = true
 		E.db["abm"]["playerw"] = 180
@@ -717,8 +719,8 @@ function PI:DarthSetup()
 		E.db["movers"]["ElvUF_TargetAuraMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-481,397"
 	end
 
-	if T.IsAddOnLoaded("AddOnSkins") then
-		local AS = T.unpack(_G["AddOnSkins"]) or nil
+	if IsAddOnLoaded("AddOnSkins") then
+		local AS = unpack(_G["AddOnSkins"]) or nil
 		if AS then
 			AS.db["Blizzard_AbilityButton"] = true
 			AS.db["EmbedRight"] = "Details"
@@ -796,10 +798,10 @@ function PI:DarthOldSetup()
 	local installMark = E.private["install_complete"]
 	local installMarkSLE = E.private["sle"]["install_complete"]
 
-	if T.IsAddOnLoaded("ElvUI_DTBars2") then
-		T.twipe(dtbarsList)
-		T.twipe(dtbarsTexts)
-		for name, data in T.pairs(E.global.dtbars) do
+	if IsAddOnLoaded("ElvUI_DTBars2") then
+		wipe(dtbarsList)
+		wipe(dtbarsTexts)
+		for name, data in pairs(E.global.dtbars) do
 			if E.db.dtbars and E.db.dtbars[name] then
 				dtbarsList[name] = E.db.dtbars[name]
 				dtbarsTexts[name] = E.db.datatexts.panels[name]
@@ -807,13 +809,13 @@ function PI:DarthOldSetup()
 		end
 	end
 
-	T.twipe(E.db)
+	wipe(E.db)
 	E:CopyTable(E.db, P)
 
-	T.twipe(E.private)
+	wipe(E.private)
 	E:CopyTable(E.private, V)
 
-	-- if E.db['movers'] then T.twipe(E.db['movers']) else E.db['movers'] = {} end
+	-- if E.db['movers'] then tremove(E.db['movers']) else E.db['movers'] = {} end
 	E:ResetMovers("")
 	if not E.db["movers"] then E.db["movers"] = {} end
 
@@ -970,9 +972,9 @@ function PI:DarthOldSetup()
 		-- E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["right"] = "Haste"
 		-- E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["left"] = "Spell/Heal Power"
 		-- E.db["datatexts"]["panels"]["SLE_DataPanel_8"]["middle"] = "Crit Chance"
-		if T.IsAddOnLoaded("ElvUI_DTBars2") then
+		if IsAddOnLoaded("ElvUI_DTBars2") then
 			if not E.db.dtbars then E.db.dtbars = {} end
-			for name, data in T.pairs(E.global.dtbars) do
+			for name, data in pairs(E.global.dtbars) do
 				if dtbarsList[name] then
 					E.db.dtbars[name] = dtbarsList[name]
 					E.db.datatexts.panels[name] = dtbarsTexts[name]
@@ -1370,7 +1372,7 @@ function PI:DarthOldSetup()
 		E.db["movers"]["SLE_DataPanel_6_Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,471,0"
 	end
 
-	if T.IsAddOnLoaded("ElvUI_AuraBarsMovers") then
+	if IsAddOnLoaded("ElvUI_AuraBarsMovers") then
 		E.db["abm"]["target"] = true
 		E.db["abm"]["player"] = true
 		E.db["abm"]["playerw"] = 180
@@ -1379,8 +1381,8 @@ function PI:DarthOldSetup()
 		E.db["movers"]["ElvUF_TargetAuraMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-468,209"
 	end
 
-	if T.IsAddOnLoaded("AddOnSkins") then
-		local AS = T.unpack(_G["AddOnSkins"]) or nil
+	if IsAddOnLoaded("AddOnSkins") then
+		local AS = unpack(_G["AddOnSkins"]) or nil
 		AS.db["EmbedOoCDelay"] = 3
 		AS.db["Blizzard_AbilityButton"] = true
 		AS.db["Blizzard_Transmogrify"] = false
@@ -1462,7 +1464,7 @@ function PI:DarthOldSetup()
 end
 
 function PI:DarthAddons()
-	if xCTSavedDB and T.IsAddOnLoaded("xCT+") then
+	if xCTSavedDB and IsAddOnLoaded("xCT+") then
 		xCTSavedDB["profiles"]["S&L Darth"] = {
 			["frames"] = {
 				["general"] = {
@@ -1635,16 +1637,16 @@ end
 
 local function SetupAddons(Author)
 	if AddOnSkins and (not EmbedSystem_LeftWindow or not EmbedSystem_LeftWindow) then
-		local AS = T.unpack(AddOnSkins)
+		local AS = unpack(AddOnSkins)
 		AS:Embed_Check(true)
 	end
 	if Author == "DARTH" then
 		local list = "xCT+"
-		E.PopupDialogs['SLE_INSTALL_SETTINGS_ADDONS'].text = T.format(L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"], list)
+		E.PopupDialogs['SLE_INSTALL_SETTINGS_ADDONS'].text = format(L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"], list)
 		E.PopupDialogs['SLE_INSTALL_SETTINGS_ADDONS'].OnAccept = PI.DarthAddons
 	-- elseif Author == "AFFINITY" then
 		-- local list = "Skada\nxCT+"
-		-- E.PopupDialogs['SLE_INSTALL_SETTINGS_ADDONS'].text = T.format(L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"], list)
+		-- E.PopupDialogs['SLE_INSTALL_SETTINGS_ADDONS'].text = format(L["SLE_INSTALL_SETTINGS_ADDONS_TEXT"], list)
 		-- E.PopupDialogs['SLE_INSTALL_SETTINGS_ADDONS'].OnAccept = PI.AffinityAddons
 	end
 	E:StaticPopup_Show("SLE_INSTALL_SETTINGS_ADDONS")
@@ -1668,7 +1670,7 @@ SLE.installTable = {
 	["tutorialImagePoint"] = {0, 20},
 	["Pages"] = {
 		[1] = function()
-			_G["PluginInstallFrame"].SubTitle:SetText(T.format(L["Welcome to |cff9482c9Shadow & Light|r version %s!"], SLE.version))
+			_G["PluginInstallFrame"].SubTitle:SetText(format(L["Welcome to |cff9482c9Shadow & Light|r version %s!"], SLE.version))
 			_G["PluginInstallFrame"].Desc1:SetText(L["SLE_INSTALL_WELCOME"])
 			_G["PluginInstallFrame"].Desc2:SetText("")
 			_G["PluginInstallFrame"].Desc3:SetText(L["Please press the continue button to go onto the next step."])
@@ -1732,7 +1734,7 @@ SLE.installTable = {
 			PI.SLE_Word = E.db.layoutSet == 'tank' and L["Tank"] or E.db.layoutSet == 'healer' and L["Healer"] or E.db.layoutSet == 'dpsMelee' and L['Physical DPS'] or E.db.layoutSet == 'dpsCaster' and L['Caster DPS'] or NONE
 			_G["PluginInstallFrame"].SubTitle:SetText(L["Shadow & Light Imports"])
 			_G["PluginInstallFrame"].Desc1:SetText(L["You can now choose if you want to use one of the authors' set of options. This will change the positioning of some elements as well of other various options."])
-			_G["PluginInstallFrame"].Desc2:SetText(T.format(L["SLE_Install_Text_AUTHOR"], PI.SLE_Word))
+			_G["PluginInstallFrame"].Desc2:SetText(format(L["SLE_Install_Text_AUTHOR"], PI.SLE_Word))
 			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cffFF0000Low|r"])
 
 			_G["PluginInstallFrame"].Option1:Show()
@@ -1753,7 +1755,7 @@ SLE.installTable = {
 			if PI.SLE_Auth == "" then _G["PluginInstallFrame"].SetPage(_G["PluginInstallFrame"].PrevPage == 5 and 7 or 5) return end
 			PI.SLE_Word = E.db.layoutSet == 'tank' and L["Tank"] or E.db.layoutSet == 'healer' and L["Healer"] or E.db.layoutSet == 'dpsMelee' and L['Physical DPS'] or E.db.layoutSet == 'dpsCaster' and L['Caster DPS'] or NONE
 			_G["PluginInstallFrame"].SubTitle:SetText(L["Layout & Settings Import"])
-			_G["PluginInstallFrame"].Desc1:SetText(T.format(L["You have selected to use %s and role %s."], PI.SLE_Auth == "DARTH" and L["Darth's Config"] or PI.SLE_Auth == "REPOOC" and L["Repooc's Config"] or PI.SLE_Auth == "AFFINITY" and L["Affinitii's Config"], PI.SLE_Word))
+			_G["PluginInstallFrame"].Desc1:SetText(format(L["You have selected to use %s and role %s."], PI.SLE_Auth == "DARTH" and L["Darth's Config"] or PI.SLE_Auth == "REPOOC" and L["Repooc's Config"] or PI.SLE_Auth == "AFFINITY" and L["Affinitii's Config"], PI.SLE_Word))
 			_G["PluginInstallFrame"].Desc2:SetText(L["SLE_INSTALL_LAYOUT_TEXT2"])
 			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 

@@ -1,13 +1,16 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
+
+local GetEquippedArtifactRelicInfo = C_ArtifactUI.GetEquippedArtifactRelicInfo
+local GetItemLevelIncreaseProvidedByRelic = C_ArtifactUI.GetItemLevelIncreaseProvidedByRelic
+local GetAverageItemLevel = GetAverageItemLevel
 local HEADSLOT, NECKSLOT, SHOULDERSLOT, BACKSLOT, CHESTSLOT, WRISTSLOT, HANDSSLOT, WAISTSLOT, LEGSSLOT, FEETSLOT, FINGER0SLOT_UNIQUE, FINGER1SLOT_UNIQUE, TRINKET0SLOT_UNIQUE, TRINKET1SLOT_UNIQUE, MAINHANDSLOT, SECONDARYHANDSLOT = HEADSLOT, NECKSLOT, SHOULDERSLOT, BACKSLOT, CHESTSLOT, WRISTSLOT, HANDSSLOT, WAISTSLOT, LEGSSLOT, FEETSLOT, FINGER0SLOT_UNIQUE, FINGER1SLOT_UNIQUE, TRINKET0SLOT_UNIQUE, TRINKET1SLOT_UNIQUE, MAINHANDSLOT, SECONDARYHANDSLOT
-local displayString = ''
-local lastPanel
 local ITEM_LEVEL_ABBR = ITEM_LEVEL_ABBR
 local GMSURVEYRATING3 = GMSURVEYRATING3
 local TOTAL = TOTAL
-local GetEquippedArtifactRelicInfo = C_ArtifactUI.GetEquippedArtifactRelicInfo
-local GetItemLevelIncreaseProvidedByRelic = C_ArtifactUI.GetItemLevelIncreaseProvidedByRelic
+
+local displayString = ''
+local lastPanel
 
 local slots = {
 	[1] = { "HeadSlot", HEADSLOT, 1},
@@ -37,26 +40,26 @@ local levelColors = {
 }
 
 local function OnEvent(self)
-	self.avgItemLevel, self.avgEquipItemLevel = T.GetAverageItemLevel()
-	self.text:SetFormattedText(displayString, ITEM_LEVEL_ABBR, T.floor(self.avgEquipItemLevel), T.floor(self.avgItemLevel))
+	self.avgItemLevel, self.avgEquipItemLevel = GetAverageItemLevel()
+	self.text:SetFormattedText(displayString, ITEM_LEVEL_ABBR, floor(self.avgEquipItemLevel), floor(self.avgItemLevel))
 	lastPanel = self
 end
 
 local ArtifactsIlvl = {}
 local function OnEnter(self)
-	T.twipe(tooltipOrder)
-	T.twipe(ArtifactsIlvl)
+	wipe(tooltipOrder)
+	wipe(ArtifactsIlvl)
 	local avgItemLevel, avgEquipItemLevel = self.avgItemLevel, self.avgEquipItemLevel
 	DT:SetupTooltip(self)
-	DT.tooltip:AddDoubleLine(TOTAL, T.floor(avgItemLevel), 1, 1, 1, 0, 1, 0)
-	DT.tooltip:AddDoubleLine(GMSURVEYRATING3, T.floor(avgEquipItemLevel), 1, 1, 1, 0, 1, 0)
+	DT.tooltip:AddDoubleLine(TOTAL, floor(avgItemLevel), 1, 1, 1, 0, 1, 0)
+	DT.tooltip:AddDoubleLine(GMSURVEYRATING3, floor(avgEquipItemLevel), 1, 1, 1, 0, 1, 0)
 	DT.tooltip:AddLine(" ")
-	for i in T.pairs(slots) do
-		local ItemLink = T.GetInventoryItemLink('player', i)
+	for i in pairs(slots) do
+		local ItemLink = GetInventoryItemLink('player', i)
 		if ItemLink then
-			local ItemRarity = T.select(3, T.GetItemInfo(ItemLink))
+			local ItemRarity = select(3, GetItemInfo(ItemLink))
 			local isArtifact = (ItemRarity == 6)
-			local itemLevel = T.GetDetailedItemLevelInfo(ItemLink)
+			local itemLevel = GetDetailedItemLevelInfo(ItemLink)
 			if itemLevel and avgEquipItemLevel and not isArtifact then
 				local color = levelColors[(itemLevel < avgEquipItemLevel - 10 and 0 or (itemLevel > avgEquipItemLevel + 10 and 1 or (2)))]
 				tooltipOrder[slots[i][3]] = {slots[i][2], itemLevel, 1, 1, 1, color[1], color[2], color[3]}
@@ -73,20 +76,20 @@ local function OnEnter(self)
 				ArtifactsIlvl[15][3] = ArtifactsIlvl[16][3]
 			end
 		end
-		for slot,data in T.pairs(ArtifactsIlvl) do
+		for slot, data in pairs(ArtifactsIlvl) do
 			local itemLevel = data[3]
 			local color = levelColors[(itemLevel < avgEquipItemLevel - 10 and 0 or (itemLevel > avgEquipItemLevel + 10 and 1 or (2)))]
 			tooltipOrder[data[1]] = {data[2], data[3], 1, 1, 1, color[1], color[2], color[3]}
 		end
 	end
-	for i in T.pairs(tooltipOrder) do
-		if tooltipOrder[i] then DT.tooltip:AddDoubleLine(T.unpack(tooltipOrder[i])) end
+	for i in pairs(tooltipOrder) do
+		if tooltipOrder[i] then DT.tooltip:AddDoubleLine(unpack(tooltipOrder[i])) end
 	end
 	DT.tooltip:Show()
 end
 
 local function ValueColorUpdate(hex, r, g, b)
-	displayString = T.join("", "%s:", " ", hex, "%d / %d|r")
+	displayString = strjoin("", "%s:", " ", hex, "%d / %d|r")
 	if lastPanel ~= nil then OnEvent(lastPanel) end
 end
 E["valueColorUpdateFuncs"][ValueColorUpdate] = true

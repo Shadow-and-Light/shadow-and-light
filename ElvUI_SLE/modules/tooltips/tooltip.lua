@@ -1,21 +1,18 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local TT = E:GetModule('Tooltip');
-local GameTooltip = GameTooltip
-local GetCursorPosition = GetCursorPosition
-local iconPath = [[Interface\AddOns\ElvUI_SLE\media\textures\]]
-local MAX_PLAYER_LEVEL = MAX_PLAYER_LEVEL
-local _G = _G
 
---GLOBALS: UIParent, hooksecurefunc
+--GLOBALS: unpack, select, hooksecurefunc
+local _G = _G
+local iconPath = [[Interface\AddOns\ElvUI_SLE\media\textures\]]
 
 local function OnTooltipSetUnit(self, tt)
 	if not SLE.initialized then return end
 	if not E.db.sle.tooltip.showFaction then return end
 
-	local unit = T.select(2, tt:GetUnit())
-	if (T.UnitIsPlayer(unit)) then
+	local unit = select(2, tt:GetUnit())
+	if (UnitIsPlayer(unit)) then
 		local text = _G["GameTooltipTextLeft1"]:GetText()
-		local faction = T.UnitFactionGroup(unit)
+		local faction = UnitFactionGroup(unit)
 
 		if not faction then faction = "Neutral" end
 

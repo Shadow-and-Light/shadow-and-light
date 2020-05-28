@@ -1,15 +1,15 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local B = LibStub("LibBabble-SubZone-3.0")
 local BL = B:GetLookupTable()
-local S = E:GetModule("Skins")
 local Tools = SLE:GetModule("Toolbars")
 local Farm = SLE:NewModule("Farm")
+
 --GLOBALS: CreateFrame, hooksecurefunc, UIParent
-local SeedAnchor, ToolAnchor, PortalAnchor, SalvageAnchor, MineAnchor
+local _G = _G
+local format = format
+local ToolAnchor, PortalAnchor
 local farmzones = { BL["Sunsong Ranch"], BL["The Halfhill Market"] }
 local size
-local Zcheck = false
-local _G = _G
 
 local Seeds = {
 	[1] = { --Seeds general
@@ -118,23 +118,23 @@ Tools.FtoolButtons = {}
 Tools.FportalButtons = {}
 
 local function QuestItems(itemID)
-	for i = 1, T.GetNumQuestLogEntries() do
-		for qid, sid in T.pairs(FarmQuests) do
-			if qid == T.select(9,T.GetQuestLogTitle(i)) then
+	for i = 1, GetNumQuestLogEntries() do
+		for qid, sid in pairs(FarmQuests) do
+			if qid == select(9, GetQuestLogTitle(i)) then
 				if itemID == sid[1] or itemID == sid[2] then
 					return true
 				end
 			end
 		end
 	end
-	
+
 	return false
 end
 
 local function CanSeed()
 	if not E.db.sle.legacy.farm.enable then return end
-	local subzone = T.GetSubZoneText()
-	for _, zone in T.ipairs(farmzones) do
+	local subzone = GetSubZoneText()
+	for _, zone in ipairs(farmzones) do
 		if (zone == subzone) then
 			return true
 		end
@@ -143,7 +143,7 @@ local function CanSeed()
 end
 
 local function OnFarm()
-	return T.GetSubZoneText() == farmzones[1]
+	return GetSubZoneText() == farmzones[1]
 end
 
 function Farm:CreateFarmSeeds()
@@ -160,8 +160,8 @@ function Farm:CreateFarmSeeds()
 	SeedAnchor.InventroyCheck = function()
 		local change = false
 		for i = 1, SeedAnchor.NumBars do
-			for id, button in T.ipairs(SeedAnchor.Bars[SeedAnchor.BarsName..i].Buttons) do
-				button.items = T.GetItemCount(button.itemId, nil, true)
+			for id, button in ipairs(SeedAnchor.Bars[SeedAnchor.BarsName..i].Buttons) do
+				button.items = GetItemCount(button.itemId, nil, true)
 				if not Tools.buttoncounts[button.itemId] then
 					Tools.buttoncounts[button.itemId] = 0
 				end
@@ -203,9 +203,9 @@ function Farm:CreateFarmSeeds()
 			end
 		end
 
-		for i, button in T.ipairs(buttons) do
-			id = T.gsub(button:GetName(), "FarmButton", "")
-			id = T.tonumber(id)
+		for i, button in ipairs(buttons) do
+			id = gsub(button:GetName(), "FarmButton", "")
+			id = tonumber(id)
 			button:ClearAllPoints()
 			if not db.active or button.items > 0 then
 				if seedor == "TOP" or seedor == "BOTTOM" then
@@ -261,11 +261,11 @@ function Farm:CreateFarmSeeds()
 				local container, slot = SLE:BagSearch(button.itemId)
 				if container and slot then
 					button:SetAttribute("type", "macro")
-					button:SetAttribute("macrotext", T.format("/targetexact %s \n/use %s %s", L["Tilled Soil"], container, slot))
+					button:SetAttribute("macrotext", format("/targetexact %s \n/use %s %s", L["Tilled Soil"], container, slot))
 				end
 			end
 		end
-		
+
 		seedBar:SetPoint("CENTER", SeedAnchor, "CENTER", 0, 0)
 		seedBar.id = i
 		seedBar.Items = {}
@@ -297,8 +297,8 @@ function Farm:CreateFarmTools()
 	ToolAnchor.ShouldShow = CanSeed
 	ToolAnchor.InventroyCheck = function()
 		local change = false
-		for _, button in T.ipairs(ToolAnchor.Bars["SLE_FarmToolsToolbar1"].Buttons) do
-			button.items = T.GetItemCount(button.itemId)
+		for _, button in ipairs(ToolAnchor.Bars["SLE_FarmToolsToolbar1"].Buttons) do
+			button.items = GetItemCount(button.itemId)
 			if not Tools.buttoncounts[button.itemId] then
 				Tools.buttoncounts[button.itemId] = button.items
 			end
@@ -349,8 +349,8 @@ function Farm:CreateFarmPortals()
 	PortalAnchor.ShouldShow = CanSeed
 	PortalAnchor.InventroyCheck = function()
 		local change = false
-		for _, button in T.ipairs(PortalAnchor.Bars["SLE_FarmPortalToolbar1"].Buttons) do
-			button.items = T.GetItemCount(button.itemId)
+		for _, button in ipairs(PortalAnchor.Bars["SLE_FarmPortalToolbar1"].Buttons) do
+			button.items = GetItemCount(button.itemId)
 			if not Tools.buttoncounts[button.itemId] then
 				Tools.buttoncounts[button.itemId] = button.items
 			end

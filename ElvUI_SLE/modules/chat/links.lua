@@ -1,9 +1,11 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local C = SLE:GetModule("Chat")
 
+--GLOBALS: UIParent, ChatFrame_AddMessageEventFilter, ChatFrame_RemoveMessageEventFilter
+local format = format
+local GetTime = GetTime
 local ItemRefTooltip = ItemRefTooltip
 local ShowUIPanel = ShowUIPanel
---GLOBALS: UIParent, ChatFrame_AddMessageEventFilter, ChatFrame_RemoveMessageEventFilter
 
 C.Meterspam = false
 C.invLinksInit = false
@@ -66,11 +68,11 @@ local invKeys = {}
 function C:CreateInvKeys()
 	local db = E.db.sle.chat.invite.keys
 
-	T.twipe(invKeys)
-	db = T.gsub(db, ',%s', ',') --remove spaces that follow a comma
+	wipe(invKeys)
+	db = gsub(db, ',%s', ',') --remove spaces that follow a comma
 
-	for index = 1, T.select('#', T.split(",", db)) do
-		local key = T.select(index, T.split(",", db))
+	for index = 1, select('#', strsplit(",", db)) do
+		local key = select(index, strsplit(",", db))
 
 		if key then
 			invKeys[key] = true
@@ -81,61 +83,61 @@ end
 function C:filterLine(event, source, msg, ...)
 	local isSpam = false
 
-	for _, line in T.ipairs(C.spamNextLines) do
+	for _, line in ipairs(C.spamNextLines) do
 		if msg:match(line) then
-			local curTime = T.GetTime()
+			local curTime = GetTime()
 
-			for id, meter in T.ipairs(C.Meters) do
+			for id, meter in ipairs(C.Meters) do
 				local elapsed = curTime - meter.time
 
 				if meter.src == source and meter.evt == event and elapsed < 1 then
 					-- found the meter, now check wheter this line is already in there
 					local toInsert = true
 
-					for a,b in T.ipairs(meter.data) do
+					for a,b in ipairs(meter.data) do
 						if (b == msg) then
 							toInsert = false
 						end
 					end
 
-					if toInsert then T.tinsert(meter.data,msg) end
+					if toInsert then tinsert(meter.data,msg) end
 					return true, false, nil
 				end
 			end
 		end
 	end
 
-	for i, line in T.ipairs(C.spamFirstLines) do
+	for i, line in ipairs(C.spamFirstLines) do
 		local newID = 0
 
 		if msg:match(line) then
-			local curTime = T.GetTime();
+			local curTime = GetTime();
 
-			if T.find(msg, "|cff(.+)|r") then
-				msg = T.gsub(msg, "|cff%w%w%w%w%w%w", "")
-				msg = T.gsub(msg, "|r", "")
+			if strfind(msg, "|cff(.+)|r") then
+				msg = gsub(msg, "|cff%w%w%w%w%w%w", "")
+				msg = gsub(msg, "|r", "")
 			end
 
-			for id,meter in T.ipairs(C.Meters) do
+			for id,meter in ipairs(C.Meters) do
 				local elapsed = curTime - meter.time
 
 				if meter.src == source and meter.evt == event and elapsed < 1 then
 					newID = id
 
-					return true, true, T.format("|HSLD:%1$d|h|cFFFFFF00[%2$s]|r|h",newID or 0,msg or "nil")
+					return true, true, format("|HSLD:%1$d|h|cFFFFFF00[%2$s]|r|h",newID or 0,msg or "nil")
 				end
 			end
 
 			local newMeter = {src = source, evt = event, time = curTime, data = {}, title = msg}
-			T.tinsert(C.Meters, newMeter)
+			tinsert(C.Meters, newMeter)
 
-			for id,meter in T.ipairs(C.Meters) do
+			for id,meter in ipairs(C.Meters) do
 				if meter.src == source and meter.evt == event and meter.time == curTime then
 					newID = id
 				end
 			end
 
-			return true, true, T.format("|HSLD:%1$d|h|cFFFFFF00[%2$s]|r|h",newID or 0,msg or "nil")
+			return true, true, format("|HSLD:%1$d|h|cFFFFFF00[%2$s]|r|h",newID or 0,msg or "nil")
 		end
 	end
 
@@ -145,7 +147,7 @@ end
 function C:ParseChatEvent(event, msg, sender, ...)
 	local hide = false
 
-	for _,allevents in T.ipairs(C.ChannelEvents) do
+	for _,allevents in ipairs(C.ChannelEvents) do
 		if event == allevents then
 			local isRecount, isFirstLine, newMessage = C:filterLine(event, sender, msg)
 
@@ -169,11 +171,11 @@ end
 function C:ParseChatEventInv(event, msg, sender, ...)
 	local hex = E:RGBToHex(E.db.sle.chat.invite.color.r,E.db.sle.chat.invite.color.g,E.db.sle.chat.invite.color.b)
 
-	for _,allevents in T.ipairs(C.InvLinkEvents) do
+	for _,allevents in ipairs(C.InvLinkEvents) do
 		if event == allevents then
 			for key,_ in pairs(invKeys) do
-				if T.find(msg, key) then
-					msg = T.gsub(msg, key, T.format("|Hinvite:"..sender.."|h"..hex.."[%s]|r|h", key))
+				if strfind(msg, key) then
+					msg = gsub(msg, key, format("|Hinvite:"..sender.."|h"..hex.."[%s]|r|h", key))
 
 					break
 				end
@@ -185,11 +187,11 @@ function C:ParseChatEventInv(event, msg, sender, ...)
 end
 
 local function SetItemRef(link, text, button, chatframe)
-	local linktype, id = T.split(":", link)
+	local linktype, id = strsplit(":", link)
 
 	if E.db.sle.chat.dpsSpam then
 		if linktype == "SLD" then
-			local meterID = T.tonumber(id)
+			local meterID = tonumber(id)
 
 			-- put stuff in the ItemRefTooltip from FrameXML
 			ShowUIPanel(ItemRefTooltip);
@@ -200,9 +202,9 @@ local function SetItemRef(link, text, button, chatframe)
 
 			ItemRefTooltip:ClearLines()
 			ItemRefTooltip:AddLine(C.Meters[meterID].title)
-			ItemRefTooltip:AddLine(T.format(L["Reported by %s"],C.Meters[meterID].src))
+			ItemRefTooltip:AddLine(format(L["Reported by %s"],C.Meters[meterID].src))
 
-			for _, message in T.ipairs(C.Meters[meterID].data) do
+			for _, message in ipairs(C.Meters[meterID].data) do
 				ItemRefTooltip:AddLine(message,1,1,1)
 			end
 			ItemRefTooltip:Show()
@@ -216,8 +218,8 @@ local function SetItemRef(link, text, button, chatframe)
 
 		return nil
 	elseif linktype == "invite" then
-		if T.find(id, "|K") then --Bnet whisper
-			local bnetID = T.match(id, "|K%w(%d+)")
+		if strfind(id, "|K") then --Bnet whisper
+			local bnetID = strmatch(id, "|K%w(%d+)")
 
 			FriendsFrame_BattlenetInvite(nil, bnetID)
 		else
@@ -230,14 +232,14 @@ end
 
 function C:SpamFilter()
 	if E.db.sle.chat.dpsSpam then
-		for _,event in T.ipairs(C.ChannelEvents) do
+		for _,event in ipairs(C.ChannelEvents) do
 			ChatFrame_AddMessageEventFilter(event, self.ParseChatEvent)
 		end
 
 		C.Meterspam = true
 	else
 		if C.Meterspam then
-			for _,event in T.ipairs(C.ChannelEvents) do
+			for _,event in ipairs(C.ChannelEvents) do
 				ChatFrame_RemoveMessageEventFilter(event, self.ParseChatEvent)
 			end
 
@@ -245,14 +247,14 @@ function C:SpamFilter()
 		end
 	end
 	if E.db.sle.chat.invite.invLinks then
-		for _,event in T.ipairs(C.InvLinkEvents) do
+		for _,event in ipairs(C.InvLinkEvents) do
 			ChatFrame_AddMessageEventFilter(event, self.ParseChatEventInv)
 		end
 
 		C.invLinksInit = true
 	else
 		if C.invLinksInit then
-			for _,event in T.ipairs(C.InvLinkEvents) do
+			for _,event in ipairs(C.InvLinkEvents) do
 				ChatFrame_RemoveMessageEventFilter(event, self.ParseChatEventInv)
 			end
 

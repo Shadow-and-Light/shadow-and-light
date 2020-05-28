@@ -1,8 +1,12 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Pr = SLE:GetModule("Professions")
+local FL = LibStub("LibFishing-1.0-SLE");
+
 -- GLOBALS: hooksecurefunc, CreateFrame
 local _G = _G
-local FL = LibStub("LibFishing-1.0-SLE");
+local format = format
+local GetTime = GetTime
+
 local SavedWFOnMouseDown
 local IsMounted = IsMounted
 local IsMouselooking = IsMouselooking
@@ -10,7 +14,7 @@ local MouselookStop = MouselookStop
 local UnitChannelInfo = UnitChannelInfo
 
 function Pr:HijackFishingCheck()
-	if ( not Pr.AddingLure and not T.InCombatLockdown() and (not IsMounted() or E.private.sle.professions.fishing.FromMount) and
+	if ( not Pr.AddingLure and not InCombatLockdown() and (not IsMounted() or E.private.sle.professions.fishing.FromMount) and
 	E.private.sle.professions.fishing.EasyCast and FL:IsFishingReady(E.private.sle.professions.fishing.IgnorePole)) then
 		return true
 	end
@@ -25,8 +29,8 @@ function Pr:GetUpdateLure()
 		-- only apply a lure if we're actually fishing with a "real" pole
 		if (FL:IsFishingPole()) then
 			-- Let's wait a bit so that the enchant can show up before we lure again
-			if ( Pr.LastLure and Pr.LastLure.time and ((Pr.LastLure.time - T.GetTime()) > 0) ) then
-				SLE:Print(T.format(L["SLE_Prof_Relure_Error"], Pr.LastLure.time - T.GetTime()))
+			if ( Pr.LastLure and Pr.LastLure.time and ((Pr.LastLure.time - GetTime()) > 0) ) then
+				SLE:Print(format(L["SLE_Prof_Relure_Error"], Pr.LastLure.time - GetTime()))
 				return false;
 			end
 
@@ -51,15 +55,15 @@ function Pr:GetUpdateLure()
 				if ( DoLure and DoLure.id ) then
 					-- if the pole has an enchantment, we can assume it's got a lure on it (so far, anyway)
 					-- remove the main hand enchantment (since it's a fishing pole, we know what it is)
-					local startTime, duration, enable = T.GetItemCooldown(DoLure.id);
+					local startTime, duration, enable = GetItemCooldown(DoLure.id);
 					if (startTime == 0) then
-						Pr.AddingLure = true;
-						Pr.LastLure = DoLure;
-						Pr.LureState = NextState;
-						Pr.LastLure.time = T.GetTime() + E.private.sle.professions.fishing.relureThreshold;
-						local id = DoLure.id;
-						local name = DoLure.n;
-						return true, id, name; 
+						Pr.AddingLure = true
+						Pr.LastLure = DoLure
+						Pr.LureState = NextState
+						Pr.LastLure.time = GetTime() + E.private.sle.professions.fishing.relureThreshold;
+						local id = DoLure.id
+						local name = DoLure.n
+						return true, id, name
 					elseif ( Pr.LastLure and not Pr.LastLure.time ) then
 						Pr.LastLure = nil;
 						Pr.LastState = 0;
@@ -80,7 +84,7 @@ function Pr:FishCasting()
 		if (update and id) then
 			FL:InvokeLuring(id);
 		else
-			Pr.LastCastTime = T.GetTime();
+			Pr.LastCastTime = GetTime();
 
 			FL:InvokeFishing();
 		end
@@ -92,7 +96,7 @@ end
 -- Thanks to the Cosmos team for figuring this one out
 local function WF_OnMouseDown(...)
 	-- Only steal 'right clicks' (self is arg #1!)
-	local button = T.select(2, ...);
+	local button = select(2, ...);
 	if ( FL:CheckForDoubleClick(button) and Pr:HijackFishingCheck() ) then
 		 -- We're stealing the mouse-up event, make sure we exit MouseLook
 		if ( IsMouselooking() ) then
@@ -107,7 +111,7 @@ end
 
 local function TrapWorldMouse()
 	if ( _G["WorldFrame"].OnMouseDown ) then
-		hooksecurefunc(_G["WorldFrame"], "OnMouseDown", WF_OnMouseDown) 
+		hooksecurefunc(_G["WorldFrame"], "OnMouseDown", WF_OnMouseDown)
 	else
 		SavedWFOnMouseDown = T.SafeHookScript(_G["WorldFrame"], "OnMouseDown", WF_OnMouseDown);
 	end
@@ -122,9 +126,10 @@ function Pr:FishingInitialize()
 	Pr.FishingUpdateFrame = CreateFrame("Frame", "SLE_FishingUpdateFrame", E.UIParent)
 	Pr.FishingUpdateFrame:SetScript("OnUpdate", function(self)
 		local stop = true;
-		if ( not T.InCombatLockdown() ) then
+		if ( not InCombatLockdown() ) then
 			FL:ResetOverride();
 			if ( Pr.AddingLure ) then
+				--  TODO:  Clean up as a bunch of unused variables
 				local sp, sub, txt, tex, st, et, trade, int = UnitChannelInfo("player");
 				local lure = FL:GetPoleBonus();
 				if ( not sp or not Pr.LastLure or (lure and lure == Pr.LastLure.b) ) then

@@ -43,14 +43,14 @@ local function configTable()
 				order = 4,
 				name = L["Date X-Offset"],
 				type = "range",
-				min = -(floor(T.GetScreenWidth()/2)), max = floor(T.GetScreenWidth()/2), step = 1,
+				min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
 				set = function(info, value) E.db.sle.screensaver.date.xOffset = value end,
 			}
 			config.args.yOffset = {
 				order = 5,
 				name = L["Date Y-Offset"],
 				type = "range",
-				min = -(floor(T.GetScreenWidth()/2)), max = floor(T.GetScreenWidth()/2), step = 1,
+				min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
 				set = function(info, value) E.db.sle.screensaver.date.yOffset = value end,
 			}
 			config.args.hour24 = {
@@ -64,14 +64,14 @@ local function configTable()
 				order = 4,
 				name = L["Player Info X-Offset"],
 				type = "range",
-				min = -(floor(T.GetScreenWidth()/2)), max = floor(T.GetScreenWidth()/2), step = 1,
+				min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
 				set = function(info, value) E.db.sle.screensaver.player.xOffset = value end,
 			}
 			config.args.yOffset = {
 				order = 5,
 				name = L["Player Info Y-Offset"],
 				type = "range",
-				min = -(floor(T.GetScreenWidth()/2)), max = floor(T.GetScreenWidth()/2), step = 1,
+				min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
 				set = function(info, value) E.db.sle.screensaver.player.yOffset = value end,
 			}
 		end
@@ -145,25 +145,25 @@ local function configTable()
 										order = 2,
 										name = L["Faction Crest X-Offset"],
 										type = "range",
-										min = -(floor(T.GetScreenWidth()/2)), max = floor(T.GetScreenWidth()/2), step = 1,
+										min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
 									},
 									yOffset_faction = {
 										order = 3,
 										name = L["Faction Crest Y-Offset"],
 										type = "range",
-										min = -(floor(T.GetScreenWidth()/2)), max = floor(T.GetScreenWidth()/2), step = 1,
+										min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
 									},
 									xOffset_race = {
 										order = 4,
 										name = L["Race Crest X-Offset"],
 										type = "range",
-										min = -(floor(T.GetScreenWidth()/2)), max = floor(T.GetScreenWidth()/2), step = 1,
+										min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
 									},
 									yOffset_race = {
 										order = 5,
 										name = L["Race Crest Y-Offset"],
 										type = "range",
-										min = -(floor(T.GetScreenWidth()/2)), max = floor(T.GetScreenWidth()/2), step = 1,
+										min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
 									},
 								},
 							},
@@ -331,4 +331,4 @@ local function configTable()
 	}
 end
 
-T.tinsert(SLE.Configs, configTable)
+tinsert(SLE.Configs, configTable)

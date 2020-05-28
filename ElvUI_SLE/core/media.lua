@@ -1,7 +1,9 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local M = SLE:NewModule('Media', 'AceHook-3.0')
+
 --GLOBALS: hooksecurefunc
 local _G = _G
+local random = random
 local FadingFrame_Show = FadingFrame_Show
 
 M.Zones = L["SLE_MEDIA_ZONES"]
@@ -98,8 +100,8 @@ function M:TextWidth()
 end
 
 function M:TextShow()
-	local z, i, a, s, c = T.random(1, #M.Zones), T.random(1, #M.PvPInfo), T.random(1, #M.PVPArena), T.random(1, #M.Subzones), T.random(1, #Colors)
-	local red, green, blue = T.unpack(Colors[c])
+	local z, i, a, s, c = random(1, #M.Zones), random(1, #M.PvPInfo), random(1, #M.PVPArena), random(1, #M.Subzones), random(1, #Colors)
+	local red, green, blue = unpack(Colors[c])
 
 	--Setting texts--
 	_G["ZoneTextString"]:SetText(M.Zones[z])

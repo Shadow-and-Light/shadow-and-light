@@ -11,7 +11,7 @@ local function OnEvent(self, event, ...)
 end
 
 local function ValueColorUpdate(hex, r, g, b)
-	displayNumberString = T.join("", "%s: ", hex, "%.f|r")
+	displayNumberString = strjoin("", "%s: ", hex, "%.f|r")
 
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)

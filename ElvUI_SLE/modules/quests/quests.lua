@@ -28,7 +28,7 @@ function Q:ChangeState(event)
 	if not Q.db then return end
 	if not Q.db.visibility then return end
 	if not Q.db.visibility.enable then return end
-	if T.InCombatLockdown() and event ~= "PLAYER_REGEN_DISABLED" then return end
+	if InCombatLockdown() and event ~= "PLAYER_REGEN_DISABLED" then return end
 	local inCombat = event == "PLAYER_REGEN_DISABLED" and true or false
 
 	if inCombat and Q.db.visibility.combat ~= "NONE" then
@@ -40,7 +40,7 @@ function Q:ChangeState(event)
 	elseif IsResting() then
 		statedriver[Q.db.visibility.rested](Q.frame)
 	else
-		local instance, instanceType = T.IsInInstance()
+		local instance, instanceType = IsInInstance()
 		if instance then
 			if instanceType == 'pvp' then
 				statedriver[Q.db.visibility.bg](Q.frame)
@@ -105,7 +105,7 @@ function Q:QUEST_COMPLETE()
 	for index = 1, num do
 		local link = GetQuestItemLink("choice", index);
 		if link then
-			local price = T.select(11, GetItemInfo(link))
+			local price = select(11, GetItemInfo(link))
 			if price and price > highest then
 				highest = price
 				choice = index

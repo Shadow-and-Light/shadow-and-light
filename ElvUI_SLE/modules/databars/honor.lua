@@ -1,6 +1,9 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DB = SLE:GetModule("DataBars")
+
 --GLOBALS: hooksecurefunc
+local format = format
+local UnitLevel = UnitLevel
 local MAX_PLAYER_LEVEL = MAX_PLAYER_LEVEL
 local PVP_HONOR_PRESTIGE_AVAILABLE = PVP_HONOR_PRESTIGE_AVAILABLE
 local MAX_HONOR_LEVEL = MAX_HONOR_LEVEL
@@ -47,10 +50,10 @@ local function UpdateHonor(self, event, unit)
 	if not E.db.sle.databars.honor.longtext then return end
 	if event == "HONOR_PRESTIGE_UPDATE" and unit ~= "player" then return end
 	local bar = self.honorBar
-	local showHonor = T.UnitLevel("player") >= MAX_PLAYER_LEVEL
+	local showHonor = UnitLevel("player") >= MAX_PLAYER_LEVEL
 	if showHonor then
-		local current = T.UnitHonor("player");
-		local max = T.UnitHonorMax("player");
+		local current = UnitHonor("player");
+		local max = UnitHonorMax("player");
 
 		--Guard against division by zero, which appears to be an issue when zoning in/out of dungeons
 		if max == 0 then max = 1 end
@@ -59,11 +62,11 @@ local function UpdateHonor(self, event, unit)
 		local textFormat = self.db.honor.textFormat
 
 		if textFormat == 'PERCENT' then
-			text = T.format('%d%%', current / max * 100)
+			text = format('%d%%', current / max * 100)
 		elseif textFormat == 'CURMAX' then
-			text = T.format('%s - %s', current, max)
+			text = format('%s - %s', current, max)
 		elseif textFormat == 'CURPERC' then
-			text = T.format('%s - %d%%', current, current / max * 100)
+			text = format('%s - %d%%', current, current / max * 100)
 		end
 		
 		if textFormat == 'PERCENT' then
@@ -91,40 +94,40 @@ function DB:PopulateHonorStrings()
 	local symbols = {'%(','%)','%.','([-+])','|4.-;','%%[sd]','%%%d%$[sd]','%%(','%%)','%%.','%%%1','.-','(.-)','(.-)'}
 
 	local pattern
-	pattern = T.rgsub(COMBATLOG_HONORGAIN, T.unpack(symbols))
-	T.tinsert(DB.Honor.Strings, pattern)
+	pattern = T.rgsub(COMBATLOG_HONORGAIN, unpack(symbols))
+	tinsert(DB.Honor.Strings, pattern)
 
-	pattern = T.rgsub(COMBATLOG_HONORGAIN_EXHAUSTION1, T.unpack(symbols))
-	T.tinsert(DB.Honor.Strings, pattern)
+	pattern = T.rgsub(COMBATLOG_HONORGAIN_EXHAUSTION1, unpack(symbols))
+	tinsert(DB.Honor.Strings, pattern)
 
-	pattern = T.rgsub(COMBATLOG_HONORGAIN_NO_RANK, T.unpack(symbols))
-	T.tinsert(DB.Honor.Strings, pattern)
+	pattern = T.rgsub(COMBATLOG_HONORGAIN_NO_RANK, unpack(symbols))
+	tinsert(DB.Honor.Strings, pattern)
 
-	AwardPattern = T.rgsub(COMBATLOG_HONORAWARD, T.unpack(symbols))
+	AwardPattern = T.rgsub(COMBATLOG_HONORAWARD, unpack(symbols))
 end
 
 function DB:FilterHonor(event, message, ...)
 	local name, rank, honor
 	if DB.db.honor.chatfilter.enable then
-		for i, v in T.ipairs(DB.Honor.Strings) do
-			name, rank, honor, bonus = T.match(message,DB.Honor.Strings[i])
+		for i, v in ipairs(DB.Honor.Strings) do
+			name, rank, honor, bonus = strmatch(message,DB.Honor.Strings[i])
 			if name then
 				if not honor then
 					honor = rank
 					rank = PVP_RANK_0_0
 				end
 				if bonus then
-					message = T.format(DB.Honor.BonusStyles[DB.db.honor.chatfilter.style or "STYLE1"], name, rank, honor, bonus, DB.Honor.Icon, DB.db.honor.chatfilter.iconsize)
+					message = format(DB.Honor.BonusStyles[DB.db.honor.chatfilter.style or "STYLE1"], name, rank, honor, bonus, DB.Honor.Icon, DB.db.honor.chatfilter.iconsize)
 				else
-					message = T.format(DB.Honor.Styles[DB.db.honor.chatfilter.style or "STYLE1"], name, rank, honor, DB.Honor.Icon, DB.db.honor.chatfilter.iconsize)
+					message = format(DB.Honor.Styles[DB.db.honor.chatfilter.style or "STYLE1"], name, rank, honor, DB.Honor.Icon, DB.db.honor.chatfilter.iconsize)
 				end
 				return false, message, ...
 			end
 		end
 	end
-	honor = T.match(message,AwardPattern)
+	honor = strmatch(message,AwardPattern)
 	if honor then
-		message = T.format(DB.Honor.AwardStyles[DB.db.honor.chatfilter.awardStyle or "STYLE1"], honor, DB.Honor.Icon, DB.db.honor.chatfilter.iconsize)
+		message = format(DB.Honor.AwardStyles[DB.db.honor.chatfilter.awardStyle or "STYLE1"], honor, DB.Honor.Icon, DB.db.honor.chatfilter.iconsize)
 		return false, message, ...
 	end
 end

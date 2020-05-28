@@ -21,7 +21,7 @@ local searchBox
 local searching = ""
 
 local IgnoreCurrency = {
-	[T.GetCurrencyInfo(994)] = true,
+	[GetCurrencyInfo(994)] = true,
 }
 
 local function SkinVendorItems(i)
@@ -44,8 +44,8 @@ local function SkinVendorItems(i)
 		self:SetTexture("")
 	end)
 	hooksecurefunc(iconBorder, 'Hide', function(self)
- 		self:GetParent():SetBackdropBorderColor(T.unpack(E.media.bordercolor))
- 	end)
+		self:GetParent():SetBackdropBorderColor(unpack(E.media.bordercolor))
+	end)
 
 	_G["MerchantItem"..i.."MoneyFrame"]:ClearAllPoints()
 	_G["MerchantItem"..i.."MoneyFrame"]:Point("BOTTOMLEFT", button, "BOTTOMRIGHT", 3, 0)
@@ -107,11 +107,11 @@ local function UpdateBuybackInfo()
 	for i = 1, BUYBACK_ITEMS_PER_PAGE, 1 do
 		btn = _G["MerchantItem" .. i];
 		if (btn) then
-			link = T.GetBuybackItemLink(i);
+			link = GetBuybackItemLink(i);
 			if (link) then
-				_, _, quality = T.GetItemInfo(link);
+				_, _, quality = GetItemInfo(link);
 				if quality then
-					r, g, b = T.GetItemQualityColor(quality);
+					r, g, b = GetItemQualityColor(quality);
 				else
 					r, g, b = 1,1,1
 				end
@@ -161,12 +161,12 @@ local function UpdateMerchantInfo()
 	local indexes = {}
 	local _, name, texture, price, quantity, numAvailable, isUsable, extendedCost, r, g, b, notOptimal;
 	local link, quality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemSellPrice, itemId;
-	
+
 	for i = 1, totalMerchantItems do
-		T.tinsert(indexes, i);
+		tinsert(indexes, i);
 		visibleMerchantItems = visibleMerchantItems + 1;
 	end
-	
+
 	 -- validate current page shown
 	if (_G["MerchantFrame"].page > math_max(1, math_ceil(visibleMerchantItems / MERCHANT_ITEMS_PER_PAGE))) then
 		_G["MerchantFrame"].page = math_max(1, math_ceil(visibleMerchantItems / MERCHANT_ITEMS_PER_PAGE));
@@ -174,7 +174,7 @@ local function UpdateMerchantInfo()
 
 	-- Show correct page count based on number of items shown
 	_G["MerchantPageText"]:SetFormattedText(MERCHANT_PAGE_NUMBER, _G["MerchantFrame"].page, math_ceil(visibleMerchantItems / MERCHANT_ITEMS_PER_PAGE));
-	
+
 	--Display shit
 	for i = 1, MERCHANT_ITEMS_PER_PAGE do
 		 local index = ((_G["MerchantFrame"].page - 1) * MERCHANT_ITEMS_PER_PAGE) + i;
@@ -239,19 +239,19 @@ local function UpdateMerchantInfo()
 				end
 
 				MerchantFrameItem_UpdateQuality(merchantButton, itemButton.link);
-				
+
 				local merchantItemID = GetMerchantItemID(index);
 				local isHeirloom = merchantItemID and C_Heirloom.IsItemHeirloom(merchantItemID);
 				local isKnownHeirloom = isHeirloom and C_Heirloom.PlayerHasHeirloom(merchantItemID);
 
 				itemButton.showNonrefundablePrompt = isHeirloom;
-				
+
 				itemButton.hasItem = true;
 				itemButton:SetID(indexes[index]);
 				itemButton:Show();
-				
+
 				local tintRed = not isPurchasable or (not isUsable and not isHeirloom);
-				
+
 				local colorMult = 1.0;
 				local detailColor = {};
 				local slotColor = {};
@@ -272,9 +272,9 @@ local function UpdateMerchantInfo()
 					end
 				end
 				local alpha = 0.3;
-				if ( searching == "" or searching == SEARCH:lower() or name:lower():match(searching) 
-					or ( quality and ( T.tostring(quality):lower():match(searching) or _G["ITEM_QUALITY"..T.tostring(quality).."_DESC"]:lower():match(searching) ) )
-					or ( itemType and itemType:lower():match(searching) ) 
+				if ( searching == "" or searching == SEARCH:lower() or name:lower():match(searching)
+					or ( quality and ( tostring(quality):lower():match(searching) or _G["ITEM_QUALITY"..tostring(quality).."_DESC"]:lower():match(searching) ) )
+					or ( itemType and itemType:lower():match(searching) )
 					or ( itemSubType and itemSubType:lower():match(searching) )
 					) then
 					alpha = 1;

@@ -28,11 +28,7 @@ function SLE:LuaError(msg)
 			ReloadUI()
 		end
     else
-        for i=1, GetNumAddOns() do
-            local name = GetAddOnInfo(i)
-            print(name)
-        end
-		SLE:Print('/slerror on - /slerror off')
+		SLE:Print('/slerror on - /slerror off', 'info')
 	end
 end
 

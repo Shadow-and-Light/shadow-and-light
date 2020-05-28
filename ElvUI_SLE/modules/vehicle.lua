@@ -4,12 +4,14 @@ local AB = E:GetModule("ActionBars");
 local LAB = LibStub("LibActionButton-1.0-ElvUI")
 local Masque = LibStub("Masque", true)
 local MasqueGroup = Masque and Masque:Group("ElvUI", "ActionBars")
-local ES
+
 --GLOBALS: CreateFrame, hooksecurefunc, UIParent
 local _G = _G
+local format = format
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 local GetVehicleBarIndex, GetVehicleBarIndex, GetOverrideBarIndex = GetVehicleBarIndex, GetVehicleBarIndex, GetOverrideBarIndex
+local ES
 
 -- Regular Button for these bars are 52. 52 * .71 = ~37.. I just rounded it up to 40 and called it good.
 function EVB:Animate(bar, x, y, duration)
@@ -56,7 +58,7 @@ function EVB:CreateExtraButtonSet()
 	for i = 1, EVB.NumButtons do
 		i = i == 7 and 12 or i
 
-		bar.buttons[i] = LAB:CreateButton(i, T.format(bar:GetName().."Button%d", i), bar, nil);
+		bar.buttons[i] = LAB:CreateButton(i, format(bar:GetName().."Button%d", i), bar, nil);
 		bar.buttons[i]:SetState(0, "action", i);
 
 		for k = 1, 14 do
@@ -135,7 +137,7 @@ function EVB:Initialize()
 	ES = SLE._Compatibility["ElvUI_NihilistUI"] and ElvUI_NihilistUI[1]:GetModule("EnhancedShadows") or SLE:GetModule("EnhancedShadows")
 
 	local visibility = "[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] hide;"
-	local page = T.format("[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13;", GetOverrideBarIndex(), GetVehicleBarIndex(), GetVehicleBarIndex());
+	local page = format("[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13;", GetOverrideBarIndex(), GetVehicleBarIndex(), GetVehicleBarIndex());
 	local bindButtons = "ACTIONBUTTON";
 
 	hooksecurefunc(AB, "PositionAndSizeBar", function(self, barName)

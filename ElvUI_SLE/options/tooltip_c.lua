@@ -54,7 +54,7 @@ local function configTable()
 						order = 2,
 						name = L["Name Style"],
 						type = "select",
-						set = function(info, value) E.db.sle.tooltip.RaidProg[ info[#info] ] = value; T.twipe(RP.Cache) end,
+						set = function(info, value) E.db.sle.tooltip.RaidProg[ info[#info] ] = value; wipe(RP.Cache) end,
 						values = {
 							["LONG"] = L["Full"],
 							["SHORT"] = L["Short"],
@@ -64,7 +64,7 @@ local function configTable()
 						order = 3,
 						name = L["Difficulty Style"],
 						type = "select",
-						set = function(info, value) E.db.sle.tooltip.RaidProg[ info[#info] ] = value; T.twipe(RP.Cache) end,
+						set = function(info, value) E.db.sle.tooltip.RaidProg[ info[#info] ] = value; wipe(RP.Cache) end,
 						values = {
 							["LONG"] = L["Full"],
 							["SHORT"] = L["Short"],
@@ -96,4 +96,4 @@ local function configTable()
 	}
 end
 
-T.tinsert(SLE.Configs, configTable)
+tinsert(SLE.Configs, configTable)

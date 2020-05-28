@@ -4,8 +4,7 @@ local DT = E:GetModule("DataTexts");
 
 --GLOBALS: ElvDB, hooksecurefunc
 local _G = _G
-local CreateFrame = CreateFrame
-local FACTION_ALLIANCE, FACTION_HORDE = FACTION_ALLIANCE, FACTION_HORDE
+local format = format
 
 --Table to remember where default Gold DT is
 DTP.GoldCache = {}
@@ -16,13 +15,13 @@ function DTP:LoadDTHook()
 	--Is S&L's currency dt set anywhere
 	local IsCurrencyDTSelected = false
 	--Wipe the table. We assume after last settings change there is no default gold DTs
-	T.twipe(DTP.GoldCache)
+	wipe(DTP.GoldCache)
 	--Going through all registered datapanels
-	for panelName, panel in T.pairs(DT.RegisteredPanels) do
+	for panelName, panel in pairs(DT.RegisteredPanels) do
 		for i=1, panel.numPoints do
 			--Searching for gold
-			for settingName, settingValue in T.pairs(DT.db.panels) do
-				if settingValue and T.type(settingValue) == 'table' then --if options for panel exist and it is 2+ slot panel (2 cause DTBars exists)
+			for settingName, settingValue in pairs(DT.db.panels) do
+				if settingValue and type(settingValue) == 'table' then --if options for panel exist and it is 2+ slot panel (2 cause DTBars exists)
 					if settingName == panelName and DT.db.panels[settingName][i] and DT.db.panels[settingName][i] == "Gold" then
 						--if it is current panel and options for it exist and it is gold dt, put the location in da cache
 						DTP.GoldCache[panelName] = panel.dataPanels[i]
@@ -30,11 +29,11 @@ function DTP:LoadDTHook()
 						--if it is current panel and options for it exist and it is s&l currency dt, set the flag to true
 						IsCurrencyDTSelected = true
 					end
-				elseif settingValue and T.type(settingValue) == 'string' and settingValue == "Gold" then --if options for panel exist and it is 1 slot panel with gold dt
+				elseif settingValue and type(settingValue) == 'string' and settingValue == "Gold" then --if options for panel exist and it is 1 slot panel with gold dt
 					if DT.db.panels[settingName] == "Gold" and settingName == panelName then
 						DTP.GoldCache[panelName] = panel.dataPanels[i]
 					end
-				elseif settingValue and T.type(settingValue) == 'string' and settingValue == "S&L Currency" then --if options for panel exist and it is 1 slot panel with s&l currency
+				elseif settingValue and type(settingValue) == 'string' and settingValue == "S&L Currency" then --if options for panel exist and it is 1 slot panel with s&l currency
 					if DT.db.panels[settingName] == "Gold" and settingName == panelName then
 						IsCurrencyDTSelected = true
 					end
@@ -48,9 +47,9 @@ function DTP:LoadDTHook()
 	if OnLoadThrottle then
 		OnLoadThrottle = false
 		if IsCurrencyDTSelected then
-			for panelName, datatext in T.pairs(DTP.GoldCache) do
+			for panelName, datatext in pairs(DTP.GoldCache) do
 				--Message about this particular panel having gold dt
-				local message = T.format(L["SLE_DT_CURRENCY_WARNING_GOLD"], "|cff1784d1"..L[panelName].."|r")
+				local message = format(L["SLE_DT_CURRENCY_WARNING_GOLD"], "|cff1784d1"..L[panelName].."|r")
 				SLE:Print(message, "warning")
 				--Unregister all events for this gold dt to prevent weird shit on currency
 				if datatext then datatext:UnregisterAllEvents() end

@@ -24,7 +24,7 @@ local SMARTBUFF_MinimapButton_CheckPos, SMARTBUFF_MinimapButton_OnUpdate
 local function OnEnter(self)
 	UIFrameFadeIn(SMB.bar, 0.2, SMB.bar:GetAlpha(), 1)
 	if self ~= SMB.bar then
-		self:SetBackdropBorderColor(T.unpack(E["media"].rgbvaluecolor))
+		self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
 	end
 end
 
@@ -34,7 +34,7 @@ local function OnLeave(self)
 		UIFrameFadeOut(SMB.bar, 0.2, SMB.bar:GetAlpha(), 0)
 	end
 	if self ~= SMB.bar then
-		self:SetBackdropBorderColor(T.unpack(E["media"].bordercolor))
+		self:SetBackdropBorderColor(unpack(E["media"].bordercolor))
 	end
 end
 
@@ -101,7 +101,7 @@ function SMB:SkinButton(Button)
 	if not Button.isSkinned then
 		local Name = Button:GetName()
 		if not Name and HBDpins and Button.icon then
-			for button,data in T.pairs(HBDpins.minimapPins) do
+			for button,data in pairs(HBDpins.minimapPins) do
 				if Button == button then
 					Button.isSkinned = true
 					return
@@ -111,7 +111,7 @@ function SMB:SkinButton(Button)
 		--Old way to deal with tomtom. Maybe will need it at some time in the future
 		--[[if TomTom and not Name and Button.icon then
 			local texture = Button.icon:GetTexture()
-			if T.find(texture, "TomTom") or T.find(texture, "WoWPro") then
+			if strfind(texture, "TomTom") or strfind(texture, "WoWPro") then
 				Button.isSkinned = true
 				return
 			end
@@ -121,7 +121,7 @@ function SMB:SkinButton(Button)
 			local ValidIcon = false
 			if Name then
 				for i = 1, #SMB.WhiteList do
-					if strsub(Name, 1, T.strlen(SMB.WhiteList[i])) == SMB.WhiteList[i] then ValidIcon = true break end
+					if strsub(Name, 1, strlen(SMB.WhiteList[i])) == SMB.WhiteList[i] then ValidIcon = true break end
 				end
 
 				if not ValidIcon then
@@ -130,11 +130,11 @@ function SMB:SkinButton(Button)
 					end
 
 					for i = 1, #SMB.GenericIgnores do
-						if strsub(Name, 1, T.strlen(SMB.GenericIgnores[i])) == SMB.GenericIgnores[i] then return end
+						if strsub(Name, 1, strlen(SMB.GenericIgnores[i])) == SMB.GenericIgnores[i] then return end
 					end
 
 					for i = 1, #SMB.PartialIgnores do
-						if T.find(Name, SMB.PartialIgnores[i]) ~= nil then return end
+						if strfind(Name, SMB.PartialIgnores[i]) ~= nil then return end
 					end
 				end
 			end
@@ -147,16 +147,16 @@ function SMB:SkinButton(Button)
 		end
 
 		for i = 1, Button:GetNumRegions() do
-			local Region = T.select(i, Button:GetRegions())
+			local Region = select(i, Button:GetRegions())
 			if Region:GetObjectType() == 'Texture' then
 				local Texture = Region:GetTexture()
 
-				if Texture and (T.find(Texture, 'Border') or T.find(Texture, 'Background') or T.find(Texture, 'AlphaMask')) then
+				if Texture and (strfind(Texture, 'Border') or strfind(Texture, 'Background') or strfind(Texture, 'AlphaMask')) then
 					Region:SetTexture(nil)
 				else
 					if Name == 'BagSync_MinimapButton' then Region:SetTexture('Interface\\AddOns\\BagSync\\media\\icon') end
 					if Name == 'LibDBIcon10_DBM' then Region:SetTexture('Interface\\Icons\\INV_Helmet_87') end
-					if Name == 'SmartBuff_MiniMapButton' then Region:SetTexture(T.select(3, T.GetSpellInfo(12051))) end
+					if Name == 'SmartBuff_MiniMapButton' then Region:SetTexture(select(3, GetSpellInfo(12051))) end
 					if Name == 'MiniMapMailFrame' then
 						Region:ClearAllPoints()
 						Region:SetPoint('CENTER', Button)
@@ -164,8 +164,8 @@ function SMB:SkinButton(Button)
 					if not (Name == 'MiniMapMailFrame' or Name == 'SmartBuff_MiniMapButton') then
 						Region:ClearAllPoints()
 						Region:SetInside()
-						Region:SetTexCoord(T.unpack(TexCoords))
-						Button:HookScript('OnLeave', function(self) Region:SetTexCoord(T.unpack(TexCoords)) end)
+						Region:SetTexCoord(unpack(TexCoords))
+						Button:HookScript('OnLeave', function(self) Region:SetTexCoord(unpack(TexCoords)) end)
 					end
 					Region:SetDrawLayer('ARTWORK')
 					Region.SetPoint = function() return end
@@ -178,15 +178,15 @@ function SMB:SkinButton(Button)
 
 		if Name == 'SmartBuff_MiniMapButton' then
 			Button:SetNormalTexture("Interface\\Icons\\Spell_Nature_Purge")
-			Button:GetNormalTexture():SetTexCoord(T.unpack(TexCoords))
+			Button:GetNormalTexture():SetTexCoord(unpack(TexCoords))
 			Button.SetNormalTexture = function() end
 			Button:SetDisabledTexture("Interface\\Icons\\Spell_Nature_Purge")
-			Button:GetDisabledTexture():SetTexCoord(T.unpack(TexCoords))
+			Button:GetDisabledTexture():SetTexCoord(unpack(TexCoords))
 		elseif Name == 'VendomaticButtonFrame' then
 			_G["VendomaticButton"]:StripTextures()
 			_G["VendomaticButton"]:SetInside()
 			_G["VendomaticButtonIcon"]:SetTexture('Interface\\Icons\\INV_Misc_Rabbit_2')
-			_G["VendomaticButtonIcon"]:SetTexCoord(T.unpack(TexCoords))
+			_G["VendomaticButtonIcon"]:SetTexCoord(unpack(TexCoords))
 		elseif Name == 'QueueStatusMinimapButton' then
 			_G["QueueStatusMinimapButton"]:HookScript('OnUpdate', function(self)
 				_G["QueueStatusMinimapButtonIcon"]:SetFrameLevel(_G["QueueStatusMinimapButton"]:GetFrameLevel() + 1)
@@ -263,19 +263,19 @@ function SMB:SkinButton(Button)
 		end
 
 		Button.isSkinned = true
-		T.tinsert(SMB.SkinnedMinimapButtons, Button)
+		tinsert(SMB.SkinnedMinimapButtons, Button)
 	end
 end
 
 function SMB:SkinMinimapButtons()
 	if not E.private.sle.minimap.mapicons.enable then return end
 	for i = 1, _G["Minimap"]:GetNumChildren() do
-		local object = T.select(i, _G["Minimap"]:GetChildren())
+		local object = select(i, _G["Minimap"]:GetChildren())
 		if object then
 			if object:IsObjectType('Button') then --and object:GetName() then
 				SMB:SkinButton(object)
 			end
-			for _, frame in T.pairs(SMB.AcceptedFrames) do
+			for _, frame in pairs(SMB.AcceptedFrames) do
 				if object:IsObjectType('Frame') and object:GetName() == frame then
 					SMB:SkinButton(object)
 				end
@@ -284,10 +284,10 @@ function SMB:SkinMinimapButtons()
 	end
 	if _G["OutfitterMinimapButton"] and not _G["OutfitterMinimapButton"].isSkinned then
 		for i = 1, _G["OutfitterMinimapButton"]:GetNumRegions() do
-			local Region = T.select(i, _G["OutfitterMinimapButton"]:GetRegions())
+			local Region = select(i, _G["OutfitterMinimapButton"]:GetRegions())
 			if Region:GetObjectType() == 'Texture' then
 				local Texture = Region:GetTexture()
-				if Texture and T.find(Texture, 'Outfitter') then Region:SetTexture(nil) end
+				if Texture and strfind(Texture, 'Outfitter') then Region:SetTexture(nil) end
 				break
 			end
 		end
@@ -339,10 +339,10 @@ function SMB:Update()
 		ButtonsPerRow = #SMB.SkinnedMinimapButtons
 	end
 
-	for Key, Frame in T.pairs(SMB.SkinnedMinimapButtons) do
+	for Key, Frame in pairs(SMB.SkinnedMinimapButtons) do
 		local Name = Frame:GetName()
 		local Exception = false
-		for _, Button in T.pairs(SMB.AddButtonsToBar) do
+		for _, Button in pairs(SMB.AddButtonsToBar) do
 			if Name == Button then
 				Exception = true
 				if Name == 'SmartBuff_MiniMapButton' then

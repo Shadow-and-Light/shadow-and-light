@@ -1,6 +1,8 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local EDB = E:GetModule('DataBars')
 local DB = SLE:GetModule("DataBars")
+
+local format = format
 local FACTION, REPUTATION, SCENARIO_BONUS_LABEL = FACTION, REPUTATION, SCENARIO_BONUS_LABEL
 
 local function configTable()
@@ -58,8 +60,8 @@ local function configTable()
 								name = L["Experience Style"],
 								disabled = function() return not E.db.sle.databars.exp.chatfilter.enable end,
 								values = {
-									["STYLE1"] = T.format(DB.Exp.Styles["STYLE1"]["Bonus"], 14, E.myname, 300, 150, SCENARIO_BONUS_LABEL),
-									["STYLE2"] = T.format(DB.Exp.Styles["STYLE2"]["Bonus"], 14, E.myname, 300, 150, SCENARIO_BONUS_LABEL),
+									["STYLE1"] = format(DB.Exp.Styles["STYLE1"]["Bonus"], 14, E.myname, 300, 150, SCENARIO_BONUS_LABEL),
+									["STYLE2"] = format(DB.Exp.Styles["STYLE2"]["Bonus"], 14, E.myname, 300, 150, SCENARIO_BONUS_LABEL),
 								},
 							},
 						},
@@ -113,8 +115,8 @@ local function configTable()
 								name = L["Reputation increase Style"],
 								disabled = function() return not E.db.sle.databars.rep.chatfilter.enable end,
 								values = {
-									["STYLE1"] = T.format(DB.RepIncreaseStyles["STYLE1"], 14, FACTION, 300),
-									["STYLE2"] = T.format(DB.RepIncreaseStyles["STYLE2"], 14, FACTION, 300),
+									["STYLE1"] = format(DB.RepIncreaseStyles["STYLE1"], 14, FACTION, 300),
+									["STYLE2"] = format(DB.RepIncreaseStyles["STYLE2"], 14, FACTION, 300),
 								},
 							},
 							styleDec = {
@@ -123,8 +125,8 @@ local function configTable()
 								name = L["Reputation decrease Style"],
 								disabled = function() return not E.db.sle.databars.rep.chatfilter.enable end,
 								values = {
-									["STYLE1"] = T.format(DB.RepDecreaseStyles["STYLE1"], 14, FACTION, 300),
-									["STYLE2"] = T.format(DB.RepDecreaseStyles["STYLE2"], 14, FACTION, 300),
+									["STYLE1"] = format(DB.RepDecreaseStyles["STYLE1"], 14, FACTION, 300),
+									["STYLE2"] = format(DB.RepDecreaseStyles["STYLE2"], 14, FACTION, 300),
 								},
 							},
 							showAll = {
@@ -206,15 +208,15 @@ local function configTable()
 								name = L["Honor Style"],
 								disabled = function() return not E.db.sle.databars.honor.chatfilter.enable end,
 								values = {
-									["STYLE1"] = T.format(DB.Honor.Styles["STYLE1"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
-									["STYLE2"] = T.format(DB.Honor.Styles["STYLE2"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
-									["STYLE3"] = T.format(DB.Honor.Styles["STYLE3"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
-									["STYLE4"] = T.format(DB.Honor.Styles["STYLE4"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
-									["STYLE5"] = T.format(DB.Honor.Styles["STYLE5"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
-									["STYLE6"] = T.format(DB.Honor.Styles["STYLE6"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
-									["STYLE7"] = T.format(DB.Honor.Styles["STYLE7"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
-									["STYLE8"] = T.format(DB.Honor.Styles["STYLE8"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
-									["STYLE9"] = T.format(DB.Honor.Styles["STYLE9"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE1"] = format(DB.Honor.Styles["STYLE1"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE2"] = format(DB.Honor.Styles["STYLE2"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE3"] = format(DB.Honor.Styles["STYLE3"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE4"] = format(DB.Honor.Styles["STYLE4"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE5"] = format(DB.Honor.Styles["STYLE5"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE6"] = format(DB.Honor.Styles["STYLE6"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE7"] = format(DB.Honor.Styles["STYLE7"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE8"] = format(DB.Honor.Styles["STYLE8"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE9"] = format(DB.Honor.Styles["STYLE9"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
 								},
 							},
 							awardStyle = {
@@ -224,12 +226,12 @@ local function configTable()
 								desc = L["Defines the style of changed string. Colored parts will be shown with your selected value color in chat."],
 								disabled = function() return not E.db.sle.databars.honor.chatfilter.enable end,
 								values = {
-									["STYLE1"] = T.format(DB.Honor.AwardStyles["STYLE1"], "3.45", DB.Honor.Icon, 12),
-									["STYLE2"] = T.format(DB.Honor.AwardStyles["STYLE2"], "3.45", DB.Honor.Icon, 12),
-									["STYLE3"] = T.format(DB.Honor.AwardStyles["STYLE3"], "3.45", DB.Honor.Icon, 12),
-									["STYLE4"] = T.format(DB.Honor.AwardStyles["STYLE4"], "3.45", DB.Honor.Icon, 12),
-									["STYLE5"] = T.format(DB.Honor.AwardStyles["STYLE5"], "3.45", DB.Honor.Icon, 12),
-									["STYLE6"] = T.format(DB.Honor.AwardStyles["STYLE6"], "3.45", DB.Honor.Icon, 12),
+									["STYLE1"] = format(DB.Honor.AwardStyles["STYLE1"], "3.45", DB.Honor.Icon, 12),
+									["STYLE2"] = format(DB.Honor.AwardStyles["STYLE2"], "3.45", DB.Honor.Icon, 12),
+									["STYLE3"] = format(DB.Honor.AwardStyles["STYLE3"], "3.45", DB.Honor.Icon, 12),
+									["STYLE4"] = format(DB.Honor.AwardStyles["STYLE4"], "3.45", DB.Honor.Icon, 12),
+									["STYLE5"] = format(DB.Honor.AwardStyles["STYLE5"], "3.45", DB.Honor.Icon, 12),
+									["STYLE6"] = format(DB.Honor.AwardStyles["STYLE6"], "3.45", DB.Honor.Icon, 12),
 								},
 							},
 						},
@@ -284,15 +286,15 @@ local function configTable()
 								name = L["Honor Style"],
 								disabled = function() return not E.db.sle.databars.honor.chatfilter.enable end,
 								values = {
-									["STYLE1"] = T.format(DB.Honor.Styles["STYLE1"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
-									["STYLE2"] = T.format(DB.Honor.Styles["STYLE2"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
-									["STYLE3"] = T.format(DB.Honor.Styles["STYLE3"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
-									["STYLE4"] = T.format(DB.Honor.Styles["STYLE4"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
-									["STYLE5"] = T.format(DB.Honor.Styles["STYLE5"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
-									["STYLE6"] = T.format(DB.Honor.Styles["STYLE6"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
-									["STYLE7"] = T.format(DB.Honor.Styles["STYLE7"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
-									["STYLE8"] = T.format(DB.Honor.Styles["STYLE8"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
-									["STYLE9"] = T.format(DB.Honor.Styles["STYLE9"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE1"] = format(DB.Honor.Styles["STYLE1"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE2"] = format(DB.Honor.Styles["STYLE2"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE3"] = format(DB.Honor.Styles["STYLE3"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE4"] = format(DB.Honor.Styles["STYLE4"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE5"] = format(DB.Honor.Styles["STYLE5"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE6"] = format(DB.Honor.Styles["STYLE6"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE7"] = format(DB.Honor.Styles["STYLE7"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE8"] = format(DB.Honor.Styles["STYLE8"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
+									["STYLE9"] = format(DB.Honor.Styles["STYLE9"], E.myname, RANK, "3.45", DB.Honor.Icon, 12),
 								},
 							},
 							awardStyle = {
@@ -302,12 +304,12 @@ local function configTable()
 								desc = L["Defines the style of changed string. Colored parts will be shown with your selected value color in chat."],
 								disabled = function() return not E.db.sle.databars.honor.chatfilter.enable end,
 								values = {
-									["STYLE1"] = T.format(DB.Honor.AwardStyles["STYLE1"], "3.45", DB.Honor.Icon, 12),
-									["STYLE2"] = T.format(DB.Honor.AwardStyles["STYLE2"], "3.45", DB.Honor.Icon, 12),
-									["STYLE3"] = T.format(DB.Honor.AwardStyles["STYLE3"], "3.45", DB.Honor.Icon, 12),
-									["STYLE4"] = T.format(DB.Honor.AwardStyles["STYLE4"], "3.45", DB.Honor.Icon, 12),
-									["STYLE5"] = T.format(DB.Honor.AwardStyles["STYLE5"], "3.45", DB.Honor.Icon, 12),
-									["STYLE6"] = T.format(DB.Honor.AwardStyles["STYLE6"], "3.45", DB.Honor.Icon, 12),
+									["STYLE1"] = format(DB.Honor.AwardStyles["STYLE1"], "3.45", DB.Honor.Icon, 12),
+									["STYLE2"] = format(DB.Honor.AwardStyles["STYLE2"], "3.45", DB.Honor.Icon, 12),
+									["STYLE3"] = format(DB.Honor.AwardStyles["STYLE3"], "3.45", DB.Honor.Icon, 12),
+									["STYLE4"] = format(DB.Honor.AwardStyles["STYLE4"], "3.45", DB.Honor.Icon, 12),
+									["STYLE5"] = format(DB.Honor.AwardStyles["STYLE5"], "3.45", DB.Honor.Icon, 12),
+									["STYLE6"] = format(DB.Honor.AwardStyles["STYLE6"], "3.45", DB.Honor.Icon, 12),
 								},
 							},
 						},
@@ -318,4 +320,4 @@ local function configTable()
 	}
 end
 
-T.tinsert(SLE.Configs, configTable)
+tinsert(SLE.Configs, configTable)
