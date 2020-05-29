@@ -136,7 +136,7 @@ function Pr:ApplyDeconstruct(itemLink, spell, spellType, r, g, b)
 				AutoCastShine_AutoCastStart(Pr.DeconstructionReal, color, 5,nil,2)
 			end
 		-- end
-	elseif (GetTradeTargetItemLink(bag, slot:GetID()) == itemLink) then
+	elseif (GetContainerItemLink(bag, slot:GetID()) == itemLink) then
 		Pr.DeconstructionReal.ID = strmatch(itemLink, 'item:(%d+):')
 		Pr.DeconstructionReal:SetAttribute("type1",spellType)
 		Pr.DeconstructionReal:SetAttribute(spellType, spell)
