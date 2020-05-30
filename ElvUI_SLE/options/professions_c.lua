@@ -1,4 +1,4 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, _, E, L = unpack(select(2, ...))
 local Pr = SLE:GetModule("Professions")
 local TRADE_SKILLS, NONE = TRADE_SKILLS, NONE
 
@@ -57,7 +57,7 @@ local function configTable()
 			ench = {
 				order = 3,
 				type = "group",
-				name = T.GetSpell(158716),
+				name = GetSpellInfo(158716),
 				args = {
 					enchScroll = {
 						order = 1,
@@ -128,7 +128,7 @@ local function configTable()
 			lockpick = {
 				order = 4,
 				type = "group",
-				name = T.GetSpell(1804),
+				name = GetSpellInfo(1804),
 				args = {
 					infos = {
 						order = 1,
@@ -160,7 +160,7 @@ local function configTable()
 			fish = {
 				order = 5,
 				type = "group",
-				name = T.GetSpell(7620),
+				name = GetSpellInfo(7620),
 				args = {
 					easycast = {
 						order = 1,

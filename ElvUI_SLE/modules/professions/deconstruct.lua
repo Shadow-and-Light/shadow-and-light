@@ -1,16 +1,16 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E, L, _, _, _ = unpack(select(2, ...))
 local Pr = SLE:GetModule("Professions")
 local B = E:GetModule("Bags")
 local lib = LibStub("LibProcessable")
 local LCG = LibStub('LibCustomGlow-1.0')
 
---GLOBALS: hooksecurefunc, CreateFrame
+--GLOBALS: unpack, select, CreateFrame, VIDEO_OPTIONS_ENABLED, VIDEO_OPTIONS_DISABLED
 local _G = _G
-local format = format
-local VIDEO_OPTIONS_ENABLED, VIDEO_OPTIONS_DISABLED = VIDEO_OPTIONS_ENABLED, VIDEO_OPTIONS_DISABLED
+local format, strfind, strmatch, strsplit, gsub = format, strfind, strmatch, strsplit, gsub
+local GetItemInfo, GetContainerItemLink, GetContainerItemInfo, GetTradeTargetItemLink = GetItemInfo, GetContainerItemLink, GetContainerItemInfo, GetTradeTargetItemLink
+local InCombatLockdown = InCombatLockdown
 local LOCKED = LOCKED
-local ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow = ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow
-local AutoCastShine_AutoCastStart, AutoCastShine_AutoCastStop = AutoCastShine_AutoCastStart, AutoCastShine_AutoCastStop
+local ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow, AutoCastShine_AutoCastStart = ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow, AutoCastShine_AutoCastStart
 
 Pr.DeconstructMode = false
 local relicItemTypeLocalized, relicItemSubTypeLocalized
@@ -65,15 +65,15 @@ Pr.ItemTable = {
 	},
 }
 Pr.Keys = {
-	[T.GetSpell(195809)] = true, -- jeweled lockpick
-	[T.GetSpell(130100)] = true, -- Ghostly Skeleton Key
-	[T.GetSpell(94574)] = true, -- Obsidium Skeleton Key
-	[T.GetSpell(59403)] = true, -- Titanium Skeleton Key
-	[T.GetSpell(59404)] = true, -- Colbat Skeleton Key
-	[T.GetSpell(20709)] = true, -- Arcanite Skeleton Key
-	[T.GetSpell(19651)] = true, -- Truesilver Skeleton Key
-	[T.GetSpell(19649)] = true, -- Golden Skeleton Key
-	[T.GetSpell(19646)] = true, -- Silver Skeleton Key
+	[GetSpellInfo(195809)] = true, -- jeweled lockpick
+	[GetSpellInfo(130100)] = true, -- Ghostly Skeleton Key
+	[GetSpellInfo(94574)] = true, -- Obsidium Skeleton Key
+	[GetSpellInfo(59403)] = true, -- Titanium Skeleton Key
+	[GetSpellInfo(59404)] = true, -- Colbat Skeleton Key
+	[GetSpellInfo(20709)] = true, -- Arcanite Skeleton Key
+	[GetSpellInfo(19651)] = true, -- Truesilver Skeleton Key
+	[GetSpellInfo(19649)] = true, -- Golden Skeleton Key
+	[GetSpellInfo(19646)] = true, -- Silver Skeleton Key
 }
 Pr.BlacklistDE = {}
 Pr.BlacklistLOCK = {}
@@ -159,7 +159,7 @@ end
 
 function Pr:IsBreakable(link)
 	if not link then return false end
-	local name, _, quality, ilvl,_,_,_,_,equipSlot = GetItemInfo(link)
+	local name, _, quality, _, _, _, _, _, equipSlot = GetItemInfo(link)
 	local item = strmatch(link, 'item:(%d+):')
 	if(IsEquippableItem(link) and quality and quality > 1 and quality < 5 and equipSlot ~= "INVTYPE_BAG") then
 		if E.global.sle.DE.IgnoreTabards and equipSlot == "INVTYPE_TABARD" then return false end
@@ -227,7 +227,7 @@ function Pr:DeconstructParser(tt)
 end
 
 function Pr:GetDeconMode()
-	local text = ""
+	local text
 	if Pr.DeconstructMode then
 		text = "|cff00FF00 "..VIDEO_OPTIONS_ENABLED.."|r"
 	else
@@ -282,7 +282,6 @@ function Pr:ConstructRealDecButton()
 			self:SetAlpha(1)
 			if _G["GameTooltip"] then _G["GameTooltip"]:Hide() end
 			self:Hide()
-			-- AutoCastShine_AutoCastStop(self)
 			LCG.AutoCastGlow_Stop(self)
 			LCG.ButtonGlow_Stop(self)
 			ActionButton_HideOverlayGlow(self)

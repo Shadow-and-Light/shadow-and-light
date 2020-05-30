@@ -167,7 +167,7 @@ function EVB:Initialize()
 	bar:SetAttribute("_onstate-page", [[
 		if HasTempShapeshiftActionBar() and self:GetAttribute("hasTempBar") then
 			newstate = GetTempShapeshiftBarIndex() or newstate
-		end	
+		end
 
 		if newstate ~= 0 then
 			self:SetAttribute("state", newstate)
