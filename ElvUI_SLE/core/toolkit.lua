@@ -1,9 +1,12 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 
+--  GLOBALS:  unpack, NUM_BAG_SLOTS, IsAddOnLoaded, DEFAULT_CHAT_FRAME
 local _G = _G
-local getmetatable = getmetatable
-local format = format
-local NUM_BAG_SLOTS = NUM_BAG_SLOTS
+local select, format, tonumber, split, match, ipairs, pairs, gsub = select, format, tonumber, split, match, ipairs, pairs, gsub
+local getmetatable, error, type, assert, random = getmetatable, error, type, assert, random
+local tremove, tinsert, tconcat, date = tremove, tinsert, tconcat, date
+local strjoin, strmatch, strsplit, strfind = strjoin, strmatch, strsplit, strfind
+local GetItemInfo = GetItemInfo
 
 T.StringToUpper = function(str)
 	return (gsub(str, "^%l", strupper))
@@ -530,7 +533,7 @@ end
 
 --AF stuff
 function SLE:IsFoolsDay()
-	if string.find(date(), "04/01/") and not E.global.aprilFoolsSLE and not IsAddOnLoaded("ElvUI_SLE_Dev") then
+	if strfind(date(), "04/01/") and not E.global.aprilFoolsSLE and not IsAddOnLoaded("ElvUI_SLE_Dev") then
 		return true
 	else
 		return false
