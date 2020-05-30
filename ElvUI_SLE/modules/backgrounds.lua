@@ -18,7 +18,7 @@ function BG:CreateFrame(id)
 	frame.texture:Point('BOTTOMRIGHT', frame, 'BOTTOMRIGHT', -2, 2)
 	frame:Hide()
 
-	frame.texture:SetAlpha(E.db.general.backdropfadecolor.a or 0.5) 
+	frame.texture:SetAlpha(E.db.general.backdropfadecolor.a or 0.5)
 	return frame
 end
 

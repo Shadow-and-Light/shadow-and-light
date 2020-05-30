@@ -94,7 +94,7 @@ function SUF:NewTags()
 		-- if unit ~= "target" and unit ~= "player" then return "" end
 		return (UnitIsPVP(unit) and UnitHonorLevel(unit) > 0) and UnitHonorLevel(unit) or ""
 	end
-	
+
 	-- Ad the tags to the ElvUI Options
 	E:AddTagInfo("sl:pvptimer", "Shadow&Light", L["SLE_Tag_sl-pvptimer"])
 	E:AddTagInfo("sl:pvplevel", "Shadow&Light", L["SLE_Tag_sl-pvplevel"])

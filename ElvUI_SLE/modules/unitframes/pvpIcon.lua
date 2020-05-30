@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local SUF = SLE:GetModule("UnitFrames")
 local UF = E:GetModule('UnitFrames');
 
@@ -36,7 +36,7 @@ function SUF:Configure_PVPIcon(frame)
 
 	if not iconEnabled then --if indicator is dissabled in ElvUI
 		if PvP.SLE_timerText then PvP.SLE_timerText:Hide() end
-		PvP.SLE_levelText:Hide() 
+		PvP.SLE_levelText:Hide()
 		return
 	end
 	if frame.unit == "player" then --do timer stuff if this is update for player frame

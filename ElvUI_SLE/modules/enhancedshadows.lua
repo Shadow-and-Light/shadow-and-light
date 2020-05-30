@@ -249,7 +249,7 @@ function ES:CreateShadows()
 				end
 
 				ES:CreateFrameShadow(ES.DummyPanels.LeftChat, "none")
-				
+
 			elseif panel == "rightchat" then
 				ES.DummyPanels.RightChat = CreateFrame("Frame", nil, _G[ES.FramesToShadow.Datapanels[panel]])
 				ES.DummyPanels.RightChat:Point("TOPRIGHT", _G[ES.FramesToShadow.Datapanels[panel]], "TOPRIGHT", SIDE_BUTTON, 0)

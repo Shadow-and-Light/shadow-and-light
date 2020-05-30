@@ -38,7 +38,7 @@ function CA:BuildLayout()
 				-- print(i, CurrentLineText)
 			-- end
 		-- end)
-		
+
 		--<<Create gems>>--
 		for t = 1, Armory.Constants.MaxGemSlots do
 			if Slot["textureSlot"..t] then
@@ -86,7 +86,7 @@ function CA:BuildLayout()
 		Slot["SLE_Warning"].texture:SetInside()
 		Slot["SLE_Warning"].texture:SetTexture(Armory.Constants.WarningTexture)
 		Slot["SLE_Warning"].texture:SetVertexColor(1, 0, 0)
-		
+
 		Slot["SLE_Warning"]:SetScript("OnEnter", Armory.Warning_OnEnter)
 		Slot["SLE_Warning"]:SetScript("OnLeave", Armory.Tooltip_OnLeave)
 		Slot["SLE_Warning"]:Hide()
@@ -142,7 +142,7 @@ function CA:BuildLayout()
 		Slot["CorText"] = Slot:CreateFontString(nil, "OVERLAY")
 		Slot["CorText"]:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.character.corruptionText.font), E.db.sle.armory.character.corruptionText.fontSize, E.db.sle.armory.character.corruptionText.fontStyle)
 	end
-	
+
 	--<<<Hooking some shit!>>>--
 	hooksecurefunc("CharacterFrame_Collapse", function()
 		if E.db.sle.armory.character.enable and _G["PaperDollFrame"]:IsShown() then _G["CharacterFrame"]:SetWidth(448) end
@@ -158,7 +158,7 @@ function CA:BuildLayout()
 	end)
 
 	hooksecurefunc('PaperDollFrame_SetLevel', function()
-		if E.db.sle.armory.character.enable then 
+		if E.db.sle.armory.character.enable then
 			_G["CharacterLevelText"]:SetText(_G["CharacterLevelText"]:GetText())
 
 			_G["CharacterFrameTitleText"]:ClearAllPoints()
@@ -169,7 +169,7 @@ function CA:BuildLayout()
 			_G["CharacterLevelText"]:SetParent(_G["CharacterFrame"])
 		end
 	end)
-	
+
 	if SLE._Compatibility["DejaCharacterStats"] then return end
 	--<<Corruption>>--
 	_G["CharacterFrame"].SLE_Corruption = CreateFrame("Frame", "SLE_CharacterCorruptionButton", _G["CharacterFrame"])
@@ -244,7 +244,7 @@ end
 function CA:Update_ItemLevel()
 	for i, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G["Character"..SlotName]
-		
+
 		if Slot.iLvlText then
 			Slot.iLvlText:ClearAllPoints()
 			Slot.iLvlText:Point("TOP"..Slot.Direction, Slot, "TOP"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.ilvl.xOffset or -2-E.db.sle.armory.character.ilvl.xOffset, -1+E.db.sle.armory.character.ilvl.yOffset)
@@ -255,7 +255,7 @@ end
 function CA:Update_Enchant()
 	for i, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G["Character"..SlotName]
-		
+
 		if Slot.enchantText then
 			Slot.enchantText:ClearAllPoints()
 			Slot.enchantText:Point(Slot.Direction, Slot, Slot.Direction == "LEFT" and "RIGHT" or "LEFT", Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.enchant.xOffset or -2-E.db.sle.armory.character.enchant.xOffset, 1+E.db.sle.armory.character.enchant.yOffset)
@@ -277,7 +277,7 @@ end
 function CA:Update_Gems()
 	for i, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G["Character"..SlotName]
-		
+
 		if Slot.textureSlot1 then
 			Slot.textureSlot1:ClearAllPoints()
 			Slot.textureSlot1:Point('BOTTOM'..Slot.Direction, Slot, "BOTTOM"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.gem.xOffset or -2-E.db.sle.armory.character.gem.xOffset, 2+E.db.sle.armory.character.gem.yOffset)
@@ -366,7 +366,7 @@ function CA:Enable()
 		_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and 650 or 444)
 		_G["CharacterFrameInsetRight"]:SetPoint('TOPLEFT', _G["CharacterFrameInset"], 'TOPRIGHT', 110, 0)
 	end
-	
+
 	--This will hide default background stuff. I could make it being shown, but not feeling like figuring out how to stretch the damn texture.
 	if _G["CharacterModelFrame"] and _G["CharacterModelFrame"].BackgroundTopLeft and _G["CharacterModelFrame"].BackgroundTopLeft:IsShown() then
 		_G["CharacterModelFrame"].BackgroundTopLeft:Hide()
@@ -381,7 +381,7 @@ function CA:Enable()
 	--Overlay resize to match new width
 	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', _G["CharacterModelFrame"], -4, 0)
 	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', _G["CharacterModelFrame"], 4, 0)
-	
+
 	--Activating background
 	_G["PaperDollFrame"].SLE_Armory_BG:Show()
 	CA:Update_BG()
@@ -402,7 +402,7 @@ function CA:Disable()
 
 	-- Move rightside equipment slots to default position
 	_G["CharacterHandsSlot"]:SetPoint('TOPRIGHT', _G["CharacterFrameInset"], 'TOPRIGHT', -4, -2)
-	
+
 	-- Move bottom equipment slots to default position
 	_G["CharacterMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["PaperDollItemsFrame"], 'BOTTOMLEFT', 130, 16)
 
@@ -431,7 +431,7 @@ function CA:Disable()
 		if Slot.SLE_Warning then Slot.SLE_Warning:Hide() end
 		if Slot.SLE_Durability then Slot["SLE_Durability"]:SetText('') end
 	end
-	
+
 	if _G["PaperDollFrame"].SLE_Armory_BG then _G["PaperDollFrame"].SLE_Armory_BG:Hide() end
 end
 

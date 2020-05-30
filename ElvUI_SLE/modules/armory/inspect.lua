@@ -67,7 +67,7 @@ function IA:BuildLayout()
 		Slot["SLE_Warning"].texture:SetInside()
 		Slot["SLE_Warning"].texture:SetTexture(Armory.Constants.WarningTexture)
 		Slot["SLE_Warning"].texture:SetVertexColor(1, 0, 0)
-		
+
 		Slot["SLE_Warning"]:SetScript("OnEnter", Armory.Warning_OnEnter)
 		Slot["SLE_Warning"]:SetScript("OnLeave", Armory.Tooltip_OnLeave)
 		Slot["SLE_Warning"]:Hide()
@@ -146,7 +146,7 @@ function IA:Update_BG()
 	else
 		_G["InspectPaperDollFrame"].SLE_Armory_BG:SetTexture(SLE.ArmoryConfigBackgroundValues.BlizzardBackdropList[E.db.sle.armory.inspect.background.selectedBG] or [[Interface\AddOns\ElvUI_SLE\media\textures\armory\]]..E.db.sle.armory.inspect.background.selectedBG)
 	end
-	
+
 	--CA:AdditionalTextures_Update()
 end
 
@@ -212,7 +212,7 @@ function IA:Enable()
 	if not _G["InspectFrame"] then return end
 	-- _G["InspectFrame"]:Size(450, 480)
 	_G["InspectFrame"]:Size(450, 444)
-	
+
 	_G["InspectFrame"].ItemLevelText:ClearAllPoints()
 	_G["InspectFrame"].ItemLevelText:Point("BOTTOM",_G["InspectModelFrame"], "TOP", 0, 2)
 
@@ -256,10 +256,10 @@ end
 function IA:Disable()
 	if not _G["InspectFrame"] then return end
 	_G["InspectFrame"]:Size(338, 424)
-	
+
 	-- Move bottom equipment slots to default position
 	_G["InspectMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["InspectPaperDollItemsFrame"], 'BOTTOMLEFT', 130, 16)
-	
+
 	-- Model Frame
 	_G["InspectModelFrame"]:ClearAllPoints()
 	_G["InspectModelFrame"]:Size(231, 320)

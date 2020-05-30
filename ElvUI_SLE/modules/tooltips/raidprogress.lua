@@ -22,16 +22,16 @@ RP.encounters = {
 		["option"] = "nightmare",
 		["statIDs"] = {
 			{ --Mythic
-				10914, 10923, 10927, 10919, 10931, 10935, 10939, 
+				10914, 10923, 10927, 10919, 10931, 10935, 10939,
 			},
 			{ -- Herioc
-				10913, 10922, 10926, 10917, 10930, 10934, 10938, 
+				10913, 10922, 10926, 10917, 10930, 10934, 10938,
 			},
 			{ -- Normal
-				10912, 10921, 10925, 10916, 10929, 10933, 10937, 
+				10912, 10921, 10925, 10916, 10929, 10933, 10937,
 			},
 			{ -- LFR
-				10911, 10920, 10924, 10915, 10928, 10932, 10936, 
+				10911, 10920, 10924, 10915, 10928, 10932, 10936,
 			},
 		},
 	},
@@ -87,7 +87,7 @@ RP.encounters = {
 		},
 	},
 	{ -- Antorus, the Burning Throne
-		
+
 		["option"] = "antorus",
 		["statIDs"] = {
 			{ -- Mythic
@@ -120,7 +120,7 @@ RP.encounters = {
 				12786, 12790, 12794, 12798, 12802, 12808, 12813, 12817,
 			},
 		},
-		
+
 	},
 	{ -- Dazar'Alor
 		["option"] = "daz",
@@ -158,16 +158,16 @@ RP.encounters = {
 		["option"] = "sc",
 		["statIDs"] = {
 			{ -- Mythic
-				13407, 13413, 
+				13407, 13413,
 			},
 			{ -- Heroic
-				13406, 13412, 
+				13406, 13412,
 			},
 			{ -- Normal
-				13405, 13411, 
+				13405, 13411,
 			},
 			{ -- LFR
-				13404, 13408, 
+				13404, 13408,
 			},
 		},
 	},
@@ -207,10 +207,10 @@ RP.encounters = {
 	},
 }
 RP.Raids = {}
-RP.modes = { 
+RP.modes = {
 	["LONG"] = {
 		PLAYER_DIFFICULTY6,
-		PLAYER_DIFFICULTY2, 
+		PLAYER_DIFFICULTY2,
 		PLAYER_DIFFICULTY1,
 		PLAYER_DIFFICULTY3,
 	},
@@ -252,7 +252,7 @@ end
 function RP:GetProgression(guid)
 	local kills, complete, pos = 0, false, 0
 	local statFunc = guid == RP.playerGUID and GetStatistic or GetComparisonStatistic
-	
+
 	for raid = 1, #RP.Raids["LONG"] do
 		local option = RP.encounters[raid].option
 		if E.db.sle.tooltip.RaidProg.raids[option] then

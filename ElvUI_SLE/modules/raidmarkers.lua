@@ -207,7 +207,7 @@ function RM:Initialize()
 
 	self:HookScript(self.frame, 'OnEnter', 'Bar_OnEnter');
 	self:HookScript(self.frame, 'OnLeave', 'Bar_OnLeave');
-	
+
 	for index = 1, 9 do
 		self.frame.buttons[index] = self:CreateButton(index)
 	end

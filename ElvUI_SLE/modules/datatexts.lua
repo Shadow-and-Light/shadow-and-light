@@ -3,7 +3,6 @@ local DTP = SLE:NewModule('Datatexts', 'AceHook-3.0', 'AceEvent-3.0');
 local DT = E:GetModule("DataTexts");
 
 --GLOBALS: ElvDB, hooksecurefunc
-local _G = _G
 local format = format
 
 --Table to remember where default Gold DT is

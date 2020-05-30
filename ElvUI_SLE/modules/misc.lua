@@ -157,9 +157,9 @@ function M:Initialize()
 		else
 			VehicleExit();
 		end
-		
+
 	end
-	
+
 	--Some high level bullshit
 	-- WorldFrame.ORClear = WorldFrame.ClearAllPoints
 	-- WorldFrame.ClearAllPoints = M.ClearAllPoints

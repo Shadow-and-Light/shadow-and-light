@@ -31,7 +31,7 @@ V["sle"] = {
 		["enable"] = false,
 		["numButtons"] = 7,
 	},
-	
+
 	["professions"] = {
 		["deconButton"] = {
 			["enable"] = true,

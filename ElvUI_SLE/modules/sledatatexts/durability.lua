@@ -30,7 +30,7 @@ function DTP:HookDurabilityDT()
 		[16] = _G.INVTYPE_WEAPONMAINHAND,
 		[17] = _G.INVTYPE_WEAPONOFFHAND,
 	}
-	
+
 	local function OnEvent(self, event, ...)
 		lastPanel = self
 		totalDurability = 100
@@ -41,7 +41,7 @@ function DTP:HookDurabilityDT()
 
 			if current then
 				invDurability[index] = (current/max)*100
-	
+
 				if ((current/max) * 100) < totalDurability then
 					totalDurability = (current/max) * 100
 				end
