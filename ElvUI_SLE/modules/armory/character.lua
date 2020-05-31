@@ -180,11 +180,7 @@ function CA:BuildLayout()
 	_G["CharacterFrame"].SLE_Corruption:SetScript("OnLeave", CharacterFrameCorruption_OnLeave)
 	_G["CharacterFrame"].SLE_Corruption:SetScript("OnEvent", function(self, event, ...)
 		CharacterFrameCorruption_OnEvent(self, event)
-		if (event == "COMBAT_RATING_UPDATE" and not self.ThrottleRating) or event == "PLAYER_ENTERING_WORLD" then
-			CA:UpdateCorruptionLevel()
-			self.ThrottleRating = true
-			E:Delay(1, function() _G["CharacterFrame"].SLE_Corruption.ThrottleRating = false end)
-		end
+		CA:UpdateCorruptionLevel()
 	end)
 	if SLE._Compatibility["CorruptionTooltips"] then
 		local CT = LibStub("AceAddon-3.0"):GetAddon("CorruptionTooltips")
@@ -196,7 +192,7 @@ function CA:BuildLayout()
 	--deal with the events
 	_G["CharacterFrame"].SLE_Corruption:RegisterEvent("COMBAT_RATING_UPDATE");
 	_G["CharacterFrame"].SLE_Corruption:RegisterEvent("PLAYER_ENTERING_WORLD");
-	_G["CharacterFrame"].SLE_Corruption:RegisterEvent("SPELL_TEXT_UPDATE");
+	-- _G["CharacterFrame"].SLE_Corruption:RegisterEvent("SPELL_TEXT_UPDATE");
 
 	_G["CharacterStatsPane"].ItemLevelFrame.Corruption:UnregisterEvent("COMBAT_RATING_UPDATE");
 	_G["CharacterStatsPane"].ItemLevelFrame.Corruption:UnregisterEvent("PLAYER_ENTERING_WORLD");
