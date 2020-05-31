@@ -93,7 +93,7 @@ function SLE:Initialize()
 	SLE:CyrillicsInit()
 	SLE:LoadCommands()
 
-	if E.private.sle.install_complete = "BETA" then E.private.sle.install_complete = nil end
+	if E.private.sle.install_complete = "BETA" then E.private.sle.install_complete == nil end
 	if not E.private.sle.install_complete or (tonumber(E.private.sle.install_complete) < 3) then
 		E:GetModule("PluginInstaller"):Queue(SLE.installTable)
 	end
