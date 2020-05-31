@@ -149,18 +149,18 @@ function DB:FilterReputation(event, message, ...)
 end
 
 function DB:ScanFactions()
-	self.factions = GetNumFactions();
-	for i = 1, self.factions do
+	DB.factions = GetNumFactions();
+	for i = 1, DB.factions do
 		local name, _, standingID, _, _, barValue, _, _, isHeader, _, hasRep, _, _, factionID = GetFactionInfo(i)
 		if (not isHeader or hasRep) and name then
-			self.factionVars[name] = self.factionVars[name] or {}
-			self.factionVars[name].Standing = standingID
+			DB.factionVars[name] = DB.factionVars[name] or {}
+			DB.factionVars[name].Standing = standingID
 			if C_Reputation_IsFactionParagon(factionID) then
 				local currentValue = C_Reputation_GetFactionParagonInfo(factionID);
-				self.factionVars[name].Value = currentValue
-				self.factionVars[name].isParagon = true
+				DB.factionVars[name].Value = currentValue
+				DB.factionVars[name].isParagon = true
 			else
-				self.factionVars[name].Value = barValue
+				DB.factionVars[name].Value = barValue
 			end
 		end
 	end
@@ -171,9 +171,9 @@ function DB:NewRepString(event, ...)
 	if not DB.db.rep or not DB.db.rep.chatfilter.enable then return end
 	local stop = false
 	local tempfactions = GetNumFactions()
-	if (tempfactions > self.factions) then
-		self:ScanFactions()
-		self.factions = tempfactions
+	if (tempfactions > DB.factions) then
+		DB:ScanFactions()
+		DB.factions = tempfactions
 	end
 	if DB.db.rep.chatfilter.chatframe == "AUTO" then
 		wipe(DB.RepChatFrames)
@@ -189,12 +189,12 @@ function DB:NewRepString(event, ...)
 		local friendID, _, _, _, _, _, friendTextLevel = GetFriendshipReputation(factionID);
 		local currentRank, maxRank = GetFriendshipReputationRanks(factionID);
 
-		if (not isHeader or hasRep) and self.factionVars[name] then
-			if self.factionVars[name].isParagon then
+		if (not isHeader or hasRep) and DB.factionVars[name] then
+			if DB.factionVars[name].isParagon then
 				local currentValue = C_Reputation_GetFactionParagonInfo(factionID);
 				barValue = currentValue
 			end
-			local diff = barValue - self.factionVars[name].Value
+			local diff = barValue - DB.factionVars[name].Value
 
 			if diff > 0 then
 				StyleTable = "RepIncreaseStyles"
@@ -203,7 +203,7 @@ function DB:NewRepString(event, ...)
 			end
 			if StyleTable then
 				--  TODO:  local change doesnt do anything revisit this
-				local change = abs(barValue - self.factionVars[name].Value)
+				local change = abs(barValue - DB.factionVars[name].Value)
 
 				if DB.db.rep.chatfilter.chatframe == "AUTO" then
 					for n = 1, #(DB.RepChatFrames) do
@@ -224,7 +224,7 @@ function DB:NewRepString(event, ...)
 						break
 					end
 				end
-				self.factionVars[name].Value = barValue
+				DB.factionVars[name].Value = barValue
 
 				if stop then return end
 			end
