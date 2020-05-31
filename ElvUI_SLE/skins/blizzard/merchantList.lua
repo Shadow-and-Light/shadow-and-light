@@ -503,7 +503,7 @@ local function List_MerchantUpdate()
 				button.isShown = 1;
 
 				-- TODO: Check if this works as Darth had local errors but was alread declared
-				errors = List_GetError(link, itemType, itemSubType);
+				local errors = List_GetError(link, itemType, itemSubType);
 				if ( errors ) then
 					button.iteminfo:SetText("|cffd00000"..subtext.." - "..errors.."|r");
 				end
@@ -513,7 +513,7 @@ local function List_MerchantUpdate()
 				button.isShown = nil;
 
 				-- TODO: Check if this works as Darth had local errors but was alread declared
-				errors = List_GetError(link, itemType, itemSubType);
+				local errors = List_GetError(link, itemType, itemSubType);
 				if ( errors ) then
 					button.highlight:SetVertexColor(1, 0.2, 0.2, 0.5);
 					button.highlight:Show();
