@@ -17,7 +17,7 @@ Changes:
 - Some code cleanup
 Additions:
 - Added Ni'aloth to raid progression module
-- Enhanced Shadows now support databars like exp, rep, honor
+- Enhanced Shadows now support databars like exp, rep, honor, party, raid, raid40
 Removed:
 - Ability to clear Chat History and Editbox History as it is now part of ElvUI
 - Removed ability to change the amount of chat messages to save as it is now part of ElvUI
