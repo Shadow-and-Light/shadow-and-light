@@ -196,7 +196,7 @@ end
 
 function DD:GetCooldown(CDtype, id)
 	local cd, formatID
-	local start, duration = T["Get"..CDtype.."Cooldown"](id)
+	local start, duration = _G["Get"..CDtype.."Cooldown"](id)
 	if start > 0 then
 		cd = duration - (GetTime() - start)
 		cd, formatID = E:GetTimeInfo(cd, 0)
