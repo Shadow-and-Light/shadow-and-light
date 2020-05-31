@@ -136,9 +136,11 @@ function M:Initialize()
 	E:CreateMover(_G["UIErrorsFrame"], "UIErrorsFrameMover", L["Error Frame"], nil, nil, nil, "ALL,S&L,S&L MISC")
 
 	--GhostFrame Mover
-	ShowUIPanel(_G["GhostFrame"])
-	E:CreateMover(_G["GhostFrame"], "GhostFrameMover", L["Ghost Frame"], nil, nil, nil, "ALL,S&L,S&L MISC")
-	HideUIPanel(_G["GhostFrame"])
+	local frame = _G["GhostFrame"]
+	ShowUIPanel(frame)
+	E:CreateMover(frame, "GhostFrameMover", L["Ghost Frame"], nil, nil, nil, "ALL,S&L,S&L MISC")
+	frame.mover:SetSize(frame:GetSize())
+	HideUIPanel(frame)
 
 	--Raid Utility
 	if _G["RaidUtility_ShowButton"] then M:RaidUtility_Hook() end
