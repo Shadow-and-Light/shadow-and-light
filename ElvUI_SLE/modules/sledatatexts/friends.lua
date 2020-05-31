@@ -262,7 +262,6 @@ local function Entry_OnMouseUp(frame, info, button)
 
 		if IsControlKeyDown() then
 			if i_type == "friends" then
-				print(toon_name)
 				_G["FriendsFrame"].NotesID = toon_name
                 local info = C_FriendList.GetFriendInfo(toon_name)
                 StaticPopup_Show("SET_FRIENDNOTE", info.name)
