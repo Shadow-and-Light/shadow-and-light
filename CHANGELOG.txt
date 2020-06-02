@@ -8,6 +8,7 @@ Fixes:
 - Fixed Enhanced Shadows options
 - Fixed Reputation gains now showing in chat
 - Fixed an error about a frame not there for movers... it was removed by blizzard
+- Fixed not able to ctrl + left click to edit note of a friend that is added as a character
 Changes:
 - Adjust some Russian locales so it doesn't look like a drunk wrote them
 - Removed S&L Status Report as ElvUI has revamped theirs to show plugins and their version numbers
@@ -15,6 +16,7 @@ Changes:
 - Removed S&L Datatext Panels as ElvUI now lets you create and customize your own
 - Removed option to handle chat as ElvUI made the changes we were looking for
 - Some code cleanup
+- Updated LibQTip
 Additions:
 - Added Ni'aloth to raid progression module
 - Enhanced Shadows now support databars like exp, rep, honor, party, raid, raid40
