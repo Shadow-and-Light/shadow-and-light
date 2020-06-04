@@ -1,17 +1,21 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 
--- GLOBALS: RegisterAddonMessagePrefix, CreateFrame
 local _G = _G
-
+local strsplit = string.split
 local UnitLevel = UnitLevel
 local BNET_CLIENT_WOW = BNET_CLIENT_WOW
+local BNGetFriendInfo = BNGetFriendInfo
+local BNGetNumFriends = BNGetNumFriends
 local BNSendGameData = BNSendGameData
 local C_ChatInfo_SendAddonMessage = C_ChatInfo.SendAddonMessage
+local C_ChatInfo_RegisterAddonMessagePrefix = C_ChatInfo.RegisterAddonMessagePrefix
+local CreateFrame = CreateFrame
+local ID
 
 --Building user list for dev tool
 local function SendRecieve(self, event, prefix, message, channel, sender)
 	if event == "CHAT_MSG_ADDON" then
-		if prefix == 'SLE_DEV_REQ' then 
+		if prefix == 'SLE_DEV_REQ' then
 			message = "wut?"
 			C_ChatInfo_SendAddonMessage('SLE_USER_REQ', message, channel)
 		elseif prefix == 'SLE_USER_INFO' then

@@ -12,6 +12,7 @@ local LDB = LibStub("LibDataBroker-1.1"):NewDataObject("S&L Friends",
 -- GLOBALS: unpack, select
 local _G = _G
 local format, time = format, time
+local floor = math.floor
 local UnitInRaid, UnitInParty = UnitInRaid, UnitInParty
 local ONE_MINUTE = 60;
 local ONE_HOUR = 60 * ONE_MINUTE;
@@ -37,24 +38,24 @@ local ToggleFriendsFrame = ToggleFriendsFrame
 local realid_table = {}
 
 local function sletime_Conversion(timeDifference, isAbsolute)
-   if ( not isAbsolute ) then
-      timeDifference = time() - timeDifference;
-   end
-   local year, month, day, hour, minute;
+	if ( not isAbsolute ) then
+		timeDifference = time() - timeDifference;
+	end
+	local year, month, day, hour, minute;
 
-   if ( timeDifference < ONE_MINUTE ) then
-      return LASTONLINE_SECS;
-   elseif ( timeDifference >= ONE_MINUTE and timeDifference < ONE_HOUR ) then
-      return format(LASTONLINE_MINUTES, floor(timeDifference / ONE_MINUTE));
-   elseif ( timeDifference >= ONE_HOUR and timeDifference < ONE_DAY ) then
-      return format(LASTONLINE_HOURS, floor(timeDifference / ONE_HOUR));
-   elseif ( timeDifference >= ONE_DAY and timeDifference < ONE_MONTH ) then
-      return format(LASTONLINE_DAYS, floor(timeDifference / ONE_DAY));
-   elseif ( timeDifference >= ONE_MONTH and timeDifference < ONE_YEAR ) then
-      return format(LASTONLINE_MONTHS, floor(timeDifference / ONE_MONTH));
-   else
-      return format(LASTONLINE_YEARS, floor(timeDifference / ONE_YEAR));
-   end
+	if ( timeDifference < ONE_MINUTE ) then
+		return LASTONLINE_SECS;
+	elseif ( timeDifference >= ONE_MINUTE and timeDifference < ONE_HOUR ) then
+		return format(LASTONLINE_MINUTES, floor(timeDifference / ONE_MINUTE));
+	elseif ( timeDifference >= ONE_HOUR and timeDifference < ONE_DAY ) then
+		return format(LASTONLINE_HOURS, floor(timeDifference / ONE_HOUR));
+	elseif ( timeDifference >= ONE_DAY and timeDifference < ONE_MONTH ) then
+		return format(LASTONLINE_DAYS, floor(timeDifference / ONE_DAY));
+	elseif ( timeDifference >= ONE_MONTH and timeDifference < ONE_YEAR ) then
+		return format(LASTONLINE_MONTHS, floor(timeDifference / ONE_MONTH));
+	else
+		return format(LASTONLINE_YEARS, floor(timeDifference / ONE_YEAR));
+	end
 end
 
 local frame = CreateFrame("frame")

@@ -3,4 +3,3 @@ local _G = _G
 
 T.MapInfoTable = {
 }
-

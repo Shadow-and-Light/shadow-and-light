@@ -1,5 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 
+local gsub, pairs = gsub, pairs
 local GetAddOnEnableState = GetAddOnEnableState
 --Check if some stuff happens to be enable
 SLE._Compatibility = {}
