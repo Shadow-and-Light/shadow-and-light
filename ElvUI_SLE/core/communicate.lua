@@ -44,7 +44,7 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 	end
 end
 
-C_ChatInfo.RegisterAddonMessagePrefix('SLE_USER_INFO')
+C_ChatInfo_RegisterAddonMessagePrefix('SLE_USER_INFO')
 
 local f = CreateFrame('Frame', "SLE_Comm_Frame")
 f:RegisterEvent("GROUP_ROSTER_UPDATE")
