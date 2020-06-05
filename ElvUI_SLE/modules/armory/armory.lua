@@ -138,7 +138,7 @@ function Armory:BuildFrameDefaultsCache(which)
 			Armory.Constants[which.."_Defaults"][SlotName]["iLvlText"] = { Slot.iLvlText:GetPoint() }
 			Armory.Constants[which.."_Defaults"][SlotName]["textureSlot1"] = { Slot.textureSlot1:GetPoint() }
 			for i = 2, 10 do
-				if Slot["textureSlot"..i] then Slot["textureSlot"..i]:ClearAllPoints(); Slot["textureSlot"..i]:Point(Slot.Direction, Slot["textureSlot"..(i-1)], Slot.Direction == "LEFT" and "RIGHT" or "LEFT", 0,0) end
+				if Slot["textureSlot"..i] then Slot["textureSlot"..i]:ClearAllPoints(); Slot["textureSlot"..i]:Point(Slot.Direction, Slot["textureSlot"..(i-1)], Slot.Direction == "LEFT" and "RIGHT" or "LEFT", E.twoPixelsPlease and 3 or 1, 0) end
 			end
 			Armory.Constants[which.."_Defaults"][SlotName]["enchantText"] = { Slot.enchantText:GetPoint() }
 		end
@@ -178,7 +178,7 @@ function Armory:GetTransmogInfo(Slot, which, unit)
 end
 
 function Armory:GetCorruptionInfo(Slot, which, unit)
-	if not Slot.itemLink then return nil end 
+	if not Slot.itemLink then return nil end
 	if not which or not unit then return nil end
 	local window = strlower(which)
 	if IsCorruptedItem(Slot.itemLink) or Slot.ID == 15 then
@@ -284,7 +284,7 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 			end
 		end
 	end
-	
+
 end
 
 --Updates ilvl and everything tied to the item somehow
