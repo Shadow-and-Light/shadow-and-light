@@ -2,7 +2,7 @@
 
 --  GLOBALS:  unpack, NUM_BAG_SLOTS, IsAddOnLoaded, DEFAULT_CHAT_FRAME
 local _G = _G
-local select, format, tonumber, split, match, ipairs, pairs, gsub = select, format, tonumber, split, match, ipairs, pairs, gsub
+local select, format, tonumber, split, match, ipairs, pairs, gsub = select, format, tonumber, string.split, match, ipairs, pairs, gsub
 local getmetatable, error, type, assert, random = getmetatable, error, type, assert, random
 local tremove, tinsert, tconcat, date = tremove, tinsert, tconcat, date
 local strjoin, strmatch, strsplit, strfind = strjoin, strmatch, strsplit, strfind
