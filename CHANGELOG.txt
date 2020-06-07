@@ -17,6 +17,7 @@ Changes:
 - Removed option to handle chat as ElvUI made the changes we were looking for
 - Some code cleanup
 - Updated LibQTip
+- Rewrote S&L Friends Datatext (Updated Options for it as well)
 Additions:
 - Added Ni'aloth to raid progression module
 - Enhanced Shadows now support databars like exp, rep, honor, party, raid, raid40
