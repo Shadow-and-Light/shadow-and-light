@@ -359,6 +359,20 @@ L["Account Time Played"] = "Время в игре на аккаунте"
 L["You didn't select any instance to track."] = "Вы не выбрали подземелья для отслеживания"
 L["This LFR isn't available for your level/gear."] = "Это подземелье не доступно для Вашего уровня или экипировки."
 L["Bosses killed: "] = "Боссов убито: "
+
+--S&L Friends --* Rewrite current locales
+L["%sLeft Click|r a person's line to whisper them."] = true
+L["%sRight Click|r a person's line that has a bnet broadcast icon to expand it."] = true
+L["%sShift+Left Click|r a person's line to perform a lookup."] = true
+L["%sShift+Right Click|r a person's line to set a note for them."] = true
+L["%sCtrl+Left Click|r a person's line to invite them."] = true
+L["%sLeft Click|r a client service to hide it."] = true
+L["%sRight Click|r a client service to set your BNet Broadcast."] = true
+L["%sLeft Click|r datatext panel to open friends list."] = true
+L["%sRight Click|r datatext panel to customize."] = true
+L["Note"] = true
+
+--OLD Friend & Guild DT --!Remove when changes to guild dt happen
 L["|cffeda55fLeft Click|r to open the friends panel."] = "|cffeda55fЛКМ|r для открытия списка друзей"
 L["|cffeda55fRight Click|r to open configuration panel."] = "|cffeda55fПКМ|r для открытия настроек"
 L["|cffeda55fLeft Click|r a line to whisper a player."] = "|cffeda55fЛКМ|r на строке для сообщения игроку."
@@ -366,7 +380,7 @@ L["|cffeda55fLeft Click|r a line to whisper a player."] = "|cffeda55fЛКМ|r н
 L["|cffeda55fCtrl+Left Click|r a line to edit a note."] = "|cffeda55fCtrl+ЛКМ|r для редактирования заметки."
 L["|cffeda55fMiddleClick|r a line to expand RealID."] = "|cffeda55fКлик клесиком|r по строке для разворота RealID."
 L["|cffeda55fAlt+Left Click|r a line to invite."] = "|cffeda55fAlt+ЛКМ|r по строке для приглашения."
-L["|cffeda55fLeft Click|r a Header to hide it or sort it."] = "|cffeda55fЛКМ|r по заголовку для скрытия или сортировки."
+L["|cffeda55fLeft Click|r a Header to hide it."] = "|cffeda55fЛКМ|r по заголовку для скрытия или сортировки."
 L["|cffeda55fLeft Click|r to open the guild panel."] = "|cffeda55fЛКМ|r для открытия окна гильдии."
 L["|cffeda55fCtrl+Left Click|r a line to edit note."] = "|cffeda55fCtrl+ЛКМ|r по строке для редактирвоания заметки."
 L["|cffeda55fCtrl+Right Click|r a line to edit officer note."] = "|cffeda55fCtrl+ПКМ|r по строке для редактирвоания офицерской заметки."

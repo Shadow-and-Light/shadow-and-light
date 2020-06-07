@@ -1,6 +1,8 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, _, E, L, _, _, _ = unpack(select(2, ...))
 local DTP = SLE:GetModule('Datatexts')
+local DT = E:GetModule('DataTexts')
 
+local friendStyleTable = {}
 local function configTable()
 	if not SLE.initialized then return end
 
@@ -13,74 +15,113 @@ local function configTable()
 				order = 1,
 				type = "description",
 				name = L["These options are for modifying the Shadow & Light Friends datatext."],
+				fontSize = "Large",
 			},
-			combat = {
+			tooltip = {
 				order = 2,
-				type = "toggle",
-				name = L["Hide In Combat"],
-				desc = L["Will not show the tooltip while in combat."],
-				get = function(info) return E.db.sle.dt.friends.combat end,
-				set = function(info, value) E.db.sle.dt.friends.combat = value; end,
-			},
-			totals = {
-				order = 3,
-				type = "toggle",
-				name = L["Show Totals"],
-				desc = L["Show total friends in the datatext."],
-				get = function(info) return E.db.sle.dt.friends.totals end,
-				set = function(info, value) E.db.sle.dt.friends.totals = value; DTP:update_Friends(); end,
-			},
-			textStyle = {
-				order = 4,
-				type = "select",
-				name = L["Style"],
-				values = {
-					["Default"] = DEFAULT,
-					["Icon"] = L["Icon"],
-					["NoText"] = NONE,
+				name = L["General Settings"],
+				type = "group",
+				guiInline = true,
+				-- get = function(info) return E.db.sle.dt.currency.gold[ info[#info] ] end,
+				-- set = function(info, value) E.db.sle.dt.currency.gold[ info[#info] ] = value; end,
+				args = {
+					panelStyle = {
+						order = 1,
+						type = "select",
+						name = L["Style"],
+						values = function()
+							wipe(friendStyleTable)
+							local color = E.db.general.valuecolor
+							local hexColor = E:RGBToHex(color.r, color.g, color.b)
+
+							for key, value in pairs(DTP.PanelStyles) do
+								if key == 'DEFAULT' then
+									friendStyleTable[key] = format(value, L['FRIENDS'], hexColor, '##')
+								elseif key == 'DEFAULTTOTALS' then
+									friendStyleTable[key] = format(value, L['FRIENDS'], hexColor, '##', '##')
+								elseif key == 'ICON' then
+									friendStyleTable[key] = format(value, '|TInterface\\ICONS\\Achievement_Reputation_01:12|t', hexColor, '##')
+								elseif key == 'ICONTOTALS' then
+									friendStyleTable[key] = format(value, '|TInterface\\ICONS\\Achievement_Reputation_01:12|t', hexColor, '##', '##')
+								elseif key == 'NOTEXTTOTALS' then
+									friendStyleTable[key] = format(value, hexColor, '##', '##')
+								elseif key == 'NOTEXT' then
+									friendStyleTable[key] = format(value, hexColor, '##')
+								end
+							end
+
+							return friendStyleTable
+						end,
+						get = function(info) return E.db.sle.dt.friends[info[#info]]  end,
+						set = function(info, value) E.db.sle.dt.friends[info[#info]] = value; DT:LoadDataTexts(); end,
+					},
+					tooltipAutohide = {
+						order = 2,
+						type = "range",
+						name = L["Autohide Delay:"],
+						desc = L["Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext."],
+						min = 0.1, max = 1, step = 0.1,
+						get = function(_) return E.db.sle.dt.friends.tooltipAutohide end,
+						set = function(_, value) E.db.sle.dt.friends.tooltipAutohide = value; end,
+					},
+					combat = {
+						order = 3,
+						type = "toggle",
+						name = L["Hide In Combat"],
+						desc = L["Will not show the tooltip while in combat."],
+						get = function(_) return E.db.sle.dt.friends.combat end,
+						set = function(_, value) E.db.sle.dt.friends.combat = value; end,
+					},
+					hide_hintline = {
+						order = 3,
+						type = "toggle",
+						name = L["Hide Hints"],
+						desc = L["Hide the hints in the tooltip."],
+						get = function(_) return E.db.sle.dt.friends.hide_hintline end,
+						set = function(_, value) E.db.sle.dt.friends.hide_hintline = value; end,
+					},
+					hide_titleline = {
+						order = 3,
+						type = "toggle",
+						name = L["Hide Title"],
+						get = function(_) return E.db.sle.dt.friends.hide_titleline end,
+						set = function(_, value) E.db.sle.dt.friends.hide_titleline = value; end,
+					},
 				},
-				get = function(info) return E.db.sle.dt.friends.textStyle  end,
-				set = function(info, value) E.db.sle.dt.friends.textStyle  = value; DTP:update_Friends(); end,
 			},
-			hideFriends = {
-				order = 5,
-				type = "toggle",
-				name = L["Hide Friends"],
-				desc = L["Minimize the Friend Datatext."],
-				get = function(info) return E.db.sle.dt.friends.hideFriends end,
-				set = function(info, value) E.db.sle.dt.friends.hideFriends = value; end,
+			hideGroup2 = {
+				order = 11,
+				type = "multiselect",
+				name = L["Hide by Application"],
+				get = function(_, key) return E.db.sle.dt.friends['hide'..key] end,
+				set = function(_, key, value) E.db.sle.dt.friends['hide'..key] = value; end,
+				sortByValue = true,
+				values = {
+					['WoW'] = "WoW (Retail)",
+					['WoWClassic'] = "WoW (Classic)",
+					['App'] = "App",
+					['BSAp'] = L["Mobile"],
+					['D3'] = "Diablo 3",
+					['WTCG'] = "Hearthstone",
+					['Hero'] = "Heroes of the Storm",
+					['Pro'] = "Overwatch",
+					['S1'] = "Starcraft",
+					['S2'] = "Starcraft 2",
+					['VIPR'] = "COD: Black Ops 4",
+					['ODIN'] = "COD: Modern Warfare",
+					['LAZR'] = "COD: Modern Warfare 2",
+				},
 			},
-			hide_hintline = {
-				order = 6,
-				type = "toggle",
-				name = L["Hide Hints"],
-				desc = L["Hide the hints in the tooltip."],
-				get = function(info) return E.db.sle.dt.friends.hide_hintline end,
-				set = function(info, value) E.db.sle.dt.friends.hide_hintline = value; end,
-			},
-			hide_titleline = {
-				order = 7,
-				type = "toggle",
-				name = L["Hide Title"],
-				get = function(info) return E.db.sle.dt.friends.hide_titleline end,
-				set = function(info, value) E.db.sle.dt.friends.hide_titleline = value; end,
-			},
-			expandBNBroadcast = {
-				order = 8,
-				type = "toggle",
-				name = L["Expand RealID"],
-				desc = L["Display RealID with two lines to view broadcasts."],
-				get = function(info) return E.db.sle.dt.friends.expandBNBroadcast end,
-				set = function(info, value) E.db.sle.dt.friends.expandBNBroadcast = value; end,
-			},
-			tooltipAutohide = {
-				order = 9,
-				type = "range",
-				name = L["Autohide Delay:"],
-				desc = L["Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext."],
-				min = 0.1, max = 1, step = 0.1,
-				get = function(info) return E.db.sle.dt.friends.tooltipAutohide end,
-				set = function(info, value) E.db.sle.dt.friends.tooltipAutohide = value; end,
+			hideGroup3 = {
+				order = 13,
+				type = "multiselect",
+				name = L["Hide by Status"],
+				get = function(_, key) return E.db.sle.dt.friends[key] end,
+				set = function(_, key, value) E.db.sle.dt.friends[key] = value; end,
+				values = {
+					hideAFK = L["AFK"],
+					hideDND = L["DND"],
+				},
 			},
 		},
 	}

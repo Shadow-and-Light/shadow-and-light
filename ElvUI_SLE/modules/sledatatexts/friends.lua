@@ -1,558 +1,742 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, _, E, L = unpack(select(2, ...))
 local LibQTip = LibStub('LibQTip-1.0')
+local DT = E:GetModule('DataTexts')
 local DTP = SLE:GetModule('Datatexts')
-local LDB = LibStub("LibDataBroker-1.1"):NewDataObject("S&L Friends",
-{
-	type	= "data source",
-	icon	= "Interface\\Icons\\INV_Drink_08.png",
-	label	= "S&L Friends",
-	text	= "S&L Friends"
-})
 
--- GLOBALS: unpack, select
 local _G = _G
-local format, time = format, time
-local floor = math.floor
-local UnitInRaid, UnitInParty = UnitInRaid, UnitInParty
-local ONE_MINUTE = 60;
-local ONE_HOUR = 60 * ONE_MINUTE;
-local ONE_DAY = 24 * ONE_HOUR;
-local ONE_MONTH = 30 * ONE_DAY;
-local ONE_YEAR = 12 * ONE_MONTH;
+local type, ipairs, pairs = type, ipairs, pairs
+local sort, next, wipe, tremove, tinsert = sort, next, wipe, tremove, tinsert
+local format, gsub, strfind, strmatch = format, gsub, strfind, strmatch
 
-local MINIMIZE = MINIMIZE
-local FRIENDS = FRIENDS
-local BNET_BROADCAST_SENT_TIME = BNET_BROADCAST_SENT_TIME
-local RED_FONT_COLOR_CODE = RED_FONT_COLOR_CODE
-local CHAT_FLAG_AFK = CHAT_FLAG_AFK
-local CHAT_FLAG_DND = CHAT_FLAG_DND
-local LASTONLINE_SECS, LASTONLINE_MINUTES, LASTONLINE_HOURS, LASTONLINE_DAYS, LASTONLINE_MONTHS, LASTONLINE_YEARS = LASTONLINE_SECS, LASTONLINE_MINUTES, LASTONLINE_HOURS, LASTONLINE_DAYS, LASTONLINE_MONTHS, LASTONLINE_YEARS
-local COMMUNITIES_PRESENCE_MOBILE_CHAT = COMMUNITIES_PRESENCE_MOBILE_CHAT
-
-local ShowFriends = ShowFriends
-local IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown = IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown
+local BNet_GetValidatedCharacterName = BNet_GetValidatedCharacterName
+local BNGetNumFriends = BNGetNumFriends
+local BNInviteFriend = BNInviteFriend
+local BNRequestInviteFriend = BNRequestInviteFriend
+local GetDisplayedInviteType = GetDisplayedInviteType
+local GetQuestDifficultyColor = GetQuestDifficultyColor
+local IsShiftKeyDown, IsAltKeyDown, IsControlKeyDown = IsShiftKeyDown, IsAltKeyDown, IsControlKeyDown
 local SetItemRef = SetItemRef
-local StaticPopup_Show = StaticPopup_Show
 local ToggleFriendsFrame = ToggleFriendsFrame
+local UnitInParty = UnitInParty
+local UnitInRaid = UnitInRaid
+local C_FriendList_GetNumFriends = C_FriendList.GetNumFriends
+local C_FriendList_GetNumOnlineFriends = C_FriendList.GetNumOnlineFriends
+local C_FriendList_GetFriendInfoByIndex = C_FriendList.GetFriendInfoByIndex
+local ChatFrame_SendBNetTell = ChatFrame_SendBNetTell
+local InCombatLockdown = InCombatLockdown
+local C_BattleNet_GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
+local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet.GetFriendNumGameAccounts
+local C_BattleNet_GetFriendGameAccountInfo = C_BattleNet.GetFriendGameAccountInfo
+local C_PartyInfo_RequestInviteFromUnit = C_PartyInfo.RequestInviteFromUnit
+local C_PartyInfo_InviteUnit = C_PartyInfo.InviteUnit
+local PRIEST_COLOR = RAID_CLASS_COLORS.PRIEST
 
-local realid_table = {}
+local characterFriend = _G.CHARACTER_FRIEND
+local battleNetString = _G.BATTLENET_OPTIONS_LABEL
+local activezone, inactivezone = {r=0.3, g=1.0, b=0.3}, {r=0.65, g=0.65, b=0.65}
+local friendTable, BNTable, tableList = {}, {}, {}
+local friendOnline, friendOffline = gsub(_G.ERR_FRIEND_ONLINE_SS,"\124Hplayer:%%s\124h%[%%s%]\124h",""), gsub(_G.ERR_FRIEND_OFFLINE_S,"%%s","")
+local BNET_CLIENT_WOW, BNET_CLIENT_D3, BNET_CLIENT_WTCG, BNET_CLIENT_SC2, BNET_CLIENT_HEROES, BNET_CLIENT_OVERWATCH, BNET_CLIENT_SC, BNET_CLIENT_COD, BNET_CLIENT_COD_MW, BNET_CLIENT_COD_MW2 = BNET_CLIENT_WOW, BNET_CLIENT_D3, BNET_CLIENT_WTCG, BNET_CLIENT_SC2, BNET_CLIENT_HEROES, BNET_CLIENT_OVERWATCH, BNET_CLIENT_SC, BNET_CLIENT_COD, BNET_CLIENT_COD_MW, BNET_CLIENT_COD_MW2
+local wowString = BNET_CLIENT_WOW
+local classicID = WOW_PROJECT_CLASSIC
+local dataValid, lastPanel = false
+local minbutton = "|TInterface\\BUTTONS\\UI-PlusButton-Up:0|t"
+local BROADCAST_ICON = "|TInterface\\FriendsFrame\\BroadcastIcon:0|t"
+local GROUP_CHECKMARK	= "|TInterface\\Buttons\\UI-CheckBox-Check:0|t"
+local onlineicon = "|TInterface\\ICONS\\Achievement_Reputation_01:12|t"
+local BNET_BROADCAST_SENT_TIME = BNET_BROADCAST_SENT_TIME
+local StaticPopup_Show = StaticPopup_Show
+local displayhex = ''
+local tooltip
+local OnEnter
+local broadcast_flag
+local line
+
+-- TODO: Maybe customize statusTable later
+local statusTable = {
+	AFK = " |cffFFFFFF[|r|cffFF9900"..L["AFK"].."|r|cffFFFFFF]|r",
+	DND = " |cffFFFFFF[|r|cffFF3333"..L["DND"].."|r|cffFFFFFF]|r"
+}
 
 local function sletime_Conversion(timeDifference, isAbsolute)
 	if ( not isAbsolute ) then
-		timeDifference = time() - timeDifference;
+	   timeDifference = time() - timeDifference;
 	end
-	local year, month, day, hour, minute;
+	local ONE_MINUTE = 60;
+	local ONE_HOUR = 60 * ONE_MINUTE;
+	local ONE_DAY = 24 * ONE_HOUR;
+	local ONE_MONTH = 30 * ONE_DAY;
+	local ONE_YEAR = 12 * ONE_MONTH;
 
 	if ( timeDifference < ONE_MINUTE ) then
-		return LASTONLINE_SECS;
+	   return LASTONLINE_SECS;
 	elseif ( timeDifference >= ONE_MINUTE and timeDifference < ONE_HOUR ) then
-		return format(LASTONLINE_MINUTES, floor(timeDifference / ONE_MINUTE));
+	   return format(LASTONLINE_MINUTES, floor(timeDifference / ONE_MINUTE));
 	elseif ( timeDifference >= ONE_HOUR and timeDifference < ONE_DAY ) then
-		return format(LASTONLINE_HOURS, floor(timeDifference / ONE_HOUR));
+	   return format(LASTONLINE_HOURS, floor(timeDifference / ONE_HOUR));
 	elseif ( timeDifference >= ONE_DAY and timeDifference < ONE_MONTH ) then
-		return format(LASTONLINE_DAYS, floor(timeDifference / ONE_DAY));
+	   return format(LASTONLINE_DAYS, floor(timeDifference / ONE_DAY));
 	elseif ( timeDifference >= ONE_MONTH and timeDifference < ONE_YEAR ) then
-		return format(LASTONLINE_MONTHS, floor(timeDifference / ONE_MONTH));
+	   return format(LASTONLINE_MONTHS, floor(timeDifference / ONE_MONTH));
 	else
-		return format(LASTONLINE_YEARS, floor(timeDifference / ONE_YEAR));
+	   return format(LASTONLINE_YEARS, floor(timeDifference / ONE_YEAR));
 	end
-end
+ end
 
-local frame = CreateFrame("frame")
-local tooltip
-local LDB_ANCHOR
-local wtcgString = BNET_CLIENT_WTCG
-local GROUP_CHECKMARK	= "|TInterface\\Buttons\\UI-CheckBox-Check:0|t"
-local AWAY_ICON		= "|TInterface\\FriendsFrame\\StatusIcon-Away:18|t"
-local BUSY_ICON		= "|TInterface\\FriendsFrame\\StatusIcon-DnD:18|t"
-local MOBILE_ICON	= "|TInterface\\ChatFrame\\UI-ChatIcon-ArmoryChat:18|t"
-local MINIMIZE		= "|TInterface\\BUTTONS\\UI-PlusButton-Up:0|t"
-local BROADCAST_ICON = "|TInterface\\FriendsFrame\\BroadcastIcon:0|t"
-
--- Setup the Title Font. 14
-local ssTitleFont = CreateFont("ssTitleFont")
-ssTitleFont:SetTextColor(1,0.823529,0)
-
--- Setup the Header Font. 12
-local ssHeaderFont = CreateFont("ssHeaderFont")
-ssHeaderFont:SetTextColor(1,0.823529,0)
-
--- Setup the Regular Font. 12
-local ssRegFont = CreateFont("ssRegFont")
-ssRegFont:SetTextColor(1,0.823529,0)
-
-local list_sort = {
-	TOONNAME = function(a, b)
-		return a["TOONNAME"] < b["TOONNAME"]
-	end,
-	LEVEL =	function(a, b)
-		local first, second = a["LEVEL"], b["LEVEL"]
-		if not tonumber(first) then first = 0 end
-		if not tonumber(second) then second = 0 end
-		if first < second then
-			return true
-		elseif first > second then
-			return false
-		else  -- TOONNAME
-			return a["TOONNAME"] < b["TOONNAME"]
-		end
-	end,
-	RANKINDEX =	function(a, b)
-		if a["RANKINDEX"] > b["RANKINDEX"] then
-			return true
-		elseif a["RANKINDEX"] < b["RANKINDEX"] then
-			return false
-		else -- TOONNAME
-			return a["TOONNAME"] < b["TOONNAME"]
-		end
-	end,
-	ZONENAME = function(a, b)
-		if a["ZONENAME"] < b["ZONENAME"] then
-			return true
-		elseif a["ZONENAME"] > b["ZONENAME"] then
-			return false
-		else -- TOONNAME
-			return a["TOONNAME"] < b["TOONNAME"]
-		end
-	end,
-	REALMNAME = function(a, b)
-		if a["REALMNAME"] < b["REALMNAME"] then
-			return true
-		elseif a["REALMNAME"] > b["REALMNAME"] then
-			return false
-		else -- TOONNAME
-			return a["ZONENAME"] < b["ZONENAME"]
-		end
-	end,
-	revTOONNAME	= function(a, b)
-		return a["TOONNAME"] > b["TOONNAME"]
-	end,
-	revLEVEL = function(a, b)
-		local first, second = a["LEVEL"], b["LEVEL"]
-		if not tonumber(first) then first = 0 end
-		if not tonumber(second) then second = 0 end
-		if first > second then
-			return true
-		elseif first < second then
-			return false
-		else  -- TOONNAME
-			return a["TOONNAME"] < b["TOONNAME"]
-		end
-	end,
-	revRANKINDEX = function(a, b)
-		if a["RANKINDEX"] < b["RANKINDEX"] then
-			return true
-		elseif a["RANKINDEX"] > b["RANKINDEX"] then
-			return false
-		else -- TOONNAME
-			return a["TOONNAME"] < b["TOONNAME"]
-		end
-	end,
-	revZONENAME	= function(a, b)
-		if a["ZONENAME"] > b["ZONENAME"] then
-			return true
-		elseif a["ZONENAME"] < b["ZONENAME"] then
-			return false
-		else -- TOONNAME
-			return a["TOONNAME"] < b["TOONNAME"]
-		end
-	end,
-	revREALMNAME = function(a, b)
-		if a["REALMNAME"] > b["REALMNAME"] then
-			return true
-		elseif a["REALMNAME"] < b["REALMNAME"] then
-			return false
-		else -- TOONNAME
-			return a["ZONENAME"] < b["ZONENAME"]
-		end
-	end
+local clientSorted = {}
+local clientTags = {
+	[BNET_CLIENT_WOW] = "WoW",
+	[BNET_CLIENT_D3] = "D3",
+	[BNET_CLIENT_WTCG] = "HS",
+	[BNET_CLIENT_HEROES] = "HotS",
+	[BNET_CLIENT_OVERWATCH] = "OW",
+	[BNET_CLIENT_SC] = "SC",
+	[BNET_CLIENT_SC2] = "SC2",
+	[BNET_CLIENT_COD] = "BO4",
+	[BNET_CLIENT_COD_MW] = "MW",
+	[BNET_CLIENT_COD_MW2] = "MW2",
+	BSAp = L["Mobile"],
 }
 
-local function inGroup(name)
-	if GetNumSubgroupMembers() > 0 and UnitInParty(name) then
-		return true
-	elseif GetNumGroupMembers() > 0 and UnitInRaid(name) then
-		return true
+local clientIndex = {
+	[BNET_CLIENT_WOW] = 1,
+	[BNET_CLIENT_D3] = 2,
+	[BNET_CLIENT_WTCG] = 3,
+	[BNET_CLIENT_HEROES] = 4,
+	[BNET_CLIENT_OVERWATCH] = 5,
+	[BNET_CLIENT_SC] = 6,
+	[BNET_CLIENT_SC2] = 7,
+	[BNET_CLIENT_COD] = 8,
+	[BNET_CLIENT_COD_MW] = 9,
+	[BNET_CLIENT_COD_MW2] = 10,
+	App = 11,
+	BSAp = 12,
+}
+
+--!ElvUI Default inGroup
+-- local function inGroup(name, realmName)
+-- 	if realmName and realmName ~= "" and realmName ~= E.myrealm then
+-- 		name = name.."-"..realmName
+-- 	end
+
+-- 	return (UnitInParty(name) or UnitInRaid(name)) and "|cffaaaaaa*|r" or ""
+-- end
+--!Repooc Custom inGroup below
+local function inGroup(name, realmName)
+	if realmName and realmName ~= "" and realmName ~= E.myrealm then
+		name = name.."-"..realmName
 	end
 
-	return false
+	return (UnitInParty(name) or UnitInRaid(name)) and GROUP_CHECKMARK or ""
 end
 
-local function nameIndex(name)
-	local lookupname
+local function SortAlphabeticName(a, b)
+	if a.characterName and b.characterName then
+		return a.characterName < b.characterName
+	end
+end
 
-	for i = 1, C_FriendList.GetNumFriends() do
-		lookupname = GetFriendInfo(i)
-		if lookupname == name then
-			return i
+--Sort: client-> (WoW: project-> faction-> name) ELSE:btag
+local function Sort(a, b)
+	if a.client and b.client then
+		if (a.client == b.client) then
+			if (a.client == wowString) and a.wowProjectID and b.wowProjectID then
+				if (a.wowProjectID == b.wowProjectID) and a.faction and b.faction then
+					if (a.faction == b.faction) and a.characterName and b.characterName then
+						return a.characterName < b.characterName
+					end
+					return a.faction < b.faction
+				end
+				return a.wowProjectID < b.wowProjectID
+			elseif (a.battleTag and b.battleTag) then
+				return a.battleTag < b.battleTag
+			end
+		end
+		return a.client < b.client
+	end
+end
+
+--Sort client by statically given index (this is a `pairs by keys` sorting method)
+local function clientSort(a, b)
+	if a and b then
+		if clientIndex[a] and clientIndex[b] then
+			return clientIndex[a] < clientIndex[b]
+		end
+		return a < b
+	end
+end
+
+local function BuildFriendTable(total)
+	wipe(friendTable)
+	for i = 1, total do
+		local info = C_FriendList_GetFriendInfoByIndex(i)
+		if info and info.connected then
+			local className = E:UnlocalizedClassName(info.className) or ""
+			local status = (info.afk and statusTable.AFK) or (info.dnd and statusTable.DND) or ""
+
+			friendTable[i] = {
+				characterName = info.name,			--1
+				level = info.level,			--2
+				class = className,			--3
+				zone = info.area,			--4
+				online = info.connected,	--5
+				status = status,			--6
+				notes = info.notes,			--7
+				guid = info.guid			--8
+			}
 		end
 	end
-end
-
-local function ColoredLevel(level)
-	if level ~= "" then
-		local color = GetQuestDifficultyColor(level)
-		return format("|cff%02x%02x%02x%d|r", color.r * 255, color.g * 255, color.b * 255, level)
+	if next(friendTable) then
+		sort(friendTable, SortAlphabeticName)
 	end
 end
 
-local CLASS_COLORS, color = {}
-local classes_female, classes_male = {}, {}
+local function AddToBNTable(bnIndex, bnetIDAccount, accountName, battleTag, characterName, bnetIDGameAccount, client, isOnline, isBnetAFK, isBnetDND, noteText, wowProjectID, realmName, faction, race, className, zoneName, level, guid, gameText, customMessage, customMessageTime)
+	className = E:UnlocalizedClassName(className) or ""
+	characterName = BNet_GetValidatedCharacterName(characterName, battleTag, client) or ""
 
-FillLocalizedClassList(classes_female, true)
-FillLocalizedClassList(classes_male, false)
-
-for token, localizedName in pairs(classes_female) do
-	color = RAID_CLASS_COLORS[token]
-	CLASS_COLORS[localizedName] = format("%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255)
-end
-
-for token, localizedName in pairs(classes_male) do
-	color = RAID_CLASS_COLORS[token]
-	CLASS_COLORS[localizedName] = format("%02x%02x%02x", color.r * 255, color.g * 255, color.b * 255)
-end
-
-local function valueColor(totals)
-	if totals ~= "" then
-		local color = E.db.general.valuecolor
-		return format("|cff%02x%02x%02x%d|r", color.r * 255, color.g * 255, color.b * 255, totals)
+	if wowProjectID == classicID then
+		gameText, realmName = strmatch(gameText, '(.-)%s%-%s(.+)')
 	end
-end
 
-function DTP:update_Friends()
-	if not E.db or not E.db.sle or not E.db.sle.dt or not E.db.sle.dt.friends then return end
-	ShowFriends()
-	local friendsTotal = C_FriendList.GetNumFriends()
-	local friendsOnline = C_FriendList.GetNumOnlineFriends()
-	local bnTotal, bnOnline = BNGetNumFriends()
-	local totalOnline = friendsOnline + bnOnline
-	local totalFriends = friendsTotal + bnTotal
-	local text = E.db.sle.dt.friends.textStyle == "Default" and FRIENDS..": " or E.db.sle.dt.friends.textStyle == "NoText" and "" or E.db.sle.dt.friends.textStyle == "Icon" and "|TInterface\\ICONS\\Achievement_Reputation_01:12|t: " or ""
-	if E.db.sle.dt.friends.totals then
-		LDB.text = text..valueColor(totalOnline).."/"..valueColor(totalFriends)
+	if customMessageTime then
+		customMessageTime = format(BNET_BROADCAST_SENT_TIME, sletime_Conversion(customMessageTime));
+	end
+
+	BNTable[bnIndex] = {
+		accountID = bnetIDAccount,		--1
+		accountName = accountName,		--2
+		battleTag = battleTag,			--3
+		characterName = characterName,	--4
+		gameID = bnetIDGameAccount,		--5
+		client = client,				--6
+		isOnline = isOnline,			--7
+		isBnetAFK = isBnetAFK,			--8
+		isBnetDND = isBnetDND,			--9
+		noteText = noteText,			--10
+		wowProjectID = wowProjectID,	--11
+		realmName = realmName,			--12
+		faction = faction,				--13
+		race = race,					--14
+		className = className,			--15
+		zoneName = zoneName,			--16
+		level = level,					--17
+		guid = guid,					--18
+		gameText = gameText,			--19
+		customMessage = customMessage or "",
+		customMessageTime =customMessageTime or ""
+	}
+
+	if tableList[client] then
+		tableList[client][#tableList[client]+1] = BNTable[bnIndex]
 	else
-		LDB.text = text..valueColor(totalOnline)
+		tableList[client] = {}
+		tableList[client][1] = BNTable[bnIndex]
 	end
 end
 
-local function Entry_OnMouseUp(frame, info, button)
-	local i_type, toon_name, full_name, presence_id = strsplit(":", info)
+local function PopulateBNTable(bnIndex, bnetIDAccount, accountName, battleTag, characterName, bnetIDGameAccount, client, isOnline, isBnetAFK, isBnetDND, noteText, wowProjectID, realmName, faction, race, class, zoneName, level, guid, gameText, hasFocus, customMessage, customMessageTime)
+	-- `hasFocus` is not added to BNTable[i]; we only need this to keep our friends datatext in sync with the friends list
+	for i = 1, bnIndex do
+		local isAdded, bnInfo = 0, BNTable[i]
+		if bnInfo and (bnInfo.accountID == bnetIDAccount) then
+			if bnInfo.client == "BSAp" then
+				if client == "BSAp" then -- unlikely to happen
+					isAdded = 1
+				elseif client == "App" then
+					isAdded = (hasFocus and 2) or 1
+				else -- Mobile -> Game
+					isAdded = 2 --swap data
+				end
+			elseif bnInfo.client == "App" then
+				if client == "App" then -- unlikely to happen
+					isAdded = 1
+				elseif client == "BSAp" then
+					isAdded = (hasFocus and 2) or 1
+				else -- App -> Game
+					isAdded = 2 --swap data
+				end
+			elseif bnInfo.client then -- Game
+				if client == "BSAp" or client == "App" then -- ignore Mobile and App
+					isAdded = 1
+				end
+			end
+		end
+		if isAdded == 2 then -- swap data
+			if bnInfo.client and tableList[bnInfo.client] then
+				for n, y in ipairs(tableList[bnInfo.client]) do
+					if y == bnInfo then
+						tremove(tableList[bnInfo.client], n)
+						break -- remove the old one from tableList
+					end
+				end
+			end
+			AddToBNTable(i, bnetIDAccount, accountName, battleTag, characterName, bnetIDGameAccount, client, isOnline, isBnetAFK, isBnetDND, noteText, wowProjectID, realmName, faction, race, class, zoneName, level, guid, gameText, customMessage, customMessageTime)
+		end
+		if isAdded ~= 0 then
+			return bnIndex
+		end
+	end
 
-	if button == "LeftButton" then
-		if IsAltKeyDown() then
-			if i_type == "realid" then
-				--local _, presenceName, battleTag, isBattleTagPresence, toonName, toonID = BNGetFriendInfo(BNGetFriendIndex(presence_id))
-				local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetFriendGameAccountInfo(BNGetFriendIndex(presence_id), 1)
+	bnIndex = bnIndex + 1 --bump the index one for a new addition
+	AddToBNTable(bnIndex, bnetIDAccount, accountName, battleTag, characterName, bnetIDGameAccount, client, isOnline, isBnetAFK, isBnetDND, noteText, wowProjectID, realmName, faction, race, class, zoneName, level, guid, gameText, customMessage, customMessageTime)
 
-				if E.myrealm == realmName then
-					InviteUnit(toon_name)
-				else
-					InviteUnit(toon_name.."-"..realmName)
+	return bnIndex
+end
+
+local function BuildBNTable(total)
+	for _, v in pairs(tableList) do wipe(v) end
+	wipe(BNTable)
+	wipe(clientSorted)
+
+	local bnIndex = 0
+
+	for i = 1, total do
+		local accountInfo = C_BattleNet_GetFriendAccountInfo(i)
+		-- local presenceID, givenName, bTag, _, _, toonID, gameClient, isOnline, lastOnline, isAFK, isDND, broadcast, note, _, castTime = BNGetFriendInfo(i)
+		if accountInfo and accountInfo.gameAccountInfo and accountInfo.gameAccountInfo.isOnline then
+			local numGameAccounts = C_BattleNet_GetFriendNumGameAccounts(i)
+			if numGameAccounts and numGameAccounts > 0 then
+				for y = 1, numGameAccounts do
+					local gameAccountInfo = C_BattleNet_GetFriendGameAccountInfo(i, y)
+					bnIndex = PopulateBNTable(bnIndex, accountInfo.bnetAccountID, accountInfo.accountName, accountInfo.battleTag, gameAccountInfo.characterName, gameAccountInfo.gameAccountID, gameAccountInfo.clientProgram, gameAccountInfo.isOnline, accountInfo.isAFK or gameAccountInfo.isGameAFK, accountInfo.isDND or gameAccountInfo.isGameBusy, accountInfo.note, accountInfo.gameAccountInfo.wowProjectID, gameAccountInfo.realmName, gameAccountInfo.factionName, gameAccountInfo.raceName, gameAccountInfo.className, gameAccountInfo.areaName, gameAccountInfo.characterLevel, gameAccountInfo.playerGuid, gameAccountInfo.richPresence, gameAccountInfo.hasFocus, accountInfo.customMessage, accountInfo.customMessageTime)
+				end
+			else
+				bnIndex = PopulateBNTable(bnIndex, accountInfo.bnetAccountID, accountInfo.accountName, accountInfo.battleTag, accountInfo.gameAccountInfo.characterName, accountInfo.gameAccountInfo.gameAccountID, accountInfo.gameAccountInfo.clientProgram, accountInfo.gameAccountInfo.isOnline, accountInfo.isAFK, accountInfo.isDND, accountInfo.note, accountInfo.gameAccountInfo.wowProjectID, accountInfo.customMessage, accountInfo.customMessageTime)
+			end
+		end
+	end
+
+	if next(BNTable) then
+		sort(BNTable, Sort)
+	end
+	for c, v in pairs(tableList) do
+		if next(v) then
+			sort(v, Sort)
+		end
+		tinsert(clientSorted, c)
+	end
+	if next(clientSorted) then
+		sort(clientSorted, clientSort)
+	end
+end
+
+local function Entry_OnMouseUp(_, info, button)
+	local i_type, name, accountName, accountID, guid = strsplit(":", info)
+	if not (name and name ~= "") then return end
+    local isBNet = type(name) == 'number'
+
+    if button == "LeftButton" then
+        if IsControlKeyDown() then
+            if guid then
+				local inviteType = GetDisplayedInviteType(guid)
+                if inviteType == "INVITE" or inviteType == "SUGGEST_INVITE" then
+                    if isBNet then
+                        BNInviteFriend(name)
+                    else
+                        InviteUnit(name)
+					end
+					return
+                elseif inviteType == "REQUEST_INVITE" then
+                    if isBNet then
+                        BNRequestInviteFriend(name)
+                    else
+                        C_PartyInfo_RequestInviteFromUnit(name)
+					end
+					return
+                end
+            else
+                -- if for some reason guid isnt here fallback and just try to invite them
+                -- this is unlikely but having a fallback doesnt hurt
+                if isBNet then
+                    BNInviteFriend(accountName)
+                else
+                    C_PartyInfo_InviteUnit(name)
 				end
 				return
-			else
-				InviteUnit(toon_name)
-				return
-			end
-		end
+            end
+        end
 
-		if IsShiftKeyDown() then
-			SetItemRef("player:"..toon_name, "|Hplayer:"..toon_name.."|h["..toon_name.."|h", "LeftButton")
-			return
-		end
-
-		if IsControlKeyDown() then
-			if i_type == "friends" then
-				_G["FriendsFrame"].NotesID = toon_name
-                local info = C_FriendList.GetFriendInfo(toon_name)
-                StaticPopup_Show("SET_FRIENDNOTE", info.name)
-				return
-			end
-
-			if i_type == "realid" then
-				_G["FriendsFrame"].NotesID = presence_id
-				StaticPopup_Show("SET_BNFRIENDNOTE", full_name)
-				return
-			end
-		end
+        if IsShiftKeyDown() then
+            SetItemRef("player:"..name, "|Hplayer:"..name.."|h["..name.."|h", "LeftButton")
+            return
+        end
 
 		if i_type == "realid" then
-			local name
-			for _, player in ipairs(realid_table) do
-				if player["GIVENNAME"] == presence_id and player["CLIENT"] == "Hero" then
-					name = presence_id..":"..player["PRESENCEID"]
-					break
-				end
-			end
-			if not name then name = full_name..":"..presence_id end
-			SetItemRef( "BNplayer:"..name, format("|HBNplayer:%1$s|h[%1$s]|h", name), "LeftButton" )
+			ChatFrame_SendBNetTell(accountName)
 		else
-			SetItemRef( "player:"..full_name, format("|Hplayer:%1$s|h[%1$s]|h", full_name), "LeftButton" )
+			SetItemRef( "player:"..name, format("|Hplayer:%1$s|h[%1$s]|h",name), "LeftButton" )
 		end
-	elseif button == "RightButton" then
-		if IsControlKeyDown() then
-			--Possibly Set BNetBroadcast
-			--	E:StaticPopup_Show("SET_BN_BROADCAST")
+    end
+
+	if button == "RightButton" then
+		if IsShiftKeyDown() then
+			if i_type == "friends" then
+				_G["FriendsFrame"].NotesID = name
+				StaticPopup_Show("SET_FRIENDNOTE", _G["FriendsFrame"].NotesID)
+				return
+			end
+			if i_type == "realid" then
+				_G["FriendsFrame"].NotesID = accountID
+				StaticPopup_Show("SET_BNFRIENDNOTE", accountName)
+				return
+			end
 		end
-	elseif button == "MiddleButton" then
-		E.db.sle.dt.friends.expandBNBroadcast = not E.db.sle.dt.friends.expandBNBroadcast
-		LDB.OnEnter(LDB_ANCHOR)
+
+		ElvDB.SLEMinimize["expandBNBroadcast"..accountName] = not ElvDB.SLEMinimize["expandBNBroadcast"..accountName]
+		OnEnter(lastPanel)
 	end
 end
 
-local function HideOnMouseUp(cell, section)
-	E.db.sle.dt.friends[section] = not E.db.sle.dt.friends[section]
-	LDB.OnEnter(LDB_ANCHOR)
-end
+local function OnEvent(self, event, message)
+	local db = E.db.sle.dt.friends
+	local onlineFriends = C_FriendList_GetNumOnlineFriends()
+	local friendsTotal = C_FriendList_GetNumFriends()
+	local numBNetTotal, numBNetOnline = BNGetNumFriends()
 
-local function SetRealIDSort(cell, sortsection)
-	if E.db.sle.dt.friends["sortBN"] == sortsection then
-		E.db.sle.dt.friends["sortBN"] = "rev" .. sortsection
+	local totalOnline = onlineFriends + numBNetOnline
+	local totalFriends = friendsTotal + numBNetTotal
+
+	-- special handler to detect friend coming online or going offline
+	-- when this is the case, we invalidate our buffered table and update the
+	-- datatext information
+	if event == "CHAT_MSG_SYSTEM" then
+		if not (strfind(message, friendOnline) or strfind(message, friendOffline)) then return end
+	end
+
+	if event == 'MODIFIER_STATE_CHANGED' then
+		if not IsAltKeyDown() and GetMouseFocus() == self then
+			OnEnter(self)
+		elseif IsAltKeyDown and GetMouseFocus() == self then
+			tooltip:Hide()
+		end
+	end
+
+	-- force update when showing tooltip
+	dataValid = false
+
+	if db.panelStyle == 'DEFAULT' or db.panelStyle == 'ICON' then
+		self.text:SetFormattedText(DTP.PanelStyles[db.panelStyle], db.panelStyle == 'DEFAULT' and FRIENDS or onlineicon, displayhex, totalOnline)
+	elseif db.panelStyle == 'DEFAULTTOTALS' or db.panelStyle == 'ICONTOTALS' then
+		self.text:SetFormattedText(DTP.PanelStyles[db.panelStyle], db.panelStyle == 'DEFAULTTOTALS' and FRIENDS or onlineicon, displayhex, totalOnline, totalFriends)
+	elseif db.panelStyle == 'NOTEXT' then
+		self.text:SetFormattedText(DTP.PanelStyles[db.panelStyle], displayhex, totalOnline)
 	else
-		E.db.sle.dt.friends["sortBN"] = sortsection
+		self.text:SetFormattedText(DTP.PanelStyles[db.panelStyle], displayhex, totalOnline, totalFriends)
 	end
-	LDB.OnEnter(LDB_ANCHOR)
+
+	lastPanel = self
 end
 
-function LDB:OnClick(button)
-	if button == "LeftButton" then
+local function HideOnMouseUp(_, info, button)
+	local action, section = strsplit(":", info)
+
+	if action == "hide" then
+		E.db.sle.dt.friends[section] = not E.db.sle.dt.friends[section]
+		print("Hide: "..section)
+	end
+
+	if action == "client" then
+		if button == "LeftButton" then
+			print("Client: "..section)
+			ElvDB.SLEMinimize[section] = not ElvDB.SLEMinimize[section]
+		end
+		if button == "RightButton" then
+			E:StaticPopup_Show("SET_BN_BROADCAST")
+		end
+	end
+
+	OnEnter(lastPanel)
+end
+
+local function OnClick(_, btn)
+	if btn == "LeftButton" then
 		ToggleFriendsFrame()
 	end
 
-	if button == "RightButton" then
+	if btn == "RightButton" then
 		E:ToggleOptionsUI()
 		E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "sle", "modules", "datatext", "sldatatext", "slfriends")
 	end
 end
 
-function LDB.OnLeave() end
+local lastTooltipXLineHeader
+local function TooltipAddXLine(tooltip, header, client, wowver, level, status, classc, characterName, accountName, customMessage, customMessageTime, zoneName, fcolor, realmName, guid, noteText, accountID, gameText)
+	local minimizeclient = (wowver and wowver) or client
+	if lastTooltipXLineHeader ~= header then
+		line = tooltip:AddLine(" ")
+		line = tooltip:AddLine(" ")
 
-function LDB.OnEnter(self)
-	if E.db.sle.dt.friends.combat and InCombatLockdown() then return end
-	LDB_ANCHOR = self
+		if not ElvDB.SLEMinimize[minimizeclient] then
+			tooltip:SetCell(line, 1, header, "CENTER", 0)
+		else
+			tooltip:SetCell(line, 1, minbutton .. header, "CENTER", 0)
+		end
+		tooltip:SetCellScript(line, 1, "OnMouseUp", HideOnMouseUp, "client:"..minimizeclient)
 
-	if LibQTip:IsAcquired("ShadowLightFriends") then
+		if not ElvDB.SLEMinimize[minimizeclient] then
+			line = tooltip:AddHeader()
+
+			line = tooltip:SetCell(line, 3, _G.NAME)  --!  Name
+			line = tooltip:SetCell(line, 4, _G.BATTLENET_FRIEND)  --!  RealID
+			if client and client == "App" or client == "BSAp" then
+				if not E.db.sle.dt.friends.hideFriendsNotes then
+					line = tooltip:SetCell(line, 6, L["Note"], "LEFT")  --! Note
+				else
+					line = tooltip:SetCell(line, 6, minbutton .. L["Note"], "LEFT")  --! +Note
+				end
+				tooltip:SetCellScript(line, 6, "OnMouseUp", HideOnMouseUp, "hide:hideFriendsNotes")
+			elseif client == "WoW" then
+				line = tooltip:SetCell(line, 5, _G.ZONE)  --!  Location or (Zone)
+				line = tooltip:SetCell(line, 6, _G.FRIENDS_LIST_REALM)  --!  Realm
+				if not E.db.sle.dt.friends.hideFriendsNotes then
+					line = tooltip:SetCell(line, 7, L["Note"], "LEFT")  --! Note
+				else
+					line = tooltip:SetCell(line, 7, minbutton .. L["Note"], "LEFT")  --! +Note
+				end
+				tooltip:SetCellScript(line, 7, "OnMouseUp", HideOnMouseUp, "hide:hideFriendsNotes")
+			else
+				line = tooltip:SetCell(line, 5, L['Location'])  --!  (Location) or Zone
+
+				if not E.db.sle.dt.friends.hideFriendsNotes then
+					line = tooltip:SetCell(line, 7, L["Note"], "LEFT")  --! Note
+				else
+					line = tooltip:SetCell(line, 7, minbutton .. L["Note"], "LEFT")  --! +Note
+				end
+				tooltip:SetCellScript(line, 7, "OnMouseUp", HideOnMouseUp, "hide:hideFriendsNotes")
+			end
+
+			tooltip:AddSeparator()
+		end
+
+		lastTooltipXLineHeader = header
+	end
+
+	if not ElvDB.SLEMinimize[minimizeclient] then
+		line = tooltip:AddLine()
+		if not ElvDB.SLEMinimize["expandBNBroadcast"..accountName] and customMessage ~= "" then
+			broadcast_flag = " " .. BROADCAST_ICON
+		else
+			broadcast_flag = ""
+		end
+
+		line = tooltip:SetCell(line, 2, status)
+		line = tooltip:SetCell(line, 4, "|cff82c5ff" .. accountName .. "|r" .. broadcast_flag)
+		if client and client == "App" or client == "BSAp" then
+			line = tooltip:SetCell(line, 3, characterName)
+
+			if not E.db.sle.dt.friends.hideFriendsNotes then
+				line = tooltip:SetCell(line, 6, noteText, "LEFT")
+			end
+		elseif client == "WoW" then
+			line = tooltip:SetCell(line, 1, level)
+			line = tooltip:SetCell(line, 3, format("|cff%02x%02x%02x%s|r", classc.r * 255, classc.g * 255, classc.b * 255, characterName) .. (inGroup(characterName, realmName)))
+			line = tooltip:SetCell(line, 5, zoneName or gameText)
+			line = tooltip:SetCell(line, 6, format("|cff%s%s|r", fcolor or "ffffff", realmName or ""))
+			if not E.db.sle.dt.friends.hideFriendsNotes then
+				line = tooltip:SetCell(line, 7, noteText, "LEFT")
+			end
+		else
+			line = tooltip:SetCell(line, 3, characterName)
+			line = tooltip:SetCell(line, 5, zoneName or gameText)
+			line = tooltip:SetCell(line, 6, format("|cff%s%s|r", fcolor or "ffffff", realmName or ""))
+
+			if not E.db.sle.dt.friends.hideFriendsNotes then
+				line = tooltip:SetCell(line, 7, noteText, "LEFT")
+			end
+		end
+
+		tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, format("realid:%s:%s:%s", characterName, accountName, accountID, guid))
+
+		if ElvDB.SLEMinimize["expandBNBroadcast"..accountName] and customMessage ~= "" then
+			line = tooltip:AddLine()
+			line = tooltip:SetCell(line, 1, BROADCAST_ICON .. " |cff7b8489" .. customMessage .. "|r "..customMessageTime, "LEFT", 0)
+			tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, format("realid:%s:%s", characterName, accountName))
+		end
+	end
+end
+
+function OnEnter(self)
+	DT:SetupTooltip(self)
+	lastTooltipXLineHeader = nil
+
+	local onlineFriends = C_FriendList_GetNumOnlineFriends()
+	local numberOfFriends = C_FriendList_GetNumFriends()
+	local totalBNet, numBNetOnline = BNGetNumFriends()
+	local totalonline = onlineFriends + numBNetOnline
+	local zonec, classc, levelc
+	local valuec = E.db.general.valuecolor
+	local hexColor = E:RGBToHex(valuec.r, valuec.g, valuec.b)
+
+	-- Exit if no one online
+	if totalonline == 0 then return end
+
+	if not dataValid then
+		-- only retrieve information for all on-line members when we actually view the tooltip
+		if numberOfFriends > 0 then BuildFriendTable(numberOfFriends) end
+		if totalBNet > 0 then BuildBNTable(totalBNet) end
+		dataValid = true
+	end
+
+    if E.db.sle.dt.friends.combat and InCombatLockdown() then return end
+
+	if LibQTip:IsAcquired("ShadowLightFriendss") then
 		tooltip:Clear()
 	else
-		tooltip = LibQTip:Acquire("ShadowLightFriends", 8, "RIGHT", "RIGHT", "LEFT", "LEFT", "CENTER", "CENTER", "RIGHT")
+		tooltip = LibQTip:Acquire("ShadowLightFriendss", 8, "RIGHT", "RIGHT", "LEFT", "LEFT", "CENTER", "CENTER", "RIGHT")
 
 		tooltip:SetBackdropColor(0,0,0,1)
 
-		ssHeaderFont:SetFont(GameTooltipHeaderText:GetFont())
-		ssRegFont:SetFont(GameTooltipText:GetFont())
+        local ssHeaderFont = CreateFont("ssHeaderFont")
+        ssHeaderFont:SetTextColor(1,0.823529,0)
+        ssHeaderFont:SetFont(GameTooltipHeaderText:GetFont())
 		tooltip:SetHeaderFont(ssHeaderFont)
+
+		local ssRegFont = CreateFont("ssRegFont")
+        ssRegFont:SetTextColor(1,0.823529,0)
+        ssRegFont:SetFont(GameTooltipText:GetFont())
 		tooltip:SetFont(ssRegFont)
 
 		tooltip:SmartAnchorTo(self)
 		tooltip:SetAutoHideDelay(E.db.sle.dt.friends.tooltipAutohide, self)
 		tooltip:SetScript("OnShow", function(ttskinself) ttskinself:SetTemplate('Transparent') end)
-	end
+    end
 
-	local line = tooltip:AddLine()
-	if not E.db.sle.dt.friends.hide_titleline then
+	line = tooltip:AddLine()
+    if not E.db.sle.dt.friends.hide_titleline then
+        local ssTitleFont = CreateFont("ssTitleFont")
+        ssTitleFont:SetTextColor(1,0.823529,0)
 		ssTitleFont:SetFont(GameTooltipText:GetFont())
-		tooltip:SetCell(line, 1, "Shadow & Light Friends", ssTitleFont, "CENTER", 0)
+		tooltip:SetCell(line, 1, "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Banner:50:200|t", ssTitleFont, "CENTER", 0)
+		-- tooltip:SetCell(line, 1, E:TextGradient("Shadow & Light", 1.0,0.6,0.4, 1.0,0.4,0.6, 0.6,0.4,1.0, 0.4,0.6,1.0, 0.4,1.0,0.6).."|r".." Friends", ssTitleFont, "CENTER", 0)
 		tooltip:AddLine(" ")
 	end
 
-	local _, numBNOnline = BNGetNumFriends()
-	local numFriendsOnline = C_FriendList.GetNumOnlineFriends()
-
-	if (numBNOnline > 0) or (numFriendsOnline > 0) then
+	if onlineFriends > 0 then
 		line = tooltip:AddLine()
-		if not E.db.sle.dt.friends.hideFriends then
-			tooltip:SetCell(line, 1, "|cffffffff" .. _G.FRIENDS .. "|r", "LEFT", 3)
+		if not ElvDB.SLEMinimize.minimizeCharacterFriends then
+			tooltip:SetCell(line, 1, characterFriend, "CENTER", 0)
 		else
-			tooltip:SetCell(line, 1, "|cffffffff" .. MINIMIZE .. _G.FRIENDS .. "|r", "LEFT", 3)
+			tooltip:SetCell(line, 1, minbutton .. characterFriend, "CENTER", 0)
 		end
-		tooltip:SetCellScript(line, 1, "OnMouseUp", HideOnMouseUp, "hideFriends")
+		tooltip:SetCellScript(line, 1, "OnMouseUp", HideOnMouseUp, "client:minimizeCharacterFriends")
 
-		if not E.db.sle.dt.friends.hideFriends then
+		if not ElvDB.SLEMinimize.minimizeCharacterFriends then
 			line = tooltip:AddHeader()
-			line = tooltip:SetCell(line, 1, "  ")
-			tooltip:SetCellScript(line, 1, "OnMouseUp", SetRealIDSort, "LEVEL")
-			line = tooltip:SetCell(line, 3, _G.NAME)
-			tooltip:SetCellScript(line, 3, "OnMouseUp", SetRealIDSort, "TOONNAME")
-			line = tooltip:SetCell(line, 4, _G.BATTLENET_FRIEND)
-			tooltip:SetCellScript(line, 4, "OnMouseUp", SetRealIDSort, "REALID")
-			line = tooltip:SetCell(line, 5, _G.LOCATION_COLON)
-			tooltip:SetCellScript(line, 5, "OnMouseUp", SetRealIDSort, "ZONENAME")
-			line = tooltip:SetCell(line, 6, _G.FRIENDS_LIST_REALM)
-			tooltip:SetCellScript(line, 6, "OnMouseUp", SetRealIDSort, "REALMNAME")
-			if not E.db.sle.dt.friends.hideFriendsNotes then
-				line = tooltip:SetCell(line, 7, _G.NOTE_COLON)
-			else
-				line = tooltip:SetCell(line, 7, MINIMIZE .. _G.NOTE_COLON)
-			end
-			tooltip:SetCellScript(line, 7, "OnMouseUp", HideOnMouseUp, "hideFriendsNotes")
+			line = tooltip:SetCell(line, 1, "  ")  -- !Level Column
+			line = tooltip:SetCell(line, 3, _G.NAME)  -- !Name Column
+			line = tooltip:SetCell(line, 5, _G.ZONE)  -- !Location Column
 
+			if not E.db.sle.dt.friends.hideFriendsNotes then
+				line = tooltip:SetCell(line, 7, L["Note"], "LEFT")  --!Note Column
+			else
+				line = tooltip:SetCell(line, 7, minbutton .. L["Note"], "LEFT")
+			end
+
+			tooltip:SetCellScript(line, 7, "OnMouseUp", HideOnMouseUp, "hide:hideFriendsNotes")
 			tooltip:AddSeparator()
 
-			if numBNOnline > 0 then
-				wipe(realid_table)
-				for i = 1, numBNOnline do
-					local presenceID, givenName, bTag, _, _, toonID, gameClient, isOnline, lastOnline, isAFK, isDND, broadcast, note, _, castTime = BNGetFriendInfo(i)
-					local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText, _, _, canSoR, _, _, _, _, playerGUID, WoWProjectID = BNGetFriendGameAccountInfo(i, 1)
-					local broadcastTime = ""
-					if castTime then
-						broadcastTime = format(BNET_BROADCAST_SENT_TIME, sletime_Conversion(castTime));
+			for _, info in ipairs(friendTable) do
+				if info.online then
+					local shouldSkip = false
+
+					if (info.status == statusTable.AFK) and E.db.sle.dt.friends.hideAFK then
+						shouldSkip = true
+					elseif (info.status == statusTable.DND) and E.db.sle.dt.friends.hideDND then
+						shouldSkip = true
 					end
 
-					local fcolor
-					local status = ""
-					if toonName then
-						if faction then
-							if faction == "Horde" then
-								fcolor = RED_FONT_COLOR_CODE
+					if not shouldSkip then
+						if E.MapInfo.zoneText and (E.MapInfo.zoneText == info.zone) then
+							zonec = activezone
+						else
+							zonec = inactivezone
+						end
+
+						classc, levelc = E:ClassColor(info.class), GetQuestDifficultyColor(info.level)
+
+						if not classc then
+							classc = levelc
+						end
+
+						line = tooltip:AddLine()
+						line = tooltip:SetCell(line, 1, format("|cff%02x%02x%02x%d|r", levelc.r * 255, levelc.g * 255, levelc.b * 255, info.level))
+						line = tooltip:SetCell(line, 2, info.status)
+						line = tooltip:SetCell(line, 3, format("|cff%02x%02x%02x%s|r", classc.r * 255, classc.g * 255, classc.b * 255, info.characterName) .. inGroup(info.characterName))
+						line = tooltip:SetCell(line, 5, format("|cff%02x%02x%02x%s|r", zonec.r * 255, zonec.g * 255, zonec.b * 255, info.zone), "CENTER")
+
+						if not E.db.sle.dt.friends.hideFriendsNotes then
+							line = tooltip:SetCell(line, 7, info.notes, "LEFT")
+						end
+
+						tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, format("friends:%s:%s", info.characterName, info.guid))
+					end
+				end
+			end
+		end
+	end
+
+	if numBNetOnline > 0 then
+		local status, fcolor
+		for _, client in ipairs(clientSorted) do
+			local Table = tableList[client]
+			for _, info in ipairs(Table) do
+				local sepclient = (info.wowProjectID == classicID and info.gameText) or clientTags[client] or client
+				sepclient = sepclient:gsub(' ', '')
+				local shouldSkip = E.db.sle.dt.friends['hide'..sepclient]
+				if not shouldSkip then
+					if info.isOnline then
+						shouldSkip = false
+						if info.isBnetAFK == true then
+							if E.db.sle.dt.friends.hideAFK then
+								shouldSkip = true
+							end
+							status = statusTable.AFK
+						elseif info.isBnetDND == true then
+							if E.db.sle.dt.friends.hideDND then
+								shouldSkip = true
+							end
+							status = statusTable.DND
+						else
+							status = ""
+						end
+
+						if not shouldSkip then
+							local header = format("%s (%s%s|r)", battleNetString, hexColor, (info.wowProjectID == classicID and info.gameText) or clientTags[client] or client)
+
+							if info.client and info.client == wowString then
+								classc = E:ClassColor(info.className)
+
+								if info.level and info.level ~= '' then
+									levelc = GetQuestDifficultyColor(info.level)
+								else
+									classc, levelc = PRIEST_COLOR, PRIEST_COLOR
+								end
+
+								if info.faction and info.faction == "Horde" then
+									fcolor = "ff2020"
+								else
+									fcolor = "0070dd"
+								end
+
+								if E.MapInfo.zoneText and (E.MapInfo.zoneText == info.zoneName) then
+									zonec = activezone
+								else
+									zonec = inactivezone
+								end
+
+								--Sometimes the friend list is fubar with level 0 unknown friends
+								if not classc then classc = PRIEST_COLOR end
+
+								TooltipAddXLine(tooltip, header, info.client, sepclient, format("|cff%02x%02x%02x%d|r", levelc.r * 255, levelc.g * 255, levelc.b * 255, info.level), status, classc, info.characterName, info.accountName, info.customMessage, info.customMessageTime, format("|cff%02x%02x%02x%s|r", zonec.r * 255, zonec.g * 255, zonec.b * 255, info.zoneName), fcolor, info.realmName, info.guid, info.noteText, info.accountID, info.gameText)
 							else
-								fcolor = "|cff0070dd"
+								if not classc then
+									classc = {r = "0.51",g = ".77",b = "1"}
+								end
+								TooltipAddXLine(tooltip, header, info.client, nil, nil, status, classc, info.characterName, info.accountName, info.customMessage, info.customMessageTime, nil, fcolor, info.realmName, info.guid, info.noteText, info.accountID, info.gameText)
 							end
 						end
-						if isAFK then
-							status = AWAY_ICON
-						end
-						if isDND then
-							status = BUSY_ICON
-						end
-						if note and note ~= "" then note = "|cffff8800"..note.."|r" end
-
-						tinsert(realid_table, {
-							GIVENNAME = givenName,
-							SURNAME = bTag or "",
-							LEVEL = level,
-							CLASS = class,
-							FCOLOR = fcolor,
-							STATUS = status,
-							BROADCAST_TEXT = broadcast or "",
-							BROADCAST_TIME = broadcastTime or "",
-							TOONNAME = toonName,
-							CLIENT = client,
-							ZONENAME = zoneName,
-							REALMNAME = realmName,
-							GAMETEXT = gameText,
-							NOTE = note,
-							PRESENCEID = presenceID,
-							WOWPROJECTID = WoWProjectID,
-							})
 					end
-				end
-
-				if (E.db.sle.dt.friends["sortBN"] ~= "REALID") and (E.db.sle.dt.friends["sortBN"] ~= "revREALID") then
-					sort(realid_table, list_sort[E.db.sle.dt.friends["sortBN"]])
-				end
-
-				for _, player in ipairs(realid_table) do
-					local broadcast_flag
-					if not E.db.sle.dt.friends.expandBNBroadcast and player["BROADCAST_TEXT"] ~= "" then
-						broadcast_flag = " " .. BROADCAST_ICON
-					else
-						broadcast_flag = ""
-					end
-
-					line = tooltip:AddLine()
-					line = tooltip:SetCell(line, 1, ColoredLevel(player["LEVEL"]))
-					line = tooltip:SetCell(line, 2, player["STATUS"])
-					if player["CLIENT"] ~= "Hero" then
-						line = tooltip:SetCell(line, 3,
-						format("|cff%s%s",CLASS_COLORS[player["CLASS"]] or "B8B8B8", player["TOONNAME"] .. "|r")..
-						(inGroup(player["TOONNAME"]) and GROUP_CHECKMARK or ""))
-					else
-						line = tooltip:SetCell(line, 3, format(""))
-					end
-					line = tooltip:SetCell(line, 4,
-						"|cff82c5ff" .. player["GIVENNAME"] .. "|r" .. broadcast_flag)
-
-					if player["CLIENT"] == "WoW" then
-						if player["WOWPROJECTID"] == 2 then
-							line = tooltip:SetCell(line, 5, player["ZONENAME"])
-							line = tooltip:SetCell(line, 6, "WoW Classic")
-						else
-							line = tooltip:SetCell(line, 5, player["ZONENAME"])
-							line = tooltip:SetCell(line, 6, player["FCOLOR"] .. player["REALMNAME"] .. "|r")
-						end
-					elseif player["CLIENT"] == "App" then
-						line = tooltip:SetCell(line, 5, "|cff82c5ffDesktop Application|r")
-						line = tooltip:SetCell(line, 6, "|cff01b2f1Battle.net|r")
-					elseif player["CLIENT"] == "BSAp" then
-						-- line = tooltip:SetCell(line, 5, "|cff82c5ffMobile|r")
-						line = tooltip:SetCell(line, 5, "|cff82c5ff"..COMMUNITIES_PRESENCE_MOBILE_CHAT.."|r")
-						line = tooltip:SetCell(line, 6, "|cff01b2f1Battle.net|r")
-					else
-						line = tooltip:SetCell(line, 5, player["GAMETEXT"])
-						if player["CLIENT"] == "S2" then
-							line = tooltip:SetCell(line, 6, "|cff82c5ffStarCraft 2|r")
-						elseif player["CLIENT"] == "S1" then
-							line = tooltip:SetCell(line, 6, "|cff82c5ffStarCraft|r")
-						elseif player["CLIENT"] == "D3" then
-							line = tooltip:SetCell(line, 6, "|cffad835aDiablo 3|r")
-						elseif player["CLIENT"] == wtcgString then
-							line = tooltip:SetCell(line, 6, "|cff82c5ffHearthstone|r")
-						elseif player["CLIENT"] == "Hero" then
-							line = tooltip:SetCell(line, 6, "|cff82c5ffHeroes of The Storm|r")
-						elseif player["CLIENT"] == "Pro" then
-							line = tooltip:SetCell(line, 6, "|cff82c5ffOverwatch|r")
-						elseif player["CLIENT"] == "DST2" then
-							line = tooltip:SetCell(line, 6, "|cffffffffDestiny 2|r")
-						elseif player["CLIENT"] == "VIPR" then
-							line = tooltip:SetCell(line, 6, "CoD")
-						end
-					end
-
-					if not E.db.sle.dt.friends.hideFriendsNotes then
-						line = tooltip:SetCell(line, 7, player["NOTE"])
-					end
-
-					tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, format("realid:%s:%s:%d", player["TOONNAME"], player["GIVENNAME"], player["PRESENCEID"]))
-
-					if E.db.sle.dt.friends.expandBNBroadcast and player["BROADCAST_TEXT"] ~= "" then
-						line = tooltip:AddLine()
-						line = tooltip:SetCell(line, 1, BROADCAST_ICON .. " |cff7b8489" .. player["BROADCAST_TEXT"] .. "|r "..player["BROADCAST_TIME"], "LEFT", 0)
-						tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, format("realid:%s:%s:%d", player["TOONNAME"], player["GIVENNAME"], player["PRESENCEID"]))
-					end
-				end
-				tooltip:AddLine(" ")
-			end
-
-			if numFriendsOnline > 0 then
-				local friend_table = {}
-				for i = 1,numFriendsOnline do
-					local toonName, level, class, zoneName, connected, status, note = GetFriendInfo(i)
-					note = note and "|cffff8800{"..note.."}|r" or ""
-
-					if status == CHAT_FLAG_AFK then
-						status = AWAY_ICON
-					elseif status == CHAT_FLAG_DND then
-						status = BUSY_ICON
-					end
-
-					tinsert(friend_table, {
-						TOONNAME = toonName,
-						LEVEL = level,
-						CLASS = class,
-						ZONENAME = zoneName,
-						REALMNAME = "",
-						STATUS = status,
-						NOTE = note
-						})
-				end
-
-				if (E.db.sle.dt.friends["sortBN"] ~= "REALID") and (E.db.sle.dt.friends["sortBN"] ~= "revREALID") then
-					sort(friend_table, list_sort[E.db.sle.dt.friends["sortBN"]])
-				else
-					sort(friend_table, list_sort["TOONNAME"])
-				end
-
-				for _, player in ipairs(friend_table) do
-					line = tooltip:AddLine()
-					line = tooltip:SetCell(line, 1, ColoredLevel(player["LEVEL"]))
-					line = tooltip:SetCell(line, 2, player["STATUS"])
-					line = tooltip:SetCell(line, 3,
-						format("|cff%s%s", CLASS_COLORS[player["CLASS"]] or "ffffff", player["TOONNAME"] .. "|r") .. (inGroup(player["TOONNAME"]) and GROUP_CHECKMARK or ""));
-					line = tooltip:SetCell(line, 5, player["ZONENAME"])
-					if not E.db.sle.dt.friends.hideFriendsNotes then
-						line = tooltip:SetCell(line, 7, player["NOTE"])
-					end
-					tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, format("friends:%s:%s", player["TOONNAME"], player["TOONNAME"]))
 				end
 			end
 		end
@@ -561,30 +745,30 @@ function LDB.OnEnter(self)
 
 	if not E.db.sle.dt.friends.hide_hintline then
 		line = tooltip:AddLine()
-		if not E.db.sle.dt.friends.minimize_hintline then
+		if not ElvDB.SLEMinimize.minimize_hintline then
 			tooltip:SetCell(line, 1, "Hint:", "LEFT", 3)
 		else
-			tooltip:SetCell(line, 1, MINIMIZE .. "Hint:", "LEFT", 3)
+			tooltip:SetCell(line, 1, minbutton .. "Hint:", "LEFT", 3)
 		end
-		tooltip:SetCellScript(line, 1, "OnMouseUp", HideOnMouseUp, "minimize_hintline")
+		tooltip:SetCellScript(line, 1, "OnMouseUp", HideOnMouseUp, "client:minimize_hintline")
 
-		if not E.db.sle.dt.friends.minimize_hintline then
+		if not ElvDB.SLEMinimize.minimize_hintline then
 			line = tooltip:AddLine()
-			tooltip:SetCell(line, 1, "", "LEFT", 1)
-			tooltip:SetCell(line, 2, L["|cffeda55fLeft Click|r to open the friends panel."], "LEFT", 3)
-			tooltip:SetCell(line, 5, L["|cffeda55fRight Click|r to open configuration panel."], "LEFT", 3)
+			-- tooltip:SetCell(line, 1, "", "LEFT", 1)
+			tooltip:SetCell(line, 2, L["%sLeft Click|r a person's line to whisper them."]:format(hexColor), "LEFT", 3)
+			tooltip:SetCell(line, 5, L["%sRight Click|r a person's line that has a bnet broadcast icon to expand it."]:format(hexColor), "LEFT", 3)
 			line = tooltip:AddLine()
-			tooltip:SetCell(line, 1, "", "LEFT", 1)
-			tooltip:SetCell(line, 2, L["|cffeda55fLeft Click|r a line to whisper a player."], "LEFT", 3)
-			tooltip:SetCell(line, 5, L["|cffeda55fShift+Left Click|r a line to lookup a player."], "LEFT", 3)
+			tooltip:SetCell(line, 2, L["%sShift+Left Click|r a person's line to perform a lookup."]:format(hexColor), "LEFT", 3)
+			tooltip:SetCell(line, 5, L["%sShift+Right Click|r a person's line to set a note for them."]:format(hexColor), "LEFT", 3)
 			line = tooltip:AddLine()
-			tooltip:SetCell(line, 1, "", "LEFT", 1)
-			tooltip:SetCell(line, 2, L["|cffeda55fCtrl+Left Click|r a line to edit a note."], "LEFT", 3)
-			tooltip:SetCell(line, 5, L["|cffeda55fMiddleClick|r a line to expand RealID."], "LEFT", 3)
+			tooltip:SetCell(line, 2, L["%sCtrl+Left Click|r a person's line to invite them."]:format(hexColor), "LEFT", 3)
 			line = tooltip:AddLine()
-			tooltip:SetCell(line, 1, "", "LEFT", 1)
-			tooltip:SetCell(line, 2, L["|cffeda55fAlt+Left Click|r a line to invite."], "LEFT", 3)
-			tooltip:SetCell(line, 5, L["|cffeda55fLeft Click|r a Header to hide it or sort it."], "LEFT", 3)
+			line = tooltip:AddLine()
+			tooltip:SetCell(line, 2, L["%sLeft Click|r a client service to hide it."]:format(hexColor), "LEFT", 3)
+			tooltip:SetCell(line, 5, L["%sRight Click|r a client service to set your BNet Broadcast."]:format(hexColor), "LEFT", 3)
+			line = tooltip:AddLine()
+			tooltip:SetCell(line, 2, L["%sLeft Click|r datatext panel to open friends list."]:format(hexColor), "LEFT", 3)
+			tooltip:SetCell(line, 5, L["%sRight Click|r datatext panel to customize."]:format(hexColor), "LEFT", 3)
 		end
 	end
 
@@ -592,36 +776,13 @@ function LDB.OnEnter(self)
 	tooltip:Show()
 end
 
-frame:SetScript("OnEvent", function(self, event, ...)
-	if self[event] then
-		return self[event](self, event, ...)
-	end
-end)
+local function ValueColorUpdate(hex)
+	displayhex = hex
 
-function frame:PLAYER_LOGIN()
-	local _, numBNOnline = BNGetNumFriends()
-	local numFriendsOnline = C_FriendList.GetNumOnlineFriends()
-
-	if (numBNOnline > 0) or (numFriendsOnline > 0) then
-		if numBNOnline > 0 then
-			for i = 1, numBNOnline do
-				local presenceID, givenName, bTag, _, _, toonID, gameClient, isOnline, lastOnline, isAFK, isDND, broadcast, note, _, castTime = BNGetFriendInfo(i)
-				local _, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText = BNGetFriendGameAccountInfo(i, 1)
-			end
-		end
+	if lastPanel ~= nil then
+		OnEvent(lastPanel, 'ELVUI_COLOR_UPDATE')
 	end
 end
+E.valueColorUpdateFuncs[ValueColorUpdate] = true
 
-local DELAY = 15  --  Update every 15 seconds
-local elapsed = DELAY - 5
-
-frame:SetScript("OnUpdate", function (self, elapse)
-	elapsed = elapsed + elapse
-
-	if elapsed >= DELAY then
-		elapsed = 0
-		DTP:update_Friends()
-	end
-end)
-
-frame:RegisterEvent("PLAYER_LOGIN")
+DT:RegisterDatatext('S&L Friends', 'S&L', {"BN_FRIEND_ACCOUNT_ONLINE", "BN_FRIEND_ACCOUNT_OFFLINE", "BN_FRIEND_INFO_CHANGED", "FRIENDLIST_UPDATE", "CHAT_MSG_SYSTEM", "MODIFIER_STATE_CHANGED"}, OnEvent, nil, OnClick, OnEnter, nil, 'S&L Friends')

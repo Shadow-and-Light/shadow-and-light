@@ -362,6 +362,20 @@ L["You didn't select any instance to track."] = "Du hast keine Instanz zum Verfo
 L["Bosses killed: "] = "Bosse getötet:"
 L["Current:"] = "Aktuell:"
 L["Weekly:"] = "Wöchentlich:"
+
+--S&L Friends --* Rewrite current locales
+L["%sLeft Click|r a person's line to whisper them."] = true
+L["%sRight Click|r a person's line that has a bnet broadcast icon to expand it."] = true
+L["%sShift+Left Click|r a person's line to perform a lookup."] = true
+L["%sShift+Right Click|r a person's line to set a note for them."] = true
+L["%sCtrl+Left Click|r a person's line to invite them."] = true
+L["%sLeft Click|r a client service to hide it."] = true
+L["%sRight Click|r a client service to set your BNet Broadcast."] = true
+L["%sLeft Click|r datatext panel to open friends list."] = true
+L["%sRight Click|r datatext panel to customize."] = true
+L["Note"] = true
+
+--OLD Friend & Guild DT --!Remove when changes to guild dt happen
 L["|cffeda55fLeft Click|r to open the friends panel."] = "|cffeda55fLinks Klick|r um das Freundesfenster zu öffnen."
 L["|cffeda55fRight Click|r to open configuration panel."] = "|cffeda55fRechts Klick|r um in die Einstellungen zu gelangen."
 L["|cffeda55fLeft Click|r a line to whisper a player."] = "|cffeda55fLinks Klick|r auf eine Linie um einen Spieler zu flüstern."
@@ -369,7 +383,7 @@ L["|cffeda55fShift+Left Click|r a line to lookup a player."] = "|cffeda55fShift+
 L["|cffeda55fCtrl+Left Click|r a line to edit a note."] = "|cffeda55fStrg+Links Klick|r auf eine Linie um die Notiz zu bearbeiten."
 L["|cffeda55fMiddleClick|r a line to expand RealID."] = "|cffeda55fMittlerer-Klick|r auf eine Linie um die RealID zu erweitern."
 L["|cffeda55fAlt+Left Click|r a line to invite."] = "|cffeda55fAlt+Links Klick|r auf eine Linie um einzuladen."
-L["|cffeda55fLeft Click|r a Header to hide it or sort it."] = "|cffeda55fLinks Klick|r auf eine Überschrift um auszublenden oder sortieren."
+L["|cffeda55fLeft Click|r a Header to hide it."] = "|cffeda55fLinks Klick|r auf eine Überschrift um auszublenden oder sortieren."
 L["|cffeda55fLeft Click|r to open the guild panel."] = "|cffeda55fLinks Klick|r um das Gildenfenster zu öffnen."
 L["|cffeda55fCtrl+Left Click|r a line to edit note."] = "|cffeda55fStrg+Links Klick|r auf eine Linie um die Notiz zu bearbeiten."
 L["|cffeda55fCtrl+Right Click|r a line to edit officer note."] = "|cffeda55fStrg+Rechts Klick|r auf eine Linie um die Offiziersnotiz zu bearbeiten."

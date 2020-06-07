@@ -340,15 +340,29 @@ P["sle"] = {
 	--SLE Datatexts
 	["dt"] = {
 		["friends"] = {
-			["combat"] = false,
-			["expandBNBroadcast"] = false,
-			["hideFriends"] = false,
-			["hide_hintline"] = false,
-			["hide_titleline"] = false,
-			["sortBN"] = 'TOONNAME',
-			["tooltipAutohide"] = 0.2,
-			["totals"] = false,
-			["textStyle"] = "Default",
+			--*  General Settings
+			panelStyle = "DEFAULT",
+			tooltipAutohide = 0.2,
+			hide_hintline = false,
+			combat = false,
+			hide_titleline = false,
+			--*  Hide By Clients
+			hideWoW = false,		--WoW Retail
+			hideWoWClassic = false,	--WoW Classic
+			hideApp = false,		--Launcher
+			hideBSAp = false,		--Mobile
+			hideD3 = false,			--Diablo 3
+			hideWTCG = false,		--Hearthstone
+			hideHero = false,		--Heros of the Storm
+			hidePro = false,		--Overwatch
+			hideS1 = false,			--Starcraft
+			hideS2 = false,			--Starcraft 2
+			hideVIPR = false,		--COD: Black Ops 4
+			hideODIN = false,		--COD: Modern Warfare
+			hideLAZR = false,		--COD: Modern Warfare 2
+			--*  Hide By Status
+			hideAFK = false,
+			hideDND = false,
 		},
 		["guild"] = {
 			["combat"] = false,

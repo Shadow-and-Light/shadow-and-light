@@ -8,6 +8,15 @@ local format = format
 --Table to remember where default Gold DT is
 DTP.GoldCache = {}
 
+--* Table of datatext panels format for S&L Guild & Friends dt
+DTP.PanelStyles = {
+	DEFAULT			= '%s: %s%s|r',
+	DEFAULTTOTALS	= '%s: %s%s/%s|r',
+	ICON			= '%s: %s%s|r',
+	ICONTOTALS		= '%s: %s%s/%s|r',
+	NOTEXT			= '%s%s|r',
+	NOTEXTTOTALS	= '%s%s/%s|r',
+}
 --The hook to core DT:LoadDataTexts function
 local OnLoadThrottle = true
 function DTP:LoadDTHook()
@@ -80,9 +89,18 @@ function DTP:DeleteCurrencyEntry(data)
 	E.Libs["AceConfigDialog"]:ConfigTableChanged(nil, "ElvUI")
 end
 
+function DTP:PLAYER_ENTERING_WORLD(event, message)
+	if event == "PLAYER_ENTERING_WORLD" then
+		if message or not ElvDB.SLEMinimize then
+			ElvDB.SLEMinimize = {}  -- * Temp table friends and guild dt can use to track temp visibility states
+		end
+	end
+end
+
 function DTP:Initialize()
 	if not SLE.initialized then return end
 
+	DTP:RegisterEvent('PLAYER_ENTERING_WORLD')
 	--Hooking to default DTs for additional features
 	DTP:HookTimeDT()
 	DTP:HookDurabilityDT()
