@@ -433,12 +433,10 @@ local function HideOnMouseUp(_, info, button)
 
 	if action == "hide" then
 		E.db.sle.dt.friends[section] = not E.db.sle.dt.friends[section]
-		print("Hide: "..section)
 	end
 
 	if action == "client" then
 		if button == "LeftButton" then
-			print("Client: "..section)
 			ElvDB.SLEMinimize[section] = not ElvDB.SLEMinimize[section]
 		end
 		if button == "RightButton" then
