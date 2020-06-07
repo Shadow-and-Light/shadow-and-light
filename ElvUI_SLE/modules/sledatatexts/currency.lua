@@ -30,6 +30,7 @@ local IsLoggedIn = IsLoggedIn
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local IsShiftKeyDown = IsShiftKeyDown
 local ToggleAllBags = ToggleAllBags
+local UnitClass = UnitClass
 
 local ArchaeologyFragments = {
 	398, -- Draenei
@@ -251,7 +252,7 @@ local function OnEvent(self, event, ...)
 	ElvDB["gold"][E.myrealm][E.myname] = ElvDB["gold"][E.myrealm][E.myname] or NewMoney;
 	ElvDB["class"] = ElvDB["class"] or {};
 	ElvDB["class"][E.myrealm] = ElvDB["class"][E.myrealm] or {};
-	ElvDB["class"][E.myrealm][E.myname] = select(2, T.UnitClass('player'))
+	ElvDB["class"][E.myrealm][E.myname] = select(2, UnitClass('player'))
 	ElvDB["faction"] = ElvDB["faction"] or {};
 	ElvDB["faction"][E.myrealm] = ElvDB["faction"][E.myrealm] or {};
 	ElvDB["faction"][E.myrealm]["Horde"] = ElvDB["faction"][E.myrealm]["Horde"] or {};
