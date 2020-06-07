@@ -477,7 +477,7 @@ function OnEnter(self, _, noUpdate)
 			line = tooltip:AddLine()
 			tooltip:SetCell(line, 1, "", "LEFT", 1)
 			tooltip:SetCell(line, 2, L["|cffeda55fAlt+Left Click|r a line to invite."], "LEFT", 3)--
-			tooltip:SetCell(line, 5, L["|cffeda55fLeft Click|r a Header to hide it or sort it."], "LEFT", 3)--
+			tooltip:SetCell(line, 5, L["|cffeda55fLeft Click|r a Header to hide it."], "LEFT", 3)--
 		end
 	end
 
