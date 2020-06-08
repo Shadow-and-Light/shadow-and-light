@@ -2,7 +2,7 @@
 
 --  GLOBALS:  unpack, NUM_BAG_SLOTS, IsAddOnLoaded, DEFAULT_CHAT_FRAME
 local _G = _G
-local select, format, tonumber, split, match, ipairs, pairs, gsub = select, format, tonumber, string.split, match, ipairs, pairs, gsub
+local select, format, tonumber, match, ipairs, pairs, gsub = select, format, tonumber, match, ipairs, pairs, gsub
 local getmetatable, error, type, assert, random = getmetatable, error, type, assert, random
 local tremove, tinsert, tconcat, date = tremove, tinsert, tconcat, date
 local strjoin, strmatch, strsplit, strfind = strjoin, strmatch, strsplit, strfind
@@ -365,7 +365,7 @@ function SLE:MovableButtonSettings(db, key, value, remove, movehere)
 	end
 	local found = MovableButton_Match(str, E:EscapeString(value))
 	if found and movehere then
-		local tbl, sv, sm = {split(",", str)}
+		local tbl, sv, sm = {strsplit(",", str)}
 		for i in ipairs(tbl) do
 			if tbl[i] == value then
 				sv = i
@@ -419,14 +419,14 @@ function SLE:CreateMovableButtons(Order, Name, CanRemove, db, key)
 			if str == "" then
 				return nil
 			end
-			return {split(",", str)}
+			return {strsplit(",", str)}
 		end,
 		get = function(info, value)
 			local str = db[key]
 			if str == "" then
 				return nil
 			end
-			local tbl = {split(",", str)}
+			local tbl = {strsplit(",", str)}
 			return tbl[value]
 		end,
 		set = function(info, value)
