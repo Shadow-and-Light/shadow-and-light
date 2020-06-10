@@ -355,7 +355,6 @@ function Armory:UpdateGemInfo(Slot, which)
 					end
 				end
 				if which == "Character" and Armory.Constants.EssenceMilestones[i] then
-					--  TODO: Check on this GemID as it was global and not local
 					local GemID = C_AzeriteEssence.GetMilestoneEssence(Armory.Constants.EssenceMilestones[i]) --Blizz messed up milestones IDs so using a god damned cache table
 					if GemID then
 						local rank = C_AzeriteEssence.GetEssenceInfo(GemID).rank
