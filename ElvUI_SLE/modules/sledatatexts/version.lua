@@ -1,17 +1,19 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, _, E, L = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
 
+--  GLOBALS: unpack, select, format, GAME_VERSION_LABEL
 local format = format
 local GAME_VERSION_LABEL = GAME_VERSION_LABEL
-local displayString = '';
-local lastPanel;
 
-local function OnEvent(self, event, ...)
-	self.text:SetFormattedText(displayString, 'ElvUI v', E.version, SLE.version);
+local displayString = ''
+local lastPanel
+
+local function OnEvent(self)
+	self.text:SetFormattedText(displayString, E.version, SLE.version);
 	lastPanel = self
 end
 
-local function Click()
+local function OnClick()
 	E:ToggleOptionsUI()
 	E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "sle")
 end
@@ -20,15 +22,15 @@ local function OnEnter(self)
 	DT:SetupTooltip(self)
 
 	DT.tooltip:AddDoubleLine("ElvUI "..GAME_VERSION_LABEL..format(": |cff99ff33%s|r", E.version))
-	DT.tooltip:AddLine(L["SLE_AUTHOR_INFO"]..". "..GAME_VERSION_LABEL..format(": |cff99ff33%s|r", SLE.version))
+	DT.tooltip:AddDoubleLine("S&L "..GAME_VERSION_LABEL..format(": |cff99ff33%s|r", SLE.version))
 	DT.tooltip:AddLine(" ")
 	DT.tooltip:AddLine(L["SLE_CONTACTS"])
 
 	DT.tooltip:Show()
 end
 
-local function ValueColorUpdate(hex, r, g, b)
-	displayString = strjoin("", "%s", hex, "%s|r", " : Shadow & Light v", hex, "%s|r")
+local function ValueColorUpdate(hex)
+	displayString = format('ElvUI v%s%s|r S&L v%s%s|r', hex, "%s", hex, "%s")
 
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)
@@ -36,4 +38,4 @@ local function ValueColorUpdate(hex, r, g, b)
 end
 E["valueColorUpdateFuncs"][ValueColorUpdate] = true
 
-DT:RegisterDatatext("Version", 'S&L', {'LOADING_SCREEN_DISABLED'}, OnEvent, Update, Click, OnEnter)
+DT:RegisterDatatext("Version", 'S&L', {'LOADING_SCREEN_DISABLED'}, OnEvent, nil, OnClick, OnEnter, nil, L["Version"])
