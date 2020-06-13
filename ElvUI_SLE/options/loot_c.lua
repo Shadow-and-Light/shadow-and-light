@@ -157,7 +157,7 @@ local function configTable()
 					window = {
 						order = 3,
 						type = "toggle",
-						name = L["Auto hide"],
+						name = L["Auto Hide"],
 						desc = L["Automatically hides Loot Roll History frame when leaving the instance."],
 						disabled = function() return not E.db.sle.loot.enable end,
 						get = function() return E.db.sle.loot.history.autohide end,
