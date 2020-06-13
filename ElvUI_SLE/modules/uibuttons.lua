@@ -28,7 +28,7 @@ function UB:ConfigSetup(menu)
 end
 
 function UB:AddonSetup(menu)
-	menu:CreateDropdownButton("Addon", "Manager", ADDONS, L["AddOns Manager"], L["Click to toggle the AddOn Manager frame."],  function() _G["GameMenuButtonAddons"]:Click() end, nil, true)
+	menu:CreateDropdownButton("Addon", "Manager", ADDONS, L["AddOn Manager"], L["Click to toggle the AddOn Manager frame."],  function() _G["GameMenuButtonAddons"]:Click() end, nil, true)
 
 	menu:CreateDropdownButton("Addon", "DBM", L["Boss Mod"], L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], function() DBM:LoadGUI() end, "DBM-Core")
 	menu:CreateDropdownButton("Addon", "VEM", L["Boss Mod"], L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], function() VEM:LoadGUI() end, "VEM-Core")
