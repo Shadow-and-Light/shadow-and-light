@@ -3,7 +3,7 @@ local S = SLE:GetModule("Screensaver")
 
 --GLOBALS: unpack, select, floor, tinsert, DEFAULT, AceGUIWidgetLSMlists, GetScreenWidth
 local floor, tinsert = floor, tinsert
-local DEFAULT, AceGUIWidgetLSMlists, GetScreenWidth = DEFAULT, AceGUIWidgetLSMlists, GetScreenWidth
+local DEFAULT, GetScreenWidth = DEFAULT, GetScreenWidth
 
 local function configTable()
 	if not SLE.initialized then return end
