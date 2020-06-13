@@ -1,5 +1,46 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 
+--  GLOBALS: unpack, select, tinsert
+
+--* Leave here as there is no need for translation
+L["ELVUI_SLE_DONORS"] = [[Anthony Ross
+Bogdan Vozniuk
+Christopher Yallalee
+Chun Kim
+Cyntia McCarthy
+Jason Grier
+Joe Quarles
+Jonathan Sweet
+Katherine Clarkson
+Marguerite F
+Nicholas Caldecutt
+Richard Gardner
+Tony Ellis]]
+L["ELVUI_SLE_PATRONS"] = [[Ali A
+Andre E.
+Peter aka Pete
+Sean G.
+Mark K.]]
+L["ELVUI_SLE_CODERS"] = [[Elv
+Tukz
+Affinitii
+Arstraea
+Azilroka
+Benik, The Slacker
+Blazeflack
+Boradan
+Camealion
+Merathilis, The Confused
+Nils Ruesch
+Omega1970
+Pvtschlag
+Shenzo
+Simpy, The Heretic
+Sinaris
+Swordyy
+Whiro]]
+
+
 local function configTable()
 	if not SLE.initialized then return end
 

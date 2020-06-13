@@ -1,5 +1,27 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 
+L["SLE_CYR_COM_DESC"] = [[
+- /rl
+- /in
+- /ec
+- /elvui
+- /bgstats
+- /hellokitty
+- /hellokittyfix
+- /harlemshake
+- /egrid
+- /moveui
+- /resetui
+- /kb]]
+L["SLE_CYR_DEVCOM_DESC"] = [[
+- /luaerror
+- /frame
+- /framelist
+- /texlist
+- /cpuimpact
+- /cpuusage
+- /enableblizzard]]
+
 local function configTable()
 	if not SLE.initialized then return end
 	--Main options group
@@ -80,12 +102,21 @@ local function configTable()
 						type = "toggle",
 						name = L["Commands"],
 						desc = L["SLE_CYR_COM_DESC"],
+						descStyle = "inline",
+						width = "full",
+					},
+					devCommandsInfo = {
+						order = 3,
+						type = "description",
+						name = L["SLE_CYR_DEV_DESC"],
 					},
 					devCommands = {
-						order = 3,
+						order = 4,
 						type = "toggle",
 						name = L["Dev Commands"],
 						desc = L["SLE_CYR_DEVCOM_DESC"],
+						descStyle = "inline",
+						width = "full",
 					},
 				},
 			},
