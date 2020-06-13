@@ -22,7 +22,6 @@ L["Actionbar Autocast"] = true
 L["Actionbar Proc"] = true
 L["Additional Background Panels"] = true
 L["AddOns Manager"] = true
-L["AddOns"] = true
 L["Adds |cff9482c9Shadow & Light|r buttons to main game menu."] = true
 L["Adjust the position of the threat bar to any of the datatext panels in ElvUI & S&L."] = true
 L["Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext."] = true

@@ -2,11 +2,11 @@
 local CH, LO = SLE:GetElvModules("Chat", "Layout")
 local C = SLE:NewModule("Chat",  'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 
---GLOBALS:  UIParent, LeftChatPanel, LeftChatDataPanel, LeftChatToggleButton, LeftChatTab, RightChatPanel,
---GLOBALS:  RightChatDataPanel, RightChatToggleButton, RightChatTab, hooksecurefunc
+--GLOBALS:unpack, select, hooksecurefunc, strsplit, gsub, format, string, _G, NUM_CHAT_WINDOWS, LeftChatPanel, RightChatPanel, LeftChatToggleButton, RightChatToggleButton, IsMouseButtonDown, IsInGuild, GetNumGuildMembers, GetGuildRosterInfo, GetChatWindowSavedPosition
 
 local _G = _G
 local format = format
+local IsMouseButtonDown = IsMouseButtonDown
 
 local sub = string.sub
 local leader = [[|TInterface\GroupFrame\UI-Group-LeaderIcon:12:12|t]]
@@ -36,7 +36,7 @@ local function Style(self, frame)
 end
 
 local function GetChatIcon(sender)
-	if not specialChatIcons then 
+	if not specialChatIcons then
 		SLE:GetRegion()
 		specialChatIcons = SLE.SpecialChatIcons[SLE.region]
 	end
@@ -60,14 +60,13 @@ local function GetChatIcon(sender)
 end
 
 function C:GMCheck()
-	local name, rank
 	if GetNumGuildMembers() == 0 and IsInGuild() then E:Delay(2, C.GMCheck); return end
 	if not IsInGuild() then C.GuildMaster = ""; C.GMName = ''; C.GMRealm = ''; return end
 	for i = 1, GetNumGuildMembers() do
-		name, _, rank = GetGuildRosterInfo(i)
-		if rank == 0 then break end
+		local name, _, rank = GetGuildRosterInfo(i)
+		if rank == 0 then C.GuildMaster = name break end
 	end
-	C.GuildMaster = name
+
 	if C.GuildMaster then C.GMName, C.GMRealm = strsplit('-', C.GuildMaster) end
 	C.GMRealm = C.GMRealm or C.PlayerRealm
 	C.GMRealm = gsub(C.GMRealm, ' ', '')
