@@ -1,7 +1,11 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, _, E, L, V = unpack(select(2, ...))
 local A = SLE:GetModule("Actionbars")
 local AB = E:GetModule('ActionBars');
 local EVB = SLE:GetModule("EnhancedVehicleBar")
+
+--GLOBALS: unpack, select, tinsert, DEFAULT, NONE, LibStub
+local tinsert = tinsert
+local DEFAULT, NONE = DEFAULT, NONE
 
 local function configTable()
 	if not SLE.initialized then return end
@@ -18,8 +22,8 @@ local function configTable()
 				type = "toggle",
 				name = L["OOR as Bind Text"],
 				desc = L["Out Of Range indication will use keybind text instead of the whole icon."],
-				get = function(info) return E.private.sle.actionbars.oorBind end,
-				set = function(info, value) E.private.sle.actionbars.oorBind = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+				get = function() return E.private.sle.actionbars.oorBind end,
+				set = function(_, value) E.private.sle.actionbars.oorBind = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 			},
 			checkedtexture = {
 				order = 2,
@@ -27,8 +31,8 @@ local function configTable()
 				name = L["Checked Texture"],
 				desc = L["Highlight the button of the spell with areal effect until the area is selected."],
 				disabled = function() return not E.private.actionbar.enable or (LibStub("Masque", true) and E.private.actionbar.masque.actionbars) end,
-				get = function(info) return E.private.sle.actionbars.checkedtexture end,
-				set = function(info, value) E.private.sle.actionbars.checkedtexture = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+				get = function() return E.private.sle.actionbars.checkedtexture end,
+				set = function(_, value) E.private.sle.actionbars.checkedtexture = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 			},
 			checkedColor = {
 				type = 'color',
@@ -65,8 +69,8 @@ local function configTable()
 						order = 3,
 						type = "toggle",
 						name = L["Enable"],
-						get = function(info) return E.private.sle.vehicle.enable end,
-						set = function(info, value) E.private.sle.vehicle.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
+						get = function() return E.private.sle.vehicle.enable end,
+						set = function(_, value) E.private.sle.vehicle.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
 					buttonsize = {
 						order = 4,
