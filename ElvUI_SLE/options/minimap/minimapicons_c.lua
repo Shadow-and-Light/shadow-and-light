@@ -18,7 +18,7 @@ local function configTable()
 			barenable = {
 				order = 2,
 				type = "toggle",
-				name = L["Bar Enable"],
+				name = L["Enable Bar"],
 				desc = L["Enable/Disable Square Minimap Bar."],
 				disabled = function() return not E.private.sle.minimap.mapicons.enable end,
 				get = function(info) return E.private.sle.minimap.mapicons.barenable end,
