@@ -22,7 +22,6 @@ L["Actionbar Autocast"] = true
 L["Actionbar Proc"] = true
 L["Additional Background Panels"] = "추가적인 배경 패널"
 L["AddOns Manager"] = "애드온 관리자"
-L["AddOns"] = "애드온"
 L["Adds |cff9482c9Shadow & Light|r buttons to main game menu."] = "|cff9482c9Shadow & Light|r 버튼을 게임 메뉴에 추가합니다."
 L["Adjust the position of the threat bar to any of the datatext panels in ElvUI & S&L."] = "위협 바의 위치를 ElvUI & S&L에 있는 정보문자 패널 어딘가로 조정합니다."
 L["Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext."] = true
