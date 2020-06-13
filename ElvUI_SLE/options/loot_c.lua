@@ -211,7 +211,7 @@ local function configTable()
 					},
 					channels = {
 						type = "group",
-						name = L["Channels"],
+						name = L["CHANNELS"],
 						order = 4,
 						guiInline = true,
 						args = {

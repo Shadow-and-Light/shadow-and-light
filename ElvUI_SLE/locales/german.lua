@@ -95,14 +95,11 @@ L["Change the message style."] = true
 L["Change the position from where seed bars will grow."] = true
 L["Change width based on the zone name length."] = true
 L["Changes the text string to a shorter variant."] = "Ändert den Wert zu einer kürzeren Variante."
-L["Channels"] = "Kanäle"
 L["Character Armory"] = "Charakter Armory"
-L["Character model may differ because it was constructed by the inspect data."] = "Charakter Model könntet abweichen weil es auf den zu inspizierenden Daten aufbaut."
 L["Chat Editbox Text"] = true
 L["Chat Filters"] = "Chatfilter"
 L["Chat Frame Justify"] = "Chatfenster Ausrichtung"
-L["Chat history size"] = "Chatverlauf Größe"
-L["Chat Max Messages"] = "Maximale Chatnachrichten"
+L["Chat Setup Delay"]
 L["Check for rebirth mechanics"] = true
 L["Checked Texture Color"] = "Gedrückte Textur Farbe"
 L["Checked Texture"] = "Gedrückte Textur"
