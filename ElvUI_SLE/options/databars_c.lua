@@ -2,8 +2,9 @@
 local EDB = E:GetModule('DataBars')
 local DB = SLE:GetModule("DataBars")
 
-local format = format
-local FACTION, REPUTATION, SCENARIO_BONUS_LABEL = FACTION, REPUTATION, SCENARIO_BONUS_LABEL
+--GLOBALS: unpack, select, format, tinsert, XP, XPBAR_LABEL, RANK, HONOR, FACTION, REPUTATION, SCENARIO_BONUS_LABEL
+local format, tinsert = format, tinsert
+local XP, XPBAR_LABEL, RANK, HONOR, FACTION, REPUTATION, SCENARIO_BONUS_LABEL = XP, XPBAR_LABEL, RANK, HONOR, FACTION, REPUTATION, SCENARIO_BONUS_LABEL
 
 local function configTable()
 	if not SLE.initialized then return end
@@ -29,8 +30,8 @@ local function configTable()
 						type = "toggle",
 						name = L["Full value on Exp Bar"],
 						desc = L["Changes the way text is shown on exp bar."],
-						get = function(info) return E.db.sle.databars.exp.longtext end,
-						set = function(info, value) E.db.sle.databars.exp.longtext = value; EDB:UpdateExperience() end,
+						get = function() return E.db.sle.databars.exp.longtext end,
+						set = function(_, value) E.db.sle.databars.exp.longtext = value; EDB:UpdateExperience() end,
 					},
 					chatfilters = {
 						order = 3,
@@ -84,8 +85,8 @@ local function configTable()
 						type = "toggle",
 						name = L["Full value on Rep Bar"],
 						desc = L["Changes the way text is shown on rep bar."],
-						get = function(info) return E.db.sle.databars.rep.longtext end,
-						set = function(info, value) E.db.sle.databars.rep.longtext = value; EDB:UpdateReputation() end,
+						get = function() return E.db.sle.databars.rep.longtext end,
+						set = function(_, value) E.db.sle.databars.rep.longtext = value; EDB:UpdateReputation() end,
 					},
 					chatfilters = {
 						order = 5,
@@ -176,8 +177,8 @@ local function configTable()
 						type = "toggle",
 						name = L["Full value on Honor Bar"],
 						desc = L["Changes the way text is shown on honor bar."],
-						get = function(info) return E.db.sle.databars.honor.longtext end,
-						set = function(info, value) E.db.sle.databars.honor.longtext = value; EDB:UpdateHonor() end,
+						get = function() return E.db.sle.databars.honor.longtext end,
+						set = function(_, value) E.db.sle.databars.honor.longtext = value; EDB:UpdateHonor() end,
 					},
 					chatfilters = {
 						order = 3,
@@ -254,8 +255,8 @@ local function configTable()
 						type = "toggle",
 						name = L["Full value on Azerite Bar"],
 						desc = L["Changes the way text is shown on azerite bar."],
-						get = function(info) return E.db.sle.databars.azerite.longtext end,
-						set = function(info, value) E.db.sle.databars.azerite.longtext = value; EDB:UpdateAzerite() end,
+						get = function() return E.db.sle.databars.azerite.longtext end,
+						set = function(_, value) E.db.sle.databars.azerite.longtext = value; EDB:UpdateAzerite() end,
 					},
 					--[[chatfilters = {
 						order = 3,
