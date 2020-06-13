@@ -3,7 +3,7 @@ local B = E:GetModule("Bags")
 
 --GLOBALS: unpack, select, tinsert, AUCTION_CATEGORY_BATTLE_PETS, COLOR, AceGUIWidgetLSMlists
 local tinsert = tinsert
-local AUCTION_CATEGORY_BATTLE_PETS, COLOR, AceGUIWidgetLSMlists = AUCTION_CATEGORY_BATTLE_PETS, COLOR, AceGUIWidgetLSMlists
+local AUCTION_CATEGORY_BATTLE_PETS, COLOR = AUCTION_CATEGORY_BATTLE_PETS, COLOR
 
 local function configTable()
 	if not SLE.initialized then return end
