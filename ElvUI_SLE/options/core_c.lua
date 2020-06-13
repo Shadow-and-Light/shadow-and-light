@@ -1,26 +1,12 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, _, E, L = unpack(select(2, ...))
 
-local format = format
+--GLOBALS: unpack, select, tinsert, format
+local tinsert, format = tinsert, format
 
 local function configTable()
 	if not SLE.initialized then return end
-	E.Options.name = E.Options.name.." + |cff9482c9Shadow & Light|r"..format(": |cff99ff33%s|r",SLE.version)
+	E.Options.name = E.Options.name.." + |cff9482c9Shadow & Light|r"..format(": |cff99ff33%s|r", SLE.version)
 
-	local function CreateButton(number, text, ...)
-		local path = {}
-		local num = select("#", ...)
-		for i = 1, num do
-			local name = select(i, ...)
-			tinsert(path, #(path)+1, name)
-		end
-		local config = {
-			order = number,
-			type = 'execute',
-			name = text,
-			func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "sle", unpack(path)) end,
-		}
-		return config
-	end
 	--Main options group
 	E.Options.args.sle = {
 		type = "group",
@@ -48,7 +34,6 @@ local function configTable()
 				desc = L["Run the installation process."],
 				func = function() E:GetModule("PluginInstaller"):Queue(SLE.installTable); E:ToggleOptionsUI();  end,
 			},
-			-- infoButton = CreateButton(5, L["About/Help"], "help"),
 			Reset = {
 				order = 6,
 				type = 'execute',

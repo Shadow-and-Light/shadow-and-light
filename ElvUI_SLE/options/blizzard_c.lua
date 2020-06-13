@@ -1,6 +1,9 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, _, E, L = unpack(select(2, ...))
 local B = SLE:GetModule("Blizzard")
 local M = SLE:GetModule("Misc")
+
+--GLOBALS: unpack, select, tinsert
+local tinsert = tinsert
 
 local function configTable()
 	if not SLE.initialized then return end
@@ -25,16 +28,16 @@ local function configTable()
 						type = "toggle",
 						name = L["Enable"],
 						desc = L["Allow some Blizzard frames to be moved around."],
-						get = function(info) return E.private.sle.module.blizzmove.enable end,
-						set = function(info, value) E.private.sle.module.blizzmove.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
+						get = function() return E.private.sle.module.blizzmove.enable end,
+						set = function(_, value) E.private.sle.module.blizzmove.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
 					remember = {
 						order = 2,
 						type = "toggle",
 						name = L["Remember"],
 						desc = L["Remember positions of frames after moving them."],
-						get = function(info) return E.private.sle.module.blizzmove.remember end,
-						set = function(info, value) E.private.sle.module.blizzmove.remember = value; E:StaticPopup_Show("PRIVATE_RL") end,
+						get = function() return E.private.sle.module.blizzmove.remember end,
+						set = function(_, value) E.private.sle.module.blizzmove.remember = value; E:StaticPopup_Show("PRIVATE_RL") end,
 						disabled = function() return not E.private.sle.module.blizzmove.enable end,
 					},
 				}
@@ -44,8 +47,8 @@ local function configTable()
 				type = "toggle",
 				name = L["Raid Utility Mouse Over"],
 				desc = L["Enabling mouse over will make ElvUI's raid utility show on mouse over instead of always showing."],
-				get = function(info) return E.db.sle.blizzard.rumouseover end,
-				set = function(info, value) E.db.sle.blizzard.rumouseover = value; M:RaidUtility_SetMouseoverAlpha() end,
+				get = function() return E.db.sle.blizzard.rumouseover end,
+				set = function(_, value) E.db.sle.blizzard.rumouseover = value; M:RaidUtility_SetMouseoverAlpha() end,
 			},
 			errorframe = {
 				order = 11,
