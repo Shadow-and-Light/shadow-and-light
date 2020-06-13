@@ -1,7 +1,9 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local UB = SLE:GetModule('UIButtons')
 
+--  GLOBALS: unpack, select, tinsert, pairs, type, ADDONS, DEFAULT, NONE, CUSTOM
 local CUSTOM, NONE, DEFAULT = CUSTOM, NONE, DEFAULT
+local ADDONS = ADDONS
 
 local positionValues = {
 	TOPLEFT = 'TOPLEFT',
@@ -281,7 +283,7 @@ local function configTable()
 						desc = L["Function called by quick access."],
 						type = "select",
 						values = {
-							["Manager"] = L["AddOns"],
+							["Manager"] = ADDONS,
 						},
 						get = function(info) return E.db.sle.uibuttons.Addon.called end,
 						set = function(info, value) E.db.sle.uibuttons.Addon.called = value; end,

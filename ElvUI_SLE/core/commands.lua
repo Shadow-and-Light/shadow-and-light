@@ -1,6 +1,6 @@
 local SLE, _, E = unpack(select(2, ...))
 
---  GLOBALS: unpack, select, next, pairs, wipe, strlower, ElvDB, GetNumAddOns, GetAddOnInfo, DisableAddOn, EnableAddOn, SetCVar, ReloadUI
+--GLOBALS: unpack, select, next, pairs, wipe, strlower, ElvDB, GetNumAddOns, GetAddOnInfo, DisableAddOn, EnableAddOn, SetCVar, ReloadUI
 local next, pairs, wipe = next, pairs, wipe
 local strlower = strlower
 local GetNumAddOns, GetAddOnInfo, DisableAddOn, EnableAddOn = GetNumAddOns, GetAddOnInfo, DisableAddOn, EnableAddOn

@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 
---  GLOBALS:  unpack, NUM_BAG_SLOTS, IsAddOnLoaded, DEFAULT_CHAT_FRAME
+--GLOBALS: unpack, NUM_BAG_SLOTS, IsAddOnLoaded, DEFAULT_CHAT_FRAME
 local _G = _G
 local select, format, tonumber, match, ipairs, pairs, gsub = select, format, tonumber, match, ipairs, pairs, gsub
 local getmetatable, error, type, assert, random = getmetatable, error, type, assert, random
