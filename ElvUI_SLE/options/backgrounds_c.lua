@@ -1,5 +1,9 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, _, E, L = unpack(select(2, ...))
 local BG = SLE:GetModule('Backgrounds')
+
+--GLOBALS: unpack, select, tinsert, DEFAULT
+local tinsert = tinsert
+local DEFAULT = DEFAULT
 
 local function configTable()
 	if not SLE.initialized then return end
@@ -9,8 +13,8 @@ local function configTable()
 			type = "toggle",
 			name = L["SLE_BG_"..i],
 			desc = L["Show/Hide this frame."],
-			get = function(info) return E.db.sle.backgrounds["bg"..i].enabled end,
-			set = function(info, value) E.db.sle.backgrounds["bg"..i].enabled = value; BG:FramesVisibility(i) end
+			get = function() return E.db.sle.backgrounds["bg"..i].enabled end,
+			set = function(_, value) E.db.sle.backgrounds["bg"..i].enabled = value; BG:FramesVisibility(i) end
 		}
 		return config
 	end
@@ -29,7 +33,7 @@ local function configTable()
 					name = L["Width"],
 					desc = L["Sets width of the frame"],
 					min = 50, max = E.screenwidth, step = 1,
-					set = function(info, value) E.db.sle.backgrounds["bg"..i].width = value; BG:FramesSize(i) end,
+					set = function(_, value) E.db.sle.backgrounds["bg"..i].width = value; BG:FramesSize(i) end,
 				},
 				height = {
 					order = 2,
@@ -37,7 +41,7 @@ local function configTable()
 					name = L["Height"],
 					desc = L["Sets height of the frame"],
 					min = 20, max = E.screenheight/2, step = 1,
-					set = function(info, value) E.db.sle.backgrounds["bg"..i].height = value; BG:FramesSize(i) end,
+					set = function(_, value) E.db.sle.backgrounds["bg"..i].height = value; BG:FramesSize(i) end,
 				},
 				spacer = {
 					order = 3,
@@ -50,7 +54,7 @@ local function configTable()
 					width = 'full',
 					name = L["Texture"],
 					desc = L["Set the texture to use in this frame. Requirements are the same as the chat textures."],
-					set = function(info, value)
+					set = function(_, value)
 						E.db.sle.backgrounds["bg"..i].texture = value
 						E:UpdateMedia()
 						BG:UpdateTexture(i)
@@ -61,8 +65,8 @@ local function configTable()
 					type = "select",
 					name = L["Backdrop Template"],
 					desc = L["Change the template used for this backdrop."],
-					get = function(info) return E.db.sle.backgrounds["bg"..i].template end,
-					set = function(info, value) E.db.sle.backgrounds["bg"..i].template = value; BG:FrameTemplate(i) end,
+					get = function() return E.db.sle.backgrounds["bg"..i].template end,
+					set = function(_, value) E.db.sle.backgrounds["bg"..i].template = value; BG:FrameTemplate(i) end,
 					values = {
 						["Default"] = DEFAULT,
 						["Transparent"] = L["Transparent"],
@@ -73,13 +77,13 @@ local function configTable()
 					type = "toggle",
 					name = L["Hide in Pet Battle"],
 					desc = L["Show/Hide this frame during Pet Battles."],
-					set = function(info, value) E.db.sle.backgrounds["bg"..i].pethide = value; BG:RegisterHide(i) end
+					set = function(_, value) E.db.sle.backgrounds["bg"..i].pethide = value; BG:RegisterHide(i) end
 				},
 				clickthrough = {
 					order = 9,
 					type = "toggle",
 					name = L["Click Through"],
-					set = function(info, value) E.db.sle.backgrounds["bg"..i].clickthrough = value; BG:MouseCatching(i) end
+					set = function(_, value) E.db.sle.backgrounds["bg"..i].clickthrough = value; BG:MouseCatching(i) end
 				},
 				alpha = {
 					order = 12,
@@ -87,16 +91,16 @@ local function configTable()
 					name = L["Alpha"],
 					isPercent = true,
 					min = 0, max = 1, step = 0.01,
-					get = function(info) return E.db.sle.backgrounds["bg"..i].alpha end,
-					set = function(info, value) E.db.sle.backgrounds["bg"..i].alpha = value; BG:Alpha(i) end,
+					get = function() return E.db.sle.backgrounds["bg"..i].alpha end,
+					set = function(_, value) E.db.sle.backgrounds["bg"..i].alpha = value; BG:Alpha(i) end,
 				},
 				visibility = {
 					order = 13,
 					type = 'input',
 					width = 'full',
 					name = L["Visibility State"],
-					get = function(info) return E.db.sle.backgrounds["bg"..i].visibility end,
-					set = function(info, value) E.db.sle.backgrounds["bg"..i].visibility = value; BG:FramesVisibility(i) end,
+					get = function() return E.db.sle.backgrounds["bg"..i].visibility end,
+					set = function(_, value) E.db.sle.backgrounds["bg"..i].visibility = value; BG:FramesVisibility(i) end,
 				},
 			},
 		}
@@ -146,7 +150,6 @@ local function configTable()
 			bg4gr = CreateGroup(4),
 		},
 	}
-
 end
 
 tinsert(SLE.Configs, configTable)

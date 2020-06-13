@@ -1,4 +1,7 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, _, E, L = unpack(select(2, ...))
+
+--GLOBALS: unpack, select, tinsert
+local tinsert = tinsert
 
 L["SLE_CYR_COM_DESC"] = [[
 - /rl
