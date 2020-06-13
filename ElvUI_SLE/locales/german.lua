@@ -99,7 +99,7 @@ L["Character Armory"] = "Charakter Armory"
 L["Chat Editbox Text"] = true
 L["Chat Filters"] = "Chatfilter"
 L["Chat Frame Justify"] = "Chatfenster Ausrichtung"
-L["Chat Setup Delay"]
+L["Chat Setup Delay"] = true
 L["Check for rebirth mechanics"] = true
 L["Checked Texture Color"] = "Gedrückte Textur Farbe"
 L["Checked Texture"] = "Gedrückte Textur"
