@@ -490,7 +490,7 @@ function Pr:EnchantButton()
 			-- end
 			_G["SLE_EnchScrollButton"]:Show()
 			local scrollnum = GetItemCount(38682)
-			_G["SLE_EnchScrollButton"]:SetText(string.format("%s (%d)", L['Scroll'], scrollnum))
+			_G["SLE_EnchScrollButton"]:SetText(string.format("%s (%d)", L["Scroll"], scrollnum))
 			if recipeInfo.craftable and recipeInfo.learned and scrollnum > 0 then
 				_G["SLE_EnchScrollButton"]:Enable()
 			else

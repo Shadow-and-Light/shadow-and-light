@@ -36,9 +36,9 @@ local function configTable()
 
 							for key, value in pairs(DTP.PanelStyles) do
 								if key == 'DEFAULT' then
-									friendStyleTable[key] = format(value, L['FRIENDS'], hexColor, '##')
+									friendStyleTable[key] = format(value, L["FRIENDS"], hexColor, '##')
 								elseif key == 'DEFAULTTOTALS' then
-									friendStyleTable[key] = format(value, L['FRIENDS'], hexColor, '##', '##')
+									friendStyleTable[key] = format(value, L["FRIENDS"], hexColor, '##', '##')
 								elseif key == 'ICON' then
 									friendStyleTable[key] = format(value, '|TInterface\\ICONS\\Achievement_Reputation_01:12|t', hexColor, '##')
 								elseif key == 'ICONTOTALS' then

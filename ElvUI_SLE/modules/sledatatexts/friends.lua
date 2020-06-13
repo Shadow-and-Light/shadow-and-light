@@ -494,7 +494,7 @@ local function TooltipAddXLine(tooltip, header, client, wowver, level, status, c
 				end
 				tooltip:SetCellScript(line, 7, "OnMouseUp", HideOnMouseUp, "hide:hideFriendsNotes")
 			else
-				line = tooltip:SetCell(line, 5, L['Location'])  --!  (Location) or Zone
+				line = tooltip:SetCell(line, 5, L["Location"])  --!  (Location) or Zone
 
 				if not E.db.sle.dt.friends.hideFriendsNotes then
 					line = tooltip:SetCell(line, 7, L["Note"], "LEFT")  --! Note
