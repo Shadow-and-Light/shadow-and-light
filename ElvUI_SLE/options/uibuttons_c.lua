@@ -91,7 +91,6 @@ local function configTable()
 					transparent = {
 						order = 3,
 						name = L["Backdrop Template"],
-						desc = L["Change the template used for this backdrop."],
 						type = "select",
 						values = {
 							["NO"] = NONE,

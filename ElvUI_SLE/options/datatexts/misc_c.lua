@@ -1,9 +1,10 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, _, E, L = unpack(select(2, ...))
 local DTP = SLE:GetModule('Datatexts')
 local DT = E:GetModule('DataTexts')
 
-local DURABILITY = DURABILITY
-local MANA_REGEN = MANA_REGEN
+--GLOBALS: unpack, select, tinsert, DURABILITY, MANA_REGEN
+local tinsert = tinsert
+local DURABILITY, MANA_REGEN = DURABILITY, MANA_REGEN
 
 local function configTable()
 	if not SLE.initialized then return end
@@ -23,8 +24,8 @@ local function configTable()
 				type = "toggle",
 				name = L["Minimap icon"],
 				desc = L["If enabled will show new mail icon on minimap."],
-				get = function(info) return E.db.sle.dt.mail.icon end,
-				set = function(info, value) E.db.sle.dt.mail.icon = value; DTP:MailUp() end,
+				get = function() return E.db.sle.dt.mail.icon end,
+				set = function(_, value) E.db.sle.dt.mail.icon = value; DTP:MailUp() end,
 			}
 		},
 	}
@@ -66,8 +67,8 @@ local function configTable()
 				type = "toggle",
 				name = L["Short text"],
 				desc = L["Changes the text string to a shorter variant."],
-				get = function(info) return E.db.sle.dt.regen.short end,
-				set = function(info, value) E.db.sle.dt.regen.short = value; DT:LoadDataTexts(); end,
+				get = function() return E.db.sle.dt.regen.short end,
+				set = function(_, value) E.db.sle.dt.regen.short = value; DT:LoadDataTexts(); end,
 			},
 		},
 	}

@@ -64,7 +64,6 @@ local function configTable()
 					order = 7,
 					type = "select",
 					name = L["Backdrop Template"],
-					desc = L["Change the template used for this backdrop."],
 					get = function() return E.db.sle.backgrounds["bg"..i].template end,
 					set = function(_, value) E.db.sle.backgrounds["bg"..i].template = value; BG:FrameTemplate(i) end,
 					values = {
