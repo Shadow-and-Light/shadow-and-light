@@ -355,7 +355,7 @@ local function configTable()
 					},
 					customTexture = {
 						type = 'input',
-						name = L["Custom Image Path"],
+						name = L["Custom Texture"],
 						order = 2,
 						get = function() return E.db.sle.armory.character.background.customTexture end,
 						set = function(_, value) E.db.sle.armory.character.background.customTexture = value; CA:Update_BG() end,

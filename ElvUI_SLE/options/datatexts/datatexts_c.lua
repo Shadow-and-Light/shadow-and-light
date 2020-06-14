@@ -1,5 +1,4 @@
-﻿local SLE, T, E, L = unpack(select(2, ...)) 
-local DTP = SLE:GetModule('Datatexts')
+﻿local SLE, T, E, L = unpack(select(2, ...))
 
 local function configTable()
 	if not SLE.initialized then return end
@@ -16,21 +15,6 @@ local function configTable()
 				name = L["S&L Datatexts"],
 				order = 1,
 				args = {
-					-- header = {
-					-- 	order = 1,
-					-- 	type = "header",
-					-- 	name = L["Datatext Options"]
-					-- },
-					-- intro = {
-					-- 	order = 2,
-					-- 	type = "description",
-					-- 	name = L["Some datatexts that Shadow & Light are supplied with, has settings that can be modified to alter the displayed information."]
-					-- },
-					-- spacer = {
-					-- 	order = 3,
-					-- 	type = 'description',
-					-- 	name = ""
-					-- },
 				},
 			},
 		},

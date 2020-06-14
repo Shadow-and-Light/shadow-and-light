@@ -44,14 +44,14 @@ local function configTable()
 		if group == "date" then
 			config.args.xOffset = {
 				order = 4,
-				name = L["Date X-Offset"],
+				name = L["X-Offset"],
 				type = "range",
 				min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
 				set = function(_, value) E.db.sle.screensaver.date.xOffset = value end,
 			}
 			config.args.yOffset = {
 				order = 5,
-				name = L["Date Y-Offset"],
+				name = L["Y-Offset"],
 				type = "range",
 				min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
 				set = function(_, value) E.db.sle.screensaver.date.yOffset = value end,
@@ -65,14 +65,14 @@ local function configTable()
 		elseif group == "player" then
 			config.args.xOffset = {
 				order = 4,
-				name = L["Player Info X-Offset"],
+				name = L["X-Offset"],
 				type = "range",
 				min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
 				set = function(_, value) E.db.sle.screensaver.player.xOffset = value end,
 			}
 			config.args.yOffset = {
 				order = 5,
-				name = L["Player Info Y-Offset"],
+				name = L["Y-Offset"],
 				type = "range",
 				min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
 				set = function(_, value) E.db.sle.screensaver.player.yOffset = value end,
@@ -110,11 +110,11 @@ local function configTable()
 				name = L["Fonts"],
 				disabled = function() return not E.private.sle.module.screensaver end,
 				args = {
-					title = CreateFont(1, L["Title font"], "title"),
-					subtitle = CreateFont(2, L["Subtitle font"], "subtitle"),
-					date = CreateFont(3,L["Date font"], "date"),
-					player = CreateFont(4,L["Player info font"], "player"),
-					tips = CreateFont(5,L["Tips font"], "tips"),
+					title = CreateFont(1, L["Title"], "title"),
+					subtitle = CreateFont(2, L["Subtitle"], "subtitle"),
+					date = CreateFont(3,L["Date"], "date"),
+					player = CreateFont(4,L["Player Info"], "player"),
+					tips = CreateFont(5,L["Tips"], "tips"),
 				},
 			},
 			graphics = {
