@@ -134,13 +134,6 @@ local function CreateSLEDatatextsConfig()
 		get = function(info) return E.global.profileCopy.sle.dt[ info[#info] ] end,
 		set = function(info, value) E.global.profileCopy.sle.dt[ info[#info] ] = value; end
 	}
-	config.args.durability = {
-		order = 5,
-		type = "toggle",
-		name = DURABILITY,
-		get = function(info) return E.global.profileCopy.sle.dt[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.dt[ info[#info] ] = value; end
-	}
 	config.args.currency = {
 		order = 6,
 		type = "toggle",
@@ -348,7 +341,7 @@ local function configTable()
 		type = 'group',
 		name = SLE.Title,
 		childGroups = "tab",
-		disabled = E.Options.args.profiles.args.copyfrom.disabled,
+		disabled = E.Options.args.profiles.args.profile.args.copyfrom.disabled,
 		args = {
 			header = {
 				order = 0,

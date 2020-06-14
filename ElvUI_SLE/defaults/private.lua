@@ -248,7 +248,6 @@ if G["profileCopy"] then
 			["friends"] = true,
 			["guild"] = true,
 			["mail"] = true,
-			["durability"] = true,
 			["currency"] = true,
 			["regen"] = true,
 		},

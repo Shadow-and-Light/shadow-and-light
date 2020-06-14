@@ -381,10 +381,6 @@ P["sle"] = {
 		["mail"] = {
 			["icon"] = true,
 		},
-		["durability"] = {
-			["gradient"] = false,
-			["threshold"] = -1,
-		},
 		["currency"] = {
 			["Archaeology"] = true,
 			["Jewelcrafting"] = true,
