@@ -14,5 +14,4 @@
 	<Script file='mail.lua'/>
 	<Script file='currency.lua'/>
 	<Script file='range.lua'/>
-	<Script file='durability.lua'/>
 </Ui>

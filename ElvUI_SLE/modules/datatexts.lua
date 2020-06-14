@@ -103,7 +103,6 @@ function DTP:Initialize()
 	DTP:RegisterEvent('PLAYER_ENTERING_WORLD')
 	--Hooking to default DTs for additional features
 	DTP:HookTimeDT()
-	DTP:HookDurabilityDT()
 
 	--Creating specifing DTs
 	DTP:CreateMailDT()
