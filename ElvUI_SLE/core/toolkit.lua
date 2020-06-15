@@ -113,12 +113,6 @@ function SLE:SetMoverPosition(mover, anchor, parent, point, x, y)
 	E:SaveMoverPosition(mover)
 end
 
---Function for generating a text when ElvUI version is way outdated
-function SLE:MismatchText()
-	local text = format(L["MSG_SLE_ELV_OUTDATED"], SLE.elvV, SLE.elvR)
-	return text
-end
-
 --To get stuff from item link. Got this from suspctz
 function SLE:GetItemSplit(itemLink)
 	local itemString = strmatch(itemLink, "item:([%-?%d:]+)")

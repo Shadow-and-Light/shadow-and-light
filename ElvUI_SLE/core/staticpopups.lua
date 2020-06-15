@@ -6,7 +6,7 @@ local ReloadUI = ReloadUI
 
 --Version check
 E.PopupDialogs["VERSION_MISMATCH"] = {
-	text = SLE:MismatchText(),
+	text = format(L["MSG_SLE_ELV_OUTDATED"], SLE.elvV, SLE.elvR),
 	button1 = CLOSE,
 	timeout = 0,
 	whileDead = 1,
