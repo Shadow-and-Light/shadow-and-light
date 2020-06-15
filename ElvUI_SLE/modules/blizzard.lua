@@ -32,7 +32,6 @@ B.Frames = {
 	["LootFrame"] = true,
 	["MailFrame"] = true,
 	["MerchantFrame"] = true,
-	["OpenMailFrame"] = true,
 	["PVEFrame"] = true,
 	["PetStableFrame"] = true,
 	["PetitionFrame"] = true,
