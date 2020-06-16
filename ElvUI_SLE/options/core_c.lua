@@ -16,11 +16,7 @@ local function configTable()
 		-- order = -4,
 		order = 6,
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = "|cff9482c9Shadow & Light|r"..format(": |cff99ff33%s|r", SLE.version),
-			},
+			header = E.Libs.ACH:Header("|cff9482c9Shadow & Light|r"..format(": |cff99ff33%s|r", SLE.version), 1),
 			logo = {
 				type = 'description',
 				name = "",
@@ -49,11 +45,7 @@ local function configTable()
 				-- childGroups = "tab",
 				name = L["Modules"],
 				args = {
-					header = {
-						order = 1,
-						type = "header",
-						name = L["Modules"],
-					},
+					header = E.Libs.ACH:Header(L["Modules"], 1),
 					info = {
 						type = "description",
 						order = 2,

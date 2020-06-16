@@ -12,11 +12,7 @@ local function configTable()
 		get = function(info) return db[ info[#info] ] end,
 		set = function(info, value) db[ info[#info] ] = value; Tools:UpdateLayout() end,
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = L["Farm"],
-			},
+			header = E.Libs.ACH:Header(L["Farm"], 1),
 			enable = {
 				type = "toggle",
 				order = 2,

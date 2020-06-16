@@ -11,11 +11,7 @@ local function configTable()
 		name = PVP,
 		order = 1,
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = PVP,
-			},
+			header = E.Libs.ACH:Header(PVP, 1),
 			intro = {
 				order = 2,
 				type = "description",

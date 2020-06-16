@@ -9,11 +9,7 @@ local function configTable()
 		order = 1,
 		childGroups = 'tab',
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = L["Minimap Options"],
-			},
+			header = E.Libs.ACH:Header(L["Minimap Options"], 1),
 			intro = {
 				order = 2,
 				type = 'description',

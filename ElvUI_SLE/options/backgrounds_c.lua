@@ -112,11 +112,7 @@ local function configTable()
 		order = 1,
 		childGroups = 'tab',
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = L["Additional Background Panels"],
-			},
+			header = E.Libs.ACH:Header(L["Additional Background Panels"], 1),
 			intro = {
 				order = 2,
 				type = "description",

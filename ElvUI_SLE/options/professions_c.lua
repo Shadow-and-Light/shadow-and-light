@@ -10,11 +10,7 @@ local function configTable()
 		order = 1,
 		childGroups = 'tab',
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = TRADE_SKILLS,
-			},
+			header = E.Libs.ACH:Header(TRADE_SKILLS, 1),
 			deconstructButton = {
 				order = 2,
 				type = "group",

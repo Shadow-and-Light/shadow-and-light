@@ -26,7 +26,7 @@ local function configTable()
 		childGroups = 'tab',
 		disabled = function() return not E.private.chat.enable end,
 		args = {
-			header = { order = 1, type = "header", name = L["Chat"] },
+			header = E.Libs.ACH:Header(L["Chat"], 1),
 			header2 = { order = 4, type = "description", name = "" },
 			guildmaster = {
 				order = 5, type = "toggle",

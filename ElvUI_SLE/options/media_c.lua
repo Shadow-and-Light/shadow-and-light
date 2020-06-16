@@ -13,11 +13,7 @@ local function configTable()
 		order = 20,
 		childGroups = 'tab',
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = L["Media"],
-			},
+			header = E.Libs.ACH:Header(L["Media"], 1),
 			intro = {
 				order = 2,
 				type = "description",

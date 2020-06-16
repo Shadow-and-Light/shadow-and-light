@@ -1,6 +1,8 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+
 local GARRISON_LOCATION_TOOLTIP = GARRISON_LOCATION_TOOLTIP
 local EXPANSION_NAME5 = EXPANSION_NAME5
+
 local function configTable()
 	if not SLE.initialized then return end
 	E.Options.args.sle.args.modules.args.legacy.args.garrison = {
@@ -8,11 +10,7 @@ local function configTable()
 		name = GARRISON_LOCATION_TOOLTIP.." ("..EXPANSION_NAME5..")",
 		order = 2,
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = GARRISON_LOCATION_TOOLTIP,
-			},
+			header = E.Libs.ACH:Header(GARRISON_LOCATION_TOOLTIP, 1),
 			toolbar = {
 				order = 1,
 				type = "group",

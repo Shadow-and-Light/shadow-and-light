@@ -11,11 +11,7 @@ local function configTable()
 		get = function(info) return E.db.sle.raidmanager[ info[#info] ] end,
 		set = function(info, value) E.db.sle.raidmanager[ info[#info] ] = value; B:CreateAndUpdateIcons() end,
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = RAID_CONTROL,
-			},
+			header = E.Libs.ACH:Header(RAID_CONTROL, 1),
 			info = {
 				order = 2,
 				type = "description",

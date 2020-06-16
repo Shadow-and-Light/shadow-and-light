@@ -35,11 +35,7 @@ local function configTable()
 		get = function(info) return E.global.sle.advanced[ info[#info] ] end,
 		set = function(info, value) E.global.sle.advanced[ info[#info] ] = value; end,
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = L["Advanced Options"],
-			},
+			header = E.Libs.ACH:Header(L["Advanced Options"], 1),
 			info = {
 				order = 2,
 				type = "description",

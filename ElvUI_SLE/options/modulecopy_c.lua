@@ -337,17 +337,13 @@ local function configTable()
 	MC = E:GetModule('ModuleCopy')
 
 	E.Options.args.modulecontrol.args.modulecopy.args.sle = {
-		order = 11,
+		order = 30,
 		type = 'group',
 		name = SLE.Title,
 		childGroups = "tab",
-		disabled = E.Options.args.profiles.args.profile.args.copyfrom.disabled,
+		-- disabled = E.Options.args.profiles.args.profile.args.copyfrom.disabled,
 		args = {
-			header = {
-				order = 0,
-				type = "header",
-				name = L["|cff9482c9Shadow & Light|r options"],
-			},
+			header = E.Libs.ACH:Header(L["|cff9482c9Shadow & Light|r options"], 0),
 			actionbar = MC:CreateModuleConfigGroup(L["ActionBars"], "actionbars", "sle"),
 			armory = CreateArmory(),
 			backgrounds = CreateBackgrounds(),

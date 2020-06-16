@@ -9,11 +9,7 @@ local function configTable()
 		name = L["Class Hall"].." ("..EXPANSION_NAME6..")",
 		order = 3,
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = HallName,
-			},
+			header = E.Libs.ACH:Header(HallName, 1),
 			autoOrder = {
 				order = 2,
 				type = "group",

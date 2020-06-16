@@ -20,11 +20,7 @@ local function configTable()
 		disabled = function() return not E.db.sle.armory.inspect.enable end,
 		hidden = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.inspect end,
 		args = {
-			title = {
-				type = "header",
-				name = L["Inspect Armory"],
-				order = 1,
-			},
+			header = E.Libs.ACH:Header(L["Inspect Armory"], 1),
 			showWarning = {
 				order = 2,
 				type = "toggle",

@@ -1,5 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local WAR_CAMPAIGN = WAR_CAMPAIGN
+
 local function configTable()
 	if not SLE.initialized then return end
 	E.Options.args.sle.args.modules.args.warcampaign = {
@@ -7,11 +8,7 @@ local function configTable()
 		name = WAR_CAMPAIGN,
 		order = 1,
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = WAR_CAMPAIGN,
-			},
+			header = E.Libs.ACH:Header(WAR_CAMPAIGN, 1),
 			autoOrder = {
 				order = 2,
 				type = "group",

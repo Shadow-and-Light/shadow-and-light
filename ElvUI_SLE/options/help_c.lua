@@ -61,11 +61,7 @@ local function configTable()
 		order = 90,
 		childGroups = 'tab',
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = L["About/Help"],
-			},
+			header = E.Libs.ACH:Header(L["About/Help"], 1),
 			about = {
 				type = 'group', name = L["About"].." "..E.NewSign, order = 2,
 				args = {
@@ -142,7 +138,7 @@ local function configTable()
 				-- name = L["Patrons"]..[[ |TInterface\MONEYFRAME\UI-GoldIcon:14:14|t]],
 				name = L["Patrons"]..[[ |TInterface\BUTTONS\UI-GroupLoot-Coin-Up:16:16|t]],
 				args = {
-					patreonheader = { order = 1, type = "header", name = L["Patrons"] },
+					header = E.Libs.ACH:Header(L["Patreons"], 1),
 					patrons = {
 						order = 2,
 						type = "group",
@@ -189,7 +185,7 @@ local function configTable()
 				type = 'group',
 				name = L["Credits"]..[[ |TInterface\AddOns\ElvUI_SLE\media\textures\Chat_Test:14:14|t]],
 				args = {
-					creditheader = { order = 1, type = "header", name = L["Credits"] },
+					header = E.Libs.ACH:Header(L["Credits"], 1),
 					creditsdesc = {
 						order = 2,
 						type = "description",

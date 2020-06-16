@@ -11,11 +11,7 @@ local function configTable()
 		name = L["Skins"],
 		childGroups = 'tab',
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = L["Skins"],
-			},
+			header = E.Libs.ACH:Header(L["Skins"], 1),
 			info = {
 				order = 2,
 				type = "description",

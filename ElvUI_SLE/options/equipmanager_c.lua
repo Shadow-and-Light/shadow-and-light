@@ -101,11 +101,7 @@ local function configTable()
 		order = 1,
 		name = L["Equipment Manager"],
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = L["Equipment Manager"],
-			},
+			header = E.Libs.ACH:Header(L["Equipment Manager"], 1),
 			intro = {
 				order = 2,
 				type = 'description',

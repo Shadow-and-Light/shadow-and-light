@@ -12,11 +12,7 @@ local function configTable()
 		type = "group",
 		name = "Blizzard",
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = "Blizzard",
-			},
+			header = E.Libs.ACH:Header("Blizzard", 1),
 			blizzmove = {
 				order = 12,
 				type = "group",

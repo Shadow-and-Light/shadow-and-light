@@ -20,11 +20,7 @@ local function configTable()
 		name = QUESTS_LABEL,
 		order = 1,
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = QUESTS_LABEL,
-			},
+			header = E.Libs.ACH:Header(QUESTS_LABEL, 1),
 			autoReward = {
 				type = "toggle",
 				order = 2,

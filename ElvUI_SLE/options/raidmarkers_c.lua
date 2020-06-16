@@ -11,11 +11,7 @@ local function configTable()
 		name = L["Raid Markers"],
 		get = function(info) return E.db.sle.raidmarkers[ info[#info] ] end,
 		args = {
-			marksheader = {
-				order = 1,
-				type = "header",
-				name = L["Raid Markers"],
-			},
+			marksheader = E.Libs.ACH:Header(L["Raid Markers"], 1),
 			info = {
 				order = 2,
 				type = "description",

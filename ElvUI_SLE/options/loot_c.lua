@@ -45,11 +45,7 @@ local function configTable()
 				type = "group",
 				name = L["Loot Auto Roll"],
 				args = {
-					header = {
-						order = 1,
-						type = "header",
-						name = L["Loot Auto Roll"],
-					},
+					header = E.Libs.ACH:Header(L["Loot Auto Roll"], 1),
 					info = {
 						order = 2,
 						type = "description",
@@ -144,11 +140,7 @@ local function configTable()
 				type = "group",
 				name = L["Loot Roll History"],
 				args = {
-					header = {
-						order = 1,
-						type = "header",
-						name = L["Loot Roll History"],
-					},
+					header = E.Libs.ACH:Header(L["Loot Roll History"], 1),
 					info = {
 						order = 2,
 						type = "description",

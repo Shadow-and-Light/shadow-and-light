@@ -13,11 +13,7 @@ local function configTable()
 		name = L["Bags"],
 		disabled = function() return not E.private.bags.enable end,
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = L["Bags"],
-			},
+			header = E.Libs.ACH:Header(L["Bags"], 1),
 			petLevel = {
 				order = 21,
 				type = "group",

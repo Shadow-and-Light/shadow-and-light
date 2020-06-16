@@ -10,11 +10,7 @@ local function configTable()
 		get = function(info) return E.db.sle.tooltip[ info[#info] ] end,
 		name = L["Tooltip"],
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = L["Tooltip"],
-			},
+			header = E.Libs.ACH:Header(L["Tooltip"], 1),
 			space1 = {
 				order = 4,
 				type = 'description',

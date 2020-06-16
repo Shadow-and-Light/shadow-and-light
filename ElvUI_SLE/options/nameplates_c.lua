@@ -9,11 +9,7 @@ local function configTable()
 		order = 1,
 		disabled = function() return not E.private.nameplates.enable end,
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = L["NamePlates"],
-			},
+			header = E.Libs.ACH:Header(L["NamePlates"], 1),
 			targetcount = {
 				type = "group",
 				order = 2,
