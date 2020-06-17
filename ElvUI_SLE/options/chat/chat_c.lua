@@ -1,8 +1,12 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local C = SLE:GetModule("Chat")
+
 local NONE, INVITE = NONE, INVITE
+
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
+
 	local function CreateJustify(i)
 		local config = {
 			order = i + 1,
@@ -26,8 +30,8 @@ local function configTable()
 		childGroups = 'tab',
 		disabled = function() return not E.private.chat.enable end,
 		args = {
-			header = E.Libs.ACH:Header(L["Chat"], 1),
-			header2 = { order = 4, type = "description", name = "" },
+			header = ACH:Header(L["Chat"], 1),
+			spacer1 = ACH:Description("", 4),
 			guildmaster = {
 				order = 5, type = "toggle",
 				name = L["Guild Master Icon"],

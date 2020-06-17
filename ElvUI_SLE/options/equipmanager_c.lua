@@ -2,7 +2,6 @@
 local EM = SLE:GetModule('EquipManager')
 
 local format = format
-
 local NONE = NONE
 local PAPERDOLL_EQUIPMENTMANAGER = PAPERDOLL_EQUIPMENTMANAGER
 local SPECIALIZATION_PRIMARY = SPECIALIZATION_PRIMARY
@@ -31,6 +30,7 @@ end
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
 
 	local function ConstructSpecOption(ORDER, ID, OPTION)
 		local SpecID, SpecName = GetSpecializationInfo(ID)
@@ -43,11 +43,7 @@ local function configTable()
 			get = function(info) return EM.db[OPTION][ info[#info] ] end,
 			set = function(info, value) EM.db[OPTION][ info[#info] ] = value; end,
 			args = {
-				infoz = {
-					order = 1,
-					type = "description",
-					name =  format(L["Equip this set when switching to specialization %s."], SpecName),
-				},
+				info = ACH:Description(L["Equip this set when switching to specialization %s."], 1),
 				general = {
 					order = 2,
 					type = "select",
@@ -101,12 +97,8 @@ local function configTable()
 		order = 1,
 		name = L["Equipment Manager"],
 		args = {
-			header = E.Libs.ACH:Header(L["Equipment Manager"], 1),
-			intro = {
-				order = 2,
-				type = 'description',
-				name = L["EM_DESC"],
-			},
+			header = ACH:Header(L["Equipment Manager"], 1),
+			intro = ACH:Description(L["EM_DESC"], 2),
 			enable = {
 				type = "toggle",
 				order = 3,
@@ -147,11 +139,7 @@ local function configTable()
 						get = function(info) return EM.db.conditions end,
 						set = function(info, value) EM.db.conditions = value; EM:UpdateTags() end
 					},
-					help = {
-						order = 2,
-						type = 'description',
-						name = L["SLE_EM_TAGS_HELP"],
-					},
+					help = ACH:Description(L["SLE_EM_TAGS_HELP"], 2),
 				},
 			},
 		},

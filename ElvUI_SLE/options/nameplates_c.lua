@@ -3,13 +3,15 @@ local NP = E:GetModule('NamePlates')
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
+
 	E.Options.args.sle.args.modules.args.nameplate = {
 		type = "group",
 		name = L["NamePlates"],
 		order = 1,
 		disabled = function() return not E.private.nameplates.enable end,
 		args = {
-			header = E.Libs.ACH:Header(L["NamePlates"], 1),
+			header = ACH:Header(L["NamePlates"], 1),
 			targetcount = {
 				type = "group",
 				order = 2,

@@ -5,6 +5,7 @@ local CHARACTER, NONE = CHARACTER, NONE
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
 
 	local function OrderedPairs(t, f)
 		local function orderednext(t, n)
@@ -40,11 +41,7 @@ local function configTable()
 			guiInline = true,
 			hidden = function() return E.db.sle.dt.currency.gold.method ~= "order" end,
 			args = {
-				info = {
-					order = 1,
-					type = "description",
-					name = L["Order of each toon. Smaller numbers will go first"],
-				},
+				desc = ACH:Description(L["Order of each toon. Smaller numbers will go first"], 1),
 			},
 		}
 		if not ElvDB["gold"][E.myrealm] then
@@ -85,9 +82,7 @@ local function configTable()
 		name = "S&L Currency",
 		order = 2,
 		args = {
-			header = {
-				order = 1, type = "description", name = L["ElvUI Improved Currency Options"],
-			},
+			desc = ACH:Description(L["ElvUI Improved Currency Options"], 1),
 			arch = CreateCurrencyConfig(2, L["Show Archaeology Fragments"], 'Archaeology'),
 			jewel = CreateCurrencyConfig(3, L["Show Jewelcrafting Tokens"], 'Jewelcrafting'),
 			pvp = CreateCurrencyConfig(4, L["Show Player vs Player Currency"], 'PvP'),

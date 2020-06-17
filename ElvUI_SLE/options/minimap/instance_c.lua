@@ -1,9 +1,13 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local I= SLE:GetModule("InstDif")
+local I = SLE:GetModule("InstDif")
+
 local PLAYER_DIFFICULTY1, PLAYER_DIFFICULTY2, PLAYER_DIFFICULTY3, PLAYER_DIFFICULTY4, PLAYER_DIFFICULTY5, PLAYER_DIFFICULTY6 = PLAYER_DIFFICULTY1, PLAYER_DIFFICULTY2, PLAYER_DIFFICULTY3, PLAYER_DIFFICULTY4, PLAYER_DIFFICULTY5, PLAYER_DIFFICULTY6
 local PLAYER_DIFFICULTY_TIMEWALKER = PLAYER_DIFFICULTY_TIMEWALKER
+
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
+
 	E.Options.args.sle.args.modules.args.minimap.args.instance = {
 		type = "group",
 		name = L["Instance indication"],
@@ -78,9 +82,7 @@ local function configTable()
 				end,
 				disabled = function() return not E.private.general.minimap.enable or not E.db.sle.minimap.instance.enable end,
 				args = {
-					info = {
-						order = 1, type = "description", name = L["Sets the colors for difficulty abbreviation"],
-					},
+					desc = ACH:Description(L["Sets the colors for difficulty abbreviation"], 1),
 					lfr = {
 						type = "color", order = 2, name = PLAYER_DIFFICULTY3, hasAlpha = false,
 					},

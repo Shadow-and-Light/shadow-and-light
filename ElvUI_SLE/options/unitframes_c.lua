@@ -1,6 +1,7 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local UF = E:GetModule('UnitFrames');
 local SUF = SLE:GetModule("UnitFrames")
+
 local texPath = [[Interface\AddOns\ElvUI_SLE\media\textures\role\]]
 local texPathE = [[Interface\AddOns\ElvUI\media\textures\]]
 local CUSTOM = CUSTOM
@@ -8,6 +9,8 @@ local LEVEL = LEVEL
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
+
 	local positionValues = {
 		TOPLEFT = 'TOPLEFT',
 		LEFT = 'LEFT',
@@ -146,11 +149,7 @@ local function configTable()
 		childGroups = 'tab',
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
-			info = {
-				order = 1,
-				type = "description",
-				name = L["Options for customizing unit frames. Please don't change these setting when ElvUI's testing frames for bosses and arena teams are shown. That will make them invisible until retoggling."],
-			},
+			desc = ACH:Description(L["Options for customizing unit frames. Please don't change these setting when ElvUI's testing frames for bosses and arena teams are shown. That will make them invisible until retoggling."], 1),
 			Reset = {
 				order = 2,
 				type = 'execute',
@@ -355,7 +354,7 @@ local function configTable()
 						disabled = function() return not E.private.unitframe.enable or not E.private.sle.unitframe.statusbarTextures.power or SLE._Compatibility["ElvUI_CustomTweaks"] end,
 						values = AceGUIWidgetLSMlists.statusbar,
 					},
-					space = { order = 3, type = "description", name = "" },
+					spacer1 = ACH:Description("", 3),
 					cast = {
 						order = 4,
 						type = "toggle",
@@ -370,7 +369,7 @@ local function configTable()
 						disabled = function() return not E.private.unitframe.enable or not E.private.sle.unitframe.statusbarTextures.cast end,
 						values = AceGUIWidgetLSMlists.statusbar,
 					},
-					space2 = { order = 6, type = "description", name = "" },
+					spacer2 = ACH:Description("", 6),
 					aura = {
 						order = 7,
 						type = "toggle",
@@ -385,7 +384,7 @@ local function configTable()
 						disabled = function() return not E.private.unitframe.enable or not E.private.sle.unitframe.statusbarTextures.aura end,
 						values = AceGUIWidgetLSMlists.statusbar,
 					},
-					space3 = { order = 9, type = "description", name = "" },
+					spacer3 = ACH:Description("", 9),
 					class = {
 						order = 10,
 						type = "toggle",

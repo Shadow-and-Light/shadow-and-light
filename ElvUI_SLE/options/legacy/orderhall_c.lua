@@ -4,12 +4,14 @@ local HallName = _G["ORDER_HALL_"..E.myclass]
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
+
 	E.Options.args.sle.args.modules.args.legacy.args.orderhall = {
 		type = "group",
 		name = L["Class Hall"].." ("..EXPANSION_NAME6..")",
 		order = 3,
 		args = {
-			header = E.Libs.ACH:Header(HallName, 1),
+			header = ACH:Header(HallName, 1),
 			autoOrder = {
 				order = 2,
 				type = "group",

@@ -5,12 +5,14 @@ local EXPANSION_NAME5 = EXPANSION_NAME5
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
+
 	E.Options.args.sle.args.modules.args.legacy.args.garrison = {
 		type = "group",
 		name = GARRISON_LOCATION_TOOLTIP.." ("..EXPANSION_NAME5..")",
 		order = 2,
 		args = {
-			header = E.Libs.ACH:Header(GARRISON_LOCATION_TOOLTIP, 1),
+			header = ACH:Header(GARRISON_LOCATION_TOOLTIP, 1),
 			toolbar = {
 				order = 1,
 				type = "group",

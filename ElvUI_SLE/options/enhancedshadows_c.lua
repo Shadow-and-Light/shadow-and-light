@@ -6,6 +6,7 @@ local format = format
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
 
 	E.Options.args.sle.args.modules.args.shadows = {
 		order = 1,
@@ -56,11 +57,7 @@ local function configTable()
 						-- desc = "Testing inline desc here.",
 						descStyle = "inline",
 					},
-					spacer = {
-						order = 2,
-						type = 'description',
-						name = ""
-					},
+					spacer = ACH:Spacer(2),
 					minimap = {
 						order = 3,
 						type = "toggle",
@@ -105,11 +102,7 @@ local function configTable()
 						type = "toggle",
 						name = L["SLE_EnhShadows_PetButtons_Option"],
 					},
-					spacer = {
-						order = 7,
-						type = 'description',
-						name = "",
-					},
+					spacer = ACH:Spacer(7),
 				},
 			},
 			chat = {
@@ -196,12 +189,7 @@ local function configTable()
 						type = "toggle",
 						name = L["Player Frame Classic"],
 					},
-					spacer = {
-						order = 3,
-						type = 'description',
-						name = "",
-						width = "full",
-					},
+					spacer1 = ACH:Description("", 3, nil, "full"),
 					target = {
 						order = 4,
 						type = "toggle",
@@ -212,11 +200,7 @@ local function configTable()
 						type = "toggle",
 						name = L["Target Frame Classic"],
 					},
-					spacer = {
-						order = 6,
-						type = 'description',
-						name = "",
-					},
+					spacer2 = ACH:Spacer(6),
 					targettarget = {
 						order = 10,
 						type = "toggle",
@@ -328,9 +312,6 @@ local function configTable()
 			-- 	args = {
 
 
-
-
-					
 			-- 	},
 		},
 	}

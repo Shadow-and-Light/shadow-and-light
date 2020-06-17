@@ -8,6 +8,8 @@ local XP, XPBAR_LABEL, RANK, HONOR, FACTION, REPUTATION, SCENARIO_BONUS_LABEL = 
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
+
 	E.Options.args.sle.args.modules.args.databars = {
 		type = "group",
 		name = L["DataBars"],
@@ -199,7 +201,7 @@ local function configTable()
 								disabled = function() return not E.db.sle.databars.honor.chatfilter.enable end,
 								min = 8, max = 32, step = 1,
 							},
-							spacer = {order = 3, type = "description", name = ""},
+							spacer = ACH:Description("", 3),
 							style = {
 								order = 4,
 								type = "select",

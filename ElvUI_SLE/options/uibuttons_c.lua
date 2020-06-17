@@ -30,18 +30,16 @@ local stratas = {
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
 	local Bar = UB.Holder
+
 	E.Options.args.sle.args.modules.args.uibuttons = {
 		type = "group",
 		name = L["UI Buttons"],
 		order = 1,
 		args = {
-			header = E.Libs.ACH:Header(L["UI Buttons"], 1),
-			intro = {
-				order = 2,
-				type = "description",
-				name = L["UB_DESC"],
-			},
+			header = ACH:Header(L["UI Buttons"], 1),
+			desc = ACH:Description(L["UB_DESC"], 2),
 			enabled = {
 				order = 3,
 				type = "toggle",
@@ -96,11 +94,7 @@ local function configTable()
 					},
 				},
 			},
-			space = {
-				order = 6,
-				type = 'description',
-				name = "",
-			},
+			spacer1 = ACH:Spacer(6),
 			size = {
 				order = 7,
 				type = "range",

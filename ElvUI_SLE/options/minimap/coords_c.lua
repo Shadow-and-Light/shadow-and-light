@@ -1,5 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local MM = SLE:GetModule("Minimap")
+
 local function configTable()
 	if not SLE.initialized then return end
 	E.Options.args.sle.args.modules.args.minimap.args.coords = {

@@ -27,6 +27,8 @@ L["SLE_CYR_DEVCOM_DESC"] = [[
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
+
 	--Main options group
 	E.Options.args.sle.args.advanced = {
 		type = "group",
@@ -35,12 +37,8 @@ local function configTable()
 		get = function(info) return E.global.sle.advanced[ info[#info] ] end,
 		set = function(info, value) E.global.sle.advanced[ info[#info] ] = value; end,
 		args = {
-			header = E.Libs.ACH:Header(L["Advanced Options"], 1),
-			info = {
-				order = 2,
-				type = "description",
-				name = L["SLE_Advanced_Desc"],
-			},
+			header = ACH:Header(L["Advanced Options"], 1),
+			info = ACH:Description(L["SLE_Advanced_Desc"], 2),
 			general = {
 				order = 3,
 				type = "toggle",
@@ -91,11 +89,7 @@ local function configTable()
 				get = function(info) return E.global.sle.advanced.cyrillics[ info[#info] ] end,
 				set = function(info, value) E.global.sle.advanced.cyrillics[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL") end,
 				args = {
-					info = {
-						order = 1,
-						type = "description",
-						name = L["SLE_CYR_DESC"],
-					},
+					info = ACH:Description(L["SLE_CYR_DESC"], 1),
 					commands = {
 						order = 2,
 						type = "toggle",
@@ -104,11 +98,7 @@ local function configTable()
 						descStyle = "inline",
 						width = "full",
 					},
-					devCommandsInfo = {
-						order = 3,
-						type = "description",
-						name = L["SLE_CYR_DEV_DESC"],
-					},
+					devCommandsInfo = ACH:Description(L["SLE_CYR_DEV_DESC"], 3),
 					devCommands = {
 						order = 4,
 						type = "toggle",

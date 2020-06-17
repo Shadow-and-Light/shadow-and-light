@@ -7,13 +7,15 @@ local AUCTION_CATEGORY_BATTLE_PETS, COLOR = AUCTION_CATEGORY_BATTLE_PETS, COLOR
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
+
 	E.Options.args.sle.args.modules.args.bags = {
 		order = 1,
 		type = "group",
 		name = L["Bags"],
 		disabled = function() return not E.private.bags.enable end,
 		args = {
-			header = E.Libs.ACH:Header(L["Bags"], 1),
+			header = ACH:Header(L["Bags"], 1),
 			petLevel = {
 				order = 21,
 				type = "group",

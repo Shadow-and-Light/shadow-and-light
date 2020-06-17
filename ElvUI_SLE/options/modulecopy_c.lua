@@ -334,6 +334,7 @@ end
 
 local function configTable()
 	if not E.Options.args.modulecontrol then return end
+	local ACH = E.Libs.ACH
 	MC = E:GetModule('ModuleCopy')
 
 	E.Options.args.modulecontrol.args.modulecopy.args.sle = {
@@ -343,7 +344,7 @@ local function configTable()
 		childGroups = "tab",
 		-- disabled = E.Options.args.profiles.args.profile.args.copyfrom.disabled,
 		args = {
-			header = E.Libs.ACH:Header(L["|cff9482c9Shadow & Light|r options"], 0),
+			header = ACH:Header(L["|cff9482c9Shadow & Light|r options"], 0),
 			actionbar = MC:CreateModuleConfigGroup(L["ActionBars"], "actionbars", "sle"),
 			armory = CreateArmory(),
 			backgrounds = CreateBackgrounds(),

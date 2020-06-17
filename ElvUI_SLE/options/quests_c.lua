@@ -1,5 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Q = SLE:GetModule("Quests")
+
 local DEFAULT, MINIMIZE, HIDE = DEFAULT, MINIMIZE, HIDE
 local QUESTS_LABEL = QUESTS_LABEL
 local GARRISON_LOCATION_TOOLTIP = GARRISON_LOCATION_TOOLTIP
@@ -8,8 +9,11 @@ local ARENA = ARENA
 local DUNGEONS = DUNGEONS
 local SCENARIOS = SCENARIOS
 local RAIDS = RAIDS
+
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
+
 	local settings = {
 		["FULL"] = DEFAULT,
 		["COLLAPSED"] = MINIMIZE,
@@ -20,7 +24,7 @@ local function configTable()
 		name = QUESTS_LABEL,
 		order = 1,
 		args = {
-			header = E.Libs.ACH:Header(QUESTS_LABEL, 1),
+			header = ACH:Header(QUESTS_LABEL, 1),
 			autoReward = {
 				type = "toggle",
 				order = 2,

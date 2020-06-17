@@ -6,6 +6,7 @@ local SelectedEnchantString
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
 
 	E.Options.args.sle.args.modules.args.armory.args.enchantString = {
 		type = 'group',
@@ -28,11 +29,7 @@ local function configTable()
 				get = function(info) return E.db.sle.armory.enchantString[(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.enchantString[(info[#info])] = value; M:UpdateCharacterInfo(); M:UpdateInspectInfo() end,
 			},
-			space = {
-				type = 'description',
-				name = ' ',
-				order = 9
-			},
+			spacer1 = ACH:Spacer(9),
 			ConfigSpace = {
 				type = 'group',
 				name = L["String Replacement"],
@@ -82,74 +79,69 @@ local function configTable()
 								List[Name] = Name
 							end
 							if not SelectedEnchantString then
-									SelectedEnchantString = ''
-								end
+								SelectedEnchantString = ''
+							end
 							return List
-							end,
-							disabled = function() return (E.db.sle.armory.enchantString.enable == false or E.db.sle.armory.enchantString.replacement == false) or (E.db.sle.armory.character.enable == false and E.db.sle.armory.inspect.enable == false) end
-						},
-						Space2 = {
-							type = 'description',
-								name = ' ',
-								order = 5,
-								width = 'half'
-							},
-							StringGroup = {
-								type = 'group',
-								name = "",
-								order = 8,
-								guiInline = true,
-								hidden = function()
-									return SelectedEnchantString == ''
+						end,
+						disabled = function() return (E.db.sle.armory.enchantString.enable == false or E.db.sle.armory.enchantString.replacement == false) or (E.db.sle.armory.character.enable == false and E.db.sle.armory.inspect.enable == false) end
+					},
+					spacer1 = ACH:Description("", 5, nil, "half"),
+					StringGroup = {
+						type = 'group',
+						name = "",
+						order = 8,
+						guiInline = true,
+						hidden = function()
+							return SelectedEnchantString == ''
+						end,
+						args = {
+							TargetString = {
+								type = 'input',
+								name = L["Original String"],
+								order = 1,
+								desc = '',
+								width = "full",
+								get = function() return SLE_ArmoryDB.EnchantString[SelectedEnchantString]["original"] end,
+								set = function(_, value)
+									SLE_ArmoryDB.EnchantString[SelectedEnchantString]["original"] = value
+
+									if _G["CharacterArmory"] then
+										_G["CharacterArmory"]:Update_Gear()
+									end
+
+									if _G["InspectArmory"] and _G["InspectArmory"].LastDataSetting then
+										_G["InspectArmory"]:InspectFrame_DataSetting(_G["InspectArmory"].CurrentInspectData)
+									end
 								end,
-								args = {
-									TargetString = {
-										type = 'input',
-										name = L["Original String"],
-										order = 1,
-										desc = '',
-										width = "full",
-										get = function() return SLE_ArmoryDB.EnchantString[SelectedEnchantString]["original"] end,
-										set = function(_, value)
-											SLE_ArmoryDB.EnchantString[SelectedEnchantString]["original"] = value
+								disabled = function() return (E.db.sle.armory.enchantString.enable == false or E.db.sle.armory.enchantString.replacement == false) or (E.db.sle.armory.character.enable == false and E.db.sle.armory.inspect.enable == false) end
+							},
+							NewString = {
+								type = 'input',
+								name = L["New String"],
+								order = 2,
+								desc = '',
+								width = "full",
+								get = function() return SLE_ArmoryDB.EnchantString[SelectedEnchantString]["new"] end,
+								set = function(_, value)
+									SLE_ArmoryDB.EnchantString[SelectedEnchantString]["new"] = value
 
-											if _G["CharacterArmory"] then
-												_G["CharacterArmory"]:Update_Gear()
-											end
+									if _G["CharacterArmory"] then
+										_G["CharacterArmory"]:Update_Gear()
+									end
 
-											if _G["InspectArmory"] and _G["InspectArmory"].LastDataSetting then
-												_G["InspectArmory"]:InspectFrame_DataSetting(_G["InspectArmory"].CurrentInspectData)
-											end
-										end,
-										disabled = function() return (E.db.sle.armory.enchantString.enable == false or E.db.sle.armory.enchantString.replacement == false) or (E.db.sle.armory.character.enable == false and E.db.sle.armory.inspect.enable == false) end
-									},
-									NewString = {
-										type = 'input',
-										name = L["New String"],
-										order = 2,
-										desc = '',
-										width = "full",
-										get = function() return SLE_ArmoryDB.EnchantString[SelectedEnchantString]["new"] end,
-										set = function(_, value)
-											SLE_ArmoryDB.EnchantString[SelectedEnchantString]["new"] = value
-
-											if _G["CharacterArmory"] then
-												_G["CharacterArmory"]:Update_Gear()
-											end
-
-											if _G["InspectArmory"] and _G["InspectArmory"].LastDataSetting then
-												_G["InspectArmory"]:InspectFrame_DataSetting(_G["InspectArmory"].CurrentInspectData)
-											end
-										end,
-										disabled = function() return (E.db.sle.armory.enchantString.enable == false or E.db.sle.armory.enchantString.replacement == false) or (E.db.sle.armory.character.enable == false and E.db.sle.armory.inspect.enable == false) end
-									},
-									DeleteButton = {
-										type = 'execute',
-										name = DELETE,
-										order = 8,
-										desc = '',
-										func = function()
-											if SLE_ArmoryDB.EnchantString[SelectedEnchantString] then
+									if _G["InspectArmory"] and _G["InspectArmory"].LastDataSetting then
+										_G["InspectArmory"]:InspectFrame_DataSetting(_G["InspectArmory"].CurrentInspectData)
+									end
+								end,
+								disabled = function() return (E.db.sle.armory.enchantString.enable == false or E.db.sle.armory.enchantString.replacement == false) or (E.db.sle.armory.character.enable == false and E.db.sle.armory.inspect.enable == false) end
+							},
+							DeleteButton = {
+								type = 'execute',
+								name = DELETE,
+								order = 8,
+								desc = '',
+								func = function()
+									if SLE_ArmoryDB.EnchantString[SelectedEnchantString] then
 										SLE_ArmoryDB.EnchantString[SelectedEnchantString] = nil
 										SelectedEnchantString = ''
 										if _G["CharacterArmory"] then

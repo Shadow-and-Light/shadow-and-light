@@ -5,6 +5,7 @@ local M = E:GetModule("Misc")
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
 
 	local FontStyleList = {
 		NONE = NONE,
@@ -20,7 +21,7 @@ local function configTable()
 		disabled = function() return not E.db.sle.armory.character.enable end,
 		hidden = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.character end,
 		args = {
-			header = E.Libs.ACH:Header(L["Character Armory"], 1),
+			header = ACH:Header(L["Character Armory"], 1),
 			showWarning = {
 				order = 2,
 				type = "toggle",
@@ -229,11 +230,7 @@ local function configTable()
 							Hide = HIDE
 						},
 					},
-					space = {
-						type = 'description',
-						name = '',
-						order = 2
-					},
+					spacer1 = ACH:Spacer(2),
 					font = {
 						type = 'select', dialogControl = 'LSM30_Font',
 						name = L["Font"],
@@ -289,11 +286,7 @@ local function configTable()
 						name = L["Icon"],
 						type = "toggle",
 					},
-					space = {
-						order = 3,
-						type = "description",
-						name = "",
-					},
+					spacer1 = ACH:Description("", 3),
 					xOffset = {
 						type = 'range',
 						name = L["X-Offset"],
@@ -306,11 +299,7 @@ local function configTable()
 						order = 11,
 						min = -40, max = 40, step = 1,
 					},
-					space2 = {
-						order = 15,
-						type = "description",
-						name = "",
-					},
+					spacer2 = ACH:Description("", 15),
 					font = {
 						type = 'select', dialogControl = 'LSM30_Font',
 						name = L["Font"],

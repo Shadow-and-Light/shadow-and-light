@@ -1,12 +1,14 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Armory = SLE:GetModule("Armory_Core")
--- local CA = SLE:GetModule("Armory_Character")
 local M = E:GetModule("Misc")
+-- local CA = SLE:GetModule("Armory_Character")
+
 local _G = _G
 local STAT_CATEGORY_ATTRIBUTES = STAT_CATEGORY_ATTRIBUTES
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
 
 	E.Options.args.sle.args.modules.args.armory = {
 		type = 'group',
@@ -15,12 +17,7 @@ local function configTable()
 		childGroups = "tab",
 		-- hidden = function() return not E.private.skins.blizzard.enable end,
 		args = {
-			info = {
-				order = 1,
-				type = "description",
-				name = L["SLE_Armory_Info"].."\n",
-				hidden = function() return not E.private.skins.blizzard.enable or (not E.private.skins.blizzard.character and not E.private.skins.blizzard.inspect) end,
-			},
+			desc = ACH:Description(L["SLE_Armory_Info"].."\n", 1, nil, nil, function() return not E.private.skins.blizzard.enable or (not E.private.skins.blizzard.character and not E.private.skins.blizzard.inspect) end),
 			CA_enable = {
 				type = "toggle",
 				name = L["Character Armory"],
@@ -92,11 +89,7 @@ local function configTable()
 							["Hide"] = HIDE,
 						},
 					},
-					space = {
-						order = 4,
-						type = "description",
-						name = "",
-					},
+					spacer1 = ACH:Description("", 4),
 					xOffset = {
 						type = 'range',
 						name = L["X-Offset"],
@@ -109,11 +102,7 @@ local function configTable()
 						order = 11,
 						min = -40, max = 40, step = 1,
 					},
-					space2 = {
-						order = 15,
-						type = "description",
-						name = "",
-					},
+					spacer2 = ACH:Description("", 15),
 					font = {
 						type = 'select', dialogControl = 'LSM30_Font',
 						name = L["Font"],
@@ -150,15 +139,7 @@ local function configTable()
 				end,
 			},
 			--In case some fucker disabled all the skins
-			SkinsDisabled = {
-				order = 500,
-				type = "description",
-				name = "|cffff0000 !!!|r "..L["SLE_Armory_SkinDisabled"].." |cffff0000 !!!|r",
-				hidden = function()
-					if not E.private.skins.blizzard.enable then return false end
-					return (E.private.skins.blizzard.character or E.private.skins.blizzard.inspect)
-				end,
-			},
+			SkinsDisabled = ACH:Description("|cffff0000 !!!|r "..L["SLE_Armory_SkinDisabled"].." |cffff0000 !!!|r", 500, "medium", nil, function() if not E.private.skins.blizzard.enable then return false end return (E.private.skins.blizzard.character or E.private.skins.blizzard.inspect) end),
 			GoToElv_Skins = {
 				order = 501,
 				type = "execute",

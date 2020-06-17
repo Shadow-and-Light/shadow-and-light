@@ -1,20 +1,20 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local MM = SLE:GetModule("Minimap")
+
 local MINIMAP_LABEL = MINIMAP_LABEL
+
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
+
 	E.Options.args.sle.args.modules.args.minimap = {
 		type = "group",
 		name = MINIMAP_LABEL,
 		order = 1,
 		childGroups = 'tab',
 		args = {
-			header = E.Libs.ACH:Header(L["Minimap Options"], 1),
-			intro = {
-				order = 2,
-				type = 'description',
-				name = L["MINIMAP_DESC"],
-			},
+			header = ACH:Header(L["Minimap Options"], 1),
+			desc = ACH:Description(L["MINIMAP_DESC"], 2),
 			combat = {
 				type = "toggle",
 				name = L["Hide In Combat"],

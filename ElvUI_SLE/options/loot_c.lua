@@ -10,6 +10,7 @@ local CHAT_MSG_BN_WHISPER, CHAT_MSG_WHISPER_INFORM = CHAT_MSG_BN_WHISPER, CHAT_M
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
 	local function CreateChannel(Name, Order)
 		local config = {
 			order = Order,
@@ -35,27 +36,15 @@ local function configTable()
 				get = function() return E.db.sle.loot.enable end,
 				set = function(_, value) E.db.sle.loot.enable = value; LT:Toggle() end
 			},
-			space1 = {
-				order = 2,
-				type = 'description',
-				name = "",
-			},
+			spacer1 = ACH:Spacer(2),
 			autoroll = {
 				order = 1,
 				type = "group",
 				name = L["Loot Auto Roll"],
 				args = {
-					header = E.Libs.ACH:Header(L["Loot Auto Roll"], 1),
-					info = {
-						order = 2,
-						type = "description",
-						name = L["LOOT_AUTO_DESC"],
-					},
-					space1 = {
-						order = 3,
-						type = 'description',
-						name = "",
-					},
+					header = ACH:Header(L["Loot Auto Roll"], 1),
+					info = ACH:Description(L["LOOT_AUTO_DESC"], 2),
+					spacer1 = ACH:Description("", 3),
 					enable = {
 						order = 4,
 						type = "toggle",
@@ -64,11 +53,7 @@ local function configTable()
 						get = function() return E.db.sle.loot.autoroll.enable end,
 						set = function(_, value) E.db.sle.loot.autoroll.enable = value; LT:Update() end,
 					},
-					space2 = {
-						order = 5,
-						type = 'description',
-						name = "",
-					},
+					spacer2 = ACH:Description("", 5),
 					autoconfirm = {
 						order = 6,
 						type = "toggle",
@@ -110,11 +95,7 @@ local function configTable()
 							[2] = "|cff1EFF00"..ITEM_QUALITY2_DESC.."|r",
 						},
 					},
-					space3 = {
-						order = 10,
-						type = 'description',
-						name = "",
-					},
+					spacer3 = ACH:Description("", 10),
 					bylevel = {
 						order = 11,
 						type = "toggle",
@@ -140,12 +121,8 @@ local function configTable()
 				type = "group",
 				name = L["Loot Roll History"],
 				args = {
-					header = E.Libs.ACH:Header(L["Loot Roll History"], 1),
-					info = {
-						order = 2,
-						type = "description",
-						name = L["LOOTH_DESC"],
-					},
+					header = ACH:Header(L["Loot Roll History"], 1),
+					info = ACH:Description(L["LOOTH_DESC"], 2),
 					window = {
 						order = 3,
 						type = "toggle",

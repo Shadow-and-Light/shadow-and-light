@@ -3,6 +3,8 @@ local RP = SLE:GetModule("RaidProgress")
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
+
 	E.Options.args.sle.args.modules.args.tooltip = {
 		order = 1,
 		type = "group",
@@ -10,12 +12,8 @@ local function configTable()
 		get = function(info) return E.db.sle.tooltip[ info[#info] ] end,
 		name = L["Tooltip"],
 		args = {
-			header = E.Libs.ACH:Header(L["Tooltip"], 1),
-			space1 = {
-				order = 4,
-				type = 'description',
-				name = "",
-			},
+			header = ACH:Header(L["Tooltip"], 1),
+			spacer1 = ACH:Spacer(4),
 			showFaction = {
 				order = 5,
 				type = 'toggle',

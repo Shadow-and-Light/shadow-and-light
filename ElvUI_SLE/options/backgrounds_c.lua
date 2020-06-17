@@ -7,6 +7,8 @@ local DEFAULT = DEFAULT
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
+
 	local function CreateEnable(i)
 		local config = {
 			order = i+5,
@@ -43,11 +45,7 @@ local function configTable()
 					min = 20, max = E.screenheight/2, step = 1,
 					set = function(_, value) E.db.sle.backgrounds["bg"..i].height = value; BG:FramesSize(i) end,
 				},
-				spacer = {
-					order = 3,
-					type = "description",
-					name = "",
-				},
+				spacer = ACH:Description("", 3),
 				texture = {
 					order = 6,
 					type = 'input',
@@ -112,12 +110,8 @@ local function configTable()
 		order = 1,
 		childGroups = 'tab',
 		args = {
-			header = E.Libs.ACH:Header(L["Additional Background Panels"], 1),
-			intro = {
-				order = 2,
-				type = "description",
-				name = L["BG_DESC"]
-			},
+			header = ACH:Header(L["Additional Background Panels"], 1),
+			intro = ACH:Description(L["BG_DESC"], 2),
 			-- Reset = {
 				-- order = 4,
 				-- type = 'execute',
@@ -125,18 +119,10 @@ local function configTable()
 				-- desc = L["Reset these options to defaults"],
 				-- func = function() E:GetModule('SLE'):Reset("backgrounds") end,
 			-- },
-			spacerreset = {
-				order = 5,
-				type = 'description',
-				name = "",
-			},
+			spacer1 = ACH:Spacer(5),
 			bg1 = CreateEnable(1),
 			bg2 = CreateEnable(2),
-			spacer = {
-				order = 8,
-				type = "description",
-				name = "",
-			},
+			spacer2 = ACH:Spacer(8),
 			bg3 = CreateEnable(3),
 			bg4 = CreateEnable(4),
 			bg1gr = CreateGroup(1),

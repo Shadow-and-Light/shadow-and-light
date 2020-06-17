@@ -1,8 +1,12 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local B = SLE:GetModule("BlizzRaid")
+
 local RAID_CONTROL = RAID_CONTROL
+
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
+
 	E.Options.args.sle.args.modules.args.raidmanager = {
 		type = "group",
 		name = RAID_CONTROL,
@@ -11,12 +15,8 @@ local function configTable()
 		get = function(info) return E.db.sle.raidmanager[ info[#info] ] end,
 		set = function(info, value) E.db.sle.raidmanager[ info[#info] ] = value; B:CreateAndUpdateIcons() end,
 		args = {
-			header = E.Libs.ACH:Header(RAID_CONTROL, 1),
-			info = {
-				order = 2,
-				type = "description",
-				name = L["Options for customizing Blizzard Raid Manager \"O - > Raid\""],
-			},
+			header = ACH:Header(RAID_CONTROL, 1),
+			desc = ACH:Description(L["Options for customizing Blizzard Raid Manager \"O - > Raid\""], 2),
 			roles = {
 				order = 3,
 				type = "toggle",
@@ -30,4 +30,5 @@ local function configTable()
 		},
 	}
 end
+
 tinsert(SLE.Configs, configTable)

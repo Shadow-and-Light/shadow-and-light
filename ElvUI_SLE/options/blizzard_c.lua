@@ -7,12 +7,14 @@ local tinsert = tinsert
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
+
 	E.Options.args.sle.args.modules.args.blizz = {
 		order = 1,
 		type = "group",
 		name = "Blizzard",
 		args = {
-			header = E.Libs.ACH:Header("Blizzard", 1),
+			header = ACH:Header("Blizzard", 1),
 			blizzmove = {
 				order = 12,
 				type = "group",

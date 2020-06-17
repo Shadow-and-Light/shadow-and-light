@@ -43,6 +43,7 @@ Whiro]]
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
 
 	local function CreateQuestion(i, text)
 		local question = {
@@ -61,11 +62,11 @@ local function configTable()
 		order = 90,
 		childGroups = 'tab',
 		args = {
-			header = E.Libs.ACH:Header(L["About/Help"], 1),
+			header = ACH:Header(L["About/Help"], 1),
 			about = {
 				type = 'group', name = L["About"].." "..E.NewSign, order = 2,
 				args = {
-					content = { order = 2, type = 'description', fontSize = 'medium', name = "\n"..L["SLE_DESC"] },
+					content = ACH:Description("\n"..L["SLE_DESC"], 2, "medium"),
 				},
 			},
 			faq = {
@@ -74,12 +75,7 @@ local function configTable()
 				order = 5,
 				childGroups = "select",
 				args = {
-					desc = {
-						order = 1,
-						type = 'description',
-						fontSize = 'medium',
-						name = L["FAQ_DESC"],
-					},
+					desc = ACH:Description(L["FAQ_DESC"], 1, "medium"),
 					elvui = {
 						type = 'group', order = 10, name = "ElvUI",
 						args = {
@@ -107,9 +103,7 @@ local function configTable()
 				name = L["Links"]..[[ |TInterface\MINIMAP\TRACKING\FlightMaster:16:16|t]],
 				order = 10,
 				args = {
-					desc = {
-						order = 1, type = 'description', fontSize = 'medium', name = L["LINK_DESC"]
-					},
+					desc = ACH:Description(L["LINK_DESC"], 1, "medium"),
 					tukuilink = {
 						order = 2, type = 'input', width = 'full', name = "TukUI.org",
 						get = function(info) return "http://www.tukui.org/addons/index.php?act=view&id=42" end,
@@ -138,24 +132,15 @@ local function configTable()
 				-- name = L["Patrons"]..[[ |TInterface\MONEYFRAME\UI-GoldIcon:14:14|t]],
 				name = L["Patrons"]..[[ |TInterface\BUTTONS\UI-GroupLoot-Coin-Up:16:16|t]],
 				args = {
-					header = E.Libs.ACH:Header(L["Patreons"], 1),
+					header = ACH:Header(L["Patreons"], 1),
 					patrons = {
 						order = 2,
 						type = "group",
 						guiInline = true,
 						name = L["Patrons"],
 						args = {
-							desc = {
-								order = 1,
-								type = "description",
-								name = L["ELVUI_SLE_PATREON_TITLE"]..'\n\n',
-							},
-							list = {
-								order = 2,
-								type = "description",
-								width = "half",
-								name = L["ELVUI_SLE_PATRONS"],
-							},
+							desc = ACH:Description(L["ELVUI_SLE_PATREON_TITLE"]..'\n\n', 1),
+							list = ACH:Description(L["ELVUI_SLE_PATRONS"], 2, nil, "half"),
 						},
 					},
 					donors = {
@@ -164,17 +149,8 @@ local function configTable()
 						guiInline = true,
 						name = L["Donors"],
 						args = {
-							desc = {
-								order = 1,
-								type = "description",
-								name = L["ELVUI_SLE_DONORS_TITLE"]..'\n\n',
-							},
-							list = {
-								order = 2,
-								type = "description",
-								width = "half",
-								name = L["ELVUI_SLE_DONORS"],
-							},
+							desc = ACH:Description(L["ELVUI_SLE_DONORS_TITLE"]..'\n\n', 1),
+							list = ACH:Description(L["ELVUI_SLE_DONORS"], 2, nil, "half"),
 						},
 					},
 				},
@@ -185,49 +161,24 @@ local function configTable()
 				type = 'group',
 				name = L["Credits"]..[[ |TInterface\AddOns\ElvUI_SLE\media\textures\Chat_Test:14:14|t]],
 				args = {
-					header = E.Libs.ACH:Header(L["Credits"], 1),
-					creditsdesc = {
-						order = 2,
-						type = "description",
-						name = L["ELVUI_SLE_CREDITS"].."\n\n",
-					},
+					header = ACH:Header(L["Credits"], 1),
+					desc = ACH:Description(L["ELVUI_SLE_CREDITS"].."\n\n", 2),
 					coding = {
 						order = 3,
 						type = "group",
 						guiInline = true,
 						name = L["Submodules and Coding:"],
 						args = {
-							list = {
-								order = 1,
-								type = "description",
-								name = L["ELVUI_SLE_CODERS"],
-							},
+							list = ACH:Description(L["ELVUI_SLE_CODERS"], 1),
 						},
 					},
-					-- credits = {
-						-- order = 3,
-						-- type = "group",
-						-- guiInline = true,
-						-- name = "",
-						-- args = {
-							-- list = {
-								-- order = 1,
-								-- type = "description",
-								-- name = L["ELVUI_SLE_MISC"],
-							-- },
-						-- },
-					-- },
 					misc = {
 						order = 4,
 						type = "group",
 						guiInline = true,
 						name = L["Other Support:"],
 						args = {
-							list = {
-								order = 1,
-								type = "description",
-								name = L["ELVUI_SLE_MISC"],
-							},
+							list = ACH:Description(L["ELVUI_SLE_MISC"], 2),
 						},
 					},
 				},

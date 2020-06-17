@@ -5,18 +5,15 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
 	E.Options.args.sle.args.skins = {
 		order = 30,
 		type = "group",
 		name = L["Skins"],
 		childGroups = 'tab',
 		args = {
-			header = E.Libs.ACH:Header(L["Skins"], 1),
-			info = {
-				order = 2,
-				type = "description",
-				name = L["SLE_SKINS_DESC"],
-			},
+			header = ACH:Header(L["Skins"], 1),
+			desc = ACH:Description(L["SLE_SKINS_DESC"], 2),
 			GoToSkins = {
 				order = 2,
 				type = "execute",
@@ -36,16 +33,8 @@ local function configTable()
 						name = L["Enable"],
 						disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
 					},
-					space1 = {
-						order = 3,
-						type = "description",
-						name = "",
-					},
-					space2 = {
-						order = 3,
-						type = "description",
-						name = "",
-					},
+					spacer1 = ACH:Description("", 23),
+					spacer2 = ACH:Description("", 3),
 					texture = {
 						order = 3,
 						type = "select", dialogControl = "LSM30_Statusbar",
@@ -77,11 +66,7 @@ local function configTable()
 						name = L["Class Colored Statusbars"],
 						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
 					},
-					space3 = {
-						order = 6,
-						type = "description",
-						name = "",
-					},
+					spacer3 = ACH:Description("", 6),
 					underline = {
 						order = 7,
 						type = "toggle",
@@ -123,16 +108,8 @@ local function configTable()
 						min = 1, max = 10, step = 1,
 						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
 					},
-					space4 = {
-						order = 11,
-						type = "description",
-						name = "",
-					},
-					space5 = {
-						order = 12,
-						type = "description",
-						name = "",
-					},
+					spacer4 = ACH:Description("", 11),
+					spacer5 = ACH:Description("", 12),
 					colorHeader = {
 						type = 'color',
 						order = 13,

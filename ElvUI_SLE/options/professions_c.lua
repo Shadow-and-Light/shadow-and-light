@@ -1,16 +1,19 @@
 ﻿local SLE, _, E, L = unpack(select(2, ...))
 local Pr = SLE:GetModule("Professions")
+
 local TRADE_SKILLS, NONE = TRADE_SKILLS, NONE
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
+
 	E.Options.args.sle.args.modules.args.professions = {
 		type = "group",
 		name = TRADE_SKILLS,
 		order = 1,
 		childGroups = 'tab',
 		args = {
-			header = E.Libs.ACH:Header(TRADE_SKILLS, 1),
+			header = ACH:Header(TRADE_SKILLS, 1),
 			deconstructButton = {
 				order = 2,
 				type = "group",
@@ -63,11 +66,7 @@ local function configTable()
 						get = function(info) return E.private.sle.professions.enchant.enchScroll end,
 						set = function(info, value) E.private.sle.professions.enchant.enchScroll = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
-					infos = {
-						order = 2,
-						type = "description",
-						name = L["Following options are global and will be applied to all characters on account."]
-					},
+					desc = ACH:Description(L["Following options are global and will be applied to all characters on account."], 2),
 					ignoreItems = {
 						order = 3,
 						name = L["Deconstruction ignore"],
@@ -126,11 +125,7 @@ local function configTable()
 				type = "group",
 				name = GetSpellInfo(1804),
 				args = {
-					infos = {
-						order = 1,
-						type = "description",
-						name = L["Following options are global and will be applied to all characters on account."]
-					},
+					desc = ACH:Description(L["Following options are global and will be applied to all characters on account."], 1),
 					ignoreItems = {
 						order = 2,
 						name = L["Deconstruction ignore"],

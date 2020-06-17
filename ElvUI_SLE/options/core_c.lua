@@ -1,4 +1,5 @@
 ﻿local SLE, _, E, L = unpack(select(2, ...))
+-- local ACH = E.Libs.ACH
 
 --GLOBALS: unpack, select, tinsert, format
 local tinsert, format = tinsert, format
@@ -46,11 +47,7 @@ local function configTable()
 				name = L["Modules"],
 				args = {
 					header = E.Libs.ACH:Header(L["Modules"], 1),
-					info = {
-						type = "description",
-						order = 2,
-						name = L["Options for different S&L modules."],
-					},
+					info = E.Libs.ACH:Description(L["Options for different S&L modules."], 2),
 				},
 			},
 		},

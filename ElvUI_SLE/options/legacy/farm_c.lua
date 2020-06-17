@@ -1,10 +1,13 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Tools = SLE:GetModule("Toolbars")
+
 local EXPANSION_NAME4 = EXPANSION_NAME4
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
 	local db = E.db.sle.legacy.farm
+
 	E.Options.args.sle.args.modules.args.legacy.args.farm = {
 		type = 'group',
 		order = 1,
@@ -12,7 +15,7 @@ local function configTable()
 		get = function(info) return db[ info[#info] ] end,
 		set = function(info, value) db[ info[#info] ] = value; Tools:UpdateLayout() end,
 		args = {
-			header = E.Libs.ACH:Header(L["Farm"], 1),
+			header = ACH:Header(L["Farm"], 1),
 			enable = {
 				type = "toggle",
 				order = 2,

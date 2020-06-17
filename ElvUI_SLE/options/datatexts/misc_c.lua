@@ -8,17 +8,14 @@ local MANA_REGEN = MANA_REGEN
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
 
 	E.Options.args.sle.args.modules.args.datatext.args.sldatatext.args.slmail = {
 		type = "group",
 		name = L["S&L Mail"],
 		order = 5,
 		args = {
-			header = {
-				order = 1,
-				type = "description",
-				name = L["These options are for modifying the Shadow & Light Mail datatext."],
-			},
+			desc = ACH:Description(L["These options are for modifying the Shadow & Light Mail datatext."], 1, "large"),
 			icon = {
 				order = 2,
 				type = "toggle",

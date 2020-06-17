@@ -1,4 +1,5 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+
 local WAR_CAMPAIGN = WAR_CAMPAIGN
 
 local function configTable()

@@ -1,22 +1,22 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local RM = SLE:GetModule('RaidMarkers')
+
 local SHIFT_KEY, CTRL_KEY, ALT_KEY = SHIFT_KEY, CTRL_KEY, ALT_KEY
 local AGGRO_WARNING_IN_PARTY = AGGRO_WARNING_IN_PARTY
 local CUSTOM = CUSTOM
+
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
+
 	E.Options.args.sle.args.modules.args.raidmarkerbars = {
 		order = 1,
 		type = "group",
 		name = L["Raid Markers"],
 		get = function(info) return E.db.sle.raidmarkers[ info[#info] ] end,
 		args = {
-			marksheader = E.Libs.ACH:Header(L["Raid Markers"], 1),
-			info = {
-				order = 2,
-				type = "description",
-				name = L["Options for panels providing fast access to raid markers and flares."],
-			},
+			marksheader = ACH:Header(L["Raid Markers"], 1),
+			desc = ACH:Description(L["Options for panels providing fast access to raid markers and flares."], 2),
 			enable = {
 				order = 3,
 				type = "toggle",
@@ -32,11 +32,7 @@ local function configTable()
 				disabled = function() return not E.db.sle.raidmarkers.enable end,
 				func = function() SLE:Reset("marks") end,
 			},
-			space1 = {
-				order = 5,
-				type = 'description',
-				name = "",
-			},
+			spacer1 = ACH:Description("", 5),
 			backdrop = {
 				type = 'toggle',
 				order = 6,

@@ -7,28 +7,21 @@ local allOutline = "OUTLINE"
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
 	E.Options.args.sle.args.media = {
 		type = "group",
 		name = L["Media"],
 		order = 20,
 		childGroups = 'tab',
 		args = {
-			header = E.Libs.ACH:Header(L["Media"], 1),
-			intro = {
-				order = 2,
-				type = "description",
-				name = L["SLE_MEDIA"],
-			},
+			header = ACH:Header(L["Media"], 1),
+			intro = ACH:Description(L["SLE_MEDIA"], 2),
 			zonefonts = {
 				type = "group",
 				name = L["Zone Text"],
 				order = 3,
 				args = {
-					intro = {
-						order = 1,
-						type = "description",
-						name = "",
-					},
+					intro = ACH:Description("", 1),
 					test = {
 						order = 2,
 						type = 'execute',

@@ -9,6 +9,7 @@ local DEFAULT, NONE = DEFAULT, NONE
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
 
 	E.Options.args.sle.args.modules.args.actionbars = {
 		type = "group",
@@ -60,11 +61,7 @@ local function configTable()
 				order = 10,
 				guiInline = true,
 				args = {
-					info = {
-						order = 2,
-						type = "description",
-						name = L["A different look/feel vehicle bar"],
-					},
+					info = ACH:Description(L["A different look/feel vehicle bar"], 2),
 					enable = {
 						order = 3,
 						type = "toggle",

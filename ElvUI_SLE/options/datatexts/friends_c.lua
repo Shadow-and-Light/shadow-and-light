@@ -5,18 +5,14 @@ local DT = E:GetModule('DataTexts')
 local friendStyleTable = {}
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
 
 	E.Options.args.sle.args.modules.args.datatext.args.sldatatext.args.slfriends = {
 		type = "group",
 		name = L["S&L Friends"],
 		order = 3,
 		args = {
-			header = {
-				order = 1,
-				type = "description",
-				name = L["These options are for modifying the Shadow & Light Friends datatext."],
-				fontSize = "Large",
-			},
+			desc = ACH:Description(L["These options are for modifying the Shadow & Light Friends datatext."], 1, "large"),
 			tooltip = {
 				order = 2,
 				name = L["General Settings"],
