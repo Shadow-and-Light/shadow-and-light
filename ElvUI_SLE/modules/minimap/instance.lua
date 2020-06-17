@@ -88,7 +88,7 @@ end
 
 function I:GetColor(dif)
 	if dif and Difficulties[dif] then
-		local color = I.db.colors[Difficulties[dif]]
+		local color = E.db.sle.minimap.instance.colors[Difficulties[dif]]
 		return color.r*255, color.g*255, color.b*255
 	else
 		return 255, 255, 255
@@ -96,13 +96,13 @@ function I:GetColor(dif)
 end
 
 function I:GenerateText(event, guild, force)
-	local text, groupType, isHeroic, isChallengeMode, difficulty, difficultyName, instanceGroupSize
 	I.frame.icon:SetText("")
 	if not I:InstanceCheck() then
 		I.frame.text:SetText("")
 	else
 		--  TODO: Revisit this as this doesnt seem right
-		groupType, difficulty, difficultyName, _, _, _, _, instanceGroupSize = select(2, GetInstanceInfo())
+		local text, isHeroic, isChallengeMode
+		local groupType, difficulty, difficultyName, _, _, _, _, instanceGroupSize = select(2, GetInstanceInfo())
 		isHeroic, isChallengeMode = select(3, GetDifficultyInfo(difficulty))
 		local r, g, b = I:GetColor(difficulty)
 		if (difficulty >= 3 and difficulty <= 7) or difficulty == 9 or E.db.sle.minimap.instance.onlyNumber then
