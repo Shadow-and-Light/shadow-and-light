@@ -97,20 +97,22 @@ end
 
 function I:GenerateText(event, guild, force)
 	I.frame.icon:SetText("")
+
 	if not I:InstanceCheck() then
 		I.frame.text:SetText("")
 	else
-		--  TODO: Revisit this as this doesnt seem right
 		local text, isHeroic, isChallengeMode
 		local groupType, difficulty, difficultyName, _, _, _, _, instanceGroupSize = select(2, GetInstanceInfo())
 		isHeroic, isChallengeMode = select(3, GetDifficultyInfo(difficulty))
 		local r, g, b = I:GetColor(difficulty)
+
 		if (difficulty >= 3 and difficulty <= 7) or difficulty == 9 or E.db.sle.minimap.instance.onlyNumber then
 			text = format("|cff%02x%02x%02x%s|r", r, g, b, instanceGroupSize)
 		else
 			difficultyName = sub(difficultyName, 1 , 1)
 			text = format(instanceGroupSize.." |cff%02x%02x%02x%s|r", r, g, b, difficultyName)
 		end
+
 		I.frame.text:SetText(text)
 		-- guild = true
 		if (guild) and not isChallengeMode then
@@ -120,6 +122,7 @@ function I:GenerateText(event, guild, force)
 		I.BlizzDif:Hide()
 		I.BlizzCM:Hide()
 		I.BlizzGDif:Hide()
+
 		if not I.db.enable then
 			if not I.BlizzDif:IsShown() and (groupType == "raid" or isHeroic) and not guild then
 				I.BlizzDif:Show()
@@ -141,17 +144,20 @@ end
 
 function I:Initialize()
 	if not SLE.initialized or not E.private.general.minimap.enable then return end
+
 	I.db = E.db.sle.minimap.instance
 	self:CreateText()
 
 	I.BlizzDif:HookScript("OnShow", function(self) if I.db.enable then self:Hide() end end)
 	I.BlizzGDif:HookScript("OnShow", function(self) if I.db.enable then self:Hide() end end)
 	I.BlizzCM:HookScript("OnShow", function(self) if I.db.enable then self:Hide() end end)
+
 	self:RegisterEvent("LOADING_SCREEN_DISABLED", "GenerateText")
 	self:RegisterEvent("GROUP_ROSTER_UPDATE", "GenerateText")
 	-- self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "GenerateText")
 	self:RegisterEvent("GUILD_PARTY_STATE_UPDATED", "GenerateText")
 	self:UpdateFrame()
+
 	hooksecurefunc("MiniMapInstanceDifficulty_Update", I.GenerateText)
 
 	function I:ForUpdateAll()
