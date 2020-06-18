@@ -44,7 +44,7 @@ local function configTable()
 				args = {
 					header = ACH:Header(L["Loot Auto Roll"], 1),
 					info = ACH:Description(L["LOOT_AUTO_DESC"], 2),
-					spacer1 = ACH:Description("", 3),
+					spacer1 = ACH:Spacer(3),
 					enable = {
 						order = 4,
 						type = "toggle",
@@ -53,7 +53,7 @@ local function configTable()
 						get = function() return E.db.sle.loot.autoroll.enable end,
 						set = function(_, value) E.db.sle.loot.autoroll.enable = value; LT:Update() end,
 					},
-					spacer2 = ACH:Description("", 5),
+					spacer2 = ACH:Spacer(5),
 					autoconfirm = {
 						order = 6,
 						type = "toggle",
@@ -95,7 +95,7 @@ local function configTable()
 							[2] = "|cff1EFF00"..ITEM_QUALITY2_DESC.."|r",
 						},
 					},
-					spacer3 = ACH:Description("", 10),
+					spacer3 = ACH:Spacer(10),
 					bylevel = {
 						order = 11,
 						type = "toggle",

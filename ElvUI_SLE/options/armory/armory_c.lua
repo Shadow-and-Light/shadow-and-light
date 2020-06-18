@@ -89,7 +89,7 @@ local function configTable()
 							["Hide"] = HIDE,
 						},
 					},
-					spacer1 = ACH:Description("", 4),
+					spacer1 = ACH:Spacer(4),
 					xOffset = {
 						type = 'range',
 						name = L["X-Offset"],
@@ -102,7 +102,7 @@ local function configTable()
 						order = 11,
 						min = -40, max = 40, step = 1,
 					},
-					spacer2 = ACH:Description("", 15),
+					spacer2 = ACH:Spacer(15),
 					font = {
 						type = 'select', dialogControl = 'LSM30_Font',
 						name = L["Font"],

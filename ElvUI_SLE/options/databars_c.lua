@@ -201,7 +201,7 @@ local function configTable()
 								disabled = function() return not E.db.sle.databars.honor.chatfilter.enable end,
 								min = 8, max = 32, step = 1,
 							},
-							spacer = ACH:Description("", 3),
+							spacer = ACH:Spacer(3),
 							style = {
 								order = 4,
 								type = "select",

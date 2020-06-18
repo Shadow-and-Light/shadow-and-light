@@ -354,7 +354,7 @@ local function configTable()
 						disabled = function() return not E.private.unitframe.enable or not E.private.sle.unitframe.statusbarTextures.power or SLE._Compatibility["ElvUI_CustomTweaks"] end,
 						values = AceGUIWidgetLSMlists.statusbar,
 					},
-					spacer1 = ACH:Description("", 3),
+					spacer1 = ACH:Spacer(3),
 					cast = {
 						order = 4,
 						type = "toggle",
@@ -369,7 +369,7 @@ local function configTable()
 						disabled = function() return not E.private.unitframe.enable or not E.private.sle.unitframe.statusbarTextures.cast end,
 						values = AceGUIWidgetLSMlists.statusbar,
 					},
-					spacer2 = ACH:Description("", 6),
+					spacer2 = ACH:Spacer(6),
 					aura = {
 						order = 7,
 						type = "toggle",
@@ -384,7 +384,7 @@ local function configTable()
 						disabled = function() return not E.private.unitframe.enable or not E.private.sle.unitframe.statusbarTextures.aura end,
 						values = AceGUIWidgetLSMlists.statusbar,
 					},
-					spacer3 = ACH:Description("", 9),
+					spacer3 = ACH:Spacer(9),
 					class = {
 						order = 10,
 						type = "toggle",

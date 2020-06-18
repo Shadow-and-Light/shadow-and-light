@@ -189,7 +189,7 @@ local function configTable()
 						type = "toggle",
 						name = L["Player Frame Classic"],
 					},
-					spacer1 = ACH:Description("", 3, nil, "full"),
+					spacer1 = ACH:Spacer(3, "full"),
 					target = {
 						order = 4,
 						type = "toggle",

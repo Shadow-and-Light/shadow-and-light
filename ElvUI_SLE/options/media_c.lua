@@ -21,7 +21,7 @@ local function configTable()
 				name = L["Zone Text"],
 				order = 3,
 				args = {
-					intro = ACH:Description("", 1),
+					intro = ACH:Spacer(1),
 					test = {
 						order = 2,
 						type = 'execute',

@@ -85,7 +85,7 @@ local function configTable()
 						end,
 						disabled = function() return (E.db.sle.armory.enchantString.enable == false or E.db.sle.armory.enchantString.replacement == false) or (E.db.sle.armory.character.enable == false and E.db.sle.armory.inspect.enable == false) end
 					},
-					spacer1 = ACH:Description("", 5, nil, "half"),
+					spacer1 = ACH:Spacer(5, "half"),
 					StringGroup = {
 						type = 'group',
 						name = "",

@@ -31,7 +31,7 @@ local function configTable()
 		disabled = function() return not E.private.chat.enable end,
 		args = {
 			header = ACH:Header(L["Chat"], 1),
-			spacer1 = ACH:Description("", 4),
+			spacer1 = ACH:Spacer(4),
 			guildmaster = {
 				order = 5, type = "toggle",
 				name = L["Guild Master Icon"],

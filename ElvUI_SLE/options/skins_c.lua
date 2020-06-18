@@ -33,8 +33,8 @@ local function configTable()
 						name = L["Enable"],
 						disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
 					},
-					spacer1 = ACH:Description("", 23),
-					spacer2 = ACH:Description("", 3),
+					spacer1 = ACH:Spacer(23),
+					spacer2 = ACH:Spacer(3),
 					texture = {
 						order = 3,
 						type = "select", dialogControl = "LSM30_Statusbar",
@@ -66,7 +66,7 @@ local function configTable()
 						name = L["Class Colored Statusbars"],
 						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
 					},
-					spacer3 = ACH:Description("", 6),
+					spacer3 = ACH:Spacer(6),
 					underline = {
 						order = 7,
 						type = "toggle",
@@ -108,8 +108,8 @@ local function configTable()
 						min = 1, max = 10, step = 1,
 						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
 					},
-					spacer4 = ACH:Description("", 11),
-					spacer5 = ACH:Description("", 12),
+					spacer4 = ACH:Spacer(11),
+					spacer5 = ACH:Spacer(12),
 					colorHeader = {
 						type = 'color',
 						order = 13,

@@ -45,7 +45,7 @@ local function configTable()
 					min = 20, max = E.screenheight/2, step = 1,
 					set = function(_, value) E.db.sle.backgrounds["bg"..i].height = value; BG:FramesSize(i) end,
 				},
-				spacer = ACH:Description("", 3),
+				spacer = ACH:Spacer(3),
 				texture = {
 					order = 6,
 					type = 'input',

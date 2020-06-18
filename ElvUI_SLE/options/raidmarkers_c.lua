@@ -32,7 +32,7 @@ local function configTable()
 				disabled = function() return not E.db.sle.raidmarkers.enable end,
 				func = function() SLE:Reset("marks") end,
 			},
-			spacer1 = ACH:Description("", 5),
+			spacer1 = ACH:Spacer(5),
 			backdrop = {
 				type = 'toggle',
 				order = 6,
