@@ -2,8 +2,6 @@
 local A = SLE:NewModule("Actionbars", 'AceHook-3.0', 'AceEvent-3.0')
 local AB = E:GetModule('ActionBars');
 
---GLOBALS: hooksecurefunc, LibStub
-local _G = _G
 local format = format
 local NUM_ACTIONBAR_BUTTONS = NUM_ACTIONBAR_BUTTONS
 
@@ -15,7 +13,7 @@ function A:Initialize()
 
 	--Making OOR indication use keybind text
 	if E.private.sle.actionbars.oorBind then
-		hooksecurefunc(AB, "UpdateButtonConfig", function(self, bar, buttonName)
+		hooksecurefunc(AB, "UpdateButtonConfig", function(_, bar, buttonName)
 			if InCombatLockdown() then return end
 
 			bar.buttonConfig.outOfRangeColoring = "hotkey"
@@ -27,33 +25,34 @@ function A:Initialize()
 			end
 		end)
 		--Calling for update since at this point all default updates are done
-		for barName, bar in pairs(AB["handledBars"]) do
+		for _, bar in pairs(AB["handledBars"]) do
 			AB:UpdateButtonConfig(bar, bar.bindButtons)
 		end
 	end
 
 	--Creating checked textures on actionbars
 	if E.private.sle.actionbars.checkedtexture and not (LibStub("Masque", true) and E.private.actionbar.masque.actionbars) then
-		hooksecurefunc(AB, "PositionAndSizeBar", function(self, barName)
-			local bar = self["handledBars"][barName]
+		hooksecurefunc(AB, "PositionAndSizeBar", function(_, barName)
+			local bar = AB["handledBars"][barName]
 			if not A.CheckedTextures[barName] then A.CheckedTextures[barName] = {} end
 			for i=1, NUM_ACTIONBAR_BUTTONS do
-				local button = bar.buttons[i];
+				local button = bar.buttons[i]
 				if button.SetCheckedTexture then
 					if not A.CheckedTextures[barName][i] then
 						A.CheckedTextures[barName][i] = button:CreateTexture(button:GetName().."CheckedTexture", "OVERLAY")
 					end
 					local color = E.private.sle.actionbars.checkedColor
 					button.checked = A.CheckedTextures[barName][i]
-					button.checked:SetTexture(color.r, color.g, color.b, color.a)
+					button.checked:SetColorTexture(color.r, color.g, color.b, color.a)
 					button.checked:SetInside()
 					button:SetCheckedTexture(A.CheckedTextures[barName][i])
 				end
 			end
 		end)
-		for i=1, A.MaxBars do
-			AB:PositionAndSizeBar('bar'..i)
-		end
+	end
+
+	for i=1, A.MaxBars do
+		AB:PositionAndSizeBar('bar'..i)
 	end
 end
 
