@@ -9,6 +9,7 @@ Fixes:
 - Fixed Reputation gains now showing in chat
 - Fixed an error about a frame not there for movers... it was removed by blizzard
 - Fixed not able to ctrl + left click to edit note of a friend that is added as a character
+- Fixed actionbar option "Checked Texture" not highlighting the AOE selected ability
 Changes:
 - Adjust some Russian locales so it doesn't look like a drunk wrote them
 - Removed S&L Status Report as ElvUI has revamped theirs to show plugins and their version numbers
@@ -27,6 +28,8 @@ Removed:
 - Removed ability to choose what channels to save the history of as it is now part of ElvUI
 - Removed Selected Chat Tab indicator as that is now part of ElvUI
 - Removed ability to have reputation bar change to track the most recent reputation change as it is now part of ElvUI
+- Removed Keybind Colored when Out of Range as it is now part of ElvUI
+- Removed S&L Currency due to ElvUI's revamped Currency DT.  If requests come in for options in the currency dt, we may make a new one or modify ElvUI's
 
 v3.74 [April 30, 2020]
 Fixes:
