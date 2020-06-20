@@ -42,7 +42,7 @@ local function configTable()
 			modules = {
 				order = 10,
 				type = "group",
-				childGroups = "select",
+				-- childGroups = "select",
 				-- childGroups = "tab",
 				name = L["Modules"],
 				args = {

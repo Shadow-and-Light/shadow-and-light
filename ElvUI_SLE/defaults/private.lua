@@ -145,7 +145,6 @@ V["sle"] = {
 		},
 	},
 	["actionbars"] = {
-		["oorBind"] = false,
 		["checkedtexture"] = false,
 		["checkedColor"] = {r = 0, g = 1, b = 0, a = 0.3},
 	},
