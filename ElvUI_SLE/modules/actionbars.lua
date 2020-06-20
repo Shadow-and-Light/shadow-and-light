@@ -2,8 +2,8 @@
 local A = SLE:NewModule("Actionbars", 'AceHook-3.0', 'AceEvent-3.0')
 local AB = E:GetModule('ActionBars');
 
---GLOBALS: unpack, select
-local hooksecurefunc, LibStub = hooksecurefunc, LibStub
+--GLOBALS: unpack, select, hooksecurefunc, NUM_ACTIONBAR_BUTTONS, LibStub
+local hooksecurefunc = hooksecurefunc
 local NUM_ACTIONBAR_BUTTONS = NUM_ACTIONBAR_BUTTONS
 
 A.CheckedTextures = {}
