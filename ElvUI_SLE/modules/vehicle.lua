@@ -57,6 +57,8 @@ end
 function EVB:CreateExtraButtonSet()
 	local bar = self.bar
 	bar.buttons = {}
+	size = E.db.sle.actionbars.vehicle.buttonsize
+	spacing = E.db.sle.actionbars.vehicle.buttonspacing
 	for i = 1, EVB.NumButtons do
 		i = i == 7 and 12 or i
 
@@ -96,30 +98,31 @@ function EVB:CreateExtraButtonSet()
 
 		bar.buttons[i]:SetCheckedTexture("")
 		RegisterStateDriver(bar.buttons[i], 'visibility', '[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] show; hide')
-
 	end
 end
 
 function EVB:PositionAndSizeBar()
-	if not self.bar then return end
-	local bar = self.bar
+	if not EVB.bar then return end
+	local bar = EVB.bar
 
 	size = E.db.sle.actionbars.vehicle.buttonsize
 	spacing = E.db.sle.actionbars.vehicle.buttonspacing
 	bar:SetWidth((size * EVB.NumButtons) + (spacing * (EVB.NumButtons-1)) + 4);
 	bar:SetHeight(size + 4);
-	for i = 1, #self.bar.buttons do
-		self.bar.buttons[i]:Size(size);
+
+	for i, button in ipairs(bar.buttons) do
+		button:Size(size);
 		if (i == 1) then
-			self.bar.buttons[i]:SetPoint('BOTTOMLEFT', 2, 2)
+			button:SetPoint('BOTTOMLEFT', 2, 2)
 		else
-			local prev = i == 12 and self.bar.buttons[6] or self.bar.buttons[i-1];
-			self.bar.buttons[i]:SetPoint('LEFT', prev, 'RIGHT', spacing, 0)
+			local prev = i == 12 and bar.buttons[6] or bar.buttons[i-1];
+			button:SetPoint('LEFT', prev, 'RIGHT', spacing, 0)
 		end
 	end
-	if not self.bar.buttons[12] then return end
-	self.bar.buttons[12]:Size(size);
-	self.bar.buttons[12]:SetPoint('LEFT', self.bar.buttons[6], 'RIGHT', spacing, 0)
+
+	if not bar.buttons[12] then return end
+	bar.buttons[12]:Size(size);
+	bar.buttons[12]:SetPoint('LEFT', bar.buttons[6], 'RIGHT', spacing, 0)
 end
 
 function EVB:BarBackdrop()
@@ -135,12 +138,10 @@ function EVB:CreateBar()
 
 	local bar = CreateFrame("Frame", "ElvUISLEEnhancedVehicleBar", E.UIParent, "SecureHandlerStateTemplate");
 	bar.id = 1
-	self.bar = bar;
+	EVB.bar = bar;
 
-	self:CreateExtraButtonSet();
+	EVB:CreateExtraButtonSet();
 	EVB:PositionAndSizeBar()
-	-- EVB:BarSize()
-	-- self:ButtonsSize()
 	EVB:BarBackdrop()
 	if E.private.sle.module.shadows.vehicle then
 		bar:CreateShadow();
@@ -170,28 +171,24 @@ function EVB:CreateBar()
 		end
 	]]);
 
-	self:Animate(bar, 0, -(bar:GetHeight()), 1);
-
+	EVB:Animate(bar, 0, -(bar:GetHeight()), 1);
 
 	E:CreateMover(bar, "EnhancedVehicleBar_Mover", L["Enhanced Vehicle Bar"], nil, nil, nil, "S&L,S&L MISC")
 
 	AB:UpdateButtonConfig(bar, bindButtons);
 	AB:PositionAndSizeBar("bar1")
-	-- return bar
 end
 
 function EVB:Initialize()
 	if not SLE.initialized then return end
 	if not E.private.sle.vehicle.enable or not E.private.actionbar.enable then return end;
-	size = E.db.sle.actionbars.vehicle.buttonsize
-	spacing = E.db.sle.actionbars.vehicle.buttonspacing
+
 	ES = SLE._Compatibility["ElvUI_NihilistUI"] and ElvUI_NihilistUI[1]:GetModule("EnhancedShadows") or SLE:GetModule("EnhancedShadows")
 
 	local visibility = "[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] hide;"
-	hooksecurefunc(AB, "PositionAndSizeBar", function(AB, barName)
+	hooksecurefunc(AB, "PositionAndSizeBar", function(_, barName)
 		local bar = AB["handledBars"][barName]
 		if (E.db.actionbar[barName].enabled) and (barName == "bar1") then
-			print(visibility..E.db.actionbar[barName].visibility)
 			UnregisterStateDriver(bar, 'visibility');
 			RegisterStateDriver(bar, 'visibility', visibility..E.db.actionbar[barName].visibility);
 		end
@@ -199,10 +196,16 @@ function EVB:Initialize()
 
 	EVB:CreateBar()
 
+	if UnitHasVehicleUI("player") then
+		EVB.bar:SetAttribute('page', (HasOverrideActionBar() and GetOverrideBarIndex() or GetVehicleBarIndex()))
+		RegisterStateDriver(EVB.bar, 'page', (HasOverrideActionBar() and GetOverrideBarIndex() or GetVehicleBarIndex()))
+		for _, button in pairs(EVB.bar.buttons) do
+			button:UpdateAction()
+		end
+	end
+
 	function EVB:ForUpdateAll()
 		EVB:PositionAndSizeBar()
-		-- EVB:ButtonsSize()
-		-- EVB:BarSize()
 		EVB:BarBackdrop()
 	end
 end
