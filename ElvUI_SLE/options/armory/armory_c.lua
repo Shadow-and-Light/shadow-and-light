@@ -17,7 +17,7 @@ local function configTable()
 		childGroups = "tab",
 		-- hidden = function() return not E.private.skins.blizzard.enable end,
 		args = {
-			desc = ACH:Description(L["SLE_Armory_Info"].."\n", 1, nil, nil, function() return not E.private.skins.blizzard.enable or (not E.private.skins.blizzard.character and not E.private.skins.blizzard.inspect) end),
+			desc = ACH:Description(L["SLE_Armory_Info"].."\n", 1, nil, nil, nil, nil, nil, nil,  function() return not E.private.skins.blizzard.enable or (not E.private.skins.blizzard.character and not E.private.skins.blizzard.inspect) end),
 			CA_enable = {
 				type = "toggle",
 				name = L["Character Armory"],

@@ -140,7 +140,7 @@ local function configTable()
 						name = L["Patrons"],
 						args = {
 							desc = ACH:Description(L["ELVUI_SLE_PATREON_TITLE"]..'\n\n', 1),
-							list = ACH:Description(L["ELVUI_SLE_PATRONS"], 2, nil, "half"),
+							list = ACH:Description(L["ELVUI_SLE_PATRONS"], 2, nil, nil, nil, nil, nil, "half"),
 						},
 					},
 					donors = {
@@ -150,7 +150,7 @@ local function configTable()
 						name = L["Donors"],
 						args = {
 							desc = ACH:Description(L["ELVUI_SLE_DONORS_TITLE"]..'\n\n', 1),
-							list = ACH:Description(L["ELVUI_SLE_DONORS"], 2, nil, "half"),
+							list = ACH:Description(L["ELVUI_SLE_DONORS"], 2, nil, nil, nil, nil, nil, "half"),
 						},
 					},
 				},
