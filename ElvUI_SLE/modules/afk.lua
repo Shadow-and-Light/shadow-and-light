@@ -2,25 +2,24 @@
 local AFK = E:GetModule("AFK")
 local S = SLE:NewModule("Screensaver", 'AceHook-3.0', 'AceEvent-3.0')
 
---GLOBALS: unpack, select, hooksecurefunc, UIParent
-local format, random, date = format, random, date
+--GLOBALS: unpack, select, format, random, date, tinsert, type, tonumber, hooksecurefunc, UnitPVPName, UnitLevel, UnitClass, UnitRace, UnitIsAFK, RANK, LEVEL, CreateFrame, CreateAnimationGroup, C_Timer, SendChatMessage, RAID_CLASS_COLORS, GetScreenWidth, GetScreenHeight, IsInGuild, GetGuildInfo, FlipCameraYaw
+
+local format, random, date, tinsert, type, tonumber = format, random, date, tinsert, type, tonumber
+local CreateFrame, SendChatMessage = CreateFrame, SendChatMessage
+
 local UnitPVPName, UnitLevel, UnitClass, UnitRace, UnitIsAFK = UnitPVPName, UnitLevel, UnitClass, UnitRace, UnitIsAFK
-local RANK = RANK
-local LEVEL = LEVEL
-local CloseAllBags = CloseAllBags
-local CreateFrame = CreateFrame
-local CreateAnimationGroup = CreateAnimationGroup
-local C_Timer = C_Timer
-local SendChatMessage = SendChatMessage
-local PVEFrame_ToggleFrame = PVEFrame_ToggleFrame
+local RANK, LEVEL = RANK, LEVEL
+local C_Timer, CreateAnimationGroup = C_Timer, CreateAnimationGroup
+local PRIEST_COLOR = RAID_CLASS_COLORS.PRIEST
+
+local Class, ClassToken = UnitClass("player")
+local RaceToken = select(2, UnitRace("player"))
+local Color = E:ClassColor(ClassToken) or PRIEST_COLOR
 
 local SS
 local Name, Level, GuildName, GuildRank, month, week, AnimTime, testM
-local Class, ClassToken = UnitClass("player")
-local Race, RaceToken = UnitRace("player")
-local Color = RAID_CLASS_COLORS[ClassToken]
 local CrestPath = [[Interface\AddOns\ElvUI_SLE\media\textures\crests\]]
-local TipsElapsed, TipNum, TipThrottle, OldTip, degree = 0, 1, 15, 0, 0
+local TipsElapsed, TipNum, OldTip, degree = 0, 1, 0, 0
 
 S.Animations = {}
 S.Fading = {}
@@ -354,7 +353,7 @@ function S:UpdateTimer()
 	if TipsElapsed > S.db.tipThrottle then
 		TipNum = random(1, #L["SLE_TIPS"])
 		while TipNum == OldTip do TipNum = random(1, #L["SLE_TIPS"]) end
-		SS.ScrollFrame:AddMessage(L["SLE_TIPS"][TipNum], 1, 1, 1) 
+		SS.ScrollFrame:AddMessage(L["SLE_TIPS"][TipNum], 1, 1, 1)
 		OldTip = TipNum
 		TipsElapsed = 0
 	end
@@ -364,7 +363,7 @@ local degreeMultyplier = 10
 --Camera rotation script when entering or leaving afk
 function S:Event(event, unit)
 	if not E.db.general.afk then return end
-	if event == "PLAYER_REGEN_DISABLED" then 
+	if event == "PLAYER_REGEN_DISABLED" then
 		SS:SetScript("OnUpdate", nil)
 		FlipCameraYaw(-degree)
 		degree = 0
@@ -378,7 +377,7 @@ function S:Event(event, unit)
 	if (UnitCastingInfo("player") ~= nil) then return end
 	if UnitIsAFK("player") then
 		if not SS:GetScript("OnUpdate") then
-			SS:SetScript("OnUpdate", function(self, elapsed) 
+			SS:SetScript("OnUpdate", function(_, elapsed)
 				FlipCameraYaw(elapsed*degreeMultyplier)
 				degree = degree + elapsed*degreeMultyplier
 			end)
