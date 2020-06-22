@@ -139,7 +139,7 @@ local function configTable()
 				end,
 			},
 			--In case some fucker disabled all the skins
-			SkinsDisabled = ACH:Description("|cffff0000 !!!|r "..L["SLE_Armory_SkinDisabled"].." |cffff0000 !!!|r", 500, "medium", nil, function() if not E.private.skins.blizzard.enable then return false end return (E.private.skins.blizzard.character or E.private.skins.blizzard.inspect) end),
+			SkinsDisabled = ACH:Description("|cffff0000 !!!|r "..L["SLE_Armory_SkinDisabled"].." |cffff0000 !!!|r", 500, "medium", nil, nil, nil, nil, nil, function() if not E.private.skins.blizzard.enable then return false end return (E.private.skins.blizzard.character or E.private.skins.blizzard.inspect) end),
 			GoToElv_Skins = {
 				order = 501,
 				type = "execute",
