@@ -26,6 +26,7 @@ V["sle"] = {
 			["skinmail"] = false,
 			["skingarrison"] = false,
 		},
+		rectangle = false,
 	},
 	["vehicle"] = {
 		["enable"] = false,

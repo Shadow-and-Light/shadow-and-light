@@ -1,6 +1,7 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file='minimapcoords.lua'/>
 	<Script file='minimapicons.lua'/>
 	<Script file='instance.lua'/>
 	<Script file='locationbar.lua'/>
+	<Script file='rectminimap.lua'/>
 </Ui>
