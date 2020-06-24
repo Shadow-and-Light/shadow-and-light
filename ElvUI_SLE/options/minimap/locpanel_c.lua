@@ -3,11 +3,20 @@ local LP = SLE:GetModule("LocationPanel")
 local DEFAULT, CUSTOM = DEFAULT, CUSTOM
 local function configTable()
 	if not SLE.initialized then return end
+	-- E.Options.args.sle.args.modules.args.minimap = {
+	-- 	type = "group",
+	-- 	name = MINIMAP_LABEL,
+	-- 	order = 1,
+	-- 	childGroups = 'tab',
+	-- 	args = {
+	-- 		header = ACH:Header(L["Minimap Options"], 1),
+	-- 		desc = ACH:Description(L["MINIMAP_DESC"], 2),
 
-	E.Options.args.sle.args.modules.args.minimap.args.locPanel = {
+	E.Options.args.sle.args.modules.args.locPanel = {
 		type = "group",
 		name = L["Location Panel"],
-		order = 8,
+		order = 1,
+		childGroups = 'tab',
 		get = function(info) return E.db.sle.minimap.locPanel[ info[#info] ] end,
 		args = {
 			enable = {
@@ -83,6 +92,7 @@ local function configTable()
 				order = 20,
 				type = "group",
 				name = L["Location"],
+				guiInline = true,
 				args = {
 					zoneText = {
 						type = "toggle",
@@ -126,6 +136,7 @@ local function configTable()
 				order = 21,
 				type = "group",
 				name = L["Coordinates"],
+				guiInline = true,
 				args = {
 					format = {
 						order = 1,
@@ -174,6 +185,7 @@ local function configTable()
 				order = 22,
 				type = "group",
 				name = L["Relocation Menu"],
+				guiInline = true,
 				disabled = function() return not E.db.sle.minimap.locPanel.enable end,
 				get = function(info) return E.db.sle.minimap.locPanel.portals[ info[#info] ] end,
 				set = function(info, value) E.db.sle.minimap.locPanel.portals[ info[#info] ] = value; end,
@@ -259,6 +271,7 @@ local function configTable()
 				order = 23,
 				type = "group",
 				name = L["Fonts"],
+				guiInline = true,
 				disabled = function() return not E.db.sle.minimap.locPanel.enable end,
 				get = function(info) return E.db.sle.minimap.locPanel[ info[#info] ] end,
 				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Fonts() end,

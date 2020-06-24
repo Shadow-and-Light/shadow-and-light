@@ -2,39 +2,22 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local M = E:GetModule('Minimap')
 local MM = SLE:NewModule("Minimap", 'AceHook-3.0', 'AceEvent-3.0')
 
---GLOBALS: CreateFrame, hooksecurefunc
+--GLOBALS: unpack, select, format, _G, UIFrameFadeIn, InCombatLockdown, CreateFrame, hooksecurefunc, SLECoordsHolder
 local _G = _G
-local format = format
-local cluster = _G["MinimapCluster"]
-local UIFrameFadeIn = UIFrameFadeIn
+local format, UIFrameFadeIn = format, UIFrameFadeIn
 
-MM.RestrictedArea = false
+local inRestrictedArea = false
+local displayString = ''
+local mapInfo = E.MapInfo
 
 local function HideMinimap()
-	cluster:Hide()
+	_G.MinimapCluster:Hide()
 end
 
 local function ShowMinimap()
 	if not InCombatLockdown() then
-		UIFrameFadeIn(cluster, 0.2, cluster:GetAlpha(), 1)
+		UIFrameFadeIn(_G.MinimapCluster, 0.2, _G.MinimapCluster:GetAlpha(), 1)
 	end
-end
-
-function MM:UpdateCoords(elapsed)
-	MM.coordspanel.elapsed = (MM.coordspanel.elapsed or 0) + elapsed
-	if MM.coordspanel.elapsed < E.db.sle.minimap.coords.throttle then return end
-	if E.MapInfo then
-		local x, y = E.MapInfo.x, E.MapInfo.y
-		if x then x = format(E.db.sle.minimap.coords.format, x * 100) else x = "0" end
-		if y then y = format(E.db.sle.minimap.coords.format, y * 100) else y = "0" end
-		if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
-		if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
-		MM.coordspanel.Text:SetText(x.." , "..y)
-	else 
-		MM.coordspanel.Text:SetText("-")
-	end
-	MM:CoordsSize()
-	MM.coordspanel.elapsed = 0
 end
 
 function MM:HideMinimapRegister()
@@ -47,77 +30,94 @@ function MM:HideMinimapRegister()
 	end
 end
 
-function MM:CoordFont()
-	MM.coordspanel.Text:SetFont(E.LSM:Fetch('font', E.db.sle.minimap.coords.font), E.db.sle.minimap.coords.fontSize, E.db.sle.minimap.coords.fontOutline)
-end
-
-function MM:CoordsSize()
-	local size = MM.coordspanel.Text:GetStringWidth()
-	if size ~= MM.coordspanel.WidthValue then
-		MM.coordspanel:Size(size + 4, E.db.sle.minimap.coords.fontSize + 2)
-		MM.coordspanel.WidthValue = size + 4
+function MM:HandleEvent()
+	if mapInfo.x and mapInfo.y then
+		inRestrictedArea = false
+		SLECoordsHolder.playerCoords:SetText(format(displayString, mapInfo.xText, mapInfo.yText))
+	else
+		inRestrictedArea = true
+		SLECoordsHolder.playerCoords:SetText('N/A')
 	end
 end
 
+function MM:UpdateCoords(elapsed)
+	if inRestrictedArea or not E.MapInfo.coordsWatching then return end
+
+	MM.elapsed = (MM.elapsed or 0) + elapsed
+	if MM.elapsed < E.db.sle.minimap.coords.throttle then return end
+	if mapInfo.x and mapInfo.y then
+		-- inRestrictedArea = false
+		-- displayString = E.db.sle.minimap.coords.format..", "..E.db.sle.minimap.coords.format
+		SLECoordsHolder.playerCoords:SetText(format(displayString, mapInfo.xText, mapInfo.yText))
+	else
+		-- inRestrictedArea = true
+		SLECoordsHolder.playerCoords:SetText('N/A')
+	end
+
+	MM.elapsed = 0
+end
+
+function MM:CoordFont()
+	SLECoordsHolder.playerCoords:SetFont(E.LSM:Fetch('font', E.db.sle.minimap.coords.font), E.db.sle.minimap.coords.fontSize, E.db.sle.minimap.coords.fontOutline)
+end
+
 function MM:UpdateCoordinatesPosition()
-	MM.coordspanel:ClearAllPoints()
-	MM.coordspanel:SetPoint(E.db.sle.minimap.coords.position, _G["Minimap"])
+	local db = E.db.sle.minimap.coords
+	SLECoordsHolder.playerCoords:ClearAllPoints()
+	SLECoordsHolder.playerCoords:Point("CENTER", _G.Minimap, "CENTER", db.xOffset, db.yOffset)
 end
 
 function MM:CreateCoordsFrame()
-	MM.coordspanel = CreateFrame('Frame', "SLE_CoordsPanel", _G["Minimap"])
-	MM.coordspanel:Point("BOTTOM", _G["Minimap"], "BOTTOM", 0, 0)
-	MM.coordspanel.WidthValue = 0
+	local SLECoordsHolder = CreateFrame('Frame', 'SLECoordsHolder', _G.Minimap)
+	SLECoordsHolder:SetFrameLevel(_G.Minimap:GetFrameLevel() + 10)
+	SLECoordsHolder:SetFrameStrata(_G.Minimap:GetFrameStrata())
+	SLECoordsHolder.playerCoords = SLECoordsHolder:CreateFontString(nil, 'OVERLAY')
+	SLECoordsHolder:SetScript('OnUpdate', MM.UpdateCoords)
 
-	MM.coordspanel.Text = MM.coordspanel:CreateFontString(nil, "OVERLAY")
-	MM.coordspanel.Text:SetPoint("CENTER", MM.coordspanel)
-	MM.coordspanel.Text:SetWordWrap(false)
-
-	_G["Minimap"]:HookScript('OnEnter', function(self)
-		if E.db.sle.minimap.coords.display ~= 'MOUSEOVER' or not E.private.general.minimap.enable or not E.db.sle.minimap.coords.enable then return; end
-		MM.coordspanel:Show()
+	_G.Minimap:HookScript('OnEnter', function()
+		if not E.db.sle.minimap.coords.mouseover or not E.private.general.minimap.enable or not E.db.sle.minimap.coords.enable then return; end
+		SLECoordsHolder:Show()
 	end)
-
-	_G["Minimap"]:HookScript('OnLeave', function(self)
-		if E.db.sle.minimap.coords.display ~= 'MOUSEOVER' or not E.private.general.minimap.enable or not E.db.sle.minimap.coords.enable then return; end
-		MM.coordspanel:Hide()
+	_G.Minimap:HookScript('OnLeave', function()
+		if not E.db.sle.minimap.coords.mouseover or not E.private.general.minimap.enable or not E.db.sle.minimap.coords.enable then return; end
+		SLECoordsHolder:Hide()
 	end)
 
 	MM:UpdateCoordinatesPosition()
 end
 
 function MM:UpdateSettings()
-	if E.db.sle.minimap.alpha then E.db.sle.minimap.alpha = nil end
-	if not MM.coordspanel then
+	if not _G.SLECoordsHolder then
 		MM:CreateCoordsFrame()
 	end
+
 	MM:CoordFont()
 	MM:SetCoordsColor()
-	MM:CoordsSize()
-
-	MM.coordspanel:SetPoint(E.db.sle.minimap.coords.position, _G["Minimap"])
-	MM.coordspanel:SetScript('OnUpdate', MM.UpdateCoords)
-
 	MM:UpdateCoordinatesPosition()
-	if E.db.sle.minimap.coords.display ~= 'SHOW' or not E.private.general.minimap.enable or not E.db.sle.minimap.coords.enable then
-		MM.coordspanel:Hide()
+	if E.db.sle.minimap.coords.mouseover or not E.private.general.minimap.enable or not E.db.sle.minimap.coords.enable then
+		SLECoordsHolder:Hide()
 	else
-		MM.coordspanel:Show()
+		SLECoordsHolder:Show()
 	end
-	MM:HideMinimapRegister()
+
+	displayString = E.db.sle.minimap.coords.format..", "..E.db.sle.minimap.coords.format
 end
 
 function MM:SetCoordsColor()
 	local color = E.db.sle.minimap.coords.color
-	MM.coordspanel.Text:SetTextColor(color.r, color.g, color.b)
+	SLECoordsHolder.playerCoords:SetTextColor(color.r, color.g, color.b)
 end
 
 function MM:Initialize()
 	if not SLE.initialized or not E.private.general.minimap.enable then return end
 
 	hooksecurefunc(M, 'UpdateSettings', MM.UpdateSettings)
-
 	MM:UpdateSettings()
+	MM:HideMinimapRegister()
+	MM:RegisterEvent('LOADING_SCREEN_DISABLED', 'HandleEvent')
+	MM:RegisterEvent('ZONE_CHANGED', "HandleEvent")
+	MM:RegisterEvent('ZONE_CHANGED_INDOORS', 'HandleEvent')
+	MM:RegisterEvent('ZONE_CHANGED_NEW_AREA', 'HandleEvent')
 end
 
 SLE:RegisterModule(MM:GetName())
