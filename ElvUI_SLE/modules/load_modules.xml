@@ -24,6 +24,7 @@
 	<Script file='raidmarkers.lua'/>
 	<Script file='raidroleicons.lua'/>
 	<Include file='sledatatexts\load_datatexts.xml'/>
+	<Script file='tags.lua'/>
 	<Include file='tooltips\load_tooltips.xml'/>
 	<Script file='uibuttons.lua'/>
 	<Include file='unitframes\load_unitframes.xml'/>

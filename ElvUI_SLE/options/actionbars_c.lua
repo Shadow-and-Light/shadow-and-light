@@ -15,7 +15,6 @@ local function configTable()
 		type = "group",
 		name = L["ActionBars"],
 		order = 1,
-		childGroups = 'tab',
 		disabled = function() return not E.private.actionbar.enable end,
 		args = {
 			elvuibars = {

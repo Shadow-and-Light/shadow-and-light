@@ -222,14 +222,14 @@ local function CreateMinimapConfig()
 	config.args.coords = {
 		order = 2,
 		type = "toggle",
-		name = L["Minimap Coordinates"],
+		name = L["Coordinates"],
 		get = function(info) return E.global.profileCopy.sle.minimap[ info[#info] ] end,
 		set = function(info, value) E.global.profileCopy.sle.minimap[ info[#info] ] = value; end
 	}
 	config.args.mapicons = {
 		order = 3,
 		type = "toggle",
-		name = L["Minimap Coordinates"],
+		name = L["Minimap Buttons"],
 		get = function(info) return E.global.profileCopy.sle.minimap[ info[#info] ] end,
 		set = function(info, value) E.global.profileCopy.sle.minimap[ info[#info] ] = value; end
 	}
