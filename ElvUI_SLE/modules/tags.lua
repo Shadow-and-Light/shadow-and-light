@@ -12,15 +12,15 @@ do
             return '|cFF'..hex
         end
 
-        return '|cFFffffff'
+        return "|cFFffff00" --fall back to yellow
     end
 
     ElvUF.Tags.OnUpdateThrottle['range:full'] = 0.25
     ElvUF.Tags.Methods['range:full'] = function(unit, _, args)
         local name, server = UnitName(unit)
         local min, max = RC:GetRange(unit)
-        local displaytext
-        local closerange, shortrange, midrange, longrange, outofrange = strsplit(':', args or '')
+        local rangeText
+        local defaultcolor, closerange, shortrange, midrange, longrange, outofrange = strsplit(':', args or '')
         local rcolor
 
         if(server and server ~= "") then
@@ -29,35 +29,30 @@ do
 
         if min then
             if min >= 100 then max = nil end
-            if max and args then
-                if closerange and max <= 5 then
-                    rcolor = rangecolor(closerange)
-                elseif shortrange and max <= 20 then
-                    rcolor = rangecolor(shortrange)
-                elseif midrange and max <= 30 then
-                    rcolor = rangecolor(midrange)
-                elseif longrange and max <= 35 then
-                    rcolor = rangecolor(longrange)
-                elseif outofrange and min >= 40 then
-                    rcolor = rangecolor(outofrange)
+            if max then
+                if max <= 5 then
+                    rcolor = closerange and rangecolor(closerange) or "|cFFffffff" --white
+                elseif max <= 20 then
+                    rcolor = shortrange and rangecolor(shortrange) or "|cFF00ff00" --green
+                elseif max <= 30 then
+                    rcolor = midrange and rangecolor(midrange) or "|cFFffff00" --yellow
+                elseif max <= 35 then
+                    rcolor = longrange and rangecolor(longrange) or "|cFFff9900" --orange
+                elseif min >= 40 then
+                    rcolor = outofrange and rangecolor(outofrange) or "|cFFff0000" --red
                 else
-                    print(max)
-                    rcolor = "|cFFffff00"
+                    rcolor = rangecolor(defaultcolor)
                 end
             end
         end
 
         if min and max and (name ~= UnitName('player')) then
-            rangeText = min.."-"..max
+            rangeText = strjoin("", min, "-", max)
         end
 
         if rcolor then
             rangeText = rcolor..rangeText
         end
-        -- if rangeText then
-        --     -- format
-        --     rangeText = rcolor..rangeText
-        -- end
 
         return rangeText or nil
     end
