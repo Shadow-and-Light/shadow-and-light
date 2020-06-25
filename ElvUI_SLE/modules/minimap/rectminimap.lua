@@ -2,12 +2,13 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local RMM = SLE:NewModule("RectangleMinimap")
 local MM = E:GetModule('Minimap')
 
+--GLOBALS: unpack, select, _G, hooksecurefunc
 local _G = _G
+local hooksecurefunc = hooksecurefunc
 
 local BAR_HEIGHT = 22
 
 function RMM:SkinMiniMap()
--- local function SkinMiniMap()
 	_G.Minimap:SetMaskTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\map\\rectangle')
 	_G.Minimap:Size(E.MinimapSize, E.MinimapSize)
 	_G.Minimap:SetHitRectInsets(0, 0, (E.MinimapSize/6.1)*E.mult, (E.MinimapSize/6.1)*E.mult)
