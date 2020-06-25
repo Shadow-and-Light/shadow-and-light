@@ -15,12 +15,12 @@ do
         return "|cFFffff00" --fall back to yellow
     end
 
-    ElvUF.Tags.OnUpdateThrottle['range:full'] = 0.25
-    ElvUF.Tags.Methods['range:full'] = function(unit, _, args)
+    ElvUF.Tags.OnUpdateThrottle['range:sl'] = 0.25
+    ElvUF.Tags.Methods['range:sl'] = function(unit, _, args)
         local name, server = UnitName(unit)
         local min, max = RC:GetRange(unit)
         local rangeText
-        local defaultcolor, closerange, shortrange, midrange, longrange, outofrange = strsplit(':', args or '')
+        local closerange, shortrange, midrange, longrange, outofrange = strsplit(':', args or '')
         local rcolor
 
         if(server and server ~= "") then
@@ -41,7 +41,7 @@ do
                 elseif min >= 40 then
                     rcolor = outofrange and rangecolor(outofrange) or "|cFFff0000" --red
                 else
-                    rcolor = rangecolor(defaultcolor)
+                    rcolor = "|cFFffff00" --yellow
                 end
             end
         end
@@ -50,7 +50,7 @@ do
             rangeText = strjoin("", min, "-", max)
         end
 
-        if rcolor then
+        if rcolor and rangeText then
             rangeText = rcolor..rangeText
         end
 
