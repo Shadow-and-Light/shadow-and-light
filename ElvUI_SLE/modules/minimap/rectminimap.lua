@@ -4,7 +4,6 @@ local MM = E:GetModule('Minimap')
 
 --GLOBALS: unpack, select, _G, hooksecurefunc
 local _G = _G
-local hooksecurefunc = hooksecurefunc
 
 local BAR_HEIGHT = 22
 
