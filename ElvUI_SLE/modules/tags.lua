@@ -19,8 +19,9 @@ do
     ElvUF.Tags.Methods['range:sl'] = function(unit, _, args)
         local name, server = UnitName(unit)
         local min, max = RC:GetRange(unit)
-        local rangeText
         local closerange, shortrange, midrange, longrange, outofrange = strsplit(':', args or '')
+        if closerange == "" then closerange = nil end
+        local rangeText
         local rcolor
 
         if(server and server ~= "") then
