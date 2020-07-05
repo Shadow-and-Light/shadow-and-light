@@ -1729,6 +1729,7 @@ SLE.installTable = {
 			end)
 			_G["PluginInstallFrame"].Option2:SetText(DISABLE)
 		end,
+		--[[
 		[5] = function()
 			PI.SLE_Auth = ""
 			PI.SLE_Word = E.db.layoutSet == 'tank' and L["Tank"] or E.db.layoutSet == 'healer' and L["Healer"] or E.db.layoutSet == 'dpsMelee' and L["Physical DPS"] or E.db.layoutSet == 'dpsCaster' and L["Caster DPS"] or NONE
@@ -1786,7 +1787,8 @@ SLE.installTable = {
 				_G["PluginInstallFrame"].Option2:SetText(ADDONS)
 			end
 		end,
-		[7] = function()
+		]]
+		[5] = function()
 			_G["PluginInstallFrame"].SubTitle:SetText(L["Installation Complete"])
 			_G["PluginInstallFrame"].Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
 			_G["PluginInstallFrame"].Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])
@@ -1801,9 +1803,9 @@ SLE.installTable = {
 		[2] = L["Armory Mode"],
 		[3] = L["AFK Mode"],
 		[4] = L["Moving Frames"],
-		[5] = L["Import Profile"],
-		[6] = L["Author Presets"].." *",
-		[7] = L["Finished"],
+		-- [5] = L["Import Profile"],
+		-- [6] = L["Author Presets"].." *",
+		[5] = L["Finished"],
 	},
 	["StepTitlesColorSelected"] = {.53,.53,.93},
 }
