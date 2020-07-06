@@ -33,7 +33,6 @@ function SUF:Initialize()
 	--DB convert
 	if E.private.sle.unitframe.resizeHealthPrediction then E.private.sle.unitframe.resizeHealthPrediction = nil end
 
-	SUF:NewTags()
 	-- SUF:InitPlayer()
 
 	--Raid stuff
