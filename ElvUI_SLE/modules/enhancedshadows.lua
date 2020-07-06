@@ -280,11 +280,9 @@ function ES:CreateShadows()
 	do
 		if E.private.sle.module.shadows.minimap then
 			if E.private.sle.minimap.rectangle then
-				print("fired")
 				ES.DummyPanels.Minimap = CreateFrame("Frame", nil, _G["MMHolder"])
 				ES.DummyPanels.Minimap:Point("TOPRIGHT", _G["MMHolder"], "TOPRIGHT", 1, -((E.MinimapSize/6.1)*E.mult)-11)
 				ES.DummyPanels.Minimap:Point("BOTTOMLEFT", _G["MMHolder"], "BOTTOMLEFT", -1, 0)
-				-- ES.DummyPanels.Minimap:SetFrameStrata("LOW")
 
 				ES:CreateFrameShadow(ES.DummyPanels.Minimap, "none")
 			else
