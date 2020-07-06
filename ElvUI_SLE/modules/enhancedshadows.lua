@@ -1,7 +1,7 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 if SLE._Compatibility["ElvUI_NihilistUI"] then return end
 local ES = SLE:NewModule('EnhancedShadows', 'AceEvent-3.0')
-local AB, UF = SLE:GetElvModules("ActionBars", "UnitFrames")
+local AB, UF, MM = SLE:GetElvModules('ActionBars', 'UnitFrames', 'Minimap')
 local ClassColor = RAID_CLASS_COLORS[E.myclass]
 local Border, LastSize
 local Abars = 10
@@ -278,16 +278,16 @@ function ES:CreateShadows()
 
 	--Misc--
 	do
-		if E.private.sle.module.shadows.minimap then
+		if E.private.sle.module.shadows.minimap and E.private.general.minimap.enable then
 			if E.private.sle.minimap.rectangle then
 				ES.DummyPanels.Minimap = CreateFrame("Frame", nil, _G["MMHolder"])
-				ES.DummyPanels.Minimap:Point("TOPRIGHT", _G["MMHolder"], "TOPRIGHT", 1, -((E.MinimapSize/6.1)*E.mult)-11)
-				ES.DummyPanels.Minimap:Point("BOTTOMLEFT", _G["MMHolder"], "BOTTOMLEFT", -1, 0)
+				ES:UpdateMinimap()
 
 				ES:CreateFrameShadow(ES.DummyPanels.Minimap, "none")
 			else
 				ES:CreateFrameShadow(_G["MMHolder"], "none")
 			end
+			hooksecurefunc(MM, "UpdateSettings", ES.UpdateMinimap)
 		end
 		if E.private.sle.module.shadows.chat.left then
 			if not E.private.sle.module.shadows.datatexts.leftchat then
@@ -307,6 +307,15 @@ function ES:CreateShadows()
 			end
 			ES:CreateFrameShadow(_G["RightChatPanel"], "none")
 		end
+	end
+end
+
+function ES:UpdateMinimap()
+	ES.DummyPanels.Minimap:Point('TOPLEFT', _G.Minimap, 'TOPLEFT', -1, -(E.MinimapSize/6.1)+1)
+	if E.db.datatexts.panels.MinimapPanel.enable then
+		ES.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.MinimapPanel, 'BOTTOMRIGHT', 1, 0)
+	else
+		ES.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.Minimap, 'BOTTOMRIGHT', 1, (E.MinimapSize/6.1)-1)
 	end
 end
 
