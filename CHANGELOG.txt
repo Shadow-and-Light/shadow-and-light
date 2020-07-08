@@ -1,4 +1,4 @@
-v3.75
+v3.75 [July 8, 2020]
 Fixes:
 - Fix AFK screen
 - Another attempt to fix some lingering minimap icons
