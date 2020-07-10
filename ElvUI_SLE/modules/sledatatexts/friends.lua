@@ -322,39 +322,23 @@ local function BuildBNTable(total)
 end
 
 local function Entry_OnMouseUp(_, info, button)
-	local i_type, name, accountName, accountID, guid = strsplit(":", info)
+	local i_type, name, realmName, accountName, accountID = strsplit(":", info)
 	if not (name and name ~= "") then return end
-    local isBNet = type(name) == 'number'
 
     if button == "LeftButton" then
-        if IsControlKeyDown() then
-            if guid then
-				local inviteType = GetDisplayedInviteType(guid)
-                if inviteType == "INVITE" or inviteType == "SUGGEST_INVITE" then
-                    if isBNet then
-                        BNInviteFriend(name)
-                    else
-                        InviteUnit(name)
-					end
-					return
-                elseif inviteType == "REQUEST_INVITE" then
-                    if isBNet then
-                        BNRequestInviteFriend(name)
-                    else
-                        C_PartyInfo_RequestInviteFromUnit(name)
-					end
-					return
-                end
-            else
-                -- if for some reason guid isnt here fallback and just try to invite them
-                -- this is unlikely but having a fallback doesnt hurt
-                if isBNet then
-                    BNInviteFriend(accountName)
-                else
-                    C_PartyInfo_InviteUnit(name)
+		if IsControlKeyDown() then
+			if i_type == "realid" then
+
+				if E.myrealm == realmName then
+					InviteUnit(name)
+				else
+					InviteUnit(name.."-"..realmName)
 				end
 				return
-            end
+			else
+				InviteUnit(name)
+				return
+			end
         end
 
         if IsShiftKeyDown() then
@@ -544,12 +528,12 @@ local function TooltipAddXLine(tooltip, header, client, wowver, level, status, c
 			end
 		end
 
-		tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, format("realid:%s:%s:%s", characterName, accountName, accountID, guid))
 
+		tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, format("realid:%s:%s:%s:%s", characterName, realmName or "", accountName, accountID))
 		if ElvDB.SLEMinimize["expandBNBroadcast"..accountName] and customMessage ~= "" then
 			line = tooltip:AddLine()
 			line = tooltip:SetCell(line, 1, BROADCAST_ICON .. " |cff7b8489" .. customMessage .. "|r "..customMessageTime, "LEFT", 0)
-			tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, format("realid:%s:%s", characterName, accountName))
+			tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, format("realid:%s:%s:%s:%s", characterName, realmName or "", accountName, accountID))
 		end
 	end
 end
@@ -667,7 +651,7 @@ function OnEnter(self)
 							line = tooltip:SetCell(line, 7, info.notes, "LEFT")
 						end
 
-						tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, format("friends:%s:%s", info.characterName, info.guid))
+						tooltip:SetLineScript(line, "OnMouseUp", Entry_OnMouseUp, format("friends:%s", info.characterName))
 					end
 				end
 			end
