@@ -679,7 +679,7 @@ function OnEnter(self)
 		for _, client in ipairs(clientSorted) do
 			local Table = tableList[client]
 			for _, info in ipairs(Table) do
-				local sepclient = (info.wowProjectID == classicID and info.gameText) or clientTags[client] or client
+				local sepclient = (info.wowProjectID == classicID and info.gameText) or client
 				sepclient = sepclient:gsub(' ', '')
 				local shouldSkip = E.db.sle.dt.friends['hide'..sepclient]
 				if not shouldSkip then
