@@ -1,6 +1,8 @@
 v3.76 [July 9, 2020]
 Fixes:
 - S&L Friends datatext wasn't respecting some of the hide by application options, it should behave now
+- S&L Friends datatext wasn't wanting to invite anyone to play cross server via realid... behavior should be fixed now
+
 v3.75 [July 8, 2020]
 Fixes:
 - Fix AFK screen
