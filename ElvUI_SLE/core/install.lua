@@ -835,14 +835,14 @@ function PI:DarthAddons()
 				["healing"] = {
 					["enableFontShadow"] = false,
 					["enableOverHeal"] = false,
-					["Width"] = 79,
+					["Width"] = 100,
 					["font"] = "PT Sans Narrow",
 					["enableRealmNames"] = false,
 					["fontSize"] = 12,
 					["showFriendlyHealers"] = false,
-					["Y"] = -28,
-					["X"] = 203,
-					["Height"] = 155,
+					["Y"] = 54,
+					["X"] = 181,
+					["Height"] = 156,
 					["names"] = {
 						["PLAYER"] = {
 							["nameType"] = 0,
@@ -895,7 +895,7 @@ function PI:DarthAddons()
 				},
 				["damage"] = {
 					["enableFontShadow"] = false,
-					["Width"] = 80,
+					["Width"] = 120,
 					["font"] = "PT Sans Narrow",
 					["fontSize"] = 12,
 					["names"] = {
@@ -910,9 +910,9 @@ function PI:DarthAddons()
 						},
 					},
 					["insertText"] = "bottom",
-					["Y"] = -28,
-					["X"] = 283,
-					["Height"] = 155,
+					["Y"] = 54,
+					["X"] = 298,
+					["Height"] = 157,
 				},
 			},
 		}
