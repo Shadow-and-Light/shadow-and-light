@@ -190,6 +190,7 @@ function PI:DarthSetup()
 		E.db["databars"]["reputation"]["enable"] = true
 		E.db["databars"]["reputation"]["height"] = 221
 		E.db["databars"]["reputation"]["width"] = 10
+		E.db["databars"]["reputation"]["orientation"] = "VERTICAL"
 
 		E.db["databars"]["azerite"]["textFormat"] = "CURMAX"
 		E.db["databars"]["azerite"]["textSize"] = 10
@@ -197,6 +198,7 @@ function PI:DarthSetup()
 
 		E.db["databars"]["experience"]["height"] = 221
 		E.db["databars"]["experience"]["width"] = 10
+		E.db["databars"]["experience"]["orientation"] = "VERTICAL"
 
 		E.db["databars"]["honor"]["textFormat"] = "CURMAX"
 		E.db["databars"]["honor"]["textSize"] = 10
