@@ -293,8 +293,12 @@ function PI:DarthSetup()
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconSize"] = 24
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["hideTime"] = true
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterrupt"] = false
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["yOffset"] = 20
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["raidTargetIndicator"]["size"] = 22
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["xOffset"] = 10
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["yOffset"] = 16
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["position"] = "LEFT"
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["numAuras"] = 6
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["size"] = 25
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["yOffset"] = 35
@@ -534,6 +538,7 @@ function PI:DarthSetup()
 		E.db["unitframe"]["units"]["raid"]["roleIcon"]["yOffset"] = -2
 		E.db["unitframe"]["units"]["raid"]["power"]["height"] = 5
 		E.db["unitframe"]["units"]["raid"]["power"]["enable"] = false
+		E.db["unitframe"]["units"]["raid"]["health"]["text_format"] = ""
 		E.db["unitframe"]["units"]["raid"]["width"] = 92
 		E.db["unitframe"]["units"]["raid"]["infoPanel"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["name"]["attachTextTo"] = "InfoPanel"
