@@ -332,6 +332,7 @@ function PI:DarthSetup()
 		E.db["tooltip"]["healthBar"]["height"] = 12
 		E.db["tooltip"]["healthBar"]["font"] = "PT Sans Narrow"
 		E.db["tooltip"]["healthBar"]["fontSize"] = 12
+		E.db["tooltip"]["alwaysCompareItems"] = true
 	end
 	--Unitframes
 	do
