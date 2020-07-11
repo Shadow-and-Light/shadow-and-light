@@ -334,7 +334,6 @@ function PI:DarthSetup()
 		E.db["tooltip"]["healthBar"]["height"] = 12
 		E.db["tooltip"]["healthBar"]["font"] = "PT Sans Narrow"
 		E.db["tooltip"]["healthBar"]["fontSize"] = 12
-		E.db["tooltip"]["alwaysCompareItems"] = true
 	end
 	--Unitframes
 	do
@@ -367,6 +366,7 @@ function PI:DarthSetup()
 		E.db["unitframe"]["units"]["player"]["aurabar"]["priority"] = "Blacklist,blockNoDuration,Personal,PlayerBuffs,Whitelist,nonPersonal"
 		E.db["unitframe"]["units"]["player"]["aurabar"]["attachTo"] = "DETACHED"
 		E.db["unitframe"]["units"]["player"]["aurabar"]["sortDirection"] = "ASCENDING"
+		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 1
 		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["classbar"]["height"] = 14
 		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = false
@@ -439,6 +439,7 @@ function PI:DarthSetup()
 		E.db["unitframe"]["units"]["target"]["aurabar"]["priority"] = "Blacklist,blockNoDuration,Personal,PlayerBuffs,Whitelist,nonPersonal"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["attachTo"] = "DETACHED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["sortDirection"] = "ASCENDING"
+		E.db["unitframe"]["units"]["target"]["aurabar"]["spacing"] = 1
 		E.db["unitframe"]["units"]["target"]["castbar"]["xOffsetText"] = 0
 		E.db["unitframe"]["units"]["target"]["castbar"]["height"] = 24
 		E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 250
@@ -620,6 +621,7 @@ function PI:DarthSetup()
 		E.db["sle"]["uibuttons"]["anchor"] = "TOPLEFT"
 
 		E.db["sle"]["tooltip"]["showFaction"] = true
+		E.db["sle"]["tooltip"]["alwaysCompareItems"] = true
 
 		E.db["sle"]["legacy"]["warwampaign"]["autoOrder"]["enable"] = true
 
@@ -761,6 +763,8 @@ function PI:DarthSetup()
 	E.private["sle"]["module"]["screensaver"] = true
 
 	E.private["sle"]["uibuttons"]["style"] = "dropdown"
+	
+
 
 	E.private["sle"]["professions"]["enchant"]["enchScroll"] = true
 
@@ -782,16 +786,16 @@ function PI:DarthSetup()
 	if layout then
 		if layout == 'tank' then
 			E.db["nameplates"]["threat"]["beingTankedByTank"] = true
-			E.db["unitframe"]["units"]["raid"]["power"]["enable"] = true
+			-- E.db["unitframe"]["units"]["raid"]["power"]["enable"] = true
 			E.db["sle"]["armory"]["stats"]["List"]["SPELLPOWER"] = false
 			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_DAMAGE"] = true
 			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_AP"] = true
 			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_ATTACKSPEED"] = true
-		elseif layout == 'dpsMelee' then
-			E.db["sle"]["armory"]["stats"]["List"]["SPELLPOWER"] = false
-			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_DAMAGE"] = true
-			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_AP"] = true
-			E.db["sle"]["armory"]["stats"]["List"]["ATTACK_ATTACKSPEED"] = true
+		-- elseif layout == 'dpsMelee' then
+			-- E.db["sle"]["armory"]["stats"]["List"]["SPELLPOWER"] = false
+			-- E.db["sle"]["armory"]["stats"]["List"]["ATTACK_DAMAGE"] = true
+			-- E.db["sle"]["armory"]["stats"]["List"]["ATTACK_AP"] = true
+			-- E.db["sle"]["armory"]["stats"]["List"]["ATTACK_ATTACKSPEED"] = true
 			E.db["sle"]["armory"]["stats"]["List"]["ENERGY_REGEN"] = true
 			E.db["sle"]["armory"]["stats"]["List"]["RUNE_REGEN"] = true
 			E.db["sle"]["armory"]["stats"]["List"]["FOCUS_REGEN"] = true
@@ -1003,62 +1007,12 @@ SLE.installTable = {
 			_G["PluginInstallFrame"].Option1:SetText(L["Skip Process"])
 		end,
 		[2] = function()
-			_G["PluginInstallFrame"].SubTitle:SetText(L["Armory Mode"])
-			_G["PluginInstallFrame"].Desc1:SetText(L["SLE_ARMORY_INSTALL"])
-			_G["PluginInstallFrame"].Desc2:SetText(L["This will enable S&L Armory mode components that will show more detailed information at a quick glance on the toons you inspect or your own character."])
-			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cffFF0000Low|r"])
-
-			_G["PluginInstallFrame"].Option1:Show()
-			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() E.db.sle.armory.character.enable = true; E.db.sle.armory.inspect.enable = true; SLE:GetModule("Armory_Character"):ToggleArmory(); SLE:GetModule("Armory_Inspect"):ToggleArmory() end)
-			_G["PluginInstallFrame"].Option1:SetText(ENABLE)
-
-			_G["PluginInstallFrame"].Option2:Show()
-			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() E.db.sle.armory.character.enable = false; E.db.sle.armory.inspect.enable = false; SLE:GetModule("Armory_Character"):ToggleArmory(); SLE:GetModule("Armory_Inspect"):ToggleArmory() end)
-			_G["PluginInstallFrame"].Option2:SetText(DISABLE)
-		end,
-		[3] = function()
-			_G["PluginInstallFrame"].SubTitle:SetText(L["AFK Mode"])
-			_G["PluginInstallFrame"].Desc1:SetText(L["AFK Mode in |cff9482c9Shadow & Light|r is additional settings/elements for standard |cff1784d1ElvUI|r AFK screen."])
-			_G["PluginInstallFrame"].Desc2:SetText(L["This option is bound to character and requires a UI reload to take effect."])
-			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cffFF0000Low|r"])
-
-			_G["PluginInstallFrame"].Option1:Show()
-			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() E.private.sle.module.screensaver = true; end)
-			_G["PluginInstallFrame"].Option1:SetText(ENABLE)
-
-			_G["PluginInstallFrame"].Option2:Show()
-			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() E.private.sle.module.screensaver = false; end)
-			_G["PluginInstallFrame"].Option2:SetText(DISABLE)
-		end,
-		[4] = function()
-			_G["PluginInstallFrame"].SubTitle:SetText(L["Move Blizzard frames"])
-			_G["PluginInstallFrame"].Desc1:SetText(L["Allow some Blizzard frames to be moved around."])
-			_G["PluginInstallFrame"].Desc2:SetText(L["This option is bound to character and requires a UI reload to take effect."])
-			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
-
-			_G["PluginInstallFrame"].Option1:Show()
-			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function()
-				E.private.sle.module.blizzmove.enable = true;
-				_G["PluginInstallStepComplete"].message = L["Move Blizzard frames"].." ".."Set to |cff00FF00"..ENABLE.."|r"
-				_G["PluginInstallStepComplete"]:Show()
-			end)
-			_G["PluginInstallFrame"].Option1:SetText(ENABLE)
-
-			_G["PluginInstallFrame"].Option2:Show()
-			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function()
-				E.private.sle.module.blizzmove.enable = false;
-				_G["PluginInstallStepComplete"].message = L["Move Blizzard frames"].." ".."Set to |cffFF0000"..DISABLE.."|r"
-				_G["PluginInstallStepComplete"]:Show()
-			end)
-			_G["PluginInstallFrame"].Option2:SetText(DISABLE)
-		end,
-		[5] = function()
 			PI.SLE_Auth = ""
 			PI.SLE_Word = E.db.layoutSet == 'tank' and L["Tank"] or E.db.layoutSet == 'healer' and L["Healer"] or E.db.layoutSet == 'dpsMelee' and L["Physical DPS"] or E.db.layoutSet == 'dpsCaster' and L["Caster DPS"] or NONE
 			_G["PluginInstallFrame"].SubTitle:SetText(L["Shadow & Light Imports"])
 			_G["PluginInstallFrame"].Desc1:SetText(L["You can now choose if you want to use one of the authors' set of options. This will change the positioning of some elements as well of other various options."])
 			_G["PluginInstallFrame"].Desc2:SetText(format(L["SLE_Install_Text_AUTHOR"], PI.SLE_Word))
-			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cffFF0000Low|r"])
+			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cFF33FF33Low|r"])
 
 			_G["PluginInstallFrame"].Option1:Show()
 			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() PI.SLE_Auth = "DARTH"; _G["PluginInstallFrame"].Next:Click() end)
@@ -1074,9 +1028,9 @@ SLE.installTable = {
 
 			_G["PluginInstallFrame"]:Size(550, 500)
 		end,
-		[6] = function()
-			if PI.SLE_Auth == "" then _G["PluginInstallFrame"].SetPage(_G["PluginInstallFrame"].PrevPage == 5 and 7 or 5) return end
-			PI.SLE_Word = E.db.layoutSet == 'tank' and L["Tank"] or E.db.layoutSet == 'healer' and L["Healer"] or E.db.layoutSet == 'dpsMelee' and L["Physical DPS"] or E.db.layoutSet == 'dpsCaster' and L["Caster DPS"] or NONE
+		[3] = function()
+			if PI.SLE_Auth == "" then _G["PluginInstallFrame"].SetPage(_G["PluginInstallFrame"].PrevPage == 2 and 4 or 2) return end
+			PI.SLE_Word = E.db.layoutSet == 'tank' and L["Tank"] or E.db.layoutSet == 'healer' and L["Healer"] or E.db.layoutSet == 'dpsCaster' and L["Caster DPS"] or NONE
 			_G["PluginInstallFrame"].SubTitle:SetText(L["Layout & Settings Import"])
 			_G["PluginInstallFrame"].Desc1:SetText(format(L["You have selected to use %s and role %s."], PI.SLE_Auth == "DARTH" and L["Darth's Config"] or PI.SLE_Auth == "REPOOC" and L["Repooc's Config"] or PI.SLE_Auth == "AFFINITY" and L["Affinitii's Config"], PI.SLE_Word))
 			_G["PluginInstallFrame"].Desc2:SetText(L["SLE_INSTALL_LAYOUT_TEXT2"])
@@ -1105,7 +1059,79 @@ SLE.installTable = {
 				_G["PluginInstallFrame"].Option2:SetText(ADDONS)
 			end
 		end,
+		[4] = function()
+			_G["PluginInstallFrame"].SubTitle:SetText(L["Armory Mode"])
+			_G["PluginInstallFrame"].Desc1:SetText(L["SLE_ARMORY_INSTALL"])
+			_G["PluginInstallFrame"].Desc2:SetText(L["This will enable S&L Armory mode components that will show more detailed information at a quick glance on the toons you inspect or your own character."])
+			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cFF33FF33Low|r"])
+
+			_G["PluginInstallFrame"].Option1:Show()
+			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() E.db.sle.armory.character.enable = true; E.db.sle.armory.inspect.enable = true; SLE:GetModule("Armory_Character"):ToggleArmory(); SLE:GetModule("Armory_Inspect"):ToggleArmory() end)
+			_G["PluginInstallFrame"].Option1:SetText(ENABLE)
+
+			_G["PluginInstallFrame"].Option2:Show()
+			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() E.db.sle.armory.character.enable = false; E.db.sle.armory.inspect.enable = false; SLE:GetModule("Armory_Character"):ToggleArmory(); SLE:GetModule("Armory_Inspect"):ToggleArmory() end)
+			_G["PluginInstallFrame"].Option2:SetText(DISABLE)
+		end,
+		[5] = function()
+			_G["PluginInstallFrame"].SubTitle:SetText(L["AFK Mode"])
+			_G["PluginInstallFrame"].Desc1:SetText(L["AFK Mode in |cff9482c9Shadow & Light|r is additional settings/elements for standard |cff1784d1ElvUI|r AFK screen."])
+			_G["PluginInstallFrame"].Desc2:SetText(L["This option is bound to character and requires a UI reload to take effect."])
+			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cFF33FF33Low|r"])
+
+			_G["PluginInstallFrame"].Option1:Show()
+			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() E.private.sle.module.screensaver = true; end)
+			_G["PluginInstallFrame"].Option1:SetText(ENABLE)
+
+			_G["PluginInstallFrame"].Option2:Show()
+			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() E.private.sle.module.screensaver = false; end)
+			_G["PluginInstallFrame"].Option2:SetText(DISABLE)
+		end,
+		[6] = function()
+			_G["PluginInstallFrame"].SubTitle:SetText(L["Move Blizzard frames"])
+			_G["PluginInstallFrame"].Desc1:SetText(L["Allow some Blizzard frames to be moved around."])
+			_G["PluginInstallFrame"].Desc2:SetText(L["This option is bound to character and requires a UI reload to take effect."])
+			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
+
+			_G["PluginInstallFrame"].Option1:Show()
+			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function()
+				E.private.sle.module.blizzmove.enable = true;
+				_G["PluginInstallStepComplete"].message = L["Move Blizzard frames"]..": |cff00FF00"..ENABLE.."|r"
+				_G["PluginInstallStepComplete"]:Show()
+			end)
+			_G["PluginInstallFrame"].Option1:SetText(ENABLE)
+
+			_G["PluginInstallFrame"].Option2:Show()
+			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function()
+				E.private.sle.module.blizzmove.enable = false;
+				_G["PluginInstallStepComplete"].message = L["Move Blizzard frames"]..": |cffFF0000"..DISABLE.."|r"
+				_G["PluginInstallStepComplete"]:Show()
+			end)
+			_G["PluginInstallFrame"].Option2:SetText(DISABLE)
+		end,
 		[7] = function()
+			_G["PluginInstallFrame"].SubTitle:SetText(L["Raid Frame Power"])
+			_G["PluginInstallFrame"].Desc1:SetText(L["Show power bar for raid frames."])
+			_G["PluginInstallFrame"].Desc2:SetText(L["Can be useful for tanks who know healers actually need mana to heal."])
+			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cFF33FF33Low|r"])
+
+			_G["PluginInstallFrame"].Option1:Show()
+			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function()
+				E.db.unitframe.units.raid.power.enable = true;
+				_G["PluginInstallStepComplete"].message = L["Raid Frame Power"]..": |cff00FF00"..ENABLE.."|r"
+				_G["PluginInstallStepComplete"]:Show()
+			end)
+			_G["PluginInstallFrame"].Option1:SetText(ENABLE)
+
+			_G["PluginInstallFrame"].Option2:Show()
+			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function()
+				E.db.unitframe.units.raid.power.enable = false;
+				_G["PluginInstallStepComplete"].message = L["Raid Frame Power"]..": |cffFF0000"..DISABLE.."|r"
+				_G["PluginInstallStepComplete"]:Show()
+			end)
+			_G["PluginInstallFrame"].Option2:SetText(DISABLE)
+		end,
+		[8] = function()
 			_G["PluginInstallFrame"].SubTitle:SetText(L["Installation Complete"])
 			_G["PluginInstallFrame"].Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
 			_G["PluginInstallFrame"].Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])
@@ -1117,12 +1143,13 @@ SLE.installTable = {
 	},
 	["StepTitles"] = {
 		[1] = START,
-		[2] = L["Armory Mode"],
-		[3] = L["AFK Mode"],
-		[4] = L["Moving Frames"],
-		[5] = L["Import Profile"],
-		[6] = L["Author Presets"].." *",
-		[7] = L["Finished"],
+		[2] = L["Import Profile"],
+		[3] = L["Author Presets"].." *",
+		[4] = L["Armory Mode"],
+		[5] = L["AFK Mode"],
+		[6] = L["Moving Frames"],
+		[7] = L["Raid Frame Power"],
+		[8] = L["Finished"],
 	},
 	["StepTitlesColorSelected"] = {.53,.53,.93},
 }
