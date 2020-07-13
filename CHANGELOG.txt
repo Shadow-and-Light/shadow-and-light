@@ -1,4 +1,6 @@
-v3.77
+v3.77 [July 12, 2020]
+Additions:
+- Darth redid his layout and added it in (can't say it's 100% the same, test urself ;)
 
 v3.76 [July 10, 2020]
 Fixes:
