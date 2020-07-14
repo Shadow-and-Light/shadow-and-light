@@ -28,8 +28,8 @@ local function configTable()
 						order = 1,
 						desc = L["Hide minimap in combat."],
 						disabled = false,
-						get = function(info) return E.db.sle.minimap.combat end,
-						set = function(info, value) E.db.sle.minimap.combat = value; MM:HideMinimapRegister() end,
+						get = function(info) return E.db.sle.minimap[info[#info]] end,
+						set = function(info, value) E.db.sle.minimap[info[#info]] = value; MM:HideMinimapRegister() end,
 					},
 					rectangle = {
 						type = "toggle",
@@ -48,12 +48,6 @@ local function configTable()
 					}
 				},
 			},
-			-- loctextx = {
-
-			-- },
-			-- loctexty = {
-
-			-- },
 		},
 	}
 
@@ -65,14 +59,11 @@ local function configTable()
 			name = L["Size"],
 			desc = L["Adjust the size of the minimap."],
 			min = 150, max = 500, step = 1,
-			get = function(info) return E.db.general.minimap.size end,
-			set = function(info, value) E.db.general.minimap.size = value; MM:UpdateSettings(); E:StaticPopup_Show("PRIVATE_RL") end,
+			get = function(info) return E.db.general.minimap[info[#info]] end,
+			set = function(info, value) E.db.general.minimap[info[#info]] = value; MM:UpdateSettings(); E:StaticPopup_Show("PRIVATE_RL") end,
 			disabled = function() return not E.private.general.minimap.enable end,
 		}
 	end
 end
-
-
-
 
 tinsert(SLE.Configs, configTable)
