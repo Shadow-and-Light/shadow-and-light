@@ -1,3 +1,9 @@
+v3.78
+Fixes:
+- Fixed S&L Mail throwing an error when selected in Datatext Customization from ElvUI Dev
+Changes:
+- Changed variable name for hiding/showing minimap mail icon and moved option to the minimap section of S&L
+
 v3.77 [July 12, 2020]
 Additions:
 - Darth redid his layout and added it in (can't say it's 100% the same, test urself ;)
