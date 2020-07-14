@@ -66,6 +66,17 @@ if SLE.elvV < 11 or (SLE.elvV < SLE.elvR) then
 	return --Not loading shit if version is too old, prevents shit from being broken
 end
 
+function SLE:UpdateMedia()
+	--Might be a better way, working though
+	local shadowColor = E.db.sle.shadows.shadowcolor
+	if E:CheckClassColor(shadowColor.r, shadowColor.g, shadowColor.b) then
+		shadowColor = E:ClassColor(E.myclass, true)
+		E.db.sle.shadows.shadowcolor.r = shadowColor.r
+		E.db.sle.shadows.shadowcolor.g = shadowColor.g
+		E.db.sle.shadows.shadowcolor.b = shadowColor.b
+	end
+end
+
 function SLE:Initialize()
 	if SLE:CheckIncompatible() then return end
 	SLE:DatabaseConversions()
@@ -76,6 +87,7 @@ function SLE:Initialize()
 	SLE:CreateSplashScreen()
 
 	hooksecurefunc(E, "UpdateAll", SLE.UpdateAll)
+	hooksecurefunc(E, "UpdateMedia", SLE.UpdateMedia)
 	--Here goes installation script
 
 	--Annoying message

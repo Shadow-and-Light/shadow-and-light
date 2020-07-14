@@ -55,9 +55,8 @@ end
 
 --Update specific shadow
 function ES:UpdateShadow(shadow)
-	local ShadowColor = E.db.sle.shadows.shadowcolor
-	local r, g, b = ShadowColor['r'], ShadowColor['g'], ShadowColor['b']
-	if E.db.sle.shadows.classcolor then r, g, b = ClassColor['r'], ClassColor['g'], ClassColor['b'] end
+	local shadowcolor = E.db.sle.shadows.shadowcolor
+	local r, g, b = shadowcolor.r, shadowcolor.g, shadowcolor.b
 
 	local size = E.db.sle.shadows.size
 	shadow:SetOutside(shadow:GetParent(), size, size)

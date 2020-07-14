@@ -796,7 +796,6 @@ P["sle"] = {
 	--Shadows
 	['shadows'] = {
 		['shadowcolor'] = { ['r'] = 0, ['g'] = 0, ['b'] = 0 },
-		['classcolor'] = false,
 		['size'] = 3,
 	},
 	--Skins

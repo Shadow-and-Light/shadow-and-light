@@ -17,8 +17,9 @@ local function configTable()
 		set = function(info, value) E.db.sle.shadows[info[#info]] = value ES:UpdateShadows() end,
 		args = {
 			shadowcolor = {
-				type = "color",
 				order = 1,
+				type = "color",
+				hasAlpha = false,
 				name = COLOR,
 				get = function(info)
 					local t = E.db.sle.shadows[info[#info]]
@@ -26,16 +27,11 @@ local function configTable()
 					return t.r, t.g, t.b, t.a, d.r, d.g, d.b
 				end,
 				set = function(info, r, g, b)
-					E.db.sle.shadows[info[#info]] = {}
 					local t = E.db.sle.shadows[info[#info]]
 					t.r, t.g, t.b = r, g, b
+					SLE:UpdateMedia()
 					ES:UpdateShadows()
 				end,
-			},
-			classcolor = {
-				type = 'toggle',
-				order = 2,
-				name = L["Use Class Color"],
 			},
 			size = {
 				order = 3,
