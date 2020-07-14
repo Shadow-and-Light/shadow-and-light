@@ -628,7 +628,6 @@ L["The lower limit for custom roll button."] = "사용자 지정 주사위 버�
 L["The size of the minimap buttons when not anchored to the minimap."] = true
 L["These options are for modifying the Shadow & Light Friends datatext."] = "Shadow & Light 친구 정보문자에 대한 설정을 변경합니다."
 L["These options are for modifying the Shadow & Light Guild datatext."] = "Shadow & Light 길드 정보문자에 대한 설정을 변경합니다."
-L["These options are for modifying the Shadow & Light Mail datatext."] = "Shadow & Light 우편 정보문자에 대한 설정을 변경합니다."
 L["This hides the time remaining for your buffs."] = "자신의 강화효과의 남은 지속시간을 숨깁니다."
 L["This hides the time remaining for your debuffs."] = "자신의 약화효과의 남은 지속시간을 숨깁니다."
 L["This is %sFrame %s|r"] = true

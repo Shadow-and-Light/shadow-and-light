@@ -628,7 +628,6 @@ L["The lower limit for custom roll button."] = true
 L["The size of the minimap buttons when not anchored to the minimap."] = true
 L["These options are for modifying the Shadow & Light Friends datatext."] = true
 L["These options are for modifying the Shadow & Light Guild datatext."] = true
-L["These options are for modifying the Shadow & Light Mail datatext."] = true
 L["This hides the time remaining for your buffs."] = true
 L["This hides the time remaining for your debuffs."] = true
 L["This is %sFrame %s|r"] = true

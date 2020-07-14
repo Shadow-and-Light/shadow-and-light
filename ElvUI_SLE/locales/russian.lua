@@ -628,7 +628,6 @@ L["The lower limit for custom roll button."] = "Нижняя граница бр
 L["The size of the minimap buttons when not anchored to the minimap."] = "Размер конопок миникарты, когда они не прикреплены к нейй."
 L["These options are for modifying the Shadow & Light Friends datatext."] = "Опции для настройки инфо-текста S&L Friends."
 L["These options are for modifying the Shadow & Light Guild datatext."] = "Опции для настройки инфо-текста S&L Guild."
-L["These options are for modifying the Shadow & Light Mail datatext."] = "Опции для настройки инфо-текста S&L Mail"
 L["This hides the time remaining for your buffs."] = "Скрывает оставшееся время действия баффов на вас."
 L["This hides the time remaining for your debuffs."] = "Скрывает оставшееся время действия дебаффов на вас."
 L["This is %sFrame %s|r"] = "Это %sВкладка %s|r"

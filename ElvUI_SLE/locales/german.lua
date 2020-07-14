@@ -628,7 +628,6 @@ L["The lower limit for custom roll button."] = true
 L["The size of the minimap buttons when not anchored to the minimap."] = true
 L["These options are for modifying the Shadow & Light Friends datatext."] = "Diese Optionen sind zum bearbeiten des Shadow & Light Freundes-Infotexts."
 L["These options are for modifying the Shadow & Light Guild datatext."] = "Diese Optionen sind zum Verändern des Shadow & Light Gilden-Infotext"
-L["These options are for modifying the Shadow & Light Mail datatext."] = "Diese Optionen sind zum Verändern des Shadow & Light Post-Infotext."
 L["This hides the time remaining for your buffs."] = "Dieses wird den Timer für die Stärkungszauber verstecken."
 L["This hides the time remaining for your debuffs."] = "Dieses wird den Timer für die Schwächungszauber verstecken."
 L["This is %sFrame %s|r"] = "Dies ist %sFenster %s|r"
