@@ -184,24 +184,34 @@ local function ColoredLevel(level)
 	end
 end
 
-local function Entry_OnMouseUp(frame, fullName, button)
+local function Entry_OnMouseUp(_, fullName, button)
 	if button == "LeftButton" then
-		if IsAltKeyDown() then InviteUnit(fullName) return end --Invite guild member to party
-		if IsShiftKeyDown() then SetItemRef("player:"..fullName, "|Hplayer:"..fullName.."|h["..fullName.."|h", "LeftButton") return end --Perform a who query on guild member
 		if IsControlKeyDown() then
-			if (fullName == E.mynameRealm:gsub(' ','')) or CanEditPublicNote() then
-				SetGuildRosterSelection(nametoindex(fullName))
-				StaticPopup_Show("SET_GUILDPLAYERNOTE")
-				return
-			end
+			InviteUnit(fullName) --Invite Player
+			return
 		end
-		SetItemRef( "player:"..fullName, format("|Hplayer:%1$s|h[%1$s]|h", fullName), "LeftButton" )
+		if IsShiftKeyDown() then
+			SetItemRef("player:"..fullName, "|Hplayer:"..fullName.."|h["..fullName.."|h", "LeftButton") --Who Player
+			return
+		end
+
+		SetItemRef( "player:"..fullName, format("|Hplayer:%1$s|h[%1$s]|h", fullName), "LeftButton" ) --Whisper Player
 	elseif button == "RightButton" then
 		if IsControlKeyDown() then
 			if CanEditOfficerNote() then
 				SetGuildRosterSelection(nametoindex(fullName))
-				StaticPopup_Show("SET_GUILDOFFICERNOTE")
+				StaticPopup_Show("SET_GUILDOFFICERNOTE") --Set Officer Note
 			end
+			return
+		end
+		if IsShiftKeyDown() then
+
+		end
+
+		if (fullName == E.mynameRealm:gsub(' ','')) or CanEditPublicNote() then
+			SetGuildRosterSelection(nametoindex(fullName))
+			StaticPopup_Show("SET_GUILDPLAYERNOTE") --Set Public Guild Note
+			return
 		end
 	end
 end
@@ -222,7 +232,7 @@ end
 
 local function BuildGuildTable()
 	wipe(guildTable)
-
+	local statusInfo
 	local totalMembers = GetNumGuildMembers()
 	for i = 1, totalMembers do
 		local name, rank, rankIndex, level, _, zone, note, officerNote, connected, memberstatus, className, _, _, isMobile, _, _, guid = GetGuildRosterInfo(i)
@@ -336,6 +346,7 @@ end
 function OnEnter(self, _, noUpdate)
 	if not IsInGuild() then return end
 	if E.db.sle.dt.guild.combat and InCombatLockdown() then return end
+	local hexColor = E:RGBToHex(unpack(E.media.rgbvaluecolor))
 
 	LDB_ANCHOR = self
 
@@ -463,21 +474,17 @@ function OnEnter(self, _, noUpdate)
 
 		if not E.db.sle.dt.guild.minimize_hintline then
 			line = tooltip:AddLine()
-			tooltip:SetCell(line, 1, "", "LEFT", 1)
-			tooltip:SetCell(line, 2, L["|cffeda55fLeft Click|r to open the guild panel."], "LEFT", 3)
-			tooltip:SetCell(line, 5, L["|cffeda55fRight Click|r to open configuration panel."], "LEFT", 3)
+			tooltip:SetCell(line, 2, L["%sLeft Click|r a person's line to whisper them."]:format(hexColor), "LEFT", 3)
 			line = tooltip:AddLine()
-			tooltip:SetCell(line, 1, "", "LEFT", 1)
-			tooltip:SetCell(line, 2, L["|cffeda55fLeft Click|r a line to whisper a player."], "LEFT", 3)
-			tooltip:SetCell(line, 5, L["|cffeda55fShift+Left Click|r a line to lookup a player."], "LEFT", 3)--
+			tooltip:SetCell(line, 2, L["%sShift+Left Click|r a person's line to perform a lookup."]:format(hexColor), "LEFT", 3)
+			tooltip:SetCell(line, 5, L["%sShift+Right Click|r a line to edit public note."]:format(hexColor), "LEFT", 3)
 			line = tooltip:AddLine()
-			tooltip:SetCell(line, 1, "", "LEFT", 1)
-			tooltip:SetCell(line, 2, L["|cffeda55fCtrl+Left Click|r a line to edit note."], "LEFT", 3)
-			tooltip:SetCell(line, 5, L["|cffeda55fCtrl+Right Click|r a line to edit officer note."], "LEFT", 3)
+			tooltip:SetCell(line, 2, L["%sCtrl+Left Click|r a person's line to invite them."]:format(hexColor), "LEFT", 3)
+			tooltip:SetCell(line, 5, L["%sCtrl+Right Click|r a line to edit officer note."]:format(hexColor), "LEFT", 3)
 			line = tooltip:AddLine()
-			tooltip:SetCell(line, 1, "", "LEFT", 1)
-			tooltip:SetCell(line, 2, L["|cffeda55fAlt+Left Click|r a line to invite."], "LEFT", 3)--
-			tooltip:SetCell(line, 5, L["|cffeda55fLeft Click|r a Header to hide it."], "LEFT", 3)--
+			line = tooltip:AddLine()
+			tooltip:SetCell(line, 2, L["%sLeft Click|r datatext panel to open guild list."]:format(hexColor), "LEFT", 3)
+			tooltip:SetCell(line, 5, L["%sRight Click|r datatext panel to customize."]:format(hexColor), "LEFT", 3)
 		end
 	end
 

@@ -5,13 +5,16 @@ if not L then return end
 L["%sClick to place a worldmarker."] = true
 L["%sClick to remove all worldmarkers."] = true
 L["%sCtrl+Left Click|r a person's line to invite them."] = true
+L["%sCtrl+Right Click|r a line to edit officer note."] = true
 L["%sLeft Click|r a client service to hide it."] = true
 L["%sLeft Click|r a person's line to whisper them."] = true
 L["%sLeft Click|r datatext panel to open friends list."] = true
+L["%sLeft Click|r datatext panel to open guild list."] = true
 L["%sRight Click|r a client service to set your BNet Broadcast."] = true
 L["%sRight Click|r a person's line that has a bnet broadcast icon to expand it."] = true
 L["%sRight Click|r datatext panel to customize."] = true
 L["%sShift+Left Click|r a person's line to perform a lookup."] = true
+L["%sShift+Right Click|r a line to edit public note."] = true
 L["%sShift+Right Click|r a person's line to set a note for them."] = true
 L["|cff9482c9Shadow & Light|r Installation"] = true
 L["About"] = true
