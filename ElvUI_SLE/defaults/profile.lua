@@ -339,7 +339,7 @@ P["sle"] = {
 	},
 	--SLE Datatexts
 	["dt"] = {
-		["friends"] = {
+		friends = {
 			--*  General Settings
 			panelStyle = "DEFAULT",
 			tooltipAutohide = 0.2,
@@ -378,8 +378,8 @@ P["sle"] = {
 			["onoteColor"] = { r = 0, g = 1, b = 0 },
 			["noteColor"] = { r = 1, g = 1, b = 0 },
 		},
-		["mail"] = {
-			["icon"] = true,
+		mail = {
+			showicon = true,
 		},
 		["currency"] = {
 			["Archaeology"] = true,
