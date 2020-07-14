@@ -104,12 +104,6 @@ function DTP:Initialize()
 	--Hooking to default DTs for additional features
 	DTP:HookTimeDT()
 
-	--Creating specifing DTs
-	DTP:CreateMailDT()
-	DTP:CreateCurrencyDT()
-	--Replacing OnClick function for SpecSwitch DT
-	DTP:ReplaceSpecSwitch()
-
 	--Finishing setup for delete character gold data popup
 	local popup = E.PopupDialogs['SLE_CONFIRM_DELETE_CURRENCY_CHARACTER']
 	popup.OnAccept = DTP.DeleteCurrencyEntry
