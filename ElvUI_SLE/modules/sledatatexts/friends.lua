@@ -547,8 +547,7 @@ function OnEnter(self)
 	local totalBNet, numBNetOnline = BNGetNumFriends()
 	local totalonline = onlineFriends + numBNetOnline
 	local zonec, classc, levelc
-	local valuec = E.db.general.valuecolor
-	local hexColor = E:RGBToHex(valuec.r, valuec.g, valuec.b)
+	local hexColor = E:RGBToHex(unpack(E.media.rgbvaluecolor))
 
 	-- Exit if no one online
 	if totalonline == 0 then return end
@@ -736,7 +735,6 @@ function OnEnter(self)
 
 		if not ElvDB.SLEMinimize.minimize_hintline then
 			line = tooltip:AddLine()
-			-- tooltip:SetCell(line, 1, "", "LEFT", 1)
 			tooltip:SetCell(line, 2, L["%sLeft Click|r a person's line to whisper them."]:format(hexColor), "LEFT", 3)
 			tooltip:SetCell(line, 5, L["%sRight Click|r a person's line that has a bnet broadcast icon to expand it."]:format(hexColor), "LEFT", 3)
 			line = tooltip:AddLine()
