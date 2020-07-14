@@ -3,6 +3,7 @@ Fixes:
 - Fixed S&L Mail throwing an error when selected in Datatext Customization from ElvUI Dev
 Changes:
 - Changed variable name for hiding/showing minimap mail icon and moved option to the minimap section of S&L
+- S&L Guild DataText has had its look to match S&L Friends and some shortcuts were changed and streamlined to somewhat line up with S&L Friends
 
 v3.77 [July 12, 2020]
 Additions:
