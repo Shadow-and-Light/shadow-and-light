@@ -16,13 +16,13 @@ local function configTable()
 		order = 5,
 		args = {
 			desc = ACH:Description(L["These options are for modifying the Shadow & Light Mail datatext."], 1, "large"),
-			icon = {
+			showicon = {
 				order = 2,
 				type = "toggle",
 				name = L["Minimap icon"],
 				desc = L["If enabled will show new mail icon on minimap."],
-				get = function() return E.db.sle.dt.mail.icon end,
-				set = function(_, value) E.db.sle.dt.mail.icon = value; DTP:MailUp() end,
+				get = function() return E.db.sle.dt.mail.showicon end,
+				set = function(_, value) E.db.sle.dt.mail.showicon = value; DTP:MailUp() end,
 			}
 		},
 	}

@@ -1,95 +1,56 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
 local DTP = SLE:GetModule('Datatexts')
-local HAVE_MAIL_FROM = HAVE_MAIL_FROM
 
-local Mail_Icon = [[|TInterface\MINIMAP\TRACKING\Mailbox.blp:14:14|t]];
-local frame = MiniMapMailFrame
-local OldShow = frame.Show
+local pairs, strjoin = pairs, strjoin
 local HasNewMail = HasNewMail
-local GetInboxNumItems = GetInboxNumItems
 local GetLatestThreeSenders = GetLatestThreeSenders
-local Read;
-local AddLine = AddLine
+local HAVE_MAIL_FROM = HAVE_MAIL_FROM
+local MAIL_LABEL = MAIL_LABEL
 
-local function MakeIconString()
-	local str = ""
-		str = str..Mail_Icon
+local icon = [[|TInterface\MINIMAP\TRACKING\Mailbox.blp:14:14|t]];
+local displayString, lastPanel = ''
 
-	return str
-end
-
-function DTP:MailUp(newmail)
-	if not E.db.sle.dt.mail.icon then
-		frame:Hide()
-		frame.Show = nil
+function DTP:MailUp()
+	if not E.db.sle.dt.mail.showicon then
+		-- print(E.db.sle.dt.mail.showicon)
+		_G.MiniMapMailFrame:Hide()
+		-- _G.MiniMapMailFrame.Show = nil
 	else
-		if not frame.Show then
-			frame.Show = OldShow
-		end
-		if newmail then
-			frame:Show()
+		-- if not _G.MiniMapMailFrame.Show then
+		-- 	_G.MiniMapMailFrame.Show = OldShow
+		-- end
+		if HasNewMail() then
+			_G.MiniMapMailFrame:Show()
 		end
 	end
 end
 
-local unreadMail
-local function OnEvent(self, event, ...)
-	local newMail = false
-
-	if event == "UPDATE_PENDING_MAIL" or event == "PLAYER_ENTERING_WORLD" or event =="PLAYER_LOGIN" then
-
-		newMail = HasNewMail()
-
-		if unreadMail ~= newMail then
-			unreadMail = newMail
-		end
-
-		DTP:MailUp(newMail)
-
-		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-		self:UnregisterEvent("PLAYER_LOGIN")
-	end
-
-	if event == "MAIL_INBOX_UPDATE" or event == "MAIL_SHOW" or event == "MAIL_CLOSED" then
-		for i = 1, GetInboxNumItems() do
-			local _, _, _, _, _, _, _, _, wasRead = GetInboxHeaderInfo(i);
-			if( not wasRead ) then
-				newMail = true;
-				break;
-			end
-		end
-	end
-
-	if newMail then
-		self.text:SetText(MakeIconString()..L["New Mail"])
-		Read = false;
-	else
-		self.text:SetText(L["No Mail"])
-		Read = true;
-	end
-
-end
-
-local function OnUpdate(self)
-	OnEvent(self, "UPDATE_PENDING_MAIL")
-	self:SetScript("OnUpdate", nil)
+local function OnEvent(self)
+	DTP:MailUp()
+	lastPanel = self
+	self.text:SetFormattedText(displayString, HasNewMail() and icon..L["New Mail"] or L["No Mail"])
 end
 
 local function OnEnter(self)
-	DT:SetupTooltip(self)
+	local senders = { GetLatestThreeSenders() }
+	if #senders > 0 then
+		DT:SetupTooltip(self)
+		DT.tooltip:AddLine(HasNewMail() and HAVE_MAIL_FROM or MAIL_LABEL, 1, 1, 1)
+		DT.tooltip:AddLine(' ')
+		for _, sender in pairs(senders) do
+			DT.tooltip:AddLine("    "..sender)
+		end
 
-	local sender1, sender2, sender3 = GetLatestThreeSenders()
-
-	if not Read then
-		DT.tooltip:AddLine(HAVE_MAIL_FROM)
-		if sender1 then DT.tooltip:AddLine("    "..sender1) end
-		if sender2 then DT.tooltip:AddLine("    "..sender2) end
-		if sender3 then DT.tooltip:AddLine("    "..sender3) end
+		DT.tooltip:Show()
 	end
-	DT.tooltip:Show()
 end
 
-function DTP:CreateMailDT()
-	DT:RegisterDatatext('S&L Mail', 'S&L', {'PLAYER_ENTERING_WORLD', 'MAIL_INBOX_UPDATE', 'UPDATE_PENDING_MAIL', 'MAIL_CLOSED', 'PLAYER_LOGIN','MAIL_SHOW'}, OnEvent, OnUpdate, nil, OnEnter)
+local function ValueColorUpdate(hex)
+	displayString = strjoin(hex, "%s|r")
+
+	if lastPanel then OnEvent(lastPanel) end
 end
+E.valueColorUpdateFuncs[ValueColorUpdate] = true
+
+DT:RegisterDatatext('S&L Mail', 'S&L', {'PLAYER_ENTERING_WORLD', 'MAIL_INBOX_UPDATE', 'UPDATE_PENDING_MAIL', 'MAIL_CLOSED','MAIL_SHOW'}, OnEvent, nil, nil, OnEnter)
