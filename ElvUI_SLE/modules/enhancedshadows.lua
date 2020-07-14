@@ -311,6 +311,8 @@ function ES:CreateShadows()
 end
 
 function ES:UpdateMinimap()
+	if not E.private.sle.minimap.rectangle then return end
+
 	ES.DummyPanels.Minimap:Point('TOPLEFT', _G.Minimap, 'TOPLEFT', -1, -(E.MinimapSize/6.1)+1)
 	if E.db.datatexts.panels.MinimapPanel.enable then
 		ES.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.MinimapPanel, 'BOTTOMRIGHT', 0, 0)
