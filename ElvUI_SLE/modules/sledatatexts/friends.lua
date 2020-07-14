@@ -113,15 +113,6 @@ local clientIndex = {
 	BSAp = 12,
 }
 
---!ElvUI Default inGroup
--- local function inGroup(name, realmName)
--- 	if realmName and realmName ~= "" and realmName ~= E.myrealm then
--- 		name = name.."-"..realmName
--- 	end
-
--- 	return (UnitInParty(name) or UnitInRaid(name)) and "|cffaaaaaa*|r" or ""
--- end
---!Repooc Custom inGroup below
 local function inGroup(name, realmName)
 	if realmName and realmName ~= "" and realmName ~= E.myrealm then
 		name = name.."-"..realmName

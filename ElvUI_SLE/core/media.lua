@@ -63,7 +63,7 @@ function M:SetBlizzFonts()
 			end
 
 			if not _G["ObjectiveTrackerFrame"].SLEHookedFonts then
-				hooksecurefunc("ObjectiveTracker_Update", function(reason, id) 
+				hooksecurefunc("ObjectiveTracker_Update", function(reason, id)
 					-- _G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
 					_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', E.db.sle.media.fonts.objectiveHeader.font), E.db.sle.media.fonts.objectiveHeader.size, E.db.sle.media.fonts.objectiveHeader.outline)
 					_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', E.db.sle.media.fonts.objectiveHeader.font), E.db.sle.media.fonts.objectiveHeader.size, E.db.sle.media.fonts.objectiveHeader.outline)
