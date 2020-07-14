@@ -5,6 +5,7 @@ Fixes:
 Changes:
 - Changed variable name for hiding/showing minimap mail icon and moved option to the minimap section of S&L
 - S&L Guild DataText has had its look to match S&L Friends and some shortcuts were changed and streamlined to somewhat line up with S&L Friends
+- Enhanced Shadows color options changed a bit.  Class Color box removed, if you select class color in the color selector, it will be the color of the class that uses the same profile
 
 v3.77 [July 12, 2020]
 Additions:
