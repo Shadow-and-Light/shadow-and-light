@@ -255,6 +255,7 @@ L["Hide Hints"] = "Скрыть управление"
 L["Hide In Class Hall"] = "Скрывать в оплоте"
 L["Hide in Pet Battle"] = "Прятать в битвах питомцев"
 L["Hide minimap in combat."] = "Скрыть миникарту в бою"
+L["Hide Minimap Mail Icon"] = "Иконка на миникарте"
 L["Hide MOTD"] = "Скрыть сообщение дня"
 L["Hide panel background"] = "Скрыть фон"
 L["Hide the guild's Message of the Day in the tooltip."] = "Скрывает сообщение дня гильдии на подсказке."
@@ -272,7 +273,6 @@ L["HS Toys Order"] = "Порядок игрушек-камней"
 L["Icons Per Row"] = "Иконок в ряду"
 L["Identify"] = "Определить"
 L["If enabled will color durability text based on it's value."] = "Если включено, будет окрашивать текст прочности в зависимости от его значения."
-L["If enabled will show new mail icon on minimap."] = "Если включено, то иконка почты на миникарте будет отображаться."
 L["If enabled will start fishing even if you don't have fishing pole equipped. Will not work if you have fish key set to \"None\"."] = "При включении будет начинать рыбачить даже без надетой удочки. Не будет работать, если модификатор рыбалки выставлен на \"Нет\"."
 L["Ignore Cooking"] = "Игнорирвоать готовку"
 L["Ignore Fishing"] = "Игнорировать рыболовство"
@@ -335,7 +335,6 @@ L["Manual Override"] = "Принудительно"
 L["Maximum Roll Value"] = "Масимальное значение броска"
 L["Minimap Alpha"] = "Прозрачность миникарты"
 L["Minimap Buttons"] = "Кнопки на миникарте"
-L["Minimap icon"] = "Иконка на миникарте"
 L["Minimap Options"] = "Опции миникарты"
 L["MINIMAP_DESC"] = "Эти опции влияют на различные функции миникарты.  Некоторые опции могут не работать, если вы отключите миникарты в основных настройках ElvUI."
 L["Minimize the Friend Datatext."] = "Минимизировать список друзей"
@@ -689,6 +688,10 @@ L["You have got Loot Confirm and Shadow & Light both enabled at the same time. S
 L["You have got OneClickEnchantScroll and Shadow & Light both enabled at the same time. Select an addon to disable."] = "Одновременно активны OneClickEnchantScroll и Shadow & Light. Выберите что из них отключить."
 L["You have selected to use %s and role %s."] = "Вы выбрали %s для роли %s."
 L["Zone Text"] = "Текст локации"
+
+----------------------------------
+--* Multiline Locales Below Here --
+-----------------------------------
 L["SLE_ERRORS_AF"] = {
 	"Очевидно Merathilis перепил и ухитрпился заспамить мунфаером нашу силовую линию! Вы должны немедленно ее починить!",
 	"Мы рады сообщить, что наша кампания #IBlameBenik продвигается успешно! И не забудьте тоже обвинить Benik'а во всем!",

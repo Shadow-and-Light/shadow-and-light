@@ -12,14 +12,9 @@ local icon = [[|TInterface\MINIMAP\TRACKING\Mailbox.blp:14:14|t]];
 local displayString, lastPanel = ''
 
 function DTP:MailUp()
-	if not E.db.sle.dt.mail.showicon then
-		-- print(E.db.sle.dt.mail.showicon)
+	if E.db.sle.minimap.mail.hideicon then
 		_G.MiniMapMailFrame:Hide()
-		-- _G.MiniMapMailFrame.Show = nil
 	else
-		-- if not _G.MiniMapMailFrame.Show then
-		-- 	_G.MiniMapMailFrame.Show = OldShow
-		-- end
 		if HasNewMail() then
 			_G.MiniMapMailFrame:Show()
 		end

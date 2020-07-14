@@ -255,6 +255,7 @@ L["Hide Hints"] = "Hinweise verstecken"
 L["Hide In Class Hall"] = true
 L["Hide in Pet Battle"] = "Verstecke in Haustierkämpfen"
 L["Hide minimap in combat."] = true
+L["Hide Minimap Mail Icon"] = "Minikarten Symbol"
 L["Hide MOTD"] = "Verstecke GNDT"
 L["Hide panel background"] = "Versteckt Leistenhintergrund"
 L["Hide the guild's Message of the Day in the tooltip."] = "Versteckt die Gildennachricht des Tages im Tooltip."
@@ -272,7 +273,6 @@ L["HS Toys Order"] = true
 L["Icons Per Row"] = true
 L["Identify"] = "Identifizieren"
 L["If enabled will color durability text based on it's value."] = "Wenn aktiviert, wer der Haltbarkeitstext nach dem Wert gefärbt."
-L["If enabled will show new mail icon on minimap."] = "Wenn aktiviert, wird das Postsymbol an der Minikarte angezeigt."
 L["If enabled will start fishing even if you don't have fishing pole equipped. Will not work if you have fish key set to \"None\"."] = true
 L["Ignore Cooking"] = true
 L["Ignore Fishing"] = true
@@ -335,7 +335,6 @@ L["Manual Override"] = "Manuelle Überschreibung"
 L["Maximum Roll Value"] = true
 L["Minimap Alpha"] = true
 L["Minimap Buttons"] = true
-L["Minimap icon"] = "Minikarten Symbol"
 L["Minimap Options"] = true
 L["MINIMAP_DESC"] = "These options effect various aspects of the minimap. Some options may not work if you disable minimap in the General section of ElvUI config."
 L["Minimize the Friend Datatext."] = "Den Freundes-Infotext minimieren."
@@ -689,6 +688,10 @@ L["You have got Loot Confirm and Shadow & Light both enabled at the same time. S
 L["You have got OneClickEnchantScroll and Shadow & Light both enabled at the same time. Select an addon to disable."] = "Du hast OneClickEnchantScroll und Shadow & Light gleichzeitig aktiviert. Wähle ein Addon zum Deaktivieren aus."
 L["You have selected to use %s and role %s."] = "Du hast %s und Rolle %s ausgewählt."
 L["Zone Text"] = true
+
+----------------------------------
+--* Multiline Locales Below Here --
+-----------------------------------
 L["SLE_ERRORS_AF"] = {
 	"Ausversehen hat Merathilis zu viel getrunken und es hinbekommen zu viel Moonfire auf unsere Stromleitung zu spammen! Du musst das sofort beheben!",
 	"Wir sind froh zu Berichten dass unsere #IBlameBenik Kampagne jede Minute erfolgreicher wird! Vergess bitte auch du nicht Benik zu flamen!",

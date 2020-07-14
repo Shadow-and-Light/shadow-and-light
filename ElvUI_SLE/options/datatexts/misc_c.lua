@@ -1,5 +1,4 @@
 ﻿local SLE, _, E, L = unpack(select(2, ...))
-local DTP = SLE:GetModule('Datatexts')
 local DT = E:GetModule('DataTexts')
 
 --GLOBALS: unpack, select, tinsert, DURABILITY, MANA_REGEN
@@ -10,22 +9,6 @@ local function configTable()
 	if not SLE.initialized then return end
 	local ACH = E.Libs.ACH
 
-	E.Options.args.sle.args.modules.args.datatext.args.sldatatext.args.slmail = {
-		type = "group",
-		name = L["S&L Mail"],
-		order = 5,
-		args = {
-			desc = ACH:Description(L["These options are for modifying the Shadow & Light Mail datatext."], 1, "large"),
-			showicon = {
-				order = 2,
-				type = "toggle",
-				name = L["Minimap icon"],
-				desc = L["If enabled will show new mail icon on minimap."],
-				get = function() return E.db.sle.dt.mail.showicon end,
-				set = function(_, value) E.db.sle.dt.mail.showicon = value; DTP:MailUp() end,
-			}
-		},
-	}
 	E.Options.args.sle.args.modules.args.datatext.args.sldatatext.args.slregen = {
 		type = "group",
 		name = MANA_REGEN,

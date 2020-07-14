@@ -255,6 +255,7 @@ L["Hide Hints"] = true
 L["Hide In Class Hall"] = "직업전당에서 숨김"
 L["Hide in Pet Battle"] = "애완동물대전시 숨김"
 L["Hide minimap in combat."] = "전투시 미니맵 숨김"
+L["Hide Minimap Mail Icon"] = "미니맵 아이콘"
 L["Hide MOTD"] = "오늘의 메시지 숨김"
 L["Hide panel background"] = "패널 배경 숨김"
 L["Hide the guild's Message of the Day in the tooltip."] = "툴팁에서 길드의 오늘의 메시지를 숨깁니다."
@@ -272,7 +273,6 @@ L["HS Toys Order"] = true
 L["Icons Per Row"] = "줄 당 아이콘"
 L["Identify"] = "식별"
 L["If enabled will color durability text based on it's value."] = true
-L["If enabled will show new mail icon on minimap."] = "활성화하면 미니맵에 새 우편 아이콘을 표시합니다."
 L["If enabled will start fishing even if you don't have fishing pole equipped. Will not work if you have fish key set to \"None\"."] = "활성화 하면 낚시대를 착용하지 않았더라도 낚시를 시작합니다. 낚시 키를 \"없음\"으로 설정했을 때는 작용하지 않습니다."
 L["Ignore Cooking"] = true
 L["Ignore Fishing"] = true
@@ -335,7 +335,6 @@ L["Manual Override"] = true
 L["Maximum Roll Value"] = "주사위 최대값"
 L["Minimap Alpha"] = "미니맵 투명도"
 L["Minimap Buttons"] = "미니맵 버튼"
-L["Minimap icon"] = "미니맵 아이콘"
 L["Minimap Options"] = "미니맵 설정"
 L["MINIMAP_DESC"] = "These options effect various aspects of the minimap. Some options may not work if you disable minimap in the General section of ElvUI config."
 L["Minimize the Friend Datatext."] = "친구 정보문자를 최소화합니다."
@@ -689,6 +688,10 @@ L["You have got Loot Confirm and Shadow & Light both enabled at the same time. S
 L["You have got OneClickEnchantScroll and Shadow & Light both enabled at the same time. Select an addon to disable."] = "OneClickEnchantScroll과 Shadow & LightShadow & Light를 동시에 켜셨습니다. 하나를 꺼주시기 바랍니다."
 L["You have selected to use %s and role %s."] = true
 L["Zone Text"] = "지역 글자"
+
+----------------------------------
+--* Multiline Locales Below Here --
+-----------------------------------
 L["SLE_ERRORS_AF"] = {
 	"Apparently Merathilis drank too much and managed to moonfire spam our power conduit! You need to fix it immediately!",
 	"We are happy to announce that our #IBlameBenik campaign is getting more successful each minute! Don't forget to blame Benik as well!",

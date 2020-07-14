@@ -255,6 +255,7 @@ L["Hide Hints"] = true
 L["Hide In Class Hall"] = true
 L["Hide in Pet Battle"] = true
 L["Hide minimap in combat."] = true
+L["Hide Minimap Mail Icon"] = true
 L["Hide MOTD"] = true
 L["Hide panel background"] = true
 L["Hide the guild's Message of the Day in the tooltip."] = true
@@ -272,7 +273,6 @@ L["HS Toys Order"] = true
 L["Icons Per Row"] = true
 L["Identify"] = true
 L["If enabled will color durability text based on it's value."] = true
-L["If enabled will show new mail icon on minimap."] = true
 L["If enabled will start fishing even if you don't have fishing pole equipped. Will not work if you have fish key set to \"None\"."] = true
 L["Ignore Cooking"] = true
 L["Ignore Fishing"] = true
@@ -335,7 +335,6 @@ L["Manual Override"] = true
 L["Maximum Roll Value"] = true
 L["Minimap Alpha"] = true
 L["Minimap Buttons"] = true
-L["Minimap icon"] = true
 L["Minimap Options"] = true
 L["MINIMAP_DESC"] = "These options effect various aspects of the minimap. Some options may not work if you disable minimap in the General section of ElvUI config."
 L["Minimize the Friend Datatext."] = true
@@ -689,6 +688,10 @@ L["You have got Loot Confirm and Shadow & Light both enabled at the same time. S
 L["You have got OneClickEnchantScroll and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
 L["You have selected to use %s and role %s."] = true
 L["Zone Text"] = true
+
+----------------------------------
+--* Multiline Locales Below Here --
+-----------------------------------
 L["SLE_ERRORS_AF"] = {
 	"Apparently Merathilis drank too much and managed to moonfire spam our power conduit! You need to fix it immediately!",
 	"We are happy to announce that our #IBlameBenik campaign is getting more successful each minute! Don't forget to blame Benik as well!",

@@ -1,5 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local MM = SLE:GetModule("Minimap")
+local DTP = SLE:GetModule('Datatexts')
 
 local MINIMAP_LABEL = MINIMAP_LABEL
 
@@ -33,11 +34,18 @@ local function configTable()
 					rectangle = {
 						type = "toggle",
 						name = L["Rectangle Minimap"],
-						order = 2,
+						order = 1,
 						desc = L["This provides a rectangle shape for ElvUI's minimap.  Please note, due to some limitations, you can not put this flush at the top of the screen."],
 						get = function(info) return E.private.sle.minimap[info[#info]] end,
 						set = function(info, value) E.private.sle.minimap[info[#info]] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 					},
+					hideicon = {
+						order = 1,
+						type = "toggle",
+						name = L["Hide Minimap Mail Icon"],
+						get = function(info) return E.db.sle.minimap.mail[info[#info]] end,
+						set = function(info, value) E.db.sle.minimap.mail[info[#info]] = value; DTP:MailUp() end,
+					}
 				},
 			},
 			-- loctextx = {

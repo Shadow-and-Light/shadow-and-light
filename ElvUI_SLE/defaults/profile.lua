@@ -378,9 +378,6 @@ P["sle"] = {
 			["onoteColor"] = { r = 0, g = 1, b = 0 },
 			["noteColor"] = { r = 1, g = 1, b = 0 },
 		},
-		mail = {
-			showicon = true,
-		},
 		["currency"] = {
 			["Archaeology"] = true,
 			["Jewelcrafting"] = true,
@@ -597,6 +594,9 @@ P["sle"] = {
 			["fontOutline"] = "OUTLINE",
 			["throttle"] = 0.2,
 			["color"] = {r = 1,g = 1,b = 1},
+		},
+		mail = {
+			hideicon = false,
 		},
 		["mapicons"] = {
 			["iconmouseover"] = false,
