@@ -44,6 +44,7 @@ LP.RestrictedArea = false
 
 LP.ListUpdating = false
 LP.ListBuilding = false
+LP.ListBuildAttempts = 0
 LP.InfoUpdatingTimer = nil
 
 local function GetDirection()
@@ -406,22 +407,36 @@ function LP:PopulateItems()
 		if select(2, GetItemInfo(data[1])) == nil then noItem = true end
 	end
 
-	if noItem then
+	if noItem and LP.ListBuildAttempts < 15 then
 		LP.ListBuilding = true
+		LP.ListBuildAttempts = LP.ListBuildAttempts + 1
 		E:Delay(2, LP.PopulateItems)
 	else
 		LP.ListBuilding = false
+		LP.ListBuildAttempts = 0
 		for index, data in pairs(LP.Hearthstones) do
 			local id, name, toy = data[1], data[2], data[3]
-			LP.Hearthstones[index] = {text = name or GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
+			if select(2, GetItemInfo(id)) then
+				LP.Hearthstones[index] = {text = name or GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
+			else
+				LP.EngineerItems[index] = { text = UNKNOWN }
+			end
 		end
 		for index, data in pairs(LP.PortItems) do
 			local id, name, toy = data[1], data[2], data[3]
-			LP.PortItems[index] = {text = name or GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
+			if select(2, GetItemInfo(id)) then
+				LP.PortItems[index] = {text = name or GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
+			else
+				LP.EngineerItems[index] = { text = UNKNOWN }
+			end
 		end
 		for index, data in pairs(LP.EngineerItems) do
 			local id, name, toy = data[1], data[2], data[3]
-			LP.EngineerItems[index] = {text = name or GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
+			if select(2, GetItemInfo(id)) then
+				LP.EngineerItems[index] = { text = name or GetItemInfo(id), icon = SLE:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
+			else
+				LP.EngineerItems[index] = { text = UNKNOWN }
+			end
 		end
 	end
 end
