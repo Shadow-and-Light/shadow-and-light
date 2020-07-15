@@ -691,7 +691,7 @@ L["You have got OneClickEnchantScroll and Shadow & Light both enabled at the sam
 L["You have selected to use %s and role %s."] = "Du hast %s und Rolle %s ausgewählt."
 L["Zone Text"] = true
 
-----------------------------------
+-----------------------------------
 --* Multiline Locales Below Here --
 -----------------------------------
 L["SLE_ERRORS_AF"] = {

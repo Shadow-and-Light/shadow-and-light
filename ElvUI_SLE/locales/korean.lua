@@ -691,7 +691,7 @@ L["You have got OneClickEnchantScroll and Shadow & Light both enabled at the sam
 L["You have selected to use %s and role %s."] = true
 L["Zone Text"] = "지역 글자"
 
-----------------------------------
+-----------------------------------
 --* Multiline Locales Below Here --
 -----------------------------------
 L["SLE_ERRORS_AF"] = {
