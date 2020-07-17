@@ -67,11 +67,11 @@ LP.Hearthstones = {
 	{142542, nil, true}, --Tome of Town Portal (Diablo Event)
 	{162973, nil, true}, --Winter HS
 	{163045, nil, true}, --Hallow HS
-	{165669, nil, true},
-	{165670, nil, true},
-	{165802, nil, true},
-	{166746, nil, true},
-	{166747, nil, true},
+	{165669, nil, true}, -- Lunar HS
+	{165670, nil, true}, -- Love HS
+	{165802, nil, true}, -- Noblegarden HS
+	{166746, nil, true}, -- Midsummer HS
+	{166747, nil, true}, -- Brewfest HS
 	{168907, nil, true}, --Holographic Digitalization Hearthstone
 	{172179, nil, true}, --Eternal Traveller
 }
