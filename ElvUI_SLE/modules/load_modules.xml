@@ -23,7 +23,7 @@
 	<Include file='quests\load_quests.xml'/>
 	<Script file='raidmarkers.lua'/>
 	<Script file='raidroleicons.lua'/>
-	<Include file='sledatatexts\load_datatexts.xml'/>
+	<Include file='datatexts\load_datatexts.xml'/>
 	<Script file='tags.lua'/>
 	<Include file='tooltips\load_tooltips.xml'/>
 	<Script file='uibuttons.lua'/>
