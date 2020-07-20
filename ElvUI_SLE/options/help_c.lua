@@ -20,7 +20,8 @@ L["ELVUI_SLE_PATRONS"] = [[Ali A
 Andre E.
 Peter aka Pete
 Sean G.
-Mark K.]]
+Mark K.
+Syed]]
 L["ELVUI_SLE_CODERS"] = [[Elv
 Tukz
 Affinitii
