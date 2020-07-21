@@ -530,7 +530,8 @@ local function TooltipAddXLine(tooltip, header, client, wowver, level, status, c
 end
 
 function OnEnter(self)
-	DT:SetupTooltip(self)
+	DT.tooltip:ClearLines()
+
 	lastTooltipXLineHeader = nil
 
 	local onlineFriends = C_FriendList_GetNumOnlineFriends()

@@ -19,7 +19,7 @@ local function OnClick()
 end
 
 local function OnEnter(self)
-	DT:SetupTooltip(self)
+	DT.tooltip:ClearLines()
 
 	DT.tooltip:AddDoubleLine("ElvUI "..GAME_VERSION_LABEL..format(": |cff99ff33%s|r", E.version))
 	DT.tooltip:AddDoubleLine("S&L "..GAME_VERSION_LABEL..format(": |cff99ff33%s|r", SLE.version))

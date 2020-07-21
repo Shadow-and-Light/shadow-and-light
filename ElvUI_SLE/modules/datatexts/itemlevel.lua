@@ -47,10 +47,10 @@ end
 
 local ArtifactsIlvl = {}
 local function OnEnter(self)
+	DT.tooltip:ClearLines()
+	local avgItemLevel, avgEquipItemLevel = self.avgItemLevel, self.avgEquipItemLevel
 	wipe(tooltipOrder)
 	wipe(ArtifactsIlvl)
-	local avgItemLevel, avgEquipItemLevel = self.avgItemLevel, self.avgEquipItemLevel
-	DT:SetupTooltip(self)
 	DT.tooltip:AddDoubleLine(TOTAL, floor(avgItemLevel), 1, 1, 1, 0, 1, 0)
 	DT.tooltip:AddDoubleLine(GMSURVEYRATING3, floor(avgEquipItemLevel), 1, 1, 1, 0, 1, 0)
 	DT.tooltip:AddLine(" ")

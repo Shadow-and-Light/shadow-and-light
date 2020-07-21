@@ -26,7 +26,7 @@ local eventRequesting = false
 
 local OnEnter = function(self)
 	if not InCombatLockdown() and SessionPlayTime then
-	DT:SetupTooltip(self)
+		DT.tooltip:ClearLines()
 		local SessionDay, SessionHour, SessionMinute, SessionSecond = ChatFrame_TimeBreakDown(GetTime() - SessionPlayTime)
 		local TotalDay, TotalHour, TotalMinute, TotalSecond = ChatFrame_TimeBreakDown(TotalPlayTime + (GetTime() - SessionPlayTime))
 		local LevelDay, LevelHour, LevelMinute, LevelSecond = ChatFrame_TimeBreakDown(LevelPlayTime + (GetTime() - LevelPlayTimeOffset))
