@@ -546,7 +546,7 @@ function PI:DarthSetup()
 		E.db["unitframe"]["units"]["raid"]["name"]["xOffset"] = 2
 		E.db["unitframe"]["units"]["raid"]["name"]["position"] = "BOTTOMLEFT"
 		E.db["unitframe"]["units"]["raid"]["height"] = 22
-		E.db["unitframe"]["units"]["raid"]["visibility"] = "[@raid6,noexists] hide;show"
+		E.db["unitframe"]["units"]["raid"]["visibility"] = "[nogroup] hide;show"
 		E.db["unitframe"]["units"]["raid"]["raidicon"]["attachTo"] = "RIGHT"
 
 		E.db["unitframe"]["units"]["raid40"]["enable"] = false
