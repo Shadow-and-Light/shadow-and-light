@@ -85,6 +85,11 @@ SLE.rolePaths = {
 	},
 }
 
+SLE.ScenarioBlockLogos = {
+	["NONE"] = "",
+	["SLE"] = [[Interface\AddOns\ElvUI_SLE\media\textures\Logo]],
+}
+
 --Epty Tables
 SLE.Configs = {}
 

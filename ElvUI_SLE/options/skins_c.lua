@@ -33,111 +33,164 @@ local function configTable()
 						name = L["Enable"],
 						disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
 					},
-					spacer1 = ACH:Spacer(23),
-					spacer2 = ACH:Spacer(3),
-					texture = {
-						order = 3,
-						type = "select", dialogControl = "LSM30_Statusbar",
-						name = L["Texture"],
-						desc = L["Sets the texture for statusbars in quest tracker, e.g. bonus objectives/timers."],
-						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
-						values = AceGUIWidgetLSMlists.statusbar,
+					statusbars = {
+						order = 2,
+						type = "group",
+						guiInline = true,
+						name = L["Statusbars"],
+						args = {
+							texture = {
+								order = 1,
+								type = "select", dialogControl = "LSM30_Statusbar",
+								name = L["Texture"],
+								desc = L["Sets the texture for statusbars in quest tracker, e.g. bonus objectives/timers."],
+								disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
+								values = AceGUIWidgetLSMlists.statusbar,
+							},
+							color = {
+								type = 'color',
+								order = 2,
+								name = L["Statusbar Color"],
+								disabled = function() return not E.private.sle.skins.objectiveTracker.enable or E.private.sle.skins.objectiveTracker.class or not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
+								get = function(info)
+									local t = E.private.sle.skins.objectiveTracker[ info[#info] ]
+									local d = V.sle.skins.objectiveTracker[info[#info]]
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+								end,
+								set = function(info, r, g, b, a)
+									E.private.sle.skins.objectiveTracker[ info[#info] ] = {}
+									local t = E.private.sle.skins.objectiveTracker[ info[#info] ]
+									t.r, t.g, t.b, t.a = r, g, b, a
+									E:StaticPopup_Show("PRIVATE_RL")
+								end,
+							},
+							class = {
+								order = 3,
+								type = "toggle",
+								name = L["Class Colored Statusbars"],
+								disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
+							},
+						},
 					},
-					color = {
-						type = 'color',
-						order = 4,
-						name = L["Statusbar Color"],
-						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or E.private.sle.skins.objectiveTracker.class or not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
-						get = function(info)
-							local t = E.private.sle.skins.objectiveTracker[ info[#info] ]
-							local d = V.sle.skins.objectiveTracker[info[#info]]
-							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-						end,
-						set = function(info, r, g, b, a)
-							E.private.sle.skins.objectiveTracker[ info[#info] ] = {}
-							local t = E.private.sle.skins.objectiveTracker[ info[#info] ]
-							t.r, t.g, t.b, t.a = r, g, b, a
-							E:StaticPopup_Show("PRIVATE_RL")
-						end,
-					},
-					class = {
-						order = 5,
-						type = "toggle",
-						name = L["Class Colored Statusbars"],
-						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
-					},
-					spacer3 = ACH:Spacer(6),
 					underline = {
-						order = 7,
-						type = "toggle",
+						order = 3,
+						type = "group",
+						guiInline = true,
 						name = L["Underline"],
-						desc = L["Creates a cosmetic line under objective headers."],
-						disabled = function() return not E.private.sle.skins.objectiveTracker.enable end,
-						get = function(info) return E.db.sle.skins.objectiveTracker[ info[#info] ] end,
-						set = function(info, value) E.db.sle.skins.objectiveTracker[ info[#info] ] = value; Sk:Update_ObjectiveTrackerUnderlinesVisibility() end,
+						args = {
+							underline = {
+								order = 1,
+								type = "toggle",
+								name = L["Enable"],
+								desc = L["Creates a cosmetic line under objective headers."],
+								disabled = function() return not E.private.sle.skins.objectiveTracker.enable end,
+								get = function(info) return E.db.sle.skins.objectiveTracker[ info[#info] ] end,
+								set = function(info, value) E.db.sle.skins.objectiveTracker[ info[#info] ] = value; Sk:Update_ObjectiveTrackerUnderlinesVisibility() end,
+							},
+							underlineColor = {
+								type = 'color',
+								order = 2,
+								name = L["Underline Color"],
+								disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.db.sle.skins.objectiveTracker.underline or E.db.sle.skins.objectiveTracker.underlineClass  end,
+								get = function(info)
+									local t = E.db.sle.skins.objectiveTracker[ info[#info] ]
+									local d = P.sle.skins.objectiveTracker[info[#info]]
+									return t.r, t.g, t.b, d.r, d.g, d.b
+								end,
+								set = function(info, r, g, b)
+									E.db.sle.skins.objectiveTracker[ info[#info] ] = {}
+									local t = E.db.sle.skins.objectiveTracker[ info[#info] ]
+									t.r, t.g, t.b = r, g, b
+									Sk:Update_ObjectiveTrackerUnderlinesColor()
+								end,
+							},
+							underlineClass = {
+								order = 3,
+								type = "toggle",
+								name = L["Class Colored Underline"],
+								disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.db.sle.skins.objectiveTracker.underline end,
+								get = function(info) return E.db.sle.skins.objectiveTracker[ info[#info] ] end,
+								set = function(info, value) E.db.sle.skins.objectiveTracker[ info[#info] ] = value; Sk:Update_ObjectiveTrackerUnderlinesColor() end,
+							},
+							underlineHeight = {
+								order = 4,
+								type = 'range',
+								name = L["Underline Height"],
+								min = 1, max = 10, step = 1,
+								disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
+							},
+						},
 					},
-					underlineColor = {
-						type = 'color',
-						order = 8,
-						name = L["Underline Color"],
-						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.db.sle.skins.objectiveTracker.underline or E.db.sle.skins.objectiveTracker.underlineClass  end,
-						get = function(info)
-							local t = E.db.sle.skins.objectiveTracker[ info[#info] ]
-							local d = P.sle.skins.objectiveTracker[info[#info]]
-							return t.r, t.g, t.b, d.r, d.g, d.b
-						end,
-						set = function(info, r, g, b)
-							E.db.sle.skins.objectiveTracker[ info[#info] ] = {}
-							local t = E.db.sle.skins.objectiveTracker[ info[#info] ]
-							t.r, t.g, t.b = r, g, b
-							Sk:Update_ObjectiveTrackerUnderlinesColor()
-						end,
-					},
-					underlineClass = {
-						order = 9,
-						type = "toggle",
-						name = L["Class Colored Underline"],
-						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.db.sle.skins.objectiveTracker.underline end,
-						get = function(info) return E.db.sle.skins.objectiveTracker[ info[#info] ] end,
-						set = function(info, value) E.db.sle.skins.objectiveTracker[ info[#info] ] = value; Sk:Update_ObjectiveTrackerUnderlinesColor() end,
-					},
-					underlineHeight = {
-						order = 10,
-						type = 'range',
-						name = L["Underline Height"],
-						min = 1, max = 10, step = 1,
-						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
-					},
-					spacer4 = ACH:Spacer(11),
-					spacer5 = ACH:Spacer(12),
-					colorHeader = {
-						type = 'color',
-						order = 13,
-						name = L["Header Text Color"],
-						disabled = function() return not E.private.sle.skins.objectiveTracker.enable or E.db.sle.skins.objectiveTracker.classHeader end,
-						get = function(info)
-							local t = E.db.sle.skins.objectiveTracker[ info[#info] ]
-							local d = P.sle.skins.objectiveTracker[info[#info]]
-							return t.r, t.g, t.b, d.r, d.g, d.b
-						end,
-						set = function(info, r, g, b)
-							E.db.sle.skins.objectiveTracker[ info[#info] ] = {}
-							local t = E.db.sle.skins.objectiveTracker[ info[#info] ]
-							t.r, t.g, t.b = r, g, b
-							E:UpdateBlizzardFonts()
-						end,
-					},
-					classHeader = {
-						order = 14,
-						type = "toggle",
-						name = L["Class Colored Header Text"],
-						get = function(info) return E.db.sle.skins.objectiveTracker[ info[#info] ] end,
-						set = function(info, value) E.db.sle.skins.objectiveTracker[ info[#info] ] = value; E:UpdateBlizzardFonts() end,
-					},
-					scenarioBG = {
-						order = 15,
-						type = "toggle",
-						name = L["Stage Background"],
+					header = {
+						order = 5,
+						type = "group",
+						guiInline = true,
+						name = L["Headers"],
+						args = {
+							colorHeader = {
+								type = 'color',
+								order = 1,
+								name = L["Header Text Color"],
+								disabled = function() return not E.private.sle.skins.objectiveTracker.enable or E.db.sle.skins.objectiveTracker.classHeader end,
+								get = function(info)
+									local t = E.db.sle.skins.objectiveTracker[ info[#info] ]
+									local d = P.sle.skins.objectiveTracker[info[#info]]
+									return t.r, t.g, t.b, d.r, d.g, d.b
+								end,
+								set = function(info, r, g, b)
+									E.db.sle.skins.objectiveTracker[ info[#info] ] = {}
+									local t = E.db.sle.skins.objectiveTracker[ info[#info] ]
+									t.r, t.g, t.b = r, g, b
+									E:UpdateBlizzardFonts()
+								end,
+							},
+							classHeader = {
+								order = 1,
+								type = "toggle",
+								name = L["Class Colored Header Text"],
+								get = function(info) return E.db.sle.skins.objectiveTracker[ info[#info] ] end,
+								set = function(info, value) E.db.sle.skins.objectiveTracker[ info[#info] ] = value; E:UpdateBlizzardFonts() end,
+							},
+							scenarioBG = {
+								order = 3,
+								type = "toggle",
+								name = L["Stage Background"],
+							},
+							BGbackdrop = {
+								order = 4,
+								type = "toggle",
+								name = L["Skinned Background"],
+								disabled = function() return E.private.sle.skins.objectiveTracker.scenarioBG or not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
+							},
+							skinnedTextureLogo = {
+								order = 5,
+								type = "select",
+								name = L["Texture"],
+								desc = L["Sets the texture for statusbars in quest tracker, e.g. bonus objectives/timers."],
+								disabled = function() return not E.private.sle.skins.objectiveTracker.enable or not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker or not E.private.sle.skins.objectiveTracker.BGbackdrop or E.private.sle.skins.objectiveTracker.scenarioBG end,
+								set = function(info, value)
+									E.private.sle.skins.objectiveTracker[ info[#info] ] = value;
+									Sk:UpdateObjectiveFrameLogos()
+								end,
+								values = {
+									["NONE"] = NONE,
+									["SLE"] = [[|TInterface\AddOns\ElvUI_SLE\media\textures\Logo:16:16|t S&L]],
+									["CUSTOM"] = L["Custom"],
+								},
+							},
+							customTextureLogo = {
+								order = 6,
+								type = 'input',
+								width = 'full',
+								name = L["Custom Texture"],
+								desc = L["Set the texture to use in this frame. Requirements are the same as the chat textures."],
+								hidden = function() return E.private.sle.skins.objectiveTracker.skinnedTextureLogo ~= "CUSTOM" end,
+								set = function(info, value)
+									E.private.sle.skins.objectiveTracker[ info[#info] ] = value;
+									Sk:UpdateObjectiveFrameLogos()
+								end,
+							},
+						},
 					},
 				},
 			},

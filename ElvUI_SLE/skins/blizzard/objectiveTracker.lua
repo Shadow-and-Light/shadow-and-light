@@ -111,12 +111,31 @@ local function SkinScenarioButtons()
 
 	-- we have to independently resize the artwork
 	-- because we're messing with the tracker width >_>
+	if not block.SLEBlock then
+		block.SLEBlock = CreateFrame("Frame", "ScenarioStageBlock_SLEBlock", block)
+		block.SLEBlock:SetAllPoints(block.NormalBG)
+		block.SLEBlock:SetTemplate("Transparent")
+		block.SLEBlock:SetFrameStrata("BACKGROUND")
+
+		block.SLEBlock.Logo = block.SLEBlock:CreateTexture(nil, "OVERLAY")
+		block.SLEBlock.Logo:SetPoint("BOTTOMRIGHT", block.SLEBlock, "BOTTOMRIGHT", -5,7)
+		block.SLEBlock.Logo:SetPoint("TOPLEFT", block.SLEBlock, "TOPRIGHT", -75,-7)
+		block.SLEBlock.Logo:SetAlpha(0.3)
+
+		block.SLEBlock:Hide()
+
+		Sk.additionalTextures["ScenarioLogo"] = block.SLEBlock.Logo
+		Sk:UpdateAdditionalTexture(Sk.additionalTextures["ScenarioLogo"], SLE.ScenarioBlockLogos[E.private.sle.skins.objectiveTracker.skinnedTextureLogo] or E.private.sle.skins.objectiveTracker.customTextureLogo)
+	end
+	
 	if not E.private.sle.skins.objectiveTracker.scenarioBG then
 		-- pop-up artwork
 		block.NormalBG:Hide()
 
 		-- pop-up final artwork
 		block.FinalBG:Hide()
+
+		if E.private.sle.skins.objectiveTracker.BGbackdrop then block.SLEBlock:Show() end
 	end
 
 	-- pop-up glow
@@ -127,14 +146,37 @@ end
 --Challengemode/M+
 -- local function Scenario_ChallengeMode_ShowBlock(timerID, elapsedTime, timeLimit)
 local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
-	local object = ScenarioChallengeModeBlock
+	local block = ScenarioChallengeModeBlock
+
+	if not block.SLEBlock then
+		block.SLEBlock = CreateFrame("Frame", "ScenarioStageBlock_SLEBlock", block)
+		block.SLEBlock:SetAllPoints(block)
+		block.SLEBlock:SetTemplate("Transparent")
+		block.SLEBlock:SetFrameStrata("BACKGROUND")
+
+		block.SLEBlock.Logo = block.SLEBlock:CreateTexture(nil, "OVERLAY")
+		block.SLEBlock.Logo:SetPoint("BOTTOMRIGHT", block.SLEBlock, "BOTTOMRIGHT", -5,7)
+		block.SLEBlock.Logo:SetPoint("TOPLEFT", block.SLEBlock, "TOPRIGHT", -75,-7)
+		-- block.SLEBlock.Logo:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\Logo]])
+		block.SLEBlock.Logo:SetAlpha(0.3)
+
+		block.SLEBlock:Hide()
+
+		Sk.additionalTextures["ChallengeModeLogo"] = block.SLEBlock.Logo
+		Sk:UpdateAdditionalTexture(Sk.additionalTextures["ChallengeModeLogo"], SLE.ScenarioBlockLogos[E.private.sle.skins.objectiveTracker.skinnedTextureLogo] or E.private.sle.skins.objectiveTracker.customTextureLogo)
+	end
+	
 	if not E.private.sle.skins.objectiveTracker.scenarioBG then
-		for i = 1, object:GetNumRegions() do
-			local region = select(i, object:GetRegions())
+		for i = 1, block:GetNumRegions() do
+			local region = select(i, block:GetRegions())
 			if region and region:IsObjectType('Texture') then --and region:IsObjectType(which) then
 				if region:GetAtlas() == "ChallengeMode-Timer" then region:SetAlpha(0) end
 			end
 		end
+		block.TimerBG:Kill();
+		block.TimerBGBack:Kill();
+
+		if E.private.sle.skins.objectiveTracker.BGbackdrop  then block.SLEBlock:Show() end
 	end
 	local COLOR
 	if E.private.sle.skins.objectiveTracker.class then
@@ -142,9 +184,7 @@ local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
 	else
 		COLOR = E.private.sle.skins.objectiveTracker.color
 	end
-	S:HandleStatusBar(object.StatusBar, {COLOR.r, COLOR.g, COLOR.b});
-	object.TimerBG:Kill();
-	object.TimerBGBack:Kill();
+	S:HandleStatusBar(block.StatusBar, {COLOR.r, COLOR.g, COLOR.b});
 end
 
 local function SkinAffixes(block,affixes)
