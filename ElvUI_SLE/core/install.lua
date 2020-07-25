@@ -164,6 +164,7 @@ function PI:DarthSetup()
 		E.db["bags"]["clearSearchOnClose"] = true
 		E.db["bags"]["scrapIcon"] = true
 		E.db["bags"]["junkIcon"] = true
+		E.db["bags"]["qualityColors"] = true
 
 		E.db["bags"]["currencyFormat"] = "ICON"
 		E.db["bags"]["moneyFormat"] = "BLIZZARD2"
@@ -249,12 +250,12 @@ function PI:DarthSetup()
 
 		E.db["datatexts"]["panels"]["Darth_Panel_1"] = {
 			[1] = "S&L Friends",
-			[2] = "Currencies",
+			[2] = "S&L Currencies",
 			[3] = "Bags",
 			[4] = "System",
 			[5] = "Primary Stat",
 			[6] = "Versatility",
-			[7] = "Crit",
+			[7] = "Crit Chance",
 			[8] = "Haste",
 			["enable"] = true,
 		}
@@ -265,7 +266,6 @@ function PI:DarthSetup()
 	do
 		E.db["v11NamePlateReset"] = true
 
-		E.db["nameplates"]["threat"]["indicator"] = true
 		E.db["nameplates"]["threat"]["beingTankedByTank"] = false
 		E.db["nameplates"]["statusbar"] = "Polished Wood"
 		E.db["nameplates"]["clickThrough"]["personal"] = true
@@ -692,7 +692,7 @@ function PI:DarthSetup()
 		E.db["movers"]["ElvAB_7"] = "BOTTOM,ElvUI_Bar1,TOP,0,82"
 		E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,-1"
 		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,526,-238"
-		E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,1,-237"
+		E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-27"
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,-218,336"
 		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,248"
 		E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,0,0"
