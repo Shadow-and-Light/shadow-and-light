@@ -248,6 +248,7 @@ L["Gradient Texture Color"] = "Couleur de texture dégradée"
 L["Gradient"] = "Dégradé"
 L["Graphics"] = "Graphiques"
 L["Guild Master Icon"] = "Icône du maître de guilde"
+L["Headers"] = true
 L["Header Text Color"] = "Couleur du texte de l'en-tête"
 L["Hearthstone Location"] = "Position de la pierre du repos"
 L["Hide Buff Timer"] = "Masquer la minuterie des buffs"

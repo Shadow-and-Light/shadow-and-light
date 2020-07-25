@@ -248,6 +248,7 @@ L["Gradient Texture Color"] = "Verlaufs Textur Farbe"
 L["Gradient"] = "Verlauf"
 L["Graphics"] = "Grafiken"
 L["Guild Master Icon"] = "Gildenmeister Symbol"
+L["Headers"] = true
 L["Header Text Color"] = true
 L["Hearthstone Location"] = "Ruhestein Position"
 L["Hide Buff Timer"] = "Verstecke Stärkungszauber Timer"

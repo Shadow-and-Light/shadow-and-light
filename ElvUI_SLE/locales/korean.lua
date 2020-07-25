@@ -248,6 +248,7 @@ L["Gradient Texture Color"] = "그라데이션 색상"
 L["Gradient"] = "그라데이션"
 L["Graphics"] = "그래픽"
 L["Guild Master Icon"] = "길드장 아이콘"
+L["Headers"] = true
 L["Header Text Color"] = true
 L["Hearthstone Location"] = true
 L["Hide Buff Timer"] = "강화효과 시간 숨김"

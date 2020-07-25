@@ -248,6 +248,7 @@ L["Gradient Texture Color"] = true
 L["Gradient"] = true
 L["Graphics"] = true
 L["Guild Master Icon"] = true
+L["Headers"] = true
 L["Header Text Color"] = true
 L["Hearthstone Location"] = true
 L["Hide Buff Timer"] = true
