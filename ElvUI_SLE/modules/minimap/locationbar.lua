@@ -133,8 +133,14 @@ LP.Spells = {
 	},
 	["WARLOCK"] = {},
 	["WARRIOR"] = {},
-	["DarkIronDwarf"] = {
-		[1] = {text = GetSpellInfo(265225),icon = SLE:GetIconFromID("spell", 265225),secure = {buttonType = "spell",ID = 265225}, UseTooltip = true}, -- Mole Machine (Dark Iron Dwarfs)
+	["racials"] = {
+		["DarkIronDwarf"] = {
+			[1] = {text = GetSpellInfo(265225),icon = SLE:GetIconFromID("spell", 265225),secure = {buttonType = "spell",ID = 265225}, UseTooltip = true}, -- Mole Machine (Dark Iron Dwarfs)
+		},
+		["Vulpera"] = {
+			[1] = {text = GetSpellInfo(312370),icon = SLE:GetIconFromID("spell", 312370),secure = {buttonType = "spell",ID = 312370}, UseTooltip = true}, -- Mole Machine (Dark Iron Dwarfs)
+			[2] = {text = GetSpellInfo(312372),icon = SLE:GetIconFromID("spell", 312372),secure = {buttonType = "spell",ID = 312372}, UseTooltip = true}, -- Mole Machine (Dark Iron Dwarfs)
+		},
 	},
 	["teleports"] = {
 		["Horde"] = {
@@ -556,6 +562,7 @@ function LP:SpellList(list, dropdown, check)
 end
 
 function LP:PopulateDropdown(click)
+
 	if LP.ListUpdating and click then
 		SLE:Print(L["Update canceled."])
 		LP.ListUpdating = false
@@ -577,7 +584,7 @@ function LP:PopulateDropdown(click)
 	local MENU_WIDTH
 
 	if LP.db.portals.showSpells then
-		if LP:SpellList(LP.Spells[E.myclass], nil, true) or  LP:SpellList(LP.Spells.challenge, nil, true) or E.myclass == "MAGE" or E.myrace == "DarkIronDwarf" then
+		if LP:SpellList(LP.Spells[E.myclass], nil, true) or  LP:SpellList(LP.Spells.challenge, nil, true) or E.myclass == "MAGE" or LP.Spells["racials"][E.myrace] then
 			tinsert(LP.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
 			LP:SpellList(LP.Spells[E.myclass], LP.MainMenu)
 			if LP:SpellList(LP.Spells.challenge, nil, true) then
@@ -611,8 +618,8 @@ function LP:PopulateDropdown(click)
 					SLE:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
 				end})
 			end
-			if E.myrace == "DarkIronDwarf" then
-				LP:SpellList(LP.Spells[E.myrace], LP.MainMenu)
+			if LP.Spells["racials"][E.myrace] then
+				LP:SpellList(LP.Spells["racials"][E.myrace], LP.MainMenu)
 			end
 		end
 	end
