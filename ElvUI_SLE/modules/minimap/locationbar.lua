@@ -138,8 +138,8 @@ LP.Spells = {
 			[1] = {text = GetSpellInfo(265225),icon = SLE:GetIconFromID("spell", 265225),secure = {buttonType = "spell",ID = 265225}, UseTooltip = true}, -- Mole Machine (Dark Iron Dwarfs)
 		},
 		["Vulpera"] = {
-			[1] = {text = GetSpellInfo(312370),icon = SLE:GetIconFromID("spell", 312370),secure = {buttonType = "spell",ID = 312370}, UseTooltip = true}, -- Mole Machine (Dark Iron Dwarfs)
-			[2] = {text = GetSpellInfo(312372),icon = SLE:GetIconFromID("spell", 312372),secure = {buttonType = "spell",ID = 312372}, UseTooltip = true}, -- Mole Machine (Dark Iron Dwarfs)
+			[1] = {text = GetSpellInfo(312370),icon = SLE:GetIconFromID("spell", 312370),secure = {buttonType = "spell",ID = 312370}, UseTooltip = true}, -- Make Camp
+			[2] = {text = GetSpellInfo(312372),icon = SLE:GetIconFromID("spell", 312372),secure = {buttonType = "spell",ID = 312372}, UseTooltip = true}, -- Return to Camp
 		},
 	},
 	["teleports"] = {
