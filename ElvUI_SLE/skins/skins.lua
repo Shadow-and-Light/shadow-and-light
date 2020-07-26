@@ -39,10 +39,11 @@ end
 function Sk:UpdateObjectiveFrameLogos()
 	Sk:UpdateAdditionalTexture(Sk.additionalTextures["ScenarioLogo"], SLE.ScenarioBlockLogos[E.private.sle.skins.objectiveTracker.skinnedTextureLogo] or E.private.sle.skins.objectiveTracker.customTextureLogo)
 	Sk:UpdateAdditionalTexture(Sk.additionalTextures["ChallengeModeLogo"], SLE.ScenarioBlockLogos[E.private.sle.skins.objectiveTracker.skinnedTextureLogo] or E.private.sle.skins.objectiveTracker.customTextureLogo)
+	if Sk.additionalTextures["WarfrontLogo"] then Sk:UpdateAdditionalTexture(Sk.additionalTextures["WarfrontLogo"], SLE.ScenarioBlockLogos[E.private.sle.skins.objectiveTracker.skinnedTextureLogo] or E.private.sle.skins.objectiveTracker.customTextureLogo) end
 end
 
 function Sk:UpdateAdditionalTexture(textureObject, newTexture)
-	textureObject:SetTexture(newTexture)
+	if textureObject then textureObject:SetTexture(newTexture) end
 end
 
 function Sk:Initialize()
