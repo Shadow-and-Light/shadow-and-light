@@ -548,6 +548,7 @@ L["Skin garrison landing page button."] = true
 L["Skin garrison"] = true
 L["Skin mail icon."] = "Habillage de l'icône de courrier."
 L["Skin Mail"] = "Habillage du courrier"
+L["Skinned Background"] = true
 L["SLE_Advanced_Desc"] = "Les options suivantes permettent d'accéder à des paramètres supplémentaires dans différents modules.  Il est déconseillé aux nouveaux joueurs ou aux joueurs qui ne sont pas familiers avec les paramètres des addons."
 L["SLE_ADVANCED_POPUP_TEXT"] = "Jurez-vous que vous êtes un utilisateur expérimenté, que vous pouvez lire les infobulles pour les options et que vous ne crierez pas à l'aide si quelque chose tourne mal dans votre interface utilisateur avec ces options supplémentaires ? Si oui, vous êtes autorisé à continuer."
 L["SLE_Armory_Info"] = "L'armurerie est conçue pour fournir des informations standard sur les articles d'ElvUI d'une manière différente. Gardez à l'esprit que l'affichage des enchantements, des gemmes et des niveaux d'objets n'est disponible que lorsque l'option ElvUI correspondante est activée. Utilisez le bouton ci-dessous pour visiter la section de configuration de la fonctionnalité mentionnée."

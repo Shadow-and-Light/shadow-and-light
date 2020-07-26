@@ -548,6 +548,7 @@ L["Skin garrison landing page button."] = "주둔지 보고서 버튼에 스킨�
 L["Skin garrison"] = "주둔지 스킨"
 L["Skin mail icon."] = "우편 아이콘에 스킨을 입힙니다."
 L["Skin Mail"] = "우편 스킨"
+L["Skinned Background"] = true
 L["SLE_Advanced_Desc"] = "Following options provide access to additional customization settings in various modules.  Is not recommended to new players or people not experienced in addon's configuration."
 L["SLE_ADVANCED_POPUP_TEXT"] = "숙련된 사용자로서 툴팁을 제대로 읽을 수 있고,\n편의를 위한 추가적인 사항 때문에 UI가 폭파되더라도\n울면서 떼쓰지 않겠다고 맹세하십니까?\n\n동의하시면, 이 설정을 활성화하여 사용하실 수 있습니다."
 L["SLE_Armory_Info"] = "Armory is designed to provide standard ElvUI item info in a different way. Keep in mind that display of enchantments, gems and item levels is only available when corresponding ElvUI option is enabled. Use button below to visit mentioned feature's config section."

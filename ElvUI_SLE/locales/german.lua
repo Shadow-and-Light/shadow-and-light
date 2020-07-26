@@ -548,6 +548,7 @@ L["Skin garrison landing page button."] = true
 L["Skin garrison"] = true
 L["Skin mail icon."] = true
 L["Skin Mail"] = true
+L["Skinned Background"] = true
 L["SLE_Advanced_Desc"] = "Folgende Optionen erlauben den Zugriff auf zusätzliche Einstellungen in den verschiedensten Modulen.  Neuen Spielern oder Spielern die nicht vertraut mit Addon Einstellungen sind, wird nicht geraten diese zu nutzen."
 L["SLE_ADVANCED_POPUP_TEXT"] = "Schwörst du, dass du ein erfahrener Benutzer bist,\ndu kannst Tooltips für Optionen lesen und wirst nicht um Hilfe schreien wenn\nirgendetwas furchtbar schief mit deinem UI passiert mit diesen zusätzlichen Optionen?\n\nFalls ja, ist es erlaubt fortzufahren."
 L["SLE_Armory_Info"] = "Armory is designed to provide standard ElvUI item info in a different way. Keep in mind that display of enchantments, gems and item levels is only available when corresponding ElvUI option is enabled. Use button below to visit mentioned feature's config section."
