@@ -1,5 +1,5 @@
 ﻿## Interface: 80300
-## Title: |cff1784d1|TInterface\AddOns\ElvUI_SLE\media\textures\Logo:16:16|t ElvUI|r |cff9482c9Shadow & Light|r
+## Title: |cff1784d1ElvUI|r |cff9482c9Shadow & Light|r
 ## Author: Darth Predator, Repooc
 ## Version: 3.77
 ## Notes: Plugin-edit for |cff1784d1ElvUI|r adding additional features.
