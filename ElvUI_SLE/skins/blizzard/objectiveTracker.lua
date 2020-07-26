@@ -294,6 +294,37 @@ local function ObjectiveReskin()
 		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
 		hooksecurefunc("Scenario_ChallengeMode_ShowBlock", SkinChallengeModeBlock)
 		hooksecurefunc("Scenario_ChallengeMode_SetUpAffixes", SkinAffixes)
+		hooksecurefunc(ScenarioStageBlock.WidgetContainer, "CreateWidget", function(self, widgetID, widgetType, widgetTypeInfo, widgetInfo)
+			-- print(widgetID, widgetType, widgetTypeInfo, widgetInfo)
+			local widgetFrame = self.widgetFrames[widgetID]
+
+			if widgetID ~= 1217 then return end
+			if not widgetFrame.SLEBlock then
+				widgetFrame.SLEBlock = CreateFrame("Frame", "ScenarioStageBlock_SLEBlock", widgetFrame)
+				widgetFrame.SLEBlock:SetAllPoints(widgetFrame)
+				widgetFrame.SLEBlock:SetTemplate("Transparent")
+				widgetFrame.SLEBlock:SetFrameStrata("BACKGROUND")
+
+				widgetFrame.SLEBlock.Logo = widgetFrame.SLEBlock:CreateTexture(nil, "OVERLAY")
+				widgetFrame.SLEBlock.Logo:SetPoint("BOTTOMRIGHT", widgetFrame.SLEBlock, "BOTTOMRIGHT", -5,7)
+				widgetFrame.SLEBlock.Logo:SetPoint("TOPLEFT", widgetFrame.SLEBlock, "TOPRIGHT", -75,-7)
+				widgetFrame.SLEBlock.Logo:SetAlpha(0.3)
+
+				widgetFrame.SLEBlock:Hide()
+
+				Sk.additionalTextures["WarfrontLogo"] = widgetFrame.SLEBlock.Logo
+				Sk:UpdateAdditionalTexture(Sk.additionalTextures["WarfrontLogo"], SLE.ScenarioBlockLogos[E.private.sle.skins.objectiveTracker.skinnedTextureLogo] or E.private.sle.skins.objectiveTracker.customTextureLogo)
+			end
+			if not E.private.sle.skins.objectiveTracker.scenarioBG then
+				for i = 1, widgetFrame:GetNumRegions() do
+				local region = select(i, widgetFrame:GetRegions())
+				if region and region:IsObjectType('Texture') then
+					region:SetAlpha(0)
+				end
+				if E.private.sle.skins.objectiveTracker.BGbackdrop  then widgetFrame.SLEBlock:Show() end
+			end
+		end
+		end)
 		-- Another ProgressBar in the ObjectiveTracker counting as Scenario (e.g. Legion Pre-Event)
 		hooksecurefunc(SCENARIO_TRACKER_MODULE, "AddProgressBar", function(self, block, line, criteriaIndex)
 			local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line];
