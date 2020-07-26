@@ -157,7 +157,7 @@ V["sle"] = {
 			["color"] = {r = 0.26, g = 0.42, b = 1},
 			["underlineHeight"] = 1,
 			["scenarioBG"] = false,
-			["BGbackdrop"] = false,
+			["BGbackdrop"] = true,
 			["skinnedTextureLogo"] = "NONE",
 			["customTextureLogo"] = "",
 		},
