@@ -3,9 +3,13 @@ local RC = LibStub("LibRangeCheck-2.0")
 local ElvUF = ElvUI.oUF
 assert(ElvUF, "ElvUI was unable to locate oUF.")
 
-local strsplit = strsplit
+local strsplit, format, gsub = strsplit, format, gsub
 local UnitGetTotalAbsorbs, UnitName = UnitGetTotalAbsorbs, UnitName
 local UnitIsPVP, UnitHonorLevel = UnitIsPVP, UnitHonorLevel
+local UnitGroupRolesAssigned = UnitGroupRolesAssigned
+local UnitPower = UnitPower
+local SPELL_POWER_MANA = Enum.PowerType.Mana
+
 do
     local function rangecolor(hex)
         if hex and strmatch(hex, '^%x%x%x%x%x%x$') then
@@ -100,6 +104,20 @@ ElvUF.Tags.Events['sl:pvplevel'] = 'HONOR_LEVEL_UPDATE UNIT_FACTION'
 ElvUF.Tags.Methods['sl:pvplevel'] = function(unit)
     -- if unit ~= "target" and unit ~= "player" then return "" end
     return (UnitIsPVP(unit) and UnitHonorLevel(unit) > 0) and UnitHonorLevel(unit) or ""
+end
+
+for textFormat in pairs(E.GetFormattedTextStyles) do
+    local tagTextFormat = strlower(gsub(textFormat, '_', '-'))
+    ElvUF.Tags.Events[format('mana:%s:healeronly', tagTextFormat)] = 'UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER GROUP_ROSTER_UPDATE'
+    ElvUF.Tags.Methods[format('mana:%s:healeronly', tagTextFormat)] = function(unit)
+        local role = UnitGroupRolesAssigned(unit)
+        if role ~= "HEALER" then return end
+
+        local min = UnitPower(unit, SPELL_POWER_MANA)
+        if min ~= 0 and tagTextFormat ~= 'deficit' then
+            return E:GetFormattedText(textFormat, min, UnitPowerMax(unit, SPELL_POWER_MANA))
+        end
+    end
 end
 
 --*Add the tags to the ElvUI Options
