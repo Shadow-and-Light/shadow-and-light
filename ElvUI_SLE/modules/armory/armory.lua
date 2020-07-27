@@ -35,6 +35,7 @@ Armory.Constants.CanTransmogrify = {
 	["ShoulderSlot"] = true,
 	["BackSlot"] = true,
 	["ChestSlot"] = true,
+	["TabardSlot"] = true,
 	["WristSlot"] = true,
 	["HandsSlot"] = true,
 	["WaistSlot"] = true,
