@@ -14,6 +14,10 @@ local classColor = RAID_CLASS_COLORS[E.myclass]
 local width = 190
 local dummy = function() return end
 local underlines = {}
+local skinnableWidgets = {
+	[1217] = true, --Alliance warfront BfA
+	[1329] = true, --Horde warfront BfA
+}
 
 function Sk:Update_ObjectiveTrackerUnderlinesVisibility()
 	local exe = E.db.sle.skins.objectiveTracker.underline and "Show" or "Hide"
@@ -298,32 +302,33 @@ local function ObjectiveReskin()
 			-- print(widgetID, widgetType, widgetTypeInfo, widgetInfo)
 			local widgetFrame = self.widgetFrames[widgetID]
 
-			if widgetID ~= 1217 then return end
-			if not widgetFrame.SLEBlock then
-				widgetFrame.SLEBlock = CreateFrame("Frame", "ScenarioStageBlock_SLEBlock", widgetFrame)
-				widgetFrame.SLEBlock:SetAllPoints(widgetFrame)
-				widgetFrame.SLEBlock:SetTemplate("Transparent")
-				widgetFrame.SLEBlock:SetFrameStrata("BACKGROUND")
+			if skinnableWidgets[widgetID] then
+				if not widgetFrame.SLEBlock then
+					widgetFrame.SLEBlock = CreateFrame("Frame", "ScenarioStageBlock_SLEBlock", widgetFrame)
+					widgetFrame.SLEBlock:SetAllPoints(widgetFrame)
+					widgetFrame.SLEBlock:SetTemplate("Transparent")
+					widgetFrame.SLEBlock:SetFrameStrata("BACKGROUND")
 
-				widgetFrame.SLEBlock.Logo = widgetFrame.SLEBlock:CreateTexture(nil, "OVERLAY")
-				widgetFrame.SLEBlock.Logo:SetPoint("BOTTOMRIGHT", widgetFrame.SLEBlock, "BOTTOMRIGHT", -5,7)
-				widgetFrame.SLEBlock.Logo:SetPoint("TOPLEFT", widgetFrame.SLEBlock, "TOPRIGHT", -75,-7)
-				widgetFrame.SLEBlock.Logo:SetAlpha(0.3)
+					widgetFrame.SLEBlock.Logo = widgetFrame.SLEBlock:CreateTexture(nil, "OVERLAY")
+					widgetFrame.SLEBlock.Logo:SetPoint("BOTTOMRIGHT", widgetFrame.SLEBlock, "BOTTOMRIGHT", -5,7)
+					widgetFrame.SLEBlock.Logo:SetPoint("TOPLEFT", widgetFrame.SLEBlock, "TOPRIGHT", -75,-7)
+					widgetFrame.SLEBlock.Logo:SetAlpha(0.3)
 
-				widgetFrame.SLEBlock:Hide()
+					widgetFrame.SLEBlock:Hide()
 
-				Sk.additionalTextures["WarfrontLogo"] = widgetFrame.SLEBlock.Logo
-				Sk:UpdateAdditionalTexture(Sk.additionalTextures["WarfrontLogo"], SLE.ScenarioBlockLogos[E.private.sle.skins.objectiveTracker.skinnedTextureLogo] or E.private.sle.skins.objectiveTracker.customTextureLogo)
-			end
-			if not E.private.sle.skins.objectiveTracker.scenarioBG then
-				for i = 1, widgetFrame:GetNumRegions() do
-				local region = select(i, widgetFrame:GetRegions())
-				if region and region:IsObjectType('Texture') then
-					region:SetAlpha(0)
+					Sk.additionalTextures["WarfrontLogo"] = widgetFrame.SLEBlock.Logo
+					Sk:UpdateAdditionalTexture(Sk.additionalTextures["WarfrontLogo"], SLE.ScenarioBlockLogos[E.private.sle.skins.objectiveTracker.skinnedTextureLogo] or E.private.sle.skins.objectiveTracker.customTextureLogo)
 				end
-				if E.private.sle.skins.objectiveTracker.BGbackdrop  then widgetFrame.SLEBlock:Show() end
+				if not E.private.sle.skins.objectiveTracker.scenarioBG then
+					for i = 1, widgetFrame:GetNumRegions() do
+						local region = select(i, widgetFrame:GetRegions())
+						if region and region:IsObjectType('Texture') then
+							region:SetAlpha(0)
+						end
+						if E.private.sle.skins.objectiveTracker.BGbackdrop  then widgetFrame.SLEBlock:Show() end
+					end
+				end
 			end
-		end
 		end)
 		-- Another ProgressBar in the ObjectiveTracker counting as Scenario (e.g. Legion Pre-Event)
 		hooksecurefunc(SCENARIO_TRACKER_MODULE, "AddProgressBar", function(self, block, line, criteriaIndex)
