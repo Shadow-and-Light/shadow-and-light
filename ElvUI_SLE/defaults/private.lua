@@ -160,6 +160,11 @@ V["sle"] = {
 			["BGbackdrop"] = true,
 			["skinnedTextureLogo"] = "NONE",
 			["customTextureLogo"] = "",
+			["keyTimers"] = {
+				["enable"] = false,
+				["showBothTimers"] = false,
+				["showMarks"] = true,
+			},
 		},
 		["petbattles"] = {
 			["enable"] = true,
