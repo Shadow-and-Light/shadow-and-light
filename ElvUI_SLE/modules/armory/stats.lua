@@ -377,10 +377,6 @@ function SA:ReplaceBlizzFunctions()
 			statFrame:Hide();
 			return;
 		end
-		if (UnitLevel("player") < SHOW_MASTERY_LEVEL) then
-			statFrame:Hide();
-			return;
-		end
 
 		local mastery = GetMasteryEffect();
 		if E.db.sle.armory.stats.decimals then
