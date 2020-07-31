@@ -5,7 +5,6 @@ local M = E:GetModule("Misc")
 local LCG = LibStub('LibCustomGlow-1.0')
 
 local GetAverageItemLevel = GetAverageItemLevel
-local LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION = LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION
 local TRANSMOGRIFIED_HEADER = TRANSMOGRIFIED_HEADER
 local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
 local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
