@@ -222,7 +222,7 @@ LP.Spells = {
 }
 
 function LP:CreateLocationPanel()
-	loc_panel = CreateFrame('Frame', "SLE_LocationPanel", E.UIParent)
+	loc_panel = CreateFrame('Frame', "SLE_LocationPanel", E.UIParent, "BackdropTemplate")
 	loc_panel:Point('TOP', E.UIParent, 'TOP', 0, -E.mult -22)
 	loc_panel:SetFrameStrata('MEDIUM')
 	loc_panel:SetFrameLevel(2)
@@ -237,12 +237,12 @@ function LP:CreateLocationPanel()
 	E.FrameLocks[loc_panel] = true
 
 	--Coords
-	loc_panel.Xcoord = CreateFrame('Frame', "SLE_LocationPanel_X", loc_panel)
+	loc_panel.Xcoord = CreateFrame('Frame', "SLE_LocationPanel_X", loc_panel, "BackdropTemplate")
 	loc_panel.Xcoord:SetPoint("RIGHT", loc_panel, "LEFT", 1 - 2*E.Spacing, 0)
 	loc_panel.Xcoord.Text = loc_panel.Xcoord:CreateFontString(nil, "LOW")
 	loc_panel.Xcoord.Text:Point("CENTER", 0, 0)
 
-	loc_panel.Ycoord = CreateFrame('Frame', "SLE_LocationPanel_Y", loc_panel)
+	loc_panel.Ycoord = CreateFrame('Frame', "SLE_LocationPanel_Y", loc_panel, "BackdropTemplate")
 	loc_panel.Ycoord:SetPoint("LEFT", loc_panel, "RIGHT", -1 + 2*E.Spacing, 0)
 	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, "LOW")
 	loc_panel.Ycoord.Text:Point("CENTER", 0, 0)
@@ -251,9 +251,9 @@ function LP:CreateLocationPanel()
 	-- Mover
 	E:CreateMover(loc_panel, "SLE_Location_Mover", L["Location Panel"], nil, nil, nil, "ALL,S&L,S&L MISC")
 
-	LP.Menu1 = CreateFrame("Frame", "SLE_LocationPanel_RightClickMenu1", E.UIParent)
+	LP.Menu1 = CreateFrame("Frame", "SLE_LocationPanel_RightClickMenu1", E.UIParent, "BackdropTemplate")
 	LP.Menu1:SetTemplate("Transparent", true)
-	LP.Menu2 = CreateFrame("Frame", "SLE_LocationPanel_RightClickMenu2", E.UIParent)
+	LP.Menu2 = CreateFrame("Frame", "SLE_LocationPanel_RightClickMenu2", E.UIParent, "BackdropTemplate")
 	LP.Menu2:SetTemplate("Transparent", true)
 	DD:RegisterMenu(LP.Menu1)
 	DD:RegisterMenu(LP.Menu2)
@@ -680,7 +680,7 @@ function LP:Initialize()
 	end
 
 	LP:RegisterEvent("PLAYER_REGEN_DISABLED")
- 	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
+	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
 	LP:RegisterEvent("UNIT_AURA")
 	LP:RegisterEvent("CHAT_MSG_SKILL")
 
