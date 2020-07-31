@@ -6,7 +6,7 @@ local unpack = unpack
 local format, ipairs, tonumber = format, ipairs, tonumber
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local GetBackpackCurrencyInfo = GetBackpackCurrencyInfo
-local GetCurrencyInfo = GetCurrencyInfo
+local GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local GetMoney = GetMoney
 local C_WowTokenPublic_UpdateMarketPrice = C_WowTokenPublic.UpdateMarketPrice
 local C_WowTokenPublic_GetCurrentMarketPrice = C_WowTokenPublic.GetCurrentMarketPrice
@@ -79,7 +79,7 @@ local function OnEvent(self)
 	else							-- Gained Moeny
 		Profit = Profit + Change
 	end
-	
+
 	goldText = E:FormatMoney(ElvDB.gold[E.myrealm][E.myname], E.db.datatexts.goldFormat or 'BLIZZARD', not E.db.datatexts.goldCoins)
 
 	local displayed = E.db.datatexts.currencies.displayedCurrency
@@ -131,7 +131,7 @@ local function OnEnter(self)
 		DT.tooltip:AddDoubleLine(L["Profit:"], E:FormatMoney(Profit-Spent, style, textOnly), 0, 1, 0, 1, 1, 1)
 	end
 	DT.tooltip:AddLine(' ')
-	
+
 	local totalGold, totalHorde, totalAlliance = 0, 0, 0
 	DT.tooltip:AddLine(L["Character: "])
 

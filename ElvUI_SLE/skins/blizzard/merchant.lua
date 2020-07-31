@@ -11,6 +11,7 @@ local GetMerchantNumItems = GetMerchantNumItems
 local GetMerchantItemInfo, GetMerchantItemLink = GetMerchantItemInfo, GetMerchantItemLink
 local SetItemButtonCount, SetItemButtonStock, SetItemButtonTexture = SetItemButtonCount, SetItemButtonStock, SetItemButtonTexture
 local SetItemButtonNameFrameVertexColor, SetItemButtonSlotVertexColor, SetItemButtonTextureVertexColor, SetItemButtonNormalTextureVertexColor = SetItemButtonNameFrameVertexColor, SetItemButtonSlotVertexColor, SetItemButtonTextureVertexColor, SetItemButtonNormalTextureVertexColor
+local GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 
 local RETRIEVING_ITEM_INFO, MOUNT, ITEM_SPELL_KNOWN, SEARCH = RETRIEVING_ITEM_INFO, MOUNT, ITEM_SPELL_KNOWN, SEARCH
 local MISCELLANEOUS = MISCELLANEOUS

@@ -20,7 +20,7 @@ local IsModifiedClick = IsModifiedClick
 local MerchantItemButton_OnModifiedClick = MerchantItemButton_OnModifiedClick
 local MerchantItemButton_OnEnter = MerchantItemButton_OnEnter
 local ResetCursor, ShowInspectCursor = ResetCursor, ShowInspectCursor
-local GetCurrencyListInfo = GetCurrencyListInfo
+local GetCurrencyListInfo = C_CurrencyInfo.GetCurrencyListInfo
 
 local HIGHLIGHT_FONT_COLOR = HIGHLIGHT_FONT_COLOR
 local SEARCH = SEARCH
