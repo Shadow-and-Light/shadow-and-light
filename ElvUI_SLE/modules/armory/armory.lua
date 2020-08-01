@@ -243,7 +243,7 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 		if Slot then
 			if Slot.TransmogInfo then
 				if which == "Character" then
-					local transmogLocation = TransmogUtil.GetTransmogLocation(string.upper(SlotName), Enum.TransmogType.Appearance, Enum.TransmogModification.None)
+					local transmogLocation = TransmogUtil.GetTransmogLocation(Slot.ID, Enum.TransmogType.Appearance, Enum.TransmogModification.None)
 					Slot.TransmogInfo.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(transmogLocation))));
 				elseif which == "Inspect" then
 					Slot.TransmogInfo.Link = Armory:GetTransmogInfo(Slot, which, unit)
