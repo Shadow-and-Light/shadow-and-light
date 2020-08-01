@@ -372,29 +372,12 @@ local function ObjectiveReskin()
 			local widgetFrame = self.widgetFrames[widgetID]
 
 			if skinnableWidgets[widgetID] then
-				if not widgetFrame.SLE_Block then
-					widgetFrame.SLE_Block = CreateFrame("Frame", "ScenarioStageBlock_SLE_Block", widgetFrame)
-					widgetFrame.SLE_Block:SetAllPoints(widgetFrame)
-					widgetFrame.SLE_Block:SetTemplate("Transparent")
-					widgetFrame.SLE_Block:SetFrameStrata("BACKGROUND")
-
-					widgetFrame.SLE_Block.Logo = widgetFrame.SLE_Block:CreateTexture(nil, "OVERLAY")
-					widgetFrame.SLE_Block.Logo:SetPoint("BOTTOMRIGHT", widgetFrame.SLE_Block, "BOTTOMRIGHT", -5,7)
-					widgetFrame.SLE_Block.Logo:SetPoint("TOPLEFT", widgetFrame.SLE_Block, "TOPRIGHT", -75,-7)
-					widgetFrame.SLE_Block.Logo:SetAlpha(0.3)
-
-					widgetFrame.SLE_Block:Hide()
-
-					Sk.additionalTextures["WarfrontLogo"] = widgetFrame.SLE_Block.Logo
-					Sk:UpdateAdditionalTexture(Sk.additionalTextures["WarfrontLogo"], SLE.ScenarioBlockLogos[E.private.sle.skins.objectiveTracker.skinnedTextureLogo] or E.private.sle.skins.objectiveTracker.customTextureLogo)
-				end
 				if not E.private.sle.skins.objectiveTracker.scenarioBG then
 					for i = 1, widgetFrame:GetNumRegions() do
 						local region = select(i, widgetFrame:GetRegions())
 						if region and region:IsObjectType('Texture') then
 							region:SetAlpha(0)
 						end
-						if E.private.sle.skins.objectiveTracker.BGbackdrop  then widgetFrame.SLE_Block:Show() end
 					end
 				end
 			end
