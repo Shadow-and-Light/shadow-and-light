@@ -599,9 +599,9 @@ function PI:DarthSetup()
 		E.db["sle"]["media"]["fonts"]["zone"]["font"] = "RussoOne"
 		E.db["sle"]["media"]["fonts"]["subzone"]["font"] = "RussoOne"
 		E.db["sle"]["media"]["fonts"]["pvp"]["font"] = "RussoOne"
-	
+
 		E.db["sle"]["blizzard"]["rumouseover"] = true
-	
+
 		E.db["sle"]["armory"]["stats"]["List"]["ATTACK_AP"] = true
 		E.db["sle"]["armory"]["stats"]["IlvlColor"] = true
 		E.db["sle"]["armory"]["character"]["enable"] = true
@@ -615,11 +615,11 @@ function PI:DarthSetup()
 		E.db["sle"]["unitframes"]["unit"]["raid"]["dead"]["size"] = 22
 		E.db["sle"]["unitframes"]["unit"]["player"]["pvpIconText"]["enable"] = true
 		E.db["sle"]["unitframes"]["unit"]["player"]["pvpIconText"]["yoffset"] = -6
-		
+
 		E.db["sle"]["loot"]["history"]["autohide"] = true
 		E.db["sle"]["loot"]["enable"] = true
 		E.db["sle"]["loot"]["autoroll"]["autogreed"] = true
-		
+
 		E.db["sle"]["uibuttons"]["point"] = "TOPRIGHT"
 		E.db["sle"]["uibuttons"]["enable"] = true
 		E.db["sle"]["uibuttons"]["spacing"] = 1
@@ -768,7 +768,7 @@ function PI:DarthSetup()
 	E.private["sle"]["module"]["screensaver"] = true
 
 	E.private["sle"]["uibuttons"]["style"] = "dropdown"
-	
+
 
 
 	E.private["sle"]["professions"]["enchant"]["enchScroll"] = true
@@ -1114,29 +1114,29 @@ SLE.installTable = {
 			end)
 			_G["PluginInstallFrame"].Option2:SetText(DISABLE)
 		end,
+		-- [7] = function()
+		-- 	_G["PluginInstallFrame"].SubTitle:SetText(L["Raid Frame Power"])
+		-- 	_G["PluginInstallFrame"].Desc1:SetText(L["Show power bar for raid frames."])
+		-- 	_G["PluginInstallFrame"].Desc2:SetText(L["Can be useful for tanks who know healers actually need mana to heal."])
+		-- 	_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cFF33FF33Low|r"])
+
+		-- 	_G["PluginInstallFrame"].Option1:Show()
+		-- 	_G["PluginInstallFrame"].Option1:SetScript('OnClick', function()
+		-- 		E.db.unitframe.units.raid.power.enable = true;
+		-- 		_G["PluginInstallStepComplete"].message = L["Raid Frame Power"]..": |cff00FF00"..ENABLE.."|r"
+		-- 		_G["PluginInstallStepComplete"]:Show()
+		-- 	end)
+		-- 	_G["PluginInstallFrame"].Option1:SetText(ENABLE)
+
+		-- 	_G["PluginInstallFrame"].Option2:Show()
+		-- 	_G["PluginInstallFrame"].Option2:SetScript('OnClick', function()
+		-- 		E.db.unitframe.units.raid.power.enable = false;
+		-- 		_G["PluginInstallStepComplete"].message = L["Raid Frame Power"]..": |cffFF0000"..DISABLE.."|r"
+		-- 		_G["PluginInstallStepComplete"]:Show()
+		-- 	end)
+		-- 	_G["PluginInstallFrame"].Option2:SetText(DISABLE)
+		-- end,
 		[7] = function()
-			_G["PluginInstallFrame"].SubTitle:SetText(L["Raid Frame Power"])
-			_G["PluginInstallFrame"].Desc1:SetText(L["Show power bar for raid frames."])
-			_G["PluginInstallFrame"].Desc2:SetText(L["Can be useful for tanks who know healers actually need mana to heal."])
-			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cFF33FF33Low|r"])
-
-			_G["PluginInstallFrame"].Option1:Show()
-			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function()
-				E.db.unitframe.units.raid.power.enable = true;
-				_G["PluginInstallStepComplete"].message = L["Raid Frame Power"]..": |cff00FF00"..ENABLE.."|r"
-				_G["PluginInstallStepComplete"]:Show()
-			end)
-			_G["PluginInstallFrame"].Option1:SetText(ENABLE)
-
-			_G["PluginInstallFrame"].Option2:Show()
-			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function()
-				E.db.unitframe.units.raid.power.enable = false;
-				_G["PluginInstallStepComplete"].message = L["Raid Frame Power"]..": |cffFF0000"..DISABLE.."|r"
-				_G["PluginInstallStepComplete"]:Show()
-			end)
-			_G["PluginInstallFrame"].Option2:SetText(DISABLE)
-		end,
-		[8] = function()
 			_G["PluginInstallFrame"].SubTitle:SetText(L["Installation Complete"])
 			_G["PluginInstallFrame"].Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
 			_G["PluginInstallFrame"].Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])
@@ -1153,8 +1153,8 @@ SLE.installTable = {
 		[4] = L["Armory Mode"],
 		[5] = L["AFK Mode"],
 		[6] = L["Moving Frames"],
-		[7] = L["Raid Frame Power"],
-		[8] = L["Finished"],
+		-- [7] = L["Raid Frame Power"],
+		[7] = L["Finished"],
 	},
 	["StepTitlesColorSelected"] = {.53,.53,.93},
 }
