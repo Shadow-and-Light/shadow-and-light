@@ -162,7 +162,7 @@ function SMB:SkinButton(Button)
 						Region:SetPoint('CENTER', Button)
 					end
 					if not (Name == 'MiniMapMailFrame' or Name == 'SmartBuff_MiniMapButton') then
-						Region:ClearAllPoints()
+						Region:ClearAllPoints() --Prob dont need this as simpy said this is called when setinside is called
 						Region:SetInside()
 						Region:SetTexCoord(unpack(TexCoords))
 						Button:HookScript('OnLeave', function(self) Region:SetTexCoord(unpack(TexCoords)) end)
