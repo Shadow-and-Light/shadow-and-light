@@ -355,8 +355,6 @@ function OnEnter(self, _, noUpdate)
 	else
 		tooltip = LibQTip:Acquire("ShadowLightGuild", 8, "RIGHT", "RIGHT", "LEFT", "LEFT", "CENTER", "CENTER", "RIGHT")
 
-		tooltip:SetBackdropColor(0,0,0,1)
-
 		ttHeaderFont:SetFont(GameTooltipHeaderText:GetFont())
 		ttRegFont:SetFont(GameTooltipText:GetFont())
 		tooltip:SetHeaderFont(ttHeaderFont)
