@@ -1,5 +1,5 @@
 local MAJOR = "LibQTip-1.0"
-local MINOR = 46 -- Should be manually increased
+local MINOR = 47 -- Should be manually increased
 local LibStub = _G.LibStub
 
 assert(LibStub, MAJOR .. " requires LibStub")
@@ -168,7 +168,7 @@ end
 local frameHeap = lib.frameHeap
 
 local function AcquireFrame(parent)
-	local frame = tremove(frameHeap) or CreateFrame("Frame")
+	local frame = tremove(frameHeap) or CreateFrame("Frame", nil, nil, "BackdropTemplate")
 	frame:SetParent(parent)
 	--[===[@debug@
 	usedFrames = usedFrames + 1
@@ -222,7 +222,7 @@ function providerPrototype:AcquireCell()
 	local cell = tremove(self.heap)
 
 	if not cell then
-		cell = setmetatable(CreateFrame("Frame", nil, UIParent), self.cellMetatable)
+		cell = setmetatable(CreateFrame("Frame", nil, UIParent, "BackdropTemplate"), self.cellMetatable)
 
 		if type(cell.InitializeCell) == "function" then
 			cell:InitializeCell()
@@ -361,7 +361,7 @@ function AcquireTooltip()
 	local tooltip = tremove(tooltipHeap)
 
 	if not tooltip then
-		tooltip = CreateFrame("Frame", nil, UIParent)
+		tooltip = CreateFrame("Frame", nil, UIParent, "BackdropTemplate")
 
 		local scrollFrame = CreateFrame("ScrollFrame", nil, tooltip)
 		scrollFrame:SetPoint("TOP", tooltip, "TOP", 0, -TOOLTIP_PADDING)
