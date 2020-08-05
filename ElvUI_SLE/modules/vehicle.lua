@@ -78,7 +78,7 @@ function EVB:CreateExtraButtonSet()
 			bar.buttons[i]:AddToMasque(MasqueGroup)
 		end
 
-		bar.buttons[i]:Size(size);
+		bar.buttons[i]:SetSize(size, size);
 
 		if (i == 1) then
 			bar.buttons[i]:SetPoint('BOTTOMLEFT', spacing, spacing)
@@ -111,7 +111,7 @@ function EVB:PositionAndSizeBar()
 	bar:SetHeight(size + 4);
 
 	for i, button in ipairs(bar.buttons) do
-		button:Size(size);
+		button:SetSize(size, size);
 		if (i == 1) then
 			button:SetPoint('BOTTOMLEFT', 2, 2)
 		else
@@ -121,7 +121,7 @@ function EVB:PositionAndSizeBar()
 	end
 
 	if not bar.buttons[12] then return end
-	bar.buttons[12]:Size(size);
+	bar.buttons[12]:SetSize(size, size);
 	bar.buttons[12]:SetPoint('LEFT', bar.buttons[6], 'RIGHT', spacing, 0)
 end
 

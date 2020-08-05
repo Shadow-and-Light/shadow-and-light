@@ -40,7 +40,7 @@ function IA:BuildLayout()
 		if Slot.iLvlText then
 			Slot.SLE_Gradient = Slot:CreateTexture(nil, "BACKGROUND")
 			Slot.SLE_Gradient:SetPoint(Slot.Direction, Slot, Slot.Direction, 0, 0)
-			Slot.SLE_Gradient:Size(132, 41)
+			Slot.SLE_Gradient:SetSize(132, 41)
 			Slot.SLE_Gradient:SetTexture(Armory.Constants.GradientTexture)
 			Slot.SLE_Gradient:SetVertexColor(unpack(E.db.sle.armory.inspect.gradient.color))
 			if Slot.Direction == 'LEFT' then
@@ -55,10 +55,10 @@ function IA:BuildLayout()
 		--<<Missing Warning>>--
 		Slot["SLE_Warning"] = CreateFrame("Frame", nil, Slot)
 		if SlotName == "MainHandSlot" or SlotName == "SecondaryHandSlot" then
-			Slot["SLE_Warning"]:Size(41, 8)
+			Slot["SLE_Warning"]:SetSize(41, 8)
 			Slot["SLE_Warning"]:SetPoint("TOP", Slot, "BOTTOM", 0, 0)
 		else
-			Slot["SLE_Warning"]:Size(8, 41)
+			Slot["SLE_Warning"]:SetSize(8, 41)
 			Slot["SLE_Warning"]:SetPoint(Slot.Direction == "LEFT" and "RIGHT" or "LEFT", Slot, Slot.Direction, 0, 0)
 		end
 		Slot["SLE_Warning"].frame = "inspect"
@@ -75,7 +75,7 @@ function IA:BuildLayout()
 		--<<Transmog>>--
 		if Armory.Constants.CanTransmogrify[SlotName] then
 			Slot.TransmogInfo = CreateFrame('Button', SlotName.."_SLE_TransmogInfo", Slot)
-			Slot.TransmogInfo:Size(12)
+			Slot.TransmogInfo:SetSize(12, 12)
 			Slot.TransmogInfo:SetFrameLevel(Slot:GetFrameLevel() + 2)
 			Slot.TransmogInfo:SetPoint('BOTTOM'..Slot.Direction, Slot, Slot.Direction == 'LEFT' and -2 or 2, -1)
 			Slot.TransmogInfo:SetScript('OnEnter', Armory.Transmog_OnEnter)
@@ -105,7 +105,7 @@ function IA:BuildLayout()
 
 	do --<<Check Transmog>>--
 		_G["InspectFrame"].SLE_TransmogViewButton = CreateFrame("Button", nil, _G["InspectFrame"], "BackdropTemplate")
-		_G["InspectFrame"].SLE_TransmogViewButton:Size(30)
+		_G["InspectFrame"].SLE_TransmogViewButton:SetSize(30, 30)
 		_G["InspectFrame"].SLE_TransmogViewButton:SetPoint("BOTTOMRIGHT", _G["InspectHandsSlot"], "TOPRIGHT", 0, 4)
 		_G["InspectFrame"].SLE_TransmogViewButton:SetBackdrop({
 				bgFile = E.media.blankTex,
@@ -194,7 +194,7 @@ function IA:Update_Gems()
 		if Slot.textureSlot1 then
 			Slot.textureSlot1:ClearAllPoints()
 			Slot.textureSlot1:SetPoint('BOTTOM'..Slot.Direction, _G["Inspect"..SlotName], "BOTTOM"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.inspect.gem.xOffset or -2-E.db.sle.armory.inspect.gem.xOffset, 2+E.db.sle.armory.inspect.gem.yOffset)
-			for i = 1, Armory.Constants.MaxGemSlots do Slot["textureSlot"..i]:Size(E.db.sle.armory.inspect.gem.size) end
+			for i = 1, Armory.Constants.MaxGemSlots do Slot["textureSlot"..i]:SetSize(E.db.sle.armory.inspect.gem.size, E.db.sle.armory.inspect.gem.size) end
 		end
 	end
 end
@@ -210,8 +210,8 @@ end
 
 function IA:Enable()
 	if not _G["InspectFrame"] then return end
-	-- _G["InspectFrame"]:Size(450, 480)
-	_G["InspectFrame"]:Size(450, 444)
+	-- _G["InspectFrame"]:SetSize(450, 480)
+	_G["InspectFrame"]:SetSize(450, 444)
 
 	_G["InspectFrame"].ItemLevelText:ClearAllPoints()
 	_G["InspectFrame"].ItemLevelText:SetPoint("BOTTOM",_G["InspectModelFrame"], "TOP", 0, 2)
@@ -255,14 +255,14 @@ end
 
 function IA:Disable()
 	if not _G["InspectFrame"] then return end
-	_G["InspectFrame"]:Size(338, 424)
+	_G["InspectFrame"]:SetSize(338, 424)
 
 	-- Move bottom equipment slots to default position
 	_G["InspectMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["InspectPaperDollItemsFrame"], 'BOTTOMLEFT', 130, 16)
 
 	-- Model Frame
 	_G["InspectModelFrame"]:ClearAllPoints()
-	_G["InspectModelFrame"]:Size(231, 320)
+	_G["InspectModelFrame"]:SetSize(231, 320)
 	_G["InspectModelFrame"]:SetPoint('TOPLEFT', _G["InspectPaperDollFrame"], 'TOPLEFT', 52, -66)
 	_G["InspectModelFrame"].BackgroundTopLeft:Show()
 	_G["InspectModelFrame"].BackgroundTopRight:Show()
@@ -282,7 +282,7 @@ function IA:Disable()
 			end
 		end
 		if Slot.textureSlot1 then
-			for i = 1, Armory.Constants.MaxGemSlots do Slot["textureSlot"..i]:Size(14) end
+			for i = 1, Armory.Constants.MaxGemSlots do Slot["textureSlot"..i]:SetSize(14, 14) end
 		end
 		if Slot.SLE_Warning then Slot.SLE_Warning:Hide() end
 	end

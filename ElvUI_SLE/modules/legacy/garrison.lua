@@ -92,7 +92,7 @@ function Gar:CreateToolbars()
 	GarrisonAnchor.EnableMover = function() return E.db.sle.legacy.garrison.toolbar.enable end
 	GarrisonAnchor.UpdateBarLayout = Tools.UpdateBarLayout
 	GarrisonAnchor.Resize = function(self)
-		self:Size((E.db.sle.legacy.garrison.toolbar.buttonsize+(2 - E.Spacing))*7 - E.Spacing, E.db.sle.legacy.garrison.toolbar.buttonsize+(2 - E.Spacing) - E.Spacing)
+		self:SetSize((E.db.sle.legacy.garrison.toolbar.buttonsize+(2 - E.Spacing))*7 - E.Spacing, E.db.sle.legacy.garrison.toolbar.buttonsize+(2 - E.Spacing) - E.Spacing)
 	end
 
 	local garrisonBar = CreateFrame("Frame", "SLE_GarrisonToolbar1", GarrisonAnchor)

@@ -9,7 +9,7 @@ local BAR_HEIGHT = 22
 
 function RMM:SkinMiniMap()
 	_G.Minimap:SetMaskTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\map\\rectangle')
-	_G.Minimap:Size(E.MinimapSize, E.MinimapSize)
+	_G.Minimap:SetSize(E.MinimapSize, E.MinimapSize)
 	_G.Minimap:SetHitRectInsets(0, 0, (E.MinimapSize/6.1)*E.mult, (E.MinimapSize/6.1)*E.mult)
 	_G.Minimap:SetClampRectInsets(0, 0, 0, 0)
 

@@ -10,7 +10,7 @@ local function PetBattle()
 	local bar = _G["ElvUIPetBattleActionBar"]
 
 	local a = CreateFrame("Frame", "ActiveAllyHolder", E.UIParent)
-	a:Size(918, 68)
+	a:SetSize(918, 68)
 	a:SetPoint("TOP", f)
 
 	f.TopVersusText:ClearAllPoints()

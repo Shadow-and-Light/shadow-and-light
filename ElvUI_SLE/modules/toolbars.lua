@@ -49,7 +49,7 @@ Tools.UpdateBarLayout = function(bar, anchor, buttons, category, db)
 		if not db.active or button.items > 0 then
 			button:SetPoint("TOPLEFT", bar, "TOPLEFT", (count * (db.buttonsize+(2 - E.Spacing)))+(1 - E.Spacing), -1)
 			button:Show()
-			button:Size(db.buttonsize, db.buttonsize)
+			button:SetSize(db.buttonsize, db.buttonsize)
 			count = count + 1
 		else
 			button:Hide()
@@ -206,7 +206,7 @@ end
 function Tools:CreateToolsButton(index, owner, buttonType, name, texture, allowDrop, db)
 	size = db.buttonsize
 	local button = CreateFrame("Button", format("ToolsButton%d", index), owner, "SecureActionButtonTemplate")
-	button:Size(size, size)
+	button:SetSize(size, size)
 	S:HandleButton(button)
 
 	button.sortname = name

@@ -174,7 +174,7 @@ function SMB:SkinButton(Button)
 		end
 
 		Button:SetFrameLevel(_G["Minimap"]:GetFrameLevel() + 5)
-		Button:Size(E.db.sle.minimap.mapicons.iconsize)
+		Button:SetSize(E.db.sle.minimap.mapicons.iconsize, E.db.sle.minimap.mapicons.iconsize)
 
 		if Name == 'SmartBuff_MiniMapButton' then
 			Button:SetNormalTexture("Interface\\Icons\\Spell_Nature_Purge")
@@ -227,7 +227,7 @@ function SMB:SkinButton(Button)
 				else
 					self:EnableMouse(true)
 				end
-				self:Size(E.db.sle.minimap.mapicons.iconsize)
+				self:SetSize(E.db.sle.minimap.mapicons.iconsize, E.db.sle.minimap.mapicons.iconsize)
 				self:SetFrameStrata(_G["QueueStatusMinimapButton"]:GetFrameStrata())
 				self:SetFrameLevel(_G["QueueStatusMinimapButton"]:GetFrameLevel())
 				-- self:SetPoint(_G["QueueStatusMinimapButton"]:GetPoint())
@@ -235,11 +235,11 @@ function SMB:SkinButton(Button)
 			end)
 		elseif Name == 'MiniMapMailFrame' then
 			local Frame = CreateFrame('Frame', 'MailDummyFrame', E.private.sle.minimap.mapicons.barenable and SMB.bar or Minimap)
-			Frame:Size(E.db.sle.minimap.mapicons.iconsize)
+			Frame:SetSize(E.db.sle.minimap.mapicons.iconsize, E.db.sle.minimap.mapicons.iconsize)
 			Frame:SetTemplate(E.private.sle.minimap.mapicons.barenable and "Default" or "NoBackdrop")
 			Frame.Icon = Frame:CreateTexture(nil, 'ARTWORK')
 			Frame.Icon:SetPoint('CENTER')
-			Frame.Icon:Size(18)
+			Frame.Icon:SetSize(18, 18)
 			Frame.Icon:SetTexture(_G["MiniMapMailIcon"]:GetTexture())
 			Frame:SetScript('OnEnter', OnEnter)
 			Frame:SetScript('OnLeave', OnLeave)

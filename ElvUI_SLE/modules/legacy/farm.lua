@@ -216,7 +216,7 @@ function Farm:CreateFarmSeeds()
 					button:SetPoint("TOPLEFT", Bar, "TOPLEFT", mult*(count * (size+(2 - E.Spacing))) - 1 + E.Spacing, 1 + E.Spacing)
 				end
 				button:Show()
-				button:Size(size, size)
+				button:SetSize(size, size)
 				count = count + 1
 			else
 				button:Hide()
@@ -245,9 +245,9 @@ function Farm:CreateFarmSeeds()
 	SeedAnchor.Resize = function(self)
 		local seedor = E.db.sle.legacy.farm.seedor
 		if seedor == "TOP" or seedor == "BOTTOM" then
-			self:Size((E.db.sle.legacy.farm.buttonsize+(2 - E.Spacing))*SeedAnchor.NumBars - E.Spacing, (E.db.sle.legacy.farm.buttonsize+(2 - E.Spacing))*10 - E.Spacing)
+			self:SetSize((E.db.sle.legacy.farm.buttonsize+(2 - E.Spacing))*SeedAnchor.NumBars - E.Spacing, (E.db.sle.legacy.farm.buttonsize+(2 - E.Spacing))*10 - E.Spacing)
 		elseif seedor == "LEFT" or seedor == "RIGHT" then
-			self:Size((E.db.sle.legacy.farm.buttonsize+(2 - E.Spacing))*10 - E.Spacing, (E.db.sle.legacy.farm.buttonsize+(2 - E.Spacing))*SeedAnchor.NumBars - E.Spacing)
+			self:SetSize((E.db.sle.legacy.farm.buttonsize+(2 - E.Spacing))*10 - E.Spacing, (E.db.sle.legacy.farm.buttonsize+(2 - E.Spacing))*SeedAnchor.NumBars - E.Spacing)
 		end
 	end
 
@@ -314,7 +314,7 @@ function Farm:CreateFarmTools()
 	ToolAnchor.EnableMover = function() return E.db.sle.legacy.farm.enable end
 	ToolAnchor.UpdateBarLayout = Tools.UpdateBarLayout
 	ToolAnchor.Resize = function(self)
-		self:Size((E.db.sle.legacy.farm.buttonsize+(2 - E.Spacing))*5 - E.Spacing, E.db.sle.legacy.farm.buttonsize+(2 - E.Spacing) - E.Spacing)
+		self:SetSize((E.db.sle.legacy.farm.buttonsize+(2 - E.Spacing))*5 - E.Spacing, E.db.sle.legacy.farm.buttonsize+(2 - E.Spacing) - E.Spacing)
 	end
 
 	local toolBar = CreateFrame("Frame", "SLE_FarmToolsToolbar1", ToolAnchor)
@@ -367,7 +367,7 @@ function Farm:CreateFarmPortals()
 	PortalAnchor.EnableMover = function() return E.db.sle.legacy.farm.enable end
 	PortalAnchor.UpdateBarLayout = Tools.UpdateBarLayout
 	PortalAnchor.Resize = function(self)
-		self:Size((E.db.sle.legacy.farm.buttonsize+(2 - E.Spacing))*5 - E.Spacing, E.db.sle.legacy.farm.buttonsize+(2 - E.Spacing) - E.Spacing)
+		self:SetSize((E.db.sle.legacy.farm.buttonsize+(2 - E.Spacing))*5 - E.Spacing, E.db.sle.legacy.farm.buttonsize+(2 - E.Spacing) - E.Spacing)
 	end
 
 	local portalBar = CreateFrame("Frame", "SLE_FarmPortalToolbar1", PortalAnchor)
