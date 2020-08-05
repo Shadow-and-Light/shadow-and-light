@@ -9,13 +9,13 @@ local _G = _G
 --Adding new stuffs for armory only
 function IA:BuildLayout()
 	InspectGuildFrameBanner:ClearAllPoints()
-	InspectGuildFrameBanner:Point("TOP", InspectFrameInset, "TOP", 0, -4)
+	InspectGuildFrameBanner:SetPoint("TOP", InspectFrameInset, "TOP", 0, -4)
 
 	--<< Background >>--
 	if not _G["InspectPaperDollFrame"].SLE_Armory_BG then
 		_G["InspectPaperDollFrame"].SLE_Armory_BG = _G["InspectPaperDollFrame"]:CreateTexture(nil, 'OVERLAY')
-		_G["InspectPaperDollFrame"].SLE_Armory_BG:Point('TOPLEFT', _G["InspectModelFrame"], -4, 0)
-		_G["InspectPaperDollFrame"].SLE_Armory_BG:Point('BOTTOMRIGHT', _G["InspectModelFrame"], 4, 0)
+		_G["InspectPaperDollFrame"].SLE_Armory_BG:SetPoint('TOPLEFT', _G["InspectModelFrame"], -4, 0)
+		_G["InspectPaperDollFrame"].SLE_Armory_BG:SetPoint('BOTTOMRIGHT', _G["InspectModelFrame"], 4, 0)
 	end
 	_G["InspectPaperDollFrame"].SLE_Armory_BG:Hide()
 
@@ -77,7 +77,7 @@ function IA:BuildLayout()
 			Slot.TransmogInfo = CreateFrame('Button', SlotName.."_SLE_TransmogInfo", Slot)
 			Slot.TransmogInfo:Size(12)
 			Slot.TransmogInfo:SetFrameLevel(Slot:GetFrameLevel() + 2)
-			Slot.TransmogInfo:Point('BOTTOM'..Slot.Direction, Slot, Slot.Direction == 'LEFT' and -2 or 2, -1)
+			Slot.TransmogInfo:SetPoint('BOTTOM'..Slot.Direction, Slot, Slot.Direction == 'LEFT' and -2 or 2, -1)
 			Slot.TransmogInfo:SetScript('OnEnter', Armory.Transmog_OnEnter)
 			Slot.TransmogInfo:SetScript('OnLeave', Armory.Transmog_OnLeave)
 			Slot.TransmogInfo:SetScript('OnClick', Armory.Transmog_OnClick)
@@ -106,7 +106,7 @@ function IA:BuildLayout()
 	do --<<Check Transmog>>--
 		_G["InspectFrame"].SLE_TransmogViewButton = CreateFrame("Button", nil, _G["InspectFrame"], "BackdropTemplate")
 		_G["InspectFrame"].SLE_TransmogViewButton:Size(30)
-		_G["InspectFrame"].SLE_TransmogViewButton:Point("BOTTOMRIGHT", _G["InspectHandsSlot"], "TOPRIGHT", 0, 4)
+		_G["InspectFrame"].SLE_TransmogViewButton:SetPoint("BOTTOMRIGHT", _G["InspectHandsSlot"], "TOPRIGHT", 0, 4)
 		_G["InspectFrame"].SLE_TransmogViewButton:SetBackdrop({
 				bgFile = E.media.blankTex,
 				edgeFile = E.media.blankTex,
@@ -157,7 +157,7 @@ function IA:Update_ItemLevel()
 
 		if Slot.iLvlText then
 			Slot.iLvlText:ClearAllPoints()
-			Slot.iLvlText:Point("TOP"..Slot.Direction, _G["Inspect"..SlotName], "TOP"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.inspect.ilvl.xOffset or -2-E.db.sle.armory.inspect.ilvl.xOffset, -1+E.db.sle.armory.inspect.ilvl.yOffset)
+			Slot.iLvlText:SetPoint("TOP"..Slot.Direction, _G["Inspect"..SlotName], "TOP"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.inspect.ilvl.xOffset or -2-E.db.sle.armory.inspect.ilvl.xOffset, -1+E.db.sle.armory.inspect.ilvl.yOffset)
 		end
 	end
 end
@@ -169,7 +169,7 @@ function IA:Update_Enchant()
 
 		if Slot.enchantText then
 			Slot.enchantText:ClearAllPoints()
-			Slot.enchantText:Point(Slot.Direction, _G["Inspect"..SlotName], Slot.Direction == "LEFT" and "RIGHT" or "LEFT", Slot.Direction == "LEFT" and 2+E.db.sle.armory.inspect.enchant.xOffset or -2-E.db.sle.armory.inspect.enchant.xOffset, 1+E.db.sle.armory.inspect.enchant.yOffset)
+			Slot.enchantText:SetPoint(Slot.Direction, _G["Inspect"..SlotName], Slot.Direction == "LEFT" and "RIGHT" or "LEFT", Slot.Direction == "LEFT" and 2+E.db.sle.armory.inspect.enchant.xOffset or -2-E.db.sle.armory.inspect.enchant.xOffset, 1+E.db.sle.armory.inspect.enchant.yOffset)
 		end
 	end
 end
@@ -181,7 +181,7 @@ function IA:Update_SlotCorruption()
 
 		if Slot.CorText then
 			Slot.CorText:ClearAllPoints()
-			Slot.CorText:Point("TOP"..Slot.Direction, Slot, "TOP"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 25+E.db.sle.armory.inspect.corruptionText.xOffset or -25-E.db.sle.armory.inspect.corruptionText.xOffset, -1+E.db.sle.armory.inspect.corruptionText.yOffset)
+			Slot.CorText:SetPoint("TOP"..Slot.Direction, Slot, "TOP"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 25+E.db.sle.armory.inspect.corruptionText.xOffset or -25-E.db.sle.armory.inspect.corruptionText.xOffset, -1+E.db.sle.armory.inspect.corruptionText.yOffset)
 		end
 	end
 end
@@ -193,7 +193,7 @@ function IA:Update_Gems()
 
 		if Slot.textureSlot1 then
 			Slot.textureSlot1:ClearAllPoints()
-			Slot.textureSlot1:Point('BOTTOM'..Slot.Direction, _G["Inspect"..SlotName], "BOTTOM"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.inspect.gem.xOffset or -2-E.db.sle.armory.inspect.gem.xOffset, 2+E.db.sle.armory.inspect.gem.yOffset)
+			Slot.textureSlot1:SetPoint('BOTTOM'..Slot.Direction, _G["Inspect"..SlotName], "BOTTOM"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.inspect.gem.xOffset or -2-E.db.sle.armory.inspect.gem.xOffset, 2+E.db.sle.armory.inspect.gem.yOffset)
 			for i = 1, Armory.Constants.MaxGemSlots do Slot["textureSlot"..i]:Size(E.db.sle.armory.inspect.gem.size) end
 		end
 	end
@@ -214,7 +214,7 @@ function IA:Enable()
 	_G["InspectFrame"]:Size(450, 444)
 
 	_G["InspectFrame"].ItemLevelText:ClearAllPoints()
-	_G["InspectFrame"].ItemLevelText:Point("BOTTOM",_G["InspectModelFrame"], "TOP", 0, 2)
+	_G["InspectFrame"].ItemLevelText:SetPoint("BOTTOM",_G["InspectModelFrame"], "TOP", 0, 2)
 
 	-- Move bottom equipment slots
 	_G["InspectMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["InspectPaperDollItemsFrame"], 'BOTTOMLEFT', 185, 14)
@@ -278,7 +278,7 @@ function IA:Disable()
 		if Armory.Constants.Inspect_Defaults[SlotName] then
 			for element, points in pairs(Armory.Constants.Inspect_Defaults[SlotName]) do
 				Slot[element]:ClearAllPoints()
-				Slot[element]:Point(unpack(points))
+				Slot[element]:SetPoint(unpack(points))
 			end
 		end
 		if Slot.textureSlot1 then
@@ -289,7 +289,7 @@ function IA:Disable()
 
 	if _G["InspectPaperDollFrame"].SLE_Armory_BG then _G["InspectPaperDollFrame"].SLE_Armory_BG:Hide() end
 	_G["InspectFrame"].ItemLevelText:ClearAllPoints()
-	_G["InspectFrame"].ItemLevelText:Point("BOTTOMRIGHT", -6, 6)
+	_G["InspectFrame"].ItemLevelText:SetPoint("BOTTOMRIGHT", -6, 6)
 end
 
 function IA:ToggleArmory()

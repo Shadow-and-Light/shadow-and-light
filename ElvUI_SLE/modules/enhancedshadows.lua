@@ -237,8 +237,8 @@ function ES:CreateShadows()
 		if enabled then
 			if panel == "leftchat" then
 				ES.DummyPanels.LeftChat = CreateFrame("Frame", nil, _G[ES.FramesToShadow.Datapanels[panel]])
-				ES.DummyPanels.LeftChat:Point("TOPLEFT", _G[ES.FramesToShadow.Datapanels[panel]], "TOPLEFT", -SIDE_BUTTON, 0)
-				ES.DummyPanels.LeftChat:Point("BOTTOMRIGHT", _G[ES.FramesToShadow.Datapanels[panel]], "BOTTOMRIGHT", 0, 0)
+				ES.DummyPanels.LeftChat:SetPoint("TOPLEFT", _G[ES.FramesToShadow.Datapanels[panel]], "TOPLEFT", -SIDE_BUTTON, 0)
+				ES.DummyPanels.LeftChat:SetPoint("BOTTOMRIGHT", _G[ES.FramesToShadow.Datapanels[panel]], "BOTTOMRIGHT", 0, 0)
 				ES.DummyPanels.LeftChat:SetFrameStrata("LOW")
 				if not E.private.sle.module.shadows.chat.left then
 					_G["LeftChatToggleButton"]:SetFrameStrata('LOW')
@@ -251,8 +251,8 @@ function ES:CreateShadows()
 
 			elseif panel == "rightchat" then
 				ES.DummyPanels.RightChat = CreateFrame("Frame", nil, _G[ES.FramesToShadow.Datapanels[panel]])
-				ES.DummyPanels.RightChat:Point("TOPRIGHT", _G[ES.FramesToShadow.Datapanels[panel]], "TOPRIGHT", SIDE_BUTTON, 0)
-				ES.DummyPanels.RightChat:Point("BOTTOMLEFT", _G[ES.FramesToShadow.Datapanels[panel]], "BOTTOMLEFT", 0, 0)
+				ES.DummyPanels.RightChat:SetPoint("TOPRIGHT", _G[ES.FramesToShadow.Datapanels[panel]], "TOPRIGHT", SIDE_BUTTON, 0)
+				ES.DummyPanels.RightChat:SetPoint("BOTTOMLEFT", _G[ES.FramesToShadow.Datapanels[panel]], "BOTTOMLEFT", 0, 0)
 				ES.DummyPanels.RightChat:SetFrameStrata("LOW")
 				if not E.private.sle.module.shadows.chat.right then
 					_G["RightChatToggleButton"]:SetFrameStrata('LOW')
@@ -312,11 +312,11 @@ end
 function ES:UpdateMinimap()
 	if not E.private.sle.minimap.rectangle then return end
 
-	ES.DummyPanels.Minimap:Point('TOPLEFT', _G.Minimap, 'TOPLEFT', -1, -(E.MinimapSize/6.1)+1)
+	ES.DummyPanels.Minimap:SetPoint('TOPLEFT', _G.Minimap, 'TOPLEFT', -1, -(E.MinimapSize/6.1)+1)
 	if E.db.datatexts.panels.MinimapPanel.enable then
-		ES.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.MinimapPanel, 'BOTTOMRIGHT', 0, 0)
+		ES.DummyPanels.Minimap:SetPoint('BOTTOMRIGHT', _G.MinimapPanel, 'BOTTOMRIGHT', 0, 0)
 	else
-		ES.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.Minimap, 'BOTTOMRIGHT', 1, (E.MinimapSize/6.1)-1)
+		ES.DummyPanels.Minimap:SetPoint('BOTTOMRIGHT', _G.Minimap, 'BOTTOMRIGHT', 1, (E.MinimapSize/6.1)-1)
 	end
 end
 

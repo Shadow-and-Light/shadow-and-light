@@ -64,7 +64,7 @@ end
 function MM:UpdateCoordinatesPosition()
 	local db = E.db.sle.minimap.coords
 	SLECoordsHolder.playerCoords:ClearAllPoints()
-	SLECoordsHolder.playerCoords:Point("CENTER", _G.Minimap, "CENTER", db.xOffset, db.yOffset)
+	SLECoordsHolder.playerCoords:SetPoint("CENTER", _G.Minimap, "CENTER", db.xOffset, db.yOffset)
 end
 
 function MM:CreateCoordsFrame()

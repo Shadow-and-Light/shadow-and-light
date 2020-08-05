@@ -223,7 +223,7 @@ LP.Spells = {
 
 function LP:CreateLocationPanel()
 	loc_panel = CreateFrame('Frame', "SLE_LocationPanel", E.UIParent, "BackdropTemplate")
-	loc_panel:Point('TOP', E.UIParent, 'TOP', 0, -E.mult -22)
+	loc_panel:SetPoint('TOP', E.UIParent, 'TOP', 0, -E.mult -22)
 	loc_panel:SetFrameStrata('MEDIUM')
 	loc_panel:SetFrameLevel(2)
 	loc_panel:EnableMouse(true)
@@ -232,7 +232,7 @@ function LP:CreateLocationPanel()
 
 	-- Location Text
 	loc_panel.Text = loc_panel:CreateFontString(nil, "LOW")
-	loc_panel.Text:Point("CENTER", 0, 0)
+	loc_panel.Text:SetPoint("CENTER", 0, 0)
 	loc_panel.Text:SetWordWrap(false)
 	E.FrameLocks[loc_panel] = true
 
@@ -240,12 +240,12 @@ function LP:CreateLocationPanel()
 	loc_panel.Xcoord = CreateFrame('Frame', "SLE_LocationPanel_X", loc_panel, "BackdropTemplate")
 	loc_panel.Xcoord:SetPoint("RIGHT", loc_panel, "LEFT", 1 - 2*E.Spacing, 0)
 	loc_panel.Xcoord.Text = loc_panel.Xcoord:CreateFontString(nil, "LOW")
-	loc_panel.Xcoord.Text:Point("CENTER", 0, 0)
+	loc_panel.Xcoord.Text:SetPoint("CENTER", 0, 0)
 
 	loc_panel.Ycoord = CreateFrame('Frame', "SLE_LocationPanel_Y", loc_panel, "BackdropTemplate")
 	loc_panel.Ycoord:SetPoint("LEFT", loc_panel, "RIGHT", -1 + 2*E.Spacing, 0)
 	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, "LOW")
-	loc_panel.Ycoord.Text:Point("CENTER", 0, 0)
+	loc_panel.Ycoord.Text:SetPoint("CENTER", 0, 0)
 
 	LP:Resize()
 	-- Mover

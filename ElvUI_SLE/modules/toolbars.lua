@@ -42,12 +42,12 @@ Tools.UpdateBarLayout = function(bar, anchor, buttons, category, db)
 	local count = 0
 
 	bar:ClearAllPoints()
-	bar:Point("LEFT", anchor, "LEFT", 0, 0)
+	bar:SetPoint("LEFT", anchor, "LEFT", 0, 0)
 	for i, button in ipairs(buttons) do
 		button:ClearAllPoints()
 		if not button.items then Tools:InventoryUpdate() end
 		if not db.active or button.items > 0 then
-			button:Point("TOPLEFT", bar, "TOPLEFT", (count * (db.buttonsize+(2 - E.Spacing)))+(1 - E.Spacing), -1)
+			button:SetPoint("TOPLEFT", bar, "TOPLEFT", (count * (db.buttonsize+(2 - E.Spacing)))+(1 - E.Spacing), -1)
 			button:Show()
 			button:Size(db.buttonsize, db.buttonsize)
 			count = count + 1

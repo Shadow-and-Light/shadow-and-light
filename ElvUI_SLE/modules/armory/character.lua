@@ -23,8 +23,8 @@ function CA:BuildLayout()
 	--<< Background >>--
 	if not _G["PaperDollFrame"].SLE_Armory_BG then
 		_G["PaperDollFrame"].SLE_Armory_BG = _G["PaperDollFrame"]:CreateTexture(nil, 'OVERLAY')
-		_G["PaperDollFrame"].SLE_Armory_BG:Point('TOPLEFT', _G["CharacterModelFrame"], -4, 0)
-		_G["PaperDollFrame"].SLE_Armory_BG:Point('BOTTOMRIGHT', _G["CharacterModelFrame"], 4, 0)
+		_G["PaperDollFrame"].SLE_Armory_BG:SetPoint('TOPLEFT', _G["CharacterModelFrame"], -4, 0)
+		_G["PaperDollFrame"].SLE_Armory_BG:SetPoint('BOTTOMRIGHT', _G["CharacterModelFrame"], 4, 0)
 	end
 	_G["PaperDollFrame"].SLE_Armory_BG:Hide()
 
@@ -119,7 +119,7 @@ function CA:BuildLayout()
 			Slot.TransmogInfo = CreateFrame('Button', SlotName.."_SLE_TransmogInfo", Slot)
 			Slot.TransmogInfo:Size(12)
 			Slot.TransmogInfo:SetFrameLevel(Slot:GetFrameLevel() + 2)
-			Slot.TransmogInfo:Point('BOTTOM'..Slot.Direction, Slot, Slot.Direction == 'LEFT' and -2 or 2, -1)
+			Slot.TransmogInfo:SetPoint('BOTTOM'..Slot.Direction, Slot, Slot.Direction == 'LEFT' and -2 or 2, -1)
 			Slot.TransmogInfo:SetScript('OnEnter', Armory.Transmog_OnEnter)
 			Slot.TransmogInfo:SetScript('OnLeave', Armory.Transmog_OnLeave)
 			Slot.TransmogInfo:SetScript('OnClick', Armory.Transmog_OnClick)
@@ -162,7 +162,7 @@ function CA:BuildLayout()
 			_G["CharacterLevelText"]:SetText(_G["CharacterLevelText"]:GetText())
 
 			_G["CharacterFrameTitleText"]:ClearAllPoints()
-			_G["CharacterFrameTitleText"]:Point('TOP',  _G["CharacterModelFrame"], 0, 45)
+			_G["CharacterFrameTitleText"]:SetPoint('TOP',  _G["CharacterModelFrame"], 0, 45)
 			_G["CharacterFrameTitleText"]:SetParent(_G["CharacterFrame"])
 			_G["CharacterLevelText"]:ClearAllPoints()
 			_G["CharacterLevelText"]:SetPoint('TOP', _G["CharacterFrameTitleText"], 'BOTTOM', 0, 2)
@@ -243,7 +243,7 @@ function CA:Update_ItemLevel()
 
 		if Slot.iLvlText then
 			Slot.iLvlText:ClearAllPoints()
-			Slot.iLvlText:Point("TOP"..Slot.Direction, Slot, "TOP"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.ilvl.xOffset or -2-E.db.sle.armory.character.ilvl.xOffset, -1+E.db.sle.armory.character.ilvl.yOffset)
+			Slot.iLvlText:SetPoint("TOP"..Slot.Direction, Slot, "TOP"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.ilvl.xOffset or -2-E.db.sle.armory.character.ilvl.xOffset, -1+E.db.sle.armory.character.ilvl.yOffset)
 		end
 	end
 end
@@ -254,7 +254,7 @@ function CA:Update_Enchant()
 
 		if Slot.enchantText then
 			Slot.enchantText:ClearAllPoints()
-			Slot.enchantText:Point(Slot.Direction, Slot, Slot.Direction == "LEFT" and "RIGHT" or "LEFT", Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.enchant.xOffset or -2-E.db.sle.armory.character.enchant.xOffset, 1+E.db.sle.armory.character.enchant.yOffset)
+			Slot.enchantText:SetPoint(Slot.Direction, Slot, Slot.Direction == "LEFT" and "RIGHT" or "LEFT", Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.enchant.xOffset or -2-E.db.sle.armory.character.enchant.xOffset, 1+E.db.sle.armory.character.enchant.yOffset)
 		end
 	end
 end
@@ -265,7 +265,7 @@ function CA:Update_SlotCorruption()
 
 		if Slot.CorText then
 			Slot.CorText:ClearAllPoints()
-			Slot.CorText:Point("TOP"..Slot.Direction, Slot, "TOP"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 25+E.db.sle.armory.character.corruptionText.xOffset or -25-E.db.sle.armory.character.corruptionText.xOffset, -1+E.db.sle.armory.character.corruptionText.yOffset)
+			Slot.CorText:SetPoint("TOP"..Slot.Direction, Slot, "TOP"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 25+E.db.sle.armory.character.corruptionText.xOffset or -25-E.db.sle.armory.character.corruptionText.xOffset, -1+E.db.sle.armory.character.corruptionText.yOffset)
 		end
 	end
 end
@@ -276,7 +276,7 @@ function CA:Update_Gems()
 
 		if Slot.textureSlot1 then
 			Slot.textureSlot1:ClearAllPoints()
-			Slot.textureSlot1:Point('BOTTOM'..Slot.Direction, Slot, "BOTTOM"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.gem.xOffset or -2-E.db.sle.armory.character.gem.xOffset, 2+E.db.sle.armory.character.gem.yOffset)
+			Slot.textureSlot1:SetPoint('BOTTOM'..Slot.Direction, Slot, "BOTTOM"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.gem.xOffset or -2-E.db.sle.armory.character.gem.xOffset, 2+E.db.sle.armory.character.gem.yOffset)
 			for i = 1, Armory.Constants.MaxGemSlots do
 				Slot["textureSlot"..i]:Size(E.db.sle.armory.character.gem.size)
 			end
@@ -289,7 +289,7 @@ function CA:Update_Durability()
 		local Slot = _G["Character"..SlotName]
 		if Slot.SLE_Durability then
 			Slot.SLE_Durability:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.character.durability.font), E.db.sle.armory.character.durability.fontSize, E.db.sle.armory.character.durability.fontStyle)
-			Slot.SLE_Durability:Point("TOP"..Slot.Direction, _G["Character"..SlotName], "TOP"..Slot.Direction, Slot.Direction == "LEFT" and 2 + E.db.sle.armory.character.durability.xOffset or 0 - E.db.sle.armory.character.durability.xOffset, -3 + E.db.sle.armory.character.durability.yOffset)
+			Slot.SLE_Durability:SetPoint("TOP"..Slot.Direction, _G["Character"..SlotName], "TOP"..Slot.Direction, Slot.Direction == "LEFT" and 2 + E.db.sle.armory.character.durability.xOffset or 0 - E.db.sle.armory.character.durability.xOffset, -3 + E.db.sle.armory.character.durability.yOffset)
 		end
 	end
 	CA.DurabilityFontSet = true
@@ -418,7 +418,7 @@ function CA:Disable()
 		if Armory.Constants.Character_Defaults[SlotName] then
 			for element, points in pairs(Armory.Constants.Character_Defaults[SlotName]) do
 				Slot[element]:ClearAllPoints()
-				Slot[element]:Point(unpack(points))
+				Slot[element]:SetPoint(unpack(points))
 			end
 		end
 		if Slot.textureSlot1 then

@@ -318,7 +318,7 @@ function EM:CreateLock()
 	if _G["SLE_Equip_Lock_Button"] or not EM.db.lockbutton then return end
 	local button = CreateFrame("Button", "SLE_Equip_Lock_Button", CharacterFrame)
 	button:Size(20, 20)
-	button:Point("BOTTOMLEFT", _G["CharacterFrame"], "BOTTOMLEFT", 4, 4)
+	button:SetPoint("BOTTOMLEFT", _G["CharacterFrame"], "BOTTOMLEFT", 4, 4)
 	button:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() + 2)
 	button:SetScript("OnEnter", function(self)
 		_G["GameTooltip"]:SetOwner(self)

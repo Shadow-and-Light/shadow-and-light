@@ -12,7 +12,7 @@ function SUF:Create_PvpIconText(frame)
 
 		PvP.SLE_timerText.value = PvP.SLE_timerText:CreateFontString(nil, 'OVERLAY')
 		UF:Configure_FontString(PvP.SLE_timerText.value)
-		PvP.SLE_timerText.value:Point("CENTER")
+		PvP.SLE_timerText.value:SetPoint("CENTER")
 		PvP.SLE_timerText.value:SetText("Ima placeholder")
 
 		frame:Tag(PvP.SLE_timerText.value, "[sl:pvptimer]")
@@ -24,7 +24,7 @@ function SUF:Create_PvpIconText(frame)
 
 	PvP.SLE_levelText.value = PvP.SLE_levelText:CreateFontString(nil, 'OVERLAY')
 	UF:Configure_FontString(PvP.SLE_levelText.value)
-	PvP.SLE_levelText.value:Point("CENTER")
+	PvP.SLE_levelText.value:SetPoint("CENTER")
 	PvP.SLE_levelText.value:SetText("Ima placeholder")
 
 	frame:Tag(PvP.SLE_levelText.value, "[sl:pvplevel]")
@@ -42,14 +42,14 @@ function SUF:Configure_PVPIcon(frame)
 	if frame.unit == "player" then --do timer stuff if this is update for player frame
 		if E.db.sle.unitframes.unit.player.pvpIconText.enable then
 			PvP.SLE_timerText:Show()
-			PvP.SLE_timerText:Point("TOP", PvP, "BOTTOM", E.db.sle.unitframes.unit.player.pvpIconText.xoffset, -4 + E.db.sle.unitframes.unit.player.pvpIconText.yoffset)
+			PvP.SLE_timerText:SetPoint("TOP", PvP, "BOTTOM", E.db.sle.unitframes.unit.player.pvpIconText.xoffset, -4 + E.db.sle.unitframes.unit.player.pvpIconText.yoffset)
 		else
 			PvP.SLE_timerText:Hide()
 		end
 	end
 	if E.db.sle.unitframes.unit[frame.unit] and E.db.sle.unitframes.unit[frame.unit].pvpIconText.level then
 		PvP.SLE_levelText:Show()
-		PvP.SLE_levelText:Point("CENTER", PvP, "BOTTOM", 0, 0)
+		PvP.SLE_levelText:SetPoint("CENTER", PvP, "BOTTOM", 0, 0)
 	else
 		PvP.SLE_levelText:Hide()
 	end

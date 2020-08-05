@@ -138,9 +138,9 @@ function SLE:DropdownList(list, frame, customWidth, justify)
 		end
 
 		if i == 1 then
-			btn:Point("TOPLEFT", frame, "TOPLEFT", MARGIN, -PADDING)
+			btn:SetPoint("TOPLEFT", frame, "TOPLEFT", MARGIN, -PADDING)
 		else
-			btn:Point("TOPLEFT", frame.buttons[i-1], "BOTTOMLEFT", 0, -((list[i-1].title or list[i].title) and TITLE_OFFSET or 0))
+			btn:SetPoint("TOPLEFT", frame.buttons[i-1], "BOTTOMLEFT", 0, -((list[i-1].title or list[i].title) and TITLE_OFFSET or 0))
 		end
 	end
 end
@@ -186,9 +186,9 @@ function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 			local x, y = GetCursorPosition();
 			x = x/UIScale
 			y = y/UIScale
-			frame:Point(MenuAnchor, UIParent, "BOTTOMLEFT", x + xOffset, y + yOffset)
+			frame:SetPoint(MenuAnchor, UIParent, "BOTTOMLEFT", x + xOffset, y + yOffset)
 		else
-			frame:Point(MenuAnchor, parent, FramePoint, xOffset, yOffset)
+			frame:SetPoint(MenuAnchor, parent, FramePoint, xOffset, yOffset)
 		end
 	end
 	ToggleFrame(frame)

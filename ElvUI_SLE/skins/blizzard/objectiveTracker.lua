@@ -66,8 +66,8 @@ local function skinObjectiveBar(self, block, line)
 		end
 		bar:SetStatusBarColor(COLOR.r, COLOR.g, COLOR.b)
 		bar:CreateBackdrop('Transparent')
-		bar.backdrop:Point("TOPLEFT", bar, -1, 1)
-		bar.backdrop:Point("BOTTOMRIGHT", bar, 1, -1)
+		bar.backdrop:SetPoint("TOPLEFT", bar, -1, 1)
+		bar.backdrop:SetPoint("BOTTOMRIGHT", bar, 1, -1)
 		bar:SetFrameStrata('HIGH')
 
 		flare:Hide()
@@ -94,8 +94,8 @@ local function SkinTimerBar(self, block, line, duration, startTime)
 		tb.Bar.BorderMid:Hide()
 		tb.Bar:StripTextures()
 		tb.Bar:CreateBackdrop('Transparent')
-		tb.Bar.backdrop:Point('TOPLEFT', tb.Bar, -1, 1)
-		tb.Bar.backdrop:Point('BOTTOMRIGHT', tb.Bar, 1, -1)
+		tb.Bar.backdrop:SetPoint('TOPLEFT', tb.Bar, -1, 1)
+		tb.Bar.backdrop:SetPoint('BOTTOMRIGHT', tb.Bar, 1, -1)
 		tb.Bar:SetStatusBarTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
 		local COLOR
 		if E.private.sle.skins.objectiveTracker.class then
@@ -318,8 +318,8 @@ local function SkinProvingGroundButtons()
 	-- Timer
 	sb:StripTextures()
 	sb:CreateBackdrop('Transparent')
-	sb.backdrop:Point('TOPLEFT', sb, -1, 1)
-	sb.backdrop:Point('BOTTOMRIGHT', sb, 1, -1)
+	sb.backdrop:SetPoint('TOPLEFT', sb, -1, 1)
+	sb.backdrop:SetPoint('BOTTOMRIGHT', sb, 1, -1)
 	sb:SetStatusBarTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
 	local COLOR
 	if E.private.sle.skins.objectiveTracker.class then
