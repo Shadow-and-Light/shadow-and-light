@@ -1,4 +1,4 @@
-local MAJOR, MINOR = "LibElv-UIButtons-1.0", 1
+local MAJOR, MINOR = "LibElv-UIButtons-1.0", 2
 local lib, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not lib then return end
@@ -153,7 +153,7 @@ local function CreateDropdownButton(menu, core, name, text, tooltip1, tooltip2, 
 		end)
 		b:SetScript("OnLeave", function(self)
 			menu:OnLeave()
-			GameTooltip:Hide() 
+			GameTooltip:Hide()
 		end)
 	else
 		b:SetScript('OnEnter', function(self) menu:OnEnter() end)
@@ -220,12 +220,12 @@ local function UpdateDropdownLayout(menu, group)
 	local header = menu[group]
 	local db = menu.db
 	header:ClearAllPoints()
-	header:Point(db.point, header.Toggle, db.anchor, db.xoffset, db.yoffset)
+	header:SetPoint(db.point, header.Toggle, db.anchor, db.xoffset, db.yoffset)
 	local T = menu[group.."Table"]
 	for i = 1, #T do
 		local button, prev, next = T[i], T[i-1], T[i+1]
 		local y_offset = prev and (-(db.spacing + E.Spacing*2) - (prev.isSeparator and prev.space or 0) - (button.isSeparator and button.space or 0)) or 0
-		button:Point("TOP", (prev or header), (prev and "BOTTOM" or "TOP"), 0, y_offset)
+		button:SetPoint("TOP", (prev or header), (prev and "BOTTOM" or "TOP"), 0, y_offset)
 		count = button.isSeparator and count or count + 1
 		sepS = (button.isSeparator and sepS + ((prev and 2 or 1)*button.space + button.size)) or sepS
 		sepC = button.isSeparator and sepC + 1 or sepC
@@ -256,13 +256,13 @@ local function Positioning(menu)
 		for i = 1, #menu.ToggleTable do
 			local button, prev = menu.ToggleTable[i], menu.ToggleTable[i-1]
 			menu.ToggleTable[i]:ClearAllPoints()
-			menu.ToggleTable[i]:Point("TOP", (prev or header), prev and "BOTTOM" or "TOP", 0, prev and -(db.spacing + E.Spacing*2) or -(1 + E.Spacing))
+			menu.ToggleTable[i]:SetPoint("TOP", (prev or header), prev and "BOTTOM" or "TOP", 0, prev and -(db.spacing + E.Spacing*2) or -(1 + E.Spacing))
 		end
 	elseif db.orientation == "horizontal" then
 		for i = 1, #menu.ToggleTable do
 			local button, prev = menu.ToggleTable[i], menu.ToggleTable[i-1]
 			menu.ToggleTable[i]:ClearAllPoints()
-			menu.ToggleTable[i]:Point("LEFT", (prev or header), prev and "RIGHT" or "LEFT", prev and (db.spacing + E.Spacing*2) or (1 + E.Spacing), 0)
+			menu.ToggleTable[i]:SetPoint("LEFT", (prev or header), prev and "RIGHT" or "LEFT", prev and (db.spacing + E.Spacing*2) or (1 + E.Spacing), 0)
 		end
 	end
 	--Calling for dropdown updates
@@ -350,7 +350,7 @@ function lib:CreateFrame(name, db, default, style, styleDefault, strata, level, 
 	menu:SetFrameStrata(strata)
 	menu:SetFrameLevel(level or 5)
 	menu:SetClampedToScreen(true)
-	menu:Point("LEFT", E.UIParent, "LEFT", -2, 0);
+	menu:SetPoint("LEFT", E.UIParent, "LEFT", -2, 0);
 	menu:Size(17, 17); --Cause the damn thing doesn't want to show up without default size lol
 	menu.myname = UnitName('player') --used in checks for addon deps
 	menu:CreateBackdrop()
@@ -549,7 +549,7 @@ end
 
 function lib:CreateOptions(menu, default, groupName, groupTitle)
 	menu:RegisterEvent("ADDON_LOADED")
-	menu:SetScript("OnEvent", function(self, event, addon) 
+	menu:SetScript("OnEvent", function(self, event, addon)
 		if addon ~= "ElvUI_OptionsUI" then return end
 		self:UnregisterEvent("ADDON_LOADED")
 		GenerateTable(self, default, groupName, groupTitle)
