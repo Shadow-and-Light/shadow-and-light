@@ -1,4 +1,4 @@
-local MAJOR, MINOR = "LibElv-GameMenu-1.0", 1
+local MAJOR, MINOR = "LibElv-GameMenu-1.0", 2
 local lib, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 --GLOBALS: CreateFrame
 if not lib then return end
@@ -100,7 +100,7 @@ _G["GameMenuFrame"]:HookScript("OnShow", function()
 	if #lib.buttons <= 5 then
 		_G["GameMenuButtonLogout"]:ClearAllPoints()
 		_G["GameMenuButtonLogout"]:SetPoint("TOP", LibHolder, "BOTTOM", 0, -16)
-		_G["GameMenuFrame"]:Height(_G["GameMenuFrame"]:GetHeight() + 17 + (height * #lib.buttons))
+		_G["GameMenuFrame"]:SetHeight(_G["GameMenuFrame"]:GetHeight() + 17 + (height * #lib.buttons))
 	else
 		LibHolder:SetWidth((width + 1) * columns)
 		_G["GameMenuFrameHeader"]:ClearAllPoints()

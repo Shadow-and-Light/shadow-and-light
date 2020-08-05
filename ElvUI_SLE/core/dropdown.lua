@@ -78,7 +78,7 @@ function SLE:DropdownList(list, frame, customWidth, justify)
 		btn.nohighlight = list[i].nohighlight
 		btn.text:SetJustifyH(justify or "LEFT")
 		btn:Show()
-		btn:Height(BUTTON_HEIGHT)
+		btn:SetHeight(BUTTON_HEIGHT)
 
 		local icon = ""
 		if list[i].icon then
@@ -173,7 +173,7 @@ function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 		if not parent then FramePoint = "CURSOR" end
 		SLE:DropdownList(list, frame, customWidth, justify)
 
-		frame:Height((#list * BUTTON_HEIGHT) + PADDING * 2 + frame.TitleCount * (2 * TITLE_OFFSET) - frame.AddOffset * TITLE_OFFSET)
+		frame:SetHeight((#list * BUTTON_HEIGHT) + PADDING * 2 + frame.TitleCount * (2 * TITLE_OFFSET) - frame.AddOffset * TITLE_OFFSET)
 		if customWidth and customWidth == "auto" then
 			frame:SetWidth(frame.maxWidth + PADDING * 2)
 		else
