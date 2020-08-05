@@ -56,7 +56,7 @@ Tools.UpdateBarLayout = function(bar, anchor, buttons, category, db)
 		end
 	end
 
-	bar:Width(1)
+	bar:SetWidth(1)
 	bar:Height(db.buttonsize+2)
 
 	return count

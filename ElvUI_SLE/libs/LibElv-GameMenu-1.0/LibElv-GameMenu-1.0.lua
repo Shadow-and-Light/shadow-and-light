@@ -72,7 +72,7 @@ function lib:UpdateHolder()
 		else
 			button:SetPoint("TOPLEFT", LibHolder, "TOPLEFT", 0 , -1)
 		end
-		
+
 	end
 end
 
@@ -107,7 +107,7 @@ _G["GameMenuFrame"]:HookScript("OnShow", function()
 		_G["GameMenuFrameHeader"]:SetPoint("BOTTOM", _G["GameMenuButtonHelp"], "TOP", 0, -25)
 		_G["GameMenuButtonHelp"]:ClearAllPoints()
 		_G["GameMenuButtonHelp"]:SetPoint("TOPLEFT", _G["GameMenuFrame"], "TOPLEFT", 25.5, -31.5)
-		_G["GameMenuFrame"]:Width(menuWidth + 1 + width * columns)
+		_G["GameMenuFrame"]:SetWidth(menuWidth + 1 + width * columns)
 		_G["GameMenuButtonLogout"]:ClearAllPoints()
 		_G["GameMenuButtonLogout"]:SetPoint("TOP", _G["GameMenuButtonAddons"], "BOTTOMLEFT", _G["GameMenuFrame"]:GetWidth()/2 - 25.5, -29)
 	end
