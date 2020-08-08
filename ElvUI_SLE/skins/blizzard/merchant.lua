@@ -21,10 +21,6 @@ local RECIPE = GetItemClassInfo(LE_ITEM_CLASS_RECIPE)
 local searchBox
 local searching = ""
 
-local IgnoreCurrency = {
-	[C_CurrencyInfo_GetCurrencyInfo(994).name] = true, --Seal of Tempered Fate
-}
-
 local function SkinVendorItems(i)
 	local button = _G["MerchantItem"..i.."ItemButton"]
 	local icon = button.icon
