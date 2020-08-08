@@ -11,7 +11,7 @@ local GetMerchantNumItems = GetMerchantNumItems
 local GetMerchantItemInfo, GetMerchantItemLink = GetMerchantItemInfo, GetMerchantItemLink
 local SetItemButtonCount, SetItemButtonStock, SetItemButtonTexture = SetItemButtonCount, SetItemButtonStock, SetItemButtonTexture
 local SetItemButtonNameFrameVertexColor, SetItemButtonSlotVertexColor, SetItemButtonTextureVertexColor, SetItemButtonNormalTextureVertexColor = SetItemButtonNameFrameVertexColor, SetItemButtonSlotVertexColor, SetItemButtonTextureVertexColor, SetItemButtonNormalTextureVertexColor
-local GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
+local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 
 local RETRIEVING_ITEM_INFO, MOUNT, ITEM_SPELL_KNOWN, SEARCH = RETRIEVING_ITEM_INFO, MOUNT, ITEM_SPELL_KNOWN, SEARCH
 local MISCELLANEOUS = MISCELLANEOUS
@@ -21,9 +21,8 @@ local RECIPE = GetItemClassInfo(LE_ITEM_CLASS_RECIPE)
 local searchBox
 local searching = ""
 
---  TODO:  Dont think this is needed either
 local IgnoreCurrency = {
-	[GetCurrencyInfo(994)] = true,
+	[C_CurrencyInfo_GetCurrencyInfo(994).name] = true, --Seal of Tempered Fate
 }
 
 local function SkinVendorItems(i)
@@ -32,11 +31,11 @@ local function SkinVendorItems(i)
 	local iconBorder = button.IconBorder
 	local item = _G["MerchantItem"..i]
 	item:StripTextures(true)
-	item:CreateBackdrop("Default")
+	item:CreateBackdrop()
 
 	button:StripTextures()
 	button:StyleButton(false)
-	button:SetTemplate("Default", true)
+	-- button:SetTemplate("Default")
 	button:SetPoint("TOPLEFT", item, "TOPLEFT", 4, -4)
 	icon:SetTexCoord(unpack(E.TexCoords))
 	icon:SetInside()
