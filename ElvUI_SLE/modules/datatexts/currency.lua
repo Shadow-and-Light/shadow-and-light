@@ -6,7 +6,7 @@ local unpack = unpack
 local format, ipairs, tonumber = format, ipairs, tonumber
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local GetBackpackCurrencyInfo = GetBackpackCurrencyInfo
-local GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
+local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local GetMoney = GetMoney
 local C_WowTokenPublic_UpdateMarketPrice = C_WowTokenPublic.UpdateMarketPrice
 local C_WowTokenPublic_GetCurrentMarketPrice = C_WowTokenPublic.GetCurrentMarketPrice
@@ -25,8 +25,12 @@ local function OnClick()
 end
 
 local function GetInfo(id)
-	local name, num, icon = GetCurrencyInfo(id)
-	return name, num, (icon and format(iconString, icon)) or '136012'
+	local info = C_CurrencyInfo_GetCurrencyInfo(id)
+	if info then
+		return info.name, info.quantity, (info.iconFileID and format(iconString, info.iconFileID)) or '136012'
+	else
+		return '', '', '136012'
+	end
 end
 
 local function AddInfo(id)
