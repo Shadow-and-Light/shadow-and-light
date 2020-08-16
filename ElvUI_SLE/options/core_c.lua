@@ -46,8 +46,7 @@ local function configTable()
 				-- childGroups = "tab",
 				name = L["Modules"],
 				args = {
-					header = E.Libs.ACH:Header(L["Modules"], 1),
-					info = E.Libs.ACH:Description(L["Options for different S&L modules."], 2),
+					--* Modules are added here
 				},
 			},
 		},

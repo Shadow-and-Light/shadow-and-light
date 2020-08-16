@@ -6,6 +6,7 @@ local select, format, tonumber, match, ipairs, pairs, gsub = select, format, ton
 local getmetatable, error, type, assert, random = getmetatable, error, type, assert, random
 local tremove, tinsert, tconcat, date = tremove, tinsert, tconcat, date
 local strjoin, strmatch, strsplit, strfind = strjoin, strmatch, strsplit, strfind
+local EnumerateFrames = EnumerateFrames
 local GetItemInfo = GetItemInfo
 
 T.StringToUpper = function(str)
