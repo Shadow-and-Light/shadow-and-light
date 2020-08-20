@@ -11,7 +11,7 @@ BG.pos = {
 	}
 
 function BG:CreateFrame(id)
-	local frame = CreateFrame("Frame", "SLE_BG_"..id, E.UIParent)
+	local frame = CreateFrame("Frame", "SLE_BG_"..id, E.UIParent, "BackdropTemplate")
 	frame:SetFrameStrata("BACKGROUND")
 	frame.texture = frame:CreateTexture(nil, 'OVERLAY')
 	frame.texture:SetPoint('TOPLEFT', frame, 'TOPLEFT', 2, -2)
