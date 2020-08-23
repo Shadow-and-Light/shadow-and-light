@@ -355,8 +355,8 @@ local function ObjectiveReskin()
 				end
 				progressBar.Bar:SetStatusBarColor(COLOR.r, COLOR.g, COLOR.b)
 				progressBar.Bar:CreateBackdrop('Transparent')
-				progressBar.Bar.backdrop:Point('TOPLEFT', progressBar.Bar, -1, 1)
-				progressBar.Bar.backdrop:Point('BOTTOMRIGHT', progressBar.Bar, 1, -1)
+				progressBar.Bar.backdrop:SetPoint('TOPLEFT', progressBar.Bar, -1, 1)
+				progressBar.Bar.backdrop:SetPoint('BOTTOMRIGHT', progressBar.Bar, 1, -1)
 				progressBar.skinned = true
 			end
 		end)
@@ -396,8 +396,8 @@ local function ObjectiveReskin()
 				end
 				progressBar.Bar:SetStatusBarColor(COLOR.r, COLOR.g, COLOR.b)
 				progressBar.Bar:CreateBackdrop()
-				progressBar.Bar.backdrop:Point('TOPLEFT', progressBar.Bar, -1, 1)
-				progressBar.Bar.backdrop:Point('BOTTOMRIGHT', progressBar.Bar, 1, -1)
+				progressBar.Bar.backdrop:SetPoint('TOPLEFT', progressBar.Bar, -1, 1)
+				progressBar.Bar.backdrop:SetPoint('BOTTOMRIGHT', progressBar.Bar, 1, -1)
 				progressBar.skinned = true
 				ScenarioTrackerProgressBar_PlayFlareAnim = dummy
 			end
