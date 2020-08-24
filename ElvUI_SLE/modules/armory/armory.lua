@@ -560,7 +560,6 @@ function Armory:Initialize()
 	hooksecurefunc(M, "ToggleItemLevelInfo", Armory.ToggleItemLevelInfo)
 	hooksecurefunc(M, "UpdateInspectPageFonts", Armory.UpdateSharedStringsFonts)
 	hooksecurefunc(M, "CreateSlotStrings", Armory.CreateSlotStrings)
-
 	if Armory:CheckOptions("Character") then
 		CA = SLE:GetModule("Armory_Character")
 		SA = SLE:GetModule("Armory_Stats")
@@ -578,6 +577,16 @@ function Armory:Initialize()
 		IA:PreSetup()
 	end
 
+	function Armory:ForUpdateAll()
+		SLE:GetModule("Armory_Character"):ToggleArmory();
+		M:UpdatePageInfo(_G.CharacterFrame, "Character")
+		if not E.db.general.itemLevel.displayCharacterInfo then M:ClearPageInfo(_G.CharacterFrame, "Character") end
+
+		SLE:GetModule("Armory_Inspect"):ToggleArmory();
+		M:UpdatePageInfo(_G.InspectFrame, "Inspect") --Putting this under the elv's option check just breaks the shit out of the frame
+		if not E.db.general.itemLevel.displayInspectInfo then M:ClearPageInfo(_G.InspectFrame, "Inspect") end --Clear the infos if those are actually not supposed to be shown.
+	end
+
 	--Move Pawn buttons. Cause Pawn buttons happen to be overlapped by some shit
 	if SLE._Compatibility["Pawn"] then
 		PawnUI_InventoryPawnButton:SetFrameLevel(PawnUI_InventoryPawnButton:GetFrameLevel() + 5)
@@ -592,6 +601,7 @@ function Armory:Initialize()
 			end
 		end)
 	end
+
 end
 
 SLE:RegisterModule(Armory:GetName())
