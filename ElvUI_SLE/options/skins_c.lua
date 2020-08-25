@@ -1,5 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Sk = SLE:GetModule("Skins")
+local B = E:GetModule('Blizzard')
 
 local IsAddOnLoaded = IsAddOnLoaded
 
@@ -347,7 +348,7 @@ local function configTable()
 								name = HIDE,
 								desc = L["Hide the talking head frame at the top center of the screen."],
 								get = function(info) return E.db.sle.skins.talkinghead.hide end,
-								set = function(info, value) E.db.sle.skins.talkinghead.hide = value; E:StaticPopup_Show("CONFIG_RL") end,
+								set = function(info, value) E.db.sle.skins.talkinghead.hide = value; B:SLETalkingHead() end,
 							},
 						},
 					},

@@ -1,25 +1,23 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local B = E:GetModule('Blizzard')
 
-local function LoadSkin()
+local _G = _G
+
+function B:SLETalkingHead()
 	if E.db.sle.skins.talkinghead.hide then
-		if (not IsAddOnLoaded("Blizzard_TalkingHeadUI")) then
-			local f = CreateFrame("Frame")
-			f:RegisterEvent("ADDON_LOADED")
-			f:SetScript("OnEvent", function(self, event, addon)
-				if event == "ADDON_LOADED" and addon == "Blizzard_TalkingHeadUI" then
-					hooksecurefunc("TalkingHeadFrame_PlayCurrent", function()
-						TalkingHeadFrame:Hide()
-					end)
-					self:UnregisterEvent(event)
-				end
-			end)
-		else
-			hooksecurefunc("TalkingHeadFrame_PlayCurrent", function()
-				TalkingHeadFrame:Hide()
-			end)
-		end
+		E:DisableMover(TalkingHeadFrame.mover:GetName())
+	else
+		E:EnableMover(_G.TalkingHeadFrame.mover:GetName())
 	end
 end
 
-hooksecurefunc(S, "Initialize", LoadSkin)
+local function LoadHooks()
+	hooksecurefunc("TalkingHeadFrame_PlayCurrent", function()
+		if E.db.sle.skins.talkinghead.hide then
+			_G.TalkingHeadFrame:Hide()
+		end
+	end)
+	B:SLETalkingHead()
+end
+
+hooksecurefunc(B, "ScaleTalkingHeadFrame", LoadHooks)
