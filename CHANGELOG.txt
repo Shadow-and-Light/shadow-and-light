@@ -1,11 +1,13 @@
-v3.78
+v3.78 [August 27, 2020]
 Fixes:
 - Fixed S&L Mail throwing an error when selected in Datatext Customization from ElvUI Dev
 - Hopefully fixed an enhanced shadows error regarding the minimap... we will see now won't we
+- Fixed MDT issue
 Changes:
 - Changed variable name for hiding/showing minimap mail icon and moved option to the minimap section of S&L
 - S&L Guild DataText has had its look to match S&L Friends and some shortcuts were changed and streamlined to somewhat line up with S&L Friends
 - Enhanced Shadows color options changed a bit.  Class Color box removed, if you select class color in the color selector, it will be the color of the class that uses the same profile
+- Updated Talking Head frame mover to hide when you select hide in our options
 Additions:
 - Added Icon to title of addon
 - Added Healer Only mana tag, it's the current mana tag with :healeronly at the end (Example: [mana:current:healeronly])
