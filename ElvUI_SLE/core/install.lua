@@ -787,7 +787,6 @@ function PI:DarthSetup()
 	E.global["general"]["commandBarSetting"] = "DISABLED"
 	E.global["sle"]["advanced"]["optionsLimits"] = true
 
-
 	if layout then
 		if layout == 'tank' then
 			E.db["nameplates"]["threat"]["beingTankedByTank"] = true
