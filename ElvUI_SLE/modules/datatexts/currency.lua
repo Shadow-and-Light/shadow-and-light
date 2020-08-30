@@ -86,7 +86,7 @@ local function OnEvent(self)
 
 	goldText = E:FormatMoney(ElvDB.gold[E.myrealm][E.myname], E.db.datatexts.goldFormat or 'BLIZZARD', not E.db.datatexts.goldCoins)
 
-	local displayed = E.db.datatexts.currencies.displayedCurrency
+	local displayed = E.global.datatexts.settings.Currencies.displayedCurrency
 	if displayed == 'BACKPACK' then
 		local displayString = ''
 		for i = 1, 3 do
@@ -106,7 +106,7 @@ local function OnEvent(self)
 		local name, num, icon = GetInfo(id)
 		if not name then return end
 
-		local style = E.db.datatexts.currencies.displayStyle
+		local style = E.global.datatexts.settings.Currencies.displayStyle
 		if style == 'ICON' then
 			self.text:SetFormattedText('%s %s', icon, E:ShortValue(num))
 		elseif style == 'ICON_TEXT' then

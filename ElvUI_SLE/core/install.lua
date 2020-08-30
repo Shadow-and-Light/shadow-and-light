@@ -233,7 +233,7 @@ function PI:DarthSetup()
 		E.db["datatexts"]["noCombatClick"] = true
 		E.db["datatexts"]["noCombatHover"] = true
 		E.db["datatexts"]["fontOutline"] = "OUTLINE"
-		E.db["datatexts"]["currencies"]["displayedCurrency"] = "GOLD"
+		E.global["datatexts"]["settings"]["Currencies"]["displayedCurrency"] = "GOLD"
 
 		E.db["datatexts"]["panels"]["MinimapPanel"][1] = "Time"
 		E.db["datatexts"]["panels"]["MinimapPanel"][2] = "Combat/Arena Time"
@@ -261,6 +261,8 @@ function PI:DarthSetup()
 		}
 
 		E.db["movers"]["DTPanelDarth_Panel_1Mover"] = "BOTTOM,ElvUIParent,BOTTOM,0,0"
+		local newPanel = E.DataTexts:FetchFrame("Darth_Panel_1")
+		newPanel:SetPoint("CENTER",newPanel.mover,"CENTER",0,0)
 	end
 	--Nameplates
 	do
@@ -744,6 +746,7 @@ function PI:DarthSetup()
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-231,-116"
 		E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-3"
 	end
+	
 
 	if IsAddOnLoaded("AddOnSkins") then
 		local AS = unpack(_G["AddOnSkins"]) or nil

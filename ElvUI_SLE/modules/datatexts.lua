@@ -19,7 +19,7 @@ DTP.PanelStyles = {
 }
 --The hook to core DT:LoadDataTexts function
 local OnLoadThrottle = true
-function DTP:LoadDTHook()
+function DTP:LoadDTHook(...)
 	--Is S&L's currency dt set anywhere
 	local IsCurrencyDTSelected = false
 	--Wipe the table. We assume after last settings change there is no default gold DTs
@@ -28,21 +28,21 @@ function DTP:LoadDTHook()
 	for panelName, panel in pairs(DT.RegisteredPanels) do
 		for i=1, panel.numPoints do
 			--Searching for gold
-			for settingName, settingValue in pairs(DT.db.panels) do
-				if settingValue and type(settingValue) == 'table' then --if options for panel exist and it is 2+ slot panel (2 cause DTBars exists)
-					if settingName == panelName and DT.db.panels[settingName][i] and DT.db.panels[settingName][i] == "Gold" then
+			for panelName, panelSettings in pairs(DT.db.panels) do
+				if panelSettings and type(panelSettings) == 'table' then --if options for panel exist and it is 2+ slot panel (2 cause DTBars exists)
+					if panelName == panelName and DT.db.panels[panelName][i] and DT.db.panels[panelName][i] == "Gold" then
 						--if it is current panel and options for it exist and it is gold dt, put the location in da cache
 						DTP.GoldCache[panelName] = panel.dataPanels[i]
-					elseif settingName == panelName and DT.db.panels[settingName][i] and DT.db.panels[settingName][i] == "S&L Currency" then
+					elseif panelName == panelName and DT.db.panels[panelName][i] and DT.db.panels[panelName][i] == "S&L Currency" then
 						--if it is current panel and options for it exist and it is s&l currency dt, set the flag to true
 						IsCurrencyDTSelected = true
 					end
-				elseif settingValue and type(settingValue) == 'string' and settingValue == "Gold" then --if options for panel exist and it is 1 slot panel with gold dt
-					if DT.db.panels[settingName] == "Gold" and settingName == panelName then
+				elseif panelSettings and type(panelSettings) == 'string' and panelSettings == "Gold" then --if options for panel exist and it is 1 slot panel with gold dt
+					if DT.db.panels[panelName] == "Gold" and panelName == panelName then
 						DTP.GoldCache[panelName] = panel.dataPanels[i]
 					end
-				elseif settingValue and type(settingValue) == 'string' and settingValue == "S&L Currency" then --if options for panel exist and it is 1 slot panel with s&l currency
-					if DT.db.panels[settingName] == "Gold" and settingName == panelName then
+				elseif panelSettings and type(panelSettings) == 'string' and panelSettings == "S&L Currency" then --if options for panel exist and it is 1 slot panel with s&l currency
+					if DT.db.panels[panelName] == "Gold" and panelName == panelName then
 						IsCurrencyDTSelected = true
 					end
 				end
