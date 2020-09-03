@@ -1,8 +1,8 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 if SLE._Compatibility["ElvUI_NihilistUI"] then return end
 local ES = SLE:NewModule('EnhancedShadows', 'AceEvent-3.0')
-local AB, UF, MM = SLE:GetElvModules('ActionBars', 'UnitFrames', 'Minimap')
-local ClassColor = RAID_CLASS_COLORS[E.myclass]
+local UF, MM = SLE:GetElvModules('UnitFrames', 'Minimap')
+
 local Border, LastSize
 local Abars = 10
 --GLOBALS: hooksecurefunc
@@ -295,7 +295,7 @@ function ES:CreateShadows()
 				_G["LeftChatDataPanel"]:SetFrameStrata('BACKGROUND')
 				_G["LeftChatDataPanel"]:SetFrameLevel(0)
 			end
-			ES:CreateFrameShadow(_G["LeftChatPanel"], "none")
+			ES:CreateFrameShadow(_G.LeftChatPanel, _G.LeftChatPanel.backdrop)
 		end
 		if E.private.sle.module.shadows.chat.right then
 			if not E.private.sle.module.shadows.datatexts.rightchat then
@@ -304,7 +304,7 @@ function ES:CreateShadows()
 				_G["RightChatDataPanel"]:SetFrameStrata('BACKGROUND')
 				_G["RightChatDataPanel"]:SetFrameLevel(0)
 			end
-			ES:CreateFrameShadow(_G["RightChatPanel"], "none")
+			ES:CreateFrameShadow(_G.RightChatPanel, _G.RightChatPanel.backdrop)
 		end
 	end
 end
