@@ -49,8 +49,8 @@ end
 function RM:CreateButton(index)
 	local info = layouts[index]
 	local target, worldmarker = info.RT, info.WM
-	local button = CreateFrame("Button", format("SLE_RaidMarkerBarButton%d", index), RM.frame, "SecureActionButtonTemplate, BackdropTemplate")
-	button:SetSize(E.db.sle.raidmarkers.buttonSize, E.db.sle.raidmarkers.buttonSize)
+	local button = CreateFrame("Button", format("SLE_RaidMarkerBarButton%d", index), RM.frame, "SecureActionButtonTemplate")
+	button:Size(E.db.sle.raidmarkers.buttonSize)
 	button:SetTemplate('Transparent')
 
 	button.icon = button:CreateTexture(nil, "ARTWORK")
@@ -130,7 +130,7 @@ function RM:UpdateBar(update)
 		local prev = self.frame.buttons[index + 1]
 		button:ClearAllPoints()
 
-		button:SetSize(E.db.sle.raidmarkers.buttonSize, E.db.sle.raidmarkers.buttonSize)
+		button:Size(E.db.sle.raidmarkers.buttonSize)
 
 		if E.db.sle.raidmarkers.orientation == "VERTICAL" then
 			head = E.db.sle.raidmarkers.reverse and "BOTTOM" or "TOP"

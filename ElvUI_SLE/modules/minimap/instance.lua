@@ -34,7 +34,7 @@ local Difficulties = {
 
 function I:CreateText()
 	I.frame = CreateFrame("Frame", "MiniMapDifFrame", _G["Minimap"])
-	I.frame:SetSize(50, 20)
+	I.frame:Size(50, 20)
 	I.frame.text = I.frame:CreateFontString(nil, 'OVERLAY')
 	I.frame.text:SetPoint("CENTER", I.frame, "CENTER")
 	I.frame.icon = I.frame:CreateFontString(nil, 'OVERLAY')

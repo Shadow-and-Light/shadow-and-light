@@ -355,13 +355,13 @@ end
 
 function LP:Resize()
 	if LP.db.autowidth then
-		loc_panel:SetSize(loc_panel.Text:GetStringWidth() + 10, LP.db.height)
+		loc_panel:Size(loc_panel.Text:GetStringWidth() + 10, LP.db.height)
 	else
-		loc_panel:SetSize(LP.db.width, LP.db.height)
+		loc_panel:Size(LP.db.width, LP.db.height)
 	end
 	loc_panel.Text:SetWidth(LP.db.width - 18)
-	loc_panel.Xcoord:SetSize(LP.db.fontSize * 3, LP.db.height)
-	loc_panel.Ycoord:SetSize(LP.db.fontSize * 3, LP.db.height)
+	loc_panel.Xcoord:Size(LP.db.fontSize * 3, LP.db.height)
+	loc_panel.Ycoord:Size(LP.db.fontSize * 3, LP.db.height)
 end
 
 function LP:Fonts()

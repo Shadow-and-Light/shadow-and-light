@@ -85,7 +85,7 @@ function lib:AddMenuButton(data)
 	if not data then return end
 	if _G[data.name] then return end
 	local button = CreateFrame("Button", data.name, _G["GameMenuFrame"], "GameMenuButtonTemplate")
-	button:SetSize(width, height)
+	button:Size(width, height)
 	button:SetScript("OnClick", data.func)
 	button:SetText(data.text)
 

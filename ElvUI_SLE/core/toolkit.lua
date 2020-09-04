@@ -453,14 +453,14 @@ local function LevelUpBG(frame, topcolor, bottomcolor)
 	frame.lineTop:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	frame.lineTop:SetPoint("TOP", frame.bg)
 	frame.lineTop:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
-	frame.lineTop:SetSize(frame:GetWidth(), 7)
+	frame.lineTop:Size(frame:GetWidth(), 7)
 
 	frame.lineBottom = frame:CreateTexture(nil, "BACKGROUND")
 	frame.lineBottom:SetDrawLayer("BACKGROUND", 2)
 	frame.lineBottom:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	frame.lineBottom:SetPoint("BOTTOM", frame.bg)
 	frame.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
-	frame.lineBottom:SetSize(frame:GetWidth(), 7)
+	frame.lineBottom:Size(frame:GetWidth(), 7)
 
 	local ColorCode = {
 		["red"] = {1, 0, 0},
@@ -537,14 +537,14 @@ end
 
 function SLE:CreateSplashScreen()
 	local f = CreateFrame("Frame", "SLE_SplashScreen", E.UIParent)
-	f:SetSize(400, 200)
+	f:Size(400, 200)
 	f:SetPoint("CENTER")
 	f:SetFrameStrata("TOOLTIP")
 	f:LevelUpBG()
 	f:SetAlpha(0)
 
 	f.logo = f:CreateTexture(nil, "OVERLAY")
-	f.logo:SetSize(240, 60)
+	f.logo:Size(240, 60)
 	f.logo:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\SLE_Banner]])
 	f.logo:SetPoint("TOP", f, "TOP", 0. - 80)
 

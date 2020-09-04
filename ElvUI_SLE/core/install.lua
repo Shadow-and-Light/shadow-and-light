@@ -1033,7 +1033,7 @@ SLE.installTable = {
 			-- _G["PluginInstallFrame"].Option2:SetScript('OnClick', function() PI.SLE_Auth = "AFFINITY"; _G["PluginInstallFrame"].Next:Click() end)
 			-- _G["PluginInstallFrame"].Option2:SetText(L["Affinitii's Config"])
 
-			_G["PluginInstallFrame"]:SetSize(550, 500)
+			_G["PluginInstallFrame"]:Size(550, 500)
 		end,
 		[3] = function()
 			if PI.SLE_Auth == "" then _G["PluginInstallFrame"].SetPage(_G["PluginInstallFrame"].PrevPage == 2 and 4 or 2) return end

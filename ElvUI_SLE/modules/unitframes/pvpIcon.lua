@@ -7,7 +7,7 @@ function SUF:Create_PvpIconText(frame)
 	local PvP = frame.PvPIndicator
 	if frame.unit == "player" then --if player then we actually need 2 texts, one being da timer
 		PvP.SLE_timerText = CreateFrame("Frame", nil, frame)
-		PvP.SLE_timerText:SetSize(10,10)
+		PvP.SLE_timerText:Size(10,10)
 		PvP.SLE_timerText:SetFrameLevel(PvP:GetParent():GetFrameLevel() + 3)
 
 		PvP.SLE_timerText.value = PvP.SLE_timerText:CreateFontString(nil, 'OVERLAY')
@@ -19,7 +19,7 @@ function SUF:Create_PvpIconText(frame)
 	end
 	--The main text being honor level, cause fuck guessing your opponent's level by looking at the icon you've never seen before
 	PvP.SLE_levelText = CreateFrame("Frame", nil, frame)
-	PvP.SLE_levelText:SetSize(10,10)
+	PvP.SLE_levelText:Size(10,10)
 	PvP.SLE_levelText:SetFrameLevel(PvP:GetParent():GetFrameLevel() + 3)
 
 	PvP.SLE_levelText.value = PvP.SLE_levelText:CreateFontString(nil, 'OVERLAY')

@@ -230,7 +230,7 @@ local function UpdateDropdownLayout(menu, group)
 		sepS = (button.isSeparator and sepS + ((prev and 2 or 1)*button.space + button.size)) or sepS
 		sepC = button.isSeparator and sepC + 1 or sepC
 	end
-	header:SetSize(header.width, (db.size * (count+1))+(db.spacing*(count))+sepS+(.5*sepC))
+	header:Size(header.width, (db.size * (count+1))+(db.spacing*(count))+sepS+(.5*sepC))
 	if menu.db.dropdownBackdrop then
 		header.backdrop:Show()
 	else
@@ -280,7 +280,7 @@ local function FrameSize(menu)
 	menu:MoverSize()
 
 	for i = 1, #menu.ToggleTable do
-		menu.ToggleTable[i]:SetSize(db.size, db.size)
+		menu.ToggleTable[i]:Size(db.size)
 	end
 
 	if menu.style == "dropdown" then
@@ -300,9 +300,9 @@ local function FrameSize(menu)
 			end
 			for n = 1, #mass do
 				if mass[n].isSeparator then
-					mass[n]:SetSize(menu.HoldersTable[i].width - 2, mass[n].size)
+					mass[n]:Size(menu.HoldersTable[i].width - 2, mass[n].size)
 				else
-					mass[n]:SetSize(menu.HoldersTable[i].width, db.size)
+					mass[n]:Size(menu.HoldersTable[i].width, db.size)
 				end
 			end
 		end
@@ -351,7 +351,7 @@ function lib:CreateFrame(name, db, default, style, styleDefault, strata, level, 
 	menu:SetFrameLevel(level or 5)
 	menu:SetClampedToScreen(true)
 	menu:SetPoint("LEFT", E.UIParent, "LEFT", -2, 0);
-	menu:SetSize(17, 17); --Cause the damn thing doesn't want to show up without default size lol
+	menu:Size(17, 17); --Cause the damn thing doesn't want to show up without default size lol
 	menu.myname = UnitName('player') --used in checks for addon deps
 	menu:CreateBackdrop()
 
