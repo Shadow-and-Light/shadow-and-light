@@ -104,9 +104,9 @@ function SLE:DropdownList(list, frame, customWidth, justify)
 				SLE:DropdownList(list, frame, customWidth, justify)
 				return
 			end
-			btn:SetWidth(frame.maxWidth)
+			btn:Width(frame.maxWidth)
 		else
-			btn:SetWidth(customWidth or BUTTON_WIDTH)
+			btn:Width(customWidth or BUTTON_WIDTH)
 		end
 
 		if list[i].secure then
@@ -175,9 +175,9 @@ function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 
 		frame:Height((#list * BUTTON_HEIGHT) + PADDING * 2 + frame.TitleCount * (2 * TITLE_OFFSET) - frame.AddOffset * TITLE_OFFSET)
 		if customWidth and customWidth == "auto" then
-			frame:SetWidth(frame.maxWidth + PADDING * 2)
+			frame:Width(frame.maxWidth + PADDING * 2)
 		else
-			frame:SetWidth(customWidth or (BUTTON_WIDTH + PADDING * 2))
+			frame:Width(customWidth or (BUTTON_WIDTH + PADDING * 2))
 		end
 
 		frame:ClearAllPoints()

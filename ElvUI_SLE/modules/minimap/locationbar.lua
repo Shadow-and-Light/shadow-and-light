@@ -329,7 +329,7 @@ function LP:UpdateCoords(elapsed)
 		displayLine = subZoneText
 	end
 	loc_panel.Text:SetText(displayLine)
-	if LP.db.autowidth then loc_panel:SetWidth(loc_panel.Text:GetStringWidth() + 10) end
+	if LP.db.autowidth then loc_panel:Width(loc_panel.Text:GetStringWidth() + 10) end
 
 	--Location Colorings
 	if displayLine ~= "" then
@@ -359,7 +359,7 @@ function LP:Resize()
 	else
 		loc_panel:Size(LP.db.width, LP.db.height)
 	end
-	loc_panel.Text:SetWidth(LP.db.width - 18)
+	loc_panel.Text:Width(LP.db.width - 18)
 	loc_panel.Xcoord:Size(LP.db.fontSize * 3, LP.db.height)
 	loc_panel.Ycoord:Size(LP.db.fontSize * 3, LP.db.height)
 end
