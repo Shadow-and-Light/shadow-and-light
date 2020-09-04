@@ -37,9 +37,9 @@ end
 
 function RMM:UpdateMoverSize()
 	if E.db.datatexts.panels.MinimapPanel.enable then
-		_G.MMHolder:SetHeight((_G.Minimap:GetHeight() + (_G.MinimapPanel and (_G.MinimapPanel:GetHeight() + E.Border) or 24)) + E.Spacing*3-((E.MinimapSize/6.1)))
+		_G.MMHolder:Height((_G.Minimap:GetHeight() + (_G.MinimapPanel and (_G.MinimapPanel:GetHeight() + E.Border) or 24)) + E.Spacing*3-((E.MinimapSize/6.1)))
 	else
-		_G.MMHolder:SetHeight((_G.Minimap:GetHeight() + E.Border + E.Spacing*3)-(E.MinimapSize/6.1))
+		_G.MMHolder:Height((_G.Minimap:GetHeight() + E.Border + E.Spacing*3)-(E.MinimapSize/6.1))
 	end
 end
 

@@ -224,7 +224,7 @@ function Farm:CreateFarmSeeds()
 			if db.quest then
 				if not CanSeed() then
 					Bar:SetWidth(size+2)
-					Bar:SetHeight(size+2)
+					Bar:Height(size+2)
 					return count
 				end
 				if QuestItems(id) then
@@ -238,7 +238,7 @@ function Farm:CreateFarmSeeds()
 		end
 
 		Bar:SetWidth(size+2)
-		Bar:SetHeight(size+2)
+		Bar:Height(size+2)
 
 		return count
 	end
