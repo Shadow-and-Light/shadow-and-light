@@ -214,7 +214,7 @@ function S:Show()
 	SS.FactCrest:Point("CENTER", SS.Top, "BOTTOM", -(GetScreenWidth()/6) + S.db.crest.xOffset_faction, 0 + S.db.crest.yOffset_faction)
 	SS.RaceCrest:Point("CENTER", SS.Top, "BOTTOM", (GetScreenWidth()/6) + S.db.crest.xOffset_race, 0 + S.db.crest.yOffset_race)
 	SS.Date:Point("RIGHT", SS.Top, "RIGHT", -40 + S.db.date.xOffset, 10 + S.db.date.yOffset)
-	SS.PlayerInfo:Point("RIGHT", SS.TOP, "RIGHT", -(GetScreenWidth()/6), 0)
+	SS.PlayerInfo:Point("RIGHT", SS.Top, "RIGHT", -(GetScreenWidth()/6) + S.db.player.xOffset, 0 + S.db.player.yOffset)
 
 	--Resizing chat
 	SS.chat:SetHeight(SS.Top:GetHeight())
