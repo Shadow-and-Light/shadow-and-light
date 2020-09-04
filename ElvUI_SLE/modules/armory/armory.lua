@@ -138,7 +138,7 @@ function Armory:BuildFrameDefaultsCache(which)
 			Armory.Constants[which.."_Defaults"][SlotName]["iLvlText"] = { Slot.iLvlText:GetPoint() }
 			Armory.Constants[which.."_Defaults"][SlotName]["textureSlot1"] = { Slot.textureSlot1:GetPoint() }
 			for i = 2, 10 do
-				if Slot["textureSlot"..i] then Slot["textureSlot"..i]:ClearAllPoints(); Slot["textureSlot"..i]:SetPoint(Slot.Direction, Slot["textureSlot"..(i-1)], Slot.Direction == "LEFT" and "RIGHT" or "LEFT", E.twoPixelsPlease and 3 or 1, 0) end
+				if Slot["textureSlot"..i] then Slot["textureSlot"..i]:ClearAllPoints(); Slot["textureSlot"..i]:Point(Slot.Direction, Slot["textureSlot"..(i-1)], Slot.Direction == "LEFT" and "RIGHT" or "LEFT", E.twoPixelsPlease and 3 or 1, 0) end
 			end
 			Armory.Constants[which.."_Defaults"][SlotName]["enchantText"] = { Slot.enchantText:GetPoint() }
 		end
@@ -156,7 +156,7 @@ function Armory:ClearTooltip(Tooltip)
 	for i = 1, 10 do
 		_G[TooltipName.."Texture"..i]:SetTexture(nil)
 		_G[TooltipName.."Texture"..i]:ClearAllPoints()
-		_G[TooltipName.."Texture"..i]:SetPoint("TOPLEFT", Tooltip)
+		_G[TooltipName.."Texture"..i]:Point("TOPLEFT", Tooltip)
 	end
 end
 

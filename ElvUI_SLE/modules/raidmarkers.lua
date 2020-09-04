@@ -202,7 +202,7 @@ function RM:Initialize()
 	self.frame:CreateBackdrop('Transparent')
 	self.frame.backdrop:SetAllPoints()
 	self.frame:ClearAllPoints()
-	self.frame:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -1, 200)
+	self.frame:Point("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -1, 200)
 	self.frame.buttons = {}
 
 	self:HookScript(self.frame, 'OnEnter', 'Bar_OnEnter');

@@ -64,7 +64,7 @@ function Gar:CreateToolbars()
 	--  TODO: This GarrisonAnchor was global and dont think it was intended... keep an eye out for issues if any reported due to old module
 	local GarrisonAnchor = CreateFrame("Frame", "SLE_GarrisonToolbarAnchor", E.UIParent)
 	GarrisonAnchor:SetFrameStrata("BACKGROUND")
-	GarrisonAnchor:SetPoint("LEFT", E.UIParent, "LEFT", 24, 0);
+	GarrisonAnchor:Point("LEFT", E.UIParent, "LEFT", 24, 0);
 
 	GarrisonAnchor.Bars = {}
 	GarrisonAnchor.NumBars = 1

@@ -187,16 +187,16 @@ function Farm:CreateFarmSeeds()
 		Bar:ClearAllPoints()
 		if category == 1 then
 			if seedor == "TOP" or seedor == "BOTTOM" then
-				Bar:SetPoint(seedor.."LEFT", anchor, -2*E.Spacing, seedor == "TOP" and 0 or (2 - E.Spacing*2))
+				Bar:Point(seedor.."LEFT", anchor, -2*E.Spacing, seedor == "TOP" and 0 or (2 - E.Spacing*2))
 			elseif seedor == "LEFT" or seedor ==  "RIGHT" then
-				Bar:SetPoint("TOP"..seedor, anchor, (seedor == "LEFT" and 0 or 2), -2)
+				Bar:Point("TOP"..seedor, anchor, (seedor == "LEFT" and 0 or 2), -2)
 			end
 		else
 			if _G[SeedAnchor.BarsName..(category-1)]:IsShown() then
 				if seedor == "TOP" or seedor == "BOTTOM" then
-					Bar:SetPoint("TOPLEFT", _G[SeedAnchor.BarsName..(category-1)], "TOPRIGHT", -E.Spacing, 0)
+					Bar:Point("TOPLEFT", _G[SeedAnchor.BarsName..(category-1)], "TOPRIGHT", -E.Spacing, 0)
 				elseif seedor == "LEFT" or seedor ==  "RIGHT" then
-					Bar:SetPoint("TOPLEFT", _G[SeedAnchor.BarsName..(category-1)], "BOTTOMLEFT", 0, E.Spacing)
+					Bar:Point("TOPLEFT", _G[SeedAnchor.BarsName..(category-1)], "BOTTOMLEFT", 0, E.Spacing)
 				end
 			else
 				SeedAnchor.UpdateBarLayout(Bar, anchor, buttons, category-1, db)
@@ -210,10 +210,10 @@ function Farm:CreateFarmSeeds()
 			if not db.active or button.items > 0 then
 				if seedor == "TOP" or seedor == "BOTTOM" then
 					local mult = seedor == "TOP" and -1 or 1
-					button:SetPoint(seedor.."LEFT", Bar, 1 + E.Spacing, mult*(count * (size+(2 - E.Spacing))) - 1 + E.Spacing)
+					button:Point(seedor.."LEFT", Bar, 1 + E.Spacing, mult*(count * (size+(2 - E.Spacing))) - 1 + E.Spacing)
 				elseif seedor == "LEFT" or seedor == "RIGHT" then
 					local mult = seedor == "RIGHT" and -1 or 1
-					button:SetPoint("TOPLEFT", Bar, "TOPLEFT", mult*(count * (size+(2 - E.Spacing))) - 1 + E.Spacing, 1 + E.Spacing)
+					button:Point("TOPLEFT", Bar, "TOPLEFT", mult*(count * (size+(2 - E.Spacing))) - 1 + E.Spacing, 1 + E.Spacing)
 				end
 				button:Show()
 				button:Size(size, size)
@@ -225,7 +225,7 @@ function Farm:CreateFarmSeeds()
 				if not CanSeed() then
 					Bar:Width(size+2)
 					Bar:Height(size+2)
-					return count
+					return count 
 				end
 				if QuestItems(id) then
 					ActionButton_ShowOverlayGlow(button)
@@ -339,7 +339,7 @@ end
 function Farm:CreateFarmPortals()
 	PortalAnchor = CreateFrame("Frame", "SLE_PortalToolbarAnchor", E.UIParent)
 	PortalAnchor:SetFrameStrata("BACKGROUND")
-	PortalAnchor:SetPoint("BOTTOMLEFT", "SLE_ToolsToolbarsAnchor", "TOPLEFT", 0, 1 + E.Spacing*4)
+	PortalAnchor:Point("BOTTOMLEFT", "SLE_ToolsToolbarsAnchor", "TOPLEFT", 0, 1 + E.Spacing*4)
 
 	PortalAnchor.Bars = {}
 	PortalAnchor.NumBars = 1

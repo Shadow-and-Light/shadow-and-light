@@ -17,9 +17,9 @@ function RMM:SkinMiniMap()
 
 	--*Relocated Minimap to MMHolder
 	_G.Minimap:ClearAllPoints()
-	_G.Minimap:SetPoint("TOPRIGHT", _G.MMHolder, "TOPRIGHT", -E.Border, E.Border)
+	_G.Minimap:Point("TOPRIGHT", _G.MMHolder, "TOPRIGHT", -E.Border, E.Border)
 	--*Below sets mover to same size of minimap, I didn't do this on purpose due to people moving the minimap in an area not good
-	-- _G.Minimap:SetPoint("TOPRIGHT", _G.MMHolder, "TOPRIGHT", -E.Border, (E.MinimapSize/6.1)+E.Border)
+	-- _G.Minimap:Point("TOPRIGHT", _G.MMHolder, "TOPRIGHT", -E.Border, (E.MinimapSize/6.1)+E.Border)
 
 
 	if _G.Minimap.location then
@@ -45,7 +45,7 @@ end
 
 function RMM:UpdateLocationText()
 	_G.Minimap.location:ClearAllPoints()
-	_G.Minimap.location:SetPoint('TOP', _G.Minimap, 'TOP', 0, -25)
+	_G.Minimap.location:Point('TOP', _G.Minimap, 'TOP', 0, -25)
 end
 
 function RMM:Initialize()

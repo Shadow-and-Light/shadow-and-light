@@ -32,7 +32,7 @@ local function SkinVendorItems(i)
 	button:StripTextures()
 	button:StyleButton(false)
 	-- button:SetTemplate("Default")
-	button:SetPoint("TOPLEFT", item, "TOPLEFT", 4, -4)
+	button:Point("TOPLEFT", item, "TOPLEFT", 4, -4)
 	icon:SetTexCoord(unpack(E.TexCoords))
 	icon:SetInside()
 	iconBorder:SetAlpha(0)
@@ -45,7 +45,7 @@ local function SkinVendorItems(i)
 	end)
 
 	_G["MerchantItem"..i.."MoneyFrame"]:ClearAllPoints()
-	_G["MerchantItem"..i.."MoneyFrame"]:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT", 3, 0)
+	_G["MerchantItem"..i.."MoneyFrame"]:Point("BOTTOMLEFT", button, "BOTTOMRIGHT", 3, 0)
 	MerchantBuyBackItemItemButton.IconBorder:SetAlpha(0)
 end
 

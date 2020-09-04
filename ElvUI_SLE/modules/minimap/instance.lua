@@ -75,7 +75,7 @@ end
 
 function I:UpdateFrame()
 	local db = I.db
-	I.frame:SetPoint("TOPLEFT", _G["Minimap"], "TOPLEFT", db.xoffset, db.yoffset)
+	I.frame:Point("TOPLEFT", _G["Minimap"], "TOPLEFT", db.xoffset, db.yoffset)
 	I:SetFonts()
 	if db.enable then
 		I.frame.text:Show()

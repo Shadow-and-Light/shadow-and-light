@@ -356,7 +356,7 @@ function SMB:Update()
 					local pos = E.db.general.minimap.icons.lfgEye.position or "BOTTOMRIGHT"
 					local scale = E.db.general.minimap.icons.lfgEye.scale or 1
 					_G["QueueStatusMinimapButton"]:ClearAllPoints()
-					_G["QueueStatusMinimapButton"]:SetPoint(pos, _G["Minimap"], pos, E.db.general.minimap.icons.lfgEye.xOffset or 3, E.db.general.minimap.icons.lfgEye.yOffset or 0)
+					_G["QueueStatusMinimapButton"]:Point(pos, _G["Minimap"], pos, E.db.general.minimap.icons.lfgEye.xOffset or 3, E.db.general.minimap.icons.lfgEye.yOffset or 0)
 				end
 				if (not E.private.sle.minimap.mapicons.skinmail and Name == 'MiniMapMailFrame') then
 					Exception = false
@@ -389,8 +389,8 @@ function SMB:Update()
 			else
 				anchor = "BOTTOMRIGHT"
 			end
-			-- Frame:SetPoint('TOPLEFT', SMB.bar, 'TOPLEFT', xOffset, yOffset)
-			Frame:SetPoint(anchor, SMB.bar, anchor, xOffset, yOffset)
+			-- Frame:Point('TOPLEFT', SMB.bar, 'TOPLEFT', xOffset, yOffset)
+			Frame:Point(anchor, SMB.bar, anchor, xOffset, yOffset)
 			Frame:SetSize(E.db.sle.minimap.mapicons.iconsize, E.db.sle.minimap.mapicons.iconsize)
 			Frame:SetFrameStrata('MEDIUM')
 			Frame:SetFrameLevel(3)
@@ -400,7 +400,7 @@ function SMB:Update()
 			Frame:HookScript('OnLeave', OnLeave)
 			if Name == "LibDBIcon10_LegionToDoMinimap" then
 				Frame:HookScript('OnEvent', function(self, event, ...)
-					if event == "ADDON_LOADED" then Frame:SetPoint(anchor, SMB.bar, anchor, xOffset, yOffset) end
+					if event == "ADDON_LOADED" then Frame:Point(anchor, SMB.bar, anchor, xOffset, yOffset) end
 				end)
 			end
 			if Maxed then ActualButtons = ButtonsPerRow end
