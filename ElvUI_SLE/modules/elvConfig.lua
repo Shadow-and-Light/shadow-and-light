@@ -5,9 +5,7 @@ local EC = SLE:NewModule("ElvConfig", "AceEvent-3.0")
 
 --When config is loaded
 function EC:ADDON_LOADED(event, addon)
-	print("pre check")
 	if addon ~= "ElvUI_OptionsUI" then return end
-	print("post check")
 	EC:UnregisterEvent(event)
 	EC:UpdateActionbars()
 	EC:UpdateUitframes()
