@@ -19,9 +19,9 @@ function SUF:ArrangeArena()
 		local db = E.db.sle.shadows.unitframes[frame.unitframeType]
 
 		do
-			frame.SLHEALTH_ENHSHADOW = enableState and db.health or enableState
-			frame.SLPOWER_ENHSHADOW = enableState and db.power or enableState
-			frame.SLLEGACY_ENHSHADOW = enableState and db.legacy or enableState
+			frame.SLLEGACY_ENHSHADOW = enableState and db.legacy or false
+			frame.SLHEALTH_ENHSHADOW = enableState and db.health or false
+			frame.SLPOWER_ENHSHADOW = enableState and db.power or false
 		end
 
 		-- Health
