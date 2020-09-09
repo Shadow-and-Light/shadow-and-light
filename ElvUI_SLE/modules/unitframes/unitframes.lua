@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local UF = E:GetModule('UnitFrames');
-local SUF = SLE:NewModule("UnitFrames", "AceEvent-3.0")
+local SUF = SLE:NewModule('UnitFrames', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 
 --GLOBALS: hooksecurefunc, CreateFrame
 
@@ -28,12 +28,32 @@ local function UpdateAuraTimer(self, elapsed)
 	end
 end
 
+function SUF:UpdateUnitFrames()
+	--* Groups Folder
+	SUF:InitArena()
+	SUF:InitBoss()
+	SUF:InitParty()
+	SUF:InitRaid()
+	SUF:InitRaid40()
+
+	--* Units Folder
+	SUF:InitFocus()
+	SUF:InitFocusTarget()
+	SUF:InitPet()
+	SUF:InitPetTarget()
+	SUF:InitPlayer()
+	SUF:InitTarget()
+	SUF:InitTargetTarget()
+	SUF:InitTargetTargetTarget()
+end
+
 function SUF:Initialize()
 	if not SLE.initialized or not E.private.unitframe.enable then return end
 	--DB convert
 	if E.private.sle.unitframe.resizeHealthPrediction then E.private.sle.unitframe.resizeHealthPrediction = nil end
 
-	-- SUF:InitPlayer()
+	-- Init and Update Unitframe Stuff which is shadows atm
+	SUF:UpdateUnitFrames()
 
 	--Raid stuff
 	SUF.specNameToRole = {}
@@ -69,6 +89,7 @@ function SUF:Initialize()
 	function SUF:ForUpdateAll()
 		SUF:SetRoleIcons()
 		if E.private.sle.unitframe.statusbarTextures.power then SUF:BuildStatusTable() end
+		if E.private.sle.module.shadows.enable then SUF:UpdateUnitFrames() end
 	end
 end
 

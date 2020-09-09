@@ -795,8 +795,76 @@ P["sle"] = {
 	},
 	--Shadows
 	['shadows'] = {
-		['shadowcolor'] = { ['r'] = 0, ['g'] = 0, ['b'] = 0 },
-		['size'] = 3,
+		shadowcolor = { ['r'] = 0, ['g'] = 0, ['b'] = 0 },
+		size = 3,
+		unitframes = {
+			player = {
+				legacy = false,
+				health = false,
+				power = false,
+				classbar = false,
+			},
+			target = {
+				legacy = false,
+				health = false,
+				power = false,
+			},
+			targettarget = {
+				legacy = false,
+				health = false,
+				power = false,
+			},
+			targettargettarget = {
+				legacy = false,
+				health = false,
+				power = false,
+			},
+			focus = {
+				legacy = false,
+				health = false,
+				power = false,
+			},
+			focustarget = {
+				legacy = false,
+				health = false,
+				power = false,
+			},
+			pet = {
+				legacy = false,
+				health = false,
+				power = false,
+			},
+			pettarget = {
+				legacy = false,
+				health = false,
+				power = false,
+			},
+			boss = {
+				legacy = false,
+				health = false,
+				power = false,
+			},
+			arena = {
+				legacy = false,
+				health = false,
+				power = false,
+			},
+			party = {
+				legacy = false,
+				health = false,
+				power = false,
+			},
+			raid = {
+				legacy = false,
+				health = false,
+				power = false,
+			},
+			raid40 = {
+				legacy = false,
+				health = false,
+				power = false,
+			},
+		},
 	},
 	--Skins
 	["skins"] = {
