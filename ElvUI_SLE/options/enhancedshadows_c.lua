@@ -1,7 +1,8 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 if SLE._Compatibility["ElvUI_NihilistUI"] then return end
 local ES = SLE:GetModule("EnhancedShadows")
-
+local SUF = SLE:GetModule("UnitFrames")
+local UF = E:GetModule('UnitFrames')
 local format = format
 
 local function configTable()
@@ -14,13 +15,22 @@ local function configTable()
 		name = L["Enhanced Shadows"],
 		childGroups = "tab",
 		get = function(info) return E.db.sle.shadows[info[#info]] end,
-		set = function(info, value) E.db.sle.shadows[info[#info]] = value ES:UpdateShadows() end,
+		set = function(info, value) E.db.sle.shadows[info[#info]] = value; SUF:UpdateUnitFrames(); ES:UpdateShadows(); end,
 		args = {
-			shadowcolor = {
+			enable = {
 				order = 1,
+				type = "toggle",
+				name = L["Enable"],
+				hidden = true, -- TODO: Hidden until I implement this feature
+				get = function(info) return E.private.sle.module.shadows[info[#info]] end,
+				set = function(info, value) E.private.sle.module.shadows[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+			},
+			shadowcolor = {
+				order = 2,
 				type = "color",
 				hasAlpha = false,
 				name = COLOR,
+				disabled = function() return not E.private.sle.module.shadows.enable end,
 				get = function(info)
 					local t = E.db.sle.shadows[info[#info]]
 					local d = P.sle.shadows[info[#info]]
@@ -31,6 +41,7 @@ local function configTable()
 					t.r, t.g, t.b = r, g, b
 					SLE:UpdateMedia()
 					ES:UpdateShadows()
+					SUF:UpdateUnitFrames()
 				end,
 			},
 			size = {
@@ -38,6 +49,7 @@ local function configTable()
 				type = 'range',
 				name = L["Size"],
 				min = 2, max = 10, step = 1,
+				disabled = function() return not E.private.sle.module.shadows.enable end,
 			},
 			general = {
 				order = 4,
@@ -46,18 +58,103 @@ local function configTable()
 				get = function(info) return E.private.sle.module.shadows[info[#info]] end,
 				set = function(info, value) E.private.sle.module.shadows[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 				args = {
-					vehicle = {
+					general = {
 						order = 1,
-						type = "toggle",
-						name = L["Enhanced Vehicle Bar"],
-						-- desc = "Testing inline desc here.",
-						descStyle = "inline",
+						type = 'group',
+						name = L["General"],
+						guiInline = true,
+						args = {
+							vehicle = {
+								order = 1,
+								type = "toggle",
+								name = L["Enhanced Vehicle Bar"],
+								disabled = function() return not E.private.sle.module.shadows.enable end,
+							},
+							minimap = {
+								order = 3,
+								type = "toggle",
+								name = L["Minimap"],
+								disabled = function() return not E.private.general.minimap.enable or not E.private.sle.module.shadows.enable end,
+							},
+						},
 					},
-					spacer = ACH:Spacer(2),
-					minimap = {
-						order = 3,
-						type = "toggle",
-						name = L["Minimap"],
+					chat = {
+						order = 2,
+						type = "group",
+						name = L["Chat"],
+						guiInline = true,
+						get = function(info) return E.private.sle.module.shadows.chat[info[#info]] end,
+						set = function(info, value) E.private.sle.module.shadows.chat[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+						args = {
+							left = {
+								order = 1,
+								type = "toggle",
+								name = L["Left Chat"],
+								disabled = function() return not E.private.sle.module.shadows.enable end,
+							},
+							right = {
+								order = 2,
+								type = "toggle",
+								name = L["Right Chat"],
+								disabled = function() return not E.private.sle.module.shadows.enable end,
+							},
+						},
+					},
+					databars = {
+						order = 2,
+						type = "group",
+						name = L["DataBars"],
+						guiInline = true,
+						get = function(info) return E.private.sle.module.shadows.databars[info[#info]] end,
+						set = function(info, value) E.private.sle.module.shadows.databars[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+						args = {
+							honorbar = {
+								order = 1,
+								type = "toggle",
+								name = L["HONOR"],
+								disabled = function() return not E.private.sle.module.shadows.enable end,
+							},
+							expbar = {
+								order = 1,
+								type = "toggle",
+								name = L["XPBAR_LABEL"],
+								disabled = function() return not E.private.sle.module.shadows.enable end,
+							},
+							repbar = {
+								order = 1,
+								type = "toggle",
+								name = L["REPUTATION"],
+								disabled = function() return not E.private.sle.module.shadows.enable end,
+							},
+							azeritebar = {
+								order = 1,
+								type = "toggle",
+								name = L["Azerite Bar"],
+								disabled = function() return not E.private.sle.module.shadows.enable end,
+							},
+						},
+					},
+					datatexts = {
+						order = 2,
+						type = "group",
+						name = L["DataTexts"],
+						guiInline = true,
+						get = function(info) return E.private.sle.module.shadows.datatexts[info[#info]] end,
+						set = function(info, value) E.private.sle.module.shadows.datatexts[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+						args = {
+							leftchat = {
+								order = 1,
+								type = "toggle",
+								name = L["Left Chat"],
+								disabled = function() return not E.private.sle.module.shadows.enable end,
+							},
+							rightchat = {
+								order = 2,
+								type = "toggle",
+								name = L["Right Chat"],
+								disabled = function() return not E.private.sle.module.shadows.enable end,
+							},
+						},
 					},
 				},
 			},
@@ -72,256 +169,243 @@ local function configTable()
 						order = 1,
 						type = "toggle",
 						name = L["Micro Bar"],
+						disabled = function() return not E.private.actionbar.enable or not E.private.sle.module.shadows.enable end,
 					},
 					microbarbuttons = {
 						order = 2,
 						type = "toggle",
 						name = L["SLE_EnhShadows_MicroButtons_Option"],
+						disabled = function() return not E.private.actionbar.enable or not E.private.sle.module.shadows.enable end,
 					},
 					stancebar = {
 						order = 3,
 						type = "toggle",
 						name = L["Stance Bar"],
+						disabled = function() return not E.private.actionbar.enable or not E.private.sle.module.shadows.enable end,
 					},
 					stancebarbuttons = {
 						order = 4,
 						type = "toggle",
 						name = L["SLE_EnhShadows_StanceButtons_Option"],
+						disabled = function() return not E.private.actionbar.enable or not E.private.sle.module.shadows.enable end,
 					},
 					petbar = {
 						order = 5,
 						type = "toggle",
 						name = L["Pet Bar"],
+						disabled = function() return not E.private.actionbar.enable or not E.private.sle.module.shadows.enable end,
 					},
 					petbarbuttons = {
 						order = 6,
 						type = "toggle",
 						name = L["SLE_EnhShadows_PetButtons_Option"],
+						disabled = function() return not E.private.actionbar.enable or not E.private.sle.module.shadows.enable end,
 					},
 					spacer = ACH:Spacer(7),
-				},
-			},
-			chat = {
-				order = 5,
-				type = "group",
-				name = L["Chat"],
-				get = function(info) return E.private.sle.module.shadows.chat[info[#info]] end,
-				set = function(info, value) E.private.sle.module.shadows.chat[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-				args = {
-					left = {
-						order = 1,
-						type = "toggle",
-						name = L["Left Chat"],
-					},
-					right = {
-						order = 2,
-						type = "toggle",
-						name = L["Right Chat"],
-					},
-				},
-			},
-			datatexts = {
-				order = 5,
-				type = "group",
-				name = L["DataTexts"],
-				get = function(info) return E.private.sle.module.shadows.datatexts[info[#info]] end,
-				set = function(info, value) E.private.sle.module.shadows.datatexts[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-				args = {
-					leftchat = {
-						order = 1,
-						type = "toggle",
-						name = L["Left Chat"],
-					},
-					rightchat = {
-						order = 2,
-						type = "toggle",
-						name = L["Right Chat"],
-					},
-				},
-			},
-			databars = {
-				order = 5,
-				type = "group",
-				name = L["DataBars"],
-				get = function(info) return E.private.sle.module.shadows.databars[info[#info]] end,
-				set = function(info, value) E.private.sle.module.shadows.databars[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-				args = {
-					honorbar = {
-						order = 1,
-						type = "toggle",
-						name = L["HONOR"],
-					},
-					expbar = {
-						order = 1,
-						type = "toggle",
-						name = L["XPBAR_LABEL"],
-					},
-					repbar = {
-						order = 1,
-						type = "toggle",
-						name = L["REPUTATION"],
-					},
-					azeritebar = {
-						order = 1,
-						type = "toggle",
-						name = L["Azerite Bar"],
-					},
 				},
 			},
 			unitframes = {
 				order = 5,
 				type = "group",
 				name = L["UnitFrames"],
-				get = function(info) return E.private.sle.module.shadows[info[#info]] end,
-				set = function(info, value) E.private.sle.module.shadows[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+				get = function(info)
+					local unitframe, option = info[#info-1], info[#info]
+					if unitframe and option then return E.db.sle.shadows.unitframes[unitframe][option] end
+				end,
+				set = function(info, value)
+					local unitframe, option = info[#info-1], info[#info]
+					local ufname = E:StringTitle(unitframe)
+
+					E.db.sle.shadows.unitframes[unitframe][option] = value;
+					ufname = ufname:gsub("t(arget)", "T%1")
+
+					SUF['Arrange'..ufname]()
+				end,
 				args = {
 					player = {
 						order = 1,
-						type = "toggle",
-						name = L["Player Frame"],
+						type = 'group',
+						name = 'Player',
+						args = {},
 					},
-					playerLegacy = {
-						order = 2,
-						type = "toggle",
-						name = L["Player Frame Classic"],
-					},
-					spacer1 = ACH:Spacer(3, "full"),
 					target = {
-						order = 4,
-						type = "toggle",
-						name = L["Target Frame"],
+						order = 2,
+						type = 'group',
+						name = 'Target',
+						args = {},
 					},
-					targetLegacy = {
-						order = 5,
-						type = "toggle",
-						name = L["Target Frame Classic"],
-					},
-					spacer2 = ACH:Spacer(6),
 					targettarget = {
-						order = 10,
-						type = "toggle",
-						name = L["TargetTarget Frame"],
+						order = 3,
+						type = 'group',
+						name = 'TargetTarget',
+						args = {},
 					},
-					targettargetLegacy = {
-						order = 11,
-						type = "toggle",
-						name = L["TargetTarget Frame Classic"],
+					targettargettarget = {
+						order = 4,
+						type = 'group',
+						name = 'TargetTargetTarget',
+						args = {},
 					},
 					focus = {
-						order = 15,
-						type = "toggle",
-						name = L["Focus Frame"],
-					},
-					focusLegacy = {
-						order = 16,
-						type = "toggle",
-						name = L["Focus Frame Classic"],
+						order = 5,
+						type = 'group',
+						name = 'Focus',
+						args = {},
 					},
 					focustarget = {
-						order = 20,
-						type = "toggle",
-						name = L["FocusTarget Frame"],
-					},
-					focustargetLegacy = {
-						order = 21,
-						type = "toggle",
-						name = L["FocusTarget Frame Classic"],
-					},
-					party = {
-						order = 22,
-						type = "toggle",
-						name = L["Party Frame"],
-					},
-					partyLegacy = {
-						order = 23,
-						type = "toggle",
-						name = L["Party Frame Classic"],
-					},
-					raid = {
-						order = 24,
-						type = "toggle",
-						name = L["Raid Frame"],
-					},
-					raidLegacy = {
-						order = 25,
-						type = "toggle",
-						name = L["Raid Frame Classic"],
-					},
-					raid40 = {
-						order = 26,
-						type = "toggle",
-						name = L["Raid40 Frame"],
-					},
-					raid40Legacy = {
-						order = 27,
-						type = "toggle",
-						name = L["Raid40 Frame Classic"],
+						order = 6,
+						type = 'group',
+						name = 'FocusTarget',
+						args = {},
 					},
 					pet = {
-						order = 28,
-						type = "toggle",
-						name = L["Pet Frame"],
-					},
-					petLegacy = {
-						order = 29,
-						type = "toggle",
-						name = L["Pet Frame Classic"],
+						order = 7,
+						type = 'group',
+						name = 'Pet',
+						args = {},
 					},
 					pettarget = {
-						order = 30,
-						type = "toggle",
-						name = L["PetTarget Frame"],
-					},
-					pettargetLegacy = {
-						order = 31,
-						type = "toggle",
-						name = L["PetTarget Frame Classic"],
+						order = 8,
+						type = 'group',
+						name = 'PetTarget',
+						args = {},
 					},
 					boss = {
-						order = 35,
-						type = "toggle",
-						name = L["Boss Frames"],
-					},
-					bossLegacy = {
-						order = 36,
-						type = "toggle",
-						name = L["Boss Frames Classic"],
+						order = 9,
+						type = 'group',
+						name = 'Boss',
+						args = {},
 					},
 					arena = {
-						order = 40,
-						type = "toggle",
-						name = L["Arena Frames"],
+						order = 10,
+						type = 'group',
+						name = 'Arena',
+						args = {},
 					},
-					arenaLegacy = {
-						order = 41,
-						type = "toggle",
-						name = L["Arena Frames Classic"],
+					party = {
+						order = 11,
+						type = 'group',
+						name = 'Party',
+						args = {},
+					},
+					raid = {
+						order = 12,
+						type = 'group',
+						name = 'Raid',
+						args = {},
+					},
+					raid40 = {
+						order = 13,
+						type = 'group',
+						name = 'Raid40',
+						args = {},
 					},
 				},
 			},
-			-- frames = {
-			-- 	order = 4,
-			-- 	type = "group",
-			-- 	name = L["Shadows"],
-			-- 	get = function(info) return E.private.sle.module.shadows[info[#info]] end,
-			-- 	set = function(info, value) E.private.sle.module.shadows[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-			-- 	args = {
-
-
-			-- 	},
 		},
 	}
+
+	--! Need simpy or azil majic on how to sort a bit
+	--* Using hard coded above until then
+	-- for unit in next, UF.units do
+	-- 	E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit] = {
+	-- 		order = 1,
+	-- 		type = 'group',
+	-- 		name = gsub(E:StringTitle(unit), 't(arget)', 'T%1'),
+	-- 		args = {},
+	-- 	}
+	-- end
+
+	for unit in next, E.Options.args.sle.args.modules.args.shadows.args.unitframes.args do
+		E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit].disabled = function() return not E.private.sle.module.shadows.enable or not E.db.unitframe.units[unit].enable end
+
+		if UF.units[unit] then
+			E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit].args.configplayer = {
+				order = 0,
+				type = 'execute',
+				name = gsub('ElvUI: '..E:StringTitle(unit)..' '..L["Frame"], 't(arget)', 'T%1'),
+				width = 'full',
+				func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "unitframe", "individualUnits", unit, "generalGroup") end,
+				hidden = function()
+					if not E.private.skins.blizzard.enable then return true end
+					return not (E.private.skins.blizzard.character or E.private.skins.blizzard.inspect)
+				end,
+			}
+			if unit == 'player' then
+				E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit].args.classbar = {
+					order = 4,
+					type = 'toggle',
+					name = 'ClassBar',
+				}
+			end
+		end
+
+		if unit == 'boss' or unit == 'arena' or UF.headers[unit] then
+			E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit].args.configplayer = {
+				order = 0,
+				type = 'execute',
+				name = 'ElvUI: '..E:StringTitle(unit)..' '..L["Frame"],
+				width = 'full',
+				func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "unitframe", "groupUnits", unit, "generalGroup") end,
+				hidden = function()
+					if not E.private.skins.blizzard.enable then return true end
+					return not (E.private.skins.blizzard.character or E.private.skins.blizzard.inspect)
+				end,
+			}
+
+			-- TODO: Adds a section for a button (to return to S&L enhshadows) or to mirror shadow options (WIP)
+			--* The idea is to make options we have more known
+			-- E.Options.args.unitframe.args.groupUnits.args[unit].args.generalGroup.args.slshadow = {
+			-- 	order = -1,
+			-- 	name = 'S&L Shadows',
+			-- 	type = 'group',
+			-- 	inline = true,
+			-- 	args = {
+			-- 		configplayer = {
+			-- 			order = 0,
+			-- 			type = 'execute',
+			-- 			name = 'S&L: '..E:StringTitle(unit)..' Shadows',
+			-- 			width = 'full',
+			-- 			func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "sle", 'modules', "shadows", "unitframes", unit) end,
+			-- 			hidden = function()
+			-- 				if not E.private.skins.blizzard.enable then return true end
+			-- 				return not (E.private.skins.blizzard.character or E.private.skins.blizzard.inspect)
+			-- 			end,
+			-- 		}
+			-- 	}
+			-- }
+		end
+
+		E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit].args.legacy = {
+			order = 1,
+			type = 'toggle',
+			name = L["Legacy Shadows"],
+			desc = L["Tries to place a shadow around the health, power, and classbars as one frame instead of individual frames."],
+		}
+		E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit].args.health = {
+			order = 2,
+			type = 'toggle',
+			name = L["Health"],
+		}
+		E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit].args.power = {
+			order = 3,
+			type = 'toggle',
+			name = L["Power"],
+		}
+	end
 
 	for i = 1, 10 do
 		E.Options.args.sle.args.modules.args.shadows.args.actionbars.args["bar"..i] = {
 			order = i + 7,
 			type = "toggle",
 			name = L["Bar "]..i,
+			disabled = function() return not E.private.actionbar.enable or not E.db.actionbar['bar'..i].enabled or not E.private.sle.module.shadows.enable end,
 		}
 		E.Options.args.sle.args.modules.args.shadows.args.actionbars.args["bar"..i.."buttons"] = {
 			order = i + 7,
 			type = "toggle",
 			name = format(L["SLE_EnhShadows_BarButtons_Option"], i),
+			disabled = function() return not E.private.actionbar.enable or not E.db.actionbar['bar'..i].enabled or not E.private.sle.module.shadows.enable end,
 		}
 	end
 end

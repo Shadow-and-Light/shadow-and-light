@@ -1,14 +1,14 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 if SLE._Compatibility["ElvUI_NihilistUI"] then return end
 local ES = SLE:NewModule('EnhancedShadows', 'AceEvent-3.0')
-local UF, MM = SLE:GetElvModules('UnitFrames', 'Minimap')
+local MM = E:GetModule('Minimap')
 
-local Border, LastSize
-local Abars = 10
 --GLOBALS: hooksecurefunc
 local _G = _G
 local UnitAffectingCombat = UnitAffectingCombat
 local SIDE_BUTTON = E.db.chat.hideChatToggles and 0 or 19
+local Border
+local Abars = 10
 
 --Registered shadows table
 ES.CreatedShadows = {}
@@ -16,21 +16,6 @@ ES.DummyPanels = {}
 
 --The table for frames groupped based on similariy
 ES.FramesToShadow = {
-	["UFrames"] = {
-		--unit, FrameName var
-		{"player", "Player"},
-		{"target", "Target"},
-		{"targettarget", "TargetTarget"},
-		{"focus", "Focus"},
-		{"focustarget", "FocusTarget"},
-		{"pet", "Pet"},
-		{"pettarget", "PetTarget"},
-	},
-	["UGroups"] = {
-		--unit, FrameName var, number of frames
-		{"boss", "Boss", 5},
-		{"arena", "Arena", 5},
-	},
 	["Datapanels"] = {
 		["leftchat"] = "LeftChatDataPanel",
 		["rightchat"] = "RightChatDataPanel",
@@ -75,139 +60,32 @@ function ES:RegisterShadow(shadow)
 	shadow.isRegistered = true
 end
 
---Update shadows for UF, hooked to UF's own update function
-function ES:UpdateFrame(frame, db)
-	if not frame then return end
-	local size = E.db.sle.shadows.size
-	if frame.Health and frame.Health.EnhShadow then
-		frame.Health.EnhShadow:SetOutside(frame.Health, size, size)
-	end
-	if frame.Power and frame.Power.EnhShadow then
-		frame.Power.EnhShadow:SetOutside(frame.Power, size, size)
-	end
-	if frame.EnhShadow then
-		frame.EnhShadow:SetOutside(frame, size, size)
-	end
-end
-
 --Creating shadows for provided frame
-function ES:CreateFrameShadow(frame, parent, legacy)
+function ES:CreateFrameShadow(frame, parent)
 	if not frame then return end
-	if not legacy then --If using new style with health and power having separated shadows
-		--UF Health
-		if frame.Health then
-			frame.Health:CreateShadow()
-			frame.Health.EnhShadow = frame.Health.shadow
-			frame.Health.shadow = nil
-			ES:RegisterShadow(frame.Health.EnhShadow)
-			frame.Health.EnhShadow:SetParent(frame.Health)
-		end
-		--UF Power
-		if frame.Power then
-			frame.Power:CreateShadow()
-			frame.Power.EnhShadow = frame.Power.shadow
-			frame.Power.shadow = nil
-			ES:RegisterShadow(frame.Power.EnhShadow)
-			frame.Power.EnhShadow:SetParent(frame.Power)
-		end
-	end
-	--if it is not UF at all or old way is enabled
-	if legacy or (not frame.Health and not frame.Power) then
-		frame:CreateShadow()
-		frame.EnhShadow = frame.shadow
-		frame.shadow = nil
-		ES:RegisterShadow(frame.EnhShadow)
-		if parent and parent ~= "none" then
-			frame.EnhShadow:SetParent(parent)
-		elseif not parent then
-			frame.EnhShadow:SetParent(frame)
-		end
+
+	frame:CreateShadow()
+	frame.EnhShadow = frame.shadow
+	frame.shadow = nil
+	ES:RegisterShadow(frame.EnhShadow)
+	if parent and parent ~= "none" then
+		frame.EnhShadow:SetParent(parent)
+	elseif not parent then
+		frame.EnhShadow:SetParent(frame)
 	end
 end
 
 function ES:CreateShadows()
-	--Unitframes--
-	do
-		for i = 1, #ES.FramesToShadow.UFrames do
-			local unit, name = unpack(ES.FramesToShadow.UFrames[i])
-			if E.private.sle.module.shadows[unit] then
-				ES:CreateFrameShadow(_G["ElvUF_"..name],_G["ElvUF_"..name], E.private.sle.module.shadows[unit.."Legacy"])
-				hooksecurefunc(UF, "Update_"..name.."Frame", ES.UpdateFrame)
-			end
-		end
-		for i = 1, #ES.FramesToShadow.UGroups do
-			local unit, name, num = unpack(ES.FramesToShadow.UGroups[i])
-			if E.private.sle.module.shadows[unit] then
-				for j = 1, num do
-					ES:CreateFrameShadow(_G["ElvUF_"..name..j], _G["ElvUF_"..name..j], E.private.sle.module.shadows[unit.."Legacy"])
-					hooksecurefunc(UF, "Update_"..name.."Frames", ES.UpdateFrame)
-				end
-			end
-		end
-	end
-
-	-- Party Shadows
-	if E.private.sle.module.shadows.party then
-		do
-			local header = _G['ElvUF_Party']
-			for i = 1, header:GetNumChildren() do
-				local group = select(i, header:GetChildren())
-
-				for j = 1, group:GetNumChildren() do
-					local unitbutton = select(j, group:GetChildren())
-					if unitbutton then
-						ES:CreateFrameShadow(unitbutton, "none", E.private.sle.module.shadows.partyLegacy)
-						-- hooksecurefunc(UF, "Update_PartyFrames", ES.UpdateFrame)
-					end
-				end
-			end
-		end
-	end
-
-	-- Raid Shadows
-	if E.private.sle.module.shadows.raid then
-		do
-			local header = _G['ElvUF_Raid']
-
-			for i = 1, header:GetNumChildren() do
-				local group = select(i, header:GetChildren())
-
-				for j = 1, group:GetNumChildren() do
-					local unitbutton = select(j, group:GetChildren())
-					if unitbutton then
-						ES:CreateFrameShadow(unitbutton, "none", E.private.sle.module.shadows.raidLegacy)
-						-- hooksecurefunc(UF, "Update_PartyFrames", ES.UpdateFrame)
-					end
-				end
-			end
-		end
-	end
-
-	-- Raid-40 Shadows
-	if E.private.sle.module.shadows.raid40 then
-		do
-			local header = _G['ElvUF_Raid40']
-
-			for i = 1, header:GetNumChildren() do
-				local group = select(i, header:GetChildren())
-
-				for j = 1, group:GetNumChildren() do
-					local unitbutton = select(j, group:GetChildren())
-					if unitbutton then
-						ES:CreateFrameShadow(unitbutton, "none", E.private.sle.module.shadows.raid40Legacy)
-						-- hooksecurefunc(UF, "Update_PartyFrames", ES.UpdateFrame)
-					end
-				end
-			end
-		end
-	end
-
 	--Actionbars--
 	do
 		for i=1, Abars do
-			if E.private.sle.module.shadows.actionbars["bar"..i] then ES:CreateFrameShadow( _G["ElvUI_Bar"..i],  _G["ElvUI_Bar"..i].backdrop) end
+			if E.private.sle.module.shadows.actionbars["bar"..i] then
+				ES:CreateFrameShadow( _G["ElvUI_Bar"..i],  _G["ElvUI_Bar"..i].backdrop)
+			end
 			if E.private.sle.module.shadows.actionbars["bar"..i.."buttons"] then
-				for j = 1, 12 do ES:CreateFrameShadow(_G["ElvUI_Bar"..i.."Button"..j], _G["ElvUI_Bar"..i.."Button"..j].backdrop) end
+				for j = 1, 12 do
+					ES:CreateFrameShadow(_G["ElvUI_Bar"..i.."Button"..j], _G["ElvUI_Bar"..i.."Button"..j].backdrop)
+				end
 			end
 		end
 		if E.private.sle.module.shadows.actionbars.stancebar then ES:CreateFrameShadow(_G["ElvUI_StanceBar"], _G["ElvUI_StanceBar"].backdrop) end
@@ -232,8 +110,9 @@ function ES:CreateShadows()
 			end
 		end
 	end
+
 	--Datatexts--
-	for panel,enabled in pairs(E.private.sle.module.shadows.datatexts) do
+	for panel, enabled in pairs(E.private.sle.module.shadows.datatexts) do
 		if enabled then
 			if panel == "leftchat" then
 				ES.DummyPanels.LeftChat = CreateFrame("Frame", nil, _G[ES.FramesToShadow.Datapanels[panel]])
