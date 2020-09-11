@@ -21,6 +21,7 @@ local C_ToyBox = C_ToyBox
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local loc_panel
 local COORDS_WIDTH = 35 -- Coord panels width
+local C_Garrison_IsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 
 local collectgarbage = collectgarbage
 
@@ -651,7 +652,7 @@ end
 function LP:UNIT_AURA(_, unit)
 	if unit ~= "player" then return end
 	if LP.db.enable and LP.db.orderhallhide then
-		local inOrderHall = C_Garrison.IsPlayerInGarrison(LE_GARRISON_TYPE_7_0);
+		local inOrderHall = C_Garrison_IsPlayerInGarrison(Enum.GarrisonType.Type_7_0)
 		if inOrderHall then
 			loc_panel:SetAlpha(0)
 		else
