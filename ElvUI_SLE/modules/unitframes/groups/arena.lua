@@ -16,7 +16,7 @@ function SUF:ArrangeArena()
 
 	for i = 1, 5 do
 		local frame = _G["ElvUF_Arena"..i]
-		local db = E.db.sle.shadows.unitframes[frame.unitframeType]
+		local db = E.db.sle.shadows.unitframes.arena
 
 		do
 			frame.SLLEGACY_ENHSHADOW = enableState and db.legacy or false
@@ -30,7 +30,7 @@ function SUF:ArrangeArena()
 		-- Power
 		SUF:Configure_Power(frame)
 
-		frame:UpdateAllElements("SLE_UpdateAllElements")
+		-- frame:UpdateAllElements("SLE_UpdateAllElements")
 	end
 end
 

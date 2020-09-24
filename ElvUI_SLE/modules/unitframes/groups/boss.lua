@@ -16,7 +16,7 @@ function SUF:ArrangeBoss()
 
 	for i = 1, 5 do
 		local frame = _G["ElvUF_Boss"..i]
-		local db = E.db.sle.shadows.unitframes[frame.unitframeType]
+		local db = E.db.sle.shadows.unitframes.boss
 
 		do
 			frame.SLLEGACY_ENHSHADOW = enableState and db.legacy or false
@@ -30,7 +30,7 @@ function SUF:ArrangeBoss()
 		-- Power
 		SUF:Configure_Power(frame)
 
-		frame:UpdateAllElements("SLE_UpdateAllElements")
+		-- frame:UpdateAllElements("SLE_UpdateAllElements")
 	end
 end
 

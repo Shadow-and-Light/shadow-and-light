@@ -20,7 +20,7 @@ function SUF:ArrangeRaid()
 
 		for j = 1, group:GetNumChildren() do
 			local frame = select(j, group:GetChildren())
-			local db = E.db.sle.shadows.unitframes[frame.unitframeType]
+			local db = E.db.sle.shadows.unitframes.raid
 
 			if frame then
 				do
@@ -35,7 +35,7 @@ function SUF:ArrangeRaid()
 				-- Power
 				SUF:Configure_Power(frame)
 
-				frame:UpdateAllElements("SLE_UpdateAllElements")
+				-- frame:UpdateAllElements("SLE_UpdateAllElements")
 			end
 		end
 	end
@@ -44,7 +44,7 @@ end
 function SUF:InitRaid()
 	SUF:Construct_RaidFrame()
 
-	hooksecurefunc(UF, "Update_RaidFrames", function(_, frame)
-		if frame.unitframeType == 'raid' then SUF:ArrangeRaid() end
+	hooksecurefunc(UF, "CreateAndUpdateHeaderGroup", function(_, frame)
+		if frame == 'raid' then SUF:ArrangeRaid() end
 	end)
 end

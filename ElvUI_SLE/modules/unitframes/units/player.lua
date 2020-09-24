@@ -14,7 +14,7 @@ end
 function SUF:ArrangePlayer()
 	local enableState = E.db.unitframe.units.player.enable
 	local frame = _G["ElvUF_Player"]
-	local db = E.db.sle.shadows.unitframes[frame.unit]
+	local db = E.db.sle.shadows.unitframes.player
 
 	do
 		frame.SLLEGACY_ENHSHADOW = enableState and db.legacy or false
@@ -32,7 +32,7 @@ function SUF:ArrangePlayer()
 	-- ClassBar shadows
 	SUF:Configure_ClassBar(frame)
 
-	frame:UpdateAllElements("SLE_UpdateAllElements")
+	-- frame:UpdateAllElements("SLE_UpdateAllElements")
 end
 
 function SUF:InitPlayer()

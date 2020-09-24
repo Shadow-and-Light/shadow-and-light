@@ -1,7 +1,7 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local UF = E:GetModule('UnitFrames');
 local SUF = SLE:NewModule('UnitFrames', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
-
+SUF.CreatedShadows = {}
 --GLOBALS: hooksecurefunc, CreateFrame
 
 local function UpdateAuraTimer(self, elapsed)
@@ -45,6 +45,22 @@ function SUF:UpdateUnitFrames()
 	SUF:InitTarget()
 	SUF:InitTargetTarget()
 	SUF:InitTargetTargetTarget()
+end
+
+function SUF:UpdateShadows()
+	if UnitAffectingCombat('player') then SUF:RegisterEvent('PLAYER_REGEN_ENABLED', SUF.UpdateShadows) return end
+	SUF:UnregisterEvent('PLAYER_ENTERING_WORLD')
+
+	for frame, _ in pairs(SUF.CreatedShadows) do
+		SUF:UpdateShadowColor(frame)
+	end
+end
+
+function SUF:UpdateShadowColor(shadow)
+	local db = E.db.sle.shadows
+	local r, g, b = db.shadowcolor.r, db.shadowcolor.g, db.shadowcolor.b
+	shadow:SetBackdropColor(r, g, b, 0)
+	shadow:SetBackdropBorderColor(r, g, b, 0.9)
 end
 
 function SUF:Initialize()

@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local SUF = SLE:GetModule("UnitFrames")
-local UF = E:GetModule('UnitFrames');
+local UF = E:GetModule('UnitFrames')
 
 --GLOBALS: hooksecurefunc
 local _G = _G
@@ -20,7 +20,7 @@ function SUF:ArrangeParty()
 
 		for j = 1, group:GetNumChildren() do
 			local frame = select(j, group:GetChildren())
-			local db = E.db.sle.shadows.unitframes[frame.unitframeType]
+			local db = E.db.sle.shadows.unitframes.party
 
 			do
 				frame.SLLEGACY_ENHSHADOW = enableState and db.legacy or false
@@ -34,7 +34,7 @@ function SUF:ArrangeParty()
 			-- Power
 			SUF:Configure_Power(frame)
 
-			frame:UpdateAllElements("SLE_UpdateAllElements")
+			-- frame:UpdateAllElements("SLE_UpdateAllElements")
 		end
 	end
 end
@@ -42,7 +42,7 @@ end
 function SUF:InitParty()
 	SUF:Construct_PartyFrame()
 
-	hooksecurefunc(UF, "Update_PartyFrames", function(_, frame)
-		if frame.unitframeType == 'party' then SUF:ArrangeParty() end
+	hooksecurefunc(UF, "CreateAndUpdateHeaderGroup", function(_, frame)
+		if frame == 'party' then SUF:ArrangeParty() end
 	end)
 end
