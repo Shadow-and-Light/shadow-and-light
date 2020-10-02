@@ -205,6 +205,14 @@ RP.encounters = {
 			},
 		},
 	},
+	{ -- CastleNathria
+	["option"] = "nathria",
+	["statIDs"] = {
+		{ -- Mythic
+			14356, 14357, 14358, 14359, 14360, 14361, 14362, 14363, 14364, 14365
+		},
+	},
+},
 }
 RP.Raids = {}
 RP.modes = {
