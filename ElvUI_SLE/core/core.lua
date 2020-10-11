@@ -84,8 +84,6 @@ function SLE:Initialize()
 	self.initialized = true
 	self:InitializeModules(); --Load Modules
 
-	SLE:CreateSplashScreen()
-
 	hooksecurefunc(E, "UpdateAll", SLE.UpdateAll)
 	hooksecurefunc(E, "UpdateMedia", SLE.UpdateMedia)
 	--Here goes installation script
@@ -112,16 +110,6 @@ function SLE:Initialize()
 	if not E.private.sle.characterGoldsSorting[E.myrealm] then E.private.sle.characterGoldsSorting[E.myrealm] = {} end
 
 	EP:RegisterPlugin(AddOnName, GetOptions) --Registering as plugin
-
-	if SLE:IsFoolsDay() then
-		if IsAddOnLoaded('ElvUI_BenikUI') and E.db.benikui.general.splashScreen then
-			_G["BenikUISplashScreen"]:HookScript("OnHide", function() SLE:ShowSplashScreen() end)
-		elseif IsAddOnLoaded('ElvUI_BenikUI') and not E.db.benikui.general.splashScreen then
-			SLE:ShowSplashScreen()
-		else
-			SLE:ShowSplashScreen()
-		end
-	end
 end
 
 E.Libs.EP:HookInitialize(SLE, SLE.Initialize)
