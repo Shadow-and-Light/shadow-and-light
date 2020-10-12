@@ -14,8 +14,6 @@ local _CompList = {
 	"LootConfirm", --Module incompatible
 	"Mapster", --Module partially incompatible
 	"Pawn", --Cause armory
-	"SquareMinimapButtons", --Module incompatible
-	"SquareMinimapButtons", --Module incompatible
 	"SunnArt",
 	"TradeSkillMaster",
 	"WorldQuestTracker",
@@ -52,10 +50,6 @@ end
 function SLE:CheckIncompatible()
 	if SLE._Compatibility["ElvUI_Enhanced"] then
 		E:StaticPopup_Show("ENHANCED_SLE_INCOMPATIBLE")
-		return true
-	end
-	if SLE._Compatibility["SquareMinimapButtons"] and E.private.sle.minimap.mapicons.enable then
-		SLE:IncompatibleAddOn("SquareMinimapButtons", "SquareMinimapButtons", E.private.sle.minimap.mapicons, "enable")
 		return true
 	end
 	if SLE._Compatibility["LootConfirm"] then

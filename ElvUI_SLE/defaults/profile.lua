@@ -598,15 +598,6 @@ P["sle"] = {
 		mail = {
 			hideicon = false,
 		},
-		["mapicons"] = {
-			["iconmouseover"] = false,
-			["iconsize"] = 27,
-			["iconperrow"] = 12,
-			["spacing"] = 4,
-			["growth_hor"] = "Right",
-			["growth_vert"] = "Down",
-			["visibility"] = "[petbattle] hide; show",
-		},
 		["instance"] = {
 			["enable"] = false,
 			["xoffset"] = -10,

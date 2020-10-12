@@ -15,24 +15,12 @@ V["sle"] = {
 	},
 	--Minimap Module
 	["minimap"] = {
-		["buttons"] = {
-			["enable"] = true,
-		},
-		["mapicons"] = {
-			["enable"] = false,
-			["barenable"] = false,
-			["template"] = "Transparent",
-			["skindungeon"] = false,
-			["skinmail"] = false,
-			["skingarrison"] = false,
-		},
 		rectangle = false,
 	},
 	["vehicle"] = {
 		["enable"] = false,
 		["numButtons"] = 7,
 	},
-
 	["professions"] = {
 		["deconButton"] = {
 			["enable"] = true,
@@ -257,7 +245,6 @@ if G["profileCopy"] then
 		},
 		["minimap"] = {
 			["coords"] = true,
-			["mapicons"] = true,
 			["instance"] = true,
 			["locPanel"] = true,
 		},
