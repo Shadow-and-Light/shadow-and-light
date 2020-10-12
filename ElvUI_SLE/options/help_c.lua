@@ -111,7 +111,7 @@ local function configTable()
 					},
 					curselink= {
 						order = 3, type = 'input', width = 'full', name = "Curse.com",
-						get = function(info) return "http://www.curse.com/addons/wow/shadow-and-light-edit" end,
+						get = function(info) return "https://www.curseforge.com/wow/addons/elvui-shadow-light" end,
 					},
 					gitlablink = {
 						order = 4, type = 'input', width = 'full', name = L["GitLab Link / Report Errors"],
