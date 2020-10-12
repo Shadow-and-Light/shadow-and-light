@@ -107,7 +107,7 @@ local function configTable()
 					desc = ACH:Description(L["LINK_DESC"], 1, "medium"),
 					tukuilink = {
 						order = 2, type = 'input', width = 'full', name = "TukUI.org",
-						get = function(info) return "http://www.tukui.org/addons/index.php?act=view&id=42" end,
+						get = function(info) return "https://www.tukui.org/addons.php?id=38" end,
 					},
 					curselink= {
 						order = 3, type = 'input', width = 'full', name = "Curse.com",
