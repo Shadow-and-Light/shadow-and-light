@@ -49,7 +49,7 @@ end
 
 function S:Setup()
 	--Creating top panel
-	SS.Top = CreateFrame("Frame", nil, SS)
+	SS.Top = CreateFrame("Frame", nil, SS, 'BackdropTemplate')
 	SS.Top:SetFrameLevel(0)
 	SS.Top:SetWidth(GetScreenWidth() + (E.Border*2))
 
