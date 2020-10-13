@@ -226,13 +226,6 @@ local function CreateMinimapConfig()
 		get = function(info) return E.global.profileCopy.sle.minimap[ info[#info] ] end,
 		set = function(info, value) E.global.profileCopy.sle.minimap[ info[#info] ] = value; end
 	}
-	config.args.mapicons = {
-		order = 3,
-		type = "toggle",
-		name = L["Minimap Buttons"],
-		get = function(info) return E.global.profileCopy.sle.minimap[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.minimap[ info[#info] ] = value; end
-	}
 	config.args.instance = {
 		order = 4,
 		type = "toggle",

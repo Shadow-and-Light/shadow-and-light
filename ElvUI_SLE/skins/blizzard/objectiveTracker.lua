@@ -120,7 +120,7 @@ local function SkinScenarioButtons()
 	if not block.SLE_Block then
 		block.SLE_Block = CreateFrame("Frame", "ScenarioStageBlock_SLE_Block", block)
 		block.SLE_Block:SetAllPoints(block.NormalBG)
-		block.SLE_Block:SetTemplate("Transparent")
+		block.SLE_Block:CreateBackdrop("Transparent")
 		block.SLE_Block:SetFrameStrata("BACKGROUND")
 
 		block.SLE_Block.Logo = block.SLE_Block:CreateTexture(nil, "OVERLAY")
@@ -133,7 +133,7 @@ local function SkinScenarioButtons()
 		Sk.additionalTextures["ScenarioLogo"] = block.SLE_Block.Logo
 		Sk:UpdateAdditionalTexture(Sk.additionalTextures["ScenarioLogo"], SLE.ScenarioBlockLogos[E.private.sle.skins.objectiveTracker.skinnedTextureLogo] or E.private.sle.skins.objectiveTracker.customTextureLogo)
 	end
-	
+
 	if not E.private.sle.skins.objectiveTracker.scenarioBG then
 		-- pop-up artwork
 		block.NormalBG:Hide()
@@ -195,7 +195,7 @@ local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
 		block.SLE_OverlayFrame.Mark3:SetShown(false)
 		block.SLE_OverlayFrame.Mark2:SetShown(false)
 	end
-	
+
 	if not E.private.sle.skins.objectiveTracker.scenarioBG then
 		for i = 1, block:GetNumRegions() do
 			local region = select(i, block:GetRegions())
@@ -247,7 +247,7 @@ local function UpdateChallengeModeTime(block, elapsedTime)
 		else
 			block.SLE_OverlayFrame.LimitText2:Hide()
 		end
-	elseif elapsedTime < time2 then --2 chest timer 
+	elseif elapsedTime < time2 then --2 chest timer
 		timervalue, formatID, nextUpdate, remainder = E:GetTimeInfo(time2 - elapsedTime, 0, 60, 3600)
 		block.SLE_OverlayFrame.LimitText:SetText(format(E.TimeFormats[formatID][1], timervalue, remainder))
 		block.SLE_OverlayFrame.LimitText:SetTextColor(0.78, 0.78, 0.812)
@@ -355,8 +355,8 @@ local function ObjectiveReskin()
 				end
 				progressBar.Bar:SetStatusBarColor(COLOR.r, COLOR.g, COLOR.b)
 				progressBar.Bar:CreateBackdrop('Transparent')
-				progressBar.Bar.backdrop:Point('TOPLEFT', progressBar.Bar, -1, 1)
-				progressBar.Bar.backdrop:Point('BOTTOMRIGHT', progressBar.Bar, 1, -1)
+				progressBar.Bar.backdrop:SetPoint('TOPLEFT', progressBar.Bar, -1, 1)
+				progressBar.Bar.backdrop:SetPoint('BOTTOMRIGHT', progressBar.Bar, 1, -1)
 				progressBar.skinned = true
 			end
 		end)
@@ -396,8 +396,8 @@ local function ObjectiveReskin()
 				end
 				progressBar.Bar:SetStatusBarColor(COLOR.r, COLOR.g, COLOR.b)
 				progressBar.Bar:CreateBackdrop()
-				progressBar.Bar.backdrop:Point('TOPLEFT', progressBar.Bar, -1, 1)
-				progressBar.Bar.backdrop:Point('BOTTOMRIGHT', progressBar.Bar, 1, -1)
+				progressBar.Bar.backdrop:SetPoint('TOPLEFT', progressBar.Bar, -1, 1)
+				progressBar.Bar.backdrop:SetPoint('BOTTOMRIGHT', progressBar.Bar, 1, -1)
 				progressBar.skinned = true
 				ScenarioTrackerProgressBar_PlayFlareAnim = dummy
 			end
@@ -408,12 +408,14 @@ local function ObjectiveReskin()
 		--Doing Underlines
 		local flat = [[Interface\AddOns\ElvUI\media\textures\Minimalist]]
 		local height = E.private.sle.skins.objectiveTracker.underlineHeight
+		_G["ObjectiveTrackerBlocksFrame"].CampaignQuestHeader.SLE_Underline = Sk:CreateUnderline(_G["ObjectiveTrackerBlocksFrame"].CampaignQuestHeader, flat, true, height)
 		_G["ObjectiveTrackerBlocksFrame"].QuestHeader.SLE_Underline = Sk:CreateUnderline(_G["ObjectiveTrackerBlocksFrame"].QuestHeader, flat, true, height)
 		_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.SLE_Underline = Sk:CreateUnderline(_G["ObjectiveTrackerBlocksFrame"].AchievementHeader, flat, true, height)
 		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.SLE_Underline = Sk:CreateUnderline(_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header, flat, true, height)
 		_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.SLE_Underline = Sk:CreateUnderline(_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader, flat, true, height)
 		_G["WORLD_QUEST_TRACKER_MODULE"].Header.SLE_Underline = Sk:CreateUnderline(_G["WORLD_QUEST_TRACKER_MODULE"].Header, flat, true, height)
 
+		tinsert(underlines, _G["ObjectiveTrackerBlocksFrame"].CampaignQuestHeader.SLE_Underline)
 		tinsert(underlines, _G["ObjectiveTrackerBlocksFrame"].QuestHeader.SLE_Underline)
 		tinsert(underlines, _G["ObjectiveTrackerBlocksFrame"].AchievementHeader.SLE_Underline)
 		tinsert(underlines, _G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.SLE_Underline)

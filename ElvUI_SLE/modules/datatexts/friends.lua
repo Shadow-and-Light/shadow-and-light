@@ -558,8 +558,6 @@ function OnEnter(self)
 	else
 		tooltip = LibQTip:Acquire("ShadowLightFriendss", 8, "RIGHT", "RIGHT", "LEFT", "LEFT", "CENTER", "CENTER", "RIGHT")
 
-		tooltip:SetBackdropColor(0,0,0,1)
-
         local ssHeaderFont = CreateFont("ssHeaderFont")
         ssHeaderFont:SetTextColor(1,0.823529,0)
         ssHeaderFont:SetFont(GameTooltipHeaderText:GetFont())

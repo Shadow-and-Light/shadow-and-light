@@ -53,25 +53,6 @@ P["sle"] = {
 				["xOffset"] = 0,
 				["yOffset"] = 0,
 			},
-			["corruption"] = {
-				["position"] = "SLE",
-				["xOffset"] = 0,
-				["yOffset"] = 0,
-				["font"] = "PT Sans Narrow",
-				["fontSize"] = 15,
-				["fontStyle"] = "OUTLINE",
-				["valueColor"] = false,
-				["style"] = "TOTAL",
-			},
-			["corruptionText"] = {
-				["xOffset"] = 0,
-				["yOffset"] = 0,
-				["font"] = "PT Sans Narrow",
-				["fontSize"] = 12,
-				["fontStyle"] = "OUTLINE",
-				["style"] = "AMOUNT/SPELL",
-				["icon"] = false,
-			},
 			["background"] = {
 				["selectedBG"] = "Space",
 				["customTexture"] = "",
@@ -111,15 +92,6 @@ P["sle"] = {
 				["enableArrow"] = true,
 				["glowNumber"] = 4,
 				["glowOffset"] = 1,
-			},
-			["corruptionText"] = {
-				["xOffset"] = 0,
-				["yOffset"] = 0,
-				["font"] = "PT Sans Narrow",
-				["fontSize"] = 12,
-				["fontStyle"] = "OUTLINE",
-				["style"] = "AMOUNT/SPELL",
-				["icon"] = false,
 			},
 			["background"] = {
 				["selectedBG"] = "Space",
@@ -597,15 +569,6 @@ P["sle"] = {
 		},
 		mail = {
 			hideicon = false,
-		},
-		["mapicons"] = {
-			["iconmouseover"] = false,
-			["iconsize"] = 27,
-			["iconperrow"] = 12,
-			["spacing"] = 4,
-			["growth_hor"] = "Right",
-			["growth_vert"] = "Down",
-			["visibility"] = "[petbattle] hide; show",
 		},
 		["instance"] = {
 			["enable"] = false,

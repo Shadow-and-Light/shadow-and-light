@@ -137,10 +137,6 @@ function CA:BuildLayout()
 
 			Slot.TransmogInfo:Hide()
 		end
-
-		--<<Corruption>>--
-		Slot["CorText"] = Slot:CreateFontString(nil, "OVERLAY")
-		Slot["CorText"]:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.character.corruptionText.font), E.db.sle.armory.character.corruptionText.fontSize, E.db.sle.armory.character.corruptionText.fontStyle)
 	end
 
 	--<<<Hooking some shit!>>>--
@@ -169,43 +165,6 @@ function CA:BuildLayout()
 			_G["CharacterLevelText"]:SetParent(_G["CharacterFrame"])
 		end
 	end)
-
-	if SLE._Compatibility["DejaCharacterStats"] then return end
-	--<<Corruption>>--
-	_G["CharacterFrame"].SLE_Corruption = CreateFrame("Frame", "SLE_CharacterCorruptionButton", _G["CharacterFrame"])
-	_G["CharacterFrame"].SLE_Corruption.ThrottleRating = false
-	_G["CharacterFrame"].SLE_Corruption:SetSize(48, 80)
-	_G["CharacterFrame"].SLE_Corruption:SetPoint("RIGHT", _G["CharacterStatsPane"].ItemLevelFrame, "RIGHT", Armory.Constants.Corruption.DefaultX, Armory.Constants.Corruption.DefaultY) --Default for blizz corruption
-	_G["CharacterFrame"].SLE_Corruption:SetScript("OnEnter", CharacterFrameCorruption_OnEnter)
-	_G["CharacterFrame"].SLE_Corruption:SetScript("OnLeave", CharacterFrameCorruption_OnLeave)
-	_G["CharacterFrame"].SLE_Corruption:SetScript("OnEvent", function(self, event, ...)
-		CharacterFrameCorruption_OnEvent(self, event)
-		CA:UpdateCorruptionLevel()
-	end)
-	if SLE._Compatibility["CorruptionTooltips"] then
-		local CT = LibStub("AceAddon-3.0"):GetAddon("CorruptionTooltips")
-		local Summary = CT:GetModule("Summary")
-		Summary:SecureHookScript(_G["CharacterFrame"].SLE_Corruption, "OnEnter", "SummaryEnter")
-		Summary:SecureHookScript(_G["CharacterFrame"].SLE_Corruption, "OnLeave", "SummaryLeave")
-	end
-
-	--deal with the events
-	_G["CharacterFrame"].SLE_Corruption:RegisterEvent("COMBAT_RATING_UPDATE");
-	_G["CharacterFrame"].SLE_Corruption:RegisterEvent("PLAYER_ENTERING_WORLD");
-	-- _G["CharacterFrame"].SLE_Corruption:RegisterEvent("SPELL_TEXT_UPDATE");
-
-	_G["CharacterStatsPane"].ItemLevelFrame.Corruption:UnregisterEvent("COMBAT_RATING_UPDATE");
-	_G["CharacterStatsPane"].ItemLevelFrame.Corruption:UnregisterEvent("PLAYER_ENTERING_WORLD");
-	_G["CharacterStatsPane"].ItemLevelFrame.Corruption:UnregisterEvent("SPELL_TEXT_UPDATE");
-	_G["CharacterStatsPane"].ItemLevelFrame.Corruption:SetScript("OnEvent", nil)
-	_G["CharacterStatsPane"].ItemLevelFrame.Corruption:Hide()
-
-	_G["CharacterFrame"].SLE_Corruption.Eye = _G["CharacterFrame"].SLE_Corruption:CreateTexture(nil, "OVERLAY")
-	_G["CharacterFrame"].SLE_Corruption.Eye:SetInside()
-	_G["CharacterFrame"].SLE_Corruption.Eye:SetAtlas("Nzoth-charactersheet-icon")
-
-	_G["CharacterFrame"].SLE_Corruption.Level = _G["CharacterFrame"].SLE_Corruption:CreateFontString(nil, "OVERLAY")
-	_G["CharacterFrame"].SLE_Corruption.Level:SetPoint("CENTER", _G["CharacterFrame"].SLE_Corruption, "CENTER", 1 + E.db.sle.armory.character.corruption.xOffset, 8 + E.db.sle.armory.character.corruption.yOffset)
 end
 
 function CA:Calculate_Durability(which, Slot)
@@ -259,17 +218,6 @@ function CA:Update_Enchant()
 	end
 end
 
-function CA:Update_SlotCorruption()
-	for i, SlotName in pairs(Armory.Constants.GearList) do
-		local Slot = _G["Character"..SlotName]
-
-		if Slot.CorText then
-			Slot.CorText:ClearAllPoints()
-			Slot.CorText:Point("TOP"..Slot.Direction, Slot, "TOP"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 25+E.db.sle.armory.character.corruptionText.xOffset or -25-E.db.sle.armory.character.corruptionText.xOffset, -1+E.db.sle.armory.character.corruptionText.yOffset)
-		end
-	end
-end
-
 function CA:Update_Gems()
 	for i, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G["Character"..SlotName]
@@ -300,33 +248,6 @@ function CA:ElvOverlayToggle() --Toggle dat Overlay
 		_G["CharacterModelFrameBackgroundOverlay"]:Show()
 	else
 		_G["CharacterModelFrameBackgroundOverlay"]:Hide()
-	end
-end
-
-function CA:UpdateCorruptionText()
-	if SLE._Compatibility["DejaCharacterStats"] then return end
-	if not _G["CharacterFrame"].SLE_Corruption then return end
-	local fontIlvl, sizeIlvl, outlineIlvl = E.db.sle.armory.character.corruption.font, E.db.sle.armory.character.corruption.fontSize, E.db.sle.armory.character.corruption.fontStyle
-	_G["CharacterFrame"].SLE_Corruption.Level:FontTemplate(E.LSM:Fetch('font', fontIlvl), sizeIlvl, outlineIlvl)
-	_G["CharacterFrame"].SLE_Corruption.Level:SetPoint("CENTER", _G["CharacterFrame"].SLE_Corruption, "CENTER", 1 + E.db.sle.armory.character.corruption.xOffset, 8 + E.db.sle.armory.character.corruption.yOffset)
-	CA.CorruptionFontSet = true
-end
-
-function CA:UpdateCorruptionLevel()
-	if SLE._Compatibility["DejaCharacterStats"] then return end --Shouldn't be required, just in case
-	if not CA.CorruptionFontSet then return end
-	local corruption = GetCorruption();
-	local corruptionResistance = GetCorruptionResistance();
-	local totalCorruption = math.max(corruption - corruptionResistance, 0);
-	local isColor = E.db.sle.armory.character.corruption.valueColor
-
-	if E.db.sle.armory.character.corruption.style == "TOTAL" then
-		local CorColor = isColor and (totalCorruption > 0 and "ff0000" or "00ff00") or "ffffff"
-		_G["CharacterFrame"].SLE_Corruption.Level:SetText("|cff"..CorColor..totalCorruption.."|r")
-	elseif E.db.sle.armory.character.corruption.style == "COR-RES" then
-		_G["CharacterFrame"].SLE_Corruption.Level:SetText("|cff"..(isColor and "ff0000" or "ffffff")..corruption.."|r / |cff"..(isColor and "00ff00" or "ffffff")..corruptionResistance.."|r")
-	elseif E.db.sle.armory.character.corruption.style == "Hide" then
-		_G["CharacterFrame"].SLE_Corruption.Level:SetText("")
 	end
 end
 
@@ -384,7 +305,6 @@ function CA:Enable()
 	CA:Update_ItemLevel()
 	CA:Update_Enchant()
 	CA:Update_Gems()
-	CA:Update_SlotCorruption()
 	CA:Update_Durability()
 
 	if E.db.general.itemLevel.displayCharacterInfo then M:UpdatePageInfo(_G["CharacterFrame"], "Character") end
@@ -413,7 +333,7 @@ function CA:Disable()
 	_G["CharacterModelFrame"].backdrop:Show()
 
 	CA:Update_Durability() --Required for elements update
-	for i, SlotName in pairs(Armory.Constants.GearList) do
+	for _, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G["Character"..SlotName]
 		if Armory.Constants.Character_Defaults[SlotName] then
 			for element, points in pairs(Armory.Constants.Character_Defaults[SlotName]) do
@@ -438,10 +358,8 @@ function CA:ToggleArmory()
 		CA:Disable()
 	end
 	M:UpdateInspectPageFonts("Character")
-	CA:UpdateCorruptionText()
-	Armory:HandleCorruption()
 
-	for i, SlotName in pairs(Armory.Constants.AzeriteSlot) do PaperDollItemSlotButton_Update(_G["Character"..SlotName]) end
+	for _, SlotName in pairs(Armory.Constants.AzeriteSlot) do PaperDollItemSlotButton_Update(_G["Character"..SlotName]) end
 end
 
 function CA:LoadAndSetup()

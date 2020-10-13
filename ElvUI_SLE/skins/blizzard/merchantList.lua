@@ -20,7 +20,8 @@ local IsModifiedClick = IsModifiedClick
 local MerchantItemButton_OnModifiedClick = MerchantItemButton_OnModifiedClick
 local MerchantItemButton_OnEnter = MerchantItemButton_OnEnter
 local ResetCursor, ShowInspectCursor = ResetCursor, ShowInspectCursor
-local GetCurrencyListInfo = GetCurrencyListInfo
+local GetCurrencyListInfo = C_CurrencyInfo.GetCurrencyListInfo
+local C_CurrencyInfo_GetCurrencyListSize = C_CurrencyInfo.GetCurrencyListSize
 
 local HIGHLIGHT_FONT_COLOR = HIGHLIGHT_FONT_COLOR
 local SEARCH = SEARCH
@@ -318,7 +319,7 @@ end
 local function List_CurrencyUpdate()
 	wipe(currencies);
 
-	local limit = GetCurrencyListSize();
+	local limit = C_CurrencyInfo_GetCurrencyListSize();
 
 	for i=1, limit do
 		local name, isHeader, _, _, _, count, icon, maximum, hasWeeklyLimit, currentWeeklyAmount, _, itemID = GetCurrencyListInfo(i);

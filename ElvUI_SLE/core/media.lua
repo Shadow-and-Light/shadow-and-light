@@ -65,6 +65,7 @@ function M:SetBlizzFonts()
 			if not _G["ObjectiveTrackerFrame"].SLEHookedFonts then
 				hooksecurefunc("ObjectiveTracker_Update", function(reason, id)
 					-- _G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
+					_G["ObjectiveTrackerBlocksFrame"].CampaignQuestHeader.Text:SetFont(E.LSM:Fetch('font', E.db.sle.media.fonts.objectiveHeader.font), E.db.sle.media.fonts.objectiveHeader.size, E.db.sle.media.fonts.objectiveHeader.outline)
 					_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', E.db.sle.media.fonts.objectiveHeader.font), E.db.sle.media.fonts.objectiveHeader.size, E.db.sle.media.fonts.objectiveHeader.outline)
 					_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', E.db.sle.media.fonts.objectiveHeader.font), E.db.sle.media.fonts.objectiveHeader.size, E.db.sle.media.fonts.objectiveHeader.outline)
 					_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', E.db.sle.media.fonts.objectiveHeader.font), E.db.sle.media.fonts.objectiveHeader.size, E.db.sle.media.fonts.objectiveHeader.outline)
@@ -74,6 +75,7 @@ function M:SetBlizzFonts()
 				_G["ObjectiveTrackerFrame"].SLEHookedFonts = true
 			end
 			_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
+			_G["ObjectiveTrackerBlocksFrame"].CampaignQuestHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
 			_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
 			_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
 			_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)

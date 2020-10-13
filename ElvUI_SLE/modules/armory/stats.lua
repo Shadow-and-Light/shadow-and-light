@@ -322,7 +322,6 @@ function SA:ToggleArmory()
 	if not E.db.general.itemLevel.displayCharacterInfo then
 		_G["CharacterFrame"].ItemLevelText:SetText('')
 	end
-	Armory:HandleCorruption()
 end
 
 --Replacing broken Blizz function and adding some decimals
@@ -374,10 +373,6 @@ function SA:ReplaceBlizzFunctions()
 
 	function PaperDollFrame_SetMastery(statFrame, unit)
 		if ( unit ~= "player" ) then
-			statFrame:Hide();
-			return;
-		end
-		if (UnitLevel("player") < SHOW_MASTERY_LEVEL) then
 			statFrame:Hide();
 			return;
 		end

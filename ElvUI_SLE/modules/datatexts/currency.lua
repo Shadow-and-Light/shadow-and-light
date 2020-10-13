@@ -6,7 +6,7 @@ local unpack = unpack
 local format, ipairs, tonumber = format, ipairs, tonumber
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local GetBackpackCurrencyInfo = GetBackpackCurrencyInfo
-local GetCurrencyInfo = GetCurrencyInfo
+local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local GetMoney = GetMoney
 local C_WowTokenPublic_UpdateMarketPrice = C_WowTokenPublic.UpdateMarketPrice
 local C_WowTokenPublic_GetCurrentMarketPrice = C_WowTokenPublic.GetCurrentMarketPrice
@@ -25,8 +25,12 @@ local function OnClick()
 end
 
 local function GetInfo(id)
-	local name, num, icon = GetCurrencyInfo(id)
-	return name, num, (icon and format(iconString, icon)) or '136012'
+	local info = C_CurrencyInfo_GetCurrencyInfo(id)
+	if info then
+		return info.name, info.quantity, (info.iconFileID and format(iconString, info.iconFileID)) or '136012'
+	else
+		return '', '', '136012'
+	end
 end
 
 local function AddInfo(id)
@@ -79,10 +83,10 @@ local function OnEvent(self)
 	else							-- Gained Moeny
 		Profit = Profit + Change
 	end
-	
+
 	goldText = E:FormatMoney(ElvDB.gold[E.myrealm][E.myname], E.db.datatexts.goldFormat or 'BLIZZARD', not E.db.datatexts.goldCoins)
 
-	local displayed = E.db.datatexts.currencies.displayedCurrency
+	local displayed = E.global.datatexts.settings.Currencies.displayedCurrency
 	if displayed == 'BACKPACK' then
 		local displayString = ''
 		for i = 1, 3 do
@@ -102,7 +106,7 @@ local function OnEvent(self)
 		local name, num, icon = GetInfo(id)
 		if not name then return end
 
-		local style = E.db.datatexts.currencies.displayStyle
+		local style = E.global.datatexts.settings.Currencies.displayStyle
 		if style == 'ICON' then
 			self.text:SetFormattedText('%s %s', icon, E:ShortValue(num))
 		elseif style == 'ICON_TEXT' then
@@ -131,7 +135,7 @@ local function OnEnter(self)
 		DT.tooltip:AddDoubleLine(L["Profit:"], E:FormatMoney(Profit-Spent, style, textOnly), 0, 1, 0, 1, 1, 1)
 	end
 	DT.tooltip:AddLine(' ')
-	
+
 	local totalGold, totalHorde, totalAlliance = 0, 0, 0
 	DT.tooltip:AddLine(L["Character: "])
 
