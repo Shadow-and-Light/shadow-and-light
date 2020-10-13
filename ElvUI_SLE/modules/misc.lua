@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local M = SLE:NewModule("Misc", 'AceHook-3.0', 'AceEvent-3.0')
-local Tr = E:GetModule('Threat');
+-- local Tr = E:GetModule('Threat');
 
 --GLOBALS: unpack, select, hooksecurefunc, UIParent, WorldFrame, CinematicFrame, StopCinematic, CanCancelScene, CancelScene, VehicleExit, _G, ShowUIPanel, HideUIPanel, strfind, RAID_CONTROL, CinematicFrame_CancelCinematic
 local _G = _G
