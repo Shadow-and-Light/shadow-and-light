@@ -1,3 +1,12 @@
+v4.00 [October 13, 2020]
+Removed:
+- SquareMinimapButtons (use ProjectAzilroka for now in case we change our mind and bring it back)
+- Corruption on Character/Inspect as it is removed in wow
+Fixes:
+- Various fixes for wow api changes
+WIP:
+- Been working on Enhanced Shadows, so somethings may be broken, or just not working as intended so just post a ticket if you do use the shadows and see an issue
+
 v3.78 [August 27, 2020]
 Fixes:
 - Fixed S&L Mail throwing an error when selected in Datatext Customization from ElvUI Dev
