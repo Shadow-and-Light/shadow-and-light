@@ -43,7 +43,6 @@ function PI:DarthSetup()
 		E.db["general"]["totems"]["growthDirection"] = "HORIZONTAL"
 		E.db["general"]["totems"]["spacing"] = 1
 
-		E.db["general"]["threat"]["enable"] = false
 		E.db["general"]["stickyFrames"] = false
 		E.db["general"]["talkingHeadFrameScale"] = 1
 		E.db["general"]["bottomPanel"] = false
@@ -746,7 +745,7 @@ function PI:DarthSetup()
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-231,-116"
 		E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-3"
 	end
-	
+
 
 	if IsAddOnLoaded("AddOnSkins") then
 		local AS = unpack(_G["AddOnSkins"]) or nil
