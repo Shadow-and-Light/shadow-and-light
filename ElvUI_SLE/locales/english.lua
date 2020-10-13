@@ -123,7 +123,6 @@ L["Commands"] = true
 L["Converts specified keywords to links that automatically invite message's author to group."] = true
 L["Coordinates"] = true
 L["Coords Location"] = true
-L["Corruption / Resist"] = true
 L["Create a button for applying selected enchant on the scroll."] = true
 L["Create a button in character frame to allow temp blocking of auto set swap."] = true
 L["Create a button in your bag frame to switch to deconstruction mode allowing you to easily disenchant/mill/prospect and pick locks."] = true

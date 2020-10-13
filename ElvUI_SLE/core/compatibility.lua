@@ -18,7 +18,6 @@ local _CompList = {
 	"TradeSkillMaster",
 	"WorldQuestTracker",
 	"oRA3",
-	"CorruptionTooltips", --Cause full tooltip on the eye
 }
 --Populate compatibility checks table
 for i = 1, #_CompList do

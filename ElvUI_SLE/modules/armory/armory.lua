@@ -43,72 +43,9 @@ Armory.Constants.CanTransmogrify = {
 	["MainHandSlot"] = true,
 	["SecondaryHandSlot"] = true
 }
+
 Armory.Constants.EnchantableSlots = {
 	["Finger0Slot"] = true, ["Finger1Slot"] = true, ["MainHandSlot"] = true, ["SecondaryHandSlot"] = true,
-}
-Armory.Constants.Corruption = {
-	["DefaultX"] = 5, ["DefaultY"] = -8,
-}
---First value is not really needed. I left it for reference rerasons
-Armory.Constants.CorruptionSpells = {
-	["6483"] = {"Avoidant", "I", 315607},
-	["6484"] = {"Avoidant", "II", 315608},
-	["6485"] = {"Avoidant", "III", 315609},
-	["6474"] = {"Expedient", "I", 315544},
-	["6475"] = {"Expedient", "II", 315545},
-	["6476"] = {"Expedient", "III", 315546},
-	["6471"] = {"Masterful", "I", 315529},
-	["6472"] = {"Masterful", "II", 315530},
-	["6473"] = {"Masterful", "III", 315531},
-	["6480"] = {"Severe", "I", 315554},
-	["6481"] = {"Severe", "II", 315557},
-	["6482"] = {"Severe", "III", 315558},
-	["6477"] = {"Versatile", "I", 315549},
-	["6478"] = {"Versatile", "II", 315552},
-	["6479"] = {"Versatile", "III", 315553},
-	["6493"] = {"Siphoner", "I", 315590},
-	["6494"] = {"Siphoner", "II", 315591},
-	["6495"] = {"Siphoner", "III", 315592},
-	["6437"] = {"Strikethrough", "I", 315277},
-	["6438"] = {"Strikethrough", "II", 315281},
-	["6439"] = {"Strikethrough", "III", 315282},
-	["6555"] = {"Racing Pulse", "I", 318266},
-	["6559"] = {"Racing Pulse", "II", 318492},
-	["6560"] = {"Racing Pulse", "III", 318496},
-	["6556"] = {"Deadly Momentum", "I", 318268},
-	["6561"] = {"Deadly Momentum", "II", 318493},
-	["6562"] = {"Deadly Momentum", "III", 318497},
-	["6558"] = {"Surging Vitality", "I", 318270},
-	["6565"] = {"Surging Vitality", "II", 318495},
-	["6566"] = {"Surging Vitality", "III", 318499},
-	["6557"] = {"Honed Mind", "I", 318269},
-	["6563"] = {"Honed Mind", "II", 318494},
-	["6564"] = {"Honed Mind", "III", 318498},
-	["6549"] = {"Echoing Void", "I", 318280},
-	["6550"] = {"Echoing Void", "II", 318485},
-	["6551"] = {"Echoing Void", "III", 318486},
-	["6552"] = {"Infinite Stars", "I", 318274},
-	["6553"] = {"Infinite Stars", "II", 318487},
-	["6554"] = {"Infinite Stars", "III", 318488},
-	["6547"] = {"Ineffable Truth", "I", 318303},
-	["6548"] = {"Ineffable Truth", "II", 318484},
-	["6537"] = {"Twilight Devastation", "I", 318276},
-	["6538"] = {"Twilight Devastation", "II", 318477},
-	["6539"] = {"Twilight Devastation", "III", 318478},
-	["6543"] = {"Twisted Appendage", "I", 318481},
-	["6544"] = {"Twisted Appendage", "II", 318482},
-	["6545"] = {"Twisted Appendage", "III", 318483},
-	["6540"] = {"Void Ritual", "I", 318286},
-	["6541"] = {"Void Ritual", "II", 318479},
-	["6542"] = {"Void Ritual", "III", 318480},
-	["6573"] = {"Gushing Wound", "", 318272},
-	["6546"] = {"Glimpse of Clarity", "", 318239},
-	["6571"] = {"Searing Flames", "", 318293},
-	["6572"] = {"Obsidian Skin", "", 316651},
-	["6567"] = {"Devour Vitality", "", 318294},
-	["6568"] = {"Whispered Truths", "", 316780},
-	["6570"] = {"Flash of Insight", "", 318299},
-	["6569"] = {"Lash of the Void", "", 317290},
 }
 
 Armory.Constants.AzeriteTraitAvailableColor = {0.95, 0.95, 0.32, 1}
@@ -125,7 +62,6 @@ Armory.Constants.EssenceMilestones = {}
 Armory.Constants.Stats = {
 	ScrollStepMultiplier = 5,
 }
-
 
 --Remembering default positions of stuff
 function Armory:BuildFrameDefaultsCache(which)
@@ -177,57 +113,6 @@ function Armory:GetTransmogInfo(Slot, which, unit)
 	end
 end
 
-function Armory:GetCorruptionInfo(Slot, which, unit)
-	if not Slot.itemLink then return nil end
-	if not which or not unit then return nil end
-	local window = strlower(which)
-	if IsCorruptedItem(Slot.itemLink) or Slot.ID == 15 then
-		local TooltipText
-		Armory:ClearTooltip(Armory.ScanTT)
-		Armory.ScanTT:SetInventoryItem(unit, Slot.ID)
-
-		for i = 1, Armory.ScanTT:NumLines() do
-			TooltipText = _G["SLE_Armory_ScanTTTextLeft"..i]:GetText()
-
-			if TooltipText:match(ITEM_MOD_CORRUPTION_RESISTANCE) then
-				TooltipText = gsub(TooltipText, TooltipText:match(ITEM_MOD_CORRUPTION_RESISTANCE), "")
-				return "res", TooltipText, nil
-			elseif TooltipText:match(ITEM_MOD_CORRUPTION) then
-				TooltipText = gsub(TooltipText, TooltipText:match(ITEM_MOD_CORRUPTION), "")
-
-				--Iteration to get corruption spell from bunus ID. Got the script from suspctz
-				local itemSplit = SLE:GetItemSplit(Slot.itemLink)
-				local bonuses = {}
-				local corruptionSpell = ""
-
-				for index= 1, itemSplit[13] do
-					bonuses[#bonuses + 1] = itemSplit[13 + index]
-				end
-
-				if #bonuses > 0 then
-					local Spells = Armory.Constants.CorruptionSpells
-					for i, bonus_id in pairs(bonuses) do
-						bonus_id = tostring(bonus_id)
-						if Spells[bonus_id] ~= nil then
-							local name, rank, icon = GetSpellInfo(Spells[bonus_id][3])
-							if Spells[bonus_id][2] ~= "" then rank = Spells[bonus_id][2] else rank = "" end
-							if E.db.sle.armory[window].corruptionText.icon then
-								corruptionSpell = "|T"..icon..":0|t "..name.." "..rank
-							else
-								corruptionSpell = name.." "..rank
-							end
-						end
-					end
-				end
-
-				return "cor", TooltipText, corruptionSpell
-			end
-		end
-	end
-
-	return false, 0, nil
-end
-
 --Updates the frame
 function Armory:UpdatePageInfo(frame, which, guid, event)
 	if not (frame and which) then return end
@@ -236,7 +121,6 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 	local unit = (which == 'Character' and 'player') or frame.unit
 	if which == "Character" then
 		CA:Update_Durability()
-		CA:Update_SlotCorruption()
 	end
 	for i, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G[which..SlotName]
@@ -261,26 +145,6 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 					Slot.TransmogInfo.Link = nil
 					Slot.TransmogInfo:Hide()
 					LCG.AutoCastGlow_Stop(Slot,"_TransmogGlow")
-				end
-			end
-			if Slot.CorText then --Setting corruption text if it actually exists for the slot
-				Slot.CorText:SetText("")
-				if E.db.sle.armory[window].corruptionText.style ~= "Hide" and E.db.sle.armory.character.enable then
-					local isCorruption, CorValue, CorSpell = Armory:GetCorruptionInfo(Slot, which, unit)
-					if isCorruption then
-						if isCorruption == "cor" then
-							if E.db.sle.armory[window].corruptionText.style == "AMOUNT/SPELL" then
-								CorValue = CorValue..CorSpell
-							elseif E.db.sle.armory[window].corruptionText.style == "SPELL" then
-								CorValue = CorSpell or ""
-							end
-							CorValue = "|cff956DD1"..CorValue.."|r" --Color purple
-						else
-							if E.db.sle.armory[window].corruptionText.style == "SPELL" then CorValue = "" end
-							CorValue = "|cffFFD100"..CorValue.."|r" --Color yellow
-						end
-						Slot.CorText:SetText(CorValue)
-					end
 				end
 			end
 		end
@@ -380,19 +244,16 @@ function Armory:UpdateSharedStringsFonts(which)
 		local Slot = _G[which..SlotName]
 		if not Slot then return end
 		if Slot.iLvlText then
-			local fontIlvl, sizeIlvl, outlineIlvl, fontEnch, sizeEnch, outlineEnch, fontCor, sizeCor, outlineCor
+			local fontIlvl, sizeIlvl, outlineIlvl, fontEnch, sizeEnch, outlineEnch
 			if E.db.sle.armory[window].enable then
 				fontIlvl, sizeIlvl, outlineIlvl = E.db.sle.armory[window].ilvl.font, E.db.sle.armory[window].ilvl.fontSize, E.db.sle.armory[window].ilvl.fontStyle
 				fontEnch, sizeEnch, outlineEnch = E.db.sle.armory[window].enchant.font, E.db.sle.armory[window].enchant.fontSize, E.db.sle.armory[window].enchant.fontStyle
-				fontCor, sizeCor, outlineCor = E.db.sle.armory[window].corruptionText.font, E.db.sle.armory[window].corruptionText.fontSize, E.db.sle.armory[window].corruptionText.fontStyle
 			else
 				fontIlvl, sizeIlvl, outlineIlvl = E.db.general.itemLevel.itemLevelFont, E.db.general.itemLevel.itemLevelFontSize or 12, E.db.general.itemLevel.itemLevelFontOutline or "OUTLINE"
 				fontEnch, sizeEnch, outlineEnch = E.db.general.itemLevel.itemLevelFont, E.db.general.itemLevel.itemLevelFontSize or 12, E.db.general.itemLevel.itemLevelFontOutline or "OUTLINE"
-				fontCor, sizeCor, outlineCor = E.db.general.itemLevel.itemLevelFont, E.db.general.itemLevel.itemLevelFontSize or 12, E.db.general.itemLevel.itemLevelFontOutline or "OUTLINE"
 			end
 			Slot.iLvlText:FontTemplate(E.LSM:Fetch('font', fontIlvl), sizeIlvl, outlineIlvl)
 			Slot.enchantText:FontTemplate(E.LSM:Fetch('font', fontEnch), sizeEnch, outlineEnch)
-			if Slot.CorText then Slot.CorText:FontTemplate(E.LSM:Fetch('font', fontCor), sizeCor, outlineCor) end
 		end
 	end
 end
@@ -519,7 +380,6 @@ end
 function Armory:UpdateCharacterInfo()
 	if E.db.sle.armory.character.enable then M:UpdatePageInfo(_G["CharacterFrame"], "Character") end
 	if not E.db.general.itemLevel.displayCharacterInfo then M:ClearPageInfo(_G["CharacterFrame"], "Character") end
-	-- CA:UpdateCorruptionLevel()
 end
 
 function Armory:ToggleItemLevelInfo(setupCharacterPage)
@@ -534,18 +394,6 @@ function Armory:CheckOptions(which)
 	if not E.private.skins.blizzard.enable then return false end
 	if (which == "Character" and not E.private.skins.blizzard.character) or (which == "Inspect" and not E.private.skins.blizzard.inspect) then return false end
 	return true
-end
-
-function Armory:HandleCorruption()
-	if SLE._Compatibility["DejaCharacterStats"] then return end
-	local CorruptionIcon = _G["CharacterFrame"].SLE_Corruption
-	CorruptionIcon:ClearAllPoints()
-	CorruptionIcon:SetParent(_G["SLE_Armory_Scroll"])
-	if E.db.sle.armory.character.corruption.position == "SLE" and (E.db.sle.armory.character.enable or E.db.sle.armory.stats.enable) then
-		CorruptionIcon:SetPoint("LEFT", _G["CharacterFrame"], "TOPRIGHT", -34, -54)
-	else
-		CorruptionIcon:SetPoint("RIGHT", _G["CharacterStatsPane"].ItemLevelFrame, "RIGHT", Armory.Constants.Corruption.DefaultX, Armory.Constants.Corruption.DefaultY)
-	end
 end
 
 function Armory:Initialize()
@@ -569,7 +417,6 @@ function Armory:Initialize()
 		SA:LoadAndSetup()
 		Armory:UpdateCharacterInfo()
 	end
-	if _G["CharacterFrame"].SLE_Corruption then _G["CharacterFrame"].SLE_Corruption:SetFrameLevel(_G["CharacterStatsPane"].ItemLevelFrame:GetFrameLevel() + 5) end --This fixes wrong mouseover for blizz position of the eye
 
 	if Armory:CheckOptions("Inspect") then
 		IA = SLE:GetModule("Armory_Inspect")

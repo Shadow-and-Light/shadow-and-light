@@ -213,69 +213,6 @@ local function configTable()
 					}
 				}
 			},
-			corruptionText = {
-				type = "group",
-				order = 19,
-				name = GetSpellInfo(172),
-				get = function(info) return E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] end,
-				set = function(info, value) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = value; IA:Update_SlotCorruption(); Armory:UpdateSharedStringsFonts("Inspect"); Armory:UpdateInspectInfo() end,
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.inspect end,
-				args = {
-					style = {
-						type = 'select',
-						name = L["Text Format"],
-						order = 1,
-						values = {
-							["AMOUNT/SPELL"] = L["Amount"].." / "..SPELLS,
-							["AMOUNT"] = L["Amount"],
-							["SPELL"] = SPELLS,
-							["Hide"] = HIDE,
-						},
-					},
-					icon = {
-						order = 2,
-						name = L["Icon"],
-						type = "toggle",
-					},
-					spacer1 = ACH:Spacer(3),
-					xOffset = {
-						type = 'range',
-						name = L["X-Offset"],
-						order = 10,
-						min = -100, max = 70, step = 1,
-					},
-					yOffset = {
-						type = 'range',
-						name = L["Y-Offset"],
-						order = 11,
-						min = -40, max = 40, step = 1,
-					},
-					spacer2 = ACH:Spacer(15),
-					font = {
-						type = 'select', dialogControl = 'LSM30_Font',
-						name = L["Font"],
-						order = 20,
-						values = function() return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {} end,
-					},
-					fontSize = {
-						type = 'range',
-						name = L["Font Size"],
-						order = 21,
-						min = 6, max = 32, step = 1,
-					},
-					fontStyle = {
-						type = 'select',
-						name = L["Font Outline"],
-						order = 22,
-						values = {
-							NONE = NONE,
-							OUTLINE = 'OUTLINE',
-							MONOCHROMEOUTLINE = 'MONOCROMEOUTLINE',
-							THICKOUTLINE = 'THICKOUTLINE'
-						},
-					},
-				},
-			},
 			background = {
 				type = 'group',
 				name = L["Backdrop"],

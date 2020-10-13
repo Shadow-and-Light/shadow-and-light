@@ -123,7 +123,6 @@ L["Commands"] = "명령어"
 L["Converts specified keywords to links that automatically invite message's author to group."] = true
 L["Coordinates"] = "좌표"
 L["Coords Location"] = true
-L["Corruption / Resist"] = true
 L["Create a button for applying selected enchant on the scroll."] = true
 L["Create a button in character frame to allow temp blocking of auto set swap."] = true
 L["Create a button in your bag frame to switch to deconstruction mode allowing you to easily disenchant/mill/prospect and pick locks."] = "가방 프레임에 버튼을 만들어서 뽀각 모드로 전환할 수 있게 합니다. 뽀각 모드는 마력추출/제분/보석추출/자물쇠 따기를 손쉽게 합니다."

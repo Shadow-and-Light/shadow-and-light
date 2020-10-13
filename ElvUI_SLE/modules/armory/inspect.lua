@@ -97,10 +97,6 @@ function IA:BuildLayout()
 
 			Slot.TransmogInfo:Hide()
 		end
-
-		--<<Corruption>>--
-		Slot["CorText"] = Slot:CreateFontString(nil, "OVERLAY")
-		Slot["CorText"]:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.inspect.corruptionText.font), E.db.sle.armory.inspect.corruptionText.fontSize, E.db.sle.armory.inspect.corruptionText.fontStyle)
 	end
 
 	do --<<Check Transmog>>--
@@ -174,18 +170,6 @@ function IA:Update_Enchant()
 	end
 end
 
-function IA:Update_SlotCorruption()
-	for i, SlotName in pairs(Armory.Constants.GearList) do
-		local Slot = _G["Inspect"..SlotName]
-		if not Slot then return end
-
-		if Slot.CorText then
-			Slot.CorText:ClearAllPoints()
-			Slot.CorText:Point("TOP"..Slot.Direction, Slot, "TOP"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 25+E.db.sle.armory.inspect.corruptionText.xOffset or -25-E.db.sle.armory.inspect.corruptionText.xOffset, -1+E.db.sle.armory.inspect.corruptionText.yOffset)
-		end
-	end
-end
-
 function IA:Update_Gems()
 	for i, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G["Inspect"..SlotName]
@@ -248,7 +232,6 @@ function IA:Enable()
 	IA:Update_ItemLevel()
 	IA:Update_Enchant()
 	IA:Update_Gems()
-	IA:Update_SlotCorruption()
 
 	if E.db.general.itemLevel.displayInspectInfo then M:UpdateInspectInfo() end
 end

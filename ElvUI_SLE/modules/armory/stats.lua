@@ -322,7 +322,6 @@ function SA:ToggleArmory()
 	if not E.db.general.itemLevel.displayCharacterInfo then
 		_G["CharacterFrame"].ItemLevelText:SetText('')
 	end
-	Armory:HandleCorruption()
 end
 
 --Replacing broken Blizz function and adding some decimals
