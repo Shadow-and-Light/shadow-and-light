@@ -1,3 +1,7 @@
+v4.04 [October 14, 2020]
+Fixes:
+- Fix Merchant skin
+
 v4.03 [October 13, 2020]
 Fixes:
 - Fix Raid Marker bar not displaying
