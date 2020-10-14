@@ -1,3 +1,7 @@
+v4.03 [October 13, 2020]
+Fixes:
+- Fix Raid Marker bar not displaying
+
 v4.02 [October 13, 2020]
 Fixes:
 - Fix LibQTip error

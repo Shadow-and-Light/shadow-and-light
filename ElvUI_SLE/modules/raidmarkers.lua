@@ -49,7 +49,7 @@ end
 function RM:CreateButton(index)
 	local info = layouts[index]
 	local target, worldmarker = info.RT, info.WM
-	local button = CreateFrame("Button", format("SLE_RaidMarkerBarButton%d", index), RM.frame, "SecureActionButtonTemplate")
+	local button = CreateFrame("Button", format("SLE_RaidMarkerBarButton%d", index), RM.frame, "SecureActionButtonTemplate, BackdropTemplate")
 	button:Size(E.db.sle.raidmarkers.buttonSize)
 	button:SetTemplate('Transparent')
 
