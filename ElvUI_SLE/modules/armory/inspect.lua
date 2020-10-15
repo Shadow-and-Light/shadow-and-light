@@ -133,14 +133,15 @@ function IA:BuildLayout()
 end
 
 function IA:Update_BG()
+	if not _G.InspectPaperDollFrame then return end
 	if E.db.sle.armory.inspect.background.selectedBG == 'HIDE' then
-		_G["InspectPaperDollFrame"].SLE_Armory_BG:SetTexture(nil)
+		_G['InspectPaperDollFrame'].SLE_Armory_BG:SetTexture(nil)
 	elseif E.db.sle.armory.inspect.background.selectedBG == 'CUSTOM' then
-		_G["InspectPaperDollFrame"].SLE_Armory_BG:SetTexture(E.db.sle.armory.inspect.background.customTexture)
+		_G['InspectPaperDollFrame'].SLE_Armory_BG:SetTexture(E.db.sle.armory.inspect.background.customTexture)
 	elseif E.db.sle.armory.inspect.background.selectedBG == 'CLASS' then
-		_G["InspectPaperDollFrame"].SLE_Armory_BG:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\armory\]]..E.myclass)
+		_G['InspectPaperDollFrame'].SLE_Armory_BG:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\armory\]]..E.myclass)
 	else
-		_G["InspectPaperDollFrame"].SLE_Armory_BG:SetTexture(SLE.ArmoryConfigBackgroundValues.BlizzardBackdropList[E.db.sle.armory.inspect.background.selectedBG] or [[Interface\AddOns\ElvUI_SLE\media\textures\armory\]]..E.db.sle.armory.inspect.background.selectedBG)
+		_G['InspectPaperDollFrame'].SLE_Armory_BG:SetTexture(SLE.ArmoryConfigBackgroundValues.BlizzardBackdropList[E.db.sle.armory.inspect.background.selectedBG] or [[Interface\AddOns\ElvUI_SLE\media\textures\armory\]]..E.db.sle.armory.inspect.background.selectedBG)
 	end
 
 	--CA:AdditionalTextures_Update()
