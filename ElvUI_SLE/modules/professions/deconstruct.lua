@@ -237,7 +237,7 @@ function Pr:GetDeconMode()
 end
 
 function Pr:Construct_BagButton()
-	Pr.DeconstructButton = CreateFrame("Button", "SLE_DeconButton", _G["ElvUI_ContainerFrame"])
+	Pr.DeconstructButton = CreateFrame("Button", "SLE_DeconButton", _G["ElvUI_ContainerFrame"], "BackdropTemplate")
 	Pr.DeconstructButton:SetSize(16 + E.Border, 16 + E.Border)
 	Pr.DeconstructButton:SetTemplate()
 	Pr.DeconstructButton.ttText = L["Deconstruct Mode"]

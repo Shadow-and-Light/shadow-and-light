@@ -439,7 +439,7 @@ Pr.mapSpellToItem = {
 }
 
 function Pr:EnchantButton()
-	local button = CreateFrame("Button", "SLE_EnchScrollButton", _G["TradeSkillFrame"], "MagicButtonTemplate")
+	local button = CreateFrame("Button", "SLE_EnchScrollButton", _G["TradeSkillFrame"], "MagicButtonTemplate, BackdropTemplate")
 	if E.private.skins.blizzard.tradeskill == true and E.private.skins.blizzard.enable == true then
 		S:HandleButton(button)
 		button:StripTextures()
