@@ -1,3 +1,7 @@
+v4.07 [October 15, 2020]
+Updated:
+- Update LibProcessable which fixed some errors in deconstruction
+
 v4.06 [October 14, 2020]
 Fixes:
 - Fix some professions buttons not showing like deconstruction
