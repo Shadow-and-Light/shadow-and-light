@@ -1,6 +1,11 @@
-## Interface: 80000
+#@non-retail@
+# ## Interface: 11305
+#@end-non-retail@
+#@retail@
+## Interface: 90001
+#@end-retail@
 ## Author: p3lim
-## Version: 37
+## Version: @project-version@
 ## Title: Lib: Processable
 ## Notes: Library that lets you easily check if you can process resources
 ## OptionalDeps: LibStub

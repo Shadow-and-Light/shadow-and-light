@@ -1,4 +1,4 @@
-local MAJOR, MINOR = 'LibProcessable', 37
+local MAJOR, MINOR = 'LibProcessable', 44
 assert(LibStub, MAJOR .. ' requires LibStub')
 
 local lib, oldMinor = LibStub:NewLibrary(MAJOR, MINOR)
@@ -6,7 +6,16 @@ if(not lib) then
 	return
 end
 
-local CLASSIC = select(4, GetBuildInfo()) == 11302
+local BUILD = select(4, GetBuildInfo())
+local WOW_1 = BUILD < 80000
+local WOW_9 = BUILD >= 90000
+
+local LE_ITEM_QUALITY_UNCOMMON = LE_ITEM_QUALITY_UNCOMMON or Enum.ItemQuality.Uncommon
+local LE_ITEM_QUALITY_EPIC = LE_ITEM_QUALITY_EPIC or Enum.ItemQuality.Epic
+local LE_ITEM_CLASS_ARMOR = LE_ITEM_CLASS_ARMOR or 4
+local LE_ITEM_CLASS_WEAPON = LE_ITEM_CLASS_WEAPON or 2
+local LE_ITEM_CLASS_GEM = LE_ITEM_CLASS_GEM or 3
+local LE_ITEM_SUBCLASS_ARTIFACT = 11 -- no existing constant for this one
 
 local professions = {}
 --[[ LibProcessable:IsMillable(_item[, ignoreMortar]_)
@@ -29,6 +38,7 @@ function lib:IsMillable(itemID, ignoreMortar)
 		-- any herb can be milled at level 1
 		return self.herbs[itemID]
 	elseif(not ignoreMortar and GetItemCount(114942) > 0) then
+		-- Draenic Mortar can mill Draenor herbs without a profession
 		return itemID >= 109124 and itemID <= 109130, true
 	end
 end
@@ -36,7 +46,7 @@ end
 --[[ LibProcessable:IsProspectable(_item_)
 Returns whether the player can prospect the given item.
 
-**Note**: Outland and Pandaria ores have actual skill level requirements which this addon does not check for.  
+**Note**: Outland and Pandaria ores have actual skill level requirements which this library does not check for.  
 See [issue #14](https://github.com/p3lim-wow/LibProcessable/issues/14) for more information.
 
 **Arguments:**
@@ -83,56 +93,70 @@ function lib:IsDisenchantable(item)
 			local _, _, quality, _, _, _, _, _, _, _, _, class, subClass = GetItemInfo(item)
 			return (quality >= LE_ITEM_QUALITY_UNCOMMON and quality <= LE_ITEM_QUALITY_EPIC)
 				and (class == LE_ITEM_CLASS_ARMOR or class == LE_ITEM_CLASS_WEAPON
-				or (class == LE_ITEM_CLASS_GEM and subClass == 11)) -- artifact relics
+				or (class == LE_ITEM_CLASS_GEM and subClass == LE_ITEM_SUBCLASS_ARTIFACT))
 		end
 	end
 end
 
--- http://www.wowhead.com/items/name:key?filter=86;2;0
-local function GetSkeletonKey(pickLevel)
-	if(pickLevel <= 25 and GetItemCount(15869) > 0) then
+-- https://wowhead.com/items?filter=107:99;0:2;lockpick:0
+local function GetBlacksmithingPick(pickLevel)
+	if(pickLevel <= (WOW_9 and 15 or 25) and GetItemCount(15869) > 0) then
 		return 15869, 590, 100 -- Silver Skeleton Key
-	elseif(pickLevel <= 125 and GetItemCount(15870) > 0) then
+	elseif(pickLevel <= (WOW_9 and 15 or 125) and GetItemCount(15870) > 0) then
 		return 15870, 590, 150 -- Golden Skeleton Key
-	elseif(pickLevel <= 200 and GetItemCount(15871) > 0) then
+	elseif(pickLevel <= (WOW_9 and 20 or 200) and GetItemCount(15871) > 0) then
 		return 15871, 590, 200 -- Truesilver Skeleton Key
-	elseif(pickLevel <= 300 and GetItemCount(15872) > 0) then
+	elseif(pickLevel <= (WOW_9 and 20 or 300) and GetItemCount(15872) > 0) then
 		return 15872, 590, 275 -- Arcanite Skeleton Key
-	elseif(pickLevel <= 375 and GetItemCount(43854) > 0) then
+	elseif(pickLevel <= (WOW_9 and 30 or 375) and GetItemCount(43854) > 0) then
 		return 43854, 577, 1 -- Cobalt Skeleton Key
-	elseif(pickLevel <= 400 and GetItemCount(43853) > 0) then
+	elseif(pickLevel <= (WOW_9 and 30 or 400) and GetItemCount(43853) > 0) then
 		return 43853, 577, 55 -- Titanium Skeleton Key
-	elseif(pickLevel <= 425 and GetItemCount(55053) > 0) then
+	elseif(pickLevel <= (WOW_9 and 30 or 425) and GetItemCount(55053) > 0) then
 		return 55053, 569, 25 -- Obsidium Skeleton Key
-	elseif(pickLevel <= 450 and GetItemCount(82960) > 0) then
+	elseif(pickLevel <= (WOW_9 and 35 or 450) and GetItemCount(82960) > 0) then
 		return 82960, 553, 1 -- Ghostly Skeleton Key
-	elseif(pickLevel <= 600 and GetItemCount(159826) > 0) then
+	elseif(pickLevel <= (WOW_9 and 50 or 600) and GetItemCount(159826) > 0) then
 		return 159826, 542, 1 -- Monelite Skeleton Key
+	elseif(pickLevel <= (WOW_9 and 60 or 1e9) and GetItemCount(171441) > 0) then
+		return 171441, 1311, 1 -- Laestrite Skeleton Key
 	end
 end
 
--- http://www.wowhead.com/items/name:lock?filter=86;7;0
-local function GetJeweledLockpick(pickLevel)
-	if(pickLevel <= 550 and GetItemCount(130250) > 0) then
+-- https://wowhead.com/items?filter=107:99;0:7;lockpick:0
+local function GetJewelcraftingPick(pickLevel)
+	if(pickLevel <= (WOW_9 and 40 or 550) and GetItemCount(130250) > 0) then -- ?? skill
 		return 130250, 464, 1 -- Jeweled Lockpick
 	end
 end
 
--- https://www.wowhead.com/items/name:unlock?filter=86;15;0
-local function GetScrollUnlocking(pickLevel)
-	if(pickLevel <= 600 and GetItemCount(169825) > 0) then
+-- https://wowhead.com/items?filter=107:99;0:15;lockpick:0
+local function GetInscriptionPick(pickLevel)
+	if(pickLevel <= (WOW_9 and 50 or 600) and GetItemCount(169825) > 0) then
 		return 169825, 759, 1 -- Scroll of Unlocking
+	elseif(pickLevel <= (WOW_9 and 60 or 625) and GetItemCount(173065) > 0) then -- ?? skill
+		return 173065, 1406, 1 -- Writ of Grave Robbing
+	end
+end
+
+-- https://wowhead.com/items?filter=107:99;0:5;lockpick:0
+local function GetEngineeringPick(pickLevel)
+	if(pickLevel <= (WOW_9 and 35 or 400) and GetItemCount(60853) > 0) then
+		return 60853, 715, 1 -- Volatile Seaforium Blastpack
+	elseif(pickLevel <= (WOW_9 and 35 or 450) and GetItemCount(77532) > 0) then
+		return 77532, 713, 1 -- Locksmith's Powderkeg
 	end
 end
 
 --[[ LibProcessable:IsOpenable(_item_)
-Returns whether the player can open the given item with a class ability.
+Returns whether the player can open the given item with a class/racial ability.
 
 **Arguments:**
 * `item`: item ID or link
 
 **Return values:**
 * `isOpenable`: Whether or not the player can open the given item _(boolean)_
+* `spellID`:    SpellID of the spell that can be used to open the given item _(number)_
 --]]
 function lib:IsOpenable(itemID)
 	if(type(itemID) == 'string') then
@@ -140,9 +164,12 @@ function lib:IsOpenable(itemID)
 		itemID = (tonumber(itemID)) or (GetItemInfoFromHyperlink(itemID))
 	end
 
-	if(IsSpellKnown(1804)) then -- Pick Lock, Rogue ability
+	local spellID = (IsSpellKnown(1804) and 1804) or -- Pick Lock, Rogue ability
+					(IsSpellKnown(312890) and 312890) -- Skeleton Pinkie, Mechagnome racial ability
+	if(spellID) then
 		local pickLevel = lib.containers[itemID]
-		return pickLevel and pickLevel <= (UnitLevel('player') * 5)
+		-- TODO: update this logic for Shadowlands
+		return pickLevel and pickLevel <= (UnitLevel('player') * (WOW_9 and 1 or 5)), spellID
 	end
 end
 
@@ -160,8 +187,10 @@ posesses.
 * `professionItem`:       The itemID for the unlocking item _(number)_
 --]]
 function lib:IsOpenableProfession(itemID)
-	assert(tonumber(itemID), 'itemID needs to be a number or convertable to a number')
-	itemID = tonumber(itemID)
+	if(type(itemID) == 'string') then
+		assert(string.match(itemID, 'item:(%d+):') or tonumber(itemID), 'item must be an item ID or item Link')
+		itemID = (tonumber(itemID)) or (GetItemInfoFromHyperlink(itemID))
+	end
 
 	local pickLevel = lib.containers[itemID]
 	if(not pickLevel) then
@@ -169,23 +198,30 @@ function lib:IsOpenableProfession(itemID)
 	end
 
 	if(self:HasProfession(164)) then -- Blacksmithing
-		local itemID, categoryID, skillLevelRequired = GetSkeletonKey(pickLevel)
+		local itemID, categoryID, skillLevelRequired = GetBlacksmithingPick(pickLevel)
 		if(itemID) then
 			return skillLevelRequired, 164, categoryID, itemID
 		end
 	end
 
 	if(self:HasProfession(755)) then -- Jewelcrafting
-		local itemID, categoryID, skillLevelRequired = GetJeweledLockpick(pickLevel)
+		local itemID, categoryID, skillLevelRequired = GetJewelcraftingPick(pickLevel)
 		if(itemID) then
 			return skillLevelRequired, 755, categoryID, itemID
 		end
 	end
 
 	if(self:HasProfession(773)) then -- Inscription
-		local itemID, categoryID, skillLevelRequired = GetScrollUnlocking(pickLevel)
+		local itemID, categoryID, skillLevelRequired = GetInscriptionPick(pickLevel)
 		if(itemID) then
 			return skillLevelRequired, 773, categoryID, itemID
+		end
+	end
+
+	if(self:HasProfession(202)) then -- Engineering
+		local itemID, categoryID, skillLevelRequired = GetEngineeringPick(pickLevel)
+		if(itemID) then
+			return skillLevelRequired, 202, categoryID, itemID
 		end
 	end
 end
@@ -250,7 +286,7 @@ Handler:RegisterEvent('SKILL_LINES_CHANGED')
 Handler:SetScript('OnEvent', function(self, event, ...)
 	table.wipe(professions)
 
-	if(CLASSIC) then
+	if(WOW_1) then
 		-- all professions are spells in the first spellbook tab
 		local _, _, offset, numSpells = GetSpellTabInfo(1)
 		for index = offset + 1, offset + numSpells do
@@ -308,6 +344,12 @@ lib.ores = {
 	[152513] = true, -- Platinum Ore
 	[155830] = true, -- Runic Core, BfA Jewelcrafting Quest
 	[168185] = true, -- Osmenite Ore
+	[171828] = true, -- Laestrite
+	[171829] = true, -- Solenium
+	[171830] = true, -- Oxxein
+	[171831] = true, -- Phaedrum
+	[171832] = true, -- Sinvyr
+	[171833] = true, -- Elethium
 }
 
 --[[ LibProcessable.herbs
@@ -396,6 +438,12 @@ lib.herbs = {
 	[152505] = true, -- Riverbud
 	[152510] = true, -- Anchor Weed
 	[168487] = true, -- Zin'anthid
+	[168583] = true, -- Widowbloom
+	[168586] = true, -- Rising Glory
+	[168589] = true, -- Marrowroot
+	[169701] = true, -- Deathblossom
+	[170554] = true, -- Vigil's Torch
+	[171315] = true, -- Nightshade
 }
 
 --[[ LibProcessable.enchantingItems
@@ -454,6 +502,10 @@ lib.containers = {
 	[116920] = 500, -- True Steel Lockbox
 	[121331] = 550, -- Leystone Lockbox
 	[169475] = 600, -- Barnacled Lockbox
+	[180533] = 600, -- Kyrian Lockbox
+	[180532] = 600, -- Maldraxxian Lockbox
+	[179311] = 600, -- Venthyr Lockbox
+	[180522] = 600, -- Night Fae Lockbox
 }
 
 --[[ LibProcessable.professionCategories
@@ -471,6 +523,7 @@ lib.professionCategories = {
 		332, -- Draenor
 		433, -- Legion
 		592, -- Zandalari/Kul Tiran
+		1294, -- Shadowlands
 	},
 	[164] = { -- Blacksmithing
 		590, -- Classic
@@ -481,6 +534,7 @@ lib.professionCategories = {
 		389, -- Draenor
 		426, -- Legion
 		542, -- Zandalari/Kul Tiran
+		1311, -- Shadowlands
 	},
 	[333] = { -- Enchanting
 		667, -- Classic
@@ -491,6 +545,7 @@ lib.professionCategories = {
 		348, -- Draenor
 		443, -- Legion
 		647, -- Zandalari/Kul Tiran
+		1364, -- Shadowlands
 	},
 	[202] = { -- Engineering
 		419, -- Classic
@@ -501,6 +556,7 @@ lib.professionCategories = {
 		347, -- Draenor
 		469, -- Legion
 		709, -- Zandalari/Kul Tiran
+		1381, -- Shadowlands
 	},
 	[182] = { -- Herbalism
 		1044, -- Classic
@@ -511,6 +567,7 @@ lib.professionCategories = {
 		1034, -- Draenor
 		456, -- Legion
 		1029, -- Zandalari/Kul Tiran
+		1441, -- Shadowlands
 	},
 	[773] = { -- Inscription
 		415, -- Classic
@@ -521,6 +578,7 @@ lib.professionCategories = {
 		410, -- Draenor
 		450, -- Legion
 		759, -- Zandalari/Kul Tiran
+		1406, -- Shadowlands
 	},
 	[755] = { -- Jewelcrafting
 		372, -- Classic
@@ -531,6 +589,7 @@ lib.professionCategories = {
 		373, -- Draenor
 		464, -- Legion
 		805, -- Zandalari/Kul Tiran
+		1418, -- Shadowlands
 	},
 	[165] = { -- Leatherworking
 		379, -- Classic
@@ -541,6 +600,7 @@ lib.professionCategories = {
 		380, -- Draenor
 		460, -- Legion
 		871, -- Zandalari/Kul Tiran
+		1334, -- Shadowlands
 	},
 	[186] = { -- Mining
 		1078, -- Classic
@@ -548,19 +608,21 @@ lib.professionCategories = {
 		1074, -- Northrend
 		1072, -- Cataclysm
 		1070, -- Pandaria
-		nil, -- Draenor
+		1068, -- Draenor
 		425, -- Legion
 		1065, -- Zandalari/Kul Tiran
+		1320, -- Shadowlands
 	},
 	[393] = { -- Skinning
 		1060, -- Classic
 		1058, -- Outland
 		1056, -- Northrend
 		1054, -- Cataclysm
-		nil, -- Pandaria
-		nil, -- Draenor
+		1042, -- Pandaria
+		1050, -- Draenor
 		459, -- Legion
 		1046, -- Zandalari/Kul Tiran
+		1331, -- Shadowlands
 	},
 	[197] = { -- Tailoring
 		362, -- Classic
@@ -571,5 +633,6 @@ lib.professionCategories = {
 		369, -- Draenor
 		430, -- Legion
 		942, -- Zandalari/Kul Tiran
+		1395, -- Shadowlands
 	},
 }
