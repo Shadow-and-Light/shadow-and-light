@@ -187,7 +187,7 @@ end
 local function Entry_OnMouseUp(_, fullName, button)
 	if button == "LeftButton" then
 		if IsControlKeyDown() then
-			InviteUnit(fullName) --Invite Player
+			C_PartyInfo.InviteUnit(fullName) --Invite Player
 			return
 		end
 		if IsShiftKeyDown() then
@@ -198,7 +198,7 @@ local function Entry_OnMouseUp(_, fullName, button)
 		SetItemRef( "player:"..fullName, format("|Hplayer:%1$s|h[%1$s]|h", fullName), "LeftButton" ) --Whisper Player
 	elseif button == "RightButton" then
 		if IsControlKeyDown() then
-			if CanEditOfficerNote() then
+			if C_GuildInfo.CanEditOfficerNote() then
 				SetGuildRosterSelection(nametoindex(fullName))
 				StaticPopup_Show("SET_GUILDOFFICERNOTE") --Set Officer Note
 			end
