@@ -155,7 +155,7 @@ local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
 	local block = ScenarioChallengeModeBlock
 
 	if not block.SLE_Block then
-		block.SLE_Block = CreateFrame("Frame", "ScenarioStageBlock_SLE_Block", block)
+		block.SLE_Block = CreateFrame("Frame", "ScenarioStageBlock_SLE_Block", block, "BackdropTemplate")
 		block.SLE_Block:SetAllPoints(block)
 		block.SLE_Block:SetTemplate("Transparent")
 		block.SLE_Block:SetFrameStrata("BACKGROUND")
