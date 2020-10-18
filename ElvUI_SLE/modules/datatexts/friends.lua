@@ -321,13 +321,13 @@ local function Entry_OnMouseUp(_, info, button)
 			if i_type == "realid" then
 
 				if E.myrealm == realmName then
-					InviteUnit(name)
+					C_PartyInfo.InviteUnit(name)
 				else
-					InviteUnit(name.."-"..realmName)
+					C_PartyInfo.InviteUnit(name.."-"..realmName)
 				end
 				return
 			else
-				InviteUnit(name)
+				C_PartyInfo.InviteUnit(name)
 				return
 			end
         end
