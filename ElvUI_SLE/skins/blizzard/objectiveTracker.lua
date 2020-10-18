@@ -145,7 +145,7 @@ local function SkinScenarioButtons()
 	end
 
 	-- pop-up glow
-	block.GlowTexture:SetSize(width+20, 75)
+	block.GlowTexture:Size(width+20, 75)
 	block.GlowTexture.AlphaAnim.Play = dummy
 end
 
@@ -292,7 +292,7 @@ local function SkinProvingGroundButtons()
 	local sb = block.StatusBar
 	local anim = ScenarioProvingGroundsBlockAnim
 
-	block.MedalIcon:SetSize(42, 42)
+	block.MedalIcon:Size(42, 42)
 	block.MedalIcon:ClearAllPoints()
 	block.MedalIcon:SetPoint("TOPLEFT", block, 20, -10)
 
@@ -300,7 +300,7 @@ local function SkinProvingGroundButtons()
 	block.WaveLabel:SetPoint("LEFT", block.MedalIcon, "RIGHT", 3, 0)
 
 	block.BG:Hide()
-	block.BG:SetSize(width + 21, 75)
+	block.BG:Size(width + 21, 75)
 
 	block.GoldCurlies:Hide()
 	block.GoldCurlies:ClearAllPoints()
@@ -308,8 +308,8 @@ local function SkinProvingGroundButtons()
 	block.GoldCurlies:SetPoint("BOTTOMRIGHT", block.BG, -6, 6)
 
 	anim.BGAnim:Hide()
-	anim.BGAnim:SetSize(width + 45, 85)
-	anim.BorderAnim:SetSize(width + 21, 75)
+	anim.BGAnim:Size(width + 45, 85)
+	anim.BorderAnim:Size(width + 21, 75)
 	anim.BorderAnim:Hide()
 	anim.BorderAnim:ClearAllPoints()
 	anim.BorderAnim:SetPoint("TOPLEFT", block.BG, 8, -8)
@@ -330,7 +330,7 @@ local function SkinProvingGroundButtons()
 	sb:SetStatusBarColor(COLOR.r, COLOR.g, COLOR.b)
 	sb:ClearAllPoints()
 	sb:SetPoint('TOPLEFT', block.MedalIcon, 'BOTTOMLEFT', -4, -5)
-	sb:SetSize(200, 15)
+	sb:Size(200, 15)
 end
 
 local function ObjectiveReskin()
