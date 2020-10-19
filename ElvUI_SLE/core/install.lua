@@ -254,7 +254,7 @@ function PI:DarthSetup()
 			[4] = "System",
 			[5] = "Primary Stat",
 			[6] = "Versatility",
-			[7] = "Crit Chance",
+			[7] = "Crit",
 			[8] = "Haste",
 			["enable"] = true,
 		}
