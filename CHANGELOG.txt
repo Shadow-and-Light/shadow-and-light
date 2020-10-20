@@ -1,3 +1,14 @@
+v4.08 [October 20, 2020]
+Fixes:
+- Fixed not able to invite Guild member via S&L Guild datatext
+- Fixed not able to invite Friends via S&L Friends datatext
+- Fixed not able to edit Officer Note via S&L Guild datatext
+- Fixed error with objective tracker do to createbackdrop error
+- Fixed missing crit not being in Darth's setup
+Added:
+- Added ability to right click enhanced vehicle bar which takes you to the options for it
+- Added ability to right click raid marker bar which takes you to the options for it
+
 v4.07 [October 15, 2020]
 Updated:
 - Update LibProcessable which fixed some errors in deconstruction
