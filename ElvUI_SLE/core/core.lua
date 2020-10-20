@@ -3,7 +3,7 @@
 
 -- local L = E.Libs.ACL:GetLocale('ElvUI', locale)
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale)
-local EP = LibStub("LibElvUIPlugin-1.0")
+local EP = LibStub('LibElvUIPlugin-1.0')
 local AddOnName, Engine = ...
 
 local _G = _G
@@ -12,12 +12,12 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 --GLOBALS: hooksecurefunc, LibStub, GetAddOnMetadata, CreateFrame, GetAddOnEnableState, BINDING_HEADER_SLE
 
-local SLE = LibStub("AceAddon-3.0"):NewAddon(AddOnName, "AceConsole-3.0", "AceEvent-3.0", 'AceTimer-3.0', 'AceHook-3.0');
-SLE.callbacks = SLE.callbacks or LibStub("CallbackHandler-1.0"):New(SLE)
+local SLE = LibStub('AceAddon-3.0'):NewAddon(AddOnName, 'AceConsole-3.0', 'AceEvent-3.0', 'AceTimer-3.0', 'AceHook-3.0');
+SLE.callbacks = SLE.callbacks or LibStub('CallbackHandler-1.0'):New(SLE)
 
-SLE.version = GetAddOnMetadata("ElvUI_SLE", "Version")
-SLE.DBversion = "3.63"
-SLE.Title = format("|cff9482c9%s |r", "Shadow & Light")
+SLE.version = GetAddOnMetadata('ElvUI_SLE', 'Version')
+SLE.DBversion = '3.63'
+SLE.Title = format('|cff9482c9%s |r', 'Shadow & Light')
 
 BINDING_HEADER_SLE = "|cff9482c9Shadow & Light|r"
 
