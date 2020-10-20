@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local M = SLE:NewModule("Misc", 'AceHook-3.0', 'AceEvent-3.0')
+local M = SLE:NewModule('Misc', 'AceHook-3.0', 'AceEvent-3.0')
 
 local _G = _G
 
@@ -18,22 +18,22 @@ end]]
 function M:SetViewport()
 	if SLE._Compatibility["SunnArt"] then return end --Other viewport addon is enabled
 	local scale = E.global.general.UIScale
-	_G["WorldFrame"]:ClearAllPoints()
-	_G["WorldFrame"]:SetPoint("TOPLEFT", ( M.db.viewport.left * scale ), -( M.db.viewport.top * scale ) )
-	_G["WorldFrame"]:SetPoint("BOTTOMRIGHT", -( M.db.viewport.right * scale ), ( M.db.viewport.bottom * scale ) )
+	_G.WorldFrame:ClearAllPoints()
+	_G.WorldFrame:SetPoint('TOPLEFT', ( M.db.viewport.left * scale ), -( M.db.viewport.top * scale ) )
+	_G.WorldFrame:SetPoint('BOTTOMRIGHT', -( M.db.viewport.right * scale ), ( M.db.viewport.bottom * scale ) )
 end
 
 --Raid utility
 function M:RaidUtility_SetMouseoverAlpha()
 	local a = E.db.sle.blizzard.rumouseover and 0 or 1
-	_G["RaidUtility_ShowButton"]:SetAlpha(a)
+	_G.RaidUtility_ShowButton:SetAlpha(a)
 end
 
 function M:RaidUtility_OnDragStop()
 	local point, anchor, point2, x, y = self:GetPoint()
-	local frame = _G["RaidUtility_ShowButton"]
+	local frame = _G.RaidUtility_ShowButton
 	frame:ClearAllPoints()
-	if strfind(point, "BOTTOM") then
+	if strfind(point, 'BOTTOM') then
 		frame:SetPoint(point, anchor, point2, x, y)
 	else
 		frame:SetPoint(point, anchor, point2, x, y)
@@ -54,22 +54,22 @@ function M:RaidUtility_Hook()
 	--Creating mover for the button
 	local frame = _G["RaidUtility_ShowButton"]
 	if not frame then return end --Just in case
-	E:CreateMover(frame, "RaidUtility_Mover", RAID_CONTROL, nil, nil, nil, "ALL,S&L,S&L MISC")
+	E:CreateMover(frame, 'RaidUtility_Mover', RAID_CONTROL, nil, nil, nil, 'ALL,S&L,S&L MISC')
 	local mover = _G["RaidUtility_Mover"]
 
 	--Setting default point and stuff
 	if E.db.movers == nil then E.db.movers = {} end
 
 	--Making frame actually following mover around
-	mover:HookScript("OnDragStart", function(self)
+	mover:HookScript('OnDragStart', function(self)
 		frame:ClearAllPoints()
-		frame:SetPoint("CENTER", self)
+		frame:SetPoint('CENTER', self)
 	end)
-	mover:HookScript("OnDragStop", M.RaidUtility_OnDragStop)
+	mover:HookScript('OnDragStop', M.RaidUtility_OnDragStop)
 
 	if E.db.movers.RaidUtility_Mover == nil then
 		frame:ClearAllPoints()
-		frame:SetPoint("TOP", E.UIParent, "TOP", -400, E.Border)
+		frame:SetPoint('TOP', E.UIParent, 'TOP', -400, E.Border)
 	else
 		M.RaidUtility_OnDragStop(mover)
 	end
