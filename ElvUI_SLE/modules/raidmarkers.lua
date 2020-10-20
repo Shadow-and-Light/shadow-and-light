@@ -213,7 +213,7 @@ function RM:Initialize()
 	end
 	self:UpdateWorldMarkersAndTooltips()
 
-	E:CreateMover(self.frame, "RaidMarkerBarAnchor", L["Raid Marker Bar"], nil, nil, nil, "ALL,S&L,S&L MISC")
+	E:CreateMover(self.frame, 'RaidMarkerBarAnchor', L["Raid Marker Bar"], nil, nil, nil, 'ALL,S&L,S&L MISC', nil, 'sle, modules, raidmarkerbars')
 
 	function RM:ForUpdateAll()
 		RM.db = E.db.sle.raidmarkers
