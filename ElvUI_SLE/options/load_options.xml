@@ -16,7 +16,6 @@
 	<Script file='blizzard_c.lua'/>
 	<Script file='help_c.lua'/>
 	<Script file='media_c.lua'/>
-	<Script file='bags_c.lua'/>
 	<Script file='pvp_c.lua'/>
 	<Script file='backgrounds_c.lua'/>
 	<Script file='equipmanager_c.lua'/>

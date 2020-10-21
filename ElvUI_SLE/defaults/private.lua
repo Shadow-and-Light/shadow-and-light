@@ -200,9 +200,6 @@ if G["profileCopy"] then
 			["bg3"] = true,
 			["bg4"] = true,
 		},
-		["bags"] = {
-			["petLevel"] = true,
-		},
 		["blizzard"] = {
 			["general"] = true,
 		},

@@ -86,10 +86,6 @@ E.PopupDialogs["SLE_APPLY_FONT_WARNING"] = {
 		local fontSize = E.PopupDialogs["SLE_APPLY_FONT_WARNING"].allSize
 		local fontOutline = E.PopupDialogs["SLE_APPLY_FONT_WARNING"].allOutline
 
-		E.db.sle.bags.petLevel.fonts.font = font
-		E.db.sle.bags.petLevel.fonts.size = fontSize
-		E.db.sle.bags.petLevel.fonts.outline = fontOutline
-
 		E.db.sle.media.fonts.zone.font = font
 		-- E.db.sle.media.fonts.zone.size = fontSize
 		E.db.sle.media.fonts.zone.outline = fontOutline

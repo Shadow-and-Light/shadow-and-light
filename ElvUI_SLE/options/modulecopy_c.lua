@@ -38,18 +38,7 @@ local function CreateBackgrounds()
 
 	return config
 end
-local function CreateBags()
-	local config = MC:CreateModuleConfigGroup(L["Bags"], "bags", "sle")
-	config.args.petLevel = {
-		order = 2,
-		type = "toggle",
-		name = AUCTION_CATEGORY_BATTLE_PETS,
-		get = function(info) return E.global.profileCopy.sle.bags[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.bags[ info[#info] ] = value; end
-	}
 
-	return config
-end
 local function CreateChat()
 	local config = MC:CreateModuleConfigGroup(L["Chat"], "chat", "sle")
 	config.args.justify = {
@@ -76,6 +65,7 @@ local function CreateChat()
 
 	return config
 end
+
 local function CreateDatatbarsConfig()
 	local config = MC:CreateModuleConfigGroup(L["DataBars"], "databars", "sle")
 
@@ -110,6 +100,7 @@ local function CreateDatatbarsConfig()
 
 	return config
 end
+
 local function CreateSLEDatatextsConfig()
 	local config = MC:CreateModuleConfigGroup(L["S&L Datatexts"], "dt", "sle")
 	config.args.friends = {
@@ -151,6 +142,7 @@ local function CreateSLEDatatextsConfig()
 
 	return config
 end
+
 local function CreateLegacyConfig()
 	local config = MC:CreateModuleConfigGroup(SLE.Russian and ITEM_QUALITY7_DESC or LFG_LIST_LEGACY, "legacy", "sle")
 	config.args.farm = {
@@ -184,6 +176,7 @@ local function CreateLegacyConfig()
 
 	return config
 end
+
 local function CreateLootConfig()
 	local config = MC:CreateModuleConfigGroup(L["Loot"], "loot", "sle")
 	config.args.autoroll = {
@@ -217,6 +210,7 @@ local function CreateLootConfig()
 
 	return config
 end
+
 local function CreateMinimapConfig()
 	local config = MC:CreateModuleConfigGroup(MINIMAP_LABEL, "minimap", "sle")
 	config.args.coords = {
@@ -341,7 +335,6 @@ local function configTable()
 			actionbar = MC:CreateModuleConfigGroup(L["ActionBars"], "actionbars", "sle"),
 			armory = CreateArmory(),
 			backgrounds = CreateBackgrounds(),
-			bags = CreateBags(),
 			blizzard = MC:CreateModuleConfigGroup("Blizzard", "blizzard", "sle"),
 			chat = CreateChat(),
 			databars = CreateDatatbarsConfig(),
