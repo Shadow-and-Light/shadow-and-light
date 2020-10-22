@@ -215,18 +215,6 @@ P["sle"] = {
 			["visibility"] = "show",
 		},
 	},
-	--Bags
-	["bags"] = {
-		["petLevel"] = {
-			["enable"] = false,
-			["color"] = {r = 230, g = 204, b = 128},
-			["fonts"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 14,
-				["outline"] = "OUTLINE",
-			},
-		},
-	},
 	--Blizzard
 	["blizzard"] = {
 		["rumouseover"] = false,
