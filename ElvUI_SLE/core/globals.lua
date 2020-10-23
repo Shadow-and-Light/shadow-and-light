@@ -172,7 +172,7 @@ SLE.SpecialChatIcons = {
 		["Spirestone"] = {
 			["Sifupooc"] = repooc,
 			["Dapooc"] = repooc,
-			["Lapooc"] = repooc,
+			["Lapooc"] = test,
 			["Warpooc"] = repooc,
 			["Repooc"] = repooc,
 			["Cursewordz"] = repooc
@@ -185,6 +185,10 @@ SLE.SpecialChatIcons = {
 		},
 		["WyrmrestAccord"] = {
 			["Dapooc"] = repooc,
+		},
+		["BleedingHollow"] = {
+			["Evolutious"] = test, --Patreon (Evolutious in discord)
+			["Poocer"] = repooc, --random toon of repooc
 		},
 	},
 	["CN"] = {},
