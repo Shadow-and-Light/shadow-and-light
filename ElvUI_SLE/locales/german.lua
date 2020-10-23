@@ -435,7 +435,6 @@ L["Reputation decrease Style"] = "Rufverlust Stil"
 L["Reputation increase Style"] = "Rufgewinn Stil"
 L["Reset All"] = "Alles zurücksetzen"
 L["Reset Chat History"] = "Chatverlauf zurücksetzen"
-L["Reset Editbox History"] = "Eingabeverlauf zurücksetzen"
 L["Reset these options to defaults"] = "Setze die Optionen auf Standard zurück"
 L["Resets all movers & options for S&L."] = "Setzt alle Movers & Optionen für S&L zurück."
 L["Resize Health Prediction"] = true

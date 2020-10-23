@@ -435,7 +435,6 @@ L["Reputation decrease Style"] = "평판 감소 스타일"
 L["Reputation increase Style"] = "평판 증가 스타일"
 L["Reset All"] = "모두 초기화"
 L["Reset Chat History"] = "대화 기록 초기화"
-L["Reset Editbox History"] = "대화편집창 기록 초기화"
 L["Reset these options to defaults"] = "이 항목들 기본값으로 초기화"
 L["Resets all movers & options for S&L."] = "S&L의 모든 이동요소와 설정을 초기화합니다."
 L["Resize Health Prediction"] = true

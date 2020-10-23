@@ -435,7 +435,6 @@ L["Reputation decrease Style"] = true
 L["Reputation increase Style"] = true
 L["Reset All"] = true
 L["Reset Chat History"] = true
-L["Reset Editbox History"] = true
 L["Reset these options to defaults"] = true
 L["Resets all movers & options for S&L."] = true
 L["Resize Health Prediction"] = true
