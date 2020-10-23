@@ -208,43 +208,6 @@ local function configTable()
 							},
 						},
 					},
-					editbox = {
-						type = "group",
-						name = L["Chat Editbox Text"],
-						order = 2,
-						guiInline = true,
-						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.sle.media.fonts.editbox[ info[#info] ] end,
-						set = function(info, value) E.db.sle.media.fonts.editbox[ info[#info] ] = value; E:UpdateMedia() end,
-						args = {
-							font = {
-								type = "select", dialogControl = 'LSM30_Font',
-								order = 1,
-								name = L["Font"],
-								desc = "The font used for chat editbox",
-								values = AceGUIWidgetLSMlists.font,
-							},
-							size = {
-								order = 2,
-								name = L["Font Size"],
-								type = "range",
-								min = 6, max = 20, step = 1,
-							},
-							outline = {
-								order = 3,
-								name = L["Font Outline"],
-								desc = L["Set the font outline."],
-								type = "select",
-								values = {
-									["NONE"] = L["None"],
-									["OUTLINE"] = 'OUTLINE',
-
-									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
-									["THICKOUTLINE"] = 'THICKOUTLINE',
-								},
-							},
-						},
-					},
 					gossip = {
 						type = "group",
 						name = L["Gossip and Quest Frames Text"],

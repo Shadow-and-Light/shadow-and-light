@@ -102,10 +102,6 @@ E.PopupDialogs["SLE_APPLY_FONT_WARNING"] = {
 		E.db.sle.media.fonts.mail.size = fontSize
 		E.db.sle.media.fonts.mail.outline = fontOutline
 
-		E.db.sle.media.fonts.editbox.font = font
-		E.db.sle.media.fonts.editbox.size = fontSize
-		E.db.sle.media.fonts.editbox.outline = fontOutline
-
 		E.db.sle.media.fonts.gossip.font = font
 		E.db.sle.media.fonts.gossip.size = fontSize
 		--E.db.sle.media.fonts.gossip.outline = fontOutline

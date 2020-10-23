@@ -96,7 +96,6 @@ L["Change the position from where seed bars will grow."] = true
 L["Change width based on the zone name length."] = "Modifier la largeur en fonction de la longueur du nom de la zone."
 L["Changes the text string to a shorter variant."] = "Modifie la valeur en une variante plus courte."
 L["Character Armory"] = "Personnage de l'armurerie"
-L["Chat Editbox Text"] = "Texte de la boîte d'édition du Chat"
 L["Chat Filters"] = "Filtres du chat"
 L["Chat Frame Justify"] = "Alignement de la fenêtre de chat"
 L["Chat Setup Delay"] = "Délai de configuration du chat"

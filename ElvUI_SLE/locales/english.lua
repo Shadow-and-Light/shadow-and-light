@@ -96,7 +96,6 @@ L["Change the position from where seed bars will grow."] = true
 L["Change width based on the zone name length."] = true
 L["Changes the text string to a shorter variant."] = true
 L["Character Armory"] = true
-L["Chat Editbox Text"] = true
 L["Chat Filters"] = true
 L["Chat Frame Justify"] = true
 L["Chat Setup Delay"] = true

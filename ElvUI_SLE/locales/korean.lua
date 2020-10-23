@@ -96,7 +96,6 @@ L["Change the position from where seed bars will grow."] = true
 L["Change width based on the zone name length."] = true
 L["Changes the text string to a shorter variant."] = true
 L["Character Armory"] = "캐릭터 전정실"
-L["Chat Editbox Text"] = "대화 편집창 글자"
 L["Chat Filters"] = "대화 필터"
 L["Chat Frame Justify"] = "대화창 정의"
 L["Chat Setup Delay"] = true

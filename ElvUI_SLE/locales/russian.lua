@@ -96,7 +96,6 @@ L["Change the position from where seed bars will grow."] = "Изменить с�
 L["Change width based on the zone name length."] = "Изменять ширину в зависимости от длины текста."
 L["Changes the text string to a shorter variant."] = "Зменяет текст на инфо-тексте более коротким вариантом."
 L["Character Armory"] = "Персонаж"
-L["Chat Editbox Text"] = "Текст поля ввода"
 L["Chat Filters"] = "Фильтры чата"
 L["Chat Frame Justify"] = "Выравнивание текста"
 L["Chat Setup Delay"] = "Задержка подключения чата"

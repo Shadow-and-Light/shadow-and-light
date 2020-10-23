@@ -513,11 +513,6 @@ P["sle"] = {
 				["size"] = 12,
 				["outline"] = "NONE",
 			},
-			["editbox"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 12,
-				["outline"] = "NONE",
-			},
 			["gossip"] = {
 				["font"] = "PT Sans Narrow",
 				["size"] = 12,
