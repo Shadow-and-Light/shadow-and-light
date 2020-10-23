@@ -207,7 +207,6 @@ L["Filter DPS meters' Spam"] = "미터기 스팸 거르기"
 L["Fish Key"] = "낚시 키"
 L["Following options are global and will be applied to all characters on account."] = true
 L["Following options determine which channels to save in chat history.\nNote: disabling a channel will immediately delete saved info for that channel."] = true
-L["Font Size"] = "글씨 크기"
 L["Frame 1"] = "프레임 1"
 L["Frame 10"] = "프레임 10"
 L["Frame 2"] = "프레임 2"

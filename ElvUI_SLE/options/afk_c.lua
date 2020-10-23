@@ -24,7 +24,7 @@ local function configTable()
 				},
 				size = {
 					order = 2,
-					name = L["Font Size"],
+					name = L["FONT_SIZE"],
 					type = "range",
 					min = 8, max = 32, step = 1,
 				},

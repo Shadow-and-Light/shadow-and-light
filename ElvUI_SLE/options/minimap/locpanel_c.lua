@@ -284,7 +284,7 @@ local function configTable()
 					},
 					fontSize = {
 						order = 2,
-						name = L["Font Size"],
+						name = L["FONT_SIZE"],
 						type = "range",
 						min = 6, max = 22, step = 1,
 						set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Fonts(); LP:Resize() end,

@@ -207,7 +207,6 @@ L["Filter DPS meters' Spam"] = true
 L["Fish Key"] = true
 L["Following options are global and will be applied to all characters on account."] = true
 L["Following options determine which channels to save in chat history.\nNote: disabling a channel will immediately delete saved info for that channel."] = true
-L["Font Size"] = true
 L["Frame 1"] = true
 L["Frame 10"] = true
 L["Frame 2"] = true

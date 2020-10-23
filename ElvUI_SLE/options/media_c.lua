@@ -46,7 +46,7 @@ local function configTable()
 							},
 							size = {
 								order = 2,
-								name = L["Font Size"],
+								name = L["FONT_SIZE"],
 								type = "range",
 								min = 6, max = 48, step = 1,
 							},
@@ -89,7 +89,7 @@ local function configTable()
 							},
 							size = {
 								order = 2,
-								name = L["Font Size"],
+								name = L["FONT_SIZE"],
 								type = "range",
 								min = 6, max = 48, step = 1,
 							},
@@ -138,7 +138,7 @@ local function configTable()
 							},
 							size = {
 								order = 2,
-								name = L["Font Size"],
+								name = L["FONT_SIZE"],
 								type = "range",
 								min = 6, max = 48, step = 1,
 							},
@@ -189,7 +189,7 @@ local function configTable()
 							},
 							size = {
 								order = 2,
-								name = L["Font Size"],
+								name = L["FONT_SIZE"],
 								type = "range",
 								min = 6, max = 22, step = 1,
 							},
@@ -226,7 +226,7 @@ local function configTable()
 							},
 							size = {
 								order = 2,
-								name = L["Font Size"],
+								name = L["FONT_SIZE"],
 								type = "range",
 								min = 6, max = 20, step = 1,
 							},
@@ -262,7 +262,7 @@ local function configTable()
 							},
 							size = {
 								order = 2,
-								name = L["Font Size"],
+								name = L["FONT_SIZE"],
 								type = "range",
 								min = 6, max = 20, step = 1,
 							},
@@ -299,7 +299,7 @@ local function configTable()
 							},
 							size = {
 								order = 2,
-								name = L["Font Size"],
+								name = L["FONT_SIZE"],
 								type = "range",
 								min = 6, max = 20, step = 1,
 							},
@@ -336,7 +336,7 @@ local function configTable()
 							},
 							size = {
 								order = 2,
-								name = L["Font Size"],
+								name = L["FONT_SIZE"],
 								type = "range",
 								min = 6, max = 48, step = 1,
 							},
@@ -373,7 +373,7 @@ local function configTable()
 					},
 					size = {
 						order = 2,
-						name = L["Font Size"],
+						name = L["FONT_SIZE"],
 						type = "range",
 						min = 6, max = 20, step = 1,
 						get = function(info) return allSize end,
