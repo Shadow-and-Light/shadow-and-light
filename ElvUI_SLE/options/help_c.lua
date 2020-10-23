@@ -15,13 +15,15 @@ Katherine Clarkson
 Marguerite F
 Nicholas Caldecutt
 Richard Gardner
-Tony Ellis]]
+Tony Ellis
+Justin]]
 L["ELVUI_SLE_PATRONS"] = [[Ali A
 Andre E.
 Peter aka Pete
 Sean G.
 Mark K.
-Syed]]
+Syed
+TherapyWOW]]
 L["ELVUI_SLE_CODERS"] = [[Elv
 Tukz
 Affinitii
