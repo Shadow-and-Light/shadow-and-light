@@ -11,7 +11,7 @@ local function CreateFont(i, title, group)
 		type = 'group',
 		name = title,
 		get = function(info) return E.db.sle.screensaver[group][info[#info]] end,
-		set = function(info, value) E.db.sle.screensaver[group][info[#info]] = value S:Media() end,
+		set = function(info, value) E.db.sle.screensaver[group][info[#info]] = value; S:Media() end,
 		args = {
 			font = {
 				type = 'select',

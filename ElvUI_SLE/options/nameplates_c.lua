@@ -43,12 +43,7 @@ local function configTable()
 						name = L["Font Outline"],
 						desc = L["Set the font outline."],
 						type = "select",
-						values = {
-							['NONE'] = NONE,
-							['OUTLINE'] = 'OUTLINE',
-							['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-							['THICKOUTLINE'] = 'THICKOUTLINE',
-						},
+						values = T.Values.FontFlags,
 					},
 					xoffset = {
 						order = 7,
@@ -95,12 +90,7 @@ local function configTable()
 						name = L["Font Outline"],
 						desc = L["Set the font outline."],
 						type = "select",
-						values = {
-							['NONE'] = NONE,
-							['OUTLINE'] = 'OUTLINE',
-							['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
-							['THICKOUTLINE'] = 'THICKOUTLINE',
-						},
+						values = T.Values.FontFlags,
 					},
 					xoffset = {
 						order = 7,

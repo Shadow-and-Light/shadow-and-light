@@ -7,13 +7,6 @@ local function configTable()
 	if not SLE.initialized then return end
 	local ACH = E.Libs.ACH
 
-	local FontStyleList = {
-		NONE = NONE,
-		OUTLINE = 'OUTLINE',
-		MONOCHROMEOUTLINE = 'MONOCROMEOUTLINE',
-		THICKOUTLINE = 'THICKOUTLINE'
-	}
-
 	E.Options.args.sle.args.modules.args.armory.args.character = {
 		type = 'group',
 		name = L["Character Armory"],
@@ -77,7 +70,7 @@ local function configTable()
 						type = 'select',
 						name = L["Font Outline"],
 						order = 22,
-						values = FontStyleList,
+						values = T.Values.FontFlags,
 					},
 				}
 			},
@@ -105,7 +98,7 @@ local function configTable()
 						type = 'select',
 						name = L["Font Outline"],
 						order = 3,
-						values = FontStyleList,
+						values = T.Values.FontFlags,
 					},
 					xOffset = {
 						type = 'range',
@@ -247,7 +240,7 @@ local function configTable()
 						type = 'select',
 						name = L["Font Outline"],
 						order = 5,
-						values = FontStyleList,
+						values = T.Values.FontFlags,
 					},
 					xOffset = {
 						type = 'range',

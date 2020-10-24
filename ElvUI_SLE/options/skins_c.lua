@@ -283,12 +283,7 @@ local function configTable()
 								order = 3,
 								name = L["Item Name Outline"],
 								type = "select",
-								values = {
-									["NONE"] = L["None"],
-									["OUTLINE"] = 'OUTLINE',
-									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
-									["THICKOUTLINE"] = 'THICKOUTLINE',
-								},
+								values = T.Values.FontFlags,
 							},
 							subFont = {
 								type = "select", dialogControl = 'LSM30_Font',
@@ -306,12 +301,7 @@ local function configTable()
 								order = 6,
 								name = L["Item Info Outline"],
 								type = "select",
-								values = {
-									["NONE"] = L["None"],
-									["OUTLINE"] = 'OUTLINE',
-									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
-									["THICKOUTLINE"] = 'THICKOUTLINE',
-								},
+								values = T.Values.FontFlags,
 							},
 						}
 					},

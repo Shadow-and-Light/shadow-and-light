@@ -1,18 +1,11 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local Armory = SLE:GetModule("Armory_Core")
-local IA = SLE:GetModule("Armory_Inspect")
-local M = E:GetModule("Misc")
+local Armory = SLE:GetModule('Armory_Core')
+local IA = SLE:GetModule('Armory_Inspect')
+local M = E:GetModule('Misc')
 
 local function configTable()
 	if not SLE.initialized then return end
 	local ACH = E.Libs.ACH
-
-	local FontStyleList = {
-		NONE = NONE,
-		OUTLINE = 'OUTLINE',
-		MONOCHROMEOUTLINE = 'MONOCROMEOUTLINE',
-		THICKOUTLINE = 'THICKOUTLINE'
-	}
 
 	E.Options.args.sle.args.modules.args.armory.args.inspect = {
 		type = 'group',
@@ -24,7 +17,7 @@ local function configTable()
 			header = ACH:Header(L["Inspect Armory"], 1),
 			showWarning = {
 				order = 2,
-				type = "toggle",
+				type = 'toggle',
 				name = L["Show Warning Icon"],
 				desc = L["Show Missing Enchants or Gems"],
 				get = function(info) return E.db.sle.armory.inspect[(info[#info])] end,
@@ -77,7 +70,7 @@ local function configTable()
 						type = 'select',
 						name = L["Font Outline"],
 						order = 22,
-						values = FontStyleList,
+						values = T.Values.FontFlags,
 					},
 				}
 			},
@@ -105,7 +98,7 @@ local function configTable()
 						type = 'select',
 						name = L["Font Outline"],
 						order = 3,
-						values = FontStyleList,
+						values = T.Values.FontFlags,
 					},
 					xOffset = {
 						type = 'range',
@@ -154,17 +147,17 @@ local function configTable()
 				type = 'group',
 				name = L["Transmog"],
 				get = function(info) return E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] end,
-				set = function(info, value) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = value; Armory:UpdatePageInfo(_G.InspectFrame, "Inspect") end,
+				set = function(info, value) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = value; Armory:UpdatePageInfo(_G.InspectFrame, 'Inspect') end,
 				args = {
 					enableArrow = {
 						order = 1,
-						type = "toggle",
+						type = 'toggle',
 						name = L["Enable Arrow"],
 						desc = L["Enables a small arrow-like indicator on the item slot. Howering over this arrow will show the item this slot is transmogged into."],
 					},
 					enableGlow = {
 						order = 2,
-						type = "toggle",
+						type = 'toggle',
 						name = L["Enable Glow"],
 					},
 					glowNumber = {
@@ -189,6 +182,7 @@ local function configTable()
 				order = 14,
 				get = function(info) return E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = value; M:UpdateInspectInfo() end,
+				disabled = function() return not E.db.sle.armory.inspect.enable end,
 				args = {
 					enable = {
 						type = 'toggle',
@@ -199,17 +193,15 @@ local function configTable()
 						type = 'color',
 						name = L["Gradient Texture Color"],
 						order = 2,
-						get = function(info)
-							return unpack(E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])])
-						end,
+						get = function(info) return unpack(E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])]) end,
 						set = function(info, r, g, b, a) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = { r, g, b, a }; M:UpdateInspectInfo() end,
-						disabled = function() return E.db.sle.armory.inspect.enable == false or E.db.sle.armory.inspect.gradient.enable == false end,
+						disabled = function() return not E.db.sle.armory.inspect.gradient.enable end,
 					},
 					quality = {
 						type = 'toggle',
 						name = COLORBLIND_ITEM_QUALITY,
 						order = 3,
-						disabled = function() return E.db.sle.armory.inspect.enable == false or E.db.sle.armory.inspect.gradient.enable == false end,
+						disabled = function() return not E.db.sle.armory.inspect.gradient.enable end,
 					}
 				}
 			},
@@ -236,7 +228,7 @@ local function configTable()
 						hidden = function() return E.db.sle.armory.inspect.background.selectedBG ~= 'CUSTOM' end
 					},
 					overlay = {
-						type = "toggle",
+						type = 'toggle',
 						order = 3,
 						name = L["Overlay"],
 						desc = L["Show ElvUI skin's backdrop overlay"],
