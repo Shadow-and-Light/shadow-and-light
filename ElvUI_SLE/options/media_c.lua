@@ -36,8 +36,8 @@ local function configTable()
 						order = 3,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.sle.media.fonts.zone[ info[#info] ] end,
-						set = function(info, value) E.db.sle.media.fonts.zone[ info[#info] ] = value; E:UpdateMedia() end,
+						get = function(info) return E.db.sle.media.fonts.zone[info[#info]] end,
+						set = function(info, value) E.db.sle.media.fonts.zone[info[#info]] = value; E:UpdateMedia() end,
 						args = {
 							font = {
 								type = 'select', dialogControl = 'LSM30_Font',
@@ -72,8 +72,8 @@ local function configTable()
 						order = 4,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.sle.media.fonts.subzone[ info[#info] ] end,
-						set = function(info, value) E.db.sle.media.fonts.subzone[ info[#info] ] = value; E:UpdateMedia() end,
+						get = function(info) return E.db.sle.media.fonts.subzone[info[#info]] end,
+						set = function(info, value) E.db.sle.media.fonts.subzone[info[#info]] = value; E:UpdateMedia() end,
 						args = {
 							font = {
 								type = 'select', dialogControl = 'LSM30_Font',
@@ -114,8 +114,8 @@ local function configTable()
 						order = 5,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.sle.media.fonts.pvp[ info[#info] ] end,
-						set = function(info, value) E.db.sle.media.fonts.pvp[ info[#info] ] = value; E:UpdateMedia() end,
+						get = function(info) return E.db.sle.media.fonts.pvp[info[#info]] end,
+						set = function(info, value) E.db.sle.media.fonts.pvp[info[#info]] = value; E:UpdateMedia() end,
 						args = {
 							font = {
 								type = 'select', dialogControl = 'LSM30_Font',
@@ -157,8 +157,8 @@ local function configTable()
 						order = 1,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.sle.media.fonts.mail[ info[#info] ] end,
-						set = function(info, value) E.db.sle.media.fonts.mail[ info[#info] ] = value; E:UpdateMedia() end,
+						get = function(info) return E.db.sle.media.fonts.mail[info[#info]] end,
+						set = function(info, value) E.db.sle.media.fonts.mail[info[#info]] = value; E:UpdateMedia() end,
 						args = {
 							font = {
 								type = 'select', dialogControl = 'LSM30_Font',
@@ -186,8 +186,8 @@ local function configTable()
 						order = 2,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.sle.media.fonts.gossip[ info[#info] ] end,
-						set = function(info, value) E.db.sle.media.fonts.gossip[ info[#info] ] = value; E:UpdateMedia() end,
+						get = function(info) return E.db.sle.media.fonts.gossip[info[#info]] end,
+						set = function(info, value) E.db.sle.media.fonts.gossip[info[#info]] = value; E:UpdateMedia() end,
 						args = {
 							font = {
 								type = 'select', dialogControl = 'LSM30_Font',
@@ -209,8 +209,8 @@ local function configTable()
 						order = 3,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.sle.media.fonts.objectiveHeader[ info[#info] ] end,
-						set = function(info, value) E.db.sle.media.fonts.objectiveHeader[ info[#info] ] = value; E:UpdateMedia() end,
+						get = function(info) return E.db.sle.media.fonts.objectiveHeader[info[#info]] end,
+						set = function(info, value) E.db.sle.media.fonts.objectiveHeader[info[#info]] = value; E:UpdateMedia() end,
 						args = {
 							font = {
 								type = 'select', dialogControl = 'LSM30_Font',
@@ -238,8 +238,8 @@ local function configTable()
 						order = 4,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.sle.media.fonts.objective[ info[#info] ] end,
-						set = function(info, value) E.db.sle.media.fonts.objective[ info[#info] ] = value; E:UpdateMedia() end,
+						get = function(info) return E.db.sle.media.fonts.objective[info[#info]] end,
+						set = function(info, value) E.db.sle.media.fonts.objective[info[#info]] = value; E:UpdateMedia() end,
 						args = {
 							font = {
 								type = 'select', dialogControl = 'LSM30_Font',
@@ -267,8 +267,8 @@ local function configTable()
 						order = 5,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.sle.media.fonts.questFontSuperHuge[ info[#info] ] end,
-						set = function(info, value) E.db.sle.media.fonts.questFontSuperHuge[ info[#info] ] = value; E:UpdateMedia() end,
+						get = function(info) return E.db.sle.media.fonts.questFontSuperHuge[info[#info]] end,
+						set = function(info, value) E.db.sle.media.fonts.questFontSuperHuge[info[#info]] = value; E:UpdateMedia() end,
 						args = {
 							font = {
 								type = 'select', dialogControl = 'LSM30_Font',
