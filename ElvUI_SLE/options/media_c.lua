@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, T, E, L = unpack(select(2, ...))
 local M = SLE:GetModule('Media')
 
 local allFont = 'PT Sans Narrow'
@@ -281,23 +281,23 @@ local function configTable()
 						order = 1,
 						name = L["Font"],
 						values = AceGUIWidgetLSMlists.font,
-						get = function(info) return allFont end,
-						set = function(info, value) allFont = value; end,
+						get = function(_) return allFont end,
+						set = function(_, value) allFont = value; end,
 					},
 					size = {
 						order = 2,
 						name = L["FONT_SIZE"],
 						type = 'range',
 						min = 6, max = 20, step = 1,
-						get = function(info) return allSize end,
-						set = function(info, value) allSize = value; end,
+						get = function(_) return allSize end,
+						set = function(_, value) allSize = value; end,
 					},
 					outline = {
 						order = 3,
 						name = L["Font Outline"],
 						type = 'select',
-						get = function(info) return allOutline end,
-						set = function(info, value) allOutline = value; end,
+						get = function(_) return allOutline end,
+						set = function(_, value) allOutline = value; end,
 						values = T.Values.FontFlags,
 					},
 					applyFontToAll = {
