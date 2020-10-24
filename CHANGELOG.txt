@@ -1,3 +1,14 @@
+v4.09 [October ??, 2020]
+Fixes:
+- SubZone text offset seems to behave better now
+Removed:
+- Old option for pet level in bag section as the functionality was removed but the option was forgotten
+- Removed obsolete option to change editbox text size due to ElvUI changes
+- Removed 'Font Outline' option from the 'Gossip & Quest Frames Text' section due to it rendering really bad
+- Removed 'Width' option from the 'Zone Text' sections due to it's lack of usefulness
+Changes:
+- Misc code formatting & clean up
+
 v4.08 [October 20, 2020]
 Fixes:
 - Fixed not able to invite Guild member via S&L Guild datatext
