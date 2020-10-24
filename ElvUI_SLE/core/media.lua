@@ -22,6 +22,7 @@ local Colors = {
 local ClassColor = RAID_CLASS_COLORS[E.myclass]
 
 local function ZoneTextPos()
+	_G["SubZoneTextString"]:ClearAllPoints()
 	if ( _G["PVPInfoTextString"]:GetText() == "" ) then
 		_G["SubZoneTextString"]:SetPoint("TOP", "ZoneTextString", "BOTTOM", 0, -E.db.sle.media.fonts.subzone.offset);
 	else
