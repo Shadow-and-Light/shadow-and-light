@@ -582,7 +582,6 @@ L["SLE_MEDIA_PVP"] = {"(Horde Territoire)","(Alliance Territoire)","(Territoire 
 L["SLE_MEDIA_PVPARENA"] = {"(PvP)", "Interdiction de fumer !", "Seulement 5% de taxes", "Gratuit pour tous", "L'autodestruction est en cours"}
 L["SLE_MEDIA_SUBZONES"] = {"Administration", "Hellhole", "L'allée des conneries", "Dr. Pepper Storage", "Vodka Storage", "Last National Bank"}
 L["SLE_MEDIA_ZONES"] = {"Washington","Moscow","Moon Base","Goblin Spa Resort","Illuminati Headquarters","Elv's Closet","BlizzCon"}
-L["SLE_MEDIA"] = "Options pour changer l'apparence de plusieurs éléments de l'interface utilisateur."
 L["SLE_Prof_Relure_Error"] = "Impossible d'utiliser un leurre à cause du temps restant : %.1f secondes."
 L["SLE_SKINS_DESC"] = "Cette section est conçue pour améliorer les skins existants dans ElvUI. Veuillez noter que certaines de ces options ne seront pas disponibles si le skin correspondant est désactivé dans la section principale des skins ElvUI."
 L["SLE_Tag_absorb-sl-full"] = "Slightly altered version of \"absorbs\" tag. Show 0 when no absorbs present. Absolute value."

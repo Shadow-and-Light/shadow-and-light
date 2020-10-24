@@ -15,8 +15,6 @@ local function configTable()
 		order = 20,
 		childGroups = 'tab',
 		args = {
-			header = ACH:Header(L["Media"], 1),
-			intro = ACH:Description(L["SLE_MEDIA"], 2),
 			zonefonts = {
 				type = 'group',
 				name = L["Zone Text"],
