@@ -487,50 +487,47 @@ P["sle"] = {
 		},
 	},
 	--Media
-	["media"] = {
-		["fonts"] = {
-			["zone"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 32,
-				["outline"] = "OUTLINE",
-				["width"] = 512,
+	media = {
+		fonts = {
+			zone = {
+				font = "PT Sans Narrow",
+				size = 32,
+				outline = "OUTLINE",
 			},
-			["subzone"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 25,
-				["outline"] = "OUTLINE",
-				["offset"] = 0,
-				["width"] = 512,
+			subzone = {
+				font = "PT Sans Narrow",
+				size = 25,
+				outline = "OUTLINE",
+				offset = 0,
 			},
-			["pvp"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 22,
-				["outline"] = "OUTLINE",
-				["width"] = 512,
+			pvp = {
+				font = "PT Sans Narrow",
+				size = 22,
+				outline = "OUTLINE",
 			},
-			["mail"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 12,
-				["outline"] = "NONE",
+			mail = {
+				font = "PT Sans Narrow",
+				size = 12,
+				outline = "NONE",
 			},
-			["gossip"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 12,
+			gossip = {
+				font = "PT Sans Narrow",
+				size = 12,
 			},
-			["objective"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 12,
-				["outline"] = "NONE",
+			objective = {
+				font = "PT Sans Narrow",
+				size = 12,
+				outline = "NONE",
 			},
-			["objectiveHeader"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 12,
-				["outline"] = "NONE",
+			objectiveHeader = {
+				font = "PT Sans Narrow",
+				size = 12,
+				outline = "NONE",
 			},
-			["questFontSuperHuge"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 24,
-				["outline"] = "NONE",
+			questFontSuperHuge = {
+				font = "PT Sans Narrow",
+				size = 24,
+				outline = "NONE",
 			},
 		},
 	},

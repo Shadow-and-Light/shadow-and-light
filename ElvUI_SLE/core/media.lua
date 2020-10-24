@@ -92,14 +92,6 @@ function M:SetBlizzFonts()
 	end
 end
 
-function M:TextWidth()
-	local db = E.db.sle.media.fonts or E.db.sle.media.fonts
-	_G["ZoneTextString"]:SetWidth(db.zone.width)
-	_G["PVPInfoTextString"]:SetWidth(db.pvp.width)
-	_G["PVPArenaTextString"]:SetWidth(db.pvp.width)
-	_G["SubZoneTextString"]:SetWidth(db.subzone.width)
-end
-
 function M:TextShow()
 	local z, i, a, s, c = random(1, #M.Zones), random(1, #M.PvPInfo), random(1, #M.PVPArena), random(1, #M.Subzones), random(1, #Colors)
 	local red, green, blue = unpack(Colors[c])
@@ -122,18 +114,11 @@ function M:TextShow()
 	FadingFrame_Show(_G["SubZoneTextFrame"])
 end
 
-function M:Update()
-	M:TextWidth()
-end
-
 function M:Initialize()
 	if not SLE.initialized then return end
-	M:TextWidth()
 	hooksecurefunc(E, "UpdateBlizzardFonts", M.SetBlizzFonts)
 	hooksecurefunc("SetZoneText", ZoneTextPos)
 	M.SetBlizzFonts()
-
-	SLE.UpdateFunctions["Media"] = M.Update
 end
 
 SLE:RegisterModule(M:GetName())

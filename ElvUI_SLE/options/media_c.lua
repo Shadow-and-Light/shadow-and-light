@@ -57,13 +57,6 @@ local function configTable()
 								type = 'select',
 								values = T.Values.FontFlags,
 							},
-							width = {
-								order = 4,
-								name = L["Width"],
-								type = 'range',
-								min = 512, max = E.eyefinity or E.screenwidth, step = 1,
-								set = function(_, value) E.db.sle.media.fonts.zone.width = value; M:TextWidth() end,
-							},
 						},
 					},
 					subzone = {
@@ -92,13 +85,6 @@ local function configTable()
 								name = L["Font Outline"],
 								type = 'select',
 								values = T.Values.FontFlags,
-							},
-							width = {
-								order = 4,
-								name = L["Width"],
-								type = 'range',
-								min = 512, max = E.eyefinity or E.screenwidth, step = 1,
-								set = function(info, value) E.db.sle.media.fonts.subzone[info[#info]] = value; M:TextWidth() end,
 							},
 							offset = {
 								order = 5,
@@ -134,13 +120,6 @@ local function configTable()
 								name = L["Font Outline"],
 								type = 'select',
 								values = T.Values.FontFlags,
-							},
-							width = {
-								order = 4,
-								name = L["Width"],
-								type = 'range',
-								min = 512, max = E.eyefinity or E.screenwidth, step = 1,
-								set = function(_, value) E.db.sle.media.fonts.pvp.width = value; M:TextWidth() end,
 							},
 						},
 					},
