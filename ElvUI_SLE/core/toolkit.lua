@@ -9,6 +9,19 @@ local strjoin, strmatch, strsplit, strfind = strjoin, strmatch, strsplit, strfin
 local EnumerateFrames = EnumerateFrames
 local GetItemInfo = GetItemInfo
 
+T.Values = {
+	FontFlags = {
+		NONE = L["NONE"],
+		OUTLINE = 'Outline',
+		THICKOUTLINE = 'Thick',
+		MONOCHROME = '|cffaaaaaaMono|r',
+		MONOCHROMEOUTLINE = '|cffaaaaaaMono|r Outline',
+		MONOCHROMETHICKOUTLINE = '|cffaaaaaaMono|r Thick',
+	},
+	-- FontSize = { min = 8, max = 64, step = 1 },
+	-- Strata = { BACKGROUND = 'BACKGROUND', LOW = 'LOW', MEDIUM = 'MEDIUM', HIGH = 'HIGH', DIALOG = 'DIALOG', TOOLTIP = 'TOOLTIP' },
+}
+
 T.StringToUpper = function(str)
 	return (gsub(str, "^%l", strupper))
 end

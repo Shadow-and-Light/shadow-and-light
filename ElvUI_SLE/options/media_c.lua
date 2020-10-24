@@ -55,13 +55,7 @@ local function configTable()
 								name = L["Font Outline"],
 								desc = L["Set the font outline."],
 								type = "select",
-								values = {
-									["NONE"] = L["None"],
-									["OUTLINE"] = 'OUTLINE',
-
-									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
-									["THICKOUTLINE"] = 'THICKOUTLINE',
-								},
+								values = T.Values.FontFlags,
 							},
 							width = {
 								order = 4,
@@ -98,13 +92,7 @@ local function configTable()
 								name = L["Font Outline"],
 								desc = L["Set the font outline."],
 								type = "select",
-								values = {
-									["NONE"] = L["None"],
-									["OUTLINE"] = 'OUTLINE',
-
-									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
-									["THICKOUTLINE"] = 'THICKOUTLINE',
-								},
+								values = T.Values.FontFlags,
 							},
 							width = {
 								order = 4,
@@ -147,13 +135,7 @@ local function configTable()
 								name = L["Font Outline"],
 								desc = L["Set the font outline."],
 								type = "select",
-								values = {
-									["NONE"] = L["None"],
-									["OUTLINE"] = 'OUTLINE',
-
-									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
-									["THICKOUTLINE"] = 'THICKOUTLINE',
-								},
+								values = T.Values.FontFlags,
 							},
 							width = {
 								order = 4,
@@ -198,13 +180,7 @@ local function configTable()
 								name = L["Font Outline"],
 								desc = L["Set the font outline."],
 								type = "select",
-								values = {
-									["NONE"] = L["None"],
-									["OUTLINE"] = 'OUTLINE',
-
-									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
-									["THICKOUTLINE"] = 'THICKOUTLINE',
-								},
+								values = T.Values.FontFlags,
 							},
 						},
 					},
@@ -259,13 +235,7 @@ local function configTable()
 								name = L["Font Outline"],
 								desc = L["Set the font outline."],
 								type = "select",
-								values = {
-									["NONE"] = L["None"],
-									["OUTLINE"] = 'OUTLINE',
-
-									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
-									["THICKOUTLINE"] = 'THICKOUTLINE',
-								},
+								values = T.Values.FontFlags,
 							},
 						},
 					},
@@ -296,13 +266,7 @@ local function configTable()
 								name = L["Font Outline"],
 								desc = L["Set the font outline."],
 								type = "select",
-								values = {
-									["NONE"] = L["None"],
-									["OUTLINE"] = 'OUTLINE',
-
-									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
-									["THICKOUTLINE"] = 'THICKOUTLINE',
-								},
+								values = T.Values.FontFlags,
 							},
 						},
 					},
@@ -333,13 +297,7 @@ local function configTable()
 								name = L["Font Outline"],
 								desc = L["Set the font outline."],
 								type = "select",
-								values = {
-									["NONE"] = L["None"],
-									["OUTLINE"] = 'OUTLINE',
-
-									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
-									["THICKOUTLINE"] = 'THICKOUTLINE',
-								},
+								values = T.Values.FontFlags,
 							},
 						},
 					},
@@ -374,12 +332,7 @@ local function configTable()
 						type = "select",
 						get = function(info) return allOutline end,
 						set = function(info, value) allOutline = value; end,
-						values = {
-							["NONE"] = L["None"],
-							["OUTLINE"] = 'OUTLINE',
-							["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
-							["THICKOUTLINE"] = 'THICKOUTLINE',
-						},
+						values = T.Values.FontFlags,
 					},
 					applyFontToAll = {
 						order = 4,
