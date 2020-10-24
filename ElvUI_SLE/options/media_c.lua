@@ -8,6 +8,7 @@ local allOutline = "OUTLINE"
 local function configTable()
 	if not SLE.initialized then return end
 	local ACH = E.Libs.ACH
+
 	E.Options.args.sle.args.media = {
 		type = "group",
 		name = L["Media"],
@@ -53,7 +54,6 @@ local function configTable()
 							outline = {
 								order = 3,
 								name = L["Font Outline"],
-								desc = L["Set the font outline."],
 								type = "select",
 								values = T.Values.FontFlags,
 							},
@@ -90,7 +90,6 @@ local function configTable()
 							outline = {
 								order = 3,
 								name = L["Font Outline"],
-								desc = L["Set the font outline."],
 								type = "select",
 								values = T.Values.FontFlags,
 							},
@@ -133,7 +132,6 @@ local function configTable()
 							outline = {
 								order = 3,
 								name = L["Font Outline"],
-								desc = L["Set the font outline."],
 								type = "select",
 								values = T.Values.FontFlags,
 							},
@@ -166,7 +164,6 @@ local function configTable()
 								type = "select", dialogControl = 'LSM30_Font',
 								order = 1,
 								name = L["Font"],
-								desc = "The font used for letters' body",
 								values = AceGUIWidgetLSMlists.font,
 							},
 							size = {
@@ -178,7 +175,6 @@ local function configTable()
 							outline = {
 								order = 3,
 								name = L["Font Outline"],
-								desc = L["Set the font outline."],
 								type = "select",
 								values = T.Values.FontFlags,
 							},
@@ -197,7 +193,6 @@ local function configTable()
 								type = "select", dialogControl = 'LSM30_Font',
 								order = 1,
 								name = L["Font"],
-								desc = "The font used for chat editbox",
 								values = AceGUIWidgetLSMlists.font,
 							},
 							size = {
@@ -221,7 +216,6 @@ local function configTable()
 								type = "select", dialogControl = 'LSM30_Font',
 								order = 1,
 								name = L["Font"],
-								desc = "The font used for chat editbox",
 								values = AceGUIWidgetLSMlists.font,
 							},
 							size = {
@@ -233,7 +227,6 @@ local function configTable()
 							outline = {
 								order = 3,
 								name = L["Font Outline"],
-								desc = L["Set the font outline."],
 								type = "select",
 								values = T.Values.FontFlags,
 							},
@@ -252,7 +245,6 @@ local function configTable()
 								type = "select", dialogControl = 'LSM30_Font',
 								order = 1,
 								name = L["Font"],
-								desc = "The font used for chat editbox",
 								values = AceGUIWidgetLSMlists.font,
 							},
 							size = {
@@ -264,7 +256,6 @@ local function configTable()
 							outline = {
 								order = 3,
 								name = L["Font Outline"],
-								desc = L["Set the font outline."],
 								type = "select",
 								values = T.Values.FontFlags,
 							},
@@ -283,7 +274,6 @@ local function configTable()
 								type = "select", dialogControl = 'LSM30_Font',
 								order = 1,
 								name = L["Font"],
-								desc = "The font used for chat editbox",
 								values = AceGUIWidgetLSMlists.font,
 							},
 							size = {
@@ -295,7 +285,6 @@ local function configTable()
 							outline = {
 								order = 3,
 								name = L["Font Outline"],
-								desc = L["Set the font outline."],
 								type = "select",
 								values = T.Values.FontFlags,
 							},
@@ -312,7 +301,6 @@ local function configTable()
 						type = "select", dialogControl = 'LSM30_Font',
 						order = 1,
 						name = L["Font"],
-						desc = "The font used for chat editbox",
 						values = AceGUIWidgetLSMlists.font,
 						get = function(info) return allFont end,
 						set = function(info, value) allFont = value; end,
@@ -328,7 +316,6 @@ local function configTable()
 					outline = {
 						order = 3,
 						name = L["Font Outline"],
-						desc = L["Set the font outline."],
 						type = "select",
 						get = function(info) return allOutline end,
 						set = function(info, value) allOutline = value; end,
