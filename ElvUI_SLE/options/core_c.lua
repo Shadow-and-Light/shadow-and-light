@@ -17,7 +17,7 @@ local function configTable()
 		-- order = -4,
 		order = 6,
 		args = {
-			header = E.Libs.ACH:Header("|cff9482c9Shadow & Light|r"..format(": |cff99ff33%s|r", SLE.version), 1),
+			header = E.Libs.ACH:Header(format("|cff99ff33%s|r", SLE.version), 1),
 			logo = {
 				type = 'description',
 				name = "",
