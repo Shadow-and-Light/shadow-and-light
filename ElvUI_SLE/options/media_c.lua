@@ -230,18 +230,6 @@ local function configTable()
 								type = "range",
 								min = 6, max = 20, step = 1,
 							},
-							outline = {
-								order = 3,
-								name = L["Font Outline"],
-								desc = L["Set the font outline."],
-								type = "select",
-								values = {
-									["NONE"] = L["None"],
-									["OUTLINE"] = 'OUTLINE',
-									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
-									["THICKOUTLINE"] = 'THICKOUTLINE',
-								},
-							},
 						},
 					},
 					questHeader = {

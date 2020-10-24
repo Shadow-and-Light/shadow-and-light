@@ -516,7 +516,6 @@ P["sle"] = {
 			["gossip"] = {
 				["font"] = "PT Sans Narrow",
 				["size"] = 12,
-				["outline"] = "NONE",
 			},
 			["objective"] = {
 				["font"] = "PT Sans Narrow",
