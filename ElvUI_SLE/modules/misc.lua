@@ -16,11 +16,12 @@ end
 end]]
 
 function M:SetViewport()
-	if SLE._Compatibility["SunnArt"] then return end --Other viewport addon is enabled
+	if SLE._Compatibility['SunnArt'] then return end --Other viewport addon is enabled
 	local scale = E.global.general.UIScale
+
 	_G.WorldFrame:ClearAllPoints()
-	_G.WorldFrame:SetPoint('TOPLEFT', ( M.db.viewport.left * scale ), -( M.db.viewport.top * scale ) )
-	_G.WorldFrame:SetPoint('BOTTOMRIGHT', -( M.db.viewport.right * scale ), ( M.db.viewport.bottom * scale ) )
+	_G.WorldFrame:SetPoint('TOPLEFT', (M.db.viewport.left * scale), -(M.db.viewport.top * scale))
+	_G.WorldFrame:SetPoint('BOTTOMRIGHT', -(M.db.viewport.right * scale), (M.db.viewport.bottom * scale))
 end
 
 --Raid utility
@@ -52,10 +53,10 @@ end
 
 function M:RaidUtility_Hook()
 	--Creating mover for the button
-	local frame = _G["RaidUtility_ShowButton"]
+	local frame = _G.RaidUtility_ShowButton
 	if not frame then return end --Just in case
 	E:CreateMover(frame, 'RaidUtility_Mover', RAID_CONTROL, nil, nil, nil, 'ALL,S&L,S&L MISC')
-	local mover = _G["RaidUtility_Mover"]
+	local mover = _G.RaidUtility_Mover
 
 	--Setting default point and stuff
 	if E.db.movers == nil then E.db.movers = {} end
@@ -83,14 +84,14 @@ end
 function M:Initialize()
 	if not SLE.initialized then return end
 	M.db = E.db.sle.misc
-	E:CreateMover(_G['UIErrorsFrame'], 'UIErrorsFrameMover', L["Error Frame"], nil, nil, nil, 'ALL,S&L,S&L MISC')
+	E:CreateMover(_G.UIErrorsFrame, 'UIErrorsFrameMover', L["Error Frame"], nil, nil, nil, 'ALL,S&L,S&L MISC')
 
 	--GhostFrame Mover
 	E:CreateMover(_G.GhostFrame, 'SLEGhostFrameMover', L["Ghost Frame"], nil, nil, nil, 'ALL,S&L,S&L MISC')
 	_G.GhostFrame.mover:SetSize(_G.GhostFrameContentsFrame:GetSize())
 
 	--Raid Utility
-	if _G['RaidUtility_ShowButton'] then M:RaidUtility_Hook() end
+	if _GRaidUtility_ShowButton then M:RaidUtility_Hook() end
 
 	--Viewport
 	function CinematicFrame_CancelCinematic()
@@ -101,7 +102,6 @@ function M:Initialize()
 		else
 			VehicleExit();
 		end
-
 	end
 
 	--Some high level bullshit
