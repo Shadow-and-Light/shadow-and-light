@@ -123,7 +123,7 @@ local function configTable()
 						order = 1,
 						type = "toggle",
 						name = L["Alt-Click Invite"],
-						desc = L["Allows you to invite people by alt-clicking their names in chat."],
+						desc = L["Allows you to invite people by alt-clicking their name in chat."],
 					},
 					invLinks = {
 						order = 2,
