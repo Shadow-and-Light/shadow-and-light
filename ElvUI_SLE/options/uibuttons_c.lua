@@ -6,14 +6,14 @@ local CUSTOM, NONE, DEFAULT = CUSTOM, NONE, DEFAULT
 local ADDONS = ADDONS
 
 local stratas = {
-	BACKGROUND = "1. Background",
-	LOW = "2. Low",
-	MEDIUM = "3. Medium",
-	HIGH = "4. High",
-	DIALOG = "5. Dialog",
-	FULLSCREEN = "6. Fullscreen",
-	FULLSCREEN_DIALOG = "7. Fullscreen Dialog",
-	TOOLTIP = "8. Tooltip",
+	BACKGROUND = '1. Background',
+	LOW = '2. Low',
+	MEDIUM = '3. Medium',
+	HIGH = '4. High',
+	DIALOG = '5. Dialog',
+	FULLSCREEN = '6. Fullscreen',
+	FULLSCREEN_DIALOG = '7. Fullscreen Dialog',
+	TOOLTIP = '8. Tooltip',
 }
 
 local function configTable()
