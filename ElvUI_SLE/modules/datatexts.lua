@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DTP = SLE:NewModule('Datatexts', 'AceHook-3.0', 'AceEvent-3.0');
-local DT = E:GetModule("DataTexts");
+local DT = E:GetModule('DataTexts');
 
 --GLOBALS: ElvDB, hooksecurefunc
 local format = format
@@ -17,8 +17,10 @@ DTP.PanelStyles = {
 	NOTEXT			= '%s%s|r',
 	NOTEXTTOTALS	= '%s%s/%s|r',
 }
+
 --The hook to core DT:LoadDataTexts function
 local OnLoadThrottle = true
+
 function DTP:LoadDTHook(...)
 	--Is S&L's currency dt set anywhere
 	local IsCurrencyDTSelected = false

@@ -1,213 +1,206 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local B = SLE:NewModule("Blizzard", 'AceHook-3.0', 'AceEvent-3.0')
+local B = SLE:NewModule('Blizzard', 'AceHook-3.0', 'AceEvent-3.0')
 local _G = _G
-
-local EnableMouse = EnableMouse
-local SetMovable = SetMovable
-local SetClampedToScreen = SetClampedToScreen
-local RegisterForDrag = RegisterForDrag
-local StartMoving = StartMoving
-local StopMovingOrSizing = StopMovingOrSizing
 
 --Frames to move
 B.Frames = {
-	["AddonList"] = true,
-	["AudioOptionsFrame"] = true,
-	["BankFrame"] = true,
-	["CharacterFrame"] = true,
-	["ChatConfigFrame"] = true,
-	["DressUpFrame"] = true,
-	["FriendsFrame"] = true,
-	["FriendsFriendsFrame"] = true,
-	["GameMenuFrame"] = true,
-	["GossipFrame"] = true,
-	["GuildInviteFrame"] = true,
-	["GuildRegistrarFrame"] = true,
-	["HelpFrame"] = true,
-	["InterfaceOptionsFrame"] = true,
-	["ItemTextFrame"] = true,
-	["LFDRoleCheckPopup"] = true,
-	["LFGDungeonReadyDialog"] = true,
-	["LFGDungeonReadyStatus"] = true,
-	["LootFrame"] = true,
-	["MailFrame"] = true,
-	["MerchantFrame"] = true,
-	["PVEFrame"] = true,
-	["PetStableFrame"] = true,
-	["PetitionFrame"] = true,
-	["PVPReadyDialog"] = true,
-	["QuestFrame"] = true,
-	["QuestLogPopupDetailFrame"] = true,
-	["RaidBrowserFrame"] = true,
-	["RaidInfoFrame"] = true,
-	["RaidParentFrame"] = true,
-	["ReadyCheckFrame"] = true,
-	["ReportCheatingDialog"] = true,
-	["RolePollPopup"] = true,
-	["SpellBookFrame"] = true,
-	["SplashFrame"] = true,
-	["StackSplitFrame"] = true,
-	["StaticPopup1"] = true,
-	["StaticPopup2"] = true,
-	["StaticPopup3"] = true,
-	["StaticPopup4"] = true,
-	["TabardFrame"] = true,
-	["TaxiFrame"] = true,
-	["TimeManagerFrame"] = true,
-	["TradeFrame"] = true,
-	["TutorialFrame"] = true,
-	["VideoOptionsFrame"] = true,
-	["WorldMapFrame"] = true,
+	AddonList = true,
+	AudioOptionsFrame = true,
+	BankFrame = true,
+	CharacterFrame = true,
+	ChatConfigFrame = true,
+	DressUpFrame = true,
+	FriendsFrame = true,
+	FriendsFriendsFrame = true,
+	GameMenuFrame = true,
+	GossipFrame = true,
+	GuildInviteFrame = true,
+	GuildRegistrarFrame = true,
+	HelpFrame = true,
+	InterfaceOptionsFrame = true,
+	ItemTextFrame = true,
+	LFDRoleCheckPopup = true,
+	LFGDungeonReadyDialog = true,
+	LFGDungeonReadyStatus = true,
+	LootFrame = true,
+	MailFrame = true,
+	MerchantFrame = true,
+	PVEFrame = true,
+	PetStableFrame = true,
+	PetitionFrame = true,
+	PVPReadyDialog = true,
+	QuestFrame = true,
+	QuestLogPopupDetailFrame = true,
+	RaidBrowserFrame = true,
+	RaidInfoFrame = true,
+	RaidParentFrame = true,
+	ReadyCheckFrame = true,
+	ReportCheatingDialog = true,
+	RolePollPopup = true,
+	SpellBookFrame = true,
+	SplashFrame = true,
+	StackSplitFrame = true,
+	StaticPopup1 = true,
+	StaticPopup2 = true,
+	StaticPopup3 = true,
+	StaticPopup4 = true,
+	TabardFrame = true,
+	TaxiFrame = true,
+	TimeManagerFrame = true,
+	TradeFrame = true,
+	TutorialFrame = true,
+	VideoOptionsFrame = true,
+	WorldMapFrame = true,
 }
 
 --These should be only temporary movable due to complications
 B.TempOnly = {
-	["BonusRollFrame"] = true,
-	["BonusRollLootWonFrame"] = true,
-	["BonusRollMoneyWonFrame"] = true,
+	BonusRollFrame = true,
+	BonusRollLootWonFrame = true,
+	BonusRollMoneyWonFrame = true,
 }
 
 --Blizz addons that load later
 B.AddonsList = {
-	["Blizzard_AchievementUI"] = {
-		["AchievementFrame"] = true,
+	Blizzard_AchievementUI = {
+		AchievementFrame = true,
 	},
-	["Blizzard_AlliedRacesUI"] = {
-		["AlliedRacesFrame"] = true,
+	Blizzard_AlliedRacesUI = {
+		AlliedRacesFrame = true,
 	},
-	["Blizzard_ArchaeologyUI"] = {
-		["ArchaeologyFrame"] = true,
+	Blizzard_ArchaeologyUI = {
+		ArchaeologyFrame = true,
 	},
-	["Blizzard_AuctionUI"] = {
-		["AuctionFrame"] = true,
+	Blizzard_AuctionUI = {
+		AuctionFrame = true,
 	},
-	["Blizzard_AuctionHouseUI"] = {
-		["AuctionHouseFrame"] = true,
+	Blizzard_AuctionHouseUI = {
+		AuctionHouseFrame = true,
 	},
-	["Blizzard_AzeriteUI"] = {
-		["AzeriteEmpoweredItemUI"] = true,
+	Blizzard_AzeriteUI = {
+		AzeriteEmpoweredItemUI = true,
 	},
-	["Blizzard_BarberShopUI"] = {
-		["BarberShopFrame"] = true,
+	Blizzard_BarberShopUI = {
+		BarberShopFrame = true,
 	},
-	["Blizzard_BindingUI"] = {
-		["KeyBindingFrame"] = true,
+	Blizzard_BindingUI = {
+		KeyBindingFrame = true,
 	},
-	["Blizzard_BlackMarketUI"] = {
-		["BlackMarketFrame"] = true,
+	Blizzard_BlackMarketUI = {
+		BlackMarketFrame = true,
 	},
-	["Blizzard_Calendar"] = {
-		["CalendarCreateEventFrame"] = true,
-		["CalendarFrame"] = true,
+	Blizzard_Calendar = {
+		CalendarCreateEventFrame = true,
+		CalendarFrame = true,
 	},
-	["Blizzard_ChallengesUI"] = {
-		["ChallengesKeystoneFrame"] = true,
-		-- ["ChallengesLeaderboardFrame"] = false,
+	Blizzard_ChallengesUI = {
+		ChallengesKeystoneFrame = true,
+		-- ChallengesLeaderboardFrame = false,
 	},
-	["Blizzard_Collections"] = {
-		["CollectionsJournal"] = true,
-		["WardrobeFrame"] = true,
+	Blizzard_Collections = {
+		CollectionsJournal = true,
+		WardrobeFrame = true,
 	},
-	["Blizzard_Communities"] = {
-		["CommunitiesFrame"] = true,
+	Blizzard_Communities = {
+		CommunitiesFrame = true,
 	},
-	["Blizzard_EncounterJournal"] = {
-		["EncounterJournal"] = true,
+	Blizzard_EncounterJournal = {
+		EncounterJournal = true,
 	},
-	["Blizzard_GarrisonUI"] = {
-		["GarrisonLandingPage"] = true,
-		["GarrisonMissionFrame"] = true,
-		["GarrisonCapacitiveDisplayFrame"] = true,
-		["GarrisonBuildingFrame"] = true,
-		["GarrisonRecruiterFrame"] = true,
-		["GarrisonRecruitSelectFrame"] = true,
-		["GarrisonShipyardFrame"] = true,
-		["OrderHallMissionFrame"] = true,
-		["BFAMissionFrame"] = true,
+	Blizzard_GarrisonUI = {
+		GarrisonLandingPage = true,
+		GarrisonMissionFrame = true,
+		GarrisonCapacitiveDisplayFrame = true,
+		GarrisonBuildingFrame = true,
+		GarrisonRecruiterFrame = true,
+		GarrisonRecruitSelectFrame = true,
+		GarrisonShipyardFrame = true,
+		OrderHallMissionFrame = true,
+		BFAMissionFrame = true,
 	},
-	["Blizzard_GMChatUI"] = {
-		["GMChatStatusFrame"] = true,
+	Blizzard_GMChatUI = {
+		GMChatStatusFrame = true,
 	},
-	["Blizzard_GMSurveyUI"] = {
-		["GMSurveyFrame"] = true,
+	Blizzard_GMSurveyUI = {
+		GMSurveyFrame = true,
 	},
-	["Blizzard_GuildBankUI"] = {
-		["GuildBankFrame"] = true,
+	Blizzard_GuildBankUI = {
+		GuildBankFrame = true,
 	},
-	["Blizzard_GuildControlUI"] = {
-		["GuildControlUI"] = true,
+	Blizzard_GuildControlUI = {
+		GuildControlUI = true,
 	},
-	["Blizzard_GuildUI"] = {
-		["GuildFrame"] = true,
-		["GuildLogFrame"] = true,
+	Blizzard_GuildUI = {
+		GuildFrame = true,
+		GuildLogFrame = true,
 	},
-	["Blizzard_InspectUI"] = {
-		["InspectFrame"] = true,
+	Blizzard_InspectUI = {
+		InspectFrame = true,
 	},
-	["Blizzard_ItemAlterationUI"] = {
-		["TransmogrifyFrame"] = true,
+	Blizzard_ItemAlterationUI = {
+		TransmogrifyFrame = true,
 	},
-	["Blizzard_ItemSocketingUI"] = {
-		["ItemSocketingFrame"] = true,
+	Blizzard_ItemSocketingUI = {
+		ItemSocketingFrame = true,
 	},
-	["Blizzard_ItemUpgradeUI"] = {
-		["ItemUpgradeFrame"] = true,
+	Blizzard_ItemUpgradeUI = {
+		ItemUpgradeFrame = true,
 	},
-	-- ["Blizzard_LookingForGuildUI"] = {
-	-- 	["LookingForGuildFrame"] = true,
+	-- Blizzard_LookingForGuildUI = {
+	-- 	LookingForGuildFrame = true,
 	-- },
-	["Blizzard_MacroUI"] = {
-		["MacroFrame"] = true,
+	Blizzard_MacroUI = {
+		MacroFrame = true,
 	},
-	["Blizzard_OrderHallUI"] = {
-		["OrderHallTalentFrame"] = true,
+	Blizzard_OrderHallUI = {
+		OrderHallTalentFrame = true,
 	},
-	["Blizzard_QuestChoice"] = {
-		["QuestChoiceFrame"] = true,
+	Blizzard_QuestChoice = {
+		QuestChoiceFrame = true,
 	},
-	["Blizzard_ScrappingMachineUI"] = {
-		["ScrappingMachineFrame"] = true,
+	Blizzard_ScrappingMachineUI = {
+		ScrappingMachineFrame = true,
 	},
-	["Blizzard_TalentUI"] = {
-		["PlayerTalentFrame"] = true,
+	Blizzard_TalentUI = {
+		PlayerTalentFrame = true,
 	},
-	["Blizzard_TradeSkillUI"] = {
-		["TradeSkillFrame"] = true,
+	Blizzard_TradeSkillUI = {
+		TradeSkillFrame = true,
 	},
-	["Blizzard_TrainerUI"] = {
-		["ClassTrainerFrame"] = true,
+	Blizzard_TrainerUI = {
+		ClassTrainerFrame = true,
 	},
-	["Blizzard_VoidStorageUI"] = {
-		["VoidStorageFrame"] = true,
+	Blizzard_VoidStorageUI = {
+		VoidStorageFrame = true,
 	},
 }
 
 --These should not be on screen at the same time
 B.ExlusiveFrames = {
-	["QuestFrame"] = { "GossipFrame", },
-	["GossipFrame"] = { "QuestFrame", },
-	["GameMenuFrame"] = { "VideoOptionsFrame", "InterfaceOptionsFrame", "HelpFrame",},
-	["VideoOptionsFrame"] = { "GameMenuFrame",},
-	["InterfaceOptionsFrame"] = { "GameMenuFrame",},
-	["HelpFrame"] = { "GameMenuFrame",},
+	QuestFrame = { 'GossipFrame', },
+	GossipFrame = { 'QuestFrame', },
+	GameMenuFrame = { 'VideoOptionsFrame', 'InterfaceOptionsFrame', 'HelpFrame',},
+	VideoOptionsFrame = { 'GameMenuFrame',},
+	InterfaceOptionsFrame = { 'GameMenuFrame',},
+	HelpFrame = { 'GameMenuFrame',},
 }
 
 --Don't even ask
 B.FramesAreaAlter = {
-	["GarrisonMissionFrame"] = "left",
-	["OrderHallMissionFrame"] = "left",
-	["BFAMissionFrame"] = "left",
+	GarrisonMissionFrame = 'left',
+	OrderHallMissionFrame = 'left',
+	BFAMissionFrame = 'left',
 }
 B.SpecialDefaults = {
-	["GarrisonMissionFrame"] = { "CENTER", _G.UIParent, "CENTER", 0, 0 },
-	["OrderHallMissionFrame"] = { "CENTER", _G.UIParent, "CENTER", 0, 0 },
-	["BFAMissionFrame"] = { "CENTER", _G.UIParent, "CENTER", 0, 0 },
+	GarrisonMissionFrame = { 'CENTER', _G.UIParent, 'CENTER', 0, 0 },
+	OrderHallMissionFrame = { 'CENTER', _G.UIParent, 'CENTER', 0, 0 },
+	BFAMissionFrame = { 'CENTER', _G.UIParent, 'CENTER', 0, 0 },
 }
 
 B.OriginalDefaults = {} --Don't even ask 2: The Reckoning
 
 local function OnDragStart(self)
-	if _G.UnitAffectingCombat("player") then return end --Not allowed to move in combat, cause reasons.
+	if _G.UnitAffectingCombat('player') then return end --Not allowed to move in combat, cause reasons.
 	local Name = self:GetName()
 	if not E.private.sle.module.blizzmove.remember and not B.OriginalDefaults[Name] then --Don't even ask 3: Return of the bullshit
 		local a, _, c, d, e = self:GetPoint()
@@ -225,9 +218,9 @@ local function OnDragStop(self)
 	if E.private.sle.module.blizzmove.remember and not B.TempOnly[Name] then --Saving positions only if option is enabled and frame is not temporary movable
 		local a, _, c, d, e = self:GetPoint()
 		local b = self:GetParent():GetName() or _G.UIParent
-		if Name == "QuestFrame" or Name == "GossipFrame" then --These 2 frames should always be in the same place. So having coordinates for them at the same time
-			E.private.sle.module.blizzmove.points["GossipFrame"] = {a, b, c, d, e}
-			E.private.sle.module.blizzmove.points["QuestFrame"] = {a, b, c, d, e}
+		if Name == 'QuestFrame' or Name == 'GossipFrame' then --These 2 frames should always be in the same place. So having coordinates for them at the same time
+			E.private.sle.module.blizzmove.points['GossipFrame'] = {a, b, c, d, e}
+			E.private.sle.module.blizzmove.points['QuestFrame'] = {a, b, c, d, e}
 		else
 			E.private.sle.module.blizzmove.points[Name] = {a, b, c, d, e}
 		end
@@ -278,27 +271,27 @@ function B:MakeMovable(Name, AddOn)
 	end
 	local frame = _G[Name]
 	if not frame then --Frame in the list was removed since the last time I checked
-		SLE:Print("Frame to move doesn't exist: "..(Name or "Unknown"), "error")
+		SLE:Print("Frame to move doesn't exist: "..(Name or 'Unknown'), 'error')
 		return
 	end
 
-	if Name == "AchievementFrame" then AchievementFrameHeader:EnableMouse(false) end --Cause achievement frame is a bitch
+	if Name == 'AchievementFrame' then AchievementFrameHeader:EnableMouse(false) end --Cause achievement frame is a bitch
 
 	frame:EnableMouse(true)
 	frame:SetMovable(true)
 	frame:SetClampedToScreen(true)
-	frame:RegisterForDrag("LeftButton")
+	frame:RegisterForDrag('LeftButton')
 
-	frame:HookScript("OnShow", LoadPosition)
-	frame:HookScript("OnDragStart", OnDragStart)
-	frame:HookScript("OnDragStop", OnDragStop)
-	frame:HookScript("OnHide", OnDragStop)
-	hooksecurefunc(frame, "SetPoint", B.RewritePoint)
+	frame:HookScript('OnShow', LoadPosition)
+	frame:HookScript('OnDragStart', OnDragStart)
+	frame:HookScript('OnDragStop', OnDragStop)
+	frame:HookScript('OnHide', OnDragStop)
+	hooksecurefunc(frame, 'SetPoint', B.RewritePoint)
 end
 
 function B:Addons(event, addon)
 	if not B.AddonsList[addon] then return end
-	if type(B.AddonsList[addon]) == "table" then
+	if type(B.AddonsList[addon]) == 'table' then
 		for FrameName, state in pairs(B.AddonsList[addon]) do
 			if state then B:MakeMovable(FrameName, addon) end
 		end
@@ -311,11 +304,11 @@ function B:Addons(event, addon)
 end
 
 function B:ErrorFrameSize()
-	_G["UIErrorsFrame"]:SetSize(B.db.errorframe.width, B.db.errorframe.height) --512 x 60
+	_G.UIErrorsFrame:SetSize(B.db.errorframe.width, B.db.errorframe.height) --512 x 60
 end
 
 local function CompatibilityChecks()
-	if SLE._Compatibility["Mapster"] then B.Frames["WorldMapFrame"] = false end
+	if SLE._Compatibility['Mapster'] then B.Frames['WorldMapFrame'] = false end
 end
 
 function B:Initialize()
@@ -331,7 +324,7 @@ function B:Initialize()
 			if state then B:MakeMovable(FrameName) end
 		end
 
-		self:RegisterEvent("ADDON_LOADED", "Addons")
+		self:RegisterEvent('ADDON_LOADED', 'Addons')
 
 		-- Check Forced Loaded AddOns
 		for AddOn, Table in pairs(B.AddonsList) do
