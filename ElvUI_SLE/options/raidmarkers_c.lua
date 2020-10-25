@@ -11,18 +11,18 @@ local function configTable()
 
 	E.Options.args.sle.args.modules.args.raidmarkerbars = {
 		order = 1,
-		type = "group",
+		type = 'group',
 		name = L["Raid Markers"],
-		get = function(info) return E.db.sle.raidmarkers[ info[#info] ] end,
+		get = function(info) return E.db.sle.raidmarkers[info[#info]] end,
 		args = {
 			marksheader = ACH:Header(L["Raid Markers"], 1),
 			desc = ACH:Description(L["Options for panels providing fast access to raid markers and flares."], 2),
 			enable = {
 				order = 3,
-				type = "toggle",
+				type = 'toggle',
 				name = L["Enable"],
 				desc = L["Show/Hide raid marks."],
-				set = function(info, value) E.db.sle.raidmarkers.enable = value; RM:Visibility() end,
+				set = function(info, value) E.db.sle.raidmarkers[info[#info]] = value; RM:Visibility() end,
 			},
 			reset = {
 				order = 4,
@@ -30,7 +30,7 @@ local function configTable()
 				name = L["Restore Defaults"],
 				desc = L["Reset these options to defaults"],
 				disabled = function() return not E.db.sle.raidmarkers.enable end,
-				func = function() SLE:Reset("marks") end,
+				func = function() SLE:Reset('marks') end,
 			},
 			spacer1 = ACH:Spacer(5),
 			backdrop = {
@@ -38,7 +38,7 @@ local function configTable()
 				order = 6,
 				name = L["Backdrop"],
 				disabled = function() return not E.db.sle.raidmarkers.enable end,
-				set = function(info, value) E.db.sle.raidmarkers.backdrop = value; RM:Backdrop() end,
+				set = function(info, value) E.db.sle.raidmarkers[info[#info]] = value; RM:Backdrop() end,
 			},
 			buttonSize = {
 				order = 7,
@@ -46,7 +46,7 @@ local function configTable()
 				name = L["Button Size"],
 				min = 16, max = 40, step = 1,
 				disabled = function() return not E.db.sle.raidmarkers.enable end,
-				set = function(info, value) E.db.sle.raidmarkers.buttonSize = value; RM:UpdateBar() end,
+				set = function(info, value) E.db.sle.raidmarkers[info[#info]] = value; RM:UpdateBar() end,
 			},
 			spacing = {
 				order = 8,
@@ -54,17 +54,17 @@ local function configTable()
 				name = L["Button Spacing"],
 				min = -4, max = 10, step = 1,
 				disabled = function() return not E.db.sle.raidmarkers.enable end,
-				set = function(info, value) E.db.sle.raidmarkers.spacing = value; RM:UpdateBar() end,
+				set = function(info, value) E.db.sle.raidmarkers[info[#info]] = value; RM:UpdateBar() end,
 			},
 			orientation = {
 				order = 9,
 				type = 'select',
 				name = L["Orientation"],
 				disabled = function() return not E.db.sle.raidmarkers.enable end,
-				set = function(info, value) E.db.sle.raidmarkers.orientation = value; RM:UpdateBar() end,
+				set = function(info, value) E.db.sle.raidmarkers[info[#info]] = value; RM:UpdateBar() end,
 				values = {
-					["HORIZONTAL"] = L["Horizontal"],
-					["VERTICAL"] = L["Vertical"],
+					HORIZONTAL = L["Horizontal"],
+					VERTICAL = L["Vertical"],
 				},
 			},
 			reverse = {
@@ -72,7 +72,7 @@ local function configTable()
 				order = 10,
 				name = L["Reverse"],
 				disabled = function() return not E.db.sle.raidmarkers.enable end,
-				set = function(info, value) E.db.sle.raidmarkers.reverse = value; RM:UpdateBar() end,
+				set = function(info, value) E.db.sle.raidmarkers[info[#info]] = value; RM:UpdateBar() end,
 			},
 			modifier = {
 				order = 11,
@@ -80,11 +80,11 @@ local function configTable()
 				name = L["Modifier Key"],
 				desc = L["Set the modifier key for placing world markers."],
 				disabled = function() return not E.db.sle.raidmarkers.enable end,
-				set = function(info, value) E.db.sle.raidmarkers.modifier = value; RM:UpdateWorldMarkersAndTooltips() end,
+				set = function(info, value) E.db.sle.raidmarkers[info[#info]] = value; RM:UpdateWorldMarkersAndTooltips() end,
 				values = {
-					["shift-"] = SHIFT_KEY,
-					["ctrl-"] = CTRL_KEY,
-					["alt-"] = ALT_KEY,
+					['shift-'] = SHIFT_KEY,
+					['ctrl-'] = CTRL_KEY,
+					['alt-'] = ALT_KEY,
 				},
 			},
 			visibility = {
@@ -92,12 +92,12 @@ local function configTable()
 				order = 12,
 				name = L["Visibility"],
 				disabled = function() return not E.db.sle.raidmarkers.enable end,
-				set = function(info, value) E.db.sle.raidmarkers.visibility = value; RM:Visibility() end,
+				set = function(info, value) E.db.sle.raidmarkers[info[#info]] = value; RM:Visibility() end,
 				values = {
-					["DEFAULT"] = DEFAULT,
-					["INPARTY"] = AGGRO_WARNING_IN_PARTY,
-					["ALWAYS"] = L["Always Display"],
-					["CUSTOM"] = CUSTOM,
+					DEFAULT = DEFAULT,
+					INPARTY = AGGRO_WARNING_IN_PARTY,
+					ALWAYS = L["Always Display"],
+					CUSTOM = CUSTOM,
 				},
 			},
 			customVisibility = {
@@ -105,22 +105,22 @@ local function configTable()
 				type = 'input',
 				width = 'full',
 				name = L["Visibility State"],
-				disabled = function() return E.db.sle.raidmarkers.visibility ~= "CUSTOM" or not E.db.sle.raidmarkers.enable end,
-				set = function(info, value) E.db.sle.raidmarkers.customVisibility = value; RM:Visibility() end,
+				disabled = function() return E.db.sle.raidmarkers.visibility ~= 'CUSTOM' or not E.db.sle.raidmarkers.enable end,
+				set = function(info, value) E.db.sle.raidmarkers[info[#info]] = value; RM:Visibility() end,
 			},
 			mouseover = {
 				order = 14,
-				type = "toggle",
+				type = 'toggle',
 				name = L["Mouseover"],
 				disabled = function() return not E.db.sle.raidmarkers.enable end,
-				set = function(info, value) E.db.sle.raidmarkers.mouseover = value; RM:UpdateMouseover() end,
+				set = function(info, value) E.db.sle.raidmarkers[info[#info]] = value; RM:UpdateMouseover() end,
 			},
 			notooltip = {
 				order = 15,
-				type = "toggle",
+				type = 'toggle',
 				name = L["No tooltips"],
 				disabled = function() return not E.db.sle.raidmarkers.enable end,
-				set = function(info, value) E.db.sle.raidmarkers.notooltip = value; end,
+				set = function(info, value) E.db.sle.raidmarkers[info[#info]] = value end,
 			},
 		},
 	}
