@@ -662,7 +662,6 @@ L["Use ElvUI's restrictions for button presses."] = "Использовать о
 L["Use quick access (on right click) for this button."] = "Функция для быстрого действия. Вызывается нажатием ПКМ на кнопке открытия списка."
 L["Use shadows on..."] = "Использовать тени на..."
 L["Viewport"] = true
-L["Visibility State"] = "Видимость"
 L["Warning Only As Icons"] = "Предупреждение только иконкой"
 L["Warning Size"] = "Размер предупреждения"
 L["WARNING: This will reset all movers & options for S&L and reload the screen."] = "|cffFF0000АХТУНГ:|r Это приведет к сбросы всех фиксаторов и опции S&L и перезагрузит интерфейс."

@@ -662,7 +662,6 @@ L["Use ElvUI's restrictions for button presses."] = true
 L["Use quick access (on right click) for this button."] = true
 L["Use shadows on..."] = true
 L["Viewport"] = true
-L["Visibility State"] = true
 L["Warning Only As Icons"] = true
 L["Warning Size"] = true
 L["WARNING: This will reset all movers & options for S&L and reload the screen."] = true
