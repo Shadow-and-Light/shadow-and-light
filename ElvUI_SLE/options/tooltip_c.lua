@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, _, E, L = unpack(select(2, ...))
 local RP = SLE:GetModule('RaidProgress')
 
 local function configTable()
@@ -7,10 +7,10 @@ local function configTable()
 
 	E.Options.args.sle.args.modules.args.tooltip = {
 		order = 1,
-		type = "group",
+		type = 'group',
+		name = L["Tooltip"],
 		disabled = function() return not E.private.tooltip.enable end,
 		get = function(info) return E.db.sle.tooltip[info[#info]] end,
-		name = L["Tooltip"],
 		args = {
 			header = ACH:Header(L["Tooltip"], 1),
 			spacer1 = ACH:Spacer(4),
@@ -20,23 +20,23 @@ local function configTable()
 				name = L["Faction Icon"],
 				desc = L["Show faction icon to the left of player's name on tooltip."],
 				disabled = function() return not E.private.tooltip.enable end,
-				set = function(info, value) E.db.sle.tooltip.showFaction = value end,
+				set = function(info, value) E.db.sle.tooltip[info[#info]] = value end,
 			},
 			alwaysCompareItems = {
 				order = 6,
 				type = 'toggle',
 				name = L["Always Compare Items"],
 				disabled = function() return not E.private.tooltip.enable end,
-				set = function(info, value) E.db.sle.tooltip.alwaysCompareItems = value; SLE:SetCompareItems() end,
+				set = function(info, value) E.db.sle.tooltip[info[#info]] = value; SLE:SetCompareItems() end,
 			},
 			RaidProg = {
+				order = 12,
 				type = 'group',
 				name = L["Raid Progression"],
-				order = 12,
 				guiInline = true,
+				disabled = function() return not E.private.tooltip.enable end,
 				get = function(info) return E.db.sle.tooltip.RaidProg[info[#info]] end,
 				set = function(info, value) E.db.sle.tooltip.RaidProg[info[#info]] = value end,
-				disabled = function() return not E.private.tooltip.enable end,
 				args = {
 					enable = {
 						order = 1,
@@ -46,8 +46,8 @@ local function configTable()
 					},
 					NameStyle = {
 						order = 2,
-						name = L["Name Style"],
 						type = 'select',
+						name = L["Name Style"],
 						set = function(info, value) E.db.sle.tooltip.RaidProg[info[#info]] = value; wipe(RP.Cache) end,
 						values = {
 							LONG = L["Full"],
@@ -56,8 +56,8 @@ local function configTable()
 					},
 					DifStyle = {
 						order = 3,
-						name = L["Difficulty Style"],
 						type = 'select',
+						name = L["Difficulty Style"],
 						set = function(info, value) E.db.sle.tooltip.RaidProg[info[#info]] = value; wipe(RP.Cache) end,
 						values = {
 							LONG = L["Full"],
