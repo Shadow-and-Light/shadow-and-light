@@ -26,9 +26,10 @@ end
 
 function DB:Initialize()
 	if not SLE.initialized then return end
+	DB.db = E.db.sle.databars
+	DB:RegisterFilters()
 
 	function DB:ForUpdateAll()
-		DB.db = E.db.sle.databars
 		DB:RegisterFilters()
 	end
 

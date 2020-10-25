@@ -32,7 +32,7 @@ local function configTable()
 						type = "toggle",
 						name = L["Full value on Exp Bar"],
 						get = function() return E.db.sle.databars.exp.longtext end,
-						set = function(_, value) E.db.sle.databars.exp.longtext = value; EDB:UpdateExperience() end,
+						set = function(_, value) E.db.sle.databars.exp.longtext = value; EDB:ExperienceBar_Update() end,
 					},
 					chatfilters = {
 						order = 3,
@@ -62,8 +62,8 @@ local function configTable()
 								name = L["Experience Style"],
 								disabled = function() return not E.db.sle.databars.exp.chatfilter.enable end,
 								values = {
-									["STYLE1"] = format(DB.Exp.Styles["STYLE1"]["Bonus"], 14, E.myname, 300, 150, SCENARIO_BONUS_LABEL),
-									["STYLE2"] = format(DB.Exp.Styles["STYLE2"]["Bonus"], 14, E.myname, 300, 150, SCENARIO_BONUS_LABEL),
+									["STYLE1"] = format(DB.Exp.Styles["STYLE1"]["Bonus"], 12, E.myname, 300, 150, SCENARIO_BONUS_LABEL),
+									["STYLE2"] = format(DB.Exp.Styles["STYLE2"]["Bonus"], 12, E.myname, 300, 150, SCENARIO_BONUS_LABEL),
 								},
 							},
 						},
@@ -116,8 +116,8 @@ local function configTable()
 								name = L["Reputation increase Style"],
 								disabled = function() return not E.db.sle.databars.rep.chatfilter.enable end,
 								values = {
-									["STYLE1"] = format(DB.RepIncreaseStyles["STYLE1"], 14, FACTION, 300),
-									["STYLE2"] = format(DB.RepIncreaseStyles["STYLE2"], 14, FACTION, 300),
+									["STYLE1"] = format(DB.RepIncreaseStyles["STYLE1"], 12, FACTION, 300),
+									["STYLE2"] = format(DB.RepIncreaseStyles["STYLE2"], 12, FACTION, 300),
 								},
 							},
 							styleDec = {
@@ -126,8 +126,8 @@ local function configTable()
 								name = L["Reputation decrease Style"],
 								disabled = function() return not E.db.sle.databars.rep.chatfilter.enable end,
 								values = {
-									["STYLE1"] = format(DB.RepDecreaseStyles["STYLE1"], 14, FACTION, 300),
-									["STYLE2"] = format(DB.RepDecreaseStyles["STYLE2"], 14, FACTION, 300),
+									["STYLE1"] = format(DB.RepDecreaseStyles["STYLE1"], 12, FACTION, 300),
+									["STYLE2"] = format(DB.RepDecreaseStyles["STYLE2"], 12, FACTION, 300),
 								},
 							},
 							showAll = {

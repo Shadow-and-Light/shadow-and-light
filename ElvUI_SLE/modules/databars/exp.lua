@@ -163,12 +163,14 @@ function DB:FilterExperience(event, message, ...)
 				end
 			end
 		end
+
 		return false, message, ...
 	end
+
 	return false, message, ...
 end
 
 function DB:ExpInit()
 	DB:PopulateExpPatterns()
-	hooksecurefunc(E:GetModule('DataBars'), "UpdateExperience", UpdateExperience)
+	hooksecurefunc(E:GetModule('DataBars'), "ExperienceBar_Update", UpdateExperience)
 end
