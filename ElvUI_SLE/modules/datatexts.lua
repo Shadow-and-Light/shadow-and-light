@@ -32,19 +32,19 @@ function DTP:LoadDTHook(...)
 			--Searching for gold
 			for panelName, panelSettings in pairs(DT.db.panels) do
 				if panelSettings and type(panelSettings) == 'table' then --if options for panel exist and it is 2+ slot panel (2 cause DTBars exists)
-					if panelName == panelName and DT.db.panels[panelName][i] and DT.db.panels[panelName][i] == "Gold" then
+					if panelName == panelName and DT.db.panels[panelName][i] and DT.db.panels[panelName][i] == 'Gold' then
 						--if it is current panel and options for it exist and it is gold dt, put the location in da cache
 						DTP.GoldCache[panelName] = panel.dataPanels[i]
-					elseif panelName == panelName and DT.db.panels[panelName][i] and DT.db.panels[panelName][i] == "S&L Currency" then
+					elseif panelName == panelName and DT.db.panels[panelName][i] and DT.db.panels[panelName][i] == 'S&L Currency' then
 						--if it is current panel and options for it exist and it is s&l currency dt, set the flag to true
 						IsCurrencyDTSelected = true
 					end
-				elseif panelSettings and type(panelSettings) == 'string' and panelSettings == "Gold" then --if options for panel exist and it is 1 slot panel with gold dt
-					if DT.db.panels[panelName] == "Gold" and panelName == panelName then
+				elseif panelSettings and type(panelSettings) == 'string' and panelSettings == 'Gold' then --if options for panel exist and it is 1 slot panel with gold dt
+					if DT.db.panels[panelName] == 'Gold' and panelName == panelName then
 						DTP.GoldCache[panelName] = panel.dataPanels[i]
 					end
-				elseif panelSettings and type(panelSettings) == 'string' and panelSettings == "S&L Currency" then --if options for panel exist and it is 1 slot panel with s&l currency
-					if DT.db.panels[panelName] == "Gold" and panelName == panelName then
+				elseif panelSettings and type(panelSettings) == 'string' and panelSettings == 'S&L Currency' then --if options for panel exist and it is 1 slot panel with s&l currency
+					if DT.db.panels[panelName] == 'Gold' and panelName == panelName then
 						IsCurrencyDTSelected = true
 					end
 				end
@@ -59,8 +59,8 @@ function DTP:LoadDTHook(...)
 		if IsCurrencyDTSelected then
 			for panelName, datatext in pairs(DTP.GoldCache) do
 				--Message about this particular panel having gold dt
-				local message = format(L["SLE_DT_CURRENCY_WARNING_GOLD"], "|cff1784d1"..L[panelName].."|r")
-				SLE:Print(message, "warning")
+				local message = format(L["SLE_DT_CURRENCY_WARNING_GOLD"], '|cff1784d1'..L[panelName]..'|r')
+				SLE:Print(message, 'warning')
 				--Unregister all events for this gold dt to prevent weird shit on currency
 				if datatext then datatext:UnregisterAllEvents() end
 			end
@@ -81,18 +81,18 @@ function DTP:DeleteCurrencyEntry(data)
 		end
 	end
 	if ElvDB['faction'] and ElvDB['faction'][data.realm] then
-		if ElvDB['faction'][data.realm]["Alliance"][data.name] then
-			ElvDB['faction'][data.realm]["Alliance"][data.name] = nil;
+		if ElvDB['faction'][data.realm]['Alliance'][data.name] then
+			ElvDB['faction'][data.realm]['Alliance'][data.name] = nil;
 		end
-		if ElvDB['faction'][data.realm]["Horde"][data.name] then
-			ElvDB['faction'][data.realm]["Horde"][data.name] = nil;
+		if ElvDB['faction'][data.realm]['Horde'][data.name] then
+			ElvDB['faction'][data.realm]['Horde'][data.name] = nil;
 		end
 	end
-	E.Libs["AceConfigDialog"]:ConfigTableChanged(nil, "ElvUI")
+	E.Libs['AceConfigDialog']:ConfigTableChanged(nil, 'ElvUI')
 end
 
 function DTP:PLAYER_ENTERING_WORLD(event, message)
-	if event == "PLAYER_ENTERING_WORLD" then
+	if event == 'PLAYER_ENTERING_WORLD' then
 		if message or not ElvDB.SLEMinimize then
 			ElvDB.SLEMinimize = {}  -- * Temp table friends and guild dt can use to track temp visibility states
 		end
@@ -111,7 +111,7 @@ function DTP:Initialize()
 	popup.OnAccept = DTP.DeleteCurrencyEntry
 
 	--Hooking to default functions to remove gold conflicts
-	hooksecurefunc(DT, "LoadDataTexts", DTP.LoadDTHook)
+	hooksecurefunc(DT, 'LoadDataTexts', DTP.LoadDTHook)
 end
 
 SLE:RegisterModule(DTP:GetName())
