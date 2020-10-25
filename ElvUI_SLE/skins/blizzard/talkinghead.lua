@@ -12,7 +12,7 @@ function B:SLETalkingHead()
 end
 
 local function LoadHooks()
-	hooksecurefunc("TalkingHeadFrame_PlayCurrent", function()
+	hooksecurefunc('TalkingHeadFrame_PlayCurrent', function()
 		if E.db.sle.skins.talkinghead.hide then
 			_G.TalkingHeadFrame:Hide()
 		end
@@ -20,4 +20,4 @@ local function LoadHooks()
 	B:SLETalkingHead()
 end
 
-hooksecurefunc(B, "ScaleTalkingHeadFrame", LoadHooks)
+hooksecurefunc(B, 'ScaleTalkingHeadFrame', LoadHooks)
