@@ -647,7 +647,6 @@ L["Use ElvUI's restrictions for button presses."] = "Benutze ElvUI's Beschränku
 L["Use quick access (on right click) for this button."] = "Verwende den Schnellzugriff (mit der rechten Maustaste) für diese Schaltfläche."
 L["Use shadows on..."] = "Benutze Schatten auf..."
 L["Viewport"] = "Ansichtsfenster"
-L["Visibility State"] = "Sichtbarkeit"
 L["Warning Only As Icons"] = "Warnung nur als Symbol"
 L["Warning Size"] = "Warnungsgröße"
 L["WARNING: This will reset all movers & options for S&L and reload the screen."] = "WARNUNG: Dadurch werden alle Mover und Optionen für S&L zurückgesetzt und der Bildschirm neu geladen."
