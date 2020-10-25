@@ -1,10 +1,10 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local EC = SLE:NewModule("ElvConfig", "AceEvent-3.0")
+local EC = SLE:NewModule('ElvConfig', 'AceEvent-3.0')
 
 function EC:UpdateActionbars()
 	-- Change Actionbars min button spacing
 	for i=1, 10 do
-		E.Options.args.actionbar.args.playerBars.args["bar"..i].args.buttonspacing.min = -4
+		E.Options.args.actionbar.args.playerBars.args['bar'..i].args.buttonspacing.min = -4
 	end
 	E.Options.args.actionbar.args.barPet.args.buttonspacing.min = -4
 	E.Options.args.actionbar.args.stanceBar.args.buttonspacing.min = -4
@@ -39,7 +39,7 @@ function EC:UpdateUitframes()
 end
 
 function EC:ADDON_LOADED(event, addon)
-	if addon ~= "ElvUI_OptionsUI" then return end
+	if addon ~= 'ElvUI_OptionsUI' then return end
 	EC:UnregisterEvent(event)
 	EC:UpdateActionbars()
 	EC:UpdateUitframes()
@@ -47,7 +47,7 @@ end
 
 function EC:Initialize()
 	if not SLE.initialized or not E.global.sle.advanced.optionsLimits then return end
-	EC:RegisterEvent("ADDON_LOADED")
+	EC:RegisterEvent('ADDON_LOADED')
 end
 
 SLE:RegisterModule(EC:GetName())
