@@ -11,18 +11,6 @@ local function configTable()
 	if not SLE.initialized then return end
 	local ACH = E.Libs.ACH
 
-	local positionValues = {
-		TOPLEFT = 'TOPLEFT',
-		LEFT = 'LEFT',
-		BOTTOMLEFT = 'BOTTOMLEFT',
-		RIGHT = 'RIGHT',
-		TOPRIGHT = 'TOPRIGHT',
-		BOTTOMRIGHT = 'BOTTOMRIGHT',
-		CENTER = 'CENTER',
-		TOP = 'TOP',
-		BOTTOM = 'BOTTOM',
-	};
-
 	local function CreateOfflineConfig(group)
 		local config = {
 			order = 5,
