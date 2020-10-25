@@ -1,5 +1,5 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local M = E:GetModule("Misc")
+local M = E:GetModule('Misc')
 
 local EnchantStringName, EnchantString_Old, EnchantString_New = '', '', ''
 local SelectedEnchantString
@@ -18,14 +18,14 @@ local function configTable()
 			enable = {
 				order = 1,
 				name = L["Enable"],
-				type = "toggle",
+				type = 'toggle',
 				get = function(info) return E.db.sle.armory.enchantString[(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.enchantString[(info[#info])] = value; M:UpdateCharacterInfo(); M:UpdateInspectInfo() end,
 			},
 			replacement = {
 				order = 2,
 				name = L["String Replacement"],
-				type = "toggle",
+				type = 'toggle',
 				get = function(info) return E.db.sle.armory.enchantString[(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.enchantString[(info[#info])] = value; M:UpdateCharacterInfo(); M:UpdateInspectInfo() end,
 			},
@@ -40,7 +40,7 @@ local function configTable()
 						order = 1,
 						name = L["Create Filter"],
 						type = 'input',
-						width = "full",
+						width = 'full',
 						get = function() return EnchantStringName end,
 						set = function(_, value)
 							EnchantStringName = value
@@ -56,7 +56,7 @@ local function configTable()
 							if EnchantStringName ~= '' and not SLE_ArmoryDB.EnchantString[EnchantStringName] then
 								SLE_ArmoryDB.EnchantString[EnchantStringName] = {}
 								SelectedEnchantString = EnchantStringName
-								EnchantStringName = ""
+								EnchantStringName = ''
 							end
 						end,
 						disabled = function()
@@ -70,11 +70,11 @@ local function configTable()
 						get = function() return SelectedEnchantString end,
 						set = function(_, value)
 							SelectedEnchantString = value
-							E.Options.args.sle.args.modules.args.armory.args.enchantString.args.ConfigSpace.args.StringGroup.name = L["List of Strings"]..":  "..value
+							E.Options.args.sle.args.modules.args.armory.args.enchantString.args.ConfigSpace.args.StringGroup.name = L["List of Strings"]..':  '..value
 						end,
 						values = function()
 							local List = {}
-							List[""] = NONE
+							List[''] = NONE
 							for Name, _ in pairs(SLE_ArmoryDB.EnchantString) do
 								List[Name] = Name
 							end
@@ -85,10 +85,10 @@ local function configTable()
 						end,
 						disabled = function() return (E.db.sle.armory.enchantString.enable == false or E.db.sle.armory.enchantString.replacement == false) or (E.db.sle.armory.character.enable == false and E.db.sle.armory.inspect.enable == false) end
 					},
-					spacer1 = ACH:Spacer(5, "half"),
+					spacer1 = ACH:Spacer(5, 'half'),
 					StringGroup = {
 						type = 'group',
-						name = "",
+						name = '',
 						order = 8,
 						guiInline = true,
 						hidden = function()
@@ -100,17 +100,17 @@ local function configTable()
 								name = L["Original String"],
 								order = 1,
 								desc = '',
-								width = "full",
-								get = function() return SLE_ArmoryDB.EnchantString[SelectedEnchantString]["original"] end,
+								width = 'full',
+								get = function() return SLE_ArmoryDB.EnchantString[SelectedEnchantString]['original'] end,
 								set = function(_, value)
-									SLE_ArmoryDB.EnchantString[SelectedEnchantString]["original"] = value
+									SLE_ArmoryDB.EnchantString[SelectedEnchantString]['original'] = value
 
-									if _G["CharacterArmory"] then
-										_G["CharacterArmory"]:Update_Gear()
+									if _G.CharacterArmory then
+										_G.CharacterArmory:Update_Gear()
 									end
 
-									if _G["InspectArmory"] and _G["InspectArmory"].LastDataSetting then
-										_G["InspectArmory"]:InspectFrame_DataSetting(_G["InspectArmory"].CurrentInspectData)
+									if _G.InspectArmory and _G.InspectArmory.LastDataSetting then
+										_G.InspectArmory:InspectFrame_DataSetting(_G.InspectArmory.CurrentInspectData)
 									end
 								end,
 								disabled = function() return (E.db.sle.armory.enchantString.enable == false or E.db.sle.armory.enchantString.replacement == false) or (E.db.sle.armory.character.enable == false and E.db.sle.armory.inspect.enable == false) end
@@ -120,17 +120,17 @@ local function configTable()
 								name = L["New String"],
 								order = 2,
 								desc = '',
-								width = "full",
-								get = function() return SLE_ArmoryDB.EnchantString[SelectedEnchantString]["new"] end,
+								width = 'full',
+								get = function() return SLE_ArmoryDB.EnchantString[SelectedEnchantString]['new'] end,
 								set = function(_, value)
-									SLE_ArmoryDB.EnchantString[SelectedEnchantString]["new"] = value
+									SLE_ArmoryDB.EnchantString[SelectedEnchantString]['new'] = value
 
-									if _G["CharacterArmory"] then
-										_G["CharacterArmory"]:Update_Gear()
+									if _G.CharacterArmory then
+										_G.CharacterArmory:Update_Gear()
 									end
 
-									if _G["InspectArmory"] and _G["InspectArmory"].LastDataSetting then
-										_G["InspectArmory"]:InspectFrame_DataSetting(_G["InspectArmory"].CurrentInspectData)
+									if _G.InspectArmory and _G.InspectArmory.LastDataSetting then
+										_G.InspectArmory:InspectFrame_DataSetting(_G.InspectArmory.CurrentInspectData)
 									end
 								end,
 								disabled = function() return (E.db.sle.armory.enchantString.enable == false or E.db.sle.armory.enchantString.replacement == false) or (E.db.sle.armory.character.enable == false and E.db.sle.armory.inspect.enable == false) end
@@ -144,12 +144,12 @@ local function configTable()
 									if SLE_ArmoryDB.EnchantString[SelectedEnchantString] then
 										SLE_ArmoryDB.EnchantString[SelectedEnchantString] = nil
 										SelectedEnchantString = ''
-										if _G["CharacterArmory"] then
-											_G["CharacterArmory"]:Update_Gear()
+										if _G.CharacterArmory then
+											_G.CharacterArmory:Update_Gear()
 										end
 
-										if _G["InspectArmory"] and _G["InspectArmory"].LastDataSetting then
-											_G["InspectArmory"]:InspectFrame_DataSetting(_G["InspectArmory"].CurrentInspectData)
+										if _G.InspectArmory and _G.InspectArmory.LastDataSetting then
+											_G.InspectArmory:InspectFrame_DataSetting(_G.InspectArmory.CurrentInspectData)
 										end
 									end
 								end,
