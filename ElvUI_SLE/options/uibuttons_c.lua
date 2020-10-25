@@ -5,18 +5,6 @@ local UB = SLE:GetModule('UIButtons')
 local CUSTOM, NONE, DEFAULT = CUSTOM, NONE, DEFAULT
 local ADDONS = ADDONS
 
-local positionValues = {
-	TOPLEFT = 'TOPLEFT',
-	LEFT = 'LEFT',
-	BOTTOMLEFT = 'BOTTOMLEFT',
-	RIGHT = 'RIGHT',
-	TOPRIGHT = 'TOPRIGHT',
-	BOTTOMRIGHT = 'BOTTOMRIGHT',
-	CENTER = 'CENTER',
-	TOP = 'TOP',
-	BOTTOM = 'BOTTOM',
-};
-
 local stratas = {
 	["BACKGROUND"] = "1. Background",
 	["LOW"] = "2. Low",
@@ -161,7 +149,7 @@ local function configTable()
 				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uibuttons.style == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.point end,
 				set = function(info, value) E.db.sle.uibuttons.point = value; Bar:FrameSize() end,
-				values = positionValues,
+				values = T.Values.positionValues,
 			},
 			anchor = {
 				type = 'select',
@@ -171,7 +159,7 @@ local function configTable()
 				disabled = function() return not E.db.sle.uibuttons.enable or E.private.sle.uibuttons.style == "classic" end,
 				get = function(info) return E.db.sle.uibuttons.anchor end,
 				set = function(info, value) E.db.sle.uibuttons.anchor = value; Bar:FrameSize() end,
-				values = positionValues,
+				values = T.Values.positionValues,
 			},
 			xoffset = {
 				order = 15,
