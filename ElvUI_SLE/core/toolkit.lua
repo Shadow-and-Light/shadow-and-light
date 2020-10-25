@@ -18,6 +18,17 @@ T.Values = {
 		MONOCHROMEOUTLINE = '|cffaaaaaaMono|r Outline',
 		MONOCHROMETHICKOUTLINE = '|cffaaaaaaMono|r Thick',
 	},
+	positionValues = {
+		TOPLEFT = 'TOPLEFT',
+		LEFT = 'LEFT',
+		BOTTOMLEFT = 'BOTTOMLEFT',
+		RIGHT = 'RIGHT',
+		TOPRIGHT = 'TOPRIGHT',
+		BOTTOMRIGHT = 'BOTTOMRIGHT',
+		CENTER = 'CENTER',
+		TOP = 'TOP',
+		BOTTOM = 'BOTTOM',
+	},
 	-- FontSize = { min = 8, max = 64, step = 1 },
 	-- Strata = { BACKGROUND = 'BACKGROUND', LOW = 'LOW', MEDIUM = 'MEDIUM', HIGH = 'HIGH', DIALOG = 'DIALOG', TOOLTIP = 'TOOLTIP' },
 }
