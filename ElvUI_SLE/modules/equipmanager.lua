@@ -393,8 +393,8 @@ function EM:RegisterNewEvent(event)
 end
 
 function EM:Initialize()
-	if not SLE.initialized or not E.private.sle.equip.enable then return end
 	EM.db = E.private.sle.equip
+	if not SLE.initialized or not EM.db.enable then return end
 	EM.lock = false
 	self:RegisterEvent('PLAYER_ENTERING_WORLD', Equip)
 	self:RegisterEvent('LOADING_SCREEN_DISABLED', Equip)
