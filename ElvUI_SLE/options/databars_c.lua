@@ -86,7 +86,7 @@ local function configTable()
 						type = "toggle",
 						name = L["Full value on Rep Bar"],
 						get = function() return E.db.sle.databars.rep.longtext end,
-						set = function(_, value) E.db.sle.databars.rep.longtext = value; EDB:UpdateReputation() end,
+						set = function(_, value) E.db.sle.databars.rep.longtext = value; EDB:ReputationBar_Update() end,
 					},
 					chatfilters = {
 						order = 5,

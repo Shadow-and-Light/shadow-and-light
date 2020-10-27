@@ -55,7 +55,7 @@ tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_ACH_BO
 local backupColor = FACTION_BAR_COLORS[1]
 local FactionStandingLabelUnknown = UNKNOWN
 
-local function UpdateReputation()
+local function ReputationBar_Update()
 	if not SLE.initialized or not E.db.sle.databars.rep.longtext then return end
 	-- local bar = self.ReputationBar
 	local bar = EDB.StatusBars.Reputation
@@ -236,6 +236,6 @@ end
 
 function DB:RepInit()
 	DB:PopulateRepPatterns()
-	hooksecurefunc(E:GetModule('DataBars'), "ReputationBar_Update", UpdateReputation)
-	EDB:UpdateReputation()
+	hooksecurefunc(EDB, "ReputationBar_Update", ReputationBar_Update)
+	EDB:ReputationBar_Update()
 end
