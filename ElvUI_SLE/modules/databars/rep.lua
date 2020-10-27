@@ -6,13 +6,13 @@ local EDB = E:GetModule('DataBars')
 local _G = _G
 local format = format
 local strMatchCombat = {}
-local guildName
+-- local guildName
 local abs = math.abs
 local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
-local ExpandFactionHeader, CollapseFactionHeader = ExpandFactionHeader, CollapseFactionHeader
+-- local ExpandFactionHeader, CollapseFactionHeader = ExpandFactionHeader, CollapseFactionHeader
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
-local next = next
+-- local next = next
 
 --strings and shit
 local FACTION_STANDING_INCREASED = FACTION_STANDING_INCREASED
@@ -20,8 +20,8 @@ local FACTION_STANDING_INCREASED_GENERIC = FACTION_STANDING_INCREASED_GENERIC
 local FACTION_STANDING_INCREASED_BONUS = FACTION_STANDING_INCREASED_BONUS
 local FACTION_STANDING_INCREASED_DOUBLE_BONUS = FACTION_STANDING_INCREASED_DOUBLE_BONUS
 local FACTION_STANDING_INCREASED_ACH_BONUS = FACTION_STANDING_INCREASED_ACH_BONUS
-local FACTION_STANDING_CHANGED = FACTION_STANDING_CHANGED
-local FACTION_STANDING_CHANGED_GUILD = FACTION_STANDING_CHANGED_GUILD
+-- local FACTION_STANDING_CHANGED = FACTION_STANDING_CHANGED
+-- local FACTION_STANDING_CHANGED_GUILD = FACTION_STANDING_CHANGED_GUILD
 local FACTION_STANDING_DECREASED = FACTION_STANDING_DECREASED
 local FACTION_STANDING_DECREASED_GENERIC = FACTION_STANDING_DECREASED_GENERIC
 
@@ -54,9 +54,11 @@ tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_ACH_BO
 
 local backupColor = FACTION_BAR_COLORS[1]
 local FactionStandingLabelUnknown = UNKNOWN
-local function UpdateReputation(self, event)
+
+local function UpdateReputation()
 	if not SLE.initialized or not E.db.sle.databars.rep.longtext then return end
-	local bar = self.repBar
+	-- local bar = self.ReputationBar
+	local bar = EDB.StatusBars.Reputation
 	local ID
 	local isFriend, friendText, standingLabel
 	local name, reaction, min, max, value = GetWatchedFactionInfo()
@@ -68,10 +70,10 @@ local function UpdateReputation(self, event)
 		local color = FACTION_BAR_COLORS[reaction] or backupColor
 		local maxMinDiff = max - min
 		if (maxMinDiff == 0) then maxMinDiff = 1 end
-		bar.statusBar:SetStatusBarColor(color.r, color.g, color.b)
 
-		bar.statusBar:SetMinMaxValues(min, max)
-		bar.statusBar:SetValue(value)
+		bar:SetMinMaxValues(min, max)
+		bar:SetValue(value)
+		bar:SetStatusBarColor(color.r, color.g, color.b)
 
 		for i=1, numFactions do
 			local factionName, _, standingID,_,_,_,_,_,_,_,_,_,_, factionID = GetFactionInfo(i);
@@ -234,6 +236,6 @@ end
 
 function DB:RepInit()
 	DB:PopulateRepPatterns()
-	hooksecurefunc(E:GetModule('DataBars'), "UpdateReputation", UpdateReputation)
+	hooksecurefunc(E:GetModule('DataBars'), "ReputationBar_Update", UpdateReputation)
 	EDB:UpdateReputation()
 end
