@@ -311,7 +311,7 @@ local function configTable()
 	-- end
 
 	for unit in next, E.Options.args.sle.args.modules.args.shadows.args.unitframes.args do
-		E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit].disabled = function() return not E.private.sle.module.shadows.enable or not E.db.unitframe.units[unit].enable end
+		E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit].disabled = function() return not E.private.sle.module.shadows.enable end
 
 		if UF.units[unit] then
 			E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit].args.configplayer = {
@@ -330,7 +330,7 @@ local function configTable()
 					order = 4,
 					type = 'toggle',
 					name = L["Classbar"],
-					disabled = function() return not E.db.unitframe.units.player.enable or not (E.db.unitframe.units.player.classbar.detachFromFrame or E.db.unitframe.units.player.classbar.fill ~= 'fill') end,
+					disabled = function() return not E.db.unitframe.units[unit].enable or not (E.db.unitframe.units[unit].classbar.detachFromFrame or E.db.unitframe.units[unit].classbar.fill ~= 'fill') end,
 				}
 			end
 		end
@@ -376,15 +376,22 @@ local function configTable()
 			name = L["Legacy Shadows"],
 			desc = L["Tries to place a shadow around the health, power, and classbars as one frame instead of individual frames."],
 		}
+		if unit == 'player' then
+			E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit].args.legacy.disabled = function() return not E.db.sle.shadows.unitframes[unit].health or not E.db.unitframe.units[unit].enable end
+		else
+			E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit].args.legacy.disabled = function() return not E.db.sle.shadows.unitframes[unit].health or not E.db.unitframe.units[unit].enable end
+		end
 		E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit].args.health = {
 			order = 2,
 			type = 'toggle',
 			name = L["Health"],
+			disabled = function() return not E.db.unitframe.units[unit].enable end,
 		}
 		E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit].args.power = {
 			order = 3,
 			type = 'toggle',
 			name = L["Power"],
+			disabled = function() return not E.db.unitframe.units[unit].enable end,
 		}
 	end
 
