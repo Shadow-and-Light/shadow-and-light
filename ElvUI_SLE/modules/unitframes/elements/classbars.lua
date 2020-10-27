@@ -16,11 +16,7 @@ function SUF:Configure_ClassBar(frame)
 		end
 
 		bars.backdrop.enhshadow:SetFrameLevel(bars.backdrop:GetFrameLevel())
-		if frame.SLLEGACY_ENHSHADOW then
-			bars.backdrop.enhshadow:SetFrameStrata('BACKGROUND')
-		else
-			bars.backdrop.enhshadow:SetFrameStrata(bars.backdrop:GetFrameStrata())
-		end
+		bars.backdrop.enhshadow:SetFrameStrata(bars.backdrop:GetFrameStrata())
 
 		bars.backdrop.enhshadow:SetOutside(bars.backdrop.enhshadow:GetParent(), offset, offset, nil, true)
 		bars.backdrop.enhshadow:SetBackdrop({
