@@ -1,5 +1,5 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local DB = SLE:GetModule("DataBars")
+local DB = SLE:GetModule('DataBars')
 local EDB = E:GetModule('DataBars')
 
 --GLOBALS: hooksecurefunc
@@ -33,17 +33,17 @@ DB.factionVars = {}
 DB.factions = 0
 
 DB.RepIncreaseStyles = {
-	["STYLE1"] = "|T"..DB.Icons.Rep..":%s|t %s: +%s.",
-	["STYLE2"] = "|T"..DB.Icons.Rep..":%s|t %s: |cff0CD809+%s|r.",
+	STYLE1 = '|T'..DB.Icons.Rep..':%s|t %s: +%s.',
+	STYLE2 = '|T'..DB.Icons.Rep..':%s|t %s: |cff0CD809+%s|r.',
 }
 
 DB.RepDecreaseStyles = {
-	["STYLE1"] = "|T"..DB.Icons.Rep..":%s|t %s: %s.",
-	["STYLE2"] = "|T"..DB.Icons.Rep..":%s|t %s: |cffD80909%s|r.",
+	STYLE1 = '|T'..DB.Icons.Rep..':%s|t %s: %s.',
+	STYLE2 = '|T'..DB.Icons.Rep..':%s|t %s: |cffD80909%s|r.',
 }
 
 
-local a, b, c, d = "([%(%)%.%%%+%-%*%?%[%^%$])", "%%%1", "%%%%[ds]", "(.-)"
+local a, b, c, d = '([%(%)%.%%%+%-%*%?%[%^%$])', '%%%1', '%%%%[ds]', '(.-)'
 local formatFactionStanding = function(str) return str:gsub(a, b):gsub(c, d) end
 
 tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED)))
@@ -89,7 +89,7 @@ local function ReputationBar_Update()
 		end
 
 		if ID then
-			standingLabel = _G["FACTION_STANDING_LABEL"..ID]
+			standingLabel = _G['FACTION_STANDING_LABEL'..ID]
 		else
 			standingLabel = FactionStandingLabelUnknown
 		end
@@ -180,8 +180,8 @@ function DB:NewRepString(event, ...)
 	if DB.db.rep.chatfilter.chatframe == "AUTO" then
 		wipe(DB.RepChatFrames)
 		for i = 1, NUM_CHAT_WINDOWS do
-			if SLE:SimpleTable(_G["ChatFrame"..i]["messageTypeList"], "COMBAT_FACTION_CHANGE") then
-				tinsert(DB.RepChatFrames, "ChatFrame"..i)
+			if SLE:SimpleTable(_G['ChatFrame'..i]['messageTypeList'], 'COMBAT_FACTION_CHANGE') then
+				tinsert(DB.RepChatFrames, 'ChatFrame'..i)
 			end
 		end
 	end
@@ -199,15 +199,15 @@ function DB:NewRepString(event, ...)
 			local diff = barValue - DB.factionVars[name].Value
 
 			if diff > 0 then
-				StyleTable = "RepIncreaseStyles"
+				StyleTable = 'RepIncreaseStyles'
 			elseif diff < 0 then
-				StyleTable = "RepDecreaseStyles"
+				StyleTable = 'RepDecreaseStyles'
 			end
 			if StyleTable then
 				--  TODO:  local change doesnt do anything revisit this
 				local change = abs(barValue - DB.factionVars[name].Value)
 
-				if DB.db.rep.chatfilter.chatframe == "AUTO" then
+				if DB.db.rep.chatfilter.chatframe == 'AUTO' then
 					for n = 1, #(DB.RepChatFrames) do
 						local chatframe = _G[DB.RepChatFrames[n]]
 						chatframe:AddMessage(format(DB[StyleTable][DB.db.rep.chatfilter.style] , DB.db.rep.chatfilter.iconsize, name, diff))
@@ -236,6 +236,6 @@ end
 
 function DB:RepInit()
 	DB:PopulateRepPatterns()
-	hooksecurefunc(EDB, "ReputationBar_Update", ReputationBar_Update)
+	hooksecurefunc(EDB, 'ReputationBar_Update', ReputationBar_Update)
 	EDB:ReputationBar_Update()
 end
