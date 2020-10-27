@@ -64,12 +64,6 @@ local function configTable()
 						name = L["General"],
 						guiInline = true,
 						args = {
-							vehicle = {
-								order = 1,
-								type = "toggle",
-								name = L["Enhanced Vehicle Bar"],
-								disabled = function() return not E.private.sle.module.shadows.enable end,
-							},
 							minimap = {
 								order = 3,
 								type = "toggle",
@@ -336,6 +330,7 @@ local function configTable()
 					order = 4,
 					type = 'toggle',
 					name = L["Classbar"],
+					disabled = function() return not E.db.unitframe.units.player.enable or not E.db.unitframe.units.player.classbar.enable or not E.db.unitframe.units.player.classbar.detachFromFrame end,
 				}
 			end
 		end
@@ -375,7 +370,6 @@ local function configTable()
 			-- 	}
 			-- }
 		end
-
 		E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit].args.legacy = {
 			order = 1,
 			type = 'toggle',
