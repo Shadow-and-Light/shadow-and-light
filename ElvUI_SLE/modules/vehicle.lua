@@ -136,7 +136,7 @@ function EVB:CreateBar()
 	local page = format("[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13;", GetOverrideBarIndex(), GetVehicleBarIndex(), GetVehicleBarIndex());
 	local bindButtons = "ACTIONBUTTON";
 
-	local bar = CreateFrame("Frame", "ElvUISLEEnhancedVehicleBar", E.UIParent, "SecureHandlerStateTemplate, BackdropTemplate");
+	local bar = CreateFrame("Frame", "ElvUISL_EnhancedVehicleBar", E.UIParent, "SecureHandlerStateTemplate, BackdropTemplate");
 	bar.id = 1
 	EVB.bar = bar;
 
