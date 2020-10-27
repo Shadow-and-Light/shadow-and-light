@@ -330,7 +330,7 @@ local function configTable()
 					order = 4,
 					type = 'toggle',
 					name = L["Classbar"],
-					disabled = function() return not E.db.unitframe.units.player.enable or not E.db.unitframe.units.player.classbar.enable or not E.db.unitframe.units.player.classbar.detachFromFrame end,
+					disabled = function() return not E.db.unitframe.units.player.enable or not (E.db.unitframe.units.player.classbar.detachFromFrame or E.db.unitframe.units.player.classbar.fill ~= 'fill') end,
 				}
 			end
 		end
