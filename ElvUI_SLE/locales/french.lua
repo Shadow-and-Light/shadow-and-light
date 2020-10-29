@@ -166,6 +166,7 @@ L["Enable Glow"] = "Activer la lueur"
 L["Enable S&L's additional features for AFK screen."] = "Activer les fonctionnalités supplémentaires du mode AFK de S&L."
 L["Enable/Disable Square Minimap Coords."] = "Activer/désactiver les coords carrés de la Minimap."
 L["Enables a different look/feel vehicle bar."] = "Permet une barre de véhicule d'apparence et de sensation différente."
+L["Enables a shadow on the %s when it's enabled."] = true
 L["Enables a small arrow-like indicator on the item slot. Howering over this arrow will show the item this slot is transmogged into."] = true
 L["Enables timers for 2 & 3 chest times in M+"] = true
 L["Enabling mouse over will make ElvUI's raid utility show on mouse over instead of always showing."] = "En activant le survol de la souris, l'utilitaire de raid d'ElvUI s'affichera au survol de la souris au lieu de toujours s'afficher."

@@ -166,6 +166,7 @@ L["Enable Glow"] = true
 L["Enable S&L's additional features for AFK screen."] = "S&L의 추가적인 자리비움 화면 기능을 활성화합니다."
 L["Enable/Disable Square Minimap Coords."] = true
 L["Enables a different look/feel vehicle bar."] = true
+L["Enables a shadow on the %s when it's enabled."] = true
 L["Enables a small arrow-like indicator on the item slot. Howering over this arrow will show the item this slot is transmogged into."] = true
 L["Enables timers for 2 & 3 chest times in M+"] = true
 L["Enabling mouse over will make ElvUI's raid utility show on mouse over instead of always showing."] = "활성화하면 ElvUI 공격대 유틸리티가 항상 표시되는 대신 마우스 오버스에 표시됩니다."
