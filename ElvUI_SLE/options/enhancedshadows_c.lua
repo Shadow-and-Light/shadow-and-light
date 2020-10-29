@@ -538,9 +538,6 @@ local function configTable()
 				name = L["Classbar"],
 				disabled = function() return not E.db.unitframe.units[unit].enable or not (E.db.unitframe.units[unit].classbar.detachFromFrame or E.db.unitframe.units[unit].classbar.fill ~= 'fill') end,
 			}
-			E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit].args.legacy.disabled = function() return not (E.db.sle.shadows.unitframes[unit].classbar or E.db.sle.shadows.unitframes[unit].health) or not E.db.unitframe.units[unit].enable end
-		else
-			E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit].args.legacy.disabled = function() return not E.db.sle.shadows.unitframes[unit].health or not E.db.unitframe.units[unit].enable end
 		end
 	end
 
