@@ -1,4 +1,6 @@
 v4.09 [October ??, 2020]
+ATTENTION:
+- Enhanced Shadows have been rewritten and if you use ProjectAzilroka, you will need to be using 1.73 or higher to be compatible!
 Fixes:
 - SubZone text offset seems to behave better now
 Removed:
@@ -8,6 +10,7 @@ Removed:
 - Removed 'Width' option from the 'Zone Text' sections due to it's lack of usefulness
 Changes:
 - Misc code formatting & clean up
+- Updated Enhanced Shadows and no settings besides the shadow color is transfered over.
 
 v4.08 [October 20, 2020]
 Fixes:
