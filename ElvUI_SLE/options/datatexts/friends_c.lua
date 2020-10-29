@@ -106,6 +106,7 @@ local function configTable()
 					['VIPR'] = "COD: Black Ops 4",
 					['ODIN'] = "COD: Modern Warfare",
 					['LAZR'] = "COD: Modern Warfare 2",
+					ZEUS = "COD: Cold War",
 				},
 			},
 			hideGroup3 = {
