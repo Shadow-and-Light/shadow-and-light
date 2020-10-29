@@ -1,4 +1,4 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, _, E, L, _, P = unpack(select(2, ...))
 local ENH = SLE:GetModule("EnhancedShadows")
 local SUF = SLE:GetModule("UnitFrames")
 local DT = E:GetModule('DataTexts')
