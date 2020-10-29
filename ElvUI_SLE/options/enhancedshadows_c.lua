@@ -5,6 +5,55 @@ local DT = E:GetModule('DataTexts')
 
 local format, strlower = format, strlower
 
+function ENH:PanelLayoutOptions()
+	-- for name, frame in next, DT.db.panels do
+	for name, frame in next, DT.RegisteredPanels do
+		E.Options.args.sle.args.modules.args.shadows.args.datatexts.args[name] = {
+			order = 1,
+			type = 'group',
+			name = function() return format(E.db.datatexts.panels[name].enable and '%s' or '|cffFF3333%s|r', name) end,
+			get = function(info) return E.db.sle.shadows.datatexts.panels[name][info[#info]] end,
+			set = function(info, value) E.db.sle.shadows.datatexts.panels[name][info[#info]] = value; ENH:ToggleDTShadows() end,
+			args = {
+				backdrop = {
+					order = 2,
+					type = 'toggle',
+					name = L["Panel"],
+					disabled = function() return not E.db.datatexts.panels[name].enable end,
+				},
+				size = {
+					order = 3,
+					type = 'range',
+					name = L["Size"],
+					min = 2, max = 10, step = 1,
+					disabled = function() return not E.db.datatexts.panels[name].enable end,
+					set = function(info, value)
+						E.db.sle.shadows.datatexts.panels[name][info[#info]] = value
+						if ENH.DummyPanels[name] and ENH.DummyPanels[name].enhshadow then
+							frame = ENH.DummyPanels[name]
+						end
+						frame.enhshadow.size = value
+						ENH:UpdateShadow(frame.enhshadow)
+					end,
+				},
+			},
+		}
+		if name == 'LeftChatDataPanel' or name == 'RightChatDataPanel' then
+			E.Options.args.sle.args.modules.args.shadows.args.datatexts.args[name].args.backdrop.set = function(info, value)
+				E.db.sle.shadows.datatexts.panels[name][info[#info]] = value
+				if ENH.DummyPanels[name] and ENH.DummyPanels[name].enhshadow then
+					frame = ENH.DummyPanels[name]
+				end
+				frame.enhshadow.backdrop = value
+				ENH:UpdateShadow(frame.enhshadow)
+				ENH:UpdateShadow(_G.LeftChatPanel.enhshadow)
+				ENH:UpdateShadow(_G.RightChatPanel.enhshadow)
+				ENH:ToggleDTShadows()
+			end
+		end
+	end
+end
+
 local function configTable()
 	if not SLE.initialized then return end
 	-- local ACH = E.Libs.ACH
@@ -389,52 +438,53 @@ local function configTable()
 			},
 		}
 	end
-
-	for name, frame in next, DT.RegisteredPanels do
-		E.Options.args.sle.args.modules.args.shadows.args.datatexts.args[name] = {
-			order = 1,
-			type = 'group',
-			name = function() return format(E.db.datatexts.panels[name].enable and '%s' or '|cffFF3333%s|r', name) end,
-			get = function(info) return E.db.sle.shadows.datatexts.panels[name][info[#info]] end,
-			set = function(info, value) E.db.sle.shadows.datatexts.panels[name][info[#info]] = value; ENH:ToggleDTShadows() end,
-			args = {
-				backdrop = {
-					order = 2,
-					type = 'toggle',
-					name = L["Panel"],
-					disabled = function() return not E.db.datatexts.panels[name].enable end,
-				},
-				size = {
-					order = 3,
-					type = 'range',
-					name = L["Size"],
-					min = 2, max = 10, step = 1,
-					disabled = function() return not E.db.datatexts.panels[name].enable end,
-					set = function(info, value)
-						E.db.sle.shadows.datatexts.panels[name][info[#info]] = value
-						if ENH.DummyPanels[name] and ENH.DummyPanels[name].enhshadow then
-							frame = ENH.DummyPanels[name]
-						end
-						frame.enhshadow.size = value
-						ENH:UpdateShadow(frame.enhshadow)
-					end,
-				},
-			},
-		}
-		if name == 'LeftChatDataPanel' or name == 'RightChatDataPanel' then
-			E.Options.args.sle.args.modules.args.shadows.args.datatexts.args[name].args.backdrop.set = function(info, value)
-				E.db.sle.shadows.datatexts.panels[name][info[#info]] = value
-				if ENH.DummyPanels[name] and ENH.DummyPanels[name].enhshadow then
-					frame = ENH.DummyPanels[name]
-				end
-				frame.enhshadow.backdrop = value
-				ENH:UpdateShadow(frame.enhshadow)
-				ENH:UpdateShadow(_G.LeftChatPanel.enhshadow)
-				ENH:UpdateShadow(_G.RightChatPanel.enhshadow)
-				ENH:ToggleDTShadows()
-			end
-		end
-	end
+	ENH:PanelLayoutOptions()
+	-- -- for name, frame in next, DT.db.panels do
+	-- for name, frame in next, DT.RegisteredPanels do
+	-- 	E.Options.args.sle.args.modules.args.shadows.args.datatexts.args[name] = {
+	-- 		order = 1,
+	-- 		type = 'group',
+	-- 		name = function() return format(E.db.datatexts.panels[name].enable and '%s' or '|cffFF3333%s|r', name) end,
+	-- 		get = function(info) return E.db.sle.shadows.datatexts.panels[name][info[#info]] end,
+	-- 		set = function(info, value) E.db.sle.shadows.datatexts.panels[name][info[#info]] = value; ENH:ToggleDTShadows() end,
+	-- 		args = {
+	-- 			backdrop = {
+	-- 				order = 2,
+	-- 				type = 'toggle',
+	-- 				name = L["Panel"],
+	-- 				disabled = function() return not E.db.datatexts.panels[name].enable end,
+	-- 			},
+	-- 			size = {
+	-- 				order = 3,
+	-- 				type = 'range',
+	-- 				name = L["Size"],
+	-- 				min = 2, max = 10, step = 1,
+	-- 				disabled = function() return not E.db.datatexts.panels[name].enable end,
+	-- 				set = function(info, value)
+	-- 					E.db.sle.shadows.datatexts.panels[name][info[#info]] = value
+	-- 					if ENH.DummyPanels[name] and ENH.DummyPanels[name].enhshadow then
+	-- 						frame = ENH.DummyPanels[name]
+	-- 					end
+	-- 					frame.enhshadow.size = value
+	-- 					ENH:UpdateShadow(frame.enhshadow)
+	-- 				end,
+	-- 			},
+	-- 		},
+	-- 	}
+	-- 	if name == 'LeftChatDataPanel' or name == 'RightChatDataPanel' then
+	-- 		E.Options.args.sle.args.modules.args.shadows.args.datatexts.args[name].args.backdrop.set = function(info, value)
+	-- 			E.db.sle.shadows.datatexts.panels[name][info[#info]] = value
+	-- 			if ENH.DummyPanels[name] and ENH.DummyPanels[name].enhshadow then
+	-- 				frame = ENH.DummyPanels[name]
+	-- 			end
+	-- 			frame.enhshadow.backdrop = value
+	-- 			ENH:UpdateShadow(frame.enhshadow)
+	-- 			ENH:UpdateShadow(_G.LeftChatPanel.enhshadow)
+	-- 			ENH:UpdateShadow(_G.RightChatPanel.enhshadow)
+	-- 			ENH:ToggleDTShadows()
+	-- 		end
+	-- 	end
+	-- end
 
 	for unit, config in pairs(ENH.frames.unitframes) do
 		E.Options.args.sle.args.modules.args.shadows.args.unitframes.args[unit] = {

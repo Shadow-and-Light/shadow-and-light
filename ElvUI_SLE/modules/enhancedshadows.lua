@@ -411,6 +411,65 @@ function ENH:ToggleMMShadows()
 	end
 end
 
+-- function ENH:PanelLayoutOptions()
+
+-- 	-- local options = E.Options.args.sle.args.modules.args.shadows.args.datatexts.args
+-- print('test')
+
+-- 	-- for name, frame in next, DT.db.panels do
+-- 	-- for name, frame in next, DT.RegisteredPanels do
+-- 	-- 	E.Options.args.sle.args.modules.args.shadows.args.datatexts.args[name] = {
+-- 	-- 		order = 1,
+-- 	-- 		type = 'group',
+-- 	-- 		name = function() return format(E.db.datatexts.panels[name].enable and '%s' or '|cffFF3333%s|r', name) end,
+-- 	-- 		get = function(info) return E.db.sle.shadows.datatexts.panels[name][info[#info]] end,
+-- 	-- 		set = function(info, value) E.db.sle.shadows.datatexts.panels[name][info[#info]] = value; ENH:ToggleDTShadows() end,
+-- 	-- 		args = {
+-- 	-- 			backdrop = {
+-- 	-- 				order = 2,
+-- 	-- 				type = 'toggle',
+-- 	-- 				name = L["Panel"],
+-- 	-- 				disabled = function() return not E.db.datatexts.panels[name].enable end,
+-- 	-- 			},
+-- 	-- 			size = {
+-- 	-- 				order = 3,
+-- 	-- 				type = 'range',
+-- 	-- 				name = L["Size"],
+-- 	-- 				min = 2, max = 10, step = 1,
+-- 	-- 				disabled = function() return not E.db.datatexts.panels[name].enable end,
+-- 	-- 				set = function(info, value)
+-- 	-- 					E.db.sle.shadows.datatexts.panels[name][info[#info]] = value
+-- 	-- 					if ENH.DummyPanels[name] and ENH.DummyPanels[name].enhshadow then
+-- 	-- 						frame = ENH.DummyPanels[name]
+-- 	-- 					end
+-- 	-- 					frame.enhshadow.size = value
+-- 	-- 					ENH:UpdateShadow(frame.enhshadow)
+-- 	-- 				end,
+-- 	-- 			},
+-- 	-- 		},
+-- 	-- 	}
+-- 	-- 	if name == 'LeftChatDataPanel' or name == 'RightChatDataPanel' then
+-- 	-- 		E.Options.args.sle.args.modules.args.shadows.args.datatexts.args[name].args.backdrop.set = function(info, value)
+-- 	-- 			E.db.sle.shadows.datatexts.panels[name][info[#info]] = value
+-- 	-- 			if ENH.DummyPanels[name] and ENH.DummyPanels[name].enhshadow then
+-- 	-- 				frame = ENH.DummyPanels[name]
+-- 	-- 			end
+-- 	-- 			frame.enhshadow.backdrop = value
+-- 	-- 			ENH:UpdateShadow(frame.enhshadow)
+-- 	-- 			ENH:UpdateShadow(_G.LeftChatPanel.enhshadow)
+-- 	-- 			ENH:UpdateShadow(_G.RightChatPanel.enhshadow)
+-- 	-- 			ENH:ToggleDTShadows()
+-- 	-- 		end
+-- 	-- 	end
+-- 	-- end
+-- end
+
+function ENH:ADDON_LOADED(event, addon)
+	if addon ~= 'ElvUI_OptionsUI' then return end
+	ENH:UnregisterEvent(event)
+	hooksecurefunc(DT, "PanelLayoutOptions", ENH.PanelLayoutOptions)
+end
+
 function ENH:Initialize()
 	if not SLE.initialized or not E.private.sle.module.shadows.enable then return end
 	-- if not SLE.initialized then return end
@@ -420,6 +479,7 @@ function ENH:Initialize()
 	ENH:UpdateDefaults()
 
 	ENH:RegisterEvent('PLAYER_ENTERING_WORLD', ENH.UpdateShadows)
+	ENH:RegisterEvent('ADDON_LOADED')
 
 	ENH:CreateABShadows()
 	ENH:ToggleABShadows()
@@ -435,11 +495,15 @@ function ENH:Initialize()
 
 	ENH:CreateCHShadows()
 	ENH:ToggleCHShadows()
-
+	-- E:Dump(DT.db.panels, true)
+	-- for k, v in pairs(DT.db.panels) do
+	-- 	print(k, v)
+	-- end
 	-- ENH:UpdateShadows()
 	function ENH:ForUpdateAll()
 		ENH:UpdateShadows()
 	end
+	-- hooksecurefunc(DT, "PanelLayoutOptions", ENH.PanelLayoutOptions)
 end
 
 SLE:RegisterModule(ENH:GetName())
