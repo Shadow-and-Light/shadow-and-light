@@ -3,7 +3,13 @@ local ENH = SLE:GetModule("EnhancedShadows")
 local SUF = SLE:GetModule("UnitFrames")
 local DT = E:GetModule('DataTexts')
 
-local format, strlower = format, strlower
+-- GLOBALS: MICRO_BUTTONS
+
+local _G = _G
+local unpack = unpack
+local format, gsub, strlower = format, gsub, strlower
+local tinsert, pairs = tinsert, pairs
+local COLOR = COLOR
 
 function ENH:UpdateDatatextOptions()
 	ENH:UpdateDefaults()
