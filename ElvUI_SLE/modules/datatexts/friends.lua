@@ -36,7 +36,6 @@ local battleNetString = _G.BATTLENET_OPTIONS_LABEL
 local activezone, inactivezone = {r=0.3, g=1.0, b=0.3}, {r=0.65, g=0.65, b=0.65}
 local friendTable, BNTable, tableList = {}, {}, {}
 local friendOnline, friendOffline = gsub(_G.ERR_FRIEND_ONLINE_SS,"\124Hplayer:%%s\124h%[%%s%]\124h",""), gsub(_G.ERR_FRIEND_OFFLINE_S,"%%s","")
-local BNET_CLIENT_WOW, BNET_CLIENT_D3, BNET_CLIENT_WTCG, BNET_CLIENT_SC2, BNET_CLIENT_HEROES, BNET_CLIENT_OVERWATCH, BNET_CLIENT_SC, BNET_CLIENT_COD, BNET_CLIENT_COD_MW, BNET_CLIENT_COD_MW2 = BNET_CLIENT_WOW, BNET_CLIENT_D3, BNET_CLIENT_WTCG, BNET_CLIENT_SC2, BNET_CLIENT_HEROES, BNET_CLIENT_OVERWATCH, BNET_CLIENT_SC, BNET_CLIENT_COD, BNET_CLIENT_COD_MW, BNET_CLIENT_COD_MW2
 local wowString = BNET_CLIENT_WOW
 local classicID = WOW_PROJECT_CLASSIC
 local dataValid, lastPanel = false
@@ -85,32 +84,32 @@ local function sletime_Conversion(timeDifference, isAbsolute)
 
 local clientSorted = {}
 local clientTags = {
-	[BNET_CLIENT_WOW] = "WoW",
-	[BNET_CLIENT_D3] = "D3",
-	[BNET_CLIENT_WTCG] = "HS",
-	[BNET_CLIENT_HEROES] = "HotS",
-	[BNET_CLIENT_OVERWATCH] = "OW",
-	[BNET_CLIENT_SC] = "SC",
-	[BNET_CLIENT_SC2] = "SC2",
-	[BNET_CLIENT_COD] = "BO4",
-	[BNET_CLIENT_COD_MW] = "MW",
-	[BNET_CLIENT_COD_MW2] = "MW2",
-	ZEUS = 'CW',
+	[_G.BNET_CLIENT_WOW] = "WoW",
+	[_G.BNET_CLIENT_D3] = "D3",
+	[_G.BNET_CLIENT_WTCG] = "HS",
+	[_G.BNET_CLIENT_HEROES] = "HotS",
+	[_G.BNET_CLIENT_OVERWATCH] = "OW",
+	[_G.BNET_CLIENT_SC] = "SC",
+	[_G.BNET_CLIENT_SC2] = "SC2",
+	[_G.BNET_CLIENT_COD] = "BO4",
+	[_G.BNET_CLIENT_COD_MW] = "MW",
+	[_G.BNET_CLIENT_COD_MW2] = "MW2",
+	[_G.BNET_CLIENT_COD_BOCW] = 'CW',
 	BSAp = L["Mobile"],
 }
 
 local clientIndex = {
-	[BNET_CLIENT_WOW] = 1,
-	[BNET_CLIENT_D3] = 2,
-	[BNET_CLIENT_WTCG] = 3,
-	[BNET_CLIENT_HEROES] = 4,
-	[BNET_CLIENT_OVERWATCH] = 5,
-	[BNET_CLIENT_SC] = 6,
-	[BNET_CLIENT_SC2] = 7,
-	[BNET_CLIENT_COD] = 8,
-	[BNET_CLIENT_COD_MW] = 9,
-	[BNET_CLIENT_COD_MW2] = 10,
-	ZEUS = 11,
+	[_G.BNET_CLIENT_WOW] = 1,
+	[_G.BNET_CLIENT_D3] = 2,
+	[_G.BNET_CLIENT_WTCG] = 3,
+	[_G.BNET_CLIENT_HEROES] = 4,
+	[_G.BNET_CLIENT_OVERWATCH] = 5,
+	[_G.BNET_CLIENT_SC] = 6,
+	[_G.BNET_CLIENT_SC2] = 7,
+	[_G.BNET_CLIENT_COD] = 8,
+	[_G.BNET_CLIENT_COD_MW] = 9,
+	[_G.BNET_CLIENT_COD_MW2] = 10,
+	[_G.BNET_CLIENT_COD_BOCW] = 11,
 	App = 12,
 	BSAp = 13,
 }
