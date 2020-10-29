@@ -6,6 +6,7 @@ local DT = E:GetModule('DataTexts')
 local format, strlower = format, strlower
 
 function ENH:UpdateDatatextOptions()
+	ENH:UpdateDefaults()
 	-- for name, frame in next, DT.db.panels do
 	for name, frame in next, DT.RegisteredPanels do
 		E.Options.args.sle.args.modules.args.shadows.args.datatexts.args[name] = {
