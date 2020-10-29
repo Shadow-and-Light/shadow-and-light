@@ -8,7 +8,7 @@ function SUF:Configure_ClassBar(frame)
 	if not bars then return end
 
 	local r, g, b = db.shadowcolor.r, db.shadowcolor.g, db.shadowcolor.b
-	local offset = (E.PixelMode and db.size) or (db.size + 1)
+	local offset = (E.PixelMode and db.unitframes.size) or (db.unitframes.size + 1)
 
 	if frame.SLCLASSBAR_ENHSHADOW then
 		if not bars.backdrop.enhshadow then
@@ -20,7 +20,7 @@ function SUF:Configure_ClassBar(frame)
 
 		bars.backdrop.enhshadow:SetOutside(bars.backdrop.enhshadow:GetParent(), offset, offset, nil, true)
 		bars.backdrop.enhshadow:SetBackdrop({
-			edgeFile = E.LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = db.size > 3 and db.size or 3,
+			edgeFile = E.LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = db.unitframes.size > 3 and db.unitframes.size or 3,
 			-- insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},  --! Don't see a need for this
 		})
 		bars.backdrop.enhshadow:SetBackdropColor(r, g, b, 0)
@@ -64,7 +64,7 @@ function SUF:Configure_ClassBar(frame)
 
 				bars[i].backdrop.enhshadow:SetOutside(bars[i].backdrop.enhshadow:GetParent(), offset, offset, nil, true)
 				bars[i].backdrop.enhshadow:SetBackdrop({
-					edgeFile = E.LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = db.size > 3 and db.size or 3,
+					edgeFile = E.LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = db.unitframes.size > 3 and db.unitframes.size or 3,
 					-- insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},  --! Don't see a need for this
 				})
 				bars[i].backdrop.enhshadow:SetBackdropColor(r, g, b, 0)

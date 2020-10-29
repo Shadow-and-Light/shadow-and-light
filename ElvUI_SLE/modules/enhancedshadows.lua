@@ -1,218 +1,445 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-if SLE._Compatibility["ElvUI_NihilistUI"] then return end
-local ES = SLE:NewModule('EnhancedShadows', 'AceEvent-3.0')
+local ENH = SLE:NewModule('EnhancedShadows', 'AceEvent-3.0')
+local DT = E:GetModule('DataTexts')
 local MM = E:GetModule('Minimap')
 
---GLOBALS: hooksecurefunc
 local _G = _G
+local CreateFrame = CreateFrame
 local UnitAffectingCombat = UnitAffectingCombat
 local SIDE_BUTTON = E.db.chat.hideChatToggles and 0 or 19
-local Border
-local Abars = 10
 
---Registered shadows table
-ES.CreatedShadows = {}
-ES.DummyPanels = {}
-
---The table for frames groupped based on similariy
-ES.FramesToShadow = {
-	["Datapanels"] = {
-		["leftchat"] = "LeftChatDataPanel",
-		["rightchat"] = "RightChatDataPanel",
+ENH.CreatedShadows = {}
+ENH.DummyPanels = {}
+ENH.frames = {
+	chat = {
+		['leftpanel'] = 'LeftChatPanel',
+		['rightpanel'] = 'RightChatPanel',
 	},
-	["databars"] = {
-		["honorbar"] = "ElvUI_HonorBar",
-		["expbar"] = "ElvUI_ExperienceBar",
-		["repbar"] = "ElvUI_ReputationBar",
-		["azeritebar"] = "ElvUI_AzeriteBar",
+	databars = {
+		['honor'] = {'ElvUI_HonorBar', L["Honor Bar"]},
+		['experience'] = {'ElvUI_ExperienceBar', L["Experience Bar"]},
+		['reputation'] = {'ElvUI_ReputationBar', L["Reputation Bar"]},
+		['azerite'] = {'ElvUI_AzeriteBar', L["Azerite Bar"]},
+		['threat'] = {'ElvUI_ThreatBar', L["Threat Bar"]},
+	},
+	datatexts = {
+		['LeftChatDataPanel'] = {'LeftChatDataPanel', L["Datatext Panel (Left)"]},
+		['RightChatDataPanel'] = {'RightChatDataPanel', L["Datatext Panel (Right)"]},
+	},
+	unitframes = {
+		player = {
+			order = 1,
+			group = 'individualUnits',
+		},
+		target = {
+			order = 2,
+			group = 'individualUnits',
+		},
+		targettarget = {
+			order = 3,
+			group = 'individualUnits',
+		},
+		targettargettarget = {
+			order = 4,
+			group = 'individualUnits',
+		},
+		focus = {
+			order = 5,
+			group = 'individualUnits',
+		},
+		focustarget = {
+			order = 6,
+			group = 'individualUnits',
+		},
+		pet = {
+			order = 7,
+			group = 'individualUnits',
+		},
+		pettarget = {
+			order = 8,
+			group = 'individualUnits',
+		},
+		party = {
+			order = 9,
+			group = 'groupUnits',
+		},
+		raid = {
+			order = 10,
+			group = 'groupUnits',
+		},
+		raid40 = {
+			order = 11,
+			group = 'groupUnits',
+		},
+		boss = {
+			order = 12,
+			group = 'groupUnits',
+		},
+		arena = {
+			order = 13,
+			group = 'groupUnits',
+		},
 	},
 }
 
---Updating all shadows
-function ES:UpdateShadows()
-	if UnitAffectingCombat('player') then ES:RegisterEvent('PLAYER_REGEN_ENABLED', ES.UpdateShadows) return end
-	ES:UnregisterEvent('PLAYER_ENTERING_WORLD')
+function ENH:ProcessShadow(frame, parent, level, db)
+	if not frame then return end
 
-	for frame, _ in pairs(ES.CreatedShadows) do
-		ES:UpdateShadow(frame)
+	local name = frame:GetName()
+	level = (level >= 0 and level or 0)
+	frame.enhshadow = frame:CreateShadow(nil, true)
+	frame.enhshadow:SetParent(parent and parent or frame)
+	frame.enhshadow:SetFrameLevel(level)
+	frame.enhshadow.size = db.size
+
+	if name then
+		frame.enhshadow.name = name
+	end
+
+	ENH:RegisterShadow(frame.enhshadow)
+	ENH:UpdateShadow(frame.enhshadow)
+end
+
+function ENH:RegisterShadow(shadow)
+	if not shadow or shadow.isRegistered then return end
+
+	ENH.CreatedShadows[shadow] = true
+	shadow.isRegistered = true
+end
+
+function ENH:UpdateShadows()
+	if UnitAffectingCombat('player') then ENH:RegisterEvent('PLAYER_REGEN_ENABLED', ENH.UpdateShadows) return end
+
+	ENH:UnregisterEvent('PLAYER_ENTERING_WORLD')
+
+	for frame, _ in pairs(ENH.CreatedShadows) do
+		ENH:UpdateShadow(frame)
 	end
 end
 
---Update specific shadow
-function ES:UpdateShadow(shadow)
-	local shadowcolor = E.db.sle.shadows.shadowcolor
-	local r, g, b = shadowcolor.r, shadowcolor.g, shadowcolor.b
+function ENH:UpdateShadow(shadow)
+	local r, g, b = E.db.sle.shadows.shadowcolor.r, E.db.sle.shadows.shadowcolor.g, E.db.sle.shadows.shadowcolor.b
+	local size = shadow.size and shadow.size or 3
+	local offset = (E.PixelMode and size) or (size + 1)
 
-	local size = E.db.sle.shadows.size
-	shadow:SetOutside(shadow:GetParent(), size, size)
+	if shadow.name == 'LeftChatDataPanel' or shadow.name == 'LeftChatPanel' then
+		-- Left Chat Datatext Panel adjustments from old shadows setup
+		if E.db.sle.shadows.datatexts.panels.LeftChatDataPanel.backdrop and not E.db.sle.shadows.chat.LeftChatPanel.backdrop then
+			_G.LeftChatToggleButton:SetFrameStrata('LOW')
+			_G.LeftChatToggleButton:SetFrameLevel(0)
+			_G.LeftChatDataPanel:SetFrameStrata('LOW')
+			_G.LeftChatDataPanel:SetFrameLevel(0)
+		end
+
+		-- Left Chat Panel adjustments from old shadows setup
+		if E.db.sle.shadows.chat.LeftChatPanel.backdrop and not E.db.sle.shadows.datatexts.panels.LeftChatDataPanel.backdrop then
+			_G.LeftChatToggleButton:SetFrameStrata('BACKGROUND')
+			_G.LeftChatToggleButton:SetFrameLevel(201)
+			_G.LeftChatDataPanel:SetFrameStrata('BACKGROUND')
+			_G.LeftChatDataPanel:SetFrameLevel(201)
+		end
+	elseif shadow.name == 'RightChatDataPanel' or shadow.name == 'RightChatPanel' then
+		-- Right Chat Datatext Panel adjustments from old shadows setup
+		if E.db.sle.shadows.datatexts.panels.RightChatDataPanel.backdrop and not E.db.sle.shadows.chat.RightChatPanel.backdrop then
+			_G.RightChatToggleButton:SetFrameStrata('LOW')
+			_G.RightChatToggleButton:SetFrameLevel(0)
+			_G.RightChatDataPanel:SetFrameStrata('LOW')
+			_G.RightChatDataPanel:SetFrameLevel(0)
+		end
+		-- Right Chat Panel adjustments from old shadows setup
+		if E.db.sle.shadows.chat.RightChatPanel.backdrop and not E.db.sle.shadows.datatexts.panels.RightChatDataPanel.backdrop then
+			_G.RightChatToggleButton:SetFrameStrata('BACKGROUND')
+			_G.RightChatToggleButton:SetFrameLevel(201)
+			_G.RightChatDataPanel:SetFrameStrata('BACKGROUND')
+			_G.RightChatDataPanel:SetFrameLevel(201)
+		end
+	end
+
+	shadow:SetOutside(shadow:GetParent(), offset, offset)
 	shadow:SetBackdrop({
-		edgeFile = Border, edgeSize = size > 3 and size or 3,
-		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
+		edgeFile = E.LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = size > 3 and size or 3,
+		-- insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},  --! Don't see a need for this
 	})
 	shadow:SetBackdropColor(r, g, b, 0)
 	shadow:SetBackdropBorderColor(r, g, b, 0.9)
 end
 
---Regestering shadows and putting them to a table for easy tracking since they don't have actual names
-function ES:RegisterShadow(shadow)
-	if not shadow or shadow.isRegistered then return end
-	ES.CreatedShadows[shadow] = true
-	shadow.isRegistered = true
-end
+function ENH:CreateABShadows()
+	if not E.private.actionbar.enable then return end
 
---Creating shadows for provided frame
-function ES:CreateFrameShadow(frame, parent)
-	if not frame then return end
+	-- Actionbar backdrops
+	for i = 1, 10 do
+		local styleBacks = {_G['ElvUI_Bar'..i]}
+		for _, frame in pairs(styleBacks) do
+			ENH:ProcessShadow(frame, frame.backdrop, frame:GetFrameLevel(), ENH.db.actionbars['bar'..i])
 
-	frame:CreateShadow()
-	frame.EnhShadow = frame.shadow
-	frame.shadow = nil
-	ES:RegisterShadow(frame.EnhShadow)
-	if parent and parent ~= "none" then
-		frame.EnhShadow:SetParent(parent)
-	elseif not parent then
-		frame.EnhShadow:SetParent(frame)
+			for k = 1, 12 do
+				local buttonBars = {_G['ElvUI_Bar'..i..'Button'..k]}
+				for _, button in pairs(buttonBars) do
+					ENH:ProcessShadow(button, button.backdrop, button:GetFrameLevel(), ENH.db.actionbars['bar'..i])
+				end
+			end
+		end
 	end
-end
 
-function ES:CreateShadows()
-	--Actionbars--
 	do
-		for i=1, Abars do
-			if E.private.sle.module.shadows.actionbars["bar"..i] then
-				ES:CreateFrameShadow( _G["ElvUI_Bar"..i],  _G["ElvUI_Bar"..i].backdrop)
-			end
-			if E.private.sle.module.shadows.actionbars["bar"..i.."buttons"] then
-				for j = 1, 12 do
-					ES:CreateFrameShadow(_G["ElvUI_Bar"..i.."Button"..j], _G["ElvUI_Bar"..i.."Button"..j].backdrop)
-				end
-			end
-		end
-		if E.private.sle.module.shadows.actionbars.stancebar then ES:CreateFrameShadow(_G["ElvUI_StanceBar"], _G["ElvUI_StanceBar"].backdrop) end
-		if E.private.sle.module.shadows.actionbars.stancebarbuttons then
-			for i = 1, 12 do
-				if not _G["ElvUI_StanceBarButton"..i] then break end
-				ES:CreateFrameShadow(_G["ElvUI_StanceBarButton"..i], _G["ElvUI_StanceBarButton"..i].backdrop)
-			end
-		end
-		if E.private.sle.module.shadows.actionbars.microbar then ES:CreateFrameShadow(_G["ElvUI_MicroBar"], "none") end
-		if E.private.sle.module.shadows.actionbars.microbarbuttons then
-			for i=1, (#MICRO_BUTTONS) do
-				if not _G[MICRO_BUTTONS[i]] then break end
-				ES:CreateFrameShadow(_G[MICRO_BUTTONS[i]], _G[MICRO_BUTTONS[i]].backdrop)
-			end
-		end
-		if E.private.sle.module.shadows.actionbars.petbar then ES:CreateFrameShadow(_G["ElvUI_BarPet"], _G["ElvUI_BarPet"].backdrop) end
-		if E.private.sle.module.shadows.actionbars.petbarbuttons then
-			for i = 1, 12 do
-				if not _G["PetActionButton"..i] then break end
-				ES:CreateFrameShadow(_G["PetActionButton"..i], _G["PetActionButton"..i].backdrop)
-			end
+		-- Pet Bar
+		local frame = _G.ElvUI_BarPet
+		ENH:ProcessShadow(frame, frame.backdrop, frame:GetFrameLevel(), ENH.db.actionbars.petbar)
+		for i = 1, 12 do
+			local button = _G['PetActionButton'..i]
+			if not button then break end
+			ENH:ProcessShadow(button, button.backdrop, button:GetFrameLevel(), ENH.db.actionbars.petbar)
 		end
 	end
 
-	--Datatexts--
-	for panel, enabled in pairs(E.private.sle.module.shadows.datatexts) do
-		if enabled then
-			if panel == "leftchat" then
-				ES.DummyPanels.LeftChat = CreateFrame("Frame", nil, _G[ES.FramesToShadow.Datapanels[panel]])
-				ES.DummyPanels.LeftChat:Point("TOPLEFT", _G[ES.FramesToShadow.Datapanels[panel]], "TOPLEFT", -SIDE_BUTTON, 0)
-				ES.DummyPanels.LeftChat:Point("BOTTOMRIGHT", _G[ES.FramesToShadow.Datapanels[panel]], "BOTTOMRIGHT", 0, 0)
-				ES.DummyPanels.LeftChat:SetFrameStrata("LOW")
-				if not E.private.sle.module.shadows.chat.left then
-					_G["LeftChatToggleButton"]:SetFrameStrata('LOW')
-					_G["LeftChatToggleButton"]:SetFrameLevel(0)
-					_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameStrata('LOW')
-					_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameLevel(0)
-				end
-
-				ES:CreateFrameShadow(ES.DummyPanels.LeftChat, "none")
-
-			elseif panel == "rightchat" then
-				ES.DummyPanels.RightChat = CreateFrame("Frame", nil, _G[ES.FramesToShadow.Datapanels[panel]])
-				ES.DummyPanels.RightChat:Point("TOPRIGHT", _G[ES.FramesToShadow.Datapanels[panel]], "TOPRIGHT", SIDE_BUTTON, 0)
-				ES.DummyPanels.RightChat:Point("BOTTOMLEFT", _G[ES.FramesToShadow.Datapanels[panel]], "BOTTOMLEFT", 0, 0)
-				ES.DummyPanels.RightChat:SetFrameStrata("LOW")
-				if not E.private.sle.module.shadows.chat.right then
-					_G["RightChatToggleButton"]:SetFrameStrata('LOW')
-					_G["RightChatToggleButton"]:SetFrameLevel(0)
-					_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameStrata('LOW')
-					_G[ES.FramesToShadow.Datapanels[panel]]:SetFrameLevel(0)
-				end
-
-				ES:CreateFrameShadow(ES.DummyPanels.RightChat, "none")
-			elseif (panel ~= leftchat) or (panel ~= rightchat) then
-				ES:CreateFrameShadow(_G[ES.FramesToShadow.Datapanels[panel]], "none")
-			end
-		end
-	end
-
-	--Databars Examples: Honor, Reputation, Experience, Azerite
-	for panel, enabled in pairs(E.private.sle.module.shadows.databars) do
-		if enabled then
-			ES:CreateFrameShadow(_G[ES.FramesToShadow.databars[panel]], "none")
-		end
-	end
-
-	--Misc--
 	do
-		if E.private.sle.module.shadows.minimap and E.private.general.minimap.enable then
-			if E.private.sle.minimap.rectangle then
-				ES.DummyPanels.Minimap = CreateFrame("Frame", nil, _G["MMHolder"])
-				ES:UpdateMinimap()
+		-- Micro Bar
+		local frame = _G.ElvUI_MicroBar
+		ENH:ProcessShadow(frame, nil, frame:GetFrameLevel(), ENH.db.actionbars.microbar)
+		for i = 1, (#MICRO_BUTTONS) do
+			if not _G[MICRO_BUTTONS[i]] then break end
+			local button = _G[MICRO_BUTTONS[i]]
+			ENH:ProcessShadow(button, button.backdrop, button:GetFrameLevel()-1, ENH.db.actionbars.microbar)
+		end
+	end
 
-				ES:CreateFrameShadow(ES.DummyPanels.Minimap, "none")
-			else
-				ES:CreateFrameShadow(_G["MMHolder"], "none")
-			end
-			hooksecurefunc(MM, "UpdateSettings", ES.UpdateMinimap)
+	do
+		-- Stance Bar
+		local frame = _G.ElvUI_StanceBar
+		ENH:ProcessShadow(frame, frame.backdrop, frame:GetFrameLevel(), ENH.db.actionbars.stancebar)
+		for i = 1, 12 do
+			local button = _G['ElvUI_StanceBarButton'..i]
+			if not button then break end
+			ENH:ProcessShadow(button, button.backdrop, button:GetFrameLevel(), ENH.db.actionbars.stancebar)
 		end
-		if E.private.sle.module.shadows.chat.left then
-			if not E.private.sle.module.shadows.datatexts.leftchat then
-				_G["LeftChatToggleButton"]:SetFrameStrata('BACKGROUND')
-				_G["LeftChatToggleButton"]:SetFrameLevel(0)
-				_G["LeftChatDataPanel"]:SetFrameStrata('BACKGROUND')
-				_G["LeftChatDataPanel"]:SetFrameLevel(0)
-			end
-			ES:CreateFrameShadow(_G.LeftChatPanel, _G.LeftChatPanel.backdrop)
+	end
+
+	-- TODO: Add Enhanced Vehicle UI Later
+	-- do
+	-- -- S&L Enhanced Vehicle Bar
+	-- 	local frame = _G.ElvUISL_EnhancedVehicleBar
+	-- 	ENH:ProcessShadow(frame, nil, frame:GetFrameLevel(), ENH.db.actionbars.vehicle)
+	-- 	for i = 1, 12 do
+	-- 		local button = _G['ElvUISL_EnhancedVehicleBarButton'..i]
+	-- 		if not button then break end
+	-- 		ENH:ProcessShadow(button, button.backdrop, button:GetFrameLevel(), ENH.db.actionbars.vehicle)
+	-- 	end
+	-- end
+end
+
+function ENH:ToggleABShadows()
+	if not E.private.actionbar.enable then return end
+
+	-- Player ActionBars
+	for i = 1, 10 do
+		local frame = _G['ElvUI_Bar'..i]
+		if frame and frame.enhshadow then
+			frame.enhshadow:SetShown(ENH.db.actionbars['bar'..i].backdrop)
 		end
-		if E.private.sle.module.shadows.chat.right then
-			if not E.private.sle.module.shadows.datatexts.rightchat then
-				_G["RightChatToggleButton"]:SetFrameStrata('BACKGROUND')
-				_G["RightChatToggleButton"]:SetFrameLevel(0)
-				_G["RightChatDataPanel"]:SetFrameStrata('BACKGROUND')
-				_G["RightChatDataPanel"]:SetFrameLevel(0)
+		for k = 1, 12 do
+			local button = _G['ElvUI_Bar'..i..'Button'..k]
+			if button and button.enhshadow then
+				button.enhshadow:SetShown(ENH.db.actionbars['bar'..i].buttons)
 			end
-			ES:CreateFrameShadow(_G.RightChatPanel, _G.RightChatPanel.backdrop)
+		end
+	end
+
+	-- TODO: Add Enhanced Vehicle UI Later
+	-- S&L Enhanced Vehicle Bar
+	-- do
+	-- 	local frame = _G.ElvUISL_EnhancedVehicleBar
+	-- 	if frame and frame.enhshadow then
+	-- 		frame.enhshadow:SetShown(ENH.db.actionbars.vehicle.backdrop)
+	-- 	end
+	-- 	for i = 1, 12 do
+	-- 		local button = _G['ElvUISL_EnhancedVehicleBarButton'..i]
+	-- 		if button and button.enhshadow then
+	-- 			button.enhshadow:SetShown(ENH.db.actionbars.vehicle.buttons)
+	-- 		end
+	-- 	end
+	-- end
+
+	do
+		-- Pet Bar
+		local frame = _G.ElvUI_BarPet
+		if frame and frame.enhshadow then
+			frame.enhshadow:SetShown(ENH.db.actionbars.petbar.backdrop)
+		end
+		for i = 1, 12 do
+			local button = _G['PetActionButton'..i]
+			if not button then break end
+			if button.enhshadow then
+				button.enhshadow:SetShown(ENH.db.actionbars.petbar.buttons)
+			end
+		end
+	end
+
+	do
+		-- Micro Bars
+		local frame = _G.ElvUI_MicroBar
+		if frame and frame.enhshadow then
+			frame.enhshadow:SetShown(ENH.db.actionbars.microbar.backdrop)
+		end
+
+		for i=1, (#MICRO_BUTTONS) do
+			local button = _G[MICRO_BUTTONS[i]]
+			if not button then break end
+			if button.enhshadow then
+				button.enhshadow:SetShown(ENH.db.actionbars.microbar.buttons)
+			end
+		end
+	end
+
+	do
+		-- Stance Bar
+		local frame = _G.ElvUI_StanceBar
+		if frame and frame.enhshadow then
+			frame.enhshadow:SetShown(ENH.db.actionbars.stancebar.backdrop)
+		end
+		for i = 1, 12 do
+			local button = _G['ElvUI_StanceBarButton'..i]
+			if not button then break end
+			if button and button.enhshadow then
+				button.enhshadow:SetShown(ENH.db.actionbars.stancebar.buttons)
+			end
 		end
 	end
 end
 
-function ES:UpdateMinimap()
-	if not E.private.sle.minimap.rectangle then return end
-
-	ES.DummyPanels.Minimap:Point('TOPLEFT', _G.Minimap, 'TOPLEFT', -1, -(E.MinimapSize/6.1)+1)
-	if E.db.datatexts.panels.MinimapPanel.enable then
-		ES.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.MinimapPanel, 'BOTTOMRIGHT', 0, 0)
-	else
-		ES.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.Minimap, 'BOTTOMRIGHT', 1, (E.MinimapSize/6.1)-1)
+function ENH:CreateDBShadows()
+	for bar, tbl in pairs(ENH.frames.databars) do
+		local name = unpack(tbl)
+		local frame = _G[name]
+		ENH:ProcessShadow(frame, nil, frame:GetFrameLevel(), ENH.db.databars[bar])
 	end
 end
 
-function ES:Initialize()
-	if not SLE.initialized then return end
-	Border = E.LSM:Fetch('border', 'ElvUI GlowBorder')
-
-	self:RegisterEvent('PLAYER_ENTERING_WORLD', ES.UpdateShadows)
-
-	ES:CreateShadows()
-	ES:UpdateShadows()
-	function ES:ForUpdateAll()
-		ES:UpdateShadows()
+function ENH:ToggleDBShadows()
+	for bar, tbl in next, ENH.frames.databars do
+		local frame = unpack(tbl)
+		frame = _G[frame]
+		if frame and frame.enhshadow then
+			frame.enhshadow:SetShown(ENH.db.databars[bar].backdrop)
+		end
 	end
 end
 
---Compatibility thing
-_G.EnhancedShadows = ES;
+function ENH:CreateDTShadows()
+	ENH.DummyPanels.LeftChatDataPanel = CreateFrame('Frame', nil, _G.LeftChatDataPanel)
+	ENH.DummyPanels.LeftChatDataPanel:Point('TOPLEFT', _G.LeftChatDataPanel, 'TOPLEFT', -SIDE_BUTTON, 0)
+	ENH.DummyPanels.LeftChatDataPanel:Point('BOTTOMRIGHT', _G.LeftChatDataPanel, 'BOTTOMRIGHT', 0, 0)
+	ENH.DummyPanels.LeftChatDataPanel:SetFrameStrata('LOW')
+	ENH:ProcessShadow(ENH.DummyPanels.LeftChatDataPanel, nil, ENH.DummyPanels.LeftChatDataPanel:GetFrameLevel(), ENH.db.datatexts.panels.LeftChatDataPanel)
 
-SLE:RegisterModule(ES:GetName())
+	ENH.DummyPanels.RightChatDataPanel = CreateFrame('Frame', nil, _G.RightChatDataPanel)
+	ENH.DummyPanels.RightChatDataPanel:Point('TOPRIGHT', _G.RightChatDataPanel, 'TOPRIGHT', SIDE_BUTTON, 0)
+	ENH.DummyPanels.RightChatDataPanel:Point('BOTTOMLEFT', _G.RightChatDataPanel, 'BOTTOMLEFT', 0, 0)
+	ENH.DummyPanels.RightChatDataPanel:SetFrameStrata('LOW')
+	ENH:ProcessShadow(ENH.DummyPanels.RightChatDataPanel, nil, ENH.DummyPanels.RightChatDataPanel:GetFrameLevel(), ENH.db.datatexts.panels.RightChatDataPanel)
+
+	for name, frame in next, DT.RegisteredPanels do
+		if name ~= 'LeftChatDataPanel' and name ~= 'RightChatDataPanel' then
+			ENH:ProcessShadow(frame, nil, frame:GetFrameLevel(), ENH.db.datatexts.panels[name])
+		end
+	end
+end
+
+function ENH:ToggleDTShadows()
+	for name, frame in next, DT.RegisteredPanels do
+		if ENH.DummyPanels[name] and ENH.DummyPanels[name].enhshadow then
+			ENH.DummyPanels[name].enhshadow:SetShown(ENH.db.datatexts.panels[name].backdrop)
+		end
+
+		if frame and frame.enhshadow then
+			frame.enhshadow:SetShown(ENH.db.datatexts.panels[name].backdrop)
+		end
+	end
+end
+
+function ENH:CreateCHShadows()
+	ENH:ProcessShadow(_G.LeftChatPanel, nil, _G.LeftChatPanel:GetFrameLevel(), ENH.db.chat.LeftChatPanel)
+	ENH:ProcessShadow(_G.RightChatPanel, nil, _G.RightChatPanel:GetFrameLevel(), ENH.db.chat.RightChatPanel)
+end
+
+function ENH:ToggleCHShadows()
+	for panel, _ in pairs(E.db.sle.shadows.chat) do
+		local frame = _G[panel]
+
+		if frame and frame.enhshadow then
+			frame.enhshadow:SetShown(ENH.db.chat[panel].backdrop)
+		end
+	end
+end
+
+function ENH:UpdateDefaults()
+	for name, _ in pairs(DT.RegisteredPanels) do
+		if not E.db.sle.shadows.datatexts.panels[name] then
+			E.db.sle.shadows.datatexts.panels[name] = {
+				backdrop = false,
+				size = 3,
+			}
+		end
+	end
+end
+
+function ENH:CreateMMShadows()
+	if not E.private.general.minimap.enable then return end
+	ENH.DummyPanels.Minimap = CreateFrame("Frame", nil, _G.MMHolder)
+
+	ENH:ProcessShadow(ENH.DummyPanels.Minimap, nil, ENH.DummyPanels.Minimap:GetFrameLevel(), ENH.db.minimap)
+	ENH:ProcessShadow(_G.MMHolder, nil, _G.MMHolder:GetFrameLevel(), ENH.db.minimap)
+
+	hooksecurefunc(MM, "UpdateSettings", ENH.ToggleMMShadows)
+end
+
+function ENH:ToggleMMShadows()
+	if _G.MMHolder and _G.MMHolder.enhshadow then
+		_G.MMHolder.enhshadow:SetShown(ENH.db.minimap.backdrop and not E.private.sle.minimap.rectangle)
+	end
+
+	if ENH.DummyPanels.Minimap and ENH.DummyPanels.Minimap.enhshadow then
+		ENH.DummyPanels.Minimap:Point('TOPLEFT', _G.Minimap, 'TOPLEFT', -1, -(E.MinimapSize/6.1)+1)
+
+		if E.db.datatexts.panels.MinimapPanel.enable then
+			ENH.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.MinimapPanel, 'BOTTOMRIGHT', 0, 0)
+		else
+			ENH.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.Minimap, 'BOTTOMRIGHT', 1, (E.MinimapSize/6.1)-1)
+		end
+
+		ENH.DummyPanels.Minimap.enhshadow:SetShown(ENH.db.minimap.backdrop and E.private.sle.minimap.rectangle)
+	end
+end
+
+function ENH:Initialize()
+	if not SLE.initialized or not E.private.sle.module.shadows.enable then return end
+	-- if not SLE.initialized then return end
+	ENH.db = E.db.sle.shadows
+
+	--! Idea to update defaults for custom datatext panels
+	ENH:UpdateDefaults()
+
+	ENH:RegisterEvent('PLAYER_ENTERING_WORLD', ENH.UpdateShadows)
+
+	ENH:CreateABShadows()
+	ENH:ToggleABShadows()
+
+	ENH:CreateDBShadows()
+	ENH:ToggleDBShadows()
+
+	ENH:CreateDTShadows()
+	ENH:ToggleDTShadows()
+
+	ENH:CreateMMShadows()
+	ENH:ToggleMMShadows()
+
+	ENH:CreateCHShadows()
+	ENH:ToggleCHShadows()
+
+	-- ENH:UpdateShadows()
+	function ENH:ForUpdateAll()
+		ENH:UpdateShadows()
+	end
+end
+
+SLE:RegisterModule(ENH:GetName())

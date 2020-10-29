@@ -6,7 +6,7 @@ function SUF:Configure_Power(frame)
 	if not power then return end
 
 	local db = E.db.sle.shadows
-	local offset = (E.PixelMode and db.size) or (db.size + 1)
+	local offset = (E.PixelMode and db.unitframes.size) or (db.unitframes.size + 1)
 
 	if not SUF.CreatedShadows[power.backdrop.enhshadow] then
 		power.backdrop.enhshadow = power.backdrop:CreateShadow(4, true)
@@ -22,7 +22,7 @@ function SUF:Configure_Power(frame)
 
 	power.backdrop.enhshadow:SetOutside(power.backdrop.enhshadow:GetParent(), offset, offset, nil, true)
 	power.backdrop.enhshadow:SetBackdrop({
-		edgeFile = E.LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = db.size > 3 and db.size or 3,
+		edgeFile = E.LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = db.unitframes.size > 3 and db.unitframes.size or 3,
 		-- insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},  --! Don't see a need for this
 	})
 	SUF:UpdateShadowColor(power.backdrop.enhshadow)

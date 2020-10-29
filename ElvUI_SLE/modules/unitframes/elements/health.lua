@@ -6,7 +6,7 @@ function SUF:Configure_Health(frame)
 	if not health then return end
 
 	local db = E.db.sle.shadows
-	local offset = (E.PixelMode and db.size) or (db.size + 1)
+	local offset = (E.PixelMode and db.unitframes.size) or (db.unitframes.size + 1)
 
 	if not SUF.CreatedShadows[health.backdrop.enhshadow] then
 		health.backdrop.enhshadow = frame:CreateShadow(4, true)
@@ -22,7 +22,7 @@ function SUF:Configure_Health(frame)
 
 	health.backdrop.enhshadow:SetOutside(frame.TargetGlow, offset-E.Border-3, offset-E.Border-3, nil, true)
 	health.backdrop.enhshadow:SetBackdrop({
-		edgeFile = E.LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = db.size > 2 and db.size or 2,
+		edgeFile = E.LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = db.unitframes.size > 2 and db.unitframes.size or 2,
 		-- insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},  --! Don't see a need for this
 	})
 	SUF:UpdateShadowColor(health.backdrop.enhshadow)

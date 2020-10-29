@@ -736,10 +736,134 @@ P["sle"] = {
 		["panelTemplate"] = "Transparent",
 	},
 	--Shadows
-	['shadows'] = {
+	shadows = {
 		shadowcolor = { ['r'] = 0, ['g'] = 0, ['b'] = 0 },
-		size = 3,
+		actionbars = {
+			bar1 = {
+				backdrop = false,
+				buttons = false,
+				size = 3,
+			},
+			bar2 = {
+				backdrop = false,
+				buttons = false,
+				size = 3,
+			},
+			bar3 = {
+				backdrop = false,
+				buttons = false,
+				size = 3,
+			},
+			bar4 = {
+				backdrop = false,
+				buttons = false,
+				size = 3,
+			},
+			bar5 = {
+				backdrop = false,
+				buttons = false,
+				size = 3,
+			},
+			bar6 = {
+				backdrop = false,
+				buttons = false,
+				size = 3,
+			},
+			bar7 = {
+				backdrop = false,
+				buttons = false,
+				size = 3,
+			},
+			bar8 = {
+				backdrop = false,
+				buttons = false,
+				size = 3,
+			},
+			bar9 = {
+				backdrop = false,
+				buttons = false,
+				size = 3,
+			},
+			bar10 = {
+				backdrop = false,
+				buttons = false,
+				size = 3,
+			},
+			stancebar = {
+				backdrop = false,
+				buttons = false,
+				size = 3,
+			},
+			microbar = {
+				backdrop = false,
+				buttons = false,
+				size = 3,
+			},
+			petbar = {
+				backdrop = true,
+				buttons = false,
+				size = 3,
+			},
+			-- vehicle = { -- TODO: Add Enhanced Vehicle UI Later
+			-- 	backdrop = false,
+			-- 	buttons = false,
+			-- 	size = 3,
+			-- },
+		},
+		chat = {
+			LeftChatPanel = {
+				backdrop = false,
+				size = 3,
+			},
+			RightChatPanel = {
+				backdrop = false,
+				size = 3,
+			},
+		},
+		databars = {
+			threat = {
+				backdrop = false,
+				size = 3,
+			},
+			experience = {
+				backdrop = false,
+				size = 3,
+			},
+			honor = {
+				backdrop = false,
+				size = 3,
+			},
+			reputation = {
+				backdrop = false,
+				size = 3,
+			},
+			azerite = {
+				backdrop = false,
+				size = 3,
+			},
+		},
+		datatexts = {
+			panels = {
+				LeftChatDataPanel = {
+					backdrop = false,
+					size = 3,
+				},
+				RightChatDataPanel = {
+					backdrop = false,
+					size = 3,
+				},
+				MinimapPanel = {
+					backdrop = false,
+					size = 3,
+				},
+			},
+		},
+		minimap = {
+			backdrop = false,
+			size = 3,
+		},
 		unitframes = {
+			size = 3,
 			player = {
 				legacy = false,
 				health = false,
