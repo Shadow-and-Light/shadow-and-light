@@ -62,11 +62,11 @@ function ENH:UpdateDatatextOptions()
 	end
 end
 
-local function updateSize(frame, size)
+local function updateFrame(frame, size, backdrop)
 	if not frame or not frame.enhshadow then return end
-	frame.enhshadow.size = size
+	if size then frame.enhshadow.size = size end
+	if backdrop then frame.enhshadow.backdrop = backdrop end
 	ENH:UpdateShadow(frame.enhshadow)
-	-- SLE:Print(size, 'info')
 end
 
 local function configTable()
@@ -141,8 +141,7 @@ local function configTable()
 										-- disabled = function() return not (E.db.chat.panelBackdrop ~= 'HIDEBOTH') end,
 										set = function(info, value)
 											E.db.sle.shadows.chat.LeftChatPanel[info[#info]] = value
-											_G.LeftChatPanel.enhshadow.backdrop = value
-											ENH:UpdateShadow(_G.LeftChatPanel.enhshadow)
+											updateFrame(_G.LeftChatPanel, nil, value)
 											ENH:UpdateShadow(ENH.DummyPanels.LeftChatDataPanel.enhshadow)
 											ENH:ToggleCHShadows()
 										end,
@@ -153,7 +152,7 @@ local function configTable()
 										name = L["Size"],
 										min = 2, max = 10, step = 1,
 										disabled = function() return not E.db.sle.shadows.chat.LeftChatPanel.backdrop or not (E.db.chat.panelBackdrop == 'SHOWBOTH' or E.db.chat.panelBackdrop == 'LEFT') end,
-										set = function(info, value) E.db.sle.shadows.chat.LeftChatPanel[info[#info]] = value; updateSize(_G.LeftChatPanel, value) end,
+										set = function(info, value) E.db.sle.shadows.chat.LeftChatPanel[info[#info]] = value; updateFrame(_G.LeftChatPanel, value) end,
 									},
 								},
 							},
@@ -171,8 +170,7 @@ local function configTable()
 										disabled = function() return not (E.db.chat.panelBackdrop == 'SHOWBOTH' or E.db.chat.panelBackdrop == 'LEFT') end,
 										set = function(info, value)
 											E.db.sle.shadows.chat.RightChatPanel[info[#info]] = value
-											_G.RightChatPanel.enhshadow.backdrop = value
-											ENH:UpdateShadow(_G.RightChatPanel.enhshadow)
+											updateFrame(_G.RightChatPanel, nil, value)
 											ENH:UpdateShadow(ENH.DummyPanels.RightChatDataPanel.enhshadow)
 											ENH:ToggleCHShadows()
 										end,
@@ -183,7 +181,7 @@ local function configTable()
 										name = L["Size"],
 										min = 2, max = 10, step = 1,
 										disabled = function() return not E.db.sle.shadows.chat.RightChatPanel.backdrop end,
-										set = function(info, value) E.db.sle.shadows.chat.RightChatPanel[info[#info]] = value; updateSize(_G.RightChatPanel, value) end,
+										set = function(info, value) E.db.sle.shadows.chat.RightChatPanel[info[#info]] = value; updateFrame(_G.RightChatPanel, value) end,
 									},
 								},
 							},
@@ -214,7 +212,7 @@ local function configTable()
 										name = L["Minimap"],
 										desc = L["Enables a shadow for the panel or backdrop of this frame."],
 										disabled = function() return not E.private.general.minimap.enable end,
-										set = function(info, value) E.db.sle.shadows.minimap[info[#info]] = value; ENH:ToggleMMShadows() end,
+										set = function(info, value) E.db.sle.shadows.minimap[info[#info]] = value; ENH:HandleMinimap() end,
 									},
 									size = {
 										order = 2,
@@ -224,8 +222,8 @@ local function configTable()
 										disabled = function() return not E.private.general.minimap.enable or not E.db.sle.shadows.minimap.backdrop end,
 										set = function(info, value)
 											E.db.sle.shadows.minimap[info[#info]] = value
-											updateSize(_G.MMHolder, value)
-											updateSize(ENH.DummyPanels.Minimap, value)
+											updateFrame(_G.MMHolder, value)
+											updateFrame(ENH.DummyPanels.Minimap, value)
 										end,
 									},
 								},
@@ -267,7 +265,7 @@ local function configTable()
 										disabled = function() return not E.db.general.bottomPanel or not E.db.sle.shadows.general.bottomPanel.backdrop end,
 										set = function(info, value)
 											E.db.sle.shadows.general.bottomPanel[info[#info]] = value
-											updateSize(_G.ElvUI_BottomPanel, value)
+											updateFrame(_G.ElvUI_BottomPanel, value)
 											-- local frame = _G.ElvUI_BottomPanel
 											-- if frame and frame.enhshadow then
 											-- 	frame.enhshadow.size = value

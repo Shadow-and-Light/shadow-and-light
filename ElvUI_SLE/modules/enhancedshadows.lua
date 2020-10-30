@@ -384,33 +384,43 @@ function ENH:UpdateDefaults()
 	end
 end
 
-function ENH:CreateMMShadows()
+function ENH:HandleMinimap()
 	if not E.private.general.minimap.enable then return end
-	ENH.DummyPanels.Minimap = CreateFrame("Frame", nil, _G.MMHolder)
 
-	ENH:ProcessShadow(ENH.DummyPanels.Minimap, nil, ENH.DummyPanels.Minimap:GetFrameLevel(), ENH.db.minimap)
-	ENH:ProcessShadow(_G.MMHolder, nil, _G.MMHolder:GetFrameLevel(), ENH.db.minimap)
+	do
+		local frame = _G.MMHolder
 
-	hooksecurefunc(MM, "UpdateSettings", ENH.ToggleMMShadows)
-end
-
-function ENH:ToggleMMShadows()
-	if _G.MMHolder and _G.MMHolder.enhshadow then
-		_G.MMHolder.enhshadow:SetShown(ENH.db.minimap.backdrop and not E.private.sle.minimap.rectangle)
-	end
-
-	if ENH.DummyPanels.Minimap and ENH.DummyPanels.Minimap.enhshadow then
-		ENH.DummyPanels.Minimap:Point('TOPLEFT', _G.Minimap, 'TOPLEFT', -1, -(E.MinimapSize/6.1)+1)
-
-		if E.db.datatexts.panels.MinimapPanel.enable then
-			ENH.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.MinimapPanel, 'BOTTOMRIGHT', 0, 0)
-		else
-			ENH.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.Minimap, 'BOTTOMRIGHT', 1, (E.MinimapSize/6.1)-1)
+		if frame and not frame.enhshadow then
+			ENH:ProcessShadow(frame, nil, frame:GetFrameLevel(), ENH.db.minimap)
 		end
 
-		ENH.DummyPanels.Minimap.enhshadow:SetShown(ENH.db.minimap.backdrop and E.private.sle.minimap.rectangle)
+		if frame and frame.enhshadow then
+			frame.enhshadow:SetShown(ENH.db.minimap.backdrop and not E.private.sle.minimap.rectangle)
+		end
+	end
+
+	do
+		if not ENH.DummyPanels.Minimap then
+			ENH.DummyPanels.Minimap = CreateFrame("Frame", nil, _G.MMHolder)
+		end
+
+		if ENH.DummyPanels.Minimap and not ENH.DummyPanels.Minimap.enhshadow then
+			ENH:ProcessShadow(ENH.DummyPanels.Minimap, nil, ENH.DummyPanels.Minimap:GetFrameLevel(), ENH.db.minimap)
+		end
+
+		if ENH.DummyPanels.Minimap and ENH.DummyPanels.Minimap.enhshadow then
+			ENH.DummyPanels.Minimap:Point('TOPLEFT', _G.Minimap, 'TOPLEFT', -1, -(E.MinimapSize/6.1)+1)
+
+			if E.db.datatexts.panels.MinimapPanel.enable then
+				ENH.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.MinimapPanel, 'BOTTOMRIGHT', 0, 0)
+			else
+				ENH.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.Minimap, 'BOTTOMRIGHT', 1, (E.MinimapSize/6.1)-1)
+			end
+			ENH.DummyPanels.Minimap.enhshadow:SetShown(ENH.db.minimap.backdrop and E.private.sle.minimap.rectangle)
+		end
 	end
 end
+
 
 function ENH:HandleElvUIPanels()
 	do
@@ -444,13 +454,17 @@ function ENH:ADDON_LOADED(event, addon)
 	hooksecurefunc(DT, "PanelLayoutOptions", ENH.UpdateDatatextOptions)
 end
 
+function ENH:PLAYER_ENTERING_WORLD()
+	ENH:UpdateShadows()
+end
+
 function ENH:Initialize()
 	if not SLE.initialized or not E.private.sle.module.shadows.enable then return end
 	ENH.db = E.db.sle.shadows
 
 	ENH:UpdateDefaults()
 
-	ENH:RegisterEvent('PLAYER_ENTERING_WORLD', ENH.UpdateShadows)
+	ENH:RegisterEvent('PLAYER_ENTERING_WORLD')
 	ENH:RegisterEvent('ADDON_LOADED')
 
 	ENH:CreateABShadows()
@@ -462,8 +476,7 @@ function ENH:Initialize()
 	ENH:CreateDTShadows()
 	ENH:ToggleDTShadows()
 
-	ENH:CreateMMShadows()
-	ENH:ToggleMMShadows()
+	ENH:HandleMinimap()
 
 	ENH:CreateCHShadows()
 	ENH:ToggleCHShadows()
