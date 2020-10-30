@@ -11,6 +11,10 @@ Removed:
 Changes:
 - Misc code formatting & clean up
 - Updated Enhanced Shadows and no settings besides the shadow color is transfered over.
+- Enhanced Shadows now has the ability to add a shadow to a custom datatext
+Added:
+- Added ElvUI's Bottom Panel to Enhanced Shadows options
+- Added ElvUI's Top Panel to Enhanced Shadows options
 
 v4.08 [October 20, 2020]
 Fixes:
