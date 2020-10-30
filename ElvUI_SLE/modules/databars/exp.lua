@@ -1,5 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DB = SLE:GetModule("DataBars")
+local EDB = E:GetModule('DataBars')
 
 --GLOBALS: unpack, select, hooksecurefunc
 local UnitLevel = UnitLevel
@@ -172,5 +173,5 @@ end
 
 function DB:ExpInit()
 	DB:PopulateExpPatterns()
-	hooksecurefunc(E:GetModule('DataBars'), "ExperienceBar_Update", UpdateExperience)
+	hooksecurefunc(EDB, "ExperienceBar_Update", UpdateExperience)
 end

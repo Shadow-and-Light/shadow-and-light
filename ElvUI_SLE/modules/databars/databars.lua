@@ -32,16 +32,17 @@ function DB:Initialize()
 	function DB:ForUpdateAll()
 		DB:RegisterFilters()
 	end
-
 	DB:ExpInit()
 	DB:RepInit()
+	print("try shit")
 	DB:AzeriteInit()
 	DB:HonorInit()
 	DB:ForUpdateAll()
-
+print("qqqq")
 	-- self:RegisterEvent("CHAT_MSG_COMBAT_FACTION_CHANGE", "NewRepString")
-	self:RegisterEvent("UPDATE_FACTION", DB.NewRepString)
+	self:RegisterEvent("UPDATE_FACTION", "NewRepString")
 	DB:NewRepString()
+
 end
 
 SLE:RegisterModule(DB:GetName())

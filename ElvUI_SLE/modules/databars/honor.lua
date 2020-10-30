@@ -1,5 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DB = SLE:GetModule("DataBars")
+local EDB = E:GetModule('DataBars')
 
 --GLOBALS: hooksecurefunc
 local format = format
@@ -45,7 +46,7 @@ DB.Honor ={
 	Icon = [[Interface\AddOns\ElvUI_SLE\media\textures\]]..E.myfaction,
 }
 
-local function UpdateHonor(self, event, unit)
+local function HonorBar_Update(self, event, unit)
 	if not E.db.databars.honor.enable then return end
 	if not E.db.sle.databars.honor.longtext then return end
 	if event == "HONOR_PRESTIGE_UPDATE" and unit ~= "player" then return end
@@ -134,6 +135,6 @@ end
 
 function DB:HonorInit()
 	DB:PopulateHonorStrings()
-	hooksecurefunc(E:GetModule('DataBars'), "UpdateHonor", UpdateHonor)
-	E:GetModule('DataBars'):UpdateHonor()
+	hooksecurefunc(EDB, "HonorBar_Update", HonorBar_Update)
+	EDB:HonorBar_Update()
 end
