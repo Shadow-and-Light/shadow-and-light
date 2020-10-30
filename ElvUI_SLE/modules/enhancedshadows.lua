@@ -358,8 +358,8 @@ function ENH:ToggleDTShadows()
 end
 
 function ENH:CreateCHShadows()
-	ENH:ProcessShadow(_G.LeftChatPanel, nil, _G.LeftChatPanel:GetFrameLevel(), ENH.db.chat.LeftChatPanel)
-	ENH:ProcessShadow(_G.RightChatPanel, nil, _G.RightChatPanel:GetFrameLevel(), ENH.db.chat.RightChatPanel)
+	ENH:ProcessShadow(_G.LeftChatPanel, _G.LeftChatPanel.backdrop, _G.LeftChatPanel:GetFrameLevel(), ENH.db.chat.LeftChatPanel)
+	ENH:ProcessShadow(_G.RightChatPanel, _G.RightChatPanel.backdrop, _G.RightChatPanel:GetFrameLevel(), ENH.db.chat.RightChatPanel)
 end
 
 function ENH:ToggleCHShadows()
