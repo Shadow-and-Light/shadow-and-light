@@ -353,7 +353,14 @@ function ENH:ToggleDTShadows()
 		end
 
 		if frame and frame.enhshadow then
-			frame.enhshadow:SetShown(ENH.db.datatexts.panels[name].backdrop)
+			local show
+			if E.global.datatexts.customPanels[name] then
+				show = E.global.datatexts.customPanels[name].backdrop and ENH.db.datatexts.panels[name].backdrop
+			else
+				show = ENH.db.datatexts.panels[name].backdrop
+			end
+			-- frame.enhshadow:SetShown(ENH.db.datatexts.panels[name].backdrop)
+			frame.enhshadow:SetShown(show)
 		end
 	end
 end
@@ -452,6 +459,7 @@ function ENH:ADDON_LOADED(event, addon)
 	if addon ~= 'ElvUI_OptionsUI' then return end
 	ENH:UnregisterEvent(event)
 	hooksecurefunc(DT, "PanelLayoutOptions", ENH.UpdateDatatextOptions)
+	hooksecurefunc(DT, "UpdatePanelAttributes", ENH.ToggleDTShadows)
 end
 
 function ENH:PLAYER_ENTERING_WORLD()
