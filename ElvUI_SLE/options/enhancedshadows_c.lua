@@ -26,6 +26,7 @@ function ENH:UpdateDatatextOptions()
 					order = 2,
 					type = 'toggle',
 					name = L["Panel"],
+					desc = L["Enables a shadow for the panel or backdrop of this frame."],
 					disabled = function() return not E.db.datatexts.panels[name].enable end,
 				},
 				size = {
@@ -428,6 +429,7 @@ local function configTable()
 					order = 2,
 					type = 'toggle',
 					name = L["Panel"],
+					desc = L["Enables a shadow for the panel or backdrop of this frame."],
 					disabled = function() return not E.db.databars[bar].enable end,
 				},
 				size = {
@@ -498,7 +500,6 @@ local function configTable()
 			order = config.order,
 			type = 'group',
 			name = function() return format(E.db.unitframe.units[unit].enable and '%s' or '|cffFF3333%s|r', gsub(E:StringTitle(unit), 't(arget)', 'T%1')) end,
-			desc = 'test',
 			disabled = function() return not E.private.unitframe.enable end,
 			get = function(info) return E.db.sle.shadows.unitframes[unit][info[#info]] end,
 			set = function(info, value)

@@ -166,6 +166,7 @@ L["Enable Glow"] = "Leuchten aktivieren"
 L["Enable S&L's additional features for AFK screen."] = "Aktiviere S&L zusätzliche AFK Modus Funktionalitäten."
 L["Enable/Disable Square Minimap Coords."] = "Aktivieren / Deaktivieren von quadratischen Minikartenkoordinaten."
 L["Enables a different look/feel vehicle bar."] = "Aktiviert eine andere Fahrzeugleiste mit Erscheinungsbild."
+L["Enables a shadow for the panel or backdrop of this frame."] = true
 L["Enables a shadow on the %s when it's enabled."] = true
 L["Enables a small arrow-like indicator on the item slot. Howering over this arrow will show the item this slot is transmogged into."] = "Aktiviert eine kleine pfeilartige Anzeige im Gegenstandsschlitz. Wenn Sie über diesen Pfeil blicken, wird der Gegenstand angezeigt, in den dieser Steckplatz umgewandelt wurde."
 L["Enables timers for 2 & 3 chest times in M+"] = "Aktiviert Timer für 2 & 3 Chest Zeiten in M+"

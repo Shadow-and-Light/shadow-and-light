@@ -166,6 +166,7 @@ L["Enable Glow"] = "Включить свечение"
 L["Enable S&L's additional features for AFK screen."] = "Активировать дополнительные опции для режима АФК."
 L["Enable/Disable Square Minimap Coords."] = "Включить/выключить координаты на миникарте."
 L["Enables a different look/feel vehicle bar."] = "Включить специальную панель команд транспорта."
+L["Enables a shadow for the panel or backdrop of this frame."] = true
 L["Enables a shadow on the %s when it's enabled."] = true
 L["Enables a small arrow-like indicator on the item slot. Howering over this arrow will show the item this slot is transmogged into."] = "отображать индикатор в виде стрелки на слоте. При наведении курсора на стрелку будет показываться название предмета трансмогрификации."
 L["Enables timers for 2 & 3 chest times in M+"] = "Включает таймеры на 2 и 3 сундука в ключах"

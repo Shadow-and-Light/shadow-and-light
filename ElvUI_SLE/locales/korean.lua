@@ -166,6 +166,7 @@ L["Enable Glow"] = true
 L["Enable S&L's additional features for AFK screen."] = "S&L의 추가적인 자리비움 화면 기능을 활성화합니다."
 L["Enable/Disable Square Minimap Coords."] = true
 L["Enables a different look/feel vehicle bar."] = true
+L["Enables a shadow for the panel or backdrop of this frame."] = true
 L["Enables a shadow on the %s when it's enabled."] = true
 L["Enables a small arrow-like indicator on the item slot. Howering over this arrow will show the item this slot is transmogged into."] = true
 L["Enables timers for 2 & 3 chest times in M+"] = true
