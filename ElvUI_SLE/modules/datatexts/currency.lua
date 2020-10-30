@@ -3,7 +3,8 @@ local DT = E:GetModule('DataTexts')
 
 local _G = _G
 local unpack = unpack
-local format, ipairs, tonumber = format, ipairs, tonumber
+local type, wipe, pairs, ipairs, sort = type, wipe, pairs, ipairs, sort
+local format, strjoin, tinsert = format, strjoin, tinsert
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
@@ -18,10 +19,37 @@ local OTHER = OTHER
 local Profit, Spent = 0, 0
 
 local iconString = '|T%s:16:16:0:0:64:64:4:60:4:60|t'
+local resetCountersFormatter = strjoin('', '|cffaaaaaa', L["Reset Session Data: Hold Ctrl + Right Click"], '|r')
+local resetInfoFormatter = strjoin('', '|cffaaaaaa', L["Reset Character Data: Hold Shift + Right Click"], '|r')
 DT.CurrencyList = { GOLD = BONUS_ROLL_REWARD_MONEY, BACKPACK = 'Backpack' }
 
-local function OnClick()
-	_G.ToggleCharacter('TokenFrame')
+local menuList = {}
+local function OnClick(self, btn)
+	if btn == 'RightButton' then
+		if IsShiftKeyDown() then
+			wipe(menuList)
+			tinsert(menuList, { text = 'Delete Character', isTitle = true, notCheckable = true })
+			for realm in pairs(ElvDB.serverID[E.serverID]) do
+				for name in pairs(ElvDB.gold[realm]) do
+					tinsert(menuList, {
+						text = format('%s - %s', name, realm),
+						notCheckable = true,
+						func = function()
+							deleteCharacter(self, realm, name)
+						end
+					})
+				end
+			end
+
+			DT:SetEasyMenuAnchor(DT.EasyMenu, self)
+			_G.EasyMenu(menuList, DT.EasyMenu, nil, nil, nil, 'MENU')
+		elseif IsControlKeyDown() then
+			Profit = 0
+			Spent = 0
+		end
+	else
+		_G.ToggleCharacter('TokenFrame')
+	end
 end
 
 local function GetInfo(id)
@@ -202,6 +230,9 @@ local function OnEnter(self)
 	DT.tooltip:AddLine(' ')
 	DT.tooltip:AddDoubleLine(L["WoW Token:"], E:FormatMoney(C_WowTokenPublic_GetCurrentMarketPrice() or 0, style, textOnly), 0, .8, 1, 1, 1, 1)
 
+	DT.tooltip:AddLine(' ')
+	DT.tooltip:AddLine(resetCountersFormatter)
+	DT.tooltip:AddLine(resetInfoFormatter)
 	DT.tooltip:Show()
 end
 
