@@ -858,6 +858,16 @@ P["sle"] = {
 				},
 			},
 		},
+		general = {
+			bottomPanel = {
+				backdrop = false,
+				size = 3,
+			},
+			topPanel = {
+				backdrop = false,
+				size = 3,
+			},
+		},
 		minimap = {
 			backdrop = false,
 			size = 3,

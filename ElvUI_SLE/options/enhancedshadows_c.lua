@@ -62,6 +62,13 @@ function ENH:UpdateDatatextOptions()
 	end
 end
 
+local function updateSize(frame, size)
+	if not frame or not frame.enhshadow then return end
+	frame.enhshadow.size = size
+	ENH:UpdateShadow(frame.enhshadow)
+	-- SLE:Print(size, 'info')
+end
+
 local function configTable()
 	if not SLE.initialized then return end
 	-- local ACH = E.Libs.ACH
@@ -98,66 +105,40 @@ local function configTable()
 					SUF:UpdateShadows()
 				end,
 			},
-			datatexts = {
-				order = 99,
-				type = 'group',
-				name = L["DataTexts"],
-				disabled = function() return not E.private.sle.module.shadows.enable end,
-				args = {},
-			},
 			general = {
-				order = 4,
+				order = 1,
 				type = 'group',
 				name = L["General"],
 				disabled = function() return not E.private.sle.module.shadows.enable end,
 				args = {
-					general = {
+					chat = {
 						order = 1,
 						type = 'group',
-						name = L["General"],
+						-- name = L["Chat"],
+						name = function() return format(E.db.chat.panelBackdrop ~= 'HIDEBOTH' and '%s' or '|cffFF3333%s|r', L["Chat"]) end,
+						-- disabled = function() return not (E.db.chat.panelBackdrop == 'SHOWBOTH' or E.db.chat.panelBackdrop == 'LEFT') end,
+						get = function(info) return E.db.sle.shadows.chat[info[#info-1]][info[#info]] end,
 						args = {
-							minimap = {
-								order = 1,
-								type = 'group',
-								name = L["Minimap"],
-								guiInline = true,
-								get = function(info) return E.db.sle.shadows.minimap[info[#info]] end,
-								set = function(info, value) E.db.sle.shadows.minimap[info[#info]] = value; ENH:ToggleMMShadows() end,
-								disabled = function() return not E.private.general.minimap.enable end,
-								args = {
-									backdrop = {
-										order = 2,
-										type = 'toggle',
-										name = L["Panel"],
-									},
-									size = {
-										order = 3,
-										type = 'range',
-										name = L["Size"],
-										min = 2, max = 10, step = 1,
-										get = function(info) return E.db.sle.shadows.minimap[info[#info]] end,
-										set = function(info, value)
-											E.db.sle.shadows.minimap[info[#info]] = value
-
-											_G.MMHolder.enhshadow.size = value
-											ENH:UpdateShadow(_G.MMHolder.enhshadow)
-											ENH.DummyPanels.Minimap.enhshadow.size = value
-											ENH:UpdateShadow(ENH.DummyPanels.Minimap.enhshadow)
-										end,
-									},
-								},
+							elvconfig = {
+								order = 0,
+								type = 'execute',
+								name = 'ElvUI: '..L["Chat"],
+								width = 'full',
+								func = function() E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'chat', 'panels') end,
 							},
 							LeftChatPanel = {
-								order = 2,
+								order = 1,
 								type = 'group',
-								name = L["Left Chat"],
+								name = '',
 								guiInline = true,
-								get = function(info) return E.db.sle.shadows.chat.LeftChatPanel[info[#info]] end,
 								args = {
 									backdrop = {
-										order = 2,
+										order = 1,
 										type = 'toggle',
-										name = L["Panel"],
+										name = L["Left Chat"],
+										desc = L["Enables a shadow for the panel or backdrop of this frame."],
+										disabled = function() return not (E.db.chat.panelBackdrop == 'SHOWBOTH' or E.db.chat.panelBackdrop == 'LEFT') end,
+										-- disabled = function() return not (E.db.chat.panelBackdrop ~= 'HIDEBOTH') end,
 										set = function(info, value)
 											E.db.sle.shadows.chat.LeftChatPanel[info[#info]] = value
 											_G.LeftChatPanel.enhshadow.backdrop = value
@@ -167,30 +148,27 @@ local function configTable()
 										end,
 									},
 									size = {
-										order = 3,
+										order = 2,
 										type = 'range',
 										name = L["Size"],
 										min = 2, max = 10, step = 1,
-										get = function(info) return E.db.sle.shadows.chat.LeftChatPanel[info[#info]] end,
-										set = function(info, value)
-											E.db.sle.shadows.chat.LeftChatPanel[info[#info]] = value
-											_G.LeftChatPanel.enhshadow.size = value
-											ENH:UpdateShadow(_G.LeftChatPanel.enhshadow)
-										end,
+										disabled = function() return not E.db.sle.shadows.chat.LeftChatPanel.backdrop or not (E.db.chat.panelBackdrop == 'SHOWBOTH' or E.db.chat.panelBackdrop == 'LEFT') end,
+										set = function(info, value) E.db.sle.shadows.chat.LeftChatPanel[info[#info]] = value; updateSize(_G.LeftChatPanel, value) end,
 									},
 								},
 							},
 							RightChatPanel = {
-								order = 3,
+								order = 2,
 								type = 'group',
-								name = L["Right Chat"],
+								name = '',
 								guiInline = true,
-								get = function(info) return E.db.sle.shadows.chat.RightChatPanel[info[#info]] end,
 								args = {
 									backdrop = {
-										order = 2,
+										order = 1,
 										type = 'toggle',
-										name = L["Panel"],
+										name = L["Right Chat"],
+										desc = L["Enables a shadow for the panel or backdrop of this frame."],
+										disabled = function() return not (E.db.chat.panelBackdrop == 'SHOWBOTH' or E.db.chat.panelBackdrop == 'LEFT') end,
 										set = function(info, value)
 											E.db.sle.shadows.chat.RightChatPanel[info[#info]] = value
 											_G.RightChatPanel.enhshadow.backdrop = value
@@ -200,15 +178,145 @@ local function configTable()
 										end,
 									},
 									size = {
-										order = 3,
+										order = 2,
 										type = 'range',
 										name = L["Size"],
 										min = 2, max = 10, step = 1,
+										disabled = function() return not E.db.sle.shadows.chat.RightChatPanel.backdrop end,
+										set = function(info, value) E.db.sle.shadows.chat.RightChatPanel[info[#info]] = value; updateSize(_G.RightChatPanel, value) end,
+									},
+								},
+							},
+						},
+					},
+					minimap = { --* Minimap config looks good
+						order = 1,
+						type = 'group',
+						name = function() return format(E.private.general.minimap.enable and '%s' or '|cffFF3333%s|r', L["Minimap"]) end,
+						args = {
+							elvconfig = {
+								order = 0,
+								type = 'execute',
+								name = 'ElvUI: '..L["Minimap"],
+								width = 'full',
+								func = function() E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'maps', 'minimap') end,
+							},
+							minimap = {
+								order = 1,
+								type = 'group',
+								name = '',
+								guiInline = true,
+								get = function(info) return E.db.sle.shadows.minimap[info[#info]] end,
+								args = {
+									backdrop = {
+										order = 1,
+										type = 'toggle',
+										name = L["Minimap"],
+										desc = L["Enables a shadow for the panel or backdrop of this frame."],
+										disabled = function() return not E.private.general.minimap.enable end,
+										set = function(info, value) E.db.sle.shadows.minimap[info[#info]] = value; ENH:ToggleMMShadows() end,
+									},
+									size = {
+										order = 2,
+										type = 'range',
+										name = L["Size"],
+										min = 2, max = 10, step = 1,
+										disabled = function() return not E.private.general.minimap.enable or not E.db.sle.shadows.minimap.backdrop end,
 										set = function(info, value)
-											E.db.sle.shadows.chat.RightChatPanel[info[#info]] = value
-											_G.RightChatPanel.enhshadow.size = value
-											ENH:UpdateShadow(_G.RightChatPanel.enhshadow)
+											E.db.sle.shadows.minimap[info[#info]] = value
+											updateSize(_G.MMHolder, value)
+											updateSize(ENH.DummyPanels.Minimap, value)
 										end,
+									},
+								},
+							},
+						},
+					},
+					panels = {
+						order = 1,
+						type = 'group',
+						name = function() return format((E.db.general.bottomPanel or E.db.general.topPanel) and '%s' or '|cffFF3333%s|r', L["Panels"]) end,
+						args = {
+							elvconfig = {
+								order = 0,
+								type = 'execute',
+								name = 'ElvUI: '..L["Panels"],
+								width = 'full',
+								func = function() E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'general', 'general') end,
+							},
+							bottomPanel = {
+								order = 1,
+								type = 'group',
+								name = '',
+								guiInline = true,
+								get = function(info) return E.db.sle.shadows.general.bottomPanel[info[#info]] end,
+								set = function(info, value) E.db.sle.shadows.general.bottomPanel[info[#info]] = value; ENH:HandleElvUIPanels() end,
+								args = {
+									backdrop = {
+										order = 1,
+										type = 'toggle',
+										name = L["Bottom Panel"],
+										desc = L["Enables a shadow for the panel or backdrop of this frame."],
+										disabled = function() return not E.db.general.bottomPanel end,
+									},
+									size = {
+										order = 2,
+										type = 'range',
+										name = L["Size"],
+										min = 2, max = 10, step = 1,
+										disabled = function() return not E.db.general.bottomPanel or not E.db.sle.shadows.general.bottomPanel.backdrop end,
+										set = function(info, value)
+											E.db.sle.shadows.general.bottomPanel[info[#info]] = value
+											updateSize(_G.ElvUI_BottomPanel, value)
+											-- local frame = _G.ElvUI_BottomPanel
+											-- if frame and frame.enhshadow then
+											-- 	frame.enhshadow.size = value
+											-- 	ENH:UpdateShadow(frame.enhshadow)
+											-- end
+										end,
+										-- get = function(info) return E.db.sle.shadows.minimap[info[#info]] end,
+										-- set = function(info, value)
+										-- 	E.db.sle.shadows.minimap[info[#info]] = value
+
+										-- 	_G.MMHolder.enhshadow.size = value
+										-- 	ENH:UpdateShadow(_G.MMHolder.enhshadow)
+										-- 	ENH.DummyPanels.Minimap.enhshadow.size = value
+										-- 	ENH:UpdateShadow(ENH.DummyPanels.Minimap.enhshadow)
+										-- end,
+									},
+								},
+							},
+							topPanel = {
+								order = 1,
+								type = 'group',
+								name = '',
+								guiInline = true,
+								get = function(info) return E.db.sle.shadows.general.topPanel[info[#info]] end,
+								set = function(info, value) E.db.sle.shadows.general.topPanel[info[#info]] = value; ENH:HandleElvUIPanels() end,
+								-- disabled = function() return not E.private.general.minimap.enable end,
+								args = {
+									backdrop = {
+										order = 1,
+										type = 'toggle',
+										name = L["Top Panel"],
+										desc = L["Enables a shadow for the panel or backdrop of this frame."],
+										disabled = function() return not E.db.general.topPanel end,
+									},
+									size = {
+										order = 2,
+										type = 'range',
+										name = L["Size"],
+										min = 2, max = 10, step = 1,
+										disabled = function() return not E.db.general.topPanel or not E.db.sle.shadows.general.topPanel.backdrop end,
+										-- get = function(info) return E.db.sle.shadows.minimap[info[#info]] end,
+										-- set = function(info, value)
+										-- 	E.db.sle.shadows.minimap[info[#info]] = value
+
+										-- 	_G.MMHolder.enhshadow.size = value
+										-- 	ENH:UpdateShadow(_G.MMHolder.enhshadow)
+										-- 	ENH.DummyPanels.Minimap.enhshadow.size = value
+										-- 	ENH:UpdateShadow(ENH.DummyPanels.Minimap.enhshadow)
+										-- end,
 									},
 								},
 							},
@@ -217,7 +325,7 @@ local function configTable()
 				},
 			},
 			actionbars = {
-				order = 5,
+				order = 10,
 				type = 'group',
 				name = L["ActionBars"],
 				disabled = function() return not E.private.sle.module.shadows.enable or not E.private.actionbar.enable end,
@@ -386,8 +494,22 @@ local function configTable()
 					-- },
 				},
 			},
+			databars = {
+				order = 10,
+				type = 'group',
+				name = L["DataBars"],
+				disabled = function() return not E.private.sle.module.shadows.enable end,
+				args = {},
+			},
+			datatexts = {
+				order = 10,
+				type = 'group',
+				name = L["DataTexts"],
+				disabled = function() return not E.private.sle.module.shadows.enable end,
+				args = {},
+			},
 			unitframes = {
-				order = 5,
+				order = 10,
 				type = 'group',
 				name = L["UnitFrames"],
 				disabled = function() return not E.private.sle.module.shadows.enable or not E.UnitFrames.Initialized end,
@@ -411,7 +533,7 @@ local function configTable()
 		local frame, name = unpack(tbl)
 		frame = _G[frame]
 
-		E.Options.args.sle.args.modules.args.shadows.args.general.args[bar] = {
+		E.Options.args.sle.args.modules.args.shadows.args.databars.args[bar] = {
 			order = 50,
 			type = 'group',
 			name = function() return format(E.db.databars[bar].enable and '%s' or '|cffFF3333%s|r', name) end,

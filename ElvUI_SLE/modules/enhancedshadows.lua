@@ -1,6 +1,7 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local ENH = SLE:NewModule('EnhancedShadows', 'AceEvent-3.0')
 local DT = E:GetModule('DataTexts')
+local LO = E:GetModule('Layout')
 local MM = E:GetModule('Minimap')
 
 local _G = _G
@@ -411,6 +412,32 @@ function ENH:ToggleMMShadows()
 	end
 end
 
+function ENH:HandleElvUIPanels()
+	do
+		local frame = _G.ElvUI_BottomPanel
+		local enabled = E.db.general.bottomPanel and ENH.db.general.bottomPanel.backdrop
+
+		if enabled and frame and not frame.enhshadow then
+			ENH:ProcessShadow(frame, nil, frame:GetFrameLevel(), ENH.db.general.bottomPanel)
+		end
+		if frame and frame.enhshadow then
+			frame.enhshadow:SetShown(enabled)
+		end
+	end
+
+	do
+		local frame = _G.ElvUI_TopPanel
+		local enabled = E.db.general.topPanel and ENH.db.general.topPanel.backdrop
+
+		if enabled and frame and not frame.enhshadow then
+			ENH:ProcessShadow(frame, nil, frame:GetFrameLevel(), ENH.db.general.topPanel)
+		end
+		if frame and frame.enhshadow then
+			frame.enhshadow:SetShown(enabled)
+		end
+	end
+end
+
 function ENH:ADDON_LOADED(event, addon)
 	if addon ~= 'ElvUI_OptionsUI' then return end
 	ENH:UnregisterEvent(event)
@@ -419,10 +446,8 @@ end
 
 function ENH:Initialize()
 	if not SLE.initialized or not E.private.sle.module.shadows.enable then return end
-	-- if not SLE.initialized then return end
 	ENH.db = E.db.sle.shadows
 
-	--! Idea to update defaults for custom datatext panels
 	ENH:UpdateDefaults()
 
 	ENH:RegisterEvent('PLAYER_ENTERING_WORLD', ENH.UpdateShadows)
@@ -442,15 +467,18 @@ function ENH:Initialize()
 
 	ENH:CreateCHShadows()
 	ENH:ToggleCHShadows()
-	-- E:Dump(DT.db.panels, true)
-	-- for k, v in pairs(DT.db.panels) do
-	-- 	print(k, v)
-	-- end
+
+	ENH:HandleElvUIPanels()
+
 	-- ENH:UpdateShadows()
 	function ENH:ForUpdateAll()
 		ENH:UpdateShadows()
 	end
-	-- hooksecurefunc(DT, "PanelLayoutOptions", ENH.PanelLayoutOptions)
+
+	hooksecurefunc(LO, "BottomPanelVisibility", ENH.HandleElvUIPanels)
+	hooksecurefunc(LO, "TopPanelVisibility", ENH.HandleElvUIPanels)
+	-- hooksecurefunc(LO, "ToggleChatPanels", ENH.HandleChatPanels)
+
 end
 
 SLE:RegisterModule(ENH:GetName())
