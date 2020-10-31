@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local DB = SLE:GetModule("DataBars")
+local DB = SLE:GetModule('DataBars')
 local EDB = E:GetModule('DataBars')
 
 --Cache global variables
@@ -13,7 +13,7 @@ local C_AzeriteItem_FindActiveAzeriteItem = C_AzeriteItem.FindActiveAzeriteItem
 
 local function AzeriteBar_Update(self, event, unit)
 	if not E.db.sle.databars.azerite.longtext then return end
-	if (event == "UNIT_INVENTORY_CHANGED" and unit ~= "player") then
+	if (event == 'UNIT_INVENTORY_CHANGED' and unit ~= 'player') then
 		return
 	end
 
@@ -48,5 +48,5 @@ end
 
 function DB:AzeriteInit()
 	-- DB:PopulateExpPatterns()
-	hooksecurefunc(EDB, "AzeriteBar_Update", AzeriteBar_Update)
+	hooksecurefunc(EDB, 'AzeriteBar_Update', AzeriteBar_Update)
 end
