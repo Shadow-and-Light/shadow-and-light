@@ -258,25 +258,25 @@ P["sle"] = {
 	},
 	--Databars
 	["databars"] = {
-		["exp"] = {
-			["longtext"] = false,
-			["chatfilter"] = {
-				["enable"] = false,
-				["iconsize"] = 12,
-				["style"] = "STYLE1",
+		experience = {
+			longtext = false,
+			chatfilter = {
+				enable = false,
+				iconsize = 12,
+				style = "STYLE1",
 			},
 		},
-		["rep"] = {
-			["longtext"] = false,
-			["ignoreGuild"] = true,
-			["chatfilter"] = {
-				["enable"] = false,
-				["iconsize"] = 12,
-				["style"] = "STYLE1",
-				["styleDec"] = "STYLE1",
-				["showAll"] = false,
-				["chatframe"] = "AUTO",
+		reputation = {
+			chatfilter = {
+				enable = false,
+				chatframe = "AUTO",
+				iconsize = 12,
+				showAll = false,
+				style = "STYLE1",
+				styleDec = "STYLE1",
 			},
+			ignoreGuild = true,
+			longtext = false,
 		},
 		["honor"] = {
 			["longtext"] = false,
