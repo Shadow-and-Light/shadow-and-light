@@ -5,58 +5,44 @@ local EDB = E:GetModule('DataBars')
 --GLOBALS: hooksecurefunc
 local _G = _G
 local format = format
-local strMatchCombat = {}
--- local guildName
--- local abs = math.abs
 local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
--- local ExpandFactionHeader, CollapseFactionHeader = ExpandFactionHeader, CollapseFactionHeader
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
--- local next = next
+local GetWatchedFactionInfo, GetFactionInfo, GetFriendshipReputation, GetNumFactions = GetWatchedFactionInfo, GetFactionInfo, GetFriendshipReputation, GetNumFactions
 
---strings and shit
 local FACTION_STANDING_INCREASED = FACTION_STANDING_INCREASED
 local FACTION_STANDING_INCREASED_GENERIC = FACTION_STANDING_INCREASED_GENERIC
 local FACTION_STANDING_INCREASED_BONUS = FACTION_STANDING_INCREASED_BONUS
 local FACTION_STANDING_INCREASED_DOUBLE_BONUS = FACTION_STANDING_INCREASED_DOUBLE_BONUS
 local FACTION_STANDING_INCREASED_ACH_BONUS = FACTION_STANDING_INCREASED_ACH_BONUS
--- local FACTION_STANDING_CHANGED = FACTION_STANDING_CHANGED
--- local FACTION_STANDING_CHANGED_GUILD = FACTION_STANDING_CHANGED_GUILD
 local FACTION_STANDING_DECREASED = FACTION_STANDING_DECREASED
 local FACTION_STANDING_DECREASED_GENERIC = FACTION_STANDING_DECREASED_GENERIC
+local FactionStandingLabelUnknown = UNKNOWN
 local FACTION_BAR_COLORS = FACTION_BAR_COLORS
 
--- Checked out by pooc
-local GetWatchedFactionInfo, GetFactionInfo, GetFriendshipReputation = GetWatchedFactionInfo, GetFactionInfo, GetFriendshipReputation
-local GetNumFactions = GetNumFactions
+local backupColor = FACTION_BAR_COLORS[1]
+local a, b, c, d = '([%(%)%.%%%+%-%*%?%[%^%$])', '%%%1', '%%%%[ds]', '(.-)'
+local formatFactionStanding = function(str) return str:gsub(a, b):gsub(c, d) end
+local strMatchCombat = {}
 
 DB.RepIncreaseStrings = {}
 DB.RepDecreaseStrings = {}
 DB.factionVars = {}
 DB.factions = 0
-
 DB.RepIncreaseStyles = {
 	STYLE1 = '|T'..DB.Icons.Rep..':%s|t %s: +%s.',
 	STYLE2 = '|T'..DB.Icons.Rep..':%s|t %s: |cff0CD809+%s|r.',
 }
-
 DB.RepDecreaseStyles = {
 	STYLE1 = '|T'..DB.Icons.Rep..':%s|t %s: %s.',
 	STYLE2 = '|T'..DB.Icons.Rep..':%s|t %s: |cffD80909%s|r.',
 }
-
-
-local a, b, c, d = '([%(%)%.%%%+%-%*%?%[%^%$])', '%%%1', '%%%%[ds]', '(.-)'
-local formatFactionStanding = function(str) return str:gsub(a, b):gsub(c, d) end
 
 tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED)))
 tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_GENERIC)))
 tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_BONUS)))
 tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_DOUBLE_BONUS)))
 tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_ACH_BONUS)))
-
-local backupColor = FACTION_BAR_COLORS[1]
-local FactionStandingLabelUnknown = UNKNOWN
 
 local function ReputationBar_Update()
 	if not SLE.initialized or not E.db.sle.databars.rep.longtext then return end
