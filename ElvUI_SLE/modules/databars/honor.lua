@@ -50,7 +50,8 @@ local function HonorBar_Update(self, event, unit)
 	if not E.db.databars.honor.enable then return end
 	if not E.db.sle.databars.honor.longtext then return end
 	if event == "HONOR_PRESTIGE_UPDATE" and unit ~= "player" then return end
-	local bar = self.honorBar
+
+	local bar = EDB.StatusBars.Honor
 	local showHonor = UnitLevel("player") >= MAX_PLAYER_LEVEL
 	if showHonor then
 		local current = UnitHonor("player");
@@ -69,7 +70,7 @@ local function HonorBar_Update(self, event, unit)
 		elseif textFormat == 'CURPERC' then
 			text = format('%s - %d%%', current, current / max * 100)
 		end
-		
+
 		if textFormat == 'PERCENT' then
 			text = format('%d%%', current / max * 100)
 		elseif textFormat == 'CURMAX' then
