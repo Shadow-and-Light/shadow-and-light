@@ -18,6 +18,16 @@ function SLE:DatabaseConversions()
 		local profileChanged = false
 		if data then
 			if data.sle then
+				if data.sle.databars and data.sle.databars.exp then
+					E:CopyTable(E.db.sle.databars.experience, data.sle.databars.exp)
+					data.sle.databars.exp = nil
+					profileChanged = true
+				end
+				if data.sle.databars and data.sle.databars.rep then
+					E:CopyTable(E.db.sle.databars.reputation, data.sle.databars.rep)
+					data.sle.databars.rep = nil
+					profileChanged = true
+				end
 				if data.sle.Armory then data.sle.Armory = nil; profileChanged = true end
 				if data.sle.minimap and data.sle.minimap.locPanel then
 					if data.sle.minimap.portals then

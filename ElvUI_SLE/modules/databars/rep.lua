@@ -45,7 +45,7 @@ tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_DOUBLE
 tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_ACH_BONUS)))
 
 local function ReputationBar_Update()
-	if not SLE.initialized or not E.db.sle.databars.rep.longtext then return end
+	if not SLE.initialized or not E.db.sle.databars.reputation.longtext then return end
 
 	local bar = EDB.StatusBars.Reputation
 	local ID
@@ -120,7 +120,7 @@ function DB:PopulateRepPatterns()
 end
 
 function DB:FilterReputation(_, message, ...)
-	if DB.db.rep and DB.db.rep.chatfilter.enable then
+	if DB.db.reputation and DB.db.reputation.chatfilter.enable then
 		for i in ipairs(DB.RepIncreaseStrings) do
 			local faction = strmatch(message, DB.RepIncreaseStrings[i])
 			if faction then
@@ -159,14 +159,14 @@ end
 
 DB.RepChatFrames = {}
 function DB:NewRepString()
-	if not DB.db.rep or not DB.db.rep.chatfilter.enable then return end
+	if not DB.db.reputation or not DB.db.reputation.chatfilter.enable then return end
 	local stop = false
 	local tempfactions = GetNumFactions()
 	if (tempfactions > DB.factions) then
 		DB:ScanFactions()
 		DB.factions = tempfactions
 	end
-	if DB.db.rep.chatfilter.chatframe == "AUTO" then
+	if DB.db.reputation.chatfilter.chatframe == "AUTO" then
 		wipe(DB.RepChatFrames)
 		for i = 1, NUM_CHAT_WINDOWS do
 			if SLE:SimpleTable(_G['ChatFrame'..i]['messageTypeList'], 'COMBAT_FACTION_CHANGE') then
@@ -195,21 +195,21 @@ function DB:NewRepString()
 			if StyleTable then
 				-- local change = abs(barValue - DB.factionVars[name].Value)
 
-				if DB.db.rep.chatfilter.chatframe == 'AUTO' then
+				if DB.db.reputation.chatfilter.chatframe == 'AUTO' then
 					for n = 1, #(DB.RepChatFrames) do
 						local chatframe = _G[DB.RepChatFrames[n]]
-						chatframe:AddMessage(format(DB[StyleTable][DB.db.rep.chatfilter.style] , DB.db.rep.chatfilter.iconsize, name, diff))
+						chatframe:AddMessage(format(DB[StyleTable][DB.db.reputation.chatfilter.style] , DB.db.reputation.chatfilter.iconsize, name, diff))
 
-						if not E.db.sle.databars.rep.chatfilter.showAll then
+						if not DB.db.reputation.chatfilter.showAll then
 							stop = true
 							break
 						end
 					end
 				else
-					local chatframe = _G[DB.db.rep.chatfilter.chatframe]
-					chatframe:AddMessage(format(DB[StyleTable][DB.db.rep.chatfilter.style] , DB.db.rep.chatfilter.iconsize, name, diff))
+					local chatframe = _G[DB.db.reputation.chatfilter.chatframe]
+					chatframe:AddMessage(format(DB[StyleTable][DB.db.reputation.chatfilter.style] , DB.db.reputation.chatfilter.iconsize, name, diff))
 
-					if not E.db.sle.databars.rep.chatfilter.showAll then
+					if not DB.db.reputation.chatfilter.showAll then
 						stop = true
 						break
 					end

@@ -9,12 +9,12 @@ DB.Icons = {
 }
 
 function DB:RegisterFilters()
-	if DB.db.rep.chatfilter.enable then
+	if DB.db.reputation.chatfilter.enable then
 		ChatFrame_AddMessageEventFilter('CHAT_MSG_COMBAT_FACTION_CHANGE', DB.FilterReputation)
 	else
 		ChatFrame_RemoveMessageEventFilter('CHAT_MSG_COMBAT_FACTION_CHANGE', DB.FilterReputation)
 	end
-	if DB.db.exp.chatfilter.enable then
+	if DB.db.experience.chatfilter.enable then
 		ChatFrame_AddMessageEventFilter('CHAT_MSG_COMBAT_XP_GAIN', DB.FilterExperience)
 	else
 		ChatFrame_RemoveMessageEventFilter('CHAT_MSG_COMBAT_XP_GAIN', DB.FilterExperience)

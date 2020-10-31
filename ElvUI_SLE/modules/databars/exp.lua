@@ -53,7 +53,7 @@ DB.Exp = {
 }
 
 local function UpdateExperience(self, event)
-	if not E.db.sle.databars.exp.longtext then return end
+	if not E.db.sle.databars.experience.longtext then return end
 	local bar = self.expBar
 
 	if not UnitLevel('player') == MAX_PLAYER_LEVEL or not IsXPUserDisabled() then
@@ -154,12 +154,12 @@ end
 
 function DB:FilterExperience(event, message, ...)
 	local name, exp, bonus, reason, addbonus
-	if DB.db.exp.chatfilter.enable then
+	if DB.db.experience.chatfilter.enable then
 		for type, patterns in pairs(DB.Exp.Strings) do
 			for i = 1, #patterns do
 				name, exp, bonus, reason, addbonus = strmatch(message, "^"..DB.Exp.Strings[type][i].."$")
 				if name then
-					message = format(DB.Exp.Styles[DB.db.exp.chatfilter.style][type] , DB.db.exp.chatfilter.iconsize, name, exp, SLE.Russian and reason or bonus, SLE.Russian and bonus or reason, addbonus)
+					message = format(DB.Exp.Styles[DB.db.experience.chatfilter.style][type] , DB.db.experience.chatfilter.iconsize, name, exp, SLE.Russian and reason or bonus, SLE.Russian and bonus or reason, addbonus)
 					return false, message, ...
 				end
 			end
