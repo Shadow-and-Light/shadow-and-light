@@ -24,8 +24,11 @@ local FACTION_STANDING_INCREASED_ACH_BONUS = FACTION_STANDING_INCREASED_ACH_BONU
 -- local FACTION_STANDING_CHANGED_GUILD = FACTION_STANDING_CHANGED_GUILD
 local FACTION_STANDING_DECREASED = FACTION_STANDING_DECREASED
 local FACTION_STANDING_DECREASED_GENERIC = FACTION_STANDING_DECREASED_GENERIC
-
 local FACTION_BAR_COLORS = FACTION_BAR_COLORS
+
+-- Checked out by pooc
+local GetWatchedFactionInfo, GetFactionInfo, GetFriendshipReputation = GetWatchedFactionInfo, GetFactionInfo, GetFriendshipReputation
+local GetNumFactions = GetNumFactions
 
 DB.RepIncreaseStrings = {}
 DB.RepDecreaseStrings = {}
@@ -57,7 +60,7 @@ local FactionStandingLabelUnknown = UNKNOWN
 
 local function ReputationBar_Update()
 	if not SLE.initialized or not E.db.sle.databars.rep.longtext then return end
-	-- local bar = self.ReputationBar
+
 	local bar = EDB.StatusBars.Reputation
 	local ID
 	local isFriend, friendText, standingLabel
@@ -77,7 +80,7 @@ local function ReputationBar_Update()
 
 		for i=1, numFactions do
 			local factionName, _, standingID,_,_,_,_,_,_,_,_,_,_, factionID = GetFactionInfo(i);
-			local friendID, friendRep, friendMaxRep, _, _, _, friendTextLevel = GetFriendshipReputation(factionID);
+			local friendID, _, _, _, _, _, friendTextLevel = GetFriendshipReputation(factionID);
 			if factionName == name then
 				if friendID ~= nil then
 					isFriend = true
@@ -130,17 +133,16 @@ function DB:PopulateRepPatterns()
 	tinsert(DB.RepDecreaseStrings, pattern)
 end
 
-function DB:FilterReputation(event, message, ...)
-	local faction, rep, bonus
+function DB:FilterReputation(_, message, ...)
 	if DB.db.rep and DB.db.rep.chatfilter.enable then
-		for i, v in ipairs(DB.RepIncreaseStrings) do
-			faction, rep, bonus = strmatch(message, DB.RepIncreaseStrings[i])
+		for i in ipairs(DB.RepIncreaseStrings) do
+			local faction = strmatch(message, DB.RepIncreaseStrings[i])
 			if faction then
 				return true
 			end
 		end
-		for i, v in ipairs(DB.RepDecreaseStrings) do
-			faction, rep = strmatch(message, DB.RepDecreaseStrings[i])
+		for i in ipairs(DB.RepDecreaseStrings) do
+			local faction= strmatch(message, DB.RepDecreaseStrings[i])
 			if faction then
 				return true
 			end
@@ -154,6 +156,7 @@ function DB:ScanFactions()
 	DB.factions = GetNumFactions();
 	for i = 1, DB.factions do
 		local name, _, standingID, _, _, barValue, _, _, isHeader, _, hasRep, _, _, factionID = GetFactionInfo(i)
+
 		if (not isHeader or hasRep) and name then
 			DB.factionVars[name] = DB.factionVars[name] or {}
 			DB.factionVars[name].Standing = standingID
@@ -169,7 +172,7 @@ function DB:ScanFactions()
 end
 
 DB.RepChatFrames = {}
-function DB:NewRepString(event, ...)
+function DB:NewRepString()
 	if not DB.db.rep or not DB.db.rep.chatfilter.enable then return end
 	local stop = false
 	local tempfactions = GetNumFactions()
@@ -187,9 +190,9 @@ function DB:NewRepString(event, ...)
 	end
 	for factionIndex = 1, GetNumFactions() do
 		local StyleTable = nil
-		local name, _, standingID, barMin, barMax, barValue, _, _, isHeader, _, hasRep, _, _, factionID = GetFactionInfo(factionIndex)
-		local friendID, _, _, _, _, _, friendTextLevel = GetFriendshipReputation(factionID);
-		local currentRank, maxRank = GetFriendshipReputationRanks(factionID);
+		local name, _, _, _, _, barValue, _, _, isHeader, _, hasRep, _, _, factionID = GetFactionInfo(factionIndex)
+		-- local friendID, _, _, _, _, _, friendTextLevel = GetFriendshipReputation(factionID);
+		-- local currentRank, maxRank = GetFriendshipReputationRanks(factionID);
 
 		if (not isHeader or hasRep) and DB.factionVars[name] then
 			if DB.factionVars[name].isParagon then
@@ -204,8 +207,7 @@ function DB:NewRepString(event, ...)
 				StyleTable = 'RepDecreaseStyles'
 			end
 			if StyleTable then
-				--  TODO:  local change doesnt do anything revisit this
-				local change = abs(barValue - DB.factionVars[name].Value)
+				-- local change = abs(barValue - DB.factionVars[name].Value)
 
 				if DB.db.rep.chatfilter.chatframe == 'AUTO' then
 					for n = 1, #(DB.RepChatFrames) do
