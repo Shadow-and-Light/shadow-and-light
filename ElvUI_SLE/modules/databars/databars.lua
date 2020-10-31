@@ -36,10 +36,9 @@ function DB:Initialize()
 
 	DB:ExpInit()
 	DB:RepInit()
-
 	DB:AzeriteInit()
 	DB:HonorInit()
-	DB:ForUpdateAll()
+	-- DB:ForUpdateAll()
 
 	-- self:RegisterEvent('CHAT_MSG_COMBAT_FACTION_CHANGE', 'NewRepString')
 	DB:RegisterEvent('UPDATE_FACTION', 'NewRepString')
