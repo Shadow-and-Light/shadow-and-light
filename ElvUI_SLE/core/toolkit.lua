@@ -34,7 +34,7 @@ T.Values = {
 }
 
 T.StringToUpper = function(str)
-	return (gsub(str, "^%l", strupper))
+	return (gsub(str, '^%l', strupper))
 end
 
 T.GetSpell = function(id)
@@ -84,13 +84,13 @@ function SLE:ValueTable(table, item)
 	return false
 end
 
-function SLE:GetIconFromID(type, id)
+function SLE:GetIconFromID(idtype, id)
 	local path
-	if type == "item" then
+	if idtype == 'item' then
 		path = select(10, GetItemInfo(id))
-	elseif type == "spell" then
+	elseif idtype == 'spell' then
 		path = select(3, GetSpellInfo(id))
-	elseif type == "achiev" then
+	elseif idtype == 'achiev' then
 		path = select(10, GetAchievementInfo(id))
 	end
 	return path or nil
@@ -112,16 +112,16 @@ function SLE:AddTutorials()
 end
 
 --S&L print
-function SLE:Print(msg, type)
-	if type == "error" then
-		(_G[E.db.general.messageRedirect] or DEFAULT_CHAT_FRAME):AddMessage(strjoin("", "|cffff0000S&L Error:|r ", msg))
-	elseif type == "warning" then
-		(_G[E.db.general.messageRedirect] or DEFAULT_CHAT_FRAME):AddMessage(strjoin("", "|cffd3cf00S&L Warning:|r ", msg))
-	elseif type == "info" then
-		(_G[E.db.general.messageRedirect] or DEFAULT_CHAT_FRAME):AddMessage(strjoin("", "|cff14adcdS&L Info:|r ", msg))
+function SLE:Print(msg, msgtype)
+	if msgtype == 'error' then
+		(_G[E.db.general.messageRedirect] or DEFAULT_CHAT_FRAME):AddMessage(strjoin('', '|cffff0000S&L Error:|r ', msg))
+	elseif msgtype == 'warning' then
+		(_G[E.db.general.messageRedirect] or DEFAULT_CHAT_FRAME):AddMessage(strjoin('', '|cffd3cf00S&L Warning:|r ', msg))
+	elseif msgtype == 'info' then
+		(_G[E.db.general.messageRedirect] or DEFAULT_CHAT_FRAME):AddMessage(strjoin('', '|cff14adcdS&L Info:|r ', msg))
 	else
 		(_G[E.db.general.messageRedirect] or DEFAULT_CHAT_FRAME):AddMessage(
-			strjoin("", E["media"].hexvaluecolor, "S&L Message:|r ", msg)
+			strjoin('', E['media'].hexvaluecolor, 'S&L Message:|r ', msg)
 		)
 	end
 end
@@ -140,12 +140,12 @@ end
 
 --To get stuff from item link. Got this from suspctz
 function SLE:GetItemSplit(itemLink)
-	local itemString = strmatch(itemLink, "item:([%-?%d:]+)")
+	local itemString = strmatch(itemLink, 'item:([%-?%d:]+)')
 	local itemSplit = {}
 
 	-- Split data into a table
-	for _, v in ipairs({strsplit(":", itemString)}) do
-		if v == "" then
+	for _, v in ipairs({strsplit(':', itemString)}) do
+		if v == '' then
 			itemSplit[#itemSplit + 1] = 0
 		else
 			itemSplit[#itemSplit + 1] = tonumber(v)
@@ -158,20 +158,20 @@ end
 --Reseting shit
 function SLE:Reset(group)
 	if not group then
-		print("U wot m8?")
+		print('U wot m8?')
 	end
-	if group == "unitframes" or group == "all" then
-		E.db.sle.roleicons = "ElvUI"
+	if group == 'unitframes' or group == 'all' then
+		E.db.sle.roleicons = 'ElvUI'
 		E.db.sle.powtext = false
 	end
-	if group == "backgrounds" or group == "all" then
+	if group == 'backgrounds' or group == 'all' then
 		E:CopyTable(E.db.sle.backgrounds, P.sle.backgrounds)
 		E:ResetMovers(L["SLE_BG_1_Mover"])
 		E:ResetMovers(L["SLE_BG_2_Mover"])
 		E:ResetMovers(L["SLE_BG_3_Mover"])
 		E:ResetMovers(L["SLE_BG_4_Mover"])
 	end
-	if group == "datatexts" or group == "all" then
+	if group == 'datatexts' or group == 'all' then
 		E:CopyTable(E.db.sle.datatexts, P.sle.datatexts)
 		E:CopyTable(E.db.sle.dt, P.sle.dt)
 		E:ResetMovers(L["SLE_DataPanel_1"])
@@ -183,11 +183,11 @@ function SLE:Reset(group)
 		E:ResetMovers(L["SLE_DataPanel_7"])
 		E:ResetMovers(L["SLE_DataPanel_8"])
 	end
-	if group == "marks" or group == "all" then
+	if group == 'marks' or group == 'all' then
 		E:CopyTable(E.db.sle.raidmarkers, P.sle.raidmarkers)
 		E:ResetMovers(L["Raid Marker Bar"])
 	end
-	if group == "all" then
+	if group == 'all' then
 		E:CopyTable(E.db.sle, P.sle)
 		E:ResetMovers("PvP")
 		E:ResetMovers(L["S&L UI Buttons"])
@@ -218,18 +218,18 @@ function SLE:GetMapInfo(id, arg)
 	if not MapInfo then
 		return UNKNOWN
 	end
-	if arg == "all" then
-		return MapInfo["name"], MapInfo["mapID"], MapInfo["parentMapID"], MapInfo["mapType"]
+	if arg == 'all' then
+		return MapInfo['name'], MapInfo['mapID'], MapInfo['parentMapID'], MapInfo['mapType']
 	end
 	return MapInfo[arg]
 end
 
 --Some texture magic. Thanks Semlar for this
-SLE.TestTextureFrame = CreateFrame("Frame")
+SLE.TestTextureFrame = CreateFrame('Frame')
 SLE.TestTextureFrame.texture = SLE.TestTextureFrame:CreateTexture()
 
 function SLE:TextureExists(path, realTerxture, fallbackPath, holderFrame, modTestFrame, modTestTexture)
-	if not path or path == "" then
+	if not path or path == '' then
 		return
 	end
 	if not realTerxture or realTerxture == "" then
@@ -238,16 +238,15 @@ function SLE:TextureExists(path, realTerxture, fallbackPath, holderFrame, modTes
 	local f = holderFrame or modTestFrame or SLE.TestTextureFrame
 	local tx = modTestTexture or SLE.TestTextureFrame.texture
 	tx.realTexture = realTerxture
-	tx:SetPoint("BOTTOMRIGHT", E.UIParent, "TOPRIGHT") -- The texture has to be "visible", but not necessarily on-screen (you can also set its alpha to 0)
+	tx:SetPoint('BOTTOMRIGHT', E.UIParent, 'TOPRIGHT') -- The texture has to be "visible", but not necessarily on-screen (you can also set its alpha to 0)
 	f:SetAllPoints(tx)
 
-	f:SetScript(
-		"OnSizeChanged",
-		function(self, width, height)
-			local size = format("%.0f%.0f", width, height) -- The floating point numbers need to be rounded or checked like "width < 8.1 and width > 7.9"
-			if size == "11" then
+	f:SetScript('OnSizeChanged',
+		function(_, width, height)
+			local size = format('%.0f%.0f', width, height) -- The floating point numbers need to be rounded or checked like "width < 8.1 and width > 7.9"
+			if size == '11' then
 				-- print(tx:GetTexture(), "doesn't exist or can't be determined")
-				tx.realTexture:SetTexture(fallbackPath or "")
+				tx.realTexture:SetTexture(fallbackPath or '')
 			-- print(tx.realTexture:GetTexture())
 			-- else
 			-- print(tx:GetTexture(), "exists")
@@ -279,7 +278,7 @@ function SLE:GetModules(...)
 	local num = select("#", ...)
 	for i = 1, num do
 		local name = select(i, ...)
-		if type(name) == "string" then
+		if type(name) == 'string' then
 			local mod = SLE:GetModule(name)
 			tinsert(returns, #(returns) + 1, mod)
 		else
@@ -291,7 +290,7 @@ end
 
 --Trying to determine the region player is in, not entirely reliable cause based on atypet not an actual region id
 function SLE:GetRegion()
-	local lib = LibStub("LibRealmInfo")
+	local lib = LibStub('LibRealmInfo')
 	if not GetPlayerInfoByGUID(E.myguid) then
 		return
 	end
@@ -303,21 +302,21 @@ function SLE:GetRegion()
 				format(
 				"An error happened. Your region is unknown. Realm: %s. RID: %s. Please report your realm name and the region you are playing in to |cff1784d1Shadow & Light|r authors.",
 				E.myrealm,
-				rid or "nil"
+				rid or 'nil'
 			)
 			SLE:Print(SLE.region, 'error')
 		end
-		SLE.region = "PTR"
+		SLE.region = 'PTR'
 	end
 end
 
 --Registering and loading modules
-SLE["RegisteredModules"] = {}
+SLE['RegisteredModules'] = {}
 function SLE:RegisterModule(name)
 	if self.initialized then
 		self:GetModule(name):Initialize()
 	else
-		self["RegisteredModules"][#self["RegisteredModules"] + 1] = name
+		self['RegisteredModules'][#self['RegisteredModules'] + 1] = name
 	end
 end
 
@@ -325,12 +324,12 @@ local GetCVarBool = GetCVarBool
 local pcall = pcall
 local ScriptErrorsFrame_OnError = ScriptErrorsFrame_OnError
 function SLE:InitializeModules()
-	for _, module in pairs(SLE["RegisteredModules"]) do
+	for _, module in pairs(SLE['RegisteredModules']) do
 		module = self:GetModule(module)
 		if module.Initialize then
 			local _, catch = pcall(module.Initialize, module)
 
-			if catch and GetCVarBool("scriptErrors") == true then
+			if catch and GetCVarBool('scriptErrors') == true then
 				if E.wowbuild < 24330 then --7.2
 					ScriptErrorsFrame_OnError(catch, false)
 				end
@@ -352,7 +351,7 @@ function SLE:UpdateAll()
 		return
 	end
 
-	for _, name in pairs(SLE["RegisteredModules"]) do
+	for _, name in pairs(SLE['RegisteredModules']) do
 		local module = SLE:GetModule(name)
 		if module.ForUpdateAll then
 			module:ForUpdateAll()
@@ -363,13 +362,13 @@ function SLE:UpdateAll()
 		end
 	end
 
-	if not SLE._Compatibility["oRA3"] then
-		SLE:GetModule("BlizzRaid"):CreateAndUpdateIcons()
+	if not SLE._Compatibility['oRA3'] then
+		SLE:GetModule('BlizzRaid'):CreateAndUpdateIcons()
 	end
 
 	SLE:SetCompareItems()
 
-	collectgarbage("collect")
+	collectgarbage('collect')
 end
 
 --Movable buttons in config stuff. Some Simpy's billshit applied
@@ -411,13 +410,11 @@ function SLE:CreateMovableButtons(Order, Name, CanRemove, db, key)
 	local config = {
 		order = Order,
 		dragdrop = true,
-		type = "multiselect",
+		type = 'multiselect',
 		name = Name,
 		dragOnLeave = function()
 		end, --keep this here
-		dragOnEnter = function(info)
-			moveItemTo = info.obj.value
-		end,
+		dragOnEnter = function(info) moveItemTo = info.obj.value end,
 		dragOnMouseDown = function(info)
 			moveItemFrom, moveItemTo = info.obj.value, nil
 		end,
@@ -464,37 +461,37 @@ local function LevelUpBG(frame, topcolor, bottomcolor)
 	if not frame then
 		return
 	end
-	frame.bg = frame:CreateTexture(nil, "BACKGROUND")
+	frame.bg = frame:CreateTexture(nil, 'BACKGROUND')
 	frame.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
-	frame.bg:SetPoint("CENTER")
-	frame.bg:Point("TOPLEFT", frame, 0, 8)
-	frame.bg:Point("BOTTOMRIGHT", frame, 0, -2)
+	frame.bg:SetPoint('CENTER')
+	frame.bg:Point('TOPLEFT', frame, 0, 8)
+	frame.bg:Point('BOTTOMRIGHT', frame, 0, -2)
 	frame.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
 	frame.bg:SetVertexColor(1, 1, 1, 0.7)
 
-	frame.lineTop = frame:CreateTexture(nil, "BACKGROUND")
-	frame.lineTop:SetDrawLayer("BACKGROUND", 2)
+	frame.lineTop = frame:CreateTexture(nil, 'BACKGROUND')
+	frame.lineTop:SetDrawLayer('BACKGROUND', 2)
 	frame.lineTop:SetTexture([[Interface\LevelUp\LevelUpTex]])
-	frame.lineTop:SetPoint("TOP", frame.bg)
+	frame.lineTop:SetPoint('TOP', frame.bg)
 	frame.lineTop:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
 	frame.lineTop:Size(frame:GetWidth(), 7)
 
-	frame.lineBottom = frame:CreateTexture(nil, "BACKGROUND")
-	frame.lineBottom:SetDrawLayer("BACKGROUND", 2)
+	frame.lineBottom = frame:CreateTexture(nil, 'BACKGROUND')
+	frame.lineBottom:SetDrawLayer('BACKGROUND', 2)
 	frame.lineBottom:SetTexture([[Interface\LevelUp\LevelUpTex]])
-	frame.lineBottom:SetPoint("BOTTOM", frame.bg)
+	frame.lineBottom:SetPoint('BOTTOM', frame.bg)
 	frame.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
 	frame.lineBottom:Size(frame:GetWidth(), 7)
 
 	local ColorCode = {
-		["red"] = {1, 0, 0},
-		["green"] = {0, 1, 0},
-		["blue"] = {0.15, 0.3, 1}
+		['red'] = {1, 0, 0},
+		['green'] = {0, 1, 0},
+		['blue'] = {0.15, 0.3, 1}
 	}
 	if topcolor then
-		if type(topcolor) == "table" then
+		if type(topcolor) == 'table' then
 			frame.lineTop:SetVertexColor(unpack(topcolor), 1)
-		elseif type(topcolor) == "string" then
+		elseif type(topcolor) == 'string' then
 			if ColorCode[topcolor] then
 				local r, g, b = unpack(ColorCode[topcolor])
 				frame.lineTop:SetVertexColor(r, g, b, 1)
@@ -504,14 +501,14 @@ local function LevelUpBG(frame, topcolor, bottomcolor)
 			end
 
 		else
-			error("Invalid color setting in |cff00FFFFLevelUpBG|r(frame, |cffFF0000topcolor|r, bottomcolor).")
+			error('Invalid color setting in |cff00FFFFLevelUpBG|r(frame, |cffFF0000topcolor|r, bottomcolor).')
 			return
 		end
 	end
 	if bottomcolor then
-		if type(bottomcolor) == "table" then
+		if type(bottomcolor) == 'table' then
 			frame.lineBottom:SetVertexColor(unpack(bottomcolor), 1)
-		elseif type(bottomcolor) == "string" then
+		elseif type(bottomcolor) == 'string' then
 			if ColorCode[bottomcolor] then
 				local r, g, b = unpack(ColorCode[bottomcolor])
 				frame.lineBottom:SetVertexColor(r, g, b, 1)
@@ -534,8 +531,8 @@ local function addapi(object)
 	end
 end
 
-local handled = {["Frame"] = true}
-local object = CreateFrame("Frame")
+local handled = {['Frame'] = true}
+local object = CreateFrame('Frame')
 addapi(object)
 addapi(object:CreateTexture())
 addapi(object:CreateFontString())
