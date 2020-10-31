@@ -17,7 +17,7 @@ local function AzeriteBar_Update(self, event, unit)
 		return
 	end
 
-	local bar = self.azeriteBar
+	local bar = EDB.StatusBars.Azerite
 	local azeriteItemLocation = C_AzeriteItem_FindActiveAzeriteItem()
 	if azeriteItemLocation and (not self.db.azerite.hideInCombat or not InCombatLockdown()) then
 		local text = ''
