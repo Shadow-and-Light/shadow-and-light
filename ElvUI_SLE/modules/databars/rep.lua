@@ -1,4 +1,4 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E = unpack(select(2, ...))
 local DB = SLE:GetModule('DataBars')
 local EDB = E:GetModule('DataBars')
 
@@ -7,7 +7,7 @@ local _G = _G
 local format = format
 local strMatchCombat = {}
 -- local guildName
-local abs = math.abs
+-- local abs = math.abs
 local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
 -- local ExpandFactionHeader, CollapseFactionHeader = ExpandFactionHeader, CollapseFactionHeader
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
