@@ -225,8 +225,8 @@ function CA:Update_Gems()
 		if Slot.textureSlot1 then
 			Slot.textureSlot1:ClearAllPoints()
 			Slot.textureSlot1:Point('BOTTOM'..Slot.Direction, Slot, "BOTTOM"..(Slot.Direction == "LEFT" and "RIGHT" or "LEFT"), Slot.Direction == "LEFT" and 2+E.db.sle.armory.character.gem.xOffset or -2-E.db.sle.armory.character.gem.xOffset, 2+E.db.sle.armory.character.gem.yOffset)
-			for i = 1, Armory.Constants.MaxGemSlots do
-				Slot["textureSlot"..i]:Size(E.db.sle.armory.character.gem.size)
+			for k = 1, Armory.Constants.MaxGemSlots do
+				Slot["textureSlot"..k]:Size(E.db.sle.armory.character.gem.size)
 			end
 		end
 	end
