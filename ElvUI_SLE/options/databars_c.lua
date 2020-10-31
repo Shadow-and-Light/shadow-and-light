@@ -19,7 +19,7 @@ local function configTable()
 			exp = {
 				order = 1,
 				type = "group",
-				name = XP,
+				name = L["Experience"],
 				args = {
 					goElv = {
 						order = 1,
@@ -31,36 +31,36 @@ local function configTable()
 						order = 2,
 						type = "toggle",
 						name = L["Full value on Exp Bar"],
-						get = function() return E.db.sle.databars.exp.longtext end,
-						set = function(_, value) E.db.sle.databars.exp.longtext = value; EDB:ExperienceBar_Update() end,
+						get = function() return E.db.sle.databars.experience.longtext end,
+						set = function(_, value) E.db.sle.databars.experience.longtext = value; EDB:ExperienceBar_Update() end,
 					},
 					chatfilters = {
 						order = 3,
 						type = "group",
 						guiInline = true,
 						name = L["Chat Filters"],
-						get = function(info) return E.db.sle.databars.exp.chatfilter[ info[#info] ] end,
-						set = function(info, value) E.db.sle.databars.exp.chatfilter[ info[#info] ] = value; end,
+						get = function(info) return E.db.sle.databars.experience.chatfilter[ info[#info] ] end,
+						set = function(info, value) E.db.sle.databars.experience.chatfilter[ info[#info] ] = value; end,
 						args = {
 							enable = {
 								order = 1,
 								type = "toggle",
 								name = L["Enable"],
 								desc = L["Change the message style."],
-								set = function(info, value) E.db.sle.databars.exp.chatfilter[ info[#info] ] = value; DB:RegisterFilters() end,
+								set = function(info, value) E.db.sle.databars.experience.chatfilter[ info[#info] ] = value; DB:RegisterFilters() end,
 							},
 							iconsize = {
 								order = 2,
 								type = "range",
 								name = L["Icon Size"],
-								disabled = function() return not E.db.sle.databars.exp.chatfilter.enable end,
+								disabled = function() return not E.db.sle.databars.experience.chatfilter.enable end,
 								min = 8, max = 32, step = 1,
 							},
 							style = {
 								order = 3,
 								type = "select",
 								name = L["Experience Style"],
-								disabled = function() return not E.db.sle.databars.exp.chatfilter.enable end,
+								disabled = function() return not E.db.sle.databars.experience.chatfilter.enable end,
 								values = {
 									["STYLE1"] = format(DB.Exp.Styles["STYLE1"]["Bonus"], 12, E.myname, 300, 150, SCENARIO_BONUS_LABEL),
 									["STYLE2"] = format(DB.Exp.Styles["STYLE2"]["Bonus"], 12, E.myname, 300, 150, SCENARIO_BONUS_LABEL),
@@ -71,50 +71,50 @@ local function configTable()
 				},
 			},
 			rep = {
-				order = 2,
+				order = 1,
 				type = "group",
-				name = REPUTATION,
+				name = L["Reputation"],
 				args = {
 					goElv = {
 						order = 1,
 						type = 'execute',
-						name = "ElvUI: "..REPUTATION,
+						name = "ElvUI: "..L["Reputation"],
 						func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "databars", "reputation") end,
 					},
 					longtext = {
 						order = 2,
 						type = "toggle",
 						name = L["Full value on Rep Bar"],
-						get = function() return E.db.sle.databars.rep.longtext end,
-						set = function(_, value) E.db.sle.databars.rep.longtext = value; EDB:ReputationBar_Update() end,
+						get = function() return E.db.sle.databars.reputation.longtext end,
+						set = function(_, value) E.db.sle.databars.reputation.longtext = value; EDB:ReputationBar_Update() end,
 					},
 					chatfilters = {
 						order = 5,
 						type = "group",
 						guiInline = true,
 						name = L["Chat Filters"],
-						get = function(info) return E.db.sle.databars.rep.chatfilter[ info[#info] ] end,
-						set = function(info, value) E.db.sle.databars.rep.chatfilter[ info[#info] ] = value; end,
+						get = function(info) return E.db.sle.databars.reputation.chatfilter[ info[#info] ] end,
+						set = function(info, value) E.db.sle.databars.reputation.chatfilter[ info[#info] ] = value; end,
 						args = {
 							enable = {
 								order = 1,
 								type = "toggle",
 								name = L["Enable"],
 								desc = L["Change the message style."],
-								set = function(info, value) E.db.sle.databars.rep.chatfilter[ info[#info] ] = value; DB:RegisterFilters() end,
+								set = function(info, value) E.db.sle.databars.reputation.chatfilter[ info[#info] ] = value; DB:RegisterFilters() end,
 							},
 							iconsize = {
 								order = 2,
 								type = "range",
 								name = L["Icon Size"],
-								disabled = function() return not E.db.sle.databars.rep.chatfilter.enable end,
+								disabled = function() return not E.db.sle.databars.reputation.chatfilter.enable end,
 								min = 8, max = 32, step = 1,
 							},
 							style = {
 								order = 3,
 								type = "select",
 								name = L["Reputation increase Style"],
-								disabled = function() return not E.db.sle.databars.rep.chatfilter.enable end,
+								disabled = function() return not E.db.sle.databars.reputation.chatfilter.enable end,
 								values = {
 									["STYLE1"] = format(DB.RepIncreaseStyles["STYLE1"], 12, FACTION, 300),
 									["STYLE2"] = format(DB.RepIncreaseStyles["STYLE2"], 12, FACTION, 300),
@@ -124,7 +124,7 @@ local function configTable()
 								order = 4,
 								type = "select",
 								name = L["Reputation decrease Style"],
-								disabled = function() return not E.db.sle.databars.rep.chatfilter.enable end,
+								disabled = function() return not E.db.sle.databars.reputation.chatfilter.enable end,
 								values = {
 									["STYLE1"] = format(DB.RepDecreaseStyles["STYLE1"], 12, FACTION, 300),
 									["STYLE2"] = format(DB.RepDecreaseStyles["STYLE2"], 12, FACTION, 300),
@@ -135,14 +135,14 @@ local function configTable()
 								type = "toggle",
 								name = L["Full List"],
 								desc = L["Show all factions affected by the latest reputation change. When disabled only first (in alphabetical order) affected faction will be shown."],
-								disabled = function() return not E.db.sle.databars.rep.chatfilter.enable end,
+								disabled = function() return not E.db.sle.databars.reputation.chatfilter.enable end,
 							},
 							chatframe = {
 								order = 6,
 								type = "select",
 								name = L["Output"],
 								desc = L["Determines in which frame reputation messages will be shown. Auto is for whatever frame has reputation messages enabled via Blizzard options."],
-								disabled = function() return not E.db.sle.databars.rep.chatfilter.enable end,
+								disabled = function() return not E.db.sle.databars.reputation.chatfilter.enable end,
 								values = {
 									["AUTO"] = L["Auto"],
 									["ChatFrame1"] = L["Frame 1"],
@@ -162,7 +162,7 @@ local function configTable()
 				},
 			},
 			honor = {
-				order = 3,
+				order = 1,
 				type = "group",
 				name = HONOR,
 				args = {
@@ -239,9 +239,9 @@ local function configTable()
 				},
 			},
 			azerite = {
-				order = 4,
+				order = 1,
 				type = "group",
-				name = L["Azerite Bar"],
+				name = L["Azerite"],
 				args = {
 					goElv = {
 						order = 1,

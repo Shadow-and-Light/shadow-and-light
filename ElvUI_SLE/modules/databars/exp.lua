@@ -1,15 +1,16 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, T, E = unpack(select(2, ...))
 local DB = SLE:GetModule("DataBars")
 local EDB = E:GetModule('DataBars')
 
 --GLOBALS: unpack, select, hooksecurefunc
-local UnitLevel = UnitLevel
+
 local COMBATLOG_XPGAIN_FIRSTPERSON, COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED = COMBATLOG_XPGAIN_FIRSTPERSON, COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED
 local COMBATLOG_XPGAIN_EXHAUSTION1, COMBATLOG_XPGAIN_EXHAUSTION2, COMBATLOG_XPGAIN_EXHAUSTION4, COMBATLOG_XPGAIN_EXHAUSTION5 = COMBATLOG_XPGAIN_EXHAUSTION1, COMBATLOG_XPGAIN_EXHAUSTION2, COMBATLOG_XPGAIN_EXHAUSTION4, COMBATLOG_XPGAIN_EXHAUSTION5
 local COMBATLOG_XPGAIN_EXHAUSTION1_GROUP, COMBATLOG_XPGAIN_EXHAUSTION2_GROUP, COMBATLOG_XPGAIN_EXHAUSTION4_GROUP, COMBATLOG_XPGAIN_EXHAUSTION5_GROUP = COMBATLOG_XPGAIN_EXHAUSTION1_GROUP, COMBATLOG_XPGAIN_EXHAUSTION2_GROUP, COMBATLOG_XPGAIN_EXHAUSTION4_GROUP, COMBATLOG_XPGAIN_EXHAUSTION5_GROUP
 local COMBATLOG_XPGAIN_EXHAUSTION1_RAID, COMBATLOG_XPGAIN_EXHAUSTION2_RAID, COMBATLOG_XPGAIN_EXHAUSTION4_RAID, COMBATLOG_XPGAIN_EXHAUSTION5_RAID = COMBATLOG_XPGAIN_EXHAUSTION1_RAID, COMBATLOG_XPGAIN_EXHAUSTION2_RAID, COMBATLOG_XPGAIN_EXHAUSTION4_RAID, COMBATLOG_XPGAIN_EXHAUSTION5_RAID
 local COMBATLOG_XPGAIN_FIRSTPERSON_GROUP, COMBATLOG_XPGAIN_FIRSTPERSON_RAID = COMBATLOG_XPGAIN_FIRSTPERSON_GROUP, COMBATLOG_XPGAIN_FIRSTPERSON_RAID
-local MAX_PLAYER_LEVEL = MAX_PLAYER_LEVEL
+local GetXPExhaustion = GetXPExhaustion
+local UnitXP, UnitXPMax = UnitXP, UnitXPMax
 
 DB.Exp = {
 	Strings = {
@@ -52,47 +53,46 @@ DB.Exp = {
 	}
 }
 
-local function UpdateExperience(self, event)
+local function UpdateExperience()
 	if not E.db.sle.databars.experience.longtext then return end
-	local bar = self.expBar
+	local bar = EDB.StatusBars.Experience
 
-	if not UnitLevel('player') == MAX_PLAYER_LEVEL or not IsXPUserDisabled() then
-		local cur, max = self:GetXP('player')
-		local rested = GetXPExhaustion()
-		local text = ''
+	if EDB:ExperienceBar_ShouldBeVisible() then
+		local CurrentXP, XPToLevel, RestedXP = UnitXP('player'), UnitXPMax('player'), GetXPExhaustion()
 		local textFormat = E.db.databars.experience.textFormat
+		local text = ''
 
-		if rested and rested > 0 then
+		if RestedXP and RestedXP > 0 then
 			if textFormat == 'PERCENT' then
-				text = format('%d%% R:%d%%', cur / max * 100, rested / max * 100)
+				text = format('%d%% R:%d%%', CurrentXP / XPToLevel * 100, RestedXP / XPToLevel * 100)
 			elseif textFormat == 'CURMAX' then
-				text = format('%s - %s R:%s', cur, max, rested)
+				text = format('%s - %s R:%s', CurrentXP, XPToLevel, RestedXP)
 			elseif textFormat == 'CURPERC' then
-				text = format('%s - %d%% R:%s [%d%%]', cur, cur / max * 100, rested, rested / max * 100)
+				text = format('%s - %d%% R:%s [%d%%]', CurrentXP, CurrentXP / XPToLevel * 100, RestedXP, RestedXP / XPToLevel * 100)
 			elseif textFormat == 'CUR' then
-				text = format('%s R:%s', cur, rested)
+				text = format('%s R:%s', CurrentXP, RestedXP)
 			elseif textFormat == 'REM' then
-				text = format('%s R:%s', max - cur, rested)
+				text = format('%s R:%s', XPToLevel - CurrentXP, RestedXP)
 			elseif textFormat == 'CURREM' then
-				text = format('%s - %s R:%s', cur, max - cur, rested)
+				text = format('%s - %s R:%s', CurrentXP, XPToLevel - CurrentXP, RestedXP)
 			elseif textFormat == 'CURPERCREM' then
-				text = format('%s - %d%% (%s) R:%s', cur, cur / max * 100, max - cur, rested)
+				text = format('%s - %d%% (%s) R:%s', CurrentXP, CurrentXP / XPToLevel * 100, XPToLevel - CurrentXP, RestedXP)
 			end
 		else
 			if textFormat == 'PERCENT' then
-				text = format('%d%%', cur / max * 100)
+				text = format('%d%%', CurrentXP / XPToLevel * 100)
 			elseif textFormat == 'CURMAX' then
-				text = format('%s - %s', cur, max)
+				text = format('%s - %s', CurrentXP, XPToLevel)
 			elseif textFormat == 'CURPERC' then
-				text = format('%s - %d%%', cur, cur / max * 100)
+				text = format('%s - %d%%', CurrentXP, CurrentXP / XPToLevel * 100)
 			elseif textFormat == 'CUR' then
-				text = format('%s', cur)
+				text = format('%s', CurrentXP)
 			elseif textFormat == 'REM' then
-				text = format('%s', max - cur)
+				text = format('%s', XPToLevel - CurrentXP)
 			elseif textFormat == 'CURREM' then
-				text = format('%s - %s', cur, max - cur)
+				text = format('%s - %s', CurrentXP, XPToLevel - CurrentXP)
 			elseif textFormat == 'CURPERCREM' then
-				text = format('%s - %d%% (%s)', cur, cur / max * 100, max - cur)
+				text = format('%s - %d%% (%s)', CurrentXP, CurrentXP / XPToLevel * 100, XPToLevel - CurrentXP)
 			end
 		end
 
@@ -152,7 +152,7 @@ function DB:PopulateExpPatterns()
 	tinsert(DB.Exp.Strings.FirstPenalty, pattern)
 end
 
-function DB:FilterExperience(event, message, ...)
+function DB:FilterExperience(_, message, ...)
 	local name, exp, bonus, reason, addbonus
 	if DB.db.experience.chatfilter.enable then
 		for type, patterns in pairs(DB.Exp.Strings) do
