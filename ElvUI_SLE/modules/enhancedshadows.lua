@@ -354,12 +354,30 @@ function ENH:ToggleDTShadows()
 
 		if frame and frame.enhshadow then
 			local show
-			if E.global.datatexts.customPanels[name] then
-				show = E.global.datatexts.customPanels[name].backdrop and ENH.db.datatexts.panels[name].backdrop
-			else
-				show = ENH.db.datatexts.panels[name].backdrop
+			if E.db.datatexts.panels[name] and E.db.datatexts.panels[name].backdrop then
+				show = ENH.db.datatexts.panels[name].backdrop and E.db.datatexts.panels[name].backdrop
+				-- print('1', name..': ', show)
 			end
+
+			if E.global.datatexts.customPanels[name] and E.global.datatexts.customPanels[name].backdrop then
+				show = ENH.db.datatexts.panels[name].backdrop and E.global.datatexts.customPanels[name].backdrop
+				-- print('2', name..': ', show)
+			end
+			-- if E.global.datatexts.customPanels[name] then
+			-- 	show = E.global.datatexts.customPanels[name].backdrop and ENH.db.datatexts.panels[name].backdrop
+			-- else
+			-- 	show = ENH.db.datatexts.panels[name].backdrop
+			-- end
 			-- frame.enhshadow:SetShown(ENH.db.datatexts.panels[name].backdrop)
+			-- frame.enhshadow:SetShown(show)
+			-- if frame.template == 'NoBackdrop' then
+			-- 	-- E:Dump(frame, true)
+			-- 	print(name, 'No Backdrop')
+			-- else
+			-- 	print(frame.template)
+			-- end
+			-- print(name, frame.template)
+			-- frame.enhshadow:SetShown(ENH.db.datatexts.panels[name].backdrop and frame.template ~= 'NoBackdrop')
 			frame.enhshadow:SetShown(show)
 		end
 	end
@@ -464,6 +482,8 @@ end
 
 function ENH:PLAYER_ENTERING_WORLD()
 	ENH:UpdateShadows()
+	hooksecurefunc(DT, "UpdatePanelInfo", ENH.ToggleDTShadows)
+
 end
 
 function ENH:Initialize()
