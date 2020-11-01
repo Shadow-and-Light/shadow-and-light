@@ -62,8 +62,8 @@ local function configTable()
 								name = L["Experience Style"],
 								disabled = function() return not E.db.sle.databars.experience.chatfilter.enable end,
 								values = {
-									["STYLE1"] = format(DB.Exp.Styles["STYLE1"]["Bonus"], 12, E.myname, 300, 150, SCENARIO_BONUS_LABEL),
-									["STYLE2"] = format(DB.Exp.Styles["STYLE2"]["Bonus"], 12, E.myname, 300, 150, SCENARIO_BONUS_LABEL),
+									["STYLE1"] = format(DB.Exp.Styles["STYLE1"]["Bonus"], 11, E.myname, 300, 150, SCENARIO_BONUS_LABEL),
+									["STYLE2"] = format(DB.Exp.Styles["STYLE2"]["Bonus"], 11, E.myname, 300, 150, SCENARIO_BONUS_LABEL),
 								},
 							},
 						},
