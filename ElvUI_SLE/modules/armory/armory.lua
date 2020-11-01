@@ -10,6 +10,7 @@ local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetApp
 local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
 local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllusionSourceInfo
 local HandleModifiedItemClick = HandleModifiedItemClick
+local C_TransmogCollection_GetInspectSources = C_TransmogCollection.GetInspectSources
 
 local CA, IA, SA
 Armory.Constants = {}
@@ -97,19 +98,39 @@ end
 
 function Armory:GetTransmogInfo(Slot, which, unit)
 	if not which or not unit then return nil end
-	local transmogLink, TooltipText
-	Armory:ClearTooltip(Armory.ScanTT)
-	Armory.ScanTT:SetInventoryItem(unit, Slot.ID)
 
-	for i = 1, Armory.ScanTT:NumLines() do
-		TooltipText = _G['SLE_Armory_ScanTTTextLeft'..i]:GetText()
-
-		if TooltipText:match(TRANSMOGRIFIED_HEADER) then
-			transmogLink = _G['SLE_Armory_ScanTTTextLeft'..(i + 1)]:GetText()
-			Armory:ClearTooltip(Armory.ScanTT)
-			return transmogLink
+	local appearenceIDs = C_TransmogCollection_GetInspectSources()
+	local mogLink
+	if appearenceIDs then
+		for i = 1, #appearenceIDs do
+			if (appearenceIDs[i] and appearenceIDs[i] ~= NO_TRANSMOG_SOURCE_ID) then
+				if i == Slot.ID then
+					mogLink = select(6, C_TransmogCollection.GetAppearanceSourceInfo(appearenceIDs[i]))
+					break
+				end
+			end
 		end
 	end
+
+	if mogLink then
+		return mogLink
+	end
+
+	-- local transmogLink, TooltipText
+	-- Armory:ClearTooltip(Armory.ScanTT)
+	-- Armory.ScanTT:SetInventoryItem(unit, Slot.ID)
+
+	-- for i = 1, Armory.ScanTT:NumLines() do
+	-- 	TooltipText = _G['SLE_Armory_ScanTTTextLeft'..i]:GetText()
+
+	-- 	if TooltipText:match(TRANSMOGRIFIED_HEADER) then
+
+	-- 		transmogLink = _G['SLE_Armory_ScanTTTextLeft'..(i + 1)]:GetText()
+	-- 		-- print(transmogLink)
+	-- 		Armory:ClearTooltip(Armory.ScanTT)
+	-- 		return transmogLink
+	-- 	end
+	-- end
 end
 
 --Updates the frame
@@ -296,9 +317,10 @@ end
 --<<<<<Transmog functions>>>>>--
 function Armory:Transmog_OnEnter()
 	if not self.Link then return end
-	self.Texture:SetVertexColor(1, .8, 1)
 
+	self.Texture:SetVertexColor(1, .8, 1)
 	_G['GameTooltip']:SetOwner(self, 'ANCHOR_RIGHT')
+
 	if self.isInspect then
 		local inspectLink = select(2, GetItemInfo(self.Link)) --In case the client actually decides to give us the info
 		if inspectLink then
@@ -309,6 +331,7 @@ function Armory:Transmog_OnEnter()
 	else
 		_G['GameTooltip']:SetHyperlink(self.Link)
 	end
+
 	_G['GameTooltip']:Show()
 end
 
@@ -450,7 +473,6 @@ function Armory:Initialize()
 			end
 		end)
 	end
-
 end
 
 SLE:RegisterModule(Armory:GetName())
