@@ -349,7 +349,7 @@ end
 function ENH:ToggleDTShadows()
 	for name, frame in next, DT.RegisteredPanels do
 		if ENH.DummyPanels[name] and ENH.DummyPanels[name].enhshadow then
-			ENH.DummyPanels[name].enhshadow:SetShown(ENH.db.datatexts.panels[name].backdrop)
+			ENH.DummyPanels[name].enhshadow:SetShown(E.db.sle.shadows.datatexts.panels[name].backdrop)
 		end
 
 		if frame and frame.enhshadow then
