@@ -317,18 +317,21 @@ function Armory:Transmog_OnLeave()
 	_G['GameTooltip']:Hide()
 end
 
-function Armory:Transmog_OnClick(button)
+function Armory:Transmog_OnClick()
 	local ItemName, ItemLink = GetItemInfo(self.Link)
 
 	if not IsShiftKeyDown() then
 		SetItemRef(ItemLink, ItemLink, 'LeftButton')
 	else
-		if HandleModifiedItemClick(ItemLink) then
-		elseif _G['BrowseName'] and _G['BrowseName']:IsVisible() then
-			AuctionFrameBrowse_Reset(_G['BrowseResetButton'])
-			_G['BrowseName']:SetText(ItemName)
-			_G['BrowseName']:SetFocus()
-		end
+		HandleModifiedItemClick(ItemLink)
+	-- 	if HandleModifiedItemClick(ItemLink) then
+	-- 		print('test')
+	-- 	elseif _G.BrowseName and _G.BrowseName:IsVisible() then
+	-- 		print('test2')
+	-- 		AuctionFrameBrowse_Reset(_G.BrowseResetButton)
+	-- 		_G.BrowseName:SetText(ItemName)
+	-- 		_G.BrowseName:SetFocus()
+	-- 	end
 	end
 end
 
