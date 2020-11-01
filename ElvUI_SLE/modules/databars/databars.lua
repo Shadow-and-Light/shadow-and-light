@@ -9,17 +9,17 @@ DB.Icons = {
 }
 
 function DB:RegisterFilters()
-	if DB.db.reputation.chatfilter.enable then
+	if E.db.sle.databars.reputation.chatfilter.enable then
 		ChatFrame_AddMessageEventFilter('CHAT_MSG_COMBAT_FACTION_CHANGE', DB.FilterReputation)
 	else
 		ChatFrame_RemoveMessageEventFilter('CHAT_MSG_COMBAT_FACTION_CHANGE', DB.FilterReputation)
 	end
-	if DB.db.experience.chatfilter.enable then
+	if E.db.sle.databars.experience.chatfilter.enable then
 		ChatFrame_AddMessageEventFilter('CHAT_MSG_COMBAT_XP_GAIN', DB.FilterExperience)
 	else
 		ChatFrame_RemoveMessageEventFilter('CHAT_MSG_COMBAT_XP_GAIN', DB.FilterExperience)
 	end
-	if DB.db.honor.chatfilter.enable then
+	if E.db.sle.databars.honor.chatfilter.enable then
 		ChatFrame_AddMessageEventFilter('CHAT_MSG_COMBAT_HONOR_GAIN', DB.FilterHonor)
 	else
 		ChatFrame_RemoveMessageEventFilter('CHAT_MSG_COMBAT_HONOR_GAIN', DB.FilterHonor)
