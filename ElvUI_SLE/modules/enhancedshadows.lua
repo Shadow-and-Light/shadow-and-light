@@ -197,7 +197,7 @@ function ENH:CreateABShadows()
 	do
 		-- Micro Bar
 		local frame = _G.ElvUI_MicroBar
-		ENH:ProcessShadow(frame, nil, frame:GetFrameLevel(), ENH.db.actionbars.microbar)
+		ENH:ProcessShadow(frame, frame.backdrop, frame:GetFrameLevel(), ENH.db.actionbars.microbar)
 		for i = 1, (#MICRO_BUTTONS) do
 			if not _G[MICRO_BUTTONS[i]] then break end
 			local button = _G[MICRO_BUTTONS[i]]
