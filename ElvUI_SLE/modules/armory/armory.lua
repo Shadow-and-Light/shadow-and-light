@@ -99,6 +99,21 @@ end
 function Armory:GetTransmogInfo(Slot, which, unit)
 	if not which or not unit then return nil end
 
+	local transmogLink, TooltipText
+	Armory:ClearTooltip(Armory.ScanTT)
+	Armory.ScanTT:SetInventoryItem(unit, Slot.ID)
+
+	for i = 1, Armory.ScanTT:NumLines() do
+		TooltipText = _G['SLE_Armory_ScanTTTextLeft'..i]:GetText()
+
+		if TooltipText and TooltipText:match(TRANSMOGRIFIED_HEADER) then
+			transmogLink = _G['SLE_Armory_ScanTTTextLeft'..(i + 1)]:GetText()
+			Armory:ClearTooltip(Armory.ScanTT)
+		end
+	end
+
+	if not transmogLink then return nil end
+
 	local appearenceIDs = C_TransmogCollection_GetInspectSources()
 	local mogLink
 	if appearenceIDs then
@@ -106,31 +121,11 @@ function Armory:GetTransmogInfo(Slot, which, unit)
 			if (appearenceIDs[i] and appearenceIDs[i] ~= NO_TRANSMOG_SOURCE_ID) then
 				if i == Slot.ID then
 					mogLink = select(6, C_TransmogCollection.GetAppearanceSourceInfo(appearenceIDs[i]))
-					break
+					return mogLink
 				end
 			end
 		end
 	end
-
-	if mogLink then
-		return mogLink
-	end
-
-	-- local transmogLink, TooltipText
-	-- Armory:ClearTooltip(Armory.ScanTT)
-	-- Armory.ScanTT:SetInventoryItem(unit, Slot.ID)
-
-	-- for i = 1, Armory.ScanTT:NumLines() do
-	-- 	TooltipText = _G['SLE_Armory_ScanTTTextLeft'..i]:GetText()
-
-	-- 	if TooltipText:match(TRANSMOGRIFIED_HEADER) then
-
-	-- 		transmogLink = _G['SLE_Armory_ScanTTTextLeft'..(i + 1)]:GetText()
-	-- 		-- print(transmogLink)
-	-- 		Armory:ClearTooltip(Armory.ScanTT)
-	-- 		return transmogLink
-	-- 	end
-	-- end
 end
 
 --Updates the frame
