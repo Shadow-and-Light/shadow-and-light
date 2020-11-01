@@ -411,37 +411,27 @@ end
 
 function ENH:HandleMinimap()
 	if not E.private.general.minimap.enable then return end
-
-	do
-		local frame = _G.MMHolder
-
-		if frame and not frame.enhshadow then
-			ENH:ProcessShadow(frame, nil, frame:GetFrameLevel(), E.db.sle.shadows.minimap)
-		end
-
-		if frame and frame.enhshadow then
-			frame.enhshadow:SetShown(E.db.sle.shadows.minimap.backdrop and not E.private.sle.minimap.rectangle)
-		end
-	end
-
 	do
 		if not ENH.DummyPanels.Minimap then
 			ENH.DummyPanels.Minimap = CreateFrame("Frame", nil, _G.MMHolder)
 		end
 
 		if ENH.DummyPanels.Minimap and not ENH.DummyPanels.Minimap.enhshadow then
-			ENH:ProcessShadow(ENH.DummyPanels.Minimap, nil, ENH.DummyPanels.Minimap:GetFrameLevel(), E.db.sle.shadows.minimap)
+			ENH:ProcessShadow(ENH.DummyPanels.Minimap, nil, ENH.DummyPanels.Minimap:GetFrameLevel()-1, E.db.sle.shadows.minimap)
 		end
 
 		if ENH.DummyPanels.Minimap and ENH.DummyPanels.Minimap.enhshadow then
-			ENH.DummyPanels.Minimap:Point('TOPLEFT', _G.Minimap, 'TOPLEFT', -1, -(E.MinimapSize/6.1)+1)
-
-			if E.db.datatexts.panels.MinimapPanel.enable then
-				ENH.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.MinimapPanel, 'BOTTOMRIGHT', 0, 0)
-			else
-				ENH.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.Minimap, 'BOTTOMRIGHT', 1, (E.MinimapSize/6.1)-1)
-			end
-			ENH.DummyPanels.Minimap.enhshadow:SetShown(E.db.sle.shadows.minimap.backdrop and E.private.sle.minimap.rectangle)
+				if E.private.sle.minimap.rectangle then
+					ENH.DummyPanels.Minimap:Point('TOPLEFT', _G.Minimap, 'TOPLEFT', -1, -(E.MinimapSize/6.1)+1)
+				else
+					ENH.DummyPanels.Minimap:Point('TOPLEFT', _G.MinimapBackdrop, 'TOPLEFT', 0, 0)
+				end
+				if E.db.datatexts.panels.MinimapPanel.enable and E.db.datatexts.panels.MinimapPanel.backdrop then
+					ENH.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.MinimapPanel, 'BOTTOMRIGHT', 0, 0)
+				else
+					ENH.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.Minimap.backdrop, 'BOTTOMRIGHT', 0, 0)
+				end
+				ENH.DummyPanels.Minimap.enhshadow:SetShown(E.db.sle.shadows.minimap.backdrop)
 		end
 	end
 end
@@ -476,13 +466,14 @@ end
 function ENH:ADDON_LOADED(event, addon)
 	if addon ~= 'ElvUI_OptionsUI' then return end
 	ENH:UnregisterEvent(event)
-	hooksecurefunc(DT, "PanelLayoutOptions", ENH.UpdateDatatextOptions)
-	hooksecurefunc(DT, "UpdatePanelAttributes", ENH.ToggleDTShadows)
+	hooksecurefunc(DT, 'PanelLayoutOptions', ENH.UpdateDatatextOptions)
+	hooksecurefunc(DT, 'UpdatePanelAttributes', ENH.ToggleDTShadows)
+	hooksecurefunc(DT, 'UpdatePanelInfo', ENH.HandleMinimap)
 end
 
 function ENH:PLAYER_ENTERING_WORLD()
 	ENH:UpdateShadows()
-	hooksecurefunc(DT, "UpdatePanelInfo", ENH.ToggleDTShadows)
+	hooksecurefunc(DT, 'UpdatePanelInfo', ENH.ToggleDTShadows)
 
 end
 
