@@ -416,11 +416,11 @@ function ENH:HandleMinimap()
 		local frame = _G.MMHolder
 
 		if frame and not frame.enhshadow then
-			ENH:ProcessShadow(frame, nil, frame:GetFrameLevel(), ENH.db.minimap)
+			ENH:ProcessShadow(frame, nil, frame:GetFrameLevel(), E.db.sle.shadows.minimap)
 		end
 
 		if frame and frame.enhshadow then
-			frame.enhshadow:SetShown(ENH.db.minimap.backdrop and not E.private.sle.minimap.rectangle)
+			frame.enhshadow:SetShown(E.db.sle.shadows.minimap.backdrop and not E.private.sle.minimap.rectangle)
 		end
 	end
 
@@ -430,7 +430,7 @@ function ENH:HandleMinimap()
 		end
 
 		if ENH.DummyPanels.Minimap and not ENH.DummyPanels.Minimap.enhshadow then
-			ENH:ProcessShadow(ENH.DummyPanels.Minimap, nil, ENH.DummyPanels.Minimap:GetFrameLevel(), ENH.db.minimap)
+			ENH:ProcessShadow(ENH.DummyPanels.Minimap, nil, ENH.DummyPanels.Minimap:GetFrameLevel(), E.db.sle.shadows.minimap)
 		end
 
 		if ENH.DummyPanels.Minimap and ENH.DummyPanels.Minimap.enhshadow then
@@ -441,7 +441,7 @@ function ENH:HandleMinimap()
 			else
 				ENH.DummyPanels.Minimap:Point('BOTTOMRIGHT', _G.Minimap, 'BOTTOMRIGHT', 1, (E.MinimapSize/6.1)-1)
 			end
-			ENH.DummyPanels.Minimap.enhshadow:SetShown(ENH.db.minimap.backdrop and E.private.sle.minimap.rectangle)
+			ENH.DummyPanels.Minimap.enhshadow:SetShown(E.db.sle.shadows.minimap.backdrop and E.private.sle.minimap.rectangle)
 		end
 	end
 end
@@ -450,10 +450,10 @@ end
 function ENH:HandleElvUIPanels()
 	do
 		local frame = _G.ElvUI_BottomPanel
-		local enabled = E.db.general.bottomPanel and ENH.db.general.bottomPanel.backdrop
+		local enabled = E.db.general.bottomPanel and E.db.sle.shadows.general.bottomPanel.backdrop
 
 		if enabled and frame and not frame.enhshadow then
-			ENH:ProcessShadow(frame, nil, frame:GetFrameLevel(), ENH.db.general.bottomPanel)
+			ENH:ProcessShadow(frame, nil, frame:GetFrameLevel(), E.db.sle.shadows.general.bottomPanel)
 		end
 		if frame and frame.enhshadow then
 			frame.enhshadow:SetShown(enabled)
@@ -462,10 +462,10 @@ function ENH:HandleElvUIPanels()
 
 	do
 		local frame = _G.ElvUI_TopPanel
-		local enabled = E.db.general.topPanel and ENH.db.general.topPanel.backdrop
+		local enabled = E.db.general.topPanel and E.db.sle.shadows.general.topPanel.backdrop
 
 		if enabled and frame and not frame.enhshadow then
-			ENH:ProcessShadow(frame, nil, frame:GetFrameLevel(), ENH.db.general.topPanel)
+			ENH:ProcessShadow(frame, nil, frame:GetFrameLevel(), E.db.sle.shadows.general.topPanel)
 		end
 		if frame and frame.enhshadow then
 			frame.enhshadow:SetShown(enabled)

@@ -8,7 +8,7 @@ local C_AzeriteItem_GetPowerLevel = C_AzeriteItem.GetPowerLevel
 local C_AzeriteItem_FindActiveAzeriteItem = C_AzeriteItem.FindActiveAzeriteItem
 
 local function AzeriteBar_Update(self, event, unit)
-	if not DB.db.azerite.longtext then return end
+	if not E.db.sle.databars.azerite.longtext then return end
 	if (event == 'UNIT_INVENTORY_CHANGED' and unit ~= 'player') then
 		return
 	end
