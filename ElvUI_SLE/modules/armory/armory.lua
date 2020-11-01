@@ -99,21 +99,6 @@ end
 function Armory:GetTransmogInfo(Slot, which, unit)
 	if not which or not unit then return nil end
 
-	local transmogLink, TooltipText
-	Armory:ClearTooltip(Armory.ScanTT)
-	Armory.ScanTT:SetInventoryItem(unit, Slot.ID)
-
-	for i = 1, Armory.ScanTT:NumLines() do
-		TooltipText = _G['SLE_Armory_ScanTTTextLeft'..i]:GetText()
-
-		if TooltipText and TooltipText:match(TRANSMOGRIFIED_HEADER) then
-			transmogLink = _G['SLE_Armory_ScanTTTextLeft'..(i + 1)]:GetText()
-			Armory:ClearTooltip(Armory.ScanTT)
-		end
-	end
-
-	if not transmogLink then return nil end
-
 	local appearenceIDs = C_TransmogCollection_GetInspectSources()
 	local mogLink
 	if appearenceIDs then
@@ -121,11 +106,31 @@ function Armory:GetTransmogInfo(Slot, which, unit)
 			if (appearenceIDs[i] and appearenceIDs[i] ~= NO_TRANSMOG_SOURCE_ID) then
 				if i == Slot.ID then
 					mogLink = select(6, C_TransmogCollection.GetAppearanceSourceInfo(appearenceIDs[i]))
-					return mogLink
+					break
 				end
 			end
 		end
 	end
+
+	if mogLink then
+		return mogLink
+	end
+
+	-- local transmogLink, TooltipText
+	-- Armory:ClearTooltip(Armory.ScanTT)
+	-- Armory.ScanTT:SetInventoryItem(unit, Slot.ID)
+
+	-- for i = 1, Armory.ScanTT:NumLines() do
+	-- 	TooltipText = _G['SLE_Armory_ScanTTTextLeft'..i]:GetText()
+
+	-- 	if TooltipText:match(TRANSMOGRIFIED_HEADER) then
+
+	-- 		transmogLink = _G['SLE_Armory_ScanTTTextLeft'..(i + 1)]:GetText()
+	-- 		-- print(transmogLink)
+	-- 		Armory:ClearTooltip(Armory.ScanTT)
+	-- 		return transmogLink
+	-- 	end
+	-- end
 end
 
 --Updates the frame
@@ -335,18 +340,21 @@ function Armory:Transmog_OnLeave()
 	_G['GameTooltip']:Hide()
 end
 
-function Armory:Transmog_OnClick(button)
+function Armory:Transmog_OnClick()
 	local ItemName, ItemLink = GetItemInfo(self.Link)
 
 	if not IsShiftKeyDown() then
 		SetItemRef(ItemLink, ItemLink, 'LeftButton')
 	else
-		if HandleModifiedItemClick(ItemLink) then
-		elseif _G.BrowseName and _G.BrowseName:IsVisible() then
-			AuctionFrameBrowse_Reset(_G.BrowseResetButton)
-			_G.BrowseName:SetText(ItemName)
-			_G.BrowseName:SetFocus()
-		end
+		HandleModifiedItemClick(ItemLink)
+	-- 	if HandleModifiedItemClick(ItemLink) then
+	-- 		print('test')
+	-- 	elseif _G.BrowseName and _G.BrowseName:IsVisible() then
+	-- 		print('test2')
+	-- 		AuctionFrameBrowse_Reset(_G.BrowseResetButton)
+	-- 		_G.BrowseName:SetText(ItemName)
+	-- 		_G.BrowseName:SetFocus()
+	-- 	end
 	end
 end
 
@@ -450,17 +458,6 @@ function Armory:Initialize()
 		M:UpdatePageInfo(_G.InspectFrame, "Inspect") --Putting this under the elv's option check just breaks the shit out of the frame
 		if not E.db.general.itemLevel.displayInspectInfo then M:ClearPageInfo(_G.InspectFrame, "Inspect") end --Clear the infos if those are actually not supposed to be shown.
 	end
-
-	-- if not _G.CharacterFrame.RepoocHookTest then
-	-- 	_G.CharacterFrame:HookScript('OnShow', function()
-	-- 		_G.CharacterFrame.RepoocHookTest = true
-	-- 		if not E.db.general.itemLevel.displayCharacterInfo then
-	-- 			print("Display Character Info: ", E.db.general.itemLevel.displayCharacterInfo)
-	-- 			M:ClearPageInfo(_G.CharacterFrame, 'Character')
-	-- 			SLE:Print("Charcter Page Hook Done")
-	-- 		end
-	-- 	end)
-	-- end
 
 	--Move Pawn buttons. Cause Pawn buttons happen to be overlapped by some shit
 	if SLE._Compatibility["Pawn"] then
