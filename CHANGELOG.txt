@@ -1,3 +1,7 @@
+v4.11 [November 2, 2020]
+Fixes:
+- Fixed error when using the advanced settings in S&L that overrides some defaults of elvui
+
 v4.10 [November 1, 2020]
 Fixes:
 - Fixed not having version 12.07 due to simpy taking to long to push elvui update
