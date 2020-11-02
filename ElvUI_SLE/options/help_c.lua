@@ -9,6 +9,7 @@ Christopher Yallalee
 Chun Kim
 Cyntia McCarthy
 Jason Grier
+Jeremy G.
 Joe Quarles
 Jonathan Sweet
 Katherine Clarkson
@@ -19,6 +20,7 @@ Tony Ellis
 Justin]]
 L["ELVUI_SLE_PATRONS"] = [[Ali A
 Andre E.
+Jeremy G.
 Mark K.
 Peter aka Pete
 Sean G.
