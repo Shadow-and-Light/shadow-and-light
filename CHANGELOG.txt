@@ -1,3 +1,6 @@
+v4.10 [November 1, 2020]
+- Fixed not having version 12.07 due to simpy taking to long to push elvui update
+
 v4.09 [November 1, 2020]
 ATTENTION:
 - Enhanced Shadows have been rewritten and if you use ProjectAzilroka, you will need to be using 1.73 or higher to be compatible!
