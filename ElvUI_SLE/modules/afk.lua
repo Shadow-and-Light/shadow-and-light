@@ -351,7 +351,7 @@ function S:UpdateTimer()
 	end
 	SS.Date:SetText(date('%d')..' '..month..', |cff00AAFF'..week..'|r')
 
-	if TipsElapsed > S.db.tipThrottle then
+	if TipsElapsed and TipsElapsed > S.db.tipThrottle then
 		TipNum = random(1, #L["SLE_TIPS"])
 		while TipNum == OldTip do TipNum = random(1, #L["SLE_TIPS"]) end
 		SS.ScrollFrame:AddMessage(L["SLE_TIPS"][TipNum], 1, 1, 1)
