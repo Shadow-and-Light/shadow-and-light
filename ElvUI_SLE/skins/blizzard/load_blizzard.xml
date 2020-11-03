@@ -4,5 +4,4 @@
 	<Script file='objectiveTracker.lua'/>
 	<Script file='merchant.lua'/>
 	<Script file='merchantList.lua'/>
-	<Script file='talkinghead.lua'/>
 </Ui>
