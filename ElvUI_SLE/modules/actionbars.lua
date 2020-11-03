@@ -36,7 +36,7 @@ function A:Initialize()
 		end)
 	end
 
-	for i=1, A.MaxBars do
+	for i = 1, 10 do
 		AB:PositionAndSizeBar('bar'..i)
 	end
 end

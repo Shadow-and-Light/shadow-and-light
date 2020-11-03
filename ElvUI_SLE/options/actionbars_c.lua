@@ -47,7 +47,7 @@ local function configTable()
 							E.private.sle.actionbars[info[#info]] = {}
 							local t = E.private.sle.actionbars[info[#info]]
 							t.r, t.g, t.b, t.a = r, g, b, a
-							for i=1, A.MaxBars do
+							for i = 1, 10 do
 								AB:PositionAndSizeBar('bar'..i)
 							end
 						end,
