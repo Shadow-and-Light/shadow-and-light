@@ -91,7 +91,7 @@ function M:Initialize()
 	_G.GhostFrame.mover:SetSize(_G.GhostFrameContentsFrame:GetSize())
 
 	--Raid Utility
-	if _GRaidUtility_ShowButton then M:RaidUtility_Hook() end
+	if _G.RaidUtility_ShowButton then M:RaidUtility_Hook() end
 
 	--Viewport
 	function CinematicFrame_CancelCinematic()
