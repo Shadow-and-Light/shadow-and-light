@@ -118,7 +118,7 @@ local function configTable()
 						type = 'color',
 						order = 3,
 						name = L["Custom Color"],
-						disabled = function() return not E.db.sle.minimap.locPanel.enable or not E.db.sle.minimap.locPanel.colorType == "CUSTOM" end,
+						disabled = function() return not E.db.sle.minimap.locPanel.enable or E.db.sle.minimap.locPanel.colorType ~= "CUSTOM" end,
 						get = function(info)
 							local t = E.db.sle.minimap.locPanel[ info[#info] ]
 							local d = P.sle.minimap.locPanel[info[#info]]
@@ -167,7 +167,7 @@ local function configTable()
 						type = 'color',
 						order = 3,
 						name = L["Custom Color"],
-						disabled = function() return not E.db.sle.minimap.locPanel.enable or not E.db.sle.minimap.locPanel.colorType_Coords == "CUSTOM" end,
+						disabled = function() return not E.db.sle.minimap.locPanel.enable or E.db.sle.minimap.locPanel.colorType_Coords ~= "CUSTOM" end,
 						get = function(info)
 							local t = E.db.sle.minimap.locPanel[ info[#info] ]
 							local d = P.sle.minimap.locPanel[info[#info]]
