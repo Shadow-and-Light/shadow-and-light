@@ -1,3 +1,11 @@
+v4.12 [November 6, 2020]
+Fixes:
+- Fixed some issues with talking head frame option not keeping the mover hidden when its set to hide
+- Help reduce possible error during afk screen
+- Fixed Raid Control mover not showing up
+- Add code to reduce possible errors with s&l databar repuation settings
+- Fixed a variable being leaked to global namespace when not on purpose
+
 v4.11 [November 2, 2020]
 Fixes:
 - Fixed error when using the advanced settings in S&L that overrides some defaults of elvui
