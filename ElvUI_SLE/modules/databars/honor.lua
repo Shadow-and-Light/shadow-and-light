@@ -1,5 +1,5 @@
 local SLE, T, E, L = unpack(select(2, ...))
-local DB = SLE:GetModule("DataBars")
+local DB = SLE:GetModule('DataBars')
 local EDB = E:GetModule('DataBars')
 
 --GLOBALS: hooksecurefunc
@@ -110,6 +110,7 @@ end
 function DB:FilterHonor(event, message, ...)
 	local name, rank, honor
 	if DB.db.honor.chatfilter.enable then
+	if E.db.sle.databars.honor.chatfilter.enable then
 		for i, v in ipairs(DB.Honor.Strings) do
 			name, rank, honor, bonus = strmatch(message,DB.Honor.Strings[i])
 			if name then
@@ -118,9 +119,9 @@ function DB:FilterHonor(event, message, ...)
 					rank = PVP_RANK_0_0
 				end
 				if bonus then
-					message = format(DB.Honor.BonusStyles[DB.db.honor.chatfilter.style or 'STYLE1'], name, rank, honor, bonus, DB.Honor.Icon, DB.db.honor.chatfilter.iconsize)
+					message = format(DB.Honor.BonusStyles[E.db.sle.databars.honor.chatfilter.style or 'STYLE1'], name, rank, honor, bonus, DB.Honor.Icon, E.db.sle.databars.honor.chatfilter.iconsize)
 				else
-					message = format(DB.Honor.Styles[DB.db.honor.chatfilter.style or 'STYLE1'], name, rank, honor, DB.Honor.Icon, DB.db.honor.chatfilter.iconsize)
+					message = format(DB.Honor.Styles[E.db.sle.databars.honor.chatfilter.style or 'STYLE1'], name, rank, honor, DB.Honor.Icon, E.db.sle.databars.honor.chatfilter.iconsize)
 				end
 				return false, message, ...
 			end
@@ -128,13 +129,13 @@ function DB:FilterHonor(event, message, ...)
 	end
 	honor = strmatch(message, AwardPattern)
 	if honor then
-		message = format(DB.Honor.AwardStyles[DB.db.honor.chatfilter.awardStyle or 'STYLE1'], honor, DB.Honor.Icon, DB.db.honor.chatfilter.iconsize)
+		message = format(DB.Honor.AwardStyles[E.db.sle.databars.honor.chatfilter.awardStyle or 'STYLE1'], honor, DB.Honor.Icon, E.db.sle.databars.honor.chatfilter.iconsize)
 		return false, message, ...
 	end
 end
 
 function DB:HonorInit()
 	DB:PopulateHonorStrings()
-	hooksecurefunc(EDB, "HonorBar_Update", HonorBar_Update)
+	hooksecurefunc(EDB, 'HonorBar_Update', HonorBar_Update)
 	EDB:HonorBar_Update()
 end

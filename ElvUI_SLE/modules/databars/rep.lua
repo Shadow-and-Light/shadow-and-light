@@ -25,6 +25,7 @@ local a, b, c, d = '([%(%)%.%%%+%-%*%?%[%^%$])', '%%%1', '%%%%[ds]', '(.-)'
 local formatFactionStanding = function(str) return str:gsub(a, b):gsub(c, d) end
 local strMatchCombat = {}
 
+DB.RepChatFrames = {}
 DB.RepIncreaseStrings = {}
 DB.RepDecreaseStrings = {}
 DB.factionVars = {}
@@ -157,7 +158,6 @@ function DB:ScanFactions()
 	end
 end
 
-DB.RepChatFrames = {}
 function DB:NewRepString()
 	if not E.db.sle.databars.reputation or not E.db.sle.databars.reputation.chatfilter.enable then return end
 	local stop = false
@@ -166,7 +166,7 @@ function DB:NewRepString()
 		DB:ScanFactions()
 		DB.factions = tempfactions
 	end
-	if E.db.sle.databars.reputation.chatfilter.chatframe == "AUTO" then
+	if E.db.sle.databars.reputation.chatfilter.chatframe == 'AUTO' then
 		wipe(DB.RepChatFrames)
 		for i = 1, NUM_CHAT_WINDOWS do
 			if SLE:SimpleTable(_G['ChatFrame'..i]['messageTypeList'], 'COMBAT_FACTION_CHANGE') then
