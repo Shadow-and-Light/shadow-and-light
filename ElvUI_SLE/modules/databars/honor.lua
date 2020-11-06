@@ -107,9 +107,8 @@ function DB:PopulateHonorStrings()
 	AwardPattern = T.rgsub(COMBATLOG_HONORAWARD, unpack(symbols))
 end
 
-function DB:FilterHonor(event, message, ...)
-	local name, rank, honor
-	if DB.db.honor.chatfilter.enable then
+function DB:FilterHonor(_, message, ...)
+	local name, rank, honor, bonus
 	if E.db.sle.databars.honor.chatfilter.enable then
 		for i, v in ipairs(DB.Honor.Strings) do
 			name, rank, honor, bonus = strmatch(message,DB.Honor.Strings[i])
