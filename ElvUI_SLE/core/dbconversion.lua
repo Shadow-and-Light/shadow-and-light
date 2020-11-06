@@ -6,7 +6,6 @@ local SLE_Test = false
 local ProfileNames = NONE
 local CharacterNames = NONE
 
-
 --Convers all the things!
 function SLE:DatabaseConversions()
 	if ElvDB.SLE_DB_Ver == SLE.DBversion and not SLE_Test then return end --Only execute all this shit when current database is actually outdated.
@@ -41,14 +40,6 @@ function SLE:DatabaseConversions()
 						for hs in CurrentDefault:gmatch("%d+") do
 							if not CurrentSettings:match(hs) then CurrentSettings = CurrentSettings .. "," .. hs; profileChanged = true end
 						end
-					end
-				end
-				if data.sle.datatexts then
-					if data.sle.datatexts.rightchat then
-						if data.sle.datatexts.rightchat.noborders then data.sle.datatexts.rightchat.noborders = nil; profileChanged = true end
-					end
-					if data.sle.datatexts.leftchat then
-						if data.sle.datatexts.leftchat.noborders then data.sle.datatexts.leftchat.noborders = nil; profileChanged = true end
 					end
 				end
 				if profileChanged then
