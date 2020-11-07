@@ -8,17 +8,16 @@ Licensed under a Creative Commons "Attribution Non-Commercial Share Alike" Licen
 --[[Modded and name altered for purpose of S&L's profession module.]]
 
 local MAJOR_VERSION = "LibFishing-1.0-SLE"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 971 $"):match("%d+"))
+local MINOR_VERSION = 101074
+-- 5.0.4 has a problem with a global "_" (see some for loops below)
+local _
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub") end
 
-local FishLib, oldLib = LibStub:NewLibrary(MAJOR_VERSION, MINOR_VERSION)
+local FishLib, lastVersion = LibStub:NewLibrary(MAJOR_VERSION, MINOR_VERSION)
 if not FishLib then
 	return
 end
-
--- 5.0.4 has a problem with a global "_" (see some for loops below)
-local _
 
 FishLib.UNKNOWN = "UNKNOWN";
 FishLib.caughtSoFar = 0;
@@ -34,7 +33,8 @@ local UnitBuff = UnitBuff
 local GetItemCooldown = GetItemCooldown
 local GetProfessions, GetProfessionInfo = GetProfessions, GetProfessionInfo
 local GetItemInfo = GetItemInfo
-local HasAction, IsAttackAction, GetActionTexture = HasAction, IsAttackAction, GetActionTexture
+local GetSpellLink, GetSpellInfo = GetSpellLink, GetSpellInfo
+local GetActionTexture = GetActionTexture
 
 local LureEffects = {
 	[263] = 25,
@@ -48,13 +48,20 @@ local LureEffects = {
 
 function FishLib:GetFishingSkillInfo()
 	local _, _, _, fishing, _, _ = GetProfessions();
-	if ( fishing ) then
-		local name, _, _, _, _, _, _ = GetProfessionInfo(fishing);
-		-- LIB_PROFESSIONS_FISHING = name
-		-- is this always the same as PROFESSIONS_FISHING?
-		return true, name;
+	if not fishing then
+		return 131474, PROFESSIONS_FISHING
 	end
-	return false, PROFESSIONS_FISHING;
+	local name, _, _, _, count, offset, _ = GetProfessionInfo(fishing);
+	local id = nil;
+	for i = 1, count do
+		local _, spellId = GetSpellLink(offset + i, "spell");
+		local spellName = GetSpellInfo(spellId);
+		if (spellName == name) then
+			id = spellId;
+			break;
+		end
+	end
+	return id, name
 end
 
 -- get our current fishing skill level
@@ -484,19 +491,14 @@ function FishLib:CheckForDoubleClick(button)
 end
 
 -- Find an action bar for fishing, if there is one
-local FISHINGTEXTURE = "Interface\\Icons\\Trade_Fishing";
+local FISHINGTEXTURE = 136245;
 function FishLib:GetFishingActionBarID(force)
 	if ( force or not self.ActionBarID ) then
 		for slot=1,72 do
-			if ( HasAction(slot) and not IsAttackAction(slot) ) then
-				local t,_,_ = GetActionInfo(slot);
-				if ( t == "spell" ) then
-					local tex = GetActionTexture(slot);
-					if ( tex and tex == FISHINGTEXTURE ) then
-						self.ActionBarID = slot;
-						break;
-					end
-				end
+			local tex = GetActionTexture(slot);
+			if ( tex and tex == FISHINGTEXTURE ) then
+				self.ActionBarID = slot;
+				break;
 			end
 		end
 	end
@@ -592,11 +594,11 @@ function FishLib:InvokeFishing(useaction)
 	if ( not btn ) then
 		return;
 	end
-	local _, name = self:GetFishingSkillInfo();
+	local id, name = self:GetFishingSkillInfo();
 	local findid = self:GetFishingActionBarID();
 	if ( not useaction or not findid ) then
 		btn:SetAttribute("type", "spell");
-		btn:SetAttribute("spell", name);
+		btn:SetAttribute("spell", id);
 		btn:SetAttribute("action", nil);
 	else
 		btn:SetAttribute("type", "action");

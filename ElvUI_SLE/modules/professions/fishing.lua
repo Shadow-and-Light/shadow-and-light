@@ -97,7 +97,7 @@ end
 local function WF_OnMouseDown(...)
 	-- Only steal 'right clicks' (self is arg #1!)
 	local button = select(2, ...);
-	if ( FL:CheckForDoubleClick(button) and Pr:HijackFishingCheck() ) then
+	if FL:CheckForDoubleClick(button) and Pr:HijackFishingCheck() then
 		 -- We're stealing the mouse-up event, make sure we exit MouseLook
 		if ( IsMouselooking() ) then
 			MouselookStop();
