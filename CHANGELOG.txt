@@ -1,3 +1,10 @@
+v4.14 [November 6, 2020]
+Fixes:
+- Fixed being able to move blizzard frames were broken
+- Fixed Fishing Professions for easy cast fishing not working
+- Fixed Shift+Left Clicking Location Panel to insert coords into chat... was displaying x coords 2 times
+- Fixed where in some situations that if sharing a profile between different classes that enhanced shadows would show previous class color (if used class color)
+
 v4.13 [November 6, 2020]
 Fixes:
 - Should be real fix for talking head frame
