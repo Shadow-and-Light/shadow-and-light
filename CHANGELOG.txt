@@ -1,4 +1,4 @@
-v4.14 [November 6, 2020]
+v4.14 [November 7, 2020]
 Fixes:
 - Fixed being able to move blizzard frames were broken
 - Fixed Fishing Professions for easy cast fishing not working
