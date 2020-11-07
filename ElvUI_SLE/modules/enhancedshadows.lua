@@ -502,6 +502,7 @@ function ENH:Initialize()
 
 	ENH:HandleElvUIPanels()
 
+	SLE:UpdateMedia()
 	-- ENH:UpdateShadows()
 	function ENH:ForUpdateAll()
 		ENH:UpdateShadows()
