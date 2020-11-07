@@ -319,6 +319,17 @@ function B:SLETalkingHead()
 	end
 end
 
+function B:BlizzTest(_, addon)
+	if addon == 'Blizzard_TalkingHeadUI' then
+		hooksecurefunc('TalkingHeadFrame_PlayCurrent', function()
+			-- -- SLE:Print('TalkingHead Frame initilized PlayCurrent')
+			if E.db.sle.skins.talkinghead.hide then
+				_G.TalkingHeadFrame:Hide()
+			end
+		end)
+	end
+end
+
 function B:UpdateAll()
 	B.db = E.db.sle.blizzard
 	B:ErrorFrameSize()
@@ -339,6 +350,7 @@ function B:Initialize()
 		end
 
 		self:RegisterEvent('ADDON_LOADED', 'Addons')
+		self:RegisterEvent('ADDON_LOADED', 'BlizzTest')
 
 		-- Check Forced Loaded AddOns
 		for AddOn, Table in pairs(B.AddonsList) do
@@ -362,11 +374,6 @@ function B:Initialize()
 	SLE.UpdateFunctions["Blizzard"] = B.UpdateAll
 
 	B:SLETalkingHead()
-	hooksecurefunc('TalkingHeadFrame_PlayCurrent', function()
-		if E.db.sle.skins.talkinghead.hide then
-			_G.TalkingHeadFrame:Hide()
-		end
-	end)
 end
 
 SLE:RegisterModule(B:GetName())
