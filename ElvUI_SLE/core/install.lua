@@ -129,16 +129,17 @@ function PI:DarthSetup()
 	end
 	--Auras
 	do
-		E.db["auras"]["font"] = "PT Sans Narrow"
-		E.db["auras"]["fontOutline"] = "OUTLINE"
-
 		E.db["auras"]["buffs"]["sortDir"] = "+"
 		E.db["auras"]["buffs"]["durationFontSize"] = 14
 		E.db["auras"]["buffs"]["horizontalSpacing"] = 3
 		E.db["auras"]["buffs"]["maxWraps"] = 2
+		E.db["auras"]["buffs"]["countFont"] = "PT Sans Narrow"
+		E.db["auras"]["buffs"]["countFontOutline"] = "OUTLINE"
 		E.db["auras"]["buffs"]["countFontSize"] = 12
 		E.db["auras"]["buffs"]["size"] = 40
 
+		E.db["auras"]["debuffs"]["countFont"] = "PT Sans Narrow"
+		E.db["auras"]["debuffs"]["countFontOutline"] = "OUTLINE"
 		E.db["auras"]["debuffs"]["countFontSize"] = 12
 		E.db["auras"]["debuffs"]["horizontalSpacing"] = 3
 		E.db["auras"]["debuffs"]["durationFontSize"] = 14
