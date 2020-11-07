@@ -275,7 +275,7 @@ function LP:OnClick(btn)
 		if IsShiftKeyDown() and LP.db.linkcoords then
 			local edit_box = ChatEdit_ChooseBoxForSend()
 			local message
-			local coords = format(LP.db.format, E.MapInfo.xText or 0)..", "..format(LP.db.format, E.MapInfo.xText or 0)
+			local coords = format(LP.db.format, E.MapInfo.xText or 0)..", "..format(LP.db.format, E.MapInfo.yText or 0)
 				if zoneText ~= GetSubZoneText() then
 					message = format("%s: %s (%s)", zoneText, GetSubZoneText(), coords)
 				else
