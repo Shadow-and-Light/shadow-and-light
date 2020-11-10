@@ -353,14 +353,14 @@ function ENH:ToggleDTShadows()
 		end
 
 		if frame and frame.enhshadow then
-			local show
-			if E.db.datatexts.panels[name] and E.db.datatexts.panels[name].backdrop then
-				show = E.db.sle.shadows.datatexts.panels[name].backdrop and E.db.datatexts.panels[name].backdrop or false
+			local show = false
+			if E.db.datatexts.panels[name] and E.db.datatexts.panels[name].backdrop and E.db.sle.shadows.datatexts.panels[name].backdrop then
+				show = E.db.sle.shadows.datatexts.panels[name].backdrop and E.db.datatexts.panels[name].backdrop
 				-- print('1', name..': ', show)
 			end
 
-			if E.global.datatexts.customPanels[name] and E.global.datatexts.customPanels[name].backdrop then
-				show = E.db.sle.shadows.datatexts.panels[name].backdrop and E.global.datatexts.customPanels[name].backdrop or false
+			if E.global.datatexts.customPanels[name] and E.global.datatexts.customPanels[name].backdrop and E.db.sle.shadows.datatexts.panels[name].backdrop then
+				show = E.db.sle.shadows.datatexts.panels[name].backdrop and E.global.datatexts.customPanels[name].backdrop
 				-- print('2', name..': ', show)
 			end
 			-- if E.global.datatexts.customPanels[name] then
