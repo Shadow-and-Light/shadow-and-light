@@ -290,14 +290,6 @@ function B:MakeMovable(Name, AddOn)
 end
 
 function B:Addons(event, addon)
-	if addon == 'Blizzard_TalkingHeadUI' then
-		hooksecurefunc('TalkingHeadFrame_PlayCurrent', function()
-			-- -- SLE:Print('TalkingHead Frame initilized PlayCurrent')
-			if E.db.sle.skins.talkinghead.hide then
-				_G.TalkingHeadFrame:Hide()
-			end
-		end)
-	end
 	if not B.AddonsList[addon] then return end
 	if type(B.AddonsList[addon]) == 'table' then
 		for FrameName, state in pairs(B.AddonsList[addon]) do
@@ -343,6 +335,32 @@ function B:UpdateAll()
 	B:ErrorFrameSize()
 	B:SLETalkingHead()
 end
+
+local f = CreateFrame('Frame')
+f:RegisterEvent('PLAYER_ENTERING_WORLD')
+f:RegisterEvent('ADDON_LOADED')
+f:SetScript('OnEvent', function(self, event, addon)
+	-- SLE:Print('PEW Function Hooked')
+	if event == 'PLAYER_ENTERING_WORLD' and IsAddOnLoaded('Blizzard_TalkingHeadUI') then
+		hooksecurefunc('TalkingHeadFrame_PlayCurrent', function()
+			-- SLE:Print('TalkingHead Frame initilized PlayCurrent function from PEW hook')
+			if E.db.sle.skins.talkinghead.hide then
+				_G.TalkingHeadFrame:Hide()
+			end
+		end)
+		self:UnregisterEvent(event)
+	end
+
+	if event == 'ADDON_LOADED' and addon == 'Blizzard_TalkingHeadUI' then
+		hooksecurefunc('TalkingHeadFrame_PlayCurrent', function()
+			-- SLE:Print('TalkingHead Frame initilized PlayCurrent function from ADDONLOADED hook')
+			if E.db.sle.skins.talkinghead.hide then
+				_G.TalkingHeadFrame:Hide()
+			end
+		end)
+		self:UnregisterEvent(event)
+	end
+end)
 
 function B:Initialize()
 	B.db = E.db.sle.blizzard
