@@ -147,7 +147,7 @@ function SA:BuildScrollBar() --Creating new scroll
 	end)
 end
 
-function SA:UpdateCharacterItemLevel(frame, which, iLevelDB)
+function SA:UpdateCharacterItemLevel(frame, which)
 	if not frame or which ~= "Character" then return end
 	SA:UpdateIlvlFont()
 	if not E.db.sle.armory.stats.enable or not E.db.general.itemLevel.displayCharacterInfo then return end
