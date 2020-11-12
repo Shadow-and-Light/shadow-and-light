@@ -4,9 +4,9 @@ local SA = SLE:NewModule("Armory_Stats") --, "AceEvent-3.0", "AceConsole-3.0", "
 local M = E:GetModule("Misc")
 
 local _G = _G
-local math_min, math_max = math.min, math.max
+local math_min = math.min
 local format = format
-local UnitLevel, GetAverageItemLevel = UnitLevel, GetAverageItemLevel
+local GetAverageItemLevel = GetAverageItemLevel
 
 SA.totalShown = 0
 SA.OriginalPaperdollStats = PAPERDOLL_STATCATEGORIES
