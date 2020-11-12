@@ -700,7 +700,7 @@ function OnEnter(self)
 								--Sometimes the friend list is fubar with level 0 unknown friends
 								if not classc then classc = PRIEST_COLOR end
 
-								TooltipAddXLine(tooltip, header, info.client, sepclient, format("|cff%02x%02x%02x%d|r", levelc.r * 255, levelc.g * 255, levelc.b * 255, info.level), status, classc, info.characterName, info.accountName, info.customMessage, info.customMessageTime, format("|cff%02x%02x%02x%s|r", zonec.r * 255, zonec.g * 255, zonec.b * 255, info.zoneName), fcolor, info.realmName, info.guid, info.noteText, info.accountID, info.gameText)
+								TooltipAddXLine(tooltip, header, info.client, sepclient, format("|cff%02x%02x%02x%d|r", levelc.r * 255, levelc.g * 255, levelc.b * 255, info.level), status, classc, info.characterName, info.accountName, info.customMessage, info.customMessageTime, format("|cff%02x%02x%02x%s|r", zonec.r * 255, zonec.g * 255, zonec.b * 255, info.zoneName or UNKNOWN), fcolor, info.realmName, info.guid, info.noteText, info.accountID, info.gameText)
 							else
 								if not classc then
 									classc = {r = "0.51",g = ".77",b = "1"}
