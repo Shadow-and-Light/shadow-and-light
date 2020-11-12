@@ -245,12 +245,12 @@ function SA:PaperDollFrame_UpdateStats()
 				if ( not stat.hideAt or stat.hideAt ~= statFrame.numericValue ) then
 					if ( numStatInCat == 0 ) then
 						if ( lastAnchor ) then
-							catFrame:SetPoint("TOP", lastAnchor, "BOTTOM", 0, categoryYOffset)
+							catFrame:SetPoint('TOP', lastAnchor, 'BOTTOM', 0, categoryYOffset)
 						end
 						lastAnchor = catFrame
-						statFrame:SetPoint("TOP", catFrame, "BOTTOM", 0, 6)
+						statFrame:SetPoint('TOP', catFrame, 'BOTTOM', 0, 6)
 					else
-						statFrame:SetPoint("TOP", lastAnchor, "BOTTOM", 0, statYOffset)
+						statFrame:SetPoint('TOP', lastAnchor, 'BOTTOM', 0, statYOffset)
 					end
 					if statFrame:IsShown() then
 						SA.totalShown = SA.totalShown + 1
@@ -262,14 +262,14 @@ function SA:PaperDollFrame_UpdateStats()
 						lastAnchor = statFrame
 					end
 					-- done with this stat frame, get the next one
-					statFrame = _G["CharacterStatsPane"].statsFramePool:Acquire()
+					statFrame = _G.CharacterStatsPane.statsFramePool:Acquire()
 				end
 			end
 		end
 		catFrame:SetShown(numStatInCat > 0)
 	end
 	-- release the current stat frame
-	_G["CharacterStatsPane"].statsFramePool:Release(statFrame)
+	_G.CharacterStatsPane.statsFramePool:Release(statFrame)
 	if SA.Scrollbar then
 		if SA.totalShown > 12 then
 			SA.Scrollbar:SetMinMaxValues(1, SA.totalShown*Armory.Constants.Stats.ScrollStepMultiplier)
