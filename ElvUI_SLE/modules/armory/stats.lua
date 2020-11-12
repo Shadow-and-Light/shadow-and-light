@@ -149,7 +149,7 @@ end
 
 function SA:UpdateCharacterItemLevel()
 	SA:UpdateIlvlFont()
-	if not E.db.sle.armory.stats.enable then return end
+	if not E.db.sle.armory.stats.enable or not E.db.general.itemLevel.displayCharacterInfo then return end
 	local total, equipped = GetAverageItemLevel()
 	if E.db.sle.armory.stats.IlvlFull then
 		if E.db.sle.armory.stats.IlvlColor then
@@ -166,7 +166,7 @@ function SA:PaperDollFrame_UpdateStats()
 	SA.totalShown = 0
 	if E.db.sle.armory.stats.enable then
 		local total, equipped = GetAverageItemLevel()
-		if E.db.sle.armory.stats.IlvlFull then
+		if E.db.sle.armory.stats.IlvlFull then --and E.db.general.itemLevel.displayCharacterInfo then
 			if E.db.sle.armory.stats.IlvlColor then
 				local R, G, B = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
 				local avColor = E.db.sle.armory.stats.AverageColor
@@ -175,8 +175,9 @@ function SA:PaperDollFrame_UpdateStats()
 				_G["CharacterStatsPane"].ItemLevelFrame.Value:SetFormattedText("%.2f / %.2f", equipped, total)
 			end
 		else
+			if E.db.general.itemLevel.displayCharacterInfo then 
 			_G["CharacterStatsPane"].ItemLevelFrame.Value:SetTextColor(GetItemLevelColor())
-			PaperDollFrame_SetItemLevel(_G["CharacterStatsPane"].ItemLevelFrame, "player");
+			PaperDollFrame_SetItemLevel(_G["CharacterStatsPane"].ItemLevelFrame, "player"); end
 		end
 
 		_G["CharacterStatsPane"].ItemLevelCategory:SetPoint("TOP", _G["CharacterStatsPane"], "TOP", 0, 8)
