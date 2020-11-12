@@ -1,7 +1,7 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 if select(2, GetAddOnInfo('ElvUI_KnightFrame')) and IsAddOnLoaded('ElvUI_KnightFrame') then return end --Don't break korean code :D
 local Armory = SLE:GetModule("Armory_Core")
-local SA = SLE:NewModule("Armory_Stats") --, "AceEvent-3.0", "AceConsole-3.0", "AceHook-3.0");
+local SA = SLE:NewModule("Armory_Stats") --, "AceEvent-3.0", "AceConsole-3.0", "AceHook-3.0")
 local M = E:GetModule("Misc")
 
 local _G = _G
@@ -179,7 +179,7 @@ function SA:PaperDollFrame_UpdateStats()
 			end
 		else
 			_G["CharacterStatsPane"].ItemLevelFrame.Value:SetTextColor(GetItemLevelColor())
-			PaperDollFrame_SetItemLevel(_G["CharacterStatsPane"].ItemLevelFrame, "player");
+			PaperDollFrame_SetItemLevel(_G["CharacterStatsPane"].ItemLevelFrame, "player")
 		end
 
 		_G["CharacterStatsPane"].ItemLevelCategory:SetPoint("TOP", _G["CharacterStatsPane"], "TOP", 0, 8)
@@ -355,7 +355,7 @@ function SA:ReplaceBlizzFunctions()
 	function PaperDollFrame_SetVersatility(statFrame, unit)
 		if ( unit ~= "player" ) then
 			statFrame:Hide()
-			return;
+			return
 		end
 
 		local versatility = GetCombatRating(CR_VERSATILITY_DAMAGE_DONE)
@@ -368,137 +368,137 @@ function SA:ReplaceBlizzFunctions()
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_VERSATILITY, versatilityDamageBonus, true, versatilityDamageBonus)
 		end
 
-		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(VERSATILITY_TOOLTIP_FORMAT, STAT_VERSATILITY, versatilityDamageBonus, versatilityDamageTakenReduction) .. FONT_COLOR_CODE_CLOSE;
-		statFrame.tooltip2 = format(CR_VERSATILITY_TOOLTIP, versatilityDamageBonus, versatilityDamageTakenReduction, BreakUpLargeNumbers(versatility), versatilityDamageBonus, versatilityDamageTakenReduction);
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(VERSATILITY_TOOLTIP_FORMAT, STAT_VERSATILITY, versatilityDamageBonus, versatilityDamageTakenReduction) .. FONT_COLOR_CODE_CLOSE
+		statFrame.tooltip2 = format(CR_VERSATILITY_TOOLTIP, versatilityDamageBonus, versatilityDamageTakenReduction, BreakUpLargeNumbers(versatility), versatilityDamageBonus, versatilityDamageTakenReduction)
 
-		statFrame:Show();
+		statFrame:Show()
 	end
 
 	function PaperDollFrame_SetMastery(statFrame, unit)
 		if ( unit ~= "player" ) then
-			statFrame:Hide();
-			return;
+			statFrame:Hide()
+			return
 		end
 
-		local mastery = GetMasteryEffect();
+		local mastery = GetMasteryEffect()
 		if E.db.sle.armory.stats.decimals then
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_MASTERY, format("%.2f%%", mastery), false, mastery)
 		else
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_MASTERY, mastery, true, mastery)
 		end
-		statFrame.onEnterFunc = Mastery_OnEnter;
-		statFrame:Show();
+		statFrame.onEnterFunc = Mastery_OnEnter
+		statFrame:Show()
 	end
 
 	function PaperDollFrame_SetLifesteal(statFrame, unit)
 		if ( unit ~= "player" ) then
-			statFrame:Hide();
-			return;
+			statFrame:Hide()
+			return
 		end
 
-		local lifesteal = GetLifesteal();
+		local lifesteal = GetLifesteal()
 		if E.db.sle.armory.stats.decimals then
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_LIFESTEAL, format("%.2f%%", lifesteal), false, lifesteal)
 		else
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_LIFESTEAL, lifesteal, true, lifesteal)
 		end
-		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_LIFESTEAL) .. " " .. format("%.2f%%", lifesteal) .. FONT_COLOR_CODE_CLOSE;
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_LIFESTEAL) .. " " .. format("%.2f%%", lifesteal) .. FONT_COLOR_CODE_CLOSE
 
-		statFrame.tooltip2 = format(CR_LIFESTEAL_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(CR_LIFESTEAL)), GetCombatRatingBonus(CR_LIFESTEAL));
+		statFrame.tooltip2 = format(CR_LIFESTEAL_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(CR_LIFESTEAL)), GetCombatRatingBonus(CR_LIFESTEAL))
 
-		statFrame:Show();
+		statFrame:Show()
 	end
 
 	function PaperDollFrame_SetAvoidance(statFrame, unit)
 		if ( unit ~= "player" ) then
-			statFrame:Hide();
-			return;
+			statFrame:Hide()
+			return
 		end
 
-		local avoidance = GetAvoidance();
+		local avoidance = GetAvoidance()
 	-- PaperDollFrame_SetLabelAndText Format Change
 		if E.db.sle.armory.stats.decimals then
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_AVOIDANCE, format("%.2f%%", avoidance), false, avoidance)
 		else
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_AVOIDANCE, avoidance, true, avoidance)
 		end
-		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_AVOIDANCE) .. " " .. format("%.2f%%", avoidance) .. FONT_COLOR_CODE_CLOSE;
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_AVOIDANCE) .. " " .. format("%.2f%%", avoidance) .. FONT_COLOR_CODE_CLOSE
 
-		statFrame.tooltip2 = format(CR_AVOIDANCE_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(CR_AVOIDANCE)), GetCombatRatingBonus(CR_AVOIDANCE));
+		statFrame.tooltip2 = format(CR_AVOIDANCE_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(CR_AVOIDANCE)), GetCombatRatingBonus(CR_AVOIDANCE))
 
-		statFrame:Show();
+		statFrame:Show()
 	end
 
 	function PaperDollFrame_SetDodge(statFrame, unit)
 		if (unit ~= "player") then
-			statFrame:Hide();
-			return;
+			statFrame:Hide()
+			return
 		end
 
-		local chance = GetDodgeChance();
+		local chance = GetDodgeChance()
 	-- PaperDollFrame_SetLabelAndText Format Change
 		if E.db.sle.armory.stats.decimals then
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_DODGE, format("%.2f%%", chance), false, chance)
 		else
-			PaperDollFrame_SetLabelAndText(statFrame, STAT_DODGE, chance, true, chance);
+			PaperDollFrame_SetLabelAndText(statFrame, STAT_DODGE, chance, true, chance)
 		end
-		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, DODGE_CHANCE).." "..format("%.2f", chance).."%"..FONT_COLOR_CODE_CLOSE;
-		statFrame.tooltip2 = format(CR_DODGE_TOOLTIP, GetCombatRating(CR_DODGE), GetCombatRatingBonus(CR_DODGE));
-		statFrame:Show();
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, DODGE_CHANCE).." "..format("%.2f", chance).."%"..FONT_COLOR_CODE_CLOSE
+		statFrame.tooltip2 = format(CR_DODGE_TOOLTIP, GetCombatRating(CR_DODGE), GetCombatRatingBonus(CR_DODGE))
+		statFrame:Show()
 	end
 
 	function PaperDollFrame_SetParry(statFrame, unit)
 		if (unit ~= "player") then
-			statFrame:Hide();
-			return;
+			statFrame:Hide()
+			return
 		end
 
-		local chance = GetParryChance();
+		local chance = GetParryChance()
 	-- PaperDollFrame_SetLabelAndText Format Change
 		if E.db.sle.armory.stats.decimals then
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_PARRY, format("%.2f%%", chance), false, chance)
 		else
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_PARRY, chance, true, chance)
 		end
-		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, PARRY_CHANCE).." "..format("%.2f", chance).."%"..FONT_COLOR_CODE_CLOSE;
-		statFrame.tooltip2 = format(CR_PARRY_TOOLTIP, GetCombatRating(CR_PARRY), GetCombatRatingBonus(CR_PARRY));
-		statFrame:Show();
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, PARRY_CHANCE).." "..format("%.2f", chance).."%"..FONT_COLOR_CODE_CLOSE
+		statFrame.tooltip2 = format(CR_PARRY_TOOLTIP, GetCombatRating(CR_PARRY), GetCombatRatingBonus(CR_PARRY))
+		statFrame:Show()
 	end
 
 	function PaperDollFrame_SetCritChance(statFrame, unit)
 		if ( unit ~= "player" ) then
-			statFrame:Hide();
-			return;
+			statFrame:Hide()
+			return
 		end
 
-		local rating;
-		local spellCrit, rangedCrit, meleeCrit;
-		local critChance;
+		local rating
+		local spellCrit, rangedCrit, meleeCrit
+		local critChance
 
 		-- Start at 2 to skip physical damage
-		local holySchool = 2;
-		local minCrit = GetSpellCritChance(holySchool);
-		statFrame.spellCrit = {};
-		statFrame.spellCrit[holySchool] = minCrit;
-		local spellCrit;
+		local holySchool = 2
+		local minCrit = GetSpellCritChance(holySchool)
+		statFrame.spellCrit = {}
+		statFrame.spellCrit[holySchool] = minCrit
+
 		for i=(holySchool+1), MAX_SPELL_SCHOOLS do
-			spellCrit = GetSpellCritChance(i);
-			minCrit = math_min(minCrit, spellCrit);
-			statFrame.spellCrit[i] = spellCrit;
+			spellCrit = GetSpellCritChance(i)
+			minCrit = math_min(minCrit, spellCrit)
+			statFrame.spellCrit[i] = spellCrit
 		end
 		spellCrit = minCrit
-		rangedCrit = GetRangedCritChance();
-		meleeCrit = GetCritChance();
+		rangedCrit = GetRangedCritChance()
+		meleeCrit = GetCritChance()
 
 		if (spellCrit >= rangedCrit and spellCrit >= meleeCrit) then
-			critChance = spellCrit;
-			rating = CR_CRIT_SPELL;
+			critChance = spellCrit
+			rating = CR_CRIT_SPELL
 		elseif (rangedCrit >= meleeCrit) then
-			critChance = rangedCrit;
-			rating = CR_CRIT_RANGED;
+			critChance = rangedCrit
+			rating = CR_CRIT_RANGED
 		else
-			critChance = meleeCrit;
-			rating = CR_CRIT_MELEE;
+			critChance = meleeCrit
+			rating = CR_CRIT_MELEE
 		end
 	-- PaperDollFrame_SetLabelAndText Format Change
 		if E.db.sle.armory.stats.decimals then
@@ -508,31 +508,31 @@ function SA:ReplaceBlizzFunctions()
 		end
 
 
-		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_CRITICAL_STRIKE).." "..format("%.2f%%", critChance)..FONT_COLOR_CODE_CLOSE;
-		local extraCritChance = GetCombatRatingBonus(rating);
-		local extraCritRating = GetCombatRating(rating);
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_CRITICAL_STRIKE).." "..format("%.2f%%", critChance)..FONT_COLOR_CODE_CLOSE
+		local extraCritChance = GetCombatRatingBonus(rating)
+		local extraCritRating = GetCombatRating(rating)
 		if (GetCritChanceProvidesParryEffect()) then
-			statFrame.tooltip2 = format(CR_CRIT_PARRY_RATING_TOOLTIP, BreakUpLargeNumbers(extraCritRating), extraCritChance, GetCombatRatingBonusForCombatRatingValue(CR_PARRY, extraCritRating));
+			statFrame.tooltip2 = format(CR_CRIT_PARRY_RATING_TOOLTIP, BreakUpLargeNumbers(extraCritRating), extraCritChance, GetCombatRatingBonusForCombatRatingValue(CR_PARRY, extraCritRating))
 		else
-			statFrame.tooltip2 = format(CR_CRIT_TOOLTIP, BreakUpLargeNumbers(extraCritRating), extraCritChance);
+			statFrame.tooltip2 = format(CR_CRIT_TOOLTIP, BreakUpLargeNumbers(extraCritRating), extraCritChance)
 		end
-		statFrame:Show();
+		statFrame:Show()
 	end
 
 	function PaperDollFrame_SetHaste(statFrame, unit)
 		if ( unit ~= "player" ) then
-			statFrame:Hide();
-			return;
+			statFrame:Hide()
+			return
 		end
 
-		local haste = GetHaste();
-		local rating = CR_HASTE_MELEE;
+		local haste = GetHaste()
+		local rating = CR_HASTE_MELEE
 
-		local hasteFormatString;
+		local hasteFormatString
 		if (haste < 0) then
-			hasteFormatString = RED_FONT_COLOR_CODE.."%s"..FONT_COLOR_CODE_CLOSE;
+			hasteFormatString = RED_FONT_COLOR_CODE.."%s"..FONT_COLOR_CODE_CLOSE
 		else
-			hasteFormatString = "%s";
+			hasteFormatString = "%s"
 		end
 	-- PaperDollFrame_SetLabelAndText Format Change
 		if E.db.sle.armory.stats.decimals then
@@ -540,16 +540,16 @@ function SA:ReplaceBlizzFunctions()
 		else
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_HASTE, format(hasteFormatString, format("%d%%", haste + 0.5)), false, haste)
 		end
-		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_HASTE) .. " " .. format(hasteFormatString, format("%.2f%%", haste)) .. FONT_COLOR_CODE_CLOSE;
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_HASTE) .. " " .. format(hasteFormatString, format("%.2f%%", haste)) .. FONT_COLOR_CODE_CLOSE
 
-		local _, class = UnitClass(unit);
-		statFrame.tooltip2 = _G["STAT_HASTE_"..class.."_TOOLTIP"];
+		local _, class = UnitClass(unit)
+		statFrame.tooltip2 = _G["STAT_HASTE_"..class.."_TOOLTIP"]
 		if (not statFrame.tooltip2) then
-			statFrame.tooltip2 = STAT_HASTE_TOOLTIP;
+			statFrame.tooltip2 = STAT_HASTE_TOOLTIP
 		end
-		statFrame.tooltip2 = statFrame.tooltip2 .. format(STAT_HASTE_BASE_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(rating)), GetCombatRatingBonus(rating));
+		statFrame.tooltip2 = statFrame.tooltip2 .. format(STAT_HASTE_BASE_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(rating)), GetCombatRatingBonus(rating))
 
-		statFrame:Show();
+		statFrame:Show()
 	end
 
 end
