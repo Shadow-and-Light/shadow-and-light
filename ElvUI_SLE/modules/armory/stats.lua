@@ -153,9 +153,9 @@ function SA:UpdateCharacterItemLevel()
 	local total, equipped = GetAverageItemLevel()
 	if E.db.sle.armory.stats.IlvlFull then
 		if E.db.sle.armory.stats.IlvlColor then
-			local R, G, B = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+			local r, g, b = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
 			local avColor = E.db.sle.armory.stats.AverageColor
-			_G["CharacterFrame"].ItemLevelText:SetFormattedText("%s%.2f|r |cffffffff/|r %s%.2f|r", E:RGBToHex(R, G, B), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
+			_G["CharacterFrame"].ItemLevelText:SetFormattedText("%s%.2f|r |cffffffff/|r %s%.2f|r", E:RGBToHex(r, g, b), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
 		else
 			_G["CharacterFrame"].ItemLevelText:SetFormattedText("%.2f / %.2f", equipped, total)
 		end
@@ -166,11 +166,11 @@ function SA:PaperDollFrame_UpdateStats()
 	SA.totalShown = 0
 	if E.db.sle.armory.stats.enable then
 		local total, equipped = GetAverageItemLevel()
-		if E.db.sle.armory.stats.IlvlFull then 
+		if E.db.sle.armory.stats.IlvlFull then
 			if E.db.sle.armory.stats.IlvlColor then
-				local R, G, B = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+				local r, g, b = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
 				local avColor = E.db.sle.armory.stats.AverageColor
-				_G["CharacterStatsPane"].ItemLevelFrame.Value:SetFormattedText("%s%.2f|r |cffffffff/|r %s%.2f|r", E:RGBToHex(R, G, B), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
+				_G["CharacterStatsPane"].ItemLevelFrame.Value:SetFormattedText("%s%.2f|r |cffffffff/|r %s%.2f|r", E:RGBToHex(r, g, b), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
 			else
 				_G["CharacterStatsPane"].ItemLevelFrame.Value:SetFormattedText("%.2f / %.2f", equipped, total)
 			end
@@ -182,93 +182,93 @@ function SA:PaperDollFrame_UpdateStats()
 		_G["CharacterStatsPane"].ItemLevelCategory:SetPoint("TOP", _G["CharacterStatsPane"], "TOP", 0, 8)
 		_G["CharacterStatsPane"].AttributesCategory:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelFrame, "BOTTOM", 0, 6)
 
-		local categoryYOffset = 8;
-		local statYOffset = 0;
+		local categoryYOffset = 8
+		local statYOffset = 0
 
 	end
-	_G["CharacterStatsPane"].ItemLevelCategory:Show();
+	_G["CharacterStatsPane"].ItemLevelCategory:Show()
 	_G["CharacterStatsPane"].ItemLevelCategory.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.font or E.db.general.itemLevel.itemLevelFont), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.size or (E.db.general.itemLevel.itemLevelFontSize or 12), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.outline or NONE)
-	_G["CharacterStatsPane"].ItemLevelFrame:Show();
+	_G["CharacterStatsPane"].ItemLevelFrame:Show()
 
-	local spec = GetSpecialization();
-	local role = GetSpecializationRole(spec);
+	local spec = GetSpecialization()
+	local role = GetSpecializationRole(spec)
 	local _, powerType = UnitPowerType("player")
 	-- print(GetSpecializationInfo(spec))
 
-	_G["CharacterStatsPane"].statsFramePool:ReleaseAll();
+	_G["CharacterStatsPane"].statsFramePool:ReleaseAll()
 	-- we need a stat frame to first do the math to know if we need to show the stat frame
 	-- so effectively we'll always pre-allocate
-	local statFrame = _G["CharacterStatsPane"].statsFramePool:Acquire();
+	local statFrame = _G["CharacterStatsPane"].statsFramePool:Acquire()
 
-	local lastAnchor;
+	local lastAnchor
 	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
-		local catFrame = _G["CharacterStatsPane"][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame];
+		local catFrame = _G["CharacterStatsPane"][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame]
 		catFrame.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.font or E.db.general.itemLevel.itemLevelFont), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.size or (E.db.general.itemLevel.itemLevelFontSize or 12), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.outline or NONE)
-		local numStatInCat = 0;
+		local numStatInCat = 0
 
 		for statIndex = 1, #PAPERDOLL_STATCATEGORIES[catIndex].stats do
-			local stat = PAPERDOLL_STATCATEGORIES[catIndex].stats[statIndex];
-			local showStat = true;
+			local stat = PAPERDOLL_STATCATEGORIES[catIndex].stats[statIndex]
+			local showStat = true
 			if E.db.sle.armory.stats.enable and stat.option and not E.db.sle.armory.stats.List[stat.stat] then showStat = false end
 			if ( showStat and stat.primary ) then
-				local primaryStat = select(6, GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")));
+				local primaryStat = select(6, GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
 				if ( stat.primary ~= primaryStat ) and E.db.sle.armory.stats.OnlyPrimary then
-					showStat = false;
+					showStat = false
 				end
 			end
 			if ( showStat and stat.roles ) then
-				local foundRole = false;
+				local foundRole = false
 				for _, statRole in pairs(stat.roles) do
 					if ( role == statRole ) then
-						foundRole = true;
-						break;
+						foundRole = true
+						break
 					end
 				end
 				if foundRole and stat.classes then
 					for _, statClass in pairs(stat.classes) do
 						if ( E.myclass == statClass ) then
-							showStat = true;
-							break;
+							showStat = true
+							break
 						end
 					end
 				else
-					showStat = foundRole;
+					showStat = foundRole
 				end
 			end
 			if showStat and stat.power and stat.power ~= powerType then showStat = false end
 			if ( showStat ) then
-				statFrame.onEnterFunc = nil;
-				PAPERDOLL_STATINFO[stat.stat].updateFunc(statFrame, "player");
+				statFrame.onEnterFunc = nil
+				PAPERDOLL_STATINFO[stat.stat].updateFunc(statFrame, "player")
 				statFrame.Label:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.enable and  E.db.sle.armory.stats.statFonts.font or E.db.sle.armory.stats.statFonts.font), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statFonts.size or (E.db.general.itemLevel.itemLevelFontSize or 12), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statFonts.outline or NONE)
 				statFrame.Value:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.enable and  E.db.sle.armory.stats.statFonts.font or E.db.sle.armory.stats.statFonts.font), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statFonts.size or (E.db.general.itemLevel.itemLevelFontSize or 12), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statFonts.outline or NONE)
 				if ( not stat.hideAt or stat.hideAt ~= statFrame.numericValue ) then
 					if ( numStatInCat == 0 ) then
 						if ( lastAnchor ) then
-							catFrame:SetPoint("TOP", lastAnchor, "BOTTOM", 0, categoryYOffset);
+							catFrame:SetPoint("TOP", lastAnchor, "BOTTOM", 0, categoryYOffset)
 						end
-						lastAnchor = catFrame;
-						statFrame:SetPoint("TOP", catFrame, "BOTTOM", 0, 6);
+						lastAnchor = catFrame
+						statFrame:SetPoint("TOP", catFrame, "BOTTOM", 0, 6)
 					else
-						statFrame:SetPoint("TOP", lastAnchor, "BOTTOM", 0, statYOffset);
+						statFrame:SetPoint("TOP", lastAnchor, "BOTTOM", 0, statYOffset)
 					end
 					if statFrame:IsShown() then
 						SA.totalShown = SA.totalShown + 1
-						numStatInCat = numStatInCat + 1;
-						-- statFrame.Background:SetShown((numStatInCat % 2) == 0);
+						numStatInCat = numStatInCat + 1
+						-- statFrame.Background:SetShown((numStatInCat % 2) == 0)
 						statFrame.Background:SetShown(false)
 						if statFrame.leftGrad then statFrame.leftGrad:Hide() end
 						if statFrame.rightGrad then statFrame.rightGrad:Hide() end
-						lastAnchor = statFrame;
+						lastAnchor = statFrame
 					end
 					-- done with this stat frame, get the next one
-					statFrame = _G["CharacterStatsPane"].statsFramePool:Acquire();
+					statFrame = _G["CharacterStatsPane"].statsFramePool:Acquire()
 				end
 			end
 		end
 		catFrame:SetShown(numStatInCat > 0)
 	end
 	-- release the current stat frame
-	_G["CharacterStatsPane"].statsFramePool:Release(statFrame);
+	_G["CharacterStatsPane"].statsFramePool:Release(statFrame)
 	if SA.Scrollbar then
 		if SA.totalShown > 12 then
 			SA.Scrollbar:SetMinMaxValues(1, SA.totalShown*Armory.Constants.Stats.ScrollStepMultiplier)
@@ -328,36 +328,36 @@ end
 function SA:ReplaceBlizzFunctions()
 
 	function PaperDollFrame_SetAttackSpeed(statFrame, unit)
-		local meleeHaste = GetMeleeHaste();
-		local speed, offhandSpeed = UnitAttackSpeed(unit);
+		local meleeHaste = GetMeleeHaste()
+		local speed, offhandSpeed = UnitAttackSpeed(unit)
 		local displaySpeedxt
 
-		local displaySpeed =  format("%.2f", speed);
+		local displaySpeed =  format("%.2f", speed)
 		if ( offhandSpeed ) then
-			offhandSpeed = format("%.2f", offhandSpeed);
+			offhandSpeed = format("%.2f", offhandSpeed)
 		end
 		if ( offhandSpeed ) then
-			displaySpeedxt =  BreakUpLargeNumbers(displaySpeed).." / ".. offhandSpeed;
+			displaySpeedxt =  BreakUpLargeNumbers(displaySpeed).." / ".. offhandSpeed
 		else
-			displaySpeedxt =  BreakUpLargeNumbers(displaySpeed);
+			displaySpeedxt =  BreakUpLargeNumbers(displaySpeed)
 		end
-		PaperDollFrame_SetLabelAndText(statFrame, WEAPON_SPEED, displaySpeed, false, speed);
+		PaperDollFrame_SetLabelAndText(statFrame, WEAPON_SPEED, displaySpeed, false, speed)
 
-		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, ATTACK_SPEED).." "..displaySpeed..FONT_COLOR_CODE_CLOSE;
-		statFrame.tooltip2 = format(STAT_ATTACK_SPEED_BASE_TOOLTIP, BreakUpLargeNumbers(meleeHaste));
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, ATTACK_SPEED).." "..displaySpeed..FONT_COLOR_CODE_CLOSE
+		statFrame.tooltip2 = format(STAT_ATTACK_SPEED_BASE_TOOLTIP, BreakUpLargeNumbers(meleeHaste))
 
-		statFrame:Show();
+		statFrame:Show()
 	end
 
 	function PaperDollFrame_SetVersatility(statFrame, unit)
 		if ( unit ~= "player" ) then
-			statFrame:Hide();
+			statFrame:Hide()
 			return;
 		end
 
-		local versatility = GetCombatRating(CR_VERSATILITY_DAMAGE_DONE);
-		local versatilityDamageBonus = GetCombatRatingBonus(CR_VERSATILITY_DAMAGE_DONE) + GetVersatilityBonus(CR_VERSATILITY_DAMAGE_DONE);
-		local versatilityDamageTakenReduction = GetCombatRatingBonus(CR_VERSATILITY_DAMAGE_TAKEN) + GetVersatilityBonus(CR_VERSATILITY_DAMAGE_TAKEN);
+		local versatility = GetCombatRating(CR_VERSATILITY_DAMAGE_DONE)
+		local versatilityDamageBonus = GetCombatRatingBonus(CR_VERSATILITY_DAMAGE_DONE) + GetVersatilityBonus(CR_VERSATILITY_DAMAGE_DONE)
+		local versatilityDamageTakenReduction = GetCombatRatingBonus(CR_VERSATILITY_DAMAGE_TAKEN) + GetVersatilityBonus(CR_VERSATILITY_DAMAGE_TAKEN)
 
 		if E.db.sle.armory.stats.decimals then --Alters format
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_VERSATILITY, format("%.2f%%", versatilityDamageBonus) .. " / " .. format("%.2f%%", versatilityDamageTakenReduction), false, versatilityDamageBonus)
