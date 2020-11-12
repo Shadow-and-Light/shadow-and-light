@@ -1,7 +1,7 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local Armory = SLE:GetModule("Armory_Core")
-local SA = SLE:NewModule("Armory_Stats") --, "AceEvent-3.0", "AceConsole-3.0", "AceHook-3.0")
-local M = E:GetModule("Misc")
+local SLE, _, E = unpack(select(2, ...))
+local Armory = SLE:GetModule('Armory_Core')
+local SA = SLE:NewModule('Armory_Stats') --, 'AceEvent-3.0', 'AceConsole-3.0', 'AceHook-3.0')
+local M = E:GetModule('Misc')
 
 local _G = _G
 local math_min = math.min
