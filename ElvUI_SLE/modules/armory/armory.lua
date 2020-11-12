@@ -452,13 +452,14 @@ function Armory:Initialize()
 		SLE:GetModule('Armory_Inspect'):ToggleArmory();
 		M:UpdatePageInfo(_G.InspectFrame, "Inspect") --Putting this under the elv's option check just breaks the shit out of the frame
 		if not E.db.general.itemLevel.displayInspectInfo then M:ClearPageInfo(_G.InspectFrame, "Inspect") end --Clear the infos if those are actually not supposed to be shown.
-
-		if not E.db.general.itemLevel.displayCharacterInfo then
-			-- print("Display Character Info: ", E.db.general.itemLevel.displayCharacterInfo)
-			M:ClearPageInfo(_G.CharacterFrame, 'Character')
-			-- SLE:Print("Charcter Page Cleared")
-		end
 	end
+
+	_G.CharacterFrame:HookScript('OnShow', function()
+		if not E.db.general.itemLevel.displayCharacterInfo then
+			M:ClearPageInfo(_G.CharacterFrame, 'Character')
+			-- SLE:Print("Charcter Page Hook Done")
+		end
+	end)
 
 	--Move Pawn buttons. Cause Pawn buttons happen to be overlapped by some shit
 	if SLE._Compatibility["Pawn"] then
