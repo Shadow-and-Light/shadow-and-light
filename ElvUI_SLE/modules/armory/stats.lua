@@ -165,6 +165,8 @@ end
 
 function SA:PaperDollFrame_UpdateStats()
 	SA.totalShown = 0
+	local categoryYOffset
+	local statYOffset
 	if E.db.sle.armory.stats.enable then
 		local total, equipped = GetAverageItemLevel()
 		if E.db.sle.armory.stats.IlvlFull then
@@ -183,8 +185,8 @@ function SA:PaperDollFrame_UpdateStats()
 		_G["CharacterStatsPane"].ItemLevelCategory:SetPoint("TOP", _G["CharacterStatsPane"], "TOP", 0, 8)
 		_G["CharacterStatsPane"].AttributesCategory:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelFrame, "BOTTOM", 0, 6)
 
-		local categoryYOffset = 8
-		local statYOffset = 0
+		categoryYOffset = 8
+		statYOffset = 0
 
 	end
 	_G["CharacterStatsPane"].ItemLevelCategory:Show()
