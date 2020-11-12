@@ -12,110 +12,110 @@ SA.totalShown = 0
 SA.OriginalPaperdollStats = PAPERDOLL_STATCATEGORIES
 
 function SA:BuildNewStats()
-	SA:CreateStatCategory("OffenseCategory", STAT_CATEGORY_ATTACK)
-	SA:CreateStatCategory("DefenceCategory", DEFENSE)
+	SA:CreateStatCategory('OffenseCategory', STAT_CATEGORY_ATTACK)
+	SA:CreateStatCategory('DefenceCategory', DEFENSE)
 
 	SA.AlteredPaperdollStats = {
 		[1] = {
-			categoryFrame = "AttributesCategory",
+			categoryFrame = 'AttributesCategory',
 			stats = {
-				[1] = { stat = "STRENGTH", primary = LE_UNIT_STAT_STRENGTH },
-				[2] = { stat = "AGILITY", primary = LE_UNIT_STAT_AGILITY },
-				[3] = { stat = "INTELLECT", primary = LE_UNIT_STAT_INTELLECT },
-				[4] = { stat = "STAMINA" },
-				[5] = { stat = "HEALTH", option = true },
-				[6] = { stat = "POWER", option = true },
-				[7] = { stat = "ALTERNATEMANA", option = true, classes = {"PRIEST", "SHAMAN", "DRUID"} },
-				[8] = { stat = "MOVESPEED", option = true },
+				[1] = { stat = 'STRENGTH', primary = LE_UNIT_STAT_STRENGTH },
+				[2] = { stat = 'AGILITY', primary = LE_UNIT_STAT_AGILITY },
+				[3] = { stat = 'INTELLECT', primary = LE_UNIT_STAT_INTELLECT },
+				[4] = { stat = 'STAMINA' },
+				[5] = { stat = 'HEALTH', option = true },
+				[6] = { stat = 'POWER', option = true },
+				[7] = { stat = 'ALTERNATEMANA', option = true, classes = {'PRIEST', 'SHAMAN', 'DRUID'} },
+				[8] = { stat = 'MOVESPEED', option = true },
 			},
 		},
 		[2] = {
-			categoryFrame = "OffenseCategory",
+			categoryFrame = 'OffenseCategory',
 			stats = {
-				[1] = { stat = "ATTACK_DAMAGE", option = true, hideAt = 0 },
-				[2] = { stat = "ATTACK_AP", option = true, hideAt = 0 },
-				[3] = { stat = "ATTACK_ATTACKSPEED", option = true, hideAt = 0 },
-				[4] = { stat = "SPELLPOWER", option = true, hideAt = 0 },
-				[5] = { stat = "MANAREGEN", option = true, power = "MANA" },
-				[6] = { stat = "ENERGY_REGEN", option = true, power = "ENERGY", hideAt = 0, roles = {"TANK", "DAMAGER"},  classes = {"ROUGE", "DRUID", "MONK"} },
-				[7] = { stat = "FOCUS_REGEN", option = true, power = "FOCUS", hideAt = 0, classes = {"HUNTER"} },
-				[8] = { stat = "RUNE_REGEN", option = true, power = "RUNIC_POWER", hideAt = 0, classes = {"DEATHKNIGHT"} },
+				[1] = { stat = 'ATTACK_DAMAGE', option = true, hideAt = 0 },
+				[2] = { stat = 'ATTACK_AP', option = true, hideAt = 0 },
+				[3] = { stat = 'ATTACK_ATTACKSPEED', option = true, hideAt = 0 },
+				[4] = { stat = 'SPELLPOWER', option = true, hideAt = 0 },
+				[5] = { stat = 'MANAREGEN', option = true, power = 'MANA' },
+				[6] = { stat = 'ENERGY_REGEN', option = true, power = 'ENERGY', hideAt = 0, roles = {'TANK', 'DAMAGER'},  classes = {'ROUGE', 'DRUID', 'MONK'} },
+				[7] = { stat = 'FOCUS_REGEN', option = true, power = 'FOCUS', hideAt = 0, classes = {'HUNTER'} },
+				[8] = { stat = 'RUNE_REGEN', option = true, power = 'RUNIC_POWER', hideAt = 0, classes = {'DEATHKNIGHT'} },
 			},
 		},
 		[3] = {
-			categoryFrame = "EnhancementsCategory",
+			categoryFrame = 'EnhancementsCategory',
 			stats = {
-				[1] = { stat = "CRITCHANCE", option = true, hideAt = 0 },
-				[2] = { stat = "HASTE", option = true, hideAt = 0 },
-				[3] = { stat = "MASTERY", option = true, hideAt = 0 },
-				[4] = { stat = "VERSATILITY", option = true, hideAt = 0 },
-				[5] = { stat = "LIFESTEAL", option = true, hideAt = 0 },
+				[1] = { stat = 'CRITCHANCE', option = true, hideAt = 0 },
+				[2] = { stat = 'HASTE', option = true, hideAt = 0 },
+				[3] = { stat = 'MASTERY', option = true, hideAt = 0 },
+				[4] = { stat = 'VERSATILITY', option = true, hideAt = 0 },
+				[5] = { stat = 'LIFESTEAL', option = true, hideAt = 0 },
 			},
 		},
 		[4] = {
-			categoryFrame = "DefenceCategory",
+			categoryFrame = 'DefenceCategory',
 			stats = {
-				[1] = { stat = "ARMOR", option = true, },
-				[2] = { stat = "AVOIDANCE", option = true, hideAt = 0 },
-				[3] = { stat = "DODGE", option = true,},
-				[4] = { stat = "PARRY", option = true, hideAt = 0, },
-				[5] = { stat = "BLOCK", option = true, hideAt = 0, },
-				[6] = { stat = "STAGGER", hideAt = 0, roles = {"TANK"}, classes = {"MONK"} },
+				[1] = { stat = 'ARMOR', option = true, },
+				[2] = { stat = 'AVOIDANCE', option = true, hideAt = 0 },
+				[3] = { stat = 'DODGE', option = true,},
+				[4] = { stat = 'PARRY', option = true, hideAt = 0, },
+				[5] = { stat = 'BLOCK', option = true, hideAt = 0, },
+				[6] = { stat = 'STAGGER', hideAt = 0, roles = {'TANK'}, classes = {'MONK'} },
 			},
 		},
 	}
 end
 
 function SA:CreateStatCategory(catName, text, noop)
-	if not _G["CharacterStatsPane"][catName] then
-		_G["CharacterStatsPane"][catName] = CreateFrame("Frame", nil, _G["CharacterStatsPane"], "CharacterStatFrameCategoryTemplate")
-		_G["CharacterStatsPane"][catName].Title:SetText(text)
-		_G["CharacterStatsPane"][catName]:StripTextures()
-		_G["CharacterStatsPane"][catName]:CreateBackdrop("Transparent")
-		_G["CharacterStatsPane"][catName].backdrop:ClearAllPoints()
-		_G["CharacterStatsPane"][catName].backdrop:SetPoint("CENTER")
-		_G["CharacterStatsPane"][catName].backdrop:SetWidth(150)
-		_G["CharacterStatsPane"][catName].backdrop:SetHeight(18)
+	if not _G['CharacterStatsPane'][catName] then
+		_G['CharacterStatsPane'][catName] = CreateFrame('Frame', nil, _G.CharacterStatsPane, 'CharacterStatFrameCategoryTemplate')
+		_G['CharacterStatsPane'][catName].Title:SetText(text)
+		_G['CharacterStatsPane'][catName]:StripTextures()
+		_G['CharacterStatsPane'][catName]:CreateBackdrop('Transparent')
+		_G['CharacterStatsPane'][catName].backdrop:ClearAllPoints()
+		_G['CharacterStatsPane'][catName].backdrop:SetPoint('CENTER')
+		_G['CharacterStatsPane'][catName].backdrop:SetWidth(150)
+		_G['CharacterStatsPane'][catName].backdrop:SetHeight(18)
 	end
 	return catName
 end
 
 function SA:BuildScrollBar() --Creating new scroll
 	--Scrollframe Parent Frame
-	SA.ScrollframeParentFrame = CreateFrame("Frame", nil, _G["CharacterFrameInsetRight"])
+	SA.ScrollframeParentFrame = CreateFrame('Frame', nil, _G.CharacterFrameInsetRight)
 	SA.ScrollframeParentFrame:SetSize(198, 352)
-	SA.ScrollframeParentFrame:SetPoint("TOP",  _G["CharacterFrameInsetRight"], "TOP", 0, -4)
+	SA.ScrollframeParentFrame:SetPoint('TOP',  _G.CharacterFrameInsetRight, 'TOP', 0, -4)
 
 	--Scrollframe
-	SA.ScrollFrame = CreateFrame("ScrollFrame", "SLE_Armory_Scroll", SA.ScrollframeParentFrame)
-	SA.ScrollFrame:SetPoint("TOP")
+	SA.ScrollFrame = CreateFrame('ScrollFrame', 'SLE_Armory_Scroll', SA.ScrollframeParentFrame)
+	SA.ScrollFrame:SetPoint('TOP')
 	SA.ScrollFrame:SetSize(SA.ScrollframeParentFrame:GetSize())
 
 	--Scrollbar
-	SA.Scrollbar = CreateFrame("Slider", nil, SA.ScrollFrame, "UIPanelScrollBarTemplate")
-	SA.Scrollbar:SetPoint("TOPLEFT",  _G["CharacterFrameInsetRight"], "TOPRIGHT", -12, -20)
-	SA.Scrollbar:SetPoint("BOTTOMLEFT",  _G["CharacterFrameInsetRight"], "BOTTOMRIGHT", -12, 18)
+	SA.Scrollbar = CreateFrame('Slider', nil, SA.ScrollFrame, 'UIPanelScrollBarTemplate')
+	SA.Scrollbar:SetPoint('TOPLEFT',  _G.CharacterFrameInsetRight, 'TOPRIGHT', -12, -20)
+	SA.Scrollbar:SetPoint('BOTTOMLEFT',  _G.CharacterFrameInsetRight, 'BOTTOMRIGHT', -12, 18)
 	SA.Scrollbar:SetMinMaxValues(1, 2)
 	SA.Scrollbar:SetValueStep(1)
 	SA.Scrollbar.scrollStep = 1
 	SA.Scrollbar:SetValue(0)
 	SA.Scrollbar:SetWidth(8)
-	SA.Scrollbar:SetScript("OnValueChanged", function (self, value)
+	SA.Scrollbar:SetScript('OnValueChanged', function (self, value)
 		local offset = value > 1 and self:GetParent():GetVerticalScrollRange()/(SA.totalShown*Armory.Constants.Stats.ScrollStepMultiplier) or 1
 		self:GetParent():SetVerticalScroll(value*offset)
 	end)
-	E:GetModule("Skins"):HandleScrollBar(SA.Scrollbar)
+	E:GetModule('Skins'):HandleScrollBar(SA.Scrollbar)
 	SA.Scrollbar:Hide()
 
 	--SA.ScrollChild Frame
-	SA.ScrollChild = CreateFrame("Frame", nil, SA.ScrollFrame)
+	SA.ScrollChild = CreateFrame('Frame', nil, SA.ScrollFrame)
 	SA.ScrollChild:SetSize(SA.ScrollFrame:GetSize())
 	SA.ScrollFrame:SetScrollChild(SA.ScrollChild)
 
 	CharacterStatsPane:ClearAllPoints()
 	CharacterStatsPane:SetParent(SA.ScrollChild)
 	CharacterStatsPane:SetSize(SA.ScrollChild:GetSize())
-	CharacterStatsPane:SetPoint("TOP", SA.ScrollChild, "TOP", 0, 0)
+	CharacterStatsPane:SetPoint('TOP', SA.ScrollChild, 'TOP', 0, 0)
 
 	CharacterStatsPane.ClassBackground:ClearAllPoints()
 	CharacterStatsPane.ClassBackground:SetParent( _G["CharacterFrameInsetRight"])
@@ -123,31 +123,31 @@ function SA:BuildScrollBar() --Creating new scroll
 
 	-- Enable mousewheel scrolling
 	SA.ScrollFrame:EnableMouseWheel(true)
-	SA.ScrollFrame:SetScript("OnMouseWheel", function(self, delta)
+	SA.ScrollFrame:SetScript('OnMouseWheel', function(self, delta)
 		local cur_val = SA.Scrollbar:GetValue()
 
 		SA.Scrollbar:SetValue(cur_val - delta*SA.totalShown) --This controls the speed of the scroll
 	end)
 
-	PaperDollSidebarTab1:HookScript("OnShow", function(self,event)
+	PaperDollSidebarTab1:HookScript('OnShow', function(self,event)
 		SA.ScrollframeParentFrame:Show()
 	end)
 
-	PaperDollSidebarTab1:HookScript("OnClick", function(self,event)
+	PaperDollSidebarTab1:HookScript('OnClick', function(self,event)
 		SA.ScrollframeParentFrame:Show()
 	end)
 
-	PaperDollSidebarTab2:HookScript("OnClick", function(self,event)
+	PaperDollSidebarTab2:HookScript('OnClick', function(self,event)
 		SA.ScrollframeParentFrame:Hide()
 	end)
 
-	PaperDollSidebarTab3:HookScript("OnClick", function(self,event)
+	PaperDollSidebarTab3:HookScript('OnClick', function(self,event)
 		SA.ScrollframeParentFrame:Hide()
 	end)
 end
 
 function SA:UpdateCharacterItemLevel(frame, which)
-	if not frame or which ~= "Character" then return end
+	if not frame or which ~= 'Character' then return end
 	SA:UpdateIlvlFont()
 	if not E.db.sle.armory.stats.enable or not E.db.general.itemLevel.displayCharacterInfo then return end
 	local total, equipped = GetAverageItemLevel()
@@ -155,9 +155,9 @@ function SA:UpdateCharacterItemLevel(frame, which)
 		if E.db.sle.armory.stats.IlvlColor then
 			local r, g, b = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
 			local avColor = E.db.sle.armory.stats.AverageColor
-			frame.ItemLevelText:SetFormattedText("%s%.2f|r |cffffffff/|r %s%.2f|r", E:RGBToHex(r, g, b), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
+			frame.ItemLevelText:SetFormattedText('%s%.2f|r |cffffffff/|r %s%.2f|r', E:RGBToHex(r, g, b), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
 		else
-			frame.ItemLevelText:SetFormattedText("%.2f / %.2f", equipped, total)
+			frame.ItemLevelText:SetFormattedText('%.2f / %.2f', equipped, total)
 		end
 	end
 end
@@ -172,39 +172,39 @@ function SA:PaperDollFrame_UpdateStats()
 			if E.db.sle.armory.stats.IlvlColor then
 				local r, g, b = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
 				local avColor = E.db.sle.armory.stats.AverageColor
-				_G["CharacterStatsPane"].ItemLevelFrame.Value:SetFormattedText("%s%.2f|r |cffffffff/|r %s%.2f|r", E:RGBToHex(r, g, b), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
+				_G.CharacterStatsPane.ItemLevelFrame.Value:SetFormattedText('%s%.2f|r |cffffffff/|r %s%.2f|r', E:RGBToHex(r, g, b), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
 			else
-				_G["CharacterStatsPane"].ItemLevelFrame.Value:SetFormattedText("%.2f / %.2f", equipped, total)
+				_G.CharacterStatsPane.ItemLevelFrame.Value:SetFormattedText('%.2f / %.2f', equipped, total)
 			end
 		else
-			_G["CharacterStatsPane"].ItemLevelFrame.Value:SetTextColor(GetItemLevelColor())
-			PaperDollFrame_SetItemLevel(_G["CharacterStatsPane"].ItemLevelFrame, "player")
+			_G.CharacterStatsPane.ItemLevelFrame.Value:SetTextColor(GetItemLevelColor())
+			PaperDollFrame_SetItemLevel(_G.CharacterStatsPane.ItemLevelFrame, 'player')
 		end
 
-		_G["CharacterStatsPane"].ItemLevelCategory:SetPoint("TOP", _G["CharacterStatsPane"], "TOP", 0, 8)
-		_G["CharacterStatsPane"].AttributesCategory:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelFrame, "BOTTOM", 0, 6)
+		_G.CharacterStatsPane.ItemLevelCategory:SetPoint('TOP', _G.CharacterStatsPane, 'TOP', 0, 8)
+		_G.CharacterStatsPane.AttributesCategory:SetPoint('TOP', _G.CharacterStatsPane.ItemLevelFrame, 'BOTTOM', 0, 6)
 
 		categoryYOffset = 8
 		statYOffset = 0
 
 	end
-	_G["CharacterStatsPane"].ItemLevelCategory:Show()
-	_G["CharacterStatsPane"].ItemLevelCategory.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.font or E.db.general.itemLevel.itemLevelFont), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.size or (E.db.general.itemLevel.itemLevelFontSize or 12), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.outline or NONE)
-	_G["CharacterStatsPane"].ItemLevelFrame:Show()
+	_G.CharacterStatsPane.ItemLevelCategory:Show()
+	_G.CharacterStatsPane.ItemLevelCategory.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.font or E.db.general.itemLevel.itemLevelFont), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.size or (E.db.general.itemLevel.itemLevelFontSize or 12), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.outline or NONE)
+	_G.CharacterStatsPane.ItemLevelFrame:Show()
 
 	local spec = GetSpecialization()
 	local role = GetSpecializationRole(spec)
-	local _, powerType = UnitPowerType("player")
+	local _, powerType = UnitPowerType('player')
 	-- print(GetSpecializationInfo(spec))
 
-	_G["CharacterStatsPane"].statsFramePool:ReleaseAll()
+	_G.CharacterStatsPane.statsFramePool:ReleaseAll()
 	-- we need a stat frame to first do the math to know if we need to show the stat frame
 	-- so effectively we'll always pre-allocate
-	local statFrame = _G["CharacterStatsPane"].statsFramePool:Acquire()
+	local statFrame = _G.CharacterStatsPane.statsFramePool:Acquire()
 
 	local lastAnchor
 	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
-		local catFrame = _G["CharacterStatsPane"][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame]
+		local catFrame = _G['CharacterStatsPane'][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame]
 		catFrame.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.font or E.db.general.itemLevel.itemLevelFont), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.size or (E.db.general.itemLevel.itemLevelFontSize or 12), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.outline or NONE)
 		local numStatInCat = 0
 
@@ -213,7 +213,7 @@ function SA:PaperDollFrame_UpdateStats()
 			local showStat = true
 			if E.db.sle.armory.stats.enable and stat.option and not E.db.sle.armory.stats.List[stat.stat] then showStat = false end
 			if ( showStat and stat.primary ) then
-				local primaryStat = select(6, GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
+				local primaryStat = select(6, GetSpecializationInfo(spec, nil, nil, nil, UnitSex('player')))
 				if ( stat.primary ~= primaryStat ) and E.db.sle.armory.stats.OnlyPrimary then
 					showStat = false
 				end
@@ -240,7 +240,7 @@ function SA:PaperDollFrame_UpdateStats()
 			if showStat and stat.power and stat.power ~= powerType then showStat = false end
 			if ( showStat ) then
 				statFrame.onEnterFunc = nil
-				PAPERDOLL_STATINFO[stat.stat].updateFunc(statFrame, "player")
+				PAPERDOLL_STATINFO[stat.stat].updateFunc(statFrame, 'player')
 				statFrame.Label:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.enable and  E.db.sle.armory.stats.statFonts.font or E.db.sle.armory.stats.statFonts.font), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statFonts.size or (E.db.general.itemLevel.itemLevelFontSize or 12), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statFonts.outline or NONE)
 				statFrame.Value:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.enable and  E.db.sle.armory.stats.statFonts.font or E.db.sle.armory.stats.statFonts.font), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statFonts.size or (E.db.general.itemLevel.itemLevelFontSize or 12), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statFonts.outline or NONE)
 				if ( not stat.hideAt or stat.hideAt ~= statFrame.numericValue ) then
@@ -290,39 +290,39 @@ function SA:UpdateIlvlFont()
 	size = E.db.sle.armory.stats.enable and (db.size or 12) or 20
 	outline = E.db.sle.armory.stats.enable and db.outline or nil
 
-	_G["CharacterFrame"].ItemLevelText:FontTemplate(font, size, outline)
+	_G.CharacterFrame.ItemLevelText:FontTemplate(font, size, outline)
 
-	_G["CharacterStatsPane"].ItemLevelFrame.Value:FontTemplate(font, size, outline)
-	_G["CharacterStatsPane"].ItemLevelFrame:SetHeight(size)
-	_G["CharacterStatsPane"].ItemLevelFrame.Background:SetHeight(size)
-	if _G["CharacterStatsPane"].ItemLevelFrame.leftGrad then
-		_G["CharacterStatsPane"].ItemLevelFrame.leftGrad:SetHeight(size)
-		_G["CharacterStatsPane"].ItemLevelFrame.rightGrad:SetHeight(size)
+	_G.CharacterStatsPane.ItemLevelFrame.Value:FontTemplate(font, size, outline)
+	_G.CharacterStatsPane.ItemLevelFrame:SetHeight(size)
+	_G.CharacterStatsPane.ItemLevelFrame.Background:SetHeight(size)
+	if _G.CharacterStatsPane.ItemLevelFrame.leftGrad then
+		_G.CharacterStatsPane.ItemLevelFrame.leftGrad:SetHeight(size)
+		_G.CharacterStatsPane.ItemLevelFrame.rightGrad:SetHeight(size)
 	end
 	if not E.db.general.itemLevel.displayCharacterInfo then
-		_G["CharacterFrame"].ItemLevelText:SetText('')
+		_G.CharacterFrame.ItemLevelText:SetText('')
 	end
 end
 
 function SA:ToggleArmory()
 	PAPERDOLL_STATCATEGORIES = E.db.sle.armory.stats.enable and SA.AlteredPaperdollStats or SA.OriginalPaperdollStats
 	if E.db.sle.armory.stats.enable then
-		_G["CharacterStatsPane"]["OffenseCategory"]:Show()
-		_G["CharacterStatsPane"]["DefenceCategory"]:Show()
-		_G["CharacterStatsPane"].ItemLevelFrame:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelCategory, "BOTTOM", 0, 6)
-		_G["CharacterFrame"].ItemLevelText:SetText('')
+		_G['CharacterStatsPane']['OffenseCategory']:Show()
+		_G['CharacterStatsPane']['DefenceCategory']:Show()
+		_G.CharacterStatsPane.ItemLevelFrame:SetPoint('TOP', _G.CharacterStatsPane.ItemLevelCategory, 'BOTTOM', 0, 6)
+		_G.CharacterFrame.ItemLevelText:SetText('')
 		-- SA:ToggleDecimals("enable")
 	else
-		_G["CharacterStatsPane"]["OffenseCategory"]:Hide()
-		_G["CharacterStatsPane"]["DefenceCategory"]:Hide()
-		_G["CharacterStatsPane"].ItemLevelFrame:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelCategory, "BOTTOM", 0, 0)
+		_G['CharacterStatsPane']['OffenseCategory']:Hide()
+		_G['CharacterStatsPane']['DefenceCategory']:Hide()
+		_G.CharacterStatsPane.ItemLevelFrame:SetPoint('TOP', _G.CharacterStatsPane.ItemLevelCategory, 'BOTTOM', 0, 0)
 		-- SA:ToggleDecimals("disable")
 		SA.Scrollbar:Hide()
 	end
 	PaperDollFrame_UpdateStats()
 	M:UpdateCharacterItemLevel()
 	if not E.db.general.itemLevel.displayCharacterInfo then
-		_G["CharacterFrame"].ItemLevelText:SetText('')
+		_G.CharacterFrame.ItemLevelText:SetText('')
 	end
 end
 
@@ -334,12 +334,12 @@ function SA:ReplaceBlizzFunctions()
 		local speed, offhandSpeed = UnitAttackSpeed(unit)
 		local displaySpeedxt
 
-		local displaySpeed =  format("%.2f", speed)
+		local displaySpeed =  format('%.2f', speed)
 		if ( offhandSpeed ) then
-			offhandSpeed = format("%.2f", offhandSpeed)
+			offhandSpeed = format('%.2f', offhandSpeed)
 		end
 		if ( offhandSpeed ) then
-			displaySpeedxt =  BreakUpLargeNumbers(displaySpeed).." / ".. offhandSpeed
+			displaySpeedxt =  BreakUpLargeNumbers(displaySpeed)..' / '.. offhandSpeed
 		else
 			displaySpeedxt =  BreakUpLargeNumbers(displaySpeed)
 		end
@@ -352,7 +352,7 @@ function SA:ReplaceBlizzFunctions()
 	end
 
 	function PaperDollFrame_SetVersatility(statFrame, unit)
-		if ( unit ~= "player" ) then
+		if ( unit ~= 'player' ) then
 			statFrame:Hide()
 			return
 		end
@@ -362,7 +362,7 @@ function SA:ReplaceBlizzFunctions()
 		local versatilityDamageTakenReduction = GetCombatRatingBonus(CR_VERSATILITY_DAMAGE_TAKEN) + GetVersatilityBonus(CR_VERSATILITY_DAMAGE_TAKEN)
 
 		if E.db.sle.armory.stats.decimals then --Alters format
-			PaperDollFrame_SetLabelAndText(statFrame, STAT_VERSATILITY, format("%.2f%%", versatilityDamageBonus) .. " / " .. format("%.2f%%", versatilityDamageTakenReduction), false, versatilityDamageBonus)
+			PaperDollFrame_SetLabelAndText(statFrame, STAT_VERSATILITY, format('%.2f%%', versatilityDamageBonus) .. ' / ' .. format('%.2f%%', versatilityDamageTakenReduction), false, versatilityDamageBonus)
 		else
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_VERSATILITY, versatilityDamageBonus, true, versatilityDamageBonus)
 		end
@@ -374,14 +374,14 @@ function SA:ReplaceBlizzFunctions()
 	end
 
 	function PaperDollFrame_SetMastery(statFrame, unit)
-		if ( unit ~= "player" ) then
+		if ( unit ~= 'player' ) then
 			statFrame:Hide()
 			return
 		end
 
 		local mastery = GetMasteryEffect()
 		if E.db.sle.armory.stats.decimals then
-			PaperDollFrame_SetLabelAndText(statFrame, STAT_MASTERY, format("%.2f%%", mastery), false, mastery)
+			PaperDollFrame_SetLabelAndText(statFrame, STAT_MASTERY, format('%.2f%%', mastery), false, mastery)
 		else
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_MASTERY, mastery, true, mastery)
 		end
@@ -390,18 +390,18 @@ function SA:ReplaceBlizzFunctions()
 	end
 
 	function PaperDollFrame_SetLifesteal(statFrame, unit)
-		if ( unit ~= "player" ) then
+		if ( unit ~= 'player' ) then
 			statFrame:Hide()
 			return
 		end
 
 		local lifesteal = GetLifesteal()
 		if E.db.sle.armory.stats.decimals then
-			PaperDollFrame_SetLabelAndText(statFrame, STAT_LIFESTEAL, format("%.2f%%", lifesteal), false, lifesteal)
+			PaperDollFrame_SetLabelAndText(statFrame, STAT_LIFESTEAL, format('%.2f%%', lifesteal), false, lifesteal)
 		else
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_LIFESTEAL, lifesteal, true, lifesteal)
 		end
-		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_LIFESTEAL) .. " " .. format("%.2f%%", lifesteal) .. FONT_COLOR_CODE_CLOSE
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_LIFESTEAL) .. ' ' .. format('%.2f%%', lifesteal) .. FONT_COLOR_CODE_CLOSE
 
 		statFrame.tooltip2 = format(CR_LIFESTEAL_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(CR_LIFESTEAL)), GetCombatRatingBonus(CR_LIFESTEAL))
 
@@ -409,7 +409,7 @@ function SA:ReplaceBlizzFunctions()
 	end
 
 	function PaperDollFrame_SetAvoidance(statFrame, unit)
-		if ( unit ~= "player" ) then
+		if ( unit ~= 'player' ) then
 			statFrame:Hide()
 			return
 		end
@@ -417,11 +417,11 @@ function SA:ReplaceBlizzFunctions()
 		local avoidance = GetAvoidance()
 	-- PaperDollFrame_SetLabelAndText Format Change
 		if E.db.sle.armory.stats.decimals then
-			PaperDollFrame_SetLabelAndText(statFrame, STAT_AVOIDANCE, format("%.2f%%", avoidance), false, avoidance)
+			PaperDollFrame_SetLabelAndText(statFrame, STAT_AVOIDANCE, format('%.2f%%', avoidance), false, avoidance)
 		else
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_AVOIDANCE, avoidance, true, avoidance)
 		end
-		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_AVOIDANCE) .. " " .. format("%.2f%%", avoidance) .. FONT_COLOR_CODE_CLOSE
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_AVOIDANCE) .. ' ' .. format('%.2f%%', avoidance) .. FONT_COLOR_CODE_CLOSE
 
 		statFrame.tooltip2 = format(CR_AVOIDANCE_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(CR_AVOIDANCE)), GetCombatRatingBonus(CR_AVOIDANCE))
 
@@ -429,7 +429,7 @@ function SA:ReplaceBlizzFunctions()
 	end
 
 	function PaperDollFrame_SetDodge(statFrame, unit)
-		if (unit ~= "player") then
+		if (unit ~= 'player') then
 			statFrame:Hide()
 			return
 		end
@@ -437,17 +437,17 @@ function SA:ReplaceBlizzFunctions()
 		local chance = GetDodgeChance()
 	-- PaperDollFrame_SetLabelAndText Format Change
 		if E.db.sle.armory.stats.decimals then
-			PaperDollFrame_SetLabelAndText(statFrame, STAT_DODGE, format("%.2f%%", chance), false, chance)
+			PaperDollFrame_SetLabelAndText(statFrame, STAT_DODGE, format('%.2f%%', chance), false, chance)
 		else
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_DODGE, chance, true, chance)
 		end
-		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, DODGE_CHANCE).." "..format("%.2f", chance).."%"..FONT_COLOR_CODE_CLOSE
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, DODGE_CHANCE)..' '..format('%.2f', chance)..'%'..FONT_COLOR_CODE_CLOSE
 		statFrame.tooltip2 = format(CR_DODGE_TOOLTIP, GetCombatRating(CR_DODGE), GetCombatRatingBonus(CR_DODGE))
 		statFrame:Show()
 	end
 
 	function PaperDollFrame_SetParry(statFrame, unit)
-		if (unit ~= "player") then
+		if (unit ~= 'player') then
 			statFrame:Hide()
 			return
 		end
@@ -455,17 +455,17 @@ function SA:ReplaceBlizzFunctions()
 		local chance = GetParryChance()
 	-- PaperDollFrame_SetLabelAndText Format Change
 		if E.db.sle.armory.stats.decimals then
-			PaperDollFrame_SetLabelAndText(statFrame, STAT_PARRY, format("%.2f%%", chance), false, chance)
+			PaperDollFrame_SetLabelAndText(statFrame, STAT_PARRY, format('%.2f%%', chance), false, chance)
 		else
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_PARRY, chance, true, chance)
 		end
-		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, PARRY_CHANCE).." "..format("%.2f", chance).."%"..FONT_COLOR_CODE_CLOSE
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, PARRY_CHANCE)..' '..format('%.2f', chance)..'%'..FONT_COLOR_CODE_CLOSE
 		statFrame.tooltip2 = format(CR_PARRY_TOOLTIP, GetCombatRating(CR_PARRY), GetCombatRatingBonus(CR_PARRY))
 		statFrame:Show()
 	end
 
 	function PaperDollFrame_SetCritChance(statFrame, unit)
-		if ( unit ~= "player" ) then
+		if ( unit ~= 'player' ) then
 			statFrame:Hide()
 			return
 		end
@@ -501,13 +501,13 @@ function SA:ReplaceBlizzFunctions()
 		end
 	-- PaperDollFrame_SetLabelAndText Format Change
 		if E.db.sle.armory.stats.decimals then
-			PaperDollFrame_SetLabelAndText(statFrame, STAT_CRITICAL_STRIKE, format("%.2f%%", critChance), false, critChance)
+			PaperDollFrame_SetLabelAndText(statFrame, STAT_CRITICAL_STRIKE, format('%.2f%%', critChance), false, critChance)
 		else
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_CRITICAL_STRIKE, critChance, true, critChance)
 		end
 
 
-		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_CRITICAL_STRIKE).." "..format("%.2f%%", critChance)..FONT_COLOR_CODE_CLOSE
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_CRITICAL_STRIKE)..' '..format('%.2f%%', critChance)..FONT_COLOR_CODE_CLOSE
 		local extraCritChance = GetCombatRatingBonus(rating)
 		local extraCritRating = GetCombatRating(rating)
 		if (GetCritChanceProvidesParryEffect()) then
@@ -519,7 +519,7 @@ function SA:ReplaceBlizzFunctions()
 	end
 
 	function PaperDollFrame_SetHaste(statFrame, unit)
-		if ( unit ~= "player" ) then
+		if ( unit ~= 'player' ) then
 			statFrame:Hide()
 			return
 		end
@@ -529,20 +529,20 @@ function SA:ReplaceBlizzFunctions()
 
 		local hasteFormatString
 		if (haste < 0) then
-			hasteFormatString = RED_FONT_COLOR_CODE.."%s"..FONT_COLOR_CODE_CLOSE
+			hasteFormatString = RED_FONT_COLOR_CODE..'%s'..FONT_COLOR_CODE_CLOSE
 		else
-			hasteFormatString = "%s"
+			hasteFormatString = '%s'
 		end
 	-- PaperDollFrame_SetLabelAndText Format Change
 		if E.db.sle.armory.stats.decimals then
-			PaperDollFrame_SetLabelAndText(statFrame, STAT_HASTE, format(hasteFormatString, format("%.2f%%", haste)), false, haste)
+			PaperDollFrame_SetLabelAndText(statFrame, STAT_HASTE, format(hasteFormatString, format('%.2f%%', haste)), false, haste)
 		else
-			PaperDollFrame_SetLabelAndText(statFrame, STAT_HASTE, format(hasteFormatString, format("%d%%", haste + 0.5)), false, haste)
+			PaperDollFrame_SetLabelAndText(statFrame, STAT_HASTE, format(hasteFormatString, format('%d%%', haste + 0.5)), false, haste)
 		end
-		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_HASTE) .. " " .. format(hasteFormatString, format("%.2f%%", haste)) .. FONT_COLOR_CODE_CLOSE
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_HASTE) .. ' ' .. format(hasteFormatString, format('%.2f%%', haste)) .. FONT_COLOR_CODE_CLOSE
 
 		local _, class = UnitClass(unit)
-		statFrame.tooltip2 = _G["STAT_HASTE_"..class.."_TOOLTIP"]
+		statFrame.tooltip2 = _G['STAT_HASTE_'..class..'_TOOLTIP']
 		if (not statFrame.tooltip2) then
 			statFrame.tooltip2 = STAT_HASTE_TOOLTIP
 		end
@@ -554,18 +554,18 @@ function SA:ReplaceBlizzFunctions()
 end
 
 function SA:LoadAndSetup()
-	if SLE._Compatibility["DejaCharacterStats"] then return end
+	if SLE._Compatibility['DejaCharacterStats'] then return end
 	SA:ReplaceBlizzFunctions()
-	hooksecurefunc("PaperDollFrame_UpdateStats", SA.PaperDollFrame_UpdateStats)
-	hooksecurefunc(M, "UpdateCharacterItemLevel", SA.UpdateCharacterItemLevel)
-	hooksecurefunc(M, "ToggleItemLevelInfo", SA.UpdateCharacterItemLevel)
-	hooksecurefunc(M, "UpdateAverageString", SA.UpdateCharacterItemLevel)
+	hooksecurefunc('PaperDollFrame_UpdateStats', SA.PaperDollFrame_UpdateStats)
+	hooksecurefunc(M, 'UpdateCharacterItemLevel', SA.UpdateCharacterItemLevel)
+	hooksecurefunc(M, 'ToggleItemLevelInfo', SA.UpdateCharacterItemLevel)
+	hooksecurefunc(M, 'UpdateAverageString', SA.UpdateCharacterItemLevel)
 
 	SA:BuildScrollBar()
 	SA:BuildNewStats()
 	SA:ToggleArmory()
 
-	_G["CharacterFrame"]:HookScript("OnShow", SA.UpdateCharacterItemLevel)
+	_G.CharacterFrame:HookScript('OnShow', SA.UpdateCharacterItemLevel)
 
-	_G["CharacterFrame"].ItemLevelText:SetText('')
+	_G.CharacterFrame.ItemLevelText:SetText('')
 end
