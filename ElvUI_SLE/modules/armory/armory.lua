@@ -402,7 +402,7 @@ function Armory:UpdateCharacterInfo()
 	if not E.db.general.itemLevel.displayCharacterInfo then M:ClearPageInfo(_G['CharacterFrame'], 'Character') end
 end
 
-function Armory:ToggleItemLevelInfo(setupCharacterPage)
+function Armory:ToggleItemLevelInfo()
 	if _G['InspectFrame'] and _G['InspectFrame']:IsShown() and Armory:CheckOptions('Inspect') and E.db.general.itemLevel.displayInspectInfo then
 		M:UpdateInspectInfo()
 	else
