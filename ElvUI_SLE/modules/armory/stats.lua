@@ -147,17 +147,18 @@ function SA:BuildScrollBar() --Creating new scroll
 	end)
 end
 
-function SA:UpdateCharacterItemLevel()
+function SA:UpdateCharacterItemLevel(frame, which, iLevelDB)
+	if not frame or which ~= "Character" then return end
 	SA:UpdateIlvlFont()
 	if not E.db.sle.armory.stats.enable or not E.db.general.itemLevel.displayCharacterInfo then return end
 	local total, equipped = GetAverageItemLevel()
 	if E.db.sle.armory.stats.IlvlFull then
 		if E.db.sle.armory.stats.IlvlColor then
-			local r, g, b = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+			local R, G, B = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
 			local avColor = E.db.sle.armory.stats.AverageColor
-			_G["CharacterFrame"].ItemLevelText:SetFormattedText("%s%.2f|r |cffffffff/|r %s%.2f|r", E:RGBToHex(r, g, b), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
+			frame.ItemLevelText:SetFormattedText("%s%.2f|r |cffffffff/|r %s%.2f|r", E:RGBToHex(R, G, B), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
 		else
-			_G["CharacterFrame"].ItemLevelText:SetFormattedText("%.2f / %.2f", equipped, total)
+			frame.ItemLevelText:SetFormattedText("%.2f / %.2f", equipped, total)
 		end
 	end
 end
