@@ -100,9 +100,9 @@ function SA:BuildScrollBar() --Creating new scroll
 	SA.Scrollbar.scrollStep = 1
 	SA.Scrollbar:SetValue(0)
 	SA.Scrollbar:SetWidth(8)
-	SA.Scrollbar:SetScript('OnValueChanged', function (self, value)
-		local offset = value > 1 and self:GetParent():GetVerticalScrollRange()/(SA.totalShown*Armory.Constants.Stats.ScrollStepMultiplier) or 1
-		self:GetParent():SetVerticalScroll(value*offset)
+	SA.Scrollbar:SetScript('OnValueChanged', function(frame, value)
+		local offset = value > 1 and frame:GetParent():GetVerticalScrollRange()/(SA.totalShown*Armory.Constants.Stats.ScrollStepMultiplier) or 1
+		frame:GetParent():SetVerticalScroll(value*offset)
 	end)
 	E:GetModule('Skins'):HandleScrollBar(SA.Scrollbar)
 	SA.Scrollbar:Hide()
@@ -123,25 +123,25 @@ function SA:BuildScrollBar() --Creating new scroll
 
 	-- Enable mousewheel scrolling
 	SA.ScrollFrame:EnableMouseWheel(true)
-	SA.ScrollFrame:SetScript('OnMouseWheel', function(self, delta)
+	SA.ScrollFrame:SetScript('OnMouseWheel', function(_, delta)
 		local cur_val = SA.Scrollbar:GetValue()
 
 		SA.Scrollbar:SetValue(cur_val - delta*SA.totalShown) --This controls the speed of the scroll
 	end)
 
-	PaperDollSidebarTab1:HookScript('OnShow', function(self,event)
+	PaperDollSidebarTab1:HookScript('OnShow', function()
 		SA.ScrollframeParentFrame:Show()
 	end)
 
-	PaperDollSidebarTab1:HookScript('OnClick', function(self,event)
+	PaperDollSidebarTab1:HookScript('OnClick', function()
 		SA.ScrollframeParentFrame:Show()
 	end)
 
-	PaperDollSidebarTab2:HookScript('OnClick', function(self,event)
+	PaperDollSidebarTab2:HookScript('OnClick', function()
 		SA.ScrollframeParentFrame:Hide()
 	end)
 
-	PaperDollSidebarTab3:HookScript('OnClick', function(self,event)
+	PaperDollSidebarTab3:HookScript('OnClick', function()
 		SA.ScrollframeParentFrame:Hide()
 	end)
 end
