@@ -158,7 +158,7 @@ function ENH:UpdateShadow(shadow)
 
 	shadow:SetOutside(shadow:GetParent(), offset, offset)
 	shadow:SetBackdrop({
-		edgeFile = E.LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = size > 3 and size or 3,
+		edgeFile = E.LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(size > 3 and size or 3),
 		-- insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},  --! Don't see a need for this
 	})
 	shadow:SetBackdropColor(r, g, b, 0)
