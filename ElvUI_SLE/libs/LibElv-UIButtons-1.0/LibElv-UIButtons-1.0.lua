@@ -282,7 +282,7 @@ local function FrameSize(menu)
 	menu:MoverSize()
 
 	for i = 1, #menu.ToggleTable do
-		menu.ToggleTable[i]:SetSize(db.size)
+		menu.ToggleTable[i]:SetSize(db.size, db.size)
 	end
 
 	if menu.style == "dropdown" then
