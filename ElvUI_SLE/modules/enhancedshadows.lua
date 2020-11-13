@@ -359,7 +359,7 @@ function ENH:ToggleDTShadows()
 				-- print('1', name..': ', show)
 			end
 
-			if E.global.datatexts.customPanels[name] and E.global.datatexts.customPanels[name].backdrop and E.db.sle.shadows.datatexts.panels[name].backdrop then
+			if E.global.datatexts.customPanels[name] and E.global.datatexts.customPanels[name].backdrop and E.db.sle.shadows.datatexts.panels[name] and E.db.sle.shadows.datatexts.panels[name].backdrop then
 				show = E.db.sle.shadows.datatexts.panels[name].backdrop and E.global.datatexts.customPanels[name].backdrop
 				-- print('2', name..': ', show)
 			end
