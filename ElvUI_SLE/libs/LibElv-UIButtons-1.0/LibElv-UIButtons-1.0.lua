@@ -1,4 +1,4 @@
-local MAJOR, MINOR = "LibElv-UIButtons-1.0", 1
+local MAJOR, MINOR = "LibElv-UIButtons-1.0", 2
 local lib, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not lib then return end
@@ -79,14 +79,14 @@ local function CreateCoreButton(menu, name, text, onClick)
 	if _G[menu:GetName().."_Core_"..name] then return end
 	local button, holder
 	if menu.style == "classic" then
-		menu[name] = CreateFrame("Button", menu:GetName().."_Core_"..name, menu)
+		menu[name] = CreateFrame("Button", menu:GetName().."_Core_"..name, menu, 'BackdropTemplate')
 		button = menu[name]
 		if onClick then
 			button:SetScript("OnClick", onClick)
 		end
 	elseif menu.style == "dropdown" then
 		menu[name] = CreateFrame("Frame", menu:GetName().."_Core_"..name, menu)
-		menu[name].Toggle = CreateFrame("Button", menu:GetName().."_Core_"..name.."Toggle", menu)
+		menu[name].Toggle = CreateFrame("Button", menu:GetName().."_Core_"..name.."Toggle", menu, 'BackdropTemplate')
 		holder = menu[name]
 		holder.width = 0
 		holder:CreateBackdrop("Transparent")
@@ -133,7 +133,7 @@ local function CreateDropdownButton(menu, core, name, text, tooltip1, tooltip2, 
 		if enabled == 0 then return end
 	end
 	if _G[menu:GetName().."_Core_"..core..name] or not menu[core.."Table"] then return end
-	menu[core][name] = CreateFrame("Button", menu:GetName().."_Core_"..core..name, menu[core])
+	menu[core][name] = CreateFrame("Button", menu:GetName().."_Core_"..core..name, menu[core], 'BackdropTemplate')
 	local b = menu[core][name]
 	local toggle = menu[core].Toggle
 
@@ -153,7 +153,7 @@ local function CreateDropdownButton(menu, core, name, text, tooltip1, tooltip2, 
 		end)
 		b:SetScript("OnLeave", function(self)
 			menu:OnLeave()
-			GameTooltip:Hide()
+			GameTooltip:Hide() 
 		end)
 	else
 		b:SetScript('OnEnter', function(self) menu:OnEnter() end)
@@ -180,7 +180,7 @@ end
 --Creating separator frame
 local function CreateSeparator(menu, core, name, size, space)
 	if _G[menu:GetName().."_Core_"..core..name.."_Separator"] or not menu[core.."Table"] then return end
-	menu[core][name] = CreateFrame("Frame", menu:GetName().."_Core_"..core..name.."_Separator", menu[core])
+	menu[core][name] = CreateFrame("Frame", menu:GetName().."_Core_"..core..name.."_Separator", menu[core], 'BackdropTemplate')
 	local f = menu[core][name]
 	f.isSeparator = true
 	f.size = size or 1
@@ -220,13 +220,12 @@ local function UpdateDropdownLayout(menu, group)
 	local header = menu[group]
 	local db = menu.db
 	header:ClearAllPoints()
-	header:Point(db.point, header.Toggle, db.anchor, db.xoffset, db.yoffset)
-
+	header:SetPoint(db.point, header.Toggle, db.anchor, db.xoffset, db.yoffset)
 	local T = menu[group.."Table"]
 	for i = 1, #T do
 		local button, prev, next = T[i], T[i-1], T[i+1]
 		local y_offset = prev and (-(db.spacing + E.Spacing*2) - (prev.isSeparator and prev.space or 0) - (button.isSeparator and button.space or 0)) or 0
-		button:Point("TOP", (prev or header), (prev and "BOTTOM" or "TOP"), 0, y_offset)
+		button:SetPoint("TOP", (prev or header), (prev and "BOTTOM" or "TOP"), 0, y_offset)
 		count = button.isSeparator and count or count + 1
 		sepS = (button.isSeparator and sepS + ((prev and 2 or 1)*button.space + button.size)) or sepS
 		sepC = button.isSeparator and sepC + 1 or sepC
@@ -258,13 +257,13 @@ local function Positioning(menu)
 		for i = 1, #menu.ToggleTable do
 			local button, prev = menu.ToggleTable[i], menu.ToggleTable[i-1]
 			menu.ToggleTable[i]:ClearAllPoints()
-			menu.ToggleTable[i]:Point("TOP", (prev or header), prev and "BOTTOM" or "TOP", 0, prev and -(db.spacing + E.Spacing*2) or -(1 + E.Spacing))
+			menu.ToggleTable[i]:SetPoint("TOP", (prev or header), prev and "BOTTOM" or "TOP", 0, prev and -(db.spacing + E.Spacing*2) or -(1 + E.Spacing))
 		end
 	elseif db.orientation == "horizontal" then
 		for i = 1, #menu.ToggleTable do
 			local button, prev = menu.ToggleTable[i], menu.ToggleTable[i-1]
 			menu.ToggleTable[i]:ClearAllPoints()
-			menu.ToggleTable[i]:Point("LEFT", (prev or header), prev and "RIGHT" or "LEFT", prev and (db.spacing + E.Spacing*2) or (1 + E.Spacing), 0)
+			menu.ToggleTable[i]:SetPoint("LEFT", (prev or header), prev and "RIGHT" or "LEFT", prev and (db.spacing + E.Spacing*2) or (1 + E.Spacing), 0)
 		end
 	end
 	--Calling for dropdown updates
@@ -302,7 +301,7 @@ local function FrameSize(menu)
 			end
 			for n = 1, #mass do
 				if mass[n].isSeparator then
-					mass[n]:SetSize(menu.HoldersTable[i].width - 2, mass[n].size)
+					mass[n]:SetSize(menu.HoldersTable[i].width - 3, mass[n].size)
 				else
 					mass[n]:SetSize(menu.HoldersTable[i].width, db.size)
 				end
@@ -341,7 +340,7 @@ function lib:CreateFrame(name, db, default, style, styleDefault, strata, level, 
 	--Checks to prevent a shitload of errors cause of wrong arguments passed
 	if _G[name] then return end
 	if not strata then strata = "MEDIUM" end
-	local menu = CreateFrame("Frame", name, E.UIParent)
+	local menu = CreateFrame("Frame", name, E.UIParent, 'BackdropTemplate')
 	menu.db = db --making menu db table so we can actually keep unified settings calls in other functions
 	menu.default = default --same for defaults
 	EqualizeDB(menu.db, menu.default)
@@ -352,7 +351,7 @@ function lib:CreateFrame(name, db, default, style, styleDefault, strata, level, 
 	menu:SetFrameStrata(strata)
 	menu:SetFrameLevel(level or 5)
 	menu:SetClampedToScreen(true)
-	menu:Point("LEFT", E.UIParent, "LEFT", -2, 0);
+	menu:SetPoint("LEFT", E.UIParent, "LEFT", -2, 0);
 	menu:SetSize(17, 17); --Cause the damn thing doesn't want to show up without default size lol
 	menu.myname = UnitName('player') --used in checks for addon deps
 	menu:CreateBackdrop()
@@ -551,7 +550,7 @@ end
 
 function lib:CreateOptions(menu, default, groupName, groupTitle)
 	menu:RegisterEvent("ADDON_LOADED")
-	menu:SetScript("OnEvent", function(self, event, addon)
+	menu:SetScript("OnEvent", function(self, event, addon) 
 		if addon ~= "ElvUI_OptionsUI" then return end
 		self:UnregisterEvent("ADDON_LOADED")
 		GenerateTable(self, default, groupName, groupTitle)
