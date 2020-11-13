@@ -11,6 +11,7 @@ local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
 local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllusionSourceInfo
 local HandleModifiedItemClick = HandleModifiedItemClick
 local C_TransmogCollection_GetInspectSources = C_TransmogCollection.GetInspectSources
+local GetSpecialization, GetSpecializationInfo, GetInspectSpecialization = GetSpecialization, GetSpecializationInfo, GetInspectSpecialization
 
 local CA, IA, SA
 Armory.Constants = {}
@@ -46,6 +47,47 @@ Armory.Constants.CanTransmogrify = {
 
 Armory.Constants.EnchantableSlots = {
 	['Finger0Slot'] = true, ['Finger1Slot'] = true, ['MainHandSlot'] = true, ['SecondaryHandSlot'] = true,
+	--Uncomment this when shadowlands actually launches
+	-- ['ChestSlot'] = true, ['BackSlot'] = true,
+	-- ['FeetSlot'] = 2, ['WristSlot'] = 4, ['HandsSlot'] = 1,
+}
+Armory.Constants.SpecPrimaryStats = {
+	[250] = 1, --DK Blood
+	[251] = 1, --DK Frost
+	[252] = 1, --DK Unholy
+	[577] = 2, --DH Havoc
+	[581] = 2, --DH Vengeance
+	[102] = 4, --Druid Balance
+	[103] = 2, --Druid Feral
+	[104] = 2, --Druid Guardian
+	[105] = 4, --Druid Restoration
+	[253] = 2, --Hunter Beast Mastery
+	[254] = 2, --Hunter Marksmanship
+	[255] = 2, --Hunter Survival
+	[62] = 4, --Mage Arcane
+	[63] = 4, --Mage Fire
+	[64] = 4, --Mage Frost
+	[268] = 2, --Monk Brewmaster
+	[270] = 4, --Monk Mistweaver
+	[269] = 2, --Monk Windwalker
+	[65] = 4, --Paladin Holy
+	[66] = 1, --Paladin Protection
+	[70] = 1, --Paladin Retribution
+	[256] = 4, --Priest Discipline
+	[257] = 4, --Priest Holy
+	[258] = 4, --Priest Shadow
+	[259] = 2, --Rogue Assassination
+	[260] = 2, --Rogue Outlaw
+	[261] = 2, --Rogue Subtlety
+	[262] = 4, --Shaman Elemental
+	[263] = 2, --Shaman Enhancement
+	[264] = 4, --Shaman Restoration
+	[265] = 4, --Warlock Affliction
+	[266] = 4, --Warlock Demonology
+	[267] = 4, --Warlock Destruction
+	[71] = 1, --Warrior Arms
+	[72] = 1, --Warrior Fury
+	[73] = 1, --Warrior Protection
 }
 
 Armory.Constants.AzeriteTraitAvailableColor = {0.95, 0.95, 0.32, 1}
@@ -136,6 +178,9 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 	local unit = (which == 'Character' and 'player') or frame.unit
 	if which == 'Character' then
 		CA:Update_Durability()
+		Armory.CharacterPrimaryStat = select(6, GetSpecializationInfo(GetSpecialization(), nil, nil, nil, UnitSex('player')))
+	else
+		Armory.InspectPrimaryStat = Armory.Constants.SpecPrimaryStats[GetInspectSpecialization(unit)]
 	end
 	for i, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G[which..SlotName]
@@ -212,7 +257,7 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 	end
 	--If put inside "if slotInfo.itemLevelColors" condition will not actually hide gem links/warnings on empty slots
 	Armory:UpdateGemInfo(Slot, which)
-	Armory:CheckForMissing(which, Slot, slotInfo.iLvl, slotInfo.gems, slotInfo.essences, slotInfo.enchantTextShort)
+	Armory:CheckForMissing(which, Slot, slotInfo.iLvl, slotInfo.gems, slotInfo.essences, slotInfo.enchantTextShort, Armory[which.."PrimaryStat"])
 	if CA.DurabilityFontSet then CA:Calculate_Durability(which, Slot) end
 end
 
@@ -353,7 +398,7 @@ function Armory:Transmog_OnClick()
 	end
 end
 
-function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant)
+function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant, primaryStat)
 	if not Slot['SLE_Warning'] then return end --Shit happens
 	Slot['SLE_Warning'].Reason = nil --Clear message, cause disabling armory doesn't affect those otherwise
 	local window = strlower(which)
@@ -361,7 +406,7 @@ function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant)
 	local SlotName = gsub(Slot:GetName(), which, '')
 	if not SlotName then return end --No slot?
 	local noChant, noGem = false, false
-	if iLvl and Armory.Constants.EnchantableSlots[SlotName] and not enchant then --Item should be enchanted, but no string actually sent. This bastard is slacking
+	if iLvl and (Armory.Constants.EnchantableSlots[SlotName] == true or Armory.Constants.EnchantableSlots[SlotName] == primaryStat) and not enchant then --Item should be enchanted, but no string actually sent. This bastard is slacking
 		local classID, subclassID = select(12, GetItemInfo(Slot.itemLink))
 		if (classID == 4 and subclassID == 6) or (classID == 4 and subclassID == 0 and Slot.ID == 17) then --Shields are special
 			noChant = false
