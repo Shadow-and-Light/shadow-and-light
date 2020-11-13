@@ -403,6 +403,18 @@ function Armory:UpdateCharacterInfo()
 end
 
 function Armory:ToggleItemLevelInfo()
+	if E.db.general.itemLevel.displayCharacterInfo then
+		-- Armory:UnregisterEvent('AZERITE_ESSENCE_UPDATE')
+		Armory:UnregisterEvent('PLAYER_EQUIPMENT_CHANGED')
+		Armory:UnregisterEvent('UPDATE_INVENTORY_DURABILITY')
+		-- Armory:UnregisterEvent('PLAYER_AVG_ITEM_LEVEL_UPDATE')
+	else
+		-- Armory:RegisterEvent('AZERITE_ESSENCE_UPDATE', 'UpdateCharacterInfo')
+		Armory:RegisterEvent('PLAYER_EQUIPMENT_CHANGED', 'UpdateCharacterInfo')
+		Armory:RegisterEvent('UPDATE_INVENTORY_DURABILITY', 'UpdateCharacterInfo')
+		-- Armory:RegisterEvent('PLAYER_AVG_ITEM_LEVEL_UPDATE', 'UpdateCharacterItemLevel')
+	end
+
 	if _G['InspectFrame'] and _G['InspectFrame']:IsShown() and Armory:CheckOptions('Inspect') and E.db.general.itemLevel.displayInspectInfo then
 		M:UpdateInspectInfo()
 	else
@@ -428,6 +440,8 @@ function Armory:Initialize()
 	hooksecurefunc(M, 'ToggleItemLevelInfo', Armory.ToggleItemLevelInfo)
 	hooksecurefunc(M, 'UpdateInspectPageFonts', Armory.UpdateSharedStringsFonts)
 	hooksecurefunc(M, 'CreateSlotStrings', Armory.CreateSlotStrings)
+
+	Armory:ToggleItemLevelInfo()
 	if Armory:CheckOptions('Character') then
 		CA = SLE:GetModule('Armory_Character')
 		SA = SLE:GetModule('Armory_Stats')
