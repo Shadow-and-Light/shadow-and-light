@@ -153,7 +153,7 @@ local function CreateDropdownButton(menu, core, name, text, tooltip1, tooltip2, 
 		end)
 		b:SetScript("OnLeave", function(self)
 			menu:OnLeave()
-			GameTooltip:Hide() 
+			GameTooltip:Hide()
 		end)
 	else
 		b:SetScript('OnEnter', function(self) menu:OnEnter() end)
@@ -221,6 +221,7 @@ local function UpdateDropdownLayout(menu, group)
 	local db = menu.db
 	header:ClearAllPoints()
 	header:Point(db.point, header.Toggle, db.anchor, db.xoffset, db.yoffset)
+
 	local T = menu[group.."Table"]
 	for i = 1, #T do
 		local button, prev, next = T[i], T[i-1], T[i+1]
@@ -230,7 +231,8 @@ local function UpdateDropdownLayout(menu, group)
 		sepS = (button.isSeparator and sepS + ((prev and 2 or 1)*button.space + button.size)) or sepS
 		sepC = button.isSeparator and sepC + 1 or sepC
 	end
-	header:Size(header.width, (db.size * (count+1))+(db.spacing*(count))+sepS+(.5*sepC))
+
+	header:SetSize(header.width, (db.size * (count+1))+(db.spacing*(count))+sepS+(.5*sepC))
 	if menu.db.dropdownBackdrop then
 		header.backdrop:Show()
 	else
@@ -280,7 +282,7 @@ local function FrameSize(menu)
 	menu:MoverSize()
 
 	for i = 1, #menu.ToggleTable do
-		menu.ToggleTable[i]:Size(db.size)
+		menu.ToggleTable[i]:SetSize(db.size)
 	end
 
 	if menu.style == "dropdown" then
@@ -300,9 +302,9 @@ local function FrameSize(menu)
 			end
 			for n = 1, #mass do
 				if mass[n].isSeparator then
-					mass[n]:Size(menu.HoldersTable[i].width - 2, mass[n].size)
+					mass[n]:SetSize(menu.HoldersTable[i].width - 2, mass[n].size)
 				else
-					mass[n]:Size(menu.HoldersTable[i].width, db.size)
+					mass[n]:SetSize(menu.HoldersTable[i].width, db.size)
 				end
 			end
 		end
@@ -351,7 +353,7 @@ function lib:CreateFrame(name, db, default, style, styleDefault, strata, level, 
 	menu:SetFrameLevel(level or 5)
 	menu:SetClampedToScreen(true)
 	menu:Point("LEFT", E.UIParent, "LEFT", -2, 0);
-	menu:Size(17, 17); --Cause the damn thing doesn't want to show up without default size lol
+	menu:SetSize(17, 17); --Cause the damn thing doesn't want to show up without default size lol
 	menu.myname = UnitName('player') --used in checks for addon deps
 	menu:CreateBackdrop()
 
@@ -549,7 +551,7 @@ end
 
 function lib:CreateOptions(menu, default, groupName, groupTitle)
 	menu:RegisterEvent("ADDON_LOADED")
-	menu:SetScript("OnEvent", function(self, event, addon) 
+	menu:SetScript("OnEvent", function(self, event, addon)
 		if addon ~= "ElvUI_OptionsUI" then return end
 		self:UnregisterEvent("ADDON_LOADED")
 		GenerateTable(self, default, groupName, groupTitle)
