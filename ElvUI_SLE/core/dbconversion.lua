@@ -59,8 +59,8 @@ function SLE:DatabaseConversions()
 			if data.sle then
 				if data.sle.module then
 					if data.sle.module.blizzmove then
-						if not data.sle.module.blizzmove.points then data.sle.module.blizzmove.points = {} end
 						if data.sle.module.blizzmove and type(data.sle.module.blizzmove) == "boolean" then data.sle.module.blizzmove = V.sle.module.blizzmove; privateChanged = true; end --Ancient setting conversions
+						if not data.sle.module.blizzmove.points then data.sle.module.blizzmove.points = {} end
 						if not data.sle.pvpreadydialogreset then data.sle.module.blizzmove.points["PVPReadyDialog"] = nil; data.sle.pvpreadydialogreset = true; privateChanged = true; end
 						if data.sle.module.blizzmove.points["CalendarViewEventFrame"] then data.sle.module.blizzmove.points["CalendarViewEventFrame"] = nil; privateChanged = true; end
 						if data.sle.module.blizzmove.points["CalendarViewHolidayFrame"] then data.sle.module.blizzmove.points["CalendarViewHolidayFrame"] = nil; privateChanged = true; end
