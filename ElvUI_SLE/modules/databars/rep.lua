@@ -160,7 +160,6 @@ end
 
 function DB:NewRepString()
 	if not E.db.sle.databars.reputation or not E.db.sle.databars.reputation.chatfilter.enable then return end
-	local stop = false
 	local tempfactions = GetNumFactions()
 	if (tempfactions > DB.factions) then
 		DB:ScanFactions()
