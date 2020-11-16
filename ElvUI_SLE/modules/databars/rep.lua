@@ -4,7 +4,7 @@ local EDB = E:GetModule('DataBars')
 
 --GLOBALS: hooksecurefunc
 local _G = _G
-local format = format
+local format, ipairs = format, ipairs
 local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
 local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
@@ -177,8 +177,6 @@ function DB:NewRepString()
 	for factionIndex = 1, GetNumFactions() do
 		local StyleTable = nil
 		local name, _, _, _, _, barValue, _, _, isHeader, _, hasRep, _, _, factionID = GetFactionInfo(factionIndex)
-		-- local friendID, _, _, _, _, _, friendTextLevel = GetFriendshipReputation(factionID);
-		-- local currentRank, maxRank = GetFriendshipReputationRanks(factionID);
 
 		if (not isHeader or hasRep) and DB.factionVars[name] then
 			if DB.factionVars[name].isParagon then
@@ -193,30 +191,20 @@ function DB:NewRepString()
 				StyleTable = 'RepDecreaseStyles'
 			end
 			if StyleTable then
-				-- local change = abs(barValue - DB.factionVars[name].Value)
-
+				local repMessage = format(DB[StyleTable][E.db.sle.databars.reputation.chatfilter.style] , E.db.sle.databars.reputation.chatfilter.iconsize, name, diff)
+				local chatframe
 				if E.db.sle.databars.reputation.chatfilter.chatframe == 'AUTO' then
 					for n = 1, #(DB.RepChatFrames) do
-						local chatframe = _G[DB.RepChatFrames[n]]
-						chatframe:AddMessage(format(DB[StyleTable][E.db.sle.databars.reputation.chatfilter.style] , E.db.sle.databars.reputation.chatfilter.iconsize, name, diff))
-
-						if not E.db.sle.databars.reputation.chatfilter.showAll then
-							stop = true
-							break
-						end
+						chatframe = _G[DB.RepChatFrames[n]]
+						chatframe:AddMessage(repMessage)
 					end
 				else
-					local chatframe = _G[E.db.sle.databars.reputation.chatfilter.chatframe]
-					chatframe:AddMessage(format(DB[StyleTable][E.db.sle.databars.reputation.chatfilter.style] , E.db.sle.databars.reputation.chatfilter.iconsize, name, diff))
-
-					if not E.db.sle.databars.reputation.chatfilter.showAll then
-						stop = true
-						break
-					end
+					chatframe = _G[E.db.sle.databars.reputation.chatfilter.chatframe]
+					chatframe:AddMessage(repMessage)
 				end
 				DB.factionVars[name].Value = barValue
 
-				if stop then return end
+				if E.db.sle.databars.reputation.chatfilter.showAll then return end
 			end
 		end
 	end
