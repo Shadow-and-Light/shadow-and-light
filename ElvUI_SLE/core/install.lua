@@ -20,7 +20,7 @@ local function DarthHeal()
 
 	E.db["movers"]["ElvUF_RaidMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,362,-272"
 	E.db["movers"]["LootFrameMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,1,-467"
-	E.db["movers"]["AlertFrameMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,252,246"
+	E.db["movers"]["AlertFrameMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,252,249"
 end
 
 function PI:DarthSetup()
@@ -178,32 +178,39 @@ function PI:DarthSetup()
 		E.db["chat"]["timeStampFormat"] = "%H:%M:%S "
 
 		E.db["chat"]["panelWidth"] = 475
-		E.db["chat"]["panelHeight"] = 221
+		E.db["chat"]["panelHeight"] = 227
 		E.db["chat"]["tabFontOutline"] = "OUTLINE"
 		E.db["chat"]["fontOutline"] = "OUTLINE"
 
 		E.db["chat"]["showHistory"]["EMOTE"] = false
 		E.db["chat"]["showHistory"]["YELL"] = false
 		E.db["chat"]["showHistory"]["SAY"] = false
+
+		E.db["chat"]["hideVoiceButtons"] = true
 	end
 	--Databars
 	do
+		E.db["databars"]["colors"]["quest"]["a"] = 0.40000003576279
+		E.db["databars"]["colors"]["quest"]["g"] = 0
+
 		E.db["databars"]["reputation"]["enable"] = true
-		E.db["databars"]["reputation"]["height"] = 221
+		E.db["databars"]["reputation"]["height"] = 227
 		E.db["databars"]["reputation"]["width"] = 10
 		E.db["databars"]["reputation"]["orientation"] = "VERTICAL"
 
 		E.db["databars"]["azerite"]["textFormat"] = "CURMAX"
 		E.db["databars"]["azerite"]["textSize"] = 10
-		E.db["databars"]["azerite"]["width"] = 538
+		E.db["databars"]["azerite"]["width"] = 547
 
-		E.db["databars"]["experience"]["height"] = 221
+		E.db["databars"]["experience"]["height"] = 227
 		E.db["databars"]["experience"]["width"] = 10
 		E.db["databars"]["experience"]["orientation"] = "VERTICAL"
 
 		E.db["databars"]["honor"]["textFormat"] = "CURMAX"
 		E.db["databars"]["honor"]["textSize"] = 10
-		E.db["databars"]["honor"]["width"] = 538
+		E.db["databars"]["honor"]["width"] = 547
+
+		E.db["databars"]["threat"]["width"] = 262
 	end
 	--Datatexts
 	do
@@ -236,7 +243,7 @@ function PI:DarthSetup()
 		E.global["datatexts"]["settings"]["Currencies"]["displayedCurrency"] = "GOLD"
 
 		E.db["datatexts"]["panels"]["MinimapPanel"][1] = "Time"
-		E.db["datatexts"]["panels"]["MinimapPanel"][2] = "Combat/Arena Time"
+		E.db["datatexts"]["panels"]["MinimapPanel"][2] = "Combat"
 		E.db["datatexts"]["panels"]["MinimapPanel"]["panelTransparency"] = true
 
 		E.db["datatexts"]["panels"]["RightChatDataPanel"][1] = "Mastery"
@@ -276,19 +283,11 @@ function PI:DarthSetup()
 		E.db["nameplates"]["visibility"]["enemy"]["totems"] = true
 		E.db["nameplates"]["fadeIn"] = false
 
-		E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["enable"] = false
-		E.db["nameplates"]["units"]["PLAYER"]["enable"] = true
-		E.db["nameplates"]["units"]["PLAYER"]["castbar"]["enable"] = false
-		E.db["nameplates"]["units"]["PLAYER"]["showTitle"] = false
-		E.db["nameplates"]["units"]["PLAYER"]["useStaticPosition"] = true
-		E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["enable"] = false
-		E.db["nameplates"]["units"]["PLAYER"]["classpower"]["width"] = 150
-		E.db["nameplates"]["units"]["PLAYER"]["buffs"]["enable"] = false
-		E.db["nameplates"]["units"]["PLAYER"]["visibility"]["showWithTarget"] = true
-		E.db["nameplates"]["units"]["PLAYER"]["visibility"]["hideDelay"] = 2
+		E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
 
 		E.db["nameplates"]["units"]["TARGET"]["glowStyle"] = "style1"
 
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = "[name:long]"
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 6
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["size"] = 25
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 5
@@ -373,7 +372,8 @@ function PI:DarthSetup()
 		E.db["unitframe"]["units"]["player"]["aurabar"]["attachTo"] = "DETACHED"
 		E.db["unitframe"]["units"]["player"]["aurabar"]["sortDirection"] = "ASCENDING"
 		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 1
-		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = false
+		E.db["unitframe"]["units"]["player"]["classbar"]["autoHide"] = true
+		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["height"] = 14
 		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = false
 		E.db["unitframe"]["units"]["player"]["castbar"]["iconAttachedTo"] = "Castbar"
@@ -663,88 +663,90 @@ function PI:DarthSetup()
 	end
 	--Movers
 	do
-		E.db["movers"]["ElvAB_8"] = "BOTTOM,ElvUI_Bar1,TOP,0,122"
-		E.db["movers"]["SLE_FarmToolMover"] = "BOTTOMLEFT,SLE_SeedToolbarsAnchor,TOPLEFT,0,1"
-		E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOM,ElvUIParent,BOTTOM,0,328"
-		E.db["movers"]["SLE_BG_1_Mover"] = "BOTTOM,ElvUIParent,BOTTOM,0,21"
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,MMHolder,TOPLEFT,-7,-1"
-		E.db["movers"]["GhostFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,110"
-		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,433"
-		E.db["movers"]["LootFrameMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,533,-366"
-		E.db["movers"]["ZoneAbility"] = "BOTTOM,ElvUIParent,BOTTOM,0,433"
-		E.db["movers"]["SocialMenuMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-187"
-		E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,4,737"
-		E.db["movers"]["ElvUF_TargetAuraMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-490,406"
-		E.db["movers"]["DurabilityFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,164,30"
-		E.db["movers"]["ElvUF_PetCastbarMover"] = "TOPLEFT,ElvUF_Pet,BOTTOMLEFT,0,-1"
-		E.db["movers"]["SLE_GarrisonToolMover"] = "LEFT,ElvUIParent,LEFT,24,0"
-		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,201,338"
-		E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,549"
-		E.db["movers"]["MirrorTimer1Mover"] = "TOP,ElvUIParent,TOP,0,-289"
-		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-473,23"
-		E.db["movers"]["AltPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,84"
-		E.db["movers"]["PetBattleStatusMover"] = "TOP,PetBattleFrame,TOP,0,0"
-		E.db["movers"]["ReputationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-547,23"
-		E.db["movers"]["ObjectiveFrameMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,90,0"
-		E.db["movers"]["BNETMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,29"
-		E.db["movers"]["ShiftAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,798,277"
-		E.db["movers"]["RaidUtility_Mover"] = "TOP,ElvUIParent,TOP,-400,1"
-		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-300"
-		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-257,377"
-		E.db["movers"]["ElvAB_7"] = "BOTTOM,ElvUI_Bar1,TOP,0,82"
-		E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,-1"
-		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,526,-238"
-		E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-27"
-		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,-218,336"
-		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,248"
-		E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,0,0"
-		E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,368,0"
-		E.db["movers"]["MirrorTimer3Mover"] = "TOP,MirrorTimer2,BOTTOM,0,0"
-		E.db["movers"]["SLE_UIButtonsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-224,-174"
-		E.db["movers"]["SLE_FarmSeedMover"] = "LEFT,ElvUIParent,LEFT,24,-160"
-		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOM,ElvUIParent,BOTTOM,262,307"
-		E.db["movers"]["AzeriteBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,153"
-		E.db["movers"]["TalkingHeadFrameMover"] = "TOP,ElvUIParent,TOP,0,-20"
-		E.db["movers"]["SLE_FarmPortalMover"] = "BOTTOMLEFT,SLE_ToolsToolbarsAnchor,TOPLEFT,0,1"
-		E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-48"
-		E.db["movers"]["UIErrorsFrameMover"] = "TOP,ElvUIParent,TOP,0,-177"
-		E.db["movers"]["VehicleSeatMover"] = "BOTTOM,ElvUIParent,BOTTOM,-204,27"
-		E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,260"
-		E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,548,23"
-		E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-301"
-		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,261,376"
-		E.db["movers"]["SLE_BG_4_Mover"] = "BOTTOM,ElvUIParent,BOTTOM,0,189"
-		E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,0,243"
-		E.db["movers"]["ElvUF_Raid40Mover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,4,482"
-		E.db["movers"]["PetBattleABMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,4"
-		E.db["movers"]["HonorBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,162"
-		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,171"
-		E.db["movers"]["ElvAB_9"] = "BOTTOM,ElvUI_Bar1,TOP,0,162"
-		E.db["movers"]["BelowMinimapContainerMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-247"
-		E.db["movers"]["MirrorTimer2Mover"] = "TOP,MirrorTimer1,BOTTOM,0,0"
-		E.db["movers"]["VOICECHAT"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,586,27"
-		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,199,171"
-		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,379"
-		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,-199,171"
-		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,474,23"
-		E.db["movers"]["VehicleLeaveButton"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-190,-248"
-		E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,1,243"
-		E.db["movers"]["LevelUpBossBannerMover"] = "TOP,ElvUIParent,TOP,0,-217"
-		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,407"
-		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,357"
-		E.db["movers"]["ElvNP_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,503"
-		E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUI_Bar2,TOP,0,2"
-		E.db["movers"]["SLE_BG_2_Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOM,-257,21"
-		E.db["movers"]["ElvUF_PlayerAuraMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,498,407"
-		E.db["movers"]["ElvAB_10"] = "BOTTOM,ElvUI_Bar1,TOP,0,202"
-		E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,518,-316"
-		E.db["movers"]["SLE_Location_Mover"] = "TOP,ElvUIParent,TOP,0,0"
-		E.db["movers"]["ElvUF_PetMover"] = "BOTTOM,ElvUIParent,BOTTOM,-317,344"
-		E.db["movers"]["SLE_BG_3_Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOM,257,21"
-		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,248"
 		E.db["movers"]["AlertFrameMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,297,-572"
+		E.db["movers"]["AltPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,84"
+		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-300"
+		E.db["movers"]["AzeriteBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,153"
+		E.db["movers"]["BNETMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,29"
+		E.db["movers"]["BelowMinimapContainerMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-247"
+		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,433"
+		E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-301"
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,MMHolder,TOPLEFT,-7,-1"
+		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,412"
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-231,-116"
+		E.db["movers"]["DurabilityFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,164,30"
+		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,171"
+		E.db["movers"]["ElvAB_10"] = "BOTTOM,ElvUI_Bar1,TOP,0,202"
+		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,202,171"
+		E.db["movers"]["ElvAB_3"] = "BOTTOM,ElvUIParent,BOTTOM,-202,171"
+		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-474,23"
+		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,475,23"
+		E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUI_Bar2,TOP,0,2"
+		E.db["movers"]["ElvAB_7"] = "BOTTOM,ElvUI_Bar1,TOP,0,82"
+		E.db["movers"]["ElvAB_8"] = "BOTTOM,ElvUI_Bar1,TOP,0,122"
+		E.db["movers"]["ElvAB_9"] = "BOTTOM,ElvUI_Bar1,TOP,0,162"
+		E.db["movers"]["ElvNP_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,503"
+		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,526,-238"
+		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,391"
+		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOM,ElvUIParent,BOTTOM,261,306"
+		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,248"
+		E.db["movers"]["ElvUF_PetCastbarMover"] = "TOPLEFT,ElvUF_Pet,BOTTOMLEFT,0,-1"
+		E.db["movers"]["ElvUF_PetMover"] = "BOTTOM,ElvUIParent,BOTTOM,-317,344"
+		E.db["movers"]["ElvUF_PlayerAuraMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,498,407"
+		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,339"
+		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-257,377"
+		E.db["movers"]["ElvUF_Raid40Mover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,4,482"
+		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,253"
+		E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,4,737"
+		E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,518,-316"
+		E.db["movers"]["ElvUF_TargetAuraMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-490,406"
+		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,362"
+		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,261,376"
+		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,201,338"
+		E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,249"
+		E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,0,249"
+		E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,551,23"
+		E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,368,0"
+		E.db["movers"]["GhostFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,110"
+		E.db["movers"]["HonorBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,162"
+		E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,0,0"
+		E.db["movers"]["LevelUpBossBannerMover"] = "TOP,ElvUIParent,TOP,0,-217"
+		E.db["movers"]["LootFrameMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,533,-366"
+		E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,549"
+		E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-48"
 		E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-3"
+		E.db["movers"]["MirrorTimer1Mover"] = "TOP,ElvUIParent,TOP,0,-289"
+		E.db["movers"]["MirrorTimer2Mover"] = "TOP,MirrorTimer1,BOTTOM,0,0"
+		E.db["movers"]["MirrorTimer3Mover"] = "TOP,MirrorTimer2,BOTTOM,0,0"
+		E.db["movers"]["ObjectiveFrameMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,90,0"
+		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,-218,336"
+		E.db["movers"]["PetBattleABMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,4"
+		E.db["movers"]["PetBattleStatusMover"] = "TOP,PetBattleFrame,TOP,0,0"
+		E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOM,ElvUIParent,BOTTOM,0,312"
+		E.db["movers"]["RaidUtility_Mover"] = "TOP,ElvUIParent,TOP,-400,1"
+		E.db["movers"]["ReputationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-550,23"
+		E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,-1"
+		E.db["movers"]["SLE_BG_1_Mover"] = "BOTTOM,ElvUIParent,BOTTOM,0,21"
+		E.db["movers"]["SLE_BG_2_Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOM,-257,21"
+		E.db["movers"]["SLE_BG_3_Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOM,257,21"
+		E.db["movers"]["SLE_BG_4_Mover"] = "BOTTOM,ElvUIParent,BOTTOM,0,189"
+		E.db["movers"]["SLE_FarmPortalMover"] = "BOTTOMLEFT,SLE_ToolsToolbarsAnchor,TOPLEFT,0,1"
+		E.db["movers"]["SLE_FarmSeedMover"] = "LEFT,ElvUIParent,LEFT,24,-160"
+		E.db["movers"]["SLE_FarmToolMover"] = "BOTTOMLEFT,SLE_SeedToolbarsAnchor,TOPLEFT,0,1"
+		E.db["movers"]["SLE_GarrisonToolMover"] = "LEFT,ElvUIParent,LEFT,24,0"
+		E.db["movers"]["SLE_Location_Mover"] = "TOP,ElvUIParent,TOP,0,0"
+		E.db["movers"]["SLE_UIButtonsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-227,-174"
+		E.db["movers"]["ShiftAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,798,277"
+		E.db["movers"]["SocialMenuMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-187"
+		E.db["movers"]["TalkingHeadFrameMover"] = "TOP,ElvUIParent,TOP,0,-20"
+		E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,258"
+		E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-27"
+		E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,267"
+		E.db["movers"]["UIErrorsFrameMover"] = "TOP,ElvUIParent,TOP,0,-177"
+		E.db["movers"]["VOICECHAT"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,586,27"
+		E.db["movers"]["VehicleLeaveButton"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-190,-248"
+		E.db["movers"]["VehicleSeatMover"] = "BOTTOM,ElvUIParent,BOTTOM,-204,27"
+		E.db["movers"]["ZoneAbility"] = "BOTTOM,ElvUIParent,BOTTOM,0,433"
 	end
 
 
