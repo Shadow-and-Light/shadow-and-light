@@ -1,3 +1,15 @@
+v4.15 [November 17, 2020]
+Fixes:
+- Fixed a nil error in enhshadows
+- Better fix for Talking head frame
+- Fixed ilvl showing up when it was set not to in some classes
+- Fixed a zone returning nil in the S&L Friends datatext
+- Fixed some double avg ilvl text in the stat section
+- Fixed some elements in the character/inspect frames not updaing when certain things were disabled
+- Fixed S&L databar->Reputation increases were adding together when killing mobs instead of showing the value for that specific mob
+Changes:
+- Darth did some updates to his profile to fine tune it for his needs
+
 v4.14 [November 7, 2020]
 Fixes:
 - Fixed being able to move blizzard frames were broken
