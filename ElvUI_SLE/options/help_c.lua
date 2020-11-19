@@ -20,6 +20,7 @@ Tony Ellis
 Justin]]
 L["ELVUI_SLE_PATRONS"] = [[Ali A
 Andre E.
+Chris X.
 Jeremy G.
 Mark K.
 Peter aka Pete
