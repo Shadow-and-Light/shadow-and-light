@@ -23,6 +23,16 @@ local resetCountersFormatter = strjoin('', '|cffaaaaaa', L["Reset Session Data: 
 local resetInfoFormatter = strjoin('', '|cffaaaaaa', L["Reset Character Data: Hold Shift + Right Click"], '|r')
 DT.CurrencyList = { GOLD = BONUS_ROLL_REWARD_MONEY, BACKPACK = 'Backpack' }
 
+local function deleteCharacter(self, realm, name)
+	ElvDB.gold[realm][name] = nil
+	ElvDB.class[realm][name] = nil
+	ElvDB.faction[realm][name] = nil
+
+	if name == E.myname and realm == E.myrealm then
+		OnEvent(self)
+	end
+end
+
 local menuList = {}
 local function OnClick(self, btn)
 	if btn == 'RightButton' then
