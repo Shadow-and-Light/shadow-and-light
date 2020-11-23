@@ -1,3 +1,9 @@
+v4.17 [November 23, 2020]
+Changes:
+- Armory changes for some SL specific enachants
+Fixes:
+- Fixed Merchant skin
+
 v4.16 [November 21, 2020]
 Fixes:
 - Fixed S&L Currency delete character function
