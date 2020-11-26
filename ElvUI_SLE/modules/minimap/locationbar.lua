@@ -95,6 +95,10 @@ LP.PortItems = {
 	{95567, nil, true}, --Kirin Tor beakon
 	{95568, nil, true}, --Sunreaver beakon
 	{87548}, --Pandaria Arch
+	{65274}, --H: Cloak of Coordination
+	{65360}, --A: Cloak of Coordination
+	{63207}, --H: Wrap of Unity
+	{63206}, --A: Wrap of Unity
 }
 LP.EngineerItems = {
 	{18984, nil, true}, --Dimensional Ripper - Everlook
