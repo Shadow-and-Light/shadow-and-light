@@ -158,6 +158,9 @@ B.AddonsList = {
 	Blizzard_QuestChoice = {
 		QuestChoiceFrame = true,
 	},
+	Blizzard_Soulbinds = {
+		SoulbindViewer = true,
+	},
 	Blizzard_ScrappingMachineUI = {
 		ScrappingMachineFrame = true,
 	},
