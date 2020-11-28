@@ -104,6 +104,9 @@ B.AddonsList = {
 	Blizzard_Communities = {
 		CommunitiesFrame = true,
 	},
+	Blizzard_CovenantSanctum = {
+		CovenantSanctumFrame = true,
+	},
 	Blizzard_EncounterJournal = {
 		EncounterJournal = true,
 	},
