@@ -289,3 +289,17 @@ local function OnEnter()
 end
 
 DT:RegisterDatatext('S&L Currencies', nil, {'PLAYER_MONEY', 'SEND_MAIL_MONEY_CHANGED', 'SEND_MAIL_COD_CHANGED', 'PLAYER_TRADE_MONEY', 'TRADE_MONEY_CHANGED', 'CHAT_MSG_CURRENCY', 'CURRENCY_DISPLAY_UPDATE'}, OnEvent, nil, OnClick, OnEnter, nil, "S&L ".._G.CURRENCY)
+hooksecurefunc(DT, 'ForceUpdate_DataText', function(_, name)
+	if name and name == 'Currencies' then
+		for dtSlot, dtName in pairs(DT.AssignedDatatexts) do
+			if dtName.name == 'S&L Currencies' then
+				if dtName.colorUpdate then
+					dtName.colorUpdate(E.media.hexvaluecolor)
+				end
+				if dtName.eventFunc then
+					dtName.eventFunc(dtSlot, 'ELVUI_FORCE_UPDATE')
+				end
+			end
+		end
+	end
+end)
