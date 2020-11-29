@@ -2,26 +2,39 @@ local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Profi
 local DT = E:GetModule('DataTexts')
 
 local _G = _G
-local unpack = unpack
 local type, wipe, pairs, ipairs, sort = type, wipe, pairs, ipairs, sort
 local format, strjoin, tinsert = format, strjoin, tinsert
-local BreakUpLargeNumbers = BreakUpLargeNumbers
-local GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo
-local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
+local tonumber, unpack = tonumber, unpack
+
 local GetMoney = GetMoney
+local IsControlKeyDown = IsControlKeyDown
+local IsLoggedIn = IsLoggedIn
+local IsShiftKeyDown = IsShiftKeyDown
 local C_WowTokenPublic_UpdateMarketPrice = C_WowTokenPublic.UpdateMarketPrice
 local C_WowTokenPublic_GetCurrentMarketPrice = C_WowTokenPublic.GetCurrentMarketPrice
 local C_Timer_NewTicker = C_Timer.NewTicker
+local BreakUpLargeNumbers = BreakUpLargeNumbers
 
-local BONUS_ROLL_REWARD_MONEY = BONUS_ROLL_REWARD_MONEY
-local EXPANSION_NAME7 = EXPANSION_NAME7
-local OTHER = OTHER
+local Ticker
+-- local CURRENCY = CURRENCY --Needed if I decide to add watched currency from backpack
+-- local MAX_WATCHED_TOKENS = MAX_WATCHED_TOKENS --Needed if I decide to add watched currency from backpack
 local Profit, Spent = 0, 0
-
-local iconString = '|T%s:16:16:0:0:64:64:4:60:4:60|t'
 local resetCountersFormatter = strjoin('', '|cffaaaaaa', L["Reset Session Data: Hold Ctrl + Right Click"], '|r')
 local resetInfoFormatter = strjoin('', '|cffaaaaaa', L["Reset Character Data: Hold Shift + Right Click"], '|r')
+local PRIEST_COLOR = RAID_CLASS_COLORS.PRIEST
+local C_CurrencyInfo_GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo
+local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
+local BONUS_ROLL_REWARD_MONEY = BONUS_ROLL_REWARD_MONEY
+
+local iconString = '|T%s:16:16:0:0:64:64:4:60:4:60|t'
+
+local menuList = {}
+
 DT.CurrencyList = { GOLD = BONUS_ROLL_REWARD_MONEY, BACKPACK = 'Backpack' }
+
+local function sortFunction(a, b)
+	return a.amount > b.amount
+end
 
 local function deleteCharacter(self, realm, name)
 	ElvDB.gold[realm][name] = nil
@@ -33,7 +46,6 @@ local function deleteCharacter(self, realm, name)
 	end
 end
 
-local menuList = {}
 local function OnClick(self, btn)
 	if btn == 'RightButton' then
 		if IsShiftKeyDown() then
@@ -78,8 +90,17 @@ local function AddInfo(id)
 	end
 end
 
-local function sortFunction(a, b)
-	return a.amount > b.amount
+-- ElvUI Currencies Function
+local shownHeaders = {}
+local function AddHeader(id, addLine)
+	if (not E.global.datatexts.settings.Currencies.headers) or shownHeaders[id] then return end
+
+	if addLine then
+		DT.tooltip:AddLine(' ')
+	end
+
+	DT.tooltip:AddLine(E.global.datatexts.settings.Currencies.tooltipData[id][1])
+	shownHeaders[id] = true
 end
 
 local goldText
@@ -104,6 +125,10 @@ local function OnEvent(self)
 	ElvDB.faction[E.myrealm] = ElvDB.faction[E.myrealm] or {}
 	ElvDB.faction[E.myrealm][E.myname] = E.myfaction
 
+	ElvDB.serverID = ElvDB.serverID or {}
+	ElvDB.serverID[E.serverID] = ElvDB.serverID[E.serverID] or {}
+	ElvDB.serverID[E.serverID][E.myrealm] = true
+
 	--prevent an error possibly from really old profiles
 	local oldMoney = ElvDB.gold[E.myrealm][E.myname]
 	if oldMoney and type(oldMoney) ~= 'number' then
@@ -122,15 +147,15 @@ local function OnEvent(self)
 		Profit = Profit + Change
 	end
 
-	goldText = E:FormatMoney(ElvDB.gold[E.myrealm][E.myname], E.db.datatexts.goldFormat or 'BLIZZARD', not E.db.datatexts.goldCoins)
+	goldText = E:FormatMoney(GetMoney(), E.global.datatexts.settings.Currencies.goldFormat or 'BLIZZARD', not E.global.datatexts.settings.Currencies.goldCoins)
 
 	local displayed = E.global.datatexts.settings.Currencies.displayedCurrency
 	if displayed == 'BACKPACK' then
 		local displayString = ''
 		for i = 1, 3 do
-			local _, num, icon = GetBackpackCurrencyInfo(i)
-			if num then
-				displayString = (i > 1 and displayString..' ' or displayString)..format('%s %s', format(iconString, icon), E:ShortValue(num))
+			local info = C_CurrencyInfo_GetBackpackCurrencyInfo(i)
+			if info and info.quantity then
+				displayString = (i > 1 and displayString..' ' or displayString)..format('%s %s', format(iconString, info.iconFileID), E:ShortValue(info.quantity))
 			end
 		end
 
@@ -156,13 +181,11 @@ local function OnEvent(self)
 end
 
 local myGold = {}
-local function OnEnter(self)
-	DT:SetupTooltip(self)
+local function OnEnter()
+	DT.tooltip:ClearLines()
 
-	local addLine, goldSpace
-
-	local textOnly = not E.db.datatexts.goldCoins and true or false
-	local style = E.db.datatexts.goldFormat or 'BLIZZARD'
+	local textOnly = not E.global.datatexts.settings.Gold.goldCoins and true or false
+	local style = E.global.datatexts.settings.Gold.goldFormat or 'BLIZZARD'
 
 	DT.tooltip:AddLine(L["Session:"])
 	DT.tooltip:AddDoubleLine(L["Earned:"], E:FormatMoney(Profit, style, textOnly), 1, 1, 1, 1, 1, 1)
@@ -178,27 +201,30 @@ local function OnEnter(self)
 	DT.tooltip:AddLine(L["Character: "])
 
 	wipe(myGold)
-	for k,_ in pairs(ElvDB.gold[E.myrealm]) do
-		if ElvDB.gold[E.myrealm][k] then
-			local color = E:ClassColor(ElvDB.class[E.myrealm][k]) or PRIEST_COLOR
-			tinsert(myGold,
-				{
-					name = k,
-					amount = ElvDB.gold[E.myrealm][k],
-					amountText = E:FormatMoney(ElvDB.gold[E.myrealm][k], style, textOnly),
-					faction = ElvDB.faction[E.myrealm][k] or '',
-					r = color.r, g = color.g, b = color.b,
-				}
-			)
-		end
+	for realm in pairs(ElvDB.serverID[E.serverID]) do
+		for k, _ in pairs(ElvDB.gold[realm]) do
+			if ElvDB.gold[realm][k] then
+				local color = E:ClassColor(ElvDB.class[realm][k]) or PRIEST_COLOR
+				tinsert(myGold,
+					{
+						name = k,
+						realm = realm,
+						amount = ElvDB.gold[realm][k],
+						amountText = E:FormatMoney(ElvDB.gold[realm][k], style, textOnly),
+						faction = ElvDB.faction[realm][k] or '',
+						r = color.r, g = color.g, b = color.b,
+					}
+				)
+			end
 
-		if ElvDB.faction[E.myrealm][k] == 'Alliance' then
-			totalAlliance = totalAlliance+ElvDB.gold[E.myrealm][k]
-		elseif ElvDB.faction[E.myrealm][k] == 'Horde' then
-			totalHorde = totalHorde+ElvDB.gold[E.myrealm][k]
-		end
+			if ElvDB.faction[realm][k] == 'Alliance' then
+				totalAlliance = totalAlliance+ElvDB.gold[realm][k]
+			elseif ElvDB.faction[realm][k] == 'Horde' then
+				totalHorde = totalHorde+ElvDB.gold[realm][k]
+			end
 
-		totalGold = totalGold+ElvDB.gold[E.myrealm][k]
+			totalGold = totalGold+ElvDB.gold[realm][k]
+		end
 	end
 
 	sort(myGold, sortFunction)
@@ -209,10 +235,10 @@ local function OnEnter(self)
 			nameLine = format('|TInterface/FriendsFrame/PlusManz-%s:14|t ', g.faction)
 		end
 
-		nameLine = g.name == E.myname and nameLine..g.name..' |TInterface/COMMON/Indicator-Green:14|t' or nameLine..g.name
-
-		DT.tooltip:AddDoubleLine(nameLine, g.amountText, g.r, g.g, g.b, 1, 1, 1)
+		local toonName = format('%s%s%s', nameLine, g.name, (g.realm and g.realm ~= E.myrealm and ' - '..g.realm) or '')
+		DT.tooltip:AddDoubleLine((g.name == E.myname and toonName..' |TInterface/COMMON/Indicator-Green:14|t') or toonName, g.amountText, g.r, g.g, g.b, 1, 1, 1)
 	end
+
 	DT.tooltip:AddLine(' ')
 	DT.tooltip:AddLine(L["Server: "])
 	if totalAlliance > 0 and totalHorde > 0 then
@@ -222,23 +248,39 @@ local function OnEnter(self)
 	end
 	DT.tooltip:AddDoubleLine(L["Total: "], E:FormatMoney(totalGold, style, textOnly), 1, 1, 1, 1, 1, 1)
 	DT.tooltip:AddLine(' ')
-	DT.tooltip:AddLine(EXPANSION_NAME7) -- BfA
-	AddInfo(1710) -- SEAFARERS_DUBLOON
-	AddInfo(1580) -- SEAL_OF_WARTORN_FATE
-	AddInfo(1560) -- WAR_RESOURCES
-	AddInfo(E.myfaction == 'Alliance' and 1717 or 1716) -- 7th Legion or Honorbound
-	AddInfo(1718) -- TITAN_RESIDUUM
-	AddInfo(1721) -- PRISMATIC_MANAPEARL
-	AddInfo(1719) -- CORRUPTED_MEMENTOS
-	AddInfo(1755) -- COALESCING_VISIONS
-	AddInfo(1803) -- ECHOES_OF_NYALOTHA
-	DT.tooltip:AddLine(' ')
 
-	DT.tooltip:AddLine(OTHER)
-	AddInfo(515) -- DARKMOON_PRIZE_TICKET
+	wipe(shownHeaders)
+	local addLine
+	for _, info in ipairs(E.global.datatexts.settings.Currencies.tooltipData) do
+		local _, id, header = unpack(info)
+		if id and E.global.datatexts.settings.Currencies.idEnable[id] then
+			AddHeader(header, addLine)
+			if type(id) == 'number' then
+				AddInfo(id)
+			end
+			addLine = true
+		end
+	end
 
-	DT.tooltip:AddLine(' ')
+	if addLine then
+		DT.tooltip:AddLine(' ')
+	end
+
 	DT.tooltip:AddDoubleLine(L["WoW Token:"], E:FormatMoney(C_WowTokenPublic_GetCurrentMarketPrice() or 0, style, textOnly), 0, .8, 1, 1, 1, 1)
+
+	-- ElvUI Gold DT -> Watched Backpack Currencies
+	-- for i = 1, MAX_WATCHED_TOKENS do
+	-- 	local info = C_CurrencyInfo_GetBackpackCurrencyInfo(i)
+	-- 	if info then
+	-- 		if i == 1 then
+	-- 			DT.tooltip:AddLine(' ')
+	-- 			DT.tooltip:AddLine(CURRENCY)
+	-- 		end
+	-- 		if info.quantity then
+	-- 			DT.tooltip:AddDoubleLine(format('%s %s', format(iconString, info.iconFileID), info.name), BreakUpLargeNumbers(info.quantity), 1, 1, 1, 1, 1, 1)
+	-- 		end
+	-- 	end
+	-- end
 
 	DT.tooltip:AddLine(' ')
 	DT.tooltip:AddLine(resetCountersFormatter)
