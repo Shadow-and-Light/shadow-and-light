@@ -4,7 +4,6 @@ local MM = E:GetModule('Minimap')
 
 --GLOBALS: unpack, select, hooksecurefunc
 local _G = _G
-local InCombatLockdown = InCombatLockdown()
 
 function RMM:UpdateMoverSize()
 	if E.db.datatexts.panels.MinimapPanel.enable then
