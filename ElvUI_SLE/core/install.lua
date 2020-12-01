@@ -1017,7 +1017,7 @@ SLE.installTable = {
 		end,
 		[2] = function()
 			PI.SLE_Auth = ""
-			PI.SLE_Word = E.db.layoutSet == 'tank' and L["Tank"] or E.db.layoutSet == 'healer' and L["Healer"] or E.db.layoutSet == 'dpsMelee' and L["Physical DPS"] or E.db.layoutSet == 'dpsCaster' and L["Caster DPS"] or NONE
+			PI.SLE_Word = E.db.layoutSet == 'tank' and _G.STAT_CATEGORY_MELEE or E.db.layoutSet == 'healer' and _G.CLUB_FINDER_HEALER or E.db.layoutSet == 'dpsCaster' and _G.STAT_CATEGORY_RANGED or NONE
 			_G["PluginInstallFrame"].SubTitle:SetText(L["Shadow & Light Imports"])
 			_G["PluginInstallFrame"].Desc1:SetText(L["You can now choose if you want to use one of the authors' set of options. This will change the positioning of some elements as well of other various options."])
 			_G["PluginInstallFrame"].Desc2:SetText(format(L["SLE_Install_Text_AUTHOR"], PI.SLE_Word))
@@ -1039,7 +1039,7 @@ SLE.installTable = {
 		end,
 		[3] = function()
 			if PI.SLE_Auth == "" then _G["PluginInstallFrame"].SetPage(_G["PluginInstallFrame"].PrevPage == 2 and 4 or 2) return end
-			PI.SLE_Word = E.db.layoutSet == 'tank' and L["Tank"] or E.db.layoutSet == 'healer' and L["Healer"] or E.db.layoutSet == 'dpsCaster' and L["Caster DPS"] or NONE
+			PI.SLE_Word = E.db.layoutSet == 'tank' and _G.STAT_CATEGORY_MELEE or E.db.layoutSet == 'healer' and _G.CLUB_FINDER_HEALER or E.db.layoutSet == 'dpsCaster' and _G.STAT_CATEGORY_RANGED or NONE
 			_G["PluginInstallFrame"].SubTitle:SetText(L["Layout & Settings Import"])
 			_G["PluginInstallFrame"].Desc1:SetText(format(L["You have selected to use %s and role %s."], PI.SLE_Auth == "DARTH" and L["Darth's Config"] or PI.SLE_Auth == "REPOOC" and L["Repooc's Config"] or PI.SLE_Auth == "AFFINITY" and L["Affinitii's Config"], PI.SLE_Word))
 			_G["PluginInstallFrame"].Desc2:SetText(L["SLE_INSTALL_LAYOUT_TEXT2"])
