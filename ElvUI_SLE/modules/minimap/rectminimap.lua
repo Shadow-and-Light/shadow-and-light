@@ -1,39 +1,10 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local RMM = SLE:NewModule("RectangleMinimap")
+local SLE, _, E = unpack(select(2, ...))
+local RMM = SLE:NewModule('RectangleMinimap', 'AceHook-3.0', 'AceEvent-3.0')
 local MM = E:GetModule('Minimap')
 
---GLOBALS: unpack, select, _G, hooksecurefunc
+--GLOBALS: unpack, select, hooksecurefunc
 local _G = _G
-
-local BAR_HEIGHT = 22
-
-function RMM:SkinMiniMap()
-	_G.Minimap:SetMaskTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\map\\rectangle')
-	_G.Minimap:Size(E.MinimapSize, E.MinimapSize)
-	_G.Minimap:SetHitRectInsets(0, 0, (E.MinimapSize/6.1)*E.mult, (E.MinimapSize/6.1)*E.mult)
-	_G.Minimap:SetClampRectInsets(0, 0, 0, 0)
-
-	RMM:UpdateMoverSize()
-
-	--*Relocated Minimap to MMHolder
-	_G.Minimap:ClearAllPoints()
-	_G.Minimap:Point("TOPRIGHT", _G.MMHolder, "TOPRIGHT", -E.Border, E.Border)
-	--*Below sets mover to same size of minimap, I didn't do this on purpose due to people moving the minimap in an area not good
-	-- _G.Minimap:Point("TOPRIGHT", _G.MMHolder, "TOPRIGHT", -E.Border, (E.MinimapSize/6.1)+E.Border)
-
-
-	if _G.Minimap.location then
-		RMM:UpdateLocationText()
-	end
-
-	_G.MinimapPanel:ClearAllPoints()
-	_G.MinimapPanel:Point('TOPLEFT', _G.Minimap, 'BOTTOMLEFT', -E.Border, (E.MinimapSize/6.1)-1)
-	_G.MinimapPanel:Point('BOTTOMRIGHT', _G.Minimap, 'BOTTOMRIGHT', E.Border, ((E.MinimapSize/6.1)-BAR_HEIGHT)-1)
-
-	if _G.Minimap.backdrop then
-		_G.Minimap.backdrop:SetOutside(_G.Minimap, 1, -(E.MinimapSize/6.1)+1)
-	end
-end
+local InCombatLockdown = InCombatLockdown()
 
 function RMM:UpdateMoverSize()
 	if E.db.datatexts.panels.MinimapPanel.enable then
@@ -48,11 +19,71 @@ function RMM:UpdateLocationText()
 	_G.Minimap.location:Point('TOP', _G.Minimap, 'TOP', 0, -25)
 end
 
+function RMM:ChangeShape()
+	if InCombatLockdown() then
+		return
+	end
+
+	local BAR_HEIGHT = 22
+	local rectmask = 'Interface\\AddOns\\ElvUI_SLE\\media\\textures\\map\\rectangle'
+
+	_G.Minimap:SetClampedToScreen(true)
+	_G.Minimap:SetMaskTexture(rectmask)
+	_G.Minimap:Size(E.MinimapSize, E.MinimapSize)
+	_G.Minimap:SetHitRectInsets(0, 0, (E.MinimapSize/6.1)*E.mult, (E.MinimapSize/6.1)*E.mult)
+	_G.Minimap:SetClampRectInsets(0, 0, 0, 0)
+	_G.Minimap:ClearAllPoints()
+	_G.Minimap:Point('TOPRIGHT', _G.MMHolder, 'TOPRIGHT', -E.Border, E.Border)
+	_G.Minimap.backdrop:SetOutside(_G.Minimap, 1, -(E.MinimapSize/6.1)+1)
+	_G.MinimapBackdrop:SetOutside(_G.Minimap.backdrop)
+
+	if _G.HybridMinimap then
+		local rectangleMask = _G.HybridMinimap:CreateMaskTexture()
+		rectangleMask:SetTexture(rectmask)
+		rectangleMask:SetAllPoints(_G.HybridMinimap)
+		_G.HybridMinimap.RectangleMask = rectangleMask
+		_G.HybridMinimap.MapCanvas:SetMaskTexture(rectangleMask)
+		_G.HybridMinimap.MapCanvas:SetUseMaskTexture(true)
+	end
+
+	RMM:UpdateMoverSize()
+	RMM:UpdateLocationText()
+
+	_G.MinimapPanel:ClearAllPoints()
+	_G.MinimapPanel:Point('TOPLEFT', _G.Minimap, 'BOTTOMLEFT', -E.Border, (E.MinimapSize/6.1)-1)
+	_G.MinimapPanel:Point('BOTTOMRIGHT', _G.Minimap, 'BOTTOMRIGHT', E.Border, ((E.MinimapSize/6.1)-BAR_HEIGHT)-1)
+end
+
+function RMM:PLAYER_ENTERING_WORLD()
+	RMM:SetUpdateHook()
+	RMM:UnregisterEvent('PLAYER_ENTERING_WORLD')
+end
+
+function RMM:ADDON_LOADED(_, addon)
+	if addon == 'Blizzard_HybridMinimap' then
+		RMM:ChangeShape()
+		RMM:UnregisterEvent('ADDON_LOADED')
+	end
+end
+
+function RMM:SetUpdateHook()
+	if not self.Initialized then
+		RMM:SecureHook(MM, 'SetGetMinimapShape', 'ChangeShape')
+		RMM:SecureHook(MM, 'UpdateSettings', 'ChangeShape')
+		RMM:SecureHook(MM, 'Initialize', 'ChangeShape')
+		RMM:SecureHook(E, 'UpdateAll', 'ChangeShape')
+		RMM:SecureHook(_G.MMHolder, 'Size', 'UpdateMoverSize')
+
+		self.Initialized = true
+	end
+
+	RMM:ChangeShape()
+end
+
 function RMM:Initialize()
 	if not E.private.general.minimap.enable or not E.private.sle.minimap.rectangle then return end
-
-	RMM:SkinMiniMap()
-	hooksecurefunc(MM, "UpdateSettings", RMM.UpdateMoverSize)
+	RMM:RegisterEvent('ADDON_LOADED')
+	RMM:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
 
 SLE:RegisterModule(RMM:GetName())
