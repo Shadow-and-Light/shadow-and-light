@@ -151,7 +151,7 @@ local function OnEvent(self)
 
 	local displayed = E.global.datatexts.settings.Currencies.displayedCurrency
 	if displayed == 'BACKPACK' then
-		local displayString = ''
+		local displayString
 		for i = 1, 3 do
 			local info = C_CurrencyInfo_GetBackpackCurrencyInfo(i)
 			if info and info.quantity then
@@ -159,7 +159,7 @@ local function OnEvent(self)
 			end
 		end
 
-		self.text:SetText(displayString == '' and goldText or displayString)
+		self.text:SetText(displayString or goldText)
 	elseif displayed == 'GOLD' then
 		self.text:SetText(goldText)
 	else
@@ -250,19 +250,28 @@ local function OnEnter()
 	DT.tooltip:AddLine(' ')
 
 	wipe(shownHeaders)
-	local addLine
+	local addLine, addLine2
 	for _, info in ipairs(E.global.datatexts.settings.Currencies.tooltipData) do
 		local _, id, header = unpack(info)
 		if id and E.global.datatexts.settings.Currencies.idEnable[id] then
 			AddHeader(header, addLine)
-			if type(id) == 'number' then
-				AddInfo(id)
-			end
+			AddInfo(id)
 			addLine = true
 		end
 	end
 
 	if addLine then
+		DT.tooltip:AddLine(' ')
+	end
+
+	for _, info in pairs(E.global.datatexts.customCurrencies) do
+		if info and not DT.CurrencyList[tostring(info.ID)] and info.DISPLAY_IN_MAIN_TOOLTIP then
+			AddInfo(info.ID)
+			addLine2 = true
+		end
+	end
+
+	if addLine2 then
 		DT.tooltip:AddLine(' ')
 	end
 
