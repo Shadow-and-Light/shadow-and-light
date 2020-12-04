@@ -1,12 +1,14 @@
 v4.18 [December ??, 2020]
 Fixes:
 - Fix Rectangle Minimap in Torghast
+- Fix Armory Enchant string replacement not working for all strings... maybe this will help
 Added:
 - Added Wormhole Generator to SL as well as Orbis Portal
 - Added ability to move the SoulbindViewer frame
 - Added ability to move the Covenant Sanctum frame
 Updated:
 - Updated S&L Currency to be configured with ElvUI's "DataText Customization->Currency" in the DataTexts section
+- Updated S&L Currency to display Custom Currencies added and use the "Display in Main Tooltip" option
 
 v4.17 [November 23, 2020]
 Changes:
