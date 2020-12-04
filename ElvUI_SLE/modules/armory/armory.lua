@@ -324,12 +324,11 @@ function Armory:ProcessEnchant(which, Slot, enchantTextShort, enchantText)
 	if E.db.sle.armory.enchantString.replacement then
 		for _, enchData in pairs(SLE_ArmoryDB.EnchantString) do
 			if enchData.original == enchantText then
-				Slot.enchantText:SetText(enchData.new)
-			else
-				Slot.enchantText:SetText(enchantText)
+				enchantText = enchData.new
 			end
 		end
 	end
+	Slot.enchantText:SetText(enchantText)
 end
 
 ---<<<Global Hide tooltip func for armory>>>---
