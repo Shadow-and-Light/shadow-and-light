@@ -215,6 +215,23 @@ P["sle"] = {
 			["visibility"] = "show",
 		},
 	},
+	bags = {
+		equipmentmanager = {
+			enable = false,
+			size = 14,
+			point = 'TOPRIGHT',
+			xOffset = -1,
+			yOffset = -1,
+			icon = 'EQUIPMGR',
+			customTexture = "",
+			color = {
+				r = 1,
+				g = 0.82,
+				b = 0,
+				a = 1,
+			}
+		},
+	},
 	--Blizzard
 	["blizzard"] = {
 		["rumouseover"] = false,

@@ -1,148 +1,147 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
-local BI = SLE:NewModule('BagInfo', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+local SLE, _, E = unpack(select(2, ...))
+local BI = SLE:NewModule('BagInfo', 'AceHook-3.0', 'AceEvent-3.0')
 local B = E:GetModule('Bags')
 
 local _G = _G
-local format = format
-local byte = string.byte
+local GetContainerNumSlots = GetContainerNumSlots
+local CUSTOM = CUSTOM
+local EQUIPMENT_SETS = EQUIPMENT_SETS
 
-local updateTimer
-BI.containers = {}
-BI.infoArray = {}
-BI.equipmentMap = {}
-local EquipmentManager_UnpackLocation = EquipmentManager_UnpackLocation
-local C_EquipmentSet = C_EquipmentSet
+--* Used this to help translate known texcoords to a |T |t string
+-- CreateTextureMarkup('Interface\\PaperDollInfoFrame\\PaperDollSidebarTabs', 64, 256, 0, 0, 0.01562500, 0.53125000, 0.46875000, 0.60546875, 0, 0)
+-- CreateTextureMarkup(file, fileWidth, fileHeight, width, height, left, right, top, bottom, xOffset, yOffset)
+-- 	return ("|T%s:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d|t"):format(
+-- 		file, height, width, xOffset or 0, yOffset or 0, fileWidth, fileHeight, left * fileWidth, right * fileWidth, top * fileHeight, bottom * fileHeight
+-- 	);
+-- end
+-- local texture = '|TInterface\\PaperDollInfoFrame\\PaperDollSidebarTabs:20:20:0:0:64:256:1:34:120:155|t'
 
-local function Utf8Sub(str, start, numChars)
-	local currentIndex = start
-	while numChars > 0 and currentIndex <= #str do
-		local char = byte(str, currentIndex)
-
-		if char > 240 then
-			currentIndex = currentIndex + 4
-		elseif char > 225 then
-			currentIndex = currentIndex + 3
-		elseif char > 192 then
-			currentIndex = currentIndex + 2
-		else
-			currentIndex = currentIndex + 1
-		end
-
-		numChars = numChars -1
-	end
-
-	return str:sub(start, currentIndex - 1)
-end
-
-local function MapKey(bag, slot)
-	return format("%d_%d", bag, slot)
-end
-
-local quickFormat = {
-	[0] = function(font, map) font:SetText() end,
-	[1] = function(font, map) font:SetFormattedText("|cffffffaa%s|r", Utf8Sub(map[1], 1, 4)) end,
-	[2] = function(font, map) font:SetFormattedText("|cffffffaa%s %s|r", Utf8Sub(map[1], 1, 4), Utf8Sub(map[2], 1, 4)) end,
-	[3] = function(font, map) font:SetFormattedText("|cffffffaa%s %s %s|r", Utf8Sub(map[1], 1, 4), Utf8Sub(map[2], 1, 4), Utf8Sub(map[3], 1, 4)) end,
+BI.equipmentmanager = {
+	icons = {
+		EQUIPMGR = 'Equipment Manager Icon |TInterface\\PaperDollInfoFrame\\PaperDollSidebarTabs:20:20:0:0:64:256:1:34:120:155|t',
+		EQUIPLOCK = 'Equipment Lock Icon |TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\lock:14|t',
+		NEWICON = 'New Feature Icon |TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14|t',
+		CUSTOM = CUSTOM,
+	},
+	iconLocations = {
+		EQUIPLOCK = [[Interface\AddOns\ElvUI_SLE\media\textures\lock]],
+		NEWICON = [[Interface\OptionsFrame\UI-OptionsFrame-NewFeatureIcon]],
+	},
 }
 
-local function BuildEquipmentMap(clear)
-	-- clear mapped names
-	for k, v in pairs(BI.equipmentMap) do
-		wipe(v)
-	end
+local function SetupBags()
+	for _, bagFrame in pairs(B.BagFrames) do
+		for _, bagID in ipairs(bagFrame.BagIDs) do
+			for slotID = 1, GetContainerNumSlots(bagID) do
+				local button = bagFrame.Bags[bagID][slotID]
 
-	if clear then return end
-
-	local name, player, bank, bags, slot, bag, key
-	local equipmentSetIDs = C_EquipmentSet.GetEquipmentSetIDs()
-
-	for index = 1, C_EquipmentSet.GetNumEquipmentSets() do
-		name = C_EquipmentSet.GetEquipmentSetInfo(equipmentSetIDs[index]);
-		local equipmentSetID = C_EquipmentSet.GetEquipmentSetID(name)
-		if equipmentSetID then
-			local SetInfoTable = C_EquipmentSet.GetItemLocations(equipmentSetID)
-			for _, location in pairs(SetInfoTable) do
-				if type(location) == "number" and (location < -1 or location > 1) then
-					player, bank, bags, _, slot, bag = EquipmentManager_UnpackLocation(location)
-					if ((bank or bags) and slot and bag) then
-						key = MapKey(bag, slot)
-						BI.equipmentMap[key] = BI.equipmentMap[key] or {}
-						tinsert(BI.equipmentMap[key], name)
-					end
+				if not button.equipIcon then
+					button.equipIcon = button:CreateTexture(nil, 'OVERLAY')
+					button.equipIcon:Hide()
 				end
 			end
 		end
 	end
 end
 
-local function UpdateContainerFrame(frame, bag, slot)
-	if (not frame.equipmentinfo) then
-		frame.equipmentinfo = frame:CreateFontString(nil, "OVERLAY")
-		frame.equipmentinfo:FontTemplate(E.media.font, 12, "THINOUTLINE")
-		frame.equipmentinfo:SetWordWrap(true)
-		frame.equipmentinfo:SetJustifyH('CENTER')
-		frame.equipmentinfo:SetJustifyV('MIDDLE')
-	end
-
-	if (frame.equipmentinfo) then
-		frame.equipmentinfo:SetAllPoints(frame)
-
-		local key = MapKey(bag, slot)
-		if BI.equipmentMap[key] then	
-			quickFormat[#BI.equipmentMap[key] < 4 and #BI.equipmentMap[key] or 3](frame.equipmentinfo, BI.equipmentMap[key])
-		else
-			quickFormat[0](frame.equipmentinfo, nil)
-		end
-	end
-end
-
-local function UpdateBagInformation(clear)
-	updateTimer = nil
-
-	BuildEquipmentMap(clear)
-	for _, container in pairs(BI.containers) do
-		for _, bagID in ipairs(container.BagIDs) do
+function BI:UpdateEquipment()
+	for _, bagFrame in pairs(B.BagFrames) do
+		for _, bagID in ipairs(bagFrame.BagIDs) do
 			for slotID = 1, GetContainerNumSlots(bagID) do
-				UpdateContainerFrame(container.Bags[bagID][slotID], bagID, slotID)
+				local button = bagFrame.Bags[bagID][slotID]
+				if not button.equipIcon then
+					SetupBags()
+					BI:UpdateSettings()
+				end
+				button.equipIcon:SetShown(BI:CheckVisibility(bagFrame, bagID, slotID))
 			end
 		end
 	end
 end
 
-local function DelayUpdateBagInformation(event)
-	-- delay to make sure multiple bag events are consolidated to one update.
-	if not updateTimer then
-		updateTimer = BI:ScheduleTimer(UpdateBagInformation, .25)
+function BI:CheckVisibility(bagFrame, bagID, slotID)
+	if not bagFrame or not bagID or not slotID then return end
+	local button = bagFrame.Bags[bagID][slotID]
+	local show = false
+
+	E.ScanTooltip:SetOwner(_G.UIParent, 'ANCHOR_NONE')
+	if button.GetInventorySlot then -- this fixes bank bagid -1
+		E.ScanTooltip:SetInventoryItem('player', button:GetInventorySlot())
+	else
+		E.ScanTooltip:SetBagItem(bagID, slotID)
 	end
+	E.ScanTooltip:Show()
+
+	for i = 3, E.ScanTooltip:NumLines() do
+		local str = _G['ElvUI_ScanTooltipTextLeft' .. i]
+		local text = str and str:GetText()
+
+		if not text or text == '' then return end
+
+		if text:find(EQUIPMENT_SETS:gsub('%%s','.-')) then
+			show = true
+		end
+	end
+	E.ScanTooltip:Hide()
+	return E.db.sle.bags.equipmentmanager.enable and show
 end
 
 function BI:ToggleSettings()
-	if updateTimer then
-		self:CancelTimer(updateTimer)
+	if E.private.sle.equip.setoverlay then
+		BI:RegisterEvent('EQUIPMENT_SETS_CHANGED', BI.UpdateEquipment)
+		BI:RegisterEvent('BAG_UPDATE', BI.UpdateEquipment)
+		BI:RegisterEvent('PLAYERBANKSLOTS_CHANGED', BI.UpdateEquipment)
+	else
+		BI:UnregisterEvent('EQUIPMENT_SETS_CHANGED')
+		BI:UnregisterEvent('BAG_UPDATE')
+		BI:UnregisterEvent('PLAYERBANKSLOTS_CHANGED')
 	end
 
-	if E.private.sle.equip.setoverlay then
-		self:RegisterEvent("EQUIPMENT_SETS_CHANGED", DelayUpdateBagInformation)
-		self:RegisterEvent("BAG_UPDATE", DelayUpdateBagInformation)
-		UpdateBagInformation()
-	else
-		self:UnregisterEvent("EQUIPMENT_SETS_CHANGED")
-		self:UnregisterEvent("BAG_UPDATE") 
-		UpdateBagInformation(true)
+	BI:UpdateEquipment()
+end
+
+function BI:UpdateSettings()
+	local db = E.db.sle.bags.equipmentmanager
+	local texture = db.icon
+
+	for _, bagFrame in pairs(B.BagFrames) do
+		for _, bagID in ipairs(bagFrame.BagIDs) do
+			for slotID = 1, GetContainerNumSlots(bagID) do
+				local button = bagFrame.Bags[bagID][slotID]
+				button.equipIcon:SetSize(db.size, db.size)
+				button.equipIcon:ClearAllPoints()
+				button.equipIcon:Point(db.point, db.xOffset, db.yOffset)
+
+				if texture == 'EQUIPMGR' then
+					button.equipIcon:SetTexture('Interface\\PaperDollInfoFrame\\PaperDollSidebarTabs')
+					button.equipIcon:SetTexCoord(0.01562500, 0.53125000, 0.46875000, 0.60546875)
+				elseif texture == 'CUSTOM' then
+					button.equipIcon:SetTexture(db.customTexture)
+					button.equipIcon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
+				else
+					-- button.equipIcon:SetTexture(3547163)
+					button.equipIcon:SetTexture(BI.equipmentmanager.iconLocations[texture] or texture)
+					button.equipIcon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
+				end
+
+				-- button.equipIcon:SetVertexColor(1, .82, 0, 1)
+				button.equipIcon:SetVertexColor(db.color.r, db.color.g, db.color.b, db.color.a)
+			end
+		end
 	end
 end
 
 function BI:Initialize()
 	if not SLE.initialized or not E.private.bags.enable then return end
 
-	tinsert(BI.containers, _G["ElvUI_ContainerFrame"])
-	self:SecureHook(B, "OpenBank", function()
-		self:Unhook(B, "OpenBank")
-		tinsert(BI.containers, _G["ElvUI_BankContainerFrame"])
+	SetupBags()
+	BI:UpdateSettings()
+	BI:ToggleSettings()
+	hooksecurefunc(B, 'OpenBank', function()
+		SetupBags()
+		BI:UpdateSettings()
 		BI:ToggleSettings()
 	end)
-
-	BI:ToggleSettings()
 end
 
 SLE:RegisterModule(BI:GetName())

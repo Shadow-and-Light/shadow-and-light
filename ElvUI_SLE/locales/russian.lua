@@ -169,6 +169,7 @@ L["Enables a different look/feel vehicle bar."] = "Включить специа
 L["Enables a shadow for the panel or backdrop of this frame."] = true
 L["Enables a shadow on the %s when it's enabled."] = true
 L["Enables a small arrow-like indicator on the item slot. Howering over this arrow will show the item this slot is transmogged into."] = "отображать индикатор в виде стрелки на слоте. При наведении курсора на стрелку будет показываться название предмета трансмогрификации."
+L["Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."] = true
 L["Enables timers for 2 & 3 chest times in M+"] = "Включает таймеры на 2 и 3 сундука в ключах"
 L["Enabling mouse over will make ElvUI's raid utility show on mouse over instead of always showing."] = "Включение позволит отображать кнопку управления рейдом только при наведении курсора."
 L["Enchant Scroll Button"] = "Кнопка зачарования свитка"

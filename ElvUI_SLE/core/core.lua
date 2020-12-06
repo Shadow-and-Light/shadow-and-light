@@ -75,6 +75,14 @@ function SLE:UpdateMedia()
 		E.db.sle.shadows.shadowcolor.g = shadowColor.g
 		E.db.sle.shadows.shadowcolor.b = shadowColor.b
 	end
+
+	local iconColor = E.db.sle.bags.equipmentmanager.color
+	if E:CheckClassColor(iconColor.r, iconColor.g, iconColor.b) then
+		iconColor = E:ClassColor(E.myclass, true)
+		E.db.sle.bags.equipmentmanager.color.r = iconColor.r
+		E.db.sle.bags.equipmentmanager.color.g = iconColor.g
+		E.db.sle.bags.equipmentmanager.color.b = iconColor.b
+	end
 end
 
 function SLE:Initialize()

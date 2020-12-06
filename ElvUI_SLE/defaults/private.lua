@@ -10,7 +10,6 @@ V["sle"] = {
 		["spam"] = false,
 		["onlyTalent"] = false,
 		["conditions"] = "",
-		["setoverlay"] = false,
 		["lockbutton"] = false,
 	},
 	--Minimap Module

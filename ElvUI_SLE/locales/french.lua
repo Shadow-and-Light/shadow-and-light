@@ -169,6 +169,7 @@ L["Enables a different look/feel vehicle bar."] = "Permet une barre de véhicule
 L["Enables a shadow for the panel or backdrop of this frame."] = true
 L["Enables a shadow on the %s when it's enabled."] = true
 L["Enables a small arrow-like indicator on the item slot. Howering over this arrow will show the item this slot is transmogged into."] = true
+L["Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."] = true
 L["Enables timers for 2 & 3 chest times in M+"] = true
 L["Enabling mouse over will make ElvUI's raid utility show on mouse over instead of always showing."] = "En activant le survol de la souris, l'utilitaire de raid d'ElvUI s'affichera au survol de la souris au lieu de toujours s'afficher."
 L["Enchant Scroll Button"] = "Bouton de défilement d'enchantement"

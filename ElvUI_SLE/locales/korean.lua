@@ -169,6 +169,7 @@ L["Enables a different look/feel vehicle bar."] = true
 L["Enables a shadow for the panel or backdrop of this frame."] = true
 L["Enables a shadow on the %s when it's enabled."] = true
 L["Enables a small arrow-like indicator on the item slot. Howering over this arrow will show the item this slot is transmogged into."] = true
+L["Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."] = true
 L["Enables timers for 2 & 3 chest times in M+"] = true
 L["Enabling mouse over will make ElvUI's raid utility show on mouse over instead of always showing."] = "활성화하면 ElvUI 공격대 유틸리티가 항상 표시되는 대신 마우스 오버스에 표시됩니다."
 L["Enchant Scroll Button"] = true
