@@ -6,6 +6,8 @@ Added:
 - Added Wormhole Generator to SL as well as Orbis Portal
 - Added ability to move the SoulbindViewer frame
 - Added ability to move the Covenant Sanctum frame
+Changed:
+- Equipment Set text overlay has been removed in favor to a less clutter look of an icon indicator found in S&L Bags section
 Updated:
 - Updated S&L Currency to be configured with ElvUI's "DataText Customization->Currency" in the DataTexts section
 - Updated S&L Currency to display Custom Currencies added and use the "Display in Main Tooltip" option
