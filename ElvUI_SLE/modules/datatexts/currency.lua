@@ -1,4 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local _, _, E, L = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
 
 local _G = _G
@@ -297,7 +297,6 @@ local function OnEnter()
 	DT.tooltip:Show()
 end
 
-DT:RegisterDatatext('S&L Currencies', nil, {'PLAYER_MONEY', 'SEND_MAIL_MONEY_CHANGED', 'SEND_MAIL_COD_CHANGED', 'PLAYER_TRADE_MONEY', 'TRADE_MONEY_CHANGED', 'CHAT_MSG_CURRENCY', 'CURRENCY_DISPLAY_UPDATE'}, OnEvent, nil, OnClick, OnEnter, nil, "S&L ".._G.CURRENCY)
 hooksecurefunc(DT, 'ForceUpdate_DataText', function(_, name)
 	if name and name == 'Currencies' then
 		for dtSlot, dtName in pairs(DT.AssignedDatatexts) do
@@ -312,3 +311,5 @@ hooksecurefunc(DT, 'ForceUpdate_DataText', function(_, name)
 		end
 	end
 end)
+
+DT:RegisterDatatext('S&L Currencies', nil, {'PLAYER_MONEY', 'SEND_MAIL_MONEY_CHANGED', 'SEND_MAIL_COD_CHANGED', 'PLAYER_TRADE_MONEY', 'TRADE_MONEY_CHANGED', 'CHAT_MSG_CURRENCY', 'CURRENCY_DISPLAY_UPDATE'}, OnEvent, nil, OnClick, OnEnter, nil, 'S&L '.._G.CURRENCY)
