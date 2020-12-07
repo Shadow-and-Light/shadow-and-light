@@ -1,4 +1,4 @@
-v4.18 [December ??, 2020]
+v4.18 [December 7, 2020]
 Fixes:
 - Fix Rectangle Minimap in Torghast
 - Fix Armory Enchant string replacement not working for all strings... maybe this will help
