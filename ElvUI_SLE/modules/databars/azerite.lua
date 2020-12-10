@@ -9,14 +9,12 @@ local C_AzeriteItem_FindActiveAzeriteItem = C_AzeriteItem.FindActiveAzeriteItem
 
 local function AzeriteBar_Update(self, event, unit)
 	if not E.db.sle.databars.azerite.longtext then return end
-	if (event == 'UNIT_INVENTORY_CHANGED' and unit ~= 'player') then
-		return
-	end
+	if (event == 'UNIT_INVENTORY_CHANGED' and unit ~= 'player') then return end
 
 	local bar = EDB.StatusBars.Azerite
 	local azeriteItemLocation = C_AzeriteItem_FindActiveAzeriteItem()
 
-	if azeriteItemLocation and (not E.db.databars.azerite.hideInCombat or not InCombatLockdown()) then
+	if azeriteItemLocation and not AzeriteUtil.IsAzeriteItemLocationBankBag(azeriteItemLocation) and (not E.db.databars.azerite.hideInCombat or not InCombatLockdown()) then
 		local text = ''
 		local xp, totalLevelXP = C_AzeriteItem_GetAzeriteItemXPInfo(azeriteItemLocation)
 		local xpToNextLevel = totalLevelXP - xp
