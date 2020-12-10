@@ -450,11 +450,13 @@ end
 function Armory:ToggleItemLevelInfo()
 	if E.db.general.itemLevel.displayCharacterInfo then
 		-- Armory:UnregisterEvent('AZERITE_ESSENCE_UPDATE')
+		Armory:UnregisterEvent('CRITERIA_UPDATE')
 		Armory:UnregisterEvent('PLAYER_EQUIPMENT_CHANGED')
 		Armory:UnregisterEvent('UPDATE_INVENTORY_DURABILITY')
 		-- Armory:UnregisterEvent('PLAYER_AVG_ITEM_LEVEL_UPDATE')
 	else
 		-- Armory:RegisterEvent('AZERITE_ESSENCE_UPDATE', 'UpdateCharacterInfo')
+		Armory:RegisterEvent('CRITERIA_UPDATE', 'UpdateCharacterInfo')
 		Armory:RegisterEvent('PLAYER_EQUIPMENT_CHANGED', 'UpdateCharacterInfo')
 		Armory:RegisterEvent('UPDATE_INVENTORY_DURABILITY', 'UpdateCharacterInfo')
 		-- Armory:RegisterEvent('PLAYER_AVG_ITEM_LEVEL_UPDATE', 'UpdateCharacterItemLevel')
