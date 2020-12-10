@@ -11,9 +11,6 @@ local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 local GetVehicleBarIndex, GetOverrideBarIndex = GetVehicleBarIndex, GetOverrideBarIndex
 
-local size
-local spacing
-
 -- Regular Button for these bars are 52. 52 * .71 = ~37.. I just rounded it up to 40 and called it good.
 function EVB:Animate(bar, x, y, duration)
 	bar.anim = bar:CreateAnimationGroup('Move_In')
@@ -56,13 +53,14 @@ end
 function EVB:CreateExtraButtonSet()
 	local bar = self.bar
 	bar.buttons = {}
-	size = E.db.sle.actionbars.vehicle.buttonsize
-	spacing = E.db.sle.actionbars.vehicle.buttonspacing
+	local size = E.db.sle.actionbars.vehicle.buttonsize
+	local spacing = E.db.sle.actionbars.vehicle.buttonspacing
+
 	for i = 1, EVB.NumButtons do
 		i = i == 7 and 12 or i
 
-		bar.buttons[i] = LAB:CreateButton(i, format(bar:GetName()..'Button%d', i), bar, nil);
-		bar.buttons[i]:SetState(0, 'action', i);
+		bar.buttons[i] = LAB:CreateButton(i, format(bar:GetName()..'Button%d', i), bar, nil)
+		bar.buttons[i]:SetState(0, 'action', i)
 
 		for k = 1, 14 do
 			bar.buttons[i]:SetState(k, 'action', (k - 1) * 12 + i)
@@ -77,20 +75,20 @@ function EVB:CreateExtraButtonSet()
 			bar.buttons[i]:AddToMasque(MasqueGroup)
 		end
 
-		bar.buttons[i]:Size(size);
+		bar.buttons[i]:Size(size)
 
 		if (i == 1) then
 			bar.buttons[i]:SetPoint('BOTTOMLEFT', spacing, spacing)
 		else
-			local prev = i == 12 and bar.buttons[6] or bar.buttons[i-1];
+			local prev = i == 12 and bar.buttons[6] or bar.buttons[i-1]
 			bar.buttons[i]:SetPoint('LEFT', prev, 'RIGHT', spacing, 0)
 		end
 
-		AB:StyleButton(bar.buttons[i], nil, MasqueGroup and E.private.actionbar.masque.actionbars and true or nil);
+		AB:StyleButton(bar.buttons[i], nil, MasqueGroup and E.private.actionbar.masque.actionbars and true or nil)
 
 		if E.private.sle.actionbars.transparentButtons then
 			-- Disable this call if Masque is loaded
-			if IsAddOnLoaded('Masque') then return; end
+			if IsAddOnLoaded('Masque') then return end
 
 			bar.buttons[i].backdrop:SetTemplate('Transparent')
 		end
@@ -104,23 +102,23 @@ function EVB:PositionAndSizeBar()
 	if not EVB.bar then return end
 	local bar = EVB.bar
 
-	size = E.db.sle.actionbars.vehicle.buttonsize
-	spacing = E.db.sle.actionbars.vehicle.buttonspacing
-	bar:SetWidth((size * EVB.NumButtons) + (spacing * (EVB.NumButtons-1)) + 4);
-	bar:SetHeight(size + 4);
+	local size = E.db.sle.actionbars.vehicle.buttonsize
+	local spacing = E.db.sle.actionbars.vehicle.buttonspacing
+	bar:SetWidth((size * EVB.NumButtons) + (spacing * (EVB.NumButtons-1)) + 4)
+	bar:SetHeight(size + 4)
 
 	for i, button in ipairs(bar.buttons) do
-		button:Size(size);
+		button:Size(size)
 		if (i == 1) then
 			button:SetPoint('BOTTOMLEFT', 2, 2)
 		else
-			local prev = i == 12 and bar.buttons[6] or bar.buttons[i-1];
+			local prev = i == 12 and bar.buttons[6] or bar.buttons[i-1]
 			button:SetPoint('LEFT', prev, 'RIGHT', spacing, 0)
 		end
 	end
 
 	if not bar.buttons[12] then return end
-	bar.buttons[12]:Size(size);
+	bar.buttons[12]:Size(size)
 	bar.buttons[12]:SetPoint('LEFT', bar.buttons[6], 'RIGHT', spacing, 0)
 end
 
@@ -132,58 +130,58 @@ end
 function EVB:CreateBar()
 	EVB.NumButtons = E.private.sle.vehicle.numButtons
 
-	local page = format('[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13;', GetOverrideBarIndex(), GetVehicleBarIndex(), GetVehicleBarIndex());
-	local bindButtons = 'ACTIONBUTTON';
+	local page = format('[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13;', GetOverrideBarIndex(), GetVehicleBarIndex(), GetVehicleBarIndex())
+	local bindButtons = 'ACTIONBUTTON'
 
-	local bar = CreateFrame('Frame', 'ElvUISL_EnhancedVehicleBar', E.UIParent, 'SecureHandlerStateTemplate, BackdropTemplate');
+	local bar = CreateFrame('Frame', 'ElvUISL_EnhancedVehicleBar', E.UIParent, 'SecureHandlerStateTemplate, BackdropTemplate')
 	bar.id = 1
-	EVB.bar = bar;
+	EVB.bar = bar
 
-	EVB:CreateExtraButtonSet();
+	EVB:CreateExtraButtonSet()
 	EVB:PositionAndSizeBar()
 	EVB:BarBackdrop()
 
-	bar:SetPoint("BOTTOM", 0, 34);
-	bar:HookScript("OnShow", function(frame) self:AnimSlideIn(frame) end);
-	RegisterStateDriver(bar, 'visibility', '[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] show; hide');
-	RegisterStateDriver(bar, 'page', page);
+	bar:SetPoint('BOTTOM', 0, 34)
+	bar:HookScript('OnShow', function(frame) self:AnimSlideIn(frame) end)
+	RegisterStateDriver(bar, 'visibility', '[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] show; hide')
+	RegisterStateDriver(bar, 'page', page)
 
-	bar:SetAttribute("_onstate-page", [[
-		if HasTempShapeshiftActionBar() and self:GetAttribute("hasTempBar") then
+	bar:SetAttribute('_onstate-page', [[
+		if HasTempShapeshiftActionBar() and self:GetAttribute('hasTempBar') then
 			newstate = GetTempShapeshiftBarIndex() or newstate
 		end
 
 		if newstate ~= 0 then
-			self:SetAttribute("state", newstate)
-			control:ChildUpdate("state", newstate)
+			self:SetAttribute('state', newstate)
+			control:ChildUpdate('state', newstate)
 		else
-			local newCondition = self:GetAttribute("newCondition")
+			local newCondition = self:GetAttribute('newCondition')
 			if newCondition then
 				newstate = SecureCmdOptionParse(newCondition)
-				self:SetAttribute("state", newstate)
-				control:ChildUpdate("state", newstate)
+				self:SetAttribute('state', newstate)
+				control:ChildUpdate('state', newstate)
 			end
 		end
-	]]);
+	]])
 
-	EVB:Animate(bar, 0, -(bar:GetHeight()), 1);
+	EVB:Animate(bar, 0, -(bar:GetHeight()), 1)
 
 	E:CreateMover(bar, 'EnhancedVehicleBar_Mover', L["Enhanced Vehicle Bar"], nil, nil, nil, 'ALL,S&L,S&L MISC', nil, 'sle, modules, actionbars, vehicle')
 
-	AB:UpdateButtonConfig(bar, bindButtons);
+	AB:UpdateButtonConfig(bar, bindButtons)
 	AB:PositionAndSizeBar('bar1')
 end
 
 function EVB:Initialize()
 	if not SLE.initialized then return end
-	if not E.private.sle.vehicle.enable or not E.private.actionbar.enable then return end;
+	if not E.private.sle.vehicle.enable or not E.private.actionbar.enable then return end
 
 	local visibility = '[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] hide;'
 	hooksecurefunc(AB, 'PositionAndSizeBar', function(_, barName)
 		local bar = AB['handledBars'][barName]
 		if (E.db.actionbar[barName].enabled) and (barName == 'bar1') then
-			UnregisterStateDriver(bar, 'visibility');
-			RegisterStateDriver(bar, 'visibility', visibility..E.db.actionbar[barName].visibility);
+			UnregisterStateDriver(bar, 'visibility')
+			RegisterStateDriver(bar, 'visibility', visibility..E.db.actionbar[barName].visibility)
 		end
 	end);
 
