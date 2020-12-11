@@ -1,7 +1,7 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local RC = LibStub("LibRangeCheck-2.0")
+local RC = LibStub('LibRangeCheck-2.0')
 local ElvUF = ElvUI.oUF
-assert(ElvUF, "ElvUI was unable to locate oUF.")
+assert(ElvUF, 'ElvUI was unable to locate oUF.')
 
 local strsplit, format, gsub = strsplit, format, gsub
 local UnitGetTotalAbsorbs, UnitName = UnitGetTotalAbsorbs, UnitName
