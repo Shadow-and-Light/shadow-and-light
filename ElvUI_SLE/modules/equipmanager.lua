@@ -1,15 +1,15 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local EM = SLE:NewModule('EquipManager', 'AceHook-3.0', 'AceEvent-3.0')
-local GetRealZoneText = GetRealZoneText
-EM.Processing = false
 
 --GLOBALS: unpack, select, CreateFrame, CharacterFrame
 local _G = _G
 local format = format
 local UnitEffectiveLevel = UnitEffectiveLevel
 local C_EquipmentSet = C_EquipmentSet
+local GetRealZoneText = GetRealZoneText
 
 EM.Conditions = {}
+EM.Processing = false
 
 local Difficulties = {
 	[1] = 'normal', --5ppl normal
@@ -362,12 +362,6 @@ function EM:CreateLock()
 	end)
 	E:GetModule('Skins'):HandleButton(button)
 
-	-- button.TitleText = button:CreateFontString(nil, 'OVERLAY')
-	-- button.TitleText:FontTemplate()
-	-- button.TitleText:SetPoint('BOTTOMLEFT', button, 'TOPLEFT', 0, 0)
-	-- button.TitleText:SetJustifyH('LEFT')
-	-- button.TitleText:SetText("|cff9482c9S&L|r")
-
 	button.Icon = button:CreateTexture(nil, 'OVERLAY')
 	button.Icon:SetAllPoints()
 	button.Icon:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\lock]])
@@ -386,9 +380,9 @@ end
 
 EM.Events = {}
 function EM:RegisterNewEvent(event)
-	if not self.Events[event] then
-		self:RegisterEvent(event, Equip)
-		self.Events[event] = true
+	if not EM.Events[event] then
+		EM:RegisterEvent(event, Equip)
+		EM.Events[event] = true
 	end
 end
 
@@ -396,16 +390,16 @@ function EM:Initialize()
 	EM.db = E.private.sle.equip
 	if not SLE.initialized or not EM.db.enable then return end
 	EM.lock = false
-	self:RegisterEvent('PLAYER_ENTERING_WORLD', Equip)
-	self:RegisterEvent('LOADING_SCREEN_DISABLED', Equip)
-	self:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', Equip)
-	self:RegisterEvent('PLAYER_LEVEL_CHANGED', Equip)
-	self:RegisterEvent('GROUP_ROSTER_UPDATE', Equip)
+	EM:RegisterEvent('PLAYER_ENTERING_WORLD', Equip)
+	EM:RegisterEvent('LOADING_SCREEN_DISABLED', Equip)
+	EM:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', Equip)
+	EM:RegisterEvent('PLAYER_LEVEL_CHANGED', Equip)
+	EM:RegisterEvent('GROUP_ROSTER_UPDATE', Equip)
 
 	--Initial apply options
 	EM:TagsProcess(EM.db.conditions)
 
-	self:CreateLock()
+	EM:CreateLock()
 end
 
 SLE:RegisterModule(EM:GetName())
