@@ -1,5 +1,6 @@
 local _, _, E, L = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
+local B = E:GetModule('Bags')
 
 local _G = _G
 local type, wipe, pairs, ipairs, sort = type, wipe, pairs, ipairs, sort
@@ -25,12 +26,16 @@ local PRIEST_COLOR = RAID_CLASS_COLORS.PRIEST
 local C_CurrencyInfo_GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local BONUS_ROLL_REWARD_MONEY = BONUS_ROLL_REWARD_MONEY
-
 local iconString = '|T%s:16:16:0:0:64:64:4:60:4:60|t'
+local C_Item_IsAnimaItemByID = C_Item.IsAnimaItemByID
+local GetContainerNumSlots, GetContainerItemLink, GetContainerItemInfo = GetContainerNumSlots, GetContainerItemLink, GetContainerItemInfo
+local GetItemSpell = GetItemSpell
+local ANIMA = ANIMA
 
 local menuList = {}
 
 DT.CurrencyList = { GOLD = BONUS_ROLL_REWARD_MONEY, BACKPACK = 'Backpack' }
+local animaSpellID = {[347555] = 3, [345706] = 5, [336327] = 35, [336456] = 250}
 
 local function sortFunction(a, b)
 	return a.amount > b.amount
@@ -180,6 +185,26 @@ local function OnEvent(self)
 	end
 end
 
+local function getTotalAnima()
+	local total = 0
+
+	for _, bagFrame in pairs(B.BagFrames) do
+		for _, bagID in ipairs(bagFrame.BagIDs) do
+			for slotID = 1, GetContainerNumSlots(bagID) do
+				local link = GetContainerItemLink(bagID, slotID)
+				local count = select(2, GetContainerItemInfo(bagID, slotID))
+
+				if link and C_Item_IsAnimaItemByID(link) then
+					local _, spellID = GetItemSpell(link)
+					total = total + animaSpellID[spellID] * count
+				end
+			end
+		end
+	end
+
+	return total
+end
+
 local myGold = {}
 local function OnEnter()
 	DT.tooltip:ClearLines()
@@ -272,6 +297,13 @@ local function OnEnter()
 	end
 
 	if addLine2 then
+		DT.tooltip:AddLine(' ')
+	end
+
+	local anima = getTotalAnima()
+	if anima > 0 then
+		DT.tooltip:AddDoubleLine(ANIMA, anima, 0, .8, 1, 1, 1, 1)
+
 		DT.tooltip:AddLine(' ')
 	end
 
