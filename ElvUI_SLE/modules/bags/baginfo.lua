@@ -77,8 +77,12 @@ function BI:CheckVisibility(bagFrame, bagID, slotID)
 		local text = str and str:GetText()
 
 		if not text or text == '' then return end
-
-		if text:find(EQUIPMENT_SETS:gsub('%%s','.-')) then
+		-- if text:find(EQUIPMENT_SETS) then
+		-- 	print(text)
+		-- end
+		local test = E:StripString(EQUIPMENT_SETS)
+		-- print(test)
+		if text:find(test:gsub('%%s','.-')) then
 			show = true
 		end
 	end
