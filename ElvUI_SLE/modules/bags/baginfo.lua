@@ -83,7 +83,6 @@ function BI:CheckVisibility(bagFrame, bagID, slotID)
 		EQUIPMENT_SETS = E:EscapeString(EQUIPMENT_SETS)
 
 		if text:find(EQUIPMENT_SETS) then
-			SLE:Print('It works MERA', 'info')
 			show = true
 		end
 	end
