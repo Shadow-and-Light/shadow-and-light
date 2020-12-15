@@ -321,10 +321,14 @@ end
 --Deals with dem enchants
 function Armory:ProcessEnchant(which, Slot, enchantTextShort, enchantText)
 	if not E.db.sle.armory.enchantString.enable then return end
+	local strict = E.db.sle.armory.enchantString.strict
+
 	if E.db.sle.armory.enchantString.replacement then
 		for _, enchData in pairs(SLE_ArmoryDB.EnchantString) do
-			if enchData.original == enchantText then
+			if strict and enchantText == enchData.original then
 				enchantText = enchData.new
+			elseif not strict and enchData.original and enchData.new then
+				enchantText = gsub(enchantText, E:EscapeString(enchData.original), enchData.new)
 			end
 		end
 	end

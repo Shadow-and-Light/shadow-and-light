@@ -150,10 +150,11 @@ P["sle"] = {
 				BLOCK = true,
 			},
 		},
-		["enchantString"] = {
-			["enable"] = true,
+		enchantString = {
+			enable = true,
 			-- ["fullText"] = false,
-			["replacement"] = true,
+			replacement = true,
+			strict = true,
 		},
 	},
 	--Backgrounds
