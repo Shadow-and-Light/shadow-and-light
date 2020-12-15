@@ -78,18 +78,45 @@ function BI:CheckVisibility(bagFrame, bagID, slotID)
 
 		if not text or text == '' then return end
 
-		EQUIPMENT_SETS = E:StripString(EQUIPMENT_SETS)
-		EQUIPMENT_SETS = EQUIPMENT_SETS:gsub('%%s', '')
-		EQUIPMENT_SETS = E:EscapeString(EQUIPMENT_SETS)
-
-		if text:find(EQUIPMENT_SETS) then
+		if text:find(EQUIPMENT_SETS:gsub('%%s','.-')) then
 			show = true
 		end
 	end
 	E.ScanTooltip:Hide()
-
 	return E.db.sle.bags.equipmentmanager.enable and show
 end
+
+-- function BI:CheckVisibility(bagFrame, bagID, slotID)
+-- 	if not bagFrame or not bagID or not slotID then return end
+-- 	local button = bagFrame.Bags[bagID][slotID]
+-- 	local show = false
+
+-- 	E.ScanTooltip:SetOwner(_G.UIParent, 'ANCHOR_NONE')
+-- 	if button.GetInventorySlot then -- this fixes bank bagid -1
+-- 		E.ScanTooltip:SetInventoryItem('player', button:GetInventorySlot())
+-- 	else
+-- 		E.ScanTooltip:SetBagItem(bagID, slotID)
+-- 	end
+-- 	E.ScanTooltip:Show()
+
+-- 	for i = 3, E.ScanTooltip:NumLines() do
+-- 		local str = _G['ElvUI_ScanTooltipTextLeft' .. i]
+-- 		local text = str and str:GetText()
+
+-- 		if not text or text == '' then return end
+
+-- 		EQUIPMENT_SETS = E:StripString(EQUIPMENT_SETS)
+-- 		EQUIPMENT_SETS = EQUIPMENT_SETS:gsub('%%s', '')
+-- 		EQUIPMENT_SETS = E:EscapeString(EQUIPMENT_SETS)
+
+-- 		if text:find(EQUIPMENT_SETS) then
+-- 			show = true
+-- 		end
+-- 	end
+-- 	E.ScanTooltip:Hide()
+
+-- 	return E.db.sle.bags.equipmentmanager.enable and show
+-- end
 
 function BI:ToggleSettings()
 	if E.db.sle.bags.equipmentmanager.enable then
