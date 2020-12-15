@@ -93,7 +93,7 @@ function BI:CheckVisibility(bagFrame, bagID, slotID)
 end
 
 function BI:ToggleSettings()
-	if E.private.sle.equip.setoverlay then
+	if E.db.sle.bags.equipmentmanager.enable then
 		BI:RegisterEvent('EQUIPMENT_SETS_CHANGED', BI.UpdateEquipment)
 		BI:RegisterEvent('BAG_UPDATE', BI.UpdateEquipment)
 		BI:RegisterEvent('PLAYERBANKSLOTS_CHANGED', BI.UpdateEquipment)
