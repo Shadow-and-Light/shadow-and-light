@@ -76,6 +76,7 @@ LP.Hearthstones = {
 	{166747, nil, true}, -- Brewfest HS
 	{168907, nil, true}, --Holographic Digitalization Hearthstone
 	{172179, nil, true}, --Eternal Traveller
+	{183716, nil, true}, --Sinstone
 }
 
 LP.PortItems = {
