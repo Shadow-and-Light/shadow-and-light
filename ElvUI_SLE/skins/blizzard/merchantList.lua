@@ -136,12 +136,7 @@ local function Item_OnEnter(self)
 	end
 
 	_G["GameTooltip"]:SetOwner(self, "ANCHOR_RIGHT");
-	if ( self.pointType == "Beta" ) then
-		_G["GameTooltip"]:SetText(self.itemLink, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
-		_G["GameTooltip"]:Show();
-	else
-		_G["GameTooltip"]:SetHyperlink(self.itemLink);
-	end
+	if self.itemLink then _G["GameTooltip"]:SetHyperlink(self.itemLink) end
 	if ( IsModifiedClick("DRESSUP") ) then
 		ShowInspectCursor();
 	else
@@ -289,18 +284,11 @@ local function List_GetError(link, itemType, itemSubType)
 	return errormsg;
 end
 
-local function List_AltCurrencyFrame_Update(item, texture, cost, itemID, currencyName)
-	if ( itemID ~= 0 or currencyName) then
-		local currency = currencies[itemID] or currencies[currencyName];
-		if ( currency and currency < cost or not currency ) then
-			if GetItemCount(itemID, true) >= cost then
-				item.count:SetTextColor(1, 1, 0);
-			else
-				item.count:SetTextColor(1, 0, 0);
-			end
-		else
-			item.count:SetTextColor(1, 1, 1);
-		end
+local function List_AltCurrencyFrame_Update(item, texture, cost, canAfford)
+	if (canAfford == false) then
+		item.count:SetTextColor(1, 0, 0);
+	else
+		item.count:SetTextColor(1, 1, 1);
 	end
 
 	item.count:SetText(cost);
@@ -359,27 +347,20 @@ local function List_CurrencyUpdate()
 end
 
 --  TODO: Think the i is incorrect
-local function List_UpdateAltCurrency(button, index, i)
+local function List_UpdateAltCurrency(button, index, i, canAfford)
 	local currency_frames = {};
 	local lastFrame;
 	local itemCount = GetMerchantItemCostInfo(index);
 
 	if ( itemCount > 0 ) then
 		for i = 1, MAX_ITEM_COST do
-			local itemTexture, itemValue, itemLink, currencyName = GetMerchantItemCostItem(index, i);
+		-- for i = 1, 1 do
+			local itemTexture, itemValue, itemLink = GetMerchantItemCostItem(index, i);
 			local item = button.item[i];
 			item.index = index;
 			item.item = i;
-			if( currencyName ) then
-				item.pointType = "Beta";
-				item.itemLink = currencyName;
-			else
-				item.pointType = nil;
-				item.itemLink = itemLink;
-			end
-
-			local itemID = tonumber((itemLink or "item:0"):match("item:(%d+)"));
-			List_AltCurrencyFrame_Update(item, itemTexture, itemValue, itemID, currencyName);
+			item.itemLink = itemLink;
+			List_AltCurrencyFrame_Update(item, itemTexture, itemValue, canAfford);
 
 			if ( not itemTexture ) then
 				item:Hide();
@@ -468,7 +449,7 @@ local function List_MerchantUpdate()
 			button.icon:SetTexture(texture);
 			button.icon:SetTexCoord(unpack(E.TexCoords));
 
-			List_UpdateAltCurrency(button, offset, i);
+			List_UpdateAltCurrency(button, offset, i, canAfford);
 			if ( extendedCost and price <= 0 ) then
 				button.price = nil;
 				button.extendedCost = true;
@@ -484,15 +465,15 @@ local function List_MerchantUpdate()
 			end
 
 			if ( GetMoney() < price ) then
-				button.money:SetTextColor(1, 0, 0);
-			else
 				button.money:SetTextColor(1, 1, 1);
+			else
+				button.money:SetTextColor(1, 0, 0);
 			end
 
 			local merchantItemID = GetMerchantItemID(offset);
 			local isHeirloom = merchantItemID and C_Heirloom.IsItemHeirloom(merchantItemID);
 			local isKnownHeirloom = isHeirloom and C_Heirloom.PlayerHasHeirloom(merchantItemID);
-			local tintRed = not isPurchasable or (not isUsable and not isHeirloom) or (canAfford == false);
+			local tintRed = not isPurchasable or (not isUsable and not isHeirloom) -- or (canAfford == false);
 
 			if ( numAvailable == 0 or isKnownHeirloom ) then
 				button.highlight:SetVertexColor(0.5, 0.5, 0.5, 0.5);
@@ -583,7 +564,7 @@ local function ListStyle_Update()
 			_G["MerchantItem"..i]:Hide();
 		end
 		_G["SLE_ListMerchantFrame"]:Show();
-		List_CurrencyUpdate();
+		-- List_CurrencyUpdate();
 		List_MerchantUpdate();
 	else
 		_G["SLE_ListMerchantFrame"]:Hide();
@@ -749,7 +730,11 @@ local function MerchantListSkinInit()
 	frame:SetScript("OnEvent", function(self, event, ...)
 		if not self:IsShown() or MerchantUpdating then return end
 		MerchantUpdating = true
-		E:Delay(0.25, function() List_CurrencyUpdate(); List_MerchantUpdate(); MerchantUpdating = false end)
+		E:Delay(0.25, function()
+			-- List_CurrencyUpdate();
+			List_MerchantUpdate();
+			MerchantUpdating = false
+		end)
 	end)
 	if not locale[GetLocale()] then
 		SLE:Print("Your language is unavailable for selected merchant style. We would appretiate if you contact us and provide needed translations.", "warning")
