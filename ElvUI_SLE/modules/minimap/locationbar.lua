@@ -96,6 +96,7 @@ LP.PortItems = {
 	{95567, nil, true}, --Kirin Tor beakon
 	{95568, nil, true}, --Sunreaver beakon
 	{87548}, --Pandaria Arch
+	{180817}, --Cypher of Relocation
 }
 LP.EngineerItems = {
 	{18984, nil, true}, --Dimensional Ripper - Everlook
