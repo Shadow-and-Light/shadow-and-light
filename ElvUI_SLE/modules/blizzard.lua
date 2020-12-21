@@ -120,6 +120,7 @@ B.AddonsList = {
 		GarrisonShipyardFrame = true,
 		OrderHallMissionFrame = true,
 		BFAMissionFrame = true,
+		CovenantMissionFrame = true,
 	},
 	Blizzard_GMChatUI = {
 		GMChatStatusFrame = true,
