@@ -12,7 +12,7 @@ function SUF:Construct_TargetTargetFrame()
 end
 
 function SUF:ArrangeTargetTarget()
-	local enableState = E.db.unitframe.units.targettarget.enable
+	local enableState = E.private.sle.module.shadows.enable and E.db.unitframe.units.targettarget.enable
 	local frame = _G["ElvUF_TargetTarget"]
 	local db = E.db.sle.shadows.unitframes[frame.unit]
 

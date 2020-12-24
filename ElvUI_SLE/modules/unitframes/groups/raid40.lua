@@ -12,7 +12,7 @@ function SUF:Construct_Raid40Frame()
 end
 
 function SUF:ArrangeRaid40()
-	local enableState = E.db.unitframe.units.raid40.enable
+	local enableState = E.private.sle.module.shadows.enable and E.db.unitframe.units.raid40.enable
 	local header = _G['ElvUF_Raid40']
 
 	for i = 1, header:GetNumChildren() do

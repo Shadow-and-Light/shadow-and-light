@@ -12,7 +12,7 @@ function SUF:Construct_FocusTargetFrame()
 end
 
 function SUF:ArrangeFocusTarget()
-	local enableState = E.db.unitframe.units.focustarget.enable
+	local enableState = E.private.sle.module.shadows.enable and E.db.unitframe.units.focustarget.enable
 	local frame = _G["ElvUF_FocusTarget"]
 	local db = E.db.sle.shadows.unitframes[frame.unit]
 

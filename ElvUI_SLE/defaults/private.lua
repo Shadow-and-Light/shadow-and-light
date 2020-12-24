@@ -47,7 +47,7 @@ V["sle"] = {
 			["points"] = {},
 		},
 		shadows = {
-			enable = true, -- TODO: Still need to implement this
+			enable = true,
 		},
 	},
 	["unitframe"] = {

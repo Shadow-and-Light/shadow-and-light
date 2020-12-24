@@ -12,7 +12,7 @@ function SUF:Construct_ArenaFrame()
 end
 
 function SUF:ArrangeArena()
-	local enableState = E.db.unitframe.units.arena.enable
+	local enableState = E.private.sle.module.shadows.enable and E.db.unitframe.units.arena.enable
 
 	for i = 1, 5 do
 		local frame = _G["ElvUF_Arena"..i]

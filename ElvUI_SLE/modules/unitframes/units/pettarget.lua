@@ -12,7 +12,7 @@ function SUF:Construct_PetTargetFrame()
 end
 
 function SUF:ArrangePetTarget()
-	local enableState = E.db.unitframe.units.pettarget.enable
+	local enableState = E.private.sle.module.shadows.enable and E.db.unitframe.units.pettarget.enable
 	local frame = _G["ElvUF_PetTarget"]
 	local db = E.db.sle.shadows.unitframes[frame.unit]
 

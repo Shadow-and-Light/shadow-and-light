@@ -12,7 +12,7 @@ function SUF:Construct_BossFrame()
 end
 
 function SUF:ArrangeBoss()
-	local enableState = E.db.unitframe.units.boss.enable
+	local enableState = E.private.sle.module.shadows.enable and E.db.unitframe.units.boss.enable
 
 	for i = 1, 5 do
 		local frame = _G["ElvUF_Boss"..i]

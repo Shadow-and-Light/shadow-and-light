@@ -12,7 +12,7 @@ function SUF:Construct_PlayerFrame()
 end
 
 function SUF:ArrangePlayer()
-	local enableState = E.db.unitframe.units.player.enable
+	local enableState = E.private.sle.module.shadows.enable and E.db.unitframe.units.player.enable
 	local frame = _G["ElvUF_Player"]
 	local db = E.db.sle.shadows.unitframes.player
 

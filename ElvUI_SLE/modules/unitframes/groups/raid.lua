@@ -12,7 +12,7 @@ function SUF:Construct_RaidFrame()
 end
 
 function SUF:ArrangeRaid()
-	local enableState = E.db.unitframe.units.raid.enable
+	local enableState = E.private.sle.module.shadows.enable and E.db.unitframe.units.raid.enable
 	local header = _G['ElvUF_Raid']
 
 	for i = 1, header:GetNumChildren() do

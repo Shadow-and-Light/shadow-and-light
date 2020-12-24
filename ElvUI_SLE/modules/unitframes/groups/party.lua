@@ -12,7 +12,7 @@ function SUF:Construct_PartyFrame()
 end
 
 function SUF:ArrangeParty()
-	local enableState = E.db.unitframe.units.party.enable
+	local enableState = E.private.sle.module.shadows.enable and E.db.unitframe.units.party.enable
 	local header = _G['ElvUF_Party']
 
 	for i = 1, header:GetNumChildren() do
