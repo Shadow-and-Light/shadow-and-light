@@ -191,37 +191,45 @@ end
 
 function Pr:DeconstructParser(tt)
 	if not Pr.DeconstructMode then return end
+
 	local item, link = tt:GetItem()
 	if not link then return end
-	local itemString = strmatch(link, "item[%-?%d:]+")
-	if not itemString then return end
-	local _, id = strsplit(":", itemString)
-	if not id or id == "" then return end
-	if(item and not InCombatLockdown()) and (Pr.DeconstructMode == true or (E.global.sle.LOCK.TradeOpen and self:GetOwner():GetName() == "TradeRecipientItem7ItemButton")) then
-		local r, g, b
-		if lib:IsOpenable(id) and Pr:IsUnlockable(link) then
-			r, g, b = 0, 1, 1
-			Pr:ApplyDeconstruct(link, Pr.LOCKname, "spell", r, g, b)
-		elseif lib:IsOpenableProfession(id) and Pr:IsUnlockable(link) then
-			r, g, b = 0, 1, 1
-			local hasKey = HaveKey()
-			Pr:ApplyDeconstruct(link, hasKey, "item", r, g, b)
-		elseif lib:IsProspectable(id) then
-			r, g, b = 1, 0, 0
-			Pr:ApplyDeconstruct(link, Pr.PROSPECTname, "spell", r, g, b)
-		elseif lib:IsMillable(id) then
-			r, g, b = 1, 0, 0
-			Pr:ApplyDeconstruct(link, Pr.MILLname, "spell", r, g, b)
-		elseif Pr.DEname then
-			local isArtRelic, class, subclass
-			local normalItem = (lib:IsDisenchantable(id) and Pr:IsBreakable(link))
-			if not normalItem then
-				class, subclass = select(6, GetItemInfo(item))
-				isArtRelic = (class == relicItemTypeLocalized and subclass == relicItemSubTypeLocalized)
-			end
-			if normalItem or Pr.ItemTable["Quest"][id] or isArtRelic then
+
+	local owner = tt:GetOwner()
+	local ownerName = owner and owner.GetName and owner:GetName()
+	if ownerName and (strfind(ownerName, 'ElvUI_Container') or strfind(ownerName, 'ElvUI_BankContainer')) then
+		local itemString = strmatch(link, "item[%-?%d:]+")
+		if not itemString then return end
+
+		local _, id = strsplit(":", itemString)
+		if not id or id == "" then return end
+
+		if(item and not InCombatLockdown()) and (Pr.DeconstructMode == true or (E.global.sle.LOCK.TradeOpen and self:GetOwner():GetName() == "TradeRecipientItem7ItemButton")) then
+			local r, g, b
+			if lib:IsOpenable(id) and Pr:IsUnlockable(link) then
+				r, g, b = 0, 1, 1
+				Pr:ApplyDeconstruct(link, Pr.LOCKname, "spell", r, g, b)
+			elseif lib:IsOpenableProfession(id) and Pr:IsUnlockable(link) then
+				r, g, b = 0, 1, 1
+				local hasKey = HaveKey()
+				Pr:ApplyDeconstruct(link, hasKey, "item", r, g, b)
+			elseif lib:IsProspectable(id) then
 				r, g, b = 1, 0, 0
-				Pr:ApplyDeconstruct(link, Pr.DEname, "spell", r, g, b)
+				Pr:ApplyDeconstruct(link, Pr.PROSPECTname, "spell", r, g, b)
+			elseif lib:IsMillable(id) then
+				r, g, b = 1, 0, 0
+				Pr:ApplyDeconstruct(link, Pr.MILLname, "spell", r, g, b)
+			elseif Pr.DEname then
+				local isArtRelic, class, subclass
+				local normalItem = (lib:IsDisenchantable(id) and Pr:IsBreakable(link))
+				if not normalItem then
+					class, subclass = select(6, GetItemInfo(item))
+					isArtRelic = (class == relicItemTypeLocalized and subclass == relicItemSubTypeLocalized)
+				end
+				if normalItem or Pr.ItemTable["Quest"][id] or isArtRelic then
+					r, g, b = 1, 0, 0
+					Pr:ApplyDeconstruct(link, Pr.DEname, "spell", r, g, b)
+				end
 			end
 		end
 	end
@@ -290,6 +298,7 @@ function Pr:ConstructRealDecButton()
 	end
 
 	Pr.DeconstructionReal.SetTip = function(self)
+		print(self.Bag)
 		_G["GameTooltip"]:SetOwner(self,"ANCHOR_LEFT",0,4)
 		_G["GameTooltip"]:ClearLines()
 		_G["GameTooltip"]:SetBagItem(self.Bag, self.Slot)
