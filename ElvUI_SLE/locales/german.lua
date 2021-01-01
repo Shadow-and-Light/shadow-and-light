@@ -696,6 +696,7 @@ L["SLE_EM_TAGS_HELP"] = [[Following tags and parameters are eligible for setting
 |cff3cbf27pvp|r - wenn auf BG, Arena oder Welt-PvP-Bereich. Verfügbare Argumente: pvp, arena;
 |cff3cbf27difficulty|r - definiert die Schwierigkeit der Instanz. Argumente sind: normal, heroic, lfr, challenge, mythic;
 |cff3cbf27effectivelevel|r - Effektives Level bezieht sich auf Ihr Level, wenn Du skaliert bist, z.B. Zeitwanderung
+|cff3cbf27warmode|r - checks if you have warmode enabled
 
 Example: [solo] Set1; [party:4, spec:3] Set2; [instance:raid, difficulty:heroic] Set3
 ]]

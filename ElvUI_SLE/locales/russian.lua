@@ -695,6 +695,7 @@ L["SLE_EM_TAGS_HELP"] = [[Следующие тэги и параметры мо
 |cff3cbf27pvp|r - для полей боя, арен и открытых пвп зон. Параметры: ПвП, арена;
 |cff3cbf27difficulty|r - Определяет сложность подземелья. Параметры: нормал, героик, лфр, испытание, мифик;
 |cff3cbf27effectivelevel|r - effective level refers to your level when you are scaled, e.g. timewalking
+|cff3cbf27warmode|r - checks if you have warmode enabled
 
 Пример: [solo] Set1; [party:4, spec:3] Set2; [instance:raid, difficulty:heroic] Set3
 ]]

@@ -696,6 +696,7 @@ L["SLE_EM_TAGS_HELP"] = [[Les balises et paramètres suivants sont éligibles po
 |cff3cbf27pvp|r - if on BG, arena or world pvp area. Available arguments: pvp, arena;
 |cff3cbf27difficulty|r - defines the difficulty of the instance. Arguments are: normal, heroic, lfr, challenge, mythic;
 |cff3cbf27effectivelevel|r - effective level refers to your level when you are scaled, e.g. timewalking
+|cff3cbf27warmode|r - checks if you have warmode enabled
 
 Example: [solo] Set1; [party:4, spec:3] Set2; [instance:raid, difficulty:heroic] Set3
 ]]

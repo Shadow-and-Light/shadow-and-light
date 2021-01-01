@@ -182,6 +182,9 @@ EM.TagsTable = {
 	['NoCondition'] = function()
 		return true
 	end,
+	['warmode'] = function()
+		return C_PvP.IsWarModeDesired()
+	end,
 }
 
 --Building up set data
@@ -395,6 +398,7 @@ function EM:Initialize()
 	EM:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', Equip)
 	EM:RegisterEvent('PLAYER_LEVEL_CHANGED', Equip)
 	EM:RegisterEvent('GROUP_ROSTER_UPDATE', Equip)
+	EM:RegisterEvent('PLAYER_FLAGS_CHANGED', Equip)
 
 	--Initial apply options
 	EM:TagsProcess(EM.db.conditions)
