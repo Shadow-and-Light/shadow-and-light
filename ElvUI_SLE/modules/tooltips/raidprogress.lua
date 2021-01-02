@@ -206,22 +206,22 @@ RP.encounters = {
 		},
 	},
 	{ -- CastleNathria
-	["option"] = "nathria",
-	["statIDs"] = {
-		{ -- Mythic
-			14421, 14425, 14429, 14433, 14437, 14441, 14445, 14449, 14453, 14457
-		},
-		{ -- Heroic
-			14420, 14424, 14428, 14432, 14436, 14440, 14444, 14448, 14452, 14456
-		},
-		{ -- Normal
-			14419, 14423, 14427, 14431, 14435, 14439, 14443, 14447, 14451, 14455
-		},
-		{ -- LFR
-			14422, 14426, 14430, 14434, 14438, 14442, 14446, 14450, 14454, 14458
+		["option"] = "nathria",
+		["statIDs"] = {
+			{ -- Mythic
+				14421, 14425, 14429, 14433, 14437, 14441, 14445, 14449, 14453, 14457
+			},
+			{ -- Heroic
+				14420, 14424, 14428, 14432, 14436, 14440, 14444, 14448, 14452, 14456
+			},
+			{ -- Normal
+				14419, 14423, 14427, 14431, 14435, 14439, 14443, 14447, 14451, 14455
+			},
+			{ -- LFR
+				14422, 14426, 14430, 14434, 14438, 14442, 14446, 14450, 14454, 14458
+			},
 		},
 	},
-},
 }
 RP.Raids = {}
 RP.modes = {
@@ -251,6 +251,7 @@ local function PopulateRaidsTable()
 		SLE:GetMapInfo(1345, "name"),
 		SLE:GetMapInfo(1512, "name"),
 		SLE:GetMapInfo(1580, "name"),
+		SLE:GetMapInfo(1735, "name"),
 	}
 	RP.Raids["SHORT"] = {
 		L["RAID_EN"],
@@ -263,6 +264,7 @@ local function PopulateRaidsTable()
 		L["RAID_STORMCRUS"],
 		L["RAID_ETERNALPALACE"],
 		SLE:GetMapInfo(1580, "name"),
+		SLE:GetMapInfo(1735, "name"),
 	}
 end
 

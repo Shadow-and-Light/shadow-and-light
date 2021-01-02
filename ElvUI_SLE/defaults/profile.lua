@@ -983,24 +983,25 @@ P["sle"] = {
 		},
 	},
 	--Tooltip
-	["tooltip"] = {
-		["showFaction"] = false,
-		["alwaysCompareItems"] = false,
-		["RaidProg"] = {
-			["enable"] = false,
-			["NameStyle"] = "SHORT",
-			["DifStyle"] = "SHORT",
-			["raids"] = {
-				["nightmare"] = false,
-				["trial"] = false,
-				["nighthold"] = false,
-				["sargeras"] = false,
-				["antorus"] = false,
-				["uldir"] = true,
-				["daz"] = true,
-				["sc"] = true,
-				["ep"] = true,
-				["nzoth"] = true,
+	tooltip = {
+		showFaction = false,
+		alwaysCompareItems = false,
+		RaidProg = {
+			enable = false,
+			NameStyle = "SHORT",
+			DifStyle = "SHORT",
+			raids = {
+				nightmare = false,
+				trial = false,
+				nighthold = false,
+				sargeras = false,
+				antorus = false,
+				uldir = false,
+				daz = false,
+				sc = false,
+				ep = false,
+				nzoth = false,
+				nathria = true,
 			},
 		},
 	},
