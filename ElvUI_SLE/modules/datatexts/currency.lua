@@ -35,7 +35,7 @@ local ANIMA = ANIMA
 local menuList = {}
 
 DT.CurrencyList = { GOLD = BONUS_ROLL_REWARD_MONEY, BACKPACK = 'Backpack' }
-local animaSpellID = {[347555] = 3, [345706] = 5, [336327] = 35, [336456] = 250}
+local animaSpellID = { [347555] = 3, [345706] = 5, [336327] = 35, [336456] = 250 }
 
 local function sortFunction(a, b)
 	return a.amount > b.amount
@@ -324,6 +324,11 @@ local function OnEnter()
 	-- 		end
 	-- 	end
 	-- end
+	local grayValue = B:GetGraysValue()
+	if grayValue > 0 then
+		DT.tooltip:AddLine(' ')
+		DT.tooltip:AddDoubleLine(L["Grays"], E:FormatMoney(grayValue, style, textOnly), nil, nil, nil, 1, 1, 1)
+	end
 
 	DT.tooltip:AddLine(' ')
 	DT.tooltip:AddLine(resetCountersFormatter)
