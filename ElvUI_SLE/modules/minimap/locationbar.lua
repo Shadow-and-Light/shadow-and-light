@@ -482,10 +482,12 @@ function LP:ItemList()
 						break
 					else
 						local curPriorirty = hsRealPrio[tostring(ID)]
-						if curPriorirty < priority then
+
+						if curPriorirty and curPriorirty < priority then
 							priority = curPriorirty
 							ShownHearthstone = data
 						end
+
 						if priority == 1 then break end
 					end
 				end
