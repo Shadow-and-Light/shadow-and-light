@@ -83,6 +83,7 @@ function RMM:Initialize()
 	if not E.private.general.minimap.enable or not E.private.sle.minimap.rectangle then return end
 	RMM:RegisterEvent('ADDON_LOADED')
 	RMM:RegisterEvent('PLAYER_ENTERING_WORLD')
+	RMM:RegisterEvent('ZONE_CHANGED_NEW_AREA', RMM.ChangeShape)
 end
 
 SLE:RegisterModule(RMM:GetName())
