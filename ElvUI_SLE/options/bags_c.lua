@@ -15,7 +15,7 @@ local function configTable()
 				name = L["Equipment Manager"],
 				guiInline = true,
 				get = function(info) return E.db.sle.bags.equipmentmanager[info[#info]] end,
-				set = function(info, value) E.db.sle.bags.equipmentmanager[info[#info]] = value; BI:UpdateSettings() end,
+				set = function(info, value) E.db.sle.bags.equipmentmanager[info[#info]] = value; BI:UpdateBagSettings() end,
 				args = {
 					enable = {
 						order = 1,
@@ -75,7 +75,7 @@ local function configTable()
 						set = function(info, r, g, b, a)
 							local t = E.db.sle.bags.equipmentmanager[info[#info]]
 							t.r, t.g, t.b, t.a = r, g, b, a
-							BI:UpdateSettings()
+							BI:UpdateBagSettings()
 						end,
 					},
 				},
