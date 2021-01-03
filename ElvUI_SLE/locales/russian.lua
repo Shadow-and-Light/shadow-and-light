@@ -588,6 +588,7 @@ L["Stage Background"] = "Фон стадии"
 L["Start fishing even if you are mounted."] = "Забрасывать удочку даже, если вы на средстве передвижения."
 L["Statusbar Color"] = "Цвет полос состояния"
 L["Statusbars"] = "Полосы состояния"
+L["Strict String Replacement"] = true
 L["String Replacement"] = "Замена текста"
 L["Submodules and Coding:"] = "Модули и код:"
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = "Субстраницы это блоки из 10 предметов. Эта опция показывает сколько субстраниц будет показано на одной странице."

@@ -588,6 +588,7 @@ L["Stage Background"] = "Hintergrund"
 L["Start fishing even if you are mounted."] = "Beginne mit dem Angeln, auch wenn Du aufgememountet bist."
 L["Statusbar Color"] = "Statusleisten Farbe"
 L["Statusbars"] = "Statusleisten"
+L["Strict String Replacement"] = true
 L["String Replacement"] = "String Ersetzung"
 L["Submodules and Coding:"] = "Submodule und Codierung:"
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = "Unterseiten sind Blöcke mit 10 Elementen. Diese Option legt fest, wie viele Unterseiten auf einer einzelnen Seite angezeigt werden."

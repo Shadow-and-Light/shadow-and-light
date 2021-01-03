@@ -588,6 +588,7 @@ L["Stage Background"] = true
 L["Start fishing even if you are mounted."] = "탈 것에 타고 있어도 낚시를 시작할 수 있습니다."
 L["Statusbar Color"] = true
 L["Statusbars"] = true
+L["Strict String Replacement"] = true
 L["String Replacement"] = true
 L["Submodules and Coding:"] = true
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = true

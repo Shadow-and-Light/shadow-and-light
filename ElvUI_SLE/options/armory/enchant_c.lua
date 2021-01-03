@@ -33,7 +33,7 @@ local function configTable()
 			strict = {
 				order = 3,
 				type = 'toggle',
-				name = L["Stict String Replacement"],
+				name = L["Strict String Replacement"],
 				desc = L["This will make it so that the \"Original String\" needs to match the whole enchant string you want to replace."],
 				get = function(info) return E.db.sle.armory.enchantString[(info[#info])] end,
 				set = function(info, value)
