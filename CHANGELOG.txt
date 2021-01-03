@@ -1,3 +1,26 @@
+v4.19 [January X, 2021]
+Changed:
+- Bags - Equipement Set Indicator default is now a lock
+Fixes:
+- Bags - Equipement Set Indicator: was rewritten to execute faster in hopes to avoid extra long load times to cause some time outs
+- Location Panel: Fixed lua error when you do not have your hearth stone in your inventory
+- Professions - Deconstruct Mode: Fixed lua error if you clicked the icon in your bags and didn't disable it before mousing over an item link like in chat
+- Enhanced Shadows: Fixed the module not respecting if enabled or disabled via the global enable checkbox (mainly unitframes were effected)
+- Skins - Merchant Frame: Fixed some buggy colors and such
+- Equipement Manager - Block Button: Edited the button to not follow the other tabs like rep and currency
+Added:
+- S&L Currency Datatext: Added value of grays in bags
+- S&L Currency Datatext: Added value of anima in bags
+- Tooltip - Raid Progression: Added Castle Nathria (LFR Inidication broken atm)
+- Equipement Manager: Added [warmode] as an option
+- Blizzard - Moveable Blizzard frames now support Covenant Mission Frame
+- Professions - Deconstruct Mode: Added new enchant quest item
+- Location Panel: Added Sinstone
+- Location Panel: Added Cypher of Relocation
+- Armory Mode - Enchant String: Added ability to have strict matching which will match the whole string you set as original and replace it
+Removed:
+- Removed the ability to set elvui actionbar button spacing to -4 as Darth nor I use it
+
 v4.18 [December 7, 2020]
 Fixes:
 - Fix Rectangle Minimap in Torghast
