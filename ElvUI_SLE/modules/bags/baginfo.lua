@@ -39,17 +39,6 @@ BI.equipmentmanager = {
 	},
 }
 
-BI.currentSets = {
-	-- ['1'] = { --setID
-	-- 	name = 'some set',
-	-- 	iconFileID = 123456,
-	-- 	isEquipped = false,
-	-- 	numItems = 1,
-	-- 	numEquipped = false,
-	-- 	numInInventory = 1,
-	-- },
-}
-
 local function ConstructBagIcons()
 	for _, f in pairs(B.BagFrames) do
 		for _, bagID in next, f.BagIDs do
@@ -153,27 +142,6 @@ hooksecurefunc(B, 'OnEvent', function(frame, event, ...)
 	if not BI.db.enable then return end
 	BI:OnEventHook(frame, event, ...)
 end)
-
-function BI:PLAYER_ENTERING_WORLD(initLogin)
-	if not initLogin then return end
-	local setIDs = C_EquipmentSet_GetEquipmentSetIDs()
-
-	for id in next, setIDs do
-		local name, iconFileID, setID, isEquipped, numItems, numEquipped, numInInventory, numLost, numIgnored = C_EquipmentSet_GetEquipmentSetInfo(id)
-
-		BI.currentSets[id] = { -- ['1'] = { --setID
-			name = name,
-			iconFileID = iconFileID,
-			setID = setID,
-			isEquipped = isEquipped,
-			numItems = numItems,
-			numEquipped = numEquipped,
-			numInInventory = numInInventory,
-			numLost = numLost,
-			numIgnored = numIgnored,
-		}
-	end
-end
 
 function BI:ToggleSettings()
 	if BI.db.enable then
