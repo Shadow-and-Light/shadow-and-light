@@ -77,6 +77,9 @@ LP.Hearthstones = {
 	{168907, nil, true}, --Holographic Digitalization Hearthstone
 	{172179, nil, true}, --Eternal Traveller
 	{183716, nil, true}, --Sinstone
+	{182773, nil, true}, --Necrolord HS
+	{180290, nil, true}, --Night Fae HS
+	{184353, nil, true}, --Kyrian HS
 }
 
 LP.PortItems = {
