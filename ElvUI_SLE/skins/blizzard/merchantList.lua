@@ -464,7 +464,7 @@ local function List_MerchantUpdate()
 				button.money:SetText(GetCoinTextureString(price));
 			end
 
-			if ( GetMoney() < price ) then
+			if ( GetMoney() > price ) then
 				button.money:SetTextColor(1, 1, 1);
 			else
 				button.money:SetTextColor(1, 0, 0);
