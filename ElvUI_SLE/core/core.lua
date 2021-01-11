@@ -89,8 +89,8 @@ function SLE:Initialize()
 	if SLE:CheckIncompatible() then return end
 	SLE:DatabaseConversions()
 	SLE:ConfigCats()
-	self.initialized = true
-	self:InitializeModules(); --Load Modules
+	SLE.initialized = true
+	SLE:InitializeModules()
 
 	hooksecurefunc(E, "UpdateAll", SLE.UpdateAll)
 	hooksecurefunc(E, "UpdateMedia", SLE.UpdateMedia)
@@ -113,7 +113,7 @@ function SLE:Initialize()
 
 	if E.private.sle.install_complete == "BETA" then E.private.sle.install_complete = nil end
 	if not E.private.sle.install_complete or (tonumber(E.private.sle.install_complete) < 3) then
-		E:GetModule("PluginInstaller"):Queue(SLE.installTable)
+		E:GetModule('PluginInstaller'):Queue(SLE.installTable)
 	end
 	if not E.private.sle.characterGoldsSorting[E.myrealm] then E.private.sle.characterGoldsSorting[E.myrealm] = {} end
 

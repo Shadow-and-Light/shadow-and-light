@@ -69,6 +69,7 @@ local function configTable()
 							if EnchantStringName ~= '' and not SLE_ArmoryDB.EnchantString[EnchantStringName] then
 								SLE_ArmoryDB.EnchantString[EnchantStringName] = {}
 								SelectedEnchantString = EnchantStringName
+								E.Options.args.sle.args.modules.args.armory.args.enchantString.args.ConfigSpace.args.StringGroup.name = L["List of Strings"]..':  '..SelectedEnchantString
 								EnchantStringName = ''
 							end
 						end,
