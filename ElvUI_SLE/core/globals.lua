@@ -162,7 +162,7 @@ SLE.SpecialChatIcons = {
 		["Andorhal"] = {
 			["Dapooc"] = repooc,
 			["Rovert"] = repooc,
-			["Sliceoflife"] = repooc
+			["Sliceoflife"] = repooc,
 		},
 		["Illidan"] = {
 			--Darth's toon
@@ -176,13 +176,18 @@ SLE.SpecialChatIcons = {
 			["Lapooc"] = test,
 			["Warpooc"] = repooc,
 			["Repooc"] = repooc,
-			["Cursewordz"] = repooc
+			["Cursewordz"] = repooc,
 		},
 		["Stormrage"] = {
 			["Sifpooc"] = repooc,
 			["Urgfelstorm"] = blizzicon:format("inv_misc_bomb_02"),
 			["Vaxum"] = goldicon,
-			["Lloosh"] = silvericon --Patreon & Repooc's Guild Mate
+			["Lloosh"] = goldicon, --Lloosh & Repooc's Guild Mate
+			["Marshmeela"] = goldicon, --Lloosh & Repooc's Guild Mate
+			["Looshana"] = goldicon, --Lloosh & Repooc's Guild Mate
+			["Looshaina"] = goldicon, --Lloosh & Repooc's Guild Mate
+			["Looshally"] = goldicon, --Lloosh & Repooc's Guild Mate
+			["Looshella"] = goldicon, --Lloosh & Repooc's Guild Mate
 		},
 		["WyrmrestAccord"] = {
 			["Dapooc"] = repooc,
