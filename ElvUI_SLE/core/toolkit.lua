@@ -30,7 +30,8 @@ T.Values = {
 		BOTTOM = 'BOTTOM',
 	},
 	-- FontSize = { min = 8, max = 64, step = 1 },
-	-- Strata = { BACKGROUND = 'BACKGROUND', LOW = 'LOW', MEDIUM = 'MEDIUM', HIGH = 'HIGH', DIALOG = 'DIALOG', TOOLTIP = 'TOOLTIP' },
+	Strata = { BACKGROUND = 'BACKGROUND', LOW = 'LOW', MEDIUM = 'MEDIUM', HIGH = 'HIGH', DIALOG = 'DIALOG', TOOLTIP = 'TOOLTIP' },
+	AllPoints = { TOPLEFT = 'TOPLEFT', LEFT = 'LEFT', BOTTOMLEFT = 'BOTTOMLEFT', RIGHT = 'RIGHT', TOPRIGHT = 'TOPRIGHT', BOTTOMRIGHT = 'BOTTOMRIGHT', CENTER = 'CENTER', TOP = 'TOP', BOTTOM = 'BOTTOM' }
 }
 
 T.StringToUpper = function(str)
