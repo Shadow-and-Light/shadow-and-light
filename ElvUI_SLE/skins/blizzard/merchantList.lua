@@ -675,7 +675,8 @@ end
 
 local function MerchantListSkinInit()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.merchant ~= true or E.private.sle.skins.merchant.enable ~= true then return end
-	if E.private.sle.skins.merchant.style ~= "List" then return end
+	-- if E.private.sle.skins.merchant.style ~= "List" then return end
+	if E.private.sle.skins.merchant.style == 'Default' or SLE._Compatibility['TradeSkillMaster'] then return end
 	local frame = CreateFrame("Frame", "SLE_ListMerchantFrame", _G["MerchantFrame"]);
 	frame:SetWidth(331);
 	frame:SetHeight(294);
