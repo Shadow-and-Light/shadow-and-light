@@ -6,6 +6,8 @@ local texPath = [[Interface\AddOns\ElvUI_SLE\media\textures\role\]]
 local texPathE = [[Interface\AddOns\ElvUI\media\textures\]]
 local CUSTOM = CUSTOM
 local LEVEL = LEVEL
+local roleValues = {}
+local wipe = wipe
 
 local function CreateOfflineConfig(group)
 	local config = {
@@ -192,14 +194,23 @@ local function configTable()
 				desc = L["Choose what icon set will unitframes and chat use."],
 				get = function(info) return E.db.sle.unitframes[info[#info]] end,
 				set = function(info, value) E.db.sle.unitframes[info[#info]] = value; E:GetModule('Chat'):CheckLFGRoles(); UF:UpdateAllHeaders() end,
-				values = {
-					['ElvUI'] = 'ElvUI '..'|T'..texPathE..'tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPathE..'healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPathE..'dps:15:15:0:0:64:64:2:56:2:56|t ',
-					['SupervillainUI'] = 'Supervillain UI '..'|T'..texPath..'svui-tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'svui-healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'svui-dps:15:15:0:0:64:64:2:56:2:56|t ',
-					['Blizzard'] = 'Blizzard '..'|T'..texPath..'blizz-tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'blizz-healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'blizz-dps:15:15:0:0:64:64:2:56:2:56|t ',
-					['MiirGui'] = 'MiirGui '..'|T'..texPath..'mg-tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'mg-healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'mg-dps:15:15:0:0:64:64:2:56:2:56|t ',
-					['Lyn'] = 'Lyn '..'|T'..texPath..'lyn-tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'lyn-healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'lyn-dps:15:15:0:0:64:64:2:56:2:56|t ',
-					['Philmod'] = 'Philmod '..'|T'..texPath..'philmod-tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'philmod-healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'philmod-dps:15:15:0:0:64:64:2:56:2:56|t ',
-				},
+				values = function()
+					wipe(roleValues)
+
+					for name, path in pairs(SLE.rolePaths) do
+						roleValues[name] = name..' |T'..path['TANK']..':15:15:0:0:64:64:2:56:2:56|t '..'|T'..path['HEALER']..':15:15:0:0:64:64:2:56:2:56|t '..'|T'..path['DAMAGER']..':15:15:0:0:64:64:2:56:2:56|t '
+					end
+
+					return roleValues
+				end,
+				-- values = {
+				-- 	['ElvUI'] = 'ElvUI '..'|T'..texPathE..'tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPathE..'healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPathE..'dps:15:15:0:0:64:64:2:56:2:56|t ',
+				-- 	['SupervillainUI'] = 'Supervillain UI '..'|T'..texPath..'svui-tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'svui-healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'svui-dps:15:15:0:0:64:64:2:56:2:56|t ',
+				-- 	['Blizzard'] = 'Blizzard '..'|T'..texPath..'blizz-tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'blizz-healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'blizz-dps:15:15:0:0:64:64:2:56:2:56|t ',
+				-- 	['MiirGui'] = 'MiirGui '..'|T'..texPath..'mg-tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'mg-healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'mg-dps:15:15:0:0:64:64:2:56:2:56|t ',
+				-- 	['Lyn'] = 'Lyn '..'|T'..texPath..'lyn-tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'lyn-healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'lyn-dps:15:15:0:0:64:64:2:56:2:56|t ',
+				-- 	['Philmod'] = 'Philmod '..'|T'..texPath..'philmod-tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'philmod-healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'philmod-dps:15:15:0:0:64:64:2:56:2:56|t ',
+				-- },
 			},
 			player = {
 				order = 10,
