@@ -1,4 +1,4 @@
-v4.19 [January X, 2021]
+v4.19 [February 1, 2021]
 Changed:
 - Bags - Equipement Set Indicator default is now a lock
 Fixes:
