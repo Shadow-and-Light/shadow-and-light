@@ -137,7 +137,7 @@ LP.Spells = {
 	['PRIEST'] = {},
 	['ROGUE'] = {},
 	['SHAMAN'] = {
-		[1] = {text =  GetSpellInfo(556),icon = SLE:GetIconFromID('spell', 556),secure = {buttonType = 'spell',ID = 556}, UseTooltip = true},
+		[1] = {text = GetSpellInfo(556), icon = SLE:GetIconFromID('spell', 556),secure = {buttonType = 'spell',ID = 556}, UseTooltip = true},
 	},
 	['WARLOCK'] = {},
 	['WARRIOR'] = {},
@@ -553,6 +553,7 @@ function LP:ItemList()
 			end
 		end
 	end
+
 	return true
 end
 
@@ -601,7 +602,7 @@ function LP:PopulateDropdown(click)
 	local MENU_WIDTH
 
 	if LP.db.portals.showSpells then
-		if LP:SpellList(LP.Spells[E.myclass], nil, true) or  LP:SpellList(LP.Spells.challenge, nil, true) or E.myclass == 'MAGE' or LP.Spells['racials'][E.myrace] then
+		if LP:SpellList(LP.Spells[E.myclass], nil, true) or LP:SpellList(LP.Spells.challenge, nil, true) or E.myclass == 'MAGE' or LP.Spells['racials'][E.myrace] then
 			tinsert(LP.MainMenu, {text = SPELLS..':', title = true, nohighlight = true})
 			LP:SpellList(LP.Spells[E.myclass], LP.MainMenu)
 			if LP:SpellList(LP.Spells.challenge, nil, true) then
@@ -655,6 +656,7 @@ end
 function LP:CHAT_MSG_SKILL()
 	local prof1, prof2 = GetProfessions()
 	local name
+
 	if prof1 then
 		name = GetProfessionInfo(prof1)
 		if name == LP.EngineerName then LP.isEngineer = true return end
@@ -688,14 +690,15 @@ end
 function LP:Initialize()
 	LP.db = E.db.sle.minimap.locPanel
 	if not SLE.initialized then return end
+	LP.elapsed = 0
+
 	LP:PopulateItems()
 	LP:GetProf()
-
-	LP.elapsed = 0
 	LP:CreateLocationPanel()
 	LP:Template()
 	LP:Fonts()
 	LP:Toggle()
+
 	function LP:ForUpdateAll()
 		LP.db = E.db.sle.minimap.locPanel
 		LP:Resize()
