@@ -190,11 +190,12 @@ end
 local function getTotalAnima()
 	local total = 0
 
-	for _, bagFrame in pairs(B.BagFrames) do
-		for _, bagID in ipairs(bagFrame.BagIDs) do
-			for slotID = 1, GetContainerNumSlots(bagID) do
-				local link = GetContainerItemLink(bagID, slotID)
-				local count = select(2, GetContainerItemInfo(bagID, slotID))
+	for i = 0, NUM_BAG_SLOTS do
+		local bagName = GetBagName(i)
+		if bagName then
+			for slotID = 1, GetContainerNumSlots(i) do
+				local link = GetContainerItemLink(i, slotID)
+				local count = select(2, GetContainerItemInfo(i, slotID))
 
 				if link and C_Item_IsAnimaItemByID(link) then
 					local _, spellID = GetItemSpell(link)
