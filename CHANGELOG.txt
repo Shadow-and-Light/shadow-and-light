@@ -1,3 +1,10 @@
+v4.20 [February 4, 2021]
+Fixes:
+- S&L Currency Datatext: Fixed error if not using ElvUI Bag module
+- Character Armory: Fixed a major lag issue if you have certain options enabled/disabled at the same time
+Reverted Changes:
+- Reverted an undocumented change, you should have S&L List mode for merchant list with TSM enabled
+
 v4.19 [February 1, 2021]
 Changed:
 - Bags - Equipement Set Indicator default is now a lock
