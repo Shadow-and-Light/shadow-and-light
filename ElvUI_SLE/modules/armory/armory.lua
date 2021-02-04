@@ -12,7 +12,7 @@ local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllus
 local HandleModifiedItemClick = HandleModifiedItemClick
 local C_TransmogCollection_GetInspectSources = C_TransmogCollection.GetInspectSources
 local GetSpecialization, GetSpecializationInfo, GetInspectSpecialization = GetSpecialization, GetSpecializationInfo, GetInspectSpecialization
-
+local InCombatLockdown = InCombatLockdown
 local CA, IA, SA
 Armory.Constants = {}
 
@@ -447,7 +447,7 @@ function Armory:UpdateInspectInfo()
 end
 
 function Armory:UpdateCharacterInfo(event)
-	if event == 'CRITERIA_UPDATE' and not _G.CharacterFrame:IsShown() then return end
+	if event == 'CRITERIA_UPDATE' and InCombatLockdown() then return end
 
 	if E.db.sle.armory.character.enable then
 		M:UpdatePageInfo(_G['CharacterFrame'], 'Character')
