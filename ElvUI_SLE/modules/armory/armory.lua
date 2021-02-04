@@ -446,9 +446,15 @@ function Armory:UpdateInspectInfo()
 	if not E.db.general.itemLevel.displayInspectInfo then M:ClearPageInfo(_G['InspectFrame'], 'Inspect') end
 end
 
-function Armory:UpdateCharacterInfo()
-	if E.db.sle.armory.character.enable then M:UpdatePageInfo(_G['CharacterFrame'], 'Character') end
-	if not E.db.general.itemLevel.displayCharacterInfo then M:ClearPageInfo(_G['CharacterFrame'], 'Character') end
+function Armory:UpdateCharacterInfo(event)
+	if event == 'CRITERIA_UPDATE' and not _G.CharacterFrame:IsShown() then return end
+
+	if E.db.sle.armory.character.enable then
+		M:UpdatePageInfo(_G['CharacterFrame'], 'Character')
+	end
+	if not E.db.general.itemLevel.displayCharacterInfo then
+		M:ClearPageInfo(_G['CharacterFrame'], 'Character')
+	end
 end
 
 function Armory:ToggleItemLevelInfo()
@@ -510,7 +516,7 @@ function Armory:Initialize()
 	end
 
 	function Armory:ForUpdateAll()
-		SLE:GetModule('Armory_Character'):ToggleArmory();
+		SLE:GetModule('Armory_Character'):ToggleArmory()
 		M:UpdatePageInfo(_G.CharacterFrame, 'Character')
 		if not E.db.general.itemLevel.displayCharacterInfo then M:ClearPageInfo(_G.CharacterFrame, 'Character') end
 
