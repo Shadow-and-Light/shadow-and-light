@@ -63,6 +63,7 @@ Pr.ItemTable = {
 		['137221'] = true, -- Ravencrest sigil
 		['137286'] = true, -- Demon runes
 		['181991'] = true, -- Scout's bow
+		['182021'] = true, -- Kyrian Spear
 		['182067'] = true, -- Rapier
 		['182043'] = true, -- Antique Necromancer's Staff
 	},
