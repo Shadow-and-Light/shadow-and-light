@@ -173,7 +173,7 @@ local function OnEvent(self)
 		local id = tonumber(displayed)
 		if not id then return end
 
-		local name, num, icon = GetInfo(id)
+		local name, num, _, icon = GetInfo(id)
 		if not name then return end
 
 		local style = E.global.datatexts.settings.Currencies.displayStyle
