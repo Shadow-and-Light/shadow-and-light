@@ -177,7 +177,7 @@ local function configTable()
 								end,
 								values = {
 									["NONE"] = NONE,
-									["SLE"] = [[|TInterface\AddOns\ElvUI_SLE\media\textures\Logo:16:16|t S&L]],
+									["SLE"] = [[|TInterface\AddOns\ElvUI_SLE\media\textures\chat\Logo:16:16|t S&L]],
 									["CUSTOM"] = L["Custom"],
 								},
 							},

@@ -1,7 +1,7 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 
 --Chat icon paths--
-local slePath = [[|TInterface\AddOns\ElvUI_SLE\media\textures\]]
+local slePath = [[|TInterface\AddOns\ElvUI_SLE\media\textures\chat\]]
 local blizzPath = [[|TInterface\ICONS\]]
 local repooc = slePath..[[SLE_Chat_Logo:12:24|t ]]
 local sllogo = slePath..[[Logo:14:14|t ]]
@@ -84,7 +84,7 @@ SLE.rolePaths = {
 
 SLE.ScenarioBlockLogos = {
 	["NONE"] = "",
-	["SLE"] = [[Interface\AddOns\ElvUI_SLE\media\textures\Logo]],
+	["SLE"] = [[Interface\AddOns\ElvUI_SLE\media\textures\chat\Logo]],
 }
 
 --Epty Tables
