@@ -148,7 +148,7 @@ function C:Initialize()
 		end
 	end
 
-	hooksecurefunc(CH, "StyleChat", Style)
+	-- hooksecurefunc(CH, "StyleChat", Style)
 	hooksecurefunc(E, "UpdateMedia", ChatTextures)
 
 	if E.db.sle.chat.guildmaster then
