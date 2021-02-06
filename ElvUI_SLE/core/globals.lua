@@ -13,7 +13,7 @@ local blizzicon = blizzPath..[[%s:12:12:0:0:64:64:4:60:4:60|t]]
 
 local orc = blizzPath..[[Achievement_Character_Orc_Male:16:16|t ]]
 --local coppericon = [[|TInterface\MONEYFRAME\UI-CopperIcon:12:12|t]]
-local silvericon = [[|TInterface\MONEYFRAME\UI-SilverIcon:12:12|t]]
+--local silvericon = [[|TInterface\MONEYFRAME\UI-SilverIcon:12:12|t]]
 local goldicon = [[|TInterface\MONEYFRAME\UI-GoldIcon:12:12|t]]
 
 SLE.ArmoryConfigBackgroundValues = {
