@@ -25,14 +25,10 @@ SLE.ArmoryConfigBackgroundValues = {
 		["Castle"] = "Castle",
 		["Alliance-text"] = FACTION_ALLIANCE,
 		["Horde-text"] = FACTION_HORDE,
-		["Alliance-bliz"] = FACTION_ALLIANCE.." 2",
-		["Horde-bliz"] = FACTION_HORDE.." 2",
 		["Arena-bliz"] = ARENA,
 		["CLASS"] = CLASS,
 	},
 	BlizzardBackdropList = {
-		["Alliance-bliz"] = [[Interface\LFGFrame\UI-PVP-BACKGROUND-Alliance]],
-		["Horde-bliz"] = [[Interface\LFGFrame\UI-PVP-BACKGROUND-Horde]],
 		["Arena-bliz"] = [[Interface\PVPFrame\PvpBg-NagrandArena-ToastBG]]
 	},
 }
