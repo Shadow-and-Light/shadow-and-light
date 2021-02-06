@@ -80,6 +80,11 @@ SLE.rolePaths = {
 		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\philmod-healer]],
 		DAMAGER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\philmod-dps]]
 	},
+	["ReleafUI"] = {
+		TANK = [[Interface\AddOns\ElvUI_SLE\media\textures\role\releaf-tank]],
+		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\releaf-healer]],
+		DAMAGER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\releaf-dps]]
+	},
 }
 
 SLE.ScenarioBlockLogos = {
