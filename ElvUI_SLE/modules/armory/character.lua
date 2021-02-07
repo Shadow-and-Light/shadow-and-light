@@ -191,6 +191,16 @@ function CA:Update_BG()
 		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture(E.db.sle.armory.character.background.customTexture)
 	elseif E.db.sle.armory.character.background.selectedBG == 'CLASS' then
 		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\armory\]]..E.myclass)
+	elseif E.db.sle.armory.character.background.selectedBG == 'Covenant' then
+		local covenant = SLE.ArmoryConfigBackgroundValues.Covenants[C_Covenants.GetActiveCovenantID()]
+		local bgtexture = SLE:TextureExists([[Interface\AddOns\ElvUI_SLE\media\textures\armory\Cov_]]..covenant) and [[Interface\AddOns\ElvUI_SLE\media\textures\armory\Cov_]]..covenant or nil
+
+		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture(bgtexture)
+	elseif E.db.sle.armory.character.background.selectedBG == 'Covenant2' then
+		local covenant = SLE.ArmoryConfigBackgroundValues.Covenants[C_Covenants.GetActiveCovenantID()]
+		local bgtexture = (SLE:TextureExists([[Interface\AddOns\ElvUI_SLE\media\textures\armory\Cov_]]..covenant..'2') and [[Interface\AddOns\ElvUI_SLE\media\textures\armory\Cov_]]..covenant..'2') or (SLE:TextureExists([[Interface\AddOns\ElvUI_SLE\media\textures\armory\Cov_]]..covenant) and [[Interface\AddOns\ElvUI_SLE\media\textures\armory\Cov_]]..covenant) or nil
+
+		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture(bgtexture)
 	else
 		_G["PaperDollFrame"].SLE_Armory_BG:SetTexture(SLE.ArmoryConfigBackgroundValues.BlizzardBackdropList[E.db.sle.armory.character.background.selectedBG] or [[Interface\AddOns\ElvUI_SLE\media\textures\armory\]]..E.db.sle.armory.character.background.selectedBG)
 	end

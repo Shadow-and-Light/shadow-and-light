@@ -217,37 +217,17 @@ function SLE:GetMapInfo(id, arg)
 	return MapInfo[arg]
 end
 
---Some texture magic. Thanks Semlar for this
-SLE.TestTextureFrame = CreateFrame('Frame')
-SLE.TestTextureFrame.texture = SLE.TestTextureFrame:CreateTexture()
+local txframe = CreateFrame('Frame')
+local tx = txframe:CreateTexture()
 
-function SLE:TextureExists(path, realTerxture, fallbackPath, holderFrame, modTestFrame, modTestTexture)
+function SLE:TextureExists(path)
 	if not path or path == '' then
-		return
+		return SLE:Print('Path not valid or defined.', 'error')
 	end
-	if not realTerxture or realTerxture == "" then
-		return
-	end
-	local f = holderFrame or modTestFrame or SLE.TestTextureFrame
-	local tx = modTestTexture or SLE.TestTextureFrame.texture
-	tx.realTexture = realTerxture
-	tx:SetPoint('BOTTOMRIGHT', E.UIParent, 'TOPRIGHT') -- The texture has to be "visible", but not necessarily on-screen (you can also set its alpha to 0)
-	f:SetAllPoints(tx)
-
-	f:SetScript('OnSizeChanged',
-		function(_, width, height)
-			local size = format('%.0f%.0f', width, height) -- The floating point numbers need to be rounded or checked like "width < 8.1 and width > 7.9"
-			if size == '11' then
-				-- print(tx:GetTexture(), "doesn't exist or can't be determined")
-				tx.realTexture:SetTexture(fallbackPath or '')
-			-- print(tx.realTexture:GetTexture())
-			-- else
-			-- print(tx:GetTexture(), "exists")
-			end
-		end
-	)
+	tx:SetTexture('?')
 	tx:SetTexture(path)
-	tx:SetSize(0, 0) -- Size must be set after every SetTexture
+
+	return (tx:GetTexture() ~= '?')
 end
 
 --When we need to get mutiple modules in a file

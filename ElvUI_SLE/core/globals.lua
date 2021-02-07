@@ -27,9 +27,18 @@ SLE.ArmoryConfigBackgroundValues = {
 		["Horde-text"] = FACTION_HORDE,
 		["Arena-bliz"] = ARENA,
 		["CLASS"] = CLASS,
+		['Covenant'] = L["Covenant"],
+		['Covenant2'] = L["Covenant"]..' 2',
 	},
 	BlizzardBackdropList = {
 		["Arena-bliz"] = [[Interface\PVPFrame\PvpBg-NagrandArena-ToastBG]]
+	},
+	Covenants = {
+		[0] = 'None',
+		[1] = 'Kyrian',
+		[2] = 'Venthyr',
+		[3] = 'NightFae',
+		[4] = 'Necrolord',
 	},
 }
 
