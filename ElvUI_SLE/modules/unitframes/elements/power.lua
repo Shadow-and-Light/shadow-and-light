@@ -31,7 +31,7 @@ function SUF:Configure_Power(frame)
 		if frame.POWERBAR_DETACHED then
 			power.backdrop.enhshadow:Show()
 		else
-			if frame.db.power.width ~= 'fill' then
+			if frame.db.power and frame.db.power.width ~= 'fill' then
 				power.backdrop.enhshadow:Show()
 			elseif not frame.SLHEALTH_ENHSHADOW then
 				power.backdrop.enhshadow:Show()
