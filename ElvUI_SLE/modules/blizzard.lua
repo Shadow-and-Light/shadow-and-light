@@ -243,6 +243,7 @@ end
 local function LoadPosition(self)
 	if self.IsMoving == true then return end
 	local Name = self:GetName()
+
 	if not self:GetPoint() then --Some frames don't have set positions when show script runs (e.g. CharacterFrame). For those set default position and save that.
 		if B.SpecialDefaults[Name] then
 			local a,b,c,d,e = unpack(B.SpecialDefaults[Name])
@@ -386,7 +387,10 @@ function B:Initialize()
 		self:Hook('UIParent_ManageFramePosition', function()
 			for FrameName, state in pairs(B.Frames) do
 				local frame = _G[FrameName]
-				if state and frame and frame:IsShown() then LoadPosition(frame) end
+				if state and frame and frame:IsShown() then
+					if FrameName == 'CharacterFrame' or FrameName == 'WorldMapFrame' then return end
+					LoadPosition(frame)
+				end
 			end
 		end, true)
 	end
