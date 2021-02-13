@@ -97,6 +97,9 @@ B.AddonsList = {
 		ChallengesKeystoneFrame = true,
 		-- ChallengesLeaderboardFrame = false,
 	},
+	Blizzard_Channels = {
+		ChannelFrame = true,
+	},
 	Blizzard_Collections = {
 		CollectionsJournal = true,
 		WardrobeFrame = true,
