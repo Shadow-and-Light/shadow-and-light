@@ -5,6 +5,10 @@ local function configTable()
 	if not SLE.initialized then return end
 	local ACH = E.Libs.ACH
 
+	if E.Options.args.nameplate.args.targetGroup.args.arrow.values and not E.Options.args.nameplate.args.targetGroup.args.arrow.values['RedArrow'] then
+		E.Options.args.nameplate.args.targetGroup.args.arrow.values['RedArrow'] = E:TextureString(E.Media.Textures.RedArrow, ':14:14')
+	end
+
 	E.Options.args.sle.args.modules.args.nameplate = {
 		type = "group",
 		name = L["NamePlates"],
