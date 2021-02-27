@@ -174,7 +174,7 @@ function N:Initialize()
 	end
 
 	--* Adds RedArrow to ElvUI Textures Table for Nameplate Target Arrow selection
-	E.Media.Textures.RedArrow = [[Interface\AddOns\ElvUI_SLE\media\textures\nameplates\RedArrow]]
+	E.Media.Textures.SLRedArrow = [[Interface\AddOns\ElvUI_SLE\media\textures\nameplates\RedArrow]]
 
 	--Hooking to ElvUI's nameplates
 	hooksecurefunc(NP, "Style", N.CreateNameplate)
