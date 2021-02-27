@@ -145,13 +145,6 @@ end
 
 local function CreateLegacyConfig()
 	local config = MC:CreateModuleConfigGroup(SLE.Russian and ITEM_QUALITY7_DESC or LFG_LIST_LEGACY, "legacy", "sle")
-	config.args.farm = {
-		order = 2,
-		type = "toggle",
-		name = L["Farm"],
-		get = function(info) return E.global.profileCopy.sle.legacy[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.legacy[ info[#info] ] = value; end
-	}
 	config.args.garrison = {
 		order = 3,
 		type = "toggle",

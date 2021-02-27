@@ -1,5 +1,4 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file='farm.lua'/>
 	<Script file='garrison.lua'/>
 	<Script file='orderhall.lua'/>
 </Ui>

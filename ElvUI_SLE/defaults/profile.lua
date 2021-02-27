@@ -399,14 +399,6 @@ P["sle"] = {
 				["enable"] = false,
 			},
 		},
-		["farm"] = {
-			["active"] = true,
-			["buttonsize"] = 30,
-			["autotarget"] = false,
-			["seedor"] = "TOP",
-			["quest"] = false,
-			["enable"] = false,
-		},
 		["orderhall"] = {
 			["autoOrder"] = {
 				["enable"] = false,
