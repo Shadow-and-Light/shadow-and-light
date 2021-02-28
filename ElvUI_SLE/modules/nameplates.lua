@@ -46,47 +46,60 @@ hooksecurefunc(NP, 'ThreatIndicator_PostUpdate', function(threat, unit)
 end)
 
 function N:CreateTargetCounter(nameplate)
-	nameplate.SLE_targetcount = nameplate.Health:CreateFontString(nil, "OVERLAY")
+	nameplate.SLE_targetcount = nameplate.Health:CreateFontString(nil, 'OVERLAY')
 	nameplate.SLE_targetcount:SetPoint('BOTTOMRIGHT', nameplate.Health, 'BOTTOMRIGHT', E.db.sle.nameplates.targetcount.xoffset, E.db.sle.nameplates.targetcount.yoffset)
-	nameplate.SLE_targetcount:SetJustifyH("RIGHT")
+	nameplate.SLE_targetcount:SetJustifyH('RIGHT')
 	nameplate.SLE_TargetedByCounter = 0
-	nameplate.SLE_targetcount:SetFont(E.LSM:Fetch("font", E.db.sle.nameplates.targetcount.font), E.db.sle.nameplates.targetcount.size, E.db.sle.nameplates.targetcount.fontOutline)
+	nameplate.SLE_targetcount:SetFont(E.LSM:Fetch('font', E.db.sle.nameplates.targetcount.font), E.db.sle.nameplates.targetcount.size, E.db.sle.nameplates.targetcount.fontOutline)
 	nameplate.SLE_targetcount:SetText()
 end
 
-function N:UpdateCount(event,unit,force)
+function N:UpdateCount(event, unit, force)
 	if E.db.sle.nameplates.targetcount == nil or not E.db.sle.nameplates.targetcount.enable then return end
-	if (not strfind(unit, "raid") and not strfind(unit, "party") and not (unit == "player" and force) and not N.TestSoloTarget) or strfind(unit, "pet") then return end
+	if (not strfind(unit, 'raid') and not strfind(unit, 'party') and not (unit == 'player' and force) and not N.TestSoloTarget) or strfind(unit, 'pet') then return end
 	local isGrouped = IsInRaid() or IsInGroup()
 	local target
+
 	--Forced update of the roster. Usually on load
 	if force and isGrouped then N:UpdateRoster() end
+
 	for _, frame in pairs(GetNamePlates()) do
 		if(frame and frame.unitFrame) then
 			local plate = frame.unitFrame
+
 			--Reset couunter
-			plate.SLE_targetcount:SetText("")
+			plate.SLE_targetcount:SetText('')
 			plate.SLE_TargetedByCounter = 0
+
 			--If in group, then update counter
 			if isGrouped then
 				for _, unitid in pairs(N.GroupMembers) do --For every unit in roster
-					if not UnitIsUnit(unitid,"player") and plate.unit then
-						target = format("%starget", unitid) --Get group member's target
+					if not UnitIsUnit(unitid, 'player') and plate.unit then
+						target = format('%starget', unitid) --Get group member's target
 						plate.guid = UnitGUID(plate.unit) --Find unit's guid
+
 						if plate.guid and UnitExists(target) then --If target exists and plate actually has unit, then someone actually targets this plate
-							if UnitGUID(target) == plate.guid then plate.SLE_TargetedByCounter = plate.SLE_TargetedByCounter + 1 end
+							if UnitGUID(target) == plate.guid then
+								plate.SLE_TargetedByCounter = plate.SLE_TargetedByCounter + 1
+							end
 						end
 					end
 				end
 			end
+
 			--If debug mode is set
 			if N.TestSoloTarget then
 				plate.guid = UnitGUID(plate.unit)
-				if plate.guid and UnitExists("target") then
-					if UnitGUID("target") == plate.guid then plate.SLE_TargetedByCounter = plate.SLE_TargetedByCounter + 1 end
+
+				if plate.guid and UnitExists('target') then
+					if UnitGUID('target') == plate.guid then
+						plate.SLE_TargetedByCounter = plate.SLE_TargetedByCounter + 1
+					end
 				end
 			end
-			if not (plate.SLE_TargetedByCounter == 0) then plate.SLE_targetcount:SetText(format('[%d]', plate.SLE_TargetedByCounter))	end
+			if not (plate.SLE_TargetedByCounter == 0) then
+				plate.SLE_targetcount:SetText(format('[%d]', plate.SLE_TargetedByCounter))
+			end
 		end
 	end
 end
@@ -105,7 +118,9 @@ function N:UpdateRoster()
 
 	for index = 1, groupSize do AddToRoster(groupType..index) end
 
-	if groupType == 'party' then AddToRoster('player') end
+	if groupType == 'party' then
+		AddToRoster('player')
+	end
 end
 
 --Set a timer. cause on group update info about new member is not immidiately available
@@ -117,14 +132,17 @@ end
 
 function N:NamePlateCallBackSLE(nameplate, event, unit)
 	if not nameplate then return end
-	if event == "NAME_PLATE_UNIT_ADDED" then
+
+	if event == 'NAME_PLATE_UNIT_ADDED' then
 		--If nameplate is shown, update counter cause someone may have been targeting this bastard offscreen
-		N:UpdateCount(nil,"player", true)
+		N:UpdateCount(nil, 'player', true)
 	elseif event == 'NAME_PLATE_UNIT_REMOVED' then
 		--Nameplate is hidden, reset everything
-		if nameplate.SLE_threatInfo then nameplate.SLE_threatInfo:SetText("") end
+		if nameplate.SLE_threatInfo then
+			nameplate.SLE_threatInfo:SetText('')
+		end
 		if nameplate.SLE_targetcount then
-			nameplate.SLE_targetcount:SetText("")
+			nameplate.SLE_targetcount:SetText('')
 			nameplate.SLE_TargetedByCounter = 0
 		end
 	end
@@ -145,14 +163,15 @@ end
 
 function N:UpdatePlate(nameplate)
 	if nameplate.SLE_threatInfo then
-		nameplate.SLE_threatInfo:SetFont(E.LSM:Fetch("font", E.db.sle.nameplates.threat.font), E.db.sle.nameplates.threat.size, E.db.sle.nameplates.threat.fontOutline)
-		nameplate.SLE_threatInfo:SetPoint("BOTTOMLEFT", nameplate.Health, "BOTTOMLEFT", E.db.sle.nameplates.threat.xoffset, E.db.sle.nameplates.threat.yoffset)
-		if not E.db.sle.nameplates.threat.enable then nameplate.SLE_threatInfo:SetText("") end
+		nameplate.SLE_threatInfo:SetFont(E.LSM:Fetch('font', E.db.sle.nameplates.threat.font), E.db.sle.nameplates.threat.size, E.db.sle.nameplates.threat.fontOutline)
+		nameplate.SLE_threatInfo:SetPoint('BOTTOMLEFT', nameplate.Health, 'BOTTOMLEFT', E.db.sle.nameplates.threat.xoffset, E.db.sle.nameplates.threat.yoffset)
+		if not E.db.sle.nameplates.threat.enable then nameplate.SLE_threatInfo:SetText('') end
 	end
+
 	if nameplate.SLE_targetcount then
-		nameplate.SLE_targetcount:SetFont(E.LSM:Fetch("font", E.db.sle.nameplates.targetcount.font), E.db.sle.nameplates.targetcount.size, E.db.sle.nameplates.targetcount.fontOutline)
+		nameplate.SLE_targetcount:SetFont(E.LSM:Fetch('font', E.db.sle.nameplates.targetcount.font), E.db.sle.nameplates.targetcount.size, E.db.sle.nameplates.targetcount.fontOutline)
 		nameplate.SLE_targetcount:SetPoint('BOTTOMRIGHT', nameplate.Health, 'BOTTOMRIGHT', E.db.sle.nameplates.targetcount.xoffset, E.db.sle.nameplates.targetcount.yoffset)
-		if E.db.sle.nameplates.targetcount.enable then N:UpdateCount(nil,"player", true) else nameplate.SLE_targetcount:SetText(""); nameplate.SLE_TargetedByCounter = 0 end
+		if E.db.sle.nameplates.targetcount.enable then N:UpdateCount(nil, 'player', true) else nameplate.SLE_targetcount:SetText(''); nameplate.SLE_TargetedByCounter = 0 end
 	end
 end
 
@@ -176,12 +195,12 @@ function N:Initialize()
 	--* Adds RedArrow to ElvUI Textures Table for Nameplate Target Arrow selection
 
 	--Hooking to ElvUI's nameplates
-	hooksecurefunc(NP, "Style", N.CreateNameplate)
-	hooksecurefunc(NP, "UpdatePlate", N.UpdatePlate)
+	hooksecurefunc(NP, 'Style', N.CreateNameplate)
+	hooksecurefunc(NP, 'UpdatePlate', N.UpdatePlate)
 
-	self:RegisterEvent("GROUP_ROSTER_UPDATE", "StartRosterUpdate")
-	self:RegisterEvent("UNIT_TARGET", "UpdateCount")
-	hooksecurefunc(NP, "NamePlateCallBack", N.NamePlateCallBackSLE)
+	N:RegisterEvent('GROUP_ROSTER_UPDATE', 'StartRosterUpdate')
+	N:RegisterEvent('UNIT_TARGET', 'UpdateCount')
+	hooksecurefunc(NP, 'NamePlateCallBack', N.NamePlateCallBackSLE)
 
 	--This function call is to update target count, cause right after creating it doesn't show up
 	E:Delay(.3, function() N:UpdateCount(nil,"player", true) end)
