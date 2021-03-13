@@ -11,6 +11,9 @@ local test = slePath..[[Chat_Test:16:16|t ]]
 local blizzicon = blizzPath..[[%s:12:12:0:0:64:64:4:60:4:60|t]]
 -- local rpg = slePath..[[Chat_RPG:13:35|t]]
 
+-- TTV Chat Icon
+local ttvicon = slePath..[[Daveedium:11:21|t ]]
+
 local orc = blizzPath..[[Achievement_Character_Orc_Male:16:16|t ]]
 --local coppericon = [[|TInterface\MONEYFRAME\UI-CopperIcon:12:12|t]]
 --local silvericon = [[|TInterface\MONEYFRAME\UI-SilverIcon:12:12|t]]
@@ -190,14 +193,17 @@ SLE.SpecialChatIcons = {
 		},
 		["Stormrage"] = {
 			["Sifpooc"] = repooc,
-			["Urgfelstorm"] = blizzicon:format("inv_misc_bomb_02"),
-			["Vaxum"] = goldicon,
-			["Lloosh"] = goldicon, --Lloosh & Repooc's Guild Mate
-			["Marshmeela"] = goldicon, --Lloosh & Repooc's Guild Mate
-			["Looshana"] = goldicon, --Lloosh & Repooc's Guild Mate
-			["Looshaina"] = goldicon, --Lloosh & Repooc's Guild Mate
-			["Looshally"] = goldicon, --Lloosh & Repooc's Guild Mate
-			["Looshella"] = goldicon, --Lloosh & Repooc's Guild Mate
+			["Urgfelstorm"] = blizzicon:format("inv_misc_bomb_02"),	-- Urg & Repooc's Guild Mate
+			["Vaxum"]		= goldicon,	-- Vax & Repooc's Guild Mate
+			["Lloosh"]		= goldicon,	-- Lloosh & Repooc's Guild Mate
+			["Marshmeela"]	= goldicon,	-- Lloosh & Repooc's Guild Mate
+			["Looshana"]	= goldicon,	-- Lloosh & Repooc's Guild Mate
+			["Looshaina"]	= goldicon, -- Lloosh & Repooc's Guild Mate
+			["Looshally"]	= goldicon, -- Lloosh & Repooc's Guild Mate
+			["Looshella"]	= goldicon, -- Lloosh & Repooc's Guild Mate
+		},
+		["Kel'Thuzad"] = {
+			["Daveedium"] = ttvicon, -- Twitch streamer I been doing HSire kills with
 		},
 		["WyrmrestAccord"] = {
 			["Dapooc"] = repooc,
