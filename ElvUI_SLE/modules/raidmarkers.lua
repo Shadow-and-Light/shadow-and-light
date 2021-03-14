@@ -116,9 +116,9 @@ function RM:UpdateBar(update)
 
 	if E.db.sle.raidmarkers.orientation == 'VERTICAL' then
 		width = E.db.sle.raidmarkers.buttonSize + 4
-		height = (E.db.sle.raidmarkers.buttonSize * 9) + (E.db.sle.raidmarkers.spacing * 8) + 4
+		height = (E.db.sle.raidmarkers.buttonSize * 9) + (E.db.sle.raidmarkers.spacing * 8)
 	else
-		width = (E.db.sle.raidmarkers.buttonSize * 9) + (E.db.sle.raidmarkers.spacing * 8) + 4
+		width = (E.db.sle.raidmarkers.buttonSize * 9) + (E.db.sle.raidmarkers.spacing * 8)
 		height = E.db.sle.raidmarkers.buttonSize + 4
 	end
 
