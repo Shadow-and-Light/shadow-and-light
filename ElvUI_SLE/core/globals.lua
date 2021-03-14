@@ -77,6 +77,11 @@ SLE.rolePaths = {
 		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\blizz-healer]],
 		DAMAGER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\blizz-dps]]
 	},
+	["BlizzardCircle"] = {
+		TANK = [[Interface\AddOns\ElvUI_SLE\media\textures\role\blizz-tank-circle]],
+		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\blizz-healer-circle]],
+		DAMAGER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\blizz-dps-circle]]
+	},
 	["MiirGui"] = {
 		TANK = [[Interface\AddOns\ElvUI_SLE\media\textures\role\mg-tank]],
 		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\mg-healer]],
