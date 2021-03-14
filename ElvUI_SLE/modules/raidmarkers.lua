@@ -54,7 +54,8 @@ function RM:CreateButton(index)
 	button:SetTemplate('Transparent')
 
 	button.icon = button:CreateTexture(nil, 'ARTWORK')
-	button.icon:SetAllPoints()
+	button.icon:Point('TOPLEFT', button, 'TOPLEFT', 2, -2)
+	button.icon:Point('BOTTOMRIGHT', button, 'BOTTOMRIGHT', -2, 2)
 	button.icon:SetTexture(index == 9 and 'Interface\\BUTTONS\\UI-GroupLoot-Pass-Up' or format('Interface\\TargetingFrame\\UI-RaidTargetingIcon_%d', index))
 
 	if target then
