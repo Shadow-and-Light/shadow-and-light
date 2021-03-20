@@ -37,6 +37,7 @@ local Difficulties = {
 	[45] = 'pvp', -- PvP Scenario (Islands)
 	[147] = 'normal', -- Warfront
 	[149] = 'heroic', -- Heroic Warfront
+	[150] = 'timewalking', -- Timewalking Campaign (Chromie Time)
 	[151] = 'timewalking', -- LFR Timewalking Raids
 	[152] = 'horrificvision', -- Horrific Vision of Stormwind|Orgrimmar
 	[167] = 'torghast', -- Torghast
