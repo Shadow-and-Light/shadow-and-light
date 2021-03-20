@@ -39,6 +39,7 @@ local Difficulties = {
 	[149] = 'heroic', -- Heroic Warfront
 	[151] = 'timewalking', -- LFR Timewalking Raids
 	[152] = 'horrificvision', -- Horrific Vision of Stormwind|Orgrimmar
+	[167] = 'torghast', -- Torghast
 }
 
 --Table of tags conditions for gear switching
