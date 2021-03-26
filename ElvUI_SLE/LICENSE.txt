@@ -1,5 +1,5 @@
 Shadow & Light License
-Copyright ©2012-2019
+Copyright ï¿½2012-2019
 The contents of this addon, excluding third-party resources, are copyrighted to their authors with all rights reserved.
 
 This addon is free to use and the authors hereby grants you the following rights:
@@ -17,5 +17,5 @@ Elv: full permission
 Merathilis: full permission
 Benik: full permission
 Azilroka: full permission
-NihilisticPandemonium: full permission
+Nihilistzsche: full permission
 Simpy: full permission
