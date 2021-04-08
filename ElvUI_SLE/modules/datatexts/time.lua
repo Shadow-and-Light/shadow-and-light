@@ -1,7 +1,7 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local DT = E:GetModule('DataTexts')
-local DTP = SLE:GetModule('Datatexts')
-local LFR = SLE:GetModule("LFR")
+local DT = E.DataTexts
+local DTP = SLE.Datatexts
+local LFR = SLE.LFR
 
 --Put everything in function so nothing attempts to execute when time dt doesn't exist
 function DTP:HookTimeDT()

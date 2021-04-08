@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local B = SLE:NewModule('Blizzard', 'AceHook-3.0', 'AceEvent-3.0')
+local B = SLE.Blizzard
 local _G = _G
 
 --Frames to move

@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local DT = E:GetModule('DataTexts')
+local DT = E.DataTexts
 local STAT_ENERGY_REGEN = STAT_ENERGY_REGEN
 local GetPowerRegen = GetPowerRegen
 local displayNumberString = ''

@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local SUF = SLE:GetModule('UnitFrames')
+local SUF = SLE.UnitFrames
 
 function SUF:Configure_Power(frame)
 	local power = frame.Power

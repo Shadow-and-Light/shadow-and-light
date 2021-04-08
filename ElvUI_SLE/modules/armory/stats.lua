@@ -1,7 +1,7 @@
 local SLE, _, E = unpack(select(2, ...))
-local Armory = SLE:GetModule('Armory_Core')
-local SA = SLE:NewModule('Armory_Stats') --, 'AceEvent-3.0', 'AceConsole-3.0', 'AceHook-3.0')
-local M = E:GetModule('Misc')
+local Armory = SLE.Armory_Core
+local SA = SLE.Armory_Stats
+local M = E.Misc
 
 local _G = _G
 local math_min = math.min
@@ -104,7 +104,7 @@ function SA:BuildScrollBar() --Creating new scroll
 		local offset = value > 1 and frame:GetParent():GetVerticalScrollRange()/(SA.totalShown*Armory.Constants.Stats.ScrollStepMultiplier) or 1
 		frame:GetParent():SetVerticalScroll(value*offset)
 	end)
-	E:GetModule('Skins'):HandleScrollBar(SA.Scrollbar)
+	E.Skins:HandleScrollBar(SA.Scrollbar)
 	SA.Scrollbar:Hide()
 
 	--SA.ScrollChild Frame

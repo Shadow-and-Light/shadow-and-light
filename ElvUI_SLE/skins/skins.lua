@@ -1,5 +1,5 @@
 local SLE, _, E = unpack(select(2, ...))
-local Sk = SLE:NewModule('Skins')
+local Sk = SLE.Skins
 
 --GLOBALS: CreateFrame
 local _G = _G

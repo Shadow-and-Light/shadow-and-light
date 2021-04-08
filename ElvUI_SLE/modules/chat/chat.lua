@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local CH, LO = SLE:GetElvModules("Chat", "Layout")
-local C = SLE:NewModule("Chat",  'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+local CH, LO = E.Chat, E.Layout
+local C = SLE.Chat
 
 --GLOBALS:unpack, select, hooksecurefunc, strsplit, gsub, format, string, _G, NUM_CHAT_WINDOWS, LeftChatPanel, RightChatPanel, LeftChatToggleButton, RightChatToggleButton, IsMouseButtonDown, IsInGuild, GetNumGuildMembers, GetGuildRosterInfo, GetChatWindowSavedPosition
 

@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local AFK = E:GetModule('AFK')
-local S = SLE:NewModule('Screensaver', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+local AFK = E.AFK
+local S = SLE.Screensaver
 
 --GLOBALS: unpack, select, format, random, date, tinsert, type, tonumber, hooksecurefunc, UnitPVPName, UnitLevel, UnitClass, UnitRace, RANK, LEVEL, CreateFrame, CreateAnimationGroup, C_Timer, SendChatMessage, RAID_CLASS_COLORS, GetScreenWidth, GetScreenHeight, IsInGuild, GetGuildInfo, FlipCameraYaw
 local testTimer  --was AnimTime before

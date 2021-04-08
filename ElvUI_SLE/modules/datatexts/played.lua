@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local DT = E:GetModule('DataTexts')
+local DT = E.DataTexts
 
 --GLOBALS: ElvDB
 local format = format

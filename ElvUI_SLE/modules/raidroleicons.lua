@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local B = SLE:NewModule("BlizzRaid", 'AceEvent-3.0')
+local B = SLE.BlizzRaid
 
 --GLOBALS: CreateFrame, hooksecurefunc
 local _G = _G

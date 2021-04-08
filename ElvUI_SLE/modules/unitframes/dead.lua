@@ -1,5 +1,5 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
-local SUF = SLE:GetModule("UnitFrames")
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SUF = SLE.UnitFrames
 
 SUF.DeadTextures = {
 	["SKULL"] = [[Interface\LootFrame\LootPanel-Icon]],

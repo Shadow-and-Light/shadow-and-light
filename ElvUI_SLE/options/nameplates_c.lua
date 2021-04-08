@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local NP = E:GetModule('NamePlates')
+local NP = E.NamePlates
 
 local function configTable()
 	if not SLE.initialized then return end

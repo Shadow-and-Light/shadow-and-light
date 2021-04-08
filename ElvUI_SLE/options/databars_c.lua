@@ -1,6 +1,6 @@
 ﻿local SLE, _, E, L = unpack(select(2, ...))
-local EDB = E:GetModule('DataBars')
-local DB = SLE:GetModule("DataBars")
+local EDB = E.DataBars
+local DB = SLE.DataBars
 
 --GLOBALS: unpack, select, format, tinsert, XP, XPBAR_LABEL, RANK, HONOR, FACTION, REPUTATION, SCENARIO_BONUS_LABEL
 local format, tinsert = format, tinsert

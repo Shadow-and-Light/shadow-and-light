@@ -1,6 +1,6 @@
 local _, _, E, L = unpack(select(2, ...))
-local DT = E:GetModule('DataTexts')
-local B = E:GetModule('Bags')
+local DT = E.DataTexts
+local B = E.Bags
 
 local _G = _G
 local type, wipe, pairs, ipairs, sort = type, wipe, pairs, ipairs, sort

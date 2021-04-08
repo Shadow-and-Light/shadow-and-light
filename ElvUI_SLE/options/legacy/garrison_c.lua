@@ -19,7 +19,7 @@ local function configTable()
 				name = L["Toolbar"],
 				guiInline = true,
 				get = function(info) return E.db.sle.legacy.garrison.toolbar[ info[#info] ] end,
-				set = function(info, value) E.db.sle.legacy.garrison.toolbar[ info[#info] ] = value; SLE:GetModule("Toolbars"):UpdateLayout() end,
+				set = function(info, value) E.db.sle.legacy.garrison.toolbar[ info[#info] ] = value; SLE.Toolbars:UpdateLayout() end,
 				args = {
 					enable = {
 						order = 1,

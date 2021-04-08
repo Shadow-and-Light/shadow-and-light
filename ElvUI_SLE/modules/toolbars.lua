@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins")
-local Tools = SLE:NewModule("Toolbars", 'AceHook-3.0', 'AceEvent-3.0')
+local S = E.Skins
+local Tools = SLE.Toolbars
 
 --GLOBALS: CreateFrame, hooksecurefunc, UIParent
 local _G = _G

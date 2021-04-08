@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local NP = E:GetModule('NamePlates')
-local N = SLE:NewModule("Nameplates", 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+local NP = E.NamePlates
+local N = SLE.Nameplates
 
 -- GLOBALS: unpack, select, format, UnitName, hooksecurefunc, UnitIsPlayer, C_NamePlate
 local format = format

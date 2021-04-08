@@ -1,6 +1,6 @@
 local SLE, T, E = unpack(select(2, ...))
-local BI = SLE:NewModule('BagInfo', 'AceHook-3.0', 'AceEvent-3.0')
-local B = E:GetModule('Bags')
+local BI = SLE.BagInfo
+local B = E.Bags
 
 local _G = _G
 local GetContainerNumSlots = GetContainerNumSlots

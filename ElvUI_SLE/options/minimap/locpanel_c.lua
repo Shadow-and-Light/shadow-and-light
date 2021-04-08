@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local LP = SLE:GetModule("LocationPanel")
+local LP = SLE.LocationPanel
 local DEFAULT, CUSTOM = DEFAULT, CUSTOM
 local function configTable()
 	if not SLE.initialized then return end

@@ -1,5 +1,5 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local EM = SLE:GetModule('EquipManager')
+local EM = SLE.EquipManager
 
 local format = format
 local NONE = NONE

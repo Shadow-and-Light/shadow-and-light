@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local Sk = SLE:GetModule("Skins")
-local S = E:GetModule('Skins')
+local Sk = SLE.Skins
+local S = E.Skins
 --GLOBALS: CreateFrame, MERCHANT_ITEMS_PER_PAGE, BUYBACK_ITEMS_PER_PAGE, hooksecurefunc, MERCHANT_PAGE_NUMBER, UIParent, ChatFontSmall
 local _G = _G
 local strtrim = strtrim

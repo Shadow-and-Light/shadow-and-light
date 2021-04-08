@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local M = E:GetModule('Minimap')
-local MM = SLE:NewModule("Minimap", 'AceHook-3.0', 'AceEvent-3.0')
+local M = E.Minimap
+local MM = SLE.Minimap
 
 --GLOBALS: unpack, select, format, _G, UIFrameFadeIn, InCombatLockdown, CreateFrame, hooksecurefunc, SLECoordsHolder
 local _G = _G

@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local EVB = SLE:NewModule('EnhancedVehicleBar')
-local AB = E:GetModule('ActionBars');
+local EVB = SLE.EnhancedVehicleBar
+local AB = E.ActionBars;
 local LAB = LibStub('LibActionButton-1.0-ElvUI')
 local Masque = LibStub('Masque', true)
 local MasqueGroup = Masque and Masque:Group('ElvUI', 'ActionBars')

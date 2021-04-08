@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local SA = SLE:GetModule('Armory_Stats')
-local M = E:GetModule('Misc')
+local SA = SLE.Armory_Stats
+local M = E.Misc
 
 local function configTable()
 	if not SLE.initialized then return end

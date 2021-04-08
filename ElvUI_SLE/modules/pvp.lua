@@ -1,5 +1,5 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...)) 
-local PvP = SLE:NewModule('PVP','AceHook-3.0', 'AceEvent-3.0')
+﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local PvP = SLE.PVP
 
 --GLOBALS: hooksecurefunc, CreateFrame
 local _G = _G

@@ -1,5 +1,5 @@
 local SLE, _, E, L = unpack(select(2, ...))
-local M = SLE:GetModule('Misc')
+local M = SLE.Misc
 
 local function configTable()
 	E.Options.args.sle.args.modules.args.viewport = {

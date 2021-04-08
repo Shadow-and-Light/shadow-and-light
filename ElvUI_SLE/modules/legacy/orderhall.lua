@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local OH = SLE:NewModule("OrderHall", 'AceEvent-3.0')
+local OH = SLE.OrderHall
 local _G = _G
 local C_Garrison = C_Garrison
 

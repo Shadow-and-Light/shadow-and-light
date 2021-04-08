@@ -1,6 +1,6 @@
 ﻿local SLE, _, E = unpack(select(2, ...))
-local A = SLE:NewModule('Actionbars', 'AceHook-3.0', 'AceEvent-3.0')
-local AB = E:GetModule('ActionBars');
+local A = SLE.Actionbars
+local AB = E.ActionBars;
 
 --GLOBALS: unpack, select, hooksecurefunc, NUM_ACTIONBAR_BUTTONS, LibStub
 local hooksecurefunc = hooksecurefunc

@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local RM = SLE:NewModule('RaidMarkers', 'AceHook-3.0')
+local RM = SLE.RaidMarkers
 
 --GLOBALS: CreateFrame
 local _G = _G

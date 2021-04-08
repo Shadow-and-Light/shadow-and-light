@@ -39,6 +39,47 @@ Engine[6] = P
 Engine[7] = G
 _G[AddOnName] = Engine;
 
+SLE.Dropdowns = SLE:NewModule("Dropdowns", "AceEvent-3.0")
+SLE.Media = SLE:NewModule("Media", 'AceHook-3.0')
+SLE.Actionbars = SLE:NewModule("Actionbars", 'AceHook-3.0', 'AceEvent-3.0')
+SLE.Screensaver = SLE:NewModule("Screensaver", 'AceHook-3.0', 'AceEvent-3.0')
+SLE.Armory_Character = SLE:NewModule("Armory_Character", "AceEvent-3.0", "AceConsole-3.0", "AceHook-3.0")
+SLE.Armory_Inspect = SLE:NewModule("Armory_Inspect", "AceEvent-3.0", "AceConsole-3.0", "AceHook-3.0")
+SLE.Armory_Stats = SLE:NewModule("Armory_Stats")
+SLE.Armory_Core = SLE:NewModule("Armory_Core", 'AceEvent-3.0', 'AceConsole-3.0', 'AceHook-3.0')
+SLE.Backgrounds = SLE:NewModule("Backgrounds", 'AceHook-3.0')
+SLE.BagInfo = SLE:NewModule("BagInfo", 'AceHook-3.0', 'AceEvent-3.0')
+SLE.Bags = SLE:NewModule("Bags", 'AceHook-3.0')
+SLE.Blizzard = SLE:NewModule("Blizzard", 'AceHook-3.0', 'AceEvent-3.0')
+SLE.Chat = SLE:NewModule("Chat",  'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+SLE.DataBars = SLE:NewModule("DataBars", 'AceHook-3.0', 'AceEvent-3.0')
+SLE.Datatexts = SLE:NewModule("Datatexts", 'AceHook-3.0', 'AceEvent-3.0')
+SLE.EnhancedShadows = SLE:NewModule("EnhancedShadows", 'AceEvent-3.0')
+SLE.EquipManager = SLE:NewModule("EquipManager", 'AceHook-3.0', 'AceEvent-3.0')
+SLE.Garrison = SLE:NewModule("Garrison", 'AceEvent-3.0')
+SLE.OrderHall = SLE:NewModule("OrderHall", 'AceEvent-3.0')
+SLE.LFR = SLE:NewModule("LFR")
+SLE.Loot = SLE:NewModule("Loot",'AceHook-3.0', 'AceEvent-3.0')
+SLE.InstDif = SLE:NewModule("InstDif",'AceHook-3.0', 'AceEvent-3.0')
+SLE.LocationPanel = SLE:NewModule("LocationPanel", 'AceTimer-3.0', 'AceEvent-3.0')
+SLE.Minimap = SLE:NewModule("Minimap", 'AceHook-3.0', 'AceEvent-3.0')
+SLE.RectangleMinimap = SLE:NewModule("RectangleMinimap", 'AceHook-3.0', 'AceEvent-3.0')
+SLE.Misc = SLE:NewModule("Misc", 'AceHook-3.0', 'AceEvent-3.0')
+SLE.Nameplates = SLE:NewModule("Nameplates", 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+SLE.Professions = SLE:NewModule("Professions", "AceHook-3.0", "AceEvent-3.0")
+SLE.PVP = SLE:NewModule("PVP",'AceHook-3.0', 'AceEvent-3.0')
+SLE.Quests = SLE:NewModule("Quests", "AceEvent-3.0")
+SLE.BlizzRaid = SLE:NewModule("BlizzRaid", 'AceEvent-3.0')
+SLE.Toolbars = SLE:NewModule("Toolbars", 'AceHook-3.0', 'AceEvent-3.0')
+SLE.RaidProgress = SLE:NewModule("RaidProgress", "AceHook-3.0", "AceEvent-3.0")
+SLE.UIButtons = SLE:NewModule("UIButtons", 'AceHook-3.0')
+SLE.UnitFrames = SLE:NewModule("UnitFrames", 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+SLE.EnhancedVehicleBar = SLE:NewModule("EnhancedVehicleBar")
+SLE.WarCampaign = SLE:NewModule("WarCampaign",'AceHook-3.0', 'AceEvent-3.0')
+SLE.ElvConfig = SLE:NewModule("ElvConfig", 'AceEvent-3.0')
+SLE.RaidMarkers = SLE:NewModule("RaidMarkers", 'AceHook-3.0')
+SLE.Skins = SLE:NewModule("Skins")
+
 --A function to concentrate options from different modules to a single table used in plugin reg
 local function GetOptions()
 	for _, func in pairs(SLE.Configs) do
@@ -113,7 +154,7 @@ function SLE:Initialize()
 
 	if E.private.sle.install_complete == "BETA" then E.private.sle.install_complete = nil end
 	if not E.private.sle.install_complete or (tonumber(E.private.sle.install_complete) < 3) then
-		E:GetModule('PluginInstaller'):Queue(SLE.installTable)
+		E.PluginInstaller:Queue(SLE.installTable)
 	end
 	if not E.private.sle.characterGoldsSorting[E.myrealm] then E.private.sle.characterGoldsSorting[E.myrealm] = {} end
 

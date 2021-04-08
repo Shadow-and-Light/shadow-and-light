@@ -1,7 +1,7 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local SB = SLE:NewModule("Bags", 'AceHook-3.0')
+local SB = SLE.Bags
 local Pr
-local B = E:GetModule('Bags')
+local B = E.Bags
 --GLOBALS: hooksecurefunc
 local _G = _G
 
@@ -12,7 +12,7 @@ function SB:UpdateSlot(bagID, slotID)
 	end
 
 	local slot = self.Bags[bagID][slotID];
-	if not Pr then Pr = SLE:GetModule("Professions") end
+	if not Pr then Pr = SLE.Professions end
 	if not Pr.DeconstructionReal then return end
 	if Pr.DeconstructionReal:IsShown() and Pr.DeconstructionReal.Bag == bagID and Pr.DeconstructionReal.Slot == slotID then
 		if not slot.hasItem then

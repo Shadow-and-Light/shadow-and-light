@@ -1,7 +1,7 @@
 ﻿local SLE, _, E, L, _, P = unpack(select(2, ...))
-local ENH = SLE:GetModule("EnhancedShadows")
-local SUF = SLE:GetModule("UnitFrames")
-local DT = E:GetModule('DataTexts')
+local ENH = SLE.EnhancedShadows
+local SUF = SLE.UnitFrames
+local DT = E.DataTexts
 
 -- GLOBALS: MICRO_BUTTONS
 

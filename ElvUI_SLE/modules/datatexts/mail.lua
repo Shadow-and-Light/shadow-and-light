@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local DT = E:GetModule('DataTexts')
-local DTP = SLE:GetModule('Datatexts')
+local DT = E.DataTexts
+local DTP = SLE.Datatexts
 
 local pairs, strjoin = pairs, strjoin
 local HasNewMail = HasNewMail

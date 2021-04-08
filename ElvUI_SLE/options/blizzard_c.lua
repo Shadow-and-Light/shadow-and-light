@@ -1,6 +1,6 @@
 local SLE, _, E, L = unpack(select(2, ...))
-local B = SLE:GetModule("Blizzard")
-local M = SLE:GetModule("Misc")
+local B = SLE.Blizzard
+local M = SLE.Misc
 
 --GLOBALS: unpack, select, tinsert
 local tinsert = tinsert

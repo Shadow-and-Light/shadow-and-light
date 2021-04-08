@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local SUF = SLE:GetModule("UnitFrames")
+local SUF = SLE.UnitFrames
 
 SUF.OfflineTextures = {
 	["ALERT"] = [[Interface\DialogFrame\UI-Dialog-Icon-AlertNew]],

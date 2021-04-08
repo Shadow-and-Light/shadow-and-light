@@ -3,8 +3,8 @@ local lib, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 --GLOBALS: CreateFrame
 if not lib then return end
 local E, L, V, P, G = unpack(ElvUI)
-local S = E:GetModule("Skins")
-local TT = E:GetModule("Tooltip")
+local S = E.Skins
+local TT = E.Tooltip
 local _G = _G
 local tinsert = tinsert
 local menuWidth = _G["GameMenuFrame"]:GetWidth()
@@ -72,7 +72,7 @@ function lib:UpdateHolder()
 		else
 			button:SetPoint("TOPLEFT", LibHolder, "TOPLEFT", 0 , -1)
 		end
-		
+
 	end
 end
 

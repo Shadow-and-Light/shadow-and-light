@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local MM = SLE:GetModule("Minimap")
+local MM = SLE.Minimap
 
 local function configTable()
 	if not SLE.initialized then return end

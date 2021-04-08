@@ -1,5 +1,5 @@
 ﻿local SLE, _, E, L = unpack(select(2, ...))
-local BG = SLE:GetModule('Backgrounds')
+local BG = SLE.Backgrounds
 
 --GLOBALS: unpack, select, tinsert, DEFAULT
 local tinsert = tinsert
@@ -117,7 +117,7 @@ local function configTable()
 				-- type = 'execute',
 				-- name = L["Restore Defaults"],
 				-- desc = L["Reset these options to defaults"],
-				-- func = function() E:GetModule('SLE'):Reset("backgrounds") end,
+				-- func = function() E.SLE:Reset("backgrounds") end,
 			-- },
 			spacer1 = ACH:Spacer(5),
 			bg1 = CreateEnable(1),

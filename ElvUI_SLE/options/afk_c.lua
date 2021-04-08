@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local S = SLE:GetModule('Screensaver')
+local S = SLE.Screensaver
 
 --GLOBALS: unpack, select, floor, tinsert, DEFAULT, AceGUIWidgetLSMlists, GetScreenWidth
 local NAME, PLAYER, GUILD, RANK = NAME, PLAYER, GUILD, RANK

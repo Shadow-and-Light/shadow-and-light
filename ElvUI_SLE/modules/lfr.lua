@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local DT = E:GetModule('DataTexts')
-local LFR = SLE:NewModule('LFR')
+local DT = E.DataTexts
+local LFR = SLE.LFR
 
 local _G = _G
 local strlower = strlower

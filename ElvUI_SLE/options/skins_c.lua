@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P = unpack(select(2, ...))
-local Sk = SLE:GetModule('Skins')
-local B = SLE:GetModule('Blizzard')
+local Sk = SLE.Skins
+local B = SLE.Blizzard
 
 local IsAddOnLoaded = IsAddOnLoaded
 

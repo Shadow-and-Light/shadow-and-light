@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local C = SLE:GetModule("Chat")
-local CH = E:GetModule('Chat')
+local C = SLE.Chat
+local CH = E.Chat
 local _G = _G
 --GLOBALS: hooksecurefunc
 
@@ -29,7 +29,7 @@ local function SLE_FCFDock_CalculateTabSize(dock, numDynFrames, sleWidth, sleTot
 
 	--Figure out how many tabs we're going to be able to fit at the minimum size
 	local numWholeTabs = min(floor(scrollSize / sleWidth), numDynFrames)
-	
+
 	if ( scrollSize == 0 ) then
 		return 1, (numDynFrames > 0);
 	end
@@ -68,7 +68,7 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 			--Setting the width now
 			sleWidth = (E.db.sle.chat.tab.resize == "None" and chatTab.origWidth) or (E.db.sle.chat.tab.resize == "Title" and (chatTab.textWidth)) or (E.db.sle.chat.tab.resize == "Custom" and E.db.sle.chat.tab.customWidth)
 			if sleWidth < 45 then sleWidth = 45 end --We have a min of 45. If somehow this happens to be lower., stuff looks ugly.
-			
+
 			if ( chatFrame.isStaticDocked ) then
 				chatTab:SetParent(dock);
 				PanelTemplates_TabResize(chatTab, chatTab.isTemporary and 20 or 10, nil, nil, nil, sleWidth);

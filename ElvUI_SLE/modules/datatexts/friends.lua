@@ -1,7 +1,7 @@
 local SLE, _, E, L = unpack(select(2, ...))
 local LibQTip = LibStub('LibQTip-1.0')
-local DT = E:GetModule('DataTexts')
-local DTP = SLE:GetModule('Datatexts')
+local DT = E.DataTexts
+local DTP = SLE.Datatexts
 
 local _G = _G
 local type, ipairs, pairs = type, ipairs, pairs

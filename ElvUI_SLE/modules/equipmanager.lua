@@ -1,5 +1,5 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local EM = SLE:NewModule('EquipManager', 'AceHook-3.0', 'AceEvent-3.0')
+local EM = SLE.EquipManager
 
 --GLOBALS: unpack, select, CreateFrame, CharacterFrame
 local _G = _G
@@ -365,7 +365,7 @@ function EM:CreateLock()
 	button:SetScript('OnLeave', function(self)
 		_G.GameTooltip:Hide()
 	end)
-	E:GetModule('Skins'):HandleButton(button)
+	E.Skins:HandleButton(button)
 
 	button.Icon = button:CreateTexture(nil, 'OVERLAY')
 	button.Icon:SetAllPoints()

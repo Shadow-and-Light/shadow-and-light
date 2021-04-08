@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local RP = SLE:NewModule("RaidProgress", "AceHook-3.0", "AceEvent-3.0")
-local TT = E:GetModule('Tooltip');
+local RP = SLE.RaidProgress
+local TT = E.Tooltip;
 
 --GLOBALS: select, unpack, hooksecurefunc, AchievementFrame_DisplayComparison
 local _G = _G

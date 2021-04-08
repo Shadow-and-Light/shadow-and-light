@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local S = E.Skins
 
 --GLOBALS: unpack, select, CreateFrame
 local _G = _G

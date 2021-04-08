@@ -1,5 +1,5 @@
 local SLE, _, E, L = unpack(select(2, ...))
-local RP = SLE:GetModule('RaidProgress')
+local RP = SLE.RaidProgress
 
 local function configTable()
 	if not SLE.initialized then return end

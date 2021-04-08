@@ -1,6 +1,6 @@
 local SLE, _, E = unpack(select(2, ...))
-local DB = SLE:GetModule('DataBars')
-local EDB = E:GetModule('DataBars')
+local DB = SLE.DataBars
+local EDB = E.DataBars
 
 local floor, format = floor, string.format
 local C_AzeriteItem_GetAzeriteItemXPInfo = C_AzeriteItem.GetAzeriteItemXPInfo

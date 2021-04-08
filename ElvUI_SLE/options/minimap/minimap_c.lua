@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local MM = SLE:GetModule("Minimap")
-local DTP = SLE:GetModule('Datatexts')
+local MM = SLE.Minimap
+local DTP = SLE.Datatexts
 
 local MINIMAP_LABEL = MINIMAP_LABEL
 

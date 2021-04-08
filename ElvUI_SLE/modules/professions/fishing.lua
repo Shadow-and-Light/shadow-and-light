@@ -1,5 +1,5 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local Pr = SLE:GetModule("Professions")
+local Pr = SLE.Professions
 local FL = LibStub("LibFishing-1.0-SLE");
 
 -- GLOBALS: hooksecurefunc, CreateFrame

@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local DTP = SLE:NewModule('Datatexts', 'AceHook-3.0', 'AceEvent-3.0');
-local DT = E:GetModule('DataTexts');
+local DTP = SLE.Datatexts;
+local DT = E.DataTexts;
 
 --GLOBALS: ElvDB, hooksecurefunc
 local format = format

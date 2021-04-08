@@ -1,6 +1,6 @@
 local SLE, _, E = unpack(select(2, ...))
-local RMM = SLE:NewModule('RectangleMinimap', 'AceHook-3.0', 'AceEvent-3.0')
-local MM = E:GetModule('Minimap')
+local RMM = SLE.RectangleMinimap
+local MM = E.Minimap
 
 --GLOBALS: unpack, select, hooksecurefunc
 local _G = _G

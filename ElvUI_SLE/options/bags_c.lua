@@ -1,5 +1,5 @@
 local SLE, T, E, L, _, P = unpack(select(2, ...))
-local BI = SLE:GetModule('BagInfo')
+local BI = SLE.BagInfo
 
 local function configTable()
 	if not SLE.initialized then return end

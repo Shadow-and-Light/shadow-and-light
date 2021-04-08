@@ -1,10 +1,10 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local Gar = SLE:NewModule("Garrison", 'AceEvent-3.0')
+local Gar = SLE.Garrison
 local _G = _G
 local B = LibStub("LibBabble-SubZone-3.0")
 local BL = B:GetLookupTable()
 local garrisonzones = { BL["Salvage Yard"], BL["Frostwall Mine"], BL["Lunarfall Excavation"]}
-local Tools = SLE:GetModule("Toolbars")
+local Tools = SLE.Toolbars
 local buildID = {
 	[8] = "War",
 	[9] = "War",

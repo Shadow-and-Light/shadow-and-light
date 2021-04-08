@@ -1,5 +1,5 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local M = SLE:NewModule('Media', 'AceHook-3.0')
+local M = SLE.Media
 
 --GLOBALS: hooksecurefunc
 local _G = _G

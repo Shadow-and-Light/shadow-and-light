@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins');
-local Sk = SLE:GetModule("Skins")
+local S = E.Skins;
+local Sk = SLE.Skins
 
 -- GLOBALS: C_Scenario, BonusObjectiveTrackerProgressBar_PlayFlareAnim, hooksecurefunc, CreateFrame
 local _G = _G
@@ -75,7 +75,7 @@ local function skinObjectiveBar(self, block, line)
 		label:ClearAllPoints()
 		label:SetPoint("CENTER", bar, "CENTER", 0, -1)
 		label:FontTemplate(E.LSM:Fetch('font', E.db.sle.media.fonts.objective.font), E.db.sle.media.fonts.objective.size, E.db.sle.media.fonts.objective.outline)
-		SLE:GetModule("Media").BonusObjectiveBarText = label
+		SLE.Media.BonusObjectiveBarText = label
 
 		BonusObjectiveTrackerProgressBar_PlayFlareAnim = dummy
 		progressBar.sle_skinned = true

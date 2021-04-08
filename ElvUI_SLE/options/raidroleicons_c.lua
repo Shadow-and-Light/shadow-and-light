@@ -1,5 +1,5 @@
 local SLE, _, E, L = unpack(select(2, ...))
-local B = SLE:GetModule('BlizzRaid')
+local B = SLE.BlizzRaid
 
 local RAID_CONTROL = RAID_CONTROL
 

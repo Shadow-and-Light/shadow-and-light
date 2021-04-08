@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local DD = SLE:NewModule("Dropdowns", "AceEvent-3.0")
+local DD = SLE.Dropdowns
 
 DD.RegisteredMenus = {}
 

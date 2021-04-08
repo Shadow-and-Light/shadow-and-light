@@ -1,5 +1,5 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local EC = SLE:NewModule('ElvConfig', 'AceEvent-3.0')
+local EC = SLE.ElvConfig
 
 function EC:UpdateUnitframes()
 	E.Options.args.unitframe.args.groupUnits.args.boss.args.generalGroup.args.positionsGroup.args.spacing.min = -4

@@ -1,6 +1,6 @@
 ﻿local SLE, _, E, L = unpack(select(2, ...))
-local UF = E:GetModule('UnitFrames');
-local SUF = SLE:GetModule('UnitFrames')
+local UF = E.UnitFrames;
+local SUF = SLE.UnitFrames
 
 local texPath = [[Interface\AddOns\ElvUI_SLE\media\textures\role\]]
 local texPathE = [[Interface\AddOns\ElvUI\media\textures\]]
@@ -193,7 +193,7 @@ local function configTable()
 				name = L["LFG Icons"],
 				desc = L["Choose what icon set will unitframes and chat use."],
 				get = function(info) return E.db.sle.unitframes[info[#info]] end,
-				set = function(info, value) E.db.sle.unitframes[info[#info]] = value; E:GetModule('Chat'):CheckLFGRoles(); UF:UpdateAllHeaders() end,
+				set = function(info, value) E.db.sle.unitframes[info[#info]] = value; E.Chat:CheckLFGRoles(); UF:UpdateAllHeaders() end,
 				values = function()
 					wipe(roleValues)
 

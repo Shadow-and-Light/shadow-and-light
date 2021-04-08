@@ -1,5 +1,5 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local C = SLE:GetModule("Chat")
+local C = SLE.Chat
 
 local NONE, INVITE = NONE, INVITE
 

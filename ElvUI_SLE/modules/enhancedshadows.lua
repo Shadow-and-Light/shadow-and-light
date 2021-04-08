@@ -1,8 +1,8 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local ENH = SLE:NewModule('EnhancedShadows', 'AceEvent-3.0')
-local DT = E:GetModule('DataTexts')
-local LO = E:GetModule('Layout')
-local MM = E:GetModule('Minimap')
+local ENH = SLE.EnhancedShadows
+local DT = E.DataTexts
+local LO = E.Layout
+local MM = E.Minimap
 
 local _G = _G
 local CreateFrame = CreateFrame

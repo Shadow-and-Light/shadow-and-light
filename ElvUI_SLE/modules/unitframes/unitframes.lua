@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local UF = E:GetModule('UnitFrames');
-local SUF = SLE:NewModule('UnitFrames', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+local UF = E.UnitFrames;
+local SUF = SLE.UnitFrames
 SUF.CreatedShadows = {}
 --GLOBALS: hooksecurefunc, CreateFrame
 

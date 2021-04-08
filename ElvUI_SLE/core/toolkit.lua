@@ -227,37 +227,6 @@ function SLE:TextureExists(path)
 	return (tx:GetTexture() ~= '?')
 end
 
---When we need to get mutiple modules in a file
-function SLE:GetElvModules(...)
-	local returns = {}
-	local num = select("#", ...) --Getting the number of modules passed
-	for i = 1, num do
-		local name = select(i, ...)
-		if type(name) == "string" then --Checking if *cough* someone send not string as a module name
-			local mod = E:GetModule(name)
-			tinsert(returns, #(returns) + 1, mod)
-		else
-			error([[Usage: SLE:GetElvModules(): expected a string as a module name got a ]] .. type(name), 2)
-		end
-	end
-	return unpack(returns) --Returning modules back
-end
-
-function SLE:GetModules(...)
-	local returns = {}
-	local num = select("#", ...)
-	for i = 1, num do
-		local name = select(i, ...)
-		if type(name) == 'string' then
-			local mod = SLE:GetModule(name)
-			tinsert(returns, #(returns) + 1, mod)
-		else
-			error([[Usage: SLE:GetModules(): expected a string as a module name got a ]] .. type(name), 2)
-		end
-	end
-	return unpack(returns)
-end
-
 --Trying to determine the region player is in, not entirely reliable cause based on atypet not an actual region id
 function SLE:GetRegion()
 	local lib = LibStub('LibRealmInfo')
@@ -333,7 +302,7 @@ function SLE:UpdateAll()
 	end
 
 	if not SLE._Compatibility['oRA3'] then
-		SLE:GetModule('BlizzRaid'):CreateAndUpdateIcons()
+		SLE.BlizzRaid:CreateAndUpdateIcons()
 	end
 
 	SLE:SetCompareItems()

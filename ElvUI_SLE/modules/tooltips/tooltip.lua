@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local TT = E:GetModule('Tooltip');
+local TT = E.Tooltip;
 
 --GLOBALS: unpack, select, hooksecurefunc
 local _G = _G

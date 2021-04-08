@@ -1,5 +1,5 @@
 local SLE, _, E = unpack(select(2, ...))
-local Pr = SLE:NewModule("Professions", "AceHook-3.0", "AceEvent-3.0")
+local Pr = SLE.Professions
 
 --GLOBALS: unpack, select, LoadAddOn, IsAddOnLoaded
 local _G = _G

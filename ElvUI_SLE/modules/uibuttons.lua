@@ -1,5 +1,5 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local UB = SLE:NewModule('UIButtons', 'AceHook-3.0');
+local UB = SLE.UIButtons;
 local lib = LibStub("LibElv-UIButtons-1.0")
 
 --GLOBALS: DBM, VEM, LibStub, Altoholic, AtlasLoot, xCT_Plus, Swatter, SlashCmdList

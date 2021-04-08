@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local I = SLE:NewModule("InstDif",'AceHook-3.0', 'AceEvent-3.0')
+local I = SLE.InstDif
 
 --GLOBALS: CreateFrame
 local _G = _G

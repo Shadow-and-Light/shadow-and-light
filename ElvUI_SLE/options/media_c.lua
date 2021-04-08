@@ -1,5 +1,5 @@
 local SLE, T, E, L = unpack(select(2, ...))
-local M = SLE:GetModule('Media')
+local M = SLE.Media
 
 local allFont = 'PT Sans Narrow'
 local allSize = 12

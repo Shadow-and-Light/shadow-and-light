@@ -1,6 +1,7 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local Pr = SLE:GetModule("Professions")
-local S = E:GetModule("Skins")
+local Pr = SLE.Professions
+local S = E.Skins;
+
 -- GLOBALS: CreateFrame, hooksecurefunc
 local _G = _G
 local UseItemByName = UseItemByName

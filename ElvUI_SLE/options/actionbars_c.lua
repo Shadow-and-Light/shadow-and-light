@@ -1,7 +1,7 @@
 local SLE, _, E, L, V = unpack(select(2, ...))
-local A = SLE:GetModule('Actionbars')
-local AB = E:GetModule('ActionBars');
-local EVB = SLE:GetModule('EnhancedVehicleBar')
+local A = SLE.Actionbars
+local AB = E.ActionBars;
+local EVB = SLE.EnhancedVehicleBar
 
 --GLOBALS: unpack, select, tinsert, DEFAULT, NONE, LibStub
 local tinsert = tinsert

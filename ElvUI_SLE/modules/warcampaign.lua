@@ -1,5 +1,5 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local mod = SLE:NewModule('WarCampaign','AceHook-3.0', 'AceEvent-3.0')
+local mod = SLE.WarCampaign
 local clicked
 
 function mod:SHIPMENT_CRAFTER_INFO(event, success, shipmentCount, maxShipments, ownedShipments, plotID)

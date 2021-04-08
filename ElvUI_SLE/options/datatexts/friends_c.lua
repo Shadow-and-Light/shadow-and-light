@@ -1,6 +1,6 @@
 ﻿local SLE, _, E, L, _, _, _ = unpack(select(2, ...))
-local DTP = SLE:GetModule('Datatexts')
-local DT = E:GetModule('DataTexts')
+local DTP = SLE.Datatexts
+local DT = E.DataTexts
 
 local friendStyleTable = {}
 local function configTable()

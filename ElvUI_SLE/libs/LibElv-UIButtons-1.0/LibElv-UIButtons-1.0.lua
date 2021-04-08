@@ -3,8 +3,8 @@ local lib, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not lib then return end
 local E, L, V, P, G = unpack(ElvUI)
-local S = E:GetModule("Skins")
-local TT = E:GetModule("Tooltip")
+local S = E.Skins
+local TT = E.Tooltip
 
 --GLOBALS: CreateFrame
 local _G = _G
@@ -153,7 +153,7 @@ local function CreateDropdownButton(menu, core, name, text, tooltip1, tooltip2, 
 		end)
 		b:SetScript("OnLeave", function(self)
 			menu:OnLeave()
-			GameTooltip:Hide() 
+			GameTooltip:Hide()
 		end)
 	else
 		b:SetScript('OnEnter', function(self) menu:OnEnter() end)
@@ -550,7 +550,7 @@ end
 
 function lib:CreateOptions(menu, default, groupName, groupTitle)
 	menu:RegisterEvent("ADDON_LOADED")
-	menu:SetScript("OnEvent", function(self, event, addon) 
+	menu:SetScript("OnEvent", function(self, event, addon)
 		if addon ~= "ElvUI_OptionsUI" then return end
 		self:UnregisterEvent("ADDON_LOADED")
 		GenerateTable(self, default, groupName, groupTitle)

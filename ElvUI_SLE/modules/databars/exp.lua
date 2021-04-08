@@ -1,6 +1,6 @@
 local SLE, T, E = unpack(select(2, ...))
-local DB = SLE:GetModule('DataBars')
-local EDB = E:GetModule('DataBars')
+local DB = SLE.DataBars
+local EDB = E.DataBars
 
 --GLOBALS: unpack, select, hooksecurefunc
 local format = format

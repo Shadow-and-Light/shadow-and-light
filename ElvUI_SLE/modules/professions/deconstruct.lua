@@ -1,6 +1,6 @@
 ﻿local SLE, _, E, L, _, _, _ = unpack(select(2, ...))
-local Pr = SLE:GetModule('Professions')
-local B = E:GetModule('Bags')
+local Pr = SLE.Professions
+local B = E.Bags
 local lib = LibStub('LibProcessable')
 local LCG = LibStub('LibCustomGlow-1.0')
 
