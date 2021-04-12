@@ -10,6 +10,7 @@
 ## DefaultState: Enabled
 ## X-ElvVersion: 12.24
 ## X-Curse-Project-ID: 39618
+## X-WoWI-ID: 20927
 ## SavedVariables: SLE_ArmoryDB
 
 libs\load_libs.xml
