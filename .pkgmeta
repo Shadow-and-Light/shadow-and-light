@@ -3,4 +3,4 @@ manual-changelog:
     filename: CHANGELOG.txt
     markup-type: bbcode
 move-folders:
-	ElvUI_SLE/ElvUI_SLE: ElvUI_SLE
+    ElvUI_SLE/ElvUI_SLE: ElvUI_SLE
