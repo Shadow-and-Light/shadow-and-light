@@ -1,3 +1,18 @@
+v4.21 [April 12, 2021]
+Fixes:
+- S&L Currency Datatext: Fixed another bug
+- Help reduce chat tab offset issue
+- Fixed honor and azerite databar error in S&L config
+- Hopefully fixed a rogue armory bug dealing with Transmog api
+Removed:
+- Some Armory backgrounds have been removed due to how they looked... trying to find other alternatives
+- Legacy Farm Module **BYEBYE**
+Added:
+- Added Releaf & Better Blizzard Role Icons (Thanks Releaf!!)
+- Added some Covenant Background images for Armory
+- Advanced Options: Increase Party/Raid/Raid40 Horizontal Spacing max increased to 100
+- Added Chat Icon for Daveedium from twitch
+- Equipment Manager: Added Torghast and Timewalking campaign as a condition check for gear swapping
 v4.20 [February 4, 2021]
 Fixes:
 - S&L Currency Datatext: Fixed error if not using ElvUI Bag module
