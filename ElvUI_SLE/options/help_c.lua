@@ -166,7 +166,7 @@ local function configTable()
 			credits = {
 				order = 400,
 				type = 'group',
-				name = L["Credits"]..[[ |TInterface\AddOns\ElvUI_SLE\media\textures\Chat_Test:14:14|t]],
+				name = L["Credits"]..[[ |TInterface\AddOns\ElvUI_SLE\media\textures\chat\Chat_Test:14:14|t]],
 				args = {
 					header = ACH:Header(L["Credits"], 1),
 					desc = ACH:Description(L["ELVUI_SLE_CREDITS"].."\n\n", 2),
