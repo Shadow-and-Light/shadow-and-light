@@ -1,4 +1,4 @@
-﻿local SLE, T, E = unpack(select(2, ...))
+﻿local SLE, T, E, L = unpack(select(2, ...))
 local DB = SLE:GetModule('DataBars')
 local EDB = E:GetModule('DataBars')
 
@@ -45,63 +45,67 @@ tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_BONUS)
 tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_DOUBLE_BONUS)))
 tinsert(strMatchCombat, (formatFactionStanding(FACTION_STANDING_INCREASED_ACH_BONUS)))
 
+local function GetValues(curValue, minValue, maxValue)
+	local maximum = maxValue - minValue
+	local current, diff = curValue - minValue, maximum
+
+	if diff == 0 then diff = 1 end -- prevent a division by zero
+
+	if current == maximum then
+		return 1, 1, 100, true
+	else
+		return current, maximum, current / diff * 100
+	end
+end
+
 local function ReputationBar_Update()
 	if not SLE.initialized or not E.db.sle.databars.reputation.longtext then return end
 
 	local bar = EDB.StatusBars.Reputation
-	local ID
-	local isFriend, friendText, standingLabel
-	local name, reaction, min, max, value = GetWatchedFactionInfo()
-	local numFactions = GetNumFactions();
 
-	if name then
-		local text = ''
-		local textFormat = E.db.databars.reputation.textFormat
-		local color = FACTION_BAR_COLORS[reaction] or backupColor
-		local maxMinDiff = max - min
-		if (maxMinDiff == 0) then maxMinDiff = 1 end
+	local displayString, textFormat, label = '', EDB.db.reputation.textFormat
+	local name, reaction, minValue, maxValue, curValue, factionID = GetWatchedFactionInfo()
+	local friendshipID, _, _, _, _, _, standingText, _, nextThreshold = GetFriendshipReputation(factionID)
 
-		bar:SetMinMaxValues(min, max)
-		bar:SetValue(value)
-		bar:SetStatusBarColor(color.r, color.g, color.b)
+	if friendshipID then
+		reaction, label = 5, standingText
 
-		for i=1, numFactions do
-			local factionName, _, standingID,_,_,_,_,_,_,_,_,_,_, factionID = GetFactionInfo(i);
-			local friendID, _, _, _, _, _, friendTextLevel = GetFriendshipReputation(factionID);
-			if factionName == name then
-				if friendID ~= nil then
-					isFriend = true
-					friendText = friendTextLevel
-				else
-					ID = standingID
-				end
-			end
+		if not nextThreshold then
+			minValue, maxValue, curValue = 0, 1, 1
 		end
+	elseif C_Reputation_IsFactionParagon(factionID) then
+		local current, threshold
+		current, threshold, _, rewardPending = C_Reputation_GetFactionParagonInfo(factionID)
 
-		if ID then
-			standingLabel = _G['FACTION_STANDING_LABEL'..ID]
-		else
-			standingLabel = FactionStandingLabelUnknown
+		if current and threshold then
+			label, minValue, maxValue, curValue, reaction = L["Paragon"], 0, threshold, current % threshold, 9
 		end
-
-		if textFormat == 'PERCENT' then
-			text = format('%s: %d%% [%s]', name, ((value - min) / (maxMinDiff) * 100), isFriend and friendText or standingLabel)
-		elseif textFormat == 'CURMAX' then
-			text = format('%s: %s - %s [%s]', name, (value - min), (maxMinDiff), isFriend and friendText or standingLabel)
-		elseif textFormat == 'CURPERC' then
-			text = format('%s: %s - %d%% [%s]', name, (value - min), ((value - min) / (maxMinDiff) * 100), isFriend and friendText or standingLabel)
-		elseif textFormat == 'CUR' then
-			text = format('%s: %s [%s]', name, (value - min), isFriend and friendText or standingLabel)
-		elseif textFormat == 'REM' then
-			text = format('%s: %s [%s]', name, ((maxMinDiff) - (value-min)), isFriend and friendText or standingLabel)
-		elseif textFormat == 'CURREM' then
-			text = format('%s: %s - %s [%s]', name, (value - min), ((maxMinDiff) - (value-min)), isFriend and friendText or standingLabel)
-		elseif textFormat == 'CURPERCREM' then
-			text = format('%s: %s - %d%% (%s) [%s]', name, (value - min), ((value - min) / (maxMinDiff) * 100), ((maxMinDiff) - (value-min)), isFriend and friendText or standingLabel)
-		end
-
-		bar.text:SetText(text)
 	end
+
+	if not label then label = _G['FACTION_STANDING_LABEL'..reaction] or UNKNOWN end
+
+	bar:SetMinMaxValues(minValue, maxValue)
+	bar:SetValue(curValue)
+
+	local current, maximum, percent, capped = GetValues(curValue, minValue, maxValue)
+
+	if textFormat == 'PERCENT' then
+		displayString = format('%s: %d%% [%s]', name, percent, label)
+	elseif textFormat == 'CURMAX' then
+		displayString = format('%s: %s - %s [%s]', name, current, maximum, label)
+	elseif textFormat == 'CURPERC' then
+		displayString = format('%s: %s - %d%% [%s]', name, current, percent, label)
+	elseif textFormat == 'CUR' then
+		displayString = format('%s: %s [%s]', name, current, label)
+	elseif textFormat == 'REM' then
+		displayString = format('%s: %s [%s]', name, maximum - current, label)
+	elseif textFormat == 'CURREM' then
+		displayString = format('%s: %s - %s [%s]', name, current, maximum - current, label)
+	elseif textFormat == 'CURPERCREM' then
+		displayString = format('%s: %s - %d%% (%s) [%s]', name, current, percent, (maximum - current), label)
+	end
+
+	bar.text:SetText(displayString)
 end
 
 function DB:PopulateRepPatterns()
