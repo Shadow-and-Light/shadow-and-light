@@ -2,8 +2,8 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local SUF = SLE:GetModule('UnitFrames')
 
 function SUF:Configure_Health(frame)
+	if not frame or not frame.Health then return end
 	local health = frame.Health
-	if not health then return end
 
 	local db = E.db.sle.shadows
 	local offset = (E.PixelMode and db.unitframes.size) or (db.unitframes.size + 1)
