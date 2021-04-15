@@ -10,7 +10,6 @@
 ## DefaultState: Enabled
 ## X-ElvVersion: 12.24
 ## X-Curse-Project-ID: 39618
-## X-WoWI-ID: 20927
 ## X-Wago-ID: 7x61q261
 ## SavedVariables: SLE_ArmoryDB
 
