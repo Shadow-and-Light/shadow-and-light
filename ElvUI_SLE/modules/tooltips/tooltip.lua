@@ -3,7 +3,8 @@ local TT = E:GetModule('Tooltip');
 
 --GLOBALS: unpack, select, hooksecurefunc
 local _G = _G
-local iconPath = [[Interface\AddOns\ElvUI_SLE\media\textures\]]
+-- local iconPath = [[Interface\AddOns\ElvUI_SLE\media\textures\]]
+local iconPath = [[Interface\AddOns\ElvUI_SLE\media\textures\afk\factionlogo\blizzard\]]
 
 local function OnTooltipSetUnit(self, tt)
 	if not SLE.initialized then return end
@@ -15,16 +16,17 @@ local function OnTooltipSetUnit(self, tt)
 		local faction = UnitFactionGroup(unit)
 
 		if not faction then faction = "Neutral" end
-
-		_G["GameTooltipTextLeft1"]:SetText("|T"..iconPath..faction..".tga:15:15:0:0:64:64:2:56:2:56|t "..text)
+                                -- |TTexturePath:size1:size2:xoffset:yoffset:dimx:dimy:coordx1:coordx2:coordy1:coordy2|t
+		-- _G["GameTooltipTextLeft1"]:SetText("|T"..iconPath..faction..".tga:15:15:0:0:64:64:2:56:2:56|t "..text)
+		_G["GameTooltipTextLeft1"]:SetText("|T"..iconPath..faction..".tga:0:0:0:0:128:128:28:100:28:100|t "..text)
 	end
 end
 
 function SLE:SetCompareItems()
 	if E.db.sle.tooltip.alwaysCompareItems then
-		E:LockCVar("alwaysCompareItems", 1)
+		E:LockCVar('alwaysCompareItems', 1)
 	else
-		E:LockCVar("alwaysCompareItems", 0)
+		E:LockCVar('alwaysCompareItems', 0)
 	end
 end
 
@@ -34,4 +36,4 @@ local function Init()
 
 	SLE:SetCompareItems() --Blizz cvar for item compare
 end
-hooksecurefunc(TT, "Initialize", Init)
+hooksecurefunc(TT, 'Initialize', Init)
