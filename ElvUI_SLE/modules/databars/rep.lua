@@ -60,8 +60,9 @@ end
 
 local function ReputationBar_Update()
 	if not SLE.initialized or not E.db.sle.databars.reputation.longtext then return end
-
 	local bar = EDB.StatusBars.Reputation
+
+	if not bar.db.enable or bar:ShouldHide() then return end
 
 	local displayString, textFormat, label = '', EDB.db.reputation.textFormat
 	local name, reaction, minValue, maxValue, curValue, factionID = GetWatchedFactionInfo()
@@ -75,7 +76,7 @@ local function ReputationBar_Update()
 		end
 	elseif C_Reputation_IsFactionParagon(factionID) then
 		local current, threshold
-		current, threshold, _, rewardPending = C_Reputation_GetFactionParagonInfo(factionID)
+		current, threshold = C_Reputation_GetFactionParagonInfo(factionID)
 
 		if current and threshold then
 			label, minValue, maxValue, curValue, reaction = L["Paragon"], 0, threshold, current % threshold, 9
