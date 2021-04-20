@@ -214,7 +214,7 @@ local function SetItemRef(link, text, button, chatframe)
 	end
 
 	if IsAltKeyDown() and linktype == "player" and E.db.sle.chat.invite.altInv then
-		InviteUnit(id)
+		C_PartyInfo.InviteUnit(id)
 
 		return nil
 	elseif linktype == "invite" then
@@ -223,7 +223,7 @@ local function SetItemRef(link, text, button, chatframe)
 
 			FriendsFrame_BattlenetInvite(nil, bnetID)
 		else
-			InviteUnit(id)
+			C_PartyInfo.InviteUnit(id)
 		end
 
 		return nil
