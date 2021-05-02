@@ -57,8 +57,8 @@ local function CreateDefaultTextsFont(i, title, group, inline)
 		name = title,
 		type = 'group',
 		guiInline = inline,
-		get = function(info) return E.db.sle.screensaver.defaultTexts[group][info[#info]] end,
-		set = function(info, value) E.db.sle.screensaver.defaultTexts[group][info[#info]] = value; S:UpdateTextOptions() end,
+		get = function(info) return E.db.sle.afk.defaultTexts[group][info[#info]] end,
+		set = function(info, value) E.db.sle.afk.defaultTexts[group][info[#info]] = value; S:UpdateTextOptions() end,
 		args = {
 			enable = {
 				order = 1,
@@ -121,7 +121,7 @@ local function CreateDefaultTextsFont(i, title, group, inline)
 			order = 2,
 			name = L["24-Hour Time"],
 			type = 'toggle',
-			-- set = function(_, value) E.db.sle.screensaver.date.hour24 = value end,
+			-- set = function(_, value) E.db.sle.afk.date.hour24 = value end,
 		}
 	end
 
@@ -214,8 +214,8 @@ local function defaultGraphicsOptions(element, group, name, order)
 		name = name,
 		type = 'group',
 		guiInline = group == 'addonLogos' and true or false,
-		get = function(info) return E.db.sle.screensaver.defaultGraphics[element][info[#info]] end,
-		set = function(info, value) E.db.sle.screensaver.defaultGraphics[element][info[#info]] = value S:UpdateDefaultGraphics() end,
+		get = function(info) return E.db.sle.afk.defaultGraphics[element][info[#info]] end,
+		set = function(info, value) E.db.sle.afk.defaultGraphics[element][info[#info]] = value S:UpdateDefaultGraphics() end,
 		args = sharedOptions(),
 	}
 	if element ~= 'slLogo' then
@@ -260,7 +260,7 @@ local function configTable()
 
 	ACH = E.Libs.ACH
 
-	E.Options.args.sle.args.modules.args.screensaver = {
+	E.Options.args.sle.args.modules.args.afk = {
 		order = 1,
 		name = L["AFK Mode"],
 		type = 'group',
@@ -272,8 +272,8 @@ local function configTable()
 				name = L["Enable"],
 				type = 'toggle',
 				desc = L["Enable S&L's additional features for AFK screen."],
-				get = function(info) return E.db.sle.screensaver[info[#info]] end,
-			set = function(info, value) E.db.sle.screensaver[info[#info]] = value; S:Toggle() end,
+				get = function(info) return E.db.sle.afk[info[#info]] end,
+			set = function(info, value) E.db.sle.afk[info[#info]] = value; S:Toggle() end,
 			},
 			keydown = {
 				order = 2,
@@ -281,8 +281,8 @@ local function configTable()
 				type = 'toggle',
 				desc = L["Use ElvUI's restrictions for button presses."],
 				hidden = function() return not E.global.sle.advanced.general end,
-				get = function() return E.db.sle.screensaver.keydown end,
-				set = function(_, value) E.db.sle.screensaver.keydown = value; S:KeyScript() end,
+				get = function() return E.db.sle.afk.keydown end,
+				set = function(_, value) E.db.sle.afk.keydown = value; S:KeyScript() end,
 			},
 			racialMusic = {
 				order = 2,
@@ -290,21 +290,21 @@ local function configTable()
 				type = 'toggle',
 				desc = L["Play your character's racial theme music while AFK is active."],
 				-- hidden = function() return not E.global.sle.advanced.general end,
-				get = function() return E.db.sle.screensaver.racialMusic end,
-				set = function(_, value) E.db.sle.screensaver.racialMusic = value end,
+				get = function() return E.db.sle.afk.racialMusic end,
+				set = function(_, value) E.db.sle.afk.racialMusic = value end,
 			},
 			general = {
 				order = 2,
 				name = L["General"],
 				type = 'group',
-				disabled = function() return not E.db.sle.screensaver.enable end,
+				disabled = function() return not E.db.sle.afk.enable end,
 				args = {
 					panels = {
 						order = 10,
 						name = L["Panels"],
 						type = 'group',
-						get = function(info) return E.db.sle.screensaver.panels[info[#info-1]][info[#info]] end,
-						set = function(info, value) E.db.sle.screensaver.panels[info[#info-1]][info[#info]] = value; S:CreateUpdatePanels(); S:SetupType(); end,
+						get = function(info) return E.db.sle.afk.panels[info[#info-1]][info[#info]] end,
+						set = function(info, value) E.db.sle.afk.panels[info[#info-1]][info[#info]] = value; S:CreateUpdatePanels(); S:SetupType(); end,
 						args = {
 							animation = {
 								order = 1,
@@ -317,9 +317,9 @@ local function configTable()
 										name = L["Bouncing"],
 										type = 'toggle',
 										desc = L["Use bounce on fade in animations."],
-										disabled = function() return E.db.sle.screensaver.animTime == 0 end,
-										get = function(info) return E.db.sle.screensaver[info[#info]] end,
-										set = function(info, value) E.db.sle.screensaver[info[#info]] = value; S:SetupAnimations() end,
+										disabled = function() return E.db.sle.afk.animTime == 0 end,
+										get = function(info) return E.db.sle.afk[info[#info]] end,
+										set = function(info, value) E.db.sle.afk[info[#info]] = value; S:SetupAnimations() end,
 									},
 									animTime = {
 										order = 2,
@@ -327,16 +327,16 @@ local function configTable()
 										type = 'range',
 										desc = L["Time the fade in animation will take. To disable animation set to 0."],
 										min = 0, max = 10, step = 0.01,
-										get = function(info) return E.db.sle.screensaver[info[#info]] end,
-										set = function(info, value) E.db.sle.screensaver[info[#info]] = value; S:Hide() end,
+										get = function(info) return E.db.sle.afk[info[#info]] end,
+										set = function(info, value) E.db.sle.afk[info[#info]] = value; S:Hide() end,
 									},
 									animType = {
 										order = 3,
 										name = L["Animation Type"],
 										type = 'select',
-										disabled = function() return E.db.sle.screensaver.animTime == 0 end,
-										get = function(info) return E.db.sle.screensaver[info[#info]] end,
-										set = function(info, value) E.db.sle.screensaver[info[#info]] = value; S:SetupType() end,
+										disabled = function() return E.db.sle.afk.animTime == 0 end,
+										get = function(info) return E.db.sle.afk[info[#info]] end,
+										set = function(info, value) E.db.sle.afk[info[#info]] = value; S:SetupType() end,
 										values = {
 											SlideIn = L["Vertical Slide In"],
 											SlideSide = L["Horizontal Slide In"],
@@ -363,7 +363,7 @@ local function configTable()
 										type = 'range',
 										desc = L["Setting to 0 will default to the screens width value return by blizzards api. Recommended if using this profile on various monitor resolutions and want the panel to be the max width."],
 										min = 0, max = ceil(GetScreenWidth()), step = 1,
-										get = function(info) return ceil(E.db.sle.screensaver.panels.top[info[#info]]) end,
+										get = function(info) return ceil(E.db.sle.afk.panels.top[info[#info]]) end,
 									},
 									template = {
 										order = 3,
@@ -394,7 +394,7 @@ local function configTable()
 										type = 'range',
 										desc = L["Setting to 0 will default to the screens width value return by blizzards api. Recommended if using this profile on various monitor resolutions and want the panel to be the max width."],
 										min = 0, max = ceil(GetScreenWidth()), step = 1,
-										get = function(info) return ceil(E.db.sle.screensaver.panels.bottom[info[#info]]) end,
+										get = function(info) return ceil(E.db.sle.afk.panels.bottom[info[#info]]) end,
 									},
 									template = {
 										order = 3,
@@ -418,8 +418,8 @@ local function configTable()
 								order = 1,
 								name = L["Enable"],
 								type = 'toggle',
-								get = function() return E.db.sle.screensaver.playermodel.enable end,
-								set = function(_, value) E.db.sle.screensaver.playermodel.enable = value end,
+								get = function() return E.db.sle.afk.playermodel.enable end,
+								set = function(_, value) E.db.sle.afk.playermodel.enable = value end,
 							},
 							testmodel = {
 								order = 2,
@@ -438,8 +438,8 @@ local function configTable()
 										order = 2,
 										name = L["Model Animation"],
 										type = 'select',
-										get = function() return E.db.sle.screensaver.playermodel.anim end,
-										set = function(_, value) E.db.sle.screensaver.playermodel.anim = value end,
+										get = function() return E.db.sle.afk.playermodel.anim end,
+										set = function(_, value) E.db.sle.afk.playermodel.anim = value end,
 										sortByValue = true,
 										values = {
 											[80] = 'Applaud',
@@ -470,32 +470,32 @@ local function configTable()
 										name = L["X-Offset"],
 										type = 'range',
 										min = -E.screenwidth, max = E.screenwidth, step = 1,
-										get = function() return E.db.sle.screensaver.playermodel.holderXoffset end,
-										set = function(_, value) E.db.sle.screensaver.playermodel.holderXoffset = value; S:CreateUpdateModelElements(true) end,
+										get = function() return E.db.sle.afk.playermodel.holderXoffset end,
+										set = function(_, value) E.db.sle.afk.playermodel.holderXoffset = value; S:CreateUpdateModelElements(true) end,
 									},
 									holderYoffset = {
 										order = 7,
 										name = L["Y-Offset"],
 										type = 'range',
 										min = -E.screenheight, max = E.screenheight, step = 1,
-										get = function() return E.db.sle.screensaver.playermodel.holderYoffset end,
-										set = function(_, value) E.db.sle.screensaver.playermodel.holderYoffset = value; S:CreateUpdateModelElements(true) end,
+										get = function() return E.db.sle.afk.playermodel.holderYoffset end,
+										set = function(_, value) E.db.sle.afk.playermodel.holderYoffset = value; S:CreateUpdateModelElements(true) end,
 									},
 									distance = {
 										order = 8,
 										name = L["Camera Distance Scale"],
 										type = 'range',
 										min = 0, max = 10, step = 0.01,
-										get = function() return E.db.sle.screensaver.playermodel.distance end,
-										set = function(_, value) E.db.sle.screensaver.playermodel.distance = value end,
+										get = function() return E.db.sle.afk.playermodel.distance end,
+										set = function(_, value) E.db.sle.afk.playermodel.distance = value end,
 									},
 									rotation = {
 										order = 4,
 										name = L["Model Rotation"],
 										type = 'range',
 										min = 0, max = 360, step = 1,
-										get = function() return E.db.sle.screensaver.playermodel.rotation end,
-										set = function(_, value) E.db.sle.screensaver.playermodel.rotation = value end,
+										get = function() return E.db.sle.afk.playermodel.rotation end,
+										set = function(_, value) E.db.sle.afk.playermodel.rotation = value end,
 									},
 								},
 							},
@@ -507,7 +507,7 @@ local function configTable()
 				order = 2,
 				name = L["Graphics"],
 				type = 'group',
-				disabled = function() return not E.db.sle.screensaver.enable end,
+				disabled = function() return not E.db.sle.afk.enable end,
 				args = {
 					addGraphic = {
 						order = 0,
@@ -524,7 +524,7 @@ local function configTable()
 								validate = function(_, value)
 									local name = strtrim(value)
 
-									return E.db.sle.screensaver.customGraphics[name] and SLE:Print(L["Name Taken"], 'error') or true
+									return E.db.sle.afk.customGraphics[name] and SLE:Print(L["Name Taken"], 'error') or true
 								end,
 								get = function(info) return newGraphicInfo[info[#info]] end,
 								set = function(info, value)
@@ -541,17 +541,17 @@ local function configTable()
 								func = function()
 									local name = newGraphicInfo.name
 
-									if E.db.sle.screensaver.customGraphics[name] then
+									if E.db.sle.afk.customGraphics[name] then
 										SLE:Print(L["Name Taken"])
-									elseif name and name ~= '' and not E.db.sle.screensaver.customGraphics[name] then
-										E.db.sle.screensaver.customGraphics[name] = E:CopyTable({}, newGraphicInfo)
+									elseif name and name ~= '' and not E.db.sle.afk.customGraphics[name] then
+										E.db.sle.afk.customGraphics[name] = E:CopyTable({}, newGraphicInfo)
 
 										selectedGraphic = name
 
 										S:CreateCustomGraphic(name)
 										S:UpdateCustomGraphic(name)
 
-										E.Options.args.sle.args.modules.args.screensaver.args.graphics.args.addGraphic.args.graphicOptions.name = L["Custom Graphic"]..':  '..name
+										E.Options.args.sle.args.modules.args.afk.args.graphics.args.addGraphic.args.graphicOptions.name = L["Custom Graphic"]..':  '..name
 
 										newGraphicInfo.name = ''
 									end
@@ -559,7 +559,7 @@ local function configTable()
 								disabled = function()
 									local name = newGraphicInfo.name
 
-									return E.db.sle.screensaver.customGraphics[name] or name == '' or name == nil
+									return E.db.sle.afk.customGraphics[name] or name == '' or name == nil
 								end,
 							},
 							header = ACH:Header(nil, 4),
@@ -570,12 +570,12 @@ local function configTable()
 								get = function() return selectedGraphic end,
 								set = function(_, value)
 									selectedGraphic = value
-									E.Options.args.sle.args.modules.args.screensaver.args.graphics.args.addGraphic.args.graphicOptions.name = L["Custom Graphic"]..':  '..value
+									E.Options.args.sle.args.modules.args.afk.args.graphics.args.addGraphic.args.graphicOptions.name = L["Custom Graphic"]..':  '..value
 								end,
 								values = function()
 									local graphicsList = {}
 									graphicsList[''] = NONE
-									for name, _ in pairs(E.db.sle.screensaver.customGraphics) do
+									for name, _ in pairs(E.db.sle.afk.customGraphics) do
 										graphicsList[name] = name
 									end
 									if not selectedGraphic then
@@ -593,9 +593,9 @@ local function configTable()
 								hidden = function()
 									return selectedGraphic == ''
 								end,
-								get = function(info) return E.db.sle.screensaver.customGraphics[selectedGraphic][(info[#info])] end,
+								get = function(info) return E.db.sle.afk.customGraphics[selectedGraphic][(info[#info])] end,
 								set = function(info, value)
-									E.db.sle.screensaver.customGraphics[selectedGraphic][(info[#info])] = value
+									E.db.sle.afk.customGraphics[selectedGraphic][(info[#info])] = value
 									S:UpdateCustomGraphic(selectedGraphic)
 								end,
 								args = sharedOptions('customGraphics'),
@@ -605,8 +605,8 @@ local function configTable()
 								-- 		name = L["Test"],
 								-- 		desc = L["Shows a test model with selected animation for 10 seconds. Clicking again will reset timer."],
 								-- 		func = function()
-								-- 			-- -- local db = E.db.sle.screensaver.customGraphics[info]
-								-- 			local db = E.db.sle.screensaver.customGraphics[selectedGraphic]
+								-- 			-- -- local db = E.db.sle.afk.customGraphics[info]
+								-- 			local db = E.db.sle.afk.customGraphics[selectedGraphic]
 								-- 			if AFK.AFKMode['SL_CustomGraphics_'..selectedGraphic] then
 								-- 				if not db.showPreview then
 								-- 					db.showPreview = true
@@ -665,7 +665,7 @@ local function configTable()
 				order = 2,
 				name = L["Text"],
 				type = 'group',
-				disabled = function() return not E.db.sle.screensaver.enable end,
+				disabled = function() return not E.db.sle.afk.enable end,
 				args = {
 					afk = {
 						order = 1,

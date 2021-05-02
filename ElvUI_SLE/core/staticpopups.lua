@@ -137,25 +137,25 @@ E.PopupDialogs["SLE_APPLY_FONT_WARNING"] = {
 		E.db.sle.nameplates.targetcount.size = fontSize
 		E.db.sle.nameplates.targetcount.fontOutline = fontOutline
 
-		E.db.sle.screensaver.title.font = font
-		-- E.db.sle.screensaver.title.size = fontSize
-		E.db.sle.screensaver.title.outline = fontOutline
+		-- E.db.sle.afk.title.font = font
+		-- E.db.sle.afk.title.size = fontSize
+		-- E.db.sle.afk.title.outline = fontOutline
 
-		E.db.sle.screensaver.subtitle.font = font
-		-- E.db.sle.screensaver.subtitle.size = fontSize
-		E.db.sle.screensaver.subtitle.outline = fontOutline
+		-- E.db.sle.afk.subtitle.font = font
+		-- E.db.sle.afk.subtitle.size = fontSize
+		-- E.db.sle.afk.subtitle.outline = fontOutline
 
-		E.db.sle.screensaver.date.font = font
-		-- E.db.sle.screensaver.date.size = fontSize
-		E.db.sle.screensaver.date.outline = fontOutline
+		-- E.db.sle.afk.date.font = font
+		-- E.db.sle.afk.date.size = fontSize
+		-- E.db.sle.afk.date.outline = fontOutline
 
-		E.db.sle.screensaver.player.font = font
-		-- E.db.sle.screensaver.player.size = fontSize
-		E.db.sle.screensaver.player.outline = fontOutline
+		-- E.db.sle.afk.player.font = font
+		-- E.db.sle.afk.player.size = fontSize
+		-- E.db.sle.afk.player.outline = fontOutline
 
-		E.db.sle.screensaver.tips.font = font
-		-- E.db.sle.screensaver.tips.size = fontSize
-		E.db.sle.screensaver.tips.outline = fontOutline
+		-- E.db.sle.afk.tips.font = font
+		-- E.db.sle.afk.tips.size = fontSize
+		-- E.db.sle.afk.tips.outline = fontOutline
 
 		E.db.sle.skins.merchant.list.nameFont = font
 		E.db.sle.skins.merchant.list.nameSize = fontSize

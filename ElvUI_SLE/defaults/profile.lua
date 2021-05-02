@@ -688,8 +688,8 @@ P["sle"] = {
 		["mouseover"] = false,
 		["notooltip"] = false,
 	},
-	--Screensaver
-	["screensaver"] = {
+	--AFK
+	["afk"] = {
 		enable = false,
 		customGraphics = {},
 		defaultGraphics = {

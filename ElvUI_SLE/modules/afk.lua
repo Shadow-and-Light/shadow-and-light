@@ -426,7 +426,7 @@ function S:CreateUpdatePanels()
 end
 
 function S:CreateTextStrings()
-	for element in next, E.db.sle.screensaver.defaultTexts do
+	for element in next, E.db.sle.afk.defaultTexts do
 		if element and element ~= 'SL_ScrollFrame' and not AFK.AFKMode[element] then
 			AFK.AFKMode[element] = AFK.AFKMode:CreateFontString(nil, 'OVERLAY')
 		end
@@ -437,13 +437,13 @@ function S:UpdateTextOptions()
 	local afkFrame = AFK.AFKMode
 	local db = S.db.defaultTexts
 
-	-- for element in next, E.db.sle.screensaver.defaultTexts do
+	-- for element in next, E.db.sle.afk.defaultTexts do
 	-- 	if element and element ~= 'SL_ScrollFrame' and not AFK.AFKMode[element] then
 	-- 		AFK.AFKMode[element] = AFK.AFKMode:CreateFontString(nil, 'OVERLAY')
 	-- 	end
 	-- end
 
-	for element in next, E.db.sle.screensaver.defaultTexts do
+	for element in next, E.db.sle.afk.defaultTexts do
 		if element then
 			-- local enable = S.db.enable and db[element].enable
 			-- E.db.general.afk and S.db.enable
@@ -484,7 +484,7 @@ function S:UpdateTextStrings()
 end
 
 function S:CreateSetupCustomGraphics()
-	for name in next, E.db.sle.screensaver.customGraphics do
+	for name in next, E.db.sle.afk.customGraphics do
 		if not AFK.AFKMode['SL_CustomGraphics_'..name] then
 			S:CreateCustomGraphic(name)
 		end
@@ -493,7 +493,7 @@ function S:CreateSetupCustomGraphics()
 end
 
 function S:SetupCustomGraphics()
-	for name in next, E.db.sle.screensaver.customGraphics do
+	for name in next, E.db.sle.afk.customGraphics do
 		S:CreateCustomGraphic(name)
 	end
 end
@@ -507,7 +507,7 @@ function S:CreateCustomGraphic(name)
 end
 
 function S:UpdateCustomGraphics()
-	for name in next, E.db.sle.screensaver.customGraphics do
+	for name in next, E.db.sle.afk.customGraphics do
 		if AFK.AFKMode['SL_CustomGraphics_'..name] then
 			S:UpdateCustomGraphic(name)
 		end
@@ -534,15 +534,15 @@ function S:UpdateCustomGraphic(name)
 end
 
 function S:DeleteCustomGraphic(name)
-	if E.db.sle.screensaver.customGraphics[name] then
-		E.db.sle.screensaver.customGraphics[name] = nil
+	if E.db.sle.afk.customGraphics[name] then
+		E.db.sle.afk.customGraphics[name] = nil
 		AFK.AFKMode['SL_CustomGraphics_'..name]:SetTexture(nil)
 		AFK.AFKMode['SL_CustomGraphics_'..name]:Hide()
 	end
 end
 
 function S:SetupDefaultGraphics()
-	for name in next, E.db.sle.screensaver.defaultGraphics do
+	for name in next, E.db.sle.afk.defaultGraphics do
 		if name and not AFK.AFKMode[name] then
 			if name == 'exPack' then
 				AFK.AFKMode.exPack = CreateFrame('Button', nil, AFK.AFKMode.SL_TopPanel)
@@ -560,7 +560,7 @@ end
 function S:UpdateDefaultGraphics()
 	local db = S.db.defaultGraphics
 
-	for element in next, E.db.sle.screensaver.defaultGraphics do
+	for element in next, E.db.sle.afk.defaultGraphics do
 		if element then
 			local enable = S.db.enable and db[element].enable
 
@@ -680,14 +680,14 @@ end
 function S:Initialize()
 	if not SLE.initialized then return end
 
-	S.db = E.db.sle.screensaver
+	S.db = E.db.sle.afk
 	S.OnKeyDown = AFK.AFKMode:GetScript('OnKeyDown')
 	S.OrigModelOnUpdate = AFK.AFKMode.bottom.model:GetScript('OnUpdate')
 
 	if not S.db.enable then return end
 
 	function S:ForUpdateAll()
-		S.db = E.db.sle.screensaver
+		S.db = E.db.sle.afk
 
 		S:Toggle()
 		S:Hide()

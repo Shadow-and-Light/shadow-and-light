@@ -212,7 +212,7 @@ if G["profileCopy"] then
 		["raidmarkers"] = {
 			["general"] = true,
 		},
-		["screensaver"] = {
+		["afk"] = {
 			["general"] = true,
 		},
 		["shadows"] = {

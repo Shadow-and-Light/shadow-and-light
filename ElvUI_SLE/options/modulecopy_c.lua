@@ -342,7 +342,7 @@ local function configTable()
 			pvp = MC:CreateModuleConfigGroup(PVP, "pvp", "sle"),
 			raidmanager = MC:CreateModuleConfigGroup(RAID_CONTROL, "raidmanager", "sle"),
 			raidmarkers = MC:CreateModuleConfigGroup(L["Raid Markers"], "raidmarkers", "sle"),
-			screensaver = MC:CreateModuleConfigGroup(L["AFK Mode"], "screensaver", "sle"),
+			afk = MC:CreateModuleConfigGroup(L["AFK Mode"], "afk", "sle"),
 			shadows = MC:CreateModuleConfigGroup(L["Enhanced Shadows"], "shadows", "sle"),
 			skins = MC:CreateModuleConfigGroup(L["Skins"], "skins", "sle"),
 			tooltip = MC:CreateModuleConfigGroup(L["Tooltip"], "tooltip", "sle"),

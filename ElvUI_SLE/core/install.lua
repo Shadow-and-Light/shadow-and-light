@@ -767,7 +767,7 @@ function PI:DarthSetup()
 	E.private["general"]["minimap"]["hideClassHallReport"] = true
 
 	E.private["sle"]["module"]["blizzmove"]["remember"] = true
-	E.private["sle"]["module"]["screensaver"] = true
+	E.db["sle"]["afk"] = true
 
 	E.private["sle"]["uibuttons"]["style"] = "dropdown"
 
@@ -1086,11 +1086,11 @@ SLE.installTable = {
 			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cFF33FF33Low|r"])
 
 			_G["PluginInstallFrame"].Option1:Show()
-			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() E.private.sle.module.screensaver = true; end)
+			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() E.db.sle.afk.enable = true; end)
 			_G["PluginInstallFrame"].Option1:SetText(ENABLE)
 
 			_G["PluginInstallFrame"].Option2:Show()
-			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() E.private.sle.module.screensaver = false; end)
+			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() E.db.sle.afk.enable = false; end)
 			_G["PluginInstallFrame"].Option2:SetText(DISABLE)
 		end,
 		[6] = function()

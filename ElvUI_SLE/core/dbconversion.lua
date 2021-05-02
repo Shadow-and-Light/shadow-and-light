@@ -42,6 +42,10 @@ function SLE:DatabaseConversions()
 						end
 					end
 				end
+				if data.sle.screensaver then
+					data.sle.screensaver = nil
+					profileChanged = true
+				end
 				if profileChanged then
 					if ProfileNames == NONE then
 						ProfileNames = profile
