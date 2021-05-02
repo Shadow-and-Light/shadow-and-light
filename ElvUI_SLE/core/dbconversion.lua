@@ -70,9 +70,6 @@ function SLE:DatabaseConversions()
 						if data.sle.module.blizzmove.points["BonusRollMoneyWonFrame"] then data.sle.module.blizzmove.points["BonusRollMoneyWonFrame"] = nil; privateChanged = true; end
 					end
 					if data.sle.module.screensaver and type(data.sle.module.screensaver) == 'boolean' then
-						if data.sle.module.screensaver.enable then
-							E.db.sle.screensaver.enable = data.sle.module.screensaver.enable
-						end
 						data.sle.module.screensaver = nil
 						privateChanged = true
 					end
