@@ -142,7 +142,7 @@ end
 
 function S:Show()
 	if not S.db.enable then return end
-	-- print('show')
+
 	if AFK.AFKMode.SL_TestModel:IsShown() then S:TestHide() end
 	-- TipNum = random(1, #L["SLE_TIPS"])
 
@@ -312,7 +312,7 @@ function S:KeyScript()--Dealing with on key down script
 		--Default script for key detection. Ignores modifires and screenshot button
 		AFK.AFKMode:SetScript('OnKeyDown', S.OnKeyDown)
 	else
-		SLE:Print('KeyScript Fired')
+		-- SLE:Print('KeyScript Fired')
 		AFK.AFKMode:SetScript('OnKeyDown', nil)
 	end
 end
@@ -344,7 +344,7 @@ end
 
 function S:SetAFK(status)
 	if not S.db.enable or not E.db.general.afk then return end
-	print('afk')
+
 	if status then
 		MoveViewLeftStop() -- Stop ElvUI's Camera
 
