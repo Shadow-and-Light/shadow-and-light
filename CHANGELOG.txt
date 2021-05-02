@@ -4,6 +4,7 @@ Fixes:
 - Fixed Help Icon not rendering
 - Changed Error check on health element
 - Reputation bar fixes for full display didnt seem to work as intended
+- Chat: Fix broken invite link
 
 Added:
 - Added Discord url for support
