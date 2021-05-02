@@ -1,139 +1,62 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local AFK = E:GetModule('AFK')
-local S = SLE:NewModule('Screensaver', 'AceHook-3.0', 'AceEvent-3.0')
+local S = SLE:NewModule('Screensaver', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 
---GLOBALS: unpack, select, format, random, date, tinsert, type, tonumber, hooksecurefunc, UnitPVPName, UnitLevel, UnitClass, UnitRace, UnitIsAFK, RANK, LEVEL, CreateFrame, CreateAnimationGroup, C_Timer, SendChatMessage, RAID_CLASS_COLORS, GetScreenWidth, GetScreenHeight, IsInGuild, GetGuildInfo, FlipCameraYaw
+--GLOBALS: unpack, select, format, random, date, tinsert, type, tonumber, hooksecurefunc, UnitPVPName, UnitLevel, UnitClass, UnitRace, RANK, LEVEL, CreateFrame, CreateAnimationGroup, C_Timer, SendChatMessage, RAID_CLASS_COLORS, GetScreenWidth, GetScreenHeight, IsInGuild, GetGuildInfo, FlipCameraYaw
+local testTimer  --was AnimTime before
 
-local format, random, date, tinsert, type, tonumber = format, random, date, tinsert, type, tonumber
-local CreateFrame, SendChatMessage = CreateFrame, SendChatMessage
-
-local UnitPVPName, UnitLevel, UnitClass, UnitRace, UnitIsAFK = UnitPVPName, UnitLevel, UnitClass, UnitRace, UnitIsAFK
+local format, random, date, tinsert, tonumber = format, random, date, tinsert, tonumber
+local UnitPVPName, UnitLevel, UnitClass = UnitPVPName, UnitLevel, UnitClass
 local RANK, LEVEL = RANK, LEVEL
 local C_Timer, CreateAnimationGroup = C_Timer, CreateAnimationGroup
-local PRIEST_COLOR = RAID_CLASS_COLORS.PRIEST
-
-local Class, ClassToken = UnitClass('player')
-local RaceToken = select(2, UnitRace('player'))
-local Color = E:ClassColor(ClassToken) or PRIEST_COLOR
-
-local SS
-local Name, Level, GuildName, GuildRank, month, week, AnimTime, testM
-local CrestPath = [[Interface\AddOns\ElvUI_SLE\media\textures\crests\]]
 local TipsElapsed, TipNum, OldTip, degree = 0, 1, 0, 0
+local timerLastUpdate = 0
+local tipsLastUpdate = 0
+local total_seconds = 0
+local degreeMultyplier = 10
 
 S.Animations = {}
 S.Fading = {}
 
-function S:Media()
-	--Updating all the shits!
-	SS.AFKtitle:SetFont(E.LSM:Fetch('font', S.db.title.font), S.db.title.size, S.db.title.outline)
-	SS.timePassed:SetFont(E.LSM:Fetch('font', S.db.title.font), S.db.title.size, S.db.title.outline)
-	SS.Subtitle:SetFont(E.LSM:Fetch('font', S.db.subtitle.font), S.db.subtitle.size, S.db.subtitle.outline)
-	SS.Date:SetFont(E.LSM:Fetch('font', S.db.date.font), S.db.date.size, S.db.date.outline)
-	SS.Time:SetFont(E.LSM:Fetch('font', S.db.date.font), S.db.date.size, S.db.date.outline)
-	SS.PlayerName:SetFont(E.LSM:Fetch('font', S.db.player.font), S.db.player.size, S.db.player.outline)
-	SS.PlayerInfo:SetFont(E.LSM:Fetch('font', S.db.player.font), S.db.player.size, S.db.player.outline)
-	SS.GuildRank:SetFont(E.LSM:Fetch('font', S.db.player.font), S.db.player.size, S.db.player.outline)
-	SS.Guild:SetFont(E.LSM:Fetch('font', S.db.player.font), S.db.player.size, S.db.player.outline)
-	SS.ScrollFrame:SetFont(E.LSM:Fetch('font', S.db.tips.font), S.db.tips.size, S.db.tips.outline)
+local racialMusic = {
+	['Human'] = 53210,
+	['Gnome'] = 369055,
+	['NightElf'] = 441709,
+	['KulTiran'] = 1781897,
+	['Dwarf'] = 298910,
+	['Draenei'] = 53284,
+	['Worgen'] = 441525,
+	['VoidElf'] = 1864282,
+	['LightforgedDraenei'] = 1864285,
+	['DarkIronDwarf'] = 441566,
+	['Mechagnome'] = 3028751,
+	['Orc'] = 441713,
+	['Undead'] = 53217,
+	['Tauren'] = 441788,
+	['Troll'] = 371378,
+	['Goblin'] = 441627,
+	['BloodElf'] = 53473,
+	['Pandaren'] = 642246,
+	['Nightborne'] = 1477339,
+	['HighmountainTauren'] = 1417319,
+	['ZandalariTroll'] = 2844635,
+	['Vulpera'] = 3260632,
+	['MagharOrc'] = 2146630,
+}
 
-	SS.timePassed:SetTextColor(1, 1, 1)
+local function currentDateTime()
+	local month = SLE.Russian and SLE.RuMonths[tonumber(date('%m'))] or date('%B')
+	local week = SLE.Russian and SLE.RuWeek[tonumber(date('%w'))+1] or date('%A')
 
-	SS.ExPack:SetSize(S.db.xpack, S.db.xpack/2)
-	SS.FactCrest:SetSize(S.db.crest.size, S.db.crest.size)
-	SS.RaceCrest:SetSize(S.db.crest.size, S.db.crest.size)
-	SS.ElvTop:SetSize(S.db.xpack, S.db.xpack/2)
-	SS.ElvBottom:SetSize(S.db.xpack, S.db.xpack/2)
-	SS.sle:SetSize(2*S.db.xpack, S.db.xpack/2)
+	AFK.AFKMode.SL_Date:SetText(date('%d')..' '..month..', |cff00AAFF'..week..'|r')
+
+	if S.db.defaultTexts.SL_Time.hour24 then
+		AFK.AFKMode.SL_Time:SetText(format('%s', date('%H|cff00AAFF:|r%M|cff00AAFF:|r%S')))
+	else
+		AFK.AFKMode.SL_Time:SetText(format('%s', date('%I|cff00AAFF:|r%M|cff00AAFF:|r%S %p')))
+	end
 end
 
-function S:Setup()
-	--Creating top panel
-	SS.Top = CreateFrame('Frame', nil, SS, 'BackdropTemplate')
-	SS.Top:SetFrameLevel(0)
-	SS.Top:SetWidth(GetScreenWidth() + (E.Border*2))
-
-	--Creating additional strings
-	SS.AFKtitle = SS.Top:CreateFontString(nil, 'OVERLAY')
-	SS.Subtitle = SS.Top:CreateFontString(nil, 'OVERLAY')
-	SS.Subtitle:SetJustifyH('LEFT')
-	SS.PlayerInfo = SS.Top:CreateFontString(nil, 'OVERLAY')
-	SS.Date = SS.Top:CreateFontString(nil, 'OVERAY')
-	SS.Time = SS.Top:CreateFontString(nil, 'OVERLAY')
-
-	--Changing Elv's strings
-	SS.GuildRank = SS.Bottom:CreateFontString(nil, 'OVERLAY')
-	SS.GuildRank:FontTemplate(nil, 20)
-	SS.GuildRank:SetText('Stuff')
-	SS.GuildRank:SetPoint('TOP', SS.Bottom.guild, 'BOTTOM', 0, -2)
-	SS.GuildRank:SetTextColor(0.7, 0.7, 0.7)
-
-	--Frame for tips
-	SS.ScrollFrame = CreateFrame('ScrollingMessageFrame', nil, SS)
-	SS.ScrollFrame:SetFading(false)
-	SS.ScrollFrame:SetFadeDuration(0)
-	SS.ScrollFrame:SetTimeVisible(1)
-	SS.ScrollFrame:SetMaxLines(1)
-	SS.ScrollFrame:SetSpacing(2)
-	SS.ScrollFrame:SetWidth(SS.Bottom:GetWidth()/2)
-	SS.ScrollFrame:LevelUpBG() --Creating neat stuff for teh tips
-
-	--Crests, emblems and stuff
-	SS.ExPack = CreateFrame('Button', nil, SS.Top)
-	SS.ExPack:SetScript('OnClick', S.AbortAFK) --Allow to exit afk screen by clicking on the crest
-	SS.ExPack.texture = SS:CreateTexture(nil, 'OVERLAY')
-	SS.ExPack.texture:SetAllPoints(SS.ExPack)
-	SS.ExPack.texture:SetTexture(GetExpansionDisplayInfo(GetClientDisplayExpansionLevel()).logo)
-	-- SS.ExPack.texture:SetTexture([[Interface\Glues\Common\Glues-WoW-BattleforAzerothLogo.blp]])
-	-- SS.ExPack.texture:SetTexCoord(0, 1, 0, 0.25) --this was for legion logo
-	SS.FactCrest:SetTexture(CrestPath..E.myfaction)
-	SS.RaceCrest = SS:CreateTexture(nil, 'ARTWORK')
-	SS.RaceCrest:SetTexture(CrestPath..RaceToken)
-	SLE:TextureExists(CrestPath..RaceToken, SS.RaceCrest, CrestPath..E.myfaction)
-	SS.sle = SS:CreateTexture(nil, 'OVERLAY')
-	SS.sle:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\SLE_Banner]])
-
-	--Slightly moving chat
-	SS.chat:ClearAllPoints()
-	SS.chat:SetPoint('TOPLEFT', SS.Top, 'TOPLEFT', 0, 0)
-
-	--Test model
-	SS.testmodel = CreateFrame('PlayerModel', 'SLE_ScreenTestModel', E.UIParent)
-	SS.testmodel:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2) --Like in the original model
-	SS.testmodel:SetPoint('CENTER', SS.Model)
-	SS.testmodel:Hide()
-
-	--Calling for fonts and shit updating
-	self:Media()
-
-	--Setting text for tite string. Here casue fonts were not set before
-	SS.AFKtitle:SetText('|cff00AAFF'..L["You Are Away From Keyboard for"]..'|r')
-
-	--Positioning
-	SS.AFKtitle:Point('TOP', SS.Top, 'TOP', -25, -10)
-	SS.Subtitle:Point('TOP', SS.AFKtitle, 'BOTTOM', 25, -2)
-	SS.timePassed:ClearAllPoints()
-	SS.timePassed:Point('LEFT', SS.AFKtitle, 'RIGHT', 4, -1)
-	SS.ExPack:Point('CENTER', SS.Top, 'BOTTOM', 0, 0)
-	SS.Time:Point('TOP', SS.Date, 'BOTTOM', 0, -2)
-	SS.ElvTop:SetPoint('CENTER', SS.Bottom, 'TOP', -(GetScreenWidth()/10), 0)
-	SS.ElvBottom:SetPoint('CENTER', SS.Bottom, 'CENTER', -(GetScreenWidth()/10), 68)
-	SS.sle:SetPoint('CENTER', SS.Bottom, 'TOP', (GetScreenWidth()/10), 0)
-	SS.PlayerName:ClearAllPoints()
-	SS.Guild:ClearAllPoints()
-	SS.GuildRank:ClearAllPoints()
-	SS.PlayerName:Point('BOTTOM', SS.PlayerInfo, 'TOP', 0, 2)
-	SS.Guild:SetPoint('TOP', SS.PlayerInfo, 'BOTTOM', 0, -2)
-	SS.GuildRank:SetPoint('TOP', SS.Guild, 'BOTTOM', 0, -2)
-	SS.ScrollFrame:SetPoint('CENTER', SS.Bottom, 'CENTER', 0, 0)
-	S:SetPanelTemplate()
-end
-
---Setting the template for top/bottom bars
-function S:SetPanelTemplate()
-	SS.Top:SetTemplate(S.db.panelTemplate, true)
-	SS.Bottom:SetTemplate(S.db.panelTemplate, true)
-end
 
 --Template functons for animation types
 function S:SlideIn(frame)
@@ -144,6 +67,7 @@ function S:SlideIn(frame)
 		tinsert(S.Animations, frame.anim.SlideIn)
 	end
 end
+
 function S:SlideSide(frame)
 	if not frame.anim then frame.anim = CreateAnimationGroup(frame) end
 	if not frame.anim.SlideSide then
@@ -152,256 +76,244 @@ function S:SlideSide(frame)
 		tinsert(S.Animations, frame.anim.SlideSide)
 	end
 end
+
 function S:FadeIn(frame)
 	if not frame.anim then frame.anim = CreateAnimationGroup(frame) end
 	if not frame.anim.FadeIn then
 		frame.anim.FadeIn = frame.anim:CreateAnimation('Fade')
 		frame.anim.FadeIn:SetChange(1)
 		tinsert(S.Animations, frame.anim.FadeIn)
-		if frame ~= SS.Top or frame ~= SS.Bottom then
+		if frame ~= AFK.AFKMode.SL_TopPanel or frame ~= AFK.AFKMode.SL_BottomPanel then
 			tinsert(S.Fading, frame.anim.FadeIn)
 		end
 	end
 end
---Creating and updating animations
+
+--* Creat & Update Animations
 function S:SetupAnimations()
-	if not SS.Top.anim then --If no animation groups exist, create those
-		S:SlideIn(SS.Top)
-		S:SlideSide(SS.Top)
-		S:FadeIn(SS.Top)
+	if not AFK.AFKMode.SL_TopPanel.anim then
+		S:SlideIn(AFK.AFKMode.SL_TopPanel)
+		S:SlideSide(AFK.AFKMode.SL_TopPanel)
+		S:FadeIn(AFK.AFKMode.SL_TopPanel)
 
-		S:SlideIn(SS.Bottom)
-		S:SlideSide(SS.Bottom)
-		S:FadeIn(SS.Bottom)
+		S:SlideIn(AFK.AFKMode.SL_BottomPanel)
+		S:SlideSide(AFK.AFKMode.SL_BottomPanel)
+		S:FadeIn(AFK.AFKMode.SL_BottomPanel)
 
-		if S.db.playermodel.enable then S:FadeIn(SS.Model) end
+		if S.db.playermodel.enable then S:FadeIn(AFK.AFKMode.bottom.model) end
 
-		S:FadeIn(SS.ExPack)
-		S:FadeIn(SS.FactCrest)
-		S:FadeIn(SS.RaceCrest)
-		S:FadeIn(SS.sle)
-		S:FadeIn(SS.ElvTop)
-		S:FadeIn(SS.ElvBottom)
+		S:FadeIn(AFK.AFKMode.exPack.texture)
+		S:FadeIn(AFK.AFKMode.factionLogo)
+		S:FadeIn(AFK.AFKMode.factionCrest)
+		S:FadeIn(AFK.AFKMode.classCrest)
+		S:FadeIn(AFK.AFKMode.raceCrest)
+		S:FadeIn(AFK.AFKMode.slLogo)
+		S:FadeIn(AFK.AFKMode.elvuiLogo)
+		S:FadeIn(AFK.AFKMode.merauiLogo)
+		S:FadeIn(AFK.AFKMode.benikuiLogo)
 
-		S:FadeIn(SS.ScrollFrame)
+		S:FadeIn(AFK.AFKMode.SL_AFKMessage)
+		S:FadeIn(AFK.AFKMode.SL_AFKTimePassed)
+		S:FadeIn(AFK.AFKMode.SL_SubText)
+		-- S:FadeIn(AFK.AFKMode.SL_PlayerTitle)
+		S:FadeIn(AFK.AFKMode.SL_PlayerName)
+		-- S:FadeIn(AFK.AFKMode.SL_PlayerServer)
+		S:FadeIn(AFK.AFKMode.SL_PlayerClass)
+		S:FadeIn(AFK.AFKMode.SL_PlayerLevel)
+		S:FadeIn(AFK.AFKMode.SL_GuildName)
+		S:FadeIn(AFK.AFKMode.SL_GuildRank)
+		S:FadeIn(AFK.AFKMode.SL_Date)
+		S:FadeIn(AFK.AFKMode.SL_Time)
+
+		S:FadeIn(AFK.AFKMode.chat)
+		S:FadeIn(AFK.AFKMode.SL_ScrollFrame)
 	end
 
-	SS.Top.anim.SlideIn:SetSmoothing(S.db.animBounce and 'Bounce' or 'None')
-	SS.Bottom.anim.SlideIn:SetSmoothing(S.db.animBounce and 'Bounce' or 'None')
-	SS.Top.anim.SlideSide:SetSmoothing(S.db.animBounce and 'Bounce' or 'None')
-	SS.Bottom.anim.SlideSide:SetSmoothing(S.db.animBounce and 'Bounce' or 'None')
+	--* Slide In Animation
+	AFK.AFKMode.SL_TopPanel.anim.SlideIn:SetEasing(S.db.animBounce and 'Bounce' or 'None')
+	AFK.AFKMode.SL_BottomPanel.anim.SlideIn:SetEasing(S.db.animBounce and 'Bounce' or 'None')
+
+	--* Slide Side Animation
+	AFK.AFKMode.SL_TopPanel.anim.SlideSide:SetEasing(S.db.animBounce and 'Bounce' or 'None')
+	AFK.AFKMode.SL_BottomPanel.anim.SlideSide:SetEasing(S.db.animBounce and 'Bounce' or 'None')
+
 	S:SetupType()
-end
---For model positioning
-function S:ModelHolderPos()
-	SS.Bottom.modelHolder:ClearAllPoints()
-	SS.Bottom.modelHolder:SetPoint('BOTTOMRIGHT', SS.Bottom, 'BOTTOMRIGHT', -200+S.db.playermodel.holderXoffset, (220 + S.db.playermodel.holderYoffset))
 end
 
 function S:Show()
-	Level, Name, TipNum = UnitLevel('player'), UnitPVPName('player'), random(1, #L["SLE_TIPS"])
+	if not S.db.enable then return end
+	-- print('show')
+	if AFK.AFKMode.SL_TestModel:IsShown() then S:TestHide() end
+	-- TipNum = random(1, #L["SLE_TIPS"])
 
 	--Resizings
-	SS.Top:SetHeight(S.db.height)
-	SS.Bottom:SetHeight(S.db.height)
-	SS.ScrollFrame:SetHeight(S.db.tips.size+4)
-	SS.ScrollFrame.bg:SetHeight(S.db.tips.size+20)
+	-- AFK.AFKMode.SL_ScrollFrame:SetHeight(S.db.defaultTexts.SL_ScrollFrame.size+4)
+	-- -- AFK.AFKMode.SL_ScrollFrame.bg:SetHeight(S.db.defaultTexts.SL_ScrollFrame.size+20)
 
-	--Elements
-	SS.FactCrest:ClearAllPoints()
-	SS.RaceCrest:ClearAllPoints()
-	SS.Date:ClearAllPoints()
-	SS.PlayerInfo:ClearAllPoints()
-	SS.FactCrest:Point('CENTER', SS.Top, 'BOTTOM', -(GetScreenWidth()/6) + S.db.crest.xOffset_faction, 0 + S.db.crest.yOffset_faction)
-	SS.RaceCrest:Point('CENTER', SS.Top, 'BOTTOM', (GetScreenWidth()/6) + S.db.crest.xOffset_race, 0 + S.db.crest.yOffset_race)
-	SS.Date:Point('RIGHT', SS.Top, 'RIGHT', -40 + S.db.date.xOffset, 10 + S.db.date.yOffset)
-	SS.PlayerInfo:Point('RIGHT', SS.Top, 'RIGHT', -(GetScreenWidth()/6) + S.db.player.xOffset, 0 + S.db.player.yOffset)
-
-	--Resizing chat
-	SS.chat:SetHeight(SS.Top:GetHeight())
-
-	--Setting texts
-	if IsInGuild() then
-		GuildName, GuildRank = GetGuildInfo('player')
-	end
-	SS.PlayerName:SetText(format('|c%s%s|r', Color.colorStr, Name))
-	SS.GuildRank:SetText(format(GuildRank and '|cff00AAFF'..RANK..': %s|r' or '', GuildRank))
-	SS.Subtitle:SetText(L["Take care of yourself, Master!"])
-	SS.PlayerInfo:SetText(format('%s\n|c%s%s|r, %s %s', E.myrealm, Color.colorStr, Class, LEVEL, Level))
+	-- --Resizing chat
+	-- AFK.AFKMode.chat:SetHeight(AFK.AFKMode.SL_TopPanel:GetHeight())
 
 	--Positioning model
 	if S.db.playermodel.enable then
-		SS.Model:Show()
-		SS.Model:SetAnimation(S.db.playermodel.anim)
-		SS.Model:SetScript('OnAnimFinished', S.AnimFinished)
+		AFK.AFKMode.bottom.model:SetAnimation(S.db.playermodel.anim)
+		AFK.AFKMode.bottom.model:SetScript('OnAnimFinished', S.AnimFinished)
 	else
-		SS.Model:Hide()
-		SS.Model:SetScript('OnAnimFinished', nil)
+		AFK.AFKMode.bottom.model:SetScript('OnAnimFinished', nil)
 	end
-	SS.Model:SetCamDistanceScale(S.db.playermodel.distance)
-	if SS.Model:GetFacing() ~= (S.db.playermodel.rotation / 60) then
-		SS.Model:SetFacing(S.db.playermodel.rotation / 60)
+	AFK.AFKMode.bottom.model:SetShown(S.db.playermodel.enable)
+
+	AFK.AFKMode.bottom.model:SetCamDistanceScale(S.db.playermodel.distance)
+	if AFK.AFKMode.bottom.model:GetFacing() ~= (S.db.playermodel.rotation / 60) then
+		AFK.AFKMode.bottom.model:SetFacing(S.db.playermodel.rotation / 60)
 	end
 
-	--Animations
+	--* Animations
+	local screenWidth = ceil(GetScreenWidth())
+	local topSpace = S.db.panels.top.width > 0 and (screenWidth-S.db.panels.top.width)/2 or 0
+	local bottomSpace = S.db.panels.bottom.width > 0 and (screenWidth-S.db.panels.bottom.width)/2 or 0
 	if S.db.animTime > 0 then
 		if S.db.animType == 'SlideIn' then
-			SS.Top.anim.SlideIn:SetOffset(0, -S.db.height)
-			SS.Bottom.anim.SlideIn:SetOffset(0, S.db.height)
+			AFK.AFKMode.SL_TopPanel.anim.SlideIn:SetOffset(0, -S.db.panels.top.height)
+			AFK.AFKMode.SL_BottomPanel.anim.SlideIn:SetOffset(0, S.db.panels.bottom.height)
 		elseif S.db.animType == 'SlideSide' then
-			SS.Top.anim.SlideSide:SetOffset(E.screenwidth, 0)
-			SS.Bottom.anim.SlideSide:SetOffset(-E.screenwidth, 0)
+			AFK.AFKMode.SL_TopPanel.anim.SlideSide:SetOffset(screenWidth-topSpace, 0)
+			AFK.AFKMode.SL_BottomPanel.anim.SlideSide:SetOffset(-(screenWidth-bottomSpace), 0)
 		end
 
-		SS.Top.anim[S.db.animType]:SetDuration(S.db.animTime)
-		SS.Bottom.anim[S.db.animType]:SetDuration(S.db.animTime)
+		AFK.AFKMode.SL_TopPanel.anim[S.db.animType]:SetDuration(S.db.animTime)
+		AFK.AFKMode.SL_BottomPanel.anim[S.db.animType]:SetDuration(S.db.animTime)
 		for i = 1, #(S.Fading) do
 			S.Fading[i]:SetDuration(S.db.animTime)
 		end
 
-		SS.Top.anim[S.db.animType]:Play()
-		SS.Bottom.anim[S.db.animType]:Play()
+		AFK.AFKMode.SL_TopPanel.anim[S.db.animType]:Play()
+		AFK.AFKMode.SL_BottomPanel.anim[S.db.animType]:Play()
 		for i = 1, #(S.Fading) do
 			S.Fading[i]:Play()
 		end
 	end
-
-	--Tip message
-	SS.ScrollFrame:AddMessage(L["SLE_TIPS"][TipNum], 1, 1, 1)
-	S:UpdateTimer()
 end
 
 function S:Hide()
+	if not S.db.enable then return end
 	for i = 1, #(S.Animations) do --To avoid weird shit like S:SetupType was ignored when animations were interrupted in the go
 		S.Animations[i]:Stop()
 	end
-	SS.ExPack:SetAlpha((S.db.animTime > 0 and 0) or 1)
-	SS.FactCrest:SetAlpha((S.db.animTime > 0 and 0) or 1)
-	SS.RaceCrest:SetAlpha((S.db.animTime > 0 and 0) or 1)
-	SS.sle:SetAlpha((S.db.animTime > 0 and 0) or 1)
-	SS.ElvTop:SetAlpha((S.db.animTime > 0 and 0) or 1)
-	SS.ElvBottom:SetAlpha((S.db.animTime > 0 and 0) or 1)
-	SS.Model:SetAlpha((S.db.animTime > 0 and 0) or 1)
-	SS.ScrollFrame:SetAlpha((S.db.animTime > 0 and 0) or 1)
+
+	local alpha = (S.db.animTime > 0 and 0) or 1
+
+	--Default Logos
+	AFK.AFKMode.exPack.texture:SetAlpha(alpha)
+	AFK.AFKMode.slLogo:SetAlpha(alpha)
+	AFK.AFKMode.elvuiLogo:SetAlpha(alpha)
+	AFK.AFKMode.benikuiLogo:SetAlpha(alpha)
+	AFK.AFKMode.merauiLogo:SetAlpha(alpha)
+	AFK.AFKMode.classCrest:SetAlpha(alpha)
+	AFK.AFKMode.factionCrest:SetAlpha(alpha)
+	AFK.AFKMode.factionLogo:SetAlpha(alpha)
+	AFK.AFKMode.raceCrest:SetAlpha(alpha)
+	-- AFK.AFKMode.bottom.model:SetAlpha(S.db.enable and alpha or 1)
+	AFK.AFKMode.bottom.model:SetAlpha(alpha)
+
+	--Default Texts
+	AFK.AFKMode.SL_AFKMessage:SetAlpha(alpha)
+	AFK.AFKMode.SL_AFKTimePassed:SetAlpha(alpha)
+	AFK.AFKMode.SL_SubText:SetAlpha(alpha)
+	-- AFK.AFKMode.SL_PlayerTitle:SetAlpha(alpha)
+	AFK.AFKMode.SL_PlayerName:SetAlpha(alpha)
+	-- AFK.AFKMode.SL_PlayerServer:SetAlpha(alpha)
+	AFK.AFKMode.SL_PlayerClass:SetAlpha(alpha)
+	AFK.AFKMode.SL_PlayerLevel:SetAlpha(alpha)
+	AFK.AFKMode.SL_GuildName:SetAlpha(alpha)
+	AFK.AFKMode.SL_GuildRank:SetAlpha(alpha)
+	AFK.AFKMode.SL_Date:SetAlpha(alpha)
+	AFK.AFKMode.SL_Time:SetAlpha(alpha)
+
+	AFK.AFKMode.SL_ScrollFrame:SetAlpha(alpha)
+
 	S:SetupType()
 	TipsElapsed = 0
 end
 
 function S:SetupType()
-	SS.Top:ClearAllPoints()
-	SS.Bottom:ClearAllPoints()
+	local enable = E.db.general.afk and S.db.enable
+	if not enable then return end
+
+	local screenWidth = ceil(GetScreenWidth())
+	local topSpace = S.db.panels.top.width > 0 and (screenWidth-S.db.panels.top.width)/2 or 0
+	local bottomSpace = S.db.panels.bottom.width > 0 and (screenWidth-S.db.panels.bottom.width)/2 or 0
+
+	AFK.AFKMode.SL_TopPanel:ClearAllPoints()
+	AFK.AFKMode.SL_BottomPanel:ClearAllPoints()
+
 	if S.db.animTime > 0 then
 		if S.db.animType == 'SlideIn' then
-			SS.Top:Point('BOTTOM', SS, 'TOP', 0, E.Border)
-			SS.Bottom:Point('TOP', SS, 'BOTTOM', 0, - E.Border)
-			SS.Top:SetAlpha(1)
-			SS.Bottom:SetAlpha(1)
+			AFK.AFKMode.SL_TopPanel:Point('BOTTOM', AFK.AFKMode, 'TOP', 0, E.Border)
+			AFK.AFKMode.SL_BottomPanel:Point('TOP', AFK.AFKMode, 'BOTTOM', 0, -E.Border)
+
+			AFK.AFKMode.SL_TopPanel:SetAlpha(1)
+			AFK.AFKMode.SL_BottomPanel:SetAlpha(1)
 		elseif S.db.animType == 'SlideSide' then
-			SS.Top:Point('TOPRIGHT', SS, 'TOPLEFT', 0, E.Border)
-			SS.Bottom:Point('BOTTOMLEFT', SS, 'BOTTOMRIGHT', 0, - E.Border)
-			SS.Top:SetAlpha(1)
-			SS.Bottom:SetAlpha(1)
+			AFK.AFKMode.SL_TopPanel:Point('TOP', AFK.AFKMode, 'TOP', -(screenWidth-topSpace), E.Border)
+			AFK.AFKMode.SL_BottomPanel:Point('BOTTOM', AFK.AFKMode, 'BOTTOM', screenWidth-bottomSpace, -E.Border)
+
+			AFK.AFKMode.SL_TopPanel:SetAlpha(1)
+			AFK.AFKMode.SL_BottomPanel:SetAlpha(1)
 		else
-			SS.Top:Point('TOP', SS, 'TOP', 0, E.Border)
-			SS.Bottom:Point('BOTTOM', SS, 'BOTTOM', 0, - E.Border)
-			SS.Top:SetAlpha(0)
-			SS.Bottom:SetAlpha(0)
+			AFK.AFKMode.SL_TopPanel:Point('TOP', AFK.AFKMode, 'TOP', 0, E.Border)
+			AFK.AFKMode.SL_BottomPanel:Point('BOTTOM', AFK.AFKMode, 'BOTTOM', 0, -E.Border)
+
+			AFK.AFKMode.SL_TopPanel:SetAlpha(0)
+			AFK.AFKMode.SL_BottomPanel:SetAlpha(0)
 		end
 	else
-		SS.Top:Point('TOP', SS, 'TOP', 0, E.Border)
-		SS.Bottom:Point('BOTTOM', SS, 'BOTTOM', 0, - E.Border)
-		SS.Top:SetAlpha(1)
-		SS.Bottom:SetAlpha(1)
+		AFK.AFKMode.SL_TopPanel:Point('TOP', AFK.AFKMode, 'TOP', 0, E.Border)
+		AFK.AFKMode.SL_BottomPanel:Point('BOTTOM', AFK.AFKMode, 'BOTTOM', 0, -E.Border)
+
+		AFK.AFKMode.SL_TopPanel:SetAlpha(1)
+		AFK.AFKMode.SL_BottomPanel:SetAlpha(1)
 	end
 end
 
 --Testing model positioning
 function S:TestShow()
-	if AnimTime then AnimTime:Cancel() end
-	testM = S.db.playermodel.anim
-	SS.testmodel:Show()
-	SS.testmodel:SetUnit('player')
-	SS.testmodel:SetCamDistanceScale(S.db.playermodel.distance)
-	if SS.testmodel:GetFacing() ~= (S.db.playermodel.rotation / 60) then
-		SS.testmodel:SetFacing(S.db.playermodel.rotation / 60)
-	end
-	SS.testmodel:SetAnimation(testM)
-	SS.testmodel:SetScript('OnAnimFinished', S.AnimTestFinished)
+	if testTimer then testTimer:Cancel() end
 
-	AnimTime = C_Timer.NewTimer(10, S.TestHide)
+	AFK.AFKMode.SL_TestModel:Show()
+	AFK.AFKMode.SL_TestModel:SetUnit('player')
+	AFK.AFKMode.SL_TestModel:SetCamDistanceScale(S.db.playermodel.distance)
+	if AFK.AFKMode.SL_TestModel:GetFacing() ~= (S.db.playermodel.rotation / 60) then
+		AFK.AFKMode.SL_TestModel:SetFacing(S.db.playermodel.rotation / 60)
+	end
+	AFK.AFKMode.SL_TestModel:SetAnimation(S.db.playermodel.anim)
+	AFK.AFKMode.SL_TestModel:SetScript('OnAnimFinished', S.AnimTestFinished)
+
+	AFK.AFKMode.SL_BottomPanel:ClearAllPoints()
+	AFK.AFKMode.SL_BottomPanel:Point('BOTTOM', AFK.AFKMode, 'BOTTOM', 0, -E.Border)
+
+	testTimer = C_Timer.NewTimer(10, S.TestHide)
 end
 
 function S:TestHide()
-	SS.testmodel:Hide()
-end
-
-function S:AnimTestFinished()
-	SS.testmodel:SetAnimation(testM)
-end
-
---Updating date/time texts
-function S:UpdateTimer()
-	TipsElapsed = TipsElapsed + 1
-	month = SLE.Russian and SLE.RuMonths[tonumber(date('%m'))] or date('%B')
-	week = SLE.Russian and SLE.RuWeek[tonumber(date('%w'))+1] or date('%A')
-	if S.db.date.hour24 then
-		SS.Time:SetText(format('%s', date('%H|cff00AAFF:|r%M|cff00AAFF:|r%S')))
-	else
-		SS.Time:SetText(format('%s', date('%I|cff00AAFF:|r%M|cff00AAFF:|r%S %p')))
-	end
-	SS.Date:SetText(date('%d')..' '..month..', |cff00AAFF'..week..'|r')
-
-	if TipsElapsed and TipsElapsed > S.db.tipThrottle then
-		TipNum = random(1, #L["SLE_TIPS"])
-		while TipNum == OldTip do TipNum = random(1, #L["SLE_TIPS"]) end
-		SS.ScrollFrame:AddMessage(L["SLE_TIPS"][TipNum], 1, 1, 1)
-		OldTip = TipNum
-		TipsElapsed = 0
-	end
-end
-
-local degreeMultyplier = 10
---Camera rotation script when entering or leaving afk
-function S:Event(event, unit)
-	if not E.db.general.afk then return end
-	if event == 'PLAYER_REGEN_DISABLED' then
-		SS:SetScript('OnUpdate', nil)
-		FlipCameraYaw(-degree)
-		degree = 0
-		TipsElapsed = 0
-		SS.timePassed:SetFormattedText('00:00')
-		return
-	end
-	if (event == 'PLAYER_FLAGS_CHANGED' and unit ~= 'player') or event ~= 'PLAYER_FLAGS_CHANGED' then return end
-	if (InCombatLockdown() or CinematicFrame:IsShown() or MovieFrame:IsShown()) then return; end
-	--Don't activate afk if player is crafting stuff
-	if (UnitCastingInfo('player') ~= nil) then return end
-	if UnitIsAFK('player') then
-		if not SS:GetScript('OnUpdate') then
-			SS:SetScript('OnUpdate', function(_, elapsed)
-				FlipCameraYaw(elapsed*degreeMultyplier)
-				degree = degree + elapsed*degreeMultyplier
-			end)
-		end
-	else
-		SS:SetScript('OnUpdate', nil)
-		FlipCameraYaw(-degree)
-		degree = 0
-		TipsElapsed = 0
-		SS.timePassed:SetFormattedText('00:00')
-	end
+	S:SetupType()
+	AFK.AFKMode.SL_TestModel:Hide()
 end
 
 function S:AnimFinished()
-	SS.Model:SetAnimation(S.db.playermodel.anim)
+	AFK.AFKMode.bottom.model:SetAnimation(S.db.playermodel.anim)
+end
+
+function S:AnimTestFinished()
+	AFK.AFKMode.SL_TestModel:SetAnimation(S.db.playermodel.anim)
 end
 
 function S:KeyScript()--Dealing with on key down script
 	if S.db.keydown then
 		--Default script for key detection. Ignores modifires and screenshot button
-		SS:SetScript('OnKeyDown', S.OnKeyDown)
+		AFK.AFKMode:SetScript('OnKeyDown', S.OnKeyDown)
 	else
-		SS:SetScript('OnKeyDown', nil)
+		SLE:Print('KeyScript Fired')
+		AFK.AFKMode:SetScript('OnKeyDown', nil)
 	end
 end
 
@@ -409,62 +321,383 @@ function S:AbortAFK()
 	if UnitIsAFK('player') then SendChatMessage('' ,'AFK' ) end
 end
 
---Hook to Elv's set afk
-function S:SetAFK_Hook(status)
-	if not E.db.general.afk then return end -- To prevent bs from happening
-	if status then
-		MoveViewLeftStop() --Stop Elv's stupid camera
-		if(IsInGuild()) then GuildName, GuildRank = GetGuildInfo('player') end
-		SS.Guild:SetText(format(GuildName and '|cff00AAFF<%s>|r' or L["No Guild"], GuildName)) --Setting good looking guild name line
-		--Own model animation
-		SS.Model:SetUnit('player')
-		SS.Model:SetAnimation(S.db.playermodel.anim)
+local isMusicPlaying = false
+local soundHandle, currentMusicSetting
+function S:RacialMusic(status)
+	if not S.db.racialMusic and not isMusicPlaying then return end
+
+	if status and not isMusicPlaying then
+		if not racialMusic[E.myrace] then return end
+
+		currentMusicSetting = GetCVar('Sound_EnableMusic')
+		if currentMusicSetting == '1' then SetCVar('Sound_EnableMusic', 0) end
+
+		soundHandle = select(2, PlaySoundFile(racialMusic[E.myrace], 'Dialog'))
+		isMusicPlaying = true
+	elseif isMusicPlaying then
+		StopSound(soundHandle, 500)
+		SetCVar('Sound_EnableMusic', currentMusicSetting)
+
+		isMusicPlaying = false
 	end
+end
+
+function S:SetAFK(status)
+	if not S.db.enable or not E.db.general.afk then return end
+	print('afk')
+	if status then
+		MoveViewLeftStop() -- Stop ElvUI's Camera
+
+		S.SL_startTime = GetTime()
+		S:UpdateTextStrings()
+
+		-- Own model animation
+		-- AFK.AFKMode.bottom.model:SetUnit('player')
+		AFK.AFKMode.bottom.model:SetAnimation(S.db.playermodel.anim)
+
+		AFK.isSLAFK = true
+	elseif AFK.isSLAFK then
+		FlipCameraYaw(-degree)
+		degree = 0
+		TipsElapsed = 0
+		total_seconds = 0
+		AFK.AFKMode.SL_AFKTimePassed:SetText('30:00')
+
+		AFK.isSLAFK = false
+	end
+
+	S:RacialMusic(status)
+end
+hooksecurefunc(AFK, 'SetAFK', S.SetAFK)
+
+function S:CreateUpdatePanels()
+	local enable = E.db.general.afk and S.db.enable
+
+	--* Top Panel
+	do
+		if not AFK.AFKMode.SL_TopPanel then
+			AFK.AFKMode.SL_TopPanel = CreateFrame('Frame', nil, AFK.AFKMode, 'BackdropTemplate')
+		end
+		local width = S.db.panels.top.width == 0 and GetScreenWidth() or S.db.panels.top.width
+
+		AFK.AFKMode.SL_TopPanel:SetFrameLevel(0)
+		AFK.AFKMode.SL_TopPanel:SetTemplate(S.db.panels.top.template, true)
+		AFK.AFKMode.SL_TopPanel:Point('TOP', AFK.AFKMode, 'TOP', 0, E.Border)
+		AFK.AFKMode.SL_TopPanel:Width(width)
+		AFK.AFKMode.SL_TopPanel:Height(S.db.panels.top.height)
+		AFK.AFKMode.SL_TopPanel:SetTemplate(S.db.panels.top.template, true)
+		AFK.AFKMode.SL_TopPanel:SetShown(enable)
+	end
+
+	--* Bottom Panel
+	do
+		if not AFK.AFKMode.SL_BottomPanel then
+			AFK.AFKMode.SL_BottomPanel = CreateFrame('Frame', nil, AFK.AFKMode, 'BackdropTemplate')
+		end
+		local width = S.db.panels.bottom.width == 0 and GetScreenWidth() or S.db.panels.bottom.width
+
+		AFK.AFKMode.SL_BottomPanel:SetFrameLevel(0)
+		AFK.AFKMode.SL_BottomPanel:SetTemplate(S.db.panels.bottom.template, true)
+		AFK.AFKMode.SL_BottomPanel:Point('BOTTOM', AFK.AFKMode, 'BOTTOM', 0, -E.Border)
+		AFK.AFKMode.SL_BottomPanel:Width(width)
+		AFK.AFKMode.SL_BottomPanel:Height(S.db.panels.bottom.height)
+		AFK.AFKMode.SL_BottomPanel:SetTemplate(S.db.panels.bottom.template, true)
+		AFK.AFKMode.SL_BottomPanel:SetShown(enable)
+	end
+
+	if not AFK.AFKMode.SL_ScrollFrame then
+		AFK.AFKMode.SL_ScrollFrame = CreateFrame('ScrollingMessageFrame', nil, AFK.AFKMode)
+	end
+	AFK.AFKMode.SL_ScrollFrame:SetHeight(S.db.defaultTexts.SL_ScrollFrame.size+4)
+	-- AFK.AFKMode.SL_ScrollFrame.bg:SetHeight(S.db.defaultTexts.SL_ScrollFrame.size+20)
+	AFK.AFKMode.SL_ScrollFrame:SetFading(false)
+	AFK.AFKMode.SL_ScrollFrame:SetFadeDuration(0)
+	AFK.AFKMode.SL_ScrollFrame:SetTimeVisible(1)
+	AFK.AFKMode.SL_ScrollFrame:SetMaxLines(1)
+	AFK.AFKMode.SL_ScrollFrame:SetSpacing(2)
+	AFK.AFKMode.SL_ScrollFrame:SetWidth(AFK.AFKMode.SL_BottomPanel:GetWidth()/2)
+	AFK.AFKMode.SL_ScrollFrame:LevelUpBG() --Creating neat stuff for teh tips
+	-- AFK.AFKMode.SL_ScrollFrame:SetShown(enable and S.db.defaultTexts.SL_ScrollFrame.enable)
+
+	--Update Chat
+	AFK.AFKMode.chat:SetHeight(AFK.AFKMode.SL_TopPanel:GetHeight())
+	AFK.AFKMode.chat:ClearAllPoints()
+	AFK.AFKMode.chat:Point(S.db.chat.inversePoint and E.InversePoints[S.db.chat.anchorPoint] or S.db.chat.anchorPoint, AFK.AFKMode[S.db.chat.attachTo], S.db.chat.anchorPoint, S.db.chat.xOffset, S.db.chat.yOffset)
+end
+
+function S:CreateTextStrings()
+	for element in next, E.db.sle.screensaver.defaultTexts do
+		if element and element ~= 'SL_ScrollFrame' and not AFK.AFKMode[element] then
+			AFK.AFKMode[element] = AFK.AFKMode:CreateFontString(nil, 'OVERLAY')
+		end
+	end
+end
+
+function S:UpdateTextOptions()
+	local afkFrame = AFK.AFKMode
+	local db = S.db.defaultTexts
+
+	-- for element in next, E.db.sle.screensaver.defaultTexts do
+	-- 	if element and element ~= 'SL_ScrollFrame' and not AFK.AFKMode[element] then
+	-- 		AFK.AFKMode[element] = AFK.AFKMode:CreateFontString(nil, 'OVERLAY')
+	-- 	end
+	-- end
+
+	for element in next, E.db.sle.screensaver.defaultTexts do
+		if element then
+			-- local enable = S.db.enable and db[element].enable
+			-- E.db.general.afk and S.db.enable
+			local enable = (E.db.general.afk and S.db.enable and db[element].enable)
+
+			afkFrame[element]:ClearAllPoints()
+			afkFrame[element]:Point(db[element].inversePoint and E.InversePoints[db[element].anchorPoint] or db[element].anchorPoint, afkFrame[db[element].attachTo], db[element].anchorPoint, db[element].xOffset, db[element].yOffset)
+			afkFrame[element]:SetFont(E.LSM:Fetch('font', db[element].font), db[element].size, db[element].outline)
+			afkFrame[element]:SetShown(enable)
+		end
+	end
+
+	S:UpdateTextStrings()
+end
+
+function S:UpdateTextStrings()
+	local level, name, classColor = UnitLevel('player'), UnitPVPName('player'), E:ClassColor(E.myclass)
+	local GuildName, GuildRank = GetGuildInfo('player')
+
+	currentDateTime()
+
+	AFK.AFKMode.SL_AFKMessage:SetText('|cff00AAFF'..L["You Are Away From Keyboard for"]..'|r')
+	AFK.AFKMode.SL_AFKTimePassed:SetTextColor(1, 1, 1)
+	AFK.AFKMode.SL_SubText:SetText(L["Take care of yourself, Master!"])
+	AFK.AFKMode.SL_PlayerName:SetTextColor(classColor.r, classColor.g, classColor.b)
+	AFK.AFKMode.SL_PlayerName:SetText(format('%s', name))
+	AFK.AFKMode.SL_PlayerClass:SetTextColor(classColor.r, classColor.g, classColor.b)
+	AFK.AFKMode.SL_PlayerClass:SetText(E.myLocalizedClass)
+	AFK.AFKMode.SL_PlayerLevel:SetTextColor(1, 1, 1)
+	AFK.AFKMode.SL_PlayerLevel:SetText(format('%s %s', LEVEL, level))
+	AFK.AFKMode.SL_GuildName:SetTextColor(0.7, 0.7, 0.7)
+	AFK.AFKMode.SL_GuildName:SetText(format(GuildName and '|cff00AAFF<%s>|r' or '', GuildName)) --Setting good looking guild name line
+	AFK.AFKMode.SL_GuildRank:SetTextColor(1, 1, 1)
+	AFK.AFKMode.SL_GuildRank:SetText(GuildRank or '')
+
+	TipNum = random(1, #L["SLE_TIPS"])
+	AFK.AFKMode.SL_ScrollFrame:AddMessage(L["SLE_TIPS"][TipNum], 1, 1, 1)
+end
+
+function S:CreateSetupCustomGraphics()
+	for name in next, E.db.sle.screensaver.customGraphics do
+		if not AFK.AFKMode['SL_CustomGraphics_'..name] then
+			S:CreateCustomGraphic(name)
+		end
+		S:UpdateCustomGraphic(name)
+	end
+end
+
+function S:SetupCustomGraphics()
+	for name in next, E.db.sle.screensaver.customGraphics do
+		S:CreateCustomGraphic(name)
+	end
+end
+
+function S:CreateCustomGraphic(name)
+	if not name then return end
+
+	if not AFK.AFKMode['SL_CustomGraphics_'..name] then
+		AFK.AFKMode['SL_CustomGraphics_'..name] = AFK.AFKMode:CreateTexture(nil, 'ARTWORK')
+	end
+end
+
+function S:UpdateCustomGraphics()
+	for name in next, E.db.sle.screensaver.customGraphics do
+		if AFK.AFKMode['SL_CustomGraphics_'..name] then
+			S:UpdateCustomGraphic(name)
+		end
+	end
+end
+
+function S:UpdateCustomGraphic(name)
+	if not name then return end
+	local afkFrame = AFK.AFKMode
+
+	if not afkFrame['SL_CustomGraphics_'..name] then
+		S:CreateCustomGraphic(name)
+	end
+
+	local db = S.db.customGraphics
+	local element = 'SL_CustomGraphics_'..name
+	local enable = S.db.enable and S.db.customGraphics[name].enable
+
+	afkFrame[element]:SetSize(db[name].width, db[name].height)
+	afkFrame[element]:SetTexture(db[name].path)
+	afkFrame[element]:ClearAllPoints()
+	afkFrame[element]:Point(db[name].inversePoint and E.InversePoints[db[name].anchorPoint] or db[name].anchorPoint, afkFrame[db[name].attachTo], db[name].anchorPoint, db[name].xOffset, db[name].yOffset)
+	afkFrame[element]:SetShown(enable)
+end
+
+function S:DeleteCustomGraphic(name)
+	if E.db.sle.screensaver.customGraphics[name] then
+		E.db.sle.screensaver.customGraphics[name] = nil
+		AFK.AFKMode['SL_CustomGraphics_'..name]:SetTexture(nil)
+		AFK.AFKMode['SL_CustomGraphics_'..name]:Hide()
+	end
+end
+
+function S:SetupDefaultGraphics()
+	for name in next, E.db.sle.screensaver.defaultGraphics do
+		if name and not AFK.AFKMode[name] then
+			if name == 'exPack' then
+				AFK.AFKMode.exPack = CreateFrame('Button', nil, AFK.AFKMode.SL_TopPanel)
+				AFK.AFKMode.exPack:SetScript('OnClick', S.AbortAFK) --Allow to exit afk screen by clicking on the crest
+				AFK.AFKMode.exPack.texture = AFK.AFKMode:CreateTexture(nil, 'OVERLAY')
+			elseif name == 'slLogo' then
+				AFK.AFKMode.slLogo = AFK.AFKMode:CreateTexture(nil, 'OVERLAY')
+			else
+				AFK.AFKMode[name] = AFK.AFKMode:CreateTexture(nil, 'ARTWORK')
+			end
+		end
+	end
+end
+
+function S:UpdateDefaultGraphics()
+	local db = S.db.defaultGraphics
+
+	for element in next, E.db.sle.screensaver.defaultGraphics do
+		if element then
+			local enable = S.db.enable and db[element].enable
+
+			AFK.AFKMode[element]:ClearAllPoints()
+			AFK.AFKMode[element]:Point(db[element].inversePoint and E.InversePoints[db[element].anchorPoint] or db[element].anchorPoint, AFK.AFKMode[db[element].attachTo], db[element].anchorPoint, db[element].xOffset, db[element].yOffset)
+			AFK.AFKMode[element]:SetSize(db[element].width, db[element].height)
+
+			if element == 'exPack' then
+				AFK.AFKMode[element].texture:SetShown(enable)
+			else
+				AFK.AFKMode[element]:SetShown(enable)
+			end
+		end
+	end
+
+	AFK.AFKMode.classCrest:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\classes\\'..S.db.defaultGraphics.classCrest.styleOptions..'\\'..E.myclass)
+	-- AFK.AFKMode.exPack.texture:SetTexture(GetExpansionDisplayInfo(GetClientDisplayExpansionLevel()).logo) --* Automatic way to get current expansion logo
+	AFK.AFKMode.exPack.texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\expansion\\'..S.db.defaultGraphics.exPack.styleOptions..'\\shadowlandslogo')
+	AFK.AFKMode.exPack.texture:SetAllPoints(AFK.AFKMode.exPack)
+	AFK.AFKMode.factionCrest:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\factioncrest\\'..S.db.defaultGraphics.factionCrest.styleOptions..'\\'..E.myfaction)
+	AFK.AFKMode.factionLogo:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\factionlogo\\'..S.db.defaultGraphics.factionLogo.styleOptions..'\\'..E.myfaction)
+	AFK.AFKMode.raceCrest:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\race\\'..S.db.defaultGraphics.raceCrest.styleOptions..'\\'..E.myrace)
+
+	AFK.AFKMode.slLogo:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\afk\addonlogos\sl\original\S&L]])
+	AFK.AFKMode.benikuiLogo:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\addonlogos\\benikui\\'..S.db.defaultGraphics.benikuiLogo.styleOptions..'\\BenikUI')
+	AFK.AFKMode.merauiLogo:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\addonlogos\\meraui\\'..S.db.defaultGraphics.merauiLogo.styleOptions..'\\MerathilisUI')
+	--* This is for the graphics releaf sent, not the default one
+	AFK.AFKMode.elvuiLogo:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\addonlogos\\elvui\\'..S.db.defaultGraphics.elvuiLogo.styleOptions..'\\ElvUI')
+end
+
+function S:CreateUpdateModelElements(skip)
+	AFK.AFKMode.bottom.modelHolder:ClearAllPoints()
+	if S.db.enable then
+		AFK.AFKMode.bottom.model:SetScript('OnUpdate', nil)
+		AFK.AFKMode.bottom.model:SetParent(AFK.AFKMode)
+		AFK.AFKMode.bottom.modelHolder:Point('BOTTOMRIGHT', AFK.AFKMode.SL_BottomPanel, 'BOTTOMRIGHT', -200+S.db.playermodel.holderXoffset, (220 + S.db.playermodel.holderYoffset))
+	else
+		AFK.AFKMode.bottom.model:SetScript('OnUpdate', S.OrigModelOnUpdate)
+		AFK.AFKMode.bottom.model:SetParent(AFK.AFKMode.bottom.modelHolder)
+		AFK.AFKMode.bottom.model:SetAlpha(1)
+		AFK.AFKMode.bottom.modelHolder:Point('BOTTOMRIGHT', AFK.AFKMode.bottom, 'BOTTOMRIGHT', -200, 220)
+	end
+
+	if skip then return end
+	--S&L Test Model
+	if not AFK.AFKMode.SL_TestModel then
+		AFK.AFKMode.SL_TestModel = CreateFrame('PlayerModel', 'SLE_ScreenTestModel', E.UIParent)
+	end
+	-- AFK.AFKMode.SL_TestModel:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2)
+	AFK.AFKMode.SL_TestModel:Size(GetScreenWidth() * 2, GetScreenHeight() * 2)
+	AFK.AFKMode.SL_TestModel:Point('CENTER', AFK.AFKMode.bottom.model)
+	AFK.AFKMode.SL_TestModel:Hide()
+end
+
+function S:Toggle()
+	if S.db.enable then
+		AFK.AFKMode.bottom:Hide() --* Hide ElvUI's Bottom Panel
+		AFK.AFKMode.bottom.LogoTop:Hide() --* Hide ElvUI's Top Logo Piece
+		AFK.AFKMode.bottom.LogoBottom:Hide() --* Hide ElvUI's Bottom Logo Piece
+		if not AFK.AFKMode:GetScript('OnUpdate') then
+			AFK.AFKMode:SetScript('OnUpdate', function(_, elapsed)
+				if not AFK.isAFK then return end
+
+				timerLastUpdate = timerLastUpdate + elapsed
+
+				if (timerLastUpdate > 1.0) then
+					total_seconds = total_seconds + 1
+
+					local minutes = floor(total_seconds/60)
+					local neg_seconds = -total_seconds % 60
+
+					if minutes - 29 == 0 and floor(neg_seconds) == 0 then
+						AFK.AFKMode.SL_AFKTimePassed:SetFormattedText("%s: |cfff0ff0000:00|r", L["Logout Timer"])
+					else
+						AFK.AFKMode.SL_AFKTimePassed:SetFormattedText("%02d:%02d", minutes -29, neg_seconds)
+					end
+					currentDateTime()
+					timerLastUpdate = 0
+				end
+
+				tipsLastUpdate = tipsLastUpdate + elapsed
+				if tipsLastUpdate > S.db.tipThrottle then
+					TipNum = random(1, #L["SLE_TIPS"])
+
+					while TipNum == OldTip do
+						TipNum = random(1, #L["SLE_TIPS"])
+					end
+
+					AFK.AFKMode.SL_ScrollFrame:AddMessage(L["SLE_TIPS"][TipNum], 1, 1, 1)
+					OldTip = TipNum
+
+					tipsLastUpdate = 0
+				end
+
+				FlipCameraYaw(elapsed * degreeMultyplier)
+				degree = degree + elapsed * degreeMultyplier
+			end)
+		end
+
+	else
+		AFK.AFKMode:SetScript('OnUpdate', nil)
+		AFK.AFKMode.bottom:Show() --* Show ElvUI's Bottom Panel
+		AFK.AFKMode.bottom.LogoTop:Show() --* Show ElvUI's Top Logo Piece
+		AFK.AFKMode.bottom.LogoBottom:Show() --* Show ElvUI's Bottom Logo Piece
+	end
+	S:CreateUpdatePanels()
+	S:CreateTextStrings()
+	S:UpdateTextOptions()
+	S:SetupDefaultGraphics()
+	S:UpdateDefaultGraphics()
+	S:CreateSetupCustomGraphics()
+	-- S:ModelHolderPos()
+	S:CreateUpdateModelElements()
+	S:SetupAnimations()
 end
 
 function S:Initialize()
 	if not SLE.initialized then return end
-	SS = AFK.AFKMode
-	if type(E.db.sle.screensaver.crest) == 'number' then
-		E.db.sle.screensaver.crest = nil
-		E.db.sle.screensaver.crest = P.sle.screensaver.crest
-	end
+
 	S.db = E.db.sle.screensaver
-	S.OnKeyDown = SS:GetScript('OnKeyDown')
-	if not E.private.sle.module.screensaver then return end
-	S:KeyScript()
+	S.OnKeyDown = AFK.AFKMode:GetScript('OnKeyDown')
+	S.OrigModelOnUpdate = AFK.AFKMode.bottom.model:GetScript('OnUpdate')
 
-	--Hooking to Elv's stuff to get rid of his camera rotation, cause turns out it is shit
-	hooksecurefunc(AFK, 'SetAFK', S.SetAFK_Hook)
-
-	hooksecurefunc(AFK, 'OnEvent', S.Event)
-	hooksecurefunc(AFK, 'UpdateTimer', S.UpdateTimer)
-	SS.Bottom = SS.bottom
-	SS.ElvTop = SS.Bottom.LogoTop
-	SS.ElvBottom = SS.Bottom.LogoBottom
-	SS.FactCrest = SS.Bottom.faction
-	SS.PlayerName = SS.Bottom.name
-	SS.Guild = SS.Bottom.guild
-	SS.timePassed = SS.Bottom.time
-	SS.Model = SS.Bottom.model
-
-	S:Setup()
-	S:ModelHolderPos()
+	if not S.db.enable then return end
 
 	function S:ForUpdateAll()
 		S.db = E.db.sle.screensaver
-		S:SetupAnimations()
+
+		S:Toggle()
 		S:Hide()
 		S:KeyScript()
 	end
 
 	S:ForUpdateAll()
 
-	SS:HookScript('OnShow', S.Show)
-	SS:HookScript('OnHide', S.Hide)
-	SS.Model:SetScript('OnUpdate', nil)
-
-	AFK:OnEvent()
+	AFK.AFKMode:HookScript('OnShow', S.Show)
+	AFK.AFKMode:HookScript('OnHide', S.Hide)
 end
 
 SLE:RegisterModule(S:GetName())

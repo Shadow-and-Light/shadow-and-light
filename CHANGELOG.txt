@@ -8,3 +8,6 @@ Fixes:
 
 Added:
 - Added Discord url for support
+
+Changes:
+- S&L AFK Mode: Rewrote majority of S&L AFK to be more customizable, expanded on the options so much so, it's easier to just look at the options instead of trying to list them.

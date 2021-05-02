@@ -1,332 +1,710 @@
-local SLE, T, E, L = unpack(select(2, ...))
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local S = SLE:GetModule('Screensaver')
 
 --GLOBALS: unpack, select, floor, tinsert, DEFAULT, AceGUIWidgetLSMlists, GetScreenWidth
-local floor, tinsert = floor, tinsert
-local DEFAULT, GetScreenWidth = DEFAULT, GetScreenWidth
+local NAME, PLAYER, GUILD, RANK = NAME, PLAYER, GUILD, RANK
 
-local function CreateFont(i, title, group)
+local floor, tinsert = floor, tinsert
+local DEFAULT, GetScreenWidth, GetScreenHeight = DEFAULT, GetScreenWidth, GetScreenHeight
+local ACH
+local selectedGraphic
+
+local newGraphicInfo = {
+	enable = true,
+	path = '',
+	width = 150,
+	height = 150,
+	inversePoint = false,
+	anchorPoint = 'CENTER',
+	attachTo = 'SL_TopPanel',
+	xOffset = 0,
+	yOffset = 0,
+}
+
+local function ColorizeName(name, color)
+	return format('|cFF%s%s|r', color or 'ffd100', name)
+end
+
+local function defaultTextsValues(group)
+	local values = {
+		SL_TopPanel = 'Top Panel',
+		SL_BottomPanel = 'Bottom Panel',
+		SL_AFKMessage = 'AFK Message',
+		SL_AFKTimePassed = 'AFK Message (Timer)',
+		SL_SubText = 'SubText',
+		-- SL_PlayerTitle = 'Title',
+		SL_PlayerName = 'Name',
+		-- SL_PlayerServer = 'Player Server',
+		SL_PlayerClass = 'Player Class',
+		SL_PlayerLevel = 'Player Level',
+		SL_GuildName = 'Guild Name',
+		SL_GuildRank = 'Guild Rank',
+		SL_Date = 'Date',
+		SL_Time = 'Time',
+		SL_ScrollFrame = 'Scroll Frame',
+	}
+
+	if group and values[group] then
+		values[group] = nil
+	end
+
+	return values
+end
+
+local function CreateDefaultTextsFont(i, title, group, inline)
 	local config = {
 		order = i,
-		type = 'group',
 		name = title,
-		get = function(info) return E.db.sle.screensaver[group][info[#info]] end,
-		set = function(info, value) E.db.sle.screensaver[group][info[#info]] = value; S:Media() end,
+		type = 'group',
+		guiInline = inline,
+		get = function(info) return E.db.sle.screensaver.defaultTexts[group][info[#info]] end,
+		set = function(info, value) E.db.sle.screensaver.defaultTexts[group][info[#info]] = value; S:UpdateTextOptions() end,
 		args = {
+			enable = {
+				order = 1,
+				name = L["Display"],
+				type = 'toggle',
+			},
 			font = {
+				order = 3,
+				name = L["Font"],
 				type = 'select',
 				dialogControl = 'LSM30_Font',
-				order = 1,
-				name = L["Font"],
 				values = AceGUIWidgetLSMlists.font,
 			},
-			size = {
-				order = 2,
-				name = L["FONT_SIZE"],
-				type = 'range',
-				min = 8, max = 32, step = 1,
-			},
 			outline = {
-				order = 3,
+				order = 4,
 				name = L["Font Outline"],
 				type = 'select',
 				values = T.Values.FontFlags,
 			},
+			size = {
+				order = 5,
+				name = L["FONT_SIZE"],
+				type = 'range',
+				min = 8, max = 32, step = 1,
+			},
+			inversePoint = {
+				order = 6,
+				name = L["Inverse Anchor Points"],
+				type = 'toggle',
+			},
+			anchorPoint = {
+				order = 7,
+				name = L["Anchor Point"],
+				type = 'select',
+				values = T.Values.AllPoints,
+			},
+			attachTo = {
+				order = 8,
+				name = L["Attach To"],
+				type = 'select',
+				sortByValue = true,
+				values = defaultTextsValues(group),
+			},
+			xOffset = {
+				order = 9,
+				name = L["X-Offset"],
+				type = 'range',
+				min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
+			},
+			yOffset = {
+				order = 10,
+				name = L["Y-Offset"],
+				type = 'range',
+				min = -(floor(GetScreenHeight()/2)), max = floor(GetScreenHeight()/2), step = 1,
+			},
 		},
 	}
-
-	if group == 'date' then
-		config.args.xOffset = {
-			order = 4,
-			name = L["X-Offset"],
-			type = 'range',
-			min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
-			set = function(_, value) E.db.sle.screensaver.date.xOffset = value end,
-		}
-		config.args.yOffset = {
-			order = 5,
-			name = L["Y-Offset"],
-			type = 'range',
-			min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
-			set = function(_, value) E.db.sle.screensaver.date.yOffset = value end,
-		}
+	if group == 'SL_Time' then
 		config.args.hour24 = {
-			order = 6,
+			order = 2,
 			name = L["24-Hour Time"],
 			type = 'toggle',
-			set = function(_, value) E.db.sle.screensaver.date.hour24 = value end,
-		}
-	elseif group == 'player' then
-		config.args.xOffset = {
-			order = 4,
-			name = L["X-Offset"],
-			type = 'range',
-			min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
-			set = function(_, value) E.db.sle.screensaver.player.xOffset = value end,
-		}
-		config.args.yOffset = {
-			order = 5,
-			name = L["Y-Offset"],
-			type = 'range',
-			min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
-			set = function(_, value) E.db.sle.screensaver.player.yOffset = value end,
+			-- set = function(_, value) E.db.sle.screensaver.date.hour24 = value end,
 		}
 	end
 
 	return config
 end
 
+local function sharedOptions(group)
+	local options = {
+		enable = {
+			order = 1,
+			name = L["Enable"],
+			type = 'toggle',
+			width = 'full',
+		},
+		width = {
+			order = 3,
+			name = L["Width"],
+			type = 'range',
+			min = 8, max = 512, step = 1,
+		},
+		height = {
+			order = 4,
+			name = L["Height"],
+			type = 'range',
+			min = 8, max = 512, step = 1,
+		},
+		spacer1 = ACH:Spacer(5, 'full'),
+		inversePoint = {
+			order = 6,
+			name = L["Inverse Anchor Points"],
+			type = 'toggle',
+		},
+		anchorPoint = {
+			order = 7,
+			name = L["Anchor Point"],
+			type = 'select',
+			values = T.Values.AllPoints,
+		},
+		attachTo = {
+			order = 8,
+			name = L["Attach To"],
+			type = 'select',
+			values = {
+				SL_TopPanel = 'Top Panel',
+				SL_BottomPanel = 'Bottom Panel',
+			},
+		},
+		spacer2 = ACH:Spacer(9, 'full'),
+		xOffset = {
+			order = 10,
+			name = L["X-Offset"],
+			type = 'range',
+			min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
+		},
+		yOffset = {
+			order = 11,
+			name = L["Y-Offset"],
+			type = 'range',
+			min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
+		},
+	}
+
+	if group == 'customGraphics' then
+		options.path = {
+			order = 2,
+			name = L["File Path"],
+			type = 'input',
+			desc = '',
+			width = 'full',
+		}
+		options.delete = {
+			order = 99,
+			name = DELETE,
+			type = 'execute',
+			desc = '',
+			width = 'full',
+			func = function()
+				S:DeleteCustomGraphic(selectedGraphic)
+				selectedGraphic = ''
+			end,
+		}
+	end
+
+	return options
+end
+
+local function defaultGraphicsOptions(element, group, name, order)
+	local options = {
+		order = order,
+		name = name,
+		type = 'group',
+		guiInline = group == 'addonLogos' and true or false,
+		get = function(info) return E.db.sle.screensaver.defaultGraphics[element][info[#info]] end,
+		set = function(info, value) E.db.sle.screensaver.defaultGraphics[element][info[#info]] = value S:UpdateDefaultGraphics() end,
+		args = sharedOptions(),
+	}
+	if element ~= 'slLogo' then
+		options.args.styleOptions = {
+			order = 2,
+			name = L["Style Options"],
+			type = 'select',
+			values = {},
+		}
+	end
+
+	if element == 'benikuiLogo' or element == 'merauiLogo' then
+		options.args.styleOptions.values = {
+			['original'] = 'Original',
+			['releaf-flat'] = 'Releaf-Flat',
+			['sltheme'] = E:TextGradient('S&L', 0.33725490196078,0.7921568627451,0.12941176470588, 1,1,1, 0.81176470588235,0.98039215686275,0.011764705882353)..' Theme',
+		}
+	elseif element == 'elvuiLogo' then
+		options.args.styleOptions.values = {
+			['releaf-flat'] = 'Releaf-Flat',
+			['sltheme'] = E:TextGradient('S&L', 0.33725490196078,0.7921568627451,0.12941176470588, 1,1,1, 0.81176470588235,0.98039215686275,0.011764705882353)..' Theme',
+		}
+	elseif element == 'classCrest' then
+		options.args.styleOptions.values = {
+			['benikui'] = 'BenikUI',
+			['releaf-flat'] = 'Releaf-Flat',
+			['sltheme'] = E:TextGradient('S&L', 0.33725490196078,0.7921568627451,0.12941176470588, 1,1,1, 0.81176470588235,0.98039215686275,0.011764705882353)..' Theme',
+		}
+	elseif element == 'factionLogo' or element == 'factionCrest' or element == 'exPack' or element == 'raceCrest' then
+		options.args.styleOptions.values = {
+			['blizzard'] = 'Blizzard',
+			['releaf-flat'] = 'Releaf-Flat',
+			['sltheme'] = E:TextGradient('S&L', 0.33725490196078,0.7921568627451,0.12941176470588, 1,1,1, 0.81176470588235,0.98039215686275,0.011764705882353)..' Theme',
+		}
+	end
+
+	return options
+end
+
 local function configTable()
 	if not SLE.initialized then return end
 
+	ACH = E.Libs.ACH
+
 	E.Options.args.sle.args.modules.args.screensaver = {
-		type = 'group',
-		name = L["AFK Mode"],
 		order = 1,
+		name = L["AFK Mode"],
+		type = 'group',
 		childGroups = 'tab',
 		disabled = function() return not E.db.general.afk end,
 		args = {
 			enable = {
 				order = 1,
-				type = 'toggle',
 				name = L["Enable"],
+				type = 'toggle',
 				desc = L["Enable S&L's additional features for AFK screen."],
-				get = function() return E.private.sle.module.screensaver end,
-				set = function(_, value) E.private.sle.module.screensaver = value; E:StaticPopup_Show('PRIVATE_RL') end,
+				get = function(info) return E.db.sle.screensaver[info[#info]] end,
+			set = function(info, value) E.db.sle.screensaver[info[#info]] = value; S:Toggle() end,
 			},
 			keydown = {
 				order = 2,
-				type = 'toggle',
 				name = L["Button restrictions"],
+				type = 'toggle',
 				desc = L["Use ElvUI's restrictions for button presses."],
 				hidden = function() return not E.global.sle.advanced.general end,
 				get = function() return E.db.sle.screensaver.keydown end,
 				set = function(_, value) E.db.sle.screensaver.keydown = value; S:KeyScript() end,
 			},
-			fonts = {
-				order = 3,
-				type = 'group',
-				name = L["Fonts"],
-				disabled = function() return not E.private.sle.module.screensaver end,
-				args = {
-					title = CreateFont(1, L["Title"], 'title'),
-					subtitle = CreateFont(2, L["Subtitle"], 'subtitle'),
-					date = CreateFont(3,L["Date"], 'date'),
-					player = CreateFont(4,L["Player Info"], 'player'),
-					tips = CreateFont(5,L["Tips"], 'tips'),
-				},
+			racialMusic = {
+				order = 2,
+				name = L["Racial Music"],
+				type = 'toggle',
+				desc = L["Play your character's racial theme music while AFK is active."],
+				-- hidden = function() return not E.global.sle.advanced.general end,
+				get = function() return E.db.sle.screensaver.racialMusic end,
+				set = function(_, value) E.db.sle.screensaver.racialMusic = value end,
 			},
-			graphics = {
+			general = {
+				order = 2,
+				name = L["General"],
 				type = 'group',
-				name = L["Graphics"],
-				order = 4,
-				disabled = function() return not E.private.sle.module.screensaver end,
+				disabled = function() return not E.db.sle.screensaver.enable end,
 				args = {
-					general = {
+					panels = {
+						order = 10,
+						name = L["Panels"],
 						type = 'group',
-						name = L["General"],
-						order = 1,
+						get = function(info) return E.db.sle.screensaver.panels[info[#info-1]][info[#info]] end,
+						set = function(info, value) E.db.sle.screensaver.panels[info[#info-1]][info[#info]] = value; S:CreateUpdatePanels(); S:SetupType(); end,
 						args = {
-							crest = {
+							animation = {
 								order = 1,
+								name = L["Animation"],
 								type = 'group',
 								guiInline = true,
-								name = L["Crest"],
-								get = function(info) return E.db.sle.screensaver.crest[info[#info]] end,
-								set = function(info, value) E.db.sle.screensaver.crest[info[#info]] = value; end,
 								args = {
-									size = {
+									animBounce = {
 										order = 1,
-										name = L["Size"],
-										type = 'range',
-										min = 84, max = 256, step = 1,
-										get = function() return E.db.sle.screensaver.crest.size end,
-										set = function(_, value) E.db.sle.screensaver.crest.size = value; S:Media() end,
+										name = L["Bouncing"],
+										type = 'toggle',
+										desc = L["Use bounce on fade in animations."],
+										disabled = function() return E.db.sle.screensaver.animTime == 0 end,
+										get = function(info) return E.db.sle.screensaver[info[#info]] end,
+										set = function(info, value) E.db.sle.screensaver[info[#info]] = value; S:SetupAnimations() end,
 									},
-									xOffset_faction = {
+									animTime = {
 										order = 2,
-										name = L["Faction Crest X-Offset"],
+										name = L["Animation time"],
 										type = 'range',
-										min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
+										desc = L["Time the fade in animation will take. To disable animation set to 0."],
+										min = 0, max = 10, step = 0.01,
+										get = function(info) return E.db.sle.screensaver[info[#info]] end,
+										set = function(info, value) E.db.sle.screensaver[info[#info]] = value; S:Hide() end,
 									},
-									yOffset_faction = {
+									animType = {
 										order = 3,
-										name = L["Faction Crest Y-Offset"],
-										type = 'range',
-										min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
-									},
-									xOffset_race = {
-										order = 4,
-										name = L["Race Crest X-Offset"],
-										type = 'range',
-										min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
-									},
-									yOffset_race = {
-										order = 5,
-										name = L["Race Crest Y-Offset"],
-										type = 'range',
-										min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
+										name = L["Animation Type"],
+										type = 'select',
+										disabled = function() return E.db.sle.screensaver.animTime == 0 end,
+										get = function(info) return E.db.sle.screensaver[info[#info]] end,
+										set = function(info, value) E.db.sle.screensaver[info[#info]] = value; S:SetupType() end,
+										values = {
+											SlideIn = L["Vertical Slide In"],
+											SlideSide = L["Horizontal Slide In"],
+											FadeIn = L["Fade"],
+										},
 									},
 								},
 							},
-							xpack = {
+							top = {
 								order = 2,
-								name = L["X-Pack Logo Size"],
-								type = 'range',
-								min = 100, max = 256, step = 1,
-								get = function() return E.db.sle.screensaver.xpack end,
-								set = function(_, value) E.db.sle.screensaver.xpack = value; S:Media() end,
+								name = L["Top"],
+								type = 'group',
+								guiInline = true,
+								args = {
+									height = {
+										order = 1,
+										name = L["Height"],
+										type = 'range',
+										min = 120, max = 200, step = 1,
+									},
+									width = {
+										order = 2,
+										name = L["Width"],
+										type = 'range',
+										desc = L["Setting to 0 will default to the screens width value return by blizzards api. Recommended if using this profile on various monitor resolutions and want the panel to be the max width."],
+										min = 0, max = ceil(GetScreenWidth()), step = 1,
+										get = function(info) return ceil(E.db.sle.screensaver.panels.top[info[#info]]) end,
+									},
+									template = {
+										order = 3,
+										name = L["Template"],
+										type = 'select',
+										values = {
+											Default = DEFAULT,
+											Transparent = L["Transparent"],
+										},
+									},
+								},
 							},
-							height = {
+							bottom = {
 								order = 3,
-								name = L["Panel Height"],
-								type = 'range',
-								min = 120, max = 200, step = 1,
-								get = function() return E.db.sle.screensaver.height end,
-								set = function(_, value) E.db.sle.screensaver.height = value end,
-							},
-							animType = {
-								order = 5,
-								name = L["Template"],
-								type = 'select',
-								disabled = function() return E.db.sle.screensaver.panelTemplate == 0 end,
-								get = function() return E.db.sle.screensaver.panelTemplate end,
-								set = function(_, value) E.db.sle.screensaver.panelTemplate = value; S:SetPanelTemplate() end,
-								values = {
-									Default = DEFAULT,
-									Transparent = L["Transparent"],
+								name = L["Bottom"],
+								type = 'group',
+								guiInline = true,
+								args = {
+									height = {
+										order = 1,
+										name = L["Height"],
+										type = 'range',
+										min = 120, max = 200, step = 1,
+									},
+									width = {
+										order = 2,
+										name = L["Width"],
+										type = 'range',
+										desc = L["Setting to 0 will default to the screens width value return by blizzards api. Recommended if using this profile on various monitor resolutions and want the panel to be the max width."],
+										min = 0, max = ceil(GetScreenWidth()), step = 1,
+										get = function(info) return ceil(E.db.sle.screensaver.panels.bottom[info[#info]]) end,
+									},
+									template = {
+										order = 3,
+										name = L["Template"],
+										type = 'select',
+										values = {
+											Default = DEFAULT,
+											Transparent = L["Transparent"],
+										},
+									},
 								},
 							},
 						},
 					},
-					model = {
-						type = 'group',
+					playermodel = {
+						order = 10,
 						name = L["Player Model"],
-						order = 2,
+						type = 'group',
 						args = {
 							enable = {
 								order = 1,
-								type = 'toggle',
 								name = L["Enable"],
+								type = 'toggle',
 								get = function() return E.db.sle.screensaver.playermodel.enable end,
 								set = function(_, value) E.db.sle.screensaver.playermodel.enable = value end,
 							},
-							modelanim = {
-								order = 2,
-								name = L["Model Animation"],
-								type = 'select',
-								get = function() return E.db.sle.screensaver.playermodel.anim end,
-								set = function(_, value) E.db.sle.screensaver.playermodel.anim = value end,
-								values = {
-									[47] = 'Standing',
-									[4] = 'Walking',
-									[5] = 'Running',
-									[13] = 'Walking backwards',
-									[25] = 'Unarmed Ready',
-									[60] = 'Talking',
-									[64] = 'Exclamation',
-									[66] = 'Bow',
-									[67] = 'Wave',
-									[68] = 'Cheers',
-									[69] = 'Dance',
-									[70] = 'Laugh',
-									[76] = 'Kiss',
-									[77] = 'Cry',
-									[80] = 'Applaud',
-									[82] = 'Flex',
-									[83] = 'Shy',
-									[113] = 'Salute',
-								},
-							},
-							holderXoffset = {
-								order = 6,
-								name = L["X-Offset"],
-								type = 'range',
-								min = -E.screenwidth, max = E.screenwidth, step = 1,
-								get = function() return E.db.sle.screensaver.playermodel.holderXoffset end,
-								set = function(_, value) E.db.sle.screensaver.playermodel.holderXoffset = value; S:ModelHolderPos() end,
-							},
-							holderYoffset = {
-								order = 7,
-								name = L["Y-Offset"],
-								type = 'range',
-								min = -E.screenheight, max = E.screenheight, step = 1,
-								get = function() return E.db.sle.screensaver.playermodel.holderYoffset end,
-								set = function(_, value) E.db.sle.screensaver.playermodel.holderYoffset = value; S:ModelHolderPos() end,
-							},
-							distance = {
-								order = 8,
-								name = L["Camera Distance Scale"],
-								type = 'range',
-								min = 0, max = 10, step = 0.01,
-								get = function() return E.db.sle.screensaver.playermodel.distance end,
-								set = function(_, value) E.db.sle.screensaver.playermodel.distance = value end,
-							},
-							rotation = {
-								type = 'range',
-								name = L["Model Rotation"],
-								order = 4,
-								min = 0, max = 360, step = 1,
-								get = function() return E.db.sle.screensaver.playermodel.rotation end,
-								set = function(_, value) E.db.sle.screensaver.playermodel.rotation = value end,
-							},
 							testmodel = {
-								order = 10,
-								type = 'execute',
+								order = 2,
 								name = L["Test"],
+								type = 'execute',
 								desc = L["Shows a test model with selected animation for 10 seconds. Clicking again will reset timer."],
 								func = function() S:TestShow() end,
+							},
+							general = {
+								order = 99,
+								name = ' ',
+								type = 'group',
+								guiInline = true,
+								args = {
+									modelanim = {
+										order = 2,
+										name = L["Model Animation"],
+										type = 'select',
+										get = function() return E.db.sle.screensaver.playermodel.anim end,
+										set = function(_, value) E.db.sle.screensaver.playermodel.anim = value end,
+										sortByValue = true,
+										values = {
+											[80] = 'Applaud',
+											[79] = 'Beg', --new
+											[66] = 'Bow',
+											[68] = 'Cheers',
+											[77] = 'Cry',
+											[69] = 'Dance',
+											[64] = 'Exclamation',
+											[82] = 'Flex',
+											[76] = 'Kiss',
+											[70] = 'Laugh',
+											[5] = 'Running',
+											[113] = 'Salute',
+											[83] = 'Shy',
+											[72] = 'Sit', --new
+											[71] = 'Sleep', --new
+											[47] = 'Standing',
+											[60] = 'Talking',
+											[25] = 'Unarmed Ready',
+											[4] = 'Walking',
+											[13] = 'Walking (Backwards)',
+											[67] = 'Wave',
+										},
+									},
+									holderXoffset = {
+										order = 6,
+										name = L["X-Offset"],
+										type = 'range',
+										min = -E.screenwidth, max = E.screenwidth, step = 1,
+										get = function() return E.db.sle.screensaver.playermodel.holderXoffset end,
+										set = function(_, value) E.db.sle.screensaver.playermodel.holderXoffset = value; S:CreateUpdateModelElements(true) end,
+									},
+									holderYoffset = {
+										order = 7,
+										name = L["Y-Offset"],
+										type = 'range',
+										min = -E.screenheight, max = E.screenheight, step = 1,
+										get = function() return E.db.sle.screensaver.playermodel.holderYoffset end,
+										set = function(_, value) E.db.sle.screensaver.playermodel.holderYoffset = value; S:CreateUpdateModelElements(true) end,
+									},
+									distance = {
+										order = 8,
+										name = L["Camera Distance Scale"],
+										type = 'range',
+										min = 0, max = 10, step = 0.01,
+										get = function() return E.db.sle.screensaver.playermodel.distance end,
+										set = function(_, value) E.db.sle.screensaver.playermodel.distance = value end,
+									},
+									rotation = {
+										order = 4,
+										name = L["Model Rotation"],
+										type = 'range',
+										min = 0, max = 360, step = 1,
+										get = function() return E.db.sle.screensaver.playermodel.rotation end,
+										set = function(_, value) E.db.sle.screensaver.playermodel.rotation = value end,
+									},
+								},
 							},
 						},
 					},
 				},
 			},
-			misc = {
+			graphics = {
+				order = 2,
+				name = L["Graphics"],
 				type = 'group',
-				name = L["Misc"],
-				order = 5,
-				disabled = function() return not E.private.sle.module.screensaver end,
+				disabled = function() return not E.db.sle.screensaver.enable end,
 				args = {
-					animBounce = {
-						order = 1,
-						type = 'toggle',
-						name = L["Bouncing"],
-						desc = L["Use bounce on fade in animations."],
-						disabled = function() return E.db.sle.screensaver.animTime == 0 end,
-						get = function() return E.db.sle.screensaver.animBounce end,
-						set = function(_, value) E.db.sle.screensaver.animBounce = value; S:SetupAnimations() end,
-					},
-					animTime = {
-						order = 2,
-						type = 'range',
-						name = L["Animation time"],
-						desc = L["Time the fade in animation will take. To disable animation set to 0."],
-						min = 0, max = 10, step = 0.01,
-						get = function() return E.db.sle.screensaver.animTime end,
-						set = function(_, value) E.db.sle.screensaver.animTime = value; S:Hide() end,
-					},
-					animType = {
-						order = 3,
-						name = L["Animation Type"],
-						type = 'select',
-						disabled = function() return E.db.sle.screensaver.animTime == 0 end,
-						get = function() return E.db.sle.screensaver.animType end,
-						set = function(_, value) E.db.sle.screensaver.animType = value; S:SetupType() end,
-						values = {
-							SlideIn = L["Slide"],
-							SlideSide = L["Slide Sideways"],
-							FadeIn = L["Fade"],
+					addGraphic = {
+						order = 0,
+						name = ColorizeName(L["Custom Graphics"], '33ff33'),
+						type = 'group',
+						-- get = function(info) return newGraphicInfo[info[#info]] end,
+						-- set = function(info, value) newGraphicInfo[info[#info]] = value end,
+						args = {
+							name = {
+								order = 1,
+								name = L["New Graphic Name"],
+								type = 'input',
+								width = 'full',
+								validate = function(_, value)
+									local name = strtrim(value)
+
+									return E.db.sle.screensaver.customGraphics[name] and SLE:Print(L["Name Taken"], 'error') or true
+								end,
+								get = function(info) return newGraphicInfo[info[#info]] end,
+								set = function(info, value)
+									local name = strtrim(value)
+									newGraphicInfo[info[#info]] = name
+								end,
+							},
+							add = {
+								order = 3,
+								name = L['Add'],
+								type = 'execute',
+								desc = '',
+								width = 'full',
+								func = function()
+									local name = newGraphicInfo.name
+
+									if E.db.sle.screensaver.customGraphics[name] then
+										SLE:Print(L["Name Taken"])
+									elseif name and name ~= '' and not E.db.sle.screensaver.customGraphics[name] then
+										E.db.sle.screensaver.customGraphics[name] = E:CopyTable({}, newGraphicInfo)
+
+										selectedGraphic = name
+
+										S:CreateCustomGraphic(name)
+										S:UpdateCustomGraphic(name)
+
+										E.Options.args.sle.args.modules.args.screensaver.args.graphics.args.addGraphic.args.graphicOptions.name = L["Custom Graphic"]..':  '..name
+
+										newGraphicInfo.name = ''
+									end
+								end,
+								disabled = function()
+									local name = newGraphicInfo.name
+
+									return E.db.sle.screensaver.customGraphics[name] or name == '' or name == nil
+								end,
+							},
+							header = ACH:Header(nil, 4),
+							graphicList = {
+								order = 5,
+								name = L["List of Graphics"],
+								type = 'select',
+								get = function() return selectedGraphic end,
+								set = function(_, value)
+									selectedGraphic = value
+									E.Options.args.sle.args.modules.args.screensaver.args.graphics.args.addGraphic.args.graphicOptions.name = L["Custom Graphic"]..':  '..value
+								end,
+								values = function()
+									local graphicsList = {}
+									graphicsList[''] = NONE
+									for name, _ in pairs(E.db.sle.screensaver.customGraphics) do
+										graphicsList[name] = name
+									end
+									if not selectedGraphic then
+										selectedGraphic = ''
+									end
+									return graphicsList
+								end,
+							},
+							spacer1 = ACH:Spacer(6, 'half'),
+							graphicOptions = {
+								order = 8,
+								name = '',
+								type = 'group',
+								guiInline = true,
+								hidden = function()
+									return selectedGraphic == ''
+								end,
+								get = function(info) return E.db.sle.screensaver.customGraphics[selectedGraphic][(info[#info])] end,
+								set = function(info, value)
+									E.db.sle.screensaver.customGraphics[selectedGraphic][(info[#info])] = value
+									S:UpdateCustomGraphic(selectedGraphic)
+								end,
+								args = sharedOptions('customGraphics'),
+								-- 	showPreview = {
+								-- 		order = 10,
+								-- 		type = 'execute',
+								-- 		name = L["Test"],
+								-- 		desc = L["Shows a test model with selected animation for 10 seconds. Clicking again will reset timer."],
+								-- 		func = function()
+								-- 			-- -- local db = E.db.sle.screensaver.customGraphics[info]
+								-- 			local db = E.db.sle.screensaver.customGraphics[selectedGraphic]
+								-- 			if AFK.AFKMode['SL_CustomGraphics_'..selectedGraphic] then
+								-- 				if not db.showPreview then
+								-- 					db.showPreview = true
+								-- 					-- SS['SL_CustomGraphics_'..selectedGraphic]:Show()
+								-- 					AFK.AFKMode['SL_CustomGraphics_'..selectedGraphic]:ClearAllPoints()
+								-- 					AFK.AFKMode['SL_CustomGraphics_'..selectedGraphic]:SetPoint('TOP', E.UIParent, 'TOP', 0, 0)
+								-- 					AFK.AFKMode['SL_CustomGraphics_'..selectedGraphic]:SetParent(E.UIParent)
+								-- 				else
+								-- 					db.showPreview = false
+								-- 					-- SS['SL_CustomGraphics_'..selectedGraphic]:Hide()
+								-- 					AFK.AFKMode['SL_CustomGraphics_'..selectedGraphic]:ClearAllPoints()
+								-- 					AFK.AFKMode['SL_CustomGraphics_'..selectedGraphic]:SetPoint('TOP', AFK.AFKMode.Top, 'TOP', 0, 0)
+								-- 					AFK.AFKMode['SL_CustomGraphics_'..selectedGraphic]:SetParent(AFK.AFKMode)
+								-- 				end
+								-- 				print("i tried")
+								-- 				-- SS['SL_CustomGraphics_'..selectedGraphic]:SetShown(db.showPreview)
+								-- 			end
+
+
+								-- 			-- -- -- E:Dump(info, true)
+								-- 			-- if not db.showPreview then
+								-- 			-- 	db.showPreview = true
+								-- 			-- 	-- 	-- SS['SL_CustomGraphics_'..info]:Show()
+								-- 			-- else
+								-- 			-- 	db.showPreview = false
+								-- 			-- 	-- 	-- SS['SL_CustomGraphics_'..info]:Hide()
+								-- 			-- end
+								-- 			-- print(selectedGraphic, db.showPreview)
+								-- 			-- SS.texture:SetShown(db.showPreview)
+								-- 			-- -- -- local texture = SS['SL_CustomGraphics_'..info]
+								-- 			-- -- -- S:PreviewCustomGraphics(db, info[#info])
+								-- 		end,
+								-- 	},
+							},
 						},
 					},
-					tipThrottle = {
-						order = 4,
-						name = L["Tip time"],
-						desc = L["Number of seconds tip will be shown before changed to another."],
-						type = 'range',
-						min = 5, max = 120, step = 1,
-						get = function() return E.db.sle.screensaver.tipThrottle end,
-						set = function(_, value) E.db.sle.screensaver.tipThrottle = value end,
+					addonLogos = {
+						order = 11,
+						name = L["Addon Logos"],
+						type = 'group',
+						args = {
+							slLogo = defaultGraphicsOptions('slLogo', 'addonLogos', "S&L", 1),
+							elvuiLogo = defaultGraphicsOptions('elvuiLogo', 'addonLogos', "ElvUI", 2),
+							benikuiLogo = defaultGraphicsOptions('benikuiLogo', 'addonLogos', "BenikUI", 99),
+							merauiLogo = defaultGraphicsOptions('merauiLogo', 'addonLogos', "MerathilisUI", 99),
+						},
 					},
+					classCrest = defaultGraphicsOptions('classCrest', nil, L["Class Crests"], 20),
+					exPack = defaultGraphicsOptions('exPack', nil, L["Expansion Icon"], 20),
+					factionCrest = defaultGraphicsOptions('factionCrest', nil, L["Faction Crests"], 20),
+					factionLogo = defaultGraphicsOptions('factionLogo', nil, L["Faction Logo"], 20),
+					raceCrest = defaultGraphicsOptions('raceCrest', nil, L["Race Crests"], 20),
+				},
+			},
+			text = {
+				order = 2,
+				name = L["Text"],
+				type = 'group',
+				disabled = function() return not E.db.sle.screensaver.enable end,
+				args = {
+					afk = {
+						order = 1,
+						type = 'group',
+						name = 'AFK Message & Time',
+						args = {
+							message = CreateDefaultTextsFont(1, L["Message"], 'SL_AFKMessage', true),
+							time = CreateDefaultTextsFont(1, L["Time"], 'SL_AFKTimePassed', true),
+						},
+					},
+					datetime = {
+						order = 1,
+						type = 'group',
+						name = 'Date & Time',
+						args = {
+							date = CreateDefaultTextsFont(1, L["Date"], 'SL_Date', true),
+							time = CreateDefaultTextsFont(1, L["Time"], 'SL_Time', true),
+						},
+					},
+					guild = {
+						order = 1,
+						type = 'group',
+						name = GUILD,
+						args = {
+							name = CreateDefaultTextsFont(1, NAME, 'SL_GuildName', true),
+							rank = CreateDefaultTextsFont(1, RANK, 'SL_GuildRank', true),
+						},
+					},
+					player = {
+						order = 1,
+						type = 'group',
+						name = PLAYER,
+						args = {
+							class = CreateDefaultTextsFont(1, L["Class"], 'SL_PlayerClass', true),
+							level = CreateDefaultTextsFont(1, L["Level"], 'SL_PlayerLevel', true),
+							name = CreateDefaultTextsFont(1, NAME, 'SL_PlayerName', true),
+						},
+					},
+					subtext = CreateDefaultTextsFont(1, L["SubText"], 'SL_SubText'),
 				},
 			},
 		},

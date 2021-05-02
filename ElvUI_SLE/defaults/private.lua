@@ -38,9 +38,7 @@ V["sle"] = {
 			["relureThreshold"] = 8,
 		},
 	},
-
 	["module"] = {
-		["screensaver"] = false,
 		["blizzmove"] = {
 			["enable"] = true,
 			["remember"] = false,
