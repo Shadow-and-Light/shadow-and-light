@@ -38,6 +38,7 @@ Blazeflack
 Boradan
 Camealion
 Merathilis, The Confused
+Nihilistzsche
 Nils Ruesch
 Omega1970
 Pvtschlag
@@ -45,8 +46,7 @@ Releaf
 Shenzo
 Simpy, The Heretic
 Sinaris
-Swordyy
-Whiro]]
+Swordyy]]
 
 
 local function configTable()
