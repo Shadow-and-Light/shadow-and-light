@@ -342,24 +342,19 @@ function S:AbortAFK()
 	if UnitIsAFK('player') then SendChatMessage('' ,'AFK' ) end
 end
 
-local isMusicPlaying = false
-local soundHandle, currentMusicSetting
-function S:RacialMusic(status)
-	if not S.db.racialMusic and not isMusicPlaying then return end
+local originalMusicSetting
+function S:RacialMusic()
+	if not S.db.racialMusic then return end
+	if not racialMusic[E.myrace] then return end
 
-	if status and not isMusicPlaying then
-		if not racialMusic[E.myrace] then return end
+	if AFK.isSLAFK then
+		originalMusicSetting = GetCVar('Sound_EnableMusic')
+		if originalMusicSetting == '0' then SetCVar('Sound_EnableMusic', 1) end
 
-		currentMusicSetting = GetCVar('Sound_EnableMusic')
-		if currentMusicSetting == '1' then SetCVar('Sound_EnableMusic', 0) end
-
-		soundHandle = select(2, PlaySoundFile(racialMusic[E.myrace], 'Dialog'))
-		isMusicPlaying = true
-	elseif isMusicPlaying then
-		StopSound(soundHandle, 500)
-		SetCVar('Sound_EnableMusic', currentMusicSetting)
-
-		isMusicPlaying = false
+		PlayMusic(racialMusic[E.myrace])
+	else
+		StopMusic()
+		SetCVar('Sound_EnableMusic', originalMusicSetting)
 	end
 end
 
@@ -377,6 +372,7 @@ function S:SetAFK(status)
 		AFK.AFKMode.bottom.model:SetAnimation(S.db.playermodel.anim)
 
 		AFK.isSLAFK = true
+		S:RacialMusic()
 	elseif AFK.isSLAFK then
 		FlipCameraYaw(-degree)
 		degree = 0
@@ -389,9 +385,8 @@ function S:SetAFK(status)
 		end
 
 		AFK.isSLAFK = false
+		S:RacialMusic()
 	end
-
-	S:RacialMusic(status)
 end
 hooksecurefunc(AFK, 'SetAFK', S.SetAFK)
 
