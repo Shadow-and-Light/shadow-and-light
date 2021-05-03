@@ -576,7 +576,12 @@ local function configTable()
 									return E.db.sle.afk.customGraphics[name] or name == '' or name == nil
 								end,
 							},
-							header = ACH:Header(nil, 4),
+							-- header = ACH:Header(nil, 4),
+							header = {
+								order = 4,
+								type = 'header',
+								name = '',
+							},
 							graphicList = {
 								order = 5,
 								name = L["List of Graphics"],
