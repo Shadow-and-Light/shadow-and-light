@@ -195,7 +195,7 @@ function S:Show()
 end
 
 function S:Hide()
-	if not S.db.enable then return end
+	if not S.db.enable or not E.db.general.afk then return end
 	for i = 1, #(S.Animations) do --To avoid weird shit like S:SetupType was ignored when animations were interrupted in the go
 		S.Animations[i]:Stop()
 	end
@@ -308,13 +308,34 @@ function S:AnimTestFinished()
 end
 
 function S:KeyScript()--Dealing with on key down script
-	if S.db.keydown then
-		--Default script for key detection. Ignores modifires and screenshot button
-		AFK.AFKMode:SetScript('OnKeyDown', S.OnKeyDown)
+	-- if not S.db.enable or not E.db.general.afk then return end
+
+	-- if S.db.enable and not S.db.keydown then
+	-- 	AFK.AFKMode:SetScript('OnKeyDown', nil)
+
+	-- elseif S.db.keydown then
+	-- 	AFK.AFKMode:SetScript('OnKeyDown', S.OnKeyDown)
+	-- end
+
+	if S.db.enable then
+		if S.db.keydown then
+			AFK.AFKMode:SetScript('OnKeyDown', S.OnKeyDown)
+		elseif not S.db.keydown then
+			AFK.AFKMode:SetScript('OnKeyDown', nil)
+		end
 	else
-		-- SLE:Print('KeyScript Fired')
-		AFK.AFKMode:SetScript('OnKeyDown', nil)
+		AFK.AFKMode:SetScript('OnKeyDown', S.OnKeyDown)
 	end
+
+
+
+	-- if S.db.keydown then
+	-- 	--Default script for key detection. Ignores modifires and screenshot button
+	-- 	AFK.AFKMode:SetScript('OnKeyDown', S.OnKeyDown)
+	-- else
+	-- 	-- SLE:Print('KeyScript Fired')
+	-- 	AFK.AFKMode:SetScript('OnKeyDown', nil)
+	-- end
 end
 
 function S:AbortAFK()
@@ -684,7 +705,7 @@ function S:Initialize()
 	S.OnKeyDown = AFK.AFKMode:GetScript('OnKeyDown')
 	S.OrigModelOnUpdate = AFK.AFKMode.bottom.model:GetScript('OnUpdate')
 
-	if not S.db.enable then return end
+	-- if not S.db.enable then return end
 
 	function S:ForUpdateAll()
 		S.db = E.db.sle.afk
