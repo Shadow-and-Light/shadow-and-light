@@ -815,6 +815,7 @@ P["sle"] = {
 				attachTo = 'SL_AFKMessage',
 				xOffset = 0,
 				yOffset = 0,
+				countdown = false,
 			},
 			SL_SubText = {
 				enable = true,

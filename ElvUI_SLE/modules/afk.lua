@@ -382,7 +382,11 @@ function S:SetAFK(status)
 		degree = 0
 		TipsElapsed = 0
 		total_seconds = 0
-		AFK.AFKMode.SL_AFKTimePassed:SetText('30:00')
+		if S.db.defaultTexts.SL_AFKTimePassed.countdown then
+			AFK.AFKMode.SL_AFKTimePassed:SetText('30:00')
+		else
+			AFK.AFKMode.SL_AFKTimePassed:SetText('00:00')
+		end
 
 		AFK.isSLAFK = false
 	end
@@ -652,12 +656,18 @@ function S:Toggle()
 
 					local minutes = floor(total_seconds/60)
 					local neg_seconds = -total_seconds % 60
+					local seconds = total_seconds % 60
 
-					if minutes - 29 == 0 and floor(neg_seconds) == 0 then
-						AFK.AFKMode.SL_AFKTimePassed:SetFormattedText("%s: |cfff0ff0000:00|r", L["Logout Timer"])
+					if S.db.defaultTexts.SL_AFKTimePassed.countdown then
+						if minutes - 29 == 0 and floor(neg_seconds) == 0 then
+							AFK.AFKMode.SL_AFKTimePassed:SetFormattedText("%s: |cfff0ff0000:00|r", L["Logout Timer"])
+						else
+							AFK.AFKMode.SL_AFKTimePassed:SetFormattedText("%02d:%02d", minutes -29, neg_seconds)
+						end
 					else
-						AFK.AFKMode.SL_AFKTimePassed:SetFormattedText("%02d:%02d", minutes -29, neg_seconds)
+						AFK.AFKMode.SL_AFKTimePassed:SetFormattedText('%02d:%02d', minutes, seconds)
 					end
+
 					currentDateTime()
 					timerLastUpdate = 0
 				end

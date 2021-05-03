@@ -116,11 +116,20 @@ local function CreateDefaultTextsFont(i, title, group, inline)
 			},
 		},
 	}
+
 	if group == 'SL_Time' then
 		config.args.hour24 = {
 			order = 2,
 			name = L["24-Hour Time"],
 			type = 'toggle',
+			-- set = function(_, value) E.db.sle.afk.date.hour24 = value end,
+		}
+	elseif group == 'SL_AFKTimePassed' then
+		config.args.countdown = {
+			order = 2,
+			name = L["Countdown AFK Timer"],
+			type = 'toggle',
+			desc = L["The AFK timer will count down from 30 mins instead of showing total time you were afk."],
 			-- set = function(_, value) E.db.sle.afk.date.hour24 = value end,
 		}
 	end
