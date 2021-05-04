@@ -157,6 +157,13 @@ function S:SetupAnimations()
 		S:FadeIn(AFK.AFKMode.merauiLogo)
 		S:FadeIn(AFK.AFKMode.benikuiLogo)
 
+		local customGraphicsDB = E.db.sle.afk.customGraphics
+		for name in pairs(customGraphicsDB) do
+			if name then
+				S:FadeIn(AFK.AFKMode['SL_CustomGraphics_'..name])
+			end
+		end
+
 		S:FadeIn(AFK.AFKMode.SL_AFKMessage)
 		S:FadeIn(AFK.AFKMode.SL_AFKTimePassed)
 		S:FadeIn(AFK.AFKMode.SL_SubText)
@@ -275,6 +282,13 @@ function S:Hide()
 	AFK.AFKMode.SL_Time:SetAlpha(alpha)
 
 	AFK.AFKMode.SL_ScrollFrame:SetAlpha(alpha)
+
+	local customGraphicsDB = E.db.sle.afk.customGraphics
+	for name in pairs(customGraphicsDB) do
+		if name then
+			AFK.AFKMode['SL_CustomGraphics_'..name]:SetAlpha((S.db.animTime > 0 and 0) or customGraphicsDB[name].alpha)
+		end
+	end
 
 	S:SetupType()
 	-- TipsElapsed = 0
