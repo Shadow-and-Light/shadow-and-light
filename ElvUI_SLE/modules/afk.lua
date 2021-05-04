@@ -18,6 +18,37 @@ local degreeMultyplier = 10
 S.Animations = {}
 S.Fading = {}
 
+S.CustomGraphicsDefaults = {
+	enable = true,
+	path = '',
+	width = 150,
+	height = 150,
+	inversePoint = false,
+	anchorPoint = 'CENTER',
+	attachTo = 'SL_TopPanel',
+	xOffset = 0,
+	yOffset = 0,
+	alpha = 1,
+}
+
+local newDBEntry = false
+local function UpdateCustomGraphicsDefaults()
+	local db = E.db.sle.afk.customGraphics
+
+	for name in pairs(db) do
+		if name then
+			if db[name].alpha == nil then
+				db[name].alpha = S.CustomGraphicsDefaults.alpha
+				newDBEntry = true
+			end
+		end
+	end
+	if newDBEntry then
+		SLE:Print('S&L AFK: Your custom graphics database entries have been updated with new defaults.', 'info')
+		newDBEntry = false
+	end
+end
+
 local racialMusic = {
 	['Human'] = 53210,
 	['Gnome'] = 369055,
@@ -503,6 +534,7 @@ function S:UpdateTextStrings()
 end
 
 function S:CreateSetupCustomGraphics()
+	UpdateCustomGraphicsDefaults()
 	for name in next, E.db.sle.afk.customGraphics do
 		if not AFK.AFKMode['SL_CustomGraphics_'..name] then
 			S:CreateCustomGraphic(name)
@@ -535,9 +567,8 @@ end
 
 function S:UpdateCustomGraphic(name)
 	if not name then return end
-	local afkFrame = AFK.AFKMode
 
-	if not afkFrame['SL_CustomGraphics_'..name] then
+	if not AFK.AFKMode['SL_CustomGraphics_'..name] then
 		S:CreateCustomGraphic(name)
 	end
 
@@ -545,11 +576,12 @@ function S:UpdateCustomGraphic(name)
 	local element = 'SL_CustomGraphics_'..name
 	local enable = S.db.enable and S.db.customGraphics[name].enable
 
-	afkFrame[element]:SetSize(db[name].width, db[name].height)
-	afkFrame[element]:SetTexture(db[name].path)
-	afkFrame[element]:ClearAllPoints()
-	afkFrame[element]:Point(db[name].inversePoint and E.InversePoints[db[name].anchorPoint] or db[name].anchorPoint, afkFrame[db[name].attachTo], db[name].anchorPoint, db[name].xOffset, db[name].yOffset)
-	afkFrame[element]:SetShown(enable)
+	AFK.AFKMode[element]:SetSize(db[name].width, db[name].height)
+	AFK.AFKMode[element]:SetTexture(db[name].path)
+	AFK.AFKMode[element]:SetAlpha(db[name].alpha)
+	AFK.AFKMode[element]:ClearAllPoints()
+	AFK.AFKMode[element]:Point(db[name].inversePoint and E.InversePoints[db[name].anchorPoint] or db[name].anchorPoint, AFK.AFKMode[db[name].attachTo], db[name].anchorPoint, db[name].xOffset, db[name].yOffset)
+	AFK.AFKMode[element]:SetShown(enable)
 end
 
 function S:DeleteCustomGraphic(name)

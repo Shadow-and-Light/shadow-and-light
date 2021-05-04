@@ -9,17 +9,7 @@ local DEFAULT, GetScreenWidth, GetScreenHeight = DEFAULT, GetScreenWidth, GetScr
 local ACH
 local selectedGraphic
 
-local newGraphicInfo = {
-	enable = true,
-	path = '',
-	width = 150,
-	height = 150,
-	inversePoint = false,
-	anchorPoint = 'CENTER',
-	attachTo = 'SL_TopPanel',
-	xOffset = 0,
-	yOffset = 0,
-}
+local newGraphicInfo = {}
 
 local function ColorizeName(name, color)
 	return format('|cFF%s%s|r', color or 'ffd100', name)
@@ -211,6 +201,13 @@ local function sharedOptions(group)
 				S:DeleteCustomGraphic(selectedGraphic)
 				selectedGraphic = ''
 			end,
+		}
+		options.alpha = {
+			order = 99,
+			name = L["Alpha"],
+			type = 'range',
+			isPercent = true,
+			min = 0, max = 1, step = 0.01,
 		}
 	end
 
@@ -558,8 +555,8 @@ local function configTable()
 									if E.db.sle.afk.customGraphics[name] then
 										SLE:Print(L["Name Taken"])
 									elseif name and name ~= '' and not E.db.sle.afk.customGraphics[name] then
-										E.db.sle.afk.customGraphics[name] = E:CopyTable({}, newGraphicInfo)
-
+										E.db.sle.afk.customGraphics[name] = E:CopyTable({}, S.CustomGraphicsDefaults)
+										E.db.sle.afk.customGraphics[name].name = newGraphicInfo.name
 										selectedGraphic = name
 
 										S:CreateCustomGraphic(name)
