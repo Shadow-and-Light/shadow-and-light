@@ -15,7 +15,6 @@ local RollOnLoot, ConfirmLootRoll, CloseLoot = RollOnLoot, ConfirmLootRoll, Clos
 
 local check = false
 
-LT.PlayerLevel = 0
 LT.MaxPlayerLevel = 0
 LT.LootItems = 0 --To determine how many items are in our loot cache
 LT.LootEvents = { --Events to handle with rolls and stuff
@@ -202,9 +201,9 @@ function LT:HandleRoll(event, id)
 	end
 
 	--If XP gain is disabled, we count current level as max level
-	if IsXPUserDisabled() then LT.MaxPlayerLevel = LT.PlayerLevel end
+	if IsXPUserDisabled() then LT.MaxPlayerLevel = E.mylevel end
 	--Don't roll if yout level is not high enough
-	if (LT.db.autoroll.bylevel and LT.PlayerLevel < LT.db.autoroll.level) and LT.PlayerLevel ~= LT.MaxPlayerLevel then return end
+	if (LT.db.autoroll.bylevel and E.mylevel < LT.db.autoroll.level) and E.mylevel ~= LT.MaxPlayerLevel then return end
 
 	if LT.db.autoroll.bylevel then --If you are over selected level (Motly on leveling process, where you may need greens)
 		if IsEquippableItem(link) then --If equippable, then figure out if this is an upgrade for you
@@ -319,11 +318,6 @@ function LT:Update()
 	LT:LootAlpha()
 end
 
---Update what level player currently is
-function LT:PLAYER_LEVEL_UP(event, level)
-	LT.PlayerLevel = level
-end
-
 --Add icons to loot merssages in chat. This is filter. It always allowes the message to be seen, just alters it if needed
 function LT:AddLootIcons(event, message, ...)
 	--if icons are enabled in this channel, doing icon stuff
@@ -353,7 +347,6 @@ end
 function LT:Initialize()
 	if not SLE.initialized then return end
 	LT.db = E.db.sle.loot
-	self:RegisterEvent("PLAYER_LEVEL_UP")
 
 	function LT:ForUpdateAll()
 		LT.db = E.db.sle.loot
@@ -363,7 +356,6 @@ function LT:Initialize()
 	end
 
 	LT.MaxPlayerLevel = GetMaxPlayerLevel()
-	LT.PlayerLevel = UnitLevel('player')
 
 	--Azil made this, blame him if something fucked up
 	if E.db.general and LT.db.autoroll.enable then
