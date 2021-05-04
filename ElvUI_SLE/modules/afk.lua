@@ -9,7 +9,7 @@ local format, random, date, tinsert, tonumber = format, random, date, tinsert, t
 local UnitPVPName, UnitLevel, UnitClass = UnitPVPName, UnitLevel, UnitClass
 local RANK, LEVEL = RANK, LEVEL
 local C_Timer, CreateAnimationGroup = C_Timer, CreateAnimationGroup
-local TipsElapsed, TipNum, OldTip, degree = 0, 1, 0, 0
+local TipNum, OldTip, degree = 1, 0, 0
 local timerLastUpdate = 0
 local tipsLastUpdate = 0
 local total_seconds = 0
@@ -232,7 +232,7 @@ function S:Hide()
 	AFK.AFKMode.SL_ScrollFrame:SetAlpha(alpha)
 
 	S:SetupType()
-	TipsElapsed = 0
+	-- TipsElapsed = 0
 end
 
 function S:SetupType()
@@ -376,7 +376,6 @@ function S:SetAFK(status)
 	elseif AFK.isSLAFK then
 		FlipCameraYaw(-degree)
 		degree = 0
-		TipsElapsed = 0
 		total_seconds = 0
 		if S.db.defaultTexts.SL_AFKTimePassed.countdown then
 			AFK.AFKMode.SL_AFKTimePassed:SetText('30:00')
