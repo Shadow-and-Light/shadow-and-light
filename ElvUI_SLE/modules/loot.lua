@@ -19,20 +19,20 @@ LT.PlayerLevel = 0
 LT.MaxPlayerLevel = 0
 LT.LootItems = 0 --To determine how many items are in our loot cache
 LT.LootEvents = { --Events to handle with rolls and stuff
-	"CONFIRM_DISENCHANT_ROLL", --Group
-	"CONFIRM_LOOT_ROLL", --Group
-	"LOOT_BIND_CONFIRM", --Solo
+	'CONFIRM_DISENCHANT_ROLL', --Group
+	'CONFIRM_LOOT_ROLL', --Group
+	'LOOT_BIND_CONFIRM', --Solo
 }
 LT.Loot = {}
 LT.LootTemp = {}
 LT.Numbers = {}
 
 LT.IconChannels = {
-	"CHAT_MSG_BN_CONVERSATION","CHAT_MSG_BN_WHISPER","CHAT_MSG_BN_WHISPER_INFORM",
-	"CHAT_MSG_CHANNEL","CHAT_MSG_EMOTE","CHAT_MSG_GUILD","CHAT_MSG_INSTANCE_CHAT",
-	"CHAT_MSG_INSTANCE_CHAT_LEADER","CHAT_MSG_LOOT","CHAT_MSG_OFFICER","CHAT_MSG_PARTY",
-	"CHAT_MSG_PARTY_LEADER","CHAT_MSG_RAID","CHAT_MSG_RAID_LEADER","CHAT_MSG_RAID_WARNING",
-	"CHAT_MSG_SAY","CHAT_MSG_SYSTEM","CHAT_MSG_WHISPER","CHAT_MSG_WHISPER_INFORM","CHAT_MSG_YELL",
+	'CHAT_MSG_BN_CONVERSATION','CHAT_MSG_BN_WHISPER','CHAT_MSG_BN_WHISPER_INFORM',
+	'CHAT_MSG_CHANNEL','CHAT_MSG_EMOTE','CHAT_MSG_GUILD','CHAT_MSG_INSTANCE_CHAT',
+	'CHAT_MSG_INSTANCE_CHAT_LEADER','CHAT_MSG_LOOT','CHAT_MSG_OFFICER','CHAT_MSG_PARTY',
+	'CHAT_MSG_PARTY_LEADER','CHAT_MSG_RAID','CHAT_MSG_RAID_LEADER','CHAT_MSG_RAID_WARNING',
+	'CHAT_MSG_SAY','CHAT_MSG_SYSTEM','CHAT_MSG_WHISPER','CHAT_MSG_WHISPER_INFORM','CHAT_MSG_YELL',
 }
 
 --Checking for master looter/raid leadr/assist role.
@@ -118,11 +118,11 @@ end
 
 --Figuring out what channel to announce to
 local function Channel()
-	if LT.db.announcer.channel ~= "SAY" and IsPartyLFG() then
-		return "INSTANCE_CHAT"
+	if LT.db.announcer.channel ~= 'SAY' and IsPartyLFG() then
+		return 'INSTANCE_CHAT'
 	end
-	if LT.db.announcer.channel == "RAID" and not IsInRaid() then
-		return "PARTY"
+	if LT.db.announcer.channel == 'RAID' and not IsInRaid() then
+		return 'PARTY'
 	end
 	return LT.db.announcer.channel
 end
@@ -131,9 +131,9 @@ end
 function LT:AnnounceList()
 	for i = 1, LT.LootItems do
 		if LT.Numbers[i] == 1 then --One of this is looted
-			SendChatMessage(i..". "..LT.Loot[i], Channel())
+			SendChatMessage(i..'. '..LT.Loot[i], Channel())
 		elseif LT.Numbers[i] > 1 then --2+ looted
-			SendChatMessage(i..". "..LT.Numbers[i].."x"..LT.Loot[i], Channel())
+			SendChatMessage(i..'. '..LT.Numbers[i]..'x'..LT.Loot[i], Channel())
 		end
 
 		if i == LT.LootItems then --Table finished = announce complete => nuke it
@@ -151,7 +151,7 @@ function LT:Announce(event)
 
 	local NumLootItems = GetNumLootItems()
 	--Setting quality filter threshold
-	local quality = LT.db.announcer.quality == "EPIC" and 4 or LT.db.announcer.quality == "RARE" and 3 or LT.db.announcer.quality == "UNCOMMON" and 2
+	local quality = LT.db.announcer.quality == 'EPIC' and 4 or LT.db.announcer.quality == 'RARE' and 3 or LT.db.announcer.quality == 'UNCOMMON' and 2
 	--If auto annouce and you are eligible or in group and modifier selected is pressed, do stuff
 	if (Check() and LT.db.announcer.auto) or (LT:ModifierCheck() and (IsInGroup() or IsInRaid())) then
 		--Seeing if this loot is currently being processed/announced
@@ -226,18 +226,12 @@ end
 
 --Dealing with events
 function LT:HandleEvent(event, ...)
-	-- if event == "LOOT_OPENED" then --We open loot, should we announce it?
-		-- if LT.db.announcer.enable then
-			-- LT:Announce(event)
-		-- end
-	-- end
-
 	--No auto confirmation of BoP enabled? Not doing shit. Otherwise - confirm and loot
 	if not LT.db.autoroll.autoconfirm then return end
-	if event == "CONFIRM_LOOT_ROLL" or event == "CONFIRM_DISENCHANT_ROLL" then
+	if event == 'CONFIRM_LOOT_ROLL' or event == 'CONFIRM_DISENCHANT_ROLL' then
 		local arg1, arg2 = ...
 		ConfirmLootRoll(arg1, arg2)
-	elseif event == "LOOT_OPENED" or event == "LOOT_BIND_CONFIRM" then
+	elseif event == 'LOOT_OPENED' or event == 'LOOT_BIND_CONFIRM' then
 		local count = GetNumLootItems()
 		if count == 0 then CloseLoot() return end
 		for numslot = 1, count do
@@ -248,24 +242,24 @@ end
 
 --If ElvUI's config is opened then do alterations and unregistering da event
 local function LoadConfig(event, addon)
-	if addon ~= "ElvUI_OptionsUI" then return end
+	if addon ~= 'ElvUI_OptionsUI' then return end
 
 	LT:Update()
-	LT:UnregisterEvent("ADDON_LOADED")
+	LT:UnregisterEvent('ADDON_LOADED')
 end
 
 --Toggle module on/off
 function LT:Toggle()
 	if LT.db.enable then
-		self:RegisterEvent("LOOT_OPENED", "HandleEvent")
+		self:RegisterEvent('LOOT_OPENED', 'HandleEvent')
 		self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
-		if not IsAddOnLoaded("ElvUI_OptionsUI") then --How can this be not loaded at this point? On /rl or login into the game ofc
-			self:RegisterEvent("ADDON_LOADED", LoadConfig)
+		if not IsAddOnLoaded('ElvUI_OptionsUI') then --How can this be not loaded at this point? On /rl or login into the game ofc
+			self:RegisterEvent('ADDON_LOADED', LoadConfig)
 		end
 	else
-		self:UnregisterEvent("LOOT_OPENED")
+		self:UnregisterEvent('LOOT_OPENED')
 		self:UnregisterEvent('PLAYER_ENTERING_WORLD')
-		self:UnregisterEvent("ADDON_LOADED")
+		self:UnregisterEvent('ADDON_LOADED')
 	end
 end
 
@@ -273,7 +267,7 @@ end
 function LT:AutoToggle()
 	for i = 1, 3 do
 		if LT.db.autoroll.autoconfirm and LT.db.enable then
-			self:RegisterEvent(LT.LootEvents[i], "HandleEvent")
+			self:RegisterEvent(LT.LootEvents[i], 'HandleEvent')
 			UIParent:UnregisterEvent(LT.LootEvents[i])
 		else
 			UIParent:RegisterEvent(LT.LootEvents[i])
@@ -284,7 +278,7 @@ end
 
 --Setting loot history alpha
 function LT:LootAlpha()
-	_G["LootHistoryFrame"]:SetAlpha(LT.db.history.alpha or 1)
+	_G['LootHistoryFrame']:SetAlpha(LT.db.history.alpha or 1)
 end
 
 --Hide loot history frame on exiting dungeon
@@ -292,22 +286,22 @@ function LT:LootShow()
 	local instance = IsInInstance()
 
 	if (not instance and LT.db.history.autohide) then
-		_G["LootHistoryFrame"]:Hide()
-		if SLE._Compatibility["ElvUI_PagedLootHistory"] then _G["ElvUI_PagedLootHistoryFrame"]:Hide() end
+		_G['LootHistoryFrame']:Hide()
+		if SLE._Compatibility['ElvUI_PagedLootHistory'] then _G['ElvUI_PagedLootHistoryFrame']:Hide() end
 	end
 end
 
 --Module update
 function LT:Update()
 	--Setting Elv's option to button that leads to my shit if the module is enabled
-	if IsAddOnLoaded("ElvUI_OptionsUI") then
+	if IsAddOnLoaded('ElvUI_OptionsUI') then
 		if LT.db.autoroll.enable then
 			E.Options.args.general.args.general.args.autoRoll = {
 				order = 6,
 				name = L["Auto Greed/DE"],
 				desc = L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."],
-				type = "execute",
-				func = function() E.Libs["AceConfigDialog"]:SelectGroup("ElvUI", "sle", "modules", "loot") end,
+				type = 'execute',
+				func = function() E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'sle', 'modules', 'loot') end,
 			}
 		else
 			E.Options.args.general.args.general.args.autoRoll = {
