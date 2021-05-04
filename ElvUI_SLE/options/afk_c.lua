@@ -90,7 +90,7 @@ local function CreateDefaultTextsFont(i, title, group, inline)
 				name = L["Attach To"],
 				type = 'select',
 				sortByValue = true,
-				values = defaultTextsValues(group),
+				values = {},
 			},
 			xOffset = {
 				order = 9,
@@ -112,7 +112,6 @@ local function CreateDefaultTextsFont(i, title, group, inline)
 			order = 2,
 			name = L["24-Hour Time"],
 			type = 'toggle',
-			-- set = function(_, value) E.db.sle.afk.date.hour24 = value end,
 		}
 	elseif group == 'SL_AFKTimePassed' then
 		config.args.countdown = {
@@ -120,8 +119,13 @@ local function CreateDefaultTextsFont(i, title, group, inline)
 			name = L["Countdown AFK Timer"],
 			type = 'toggle',
 			desc = L["The AFK timer will count down from 30 mins instead of showing total time you were afk."],
-			-- set = function(_, value) E.db.sle.afk.date.hour24 = value end,
 		}
+	end
+
+	if group == 'SL_ScrollFrame' then
+		config.args.attachTo.values = {SL_TopPanel = 'Top Panel', SL_BottomPanel = 'Bottom Panel'}
+	else
+		config.args.attachTo.values = defaultTextsValues(group)
 	end
 
 	return config
@@ -733,6 +737,14 @@ local function configTable()
 						},
 					},
 					subtext = CreateDefaultTextsFont(1, L["SubText"], 'SL_SubText'),
+					scrollframe = {
+						order = 1,
+						type = 'group',
+						name = L["Random Tips Scroll Frame"],
+						args = {
+							randomTips = CreateDefaultTextsFont(1, L["Random Tips"], 'SL_ScrollFrame', true),
+						},
+					},
 				},
 			},
 		},

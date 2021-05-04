@@ -486,7 +486,7 @@ function S:CreateUpdatePanels()
 	if not AFK.AFKMode.SL_ScrollFrame then
 		AFK.AFKMode.SL_ScrollFrame = CreateFrame('ScrollingMessageFrame', nil, AFK.AFKMode)
 	end
-	AFK.AFKMode.SL_ScrollFrame:SetHeight(S.db.defaultTexts.SL_ScrollFrame.size+4)
+	AFK.AFKMode.SL_ScrollFrame:SetHeight(S.db.defaultTexts.SL_ScrollFrame.size+6)
 	-- AFK.AFKMode.SL_ScrollFrame.bg:SetHeight(S.db.defaultTexts.SL_ScrollFrame.size+20)
 	AFK.AFKMode.SL_ScrollFrame:SetFading(false)
 	AFK.AFKMode.SL_ScrollFrame:SetFadeDuration(0)
@@ -494,8 +494,6 @@ function S:CreateUpdatePanels()
 	AFK.AFKMode.SL_ScrollFrame:SetMaxLines(1)
 	AFK.AFKMode.SL_ScrollFrame:SetSpacing(2)
 	AFK.AFKMode.SL_ScrollFrame:SetWidth(AFK.AFKMode.SL_BottomPanel:GetWidth()/2)
-	AFK.AFKMode.SL_ScrollFrame:LevelUpBG() --Creating neat stuff for teh tips
-	-- AFK.AFKMode.SL_ScrollFrame:SetShown(enable and S.db.defaultTexts.SL_ScrollFrame.enable)
 
 	--Update Chat
 	AFK.AFKMode.chat:SetHeight(AFK.AFKMode.SL_TopPanel:GetHeight())
@@ -512,7 +510,6 @@ function S:CreateTextStrings()
 end
 
 function S:UpdateTextOptions()
-	local afkFrame = AFK.AFKMode
 	local db = S.db.defaultTexts
 
 	-- for element in next, E.db.sle.afk.defaultTexts do
@@ -521,16 +518,18 @@ function S:UpdateTextOptions()
 	-- 	end
 	-- end
 
-	for element in next, E.db.sle.afk.defaultTexts do
+	for element in next, db do
 		if element then
-			-- local enable = S.db.enable and db[element].enable
-			-- E.db.general.afk and S.db.enable
 			local enable = (E.db.general.afk and S.db.enable and db[element].enable)
 
-			afkFrame[element]:ClearAllPoints()
-			afkFrame[element]:Point(db[element].inversePoint and E.InversePoints[db[element].anchorPoint] or db[element].anchorPoint, afkFrame[db[element].attachTo], db[element].anchorPoint, db[element].xOffset, db[element].yOffset)
-			afkFrame[element]:SetFont(E.LSM:Fetch('font', db[element].font), db[element].size, db[element].outline)
-			afkFrame[element]:SetShown(enable)
+			AFK.AFKMode[element]:ClearAllPoints()
+			AFK.AFKMode[element]:Point(db[element].inversePoint and E.InversePoints[db[element].anchorPoint] or db[element].anchorPoint, AFK.AFKMode[db[element].attachTo], db[element].anchorPoint, db[element].xOffset, db[element].yOffset)
+			AFK.AFKMode[element]:SetFont(E.LSM:Fetch('font', db[element].font), db[element].size, db[element].outline)
+			AFK.AFKMode[element]:SetShown(enable)
+
+			if element == 'SL_ScrollFrame' then
+				AFK.AFKMode.SL_ScrollFrame:LevelUpBG()
+			end
 		end
 	end
 
