@@ -136,31 +136,31 @@ local function sharedOptions(group)
 			width = 'full',
 		},
 		width = {
-			order = 3,
+			order = 4,
 			name = L["Width"],
 			type = 'range',
 			min = 8, max = 512, step = 1,
 		},
 		height = {
-			order = 4,
+			order = 5,
 			name = L["Height"],
 			type = 'range',
 			min = 8, max = 512, step = 1,
 		},
-		spacer1 = ACH:Spacer(5, 'full'),
+		spacer1 = ACH:Spacer(6, 'full'),
 		inversePoint = {
-			order = 6,
+			order = 7,
 			name = L["Inverse Anchor Points"],
 			type = 'toggle',
 		},
 		anchorPoint = {
-			order = 7,
+			order = 8,
 			name = L["Anchor Point"],
 			type = 'select',
 			values = T.Values.AllPoints,
 		},
 		attachTo = {
-			order = 8,
+			order = 9,
 			name = L["Attach To"],
 			type = 'select',
 			values = {
@@ -168,15 +168,15 @@ local function sharedOptions(group)
 				SL_BottomPanel = 'Bottom Panel',
 			},
 		},
-		spacer2 = ACH:Spacer(9, 'full'),
+		spacer2 = ACH:Spacer(10, 'full'),
 		xOffset = {
-			order = 10,
+			order = 11,
 			name = L["X-Offset"],
 			type = 'range',
 			min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
 		},
 		yOffset = {
-			order = 11,
+			order = 12,
 			name = L["Y-Offset"],
 			type = 'range',
 			min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
@@ -191,6 +191,13 @@ local function sharedOptions(group)
 			desc = '',
 			width = 'full',
 		}
+		options.alpha = {
+			order = 3,
+			name = L["Alpha"],
+			type = 'range',
+			isPercent = true,
+			min = 0, max = 1, step = 0.01,
+		}
 		options.delete = {
 			order = 99,
 			name = DELETE,
@@ -201,13 +208,6 @@ local function sharedOptions(group)
 				S:DeleteCustomGraphic(selectedGraphic)
 				selectedGraphic = ''
 			end,
-		}
-		options.alpha = {
-			order = 99,
-			name = L["Alpha"],
-			type = 'range',
-			isPercent = true,
-			min = 0, max = 1, step = 0.01,
 		}
 	end
 
