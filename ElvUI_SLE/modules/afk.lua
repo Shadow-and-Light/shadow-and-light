@@ -29,6 +29,8 @@ S.CustomGraphicsDefaults = {
 	xOffset = 0,
 	yOffset = 0,
 	alpha = 1,
+	drawLayer = 'ARTWORK',
+	drawLevel = 1,
 }
 
 local newDBEntry = false
@@ -37,8 +39,20 @@ local function UpdateCustomGraphicsDefaults()
 
 	for name in pairs(db) do
 		if name then
+			-- Added Alpha Option
 			if db[name].alpha == nil then
 				db[name].alpha = S.CustomGraphicsDefaults.alpha
+				newDBEntry = true
+			end
+
+			-- Added Draw Layer
+			if db[name].drawLayer == nil then
+				db[name].drawLayer = S.CustomGraphicsDefaults.drawLayer
+				newDBEntry = true
+			end
+			-- Added Draw Level
+			if db[name].drawLevel == nil then
+				db[name].drawLevel = S.CustomGraphicsDefaults.drawLevel
 				newDBEntry = true
 			end
 		end
@@ -543,12 +557,6 @@ function S:CreateSetupCustomGraphics()
 	end
 end
 
-function S:SetupCustomGraphics()
-	for name in next, E.db.sle.afk.customGraphics do
-		S:CreateCustomGraphic(name)
-	end
-end
-
 function S:CreateCustomGraphic(name)
 	if not name then return end
 
@@ -579,6 +587,7 @@ function S:UpdateCustomGraphic(name)
 	AFK.AFKMode[element]:SetSize(db[name].width, db[name].height)
 	AFK.AFKMode[element]:SetTexture(db[name].path)
 	AFK.AFKMode[element]:SetAlpha(db[name].alpha)
+	AFK.AFKMode[element]:SetDrawLayer(db[name].drawLayer, db[name].drawLevel)
 	AFK.AFKMode[element]:ClearAllPoints()
 	AFK.AFKMode[element]:Point(db[name].inversePoint and E.InversePoints[db[name].anchorPoint] or db[name].anchorPoint, AFK.AFKMode[db[name].attachTo], db[name].anchorPoint, db[name].xOffset, db[name].yOffset)
 	AFK.AFKMode[element]:SetShown(enable)

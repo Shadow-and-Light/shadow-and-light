@@ -136,31 +136,32 @@ local function sharedOptions(group)
 			width = 'full',
 		},
 		width = {
-			order = 4,
+			order = 2,
 			name = L["Width"],
 			type = 'range',
 			min = 8, max = 512, step = 1,
 		},
 		height = {
-			order = 5,
+			order = 3,
 			name = L["Height"],
 			type = 'range',
 			min = 8, max = 512, step = 1,
 		},
-		spacer1 = ACH:Spacer(6, 'full'),
+		spacer1 = ACH:Spacer(4, 'full'),
+		spacer2 = ACH:Spacer(14, 'full'),
 		inversePoint = {
-			order = 7,
+			order = 15,
 			name = L["Inverse Anchor Points"],
 			type = 'toggle',
 		},
 		anchorPoint = {
-			order = 8,
+			order = 16,
 			name = L["Anchor Point"],
 			type = 'select',
 			values = T.Values.AllPoints,
 		},
 		attachTo = {
-			order = 9,
+			order = 17,
 			name = L["Attach To"],
 			type = 'select',
 			values = {
@@ -168,15 +169,15 @@ local function sharedOptions(group)
 				SL_BottomPanel = 'Bottom Panel',
 			},
 		},
-		spacer2 = ACH:Spacer(10, 'full'),
+		spacer3 = ACH:Spacer(18, 'full'),
 		xOffset = {
-			order = 11,
+			order = 19,
 			name = L["X-Offset"],
 			type = 'range',
 			min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
 		},
 		yOffset = {
-			order = 12,
+			order = 20,
 			name = L["Y-Offset"],
 			type = 'range',
 			min = -(floor(GetScreenWidth()/2)), max = floor(GetScreenWidth()/2), step = 1,
@@ -191,8 +192,19 @@ local function sharedOptions(group)
 			desc = '',
 			width = 'full',
 		}
+		options.drawLayer = {
+			order = 5,
+			name = L["Draw Layer"],
+			type = 'select',
+			values = {
+				ARTWORK = 'ARTWORK',
+				BACKGROUND = 'BACKGROUND',
+				OVERLAY = 'OVERLAY',
+			},
+		}
+		options.drawLevel = ACH:Range(L["Draw Level"], nil, 6, {min = 1, max = 7, step = 1})
 		options.alpha = {
-			order = 3,
+			order = 7,
 			name = L["Alpha"],
 			type = 'range',
 			isPercent = true,
