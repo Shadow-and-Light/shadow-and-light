@@ -1,7 +1,7 @@
 ﻿--Russian localization
-local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "ruRU")
+local L = ElvUI[1].Libs.ACL:NewLocale('ElvUI', 'ruRU')
 
-if not L then return; end
+if not L then return end
 
 --UI buttons--
 L["LibUIButtons_DESC"] = "Добавляет небольшую полосу с кнопками, дающими доступ к набору полезных функций.\nЭти опции выводятся библиотекой LibElv-UIButtons. Если вы их видите, то один из Ваших аддонов ее использует."

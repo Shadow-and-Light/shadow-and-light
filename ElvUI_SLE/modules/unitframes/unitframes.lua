@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local UF = E.UnitFrames;
+local UF = E.UnitFrames
 local SUF = SLE.UnitFrames
 SUF.CreatedShadows = {}
 --GLOBALS: hooksecurefunc, CreateFrame

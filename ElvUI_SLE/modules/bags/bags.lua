@@ -8,10 +8,10 @@ local _G = _G
 --Updating slot for deconstruct glow hide when item disappears
 function SB:UpdateSlot(bagID, slotID)
 	if (self.Bags[bagID] and self.Bags[bagID].numSlots ~= GetContainerNumSlots(bagID)) or not self.Bags[bagID] or not self.Bags[bagID][slotID] then
-		return;
+		return
 	end
 
-	local slot = self.Bags[bagID][slotID];
+	local slot = self.Bags[bagID][slotID]
 	if not Pr then Pr = SLE.Professions end
 	if not Pr.DeconstructionReal then return end
 	if Pr.DeconstructionReal:IsShown() and Pr.DeconstructionReal.Bag == bagID and Pr.DeconstructionReal.Slot == slotID then
@@ -41,10 +41,10 @@ function SB:Initialize()
 	SB:ForUpdateAll()
 
 	--Applying stuff to already existing bags
-	self:HookBags();
+	self:HookBags()
 	hooksecurefunc(B, "Layout", function(self, isBank)
 		SB:HookBags(isBank)
-	end);
+	end)
 
 	--This table is for initial update of a frame, cause applying transparent trmplate breaks color borders
 	SB.InitialUpdates = {

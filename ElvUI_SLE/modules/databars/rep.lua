@@ -112,10 +112,10 @@ end
 function DB:PopulateRepPatterns()
 	local symbols = {'%.$','%(','%)','|3%-7%%%(%%s%%%)','%%s([^%%])','%+','%%d','%%.1f','%%.','%%(','%%)','(.-)','(.-)%1','%%+','(%%d-)','(%%d-)'}
 	local pattern
-	pattern = T.rgsub(FACTION_STANDING_INCREASED, unpack(symbols));
+	pattern = T.rgsub(FACTION_STANDING_INCREASED, unpack(symbols))
 	tinsert(DB.RepIncreaseStrings, pattern)
 
-	pattern = T.rgsub(FACTION_STANDING_INCREASED_ACH_BONUS, unpack(symbols));
+	pattern = T.rgsub(FACTION_STANDING_INCREASED_ACH_BONUS, unpack(symbols))
 	tinsert(DB.RepIncreaseStrings, pattern)
 
 	pattern = T.rgsub(FACTION_STANDING_DECREASED, unpack(symbols))
@@ -145,7 +145,7 @@ function DB:FilterReputation(_, message, ...)
 end
 
 function DB:ScanFactions()
-	DB.factions = GetNumFactions();
+	DB.factions = GetNumFactions()
 	for i = 1, DB.factions do
 		local name, _, standingID, _, _, barValue, _, _, isHeader, _, hasRep, _, _, factionID = GetFactionInfo(i)
 
@@ -153,7 +153,7 @@ function DB:ScanFactions()
 			DB.factionVars[name] = DB.factionVars[name] or {}
 			DB.factionVars[name].Standing = standingID
 			if C_Reputation_IsFactionParagon(factionID) then
-				local currentValue = C_Reputation_GetFactionParagonInfo(factionID);
+				local currentValue = C_Reputation_GetFactionParagonInfo(factionID)
 				DB.factionVars[name].Value = currentValue
 				DB.factionVars[name].isParagon = true
 			else
@@ -184,7 +184,7 @@ function DB:NewRepString()
 
 		if (not isHeader or hasRep) and DB.factionVars[name] then
 			if DB.factionVars[name].isParagon then
-				local currentValue = C_Reputation_GetFactionParagonInfo(factionID);
+				local currentValue = C_Reputation_GetFactionParagonInfo(factionID)
 				barValue = currentValue
 			end
 			local diff = barValue - DB.factionVars[name].Value

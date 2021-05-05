@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local S = E.Skins;
+local S = E.Skins
 local Sk = SLE.Skins
 
 -- GLOBALS: C_Scenario, BonusObjectiveTrackerProgressBar_PlayFlareAnim, hooksecurefunc, CreateFrame
@@ -178,16 +178,16 @@ local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
 		block.SLE_OverlayFrame.LimitText:Hide()
 		block.SLE_OverlayFrame.LimitText2:Hide()
 
-		block.SLE_OverlayFrame.Mark2 = block.SLE_OverlayFrame:CreateTexture(nil,"OVERLAY");
+		block.SLE_OverlayFrame.Mark2 = block.SLE_OverlayFrame:CreateTexture(nil,"OVERLAY")
 		block.SLE_OverlayFrame.Mark2:SetPoint("TOPLEFT", block.StatusBar, "TOPLEFT", block.StatusBar:GetWidth() * (1 - Chest2_Mult) - 4, block.StatusBar:GetHeight())
-		block.SLE_OverlayFrame.Mark2:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark");
+		block.SLE_OverlayFrame.Mark2:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
 		block.SLE_OverlayFrame.Mark2:SetWidth(5)
 		block.SLE_OverlayFrame.Mark2:SetBlendMode("ADD")
 		block.SLE_OverlayFrame.Mark2:SetHeight(block.StatusBar:GetHeight()*3)
 
-		block.SLE_OverlayFrame.Mark3 = block.SLE_OverlayFrame:CreateTexture(nil,"OVERLAY");
+		block.SLE_OverlayFrame.Mark3 = block.SLE_OverlayFrame:CreateTexture(nil,"OVERLAY")
 		block.SLE_OverlayFrame.Mark3:SetPoint("TOPLEFT", block.StatusBar, "TOPLEFT", block.StatusBar:GetWidth() * (1 - Chest3_Mult) - 4, block.StatusBar:GetHeight())
-		block.SLE_OverlayFrame.Mark3:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark");
+		block.SLE_OverlayFrame.Mark3:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
 		block.SLE_OverlayFrame.Mark3:SetWidth(5)
 		block.SLE_OverlayFrame.Mark3:SetBlendMode("ADD")
 		block.SLE_OverlayFrame.Mark3:SetHeight(block.StatusBar:GetHeight()*3)
@@ -203,8 +203,8 @@ local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
 				if region:GetAtlas() == "ChallengeMode-Timer" then region:SetAlpha(0) end
 			end
 		end
-		block.TimerBG:Kill();
-		block.TimerBGBack:Kill();
+		block.TimerBG:Kill()
+		block.TimerBGBack:Kill()
 
 		if E.private.sle.skins.objectiveTracker.BGbackdrop  then block.SLE_Block:Show() end
 	end
@@ -214,7 +214,7 @@ local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
 	else
 		COLOR = E.private.sle.skins.objectiveTracker.color
 	end
-	S:HandleStatusBar(block.StatusBar, {COLOR.r, COLOR.g, COLOR.b});
+	S:HandleStatusBar(block.StatusBar, {COLOR.r, COLOR.g, COLOR.b})
 end
 
 local function UpdateChallengeModeTime(block, elapsedTime)
@@ -260,17 +260,17 @@ local function UpdateChallengeModeTime(block, elapsedTime)
 end
 
 local function SkinAffixes(block,affixes)
-	local num = #affixes;
+	local num = #affixes
 	for i = 1, num do
-		local affixFrame = block.Affixes[i];
-		local affixID = affixes[i];
+		local affixFrame = block.Affixes[i]
+		local affixID = affixes[i]
 		if affixFrame then
 			if not affixFrame.SLE_Icon then
 				affixFrame.SLE_Icon = affixFrame:CreateTexture(nil, "OVERLAY")
 				affixFrame.SLE_Icon:SetAllPoints()
 			end
 			affixFrame:StripTextures()
-			local _, _, filedataid = C_ChallengeMode.GetAffixInfo(affixID);
+			local _, _, filedataid = C_ChallengeMode.GetAffixInfo(affixID)
 			affixFrame.SLE_Icon:SetTexture(filedataid)
 			affixFrame.SLE_Icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
 		end
@@ -278,12 +278,12 @@ local function SkinAffixes(block,affixes)
 end
 
 function ScenarioChallengeModeAffixMixin:SetUp(affixID)
-	local _, _, filedataid = C_ChallengeMode.GetAffixInfo(affixID);
-	SetPortraitToTexture(self.Portrait, filedataid);
+	local _, _, filedataid = C_ChallengeMode.GetAffixInfo(affixID)
+	SetPortraitToTexture(self.Portrait, filedataid)
 
-	self.affixID = affixID;
+	self.affixID = affixID
 
-	self:Show();
+	self:Show()
 end
 
 -- Proving grounds
@@ -343,7 +343,7 @@ local function ObjectiveReskin()
 
 		-- ProgressBar in the ObjectiveTacker
 		hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, block, line, questID)
-			local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line];
+			local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line]
 			if progressBar and progressBar:IsShown() and not progressBar.skinned then
 				progressBar.Bar:StripTextures()
 				progressBar.Bar:SetStatusBarTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
@@ -384,7 +384,7 @@ local function ObjectiveReskin()
 		end)
 		-- Another ProgressBar in the ObjectiveTracker counting as Scenario (e.g. Legion Pre-Event)
 		hooksecurefunc(SCENARIO_TRACKER_MODULE, "AddProgressBar", function(self, block, line, criteriaIndex)
-			local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line];
+			local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line]
 			if progressBar and progressBar:IsShown() and not progressBar.skinned then
 				progressBar.Bar:StripTextures()
 				progressBar.Bar:SetStatusBarTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))

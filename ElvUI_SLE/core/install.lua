@@ -948,14 +948,14 @@ E.PopupDialogs['SLE_INSTALL_SETTINGS_LAYOUT'] = {
 	text = L["SLE_INSTALL_SETTINGS_LAYOUT_TEXT"],
 	button1 = YES,
 	button2 = NO,
-	OnCancel = E.noop;
+	OnCancel = E.noop
 }
 
 E.PopupDialogs['SLE_INSTALL_SETTINGS_ADDONS'] = {
 	text = "",
 	button1 = YES,
 	button2 = NO,
-	OnCancel = E.noop;
+	OnCancel = E.noop
 }
 
 local function StartSetup(Author)
@@ -1003,34 +1003,33 @@ SLE.installTable = {
 	["tutorialImagePoint"] = {0, 20},
 	["Pages"] = {
 		[1] = function()
-			_G["PluginInstallFrame"].SubTitle:SetText(format(L["Welcome to |cff9482c9Shadow & Light|r version %s!"], SLE.version))
-			_G["PluginInstallFrame"].Desc1:SetText(L["SLE_INSTALL_WELCOME"])
-			_G["PluginInstallFrame"].Desc2:SetText("")
-			_G["PluginInstallFrame"].Desc3:SetText(L["Please press the continue button to go onto the next step."])
+			_G.PluginInstallFrame.SubTitle:SetText(format(L["Welcome to |cff9482c9Shadow & Light|r version %s!"], SLE.version))
+			_G.PluginInstallFrame.Desc1:SetText(L["SLE_INSTALL_WELCOME"])
+			_G.PluginInstallFrame.Desc2:SetText("")
+			_G.PluginInstallFrame.Desc3:SetText(L["Please press the continue button to go onto the next step."])
 
-			_G["PluginInstallFrame"].Option1:Show()
-			_G["PluginInstallFrame"].Option1:SetScript("OnClick", InstallComplete)
-			_G["PluginInstallFrame"].Option1:SetText(L["Skip Process"])
+			_G.PluginInstallFrame.Option1:Show()
+			_G.PluginInstallFrame.Option1:SetScript("OnClick", InstallComplete)
+			_G.PluginInstallFrame.Option1:SetText(L["Skip Process"])
 		end,
 		[2] = function()
 			PI.SLE_Auth = ""
 			PI.SLE_Word = E.db.layoutSet == 'tank' and _G.STAT_CATEGORY_MELEE or E.db.layoutSet == 'healer' and _G.CLUB_FINDER_HEALER or E.db.layoutSet == 'dpsCaster' and _G.STAT_CATEGORY_RANGED or NONE
-			_G["PluginInstallFrame"].SubTitle:SetText(L["Shadow & Light Imports"])
-			_G["PluginInstallFrame"].Desc1:SetText(L["You can now choose if you want to use one of the authors' set of options. This will change the positioning of some elements as well of other various options."])
-			_G["PluginInstallFrame"].Desc2:SetText(format(L["SLE_Install_Text_AUTHOR"], PI.SLE_Word))
-			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cFF33FF33Low|r"])
+			_G.PluginInstallFrame.SubTitle:SetText(L["Shadow & Light Imports"])
+			_G.PluginInstallFrame.Desc1:SetText(L["You can now choose if you want to use one of the authors' set of options. This will change the positioning of some elements as well of other various options."])
+			_G.PluginInstallFrame.Desc2:SetText(format(L["SLE_Install_Text_AUTHOR"], PI.SLE_Word))
+			_G.PluginInstallFrame.Desc3:SetText(L["Importance: |cFF33FF33Low|r"])
 
-			_G["PluginInstallFrame"].Option1:Show()
-			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() PI.SLE_Auth = "DARTH"; _G["PluginInstallFrame"].Next:Click() end)
-			_G["PluginInstallFrame"].Option1:SetText(L["Darth's Config"])
+			_G.PluginInstallFrame.Option1:Show()
+			_G.PluginInstallFrame.Option1:SetScript('OnClick', function()
+				PI.SLE_Auth = "DARTH"
+				_G.PluginInstallFrame.Next:Click()
+			end)
+			_G.PluginInstallFrame.Option1:SetText(L["Darth's Config"])
 
 			-- _G["PluginInstallFrame"].Option2:Show()
 			-- _G["PluginInstallFrame"].Option2:SetScript('OnClick', function() PI.SLE_Auth = "REPOOC"; _G["PluginInstallFrame"].Next:Click() end)
 			-- _G["PluginInstallFrame"].Option2:SetText(L["Repooc's Config"])
-
-			-- _G["PluginInstallFrame"].Option2:Show()
-			-- _G["PluginInstallFrame"].Option2:SetScript('OnClick', function() PI.SLE_Auth = "AFFINITY"; _G["PluginInstallFrame"].Next:Click() end)
-			-- _G["PluginInstallFrame"].Option2:SetText(L["Affinitii's Config"])
 
 			_G["PluginInstallFrame"]:Size(550, 500)
 		end,
@@ -1086,11 +1085,11 @@ SLE.installTable = {
 			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cFF33FF33Low|r"])
 
 			_G["PluginInstallFrame"].Option1:Show()
-			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() E.db.sle.afk.enable = true; end)
+			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() E.db.sle.afk.enable = true end)
 			_G["PluginInstallFrame"].Option1:SetText(ENABLE)
 
 			_G["PluginInstallFrame"].Option2:Show()
-			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() E.db.sle.afk.enable = false; end)
+			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() E.db.sle.afk.enable = false end)
 			_G["PluginInstallFrame"].Option2:SetText(DISABLE)
 		end,
 		[6] = function()
@@ -1101,7 +1100,7 @@ SLE.installTable = {
 
 			_G["PluginInstallFrame"].Option1:Show()
 			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function()
-				E.private.sle.module.blizzmove.enable = true;
+				E.private.sle.module.blizzmove.enable = true
 				_G["PluginInstallStepComplete"].message = L["Move Blizzard frames"]..": |cff00FF00"..ENABLE.."|r"
 				_G["PluginInstallStepComplete"]:Show()
 			end)
@@ -1109,7 +1108,7 @@ SLE.installTable = {
 
 			_G["PluginInstallFrame"].Option2:Show()
 			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function()
-				E.private.sle.module.blizzmove.enable = false;
+				E.private.sle.module.blizzmove.enable = false
 				_G["PluginInstallStepComplete"].message = L["Move Blizzard frames"]..": |cffFF0000"..DISABLE.."|r"
 				_G["PluginInstallStepComplete"]:Show()
 			end)
@@ -1123,7 +1122,7 @@ SLE.installTable = {
 
 		-- 	_G["PluginInstallFrame"].Option1:Show()
 		-- 	_G["PluginInstallFrame"].Option1:SetScript('OnClick', function()
-		-- 		E.db.unitframe.units.raid.power.enable = true;
+		-- 		E.db.unitframe.units.raid.power.enable = true
 		-- 		_G["PluginInstallStepComplete"].message = L["Raid Frame Power"]..": |cff00FF00"..ENABLE.."|r"
 		-- 		_G["PluginInstallStepComplete"]:Show()
 		-- 	end)
@@ -1131,7 +1130,7 @@ SLE.installTable = {
 
 		-- 	_G["PluginInstallFrame"].Option2:Show()
 		-- 	_G["PluginInstallFrame"].Option2:SetScript('OnClick', function()
-		-- 		E.db.unitframe.units.raid.power.enable = false;
+		-- 		E.db.unitframe.units.raid.power.enable = false
 		-- 		_G["PluginInstallStepComplete"].message = L["Raid Frame Power"]..": |cffFF0000"..DISABLE.."|r"
 		-- 		_G["PluginInstallStepComplete"]:Show()
 		-- 	end)

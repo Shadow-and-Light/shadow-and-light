@@ -34,8 +34,8 @@ function OH:Initialize()
 		OH.db = E.db.sle.legacy.orderhall
 	end
 
-	self:RegisterEvent("SHIPMENT_CRAFTER_INFO");
-	self:RegisterEvent("SHIPMENT_CRAFTER_CLOSED");
+	self:RegisterEvent("SHIPMENT_CRAFTER_INFO")
+	self:RegisterEvent("SHIPMENT_CRAFTER_CLOSED")
 end
 
 SLE:RegisterModule(OH:GetName())

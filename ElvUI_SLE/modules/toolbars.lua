@@ -18,10 +18,10 @@ Tools.buttoncounts = {} --To kepp number of items
 function Tools:InventoryUpdate(event)
 	--Not updating in combat. Cause taints
 	if InCombatLockdown() then
-		Tools:RegisterEvent("PLAYER_REGEN_ENABLED", "InventoryUpdate")
+		Tools:RegisterEvent('PLAYER_REGEN_ENABLED', 'InventoryUpdate')
 		return
 	else
-		Tools:UnregisterEvent("PLAYER_REGEN_ENABLED")
+		Tools:UnregisterEvent('PLAYER_REGEN_ENABLED')
 	end
 
 	local updateRequired = false
@@ -42,12 +42,12 @@ Tools.UpdateBarLayout = function(bar, anchor, buttons, category, db)
 	local count = 0
 
 	bar:ClearAllPoints()
-	bar:Point("LEFT", anchor, "LEFT", 0, 0)
+	bar:Point('LEFT', anchor, 'LEFT', 0, 0)
 	for i, button in ipairs(buttons) do
 		button:ClearAllPoints()
 		if not button.items then Tools:InventoryUpdate() end
 		if not db.active or button.items > 0 then
-			button:Point("TOPLEFT", bar, "TOPLEFT", (count * (db.buttonsize+(2 - E.Spacing)))+(1 - E.Spacing), -1)
+			button:Point('TOPLEFT', bar, 'TOPLEFT', (count * (db.buttonsize+(2 - E.Spacing)))+(1 - E.Spacing), -1)
 			button:Show()
 			button:Size(db.buttonsize, db.buttonsize)
 			count = count + 1
@@ -104,10 +104,10 @@ local function Zone(event)
 	end
 
 	if shouldShow then
-		Tools:RegisterEvent("BAG_UPDATE", "InventoryUpdate")
-		Tools:RegisterEvent("BAG_UPDATE_COOLDOWN")
-		Tools:RegisterEvent("UNIT_QUEST_LOG_CHANGED", "UpdateLayout")
-		Tools:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", "InventoryUpdate")
+		Tools:RegisterEvent('BAG_UPDATE', 'InventoryUpdate')
+		Tools:RegisterEvent('BAG_UPDATE_COOLDOWN')
+		Tools:RegisterEvent('UNIT_QUEST_LOG_CHANGED', 'UpdateLayout')
+		Tools:RegisterEvent('UNIT_SPELLCAST_SUCCEEDED', 'InventoryUpdate')
 
 		Tools:InventoryUpdate(event)
 		Tools:UpdateLayout()
@@ -126,18 +126,18 @@ end
 
 function Tools:UpdateLayout(event, unit) --don't touch
 	--For updating borders after quest was complited. for some reason events fires before quest disappeares from log
-	if event == "UNIT_QUEST_LOG_CHANGED" then
-		if unit == "player" then E:Delay(1, Tools.UpdateLayout) else return end
+	if event == 'UNIT_QUEST_LOG_CHANGED' then
+		if unit == 'player' then E:Delay(1, Tools.UpdateLayout) else return end
 	end
 	--not in combat. now idea how this can happen, but still
 	if InCombatLockdown() then
-		Tools:RegisterEvent("PLAYER_REGEN_ENABLED", "UpdateLayout")
+		Tools:RegisterEvent('PLAYER_REGEN_ENABLED', 'UpdateLayout')
 		return
 	else
-		Tools:UnregisterEvent("PLAYER_REGEN_ENABLED")
+		Tools:UnregisterEvent('PLAYER_REGEN_ENABLED')
 	end
 	--Update every single bar and mover
-	for name, anchor in pairs(Tools.RegisteredAnchors) do
+	for _, anchor in pairs(Tools.RegisteredAnchors) do
 		if anchor.mover then
 			if anchor.EnableMover() then
 				E:EnableMover(anchor.mover:GetName())
@@ -156,14 +156,14 @@ end
 --What happens when you click on stuff
 local function onClick(self, mousebutton)
 	--Da left button
-	if mousebutton == "LeftButton" then
+	if mousebutton == 'LeftButton' then
 		--If in combat and this bar doesn't contain macro yet
 		if InCombatLockdown() and not self.macro then
 			SLE:Print(L["We are sorry, but you can't do this now. Try again after the end of this combat."])
 			return
 		end
 		--Setting up a type for button. This what can't be done in combat
-		self:SetAttribute("type", self.buttonType)
+		self:SetAttribute('type', self.buttonType)
 		self:SetAttribute(self.buttonType, self.sortname)
 		local bar = self:GetParent()
 		--If this bar was supposed to have auto target feature, then do it!
@@ -174,8 +174,8 @@ local function onClick(self, mousebutton)
 		end
 		--Applying setup mark
 		if not self.macro then self.macro = true end
-	elseif mousebutton == "RightButton" and self.allowDrop then --if right click and item is allowed to be destroied
-		self:SetAttribute("type", "click")
+	elseif mousebutton == 'RightButton' and self.allowDrop then --if right click and item is allowed to be destroied
+		self:SetAttribute('type', 'click')
 		local container, slot = SLE:BagSearch(self.itemId)
 		if container and slot then
 			PickupContainerItem(container, slot)
@@ -189,7 +189,7 @@ end
 local function onEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 2, 4)
 	GameTooltip:ClearLines()
-	GameTooltip:AddLine(" ")
+	GameTooltip:AddLine(' ')
 	GameTooltip:SetItemByID(self.itemId)
 	if self.allowDrop then
 		GameTooltip:AddLine(L["Right-click to drop the item."])
@@ -205,7 +205,7 @@ end
 --Creating the button
 function Tools:CreateToolsButton(index, owner, buttonType, name, texture, allowDrop, db)
 	size = db.buttonsize
-	local button = CreateFrame("Button", format("ToolsButton%d", index), owner, "SecureActionButtonTemplate")
+	local button = CreateFrame('Button', format('ToolsButton%d', index), owner, 'SecureActionButtonTemplate')
 	button:Size(size, size)
 	S:HandleButton(button)
 
@@ -215,25 +215,25 @@ function Tools:CreateToolsButton(index, owner, buttonType, name, texture, allowD
 	button.buttonType = buttonType
 	button.macro = false
 
-	button.icon = button:CreateTexture(nil, "ARTWORK")
+	button.icon = button:CreateTexture(nil, 'ARTWORK')
 	button.icon:SetTexture(texture)
 	button.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 	button.icon:SetInside()
 
-	button.text = button:CreateFontString(nil, "OVERLAY")
-	button.text:SetFont(E.media.normFont, 12, "OUTLINE")
-	button.text:SetPoint("BOTTOMRIGHT", button, 1, 2)
+	button.text = button:CreateFontString(nil, 'OVERLAY')
+	button.text:SetFont(E.media.normFont, 12, 'OUTLINE')
+	button.text:SetPoint('BOTTOMRIGHT', button, 1, 2)
 
 	--If this thing has a cooldown
 	if select(3, GetItemCooldown(button.itemId)) == 1 then
-		button.cooldown = CreateFrame("Cooldown", format("ToolsButton%dCooldown", index), button)
+		button.cooldown = CreateFrame('Cooldown', format('ToolsButton%dCooldown', index), button)
 		button.cooldown:SetAllPoints(button)
 		E:RegisterCooldown(button.cooldown)
 	end
 
-	button:HookScript("OnEnter", onEnter)
-	button:HookScript("OnLeave", onLeave)
-	button:SetScript("OnMouseDown", onClick)
+	button:HookScript('OnEnter', onEnter)
+	button:HookScript('OnLeave', onLeave)
+	button:SetScript('OnMouseDown', onClick)
 
 	return button
 end
@@ -244,7 +244,7 @@ function Tools:PopulateBar(bar)
 	if not bar then return end
 	if not bar.Buttons then bar.Buttons = {} end
 	for id, data in pairs(bar.Items) do
-		tinsert(bar.Buttons, Tools:CreateToolsButton(id, bar, "item", data.name, data.texture, true, E.db.sle.legacy.garrison.toolbar))
+		tinsert(bar.Buttons, Tools:CreateToolsButton(id, bar, 'item', data.name, data.texture, true, E.db.sle.legacy.garrison.toolbar))
 	end
 	--This is my nightmare
 	sort(bar.Buttons, function(a, b)
@@ -271,10 +271,10 @@ function Tools:CreateFrames()
 		end
 	end
 	if not Tools.EventsRegistered then
-		Tools:RegisterEvent("ZONE_CHANGED", Zone)
-		Tools:RegisterEvent("ZONE_CHANGED_NEW_AREA", Zone)
-		Tools:RegisterEvent("ZONE_CHANGED_INDOORS", Zone)
-		Tools:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", "InventoryUpdate")
+		Tools:RegisterEvent('ZONE_CHANGED', Zone)
+		Tools:RegisterEvent('ZONE_CHANGED_NEW_AREA', Zone)
+		Tools:RegisterEvent('ZONE_CHANGED_INDOORS', Zone)
+		Tools:RegisterEvent('UNIT_SPELLCAST_SUCCEEDED', 'InventoryUpdate')
 		Tools.EventsRegistered = true
 	end
 
@@ -286,7 +286,7 @@ end
 local function RecreateAnchor(anchor)
 	for bar, data in pairs(anchor.Bars) do
 		for id, info in pairs(data.Items) do
-			if type(info) == "number" and GetItemInfo(id) == nil then
+			if type(info) == 'number' and GetItemInfo(id) == nil then
 				E:Delay(5, function() RecreateAnchor(anchor) end)
 				return
 			else

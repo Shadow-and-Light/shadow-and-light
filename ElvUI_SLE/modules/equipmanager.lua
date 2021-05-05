@@ -171,9 +171,9 @@ EM.TagsTable = {
 		if not IsInInstance() or not difficulty then return false end
 		local difID = select(3, GetInstanceInfo())
 		if difficulty == Difficulties[difID] then
-			return true;
+			return true
 		else
-			return false;
+			return false
 		end
 	end,
 	['effectivelevel'] = function(level)

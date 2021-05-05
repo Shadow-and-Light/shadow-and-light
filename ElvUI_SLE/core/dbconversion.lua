@@ -95,7 +95,7 @@ function SLE:DatabaseConversions()
 	local globals = ElvDB.global
 	if globals then
 		if globals.sle then
-			if globals.sle.pvpreadydialogreset then globals.sle.pvpreadydialogreset = nil; end
+			if globals.sle.pvpreadydialogreset then globals.sle.pvpreadydialogreset = nil end
 		end
 	end
 

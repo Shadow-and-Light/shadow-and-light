@@ -96,11 +96,11 @@ function M:Initialize()
 	--Viewport
 	function CinematicFrame_CancelCinematic()
 		if ( CinematicFrame.isRealCinematic ) then
-			StopCinematic();
+			StopCinematic()
 		elseif ( CanCancelScene() ) then
-			CancelScene();
+			CancelScene()
 		else
-			VehicleExit();
+			VehicleExit()
 		end
 	end
 

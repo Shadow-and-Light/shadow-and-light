@@ -1,7 +1,7 @@
 ﻿--Russian localization
-local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "enUS", true, true)
+local L = ElvUI[1].Libs.ACL:NewLocale('ElvUI', 'enUS', true, true)
 
-if not L then return; end
+if not L then return end
 
 --UI buttons--
 L["UI Buttons"] = true

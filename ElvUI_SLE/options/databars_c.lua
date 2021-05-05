@@ -40,7 +40,7 @@ local function configTable()
 						guiInline = true,
 						name = L["Chat Filters"],
 						get = function(info) return E.db.sle.databars.experience.chatfilter[ info[#info] ] end,
-						set = function(info, value) E.db.sle.databars.experience.chatfilter[ info[#info] ] = value; end,
+						set = function(info, value) E.db.sle.databars.experience.chatfilter[ info[#info] ] = value end,
 						args = {
 							enable = {
 								order = 1,
@@ -94,7 +94,7 @@ local function configTable()
 						guiInline = true,
 						name = L["Chat Filters"],
 						get = function(info) return E.db.sle.databars.reputation.chatfilter[ info[#info] ] end,
-						set = function(info, value) E.db.sle.databars.reputation.chatfilter[ info[#info] ] = value; end,
+						set = function(info, value) E.db.sle.databars.reputation.chatfilter[ info[#info] ] = value end,
 						args = {
 							enable = {
 								order = 1,
@@ -185,7 +185,7 @@ local function configTable()
 						guiInline = true,
 						name = L["Chat Filters"],
 						get = function(info) return E.db.sle.databars.honor.chatfilter[ info[#info] ] end,
-						set = function(info, value) E.db.sle.databars.honor.chatfilter[ info[#info] ] = value; end,
+						set = function(info, value) E.db.sle.databars.honor.chatfilter[ info[#info] ] = value end,
 						args = {
 							enable = {
 								order = 1,
@@ -262,7 +262,7 @@ local function configTable()
 						guiInline = true,
 						name = L["Chat Filters"],
 						get = function(info) return E.db.sle.databars.honor.chatfilter[ info[#info] ] end,
-						set = function(info, value) E.db.sle.databars.honor.chatfilter[ info[#info] ] = value; end,
+						set = function(info, value) E.db.sle.databars.honor.chatfilter[ info[#info] ] = value end,
 						args = {
 							enable = {
 								order = 1,

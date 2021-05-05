@@ -35,7 +35,7 @@ local function configTable()
 		name = L["Advanced Options"],
 		order = 100,
 		get = function(info) return E.global.sle.advanced[info[#info]] end,
-		set = function(info, value) E.global.sle.advanced[info[#info]] = value; end,
+		set = function(info, value) E.global.sle.advanced[info[#info]] = value end,
 		args = {
 			header = ACH:Header(L["Advanced Options"], 1),
 			info = ACH:Description(L["SLE_Advanced_Desc"], 2),

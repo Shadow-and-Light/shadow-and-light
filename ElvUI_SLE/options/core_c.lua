@@ -29,7 +29,7 @@ local function configTable()
 				type = 'execute',
 				name = L["Install"],
 				desc = L["Run the installation process."],
-				func = function() E.PluginInstaller:Queue(SLE.installTable); E:ToggleOptionsUI();  end,
+				func = function() E.PluginInstaller:Queue(SLE.installTable); E:ToggleOptionsUI() end,
 			},
 			Reset = {
 				order = 6,

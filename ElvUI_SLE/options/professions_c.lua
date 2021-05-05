@@ -34,7 +34,7 @@ local function configTable()
 						desc = L["Sets style of glow around item available for deconstruction while in deconstruct mode. Autocast is less intense but also less noticeable."],
 						disabled = function() return not E.private.sle.professions.deconButton.enable end,
 						get = function(info) return E.private.sle.professions.deconButton.style end,
-						set = function(info, value) E.private.sle.professions.deconButton.style = value; end,
+						set = function(info, value) E.private.sle.professions.deconButton.style = value end,
 						values = {
 							["BIG"] = L["Actionbar Proc"],
 							["SMALL"] = L["Actionbar Autocast"],
@@ -49,7 +49,7 @@ local function configTable()
 						type = "toggle",
 						disabled = function() return not E.private.sle.professions.deconButton.enable end,
 						get = function(info) return E.private.sle.professions.deconButton.buttonGlow end,
-						set = function(info, value) E.private.sle.professions.deconButton.buttonGlow = value; end,
+						set = function(info, value) E.private.sle.professions.deconButton.buttonGlow = value end,
 					},
 				},
 			},
@@ -86,7 +86,7 @@ local function configTable()
 						disabled = function() return not E.private.sle.professions.deconButton.enable end,
 						hidden = function() return not E.global.sle.advanced.general end,
 						get = function(info) return E.global.sle.DE.IgnoreTabards end,
-						set = function(info, value) E.global.sle.DE.IgnoreTabards = value; end,
+						set = function(info, value) E.global.sle.DE.IgnoreTabards = value end,
 					},
 					IgnorePanda = {
 						order = 5,
@@ -96,7 +96,7 @@ local function configTable()
 						disabled = function() return not E.private.sle.professions.deconButton.enable end,
 						hidden = function() return not E.global.sle.advanced.general end,
 						get = function(info) return E.global.sle.DE.IgnorePanda end,
-						set = function(info, value) E.global.sle.DE.IgnorePanda = value; end,
+						set = function(info, value) E.global.sle.DE.IgnorePanda = value end,
 					},
 					IgnoreCooking = {
 						order = 6,
@@ -106,7 +106,7 @@ local function configTable()
 						disabled = function() return not E.private.sle.professions.deconButton.enable end,
 						hidden = function() return not E.global.sle.advanced.general end,
 						get = function(info) return E.global.sle.DE.IgnoreCooking end,
-						set = function(info, value) E.global.sle.DE.IgnoreCooking = value; end,
+						set = function(info, value) E.global.sle.DE.IgnoreCooking = value end,
 					},
 					IgnoreFishing = {
 						order = 7,
@@ -116,7 +116,7 @@ local function configTable()
 						disabled = function() return not E.private.sle.professions.deconButton.enable end,
 						hidden = function() return not E.global.sle.advanced.general end,
 						get = function(info) return E.global.sle.DE.IgnoreFishing end,
-						set = function(info, value) E.global.sle.DE.IgnoreFishing = value; end,
+						set = function(info, value) E.global.sle.DE.IgnoreFishing = value end,
 					},
 				},
 			},
@@ -144,7 +144,7 @@ local function configTable()
 						type = "toggle",
 						disabled = function() return not E.private.sle.professions.deconButton.enable end,
 						get = function(info) return E.global.sle.LOCK.TradeOpen end,
-						set = function(info, value) E.global.sle.LOCK.TradeOpen = value; end,
+						set = function(info, value) E.global.sle.LOCK.TradeOpen = value end,
 					},
 				},
 			},
@@ -168,7 +168,7 @@ local function configTable()
 						type = "toggle",
 						disabled = function() return not E.private.sle.professions.fishing.EasyCast end,
 						get = function(info) return E.private.sle.professions.fishing.FromMount end,
-						set = function(info, value) E.private.sle.professions.fishing.FromMount = value; end,
+						set = function(info, value) E.private.sle.professions.fishing.FromMount = value end,
 					},
 					useLures = {
 						order = 3,
@@ -177,7 +177,7 @@ local function configTable()
 						type = "toggle",
 						disabled = function() return not E.private.sle.professions.fishing.EasyCast end,
 						get = function(info) return E.private.sle.professions.fishing.UseLures end,
-						set = function(info, value) E.private.sle.professions.fishing.UseLures = value; end,
+						set = function(info, value) E.private.sle.professions.fishing.UseLures = value end,
 					},
 					relureThreshold = {
 						order = 4,
@@ -187,7 +187,7 @@ local function configTable()
 						min = 1, max = 15, step = 1,
 						disabled = function() return not E.private.sle.professions.fishing.EasyCast or not E.private.sle.professions.fishing.UseLures end,
 						get = function(info) return E.private.sle.professions.fishing.relureThreshold end,
-						set = function(info, value) E.private.sle.professions.fishing.relureThreshold = value; end,
+						set = function(info, value) E.private.sle.professions.fishing.relureThreshold = value end,
 					},
 					IgnorePole = {
 						order = 5,
@@ -196,7 +196,7 @@ local function configTable()
 						type = "toggle",
 						disabled = function() return not E.private.sle.professions.fishing.EasyCast or E.private.sle.professions.fishing.CastButton == "None" end,
 						get = function(info) return E.private.sle.professions.fishing.IgnorePole end,
-						set = function(info, value) E.private.sle.professions.fishing.IgnorePole = value; end,
+						set = function(info, value) E.private.sle.professions.fishing.IgnorePole = value end,
 					},
 					CastButton = {
 						order = 6,

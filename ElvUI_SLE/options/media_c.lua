@@ -280,7 +280,7 @@ local function configTable()
 						name = L["Font"],
 						values = AceGUIWidgetLSMlists.font,
 						get = function(_) return allFont end,
-						set = function(_, value) allFont = value; end,
+						set = function(_, value) allFont = value end,
 					},
 					size = {
 						order = 2,
@@ -288,14 +288,14 @@ local function configTable()
 						type = 'range',
 						min = 6, max = 20, step = 1,
 						get = function(_) return allSize end,
-						set = function(_, value) allSize = value; end,
+						set = function(_, value) allSize = value end,
 					},
 					outline = {
 						order = 3,
 						name = L["Font Outline"],
 						type = 'select',
 						get = function(_) return allOutline end,
-						set = function(_, value) allOutline = value; end,
+						set = function(_, value) allOutline = value end,
 						values = T.Values.FontFlags,
 					},
 					applyFontToAll = {
@@ -307,7 +307,7 @@ local function configTable()
 							E.PopupDialogs["SLE_APPLY_FONT_WARNING"].allFont = allFont
 							E.PopupDialogs["SLE_APPLY_FONT_WARNING"].allSize = allSize
 							E.PopupDialogs["SLE_APPLY_FONT_WARNING"].allOutline = allOutline
-							E:StaticPopup_Show("SLE_APPLY_FONT_WARNING");
+							E:StaticPopup_Show("SLE_APPLY_FONT_WARNING")
 						end,
 					},
 				},

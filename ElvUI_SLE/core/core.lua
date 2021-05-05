@@ -1,4 +1,4 @@
-﻿local E, _, V, P, G = unpack(ElvUI);
+﻿local E, _, V, P, G = unpack(ElvUI)
 -- local locale = (E.global.general.locale and E.global.general.locale ~= "auto") and E.global.general.locale or GetLocale()
 
 -- local L = E.Libs.ACL:GetLocale('ElvUI', locale)
@@ -12,7 +12,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 --GLOBALS: hooksecurefunc, LibStub, GetAddOnMetadata, CreateFrame, GetAddOnEnableState, BINDING_HEADER_SLE
 
-local SLE = LibStub('AceAddon-3.0'):NewAddon(AddOnName, 'AceConsole-3.0', 'AceEvent-3.0', 'AceTimer-3.0', 'AceHook-3.0');
+local SLE = LibStub('AceAddon-3.0'):NewAddon(AddOnName, 'AceConsole-3.0', 'AceEvent-3.0', 'AceTimer-3.0', 'AceHook-3.0')
 SLE.callbacks = SLE.callbacks or LibStub('CallbackHandler-1.0'):New(SLE)
 
 SLE.version = GetAddOnMetadata('ElvUI_SLE', 'Version')
@@ -37,7 +37,7 @@ Engine[4] = L
 Engine[5] = V
 Engine[6] = P
 Engine[7] = G
-_G[AddOnName] = Engine;
+_G[AddOnName] = Engine
 
 SLE.Dropdowns = SLE:NewModule("Dropdowns", "AceEvent-3.0")
 SLE.Media = SLE:NewModule("Media", 'AceHook-3.0')
@@ -93,11 +93,11 @@ function SLE:OnInitialize()
 end
 
 function SLE:ConfigCats() --Additional mover groups
-	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L");
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L")
 	E.ConfigModeLocalizedStrings["S&L"] = L["S&L: All"]
-	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L BG");
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L BG")
 	E.ConfigModeLocalizedStrings["S&L BG"] = L["S&L: Backgrounds"]
-	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L MISC");
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "S&L MISC")
 	E.ConfigModeLocalizedStrings["S&L MISC"] = L["S&L: Misc"]
 end
 

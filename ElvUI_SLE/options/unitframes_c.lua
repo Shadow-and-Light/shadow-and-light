@@ -1,5 +1,5 @@
 ﻿local SLE, _, E, L = unpack(select(2, ...))
-local UF = E.UnitFrames;
+local UF = E.UnitFrames
 local SUF = SLE.UnitFrames
 
 local texPath = [[Interface\AddOns\ElvUI_SLE\media\textures\role\]]

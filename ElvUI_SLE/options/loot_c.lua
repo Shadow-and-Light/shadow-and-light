@@ -79,7 +79,7 @@ local function configTable()
 						desc = L["Automatically disenchant uncommon (green) quality items at max level"],
 						disabled = function() return not E.db.sle.loot.enable or not E.db.sle.loot.autoroll.enable end,
 						get = function() return E.db.sle.loot.autoroll.autode end,
-						set = function(_, value) E.db.sle.loot.autoroll.autode = value; end,
+						set = function(_, value) E.db.sle.loot.autoroll.autode = value end,
 					},
 					autoqlty = {
 						order = 9,
@@ -88,7 +88,7 @@ local function configTable()
 						desc = L["Sets the auto greed/disenchant quality\n\nUncommon: Rolls on Uncommon only\nRare: Rolls on Rares & Uncommon"],
 						disabled = function() return not E.db.sle.loot.enable or not E.db.sle.loot.autoroll.enable end,
 						get = function() return E.db.sle.loot.autoroll.autoqlty end,
-						set = function(_, value) E.db.sle.loot.autoroll.autoqlty = value; end,
+						set = function(_, value) E.db.sle.loot.autoroll.autoqlty = value end,
 						values = {
 							[4] = "|cffA335EE"..ITEM_QUALITY4_DESC.."|r",
 							[3] = "|cff0070DD"..ITEM_QUALITY3_DESC.."|r",
@@ -103,7 +103,7 @@ local function configTable()
 						desc = L["This will auto-roll if you are above the given level if: You cannot equip the item being rolled on, or the iLevel of your equipped item is higher than the item being rolled on or you have an heirloom equipped in that slot"],
 						disabled = function() return not E.db.sle.loot.enable or not E.db.sle.loot.autoroll.enable end,
 						get = function() return E.db.sle.loot.autoroll.bylevel end,
-						set = function(_, value) E.db.sle.loot.autoroll.bylevel = value; end,
+						set = function(_, value) E.db.sle.loot.autoroll.bylevel = value end,
 					},
 					level = {
 						order = 12,
@@ -112,7 +112,7 @@ local function configTable()
 						disabled = function() return not E.db.sle.loot.enable or not E.db.sle.loot.autoroll.enable end,
 						min = 1, max = GetMaxPlayerLevel(), step = 1,
 						get = function() return E.db.sle.loot.autoroll.level end,
-						set = function(_, value) E.db.sle.loot.autoroll.level = value; end,
+						set = function(_, value) E.db.sle.loot.autoroll.level = value end,
 					},
 				},
 			},
@@ -176,7 +176,7 @@ local function configTable()
 						disabled = function() return not E.db.sle.loot.looticons.enable end,
 						min = 8, max = 32, step = 1,
 						get = function() return E.db.sle.loot.looticons.size end,
-						set = function(_, value)	E.db.sle.loot.looticons.size = value; end,
+						set = function(_, value)	E.db.sle.loot.looticons.size = value end,
 					},
 					channels = {
 						type = "group",

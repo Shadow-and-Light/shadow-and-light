@@ -4,7 +4,7 @@ local MC
 local function CreateArmory()
 	local config = MC:CreateModuleConfigGroup(L["Armory Mode"], "armory", "sle")
 	config.get = function(info) return E.global.profileCopy.sle.armory[ info[#info] ] end
-	config.set = function(info, value) E.global.profileCopy.sle.armory[ info[#info] ] = value; end
+	config.set = function(info, value) E.global.profileCopy.sle.armory[ info[#info] ] = value end
 	config.args["character"] = {
 		order = 2,
 		type = "toggle",
@@ -32,7 +32,7 @@ local function CreateBackgrounds()
 			type = "toggle",
 			name = L["SLE_BG_"..i],
 			get = function(info) return E.global.profileCopy.sle.backgrounds[ info[#info] ] end,
-			set = function(info, value) E.global.profileCopy.sle.backgrounds[ info[#info] ] = value; end
+			set = function(info, value) E.global.profileCopy.sle.backgrounds[ info[#info] ] = value end
 		}
 	end
 
@@ -46,21 +46,21 @@ local function CreateChat()
 		type = "toggle",
 		name = L["Chat Frame Justify"],
 		get = function(info) return E.global.profileCopy.sle.chat[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.chat[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.chat[ info[#info] ] = value end
 	}
 	config.args.tab = {
 		order = 3,
 		type = "toggle",
 		name = L["Tabs"],
 		get = function(info) return E.global.profileCopy.sle.chat[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.chat[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.chat[ info[#info] ] = value end
 	}
 	config.args.invite = {
 		order = 3,
 		type = "toggle",
 		name = INVITE,
 		get = function(info) return E.global.profileCopy.sle.chat[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.chat[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.chat[ info[#info] ] = value end
 	}
 
 	return config
@@ -74,28 +74,28 @@ local function CreateDatatbarsConfig()
 		type = "toggle",
 		name = XPBAR_LABEL,
 		get = function(info) return E.global.profileCopy.sle.databars[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.databars[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.databars[ info[#info] ] = value end
 	}
 	config.args.reputation = {
 		order = 3,
 		type = "toggle",
 		name = REPUTATION,
 		get = function(info) return E.global.profileCopy.sle.databars[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.databars[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.databars[ info[#info] ] = value end
 	}
 	config.args.honor = {
 		order = 4,
 		type = "toggle",
 		name = HONOR,
 		get = function(info) return E.global.profileCopy.sle.databars[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.databars[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.databars[ info[#info] ] = value end
 	}
 	config.args.azerite = {
 		order = 5,
 		type = "toggle",
 		name = L["Azerite Bar"],
 		get = function(info) return E.global.profileCopy.sle.databars[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.databars[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.databars[ info[#info] ] = value end
 	}
 
 	return config
@@ -108,7 +108,7 @@ local function CreateSLEDatatextsConfig()
 		type = "toggle",
 		name = L["S&L Friends"],
 		get = function(info) return E.global.profileCopy.sle.dt[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.dt[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.dt[ info[#info] ] = value end
 	}
 
 	config.args.guild = {
@@ -116,28 +116,28 @@ local function CreateSLEDatatextsConfig()
 		type = "toggle",
 		name = L["S&L Guild"],
 		get = function(info) return E.global.profileCopy.sle.dt[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.dt[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.dt[ info[#info] ] = value end
 	}
 	config.args.mail = {
 		order = 4,
 		type = "toggle",
 		name = L["S&L Mail"],
 		get = function(info) return E.global.profileCopy.sle.dt[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.dt[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.dt[ info[#info] ] = value end
 	}
 	config.args.currency = {
 		order = 6,
 		type = "toggle",
 		name = "S&L Currency",
 		get = function(info) return E.global.profileCopy.sle.dt[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.dt[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.dt[ info[#info] ] = value end
 	}
 	config.args.regen = {
 		order = 7,
 		type = "toggle",
 		name = MANA_REGEN,
 		get = function(info) return E.global.profileCopy.sle.dt[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.dt[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.dt[ info[#info] ] = value end
 	}
 
 	return config
@@ -150,21 +150,21 @@ local function CreateLegacyConfig()
 		type = "toggle",
 		name = GARRISON_LOCATION_TOOLTIP,
 		get = function(info) return E.global.profileCopy.sle.legacy[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.legacy[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.legacy[ info[#info] ] = value end
 	}
 	config.args.orderhall = {
 		order = 4,
 		type = "toggle",
 		name = L["Class Hall"],
 		get = function(info) return E.global.profileCopy.sle.legacy[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.legacy[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.legacy[ info[#info] ] = value end
 	}
 	config.args.warwampaign = {
 		order = 5,
 		type = "toggle",
 		name = WAR_CAMPAIGN,
 		get = function(info) return E.global.profileCopy.sle.legacy[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.legacy[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.legacy[ info[#info] ] = value end
 	}
 
 	return config
@@ -177,28 +177,28 @@ local function CreateLootConfig()
 		type = "toggle",
 		name = L["Loot Auto Roll"],
 		get = function(info) return E.global.profileCopy.sle.loot[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.loot[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.loot[ info[#info] ] = value end
 	}
 	config.args.announcer = {
 		order = 3,
 		type = "toggle",
 		name = L["Loot Announcer"],
 		get = function(info) return E.global.profileCopy.sle.loot[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.loot[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.loot[ info[#info] ] = value end
 	}
 	config.args.history = {
 		order = 4,
 		type = "toggle",
 		name = L["Loot Roll History"],
 		get = function(info) return E.global.profileCopy.sle.loot[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.loot[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.loot[ info[#info] ] = value end
 	}
 	config.args.looticons = {
 		order = 5,
 		type = "toggle",
 		name = L["Loot Icons"],
 		get = function(info) return E.global.profileCopy.sle.loot[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.loot[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.loot[ info[#info] ] = value end
 	}
 
 	return config
@@ -211,21 +211,21 @@ local function CreateMinimapConfig()
 		type = "toggle",
 		name = L["Coordinates"],
 		get = function(info) return E.global.profileCopy.sle.minimap[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.minimap[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.minimap[ info[#info] ] = value end
 	}
 	config.args.instance = {
 		order = 4,
 		type = "toggle",
 		name = L["Instance indication"],
 		get = function(info) return E.global.profileCopy.sle.minimap[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.minimap[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.minimap[ info[#info] ] = value end
 	}
 	config.args.locPanel = {
 		order = 5,
 		type = "toggle",
 		name = L["Location Panel"],
 		get = function(info) return E.global.profileCopy.sle.minimap[ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.minimap[ info[#info] ] = value; end
+		set = function(info, value) E.global.profileCopy.sle.minimap[ info[#info] ] = value end
 	}
 
 	return config
@@ -239,7 +239,7 @@ local function CreateUnitframesConfig()
 		guiInline = true,
 		name = L["UnitFrames"],
 		get = function(info) return E.global.profileCopy.sle.unitframes[info[#info - 1]][ info[#info] ] end,
-		set = function(info, value) E.global.profileCopy.sle.unitframes[info[#info - 1]][ info[#info] ] = value; end,
+		set = function(info, value) E.global.profileCopy.sle.unitframes[info[#info - 1]][ info[#info] ] = value end,
 		args = {
 			["player"] = {
 				order = 1,

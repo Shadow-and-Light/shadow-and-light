@@ -17,9 +17,9 @@ local GetAddOnEnableState = GetAddOnEnableState
 --We are using this to fix it.
 local function EqualizeDB(db, default)
 	for key, value in pairs(default) do
-		if not db[key] and type(default[key]) ~= "table" then
+		if not db[key] and type(default[key]) ~= 'table' then
 			db[key] = default[key]
-		elseif type(default[key]) == "table" then
+		elseif type(default[key]) == 'table' then
 			EqualizeDB(db[key], default[key])
 		end
 	end
@@ -28,10 +28,10 @@ end
 --Sets the size of menu's mover
 local function MoverSize(menu)
 	local db = menu.db
-	if db.orientation == "vertical" then
+	if db.orientation == 'vertical' then
 		menu:SetWidth(db.size + 2 + E.Spacing*2)
 		menu:SetHeight((db.size*menu.NumBut)+((db.spacing + E.Spacing*2)*(menu.NumBut-1))+2)
-	elseif db.orientation == "horizontal" then
+	elseif db.orientation == 'horizontal' then
 		menu:SetWidth((db.size*menu.NumBut)+((db.spacing + E.Spacing*2)*(menu.NumBut-1))+2)
 		menu:SetHeight(db.size + 2 + E.Spacing*2)
 	end
@@ -41,16 +41,16 @@ end
 local function SetupMover(menu, name, own)
 	local exist = false
 	for i = 1, #E.ConfigModeLayouts do
-		if E.ConfigModeLayouts[i] == "UIButtons" then
+		if E.ConfigModeLayouts[i] == 'UIButtons' then
 			exist = true
 			break
 		end
 	end
 	if not exist then --Create a new config group for movers
-		tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, "UIButtons")
-		E.ConfigModeLocalizedStrings["UIButtons"] = L["UI Buttons"]
+		tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, 'UIButtons')
+		E.ConfigModeLocalizedStrings['UIButtons'] = L["UI Buttons"]
 	end
-	E:CreateMover(menu, menu:GetName().."Mover", name, nil, nil, nil, own and own..",UIButtons" or "ALL,UIButtons")
+	E:CreateMover(menu, menu:GetName()..'Mover', name, nil, nil, nil, own and own..',UIButtons' or 'ALL,UIButtons')
 end
 
 --A function to toggle dropdown categories to show/hide then on button click
@@ -76,23 +76,23 @@ end
 
 --Creating main buttons to execute stuff in classic mode and toggle categories n dropdown
 local function CreateCoreButton(menu, name, text, onClick)
-	if _G[menu:GetName().."_Core_"..name] then return end
+	if _G[menu:GetName()..'_Core_'..name] then return end
 	local button, holder
-	if menu.style == "classic" then
-		menu[name] = CreateFrame("Button", menu:GetName().."_Core_"..name, menu, 'BackdropTemplate')
+	if menu.style == 'classic' then
+		menu[name] = CreateFrame('Button', menu:GetName()..'_Core_'..name, menu, 'BackdropTemplate')
 		button = menu[name]
 		if onClick then
-			button:SetScript("OnClick", onClick)
+			button:SetScript('OnClick', onClick)
 		end
-	elseif menu.style == "dropdown" then
-		menu[name] = CreateFrame("Frame", menu:GetName().."_Core_"..name, menu)
-		menu[name].Toggle = CreateFrame("Button", menu:GetName().."_Core_"..name.."Toggle", menu, 'BackdropTemplate')
+	elseif menu.style == 'dropdown' then
+		menu[name] = CreateFrame('Frame', menu:GetName()..'_Core_'..name, menu)
+		menu[name].Toggle = CreateFrame('Button', menu:GetName()..'_Core_'..name..'Toggle', menu, 'BackdropTemplate')
 		holder = menu[name]
 		holder.width = 0
-		holder:CreateBackdrop("Transparent")
+		holder:CreateBackdrop('Transparent')
 		button = menu[name].Toggle
-		if not menu[name.."Table"] then
-			menu[name.."Table"] = {}
+		if not menu[name..'Table'] then
+			menu[name..'Table'] = {}
 		end
 		menu:ToggleSetup(button, holder)
 		tinsert(menu.HoldersTable, holder)
@@ -103,20 +103,20 @@ local function CreateCoreButton(menu, name, text, onClick)
 	button:SetScript('OnEnter', function(self) menu:OnEnter() end)
 	button:SetScript('OnLeave', function(self) menu:OnLeave() end)
 	-- button:SetSize(17, 17) --For testing purposes
-	button.text = button:CreateFontString(nil, "OVERLAY")
-	button.text:SetPoint("CENTER", button, "CENTER", 0, 0)
+	button.text = button:CreateFontString(nil, 'OVERLAY')
+	button.text:SetPoint('CENTER', button, 'CENTER', 0, 0)
 
-	if menu.transparent == "Transparent" then
-		button:CreateBackdrop("Transparent")
-	elseif menu.transparent == "Default" then
+	if menu.transparent == 'Transparent' then
+		button:CreateBackdrop('Transparent')
+	elseif menu.transparent == 'Default' then
 		S:HandleButton(button)
 	end
 
 	if text then
-		local t = button:CreateFontString(nil,"OVERLAY",button)
+		local t = button:CreateFontString(nil, 'OVERLAY', button)
 		t:FontTemplate()
-		t:SetPoint("CENTER", button, 'CENTER', 0, -1)
-		t:SetJustifyH("CENTER")
+		t:SetPoint('CENTER', button, 'CENTER', 0, -1)
+		t:SetJustifyH('CENTER')
 		t:SetText(text)
 		button:SetFontString(t)
 	end
@@ -132,26 +132,26 @@ local function CreateDropdownButton(menu, core, name, text, tooltip1, tooltip2, 
 		local enabled = GetAddOnEnableState(menu.myname, addon)
 		if enabled == 0 then return end
 	end
-	if _G[menu:GetName().."_Core_"..core..name] or not menu[core.."Table"] then return end
-	menu[core][name] = CreateFrame("Button", menu:GetName().."_Core_"..core..name, menu[core], 'BackdropTemplate')
+	if _G[menu:GetName()..'_Core_'..core..name] or not menu[core..'Table'] then return end
+	menu[core][name] = CreateFrame('Button', menu:GetName()..'_Core_'..core..name, menu[core], 'BackdropTemplate')
 	local b = menu[core][name]
 	local toggle = menu[core].Toggle
 
-	b:SetScript("OnClick", function(self)
+	b:SetScript('OnClick', function(self)
 		click()
 		toggle.opened = false
 		menu:ToggleCats()
 	end)
 
 	if tooltip1 then
-		b:SetScript("OnEnter", function(self)
+		b:SetScript('OnEnter', function(self)
 			menu:OnEnter()
 			GameTooltip:SetOwner(self)
 			GameTooltip:AddLine(tooltip1, 1, .96, .41, .6, .6, 1)
 			if tooltip2 then GameTooltip:AddLine(tooltip2, 1, 1, 1, 1, 1, 1) end
 			GameTooltip:Show()
 		end)
-		b:SetScript("OnLeave", function(self)
+		b:SetScript('OnLeave', function(self)
 			menu:OnLeave()
 			GameTooltip:Hide()
 		end)
@@ -159,36 +159,36 @@ local function CreateDropdownButton(menu, core, name, text, tooltip1, tooltip2, 
 		b:SetScript('OnEnter', function(self) menu:OnEnter() end)
 		b:SetScript('OnLeave', function(self) menu:OnLeave() end)
 	end
-	if menu.transparent == "Transparent" then
-		b:CreateBackdrop("Transparent")
-	elseif menu.transparent == "Default" then
+	if menu.transparent == 'Transparent' then
+		b:CreateBackdrop('Transparent')
+	elseif menu.transparent == 'Default' then
 		S:HandleButton(b)
 	end
 
-	if text and type(text) == "string" then
-		b.text = b:CreateFontString(nil,"OVERLAY",b)
+	if text and type(text) == 'string' then
+		b.text = b:CreateFontString(nil, 'OVERLAY', b)
 		b.text:FontTemplate()
-		b.text:SetPoint("CENTER", b, 'CENTER', 0, -1)
-		b.text:SetJustifyH("CENTER")
+		b.text:SetPoint('CENTER', b, 'CENTER', 0, -1)
+		b.text:SetJustifyH('CENTER')
 		b.text:SetText(text)
 		b:SetFontString(b.text)
 	end
 
-	tinsert(menu[core.."Table"], b)
+	tinsert(menu[core..'Table'], b)
 end
 
 --Creating separator frame
 local function CreateSeparator(menu, core, name, size, space)
-	if _G[menu:GetName().."_Core_"..core..name.."_Separator"] or not menu[core.."Table"] then return end
-	menu[core][name] = CreateFrame("Frame", menu:GetName().."_Core_"..core..name.."_Separator", menu[core], 'BackdropTemplate')
+	if _G[menu:GetName()..'_Core_'..core..name..'_Separator'] or not menu[core..'Table'] then return end
+	menu[core][name] = CreateFrame('Frame', menu:GetName()..'_Core_'..core..name..'_Separator', menu[core], 'BackdropTemplate')
 	local f = menu[core][name]
 	f.isSeparator = true
 	f.size = size or 1
 	f.space = space or 2
-	f:CreateBackdrop("Transparent")
+	f:CreateBackdrop('Transparent')
 	f:SetScript('OnEnter', function(self) menu:OnEnter() end)
 	f:SetScript('OnLeave', function(self) menu:OnLeave() end)
-	tinsert(menu[core.."Table"], f)
+	tinsert(menu[core..'Table'], f)
 end
 
 --Setup for core buttons in dropdown mode to act like toggles
@@ -196,8 +196,8 @@ local function ToggleSetup(menu, button, holder)
 	local db = menu.db
 	button.opened = false
 	holder:Hide()
-	button:SetScript("OnClick", function(self, button, down)
-		if button == "LeftButton" then
+	button:SetScript('OnClick', function(self, button, down)
+		if button == 'LeftButton' then
 			if self.opened then
 				self.opened = false
 			else
@@ -221,11 +221,11 @@ local function UpdateDropdownLayout(menu, group)
 	local db = menu.db
 	header:ClearAllPoints()
 	header:SetPoint(db.point, header.Toggle, db.anchor, db.xoffset, db.yoffset)
-	local T = menu[group.."Table"]
+	local T = menu[group..'Table']
 	for i = 1, #T do
 		local button, prev, next = T[i], T[i-1], T[i+1]
 		local y_offset = prev and (-(db.spacing + E.Spacing*2) - (prev.isSeparator and prev.space or 0) - (button.isSeparator and button.space or 0)) or 0
-		button:SetPoint("TOP", (prev or header), (prev and "BOTTOM" or "TOP"), 0, y_offset)
+		button:SetPoint('TOP', (prev or header), (prev and 'BOTTOM' or 'TOP'), 0, y_offset)
 		count = button.isSeparator and count or count + 1
 		sepS = (button.isSeparator and sepS + ((prev and 2 or 1)*button.space + button.size)) or sepS
 		sepC = button.isSeparator and sepC + 1 or sepC
@@ -253,21 +253,21 @@ local function Positioning(menu)
 
 	--position check
 	local header = menu
-	if db.orientation == "vertical" then
+	if db.orientation == 'vertical' then
 		for i = 1, #menu.ToggleTable do
 			local button, prev = menu.ToggleTable[i], menu.ToggleTable[i-1]
 			menu.ToggleTable[i]:ClearAllPoints()
-			menu.ToggleTable[i]:SetPoint("TOP", (prev or header), prev and "BOTTOM" or "TOP", 0, prev and -(db.spacing + E.Spacing*2) or -(1 + E.Spacing))
+			menu.ToggleTable[i]:SetPoint('TOP', (prev or header), prev and 'BOTTOM' or 'TOP', 0, prev and -(db.spacing + E.Spacing*2) or -(1 + E.Spacing))
 		end
-	elseif db.orientation == "horizontal" then
+	elseif db.orientation == 'horizontal' then
 		for i = 1, #menu.ToggleTable do
 			local button, prev = menu.ToggleTable[i], menu.ToggleTable[i-1]
 			menu.ToggleTable[i]:ClearAllPoints()
-			menu.ToggleTable[i]:SetPoint("LEFT", (prev or header), prev and "RIGHT" or "LEFT", prev and (db.spacing + E.Spacing*2) or (1 + E.Spacing), 0)
+			menu.ToggleTable[i]:SetPoint('LEFT', (prev or header), prev and 'RIGHT' or 'LEFT', prev and (db.spacing + E.Spacing*2) or (1 + E.Spacing), 0)
 		end
 	end
 	--Calling for dropdown updates
-	if menu.style == "dropdown" then
+	if menu.style == 'dropdown' then
 		for i = 1, #menu.GroupsTable do
 			menu:UpdateDropdownLayout(menu.GroupsTable[i])
 		end
@@ -284,16 +284,16 @@ local function FrameSize(menu)
 		menu.ToggleTable[i]:SetSize(db.size, db.size)
 	end
 
-	if menu.style == "dropdown" then
+	if menu.style == 'dropdown' then
 		for i = 1, #menu.GroupsTable do
 			local group = menu.GroupsTable[i]
-			local mass = menu[group.."Table"]
+			local mass = menu[group..'Table']
 			for w = 1, #mass do
 				if mass[w].text and mass[w].text:GetWidth() > menu.HoldersTable[i].width and not menu.fixedDropdownWidth then
 					menu.HoldersTable[i].width = mass[w].text:GetWidth() + 10
 				elseif menu.fixedDropdownWidth then
 					menu.HoldersTable[i].width = menu.fixedDropdownWidth
-					if mass[w].text and mass[w].text:GetWidth() >  menu.fixedDropdownWidth then
+					if mass[w].text and mass[w].text:GetWidth() > menu.fixedDropdownWidth then
 						mass[w].text:SetWidth(menu.fixedDropdownWidth - 10)
 						mass[w].text:SetWordWrap(false)
 					end
@@ -325,13 +325,13 @@ local function ToggleShow(menu)
 	if not menu.db.enable then
 		menu:Hide()
 		E:DisableMover(menu.mover:GetName())
-		UnregisterStateDriver(menu, "visibility")
+		UnregisterStateDriver(menu, 'visibility')
 	else
 		menu:Show()
 		menu:UpdateMouseOverSetting()
 		menu:UpdateBackdrop()
 		E:EnableMover(menu.mover:GetName())
-		if menu.db.visibility then RegisterStateDriver(menu, "visibility", menu.db.visibility) end
+		if menu.db.visibility then RegisterStateDriver(menu, 'visibility', menu.db.visibility) end
 	end
 end
 
@@ -339,8 +339,8 @@ end
 function lib:CreateFrame(name, db, default, style, styleDefault, strata, level, transparent)
 	--Checks to prevent a shitload of errors cause of wrong arguments passed
 	if _G[name] then return end
-	if not strata then strata = "MEDIUM" end
-	local menu = CreateFrame("Frame", name, E.UIParent, 'BackdropTemplate')
+	if not strata then strata = 'MEDIUM' end
+	local menu = CreateFrame('Frame', name, E.UIParent, 'BackdropTemplate')
 	menu.db = db --making menu db table so we can actually keep unified settings calls in other functions
 	menu.default = default --same for defaults
 	EqualizeDB(menu.db, menu.default)
@@ -351,8 +351,8 @@ function lib:CreateFrame(name, db, default, style, styleDefault, strata, level, 
 	menu:SetFrameStrata(strata)
 	menu:SetFrameLevel(level or 5)
 	menu:SetClampedToScreen(true)
-	menu:SetPoint("LEFT", E.UIParent, "LEFT", -2, 0);
-	menu:SetSize(17, 17); --Cause the damn thing doesn't want to show up without default size lol
+	menu:SetPoint('LEFT', E.UIParent, 'LEFT', -2, 0)
+	menu:SetSize(17, 17) --Cause the damn thing doesn't want to show up without default size lol
 	menu.myname = UnitName('player') --used in checks for addon deps
 	menu:CreateBackdrop()
 
@@ -397,12 +397,12 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 		CENTER = 'CENTER',
 		TOP = 'TOP',
 		BOTTOM = 'BOTTOM',
-	};
+	}
 
 	local isDefault = coreGroup == true and true or false
 	if isDefault and not E.Options.args.uibuttons then
 		E.Options.args.uibuttons = {
-			type = "group",
+			type = 'group',
 			name = L["UI Buttons"],
 			order = 77,
 			childGroups = 'select',
@@ -412,18 +412,18 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 		coreGroup = E.Options.args.uibuttons
 	end
 	coreGroup.args[groupName] = {
-		type = "group",
+		type = 'group',
 		name = groupTitle,
 		order = 1,
 		args = {
 			header = {
 				order = 1,
-				type = "header",
+				type = 'header',
 				name = groupTitle,
 			},
 			enabled = {
 				order = 3,
-				type = "toggle",
+				type = 'toggle',
 				name = L["Enable"],
 				desc = L["Show/Hide UI buttons."],
 				get = function(info) return menu.db.enable end,
@@ -432,23 +432,23 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 			style = {
 				order = 4,
 				name = L["UI Buttons Style"],
-				type = "select",
+				type = 'select',
 				values = {
-					["classic"] = L["Classic"],
-					["dropdown"] = L["Dropdown"],
+					['classic'] = L["Classic"],
+					['dropdown'] = L["Dropdown"],
 				},
 				disabled = function() return not menu.db.enable end,
 				get = function(info) return E.private.sle.uiButtonStyle end,
-				set = function(info, value) E.private.sle.uiButtonStyle = value; E:StaticPopup_Show("PRIVATE_RL") end,
+				set = function(info, value) E.private.sle.uiButtonStyle = value; E:StaticPopup_Show('PRIVATE_RL') end,
 			},
 			space = {
 				order = 5,
 				type = 'description',
-				name = "",
+				name = '',
 			},
 			size = {
 				order = 6,
-				type = "range",
+				type = 'range',
 				name = L["Size"],
 				desc = L["Sets size of buttons"],
 				min = 12, max = 25, step = 1,
@@ -458,7 +458,7 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 			},
 			spacing = {
 				order = 7,
-				type = "range",
+				type = 'range',
 				name = L["Button Spacing"],
 				desc = L["The spacing between buttons."],
 				min = 1, max = 10, step = 1,
@@ -468,7 +468,7 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 			},
 			mouse = {
 				order = 8,
-				type = "toggle",
+				type = 'toggle',
 				name = L["Mouse Over"],
 				desc = L["Show on mouse over."],
 				disabled = function() return not menu.db.enable end,
@@ -477,7 +477,7 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 			},
 			menuBackdrop = {
 				order = 9,
-				type = "toggle",
+				type = 'toggle',
 				name = L["Backdrop"],
 				disabled = function() return not menu.db.enable end,
 				get = function(info) return menu.db.menuBackdrop end,
@@ -485,9 +485,9 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 			},
 			dropdownBackdrop = {
 				order = 10,
-				type = "toggle",
+				type = 'toggle',
 				name = L["Dropdown Backdrop"],
-				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == 'classic' end,
 				get = function(info) return menu.db.dropdownBackdrop end,
 				set = function(info, value) menu.db.dropdownBackdrop = value; menu:FrameSize() end
 			},
@@ -495,10 +495,10 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 				order = 11,
 				name = L["Buttons position"],
 				desc = L["Layout for UI buttons."],
-				type = "select",
+				type = 'select',
 				values = {
-					["horizontal"] = L["Horizontal"],
-					["vertical"] = L["Vertical"],
+					['horizontal'] = L["Horizontal"],
+					['vertical'] = L["Vertical"],
 				},
 				disabled = function() return not menu.db.enable end,
 				get = function(info) return menu.db.orientation end,
@@ -509,7 +509,7 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 				order = 13,
 				name = L["Anchor Point"],
 				desc = L["What point of dropdown will be attached to the toggle button."],
-				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == 'classic' end,
 				get = function(info) return menu.db.point end,
 				set = function(info, value) menu.db.point = value; menu:FrameSize() end,
 				values = positionValues,
@@ -519,28 +519,28 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 				order = 14,
 				name = L["Attach To"],
 				desc = L["What point to anchor dropdown on the toggle button."],
-				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == 'classic' end,
 				get = function(info) return menu.db.anchor end,
 				set = function(info, value) menu.db.anchor = value; menu:FrameSize() end,
 				values = positionValues,
 			},
 			xoffset = {
 				order = 15,
-				type = "range",
+				type = 'range',
 				name = L["X-Offset"],
 				desc = L["Horizontal offset of dropdown from the toggle button."],
 				min = -10, max = 10, step = 1,
-				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == 'classic' end,
 				get = function(info) return menu.db.xoffset end,
 				set = function(info, value) menu.db.xoffset = value; menu:FrameSize() end,
 			},
 			yoffset = {
 				order = 16,
-				type = "range",
+				type = 'range',
 				name = L["Y-Offset"],
 				desc = L["Vertical offset of dropdown from the toggle button."],
 				min = -10, max = 10, step = 1,
-				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == "classic" end,
+				disabled = function() return not menu.db.enable or E.private.sle.uiButtonStyle == 'classic' end,
 				get = function(info) return menu.db.yoffset end,
 				set = function(info, value) menu.db.yoffset = value; menu:FrameSize() end,
 			},
@@ -549,10 +549,10 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 end
 
 function lib:CreateOptions(menu, default, groupName, groupTitle)
-	menu:RegisterEvent("ADDON_LOADED")
-	menu:SetScript("OnEvent", function(self, event, addon)
-		if addon ~= "ElvUI_OptionsUI" then return end
-		self:UnregisterEvent("ADDON_LOADED")
+	menu:RegisterEvent('ADDON_LOADED')
+	menu:SetScript('OnEvent', function(self, event, addon)
+		if addon ~= 'ElvUI_OptionsUI' then return end
+		self:UnregisterEvent('ADDON_LOADED')
 		GenerateTable(self, default, groupName, groupTitle)
 	end)
 end
@@ -561,6 +561,6 @@ end
 function lib:CustomStyleCoreButton(menu, name, text)
 end
 
-if not LibStub("LibElvUIPlugin-1.0").plugins[MAJOR] then
-	LibStub("LibElvUIPlugin-1.0"):RegisterPlugin(MAJOR, function() end, true)
+if not LibStub('LibElvUIPlugin-1.0').plugins[MAJOR] then
+	LibStub('LibElvUIPlugin-1.0'):RegisterPlugin(MAJOR, function() end, true)
 end

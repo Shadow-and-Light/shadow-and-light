@@ -16,7 +16,7 @@ local function configTable()
 				name = L["Hide In Combat"],
 				desc = L["Will not show the tooltip while in combat."],
 				get = function(info) return E.db.sle.dt.guild.combat end,
-				set = function(info, value) E.db.sle.dt.guild.combat = value; end,
+				set = function(info, value) E.db.sle.dt.guild.combat = value end,
 			},
 			totals = {
 				order = 3,
@@ -44,7 +44,7 @@ local function configTable()
 				name = L["Hide Hints"],
 				desc = L["Hide the hints in the tooltip."],
 				get = function(info) return E.db.sle.dt.guild.hide_hintline end,
-				set = function(info, value) E.db.sle.dt.guild.hide_hintline = value; end,
+				set = function(info, value) E.db.sle.dt.guild.hide_hintline = value end,
 			},
 			hide_titleline = {
 				order = 6,
@@ -52,7 +52,7 @@ local function configTable()
 				name = L["Hide Title"],
 				desc = L["Hide the Shadow & Light title in the tooltip."],
 				get = function(info) return E.db.sle.dt.guild.hide_titleline end,
-				set = function(info, value) E.db.sle.dt.guild.hide_titleline = value; end,
+				set = function(info, value) E.db.sle.dt.guild.hide_titleline = value end,
 			},
 			hide_gmotd = {
 				order = 7,
@@ -60,7 +60,7 @@ local function configTable()
 				name = L["Hide MOTD"],
 				desc = L["Hide the guild's Message of the Day in the tooltip."],
 				get = function(info) return E.db.sle.dt.guild.hide_gmotd end,
-				set = function(info, value) E.db.sle.dt.guild.hide_gmotd = value; end,
+				set = function(info, value) E.db.sle.dt.guild.hide_gmotd = value end,
 			},
 			tooltipAutohide = {
 				order = 10,
@@ -69,7 +69,7 @@ local function configTable()
 				desc = L["Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext."],
 				min = 0.1, max = 1, step = 0.1,
 				get = function(info) return E.db.sle.dt.guild.tooltipAutohide end,
-				set = function(info, value) E.db.sle.dt.guild.tooltipAutohide = value; end,
+				set = function(info, value) E.db.sle.dt.guild.tooltipAutohide = value end,
 			},
 			noteColor = {
 				type = "color",

@@ -11,7 +11,7 @@ function B:CreateAndUpdateIcons()
 	if not SLE.initialized then return end
 	local members = GetNumGroupMembers()
 	for i = 1, members do
-		local frame = _G["RaidGroupButton"..i]
+		local frame = _G['RaidGroupButton'..i]
 		--if the frame doesn't exist then wait a bit
 		if not frame or (frame and not frame.subframes) or not E.db.sle.raidmanager then E:Delay(1, B.CreateAndUpdateIcons); return end
 		--if level is shown then attach icons there, otherwise to class
@@ -23,22 +23,22 @@ function B:CreateAndUpdateIcons()
 		end
 		--if the icon is not created for this frame then make that shit
 		if not frame.sleicon then
-			frame.sleicon = CreateFrame("Frame", nil, frame)
+			frame.sleicon = CreateFrame('Frame', nil, frame)
 			frame.sleicon:SetSize(14, 14)
 			RaiseFrameLevel(frame.sleicon)
 
-			frame.sleicon.texture = frame.sleicon:CreateTexture(nil, "OVERLAY")
+			frame.sleicon.texture = frame.sleicon:CreateTexture(nil, 'OVERLAY')
 			frame.sleicon.texture:SetAllPoints(frame.sleicon)
 		end
-		frame.sleicon:SetPoint("RIGHT", parent, "LEFT", 2, 0)
+		frame.sleicon:SetPoint('RIGHT', parent, 'LEFT', 2, 0)
 		--Deciding on what texture to use
-		local unit = IsInRaid() and "raid" or "party"
+		local unit = IsInRaid() and 'raid' or 'party'
 		local role = UnitGroupRolesAssigned(unit..i)
 		local name, realm = UnitName(unit..i)
-		local texture = ""
-		if (role and role ~= "NONE") and name and E.db.sle.unitframes.roleicons and E.db.sle.raidmanager.roles then
+		local texture = ''
+		if (role and role ~= 'NONE') and name and E.db.sle.unitframes.roleicons and E.db.sle.raidmanager.roles then
 			--  TODO:  Some reason name is assigned but not used?
-			-- name = (realm and realm ~= '') and name..'-'..realm or name ..'-'..PLAYER_REALM;
+			-- name = (realm and realm ~= '') and name..'-'..realm or name ..'-'..PLAYER_REALM
 			texture = SLE.rolePaths[E.db.sle.unitframes.roleicons][role]
 		end
 		frame.sleicon.texture:SetTexture(texture)
@@ -47,16 +47,16 @@ end
 
 --When raid manager is loaded. do stuff
 function B:RaidLoaded(event, addon)
-	if addon == "Blizzard_RaidUI" then
+	if addon == 'Blizzard_RaidUI' then
 		B:CreateAndUpdateIcons()
-		hooksecurefunc("RaidGroupFrame_Update", B.CreateAndUpdateIcons)
+		hooksecurefunc('RaidGroupFrame_Update', B.CreateAndUpdateIcons)
 		self:UnregisterEvent(event)
 	end
 end
 
 --if oRA is not present, then we are doing shit
-if not SLE._Compatibility["oRA3"] then
-	B:RegisterEvent("ADDON_LOADED", "RaidLoaded")
+if not SLE._Compatibility['oRA3'] then
+	B:RegisterEvent('ADDON_LOADED', 'RaidLoaded')
 end
 
 function B:Initialize()

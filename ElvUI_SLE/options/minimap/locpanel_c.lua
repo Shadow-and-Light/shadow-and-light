@@ -23,14 +23,14 @@ local function configTable()
 				type = "toggle",
 				name = L["Enable"],
 				order = 1,
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Toggle(); end,
+				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Toggle() end,
 			},
 			linkcoords = {
 				type = "toggle",
 				name = L["Link Position"],
 				desc = L["Allow pasting of your coordinates in chat editbox via holding shift and clicking on the location name."],
 				order = 2,
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; end,
+				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value end,
 			},
 			template = {
 				order = 3,
@@ -74,19 +74,19 @@ local function configTable()
 				desc = L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."],
 				min = 0.1, max = 2, step = 0.1,
 				disabled = function() return not E.db.sle.minimap.locPanel.enable end,
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; end,
+				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value end,
 			},
 			combathide = {
 				order = 8,
 				type = "toggle",
 				name = L["Hide In Combat"],
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; end,
+				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value end,
 			},
 			orderhallhide = {
 				order = 9,
 				type = "toggle",
 				name = L["Hide In Class Hall"],
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Toggle(); end,
+				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Toggle() end,
 			},
 			location = {
 				order = 20,
@@ -99,14 +99,14 @@ local function configTable()
 						name = L["Full Location"],
 						order = 1,
 						disabled = function() return not E.db.sle.minimap.locPanel.enable end,
-						set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; end,
+						set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value end,
 					},
 					colorType = {
 						order = 2,
 						name = L["Color Type"],
 						type = "select",
 						disabled = function() return not E.db.sle.minimap.locPanel.enable end,
-						set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; end,
+						set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value end,
 						values = {
 							["REACTION"] = L["Reaction"],
 							["DEFAULT"] = DEFAULT,
@@ -143,7 +143,7 @@ local function configTable()
 						name = L["Format"],
 						type = "select",
 						disabled = function() return not E.db.sle.minimap.locPanel.enable end,
-						set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; end,
+						set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value end,
 						values = {
 							["%.0f"] = DEFAULT,
 							["%.1f"] = "45.3",
@@ -155,7 +155,7 @@ local function configTable()
 						name = L["Color Type"],
 						type = "select",
 						disabled = function() return not E.db.sle.minimap.locPanel.enable end,
-						set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; end,
+						set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value end,
 						values = {
 							["REACTION"] = L["Reaction"],
 							["DEFAULT"] = DEFAULT,
@@ -188,7 +188,7 @@ local function configTable()
 				guiInline = true,
 				disabled = function() return not E.db.sle.minimap.locPanel.enable end,
 				get = function(info) return E.db.sle.minimap.locPanel.portals[ info[#info] ] end,
-				set = function(info, value) E.db.sle.minimap.locPanel.portals[ info[#info] ] = value; end,
+				set = function(info, value) E.db.sle.minimap.locPanel.portals[ info[#info] ] = value end,
 				args = {
 					enable = {
 						type = "toggle",

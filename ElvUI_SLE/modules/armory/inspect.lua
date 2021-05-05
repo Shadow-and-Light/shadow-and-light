@@ -1,7 +1,7 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Armory = SLE.Armory_Core
-local IA = SLE.Armory_Inspect;
-local M = E.Misc;
+local IA = SLE.Armory_Inspect
+local M = E.Misc
 
 local _G = _G
 
@@ -125,8 +125,8 @@ function IA:BuildLayout()
 			_G["GameTooltip"]:Hide()
 		end)
 		_G["InspectFrame"].SLE_TransmogViewButton:SetScript("OnClick", function(self)
-			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);
-			DressUpSources(C_TransmogCollection.GetInspectSources());
+			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+			DressUpSources(C_TransmogCollection.GetInspectSources())
 		end)
 	end
 end
@@ -297,7 +297,7 @@ end
 function IA:PreSetup()
 	IA:RegisterEvent("INSPECT_READY", function()
 		if not E.db.general.itemLevel.displayInspectInfo then
-			Armory:UpdateInspectInfo();
+			Armory:UpdateInspectInfo()
 			IA:UnregisterEvent("INSPECT_READY")
 			M:ClearPageInfo(_G["InspectFrame"], "Inspect")
 		end
@@ -309,5 +309,5 @@ function IA:LoadAndSetup()
 	IA:ToggleArmory()
 	IA:ElvOverlayToggle()
 	--For future use. I may consider returning to cache for inspect. Cause it actually never broke
-	-- _G["InspectFrame"]:UnregisterEvent("PLAYER_TARGET_CHANGED");
+	-- _G["InspectFrame"]:UnregisterEvent("PLAYER_TARGET_CHANGED")
 end

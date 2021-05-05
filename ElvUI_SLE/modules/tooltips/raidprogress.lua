@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local RP = SLE.RaidProgress
-local TT = E.Tooltip;
+local TT = E.Tooltip
 
 --GLOBALS: select, unpack, hooksecurefunc, AchievementFrame_DisplayComparison
 local _G = _G

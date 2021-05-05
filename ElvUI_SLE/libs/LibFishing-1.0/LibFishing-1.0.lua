@@ -275,7 +275,7 @@ local function UseThisLure(lure, b, enchant, skill, level)
 		level = level or 0;
 		local bonus = lure.b or 0;
 		if ( startTime == 0 and (skill and level <= (skill + bonus)) and (bonus > enchant) ) then
-			if ( not b or bonus > b ) then 
+			if ( not b or bonus > b ) then
 				return true, bonus;
 			end
 		end

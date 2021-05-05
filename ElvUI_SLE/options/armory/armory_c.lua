@@ -24,8 +24,8 @@ local function configTable()
 				hidden = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.character end,
 				get = function() return E.db.sle.armory.character.enable end,
 				set = function(_, value)
-					E.db.sle.armory.character.enable = value;
-					SLE.Armory_Character:ToggleArmory();
+					E.db.sle.armory.character.enable = value
+					SLE.Armory_Character:ToggleArmory()
 					M:UpdatePageInfo(_G.CharacterFrame, 'Character')
 					if not E.db.general.itemLevel.displayCharacterInfo then M:ClearPageInfo(_G.CharacterFrame, 'Character') end
 				end,
@@ -38,8 +38,8 @@ local function configTable()
 				hidden = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.inspect end,
 				get = function() return E.db.sle.armory.inspect.enable end,
 				set = function(_, value)
-					E.db.sle.armory.inspect.enable = value;
-					SLE.Armory_Inspect:ToggleArmory();
+					E.db.sle.armory.inspect.enable = value
+					SLE.Armory_Inspect:ToggleArmory()
 					M:UpdatePageInfo(_G.InspectFrame, 'Inspect') --Putting this under the elv's option check just breaks the shit out of the frame
 					if not E.db.general.itemLevel.displayInspectInfo then M:ClearPageInfo(_G.InspectFrame, 'Inspect') end --Clear the infos if those are actually not supposed to be shown.
 				end,
@@ -52,7 +52,7 @@ local function configTable()
 				hidden = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.character end,
 				disabled = function() return (SLE._Compatibility['DejaCharacterStats'] or not E.private.skins.blizzard.enable) end,
 				get = function() return E.db.sle.armory.stats.enable end,
-				set = function(_, value) E.db.sle.armory.stats.enable = value; SLE.Armory_Stats:ToggleArmory(); end
+				set = function(_, value) E.db.sle.armory.stats.enable = value; SLE.Armory_Stats:ToggleArmory() end
 			},
 			GoToElv = {
 				order = 100,

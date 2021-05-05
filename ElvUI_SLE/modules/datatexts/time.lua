@@ -5,11 +5,11 @@ local LFR = SLE.LFR
 
 --Put everything in function so nothing attempts to execute when time dt doesn't exist
 function DTP:HookTimeDT()
-	local enteredFrame = false;
+	local enteredFrame = false
 
 	local function OnEnter(self)
 		if(not enteredFrame) then
-			enteredFrame = true;
+			enteredFrame = true
 		end
 		if LFR.db.enabled then
 			LFR:Show()
@@ -18,7 +18,7 @@ function DTP:HookTimeDT()
 	end
 
 	local function OnLeave(self)
-		enteredFrame = false;
+		enteredFrame = false
 	end
 
 	local function OnEvent(self, event)

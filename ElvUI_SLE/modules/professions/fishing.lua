@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Pr = SLE.Professions
-local FL = LibStub("LibFishing-1.0-SLE");
+local FL = LibStub("LibFishing-1.0-SLE")
 
 -- GLOBALS: hooksecurefunc, CreateFrame
 local _G = _G
@@ -21,7 +21,7 @@ function Pr:HijackFishingCheck()
 end
 
 local function HideAwayAll(self, button, down)
-	Pr.FishingUpdateFrame:Show();
+	Pr.FishingUpdateFrame:Show()
 end
 
 function Pr:GetUpdateLure()
@@ -31,64 +31,64 @@ function Pr:GetUpdateLure()
 			-- Let's wait a bit so that the enchant can show up before we lure again
 			if ( Pr.LastLure and Pr.LastLure.time and ((Pr.LastLure.time - GetTime()) > 0) ) then
 				SLE:Print(format(L["SLE_Prof_Relure_Error"], Pr.LastLure.time - GetTime()))
-				return false;
+				return false
 			end
 
 			if ( Pr.LastLure ) then
-				Pr.LastLure.time = nil;
+				Pr.LastLure.time = nil
 				Pr.LureState = 0
 			end
 
-			local skill, _, _, _ = FL:GetCurrentSkill();
+			local skill, _, _, _ = FL:GetCurrentSkill()
 			if (skill > 0) then
-				local NextLure, NextState;
-				local tempenchant = FL:GetPoleBonus();
-				local state, bestlure = FL:FindBestLure(tempenchant, Pr.LureState);
+				local NextLure, NextState
+				local tempenchant = FL:GetPoleBonus()
+				local state, bestlure = FL:FindBestLure(tempenchant, Pr.LureState)
 				if ( state and bestlure and tempenchant == 0 ) then
-					NextState = state;
-					NextLure = bestlure;
+					NextState = state
+					NextLure = bestlure
 				else
-					NextLure = nil;
+					NextLure = nil
 				end
-				local DoLure = NextLure;
+				local DoLure = NextLure
 
 				if ( DoLure and DoLure.id ) then
 					-- if the pole has an enchantment, we can assume it's got a lure on it (so far, anyway)
 					-- remove the main hand enchantment (since it's a fishing pole, we know what it is)
-					local startTime, duration, enable = GetItemCooldown(DoLure.id);
+					local startTime, duration, enable = GetItemCooldown(DoLure.id)
 					if (startTime == 0) then
 						Pr.AddingLure = true
 						Pr.LastLure = DoLure
 						Pr.LureState = NextState
-						Pr.LastLure.time = GetTime() + E.private.sle.professions.fishing.relureThreshold;
+						Pr.LastLure.time = GetTime() + E.private.sle.professions.fishing.relureThreshold
 						local id = DoLure.id
 						local name = DoLure.n
 						return true, id, name
 					elseif ( Pr.LastLure and not Pr.LastLure.time ) then
-						Pr.LastLure = nil;
-						Pr.LastState = 0;
-						Pr.AddingLure = false;
+						Pr.LastLure = nil
+						Pr.LastState = 0
+						Pr.AddingLure = false
 					end
 				end
 			end
 		end
 	end
-	return false;
+	return false
 end
 
 function Pr:FishCasting()
 	-- put on a lure if we need to
 	local key = Pr.FishingKey
 	if (key == "None" and FL:IsFishingReady(false)) or (key ~= "None" and _G["Is"..key.."KeyDown"]()) then
-		local update, id, n = Pr:GetUpdateLure();
+		local update, id, n = Pr:GetUpdateLure()
 		if (update and id) then
-			FL:InvokeLuring(id);
+			FL:InvokeLuring(id)
 		else
-			Pr.LastCastTime = GetTime();
+			Pr.LastCastTime = GetTime()
 
-			FL:InvokeFishing();
+			FL:InvokeFishing()
 		end
-	FL:OverrideClick(HideAwayAll);
+	FL:OverrideClick(HideAwayAll)
 	end
 end
 
@@ -96,16 +96,16 @@ end
 -- Thanks to the Cosmos team for figuring this one out
 local function WF_OnMouseDown(...)
 	-- Only steal 'right clicks' (self is arg #1!)
-	local button = select(2, ...);
+	local button = select(2, ...)
 	if FL:CheckForDoubleClick(button) and Pr:HijackFishingCheck() then
 		 -- We're stealing the mouse-up event, make sure we exit MouseLook
 		if ( IsMouselooking() ) then
-			MouselookStop();
+			MouselookStop()
 		end
-		Pr:FishCasting();
+		Pr:FishCasting()
 	end
 	if ( SavedWFOnMouseDown ) then
-		SavedWFOnMouseDown(...);
+		SavedWFOnMouseDown(...)
 	end
 end
 
@@ -113,7 +113,7 @@ local function TrapWorldMouse()
 	if ( _G["WorldFrame"].OnMouseDown ) then
 		hooksecurefunc(_G["WorldFrame"], "OnMouseDown", WF_OnMouseDown)
 	else
-		SavedWFOnMouseDown = T.SafeHookScript(_G["WorldFrame"], "OnMouseDown", WF_OnMouseDown);
+		SavedWFOnMouseDown = T.SafeHookScript(_G["WorldFrame"], "OnMouseDown", WF_OnMouseDown)
 	end
 end
 
@@ -125,22 +125,22 @@ function Pr:FishingInitialize()
 	Pr.LastCastTime = nil
 	Pr.FishingUpdateFrame = CreateFrame("Frame", "SLE_FishingUpdateFrame", E.UIParent)
 	Pr.FishingUpdateFrame:SetScript("OnUpdate", function(self)
-		local stop = true;
+		local stop = true
 		if ( not InCombatLockdown() ) then
-			FL:ResetOverride();
+			FL:ResetOverride()
 			if ( Pr.AddingLure ) then
 				--  TODO:  Clean up as a bunch of unused variables
-				local sp, sub, txt, tex, st, et, trade, int = UnitChannelInfo("player");
-				local lure = FL:GetPoleBonus();
+				local sp, sub, txt, tex, st, et, trade, int = UnitChannelInfo("player")
+				local lure = FL:GetPoleBonus()
 				if ( not sp or not Pr.LastLure or (lure and lure == Pr.LastLure.b) ) then
-					Pr.AddingLure = false;
-					FL:UpdateLureInventory();
+					Pr.AddingLure = false
+					FL:UpdateLureInventory()
 				else
-					stop = false;
+					stop = false
 				end
 			end
 			if ( stop ) then
-				Pr.FishingUpdateFrame:Hide();
+				Pr.FishingUpdateFrame:Hide()
 			end
 		end
 	end)

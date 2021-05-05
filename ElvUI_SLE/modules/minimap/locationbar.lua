@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local M = E.Minimap
-local MM, DD = SLE.Minimap, SLE.Dropdowns;
+local MM, DD = SLE.Minimap, SLE.Dropdowns
 local LP = SLE.LocationPanel
 
 
@@ -283,7 +283,7 @@ function LP:CreateLocationPanel()
 end
 
 function LP:OnClick(btn)
-	local zoneText = GetRealZoneText() or UNKNOWN;
+	local zoneText = GetRealZoneText() or UNKNOWN
 	if btn == 'LeftButton' then
 		if IsShiftKeyDown() and LP.db.linkcoords then
 			local edit_box = ChatEdit_ChooseBoxForSend()
@@ -338,7 +338,7 @@ function LP:UpdateCoords(elapsed)
 
 	--Location
 	local subZoneText = GetMinimapZoneText() or ''
-	local zoneText = GetRealZoneText() or UNKNOWN;
+	local zoneText = GetRealZoneText() or UNKNOWN
 	local displayLine
 	if LP.db.zoneText then
 		if (subZoneText ~= '') and (subZoneText ~= zoneText) then
@@ -645,7 +645,7 @@ function LP:PopulateDropdown(click)
 	MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G.SLE_LocationPanel:GetWidth()
 	SLE:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 1, _G.SLE_LocationPanel, MENU_WIDTH, LP.db.portals.justify)
 
-	collectgarbage('collect');
+	collectgarbage('collect')
 end
 
 function LP:GetProf()

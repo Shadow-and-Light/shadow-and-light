@@ -3,7 +3,7 @@ local DT = E.DataTexts
 local MANA_REGEN = MANA_REGEN
 local displayNumberString = ''
 local displayNumberStringShort = ''
-local lastPanel;
+local lastPanel
 local GetManaRegen = GetManaRegen
 
 local function OnEvent(self, event, unit)

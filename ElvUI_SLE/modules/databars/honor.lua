@@ -53,8 +53,8 @@ local function HonorBar_Update(self, event, unit)
 	local showHonor = UnitLevel('player') >= MAX_PLAYER_LEVEL
 
 	if showHonor then
-		local current = UnitHonor('player');
-		local max = UnitHonorMax('player');
+		local current = UnitHonor('player')
+		local max = UnitHonorMax('player')
 
 		--Guard against division by zero, which appears to be an issue when zoning in/out of dungeons
 		if max == 0 then max = 1 end

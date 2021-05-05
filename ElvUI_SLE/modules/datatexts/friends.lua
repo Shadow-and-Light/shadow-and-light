@@ -59,26 +59,26 @@ local statusTable = {
 
 local function sletime_Conversion(timeDifference, isAbsolute)
 	if ( not isAbsolute ) then
-	   timeDifference = time() - timeDifference;
+	   timeDifference = time() - timeDifference
 	end
-	local ONE_MINUTE = 60;
-	local ONE_HOUR = 60 * ONE_MINUTE;
-	local ONE_DAY = 24 * ONE_HOUR;
-	local ONE_MONTH = 30 * ONE_DAY;
-	local ONE_YEAR = 12 * ONE_MONTH;
+	local ONE_MINUTE = 60
+	local ONE_HOUR = 60 * ONE_MINUTE
+	local ONE_DAY = 24 * ONE_HOUR
+	local ONE_MONTH = 30 * ONE_DAY
+	local ONE_YEAR = 12 * ONE_MONTH
 
 	if ( timeDifference < ONE_MINUTE ) then
-	   return LASTONLINE_SECS;
+	   return LASTONLINE_SECS
 	elseif ( timeDifference >= ONE_MINUTE and timeDifference < ONE_HOUR ) then
-	   return format(LASTONLINE_MINUTES, floor(timeDifference / ONE_MINUTE));
+	   return format(LASTONLINE_MINUTES, floor(timeDifference / ONE_MINUTE))
 	elseif ( timeDifference >= ONE_HOUR and timeDifference < ONE_DAY ) then
-	   return format(LASTONLINE_HOURS, floor(timeDifference / ONE_HOUR));
+	   return format(LASTONLINE_HOURS, floor(timeDifference / ONE_HOUR))
 	elseif ( timeDifference >= ONE_DAY and timeDifference < ONE_MONTH ) then
-	   return format(LASTONLINE_DAYS, floor(timeDifference / ONE_DAY));
+	   return format(LASTONLINE_DAYS, floor(timeDifference / ONE_DAY))
 	elseif ( timeDifference >= ONE_MONTH and timeDifference < ONE_YEAR ) then
-	   return format(LASTONLINE_MONTHS, floor(timeDifference / ONE_MONTH));
+	   return format(LASTONLINE_MONTHS, floor(timeDifference / ONE_MONTH))
 	else
-	   return format(LASTONLINE_YEARS, floor(timeDifference / ONE_YEAR));
+	   return format(LASTONLINE_YEARS, floor(timeDifference / ONE_YEAR))
 	end
  end
 
@@ -192,7 +192,7 @@ local function AddToBNTable(bnIndex, bnetIDAccount, accountName, battleTag, char
 	end
 
 	if customMessageTime then
-		customMessageTime = format(BNET_BROADCAST_SENT_TIME, sletime_Conversion(customMessageTime));
+		customMessageTime = format(BNET_BROADCAST_SENT_TIME, sletime_Conversion(customMessageTime))
 	end
 
 	BNTable[bnIndex] = {

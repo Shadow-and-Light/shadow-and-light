@@ -1,5 +1,5 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local BG = SLE.Backgrounds;
+local BG = SLE.Backgrounds
 local CreateFrame = CreateFrame
 
 --Default positions table. ID is passed everywhere so when positioning stuff I can just unpack by id and not writing a line for every BG.

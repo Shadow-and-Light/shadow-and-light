@@ -182,8 +182,8 @@ function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 
 		frame:ClearAllPoints()
 		if FramePoint == "CURSOR" then
-			local UIScale = UIParent:GetScale();
-			local x, y = GetCursorPosition();
+			local UIScale = UIParent:GetScale()
+			local x, y = GetCursorPosition()
 			x = x/UIScale
 			y = y/UIScale
 			frame:Point(MenuAnchor, UIParent, "BOTTOMLEFT", x + xOffset, y + yOffset)

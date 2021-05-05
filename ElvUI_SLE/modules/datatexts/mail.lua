@@ -8,7 +8,7 @@ local GetLatestThreeSenders = GetLatestThreeSenders
 local HAVE_MAIL_FROM = HAVE_MAIL_FROM
 local MAIL_LABEL = MAIL_LABEL
 
-local icon = [[|TInterface\MINIMAP\TRACKING\Mailbox.blp:14:14|t]];
+local icon = [[|TInterface\MINIMAP\TRACKING\Mailbox.blp:14:14|t]]
 local displayString, lastPanel = ''
 
 function DTP:MailUp()

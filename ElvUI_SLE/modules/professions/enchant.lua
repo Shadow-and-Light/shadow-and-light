@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Pr = SLE.Professions
-local S = E.Skins;
+local S = E.Skins
 
 -- GLOBALS: CreateFrame, hooksecurefunc
 local _G = _G

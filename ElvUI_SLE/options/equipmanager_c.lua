@@ -41,7 +41,7 @@ local function configTable()
 			guiInline = true,
 			name = SpecName,
 			get = function(info) return EM.db[OPTION][ info[#info] ] end,
-			set = function(info, value) EM.db[OPTION][ info[#info] ] = value; end,
+			set = function(info, value) EM.db[OPTION][ info[#info] ] = value end,
 			args = {
 				info = ACH:Description(L["Equip this set when switching to specialization %s."], 1),
 				general = {

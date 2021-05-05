@@ -1,6 +1,6 @@
 ﻿local SLE, _, E = unpack(select(2, ...))
 local A = SLE.Actionbars
-local AB = E.ActionBars;
+local AB = E.ActionBars
 
 --GLOBALS: unpack, select, hooksecurefunc, NUM_ACTIONBAR_BUTTONS, LibStub
 local hooksecurefunc = hooksecurefunc
@@ -9,7 +9,7 @@ local NUM_ACTIONBAR_BUTTONS = NUM_ACTIONBAR_BUTTONS
 A.CheckedTextures = {}
 
 function A:Initialize()
-	if not SLE.initialized or E.private.actionbar.enable ~= true then return; end
+	if not SLE.initialized or E.private.actionbar.enable ~= true then return end
 	A.MaxBars = 10 --In case ExtraActionBars is enabled. Cause 7+ bars will not be affected otherwise
 
 	--Creating checked textures on actionbars

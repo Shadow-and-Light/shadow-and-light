@@ -331,7 +331,7 @@ local function configTable()
 						name = L["Panels"],
 						type = 'group',
 						get = function(info) return E.db.sle.afk.panels[info[#info-1]][info[#info]] end,
-						set = function(info, value) E.db.sle.afk.panels[info[#info-1]][info[#info]] = value; S:CreateUpdatePanels(); S:SetupType(); end,
+						set = function(info, value) E.db.sle.afk.panels[info[#info-1]][info[#info]] = value; S:CreateUpdatePanels(); S:SetupType() end,
 						args = {
 							animation = {
 								order = 1,

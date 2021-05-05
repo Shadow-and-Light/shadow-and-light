@@ -39,7 +39,7 @@ end
 function SUF:CastBarHook()
 	local units = {"Player", "Target", "Focus"}
 	for _, unit in pairs(units) do
-		local unitframe = _G["ElvUF_"..unit];
+		local unitframe = _G["ElvUF_"..unit]
 		local castbar = unitframe and unitframe.Castbar
 		if castbar then
 			hooksecurefunc(castbar, "PostCastStart", SUF.PostCast)

@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local SUF = SLE.UnitFrames
-local UF = E.UnitFrames;
+local UF = E.UnitFrames
 
 --Creating texts for ElvUI's pvp icon
 function SUF:Create_PvpIconText(frame)

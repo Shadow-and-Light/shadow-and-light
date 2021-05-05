@@ -19,7 +19,7 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 			message = 'wut?'
 			C_ChatInfo_SendAddonMessage('SLE_USER_REQ', message, channel)
 		elseif prefix == 'SLE_USER_INFO' then
-			message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
+			message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version
 			C_ChatInfo_SendAddonMessage('SLE_DEV_INFO', message, channel)
 		end
 	elseif event == 'BN_CHAT_MSG_ADDON' then
@@ -33,7 +33,7 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 					message, ID = strsplit('#', message)
 
 					if message == 'userlist' then
-						message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version;
+						message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version
 					elseif message == 'slesay' then
 						message = 'SLEinfo'..ID
 					end

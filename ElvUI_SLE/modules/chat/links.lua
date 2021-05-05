@@ -111,7 +111,7 @@ function C:filterLine(event, source, msg, ...)
 		local newID = 0
 
 		if msg:match(line) then
-			local curTime = GetTime();
+			local curTime = GetTime()
 
 			if strfind(msg, "|cff(.+)|r") then
 				msg = gsub(msg, "|cff%w%w%w%w%w%w", "")
@@ -194,10 +194,10 @@ local function SetItemRef(link, text, button, chatframe)
 			local meterID = tonumber(id)
 
 			-- put stuff in the ItemRefTooltip from FrameXML
-			ShowUIPanel(ItemRefTooltip);
+			ShowUIPanel(ItemRefTooltip)
 
 			if ( not ItemRefTooltip:IsShown() ) then
-				ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE");
+				ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE")
 			end
 
 			ItemRefTooltip:ClearLines()

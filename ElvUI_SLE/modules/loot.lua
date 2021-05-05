@@ -55,9 +55,9 @@ end
 --Checks for modifier keys presse. Required for override option
 function LT:ModifierCheck()
 	local heldModifier = LT.db.announcer.override
-	local shiftDown = IsShiftKeyDown();
-	local ctrlDown = IsControlKeyDown();
-	local altDown = IsAltKeyDown();
+	local shiftDown = IsShiftKeyDown()
+	local ctrlDown = IsControlKeyDown()
+	local altDown = IsAltKeyDown()
 
 	if heldModifier == '3' and shiftDown then
 		return true
@@ -106,7 +106,7 @@ function LT:PopulateTable(qualityPassed)
 				LT.LootItems = LT.LootItems + 1
 				--Putting the message to show for this particular item together
 				LT.Loot[LT.LootItems] = link --Item link for people to click
-				LT.Loot[LT.LootItems] = LT.Loot[LT.LootItems].." (ilvl: "..ilvl..")" --Adding ilvl value on top of that, for proc stuff mostly
+				LT.Loot[LT.LootItems] = LT.Loot[LT.LootItems]..' (ilvl: '..ilvl..')' --Adding ilvl value on top of that, for proc stuff mostly
 				LT.Numbers[LT.LootItems] = quantity or 1 --How many of this was looted
 			end
 		end
@@ -251,7 +251,7 @@ end
 function LT:Toggle()
 	if LT.db.enable then
 		self:RegisterEvent('LOOT_OPENED', 'HandleEvent')
-		self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow');
+		self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow')
 		if not IsAddOnLoaded('ElvUI_OptionsUI') then --How can this be not loaded at this point? On /rl or login into the game ofc
 			self:RegisterEvent('ADDON_LOADED', LoadConfig)
 		end

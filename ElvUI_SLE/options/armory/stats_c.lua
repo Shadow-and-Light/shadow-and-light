@@ -12,7 +12,7 @@ local function configTable()
 		disabled = function() return SLE._Compatibility['DejaCharacterStats'] or not E.db.sle.armory.stats.enable end,
 		hidden = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.character end,
 		get = function(info) return E.db.sle.armory.stats[info[#info]] end,
-		set = function(info, value) E.db.sle.armory.stats[info[#info]] = value; PaperDollFrame_UpdateStats(); M:UpdateCharacterItemLevel(); end,
+		set = function(info, value) E.db.sle.armory.stats[info[#info]] = value; PaperDollFrame_UpdateStats(); M:UpdateCharacterItemLevel() end,
 		args = {
 			OnlyPrimary = {
 				order = 1,

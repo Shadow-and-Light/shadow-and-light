@@ -1,8 +1,8 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Armory = SLE.Armory_Core
-local CA = SLE.Armory_Character;
+local CA = SLE.Armory_Character
 local LCG = LibStub('LibCustomGlow-1.0')
-local M = E.Misc;
+local M = E.Misc
 
 local _G = _G
 local HasAnyUnselectedPowers = C_AzeriteEmpoweredItem.HasAnyUnselectedPowers
@@ -99,7 +99,7 @@ function CA:BuildLayout()
 			end
 			-- self.AzeriteTexture:Hide()
 			if E.db.sle.armory.character.enable then self.AvailableTraitFrame:Hide() end
-			local isAzeriteEmpoweredItem = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(itemLocation);
+			local isAzeriteEmpoweredItem = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(itemLocation)
 			if isAzeriteEmpoweredItem then
 			else
 				LCG.PixelGlow_Stop(self, "_AzeriteTraitGlow")
@@ -263,7 +263,7 @@ end
 
 --Fuck blizzard and theur moon logic
 function CA:FixFuckingBlizzardLogic()
-	local milestones = C_AzeriteEssence.GetMilestones();
+	local milestones = C_AzeriteEssence.GetMilestones()
 	if not milestones then return end
 	for i, milestoneInfo in ipairs(milestones) do
 		if milestoneInfo.slot then

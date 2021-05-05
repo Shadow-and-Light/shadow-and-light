@@ -50,7 +50,7 @@ local function configTable()
 				order = 9, type = "select",
 				name = L["Hide In Combat"],
 				get = function(info) return E.db.sle.chat.combathide end,
-				set = function(info, value)	E.db.sle.chat.combathide = value; end,
+				set = function(info, value)	E.db.sle.chat.combathide = value end,
 				values = {
 					["NONE"] = NONE,
 					["BOTH"] = L["Both"],
@@ -117,7 +117,7 @@ local function configTable()
 				type = "group",
 				name = INVITE,
 				get = function(info) return E.db.sle.chat.invite[ info[#info] ]  end,
-				set = function(info, value) E.db.sle.chat.invite[ info[#info] ]  = value; end,
+				set = function(info, value) E.db.sle.chat.invite[ info[#info] ]  = value end,
 				args = {
 					altInv = {
 						order = 1,

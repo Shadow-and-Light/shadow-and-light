@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local DTP = SLE.Datatexts;
-local DT = E.DataTexts;
+local DTP = SLE.Datatexts
+local DT = E.DataTexts
 
 --GLOBALS: ElvDB, hooksecurefunc
 local format = format
@@ -73,19 +73,19 @@ end
 --This deletes gold data for selected character. Called from config.
 function DTP:DeleteCurrencyEntry(data)
 	if ElvDB['gold'][data.realm] and ElvDB['gold'][data.realm][data.name] then
-		ElvDB['gold'][data.realm][data.name] = nil;
+		ElvDB['gold'][data.realm][data.name] = nil
 	end
 	if ElvDB['class'] and ElvDB['class'][data.realm] then
 		if ElvDB['class'][data.realm][data.name] then
-			ElvDB['class'][data.realm][data.name] = nil;
+			ElvDB['class'][data.realm][data.name] = nil
 		end
 	end
 	if ElvDB['faction'] and ElvDB['faction'][data.realm] then
 		if ElvDB['faction'][data.realm]['Alliance'][data.name] then
-			ElvDB['faction'][data.realm]['Alliance'][data.name] = nil;
+			ElvDB['faction'][data.realm]['Alliance'][data.name] = nil
 		end
 		if ElvDB['faction'][data.realm]['Horde'][data.name] then
-			ElvDB['faction'][data.realm]['Horde'][data.name] = nil;
+			ElvDB['faction'][data.realm]['Horde'][data.name] = nil
 		end
 	end
 	E.Libs['AceConfigDialog']:ConfigTableChanged(nil, 'ElvUI')

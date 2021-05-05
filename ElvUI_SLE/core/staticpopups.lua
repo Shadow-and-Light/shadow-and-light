@@ -5,7 +5,7 @@ local CANCEL = CANCEL
 local ReloadUI = ReloadUI
 
 --Version check
-E.PopupDialogs["VERSION_MISMATCH"] = {
+E.PopupDialogs['VERSION_MISMATCH'] = {
 	text = format(L["MSG_SLE_ELV_OUTDATED"], SLE.elvV, SLE.elvR),
 	button1 = CLOSE,
 	timeout = 0,
@@ -14,7 +14,7 @@ E.PopupDialogs["VERSION_MISMATCH"] = {
 }
 
 --Do you sware you are not an idiot
-E.PopupDialogs["SLE_ADVANCED_POPUP"] = {
+E.PopupDialogs['SLE_ADVANCED_POPUP'] = {
 	text = L["SLE_ADVANCED_POPUP_TEXT"],
 	button1 = L["I Swear"],
 	button2 = DECLINE,
@@ -31,14 +31,14 @@ E.PopupDialogs["SLE_ADVANCED_POPUP"] = {
 E.PopupDialogs['SLE_CONFIRM_DELETE_CURRENCY_CHARACTER'] = {
 	button1 = YES,
 	button2 = NO,
-	OnCancel = E.noop;
+	OnCancel = E.noop
 }
 
 --Incompatibility messages
-E.PopupDialogs["ENHANCED_SLE_INCOMPATIBLE"] = {
+E.PopupDialogs['ENHANCED_SLE_INCOMPATIBLE'] = {
 	text = L["Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable."],
-	OnAccept = function() DisableAddOn("ElvUI_Enhanced"); ReloadUI() end,
-	OnCancel = function() DisableAddOn("ElvUI_SLE"); ReloadUI() end,
+	OnAccept = function() DisableAddOn('ElvUI_Enhanced'); ReloadUI() end,
+	OnCancel = function() DisableAddOn('ElvUI_SLE'); ReloadUI() end,
 	button1 = 'ElvUI Enhanced',
 	button2 = 'Shadow & Light',
 	timeout = 0,
@@ -46,10 +46,10 @@ E.PopupDialogs["ENHANCED_SLE_INCOMPATIBLE"] = {
 	hideOnEscape = false,
 }
 
-E.PopupDialogs["LOOTCONFIRM_SLE_INCOMPATIBLE"] = {
+E.PopupDialogs['LOOTCONFIRM_SLE_INCOMPATIBLE'] = {
 	text = L["You have got Loot Confirm and Shadow & Light both enabled at the same time. Select an addon to disable."],
-	OnAccept = function() DisableAddOn("LootConfirm"); ReloadUI() end,
-	OnCancel = function() DisableAddOn("ElvUI_SLE"); ReloadUI() end,
+	OnAccept = function() DisableAddOn('LootConfirm'); ReloadUI() end,
+	OnCancel = function() DisableAddOn('ElvUI_SLE'); ReloadUI() end,
 	button1 = 'Loot Confirm',
 	button2 = 'Shadow & Light',
 	timeout = 0,
@@ -57,10 +57,10 @@ E.PopupDialogs["LOOTCONFIRM_SLE_INCOMPATIBLE"] = {
 	hideOnEscape = false,
 }
 
-E.PopupDialogs["TRANSAB_SLE_INCOMPATIBLE"] = {
+E.PopupDialogs['TRANSAB_SLE_INCOMPATIBLE'] = {
 	text = L["You have got ElvUI Transparent Actionbar Backdrops and Shadow & Light both enabled at the same time. Select an addon to disable."],
-	OnAccept = function() DisableAddOn("ElvUITransparentActionbars"); ReloadUI() end,
-	OnCancel = function() DisableAddOn("ElvUI_SLE"); ReloadUI() end,
+	OnAccept = function() DisableAddOn('ElvUITransparentActionbars'); ReloadUI() end,
+	OnCancel = function() DisableAddOn('ElvUI_SLE'); ReloadUI() end,
 	button1 = 'Transparent Actionbar Backdrops',
 	button2 = 'Shadow & Light',
 	timeout = 0,
@@ -68,34 +68,31 @@ E.PopupDialogs["TRANSAB_SLE_INCOMPATIBLE"] = {
 	hideOnEscape = false,
 }
 
-E.PopupDialogs["SLE_INCOMPATIBLE_ADDON"] = {
-	text = gsub(L["INCOMPATIBLE_ADDON"], "ElvUI", "Shadow & Light"),
-	OnAccept = function(self) DisableAddOn(E.PopupDialogs["SLE_INCOMPATIBLE_ADDON"].addon); ReloadUI(); end,
-	OnCancel = function(self) E.PopupDialogs["SLE_INCOMPATIBLE_ADDON"].optiontable[E.PopupDialogs["SLE_INCOMPATIBLE_ADDON"].value] = false; ReloadUI(); end,
+E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'] = {
+	text = gsub(L["INCOMPATIBLE_ADDON"], 'ElvUI', 'Shadow & Light'),
+	OnAccept = function() DisableAddOn(E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].addon); ReloadUI() end,
+	OnCancel = function() E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].optiontable[E.PopupDialogs['SLE_INCOMPATIBLE_ADDON'].value] = false; ReloadUI() end,
 	timeout = 0,
 	whileDead = 1,
 	hideOnEscape = false,
 }
 
-E.PopupDialogs["SLE_APPLY_FONT_WARNING"] = {
+E.PopupDialogs['SLE_APPLY_FONT_WARNING'] = {
 	text = L["Are you sure you want to apply this font to all ElvUI elements?"],
 	OnAccept = function()
 		-- local font = E.db.general.font
 		-- local fontSize = E.db.general.fontSize
-		local font = E.PopupDialogs["SLE_APPLY_FONT_WARNING"].allFont
-		local fontSize = E.PopupDialogs["SLE_APPLY_FONT_WARNING"].allSize
-		local fontOutline = E.PopupDialogs["SLE_APPLY_FONT_WARNING"].allOutline
+		local font = E.PopupDialogs['SLE_APPLY_FONT_WARNING'].allFont
+		local fontSize = E.PopupDialogs['SLE_APPLY_FONT_WARNING'].allSize
+		local fontOutline = E.PopupDialogs['SLE_APPLY_FONT_WARNING'].allOutline
 
 		E.db.sle.media.fonts.zone.font = font
-		-- E.db.sle.media.fonts.zone.size = fontSize
 		E.db.sle.media.fonts.zone.outline = fontOutline
 
 		E.db.sle.media.fonts.subzone.font = font
-		-- E.db.sle.media.fonts.subzone.size = fontSize
 		E.db.sle.media.fonts.subzone.outline = fontOutline
 
 		E.db.sle.media.fonts.pvp.font = font
-		-- E.db.sle.media.fonts.pvp.size = fontSize
 		E.db.sle.media.fonts.pvp.outline = fontOutline
 
 		E.db.sle.media.fonts.mail.font = font
@@ -114,7 +111,6 @@ E.PopupDialogs["SLE_APPLY_FONT_WARNING"] = {
 		E.db.sle.media.fonts.objectiveHeader.outline = fontOutline
 
 		E.db.sle.media.fonts.questFontSuperHuge.font = font
-		-- E.db.sle.media.fonts.questFontSuperHuge.size = fontSize
 		E.db.sle.media.fonts.questFontSuperHuge.outline = fontOutline
 
 		E.db.sle.minimap.coords.font = font
@@ -174,7 +170,6 @@ E.PopupDialogs["SLE_APPLY_FONT_WARNING"] = {
 		E.db.sle.armory.character.ilvl.fontStyle = fontOutline
 
 		E.db.sle.armory.character.enchant.font = font
-		-- E.db.sle.armory.character.enchant.fontSize = fontSize
 		E.db.sle.armory.character.enchant.fontStyle = fontOutline
 
 		E.db.sle.armory.stats.itemLevel.font = font
@@ -194,7 +189,6 @@ E.PopupDialogs["SLE_APPLY_FONT_WARNING"] = {
 		E.db.sle.armory.inspect.ilvl.fontStyle = fontOutline
 
 		E.db.sle.armory.inspect.enchant.font = font
-		-- E.db.sle.armory.inspect.enchant.fontSize = fontSize
 		E.db.sle.armory.inspect.enchant.fontStyle = fontOutline
 
 		-- E.db.sle.armory.inspect.tabsText.Font = font
@@ -251,7 +245,7 @@ E.PopupDialogs["SLE_APPLY_FONT_WARNING"] = {
 
 		E:UpdateAll(true)
 	end,
-	OnCancel = function() E:StaticPopup_Hide("SLE_APPLY_FONT_WARNING"); end,
+	OnCancel = function() E:StaticPopup_Hide('SLE_APPLY_FONT_WARNING') end,
 	button1 = YES,
 	button2 = CANCEL,
 	timeout = 0,
@@ -259,17 +253,17 @@ E.PopupDialogs["SLE_APPLY_FONT_WARNING"] = {
 	hideOnEscape = false,
 }
 
-E.PopupDialogs["SLE_RESET_ALL"] = {
+E.PopupDialogs['SLE_RESET_ALL'] = {
 	text = L["WARNING: This will reset all movers & options for S&L and reload the screen."],
 	button1 = ACCEPT,
 	button2 = CANCEL,
-	OnAccept = function() SLE:Reset("all") end,
+	OnAccept = function() SLE:Reset('all') end,
 	timeout = 0,
 	whileDead = 1,
 	hideOnEscape = false,
 }
 
-E.PopupDialogs["SLE_CONVERSION_COMPLETE"] = {
+E.PopupDialogs['SLE_CONVERSION_COMPLETE'] = {
 	text = L["SLE_DB_CONVERT_COMPLETE_TEXT"],
 	button1 = OKAY,
 	timeout = 0,

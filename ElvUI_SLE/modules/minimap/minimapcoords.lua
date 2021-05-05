@@ -75,11 +75,11 @@ function MM:CreateCoordsFrame()
 	SLECoordsHolder:SetScript('OnUpdate', MM.UpdateCoords)
 
 	_G.Minimap:HookScript('OnEnter', function()
-		if not E.db.sle.minimap.coords.mouseover or not E.private.general.minimap.enable or not E.db.sle.minimap.coords.enable then return; end
+		if not E.db.sle.minimap.coords.mouseover or not E.private.general.minimap.enable or not E.db.sle.minimap.coords.enable then return end
 		SLECoordsHolder:Show()
 	end)
 	_G.Minimap:HookScript('OnLeave', function()
-		if not E.db.sle.minimap.coords.mouseover or not E.private.general.minimap.enable or not E.db.sle.minimap.coords.enable then return; end
+		if not E.db.sle.minimap.coords.mouseover or not E.private.general.minimap.enable or not E.db.sle.minimap.coords.enable then return end
 		SLECoordsHolder:Hide()
 	end)
 

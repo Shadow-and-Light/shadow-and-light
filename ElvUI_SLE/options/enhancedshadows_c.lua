@@ -623,7 +623,7 @@ local function configTable()
 			disabled = function() return not E.private.unitframe.enable end,
 			get = function(info) return E.db.sle.shadows.unitframes[unit][info[#info]] end,
 			set = function(info, value)
-				E.db.sle.shadows.unitframes[unit][info[#info]] = value;
+				E.db.sle.shadows.unitframes[unit][info[#info]] = value
 				local ufname = E:StringTitle(unit):gsub('t(arget)', 'T%1')
 				SUF['Arrange'..ufname]()
 			end,

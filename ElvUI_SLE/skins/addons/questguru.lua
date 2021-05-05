@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local S = E.Skins;
+local S = E.Skins
 local _G = _G
 
 local function LoadSkin()
@@ -17,7 +17,7 @@ local function LoadSkin()
 	S:HandleScrollBar(_G["QuestGuruScrollFrameScrollBar"])
 	S:HandleScrollBar(_G["QuestGuruDetailScrollFrameScrollBar"])
 	if (E.private.sle.skins.questguru.removeParchment) then
-		_G["QuestGuruDetailScrollFrame"]:StripTextures();
+		_G["QuestGuruDetailScrollFrame"]:StripTextures()
 	else
 		_G["QuestGuruDetailScrollFrame"].DetailBG:SetTexture("Interface\\QuestFrame\\QuestBG")
 	end

@@ -14,54 +14,54 @@ local PanelTemplates_TabResize = PanelTemplates_TabResize
 
 --Analog for blizz dynamic chat framers calculation, used only here. Based on original blizz function with altered numbers and shit
 local function SLE_FCFDock_CalculateTabSize(dock, numDynFrames, sleWidth, sleTotalCustomWidth)
-	local MIN_SIZE, MAX_SIZE = 60, 100;
-	local scrollSize = dock.scrollFrame:GetWidth() + (dock.overflowButton:IsShown() and dock.overflowButton.width or 0); --We want the total width assuming no overflow button.
+	local MIN_SIZE, MAX_SIZE = 60, 100
+	local scrollSize = dock.scrollFrame:GetWidth() + (dock.overflowButton:IsShown() and dock.overflowButton.width or 0) --We want the total width assuming no overflow button.
 
 	--First, see if we can fit all the tabs at the maximum size
 	if ( numDynFrames * MAX_SIZE < scrollSize ) then
-		return MAX_SIZE, false;
+		return MAX_SIZE, false
 	end
 
 	if (sleTotalCustomWidth > scrollSize) or ( scrollSize / MIN_SIZE < numDynFrames ) then
 		--Not everything fits, so we'll need room for the overflow button.
-		scrollSize = scrollSize - dock.overflowButton.width;
+		scrollSize = scrollSize - dock.overflowButton.width
 	end
 
 	--Figure out how many tabs we're going to be able to fit at the minimum size
 	local numWholeTabs = min(floor(scrollSize / sleWidth), numDynFrames)
 
 	if ( scrollSize == 0 ) then
-		return 1, (numDynFrames > 0);
+		return 1, (numDynFrames > 0)
 	end
 	if ( numWholeTabs == 0 ) then
-		return scrollSize, true;
+		return scrollSize, true
 	end
 
 	--How big each tab should be.
-	local tabSize = E.db.sle.chat.tab.resize ~= "Blizzard" and sleWidth or (scrollSize / numWholeTabs);
+	local tabSize = E.db.sle.chat.tab.resize ~= "Blizzard" and sleWidth or (scrollSize / numWholeTabs)
 
-	return tabSize, (numDynFrames > numWholeTabs);
+	return tabSize, (numDynFrames > numWholeTabs)
 end
 
 --Full update tabs function. Hooking to it allows to set size and selection at the same time.
 --Most of the content is default blizz function with sligh modifications
 function C:FCFDock_UpdateTabs(dock, forceUpdate)
 	if ( not dock.isDirty and not forceUpdate ) then --No changes have been made since the last update.
-		return;
+		return
 	end
 
-	local scrollChild = dock.scrollFrame:GetScrollChild();
-	local lastDockedStaticTab = nil;
-	local lastDockedDynamicTab = nil;
+	local scrollChild = dock.scrollFrame:GetScrollChild()
+	local lastDockedStaticTab = nil
+	local lastDockedDynamicTab = nil
 
-	local numDynFrames = 0;	--Number of dynamicly sized frames.
-	local selectedDynIndex = nil;
+	local numDynFrames = 0	--Number of dynamicly sized frames.
+	local selectedDynIndex = nil
 
 	local sleTotalCustomWidth = 0 --This variable is used to see if overflow button should be shown when using non-blizz width
 	local sleWidth --Determain width for non blizzard resize. Needed cause I fucked up in the past allowing it for non-scroll tabs only
 
 	for index, chatFrame in ipairs(dock.DOCKED_CHAT_FRAMES) do
-		local chatTab = _G[chatFrame:GetName().."Tab"];
+		local chatTab = _G[chatFrame:GetName().."Tab"]
 
 		--Resizing tabs, don't need to do that if blizz sizing is selected
 		if E.db.sle.chat.tab.resize ~= "Blizzard" then
@@ -70,28 +70,28 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 			if sleWidth < 45 then sleWidth = 45 end --We have a min of 45. If somehow this happens to be lower., stuff looks ugly.
 
 			if ( chatFrame.isStaticDocked ) then
-				chatTab:SetParent(dock);
-				PanelTemplates_TabResize(chatTab, chatTab.isTemporary and 20 or 10, nil, nil, nil, sleWidth);
+				chatTab:SetParent(dock)
+				PanelTemplates_TabResize(chatTab, chatTab.isTemporary and 20 or 10, nil, nil, nil, sleWidth)
 				if ( lastDockedStaticTab ) then
-					chatTab:SetPoint("LEFT", lastDockedStaticTab, "RIGHT", 0, 0);
+					chatTab:SetPoint("LEFT", lastDockedStaticTab, "RIGHT", 0, 0)
 				else
-					chatTab:SetPoint("LEFT", dock, "LEFT", 0, 0);
+					chatTab:SetPoint("LEFT", dock, "LEFT", 0, 0)
 				end
-				lastDockedStaticTab = chatTab;
+				lastDockedStaticTab = chatTab
 			else
-				chatTab:SetParent(scrollChild);
-				numDynFrames = numDynFrames + 1;
+				chatTab:SetParent(scrollChild)
+				numDynFrames = numDynFrames + 1
 
 				if ( FCFDock_GetSelectedWindow(dock) == chatFrame ) then
-					selectedDynIndex = numDynFrames;
+					selectedDynIndex = numDynFrames
 				end
 
 				if ( lastDockedDynamicTab ) then
-					chatTab:SetPoint("LEFT", lastDockedDynamicTab, "RIGHT", 0, 0);
+					chatTab:SetPoint("LEFT", lastDockedDynamicTab, "RIGHT", 0, 0)
 				else
-					chatTab:SetPoint("LEFT", scrollChild, "LEFT", 0, 0);
+					chatTab:SetPoint("LEFT", scrollChild, "LEFT", 0, 0)
 				end
-				lastDockedDynamicTab = chatTab;
+				lastDockedDynamicTab = chatTab
 				sleTotalCustomWidth = sleTotalCustomWidth + sleWidth
 			end
 		end
@@ -104,26 +104,26 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 	--Dynamically resize tabs
 	for index, chatFrame in ipairs(dock.DOCKED_CHAT_FRAMES) do
 		if ( not chatFrame.isStaticDocked ) then
-			local chatTab = _G[chatFrame:GetName().."Tab"];
-			PanelTemplates_TabResize(chatTab, chatTab.sizePadding or 0, dynTabSize);
+			local chatTab = _G[chatFrame:GetName().."Tab"]
+			PanelTemplates_TabResize(chatTab, chatTab.sizePadding or 0, dynTabSize)
 		end
 	end
 
-	dock.scrollFrame:SetPoint("LEFT", lastDockedStaticTab, "RIGHT", 0, 0);
+	dock.scrollFrame:SetPoint("LEFT", lastDockedStaticTab, "RIGHT", 0, 0)
 	if ( hasOverflow or origOverflow ) then
-		dock.overflowButton:Show();
-		dock.scrollFrame:SetPoint("BOTTOMRIGHT", dock.overflowButton, "BOTTOMLEFT", 0, 0);
+		dock.overflowButton:Show()
+		dock.scrollFrame:SetPoint("BOTTOMRIGHT", dock.overflowButton, "BOTTOMLEFT", 0, 0)
 	else
-		dock.overflowButton:Hide();
-		dock.scrollFrame:SetPoint("BOTTOMRIGHT", dock, "BOTTOMRIGHT", 0, -5);
+		dock.overflowButton:Hide()
+		dock.scrollFrame:SetPoint("BOTTOMRIGHT", dock, "BOTTOMRIGHT", 0, -5)
 	end
 
 	--Cache some of this data on the scroll frame for animating to the selected tab.
-	dock.scrollFrame.dynTabSize = dynTabSize;
-	dock.scrollFrame.numDynFrames = numDynFrames;
-	dock.scrollFrame.selectedDynIndex = selectedDynIndex;
+	dock.scrollFrame.dynTabSize = dynTabSize
+	dock.scrollFrame.numDynFrames = numDynFrames
+	dock.scrollFrame.selectedDynIndex = selectedDynIndex
 
-	dock.isDirty = false;
+	dock.isDirty = false
 
 	--This may be needed to return for check in FCFDock_OnUpdate
 	return FCFDock_ScrollToSelectedTab(dock)

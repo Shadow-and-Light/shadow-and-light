@@ -19,7 +19,7 @@ local function configTable()
 				type = 'group',
 				guiInline = true,
 				-- get = function(info) return E.db.sle.dt.currency.gold[ info[#info] ] end,
-				-- set = function(info, value) E.db.sle.dt.currency.gold[ info[#info] ] = value; end,
+				-- set = function(info, value) E.db.sle.dt.currency.gold[ info[#info] ] = value end,
 				args = {
 					panelStyle = {
 						order = 1,
@@ -49,7 +49,7 @@ local function configTable()
 							return friendStyleTable
 						end,
 						get = function(info) return E.db.sle.dt.friends[info[#info]]  end,
-						set = function(info, value) E.db.sle.dt.friends[info[#info]] = value; DT:LoadDataTexts(); end,
+						set = function(info, value) E.db.sle.dt.friends[info[#info]] = value; DT:LoadDataTexts() end,
 					},
 					tooltipAutohide = {
 						order = 2,
@@ -114,7 +114,7 @@ local function configTable()
 				type = 'multiselect',
 				name = L["Hide by Status"],
 				get = function(_, key) return E.db.sle.dt.friends[key] end,
-				set = function(_, key, value) E.db.sle.dt.friends[key] = value; end,
+				set = function(_, key, value) E.db.sle.dt.friends[key] = value end,
 				values = {
 					hideAFK = L["AFK"],
 					hideDND = L["DND"],
