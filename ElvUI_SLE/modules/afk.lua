@@ -63,30 +63,46 @@ local function UpdateCustomGraphicsDefaults()
 	end
 end
 
-local racialMusic = {
-	['Human'] = 53210,
-	['Gnome'] = 369055,
-	['NightElf'] = 441709,
-	['KulTiran'] = 1781897,
-	['Dwarf'] = 298910,
-	['Draenei'] = 53284,
-	['Worgen'] = 441525,
-	['VoidElf'] = 1864282,
-	['LightforgedDraenei'] = 1864285,
-	['DarkIronDwarf'] = 441566,
-	['Mechagnome'] = 3028751,
-	['Orc'] = 441713,
-	['Undead'] = 53217,
-	['Tauren'] = 441788,
-	['Troll'] = 371378,
-	['Goblin'] = 441627,
-	['BloodElf'] = 53473,
-	['Pandaren'] = 642246,
-	['Nightborne'] = 1477339,
-	['HighmountainTauren'] = 1417319,
-	['ZandalariTroll'] = 2844635,
-	['Vulpera'] = 3260632,
-	['MagharOrc'] = 2146630,
+S.afkMusic = {
+	CLASS = {
+		['WARRIOR'] = 1417334,
+		['PALADIN'] = 1417342, --443289
+		['HUNTER'] = 1417326,
+		['ROGUE'] = 1417273,
+		['PRIEST'] = 1417367,
+		['DEATHKNIGHT'] = 229831,
+		['SHAMAN'] = 528163,
+		['MAGE'] = 1417264,
+		['WARLOCK'] = 1417356,
+		['MONK'] = 642138,
+		['DRUID'] = 1417312,
+		['DEMONHUNTER'] = 1417290,
+	},
+	RACIAL = {
+		['Human'] = 53210,
+		['Gnome'] = 369055,
+		['NightElf'] = 441709,
+		['KulTiran'] = 1781897,
+		['Dwarf'] = 298910,
+		['Draenei'] = 53284,
+		['Worgen'] = 441525,
+		['VoidElf'] = 1864282,
+		['LightforgedDraenei'] = 1864285,
+		['DarkIronDwarf'] = 441566,
+		['Mechagnome'] = 3028751,
+		['Orc'] = 441713,
+		['Undead'] = 53217,
+		['Tauren'] = 441788,
+		['Troll'] = 371378,
+		['Goblin'] = 441627,
+		['BloodElf'] = 53473,
+		['Pandaren'] = 642246,
+		['Nightborne'] = 1477339,
+		['HighmountainTauren'] = 1417319,
+		['ZandalariTroll'] = 2844635,
+		['Vulpera'] = 3260632,
+		['MagharOrc'] = 2146630,
+	},
 }
 
 local function currentDateTime()
@@ -402,15 +418,17 @@ function S:AbortAFK()
 end
 
 local originalMusicSetting
-function S:RacialMusic()
-	if not S.db.racialMusic then return end
-	if not racialMusic[E.myrace] then return end
+function S:RunAFKMusic()
+	if S.db.musicSelection == 'NONE' then return end
+
+	local arg1 = S.db.musicSelection == 'CLASS' and E.myclass or E.myrace
+	if not S.afkMusic[S.db.musicSelection][arg1] then return end
 
 	if AFK.isSLAFK then
 		originalMusicSetting = GetCVar('Sound_EnableMusic')
 		if originalMusicSetting == '0' then SetCVar('Sound_EnableMusic', 1) end
 
-		PlayMusic(racialMusic[E.myrace])
+		PlayMusic(S.afkMusic[S.db.musicSelection][arg1])
 	else
 		StopMusic()
 		SetCVar('Sound_EnableMusic', originalMusicSetting)
@@ -431,7 +449,7 @@ function S:SetAFK(status)
 		AFK.AFKMode.bottom.model:SetAnimation(S.db.playermodel.anim)
 
 		AFK.isSLAFK = true
-		S:RacialMusic()
+		S:RunAFKMusic()
 	elseif AFK.isSLAFK then
 		FlipCameraYaw(-degree)
 		degree = 0
@@ -443,7 +461,7 @@ function S:SetAFK(status)
 		end
 
 		AFK.isSLAFK = false
-		S:RacialMusic()
+		S:RunAFKMusic()
 	end
 end
 hooksecurefunc(AFK, 'SetAFK', S.SetAFK)

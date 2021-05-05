@@ -969,7 +969,7 @@ P["sle"] = {
 			xOffset = 0,
 			yOffset = 0,
 		},
-		racialMusic = true,
+		musicSelection = 'NONE',
 		['keydown'] = true,
 		['title'] = {
 			['font'] = 'PT Sans Narrow',

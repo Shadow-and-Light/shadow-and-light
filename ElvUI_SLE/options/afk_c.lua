@@ -302,30 +302,40 @@ local function configTable()
 					S:KeyScript()
 				end,
 			},
-			keydown = {
-				order = 2,
-				name = L["Button restrictions"],
-				type = 'toggle',
-				desc = L["Use ElvUI's restrictions for button presses."],
-				hidden = function() return not E.global.sle.advanced.general end,
-				get = function() return E.db.sle.afk.keydown end,
-				set = function(_, value) E.db.sle.afk.keydown = value; S:KeyScript() end,
-			},
-			racialMusic = {
-				order = 2,
-				name = L["Racial Music"],
-				type = 'toggle',
-				desc = L["Play your character's racial theme music while AFK is active."],
-				-- hidden = function() return not E.global.sle.advanced.general end,
-				get = function() return E.db.sle.afk.racialMusic end,
-				set = function(_, value) E.db.sle.afk.racialMusic = value end,
-			},
 			general = {
 				order = 2,
 				name = L["General"],
 				type = 'group',
 				disabled = function() return not E.db.sle.afk.enable end,
 				args = {
+					general = {
+						order = 1,
+						name = L["General"],
+						type = 'group',
+						args = {
+							keydown = {
+								order = 1,
+								name = L["Button Restrictions"],
+								type = 'toggle',
+								desc = L["Use ElvUI's restrictions for button presses."],
+								hidden = function() return not E.global.sle.advanced.general end,
+								get = function() return E.db.sle.afk.keydown end,
+								set = function(_, value) E.db.sle.afk.keydown = value; S:KeyScript() end,
+							},
+							musicSelection = {
+								order = 1,
+								name = L["Music Selection"],
+								type = 'select',
+								get = function(info) return E.db.sle.afk[info[#info]] end,
+								set = function(info, value) E.db.sle.afk[info[#info]] = value end,
+								values = {
+									NONE = NONE,
+									CLASS = CLASS,
+									RACIAL = RACE,
+								},
+							},
+						},
+					},
 					panels = {
 						order = 10,
 						name = L["Panels"],
