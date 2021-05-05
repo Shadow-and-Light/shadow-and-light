@@ -180,38 +180,27 @@ function S:SetupAnimations()
 
 		if S.db.playermodel.enable then S:FadeIn(AFK.AFKMode.bottom.model) end
 
-		S:FadeIn(AFK.AFKMode.exPack.texture)
-		S:FadeIn(AFK.AFKMode.factionLogo)
-		S:FadeIn(AFK.AFKMode.factionCrest)
-		S:FadeIn(AFK.AFKMode.classCrest)
-		S:FadeIn(AFK.AFKMode.raceCrest)
-		S:FadeIn(AFK.AFKMode.slLogo)
-		S:FadeIn(AFK.AFKMode.elvuiLogo)
-		S:FadeIn(AFK.AFKMode.merauiLogo)
-		S:FadeIn(AFK.AFKMode.benikuiLogo)
+		for name in pairs(S.db.defaultGraphics) do
+			if name == 'exPack' then
+				S:FadeIn(AFK.AFKMode[name].texture)
+			else
+				S:FadeIn(AFK.AFKMode[name])
+			end
+		end
 
-		local customGraphicsDB = E.db.sle.afk.customGraphics
-		for name in pairs(customGraphicsDB) do
+		for name in pairs(S.db.customGraphics) do
 			if name then
 				S:FadeIn(AFK.AFKMode['SL_CustomGraphics_'..name])
 			end
 		end
 
-		S:FadeIn(AFK.AFKMode.SL_AFKMessage)
-		S:FadeIn(AFK.AFKMode.SL_AFKTimePassed)
-		S:FadeIn(AFK.AFKMode.SL_SubText)
-		-- S:FadeIn(AFK.AFKMode.SL_PlayerTitle)
-		S:FadeIn(AFK.AFKMode.SL_PlayerName)
-		-- S:FadeIn(AFK.AFKMode.SL_PlayerServer)
-		S:FadeIn(AFK.AFKMode.SL_PlayerClass)
-		S:FadeIn(AFK.AFKMode.SL_PlayerLevel)
-		S:FadeIn(AFK.AFKMode.SL_GuildName)
-		S:FadeIn(AFK.AFKMode.SL_GuildRank)
-		S:FadeIn(AFK.AFKMode.SL_Date)
-		S:FadeIn(AFK.AFKMode.SL_Time)
+		for name in pairs(S.db.defaultTexts) do
+			if name then
+				S:FadeIn(AFK.AFKMode[name])
+			end
+		end
 
 		S:FadeIn(AFK.AFKMode.chat)
-		S:FadeIn(AFK.AFKMode.SL_ScrollFrame)
 	end
 
 	--* Slide In Animation
@@ -230,10 +219,6 @@ function S:Show()
 
 	if AFK.AFKMode.SL_TestModel:IsShown() then S:TestHide() end
 	-- TipNum = random(1, #L["SLE_TIPS"])
-
-	--Resizings
-	-- AFK.AFKMode.SL_ScrollFrame:SetHeight(S.db.defaultTexts.SL_ScrollFrame.size+4)
-	-- -- AFK.AFKMode.SL_ScrollFrame.bg:SetHeight(S.db.defaultTexts.SL_ScrollFrame.size+20)
 
 	-- --Resizing chat
 	-- AFK.AFKMode.chat:SetHeight(AFK.AFKMode.SL_TopPanel:GetHeight())
@@ -287,44 +272,33 @@ function S:Hide()
 
 	local alpha = (S.db.animTime > 0 and 0) or 1
 
-	--Default Logos
-	AFK.AFKMode.exPack.texture:SetAlpha(alpha)
-	AFK.AFKMode.slLogo:SetAlpha(alpha)
-	AFK.AFKMode.elvuiLogo:SetAlpha(alpha)
-	AFK.AFKMode.benikuiLogo:SetAlpha(alpha)
-	AFK.AFKMode.merauiLogo:SetAlpha(alpha)
-	AFK.AFKMode.classCrest:SetAlpha(alpha)
-	AFK.AFKMode.factionCrest:SetAlpha(alpha)
-	AFK.AFKMode.factionLogo:SetAlpha(alpha)
-	AFK.AFKMode.raceCrest:SetAlpha(alpha)
+	-- Default Logos
+	for name in pairs(S.db.defaultGraphics) do
+		if name == 'exPack' then
+			AFK.AFKMode[name].texture:SetAlpha(alpha)
+		else
+			AFK.AFKMode[name]:SetAlpha(alpha)
+		end
+	end
+
 	-- AFK.AFKMode.bottom.model:SetAlpha(S.db.enable and alpha or 1)
 	AFK.AFKMode.bottom.model:SetAlpha(alpha)
 
-	--Default Texts
-	AFK.AFKMode.SL_AFKMessage:SetAlpha(alpha)
-	AFK.AFKMode.SL_AFKTimePassed:SetAlpha(alpha)
-	AFK.AFKMode.SL_SubText:SetAlpha(alpha)
-	-- AFK.AFKMode.SL_PlayerTitle:SetAlpha(alpha)
-	AFK.AFKMode.SL_PlayerName:SetAlpha(alpha)
-	-- AFK.AFKMode.SL_PlayerServer:SetAlpha(alpha)
-	AFK.AFKMode.SL_PlayerClass:SetAlpha(alpha)
-	AFK.AFKMode.SL_PlayerLevel:SetAlpha(alpha)
-	AFK.AFKMode.SL_GuildName:SetAlpha(alpha)
-	AFK.AFKMode.SL_GuildRank:SetAlpha(alpha)
-	AFK.AFKMode.SL_Date:SetAlpha(alpha)
-	AFK.AFKMode.SL_Time:SetAlpha(alpha)
-
-	AFK.AFKMode.SL_ScrollFrame:SetAlpha(alpha)
-
-	local customGraphicsDB = E.db.sle.afk.customGraphics
-	for name in pairs(customGraphicsDB) do
+	-- Default Texts
+	for name in pairs(S.db.defaultTexts) do
 		if name then
-			AFK.AFKMode['SL_CustomGraphics_'..name]:SetAlpha((S.db.animTime > 0 and 0) or customGraphicsDB[name].alpha)
+			AFK.AFKMode[name]:SetAlpha(alpha)
+		end
+	end
+
+	-- Custom Graphics
+	for name in pairs(S.db.customGraphics) do
+		if name then
+			AFK.AFKMode['SL_CustomGraphics_'..name]:SetAlpha((S.db.animTime > 0 and 0) or S.db.customGraphics[name].alpha)
 		end
 	end
 
 	S:SetupType()
-	-- TipsElapsed = 0
 end
 
 function S:SetupType()
@@ -673,11 +647,9 @@ function S:UpdateDefaultGraphics()
 	AFK.AFKMode.factionCrest:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\factioncrest\\'..S.db.defaultGraphics.factionCrest.styleOptions..'\\'..E.myfaction)
 	AFK.AFKMode.factionLogo:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\factionlogo\\'..S.db.defaultGraphics.factionLogo.styleOptions..'\\'..E.myfaction)
 	AFK.AFKMode.raceCrest:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\race\\'..S.db.defaultGraphics.raceCrest.styleOptions..'\\'..E.myrace)
-
 	AFK.AFKMode.slLogo:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\afk\addonlogos\sl\original\S&L]])
 	AFK.AFKMode.benikuiLogo:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\addonlogos\\benikui\\'..S.db.defaultGraphics.benikuiLogo.styleOptions..'\\BenikUI')
 	AFK.AFKMode.merauiLogo:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\addonlogos\\meraui\\'..S.db.defaultGraphics.merauiLogo.styleOptions..'\\MerathilisUI')
-	--* This is for the graphics releaf sent, not the default one
 	AFK.AFKMode.elvuiLogo:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\addonlogos\\elvui\\'..S.db.defaultGraphics.elvuiLogo.styleOptions..'\\ElvUI')
 end
 
