@@ -18,6 +18,19 @@ local degreeMultyplier = 10
 S.Animations = {}
 S.Fading = {}
 
+local function currentDateTime()
+	local month = SLE.Russian and SLE.RuMonths[tonumber(date('%m'))] or date('%B')
+	local week = SLE.Russian and SLE.RuWeek[tonumber(date('%w'))+1] or date('%A')
+
+	AFK.AFKMode.SL_Date:SetText(date('%d')..' '..month..', |cff00AAFF'..week..'|r')
+
+	if S.db.defaultTexts.SL_Time.hour24 then
+		AFK.AFKMode.SL_Time:SetText(format('%s', date('%H|cff00AAFF:|r%M|cff00AAFF:|r%S')))
+	else
+		AFK.AFKMode.SL_Time:SetText(format('%s', date('%I|cff00AAFF:|r%M|cff00AAFF:|r%S %p')))
+	end
+end
+
 S.CustomGraphicsDefaults = {
 	enable = true,
 	path = '',
@@ -105,19 +118,23 @@ S.afkMusic = {
 	},
 }
 
-local function currentDateTime()
-	local month = SLE.Russian and SLE.RuMonths[tonumber(date('%m'))] or date('%B')
-	local week = SLE.Russian and SLE.RuWeek[tonumber(date('%w'))+1] or date('%A')
+local originalMusicSetting
+function S:RunAFKMusic()
+	if S.db.musicSelection == 'NONE' then return end
 
-	AFK.AFKMode.SL_Date:SetText(date('%d')..' '..month..', |cff00AAFF'..week..'|r')
+	local selectionData = S.db.musicSelection == 'CLASS' and E.myclass or E.myrace
+	if not S.afkMusic[S.db.musicSelection][selectionData] then return end
 
-	if S.db.defaultTexts.SL_Time.hour24 then
-		AFK.AFKMode.SL_Time:SetText(format('%s', date('%H|cff00AAFF:|r%M|cff00AAFF:|r%S')))
+	if AFK.isSLAFK then
+		originalMusicSetting = GetCVar('Sound_EnableMusic')
+		if originalMusicSetting == '0' then SetCVar('Sound_EnableMusic', 1) end
+
+		PlayMusic(S.afkMusic[S.db.musicSelection][selectionData])
 	else
-		AFK.AFKMode.SL_Time:SetText(format('%s', date('%I|cff00AAFF:|r%M|cff00AAFF:|r%S %p')))
+		StopMusic()
+		SetCVar('Sound_EnableMusic', originalMusicSetting)
 	end
 end
-
 
 --Template functons for animation types
 function S:SlideIn(frame)
@@ -415,24 +432,6 @@ end
 
 function S:AbortAFK()
 	if UnitIsAFK('player') then SendChatMessage('' ,'AFK' ) end
-end
-
-local originalMusicSetting
-function S:RunAFKMusic()
-	if S.db.musicSelection == 'NONE' then return end
-
-	local arg1 = S.db.musicSelection == 'CLASS' and E.myclass or E.myrace
-	if not S.afkMusic[S.db.musicSelection][arg1] then return end
-
-	if AFK.isSLAFK then
-		originalMusicSetting = GetCVar('Sound_EnableMusic')
-		if originalMusicSetting == '0' then SetCVar('Sound_EnableMusic', 1) end
-
-		PlayMusic(S.afkMusic[S.db.musicSelection][arg1])
-	else
-		StopMusic()
-		SetCVar('Sound_EnableMusic', originalMusicSetting)
-	end
 end
 
 function S:SetAFK(status)
