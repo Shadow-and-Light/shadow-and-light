@@ -30,41 +30,41 @@ end
 local function OnEnter(btn)
 	if not btn.nohighlight then btn.hoverTex:Show() end
 	if btn.UseTooltip then
-		_G["GameTooltip"]:SetOwner(btn, "ANCHOR_BOTTOMLEFT", -9)
+		_G['GameTooltip']:SetOwner(btn, 'ANCHOR_BOTTOMLEFT', -9)
 		if btn.TooltipText then
-			_G["GameTooltip"]:SetText(btn.TooltipText)
+			_G['GameTooltip']:SetText(btn.TooltipText)
 		elseif btn.secure.isToy then
-			_G["GameTooltip"]:SetToyByItemID(btn.secure.ID)
-		elseif btn.secure.buttonType == "item" then
-			_G["GameTooltip"]:SetItemByID(btn.secure.ID)
-		elseif btn.secure.buttonType == "spell" then
-			_G["GameTooltip"]:SetSpellByID(btn.secure.ID)
+			_G['GameTooltip']:SetToyByItemID(btn.secure.ID)
+		elseif btn.secure.buttonType == 'item' then
+			_G['GameTooltip']:SetItemByID(btn.secure.ID)
+		elseif btn.secure.buttonType == 'spell' then
+			_G['GameTooltip']:SetSpellByID(btn.secure.ID)
 		end
-		_G["GameTooltip"]:Show()
+		_G['GameTooltip']:Show()
 	end
 end
 
 local function OnLeave(btn)
-	_G["GameTooltip"]:Hide()
+	_G['GameTooltip']:Hide()
 	btn.hoverTex:Hide()
 end
 
 local function CreateListButton(frame)
-	local button = CreateFrame("Button", nil, frame, "SecureActionButtonTemplate")
+	local button = CreateFrame('Button', nil, frame, 'SecureActionButtonTemplate')
 
 	button.hoverTex = button:CreateTexture(nil, 'OVERLAY')
 	button.hoverTex:SetAllPoints()
 	button.hoverTex:SetTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]])
-	button.hoverTex:SetBlendMode("ADD")
+	button.hoverTex:SetBlendMode('ADD')
 	button.hoverTex:Hide()
 
 	button.text = button:CreateFontString(nil, 'BORDER')
 	button.text:SetAllPoints()
 	button.text:FontTemplate()
 
-	button:SetScript("OnEnter", OnEnter)
-	button:SetScript("OnLeave", OnLeave)
-	button:HookScript("OnClick", OnClick)
+	button:SetScript('OnEnter', OnEnter)
+	button:SetScript('OnLeave', OnLeave)
+	button:HookScript('OnClick', OnClick)
 
 	return button
 end
@@ -76,13 +76,13 @@ function SLE:DropdownList(list, frame, customWidth, justify)
 
 		btn.func = list[i].func or nil
 		btn.nohighlight = list[i].nohighlight
-		btn.text:SetJustifyH(justify or "LEFT")
+		btn.text:SetJustifyH(justify or 'LEFT')
 		btn:Show()
 		btn:Height(BUTTON_HEIGHT)
 
-		local icon = ""
+		local icon = ''
 		if list[i].icon then
-			icon = "|T"..list[i].icon..":14:14:0:0:64:64:4:60:4:60|t "
+			icon = '|T'..list[i].icon..':14:14:0:0:64:64:4:60:4:60|t '
 		end
 
 		btn.text:SetText(icon..list[i].text)
@@ -96,7 +96,7 @@ function SLE:DropdownList(list, frame, customWidth, justify)
 			btn.text:SetTextColor(1, 1, 1)
 		end
 
-		if customWidth and customWidth == "auto" then
+		if customWidth and customWidth == 'auto' then
 			if frame.maxWidth < btn.text:GetStringWidth() then
 				frame.maxWidth = btn.text:GetStringWidth()
 				frame.TitleCount = 0
@@ -110,22 +110,22 @@ function SLE:DropdownList(list, frame, customWidth, justify)
 		end
 
 		if list[i].secure then
-			btn:SetAttribute("type", nil)
-			-- btn:SetAttribute("item", nil)
-			-- btn:SetAttribute("spell", nil)
-			-- btn:SetAttribute("macrotext", nil)
+			btn:SetAttribute('type', nil)
+			-- btn:SetAttribute('item', nil)
+			-- btn:SetAttribute('spell', nil)
+			-- btn:SetAttribute('macrotext', nil)
 			btn.secure = list[i].secure
-			btn:SetAttribute("type", btn.secure.buttonType)
-			if btn.secure.buttonType == "item" then
+			btn:SetAttribute('type', btn.secure.buttonType)
+			if btn.secure.buttonType == 'item' then
 				local name = GetItemInfo(btn.secure.ID)
-				btn:SetAttribute("item", name)
-			elseif btn.secure.buttonType == "spell" then
+				btn:SetAttribute('item', name)
+			elseif btn.secure.buttonType == 'spell' then
 				local name = GetSpellInfo(btn.secure.ID)
-				btn:SetAttribute("spell", name)
-			elseif btn.secure.buttonType == "macro" then
-				btn:SetAttribute("macrotext", btn.secure.ID)
+				btn:SetAttribute('spell', name)
+			elseif btn.secure.buttonType == 'macro' then
+				btn:SetAttribute('macrotext', btn.secure.ID)
 			else
-				SLE:Print("Wrong argument for button type: "..btn.secure.buttonType, "error")
+				SLE:Print('Wrong argument for button type: '..btn.secure.buttonType, 'error')
 			end
 		end
 		btn.UseTooltip = list[i].UseTooltip
@@ -133,14 +133,14 @@ function SLE:DropdownList(list, frame, customWidth, justify)
 
 		local MARGIN = 10
 		if justify then
-			if justify == "RIGHT" then MARGIN = -10 end
-			if justify == "CENTER" then MARGIN = 0 end
+			if justify == 'RIGHT' then MARGIN = -10 end
+			if justify == 'CENTER' then MARGIN = 0 end
 		end
 
 		if i == 1 then
-			btn:Point("TOPLEFT", frame, "TOPLEFT", MARGIN, -PADDING)
+			btn:Point('TOPLEFT', frame, 'TOPLEFT', MARGIN, -PADDING)
 		else
-			btn:Point("TOPLEFT", frame.buttons[i-1], "BOTTOMLEFT", 0, -((list[i-1].title or list[i].title) and TITLE_OFFSET or 0))
+			btn:Point('TOPLEFT', frame.buttons[i-1], 'BOTTOMLEFT', 0, -((list[i-1].title or list[i].title) and TITLE_OFFSET or 0))
 		end
 	end
 end
@@ -152,7 +152,7 @@ function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 	frame.AddOffset = 0
 	if not frame.buttons then
 		frame.buttons = {}
-		frame:SetFrameStrata("DIALOG")
+		frame:SetFrameStrata('DIALOG')
 		frame:SetClampedToScreen(true)
 		tinsert(UISpecialFrames, frame:GetName())
 		frame:Hide()
@@ -163,30 +163,30 @@ function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 		btn.func = nil
 		btn.secure = nil
 		btn.TooltipText = nil
-		btn.text:SetText("")
+		btn.text:SetText('')
 		btn:Hide()
 	end
 	if not frame:IsShown() then
 		xOffset = xOffset or 0
 		yOffset = yOffset or 0
 
-		if not parent then FramePoint = "CURSOR" end
+		if not parent then FramePoint = 'CURSOR' end
 		SLE:DropdownList(list, frame, customWidth, justify)
 
 		frame:Height((#list * BUTTON_HEIGHT) + PADDING * 2 + frame.TitleCount * (2 * TITLE_OFFSET) - frame.AddOffset * TITLE_OFFSET)
-		if customWidth and customWidth == "auto" then
+		if customWidth and customWidth == 'auto' then
 			frame:Width(frame.maxWidth + PADDING * 2)
 		else
 			frame:Width(customWidth or (BUTTON_WIDTH + PADDING * 2))
 		end
 
 		frame:ClearAllPoints()
-		if FramePoint == "CURSOR" then
+		if FramePoint == 'CURSOR' then
 			local UIScale = UIParent:GetScale()
 			local x, y = GetCursorPosition()
 			x = x/UIScale
 			y = y/UIScale
-			frame:Point(MenuAnchor, UIParent, "BOTTOMLEFT", x + xOffset, y + yOffset)
+			frame:Point(MenuAnchor, UIParent, 'BOTTOMLEFT', x + xOffset, y + yOffset)
 		else
 			frame:Point(MenuAnchor, parent, FramePoint, xOffset, yOffset)
 		end
@@ -196,7 +196,7 @@ end
 
 function DD:GetCooldown(CDtype, id)
 	local cd, formatID
-	local start, duration = _G["Get"..CDtype.."Cooldown"](id)
+	local start, duration = _G['Get'..CDtype..'Cooldown'](id)
 	if start > 0 then
 		cd = duration - (GetTime() - start)
 		cd, formatID = E:GetTimeInfo(cd, 0)
@@ -207,8 +207,8 @@ function DD:GetCooldown(CDtype, id)
 end
 
 function DD:HideMenus(event)
-	if event == "PLAYER_ENTERING_WORLD" then self:UnregisterEvent(event) end
-	for name, menu in pairs(DD.RegisteredMenus) do
+	if event == 'PLAYER_ENTERING_WORLD' then self:UnregisterEvent(event) end
+	for _, menu in pairs(DD.RegisteredMenus) do
 		menu:Hide()
 	end
 end
@@ -218,14 +218,14 @@ function DD:RegisterMenu(menu)
 	if name then
 		DD.RegisteredMenus[name] = menu
 	else
-		SLE:Print("Dropdown not registered. Please check if it has a name.")
+		SLE:Print('Dropdown not registered. Please check if it has a name.')
 	end
 end
 
 function DD:Initialize()
-	self:RegisterEvent("PLAYER_ENTERING_WORLD", "HideMenus")
-	self:RegisterEvent("LOADING_SCREEN_DISABLED", "HideMenus")
-	self:RegisterEvent("PLAYER_REGEN_DISABLED", "HideMenus")
+	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'HideMenus')
+	self:RegisterEvent('LOADING_SCREEN_DISABLED', 'HideMenus')
+	self:RegisterEvent('PLAYER_REGEN_DISABLED', 'HideMenus')
 end
 
 SLE:RegisterModule(DD:GetName())

@@ -1,19 +1,17 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 
 local _G = _G
-local strsplit = string.split
+local strsplit = strsplit
+local CreateFrame = CreateFrame
 local UnitLevel = UnitLevel
 local BNET_CLIENT_WOW = BNET_CLIENT_WOW
-local BNGetFriendInfo = BNGetFriendInfo
-local BNGetNumFriends = BNGetNumFriends
-local BNSendGameData = BNSendGameData
+local BNGetFriendInfo, BNGetNumFriends, BNSendGameData = BNGetFriendInfo, BNGetNumFriends, BNSendGameData
 local C_ChatInfo_SendAddonMessage = C_ChatInfo.SendAddonMessage
 local C_ChatInfo_RegisterAddonMessagePrefix = C_ChatInfo.RegisterAddonMessagePrefix
-local CreateFrame = CreateFrame
 local ID
 
 --Building user list for dev tool
-local function SendRecieve(self, event, prefix, message, channel, sender)
+local function SendRecieve(_, event, prefix, message, channel, sender)
 	if event == 'CHAT_MSG_ADDON' then
 		if prefix == 'SLE_DEV_REQ' then
 			message = 'wut?'
@@ -28,7 +26,7 @@ local function SendRecieve(self, event, prefix, message, channel, sender)
 		if prefix == 'SLE_DEV_REQ' then
 			local _, numBNetOnline = BNGetNumFriends()
 			for i = 1, numBNetOnline do
-				local presenceID, _, _, _, _, toonID, client, isOnline = BNGetFriendInfo(i)
+				local _, _, _, _, _, toonID, client, isOnline = BNGetFriendInfo(i)
 				if isOnline and client == BNET_CLIENT_WOW then
 					message, ID = strsplit('#', message)
 
