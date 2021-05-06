@@ -84,7 +84,7 @@ function SA:BuildScrollBar() --Creating new scroll
 	--Scrollframe Parent Frame
 	SA.ScrollframeParentFrame = CreateFrame('Frame', nil, _G.CharacterFrameInsetRight)
 	SA.ScrollframeParentFrame:SetSize(198, 352)
-	SA.ScrollframeParentFrame:SetPoint('TOP',  _G.CharacterFrameInsetRight, 'TOP', 0, -4)
+	SA.ScrollframeParentFrame:SetPoint('TOP', _G.CharacterFrameInsetRight, 'TOP', 0, -4)
 
 	--Scrollframe
 	SA.ScrollFrame = CreateFrame('ScrollFrame', 'SLE_Armory_Scroll', SA.ScrollframeParentFrame)
@@ -93,8 +93,8 @@ function SA:BuildScrollBar() --Creating new scroll
 
 	--Scrollbar
 	SA.Scrollbar = CreateFrame('Slider', nil, SA.ScrollFrame, 'UIPanelScrollBarTemplate')
-	SA.Scrollbar:SetPoint('TOPLEFT',  _G.CharacterFrameInsetRight, 'TOPRIGHT', -12, -20)
-	SA.Scrollbar:SetPoint('BOTTOMLEFT',  _G.CharacterFrameInsetRight, 'BOTTOMRIGHT', -12, 18)
+	SA.Scrollbar:SetPoint('TOPLEFT', _G.CharacterFrameInsetRight, 'TOPRIGHT', -12, -20)
+	SA.Scrollbar:SetPoint('BOTTOMLEFT', _G.CharacterFrameInsetRight, 'BOTTOMRIGHT', -12, 18)
 	SA.Scrollbar:SetMinMaxValues(1, 2)
 	SA.Scrollbar:SetValueStep(1)
 	SA.Scrollbar.scrollStep = 1

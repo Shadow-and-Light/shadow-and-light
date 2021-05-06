@@ -59,7 +59,7 @@ local statusTable = {
 
 local function sletime_Conversion(timeDifference, isAbsolute)
 	if ( not isAbsolute ) then
-	   timeDifference = time() - timeDifference
+		timeDifference = time() - timeDifference
 	end
 	local ONE_MINUTE = 60
 	local ONE_HOUR = 60 * ONE_MINUTE
@@ -68,17 +68,17 @@ local function sletime_Conversion(timeDifference, isAbsolute)
 	local ONE_YEAR = 12 * ONE_MONTH
 
 	if ( timeDifference < ONE_MINUTE ) then
-	   return LASTONLINE_SECS
+		return LASTONLINE_SECS
 	elseif ( timeDifference >= ONE_MINUTE and timeDifference < ONE_HOUR ) then
-	   return format(LASTONLINE_MINUTES, floor(timeDifference / ONE_MINUTE))
+		return format(LASTONLINE_MINUTES, floor(timeDifference / ONE_MINUTE))
 	elseif ( timeDifference >= ONE_HOUR and timeDifference < ONE_DAY ) then
-	   return format(LASTONLINE_HOURS, floor(timeDifference / ONE_HOUR))
+		return format(LASTONLINE_HOURS, floor(timeDifference / ONE_HOUR))
 	elseif ( timeDifference >= ONE_DAY and timeDifference < ONE_MONTH ) then
-	   return format(LASTONLINE_DAYS, floor(timeDifference / ONE_DAY))
+		return format(LASTONLINE_DAYS, floor(timeDifference / ONE_DAY))
 	elseif ( timeDifference >= ONE_MONTH and timeDifference < ONE_YEAR ) then
-	   return format(LASTONLINE_MONTHS, floor(timeDifference / ONE_MONTH))
+		return format(LASTONLINE_MONTHS, floor(timeDifference / ONE_MONTH))
 	else
-	   return format(LASTONLINE_YEARS, floor(timeDifference / ONE_YEAR))
+		return format(LASTONLINE_YEARS, floor(timeDifference / ONE_YEAR))
 	end
  end
 
@@ -317,7 +317,7 @@ local function Entry_OnMouseUp(_, info, button)
 	local i_type, name, realmName, accountName, accountID = strsplit(":", info)
 	if not (name and name ~= "") then return end
 
-    if button == "LeftButton" then
+	if button == "LeftButton" then
 		if IsControlKeyDown() then
 			if i_type == "realid" then
 
@@ -331,19 +331,19 @@ local function Entry_OnMouseUp(_, info, button)
 				C_PartyInfo.InviteUnit(name)
 				return
 			end
-        end
+		end
 
-        if IsShiftKeyDown() then
-            SetItemRef("player:"..name, "|Hplayer:"..name.."|h["..name.."|h", "LeftButton")
-            return
-        end
+		if IsShiftKeyDown() then
+			SetItemRef("player:"..name, "|Hplayer:"..name.."|h["..name.."|h", "LeftButton")
+			return
+		end
 
 		if i_type == "realid" then
 			ChatFrame_SendBNetTell(accountName)
 		else
 			SetItemRef( "player:"..name, format("|Hplayer:%1$s|h[%1$s]|h",name), "LeftButton" )
 		end
-    end
+	end
 
 	if button == "RightButton" then
 		if IsShiftKeyDown() then
@@ -552,32 +552,32 @@ function OnEnter(self)
 		dataValid = true
 	end
 
-    if E.db.sle.dt.friends.combat and InCombatLockdown() then return end
+	if E.db.sle.dt.friends.combat and InCombatLockdown() then return end
 
 	if LibQTip:IsAcquired("ShadowLightFriendss") then
 		tooltip:Clear()
 	else
 		tooltip = LibQTip:Acquire("ShadowLightFriendss", 8, "RIGHT", "RIGHT", "LEFT", "LEFT", "CENTER", "CENTER", "RIGHT")
 
-        local ssHeaderFont = CreateFont("ssHeaderFont")
-        ssHeaderFont:SetTextColor(1,0.823529,0)
-        ssHeaderFont:SetFont(GameTooltipHeaderText:GetFont())
+		local ssHeaderFont = CreateFont("ssHeaderFont")
+		ssHeaderFont:SetTextColor(1,0.823529,0)
+		ssHeaderFont:SetFont(GameTooltipHeaderText:GetFont())
 		tooltip:SetHeaderFont(ssHeaderFont)
 
 		local ssRegFont = CreateFont("ssRegFont")
-        ssRegFont:SetTextColor(1,0.823529,0)
-        ssRegFont:SetFont(GameTooltipText:GetFont())
+		ssRegFont:SetTextColor(1,0.823529,0)
+		ssRegFont:SetFont(GameTooltipText:GetFont())
 		tooltip:SetFont(ssRegFont)
 
 		tooltip:SmartAnchorTo(self)
 		tooltip:SetAutoHideDelay(E.db.sle.dt.friends.tooltipAutohide, self)
 		tooltip:SetScript("OnShow", function(ttskinself) ttskinself:SetTemplate('Transparent') end)
-    end
+	end
 
 	line = tooltip:AddLine()
-    if not E.db.sle.dt.friends.hide_titleline then
-        local ssTitleFont = CreateFont("ssTitleFont")
-        ssTitleFont:SetTextColor(1,0.823529,0)
+	if not E.db.sle.dt.friends.hide_titleline then
+		local ssTitleFont = CreateFont("ssTitleFont")
+		ssTitleFont:SetTextColor(1,0.823529,0)
 		ssTitleFont:SetFont(GameTooltipText:GetFont())
 		tooltip:SetCell(line, 1, "|TInterface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Banner:50:200|t", ssTitleFont, "CENTER", 0)
 		-- tooltip:SetCell(line, 1, E:TextGradient("Shadow & Light", 1.0,0.6,0.4, 1.0,0.4,0.6, 0.6,0.4,1.0, 0.4,0.6,1.0, 0.4,1.0,0.6).."|r".." Friends", ssTitleFont, "CENTER", 0)

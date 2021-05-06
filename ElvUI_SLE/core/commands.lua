@@ -33,7 +33,7 @@ function SLE:LuaError(msg)
 			wipe(ElvDB.SLErrorDisabledAddOns)
 			ReloadUI()
 		end
-    else
+	else
 		SLE:Print('/slerror on - /slerror off', 'info')
 	end
 end

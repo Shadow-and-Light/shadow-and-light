@@ -3,6 +3,7 @@ local DTP = SLE.Datatexts
 local DT = E.DataTexts
 
 local friendStyleTable = {}
+
 local function configTable()
 	if not SLE.initialized then return end
 	local ACH = E.Libs.ACH

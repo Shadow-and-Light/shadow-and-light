@@ -22,7 +22,7 @@ function DTP:HookTimeDT()
 	end
 
 	local function OnEvent(self, event)
-		if event == "UPDATE_INSTANCE_INFO" and enteredFrame then
+		if event == 'UPDATE_INSTANCE_INFO' and enteredFrame then
 			OnEnter(self)
 		end
 	end
@@ -40,8 +40,8 @@ function DTP:HookTimeDT()
 		int = 5
 	end
 
-	hooksecurefunc(DT.RegisteredDataTexts["Time"], 'onEnter', OnEnter)
-	hooksecurefunc(DT.RegisteredDataTexts["Time"], 'onLeave', OnLeave)
-	hooksecurefunc(DT.RegisteredDataTexts["Time"], 'onUpdate', OnUpdate)
-	hooksecurefunc(DT.RegisteredDataTexts["Time"], 'eventFunc', OnEvent)
+	hooksecurefunc(DT.RegisteredDataTexts['Time'], 'onEnter', OnEnter)
+	hooksecurefunc(DT.RegisteredDataTexts['Time'], 'onLeave', OnLeave)
+	hooksecurefunc(DT.RegisteredDataTexts['Time'], 'onUpdate', OnUpdate)
+	hooksecurefunc(DT.RegisteredDataTexts['Time'], 'eventFunc', OnEvent)
 end
