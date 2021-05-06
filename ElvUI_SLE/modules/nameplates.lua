@@ -13,10 +13,10 @@ local rosterTimer
 N.GroupMembers = {}
 
 function N:CreateThreatIndicator(nameplate)
-	nameplate.SLE_threatInfo = nameplate.Health:CreateFontString(nil, "OVERLAY")
-	nameplate.SLE_threatInfo:SetPoint("BOTTOMLEFT", nameplate.Health, "BOTTOMLEFT", E.db.sle.nameplates.threat.xoffset, E.db.sle.nameplates.threat.yoffset)
-	nameplate.SLE_threatInfo:SetJustifyH("LEFT")
-	nameplate.SLE_threatInfo:SetFont(E.LSM:Fetch("font", E.db.sle.nameplates.threat.font), E.db.sle.nameplates.threat.size, E.db.sle.nameplates.threat.fontOutline)
+	nameplate.SLE_threatInfo = nameplate.Health:CreateFontString(nil, 'OVERLAY')
+	nameplate.SLE_threatInfo:SetPoint('BOTTOMLEFT', nameplate.Health, 'BOTTOMLEFT', E.db.sle.nameplates.threat.xoffset, E.db.sle.nameplates.threat.yoffset)
+	nameplate.SLE_threatInfo:SetJustifyH('LEFT')
+	nameplate.SLE_threatInfo:SetFont(E.LSM:Fetch('font', E.db.sle.nameplates.threat.font), E.db.sle.nameplates.threat.size, E.db.sle.nameplates.threat.fontOutline)
 end
 
 hooksecurefunc(NP, 'ThreatIndicator_PostUpdate', function(threat, unit)
@@ -24,7 +24,7 @@ hooksecurefunc(NP, 'ThreatIndicator_PostUpdate', function(threat, unit)
 	if threat.__owner.SLE_threatInfo then
 		threat.__owner.SLE_threatInfo:SetText() --Reseting text to empty
 
-		if E.db.sle.nameplates.threat.enable and threat.__owner.frameType == "ENEMY_NPC" then
+		if E.db.sle.nameplates.threat.enable and threat.__owner.frameType == 'ENEMY_NPC' then
 			if not unit then
 				for i=1, 4 do
 					if threat.__owner.guid == UnitGUID(format('boss%d', i)) then
@@ -36,11 +36,11 @@ hooksecurefunc(NP, 'ThreatIndicator_PostUpdate', function(threat, unit)
 			if unit and not UnitIsPlayer(unit) and UnitCanAttack('player', unit) then
 				local status, percent = select(2, UnitDetailedThreatSituation('player', unit))
 				if (status) then
-					threat.__owner.SLE_threatInfo:SetFormattedText('%s%.0f%%|r', E:RGBToHex(GetThreatStatusColor(status)), percent or "")
+					threat.__owner.SLE_threatInfo:SetFormattedText('%s%.0f%%|r', E:RGBToHex(GetThreatStatusColor(status)), percent or '')
 				end
 			end
 		else
-			threat.__owner.SLE_threatInfo:SetText("")
+			threat.__owner.SLE_threatInfo:SetText('')
 		end
 	end
 end)
