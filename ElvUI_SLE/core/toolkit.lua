@@ -400,7 +400,9 @@ local function LevelUpBG(frame, topcolor, bottomcolor)
 	if not frame then
 		return
 	end
-	frame.bg = frame:CreateTexture(nil, 'BACKGROUND')
+	if not frame.bg then
+		frame.bg = frame:CreateTexture(nil, 'BACKGROUND')
+	end
 	frame.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	frame.bg:ClearAllPoints()
 	frame.bg:SetPoint('CENTER')
@@ -409,7 +411,9 @@ local function LevelUpBG(frame, topcolor, bottomcolor)
 	frame.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
 	frame.bg:SetVertexColor(1, 1, 1, 0.7)
 
-	frame.lineTop = frame:CreateTexture(nil, 'BACKGROUND')
+	if not frame.lineTop then
+		frame.lineTop = frame:CreateTexture(nil, 'BACKGROUND')
+	end
 	frame.lineTop:SetDrawLayer('BACKGROUND', 2)
 	frame.lineTop:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	frame.lineTop:ClearAllPoints()
@@ -417,11 +421,13 @@ local function LevelUpBG(frame, topcolor, bottomcolor)
 	frame.lineTop:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
 	frame.lineTop:Size(frame:GetWidth(), 7)
 
-	frame.lineBottom = frame:CreateTexture(nil, 'BACKGROUND')
+	if not frame.lineBottom then
+		frame.lineBottom = frame:CreateTexture(nil, 'BACKGROUND')
+	end
 	frame.lineBottom:SetDrawLayer('BACKGROUND', 2)
 	frame.lineBottom:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	frame.lineBottom:ClearAllPoints()
-	frame.lineBottom:SetPoint('BOTTOM', frame.bg, 0, -4)
+	frame.lineBottom:SetPoint('BOTTOM', frame.bg, 0, -2)
 	frame.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
 	frame.lineBottom:Size(frame:GetWidth(), 7)
 

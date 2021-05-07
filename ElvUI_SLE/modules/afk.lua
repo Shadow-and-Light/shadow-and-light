@@ -24,11 +24,14 @@ local function currentDateTime()
 
 	AFK.AFKMode.SL_Date:SetText(date('%d')..' '..month..', |cff00AAFF'..week..'|r')
 
+	local time
 	if S.db.defaultTexts.SL_Time.hour24 then
-		AFK.AFKMode.SL_Time:SetText(format('%s', date('%H|cff00AAFF:|r%M|cff00AAFF:|r%S')))
+		time = format('%s', date('%H|cff00AAFF:|r%M|cff00AAFF:|r%S'))
 	else
-		AFK.AFKMode.SL_Time:SetText(format('%s', date('%I|cff00AAFF:|r%M|cff00AAFF:|r%S %p')))
+		time = format('%s', date('%I|cff00AAFF:|r%M|cff00AAFF:|r%S %p'))
 	end
+
+	AFK.AFKMode.SL_Time:SetText(time)
 end
 
 S.CustomGraphicsDefaults = {

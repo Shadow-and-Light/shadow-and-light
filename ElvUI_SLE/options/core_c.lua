@@ -6,21 +6,20 @@ local tinsert, format = tinsert, format
 
 local function configTable()
 	if not SLE.initialized then return end
-	E.Options.name = E.Options.name.." + |cff9482c9Shadow & Light|r"..format(": |cff99ff33%s|r", SLE.version)
+	E.Options.name = E.Options.name..' + |cff9482c9Shadow & Light|r'..format(': |cff99ff33%s|r', SLE.version)
 
 	--Main options group
 	E.Options.args.sle = {
-		type = "group",
+		type = 'group',
 		name = SLE.Title,
-		childGroups = "tab",
+		childGroups = 'tab',
 		desc = L["Plugin for |cff1784d1ElvUI|r by\nDarth Predator and Repooc."],
-		-- order = -4,
 		order = 6,
 		args = {
-			header = E.Libs.ACH:Header(format("|cff99ff33%s|r", SLE.version), 1),
+			header = E.Libs.ACH:Header(format('|cff99ff33%s|r', SLE.version), 1),
 			logo = {
 				type = 'description',
-				name = "",
+				name = '',
 				order = 2,
 				image = function() return 'Interface\\AddOns\\ElvUI_SLE\\media\\textures\\SLE_Banner', 200, 50 end,
 			},
@@ -41,9 +40,7 @@ local function configTable()
 			},
 			modules = {
 				order = 10,
-				type = "group",
-				-- childGroups = "select",
-				-- childGroups = "tab",
+				type = 'group',
 				name = L["Modules"],
 				args = {
 					--* Modules are added here
