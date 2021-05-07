@@ -42,7 +42,7 @@ DB.Honor ={
 		STYLE6 = '|TInterface\\Icons\\ACHIEVEMENT_GUILDPERK_MRPOPULARITY_RANK2:14:14|t: '..E['media'].hexvaluecolor..'%s|r|T%s:%s|t',
 	},
 	Strings = {},
-	Icon = [[Interface\AddOns\ElvUI_SLE\media\textures\]]..E.myfaction,
+	Icon = [[Interface\AddOns\ElvUI_SLE\media\textures\afk\factionlogo\blizzard\]]..E.myfaction,
 }
 
 local function HonorBar_Update(self, event, unit)
