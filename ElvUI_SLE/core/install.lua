@@ -767,7 +767,7 @@ function PI:DarthSetup()
 	E.private["general"]["minimap"]["hideClassHallReport"] = true
 
 	E.private["sle"]["module"]["blizzmove"]["remember"] = true
-	E.db["sle"]["afk"] = true
+	E.db["sle"]["afk"]['enable'] = true
 
 	E.private["sle"]["uibuttons"]["style"] = "dropdown"
 
