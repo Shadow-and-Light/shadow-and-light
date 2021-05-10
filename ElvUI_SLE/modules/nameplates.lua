@@ -167,13 +167,13 @@ function N:UpdatePlate(nameplate)
 	if nameplate.SLE_threatInfo then
 		nameplate.SLE_threatInfo:SetFont(E.LSM:Fetch('font', N.db.threat.font), N.db.threat.size, N.db.threat.fontOutline)
 		nameplate.SLE_threatInfo:SetPoint('BOTTOMLEFT', nameplate.Health, 'BOTTOMLEFT', N.db.threat.xoffset, N.db.threat.yoffset)
-		if not N.db.threat.enable then nameplate.SLE_threatInfo:SetText('') end
+		if not E.db.sle.nameplates.threat.enable then nameplate.SLE_threatInfo:SetText('') end
 	end
 
 	if nameplate.SLE_targetcount then
-		nameplate.SLE_targetcount:SetFont(E.LSM:Fetch('font', N.db.targetcount.font), N.db.targetcount.size, N.db.targetcount.fontOutline)
-		nameplate.SLE_targetcount:SetPoint('BOTTOMRIGHT', nameplate.Health, 'BOTTOMRIGHT', N.db.targetcount.xoffset, N.db.targetcount.yoffset)
-		if N.db.targetcount.enable then N:UpdateCount(nil, 'player', true) else nameplate.SLE_targetcount:SetText(''); nameplate.SLE_TargetedByCounter = 0 end
+		nameplate.SLE_targetcount:SetFont(E.LSM:Fetch('font', E.db.sle.nameplates.targetcount.font), E.db.sle.nameplates.targetcount.size, E.db.sle.nameplates.targetcount.fontOutline)
+		nameplate.SLE_targetcount:SetPoint('BOTTOMRIGHT', nameplate.Health, 'BOTTOMRIGHT', E.db.sle.nameplates.targetcount.xoffset, E.db.sle.nameplates.targetcount.yoffset)
+		if E.db.sle.nameplates.targetcount.enable then N:UpdateCount(nil, 'player', true) else nameplate.SLE_targetcount:SetText(''); nameplate.SLE_TargetedByCounter = 0 end
 	end
 end
 
