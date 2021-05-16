@@ -325,7 +325,7 @@ local function Equip(event)
 	local equipmentSetIDs = C_EquipmentSet.GetEquipmentSetIDs()
 	--If any actual equip set is on
 	for index = 1, C_EquipmentSet.GetNumEquipmentSets() do
-		local name, _, _, isEquipped = C_EquipmentSet.GetEquipmentSetInfo(equipmentSetIDs[index]);
+		local name, _, _, isEquipped = C_EquipmentSet.GetEquipmentSetInfo(equipmentSetIDs[index])
 		if isEquipped then --Set found
 			tinsert(equippedSets, name)
 		end

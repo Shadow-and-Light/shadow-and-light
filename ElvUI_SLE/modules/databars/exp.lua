@@ -105,7 +105,7 @@ function DB:PopulateExpPatterns()
 	local symbols = {'%(','%)','%.','([-+])','|4.-;','%%[sd]','%%%d%$[sd]','%%(','%%)','%%.','%%%1','.-','(.-)','(.-)'}
 	local pattern
 
-	pattern = T.rgsub(COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED, unpack(symbols));
+	pattern = T.rgsub(COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED, unpack(symbols))
 	tinsert(DB.Exp.Strings.NoName, pattern)
 
 	pattern = T.rgsub(COMBATLOG_XPGAIN_FIRSTPERSON, unpack(symbols))

@@ -161,7 +161,7 @@ function LFR:GetRaidLockInfo(...)
 			local numEncounters = GetLFGDungeonNumEncounters(dungeonIDs[i])
 			numBosses = numBosses + numEncounters
 			for j = 1, numEncounters do
-				local bossName, _, isKilled = GetLFGDungeonEncounterInfo(dungeonIDs[i], j);
+				local bossName, _, isKilled = GetLFGDungeonEncounterInfo(dungeonIDs[i], j)
 				if IsShiftKeyDown() then --Show detailed info
 					LFR:BossStatus(bossName, isKilled)
 				else
@@ -195,9 +195,9 @@ end
 function LFR:BossStatus(bossName, isKilled)
 	if not bossName then return end
 	if (isKilled) then
-		DT.tooltip:AddDoubleLine(' '..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+		DT.tooltip:AddDoubleLine(' '..bossName, BOSS_DEAD, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
 	else
-		DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b);
+		DT.tooltip:AddDoubleLine(" "..bossName, BOSS_ALIVE, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b, GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b)
 	end
 end
 
