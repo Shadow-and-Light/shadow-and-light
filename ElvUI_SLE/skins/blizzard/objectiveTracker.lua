@@ -118,20 +118,20 @@ local function SkinScenarioButtons()
 	-- we have to independently resize the artwork
 	-- because we're messing with the tracker width >_>
 	if not block.SLE_Block then
-		block.SLE_Block = CreateFrame("Frame", "ScenarioStageBlock_SLE_Block", block)
+		block.SLE_Block = CreateFrame('Frame', 'ScenarioStageBlock_SLE_Block', block)
 		block.SLE_Block:SetAllPoints(block.NormalBG)
-		block.SLE_Block:CreateBackdrop("Transparent")
-		block.SLE_Block:SetFrameStrata("BACKGROUND")
+		block.SLE_Block:CreateBackdrop('Transparent', nil, nil, nil, nil, nil, true)
+		block.SLE_Block:SetFrameStrata('BACKGROUND')
 
-		block.SLE_Block.Logo = block.SLE_Block:CreateTexture(nil, "OVERLAY")
-		block.SLE_Block.Logo:SetPoint("BOTTOMRIGHT", block.SLE_Block, "BOTTOMRIGHT", -5,7)
-		block.SLE_Block.Logo:SetPoint("TOPLEFT", block.SLE_Block, "TOPRIGHT", -75,-7)
+		block.SLE_Block.Logo = block.SLE_Block:CreateTexture(nil, 'OVERLAY')
+		block.SLE_Block.Logo:SetPoint('BOTTOMRIGHT', block.SLE_Block, 'BOTTOMRIGHT', -5, 7)
+		block.SLE_Block.Logo:SetPoint('TOPLEFT', block.SLE_Block, 'TOPRIGHT', -75, -7)
 		block.SLE_Block.Logo:SetAlpha(0.3)
 
 		block.SLE_Block:Hide()
 
-		Sk.additionalTextures["ScenarioLogo"] = block.SLE_Block.Logo
-		Sk:UpdateAdditionalTexture(Sk.additionalTextures["ScenarioLogo"], SLE.ScenarioBlockLogos[E.private.sle.skins.objectiveTracker.skinnedTextureLogo] or E.private.sle.skins.objectiveTracker.customTextureLogo)
+		Sk.additionalTextures['ScenarioLogo'] = block.SLE_Block.Logo
+		Sk:UpdateAdditionalTexture(Sk.additionalTextures['ScenarioLogo'], SLE.ScenarioBlockLogos[E.private.sle.skins.objectiveTracker.skinnedTextureLogo] or E.private.sle.skins.objectiveTracker.customTextureLogo)
 	end
 
 	if not E.private.sle.skins.objectiveTracker.scenarioBG then
@@ -145,7 +145,7 @@ local function SkinScenarioButtons()
 	end
 
 	-- pop-up glow
-	block.GlowTexture:Size(width+20, 75)
+	block.GlowTexture:Size(width + 20, 75)
 	block.GlowTexture.AlphaAnim.Play = dummy
 end
 
@@ -155,14 +155,14 @@ local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
 	local block = ScenarioChallengeModeBlock
 
 	if not block.SLE_Block then
-		block.SLE_Block = CreateFrame("Frame", "ScenarioStageBlock_SLE_Block", block, "BackdropTemplate")
+		block.SLE_Block = CreateFrame('Frame', 'ScenarioStageBlock_SLE_Block', block, 'BackdropTemplate')
 		block.SLE_Block:SetAllPoints(block)
-		block.SLE_Block:SetTemplate("Transparent")
-		block.SLE_Block:SetFrameStrata("BACKGROUND")
+		block.SLE_Block:SetTemplate('Transparent')
+		block.SLE_Block:SetFrameStrata('BACKGROUND')
 
-		block.SLE_Block.Logo = block.SLE_Block:CreateTexture(nil, "OVERLAY")
-		block.SLE_Block.Logo:SetPoint("BOTTOMRIGHT", block.SLE_Block, "BOTTOMRIGHT", -5,7)
-		block.SLE_Block.Logo:SetPoint("TOPLEFT", block.SLE_Block, "TOPRIGHT", -75,-7)
+		block.SLE_Block.Logo = block.SLE_Block:CreateTexture(nil, 'OVERLAY')
+		block.SLE_Block.Logo:SetPoint('TOPLEFT', block.SLE_Block, 'TOPRIGHT', -75, -7)
+		block.SLE_Block.Logo:SetPoint('BOTTOMRIGHT', block.SLE_Block, 'BOTTOMRIGHT', -5, 7)
 		block.SLE_Block.Logo:SetAlpha(0.3)
 
 		block.SLE_Block:Hide()
