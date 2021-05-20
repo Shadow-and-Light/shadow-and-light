@@ -22,7 +22,7 @@ local Chest3_Mult = 0.6
 local Chest2_Mult = 0.8
 
 function Sk:Update_ObjectiveTrackerUnderlinesVisibility()
-	local exe = E.db.sle.skins.objectiveTracker.underline and "Show" or "Hide"
+	local exe = E.db.sle.skins.objectiveTracker.underline and 'Show' or 'Hide'
 	for i = 1, #underlines do
 		underlines[i][exe](underlines[i])
 	end
@@ -206,7 +206,7 @@ local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
 		block.TimerBG:Kill()
 		block.TimerBGBack:Kill()
 
-		if E.private.sle.skins.objectiveTracker.BGbackdrop  then block.SLE_Block:Show() end
+		if E.private.sle.skins.objectiveTracker.BGbackdrop then block.SLE_Block:Show() end
 	end
 	local COLOR
 	if E.private.sle.skins.objectiveTracker.class then
@@ -426,4 +426,5 @@ local function ObjectiveReskin()
 		Sk:Update_ObjectiveTrackerUnderlinesColor()
 	end
 end
+
 hooksecurefunc(S, "Initialize", ObjectiveReskin)
