@@ -155,9 +155,10 @@ local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
 	local block = ScenarioChallengeModeBlock
 
 	if not block.SLE_Block then
-		block.SLE_Block = CreateFrame('Frame', 'ScenarioStageBlock_SLE_Block', block, 'BackdropTemplate')
+		block.SLE_Block = CreateFrame('Frame', 'ScenarioChallengeModeBlock_SLE_Block', block)
 		block.SLE_Block:SetAllPoints(block)
-		block.SLE_Block:SetTemplate('Transparent')
+		-- block.SLE_Block:SetTemplate('Transparent')
+		block.SLE_Block:CreateBackdrop('Transparent', nil, nil, nil, nil, nil, true)
 		block.SLE_Block:SetFrameStrata('BACKGROUND')
 
 		block.SLE_Block.Logo = block.SLE_Block:CreateTexture(nil, 'OVERLAY')
