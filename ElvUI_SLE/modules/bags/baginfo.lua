@@ -183,8 +183,6 @@ function BI:Initialize()
 			BI:UpdateAllBagSlots()
 		end
 	end)
-
-
 end
 
 SLE:RegisterModule(BI:GetName())
