@@ -17,6 +17,7 @@ local underlines = {}
 local skinnableWidgets = {
 	[1217] = true, --Alliance warfront BfA
 	[1329] = true, --Horde warfront BfA
+	[2319] = true,
 }
 local Chest3_Mult = 0.6
 local Chest2_Mult = 0.8
