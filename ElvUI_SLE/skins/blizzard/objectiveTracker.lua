@@ -127,7 +127,7 @@ local function SkinScenarioButtons()
 		block.SLE_Block:CreateBackdrop('Transparent', nil, nil, nil, nil, nil, true)
 		block.SLE_Block:SetFrameStrata('BACKGROUND')
 
-		ENH:ProcessShadow(block.SLE_Block, nil, block.SLE_Block:GetFrameLevel(), ENH.db.objectiveframe)
+		ENH:ProcessShadow(block.SLE_Block, nil, block.SLE_Block:GetFrameLevel(), E.db.sle.shadows.objectiveframe)
 		ENH:HandleObjectiveFrame()
 
 		block.SLE_Block.Logo = block.SLE_Block:CreateTexture(nil, 'OVERLAY')
