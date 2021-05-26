@@ -230,6 +230,49 @@ local function configTable()
 							},
 						},
 					},
+					objectiveframe = {
+						order = 1,
+						type = 'group',
+						name = L["Objective Frame"],
+						args = {
+							elvconfig = {
+								order = 0,
+								type = 'execute',
+								name = 'ElvUI: '..L["Objective Frame"],
+								width = 'full',
+								func = function() E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'general', 'blizzUIImprovements') end,
+							},
+							minimap = {
+								order = 1,
+								type = 'group',
+								name = '',
+								guiInline = true,
+								get = function(info) return E.db.sle.shadows.objectiveframe[info[#info]] end,
+								args = {
+									backdrop = {
+										order = 1,
+										type = 'toggle',
+										name = L["Objective Frame"],
+										desc = L["Enables a shadow for the panel or backdrop of this frame."],
+										set = function(info, value) E.db.sle.shadows.objectiveframe[info[#info]] = value; ENH:HandleObjectiveFrame() end,
+									},
+									size = {
+										order = 2,
+										type = 'range',
+										name = L["Size"],
+										min = 2, max = 10, step = 1,
+										disabled = function() return not E.db.sle.shadows.objectiveframe.backdrop end,
+										set = function(info, value)
+											E.db.sle.shadows.objectiveframe[info[#info]] = value
+											if _G.ScenarioStageBlock_SLE_Block then
+												updateFrame(_G.ScenarioStageBlock_SLE_Block, value)
+											end
+										end,
+									},
+								},
+							},
+						},
+					},
 					panels = {
 						order = 1,
 						type = 'group',

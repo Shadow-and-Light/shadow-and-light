@@ -87,11 +87,11 @@ function ENH:ProcessShadow(frame, parent, level, db)
 	if not frame then return end
 
 	local name = frame:GetName()
-	level = (level >= 0 and level or 0)
+	level = (level and level >= 0 and level) or 0
 	frame.enhshadow = frame:CreateShadow(nil, true)
 	frame.enhshadow:SetParent(parent and parent or frame)
 	frame.enhshadow:SetFrameLevel(level)
-	frame.enhshadow.size = db.size
+	frame.enhshadow.size = db and db.size or 3
 
 	if name then
 		frame.enhshadow.name = name
@@ -463,6 +463,13 @@ function ENH:HandleElvUIPanels()
 	end
 end
 
+function ENH:HandleObjectiveFrame()
+	local frame = _G.ScenarioStageBlock_SLE_Block
+	if frame and frame.enhshadow then
+		frame.enhshadow:SetShown(E.db.sle.shadows.objectiveframe.backdrop)
+	end
+end
+
 function ENH:ADDON_LOADED(event, addon)
 	if addon ~= 'ElvUI_OptionsUI' then return end
 	ENH:UnregisterEvent(event)
@@ -508,10 +515,8 @@ function ENH:Initialize()
 		ENH:UpdateShadows()
 	end
 
-	hooksecurefunc(LO, "BottomPanelVisibility", ENH.HandleElvUIPanels)
-	hooksecurefunc(LO, "TopPanelVisibility", ENH.HandleElvUIPanels)
-	-- hooksecurefunc(LO, "ToggleChatPanels", ENH.HandleChatPanels)
-
+	hooksecurefunc(LO, 'BottomPanelVisibility', ENH.HandleElvUIPanels)
+	hooksecurefunc(LO, 'TopPanelVisibility', ENH.HandleElvUIPanels)
 end
 
 SLE:RegisterModule(ENH:GetName())
