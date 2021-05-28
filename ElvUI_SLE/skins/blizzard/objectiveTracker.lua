@@ -165,7 +165,7 @@ local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
 		block.SLE_Block = CreateFrame('Frame', 'ScenarioStageBlock_SLE_Block', block)
 		block.SLE_Block:ClearAllPoints()
 		block.SLE_Block:Point('TOPLEFT', block, 5, -5)
-		block.SLE_Block:Point('BOTTOMRIGHT', block.NormalBG, -5, 0)
+		block.SLE_Block:Point('BOTTOMRIGHT', block.NormalBG, -13, 0)
 		block.SLE_Block:CreateBackdrop('Transparent', nil, nil, nil, nil, nil, true)
 		block.SLE_Block:SetFrameStrata('BACKGROUND')
 
