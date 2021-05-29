@@ -12,6 +12,9 @@ V["sle"] = {
 		["conditions"] = "",
 		["lockbutton"] = false,
 	},
+	media = {
+		enable = true,
+	},
 	--Minimap Module
 	["minimap"] = {
 		rectangle = false,

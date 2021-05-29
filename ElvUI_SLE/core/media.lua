@@ -117,7 +117,7 @@ function M:TextShow()
 end
 
 function M:Initialize()
-	if not SLE.initialized then return end
+	if not SLE.initialized or not E.private.sle.media.enable then return end
 	hooksecurefunc(E, "UpdateBlizzardFonts", M.SetBlizzFonts)
 	hooksecurefunc("SetZoneText", ZoneTextPos)
 	M.SetBlizzFonts()
