@@ -164,6 +164,7 @@ end
 
 
 function N:UpdatePlate(nameplate)
+	N.db = E.db.sle.nameplates
 	if nameplate.SLE_threatInfo then
 		nameplate.SLE_threatInfo:SetFont(E.LSM:Fetch('font', N.db.threat.font), N.db.threat.size, N.db.threat.fontOutline)
 		nameplate.SLE_threatInfo:SetPoint('BOTTOMLEFT', nameplate.Health, 'BOTTOMLEFT', N.db.threat.xoffset, N.db.threat.yoffset)
