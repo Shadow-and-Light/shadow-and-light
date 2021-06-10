@@ -89,7 +89,7 @@ end
 -- Objective Tracker from ObbleYeah - Modified to fit my style
 
 -- Timer bars. Seems to work atm. must still take a look at it.
-local function SkinTimerBar(self, block, line, duration, startTime)
+local function SkinTimerBar(self, block, line)
 	local tb = self.usedTimerBars[block] and self.usedTimerBars[block][line]
 
 	if tb and tb:IsShown() and not tb.skinned then
@@ -243,7 +243,7 @@ local function UpdateChallengeModeTime(block, elapsedTime)
 		block.SLE_OverlayFrame.Mark2:SetShown(false)
 	end
 
-	local timervalue, formatid
+	local timervalue, formatID, nextUpdate, remainder
 
 	if elapsedTime < time3 then --3 chest timer
 		timervalue, formatID, nextUpdate, remainder = E:GetTimeInfo(time3 - elapsedTime, 0, 60, 3600)
