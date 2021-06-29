@@ -242,7 +242,7 @@ local function configTable()
 								width = 'full',
 								func = function() E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'general', 'blizzUIImprovements') end,
 							},
-							minimap = {
+							objectiveframe = {
 								order = 1,
 								type = 'group',
 								name = '',
