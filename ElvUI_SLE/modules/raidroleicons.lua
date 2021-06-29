@@ -34,12 +34,14 @@ function B:CreateAndUpdateIcons()
 		--Deciding on what texture to use
 		local unit = IsInRaid() and 'raid' or 'party'
 		local role = UnitGroupRolesAssigned(unit..i)
-		local name, realm = UnitName(unit..i)
+		local name = UnitName(unit..i)
+		local rolePath = SLE.rolePaths[E.db.sle.unitframes.roleicons] or SLE.rolePaths['ElvUI']
 		local texture = ''
+
 		if (role and role ~= 'NONE') and name and E.db.sle.unitframes.roleicons and E.db.sle.raidmanager.roles then
 			--  TODO:  Some reason name is assigned but not used?
 			-- name = (realm and realm ~= '') and name..'-'..realm or name ..'-'..PLAYER_REALM
-			texture = SLE.rolePaths[E.db.sle.unitframes.roleicons][role]
+			texture = rolePath[role]
 		end
 		frame.sleicon.texture:SetTexture(texture)
 	end

@@ -15,10 +15,19 @@ local function configTable()
 		order = 20,
 		childGroups = 'tab',
 		args = {
+			enable = {
+				order = 1,
+				type = 'toggle',
+				name = L["Enable"],
+				get = function(info) return E.private.sle.media[info[#info]] end,
+				set = function(info, value) E.private.sle.media[info[#info]] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+
+			},
 			zonefonts = {
 				type = 'group',
 				name = L["Zone Text"],
 				order = 3,
+				disabled = function() return not E.private.sle.media.enable end,
 				args = {
 					intro = ACH:Spacer(1),
 					test = {
@@ -124,9 +133,10 @@ local function configTable()
 				},
 			},
 			miscfonts = {
+				order = 4,
 				type = 'group',
 				name = L["Misc Texts"],
-				order = 4,
+				disabled = function() return not E.private.sle.media.enable end,
 				args = {
 					mail = {
 						type = 'group',
@@ -270,9 +280,10 @@ local function configTable()
 				},
 			},
 			applyAll = {
+				order = 60,
 				type = 'group',
 				name = L["Apply Font To All"],
-				order = 60,
+				disabled = function() return not E.private.sle.media.enable end,
 				args = {
 					font = {
 						type = 'select', dialogControl = 'LSM30_Font',

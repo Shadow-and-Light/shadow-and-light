@@ -1133,6 +1133,10 @@ P["sle"] = {
 			backdrop = false,
 			size = 3,
 		},
+		objectiveframe = {
+			backdrop = false,
+			size = 3,
+		},
 		unitframes = {
 			size = 3,
 			player = {

@@ -1,6 +1,7 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local S = E.Skins
 local Sk = SLE.Skins
+local ENH = SLE.EnhancedShadows
 
 -- GLOBALS: C_Scenario, BonusObjectiveTrackerProgressBar_PlayFlareAnim, hooksecurefunc, CreateFrame
 local _G = _G
@@ -17,6 +18,7 @@ local underlines = {}
 local skinnableWidgets = {
 	[1217] = true, --Alliance warfront BfA
 	[1329] = true, --Horde warfront BfA
+	[2319] = true,
 }
 local Chest3_Mult = 0.6
 local Chest2_Mult = 0.8
@@ -87,7 +89,7 @@ end
 -- Objective Tracker from ObbleYeah - Modified to fit my style
 
 -- Timer bars. Seems to work atm. must still take a look at it.
-local function SkinTimerBar(self, block, line, duration, startTime)
+local function SkinTimerBar(self, block, line)
 	local tb = self.usedTimerBars[block] and self.usedTimerBars[block][line]
 
 	if tb and tb:IsShown() and not tb.skinned then
@@ -119,9 +121,14 @@ local function SkinScenarioButtons()
 	-- because we're messing with the tracker width >_>
 	if not block.SLE_Block then
 		block.SLE_Block = CreateFrame('Frame', 'ScenarioStageBlock_SLE_Block', block)
-		block.SLE_Block:SetAllPoints(block.NormalBG)
+		block.SLE_Block:ClearAllPoints()
+		block.SLE_Block:Point('TOPLEFT', block, 5, -5)
+		block.SLE_Block:Point('BOTTOMRIGHT', block.NormalBG, -5, 0)
 		block.SLE_Block:CreateBackdrop('Transparent', nil, nil, nil, nil, nil, true)
 		block.SLE_Block:SetFrameStrata('BACKGROUND')
+
+		ENH:ProcessShadow(block.SLE_Block, nil, block.SLE_Block:GetFrameLevel(), E.db.sle.shadows.objectiveframe)
+		ENH:HandleObjectiveFrame()
 
 		block.SLE_Block.Logo = block.SLE_Block:CreateTexture(nil, 'OVERLAY')
 		block.SLE_Block.Logo:SetPoint('BOTTOMRIGHT', block.SLE_Block, 'BOTTOMRIGHT', -5, 7)
@@ -155,11 +162,15 @@ local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
 	local block = ScenarioChallengeModeBlock
 
 	if not block.SLE_Block then
-		block.SLE_Block = CreateFrame('Frame', 'ScenarioChallengeModeBlock_SLE_Block', block)
-		block.SLE_Block:SetAllPoints(block)
-		-- block.SLE_Block:SetTemplate('Transparent')
+		block.SLE_Block = CreateFrame('Frame', 'ScenarioStageBlock_SLE_Block', block)
+		block.SLE_Block:ClearAllPoints()
+		block.SLE_Block:Point('TOPLEFT', block, 5, -5)
+		block.SLE_Block:Point('BOTTOMRIGHT', block.NormalBG, -13, 0)
 		block.SLE_Block:CreateBackdrop('Transparent', nil, nil, nil, nil, nil, true)
 		block.SLE_Block:SetFrameStrata('BACKGROUND')
+
+		ENH:ProcessShadow(block.SLE_Block, nil, block.SLE_Block:GetFrameLevel(), E.db.sle.shadows.objectiveframe)
+		ENH:HandleObjectiveFrame()
 
 		block.SLE_Block.Logo = block.SLE_Block:CreateTexture(nil, 'OVERLAY')
 		block.SLE_Block.Logo:SetPoint('TOPLEFT', block.SLE_Block, 'TOPRIGHT', -75, -7)
@@ -232,7 +243,7 @@ local function UpdateChallengeModeTime(block, elapsedTime)
 		block.SLE_OverlayFrame.Mark2:SetShown(false)
 	end
 
-	local timervalue, formatid
+	local timervalue, formatID, nextUpdate, remainder
 
 	if elapsedTime < time3 then --3 chest timer
 		timervalue, formatID, nextUpdate, remainder = E:GetTimeInfo(time3 - elapsedTime, 0, 60, 3600)
@@ -278,14 +289,15 @@ local function SkinAffixes(block,affixes)
 	end
 end
 
-function ScenarioChallengeModeAffixMixin:SetUp(affixID)
-	local _, _, filedataid = C_ChallengeMode.GetAffixInfo(affixID)
-	SetPortraitToTexture(self.Portrait, filedataid)
+--! Don't see a need for this, leaving commented out til after dbl checking b/c we are doinng this for no reason from what i can see since this is part of wow's functions
+-- function ScenarioChallengeModeAffixMixin:SetUp(affixID)
+-- 	local _, _, filedataid = C_ChallengeMode.GetAffixInfo(affixID)
+-- 	SetPortraitToTexture(self.Portrait, filedataid)
 
-	self.affixID = affixID
+-- 	self.affixID = affixID
 
-	self:Show()
-end
+-- 	self:Show()
+-- end
 
 -- Proving grounds
 local function SkinProvingGroundButtons()
