@@ -1,13 +1,16 @@
-v4.22 [alpha]
+v4.22 [6/29/2021]
 
 Fixes:
 - Fixed Help Icon not rendering
 - Changed Error check on health element
 - Reputation bar fixes for full display didnt seem to work as intended
 - Chat: Fix broken invite link
+- Protect against invalid db entries for role icons if another addon that added an icon was disabled/removed from wow
 
 Added:
 - Added Discord url for support
+- Added option to disable S&L Media section to help be more compatible with other addons that do similar things like ToxiUI
+- Enhanced shadows on objective frame (scenario/m+ frame)
 
 Changes:
 - S&L AFK Mode: Rewrote majority of S&L AFK to be more customizable, expanded on the options so much so, it's easier to just look at the options instead of trying to list them.
