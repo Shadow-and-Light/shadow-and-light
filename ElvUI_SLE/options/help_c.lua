@@ -37,12 +37,14 @@ Benik, The Slacker
 Blazeflack
 Boradan
 Camealion
+Eltreum
 Merathilis, The Confused
 Nihilistzsche
 Nils Ruesch
 Omega1970
 Pvtschlag
 Releaf
+Roxanne
 Shenzo
 Simpy, The Heretic
 Sinaris
