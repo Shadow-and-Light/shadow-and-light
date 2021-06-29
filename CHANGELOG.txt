@@ -1,5 +1,7 @@
 v4.22 [6/29/2021]
 
+WOW PATCH 9.1 (Do Not Use On 9.0.5)
+
 Fixes:
 - Fixed Help Icon not rendering
 - Changed Error check on health element
