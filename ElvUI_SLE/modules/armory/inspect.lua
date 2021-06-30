@@ -99,34 +99,33 @@ function IA:BuildLayout()
 	end
 
 	do --<<Check Transmog>>--
-		_G["InspectFrame"].SLE_TransmogViewButton = CreateFrame("Button", nil, _G["InspectFrame"], "BackdropTemplate")
-		_G["InspectFrame"].SLE_TransmogViewButton:Size(30)
-		_G["InspectFrame"].SLE_TransmogViewButton:Point("BOTTOMRIGHT", _G["InspectHandsSlot"], "TOPRIGHT", 0, 4)
-		_G["InspectFrame"].SLE_TransmogViewButton:SetBackdrop({
+		_G.InspectFrame.SLE_TransmogViewButton = CreateFrame('Button', nil, _G.InspectFrame, 'BackdropTemplate')
+		_G.InspectFrame.SLE_TransmogViewButton:Size(30)
+		_G.InspectFrame.SLE_TransmogViewButton:Point('BOTTOMRIGHT', _G.InspectHandsSlot, 'TOPRIGHT', 0, 4)
+		_G.InspectFrame.SLE_TransmogViewButton:SetBackdrop({
 				bgFile = E.media.blankTex,
 				edgeFile = E.media.blankTex,
 				tile = false, tileSize = 0, edgeSize = E.mult,
 				insets = { left = 0, right = 0, top = 0, bottom = 0}
 			})
-		_G["InspectFrame"].SLE_TransmogViewButton.texture = _G["InspectFrame"].SLE_TransmogViewButton:CreateTexture(nil, 'OVERLAY')
-		_G["InspectFrame"].SLE_TransmogViewButton.texture:SetInside()
-		_G["InspectFrame"].SLE_TransmogViewButton.texture:SetTexture([[Interface\ICONS\INV_Misc_Desecrated_PlateChest]])
-		_G["InspectFrame"].SLE_TransmogViewButton.texture:SetTexCoord(unpack(E.TexCoords))
+		_G.InspectFrame.SLE_TransmogViewButton.texture = _G.InspectFrame.SLE_TransmogViewButton:CreateTexture(nil, 'OVERLAY')
+		_G.InspectFrame.SLE_TransmogViewButton.texture:SetInside()
+		_G.InspectFrame.SLE_TransmogViewButton.texture:SetTexture([[Interface\ICONS\INV_Misc_Desecrated_PlateChest]])
+		_G.InspectFrame.SLE_TransmogViewButton.texture:SetTexCoord(unpack(E.TexCoords))
 
-		_G["InspectFrame"].SLE_TransmogViewButton:SetScript("OnEnter", function(self)
-			self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
-			GameTooltip:SetOwner(self, "ANCHOR_TOP")
+		_G.InspectFrame.SLE_TransmogViewButton:SetScript('OnEnter', function(frame)
+			frame:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
+			GameTooltip:SetOwner(frame, 'ANCHOR_TOP')
 			GameTooltip:SetText(VIEW_IN_DRESSUP_FRAME)
 			GameTooltip:Show()
 		end)
-		_G["InspectFrame"].SLE_TransmogViewButton:SetScript("OnLeave", function(self)
-			-- self:SetBackdropBorderColor(TransmogButtonColors.R, TransmogButtonColors.G, TransmogButtonColors.B)
-			self:SetBackdropBorderColor(1, 1, 1)
-			_G["GameTooltip"]:Hide()
+		_G.InspectFrame.SLE_TransmogViewButton:SetScript('OnLeave', function(frame)
+			frame:SetBackdropBorderColor(1, 1, 1)
+			_G['GameTooltip']:Hide()
 		end)
-		_G["InspectFrame"].SLE_TransmogViewButton:SetScript("OnClick", function(self)
+		_G.InspectFrame.SLE_TransmogViewButton:SetScript('OnClick', function()
 			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
-			DressUpSources(C_TransmogCollection.GetInspectSources())
+			DressUpItemTransmogInfoList(C_TransmogCollection.GetInspectItemTransmogInfoList())
 		end)
 	end
 end
