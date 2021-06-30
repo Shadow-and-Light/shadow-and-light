@@ -10,7 +10,7 @@ local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetApp
 local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
 local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllusionSourceInfo
 local HandleModifiedItemClick = HandleModifiedItemClick
-local C_TransmogCollection_GetInspectSources = C_TransmogCollection.GetInspectSources
+local C_TransmogCollection_GetInspectItemTransmogInfoList = C_TransmogCollection.GetInspectItemTransmogInfoList
 local GetSpecialization, GetSpecializationInfo, GetInspectSpecialization = GetSpecialization, GetSpecializationInfo, GetInspectSpecialization
 local InCombatLockdown = InCombatLockdown
 local CA, IA, SA
@@ -156,8 +156,16 @@ function Armory:GetTransmogInfo(Slot, which, unit)
 
 	if not transmogLink then return nil end
 
-	local appearenceIDs = C_TransmogCollection_GetInspectSources()
+	local appearenceIDs = {}
 	local mogLink
+	local data = C_TransmogCollection_GetInspectItemTransmogInfoList()
+
+	for _, v in ipairs(data) do
+		if v.appearanceID and v.appearanceID > 0 then
+			tinsert(appearenceIDs, v.appearanceID)
+		end
+	end
+
 	if appearenceIDs then
 		for i = 1, #appearenceIDs do
 			if (appearenceIDs[i] and appearenceIDs[i] ~= NO_TRANSMOG_SOURCE_ID) then
