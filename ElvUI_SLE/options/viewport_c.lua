@@ -3,8 +3,8 @@ local M = SLE.Misc
 
 local ceil = ceil
 local function configTable()
-	local width = ceil(E.screenwidth)/2
-	local height = ceil(E.screenheight)/2
+	local width = ceil(E.screenWidth)/2
+	local height = ceil(E.screenHeight)/2
 	E.Options.args.sle.args.modules.args.viewport = {
 		type = 'group',
 		name = L["Viewport"],
