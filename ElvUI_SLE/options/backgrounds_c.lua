@@ -22,7 +22,7 @@ local function configTable()
 	end
 
 	local screenWidth = ceil(E.screenWidth)
-	local screenHeight = ceil(E.screenheight)
+	local screenHeight = ceil(E.screenHeight)
 	local function CreateGroup(i)
 		local config = {
 			type = "group",

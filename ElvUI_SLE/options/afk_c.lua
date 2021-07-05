@@ -287,7 +287,7 @@ local function configTable()
 	ACH = E.Libs.ACH
 
 	local screenWidth = ceil(E.screenWidth)
-	local screenHeight = ceil(E.screenheight)
+	local screenHeight = ceil(E.screenHeight)
 	E.Options.args.sle.args.modules.args.afk = {
 		order = 1,
 		name = L["AFK Mode"],
