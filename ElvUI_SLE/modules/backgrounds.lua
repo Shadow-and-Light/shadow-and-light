@@ -5,9 +5,9 @@ local CreateFrame = CreateFrame
 --Default positions table. ID is passed everywhere so when positioning stuff I can just unpack by id and not writing a line for every BG.
 BG.pos = {
 		[1] = {'BOTTOM', 'BOTTOM', 0, 21},
-		[2] = {'BOTTOMRIGHT', 'BOTTOM', -((E.eyefinity or E.screenwidth)/4 + 32)/2 - 1, 21, 21},
-		[3] = {'BOTTOMLEFT', 'BOTTOM', ((E.eyefinity or E.screenwidth)/4 + 32)/2 + 1, 21},
-		[4] = {'BOTTOM', 'BOTTOM', 0, E.screenheight/6 + 9},
+		[2] = {'BOTTOMRIGHT', 'BOTTOM', -((E.eyefinity or E.physicalWidth)/4 + 32)/2 - 1, 21, 21},
+		[3] = {'BOTTOMLEFT', 'BOTTOM', ((E.eyefinity or E.physicalWidth)/4 + 32)/2 + 1, 21},
+		[4] = {'BOTTOM', 'BOTTOM', 0, E.physicalHeight/6 + 9},
 	}
 
 function BG:CreateFrame(id)

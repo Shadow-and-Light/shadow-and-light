@@ -1,7 +1,7 @@
 ﻿local SLE, _, E, L = unpack(select(2, ...))
 local BG = SLE.Backgrounds
 
---GLOBALS: unpack, select, tinsert, DEFAULT
+local ceil = ceil
 local tinsert = tinsert
 local DEFAULT = DEFAULT
 
@@ -21,6 +21,8 @@ local function configTable()
 		return config
 	end
 
+	local screenWidth = ceil(E.screenWidth)
+	local screenHeight = ceil(E.screenheight)
 	local function CreateGroup(i)
 		local config = {
 			type = "group",
@@ -34,7 +36,7 @@ local function configTable()
 					type = "range",
 					name = L["Width"],
 					desc = L["Sets width of the frame"],
-					min = 50, max = E.screenwidth, step = 1,
+					min = 50, max = screenWidth, step = 1,
 					set = function(_, value) E.db.sle.backgrounds["bg"..i].width = value; BG:FramesSize(i) end,
 				},
 				height = {
@@ -42,7 +44,7 @@ local function configTable()
 					type = "range",
 					name = L["Height"],
 					desc = L["Sets height of the frame"],
-					min = 20, max = E.screenheight/2, step = 1,
+					min = 20, max = screenHeight/2, step = 1,
 					set = function(_, value) E.db.sle.backgrounds["bg"..i].height = value; BG:FramesSize(i) end,
 				},
 				spacer = ACH:Spacer(3),

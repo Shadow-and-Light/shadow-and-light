@@ -1,11 +1,15 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local S = SLE.Screensaver
 
---GLOBALS: unpack, select, floor, tinsert, DEFAULT, AceGUIWidgetLSMlists, GetScreenWidth
 local NAME, PLAYER, GUILD, RANK = NAME, PLAYER, GUILD, RANK
+local NONE, RACE, CLASS, DELETE = NONE, RACE, CLASS, DELETE
 
-local floor, tinsert = floor, tinsert
+local pairs, ceil, strtrim = pairs, ceil, strtrim
+local format, floor, tinsert = format, floor, tinsert
 local DEFAULT, GetScreenWidth, GetScreenHeight = DEFAULT, GetScreenWidth, GetScreenHeight
+
+-- GLOBALS: AceGUIWidgetLSMlists
+
 local ACH
 local selectedGraphic
 
@@ -282,6 +286,8 @@ local function configTable()
 
 	ACH = E.Libs.ACH
 
+	local screenWidth = ceil(E.screenWidth)
+	local screenHeight = ceil(E.screenheight)
 	E.Options.args.sle.args.modules.args.afk = {
 		order = 1,
 		name = L["AFK Mode"],
@@ -506,7 +512,7 @@ local function configTable()
 										order = 6,
 										name = L["X-Offset"],
 										type = 'range',
-										min = -E.screenwidth, max = E.screenwidth, step = 1,
+										min = -screenWidth, max = screenWidth, step = 1,
 										get = function() return E.db.sle.afk.playermodel.holderXoffset end,
 										set = function(_, value) E.db.sle.afk.playermodel.holderXoffset = value; S:CreateUpdateModelElements(true) end,
 									},
@@ -514,7 +520,7 @@ local function configTable()
 										order = 7,
 										name = L["Y-Offset"],
 										type = 'range',
-										min = -E.screenheight, max = E.screenheight, step = 1,
+										min = -screenHeight, max = screenHeight, step = 1,
 										get = function() return E.db.sle.afk.playermodel.holderYoffset end,
 										set = function(_, value) E.db.sle.afk.playermodel.holderYoffset = value; S:CreateUpdateModelElements(true) end,
 									},

@@ -1,6 +1,9 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local LP = SLE.LocationPanel
-local DEFAULT, CUSTOM = DEFAULT, CUSTOM
+local DEFAULT, CUSTOM, CLASS = DEFAULT, CUSTOM, CLASS
+-- GLOBALS: AceGUIWidgetLSMlists
+local ceil = ceil
+
 local function configTable()
 	if not SLE.initialized then return end
 	-- E.Options.args.sle.args.modules.args.minimap = {
@@ -12,6 +15,7 @@ local function configTable()
 	-- 		header = ACH:Header(L["Minimap Options"], 1),
 	-- 		desc = ACH:Description(L["MINIMAP_DESC"], 2),
 
+	local screenWidth = ceil(E.screenWidth)
 	E.Options.args.sle.args.modules.args.locPanel = {
 		type = "group",
 		name = L["Location Panel"],
@@ -55,7 +59,7 @@ local function configTable()
 				order = 5,
 				type = 'range',
 				name = L["Width"],
-				min = 100, max = E.screenwidth/2, step = 1,
+				min = 100, max = screenWidth/2, step = 1,
 				disabled = function() return not E.db.sle.minimap.locPanel.enable or E.db.sle.minimap.locPanel.autowidth end,
 				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Resize() end,
 			},
@@ -206,7 +210,7 @@ local function configTable()
 						order = 3,
 						name = L["Width"],
 						type = "range",
-						min = 100, max = E.screenwidth, step = 1,
+						min = 100, max = screenWidth, step = 1,
 						disabled = function() return not E.db.sle.minimap.locPanel.portals.customWidth or not E.db.sle.minimap.locPanel.enable end,
 					},
 					justify = {
