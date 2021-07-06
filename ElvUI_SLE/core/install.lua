@@ -12,21 +12,21 @@ local SetAutoDeclineGuildInvites = SetAutoDeclineGuildInvites
 local SetInsertItemsLeftToRight = SetInsertItemsLeftToRight
 local GetCVarBool, StopMusic, ReloadUI = GetCVarBool, StopMusic, ReloadUI
 
-PI.SLE_Auth = ""
-PI.SLE_Word = ""
+PI.SLE_Auth = ''
+PI.SLE_Word = ''
 
 local function DarthHeal()
-	E.db["unitframe"]["units"]["raid"]["healPrediction"]["enable"] = true
+	E.db['unitframe']['units']['raid']['healPrediction']['enable'] = true
 
-	E.db["movers"]["ElvUF_RaidMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,362,-272"
-	E.db["movers"]["LootFrameMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,1,-467"
-	E.db["movers"]["AlertFrameMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,252,249"
+	E.db['movers']['ElvUF_RaidMover'] = 'TOPLEFT,ElvUIParent,TOPLEFT,362,-272'
+	E.db['movers']['LootFrameMover'] = 'TOPLEFT,ElvUIParent,TOPLEFT,1,-467'
+	E.db['movers']['AlertFrameMover'] = 'BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,252,249'
 end
 
 function PI:DarthSetup()
 	local layout = E.db.layoutSet
-	local installMark = E.private["install_complete"]
-	local installMarkSLE = E.private["sle"]["install_complete"]
+	local installMark = E.private['install_complete']
+	local installMarkSLE = E.private['sle']['install_complete']
 
 	wipe(E.db)
 	E:CopyTable(E.db, P)
@@ -34,44 +34,44 @@ function PI:DarthSetup()
 	wipe(E.private)
 	E:CopyTable(E.private, V)
 
-	E:ResetMovers("")
-	if not E.db["movers"] then E.db["movers"] = {} end
+	E:ResetMovers('')
+	if not E.db['movers'] then E.db['movers'] = {} end
 
 	--General
 	do
-		E.db["general"]["totems"]["size"] = 42
-		E.db["general"]["totems"]["growthDirection"] = "HORIZONTAL"
-		E.db["general"]["totems"]["spacing"] = 1
+		E.db['general']['totems']['size'] = 42
+		E.db['general']['totems']['growthDirection'] = 'HORIZONTAL'
+		E.db['general']['totems']['spacing'] = 1
 
-		E.db["general"]["stickyFrames"] = false
-		E.db["general"]["talkingHeadFrameScale"] = 1
-		E.db["general"]["bottomPanel"] = false
+		E.db['general']['stickyFrames'] = false
+		E.db['general']['talkingHeadFrameScale'] = 1
+		E.db['general']['bottomPanel'] = false
 
-		E.db["general"]["bordercolor"]["r"] = 0
-		E.db["general"]["bordercolor"]["g"] = 0
-		E.db["general"]["bordercolor"]["b"] = 0
+		E.db['general']['bordercolor']['r'] = 0
+		E.db['general']['bordercolor']['g'] = 0
+		E.db['general']['bordercolor']['b'] = 0
 
-		E.db["general"]["autoRepair"] = "PLAYER"
+		E.db['general']['autoRepair'] = 'PLAYER'
 
-		E.db["general"]["minimap"]["size"] = 220
-		E.db["general"]["minimap"]["locationText"] = "HIDE"
+		E.db['general']['minimap']['size'] = 220
+		E.db['general']['minimap']['locationText'] = 'HIDE'
 
-		E.db["general"]["decimalLength"] = 2
+		E.db['general']['decimalLength'] = 2
 
-		E.db["general"]["valuecolor"]["b"] = 0.15294117647059
-		E.db["general"]["valuecolor"]["g"] = 0.74901960784314
-		E.db["general"]["valuecolor"]["r"] = 0.23529411764706
+		E.db['general']['valuecolor']['b'] = 0.15294117647059
+		E.db['general']['valuecolor']['g'] = 0.74901960784314
+		E.db['general']['valuecolor']['r'] = 0.23529411764706
 
-		E.db["general"]["backdropfadecolor"]["r"] = 0.054
-		E.db["general"]["backdropfadecolor"]["g"] = 0.054
-		E.db["general"]["backdropfadecolor"]["b"] = 0.054
+		E.db['general']['backdropfadecolor']['r'] = 0.054
+		E.db['general']['backdropfadecolor']['g'] = 0.054
+		E.db['general']['backdropfadecolor']['b'] = 0.054
 
-		E.db["general"]["objectiveFrameHeight"] = 500
-		E.db["general"]["bonusObjectivePosition"] = "AUTO"
+		E.db['general']['objectiveFrameHeight'] = 500
+		E.db['general']['bonusObjectivePosition'] = 'AUTO'
 
-		E.db["general"]["vehicleSeatIndicatorSize"] = 112
+		E.db['general']['vehicleSeatIndicatorSize'] = 112
 
-		E.db["general"]["altPowerBar"]["statusBar"] = "WorldState Score"
+		E.db['general']['altPowerBar']['statusBar'] = 'WorldState Score'
 	end
 	--Actionbars
 	do

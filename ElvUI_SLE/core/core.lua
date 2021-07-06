@@ -17,20 +17,17 @@ SLE.callbacks = SLE.callbacks or LibStub('CallbackHandler-1.0'):New(SLE)
 SLE.version = GetAddOnMetadata('ElvUI_SLE', 'Version')
 SLE.DBversion = '4.24'
 SLE.Title = format('|cff9482c9%s |r', 'Shadow & Light')
-
 --@alpha@
 SLE.alpha = true
 --@end-alpha@
 
 BINDING_HEADER_SLE = '|cff9482c9Shadow & Light|r'
 
---Creating a toolkit table
-local Toolkit = {}
-
---localizing functions and stuff--
-
 SLE.elvV = tonumber(E.version)
 SLE.elvR = tonumber(GetAddOnMetadata('ElvUI_SLE', 'X-ElvVersion'))
+
+--Creating a toolkit table
+local Toolkit = {}
 
 --Setting up table to unpack. Why? no idea
 Engine[1] = SLE

@@ -1,13 +1,11 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 
-local _G = _G
 local strsplit = strsplit
 local CreateFrame = CreateFrame
 local UnitLevel = UnitLevel
 local BNET_CLIENT_WOW = BNET_CLIENT_WOW
 local BNGetFriendInfo, BNGetNumFriends, BNSendGameData = BNGetFriendInfo, BNGetNumFriends, BNSendGameData
-local C_ChatInfo_SendAddonMessage = C_ChatInfo.SendAddonMessage
-local C_ChatInfo_RegisterAddonMessagePrefix = C_ChatInfo.RegisterAddonMessagePrefix
+local C_ChatInfo_SendAddonMessage, C_ChatInfo_RegisterAddonMessagePrefix = C_ChatInfo.SendAddonMessage, C_ChatInfo.RegisterAddonMessagePrefix
 local ID
 
 --Building user list for dev tool
