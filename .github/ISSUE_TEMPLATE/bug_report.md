@@ -1,3 +1,9 @@
+---
+name: Bug Report
+about: Create a bug report
+labels: ":bug: Bug"
+---
+
 **Description**
 <!--- Please give a short description of the issue here -->
 
