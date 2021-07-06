@@ -108,10 +108,6 @@ function SLE:BagSearch(itemId)
 	end
 end
 
---Additional tutorials if any
-function SLE:AddTutorials()
-end
-
 --S&L print
 function SLE:Print(msg, msgtype)
 	if msgtype == 'error' then

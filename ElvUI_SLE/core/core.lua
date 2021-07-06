@@ -90,11 +90,6 @@ local function GetOptions()
 	end
 end
 
-function SLE:OnInitialize()
-	--Incompatibility stuff will go here
-	SLE:AddTutorials()
-end
-
 function SLE:ConfigCats() --Additional mover groups
 	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, 'S&L')
 	E.ConfigModeLocalizedStrings['S&L'] = L["S&L: All"]
