@@ -1,5 +1,7 @@
-v4.23 [6/30/2021]
+v4.24 [7/8/2021]
 
-Fixes:
-- Transmog error on inspecting
-- Nil error in config option for armory stats
+- Transmog error on clicking view in dressing frame
+- fix a backdrop frame not having its backdrop in torghast
+- added some challenger teleports
+- update ingame help section and readme for current issue links and such
+- added skin to torghast powers backdrop (and enhanced shadow option)
