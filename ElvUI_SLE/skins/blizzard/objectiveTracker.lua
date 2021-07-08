@@ -438,6 +438,20 @@ local function ObjectiveReskin()
 
 		Sk:Update_ObjectiveTrackerUnderlinesVisibility()
 		Sk:Update_ObjectiveTrackerUnderlinesColor()
+
+		local MawBuffsBlock = ScenarioBlocksFrame.MawBuffsBlock
+		if MawBuffsBlock and E.private.sle.skins.objectiveTracker.torghastPowers.enable then
+			local numRegions = MawBuffsBlock.Container:GetNumRegions()
+			for i = 1, numRegions do
+				local region = select(i, MawBuffsBlock.Container:GetRegions())
+				if region and region.IsObjectType and region:IsObjectType('Texture') then
+					region:SetAlpha(0)
+				end
+			end
+			MawBuffsBlock:SetTemplate('Transparent')
+			MawBuffsBlock.Container.List:StripTextures()
+			MawBuffsBlock.Container.List:SetTemplate('Transparent')
+		end
 	end
 end
 

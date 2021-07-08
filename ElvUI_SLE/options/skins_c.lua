@@ -230,6 +230,23 @@ local function configTable()
 							},
 						},
 					},
+					torghastPowers = {
+						order = 6,
+						type = 'group',
+						name = L["Torghast Powers"],
+						guiInline = true,
+						get = function(info) return E.private.sle.skins.objectiveTracker.torghastPowers[info[#info]] end,
+						set = function(info, value) E.private.sle.skins.objectiveTracker.torghastPowers[info[#info]] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+						args = {
+							enable = {
+								order = 1,
+								type = 'toggle',
+								name = L["Enable"],
+								desc = L["Torghast Powers Bar that contains your powers in the objective tracker will have the ElvUI look."],
+								disabled = function() return not E.private.sle.skins.objectiveTracker.enable end,
+							},
+						}
+					},
 				},
 			},
 			merchant = {
