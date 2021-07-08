@@ -71,7 +71,7 @@ end
 
 local function configTable()
 	if not SLE.initialized then return end
-	-- local ACH = E.Libs.ACH
+	local ACH = E.Libs.ACH
 
 	E.Options.args.sle.args.modules.args.shadows = {
 		order = 1,
@@ -243,16 +243,16 @@ local function configTable()
 								func = function() E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'general', 'blizzUIImprovements') end,
 							},
 							objectiveframe = {
-								order = 1,
+								order = 2,
 								type = 'group',
-								name = '',
+								name = L["Objective Frame"],
 								guiInline = true,
 								get = function(info) return E.db.sle.shadows.objectiveframe[info[#info]] end,
 								args = {
 									backdrop = {
 										order = 1,
 										type = 'toggle',
-										name = L["Objective Frame"],
+										name = L["Backdrop"],
 										desc = L["Enables a shadow for the panel or backdrop of this frame."],
 										set = function(info, value) E.db.sle.shadows.objectiveframe[info[#info]] = value; ENH:HandleObjectiveFrame() end,
 									},
@@ -266,6 +266,38 @@ local function configTable()
 											E.db.sle.shadows.objectiveframe[info[#info]] = value
 											if _G.ScenarioStageBlock_SLE_Block then
 												updateFrame(_G.ScenarioStageBlock_SLE_Block, value)
+											end
+										end,
+									},
+								},
+							},
+							torghastPowers = {
+								order = 2,
+								type = 'group',
+								name = L["Torghast Powers Bar"],
+								guiInline = true,
+								get = function(info) return E.db.sle.shadows.torghastPowers[info[#info]] end,
+								args = {
+									backdrop = {
+										order = 1,
+										type = 'toggle',
+										name = L["Backdrop"],
+										desc = L["Enables a shadow for the panel or backdrop of this frame."],
+										set = function(info, value) E.db.sle.shadows.torghastPowers[info[#info]] = value; ENH:HandleObjectiveFrame() end,
+									},
+									size = {
+										order = 2,
+										type = 'range',
+										name = L["Size"],
+										min = 2, max = 10, step = 1,
+										disabled = function() return not E.db.sle.shadows.torghastPowers.backdrop end,
+										set = function(info, value)
+											E.db.sle.shadows.torghastPowers[info[#info]] = value
+											if _G.ScenarioBlocksFrame.MawBuffsBlock.SLE_Block then
+												updateFrame(_G.ScenarioBlocksFrame.MawBuffsBlock.SLE_Block, value)
+											end
+											if _G.ScenarioBlocksFrame.MawBuffsBlock.Container.List then
+												updateFrame(_G.ScenarioBlocksFrame.MawBuffsBlock.Container.List, value)
 											end
 										end,
 									},

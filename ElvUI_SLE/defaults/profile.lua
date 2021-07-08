@@ -1137,6 +1137,10 @@ P["sle"] = {
 			backdrop = false,
 			size = 3,
 		},
+		torghastPowers = {
+			backdrop = false,
+			size = 3,
+		},
 		unitframes = {
 			size = 3,
 			player = {

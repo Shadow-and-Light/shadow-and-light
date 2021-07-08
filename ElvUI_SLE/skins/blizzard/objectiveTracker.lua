@@ -456,10 +456,13 @@ local function ObjectiveReskin()
 				MawBuffsBlock.SLE_Block:Point('BOTTOMRIGHT', MawBuffsBlock)
 				MawBuffsBlock.SLE_Block:SetTemplate('Transparent')
 				MawBuffsBlock.SLE_Block:SetFrameStrata('BACKGROUND')
+
+				ENH:ProcessShadow(MawBuffsBlock.SLE_Block, nil, MawBuffsBlock.SLE_Block:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
 			end
 
 			MawBuffsBlock.Container.List:StripTextures()
 			MawBuffsBlock.Container.List:SetTemplate('Transparent')
+			ENH:ProcessShadow(MawBuffsBlock.Container.List, nil, MawBuffsBlock.Container.List:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
 		end
 	end
 end
