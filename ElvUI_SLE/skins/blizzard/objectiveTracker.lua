@@ -448,7 +448,16 @@ local function ObjectiveReskin()
 					region:SetAlpha(0)
 				end
 			end
-			MawBuffsBlock:SetTemplate('Transparent')
+			-- MawBuffsBlock:SetTemplate('Transparent')
+			if not MawBuffsBlock.SLE_Block then
+				MawBuffsBlock.SLE_Block = CreateFrame('Frame', 'MawBuffsBlock_SLE_Block', MawBuffsBlock.Container)
+				MawBuffsBlock.SLE_Block:ClearAllPoints()
+				MawBuffsBlock.SLE_Block:Point('TOPLEFT', MawBuffsBlock)
+				MawBuffsBlock.SLE_Block:Point('BOTTOMRIGHT', MawBuffsBlock)
+				MawBuffsBlock.SLE_Block:SetTemplate('Transparent')
+				MawBuffsBlock.SLE_Block:SetFrameStrata('BACKGROUND')
+			end
+
 			MawBuffsBlock.Container.List:StripTextures()
 			MawBuffsBlock.Container.List:SetTemplate('Transparent')
 		end
