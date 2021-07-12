@@ -86,7 +86,7 @@ function EVB:CreateExtraButtonSet()
 
 		AB:StyleButton(bar.buttons[i], nil, MasqueGroup and E.private.actionbar.masque.actionbars and true or nil)
 
-		if E.private.sle.actionbars.transparentButtons then
+		if E.db.actionbar.transparent then
 			-- Disable this call if Masque is loaded
 			if IsAddOnLoaded('Masque') then return end
 
