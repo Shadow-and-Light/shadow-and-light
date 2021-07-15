@@ -468,7 +468,6 @@ local function ObjectiveReskin()
 		-- SoD Raid
 		local MawBuffsBelowMinimapFrame = _G.MawBuffsBelowMinimapFrame
 		if MawBuffsBelowMinimapFrame and E.private.sle.skins.objectiveTracker.torghastPowers.enable then
-			print('123')
 			local numRegions = MawBuffsBelowMinimapFrame.Container:GetNumRegions()
 			for i = 1, numRegions do
 				local region = select(i, MawBuffsBelowMinimapFrame.Container:GetRegions())
