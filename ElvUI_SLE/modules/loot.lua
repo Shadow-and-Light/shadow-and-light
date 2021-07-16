@@ -295,19 +295,21 @@ function LT:Update()
 	--Setting Elv's option to button that leads to my shit if the module is enabled
 	if IsAddOnLoaded('ElvUI_OptionsUI') then
 		if LT.db.autoroll.enable then
-			E.Options.args.general.args.general.args.autoRoll = {
-				order = 6,
+			E.Options.args.general.args.blizzUIImprovements.args.lootGroup.args.autoRoll = {
+				order = 3,
+				type = 'execute',
 				name = L["Auto Greed/DE"],
 				desc = L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."],
-				type = 'execute',
 				func = function() E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'sle', 'modules', 'loot') end,
 			}
 		else
-			E.Options.args.general.args.general.args.autoRoll = {
-				order = 6,
+			E.Options.args.general.args.blizzUIImprovements.args.lootGroup.args.autoRoll = {
+				order = 3,
+				type = 'toggle',
 				name = L["Auto Greed/DE"],
 				desc = L["Automatically select greed or disenchant (when available) on green quality items. This will only work if you are the max level."],
-				type = 'toggle',
+				get = function() return not E.db.general.autoRoll end,
+				set = function(_, value) E.db.general.autoRoll = value end,
 				disabled = function() return not E.private.general.lootRoll end
 			}
 		end
