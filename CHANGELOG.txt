@@ -1,5 +1,3 @@
-v4.25 [7/17/2021]
+v4.26 [7/17/2021]
 
 - fixed a enhanced vehicle ui check that was old and wouldnt allow for it to be seen
-- "skin" the mawbuffsbelowminimapframe for like SoD Raid and M+
-- fix issue where S&L options were broken b/c of changes in elvui config
