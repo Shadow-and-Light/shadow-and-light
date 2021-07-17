@@ -1,7 +1,5 @@
-v4.24 [7/8/2021]
+v4.25 [7/17/2021]
 
-- Transmog error on clicking view in dressing frame
-- fix a backdrop frame not having its backdrop in torghast
-- added some challenger teleports
-- update ingame help section and readme for current issue links and such
-- added skin to torghast powers backdrop (and enhanced shadow option)
+- fixed a enhanced vehicle ui check that was old and wouldnt allow for it to be seen
+- "skin" the mawbuffsbelowminimapframe for like SoD Raid and M+
+- fix issue where S&L options were broken b/c of changes in elvui config
