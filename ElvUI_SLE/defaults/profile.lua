@@ -6,7 +6,7 @@ P["sle"] = {
 		["vehicle"] = {
 			["buttonsize"] = 40,
 			["buttonspacing"] = 2,
-			["template"] = "Transparent",
+			-- ["template"] = "Transparent",
 		},
 	},
 	--Armory

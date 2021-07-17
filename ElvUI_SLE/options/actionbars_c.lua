@@ -68,19 +68,19 @@ local function configTable()
 						get = function() return E.private.sle.vehicle.enable end,
 						set = function(_, value) E.private.sle.vehicle.enable = value; E:StaticPopup_Show('PRIVATE_RL') end,
 					},
-					template = {
-						order = 2,
-						type = 'select',
-						name = L["Template"],
-						disabled = function() return not E.private.sle.vehicle.enable end,
-						get = function(info) return E.db.sle.actionbars.vehicle[info[#info]] end,
-						set = function(info, value) E.db.sle.actionbars.vehicle[info[#info]] = value; EVB:PositionAndSizeBar(); EVB:BarBackdrop() end,
-						values = {
-							Default = DEFAULT,
-							Transparent = L["Transparent"],
-							NoBackdrop = NONE,
-						},
-					},
+					-- template = {
+					-- 	order = 2,
+					-- 	type = 'select',
+					-- 	name = L["Template"],
+					-- 	disabled = function() return not E.private.sle.vehicle.enable end,
+					-- 	get = function(info) return E.db.sle.actionbars.vehicle[info[#info]] end,
+					-- 	set = function(info, value) E.db.sle.actionbars.vehicle[info[#info]] = value; EVB:PositionAndSizeBar() end,
+					-- 	values = {
+					-- 		Default = DEFAULT,
+					-- 		Transparent = L["Transparent"],
+					-- 		NoBackdrop = NONE,
+					-- 	},
+					-- },
 					spacer1 = ACH:Spacer(3, 'full'),
 					numButtons = {
 						order = 4,

@@ -86,12 +86,12 @@ function EVB:CreateExtraButtonSet()
 
 		AB:StyleButton(bar.buttons[i], nil, MasqueGroup and E.private.actionbar.masque.actionbars and true or nil)
 
-		if E.db.actionbar.transparent then
-			-- Disable this call if Masque is loaded
-			if IsAddOnLoaded('Masque') then return end
+		-- if E.db.actionbar.transparent then
+		-- 	-- Disable this call if Masque is loaded
+		-- 	if IsAddOnLoaded('Masque') then return end
 
-			bar.buttons[i].backdrop:SetTemplate('Transparent')
-		end
+		-- 	bar.buttons[i].backdrop:SetTemplate('Transparent')
+		-- end
 
 		bar.buttons[i]:SetCheckedTexture('')
 		RegisterStateDriver(bar.buttons[i], 'visibility', '[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] show; hide')
@@ -122,10 +122,11 @@ function EVB:PositionAndSizeBar()
 	bar.buttons[12]:SetPoint('LEFT', bar.buttons[6], 'RIGHT', spacing, 0)
 end
 
-function EVB:BarBackdrop()
-	if not self.bar then return end
-	self.bar:SetTemplate(E.db.sle.actionbars.vehicle.template)
-end
+-- function EVB:BarBackdrop()
+-- 	if not self.bar then return end
+-- 	-- self.bar:SetTemplate(E.db.sle.actionbars.vehicle.template)
+-- 	self.bar:CreateBackdrop(AB.db.transparent and 'Transparent', nil, nil, nil, nil, nil, nil, 0)
+-- end
 
 function EVB:CreateBar()
 	EVB.NumButtons = E.private.sle.vehicle.numButtons
@@ -133,13 +134,14 @@ function EVB:CreateBar()
 	local page = format('[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13;', GetOverrideBarIndex(), GetVehicleBarIndex(), GetVehicleBarIndex())
 	local bindButtons = 'ACTIONBUTTON'
 
-	local bar = CreateFrame('Frame', 'ElvUISL_EnhancedVehicleBar', E.UIParent, 'SecureHandlerStateTemplate, BackdropTemplate')
+	local bar = CreateFrame('Frame', 'ElvUISL_EnhancedVehicleBar', E.UIParent, 'SecureHandlerStateTemplate')
 	bar.id = 1
 	EVB.bar = bar
 
 	EVB:CreateExtraButtonSet()
 	EVB:PositionAndSizeBar()
-	EVB:BarBackdrop()
+	-- EVB:BarBackdrop()
+	bar:CreateBackdrop(AB.db.transparent and 'Transparent', nil, nil, nil, nil, nil, nil, 0)
 
 	bar:SetPoint('BOTTOM', 0, 34)
 	bar:HookScript('OnShow', function(frame) self:AnimSlideIn(frame) end)
@@ -198,7 +200,7 @@ function EVB:Initialize()
 
 	function EVB:ForUpdateAll()
 		EVB:PositionAndSizeBar()
-		EVB:BarBackdrop()
+		-- EVB:BarBackdrop()
 	end
 end
 
