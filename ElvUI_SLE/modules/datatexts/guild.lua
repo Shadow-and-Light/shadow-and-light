@@ -346,7 +346,8 @@ end
 function OnEnter(self, _, noUpdate)
 	if not IsInGuild() then return end
 	if E.db.sle.dt.guild.combat and InCombatLockdown() then return end
-	local hexColor = E:RGBToHex(unpack(E.media.rgbvaluecolor))
+	local valuec = E.db.general.valuecolor
+	local hexColor = E:RGBToHex(valuec.r, valuec.g, valuec.b)
 
 	LDB_ANCHOR = self
 

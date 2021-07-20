@@ -540,7 +540,8 @@ function OnEnter(self)
 	local totalBNet, numBNetOnline = BNGetNumFriends()
 	local totalonline = onlineFriends + numBNetOnline
 	local zonec, classc, levelc
-	local hexColor = E:RGBToHex(unpack(E.media.rgbvaluecolor))
+	local valuec = E.db.general.valuecolor
+	local hexColor = E:RGBToHex(valuec.r, valuec.g, valuec.b)
 
 	-- Exit if no one online
 	if totalonline == 0 then return end
