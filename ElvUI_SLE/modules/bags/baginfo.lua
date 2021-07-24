@@ -5,17 +5,12 @@ local B = E.Bags
 local _G = _G
 local GetContainerNumSlots = GetContainerNumSlots
 local CUSTOM = CUSTOM
+local GetContainerItemEquipmentSetInfo = GetContainerItemEquipmentSetInfo
 -- local EQUIPMENT_SETS = EQUIPMENT_SETS
 -- EQUIPMENT_SETS = E:StripString(EQUIPMENT_SETS)
 -- EQUIPMENT_SETS = EQUIPMENT_SETS:gsub('%%s', '')
 -- EQUIPMENT_SETS = E:EscapeString(EQUIPMENT_SETS)
 
-local MAX_CONTAINER_ITEMS = 36
-local REAGENTBANK_CONTAINER = REAGENTBANK_CONTAINER
-local NUM_BANKGENERIC_SLOTS = NUM_BANKGENERIC_SLOTS
-local GetContainerItemEquipmentSetInfo = GetContainerItemEquipmentSetInfo
-local C_EquipmentSet_GetEquipmentSetIDs = C_EquipmentSet.GetEquipmentSetIDs
-local C_EquipmentSet_GetEquipmentSetInfo = C_EquipmentSet.GetEquipmentSetInfo
 
 --* Used this to help translate known texcoords to a |T |t string
 -- CreateTextureMarkup('Interface\\PaperDollInfoFrame\\PaperDollSidebarTabs', 64, 256, 0, 0, 0.01562500, 0.53125000, 0.46875000, 0.60546875, 0, 0)
@@ -39,150 +34,101 @@ BI.equipmentmanager = {
 	},
 }
 
-local function ConstructBagIcons()
-	for _, f in pairs(B.BagFrames) do
-		for _, bagID in next, f.BagIDs do
-			for slotID = 1, MAX_CONTAINER_ITEMS do
-				local button = f.Bags[bagID][slotID]
+function B:HideSet(slot, keep)
+	slot.equipIcon:Hide()
 
-				if not button.equipIcon then
-					button.equipIcon = button:CreateTexture(nil, 'OVERLAY')
-					button.equipIcon:Hide()
-				end
-			end
-		end
+	if not keep and E:IsEventRegisteredForObject('EQUIPMENT_SETS_CHANGED', slot) then
+		E:UnregisterEventForObject('EQUIPMENT_SETS_CHANGED', slot, B.UpdateSet)
 	end
 end
 
-function BI:UpdateAllBagSlots()
-	for _, f in pairs(B.BagFrames) do
-		for _, bagID in next, f.BagIDs do
-			for slotID = 1, MAX_CONTAINER_ITEMS do
-				BI:UpdateSlot(f, bagID, slotID)
-			end
-		end
-	end
-end
-
-function BI:UpdateBagSlots(frame, bagID)
-	if bagID ~= REAGENTBANK_CONTAINER then
-		for slotID = 1, GetContainerNumSlots(bagID) do
-			-- print('yo')
-			BI:UpdateSlot(frame, bagID, slotID)
-		end
-	end
-end
-
-function BI:UpdateSlot(f, bagID, slotID)
-	if not f.Bags[bagID] or not f.Bags[bagID][slotID] then
+function B:UpdateSet()
+	if not self:IsVisible() then
+		B:HideSet(self)
 		return
 	end
+	local isInSet, setName = GetContainerItemEquipmentSetInfo(self.bagID, self.slotID)
 
-	local button = f.Bags[bagID][slotID]
-	-- local link = GetContainerItemLink(bagID, slotID)
-
-	if not button then return end
-	if not button.equipIcon then ConstructBagIcons() end
-
-	local isInSet, setName = GetContainerItemEquipmentSetInfo(bagID, slotID)
-
-	button.equipIcon:SetShown(BI.db.enable and isInSet)
+	if isInSet then
+		self.equipIcon:SetShown(BI.db.enable)
+	else
+		B:HideSet(self, true)
+	end
 end
 
-function BI:UpdateBagSettings()
-	for _, f in pairs(B.BagFrames) do
-		for _, bagID in next, f.BagIDs do
-			for slotID = 1, MAX_CONTAINER_ITEMS do
-				local button = f.Bags[bagID][slotID]
-				if not button.equipIcon then return end
+local function updateSettings(slot)
+	slot.equipIcon:SetSize(BI.db.size, BI.db.size)
+	slot.equipIcon:ClearAllPoints()
+	slot.equipIcon:Point(BI.db.point, BI.db.xOffset, BI.db.yOffset)
 
-				button.equipIcon:SetSize(BI.db.size, BI.db.size)
-				button.equipIcon:ClearAllPoints()
-				button.equipIcon:Point(BI.db.point, BI.db.xOffset, BI.db.yOffset)
+	if BI.db.icon == 'EQUIPMGR' then
+		slot.equipIcon:SetTexture('Interface\\PaperDollInfoFrame\\PaperDollSidebarTabs')
+		slot.equipIcon:SetTexCoord(0.01562500, 0.53125000, 0.46875000, 0.60546875)
+	elseif BI.db.icon == 'CUSTOM' then
+		slot.equipIcon:SetTexture(BI.db.customTexture)
+		slot.equipIcon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
+	else
+		slot.equipIcon:SetTexture(BI.equipmentmanager.iconLocations[BI.db.icon] or BI.db.icon)
+		slot.equipIcon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
+	end
 
-				if BI.db.icon == 'EQUIPMGR' then
-					button.equipIcon:SetTexture('Interface\\PaperDollInfoFrame\\PaperDollSidebarTabs')
-					button.equipIcon:SetTexCoord(0.01562500, 0.53125000, 0.46875000, 0.60546875)
-				elseif BI.db.icon == 'CUSTOM' then
-					button.equipIcon:SetTexture(BI.db.customTexture)
-					button.equipIcon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
-				else
-					-- button.equipIcon:SetTexture(3547163)
-					button.equipIcon:SetTexture(BI.equipmentmanager.iconLocations[BI.db.icon] or BI.db.icon)
-					button.equipIcon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
+	slot.equipIcon:SetVertexColor(BI.db.color.r, BI.db.color.g, BI.db.color.b, BI.db.color.a)
+end
+
+function BI:UpdateItemDisplay()
+	if E.private.bags.enable ~= true then return end
+
+	for _, bagFrame in next, B.BagFrames do
+		for _, bagID in next, bagFrame.BagIDs do
+			for slotID = 1, GetContainerNumSlots(bagID) do
+				local slot = bagFrame.Bags[bagID][slotID]
+				if slot then
+					updateSettings(slot)
 				end
-
-				-- button.equipIcon:SetVertexColor(1, .82, 0, 1)
-				button.equipIcon:SetVertexColor(BI.db.color.r, BI.db.color.g, BI.db.color.b, BI.db.color.a)
 			end
 		end
 	end
 end
 
-function BI:OnEventHook(frame, event, ...)
-	if event == 'ITEM_LOCK_CHANGED' then
-		BI:UpdateSlot(frame, ...)
-	elseif event == 'BAG_UPDATE' then
-		BI:UpdateBagSlots(frame, ...)
-	elseif event == 'PLAYERBANKSLOTS_CHANGED' then
-		local slot = ...
-		local bagID = (slot <= NUM_BANKGENERIC_SLOTS) and -1 or (slot - NUM_BANKGENERIC_SLOTS)
+function BI:ConstructContainerButton(f, slotID, bagID, test)
+	if not f then return end
+	local slot = _G[f.Bags[bagID]:GetName()..'Slot'..slotID]
+	BI.db = E.db.sle.bags.equipmentmanager
 
-		if bagID == -1 then
-			BI:UpdateBagSlots(frame, -1)
+	if not slot.equipIcon then
+		slot.equipIcon = slot:CreateTexture(nil, 'OVERLAY')
+		updateSettings(slot)
+		slot.equipIcon:Hide()
+	end
+end
+hooksecurefunc(B, 'ConstructContainerButton', BI.ConstructContainerButton)
+
+function BI:UpdateSlot(frame, bagID, slotID)
+	local bag = frame.Bags[bagID]
+	local slot = bag and bag[slotID]
+	if not slot or not slot.equipIcon then return end
+	updateSettings(slot)
+
+	if slot.isEquipment then
+		B.UpdateSet(slot)
+
+		if not E:IsEventRegisteredForObject('EQUIPMENT_SETS_CHANGED', slot) then
+			E:RegisterEventForObject('EQUIPMENT_SETS_CHANGED', slot, B.UpdateSet)
 		end
-	elseif event == 'EQUIPMENT_SETS_CHANGED' then
-		BI:UpdateAllBagSlots()
-	elseif event == 'BAG_UPDATE_DELAYED' and (ElvUI_BankContainerFrame:IsShown() or ElvUI_ContainerFrame:IsShown()) then
-		BI:UpdateAllBagSlots()
-	end
-end
-
-hooksecurefunc(B, 'OnEvent', function(frame, event, ...)
-	if not BI.db.enable then return end
-	BI:OnEventHook(frame, event, ...)
-end)
-
-function BI:ToggleSettings()
-	if BI.db.enable then
-		BI:RegisterEvent('EQUIPMENT_SETS_CHANGED', function(event)
-			BI:OnEventHook(nil, event)
-		end)
-		BI:RegisterEvent('BAG_UPDATE_DELAYED', function(event)
-			BI:OnEventHook(nil, event)
-		end)
 	else
-		BI:UnregisterEvent('EQUIPMENT_SETS_CHANGED')
-		BI:UnregisterEvent('BAG_UPDATE_DELAYED')
+		B:HideSet(slot)
 	end
 
-	BI:UpdateAllBagSlots()
 end
+hooksecurefunc(B, 'UpdateSlot', BI.UpdateSlot)
 
 function BI:Initialize()
 	if not SLE.initialized or not E.private.bags.enable then return end
-	BI.db = E.db.sle.bags.equipmentmanager
 
-	--* May need to add these, just a note to check these if any weird reports of shit not updating as expected
-	-- EQUIPMENT_SWAP_FINISHED
-	-- PLAYER_EQUIPMENT_CHANGED
-
-	ConstructBagIcons()
 	function BI:ForUpdateAll()
 		BI.db = E.db.sle.bags.equipmentmanager
-		BI:UpdateBagSettings()
-		BI:ToggleSettings()
+		B:UpdateAllBagSlots()
 	end
-	BI:ForUpdateAll()
-
-	BI.bankFirstOpen = false
-	BI:RegisterEvent('BANKFRAME_OPENED', function()
-		-- Update all bag slots on initial bank open so the bank has the icons on them
-		if not BI.bankFirstOpen or not BI.db.enable then
-			BI.bankFirstOpen = true
-			BI:UpdateAllBagSlots()
-		end
-	end)
 end
 
 SLE:RegisterModule(BI:GetName())

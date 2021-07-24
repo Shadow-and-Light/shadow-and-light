@@ -1,5 +1,6 @@
 local SLE, T, E, L, _, P = unpack(select(2, ...))
 local BI = SLE.BagInfo
+local B = E.Bags
 
 local function configTable()
 	if not SLE.initialized then return end
@@ -15,14 +16,25 @@ local function configTable()
 				name = L["Equipment Manager"],
 				guiInline = true,
 				get = function(info) return E.db.sle.bags.equipmentmanager[info[#info]] end,
-				set = function(info, value) E.db.sle.bags.equipmentmanager[info[#info]] = value; BI:UpdateBagSettings() end,
+				-- set = function(info, value) E.db.sle.bags.equipmentmanager[info[#info]] = value; BI:UpdateBagSettings() end,
+				set = function(info, value)
+					E.db.sle.bags.equipmentmanager[info[#info]] = value
+					-- B:UpdateLayouts()
+					-- B:UpdateAllBagSlots()
+					BI:UpdateItemDisplay()
+				end,
 				args = {
 					enable = {
 						order = 1,
 						type = 'toggle',
 						name = L["Enable"],
 						desc = L["Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."],
-						set = function(info, value) E.db.sle.bags.equipmentmanager[info[#info]] = value; BI:ToggleSettings() end,
+						set = function(info, value)
+							E.db.sle.bags.equipmentmanager[info[#info]] = value
+							-- BI:ToggleSettings()
+							B:UpdateLayouts()
+							B:UpdateAllBagSlots()
+						end,
 					},
 					size = {
 						order = 2,
@@ -75,7 +87,9 @@ local function configTable()
 						set = function(info, r, g, b, a)
 							local t = E.db.sle.bags.equipmentmanager[info[#info]]
 							t.r, t.g, t.b, t.a = r, g, b, a
-							BI:UpdateBagSettings()
+							-- B:UpdateLayouts()
+							-- B:UpdateAllBagSlots()
+							BI:UpdateItemDisplay()
 						end,
 					},
 				},
