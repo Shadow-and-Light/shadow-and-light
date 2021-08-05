@@ -122,12 +122,6 @@ function EVB:PositionAndSizeBar()
 	bar.buttons[12]:SetPoint('LEFT', bar.buttons[6], 'RIGHT', spacing, 0)
 end
 
--- function EVB:BarBackdrop()
--- 	if not self.bar then return end
--- 	-- self.bar:SetTemplate(E.db.sle.actionbars.vehicle.template)
--- 	self.bar:CreateBackdrop(AB.db.transparent and 'Transparent', nil, nil, nil, nil, nil, nil, 0)
--- end
-
 function EVB:CreateBar()
 	EVB.NumButtons = E.private.sle.vehicle.numButtons
 
@@ -141,7 +135,7 @@ function EVB:CreateBar()
 	EVB:CreateExtraButtonSet()
 	EVB:PositionAndSizeBar()
 	-- EVB:BarBackdrop()
-	bar:CreateBackdrop(AB.db.transparent and 'Transparent', nil, nil, nil, nil, nil, nil, 0)
+	bar:CreateBackdrop(AB.db.transparent and 'Transparent')
 
 	bar:SetPoint('BOTTOM', 0, 34)
 	bar:HookScript('OnShow', function(frame) self:AnimSlideIn(frame) end)
@@ -149,9 +143,8 @@ function EVB:CreateBar()
 	RegisterStateDriver(bar, 'page', page)
 
 	bar:SetAttribute('_onstate-page', [[
-		if HasTempShapeshiftActionBar() and self:GetAttribute('hasTempBar') then
-			newstate = GetTempShapeshiftBarIndex() or newstate
-		end
+		newstate = ((HasTempShapeshiftActionBar() and self:GetAttribute('hasTempBar')) and GetTempShapeshiftBarIndex()) or (UnitHasVehicleUI('player') and GetVehicleBarIndex()) or 
+GetVehicleBarIndex() or (HasOverrideActionBar() and GetOverrideBarIndex()) or newstate
 
 		if newstate ~= 0 then
 			self:SetAttribute('state', newstate)
@@ -170,7 +163,6 @@ function EVB:CreateBar()
 
 	E:CreateMover(bar, 'EnhancedVehicleBar_Mover', L["Enhanced Vehicle Bar"], nil, nil, nil, 'ALL,S&L,S&L MISC', nil, 'sle, modules, actionbars, vehicle')
 
-	AB:UpdateButtonConfig(bar, bindButtons)
 	AB:PositionAndSizeBar('bar1')
 end
 
@@ -189,14 +181,7 @@ function EVB:Initialize()
 
 	EVB:CreateBar()
 
-	if UnitHasVehicleUI('player') then
-		EVB.bar:SetAttribute('page', (HasOverrideActionBar() and GetOverrideBarIndex() or GetVehicleBarIndex()))
-		RegisterStateDriver(EVB.bar, 'page', (HasOverrideActionBar() and GetOverrideBarIndex() or GetVehicleBarIndex()))
-
-		for _, button in pairs(EVB.bar.buttons) do
-			button:UpdateAction()
-		end
-	end
+	EVB.bar:Execute(EVB.bar:GetAttribute('_onstate-page'))
 
 	function EVB:ForUpdateAll()
 		EVB:PositionAndSizeBar()
