@@ -3,11 +3,15 @@ local RC = LibStub('LibRangeCheck-2.0')
 local ElvUF = ElvUI.oUF
 assert(ElvUF, 'ElvUI was unable to locate oUF.')
 
-local strsplit, format, gsub = strsplit, format, gsub
+local strmatch, strjoin, strlower = strmatch, strjoin, strlower
+local floor, strsplit, format, gsub = floor, strsplit, format, gsub
 local UnitGetTotalAbsorbs, UnitName = UnitGetTotalAbsorbs, UnitName
 local UnitIsPVP, UnitHonorLevel = UnitIsPVP, UnitHonorLevel
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
+local GetPVPTimer = GetPVPTimer
 local UnitPower = UnitPower
+local UnitPowerMax = UnitPowerMax
+local UnitIsPVPFreeForAll = UnitIsPVPFreeForAll
 local SPELL_POWER_MANA = Enum.PowerType.Mana
 
 do
@@ -19,8 +23,7 @@ do
 		return '|cFFffff00' --fall back to yellow
 	end
 
-	ElvUF.Tags.OnUpdateThrottle['range:sl'] = 0.25
-	ElvUF.Tags.Methods['range:sl'] = function(unit, _, args)
+	E:AddTag('range:sl', 0.25, function(unit, _, args)
 		local name, server = UnitName(unit)
 		local min, max = RC:GetRange(unit)
 		local closerange, shortrange, midrange, longrange, outofrange = strsplit(':', args or '')
@@ -60,32 +63,29 @@ do
 		end
 
 		return rangeText or nil
-	end
+	end)
 end
 
-ElvUF.Tags.Events['absorbs:sl-short'] = 'UNIT_ABSORB_AMOUNT_CHANGED'
-ElvUF.Tags.Methods['absorbs:sl-short'] = function(unit)
+E:AddTag('absorbs:sl-short', 'UNIT_ABSORB_AMOUNT_CHANGED', function(unit)
 	local absorb = UnitGetTotalAbsorbs(unit) or 0
 	if absorb == 0 then
 		return 0
 	else
 		return E:ShortValue(absorb)
 	end
-end
+end)
 
-ElvUF.Tags.Events['absorbs:sl-full'] = 'UNIT_ABSORB_AMOUNT_CHANGED'
-ElvUF.Tags.Methods['absorbs:sl-full'] = function(unit)
+E:AddTag('absorbs:sl-full', 'UNIT_ABSORB_AMOUNT_CHANGED', function(unit)
 	local absorb = UnitGetTotalAbsorbs(unit) or 0
 	if absorb == 0 then
 		return 0
 	else
 		return absorb
 	end
-end
+end)
 
-ElvUF.Tags.OnUpdateThrottle['sl:pvptimer'] = 1
-ElvUF.Tags.Methods['sl:pvptimer'] = function(unit)
-	if (UnitIsPVPFreeForAll(unit) or UnitIsPVP(unit)) then
+E:AddTag('sl:pvptimer', 1, function(unit)
+	if UnitIsPVPFreeForAll(unit) or UnitIsPVP(unit) then
 		local timer = GetPVPTimer()
 
 		if timer ~= 301000 and timer ~= -1 then
@@ -98,18 +98,16 @@ ElvUF.Tags.Methods['sl:pvptimer'] = function(unit)
 	else
 		return nil
 	end
-end
+end)
 
-ElvUF.Tags.Events['sl:pvplevel'] = 'HONOR_LEVEL_UPDATE UNIT_FACTION'
-ElvUF.Tags.Methods['sl:pvplevel'] = function(unit)
+E:AddTag('sl:pvplevel', 'HONOR_LEVEL_UPDATE UNIT_FACTION', function(unit)
 	-- if unit ~= "target" and unit ~= "player" then return "" end
 	return (UnitIsPVP(unit) and UnitHonorLevel(unit) > 0) and UnitHonorLevel(unit) or ''
-end
+end)
 
 for textFormat in pairs(E.GetFormattedTextStyles) do
 	local tagTextFormat = strlower(gsub(textFormat, '_', '-'))
-	ElvUF.Tags.Events[format('mana:%s:healeronly', tagTextFormat)] = 'UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER GROUP_ROSTER_UPDATE'
-	ElvUF.Tags.Methods[format('mana:%s:healeronly', tagTextFormat)] = function(unit)
+	E:AddTag(format('mana:%s:healeronly', tagTextFormat), 'UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER GROUP_ROSTER_UPDATE', function(unit)
 		local role = UnitGroupRolesAssigned(unit)
 		if role ~= 'HEALER' then return end
 
@@ -117,7 +115,7 @@ for textFormat in pairs(E.GetFormattedTextStyles) do
 		if min ~= 0 and tagTextFormat ~= 'deficit' then
 			return E:GetFormattedText(textFormat, min, UnitPowerMax(unit, SPELL_POWER_MANA))
 		end
-	end
+	end)
 end
 
 --*Add the tags to the ElvUI Options
