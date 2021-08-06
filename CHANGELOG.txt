@@ -1,3 +1,5 @@
-v4.26 [7/17/2021]
+v4.27 [8/5/2021]
 
-- fixed a enhanced vehicle ui check that was old and wouldnt allow for it to be seen
+- fixed a enhanced vehicle bar that wasn't showing in a recent elvui update
+- refactored equipment icon code (some quirks may have been overlooked, will need reports)
+- fixed a color issue in the S&L Friends and Guild datatexts
