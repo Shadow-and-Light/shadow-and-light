@@ -4,29 +4,20 @@ local SUF = SLE.UnitFrames
 SUF.CreatedShadows = {}
 --GLOBALS: hooksecurefunc, CreateFrame
 
-local function UpdateAuraTimer(self, elapsed)
-	local timervalue, formatid
-	local unitID = self:GetParent():GetParent().unitframeType
-	local auraType = self:GetParent().type
-	if unitID and E.db.sle.unitframes.unit[unitID] and E.db.sle.unitframes.unit[unitID].auras then
-		timervalue, formatid, self.nextupdate = E:GetTimeInfo(self.expirationSaved, E.db.sle.unitframes.unit[unitID].auras[auraType].threshold)
-	else
-		timervalue, formatid, self.nextupdate = E:GetTimeInfo(self.expirationSaved, 4)
-	end
-	local timeColors, timeThreshold = E.TimeColors, E.db.cooldown.threshold
-	if E.db.unitframe.cooldown.override and E.TimeColors['unitframe'] then
-		timeColors, timeThreshold = E.TimeColors['unitframe'], E.db.unitframe.cooldown.threshold
-	end
-	if not timeThreshold then
-		timeThreshold = E.TimeThreshold
-	end
-	if self.text:GetFont() then
-		self.text:SetFormattedText(("%s%s|r"):format(timeColors[formatid], E.TimeFormats[formatid][2]), timervalue)
-	elseif self:GetParent():GetParent().db then
-		self.text:FontTemplate(E.LSM:Fetch("font", E.db['unitframe'].font), self:GetParent():GetParent().db[auraType].fontSize, E.db['unitframe'].fontOutline)
-		self.text:SetFormattedText(("%s%s|r"):format(timeColors[formatid], E.TimeFormats[formatid][2]), timervalue)
+local function Cooldown_Options(_, _, db, button)
+	if not SLE.initialized or not E.private.unitframe.enable then return end
+	if not button then return end
+	local owner = button:GetParent():GetParent().__owner
+	if not owner then return end
+
+	local unitID = owner.unitframeType
+	local auraType = button:GetParent():GetParent().type
+	if not unitID or not auraType then return end
+	if unitID and E.db.sle.unitframes.unit[unitID] and E.db.sle.unitframes.unit[unitID].auras and E.db.sle.unitframes.unit[unitID].auras[auraType] then
+		db.threshold = E.db.sle.unitframes.unit[unitID].auras[auraType].threshold
 	end
 end
+hooksecurefunc(E, 'Cooldown_Options', Cooldown_Options)
 
 function SUF:UpdateUnitFrames()
 	--* Groups Folder
@@ -99,8 +90,6 @@ function SUF:Initialize()
 	SUF:UpgradePvPIcon()
 
 	SUF:InitStatus()
-
-	hooksecurefunc(UF, "UpdateAuraTimer", UpdateAuraTimer)
 
 	function SUF:ForUpdateAll()
 		SUF:SetRoleIcons()
