@@ -68,18 +68,14 @@ end
 
 E:AddTag('absorbs:sl-short', 'UNIT_ABSORB_AMOUNT_CHANGED', function(unit)
 	local absorb = UnitGetTotalAbsorbs(unit) or 0
-	if absorb == 0 then
-		return 0
-	else
+	if absorb > 0 then
 		return E:ShortValue(absorb)
 	end
 end)
 
 E:AddTag('absorbs:sl-full', 'UNIT_ABSORB_AMOUNT_CHANGED', function(unit)
 	local absorb = UnitGetTotalAbsorbs(unit) or 0
-	if absorb == 0 then
-		return 0
-	else
+	if absorb > 0 then
 		return absorb
 	end
 end)
