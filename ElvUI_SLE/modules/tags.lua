@@ -103,13 +103,15 @@ end)
 
 for textFormat in pairs(E.GetFormattedTextStyles) do
 	local tagTextFormat = strlower(gsub(textFormat, '_', '-'))
+
 	E:AddTag(format('mana:%s:healeronly', tagTextFormat), 'UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER GROUP_ROSTER_UPDATE', function(unit)
 		local role = UnitGroupRolesAssigned(unit)
 		if role ~= 'HEALER' then return end
 
-		local min = UnitPower(unit, SPELL_POWER_MANA)
-		if min ~= 0 and tagTextFormat ~= 'deficit' then
-			return E:GetFormattedText(textFormat, min, UnitPowerMax(unit, SPELL_POWER_MANA))
+		local min, max = UnitPower(unit, SPELL_POWER_MANA), UnitPowerMax(unit, SPELL_POWER_MANA)
+
+		if min ~= 0 and min ~= max and tagTextFormat ~= 'deficit' then
+			return E:GetFormattedText(textFormat, min, max)
 		end
 	end)
 end
