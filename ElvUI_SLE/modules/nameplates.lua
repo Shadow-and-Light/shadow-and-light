@@ -151,8 +151,8 @@ function N:NamePlateCallBackSLE(nameplate, event, unit)
 end
 
 --Creating additional nameplate elements
-function N:CreateNameplate(frame, unit)
-	if not frame or not unit then return end
+function N:CreateNameplate(frame)
+	if not frame then return end
 
 	if not frame.SLE_threatInfo then
 		N:CreateThreatIndicator(frame)
@@ -183,7 +183,7 @@ function N:Initialize()
 	N.db = E.db.sle.nameplates
 
 	--Hooking to ElvUI's nameplates
-	hooksecurefunc(NP, 'Style', N.CreateNameplate)
+	hooksecurefunc(NP, 'StylePlate', N.CreateNameplate)
 	hooksecurefunc(NP, 'UpdatePlate', N.UpdatePlate)
 
 	N:RegisterEvent('GROUP_ROSTER_UPDATE', 'StartRosterUpdate')
