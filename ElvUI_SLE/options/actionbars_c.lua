@@ -82,16 +82,6 @@ local function configTable()
 					-- 	},
 					-- },
 					spacer1 = ACH:Spacer(3, 'full'),
-					numButtons = {
-						order = 4,
-						type = 'range',
-						name = L["Buttons"],
-						desc = L["The amount of buttons to display."],
-						min = 5, max = 7, step = 1,
-						disabled = function() return not E.private.sle.vehicle.enable end,
-						get = function(info) return E.private.sle.vehicle[info[#info]] end,
-						set = function(info, value) E.private.sle.vehicle[info[#info]] = value; E:StaticPopup_Show('PRIVATE_RL') end,
-					},
 					buttonsize = {
 						order = 5,
 						type = 'range',

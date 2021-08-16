@@ -21,7 +21,6 @@ V["sle"] = {
 	},
 	["vehicle"] = {
 		["enable"] = false,
-		["numButtons"] = 7,
 	},
 	["professions"] = {
 		["deconButton"] = {
