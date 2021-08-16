@@ -101,7 +101,7 @@ function EVB:PositionAndSizeBar()
 
 	local size = E.db.sle.actionbars.vehicle.buttonsize
 	local spacing = E.db.sle.actionbars.vehicle.buttonspacing
-	bar:SetWidth((size * EVB.NumButtons) + (spacing * (EVB.NumButtons-1)) + 4)
+	bar:SetWidth((size * 7) + (spacing * 6) + 4)
 	bar:SetHeight(size + 4)
 
 	for i, button in ipairs(bar.buttons) do
@@ -115,8 +115,6 @@ function EVB:PositionAndSizeBar()
 end
 
 function EVB:CreateBar()
-	EVB.NumButtons = E.private.sle.vehicle.numButtons
-
 	local page = format('[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13;', GetOverrideBarIndex(), GetVehicleBarIndex(), GetVehicleBarIndex())
 	local bindButtons = 'ACTIONBUTTON'
 
