@@ -124,17 +124,16 @@ function EVB:CreateBar()
 
 	EVB:CreateExtraButtonSet()
 	EVB:PositionAndSizeBar()
-	-- EVB:BarBackdrop()
-	-- bar:CreateBackdrop(AB.db.transparent and 'Transparent')
-	bar:CreateBackdrop(AB.db.transparent and 'Transparent', nil, nil, nil, nil, nil, nil, nil, 0)
 
+	bar:CreateBackdrop(AB.db.transparent and 'Transparent', nil, nil, nil, nil, nil, nil, nil, 0)
 	bar:SetPoint('BOTTOM', 0, 34)
 	bar:HookScript('OnShow', function(frame) self:AnimSlideIn(frame) end)
+
 	RegisterStateDriver(bar, 'visibility', '[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] show; hide')
 	RegisterStateDriver(bar, 'page', page)
 
 	bar:SetAttribute('_onstate-page', [[
-		newstate = ((HasTempShapeshiftActionBar() and self:GetAttribute('hasTempBar')) and GetTempShapeshiftBarIndex()) or (UnitHasVehicleUI('player') and GetVehicleBarIndex()) or (HasOverrideActionBar() and GetOverrideBarIndex()) or newstate
+		newstate = ((HasTempShapeshiftActionBar() and self:GetAttribute('hasTempBar')) and GetTempShapeshiftBarIndex()) or (UnitHasVehicleUI('player') and GetVehicleBarIndex()) or (HasOverrideActionBar() and GetOverrideBarIndex()) or GetVehicleBarIndex() or newstate
 
 		if newstate ~= 0 then
 			self:SetAttribute('state', newstate)
