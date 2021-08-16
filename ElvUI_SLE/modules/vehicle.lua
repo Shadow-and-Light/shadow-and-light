@@ -133,17 +133,19 @@ function EVB:CreateBar()
 	RegisterStateDriver(bar, 'page', page)
 
 	bar:SetAttribute('_onstate-page', [[
-		newstate = ((HasTempShapeshiftActionBar() and self:GetAttribute('hasTempBar')) and GetTempShapeshiftBarIndex()) or (UnitHasVehicleUI('player') and GetVehicleBarIndex()) or (HasOverrideActionBar() and GetOverrideBarIndex()) or GetVehicleBarIndex() or newstate
+		newstate = ((HasTempShapeshiftActionBar() and self:GetAttribute('hasTempBar')) and GetTempShapeshiftBarIndex()) or (UnitHasVehicleUI('player') and GetVehicleBarIndex()) or (HasOverrideActionBar() and GetOverrideBarIndex()) or newstate
 
-		if newstate ~= 0 then
-			self:SetAttribute('state', newstate)
-			control:ChildUpdate('state', newstate)
-		else
-			local newCondition = self:GetAttribute('newCondition')
-			if newCondition then
-				newstate = SecureCmdOptionParse(newCondition)
+		if newstate then
+			if newstate ~= 0 then
 				self:SetAttribute('state', newstate)
 				control:ChildUpdate('state', newstate)
+			else
+				local newCondition = self:GetAttribute('newCondition')
+				if newCondition then
+					newstate = SecureCmdOptionParse(newCondition)
+					self:SetAttribute('state', newstate)
+					control:ChildUpdate('state', newstate)
+				end
 			end
 		end
 	]])
