@@ -56,10 +56,7 @@ function EVB:CreateExtraButtonSet()
 	local size = E.db.sle.actionbars.vehicle.buttonsize
 	local spacing = E.db.sle.actionbars.vehicle.buttonspacing
 
-	--Create normal buttons. Exit is handled separately cause of quest having no way to leave.
-	for i = 1, EVB.NumButtons do
-		-- i = i == 7 and 12 or i
-
+	for i = 1, 7 do
 		bar.buttons[i] = LAB:CreateButton(i, format(bar:GetName()..'Button%d', i), bar, nil)
 		bar.buttons[i]:SetState(0, 'action', i)
 
@@ -67,9 +64,9 @@ function EVB:CreateExtraButtonSet()
 			bar.buttons[i]:SetState(k, 'action', (k - 1) * 12 + i)
 		end
 
-		-- if i == 12 then
-			-- bar.buttons[i]:SetState(12, 'custom', AB.customExitButton)
-		-- end
+		if i == 7 then
+			bar.buttons[i]:SetState(12, 'custom', AB.customExitButton)
+		end
 
 		--Masuqe Support
 		if MasqueGroup and E.private.actionbar.masque.actionbars then
@@ -81,8 +78,6 @@ function EVB:CreateExtraButtonSet()
 		if (i == 1) then
 			bar.buttons[i]:SetPoint('BOTTOMLEFT', spacing, spacing)
 		else
-			-- local prev = i == 12 and bar.buttons[6] or bar.buttons[i-1]
-			-- local prev = bar.buttons[i-1]
 			bar.buttons[i]:SetPoint('LEFT', bar.buttons[i-1], 'RIGHT', spacing, 0)
 		end
 
@@ -96,20 +91,8 @@ function EVB:CreateExtraButtonSet()
 		-- end
 
 		bar.buttons[i]:SetCheckedTexture('')
-		RegisterStateDriver(bar.buttons[i], 'visibility', '[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] show; hide')
+		RegisterStateDriver(bar.buttons[i], 'visibility', '[vehicleui][overridebar][shapeshift][possessbar] show; hide')
 	end
-	--Handle exit button
-	local exitIndex = 12
-	bar.buttons[exitIndex] = LAB:CreateButton(exitIndex, format(bar:GetName()..'Button%d', exitIndex), bar, nil)
-	bar.buttons[exitIndex]:SetState(0, 'action', exitIndex)
-	bar.buttons[exitIndex]:Size(size)
-	if MasqueGroup and E.private.actionbar.masque.actionbars then
-		bar.buttons[exitIndex]:AddToMasque(MasqueGroup)
-	end
-	bar.buttons[exitIndex]:SetPoint('LEFT', bar.buttons[6], 'RIGHT', spacing, 0)
-	AB:StyleButton(bar.buttons[exitIndex], nil, MasqueGroup and E.private.actionbar.masque.actionbars and true or nil)
-	bar.buttons[exitIndex]:SetCheckedTexture('')
-	RegisterStateDriver(bar.buttons[exitIndex], 'visibility', '[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] show; hide')
 end
 
 function EVB:PositionAndSizeBar()
@@ -126,14 +109,9 @@ function EVB:PositionAndSizeBar()
 		if (i == 1) then
 			button:SetPoint('BOTTOMLEFT', 2, 2)
 		else
-			local prev = i == 12 and bar.buttons[6] or bar.buttons[i-1]
-			button:SetPoint('LEFT', prev, 'RIGHT', spacing, 0)
+			button:SetPoint('LEFT', bar.buttons[i-1], 'RIGHT', spacing, 0)
 		end
 	end
-
-	if not bar.buttons[12] then return end
-	bar.buttons[12]:Size(size)
-	bar.buttons[12]:SetPoint('LEFT', bar.buttons[6], 'RIGHT', spacing, 0)
 end
 
 function EVB:CreateBar()
