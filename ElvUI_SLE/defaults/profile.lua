@@ -964,6 +964,7 @@ P["sle"] = {
 			},
 		},
 		chat = {
+			show = true,
 			inversePoint = false,
 			anchorPoint = 'TOPLEFT',
 			xOffset = 0,

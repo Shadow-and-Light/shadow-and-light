@@ -225,6 +225,7 @@ function S:Show()
 
 	-- --Resizing chat
 	-- AFK.AFKMode.chat:SetHeight(AFK.AFKMode.SL_TopPanel:GetHeight())
+	AFK.AFKMode.chat:SetShown(S.db.chat.show)
 
 	--Positioning model
 	if S.db.playermodel.enable then

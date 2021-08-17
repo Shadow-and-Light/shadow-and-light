@@ -342,6 +342,21 @@ local function configTable()
 							},
 						},
 					},
+					chat = {
+						order = 10,
+						name = L["Chat"],
+						type = 'group',
+						get = function(info) return E.db.sle.afk[info[#info-1]][info[#info]] end,
+						set = function(info, value) E.db.sle.afk[info[#info-1]][info[#info]] = value end,
+						args = {
+							show = {
+								order = 1,
+								name = L["Show"],
+								type = 'toggle',
+								desc = L["Toggle for showing/hiding the chat panel."],
+							},
+						},
+					},
 					panels = {
 						order = 10,
 						name = L["Panels"],
