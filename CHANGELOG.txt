@@ -1,5 +1,8 @@
-v4.27 [8/5/2021]
+v4.28 [8/16/2021]
 
-- fixed a enhanced vehicle bar that wasn't showing in a recent elvui update
-- refactored equipment icon code (some quirks may have been overlooked, will need reports)
-- fixed a color issue in the S&L Friends and Guild datatexts
+- fixed targetting count on nameplate error
+- fixed reported issues with the enhanced vehicleui bar
+- modify absorbs:sl-short and absorbs:sl-full to hide if 0
+- altered healer only mana tag a bit
+- removed option in enhanced vehicle bar for setting num of buttons
+- added option to disable guild chat in the afk mode
