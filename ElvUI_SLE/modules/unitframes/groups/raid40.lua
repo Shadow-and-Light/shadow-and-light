@@ -5,12 +5,6 @@ local UF = E.UnitFrames
 --GLOBALS: hooksecurefunc
 local _G = _G
 
-function SUF:Construct_Raid40Frame()
-	if not E.db.unitframe.units.raid40.enable then return end
-
-	SUF:ArrangeRaid40()
-end
-
 function SUF:ArrangeRaid40()
 	local enableState = E.private.sle.module.shadows.enable and E.db.unitframe.units.raid40.enable
 	local header = _G['ElvUF_Raid40']
@@ -20,30 +14,23 @@ function SUF:ArrangeRaid40()
 
 		for j = 1, group:GetNumChildren() do
 			local frame = select(j, group:GetChildren())
+			if not frame then return end
 			local db = E.db.sle.shadows.unitframes.raid40
 
-			if frame then
-				do
-					frame.SLLEGACY_ENHSHADOW = enableState and db.legacy or false
-					frame.SLHEALTH_ENHSHADOW = enableState and db.health or false
-					frame.SLPOWER_ENHSHADOW = enableState and db.power or false
-				end
+			frame.SLLEGACY_ENHSHADOW = enableState and db.legacy or false
+			frame.SLHEALTH_ENHSHADOW = enableState and db.health or false
+			frame.SLPOWER_ENHSHADOW = enableState and db.power or false
 
-				-- Health
-				SUF:Configure_Health(frame)
+			-- Health
+			SUF:Configure_Health(frame)
 
-				-- Power
-				SUF:Configure_Power(frame)
-
-				-- frame:UpdateAllElements("SLE_UpdateAllElements")
-			end
+			-- Power
+			SUF:Configure_Power(frame)
 		end
 	end
 end
 
 function SUF:InitRaid40()
-	SUF:Construct_Raid40Frame()
-
 	hooksecurefunc(UF, "CreateAndUpdateHeaderGroup", function(_, frame)
 		if frame == 'raid40' then SUF:ArrangeRaid40() end
 	end)

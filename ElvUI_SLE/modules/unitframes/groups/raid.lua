@@ -5,12 +5,6 @@ local UF = E.UnitFrames
 --GLOBALS: hooksecurefunc
 local _G = _G
 
-function SUF:Construct_RaidFrame()
-	if not E.db.unitframe.units.raid.enable then return end
-
-	SUF:ArrangeRaid()
-end
-
 function SUF:ArrangeRaid()
 	local enableState = E.private.sle.module.shadows.enable and E.db.unitframe.units.raid.enable
 	local header = _G['ElvUF_Raid']
@@ -20,30 +14,23 @@ function SUF:ArrangeRaid()
 
 		for j = 1, group:GetNumChildren() do
 			local frame = select(j, group:GetChildren())
+			if not frame then return end
 			local db = E.db.sle.shadows.unitframes.raid
 
-			if frame then
-				do
-					frame.SLLEGACY_ENHSHADOW = enableState and db.legacy or false
-					frame.SLHEALTH_ENHSHADOW = enableState and db.health or false
-					frame.SLPOWER_ENHSHADOW = enableState and db.power or false
-				end
+			frame.SLLEGACY_ENHSHADOW = enableState and db.legacy or false
+			frame.SLHEALTH_ENHSHADOW = enableState and db.health or false
+			frame.SLPOWER_ENHSHADOW = enableState and db.power or false
 
-				-- Health
-				SUF:Configure_Health(frame)
+			-- Health
+			SUF:Configure_Health(frame)
 
-				-- Power
-				SUF:Configure_Power(frame)
-
-				-- frame:UpdateAllElements("SLE_UpdateAllElements")
-			end
+			-- Power
+			SUF:Configure_Power(frame)
 		end
 	end
 end
 
 function SUF:InitRaid()
-	SUF:Construct_RaidFrame()
-
 	hooksecurefunc(UF, "CreateAndUpdateHeaderGroup", function(_, frame)
 		if frame == 'raid' then SUF:ArrangeRaid() end
 	end)
