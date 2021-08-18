@@ -1,8 +1,4 @@
-v4.28 [8/16/2021]
+v4.29 [8/18/2021]
 
-- fixed targetting count on nameplate error
-- fixed reported issues with the enhanced vehicleui bar
-- modify absorbs:sl-short and absorbs:sl-full to hide if 0
-- altered healer only mana tag a bit
-- removed option in enhanced vehicle bar for setting num of buttons
-- added option to disable guild chat in the afk mode
+- fixed enhanced shadows on unitframes being stupid
+- redid the role icons on the group frames a bit (will need to adjust which role icons to show and enable the option)
