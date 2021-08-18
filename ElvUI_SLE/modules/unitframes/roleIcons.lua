@@ -2,7 +2,7 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local SUF = SLE.UnitFrames
 local UF = E.UnitFrames
 
-function SUF:UpdateRoleIcon(event, frame)
+function SUF:UpdateRoleIcon(event)
 	if not self.db then return end
 	local sldb = E.db.sle.unitframes.roleIcons
 	if not sldb.enable then return end
