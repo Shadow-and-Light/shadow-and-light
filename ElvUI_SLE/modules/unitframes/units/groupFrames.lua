@@ -2,9 +2,9 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local SUF = SLE.UnitFrames
 
 local ignore = {
-	["partytarget"] = true,
-	["partypet"] = true,
-	["raidpet"] = true,
+	['partytarget'] = true,
+	['partypet'] = true,
+	['raidpet'] = true,
 }
 
 function SUF:Update_GroupFrames(frame)
@@ -16,9 +16,9 @@ function SUF:Update_GroupFrames(frame)
 		if not frame:IsElementEnabled('SLE_Offline') then
 			frame:EnableElement('SLE_Offline')
 		end
-		frame.Offline:SetPoint("CENTER", frame, "CENTER", db.offline.xOffset, db.offline.yOffset)
+		frame.Offline:SetPoint('CENTER', frame, 'CENTER', db.offline.xOffset, db.offline.yOffset)
 		frame.Offline:SetSize(db.offline.size, db.offline.size)
-		if db.offline.texture == "CUSTOM" then
+		if db.offline.texture == 'CUSTOM' then
 			frame.Offline:SetTexture(db.offline.CustomTexture)
 		else
 			frame.Offline:SetTexture(SUF.OfflineTextures[db.offline.texture])
@@ -33,9 +33,9 @@ function SUF:Update_GroupFrames(frame)
 		if not frame:IsElementEnabled('SLE_Dead') then
 			frame:EnableElement('SLE_Dead')
 		end
-		frame.Dead:SetPoint("CENTER", frame, "CENTER", db.dead.xOffset, db.dead.yOffset)
+		frame.Dead:SetPoint('CENTER', frame, 'CENTER', db.dead.xOffset, db.dead.yOffset)
 		frame.Dead:SetSize(db.dead.size, db.dead.size)
-		if db.dead.texture == "CUSTOM" then
+		if db.dead.texture == 'CUSTOM' then
 			frame.Dead:SetTexture(db.dead.CustomTexture)
 		else
 			frame.Dead:SetTexture(SUF.DeadTextures[db.dead.texture])
