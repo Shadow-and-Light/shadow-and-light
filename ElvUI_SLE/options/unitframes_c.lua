@@ -2,12 +2,10 @@
 local UF = E.UnitFrames
 local SUF = SLE.UnitFrames
 
-local texPath = [[Interface\AddOns\ElvUI_SLE\media\textures\role\]]
-local texPathE = [[Interface\AddOns\ElvUI\media\textures\]]
 local CUSTOM = CUSTOM
 local LEVEL = LEVEL
-local roleValues = {}
 local wipe = wipe
+local roleValues = {}
 
 local function CreateOfflineConfig(group)
 	local config = {
@@ -187,208 +185,240 @@ local function configTable()
 				desc = L["Reset these options to defaults"],
 				func = function() SLE:Reset('unitframes') end,
 			},
-			roleicons = {
-				order = 3,
-				type = 'select',
-				name = L["LFG Icons"],
-				desc = L["Choose what icon set will unitframes and chat use."],
-				get = function(info) return E.db.sle.unitframes[info[#info]] end,
-				set = function(info, value) E.db.sle.unitframes[info[#info]] = value; E.Chat:CheckLFGRoles(); UF:UpdateAllHeaders() end,
-				values = function()
-					wipe(roleValues)
-
-					for name, path in pairs(SLE.rolePaths) do
-						roleValues[name] = name..' |T'..path['TANK']..':15:15:0:0:64:64:2:56:2:56|t '..'|T'..path['HEALER']..':15:15:0:0:64:64:2:56:2:56|t '..'|T'..path['DAMAGER']..':15:15:0:0:64:64:2:56:2:56|t '
-					end
-
-					return roleValues
-				end,
-				-- values = {
-				-- 	['ElvUI'] = 'ElvUI '..'|T'..texPathE..'tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPathE..'healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPathE..'dps:15:15:0:0:64:64:2:56:2:56|t ',
-				-- 	['SupervillainUI'] = 'Supervillain UI '..'|T'..texPath..'svui-tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'svui-healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'svui-dps:15:15:0:0:64:64:2:56:2:56|t ',
-				-- 	['Blizzard'] = 'Blizzard '..'|T'..texPath..'blizz-tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'blizz-healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'blizz-dps:15:15:0:0:64:64:2:56:2:56|t ',
-				-- 	['MiirGui'] = 'MiirGui '..'|T'..texPath..'mg-tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'mg-healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'mg-dps:15:15:0:0:64:64:2:56:2:56|t ',
-				-- 	['Lyn'] = 'Lyn '..'|T'..texPath..'lyn-tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'lyn-healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'lyn-dps:15:15:0:0:64:64:2:56:2:56|t ',
-				-- 	['Philmod'] = 'Philmod '..'|T'..texPath..'philmod-tank:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'philmod-healer:15:15:0:0:64:64:2:56:2:56|t '..'|T'..texPath..'philmod-dps:15:15:0:0:64:64:2:56:2:56|t ',
-				-- },
-			},
-			player = {
+			general = {
 				order = 10,
 				type = 'group',
-				name = L["Player Frame"],
+				name = L["General"],
 				args = {
-					pvpIconText = {
-						order = 5,
+					roleIcons = {
+						order = 1,
 						type = 'group',
-						name = L["PvP & Prestige Icon"],
-						get = function(info) return E.db.sle.unitframes.unit.player.pvpIconText[info[#info]] end,
-						set = function(info, value) E.db.sle.unitframes.unit.player.pvpIconText[info[#info]] = value; UF:Configure_PVPIcon(_G.ElvUF_Player) end,
+						inline = true,
+						name = 'Role Icons',
+						get = function(info)
+							return E.db.sle.unitframes[info[#info-1]][info[#info]]
+						end,
+						set = function(info, value)
+							E.db.sle.unitframes[info[#info-1]][info[#info]] = value
+						end,
 						args = {
 							enable = {
 								order = 1,
 								type = 'toggle',
 								name = L["Enable"],
+								disabled = false,
 							},
-							xoffset = {
+							icons = {
 								order = 2,
-								type = 'range',
-								name = L["X-Offset"],
-								min = -300, max = 300, step = 1,
+								type = 'select',
+								name = L["LFG Icons"],
+								desc = L["Choose what icon set will unitframes and chat use."],
+								values = function()
+									wipe(roleValues)
+									for name, path in pairs(SLE.rolePaths) do
+										roleValues[name] = name..' |T'..path['TANK']..':15:15:0:0:64:64:2:56:2:56|t '..'|T'..path['HEALER']..':15:15:0:0:64:64:2:56:2:56|t '..'|T'..path['DAMAGER']..':15:15:0:0:64:64:2:56:2:56|t '
+									end
+
+									return roleValues
+								end,
 							},
-							yoffset = {
-								order = 3,
-								type = 'range',
-								name = L["Y-Offset"],
-								min = -150, max = 150, step = 1,
-							},
-							level = {
-								order = 4,
-								type = 'toggle',
-								name = LEVEL,
-							},
-						},
+						}
 					},
-					auras = CreateAurasConfig('player'),
-				},
+				}
 			},
-			pet = {
-				order = 11,
-				type = 'group',
-				name = L["Pet Frame"],
-				args = {
-					auras = CreateAurasConfig('pet'),
-				},
-			},
-			pettarget = {
-				order = 12,
-				type = 'group',
-				name = L["PetTarget Frame"],
-				args = {
-					auras = CreateAurasConfig('pettarget'),
-				},
-			},
-			target = {
-				order = 13,
-				type = 'group',
-				name = L["Target Frame"],
-				args = {
-					pvpIconText = {
-						order = 5,
-						type = 'group',
-						name = L["PvP & Prestige Icon"],
-						get = function(info) return E.db.sle.unitframes.unit.target.pvpIconText[info[#info]] end,
-						set = function(info, value) E.db.sle.unitframes.unit.target.pvpIconText[info[#info]] = value; UF:Configure_PVPIcon(_G.ElvUF_Target) end,
-						args = {
-							level = {
-								order = 4,
-								type = 'toggle',
-								name = LEVEL,
-							},
-						},
-					},
-					auras = CreateAurasConfig('target'),
-				},
-			},
-			targettarget = {
-				order = 14,
-				type = 'group',
-				name = L["TargetTarget Frame"],
-				args = {
-					auras = CreateAurasConfig('targettarget'),
-				},
-			},
-			targettargettarget = {
+			individualUnits = {
 				order = 15,
 				type = 'group',
-				name = L["TargetTargetTarget Frame"],
+				childGroups = 'tab',
+				name = L["Individual Units"],
 				args = {
-					auras = CreateAurasConfig('targettargettarget'),
+					player = {
+						order = 1,
+						type = 'group',
+						name = L["Player Frame"],
+						args = {
+							pvpIconText = {
+								order = 5,
+								type = 'group',
+								name = L["PvP & Prestige Icon"],
+								get = function(info) return E.db.sle.unitframes.unit.player.pvpIconText[info[#info]] end,
+								set = function(info, value) E.db.sle.unitframes.unit.player.pvpIconText[info[#info]] = value; UF:Configure_PVPIcon(_G.ElvUF_Player) end,
+								args = {
+									enable = {
+										order = 1,
+										type = 'toggle',
+										name = L["Enable"],
+									},
+									xoffset = {
+										order = 2,
+										type = 'range',
+										name = L["X-Offset"],
+										min = -300, max = 300, step = 1,
+									},
+									yoffset = {
+										order = 3,
+										type = 'range',
+										name = L["Y-Offset"],
+										min = -150, max = 150, step = 1,
+									},
+									level = {
+										order = 4,
+										type = 'toggle',
+										name = LEVEL,
+									},
+								},
+							},
+							auras = CreateAurasConfig('player'),
+						},
+					},
+					target = {
+						order = 2,
+						type = 'group',
+						name = L["Target Frame"],
+						args = {
+							pvpIconText = {
+								order = 5,
+								type = 'group',
+								name = L["PvP & Prestige Icon"],
+								get = function(info) return E.db.sle.unitframes.unit.target.pvpIconText[info[#info]] end,
+								set = function(info, value) E.db.sle.unitframes.unit.target.pvpIconText[info[#info]] = value; UF:Configure_PVPIcon(_G.ElvUF_Target) end,
+								args = {
+									level = {
+										order = 4,
+										type = 'toggle',
+										name = LEVEL,
+									},
+								},
+							},
+							auras = CreateAurasConfig('target'),
+						},
+					},
+					targettarget = {
+						order = 3,
+						type = 'group',
+						name = L["TargetTarget Frame"],
+						args = {
+							auras = CreateAurasConfig('targettarget'),
+						},
+					},
+					targettargettarget = {
+						order = 4,
+						type = 'group',
+						name = L["TargetTargetTarget Frame"],
+						args = {
+							auras = CreateAurasConfig('targettargettarget'),
+						},
+					},
+					focus = {
+						order = 5,
+						type = 'group',
+						name = L["Focus Frame"],
+						args = {
+							auras = CreateAurasConfig('focus'),
+						},
+					},
+					focustarget = {
+						order = 6,
+						type = 'group',
+						name = L["FocusTarget Frame"],
+						args = {
+							auras = CreateAurasConfig('focustarget'),
+						},
+					},
+					pet = {
+						order = 7,
+						type = 'group',
+						name = L["Pet Frame"],
+						args = {
+							auras = CreateAurasConfig('pet'),
+						},
+					},
+					pettarget = {
+						order = 8,
+						type = 'group',
+						name = L["PetTarget Frame"],
+						args = {
+							auras = CreateAurasConfig('pettarget'),
+						},
+					},
 				},
 			},
-			focus = {
-				order = 16,
-				type = 'group',
-				name = L["Focus Frame"],
-				args = {
-					auras = CreateAurasConfig('focus'),
-				},
-			},
-			focustarget = {
-				order = 17,
-				type = 'group',
-				name = L["FocusTarget Frame"],
-				args = {
-					auras = CreateAurasConfig('focustarget'),
-				},
-			},
-			party = {
+			groupUnits = {
 				order = 20,
 				type = 'group',
-				name = L["Party Frames"],
+				childGroups = 'tab',
+				name = L["Group Units"],
 				args = {
-					configureToggle = {
-						order = -10,
-						type = 'execute',
-						name = L["Display Frames"],
-						func = function()
-							UF:HeaderConfig(_G.ElvUF_Party, _G.ElvUF_Party.forceShow ~= true or nil)
-						end,
+					party = {
+						order = 1,
+						type = 'group',
+						name = L["Party Frames"],
+						args = {
+							configureToggle = {
+								order = -10,
+								type = 'execute',
+								name = L["Display Frames"],
+								func = function()
+									UF:HeaderConfig(_G.ElvUF_Party, _G.ElvUF_Party.forceShow ~= true or nil)
+								end,
+							},
+							offline = CreateOfflineConfig('party'),
+							dead = CreateDeadConfig('party'),
+							auras = CreateAurasConfig('party'),
+						},
 					},
-					offline = CreateOfflineConfig('party'),
-					dead = CreateDeadConfig('party'),
-					auras = CreateAurasConfig('party'),
-				},
-			},
-			raid = {
-				order = 21,
-				type = 'group',
-				name = L["Raid Frames"],
-				args = {
-					configureToggle = {
-						order = -10,
-						type = 'execute',
-						name = L["Display Frames"],
-						func = function()
-							UF:HeaderConfig(_G.ElvUF_Raid, _G.ElvUF_Raid.forceShow ~= true or nil)
-						end,
+					raid = {
+						order = 2,
+						type = 'group',
+						name = L["Raid Frames"],
+						args = {
+							configureToggle = {
+								order = -10,
+								type = 'execute',
+								name = L["Display Frames"],
+								func = function()
+									UF:HeaderConfig(_G.ElvUF_Raid, _G.ElvUF_Raid.forceShow ~= true or nil)
+								end,
+							},
+							offline = CreateOfflineConfig('raid'),
+							dead = CreateDeadConfig('raid'),
+							auras = CreateAurasConfig('raid'),
+						},
 					},
-					offline = CreateOfflineConfig('raid'),
-					dead = CreateDeadConfig('raid'),
-					auras = CreateAurasConfig('raid'),
-				},
-			},
-			raid40 = {
-				order = 22,
-				type = 'group',
-				name = L["Raid-40 Frames"],
-				args = {
-					configureToggle = {
-						order = -10,
-						type = 'execute',
-						name = L["Display Frames"],
-						func = function()
-							UF:HeaderConfig(_G.ElvUF_Raid40, _G.ElvUF_Raid40.forceShow ~= true or nil)
-						end,
+					raid40 = {
+						order = 3,
+						type = 'group',
+						name = L["Raid-40 Frames"],
+						args = {
+							configureToggle = {
+								order = -10,
+								type = 'execute',
+								name = L["Display Frames"],
+								func = function()
+									UF:HeaderConfig(_G.ElvUF_Raid40, _G.ElvUF_Raid40.forceShow ~= true or nil)
+								end,
+							},
+							offline = CreateOfflineConfig('raid40'),
+							dead = CreateDeadConfig('raid40'),
+							auras = CreateAurasConfig('raid40'),
+						},
 					},
-					offline = CreateOfflineConfig('raid40'),
-					dead = CreateDeadConfig('raid40'),
-					auras = CreateAurasConfig('raid40'),
-				},
-			},
-			boss = {
-				order = 23,
-				type = 'group',
-				name = L["Boss Frames"],
-				args = {
-					auras = CreateAurasConfig('boss'),
-				},
-			},
-			arena = {
-				order = 24,
-				type = 'group',
-				name = L["Arena Frames"],
-				args = {
-					auras = CreateAurasConfig("arena"),
+					arena = {
+						order = 4,
+						type = 'group',
+						name = L["Arena Frames"],
+						args = {
+							auras = CreateAurasConfig("arena"),
+						},
+					},
+					boss = {
+						order = 5,
+						type = 'group',
+						name = L["Boss Frames"],
+						args = {
+							auras = CreateAurasConfig('boss'),
+						},
+					},
 				},
 			},
 			statusbars = {

@@ -77,7 +77,6 @@ function SUF:Initialize()
 	f:RegisterEvent("PLAYER_ENTERING_WORLD")
 	f:SetScript("OnEvent", function(self, event)
 		self:UnregisterEvent(event)
-		SUF:SetRoleIcons()
 		if E.private.sle.unitframe.statusbarTextures.cast then SUF:CastBarHook() end
 	end)
 
@@ -92,7 +91,6 @@ function SUF:Initialize()
 	SUF:InitStatus()
 
 	function SUF:ForUpdateAll()
-		SUF:SetRoleIcons()
 		if E.private.sle.unitframe.statusbarTextures.power then SUF:BuildStatusTable() end
 		if E.private.sle.module.shadows.enable then SUF:UpdateUnitFrames() end
 	end

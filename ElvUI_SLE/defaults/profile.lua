@@ -1496,7 +1496,10 @@ P["sle"] = {
 				},
 			},
 		},
-		["roleicons"] = "ElvUI",
+		roleIcons = {
+			enable = false,
+			icons = 'ElvUI',
+		},
 		["statusTextures"] = {
 			["powerTexture"] = "ElvUI Norm",
 			["castTexture"] = "ElvUI Norm",
