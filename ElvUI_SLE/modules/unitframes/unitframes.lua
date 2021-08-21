@@ -4,17 +4,22 @@ local SUF = SLE.UnitFrames
 SUF.CreatedShadows = {}
 --GLOBALS: hooksecurefunc, CreateFrame
 
-local function Cooldown_Options(_, _, db, button)
+local function Cooldown_Options(_, timer, _, button)
 	if not SLE.initialized or not E.private.unitframe.enable then return end
 	if not button then return end
-	local owner = button:GetParent():GetParent().__owner
-	if not owner then return end
 
-	local unitID = owner.unitframeType
-	local auraType = button:GetParent():GetParent().type
-	if not unitID or not auraType then return end
+	local buttonParent = button:GetParent()
+	if not buttonParent then return end
+
+	local parent = buttonParent:GetParent()
+	if not parent or not parent.__owner or not parent.type then return end
+
+	local unitID = parent.__owner.unitframeType
+	local auraType = parent.type
+	if not unitID then return end
+
 	if unitID and E.db.sle.unitframes.unit[unitID] and E.db.sle.unitframes.unit[unitID].auras and E.db.sle.unitframes.unit[unitID].auras[auraType] then
-		db.threshold = E.db.sle.unitframes.unit[unitID].auras[auraType].threshold
+		timer.threshold = E.db.sle.unitframes.unit[unitID].auras[auraType].threshold
 	end
 end
 hooksecurefunc(E, 'Cooldown_Options', Cooldown_Options)
