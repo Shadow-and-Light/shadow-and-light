@@ -132,7 +132,7 @@ local function CreateAurasConfig(unitID)
 				name = L["Buffs"],
 				guiInline = true,
 				get = function(info) return E.db.sle.unitframes.unit[unitID].auras.buffs[info[#info]] end,
-				set = function(info, value) E.db.sle.unitframes.unit[unitID].auras.buffs[info[#info]] = value end,
+				set = function(info, value) E.db.sle.unitframes.unit[unitID].auras.buffs[info[#info]] = value; E:UpdateCooldownSettings('unitframe') end,
 				args = {
 					threshold = {
 						order = 1,
@@ -149,7 +149,7 @@ local function CreateAurasConfig(unitID)
 				name = L["Debuffs"],
 				guiInline = true,
 				get = function(info) return E.db.sle.unitframes.unit[unitID].auras.debuffs[info[#info]] end,
-				set = function(info, value) E.db.sle.unitframes.unit[unitID].auras.debuffs[info[#info]] = value end,
+				set = function(info, value) E.db.sle.unitframes.unit[unitID].auras.debuffs[info[#info]] = value; E:UpdateCooldownSettings('unitframe') end,
 				args = {
 					threshold = {
 						order = 1,
