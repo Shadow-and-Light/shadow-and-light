@@ -14,12 +14,12 @@ local function Cooldown_Options(_, timer, _, button)
 	local parent = buttonParent:GetParent()
 	if not parent or not parent.__owner or not parent.type then return end
 
-	local unitID = parent.__owner.unitframeType
-	local auraType = parent.type
-	if not unitID then return end
+	local unitID, auraType = parent.__owner.unitframeType, parent.type
+	local sldb = E.db.sle.unitframes.unit
+	if not unitID or not sldb[unitID] then return end
 
-	if unitID and E.db.sle.unitframes.unit[unitID] and E.db.sle.unitframes.unit[unitID].auras and E.db.sle.unitframes.unit[unitID].auras[auraType] then
-		timer.threshold = E.db.sle.unitframes.unit[unitID].auras[auraType].threshold
+	if unitID and sldb[unitID].auras and sldb[unitID].auras[auraType] then
+		timer.threshold = sldb[unitID].auras[auraType].threshold
 	end
 end
 hooksecurefunc(E, 'Cooldown_Options', Cooldown_Options)
