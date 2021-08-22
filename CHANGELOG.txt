@@ -1,4 +1,5 @@
-v4.29 [8/18/2021]
+v4.29 alpha
 
-- fixed enhanced shadows on unitframes being stupid
-- redid the role icons on the group frames a bit (will need to adjust which role icons to show and enable the option)
+- fixed a conflict with a reported weakaura
+- fixed enhanced shadows option for unitframes not adjusting the size upon changing the setting in the options until a reload/relog
+- aura cooldown threshold now can be enabled/disabled per buff or debuff (if disabled, it will use elvui threshold settings)
