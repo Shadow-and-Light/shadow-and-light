@@ -3,3 +3,4 @@ v4.29 alpha
 - fixed a conflict with a reported weakaura
 - fixed enhanced shadows option for unitframes not adjusting the size upon changing the setting in the options until a reload/relog
 - aura cooldown threshold now can be enabled/disabled per buff or debuff (if disabled, it will use elvui threshold settings)
+- change it so that enhanced vehicle bar would hide bar 1, bar 1 will now fully respect its visibility state settings when using S&L Ehanced Vehicle Bar
