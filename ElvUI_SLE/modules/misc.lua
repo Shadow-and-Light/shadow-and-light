@@ -110,6 +110,10 @@ function M:Initialize()
 	WorldFrame.ORSetAll = WorldFrame.SetAllPoints
 	WorldFrame.SetAllPoints = M.SetAllPoints
 
+	-- Possible Fix for Cut Scene issues during a raid
+	CinematicFrame:SetScript("OnShow", nil)
+	CinematicFrame:SetScript("OnHide", nil)
+
 	M:SetViewport()
 	hooksecurefunc(E, 'PixelScaleChanged', M.SetViewport)
 
