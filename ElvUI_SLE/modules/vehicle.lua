@@ -161,22 +161,12 @@ function EVB:Initialize()
 	if not SLE.initialized then return end
 	if not E.private.sle.vehicle.enable or not E.private.actionbar.enable then return end
 
-	local visibility = '[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] hide;'
-	hooksecurefunc(AB, 'PositionAndSizeBar', function(_, barName)
-		local bar = AB['handledBars'][barName]
-		if (E.db.actionbar[barName].enabled) and (barName == 'bar1') then
-			UnregisterStateDriver(bar, 'visibility')
-			RegisterStateDriver(bar, 'visibility', visibility..E.db.actionbar[barName].visibility)
-		end
-	end)
-
 	EVB:CreateBar()
 
 	EVB.bar:Execute(EVB.bar:GetAttribute('_onstate-page'))
 
 	function EVB:ForUpdateAll()
 		EVB:PositionAndSizeBar()
-		-- EVB:BarBackdrop()
 	end
 end
 
