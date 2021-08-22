@@ -24,9 +24,3 @@ function SUF:ArrangeBoss()
 		SUF:Configure_Power(frame)
 	end
 end
-
-function SUF:InitBoss()
-	hooksecurefunc(UF, "Update_BossFrames", function(_, frame)
-		if frame.unitframeType == 'boss' then SUF:ArrangeBoss() end
-	end)
-end

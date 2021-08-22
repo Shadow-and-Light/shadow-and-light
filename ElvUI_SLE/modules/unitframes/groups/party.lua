@@ -29,9 +29,3 @@ function SUF:ArrangeParty()
 		end
 	end
 end
-
-function SUF:InitParty()
-	hooksecurefunc(UF, "CreateAndUpdateHeaderGroup", function(_, frame)
-		if frame == 'party' then SUF:ArrangeParty() end
-	end)
-end

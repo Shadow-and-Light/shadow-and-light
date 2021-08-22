@@ -25,12 +25,3 @@ function SUF:ArrangePlayer()
 	-- ClassBar shadows
 	SUF:Configure_ClassBar(frame)
 end
-
-function SUF:InitPlayer()
-	hooksecurefunc(UF, 'Update_PlayerFrame', function(_, frame)
-		if frame.unitframeType == 'player' then SUF:ArrangePlayer() end
-	end)
-	hooksecurefunc(UF, 'Configure_ClassBar', function(_, frame)
-		if frame.unitframeType == 'player' then SUF:Configure_ClassBar(frame) end
-	end)
-end

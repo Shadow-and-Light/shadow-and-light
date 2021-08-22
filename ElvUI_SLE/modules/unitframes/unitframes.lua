@@ -26,21 +26,21 @@ hooksecurefunc(E, 'Cooldown_Options', Cooldown_Options)
 
 function SUF:UpdateUnitFrames()
 	--* Groups Folder
-	SUF:InitArena()
-	SUF:InitBoss()
-	SUF:InitParty()
-	SUF:InitRaid()
-	SUF:InitRaid40()
+	SUF:ArrangeArena()
+	SUF:ArrangeBoss()
+	SUF:ArrangeParty()
+	SUF:ArrangeRaid()
+	SUF:ArrangeRaid40()
 
 	--* Units Folder
-	SUF:InitFocus()
-	SUF:InitFocusTarget()
-	SUF:InitPet()
-	SUF:InitPetTarget()
-	SUF:InitPlayer()
-	SUF:InitTarget()
-	SUF:InitTargetTarget()
-	SUF:InitTargetTargetTarget()
+	SUF:ArrangeFocus()
+	SUF:ArrangeFocusTarget()
+	SUF:ArrangePet()
+	SUF:ArrangePetTarget()
+	SUF:ArrangePlayer()
+	SUF:ArrangeTarget()
+	SUF:ArrangeTargetTarget()
+	SUF:ArrangeTargetTargetTarget()
 end
 
 function SUF:UpdateShadows()
@@ -59,12 +59,34 @@ function SUF:UpdateShadowColor(shadow)
 	shadow:SetBackdropBorderColor(r, g, b, 0.9)
 end
 
+local function InitializeUnitFrames()
+	hooksecurefunc(UF, "Update_ArenaFrames", SUF.ArrangeArena)
+	hooksecurefunc(UF, "Update_BossFrames", SUF.ArrangeBoss)
+	hooksecurefunc(UF, "CreateAndUpdateHeaderGroup", function(_, frame)
+		if frame == 'party' then SUF:ArrangeParty() end
+		if frame == 'raid' then SUF:ArrangeRaid() end
+		if frame == 'raid40' then SUF:ArrangeRaid40() end
+	end)
+	hooksecurefunc(UF, 'Update_FocusFrame', SUF.ArrangeFocus)
+	hooksecurefunc(UF, 'Update_FocusTargetFrame', SUF.ArrangeFocusTarget)
+	hooksecurefunc(UF, 'Update_PetFrame', SUF.ArrangePet)
+	hooksecurefunc(UF, 'Update_PetTargetFrame', SUF.ArrangePetTarget)
+	hooksecurefunc(UF, 'Update_PlayerFrame', SUF.ArrangePlayer)
+	hooksecurefunc(UF, 'Configure_ClassBar', function(_, frame)
+		if frame.unitframeType == 'player' then SUF:Configure_ClassBar(frame) end
+	end)
+	hooksecurefunc(UF, 'Update_TargetFrame', SUF.ArrangeTarget)
+	hooksecurefunc(UF, 'Update_TargetTargetFrame', SUF.ArrangeTargetTarget)
+	hooksecurefunc(UF, 'Update_TargetTargetTargetFrame', SUF.ArrangeTargetTargetTarget)
+end
+
 function SUF:Initialize()
 	if not SLE.initialized or not E.private.unitframe.enable then return end
 	--DB convert
 	if E.private.sle.unitframe.resizeHealthPrediction then E.private.sle.unitframe.resizeHealthPrediction = nil end
 
 	-- Init and Update Unitframe Stuff which is shadows atm
+	InitializeUnitFrames()
 	SUF:UpdateUnitFrames()
 
 	--Raid stuff
@@ -97,7 +119,8 @@ function SUF:Initialize()
 
 	function SUF:ForUpdateAll()
 		if E.private.sle.unitframe.statusbarTextures.power then SUF:BuildStatusTable() end
-		if E.private.sle.module.shadows.enable then SUF:UpdateUnitFrames() end
+		-- if E.private.sle.module.shadows.enable then SUF:UpdateUnitFrames() end
+		SUF:UpdateUnitFrames()
 	end
 end
 

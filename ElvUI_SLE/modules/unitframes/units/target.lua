@@ -21,9 +21,3 @@ function SUF:ArrangeTarget()
 	-- Power
 	SUF:Configure_Power(frame)
 end
-
-function SUF:InitTarget()
-	hooksecurefunc(UF, 'Update_TargetFrame', function(_, frame)
-		if frame.unitframeType == 'target' then SUF:ArrangeTarget() end
-	end)
-end

@@ -21,9 +21,3 @@ function SUF:ArrangeFocusTarget()
 	-- Power
 	SUF:Configure_Power(frame)
 end
-
-function SUF:InitFocusTarget()
-	hooksecurefunc(UF, 'Update_FocusTargetFrame', function(_, frame)
-		if frame.unitframeType == 'focustarget' then SUF:ArrangeFocusTarget() end
-	end)
-end

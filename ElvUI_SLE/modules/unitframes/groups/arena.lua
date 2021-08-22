@@ -24,9 +24,3 @@ function SUF:ArrangeArena()
 		SUF:Configure_Power(frame)
 	end
 end
-
-function SUF:InitArena()
-	hooksecurefunc(UF, "Update_ArenaFrames", function(_, frame)
-		if frame.unitframeType == 'arena' then SUF:ArrangeArena() end
-	end)
-end

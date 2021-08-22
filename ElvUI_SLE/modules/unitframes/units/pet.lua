@@ -21,9 +21,3 @@ function SUF:ArrangePet()
 	-- Power
 	SUF:Configure_Power(frame)
 end
-
-function SUF:InitPet()
-	hooksecurefunc(UF, 'Update_PetFrame', function(_, frame)
-		if frame.unitframeType == 'pet' then SUF:ArrangePet() end
-	end)
-end

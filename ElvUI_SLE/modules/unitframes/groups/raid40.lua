@@ -29,9 +29,3 @@ function SUF:ArrangeRaid40()
 		end
 	end
 end
-
-function SUF:InitRaid40()
-	hooksecurefunc(UF, "CreateAndUpdateHeaderGroup", function(_, frame)
-		if frame == 'raid40' then SUF:ArrangeRaid40() end
-	end)
-end
