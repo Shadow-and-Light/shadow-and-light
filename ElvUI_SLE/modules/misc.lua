@@ -94,15 +94,15 @@ function M:Initialize()
 	if _G.RaidUtility_ShowButton then M:RaidUtility_Hook() end
 
 	--Viewport
-	function CinematicFrame_CancelCinematic()
-		if ( CinematicFrame.isRealCinematic ) then
-			StopCinematic()
-		elseif ( CanCancelScene() ) then
-			CancelScene()
-		else
-			VehicleExit()
-		end
-	end
+	-- function CinematicFrame_CancelCinematic()
+	-- 	if ( CinematicFrame.isRealCinematic ) then
+	-- 		StopCinematic()
+	-- 	elseif ( CanCancelScene() ) then
+	-- 		CancelScene()
+	-- 	else
+	-- 		VehicleExit()
+	-- 	end
+	-- end
 
 	--Some high level bullshit
 	-- WorldFrame.ORClear = WorldFrame.ClearAllPoints
