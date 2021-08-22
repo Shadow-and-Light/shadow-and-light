@@ -1,5 +1,16 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 
+local UF_Auras = {
+	buffs = {
+		enable = false,
+		threshold = 4,
+	},
+	debuffs = {
+		enable = false,
+		threshold = 4,
+	},
+}
+
 P["sle"] = {
 	--Actionbars
 	["actionbars"] = {
@@ -1303,87 +1314,31 @@ P["sle"] = {
 					["yoffset"] = 0,
 					["level"] = true,
 				},
-				["auras"] = {
-					["buffs"] = {
-						["threshold"] = 4,
-					},
-					["debuffs"] = {
-						["threshold"] = 4,
-					},
-				},
+				auras = CopyTable(UF_Auras),
 			},
 			["pet"] = {
-				["auras"] = {
-					["buffs"] = {
-						["threshold"] = 4,
-					},
-					["debuffs"] = {
-						["threshold"] = 4,
-					},
-				},
+				auras = CopyTable(UF_Auras),
 			},
 			["pettarget"] = {
-				["auras"] = {
-					["buffs"] = {
-						["threshold"] = 4,
-					},
-					["debuffs"] = {
-						["threshold"] = 4,
-					},
-				},
+				auras = CopyTable(UF_Auras),
 			},
 			["target"] = {
 				["pvpIconText"] = {
 					["level"] = true,
 				},
-				["auras"] = {
-					["buffs"] = {
-						["threshold"] = 4,
-					},
-					["debuffs"] = {
-						["threshold"] = 4,
-					},
-				},
+				auras = CopyTable(UF_Auras),
 			},
 			["targettarget"] = {
-				["auras"] = {
-					["buffs"] = {
-						["threshold"] = 4,
-					},
-					["debuffs"] = {
-						["threshold"] = 4,
-					},
-				},
+				auras = CopyTable(UF_Auras),
 			},
 			["targettargettarget"] = {
-				["auras"] = {
-					["buffs"] = {
-						["threshold"] = 4,
-					},
-					["debuffs"] = {
-						["threshold"] = 4,
-					},
-				},
+				auras = CopyTable(UF_Auras),
 			},
 			["focus"] = {
-				["auras"] = {
-					["buffs"] = {
-						["threshold"] = 4,
-					},
-					["debuffs"] = {
-						["threshold"] = 4,
-					},
-				},
+				auras = CopyTable(UF_Auras),
 			},
 			["focustarget"] = {
-				["auras"] = {
-					["buffs"] = {
-						["threshold"] = 4,
-					},
-					["debuffs"] = {
-						["threshold"] = 4,
-					},
-				},
+				auras = CopyTable(UF_Auras),
 			},
 			["party"] = {
 				["offline"] = {
@@ -1406,14 +1361,7 @@ P["sle"] = {
 					["xoffset"] = 0,
 					["yoffset"] = 0,
 				},
-				["auras"] = {
-					["buffs"] = {
-						["threshold"] = 4,
-					},
-					["debuffs"] = {
-						["threshold"] = 4,
-					},
-				},
+				auras = CopyTable(UF_Auras),
 			},
 			["raid"] = {
 				["offline"] = {
@@ -1436,14 +1384,7 @@ P["sle"] = {
 					["xoffset"] = 0,
 					["yoffset"] = 0,
 				},
-				["auras"] = {
-					["buffs"] = {
-						["threshold"] = 4,
-					},
-					["debuffs"] = {
-						["threshold"] = 4,
-					},
-				},
+				auras = CopyTable(UF_Auras),
 			},
 			["raid40"] = {
 				["offline"] = {
@@ -1462,38 +1403,17 @@ P["sle"] = {
 					["texture"] = "SKULL",
 					["CustomTexture"] = "",
 				},
-				["auras"] = {
-					["buffs"] = {
-						["threshold"] = 4,
-					},
-					["debuffs"] = {
-						["threshold"] = 4,
-					},
-				},
+				auras = CopyTable(UF_Auras),
 				["role"] = {
 					["xoffset"] = 0,
 					["yoffset"] = 0,
 				},
 			},
 			["boss"] = {
-				["auras"] = {
-					["buffs"] = {
-						["threshold"] = 4,
-					},
-					["debuffs"] = {
-						["threshold"] = 4,
-					},
-				},
+				auras = CopyTable(UF_Auras),
 			},
 			["arena"] = {
-				["auras"] = {
-					["buffs"] = {
-						["threshold"] = 4,
-					},
-					["debuffs"] = {
-						["threshold"] = 4,
-					},
-				},
+				auras = CopyTable(UF_Auras),
 			},
 		},
 		roleIcons = {

@@ -18,7 +18,7 @@ local function Cooldown_Options(_, timer, _, button)
 	local sldb = E.db.sle.unitframes.unit
 	if not unitID or not sldb[unitID] then return end
 
-	if unitID and sldb[unitID].auras and sldb[unitID].auras[auraType] then
+	if unitID and sldb[unitID].auras and sldb[unitID].auras[auraType] and sldb[unitID].auras[auraType].enable then
 		timer.threshold = sldb[unitID].auras[auraType].threshold
 	end
 end

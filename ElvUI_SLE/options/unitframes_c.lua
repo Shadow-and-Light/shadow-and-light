@@ -134,12 +134,18 @@ local function CreateAurasConfig(unitID)
 				get = function(info) return E.db.sle.unitframes.unit[unitID].auras.buffs[info[#info]] end,
 				set = function(info, value) E.db.sle.unitframes.unit[unitID].auras.buffs[info[#info]] = value; E:UpdateCooldownSettings('unitframe') end,
 				args = {
-					threshold = {
+					enable = {
 						order = 1,
+						name = L["Enable"],
+						type = 'toggle',
+					},
+					threshold = {
+						order = 2,
 						type = 'range',
 						name = L["Low Threshold"],
 						desc = L["Threshold before text turns red and is in decimal form. Set to -1 for it to never turn red"],
 						min = -1, max = 20, step = 1,
+						disabled = function() return not E.db.sle.unitframes.unit[unitID].auras.buffs.enable end,
 					},
 				},
 			},
@@ -151,12 +157,18 @@ local function CreateAurasConfig(unitID)
 				get = function(info) return E.db.sle.unitframes.unit[unitID].auras.debuffs[info[#info]] end,
 				set = function(info, value) E.db.sle.unitframes.unit[unitID].auras.debuffs[info[#info]] = value; E:UpdateCooldownSettings('unitframe') end,
 				args = {
-					threshold = {
+					enable = {
 						order = 1,
+						name = L["Enable"],
+						type = 'toggle',
+					},
+					threshold = {
+						order = 2,
 						type = 'range',
 						name = L["Low Threshold"],
 						desc = L["Threshold before text turns red and is in decimal form. Set to -1 for it to never turn red"],
 						min = -1, max = 20, step = 1,
+						disabled = function() return not E.db.sle.unitframes.unit[unitID].auras.debuffs.enable end,
 					},
 				},
 			},
