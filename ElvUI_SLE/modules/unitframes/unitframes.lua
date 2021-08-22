@@ -78,17 +78,17 @@ function SUF:Initialize()
 		end
 	end
 
-	local f = CreateFrame("Frame")
-	f:RegisterEvent("PLAYER_ENTERING_WORLD")
-	f:SetScript("OnEvent", function(self, event)
+	local f = CreateFrame('Frame')
+	f:RegisterEvent('PLAYER_ENTERING_WORLD')
+	f:SetScript('OnEvent', function(self, event)
 		self:UnregisterEvent(event)
 		if E.private.sle.unitframe.statusbarTextures.cast then SUF:CastBarHook() end
 	end)
 
 	--Hooking to group frames
-	hooksecurefunc(UF, "Update_PartyFrames", SUF.Update_GroupFrames)
-	hooksecurefunc(UF, "Update_RaidFrames", SUF.Update_GroupFrames)
-	hooksecurefunc(UF, "Update_Raid40Frames", SUF.Update_GroupFrames)
+	hooksecurefunc(UF, 'Update_PartyFrames', SUF.Update_GroupFrames)
+	hooksecurefunc(UF, 'Update_RaidFrames', SUF.Update_GroupFrames)
+	hooksecurefunc(UF, 'Update_Raid40Frames', SUF.Update_GroupFrames)
 
 	--Hook pvp icons
 	SUF:UpgradePvPIcon()
