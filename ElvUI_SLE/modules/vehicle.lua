@@ -8,7 +8,6 @@ local MasqueGroup = Masque and Masque:Group('ElvUI', 'ActionBars')
 --GLOBALS: CreateFrame, hooksecurefunc, UIParent
 local format = format
 local RegisterStateDriver = RegisterStateDriver
-local UnregisterStateDriver = UnregisterStateDriver
 local GetVehicleBarIndex, GetOverrideBarIndex = GetVehicleBarIndex, GetOverrideBarIndex
 
 -- Regular Button for these bars are 52. 52 * .71 = ~37.. I just rounded it up to 40 and called it good.
@@ -116,7 +115,6 @@ end
 
 function EVB:CreateBar()
 	local page = format('[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13;', GetOverrideBarIndex(), GetVehicleBarIndex(), GetVehicleBarIndex())
-	-- local bindButtons = 'ACTIONBUTTON'
 
 	local bar = CreateFrame('Frame', 'ElvUISL_EnhancedVehicleBar', E.UIParent, 'SecureHandlerStateTemplate')
 	bar.id = 1
@@ -134,18 +132,17 @@ function EVB:CreateBar()
 
 	bar:SetAttribute('_onstate-page', [[
 		newstate = ((HasTempShapeshiftActionBar() and self:GetAttribute('hasTempBar')) and GetTempShapeshiftBarIndex()) or (UnitHasVehicleUI('player') and GetVehicleBarIndex()) or (HasOverrideActionBar() and GetOverrideBarIndex()) or newstate
+		if not newstate then return end
 
-		if newstate then
-			if newstate ~= 0 then
+		if newstate ~= 0 then
+			self:SetAttribute('state', newstate)
+			control:ChildUpdate('state', newstate)
+		else
+			local newCondition = self:GetAttribute('newCondition')
+			if newCondition then
+				newstate = SecureCmdOptionParse(newCondition)
 				self:SetAttribute('state', newstate)
 				control:ChildUpdate('state', newstate)
-			else
-				local newCondition = self:GetAttribute('newCondition')
-				if newCondition then
-					newstate = SecureCmdOptionParse(newCondition)
-					self:SetAttribute('state', newstate)
-					control:ChildUpdate('state', newstate)
-				end
 			end
 		end
 	]])
