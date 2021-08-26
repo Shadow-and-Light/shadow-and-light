@@ -9,6 +9,7 @@ local MasqueGroup = Masque and Masque:Group('ElvUI', 'ActionBars')
 local format = format
 local RegisterStateDriver = RegisterStateDriver
 local GetVehicleBarIndex, GetOverrideBarIndex = GetVehicleBarIndex, GetOverrideBarIndex
+local defaultFont, defaultFontSize, defaultFontOutline
 
 -- Regular Button for these bars are 52. 52 * .71 = ~37.. I just rounded it up to 40 and called it good.
 function EVB:Animate(bar, x, y, duration)
@@ -91,6 +92,51 @@ function EVB:CreateExtraButtonSet()
 
 		bar.buttons[i]:SetCheckedTexture('')
 		RegisterStateDriver(bar.buttons[i], 'visibility', '[vehicleui][overridebar][shapeshift][possessbar] show; hide')
+
+		-- local elvhotkey = _G['ElvUI_Bar1Button'..i..'HotKey']
+		local hotkey = _G[bar.buttons[i]:GetName()..'HotKey']
+		local hotkeytext
+
+		local hotkeyPosition = db and db.hotkeyTextPosition or 'TOPRIGHT'
+		local hotkeyXOffset = db and db.hotkeyTextXOffset or 0
+		local hotkeyYOffset = db and db.hotkeyTextYOffset or -3
+		local color = AB.db.fontColor
+
+		if i == 7 then
+			hotkeytext = _G['ElvUI_Bar1Button12HotKey']:GetText()
+		else
+			hotkeytext = _G['ElvUI_Bar1Button'..i..'HotKey']:GetText()
+		end
+
+		local justify = 'RIGHT'
+		if hotkeyPosition == 'TOPLEFT' or hotkeyPosition == 'BOTTOMLEFT' then
+			justify = 'LEFT'
+		elseif hotkeyPosition == 'TOP' or hotkeyPosition == 'BOTTOM' then
+			justify = 'CENTER'
+		end
+
+		if hotkeytext then
+			if hotkeytext == _G.RANGE_INDICATOR then
+				hotkey:SetFont(defaultFont, defaultFontSize, defaultFontOutline)
+				hotkey.SetVertexColor = nil
+			else
+				hotkey:FontTemplate(E.Libs.LSM:Fetch('font', AB.db.font), AB.db.fontSize, AB.db.fontOutline)
+				hotkey.SetVertexColor = E.noop
+			end
+			hotkey:SetText(hotkeytext)
+			hotkey:SetJustifyH(justify)
+		end
+
+		hotkey:SetTextColor(color.r, color.g, color.b)
+
+		-- if db and not db.hotkeytext then
+			-- hotkey:Hide()
+		-- else
+			hotkey:Show()
+		-- end
+
+		hotkey:ClearAllPoints()
+		hotkey:Point(hotkeyPosition, hotkeyXOffset, hotkeyYOffset)
 	end
 end
 
@@ -156,6 +202,16 @@ end
 function EVB:Initialize()
 	if not SLE.initialized then return end
 	if not E.private.sle.vehicle.enable or not E.private.actionbar.enable then return end
+
+	if E.locale == 'koKR' then
+		defaultFont, defaultFontSize, defaultFontOutline = [[Fonts\2002.TTF]], 11, "MONOCHROME, THICKOUTLINE"
+	elseif E.locale == 'zhTW' then
+		defaultFont, defaultFontSize, defaultFontOutline = [[Fonts\arheiuhk_bd.TTF]], 11, "MONOCHROME, THICKOUTLINE"
+	elseif E.locale == 'zhCN' then
+		defaultFont, defaultFontSize, defaultFontOutline = [[Fonts\FRIZQT__.TTF]], 11, 'MONOCHROME, OUTLINE'
+	else
+		defaultFont, defaultFontSize, defaultFontOutline = [[Fonts\ARIALN.TTF]], 12, "MONOCHROME, THICKOUTLINE"
+	end
 
 	EVB:CreateBar()
 
