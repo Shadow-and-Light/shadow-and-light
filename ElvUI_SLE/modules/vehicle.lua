@@ -150,8 +150,7 @@ function EVB:CreateBar()
 	EVB:Animate(bar, 0, -(bar:GetHeight()), 1)
 
 	E:CreateMover(bar, 'EnhancedVehicleBar_Mover', L["Enhanced Vehicle Bar"], nil, nil, nil, 'ALL,S&L,S&L MISC', nil, 'sle, modules, actionbars, vehicle')
-
-	AB:PositionAndSizeBar('bar1')
+	-- AB:PositionAndSizeBar('bar1')
 end
 
 function EVB:Initialize()
