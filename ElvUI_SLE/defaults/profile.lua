@@ -12,12 +12,35 @@ local UF_Auras = {
 }
 
 P["sle"] = {
-	--Actionbars
-	["actionbars"] = {
-		["vehicle"] = {
-			["buttonsize"] = 40,
-			["buttonspacing"] = 2,
-			-- ["template"] = "Transparent",
+	--Actionbar
+	actionbar = {
+		vehicle = {
+			enabled = true,
+			mouseover = false,
+			clickThrough = false,
+			keepSizeRatio = true,
+			buttonsPerRow = 7,
+			point = 'TOPLEFT',
+			backdrop = true,
+			heightMult = 1,
+			widthMult = 1,
+			backdropSpacing = 2,
+			buttonSize = 40,
+			buttonHeight = 40,
+			buttonSpacing = 2,
+			alpha = 1,
+			showGrid = true,
+			hotkeyColor = { r = 1, g = 1, b = 1 },
+			hotkeyFont = 'Homespun',
+			hotkeyFontOutline = 'MONOCHROMEOUTLINE',
+			hotkeyFontSize = 12,
+			hotkeytext = true,
+			hotkeyTextPosition = 'TOPRIGHT',
+			hotkeyTextXOffset = 0,
+			hotkeyTextYOffset = -3,
+			useHotkeyColor = false,
+			frameStrata = 'LOW',
+			frameLevel = 1,
 		},
 	},
 	--Armory

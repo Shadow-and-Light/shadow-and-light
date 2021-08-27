@@ -1,111 +1,104 @@
-local SLE, _, E, L, V = unpack(select(2, ...))
-local A = SLE.Actionbars
+local SLE, _, E, L, V, P = unpack(select(2, ...))
 local AB = E.ActionBars
 local EVB = SLE.EnhancedVehicleBar
 
---GLOBALS: unpack, select, tinsert, DEFAULT, NONE, LibStub
-local tinsert = tinsert
-local DEFAULT, NONE = DEFAULT, NONE
+local function getCheckedColor(info)
+	local t = E.private.sle.actionbars[info[#info]]
+	local d = V.sle.actionbars[info[#info]]
+
+	return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+end
+
+local function setCheckedColor(info, r, g, b, a)
+	E.private.sle.actionbars[info[#info]] = {}
+	local t = E.private.sle.actionbars[info[#info]]
+	t.r, t.g, t.b, t.a = r, g, b, a
+
+	for i = 1, 10 do
+		AB:PositionAndSizeBar('bar'..i)
+	end
+
+	EVB:PositionAndSizeBar()
+end
 
 local function configTable()
 	if not SLE.initialized then return end
+	local C = unpack(E.OptionsUI)
 	local ACH = E.Libs.ACH
 
-	E.Options.args.sle.args.modules.args.actionbars = {
-		type = 'group',
-		name = L["ActionBars"],
-		order = 1,
-		disabled = function() return not E.private.actionbar.enable end,
-		args = {
-			elvuibars = {
-				type = 'group',
-				name = L["ActionBars"],
-				order = 10,
-				guiInline = true,
-				args = {
-					checkedtexture = {
-						order = 2,
-						type = 'toggle',
-						name = L["Checked Texture"],
-						desc = L["Highlight the button of the spell with areal effect until the area is selected."],
-						disabled = function() return not E.private.actionbar.enable or (LibStub('Masque', true) and E.private.actionbar.masque.actionbars) end,
-						get = function(info) return E.private.sle.actionbars[info[#info]] end,
-						set = function(info, value) E.private.sle.actionbars[info[#info]] = value; E:StaticPopup_Show('PRIVATE_RL') end,
-					},
-					checkedColor = {
-						type = 'color',
-						order = 3,
-						name = L["Checked Texture Color"],
-						hasAlpha = true,
-						disabled = function() return not E.private.actionbar.enable or not E.private.sle.actionbars.checkedtexture or LibStub('Masque', true) end,
-						get = function(info)
-							local t = E.private.sle.actionbars[info[#info]]
-							local d = V.sle.actionbars[info[#info]]
-							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-						end,
-						set = function(info, r, g, b, a)
-							E.private.sle.actionbars[info[#info]] = {}
-							local t = E.private.sle.actionbars[info[#info]]
-							t.r, t.g, t.b, t.a = r, g, b, a
-							for i = 1, 10 do
-								AB:PositionAndSizeBar('bar'..i)
-							end
-						end,
-					},
-				},
-			},
-			vehicle = {
-				type = 'group',
-				name = L["Enhanced Vehicle Bar"],
-				order = 10,
-				guiInline = true,
-				args = {
-					enable = {
-						order = 1,
-						type = 'toggle',
-						name = L["Enable"],
-						desc = L["Enables a different look/feel vehicle bar."],
-						get = function() return E.private.sle.vehicle.enable end,
-						set = function(_, value) E.private.sle.vehicle.enable = value; E:StaticPopup_Show('PRIVATE_RL') end,
-					},
-					-- template = {
-					-- 	order = 2,
-					-- 	type = 'select',
-					-- 	name = L["Template"],
-					-- 	disabled = function() return not E.private.sle.vehicle.enable end,
-					-- 	get = function(info) return E.db.sle.actionbars.vehicle[info[#info]] end,
-					-- 	set = function(info, value) E.db.sle.actionbars.vehicle[info[#info]] = value; EVB:PositionAndSizeBar() end,
-					-- 	values = {
-					-- 		Default = DEFAULT,
-					-- 		Transparent = L["Transparent"],
-					-- 		NoBackdrop = NONE,
-					-- 	},
-					-- },
-					spacer1 = ACH:Spacer(3, 'full'),
-					buttonsize = {
-						order = 5,
-						type = 'range',
-						name = L["Button Size"],
-						desc = L["The size of the action buttons."],
-						min = 15, max = 60, step = 1,
-						disabled = function() return not E.private.sle.vehicle.enable end,
-						get = function(info) return E.db.sle.actionbars.vehicle[info[#info]] end,
-						set = function(info, value) E.db.sle.actionbars.vehicle[info[#info]] = value; EVB:PositionAndSizeBar() end,
-					},
-					buttonspacing = {
-						order = 5,
-						type = 'range',
-						name = L["Button Spacing"],
-						desc = L["The spacing between buttons."],
-						min = -4, max = 20, step = 1,
-						disabled = function() return not E.private.sle.vehicle.enable end,
-						get = function(info) return E.db.sle.actionbars.vehicle[info[#info]] end,
-						set = function(info, value) E.db.sle.actionbars.vehicle[info[#info]] = value; EVB:PositionAndSizeBar() end,
-					},
-				},
-			},
-		},
+	local SharedBarOptions = {
+		enabled = ACH:Toggle(L["Enable"], nil, 0),
+		-- 	-- restorePosition = ACH:Execute(L["Restore Bar"], L["Restore the actionbars default settings"], 1),
+		generalOptions = ACH:MultiSelect('', nil, 3, { backdrop = L["Backdrop"], mouseover = L["Mouse Over"], clickThrough = L["Click Through"] }, nil, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enabled end),
+		buttonGroup = ACH:Group(L["Button Settings"], nil, 4, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enabled end),
+		backdropGroup = ACH:Group(L["Backdrop Settings"], nil, 5, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enabled end),
+		barGroup = ACH:Group(L["Bar Settings"], nil, 6, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enabled end),
 	}
+
+	local textAnchors = { BOTTOMRIGHT = 'BOTTOMRIGHT', BOTTOMLEFT = 'BOTTOMLEFT', TOPRIGHT = 'TOPRIGHT', TOPLEFT = 'TOPLEFT', BOTTOM = 'BOTTOM', TOP = 'TOP' }
+	local getTextColor = function(info) local t = E.db.sle.actionbar[info[#info-3]][info[#info]] local d = P.sle.actionbar[info[#info-3]][info[#info]] return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a end
+	local setTextColor = function(info, r, g, b, a) local t = E.db.sle.actionbar[info[#info-3]][info[#info]] t.r, t.g, t.b, t.a = r, g, b, a EVB:UpdateButtonSettings() end
+
+	SharedBarOptions.buttonGroup.inline = true
+	SharedBarOptions.buttonGroup.args.buttonsPerRow = ACH:Range(L["Buttons Per Row"], L["The amount of buttons to display per row."], 2, { min = 1, max = 7, step = 1 })
+	SharedBarOptions.buttonGroup.args.buttonSpacing = ACH:Range(L["Button Spacing"], L["The spacing between buttons."], 3, { min = -3, max = 20, step = 1 })
+	SharedBarOptions.buttonGroup.args.buttonSize = ACH:Range('', nil, 4, { softMin = 14, softMax = 64, min = 12, max = 128, step = 1 })
+	SharedBarOptions.buttonGroup.args.buttonHeight = ACH:Range(L["Button Height"], L["The height of the action buttons."], 5, { softMin = 14, softMax = 64, min = 12, max = 128, step = 1 })
+
+	SharedBarOptions.barGroup.inline = true
+	SharedBarOptions.barGroup.args.point = ACH:Select(L["Anchor Point"], L["The first button anchors itself to this point on the bar."], 1, { TOPLEFT = 'TOPLEFT', TOPRIGHT = 'TOPRIGHT', BOTTOMLEFT = 'BOTTOMLEFT', BOTTOMRIGHT = 'BOTTOMRIGHT' })
+	SharedBarOptions.barGroup.args.alpha = ACH:Range(L["Alpha"], nil, 2, { min = 0, max = 1, step = 0.01, isPercent = true })
+
+	SharedBarOptions.barGroup.args.strataAndLevel = ACH:Group(L["Strata and Level"], nil, 30)
+	SharedBarOptions.barGroup.args.strataAndLevel.args.frameStrata = ACH:Select(L["Frame Strata"], nil, 3, { BACKGROUND = 'BACKGROUND', LOW = 'LOW', MEDIUM = 'MEDIUM', HIGH = 'HIGH' })
+	SharedBarOptions.barGroup.args.strataAndLevel.args.frameLevel = ACH:Range(L["Frame Level"], nil, 4, { min = 1, max = 256, step = 1 })
+
+	SharedBarOptions.barGroup.args.hotkeyTextGroup = ACH:Group(L["Keybind Text"], nil, 40, nil, function(info) return E.db.sle.actionbar.vehicle[info[#info]] end, function(info, value) E.db.sle.actionbar.vehicle[info[#info]] = value; EVB:UpdateButtonSettings() end)
+	SharedBarOptions.barGroup.args.hotkeyTextGroup.inline = true
+	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeytext = ACH:Toggle(L["Enable"], L["Display bind names on action buttons."], 0, nil, nil, nil, nil, nil, nil, false)
+	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.useHotkeyColor = ACH:Toggle(L["Custom Color"], nil, 1)
+	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeyColor = ACH:Color('', nil, 2, nil, nil, getTextColor, setTextColor, function() return not E.db.sle.actionbar.vehicle.enabled or not E.db.sle.actionbar.vehicle.hotkeytext end, function() return not E.db.sle.actionbar.vehicle.useHotkeyColor end)
+	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.spacer1 = ACH:Spacer(3, 'full')
+	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeyTextPosition = ACH:Select(L["Position"], nil, 4, textAnchors, nil, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enabled or (E.Masque and E.private.actionbar.masque.actionbars) end)
+	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeyTextXOffset = ACH:Range(L["X-Offset"], nil, 5, { min = -24, max = 24, step = 1 }, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enabled or (E.Masque and E.private.actionbar.masque.actionbars) end)
+	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeyTextYOffset = ACH:Range(L["Y-Offset"], nil, 6, { min = -24, max = 24, step = 1 }, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enabled or (E.Masque and E.private.actionbar.masque.actionbars) end)
+	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.spacer2 = ACH:Spacer(7, 'full')
+	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeyFont = ACH:SharedMediaFont(L["Font"], nil, 8)
+	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeyFontOutline = ACH:FontFlags(L["Font Outline"], nil, 9)
+	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeyFontSize = ACH:Range(L["Font Size"], nil, 10, C.Values.FontSize)
+
+	SharedBarOptions.backdropGroup.inline = true
+	SharedBarOptions.backdropGroup.args.backdropSpacing = ACH:Range(L["Backdrop Spacing"], L["The spacing between the backdrop and the buttons."], 1, { min = 0, max = 10, step = 1 })
+	SharedBarOptions.backdropGroup.args.heightMult = ACH:Range(L["Height Multiplier"], L["Multiply the backdrops height or width by this value. This is usefull if you wish to have more than one bar behind a backdrop."], 2, { min = 1, max = 5, step = 1 })
+	SharedBarOptions.backdropGroup.args.widthMult = ACH:Range(L["Width Multiplier"], L["Multiply the backdrops height or width by this value. This is usefull if you wish to have more than one bar behind a backdrop."], 2, { min = 1, max = 5, step = 1 })
+
+	local ActionBar = ACH:Group(L["ActionBars"], nil, 1, 'tab', nil, nil, function() return not E.private.actionbar.enable end)
+	E.Options.args.sle.args.modules.args.actionbars = ActionBar
+
+	local elvuibars = ACH:Group(L["Checked Texture"], nil, 1)
+	ActionBar.args.elvuibars = elvuibars
+
+	elvuibars.guiInline = true
+	elvuibars.args.checkedtexture = ACH:Toggle(L["Override"], nil, 1, nil, nil, nil, function(info) return E.private.sle.actionbars[info[#info]] end, function(info, value) E.private.sle.actionbars[info[#info]] = value; E:StaticPopup_Show('PRIVATE_RL') end)
+	elvuibars.args.checkedColor = ACH:Color(L["Checked Texture Color"], nil, 2, true, nil, getCheckedColor, setCheckedColor)
+
+	local vehicle = ACH:Group(L["Dedicated Vehicle Bar"], nil, 2, 'group', function(info) return E.db.sle.actionbar.vehicle[info[#info]] end, function(info, value) E.db.sle.actionbar.vehicle[info[#info]] = value; EVB:PositionAndSizeBar() end)
+	ActionBar.args.vehicle = vehicle
+
+	vehicle.args = CopyTable(SharedBarOptions)
+
+	vehicle.args.enabled.set = function(info, value) E.db.sle.actionbar.vehicle[info[#info]] = value; EVB:PositionAndSizeBar() end
+
+	vehicle.args.generalOptions.get = function(_, key) return E.db.sle.actionbar.vehicle[key] end
+	vehicle.args.generalOptions.set = function(_, key, value) E.db.sle.actionbar.vehicle[key] = value EVB:UpdateButtonSettings() end
+	vehicle.args.generalOptions.values.showGrid = L["Show Empty Buttons"]
+	vehicle.args.generalOptions.values.keepSizeRatio = L["Keep Size Ratio"]
+
+	vehicle.args.buttonGroup.args.buttonSize.name = function() return E.db.sle.actionbar.vehicle.keepSizeRatio and L["Button Size"] or L["Button Width"] end
+	vehicle.args.buttonGroup.args.buttonSize.desc = function() return E.db.sle.actionbar.vehicle.keepSizeRatio and L["The size of the action buttons."] or L["The width of the action buttons."] end
+	vehicle.args.buttonGroup.args.buttonHeight.hidden = function() return E.db.sle.actionbar.vehicle.keepSizeRatio end
+
+	vehicle.args.backdropGroup.hidden = function() return not E.db.sle.actionbar.vehicle.backdrop end
 end
 
 tinsert(SLE.Configs, configTable)
