@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, _, E, L = unpack(select(2, ...))
 local EVB = SLE.EnhancedVehicleBar
 local AB = E.ActionBars
 local LAB = E.Libs.LAB
@@ -85,7 +85,7 @@ function EVB:PositionAndSizeBar()
 	bar.backdrop:SetFrameLevel(db.frameLevel - 1)
 	bar.backdrop:ClearAllPoints()
 
-	AB:MoverMagic(bar) --* Prob not needed/wanted tbh
+	AB:MoverMagic(bar)
 
 	local _, horizontal, anchorUp, anchorLeft = AB:GetGrowth(point)
 	local button, lastButton, lastColumnButton, anchorRowButton, lastShownButton
@@ -276,7 +276,7 @@ function EVB:UpdateButtonSettings()
 	-- end
 end
 
-function EVB:UpdateButtonConfig(barName, buttonName)
+function EVB:UpdateButtonConfig(barName)
 	local barDB = EVB.db[barName]
 	local bar = EVB.handledBars[barName]
 
