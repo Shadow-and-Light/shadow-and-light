@@ -1,5 +1,5 @@
 local SLE, _, E, L = unpack(select(2, ...))
-local EVB = SLE.EnhancedVehicleBar
+local DVB = SLE.DedicatedVehicleBar
 local AB = E.ActionBars
 local LAB = E.Libs.LAB
 local Masque = LibStub('Masque', true)
@@ -12,7 +12,7 @@ local RegisterStateDriver = RegisterStateDriver
 local GetVehicleBarIndex, GetOverrideBarIndex = GetVehicleBarIndex, GetOverrideBarIndex
 local defaultFont, defaultFontSize, defaultFontOutline
 
-EVB.barDefaults = {
+DVB.barDefaults = {
 	vehicle = {
 		page = 1,
 		bindButtons = 'ACTIONBUTTON',
@@ -20,9 +20,9 @@ EVB.barDefaults = {
 		position = 'BOTTOM,ElvUIParent,BOTTOM,0,34',
 	}
 }
-EVB.handledBars = {}
+DVB.handledBars = {}
 
-function EVB:Animate(bar, x, y, duration)
+function DVB:Animate(bar, x, y, duration)
 	bar.anim = bar:CreateAnimationGroup('Move_In')
 	bar.anim.in1 = bar.anim:CreateAnimation('Translation')
 	bar.anim.in1:SetDuration(0)
@@ -42,16 +42,16 @@ function EVB:Animate(bar, x, y, duration)
 	bar.anim.out1:SetScript('OnFinished', function() bar:Hide() end)
 end
 
-function EVB:AnimSlideIn(bar)
+function DVB:AnimSlideIn(bar)
 	if not bar.anim then
-		EVB:Animate(bar)
+		DVB:Animate(bar)
 	end
 
 	bar.anim.out1:Stop()
 	bar.anim:Play()
 end
 
-function EVB:AnimSlideOut(bar)
+function DVB:AnimSlideOut(bar)
 	if bar.anim then
 		bar.anim:Finish()
 	end
@@ -60,10 +60,10 @@ function EVB:AnimSlideOut(bar)
 	bar.anim.out1:Play()
 end
 
-function EVB:PositionAndSizeBar()
-	if not EVB.bar then return end
+function DVB:PositionAndSizeBar()
+	if not DVB.bar then return end
 	local db = E.db.sle.actionbar.vehicle
-	local bar = EVB.bar
+	local bar = DVB.bar
 	local buttonSpacing = db.buttonSpacing
 	local backdropSpacing = db.backdropSpacing
 	local buttonsPerRow = db.buttonsPerRow <= 7 and db.buttonsPerRow or 7
@@ -178,7 +178,7 @@ function EVB:PositionAndSizeBar()
 	end
 
 	--* Not sure if we want or need the SetMoverSnapOffset
-	E:SetMoverSnapOffset('SL_VehicleBarMover', db.buttonSpacing / 2)
+	E:SetMoverSnapOffset('SL_DedicatedVehicleBarMover', db.buttonSpacing / 2)
 
 	--! Did not test the masque stuff tbh (Yolo)
 	if MasqueGroup and E.private.actionbar.masque.actionbars then
@@ -191,12 +191,12 @@ function EVB:PositionAndSizeBar()
 	end
 end
 
-function EVB:CreateBar()
-	local bar = CreateFrame('Frame', 'SL_VehicleBar', E.UIParent, 'SecureHandlerStateTemplate')
-	EVB.handledBars['vehicle'] = bar
-	EVB.bar = bar
+function DVB:CreateBar()
+	local bar = CreateFrame('Frame', 'SL_DedicatedVehicleBar', E.UIParent, 'SecureHandlerStateTemplate')
+	DVB.handledBars['vehicle'] = bar
+	DVB.bar = bar
 
-	local defaults = EVB.barDefaults['vehicle']
+	local defaults = DVB.barDefaults['vehicle']
 	local elvButton = 'ElvUI_Bar1Button'
 	bar.id = 1
 
@@ -252,19 +252,19 @@ function EVB:CreateBar()
 		end
 	]])
 
-	local db = EVB.db.vehicle
+	local db = DVB.db.vehicle
 	local animationDistance = db.keepSizeRatio and db.buttonSize or db.buttonHeight
-	EVB:Animate(bar, 0, -(animationDistance), 1)
+	DVB:Animate(bar, 0, -(animationDistance), 1)
 
-	E:CreateMover(bar, 'SL_VehicleBarMover', L["Dedicated Vehicle Bar"], nil, nil, nil, 'ALL,ACTIONBARS,S&L,S&L MISC', nil, 'sle, modules, actionbars, vehicle')
+	E:CreateMover(bar, 'SL_DedicatedVehicleBarMover', L["Dedicated Vehicle Bar"], nil, nil, nil, 'ALL,ACTIONBARS,S&L,S&L MISC', nil, 'sle, modules, actionbars, vehicle')
 end
 
-function EVB:UpdateButtonSettings()
+function DVB:UpdateButtonSettings()
 	if not E.private.actionbar.enable then return end
 
-	for barName, bar in pairs(EVB.handledBars) do
-		EVB:UpdateButtonConfig(barName, bar.bindButtons)
-		EVB:PositionAndSizeBar()
+	for barName, bar in pairs(DVB.handledBars) do
+		DVB:UpdateButtonConfig(barName, bar.bindButtons)
+		DVB:PositionAndSizeBar()
 	end
 
 	-- if AB.db.handleOverlay then
@@ -276,9 +276,9 @@ function EVB:UpdateButtonSettings()
 	-- end
 end
 
-function EVB:UpdateButtonConfig(barName)
-	local barDB = EVB.db[barName]
-	local bar = EVB.handledBars[barName]
+function DVB:UpdateButtonConfig(barName)
+	local barDB = DVB.db[barName]
+	local bar = DVB.handledBars[barName]
 
 	if not bar.buttonConfig then bar.buttonConfig = { hideElements = {}, colors = {} } end
 
@@ -303,27 +303,27 @@ function EVB:UpdateButtonConfig(barName)
 end
 
 --* Ghetto way to get the pushed texture to work
-function EVB:LAB_MouseUp()
+function DVB:LAB_MouseUp()
 	if not E.private.actionbar.enable or not E.db.sle.actionbar.vehicle.enabled then return end
 	local slbutton = _G[self.slvehiclebutton]
 	if slbutton and slbutton.config.clickOnDown then
 		slbutton:GetPushedTexture():Hide()
 	end
 end
-hooksecurefunc(AB, 'LAB_MouseUp', EVB.LAB_MouseUp)
+hooksecurefunc(AB, 'LAB_MouseUp', DVB.LAB_MouseUp)
 
-function EVB:LAB_MouseDown()
+function DVB:LAB_MouseDown()
 	if not E.private.actionbar.enable or not E.db.sle.actionbar.vehicle.enabled then return end
 	local slbutton = _G[self.slvehiclebutton]
 	if slbutton and slbutton.config.clickOnDown then
 		slbutton:GetPushedTexture():Show()
 	end
 end
-hooksecurefunc(AB, 'LAB_MouseDown', EVB.LAB_MouseDown)
+hooksecurefunc(AB, 'LAB_MouseDown', DVB.LAB_MouseDown)
 
-function EVB:Initialize()
+function DVB:Initialize()
 	if not SLE.initialized or not E.private.actionbar.enable then return end
-	EVB.db = E.db.sle.actionbar
+	DVB.db = E.db.sle.actionbar
 
 	if E.locale == 'koKR' then
 		defaultFont, defaultFontSize, defaultFontOutline = [[Fonts\2002.TTF]], 11, "MONOCHROME, THICKOUTLINE"
@@ -335,17 +335,17 @@ function EVB:Initialize()
 		defaultFont, defaultFontSize, defaultFontOutline = [[Fonts\ARIALN.TTF]], 12, "MONOCHROME, THICKOUTLINE"
 	end
 
-	EVB:CreateBar()
-	EVB:UpdateButtonSettings()
+	DVB:CreateBar()
+	DVB:UpdateButtonSettings()
 
 	--! Def need some testing as I don't see why or where this is needed atm
-	-- EVB.bar:Execute(EVB.bar:GetAttribute('_onstate-page'))
+	-- DVB.bar:Execute(DVB.bar:GetAttribute('_onstate-page'))
 
-	-- function EVB:ForUpdateAll()
-	-- 	EVB:UpdateButtonSettings()
+	-- function DVB:ForUpdateAll()
+	-- 	DVB:UpdateButtonSettings()
 	-- end
 
-	hooksecurefunc(AB, 'UpdateButtonSettings', EVB.UpdateButtonSettings)
+	hooksecurefunc(AB, 'UpdateButtonSettings', DVB.UpdateButtonSettings)
 end
 
-SLE:RegisterModule(EVB:GetName())
+SLE:RegisterModule(DVB:GetName())

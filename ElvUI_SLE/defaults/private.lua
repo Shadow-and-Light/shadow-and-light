@@ -19,9 +19,6 @@ V["sle"] = {
 	["minimap"] = {
 		rectangle = false,
 	},
-	["vehicle"] = {
-		["enable"] = false,
-	},
 	["professions"] = {
 		["deconButton"] = {
 			["enable"] = true,

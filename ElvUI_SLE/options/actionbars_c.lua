@@ -1,6 +1,6 @@
 local SLE, _, E, L, V, P = unpack(select(2, ...))
 local AB = E.ActionBars
-local EVB = SLE.EnhancedVehicleBar
+local DVB = SLE.DedicatedVehicleBar
 
 local function getCheckedColor(info)
 	local t = E.private.sle.actionbars[info[#info]]
@@ -18,7 +18,7 @@ local function setCheckedColor(info, r, g, b, a)
 		AB:PositionAndSizeBar('bar'..i)
 	end
 
-	EVB:PositionAndSizeBar()
+	DVB:PositionAndSizeBar()
 end
 
 local function configTable()
@@ -37,7 +37,7 @@ local function configTable()
 
 	local textAnchors = { BOTTOMRIGHT = 'BOTTOMRIGHT', BOTTOMLEFT = 'BOTTOMLEFT', TOPRIGHT = 'TOPRIGHT', TOPLEFT = 'TOPLEFT', BOTTOM = 'BOTTOM', TOP = 'TOP' }
 	local getTextColor = function(info) local t = E.db.sle.actionbar[info[#info-3]][info[#info]] local d = P.sle.actionbar[info[#info-3]][info[#info]] return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a end
-	local setTextColor = function(info, r, g, b, a) local t = E.db.sle.actionbar[info[#info-3]][info[#info]] t.r, t.g, t.b, t.a = r, g, b, a EVB:UpdateButtonSettings() end
+	local setTextColor = function(info, r, g, b, a) local t = E.db.sle.actionbar[info[#info-3]][info[#info]] t.r, t.g, t.b, t.a = r, g, b, a DVB:UpdateButtonSettings() end
 
 	SharedBarOptions.buttonGroup.inline = true
 	SharedBarOptions.buttonGroup.args.buttonsPerRow = ACH:Range(L["Buttons Per Row"], L["The amount of buttons to display per row."], 2, { min = 1, max = 7, step = 1 })
@@ -53,7 +53,7 @@ local function configTable()
 	SharedBarOptions.barGroup.args.strataAndLevel.args.frameStrata = ACH:Select(L["Frame Strata"], nil, 3, { BACKGROUND = 'BACKGROUND', LOW = 'LOW', MEDIUM = 'MEDIUM', HIGH = 'HIGH' })
 	SharedBarOptions.barGroup.args.strataAndLevel.args.frameLevel = ACH:Range(L["Frame Level"], nil, 4, { min = 1, max = 256, step = 1 })
 
-	SharedBarOptions.barGroup.args.hotkeyTextGroup = ACH:Group(L["Keybind Text"], nil, 40, nil, function(info) return E.db.sle.actionbar.vehicle[info[#info]] end, function(info, value) E.db.sle.actionbar.vehicle[info[#info]] = value; EVB:UpdateButtonSettings() end)
+	SharedBarOptions.barGroup.args.hotkeyTextGroup = ACH:Group(L["Keybind Text"], nil, 40, nil, function(info) return E.db.sle.actionbar.vehicle[info[#info]] end, function(info, value) E.db.sle.actionbar.vehicle[info[#info]] = value; DVB:UpdateButtonSettings() end)
 	SharedBarOptions.barGroup.args.hotkeyTextGroup.inline = true
 	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeytext = ACH:Toggle(L["Enable"], L["Display bind names on action buttons."], 0, nil, nil, nil, nil, nil, nil, false)
 	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.useHotkeyColor = ACH:Toggle(L["Custom Color"], nil, 1)
@@ -82,15 +82,15 @@ local function configTable()
 	elvuibars.args.checkedtexture = ACH:Toggle(L["Override"], nil, 1, nil, nil, nil, function(info) return E.private.sle.actionbars[info[#info]] end, function(info, value) E.private.sle.actionbars[info[#info]] = value; E:StaticPopup_Show('PRIVATE_RL') end)
 	elvuibars.args.checkedColor = ACH:Color(L["Checked Texture Color"], nil, 2, true, nil, getCheckedColor, setCheckedColor)
 
-	local vehicle = ACH:Group(L["Dedicated Vehicle Bar"], nil, 2, 'group', function(info) return E.db.sle.actionbar.vehicle[info[#info]] end, function(info, value) E.db.sle.actionbar.vehicle[info[#info]] = value; EVB:PositionAndSizeBar() end)
+	local vehicle = ACH:Group(L["Dedicated Vehicle Bar"], nil, 2, 'group', function(info) return E.db.sle.actionbar.vehicle[info[#info]] end, function(info, value) E.db.sle.actionbar.vehicle[info[#info]] = value; DVB:PositionAndSizeBar() end)
 	ActionBar.args.vehicle = vehicle
 
 	vehicle.args = CopyTable(SharedBarOptions)
 
-	vehicle.args.enabled.set = function(info, value) E.db.sle.actionbar.vehicle[info[#info]] = value; EVB:PositionAndSizeBar() end
+	vehicle.args.enabled.set = function(info, value) E.db.sle.actionbar.vehicle[info[#info]] = value; DVB:PositionAndSizeBar() end
 
 	vehicle.args.generalOptions.get = function(_, key) return E.db.sle.actionbar.vehicle[key] end
-	vehicle.args.generalOptions.set = function(_, key, value) E.db.sle.actionbar.vehicle[key] = value EVB:UpdateButtonSettings() end
+	vehicle.args.generalOptions.set = function(_, key, value) E.db.sle.actionbar.vehicle[key] = value DVB:UpdateButtonSettings() end
 	vehicle.args.generalOptions.values.showGrid = L["Show Empty Buttons"]
 	vehicle.args.generalOptions.values.keepSizeRatio = L["Keep Size Ratio"]
 
