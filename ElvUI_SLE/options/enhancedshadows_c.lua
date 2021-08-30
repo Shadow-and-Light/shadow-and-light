@@ -524,7 +524,7 @@ local function configTable()
 					vehicle = {
 						order = i,
 						type = 'group',
-						name = L["Dedicated Vehicle Bar"],
+						name = function() return format(E.db.sle.actionbar.vehicle.enabled and '%s' or '|cffFF3333%s|r', L["Dedicated Vehicle Bar"]) end,
 						disabled = function() return not E.ActionBars.Initialized end,
 						get = function(info) return E.db.sle.shadows.actionbars.vehicle[info[#info]] end,
 						set = function(info, value) E.db.sle.shadows.actionbars.vehicle[info[#info]] = value; ENH:ToggleABShadows() end,
