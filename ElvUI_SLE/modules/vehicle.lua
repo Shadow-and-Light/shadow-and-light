@@ -256,7 +256,7 @@ function DVB:CreateBar()
 	local animationDistance = db.keepSizeRatio and db.buttonSize or db.buttonHeight
 	DVB:Animate(bar, 0, -(animationDistance), 1)
 
-	E:CreateMover(bar, 'SL_DedicatedVehicleBarMover', L["Dedicated Vehicle Bar"], nil, nil, nil, 'ALL,ACTIONBARS,S&L,S&L MISC', nil, 'sle, modules, actionbars, vehicle')
+	E:CreateMover(bar, 'SL_DedicatedVehicleBarMover', L["Dedicated Vehicle Bar"], nil, nil, nil, 'ALL,ACTIONBARS,S&L,S&L MISC', nil, 'sle, modules, actionbars')
 end
 
 function DVB:UpdateButtonSettings()
