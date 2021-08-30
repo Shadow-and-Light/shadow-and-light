@@ -216,17 +216,16 @@ function ENH:CreateABShadows()
 		end
 	end
 
-	-- TODO: Add Enhanced Vehicle UI Later
-	-- do
-	-- -- S&L Enhanced Vehicle Bar
-	-- 	local frame = _G.SL_DedicatedVehicleBar
-	-- 	ENH:ProcessShadow(frame, nil, frame:GetFrameLevel(), ENH.db.actionbars.vehicle)
-	-- 	for i = 1, 12 do
-	-- 		local button = _G['SL_DedicatedVehicleBarButton'..i]
-	-- 		if not button then break end
-	-- 		ENH:ProcessShadow(button, button.backdrop, button:GetFrameLevel(), ENH.db.actionbars.vehicle)
-	-- 	end
-	-- end
+	do
+		-- S&L Dedicated Vehicle Bar
+		local frame = _G.SL_DedicatedVehicleBar
+		ENH:ProcessShadow(frame, nil, frame:GetFrameLevel(), ENH.db.actionbars.vehicle)
+		for i = 1, 7 do
+			local button = _G['SL_DedicatedVehicleBarButton'..i]
+			if not button then break end
+			ENH:ProcessShadow(button, button.backdrop, button:GetFrameLevel(), ENH.db.actionbars.vehicle)
+		end
+	end
 end
 
 function ENH:ToggleABShadows()
@@ -246,20 +245,19 @@ function ENH:ToggleABShadows()
 		end
 	end
 
-	-- TODO: Add Enhanced Vehicle UI Later
-	-- S&L Enhanced Vehicle Bar
-	-- do
-	-- 	local frame = _G.SL_DedicatedVehicleBar
-	-- 	if frame and frame.enhshadow then
-	-- 		frame.enhshadow:SetShown(ENH.db.actionbars.vehicle.backdrop)
-	-- 	end
-	-- 	for i = 1, 12 do
-	-- 		local button = _G['SL_DedicatedVehicleBarButton'..i]
-	-- 		if button and button.enhshadow then
-	-- 			button.enhshadow:SetShown(ENH.db.actionbars.vehicle.buttons)
-	-- 		end
-	-- 	end
-	-- end
+	do
+		-- S&L Dedicated Vehicle Bar
+		local frame = _G.SL_DedicatedVehicleBar
+		if frame and frame.enhshadow then
+			frame.enhshadow:SetShown(ENH.db.actionbars.vehicle.backdrop)
+		end
+		for i = 1, 7 do
+			local button = _G['SL_DedicatedVehicleBarButton'..i]
+			if button and button.enhshadow then
+				button.enhshadow:SetShown(ENH.db.actionbars.vehicle.buttons)
+			end
+		end
+	end
 
 	do
 		-- Pet Bar
@@ -525,7 +523,8 @@ function ENH:Initialize()
 	ENH:HandleElvUIPanels()
 
 	SLE:UpdateMedia()
-	-- ENH:UpdateShadows()
+	ENH:UpdateShadows()
+
 	function ENH:ForUpdateAll()
 		ENH:UpdateShadows()
 	end

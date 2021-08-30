@@ -1100,11 +1100,11 @@ P["sle"] = {
 				buttons = false,
 				size = 3,
 			},
-			-- vehicle = { -- TODO: Add Enhanced Vehicle UI Later
-			-- 	backdrop = false,
-			-- 	buttons = false,
-			-- 	size = 3,
-			-- },
+			vehicle = {
+				backdrop = false,
+				buttons = false,
+				size = 3,
+			},
 		},
 		chat = {
 			LeftChatPanel = {
