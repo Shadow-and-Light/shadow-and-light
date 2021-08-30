@@ -105,7 +105,9 @@ V["sle"] = {
 		["level"] = 5,
 		["transparent"] = "Default",
 	},
-
+	viewport = {
+		enable = false,
+	},
 	["characterGoldsSorting"] = {},
 	}
 

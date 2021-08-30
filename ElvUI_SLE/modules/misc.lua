@@ -2,9 +2,11 @@ local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local M = SLE.Misc
 
 local _G = _G
+M.ViewportInitialized = false
 
 --Viewports
 function M:SetAllPoints(...)
+	if SLE._Compatibility['SunnArt'] or not M.ViewportInitialized or not E.private.sle.viewport.enable then return end
 	M:SetViewport()
 end
 
@@ -16,7 +18,7 @@ end
 end]]
 
 function M:SetViewport()
-	if SLE._Compatibility['SunnArt'] then return end --Other viewport addon is enabled
+	if SLE._Compatibility['SunnArt'] or not M.ViewportInitialized or not E.private.sle.viewport.enable then return end
 	local scale = E.global.general.UIScale
 
 	_G.WorldFrame:ClearAllPoints()
@@ -107,6 +109,9 @@ function M:Initialize()
 	--Some high level bullshit
 	-- WorldFrame.ORClear = WorldFrame.ClearAllPoints
 	-- WorldFrame.ClearAllPoints = M.ClearAllPoints
+
+	if SLE._Compatibility['SunnArt'] or not E.private.sle.viewport.enable then return end
+	M.ViewportInitialized = true
 	WorldFrame.ORSetAll = WorldFrame.SetAllPoints
 	WorldFrame.SetAllPoints = M.SetAllPoints
 
