@@ -1,6 +1,4 @@
-v4.30 8/28/21
+v4.30 Alpha
 
-- fixed a conflict with a reported weakaura
-- fixed enhanced shadows option for unitframes not adjusting the size upon changing the setting in the options until a reload/relog
-- aura cooldown threshold now can be enabled/disabled per buff or debuff (if disabled, it will use elvui threshold settings)
-- Enhanced Vehicle Bar is now called Dedicated Vehicle Bar and has been rewritten from ground up and now displays the keybind (pulled from elvui bar 1 which is normally used as a vehicle bar) as well as other issues with the old version, any settings before will need to be done for this bar
+- Viewport not is FULLY disabled and nothing runs if not enabled and needs a ui reload when u go to enable it just for it to run
+- Dedicated Vehicle Bar now has enhanced shadows support
