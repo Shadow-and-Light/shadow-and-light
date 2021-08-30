@@ -9,7 +9,6 @@
 	<Script file='datatexts.lua'/>
 	<Script file='elvConfig.lua'/>
 	<Script file='equipmanager.lua'/>
-	<Script file='enhancedshadows.lua'/>
 	<Script file='toolbars.lua'/>
 	<Script file='warcampaign.lua'/>
 	<Include file='legacy\load_legacy.xml'/>
@@ -30,4 +29,5 @@
 	<Include file='unitframes\load_unitframes.xml'/>
 	<Script file='vehicle.lua'/>
 	<Include file='databars\load_databars.xml'/>
+	<Script file='enhancedshadows.lua'/>
 </Ui>
