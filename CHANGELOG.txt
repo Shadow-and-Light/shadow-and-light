@@ -1,4 +1,4 @@
-v4.30 Alpha
+v4.31 8/30/21
 
 - Viewport not is FULLY disabled and nothing runs if not enabled and needs a ui reload when u go to enable it just for it to run
 - Dedicated Vehicle Bar now has enhanced shadows support
