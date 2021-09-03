@@ -28,21 +28,4 @@ function SUF:Update_GroupFrames(frame)
 			frame:DisableElement('SLE_Offline')
 		end
 	end
-	if not frame.Dead then frame.Dead = SUF:Construct_Dead(frame, group) end
-	if db.dead.enable then
-		if not frame:IsElementEnabled('SLE_Dead') then
-			frame:EnableElement('SLE_Dead')
-		end
-		frame.Dead:SetPoint('CENTER', frame, 'CENTER', db.dead.xOffset, db.dead.yOffset)
-		frame.Dead:SetSize(db.dead.size, db.dead.size)
-		if db.dead.texture == 'CUSTOM' then
-			frame.Dead:SetTexture(db.dead.CustomTexture)
-		else
-			frame.Dead:SetTexture(SUF.DeadTextures[db.dead.texture])
-		end
-	else
-		if frame:IsElementEnabled('SLE_Dead') then
-			frame:DisableElement('SLE_Dead')
-		end
-	end
 end

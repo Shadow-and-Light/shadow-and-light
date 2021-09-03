@@ -1,8 +1,0 @@
-## Interface: 60200
-## Title: oUF Dead Indicator for S&E
-## Notes: Dead indicator for oUF frames in S&L.
-## Author: Darth Predator
-## Version: 1.0.0
-## Dependencies: oUF
-
-oUF_OfflineSLE.lua

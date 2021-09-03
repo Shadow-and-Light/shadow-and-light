@@ -4,7 +4,6 @@
 	<Include file='groups\load_groups.xml'/>
 	<Include file='elements\load_elements.xml'/>
 	<Script file='offline.lua'/>
-	<Script file='dead.lua'/>
 	<Script file='statusbars.lua'/>
 	<Script file='roleIcons.lua'/>
 	<Script file='pvpIcon.lua'/>
