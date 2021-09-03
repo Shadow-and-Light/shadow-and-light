@@ -8,6 +8,7 @@ local _G = _G
 function SUF:ArrangeParty()
 	local enableState = E.private.sle.module.shadows.enable and E.db.unitframe.units.party.enable
 	local header = _G['ElvUF_Party']
+	if not header then return end
 
 	for i = 1, header:GetNumChildren() do
 		local group = select(i, header:GetChildren())
@@ -15,6 +16,7 @@ function SUF:ArrangeParty()
 		for j = 1, group:GetNumChildren() do
 			local frame = select(j, group:GetChildren())
 			if not frame then return end
+
 			local db = E.db.sle.shadows.unitframes.party
 
 			frame.SLLEGACY_ENHSHADOW = enableState and db.legacy or false

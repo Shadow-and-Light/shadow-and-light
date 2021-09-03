@@ -8,6 +8,7 @@ local _G = _G
 function SUF:ArrangeRaid()
 	local enableState = E.private.sle.module.shadows.enable and E.db.unitframe.units.raid.enable
 	local header = _G['ElvUF_Raid']
+	if not header then return end
 
 	for i = 1, header:GetNumChildren() do
 		local group = select(i, header:GetChildren())
