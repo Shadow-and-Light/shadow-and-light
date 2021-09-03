@@ -421,7 +421,6 @@ L["Reported by %s"] = true
 L["Reputation decrease Style"] = true
 L["Reputation increase Style"] = true
 L["Reset All"] = true
-L["Reset these options to defaults"] = true
 L["Resets all movers & options for S&L."] = true
 L["Rested"] = true
 L["Reverse"] = true

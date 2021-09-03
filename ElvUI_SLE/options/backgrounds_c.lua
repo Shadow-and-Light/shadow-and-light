@@ -118,7 +118,6 @@ local function configTable()
 				-- order = 4,
 				-- type = 'execute',
 				-- name = L["Restore Defaults"],
-				-- desc = L["Reset these options to defaults"],
 				-- func = function() E.SLE:Reset("backgrounds") end,
 			-- },
 			spacer1 = ACH:Spacer(5),

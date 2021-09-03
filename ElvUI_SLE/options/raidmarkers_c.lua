@@ -28,7 +28,6 @@ local function configTable()
 				order = 4,
 				type = 'execute',
 				name = L["Restore Defaults"],
-				desc = L["Reset these options to defaults"],
 				disabled = function() return not E.db.sle.raidmarkers.enable end,
 				func = function() SLE:Reset('marks') end,
 			},
