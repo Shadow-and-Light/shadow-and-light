@@ -82,8 +82,6 @@ end
 
 function SUF:Initialize()
 	if not SLE.initialized or not E.private.unitframe.enable then return end
-	--DB convert
-	if E.private.sle.unitframe.resizeHealthPrediction then E.private.sle.unitframe.resizeHealthPrediction = nil end
 
 	-- Init and Update Unitframe Stuff which is shadows atm
 	InitializeUnitFrames()
