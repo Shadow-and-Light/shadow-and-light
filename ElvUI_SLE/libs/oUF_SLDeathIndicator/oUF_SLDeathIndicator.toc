@@ -1,0 +1,8 @@
+## Interface: 90100
+## Title: oUF Dead Indicator for S&L
+## Notes: Dead indicator for oUF frames in S&L.
+## Author: Darth Predator, Repooc
+## Version: 2.0.0
+## Dependencies: oUF
+
+oUF_SLDeadIndicator.lua

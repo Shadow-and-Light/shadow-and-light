@@ -1,0 +1,8 @@
+## Interface: 60200
+## Title: oUF Offline Indicator for S&L
+## Notes: Offline indicator for oUF frames in S&L.
+## Author: Darth Predator, Repooc
+## Version: 2.0.0
+## Dependencies: oUF
+
+oUF_SLOfflineIndicator.lua
