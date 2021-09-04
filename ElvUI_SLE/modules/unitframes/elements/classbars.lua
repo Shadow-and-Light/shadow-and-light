@@ -3,9 +3,10 @@ local SUF = SLE.UnitFrames
 local UF = E.UnitFrames
 
 function SUF:Configure_ClassBar(frame)
-	local db = E.db.sle.shadows
 	local bars = frame[frame.ClassBar]
 	if not bars then return end
+	local db = E.db.sle.shadows
+	if frame.unitframeType ~= 'player' then return end
 
 	local r, g, b = db.shadowcolor.r, db.shadowcolor.g, db.shadowcolor.b
 	local offset = (E.PixelMode and db.unitframes.size) or (db.unitframes.size + 1)
