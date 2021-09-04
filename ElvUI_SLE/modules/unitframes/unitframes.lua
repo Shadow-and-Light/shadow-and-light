@@ -85,7 +85,6 @@ function SUF:Initialize()
 
 	-- Init and Update Unitframe Stuff which is shadows atm
 	InitializeUnitFrames()
-	SUF:UpdateUnitFrames()
 
 	--Raid stuff
 	SUF.specNameToRole = {}
@@ -105,10 +104,6 @@ function SUF:Initialize()
 		if E.private.sle.unitframe.statusbarTextures.cast then SUF:CastBarHook() end
 	end)
 
-	--Hooking to group frames
-	hooksecurefunc(UF, 'Update_PartyFrames', SUF.Update_GroupFrames)
-	hooksecurefunc(UF, 'Update_RaidFrames', SUF.Update_GroupFrames)
-	hooksecurefunc(UF, 'Update_Raid40Frames', SUF.Update_GroupFrames)
 
 	--Hook pvp icons
 	SUF:UpgradePvPIcon()
@@ -117,8 +112,6 @@ function SUF:Initialize()
 
 	function SUF:ForUpdateAll()
 		if E.private.sle.unitframe.statusbarTextures.power then SUF:BuildStatusTable() end
-		-- if E.private.sle.module.shadows.enable then SUF:UpdateUnitFrames() end
-		SUF:UpdateUnitFrames()
 	end
 end
 

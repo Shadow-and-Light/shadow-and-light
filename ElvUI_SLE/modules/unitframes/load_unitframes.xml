@@ -3,7 +3,6 @@
 	<Include file='units\load_units.xml'/>
 	<Include file='groups\load_groups.xml'/>
 	<Include file='elements\load_elements.xml'/>
-	<Script file='offline.lua'/>
 	<Script file='statusbars.lua'/>
 	<Script file='roleIcons.lua'/>
 	<Script file='pvpIcon.lua'/>
