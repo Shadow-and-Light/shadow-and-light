@@ -2,6 +2,7 @@
 local ENH = SLE.EnhancedShadows
 local SUF = SLE.UnitFrames
 local DT = E.DataTexts
+local UF = E.UnitFrames
 
 -- GLOBALS: MICRO_BUTTONS
 
@@ -590,7 +591,10 @@ local function configTable()
 						name = L["Size"],
 						min = 2, max = 10, step = 1,
 						get = function(info) return E.db.sle.shadows.unitframes[info[#info]] end,
-						set = function(info, value) E.db.sle.shadows.unitframes[info[#info]] = value; SUF:UpdateUnitFrames() end,
+						set = function(info, value)
+							E.db.sle.shadows.unitframes[info[#info]] = value
+							UF:Update_AllFrames()
+						end,
 						disabled = function() return not E.UnitFrames.Initialized end,
 					},
 				},
@@ -696,8 +700,8 @@ local function configTable()
 			get = function(info) return E.db.sle.shadows.unitframes[unit][info[#info]] end,
 			set = function(info, value)
 				E.db.sle.shadows.unitframes[unit][info[#info]] = value
-				local ufname = E:StringTitle(unit):gsub('t(arget)', 'T%1')
-				SUF['Arrange'..ufname]()
+				-- local ufname = E:StringTitle(unit):gsub('t(arget)', 'T%1')
+				UF:Update_AllFrames()
 			end,
 			args = {
 				elvuiconfig = {
