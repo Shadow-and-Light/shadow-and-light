@@ -1345,11 +1345,25 @@ P["sle"] = {
 				buffs = CopyTable(UF_Auras),
 				deathIndicator = CopyTable(sharedIndicatorOptions),
 				debuffs = CopyTable(UF_Auras),
-				pvpIconText = {
-					enable = true,
-					xoffset = 0,
-					yoffset = 0,
-					level = true,
+				pvpicontext = {
+					level = {
+						enable = false,
+						anchorPoint = 'TOP',
+						xOffset = 1,
+						yOffset = 5,
+						font = 'PT Sans Narrow',
+						fontSize = 12,
+						fontOutline = 'THICKOUTLINE',
+					},
+					timer = {
+						enable = false,
+						anchorPoint = 'BOTTOM',
+						xOffset = 1,
+						yOffset = -6,
+						font = 'PT Sans Narrow',
+						fontSize = 13,
+						fontOutline = 'THICKOUTLINE',
+					},
 				},
 			},
 			target = {
@@ -1357,8 +1371,25 @@ P["sle"] = {
 				deathIndicator = CopyTable(sharedIndicatorOptions),
 				debuffs = CopyTable(UF_Auras),
 				offlineIndicator = CopyTable(sharedIndicatorOptions),
-				pvpIconText = {
-					level = true,
+				pvpicontext = {
+					level = {
+						enable = false,
+						anchorPoint = 'TOP',
+						xOffset = 1,
+						yOffset = 5,
+						font = 'PT Sans Narrow',
+						fontSize = 12,
+						fontOutline = 'THICKOUTLINE',
+					},
+					timer = {
+						enable = false,
+						anchorPoint = 'BOTTOM',
+						xOffset = 1,
+						yOffset = -6,
+						font = 'PT Sans Narrow',
+						fontSize = 13,
+						fontOutline = 'THICKOUTLINE',
+					},
 				},
 			},
 			targettarget = {
