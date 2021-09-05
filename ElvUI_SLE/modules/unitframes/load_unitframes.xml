@@ -5,5 +5,4 @@
 	<Include file='elements\load_elements.xml'/>
 	<Script file='statusbars.lua'/>
 	<Script file='roleIcons.lua'/>
-	<Script file='pvpIcon.lua'/>
 </Ui>

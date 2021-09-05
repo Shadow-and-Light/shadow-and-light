@@ -109,8 +109,6 @@ function SUF:Initialize()
 		if E.private.sle.unitframe.statusbarTextures.cast then SUF:CastBarHook() end
 	end)
 
-	-- SUF:UpgradePvPIcon()
-
 	SUF:InitStatus()
 
 	function SUF:ForUpdateAll()
