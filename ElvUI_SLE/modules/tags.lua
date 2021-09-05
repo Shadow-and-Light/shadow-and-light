@@ -80,10 +80,12 @@ E:AddTag('absorbs:sl-full', 'UNIT_ABSORB_AMOUNT_CHANGED', function(unit)
 	end
 end)
 
-E:AddTag('sl:pvptimer', 1, function(unit)
+E:AddTag('sl:pvptimer', 1, function(unit,a,b)
 	if UnitIsPVPFreeForAll(unit) or UnitIsPVP(unit) then
+		if unit ~= 'player' then
+			return 'PvP'
+		end
 		local timer = GetPVPTimer()
-
 		if timer ~= 301000 and timer ~= -1 then
 			local mins = floor((timer / 1000) / 60)
 			local secs = floor((timer / 1000) - (mins * 60))
@@ -97,8 +99,7 @@ E:AddTag('sl:pvptimer', 1, function(unit)
 end)
 
 E:AddTag('sl:pvplevel', 'HONOR_LEVEL_UPDATE UNIT_FACTION', function(unit)
-	-- if unit ~= "target" and unit ~= "player" then return "" end
-	return (UnitIsPVP(unit) and UnitHonorLevel(unit) > 0) and UnitHonorLevel(unit) or ''
+	return (UnitIsPVP(unit) and UnitHonorLevel(unit) > 0) and UnitHonorLevel(unit) or nil
 end)
 
 for textFormat in pairs(E.GetFormattedTextStyles) do
