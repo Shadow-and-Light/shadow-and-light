@@ -4,7 +4,7 @@ local SUF = SLE.UnitFrames
 function SUF:Construct_ArenaFrames(frame)
 	-- print('Construct_ArenaFrames', frame:GetName())
 	frame.SL_DeathIndicator = SUF:Construct_DeathIndicator(frame)
-	frame.SL_DeathIndicator = SUF:Construct_OfflineIndicator(frame)
+	frame.SL_OfflineIndicator = SUF:Construct_OfflineIndicator(frame)
 end
 
 function SUF:Update_ArenaFrames(frame)
