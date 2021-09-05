@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, _, E = unpack(select(2, ...))
 local UF = E.UnitFrames
 local SUF = SLE.UnitFrames
 
@@ -104,8 +104,8 @@ function SUF:Initialize()
 
 	local f = CreateFrame('Frame')
 	f:RegisterEvent('PLAYER_ENTERING_WORLD')
-	f:SetScript('OnEvent', function(self, event)
-		self:UnregisterEvent(event)
+	f:SetScript('OnEvent', function(_, event)
+		f:UnregisterEvent(event)
 		if E.private.sle.unitframe.statusbarTextures.cast then SUF:CastBarHook() end
 	end)
 
