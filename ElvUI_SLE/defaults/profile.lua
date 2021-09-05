@@ -1388,7 +1388,6 @@ P["sle"] = {
 			},
 			pettarget = {
 				buffs = CopyTable(UF_Auras),
-				deathIndicator = CopyTable(sharedIndicatorOptions),
 				debuffs = CopyTable(UF_Auras),
 			},
 			--* Group Units

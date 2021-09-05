@@ -3,7 +3,7 @@ local SUF = SLE.UnitFrames
 
 function SUF:Construct_PetTargetFrame(frame)
 	-- print('Construct_PetTargetFrame: ', frame:GetName())
-	frame.SL_DeathIndicator = SUF:Construct_DeathIndicator(frame)
+	-- frame.SL_DeathIndicator = SUF:Construct_DeathIndicator(frame)
 end
 
 function SUF:Update_PetTargetFrame(frame)
@@ -18,5 +18,5 @@ function SUF:Update_PetTargetFrame(frame)
 
 	SUF:Configure_Health(frame)
 	SUF:Configure_Power(frame)
-	SUF:Configure_DeathIndicator(frame)
+	-- SUF:Configure_DeathIndicator(frame)
 end
