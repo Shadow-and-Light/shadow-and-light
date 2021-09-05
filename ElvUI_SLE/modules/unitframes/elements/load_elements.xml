@@ -4,4 +4,5 @@
 	<Script file='classbars.lua'/>
 	<Script file='DeathIndicator.lua'/>
 	<Script file='OfflineIndicator.lua'/>
+	<Script file='PvPIconText.lua'/>
 </Ui>
