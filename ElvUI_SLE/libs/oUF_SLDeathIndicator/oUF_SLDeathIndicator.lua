@@ -4,13 +4,13 @@ local UnitIsDead, UnitIsGhost = UnitIsDead, UnitIsGhost
 local function Update(self)
 	local element = self.SL_DeathIndicator
 	local unit = self.unit
-	local isDead
+	local isDead = UnitIsDead(unit) or UnitIsGhost(unit)
 
 	if element.PreUpdate then
 		element:PreUpdate()
 	end
 
-	if UnitIsDead(unit) or UnitIsGhost(unit) or self.isForced then
+	if isDead or self.isForced then
 		isDead = true
 	else
 		isDead = false

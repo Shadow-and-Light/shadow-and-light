@@ -1335,6 +1335,10 @@ P["sle"] = {
 	},
 	--! Unitframe (slowly transition to match elvui db)
 	unitframe = {
+		roleIcons = {
+			enable = false,
+			icons = 'ElvUI',
+		},
 		units = {
 			--* Individual Units
 			player = {
@@ -1441,80 +1445,19 @@ P["sle"] = {
 	--Unitfrmes
 	["unitframes"] = {
 		["unit"] = {
-			["player"] = {
-				["pvpIconText"] = {
-					["enable"] = false,
-					["xoffset"] = 0,
-					["yoffset"] = 0,
-					["level"] = true,
-				},
-			},
-			["target"] = {
-				["pvpIconText"] = {
-					["level"] = true,
-				},
-			},
 			["party"] = {
-				["offline"] = {
-					["enable"] = false,
-					["size"] = 36,
-					["xOffset"] = 0,
-					["yOffset"] = 0,
-					["texture"] = "ALERT",
-					["CustomTexture"] = "",
-				},
-				["dead"] = {
-					["enable"] = false,
-					["size"] = 36,
-					["xOffset"] = 0,
-					["yOffset"] = 0,
-					["texture"] = "SKULL",
-					["CustomTexture"] = "",
-				},
 				["role"] = {
 					["xoffset"] = 0,
 					["yoffset"] = 0,
 				},
 			},
 			["raid"] = {
-				["offline"] = {
-					["enable"] = false,
-					["size"] = 36,
-					["xOffset"] = 0,
-					["yOffset"] = 0,
-					["texture"] = "ALERT",
-					["CustomTexture"] = "",
-				},
-				["dead"] = {
-					["enable"] = false,
-					["size"] = 36,
-					["xOffset"] = 0,
-					["yOffset"] = 0,
-					["texture"] = "SKULL",
-					["CustomTexture"] = "",
-				},
 				["role"] = {
 					["xoffset"] = 0,
 					["yoffset"] = 0,
 				},
 			},
 			["raid40"] = {
-				["offline"] = {
-					["enable"] = false,
-					["size"] = 20,
-					["xOffset"] = 0,
-					["yOffset"] = 0,
-					["texture"] = "ALERT",
-					["CustomTexture"] = "",
-				},
-				["dead"] = {
-					["enable"] = false,
-					["size"] = 36,
-					["xOffset"] = 0,
-					["yOffset"] = 0,
-					["texture"] = "SKULL",
-					["CustomTexture"] = "",
-				},
 				["role"] = {
 					["xoffset"] = 0,
 					["yoffset"] = 0,

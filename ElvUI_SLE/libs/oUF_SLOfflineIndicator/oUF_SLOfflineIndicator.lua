@@ -17,7 +17,6 @@ local function Update(self)
 	end
 
 	element:SetShown(isOffline)
-	-- element:Show()
 
 	if element.PostUpdate then
 		return element:PostUpdate(isOffline)
