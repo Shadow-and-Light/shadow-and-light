@@ -112,16 +112,13 @@ local function configTable()
 	SharedIconOptions.size.args.size = ACH:Range('', nil, 4, { softMin = 14, softMax = 64, min = 12, max = 128, step = 1 })
 	SharedIconOptions.size.args.height = ACH:Range(L["Height"], nil, 5, { softMin = 14, softMax = 64, min = 12, max = 128, step = 1 })
 
-	-- local FrameSharedOptions = {
-	-- 	PvPIconText = ACH:Group(L["PvP & Prestige Icon"], nil, 5)
-	-- }
 
 	local UnitFrames = ACH:Group(L["UnitFrames"], nil, 1, 'tab', nil, nil, function() return not E.private.unitframe.enable end)
 	E.Options.args.sle.args.modules.args.unitframes = UnitFrames
 	UnitFrames.args.desc = ACH:Description(L["Options for customizing unit frames. Please don't change these setting when ElvUI's testing frames for bosses and arena teams are shown. That will make them invisible until retoggling."], 1)
 	UnitFrames.args.Reset = ACH:Execute(L["Restore Defaults"], nil, 2, function() SLE:Reset('unitframes') end)
 
-	local General = ACH:Group(L["General"], nil, 10)
+	local General = ACH:Group(L["General"], nil, 10, 'tab')
 	UnitFrames.args.general = General
 
 	local RoleIcons = ACH:Group(L["Role Icon"], nil, 1, nil, function(info) return E.db.sle.unitframes[info[#info-1]][info[#info]] end, function(info, value) E.db.sle.unitframes[info[#info-1]][info[#info]] = value end)
@@ -132,61 +129,68 @@ local function configTable()
 	-- L["Choose what icon set will unitframes and chat use."]
 	RoleIcons.args.icons = ACH:Select(L["LFG Icons"], nil, 2, RoleIconValues)
 
+	local StatusBarTextures = ACH:Group(L["StatusBar Texture"], nil, 5, nil, function(info) return E.db.sle.unitframe.statusbarTextures[info[#info-1]][info[#info]] end, function(info, value) E.db.sle.unitframe.statusbarTextures[info[#info-1]][info[#info]] = value; UF:Update_StatusBars(); UpdateAuraBars() end)
+	General.args.statusTextures = StatusBarTextures
+
+	StatusBarTextures.args.aurabar = ACH:Group(L["Aura Bars"], nil, 1)
+	StatusBarTextures.args.aurabar.guiInline = true
+	StatusBarTextures.args.aurabar.args.enable = ACH:Toggle(L["Enable"], nil, 1, nil, nil, nil, nil, nil, false)
+	StatusBarTextures.args.aurabar.args.texture = ACH:SharedMediaStatusbar(L["Texture"], nil, 2, nil, nil, nil, function(info) return not E.db.sle.unitframe.statusbarTextures[info[#info-1]].enable end)
+
+	StatusBarTextures.args.castbar = ACH:Group(L["Castbar"], nil, 1)
+	StatusBarTextures.args.castbar.guiInline = true
+	StatusBarTextures.args.castbar.args.enable = ACH:Toggle(L["Enable"], nil, 1, nil, nil, nil, nil, nil, false)
+	StatusBarTextures.args.castbar.args.texture = ACH:SharedMediaStatusbar(L["Texture"], nil, 2, nil, nil, nil, function(info) return not E.db.sle.unitframe.statusbarTextures[info[#info-1]].enable end)
+
+	StatusBarTextures.args.classbar = ACH:Group(L["Classbar"], nil, 1)
+	StatusBarTextures.args.classbar.guiInline = true
+	StatusBarTextures.args.classbar.args.enable = ACH:Toggle(L["Enable"], nil, 1, nil, nil, nil, nil, nil, false)
+	StatusBarTextures.args.classbar.args.texture = ACH:SharedMediaStatusbar(L["Texture"], nil, 2, nil, nil, nil, function(info) return not E.db.sle.unitframe.statusbarTextures[info[#info-1]].enable end)
+
+	StatusBarTextures.args.powerbar = ACH:Group(L["Power"], nil, 1)
+	StatusBarTextures.args.powerbar.guiInline = true
+	StatusBarTextures.args.powerbar.args.enable = ACH:Toggle(L["Enable"], nil, 1, nil, nil, nil, nil, nil, false)
+	StatusBarTextures.args.powerbar.args.texture = ACH:SharedMediaStatusbar(L["Texture"], nil, 2, nil, nil, nil, function(info) return not E.db.sle.unitframe.statusbarTextures[info[#info-1]].enable end)
+
 	--! Individual Units
 	local IndividualUnits = ACH:Group(L["Individual Units"], nil, 15)
 	UnitFrames.args.individualUnits = IndividualUnits
 
 	--* Player Frame
-	-- local Player = ACH:Group(L["Player"], nil, 3, 'tab')
 	local Player = GetSharedUnitFrameOptions(L["Player"], 'player', UF.CreateAndUpdateUF)
 	IndividualUnits.args.player = Player
 	Player.order = 3
 
-	-- local PlayerPvPIconText = ACH:Group(L["PvP & Prestige Icon"], nil, 5, nil, function(info) return E.db.sle.unitframes.unit.player.pvpIconText[info[#info]] end, function(info, value) E.db.sle.unitframes.unit.player.pvpIconText[info[#info]] = value; UF:Configure_PVPIcon(_G.ElvUF_Player) end)
-	-- local PlayerPvPIconText = ACH:Group(L["PvP & Prestige Icon"], nil, 5, nil, function(info) return E.db.sle.unitframes.unit.player.pvpIconText[info[#info]] end, function(info, value) E.db.sle.unitframes.unit.player.pvpIconText[info[#info]] = value; end)
-	-- Player.args.pvpIconText = PlayerPvPIconText
-
-	-- PlayerPvPIconText.args = CopyTable(SharedIconOptions)
-	-- PlayerPvPIconText.args.level = ACH:Toggle(L["Level"], nil, 4)
 
 	--* Target Frame
 	local Target = GetSharedUnitFrameOptions(L["Target"], 'target', UF.CreateAndUpdateUF)
 	IndividualUnits.args.target = Target
 	Target.order = 4
-
 	Target.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateUF, 'target')
 
-	-- local TargetPvPIconText = ACH:Group(L["PvP & Prestige Icon"], nil, 5, nil, function(info) return E.db.sle.unitframes.unit.target.pvpIconText[info[#info]] end, function(info, value) E.db.sle.unitframes.unit.target.pvpIconText[info[#info]] = value; UF:Configure_PVPIcon(_G.ElvUF_Target) end)
-	-- local TargetPvPIconText = ACH:Group(L["PvP & Prestige Icon"], nil, 5, nil, function(info) return E.db.sle.unitframes.unit.target.pvpIconText[info[#info]] end, function(info, value) E.db.sle.unitframes.unit.target.pvpIconText[info[#info]] = value; end)
-	-- Target.args.pvpIconText = TargetPvPIconText
-	-- TargetPvPIconText.args.level = ACH:Toggle(L["Level"], nil, 4)
 
 	--* TargetTarget Frame
 	local TargetTarget = GetSharedUnitFrameOptions(L["TargetTarget"], 'targettarget', UF.CreateAndUpdateUF)
 	IndividualUnits.args.targettarget = TargetTarget
 	TargetTarget.order = 5
-
 	TargetTarget.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateUF, 'targettarget')
 
 	--* TargetTargetTarget Frame
 	local TargetTargetTarget = GetSharedUnitFrameOptions(L["TargetTargetTarget"], 'targettargettarget', UF.CreateAndUpdateUF)
 	IndividualUnits.args.targettargettarget = TargetTargetTarget
 	TargetTargetTarget.order = 6
-
 	TargetTargetTarget.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateUF, 'targettargettarget')
 
 	--* Focus Frame
 	local Focus = GetSharedUnitFrameOptions(L["Focus"], 'focus', UF.CreateAndUpdateUF)
 	IndividualUnits.args.focus = Focus
 	Focus.order = 7
-
 	Focus.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateUF, 'focus')
 
 	--* FocusTarget Frame
 	local FocusTarget = GetSharedUnitFrameOptions(L["FocusTarget"], 'focustarget', UF.CreateAndUpdateUF)
 	IndividualUnits.args.focustarget = FocusTarget
 	FocusTarget.order = 8
-
 	FocusTarget.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateUF, 'focustarget')
 
 	--* Pet Frame

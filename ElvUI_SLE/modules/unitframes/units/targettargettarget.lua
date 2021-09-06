@@ -5,6 +5,10 @@ function SUF:Construct_TargetTargetTargetFrame(frame)
 	-- print('Construct_TargetTargetTargetFrame: ', frame:GetName())
 	frame.SL_DeathIndicator = SUF:Construct_DeathIndicator(frame)
 	frame.SL_OfflineIndicator = SUF:Construct_OfflineIndicator(frame)
+
+	if frame.Power then
+		frame.Power.slBarID = 'powerbar'
+	end
 end
 
 function SUF:Update_TargetTargetTargetFrame(frame)

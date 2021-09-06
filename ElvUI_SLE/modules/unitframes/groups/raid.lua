@@ -5,6 +5,10 @@ function SUF:Construct_RaidFrames()
 	-- print('Construct_RaidFrames: ', frame:GetName())
 	self.SL_DeathIndicator = SUF:Construct_DeathIndicator(self)
 	self.SL_OfflineIndicator = SUF:Construct_OfflineIndicator(self)
+
+	if self.Power then
+		self.Power.slBarID = 'powerbar'
+	end
 end
 
 function SUF:Update_RaidFrames(frame)

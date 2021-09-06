@@ -2,10 +2,11 @@ local SLE, _, E = unpack(select(2, ...))
 local UF = E.UnitFrames
 local SUF = SLE.UnitFrames
 
---GLOBALS: hooksecurefunc, CreateFrame
+--GLOBALS: hooksecurefunc
 
 local auraType, unitframeType
 SUF.CreatedShadows = {}
+SUF.powerbars = {}
 
 local function Cooldown_Options(_, timer, _, cooldown)
 	if not SLE.initialized or not E.private.unitframe.enable then return end
@@ -42,10 +43,13 @@ function SUF:UpdateShadowColor(shadow)
 end
 
 function SUF:Construct_UF(frame, unit)
-	--! Loops through following non units
 	if not UF.groupunits[unit] then
 		--* player, target, targettarget, targettargettarget, focus, focustarget, pet, pettarget
 		SUF['Construct_'..gsub(E:StringTitle(unit), 't(arget)', 'T%1')..'Frame'](SUF, frame, unit)
+
+		if unit and _G['ElvUF_'..gsub(E:StringTitle(unit), 't(arget)', 'T%1')].Power then
+			SUF.powerbars[_G['ElvUF_'..gsub(E:StringTitle(unit), 't(arget)', 'T%1')].Power] = true
+		end
 	else
 		--* arena1, arena2, arena3, arena4, arena5, boss1, boss2, boss3, boss4, boss5
 		SUF['Construct_'..E:StringTitle(UF.groupunits[unit])..'Frames'](SUF, frame, unit)
@@ -84,12 +88,16 @@ end
 
 function SUF:Initialize()
 	if not SLE.initialized or not E.private.unitframe.enable then return end
+
+	hooksecurefunc(UF, 'Configure_ClassBar', SUF.Configure_ClassBar)
 	--* Construct Elements/Etc
 	HookConstructUnitFrames()
 
 	--* Configure/Update Elements
-	hooksecurefunc(UF, 'Configure_ClassBar', SUF.Configure_ClassBar)
 	HookUpdateUnitFrames()
+	hooksecurefunc(UF, 'Update_StatusBars', SUF.Update_StatusBars)
+	hooksecurefunc(UF, 'Update_StatusBar', SUF.Update_StatusBar)
+	hooksecurefunc(UF, 'ToggleTransparentStatusBar', SUF.ToggleTransparentStatusBar)
 
 	--Raid stuff
 	SUF.specNameToRole = {}
@@ -102,17 +110,8 @@ function SUF:Initialize()
 		end
 	end
 
-	local f = CreateFrame('Frame')
-	f:RegisterEvent('PLAYER_ENTERING_WORLD')
-	f:SetScript('OnEvent', function(_, event)
-		f:UnregisterEvent(event)
-		if E.private.sle.unitframe.statusbarTextures.cast then SUF:CastBarHook() end
-	end)
-
-	SUF:InitStatus()
-
 	function SUF:ForUpdateAll()
-		if E.private.sle.unitframe.statusbarTextures.power then SUF:BuildStatusTable() end
+
 	end
 end
 

@@ -5,6 +5,17 @@ function SUF:Construct_FocusFrame(frame)
 	-- print('Construct_FocusFrame: ', frame:GetName())
 	frame.SL_DeathIndicator = SUF:Construct_DeathIndicator(frame)
 	frame.SL_OfflineIndicator = SUF:Construct_OfflineIndicator(frame)
+
+	if frame.AuraBars then
+		frame.AuraBars.slBarID = 'aurabar'
+		hooksecurefunc(frame.AuraBars, 'PostUpdateBar', SUF.PostUpdateBar_AuraBars)
+	end
+	if frame.Castbar then
+		frame.Castbar.slBarID = 'castbar'
+	end
+	if frame.Power then
+		frame.Power.slBarID = 'powerbar'
+	end
 end
 
 function SUF:Update_FocusFrame(frame)

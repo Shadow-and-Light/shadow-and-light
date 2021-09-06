@@ -4,6 +4,10 @@ local SUF = SLE.UnitFrames
 function SUF:Construct_PetTargetFrame(frame)
 	-- print('Construct_PetTargetFrame: ', frame:GetName())
 	-- frame.SL_DeathIndicator = SUF:Construct_DeathIndicator(frame)
+
+	if frame.Power then
+		frame.Power.slBarID = 'powerbar'
+	end
 end
 
 function SUF:Update_PetTargetFrame(frame)

@@ -1339,6 +1339,24 @@ P["sle"] = {
 			enable = false,
 			icons = 'ElvUI',
 		},
+		statusbarTextures = {
+			aurabar = {
+				enable = true,
+				texture = 'Ohi MetalPlate',
+			},
+			castbar = {
+				enable = false,
+				texture = 'ElvUI Norm',
+			},
+			classbar = {
+				enable = false,
+				texture = 'ElvUI Norm',
+			},
+			powerbar = {
+				enable = false,
+				texture = 'ElvUI Norm',
+			},
+		},
 		units = {
 			--* Individual Units
 			player = {
@@ -1470,7 +1488,6 @@ P["sle"] = {
 				buffs = CopyTable(UF_Auras),
 				debuffs = CopyTable(UF_Auras),
 			},
-
 		}
 	},
 	--Unitfrmes
@@ -1498,12 +1515,6 @@ P["sle"] = {
 		roleIcons = {
 			enable = false,
 			icons = 'ElvUI',
-		},
-		["statusTextures"] = {
-			["powerTexture"] = "ElvUI Norm",
-			["castTexture"] = "ElvUI Norm",
-			["auraTexture"] = "ElvUI Norm",
-			["classTexture"] = "ElvUI Norm",
 		},
 	},
 }

@@ -3,6 +3,12 @@ local SUF = SLE.UnitFrames
 
 function SUF:Construct_BossFrames(frame)
 	-- print('Construct_BossFrames: ', frame:GetName())
+	if self.Castbar then
+		self.Castbar.slBarID = 'castbar'
+	end
+	if self.Power then
+		self.Power.slBarID = 'powerbar'
+	end
 end
 
 function SUF:Update_BossFrames(frame)

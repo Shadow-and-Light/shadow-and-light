@@ -8,6 +8,8 @@ function SUF:Configure_ClassBar(frame)
 	local db = E.db.sle.shadows
 	if frame.unitframeType ~= 'player' then return end
 
+	bars.slBarID = 'classbar'
+
 	local r, g, b = db.shadowcolor.r, db.shadowcolor.g, db.shadowcolor.b
 	local offset = (E.PixelMode and db.unitframes.size) or (db.unitframes.size + 1)
 
@@ -81,6 +83,20 @@ function SUF:Configure_ClassBar(frame)
 					bars[i].backdrop.enhshadow = nil
 				end
 			end
+		end
+	end
+
+	if E.db.sle.unitframe.statusbarTextures.classbar.enable then
+		local texture = E.LSM:Fetch('statusbar', E.db.sle.unitframe.statusbarTextures.classbar.texture)
+		if (frame.ClassBar == 'ClassPower' or frame.ClassBar == 'Runes') then
+			local maxClassBarButtons = max(UF.classMaxResourceBar[E.myclass] or 0, MAX_COMBO_POINTS)
+			for i = 1, maxClassBarButtons do
+				if i <= frame.MAX_CLASS_BAR then
+					bars[i]:SetStatusBarTexture(texture)
+				end
+			end
+		elseif frame.ClassBar == 'AdditionalPower' or frame.ClassBar == 'Stagger' then
+			bars:SetStatusBarTexture(texture)
 		end
 	end
 end

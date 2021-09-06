@@ -4,6 +4,17 @@ local SUF = SLE.UnitFrames
 function SUF:Construct_PetFrame(frame)
 	-- print('Construct_PetFrame: ', frame:GetName())
 	frame.SL_DeathIndicator = SUF:Construct_DeathIndicator(frame)
+
+	if frame.AuraBars then
+		frame.AuraBars.slBarID = 'aurabar'
+		hooksecurefunc(frame.AuraBars, 'PostUpdateBar', SUF.PostUpdateBar_AuraBars)
+	end
+	if frame.Castbar then
+		frame.Castbar.slBarID = 'castbar'
+	end
+	if frame.Power then
+		frame.Power.slBarID = 'powerbar'
+	end
 end
 
 function SUF:Update_PetFrame(frame)

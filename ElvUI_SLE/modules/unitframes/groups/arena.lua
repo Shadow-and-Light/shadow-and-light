@@ -5,6 +5,13 @@ function SUF:Construct_ArenaFrames(frame)
 	-- print('Construct_ArenaFrames', frame:GetName())
 	frame.SL_DeathIndicator = SUF:Construct_DeathIndicator(frame)
 	frame.SL_OfflineIndicator = SUF:Construct_OfflineIndicator(frame)
+
+	if self.Castbar then
+		self.Castbar.slBarID = 'castbar'
+	end
+	if self.Power then
+		self.Power.slBarID = 'powerbar'
+	end
 end
 
 function SUF:Update_ArenaFrames(frame)

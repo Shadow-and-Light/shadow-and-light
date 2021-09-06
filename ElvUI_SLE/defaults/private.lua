@@ -47,15 +47,6 @@ V["sle"] = {
 			enable = true,
 		},
 	},
-	["unitframe"] = {
-		["resizeHealthPrediction"] = false,
-		["statusbarTextures"] = {
-			["power"] = false,
-			["cast"] = false,
-			["aura"] = false,
-			["class"] = false,
-		},
-	},
 	["pvp"] = {
 		["KBbanner"] = {
 			["enable"] = false,

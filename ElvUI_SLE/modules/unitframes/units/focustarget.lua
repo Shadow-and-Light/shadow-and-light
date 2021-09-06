@@ -5,6 +5,10 @@ function SUF:Construct_FocusTargetFrame(frame)
 	-- print('Construct_FocusTargetFrame: ', frame:GetName())
 	frame.SL_DeathIndicator = SUF:Construct_DeathIndicator(frame)
 	frame.SL_OfflineIndicator = SUF:Construct_OfflineIndicator(frame)
+
+	if frame.Power then
+		frame.Power.slBarID = 'powerbar'
+	end
 end
 
 function SUF:Update_FocusTargetFrame(frame)
