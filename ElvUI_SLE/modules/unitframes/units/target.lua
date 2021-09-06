@@ -5,6 +5,10 @@ function SUF:Construct_TargetFrame(frame)
 	-- print('Construct_TargetFrame: ', frame:GetName())
 	frame.SL_DeathIndicator = SUF:Construct_DeathIndicator(frame)
 	frame.SL_OfflineIndicator = SUF:Construct_OfflineIndicator(frame)
+
+	SUF:Construct_PvPTimerText(frame)
+	SUF:Construct_PvPLevelText(frame)
+
 	if frame.AuraBars then
 		frame.AuraBars.slBarID = 'aurabar'
 		hooksecurefunc(frame.AuraBars, 'PostUpdateBar', SUF.PostUpdateBar_AuraBars)
@@ -31,4 +35,6 @@ function SUF:Update_TargetFrame(frame)
 	SUF:Configure_Power(frame)
 	SUF:Configure_DeathIndicator(frame)
 	SUF:Configure_OfflineIndicator(frame)
+	SUF:Configure_PvPTimerText(frame)
+	SUF:Configure_PvPLevelText(frame)
 end

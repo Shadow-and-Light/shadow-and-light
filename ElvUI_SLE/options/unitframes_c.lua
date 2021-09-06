@@ -74,6 +74,38 @@ local function GetOptionsTable_OfflineIndicator(updateFunc, groupName, numGroup)
 	return config
 end
 
+local function GetOptionsTable_FontGroup(unit, updateFunc, numGroup)
+	local config = ACH:Group(L["Font Group"], nil, 20, nil, function(info) return E.db.sle.unitframe.units[unit].pvpicontext[info[#info-2]][info[#info]] end, function(info, value) E.db.sle.unitframe.units[unit].pvpicontext[info[#info-2]][info[#info]] = value; updateFunc(UF, unit, numGroup) end)
+	config.guiInline = true
+
+	config.args.font = ACH:SharedMediaFont(L["Font"], nil, 1)
+	config.args.fontOutline = ACH:FontFlags(L["Font Outline"], L["Set the font outline."], 2)
+	config.args.fontSize = ACH:Range(L["Font Size"], nil, 3, C.Values.FontSize)
+
+	return config
+end
+
+local function GetOptionsTable_PvPIconText(name, unit, updateFunc, numGroup)
+	local config = ACH:Group(name, nil, 50, nil, function(info) return E.db.sle.unitframe.units[unit].pvpicontext[info[#info-1]][info[#info]] end, function(info, value) E.db.sle.unitframe.units[unit].pvpicontext[info[#info-1]][info[#info]] = value; updateFunc(UF, unit, numGroup) end)
+	config.guiInline = true
+
+	local Level = ACH:Group(L["Level"], nil, 1, nil, nil)
+	config.args.level = Level
+	Level.guiInline = true
+	Level.args = CopyTable(SharedTextOptions)
+
+	Level.args.fontGroup = GetOptionsTable_FontGroup(unit, updateFunc, numGroup)
+
+	local Timer = ACH:Group(L["Timer"], nil, 1, nil, nil)
+	config.args.timer = Timer
+	Timer.guiInline = true
+	Timer.args = CopyTable(SharedTextOptions)
+
+	Timer.args.fontGroup = GetOptionsTable_FontGroup(unit, updateFunc, numGroup)
+
+	return config
+end
+
 local function GetSharedUnitFrameOptions(name, unit, updateFunc, numGroup)
 	local config = ACH:Group(name, nil, 100, 'tab')
 
@@ -112,6 +144,14 @@ local function configTable()
 	SharedIconOptions.size.args.size = ACH:Range('', nil, 4, { softMin = 14, softMax = 64, min = 12, max = 128, step = 1 })
 	SharedIconOptions.size.args.height = ACH:Range(L["Height"], nil, 5, { softMin = 14, softMax = 64, min = 12, max = 128, step = 1 })
 
+	SharedTextOptions = {
+		enable = ACH:Toggle(L["Enable"], nil, 0),
+		spacer = ACH:Spacer(1, 'full'),
+		anchorPoint = ACH:Select(L["Anchor Point"], nil, 5, C.Values.AllPoints),
+		xOffset = ACH:Range(L["X-Offset"], nil, 6, { min = -300, max = 300, step = 1 }),
+		yOffset = ACH:Range(L["Y-Offset"], nil, 6, { min = -300, max = 300, step = 1 }),
+		fontspacer = ACH:Spacer(10, 'full'),
+	}
 
 	local UnitFrames = ACH:Group(L["UnitFrames"], nil, 1, 'tab', nil, nil, function() return not E.private.unitframe.enable end)
 	E.Options.args.sle.args.modules.args.unitframes = UnitFrames
@@ -161,6 +201,8 @@ local function configTable()
 	IndividualUnits.args.player = Player
 	Player.order = 3
 
+	PvPIconText = GetOptionsTable_PvPIconText(L["PvP & Prestige Icon"], 'player', UF.CreateAndUpdateUF)
+	Player.args.pvpicontext = PvPIconText
 
 	--* Target Frame
 	local Target = GetSharedUnitFrameOptions(L["Target"], 'target', UF.CreateAndUpdateUF)
@@ -168,6 +210,8 @@ local function configTable()
 	Target.order = 4
 	Target.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateUF, 'target')
 
+	PvPIconText = GetOptionsTable_PvPIconText(L["PvP & Prestige Icon"], 'target', UF.CreateAndUpdateUF)
+	Target.args.pvpicontext = PvPIconText
 
 	--* TargetTarget Frame
 	local TargetTarget = GetSharedUnitFrameOptions(L["TargetTarget"], 'targettarget', UF.CreateAndUpdateUF)

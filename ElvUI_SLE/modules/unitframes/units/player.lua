@@ -4,6 +4,10 @@ local SUF = SLE.UnitFrames
 function SUF:Construct_PlayerFrame(frame)
 	-- print('Construct_PlayerFrame: ', frame:GetName())
 	frame.SL_DeathIndicator = SUF:Construct_DeathIndicator(frame)
+
+	SUF:Construct_PvPTimerText(frame)
+	SUF:Construct_PvPLevelText(frame)
+
 	if frame.AuraBars then
 		frame.AuraBars.slBarID = 'aurabar'
 		hooksecurefunc(frame.AuraBars, 'PostUpdateBar', SUF.PostUpdateBar_AuraBars)
@@ -31,4 +35,7 @@ function SUF:Update_PlayerFrame(frame)
 	SUF:Configure_Power(frame)
 	-- SUF:Configure_ClassBar(frame)
 	SUF:Configure_DeathIndicator(frame)
+
+	SUF:Configure_PvPTimerText(frame)
+	SUF:Configure_PvPLevelText(frame)
 end
