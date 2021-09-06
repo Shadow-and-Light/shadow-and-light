@@ -2,10 +2,10 @@
 local SUF = SLE.UnitFrames
 local UF = E.UnitFrames
 
-local CUSTOM = CUSTOM
+local _G = _G
 local wipe = wipe
+local ACH, C, SharedIconOptions, SharedTextOptions, PvPIconText
 local roleValues = {}
-local ACH, C, SharedIconOptions
 
 local DeathIndicatorImages = {
 	SKULL = [[|TInterface\LootFrame\LootPanel-Icon:14|t]],
@@ -13,7 +13,7 @@ local DeathIndicatorImages = {
 	SKULL2 = [[|TInterface\AddOns\ElvUI_SLE\media\textures\SKULL1:16|t]],
 	SKULL3 = [[|TInterface\AddOns\ElvUI_SLE\media\textures\SKULL2:16|t]],
 	SKULL4 = [[|TInterface\AddOns\ElvUI_SLE\media\textures\SKULL3:16|t]],
-	CUSTOM = CUSTOM,
+	CUSTOM = L["CUSTOM"],
 }
 local OfflineIndicatorImages = {
 	ALERT = [[|TInterface\DialogFrame\UI-Dialog-Icon-AlertNew:14|t]],
@@ -21,7 +21,7 @@ local OfflineIndicatorImages = {
 	SKULL = [[|TInterface\LootFrame\LootPanel-Icon:14|t]],
 	PASS = [[|TInterface\PaperDollInfoFrame\UI-GearManager-LeaveItem-Transparent:14|t]],
 	NOTREADY = [[|TInterface\RAIDFRAME\ReadyCheck-NotReady:14|t]],
-	CUSTOM = CUSTOM,
+	CUSTOM = L["CUSTOM"],
 }
 
 local function GetOptionsTable_Auras(auraType, updateFunc, groupName)
@@ -116,7 +116,7 @@ local function configTable()
 	local UnitFrames = ACH:Group(L["UnitFrames"], nil, 1, 'tab', nil, nil, function() return not E.private.unitframe.enable end)
 	E.Options.args.sle.args.modules.args.unitframes = UnitFrames
 	UnitFrames.args.desc = ACH:Description(L["Options for customizing unit frames. Please don't change these setting when ElvUI's testing frames for bosses and arena teams are shown. That will make them invisible until retoggling."], 1)
-	UnitFrames.args.Reset = ACH:Execute(L["Restore Defaults"], nil, 2, function() SLE:Reset('unitframes') end)
+	-- UnitFrames.args.Reset = ACH:Execute(L["Restore Defaults"], nil, 2, function() SLE:Reset('unitframes') end)
 
 	local General = ACH:Group(L["General"], nil, 10, 'tab')
 	UnitFrames.args.general = General
@@ -204,13 +204,10 @@ local function configTable()
 	-- Pet.args.debuffs = GetOptionsTable_Auras('debuffs', E.UpdateCooldownSettings, 'pet')
 
 	--* PetTarget Frame
-	local PetTarget = GetSharedUnitFrameOptions(L["PetTarget"], 'pettarget', UF.CreateAndUpdateUF)
+	local PetTarget = ACH:Group(L["PetTarget"], nil, 10, 'tab')
 	IndividualUnits.args.pettarget = PetTarget
-	PetTarget.order = 10
-
-	--! Don't think Pet Target needs DeathIndicator as I think the pet won't continue to target the unit when it dies
-	-- PetTarget.args.buffs = GetOptionsTable_Auras('buffs', E.UpdateCooldownSettings, 'pettarget')
-	-- PetTarget.args.debuffs = GetOptionsTable_Auras('debuffs', E.UpdateCooldownSettings, 'pettarget')
+	PetTarget.args.buffs = GetOptionsTable_Auras('buffs', E.UpdateCooldownSettings, 'pettarget')
+	PetTarget.args.debuffs = GetOptionsTable_Auras('debuffs', E.UpdateCooldownSettings, 'pettarget')
 
 	--! Group Units
 	local GroupUnits = ACH:Group(L["Group Units"], nil, 16)
@@ -220,27 +217,23 @@ local function configTable()
 	local Party = GetSharedUnitFrameOptions(L["Party"], 'party', UF.CreateAndUpdateHeaderGroup)
 	GroupUnits.args.party = Party
 	Party.order = 3
-
 	Party.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateHeaderGroup, 'party')
 
 	--* Raid Frame
 	local Raid = GetSharedUnitFrameOptions(L["Raid"], 'raid', UF.CreateAndUpdateHeaderGroup)
 	GroupUnits.args.raid = Raid
 	Raid.order = 4
-
 	Raid.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateHeaderGroup, 'raid')
 
 	--* Raid-40 Frame
 	local Raid40 = GetSharedUnitFrameOptions(L["Raid-40"], 'raid40', UF.CreateAndUpdateHeaderGroup)
 	GroupUnits.args.raid40 = Raid40
 	Raid40.order = 5
-
 	Raid40.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateHeaderGroup, 'raid40')
 
 	--* Raid Pet Frame
 	local RaidPet = ACH:Group(L["Raid Pet"], nil, 6, 'tab')
 	GroupUnits.args.raidpet = RaidPet
-
 	RaidPet.args.buffs = GetOptionsTable_Auras('buffs', E.UpdateCooldownSettings, 'raidpet')
 	RaidPet.args.debuffs = GetOptionsTable_Auras('debuffs', E.UpdateCooldownSettings, 'raidpet')
 
@@ -248,35 +241,71 @@ local function configTable()
 	local Tank = GetSharedUnitFrameOptions(L["Tank"], 'tank', UF.CreateAndUpdateHeaderGroup)
 	GroupUnits.args.tank = Tank
 	Tank.order = 7
-
 	Tank.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateHeaderGroup, 'tank')
 
 	--* Assist Frame
 	local Assist = GetSharedUnitFrameOptions(L["Assist"], 'assist', UF.CreateAndUpdateHeaderGroup)
 	GroupUnits.args.assist = Assist
 	Assist.order = 8
-
 	Assist.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateHeaderGroup, 'assist')
 
 	--* Arena Frame
-	-- local Arena = ACH:Group(L["Arena"], nil, 9, 'tab')
 	local Arena = GetSharedUnitFrameOptions(L["Arena"], 'arena', UF.CreateAndUpdateUFGroup, 5)
 	GroupUnits.args.arena = Arena
 	Arena.order = 9
-
 	Arena.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateUFGroup, 'arena', 5)
-	-- Arena.args.buffs = GetOptionsTable_Auras('buffs', E.UpdateCooldownSettings, 'arena')
-	-- Arena.args.debuffs = GetOptionsTable_Auras('debuffs', E.UpdateCooldownSettings, 'arena')
 
 	--* Boss Frame
 	local Boss = ACH:Group(L["Boss"], nil, 10, 'tab')
 	GroupUnits.args.boss = Boss
-
 	Boss.args.buffs = GetOptionsTable_Auras('buffs', E.UpdateCooldownSettings, 'boss')
 	Boss.args.debuffs = GetOptionsTable_Auras('debuffs', E.UpdateCooldownSettings, 'boss')
 
-	-- local PvPIconText = ACH:Group(L["PvP & Prestige Icon"], nil, 5, nil, function(info) return E.db.sle.unitframes.unit.player.pvpIconText[info[#info]] end, function(info, value) E.db.sle.unitframes.unit.player.pvpIconText[info[#info]] = value; UF:Configure_PVPIcon(_G.ElvUF_Player) end)
-	-- Player.args.pvpIconText = PvPIconText
+	-- 				party = {
+	-- 					order = 1,
+	-- 					type = 'group',
+	-- 					name = L["Party Frames"],
+	-- 					args = {
+	-- 						configureToggle = {
+	-- 							order = -10,
+	-- 							type = 'execute',
+	-- 							name = L["Display Frames"],
+	-- 							func = function()
+	-- 								UF:HeaderConfig(_G.ElvUF_Party, _G.ElvUF_Party.forceShow ~= true or nil)
+	-- 							end,
+	-- 						},
+	-- 					},
+	-- 				},
+	-- 				raid = {
+	-- 					order = 2,
+	-- 					type = 'group',
+	-- 					name = L["Raid Frames"],
+	-- 					args = {
+	-- 						configureToggle = {
+	-- 							order = -10,
+	-- 							type = 'execute',
+	-- 							name = L["Display Frames"],
+	-- 							func = function()
+	-- 								UF:HeaderConfig(_G.ElvUF_Raid, _G.ElvUF_Raid.forceShow ~= true or nil)
+	-- 							end,
+	-- 						},
+	-- 					},
+	-- 				},
+	-- 				raid40 = {
+	-- 					order = 3,
+	-- 					type = 'group',
+	-- 					name = L["Raid-40 Frames"],
+	-- 					args = {
+	-- 						configureToggle = {
+	-- 							order = -10,
+	-- 							type = 'execute',
+	-- 							name = L["Display Frames"],
+	-- 							func = function()
+	-- 								UF:HeaderConfig(_G.ElvUF_Raid40, _G.ElvUF_Raid40.forceShow ~= true or nil)
+	-- 							end,
+	-- 						},
+	-- 					},
+	-- 				},
 end
 
 tinsert(SLE.Configs, configTable)
