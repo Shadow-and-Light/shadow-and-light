@@ -125,6 +125,13 @@ local function RoleIconValues()
 	return roleValues
 end
 
+local function UpdateAuraBars()
+	_G.ElvUF_Player:UpdateAllElements('ElvUI_UpdateAllElements')
+	_G.ElvUF_Target:UpdateAllElements('ElvUI_UpdateAllElements')
+	_G.ElvUF_Focus:UpdateAllElements('ElvUI_UpdateAllElements')
+	_G.ElvUF_Pet:UpdateAllElements('ElvUI_UpdateAllElements')
+end
+
 local function configTable()
 	if not SLE.initialized then return end
 	C = unpack(E.OptionsUI)
