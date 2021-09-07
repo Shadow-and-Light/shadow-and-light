@@ -83,6 +83,7 @@ local function configTable()
 							ep = { order = -42, type = 'toggle', name = SLE:GetMapInfo(1512, 'name') },
 							nzoth = { order = -41, type = 'toggle', name = SLE:GetMapInfo(1580, 'name') },
 							nathria = { order = -40, type = 'toggle', name = SLE:GetMapInfo(1735, 'name') },
+							sod = { order = -39, type = 'toggle', name = 'Sanctum of Domination' },
 						},
 					},
 				},

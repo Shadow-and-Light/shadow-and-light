@@ -174,6 +174,19 @@ RP.encounters = {
 			{ 14422, 14426, 14430, 14434, 14438, 14442, 14446, 14450, 14454, 14458 },
 		},
 	},
+	{ -- Sanctum of Domination
+		['option'] = 'sod',
+		['statIDs'] = {
+			-- Mythic
+			{ 15139, 15143, 15147, 15151, 15155, 15159, 15163, 15167, 15172, 15176 },
+			-- Heroic
+			{ 15138, 15142, 15146, 15150, 15154, 15158, 15162, 15166, 15171, 15175 },
+			-- Normal
+			{ 15137, 15141, 15145, 15149, 15153, 15157, 15161, 15165, 15170, 15174 },
+			-- LFR
+			{ 15136, 15140, 15144, 15148, 15152, 15156, 15160, 15164, 15169, 15173 },
+		}
+	},
 }
 RP.Raids = {}
 RP.modes = {
@@ -204,6 +217,7 @@ local function PopulateRaidsTable()
 		SLE:GetMapInfo(1512, "name"),
 		SLE:GetMapInfo(1580, "name"),
 		SLE:GetMapInfo(1735, "name"),
+		'Sanctum of Domination',
 	}
 	RP.Raids["SHORT"] = {
 		L["RAID_EN"],
@@ -217,6 +231,7 @@ local function PopulateRaidsTable()
 		L["RAID_ETERNALPALACE"],
 		SLE:GetMapInfo(1580, "name"),
 		SLE:GetMapInfo(1735, "name"),
+		'SoD',
 	}
 end
 
