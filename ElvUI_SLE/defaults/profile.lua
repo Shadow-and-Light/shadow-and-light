@@ -6,7 +6,7 @@ local UF_Auras = {
 }
 
 local sharedIndicatorOptions = {
-	enable = true,
+	enable = false,
 	keepSizeRatio = true,
 	size = 36,
 	height = 36,
@@ -1341,8 +1341,8 @@ P["sle"] = {
 		},
 		statusbarTextures = {
 			aurabar = {
-				enable = true,
-				texture = 'Ohi MetalPlate',
+				enable = false,
+				texture = 'ElvUI Norm',
 			},
 			castbar = {
 				enable = false,
