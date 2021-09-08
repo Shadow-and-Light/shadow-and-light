@@ -1,5 +1,4 @@
 ﻿local SLE, _, E, L = unpack(select(2, ...))
-local SUF = SLE.UnitFrames
 local UF = E.UnitFrames
 
 local _G = _G
