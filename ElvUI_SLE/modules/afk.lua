@@ -1,10 +1,16 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local AFK = E.AFK
 local S = SLE.Screensaver
+local D = E:GetModule('Distributor')
 
 --GLOBALS: unpack, select, format, random, date, tinsert, type, tonumber, hooksecurefunc, UnitPVPName, UnitLevel, UnitClass, UnitRace, RANK, LEVEL, CreateFrame, CreateAnimationGroup, C_Timer, SendChatMessage, RAID_CLASS_COLORS, GetScreenWidth, GetScreenHeight, IsInGuild, GetGuildInfo, FlipCameraYaw
-local testTimer  --was AnimTime before
 
+--* Export Custom Graphic Settings
+if D.GeneratedKeys.profile.sle == nil then D.GeneratedKeys.profile.sle = {} end
+if D.GeneratedKeys.profile.sle.afk == nil then D.GeneratedKeys.profile.sle.afk = {} end
+D.GeneratedKeys.profile.sle.afk.customGraphics = true
+
+local testTimer  --was AnimTime before
 local format, random, date, tinsert, tonumber = format, random, date, tinsert, tonumber
 local UnitPVPName, UnitLevel, UnitClass = UnitPVPName, UnitLevel, UnitClass
 local RANK, LEVEL = RANK, LEVEL
