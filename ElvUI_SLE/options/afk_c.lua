@@ -1,5 +1,11 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local S = SLE.Screensaver
+local D = E:GetModule('Distributor')
+
+--* Export Custom Graphic Settings
+if D.GeneratedKeys.profile.sle == nil then D.GeneratedKeys.profile.sle = {} end
+if D.GeneratedKeys.profile.sle.afk == nil then D.GeneratedKeys.profile.sle.afk = {} end
+D.GeneratedKeys.profile.sle.afk.customGraphics = true
 
 local NAME, PLAYER, GUILD, RANK = NAME, PLAYER, GUILD, RANK
 local NONE, RACE, CLASS, DELETE = NONE, RACE, CLASS, DELETE
