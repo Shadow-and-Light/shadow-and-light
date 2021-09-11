@@ -20,7 +20,7 @@ local function Cooldown_Options(_, timer, _, cooldown)
 	auraType = parent.filter == 'HELPFUL' and 'buffs' or 'debuffs'
 	unitframeType = owner.unitframeType
 	if not auraType or not unitframeType then return end
-	if not db[unitframeType] or not db[unitframeType][auraType] or not db[unitframeType].enable then return end
+	if not db[unitframeType] or not db[unitframeType][auraType] or not db[unitframeType][auraType].enable then return end
 
 	timer.threshold = db[unitframeType][auraType].threshold
 end
