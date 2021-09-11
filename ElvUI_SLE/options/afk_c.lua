@@ -299,7 +299,6 @@ local function configTable()
 				order = 1,
 				name = L["Enable"],
 				type = 'toggle',
-				desc = L["Enable S&L's additional features for AFK screen."],
 				get = function(info) return E.db.sle.afk[info[#info]] end,
 				set = function(info, value)
 					E.db.sle.afk[info[#info]] = value

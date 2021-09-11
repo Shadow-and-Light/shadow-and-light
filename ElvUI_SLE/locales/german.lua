@@ -164,7 +164,6 @@ L["EM_DESC"] = "Dieses Modul erlaubt dir verschiedene Einstellungen um automatis
 L["Empty Socket"] = "Leerer Sockel"
 L["Enable Arrow"] = "Pfeil aktivieren"
 L["Enable Glow"] = "Leuchten aktivieren"
-L["Enable S&L's additional features for AFK screen."] = "Aktiviere S&L zusätzliche AFK Modus Funktionalitäten."
 L["Enable/Disable Square Minimap Coords."] = "Aktivieren / Deaktivieren von quadratischen Minikartenkoordinaten."
 L["Enables a dedicated vehicle bar."] = true
 L["Enables a shadow for the panel or backdrop of this frame."] = true

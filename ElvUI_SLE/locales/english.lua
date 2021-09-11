@@ -164,7 +164,6 @@ L["EM_DESC"] = "This module provides different options to automatically change y
 L["Empty Socket"] = true
 L["Enable Arrow"] = true
 L["Enable Glow"] = true
-L["Enable S&L's additional features for AFK screen."] = true
 L["Enable/Disable Square Minimap Coords."] = true
 L["Enables a dedicated vehicle bar."] = true
 L["Enables a shadow for the panel or backdrop of this frame."] = true

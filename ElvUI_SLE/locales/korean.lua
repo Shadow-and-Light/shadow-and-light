@@ -164,7 +164,6 @@ L["EM_DESC"] = "This module provides different options to automatically change y
 L["Empty Socket"] = "보석 없음"
 L["Enable Arrow"] = true
 L["Enable Glow"] = true
-L["Enable S&L's additional features for AFK screen."] = "S&L의 추가적인 자리비움 화면 기능을 활성화합니다."
 L["Enable/Disable Square Minimap Coords."] = true
 L["Enables a dedicated vehicle bar."] = true
 L["Enables a shadow for the panel or backdrop of this frame."] = true

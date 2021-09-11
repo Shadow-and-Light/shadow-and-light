@@ -164,7 +164,6 @@ L["EM_DESC"] = "Этот модуль предоставляет различн�
 L["Empty Socket"] = "Пустой слот"
 L["Enable Arrow"] = "Включить стрелку"
 L["Enable Glow"] = "Включить свечение"
-L["Enable S&L's additional features for AFK screen."] = "Активировать дополнительные опции для режима АФК."
 L["Enable/Disable Square Minimap Coords."] = "Включить/выключить координаты на миникарте."
 L["Enables a dedicated vehicle bar."] = true
 L["Enables a shadow for the panel or backdrop of this frame."] = true
