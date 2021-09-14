@@ -140,8 +140,8 @@ local function configTable()
 		enable = ACH:Toggle(L["Enable"], nil, 0),
 		spacer = ACH:Spacer(1, 'full'),
 		anchorPoint = ACH:Select(L["Anchor Point"], nil, 5, C.Values.AllPoints),
-		xoffset = ACH:Range(L["X-Offset"], nil, 6, { min = -300, max = 300, step = 1 }),
-		yoffset = ACH:Range(L["Y-Offset"], nil, 6, { min = -300, max = 300, step = 1 }),
+		xOffset = ACH:Range(L["X-Offset"], nil, 6, { min = -300, max = 300, step = 1 }),
+		yOffset = ACH:Range(L["Y-Offset"], nil, 6, { min = -300, max = 300, step = 1 }),
 		sizespacer = ACH:Spacer(99, 'full'),
 		size = ACH:Group(L["Size"], nil, 100),
 	}
