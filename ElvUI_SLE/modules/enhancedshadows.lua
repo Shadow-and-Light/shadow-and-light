@@ -462,23 +462,24 @@ function ENH:HandleElvUIPanels()
 end
 
 function ENH:HandleObjectiveFrame()
+	local isShadowsEnabled = E.private.sle.module.shadows.enable
 	do
 		local frame = _G.ScenarioStageBlock_SLE_Block
 		if frame and frame.enhshadow then
-			frame.enhshadow:SetShown(E.db.sle.shadows.objectiveframe.backdrop)
+			frame.enhshadow:SetShown(isShadowsEnabled and E.db.sle.shadows.objectiveframe.backdrop)
 		end
 	end
 
 	do
 		local frame = _G.ScenarioBlocksFrame.MawBuffsBlock.SLE_Block
 		if frame and frame.enhshadow then
-			frame.enhshadow:SetShown(E.db.sle.shadows.torghastPowers.backdrop)
+			frame.enhshadow:SetShown(isShadowsEnabled and E.db.sle.shadows.torghastPowers.backdrop)
 		end
 	end
 	do
 		local frame = _G.ScenarioBlocksFrame.MawBuffsBlock.Container.List
 		if frame and frame.enhshadow then
-			frame.enhshadow:SetShown(E.db.sle.shadows.torghastPowers.backdrop)
+			frame.enhshadow:SetShown(isShadowsEnabled and E.db.sle.shadows.torghastPowers.backdrop)
 		end
 	end
 end
