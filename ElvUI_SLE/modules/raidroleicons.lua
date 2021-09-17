@@ -35,10 +35,10 @@ function B:CreateAndUpdateIcons()
 		local unit = IsInRaid() and 'raid' or 'party'
 		local role = UnitGroupRolesAssigned(unit..i)
 		local name = UnitName(unit..i)
-		local rolePath = SLE.rolePaths[E.db.sle.unitframes.roleicons] or SLE.rolePaths['ElvUI']
+		local rolePath = SLE.rolePaths[E.db.sle.unitframes.roleIcons.icons] or SLE.rolePaths['ElvUI']
 		local texture = ''
 
-		if (role and role ~= 'NONE') and name and E.db.sle.unitframes.roleicons and E.db.sle.raidmanager.roles then
+		if (role and role ~= 'NONE') and name and E.db.sle.unitframes.roleIcons.enable and E.db.sle.raidmanager.roles then
 			--  TODO:  Some reason name is assigned but not used?
 			-- name = (realm and realm ~= '') and name..'-'..realm or name ..'-'..PLAYER_REALM
 			texture = rolePath[role]
