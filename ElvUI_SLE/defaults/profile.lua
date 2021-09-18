@@ -652,10 +652,6 @@ P["sle"] = {
 	},
 	--Misc
 	["misc"] = {
-		["threat"] = {
-			["enable"] = false,
-			["position"] = "RightChatDataPanel",
-		},
 		["viewport"] = {
 			["left"] = 0,
 			["right"] = 0,
