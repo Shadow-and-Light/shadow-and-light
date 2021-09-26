@@ -469,7 +469,12 @@ function ENH:HandleObjectiveFrame()
 			frame.enhshadow:SetShown(isShadowsEnabled and E.db.sle.shadows.objectiveframe.backdrop)
 		end
 	end
-
+	do
+		local frame = _G.ScenarioChallengeModeBlock.SLE_Block
+		if frame and frame.enhshadow then
+			frame.enhshadow:SetShown(isShadowsEnabled and E.db.sle.shadows.objectiveframe.backdrop)
+		end
+	end
 	do
 		local frame = _G.ScenarioBlocksFrame.MawBuffsBlock.SLE_Block
 		if frame and frame.enhshadow then
@@ -478,6 +483,12 @@ function ENH:HandleObjectiveFrame()
 	end
 	do
 		local frame = _G.ScenarioBlocksFrame.MawBuffsBlock.Container.List
+		if frame and frame.enhshadow then
+			frame.enhshadow:SetShown(isShadowsEnabled and E.db.sle.shadows.torghastPowers.backdrop)
+		end
+	end
+	do
+		local frame = _G.MawBuffsBelowMinimapFrame.SLE_Block
 		if frame and frame.enhshadow then
 			frame.enhshadow:SetShown(isShadowsEnabled and E.db.sle.shadows.torghastPowers.backdrop)
 		end
