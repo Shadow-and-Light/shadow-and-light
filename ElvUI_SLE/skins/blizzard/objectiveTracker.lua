@@ -490,6 +490,7 @@ local function ObjectiveReskin()
 			MawBuffsBelowMinimapFrame.Container.List:StripTextures()
 			MawBuffsBelowMinimapFrame.Container.List:SetTemplate('Transparent')
 			ENH:ProcessShadow(MawBuffsBelowMinimapFrame.Container.List, nil, MawBuffsBelowMinimapFrame.Container.List:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
+			ENH:HandleObjectiveFrame()
 		end
 	end
 end
