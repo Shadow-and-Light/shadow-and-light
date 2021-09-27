@@ -493,6 +493,12 @@ function ENH:HandleObjectiveFrame()
 			frame.enhshadow:SetShown(isShadowsEnabled and E.db.sle.shadows.torghastPowers.backdrop)
 		end
 	end
+	do
+		local frame = _G.MawBuffsBelowMinimapFrame.Container.List
+		if frame and frame.enhshadow then
+			frame.enhshadow:SetShown(isShadowsEnabled and E.db.sle.shadows.torghastPowers.backdrop)
+		end
+	end
 end
 
 function ENH:ADDON_LOADED(event, addon)
