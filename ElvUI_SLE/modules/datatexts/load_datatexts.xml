@@ -4,7 +4,6 @@
 	<Script file='agility.lua'/>
 	<Script file='energyregen.lua'/>
 	<Script file='intellect.lua'/>
-	<Script file='stamina.lua'/>
 	<Script file='time.lua'/>
 	<Script file='friends.lua'/>
 	<Script file='guild.lua'/>
