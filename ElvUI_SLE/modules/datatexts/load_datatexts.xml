@@ -3,7 +3,6 @@
 	<Script file='regen.lua'/>
 	<Script file='agility.lua'/>
 	<Script file='energyregen.lua'/>
-	<Script file='intellect.lua'/>
 	<Script file='time.lua'/>
 	<Script file='friends.lua'/>
 	<Script file='guild.lua'/>
