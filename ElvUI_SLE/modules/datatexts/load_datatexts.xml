@@ -1,7 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file='version.lua'/>
 	<Script file='regen.lua'/>
-	<Script file='agility.lua'/>
 	<Script file='energyregen.lua'/>
 	<Script file='time.lua'/>
 	<Script file='friends.lua'/>
