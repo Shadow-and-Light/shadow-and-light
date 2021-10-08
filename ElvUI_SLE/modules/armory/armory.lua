@@ -460,7 +460,7 @@ function Armory:UpdateInspectInfo()
 end
 
 function Armory:UpdateCharacterInfo(event)
-	if event == 'CRITERIA_UPDATE' and InCombatLockdown() then return end
+	if event == 'CRITERIA_UPDATE' and (InCombatLockdown() or not _G.CharacterFrame:IsShown()) then return end
 
 	if E.db.sle.armory.character.enable then
 		M:UpdatePageInfo(_G['CharacterFrame'], 'Character')
