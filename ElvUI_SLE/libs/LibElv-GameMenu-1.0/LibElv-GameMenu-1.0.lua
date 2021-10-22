@@ -23,7 +23,9 @@ local spaceCount = {
 local width, height = _G["GameMenuButtonHelp"]:GetWidth(), _G["GameMenuButtonHelp"]:GetHeight()
 local LibHolder = CreateFrame("Frame", "LibGameMenuHolder", _G["GameMenuFrame"])
 LibHolder:SetSize(width, 1)
-LibHolder:SetPoint("TOP", _G["GameMenuFrame"].ElvUI, "BOTTOM", 0, 0)
+hooksecurefunc(E, 'LoadAPI', function()
+	LibHolder:SetPoint("TOP", _G["GameMenuFrame"].ElvUI, "BOTTOM", 0, 0)
+end)
 
 lib.buttons = {}
 lib.skincheck = false
