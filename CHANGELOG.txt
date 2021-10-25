@@ -1,4 +1,4 @@
-v4.32 ?/??/??
+v4.32 ?/??/21
 
 - Fixed Death/Offline icons
 - Updated Death/Offline icons to work on other frames
