@@ -1,7 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Q = SLE.Quests
-local B = LibStub('LibBabble-SubZone-3.0')
-local BL = B:GetLookupTable()
 local ObjectiveTracker_Expand, ObjectiveTracker_Collapse = ObjectiveTracker_Expand, ObjectiveTracker_Collapse
 local IsResting = IsResting
 local _G = _G
