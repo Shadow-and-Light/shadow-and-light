@@ -1,5 +1,5 @@
 local MAJOR = "LibQTip-1.0"
-local MINOR = 47 -- Should be manually increased
+local MINOR = 48 -- Should be manually increased
 local LibStub = _G.LibStub
 
 assert(LibStub, MAJOR .. " requires LibStub")
@@ -37,7 +37,12 @@ local geterrorhandler = _G.geterrorhandler
 ------------------------------------------------------------------------------
 -- Tables and locals
 ------------------------------------------------------------------------------
-lib.frameMetatable = lib.frameMetatable or {__index = CreateFrame("Frame", nil, nil, BackdropTemplateMixin and "BackdropTemplate")}
+if BackdropTemplateMixin and oldMinor and (oldMinor < 48) and lib.frameMetatable then
+    -- mix new BackdropTemplateMixin into frame metatable
+    Mixin(lib.frameMetatable["__index"], BackdropTemplateMixin)
+else
+    lib.frameMetatable = lib.frameMetatable or {__index = CreateFrame("Frame", nil, nil, BackdropTemplateMixin and "BackdropTemplate")}
+end
 
 lib.tipPrototype = lib.tipPrototype or setmetatable({}, lib.frameMetatable)
 lib.tipMetatable = lib.tipMetatable or {__index = lib.tipPrototype}
@@ -171,9 +176,9 @@ local frameHeap = lib.frameHeap
 local function AcquireFrame(parent)
 	local frame = tremove(frameHeap) or CreateFrame("Frame", nil, nil, BackdropTemplateMixin and "BackdropTemplate")
 	frame:SetParent(parent)
-	--@debug@
+	--[===[@debug@
 	usedFrames = usedFrames + 1
-	--@end-debug@
+	--@end-debug@]===]
 	return frame
 end
 
@@ -186,9 +191,9 @@ local function ReleaseFrame(frame)
 	ClearFrameScripts(frame)
 
 	tinsert(frameHeap, frame)
-	--@debug@
+	--[===[@debug@
 	usedFrames = usedFrames - 1
-	--@end-debug@
+	--@end-debug@]===]
 end
 
 ------------------------------------------------------------------------------
@@ -398,9 +403,9 @@ function AcquireTooltip()
 		setmetatable(tooltip, tipMetatable)
 	end
 
-	--@debug@
+	--[===[@debug@
 	usedTooltips = usedTooltips + 1
-	--@end-debug@
+	--@end-debug@]===]
 	return tooltip
 end
 
@@ -463,9 +468,9 @@ function ReleaseTooltip(tooltip)
 	highlightTexture:SetTexture(DEFAULT_HIGHLIGHT_TEXTURE_PATH)
 	highlightTexture:SetTexCoord(0, 1, 0, 1)
 
-	--@debug@
+	--[===[@debug@
 	usedTooltips = usedTooltips - 1
-	--@end-debug@
+	--@end-debug@]===]
 end
 
 ------------------------------------------------------------------------------
@@ -513,9 +518,9 @@ local tableHeap = lib.tableHeap
 -- Returns a table
 function AcquireTable()
 	local tbl = tremove(tableHeap) or {}
-	--@debug@
+	--[===[@debug@
 	usedTables = usedTables + 1
-	--@end-debug@
+	--@end-debug@]===]
 	return tbl
 end
 
@@ -523,9 +528,9 @@ end
 function ReleaseTable(tableInstance)
 	wipe(tableInstance)
 	tinsert(tableHeap, tableInstance)
-	--@debug@
+	--[===[@debug@
 	usedTables = usedTables - 1
-	--@end-debug@
+	--@end-debug@]===]
 end
 
 ------------------------------------------------------------------------------
@@ -535,13 +540,13 @@ function InitializeTooltip(tooltip, key)
 	----------------------------------------------------------------------
 	-- (Re)set frame settings
 	----------------------------------------------------------------------
-	local backdrop = GameTooltip:GetBackdrop()
+	local backdrop = GameTooltip.NineSlice:GetBackdrop()
 
 	tooltip:SetBackdrop(backdrop)
 
 	if backdrop then
-		tooltip:SetBackdropColor(GameTooltip:GetBackdropColor())
-		tooltip:SetBackdropBorderColor(GameTooltip:GetBackdropBorderColor())
+		tooltip:SetBackdropColor(GameTooltip.NineSlice:GetBackdropColor())
+		tooltip:SetBackdropBorderColor(GameTooltip.NineSlice:GetBackdropBorderColor())
 	end
 
 	tooltip:SetScale(GameTooltip:GetScale())
@@ -690,7 +695,7 @@ end
 ------------------------------------------------------------------------------
 -- Scrollbar data and functions
 ------------------------------------------------------------------------------
-local BACKDROP_SLIDER_8_8 = {
+local BACKDROP_SLIDER_8_8 = BACKDROP_SLIDER_8_8 or {
 	bgFile = "Interface\\Buttons\\UI-SliderBar-Background",
 	edgeFile = "Interface\\Buttons\\UI-SliderBar-Border",
 	tile = true,
