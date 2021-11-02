@@ -1,4 +1,9 @@
-v4.32 ?/??/??
+v4.32 11/2/21
 
+- Compatibility fix to work with ElvUI 12.45 and later
 - Fixed Death/Offline icons
 - Updated Death/Offline icons to work on other frames
+- Fix Role icons in the WoW Raid Manager
+- Some Enhanced shadows fixes
+- Update LibBabble-SubZone-3.0 library
+- Update LibRealmInfo library
