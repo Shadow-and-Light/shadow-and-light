@@ -9,12 +9,12 @@ local minimizeButton = _G['ObjectiveTrackerFrame'].HeaderMenu.MinimizeButton
 local statedriver = {
 	['FULL'] = function(frame)
 		ObjectiveTracker_Expand()
-		if E.private.skins.blizzard.enable == true and E.private.skins.blizzard.objectiveTracker == true then minimizeButton.tex:SetTexture('Interface\\AddOns\\ElvUI\\media\\textures\\MinusButton') end
+		if E.private.skins.blizzard.enable == true and E.private.skins.blizzard.objectiveTracker == true then minimizeButton.tex:SetTexture('Interface\\AddOns\\ElvUI\\Core\\Media\\Textures\\MinusButton') end
 		frame:Show()
 	end,
 	['COLLAPSED'] = function(frame)
 		ObjectiveTracker_Collapse()
-		if E.private.skins.blizzard.enable == true and E.private.skins.blizzard.objectiveTracker == true then minimizeButton.tex:SetTexture('Interface\\AddOns\\ElvUI\\media\\textures\\PlusButton') end
+		if E.private.skins.blizzard.enable == true and E.private.skins.blizzard.objectiveTracker == true then minimizeButton.tex:SetTexture('Interface\\AddOns\\ElvUI\\Core\\Media\\Textures\\PlusButton') end
 		frame:Show()
 	end,
 	['HIDE'] = function(frame)
