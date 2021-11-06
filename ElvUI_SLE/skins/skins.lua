@@ -52,6 +52,18 @@ function Sk:UpdateAdditionalTexture(textureObject, newTexture)
 end
 
 function Sk:Initialize()
+	local LQT = LibStub("LibQTip-1.0", true)
+	if LQT then
+		hooksecurefunc(LQT, 'Acquire', function()
+			for _, Tooltip in LQT:IterateTooltips() do
+				if not Tooltip.isSkinned then
+					Tooltip.NineSlice:Kill()
+					Tooltip:CreateBackdrop('Transparent')
+					Tooltip.isSkinned = true
+				end
+			end
+		end)
+	end
 	function Sk:ForUpdateAll()
 		Sk:Update_ObjectiveTrackerUnderlinesVisibility()
 		Sk:Update_ObjectiveTrackerUnderlinesColor()
