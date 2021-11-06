@@ -3,9 +3,11 @@ local SUF = SLE.UnitFrames
 
 function SUF:Construct_PartyFrames()
 	-- print('Construct_PartyFrames: ', frame:GetName())
-	self.SL_DeathIndicator = SUF:Construct_DeathIndicator(self)
-	self.SL_OfflineIndicator = SUF:Construct_OfflineIndicator(self)
-
+	if not self.isChild then
+		self.SL_DeathIndicator = SUF:Construct_DeathIndicator(self)
+		self.SL_OfflineIndicator = SUF:Construct_OfflineIndicator(self)
+	end
+	
 	if self.Castbar then
 		self.Castbar.slBarID = 'castbar'
 	end
