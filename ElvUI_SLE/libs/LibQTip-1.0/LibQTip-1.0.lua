@@ -1,5 +1,5 @@
 local MAJOR = "LibQTip-1.0"
-local MINOR = 48 -- Should be manually increased
+local MINOR = 49 -- Should be manually increased
 local LibStub = _G.LibStub
 
 assert(LibStub, MAJOR .. " requires LibStub")
@@ -37,12 +37,7 @@ local geterrorhandler = _G.geterrorhandler
 ------------------------------------------------------------------------------
 -- Tables and locals
 ------------------------------------------------------------------------------
-if BackdropTemplateMixin and oldMinor and (oldMinor < 48) and lib.frameMetatable then
-    -- mix new BackdropTemplateMixin into frame metatable
-    Mixin(lib.frameMetatable["__index"], BackdropTemplateMixin)
-else
-    lib.frameMetatable = lib.frameMetatable or {__index = CreateFrame("Frame", nil, nil, BackdropTemplateMixin and "BackdropTemplate")}
-end
+lib.frameMetatable = lib.frameMetatable or {__index = CreateFrame("Frame")}
 
 lib.tipPrototype = lib.tipPrototype or setmetatable({}, lib.frameMetatable)
 lib.tipMetatable = lib.tipMetatable or {__index = lib.tipPrototype}
@@ -248,7 +243,8 @@ function providerPrototype:AcquireCell()
 	local cell = tremove(self.heap)
 
 	if not cell then
-		cell = setmetatable(CreateFrame("Frame", nil, UIParent), self.cellMetatable)
+        cell = CreateFrame("Frame", nil, UIParent, BackdropTemplateMixin and "BackdropTemplate")
+        setmetatable(cell, self.cellMetatable)
 
 		if type(cell.InitializeCell) == "function" then
 			cell:InitializeCell()
@@ -387,7 +383,8 @@ function AcquireTooltip()
 	local tooltip = tremove(tooltipHeap)
 
 	if not tooltip then
-		tooltip = CreateFrame("Frame", nil, UIParent)
+        local template = (TooltipBackdropTemplateMixin and "TooltipBackdropTemplate") or (BackdropTemplateMixin and "BackdropTemplate")
+        tooltip = CreateFrame("Frame", nil, UIParent, template)
 
 		local scrollFrame = CreateFrame("ScrollFrame", nil, tooltip)
 		scrollFrame:SetPoint("TOP", tooltip, "TOP", 0, -TOOLTIP_PADDING)
@@ -463,7 +460,15 @@ function ReleaseTooltip(tooltip)
 	tooltip.colspans = ReleaseTable(tooltip.colspans)
 
 	layoutCleaner.registry[tooltip] = nil
-	tinsert(tooltipHeap, tooltip)
+
+    if TooltipBackdropTemplateMixin and not tooltip.NineSlice then
+        -- don't recycle outdated tooltips into heap
+        tooltip = nil
+    end
+
+    if tooltip then
+        tinsert(tooltipHeap, tooltip)
+    end
 
 	highlightTexture:SetTexture(DEFAULT_HIGHLIGHT_TEXTURE_PATH)
 	highlightTexture:SetTexCoord(0, 1, 0, 1)
@@ -540,14 +545,23 @@ function InitializeTooltip(tooltip, key)
 	----------------------------------------------------------------------
 	-- (Re)set frame settings
 	----------------------------------------------------------------------
-	local backdrop = GameTooltip.NineSlice:GetBackdrop()
+    if TooltipBackdropTemplateMixin then
+        tooltip.layoutType = GameTooltip.layoutType
+        NineSlicePanelMixin.OnLoad(tooltip.NineSlice)
+        if GameTooltip.layoutType then
+            tooltip.NineSlice:SetCenterColor(GameTooltip.NineSlice:GetCenterColor())
+            tooltip.NineSlice:SetBorderColor(GameTooltip.NineSlice:GetBorderColor())
+        end
+    else
+        local backdrop = GameTooltip:GetBackdrop()
 
-	tooltip:SetBackdrop(backdrop)
+        tooltip:SetBackdrop(backdrop)
 
-	if backdrop then
-		tooltip:SetBackdropColor(GameTooltip.NineSlice:GetBackdropColor())
-		tooltip:SetBackdropBorderColor(GameTooltip.NineSlice:GetBackdropBorderColor())
-	end
+        if backdrop then
+            tooltip:SetBackdropColor(GameTooltip:GetBackdropColor())
+            tooltip:SetBackdropBorderColor(GameTooltip:GetBackdropBorderColor())
+        end
+    end
 
 	tooltip:SetScale(GameTooltip:GetScale())
 	tooltip:SetAlpha(1)
