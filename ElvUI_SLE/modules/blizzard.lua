@@ -320,6 +320,7 @@ end
 
 local function CompatibilityChecks()
 	if SLE._Compatibility['Mapster'] then B.Frames['WorldMapFrame'] = false end
+	if SLE._Compatibility['TradeSkillMaster'] then B.Frames['MerchantFrame'] = false end
 end
 
 function B:SLETalkingHead()
