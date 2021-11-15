@@ -32,8 +32,8 @@ function SUF:Update_StatusBars()
 			UF:Update_StatusBar(statusbar.bg or statusbar.BG, (not useBlank and powerTexture) or E.media.blankTex)
 		end
 
-		if statusbar.slBarID == 'classbar' then
-			UF:Configure_ClassBar(_G.ElvUF_Player)
+		if statusbar.slBarID == 'classbar' and db[statusbar.slBarID].enable then
+			SUF:Configure_ClassBar(_G.ElvUF_Player)
 		end
 	end
 end
