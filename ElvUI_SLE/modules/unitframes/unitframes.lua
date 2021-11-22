@@ -13,7 +13,7 @@ local function Cooldown_Options(_, timer, _, cooldown)
 	if not timer or not cooldown then return end
 
 	local parent = cooldown:GetParent()
-	if not parent then return end
+	if not parent or not parent:GetParent() then return end
 	local owner = parent:GetParent().__owner
 	if not owner then return end
 
