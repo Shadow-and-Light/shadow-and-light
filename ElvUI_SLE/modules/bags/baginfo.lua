@@ -102,14 +102,11 @@ function BI:ConstructContainerButton(f, bagID, slotID, test)
 end
 hooksecurefunc(B, 'ConstructContainerButton', BI.ConstructContainerButton)
 
-function BI:UpdateSlot(f, bagID, slotID)
-	if not f then return end
-	local bag = f.Bags[bagID]
-	local isReagent = bagID == REAGENTBANK_CONTAINER
-	local slotName = isReagent and ('ElvUIReagentBankFrameItem'..slotID) or (bag.name..'Slot'..slotID)
-	-- local slot = bag and bag[slotID]
-	local slot = _G[slotName]
+function BI:UpdateSlot(frame, bagID, slotID)
+	local bag = bagID == REAGENTBANK_CONTAINER and frame.reagentFrame and frame.reagentFrame.slots or frame.Bags[bagID]
+	local slot = bag and bag[slotID]
 	if not slot or not slot.equipIcon then return end
+
 	updateSettings(slot)
 
 	if slot.isEquipment then
