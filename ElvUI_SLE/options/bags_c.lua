@@ -33,7 +33,7 @@ local function configTable()
 							E.db.sle.bags.equipmentmanager[info[#info]] = value
 							-- BI:ToggleSettings()
 							B:UpdateLayouts()
-							B:UpdateAllBagSlots()
+							B:UpdateAllBagSlots(true)
 						end,
 					},
 					size = {
