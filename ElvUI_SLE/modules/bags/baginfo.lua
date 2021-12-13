@@ -90,7 +90,7 @@ function BI:UpdateItemDisplay()
 	end
 end
 
-function BI:ConstructContainerButton(f, slotID, bagID, test)
+function BI:ConstructContainerButton(f, bagID, slotID, test)
 	if not f then return end
 	local slot = _G[f.Bags[bagID]:GetName()..'Slot'..slotID]
 	BI.db = E.db.sle.bags.equipmentmanager
