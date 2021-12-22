@@ -1,4 +1,4 @@
-local MAJOR, MINOR = 'LibProcessable', 46
+local MAJOR, MINOR = 'LibProcessable', 54
 assert(LibStub, MAJOR .. ' requires LibStub')
 
 local lib, oldMinor = LibStub:NewLibrary(MAJOR, MINOR)
@@ -6,14 +6,16 @@ if(not lib) then
 	return
 end
 
-local CLASSIC = select(4, GetBuildInfo()) < 20000
+local CLASSIC = select(4, GetBuildInfo()) < 90000
 
 local LE_ITEM_QUALITY_UNCOMMON = LE_ITEM_QUALITY_UNCOMMON or Enum.ItemQuality.Uncommon
 local LE_ITEM_QUALITY_EPIC = LE_ITEM_QUALITY_EPIC or Enum.ItemQuality.Epic
 local LE_ITEM_CLASS_ARMOR = LE_ITEM_CLASS_ARMOR or 4
 local LE_ITEM_CLASS_WEAPON = LE_ITEM_CLASS_WEAPON or 2
 local LE_ITEM_CLASS_GEM = LE_ITEM_CLASS_GEM or 3
+local LE_ITEM_ARMOR_COSMETIC = LE_ITEM_ARMOR_COSMETIC or 5
 local LE_ITEM_SUBCLASS_ARTIFACT = 11 -- no existing constant for this one
+local LE_ITEM_EQUIPLOC_SHIRT = Enum and Enum.InventoryType and Enum.InventoryType.IndexBodyType or 4
 
 local professions = {}
 --[[ LibProcessable:IsMillable(_item[, ignoreMortar]_)
@@ -61,6 +63,7 @@ function lib:IsProspectable(itemID)
 	end
 
 	if(self:HasProfession(755)) then -- Jewelcrafting
+		-- TODO: consider required skill for classic prospecting?
 		return not not self.ores[itemID]
 	end
 end
@@ -91,9 +94,11 @@ function lib:IsDisenchantable(item)
 			return true
 		else
 			local _, _, quality, _, _, _, _, _, _, _, _, class, subClass = GetItemInfo(item)
-			return (quality >= LE_ITEM_QUALITY_UNCOMMON and quality <= LE_ITEM_QUALITY_EPIC)
-				and (class == LE_ITEM_CLASS_ARMOR or class == LE_ITEM_CLASS_WEAPON
-				or (class == LE_ITEM_CLASS_GEM and subClass == LE_ITEM_SUBCLASS_ARTIFACT))
+			return quality and ((quality >= LE_ITEM_QUALITY_UNCOMMON and quality <= LE_ITEM_QUALITY_EPIC)
+				and C_Item.GetItemInventoryTypeByID(itemID) ~= LE_ITEM_EQUIPLOC_SHIRT
+				and (class == LE_ITEM_CLASS_WEAPON
+					or (class == LE_ITEM_CLASS_ARMOR and subClass ~= LE_ITEM_ARMOR_COSMETIC)
+					or (class == LE_ITEM_CLASS_GEM and subClass == LE_ITEM_SUBCLASS_ARTIFACT)))
 		end
 	end
 end
@@ -299,15 +304,16 @@ function lib:GetProfessionCategories(professionID)
 end
 
 local classicIDs = {
-	[(GetSpellInfo(2259))] = 171, -- Alchemy
-	[(GetSpellInfo(2018))] = 164, -- Blacksmithing
-	[(GetSpellInfo(7411))] = 333, -- Enchanting
-	[(GetSpellInfo(4036))] = 202, -- Engineering
-	[(GetSpellInfo(9134))] = 182, -- Herbalism (spell from gloves with +5 herbalism)
-	[(GetSpellInfo(2108))] = 165, -- Leatherworking
-	[(GetSpellInfo(2575))] = 186, -- Mining
-	[(GetSpellInfo(8613))] = 393, -- Skinning
-	[(GetSpellInfo(3908))] = 197, -- Tailoring
+	[(GetSpellInfo(2259))]  = 171, -- Alchemy
+	[(GetSpellInfo(2018))]  = 164, -- Blacksmithing
+	[(GetSpellInfo(7411))]  = 333, -- Enchanting
+	[(GetSpellInfo(4036))]  = 202, -- Engineering
+	[(GetSpellInfo(9134))]  = 182, -- Herbalism (spell from gloves with +5 herbalism)
+	[(GetSpellInfo(2108))]  = 165, -- Leatherworking
+	[(GetSpellInfo(2575))]  = 186, -- Mining
+	[(GetSpellInfo(8613))]  = 393, -- Skinning
+	[(GetSpellInfo(3908))]  = 197, -- Tailoring
+	[(GetSpellInfo(25229)) or 0] = 755, -- Jewelcrafting
 }
 
 local Handler = CreateFrame('Frame')
@@ -347,41 +353,56 @@ See [LibProcessable:IsProspectable()](LibProcessable#libprocessableisprospectabl
 **Notes**:
 * Some items contains a table instead of a boolean
    * Outland and Pandaria ores have skill level requirements, the tables hold that information
+* This table has different content based on the game version (retail vs classic)
+   * In classic the values represent the required jewelcrafting skill to prospect
 --]]
-lib.ores = {
-	-- http://www.wowhead.com/spell=31252/prospecting#prospected-from:0+1+17-20
-	[2770] = true, -- Copper Ore
-	[2771] = true, -- Tin Ore
-	[2772] = true, -- Iron Ore
-	[3858] = true, -- Mithril Ore
-	[10620] = true, -- Thorium Ore
-	[23424] = {815, 1}, -- Fel Iron Ore
-	[23425] = {815, 25}, -- Adamantite Ore
-	[36909] = true, -- Cobalt Ore
-	[36910] = true, -- Titanium Ore
-	[36912] = true, -- Saronite Ore
-	[52183] = true, -- Pyrite Ore
-	[52185] = true, -- Elementium Ore
-	[53038] = true, -- Obsidium Ore
-	[72092] = {809, 1}, -- Ghost Iron Ore
-	[72093] = {809, 25}, -- Kyparite
-	[72094] = {809, 75}, -- Black Trillium Ore
-	[72103] = {809, 75}, -- White Trillium Ore
-	[123918] = true, -- Leystone Ore
-	[123919] = true, -- Felslate
-	[151564] = true, -- Empyrium
-	[152579] = true, -- Storm Silver Ore
-	[152512] = true, -- Monelite Ore
-	[152513] = true, -- Platinum Ore
-	[155830] = true, -- Runic Core, BfA Jewelcrafting Quest
-	[168185] = true, -- Osmenite Ore
-	[171828] = true, -- Laestrite
-	[171829] = true, -- Solenium
-	[171830] = true, -- Oxxein
-	[171831] = true, -- Phaedrum
-	[171832] = true, -- Sinvyr
-	[171833] = true, -- Elethium
-}
+if CLASSIC then
+	lib.ores = {
+		-- https://tbc.wowhead.com/spell=31252/prospecting#comments
+		[2770]  = 1,   -- Copper Ore
+		[2771]  = 50,  -- Tin Ore
+		[2772]  = 125, -- Iron Ore
+		[3858]  = 175, -- Mithril Ore
+		[10620] = 250, -- Thorium Ore
+		[23424] = 275, -- Fel Iron Ore
+		[23425] = 325, -- Adamantite Ore
+	}
+else
+	lib.ores = {
+		-- http://www.wowhead.com/spell=31252/prospecting#prospected-from:0+1+17-20
+		[2770] = true, -- Copper Ore
+		[2771] = true, -- Tin Ore
+		[2772] = true, -- Iron Ore
+		[3858] = true, -- Mithril Ore
+		[10620] = true, -- Thorium Ore
+		[23424] = {815, 1}, -- Fel Iron Ore
+		[23425] = {815, 25}, -- Adamantite Ore
+		[36909] = true, -- Cobalt Ore
+		[36910] = true, -- Titanium Ore
+		[36912] = true, -- Saronite Ore
+		[52183] = true, -- Pyrite Ore
+		[52185] = true, -- Elementium Ore
+		[53038] = true, -- Obsidium Ore
+		[72092] = {809, 1}, -- Ghost Iron Ore
+		[72093] = {809, 25}, -- Kyparite
+		[72094] = {809, 75}, -- Black Trillium Ore
+		[72103] = {809, 75}, -- White Trillium Ore
+		[123918] = true, -- Leystone Ore
+		[123919] = true, -- Felslate
+		[151564] = true, -- Empyrium
+		[152579] = true, -- Storm Silver Ore
+		[152512] = true, -- Monelite Ore
+		[152513] = true, -- Platinum Ore
+		[155830] = true, -- Runic Core, BfA Jewelcrafting Quest
+		[168185] = true, -- Osmenite Ore
+		[171828] = true, -- Laestrite
+		[171829] = true, -- Solenium
+		[171830] = true, -- Oxxein
+		[171831] = true, -- Phaedrum
+		[171832] = true, -- Sinvyr
+		[171833] = true, -- Elethium
+	}
+end
 
 --[[ LibProcessable.herbs
 Table of all herbs that can be milled by a scribe.
@@ -478,15 +499,21 @@ lib.herbs = {
 }
 
 --[[ LibProcessable.enchantingItems
-Table of special items used as part of the Enchanting profession's quest line in the Legion expansion.
+Table of special items used in Enchanting quests.
 
 See [LibProcessable:IsDisenchantable()](LibProcessable#libprocessableisdisenchantableitem).
 --]]
 lib.enchantingItems = {
-	-- These items are used as part of the Legion enchanting quest line
+	-- Legion enchanting quest line
 	[137195] = true, -- Highmountain Armor
 	[137221] = true, -- Enchanted Raven Sigil
 	[137286] = true, -- Fel-Crusted Rune
+
+	-- Shadowlands profession world quests
+	[182021] = true, -- Antique Kyrian Javelin
+	[182043] = true, -- Antique Necromancer's Staff
+	[182067] = true, -- Antique Duelist's Rapier
+	[181991] = true, -- Antique Stalker's Bow
 }
 
 --[[ LibProcessable.containers
@@ -526,11 +553,13 @@ if(CLASSIC) then
 		[16885] = 250,  -- Heavy Junkbox
 		[12033] = 275,  -- Thaurissan Family Jewels
 		[24282] = 5000, -- Rogue's Diary (lockpick requirement sourced from comments, unverified)
+		[29569] = 300,  -- Strong Junkbox
+		[31952] = 325,  -- Khorium Lockbox
 	}
 else
 	lib.containers = {
 		-- https://www.wowhead.com/items?filter=10:195;1:2;:0
-		[7209]   = 0,    -- Tazan's Satchel
+		[7209]   = 0,  -- Tazan's Satchel
 		[4632]   = 15, -- Ornate Bronze Lockbox
 		[4633]   = 15, -- Heavy Bronze Lockbox
 		[4634]   = 15, -- Iron Lockbox
@@ -557,7 +586,7 @@ else
 		[43624]  = 30, -- Titanium Lockbox
 		[63349]  = 30, -- Flame-Scarred Junkbox
 		[68729]  = 30, -- Elementium Lockbox
-		[106895] = 30, -- Tiny Titanium Lockbox
+		[45986] = 30, -- Tiny Titanium Lockbox
 		[88165]  = 35, -- Vine-Cracked Junkbox
 		[88567]  = 35, -- Ghost Iron Lockbox
 		[116920] = 40, -- True Steel Lockbox
