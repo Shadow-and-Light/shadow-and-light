@@ -58,15 +58,15 @@ Pr.ItemTable = {
 		['45992'] = true, --Jeweled Fishing Pole
 	},
 	--Quest dis
-	['Quest'] = {
-		['137195'] = true, -- Highmountain armor
-		['137221'] = true, -- Ravencrest sigil
-		['137286'] = true, -- Demon runes
-		['181991'] = true, -- Scout's bow
-		['182021'] = true, -- Kyrian Spear
-		['182067'] = true, -- Rapier
-		['182043'] = true, -- Antique Necromancer's Staff
-	},
+	-- ['Quest'] = {
+	-- 	['137195'] = true, -- Highmountain armor  --in libprocess, test if we need this now
+	-- 	['137221'] = true, -- Enchanted Raven Sigil  --in libprocess, test if we need this now
+	-- 	['137286'] = true, -- Fel-Crusted Rune  --in libprocess, test if we need this now
+	-- 	['181991'] = true, -- Antique Stalker's Bow
+	-- 	['182021'] = true, -- Antique Kyrian Javelin
+	-- 	['182067'] = true, -- Antique Duelist's Rapier
+	-- 	['182043'] = true, -- Antique Necromancer's Staff
+	-- },
 }
 Pr.Keys = {
 	[GetSpellInfo(195809)] = true, -- jeweled lockpick
@@ -229,7 +229,8 @@ function Pr:DeconstructParser(tt)
 					class, subclass = select(6, GetItemInfo(item))
 					isArtRelic = (class == relicItemTypeLocalized and subclass == relicItemSubTypeLocalized)
 				end
-				if normalItem or Pr.ItemTable["Quest"][id] or isArtRelic then
+				-- if normalItem or Pr.ItemTable["Quest"][id] or isArtRelic then
+				if normalItem or isArtRelic then
 					r, g, b = 1, 0, 0
 					Pr:ApplyDeconstruct(link, Pr.DEname, "spell", r, g, b)
 				end
