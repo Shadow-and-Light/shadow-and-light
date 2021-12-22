@@ -401,6 +401,7 @@ else
 		[171831] = true, -- Phaedrum
 		[171832] = true, -- Sinvyr
 		[171833] = true, -- Elethium
+		[187700] = true, -- Progenium Ore
 	}
 end
 
@@ -496,6 +497,7 @@ lib.herbs = {
 	[169701] = true, -- Deathblossom
 	[170554] = true, -- Vigil's Torch
 	[171315] = true, -- Nightshade
+	[187699] = true, -- First Flower
 }
 
 --[[ LibProcessable.enchantingItems
@@ -584,18 +586,21 @@ else
 		[43575]  = 30, -- Reinforced Junkbox
 		[43622]  = 30, -- Froststeel Lockbox
 		[43624]  = 30, -- Titanium Lockbox
+		[45986]  = 30, -- Tiny Titanium Lockbox
 		[63349]  = 30, -- Flame-Scarred Junkbox
 		[68729]  = 30, -- Elementium Lockbox
-		[45986] = 30, -- Tiny Titanium Lockbox
 		[88165]  = 35, -- Vine-Cracked Junkbox
 		[88567]  = 35, -- Ghost Iron Lockbox
 		[116920] = 40, -- True Steel Lockbox
 		[121331] = 45, -- Leystone Lockbox
 		[169475] = 50, -- Barnacled Lockbox
-		[179311] = 50, -- Venthyr Lockbox
-		[180522] = 50, -- Night Fae Lockbox
-		[180532] = 50, -- Maldraxxian Lockbox
-		[180533] = 50, -- Kyrian Lockbox
+		[179311] = 50, -- Synvir Lockbox
+		[180522] = 50, -- Phaedrum Lockbox
+		[180532] = 50, -- Oxxein Lockbox
+		[180533] = 50, -- Solenium Lockbox
+		[186161] = 50, -- Stygian Lockbox
+		[186160] = 50, -- Locked Artifact Case
+		[188787] = 50, -- Locked Broker Luggage
 	}
 end
 
