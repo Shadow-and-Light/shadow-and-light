@@ -13,7 +13,7 @@ SLE.callbacks = SLE.callbacks or LibStub('CallbackHandler-1.0'):New(SLE)
 
 SLE.version = GetAddOnMetadata('ElvUI_SLE', 'Version')
 SLE.DBversion = '4.24'
-SLE.Title = format('|cff9482c9%s |r', 'Shadow & Light')
+SLE.Title = format('|cff9482c9%s|r', 'Shadow & Light')
 --@alpha@
 SLE.alpha = true
 --@end-alpha@
