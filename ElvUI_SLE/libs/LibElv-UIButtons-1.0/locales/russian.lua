@@ -7,7 +7,7 @@ if not L then return end
 L["LibUIButtons_DESC"] = "Добавляет небольшую полосу с кнопками, дающими доступ к набору полезных функций.\nЭти опции выводятся библиотекой LibElv-UIButtons. Если вы их видите, то один из Ваших аддонов ее использует."
 L["UI Buttons"] = "Меню интерфейса"
 L["Show/Hide UI buttons."] = "Показать/скрыть меню"
-L["Mouse Over"] = "При наведении"
+L["Mouseover"] = "При наведении"
 L["Show on mouse over."] = "Отображать при наведении мыши."
 L["Dropdown Backdrop"] = "Фон выпадающего списка"
 L["Buttons position"] = "Положение кнопок"

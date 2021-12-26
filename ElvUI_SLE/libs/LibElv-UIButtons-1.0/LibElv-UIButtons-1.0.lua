@@ -1,4 +1,4 @@
-local MAJOR, MINOR = "LibElv-UIButtons-1.0", 2
+local MAJOR, MINOR = "LibElv-UIButtons-1.0", 3
 local lib, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not lib then return end
@@ -469,7 +469,7 @@ local function GenerateTable(menu, coreGroup, groupName, groupTitle)
 			mouse = {
 				order = 8,
 				type = 'toggle',
-				name = L["Mouse Over"],
+				name = L["Mouseover"],
 				desc = L["Show on mouse over."],
 				disabled = function() return not menu.db.enable end,
 				get = function(info) return menu.db.mouse end,

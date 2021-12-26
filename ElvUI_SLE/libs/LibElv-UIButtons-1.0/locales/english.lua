@@ -6,7 +6,7 @@ if not L then return end
 --UI buttons--
 L["UI Buttons"] = true
 L["Show/Hide UI buttons."] = true
-L["Mouse Over"] = true
+L["Mouseover"] = true
 L["Show on mouse over."] = true
 L["Dropdown Backdrop"] = true
 L["Buttons position"] = true
