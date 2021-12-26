@@ -6,7 +6,6 @@ local tinsert, format = tinsert, format
 
 local function configTable()
 	if not SLE.initialized then return end
-	E.Options.name = E.Options.name..' + |cff9482c9Shadow & Light|r'..format(': |cff99ff33%s|r', SLE.version)
 
 	--Main options group
 	E.Options.args.sle = {
