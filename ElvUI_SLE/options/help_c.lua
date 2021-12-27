@@ -58,7 +58,7 @@ local function configTable()
 
 	local function CreateQuestion(i, text)
 		local question = {
-			type = 'group', name = ' ', order = i, guiInline = true,
+			type = 'group', name = '', order = i, guiInline = true,
 			args = {
 				q = { order = 1, type = 'description', fontSize = 'medium', name = text },
 			},
@@ -68,7 +68,7 @@ local function configTable()
 
 	E.Options.args.sle.args.help = {
 		type = 'group',
-		name = L["About/Help"],
+		name = L["About/Help"]..[[ |TInterface\MINIMAP\TRACKING\OBJECTICONS:14:14:0:0:256:64:60:90:32:64|t]],
 		order = 90,
 		childGroups = 'tab',
 		args = {
@@ -81,7 +81,7 @@ local function configTable()
 			},
 			faq = {
 				type = 'group',
-				name = L["FAQ"],
+				name = [[FAQ |TInterface\MINIMAP\TRACKING\OBJECTICONS:14:14:0:0:256:64:60:90:32:64|t]],
 				order = 5,
 				childGroups = 'select',
 				args = {
@@ -110,7 +110,7 @@ local function configTable()
 			},
 			links = {
 				type = 'group',
-				name = L["Links"],
+				name = L["Links"]..[[ |TInterface\MINIMAP\TRACKING\FlightMaster:16:16|t]],
 				order = 10,
 				args = {
 					desc = ACH:Description(L["LINK_DESC"], 1, 'medium'),
