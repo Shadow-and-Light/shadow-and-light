@@ -24,9 +24,9 @@ end
 
 function SLE:SetCompareItems()
 	if E.db.sle.tooltip.alwaysCompareItems then
-		E:LockCVar('alwaysCompareItems', 1)
+		SetCVar('alwaysCompareItems', 1)
 	else
-		E:LockCVar('alwaysCompareItems', 0)
+		SetCVar('alwaysCompareItems', 0)
 	end
 end
 
@@ -34,6 +34,6 @@ local function Init()
 	if not E.private.tooltip.enable then return end
 	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", OnTooltipSetUnit)
 
-	SLE:SetCompareItems() --Blizz cvar for item compare
+	SLE:SetCompareItems()
 end
 hooksecurefunc(TT, 'Initialize', Init)
