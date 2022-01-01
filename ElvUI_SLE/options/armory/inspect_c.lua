@@ -62,7 +62,7 @@ local function configTable()
 					},
 					fontSize = {
 						type = 'range',
-						name = L["FONT_SIZE"],
+						name = L["Font Size"],
 						order = 21,
 						min = 6, max = 22, step = 1,
 					},
@@ -90,7 +90,7 @@ local function configTable()
 					},
 					fontSize = {
 						type = 'range',
-						name = L["FONT_SIZE"],
+						name = L["Font Size"],
 						order = 2,
 						min = 6, max = 22, step = 1,
 					},

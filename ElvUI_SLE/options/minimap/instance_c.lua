@@ -51,7 +51,7 @@ local function configTable()
 						order = 1, type = "select", name = L["Font"], dialogControl = 'LSM30_Font', values = AceGUIWidgetLSMlists.font,
 					},
 					fontSize = {
-						order = 2, type = "range", name = L["FONT_SIZE"], min = 6, max = 22, step = 1,
+						order = 2, type = "range", name = L["Font Size"], min = 6, max = 22, step = 1,
 					},
 					fontOutline = {
 						order = 3, type = "select", name = L["Font Outline"], desc = L["Set the font outline."],

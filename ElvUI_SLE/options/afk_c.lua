@@ -80,7 +80,7 @@ local function CreateDefaultTextsFont(i, title, group, inline)
 			},
 			size = {
 				order = 5,
-				name = L["FONT_SIZE"],
+				name = L["Font Size"],
 				type = 'range',
 				min = 8, max = 32, step = 1,
 			},

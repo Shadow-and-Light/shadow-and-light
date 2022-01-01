@@ -89,7 +89,7 @@ local function configTable()
 					},
 					fontSize = {
 						order = 2,
-						name = L["FONT_SIZE"],
+						name = L["Font Size"],
 						type = "range",
 						min = 6, max = 22, step = 1,
 						set = function(info, value) E.db.sle.minimap.coords[ info[#info] ] = value; MM:CoordFont() end,
