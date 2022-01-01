@@ -30,7 +30,6 @@ local iconString = '|T%s:16:16:0:0:64:64:4:60:4:60|t'
 local C_Item_IsAnimaItemByID = C_Item.IsAnimaItemByID
 local GetContainerNumSlots, GetContainerItemLink, GetContainerItemInfo = GetContainerNumSlots, GetContainerItemLink, GetContainerItemInfo
 local GetItemSpell = GetItemSpell
-local ANIMA = ANIMA
 
 local menuList = {}
 
@@ -305,7 +304,7 @@ local function OnEnter()
 
 	local anima = getTotalAnima()
 	if anima > 0 then
-		DT.tooltip:AddDoubleLine(ANIMA, anima, 0, .8, 1, 1, 1, 1)
+		DT.tooltip:AddDoubleLine(L["Anima:"], anima, 0, .8, 1, 1, 1, 1)
 
 		DT.tooltip:AddLine(' ')
 	end

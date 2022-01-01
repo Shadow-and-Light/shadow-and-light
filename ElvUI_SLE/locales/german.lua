@@ -37,6 +37,7 @@ L["Allows you to invite people by alt-clicking their name in chat."] = "Erlaubt 
 L["Alt-Click Invite"] = "Alt-Klick Einladung"
 L["Always Compare Items"] = "Artikel immer vergleichen"
 L["Amount"] = "Anzahl"
+L["Anima:"] = true
 L["Animation time"] = "Animationszeit"
 L["Announce in chat if duel was rejected."] = "Im Chat ankündigen, wenn das Duell abgelehnt wurde."
 L["Announce"] = "Ankündigung"
