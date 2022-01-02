@@ -9,5 +9,4 @@
 	<Script file="oUF_SLOfflineIndicator\oUF_SLOfflineIndicator.lua"/>
 	<Script file="LibRealmInfo\LibRealmInfo.lua"/>
 	<Include file="LibProcessable\LibProcessable.lua"/>
-	<Include file="LibCustomGlow-1.0\LibCustomGlow-1.0.lua"/>
 </Ui>
