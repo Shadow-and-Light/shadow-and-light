@@ -113,7 +113,7 @@ local goldText
 local function OnEvent(self)
 	if not IsLoggedIn() then return end
 
-	if not Ticker then
+	if E.Retail and not Ticker then
 		C_WowTokenPublic_UpdateMarketPrice()
 		Ticker = C_Timer_NewTicker(60, C_WowTokenPublic_UpdateMarketPrice)
 	end
