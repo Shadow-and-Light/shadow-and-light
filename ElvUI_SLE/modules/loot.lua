@@ -239,22 +239,11 @@ function LT:HandleEvent(event, ...)
 	end
 end
 
---If ElvUI's config is opened then do alterations and unregistering da event
-local function LoadConfig(event, addon)
-	if addon ~= 'ElvUI_OptionsUI' then return end
-
-	LT:Update()
-	LT:UnregisterEvent('ADDON_LOADED')
-end
-
 --Toggle module on/off
 function LT:Toggle()
 	if LT.db.enable then
 		self:RegisterEvent('LOOT_OPENED', 'HandleEvent')
 		self:RegisterEvent('PLAYER_ENTERING_WORLD', 'LootShow')
-		if not IsAddOnLoaded('ElvUI_OptionsUI') then --How can this be not loaded at this point? On /rl or login into the game ofc
-			self:RegisterEvent('ADDON_LOADED', LoadConfig)
-		end
 	else
 		self:UnregisterEvent('LOOT_OPENED')
 		self:UnregisterEvent('PLAYER_ENTERING_WORLD')
@@ -293,27 +282,6 @@ end
 --Module update
 function LT:Update()
 	--Setting Elv's option to button that leads to my shit if the module is enabled
-	if IsAddOnLoaded('ElvUI_OptionsUI') then
-		if LT.db.autoroll.enable then
-			E.Options.args.general.args.blizzUIImprovements.args.lootRollGroup.args.autoRoll = {
-				order = 3,
-				type = 'execute',
-				name = L["Auto Greed/DE"],
-				desc = L["This option have been disabled by Shadow & Light. To return it you need to disable S&L's option. Click here to see it's location."],
-				func = function() E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'sle', 'modules', 'loot') end,
-			}
-		else
-			E.Options.args.general.args.blizzUIImprovements.args.lootRollGroup.args.autoRoll = {
-				order = 3,
-				type = 'toggle',
-				name = L["Auto Greed/DE"],
-				desc = L["Automatically select greed or disenchant (when available) on green quality items. This will only work if you are the max level."],
-				get = function() return not E.db.general.autoRoll end,
-				set = function(_, value) E.db.general.autoRoll = value end,
-				disabled = function() return not E.private.general.lootRoll end
-			}
-		end
-	end
 
 	LT:Toggle()
 	LT:AutoToggle()
@@ -359,10 +327,6 @@ function LT:Initialize()
 
 	LT.MaxPlayerLevel = GetMaxPlayerLevel()
 
-	--Azil made this, blame him if something fucked up
-	if E.db.general and LT.db.autoroll.enable then
-		E.db.general.autoRoll = false
-	end
 	LT:Update()
 	hooksecurefunc(M, 'START_LOOT_ROLL', function(self, event, id) LT:HandleRoll(event, id) end)
 	LT:LootIconToggle()
