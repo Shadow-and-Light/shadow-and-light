@@ -295,7 +295,7 @@ function LT:Update()
 	--Setting Elv's option to button that leads to my shit if the module is enabled
 	if IsAddOnLoaded('ElvUI_OptionsUI') then
 		if LT.db.autoroll.enable then
-			E.Options.args.general.args.blizzUIImprovements.args.lootGroup.args.autoRoll = {
+			E.Options.args.general.args.blizzUIImprovements.args.lootRollGroup.args.autoRoll = {
 				order = 3,
 				type = 'execute',
 				name = L["Auto Greed/DE"],
@@ -303,7 +303,7 @@ function LT:Update()
 				func = function() E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'sle', 'modules', 'loot') end,
 			}
 		else
-			E.Options.args.general.args.blizzUIImprovements.args.lootGroup.args.autoRoll = {
+			E.Options.args.general.args.blizzUIImprovements.args.lootRollGroup.args.autoRoll = {
 				order = 3,
 				type = 'toggle',
 				name = L["Auto Greed/DE"],
