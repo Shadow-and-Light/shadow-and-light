@@ -58,7 +58,7 @@ local function UpdateExperience()
 	if not E.db.sle.databars.experience.longtext then return end
 	local bar = EDB.StatusBars.Experience
 
-	if EDB:ExperienceBar_ShouldBeVisible() then
+	if bar:ShouldHide() then
 		local CurrentXP, XPToLevel, RestedXP = UnitXP('player'), UnitXPMax('player'), GetXPExhaustion()
 		local textFormat = E.db.databars.experience.textFormat
 		local text = ''
