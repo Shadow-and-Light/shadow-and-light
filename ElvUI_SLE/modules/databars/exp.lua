@@ -57,49 +57,49 @@ DB.Exp = {
 local function UpdateExperience()
 	if not E.db.sle.databars.experience.longtext then return end
 	local bar = EDB.StatusBars.Experience
+	if not bar.db.enable or bar:ShouldHide() then return end
 
-	if bar:ShouldHide() then
-		local CurrentXP, XPToLevel, RestedXP = UnitXP('player'), UnitXPMax('player'), GetXPExhaustion()
-		local textFormat = E.db.databars.experience.textFormat
-		local text = ''
+	local CurrentXP, XPToLevel, RestedXP = UnitXP('player'), UnitXPMax('player'), GetXPExhaustion()
+	local textFormat = E.db.databars.experience.textFormat
+	local text = ''
 
-		if RestedXP and RestedXP > 0 then
-			if textFormat == 'PERCENT' then
-				text = format('%d%% R:%d%%', CurrentXP / XPToLevel * 100, RestedXP / XPToLevel * 100)
-			elseif textFormat == 'CURMAX' then
-				text = format('%s - %s R:%s', CurrentXP, XPToLevel, RestedXP)
-			elseif textFormat == 'CURPERC' then
-				text = format('%s - %d%% R:%s [%d%%]', CurrentXP, CurrentXP / XPToLevel * 100, RestedXP, RestedXP / XPToLevel * 100)
-			elseif textFormat == 'CUR' then
-				text = format('%s R:%s', CurrentXP, RestedXP)
-			elseif textFormat == 'REM' then
-				text = format('%s R:%s', XPToLevel - CurrentXP, RestedXP)
-			elseif textFormat == 'CURREM' then
-				text = format('%s - %s R:%s', CurrentXP, XPToLevel - CurrentXP, RestedXP)
-			elseif textFormat == 'CURPERCREM' then
-				text = format('%s - %d%% (%s) R:%s', CurrentXP, CurrentXP / XPToLevel * 100, XPToLevel - CurrentXP, RestedXP)
-			end
-		else
-			if textFormat == 'PERCENT' then
-				text = format('%d%%', CurrentXP / XPToLevel * 100)
-			elseif textFormat == 'CURMAX' then
-				text = format('%s - %s', CurrentXP, XPToLevel)
-			elseif textFormat == 'CURPERC' then
-				text = format('%s - %d%%', CurrentXP, CurrentXP / XPToLevel * 100)
-			elseif textFormat == 'CUR' then
-				text = format('%s', CurrentXP)
-			elseif textFormat == 'REM' then
-				text = format('%s', XPToLevel - CurrentXP)
-			elseif textFormat == 'CURREM' then
-				text = format('%s - %s', CurrentXP, XPToLevel - CurrentXP)
-			elseif textFormat == 'CURPERCREM' then
-				text = format('%s - %d%% (%s)', CurrentXP, CurrentXP / XPToLevel * 100, XPToLevel - CurrentXP)
-			end
+	if RestedXP and RestedXP > 0 then
+		if textFormat == 'PERCENT' then
+			text = format('%d%% R:%d%%', CurrentXP / XPToLevel * 100, RestedXP / XPToLevel * 100)
+		elseif textFormat == 'CURMAX' then
+			text = format('%s - %s R:%s', CurrentXP, XPToLevel, RestedXP)
+		elseif textFormat == 'CURPERC' then
+			text = format('%s - %d%% R:%s [%d%%]', CurrentXP, CurrentXP / XPToLevel * 100, RestedXP, RestedXP / XPToLevel * 100)
+		elseif textFormat == 'CUR' then
+			text = format('%s R:%s', CurrentXP, RestedXP)
+		elseif textFormat == 'REM' then
+			text = format('%s R:%s', XPToLevel - CurrentXP, RestedXP)
+		elseif textFormat == 'CURREM' then
+			text = format('%s - %s R:%s', CurrentXP, XPToLevel - CurrentXP, RestedXP)
+		elseif textFormat == 'CURPERCREM' then
+			text = format('%s - %d%% (%s) R:%s', CurrentXP, CurrentXP / XPToLevel * 100, XPToLevel - CurrentXP, RestedXP)
 		end
-
-		bar.text:SetText(text)
+	else
+		if textFormat == 'PERCENT' then
+			text = format('%d%%', CurrentXP / XPToLevel * 100)
+		elseif textFormat == 'CURMAX' then
+			text = format('%s - %s', CurrentXP, XPToLevel)
+		elseif textFormat == 'CURPERC' then
+			text = format('%s - %d%%', CurrentXP, CurrentXP / XPToLevel * 100)
+		elseif textFormat == 'CUR' then
+			text = format('%s', CurrentXP)
+		elseif textFormat == 'REM' then
+			text = format('%s', XPToLevel - CurrentXP)
+		elseif textFormat == 'CURREM' then
+			text = format('%s - %s', CurrentXP, XPToLevel - CurrentXP)
+		elseif textFormat == 'CURPERCREM' then
+			text = format('%s - %d%% (%s)', CurrentXP, CurrentXP / XPToLevel * 100, XPToLevel - CurrentXP)
+		end
 	end
+
+	bar.text:SetText(text)
 end
+hooksecurefunc(EDB, 'ExperienceBar_Update', UpdateExperience)
 
 function DB:PopulateExpPatterns()
 	local symbols = {'%(','%)','%.','([-+])','|4.-;','%%[sd]','%%%d%$[sd]','%%(','%%)','%%.','%%%1','.-','(.-)','(.-)'}
@@ -175,5 +175,4 @@ end
 
 function DB:ExpInit()
 	DB:PopulateExpPatterns()
-	hooksecurefunc(EDB, 'ExperienceBar_Update', UpdateExperience)
 end
