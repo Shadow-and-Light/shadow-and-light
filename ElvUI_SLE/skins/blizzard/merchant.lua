@@ -19,7 +19,7 @@ local MAX_MONEY_DISPLAY_WIDTH = 120
 
 local RECIPE = GetItemClassInfo(LE_ITEM_CLASS_RECIPE)
 local searchBox
-local searching = ""
+local searching = ''
 
 local function SkinVendorItems(i)
 	local button = _G["MerchantItem"..i.."ItemButton"]
@@ -45,8 +45,8 @@ local function SkinVendorItems(i)
 	 	button.backdrop:SetBackdropBorderColor(unpack(E.db.general.bordercolor))
 	 end)
 
-	_G["MerchantItem"..i.."MoneyFrame"]:ClearAllPoints()
-	_G["MerchantItem"..i.."MoneyFrame"]:Point("BOTTOMLEFT", button, "BOTTOMRIGHT", 3, 0)
+	_G['MerchantItem'..i..'MoneyFrame']:ClearAllPoints()
+	_G['MerchantItem'..i..'MoneyFrame']:Point('BOTTOMLEFT', button, 'BOTTOMRIGHT', 3, 0)
 	MerchantBuyBackItemItemButton.IconBorder:SetAlpha(0)
 end
 
@@ -99,11 +99,11 @@ local function UpdateButtonsPositions(isBuyBack)
 end
 
 local function UpdateBuybackInfo()
-	if E.private.sle.skins.merchant.style == "Default" then UpdateButtonsPositions(true) end
+	if E.private.sle.skins.merchant.style == 'Default' then UpdateButtonsPositions(true) end
 	-- apply coloring
 	local btn, link, quality, r, g, b
 	for i = 1, BUYBACK_ITEMS_PER_PAGE, 1 do
-		btn = _G["MerchantItem" .. i]
+		btn = _G['MerchantItem' .. i]
 		if (btn) then
 			link = GetBuybackItemLink(i)
 			if (link) then
@@ -113,7 +113,7 @@ local function UpdateBuybackInfo()
 				else
 					r, g, b = 1,1,1
 				end
-				_G["MerchantItem" .. i .. "Name"]:SetTextColor(r, g, b)
+				_G['MerchantItem' .. i .. 'Name']:SetTextColor(r, g, b)
 			end
 		end
 	end
@@ -132,13 +132,13 @@ local function isKnown(link, itemType, itemSubType)
 		isMount = true
 	end
 
-	_G["SLE_Merchant_HiddenTooltip"]:SetOwner(UIParent, "ANCHOR_NONE")
-	_G["SLE_Merchant_HiddenTooltip"]:SetHyperlink(link)
-	upperLimit = isRecipe and _G["SLE_Merchant_HiddenTooltip"]:NumLines() or 0
+	_G['SLE_Merchant_HiddenTooltip']:SetOwner(UIParent, 'ANCHOR_NONE')
+	_G['SLE_Merchant_HiddenTooltip']:SetHyperlink(link)
+	upperLimit = isRecipe and _G['SLE_Merchant_HiddenTooltip']:NumLines() or 0
 
-	for i=2, _G["SLE_Merchant_HiddenTooltip"]:NumLines() do
+	for i=2, _G['SLE_Merchant_HiddenTooltip']:NumLines() do
 		if (isRecipe and (i <= 5 or i >= upperLimit - 3)) or isMount or not isRecipe then
-			local text = _G["SLE_Merchant_HiddenTooltipTextLeft"..i]
+			local text = _G['SLE_Merchant_HiddenTooltipTextLeft'..i]
 			local r, g, b = text:GetTextColor()
 			local gettext = text:GetText()
 
@@ -166,12 +166,12 @@ local function UpdateMerchantInfo()
 	end
 
 	 -- validate current page shown
-	if (_G["MerchantFrame"].page > math_max(1, math_ceil(visibleMerchantItems / MERCHANT_ITEMS_PER_PAGE))) then
-		_G["MerchantFrame"].page = math_max(1, math_ceil(visibleMerchantItems / MERCHANT_ITEMS_PER_PAGE))
+	if (_G['MerchantFrame'].page > math_max(1, math_ceil(visibleMerchantItems / MERCHANT_ITEMS_PER_PAGE))) then
+		_G['MerchantFrame'].page = math_max(1, math_ceil(visibleMerchantItems / MERCHANT_ITEMS_PER_PAGE))
 	end
 
 	-- Show correct page count based on number of items shown
-	_G["MerchantPageText"]:SetFormattedText(MERCHANT_PAGE_NUMBER, _G["MerchantFrame"].page, math_ceil(visibleMerchantItems / MERCHANT_ITEMS_PER_PAGE))
+	_G['MerchantPageText']:SetFormattedText(MERCHANT_PAGE_NUMBER, _G['MerchantFrame'].page, math_ceil(visibleMerchantItems / MERCHANT_ITEMS_PER_PAGE))
 
 	--Display shit
 	for i = 1, MERCHANT_ITEMS_PER_PAGE do
@@ -185,12 +185,12 @@ local function UpdateMerchantInfo()
 			name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost = GetMerchantItemInfo(indexes[index])
 			if (name ~= nil) then
 				local canAfford = CanAffordMerchantItem(index)
-				_G["MerchantItem"..i.."Name"]:SetText(name)
+				_G['MerchantItem'..i..'Name']:SetText(name)
 				SetItemButtonCount(itemButton, quantity)
 				SetItemButtonStock(itemButton, numAvailable)
 				SetItemButtonTexture(itemButton, texture)
 
-				if ( extendedCost and (price <= 0) ) then -- update item's currency info
+				if (extendedCost and (price <= 0)) then -- update item's currency info
 					itemButton.price = nil
 					itemButton.extendedCost = true
 					itemButton.name = name
@@ -198,7 +198,7 @@ local function UpdateMerchantInfo()
 					itemButton.texture = texture
 					MerchantFrame_UpdateAltCurrency(index, i, canAfford)
 					merchantAltCurrency:ClearAllPoints()
-					merchantAltCurrency:SetPoint("BOTTOMLEFT", "MerchantItem"..i.."NameFrame", "BOTTOMLEFT", 0, 31)
+					merchantAltCurrency:SetPoint('BOTTOMLEFT', 'MerchantItem'..i..'NameFrame', 'BOTTOMLEFT', 0, 31)
 					merchantMoney:Hide()
 					merchantAltCurrency:Show()
 				elseif ( extendedCost and (price > 0) ) then
@@ -212,11 +212,11 @@ local function UpdateMerchantInfo()
 					MoneyFrame_Update(merchantMoney:GetName(), price)
 					local color
 					if (canAfford == false) then
-						color = "red"
+						color = 'red'
 					end
 					SetMoneyFrameColor(merchantMoney:GetName(), color)
 					merchantAltCurrency:ClearAllPoints()
-					merchantAltCurrency:SetPoint("LEFT", merchantMoney:GetName(), "RIGHT", -14, 0)
+					merchantAltCurrency:SetPoint('LEFT', merchantMoney:GetName(), 'RIGHT', -14, 0)
 					merchantAltCurrency:Show()
 					merchantMoney:Show()
 				else
@@ -229,7 +229,7 @@ local function UpdateMerchantInfo()
 					MoneyFrame_Update(merchantMoney:GetName(), price)
 					local color
 					if (canAfford == false) then
-						color = "red"
+						color = 'red'
 					end
 					SetMoneyFrameColor(merchantMoney:GetName(), color)
 					merchantAltCurrency:Hide()
@@ -290,9 +290,9 @@ local function UpdateMerchantInfo()
 			itemButton:Hide()
 			SetItemButtonNameFrameVertexColor(merchantButton, 0.5, 0.5, 0.5)
 			SetItemButtonSlotVertexColor(merchantButton,0.4, 0.4, 0.4)
-			_G["MerchantItem"..i.."Name"]:SetText("")
-			_G["MerchantItem"..i.."MoneyFrame"]:Hide()
-			_G["MerchantItem"..i.."AltCurrencyFrame"]:Hide()
+			_G['MerchantItem'..i..'Name']:SetText('')
+			_G['MerchantItem'..i..'MoneyFrame']:Hide()
+			_G['MerchantItem'..i..'AltCurrencyFrame']:Hide()
 		end
 	end
 end
@@ -301,11 +301,11 @@ local function RebuildMerchantFrame()
 	ItemsPerSubpage = MERCHANT_ITEMS_PER_PAGE
 	SubpagesPerPage = E.private.sle.skins.merchant.subpages
 	MERCHANT_ITEMS_PER_PAGE = SubpagesPerPage * 10 --Haven't seen this causing any taints so I asume it's ok
-	_G["MerchantFrame"]:SetWidth(42 + (318 * SubpagesPerPage) + (12 * (SubpagesPerPage - 1)))
+	_G['MerchantFrame']:SetWidth(42 + (318 * SubpagesPerPage) + (12 * (SubpagesPerPage - 1)))
 
 	for i = 1, MERCHANT_ITEMS_PER_PAGE do
-		if (not _G["MerchantItem" .. i]) then
-			CreateFrame("Frame", "MerchantItem" .. i, _G["MerchantFrame"], "MerchantItemTemplate")
+		if (not _G['MerchantItem' .. i]) then
+			CreateFrame('Frame', 'MerchantItem' .. i, _G['MerchantFrame'], 'MerchantItemTemplate')
 			SkinVendorItems(i)
 		end
 	end
@@ -358,13 +358,13 @@ end
 
 local function MerchantSkinInit()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.merchant ~= true or E.private.sle.skins.merchant.enable ~= true then return end
-	hooksecurefunc("MerchantFrame_UpdateBuybackInfo", UpdateBuybackInfo)
-	if E.private.sle.skins.merchant.style ~= "Default" then return end
+	hooksecurefunc('MerchantFrame_UpdateBuybackInfo', UpdateBuybackInfo)
+	if E.private.sle.skins.merchant.style ~= 'Default' then return end
 	RebuildMerchantFrame()
 	UpdateButtonsPositions()
-	CreateFrame("GameTooltip", "SLE_Merchant_HiddenTooltip", UIParent, "GameTooltipTemplate")
+	CreateFrame('GameTooltip', 'SLE_Merchant_HiddenTooltip', UIParent, 'GameTooltipTemplate')
 
-	hooksecurefunc("MerchantFrame_UpdateMerchantInfo", UpdateMerchantInfo)
+	hooksecurefunc('MerchantFrame_UpdateMerchantInfo', UpdateMerchantInfo)
 end
 
-hooksecurefunc(S, "Initialize", MerchantSkinInit)
+hooksecurefunc(S, 'Initialize', MerchantSkinInit)
