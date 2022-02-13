@@ -1,9 +1,4 @@
-v4.34 1/18/22
+v4.35 2/13/22
 
-- Updated LibQTip
-- Update LibProcessable
-- Removed LibCustomGlow as it is now in ElvUI
-- Fixed party targets to not show S&L's Death & Offline Indicators
-- Fixed a double prof window with TSM
-- S&L Vehicle bar default is now set to disable (you will have reenable it if you were using it before)
-
+- fix error for lootgroup being changed up
+- fix exp databar issues
