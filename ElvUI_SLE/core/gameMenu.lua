@@ -10,9 +10,9 @@ function SLE:BuildGameMenu()
 	if not E.global.sle.advanced.gameMenu.enable then return end
 	local buttons = {
 		[1] = {
-			['name'] = 'GameMenu_SLEConfig',
-			['text'] = '|cff9482c9Shadow & Light|r',
-			['func'] = function()
+			name = 'GameMenu_SLEConfig',
+			text = '|cff9482c9Shadow & Light|r',
+			func = function()
 				if InCombatLockdown() then return end
 				E:ToggleOptionsUI()
 				E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'sle')
@@ -21,7 +21,7 @@ function SLE:BuildGameMenu()
 		},
 	}
 	if E.global.sle.advanced.gameMenu.reload then
-		tinsert(buttons, {['name'] = 'GameMenuReloadUI', ['text'] = L["Reload UI"], ['func'] = function() ReloadUI() end})
+		tinsert(buttons, {name = 'GameMenuReloadUI', text = L["Reload UI"], func = function() ReloadUI() end})
 	end
 	for i = 1, #buttons do
 		lib:AddMenuButton(buttons[i])

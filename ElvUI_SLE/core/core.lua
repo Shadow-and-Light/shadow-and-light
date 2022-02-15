@@ -15,7 +15,7 @@ SLE.version = GetAddOnMetadata('ElvUI_SLE', 'Version')
 SLE.DBversion = '4.24'
 SLE.Title = format('|cff9482c9%s|r', 'Shadow & Light')
 --@alpha@
-SLE.alpha = true
+ElvDB.ShadowLightAlpha = true
 --@end-alpha@
 
 BINDING_HEADER_SLE = '|cff9482c9Shadow & Light|r'
@@ -133,7 +133,8 @@ function SLE:Initialize()
 	if E.db.general.loginmessage then
 		SLE:Print(format(L["SLE_LOGIN_MSG"], E['media'].hexvaluecolor, SLE.version), 'info')
 	end
-	if SLE.alpha then
+
+	if ElvDB.ShadowLightAlpha then
 		SLE:Print('You are using an alpha build!  Go download the release build if you have issues! Do not come for support!', 'warning')
 	end
 
