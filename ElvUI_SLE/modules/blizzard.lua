@@ -101,7 +101,7 @@ B.AddonsList = {
 		ChannelFrame = true,
 	},
 	Blizzard_Collections = {
-		CollectionsJournal = true,
+		CollectionsJournal = false,
 		WardrobeFrame = true,
 	},
 	Blizzard_Communities = {
