@@ -1,4 +1,4 @@
-v4.35 2/13/22
+v4.36 2/27/22
 
-- fix error for lootgroup being changed up
-- fix exp databar issues
+- prevent error with ActionBar Masks (ElvUI Plugin)
+- remove ability to move the collections window as it currently breaks
