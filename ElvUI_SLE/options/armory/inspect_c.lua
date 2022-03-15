@@ -202,7 +202,23 @@ local function configTable()
 						name = COLORBLIND_ITEM_QUALITY,
 						order = 3,
 						disabled = function() return not E.db.sle.armory.inspect.gradient.enable end,
-					}
+					},
+					tierItems = {
+						type = 'toggle',
+						name = L["Tier Set Color"],
+						order = 5,
+						disabled = function() return E.db.sle.armory.inspect.enable == false or E.db.sle.armory.inspect.gradient.enable == false end,
+					},
+					tierItemsColor = {
+						type = 'color',
+						name = L["Tier Set Gradient Color"],
+						order = 6,
+						get = function(info)
+							return unpack(E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])])
+						end,
+						set = function(info, r, g, b, a) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = { r, g, b, a }; M:UpdateCharacterInfo() end,
+						disabled = function() return E.db.sle.armory.inspect.enable == false or E.db.sle.armory.inspect.gradient.enable == false end,
+					},
 				}
 			},
 			background = {
