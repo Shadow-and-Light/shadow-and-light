@@ -78,8 +78,8 @@ P["sle"] = {
 				["enable"] = true,
 				["color"] = { .41, .83, 1 },
 				["quality"] = false,
-				["tierItems"] = false,
-				["tierItemsColor"] = { 0, 1, 0 },
+				["setArmor"] = false,
+				["setArmorColor"] = { 0, 1, 0 },
 			},
 			["transmog"] = {
 				["enableGlow"] = false,
@@ -128,8 +128,8 @@ P["sle"] = {
 				["enable"] = true,
 				["color"] = { .41, .83, 1 },
 				["quality"] = false,
-				["tierItems"] = false,
-				["tierItemsColor"] = { 0, 1, 0 },
+				["setArmor"] = false,
+				["setArmorColor"] = { 0, 1, 0 },
 			},
 			["transmog"] = {
 				["enableGlow"] = false,

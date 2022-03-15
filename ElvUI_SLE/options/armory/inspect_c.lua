@@ -203,15 +203,15 @@ local function configTable()
 						order = 3,
 						disabled = function() return not E.db.sle.armory.inspect.gradient.enable end,
 					},
-					tierItems = {
+					setArmor = {
 						type = 'toggle',
-						name = L["Tier Set Color"],
+						name = L["Armor Set"],
 						order = 5,
 						disabled = function() return E.db.sle.armory.inspect.enable == false or E.db.sle.armory.inspect.gradient.enable == false end,
 					},
-					tierItemsColor = {
+					setArmorColor = {
 						type = 'color',
-						name = L["Tier Set Gradient Color"],
+						name = L["Armor Set Gradient Texture Color"],
 						order = 6,
 						get = function(info)
 							return unpack(E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])])

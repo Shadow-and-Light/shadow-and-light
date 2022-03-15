@@ -90,81 +90,6 @@ Armory.Constants.SpecPrimaryStats = {
 	[73] = 1, --Warrior Protection
 }
 
-Armory.Constants.TierItems = {
-	-- Mage
-	['188844'] = true, -- Helm
-	['188843'] = true, -- Shoulders
-	['188842'] = true, -- Legs
-	['188839'] = true, -- Chest
-	['188845'] = true, -- Hands
-	-- Druid
-	['188847'] = true, -- Helm
-	['188851'] = true, -- Shoulders
-	['188848'] = true, -- Legs
-	['188849'] = true, -- Chest
-	['188853'] = true, -- Hands
-	-- Hunter
-	['188859'] = true, -- Helm
-	['188856'] = true, -- Shoulders
-	['188860'] = true, -- Legs
-	['188858'] = true, -- Chest
-	['188861'] = true, -- Hands
-	-- Death Knight
-	['188868'] = true, -- Helm
-	['188867'] = true, -- Shoulders
-	['188866'] = true, -- Legs
-	['188864'] = true, -- Chest
-	['188863'] = true, -- Hands
-	-- Priest
-	['188880'] = true, -- Helm
-	['188879'] = true, -- Shoulders
-	['188878'] = true, -- Legs
-	['188875'] = true, -- Chest
-	['188881'] = true, -- Hands
-	-- Warlock
-	['188889'] = true, -- Helm
-	['188888'] = true, -- Shoulders
-	['188887'] = true, -- Legs
-	['188884'] = true, -- Chest
-	['188890'] = true, -- Hands
-	-- Demon Hunter
-	['188892'] = true, -- Helm
-	['188896'] = true, -- Shoulders
-	['188893'] = true, -- Legs
-	['188894'] = true, -- Chest
-	['188898'] = true, -- Hands
-	-- Rogue
-	['188901'] = true, -- Helm
-	['188905'] = true, -- Shoulders
-	['188902'] = true, -- Legs
-	['188903'] = true, -- Chest
-	['188907'] = true, -- Hands
-	-- Monk
-	['188910'] = true, -- Helm
-	['188914'] = true, -- Shoulders
-	['188911'] = true, -- Legs
-	['188912'] = true, -- Chest
-	['188916'] = true, -- Hands
-	-- Shaman
-	['188923'] = true, -- Helm
-	['188920'] = true, -- Shoulders
-	['188924'] = true, -- Legs
-	['188922'] = true, -- Chest
-	['188925'] = true, -- Hands
-	-- Paladin
-	['188933'] = true, -- Helm
-	['188932'] = true, -- Shoulders
-	['188931'] = true, -- Legs
-	['188929'] = true, -- Chest
-	['188928'] = true, -- Hands
-	-- Warrior
-	['188942'] = true, -- Helm
-	['188941'] = true, -- Shoulders
-	['188940'] = true, -- Legs
-	['188938'] = true, -- Chest
-	['188937'] = true, -- Hands
-}
-
 Armory.Constants.AzeriteTraitAvailableColor = {0.95, 0.95, 0.32, 1}
 Armory.Constants.Character_Defaults_Cached = false
 Armory.Constants.Inspect_Defaults_Cached = false
@@ -335,7 +260,7 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 		if Slot.SLE_Gradient then --First call for this function for inspect is before gradient is created. To avoid errors
 			if E.db.sle.armory[window].enable and E.db.sle.armory[window].gradient.enable and slotInfo.iLvl then
 				Slot.SLE_Gradient:Show()
-				if E.db.sle.armory[window].gradient.tierItems and Armory.Constants.TierItems[select(2, strsplit(":", Slot.itemLink))] then
+				if E.db.sle.armory[window].gradient.tierItems and select(16, GetItemInfo(Slot.itemLink)) then
 					Slot.SLE_Gradient:SetVertexColor(unpack(E.db.sle.armory[window].gradient.tierItemsColor))
 				elseif E.db.sle.armory[window].gradient.quality then
 					Slot.SLE_Gradient:SetVertexColor(unpack(slotInfo.itemLevelColors))
