@@ -16,7 +16,7 @@ local function Update(self)
 		isDead = false
 	end
 
-	element:SetShown(isDead)
+	element:SetShown(not UnitIsConnected(unit) or isDead)
 
 	if element.PostUpdate then
 		return element:PostUpdate(isDead)
