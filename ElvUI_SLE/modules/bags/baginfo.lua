@@ -53,26 +53,27 @@ function B:UpdateSet()
 end
 
 local function updateSettings(slot)
-	slot.equipIcon:SetSize(BI.db.size, BI.db.size)
+	if not slot or not slot.equipIcon then return end
+	slot.equipIcon:SetSize(E.db.sle.bags.equipmentmanager.size, E.db.sle.bags.equipmentmanager.size)
 	slot.equipIcon:ClearAllPoints()
-	slot.equipIcon:Point(BI.db.point, BI.db.xOffset, BI.db.yOffset)
+	slot.equipIcon:Point(E.db.sle.bags.equipmentmanager.point, E.db.sle.bags.equipmentmanager.xOffset, E.db.sle.bags.equipmentmanager.yOffset)
 
-	if BI.db.icon == 'EQUIPMGR' then
+	if E.db.sle.bags.equipmentmanager.icon == 'EQUIPMGR' then
 		slot.equipIcon:SetTexture('Interface\\PaperDollInfoFrame\\PaperDollSidebarTabs')
 		slot.equipIcon:SetTexCoord(0.01562500, 0.53125000, 0.46875000, 0.60546875)
-	elseif BI.db.icon == 'CUSTOM' then
-		slot.equipIcon:SetTexture(BI.db.customTexture)
+	elseif E.db.sle.bags.equipmentmanager.icon == 'CUSTOM' then
+		slot.equipIcon:SetTexture(E.db.sle.bags.equipmentmanager.customTexture)
 		slot.equipIcon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
 	else
-		slot.equipIcon:SetTexture(BI.equipmentmanager.iconLocations[BI.db.icon] or BI.db.icon)
+		slot.equipIcon:SetTexture(BI.equipmentmanager.iconLocations[E.db.sle.bags.equipmentmanager.icon] or E.db.sle.bags.equipmentmanager.icon)
 		slot.equipIcon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
 	end
 
-	slot.equipIcon:SetVertexColor(BI.db.color.r, BI.db.color.g, BI.db.color.b, BI.db.color.a)
+	slot.equipIcon:SetVertexColor(E.db.sle.bags.equipmentmanager.color.r, E.db.sle.bags.equipmentmanager.color.g, E.db.sle.bags.equipmentmanager.color.b, E.db.sle.bags.equipmentmanager.color.a)
 end
 
 function BI:UpdateItemDisplay()
-	if E.private.bags.enable ~= true then return end
+	if not E.private.bags.enable then return end
 
 	for _, bagFrame in next, B.BagFrames do
 		for _, bagID in next, bagFrame.BagIDs do
