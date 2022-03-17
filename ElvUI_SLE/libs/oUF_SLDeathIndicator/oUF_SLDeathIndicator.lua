@@ -42,6 +42,7 @@ local function Enable(self)
 
 		if element:IsObjectType('Texture') and not element:GetTexture() then
 			element:SetTexture([[Interface\LootFrame\LootPanel-Icon]])
+			element:Hide()
 		end
 
 		return true
