@@ -40,9 +40,11 @@ local function Enable(self)
 		element.ForceUpdate(element)
 
 		self:RegisterEvent('UNIT_CONNECTION', Path)
+		self:RegisterEvent('UNIT_HEALTH', Path)
 
 		if element:IsObjectType('Texture') and not element:GetTexture() then
 			element:SetTexture([[Interface\LootFrame\LootPanel-Icon]])
+			element:Hide()
 		end
 
 		return true
@@ -55,6 +57,7 @@ local function Disable(self)
 	if element then
 		element:Hide()
 		self:UnregisterEvent('UNIT_CONNECTION', Path)
+		self:UnregisterEvent('UNIT_HEALTH', Path)
 	end
 end
 

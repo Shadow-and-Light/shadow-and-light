@@ -10,16 +10,10 @@ local function Update(self)
 		element:PreUpdate()
 	end
 
-	if isDead or self.isForced then
-		isDead = true
+	if (self.isForced or UnitIsConnected(self.unit)) and isDead then
+		element:Show()
 	else
-		isDead = false
-	end
-
-	element:SetShown(isDead)
-
-	if element.PostUpdate then
-		return element:PostUpdate(isDead)
+		element:Hide()
 	end
 end
 
@@ -44,9 +38,11 @@ local function Enable(self)
 		self:RegisterEvent('PLAYER_ALIVE', Path, true)
 		self:RegisterEvent('PLAYER_DEAD', Path, true)
 		self:RegisterEvent('PLAYER_UNGHOST', Path, true)
+		self:RegisterEvent('UNIT_CONNECTION', Path)
 
 		if element:IsObjectType('Texture') and not element:GetTexture() then
 			element:SetTexture([[Interface\LootFrame\LootPanel-Icon]])
+			element:Hide()
 		end
 
 		return true
@@ -63,6 +59,7 @@ local function Disable(self)
 		self:UnregisterEvent('PLAYER_ALIVE', Path)
 		self:UnregisterEvent('PLAYER_DEAD', Path)
 		self:UnregisterEvent('PLAYER_UNGHOST', Path)
+		self:UnregisterEvent('UNIT_CONNECTION', Path)
 	end
 end
 
