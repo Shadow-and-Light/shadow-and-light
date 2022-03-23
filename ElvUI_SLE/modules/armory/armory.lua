@@ -264,7 +264,7 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 					Slot.SLE_Gradient:SetVertexColor(unpack(E.db.sle.armory[window].gradient.tierItemsColor))
 				elseif E.db.sle.armory[window].gradient.quality then
 					Slot.SLE_Gradient:SetVertexColor(unpack(slotInfo.itemLevelColors))
-				else 
+				else
 					Slot.SLE_Gradient:SetVertexColor(unpack(E.db.sle.armory[window].gradient.color))
 				end
 			else
