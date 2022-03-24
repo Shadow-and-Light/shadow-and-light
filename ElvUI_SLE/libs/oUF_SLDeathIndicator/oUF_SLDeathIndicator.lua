@@ -41,8 +41,8 @@ local function Enable(self)
 		self:RegisterEvent('UNIT_CONNECTION', Path)
 
 		if element:IsObjectType('Texture') and not element:GetTexture() then
-			element:SetTexture([[Interface\LootFrame\LootPanel-Icon]])
-			element:Hide()
+			-- element:SetTexture([[Interface\LootFrame\LootPanel-Icon]])
+			element:SetTexture([[Interface\CharacterFrame\UI-StateIcon]])
 		end
 
 		return true

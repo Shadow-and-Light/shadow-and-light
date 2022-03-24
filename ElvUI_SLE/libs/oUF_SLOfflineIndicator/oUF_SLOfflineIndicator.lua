@@ -43,8 +43,8 @@ local function Enable(self)
 		self:RegisterEvent('UNIT_HEALTH', Path)
 
 		if element:IsObjectType('Texture') and not element:GetTexture() then
-			element:SetTexture([[Interface\LootFrame\LootPanel-Icon]])
-			element:Hide()
+			-- element:SetTexture([[Interface\LootFrame\LootPanel-Icon]])
+			element:SetTexture([[Interface\Challenges\ChallengeMode_Medal_Platinum]])
 		end
 
 		return true
