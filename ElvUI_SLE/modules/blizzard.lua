@@ -13,6 +13,7 @@ B.Frames = {
 	FriendsFrame = true,
 	FriendsFriendsFrame = true,
 	GameMenuFrame = true,
+	GhostFrame = true,
 	GossipFrame = true,
 	GuildInviteFrame = true,
 	GuildRegistrarFrame = true,
