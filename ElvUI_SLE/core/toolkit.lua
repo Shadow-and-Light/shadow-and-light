@@ -184,7 +184,6 @@ function SLE:Reset(group)
 		E:ResetMovers(L["Pet Battle Status"])
 		E:ResetMovers(L["Pet Battle AB"])
 		E:ResetMovers(L["Garrison Tools Bar"])
-		E:ResetMovers(L["Ghost Frame"])
 		E:ResetMovers(L["Raid Utility"])
 	end
 	E:UpdateAll()

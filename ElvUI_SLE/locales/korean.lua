@@ -229,7 +229,6 @@ L["Game Menu Buttons"] = "게임 메뉴 버튼"
 L["Garrison Tools Bar"] = "주둔지 툴바"
 L["Gem Sockets"] = "보석홈"
 L["General Fonts"] = "일반항목 글씨"
-L["Ghost Frame"] = "유령 프레임"
 L["Glow Number"] = true
 L["Glow Offset"] = true
 L["Gossip and Quest Frames Text"] = true

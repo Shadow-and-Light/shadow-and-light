@@ -88,10 +88,6 @@ function M:Initialize()
 	M.db = E.db.sle.misc
 	E:CreateMover(_G.UIErrorsFrame, 'UIErrorsFrameMover', L["Error Frame"], nil, nil, nil, 'ALL,S&L,S&L MISC')
 
-	--GhostFrame Mover
-	E:CreateMover(_G.GhostFrame, 'SLEGhostFrameMover', L["Ghost Frame"], nil, nil, nil, 'ALL,S&L,S&L MISC')
-	_G.GhostFrame.mover:SetSize(_G.GhostFrameContentsFrame:GetSize())
-
 	--Raid Utility
 	if _G.RaidUtility_ShowButton then M:RaidUtility_Hook() end
 

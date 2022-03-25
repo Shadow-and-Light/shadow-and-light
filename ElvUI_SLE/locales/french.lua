@@ -229,7 +229,6 @@ L["Game Menu Buttons"] = "Bouton de menu du jeu"
 L["Garrison Tools Bar"] = true
 L["Gem Sockets"] = "Base de gemme"
 L["General Fonts"] = "Polices générales"
-L["Ghost Frame"] = "Cadre fantôme"
 L["Glow Number"] = "Nombre de lueur"
 L["Glow Offset"] = "Décalage lumineux"
 L["Gossip and Quest Frames Text"] = "Cadre de quête des bavardages et du texte"

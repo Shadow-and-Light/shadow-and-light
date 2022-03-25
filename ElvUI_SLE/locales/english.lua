@@ -229,7 +229,6 @@ L["Game Menu Buttons"] = true
 L["Garrison Tools Bar"] = true
 L["Gem Sockets"] = true
 L["General Fonts"] = true
-L["Ghost Frame"] = true
 L["Glow Number"] = true
 L["Glow Offset"] = true
 L["Gossip and Quest Frames Text"] = true
