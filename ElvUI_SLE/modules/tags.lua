@@ -1,5 +1,5 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
-local RC = LibStub('LibRangeCheck-2.0')
+local RC = E.Libs.RangeCheck
 local ElvUF = ElvUI.oUF
 assert(ElvUF, 'ElvUI was unable to locate oUF.')
 

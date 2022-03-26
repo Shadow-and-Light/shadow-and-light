@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local DT = E.DataTexts
-local RC = LibStub("LibRangeCheck-2.0")
+local RC = E.Libs.RangeCheck
 
 local UnitName = UnitName
 local SPELL_FAILED_BAD_IMPLICIT_TARGETS = SPELL_FAILED_BAD_IMPLICIT_TARGETS
