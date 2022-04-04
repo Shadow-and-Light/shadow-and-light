@@ -100,8 +100,7 @@ function CA:BuildLayout()
 			-- self.AzeriteTexture:Hide()
 			if E.db.sle.armory.character.enable then self.AvailableTraitFrame:Hide() end
 			local isAzeriteEmpoweredItem = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(itemLocation)
-			if isAzeriteEmpoweredItem then
-			else
+			if not isAzeriteEmpoweredItem then
 				LCG.PixelGlow_Stop(self, "_AzeriteTraitGlow")
 			end
 		end)
