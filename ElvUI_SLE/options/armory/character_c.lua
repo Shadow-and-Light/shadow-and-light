@@ -218,7 +218,7 @@ local function configTable()
 							return unpack(E.db.sle.armory.character[(info[#info - 1])][(info[#info])])
 						end,
 						set = function(info, r, g, b, a) E.db.sle.armory.character[(info[#info - 1])][(info[#info])] = { r, g, b, a }; M:UpdateCharacterInfo() end,
-						disabled = function() return E.db.sle.armory.character.enable == false or E.db.sle.armory.character.gradient.enable == false end,
+						disabled = function() return not E.db.sle.armory.character.enable or not E.db.sle.armory.character.gradient.enable or not E.db.sle.armory.character.gradient.setArmor end,
 					},
 				}
 			},

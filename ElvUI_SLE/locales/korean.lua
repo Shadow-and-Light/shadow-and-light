@@ -647,7 +647,6 @@ L["Use ElvUI's restrictions for button presses."] = true
 L["Use quick access (on right click) for this button."] = "이 버튼에 빠른 접근(우클릭시 작동)을 사용합니다."
 L["Use shadows on..."] = "그림자 사용할 곳"
 L["Viewport"] = true
-L["Warning Only As Icons"] = "경보에 아이콘만 사용"
 L["Warning Size"] = "경보 크기"
 L["WARNING: This will reset all movers & options for S&L and reload the screen."] = true
 L["We are sorry, but you can't do this now. Try again after the end of this combat."] = true
