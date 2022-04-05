@@ -449,7 +449,8 @@ function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant, prim
 		if noChant then message = message..'|cffff0000'..L["Not Enchanted"]..'|r\n' end
 		Slot['SLE_Warning'].Reason = message or nil
 		Slot['SLE_Warning']:Show()
-		if Slot.SLE_Gradient then Slot.SLE_Gradient:SetVertexColor(1, 0, 0) end
+		Slot["SLE_Warning"].texture:SetVertexColor(unpack(E.db.sle.armory.character.gradient.warningBarColor))
+		if Slot.SLE_Gradient then Slot.SLE_Gradient:SetVertexColor(unpack(E.db.sle.armory[window].gradient.warningColor)) end
 	else
 		Slot['SLE_Warning']:Hide()
 	end

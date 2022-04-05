@@ -219,6 +219,26 @@ local function configTable()
 						set = function(info, r, g, b, a) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = { r, g, b, a }; M:UpdateInspectInfo() end,
 						disabled = function() return not E.db.sle.armory.inspect.enable or not E.db.sle.armory.inspect.gradient.enable or not E.db.sle.armory.inspect.gradient.setArmor end,
 					},
+					warningColor = {
+						type = 'color',
+						name = L["Warning Gradient Texture Color"],
+						order = 7,
+						get = function(info)
+							return unpack(E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])])
+						end,
+						set = function(info, r, g, b, a) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = { r, g, b, a }; M:UpdateInspectInfo() end,
+						disabled = function() return not E.db.sle.armory.inspect.enable or not E.db.sle.armory.inspect.gradient.enable end,
+					},
+					warningBarColor = {
+						type = 'color',
+						name = L["Warning Bar Color"],
+						order = 8,
+						get = function(info)
+							return unpack(E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])])
+						end,
+						set = function(info, r, g, b, a) E.db.sle.armory.inspect[(info[#info - 1])][(info[#info])] = { r, g, b, a }; M:UpdateInspectInfo() end,
+						disabled = function() return not E.db.sle.armory.inspect.enable or not E.db.sle.armory.inspect.gradient.enable end,
+					},
 				}
 			},
 			background = {
