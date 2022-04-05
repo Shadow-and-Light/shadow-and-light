@@ -1054,15 +1054,15 @@ SLE.installTable = {
 				_G["PluginInstallFrame"].Option3:SetScript('OnClick', function() SetupCVars("DARTH") end)
 				_G["PluginInstallFrame"].Option3:SetText(L["CVars"])
 			end
-			if PI.SLE_Auth == "AFFINITY" then
-				_G["PluginInstallFrame"].Option1:Show()
-				_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() StartSetup("AFFINITY") end)
-				_G["PluginInstallFrame"].Option1:SetText(L["Layout"])
+			-- if PI.SLE_Auth == "AFFINITY" then
+			-- 	_G["PluginInstallFrame"].Option1:Show()
+			-- 	_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() StartSetup("AFFINITY") end)
+			-- 	_G["PluginInstallFrame"].Option1:SetText(L["Layout"])
 
-				_G["PluginInstallFrame"].Option2:Show()
-				_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() SetupAddons("AFFINITY") end)
-				_G["PluginInstallFrame"].Option2:SetText(ADDONS)
-			end
+			-- 	_G["PluginInstallFrame"].Option2:Show()
+			-- 	_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() SetupAddons("AFFINITY") end)
+			-- 	_G["PluginInstallFrame"].Option2:SetText(ADDONS)
+			-- end
 		end,
 		[4] = function()
 			_G["PluginInstallFrame"].SubTitle:SetText(L["Armory Mode"])

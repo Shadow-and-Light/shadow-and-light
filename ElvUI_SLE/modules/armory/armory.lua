@@ -96,7 +96,7 @@ Armory.Constants.Inspect_Defaults_Cached = false
 Armory.Constants.Character_Defaults = {}
 Armory.Constants.Inspect_Defaults = {}
 -- Armory.Constants.WarningTexture = [[Interface\AddOns\ElvUI_SLE\media\textures\armory\Warning-Small]]
-Armory.Constants.WarningTexture = [[Interface\AddOns\ElvUI\Media\Textures\Minimalist]]
+Armory.Constants.WarningTexture = [[Interface\AddOns\ElvUI\Core\Media\Textures\Minimalist]]
 Armory.Constants.GradientTexture = [[Interface\AddOns\ElvUI_SLE\media\textures\armory\Gradation]]
 Armory.Constants.TransmogTexture = [[Interface\AddOns\ElvUI_SLE\media\textures\armory\anchor]]
 Armory.Constants.MaxGemSlots = 5
@@ -260,8 +260,8 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 		if Slot.SLE_Gradient then --First call for this function for inspect is before gradient is created. To avoid errors
 			if E.db.sle.armory[window].enable and E.db.sle.armory[window].gradient.enable and slotInfo.iLvl then
 				Slot.SLE_Gradient:Show()
-				if E.db.sle.armory[window].gradient.tierItems and select(16, GetItemInfo(Slot.itemLink)) then
-					Slot.SLE_Gradient:SetVertexColor(unpack(E.db.sle.armory[window].gradient.tierItemsColor))
+				if E.db.sle.armory[window].gradient.setArmor and select(16, GetItemInfo(Slot.itemLink)) then
+					Slot.SLE_Gradient:SetVertexColor(unpack(E.db.sle.armory[window].gradient.setArmorColor))
 				elseif E.db.sle.armory[window].gradient.quality then
 					Slot.SLE_Gradient:SetVertexColor(unpack(slotInfo.itemLevelColors))
 				else
@@ -449,7 +449,8 @@ function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant, prim
 		if noChant then message = message..'|cffff0000'..L["Not Enchanted"]..'|r\n' end
 		Slot['SLE_Warning'].Reason = message or nil
 		Slot['SLE_Warning']:Show()
-		if Slot.SLE_Gradient then Slot.SLE_Gradient:SetVertexColor(1, 0, 0) end
+		Slot["SLE_Warning"].texture:SetVertexColor(unpack(E.db.sle.armory.character.gradient.warningBarColor))
+		if Slot.SLE_Gradient then Slot.SLE_Gradient:SetVertexColor(unpack(E.db.sle.armory[window].gradient.warningColor)) end
 	else
 		Slot['SLE_Warning']:Hide()
 	end

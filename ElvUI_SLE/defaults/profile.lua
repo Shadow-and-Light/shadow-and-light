@@ -80,6 +80,8 @@ P["sle"] = {
 				["quality"] = false,
 				["setArmor"] = false,
 				["setArmorColor"] = { 0, 1, 0 },
+				["warningColor"] = { 1, 0.2, 0.2 },
+				["warningBarColor"] = { 1, 0.2, 0.2 },
 			},
 			["transmog"] = {
 				["enableGlow"] = false,
@@ -130,6 +132,8 @@ P["sle"] = {
 				["quality"] = false,
 				["setArmor"] = false,
 				["setArmorColor"] = { 0, 1, 0 },
+				["warningColor"] = { 1, 0.2, 0.2 },
+				["warningBarColor"] = { 1, 0.2, 0.2 },
 			},
 			["transmog"] = {
 				["enableGlow"] = false,

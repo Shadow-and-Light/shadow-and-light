@@ -84,7 +84,7 @@ function CA:BuildLayout()
 		Slot["SLE_Warning"].texture = Slot["SLE_Warning"]:CreateTexture(nil, "BACKGROUND")
 		Slot["SLE_Warning"].texture:SetInside()
 		Slot["SLE_Warning"].texture:SetTexture(Armory.Constants.WarningTexture)
-		Slot["SLE_Warning"].texture:SetVertexColor(1, 0, 0)
+		Slot["SLE_Warning"].texture:SetVertexColor(unpack(E.db.sle.armory.character.gradient.warningBarColor))
 
 		Slot["SLE_Warning"]:SetFrameLevel(3)  --* Fixes #468
 		Slot["SLE_Warning"]:SetScript("OnEnter", Armory.Warning_OnEnter)
@@ -100,8 +100,7 @@ function CA:BuildLayout()
 			-- self.AzeriteTexture:Hide()
 			if E.db.sle.armory.character.enable then self.AvailableTraitFrame:Hide() end
 			local isAzeriteEmpoweredItem = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(itemLocation)
-			if isAzeriteEmpoweredItem then
-			else
+			if not isAzeriteEmpoweredItem then
 				LCG.PixelGlow_Stop(self, "_AzeriteTraitGlow")
 			end
 		end)
