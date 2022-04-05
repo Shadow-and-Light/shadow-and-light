@@ -260,8 +260,8 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 		if Slot.SLE_Gradient then --First call for this function for inspect is before gradient is created. To avoid errors
 			if E.db.sle.armory[window].enable and E.db.sle.armory[window].gradient.enable and slotInfo.iLvl then
 				Slot.SLE_Gradient:Show()
-				if E.db.sle.armory[window].gradient.tierItems and select(16, GetItemInfo(Slot.itemLink)) then
-					Slot.SLE_Gradient:SetVertexColor(unpack(E.db.sle.armory[window].gradient.tierItemsColor))
+				if E.db.sle.armory[window].gradient.setArmor and select(16, GetItemInfo(Slot.itemLink)) then
+					Slot.SLE_Gradient:SetVertexColor(unpack(E.db.sle.armory[window].gradient.setArmorColor))
 				elseif E.db.sle.armory[window].gradient.quality then
 					Slot.SLE_Gradient:SetVertexColor(unpack(slotInfo.itemLevelColors))
 				else
