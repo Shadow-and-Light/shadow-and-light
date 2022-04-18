@@ -80,6 +80,7 @@ LP.Hearthstones = {
 	{182773, nil, true}, --Necrolord HS
 	{180290, nil, true}, --Night Fae HS
 	{184353, nil, true}, --Kyrian HS
+	{190237, nil, true}, -- Broker Translocation Matrix
 }
 
 LP.PortItems = {
