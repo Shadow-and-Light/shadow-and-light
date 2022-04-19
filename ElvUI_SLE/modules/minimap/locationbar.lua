@@ -80,6 +80,7 @@ LP.Hearthstones = {
 	{182773, nil, true}, --Necrolord HS
 	{180290, nil, true}, --Night Fae HS
 	{184353, nil, true}, --Kyrian HS
+	{190237, nil, true}, -- Broker Translocation Matrix
 }
 
 LP.PortItems = {
@@ -245,7 +246,7 @@ LP.Spells = {
 		[23] = {text = GetSpellInfo(354466),icon = SLE:GetIconFromID('spell', 354466),secure = {buttonType = 'spell',ID = 354466}, UseTooltip = true},-- Spires of Ascension
 		[24] = {text = GetSpellInfo(354462),icon = SLE:GetIconFromID('spell', 354462),secure = {buttonType = 'spell',ID = 354462}, UseTooltip = true},-- Necrotic Wake
 		[25] = {text = GetSpellInfo(354467),icon = SLE:GetIconFromID('spell', 354467),secure = {buttonType = 'spell',ID = 354467}, UseTooltip = true},-- Theater of Pain
-
+		[26] = {text = GetSpellInfo(367416),icon = SLE:GetIconFromID('spell', 367416),secure = {buttonType = 'spell',ID = 367416}, UseTooltip = true},-- Tazavesh
 	},
 }
 
