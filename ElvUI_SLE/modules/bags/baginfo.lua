@@ -54,6 +54,7 @@ end
 
 local function updateSettings(slot)
 	if not slot or not slot.equipIcon then return end
+
 	slot.equipIcon:SetSize(E.db.sle.bags.equipmentmanager.size, E.db.sle.bags.equipmentmanager.size)
 	slot.equipIcon:ClearAllPoints()
 	slot.equipIcon:Point(E.db.sle.bags.equipmentmanager.point, E.db.sle.bags.equipmentmanager.xOffset, E.db.sle.bags.equipmentmanager.yOffset)
