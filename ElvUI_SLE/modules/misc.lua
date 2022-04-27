@@ -36,11 +36,7 @@ function M:RaidUtility_OnDragStop()
 	local point, anchor, point2, x, y = self:GetPoint()
 	local frame = _G.RaidUtility_ShowButton
 	frame:ClearAllPoints()
-	if strfind(point, 'BOTTOM') then
-		frame:SetPoint(point, anchor, point2, x, y)
-	else
-		frame:SetPoint(point, anchor, point2, x, y)
-	end
+	frame:SetPoint(point, anchor, point2, x, y)
 end
 
 function M:RaidUtility_OnEnter()
@@ -89,7 +85,7 @@ function M:Initialize()
 	E:CreateMover(_G.UIErrorsFrame, 'UIErrorsFrameMover', L["Error Frame"], nil, nil, nil, 'ALL,S&L,S&L MISC')
 
 	--Raid Utility
-	if _G.RaidUtility_ShowButton then M:RaidUtility_Hook() end
+	if _G.RaidUtility_ShowButton and E.private.general.raidUtility then M:RaidUtility_Hook() end
 
 	--Viewport
 	-- function CinematicFrame_CancelCinematic()
