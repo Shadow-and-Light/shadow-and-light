@@ -5,11 +5,16 @@ local LAB = E.Libs.LAB
 local Masque = LibStub('Masque', true)
 local MasqueGroup = Masque and Masque:Group('ElvUI', 'ActionBars')
 
---GLOBALS: CreateFrame, hooksecurefunc
-
+local _G = _G
 local format = format
+local ipairs, pairs = ipairs, pairs
+local strsplit = strsplit
 local RegisterStateDriver = RegisterStateDriver
+local UnregisterStateDriver = UnregisterStateDriver
 local GetVehicleBarIndex, GetOverrideBarIndex = GetVehicleBarIndex, GetOverrideBarIndex
+local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
+
 local defaultFont, defaultFontSize, defaultFontOutline
 
 DVB.barDefaults = {
