@@ -167,7 +167,7 @@ function DVB:PositionAndSizeBar()
 	local page = format('[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13;', GetOverrideBarIndex(), GetVehicleBarIndex(), GetVehicleBarIndex())
 	RegisterStateDriver(bar, 'page', page)
 
-	if db.enabled then
+	if db.enable then
 		E:EnableMover(bar.mover:GetName())
 		RegisterStateDriver(bar, 'visibility', '[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] show; hide')
 		bar:Show()
@@ -304,7 +304,7 @@ end
 
 --* Ghetto way to get the pushed texture to work
 function DVB:LAB_MouseUp()
-	if not E.private.actionbar.enable or not E.db.sle.actionbar.vehicle.enabled then return end
+	if not E.private.actionbar.enable or not E.db.sle.actionbar.vehicle.enable then return end
 	local slbutton = _G[self.slvehiclebutton]
 	if slbutton and slbutton.config.clickOnDown then
 		slbutton:GetPushedTexture():Hide()
@@ -313,7 +313,7 @@ end
 hooksecurefunc(AB, 'LAB_MouseUp', DVB.LAB_MouseUp)
 
 function DVB:LAB_MouseDown()
-	if not E.private.actionbar.enable or not E.db.sle.actionbar.vehicle.enabled then return end
+	if not E.private.actionbar.enable or not E.db.sle.actionbar.vehicle.enable then return end
 	local slbutton = _G[self.slvehiclebutton]
 	if slbutton and slbutton.config.clickOnDown then
 		slbutton:GetPushedTexture():Show()

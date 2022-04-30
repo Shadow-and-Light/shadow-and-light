@@ -27,12 +27,12 @@ local function configTable()
 	local ACH = E.Libs.ACH
 
 	local SharedBarOptions = {
-		enabled = ACH:Toggle(L["Enable"], nil, 0),
+		enable = ACH:Toggle(L["Enable"], nil, 0),
 		-- 	-- restorePosition = ACH:Execute(L["Restore Bar"], L["Restore the actionbars default settings"], 1),
-		generalOptions = ACH:MultiSelect('', nil, 3, { backdrop = L["Backdrop"], mouseover = L["Mouseover"], clickThrough = L["Click Through"] }, nil, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enabled end),
-		buttonGroup = ACH:Group(L["Button Settings"], nil, 4, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enabled end),
-		backdropGroup = ACH:Group(L["Backdrop Settings"], nil, 5, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enabled end),
-		barGroup = ACH:Group(L["Bar Settings"], nil, 6, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enabled end),
+		generalOptions = ACH:MultiSelect('', nil, 3, { backdrop = L["Backdrop"], mouseover = L["Mouseover"], clickThrough = L["Click Through"] }, nil, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enable end),
+		buttonGroup = ACH:Group(L["Button Settings"], nil, 4, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enable end),
+		backdropGroup = ACH:Group(L["Backdrop Settings"], nil, 5, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enable end),
+		barGroup = ACH:Group(L["Bar Settings"], nil, 6, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enable end),
 	}
 
 	local textAnchors = { BOTTOMRIGHT = 'BOTTOMRIGHT', BOTTOMLEFT = 'BOTTOMLEFT', TOPRIGHT = 'TOPRIGHT', TOPLEFT = 'TOPLEFT', BOTTOM = 'BOTTOM', TOP = 'TOP' }
@@ -57,11 +57,11 @@ local function configTable()
 	SharedBarOptions.barGroup.args.hotkeyTextGroup.inline = true
 	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeytext = ACH:Toggle(L["Enable"], L["Display bind names on action buttons."], 0, nil, nil, nil, nil, nil, nil, false)
 	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.useHotkeyColor = ACH:Toggle(L["Custom Color"], nil, 1)
-	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeyColor = ACH:Color('', nil, 2, nil, nil, getTextColor, setTextColor, function() return not E.db.sle.actionbar.vehicle.enabled or not E.db.sle.actionbar.vehicle.hotkeytext end, function() return not E.db.sle.actionbar.vehicle.useHotkeyColor end)
+	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeyColor = ACH:Color('', nil, 2, nil, nil, getTextColor, setTextColor, function() return not E.db.sle.actionbar.vehicle.enable or not E.db.sle.actionbar.vehicle.hotkeytext end, function() return not E.db.sle.actionbar.vehicle.useHotkeyColor end)
 	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.spacer1 = ACH:Spacer(3, 'full')
-	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeyTextPosition = ACH:Select(L["Position"], nil, 4, textAnchors, nil, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enabled or (E.Masque and E.private.actionbar.masque.actionbars) end)
-	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeyTextXOffset = ACH:Range(L["X-Offset"], nil, 5, { min = -24, max = 24, step = 1 }, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enabled or (E.Masque and E.private.actionbar.masque.actionbars) end)
-	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeyTextYOffset = ACH:Range(L["Y-Offset"], nil, 6, { min = -24, max = 24, step = 1 }, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enabled or (E.Masque and E.private.actionbar.masque.actionbars) end)
+	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeyTextPosition = ACH:Select(L["Position"], nil, 4, textAnchors, nil, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enable or (E.Masque and E.private.actionbar.masque.actionbars) end)
+	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeyTextXOffset = ACH:Range(L["X-Offset"], nil, 5, { min = -24, max = 24, step = 1 }, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enable or (E.Masque and E.private.actionbar.masque.actionbars) end)
+	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeyTextYOffset = ACH:Range(L["Y-Offset"], nil, 6, { min = -24, max = 24, step = 1 }, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enable or (E.Masque and E.private.actionbar.masque.actionbars) end)
 	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.spacer2 = ACH:Spacer(7, 'full')
 	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeyFont = ACH:SharedMediaFont(L["Font"], nil, 8)
 	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeyFontOutline = ACH:FontFlags(L["Font Outline"], nil, 9)
@@ -87,7 +87,7 @@ local function configTable()
 
 	vehicle.args = CopyTable(SharedBarOptions)
 
-	vehicle.args.enabled.set = function(info, value) E.db.sle.actionbar.vehicle[info[#info]] = value; DVB:PositionAndSizeBar() end
+	vehicle.args.enable.set = function(info, value) E.db.sle.actionbar.vehicle[info[#info]] = value; DVB:PositionAndSizeBar() end
 
 	vehicle.args.generalOptions.get = function(_, key) return E.db.sle.actionbar.vehicle[key] end
 	vehicle.args.generalOptions.set = function(_, key, value) E.db.sle.actionbar.vehicle[key] = value DVB:UpdateButtonSettings() end

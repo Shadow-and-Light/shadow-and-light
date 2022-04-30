@@ -21,7 +21,7 @@ P["sle"] = {
 	--Actionbar
 	actionbar = {
 		vehicle = {
-			enabled = false,
+			enable = false,
 			mouseover = false,
 			clickThrough = false,
 			keepSizeRatio = true,
