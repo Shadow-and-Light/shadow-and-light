@@ -1,9 +1,4 @@
-v4.37 4/27/22
+v4.38 5/1/22
 
-• Add gradient color settings to distinguish tier gear
-• Fix a baginfo error
-• Removed Ghost Frame mover as it's movable with our option to move blizzard frames
-• Remove ability to move StaticPopup windows like the Resurrection window
-• Fix warning image text error
-• Armory: Add ability to change color of the warning bar and warning texture
-• Location Bar: Added Tazavesh and Broker Translocation Matrix
+• Removed RaidUtility Mover
+• Above changed ended up fixing a viewport not working in some cases of the raid utility bugging out.
