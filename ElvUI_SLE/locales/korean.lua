@@ -402,7 +402,6 @@ L["Race Crest Y-Offset"] = true
 L["Raid Marker Bar"] = "레이드 징표 바"
 L["Raid Markers"] = "레이드 징표"
 L["Raid Progression"] = "레이드 진도"
-L["Raid Utility Mouse Over"] = "공격대 유틸리티 마우스 오버"
 L["RAID_ANTO"] = "안토"
 L["RAID_DAZALOR"] = "BfDA"
 L["RAID_EN"] = "에악"

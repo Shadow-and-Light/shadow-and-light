@@ -402,7 +402,6 @@ L["Race Crest Y-Offset"] = true
 L["Raid Marker Bar"] = true
 L["Raid Markers"] = true
 L["Raid Progression"] = true
-L["Raid Utility Mouse Over"] = true
 L["RAID_ANTO"] = "ATBT"
 L["RAID_DAZALOR"] = "BfDA"
 L["RAID_EN"] = "EN"

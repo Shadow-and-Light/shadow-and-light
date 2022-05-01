@@ -402,7 +402,6 @@ L["Race Crest Y-Offset"] = "RArmoiries Race Y-offset"
 L["Raid Marker Bar"] = "Barre de marqueur de raid"
 L["Raid Markers"] = "Marques de raid"
 L["Raid Progression"] = "Progression du raid"
-L["Raid Utility Mouse Over"] = true
 L["RAID_ANTO"] = "Antorus"
 L["RAID_DAZALOR"] = "BfDA"
 L["RAID_EN"] = "EN"

@@ -40,14 +40,6 @@ local function configTable()
 					},
 				}
 			},
-			rumouseover = {
-				order = 2,
-				type = "toggle",
-				name = L["Raid Utility Mouse Over"],
-				desc = L["Enabling mouse over will make ElvUI's raid utility show on mouse over instead of always showing."],
-				get = function() return E.db.sle.blizzard.rumouseover end,
-				set = function(_, value) E.db.sle.blizzard.rumouseover = value; M:RaidUtility_SetMouseoverAlpha() end,
-			},
 			errorframe = {
 				order = 11,
 				type = "group",
