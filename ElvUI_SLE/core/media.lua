@@ -54,7 +54,7 @@ function M:SetBlizzFonts()
 		_G["QuestFont_Super_Huge"]:SetFont(E.LSM:Fetch('font', db.questFontSuperHuge.font), db.questFontSuperHuge.size, db.questFontSuperHuge.outline) -- No idea what that is for
 		_G["QuestFont_Enormous"]:SetFont(E.LSM:Fetch('font', db.questFontSuperHuge.font), db.questFontSuperHuge.size, db.questFontSuperHuge.outline) -- No idea what that is for
 		--Objective Frame
-		if not SLE._Compatibility["ElvUI_MerathilisUI"] or (SLE._Compatibility["ElvUI_MerathilisUI"] and not E.private.muiSkins.blizzard.objectivetracker) then
+		if not SLE._Compatibility["ElvUI_MerathilisUI"] or (SLE._Compatibility["ElvUI_MerathilisUI"] and not E.private.mui.skins.blizzard.objectivetracker) then
 			local COLOR
 			if E.db.sle.skins.objectiveTracker.classHeader then
 				COLOR = ClassColor
