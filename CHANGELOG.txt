@@ -1,4 +1,4 @@
-v4.38 5/1/22
+v4.39 6/1/22
 
-• Removed RaidUtility Mover
-• Above changed ended up fixing a viewport not working in some cases of the raid utility bugging out.
+• fix an issue with MerathilisUI changing his db a bit
+• fix a rare alpha issue no one prob noticed but 1 person lol
