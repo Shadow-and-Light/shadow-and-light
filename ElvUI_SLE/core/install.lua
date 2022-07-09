@@ -1033,7 +1033,14 @@ SLE.installTable = {
 			_G["PluginInstallFrame"]:Size(550, 500)
 		end,
 		[3] = function()
-			if PI.SLE_Auth == "" then _G["PluginInstallFrame"].SetPage(_G["PluginInstallFrame"].PrevPage == 2 and 4 or 2) return end
+			if PI.SLE_Auth == '' then
+				if _G["PluginInstallFrame"].PrevPage == 2 then
+					E.PluginInstaller.SetPage(2, 4)
+				else
+					E.PluginInstaller.SetPage(4, 2)
+				end
+				return
+			end
 			PI.SLE_Word = E.db.layoutSet == 'tank' and _G.STAT_CATEGORY_MELEE or E.db.layoutSet == 'healer' and _G.CLUB_FINDER_HEALER or E.db.layoutSet == 'dpsCaster' and _G.STAT_CATEGORY_RANGED or NONE
 			_G["PluginInstallFrame"].SubTitle:SetText(L["Layout & Settings Import"])
 			_G["PluginInstallFrame"].Desc1:SetText(format(L["You have selected to use %s and role %s."], PI.SLE_Auth == "DARTH" and L["Darth's Config"] or PI.SLE_Auth == "REPOOC" and L["Repooc's Config"] or PI.SLE_Auth == "AFFINITY" and L["Affinitii's Config"], PI.SLE_Word))
