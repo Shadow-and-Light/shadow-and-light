@@ -160,20 +160,16 @@ function Armory:GetTransmogInfo(Slot, which, unit)
 	local mogLink
 	local data = C_TransmogCollection_GetInspectItemTransmogInfoList()
 
-	for _, v in ipairs(data) do
+	for slotID, v in ipairs(data) do
 		if v.appearanceID and v.appearanceID > 0 then
-			tinsert(appearenceIDs, v.appearanceID)
+			appearenceIDs[slotID] = v.appearanceID
 		end
 	end
 
 	if appearenceIDs then
-		for i = 1, #appearenceIDs do
-			if (appearenceIDs[i] and appearenceIDs[i] ~= NO_TRANSMOG_SOURCE_ID) then
-				if i == Slot.ID then
-					mogLink = select(6, C_TransmogCollection.GetAppearanceSourceInfo(appearenceIDs[i]))
-					return mogLink
-				end
-			end
+		if appearenceIDs[Slot.ID] then
+			mogLink = select(6, C_TransmogCollection.GetAppearanceSourceInfo(appearenceIDs[Slot.ID]))
+			return mogLink
 		end
 	end
 end
