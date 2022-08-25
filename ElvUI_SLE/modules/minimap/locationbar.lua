@@ -80,6 +80,7 @@ LP.Hearthstones = {
 	{182773, nil, true}, --Necrolord HS
 	{180290, nil, true}, --Night Fae HS
 	{184353, nil, true}, --Kyrian HS
+	{188952, nil, true}, --Dominated HS
 	{190237, nil, true}, -- Broker Translocation Matrix
 }
 
@@ -102,6 +103,7 @@ LP.PortItems = {
 	{95568, nil, true}, --Sunreaver beakon
 	{87548}, --Pandaria Arch
 	{180817}, --Cypher of Relocation
+	{151016}, --Fractured Necrolyte Skull
 }
 LP.EngineerItems = {
 	{18984, nil, true}, --Dimensional Ripper - Everlook
