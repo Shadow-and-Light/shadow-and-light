@@ -612,10 +612,10 @@ function PI:DarthSetup()
 		E.db['sle']['armory']['inspect']['enable'] = true
 		E.db['sle']['armory']['inspect']['gradient']['quality'] = true
 
-		E.db['sle']['unitframe']['units']['raid']['offlineIndicator']['enable'] = true
-		E.db['sle']['unitframe']['units']['raid']['offlineIndicator']['size'] = 22
-		E.db['sle']['unitframe']['units']['raid']['deathIndicator']['enable'] = true
-		E.db['sle']['unitframe']['units']['raid']['deathIndicator']['size'] = 22
+		E.db['sle']['unitframe']['units']['raid1']['offlineIndicator']['enable'] = true
+		E.db['sle']['unitframe']['units']['raid1']['offlineIndicator']['size'] = 22
+		E.db['sle']['unitframe']['units']['raid1']['deathIndicator']['enable'] = true
+		E.db['sle']['unitframe']['units']['raid1']['deathIndicator']['size'] = 22
 		-- E.db['sle']['unitframe']['units']['player']['pvpIconText']['enable'] = true
 		-- E.db['sle']['unitframe']['units']['player']['pvpIconText']['yoffset'] = -6
 
