@@ -269,17 +269,23 @@ local function configTable()
 	Party.order = 3
 	Party.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateHeaderGroup, 'party')
 
-	--* Raid Frame
-	local Raid = GetSharedUnitFrameOptions(L["Raid"], 'raid', UF.CreateAndUpdateHeaderGroup)
-	GroupUnits.args.raid = Raid
-	Raid.order = 4
-	Raid.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateHeaderGroup, 'raid')
+	--* Raid1 Frame
+	local Raid1 = GetSharedUnitFrameOptions(L["Raid 1"], 'raid1', UF.CreateAndUpdateHeaderGroup)
+	GroupUnits.args.raid1 = Raid1
+	Raid1.order = 4
+	Raid1.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateHeaderGroup, 'raid1')
 
-	--* Raid-40 Frame
-	local Raid40 = GetSharedUnitFrameOptions(L["Raid-40"], 'raid40', UF.CreateAndUpdateHeaderGroup)
-	GroupUnits.args.raid40 = Raid40
-	Raid40.order = 5
-	Raid40.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateHeaderGroup, 'raid40')
+	--* Raid2 Frame
+	local Raid2 = GetSharedUnitFrameOptions(L["Raid 2"], 'raid2', UF.CreateAndUpdateHeaderGroup)
+	GroupUnits.args.raid = Raid2
+	Raid2.order = 4
+	Raid2.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateHeaderGroup, 'raid2')
+
+	--* Raid3 Frame
+	local Raid3 = GetSharedUnitFrameOptions(L["Raid 3"], 'raid3', UF.CreateAndUpdateHeaderGroup)
+	GroupUnits.args.raid3 = Raid3
+	Raid3.order = 5
+	Raid3.args.offlineIndicator = GetOptionsTable_OfflineIndicator(UF.CreateAndUpdateHeaderGroup, 'raid3')
 
 	--* Raid Pet Frame
 	local RaidPet = ACH:Group(L["Raid Pet"], nil, 6, 'tab')
@@ -337,21 +343,6 @@ local function configTable()
 	-- 							name = L["Display Frames"],
 	-- 							func = function()
 	-- 								UF:HeaderConfig(_G.ElvUF_Raid, _G.ElvUF_Raid.forceShow ~= true or nil)
-	-- 							end,
-	-- 						},
-	-- 					},
-	-- 				},
-	-- 				raid40 = {
-	-- 					order = 3,
-	-- 					type = 'group',
-	-- 					name = L["Raid-40 Frames"],
-	-- 					args = {
-	-- 						configureToggle = {
-	-- 							order = -10,
-	-- 							type = 'execute',
-	-- 							name = L["Display Frames"],
-	-- 							func = function()
-	-- 								UF:HeaderConfig(_G.ElvUF_Raid40, _G.ElvUF_Raid40.forceShow ~= true or nil)
 	-- 							end,
 	-- 						},
 	-- 					},

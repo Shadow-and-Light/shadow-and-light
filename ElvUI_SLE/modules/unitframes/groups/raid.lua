@@ -12,11 +12,10 @@ function SUF:Construct_RaidFrames()
 end
 
 function SUF:Update_RaidFrames(frame)
-	-- print('Update_RaidFrames: ', frame:GetName())
 	if not frame then return end
-	local enableState = E.private.sle.module.shadows.enable and E.db.unitframe.units.raid.enable
+	local enableState = E.private.sle.module.shadows.enable and E.db.unitframe.units[frame.unitframeType].enable
 
-	local db = E.db.sle.shadows.unitframes.raid
+	local db = E.db.sle.shadows.unitframes[frame.unitframeType]
 
 	frame.SLLEGACY_ENHSHADOW = enableState and db.legacy or false
 	frame.SLHEALTH_ENHSHADOW = enableState and db.health or false

@@ -1244,12 +1244,17 @@ P["sle"] = {
 				health = false,
 				power = false,
 			},
-			raid = {
+			raid1 = {
 				legacy = false,
 				health = false,
 				power = false,
 			},
-			raid40 = {
+			raid2 = {
+				legacy = false,
+				health = false,
+				power = false,
+			},
+			raid3 = {
 				legacy = false,
 				health = false,
 				power = false,
@@ -1454,13 +1459,19 @@ P["sle"] = {
 				debuffs = CopyTable(UF_Auras),
 				offlineIndicator = CopyTable(sharedIndicatorOptions),
 			},
-			raid = {
+			raid1 = {
 				buffs = CopyTable(UF_Auras),
 				deathIndicator = CopyTable(sharedIndicatorOptions),
 				debuffs = CopyTable(UF_Auras),
 				offlineIndicator = CopyTable(sharedIndicatorOptions),
 			},
-			raid40 = {
+			raid2 = {
+				buffs = CopyTable(UF_Auras),
+				deathIndicator = CopyTable(sharedIndicatorOptions),
+				debuffs = CopyTable(UF_Auras),
+				offlineIndicator = CopyTable(sharedIndicatorOptions),
+			},
+			raid3 = {
 				buffs = CopyTable(UF_Auras),
 				deathIndicator = CopyTable(sharedIndicatorOptions),
 				debuffs = CopyTable(UF_Auras),
@@ -1503,13 +1514,19 @@ P["sle"] = {
 					["yoffset"] = 0,
 				},
 			},
-			["raid"] = {
+			["raid1"] = {
 				["role"] = {
 					["xoffset"] = 0,
 					["yoffset"] = 0,
 				},
 			},
-			["raid40"] = {
+			["raid2"] = {
+				["role"] = {
+					["xoffset"] = 0,
+					["yoffset"] = 0,
+				},
+			},
+			["raid3"] = {
 				["role"] = {
 					["xoffset"] = 0,
 					["yoffset"] = 0,

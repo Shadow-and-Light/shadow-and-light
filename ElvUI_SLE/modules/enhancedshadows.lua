@@ -64,11 +64,15 @@ ENH.frames = {
 			order = 9,
 			group = 'groupUnits',
 		},
-		raid = {
+		raid1 = {
 			order = 10,
 			group = 'groupUnits',
 		},
-		raid40 = {
+		raid2 = {
+			order = 10,
+			group = 'groupUnits',
+		},
+		raid3 = {
 			order = 11,
 			group = 'groupUnits',
 		},

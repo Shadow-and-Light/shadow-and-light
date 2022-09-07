@@ -10,13 +10,17 @@ function EC:UpdateUnitframes()
 	E.Options.args.unitframe.args.groupUnits.args.party.args.generalGroup.args.positionsGroup.args.horizontalSpacing.max = 100 --Roxanne
 	E.Options.args.unitframe.args.groupUnits.args.party.args.generalGroup.args.positionsGroup.args.verticalSpacing.min = -4
 
-	E.Options.args.unitframe.args.groupUnits.args.raid.args.generalGroup.args.positionsGroup.args.horizontalSpacing.min = -4
-	E.Options.args.unitframe.args.groupUnits.args.raid.args.generalGroup.args.positionsGroup.args.horizontalSpacing.max = 100 --Roxanne
-	E.Options.args.unitframe.args.groupUnits.args.raid.args.generalGroup.args.positionsGroup.args.verticalSpacing.min = -4
+	E.Options.args.unitframe.args.groupUnits.args.raid1.args.generalGroup.args.positionsGroup.args.horizontalSpacing.min = -4
+	E.Options.args.unitframe.args.groupUnits.args.raid1.args.generalGroup.args.positionsGroup.args.horizontalSpacing.max = 100 --Roxanne
+	E.Options.args.unitframe.args.groupUnits.args.raid1.args.generalGroup.args.positionsGroup.args.verticalSpacing.min = -4
 
-	E.Options.args.unitframe.args.groupUnits.args.raid40.args.generalGroup.args.positionsGroup.args.horizontalSpacing.min = -4
-	E.Options.args.unitframe.args.groupUnits.args.raid40.args.generalGroup.args.positionsGroup.args.horizontalSpacing.max = 100 --Roxanne
-	E.Options.args.unitframe.args.groupUnits.args.raid40.args.generalGroup.args.positionsGroup.args.verticalSpacing.min = -4
+	E.Options.args.unitframe.args.groupUnits.args.raid2.args.generalGroup.args.positionsGroup.args.horizontalSpacing.min = -4
+	E.Options.args.unitframe.args.groupUnits.args.raid2.args.generalGroup.args.positionsGroup.args.horizontalSpacing.max = 100 --Roxanne
+	E.Options.args.unitframe.args.groupUnits.args.raid2.args.generalGroup.args.positionsGroup.args.verticalSpacing.min = -4
+
+	E.Options.args.unitframe.args.groupUnits.args.raid3.args.generalGroup.args.positionsGroup.args.horizontalSpacing.min = -4
+	E.Options.args.unitframe.args.groupUnits.args.raid3.args.generalGroup.args.positionsGroup.args.horizontalSpacing.max = 100 --Roxanne
+	E.Options.args.unitframe.args.groupUnits.args.raid3.args.generalGroup.args.positionsGroup.args.verticalSpacing.min = -4
 
 	E.Options.args.unitframe.args.groupUnits.args.raidpet.args.generalGroup.args.positionsGroup.args.horizontalSpacing.min = -4
 	E.Options.args.unitframe.args.groupUnits.args.raidpet.args.generalGroup.args.positionsGroup.args.verticalSpacing.min = -4
