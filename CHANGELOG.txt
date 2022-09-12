@@ -1,3 +1,5 @@
-v4.40 7/20/22
+v4.41 9/11/22
 
-• fix an issue with installer giving an error when skipping author options
+• fix a transmog issue showing transmog info for a different slot
+• add a couple items to the location panel and fixed one not showing
+• keep up with elvui raid/raid40 -> raid1-3 changes
