@@ -189,15 +189,11 @@ SLE.SpecialChatIcons = {
 			['Repooc'] = repooc,
 		},
 		['Spirestone'] = {
-			['Sifupooc'] = repooc,
-			['Dapooc'] = repooc,
 			['Lapooc'] = test,
 			['Warpooc'] = repooc,
-			['Repooc'] = repooc,
 			['Cursewordz'] = repooc,
 		},
 		['Stormrage'] = {
-			['Sifpooc'] = repooc,
 			['Urgfelstorm'] = blizzicon:format('inv_misc_bomb_02'),	-- Urg & Repooc's Guild Mate
 			['Vaxum']		= goldicon,	-- Vax & Repooc's Guild Mate
 			['Lloosh']		= goldicon,	-- Lloosh & Repooc's Guild Mate
