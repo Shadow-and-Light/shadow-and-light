@@ -16,7 +16,7 @@ PI.SLE_Auth = ''
 PI.SLE_Word = ''
 
 local function DarthHeal()
-	E.db['unitframe']['units']['raid']['healPrediction']['enable'] = true
+	E.db['unitframe']['units']['raid1']['healPrediction']['enable'] = true
 
 	E.db['movers']['ElvUF_RaidMover'] = 'TOPLEFT,ElvUIParent,TOPLEFT,362,-272'
 	E.db['movers']['LootFrameMover'] = 'TOPLEFT,ElvUIParent,TOPLEFT,1,-467'
