@@ -715,3 +715,6 @@ L["SLE_TIPS"] = { --This doesn't need to be translated, every locale can has own
 	"Сделал дейлик - спас китайца.",
 	"Сон для слабых! Пока ты спишь, враг качается!",
 }
+
+L["Darth's Thanks"] = "Благодарности Дарта"
+L["ELVUI_SLE_DARTH_SAVIORS_DESC"] = "Эти люди помогли Дарту вылезти из глубокой задницы."

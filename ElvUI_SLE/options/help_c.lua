@@ -52,6 +52,59 @@ Simpy, The Heretic
 Sinaris
 Swordyy]]
 
+L["ELVUI_SLE_DARTH_SAVIORS"] = [[Alenka B.
+Alexander H.
+Alexander P.
+Alexander S.
+Allen G.
+Andrew R.
+Andrew W.
+Angela N.
+Annastacia Mrani A.
+Daniel B
+Daniel N.
+Daniel V.
+Eveline E.
+Frank R.
+Geir Olav U.
+Henry N.
+Jackie C.
+Jakub M.
+Jee Hun P.
+Jesse S.
+Jhon Delgado C.
+Juergen B.
+Kasper B.
+Kathrine C.
+Kenneth H.
+Kevin G.
+Kimberly S.
+Kristófer H.
+Kylie E.
+Leon D.
+Lucas Nascimento B.
+Maarten M.
+Mario S.
+Mark L.
+Martin P.
+Mathis L.
+Natasha F.
+Nikita K.
+No Bogey Disc Golf LLC
+Patric K.
+Patrick M.
+Patrizia R.
+psyjer69
+Ricardo Pedraza G.
+Richard A.
+Rogier B.
+Ruben A.
+Steffen N.
+Thomas K.
+Tiit T.
+Todd H.
+Wesley C.]]
+
 local function configTable()
 	if not SLE.initialized then return end
 	local ACH = E.Libs.ACH
@@ -187,6 +240,24 @@ local function configTable()
 					},
 				},
 			},
+			DarthThanks = {
+				order = 401,
+				type = 'group',
+				name = L["Darth's Thanks"],
+				args = {
+					--header = ACH:Header(L["Darth Saviors"], 1),
+					list = {
+						order = 2,
+						type = 'group',
+						guiInline = true,
+						name = "",
+						args = {
+							desc = ACH:Description(L["ELVUI_SLE_DARTH_SAVIORS_DESC"]..'\n\n', 1),
+							list = ACH:Description(L["ELVUI_SLE_DARTH_SAVIORS"], 2, nil, nil, nil, nil, nil, 'full'),
+						},
+					},
+				},
+			}
 		},
 	}
 end
