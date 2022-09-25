@@ -727,3 +727,6 @@ L["SLE_TIPS"] = { --This doesn't need to be translated, every locale can has own
 	"\"Ishnu'alah.  May Elune light your path.\"  -Tyrande Whisperwind",
 	"\"If you will not serve me in this life then you will do so in the next!\"  -Sylvanas Windrunner",
 }
+
+L["Darth's Thanks"] = true
+L["ELVUI_SLE_DARTH_SAVIORS_DESC"] = "These people provided help for Dath to help him get out of a very unfortunate incident."
