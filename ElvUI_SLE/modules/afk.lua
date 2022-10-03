@@ -731,22 +731,30 @@ function S:Toggle()
 				degree = degree + elapsed * degreeMultyplier
 			end)
 		end
-
-	else
-		AFK.AFKMode:SetScript('OnUpdate', nil)
-		AFK.AFKMode.bottom:Show() --* Show ElvUI's Bottom Panel
-		AFK.AFKMode.bottom.LogoTop:Show() --* Show ElvUI's Top Logo Piece
-		AFK.AFKMode.bottom.LogoBottom:Show() --* Show ElvUI's Bottom Logo Piece
+		S:CreateUpdatePanels()
+		S:CreateTextStrings()
+		S:UpdateTextOptions()
+		S:SetupDefaultGraphics()
+		S:UpdateDefaultGraphics()
+		S:CreateSetupCustomGraphics()
+		-- S:ModelHolderPos()
+		S:CreateUpdateModelElements()
+		S:SetupAnimations()
+	-- else
+	-- 	AFK.AFKMode:SetScript('OnUpdate', nil)
+	-- 	AFK.AFKMode.bottom:Show() --* Show ElvUI's Bottom Panel
+	-- 	AFK.AFKMode.bottom.LogoTop:Show() --* Show ElvUI's Top Logo Piece
+	-- 	AFK.AFKMode.bottom.LogoBottom:Show() --* Show ElvUI's Bottom Logo Piece
 	end
-	S:CreateUpdatePanels()
-	S:CreateTextStrings()
-	S:UpdateTextOptions()
-	S:SetupDefaultGraphics()
-	S:UpdateDefaultGraphics()
-	S:CreateSetupCustomGraphics()
-	-- S:ModelHolderPos()
-	S:CreateUpdateModelElements()
-	S:SetupAnimations()
+	-- S:CreateUpdatePanels()
+	-- S:CreateTextStrings()
+	-- S:UpdateTextOptions()
+	-- S:SetupDefaultGraphics()
+	-- S:UpdateDefaultGraphics()
+	-- S:CreateSetupCustomGraphics()
+	-- -- S:ModelHolderPos()
+	-- S:CreateUpdateModelElements()
+	-- S:SetupAnimations()
 end
 
 function S:Initialize()
@@ -756,7 +764,7 @@ function S:Initialize()
 	S.OnKeyDown = AFK.AFKMode:GetScript('OnKeyDown')
 	S.OrigModelOnUpdate = AFK.AFKMode.bottom.model:GetScript('OnUpdate')
 
-	-- if not S.db.enable then return end
+	if not S.db.enable then return end
 
 	function S:ForUpdateAll()
 		S.db = E.db.sle.afk

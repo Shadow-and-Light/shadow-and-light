@@ -308,9 +308,10 @@ local function configTable()
 				get = function(info) return E.db.sle.afk[info[#info]] end,
 				set = function(info, value)
 					E.db.sle.afk[info[#info]] = value
-					S:Toggle()
-					S:Hide()
-					S:KeyScript()
+					E.ShowPopup = true
+					-- S:Toggle()
+					-- S:Hide()
+					-- S:KeyScript()
 				end,
 			},
 			general = {
