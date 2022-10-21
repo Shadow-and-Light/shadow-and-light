@@ -251,6 +251,9 @@ LP.Spells = {
 		[26] = {text = GetSpellInfo(367416),icon = SLE:GetIconFromID('spell', 367416),secure = {buttonType = 'spell',ID = 367416}, UseTooltip = true},	-- Tazavesh
 		[27] = {text = GetSpellInfo(373274),icon = SLE:GetIconFromID('spell', 373274),secure = {buttonType = 'spell',ID = 373274}, UseTooltip = true},	-- Mechagon
 		[28] = {text = GetSpellInfo(373262),icon = SLE:GetIconFromID('spell', 373262),secure = {buttonType = 'spell',ID = 373262}, UseTooltip = true},	-- Karazhan
+		[29] = {text = GetSpellInfo(373190),icon = SLE:GetIconFromID('spell', 373190),secure = {buttonType = 'spell',ID = 373190}, UseTooltip = true},	-- Castle Nathria (Path of the Sire)
+		[30] = {text = GetSpellInfo(373191),icon = SLE:GetIconFromID('spell', 373191),secure = {buttonType = 'spell',ID = 373191}, UseTooltip = true},	-- Sanctum of Domination (Path of the Tormented Soul)
+		[31] = {text = GetSpellInfo(373192),icon = SLE:GetIconFromID('spell', 373192),secure = {buttonType = 'spell',ID = 373192}, UseTooltip = true},	-- Sepulcher of the First Ones (Path of the First Ones)
 	},
 }
 
