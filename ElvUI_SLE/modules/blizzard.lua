@@ -186,9 +186,7 @@ B.AddonsList = {
 B.ExlusiveFrames = {
 	QuestFrame = { 'GossipFrame', },
 	GossipFrame = { 'QuestFrame', },
-	GameMenuFrame = { 'VideoOptionsFrame', 'InterfaceOptionsFrame', 'HelpFrame',},
-	VideoOptionsFrame = { 'GameMenuFrame',},
-	InterfaceOptionsFrame = { 'GameMenuFrame',},
+	GameMenuFrame = { 'HelpFrame',},
 	HelpFrame = { 'GameMenuFrame',},
 }
 
