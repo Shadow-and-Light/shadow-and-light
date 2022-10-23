@@ -5,7 +5,6 @@ local _G = _G
 --Frames to move
 B.Frames = {
 	AddonList = true,
-	AudioOptionsFrame = true,
 	BankFrame = true,
 	CharacterFrame = true,
 	ChatConfigFrame = true,
@@ -18,7 +17,6 @@ B.Frames = {
 	GuildInviteFrame = true,
 	GuildRegistrarFrame = true,
 	HelpFrame = true,
-	InterfaceOptionsFrame = true,
 	ItemTextFrame = true,
 	LFDRoleCheckPopup = true,
 	LFGDungeonReadyDialog = true,
@@ -38,6 +36,7 @@ B.Frames = {
 	ReadyCheckFrame = true,
 	ReportCheatingDialog = true,
 	RolePollPopup = true,
+	SettingsPanel = true,
 	SpellBookFrame = true,
 	SplashFrame = true,
 	StackSplitFrame = true,
@@ -46,7 +45,6 @@ B.Frames = {
 	TimeManagerFrame = true,
 	TradeFrame = true,
 	TutorialFrame = true,
-	VideoOptionsFrame = true,
 	WorldMapFrame = true,
 }
 
@@ -186,8 +184,9 @@ B.AddonsList = {
 B.ExlusiveFrames = {
 	QuestFrame = { 'GossipFrame', },
 	GossipFrame = { 'QuestFrame', },
-	GameMenuFrame = { 'HelpFrame',},
+	GameMenuFrame = { 'HelpFrame', 'SettingsPanel',},
 	HelpFrame = { 'GameMenuFrame',},
+	SettingsPanel = { 'GameMenuFrame',},
 }
 
 --Don't even ask
