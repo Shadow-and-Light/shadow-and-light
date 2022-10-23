@@ -31,7 +31,7 @@ local ITEM_SPELL_KNOWN = ITEM_SPELL_KNOWN
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local MISCELLANEOUS, MOUNT = MISCELLANEOUS, MOUNT
 
-local RECIPE = GetItemClassInfo(LE_ITEM_CLASS_RECIPE)
+local RECIPE = GetItemClassInfo(Enum.ItemClass.Recipe)
 
 local currencies = {}
 local buttons = {}
