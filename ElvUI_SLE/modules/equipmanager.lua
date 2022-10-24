@@ -198,9 +198,11 @@ EM.TagsTable = {
 			local eventInfo = C_Calendar.GetEventIndexInfo(id)
 			if eventInfo and eventInfo.offsetMonths <= 0 then
 				local holidayInfo = C_Calendar.GetHolidayInfo(eventInfo.offsetMonths, eventInfo.monthDay, eventInfo.eventIndex)
+				holidayInfo.startTime.day = holidayInfo.startTime.monthDay
 				holidayInfo.endTime.day = holidayInfo.endTime.monthDay
 				if not passed then
-					passed = time(currentTime) < time(holidayInfo.endTime)
+					local currentRawTime = time(currentTime)
+					passed = currentRawTime > time(holidayInfo.startTime) and currentRawTime < time(holidayInfo.endTime)
 				end
 				if passed then
 					break
