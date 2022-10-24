@@ -9,7 +9,7 @@ local _CompList = {
 	'ElvUI_CustomTweaks',
 	'ElvUI_Enhanced',
 	'ElvUI_MerathilisUI',
-	'ElvUI_NihilistUI',
+	'ElvUI_NihilistzscheUI',
 	'ElvUI_PagedLootHistory',
 	'LootConfirm', --Module incompatible
 	'Mapster', --Module partially incompatible
