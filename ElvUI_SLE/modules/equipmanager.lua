@@ -7,6 +7,8 @@ local format = format
 local UnitEffectiveLevel = UnitEffectiveLevel
 local C_EquipmentSet = C_EquipmentSet
 local GetRealZoneText = GetRealZoneText
+local C_Calendar = C_Calendar
+local C_DateAndTime = C_DateAndTime
 
 EM.Conditions = {}
 EM.Processing = false
@@ -186,6 +188,27 @@ EM.TagsTable = {
 	end,
 	['warmode'] = function()
 		return C_PvP.IsWarModeDesired()
+	end,
+	['event'] = function(ids)
+		local currentTime = C_DateAndTime.GetCurrentCalendarTime()
+		-- needed for the time calls below
+		currentTime.day = currentTime.monthDay
+		local passed = false
+		for id in string.gmatch(ids, "([^/]+)") do
+			local eventInfo = C_Calendar.GetEventIndexInfo(id)
+			if eventInfo and eventInfo.offsetMonths == 0 then
+				local holidayInfo = C_Calendar.GetHolidayInfo(eventInfo.offsetMonths, eventInfo.monthDay, eventInfo.eventIndex)
+				holidayInfo.endTime.day = holidayInfo.endTime.monthDay
+				if not passed then
+					passed = time(currentTime) < time(holidayInfo.endTime)
+				end
+				if passed then
+					break
+				end
+			end
+		end
+
+		return passed
 	end,
 }
 
