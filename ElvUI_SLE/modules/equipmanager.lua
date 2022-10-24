@@ -191,11 +191,11 @@ EM.TagsTable = {
 		return C_PvP.IsWarModeDesired()
 	end,
 	['event'] = function(ids)
-		local currentTime = C_DateAndTime.GetCurrentCalendarTime()
-		local passed = false
 		if not ids or ids == "" then
 			return false
 		end
+		local currentTime = C_DateAndTime.GetCurrentCalendarTime()
+		local passed = false
 		local function convertDateToTime(inTbl)
 			-- time() complains if day is not set so copy the monthDay field to day
 			inTbl.day = inTbl.monthDay
