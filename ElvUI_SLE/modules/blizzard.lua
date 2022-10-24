@@ -280,8 +280,6 @@ function B:MakeMovable(Name, AddOn)
 		return
 	end
 
-	if Name == 'AchievementFrame' then AchievementFrameHeader:EnableMouse(false) end --Cause achievement frame is a bitch
-
 	frame:EnableMouse(true)
 	frame:SetMovable(true)
 	frame:SetClampedToScreen(true)
