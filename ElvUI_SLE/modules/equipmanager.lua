@@ -194,6 +194,9 @@ EM.TagsTable = {
 		-- needed for the time calls below
 		currentTime.day = currentTime.monthDay
 		local passed = false
+		if not ids or ids == "" then
+			return false
+		end
 		for id in string.gmatch(ids, "([^/]+)") do
 			local eventInfo = C_Calendar.GetEventIndexInfo(id)
 			if eventInfo and eventInfo.offsetMonths <= 0 then
