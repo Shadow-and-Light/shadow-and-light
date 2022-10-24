@@ -196,7 +196,7 @@ EM.TagsTable = {
 		local passed = false
 		for id in string.gmatch(ids, "([^/]+)") do
 			local eventInfo = C_Calendar.GetEventIndexInfo(id)
-			if eventInfo and eventInfo.offsetMonths == 0 then
+			if eventInfo and eventInfo.offsetMonths <= 0 then
 				local holidayInfo = C_Calendar.GetHolidayInfo(eventInfo.offsetMonths, eventInfo.monthDay, eventInfo.eventIndex)
 				holidayInfo.endTime.day = holidayInfo.endTime.monthDay
 				if not passed then
