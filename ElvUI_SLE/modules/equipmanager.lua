@@ -9,6 +9,7 @@ local C_EquipmentSet = C_EquipmentSet
 local GetRealZoneText = GetRealZoneText
 local C_Calendar = C_Calendar
 local C_DateAndTime = C_DateAndTime
+local time = time
 
 EM.Conditions = {}
 EM.Processing = false
@@ -191,21 +192,24 @@ EM.TagsTable = {
 	end,
 	['event'] = function(ids)
 		local currentTime = C_DateAndTime.GetCurrentCalendarTime()
-		-- needed for the time calls below
-		currentTime.day = currentTime.monthDay
 		local passed = false
 		if not ids or ids == "" then
 			return false
 		end
+		local function convertDateToTime(inTbl)
+			-- time() complains if day is not set so copy the monthDay field to day
+			inTbl.day = inTbl.monthDay
+			return time(inTbl)
+		end
+		local now = convertDateToTime(currentTime)
 		for id in string.gmatch(ids, "([^/]+)") do
 			local eventInfo = C_Calendar.GetEventIndexInfo(id)
 			if eventInfo and eventInfo.offsetMonths <= 0 then
 				local holidayInfo = C_Calendar.GetHolidayInfo(eventInfo.offsetMonths, eventInfo.monthDay, eventInfo.eventIndex)
-				holidayInfo.startTime.day = holidayInfo.startTime.monthDay
-				holidayInfo.endTime.day = holidayInfo.endTime.monthDay
+				local startTime = convertDateToTime(holidayInfo.startTime)
+				local endTime = convertDateToTime(holidayInfo.endTime)
 				if not passed then
-					local currentRawTime = time(currentTime)
-					passed = currentRawTime > time(holidayInfo.startTime) and currentRawTime < time(holidayInfo.endTime)
+					passed = now > startTime and now < endTime
 				end
 				if passed then
 					break
