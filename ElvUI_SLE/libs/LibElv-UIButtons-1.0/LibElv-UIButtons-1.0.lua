@@ -113,7 +113,7 @@ local function CreateCoreButton(menu, name, text, onClick)
 	end
 
 	if text then
-		local t = button:CreateFontString(nil, 'OVERLAY', button)
+		local t = button:CreateFontString(nil, 'OVERLAY')
 		t:FontTemplate()
 		t:SetPoint('CENTER', button, 'CENTER', 0, -1)
 		t:SetJustifyH('CENTER')
@@ -166,7 +166,7 @@ local function CreateDropdownButton(menu, core, name, text, tooltip1, tooltip2, 
 	end
 
 	if text and type(text) == 'string' then
-		b.text = b:CreateFontString(nil, 'OVERLAY', b)
+		b.text = b:CreateFontString(nil, 'OVERLAY')
 		b.text:FontTemplate()
 		b.text:SetPoint('CENTER', b, 'CENTER', 0, -1)
 		b.text:SetJustifyH('CENTER')

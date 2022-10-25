@@ -83,36 +83,39 @@ local function sletime_Conversion(timeDifference, isAbsolute)
  end
 
 local clientSorted = {}
+local clientsToShow = {
+	{ client = "BNET_CLIENT_WOW", name = "WoW", index = 1 },
+	{ client = "BNET_CLIENT_HEROES", name = "HotS", index = 10 },
+	{ client = "BNET_CLIENT_ARCADE", name = "Arcade", index = 7 },
+	{ client = "BNET_CLIENT_D1", name = "D1", index = 4 },
+	{ client = "BNET_CLIENT_D2", name = "D2", index = 3 },
+	{ client = "BNET_CLIENT_D3", name = "D3", index = 2 },
+	{ client = "BNET_CLIENT_WTCG", name = "HS", index = 6 },
+	{ client = "BNET_CLIENT_OVERWATCH", name = "WoW", index = 5 },
+	{ client = "BNET_CLIENT_WC3", name = "WC3", index = 8 },
+	{ client = "BNET_CLIENT_SC", name = "SC", index = 21 },
+	{ client = "BNET_CLIENT_SC2", name = "SC2", index = 20 },
+	{ client = "BNET_CLIENT_COD", name = "WoW", index = 30 },
+	{ client = "BNET_CLIENT_COD_MW", name = "MW", index = 31 },
+	{ client = "BNET_CLIENT_COD_MW2", name = "MW2", index = 32 },
+	{ client = "BNET_CLIENT_COD_VANGUARD", name = "Vanguard", index = 33 },
+}
+
 local clientTags = {
-	[_G.BNET_CLIENT_WOW] = "WoW",
-	[_G.BNET_CLIENT_D3] = "D3",
-	[_G.BNET_CLIENT_WTCG] = "HS",
-	[_G.BNET_CLIENT_HEROES] = "HotS",
-	[_G.BNET_CLIENT_OVERWATCH] = "OW",
-	[_G.BNET_CLIENT_SC] = "SC",
-	[_G.BNET_CLIENT_SC2] = "SC2",
-	[_G.BNET_CLIENT_COD] = "BO4",
-	[_G.BNET_CLIENT_COD_MW] = "MW",
-	[_G.BNET_CLIENT_COD_MW2] = "MW2",
-	[_G.BNET_CLIENT_COD_BOCW] = 'CW',
 	BSAp = L["Mobile"],
 }
 
 local clientIndex = {
-	[_G.BNET_CLIENT_WOW] = 1,
-	[_G.BNET_CLIENT_D3] = 2,
-	[_G.BNET_CLIENT_WTCG] = 3,
-	[_G.BNET_CLIENT_HEROES] = 4,
-	[_G.BNET_CLIENT_OVERWATCH] = 5,
-	[_G.BNET_CLIENT_SC] = 6,
-	[_G.BNET_CLIENT_SC2] = 7,
-	[_G.BNET_CLIENT_COD] = 8,
-	[_G.BNET_CLIENT_COD_MW] = 9,
-	[_G.BNET_CLIENT_COD_MW2] = 10,
-	[_G.BNET_CLIENT_COD_BOCW] = 11,
-	App = 12,
-	BSAp = 13,
+	App = 11,
+	BSAp = 12,
 }
+
+for _, data in pairs(clientsToShow) do
+	if _G[data.client] then
+		clientTags[data.client] = data.name
+		clientIndex[data.client] = data.index
+	end
+end
 
 local function inGroup(name, realmName)
 	if realmName and realmName ~= "" and realmName ~= E.myrealm then

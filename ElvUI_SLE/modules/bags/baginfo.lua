@@ -43,6 +43,7 @@ function B:HideSet(slot, keep)
 end
 
 function B:UpdateSet()
+	if not self.bagID or not self.slotID then return end
 	local isInSet, setName = GetContainerItemEquipmentSetInfo(self.bagID, self.slotID)
 
 	if isInSet then

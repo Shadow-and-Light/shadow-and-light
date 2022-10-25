@@ -1,4 +1,4 @@
-﻿## Interface: 90207
+﻿## Interface: 100000
 ## Title: |cff1784d1ElvUI|r |cff9482c9Shadow & Light|r
 ## Author: Darth Predator, Repooc
 ## Version: 4.41
@@ -21,4 +21,3 @@ defaults\load_defaults.xml
 modules\load_modules.xml
 skins\load_skins.xml
 options\load_options.xml
-Bindings.xml

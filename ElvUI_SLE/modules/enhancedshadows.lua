@@ -9,6 +9,21 @@ local CreateFrame = CreateFrame
 local UnitAffectingCombat = UnitAffectingCombat
 local SIDE_BUTTON = E.db.chat.hideChatToggles and 0 or 19
 
+local MICRO_BUTTONS = _G.MICRO_BUTTONS or {
+	'CharacterMicroButton',
+	'SpellbookMicroButton',
+	'TalentMicroButton',
+	'AchievementMicroButton',
+	'QuestLogMicroButton',
+	'GuildMicroButton',
+	'LFDMicroButton',
+	'EJMicroButton',
+	'CollectionsMicroButton',
+	'MainMenuMicroButton',
+	'HelpMicroButton',
+	'StoreMicroButton',
+}
+
 ENH.CreatedShadows = {}
 ENH.DummyPanels = {}
 ENH.frames = {
