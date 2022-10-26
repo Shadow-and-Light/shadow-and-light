@@ -1,3 +1,4 @@
-v4.44 10/26/22
+v4.45 10/26/22
 
-• hotfix for font issues
+• fix raid markers not being able to be clicked
+• fix location bar not being able to be clicked
