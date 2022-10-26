@@ -1,6 +1,4 @@
-v4.42 10/25/22
+v4.43 10/??/22
 
-• Added an event tag to the equipment set manager, used as such event:eventid1/eventid2/.../eventidN
-• did a lot of updates to catch up with elvui changes
-• add missing portals in our location panel
-• some prepatch work
+• fix rect minimap issue
+• fix rep databar issue if using our customization for it
