@@ -267,7 +267,7 @@ function LP:CreateLocationPanel()
 	loc_panel:SetScript('OnUpdate', LP.UpdateCoords)
 
 	-- Location Text
-	loc_panel.Text = loc_panel:CreateFontString(nil, 'LOW')
+	loc_panel.Text = loc_panel:CreateFontString(nil, 'BORDER')
 	loc_panel.Text:Point('CENTER', 0, 0)
 	loc_panel.Text:SetWordWrap(false)
 	E.FrameLocks[loc_panel] = true
@@ -276,13 +276,13 @@ function LP:CreateLocationPanel()
 	loc_panel.Xcoord = CreateFrame('Frame', 'SLE_LocationPanel_X', loc_panel, 'BackdropTemplate')
 	-- loc_panel.Xcoord:SetPoint('RIGHT', loc_panel, 'LEFT', 1 - 2*E.Spacing, 0)
 	loc_panel.Xcoord:Point('RIGHT', loc_panel, 'LEFT', 1, 0)
-	loc_panel.Xcoord.Text = loc_panel.Xcoord:CreateFontString(nil, 'LOW')
+	loc_panel.Xcoord.Text = loc_panel.Xcoord:CreateFontString(nil, 'BORDER')
 	loc_panel.Xcoord.Text:Point('CENTER', 0, 0)
 
 	loc_panel.Ycoord = CreateFrame('Frame', 'SLE_LocationPanel_Y', loc_panel, 'BackdropTemplate')
 	-- loc_panel.Ycoord:SetPoint('LEFT', loc_panel, 'RIGHT', -1 + 2*E.Spacing, 0)
 	loc_panel.Ycoord:Point('LEFT', loc_panel, 'RIGHT', -1, 0)
-	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, 'LOW')
+	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, 'BORDER')
 	loc_panel.Ycoord.Text:Point('CENTER', 0, 0)
 
 	LP:Resize()

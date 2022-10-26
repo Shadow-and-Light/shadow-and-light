@@ -22,8 +22,8 @@ function CA:BuildLayout()
 	--<< Background >>--
 	if not _G["PaperDollFrame"].SLE_Armory_BG then
 		_G["PaperDollFrame"].SLE_Armory_BG = _G["PaperDollFrame"]:CreateTexture(nil, 'OVERLAY')
-		_G["PaperDollFrame"].SLE_Armory_BG:Point('TOPLEFT', _G["CharacterModelFrame"], -4, 0)
-		_G["PaperDollFrame"].SLE_Armory_BG:Point('BOTTOMRIGHT', _G["CharacterModelFrame"], 4, 0)
+		_G["PaperDollFrame"].SLE_Armory_BG:Point('TOPLEFT', _G["CharacterModelScene"], -4, 0)
+		_G["PaperDollFrame"].SLE_Armory_BG:Point('BOTTOMRIGHT', _G["CharacterModelScene"], 4, 0)
 	end
 	_G["PaperDollFrame"].SLE_Armory_BG:Hide()
 
@@ -157,7 +157,7 @@ function CA:BuildLayout()
 			_G["CharacterLevelText"]:SetText(_G["CharacterLevelText"]:GetText())
 
 			_G["CharacterFrameTitleText"]:ClearAllPoints()
-			_G["CharacterFrameTitleText"]:Point('TOP',  _G["CharacterModelFrame"], 0, 45)
+			_G["CharacterFrameTitleText"]:Point('TOP',  _G["CharacterModelScene"], 0, 45)
 			_G["CharacterFrameTitleText"]:SetParent(_G["CharacterFrame"])
 			_G["CharacterLevelText"]:ClearAllPoints()
 			_G["CharacterLevelText"]:SetPoint('TOP', _G["CharacterFrameTitleText"], 'BOTTOM', 0, 2)
@@ -283,10 +283,10 @@ function CA:Enable()
 	_G["CharacterMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["PaperDollItemsFrame"], 'BOTTOMLEFT', 185, 14)
 
 	--Making model frame big enough
-	_G["CharacterModelFrame"]:ClearAllPoints()
-	_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"], 0, 5)
-	_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
-	_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
+	_G["CharacterModelScene"]:ClearAllPoints()
+	_G["CharacterModelScene"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"], 0, 5)
+	_G["CharacterModelScene"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
+	_G["CharacterModelScene"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
 
 	if _G["PaperDollFrame"]:IsShown() then --Setting up width for the main frame
 		_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and 650 or 444)
@@ -294,19 +294,19 @@ function CA:Enable()
 	end
 
 	--This will hide default background stuff. I could make it being shown, but not feeling like figuring out how to stretch the damn texture.
-	if _G["CharacterModelFrame"] and _G["CharacterModelFrame"].BackgroundTopLeft and _G["CharacterModelFrame"].BackgroundTopLeft:IsShown() then
-		_G["CharacterModelFrame"].BackgroundTopLeft:Hide()
-		_G["CharacterModelFrame"].BackgroundTopRight:Hide()
-		_G["CharacterModelFrame"].BackgroundBotLeft:Hide()
-		_G["CharacterModelFrame"].BackgroundBotRight:Hide()
-		if _G["CharacterModelFrame"].backdrop then
-			_G["CharacterModelFrame"].backdrop:Hide()
+	if _G["CharacterModelScene"] and _G["CharacterModelScene"].BackgroundTopLeft and _G["CharacterModelScene"].BackgroundTopLeft:IsShown() then
+		_G["CharacterModelScene"].BackgroundTopLeft:Hide()
+		_G["CharacterModelScene"].BackgroundTopRight:Hide()
+		_G["CharacterModelScene"].BackgroundBotLeft:Hide()
+		_G["CharacterModelScene"].BackgroundBotRight:Hide()
+		if _G["CharacterModelScene"].backdrop then
+			_G["CharacterModelScene"].backdrop:Hide()
 		end
 	end
 
 	--Overlay resize to match new width
-	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', _G["CharacterModelFrame"], -4, 0)
-	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', _G["CharacterModelFrame"], 4, 0)
+	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('TOPLEFT', _G["CharacterModelScene"], -4, 0)
+	_G["CharacterModelFrameBackgroundOverlay"]:SetPoint('BOTTOMRIGHT', _G["CharacterModelScene"], 4, 0)
 
 	--Activating background
 	_G["PaperDollFrame"].SLE_Armory_BG:Show()
@@ -332,14 +332,14 @@ function CA:Disable()
 	_G["CharacterMainHandSlot"]:SetPoint('BOTTOMLEFT', _G["PaperDollItemsFrame"], 'BOTTOMLEFT', 130, 16)
 
 	-- Model Frame
-	_G["CharacterModelFrame"]:ClearAllPoints()
-	_G["CharacterModelFrame"]:Size(231, 320)
-	_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["PaperDollFrame"], 'TOPLEFT', 52, -66)
-	_G["CharacterModelFrame"].BackgroundTopLeft:Show()
-	_G["CharacterModelFrame"].BackgroundTopRight:Show()
-	_G["CharacterModelFrame"].BackgroundBotLeft:Show()
-	_G["CharacterModelFrame"].BackgroundBotRight:Show()
-	_G["CharacterModelFrame"].backdrop:Show()
+	_G["CharacterModelScene"]:ClearAllPoints()
+	_G["CharacterModelScene"]:Size(231, 320)
+	_G["CharacterModelScene"]:SetPoint('TOPLEFT', _G["PaperDollFrame"], 'TOPLEFT', 52, -66)
+	_G["CharacterModelScene"].BackgroundTopLeft:Show()
+	_G["CharacterModelScene"].BackgroundTopRight:Show()
+	_G["CharacterModelScene"].BackgroundBotLeft:Show()
+	_G["CharacterModelScene"].BackgroundBotRight:Show()
+	_G["CharacterModelScene"].backdrop:Show()
 
 	CA:Update_Durability() --Required for elements update
 	for _, SlotName in pairs(Armory.Constants.GearList) do

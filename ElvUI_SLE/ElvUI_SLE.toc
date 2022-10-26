@@ -1,14 +1,14 @@
-﻿## Interface: 90207
+﻿## Interface: 100000
 ## Title: |cff1784d1ElvUI|r |cff9482c9Shadow & Light|r
 ## Author: Darth Predator, Repooc
-## Version: 4.41
+## Version: 4.43
 ## Notes: Plugin-edit for |cff1784d1ElvUI|r adding additional features.
 ## Notes-ruRU: Плагин-редакция для |cff1784d1ElvUI|r, добавляющий новые функции.
 ## URL: http://tukui.org/
 ## RequiredDeps: ElvUI
 ## OptionalDeps: AddonSkins, BigWigs, Clique, Hermes, xCT+
 ## DefaultState: Enabled
-## X-ElvVersion: 12.85
+## X-ElvVersion: 12.92
 ## X-Curse-Project-ID: 39618
 ## X-Wago-ID: 7x61q261
 ## SavedVariables: SLE_ArmoryDB
@@ -21,4 +21,3 @@ defaults\load_defaults.xml
 modules\load_modules.xml
 skins\load_skins.xml
 options\load_options.xml
-Bindings.xml

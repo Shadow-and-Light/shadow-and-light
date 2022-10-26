@@ -153,7 +153,7 @@ P["sle"] = {
 			["itemLevel"] = {
 				["font"] = "PT Sans Narrow",
 				["size"] = 12,
-				["outline"] = "NONE",
+				["outline"] = "",
 			},
 			["IlvlFull"] = true,
 			["IlvlColor"] = false,
@@ -162,12 +162,12 @@ P["sle"] = {
 			["statFonts"] = {
 				["font"] = "PT Sans Narrow",
 				["size"] = 12,
-				["outline"] = "NONE",
+				["outline"] = "",
 			},
 			["catFonts"] = {
 				["font"] = "PT Sans Narrow",
 				["size"] = 12,
-				["outline"] = "NONE",
+				["outline"] = "",
 			},
 			["List"] = {
 				--General
@@ -565,7 +565,7 @@ P["sle"] = {
 			mail = {
 				font = "PT Sans Narrow",
 				size = 12,
-				outline = "NONE",
+				outline = "",
 			},
 			gossip = {
 				font = "PT Sans Narrow",
@@ -574,17 +574,17 @@ P["sle"] = {
 			objective = {
 				font = "PT Sans Narrow",
 				size = 12,
-				outline = "NONE",
+				outline = "",
 			},
 			objectiveHeader = {
 				font = "PT Sans Narrow",
 				size = 12,
-				outline = "NONE",
+				outline = "",
 			},
 			questFontSuperHuge = {
 				font = "PT Sans Narrow",
 				size = 24,
-				outline = "NONE",
+				outline = "",
 			},
 		},
 	},

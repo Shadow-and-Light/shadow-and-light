@@ -115,7 +115,7 @@ local function OnEvent(self)
 
 	if E.Retail and not Ticker then
 		C_WowTokenPublic_UpdateMarketPrice()
-		Ticker = C_Timer_NewTicker(60, C_WowTokenPublic_UpdateMarketPrice)
+		Ticker = C_Timer_NewTicker(60, function()  C_WowTokenPublic_UpdateMarketPrice() end)
 	end
 
 	ElvDB = ElvDB or {}

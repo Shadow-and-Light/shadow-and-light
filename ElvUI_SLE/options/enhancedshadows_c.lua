@@ -223,7 +223,7 @@ local function configTable()
 										disabled = function() return not E.private.general.minimap.enable or not E.db.sle.shadows.minimap.backdrop end,
 										set = function(info, value)
 											E.db.sle.shadows.minimap[info[#info]] = value
-											updateFrame(_G.MMHolder, value)
+											updateFrame(_G.ElvUI_MinimapHolder, value)
 											updateFrame(ENH.DummyPanels.Minimap, value)
 										end,
 									},
@@ -352,8 +352,8 @@ local function configTable()
 										-- set = function(info, value)
 										-- 	E.db.sle.shadows.minimap[info[#info]] = value
 
-										-- 	_G.MMHolder.enhshadow.size = value
-										-- 	ENH:UpdateShadow(_G.MMHolder.enhshadow)
+										-- 	_G.ElvUI_MinimapHolder.enhshadow.size = value
+										-- 	ENH:UpdateShadow(_G.ElvUI_MinimapHolder.enhshadow)
 										-- 	ENH.DummyPanels.Minimap.enhshadow.size = value
 										-- 	ENH:UpdateShadow(ENH.DummyPanels.Minimap.enhshadow)
 										-- end,
@@ -386,8 +386,8 @@ local function configTable()
 										-- set = function(info, value)
 										-- 	E.db.sle.shadows.minimap[info[#info]] = value
 
-										-- 	_G.MMHolder.enhshadow.size = value
-										-- 	ENH:UpdateShadow(_G.MMHolder.enhshadow)
+										-- 	_G.ElvUI_MinimapHolder.enhshadow.size = value
+										-- 	ENH:UpdateShadow(_G.ElvUI_MinimapHolder.enhshadow)
 										-- 	ENH.DummyPanels.Minimap.enhshadow.size = value
 										-- 	ENH:UpdateShadow(ENH.DummyPanels.Minimap.enhshadow)
 										-- end,

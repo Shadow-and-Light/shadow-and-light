@@ -5,10 +5,15 @@ local EDB = E.DataBars
 --GLOBALS: hooksecurefunc
 local _G = _G
 local format, ipairs = format, ipairs
-local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
-local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
+local GetFriendshipReputation = GetFriendshipReputation or C_GossipInfo.GetFriendshipReputation
 local C_Reputation_GetFactionParagonInfo = C_Reputation.GetFactionParagonInfo
-local GetWatchedFactionInfo, GetFactionInfo, GetFriendshipReputation, GetNumFactions = GetWatchedFactionInfo, GetFactionInfo, GetFriendshipReputation, GetNumFactions
+local C_Reputation_IsFactionParagon = C_Reputation.IsFactionParagon
+local C_Reputation_IsMajorFaction = C_Reputation.IsMajorFaction
+local C_MajorFactions_GetMajorFactionData = C_MajorFactions and C_MajorFactions.GetMajorFactionData
+local C_MajorFactions_HasMaximumRenown = C_MajorFactions and C_MajorFactions.HasMaximumRenown
+local GetWatchedFactionInfo = GetWatchedFactionInfo
+local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
+local GetFactionInfo, GetNumFactions = GetFactionInfo, GetNumFactions
 
 local FACTION_STANDING_INCREASED = FACTION_STANDING_INCREASED
 local FACTION_STANDING_INCREASED_GENERIC = FACTION_STANDING_INCREASED_GENERIC
@@ -17,10 +22,7 @@ local FACTION_STANDING_INCREASED_DOUBLE_BONUS = FACTION_STANDING_INCREASED_DOUBL
 local FACTION_STANDING_INCREASED_ACH_BONUS = FACTION_STANDING_INCREASED_ACH_BONUS
 local FACTION_STANDING_DECREASED = FACTION_STANDING_DECREASED
 local FACTION_STANDING_DECREASED_GENERIC = FACTION_STANDING_DECREASED_GENERIC
-local FactionStandingLabelUnknown = UNKNOWN
-local FACTION_BAR_COLORS = FACTION_BAR_COLORS
 
-local backupColor = FACTION_BAR_COLORS[1]
 local a, b, c, d = '([%(%)%.%%%+%-%*%?%[%^%$])', '%%%1', '%%%%[ds]', '(.-)'
 local formatFactionStanding = function(str) return str:gsub(a, b):gsub(c, d) end
 local strMatchCombat = {}
@@ -61,18 +63,25 @@ end
 local function ReputationBar_Update()
 	if not SLE.initialized or not E.db.sle.databars.reputation.longtext then return end
 	local bar = EDB.StatusBars.Reputation
-
 	if not bar.db.enable or bar:ShouldHide() then return end
 
 	local displayString, textFormat, label = '', EDB.db.reputation.textFormat
 	local name, reaction, minValue, maxValue, curValue, factionID = GetWatchedFactionInfo()
-	local friendshipID, _, _, _, _, _, standingText, _, nextThreshold = GetFriendshipReputation(factionID)
+	local info = E.Retail and factionID and GetFriendshipReputation(factionID)
 
-	if friendshipID then
-		reaction, label = 5, standingText
+	if info and info.friendshipFactionID then
+		local isMajorFaction = factionID and C_Reputation_IsMajorFaction(factionID)
 
-		if not nextThreshold then
-			minValue, maxValue, curValue = 0, 1, 1
+		if info and info.friendshipFactionID > 0 then
+			label, minValue, maxValue, curValue = info.reaction, info.reactionThreshold or 0, info.nextThreshold or 1, info.standing or 1
+		elseif isMajorFaction then
+			local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
+			local renownColor = DB.db.colors.factionColors[10]
+			local renownHex = E:RGBToHex(renownColor.r, renownColor.g, renownColor.b)
+
+			reaction, minValue, maxValue = 10, 0, majorFactionData.renownLevelThreshold
+			curValue = C_MajorFactions_HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
+			label = format('%s%s|r %s', renownHex, RENOWN_LEVEL_LABEL, majorFactionData.renownLevel)
 		end
 	elseif C_Reputation_IsFactionParagon(factionID) then
 		local current, threshold
@@ -83,12 +92,14 @@ local function ReputationBar_Update()
 		end
 	end
 
-	if not label then label = _G['FACTION_STANDING_LABEL'..reaction] or UNKNOWN end
+	if not label then
+		label = _G['FACTION_STANDING_LABEL'..reaction] or UNKNOWN
+	end
 
 	bar:SetMinMaxValues(minValue, maxValue)
 	bar:SetValue(curValue)
 
-	local current, maximum, percent, capped = GetValues(curValue, minValue, maxValue)
+	local current, maximum, percent = GetValues(curValue, minValue, maxValue)
 
 	if textFormat == 'PERCENT' then
 		displayString = format('%s: %d%% [%s]', name, percent, label)

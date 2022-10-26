@@ -31,7 +31,7 @@ local ITEM_SPELL_KNOWN = ITEM_SPELL_KNOWN
 local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 local MISCELLANEOUS, MOUNT = MISCELLANEOUS, MOUNT
 
-local RECIPE = GetItemClassInfo(LE_ITEM_CLASS_RECIPE)
+local RECIPE = GetItemClassInfo(Enum.ItemClass.Recipe)
 
 local currencies = {}
 local buttons = {}
@@ -622,19 +622,19 @@ local function Create_ListButton(frame, i)
 	icon:SetPoint("LEFT", 2, 0)
 	icon:SetTexture("Interface\\Icons\\temp")
 
-	local itemname = button:CreateFontString("ARTWORK", "$parentItemName")
+	local itemname = button:CreateFontString("$parentItemName", "ARTWORK")
 	button.itemname = itemname
 	itemname:SetFont(E.LSM:Fetch('font', E.db.sle.skins.merchant.list.nameFont), E.db.sle.skins.merchant.list.nameSize, E.db.sle.skins.merchant.list.nameOutline)
 	itemname:SetPoint("TOPLEFT", icon, "TOPRIGHT", 4, -3)
 	itemname:SetJustifyH("LEFT")
 
-	local iteminfo = button:CreateFontString("ARTWORK", "$parentItemInfo")
+	local iteminfo = button:CreateFontString("$parentItemInfo", "ARTWORK")
 	button.iteminfo = iteminfo
 	iteminfo:SetFont(E.LSM:Fetch('font', E.db.sle.skins.merchant.list.subFont), E.db.sle.skins.merchant.list.subSize, E.db.sle.skins.merchant.list.subOutline)
 	iteminfo:SetPoint("BOTTOMLEFT", icon, "BOTTOMRIGHT", 4, -3)
 	iteminfo:SetJustifyH("LEFT")
 
-	local money = button:CreateFontString("ARTWORK", "$parentMoney", "GameFontHighlight")
+	local money = button:CreateFontString("$parentMoney", "ARTWORK", "GameFontHighlight")
 	button.money = money
 	money:SetPoint("RIGHT", -2, 0)
 	money:SetJustifyH("RIGHT")
@@ -665,7 +665,7 @@ local function Create_ListButton(frame, i)
 		icon:SetHeight(17)
 		icon:SetPoint("RIGHT")
 
-		local count = item:CreateFontString("ARTWORK", "$parentCount", "GameFontHighlight")
+		local count = item:CreateFontString("$parentCount", "ARTWORK", "GameFontHighlight")
 		item.count = count
 		count:SetPoint("RIGHT", icon, "LEFT", -2, 0)
 	end
