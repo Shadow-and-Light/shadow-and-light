@@ -10,13 +10,13 @@ local MAIL_LABEL = MAIL_LABEL
 
 local icon = [[|TInterface\MINIMAP\TRACKING\Mailbox.blp:14:14|t]]
 local displayString, lastPanel = ''
-
+local mailFrame = MinimapCluster.MailFrame or _G.MiniMapMailFrame
 function DTP:MailUp()
 	if E.db.sle.minimap.mail.hideicon then
-		_G.MiniMapMailFrame:Hide()
+		mailFrame:Hide()
 	else
 		if HasNewMail() then
-			_G.MiniMapMailFrame:Show()
+			mailFrame:Show()
 		end
 	end
 end
