@@ -52,6 +52,7 @@ end
 local function CreateListButton(frame)
 	local button = CreateFrame('Button', nil, frame, 'SecureActionButtonTemplate')
 
+	button:RegisterForClicks('AnyUp', 'AnyDown')
 	button.hoverTex = button:CreateTexture(nil, 'OVERLAY')
 	button.hoverTex:SetAllPoints()
 	button.hoverTex:SetTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]])
