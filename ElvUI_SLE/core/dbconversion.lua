@@ -94,8 +94,10 @@ function SLE:DatabaseConversions()
 				end
 				if data.sle.media then
 					if data.sle.media.fonts then
-						for i=0,#mediaFonts do
-							if data.sle.media.fonts[mediaFonts[i]] and data.sle.media.fonts[mediaFonts[i]] == "NONE" then data.sle.media.fonts[mediaFonts[i]] = ""; profileChanged = true end
+						for i=1,#mediaFonts do
+							if data.sle.media.fonts[mediaFonts[i]] then
+								if data.sle.media.fonts[mediaFonts[i]].outline and data.sle.media.fonts[mediaFonts[i]].outline == "NONE" then data.sle.media.fonts[mediaFonts[i]].outline = ""; profileChanged = true end
+							end
 						end
 					end
 				end
