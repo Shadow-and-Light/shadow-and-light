@@ -22,10 +22,7 @@ local FACTION_STANDING_INCREASED_DOUBLE_BONUS = FACTION_STANDING_INCREASED_DOUBL
 local FACTION_STANDING_INCREASED_ACH_BONUS = FACTION_STANDING_INCREASED_ACH_BONUS
 local FACTION_STANDING_DECREASED = FACTION_STANDING_DECREASED
 local FACTION_STANDING_DECREASED_GENERIC = FACTION_STANDING_DECREASED_GENERIC
-local FactionStandingLabelUnknown = UNKNOWN
-local FACTION_BAR_COLORS = FACTION_BAR_COLORS
 
-local backupColor = FACTION_BAR_COLORS[1]
 local a, b, c, d = '([%(%)%.%%%+%-%*%?%[%^%$])', '%%%1', '%%%%[ds]', '(.-)'
 local formatFactionStanding = function(str) return str:gsub(a, b):gsub(c, d) end
 local strMatchCombat = {}
@@ -102,7 +99,7 @@ local function ReputationBar_Update()
 	bar:SetMinMaxValues(minValue, maxValue)
 	bar:SetValue(curValue)
 
-	local current, maximum, percent, capped = GetValues(curValue, minValue, maxValue)
+	local current, maximum, percent = GetValues(curValue, minValue, maxValue)
 
 	if textFormat == 'PERCENT' then
 		displayString = format('%s: %d%% [%s]', name, percent, label)
