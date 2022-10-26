@@ -64,8 +64,6 @@ function RM:CreateButton(index)
 		button:SetAttribute('macrotext1', format('/tm %d', index == 9 and 0 or index))
 	end
 
-	button:RegisterForClicks('AnyDown')
-
 	return button
 end
 
