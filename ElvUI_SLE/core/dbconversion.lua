@@ -6,6 +6,17 @@ local SLE_Test = false
 local ProfileNames = NONE
 local CharacterNames = NONE
 
+local mediaFonts = {
+	"zone",
+	"subzone",
+	"pvp",
+	"mail",
+	"gossip",
+	"objective",
+	"objectiveHeader",
+	"questFontSuperHuge",
+}
+
 --Convers all the things!
 function SLE:DatabaseConversions()
 	if ElvDB.SLE_DB_Ver == SLE.DBversion and not SLE_Test then return end --Only execute all this shit when current database is actually outdated.
@@ -27,24 +38,139 @@ function SLE:DatabaseConversions()
 					data.sle.databars.rep = nil
 					profileChanged = true
 				end
-				if data.sle.Armory then data.sle.Armory = nil; profileChanged = true end
-				if data.sle.minimap and data.sle.minimap.locPanel then
-					if data.sle.minimap.portals then
-						if type(data.sle.minimap.locPanel.portals.hsPrio) == 'table' then
-							data.sle.minimap.locPanel.portals.hsPrio = P.sle.minimap.locPanel.portals.hsPrio
-							profileChanged = true
+				if data.sle.Armory then data.sle.Armory = nil
+					profileChanged = true
+				end
+				if data.sle.armory then
+					if data.sle.armory.character then
+						if data.sle.armory.character.ilvl then
+							if data.sle.armory.character.ilvl.fontStyle == 'NONE' then
+								data.sle.armory.character.ilvl.fontStyle = ''
+								profileChanged = true
+							end
 						end
-					elseif data.sle.minimap.locPanel.portals and data.sle.minimap.locPanel.portals.hsPrio then
-						local CurrentDefault = P.sle.minimap.locPanel.portals.hsPrio
-						local CurrentSettings = data.sle.minimap.locPanel.portals.hsPrio
-						for hs in CurrentDefault:gmatch('%d+') do
-							if not CurrentSettings:match(hs) then CurrentSettings = CurrentSettings .. ',' .. hs; profileChanged = true end
+						if data.sle.armory.character.enchant then
+							if data.sle.armory.character.enchant.fontStyle == 'NONE' then
+								data.sle.armory.character.enchant.fontStyle = ''
+								profileChanged = true
+							end
 						end
 					end
+					if data.sle.armory.inspect then
+						if data.sle.armory.inspect.ilvl then
+							if data.sle.armory.inspect.ilvl.fontStyle == 'NONE' then
+								data.sle.armory.inspect.ilvl.fontStyle = ''
+								profileChanged = true
+							end
+						end
+						if data.sle.armory.inspect.enchant then
+							if data.sle.armory.inspect.enchant.fontStyle == 'NONE' then
+								data.sle.armory.inspect.enchant.fontStyle = ''
+								profileChanged = true
+							end
+						end
+					end
+					if data.sle.armory.stats then
+						if data.sle.armory.stats.itemLevel then
+							if data.sle.armory.stats.itemLevel.outline and data.sle.armory.stats.itemLevel.outline == 'NONE' then
+								data.sle.armory.stats.itemLevel.outline = ''
+								profileChanged = true
+							end
+						end
+						if data.sle.armory.stats.statFonts then
+							if data.sle.armory.stats.statFonts.outline and data.sle.armory.stats.statFonts.outline == 'NONE' then
+								data.sle.armory.stats.statFonts.outline = ''
+								profileChanged = true
+							end
+						end
+						if data.sle.armory.stats.catFonts then
+							if data.sle.armory.stats.catFonts.outline and data.sle.armory.stats.catFonts.outline == 'NONE' then
+								data.sle.armory.stats.catFonts.outline = ''
+								profileChanged = true
+							end
+						end
+					end
+				end
+				if data.sle.minimap then
+					if data.sle.minimap.locPanel then
+						if data.sle.minimap.locPanel.fontOutline == 'NONE' then
+							data.sle.minimap.locPanel.fontOutline = ''
+							profileChanged = true
+						end
+						if data.sle.minimap.portals then
+							if type(data.sle.minimap.locPanel.portals.hsPrio) == 'table' then
+								data.sle.minimap.locPanel.portals.hsPrio = P.sle.minimap.locPanel.portals.hsPrio
+								profileChanged = true
+							end
+						elseif data.sle.minimap.locPanel.portals and data.sle.minimap.locPanel.portals.hsPrio then
+							local CurrentDefault = P.sle.minimap.locPanel.portals.hsPrio
+							local CurrentSettings = data.sle.minimap.locPanel.portals.hsPrio
+							for hs in CurrentDefault:gmatch('%d+') do
+								if not CurrentSettings:match(hs) then
+									CurrentSettings = CurrentSettings .. ',' .. hs
+									profileChanged = true
+								end
+							end
+						end
+					end
+					if data.sle.minimap.coords then
+						if data.sle.minimap.coords.fontOutline and data.sle.minimap.coords.fontOutline == 'NONE' then
+							data.sle.minimap.coords.fontOutline = ''
+							profileChanged = true
+						end
+					end
+					if data.sle.minimap.instance then
+						if data.sle.minimap.instance.fontOutline and data.sle.minimap.instance.fontOutline == 'NONE' then
+							data.sle.minimap.instance.fontOutline = ''
+							profileChanged = true
+						end
+					end
+
+				end
+				if data.sle.media then
+					if data.sle.media.fonts then
+						for i = 1, #mediaFonts do
+							if data.sle.media.fonts[mediaFonts[i]] then
+								if data.sle.media.fonts[mediaFonts[i]].outline and data.sle.media.fonts[mediaFonts[i]].outline == 'NONE' then
+									data.sle.media.fonts[mediaFonts[i]].outline = ''
+									profileChanged = true
+								end
+							end
+						end
+					end
+				end
+				if data.sle.nameplates then
+					if data.sle.nameplates.threat then
+						if data.sle.nameplates.threat.fontOutline and data.sle.nameplates.threat.fontOutline == 'NONE' then
+							data.sle.nameplates.threat.fontOutline = ''
+							profileChanged = true
+						end
+					end
+					if data.sle.nameplates.targetcount then
+						if data.sle.nameplates.targetcount.fontOutline and data.sle.nameplates.targetcount.fontOutline == 'NONE' then
+							data.sle.nameplates.targetcount.fontOutline = ''
+							profileChanged = true
+						end
+					end
+
 				end
 				if data.sle.screensaver then
 					data.sle.screensaver = nil
 					profileChanged = true
+				end
+				if data.sle.skins then
+					if data.sle.skins.merchant then
+						if data.sle.skins.merchant.list then
+							if data.sle.skins.merchant.list.nameOutline and data.sle.skins.merchant.list.nameOutline == 'NONE' then
+								data.sle.skins.merchant.list.nameOutline = ''
+								profileChanged = true
+							end
+							if data.sle.skins.merchant.list.subOutline and data.sle.skins.merchant.list.subOutline == 'NONE' then
+								data.sle.skins.merchant.list.subOutline = ''
+								profileChanged = true
+							end
+						end
+					end
 				end
 				if profileChanged then
 					if ProfileNames == NONE then
@@ -65,13 +191,32 @@ function SLE:DatabaseConversions()
 					if data.sle.module.blizzmove then
 						if data.sle.module.blizzmove and type(data.sle.module.blizzmove) == 'boolean' then data.sle.module.blizzmove = V.sle.module.blizzmove; privateChanged = true; end --Ancient setting conversions
 						if not data.sle.module.blizzmove.points then data.sle.module.blizzmove.points = {} end
-						if not data.sle.pvpreadydialogreset then data.sle.module.blizzmove.points['PVPReadyDialog'] = nil; data.sle.pvpreadydialogreset = true; privateChanged = true; end
-						if data.sle.module.blizzmove.points['CalendarViewEventFrame'] then data.sle.module.blizzmove.points['CalendarViewEventFrame'] = nil; privateChanged = true; end
-						if data.sle.module.blizzmove.points['CalendarViewHolidayFrame'] then data.sle.module.blizzmove.points['CalendarViewHolidayFrame'] = nil; privateChanged = true; end
+						if not data.sle.pvpreadydialogreset then
+							data.sle.module.blizzmove.points['PVPReadyDialog'] = nil
+							data.sle.pvpreadydialogreset = true
+							privateChanged = true
+						end
+						if data.sle.module.blizzmove.points['CalendarViewEventFrame'] then
+							data.sle.module.blizzmove.points['CalendarViewEventFrame'] = nil
+							privateChanged = true
+						end
+						if data.sle.module.blizzmove.points['CalendarViewHolidayFrame'] then
+							data.sle.module.blizzmove.points['CalendarViewHolidayFrame'] = nil
+							privateChanged = true
+						end
 						--Remove these from saved variables so the script will not attempt to mess with them, cause they are not ment to be moved permanently
-						if data.sle.module.blizzmove.points['BonusRollFrame'] then data.sle.module.blizzmove.points['BonusRollFrame'] = nil; privateChanged = true; end
-						if data.sle.module.blizzmove.points['BonusRollLootWonFrame'] then data.sle.module.blizzmove.points['BonusRollLootWonFrame'] = nil; privateChanged = true; end
-						if data.sle.module.blizzmove.points['BonusRollMoneyWonFrame'] then data.sle.module.blizzmove.points['BonusRollMoneyWonFrame'] = nil; privateChanged = true; end
+						if data.sle.module.blizzmove.points['BonusRollFrame'] then
+							data.sle.module.blizzmove.points['BonusRollFrame'] = nil
+							privateChanged = true
+						end
+						if data.sle.module.blizzmove.points['BonusRollLootWonFrame'] then
+							data.sle.module.blizzmove.points['BonusRollLootWonFrame'] = nil
+							privateChanged = true
+						end
+						if data.sle.module.blizzmove.points['BonusRollMoneyWonFrame'] then
+							data.sle.module.blizzmove.points['BonusRollMoneyWonFrame'] = nil
+							privateChanged = true
+						end
 					end
 					if data.sle.module.screensaver and type(data.sle.module.screensaver) == 'boolean' then
 						data.sle.module.screensaver = nil

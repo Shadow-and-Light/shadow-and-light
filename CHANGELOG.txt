@@ -1,4 +1,3 @@
-v4.43 10/26/22
+v4.44 10/26/22
 
-• fix rect minimap issue
-• fix rep databar issue if using our customization for it
+• hotfix for font issues
