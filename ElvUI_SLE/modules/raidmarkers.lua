@@ -50,6 +50,7 @@ function RM:CreateButton(index)
 	local info = layouts[index]
 	local target, worldmarker = info.RT, info.WM
 	local button = CreateFrame('Button', format('SLE_RaidMarkerBarButton%d', index), RM.frame, 'SecureActionButtonTemplate, BackdropTemplate')
+	button:RegisterForClicks('AnyUp', 'AnyDown')
 	button:Size(E.db.sle.raidmarkers.buttonSize)
 	button:SetTemplate('Transparent')
 
@@ -62,8 +63,6 @@ function RM:CreateButton(index)
 		button:SetAttribute('type1', 'macro')
 		button:SetAttribute('macrotext1', format('/tm %d', index == 9 and 0 or index))
 	end
-
-	button:RegisterForClicks('AnyDown')
 
 	return button
 end
