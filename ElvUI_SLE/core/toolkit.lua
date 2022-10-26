@@ -11,7 +11,7 @@ local GetItemInfo = GetItemInfo
 
 T.Values = {
 	FontFlags = {
-		NONE = L["NONE"],
+		[''] = L["NONE"],
 		OUTLINE = 'Outline',
 		THICKOUTLINE = 'Thick',
 		MONOCHROME = '|cffaaaaaaMono|r',
@@ -243,7 +243,7 @@ function SLE:GetRegion()
 		SLE.region = 'PTR'
 	end]]
 	local portal = GetCVar("portal")
-	
+
 	if not portal or portal == "" then
 		SLE.region = "PTR"
 	elseif portal == "test" then
