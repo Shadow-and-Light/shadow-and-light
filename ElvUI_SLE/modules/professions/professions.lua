@@ -39,13 +39,13 @@ function Pr:Initialize()
 	--Next line is to fix other guys' code cause they feel like being assholes and morons
 	if SLE._Compatibility["TradeSkillMaster"] and not TradeSkillFrame.RecipeList.collapsedCategories then TradeSkillFrame.RecipeList.collapsedCategories = {} end
 	Pr:UpdateSkills()
-	_G["TradeSkillFrame"]:HookScript("OnShow", function(frame)
-		if Pr.FirstOpen then return end
-		E:Delay(0.2, function()
-			Pr.FirstOpen = true
-			frame.RecipeList.scrollBar:SetValue(0)
-		end)
-	end)
+	-- _G["TradeSkillFrame"]:HookScript("OnShow", function(frame)
+	-- 	if Pr.FirstOpen then return end
+	-- 	E:Delay(0.2, function()
+	-- 		Pr.FirstOpen = true
+	-- 		frame.RecipeList.scrollBar:SetValue(0)
+	-- 	end)
+	-- end)
 
 	if E.private.sle.professions.enchant.enchScroll then Pr:EnchantButton() end
 
