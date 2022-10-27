@@ -440,15 +440,15 @@ Pr.mapSpellToItem = {
 }
 
 function Pr:EnchantButton()
-	local button = CreateFrame("Button", "SLE_EnchScrollButton", _G["TradeSkillFrame"], "MagicButtonTemplate, BackdropTemplate")
+	local button = CreateFrame("Button", "SLE_EnchScrollButton", _G["ProfessionsFrame"], "MagicButtonTemplate, BackdropTemplate")
 	if E.private.skins.blizzard.tradeskill == true and E.private.skins.blizzard.enable == true then
 		S:HandleButton(button)
 		button:StripTextures()
 		button:SetTemplate('Default', true)
 		button:ClearAllPoints()
-		button:SetPoint("TOPRIGHT", _G["TradeSkillFrame"].DetailsFrame.CreateButton, "TOPLEFT", -1, 0)
+		button:SetPoint("TOPRIGHT", _G["ProfessionsFrame"].CraftingPage.CreateButton, "TOPLEFT", -1, 0)
 	else
-		button:SetPoint("TOPRIGHT", _G["TradeSkillFrame"].DetailsFrame.CreateButton, "TOPLEFT")
+		button:SetPoint("TOPRIGHT", _G["ProfessionsFrame"].CraftingPage.CreateButton, "TOPLEFT")
 	end
 	button:SetScript("OnClick", function()
 		-- if (IsShiftKeyDown() and button.itemID) then
@@ -458,7 +458,7 @@ function Pr:EnchantButton()
 				-- ChatEdit_InsertLink(link)
 			-- end
 		-- else
-			CraftRecipe(_G["TradeSkillFrame"].DetailsFrame.selectedRecipeID)
+			CraftRecipe(_G["ProfessionsFrame"].CraftingPage.SchematicForm:GetRecipeInfo().recipeID)
 			UseItemByName(38682)
 		-- end
 	end)
@@ -501,5 +501,5 @@ function Pr:EnchantButton()
 			_G["SLE_EnchScrollButton"]:Hide()
 		end
 	end
-	hooksecurefunc(_G["TradeSkillFrame"].DetailsFrame, "Refresh", UpdateScrollButton)
+	hooksecurefunc(_G["ProfessionsFrame"].CraftingPage, "Refresh", UpdateScrollButton)
 end
