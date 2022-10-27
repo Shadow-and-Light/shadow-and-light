@@ -99,9 +99,11 @@ end
 
 --For searching stuff in bags
 function SLE:BagSearch(itemId)
+	local getNumSlots = SLE.WoW10 and C_Container.GetContainerNumSlots or GetContainerNumSlots
+	local getItemId = SLE.WoW10 and C_Container.GetContainerItemID or GetContainerItemID
 	for container = 0, NUM_BAG_SLOTS do
-		for slot = 1, GetContainerNumSlots(container) do
-			if itemId == GetContainerItemID(container, slot) then
+		for slot = 1, getNumSlots(container) do
+			if itemId == getItemId(container, slot) then
 				return container, slot
 			end
 		end
