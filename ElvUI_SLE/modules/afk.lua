@@ -93,6 +93,7 @@ S.afkMusic = {
 		['MONK'] = 642138,
 		['DRUID'] = 1417312,
 		['DEMONHUNTER'] = 1417290,
+		['EVOKER'] = 1417290,
 	},
 	RACIAL = {
 		['Human'] = 53210,
@@ -118,6 +119,7 @@ S.afkMusic = {
 		['ZandalariTroll'] = 2844635,
 		['Vulpera'] = 3260632,
 		['MagharOrc'] = 2146630,
+		['Dracthyr'] = 2146630,
 	},
 }
 

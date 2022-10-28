@@ -14,6 +14,7 @@ SLE.callbacks = SLE.callbacks or LibStub('CallbackHandler-1.0'):New(SLE)
 SLE.version = GetAddOnMetadata('ElvUI_SLE', 'Version')
 SLE.DBversion = '4.43'
 SLE.Title = format('|cff9482c9%s|r', 'Shadow & Light')
+SLE.WoW10 = select(4, GetBuildInfo()) >= 100000
 
 _G.ElvDB = ElvDB or {}
 _G.ElvDB.ShadowLightAlpha = false

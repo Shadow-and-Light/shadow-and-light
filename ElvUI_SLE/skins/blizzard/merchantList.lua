@@ -713,7 +713,11 @@ local function MerchantListSkinInit()
 		for index = 1, 3 do
 			local tokenButton = _G["MerchantToken"..index]
 			if tokenButton and not tokenButton.SLE_ListMerchantStyled then
-				tokenButton.icon:SetTexCoord(unpack(E.TexCoords))
+				if SLE.WoW10 then
+					tokenButton.Icon:SetTexCoord(unpack(E.TexCoords))
+				else
+					tokenButton.icon:SetTexCoord(unpack(E.TexCoords))
+				end
 				tokenButton.SLE_ListMerchantStyled = true
 			end
 		end
