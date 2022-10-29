@@ -357,7 +357,7 @@ function B:Initialize()
 		end
 
 		--Removing stuff from auto positioning
-		self:Hook('UIParent_ManageFramePositions', function()
+		self:SecureHook('UIParent_ManageFramePositions', function()
 			for FrameName, state in pairs(B.Frames) do
 				local frame = _G[FrameName]
 				if state and frame and frame:IsShown() then
