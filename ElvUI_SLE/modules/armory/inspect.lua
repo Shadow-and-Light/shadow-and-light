@@ -281,7 +281,7 @@ function IA:Disable()
 
 	if _G["InspectPaperDollFrame"].SLE_Armory_BG then _G["InspectPaperDollFrame"].SLE_Armory_BG:Hide() end
 	_G["InspectFrame"].ItemLevelText:ClearAllPoints()
-	_G["InspectFrame"].ItemLevelText:Point("BOTTOMRIGHT", -6, 6)
+	_G["InspectFrame"].ItemLevelText:Point("BOTTOMLEFT", 6, 6)
 end
 
 function IA:ToggleArmory()
