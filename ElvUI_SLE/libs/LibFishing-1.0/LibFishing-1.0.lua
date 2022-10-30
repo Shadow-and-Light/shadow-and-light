@@ -530,18 +530,18 @@ function FishLib:CreateSAButton()
 		btn = CreateFrame("Button", SABUTTONNAME, holder, "SecureActionButtonTemplate");
 		btn.holder = holder;
 		btn:EnableMouse(true);
-		btn:RegisterForClicks("AnyUp");
+		btn:RegisterForClicks("RightButtonUp", "RightButtonDown");
 		btn:Show();
 
 		holder:SetPoint("LEFT", UIParent, "RIGHT", 10000, 0);
 		holder:SetFrameStrata("LOW");
 		holder:Hide();
 	end
-	if (not self.buttonevent) then
-		self.buttonevent = "RightButtonUp";
-	end
+	-- if (not self.buttonevent) then
+		-- self.buttonevent = "RightButtonUp";
+	-- end
 	btn:SetScript("PostClick", ClickHandled);
-	btn:RegisterForClicks(self.buttonevent);
+	btn:RegisterForClicks("RightButtonUp", "RightButtonDown");
 	self.sabutton = btn;
 	btn.fl = self;
 end
@@ -574,18 +574,19 @@ function FishLib:GetSAMouseKey()
 end
 
 function FishLib:SetSAMouseEvent(buttonevent)
-	if (not buttonevent) then
-		buttonevent = "RightButtonUp";
-	end
-	if (self.CastButton[buttonevent]) then
-		self.buttonevent = buttonevent;
+	-- if (not buttonevent) then
+		-- buttonevent = "RightButtonUp";
+	-- end
+	-- if (self.CastButton[buttonevent]) then
+		-- self.buttonevent = buttonevent;
 		local btn = getglobal(SABUTTONNAME);
 		if ( btn ) then
 			-- btn:RegisterForClicks(nil);
-			btn:RegisterForClicks(self.buttonevent);
+			-- btn:RegisterForClicks(self.buttonevent);
+			btn:RegisterForClicks("RightButtonUp", "RightButtonDown");
 		end
 		return true;
-	end
+	-- end
 	-- return nil;
 end
 
