@@ -169,8 +169,8 @@ B.AddonsList = {
 	Blizzard_ClassTalentUI = {
 		ClassTalentFrame = true,
 	},
-	Blizzard_TradeSkillUI = {
-		TradeSkillFrame = true,
+	Blizzard_Professions = {
+		ProfessionsFrame = true,
 	},
 	Blizzard_TrainerUI = {
 		ClassTrainerFrame = true,
