@@ -2,7 +2,6 @@
 
 local strsplit = strsplit
 local CreateFrame = CreateFrame
-local UnitLevel = UnitLevel
 local BNET_CLIENT_WOW = BNET_CLIENT_WOW
 local BNGetFriendInfo, BNGetNumFriends, BNSendGameData = BNGetFriendInfo, BNGetNumFriends, BNSendGameData
 local C_ChatInfo_SendAddonMessage, C_ChatInfo_RegisterAddonMessagePrefix = C_ChatInfo.SendAddonMessage, C_ChatInfo.RegisterAddonMessagePrefix
@@ -15,7 +14,7 @@ local function SendRecieve(_, event, prefix, message, channel, sender)
 			message = 'wut?'
 			C_ChatInfo_SendAddonMessage('SLE_USER_REQ', message, channel)
 		elseif prefix == 'SLE_USER_INFO' then
-			message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version
+			message = E.mylevel..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version
 			C_ChatInfo_SendAddonMessage('SLE_DEV_INFO', message, channel)
 		end
 	elseif event == 'BN_CHAT_MSG_ADDON' then
@@ -29,7 +28,7 @@ local function SendRecieve(_, event, prefix, message, channel, sender)
 					message, ID = strsplit('#', message)
 
 					if message == 'userlist' then
-						message = UnitLevel('player')..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version
+						message = E.mylevel..'#'..E.myclass..'#'..E.myname..'#'..E.myrealm..'#'..SLE.version
 					elseif message == 'slesay' then
 						message = 'SLEinfo'..ID
 					end

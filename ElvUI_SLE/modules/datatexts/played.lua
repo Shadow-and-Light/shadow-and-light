@@ -4,7 +4,6 @@ local DT = E.DataTexts
 --GLOBALS: ElvDB
 local format = format
 local GetTime = GetTime
-local UnitLevel = UnitLevel
 local IsAddOnLoaded = IsAddOnLoaded
 
 local ChatFrame_TimeBreakDown = ChatFrame_TimeBreakDown
@@ -77,7 +76,7 @@ local OnUpdate = function(self, elapsed)
 
 	if TotalPlayTime and LevelPlayTime and SessionPlayTime then
 		local Day, Hour, Minute, Second
-		if UnitLevel('player') ~= MAX_PLAYER_LEVEL then
+		if E.mylevel ~= MAX_PLAYER_LEVEL then
 			Day, Hour, Minute, Second = ChatFrame_TimeBreakDown(LevelPlayTime + (GetTime() - LevelPlayTimeOffset))
 		else
 			Day, Hour, Minute, Second = ChatFrame_TimeBreakDown(TotalPlayTime + (GetTime() - SessionPlayTime))
@@ -111,7 +110,7 @@ local OnEvent = function(self, event, ...)
 	if not ElvDB["sle"]["TimePlayed"][MyRealm] then ElvDB["sle"]["TimePlayed"][MyRealm] = {} end
 	if not ElvDB["sle"]["TimePlayed"][MyRealm][MyName] then ElvDB["sle"]["TimePlayed"][MyRealm][MyName] = {} end
 	ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["Class"] = MyClass
-	ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["Level"] = UnitLevel('player')
+	ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["Level"] = E.mylevel
 	LastLevelTime = ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["LastLevelTime"] or 0
 	if event == 'TIME_PLAYED_MSG' then
 		local TotalTime, LevelTime = ...
@@ -132,7 +131,7 @@ local OnEvent = function(self, event, ...)
 			ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["LastLevelTime"] = LastLevelTime
 			LevelPlayTime = 1
 			LevelPlayTimeOffset = GetTime()
-			ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["Level"] = UnitLevel('player')
+			ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["Level"] = E.mylevel
 			eventRequesting = false
 		end
 	end
@@ -152,7 +151,7 @@ end
 local function Reset()
 	ElvDB["sle"]["TimePlayed"][MyRealm] = {}
 	ElvDB["sle"]["TimePlayed"][MyRealm][MyName] = {}
-	ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["Level"] = UnitLevel('player')
+	ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["Level"] = E.mylevel
 	ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["LastLevelTime"] = LastLevelTime
 	ElvDB["sle"]["TimePlayed"][MyRealm][MyName]["Class"] = MyClass
 	if not eventRequesting then

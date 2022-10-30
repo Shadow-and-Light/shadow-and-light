@@ -4,7 +4,6 @@ local EDB = E.DataBars
 
 --GLOBALS: hooksecurefunc
 local format = format
-local UnitLevel = UnitLevel
 local MAX_PLAYER_LEVEL = MAX_PLAYER_LEVEL
 local COMBATLOG_HONORGAIN, COMBATLOG_HONORGAIN_NO_RANK, COMBATLOG_HONORAWARD = COMBATLOG_HONORGAIN, COMBATLOG_HONORGAIN_NO_RANK, COMBATLOG_HONORAWARD
 local PVP_RANK_0_0 = PVP_RANK_0_0
@@ -50,7 +49,7 @@ local function HonorBar_Update(self, event, unit)
 	if event == 'HONOR_PRESTIGE_UPDATE' and unit ~= 'player' then return end
 
 	local bar = EDB.StatusBars.Honor
-	local showHonor = UnitLevel('player') >= MAX_PLAYER_LEVEL
+	local showHonor = E.mylevel >= MAX_PLAYER_LEVEL
 
 	if showHonor then
 		local current = UnitHonor('player')

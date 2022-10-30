@@ -6,7 +6,6 @@ local M = E.Misc
 local _G = _G
 local IsAddOnLoaded = IsAddOnLoaded
 local ConfirmLootSlot = ConfirmLootSlot
-local UnitLevel = UnitLevel
 local QUEUED_STATUS_UNKNOWN = QUEUED_STATUS_UNKNOWN
 local LOOT_ROLL_TYPE_GREED = LOOT_ROLL_TYPE_GREED
 local IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown = IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown
