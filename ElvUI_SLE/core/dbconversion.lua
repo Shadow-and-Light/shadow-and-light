@@ -141,14 +141,24 @@ function SLE:DatabaseConversions()
 				end
 				if data.sle.nameplates then
 					if data.sle.nameplates.threat then
-						if data.sle.nameplates.threat.fontOutline and data.sle.nameplates.threat.fontOutline == 'NONE' then
-							data.sle.nameplates.threat.fontOutline = ''
+						if type(data.sle.nameplates.threat) == "table" then
+							if data.sle.nameplates.threat.fontOutline and data.sle.nameplates.threat.fontOutline == 'NONE' then
+								data.sle.nameplates.threat.fontOutline = ''
+								profileChanged = true
+							end
+						else
+							data.sle.nameplates.threat = nil
 							profileChanged = true
 						end
 					end
 					if data.sle.nameplates.targetcount then
-						if data.sle.nameplates.targetcount.fontOutline and data.sle.nameplates.targetcount.fontOutline == 'NONE' then
-							data.sle.nameplates.targetcount.fontOutline = ''
+						if type(data.sle.nameplates.targetcount) == "table" then
+							if data.sle.nameplates.targetcount.fontOutline and data.sle.nameplates.targetcount.fontOutline == 'NONE' then
+								data.sle.nameplates.targetcount.fontOutline = ''
+								profileChanged = true
+							end
+						else
+							data.sle.nameplates.targetcount = nil
 							profileChanged = true
 						end
 					end
