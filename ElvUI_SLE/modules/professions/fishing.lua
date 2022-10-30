@@ -1,6 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Pr = SLE.Professions
-local FL = LibStub("LibFishing-1.0-SLE")
+local FL = LibStub("LibFishing-1.0-SLE") or LibStub("LibFishing-1.0")
 
 -- GLOBALS: hooksecurefunc, CreateFrame
 local _G = _G
@@ -97,12 +97,14 @@ end
 local function WF_OnMouseDown(...)
 	-- Only steal 'right clicks' (self is arg #1!)
 	local button = select(2, ...)
-	if FL:CheckForDoubleClick(button) and Pr:HijackFishingCheck() then
+	if FL:CheckForDoubleClick(button) then
+		if Pr:HijackFishingCheck() then
 		 -- We're stealing the mouse-up event, make sure we exit MouseLook
-		if ( IsMouselooking() ) then
-			MouselookStop()
+			if ( IsMouselooking() ) then
+				MouselookStop()
+			end
+			Pr:FishCasting()
 		end
-		Pr:FishCasting()
 	end
 	if ( SavedWFOnMouseDown ) then
 		SavedWFOnMouseDown(...)
@@ -112,8 +114,10 @@ end
 local function TrapWorldMouse()
 	if ( _G["WorldFrame"].OnMouseDown ) then
 		hooksecurefunc(_G["WorldFrame"], "OnMouseDown", WF_OnMouseDown)
+		hooksecurefunc(_G["WorldFrame"], "OnMouseUp", WF_OnMouseDown)
 	else
 		SavedWFOnMouseDown = T.SafeHookScript(_G["WorldFrame"], "OnMouseDown", WF_OnMouseDown)
+		SavedWFOnMouseUp = T.SafeHookScript(_G["WorldFrame"], "OnMouseUp", WF_OnMouseDown)
 	end
 end
 

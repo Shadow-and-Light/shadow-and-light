@@ -166,8 +166,8 @@ B.AddonsList = {
 	Blizzard_ScrappingMachineUI = {
 		ScrappingMachineFrame = true,
 	},
-	Blizzard_TalentUI = {
-		PlayerTalentFrame = true,
+	Blizzard_ClassTalentUI = {
+		ClassTalentFrame = true,
 	},
 	Blizzard_TradeSkillUI = {
 		TradeSkillFrame = true,
@@ -254,10 +254,12 @@ local function LoadPosition(self)
 		OnDragStop(self)
 	end
 
-	if E.private.sle.module.blizzmove.remember and E.private.sle.module.blizzmove.points[Name] then
+	if E.private.sle.module.blizzmove.remember and E.private.sle.module.blizzmove.points[Name] and not B.TempOnly[Name] then
 		self:ClearAllPoints()
 		local a,b,c,d,e = unpack(E.private.sle.module.blizzmove.points[Name])
-		self:SetPoint(a,b,c,d,e, true)
+		if a ~= nil then
+			self:SetPoint(a,b,c,d,e, true)
+		end
 	end
 
 	if B.ExlusiveFrames[Name] then for _, name in pairs(B.ExlusiveFrames[Name]) do _G[name]:Hide() end end --If this frame has others that should not be shown at the same time, hide those
@@ -329,8 +331,6 @@ function B:UpdateAll()
 	B:ErrorFrameSize()
 	B:SLETalkingHead()
 end
-
-
 
 function B:Initialize()
 	B.db = E.db.sle.blizzard

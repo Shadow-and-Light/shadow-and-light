@@ -4,7 +4,7 @@ local LFR = SLE.LFR
 
 local _G = _G
 local strlower = strlower
-local UnitLevel, GetAverageItemLevel = UnitLevel, GetAverageItemLevel
+local GetAverageItemLevel = GetAverageItemLevel
 local RAID_FINDER = RAID_FINDER
 local BOSS_DEAD = BOSS_DEAD
 local BOSS_ALIVE = BOSS_ALIVE
@@ -177,7 +177,7 @@ end
 
 --Injecting into tooltip
 function LFR:Show()
-	local lvl = UnitLevel('player')
+	local lvl = E.mylevel
 	local ilvl = GetAverageItemLevel()
 	DT.tooltip:AddLine(' ')
 	DT.tooltip:AddLine(RAID_FINDER)
