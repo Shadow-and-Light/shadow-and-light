@@ -1,4 +1,4 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local EM = SLE.EquipManager
 
 --GLOBALS: unpack, select, CreateFrame, CharacterFrame
@@ -388,7 +388,7 @@ function EM:CreateLock()
 	local button = CreateFrame('Button', 'SLE_Equip_Lock_Button', _G.PaperDollFrame)
 	button:Size(20, 20)
 	button:Point('BOTTOMLEFT', _G.CharacterFrame, 'BOTTOMLEFT', 4, 4)
-	button:SetFrameLevel(_G.CharacterSceneFrame:GetFrameLevel() + 2)
+	button:SetFrameLevel(_G.CharacterModelScene:GetFrameLevel() + 2)
 	button:SetScript('OnEnter', function(self)
 		_G.GameTooltip:SetOwner(self)
 		_G.GameTooltip:AddLine(L["SLE_EM_LOCK_TOOLTIP"])

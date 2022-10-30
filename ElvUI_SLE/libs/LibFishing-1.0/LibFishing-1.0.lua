@@ -530,7 +530,7 @@ function FishLib:CreateSAButton()
 		btn = CreateFrame("Button", SABUTTONNAME, holder, "SecureActionButtonTemplate");
 		btn.holder = holder;
 		btn:EnableMouse(true);
-		btn:RegisterForClicks(nil);
+		btn:RegisterForClicks("AnyUp");
 		btn:Show();
 
 		holder:SetPoint("LEFT", UIParent, "RIGHT", 10000, 0);
@@ -581,7 +581,7 @@ function FishLib:SetSAMouseEvent(buttonevent)
 		self.buttonevent = buttonevent;
 		local btn = getglobal(SABUTTONNAME);
 		if ( btn ) then
-			btn:RegisterForClicks(nil);
+			-- btn:RegisterForClicks(nil);
 			btn:RegisterForClicks(self.buttonevent);
 		end
 		return true;
