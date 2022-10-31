@@ -6,6 +6,5 @@
 	<Include file="LibFishing-1.0\lib.xml" />
 	<Script file="oUF_SLDeathIndicator\oUF_SLDeathIndicator.lua"/>
 	<Script file="oUF_SLOfflineIndicator\oUF_SLOfflineIndicator.lua"/>
-	<Script file="LibRealmInfo\LibRealmInfo.lua"/>
 	<Include file="LibProcessable\LibProcessable.lua"/>
 </Ui>

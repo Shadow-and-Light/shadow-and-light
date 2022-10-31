@@ -33,7 +33,7 @@ function RM:Make(name, command, description)
 	local btn = CreateFrame('Button', name, nil, 'SecureActionButtonTemplate')
 	btn:SetAttribute('type', 'macro')
 	btn:SetAttribute('macrotext', command)
-	btn:RegisterForClicks('AnyDown')
+	btn:RegisterForClicks('AnyDown', 'AnyUp')
 end
 
 --On enter/leave functions

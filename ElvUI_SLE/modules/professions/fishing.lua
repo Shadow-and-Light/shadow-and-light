@@ -78,46 +78,72 @@ end
 
 function Pr:FishCasting()
 	-- put on a lure if we need to
-	local key = Pr.FishingKey
-	if (key == "None" and FL:IsFishingReady(false)) or (key ~= "None" and _G["Is"..key.."KeyDown"]()) then
-		local update, id, n = Pr:GetUpdateLure()
-		if (update and id) then
-			FL:InvokeLuring(id)
-		else
-			Pr.LastCastTime = GetTime()
+	local update, id, n = Pr:GetUpdateLure()
+	if (update and id) then
+		FL:InvokeLuring(id)
+	else
+		Pr.LastCastTime = GetTime()
 
-			FL:InvokeFishing()
-		end
-	FL:OverrideClick(HideAwayAll)
+		FL:InvokeFishing()
 	end
+	FL:OverrideClick(HideAwayAll)
 end
 
 -- handle mouse up and mouse down in the WorldFrame so that we can steal the hardware events to implement 'Easy Cast'
 -- Thanks to the Cosmos team for figuring this one out
 local function WF_OnMouseDown(...)
 	-- Only steal 'right clicks' (self is arg #1!)
-	local button = select(2, ...)
-	if FL:CheckForDoubleClick(button) then
-		if Pr:HijackFishingCheck() then
-		 -- We're stealing the mouse-up event, make sure we exit MouseLook
-			if ( IsMouselooking() ) then
-				MouselookStop()
+	local key = Pr.FishingKey
+	if (key == "None" and FL:IsFishingReady(false)) or (key ~= "None" and _G["Is"..key.."KeyDown"]()) then
+		local button = select(2, ...)
+		if FL:CheckForDoubleClick(button) then
+			if Pr:HijackFishingCheck() then
+			 -- We're stealing the mouse-up event, make sure we exit MouseLook
+				if ( IsMouselooking() ) then
+					MouselookStop()
+				end
+				Pr:FishCasting()
 			end
-			Pr:FishCasting()
 		end
+	else
+		FL:ResetOverride()
 	end
+
 	if ( SavedWFOnMouseDown ) then
 		SavedWFOnMouseDown(...)
+	end
+end
+
+local function WF_OnMouseUp(...)
+	-- Only steal 'right clicks' (self is arg #1!)
+	local key = Pr.FishingKey
+	if (key == "None" and FL:IsFishingReady(false)) or (key ~= "None" and _G["Is"..key.."KeyDown"]()) then
+		local button = select(2, ...)
+		if FL:CheckForDoubleClick(button) then
+			if Pr:HijackFishingCheck() then
+			 -- We're stealing the mouse-up event, make sure we exit MouseLook
+				if ( IsMouselooking() ) then
+					MouselookStop()
+				end
+				Pr:FishCasting()
+			end
+		end
+	else
+		FL:ResetOverride()
+	end
+	
+	if ( SavedWFOnMouseUp ) then
+		SavedWFOnMouseUp(...)
 	end
 end
 
 local function TrapWorldMouse()
 	if ( _G["WorldFrame"].OnMouseDown ) then
 		hooksecurefunc(_G["WorldFrame"], "OnMouseDown", WF_OnMouseDown)
-		hooksecurefunc(_G["WorldFrame"], "OnMouseUp", WF_OnMouseDown)
+		hooksecurefunc(_G["WorldFrame"], "OnMouseUp", WF_OnMouseUp)
 	else
 		SavedWFOnMouseDown = T.SafeHookScript(_G["WorldFrame"], "OnMouseDown", WF_OnMouseDown)
-		SavedWFOnMouseUp = T.SafeHookScript(_G["WorldFrame"], "OnMouseUp", WF_OnMouseDown)
+		SavedWFOnMouseUp = T.SafeHookScript(_G["WorldFrame"], "OnMouseUp", WF_OnMouseUp)
 	end
 end
 
