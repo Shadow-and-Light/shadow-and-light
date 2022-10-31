@@ -32,7 +32,7 @@ function Pr:EnchantButton()
 		if not Pr:IsSkillMine() then _G["SLE_EnchScrollButton"]:Hide() return end
 
 		local skillInfo = C_TradeSkillUI.GetBaseProfessionInfo()
-		if Pr.baseTradeSkills.Enchanting ~= skillInfo.parentProfeccionId and Pr.baseTradeSkills.Enchanting ~= skillInfo.professionID then
+		if Pr.baseTradeSkills.Enchanting ~= skillInfo.parentProfessionId and Pr.baseTradeSkills.Enchanting ~= skillInfo.professionID then
 			_G["SLE_EnchScrollButton"]:Hide()
 			return
 		end
