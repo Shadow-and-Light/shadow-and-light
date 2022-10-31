@@ -282,7 +282,7 @@ end
 function Pr:ConstructRealDecButton()
 	Pr.DeconstructionReal = CreateFrame('Button', "SLE_DeconReal", E.UIParent, 'SecureActionButtonTemplate, AutoCastShineTemplate')
 	Pr.DeconstructionReal:SetScript('OnEvent', function(self, event, ...) self[event](self, ...) end)
-	Pr.DeconstructionReal:RegisterForClicks('AnyUp')
+	Pr.DeconstructionReal:RegisterForClicks('AnyUp', 'AnyDown')
 	Pr.DeconstructionReal:SetFrameStrata("TOOLTIP")
 	Pr.DeconstructionReal.TipLines = {}
 
