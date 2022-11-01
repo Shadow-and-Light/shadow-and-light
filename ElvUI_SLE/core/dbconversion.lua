@@ -227,6 +227,25 @@ function SLE:DatabaseConversions()
 							data.sle.module.blizzmove.points['BonusRollMoneyWonFrame'] = nil
 							privateChanged = true
 						end
+						--DF changes
+						for i = 1, 4 do
+							if data.sle.module.blizzmove.points['StaticPopup'..i] then
+								data.sle.module.blizzmove.points['StaticPopup'..i] = nil
+								privateChanged = true
+							end
+						end
+						if data.sle.module.blizzmove.points['AudioOptionsFrame'] then
+							data.sle.module.blizzmove.points['AudioOptionsFrame'] = nil
+							privateChanged = true
+						end
+						if data.sle.module.blizzmove.points['InterfaceOptionsFrame'] then
+							data.sle.module.blizzmove.points['InterfaceOptionsFrame'] = nil
+							privateChanged = true
+						end
+						if data.sle.module.blizzmove.points['VideoOptionsFrame'] then
+							data.sle.module.blizzmove.points['VideoOptionsFrame'] = nil
+							privateChanged = true
+						end
 					end
 					if data.sle.module.screensaver and type(data.sle.module.screensaver) == 'boolean' then
 						data.sle.module.screensaver = nil
@@ -235,6 +254,14 @@ function SLE:DatabaseConversions()
 				end
 				if data.sle.equip then
 					if data.sle.equip.onlyTalent then data.sle.equip.onlyTalent = nil end
+				end
+				if data.sle.professions then
+					if data.sle.professions.fishing then
+						if data.sle.professions.fishing.CastButton and data.sle.professions.fishing.CastButton == "None" then
+							data.sle.professions.fishing.CastButton = "Shift"
+							privateChanged = true
+						end
+					end
 				end
 				if privateChanged then
 					if CharacterNames == NONE then
