@@ -1,7 +1,7 @@
-v4.45 10/26/22
+v4.46 11/1/22
 
-• fix raid markers not being able to be clicked
-• fix location bar not being able to be clicked
-• fix mailframe icon issues
-• fix talking head frame issue
-• fix armory font issue
+• fix deconstruction issues
+• fix dedicated vehicle bar issues
+• fix some location bar issues
+• fix bag taint we were causing
+• fix some fishing module issues
