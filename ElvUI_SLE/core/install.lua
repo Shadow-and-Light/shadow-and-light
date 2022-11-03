@@ -238,6 +238,9 @@ function PI:DarthSetupDF()
 		E.db["auras"]["debuffs"]["timeFont"] = "Expressway"
 		E.db["auras"]["debuffs"]["timeFontOutline"] = "NONE"
 		E.db["auras"]["debuffs"]["timeFontSize"] = 14
+		E.db["auras"]["debuffs"]["barColor"]["b"] = 0.15294118225574
+		E.db["auras"]["debuffs"]["barColor"]["g"] = 0.062745101749897
+		E.db["auras"]["debuffs"]["barColor"]["r"] = 0.94117653369904
 	end
 	--Bags
 	do
