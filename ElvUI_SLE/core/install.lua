@@ -521,8 +521,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["player"]["infoPanel"]["height"] = 14
 		E.db["unitframe"]["units"]["player"]["name"]["attachTextTo"] = "Frame"
 		E.db["unitframe"]["units"]["player"]["name"]["position"] = "LEFT"
-		E.db["unitframe"]["units"]["player"]["name"]["text_format"] = "[level]"
-		E.db["unitframe"]["units"]["player"]["name"]["xOffset"] = -12
+		E.db["unitframe"]["units"]["player"]["name"]["text_format"] = "[level] [name]"
 		E.db["unitframe"]["units"]["player"]["name"]["yOffset"] = 18
 		E.db["unitframe"]["units"]["player"]["portrait"]["camDistanceScale"] = 3.5
 		E.db["unitframe"]["units"]["player"]["portrait"]["fullOverlay"] = true
