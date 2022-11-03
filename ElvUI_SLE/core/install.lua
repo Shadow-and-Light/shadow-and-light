@@ -983,10 +983,6 @@ function PI:DarthSetupDF()
 	E.private['sle']['uibuttons']['style'] = 'dropdown'
 
 	E.private["sle"]["professions"]["deconButton"]["style"] = "SMALL"
-	E.private["sle"]["professions"]["enchant"]["enchScroll"] = true
-	E.private["sle"]["professions"]["fishing"]["EasyCast"] = true
-	E.private["sle"]["professions"]["fishing"]["IgnorePole"] = true
-	E.private["sle"]["professions"]["fishing"]["UseLures"] = false
 
 	E.private['sle']['skins']['merchant']['enable'] = true
 	E.private['sle']['skins']['merchant']['style'] = 'List'
