@@ -400,6 +400,7 @@ function PI:DarthSetupDF()
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["enable"] = true
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["height"] = 6
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["enable"] = true
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["format"] = ""
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["fontSize"] = 12
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["position"] = "BOTTOMLEFT"
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["yOffset"] = 10
@@ -429,6 +430,7 @@ function PI:DarthSetupDF()
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["enable"] = true
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["height"] = 6
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["enable"] = true
+		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["format"] = ""
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["fontSize"] = 12
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["position"] = "BOTTOMLEFT"
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["yOffset"] = 10
