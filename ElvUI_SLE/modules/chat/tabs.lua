@@ -66,7 +66,7 @@ function C:FCFDock_UpdateTabs(dock, forceUpdate)
 		--Resizing tabs, don't need to do that if blizz sizing is selected
 		if E.db.sle.chat.tab.resize ~= "Blizzard" then
 			--Setting the width now
-			sleWidth = (E.db.sle.chat.tab.resize == "None" and chatTab.origWidth) or (E.db.sle.chat.tab.resize == "Title" and (chatTab.textWidth)) or (E.db.sle.chat.tab.resize == "Custom" and E.db.sle.chat.tab.customWidth)
+			sleWidth = (E.db.sle.chat.tab.resize == "None" and chatTab.origWidth) or (E.db.sle.chat.tab.resize == "Title" and (chatTab.Text:GetWidth())) or (E.db.sle.chat.tab.resize == "Custom" and E.db.sle.chat.tab.customWidth)
 			if sleWidth < 45 then sleWidth = 45 end --We have a min of 45. If somehow this happens to be lower., stuff looks ugly.
 
 			if ( chatFrame.isStaticDocked ) then
@@ -131,21 +131,16 @@ end
 
 function C:InitTabs()
 	if E.db.sle.chat.tab.resize == true then E.db.sle.chat.tab.resize = "None" end
-
 	--Getting initial chat tabs width, so other stuff will work
-	if C.CreatedFrames == 0 then
-		--Not all tabs have been styled yet
-		E:Delay(0.2, C.InitTabs)
-		return
-	else
-		for id = 1, C.CreatedFrames do _G["ChatFrame"..id.."Tab"].origWidth = _G["ChatFrame"..id.."Tab"]:GetWidth() end
+	for _, frameName in ipairs(_G.CHAT_FRAMES) do
+		local frame = _G[frameName]
+		local id = frame:GetID()
+		_G["ChatFrame"..id.."Tab"].origWidth = _G["ChatFrame"..id.."Tab"]:GetWidth()
 	end
-
 	--Hooking to chat updating function
 	hooksecurefunc("FCFDock_UpdateTabs", function(dock, forceUpdate) C:FCFDock_UpdateTabs(dock, forceUpdate) end)
 	--Without this hooked previous hook will never execute automatically apart from specific situations
 	hooksecurefunc("FCFDock_SelectWindow", function(dock, chatFrame) FCFDock_UpdateTabs(dock, true) end)
-
 	--Calling in update after hooks. Why 2 times? No idea, doesn't work otherwise
 	FCF_DockUpdate()
 	FCF_DockUpdate()
