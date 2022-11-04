@@ -12,6 +12,7 @@ local IsMounted = IsMounted
 local IsMouselooking = IsMouselooking
 local MouselookStop = MouselookStop
 local UnitChannelInfo = UnitChannelInfo
+local InCombatLockdown = InCombatLockdown
 
 function Pr:HijackFishingCheck()
 	if ( not Pr.AddingLure and not InCombatLockdown() and (not IsMounted() or E.private.sle.professions.fishing.FromMount) and
@@ -94,19 +95,21 @@ end
 local function WF_OnMouseDown(...)
 	-- Only steal 'right clicks' (self is arg #1!)
 	local key = Pr.FishingKey
-	if (key == "None" and FL:IsFishingReady(false)) or (key ~= "None" and _G["Is"..key.."KeyDown"]()) then
-		local button = select(2, ...)
-		if FL:CheckForDoubleClick(button) then
-			if Pr:HijackFishingCheck() then
-			 -- We're stealing the mouse-up event, make sure we exit MouseLook
-				if ( IsMouselooking() ) then
-					MouselookStop()
+	if not InCombatLockdown() then 
+		if (key == "None" and FL:IsFishingReady(false)) or (key ~= "None" and _G["Is"..key.."KeyDown"]()) then
+			local button = select(2, ...)
+			if FL:CheckForDoubleClick(button) then
+				if Pr:HijackFishingCheck() then
+				 -- We're stealing the mouse-up event, make sure we exit MouseLook
+					if ( IsMouselooking() ) then
+						MouselookStop()
+					end
+					Pr:FishCasting()
 				end
-				Pr:FishCasting()
 			end
+		else
+			FL:ResetOverride()
 		end
-	else
-		FL:ResetOverride()
 	end
 
 	if ( SavedWFOnMouseDown ) then
@@ -116,20 +119,22 @@ end
 
 local function WF_OnMouseUp(...)
 	-- Only steal 'right clicks' (self is arg #1!)
-	local key = Pr.FishingKey
-	if (key == "None" and FL:IsFishingReady(false)) or (key ~= "None" and _G["Is"..key.."KeyDown"]()) then
-		local button = select(2, ...)
-		if FL:CheckForDoubleClick(button) then
-			if Pr:HijackFishingCheck() then
-			 -- We're stealing the mouse-up event, make sure we exit MouseLook
-				if ( IsMouselooking() ) then
-					MouselookStop()
+	if not InCombatLockdown() then 
+		local key = Pr.FishingKey
+		if (key == "None" and FL:IsFishingReady(false)) or (key ~= "None" and _G["Is"..key.."KeyDown"]()) then
+			local button = select(2, ...)
+			if FL:CheckForDoubleClick(button) then
+				if Pr:HijackFishingCheck() then
+				 -- We're stealing the mouse-up event, make sure we exit MouseLook
+					if ( IsMouselooking() ) then
+						MouselookStop()
+					end
+					Pr:FishCasting()
 				end
-				Pr:FishCasting()
 			end
+		else
+			FL:ResetOverride()
 		end
-	else
-		FL:ResetOverride()
 	end
 	
 	if ( SavedWFOnMouseUp ) then

@@ -283,8 +283,8 @@ function EM:TagsProcess(msg)
 							local tag = command:match('^%s*(.+)%s*$')
 							if EM.TagsTable[tag] then --If tag is registered, add stuff to the table
 								tinsert(CommandsInfo, { condition = command:match('^%s*(.+)%s*$'), args = argTable })
-							elseif tag:sub(1,2) == "no" and EM.TagsTable[tag:sub(3,-1)] then
-								tinsert(CommandsInfo, { condition =  command:match('^%s+no(.+)%s*$'), args = argTable, negate = true })
+							elseif tag:sub(1,2) == 'no' and EM.TagsTable[tag:sub(3,-1)] then
+								tinsert(CommandsInfo, { condition =  command:match('^%s*no(.+)%s*$'), args = argTable, negate = true })
 							else
 								--We don't use that kind of tag in this neighborhood
 								SLE:Print(format(L["SLE_EM_TAG_INVALID"], tag), 'error')
