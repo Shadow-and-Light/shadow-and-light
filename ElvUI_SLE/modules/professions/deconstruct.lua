@@ -60,16 +60,6 @@ Pr.ItemTable = {
 		['45991'] = true, --Bone Fishing Pole
 		['45992'] = true, --Jeweled Fishing Pole
 	},
-	--Quest dis
-	-- ['Quest'] = {
-	-- 	['137195'] = true, -- Highmountain armor  --in libprocess, test if we need this now
-	-- 	['137221'] = true, -- Enchanted Raven Sigil  --in libprocess, test if we need this now
-	-- 	['137286'] = true, -- Fel-Crusted Rune  --in libprocess, test if we need this now
-	-- 	['181991'] = true, -- Antique Stalker's Bow
-	-- 	['182021'] = true, -- Antique Kyrian Javelin
-	-- 	['182067'] = true, -- Antique Duelist's Rapier
-	-- 	['182043'] = true, -- Antique Necromancer's Staff
-	-- },
 }
 Pr.Keys = {
 	[GetSpellInfo(195809)] = true, -- jeweled lockpick
@@ -130,7 +120,6 @@ function Pr:ApplyDeconstruct(itemLink, itemId, spell, spellType, r, g, b)
 	Pr.DeconstructionReal.Slot = slot:GetID()
 	local color = {r,g,b,1}
 	if (E.global.sle.LOCK.TradeOpen and GetTradeTargetItemLink(7) == itemLink and _G["GameTooltip"]:GetOwner():GetName() == "TradeRecipientItem7ItemButton") then
-			-- Pr.DeconstructionReal.ID = strmatch(itemLink, 'item:(%d+):')
 			Pr.DeconstructionReal.ID = itemId
 			Pr.DeconstructionReal:SetAttribute('type1', 'macro')
 			Pr.DeconstructionReal:SetAttribute('macrotext', format('/cast %s\n/run ClickTargetTradeButton(7)', spell))
@@ -140,12 +129,9 @@ function Pr:ApplyDeconstruct(itemLink, itemId, spell, spellType, r, g, b)
 			if E.private.sle.professions.deconButton.style == "BIG" then
 				ActionButton_ShowOverlayGlow(Pr.DeconstructionReal)
 			elseif E.private.sle.professions.deconButton.style == "SMALL" then
-				-- AutoCastShine_AutoCastStart(Pr.DeconstructionReal, r, g, b)
 				AutoCastShine_AutoCastStart(Pr.DeconstructionReal, color, 5,nil,2)
 			end
-		-- end
 	elseif (C_Container_GetContainerItemLink(bag, slot:GetID()) == itemLink) then
-		-- Pr.DeconstructionReal.ID = strmatch(itemLink, 'item:(%d+):')
 		Pr.DeconstructionReal.ID = itemId
 		Pr.DeconstructionReal:SetAttribute("type1",spellType)
 		Pr.DeconstructionReal:SetAttribute(spellType, spell)
@@ -155,10 +141,8 @@ function Pr:ApplyDeconstruct(itemLink, itemId, spell, spellType, r, g, b)
 		Pr.DeconstructionReal:Show()
 		
 		if E.private.sle.professions.deconButton.style == "BIG" then
-			-- ActionButton_ShowOverlayGlow(Pr.DeconstructionReal)
 			ActionButton_ShowOverlayGlow(Pr.DeconstructionReal)
 		elseif E.private.sle.professions.deconButton.style == "SMALL" then
-			-- AutoCastShine_AutoCastStart(Pr.DeconstructionReal, r, g, b)
 			LCG.AutoCastGlow_Start(Pr.DeconstructionReal, color, 5,nil,2)
 		elseif E.private.sle.professions.deconButton.style == "PIXEL" then
 			LCG.PixelGlow_Start(Pr.DeconstructionReal, color, nil, nil, nil, 4)
@@ -181,10 +165,16 @@ function Pr:IsBreakable(itemId, itemName, itemQuality, equipSlot)
 end
 
 function Pr:IsUnlockable(itemLink)
-	local slot = GetMouseFocus()
-	local bag = slot:GetParent():GetID()
-	local item = _G["TradeFrame"]:IsShown() and GetTradeTargetItemLink(7) or select(7, C_Container_GetContainerItemInfo(bag, slot:GetID()))
-	if(item == itemLink) then
+	local workLink
+	if _G["TradeFrame"]:IsShown() then
+		workLink = GetTradeTargetItemLink(7)
+	else
+		local slot = GetMouseFocus()
+		local bag = slot:GetParent():GetID()
+		local itemInfo = C_Container_GetContainerItemInfo(bag, slot:GetID())
+		workLink = itemInfo.hyperlink
+	end
+	if(workLink == itemLink) then
 		for index = 2, 5 do
 			local info = _G['GameTooltipTextLeft' .. index]:GetText()
 			if strfind(info, LOCKED) then
@@ -210,13 +200,7 @@ function Pr:DeconstructParser(tt, data)
 			hyperlink = data.hyperlink;
 		end
 
-		-- local item, link = tt:GetItem()
 		if not hyperlink then return end
-
-		-- local itemString = strmatch(link, "item[%-?%d:]+")
-		-- if not itemString then return end
-
-		-- local _, id = strsplit(":", itemString)
 
 		if(itemId and not InCombatLockdown()) and (Pr.DeconstructMode == true or (E.global.sle.LOCK.TradeOpen and self:GetOwner():GetName() == "TradeRecipientItem7ItemButton")) then
 			local r, g, b
@@ -240,7 +224,6 @@ function Pr:DeconstructParser(tt, data)
 				if not normalItem then
 					isArtRelic = (itemClass == relicItemTypeLocalized and itemSubclass == relicItemSubTypeLocalized)
 				end
-				-- if normalItem or Pr.ItemTable["Quest"][id] or isArtRelic then
 				if normalItem or isArtRelic then
 					r, g, b = 1, 0, 0
 					Pr:ApplyDeconstruct(hyperlink, itemId, Pr.DEname, "spell", r, g, b)
@@ -351,7 +334,6 @@ function Pr:InitializeDeconstruct()
 	end
 
 	_G["ElvUI_ContainerFrame"]:HookScript("OnHide", Hiding)
-	-- self:SecureHookScript(GameTooltip, "OnTooltipSetItem", "DeconstructParser")
 	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tt, data) Pr:DeconstructParser(tt, data) end)
 
 	Pr:Blacklisting("DE")
