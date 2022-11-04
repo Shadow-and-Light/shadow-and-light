@@ -3,9 +3,9 @@ local BI = SLE.BagInfo
 local B = E.Bags
 
 local _G = _G
-local GetContainerNumSlots = GetContainerNumSlots
+local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
 local CUSTOM = CUSTOM
-local GetContainerItemEquipmentSetInfo = GetContainerItemEquipmentSetInfo
+local C_Container_GetContainerItemEquipmentSetInfo = C_Container.GetContainerItemEquipmentSetInfo
 -- local EQUIPMENT_SETS = EQUIPMENT_SETS
 -- EQUIPMENT_SETS = E:StripString(EQUIPMENT_SETS)
 -- EQUIPMENT_SETS = EQUIPMENT_SETS:gsub('%%s', '')
@@ -44,7 +44,7 @@ end
 
 function B:UpdateSet()
 	if not self.bagID or not self.slotID then return end
-	local isInSet, setName = GetContainerItemEquipmentSetInfo(self.bagID, self.slotID)
+	local isInSet, setName = C_Container_GetContainerItemEquipmentSetInfo(self.bagID, self.slotID)
 
 	if isInSet then
 		self.equipIcon:SetShown(BI.db.enable)
@@ -79,7 +79,7 @@ function BI:UpdateItemDisplay()
 
 	for _, bagFrame in next, B.BagFrames do
 		for _, bagID in next, bagFrame.BagIDs do
-			for slotID = 1, GetContainerNumSlots(bagID) do
+			for slotID = 1, C_Container_GetContainerNumSlots(bagID) do
 				local slot = bagFrame.Bags[bagID][slotID]
 				if slot then
 					updateSettings(slot)

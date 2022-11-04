@@ -11,9 +11,6 @@ local GetMoney = GetMoney
 local IsControlKeyDown = IsControlKeyDown
 local IsLoggedIn = IsLoggedIn
 local IsShiftKeyDown = IsShiftKeyDown
-local C_WowTokenPublic_UpdateMarketPrice = C_WowTokenPublic.UpdateMarketPrice
-local C_WowTokenPublic_GetCurrentMarketPrice = C_WowTokenPublic.GetCurrentMarketPrice
-local C_Timer_NewTicker = C_Timer.NewTicker
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 
 local Ticker
@@ -23,13 +20,25 @@ local Profit, Spent = 0, 0
 local resetCountersFormatter = strjoin('', '|cffaaaaaa', L["Reset Session Data: Hold Ctrl + Right Click"], '|r')
 local resetInfoFormatter = strjoin('', '|cffaaaaaa', L["Reset Character Data: Hold Shift + Right Click"], '|r')
 local PRIEST_COLOR = RAID_CLASS_COLORS.PRIEST
-local C_CurrencyInfo_GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo
-local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
+
 local BONUS_ROLL_REWARD_MONEY = BONUS_ROLL_REWARD_MONEY
 local iconString = '|T%s:16:16:0:0:64:64:4:60:4:60|t'
-local C_Item_IsAnimaItemByID = C_Item.IsAnimaItemByID
-local GetContainerNumSlots, GetContainerItemLink, GetContainerItemInfo = GetContainerNumSlots, GetContainerItemLink, GetContainerItemInfo
 local GetItemSpell = GetItemSpell
+
+local C_Container_GetContainerItemLink = C_Container.GetContainerItemLink
+local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
+local C_Container_GetContainerItemInfo = C_Container.GetContainerItemInfo
+local C_Container_GetBagName = C_Container.GetBagName
+
+local C_CurrencyInfo_GetBackpackCurrencyInfo = C_CurrencyInfo.GetBackpackCurrencyInfo
+local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
+
+local C_Item_IsAnimaItemByID = C_Item.IsAnimaItemByID
+
+local C_WowTokenPublic_UpdateMarketPrice = C_WowTokenPublic.UpdateMarketPrice
+local C_WowTokenPublic_GetCurrentMarketPrice = C_WowTokenPublic.GetCurrentMarketPrice
+
+local C_Timer_NewTicker = C_Timer.NewTicker
 
 local menuList = {}
 
@@ -190,11 +199,11 @@ local function getTotalAnima()
 	local total = 0
 
 	for i = 0, NUM_BAG_SLOTS do
-		local bagName = GetBagName(i)
+		local bagName = C_Container.GetBagName(i)
 		if bagName then
-			for slotID = 1, GetContainerNumSlots(i) do
-				local link = GetContainerItemLink(i, slotID)
-				local count = select(2, GetContainerItemInfo(i, slotID))
+			for slotID = 1, C_Container_GetContainerNumSlots(i) do
+				local link = C_Container_GetContainerItemLink(i, slotID)
+				local count = select(2, C_Container_GetContainerItemInfo(i, slotID))
 
 				if link and C_Item_IsAnimaItemByID(link) then
 					local _, spellID = GetItemSpell(link)

@@ -14,6 +14,8 @@ local MouselookStop = MouselookStop
 local UnitChannelInfo = UnitChannelInfo
 local InCombatLockdown = InCombatLockdown
 
+local C_Container_GetItemCooldown = C_Container.GetItemCooldown
+
 function Pr:HijackFishingCheck()
 	if ( not Pr.AddingLure and not InCombatLockdown() and (not IsMounted() or E.private.sle.professions.fishing.FromMount) and
 	E.private.sle.professions.fishing.EasyCast and FL:IsFishingReady(E.private.sle.professions.fishing.IgnorePole)) then
@@ -56,7 +58,7 @@ function Pr:GetUpdateLure()
 				if ( DoLure and DoLure.id ) then
 					-- if the pole has an enchantment, we can assume it's got a lure on it (so far, anyway)
 					-- remove the main hand enchantment (since it's a fishing pole, we know what it is)
-					local startTime, duration, enable = GetItemCooldown(DoLure.id)
+					local startTime, duration, enable = C_Container_GetItemCooldown(DoLure.id)
 					if (startTime == 0) then
 						Pr.AddingLure = true
 						Pr.LastLure = DoLure
