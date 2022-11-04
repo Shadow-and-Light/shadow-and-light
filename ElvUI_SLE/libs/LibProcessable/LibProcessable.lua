@@ -1,23 +1,51 @@
-local MAJOR, MINOR = 'LibProcessable', 54
+local MAJOR, MINOR = 'LibProcessable', 57
 assert(LibStub, MAJOR .. ' requires LibStub')
 
-local lib, oldMinor = LibStub:NewLibrary(MAJOR, MINOR)
-if(not lib) then
+local lib = LibStub:NewLibrary(MAJOR, MINOR)
+if not lib then
 	return
 end
 
+local data = {} -- private table for storing data without exposing it
+local professions = {} -- private table for storing cached profession info
+
 local CLASSIC = select(4, GetBuildInfo()) < 90000
+local DRAGONFLIGHT = select(4, GetBuildInfo()) >= 100000
 
-local LE_ITEM_QUALITY_UNCOMMON = LE_ITEM_QUALITY_UNCOMMON or Enum.ItemQuality.Uncommon
-local LE_ITEM_QUALITY_EPIC = LE_ITEM_QUALITY_EPIC or Enum.ItemQuality.Epic
-local LE_ITEM_CLASS_ARMOR = LE_ITEM_CLASS_ARMOR or 4
-local LE_ITEM_CLASS_WEAPON = LE_ITEM_CLASS_WEAPON or 2
-local LE_ITEM_CLASS_GEM = LE_ITEM_CLASS_GEM or 3
-local LE_ITEM_ARMOR_COSMETIC = LE_ITEM_ARMOR_COSMETIC or 5
+-- upvalue constants with fallbacks
+local LE_ITEM_QUALITY_UNCOMMON = LE_ITEM_QUALITY_UNCOMMON or Enum.ItemQuality.Uncommon or 2
+local LE_ITEM_QUALITY_EPIC = LE_ITEM_QUALITY_EPIC or Enum.ItemQuality.Epic or 4
+local LE_ITEM_CLASS_ARMOR = Enum.ItemClass.Armor or 4
+local LE_ITEM_CLASS_WEAPON = Enum.ItemClass.Weapon or 2
+local LE_ITEM_CLASS_GEM = Enum.ItemClass.Gem or 3
+local LE_ITEM_ARMOR_COSMETIC = Enum.ItemClass.Cosmetic or 5
 local LE_ITEM_SUBCLASS_ARTIFACT = 11 -- no existing constant for this one
-local LE_ITEM_EQUIPLOC_SHIRT = Enum and Enum.InventoryType and Enum.InventoryType.IndexBodyType or 4
+local LE_ITEM_EQUIPLOC_SHIRT = Enum.InventoryType.IndexBodyType or 4
 
-local professions = {}
+local LE_EXPANSION_CLASSIC = LE_EXPANSION_CLASSIC or 0
+local LE_EXPANSION_BURNING_CRUSADE = LE_EXPANSION_BURNING_CRUSADE or 1
+local LE_EXPANSION_WRATH_OF_THE_LICH_KING = LE_EXPANSION_WRATH_OF_THE_LICH_KING or 2
+local LE_EXPANSION_CATACLYSM = LE_EXPANSION_CATACLYSM or 3
+local LE_EXPANSION_MISTS_OF_PANDARIA = LE_EXPANSION_MISTS_OF_PANDARIA or 4
+local LE_EXPANSION_WARLORDS_OF_DRAENOR = LE_EXPANSION_WARLORDS_OF_DRAENOR or 5
+local LE_EXPANSION_LEGION = LE_EXPANSION_LEGION or 6
+local LE_EXPANSION_BATTLE_FOR_AZEROTH = LE_EXPANSION_BATTLE_FOR_AZEROTH or 7
+local LE_EXPANSION_SHADOWLANDS = LE_EXPANSION_SHADOWLANDS or 8
+local LE_EXPANSION_DRAGONFLIGHT = LE_EXPANSION_DRAGONFLIGHT or 9
+
+-- TODO: use Enum.Profession instead
+local LE_PROFESSION_ALCHEMY = 171
+local LE_PROFESSION_BLACKSMITHING = 164
+local LE_PROFESSION_ENCHANTING = 333
+local LE_PROFESSION_ENGINEERING = 202
+local LE_PROFESSION_HERBALISM = 182
+local LE_PROFESSION_INSCRIPTION = 773
+local LE_PROFESSION_JEWELCRAFTING = 755
+local LE_PROFESSION_LEATHERWORKING = 165
+local LE_PROFESSION_MINING = 186
+local LE_PROFESSION_SKINNING = 393
+local LE_PROFESSION_TAILORING = 197
+
 --[[ LibProcessable:IsMillable(_item[, ignoreMortar]_)
 Returns whether the player can mill the given item.
 
@@ -27,17 +55,34 @@ Returns whether the player can mill the given item.
 
 **Return values:**
 * `isMillable`: Whether or not the player can mill the given item _(boolean)_
+* `millingSpellID`: ItemID of the Draenic Mortar if used, otherwise spellID to use to mill the given item _(number|nil)_
+* `useDraenicMortar`: Whether or not a Draenic Mortar could be used
+
+**Notes**:
+* since Dragonflight it's required to use the tradeskill API to mill, e.g:
+    `C_TradeSkillUI.CraftRecipe(prospectingSkillID, numCasts, {})`
 --]]
 function lib:IsMillable(itemID, ignoreMortar)
-	if(type(itemID) == 'string') then
+	if type(itemID) == 'string' then
 		assert(string.match(itemID, 'item:(%d+):') or tonumber(itemID), 'item must be an item ID or item Link')
 		itemID = (tonumber(itemID)) or (GetItemInfoFromHyperlink(itemID))
 	end
 
-	if(self:HasProfession(773)) then -- Inscription
-		-- any herb can be milled at level 1
-		return self.herbs[itemID]
-	elseif(not ignoreMortar and GetItemCount(114942) > 0) then
+	if self:HasProfession(LE_PROFESSION_INSCRIPTION) then
+		if CLASSIC then
+			local currentSkill = professions[LE_PROFESSION_INSCRIPTION]
+			return data.herbs[itemID] and currentSkill >= data.herbs[itemID]
+		else
+			local itemInfo = data.herbs[itemID]
+			if itemInfo then
+				local currentRank = professions[LE_PROFESSION_INSCRIPTION][itemInfo[1]] or 0
+				local requiredRank = itemInfo[2]
+				if requiredRank and currentRank >= requiredRank then
+					return true, data.professionSkills[LE_PROFESSION_INSCRIPTION][itemInfo[1]]
+				end
+			end
+		end
+	elseif not ignoreMortar and GetItemCount(114942) > 0 then
 		-- Draenic Mortar can mill Draenor herbs without a profession
 		return itemID >= 109124 and itemID <= 109130, true
 	end
@@ -51,20 +96,33 @@ Returns whether the player can prospect the given item.
 
 **Return values:**
 * `isProspectable`: Whether or not the player can prospect the given item _(boolean)_
+* `prospectingSpellID`: SpellID that needs to be used to prospect the given item _(number|nil)_
 
 **Notes**:
-* This does not check if the player has the required skills to use the profession items
-   * Only Outland and Pandaria ores have skill level requirements
+* since Dragonflight it's required to use the tradeskill API to prospect, e.g:
+    `C_TradeSkillUI.CraftRecipe(prospectingSkillID, numCasts, {})`
 --]]
 function lib:IsProspectable(itemID)
-	if(type(itemID) == 'string') then
+	if type(itemID) == 'string' then
 		assert(string.match(itemID, 'item:(%d+):') or tonumber(itemID), 'item must be an item ID or item Link')
 		itemID = (tonumber(itemID)) or (GetItemInfoFromHyperlink(itemID))
 	end
 
-	if(self:HasProfession(755)) then -- Jewelcrafting
-		-- TODO: consider required skill for classic prospecting?
-		return not not self.ores[itemID]
+	if self:HasProfession(LE_PROFESSION_JEWELCRAFTING) then
+		if CLASSIC then
+			local currentRank = professions[LE_PROFESSION_JEWELCRAFTING]
+			local requiredRank = data.ores[itemID]
+			return requiredRank and currentRank >= requiredRank
+		else
+			local itemInfo = data.ores[itemID]
+			if itemInfo then
+				local currentRank = professions[LE_PROFESSION_JEWELCRAFTING][itemInfo[1]] or 0
+				local requiredRank = itemInfo[2]
+				if requiredRank and currentRank >= requiredRank then
+					return true, data.professionSkills[LE_PROFESSION_JEWELCRAFTING][itemInfo[1]]
+				end
+			end
+		end
 	end
 end
 
@@ -83,13 +141,15 @@ Returns whether the player can disenchant the given item.
 --]]
 function lib:IsDisenchantable(item)
 	local itemID = item
-	if(type(itemID) == 'string') then
+	if type(itemID) == 'string' then
 		assert(string.match(itemID, 'item:(%d+):') or tonumber(itemID), 'item must be an item ID or item Link')
 		itemID = (tonumber(itemID)) or (GetItemInfoFromHyperlink(itemID))
 	end
 
-	if(self:HasProfession(333)) then -- Enchanting
-		if(self.enchantingItems[itemID]) then
+	-- TODO: skill level requirements for classic?
+
+	if self:HasProfession(LE_PROFESSION_ENCHANTING) then
+		if data.enchantingItems[itemID] then
 			-- special items that can be disenchanted
 			return true
 		else
@@ -105,77 +165,93 @@ end
 
 -- https://wowhead.com/items?filter=107:99;0:2;lockpick:0
 local function GetBlacksmithingPick(pickLevel)
-	if(CLASSIC) then
-		if(pickLevel <= 25 and GetItemCount(15869) > 0) then
+	if CLASSIC then
+		if pickLevel <= 25 and GetItemCount(15869) > 0 then
 			return 15869, nil, 100 -- Silver Skeleton Key
 		end
-		if(pickLevel <= 125 and GetItemCount(15870) > 0) then
+		if pickLevel <= 125 and GetItemCount(15870) > 0 then
 			return 15870, nil, 150 -- Golden Skeleton Key
 		end
-		if(pickLevel <= 200 and GetItemCount(15871) > 0) then
+		if pickLevel <= 200 and GetItemCount(15871) > 0 then
 			return 15871, nil, 200 -- Truesilver Skeleton Key
 		end
-		if(pickLevel <= 300 and GetItemCount(15872) > 0) then
+		if pickLevel <= 300 and GetItemCount(15872) > 0 then
 			return 15872, nil, 275 -- Arcanite Skeleton Key
 		end
+		if pickLevel <= 375 and GetItemCount(43854) > 0 then
+			return 43854, nil, 375 -- Cobalt Skeleton Key
+		end
+		if pickLevel <= 400 and GetItemCount(43853) > 0 then
+			return 43853, nil, 400 -- Titanium Skeleton Key
+		end
 	else
-		if(pickLevel <= 15 and GetItemCount(15869) > 0) then
-			return 15869, 590, 100 -- Silver Skeleton Key
+		if pickLevel <= 15 and GetItemCount(15869) > 0 then
+			return 15869, LE_EXPANSION_CLASSIC, 100 -- Silver Skeleton Key
 		end
-		if(pickLevel <= 15 and GetItemCount(15870) > 0) then
-			return 15870, 590, 150 -- Golden Skeleton Key
+		if pickLevel <= 15 and GetItemCount(15870) > 0 then
+			return 15870, LE_EXPANSION_CLASSIC, 150 -- Golden Skeleton Key
 		end
-		if(pickLevel <= 20 and GetItemCount(15871) > 0) then
-			return 15871, 590, 200 -- Truesilver Skeleton Key
+		if pickLevel <= 20 and GetItemCount(15871) > 0 then
+			return 15871, LE_EXPANSION_CLASSIC, 200 -- Truesilver Skeleton Key
 		end
-		if(pickLevel <= 30 and GetItemCount(15872) > 0) then
-			return 15872, 590, 275 -- Arcanite Skeleton Key
+		if pickLevel <= 30 and GetItemCount(15872) > 0 then
+			return 15872, LE_EXPANSION_CLASSIC, 275 -- Arcanite Skeleton Key
 		end
-		if(pickLevel <= 30 and GetItemCount(43854) > 0) then
-			return 43854, 577, 1 -- Cobalt Skeleton Key
+		if pickLevel <= 30 and GetItemCount(43854) > 0 then
+			return 43854, LE_EXPANSION_WRATH_OF_THE_LICH_KING, 1 -- Cobalt Skeleton Key
 		end
-		if(pickLevel <= 30 and GetItemCount(43853) > 0) then
-			return 43853, 577, 55 -- Titanium Skeleton Key
+		if pickLevel <= 30 and GetItemCount(43853) > 0 then
+			return 43853, LE_EXPANSION_WRATH_OF_THE_LICH_KING, 55 -- Titanium Skeleton Key
 		end
-		if(pickLevel <= 35 and GetItemCount(55053) > 0) then
-			return 55053, 569, 25 -- Obsidium Skeleton Key
+		if pickLevel <= 35 and GetItemCount(55053) > 0 then
+			return 55053, LE_EXPANSION_CATACLYSM, 25 -- Obsidium Skeleton Key
 		end
-		if(pickLevel <= 35 and GetItemCount(82960) > 0) then
-			return 82960, 553, 1 -- Ghostly Skeleton Key
+		if pickLevel <= 35 and GetItemCount(82960) > 0 then
+			return 82960, LE_EXPANSION_MISTS_OF_PANDARIA, 1 -- Ghostly Skeleton Key
 		end
-		if(pickLevel <= 50 and GetItemCount(159826) > 0) then
-			return 159826, 542, 1 -- Monelite Skeleton Key
+		if pickLevel <= 50 and GetItemCount(159826) > 0 then
+			return 159826, LE_EXPANSION_BATTLE_FOR_AZEROTH, 1 -- Monelite Skeleton Key
 		end
-		if(pickLevel <= 50 and GetItemCount(171441) > 0) then
-			return 171441, 1311, 1 -- Laestrite Skeleton Key
+		if pickLevel <= 60 and GetItemCount(171441) > 0 then
+			return 171441, LE_EXPANSION_SHADOWLANDS, 1 -- Laestrite Skeleton Key
+		end
+		if pickLevel <= 70 and GetItemCount(191256) > 0 then
+			return 191256, LE_EXPANSION_DRAGONFLIGHT, 1 -- Tyrvite Skeleton Key
 		end
 	end
 end
 
 -- https://wowhead.com/items?filter=107:99;0:7;lockpick:0
 local function GetJewelcraftingPick(pickLevel)
-	if(pickLevel <= 550 and GetItemCount(130250) > 0) then
-		-- TODO: this item has not been updated for 9.0, so it has incorrect pick level
-		return 130250, 464, 1 -- Jeweled Lockpick
+	if not CLASSIC then
+		if pickLevel <= 550 and GetItemCount(130250) > 0 then
+			-- BUG: this item still opens up lockboxes until 550, highly likely to get fixed
+			return 130250, LE_EXPANSION_LEGION, 1 -- Jeweled Lockpick
+		end
 	end
 end
 
 -- https://wowhead.com/items?filter=107:99;0:15;lockpick:0
 local function GetInscriptionPick(pickLevel)
-	if(pickLevel <= 50 and GetItemCount(159825) > 0) then
-		return 159825, 759, 1 -- Scroll of Unlocking
-	elseif(pickLevel <= 625 and GetItemCount(173065) > 0) then
-		-- TODO: this item has not been updated for 9.0, so it has incorrect pick level
-		return 173065, 1406, 1 -- Writ of Grave Robbing
+	if not CLASSIC then
+		if pickLevel <= 50 and GetItemCount(159825) > 0 then
+			return 159825, LE_EXPANSION_BATTLE_FOR_AZEROTH, 1 -- Scroll of Unlocking
+		end
+		if pickLevel <= 60 and GetItemCount(173065) > 0 then
+			return 173065, LE_EXPANSION_SHADOWLANDS, 1 -- Writ of Grave Robbing
+		end
 	end
 end
 
 -- https://wowhead.com/items?filter=107:99;0:5;lockpick:0
 local function GetEngineeringPick(pickLevel)
-	if(pickLevel <= 35 and GetItemCount(60853) > 0) then
-		return 60853, 715, 1 -- Volatile Seaforium Blastpack
-	elseif(pickLevel <= 35 and GetItemCount(77532) > 0) then
-		return 77532, 713, 1 -- Locksmith's Powderkeg
+	if not CLASSIC then
+		if pickLevel <= 35 and GetItemCount(60853) > 0 then
+			return 60853, LE_EXPANSION_CATACLYSM, 1 -- Volatile Seaforium Blastpack
+		end
+		if pickLevel <= 35 and GetItemCount(77532) > 0 then
+			return 77532, LE_EXPANSION_MISTS_OF_PANDARIA, 1 -- Locksmith's Powderkeg
+		end
 	end
 end
 
@@ -190,15 +266,17 @@ Returns whether the player can open the given item with a class/racial ability.
 * `spellID`:    SpellID of the spell that can be used to open the given item _(number)_
 --]]
 function lib:IsOpenable(itemID)
-	if(type(itemID) == 'string') then
+	if type(itemID) == 'string' then
 		assert(string.match(itemID, 'item:(%d+):') or tonumber(itemID), 'item must be an item ID or item Link')
 		itemID = (tonumber(itemID)) or (GetItemInfoFromHyperlink(itemID))
 	end
 
-	local spellID = (IsSpellKnown(1804) and 1804) or -- Pick Lock, Rogue ability
-	                (IsSpellKnown(312890) and 312890) -- Skeleton Pinkie, Mechagnome racial ability
-	if(spellID) then
-		local pickLevel = lib.containers[itemID]
+	local spellID = (IsSpellKnown(1804) and 1804) -- Pick Lock, Rogue ability
+	             or (IsSpellKnown(312890) and 312890) -- Skeleton Pinkie, Mechagnome racial ability
+	             or (IsSpellKnown(323427) and 323427) -- Kevin's Keyring, Necrolord soulbind ability
+
+	if spellID then
+		local pickLevel = data.containers[itemID]
 		return pickLevel and pickLevel <= (UnitLevel('player') * (CLASSIC and 5 or 1)), spellID
 	end
 end
@@ -211,51 +289,52 @@ posesses.
 * `item`: item ID or link
 
 **Return values:**
-* `skillRequired`:        The skill required in the profession category _(number)_
+* `isOpenable`:           Whether or not the player can open the given item _(boolean)_
+* `requiredRank`:         The skill level required in the profession _(number)_
 * `professionID`:         The profession ID _(number)_
-* `professionCategoryID`: The profession category ID associated with the unlocking item _(number)_
+* `expansionID`:          The associated expansion with the profession _(number/nil)_
 * `professionItem`:       The itemID for the unlocking item _(number)_
-
-**Notes:**
-* The method will return `nil` instead of a category ID for Classic clients, as there are no profession categories there
-* This does not check if the player has the required skills to use the profession items
 --]]
 function lib:IsOpenableProfession(itemID)
-	if(type(itemID) == 'string') then
+	if type(itemID) == 'string' then
 		assert(string.match(itemID, 'item:(%d+):') or tonumber(itemID), 'item must be an item ID or item Link')
 		itemID = (tonumber(itemID)) or (GetItemInfoFromHyperlink(itemID))
 	end
 
-	local pickLevel = lib.containers[itemID]
-	if(not pickLevel) then
+	local pickLevel = data.containers[itemID]
+	if not pickLevel then
 		return
 	end
 
-	if(self:HasProfession(164)) then -- Blacksmithing
-		local itemID, categoryID, skillLevelRequired = GetBlacksmithingPick(pickLevel)
-		if(itemID) then
-			return skillLevelRequired, 164, categoryID, itemID
+	if self:HasProfession(LE_PROFESSION_BLACKSMITHING) then -- Blacksmithing
+		local professionItemID, expansionID, requiredRank = GetBlacksmithingPick(pickLevel)
+		if professionItemID then
+			local currentRank = expansionID and professions[LE_PROFESSION_BLACKSMITHING][expansionID] or professions[LE_PROFESSION_BLACKSMITHING] or 0
+			return currentRank >= requiredRank, requiredRank, LE_PROFESSION_BLACKSMITHING, expansionID, professionItemID
 		end
 	end
 
-	if(self:HasProfession(755)) then -- Jewelcrafting
-		local itemID, categoryID, skillLevelRequired = GetJewelcraftingPick(pickLevel)
-		if(itemID) then
-			return skillLevelRequired, 755, categoryID, itemID
+	if self:HasProfession(LE_PROFESSION_JEWELCRAFTING) then -- Jewelcrafting
+		local professionItemID, expansionID, requiredRank = GetJewelcraftingPick(pickLevel)
+		if professionItemID then
+			local currentRank = expansionID and professions[LE_PROFESSION_JEWELCRAFTING][expansionID] or professions[LE_PROFESSION_JEWELCRAFTING] or 0
+			return currentRank >= requiredRank, requiredRank, LE_PROFESSION_JEWELCRAFTING, expansionID, professionItemID
 		end
 	end
 
-	if(self:HasProfession(773)) then -- Inscription
-		local itemID, categoryID, skillLevelRequired = GetInscriptionPick(pickLevel)
-		if(itemID) then
-			return skillLevelRequired, 773, categoryID, itemID
+	if self:HasProfession(LE_PROFESSION_INSCRIPTION) then -- Inscription
+		local professionItemID, expansionID, requiredRank = GetInscriptionPick(pickLevel)
+		if professionItemID then
+			local currentRank = expansionID and professions[LE_PROFESSION_INSCRIPTION][expansionID] or professions[LE_PROFESSION_INSCRIPTION] or 0
+			return currentRank >= requiredRank, requiredRank, LE_PROFESSION_INSCRIPTION, expansionID, professionItemID
 		end
 	end
 
-	if(self:HasProfession(202)) then -- Engineering
-		local itemID, categoryID, skillLevelRequired = GetEngineeringPick(pickLevel)
-		if(itemID) then
-			return skillLevelRequired, 202, categoryID, itemID
+	if self:HasProfession(LE_PROFESSION_ENGINEERING) then -- Engineering
+		local professionItemID, expansionID, requiredRank = GetEngineeringPick(pickLevel)
+		if professionItemID then
+			local currentRank = expansionID and professions[LE_PROFESSION_ENGINEERING][expansionID] or professions[LE_PROFESSION_ENGINEERING] or 0
+			return currentRank >= requiredRank, requiredRank, LE_PROFESSION_ENGINEERING, expansionID, professionItemID
 		end
 	end
 end
@@ -263,7 +342,8 @@ end
 --[[ LibProcessable:HasProfession(_professionID_)
 Returns whether the player has the given profession.
 
-Here's a table with the profession ID for each profession.
+Here's a table with the profession ID for each profession.  
+Source: <https://wowpedia.fandom.com/wiki/TradeSkillLineID>
 
 | Profession Name | Profession ID |
 |-----------------|:--------------|
@@ -290,7 +370,7 @@ function lib:HasProfession(professionID)
 end
 
 --[[ LibProcessable:GetProfessionCategories(_professionID_)
-Returns data of all category IDs for a given (valid) profession, indexed by the expansion level index.
+Returns data of all category IDs for a given (valid) profession, indexed by the expansionID level index.
 
 **Arguments:**
 * `professionID`: The profession ID _(number)_
@@ -299,213 +379,308 @@ Returns data of all category IDs for a given (valid) profession, indexed by the 
 * `categories`: Profession categories _(table)_
 --]]
 function lib:GetProfessionCategories(professionID)
-	local professionCategories = lib.professionCategories[professionID]
+	local professionCategories = data.professionCategories[professionID]
 	return professionCategories and CopyTable(professionCategories)
 end
 
-local classicIDs = {
-	[(GetSpellInfo(2259))]  = 171, -- Alchemy
-	[(GetSpellInfo(2018))]  = 164, -- Blacksmithing
-	[(GetSpellInfo(7411))]  = 333, -- Enchanting
-	[(GetSpellInfo(4036))]  = 202, -- Engineering
-	[(GetSpellInfo(9134))]  = 182, -- Herbalism (spell from gloves with +5 herbalism)
-	[(GetSpellInfo(2108))]  = 165, -- Leatherworking
-	[(GetSpellInfo(2575))]  = 186, -- Mining
-	[(GetSpellInfo(8613))]  = 393, -- Skinning
-	[(GetSpellInfo(3908))]  = 197, -- Tailoring
-	[(GetSpellInfo(25229)) or 0] = 755, -- Jewelcrafting
-}
+--[[ LibProcessable:GetProfessionSkillLines(_professionID_)
+Returns data of all skill lines for a given (valid) profession, indexed by the expansion level index.
+
+**Arguments:**
+* `professionID`: The profession ID _(number)_
+
+**Return values:**
+* `skillLines`: Profession skill lines _(table)_
+--]]
+function lib:GetProfessionSkillLines(professionID)
+	local professionSkillLines = data.professionSkillLines[professionID]
+	return professionSkillLines and CopyTable(professionSkillLines)
+end
+
+local CLASSIC_PROFESSIONS -- don't populate this unless necessary
 
 local Handler = CreateFrame('Frame')
 Handler:RegisterEvent('SKILL_LINES_CHANGED')
-Handler:SetScript('OnEvent', function(self, event, ...)
+if not CLASSIC then
+	Handler:RegisterEvent('TRADE_SKILL_SHOW')
+end
+Handler:SetScript('OnEvent', function()
 	table.wipe(professions)
 
-	if(CLASSIC) then
-		-- all professions are spells in the first spellbook tab
-		local _, _, offset, numSpells = GetSpellTabInfo(1)
-		for index = offset + 1, offset + numSpells do
-			-- iterate through all the spells to find the professions
-			local professionID = classicIDs[(GetSpellBookItemName(index, BOOKTYPE_SPELL))]
-			if(professionID) then
-				professions[professionID] = true
+	if CLASSIC then
+		if not CLASSIC_PROFESSIONS then
+			CLASSIC_PROFESSIONS = {
+				-- these are all the Apprentice-level spells
+				[(GetSpellInfo(2259))]  = LE_PROFESSION_ALCHEMY,
+				[(GetSpellInfo(2018))]  = LE_PROFESSION_BLACKSMITHING,
+				[(GetSpellInfo(7411))]  = LE_PROFESSION_ENCHANTING,
+				[(GetSpellInfo(4036))]  = LE_PROFESSION_ENGINEERING,
+				[(GetSpellInfo(9134))]  = LE_PROFESSION_HERBALISM,	-- this is an effect on a pair of gloves, no spellID exists for herbalism
+				[(GetSpellInfo(45357)) or 0] = LE_PROFESSION_INSCRIPTION,
+				[(GetSpellInfo(25229)) or 0] = LE_PROFESSION_JEWELCRAFTING,
+				[(GetSpellInfo(2108))]  = LE_PROFESSION_LEATHERWORKING,
+				[(GetSpellInfo(2575))]  = LE_PROFESSION_MINING,
+				[(GetSpellInfo(8613))]  = LE_PROFESSION_SKINNING,
+				[(GetSpellInfo(3908))]  = LE_PROFESSION_TAILORING,
+			}
+		end
+
+		for index = 1, GetNumSkillLines() do
+			local skillName, isHeader, isExpanded, skillLevel = GetSkillLineInfo(index)
+			if skillName == TRADE_SKILLS and isHeader and not isExpanded then
+				ExpandSkillHeader(index) -- this will expand the header and trigger SKILL_LINES_CHANGED
+				return
+			else
+				local professionID = CLASSIC_PROFESSIONS[skillName]
+				if professionID then
+					professions[professionID] = skillLevel
+				end
 			end
 		end
 	else
-		local first, second = GetProfessions()
-		if(first) then
-			local _, _, _, _, _, _, professionID = GetProfessionInfo(first)
-			professions[professionID] = true
-		end
+		for _, professionIndex in next, {GetProfessions()} do
+			local _, _, _, _, _, _, professionID = GetProfessionInfo(professionIndex)
+			if data.professionSkillLines[professionID] then
+				professions[professionID] = {}
 
-		if(second) then
-			local _, _, _, _, _, _, professionID = GetProfessionInfo(second)
-			professions[professionID] = true
+				-- iterate through the list of processing spells that the player can possibly have
+				if data.professionSkills[professionID] then
+					for expansionID, spellID in next, data.professionSkills[professionID] do
+						-- if IsPlayerSpell(spellID) returns true then the profession skill is at least 1,
+						-- but it could be higher
+						if IsPlayerSpell(spellID) then
+							professions[professionID][expansionID] = 1
+						end
+					end
+				end
+
+				-- iterate through each professions "skill lines" (expansion-specific tradeskill ID)
+				-- and gather the current skill level for it. this only returns valid data if the
+				-- tradeskill ui has been opened atleast once during the current play session, which
+				-- requires a hardware event, so LibProcessable won't do that
+				for expansionID, skillLine in next, data.professionSkillLines[professionID] do
+					local professionInfo = C_TradeSkillUI.GetProfessionInfoBySkillLineID(skillLine)
+					if professionInfo and professionInfo.skillLevel and professionInfo.skillLevel > 0 then
+						professions[professionID][expansionID] = professionInfo.skillLevel
+					end
+				end
+			end
 		end
 	end
 end)
 
---[[ LibProcessable.ores
-Table of all ores that can be prospected by a jewelcrafter.
+data.ores = {
+	-- http://www.wowhead.com/spell=31252/prospecting#prospected-from:0+1+17-20
+	[2770] = CLASSIC and 1 or {LE_EXPANSION_CLASSIC, 1}, -- Copper Ore
+	[2771] = CLASSIC and 50 or {LE_EXPANSION_CLASSIC, 1}, -- Tin Ore
+	[2772] = CLASSIC and 125 or {LE_EXPANSION_CLASSIC, 1}, -- Iron Ore
+	[3858] = CLASSIC and 175 or {LE_EXPANSION_CLASSIC, 1}, -- Mithril Ore
+	[10620] = CLASSIC and 250 or {LE_EXPANSION_CLASSIC, 1}, -- Thorium Ore
+	[23424] = CLASSIC and 275 or {LE_EXPANSION_BURNING_CRUSADE, 1}, -- Fel Iron Ore
+	[23425] = CLASSIC and 325 or {LE_EXPANSION_BURNING_CRUSADE, 25}, -- Adamantite Ore
+	[36909] = CLASSIC and 350 or {LE_EXPANSION_WRATH_OF_THE_LICH_KING, 1}, -- Cobalt Ore
+	[36910] = CLASSIC and 450 or {LE_EXPANSION_WRATH_OF_THE_LICH_KING, 1}, -- Titanium Ore
+	[36912] = CLASSIC and 400 or {LE_EXPANSION_WRATH_OF_THE_LICH_KING, 1}, -- Saronite Ore
+	[52183] = {LE_EXPANSION_CATACLYSM, 1}, -- Pyrite Ore
+	[52185] = {LE_EXPANSION_CATACLYSM, 1}, -- Elementium Ore
+	[53038] = {LE_EXPANSION_CATACLYSM, 1}, -- Obsidium Ore
+	[72092] = {LE_EXPANSION_MISTS_OF_PANDARIA, 1}, -- Ghost Iron Ore
+	[72093] = {LE_EXPANSION_MISTS_OF_PANDARIA, 1}, -- Kyparite
+	[72094] = {LE_EXPANSION_MISTS_OF_PANDARIA, 1}, -- Black Trillium Ore
+	[72103] = {LE_EXPANSION_MISTS_OF_PANDARIA, 1}, -- White Trillium Ore
+	[123918] = {LE_EXPANSION_LEGION, 1}, -- Leystone Ore
+	[123919] = {LE_EXPANSION_LEGION, 1}, -- Felslate
+	[151564] = {LE_EXPANSION_LEGION, 1}, -- Empyrium
+	[152579] = {LE_EXPANSION_BATTLE_FOR_AZEROTH, 1}, -- Storm Silver Ore
+	[152512] = {LE_EXPANSION_BATTLE_FOR_AZEROTH, 1}, -- Monelite Ore
+	[152513] = {LE_EXPANSION_BATTLE_FOR_AZEROTH, 1}, -- Platinum Ore
+	[155830] = {LE_EXPANSION_BATTLE_FOR_AZEROTH, 1}, -- Runic Core, BfA Jewelcrafting Quest
+	[168185] = {LE_EXPANSION_BATTLE_FOR_AZEROTH, 1}, -- Osmenite Ore
+	[171828] = {LE_EXPANSION_SHADOWLANDS, 1}, -- Laestrite
+	[171829] = {LE_EXPANSION_SHADOWLANDS, 1}, -- Solenium
+	[171830] = {LE_EXPANSION_SHADOWLANDS, 1}, -- Oxxein
+	[171831] = {LE_EXPANSION_SHADOWLANDS, 1}, -- Phaedrum
+	[171832] = {LE_EXPANSION_SHADOWLANDS, 1}, -- Sinvyr
+	[171833] = {LE_EXPANSION_SHADOWLANDS, 1}, -- Elethium
+	[187700] = {LE_EXPANSION_SHADOWLANDS, 1}, -- Progenium Ore
 
-See [LibProcessable:IsProspectable()](LibProcessable#libprocessableisprospectableitem).
-
-**Notes**:
-* Some items contains a table instead of a boolean
-   * Outland and Pandaria ores have skill level requirements, the tables hold that information
-* This table has different content based on the game version (retail vs classic)
-   * In classic the values represent the required jewelcrafting skill to prospect
---]]
-if CLASSIC then
-	lib.ores = {
-		-- https://tbc.wowhead.com/spell=31252/prospecting#comments
-		[2770]  = 1,   -- Copper Ore
-		[2771]  = 50,  -- Tin Ore
-		[2772]  = 125, -- Iron Ore
-		[3858]  = 175, -- Mithril Ore
-		[10620] = 250, -- Thorium Ore
-		[23424] = 275, -- Fel Iron Ore
-		[23425] = 325, -- Adamantite Ore
-	}
-else
-	lib.ores = {
-		-- http://www.wowhead.com/spell=31252/prospecting#prospected-from:0+1+17-20
-		[2770] = true, -- Copper Ore
-		[2771] = true, -- Tin Ore
-		[2772] = true, -- Iron Ore
-		[3858] = true, -- Mithril Ore
-		[10620] = true, -- Thorium Ore
-		[23424] = {815, 1}, -- Fel Iron Ore
-		[23425] = {815, 25}, -- Adamantite Ore
-		[36909] = true, -- Cobalt Ore
-		[36910] = true, -- Titanium Ore
-		[36912] = true, -- Saronite Ore
-		[52183] = true, -- Pyrite Ore
-		[52185] = true, -- Elementium Ore
-		[53038] = true, -- Obsidium Ore
-		[72092] = {809, 1}, -- Ghost Iron Ore
-		[72093] = {809, 25}, -- Kyparite
-		[72094] = {809, 75}, -- Black Trillium Ore
-		[72103] = {809, 75}, -- White Trillium Ore
-		[123918] = true, -- Leystone Ore
-		[123919] = true, -- Felslate
-		[151564] = true, -- Empyrium
-		[152579] = true, -- Storm Silver Ore
-		[152512] = true, -- Monelite Ore
-		[152513] = true, -- Platinum Ore
-		[155830] = true, -- Runic Core, BfA Jewelcrafting Quest
-		[168185] = true, -- Osmenite Ore
-		[171828] = true, -- Laestrite
-		[171829] = true, -- Solenium
-		[171830] = true, -- Oxxein
-		[171831] = true, -- Phaedrum
-		[171832] = true, -- Sinvyr
-		[171833] = true, -- Elethium
-		[187700] = true, -- Progenium Ore
-	}
-end
-
---[[ LibProcessable.herbs
-Table of all herbs that can be milled by a scribe.
-
-See [LibProcessable:IsMillable()](LibProcessable#libprocessableismillableitem-ignoremortar).
---]]
-lib.herbs = {
-	-- http://www.wowhead.com/spell=51005/milling#milled-from:0+1+17-20
-	[765] = true, -- Silverleaf
-	[785] = true, -- Mageroyal
-	[2447] = true, -- Peacebloom
-	[2449] = true, -- Earthroot
-	[2450] = true, -- Briarthorn
-	[2452] = true, -- Swiftthistle
-	[2453] = true, -- Bruiseweed
-	[3355] = true, -- Wild Steelbloom
-	[3356] = true, -- Kingsblood
-	[3357] = true, -- Liferoot
-	[3358] = true, -- Khadgar's Whisker
-	[3369] = true, -- Grave Moss
-	[3818] = true, -- Fadeleaf
-	[3819] = true, -- Dragon's Teeth
-	[3820] = true, -- Stranglekelp
-	[3821] = true, -- Goldthorn
-	[4625] = true, -- Firebloom
-	[8831] = true, -- Purple Lotus
-	[8836] = true, -- Arthas' Tears
-	[8838] = true, -- Sungrass
-	[8839] = true, -- Blindweed
-	[8845] = true, -- Ghost Mushroom
-	[8846] = true, -- Gromsblood
-	[13463] = true, -- Dreamfoil
-	[13464] = true, -- Golden Sansam
-	[13465] = true, -- Mountain Silversage
-	[13466] = true, -- Sorrowmoss
-	[13467] = true, -- Icecap
-	[22785] = true, -- Felweed
-	[22786] = true, -- Dreaming Glory
-	[22787] = true, -- Ragveil
-	[22789] = true, -- Terocone
-	[22790] = true, -- Ancient Lichen
-	[22791] = true, -- Netherbloom
-	[22792] = true, -- Nightmare Vine
-	[22793] = true, -- Mana Thistle
-	[36901] = true, -- Goldclover
-	[36903] = true, -- Adder's Tongue
-	[36904] = true, -- Tiger Lily
-	[36905] = true, -- Lichbloom
-	[36906] = true, -- Icethorn
-	[36907] = true, -- Talandra's Rose
-	[37921] = true, -- Deadnettle
-	[39969] = true, -- Fire Seed
-	[39970] = true, -- Fire Leaf
-	[52983] = true, -- Cinderbloom
-	[52984] = true, -- Stormvine
-	[52985] = true, -- Azshara's Veil
-	[52986] = true, -- Heartblossom
-	[52987] = true, -- Twilight Jasmine
-	[52988] = true, -- Whiptail
-	[72234] = true, -- Green Tea Leaf
-	[72235] = true, -- Silkweed
-	[72237] = true, -- Rain Poppy
-	[79010] = true, -- Snow Lily
-	[79011] = true, -- Fool's Cap
-	[89639] = true, -- Desecrated Herb
-	[109124] = true, -- Frostweed
-	[109125] = true, -- Fireweed
-	[109126] = true, -- Gorgrond Flytrap
-	[109127] = true, -- Starflower
-	[109128] = true, -- Nagrand Arrowbloom
-	[109129] = true, -- Talador Orchid
-	[124101] = true, -- Aethril
-	[124102] = true, -- Dreamleaf
-	[124103] = true, -- Foxflower
-	[124104] = true, -- Fjarnskaggl
-	[124105] = true, -- Starlight Rose
-	[124106] = true, -- Felwort
-	[128304] = true, -- Yseralline Seed
-	[151565] = true, -- Astral Glory
-	[152511] = true, -- Sea Stalk
-	[152509] = true, -- Siren's Pollen
-	[152508] = true, -- Winter's Kiss
-	[152507] = true, -- Akunda's Bite
-	[152506] = true, -- Star Moss
-	[152505] = true, -- Riverbud
-	[152510] = true, -- Anchor Weed
-	[168487] = true, -- Zin'anthid
-	[168583] = true, -- Widowbloom
-	[168586] = true, -- Rising Glory
-	[168589] = true, -- Marrowroot
-	[169701] = true, -- Deathblossom
-	[170554] = true, -- Vigil's Torch
-	[171315] = true, -- Nightshade
-	[187699] = true, -- First Flower
+	-- UNTESTED DRAGONFLIGHT ORES:
+	[188658] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Draconium Ore
+	[194545] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Prismatic Ore
+	[190313] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Titaniclum Ore
+	[190394] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Tyrivite Ore
 }
 
---[[ LibProcessable.enchantingItems
-Table of special items used in Enchanting quests.
+data.herbs = {
+	-- http://www.wowhead.com/spell=51005/milling#milled-from:0+1+17-20
+	[765] = CLASSIC and 1 or {LE_EXPANSION_CLASSIC, 1}, -- Silverleaf
+	[785] = CLASSIC and 1 or {LE_EXPANSION_CLASSIC, 1}, -- Mageroyal
+	[2447] = CLASSIC and 1 or {LE_EXPANSION_CLASSIC, 1}, -- Peacebloom
+	[2449] = CLASSIC and 1 or {LE_EXPANSION_CLASSIC, 1}, -- Earthroot
+	[2450] = CLASSIC and 25 or {LE_EXPANSION_CLASSIC, 1}, -- Briarthorn
+	[2452] = CLASSIC and 25 or {LE_EXPANSION_CLASSIC, 1}, -- Swiftthistle
+	[2453] = CLASSIC and 25 or {LE_EXPANSION_CLASSIC, 1}, -- Bruiseweed
+	[3355] = CLASSIC and 75 or {LE_EXPANSION_CLASSIC, 1}, -- Wild Steelbloom
+	[3356] = CLASSIC and 75 or {LE_EXPANSION_CLASSIC, 1}, -- Kingsblood
+	[3357] = CLASSIC and 75 or {LE_EXPANSION_CLASSIC, 1}, -- Liferoot
+	[3358] = CLASSIC and 125 or {LE_EXPANSION_CLASSIC, 1}, -- Khadgar's Whisker
+	[3369] = CLASSIC and 75 or {LE_EXPANSION_CLASSIC, 1}, -- Grave Moss
+	[3818] = CLASSIC and 125 or {LE_EXPANSION_CLASSIC, 1}, -- Fadeleaf
+	[3819] = CLASSIC and 125 or {LE_EXPANSION_CLASSIC, 1}, -- Dragon's Teeth
+	[3820] = CLASSIC and 25 or {LE_EXPANSION_CLASSIC, 1}, -- Stranglekelp
+	[3821] = CLASSIC and 125 or {LE_EXPANSION_CLASSIC, 1}, -- Goldthorn
+	[4625] = CLASSIC and 175 or {LE_EXPANSION_CLASSIC, 1}, -- Firebloom
+	[8831] = CLASSIC and 175 or {LE_EXPANSION_CLASSIC, 1}, -- Purple Lotus
+	[8836] = CLASSIC and 175 or {LE_EXPANSION_CLASSIC, 1}, -- Arthas' Tears
+	[8838] = CLASSIC and 175 or {LE_EXPANSION_CLASSIC, 1}, -- Sungrass
+	[8839] = CLASSIC and 175 or {LE_EXPANSION_CLASSIC, 1}, -- Blindweed
+	[8845] = CLASSIC and 175 or {LE_EXPANSION_CLASSIC, 1}, -- Ghost Mushroom
+	[8846] = CLASSIC and 175 or {LE_EXPANSION_CLASSIC, 1}, -- Gromsblood
+	[13463] = CLASSIC and 225 or {LE_EXPANSION_CLASSIC, 1}, -- Dreamfoil
+	[13464] = CLASSIC and 225 or {LE_EXPANSION_CLASSIC, 1}, -- Golden Sansam
+	[13465] = CLASSIC and 225 or {LE_EXPANSION_CLASSIC, 1}, -- Mountain Silversage
+	[13466] = CLASSIC and 225 or {LE_EXPANSION_CLASSIC, 1}, -- Sorrowmoss
+	[13467] = CLASSIC and 200 or {LE_EXPANSION_CLASSIC, 1}, -- Icecap
+	[22785] = CLASSIC and 275 or {LE_EXPANSION_BURNING_CRUSADE, 1}, -- Felweed
+	[22786] = CLASSIC and 275 or {LE_EXPANSION_BURNING_CRUSADE, 1}, -- Dreaming Glory
+	[22787] = CLASSIC and 275 or {LE_EXPANSION_BURNING_CRUSADE, 1}, -- Ragveil
+	[22789] = CLASSIC and 275 or {LE_EXPANSION_BURNING_CRUSADE, 1}, -- Terocone
+	[22790] = CLASSIC and 275 or {LE_EXPANSION_BURNING_CRUSADE, 1}, -- Ancient Lichen
+	[22791] = CLASSIC and 275 or {LE_EXPANSION_BURNING_CRUSADE, 1}, -- Netherbloom
+	[22792] = CLASSIC and 275 or {LE_EXPANSION_BURNING_CRUSADE, 1}, -- Nightmare Vine
+	[22793] = CLASSIC and 275 or {LE_EXPANSION_BURNING_CRUSADE, 1}, -- Mana Thistle
+	[36901] = CLASSIC and 325 or {LE_EXPANSION_WRATH_OF_THE_LICH_KING, 1}, -- Goldclover
+	[36903] = CLASSIC and 325 or {LE_EXPANSION_WRATH_OF_THE_LICH_KING, 1}, -- Adder's Tongue
+	[36904] = CLASSIC and 325 or {LE_EXPANSION_WRATH_OF_THE_LICH_KING, 1}, -- Tiger Lily
+	[36905] = CLASSIC and 325 or {LE_EXPANSION_WRATH_OF_THE_LICH_KING, 1}, -- Lichbloom
+	[36906] = CLASSIC and 325 or {LE_EXPANSION_WRATH_OF_THE_LICH_KING, 1}, -- Icethorn
+	[36907] = CLASSIC and 325 or {LE_EXPANSION_WRATH_OF_THE_LICH_KING, 1}, -- Talandra's Rose
+	[37921] = CLASSIC and 325 or {LE_EXPANSION_WRATH_OF_THE_LICH_KING, 1}, -- Deadnettle
+	[39970] = CLASSIC and 325 or {LE_EXPANSION_WRATH_OF_THE_LICH_KING, 1}, -- Fire Leaf
+	-- [39969] = CLASSIC and ? or nil, -- Fire Seed
+	[52983] = {LE_EXPANSION_CATACLYSM, 1}, -- Cinderbloom
+	[52984] = {LE_EXPANSION_CATACLYSM, 1}, -- Stormvine
+	[52985] = {LE_EXPANSION_CATACLYSM, 1}, -- Azshara's Veil
+	[52986] = {LE_EXPANSION_CATACLYSM, 1}, -- Heartblossom
+	[52987] = {LE_EXPANSION_CATACLYSM, 1}, -- Twilight Jasmine
+	[52988] = {LE_EXPANSION_CATACLYSM, 1}, -- Whiptail
+	[72234] = {LE_EXPANSION_MISTS_OF_PANDARIA, 1}, -- Green Tea Leaf
+	[72235] = {LE_EXPANSION_MISTS_OF_PANDARIA, 1}, -- Silkweed
+	[72237] = {LE_EXPANSION_MISTS_OF_PANDARIA, 1}, -- Rain Poppy
+	[79010] = {LE_EXPANSION_MISTS_OF_PANDARIA, 1}, -- Snow Lily
+	[79011] = {LE_EXPANSION_MISTS_OF_PANDARIA, 1}, -- Fool's Cap
+	[89639] = {LE_EXPANSION_MISTS_OF_PANDARIA, 1}, -- Desecrated Herb
+	[109124] = {LE_EXPANSION_WARLORDS_OF_DRAENOR, 1}, -- Frostweed
+	[109125] = {LE_EXPANSION_WARLORDS_OF_DRAENOR, 1}, -- Fireweed
+	[109126] = {LE_EXPANSION_WARLORDS_OF_DRAENOR, 1}, -- Gorgrond Flytrap
+	[109127] = {LE_EXPANSION_WARLORDS_OF_DRAENOR, 1}, -- Starflower
+	[109128] = {LE_EXPANSION_WARLORDS_OF_DRAENOR, 1}, -- Nagrand Arrowbloom
+	[109129] = {LE_EXPANSION_WARLORDS_OF_DRAENOR, 1}, -- Talador Orchid
+	[124101] = {LE_EXPANSION_LEGION, 1}, -- Aethril
+	[124102] = {LE_EXPANSION_LEGION, 1}, -- Dreamleaf
+	[124103] = {LE_EXPANSION_LEGION, 1}, -- Foxflower
+	[124104] = {LE_EXPANSION_LEGION, 1}, -- Fjarnskaggl
+	[124105] = {LE_EXPANSION_LEGION, 1}, -- Starlight Rose
+	[124106] = {LE_EXPANSION_LEGION, 1}, -- Felwort
+	[128304] = {LE_EXPANSION_LEGION, 1}, -- Yseralline Seed
+	[151565] = {LE_EXPANSION_LEGION, 1}, -- Astral Glory
+	[152511] = {LE_EXPANSION_BATTLE_FOR_AZEROTH, 1}, -- Sea Stalk
+	[152509] = {LE_EXPANSION_BATTLE_FOR_AZEROTH, 1}, -- Siren's Pollen
+	[152508] = {LE_EXPANSION_BATTLE_FOR_AZEROTH, 1}, -- Winter's Kiss
+	[152507] = {LE_EXPANSION_BATTLE_FOR_AZEROTH, 1}, -- Akunda's Bite
+	[152506] = {LE_EXPANSION_BATTLE_FOR_AZEROTH, 1}, -- Star Moss
+	[152505] = {LE_EXPANSION_BATTLE_FOR_AZEROTH, 1}, -- Riverbud
+	[152510] = {LE_EXPANSION_BATTLE_FOR_AZEROTH, 1}, -- Anchor Weed
+	[168487] = {LE_EXPANSION_BATTLE_FOR_AZEROTH, 1}, -- Zin'anthid
+	[168583] = {LE_EXPANSION_SHADOWLANDS, 1}, -- Widowbloom
+	[168586] = {LE_EXPANSION_SHADOWLANDS, 1}, -- Rising Glory
+	[168589] = {LE_EXPANSION_SHADOWLANDS, 1}, -- Marrowroot
+	[169701] = {LE_EXPANSION_SHADOWLANDS, 1}, -- Deathblossom
+	[170554] = {LE_EXPANSION_SHADOWLANDS, 1}, -- Vigil's Torch
+	[171315] = {LE_EXPANSION_SHADOWLANDS, 1}, -- Nightshade
+	[187699] = {LE_EXPANSION_SHADOWLANDS, 1}, -- First Flower
 
-See [LibProcessable:IsDisenchantable()](LibProcessable#libprocessableisdisenchantableitem).
---]]
-lib.enchantingItems = {
+	-- UNTESTED DRAGONFLIGHT HERBS:
+	-- there's 3 of each herb because they have ranks/quality associated with them
+	[191460] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Hochenblume
+	[191461] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Hochenblume
+	[191462] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Hochenblume
+	[191464] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Saxifrage
+	[191465] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Saxifrage
+	[191466] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Saxifrage
+	[191467] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Bubble Poppy
+	[191468] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Bubble Poppy
+	[191469] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Bubble Poppy
+	[191470] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Writhebark
+	[191471] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Writhebark
+	[191472] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Writhebark
+	[198412] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Serene Pigment
+	[198413] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Serene Pigment
+	[198414] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Serene Pigment
+	[198415] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Flourishing Pigment
+	[198416] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Flourishing Pigment
+	[198417] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Flourishing Pigment
+	[198418] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Blazing Pigment
+	[198419] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Blazing Pigment
+	[198420] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Blazing Pigment
+	[198421] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Shimmering Pigment
+	[198422] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Shimmering Pigment
+	[198423] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Shimmering Pigment
+}
+
+data.containers = {
+	-- https://www.wowhead.com/items?filter=10:195;1:2;:0
+	[7209]   = 1, -- Tazan's Satchel
+	[4632]   = CLASSIC and 1 or 15, -- Ornate Bronze Lockbox
+	[6712]   = CLASSIC and 1 or nil, -- Practice Lock
+	[4633]   = CLASSIC and 25 or 15, -- Heavy Bronze Lockbox
+	[4634]   = CLASSIC and 70 or 15, -- Iron Lockbox
+	[5046]   = CLASSIC and 70 or nil, -- Locked Gift (removed in TBC)
+	[4636]   = CLASSIC and 125 or 15, -- Strong Iron Lockbox
+	[4637]   = CLASSIC and 175 or 15, -- Steel Lockbox
+	[4638]   = CLASSIC and 225 or 15, -- Reinforced Steel Lockbox
+	[5758]   = CLASSIC and 225 or 15, -- Mithril Lockbox
+	[5759]   = CLASSIC and 225 or 15, -- Thorium Lockbox
+	[5760]   = CLASSIC and 225 or 15, -- Eternium Lockbox
+	[6354]   = CLASSIC and 1 or 15, -- Small Locked Chest
+	[6355]   = CLASSIC and 70 or 15, -- Sturdy Locked Chest
+	[7869]   = CLASSIC and 70 or nil,   -- Lucius's Lockbox
+	[12033]  = CLASSIC and 275 or 15, -- Thaurissan Family Jewels
+	[13875]  = CLASSIC and 175 or 15, -- Ironbound Locked Chest
+	[13918]  = CLASSIC and 250 or 15, -- Reinforced Locked Chest
+	[16882]  = CLASSIC and 1 or 15, -- Battered Junkbox
+	[16883]  = CLASSIC and 70 or 15, -- Worn Junkbox
+	[16884]  = CLASSIC and 175 or 15, -- Sturdy Junkbox
+	[16885]  = CLASSIC and 250 or 15, -- Heavy Junkbox
+	[106895] = 15, -- Iron-Bound Junkbox
+	[29569]  = CLASSIC and 300 or 30, -- Strong Junkbox
+	[31952]  = CLASSIC and 325 or 30, -- Khorium Lockbox
+	[43575]  = CLASSIC and 350 or 30, -- Reinforced Junkbox
+	[43622]  = CLASSIC and 375 or 30, -- Froststeel Lockbox
+	[43624]  = CLASSIC and 400 or 30, -- Titanium Lockbox
+	[45986]  = CLASSIC and 400 or 30, -- Tiny Titanium Lockbox
+	[63349]  = 30, -- Flame-Scarred Junkbox
+	[68729]  = 30, -- Elementium Lockbox
+	[88165]  = 35, -- Vine-Cracked Junkbox
+	[88567]  = 35, -- Ghost Iron Lockbox
+	[116920] = 40, -- True Steel Lockbox
+	[121331] = 45, -- Leystone Lockbox
+	[169475] = 50, -- Barnacled Lockbox
+	[179311] = 60, -- Synvir Lockbox
+	[180522] = 60, -- Phaedrum Lockbox
+	[180532] = 60, -- Oxxein Lockbox
+	[180533] = 60, -- Solenium Lockbox
+	[186161] = 60, -- Stygian Lockbox     TODO: confirm level requirement
+	[186160] = 60, -- Locked Artifact Case
+	[188787] = 60, -- Locked Broker Luggage
+
+	-- UNTESTED DRAGONFLIGHT BOXES:
+	[190954] = 65, -- Tyrivite Lockbox
+	[191296] = 75, -- Enchanted Lockbox (how are we supposed to get 75 skill?)
+	[194037] = 9999, -- Heavy Chest (requires an item "Gilded Key" according to in-game tooltip)
+}
+
+data.enchantingItems = {
 	-- Legion enchanting quest line
 	[137195] = true, -- Highmountain Armor
 	[137221] = true, -- Enchanted Raven Sigil
@@ -518,217 +693,303 @@ lib.enchantingItems = {
 	[181991] = true, -- Antique Stalker's Bow
 }
 
---[[ LibProcessable.containers
-Table of all items that can be opened with a Rogue's _Pick Lock_ ability, or with profession keys.
+-- /run ChatFrame1:Clear(); for _,i in next,{C_TradeSkillUI.GetCategories()} do print(i, C_TradeSkillUI.GetCategoryInfo(i).name) end
+data.professionCategories = {
+	[LE_PROFESSION_ALCHEMY] = {
+		[LE_EXPANSION_CLASSIC]                = 604,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 602,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 600,
+		[LE_EXPANSION_CATACLYSM]              = 598,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 596,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 332,
+		[LE_EXPANSION_LEGION]                 = 433,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 592,
+		[LE_EXPANSION_SHADOWLANDS]            = 1294,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 1582,
+	},
+	[LE_PROFESSION_BLACKSMITHING] = {
+		[LE_EXPANSION_CLASSIC]                = 590,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 584,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 577,
+		[LE_EXPANSION_CATACLYSM]              = 569,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 553,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 389,
+		[LE_EXPANSION_LEGION]                 = 426,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 542,
+		[LE_EXPANSION_SHADOWLANDS]            = 1311,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 1566,
+	},
+	[LE_PROFESSION_ENCHANTING] = {
+		[LE_EXPANSION_CLASSIC]                = 667,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 665,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 663,
+		[LE_EXPANSION_CATACLYSM]              = 661,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 656,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 348,
+		[LE_EXPANSION_LEGION]                 = 443,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 647,
+		[LE_EXPANSION_SHADOWLANDS]            = 1364,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 1588,
+	},
+	[LE_PROFESSION_ENGINEERING] = {
+		[LE_EXPANSION_CLASSIC]                = 419,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 719,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 717,
+		[LE_EXPANSION_CATACLYSM]              = 715,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 713,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 347,
+		[LE_EXPANSION_LEGION]                 = 469,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 709,
+		[LE_EXPANSION_SHADOWLANDS]            = 1381,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 1595,
+	},
+	[LE_PROFESSION_HERBALISM] = {
+		[LE_EXPANSION_CLASSIC]                = 1044,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 1042,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 1040,
+		[LE_EXPANSION_CATACLYSM]              = 1038,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 1036,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 1034,
+		[LE_EXPANSION_LEGION]                 = 456,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 1029,
+		[LE_EXPANSION_SHADOWLANDS]            = 1441,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 1594,
+	},
+	[LE_PROFESSION_INSCRIPTION] = {
+		[LE_EXPANSION_CLASSIC]                = 415,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 769,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 767,
+		[LE_EXPANSION_CATACLYSM]              = 765,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 763,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 410,
+		[LE_EXPANSION_LEGION]                 = 450,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 759,
+		[LE_EXPANSION_SHADOWLANDS]            = 1406,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 1592,
+	},
+	[LE_PROFESSION_JEWELCRAFTING] = {
+		[LE_EXPANSION_CLASSIC]                = 372,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 815,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 813,
+		[LE_EXPANSION_CATACLYSM]              = 811,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 809,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 373,
+		[LE_EXPANSION_LEGION]                 = 464,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 805,
+		[LE_EXPANSION_SHADOWLANDS]            = 1418,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 1593,
+	},
+	[LE_PROFESSION_LEATHERWORKING] = {
+		[LE_EXPANSION_CLASSIC]                = 379,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 882,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 880,
+		[LE_EXPANSION_CATACLYSM]              = 878,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 876,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 380,
+		[LE_EXPANSION_LEGION]                 = 460,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 871,
+		[LE_EXPANSION_SHADOWLANDS]            = 1334,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 1587,
+	},
+	[LE_PROFESSION_MINING] = {
+		[LE_EXPANSION_CLASSIC]                = 1078,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 1076,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 1074,
+		[LE_EXPANSION_CATACLYSM]              = 1072,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 1070,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 1068,
+		[LE_EXPANSION_LEGION]                 = 425,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 1065,
+		[LE_EXPANSION_SHADOWLANDS]            = 1320,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 1584,
+	},
+	[LE_PROFESSION_SKINNING] = {
+		[LE_EXPANSION_CLASSIC]                = 1060,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 1058,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 1056,
+		[LE_EXPANSION_CATACLYSM]              = 1054,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 1042,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 1050,
+		[LE_EXPANSION_LEGION]                 = 459,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 1046,
+		[LE_EXPANSION_SHADOWLANDS]            = 1331,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 1586,
+	},
+	[LE_PROFESSION_TAILORING] = {
+		[LE_EXPANSION_CLASSIC]                = 362,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 956,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 954,
+		[LE_EXPANSION_CATACLYSM]              = 952,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 950,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 369,
+		[LE_EXPANSION_LEGION]                 = 430,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 942,
+		[LE_EXPANSION_SHADOWLANDS]            = 1395,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 1591,
+	},
+}
 
-The value is the required skill to open the item.
+-- https://wowpedia.fandom.com/wiki/TradeSkillLineID
+data.professionSkillLines = {
+	[LE_PROFESSION_ALCHEMY] = {
+		[LE_EXPANSION_CLASSIC]                = 2485,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 2484,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 2483,
+		[LE_EXPANSION_CATACLYSM]              = 2482,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 2481,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 2480,
+		[LE_EXPANSION_LEGION]                 = 2479,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 2478,
+		[LE_EXPANSION_SHADOWLANDS]            = 2750,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 2823,
+	},
+	[LE_PROFESSION_BLACKSMITHING] = {
+		[LE_EXPANSION_CLASSIC]                = 2477,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 2476,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 2475,
+		[LE_EXPANSION_CATACLYSM]              = 2474,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 2473,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 2472,
+		[LE_EXPANSION_LEGION]                 = 2454,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 2437,
+		[LE_EXPANSION_SHADOWLANDS]            = 2751,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 2822,
+	},
+	[LE_PROFESSION_ENCHANTING] = {
+		[LE_EXPANSION_CLASSIC]                = 2494,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 2493,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 2492,
+		[LE_EXPANSION_CATACLYSM]              = 2491,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 2489,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 2488,
+		[LE_EXPANSION_LEGION]                 = 2487,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 2486,
+		[LE_EXPANSION_SHADOWLANDS]            = 2753,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 2825,
+	},
+	[LE_PROFESSION_ENGINEERING] = {
+		[LE_EXPANSION_CLASSIC]                = 2506,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 2505,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 2504,
+		[LE_EXPANSION_CATACLYSM]              = 2503,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 2502,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 2501,
+		[LE_EXPANSION_LEGION]                 = 2500,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 2499,
+		[LE_EXPANSION_SHADOWLANDS]            = 2755,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 2827,
+	},
+	[LE_PROFESSION_HERBALISM] = {
+		[LE_EXPANSION_CLASSIC]                = 2556,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 2555,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 2554,
+		[LE_EXPANSION_CATACLYSM]              = 2553,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 2552,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 2551,
+		[LE_EXPANSION_LEGION]                 = 2550,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 2549,
+		[LE_EXPANSION_SHADOWLANDS]            = 2760,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 2832,
+	},
+	[LE_PROFESSION_INSCRIPTION] = {
+		[LE_EXPANSION_CLASSIC]                = 2514,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 2513,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 2512,
+		[LE_EXPANSION_CATACLYSM]              = 2511,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 2510,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 2509,
+		[LE_EXPANSION_LEGION]                 = 2508,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 2507,
+		[LE_EXPANSION_SHADOWLANDS]            = 2756,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 2828,
+	},
+	[LE_PROFESSION_JEWELCRAFTING] = {
+		[LE_EXPANSION_CLASSIC]                = 2524,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 2523,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 2522,
+		[LE_EXPANSION_CATACLYSM]              = 2521,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 2520,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 2519,
+		[LE_EXPANSION_LEGION]                 = 2518,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 2517,
+		[LE_EXPANSION_SHADOWLANDS]            = 2757,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 2829,
+	},
+	[LE_PROFESSION_LEATHERWORKING] = {
+		[LE_EXPANSION_CLASSIC]                = 2532,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 2531,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 2530,
+		[LE_EXPANSION_CATACLYSM]              = 2529,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 2528,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 2527,
+		[LE_EXPANSION_LEGION]                 = 2526,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 2525,
+		[LE_EXPANSION_SHADOWLANDS]            = 2758,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 2830,
+	},
+	[LE_PROFESSION_MINING] = {
+		[LE_EXPANSION_CLASSIC]                = 2572,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 2571,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 2570,
+		[LE_EXPANSION_CATACLYSM]              = 2569,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 2568,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 2567,
+		[LE_EXPANSION_LEGION]                 = 2566,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 2565,
+		[LE_EXPANSION_SHADOWLANDS]            = 2761,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 2833,
+	},
+	[LE_PROFESSION_SKINNING] = {
+		[LE_EXPANSION_CLASSIC]                = 2564,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 2563,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 2562,
+		[LE_EXPANSION_CATACLYSM]              = 2561,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 2560,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 2559,
+		[LE_EXPANSION_LEGION]                 = 2558,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 2557,
+		[LE_EXPANSION_SHADOWLANDS]            = 2762,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 2834,
+	},
+	[LE_PROFESSION_TAILORING] = {
+		[LE_EXPANSION_CLASSIC]                = 2540,
+		[LE_EXPANSION_BURNING_CRUSADE]        = 2539,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 2538,
+		[LE_EXPANSION_CATACLYSM]              = 2537,
+		[LE_EXPANSION_MISTS_OF_PANDARIA]      = 2536,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR]    = 2535,
+		[LE_EXPANSION_LEGION]                 = 2534,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH]     = 2533,
+		[LE_EXPANSION_SHADOWLANDS]            = 2759,
+		[LE_EXPANSION_DRAGONFLIGHT]           = 2831,
+	},
+}
 
-See [LibProcessable:IsOpenable()](LibProcessable#libprocessableisopenableitem) and
-[LibProcessable:IsOpenableProfession()](LibProcessable#libprocessableisopenableprofessionitem).
-
-**Notes**:
-* This table has different content based on the game version (retail vs classic).
---]]
-if(CLASSIC) then
-	lib.containers = {
-		-- https://classic.wowhead.com/items?filter=10:195;1:2;:0
-		[4632]  = 1,    -- Ornate Bronze Lockbox
-		[6354]  = 1,    -- Small Locked Chest
-		[6712]  = 1,    -- Practice Lock
-		[7209]  = 1,    -- Tazan's Satchel
-		[16882] = 1,    -- Battered Junkbox
-		[4633]  = 25,   -- Heavy Bronze Lockbox
-		[4634]  = 70,   -- Iron Lockbox
-		[5046]  = 70,   -- Locked Gift
-		[6355]  = 70,   -- Sturdy Locked Chest
-		[7869]  = 70,   -- Lucius's Lockbox
-		[16883] = 70,   -- Worn Junkbox
-		[4636]  = 125,  -- Strong Iron Lockbox
-		[4637]  = 175,  -- Steel Lockbox
-		[13875] = 175,  -- Ironbound Locked Chest
-		[16884] = 175,  -- Sturdy Junkbox
-		[4638]  = 225,  -- Reinforced Steel Lockbox
-		[5758]  = 225,  -- Mithril Lockbox
-		[5759]  = 225,  -- Thorium Lockbox
-		[5760]  = 225,  -- Eternium Lockbox
-		[13918] = 250,  -- Reinforced Locked Chest
-		[16885] = 250,  -- Heavy Junkbox
-		[12033] = 275,  -- Thaurissan Family Jewels
-		[24282] = 5000, -- Rogue's Diary (lockpick requirement sourced from comments, unverified)
-		[29569] = 300,  -- Strong Junkbox
-		[31952] = 325,  -- Khorium Lockbox
+data.professionSkills = {
+	[LE_PROFESSION_JEWELCRAFTING] = {
+		-- https://www.wowhead.com/beta/spells/professions/jewelcrafting#q=prospecting
+		[LE_EXPANSION_CLASSIC] = 382995,
+		[LE_EXPANSION_BURNING_CRUSADE] = 382980,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 382979,
+		[LE_EXPANSION_CATACLYSM] = 382978,
+		[LE_EXPANSION_MISTS_OF_PANDARIA] = 382977,
+		-- [LE_EXPANSION_WARLORDS_OF_DRAENOR] =
+		[LE_EXPANSION_LEGION] = 382975,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH] = 382973,
+		[LE_EXPANSION_SHADOWLANDS] = 325248,
+		[LE_EXPANSION_DRAGONFLIGHT] = 374627,
+	},
+	[LE_PROFESSION_INSCRIPTION] = {
+		-- https://www.wowhead.com/beta/spells/professions/inscription#0-17+20;q=milling
+		[LE_EXPANSION_CLASSIC] = 382994,
+		[LE_EXPANSION_BURNING_CRUSADE] = 382991,
+		[LE_EXPANSION_WRATH_OF_THE_LICH_KING] = 382990,
+		[LE_EXPANSION_CATACLYSM] = 382989,
+		[LE_EXPANSION_MISTS_OF_PANDARIA] = 382988,
+		[LE_EXPANSION_WARLORDS_OF_DRAENOR] = 382987,
+		[LE_EXPANSION_LEGION] = 382986,
+		[LE_EXPANSION_BATTLE_FOR_AZEROTH] = 382984,
+		[LE_EXPANSION_SHADOWLANDS] = 382982,
+		[LE_EXPANSION_DRAGONFLIGHT] = 382981,
 	}
-else
-	lib.containers = {
-		-- https://www.wowhead.com/items?filter=10:195;1:2;:0
-		[7209]   = 0,  -- Tazan's Satchel
-		[4632]   = 15, -- Ornate Bronze Lockbox
-		[4633]   = 15, -- Heavy Bronze Lockbox
-		[4634]   = 15, -- Iron Lockbox
-		[4636]   = 15, -- Strong Iron Lockbox
-		[4637]   = 15, -- Steel Lockbox
-		[4638]   = 15, -- Reinforced Steel Lockbox
-		[5758]   = 15, -- Mithril Lockbox
-		[5759]   = 15, -- Thorium Lockbox
-		[5760]   = 15, -- Eternium Lockbox
-		[6354]   = 15, -- Small Locked Chest
-		[6355]   = 15, -- Sturdy Locked Chest
-		[12033]  = 15, -- Thaurissan Family Jewels
-		[13875]  = 15, -- Ironbound Locked Chest
-		[13918]  = 15, -- Reinforced Locked Chest
-		[16882]  = 15, -- Battered Junkbox
-		[16883]  = 15, -- Worn Junkbox
-		[16884]  = 15, -- Sturdy Junkbox
-		[16885]  = 15, -- Heavy Junkbox
-		[106895] = 15, -- Iron-Bound Junkbox
-		[29569]  = 30, -- Strong Junkbox
-		[31952]  = 30, -- Khorium Lockbox
-		[43575]  = 30, -- Reinforced Junkbox
-		[43622]  = 30, -- Froststeel Lockbox
-		[43624]  = 30, -- Titanium Lockbox
-		[45986]  = 30, -- Tiny Titanium Lockbox
-		[63349]  = 30, -- Flame-Scarred Junkbox
-		[68729]  = 30, -- Elementium Lockbox
-		[88165]  = 35, -- Vine-Cracked Junkbox
-		[88567]  = 35, -- Ghost Iron Lockbox
-		[116920] = 40, -- True Steel Lockbox
-		[121331] = 45, -- Leystone Lockbox
-		[169475] = 50, -- Barnacled Lockbox
-		[179311] = 50, -- Synvir Lockbox
-		[180522] = 50, -- Phaedrum Lockbox
-		[180532] = 50, -- Oxxein Lockbox
-		[180533] = 50, -- Solenium Lockbox
-		[186161] = 50, -- Stygian Lockbox
-		[186160] = 50, -- Locked Artifact Case
-		[188787] = 50, -- Locked Broker Luggage
-	}
-end
-
---[[ LibProcessable.professionCategories
-Table of all professionIDs and their respective categories, indexed by expansion ID.
-
-See [LibProcessable:GetProfessionCategories()](LibProcessable#libprocessablegetprofessioncategoriesprofessionid).
---]]
-lib.professionCategories = {
-	[171] = { -- Alchemy
-		604, -- Classic
-		602, -- Outland
-		600, -- Northrend
-		598, -- Cataclysm
-		596, -- Pandaria
-		332, -- Draenor
-		433, -- Legion
-		592, -- Zandalari/Kul Tiran
-		1294, -- Shadowlands
-	},
-	[164] = { -- Blacksmithing
-		590, -- Classic
-		584, -- Outland
-		577, -- Northrend
-		569, -- Cataclysm
-		553, -- Pandaria
-		389, -- Draenor
-		426, -- Legion
-		542, -- Zandalari/Kul Tiran
-		1311, -- Shadowlands
-	},
-	[333] = { -- Enchanting
-		667, -- Classic
-		665, -- Outland
-		663, -- Northrend
-		661, -- Cataclysm
-		656, -- Pandaria
-		348, -- Draenor
-		443, -- Legion
-		647, -- Zandalari/Kul Tiran
-		1364, -- Shadowlands
-	},
-	[202] = { -- Engineering
-		419, -- Classic
-		719, -- Outland
-		717, -- Northrend
-		715, -- Cataclysm
-		713, -- Pandaria
-		347, -- Draenor
-		469, -- Legion
-		709, -- Zandalari/Kul Tiran
-		1381, -- Shadowlands
-	},
-	[182] = { -- Herbalism
-		1044, -- Classic
-		1042, -- Outland
-		1040, -- Northrend
-		1038, -- Cataclysm
-		1036, -- Pandaria
-		1034, -- Draenor
-		456, -- Legion
-		1029, -- Zandalari/Kul Tiran
-		1441, -- Shadowlands
-	},
-	[773] = { -- Inscription
-		415, -- Classic
-		769, -- Outland
-		767, -- Northrend
-		765, -- Cataclysm
-		763, -- Pandaria
-		410, -- Draenor
-		450, -- Legion
-		759, -- Zandalari/Kul Tiran
-		1406, -- Shadowlands
-	},
-	[755] = { -- Jewelcrafting
-		372, -- Classic
-		815, -- Outland
-		813, -- Northrend
-		811, -- Cataclysm
-		809, -- Pandaria
-		373, -- Draenor
-		464, -- Legion
-		805, -- Zandalari/Kul Tiran
-		1418, -- Shadowlands
-	},
-	[165] = { -- Leatherworking
-		379, -- Classic
-		882, -- Outland
-		880, -- Northrend
-		878, -- Cataclysm
-		876, -- Pandaria
-		380, -- Draenor
-		460, -- Legion
-		871, -- Zandalari/Kul Tiran
-		1334, -- Shadowlands
-	},
-	[186] = { -- Mining
-		1078, -- Classic
-		1076, -- Outland
-		1074, -- Northrend
-		1072, -- Cataclysm
-		1070, -- Pandaria
-		1068, -- Draenor
-		425, -- Legion
-		1065, -- Zandalari/Kul Tiran
-		1320, -- Shadowlands
-	},
-	[393] = { -- Skinning
-		1060, -- Classic
-		1058, -- Outland
-		1056, -- Northrend
-		1054, -- Cataclysm
-		1042, -- Pandaria
-		1050, -- Draenor
-		459, -- Legion
-		1046, -- Zandalari/Kul Tiran
-		1331, -- Shadowlands
-	},
-	[197] = { -- Tailoring
-		362, -- Classic
-		956, -- Outland
-		954, -- Northrend
-		952, -- Cataclysm
-		950, -- Pandaria
-		369, -- Draenor
-		430, -- Legion
-		942, -- Zandalari/Kul Tiran
-		1395, -- Shadowlands
-	},
 }
