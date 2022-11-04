@@ -430,7 +430,7 @@ function ENH:HandleMinimap()
 	if not E.private.general.minimap.enable then return end
 	do
 		if not ENH.DummyPanels.Minimap then
-			ENH.DummyPanels.Minimap = CreateFrame("Frame", nil, _G.MMHolder)
+			ENH.DummyPanels.Minimap = CreateFrame("Frame", nil, _G.ElvUI_MinimapHolder)
 		end
 
 		if ENH.DummyPanels.Minimap and not ENH.DummyPanels.Minimap.enhshadow then

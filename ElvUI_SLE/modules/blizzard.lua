@@ -166,11 +166,11 @@ B.AddonsList = {
 	Blizzard_ScrappingMachineUI = {
 		ScrappingMachineFrame = true,
 	},
-	Blizzard_TalentUI = {
-		PlayerTalentFrame = true,
+	Blizzard_ClassTalentUI = {
+		ClassTalentFrame = true,
 	},
-	Blizzard_TradeSkillUI = {
-		TradeSkillFrame = true,
+	Blizzard_Professions = {
+		ProfessionsFrame = true,
 	},
 	Blizzard_TrainerUI = {
 		ClassTrainerFrame = true,
@@ -254,10 +254,12 @@ local function LoadPosition(self)
 		OnDragStop(self)
 	end
 
-	if E.private.sle.module.blizzmove.remember and E.private.sle.module.blizzmove.points[Name] then
+	if E.private.sle.module.blizzmove.remember and E.private.sle.module.blizzmove.points[Name] and not B.TempOnly[Name] then
 		self:ClearAllPoints()
 		local a,b,c,d,e = unpack(E.private.sle.module.blizzmove.points[Name])
-		self:SetPoint(a,b,c,d,e, true)
+		if a ~= nil then
+			self:SetPoint(a,b,c,d,e, true)
+		end
 	end
 
 	if B.ExlusiveFrames[Name] then for _, name in pairs(B.ExlusiveFrames[Name]) do _G[name]:Hide() end end --If this frame has others that should not be shown at the same time, hide those
@@ -316,6 +318,7 @@ local function CompatibilityChecks()
 end
 
 function B:SLETalkingHead()
+	if not _G.TalkingHeadFrame.mover then return end
 	if E.db.sle.skins.talkinghead.hide then
 		E:DisableMover(_G.TalkingHeadFrame.mover:GetName())
 	else
@@ -328,32 +331,6 @@ function B:UpdateAll()
 	B:ErrorFrameSize()
 	B:SLETalkingHead()
 end
-
-local f = CreateFrame('Frame')
-f:RegisterEvent('PLAYER_ENTERING_WORLD')
-f:RegisterEvent('ADDON_LOADED')
-f:SetScript('OnEvent', function(self, event, addon)
-	-- SLE:Print('PEW Function Hooked')
-	if event == 'PLAYER_ENTERING_WORLD' and IsAddOnLoaded('Blizzard_TalkingHeadUI') then
-		hooksecurefunc('TalkingHeadFrame_PlayCurrent', function()
-			-- SLE:Print('TalkingHead Frame initilized PlayCurrent function from PEW hook')
-			if E.db.sle.skins.talkinghead.hide then
-				_G.TalkingHeadFrame:Hide()
-			end
-		end)
-		self:UnregisterEvent(event)
-	end
-
-	if event == 'ADDON_LOADED' and addon == 'Blizzard_TalkingHeadUI' then
-		hooksecurefunc('TalkingHeadFrame_PlayCurrent', function()
-			-- SLE:Print('TalkingHead Frame initilized PlayCurrent function from ADDONLOADED hook')
-			if E.db.sle.skins.talkinghead.hide then
-				_G.TalkingHeadFrame:Hide()
-			end
-		end)
-		self:UnregisterEvent(event)
-	end
-end)
 
 function B:Initialize()
 	B.db = E.db.sle.blizzard
@@ -380,7 +357,7 @@ function B:Initialize()
 		end
 
 		--Removing stuff from auto positioning
-		self:Hook('UIParent_ManageFramePosition', function()
+		self:SecureHook('UIParent_ManageFramePositions', function()
 			for FrameName, state in pairs(B.Frames) do
 				local frame = _G[FrameName]
 				if state and frame and frame:IsShown() then
@@ -395,6 +372,14 @@ function B:Initialize()
 	SLE.UpdateFunctions["Blizzard"] = B.UpdateAll
 
 	B:SLETalkingHead()
+	hooksecurefunc(TalkingHeadFrame, 'PlayCurrent', function(self)
+		if E.db.sle.skins.talkinghead.hide then
+			self:Close()
+			self:Hide()
+		end
+	end)
+		
+		
 end
 
 SLE:RegisterModule(B:GetName())

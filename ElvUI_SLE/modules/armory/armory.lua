@@ -228,9 +228,12 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 	if slotInfo.itemLevelColors then
 		local window = strlower(which) --to know which settings table to use
 		if E.db.sle.armory[window] and E.db.sle.armory[window].enable then --If settings table actually exists and armory for it is enabled
+			local iR, iG, iB = unpack(slotInfo.itemLevelColors)
 			if Slot.enchantText and not (slotInfo.enchantTextShort == nil or slotInfo.enchantText == nil) then Armory:ProcessEnchant(window, Slot, slotInfo.enchantTextShort, slotInfo.enchantText) end
 			if E.db.sle.armory[window].ilvl.colorType == 'QUALITY' then
-				Slot.iLvlText:SetTextColor(unpack(slotInfo.itemLevelColors)) --Busyness as usual
+				if iR ~= nil then
+					Slot.iLvlText:SetTextColor(iR, iG, iB) --Business as usual
+				end
 			elseif E.db.sle.armory[window].ilvl.colorType == 'GRADIENT' then
 				local equippedIlvl = window == 'character' and select(2, GetAverageItemLevel()) or E:CalculateAverageItemLevel(iLevelDB, _G['InspectFrame'].unit)
 				local diff
@@ -250,7 +253,9 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 				Slot.iLvlText:SetTextColor(1, 1, 1)
 			end
 		else
-			Slot.iLvlText:SetTextColor(unpack(slotInfo.itemLevelColors))
+			if iR ~= nil then
+				Slot.iLvlText:SetTextColor(unpack(slotInfo.itemLevelColors))
+			end
 		end
 		--This block is separate cause disabling armory will not hide dem gradients otherwise
 		if Slot.SLE_Gradient then --First call for this function for inspect is before gradient is created. To avoid errors

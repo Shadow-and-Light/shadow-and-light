@@ -21,10 +21,10 @@ local BUTTON_HEIGHT = 16
 local BUTTON_WIDTH = 135
 local TITLE_OFFSET = 10
 
-local function OnClick(btn)
+local function OnMouseUp(btn)
 	if btn.func then btn.func() end
 
-	btn:GetParent():Hide()
+	E:Delay(.1, function() btn:GetParent():Hide() end)
 end
 
 local function OnEnter(btn)
@@ -52,6 +52,7 @@ end
 local function CreateListButton(frame)
 	local button = CreateFrame('Button', nil, frame, 'SecureActionButtonTemplate')
 
+	button:RegisterForClicks('LeftButtonUp', 'LeftButtonDown')
 	button.hoverTex = button:CreateTexture(nil, 'OVERLAY')
 	button.hoverTex:SetAllPoints()
 	button.hoverTex:SetTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]])
@@ -62,9 +63,10 @@ local function CreateListButton(frame)
 	button.text:SetAllPoints()
 	button.text:FontTemplate()
 
+	button:EnableMouse(true)
 	button:SetScript('OnEnter', OnEnter)
 	button:SetScript('OnLeave', OnLeave)
-	button:HookScript('OnClick', OnClick)
+	DD:SecureHookScript(button, 'OnMouseUp', OnMouseUp)
 
 	return button
 end

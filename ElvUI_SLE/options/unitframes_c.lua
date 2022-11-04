@@ -26,7 +26,7 @@ local OfflineIndicatorImages = {
 local function GetOptionsTable_Auras(auraType, updateFunc, groupName)
 	local config = ACH:Group(auraType == 'buffs' and L["Buffs"] or L["Debuffs"], nil, 1, nil, function(info) return E.db.sle.unitframe.units[groupName][auraType][info[#info]] end, function(info, value) E.db.sle.unitframe.units[groupName][auraType][info[#info]] = value; updateFunc(E, 'unitframe') end)
 
-	config.guiInline = true
+	-- config.guiInline = true
 	config.args.enable = ACH:Toggle(L["Enable"], nil, 1)
 	config.args.threshold = ACH:Range(L["Low Threshold"], L["Threshold before text turns red and is in decimal form. Set to -1 for it to never turn red"], 2, { min = -1, max = 20, step = 1 }, nil, nil, nil, function(info) return not E.db.sle.unitframe.units[groupName][auraType][info[#info]] end)
 
@@ -36,7 +36,7 @@ end
 local function GetOptionsTable_DeathIndicator(updateFunc, groupName, numGroup)
 	local db = E.db.sle.unitframe.units[groupName].deathIndicator
 	local config = ACH:Group(L["Death Indicator"], nil, 50, nil, function(info) return db[info[#info]] end, function(info, value) db[info[#info]] = value; updateFunc(UF, groupName, numGroup) end)
-	config.guiInline = true
+	-- config.guiInline = true
 
 	config.args = CopyTable(SharedIconOptions)
 	config.args.size.args.size.name = function() return db.keepSizeRatio and L["Size"] or L["Width"] end
@@ -56,7 +56,7 @@ end
 local function GetOptionsTable_OfflineIndicator(updateFunc, groupName, numGroup)
 	local db = E.db.sle.unitframe.units[groupName].offlineIndicator
 	local config = ACH:Group(L["Offline Indicator"], nil, 50, nil, function(info) return db[info[#info]] end, function(info, value) db[info[#info]] = value; updateFunc(UF, groupName, numGroup) end)
-	config.guiInline = true
+	-- config.guiInline = true
 
 	config.args = CopyTable(SharedIconOptions)
 	config.args.size.args.size.name = function() return db.keepSizeRatio and L["Size"] or L["Width"] end
@@ -75,7 +75,7 @@ end
 
 local function GetOptionsTable_FontGroup(unit, updateFunc, numGroup)
 	local config = ACH:Group(L["Font Group"], nil, 20, nil, function(info) return E.db.sle.unitframe.units[unit].pvpicontext[info[#info-2]][info[#info]] end, function(info, value) E.db.sle.unitframe.units[unit].pvpicontext[info[#info-2]][info[#info]] = value; updateFunc(UF, unit, numGroup) end)
-	config.guiInline = true
+	-- config.guiInline = true
 
 	config.args.font = ACH:SharedMediaFont(L["Font"], nil, 1)
 	config.args.fontOutline = ACH:FontFlags(L["Font Outline"], L["Set the font outline."], 2)
@@ -86,7 +86,7 @@ end
 
 local function GetOptionsTable_PvPIconText(name, unit, updateFunc, numGroup)
 	local config = ACH:Group(name, nil, 50, nil, function(info) return E.db.sle.unitframe.units[unit].pvpicontext[info[#info-1]][info[#info]] end, function(info, value) E.db.sle.unitframe.units[unit].pvpicontext[info[#info-1]][info[#info]] = value; updateFunc(UF, unit, numGroup) end)
-	config.guiInline = true
+	-- config.guiInline = true
 
 	local Level = ACH:Group(L["Level"], nil, 1, nil, nil)
 	config.args.level = Level
@@ -106,7 +106,7 @@ local function GetOptionsTable_PvPIconText(name, unit, updateFunc, numGroup)
 end
 
 local function GetSharedUnitFrameOptions(name, unit, updateFunc, numGroup)
-	local config = ACH:Group(name, nil, 100, 'tab')
+	local config = ACH:Group(name, nil, 100, nil)
 
 	config.args.buffs = GetOptionsTable_Auras('buffs', E.UpdateCooldownSettings, unit)
 	config.args.debuffs = GetOptionsTable_Auras('debuffs', E.UpdateCooldownSettings, unit)
@@ -199,7 +199,7 @@ local function configTable()
 	StatusBarTextures.args.powerbar.args.texture = ACH:SharedMediaStatusbar(L["Texture"], nil, 2, nil, nil, nil, function(info) return not E.db.sle.unitframe.statusbarTextures[info[#info-1]].enable end)
 
 	--! Individual Units
-	local IndividualUnits = ACH:Group(L["Individual Units"], nil, 15)
+	local IndividualUnits = ACH:Group(L["Individual Units"], nil, 15, "tab")
 	UnitFrames.args.individualUnits = IndividualUnits
 
 	--* Player Frame
@@ -260,7 +260,7 @@ local function configTable()
 	PetTarget.args.debuffs = GetOptionsTable_Auras('debuffs', E.UpdateCooldownSettings, 'pettarget')
 
 	--! Group Units
-	local GroupUnits = ACH:Group(L["Group Units"], nil, 16)
+	local GroupUnits = ACH:Group(L["Group Units"], nil, 16, 'tab')
 	UnitFrames.args.groupUnits = GroupUnits
 
 	--* Party Frame

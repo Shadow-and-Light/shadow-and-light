@@ -5,4 +5,4 @@ end_on_line = lf
 insert_final_newline = true
 charset = utf-8
 indent_style = tab
-quote_type = single
+

@@ -7,9 +7,9 @@ local _G = _G
 
 function RMM:UpdateMoverSize()
 	if E.db.datatexts.panels.MinimapPanel.enable then
-		_G.MMHolder:Height((_G.Minimap:GetHeight() + (_G.MinimapPanel and (_G.MinimapPanel:GetHeight() + E.Border) or 24)) + E.Spacing*3-((E.MinimapSize/6.1)))
+		_G.ElvUI_MinimapHolder:Height((_G.Minimap:GetHeight() + (_G.MinimapPanel and (_G.MinimapPanel:GetHeight() + E.Border) or 24)) + E.Spacing*3-((E.MinimapSize/6.1)))
 	else
-		_G.MMHolder:Height((_G.Minimap:GetHeight() + E.Border + E.Spacing*3)-(E.MinimapSize/6.1))
+		_G.ElvUI_MinimapHolder:Height((_G.Minimap:GetHeight() + E.Border + E.Spacing*3)-(E.MinimapSize/6.1))
 	end
 end
 
@@ -32,7 +32,7 @@ function RMM:ChangeShape()
 	_G.Minimap:SetHitRectInsets(0, 0, (E.MinimapSize/6.1)*E.mult, (E.MinimapSize/6.1)*E.mult)
 	_G.Minimap:SetClampRectInsets(0, 0, 0, 0)
 	_G.Minimap:ClearAllPoints()
-	_G.Minimap:Point('TOPRIGHT', _G.MMHolder, 'TOPRIGHT', -E.Border, E.Border)
+	_G.Minimap:Point('TOPRIGHT', _G.ElvUI_MinimapHolder, 'TOPRIGHT', -E.Border, E.Border)
 	_G.Minimap.backdrop:SetOutside(_G.Minimap, 1, -(E.MinimapSize/6.1)+1)
 	_G.MinimapBackdrop:SetOutside(_G.Minimap.backdrop)
 
@@ -71,7 +71,7 @@ function RMM:SetUpdateHook()
 		RMM:SecureHook(MM, 'UpdateSettings', 'ChangeShape')
 		RMM:SecureHook(MM, 'Initialize', 'ChangeShape')
 		RMM:SecureHook(E, 'UpdateAll', 'ChangeShape')
-		RMM:SecureHook(_G.MMHolder, 'Size', 'UpdateMoverSize')
+		RMM:SecureHook(_G.ElvUI_MinimapHolder, 'Size', 'UpdateMoverSize')
 
 		self.Initialized = true
 	end

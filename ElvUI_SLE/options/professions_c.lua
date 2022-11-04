@@ -207,7 +207,7 @@ local function configTable()
 						get = function(info) return E.private.sle.professions.fishing.CastButton end,
 						set = function(info, value) E.private.sle.professions.fishing.CastButton = value; E:StaticPopup_Show("PRIVATE_RL") end,
 						values = {
-							["None"] = NONE,
+							-- ["None"] = NONE,
 							["Shift"] = SHIFT_KEY,
 							["Alt"] = ALT_KEY,
 							["Control"] = CTRL_KEY,

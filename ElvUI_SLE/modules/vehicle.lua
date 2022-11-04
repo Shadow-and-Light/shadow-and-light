@@ -220,12 +220,12 @@ function DVB:CreateBar()
 		bar.buttons[i] = LAB:CreateButton(i, format(bar:GetName()..'Button%d', i), bar, nil)
 		bar.buttons[i]:SetState(0, 'action', i)
 
-		for k = 1, 14 do
+		for k = 1, 18 do
 			bar.buttons[i]:SetState(k, 'action', (k - 1) * 12 + i)
 		end
 
 		if i == 7 then
-			bar.buttons[i]:SetState(12, 'custom', AB.customExitButton)
+			bar.buttons[i]:SetState(16, 'custom', AB.customExitButton)
 			_G[elvButton..i].slvehiclebutton = bar.buttons[i]:GetName()
 		else
 			_G[elvButton..i].slvehiclebutton = bar.buttons[i]:GetName()

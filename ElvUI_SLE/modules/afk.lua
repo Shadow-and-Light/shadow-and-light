@@ -2,11 +2,11 @@
 local AFK = E.AFK
 local S = SLE.Screensaver
 
---GLOBALS: unpack, select, format, random, date, tinsert, type, tonumber, hooksecurefunc, UnitPVPName, UnitLevel, UnitClass, UnitRace, RANK, LEVEL, CreateFrame, CreateAnimationGroup, C_Timer, SendChatMessage, RAID_CLASS_COLORS, GetScreenWidth, GetScreenHeight, IsInGuild, GetGuildInfo, FlipCameraYaw
+--GLOBALS: unpack, select, format, random, date, tinsert, type, tonumber, hooksecurefunc, UnitPVPName, UnitClass, UnitRace, RANK, LEVEL, CreateFrame, CreateAnimationGroup, C_Timer, SendChatMessage, RAID_CLASS_COLORS, GetScreenWidth, GetScreenHeight, IsInGuild, GetGuildInfo, FlipCameraYaw
 
 local testTimer  --was AnimTime before
 local format, random, date, tinsert, tonumber = format, random, date, tinsert, tonumber
-local UnitPVPName, UnitLevel, UnitClass = UnitPVPName, UnitLevel, UnitClass
+local UnitPVPName, UnitClass = UnitPVPName, UnitClass
 local RANK, LEVEL = RANK, LEVEL
 local C_Timer, CreateAnimationGroup = C_Timer, CreateAnimationGroup
 local TipNum, OldTip, degree = 1, 0, 0
@@ -93,6 +93,7 @@ S.afkMusic = {
 		['MONK'] = 642138,
 		['DRUID'] = 1417312,
 		['DEMONHUNTER'] = 1417290,
+		['EVOKER'] = 1417290,
 	},
 	RACIAL = {
 		['Human'] = 53210,
@@ -118,6 +119,7 @@ S.afkMusic = {
 		['ZandalariTroll'] = 2844635,
 		['Vulpera'] = 3260632,
 		['MagharOrc'] = 2146630,
+		['Dracthyr'] = 2146630,
 	},
 }
 
@@ -532,7 +534,7 @@ function S:UpdateTextOptions()
 end
 
 function S:UpdateTextStrings()
-	local level, name, classColor = UnitLevel('player'), UnitPVPName('player'), E:ClassColor(E.myclass)
+	local level, name, classColor = E.mylevel, UnitPVPName('player'), E:ClassColor(E.myclass)
 	local GuildName, GuildRank = GetGuildInfo('player')
 
 	currentDateTime()

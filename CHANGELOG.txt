@@ -1,8 +1,7 @@
-v?.?? ?/??/??
-• Added an event tag to the equipment set manager, used as such event:eventid1/eventid2/.../eventidN
+v4.46 11/1/22
 
-v4.41 9/11/22
-
-• fix a transmog issue showing transmog info for a different slot
-• add a couple items to the location panel and fixed one not showing
-• keep up with elvui raid/raid40 -> raid1-3 changes
+• fix deconstruction issues
+• fix dedicated vehicle bar issues
+• fix some location bar issues
+• fix bag taint we were causing
+• fix some fishing module issues
