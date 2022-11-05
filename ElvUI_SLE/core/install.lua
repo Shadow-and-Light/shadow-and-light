@@ -480,9 +480,10 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["fontSize"] = 14
 		E.db["unitframe"]["statusbar"] = "Polished Wood"
 		
-		E.db["unitframe"]["units"]["player"]["CombatIcon"]["anchorPoint"] = "TOP"
+		E.db["unitframe"]["units"]["player"]["CombatIcon"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["size"] = 30
-		E.db["unitframe"]["units"]["player"]["CombatIcon"]["yOffset"] = 8
+		E.db["unitframe"]["units"]["player"]["CombatIcon"]["xOffset"] = -23
+		E.db["unitframe"]["units"]["player"]["CombatIcon"]["yOffset"] = 10
 		E.db["unitframe"]["units"]["player"]["RestIcon"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["player"]["RestIcon"]["texture"] = "Resting0"
 		E.db["unitframe"]["units"]["player"]["RestIcon"]["xOffset"] = 3
@@ -493,7 +494,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["player"]["aurabar"]["height"] = 13
 		E.db["unitframe"]["units"]["player"]["aurabar"]["maxBars"] = 8
 		E.db["unitframe"]["units"]["player"]["aurabar"]["maxDuration"] = 600
-		E.db["unitframe"]["units"]["player"]["aurabar"]["priority"] = "Blacklist,blockNoDuration,Personal,PlayerBuffs,Whitelist,nonPersonal"
+		E.db["unitframe"]["units"]["player"]["aurabar"]["priority"] = "blockMount,Blacklist,blockNoDuration,Personal,PlayerBuffs,Whitelist,nonPersonal"
 		E.db["unitframe"]["units"]["player"]["aurabar"]["sortDirection"] = "ASCENDING"
 		E.db["unitframe"]["units"]["player"]["aurabar"]["spacing"] = 2
 		E.db["unitframe"]["units"]["player"]["buffs"]["perrow"] = 7
@@ -556,7 +557,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["target"]["aurabar"]["height"] = 13
 		E.db["unitframe"]["units"]["target"]["aurabar"]["maxBars"] = 8
 		E.db["unitframe"]["units"]["target"]["aurabar"]["maxDuration"] = 600
-		E.db["unitframe"]["units"]["target"]["aurabar"]["priority"] = "Blacklist,blockNoDuration,Personal,PlayerBuffs,Whitelist,nonPersonal"
+		E.db["unitframe"]["units"]["target"]["aurabar"]["priority"] = "blockMount,blockNonPersonal,Blacklist,blockNoDuration,Personal,PlayerBuffs,Whitelist"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["sortDirection"] = "ASCENDING"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["spacing"] = 2
 		E.db["unitframe"]["units"]["target"]["buffs"]["anchorPoint"] = "TOPLEFT"
