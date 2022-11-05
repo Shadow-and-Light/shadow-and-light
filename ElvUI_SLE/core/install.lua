@@ -949,7 +949,7 @@ function PI:DarthSetupDF()
 		E.db["movers"]["TotemTrackerMover"] = "BOTTOM,UIParent,BOTTOM,-197,368"
 		E.db["movers"]["UIErrorsFrameMover"] = "TOP,ElvUIParent,TOP,0,-177"
 		E.db["movers"]["VOICECHAT"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,586,27"
-		E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,UIParent,BOTTOM,146,346"
+		E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,UIParent,BOTTOM,147,346"
 		E.db["movers"]["VehicleSeatMover"] = "BOTTOMLEFT,UIParent,BOTTOMLEFT,575,253"
 		E.db["movers"]["ZoneAbility"] = "BOTTOM,ElvUIParent,BOTTOM,0,504"
 		E.db["movers"]["TorghastChoiceToggle"] = "BOTTOM,ElvUIParent,BOTTOM,0,185"
