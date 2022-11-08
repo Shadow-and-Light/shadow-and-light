@@ -241,20 +241,22 @@ function DVB:CreateBar()
 	end
 
 	bar:SetAttribute('_onstate-page', [[
-		newstate = ((HasTempShapeshiftActionBar() and self:GetAttribute('hasTempBar')) and GetTempShapeshiftBarIndex()) or (UnitHasVehicleUI('player') and GetVehicleBarIndex()) or (HasOverrideActionBar() and GetOverrideBarIndex()) or newstate
-		if not newstate then return end
-
-		if newstate ~= 0 then
-			self:SetAttribute('state', newstate)
-			control:ChildUpdate('state', newstate)
-		else
-			local newCondition = self:GetAttribute('newCondition')
-			if newCondition then
-				newstate = SecureCmdOptionParse(newCondition)
-				self:SetAttribute('state', newstate)
-				control:ChildUpdate('state', newstate)
+		if newstate == 'possess' or newstate == '11' then
+			if HasVehicleActionBar() then
+				newstate = GetVehicleBarIndex()
+			elseif HasOverrideActionBar() then
+				newstate = GetOverrideBarIndex()
+			elseif HasTempShapeshiftActionBar() then
+				newstate = GetTempShapeshiftBarIndex()
+			elseif HasBonusActionBar() then
+				newstate = GetBonusBarIndex()
+			else
+				newstate = 12
 			end
 		end
+
+		self:SetAttribute('state', newstate)
+		control:ChildUpdate('state', newstate)
 	]])
 
 	local db = DVB.db.vehicle
