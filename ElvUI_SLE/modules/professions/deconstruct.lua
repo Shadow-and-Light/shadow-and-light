@@ -2,7 +2,7 @@
 local Pr = SLE.Professions
 local B = E.Bags
 local lib = LibStub('LibProcessable')
-local LCG = LibStub('LibCustomGlow-1.0')
+local LCG = E.Libs.ButtonGlow
 
 --GLOBALS: unpack, select, CreateFrame, VIDEO_OPTIONS_ENABLED, VIDEO_OPTIONS_DISABLED
 local _G = _G

@@ -1,7 +1,7 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Armory = SLE.Armory_Core
 local CA = SLE.Armory_Character
-local LCG = LibStub('LibCustomGlow-1.0')
+local LCG = E.Libs.ButtonGlow
 local M = E.Misc
 
 local _G = _G
