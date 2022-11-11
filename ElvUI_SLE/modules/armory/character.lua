@@ -94,22 +94,26 @@ function CA:BuildLayout()
 		--<<Azerite>>--
 		hooksecurefunc(_G["Character"..SlotName], "SetAzeriteItem", function(self, itemLocation)
 			if not itemLocation then
-				LCG.PixelGlow_Stop(self, "_AzeriteTraitGlow")
+				-- LCG.PixelGlow_Stop(self, "_AzeriteTraitGlow")
+				LCG.HideOverlayGlow(self, "_AzeriteTraitGlow")
 				return
 			end
 			-- self.AzeriteTexture:Hide()
 			if E.db.sle.armory.character.enable then self.AvailableTraitFrame:Hide() end
 			local isAzeriteEmpoweredItem = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItem(itemLocation)
 			if not isAzeriteEmpoweredItem then
-				LCG.PixelGlow_Stop(self, "_AzeriteTraitGlow")
+				-- LCG.PixelGlow_Stop(self, "_AzeriteTraitGlow")
+				LCG.HideOverlayGlow(self)
 			end
 		end)
 
 		hooksecurefunc(_G["Character"..SlotName], "DisplayAsAzeriteEmpoweredItem", function(self, itemLocation)
 			if E.db.sle.armory.character.enable and HasAnyUnselectedPowers(itemLocation) then
-				LCG.PixelGlow_Start(self, Armory.Constants.AzeriteTraitAvailableColor, nil,-0.25,nil, 3, nil,nil,nil, "_AzeriteTraitGlow")
+				-- LCG.PixelGlow_Start(self, Armory.Constants.AzeriteTraitAvailableColor, nil,-0.25,nil, 3, nil,nil,nil, "_AzeriteTraitGlow")
+				LCG.ShowOverlayGlow(self)
 			else
-				LCG.PixelGlow_Stop(self, "_AzeriteTraitGlow")
+				-- LCG.PixelGlow_Stop(self, "_AzeriteTraitGlow")
+				LCG.HideOverlayGlow(self)
 			end
 		end)
 
