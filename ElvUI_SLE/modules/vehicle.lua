@@ -14,6 +14,7 @@ local UnregisterStateDriver = UnregisterStateDriver
 local GetVehicleBarIndex, GetOverrideBarIndex = GetVehicleBarIndex, GetOverrideBarIndex
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
+local GetCVarBool = GetCVarBool
 
 local defaultFont, defaultFontSize, defaultFontOutline
 
@@ -225,7 +226,7 @@ function DVB:CreateBar()
 		end
 
 		if i == 7 then
-			bar.buttons[i]:SetState(16, 'custom', AB.customExitButton)
+			bar.buttons[i]:SetState(GetVehicleBarIndex(), 'custom', AB.customExitButton)
 			_G[elvButton..i].slvehiclebutton = bar.buttons[i]:GetName()
 		else
 			_G[elvButton..i].slvehiclebutton = bar.buttons[i]:GetName()
@@ -291,7 +292,7 @@ function DVB:UpdateButtonConfig(barName)
 
 	bar.buttonConfig.hideElements.hotkey = not barDB.hotkeytext
 	bar.buttonConfig.showGrid = barDB.showGrid
-	bar.buttonConfig.clickOnDown = AB.db.keyDown
+	bar.buttonConfig.clickOnDown = GetCVarBool('ActionButtonUseKeyDown')
 	bar.buttonConfig.outOfRangeColoring = (AB.db.useRangeColorText and 'hotkey') or 'button'
 	bar.buttonConfig.colors.range = E:SetColorTable(bar.buttonConfig.colors.range, AB.db.noRangeColor)
 	bar.buttonConfig.colors.mana = E:SetColorTable(bar.buttonConfig.colors.mana, AB.db.noPowerColor)
