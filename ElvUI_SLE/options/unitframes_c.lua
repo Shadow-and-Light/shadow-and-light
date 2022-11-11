@@ -133,7 +133,7 @@ end
 
 local function configTable()
 	if not SLE.initialized then return end
-	C = unpack(E.OptionsUI)
+	C = unpack(E.Options)
 	ACH = E.Libs.ACH
 
 	SharedIconOptions = {
