@@ -23,7 +23,7 @@ end
 
 local function configTable()
 	if not SLE.initialized then return end
-	local C = unpack(E.Options)
+	local C = unpack(E.Config)
 	local ACH = E.Libs.ACH
 
 	local SharedBarOptions = {
