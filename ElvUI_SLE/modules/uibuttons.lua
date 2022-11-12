@@ -20,8 +20,8 @@ local function CustomRollCall()
 end
 
 function UB:ConfigSetup(menu)
-	menu:CreateDropdownButton('Config', 'Elv', '|cff1784d1ElvUI|r', L["ElvUI Config"], L["Click to toggle config window"],  function() if InCombatLockdown() then return end; E:ToggleOptionsUI() end, nil, true)
-	menu:CreateDropdownButton('Config', 'SLE', '|cff9482c9S&L|r', L["S&L Config"], L["Click to toggle Shadow & Light config group"],  function() if InCombatLockdown() then return end; E:ToggleOptionsUI(); E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'sle') end, nil, true)
+	menu:CreateDropdownButton('Config', 'Elv', '|cff1784d1ElvUI|r', L["ElvUI Config"], L["Click to toggle config window"],  function() if InCombatLockdown() then return end; E:ToggleOptions() end, nil, true)
+	menu:CreateDropdownButton('Config', 'SLE', '|cff9482c9S&L|r', L["S&L Config"], L["Click to toggle Shadow & Light config group"],  function() if InCombatLockdown() then return end; E:ToggleOptions(); E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'sle') end, nil, true)
 	menu:CreateSeparator('Config', 'First', 4, 2)
 	menu:CreateDropdownButton( 'Config', 'Reload', '/reloadui', L["Reload UI"], L["Click to reload your interface"],  function() ReloadUI() end, nil, true)
 	menu:CreateDropdownButton('Config', 'MoveUI', '/moveui', L["Move UI"], L["Unlock various elements of the UI to be repositioned."],  function() if InCombatLockdown() then return end; E:ToggleMoveMode() end, nil, true)
