@@ -1,7 +1,8 @@
-v4.46 11/1/22
+v4.47 11/11/22
 
-• fix deconstruction issues
-• fix dedicated vehicle bar issues
-• fix some location bar issues
-• fix bag taint we were causing
-• fix some fishing module issues
+• add no to quipmanager conditions for the opposite result
+• try to fix chat tab width somewhat
+• fix up darths profile a bit
+• try to fix fishing taint
+• fix vehicle bar issues
+• update codebase to work with recent elvui changes
