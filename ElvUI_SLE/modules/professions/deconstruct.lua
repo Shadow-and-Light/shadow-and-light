@@ -154,9 +154,11 @@ function Pr:ApplyDeconstruct(itemLink, spell, spellType, r, g, b)
 			ActionButton_ShowOverlayGlow(Pr.DeconstructionReal)
 		elseif E.private.sle.professions.deconButton.style == "SMALL" then
 			-- AutoCastShine_AutoCastStart(Pr.DeconstructionReal, r, g, b)
-			LCG.AutoCastGlow_Start(Pr.DeconstructionReal, color, 5,nil,2)
+			-- LCG.AutoCastGlow_Start(Pr.DeconstructionReal, color, 5,nil,2)
+			LCG.ShowOverlayGlow(Pr.DeconstructionReal)
 		elseif E.private.sle.professions.deconButton.style == "PIXEL" then
-			LCG.PixelGlow_Start(Pr.DeconstructionReal, color, nil, nil, nil, 4)
+			-- LCG.PixelGlow_Start(Pr.DeconstructionReal, color, nil, nil, nil, 4)
+			LCG.ShowOverlayGlow(Pr.DeconstructionReal)
 		end
 	end
 end
@@ -295,8 +297,9 @@ function Pr:ConstructRealDecButton()
 			frame:SetAlpha(1)
 			if _G["GameTooltip"] then _G["GameTooltip"]:Hide() end
 			frame:Hide()
-			LCG.AutoCastGlow_Stop(frame)
-			LCG.ButtonGlow_Stop(frame)
+			-- LCG.AutoCastGlow_Stop(frame)
+			LCG.HideOverlayGlow(frame)
+			-- LCG.ButtonGlow_Stop(frame)
 			ActionButton_HideOverlayGlow(frame)
 		end
 	end
