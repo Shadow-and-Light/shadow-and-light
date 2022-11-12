@@ -17,5 +17,4 @@ Elv: full permission
 Merathilis: full permission
 Benik: full permission
 Azilroka: full permission
-Nihilistzsche: full permission
 Simpy: full permission
