@@ -14,7 +14,7 @@ local function OnEvent(self)
 end
 
 local function OnClick()
-	E:ToggleOptionsUI()
+	E:ToggleOptions()
 	E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'sle')
 end
 

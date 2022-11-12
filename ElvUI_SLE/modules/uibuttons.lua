@@ -61,7 +61,7 @@ end
 
 function UB:SetupBar(menu)
 	if E.private.sle.uibuttons.style == 'classic' then
-		menu:CreateCoreButton('Config', 'C', function() E:ToggleOptionsUI() end)
+		menu:CreateCoreButton('Config', 'C', function() E:ToggleOptions() end)
 		menu:CreateCoreButton('Reload', 'R', function() ReloadUI() end)
 		menu:CreateCoreButton('MoveUI', 'M', function(self) E:ToggleMoveMode() end)
 		menu:CreateCoreButton('Boss', 'B', function(self)
