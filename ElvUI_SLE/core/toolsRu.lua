@@ -7,8 +7,8 @@ function SLE:CyrCommands()
 	SLASH_RELOADUI3 = "/кд"
 
 	E:RegisterChatCommand("шт", "DelayScriptCall") --in
-	E:RegisterChatCommand("ус", "ToggleOptionsUI") --ec
-	E:RegisterChatCommand("удмгш", "ToggleOptionsUI") --elvui
+	E:RegisterChatCommand("ус", "ToggleOptions") --ec
+	E:RegisterChatCommand("удмгш", "ToggleOptions") --elvui
 	E:RegisterChatCommand('ипыефеы', 'BGStats') --bgstats
 	E:RegisterChatCommand('руддщлшеен', 'HelloKittyToggle') --hellokitty
 	E:RegisterChatCommand('руддщлшеенашч', 'HelloKittyFix') --hellokittyfix

@@ -14,7 +14,7 @@ function SLE:BuildGameMenu()
 			text = '|cff9482c9Shadow & Light|r',
 			func = function()
 				if InCombatLockdown() then return end
-				E:ToggleOptionsUI()
+				E:ToggleOptions()
 				E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'sle')
 				HideUIPanel(_G.GameMenuFrame)
 			end,
