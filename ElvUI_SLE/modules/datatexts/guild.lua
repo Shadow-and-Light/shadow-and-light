@@ -363,7 +363,6 @@ function OnEnter(self, _, noUpdate)
 
 		tooltip:SmartAnchorTo(self)
 		tooltip:SetAutoHideDelay(E.db.sle.dt.guild.tooltipAutohide, self)
-		tooltip:SetScript("OnShow", function(ttskinself) ttskinself:SetTemplate('Transparent') end)
 	end
 
 	local line = tooltip:AddLine()
