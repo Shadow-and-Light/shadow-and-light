@@ -1947,7 +1947,7 @@ local function SetupCVars(Author)
 	SetCVar("UberTooltips", "1")
 
 	SetAutoDeclineGuildInvites(true)
-	SetInsertItemsLeftToRight(false)
+	-- SetInsertItemsLeftToRight(false)
 
 	_G["PluginInstallStepComplete"].message = L["CVars Set"]
 	_G["PluginInstallStepComplete"]:Show()
