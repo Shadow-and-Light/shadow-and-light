@@ -9,7 +9,10 @@ local format = format
 local size
 local Zcheck = false
 local GameTooltip = GameTooltip
-local PickupContainerItem, DeleteCursorItem = PickupContainerItem, DeleteCursorItem
+local DeleteCursorItem = DeleteCursorItem
+
+local C_Container_GetItemCooldown = C_Container.GetItemCooldown
+local C_Container_PickupContainerItem = C_Container.PickupContainerItem
 
 Tools.RegisteredAnchors = {}
 Tools.buttoncounts = {} --To kepp number of items
@@ -69,7 +72,7 @@ local function UpdateCooldown(anchor)
 	for i = 1, anchor.NumBars do
 		local bar = anchor.Bars[anchor.BarsName..i]
 		for _, button in ipairs(bar.Buttons) do
-			if button.cooldown then button.cooldown:SetCooldown(GetItemCooldown(button.itemId)) end
+			if button.cooldown then button.cooldown:SetCooldown(C_Container_GetItemCooldown(button.itemId)) end
 		end
 	end
 end
@@ -170,7 +173,7 @@ local function onClick(self, mousebutton)
 		if bar.Autotarget then bar.Autotarget(self) end
 		--If cooldowns are supposed to be here
 		if self.cooldown then
-			self.cooldown:SetCooldown(GetItemCooldown(self.itemId))
+			self.cooldown:SetCooldown(C_Container_GetItemCooldown(self.itemId))
 		end
 		--Applying setup mark
 		if not self.macro then self.macro = true end
@@ -178,7 +181,7 @@ local function onClick(self, mousebutton)
 		self:SetAttribute('type', 'click')
 		local container, slot = SLE:BagSearch(self.itemId)
 		if container and slot then
-			PickupContainerItem(container, slot)
+			C_Container_PickupContainerItem(container, slot)
 			DeleteCursorItem()
 		end
 	end
@@ -225,7 +228,7 @@ function Tools:CreateToolsButton(index, owner, buttonType, name, texture, allowD
 	button.text:SetPoint('BOTTOMRIGHT', button, 1, 2)
 
 	--If this thing has a cooldown
-	if select(3, GetItemCooldown(button.itemId)) == 1 then
+	if select(3, C_Container_GetItemCooldown(button.itemId)) == 1 then
 		button.cooldown = CreateFrame('Cooldown', format('ToolsButton%dCooldown', index), button)
 		button.cooldown:SetAllPoints(button)
 		E:RegisterCooldown(button.cooldown)

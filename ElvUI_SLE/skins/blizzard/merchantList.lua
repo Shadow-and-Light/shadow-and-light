@@ -20,8 +20,13 @@ local IsModifiedClick = IsModifiedClick
 local MerchantItemButton_OnModifiedClick = MerchantItemButton_OnModifiedClick
 local MerchantItemButton_OnEnter = MerchantItemButton_OnEnter
 local ResetCursor, ShowInspectCursor = ResetCursor, ShowInspectCursor
-local GetCurrencyListInfo = C_CurrencyInfo.GetCurrencyListInfo
+
+local C_CurrencyInfo_GetCurrencyListInfo = C_CurrencyInfo.GetCurrencyListInfo
 local C_CurrencyInfo_GetCurrencyListSize = C_CurrencyInfo.GetCurrencyListSize
+
+local C_Container_GetContainerItemInfo = C_Container.GetContainerItemInfo
+local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
+local C_Container_GetContainerItemID = C_Container.GetContainerItemID
 
 local HIGHLIGHT_FONT_COLOR = HIGHLIGHT_FONT_COLOR
 local SEARCH = SEARCH
@@ -310,7 +315,7 @@ local function List_CurrencyUpdate()
 	local limit = C_CurrencyInfo_GetCurrencyListSize()
 
 	for i=1, limit do
-		local name, isHeader, _, _, _, count, icon, maximum, hasWeeklyLimit, currentWeeklyAmount, _, itemID = GetCurrencyListInfo(i)
+		local name, isHeader, _, _, _, count, icon, maximum, hasWeeklyLimit, currentWeeklyAmount, _, itemID = C_CurrencyInfo_GetCurrencyListInfo(i)
 		if ( not isHeader and itemID ) then
 			currencies[tonumber(itemID)] = count
 			if ( not isHeader and itemID and tonumber(itemID) <= 9 ) then
@@ -329,11 +334,11 @@ local function List_CurrencyUpdate()
 	end
 
 	for bagID=0, NUM_BAG_SLOTS, 1 do
-		local numSlots = GetContainerNumSlots(bagID)
+		local numSlots = C_Container_GetContainerNumSlots(bagID)
 		for slotID=1, numSlots, 1 do
-			local itemID = GetContainerItemID(bagID, slotID)
+			local itemID = C_Container_GetContainerItemID(bagID, slotID)
 			if ( itemID ) then
-				local count = select(2, GetContainerItemInfo(bagID, slotID))
+				local count = select(2, C_Container_GetContainerItemInfo(bagID, slotID))
 				itemID = tonumber(itemID)
 				local currency = currencies[itemID]
 				if ( currency ) then

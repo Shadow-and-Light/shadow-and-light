@@ -6,9 +6,11 @@ local B = E.Bags
 local _G = _G
 local Pr
 
+local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
+
 -- Updating slot for deconstruct glow hide when item disappears
 function SB:UpdateSlot(bagID, slotID)
-	if (self.Bags[bagID] and self.Bags[bagID].numSlots ~= GetContainerNumSlots(bagID)) or not self.Bags[bagID] or not self.Bags[bagID][slotID] then
+	if (self.Bags[bagID] and self.Bags[bagID].numSlots ~= C_Container_GetContainerNumSlots(bagID)) or not self.Bags[bagID] or not self.Bags[bagID][slotID] then
 		return
 	end
 
