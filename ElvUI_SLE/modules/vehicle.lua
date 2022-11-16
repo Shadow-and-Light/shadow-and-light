@@ -14,6 +14,7 @@ local UnregisterStateDriver = UnregisterStateDriver
 local GetVehicleBarIndex, GetOverrideBarIndex = GetVehicleBarIndex, GetOverrideBarIndex
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
+local GetCVarBool = GetCVarBool
 
 local defaultFont, defaultFontSize, defaultFontOutline
 
@@ -225,7 +226,7 @@ function DVB:CreateBar()
 		end
 
 		if i == 7 then
-			bar.buttons[i]:SetState(16, 'custom', AB.customExitButton)
+			bar.buttons[i]:SetState(GetVehicleBarIndex(), 'custom', AB.customExitButton)
 			_G[elvButton..i].slvehiclebutton = bar.buttons[i]:GetName()
 		else
 			_G[elvButton..i].slvehiclebutton = bar.buttons[i]:GetName()
@@ -241,20 +242,22 @@ function DVB:CreateBar()
 	end
 
 	bar:SetAttribute('_onstate-page', [[
-		newstate = ((HasTempShapeshiftActionBar() and self:GetAttribute('hasTempBar')) and GetTempShapeshiftBarIndex()) or (UnitHasVehicleUI('player') and GetVehicleBarIndex()) or (HasOverrideActionBar() and GetOverrideBarIndex()) or newstate
-		if not newstate then return end
-
-		if newstate ~= 0 then
-			self:SetAttribute('state', newstate)
-			control:ChildUpdate('state', newstate)
-		else
-			local newCondition = self:GetAttribute('newCondition')
-			if newCondition then
-				newstate = SecureCmdOptionParse(newCondition)
-				self:SetAttribute('state', newstate)
-				control:ChildUpdate('state', newstate)
+		if newstate == 'possess' or newstate == '11' then
+			if HasVehicleActionBar() then
+				newstate = GetVehicleBarIndex()
+			elseif HasOverrideActionBar() then
+				newstate = GetOverrideBarIndex()
+			elseif HasTempShapeshiftActionBar() then
+				newstate = GetTempShapeshiftBarIndex()
+			elseif HasBonusActionBar() then
+				newstate = GetBonusBarIndex()
+			else
+				newstate = 12
 			end
 		end
+
+		self:SetAttribute('state', newstate)
+		control:ChildUpdate('state', newstate)
 	]])
 
 	local db = DVB.db.vehicle
@@ -289,7 +292,7 @@ function DVB:UpdateButtonConfig(barName)
 
 	bar.buttonConfig.hideElements.hotkey = not barDB.hotkeytext
 	bar.buttonConfig.showGrid = barDB.showGrid
-	bar.buttonConfig.clickOnDown = AB.db.keyDown
+	bar.buttonConfig.clickOnDown = GetCVarBool('ActionButtonUseKeyDown')
 	bar.buttonConfig.outOfRangeColoring = (AB.db.useRangeColorText and 'hotkey') or 'button'
 	bar.buttonConfig.colors.range = E:SetColorTable(bar.buttonConfig.colors.range, AB.db.noRangeColor)
 	bar.buttonConfig.colors.mana = E:SetColorTable(bar.buttonConfig.colors.mana, AB.db.noPowerColor)

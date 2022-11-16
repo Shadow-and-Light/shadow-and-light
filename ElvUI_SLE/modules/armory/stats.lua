@@ -84,7 +84,7 @@ function SA:BuildScrollBar() --Creating new scroll
 	--Scrollframe Parent Frame
 	SA.ScrollframeParentFrame = CreateFrame('Frame', nil, _G.CharacterFrameInsetRight)
 	SA.ScrollframeParentFrame:SetSize(198, 352)
-	SA.ScrollframeParentFrame:SetPoint('TOP', _G.CharacterFrameInsetRight, 'TOP', 0, -4)
+	SA.ScrollframeParentFrame:SetPoint('TOP', _G.CharacterFrameInsetRight, 'TOP', -4, -4)
 
 	--Scrollframe
 	SA.ScrollFrame = CreateFrame('ScrollFrame', 'SLE_Armory_Scroll', SA.ScrollframeParentFrame)
@@ -104,7 +104,7 @@ function SA:BuildScrollBar() --Creating new scroll
 		local offset = value > 1 and frame:GetParent():GetVerticalScrollRange()/(SA.totalShown*Armory.Constants.Stats.ScrollStepMultiplier) or 1
 		frame:GetParent():SetVerticalScroll(value*offset)
 	end)
-	E.Skins:HandleScrollBar(SA.Scrollbar)
+	SLE.Skins:ConvertScrollBarToThin(SA.Scrollbar)
 	SA.Scrollbar:Hide()
 
 	--SA.ScrollChild Frame

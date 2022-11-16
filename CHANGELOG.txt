@@ -1,7 +1,3 @@
-v4.46 11/1/22
+v4.49 11/16/22
 
-• fix deconstruction issues
-• fix dedicated vehicle bar issues
-• fix some location bar issues
-• fix bag taint we were causing
-• fix some fishing module issues
+• fixed LibQTip error
