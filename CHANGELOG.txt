@@ -1,3 +1,3 @@
-v4.49 11/16/22
+v4.50 11/16/22
 
-• fixed LibQTip error
+• fixed most prepatch 2 issues

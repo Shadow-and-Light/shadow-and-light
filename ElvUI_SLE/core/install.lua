@@ -9,7 +9,7 @@ local ENABLE, DISABLE, NONE = ENABLE, DISABLE, NONE
 local ADDONS = ADDONS
 local SetCVar = SetCVar
 local SetAutoDeclineGuildInvites = SetAutoDeclineGuildInvites
-local SetInsertItemsLeftToRight = SetInsertItemsLeftToRight
+local C_Container = C_Container
 local GetCVarBool, StopMusic, ReloadUI = GetCVarBool, StopMusic, ReloadUI
 
 PI.SLE_Auth = ''
@@ -39,17 +39,17 @@ function PI:DarthSetupDF()
 		E.db["general"]["decimalLength"] = 2
 		E.db["general"]["font"] = "Expressway"
 		E.db["general"]["autoRepair"] = "PLAYER"
-		
+
 		E.db["general"]["torghastBuffsPosition"] = "AUTO"
 		E.db["general"]["bonusObjectivePosition"] = "AUTO"
 		E.db["general"]["objectiveFrameHeight"] = 500
-		
+
 		E.db["general"]["backdropfadecolor"]["b"] = 0.054
 		E.db["general"]["backdropfadecolor"]["g"] = 0.054
 		E.db["general"]["backdropfadecolor"]["r"] = 0.054
 
 		E.db["general"]["altPowerBar"]["statusBar"] = "WorldState Score"
-		
+
 		E.db["general"]["minimap"]["icons"]["mail"]["texture"] = "Mail0"
 		E.db["general"]["minimap"]["icons"]["mail"]["xOffset"] = 0
 		E.db["general"]["minimap"]["icons"]["mail"]["yOffset"] = 0
@@ -59,11 +59,11 @@ function PI:DarthSetupDF()
 		E.db["general"]["totems"]["growthDirection"] = "HORIZONTAL"
 		E.db["general"]["totems"]["size"] = 30
 		E.db["general"]["totems"]["spacing"] = 1
-		
+
 		E.db["general"]["valuecolor"]["b"] = 0.15294117647059
 		E.db["general"]["valuecolor"]["g"] = 0.74901960784314
 		E.db["general"]["valuecolor"]["r"] = 0.23529411764706
-		
+
 		E.db["convertPages"] = true
 		E.db["cooldown"]["targetAura"] = false
 	end
@@ -76,7 +76,7 @@ function PI:DarthSetupDF()
 		E.db["actionbar"]["fontSize"] = 15
 		E.db["actionbar"]["transparent"] = true
 		E.db["actionbar"]["useDrawSwipeOnCharges"] = true
-	
+
 		E.db["actionbar"]["bar1"]["buttonSize"] = 44
 		E.db["actionbar"]["bar1"]["buttonSpacing"] = -1
 		E.db["actionbar"]["bar1"]["buttonsPerRow"] = 6
@@ -89,7 +89,7 @@ function PI:DarthSetupDF()
 		E.db["actionbar"]["bar1"]["macroFontSize"] = 15
 		E.db["actionbar"]["bar1"]["paging"]["WARLOCK"] = ""
 		E.db["actionbar"]["bar1"]["point"] = "TOPLEFT"
-		
+
 		E.db["actionbar"]["bar2"]["countFont"] = "Expressway"
 		E.db["actionbar"]["bar2"]["countFontSize"] = 15
 		E.db["actionbar"]["bar2"]["hotkeyFont"] = "Expressway"
@@ -97,7 +97,7 @@ function PI:DarthSetupDF()
 		E.db["actionbar"]["bar2"]["macroFont"] = "Expressway"
 		E.db["actionbar"]["bar2"]["macroFontSize"] = 15
 		E.db["actionbar"]["bar2"]["visibility"] = "[petbattle] hide; show"
-		
+
 		E.db["actionbar"]["bar3"]["buttonSize"] = 38
 		E.db["actionbar"]["bar3"]["buttonSpacing"] = -1
 		E.db["actionbar"]["bar3"]["buttons"] = 12
@@ -110,7 +110,7 @@ function PI:DarthSetupDF()
 		E.db["actionbar"]["bar3"]["macroFontSize"] = 15
 		E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["bar3"]["visibility"] = "[petbattle] hide; show"
-		
+
 		E.db["actionbar"]["bar4"]["backdrop"] = false
 		E.db["actionbar"]["bar4"]["buttonSize"] = 38
 		E.db["actionbar"]["bar4"]["buttonSpacing"] = -1
@@ -123,7 +123,7 @@ function PI:DarthSetupDF()
 		E.db["actionbar"]["bar4"]["macroFontSize"] = 15
 		E.db["actionbar"]["bar4"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["bar4"]["visibility"] = "[petbattle] hide; show"
-		
+
 		E.db["actionbar"]["bar5"]["buttonSize"] = 36
 		E.db["actionbar"]["bar5"]["buttonSpacing"] = -1
 		E.db["actionbar"]["bar5"]["buttons"] = 12
@@ -136,7 +136,7 @@ function PI:DarthSetupDF()
 		E.db["actionbar"]["bar5"]["macroFontSize"] = 15
 		E.db["actionbar"]["bar5"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["bar5"]["visibility"] = "[petbattle] hide; show"
-		
+
 		E.db["actionbar"]["bar6"]["buttonSize"] = 36
 		E.db["actionbar"]["bar6"]["buttonSpacing"] = -1
 		E.db["actionbar"]["bar6"]["buttonsPerRow"] = 4
@@ -149,7 +149,7 @@ function PI:DarthSetupDF()
 		E.db["actionbar"]["bar6"]["macroFontSize"] = 15
 		E.db["actionbar"]["bar6"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["bar6"]["visibility"] = "[petbattle] hide; show"
-		
+
 		E.db["actionbar"]["bar7"]["countFont"] = "Expressway"
 		E.db["actionbar"]["bar7"]["countFontSize"] = 15
 		E.db["actionbar"]["bar7"]["hotkeyFont"] = "Expressway"
@@ -268,18 +268,18 @@ function PI:DarthSetupDF()
 		E.db["chat"]["emotionIcons"] = false
 		E.db["chat"]["fadeChatToggles"] = false
 		E.db["chat"]["fontOutline"] = "OUTLINE"
-		
+
 		E.db["chat"]["panelHeight"] = 227
 		E.db["chat"]["panelWidth"] = 475
-		
+
 		E.db["chat"]["showHistory"]["EMOTE"] = false
 		E.db["chat"]["showHistory"]["SAY"] = false
 		E.db["chat"]["showHistory"]["YELL"] = false
-		
+
 		E.db["chat"]["tabFont"] = "Expressway"
 		E.db["chat"]["tabFontOutline"] = "OUTLINE"
 		E.db["chat"]["tabFontSize"] = 10
-		
+
 		E.db["chat"]["timeStampFormat"] = "%H:%M:%S "
 		E.db["chat"]["timeStampLocalTime"] = true
 	end
@@ -312,7 +312,7 @@ function PI:DarthSetupDF()
 	--Datatexts
 	do
 		E.DataTexts:BuildPanelFrame('Darth_Panel_1')
-		
+
 		E.global['datatexts']['customPanels']['Darth_Panel_1']['panelTransparency'] = true
 		E.global['datatexts']['customPanels']['Darth_Panel_1']['border'] = true
 		E.global['datatexts']['customPanels']['Darth_Panel_1']['tooltipYOffset'] = 4
@@ -342,11 +342,11 @@ function PI:DarthSetupDF()
 		E.db["datatexts"]["panels"]["LeftChatDataPanel"][1] = "S&L Time Played"
 		E.db["datatexts"]["panels"]["LeftChatDataPanel"][3] = "S&L Guild"
 		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["panelTransparency"] = true
-		
+
 		E.db["datatexts"]["panels"]["MinimapPanel"][1] = "Time"
 		E.db["datatexts"]["panels"]["MinimapPanel"][2] = "Combat"
 		E.db["datatexts"]["panels"]["MinimapPanel"]["panelTransparency"] = true
-		
+
 		E.db["datatexts"]["panels"]["RightChatDataPanel"][1] = "Mastery"
 		E.db["datatexts"]["panels"]["RightChatDataPanel"][2] = "S&L Item Level"
 		E.db["datatexts"]["panels"]["RightChatDataPanel"][3] = "Talent/Loot Specialization"
@@ -407,7 +407,7 @@ function PI:DarthSetupDF()
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["yOffset"] = -5
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["yOffset"] = 20
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["raidTargetIndicator"]["size"] = 22
-		
+
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["maxDuration"] = 0
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["numAuras"] = 6
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["priority"] = "Blacklist,RaidBuffsElvUI,Dispellable,blockNoDuration,PlayerBuffs,TurtleBuffs,CastByUnit"
@@ -437,7 +437,7 @@ function PI:DarthSetupDF()
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["yOffset"] = -5
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["raidTargetIndicator"]["size"] = 22
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["format"] = "[npctitle]"
-		
+
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["size"] = 22
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["height"] = 5
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["font"] = "Expressway"
@@ -446,7 +446,7 @@ function PI:DarthSetupDF()
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["fontSize"] = 10
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["height"] = 6
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["yOffset"] = -5
-		
+
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["size"] = 22
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["height"] = 5
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "Expressway"
@@ -479,7 +479,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["fontOutline"] = "OUTLINE"
 		E.db["unitframe"]["fontSize"] = 14
 		E.db["unitframe"]["statusbar"] = "Polished Wood"
-		
+
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["size"] = 30
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["xOffset"] = -23
@@ -545,7 +545,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["player"]["raidicon"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["resurrectIcon"]["size"] = 40
 		E.db["unitframe"]["units"]["player"]["width"] = 180
-		
+
 		E.db["unitframe"]["units"]["target"]["CombatIcon"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["target"]["CombatIcon"]["size"] = 30
 		E.db["unitframe"]["units"]["target"]["CombatIcon"]["xOffset"] = 12
@@ -612,7 +612,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["target"]["raidicon"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["resurrectIcon"]["size"] = 40
 		E.db["unitframe"]["units"]["target"]["width"] = 180
-		
+
 		E.db["unitframe"]["units"]["targettarget"]["buffs"]["anchorPoint"] = "BOTTOM"
 		E.db["unitframe"]["units"]["targettarget"]["buffs"]["attachTo"] = "DEBUFFS"
 		E.db["unitframe"]["units"]["targettarget"]["buffs"]["enable"] = true
@@ -632,7 +632,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["targettarget"]["raidicon"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["targettarget"]["threatStyle"] = "GLOW"
 		E.db["unitframe"]["units"]["targettarget"]["width"] = 100
-		
+
 		E.db["unitframe"]["units"]["pet"]["castbar"]["iconSize"] = 32
 		E.db["unitframe"]["units"]["pet"]["castbar"]["overlayOnFrame"] = "Power"
 		E.db["unitframe"]["units"]["pet"]["castbar"]["width"] = 100
@@ -643,7 +643,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["pet"]["name"]["text_format"] = ""
 		E.db["unitframe"]["units"]["pet"]["power"]["height"] = 6
 		E.db["unitframe"]["units"]["pet"]["width"] = 100
-		
+
 		E.db["unitframe"]["units"]["focus"]["buffs"]["anchorPoint"] = "BOTTOM"
 		E.db["unitframe"]["units"]["focus"]["buffs"]["attachTo"] = "DEBUFFS"
 		E.db["unitframe"]["units"]["focus"]["buffs"]["enable"] = true
@@ -660,7 +660,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["focus"]["raidicon"]["size"] = 20
 		E.db["unitframe"]["units"]["focus"]["raidicon"]["xOffset"] = -20
 		E.db["unitframe"]["units"]["focus"]["width"] = 160
-		
+
 		E.db["unitframe"]["colors"]["auraBarBuff"]["b"] = 0.15294117647059
 		E.db["unitframe"]["colors"]["auraBarBuff"]["g"] = 0.74901960784314
 		E.db["unitframe"]["colors"]["auraBarBuff"]["r"] = 0.23529411764706
@@ -681,7 +681,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["colors"]["health_backdrop"]["r"] = 0.21960784313725
 		E.db["unitframe"]["colors"]["healthclass"] = true
 		E.db["unitframe"]["colors"]["transparentAurabars"] = true
-		
+
 		E.db["unitframe"]["units"]["assist"]["enable"] = false
 		E.db["unitframe"]["units"]["tank"]["enable"] = false
 
@@ -702,7 +702,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["party"]["roleIcon"]["position"] = "TOPLEFT"
 		E.db["unitframe"]["units"]["party"]["roleIcon"]["yOffset"] = 5
 		E.db["unitframe"]["units"]["party"]["width"] = 160
-		
+
 		E.db["unitframe"]["units"]["raid1"]["growthDirection"] = "RIGHT_UP"
 		E.db["unitframe"]["units"]["raid1"]["health"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["raid1"]["health"]["text_format"] = "[perhp]"
@@ -727,11 +727,11 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["raid1"]["verticalSpacing"] = 4
 		E.db["unitframe"]["units"]["raid1"]["visibility"] = "[@raid6,noexists] hide;show"
 		E.db["unitframe"]["units"]["raid1"]["width"] = 90
-		
+
 		E.db["unitframe"]["units"]["raid2"]["enable"] = false
-		
+
 		E.db["unitframe"]["units"]["raid3"]["enable"] = false
-		
+
 		E.db["unitframe"]["units"]["arena"]["health"]["position"] = "BOTTOMRIGHT"
 		E.db["unitframe"]["units"]["arena"]["health"]["text_format"] = " [absorbs:sl-short] [healthcolor][health:current:shortvalue]"
 		E.db["unitframe"]["units"]["arena"]["health"]["xOffset"] = -2
@@ -765,24 +765,24 @@ function PI:DarthSetupDF()
 	--S&L
 	do
 		E.db["sle"]["afk"]["enable"] = true
-		
+
 		E.db["sle"]["armory"]["character"]["enable"] = true
 		E.db["sle"]["armory"]["character"]["gradient"]["quality"] = true
 		E.db["sle"]["armory"]["inspect"]["enable"] = true
 		E.db["sle"]["armory"]["inspect"]["gradient"]["quality"] = true
 		E.db["sle"]["armory"]["stats"]["IlvlColor"] = true
 		E.db["sle"]["armory"]["stats"]["List"]["ATTACK_AP"] = true
-		
+
 		E.db["sle"]["blizzard"]["rumouseover"] = true
-		
+
 		E.db["sle"]["chat"]["dpsSpam"] = true
 		E.db["sle"]["chat"]["guildmaster"] = true
-		
+
 		E.db["sle"]["databars"]["experience"]["chatfilter"]["enable"] = true
 		E.db["sle"]["databars"]["experience"]["chatfilter"]["style"] = "STYLE2"
 		E.db["sle"]["databars"]["reputation"]["chatfilter"]["enable"] = true
 		E.db["sle"]["databars"]["reputation"]["chatfilter"]["style"] = "STYLE2"
-		
+
 		E.db["sle"]["dt"]["currency"]["Archaeology"] = false
 		E.db["sle"]["dt"]["currency"]["Unused"] = false
 		E.db["sle"]["dt"]["currency"]["gold"]["method"] = "amount"
@@ -794,11 +794,11 @@ function PI:DarthSetupDF()
 		E.db["sle"]["dt"]["friends"]["panelStyle"] = "DEFAULTTOTALS"
 		E.db["sle"]["dt"]["guild"]["hide_titleline"] = true
 		E.db["sle"]["dt"]["guild"]["totals"] = true
-		
+
 		E.db["sle"]["loot"]["autoroll"]["autogreed"] = true
 		E.db["sle"]["loot"]["enable"] = true
 		E.db["sle"]["loot"]["history"]["autohide"] = true
-		
+
 		E.db["sle"]["media"]["fonts"]["gossip"]["font"] = "Expressway"
 		E.db["sle"]["media"]["fonts"]["mail"]["font"] = "Expressway"
 		E.db["sle"]["media"]["fonts"]["objective"]["font"] = "Expressway"
@@ -810,34 +810,34 @@ function PI:DarthSetupDF()
 		E.db["sle"]["media"]["fonts"]["questFontSuperHuge"]["font"] = "Expressway"
 		E.db["sle"]["media"]["fonts"]["subzone"]["font"] = "RussoOne"
 		E.db["sle"]["media"]["fonts"]["zone"]["font"] = "RussoOne"
-		
+
 		E.db["sle"]["minimap"]["instance"]["enable"] = true
 		E.db["sle"]["minimap"]["instance"]["fontSize"] = 14
 		E.db["sle"]["minimap"]["locPanel"]["enable"] = true
 		E.db["sle"]["minimap"]["locPanel"]["font"] = "Expressway"
 		E.db["sle"]["minimap"]["locPanel"]["fontSize"] = 14
 		E.db["sle"]["minimap"]["locPanel"]["width"] = 310
-		
+
 		E.db["sle"]["nameplates"]["targetcount"]["enable"] = true
 		E.db["sle"]["nameplates"]["targetcount"]["font"] = "Expressway"
 		E.db["sle"]["nameplates"]["threat"]["enable"] = true
 		E.db["sle"]["nameplates"]["threat"]["font"] = "Expressway"
 		E.db["sle"]["nameplates"]["threat"]["size"] = 10
-		
+
 		E.db["sle"]["pvp"]["autorelease"] = true
 		E.db["sle"]["pvp"]["duels"]["pet"] = true
 		E.db["sle"]["pvp"]["duels"]["regular"] = true
-		
+
 		E.db["sle"]["quests"]["autoReward"] = true
-		
+
 		E.db["sle"]["tooltip"]["alwaysCompareItems"] = true
 		E.db["sle"]["tooltip"]["showFaction"] = true
-		
+
 		E.db["sle"]["uibuttons"]["anchor"] = "TOPLEFT"
 		E.db["sle"]["uibuttons"]["enable"] = true
 		E.db["sle"]["uibuttons"]["point"] = "TOPRIGHT"
 		E.db["sle"]["uibuttons"]["spacing"] = 1
-		
+
 		E.db["sle"]["unitframe"]["units"]["player"]["pvpicontext"]["level"]["anchorPoint"] = "LEFT"
 		E.db["sle"]["unitframe"]["units"]["player"]["pvpicontext"]["level"]["enable"] = true
 		E.db["sle"]["unitframe"]["units"]["player"]["pvpicontext"]["level"]["font"] = "Expressway"
@@ -980,7 +980,7 @@ function PI:DarthSetupDF()
 	E.private['general']['glossTex'] = 'ElvUI Gloss'
 	E.private['general']['minimap']['hideClassHallReport'] = true
 	E.private["general"]["raidUtility"] = false
-	
+
 	E.private["skins"]["blizzard"]["achievement"] = false
 	E.private["skins"]["blizzard"]["alertframes"] = false
 
@@ -1947,7 +1947,7 @@ local function SetupCVars(Author)
 	SetCVar("UberTooltips", "1")
 
 	SetAutoDeclineGuildInvites(true)
-	SetInsertItemsLeftToRight(false)
+	C_Container.SetInsertItemsLeftToRight(false)
 
 	_G["PluginInstallStepComplete"].message = L["CVars Set"]
 	_G["PluginInstallStepComplete"]:Show()
@@ -2070,7 +2070,7 @@ SLE.installTable = {
 				_G["PluginInstallFrame"].Option1:Show()
 				_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() StartSetup("DARTH") end)
 				_G["PluginInstallFrame"].Option1:SetText(L["Layout"])
-				
+
 				_G["PluginInstallFrame"].Option2:Show()
 				_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() StartSetup("DARTH_SL") end)
 				_G["PluginInstallFrame"].Option2:SetText(L["Layout"].." SL")
