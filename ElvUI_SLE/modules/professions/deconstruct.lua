@@ -6,7 +6,7 @@ local LCG = E.Libs.ButtonGlow
 
 --GLOBALS: unpack, select, CreateFrame, VIDEO_OPTIONS_ENABLED, VIDEO_OPTIONS_DISABLED
 local _G = _G
-local format, strfind, strmatch, strsplit, gsub = format, strfind, strmatch, strsplit, gsub
+local format, strfind, strsplit, gsub = format, strfind, strsplit, gsub
 local GetItemInfo, GetTradeTargetItemLink = GetItemInfo, GetTradeTargetItemLink
 local InCombatLockdown = InCombatLockdown
 local LOCKED = LOCKED
@@ -139,7 +139,7 @@ function Pr:ApplyDeconstruct(itemLink, itemId, spell, spellType, r, g, b)
 		Pr.DeconstructionReal:SetAttribute('target-slot', slot:GetID())
 		Pr.DeconstructionReal:SetAllPoints(slot)
 		Pr.DeconstructionReal:Show()
-		
+
 		if E.private.sle.professions.deconButton.style == "BIG" then
 			ActionButton_ShowOverlayGlow(Pr.DeconstructionReal)
 		elseif E.private.sle.professions.deconButton.style == "SMALL" then
@@ -169,7 +169,7 @@ end
 
 function Pr:IsUnlockable(itemLink)
 	local workLink
-	if _G["TradeFrame"]:IsShown() then
+	if _G.TradeFrame:IsShown() then
 		workLink = GetTradeTargetItemLink(7)
 	else
 		local slot = GetMouseFocus()
@@ -194,8 +194,8 @@ function Pr:DeconstructParser(tt, data)
 	local ownerName = owner and owner.GetName and owner:GetName()
 	if ownerName and (strfind(ownerName, 'ElvUI_Container') or strfind(ownerName, 'ElvUI_BankContainer')) then
 		local itemId = data.id
-		if not itemId or itemId == "" then return end
-		
+		if not itemId or itemId == '' then return end
+
 		local hyperlink
 		if data.guid then
 			hyperlink = C_Item.GetItemLinkByGUID(data.guid);
@@ -205,21 +205,21 @@ function Pr:DeconstructParser(tt, data)
 
 		if not hyperlink then return end
 
-		if(itemId and not InCombatLockdown()) and (Pr.DeconstructMode == true or (E.global.sle.LOCK.TradeOpen and self:GetOwner():GetName() == "TradeRecipientItem7ItemButton")) then
+		if(itemId and not InCombatLockdown()) and (Pr.DeconstructMode == true or (E.global.sle.LOCK.TradeOpen and self:GetOwner():GetName() == 'TradeRecipientItem7ItemButton')) then
 			local r, g, b
 			if lib:IsOpenable(itemId) and Pr:IsUnlockable(hyperlink) then
 				r, g, b = 0, 1, 1
-				Pr:ApplyDeconstruct(hyperlink, itemId, Pr.LOCKname, "spell", r, g, b)
+				Pr:ApplyDeconstruct(hyperlink, itemId, Pr.LOCKname, 'spell', r, g, b)
 			elseif lib:IsOpenableProfession(itemId) and Pr:IsUnlockable(hyperlink) then
 				r, g, b = 0, 1, 1
 				local hasKey = HaveKey()
-				Pr:ApplyDeconstruct(hyperlink, itemId, hasKey, "item", r, g, b)
+				Pr:ApplyDeconstruct(hyperlink, itemId, hasKey, 'item', r, g, b)
 			elseif lib:IsProspectable(itemId) then
 				r, g, b = 1, 0, 0
-				Pr:ApplyDeconstruct(hyperlink, itemId, Pr.PROSPECTname, "spell", r, g, b)
+				Pr:ApplyDeconstruct(hyperlink, itemId, Pr.PROSPECTname, 'spell', r, g, b)
 			elseif lib:IsMillable(itemId) then
 				r, g, b = 1, 0, 0
-				Pr:ApplyDeconstruct(hyperlink, itemId, Pr.MILLname, "spell", r, g, b)
+				Pr:ApplyDeconstruct(hyperlink, itemId, Pr.MILLname, 'spell', r, g, b)
 			elseif Pr.DEname then
 				local isArtRelic
 				local itemName, _, itemQuality, _, _, itemClass, itemSubclass, _, equipSlot = GetItemInfo(itemId)
@@ -229,7 +229,7 @@ function Pr:DeconstructParser(tt, data)
 				end
 				if normalItem or isArtRelic then
 					r, g, b = 1, 0, 0
-					Pr:ApplyDeconstruct(hyperlink, itemId, Pr.DEname, "spell", r, g, b)
+					Pr:ApplyDeconstruct(hyperlink, itemId, Pr.DEname, 'spell', r, g, b)
 				end
 			end
 		end
@@ -239,48 +239,48 @@ end
 function Pr:GetDeconMode()
 	local text
 	if Pr.DeconstructMode then
-		text = "|cff00FF00 "..VIDEO_OPTIONS_ENABLED.."|r"
+		text = '|cff00FF00 '..VIDEO_OPTIONS_ENABLED..'|r'
 	else
-		text = "|cffFF0000 "..VIDEO_OPTIONS_DISABLED.."|r"
+		text = '|cffFF0000 '..VIDEO_OPTIONS_DISABLED..'|r'
 	end
 	return text
 end
 
 function Pr:Construct_BagButton()
-	Pr.DeconstructButton = CreateFrame("Button", "SLE_DeconButton", _G["ElvUI_ContainerFrame"], "BackdropTemplate")
+	Pr.DeconstructButton = CreateFrame('Button', 'SLE_DeconButton', _G.ElvUI_ContainerFrame, 'BackdropTemplate')
 	Pr.DeconstructButton:SetSize(16 + E.Border, 16 + E.Border)
 	Pr.DeconstructButton:SetTemplate()
 	Pr.DeconstructButton.ttText = L["Deconstruct Mode"]
 	Pr.DeconstructButton.ttText2 = format(L["Allow you to disenchant/mill/prospect/unlock items.\nClick to toggle.\nCurrent state: %s."], Pr:GetDeconMode())
-	Pr.DeconstructButton:SetScript("OnEnter", B.Tooltip_Show)
-	Pr.DeconstructButton:SetScript("OnLeave", GameTooltip_Hide)
-	Pr.DeconstructButton:SetPoint("RIGHT", _G["ElvUI_ContainerFrame"].bagsButton, "LEFT", -5, 0)
-	Pr.DeconstructButton:SetNormalTexture("Interface\\ICONS\\INV_Rod_Cobalt")
+	Pr.DeconstructButton:SetScript('OnEnter', B.Tooltip_Show)
+	Pr.DeconstructButton:SetScript('OnLeave', GameTooltip_Hide)
+	Pr.DeconstructButton:SetPoint('RIGHT', _G.ElvUI_ContainerFrame.bagsButton, 'LEFT', -5, 0)
+	Pr.DeconstructButton:SetNormalTexture([[Interface\ICONS\INV_Rod_Cobalt]])
 	Pr.DeconstructButton:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
 	Pr.DeconstructButton:GetNormalTexture():SetInside()
 
 	Pr.DeconstructButton:StyleButton(nil, true)
-	Pr.DeconstructButton:SetScript("OnClick", function(frame)
+	Pr.DeconstructButton:SetScript('OnClick', function(frame)
 		Pr.DeconstructMode = not Pr.DeconstructMode
 		if Pr.DeconstructMode then
-			Pr.DeconstructButton:SetNormalTexture("Interface\\ICONS\\INV_Rod_EnchantedCobalt")
+			Pr.DeconstructButton:SetNormalTexture([[Interface\ICONS\INV_Rod_EnchantedCobalt]])
 			if E.private.sle.professions.deconButton.buttonGlow then ActionButton_ShowOverlayGlow(Pr.DeconstructButton) end
 		else
-			Pr.DeconstructButton:SetNormalTexture("Interface\\ICONS\\INV_Rod_Cobalt")
+			Pr.DeconstructButton:SetNormalTexture([[Interface\ICONS\INV_Rod_Cobalt]])
 			ActionButton_HideOverlayGlow(Pr.DeconstructButton)
 		end
 		Pr.DeconstructButton.ttText2 = format(L["Allow you to disenchant/mill/prospect/unlock items.\nClick to toggle.\nCurrent state: %s."], Pr:GetDeconMode())
 		B.Tooltip_Show(frame)
 	end)
 	--Moving Elv's stuff
-	_G["ElvUI_ContainerFrame"].vendorGraysButton:SetPoint("RIGHT", Pr.DeconstructButton, "LEFT", -5, 0)
+	_G.ElvUI_ContainerFrame.vendorGraysButton:SetPoint('RIGHT', Pr.DeconstructButton, 'LEFT', -5, 0)
 end
 
 function Pr:ConstructRealDecButton()
-	Pr.DeconstructionReal = CreateFrame('Button', "SLE_DeconReal", E.UIParent, 'SecureActionButtonTemplate, AutoCastShineTemplate')
-	Pr.DeconstructionReal:SetScript('OnEvent', function(self, event, ...) self[event](self, ...) end)
+	Pr.DeconstructionReal = CreateFrame('Button', 'SLE_DeconReal', E.UIParent, 'SecureActionButtonTemplate, AutoCastShineTemplate')
+	Pr.DeconstructionReal:SetScript('OnEvent', function(obj, event, ...) obj[event](obj, ...) end)
 	Pr.DeconstructionReal:RegisterForClicks('AnyUp', 'AnyDown')
-	Pr.DeconstructionReal:SetFrameStrata("TOOLTIP")
+	Pr.DeconstructionReal:SetFrameStrata('TOOLTIP')
 	Pr.DeconstructionReal.TipLines = {}
 
 	Pr.DeconstructionReal.OnLeave = function(frame)
@@ -290,23 +290,23 @@ function Pr:ConstructRealDecButton()
 		else
 			frame:ClearAllPoints()
 			frame:SetAlpha(1)
-			if _G["GameTooltip"] then _G["GameTooltip"]:Hide() end
+			if _G.GameTooltip then _G.GameTooltip:Hide() end
 			frame:Hide()
-			-- LCG.AutoCastGlow_Stop(frame)
+			-- LCG.AutoCastGlow_Stop(frame) --! Leave here in in case of lib swap back
 			LCG.HideOverlayGlow(frame)
-			-- LCG.ButtonGlow_Stop(frame)
+			-- LCG.ButtonGlow_Stop(frame) --! Leave here in in case of lib swap back
 			ActionButton_HideOverlayGlow(frame)
 		end
 	end
 
 	Pr.DeconstructionReal.SetTip = function(f)
-		_G["GameTooltip"]:SetOwner(f,"ANCHOR_LEFT",0,4)
-		_G["GameTooltip"]:ClearLines()
-		_G["GameTooltip"]:SetBagItem(f.Bag, f.Slot)
+		_G.GameTooltip:SetOwner(f,'ANCHOR_LEFT',0,4)
+		_G.GameTooltip:ClearLines()
+		_G.GameTooltip:SetBagItem(f.Bag, f.Slot)
 	end
 
-	Pr.DeconstructionReal:SetScript("OnEnter", Pr.DeconstructionReal.SetTip)
-	Pr.DeconstructionReal:SetScript("OnLeave", function() Pr.DeconstructionReal:OnLeave() end)
+	Pr.DeconstructionReal:SetScript('OnEnter', Pr.DeconstructionReal.SetTip)
+	Pr.DeconstructionReal:SetScript('OnLeave', function() Pr.DeconstructionReal:OnLeave() end)
 	Pr.DeconstructionReal:Hide()
 
 	function Pr.DeconstructionReal:PLAYER_REGEN_ENABLED()
@@ -332,16 +332,16 @@ function Pr:InitializeDeconstruct()
 
 	local function Hiding()
 		Pr.DeconstructMode = false
-		Pr.DeconstructButton:SetNormalTexture("Interface\\ICONS\\INV_Rod_Cobalt")
+		Pr.DeconstructButton:SetNormalTexture([[Interface\ICONS\INV_Rod_Cobalt]])
 		ActionButton_HideOverlayGlow(Pr.DeconstructButton)
 		Pr.DeconstructionReal:OnLeave()
 	end
 
-	_G["ElvUI_ContainerFrame"]:HookScript("OnHide", Hiding)
+	_G.ElvUI_ContainerFrame:HookScript('OnHide', Hiding)
 	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tt, data) Pr:DeconstructParser(tt, data) end)
 
-	Pr:Blacklisting("DE")
-	Pr:Blacklisting("LOCK")
+	Pr:Blacklisting('DE')
+	Pr:Blacklisting('LOCK')
 
 	Get_ArtRelic()
 end
