@@ -260,11 +260,11 @@ local function getTotalAnima()
 		if bagName then
 			for slotID = 1, C_Container_GetContainerNumSlots(i) do
 				local link = C_Container_GetContainerItemLink(i, slotID)
-				local count = select(2, C_Container_GetContainerItemInfo(i, slotID))
 
 				if link and C_Item_IsAnimaItemByID(link) then
+					local itemInfo = C_Container_GetContainerItemInfo(i, slotID)
 					local _, spellID = GetItemSpell(link)
-					total = total + animaSpellID[spellID] * count
+					total = total + animaSpellID[spellID] * itemInfo.stackCount
 				end
 			end
 		end
