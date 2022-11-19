@@ -22,7 +22,7 @@ B.Frames = {
 	LFGDungeonReadyDialog = true,
 	LFGDungeonReadyStatus = true,
 	LootFrame = true,
-	MailFrame = true,
+	-- MailFrame = true,
 	MerchantFrame = true,
 	PVEFrame = true,
 	PetStableFrame = true,
@@ -378,8 +378,6 @@ function B:Initialize()
 			self:Hide()
 		end
 	end)
-		
-		
 end
 
 SLE:RegisterModule(B:GetName())
