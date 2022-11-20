@@ -22,7 +22,7 @@ local function configTable()
 				name = L["Enable"],
 				desc = L["Show instance difficulty info as text."],
 				disabled = function() return not E.private.general.minimap.enable end,
-				set = function(info, value) E.db.sle.minimap.instance[ info[#info] ] = value; I:GenerateText(nil, nil, true) end,
+				set = function(info, value) E.db.sle.minimap.instance[ info[#info] ] = value; I:GenerateText() end,
 			},
 			xoffset = {
 				order = 3, type = 'range', name = L["X-Offset"], min = -300, max = 300, step = 1,
@@ -37,7 +37,7 @@ local function configTable()
 				type = 'toggle',
 				name = L["Only Number"],
 				disabled = function() return not E.private.general.minimap.enable or not E.db.sle.minimap.instance.enable end,
-				set = function(info, value) E.db.sle.minimap.instance[ info[#info] ] = value; I:GenerateText(nil, nil, true) end,
+				set = function(info, value) E.db.sle.minimap.instance[ info[#info] ] = value; I:GenerateText() end,
 			},
 			fontGroup = {
 				order = 6,
