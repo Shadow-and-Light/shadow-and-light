@@ -10,14 +10,15 @@ local function OnTooltipSetUnit(tt)
 	if not E.db.sle.tooltip.showFaction then return end
 
 	local unit = select(2, tt:GetUnit())
-	if (UnitIsPlayer(unit)) then
-		local text = _G["GameTooltipTextLeft1"]:GetText()
-		local faction = UnitFactionGroup(unit)
+	if UnitIsPlayer(unit) then
+		local text = _G.GameTooltipTextLeft1:GetText()
+		local faction = UnitFactionGroup(unit) or 'Neutral'
 
-		if not faction then faction = "Neutral" end
-		-- |TTexturePath:size1:size2:xoffset:yoffset:dimx:dimy:coordx1:coordx2:coordy1:coordy2|t
-		-- _G["GameTooltipTextLeft1"]:SetText("|T"..iconPath..faction..".tga:15:15:0:0:64:64:2:56:2:56|t "..text)
-		_G["GameTooltipTextLeft1"]:SetText("|T"..iconPath..faction..".tga:0:0:0:0:128:128:28:100:28:100|t "..text)
+		if text and faction then
+			-- |TTexturePath:size1:size2:xoffset:yoffset:dimx:dimy:coordx1:coordx2:coordy1:coordy2|t
+			-- _G["GameTooltipTextLeft1"]:SetText("|T"..iconPath..faction..".tga:15:15:0:0:64:64:2:56:2:56|t "..text)
+			_G.GameTooltipTextLeft1:SetText('|T'..iconPath..faction..'.tga:0:0:0:0:128:128:28:100:28:100|t '..text)
+		end
 	end
 end
 
