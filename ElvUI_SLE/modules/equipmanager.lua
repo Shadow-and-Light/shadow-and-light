@@ -117,8 +117,8 @@ EM.TagsTable = {
 				if passed then break end
 			end
 			if passed then break end
-			return passed
 		end
+		return passed
 	end,
 	--If in instanse. Optional arg [instance:type] - party, raid, scenario
 	['instance'] = function(dungeonType)
