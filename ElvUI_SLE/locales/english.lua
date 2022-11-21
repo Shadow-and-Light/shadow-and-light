@@ -697,12 +697,15 @@ L["SLE_EM_TAGS_HELP"] = [[Following tags and parameters are eligible for setting
 |cff3cbf27party|r - when you are in a group of any description. Can be of specified size, e.g. [party:4] - if in a group of total size 4;
 |cff3cbf27raid|r - when you are in a raid group. Can be of specified size like party option;
 |cff3cbf27spec|r - specified spec. Usage [spec:<number>] number is the index of desired spec as seen in spec tab;
-|cff3cbf27talent|r - specified talent. Usage [talent:<tier>/<column>] tier is the row going from 1 on lvl 15 to 7 and lvl 100, column is the column in said row from 1 to 3;
+|cff3cbf27talent|r - specified talent. Usage [talent:(<id>|<name>)] checks if a given talent is known by spell id or name;
 |cff3cbf27instance|r - if in instance. Can be of specified instance type - [instance:<type>]. Types are party, raid and scenario. If not specified will be true for any instance;
 |cff3cbf27pvp|r - if on BG, arena or world pvp area. Available arguments: pvp, arena;
 |cff3cbf27difficulty|r - defines the difficulty of the instance. Arguments are: normal, heroic, lfr, challenge, mythic;
 |cff3cbf27effectivelevel|r - effective level refers to your level when you are scaled, e.g. timewalking
 |cff3cbf27warmode|r - checks if you have warmode enabled
+|cff3cbf27event|r - checks if any event in a /-separated list of ids is active
+
+You can also prepend no to any available tag to negate the result.
 
 Example: [solo] Set1; [party:4, spec:3] Set2; [instance:raid, difficulty:heroic] Set3
 ]]

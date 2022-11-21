@@ -100,25 +100,24 @@ EM.TagsTable = {
 			return false
 		end
 	end,
-	--Talent selected. [talent:tier/column]
-	['talent'] = function(tier, column)
-		tier, column = tonumber(tier), tonumber(column)
-		if not (tier or column) then
-			return false
-		end
-		if tier < 0 or tier > 7 then
-			SLE:Print(format(L["SLE_EM_TAG_INVALID_TALENT_TIER"], tier), 'error')
-			return false
-		end
-		if column < 0 or column > 3 then
-			SLE:Print(format(L["SLE_EM_TAG_INVALID_TALENT_COLUMN"], column), 'error')
-			return false
-		end
-		local _, _, _, selected = GetTalentInfo(tier, column, 1)
-		if selected then
-			return true
-		else
-			return false
+	--Talent selected. [talent:spell id|name]
+	['talent'] = function(idOrName)
+		local activeConfigID = C_ClassTalents.GetActiveConfigID()
+		local configInfo = C_Traits.GetConfigInfo(activeConfigID)
+		local treeID = configInfo.treeIDs[1]
+		local nodeIDs = C_Traits.GetTreeNodes(treeID)
+		local passed = false
+		for _, nodeID in next, nodeIDs do
+			local nodeInfo = C_Traits.GetNodeInfo(activeConfigID, nodeID)
+			for _, entryID in next, nodeInfo.entryIDs do
+				local entryInfo = C_Traits.GetEntryInfo(activeConfigID, entryID)
+				local definitionInfo = C_Traits.GetDefinitionInfo(entryInfo.definitionID)
+				local purchased = nodeInfo.ranksPurchased > 0
+				passed = purchased and (definitionInfo.spellID == tonumber(idOrName) or GetSpellInfo(definitionInfo.spellID) == idOrName)
+				if passed then break end
+			end
+			if passed then break end
+			return passed
 		end
 	end,
 	--If in instanse. Optional arg [instance:type] - party, raid, scenario
