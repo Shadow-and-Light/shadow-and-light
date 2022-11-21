@@ -1,13 +1,11 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local TT = E.Tooltip
 
---GLOBALS: unpack, select, hooksecurefunc
 local _G = _G
 local TooltipDataType = Enum.TooltipDataType
--- local iconPath = [[Interface\AddOns\ElvUI_SLE\media\textures\]]
 local iconPath = [[Interface\AddOns\ElvUI_SLE\media\textures\afk\factionlogo\blizzard\]]
 
-local function OnTooltipSetUnit(tt, data)
+local function OnTooltipSetUnit(tt)
 	if not SLE.initialized then return end
 	if not E.db.sle.tooltip.showFaction then return end
 
