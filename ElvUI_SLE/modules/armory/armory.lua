@@ -49,7 +49,7 @@ Armory.Constants.EnchantableSlots = {
 	['Finger0Slot'] = true, ['Finger1Slot'] = true, ['MainHandSlot'] = true, ['SecondaryHandSlot'] = true,
 	--Uncomment this when shadowlands actually launches
 	['ChestSlot'] = true, ['BackSlot'] = true,
-	['FeetSlot'] = 2, ['WristSlot'] = 4, ['HandsSlot'] = 1,
+	['FeetSlot'] = true, ['WristSlot'] = true,
 }
 Armory.Constants.SpecPrimaryStats = {
 	[250] = 1, --DK Blood
