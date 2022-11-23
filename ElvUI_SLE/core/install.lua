@@ -627,7 +627,8 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["targettarget"]["debuffs"]["yOffset"] = -19
 		E.db["unitframe"]["units"]["targettarget"]["disableMouseoverGlow"] = true
 		E.db["unitframe"]["units"]["targettarget"]["height"] = 18
-		E.db["unitframe"]["units"]["targettarget"]["name"]["text_format"] = "[classcolor][name:short]"
+		E.db["unitframe"]["units"]["targettarget"]["name"]["text_format"] = "[name:short]"
+		E.db["unitframe"]["units"]["targettarget"]["name"]["yOffset"] = 14
 		E.db["unitframe"]["units"]["targettarget"]["power"]["enable"] = false
 		E.db["unitframe"]["units"]["targettarget"]["raidicon"]["attachTo"] = "LEFT"
 		E.db["unitframe"]["units"]["targettarget"]["raidicon"]["xOffset"] = -19
@@ -642,7 +643,8 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["pet"]["disableTargetGlow"] = false
 		E.db["unitframe"]["units"]["pet"]["height"] = 16
 		E.db["unitframe"]["units"]["pet"]["infoPanel"]["height"] = 14
-		E.db["unitframe"]["units"]["pet"]["name"]["text_format"] = ""
+		E.db["unitframe"]["units"]["pet"]["name"]["text_format"] = "[name]"
+		E.db["unitframe"]["units"]["pet"]["name"]["yOffset"] = 14
 		E.db["unitframe"]["units"]["pet"]["power"]["height"] = 6
 		E.db["unitframe"]["units"]["pet"]["width"] = 100
 
