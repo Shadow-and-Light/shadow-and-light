@@ -79,9 +79,7 @@ function C:CreateInvKeys()
 	end
 end
 
-function C:filterLine(event, source, msg, ...)
-	local isSpam = false
-
+function C:filterLine(event, source, msg)
 	for _, line in ipairs(C.spamNextLines) do
 		if msg:match(line) then
 			local curTime = GetTime()
@@ -185,7 +183,7 @@ function C:ParseChatEventInv(event, msg, sender, ...)
 	return false, msg, sender, ...
 end
 
-local function SetItemRef(link, text, button, chatframe)
+local function SetItemRef(link)
 	local linktype, id = strsplit(':', link)
 
 	if E.db.sle.chat.dpsSpam then
