@@ -49,17 +49,19 @@ function B:UpdateSet(slot)
 	--* Start - Part of the workaround
 	local isInSet = false
 	local tooltipData  = C_TooltipInfo.GetInventoryItemByID(slot.itemID)
-	TooltipUtil.SurfaceArgs(tooltipData)
-	for _, line in ipairs(tooltipData.lines) do
-		TooltipUtil.SurfaceArgs(line)
-	end
-	for _, line in pairs(tooltipData.lines) do
-		if line and strmatch(line.leftText, MATCH_EQUIPMENT_SETS) then
-			isInSet = true
-			break
+	if tooltipData then
+		TooltipUtil.SurfaceArgs(tooltipData)
+		for _, line in ipairs(tooltipData.lines) do
+			TooltipUtil.SurfaceArgs(line)
+		end
+		for _, line in pairs(tooltipData.lines) do
+			if line and strmatch(line.leftText, MATCH_EQUIPMENT_SETS) then
+				isInSet = true
+				break
+			end
 		end
 	end
-	 --* End - Part of the workaround
+	--* End - Part of the workaround
 
 	if isInSet then
 		slot.equipIcon:SetShown(BI.db.enable)
