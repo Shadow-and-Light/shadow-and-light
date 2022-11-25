@@ -1,4 +1,4 @@
-local SLE, T, E = unpack(select(2, ...))
+local SLE, _, E = unpack(select(2, ...))
 local BI = SLE.BagInfo
 local B = E.Bags
 
@@ -76,7 +76,7 @@ local function updateSettings(slot)
 	slot.equipIcon:Point(E.db.sle.bags.equipmentmanager.point, E.db.sle.bags.equipmentmanager.xOffset, E.db.sle.bags.equipmentmanager.yOffset)
 
 	if E.db.sle.bags.equipmentmanager.icon == 'EQUIPMGR' then
-		slot.equipIcon:SetTexture('Interface\\PaperDollInfoFrame\\PaperDollSidebarTabs')
+		slot.equipIcon:SetTexture([[Interface\PaperDollInfoFrame\PaperDollSidebarTabs]])
 		slot.equipIcon:SetTexCoord(0.01562500, 0.53125000, 0.46875000, 0.60546875)
 	elseif E.db.sle.bags.equipmentmanager.icon == 'CUSTOM' then
 		slot.equipIcon:SetTexture(E.db.sle.bags.equipmentmanager.customTexture)
