@@ -4,13 +4,13 @@ local B = E.Bags
 
 local _G = _G
 local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
+-- local C_Container_GetContainerItemEquipmentSetInfo = C_Container.GetContainerItemEquipmentSetInfo --* API is currently broken and have to use a work around for now
 local CUSTOM = CUSTOM
-local C_Container_GetContainerItemEquipmentSetInfo = C_Container.GetContainerItemEquipmentSetInfo
 -- local EQUIPMENT_SETS = EQUIPMENT_SETS
 -- EQUIPMENT_SETS = E:StripString(EQUIPMENT_SETS)
 -- EQUIPMENT_SETS = EQUIPMENT_SETS:gsub('%%s', '')
 -- EQUIPMENT_SETS = E:EscapeString(EQUIPMENT_SETS)
-
+local MATCH_EQUIPMENT_SETS = EQUIPMENT_SETS:gsub('%%s', '(.+)') --* Part of the workaround
 
 --* Used this to help translate known texcoords to a |T |t string
 -- CreateTextureMarkup('Interface\\PaperDollInfoFrame\\PaperDollSidebarTabs', 64, 256, 0, 0, 0.01562500, 0.53125000, 0.46875000, 0.60546875, 0, 0)
@@ -42,14 +42,29 @@ function B:HideSet(slot, keep)
 	end
 end
 
-function B:UpdateSet()
-	if not self.bagID or not self.slotID then return end
-	local isInSet, setName = C_Container_GetContainerItemEquipmentSetInfo(self.bagID, self.slotID)
+function B:UpdateSet(slot)
+	if not slot or not slot.itemID then return end
+	-- local isInSet, setName = C_Container.GetContainerItemEquipmentSetInfo(bagID, slotID)(slot.bagID, slot.slotID) --* API is currently broken
+
+	--* Start - Part of the workaround
+	local isInSet = false
+	local tooltipData  = C_TooltipInfo.GetInventoryItemByID(slot.itemID)
+	TooltipUtil.SurfaceArgs(tooltipData)
+	for _, line in ipairs(tooltipData.lines) do
+		TooltipUtil.SurfaceArgs(line)
+	end
+	for _, line in pairs(tooltipData.lines) do
+		if line and strmatch(line.leftText, MATCH_EQUIPMENT_SETS) then
+			isInSet = true
+			break
+		end
+	end
+	 --* End - Part of the workaround
 
 	if isInSet then
-		self.equipIcon:SetShown(BI.db.enable)
+		slot.equipIcon:SetShown(BI.db.enable)
 	else
-		B:HideSet(self, true)
+		B:HideSet(slot, true)
 	end
 end
 
@@ -89,7 +104,7 @@ function BI:UpdateItemDisplay()
 	end
 end
 
-function BI:ConstructContainerButton(f, bagID, slotID, test)
+function BI:ConstructContainerButton(f, bagID, slotID)
 	if not f then return end
 	local bag = f.Bags[bagID]
 	local isReagent = bagID == REAGENTBANK_CONTAINER
@@ -113,7 +128,7 @@ function BI:UpdateSlot(frame, bagID, slotID)
 	updateSettings(slot)
 
 	if slot.isEquipment then
-		B.UpdateSet(slot)
+		B:UpdateSet(slot)
 
 		if not E:IsEventRegisteredForObject('EQUIPMENT_SETS_CHANGED', slot) then
 			E:RegisterEventForObject('EQUIPMENT_SETS_CHANGED', slot, B.UpdateSet)
