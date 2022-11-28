@@ -1,7 +1,7 @@
 local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local Armory = SLE.Armory_Core
 local M = E.Misc
-local LCG = E.Libs.ButtonGlow
+local LCG = E.Libs.CustomGlow
 
 local GetAverageItemLevel = GetAverageItemLevel
 local TRANSMOGRIFIED_HEADER = TRANSMOGRIFIED_HEADER
@@ -206,17 +206,14 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 				if E.db.sle.armory[window].enable and Slot.TransmogInfo.Link then
 					if E.db.sle.armory[window].transmog.enableArrow then Slot.TransmogInfo:Show() else Slot.TransmogInfo:Hide() end
 					if E.db.sle.armory[window].transmog.enableGlow then
-						-- LCG.AutoCastGlow_Start(Slot,{1, .5, 1, 1},E.db.sle.armory[window].transmog.glowNumber,0.25,1,E.db.sle.armory[window].transmog.glowOffset,E.db.sle.armory[window].transmog.glowOffset,'_TransmogGlow')
-						LCG.ShowOverlayGlow(Slot)
+						LCG.AutoCastGlow_Start(Slot, {1, .5, 1, 1}, E.db.sle.armory[window].transmog.glowNumber, 0.25, 1, E.db.sle.armory[window].transmog.glowOffset, E.db.sle.armory[window].transmog.glowOffset, '_TransmogGlow')
 					else
-						-- LCG.AutoCastGlow_Stop(Slot,'_TransmogGlow')
-						LCG.HideOverlayGlow(Slot)
+						LCG.AutoCastGlow_Stop(Slot, '_TransmogGlow')
 					end
 				else
 					Slot.TransmogInfo.Link = nil
 					Slot.TransmogInfo:Hide()
-					-- LCG.AutoCastGlow_Stop(Slot,'_TransmogGlow')
-					LCG.HideOverlayGlow(Slot)
+					LCG.AutoCastGlow_Stop(Slot, '_TransmogGlow')
 				end
 			end
 		end
