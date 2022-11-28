@@ -1,6 +1,6 @@
-v4.51 11/22/22
+v4.52 11/28/22
 
-• fixed friends datatext error
-• fixed currency datatext error
-• fixed anima count error
-• fixed minimap instance indicator
+• readded LibCustomGlow calls as it is back in ElvUI as of 13.07
+• tweaked some of Darth's profile
+• temp work around wow's broken api to see if item is part of one of your equipment sets
+• general code clean up

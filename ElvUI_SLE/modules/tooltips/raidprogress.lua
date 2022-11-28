@@ -7,20 +7,20 @@ local _G = _G
 local format = format
 local GetTime = GetTime
 local IsAddOnLoaded = IsAddOnLoaded
-local UnitExists = UnitExists
+local UnitExists, UnitGUID = UnitExists, UnitGUID
 local utf8sub = string.utf8sub
 local ClearAchievementComparisonUnit = ClearAchievementComparisonUnit
 local SetAchievementComparisonUnit = SetAchievementComparisonUnit
 local HideUIPanel = HideUIPanel
 
 RP.Cache = {}
-RP.playerGUID = UnitGUID("player")
+RP.playerGUID = UnitGUID('player')
 RP.highestKill = 0
 
 RP.encounters = {
 	{ -- Emerald Nightmare
-		["option"] = "nightmare",
-		["statIDs"] = {
+		option = 'nightmare',
+		statIDs = {
 			--Mythic
 			{ 10914, 10923, 10927, 10919, 10931, 10935, 10939 },
 			-- Herioc
@@ -32,8 +32,8 @@ RP.encounters = {
 		},
 	},
 	{ --Trial of Valor
-		["option"] = "trial",
-		["statIDs"] = {
+		option = 'trial',
+		statIDs = {
 			--Mythic
 			{ 11410, 11414, 11418 },
 			-- Heroic
@@ -45,8 +45,8 @@ RP.encounters = {
 		},
 	},
 	{ -- Nighthold
-		["option"] = "nighthold",
-		["statIDs"] = {
+		option = 'nighthold',
+		statIDs = {
 			--Mythic
 			{ 10943, 10947, 10951, 10955, 10960, 10964, 10968, 10972, 10976, 10980 },
 			-- Heroic
@@ -58,8 +58,8 @@ RP.encounters = {
 		},
 	},
 	{ -- Tomb of Sargeras
-		["option"] = "sargeras",
-		["statIDs"] = {
+		option = 'sargeras',
+		statIDs = {
 			-- Mythic
 			{ 11880, 11884, 11888, 11892, 11896, 11900, 11904, 11908, 11912 },
 			-- Heroic
@@ -72,8 +72,8 @@ RP.encounters = {
 	},
 	{ -- Antorus, the Burning Throne
 
-		["option"] = "antorus",
-		["statIDs"] = {
+		option = 'antorus',
+		statIDs = {
 			-- Mythic
 			{ 11956, 11959, 11962, 11965, 11968, 11971, 11974, 11977, 11980, 11983, 11986 },
 			-- Heroic
@@ -85,8 +85,8 @@ RP.encounters = {
 		},
 	},
 	{ -- Uldir
-		["option"] = "uldir",
-		["statIDs"] = {
+		option = 'uldir',
+		statIDs = {
 			-- Mythic
 			{ 12789, 12793, 12797, 12801, 12805, 12811, 12816, 12820 },
 			-- Heroic
@@ -99,8 +99,8 @@ RP.encounters = {
 
 	},
 	{ -- Dazar'Alor
-		["option"] = "daz",
-		["Alliance"] = {
+		option = 'daz',
+		Alliance = {
 			-- Mythic
 			{ 13331, 13348, 13353, 13362, 13366, 13370, 13374, 13378, 13382 },
 			-- Heroic
@@ -110,7 +110,7 @@ RP.encounters = {
 			-- LFR
 			{ 13328, 13344, 13349, 13358, 13363, 13367, 13371, 13375, 13379 },
 		},
-		["Horde"] = {
+		Horde = {
 			-- Mythic
 			{ 13331, 13336, 13357, 13362, 13366, 13370, 13374, 13378, 13382 },
 			-- Heroic
@@ -123,8 +123,8 @@ RP.encounters = {
 		true,
 	},
 	{ -- Storm Crucible
-		["option"] = "sc",
-		["statIDs"] = {
+		option = 'sc',
+		statIDs = {
 			-- Mythic
 			{ 13407, 13413 },
 			-- Heroic
@@ -136,8 +136,8 @@ RP.encounters = {
 		},
 	},
 	{ -- Eternal Palace
-		["option"] = "ep",
-		["statIDs"] = {
+		option = 'ep',
+		statIDs = {
 			-- Mythic
 			{13590, 13594, 13598, 13603, 13607, 13611, 13615, 13619 },
 			-- Heroic
@@ -149,8 +149,8 @@ RP.encounters = {
 		},
 	},
 	{ -- Ni'alotha
-		["option"] = "nzoth",
-		["statIDs"] = {
+		option = 'nzoth',
+		statIDs = {
 			-- Mythic
 			{ 14082, 14094, 14098, 14105, 14110, 14115, 14120, 14211, 14126, 14130, 14134, 14138 },
 			-- Heroic
@@ -162,8 +162,8 @@ RP.encounters = {
 		},
 	},
 	{ -- CastleNathria
-		["option"] = "nathria",
-		["statIDs"] = {
+		option = 'nathria',
+		statIDs = {
 			-- Mythic
 			{ 14421, 14425, 14429, 14433, 14437, 14441, 14445, 14449, 14453, 14457 },
 			-- Heroic
@@ -175,8 +175,8 @@ RP.encounters = {
 		},
 	},
 	{ -- Sanctum of Domination
-		['option'] = 'sod',
-		['statIDs'] = {
+		option = 'sod',
+		statIDs = {
 			-- Mythic
 			{ 15139, 15143, 15147, 15151, 15155, 15159, 15163, 15167, 15172, 15176 },
 			-- Heroic
@@ -190,13 +190,13 @@ RP.encounters = {
 }
 RP.Raids = {}
 RP.modes = {
-	["LONG"] = {
+	LONG = {
 		PLAYER_DIFFICULTY6,
 		PLAYER_DIFFICULTY2,
 		PLAYER_DIFFICULTY1,
 		PLAYER_DIFFICULTY3,
 	},
-	["SHORT"] = {
+	SHORT = {
 		utf8sub(PLAYER_DIFFICULTY6, 1 , 1),
 		utf8sub(PLAYER_DIFFICULTY2, 1 , 1),
 		utf8sub(PLAYER_DIFFICULTY1, 1 , 1),
@@ -205,32 +205,32 @@ RP.modes = {
 }
 
 local function PopulateRaidsTable()
-	RP.Raids["LONG"] = {
-		SLE:GetMapInfo(777 , "name"),
-		SLE:GetMapInfo(806, "name"),
-		SLE:GetMapInfo(764, "name"),
-		SLE:GetMapInfo(850 , "name"),
-		SLE:GetMapInfo(909, "name"),
-		SLE:GetMapInfo(1148, "name"),
-		SLE:GetMapInfo(1358, "name"),
-		SLE:GetMapInfo(1345, "name"),
-		SLE:GetMapInfo(1512, "name"),
-		SLE:GetMapInfo(1580, "name"),
-		SLE:GetMapInfo(1735, "name"),
+	RP.Raids['LONG'] = {
+		SLE:GetMapInfo(777 , 'name'),
+		SLE:GetMapInfo(806, 'name'),
+		SLE:GetMapInfo(764, 'name'),
+		SLE:GetMapInfo(850 , 'name'),
+		SLE:GetMapInfo(909, 'name'),
+		SLE:GetMapInfo(1148, 'name'),
+		SLE:GetMapInfo(1358, 'name'),
+		SLE:GetMapInfo(1345, 'name'),
+		SLE:GetMapInfo(1512, 'name'),
+		SLE:GetMapInfo(1580, 'name'),
+		SLE:GetMapInfo(1735, 'name'),
 		'Sanctum of Domination',
 	}
-	RP.Raids["SHORT"] = {
+	RP.Raids['SHORT'] = {
 		L["RAID_EN"],
 		L["RAID_TOV"],
 		L["RAID_NH"],
 		L["RAID_TOS"],
 		L["RAID_ANTO"],
-		SLE:GetMapInfo(1148, "name"),
+		SLE:GetMapInfo(1148, 'name'),
 		L["RAID_DAZALOR"],
 		L["RAID_STORMCRUS"],
 		L["RAID_ETERNALPALACE"],
-		SLE:GetMapInfo(1580, "name"),
-		SLE:GetMapInfo(1735, "name"),
+		SLE:GetMapInfo(1580, 'name'),
+		SLE:GetMapInfo(1735, 'name'),
 		'SoD',
 	}
 end
@@ -279,12 +279,12 @@ function RP:SetProgressionInfo(guid, tt)
 	if RP.Cache[guid] and RP.Cache[guid].header then
 		local updated = 0
 		for i=1, tt:NumLines() do
-			local leftTipText = _G["GameTooltipTextLeft"..i]
-			for raid = 1, #RP.Raids["LONG"] do
+			local leftTipText = _G['GameTooltipTextLeft'..i]
+			for raid = 1, #RP.Raids['LONG'] do
 				for level = 1, 4 do
 					if (leftTipText:GetText() and leftTipText:GetText():find(RP.Raids[E.db.sle.tooltip.RaidProg.NameStyle][raid]) and leftTipText:GetText():find(RP.modes[E.db.sle.tooltip.RaidProg.DifStyle][level]) and (RP.Cache[guid].header[raid][level] and RP.Cache[guid].info[raid][level])) then
 						-- update found tooltip text line
-						local rightTipText = _G["GameTooltipTextRight"..i]
+						local rightTipText = _G['GameTooltipTextRight'..i]
 						leftTipText:SetText(RP.Cache[guid].header[raid][level])
 						rightTipText:SetText(RP.Cache[guid].info[raid][level])
 						updated = 1
@@ -294,8 +294,8 @@ function RP:SetProgressionInfo(guid, tt)
 		end
 		if updated == 1 then return end
 		-- add progression tooltip line
-		if RP.highestKill > 0 then tt:AddLine(" ") end
-		for raid = 1, #RP.Raids["LONG"] do
+		if RP.highestKill > 0 then tt:AddLine(' ') end
+		for raid = 1, #RP.Raids['LONG'] do
 			local option = RP.encounters[raid].option
 			if E.db.sle.tooltip.RaidProg.raids[option] then
 				for level = 1, 4 do
@@ -308,13 +308,13 @@ end
 
 local function AchieveReady(event, GUID)
 	if (TT.compareGUID ~= GUID) then return end
-	local unit = "mouseover"
+	local unit = 'mouseover'
 	if UnitExists(unit) then
 		RP:UpdateProgression(GUID)
-		_G["GameTooltip"]:SetUnit(unit)
+		_G.GameTooltip:SetUnit(unit)
 	end
 	ClearAchievementComparisonUnit()
-	TT:UnregisterEvent("INSPECT_ACHIEVEMENT_READY")
+	TT:UnregisterEvent('INSPECT_ACHIEVEMENT_READY')
 end
 
 local function OnInspectInfo(self, tt, unit, numTries, r, g, b)
@@ -328,15 +328,15 @@ local function OnInspectInfo(self, tt, unit, numTries, r, g, b)
 			RP:UpdateProgression(guid)
 		else
 			ClearAchievementComparisonUnit()
-			if not self.loadedComparison and select(2, IsAddOnLoaded("Blizzard_AchievementUI")) then
+			if not self.loadedComparison and select(2, IsAddOnLoaded('Blizzard_AchievementUI')) then
 				AchievementFrame_DisplayComparison(unit)
-				HideUIPanel(_G["AchievementFrame"])
+				HideUIPanel(_G.AchievementFrame)
 				ClearAchievementComparisonUnit()
 				self.loadedComparison = true
 			end
 			self.compareGUID = guid
 			if SetAchievementComparisonUnit(unit) then
-				self:RegisterEvent("INSPECT_ACHIEVEMENT_READY", AchieveReady)
+				self:RegisterEvent('INSPECT_ACHIEVEMENT_READY', AchieveReady)
 			end
 			return
 		end

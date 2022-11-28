@@ -2,7 +2,7 @@
 local Pr = SLE.Professions
 local B = E.Bags
 local lib = LibStub('LibProcessable')
-local LCG = E.Libs.ButtonGlow
+local LCG = E.Libs.CustomGlow
 
 --GLOBALS: unpack, select, CreateFrame, VIDEO_OPTIONS_ENABLED, VIDEO_OPTIONS_DISABLED
 local _G = _G
@@ -144,11 +144,9 @@ function Pr:ApplyDeconstruct(itemLink, itemId, spell, spellType, r, g, b)
 			ActionButton_ShowOverlayGlow(Pr.DeconstructionReal)
 		elseif E.private.sle.professions.deconButton.style == "SMALL" then
 			-- AutoCastShine_AutoCastStart(Pr.DeconstructionReal, r, g, b)
-			-- LCG.AutoCastGlow_Start(Pr.DeconstructionReal, color, 5,nil,2)
-			LCG.ShowOverlayGlow(Pr.DeconstructionReal)
+			LCG.AutoCastGlow_Start(Pr.DeconstructionReal, color, 5, nil, 2)
 		elseif E.private.sle.professions.deconButton.style == "PIXEL" then
-			-- LCG.PixelGlow_Start(Pr.DeconstructionReal, color, nil, nil, nil, 4)
-			LCG.ShowOverlayGlow(Pr.DeconstructionReal)
+			LCG.PixelGlow_Start(Pr.DeconstructionReal, color, nil, nil, nil, 4)
 		end
 	end
 end
@@ -284,7 +282,7 @@ function Pr:ConstructRealDecButton()
 	Pr.DeconstructionReal.TipLines = {}
 
 	Pr.DeconstructionReal.OnLeave = function(frame)
-		if(InCombatLockdown()) then
+		if InCombatLockdown() then
 			frame:SetAlpha(0)
 			frame:RegisterEvent('PLAYER_REGEN_ENABLED')
 		else
@@ -292,9 +290,8 @@ function Pr:ConstructRealDecButton()
 			frame:SetAlpha(1)
 			if _G.GameTooltip then _G.GameTooltip:Hide() end
 			frame:Hide()
-			-- LCG.AutoCastGlow_Stop(frame) --! Leave here in in case of lib swap back
-			LCG.HideOverlayGlow(frame)
-			-- LCG.ButtonGlow_Stop(frame) --! Leave here in in case of lib swap back
+			LCG.AutoCastGlow_Stop(frame)
+			LCG.ButtonGlow_Stop(frame)
 			ActionButton_HideOverlayGlow(frame)
 		end
 	end
