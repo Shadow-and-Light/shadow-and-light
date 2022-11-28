@@ -105,7 +105,7 @@ function CA:BuildLayout()
 			end
 		end)
 
-		hooksecurefunc(_G["Character"..SlotName], "DisplayAsAzeriteEmpoweredItem", function(self, itemLocation)
+		hooksecurefunc(_G['Character'..SlotName], 'DisplayAsAzeriteEmpoweredItem', function(self, itemLocation)
 			if E.db.sle.armory.character.enable and HasAnyUnselectedPowers(itemLocation) then
 				LCG.PixelGlow_Start(self, Armory.Constants.AzeriteTraitAvailableColor, nil, -0.25, nil, 3, nil, nil, nil, '_AzeriteTraitGlow')
 			else

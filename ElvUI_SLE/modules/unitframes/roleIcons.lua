@@ -34,5 +34,4 @@ function SUF:UpdateRoleIcon(event)
 		lfdrole:Hide()
 	end
 end
-
 hooksecurefunc(UF, 'UpdateRoleIcon', SUF.UpdateRoleIcon)

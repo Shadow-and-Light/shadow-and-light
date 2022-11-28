@@ -282,7 +282,7 @@ function Pr:ConstructRealDecButton()
 	Pr.DeconstructionReal.TipLines = {}
 
 	Pr.DeconstructionReal.OnLeave = function(frame)
-		if(InCombatLockdown()) then
+		if InCombatLockdown() then
 			frame:SetAlpha(0)
 			frame:RegisterEvent('PLAYER_REGEN_ENABLED')
 		else
