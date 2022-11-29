@@ -4,3 +4,4 @@ v4.52 11/28/22
 • tweaked some of Darth's profile
 • temp work around wow's broken api to see if item is part of one of your equipment sets
 • general code clean up
+• fix rep databar error about faction colors table being nil
