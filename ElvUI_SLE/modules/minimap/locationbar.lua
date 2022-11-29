@@ -170,6 +170,7 @@ LP.Spells = {
 			[12] = {text = GetSpellInfo(224869),icon = SLE:GetIconFromID('spell', 224869),secure = {buttonType = 'spell',ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
 			[13] = {text = GetSpellInfo(281404),icon = SLE:GetIconFromID('spell', 281404),secure = {buttonType = 'spell',ID = 281404}, UseTooltip = true},-- TP:Dazar'alor
 			[14] = {text = GetSpellInfo(344587),icon = SLE:GetIconFromID('spell', 344587),secure = {buttonType = 'spell',ID = 344587}, UseTooltip = true},-- TP:Oribos
+			[15] = {text = GetSpellInfo(395277),icon = SLE:GetIconFromID('spell', 395277),secure = {buttonType = 'spell',ID = 395277}, UseTooltip = true},-- TP:Valdrakken
 		},
 		['Alliance'] = {
 			[1] = {text = GetSpellInfo(3561),icon = SLE:GetIconFromID('spell', 3561),secure = {buttonType = 'spell',ID = 3561}, UseTooltip = true},-- TP:Stormwind
@@ -186,6 +187,7 @@ LP.Spells = {
 			[12] = {text = GetSpellInfo(224869),icon = SLE:GetIconFromID('spell', 224869),secure = {buttonType = 'spell',ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
 			[13] = {text = GetSpellInfo(281403),icon = SLE:GetIconFromID('spell', 281403),secure = {buttonType = 'spell',ID = 281403}, UseTooltip = true},-- TP:Boralus
 			[14] = {text = GetSpellInfo(344587),icon = SLE:GetIconFromID('spell', 344587),secure = {buttonType = 'spell',ID = 344587}, UseTooltip = true},-- TP:Oribos
+			[15] = {text = GetSpellInfo(395277),icon = SLE:GetIconFromID('spell', 395277),secure = {buttonType = 'spell',ID = 395277}, UseTooltip = true},-- TP:Valdrakken
 		},
 	},
 	['portals'] = {
@@ -204,6 +206,7 @@ LP.Spells = {
 			[12] = {text = GetSpellInfo(224871),icon = SLE:GetIconFromID('spell', 224871),secure = {buttonType = 'spell',ID = 224871}, UseTooltip = true},-- P:Dalaran - BI
 			[13] = {text = GetSpellInfo(281402),icon = SLE:GetIconFromID('spell', 281402),secure = {buttonType = 'spell',ID = 281402}, UseTooltip = true},-- P:Dazar'alor
 			[14] = {text = GetSpellInfo(344597),icon = SLE:GetIconFromID('spell', 344597),secure = {buttonType = 'spell',ID = 344597}, UseTooltip = true},-- P:Oribos
+			[15] = {text = GetSpellInfo(395289),icon = SLE:GetIconFromID('spell', 395289),secure = {buttonType = 'spell',ID = 395289}, UseTooltip = true},-- P:Valdrakken
 		},
 		['Alliance'] = {
 			[1] = {text = GetSpellInfo(10059),icon = SLE:GetIconFromID('spell', 10059),secure = {buttonType = 'spell',ID = 10059}, UseTooltip = true},-- P:Stormwind
@@ -220,6 +223,7 @@ LP.Spells = {
 			[12] = {text = GetSpellInfo(224871),icon = SLE:GetIconFromID('spell', 224871),secure = {buttonType = 'spell',ID = 224871}, UseTooltip = true},-- P:Dalaran - BI
 			[13] = {text = GetSpellInfo(281400),icon = SLE:GetIconFromID('spell', 281400),secure = {buttonType = 'spell',ID = 281400}, UseTooltip = true},-- P:Boralus
 			[14] = {text = GetSpellInfo(344597),icon = SLE:GetIconFromID('spell', 344597),secure = {buttonType = 'spell',ID = 344597}, UseTooltip = true},-- P:Oribos
+			[15] = {text = GetSpellInfo(395289),icon = SLE:GetIconFromID('spell', 395289),secure = {buttonType = 'spell',ID = 395289}, UseTooltip = true},-- P:Valdrakken
 		},
 	},
 	['challenge'] = {
