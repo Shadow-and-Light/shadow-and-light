@@ -11,7 +11,7 @@ local ipairs, pairs = ipairs, pairs
 local strsplit = strsplit
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
-local GetVehicleBarIndex, GetOverrideBarIndex = GetVehicleBarIndex, GetOverrideBarIndex
+local GetVehicleBarIndex, GetOverrideBarIndex, GetTempShapeshiftBarIndex = GetVehicleBarIndex, GetOverrideBarIndex, GetTempShapeshiftBarIndex
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local GetCVarBool = GetCVarBool
@@ -170,12 +170,12 @@ function DVB:PositionAndSizeBar()
 	AB:HandleBackdropMultiplier(bar, backdropSpacing, buttonSpacing, db.widthMult, db.heightMult, anchorUp, anchorLeft, horizontal, lastShownButton, anchorRowButton)
 	AB:HandleBackdropMover(bar, backdropSpacing)
 
-	local page = format('[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13;', GetOverrideBarIndex(), GetVehicleBarIndex(), GetVehicleBarIndex())
+	local page = format('[overridebar] %d; [vehicleui][possessbar] %d; [bonusbar:5] 11; [shapeshift] %d;', GetOverrideBarIndex(), GetVehicleBarIndex(), GetTempShapeshiftBarIndex())
 	RegisterStateDriver(bar, 'page', page)
 
 	if db.enable then
 		E:EnableMover(bar.mover:GetName())
-		RegisterStateDriver(bar, 'visibility', '[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar] show; hide')
+		RegisterStateDriver(bar, 'visibility', '[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar][bonusbar:5] show; hide')
 		bar:Show()
 	else
 		E:DisableMover(bar.mover:GetName())
