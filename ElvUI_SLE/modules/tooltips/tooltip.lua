@@ -6,8 +6,7 @@ local TooltipDataType = Enum.TooltipDataType
 local iconPath = [[Interface\AddOns\ElvUI_SLE\media\textures\afk\factionlogo\blizzard\]]
 
 local function OnTooltipSetUnit(tt)
-	if not SLE.initialized then return end
-	if not E.db.sle.tooltip.showFaction then return end
+	if not SLE.initialized or not E.db.sle.tooltip.showFaction or not tt or not tt.GetUnit then return end
 
 	local unit = select(2, tt:GetUnit())
 	if UnitIsPlayer(unit) then
