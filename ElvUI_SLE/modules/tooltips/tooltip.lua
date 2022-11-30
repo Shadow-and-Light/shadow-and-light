@@ -32,7 +32,12 @@ end
 
 local function Init()
 	if not E.private.tooltip.enable then return end
-	TooltipDataProcessor.AddTooltipPostCall(TooltipDataType.Unit, OnTooltipSetUnit)
+
+	if TooltipDataProcessor then
+		TooltipDataProcessor.AddTooltipPostCall(TooltipDataType.Unit, OnTooltipSetUnit)
+	else
+		SLE:SecureHookScript(GameTooltip, 'OnTooltipSetUnit', OnTooltipSetUnit)
+	end
 
 	SLE:SetCompareItems()
 end
