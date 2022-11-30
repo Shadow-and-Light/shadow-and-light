@@ -356,8 +356,8 @@ L["Normal"] = true
 L["Not Enchanted"] = "Nicht verzaubert"
 L["Note"] = "Hinweis"
 L["Number of seconds tip will be shown before changed to another."] = "Sekunden die der Hinweis angezeigt wird, bevor er wechselt."
-L["Objective Tracker Header Text"] = "Objective Tracker Überschrift"
-L["Objective Tracker Text"] = true
+L["Objective Tracker Header Text"] = "Questverfolgung Überschrift"
+L["Objective Tracker Text"] = "Questverfolgung Text"
 L["Officer Note Text Color"] = "Offiziersnotiz Textfarbe"
 L["Offline Indicator"] = "Offline Anzeige"
 L["Oh lord, you have got ElvUI Enhanced and Shadow & Light both enabled at the same time. Select an addon to disable."] = "Oh Gott, du hast ElvUI Enhanced und Shadow & Light gleichzeitig aktiviert. Wähle ein Addon zum Deaktivieren aus."
@@ -392,13 +392,13 @@ L["Previous Level:"] = "Vorheriges Level:"
 L["Private channels"] = "Private Kanäle"
 L["Public Note Text Color"] = "Öffentliche Notiz Textfarbe"
 L["PvP Auto Release"] = "PVP Auto freilassen"
-L["PvP Status Text"] = true
+L["PvP Status Text"] = "PvP Statustext"
 L["PvP Type"] = "PVP Typ"
 L["Quest Glow"] = "Quest Leuchten"
 L["Quest Log Toggle"] = "Questlog Umschaltung"
 L["Quick Action"] = "Schnelltaste"
-L["Race Crest X-Offset"] = "Rassen Wappen X-Versatz"
-L["Race Crest Y-Offset"] = "Rassen Wappen Y-Versatz"
+L["Race Crest X-Offset"] = "Rassenwappen X-Versatz"
+L["Race Crest Y-Offset"] = "Rassenwappen Y-Versatz"
 L["Raid Marker Bar"] = "Schlachtzugs Markierungsleiste"
 L["Raid Markers"] = "Schlachtzugs Markierungen"
 L["Raid Progression"] = "Schlachtzugsfortschritt"
@@ -479,7 +479,7 @@ L["Show both equipped and average item levels."] = "Zeigt angelegtes und durchsc
 L["Show Both Timers"] = "Beide Timer anzeigen"
 L["Show Cooking Awards"] = "Zeige Koch Abzeichen"
 L["Show coordinates on minimap mouseover."] = "Koordinaten beim Minikarten Mouseover anzeigen."
-L["Show Dragon Flying"] = true
+L["Show Dragon Flying"] = "Zeige Dragenfliegen"
 L["Show Dungeon and Raid Currency"] = "Zeige Instanz und Schlachtzugs Währung"
 L["Show ElvUI skin's backdrop overlay"] = "Zeigt ElvUI Skin Hintergrund Overlay"
 L["Show engineer gadgets"] = "Ingenieur Gadgets anzeigen"
@@ -707,19 +707,19 @@ L["SLE_EM_TAGS_HELP"] = [[Die folgenden Tags und Parameter sind für die Einstel
 Beispiel: [solo] Set1; [party:4, spec:3] Set2; [instance:raid, difficulty:heroic] Set3
 ]]
 L["SLE_TIPS"] = { --This doesn't need to be translated, every locale can has own tips
-	"Don't stand in the fire!",
-	"Elv: I just utilized my degree in afro engineering and fixed it",
-	"Burn the heretic. Kill the mutant. Purge the unclean.",
-	"Blood for the Blood God!",
-	"Coffee for the Coffee God!",
-	"Darth's most favorite change comment - \"Woops\"",
-	"Affinity: Always blame the russian...",
-	"Power Level of this guy is not OVER9000!!!!",
-	"Need... More... Catgirls... Wait, what?!",
-	"First Aid potions are better then Healthstones. WTF Blizzard?!",
-	"\"All warfare is based on deception.\"  -Sun Tzu",
-	"For Azeroth!",
-	"No one has seen Alleria and Turalyon for years. Until now!",
+	"Steh nicht im Feuer!",
+	"Elv: Ich habe gerade meinen Abschluss in Afro Ingenieurwesen genutzt und es repariert",
+	"Verbrenne den Ketzer. Töte den Mutanten. Reinige das Unreine.",
+	"Blut für den Blutgott!",
+	"Kaffee für den Kaffeegott!",
+	"Darths beliebtester Änderungskommentar - \"Woops\"",
+	"Affinität: Immer den Russen die Schuld geben...",
+	"Das Power Level dieses Typen ist nicht OVER9000!!!!",
+	"Brauchen Sie ... Mehr ... Catgirls ... Warten Sie, was?!",
+	"Erste Hilfe Tränke sind besser als Gesundheitssteine. WTF Blizzard?!",
+	"\"Alle Kriegsführung basiert auf Täuschung.\"  -Sun Tzu",
+	"Für Azeroth!",
+	"Seit Jahren hat niemand Alleria und Turalyon gesehen. Bis jetzt!",
 	"\"Slow down!  Life is to be savored!\"  -old Pandaren proverb",
 	"\"In the Light,  we are one.\"  -Vindicator Maraad",
 	"\"There is no good.  No evil.  No light.  There is only powah!\"  -Archbishop Benedictus",
