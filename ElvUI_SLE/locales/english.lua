@@ -479,6 +479,7 @@ L["Show both equipped and average item levels."] = true
 L["Show Both Timers"] = true
 L["Show Cooking Awards"] = true
 L["Show coordinates on minimap mouseover."] = true
+L["Show Dragon Flying"] = true
 L["Show Dungeon and Raid Currency"] = true
 L["Show ElvUI skin's backdrop overlay"] = true
 L["Show engineer gadgets"] = true

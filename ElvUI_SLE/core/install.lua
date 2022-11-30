@@ -591,7 +591,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 14
 		E.db["unitframe"]["units"]["target"]["name"]["attachTextTo"] = "Frame"
 		E.db["unitframe"]["units"]["target"]["name"]["position"] = "LEFT"
-		E.db["unitframe"]["units"]["target"]["name"]["text_format"] = "[level][shortclassification] [name]"
+		E.db["unitframe"]["units"]["target"]["name"]["text_format"] = "[level][shortclassification] [name:medium]"
 		E.db["unitframe"]["units"]["target"]["name"]["xOffset"] = 2
 		E.db["unitframe"]["units"]["target"]["name"]["yOffset"] = 18
 		E.db["unitframe"]["units"]["target"]["orientation"] = "LEFT"
