@@ -47,6 +47,7 @@ P["sle"] = {
 			useHotkeyColor = false,
 			frameStrata = 'LOW',
 			frameLevel = 1,
+			dragonRiding = true,
 		},
 	},
 	--Armory

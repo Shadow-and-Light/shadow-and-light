@@ -29,7 +29,7 @@ local function configTable()
 	local SharedBarOptions = {
 		enable = ACH:Toggle(L["Enable"], nil, 0),
 		-- 	-- restorePosition = ACH:Execute(L["Restore Bar"], L["Restore the actionbars default settings"], 1),
-		generalOptions = ACH:MultiSelect('', nil, 3, { backdrop = L["Backdrop"], mouseover = L["Mouseover"], clickThrough = L["Click Through"] }, nil, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enable end),
+		generalOptions = ACH:MultiSelect('', nil, 3, { backdrop = L["Backdrop"], mouseover = L["Mouseover"], clickThrough = L["Click Through"], dragonRiding = L["Show Dragon Flying"], }, nil, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enable end),
 		buttonGroup = ACH:Group(L["Button Settings"], nil, 4, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enable end),
 		backdropGroup = ACH:Group(L["Backdrop Settings"], nil, 5, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enable end),
 		barGroup = ACH:Group(L["Bar Settings"], nil, 6, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enable end),

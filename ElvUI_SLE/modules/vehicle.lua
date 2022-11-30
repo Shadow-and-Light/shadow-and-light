@@ -173,9 +173,11 @@ function DVB:PositionAndSizeBar()
 	local page = format('[overridebar] %d; [vehicleui][possessbar] %d; [bonusbar:5] 11; [shapeshift] %d;', GetOverrideBarIndex(), GetVehicleBarIndex(), GetTempShapeshiftBarIndex())
 	RegisterStateDriver(bar, 'page', page)
 
+	local visibility = format('[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s show; hide', db.dragonRiding and '[bonusbar:5]' or '')
+
 	if db.enable then
 		E:EnableMover(bar.mover:GetName())
-		RegisterStateDriver(bar, 'visibility', '[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar][bonusbar:5] show; hide')
+		RegisterStateDriver(bar, 'visibility', visibility)
 		bar:Show()
 	else
 		E:DisableMover(bar.mover:GetName())

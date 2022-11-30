@@ -479,6 +479,7 @@ L["Show both equipped and average item levels."] = "Affiche les niveaux d'objet 
 L["Show Both Timers"] = true
 L["Show Cooking Awards"] = "Affiche le badge du cuisinier"
 L["Show coordinates on minimap mouseover."] = "Afficher les coordonnées au passage de la souris sur la carte miniature."
+L["Show Dragon Flying"] = true
 L["Show Dungeon and Raid Currency"] = "Affiche la devise du donjon et du raid"
 L["Show ElvUI skin's backdrop overlay"] = "Affiche la superposition d'arrière-plan de l'habillage de ElvUI"
 L["Show engineer gadgets"] = "Afficher les gadgets de l'ingénieurs"

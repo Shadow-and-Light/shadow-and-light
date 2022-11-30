@@ -479,6 +479,7 @@ L["Show both equipped and average item levels."] = "착템렙과 평균템렙 �
 L["Show Both Timers"] = true
 L["Show Cooking Awards"] = "요리상 표시"
 L["Show coordinates on minimap mouseover."] = true
+L["Show Dragon Flying"] = true
 L["Show Dungeon and Raid Currency"] = "던전 및 공격대 화폐 표시"
 L["Show ElvUI skin's backdrop overlay"] = "ElvUI 스킨 배경 겹침 표시"
 L["Show engineer gadgets"] = true
