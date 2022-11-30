@@ -1,3 +1,4 @@
-v4.53 11/29/22
+v4.54 11/30/22
 
-• fix dedicated vehicle bar to display when dragonriding
+• add option to show/hide dedicated vehicle bar if dragon riding (bonusbar:5 macro condtional check)
+• add Valdraken portal & teleport to location panel
