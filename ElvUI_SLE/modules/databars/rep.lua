@@ -136,23 +136,56 @@ function DB:PopulateRepPatterns()
 	tinsert(DB.RepDecreaseStrings, pattern)
 end
 
+local function sendMessage(chatWindowsCache, newMessage)
+	local db = E.db.sle.databars.reputation.chatfilter
+	local chatframe
+
+	if db.chatframe == 'AUTO' then
+		for num = 1, #(chatWindowsCache) do
+			chatframe = _G[chatWindowsCache[num]]
+			chatframe:AddMessage(newMessage)
+		end
+	else
+		chatframe = _G[db.chatframe]
+		chatframe:AddMessage(newMessage)
+	end
+end
+
+local chatWindowsCache = {}
 function DB:FilterReputation(_, message, ...)
+	local db = E.db.sle.databars.reputation.chatfilter
+	local newMessage, faction, value
+
+	if db.chatframe == 'AUTO' then
+		wipe(chatWindowsCache)
+		for i = 1, NUM_CHAT_WINDOWS do
+			if SLE:SimpleTable(_G['ChatFrame'..i]['messageTypeList'], 'COMBAT_FACTION_CHANGE') then
+				tinsert(chatWindowsCache, 'ChatFrame'..i)
+			end
+		end
+	end
+
 	if DB.db.reputation and DB.db.reputation.chatfilter.enable then
 		for i in ipairs(DB.RepIncreaseStrings) do
-			local faction = strmatch(message, DB.RepIncreaseStrings[i])
+			faction, value = strmatch(message, DB.RepIncreaseStrings[i])
 			if faction then
+				newMessage = format(DB['RepIncreaseStyles'][db.style.increase], db.iconsize, faction, value)
+				sendMessage(chatWindowsCache, newMessage)
+
 				return true
 			end
 		end
+
 		for i in ipairs(DB.RepDecreaseStrings) do
-			local faction= strmatch(message, DB.RepDecreaseStrings[i])
+			faction, value = strmatch(message, DB.RepDecreaseStrings[i])
 			if faction then
+				newMessage = format(DB['RepDecreaseStyles'][db.style.decrease], db.iconsize, faction, value)
+				sendMessage(chatWindowsCache, newMessage)
+
 				return true
 			end
 		end
-		return false, message, ...
 	end
-	return false, message, ...
 end
 
 function DB:ScanFactions()
@@ -169,57 +202,6 @@ function DB:ScanFactions()
 				DB.factionVars[name].isParagon = true
 			else
 				DB.factionVars[name].Value = barValue
-			end
-		end
-	end
-end
-
-function DB:NewRepString()
-	if not E.db.sle.databars.reputation or not E.db.sle.databars.reputation.chatfilter.enable then return end
-	local tempfactions = GetNumFactions()
-	if (tempfactions > DB.factions) then
-		DB:ScanFactions()
-		DB.factions = tempfactions
-	end
-	if E.db.sle.databars.reputation.chatfilter.chatframe == 'AUTO' then
-		wipe(DB.RepChatFrames)
-		for i = 1, NUM_CHAT_WINDOWS do
-			if SLE:SimpleTable(_G['ChatFrame'..i]['messageTypeList'], 'COMBAT_FACTION_CHANGE') then
-				tinsert(DB.RepChatFrames, 'ChatFrame'..i)
-			end
-		end
-	end
-	for factionIndex = 1, GetNumFactions() do
-		local StyleTable = nil
-		local name, _, _, _, _, barValue, _, _, isHeader, _, hasRep, _, _, factionID = GetFactionInfo(factionIndex)
-
-		if (not isHeader or hasRep) and DB.factionVars[name] then
-			if DB.factionVars[name].isParagon then
-				local currentValue = C_Reputation_GetFactionParagonInfo(factionID)
-				barValue = currentValue
-			end
-			local diff = barValue - DB.factionVars[name].Value
-
-			if diff > 0 then
-				StyleTable = 'RepIncreaseStyles'
-			elseif diff < 0 then
-				StyleTable = 'RepDecreaseStyles'
-			end
-			if StyleTable then
-				local repMessage = format(DB[StyleTable][E.db.sle.databars.reputation.chatfilter.style] , E.db.sle.databars.reputation.chatfilter.iconsize, name, diff)
-				local chatframe
-				if E.db.sle.databars.reputation.chatfilter.chatframe == 'AUTO' then
-					for n = 1, #(DB.RepChatFrames) do
-						chatframe = _G[DB.RepChatFrames[n]]
-						chatframe:AddMessage(repMessage)
-					end
-				else
-					chatframe = _G[E.db.sle.databars.reputation.chatfilter.chatframe]
-					chatframe:AddMessage(repMessage)
-				end
-				DB.factionVars[name].Value = barValue
-
-				if E.db.sle.databars.reputation.chatfilter.showAll then return end
 			end
 		end
 	end

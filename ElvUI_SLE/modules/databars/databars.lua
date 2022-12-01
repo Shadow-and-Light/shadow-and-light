@@ -40,10 +40,6 @@ function DB:Initialize()
 	DB:AzeriteInit()
 	DB:HonorInit()
 	-- DB:ForUpdateAll()
-
-	-- self:RegisterEvent('CHAT_MSG_COMBAT_FACTION_CHANGE', 'NewRepString')
-	DB:RegisterEvent('UPDATE_FACTION', 'NewRepString')
-	DB:NewRepString()
 end
 
 SLE:RegisterModule(DB:GetName())

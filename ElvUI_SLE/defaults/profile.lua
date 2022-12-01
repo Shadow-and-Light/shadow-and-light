@@ -338,9 +338,10 @@ P["sle"] = {
 				enable = false,
 				chatframe = "AUTO",
 				iconsize = 12,
-				showAll = false,
-				style = "STYLE1",
-				styleDec = "STYLE1",
+				style = {
+					increase = 'STYLE1',
+					decrease = 'STYLE1',
+				},
 			},
 			ignoreGuild = true,
 			longtext = false,

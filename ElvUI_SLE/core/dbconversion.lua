@@ -38,6 +38,13 @@ function SLE:DatabaseConversions()
 					data.sle.databars.rep = nil
 					profileChanged = true
 				end
+				if data.sle.databars and data.sle.databars.reputation and data.sle.databars.reputation.chatfilter and (data.sle.databars.reputation.chatfilter.style and type(data.sle.databars.reputation.chatfilter.style) ~= 'table') then
+					local oldValue = E.db.sle.databars.reputation.chatfilter.style
+					E.db.sle.databars.reputation.chatfilter.style = {}
+					E:CopyTable(E.db.sle.databars.reputation.chatfilter.style, P.sle.databars.reputation.chatfilter.style)
+					E.db.sle.databars.reputation.chatfilter.style.increase = oldValue
+					profileChanged = true
+				end
 				if data.sle.Armory then data.sle.Armory = nil
 					profileChanged = true
 				end

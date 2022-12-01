@@ -110,7 +110,7 @@ local function configTable()
 								disabled = function() return not E.db.sle.databars.reputation.chatfilter.enable end,
 								min = 8, max = 32, step = 1,
 							},
-							style = {
+							increase = {
 								order = 3,
 								type = "select",
 								name = L["Reputation increase Style"],
@@ -119,8 +119,10 @@ local function configTable()
 									["STYLE1"] = format(DB.RepIncreaseStyles["STYLE1"], 12, FACTION, 300),
 									["STYLE2"] = format(DB.RepIncreaseStyles["STYLE2"], 12, FACTION, 300),
 								},
+								get = function(info) return E.db.sle.databars.reputation.chatfilter.style[ info[#info] ] end,
+								set = function(info, value) E.db.sle.databars.reputation.chatfilter.style[ info[#info] ] = value end,
 							},
-							styleDec = {
+							decrease = {
 								order = 4,
 								type = "select",
 								name = L["Reputation decrease Style"],
@@ -129,13 +131,8 @@ local function configTable()
 									["STYLE1"] = format(DB.RepDecreaseStyles["STYLE1"], 12, FACTION, 300),
 									["STYLE2"] = format(DB.RepDecreaseStyles["STYLE2"], 12, FACTION, 300),
 								},
-							},
-							showAll = {
-								order = 5,
-								type = "toggle",
-								name = L["Full List"],
-								desc = L["Show all factions affected by the latest reputation change. When disabled only first (in alphabetical order) affected faction will be shown."],
-								disabled = function() return not E.db.sle.databars.reputation.chatfilter.enable end,
+								get = function(info) return E.db.sle.databars.reputation.chatfilter.style[ info[#info] ] end,
+								set = function(info, value) E.db.sle.databars.reputation.chatfilter.style[ info[#info] ] = value end,
 							},
 							chatframe = {
 								order = 6,
