@@ -161,7 +161,7 @@ function DB:FilterExperience(_, message, ...)
 			for i = 1, #patterns do
 				name, exp, bonus, reason, addbonus = strmatch(message, '^'..DB.Exp.Strings[type][i]..'$')
 				if name then
-					message = format(DB.Exp.Styles[E.db.sle.databars.experience.chatfilter.style][type] , E.db.sle.databars.experience.chatfilter.iconsize, name, exp, SLE.Russian and reason or bonus, SLE.Russian and bonus or reason, addbonus)
+					message = format(DB.Exp.Styles[E.db.sle.databars.experience.chatfilter.style][type], E.db.sle.databars.experience.chatfilter.iconsize, name, exp, SLE.Russian and reason or bonus, SLE.Russian and bonus or reason, addbonus)
 					return false, message, ...
 				end
 			end
