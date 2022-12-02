@@ -1336,7 +1336,7 @@ function PI:DarthSetupSL()
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["yOffset"] = -5
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["yOffset"] = 20
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["raidTargetIndicator"]["size"] = 22
-		
+
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["maxDuration"] = 0
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["numAuras"] = 6
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["priority"] = "Blacklist,RaidBuffsElvUI,Dispellable,blockNoDuration,PlayerBuffs,TurtleBuffs,CastByUnit"
@@ -1367,7 +1367,7 @@ function PI:DarthSetupSL()
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["yOffset"] = -5
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["raidTargetIndicator"]["size"] = 22
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["format"] = "[npctitle]"
-		
+
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["size"] = 22
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["height"] = 5
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["font"] = "Expressway"
@@ -1376,7 +1376,7 @@ function PI:DarthSetupSL()
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["fontSize"] = 10
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["height"] = 6
 		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["yOffset"] = -5
-		
+
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["size"] = 22
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["height"] = 5
 		E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "Expressway"
