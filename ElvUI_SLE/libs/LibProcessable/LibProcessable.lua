@@ -17,6 +17,7 @@ local LE_ITEM_QUALITY_EPIC = LE_ITEM_QUALITY_EPIC or Enum.ItemQuality.Epic or 4
 local LE_ITEM_CLASS_ARMOR = Enum.ItemClass.Armor or 4
 local LE_ITEM_CLASS_WEAPON = Enum.ItemClass.Weapon or 2
 local LE_ITEM_CLASS_GEM = Enum.ItemClass.Gem or 3
+local LE_ITEM_CLASS_PROFESSION = Enum.ItemClass.Profession or 19
 local LE_ITEM_ARMOR_COSMETIC = Enum.ItemClass.Cosmetic or 5
 local LE_ITEM_SUBCLASS_ARTIFACT = 11 -- no existing constant for this one
 local LE_ITEM_EQUIPLOC_SHIRT = Enum.InventoryType.IndexBodyType or 4
@@ -157,7 +158,8 @@ function lib:IsDisenchantable(item)
 				and C_Item.GetItemInventoryTypeByID(itemID) ~= LE_ITEM_EQUIPLOC_SHIRT
 				and (class == LE_ITEM_CLASS_WEAPON
 					or (class == LE_ITEM_CLASS_ARMOR and subClass ~= LE_ITEM_ARMOR_COSMETIC)
-					or (class == LE_ITEM_CLASS_GEM and subClass == LE_ITEM_SUBCLASS_ARTIFACT)))
+					or (class == LE_ITEM_CLASS_GEM and subClass == LE_ITEM_SUBCLASS_ARTIFACT)
+					or class == LE_ITEM_CLASS_PROFESSION))
 		end
 	end
 end
