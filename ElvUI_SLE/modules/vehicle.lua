@@ -220,27 +220,28 @@ function DVB:CreateBar()
 	AB:HookScript(bar, 'OnLeave', 'Bar_OnLeave')
 
 	for i = 1, 7 do
-		bar.buttons[i] = LAB:CreateButton(i, format(bar:GetName()..'Button%d', i), bar, nil)
-		bar.buttons[i]:SetState(0, 'action', i)
+		local button = LAB:CreateButton(i, format(bar:GetName()..'Button%d', i), bar, nil)
+		bar.buttons[i] = button
+		button:SetState(0, 'action', i)
 
 		for k = 1, 18 do
-			bar.buttons[i]:SetState(k, 'action', (k - 1) * 12 + i)
+			button:SetState(k, 'action', (k - 1) * 12 + i)
 		end
 
 		if i == 7 then
-			bar.buttons[i]:SetState(GetVehicleBarIndex(), 'custom', AB.customExitButton)
-			_G[elvButton..i].slvehiclebutton = bar.buttons[i]:GetName()
+			button:SetState(GetVehicleBarIndex(), 'custom', AB.customExitButton)
+			_G[elvButton..i].slvehiclebutton = button:GetName()
 		else
-			_G[elvButton..i].slvehiclebutton = bar.buttons[i]:GetName()
+			_G[elvButton..i].slvehiclebutton = button:GetName()
 		end
 
 		--Masuqe Support
 		if MasqueGroup and E.private.actionbar.masque.actionbars then
-			bar.buttons[i]:AddToMasque(MasqueGroup)
+			button:AddToMasque(MasqueGroup)
 		end
 
-		AB:HookScript(bar.buttons[i], 'OnEnter', 'Button_OnEnter')
-		AB:HookScript(bar.buttons[i], 'OnLeave', 'Button_OnLeave')
+		AB:HookScript(button, 'OnEnter', 'Button_OnEnter')
+		AB:HookScript(button, 'OnLeave', 'Button_OnLeave')
 	end
 
 	bar:SetAttribute('_onstate-page', [[
