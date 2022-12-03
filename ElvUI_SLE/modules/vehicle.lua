@@ -165,6 +165,10 @@ function DVB:PositionAndSizeBar()
 			hotkey:ClearAllPoints()
 			hotkey:Point(hotkeyPosition, hotkeyXOffset, hotkeyYOffset)
 		end
+
+		if button.cooldown then
+			button.cooldown:HookScript('OnShow', function(frame) frame:SetAllPoints() end)
+		end
 	end
 
 	AB:HandleBackdropMultiplier(bar, backdropSpacing, buttonSpacing, db.widthMult, db.heightMult, anchorUp, anchorLeft, horizontal, lastShownButton, anchorRowButton)
