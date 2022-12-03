@@ -35,6 +35,14 @@ local totalGold, totalHorde, totalAlliance = 0, 0, 0
 local iconString = '|T%s:16:16:0:0:64:64:4:60:4:60|t'
 DT.CurrencyList = { GOLD = BONUS_ROLL_REWARD_MONEY, BACKPACK = 'Backpack' }
 
+local function deleteCharacter(_, realm, name)
+	ElvDB.gold[realm][name] = nil
+	ElvDB.class[realm][name] = nil
+	ElvDB.faction[realm][name] = nil
+
+	DT:ForceUpdate_DataText('S&L Currencies')
+end
+
 local function OnClick(self, btn)
 	if btn == 'RightButton' then
 		if IsShiftKeyDown() then
@@ -89,14 +97,6 @@ end
 
 local function sortFunction(a, b)
 	return a.amount > b.amount
-end
-
-local function deleteCharacter(_, realm, name)
-	ElvDB.gold[realm][name] = nil
-	ElvDB.class[realm][name] = nil
-	ElvDB.faction[realm][name] = nil
-
-	DT:ForceUpdate_DataText('S&L Currencies')
 end
 
 local function updateTotal(faction, change)
