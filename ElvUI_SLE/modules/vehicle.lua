@@ -120,7 +120,7 @@ function DVB:PositionAndSizeBar()
 		AB:StyleButton(button, nil, MasqueGroup and E.private.actionbar.masque.actionbars)
 
 		--* S&L Version of AB:FixKeybindText(button)
-		local hotkey = _G[bar.buttons[i]:GetName()..'HotKey']
+		local hotkey = _G[button:GetName()..'HotKey']
 		local hotkeytext
 
 		local hotkeyPosition = db and db.hotkeyTextPosition or 'TOPRIGHT'
@@ -161,7 +161,7 @@ function DVB:PositionAndSizeBar()
 			hotkey:Show()
 		end
 
-		if not bar.buttons[i].useMasque then
+		if not button.useMasque then
 			hotkey:ClearAllPoints()
 			hotkey:Point(hotkeyPosition, hotkeyXOffset, hotkeyYOffset)
 		end
