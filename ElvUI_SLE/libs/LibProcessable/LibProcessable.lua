@@ -1,4 +1,4 @@
-local MAJOR, MINOR = 'LibProcessable', 58
+local MAJOR, MINOR = 'LibProcessable', 59
 assert(LibStub, MAJOR .. ' requires LibStub')
 
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
@@ -703,6 +703,18 @@ data.enchantingItems = {
 	[200945] = true, -- Valiant Hammer
 	[200946] = true, -- Thunderous Blade
 	[200947] = true, -- Carving of Awakening
+	-- https://www.wowhead.com/items?filter=104;0;Disenchant+to+gain+Enchanting+knowledge
+	[198694] = true, -- Enriched Earthen Shard
+	[198798] = true, -- Flashfrozen Scroll
+	[198800] = true, -- Fractured Titanic Sphere
+	[198689] = true, -- Stormbound Horn
+	[198799] = true, -- Forgotten Arcane Tome
+	[198675] = true, -- Lava-Infused Seed
+	[201360] = true, -- Glimmer of Order
+	[201358] = true, -- Glimmer of Air
+	[201357] = true, -- Glimmer of Frost
+	[201359] = true, -- Glimmer of Earth
+	[201356] = true, -- Glimmer of Fire
 }
 
 -- /run ChatFrame1:Clear(); for _,i in next,{C_TradeSkillUI.GetCategories()} do print(i, C_TradeSkillUI.GetCategoryInfo(i).name) end
