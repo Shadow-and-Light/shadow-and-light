@@ -187,6 +187,7 @@ SLE.SpecialChatIcons = {
 			['Darthpred'] = darth,
 			--Repooc's Toon
 			['Repooc'] = repooc,
+			['Desertdragon'] = gold,
 		},
 		['Spirestone'] = {
 			['Lapooc'] = test,
