@@ -165,14 +165,6 @@ function DVB:PositionAndSizeBar()
 			hotkey:ClearAllPoints()
 			hotkey:Point(hotkeyPosition, hotkeyXOffset, hotkeyYOffset)
 		end
-
-		if button.cooldown then
-			button.cooldown:HookScript('OnShow',
-				function(frame)
-					E:Delay(5, function() print('fired again') frame:SetAllPoints() end)
-					frame:SetAllPoints()
-				end)
-		end
 	end
 
 	AB:HandleBackdropMultiplier(bar, backdropSpacing, buttonSpacing, db.widthMult, db.heightMult, anchorUp, anchorLeft, horizontal, lastShownButton, anchorRowButton)
@@ -339,6 +331,15 @@ local function LAB_MouseDown(btn)
 	end
 end
 hooksecurefunc(AB, 'LAB_MouseDown', LAB_MouseDown)
+
+local function LAB_ButtonUpdate(_, button)
+	if not E.private.actionbar.enable or not E.db.sle.actionbar.vehicle.enable or not button or not strmatch(button:GetName(), 'SL_DedicatedVehicleBarButton') then return end
+	local cooldown = button.cooldown
+	if cooldown then
+		cooldown:SetAllPoints()
+	end
+end
+hooksecurefunc(AB, 'LAB_ButtonUpdate', LAB_ButtonUpdate)
 
 function DVB:Initialize()
 	if not SLE.initialized or not E.private.actionbar.enable then return end
