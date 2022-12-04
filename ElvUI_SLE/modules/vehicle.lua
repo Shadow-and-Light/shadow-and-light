@@ -193,14 +193,14 @@ function DVB:PositionAndSizeBar()
 	E:SetMoverSnapOffset('SL_DedicatedVehicleBarMover', db.buttonSpacing / 2)
 
 	--! Did not test the masque stuff tbh (Yolo)
-	if MasqueGroup and E.private.actionbar.masque.actionbars then
-		MasqueGroup:ReSkin()
+	-- if MasqueGroup and E.private.actionbar.masque.actionbars then
+	-- 	MasqueGroup:ReSkin()
 
-		-- masque retrims them all so we have to too
-		for btn in pairs(AB.handledbuttons) do
-			AB:TrimIcon(btn, true)
-		end
-	end
+	-- 	-- masque retrims them all so we have to too
+	-- 	for btn in pairs(AB.handledbuttons) do
+	-- 		AB:TrimIcon(btn, true)
+	-- 	end
+	-- end
 end
 
 function DVB:CreateBar()
@@ -240,9 +240,9 @@ function DVB:CreateBar()
 		end
 
 		--Masuqe Support
-		if MasqueGroup and E.private.actionbar.masque.actionbars then
-			button:AddToMasque(MasqueGroup)
-		end
+		-- if MasqueGroup and E.private.actionbar.masque.actionbars then
+		-- 	button:AddToMasque(MasqueGroup)
+		-- end
 
 		AB:HookScript(button, 'OnEnter', 'Button_OnEnter')
 		AB:HookScript(button, 'OnLeave', 'Button_OnLeave')
