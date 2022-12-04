@@ -167,7 +167,11 @@ function DVB:PositionAndSizeBar()
 		end
 
 		if button.cooldown then
-			button.cooldown:HookScript('OnShow', function(frame) frame:SetAllPoints() end)
+			button.cooldown:HookScript('OnShow',
+				function(frame)
+					E:Delay(5, function() print('fired again') frame:SetAllPoints() end)
+					frame:SetAllPoints()
+				end)
 		end
 	end
 
@@ -318,23 +322,23 @@ function DVB:UpdateButtonConfig(barName)
 end
 
 --* Ghetto way to get the pushed texture to work
-function DVB:LAB_MouseUp()
-	if not E.private.actionbar.enable or not E.db.sle.actionbar.vehicle.enable then return end
-	local slbutton = _G[self.slvehiclebutton]
-	if slbutton and slbutton.config.clickOnDown then
-		slbutton:GetPushedTexture():Hide()
+local function LAB_MouseUp(btn)
+	if not E.private.actionbar.enable or not E.db.sle.actionbar.vehicle.enable or not btn.slvehiclebutton then return end
+	local button = _G[btn.slvehiclebutton]
+	if button and button.config.clickOnDown then
+		button:GetPushedTexture():Hide()
 	end
 end
-hooksecurefunc(AB, 'LAB_MouseUp', DVB.LAB_MouseUp)
+hooksecurefunc(AB, 'LAB_MouseUp', LAB_MouseUp)
 
-function DVB:LAB_MouseDown()
-	if not E.private.actionbar.enable or not E.db.sle.actionbar.vehicle.enable then return end
-	local slbutton = _G[self.slvehiclebutton]
-	if slbutton and slbutton.config.clickOnDown then
-		slbutton:GetPushedTexture():Show()
+local function LAB_MouseDown(btn)
+	if not E.private.actionbar.enable or not E.db.sle.actionbar.vehicle.enable or not btn.slvehiclebutton then return end
+	local button = _G[btn.slvehiclebutton]
+	if button and button.config.clickOnDown then
+		button:GetPushedTexture():Show()
 	end
 end
-hooksecurefunc(AB, 'LAB_MouseDown', DVB.LAB_MouseDown)
+hooksecurefunc(AB, 'LAB_MouseDown', LAB_MouseDown)
 
 function DVB:Initialize()
 	if not SLE.initialized or not E.private.actionbar.enable then return end
