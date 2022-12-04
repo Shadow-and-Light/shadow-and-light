@@ -1,4 +1,8 @@
-v4.54 11/30/22
+v4.55 12/??/22
 
-• add option to show/hide dedicated vehicle bar if dragon riding (bonusbar:5 macro condtional check)
-• add Valdraken portal & teleport to location panel
+• update German locales (thnx DlargeX)
+• reputation chat filter now works again (removed 1 option that wasnt really important)
+• fix a tooltip error
+• fix cd swipe & pushed texture on the dedicated vehicle bar
+• fix s&l currency datatext error when trying to remove a character
+• update LibProcessable v59
