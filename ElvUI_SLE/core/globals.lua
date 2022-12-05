@@ -175,8 +175,9 @@ SLE.SpecialChatIcons = {
 		['ЧерныйШрам'] = {
 			['Емалия'] = friend,
 		},
-                ['Blackrock'] = {
-                        ['Roxanne'] = blizzicon:format('ability_mage_glacialspike'), -- Annoying Feature requester 
+        ['Blackrock'] = {
+			['Roxanne'] = blizzicon:format('ability_mage_glacialspike'), -- Annoying Feature requester
+		},
 	},
 	['US'] = {
 		['Andorhal'] = {
