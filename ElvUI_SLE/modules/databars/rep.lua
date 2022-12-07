@@ -1,4 +1,4 @@
-﻿local SLE, T, E, L = unpack(select(2, ...))
+﻿local SLE, T, E, L, _, P = unpack(select(2, ...))
 local DB = SLE.DataBars
 local EDB = E.DataBars
 
@@ -208,7 +208,7 @@ function DB:ScanFactions()
 end
 
 function DB:RepInit()
-	if type(E.db.sle.databars.reputation.chatfilter.style ~= table) then E.db.sle.databars.reputation.chatfilter.style = nil end
+	if type(E.db.sle.databars.reputation.chatfilter.style) ~= 'table' then E.db.sle.databars.reputation.chatfilter.style = {}; E:CopyTable(E.db.sle.databars.reputation.chatfilter.style, P.sle.databars.reputation.chatfilter.style) end
 	DB:PopulateRepPatterns()
 	hooksecurefunc(EDB, 'ReputationBar_Update', ReputationBar_Update)
 	EDB:ReputationBar_Update()
