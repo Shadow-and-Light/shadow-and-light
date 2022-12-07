@@ -1,4 +1,3 @@
-v4.56 12/7/22
+v4.57 12/7/22
 
-• fixed another reputation chatfilter error
-• fixed location panel error while on evoker when right clicking the bar
+• hot fix another reputation chatfilter error I caused in last update
