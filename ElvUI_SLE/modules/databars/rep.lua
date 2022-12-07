@@ -208,6 +208,7 @@ function DB:ScanFactions()
 end
 
 function DB:RepInit()
+	if type(E.db.sle.databars.reputation.chatfilter.style ~= table) then E.db.sle.databars.reputation.chatfilter.style = nil end
 	DB:PopulateRepPatterns()
 	hooksecurefunc(EDB, 'ReputationBar_Update', ReputationBar_Update)
 	EDB:ReputationBar_Update()
