@@ -1,8 +1,4 @@
-v4.55 12/4/22
+v4.56 12/7/22
 
-• update German locales (thnx DlargeX)
-• reputation chat filter now works again (removed 1 option that wasnt really important)
-• fix a tooltip error
-• fix cd swipe & pushed texture on the dedicated vehicle bar
-• fix s&l currency datatext error when trying to remove a character
-• update LibProcessable v59
+• fixed another reputation chatfilter error
+• fixed location panel error while on evoker when right clicking the bar
