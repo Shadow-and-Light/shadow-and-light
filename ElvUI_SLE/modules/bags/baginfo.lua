@@ -43,6 +43,7 @@ function B:HideSet(slot, keep)
 end
 
 function B:UpdateSet(slot)
+	slot = slot == 'EQUIPMENT_SETS_CHANGED' and self or slot
 	if not slot or not slot.itemID then return end
 	-- local isInSet, setName = C_Container.GetContainerItemEquipmentSetInfo(bagID, slotID)(slot.bagID, slot.slotID) --* API is currently broken
 
