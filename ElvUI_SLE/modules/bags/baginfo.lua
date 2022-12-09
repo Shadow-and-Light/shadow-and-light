@@ -53,9 +53,6 @@ function B:UpdateSet(slot)
 		TooltipUtil.SurfaceArgs(tooltipData)
 		for _, line in ipairs(tooltipData.lines) do
 			TooltipUtil.SurfaceArgs(line)
-			if line and line.leftText and slot.isEquipment then
-				print(slot:GetName(), line.leftText, 'EQUIPMENT_SETS:', EQUIPMENT_SETS, 'MATCH_EQUIPMENT_SETS:', MATCH_EQUIPMENT_SETS, 'strmatch:', strmatch(line.leftText, MATCH_EQUIPMENT_SETS))
-			end
 			if (line and line.leftText) and strmatch(line.leftText, MATCH_EQUIPMENT_SETS) then
 				isInSet = true
 				break
