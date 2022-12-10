@@ -33,7 +33,7 @@ function SUF:Update_PlayerFrame(frame)
 
 	SUF:Configure_Health(frame)
 	SUF:Configure_Power(frame)
-	-- SUF:Configure_ClassBar(frame)
+	SUF:Configure_ClassBar(frame)
 	SUF:Configure_DeathIndicator(frame)
 
 	SUF:Configure_PvPTimerText(frame)
