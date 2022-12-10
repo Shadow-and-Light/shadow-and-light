@@ -46,10 +46,15 @@ Armory.Constants.CanTransmogrify = {
 }
 
 Armory.Constants.EnchantableSlots = {
-	['Finger0Slot'] = true, ['Finger1Slot'] = true, ['MainHandSlot'] = true, ['SecondaryHandSlot'] = true,
-	--Uncomment this when shadowlands actually launches
-	['ChestSlot'] = true, ['BackSlot'] = true,
-	['FeetSlot'] = true, ['WristSlot'] = true,
+	['BackSlot'] = true,
+	['ChestSlot'] = true,
+	['WristSlot'] = true,
+	['LegsSlot'] = true,
+	['Finger0Slot'] = true,
+	['Finger1Slot'] = true,
+	['MainHandSlot'] = true,
+	['SecondaryHandSlot'] = true,
+	['FeetSlot'] = true,
 }
 Armory.Constants.SpecPrimaryStats = {
 	[250] = 1, --DK Blood
