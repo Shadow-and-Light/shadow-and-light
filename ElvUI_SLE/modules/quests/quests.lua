@@ -5,16 +5,15 @@ local IsResting = IsResting
 local _G = _G
 
 local minimizeButton = _G['ObjectiveTrackerFrame'].HeaderMenu.MinimizeButton
-
 local statedriver = {
 	['FULL'] = function(frame)
 		ObjectiveTracker_Expand()
-		if E.private.skins.blizzard.enable == true and E.private.skins.blizzard.objectiveTracker == true then minimizeButton.tex:SetTexture('Interface\\AddOns\\ElvUI\\Core\\Media\\Textures\\MinusButton') end
+		if E.private.skins.blizzard.enable and E.private.skins.blizzard.objectiveTracker then minimizeButton.tex:SetTexture([[Interface\AddOns\ElvUI\Core\Media\Textures\MinusButton]]) end
 		frame:Show()
 	end,
 	['COLLAPSED'] = function(frame)
 		ObjectiveTracker_Collapse()
-		if E.private.skins.blizzard.enable == true and E.private.skins.blizzard.objectiveTracker == true then minimizeButton.tex:SetTexture('Interface\\AddOns\\ElvUI\\Core\\Media\\Textures\\PlusButton') end
+		if E.private.skins.blizzard.enable and E.private.skins.blizzard.objectiveTracker then minimizeButton.tex:SetTexture([[Interface\AddOns\ElvUI\Core\Media\Textures\PlusButton]]) end
 		frame:Show()
 	end,
 	['HIDE'] = function(frame)
@@ -23,9 +22,7 @@ local statedriver = {
 }
 
 function Q:ChangeState(event)
-	if not Q.db then return end
-	if not Q.db.visibility then return end
-	if not Q.db.visibility.enable then return end
+	if not Q.db or not Q.db.visibility or not Q.db.visibility.enable then return end
 	if InCombatLockdown() and event ~= 'PLAYER_REGEN_DISABLED' then return end
 	local inCombat = event == 'PLAYER_REGEN_DISABLED' and true or false
 
