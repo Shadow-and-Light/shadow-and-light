@@ -16,6 +16,9 @@ local statedriver = {
 		if E.private.skins.blizzard.enable and E.private.skins.blizzard.objectiveTracker then minimizeButton.tex:SetTexture([[Interface\AddOns\ElvUI\Core\Media\Textures\PlusButton]]) end
 		frame:Show()
 	end,
+	['COLLAPSED_QUESTS'] = function()
+		ObjectiveTracker_MinimizeModuleButton_OnClick(ObjectiveTrackerBlocksFrame.QuestHeader.MinimizeButton)
+	end,
 	['HIDE'] = function(frame)
 		frame:Hide()
 	end,
