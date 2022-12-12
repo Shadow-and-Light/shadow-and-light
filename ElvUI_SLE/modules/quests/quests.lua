@@ -119,13 +119,13 @@ function Q:Initialize()
 	Q.db = E.db.sle.quests
 	Q.frame = ObjectiveTrackerFrame
 
-	self:RegisterEvent('LOADING_SCREEN_DISABLED', 'ChangeState')
-	self:RegisterEvent('PLAYER_UPDATE_RESTING', 'ChangeState')
-	self:RegisterEvent('ZONE_CHANGED_NEW_AREA', 'ChangeState')
-	self:RegisterEvent('PLAYER_REGEN_ENABLED', 'ChangeState')
-	self:RegisterEvent('PLAYER_REGEN_DISABLED', 'ChangeState')
+	Q:RegisterEvent('LOADING_SCREEN_DISABLED', 'ChangeState')
+	Q:RegisterEvent('PLAYER_UPDATE_RESTING', 'ChangeState')
+	Q:RegisterEvent('ZONE_CHANGED_NEW_AREA', 'ChangeState')
+	Q:RegisterEvent('PLAYER_REGEN_ENABLED', 'ChangeState')
+	Q:RegisterEvent('PLAYER_REGEN_DISABLED', 'ChangeState')
 
-	self:RegisterEvent('QUEST_COMPLETE')
+	Q:RegisterEvent('QUEST_COMPLETE')
 
 	function Q:ForUpdateAll()
 		Q.db = E.db.sle.quests
