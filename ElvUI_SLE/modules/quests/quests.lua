@@ -55,7 +55,7 @@ function Q:ChangeState(event)
 			statedriver['FULL'](Q.frame)
 		end
 	end
-	if SLE._Compatibility['WorldQuestTracker'] then -- and WorldQuestTrackerAddon then
+	if WorldQuestTrackerAddon and SLE._Compatibility['WorldQuestTracker'] then -- and WorldQuestTrackerAddon then
 		local y = 0
 		for i = 1, #ObjectiveTrackerFrame.MODULES do
 			local module = ObjectiveTrackerFrame.MODULES[i]
