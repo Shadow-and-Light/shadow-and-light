@@ -102,6 +102,11 @@ SLE.rolePaths = {
 		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\releaf-healer]],
 		DAMAGER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\releaf-dps]]
 	},
+	['LynOutline'] = {
+		TANK = [[Interface\AddOns\ElvUI_SLE\media\textures\role\lyn-outline-tank]],
+		HEALER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\lyn-outline-healer]],
+		DAMAGER = [[Interface\AddOns\ElvUI_SLE\media\textures\role\lyn-outline-dps]]
+	},
 }
 
 SLE.ScenarioBlockLogos = {
