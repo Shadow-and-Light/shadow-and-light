@@ -88,8 +88,8 @@ function Q:SelectQuestReward(index)
 		end
 		QuestInfoItemHighlight:Show()
 
-		-- set choice
-		QuestInfoFrame.itemChoice = button:GetID()
+		-- Set Choice
+		_G.QuestInfoFrame.itemChoice = button:GetID()
 	end
 end
 
