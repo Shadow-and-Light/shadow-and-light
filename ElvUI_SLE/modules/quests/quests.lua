@@ -23,6 +23,7 @@ local statedriver = {
 		if not ObjectiveTrackerBlocksFrame.QuestHeader.module.collapsed then
 			ObjectiveTracker_MinimizeModuleButton_OnClick(ObjectiveTrackerBlocksFrame.QuestHeader.MinimizeButton)
 		end
+		frame:Hide()
 	end,
 	['HIDE'] = function(frame)
 		frame:Hide()
