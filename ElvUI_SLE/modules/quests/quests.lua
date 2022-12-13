@@ -4,28 +4,29 @@ local ObjectiveTracker_Expand, ObjectiveTracker_Collapse = ObjectiveTracker_Expa
 local IsResting = IsResting
 local _G = _G
 
-local minimizeButton = _G['ObjectiveTrackerFrame'].HeaderMenu.MinimizeButton
+local HeaderMenuMinimizeButton = _G.ObjectiveTrackerFrame.HeaderMenu.MinimizeButton
+local QuestHeaderMinimizeButton = _G.ObjectiveTrackerBlocksFrame.QuestHeader.MinimizeButton
 local statedriver = {
-	['FULL'] = function(frame)
+	FULL = function(frame)
 		ObjectiveTracker_Expand()
-		if E.private.skins.blizzard.enable and E.private.skins.blizzard.objectiveTracker then minimizeButton.tex:SetTexture([[Interface\AddOns\ElvUI\Core\Media\Textures\MinusButton]]) end
+		if E.private.skins.blizzard.enable and E.private.skins.blizzard.objectiveTracker then HeaderMenuMinimizeButton.tex:SetTexture([[Interface\AddOns\ElvUI\Core\Media\Textures\MinusButton]]) end
 		if ObjectiveTrackerBlocksFrame.QuestHeader.module.collapsed then
-			ObjectiveTracker_MinimizeModuleButton_OnClick(ObjectiveTrackerBlocksFrame.QuestHeader.MinimizeButton)
+			ObjectiveTracker_MinimizeModuleButton_OnClick(QuestHeaderMinimizeButton)
 		end
 		frame:Show()
 	end,
-	['COLLAPSED'] = function(frame)
+	COLLAPSED = function(frame)
 		ObjectiveTracker_Collapse()
-		if E.private.skins.blizzard.enable and E.private.skins.blizzard.objectiveTracker then minimizeButton.tex:SetTexture([[Interface\AddOns\ElvUI\Core\Media\Textures\PlusButton]]) end
+		if E.private.skins.blizzard.enable and E.private.skins.blizzard.objectiveTracker then HeaderMenuMinimizeButton.tex:SetTexture([[Interface\AddOns\ElvUI\Core\Media\Textures\PlusButton]]) end
 		frame:Show()
 	end,
-	['COLLAPSED_QUESTS'] = function()
+	COLLAPSED_QUESTS = function()
 		if not ObjectiveTrackerBlocksFrame.QuestHeader.module.collapsed then
-			ObjectiveTracker_MinimizeModuleButton_OnClick(ObjectiveTrackerBlocksFrame.QuestHeader.MinimizeButton)
+			ObjectiveTracker_MinimizeModuleButton_OnClick(QuestHeaderMinimizeButton)
 		end
 		frame:Hide()
 	end,
-	['HIDE'] = function(frame)
+	HIDE = function(frame)
 		frame:Hide()
 	end,
 }
