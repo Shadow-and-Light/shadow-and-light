@@ -1,3 +1,7 @@
-v4.57 12/7/22
+v4.58 12/??/22
 
-• hot fix another reputation chatfilter error I caused in last update
+• fix equipment set icon from not showing up in some locales
+• add legs for "enchant" check on the character and inspect frames
+• possible fix for the classbar enhanced shadow from not displaying upon reload of ui if the shadow was enabled (and classbar is detached from the player uf)
+• try to avoid an error with WorldQuestTrackerAddon
+• add lyn role icons that are outlined (Submitted by: Mossberg)
