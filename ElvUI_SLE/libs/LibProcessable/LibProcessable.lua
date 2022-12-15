@@ -1,4 +1,4 @@
-local MAJOR, MINOR = 'LibProcessable', 59
+local MAJOR, MINOR = 'LibProcessable', 60
 assert(LibStub, MAJOR .. ' requires LibStub')
 
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
@@ -506,10 +506,14 @@ data.ores = {
 	[187700] = {LE_EXPANSION_SHADOWLANDS, 1}, -- Progenium Ore
 
 	-- UNTESTED DRAGONFLIGHT ORES:
-	[188658] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Draconium Ore
-	[194545] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Prismatic Ore
-	[190313] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Titaniclum Ore
-	[190394] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Tyrivite Ore
+	[189143] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Draconium Ore (Quality 1)
+	[188658] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Draconium Ore (Quality 2)
+	[190311] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Draconium Ore (Quality 3)
+	[194545] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Prismatic Ore --! Don't think this is prospectable
+	[190313] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Khaz'gorite Ore --! Don't think this is prospectable
+	[190395] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Serevite Ore (Quality 1)
+	[190396] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Serevite Ore (Quality 2)
+	[190394] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Serevite Ore (Quality 3)
 }
 
 data.herbs = {
