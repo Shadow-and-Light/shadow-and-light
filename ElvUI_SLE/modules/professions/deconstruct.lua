@@ -132,6 +132,20 @@ function Pr:ApplyDeconstruct(itemLink, itemId, spell, spellType, r, g, b)
 		elseif E.private.sle.professions.deconButton.style == 'SMALL' then
 			AutoCastShine_AutoCastStart(Pr.DeconstructionReal, color, 5,nil,2)
 		end
+	elseif (C_Container_GetContainerItemLink(bag, slot:GetID()) == itemLink) and Pr.PROSPECTname == spell then
+		Pr.DeconstructionReal.ID = itemId
+		Pr.DeconstructionReal:SetAttribute('type1', 'macro')
+		Pr.DeconstructionReal:SetAttribute('macrotext', format('/run C_TradeSkillUI.CraftRecipe(374627, 1, {})\n/click %s', format('ElvUI_ContainerFrameBag%dSlot%d', Pr.DeconstructionReal.Bag, Pr.DeconstructionReal.Slot)))
+		Pr.DeconstructionReal:SetAllPoints(slot)
+		Pr.DeconstructionReal:Show()
+		if E.private.sle.professions.deconButton.style == 'BIG' then
+			ActionButton_ShowOverlayGlow(Pr.DeconstructionReal)
+		elseif E.private.sle.professions.deconButton.style == 'SMALL' then
+			-- AutoCastShine_AutoCastStart(Pr.DeconstructionReal, r, g, b)
+			LCG.AutoCastGlow_Start(Pr.DeconstructionReal, color, 5, nil, 2)
+		elseif E.private.sle.professions.deconButton.style == 'PIXEL' then
+			LCG.PixelGlow_Start(Pr.DeconstructionReal, color, nil, nil, nil, 4)
+		end
 	elseif (C_Container_GetContainerItemLink(bag, slot:GetID()) == itemLink) then
 		Pr.DeconstructionReal.ID = itemId
 		Pr.DeconstructionReal:SetAttribute('type1', spellType)
@@ -215,7 +229,7 @@ function Pr:DeconstructParser(tt, data)
 				Pr:ApplyDeconstruct(hyperlink, itemId, hasKey, 'item', r, g, b)
 			elseif lib:IsProspectable(itemId) then
 				r, g, b = 1, 0, 0
-				Pr:ApplyDeconstruct(hyperlink, itemId, Pr.PROSPECTname, 'spell', r, g, b)
+				Pr:ApplyDeconstruct(hyperlink, itemId, Pr.PROSPECTname, 'macro', r, g, b)
 			elseif lib:IsMillable(itemId) then
 				r, g, b = 1, 0, 0
 				Pr:ApplyDeconstruct(hyperlink, itemId, Pr.MILLname, 'spell', r, g, b)
