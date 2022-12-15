@@ -115,37 +115,38 @@ function Pr:ApplyDeconstruct(itemLink, itemId, spell, spellType, r, g, b)
 	local slot = GetMouseFocus()
 	if slot == Pr.DeconstructionReal then return end
 	local bag = slot:GetParent():GetID()
-	if not _G["ElvUI_ContainerFrame"].Bags[bag] then return end
+	if not _G.ElvUI_ContainerFrame.Bags[bag] then return end
 	Pr.DeconstructionReal.Bag = bag
 	Pr.DeconstructionReal.Slot = slot:GetID()
 	local color = {r,g,b,1}
-	if (E.global.sle.LOCK.TradeOpen and GetTradeTargetItemLink(7) == itemLink and _G["GameTooltip"]:GetOwner():GetName() == "TradeRecipientItem7ItemButton") then
-			Pr.DeconstructionReal.ID = itemId
-			Pr.DeconstructionReal:SetAttribute('type1', 'macro')
-			Pr.DeconstructionReal:SetAttribute('macrotext', format('/cast %s\n/run ClickTargetTradeButton(7)', spell))
-			Pr.DeconstructionReal:SetAllPoints(_G["TradeRecipientItem7ItemButton"])
-			Pr.DeconstructionReal:Show()
 
-			if E.private.sle.professions.deconButton.style == "BIG" then
-				ActionButton_ShowOverlayGlow(Pr.DeconstructionReal)
-			elseif E.private.sle.professions.deconButton.style == "SMALL" then
-				AutoCastShine_AutoCastStart(Pr.DeconstructionReal, color, 5,nil,2)
-			end
+	if (E.global.sle.LOCK.TradeOpen and GetTradeTargetItemLink(7) == itemLink and _G.GameTooltip:GetOwner():GetName() == 'TradeRecipientItem7ItemButton') then
+		Pr.DeconstructionReal.ID = itemId
+		Pr.DeconstructionReal:SetAttribute('type1', 'macro')
+		Pr.DeconstructionReal:SetAttribute('macrotext', format('/cast %s\n/run ClickTargetTradeButton(7)', spell))
+		Pr.DeconstructionReal:SetAllPoints(_G.TradeRecipientItem7ItemButton)
+		Pr.DeconstructionReal:Show()
+
+		if E.private.sle.professions.deconButton.style == 'BIG' then
+			ActionButton_ShowOverlayGlow(Pr.DeconstructionReal)
+		elseif E.private.sle.professions.deconButton.style == 'SMALL' then
+			AutoCastShine_AutoCastStart(Pr.DeconstructionReal, color, 5,nil,2)
+		end
 	elseif (C_Container_GetContainerItemLink(bag, slot:GetID()) == itemLink) then
 		Pr.DeconstructionReal.ID = itemId
-		Pr.DeconstructionReal:SetAttribute("type1",spellType)
+		Pr.DeconstructionReal:SetAttribute('type1', spellType)
 		Pr.DeconstructionReal:SetAttribute(spellType, spell)
 		Pr.DeconstructionReal:SetAttribute('target-bag', bag)
 		Pr.DeconstructionReal:SetAttribute('target-slot', slot:GetID())
 		Pr.DeconstructionReal:SetAllPoints(slot)
 		Pr.DeconstructionReal:Show()
 
-		if E.private.sle.professions.deconButton.style == "BIG" then
+		if E.private.sle.professions.deconButton.style == 'BIG' then
 			ActionButton_ShowOverlayGlow(Pr.DeconstructionReal)
-		elseif E.private.sle.professions.deconButton.style == "SMALL" then
+		elseif E.private.sle.professions.deconButton.style == 'SMALL' then
 			-- AutoCastShine_AutoCastStart(Pr.DeconstructionReal, r, g, b)
 			LCG.AutoCastGlow_Start(Pr.DeconstructionReal, color, 5, nil, 2)
-		elseif E.private.sle.professions.deconButton.style == "PIXEL" then
+		elseif E.private.sle.professions.deconButton.style == 'PIXEL' then
 			LCG.PixelGlow_Start(Pr.DeconstructionReal, color, nil, nil, nil, 4)
 		end
 	end
@@ -153,12 +154,12 @@ end
 
 function Pr:IsBreakable(itemId, itemName, itemQuality, equipSlot)
 	if not itemId then return false end
-	if(IsEquippableItem(itemId) and itemQuality and itemQuality > 1 and itemQuality < 5 and equipSlot ~= "INVTYPE_BAG") then
-		if E.global.sle.DE.IgnoreTabards and equipSlot == "INVTYPE_TABARD" then return false end
-		if Pr.ItemTable["DoNotDE"][itemId] then return false end
-		if Pr.ItemTable["PandariaBoA"][itemId] and E.global.sle.DE.IgnorePanda then return false end
-		if Pr.ItemTable["Cooking"][itemId] and E.global.sle.DE.IgnoreCooking then return false end
-		if Pr.ItemTable["Fishing"][itemId] and E.global.sle.DE.IgnoreFishing then return false end
+	if(IsEquippableItem(itemId) and itemQuality and itemQuality > 1 and itemQuality < 5 and equipSlot ~= 'INVTYPE_BAG') then
+		if E.global.sle.DE.IgnoreTabards and equipSlot == 'INVTYPE_TABARD' then return false end
+		if Pr.ItemTable['DoNotDE'][itemId] then return false end
+		if Pr.ItemTable['PandariaBoA'][itemId] and E.global.sle.DE.IgnorePanda then return false end
+		if Pr.ItemTable['Cooking'][itemId] and E.global.sle.DE.IgnoreCooking then return false end
+		if Pr.ItemTable['Fishing'][itemId] and E.global.sle.DE.IgnoreFishing then return false end
 		if Pr.BlacklistDE[itemName] then return false end
 		return true
 	end
@@ -196,7 +197,7 @@ function Pr:DeconstructParser(tt, data)
 
 		local hyperlink
 		if data.guid then
-			hyperlink = C_Item.GetItemLinkByGUID(data.guid);
+			hyperlink = C_Item.GetItemLinkByGUID(data.guid)
 		elseif tooltipData.hyperlink then
 			hyperlink = data.hyperlink;
 		end
