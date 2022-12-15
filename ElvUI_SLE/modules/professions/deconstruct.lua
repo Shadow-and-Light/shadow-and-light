@@ -280,7 +280,6 @@ function Pr:ConstructRealDecButton()
 	Pr.DeconstructionReal:SetScript('OnEvent', function(obj, event, ...) obj[event](obj, ...) end)
 	Pr.DeconstructionReal:RegisterForClicks('AnyUp', 'AnyDown')
 	Pr.DeconstructionReal:SetFrameStrata('TOOLTIP')
-	Pr.DeconstructionReal.TipLines = {}
 
 	Pr.DeconstructionReal.OnLeave = function(frame)
 		if InCombatLockdown() then
