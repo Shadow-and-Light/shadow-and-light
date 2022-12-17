@@ -192,7 +192,7 @@ function LT:HandleRoll(event, id)
 
 	local _, name, _, quality, _, _, _, disenchant = GetLootRollItemInfo(id)
 	local link = GetLootRollItemLink(id)
-	local itemID = tonumber(match(link, 'item:(%d+)'))
+	local itemID = tonumber(strmatch(link, 'item:(%d+)'))
 
 	--if this is one of bullshit craft items from old dungeons (e.g. frost orb), you are rtolling greed regardless
 	if itemID == 43102 or itemID == 52078 then
