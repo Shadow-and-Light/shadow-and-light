@@ -345,7 +345,7 @@ function LP:UpdateCoords(elapsed)
 	if LP.db.colorType_Coords == 'REACTION' then
 		local inInstance, _ = IsInInstance()
 		if inInstance then
-			colorC = {r = 1, g = 0.1,b =  0.1}
+			colorC = {r = 1, g = 0.1, b = 0.1}
 		else
 			local pvpType = GetZonePVPInfo()
 			colorC = LP.ReactionColors[pvpType] or {r = 1, g = 1, b = 0}
