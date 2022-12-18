@@ -10,7 +10,7 @@ local UnregisterStateDriver = UnregisterStateDriver
 
 --Visiblity state strings to use based on settings
 RM.VisibilityStates = {
-	['DEFAULT'] = '[noexists, nogroup] hide; show',
+	['DEFAULT'] = '[@target, noexists, nogroup] hide; show',
 	['INPARTY'] = '[group] show; [petbattle] hide; hide',
 	['ALWAYS'] = '[petbattle] hide; show',
 }
