@@ -31,22 +31,18 @@ function Pr:UpdateSkills(event)
 	if event ~= 'CHAT_MSG_SKILL' then
 		Pr.DEname, Pr.LOCKname, Pr.SMITHname = false, false, false
 
-		if(IsSpellKnown(13262)) then Pr.DEname = GetSpellInfo(13262) end --Enchant
-		if(IsSpellKnown(1804)) then Pr.LOCKname = GetSpellInfo(1804) end --Lockpicking
-		if(IsSpellKnown(31252)) then Pr.PROSPECTname = GetSpellInfo(31252) end --Jewelcrating
-		if(IsSpellKnown(51005)) then Pr.MILLname = GetSpellInfo(51005) end --Milling
+		if(IsSpellKnown(13262)) then Pr.DEname = GetSpellInfo(13262) end -- Enchant
+		if(IsSpellKnown(1804)) then Pr.LOCKname = GetSpellInfo(1804) end -- Lockpicking
+		if(IsSpellKnown(25229)) then Pr.PROSPECTname = GetSpellInfo(25229) end -- Jewelcrating (Prospecting)
+		if(IsSpellKnown(45357)) then Pr.MILLname = GetSpellInfo(45357) end -- Inscription (Milling)
 	end
 end
 
 function Pr:IsSkillMine()
-	local npc = IsNPCCrafting()
-	if npc then return false end
-	local guild = IsTradeSkillGuild()
-	if guild then return false end
-	local member = IsTradeSkillGuildMember()
-	if member then return false end
-	local linked = IsTradeSkillLinked()
-	if linked then return false end
+	if IsNPCCrafting() then return false end
+	if IsTradeSkillGuild() then return false end
+	if IsTradeSkillGuildMember() then return false end
+	if IsTradeSkillLinked() then return false end
 	return true
 end
 
