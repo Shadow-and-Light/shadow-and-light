@@ -38,7 +38,6 @@ function Pr:EnchantButton()
 	button:Hide()
 	if E.private.skins.blizzard.tradeskill and E.private.skins.blizzard.enable then
 		S:HandleButton(button)
-		-- button:StripTextures()
 		button:SetTemplate('Default', true)
 		button:ClearAllPoints()
 		button:SetPoint('TOPRIGHT', _G.ProfessionsFrame.CraftingPage.CreateAllButton, 'TOPLEFT', -1, 0)
