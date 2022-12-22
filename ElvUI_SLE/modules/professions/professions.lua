@@ -54,7 +54,7 @@ function Pr:Initialize()
 	-- if SLE._Compatibility["TradeSkillMaster"] and not TradeSkillFrame.RecipeList.collapsedCategories then TradeSkillFrame.RecipeList.collapsedCategories = {} end
 	Pr:UpdateSkills()
 
-	if E.private.sle.professions.enchant.enchScroll then Pr:EnchantButton() end
+	Pr:EnchantButton()
 
 	self:RegisterEvent('CHAT_MSG_SKILL', 'UpdateSkills')
 

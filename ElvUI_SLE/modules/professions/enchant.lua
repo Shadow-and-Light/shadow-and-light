@@ -1,59 +1,63 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, _, E, L = unpack(select(2, ...))
 local Pr = SLE.Professions
 local S = E.Skins
 
--- GLOBALS: CreateFrame, hooksecurefunc
 local _G = _G
+local C_TradeSkillUI_CraftRecipe = C_TradeSkillUI.CraftRecipe
+local C_TradeSkillUI_IsTradeSkillGuild = C_TradeSkillUI.IsTradeSkillGuild
+local C_TradeSkillUI_IsTradeSkillLinked = C_TradeSkillUI.IsTradeSkillLinked
 local UseItemByName = UseItemByName
-local GetRecipeInfo = C_TradeSkillUI.GetRecipeInfo
-local IsTradeSkillLinked = C_TradeSkillUI.IsTradeSkillLinked
-local IsTradeSkillGuild = C_TradeSkillUI.IsTradeSkillGuild
-local CraftRecipe = C_TradeSkillUI.CraftRecipe
+
+local button
+
+local function ShouldShowButton(recipeInfo)
+	if (recipeInfo and recipeInfo.isEnchantingRecipe) and (not C_TradeSkillUI_IsTradeSkillGuild() or not C_TradeSkillUI_IsTradeSkillLinked()) then
+		return true
+	end
+	return false
+end
+
+local function UpdateButtonText(recipeInfo)
+	local scrollCount = GetItemCount(38682)
+	button:SetText(format('%s (%d)', L["Scroll"], scrollCount))
+	if recipeInfo and recipeInfo.craftable and recipeInfo.learned and scrollCount > 0 then
+		button:Enable()
+	else
+		button:Disable()
+	end
+end
+
+function Pr:UpdateButtonInfo(recipeInfo)
+	UpdateButtonText(recipeInfo)
+	button:SetShown(ShouldShowButton(recipeInfo))
+end
 
 function Pr:EnchantButton()
-	local button = CreateFrame('Button', 'SLE_EnchScrollButton', _G.ProfessionsFrame, 'MagicButtonTemplate, BackdropTemplate')
-	if E.private.skins.blizzard.tradeskill == true and E.private.skins.blizzard.enable == true then
+	if not E.private.sle.professions.enchant.enchScroll then return end
+	button = CreateFrame('Button', 'SLE_EnchScrollButton', _G.ProfessionsFrame.CraftingPage.CreateAllButton, 'MagicButtonTemplate, BackdropTemplate')
+	button:Hide()
+	if E.private.skins.blizzard.tradeskill and E.private.skins.blizzard.enable then
 		S:HandleButton(button)
-		button:StripTextures()
+		-- button:StripTextures()
 		button:SetTemplate('Default', true)
 		button:ClearAllPoints()
-		button:SetPoint('TOPRIGHT', _G.ProfessionsFrame.CraftingPage.CreateButton, 'TOPLEFT', -1, 0)
+		button:SetPoint('TOPRIGHT', _G.ProfessionsFrame.CraftingPage.CreateAllButton, 'TOPLEFT', -1, 0)
 	else
-		button:SetPoint('TOPRIGHT', _G.ProfessionsFrame.CraftingPage.CreateButton, 'TOPLEFT')
+		button:SetPoint('TOPRIGHT', _G.ProfessionsFrame.CraftingPage.CreateAllButton, 'TOPLEFT')
 	end
+	button:SetMotionScriptsWhileDisabled(true)
 	button:SetScript('OnClick', function()
-		CraftRecipe(_G.ProfessionsFrame.CraftingPage.SchematicForm:GetRecipeInfo().recipeID)
+		C_TradeSkillUI_CraftRecipe(_G.ProfessionsFrame.CraftingPage.SchematicForm:GetRecipeInfo().recipeID)
 		UseItemByName(38682)
 	end)
-	button:SetMotionScriptsWhileDisabled(true)
+	hooksecurefunc(_G.ProfessionsFrame.CraftingPage, 'Refresh', function(CraftingPage)
+		if not CraftingPage.SchematicForm or not CraftingPage.SchematicForm.currentRecipeInfo then return end
+		Pr:UpdateButtonInfo(CraftingPage.SchematicForm.currentRecipeInfo)
+	end)
 
-	local function UpdateScrollButton(frame)
-		if not frame.SchematicForm then return end
-		if not Pr:IsSkillMine() then _G.SLE_EnchScrollButton:Hide() return end
-
-		local skillInfo = C_TradeSkillUI.GetBaseProfessionInfo()
-		if Pr.baseTradeSkills.Enchanting ~= skillInfo.parentProfessionId and Pr.baseTradeSkills.Enchanting ~= skillInfo.professionID then
-			_G.SLE_EnchScrollButton:Hide()
-			return
-		end
-
-		local recipeInfo = frame.SchematicForm:GetRecipeInfo()
-
-		if not recipeInfo then return end
-		if IsTradeSkillGuild() or IsTradeSkillLinked() then
-			_G.SLE_EnchScrollButton:Hide()
-		elseif recipeInfo.alternateVerb then
-			_G.SLE_EnchScrollButton:Show()
-			local scrollnum = GetItemCount(38682)
-			_G.SLE_EnchScrollButton:SetText(string.format('%s (%d)', L["Scroll"], scrollnum))
-			if recipeInfo.craftable and recipeInfo.learned and scrollnum > 0 then
-				_G.SLE_EnchScrollButton:Enable()
-			else
-				_G.SLE_EnchScrollButton:Disable()
-			end
-		else
-			_G.SLE_EnchScrollButton:Hide()
-		end
-	end
-	hooksecurefunc(_G.ProfessionsFrame.CraftingPage, 'Refresh', UpdateScrollButton)
+	Pr:RegisterEvent('ITEM_COUNT_CHANGED', function(_, itemID)
+		if not itemID or itemID ~= 38682 then return end
+		UpdateButtonText(_G.ProfessionsFrame.CraftingPage.SchematicForm.currentRecipeInfo)
+	end)
+	EventRegistry:RegisterCallback('ProfessionsRecipeListMixin.Event.OnRecipeSelected', Pr.UpdateButtonInfo)
 end
