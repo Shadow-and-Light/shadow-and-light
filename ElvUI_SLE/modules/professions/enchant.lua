@@ -34,7 +34,7 @@ end
 
 function Pr:EnchantButton()
 	if not E.private.sle.professions.enchant.enchScroll then return end
-	button = CreateFrame('Button', 'SLE_EnchScrollButton', _G.ProfessionsFrame.CraftingPage.CreateAllButton, 'MagicButtonTemplate, BackdropTemplate')
+	button = CreateFrame('Button', 'SL_EnchantScrollButton', _G.ProfessionsFrame.CraftingPage.CreateAllButton, 'MagicButtonTemplate, BackdropTemplate')
 	button:Hide()
 	if E.private.skins.blizzard.tradeskill and E.private.skins.blizzard.enable then
 		S:HandleButton(button)
