@@ -16,9 +16,7 @@ local DEFAULT, GetScreenWidth, GetScreenHeight = DEFAULT, GetScreenWidth, GetScr
 
 -- GLOBALS: AceGUIWidgetLSMlists
 
-local ACH
-local selectedGraphic
-
+local ACH, selectedGraphic
 local newGraphicInfo = {}
 
 local function ColorizeName(name, color)
@@ -149,20 +147,21 @@ local function sharedOptions(group)
 			type = 'toggle',
 			width = 'full',
 		},
+		spacer1 = ACH:Spacer(5, 'full'),
 		width = {
-			order = 2,
+			order = 6,
 			name = L["Width"],
 			type = 'range',
 			min = 8, max = 512, step = 1,
 		},
 		height = {
-			order = 3,
+			order = 7,
 			name = L["Height"],
 			type = 'range',
 			min = 8, max = 512, step = 1,
 		},
-		spacer1 = ACH:Spacer(4, 'full'),
-		spacer2 = ACH:Spacer(14, 'full'),
+		spacer2 = ACH:Spacer(8, 'full'),
+		spacer3 = ACH:Spacer(14, 'full'),
 		inversePoint = {
 			order = 15,
 			name = L["Inverse Anchor Points"],
@@ -183,7 +182,7 @@ local function sharedOptions(group)
 				SL_BottomPanel = 'Bottom Panel',
 			},
 		},
-		spacer3 = ACH:Spacer(18, 'full'),
+		spacer4 = ACH:Spacer(18, 'full'),
 		xOffset = {
 			order = 19,
 			name = L["X-Offset"],
@@ -240,6 +239,19 @@ local function sharedOptions(group)
 	return options
 end
 
+local styles = {}
+local function GetExPackStyles()
+	wipe(styles)
+	styles['blizzard'] = 'Blizzard'
+
+	if E.db.sle.afk.defaultGraphics.exPack.expansion == 'sl' then
+		styles['releaf-flat'] = 'Releaf-Flat'
+		styles['sltheme'] = E:TextGradient('S&L', 0.33725490196078,0.7921568627451,0.12941176470588, 1,1,1, 0.81176470588235,0.98039215686275,0.011764705882353)..' Theme'
+	end
+
+	return styles
+end
+
 local function defaultGraphicsOptions(element, group, name, order)
 	local options = {
 		order = order,
@@ -252,7 +264,7 @@ local function defaultGraphicsOptions(element, group, name, order)
 	}
 	if element ~= 'slLogo' then
 		options.args.styleOptions = {
-			order = 2,
+			order = 3,
 			name = L["Style Options"],
 			type = 'select',
 			values = {},
@@ -276,12 +288,42 @@ local function defaultGraphicsOptions(element, group, name, order)
 			['releaf-flat'] = 'Releaf-Flat',
 			['sltheme'] = E:TextGradient('S&L', 0.33725490196078,0.7921568627451,0.12941176470588, 1,1,1, 0.81176470588235,0.98039215686275,0.011764705882353)..' Theme',
 		}
-	elseif element == 'factionLogo' or element == 'factionCrest' or element == 'exPack' or element == 'raceCrest' then
+	elseif element == 'factionLogo' or element == 'factionCrest' or element == 'raceCrest' then
 		options.args.styleOptions.values = {
 			['blizzard'] = 'Blizzard',
 			['releaf-flat'] = 'Releaf-Flat',
 			['sltheme'] = E:TextGradient('S&L', 0.33725490196078,0.7921568627451,0.12941176470588, 1,1,1, 0.81176470588235,0.98039215686275,0.011764705882353)..' Theme',
 		}
+	end
+
+	if element == 'exPack' then
+		options.args.expansion ={
+			order = 2,
+			name = 'Expansion',
+			type = 'select',
+			values = {
+				auto = 'Current Expansion',
+				classic = 'WoW Classic',
+				tbc = 'Burning Crusade',
+				wotlk = 'Wrath of the Lich King',
+				cata = 'Cataclysm',
+				mop = 'Mists of Pandaria',
+				wod = 'Warlords of Draenor',
+				legion = 'Legion',
+				bfa = 'Battle for Azeroth',
+				sl = 'Shadowlands',
+				df = 'Dragonflight',
+			}
+		}
+		options.args.styleOptions.values = function() return GetExPackStyles() end
+		options.args.styleOptions.disabled = function() return E.db.sle.afk.defaultGraphics[element].expansion == 'auto' end
+		options.args.styleOptions.get = function(info)
+			if E.db.sle.afk.defaultGraphics.exPack.expansion ~= 'sl' and (E.db.sle.afk.defaultGraphics.exPack.styleOptions == 'releaf-flat' or E.db.sle.afk.defaultGraphics.exPack.styleOptions == 'sltheme') then
+				SLE:Print('The selected expansion does not support the "'..E.db.sle.afk.defaultGraphics.exPack.styleOptions..'" style option.  Adjusting the style option that is supported which is "blizzard".', 'info')
+				E.db.sle.afk.defaultGraphics.exPack.styleOptions = 'blizzard'
+			end
+			return E.db.sle.afk.defaultGraphics[element][info[#info]]
+		end
 	end
 
 	return options

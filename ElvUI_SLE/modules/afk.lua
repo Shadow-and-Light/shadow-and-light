@@ -7,6 +7,7 @@ local S = SLE.Screensaver
 local testTimer  --was AnimTime before
 local format, random, date, tinsert, tonumber = format, random, date, tinsert, tonumber
 local UnitPVPName, UnitClass = UnitPVPName, UnitClass
+local GetExpansionDisplayInfo, GetClientDisplayExpansionLevel = GetExpansionDisplayInfo, GetClientDisplayExpansionLevel
 local RANK, LEVEL = RANK, LEVEL
 local C_Timer, CreateAnimationGroup = C_Timer, CreateAnimationGroup
 local TipNum, OldTip, degree = 1, 0, 0
@@ -646,17 +647,22 @@ function S:UpdateDefaultGraphics()
 		end
 	end
 
-	AFK.AFKMode.classCrest:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\classes\\'..S.db.defaultGraphics.classCrest.styleOptions..'\\'..E.myclass)
-	-- AFK.AFKMode.exPack.texture:SetTexture(GetExpansionDisplayInfo(GetClientDisplayExpansionLevel()).logo) --* Automatic way to get current expansion logo
-	AFK.AFKMode.exPack.texture:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\expansion\\'..S.db.defaultGraphics.exPack.styleOptions..'\\shadowlandslogo')
+	AFK.AFKMode.classCrest:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\classes\\'..db.classCrest.styleOptions..'\\'..E.myclass)
+
+	local path = 'Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\expansion\\'..db.exPack.styleOptions..'\\'..db.exPack.expansion
+	if db.exPack.expansion == 'auto' or not SLE:TextureExists(path) then
+		AFK.AFKMode.exPack.texture:SetTexture(GetExpansionDisplayInfo(GetClientDisplayExpansionLevel()).logo)
+	else
+		AFK.AFKMode.exPack.texture:SetTexture(path)
+	end
 	AFK.AFKMode.exPack.texture:SetAllPoints(AFK.AFKMode.exPack)
-	AFK.AFKMode.factionCrest:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\factioncrest\\'..S.db.defaultGraphics.factionCrest.styleOptions..'\\'..E.myfaction)
-	AFK.AFKMode.factionLogo:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\factionlogo\\'..S.db.defaultGraphics.factionLogo.styleOptions..'\\'..E.myfaction)
-	AFK.AFKMode.raceCrest:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\race\\'..S.db.defaultGraphics.raceCrest.styleOptions..'\\'..E.myrace)
+	AFK.AFKMode.factionCrest:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\factioncrest\\'..db.factionCrest.styleOptions..'\\'..E.myfaction)
+	AFK.AFKMode.factionLogo:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\factionlogo\\'..db.factionLogo.styleOptions..'\\'..E.myfaction)
+	AFK.AFKMode.raceCrest:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\race\\'..db.raceCrest.styleOptions..'\\'..E.myrace)
 	AFK.AFKMode.slLogo:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\afk\addonlogos\sl\original\S&L]])
-	AFK.AFKMode.benikuiLogo:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\addonlogos\\benikui\\'..S.db.defaultGraphics.benikuiLogo.styleOptions..'\\BenikUI')
-	AFK.AFKMode.merauiLogo:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\addonlogos\\meraui\\'..S.db.defaultGraphics.merauiLogo.styleOptions..'\\MerathilisUI')
-	AFK.AFKMode.elvuiLogo:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\addonlogos\\elvui\\'..S.db.defaultGraphics.elvuiLogo.styleOptions..'\\ElvUI')
+	AFK.AFKMode.benikuiLogo:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\addonlogos\\benikui\\'..db.benikuiLogo.styleOptions..'\\BenikUI')
+	AFK.AFKMode.merauiLogo:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\addonlogos\\meraui\\'..db.merauiLogo.styleOptions..'\\MerathilisUI')
+	AFK.AFKMode.elvuiLogo:SetTexture('Interface\\AddOns\\ElvUI_SLE\\media\\textures\\afk\\addonlogos\\elvui\\'..db.elvuiLogo.styleOptions..'\\ElvUI')
 end
 
 function S:CreateUpdateModelElements(skip)
