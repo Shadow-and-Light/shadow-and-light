@@ -101,6 +101,7 @@ local function configTable()
 						values = {
 							FULL = DEFAULT,
 							COLLAPSED = MINIMIZE,
+							COLLAPSED_QUESTS = MINIMIZE..' (Quests Only)',
 							HIDE = HIDE,
 							NONE = NONE,
 						},
