@@ -240,7 +240,17 @@ function Pr:DeconstructParser(tt, data)
 				if not normalItem then
 					isArtRelic = (itemClass == relicItemTypeLocalized and itemSubclass == relicItemSubTypeLocalized)
 				end
-				if normalItem or isArtRelic then
+				local isMysticItem = false
+				if not normalItem or isArtRelic then
+					-- Left this loop in, since there's apparently something weird with lockboxes just in case the same happens here
+					for index = 2, 5 do
+						local info = _G['GameTooltipTextLeft' .. index]:GetText()
+						if strfind(info, 'Mystic') then
+							isMysticItem = true
+						end
+					end
+				end
+				if normalItem or isArtRelic or isMysticItem then
 					r, g, b = 1, 0, 0
 					Pr:ApplyDeconstruct(hyperlink, itemId, Pr.DEname, 'spell', r, g, b)
 				end
