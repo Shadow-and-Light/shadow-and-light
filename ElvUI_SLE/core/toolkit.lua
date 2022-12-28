@@ -222,7 +222,7 @@ function SLE:TextureExists(path)
 	tx:SetTexture('?')
 	tx:SetTexture(path)
 
-	return (tx:GetTexture() ~= '?')
+	return (tx:GetTexture())
 end
 
 --Trying to determine the region player is in, not entirely reliable cause based on atypet not an actual region id
