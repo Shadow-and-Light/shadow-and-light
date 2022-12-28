@@ -90,14 +90,15 @@ function I:GetColor(dif)
 end
 
 function I:GenerateText(_, guild)
+	if not I.db.enable then return end
 	I.frame.icon:SetText('')
 
 	if not I:InstanceCheck() then
 		I.frame.text:SetText('')
 	else
-		local text, isHeroic, isChallengeMode
-		local groupType, difficulty, difficultyName, _, _, _, _, instanceGroupSize = select(2, GetInstanceInfo())
-		isHeroic, isChallengeMode = select(3, GetDifficultyInfo(difficulty))
+		local text, isChallengeMode
+		local _, difficulty, difficultyName, _, _, _, _, instanceGroupSize = select(2, GetInstanceInfo())
+		_, isChallengeMode = select(3, GetDifficultyInfo(difficulty))
 		local r, g, b = I:GetColor(difficulty)
 
 		if (difficulty >= 3 and difficulty <= 7) or difficulty == 9 or E.db.sle.minimap.instance.onlyNumber then
@@ -116,22 +117,6 @@ function I:GenerateText(_, guild)
 		Instance:Hide()
 		ChallengeMode:Hide()
 		Guild:Hide()
-
-		if not I.db.enable then
-			if not Instance:IsShown() and (groupType == 'raid' or isHeroic) and not guild then
-				Instance:Show()
-				ChallengeMode:Hide()
-				Guild:Hide()
-			elseif not ChallengeMode:IsShown() and isChallengeMode and not guild then
-				Instance:Hide()
-				ChallengeMode:Show()
-				Guild:Hide()
-			elseif guild then
-				Instance:Hide()
-				ChallengeMode:Hide()
-				Guild:Show()
-			end
-		end
 	end
 	I:UpdateFrame()
 end

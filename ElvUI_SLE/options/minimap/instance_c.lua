@@ -22,7 +22,7 @@ local function configTable()
 				name = L["Enable"],
 				desc = L["Show instance difficulty info as text."],
 				disabled = function() return not E.private.general.minimap.enable end,
-				set = function(info, value) E.db.sle.minimap.instance[ info[#info] ] = value; I:GenerateText() end,
+				set = function(info, value) E.db.sle.minimap.instance[info[#info]] = value E:StaticPopup_Show('PRIVATE_RL') end,
 			},
 			xoffset = {
 				order = 3,
