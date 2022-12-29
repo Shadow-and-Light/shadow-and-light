@@ -117,6 +117,7 @@ LP.EngineerItems = {
 	{168807, nil, true}, --Wormhole Generator: Kul Tiras
 	{168808, nil, true}, --Wormhole Generator: Zandalar
 	{172924, nil, true}, --Wormhole Generator: Shadowlands
+	{198156, nil, true}, -- Wyrmhole Generator (Dragonflight)
 }
 LP.Spells = {
 	DEATHKNIGHT = {
