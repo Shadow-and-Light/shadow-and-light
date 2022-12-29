@@ -259,6 +259,14 @@ LP.Spells = {
 		[29] = {text = GetSpellInfo(373190),icon = SLE:GetIconFromID('spell', 373190),secure = {buttonType = 'spell',ID = 373190}, UseTooltip = true},	-- Castle Nathria (Path of the Sire)
 		[30] = {text = GetSpellInfo(373191),icon = SLE:GetIconFromID('spell', 373191),secure = {buttonType = 'spell',ID = 373191}, UseTooltip = true},	-- Sanctum of Domination (Path of the Tormented Soul)
 		[31] = {text = GetSpellInfo(373192),icon = SLE:GetIconFromID('spell', 373192),secure = {buttonType = 'spell',ID = 373192}, UseTooltip = true},	-- Sepulcher of the First Ones (Path of the First Ones)
+		[32] = {text = GetSpellInfo(128832),icon = SLE:GetIconFromID('spell', 128832),secure = {buttonType = 'spell',ID = 128832}, UseTooltip = true},	-- Teleport to Temple of the Jade Serpent
+		[33] = {text = GetSpellInfo(205377),icon = SLE:GetIconFromID('spell', 205377),secure = {buttonType = 'spell',ID = 205377}, UseTooltip = true},	-- Teleport: Halls of Valor
+		[34] = {text = GetSpellInfo(220052),icon = SLE:GetIconFromID('spell', 220052),secure = {buttonType = 'spell',ID = 220052}, UseTooltip = true},	-- Teleport: Court of Stars
+		[35] = {text = GetSpellInfo(396121),icon = SLE:GetIconFromID('spell', 396121),secure = {buttonType = 'spell',ID = 396121}, UseTooltip = true},	-- Teleport: Ruby Life Pools
+		[36] = {text = GetSpellInfo(396123),icon = SLE:GetIconFromID('spell', 396123),secure = {buttonType = 'spell',ID = 396123}, UseTooltip = true},	-- Teleport: The Nokhud Offensive
+		[37] = {text = GetSpellInfo(396125),icon = SLE:GetIconFromID('spell', 396125),secure = {buttonType = 'spell',ID = 396125}, UseTooltip = true},	-- Teleport: The Azure Vault
+		[38] = {text = GetSpellInfo(396126),icon = SLE:GetIconFromID('spell', 396126),secure = {buttonType = 'spell',ID = 396126}, UseTooltip = true},	-- Teleport: Algeth'ar Academy
+		[39] = {text = GetSpellInfo(396131),icon = SLE:GetIconFromID('spell', 396131),secure = {buttonType = 'spell',ID = 396131}, UseTooltip = true},	-- Teleport: Shadowmoon Burial Grounds
 	},
 }
 
