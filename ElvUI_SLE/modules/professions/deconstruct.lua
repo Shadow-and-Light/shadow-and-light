@@ -168,16 +168,8 @@ end
 
 function Pr:IsBreakable(itemId, itemName, itemQuality, equipSlot)
 	if not itemId then return false end
-	if(IsEquippableItem(itemId) and itemQuality and itemQuality > 1 and itemQuality < 5 and equipSlot ~= 'INVTYPE_BAG') then
-		if E.global.sle.DE.IgnoreTabards and equipSlot == 'INVTYPE_TABARD' then return false end
-		if Pr.ItemTable['DoNotDE'][itemId] then return false end
-		if Pr.ItemTable['PandariaBoA'][itemId] and E.global.sle.DE.IgnorePanda then return false end
-		if Pr.ItemTable['Cooking'][itemId] and E.global.sle.DE.IgnoreCooking then return false end
-		if Pr.ItemTable['Fishing'][itemId] and E.global.sle.DE.IgnoreFishing then return false end
-		if Pr.BlacklistDE[itemName] then return false end
-		return true
-	end
-	return false
+	if (E.global.sle.DE.IgnoreTabards and equipSlot == 'INVTYPE_TABARD') or (Pr.ItemTable['DoNotDE'][itemId]) or (Pr.ItemTable['PandariaBoA'][itemId] and E.global.sle.DE.IgnorePanda) or (Pr.ItemTable['Cooking'][itemId] and E.global.sle.DE.IgnoreCooking) or (Pr.ItemTable['Fishing'][itemId] and E.global.sle.DE.IgnoreFishing) or Pr.BlacklistDE[itemName] then return false end
+	return true
 end
 
 function Pr:IsUnlockable(itemLink)
