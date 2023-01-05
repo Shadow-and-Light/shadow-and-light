@@ -1,4 +1,4 @@
-local MAJOR, MINOR = 'LibProcessable', 60
+local MAJOR, MINOR = 'LibProcessable', 61
 assert(LibStub, MAJOR .. ' requires LibStub')
 
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
@@ -84,7 +84,7 @@ function lib:IsMillable(itemID, ignoreMortar)
 		end
 	elseif not ignoreMortar and GetItemCount(114942) > 0 then
 		-- Draenic Mortar can mill Draenor herbs without a profession
-		return itemID >= 109124 and itemID <= 109130, true
+		return itemID >= 109124 and itemID <= 109130, nil, true
 	end
 end
 
