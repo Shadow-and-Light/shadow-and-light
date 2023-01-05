@@ -84,6 +84,7 @@ local function configTable()
 							nzoth = { order = -41, type = 'toggle', name = SLE:GetMapInfo(1580, 'name') },
 							nathria = { order = -40, type = 'toggle', name = SLE:GetMapInfo(1735, 'name') },
 							sod = { order = -39, type = 'toggle', name = SLE:GetMapInfo(1998, 'name') },
+							voti = { order = -38, type = 'toggle', name = SLE:GetMapInfo(2119, 'name') },
 						},
 					},
 				},

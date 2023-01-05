@@ -187,6 +187,19 @@ RP.encounters = {
 			{ 15136, 15140, 15144, 15148, 15152, 15156, 15160, 15164, 15169, 15173 },
 		}
 	},
+	{ -- Vault of the Incarnates
+		option = 'voti',
+		statIDs = {
+			--* Mythic
+			{ 16387, 16389, 16391, 16388, 16390, 16392, 16393, 16394 },
+			--* Heroic
+			{ 16379, 16381, 16383, 16380, 16382, 16384, 16385, 16386 },
+			--* Normal
+			{ 16371, 16373, 16375, 16372, 16374, 16376, 16377, 16378 },
+			--* LFR
+			{ 16359, 16362, 16367, 16361, 16366, 16368, 16369, 16370 },
+		}
+	},
 }
 RP.Raids = {}
 RP.modes = {
@@ -218,6 +231,7 @@ local function PopulateRaidsTable()
 		SLE:GetMapInfo(1580, 'name'),
 		SLE:GetMapInfo(1735, 'name'),
 		SLE:GetMapInfo(1998, 'name'),
+		SLE:GetMapInfo(2119, 'name'),
 	}
 	RP.Raids['SHORT'] = {
 		L["RAID_EN"],
@@ -232,6 +246,7 @@ local function PopulateRaidsTable()
 		SLE:GetMapInfo(1580, 'name'),
 		SLE:GetMapInfo(1735, 'name'),
 		'SoD',
+		'VotI',
 	}
 end
 
