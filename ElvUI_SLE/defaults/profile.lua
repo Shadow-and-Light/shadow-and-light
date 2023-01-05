@@ -1307,6 +1307,7 @@ P["sle"] = {
 				ep = false,
 				nzoth = false,
 				nathria = true,
+				sod = false,
 			},
 		},
 	},

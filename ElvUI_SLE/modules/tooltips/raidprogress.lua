@@ -217,7 +217,7 @@ local function PopulateRaidsTable()
 		SLE:GetMapInfo(1512, 'name'),
 		SLE:GetMapInfo(1580, 'name'),
 		SLE:GetMapInfo(1735, 'name'),
-		'Sanctum of Domination',
+		SLE:GetMapInfo(1998, 'name'),
 	}
 	RP.Raids['SHORT'] = {
 		L["RAID_EN"],
