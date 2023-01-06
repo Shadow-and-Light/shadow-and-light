@@ -28,6 +28,8 @@ local function configTable()
 					SLE.Armory_Character:ToggleArmory()
 					M:UpdatePageInfo(_G.CharacterFrame, 'Character')
 					if not E.db.general.itemLevel.displayCharacterInfo then M:ClearPageInfo(_G.CharacterFrame, 'Character') end
+					SLE.Armory_Stats:AddWidthApply()
+					PaperDollFrame_UpdateStats()
 				end,
 			},
 			IA_enable = {

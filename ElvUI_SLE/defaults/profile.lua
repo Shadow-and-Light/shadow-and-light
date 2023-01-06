@@ -55,6 +55,7 @@ P["sle"] = {
 		["character"] = {
 			["enable"] = false,
 			["showWarning"] = true,
+			["addCharacterWidth"] = 0,
 			["ilvl"] = {
 				["colorType"] = "NONE",
 				["xOffset"] = 0,

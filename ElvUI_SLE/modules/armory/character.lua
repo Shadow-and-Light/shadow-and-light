@@ -143,7 +143,9 @@ function CA:BuildLayout()
 		if E.db.sle.armory.character.enable and _G["PaperDollFrame"]:IsShown() then _G["CharacterFrame"]:SetWidth(448) end
 	end)
 	hooksecurefunc("CharacterFrame_Expand", function()
-		if E.db.sle.armory.character.enable and _G["PaperDollFrame"]:IsShown() then _G["CharacterFrame"]:SetWidth(650) end
+		if E.db.sle.armory.character.enable and _G["PaperDollFrame"]:IsShown() then
+			_G["CharacterFrame"]:SetWidth(650 + E.db.sle.armory.character.addCharacterWidth)
+		end
 	end)
 	hooksecurefunc("CharacterFrame_ShowSubFrame", function(frameName)
 		if frameName == "PaperDollFrame" or frameName == "PetPaperDollFrame" then return end
@@ -272,6 +274,15 @@ function CA:FixFuckingBlizzardLogic()
 	CA.HearthMilestonesCached = true
 end
 
+function CA:ResizeFrame()
+	_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and (650 + E.db.sle.armory.character.addCharacterWidth) or 444)
+	
+	if (E.global.sle.advanced.general and E.global.sle.advanced.armory) then
+		SLE.Armory_Stats:AddWidthApply()
+		PaperDollFrame_UpdateStats()
+	end
+end
+
 function CA:Enable()
 	-- Setting frame
 	_G["CharacterFrame"]:SetHeight(444)
@@ -289,7 +300,7 @@ function CA:Enable()
 	_G["CharacterModelScene"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
 
 	if _G["PaperDollFrame"]:IsShown() then --Setting up width for the main frame
-		_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and 650 or 444)
+		_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and (650 + E.db.sle.armory.character.addCharacterWidth) or 444)
 		_G["CharacterFrameInsetRight"]:SetPoint('TOPLEFT', _G["CharacterFrameInset"], 'TOPRIGHT', 110, 0)
 	end
 
@@ -367,11 +378,18 @@ function CA:ToggleArmory()
 		CA:Disable()
 	end
 	M:UpdateInspectPageFonts("Character")
-
+	-- PaperDollFrame_UpdateStats()
 	for _, SlotName in pairs(Armory.Constants.AzeriteSlot) do PaperDollItemSlotButton_Update(_G["Character"..SlotName]) end
 end
 
+function CA:TweakPositions()
+	_G["PaperDollFrame"].TitleManagerPane.ScrollBox:SetPoint('TOPRIGHT', _G.CharacterFrameInsetRight, -26, -4)
+	_G["PaperDollFrame"].EquipmentManagerPane.ScrollBox:SetPoint('TOPRIGHT', _G.CharacterFrameInsetRight, -26, -4)
+end
+
 function CA:LoadAndSetup()
+	CA:TweakPositions()
+
 	CA:BuildLayout()
 	CA:ToggleArmory()
 	CA:ElvOverlayToggle()
