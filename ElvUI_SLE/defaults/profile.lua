@@ -70,6 +70,7 @@ P["sle"] = {
 				["font"] = "PT Sans Narrow",
 				["fontSize"] = 12,
 				["fontStyle"] = "OUTLINE",
+				showReal = true,
 			},
 			["gem"] = {
 				["xOffset"] = 0,
@@ -122,6 +123,7 @@ P["sle"] = {
 				["font"] = "PT Sans Narrow",
 				["fontSize"] = 12,
 				["fontStyle"] = "OUTLINE",
+				showReal = true,
 			},
 			["gem"] = {
 				["xOffset"] = 0,

@@ -122,6 +122,13 @@ local function configTable()
 						order = 11,
 						min = -13, max = 13, step = 1,
 					},
+					showReal = {
+						order = 1,
+						type = 'toggle',
+						name = L["Display Quality"],
+						desc = L["Displays the quality icon at the end of the enchant string, exactly as it appears when you mouse over the item slot itself and view the tooltip."],
+						set = function(info, value) E.db.sle.armory.character[(info[#info-1])][(info[#info])] = value M:UpdatePageInfo(_G.CharacterFrame, 'Character') end,
+					},
 				}
 			},
 			gem = {

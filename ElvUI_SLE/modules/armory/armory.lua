@@ -234,7 +234,7 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 		local window = strlower(which) --to know which settings table to use
 		if E.db.sle.armory[window] and E.db.sle.armory[window].enable then --If settings table actually exists and armory for it is enabled
 			local iR, iG, iB = unpack(slotInfo.itemLevelColors)
-			if Slot.enchantText and not (slotInfo.enchantTextShort == nil or slotInfo.enchantText == nil) then Armory:ProcessEnchant(window, Slot, slotInfo.enchantTextShort, slotInfo.enchantText) end
+			if Slot.enchantText and not (slotInfo.enchantTextShort == nil or slotInfo.enchantText == nil) then Armory:ProcessEnchant(window, Slot, slotInfo.enchantTextShort, slotInfo.enchantText, slotInfo.enchantTextReal) end
 			if E.db.sle.armory[window].ilvl.colorType == 'QUALITY' then
 				if iR ~= nil then
 					Slot.iLvlText:SetTextColor(iR, iG, iB) --Business as usual
@@ -344,20 +344,24 @@ function Armory:UpdateSharedStringsFonts(which)
 end
 
 --Deals with dem enchants
-function Armory:ProcessEnchant(which, Slot, enchantTextShort, enchantText)
+function Armory:ProcessEnchant(which, Slot, enchantTextShort, enchantText, enchantTextReal)
 	if not E.db.sle.armory.enchantString.enable then return end
+	local window = strlower(which)
 	local strict = E.db.sle.armory.enchantString.strict
+
+	local showReal = E.db.sle.armory[window].enchant.showReal
+	local text = showReal and enchantTextReal or enchantText
 
 	if E.db.sle.armory.enchantString.replacement then
 		for _, enchData in pairs(SLE_ArmoryDB.EnchantString) do
-			if strict and enchantText == enchData.original then
-				enchantText = enchData.new
+			if strict and text == enchData.original then
+				text = enchData.new
 			elseif not strict and enchData.original and enchData.new then
-				enchantText = gsub(enchantText, E:EscapeString(enchData.original), enchData.new)
+				text = gsub(text, E:EscapeString(enchData.original), enchData.new)
 			end
 		end
 	end
-	Slot.enchantText:SetText(enchantText)
+	Slot.enchantText:SetText(text)
 end
 
 ---<<<Global Hide tooltip func for armory>>>---
