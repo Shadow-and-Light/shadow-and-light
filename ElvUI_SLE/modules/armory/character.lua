@@ -219,8 +219,8 @@ function CA:Update_ItemLevel()
 end
 
 function CA:Update_Enchant()
-	for i, SlotName in pairs(Armory.Constants.GearList) do
-		local Slot = _G["Character"..SlotName]
+	for _, SlotName in pairs(Armory.Constants.GearList) do
+		local Slot = _G['Character'..SlotName]
 
 		if Slot.enchantText then
 			Slot.enchantText:ClearAllPoints()
@@ -276,7 +276,7 @@ end
 
 function CA:ResizeFrame()
 	_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and (650 + E.db.sle.armory.character.addCharacterWidth) or 444)
-	
+
 	if (E.global.sle.advanced.general and E.global.sle.advanced.armory) then
 		SLE.Armory_Stats:AddWidthApply()
 		PaperDollFrame_UpdateStats()
