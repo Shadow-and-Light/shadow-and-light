@@ -238,7 +238,7 @@ end
 
 --On show set saved position
 local function LoadPosition(self)
-	if self.IsMoving == true then return end
+	if InCombatLockdown() or self.IsMoving == true then return end
 	local Name = self:GetName()
 
 	if not self:GetPoint() then --Some frames don't have set positions when show script runs (e.g. CharacterFrame). For those set default position and save that.
