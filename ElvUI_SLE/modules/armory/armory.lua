@@ -282,7 +282,7 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 	end
 	--If put inside "if slotInfo.itemLevelColors" condition will not actually hide gem links/warnings on empty slots
 	Armory:UpdateGemInfo(Slot, which)
-	Armory:CheckForMissing(which, Slot, slotInfo.iLvl, slotInfo.gems, slotInfo.essences, slotInfo.enchantTextShort)
+	Armory:CheckForMissing(which, Slot, slotInfo.iLvl, slotInfo.gems, slotInfo.essences, slotInfo.enchantTextShort, Armory[which.."PrimaryStat"])
 	if CA.DurabilityFontSet then CA:Calculate_Durability(which, Slot) end
 end
 
@@ -431,7 +431,7 @@ function Armory:Transmog_OnClick()
 	end
 end
 
-function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant)
+function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant, primaryStat)
 	if not Slot['SLE_Warning'] then return end --Shit happens
 	Slot['SLE_Warning'].Reason = nil --Clear message, cause disabling armory doesn't affect those otherwise
 	local window = strlower(which)
@@ -439,7 +439,7 @@ function Armory:CheckForMissing(which, Slot, iLvl, gems, essences, enchant)
 	local SlotName = gsub(Slot:GetName(), which, '')
 	if not SlotName then return end --No slot?
 	local noChant, noGem = false, false
-	if iLvl and (Armory.Constants.EnchantableSlots[SlotName] == true) and not enchant then --Item should be enchanted, but no string actually sent. This bastard is slacking
+	if iLvl and (Armory.Constants.EnchantableSlots[SlotName] == true or Armory.Constants.EnchantableSlots[SlotName] == primaryStat) and not enchant then --Item should be enchanted, but no string actually sent. This bastard is slacking
 		local classID, subclassID = select(12, GetItemInfo(Slot.itemLink))
 		if (classID == 4 and subclassID == 6) or (classID == 4 and subclassID == 0 and Slot.ID == 17) then --Shields are special
 			noChant = false
