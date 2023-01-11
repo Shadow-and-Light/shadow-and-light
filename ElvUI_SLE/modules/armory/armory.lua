@@ -93,6 +93,8 @@ Armory.Constants.SpecPrimaryStats = {
 	[71] = 1, --Warrior Arms
 	[72] = 1, --Warrior Fury
 	[73] = 1, --Warrior Protection
+	[1467] = 4, --Evoker DPS
+	[1468] = 4, --Evoker Heals
 }
 
 Armory.Constants.AzeriteTraitAvailableColor = {0.95, 0.95, 0.32, 1}
