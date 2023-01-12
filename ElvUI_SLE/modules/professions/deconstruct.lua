@@ -6,7 +6,7 @@ local LCG = E.Libs.CustomGlow
 
 --GLOBALS: unpack, select, CreateFrame, VIDEO_OPTIONS_ENABLED, VIDEO_OPTIONS_DISABLED
 local _G = _G
-local format, strfind, strsplit, gsub = format, strfind, strsplit, gsub
+local format, strfind, strsplit, gsub, type, tostring = format, strfind, strsplit, gsub, type, tostring
 local GetItemInfo, GetTradeTargetItemLink = GetItemInfo, GetTradeTargetItemLink
 local InCombatLockdown = InCombatLockdown
 local LOCKED = LOCKED
@@ -31,6 +31,10 @@ Pr.ItemTable = {
 		['116985'] = true, --Archeology Mail Hat
 		['136629'] = true, --Eng reagent rifle
 		['136630'] = true, --Eng reagent rifle 2
+		['201160'] = true, --Ench crafted toy
+		['201161'] = true, --Ench crafted toy
+		['200472'] = true, --Ench crafted toy
+		['200535'] = true, --Ench crafted toy
 	},
 	--Bnet bound treasures in Pandaria
 	['PandariaBoA'] = {
@@ -168,6 +172,7 @@ end
 
 function Pr:IsBreakable(itemId, itemName, itemQuality, equipSlot)
 	if not itemId then return false end
+	if type(itemId) == "number" then itemId = tostring(itemId) end
 	if (E.global.sle.DE.IgnoreTabards and equipSlot == 'INVTYPE_TABARD') or (Pr.ItemTable['DoNotDE'][itemId]) or (Pr.ItemTable['PandariaBoA'][itemId] and E.global.sle.DE.IgnorePanda) or (Pr.ItemTable['Cooking'][itemId] and E.global.sle.DE.IgnoreCooking) or (Pr.ItemTable['Fishing'][itemId] and E.global.sle.DE.IgnoreFishing) or Pr.BlacklistDE[itemName] then return false end
 	return true
 end
