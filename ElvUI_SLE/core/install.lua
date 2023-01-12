@@ -1653,6 +1653,11 @@ function PI:DarthSetupSL()
 
 		E.db['sle']['chat']['guildmaster'] = true
 		E.db['sle']['chat']['dpsSpam'] = true
+		
+		E.db["sle"]["databars"]["experience"]["chatfilter"]["enable"] = true
+		E.db["sle"]["databars"]["experience"]["chatfilter"]["style"] = "STYLE2"
+		E.db["sle"]["databars"]["reputation"]["chatfilter"]["enable"] = true
+		E.db["sle"]["databars"]["reputation"]["chatfilter"]["style"]["increase"] = "STYLE2"
 
 		E.db['sle']['dt']['friends']['hideODIN'] = true
 		E.db['sle']['dt']['friends']['hideLAZR'] = true
