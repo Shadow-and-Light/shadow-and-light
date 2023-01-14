@@ -5,7 +5,7 @@ local UF = E.UnitFrames
 function SUF:UpdateRoleIcon(event)
 	if not self.db then return end
 	local sldb = E.db.sle.unitframes.roleIcons
-	if not sldb.enable then return end
+	if not sldb or not sldb.enable then return end
 
 	local lfdrole = self.GroupRoleIndicator
 	local db = self.db.roleIcon
