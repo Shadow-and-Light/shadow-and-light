@@ -161,7 +161,7 @@ function SLE:Reset(group)
 		print('U wot m8?')
 	end
 	if group == 'unitframes' or group == 'all' then
-		E.db.sle.roleicons = 'ElvUI'
+		E.db.sle.unitframes.roleIcons.icons = 'ElvUI'
 		E.db.sle.powtext = false
 	end
 	if group == 'backgrounds' or group == 'all' then
