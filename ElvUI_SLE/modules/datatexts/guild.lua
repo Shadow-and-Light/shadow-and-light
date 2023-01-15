@@ -30,7 +30,7 @@ local guildInfoString = "%s"
 local guildInfoString2 = GUILD..": %d/%d"
 local nameString = "|cff%02x%02x%02x%s|r"
 local onoteString = "|cff%02x%02x%02x[%s]|r"
-local guildTable, guildMotD, lastPanel = {}, ""
+local guildTable, guildMotD = {}, ""
 local tooltip
 local LDB_ANCHOR
 local GROUP_CHECKMARK	= "|TInterface\\Buttons\\UI-CheckBox-Check:0|t"
@@ -313,8 +313,6 @@ local eventHandlers = {
 }
 
 local function OnEvent(self, event, ...)
-	lastPanel = self
-
 	if IsInGuild() then
 		-- eventHandlers[event](self, ...)
 		local func = eventHandlers[event]
@@ -494,15 +492,12 @@ function OnEnter(self, _, noUpdate)
 	end
 end
 
-local function ValueColorUpdate(hex)
-	displayString = strjoin("", "%s", hex, "%d|r")
-	displayTotalsString = strjoin("", "%s", hex, "%d/%d|r")
+local function ValueColorUpdate(self, hex)
+	displayString = strjoin('', '%s', hex, '%d|r')
+	displayTotalsString = strjoin('', '%s', hex, '%d/%d|r')
 	noGuildString = hex..L["No Guild"]
 
-	if lastPanel ~= nil then
-		OnEvent(lastPanel, 'ELVUI_COLOR_UPDATE')
-	end
+	OnEvent(self)
 end
-E.valueColorUpdateFuncs[ValueColorUpdate] = true
 
-DT:RegisterDatatext('S&L Guild', 'S&L', {'CHAT_MSG_SYSTEM', "GUILD_ROSTER_UPDATE", "PLAYER_GUILD_UPDATE", "GUILD_MOTD"}, OnEvent, nil, OnClick, OnEnter)
+DT:RegisterDatatext('S&L Guild', 'S&L', {'CHAT_MSG_SYSTEM', 'GUILD_ROSTER_UPDATE', 'PLAYER_GUILD_UPDATE', 'GUILD_MOTD'}, OnEvent, nil, OnClick, OnEnter, nil, nil, nil, ValueColorUpdate)

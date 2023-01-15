@@ -9,7 +9,7 @@ local HAVE_MAIL_FROM = HAVE_MAIL_FROM
 local MAIL_LABEL = MAIL_LABEL
 
 local icon = [[|TInterface\MINIMAP\TRACKING\Mailbox.blp:14:14|t]]
-local displayString, lastPanel = ''
+local displayString = ''
 local mailFrame = MinimapCluster.MailFrame or _G.MiniMapMailFrame
 function DTP:MailUp()
 	if E.db.sle.minimap.mail.hideicon then
@@ -23,11 +23,10 @@ end
 
 local function OnEvent(self)
 	DTP:MailUp()
-	lastPanel = self
 	self.text:SetFormattedText(displayString, HasNewMail() and icon..L["New Mail"] or L["No Mail"])
 end
 
-local function OnEnter(self)
+local function OnEnter()
 	local senders = { GetLatestThreeSenders() }
 
 	if not next(senders) then return end
@@ -41,11 +40,9 @@ local function OnEnter(self)
 	DT.tooltip:Show()
 end
 
-local function ValueColorUpdate(hex)
-	displayString = strjoin(hex, "%s|r")
-
-	if lastPanel then OnEvent(lastPanel) end
+local function ValueColorUpdate(self, hex)
+	displayString = strjoin(hex, '%s|r')
+	OnEvent(self)
 end
-E.valueColorUpdateFuncs[ValueColorUpdate] = true
 
-DT:RegisterDatatext('S&L Mail', 'S&L', {'PLAYER_ENTERING_WORLD', 'MAIL_INBOX_UPDATE', 'UPDATE_PENDING_MAIL', 'MAIL_CLOSED','MAIL_SHOW'}, OnEvent, nil, nil, OnEnter)
+DT:RegisterDatatext('S&L Mail', 'S&L', {'PLAYER_ENTERING_WORLD', 'MAIL_INBOX_UPDATE', 'UPDATE_PENDING_MAIL', 'MAIL_CLOSED','MAIL_SHOW'}, OnEvent, nil, nil, OnEnter, nil, nil, nil, ValueColorUpdate)

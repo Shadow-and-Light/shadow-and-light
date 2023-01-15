@@ -1,16 +1,12 @@
 ﻿local SLE, _, E, L = unpack(select(2, ...))
 local DT = E.DataTexts
 
---  GLOBALS: unpack, select, format, GAME_VERSION_LABEL
 local format = format
 local GAME_VERSION_LABEL = GAME_VERSION_LABEL
-
 local displayString = ''
-local lastPanel
 
 local function OnEvent(self)
 	self.text:SetFormattedText(displayString, E.version, SLE.version)
-	lastPanel = self
 end
 
 local function OnClick()
@@ -29,13 +25,9 @@ local function OnEnter(self)
 	DT.tooltip:Show()
 end
 
-local function ValueColorUpdate(hex)
+local function ValueColorUpdate(self, hex)
 	displayString = format('ElvUI v%s%s|r S&L v%s%s|r', hex, '%s', hex, '%s')
-
-	if lastPanel ~= nil then
-		OnEvent(lastPanel)
-	end
+	OnEvent(self)
 end
-E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
-DT:RegisterDatatext('Version', 'S&L', {'LOADING_SCREEN_DISABLED'}, OnEvent, nil, OnClick, OnEnter, nil, L["Version"])
+DT:RegisterDatatext('Version', 'S&L', {'LOADING_SCREEN_DISABLED'}, OnEvent, nil, OnClick, OnEnter, nil, L["Version"], nil, ValueColorUpdate)

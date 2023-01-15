@@ -8,9 +8,7 @@ local HEADSLOT, NECKSLOT, SHOULDERSLOT, BACKSLOT, CHESTSLOT, WRISTSLOT, HANDSSLO
 local ITEM_LEVEL_ABBR = ITEM_LEVEL_ABBR
 local GMSURVEYRATING3 = GMSURVEYRATING3
 local TOTAL = TOTAL
-
 local displayString = ''
-local lastPanel
 
 local slots = {
 	[1] = { "HeadSlot", HEADSLOT, 1},
@@ -42,7 +40,6 @@ local levelColors = {
 local function OnEvent(self)
 	self.avgItemLevel, self.avgEquipItemLevel = GetAverageItemLevel()
 	self.text:SetFormattedText(displayString, ITEM_LEVEL_ABBR, floor(self.avgEquipItemLevel), floor(self.avgItemLevel))
-	lastPanel = self
 end
 
 local ArtifactsIlvl = {}
@@ -88,10 +85,9 @@ local function OnEnter(self)
 	DT.tooltip:Show()
 end
 
-local function ValueColorUpdate(hex, r, g, b)
-	displayString = strjoin("", "%s:", " ", hex, "%d / %d|r")
-	if lastPanel ~= nil then OnEvent(lastPanel) end
+local function ValueColorUpdate(self, hex)
+	displayString = strjoin('', '%s:', ' ', hex, '%d / %d|r')
+	OnEvent(self)
 end
-E["valueColorUpdateFuncs"][ValueColorUpdate] = true
 
-DT:RegisterDatatext("S&L Item Level", 'S&L', {"LOADING_SCREEN_DISABLED", "PLAYER_EQUIPMENT_CHANGED", "UNIT_INVENTORY_CHANGED"}, OnEvent, nil, nil, OnEnter)
+DT:RegisterDatatext('S&L Item Level', 'S&L', {'LOADING_SCREEN_DISABLED', 'PLAYER_EQUIPMENT_CHANGED', 'UNIT_INVENTORY_CHANGED'}, OnEvent, nil, nil, OnEnter, nil, nil, nil, ValueColorUpdate)

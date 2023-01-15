@@ -38,7 +38,7 @@ local friendTable, BNTable, tableList = {}, {}, {}
 local friendOnline, friendOffline = gsub(_G.ERR_FRIEND_ONLINE_SS,"\124Hplayer:%%s\124h%[%%s%]\124h",""), gsub(_G.ERR_FRIEND_OFFLINE_S,"%%s","")
 local wowString = BNET_CLIENT_WOW
 local classicID = WOW_PROJECT_CLASSIC
-local dataValid, lastPanel = false
+local dataValid = false
 local minbutton = "|TInterface\\BUTTONS\\UI-PlusButton-Up:0|t"
 local BROADCAST_ICON = "|TInterface\\FriendsFrame\\BroadcastIcon:0|t"
 local GROUP_CHECKMARK	= "|TInterface\\Buttons\\UI-CheckBox-Check:0|t"
@@ -316,7 +316,7 @@ local function BuildBNTable(total)
 	end
 end
 
-local function Entry_OnMouseUp(_, info, button)
+local function Entry_OnMouseUp(self, info, button)
 	local i_type, name, realmName, accountName, accountID = strsplit(":", info)
 	if not (name and name ~= "") then return end
 
@@ -363,7 +363,7 @@ local function Entry_OnMouseUp(_, info, button)
 		end
 
 		ElvDB.SLEMinimize["expandBNBroadcast"..accountName] = not ElvDB.SLEMinimize["expandBNBroadcast"..accountName]
-		OnEnter(lastPanel)
+		OnEnter(self)
 	end
 end
 
@@ -379,7 +379,7 @@ local function OnEvent(self, event, message)
 	-- special handler to detect friend coming online or going offline
 	-- when this is the case, we invalidate our buffered table and update the
 	-- datatext information
-	if event == "CHAT_MSG_SYSTEM" then
+	if event == 'CHAT_MSG_SYSTEM' then
 		if not (strfind(message, friendOnline) or strfind(message, friendOffline)) then return end
 	end
 
@@ -403,11 +403,9 @@ local function OnEvent(self, event, message)
 	else
 		self.text:SetFormattedText(DTP.PanelStyles[db.panelStyle], displayhex, totalOnline, totalFriends)
 	end
-
-	lastPanel = self
 end
 
-local function HideOnMouseUp(_, info, button)
+local function HideOnMouseUp(self, info, button)
 	local action, section = strsplit(":", info)
 
 	if action == "hide" then
@@ -423,7 +421,7 @@ local function HideOnMouseUp(_, info, button)
 		end
 	end
 
-	OnEnter(lastPanel)
+	OnEnter(self)
 end
 
 local function OnClick(_, btn)
@@ -750,13 +748,9 @@ function OnEnter(self)
 	tooltip:Show()
 end
 
-local function ValueColorUpdate(hex)
+local function ValueColorUpdate(self, hex)
 	displayhex = hex
-
-	if lastPanel ~= nil then
-		OnEvent(lastPanel, 'ELVUI_COLOR_UPDATE')
-	end
+	OnEvent(self)
 end
-E.valueColorUpdateFuncs[ValueColorUpdate] = true
 
-DT:RegisterDatatext('S&L Friends', 'S&L', {"BN_FRIEND_ACCOUNT_ONLINE", "BN_FRIEND_ACCOUNT_OFFLINE", "BN_FRIEND_INFO_CHANGED", "FRIENDLIST_UPDATE", "CHAT_MSG_SYSTEM", "MODIFIER_STATE_CHANGED"}, OnEvent, nil, OnClick, OnEnter, nil, 'S&L Friends')
+DT:RegisterDatatext('S&L Friends', 'S&L', {'BN_FRIEND_ACCOUNT_ONLINE', 'BN_FRIEND_ACCOUNT_OFFLINE', 'BN_FRIEND_INFO_CHANGED', 'FRIENDLIST_UPDATE', 'CHAT_MSG_SYSTEM', 'MODIFIER_STATE_CHANGED'}, OnEvent, nil, OnClick, OnEnter, nil, 'S&L Friends', nil, ValueColorUpdate)

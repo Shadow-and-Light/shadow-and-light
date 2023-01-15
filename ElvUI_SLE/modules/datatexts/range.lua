@@ -6,7 +6,6 @@ local UnitName = UnitName
 local SPELL_FAILED_BAD_IMPLICIT_TARGETS = SPELL_FAILED_BAD_IMPLICIT_TARGETS
 
 local displayString = ''
-local lastPanel
 local curMin, curMax
 local int = 1
 local updateTargetRange = false
@@ -31,10 +30,9 @@ local function OnUpdate(self, t)
 		self.text:SetText(SPELL_FAILED_BAD_IMPLICIT_TARGETS)
 	end
 	forceUpdate = false
-	lastPanel = self
 end
 
-local function OnEvent(self, event)
+local function OnEvent(self)
 	updateTargetRange = UnitName("target") ~= nil
 	int = 0
 	if updateTargetRange then
@@ -44,13 +42,9 @@ local function OnEvent(self, event)
 	end
 end
 
-local function ValueColorUpdate(hex, r, g, b)
-	displayString = strjoin("", "%s: ", hex, "%d|r-", hex, "%d|r")
-
-	if lastPanel ~= nil then
-		OnEvent(lastPanel)
-	end
+local function ValueColorUpdate(self, hex)
+	displayString = strjoin('', '%s: ', hex, '%d|r-', hex, '%d|r')
+	OnEvent(self)
 end
-E.valueColorUpdateFuncs[ValueColorUpdate] = true
 
-DT:RegisterDatatext('S&L Target Range', 'S&L', {"PLAYER_TARGET_CHANGED"}, OnEvent, OnUpdate)
+DT:RegisterDatatext('S&L Target Range', 'S&L', {'PLAYER_TARGET_CHANGED'}, OnEvent, OnUpdate, nil, nil, nil, nil, nil, ValueColorUpdate)
