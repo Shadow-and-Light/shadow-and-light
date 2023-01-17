@@ -1,15 +1,6 @@
-v4.58 1/5/22
+v4.59 1/17/22
 
-• fix equipment set icon from not showing up in some locales
-• add legs for "enchant" check on the character and inspect frames
-• possible fix for the classbar enhanced shadow from not displaying upon reload of ui if the shadow was enabled (and classbar is detached from the player uf)
-• try to avoid an error with WorldQuestTrackerAddon
-• add lyn role icons that are outlined (Submitted by: Mossberg)
-• add Vault of the Incarnates to Raid Progression part for the tooltip
-• should be able to break mystic items right now using the deconstruction mode
-• added mythic plus portals
-• added Dragonflight logo for afk screen
-• added ability to select which expansion logo to display
-• should fix enchant scroll button in the enchant professions window
-• updated the library LibProcessable
-• added the ability to collapse the quests only section
+• add option to extend the stats panel on the character sheet
+• add ability to display the quality of the enchant
+• fixed an issue with inspecting Evokers
+• help prevent error referencing role icons
