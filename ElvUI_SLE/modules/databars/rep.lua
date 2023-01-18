@@ -166,10 +166,13 @@ function DB:FilterReputation(_, message, ...)
 	end
 
 	if DB.db.reputation and DB.db.reputation.chatfilter.enable then
+		local increase = DB['RepIncreaseStyles'][db.style.increase] or DB['RepIncreaseStyles']['STYLE1']
+		local decrease = DB['RepDecreaseStyles'][db.style.decrease] or DB['RepDecreaseStyles']['STYLE1']
+
 		for i in ipairs(DB.RepIncreaseStrings) do
 			faction, value = strmatch(message, DB.RepIncreaseStrings[i])
 			if faction then
-				newMessage = format(DB['RepIncreaseStyles'][db.style.increase], db.iconsize, faction, value)
+				newMessage = format(increase, db.iconsize, faction, value)
 				sendMessage(chatWindowsCache, newMessage)
 
 				return true
@@ -179,7 +182,7 @@ function DB:FilterReputation(_, message, ...)
 		for i in ipairs(DB.RepDecreaseStrings) do
 			faction, value = strmatch(message, DB.RepDecreaseStrings[i])
 			if faction then
-				newMessage = format(DB['RepDecreaseStyles'][db.style.decrease], db.iconsize, faction, value)
+				newMessage = format(decrease, db.iconsize, faction, value)
 				sendMessage(chatWindowsCache, newMessage)
 
 				return true
