@@ -144,7 +144,7 @@ function CA:BuildLayout()
 	end)
 	hooksecurefunc("CharacterFrame_Expand", function()
 		if E.db.sle.armory.character.enable and _G["PaperDollFrame"]:IsShown() then
-			_G["CharacterFrame"]:SetWidth(650 + E.db.sle.armory.character.addCharacterWidth)
+			_G["CharacterFrame"]:SetWidth(650 + (E.db.sle.armory.character.addCharacterWidth or 0))
 		end
 	end)
 	hooksecurefunc("CharacterFrame_ShowSubFrame", function(frameName)
@@ -275,9 +275,9 @@ function CA:FixFuckingBlizzardLogic()
 end
 
 function CA:ResizeFrame()
-	_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and (650 + E.db.sle.armory.character.addCharacterWidth) or 444)
+	_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and (650 + (E.db.sle.armory.character.addCharacterWidth or 0)) or 444)
 
-	if (E.global.sle.advanced.general and E.global.sle.advanced.armory) then
+	if E.global.sle.advanced.general then
 		SLE.Armory_Stats:AddWidthApply()
 		PaperDollFrame_UpdateStats()
 	end
@@ -300,7 +300,7 @@ function CA:Enable()
 	_G["CharacterModelScene"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
 
 	if _G["PaperDollFrame"]:IsShown() then --Setting up width for the main frame
-		_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and (650 + E.db.sle.armory.character.addCharacterWidth) or 444)
+		_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and (650 + (E.db.sle.armory.character.addCharacterWidth or 0)) or 444)
 		_G["CharacterFrameInsetRight"]:SetPoint('TOPLEFT', _G["CharacterFrameInset"], 'TOPRIGHT', 110, 0)
 	end
 
