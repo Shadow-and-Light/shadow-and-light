@@ -313,6 +313,9 @@ function Armory:UpdateGemInfo(Slot, which)
 						GemLink = C_AzeriteEssence.GetEssenceHyperlink(GemID, rank)
 					end
 				end
+				if not GemLink then
+					GemLink = select(2, GetItemGem(Slot.itemLink, i))
+				end
 			else
 				GemLink = select(2, GetItemGem(Slot.itemLink, i))
 			end
