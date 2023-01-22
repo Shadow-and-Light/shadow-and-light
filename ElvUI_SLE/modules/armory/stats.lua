@@ -606,7 +606,9 @@ function SA:LoadAndSetup()
 	_G.CharacterFrame:HookScript('OnShow', function(frame)
 		if not initStats and _G.CharacterFrame:IsShown() then
 			initStats = true
-			SA:ToggleArmory()
+			if not SLE._Compatibility['DejaCharacterStats'] then
+				SA:ToggleArmory()
+			end
 		end
 		SA:UpdateCharacterItemLevel(frame)
 	end)
