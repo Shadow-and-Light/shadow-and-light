@@ -160,7 +160,7 @@ function SA:AddWidthApply()
 	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
 	   local catFrame = _G['CharacterStatsPane'][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame]
 	   catFrame:SetWidth(panewidth)
-	   catFrame.backdrop:SetWidth(panewidth)
+	   if catFrame.backdrop then catFrame.backdrop:SetWidth(panewidth) end
 	   for statIndex = 1, #PAPERDOLL_STATCATEGORIES[catIndex].stats do
 		  statFrame:SetWidth(panewidth)
 		  statFrame = _G.CharacterStatsPane.statsFramePool:Acquire()
