@@ -918,7 +918,6 @@ function PI:DarthSetupDF()
 		E.db["movers"]["EventToastMover"] = "TOP,ElvUIParent,TOP,0,-150"
 		E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,550,23"
 		E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,368,0"
-		E.db["movers"]["GhostFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,110"
 		E.db["movers"]["HonorBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,226"
 		E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,0,0"
 		E.db["movers"]["LevelUpBossBannerMover"] = "TOP,ElvUIParent,TOP,0,-217"
@@ -939,7 +938,6 @@ function PI:DarthSetupDF()
 		E.db["movers"]["RaidUtility_Mover"] = "TOP,ElvUIParent,TOP,-400,1"
 		E.db["movers"]["ReputationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-550,23"
 		E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,-1"
-		E.db["movers"]["SLEGhostFrameMover"] = "TOP,ElvUIParent,TOP,0,-150"
 		E.db["movers"]["SLE_BG_1_Mover"] = "BOTTOM,ElvUIParent,BOTTOM,0,21"
 		E.db["movers"]["SLE_BG_2_Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOM,-257,21"
 		E.db["movers"]["SLE_BG_3_Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOM,257,21"
@@ -1653,7 +1651,7 @@ function PI:DarthSetupSL()
 
 		E.db['sle']['chat']['guildmaster'] = true
 		E.db['sle']['chat']['dpsSpam'] = true
-		
+
 		E.db["sle"]["databars"]["experience"]["chatfilter"]["enable"] = true
 		E.db["sle"]["databars"]["experience"]["chatfilter"]["style"] = "STYLE2"
 		E.db["sle"]["databars"]["reputation"]["chatfilter"]["enable"] = true
@@ -1732,7 +1730,6 @@ function PI:DarthSetupSL()
 		E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,0,249"
 		E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,551,23"
 		E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,368,0"
-		E.db["movers"]["GhostFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,110"
 		E.db["movers"]["HonorBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,162"
 		E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,0,0"
 		E.db["movers"]["LevelUpBossBannerMover"] = "TOP,ElvUIParent,TOP,0,-217"
