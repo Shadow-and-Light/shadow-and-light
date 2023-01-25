@@ -1,6 +1,6 @@
-v4.59 1/17/22
+v4.60 1/24/22
 
-• add option to extend the stats panel on the character sheet
-• add ability to display the quality of the enchant
-• fixed an issue with inspecting Evokers
-• help prevent error referencing role icons
+• toc bump
+• fix replace enchant string
+• fixed an issue that new option isn't visible with advanced settings enabled for the character frame to add addition space on the right
+• fixed mouse over gem slot on inspect and character frame
