@@ -50,7 +50,7 @@ function B:UpdateSet(slot)
 
 	--* Start - Part of the workaround
 	local isInSet = false
-	local tooltipData  = C_TooltipInfo.GetInventoryItemByID(slot.itemID)
+	local tooltipData  = C_TooltipInfo.GetBagItem(slot.BagID, slot.SlotID)
 	if slot.isEquipment and tooltipData then
 		TooltipUtil.SurfaceArgs(tooltipData)
 		for _, line in ipairs(tooltipData.lines) do
