@@ -35,6 +35,7 @@ BI.equipmentmanager = {
 }
 
 function B:HideSet(slot, keep)
+	if not slot or not slot.equipIcon then return end
 	slot.equipIcon:Hide()
 
 	if not keep and E:IsEventRegisteredForObject('EQUIPMENT_SETS_CHANGED', slot) then
@@ -70,8 +71,6 @@ function B:UpdateSet(slot)
 end
 
 local function updateSettings(slot)
-	if not slot or not slot.equipIcon then return end
-
 	slot.equipIcon:SetSize(E.db.sle.bags.equipmentmanager.size, E.db.sle.bags.equipmentmanager.size)
 	slot.equipIcon:ClearAllPoints()
 	slot.equipIcon:Point(E.db.sle.bags.equipmentmanager.point, E.db.sle.bags.equipmentmanager.xOffset, E.db.sle.bags.equipmentmanager.yOffset)
@@ -97,7 +96,7 @@ function BI:UpdateItemDisplay()
 		for _, bagID in next, bagFrame.BagIDs do
 			for slotID = 1, C_Container_GetContainerNumSlots(bagID) do
 				local slot = bagFrame.Bags[bagID][slotID]
-				if slot then
+				if slot and slot.equipIcon then
 					updateSettings(slot)
 				end
 			end
@@ -125,8 +124,6 @@ function BI:UpdateSlot(frame, bagID, slotID)
 	local bag = frame.Bags[bagID]
 	local slot = bag and bag[slotID]
 	if not slot or not slot.equipIcon then return end
-
-	updateSettings(slot)
 
 	if slot.isEquipment then
 		B:UpdateSet(slot)
