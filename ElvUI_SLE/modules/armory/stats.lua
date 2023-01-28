@@ -590,7 +590,6 @@ function SA:ReplaceBlizzFunctions()
 
 end
 
-local initStats = false
 function SA:LoadAndSetup()
 	if SLE._Compatibility['DejaCharacterStats'] then return end
 
@@ -605,10 +604,9 @@ function SA:LoadAndSetup()
 	SA:ToggleArmory()
 
 	_G.CharacterFrame:HookScript('OnShow', function(frame)
-		if not initStats and _G.CharacterFrame:IsShown() then
-			initStats = true
+		if _G.CharacterFrame:IsShown() then
 			if not SLE._Compatibility['DejaCharacterStats'] then
-				E:Delay(0.1, SA.ToggleArmory)
+				SA:ToggleArmory()
 			end
 		end
 		SA:UpdateCharacterItemLevel(frame)
