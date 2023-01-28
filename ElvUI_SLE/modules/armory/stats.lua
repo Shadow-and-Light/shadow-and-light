@@ -608,7 +608,7 @@ function SA:LoadAndSetup()
 		if not initStats and _G.CharacterFrame:IsShown() then
 			initStats = true
 			if not SLE._Compatibility['DejaCharacterStats'] then
-				SA:ToggleArmory()
+				E:Delay(0.1, SA.ToggleArmory)
 			end
 		end
 		SA:UpdateCharacterItemLevel(frame)
