@@ -277,10 +277,8 @@ end
 function CA:ResizeFrame()
 	_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and (650 + (E.db.sle.armory.character.addCharacterWidth or 0)) or 444)
 
-	if E.global.sle.advanced.general then
-		SLE.Armory_Stats:AddWidthApply()
-		PaperDollFrame_UpdateStats()
-	end
+	SLE.Armory_Stats:AddWidthApply()
+	PaperDollFrame_UpdateStats()
 end
 
 function CA:Enable()
