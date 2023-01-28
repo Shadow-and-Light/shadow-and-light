@@ -6,8 +6,9 @@ local M = E.Misc
 local _G = _G
 local math_min = math.min
 local format = format
-local GetAverageItemLevel = GetAverageItemLevel
-
+local GetAverageItemLevel, BreakUpLargeNumbers = GetAverageItemLevel, BreakUpLargeNumbers
+local UnitClass = UnitClass
+local GetCombatRating, GetCombatRatingBonus = GetCombatRating, GetCombatRatingBonus
 SA.totalShown = 0
 SA.OriginalPaperdollStats = PAPERDOLL_STATCATEGORIES
 
@@ -197,11 +198,11 @@ end
 
 function SA:PaperDollFrame_UpdateStats()
 	SA.totalShown = 0
-	local categoryYOffset
-	local statYOffset
+	local categoryYOffset, statYOffset = 0, 0
+
 	if E.db.sle.armory.stats.enable then
-		local total, equipped = GetAverageItemLevel()
 		if E.db.sle.armory.stats.IlvlFull then
+			local total, equipped = GetAverageItemLevel()
 			if E.db.sle.armory.stats.IlvlColor then
 				local r, g, b = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
 				local avColor = E.db.sle.armory.stats.AverageColor
@@ -219,8 +220,8 @@ function SA:PaperDollFrame_UpdateStats()
 
 		categoryYOffset = 8
 		statYOffset = 0
-
 	end
+
 	_G.CharacterStatsPane.ItemLevelCategory:Show()
 	_G.CharacterStatsPane.ItemLevelCategory.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.font or E.db.general.itemLevel.itemLevelFont), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.size or (E.db.general.itemLevel.itemLevelFontSize or 12), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.catFonts.outline or NONE)
 	_G.CharacterStatsPane.ItemLevelFrame:Show()
@@ -555,7 +556,7 @@ function SA:ReplaceBlizzFunctions()
 	end
 
 	function PaperDollFrame_SetHaste(statFrame, unit)
-		if ( unit ~= 'player' ) then
+		if unit ~= 'player' then
 			statFrame:Hide()
 			return
 		end
@@ -575,14 +576,14 @@ function SA:ReplaceBlizzFunctions()
 		else
 			PaperDollFrame_SetLabelAndText(statFrame, STAT_HASTE, format(hasteFormatString, format('%d%%', haste + 0.5)), false, haste)
 		end
-		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE .. format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_HASTE) .. ' ' .. format(hasteFormatString, format('%.2f%%', haste)) .. FONT_COLOR_CODE_CLOSE
+		statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAT_HASTE)..' '..format(hasteFormatString, format('%.2f%%', haste))..FONT_COLOR_CODE_CLOSE
 
 		local _, class = UnitClass(unit)
 		statFrame.tooltip2 = _G['STAT_HASTE_'..class..'_TOOLTIP']
-		if (not statFrame.tooltip2) then
+		if not statFrame.tooltip2 then
 			statFrame.tooltip2 = STAT_HASTE_TOOLTIP
 		end
-		statFrame.tooltip2 = statFrame.tooltip2 .. format(STAT_HASTE_BASE_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(rating)), GetCombatRatingBonus(rating))
+		statFrame.tooltip2 = statFrame.tooltip2..format(STAT_HASTE_BASE_TOOLTIP, BreakUpLargeNumbers(GetCombatRating(rating)), GetCombatRatingBonus(rating))
 
 		statFrame:Show()
 	end
