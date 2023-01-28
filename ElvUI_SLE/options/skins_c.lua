@@ -352,7 +352,7 @@ local function configTable()
 					talkinghead = {
 						order = 1,
 						type = 'group',
-						name = L["Talking Head Frame"],
+						name = L["Talking Head"],
 						args = {
 							hide = {
 								order = 1,
