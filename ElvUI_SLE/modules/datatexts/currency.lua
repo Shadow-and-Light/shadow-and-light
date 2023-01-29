@@ -311,9 +311,9 @@ local function OnEnter()
 		DT.tooltip:AddLine(' ')
 	end
 
-	for _, info in pairs(E.global.datatexts.customCurrencies) do
-		if info and not DT.CurrencyList[tostring(info.ID)] and info.DISPLAY_IN_MAIN_TOOLTIP then
-			AddInfo(info.ID)
+	for id, info in pairs(E.global.datatexts.customCurrencies) do
+		if info and not DT.CurrencyList[tostring(id)] and info.currencyTooltip then
+			AddInfo(id)
 			addLine2 = true
 		end
 	end
