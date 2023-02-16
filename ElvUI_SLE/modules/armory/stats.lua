@@ -10,11 +10,11 @@ local GetAverageItemLevel, BreakUpLargeNumbers = GetAverageItemLevel, BreakUpLar
 local UnitClass = UnitClass
 local GetCombatRating, GetCombatRatingBonus = GetCombatRating, GetCombatRatingBonus
 SA.totalShown = 0
-SA.OriginalPaperdollStats = PAPERDOLL_STATCATEGORIES
+SA.OriginalPaperdollStats = E:CopyTable({}, PAPERDOLL_STATCATEGORIES)
 
 function SA:BuildNewStats()
 	SA:CreateStatCategory('OffenseCategory', STAT_CATEGORY_ATTACK)
-	SA:CreateStatCategory('DefenceCategory', DEFENSE)
+	SA:CreateStatCategory('DefenseCategory', DEFENSE)
 
 	SA.AlteredPaperdollStats = {
 		[1] = {
@@ -54,7 +54,7 @@ function SA:BuildNewStats()
 			},
 		},
 		[4] = {
-			categoryFrame = 'DefenceCategory',
+			categoryFrame = 'DefenseCategory',
 			stats = {
 				[1] = { stat = 'ARMOR', option = true, },
 				[2] = { stat = 'AVOIDANCE', option = true, hideAt = 0 },
@@ -67,18 +67,17 @@ function SA:BuildNewStats()
 	}
 end
 
-function SA:CreateStatCategory(catName, text, noop)
-	if not _G['CharacterStatsPane'][catName] then
-		_G['CharacterStatsPane'][catName] = CreateFrame('Frame', nil, _G.CharacterStatsPane, 'CharacterStatFrameCategoryTemplate')
-		_G['CharacterStatsPane'][catName].Title:SetText(text)
-		_G['CharacterStatsPane'][catName]:StripTextures()
-		_G['CharacterStatsPane'][catName]:CreateBackdrop('Transparent')
-		_G['CharacterStatsPane'][catName].backdrop:ClearAllPoints()
-		_G['CharacterStatsPane'][catName].backdrop:SetPoint('CENTER')
-		_G['CharacterStatsPane'][catName].backdrop:SetWidth(150)
-		_G['CharacterStatsPane'][catName].backdrop:SetHeight(18)
-	end
-	return catName
+function SA:CreateStatCategory(catName, text)
+	if _G.CharacterStatsPane[catName] then return end
+
+	_G.CharacterStatsPane[catName] = CreateFrame('Frame', nil, _G.CharacterStatsPane, 'CharacterStatFrameCategoryTemplate')
+	_G.CharacterStatsPane[catName].Title:SetText(text)
+	_G.CharacterStatsPane[catName]:StripTextures()
+	_G.CharacterStatsPane[catName]:CreateBackdrop('Transparent')
+	_G.CharacterStatsPane[catName].backdrop:ClearAllPoints()
+	_G.CharacterStatsPane[catName].backdrop:SetPoint('CENTER')
+	_G.CharacterStatsPane[catName].backdrop:SetWidth(150)
+	_G.CharacterStatsPane[catName].backdrop:SetHeight(18)
 end
 
 function SA:BuildScrollBar() --Creating new scroll
@@ -308,13 +307,13 @@ function SA:ToggleArmory()
 	PAPERDOLL_STATCATEGORIES = E.db.sle.armory.stats.enable and SA.AlteredPaperdollStats or SA.OriginalPaperdollStats
 	if E.db.sle.armory.stats.enable then
 		_G['CharacterStatsPane']['OffenseCategory']:Show()
-		_G['CharacterStatsPane']['DefenceCategory']:Show()
+		_G['CharacterStatsPane']['DefenseCategory']:Show()
 		_G.CharacterStatsPane.ItemLevelFrame:SetPoint('TOP', _G.CharacterStatsPane.ItemLevelCategory, 'BOTTOM', 0, 6)
 		_G.CharacterFrame.ItemLevelText:SetText('')
 		-- SA:ToggleDecimals("enable")
 	else
 		_G['CharacterStatsPane']['OffenseCategory']:Hide()
-		_G['CharacterStatsPane']['DefenceCategory']:Hide()
+		_G['CharacterStatsPane']['DefenseCategory']:Hide()
 		_G.CharacterStatsPane.ItemLevelFrame:SetPoint('TOP', _G.CharacterStatsPane.ItemLevelCategory, 'BOTTOM', 0, 0)
 		-- SA:ToggleDecimals("disable")
 		SA.Scrollbar:Hide()
