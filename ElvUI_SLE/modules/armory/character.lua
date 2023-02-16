@@ -144,7 +144,7 @@ function CA:BuildLayout()
 	end)
 	hooksecurefunc("CharacterFrame_Expand", function()
 		if E.db.sle.armory.character.enable and _G["PaperDollFrame"]:IsShown() then
-			_G["CharacterFrame"]:SetWidth(650 + (E.db.sle.armory.character.addCharacterWidth or 0))
+			_G["CharacterFrame"]:SetWidth(650)
 		end
 	end)
 	hooksecurefunc("CharacterFrame_ShowSubFrame", function(frameName)
@@ -274,13 +274,6 @@ function CA:FixFuckingBlizzardLogic()
 	CA.HearthMilestonesCached = true
 end
 
-function CA:ResizeFrame()
-	_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and (650 + (E.db.sle.armory.character.addCharacterWidth or 0)) or 444)
-
-	SLE.Armory_Stats:AddWidthApply()
-	PaperDollFrame_UpdateStats()
-end
-
 function CA:Enable()
 	-- Setting frame
 	_G["CharacterFrame"]:SetHeight(444)
@@ -298,7 +291,7 @@ function CA:Enable()
 	_G["CharacterModelScene"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
 
 	if _G["PaperDollFrame"]:IsShown() then --Setting up width for the main frame
-		_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and (650 + (E.db.sle.armory.character.addCharacterWidth or 0)) or 444)
+		_G["CharacterFrame"]:SetWidth(_G["CharacterFrame"].Expanded and 650 or 444)
 		_G["CharacterFrameInsetRight"]:SetPoint('TOPLEFT', _G["CharacterFrameInset"], 'TOPRIGHT', 110, 0)
 	end
 
@@ -380,14 +373,8 @@ function CA:ToggleArmory()
 	for _, SlotName in pairs(Armory.Constants.AzeriteSlot) do PaperDollItemSlotButton_Update(_G["Character"..SlotName]) end
 end
 
-function CA:TweakPositions()
-	_G["PaperDollFrame"].TitleManagerPane.ScrollBox:SetPoint('TOPRIGHT', _G.CharacterFrameInsetRight, -26, -4)
-	_G["PaperDollFrame"].EquipmentManagerPane.ScrollBox:SetPoint('TOPRIGHT', _G.CharacterFrameInsetRight, -26, -4)
-end
 
 function CA:LoadAndSetup()
-	CA:TweakPositions()
-
 	CA:BuildLayout()
 	CA:ToggleArmory()
 	CA:ElvOverlayToggle()

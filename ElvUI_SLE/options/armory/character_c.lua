@@ -23,16 +23,6 @@ local function configTable()
 				get = function(info) return E.db.sle.armory.character[(info[#info])] end,
 				set = function(info, value) E.db.sle.armory.character[(info[#info])] = value; M:UpdateCharacterInfo() end,
 			},
-			addCharacterWidth = {
-				type = 'range',
-				name = L["Additional character frame width"],
-				desc = L["Makes stats/titles/equipment sets wider"],
-				order = 3,
-				hidden = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.character or not E.global.sle.advanced.general end,
-				get = function(info) return E.db.sle.armory.character[(info[#info])] end,
-				set = function(info, value) E.db.sle.armory.character[(info[#info])] = value; CA:ResizeFrame() end,
-				min = 0, max = 300, step = 1,
-			},
 			ilvl = {
 				type = 'group',
 				name = L["Item Level"],

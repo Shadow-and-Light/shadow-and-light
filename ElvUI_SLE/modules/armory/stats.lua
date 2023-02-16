@@ -83,13 +83,13 @@ end
 
 function SA:BuildScrollBar() --Creating new scroll
 	--Scrollframe Parent Frame
-	SA.ScrollframeParentFrame = CreateFrame('Frame', "SLE_Armory_SCrollParent", _G.CharacterFrameInsetRight)
-	SA.ScrollframeParentFrame:SetPoint('TOPLEFT', _G.CharacterFrameInsetRight, 2, -4)
-	SA.ScrollframeParentFrame:SetPoint('BOTTOMRIGHT', _G.CharacterFrameInsetRight, -11, 4)
+	SA.ScrollframeParentFrame = CreateFrame('Frame', 'SLE_Armory_ScrollParent', _G.CharacterFrameInsetRight)
+	SA.ScrollframeParentFrame:SetSize(198, 352)
+	SA.ScrollframeParentFrame:SetPoint('TOP', _G.CharacterFrameInsetRight, 'TOP', -4, -4)
 	--Scrollframe
 	SA.ScrollFrame = CreateFrame('ScrollFrame', 'SLE_Armory_Scroll', SA.ScrollframeParentFrame)
-	SA.ScrollFrame:SetPoint('TOPLEFT', SA.ScrollframeParentFrame, 4, 0)
-	SA.ScrollFrame:SetPoint('BOTTOMRIGHT', SA.ScrollframeParentFrame, -4, 0)
+	SA.ScrollFrame:SetPoint('TOP')
+	SA.ScrollFrame:SetSize(SA.ScrollframeParentFrame:GetSize())
 
 	--Scrollbar
 	SA.Scrollbar = CreateFrame('Slider', nil, SA.ScrollFrame, 'UIPanelScrollBarTemplate')
@@ -108,12 +108,12 @@ function SA:BuildScrollBar() --Creating new scroll
 	SA.Scrollbar:Hide()
 
 	SA.ScrollChild = CreateFrame('Frame', nil, SA.ScrollFrame)
-	SA.ScrollChild:SetPoint('TOPLEFT', SA.ScrollFrame, 4, 0)
-	SA.ScrollChild:SetPoint('BOTTOMRIGHT', SA.ScrollFrame, -4, 0)
+	SA.ScrollChild:SetSize(SA.ScrollFrame:GetSize())
 	SA.ScrollFrame:SetScrollChild(SA.ScrollChild)
 
 	CharacterStatsPane:ClearAllPoints()
 	CharacterStatsPane:SetParent(SA.ScrollChild)
+	CharacterStatsPane:SetSize(SA.ScrollChild:GetSize())
 	CharacterStatsPane:SetPoint('TOP', SA.ScrollChild, 'TOP', 0, 0)
 
 	CharacterStatsPane.ClassBackground:ClearAllPoints()
@@ -145,43 +145,9 @@ function SA:BuildScrollBar() --Creating new scroll
 	end)
 end
 
-function SA:AddWidthApply()
-	SA.ScrollChild:SetSize(SA.ScrollFrame:GetSize())
-	CharacterStatsPane:SetSize(SA.ScrollChild:GetSize())
-	local panewidth = _G.CharacterStatsPane:GetWidth()
-
-	_G.CharacterStatsPane.ItemLevelCategory:SetWidth(panewidth)
-	_G.CharacterStatsPane.ItemLevelCategory.backdrop:SetWidth(panewidth)
-	_G.CharacterStatsPane.AttributesCategory:SetWidth(panewidth)
-	_G.CharacterStatsPane.AttributesCategory.backdrop:SetWidth(panewidth)
-
-	_G.CharacterStatsPane.statsFramePool:ReleaseAll()
-	local statFrame = _G.CharacterStatsPane.statsFramePool:Acquire()
-
-	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
-	   local catFrame = _G['CharacterStatsPane'][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame]
-	   catFrame:SetWidth(panewidth)
-	   catFrame.backdrop:SetWidth(panewidth)
-	   for statIndex = 1, #PAPERDOLL_STATCATEGORIES[catIndex].stats do
-		  statFrame:SetWidth(panewidth)
-		  statFrame = _G.CharacterStatsPane.statsFramePool:Acquire()
-	   end
-	end
-
-	_G.CharacterStatsPane.statsFramePool:Release(statFrame)
-
-	PaperDollFrame_UpdateStats()
-end
-
-SA.StatsResized = false
 function SA:UpdateCharacterItemLevel(frame, which)
 	if not frame or which ~= 'Character' then return end
-	if not SA.StatsResized then
-		if _G.CharacterStatsPane:GetWidth() < SA.ScrollframeParentFrame:GetWidth() and _G.CharacterFrame:IsShown() then
-			SA:AddWidthApply()
-			SA.StatsResized = true
-		end
-	end
+
 	SA:UpdateIlvlFont()
 	if not E.db.sle.armory.stats.enable or not E.db.general.itemLevel.displayCharacterInfo then return end
 	local total, equipped = GetAverageItemLevel()
@@ -353,9 +319,7 @@ function SA:ToggleArmory()
 		-- SA:ToggleDecimals("disable")
 		SA.Scrollbar:Hide()
 	end
-	-- PaperDollFrame_UpdateStats()
-	-- SA.addWidth = (E.global.sle.advanced.general and E.global.sle.advanced.armory and E.db.sle.armory.character.enable) and E.private.sle.advanced.armory.addCharacterWidth or 0
-	SA:AddWidthApply()
+
 	PaperDollFrame_UpdateStats()
 	M:UpdateCharacterItemLevel()
 	if not E.db.general.itemLevel.displayCharacterInfo then
@@ -603,14 +567,7 @@ function SA:LoadAndSetup()
 	SA:BuildNewStats()
 	SA:ToggleArmory()
 
-	_G.CharacterFrame:HookScript('OnShow', function(frame)
-		if _G.CharacterFrame:IsShown() then
-			if not SLE._Compatibility['DejaCharacterStats'] then
-				SA:ToggleArmory()
-			end
-		end
-		SA:UpdateCharacterItemLevel(frame)
-	end)
+	_G.CharacterFrame:HookScript('OnShow', SA.UpdateCharacterItemLevel)
 
 	_G.CharacterFrame.ItemLevelText:SetText('')
 end
