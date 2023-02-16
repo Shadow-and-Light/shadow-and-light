@@ -61,7 +61,7 @@ function SA:BuildNewStats()
 				[3] = { stat = 'DODGE', option = true,},
 				[4] = { stat = 'PARRY', option = true, hideAt = 0, },
 				[5] = { stat = 'BLOCK', option = true, hideAt = 0, },
-				[6] = { stat = 'STAGGER', hideAt = 0, roles = {'TANK'}, classes = {'MONK'} },
+				[6] = { stat = 'STAGGER', hideAt = 0, roles = {'TANK'}, },
 			},
 		},
 	}
