@@ -220,21 +220,19 @@ function DVB:CreateBar()
 	AB:HookScript(bar, 'OnLeave', 'Bar_OnLeave')
 
 	for i = 1, 7 do
-		local index = (i == 7) and 12 or i
-		local button = LAB:CreateButton(index, format(bar:GetName()..'Button%d', index), bar, nil)
+		local button = LAB:CreateButton(i, format(bar:GetName()..'Button%d', i), bar, nil)
 		bar.buttons[i] = button
-		button:SetState(0, 'action', index)
+		button:SetState(0, 'action', i)
 
 		for k = 1, 18 do
-			button:SetState(k, 'action', (k - 1) * 12 + index)
+			button:SetState(k, 'action', (k - 1) * 12 + i)
 		end
 
-		if index == 12 then
+		if i == 7 then
 			button:SetState(GetVehicleBarIndex(), 'custom', AB.customExitButton)
-
-			_G[elvButton..index].slvehiclebutton = button:GetName()
+			_G[elvButton..i].slvehiclebutton = button:GetName()
 		else
-			_G[elvButton..index].slvehiclebutton = button:GetName()
+			_G[elvButton..i].slvehiclebutton = button:GetName()
 		end
 
 		--Masuqe Support
