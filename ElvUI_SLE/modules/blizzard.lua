@@ -219,19 +219,21 @@ end
 local function OnDragStop(self)
 	self:StopMovingOrSizing()
 	local Name = self:GetName()
-	if E.private.sle.module.blizzmove.remember and not B.TempOnly[Name] then --Saving positions only if option is enabled and frame is not temporary movable
-		local a, _, c, d, e = self:GetPoint()
-		local b = self:GetParent():GetName() or _G.UIParent
-		if Name == 'QuestFrame' or Name == 'GossipFrame' then --These 2 frames should always be in the same place. So having coordinates for them at the same time
-			E.private.sle.module.blizzmove.points['GossipFrame'] = {a, b, c, d, e}
-			E.private.sle.module.blizzmove.points['QuestFrame'] = {a, b, c, d, e}
-		else
-			E.private.sle.module.blizzmove.points[Name] = {a, b, c, d, e}
+	if not InCombatLockdown() then
+		if E.private.sle.module.blizzmove.remember and not B.TempOnly[Name] then --Saving positions only if option is enabled and frame is not temporary movable
+			local a, _, c, d, e = self:GetPoint()
+			local b = self:GetParent():GetName() or _G.UIParent
+			if Name == 'QuestFrame' or Name == 'GossipFrame' then --These 2 frames should always be in the same place. So having coordinates for them at the same time
+				E.private.sle.module.blizzmove.points['GossipFrame'] = {a, b, c, d, e}
+				E.private.sle.module.blizzmove.points['QuestFrame'] = {a, b, c, d, e}
+			else
+				E.private.sle.module.blizzmove.points[Name] = {a, b, c, d, e}
+			end
+			self:SetUserPlaced(true)
+		elseif self:IsUserPlaced() then --Unfuck the game
+			self:ClearAllPoints()
+			self:SetUserPlaced(false)
 		end
-		self:SetUserPlaced(true)
-	elseif self:IsUserPlaced() then --Unfuck the game
-		self:ClearAllPoints()
-		self:SetUserPlaced(false)
 	end
 	self.IsMoving = false
 end
