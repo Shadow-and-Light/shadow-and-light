@@ -66,7 +66,12 @@ function I:GuildEmblem()
 		char.guildTexCoord = false
 	end
 	if char.guildTexCoord and IsInGuild() then
-		return '|TInterface\\GuildFrame\\GuildEmblemsLG_01:24:24:-4:1:32:32:'..(char.guildTexCoord[1]*32)..':'..(char.guildTexCoord[7]*32)..':'..(char.guildTexCoord[2]*32)..':'..(char.guildTexCoord[8]*32)..'|t'
+		-- return '|TInterface\\GuildFrame\\GuildEmblemsLG_01:24:24:-4:1:32:32:'..(char.guildTexCoord[1]*32)..':'..(char.guildTexCoord[7]*32)..':'..(char.guildTexCoord[2]*32)..':'..(char.guildTexCoord[8]*32)..'|t'
+		-- 0.91796875, 0.00390625, 0.91796875, 0.06640625, 0.98046875, 0.00390625, 0.98046875, 0.06640625
+		-- 	   ULx,		   ULy,		   LLx,		   LLy,		   URx,		   URy,		   LRx,		   LRy
+
+		-- 	   "|TInterface\\ChatFUI-ChatIcon-ArmoryChat:14:14:0:0:16:16:0:16:0:16:73:177:73|t Reckful"
+		return '|TInterface\\GuildFrame\\GuildEmblems_01:16:16:0:0:32:32:'..(char.guildTexCoord[1]*32)..':'..(char.guildTexCoord[7]*32)..':'..(char.guildTexCoord[2]*32)..':'..(char.guildTexCoord[8]*32)..'|t'
 	else
 		return ''
 	end
