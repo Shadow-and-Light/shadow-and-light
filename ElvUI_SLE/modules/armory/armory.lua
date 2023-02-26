@@ -1,14 +1,11 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, _, E, L = unpack(select(2, ...))
 local Armory = SLE.Armory_Core
 local M = E.Misc
 local LCG = E.Libs.CustomGlow
 
 local GetAverageItemLevel = GetAverageItemLevel
-local TRANSMOGRIFIED_HEADER = TRANSMOGRIFIED_HEADER
-local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
 local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
 local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
-local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllusionSourceInfo
 local HandleModifiedItemClick = HandleModifiedItemClick
 local C_TransmogCollection_GetInspectItemTransmogInfoList = C_TransmogCollection.GetInspectItemTransmogInfoList
 local GetSpecialization, GetSpecializationInfo, GetInspectSpecialization = GetSpecialization, GetSpecializationInfo, GetInspectSpecialization
@@ -122,8 +119,8 @@ function Armory:BuildFrameDefaultsCache(which)
 		if Slot.iLvlText then
 			Armory.Constants[which..'_Defaults'][SlotName]['iLvlText'] = { Slot.iLvlText:GetPoint() }
 			Armory.Constants[which..'_Defaults'][SlotName]['textureSlot1'] = { Slot.textureSlot1:GetPoint() }
-			for i = 2, 10 do
-				if Slot['textureSlot'..i] then Slot['textureSlot'..i]:ClearAllPoints(); Slot['textureSlot'..i]:Point(Slot.Direction, Slot['textureSlot'..(i-1)], Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', E.twoPixelsPlease and 3 or 1, 0) end
+			for v = 2, 10 do
+				if Slot['textureSlot'..v] then Slot['textureSlot'..v]:ClearAllPoints(); Slot['textureSlot'..v]:Point(Slot.Direction, Slot['textureSlot'..(v-1)], Slot.Direction == 'LEFT' and 'RIGHT' or 'LEFT', E.twoPixelsPlease and 3 or 1, 0) end
 			end
 			Armory.Constants[which..'_Defaults'][SlotName]['enchantText'] = { Slot.enchantText:GetPoint() }
 		end
@@ -148,28 +145,15 @@ end
 function Armory:GetTransmogInfo(Slot, which, unit)
 	if not which or not unit then return nil end
 
-	local transmogLink, TooltipText
-	Armory:ClearTooltip(Armory.ScanTT)
-	Armory.ScanTT:SetInventoryItem(unit, Slot.ID)
-
-	for i = 1, Armory.ScanTT:NumLines() do
-		TooltipText = _G['SLE_Armory_ScanTTTextLeft'..i]:GetText()
-
-		if TooltipText and TooltipText:match(TRANSMOGRIFIED_HEADER) then
-			transmogLink = _G['SLE_Armory_ScanTTTextLeft'..(i + 1)]:GetText()
-			Armory:ClearTooltip(Armory.ScanTT)
-		end
-	end
-
-	if not transmogLink then return nil end
-
 	local appearenceIDs = {}
 	local mogLink
 	local data = C_TransmogCollection_GetInspectItemTransmogInfoList()
 
-	for slotID, v in ipairs(data) do
-		if v.appearanceID and v.appearanceID > 0 then
-			appearenceIDs[slotID] = v.appearanceID
+	if data then
+		for slotID, v in ipairs(data) do
+			if v.appearanceID and v.appearanceID > 0 then
+				appearenceIDs[slotID] = v.appearanceID
+			end
 		end
 	end
 
@@ -182,7 +166,7 @@ function Armory:GetTransmogInfo(Slot, which, unit)
 end
 
 --Updates the frame
-function Armory:UpdatePageInfo(frame, which, guid, event)
+function Armory:UpdatePageInfo(frame, which)
 	if not (frame and which) then return end
 	if not Armory:CheckOptions(which) then return end
 	local window = strlower(which)
@@ -193,7 +177,7 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 	else
 		Armory.InspectPrimaryStat = Armory.Constants.SpecPrimaryStats[GetInspectSpecialization(unit)]
 	end
-	for i, SlotName in pairs(Armory.Constants.GearList) do
+	for _, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G[which..SlotName]
 		if Slot then
 			if Slot.TransmogInfo then
@@ -213,7 +197,7 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 				if E.db.sle.armory[window].enable and Slot.TransmogInfo.Link then
 					if E.db.sle.armory[window].transmog.enableArrow then Slot.TransmogInfo:Show() else Slot.TransmogInfo:Hide() end
 					if E.db.sle.armory[window].transmog.enableGlow then
-						LCG.AutoCastGlow_Start(Slot, {1, .5, 1, 1}, E.db.sle.armory[window].transmog.glowNumber, 0.25, 1, E.db.sle.armory[window].transmog.glowOffset, E.db.sle.armory[window].transmog.glowOffset, '_TransmogGlow')
+						LCG.AutoCastGlow_Start(Slot, {1, 0.5, 1, 1}, E.db.sle.armory[window].transmog.glowNumber, 0.25, 1, E.db.sle.armory[window].transmog.glowOffset, E.db.sle.armory[window].transmog.glowOffset, '_TransmogGlow')
 					else
 						LCG.AutoCastGlow_Stop(Slot, '_TransmogGlow')
 					end
@@ -229,14 +213,14 @@ function Armory:UpdatePageInfo(frame, which, guid, event)
 end
 
 --Updates ilvl and everything tied to the item somehow
-function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
+function Armory:UpdatePageStrings(_, iLevelDB, Slot, slotInfo, which)
 	if not Armory:CheckOptions(which) then return end
 	Slot.itemLink = GetInventoryItemLink((which == 'Character' and 'player') or _G['InspectFrame'].unit, Slot.ID)
 	if slotInfo.itemLevelColors then
 		local window = strlower(which) --to know which settings table to use
 		if E.db.sle.armory[window] and E.db.sle.armory[window].enable then --If settings table actually exists and armory for it is enabled
 			local iR, iG, iB = unpack(slotInfo.itemLevelColors)
-			if Slot.enchantText and not (slotInfo.enchantTextShort == nil or slotInfo.enchantText == nil) then Armory:ProcessEnchant(window, Slot, slotInfo.enchantTextShort, slotInfo.enchantText, slotInfo.enchantTextReal) end
+			if Slot.enchantText and not (slotInfo.enchantTextShort == nil or slotInfo.enchantText == nil) then Armory:ProcessEnchant(window, Slot, slotInfo.enchantText, slotInfo.enchantTextReal) end
 			if E.db.sle.armory[window].ilvl.colorType == 'QUALITY' then
 				if iR ~= nil then
 					Slot.iLvlText:SetTextColor(iR, iG, iB) --Business as usual
@@ -284,13 +268,13 @@ function Armory:UpdatePageStrings(i, iLevelDB, Slot, slotInfo, which)
 	end
 	--If put inside "if slotInfo.itemLevelColors" condition will not actually hide gem links/warnings on empty slots
 	Armory:UpdateGemInfo(Slot, which)
-	Armory:CheckForMissing(which, Slot, slotInfo.iLvl, slotInfo.gems, slotInfo.essences, slotInfo.enchantTextShort, Armory[which.."PrimaryStat"])
+	Armory:CheckForMissing(which, Slot, slotInfo.iLvl, slotInfo.gems, slotInfo.essences, slotInfo.enchantTextShort, Armory[which..'PrimaryStat'])
 	if CA.DurabilityFontSet then CA:Calculate_Durability(which, Slot) end
 end
 
 ---Store gem info in our hidden frame
 function Armory:UpdateGemInfo(Slot, which)
-	local unit = which == 'Character' and 'player' or (_G['InspectFrame'] and _G['InspectFrame'].unit)
+	local unit = which == 'Character' and 'player' or (_G.InspectFrame and _G.InspectFrame.unit)
 	if not unit then return end
 	for i = 1, Armory.Constants.MaxGemSlots do
 		local GemLink
@@ -330,7 +314,7 @@ end
 
 function Armory:UpdateSharedStringsFonts(which)
 	local window = strlower(which)
-	for i, SlotName in pairs(Armory.Constants.GearList) do
+	for _, SlotName in pairs(Armory.Constants.GearList) do
 		local Slot = _G[which..SlotName]
 		if not Slot then return end
 		if Slot.iLvlText then
@@ -349,7 +333,7 @@ function Armory:UpdateSharedStringsFonts(which)
 end
 
 --Deals with dem enchants
-function Armory:ProcessEnchant(which, Slot, enchantTextShort, enchantText, enchantTextReal)
+function Armory:ProcessEnchant(which, Slot, enchantText, enchantTextReal)
 	if not E.db.sle.armory.enchantString.enable then return end
 	local window = strlower(which)
 	local strict = E.db.sle.armory.enchantString.strict
@@ -420,7 +404,7 @@ function Armory:Transmog_OnLeave()
 end
 
 function Armory:Transmog_OnClick()
-	local ItemName, ItemLink = GetItemInfo(self.Link)
+	local _, ItemLink = GetItemInfo(self.Link)
 
 	if not IsShiftKeyDown() then
 		SetItemRef(ItemLink, ItemLink, 'LeftButton')
