@@ -99,7 +99,7 @@ function IA:BuildLayout()
 	end
 
 	do --<<Check Transmog>>--
-		_G.InspectFrame.SLE_TransmogViewButton = CreateFrame('Button', nil, _G.InspectFrame, 'BackdropTemplate')
+		_G.InspectFrame.SLE_TransmogViewButton = CreateFrame('Button', nil, _G.InspectPaperDollFrame, 'BackdropTemplate')
 		_G.InspectFrame.SLE_TransmogViewButton:Size(30)
 		_G.InspectFrame.SLE_TransmogViewButton:Point('BOTTOMRIGHT', _G.InspectHandsSlot, 'TOPRIGHT', 0, 4)
 		_G.InspectFrame.SLE_TransmogViewButton:SetBackdrop({
