@@ -413,7 +413,7 @@ local function ObjectiveReskin()
 			progressBar.Bar.backdrop:SetPoint('TOPLEFT', progressBar.Bar, -1, 1)
 			progressBar.Bar.backdrop:SetPoint('BOTTOMRIGHT', progressBar.Bar, 1, -1)
 			progressBar.skinned = true
-			ScenarioTrackerProgressBar_PlayFlareAnim = dummy
+			_G.ScenarioTrackerProgressBar_PlayFlareAnim = dummy
 		end
 	end)
 	-- proving grounds
