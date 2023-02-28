@@ -68,18 +68,18 @@ local function skinObjectiveBar(_, _, line)
 		end
 		bar:SetStatusBarColor(COLOR.r, COLOR.g, COLOR.b)
 		bar:CreateBackdrop('Transparent')
-		bar.backdrop:Point("TOPLEFT", bar, -1, 1)
-		bar.backdrop:Point("BOTTOMRIGHT", bar, 1, -1)
+		bar.backdrop:Point('TOPLEFT', bar, -1, 1)
+		bar.backdrop:Point('BOTTOMRIGHT', bar, 1, -1)
 		bar:SetFrameStrata('HIGH')
 
 		flare:Hide()
 
 		label:ClearAllPoints()
-		label:SetPoint("CENTER", bar, "CENTER", 0, -1)
+		label:SetPoint('CENTER', bar, 'CENTER', 0, -1)
 		label:FontTemplate(E.LSM:Fetch('font', E.db.sle.media.fonts.objective.font), E.db.sle.media.fonts.objective.size, E.db.sle.media.fonts.objective.outline)
 		SLE.Media.BonusObjectiveBarText = label
 
-		BonusObjectiveTrackerProgressBar_PlayFlareAnim = dummy
+		_G.BonusObjectiveTrackerProgressBar_PlayFlareAnim = dummy
 		progressBar.sle_skinned = true
 	end
 
@@ -179,29 +179,29 @@ local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
 
 		block.SLE_Block:Hide()
 
-		Sk.additionalTextures["ChallengeModeLogo"] = block.SLE_Block.Logo
-		Sk:UpdateAdditionalTexture(Sk.additionalTextures["ChallengeModeLogo"], SLE.ScenarioBlockLogos[E.private.sle.skins.objectiveTracker.skinnedTextureLogo] or E.private.sle.skins.objectiveTracker.customTextureLogo)
+		Sk.additionalTextures.ChallengeModeLogo = block.SLE_Block.Logo
+		Sk:UpdateAdditionalTexture(Sk.additionalTextures.ChallengeModeLogo, SLE.ScenarioBlockLogos[E.private.sle.skins.objectiveTracker.skinnedTextureLogo] or E.private.sle.skins.objectiveTracker.customTextureLogo)
 
-		block.SLE_OverlayFrame = CreateFrame("Frame", "ScenarioStageBlock_SLE_Overlay", block)
-		block.SLE_OverlayFrame.LimitText = block.SLE_OverlayFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
-		block.SLE_OverlayFrame.LimitText:SetPoint("LEFT", block.TimeLeft, "RIGHT", 10, -2)
-		block.SLE_OverlayFrame.LimitText2 = block.SLE_OverlayFrame:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
-		block.SLE_OverlayFrame.LimitText2:SetPoint("LEFT", block.SLE_OverlayFrame.LimitText, "RIGHT", 4, 0)
+		block.SLE_OverlayFrame = CreateFrame('Frame', 'ScenarioStageBlock_SLE_Overlay', block)
+		block.SLE_OverlayFrame.LimitText = block.SLE_OverlayFrame:CreateFontString(nil, 'OVERLAY', 'GameFontHighlightLarge')
+		block.SLE_OverlayFrame.LimitText:SetPoint('LEFT', block.TimeLeft, 'RIGHT', 10, -2)
+		block.SLE_OverlayFrame.LimitText2 = block.SLE_OverlayFrame:CreateFontString(nil, 'OVERLAY', 'GameFontHighlightLarge')
+		block.SLE_OverlayFrame.LimitText2:SetPoint('LEFT', block.SLE_OverlayFrame.LimitText, 'RIGHT', 4, 0)
 		block.SLE_OverlayFrame.LimitText:Hide()
 		block.SLE_OverlayFrame.LimitText2:Hide()
 
-		block.SLE_OverlayFrame.Mark2 = block.SLE_OverlayFrame:CreateTexture(nil,"OVERLAY")
-		block.SLE_OverlayFrame.Mark2:SetPoint("TOPLEFT", block.StatusBar, "TOPLEFT", block.StatusBar:GetWidth() * (1 - Chest2_Mult) - 4, block.StatusBar:GetHeight())
-		block.SLE_OverlayFrame.Mark2:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
+		block.SLE_OverlayFrame.Mark2 = block.SLE_OverlayFrame:CreateTexture(nil, 'OVERLAY')
+		block.SLE_OverlayFrame.Mark2:SetPoint('TOPLEFT', block.StatusBar, 'TOPLEFT', block.StatusBar:GetWidth() * (1 - Chest2_Mult) - 4, block.StatusBar:GetHeight())
+		block.SLE_OverlayFrame.Mark2:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]])
 		block.SLE_OverlayFrame.Mark2:SetWidth(5)
-		block.SLE_OverlayFrame.Mark2:SetBlendMode("ADD")
+		block.SLE_OverlayFrame.Mark2:SetBlendMode('ADD')
 		block.SLE_OverlayFrame.Mark2:SetHeight(block.StatusBar:GetHeight()*3)
 
-		block.SLE_OverlayFrame.Mark3 = block.SLE_OverlayFrame:CreateTexture(nil,"OVERLAY")
-		block.SLE_OverlayFrame.Mark3:SetPoint("TOPLEFT", block.StatusBar, "TOPLEFT", block.StatusBar:GetWidth() * (1 - Chest3_Mult) - 4, block.StatusBar:GetHeight())
-		block.SLE_OverlayFrame.Mark3:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
+		block.SLE_OverlayFrame.Mark3 = block.SLE_OverlayFrame:CreateTexture(nil, 'OVERLAY')
+		block.SLE_OverlayFrame.Mark3:SetPoint('TOPLEFT', block.StatusBar, 'TOPLEFT', block.StatusBar:GetWidth() * (1 - Chest3_Mult) - 4, block.StatusBar:GetHeight())
+		block.SLE_OverlayFrame.Mark3:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]])
 		block.SLE_OverlayFrame.Mark3:SetWidth(5)
-		block.SLE_OverlayFrame.Mark3:SetBlendMode("ADD")
+		block.SLE_OverlayFrame.Mark3:SetBlendMode('ADD')
 		block.SLE_OverlayFrame.Mark3:SetHeight(block.StatusBar:GetHeight()*3)
 
 		block.SLE_OverlayFrame.Mark3:SetShown(false)
@@ -212,7 +212,7 @@ local function SkinChallengeModeBlock(timerID, elapsedTime, timeLimit)
 		for i = 1, block:GetNumRegions() do
 			local region = select(i, block:GetRegions())
 			if region and region:IsObjectType('Texture') then --and region:IsObjectType(which) then
-				if region:GetAtlas() == "ChallengeMode-Timer" then region:SetAlpha(0) end
+				if region:GetAtlas() == 'ChallengeMode-Timer' then region:SetAlpha(0) end
 			end
 		end
 		block.TimerBG:Kill()
@@ -278,7 +278,7 @@ local function SkinAffixes(block,affixes)
 		local affixID = affixes[i]
 		if affixFrame then
 			if not affixFrame.SLE_Icon then
-				affixFrame.SLE_Icon = affixFrame:CreateTexture(nil, "OVERLAY")
+				affixFrame.SLE_Icon = affixFrame:CreateTexture(nil, 'OVERLAY')
 				affixFrame.SLE_Icon:SetAllPoints()
 			end
 			affixFrame:StripTextures()
@@ -307,26 +307,26 @@ local function SkinProvingGroundButtons()
 
 	block.MedalIcon:Size(42, 42)
 	block.MedalIcon:ClearAllPoints()
-	block.MedalIcon:SetPoint("TOPLEFT", block, 20, -10)
+	block.MedalIcon:SetPoint('TOPLEFT', block, 20, -10)
 
 	block.WaveLabel:ClearAllPoints()
-	block.WaveLabel:SetPoint("LEFT", block.MedalIcon, "RIGHT", 3, 0)
+	block.WaveLabel:SetPoint('LEFT', block.MedalIcon, 'RIGHT', 3, 0)
 
 	block.BG:Hide()
 	block.BG:Size(width + 21, 75)
 
 	block.GoldCurlies:Hide()
 	block.GoldCurlies:ClearAllPoints()
-	block.GoldCurlies:SetPoint("TOPLEFT", block.BG, 6, -6)
-	block.GoldCurlies:SetPoint("BOTTOMRIGHT", block.BG, -6, 6)
+	block.GoldCurlies:SetPoint('TOPLEFT', block.BG, 6, -6)
+	block.GoldCurlies:SetPoint('BOTTOMRIGHT', block.BG, -6, 6)
 
 	anim.BGAnim:Hide()
 	anim.BGAnim:Size(width + 45, 85)
 	anim.BorderAnim:Size(width + 21, 75)
 	anim.BorderAnim:Hide()
 	anim.BorderAnim:ClearAllPoints()
-	anim.BorderAnim:SetPoint("TOPLEFT", block.BG, 8, -8)
-	anim.BorderAnim:SetPoint("BOTTOMRIGHT", block.BG, -8, 8)
+	anim.BorderAnim:SetPoint('TOPLEFT', block.BG, 8, -8)
+	anim.BorderAnim:SetPoint('BOTTOMRIGHT', block.BG, -8, 8)
 
 	-- Timer
 	sb:StripTextures()
@@ -347,153 +347,153 @@ local function SkinProvingGroundButtons()
 end
 
 local function ObjectiveReskin()
-	if IsAddOnLoaded("Blizzard_ObjectiveTracker") then
-		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.sle.skins.objectiveTracker.enable ~= true then return end
-		-- Objective Tracker Bar
-		hooksecurefunc(_G["BONUS_OBJECTIVE_TRACKER_MODULE"], "AddProgressBar", skinObjectiveBar)
-		-- World Quests can be bonus objective type
-		hooksecurefunc(_G["WORLD_QUEST_TRACKER_MODULE"], "AddProgressBar", skinObjectiveBar)
+	if not IsAddOnLoaded('Blizzard_ObjectiveTracker') then return end
+	if not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker or not E.private.sle.skins.objectiveTracker.enable then return end
 
-		-- ProgressBar in the ObjectiveTacker
-		hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, block, line, questID)
-			local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line]
-			if progressBar and progressBar:IsShown() and not progressBar.skinned then
-				progressBar.Bar:StripTextures()
-				progressBar.Bar:SetStatusBarTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
-				local COLOR
-				if E.private.sle.skins.objectiveTracker.class then
-					COLOR = classColor
-				else
-					COLOR = E.private.sle.skins.objectiveTracker.color
-				end
-				progressBar.Bar:SetStatusBarColor(COLOR.r, COLOR.g, COLOR.b)
-				progressBar.Bar:CreateBackdrop('Transparent')
-				progressBar.Bar.backdrop:SetPoint('TOPLEFT', progressBar.Bar, -1, 1)
-				progressBar.Bar.backdrop:SetPoint('BOTTOMRIGHT', progressBar.Bar, 1, -1)
-				progressBar.skinned = true
+	-- Objective Tracker Bar
+	hooksecurefunc(_G.BONUS_OBJECTIVE_TRACKER_MODULE, 'AddProgressBar', skinObjectiveBar)
+	-- World Quests can be bonus objective type
+	hooksecurefunc(_G.WORLD_QUEST_TRACKER_MODULE, 'AddProgressBar', skinObjectiveBar)
+
+	-- ProgressBar in the ObjectiveTacker
+	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, 'AddProgressBar', function(self, block, line, questID)
+		local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line]
+		if progressBar and progressBar:IsShown() and not progressBar.skinned then
+			progressBar.Bar:StripTextures()
+			progressBar.Bar:SetStatusBarTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
+			local COLOR
+			if E.private.sle.skins.objectiveTracker.class then
+				COLOR = classColor
+			else
+				COLOR = E.private.sle.skins.objectiveTracker.color
 			end
-		end)
-		-- scenario
-		hooksecurefunc(_G["DEFAULT_OBJECTIVE_TRACKER_MODULE"], "AddTimerBar", SkinTimerBar)
-		hooksecurefunc(_G["SCENARIO_CONTENT_TRACKER_MODULE"], "Update", SkinScenarioButtons)
-		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
-		hooksecurefunc("Scenario_ChallengeMode_ShowBlock", SkinChallengeModeBlock)
-		if E.private.sle.skins.objectiveTracker.keyTimers.enable then hooksecurefunc("Scenario_ChallengeMode_UpdateTime", UpdateChallengeModeTime) end
-		hooksecurefunc("Scenario_ChallengeMode_SetUpAffixes", SkinAffixes)
-		hooksecurefunc(ScenarioStageBlock.WidgetContainer, "CreateWidget", function(self, widgetID, widgetType, widgetTypeInfo, widgetInfo)
-			-- print(widgetID, widgetType, widgetTypeInfo, widgetInfo)
-			local widgetFrame = self.widgetFrames[widgetID]
+			progressBar.Bar:SetStatusBarColor(COLOR.r, COLOR.g, COLOR.b)
+			progressBar.Bar:CreateBackdrop('Transparent')
+			progressBar.Bar.backdrop:SetPoint('TOPLEFT', progressBar.Bar, -1, 1)
+			progressBar.Bar.backdrop:SetPoint('BOTTOMRIGHT', progressBar.Bar, 1, -1)
+			progressBar.skinned = true
+		end
+	end)
+	-- scenario
+	hooksecurefunc(_G.DEFAULT_OBJECTIVE_TRACKER_MODULE, 'AddTimerBar', SkinTimerBar)
+	hooksecurefunc(_G.SCENARIO_CONTENT_TRACKER_MODULE, 'Update', SkinScenarioButtons)
+	hooksecurefunc('ScenarioBlocksFrame_OnLoad', SkinScenarioButtons)
+	hooksecurefunc('Scenario_ChallengeMode_ShowBlock', SkinChallengeModeBlock)
+	if E.private.sle.skins.objectiveTracker.keyTimers.enable then hooksecurefunc('Scenario_ChallengeMode_UpdateTime', UpdateChallengeModeTime) end
+	hooksecurefunc('Scenario_ChallengeMode_SetUpAffixes', SkinAffixes)
+	hooksecurefunc(ScenarioStageBlock.WidgetContainer, 'CreateWidget', function(self, widgetID, widgetType, widgetTypeInfo, widgetInfo)
+		-- print(widgetID, widgetType, widgetTypeInfo, widgetInfo)
+		local widgetFrame = self.widgetFrames[widgetID]
 
-			if skinnableWidgets[widgetID] then
-				if not E.private.sle.skins.objectiveTracker.scenarioBG then
-					for i = 1, widgetFrame:GetNumRegions() do
-						local region = select(i, widgetFrame:GetRegions())
-						if region and region:IsObjectType('Texture') then
-							region:SetAlpha(0)
-						end
+		if skinnableWidgets[widgetID] then
+			if not E.private.sle.skins.objectiveTracker.scenarioBG then
+				for i = 1, widgetFrame:GetNumRegions() do
+					local region = select(i, widgetFrame:GetRegions())
+					if region and region:IsObjectType('Texture') then
+						region:SetAlpha(0)
 					end
 				end
 			end
-		end)
-		-- Another ProgressBar in the ObjectiveTracker counting as Scenario (e.g. Legion Pre-Event)
-		hooksecurefunc(SCENARIO_TRACKER_MODULE, "AddProgressBar", function(self, block, line, criteriaIndex)
-			local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line]
-			if progressBar and progressBar:IsShown() and not progressBar.skinned then
-				progressBar.Bar:StripTextures()
-				progressBar.Bar:SetStatusBarTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
-				local COLOR
-				if E.private.sle.skins.objectiveTracker.class then
-					COLOR = classColor
-				else
-					COLOR = E.private.sle.skins.objectiveTracker.color
-				end
-				progressBar.Bar:SetStatusBarColor(COLOR.r, COLOR.g, COLOR.b)
-				progressBar.Bar:CreateBackdrop()
-				progressBar.Bar.backdrop:SetPoint('TOPLEFT', progressBar.Bar, -1, 1)
-				progressBar.Bar.backdrop:SetPoint('BOTTOMRIGHT', progressBar.Bar, 1, -1)
-				progressBar.skinned = true
-				ScenarioTrackerProgressBar_PlayFlareAnim = dummy
+		end
+	end)
+	-- Another ProgressBar in the ObjectiveTracker counting as Scenario (e.g. Legion Pre-Event)
+	hooksecurefunc(SCENARIO_TRACKER_MODULE, 'AddProgressBar', function(self, block, line, criteriaIndex)
+		local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line]
+		if progressBar and progressBar:IsShown() and not progressBar.skinned then
+			progressBar.Bar:StripTextures()
+			progressBar.Bar:SetStatusBarTexture(E.LSM:Fetch('statusbar', E.private.sle.skins.objectiveTracker.texture))
+			local COLOR
+			if E.private.sle.skins.objectiveTracker.class then
+				COLOR = classColor
+			else
+				COLOR = E.private.sle.skins.objectiveTracker.color
 			end
-		end)
-		-- proving grounds
-		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
+			progressBar.Bar:SetStatusBarColor(COLOR.r, COLOR.g, COLOR.b)
+			progressBar.Bar:CreateBackdrop()
+			progressBar.Bar.backdrop:SetPoint('TOPLEFT', progressBar.Bar, -1, 1)
+			progressBar.Bar.backdrop:SetPoint('BOTTOMRIGHT', progressBar.Bar, 1, -1)
+			progressBar.skinned = true
+			ScenarioTrackerProgressBar_PlayFlareAnim = dummy
+		end
+	end)
+	-- proving grounds
+	hooksecurefunc('Scenario_ProvingGrounds_ShowBlock', SkinProvingGroundButtons)
 
-		--Doing Underlines
-		local flat = [[Interface\AddOns\ElvUI\Core\Media\Textures\Minimalist]]
-		local height = E.private.sle.skins.objectiveTracker.underlineHeight
-		_G["ObjectiveTrackerBlocksFrame"].CampaignQuestHeader.SLE_Underline = Sk:CreateUnderline(_G["ObjectiveTrackerBlocksFrame"].CampaignQuestHeader, flat, true, height)
-		_G["ObjectiveTrackerBlocksFrame"].QuestHeader.SLE_Underline = Sk:CreateUnderline(_G["ObjectiveTrackerBlocksFrame"].QuestHeader, flat, true, height)
-		_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.SLE_Underline = Sk:CreateUnderline(_G["ObjectiveTrackerBlocksFrame"].AchievementHeader, flat, true, height)
-		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.SLE_Underline = Sk:CreateUnderline(_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header, flat, true, height)
-		_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.SLE_Underline = Sk:CreateUnderline(_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader, flat, true, height)
-		_G["ObjectiveTrackerBlocksFrame"].ProfessionHeader.SLE_Underline = Sk:CreateUnderline(_G["ObjectiveTrackerBlocksFrame"].ProfessionHeader, flat, true, height)
-		_G["WORLD_QUEST_TRACKER_MODULE"].Header.SLE_Underline = Sk:CreateUnderline(_G["WORLD_QUEST_TRACKER_MODULE"].Header, flat, true, height)
+	--Doing Underlines
+	local flat = [[Interface\AddOns\ElvUI\Core\Media\Textures\Minimalist]]
+	local height = E.private.sle.skins.objectiveTracker.underlineHeight
+	_G.ObjectiveTrackerBlocksFrame.AchievementHeader.SLE_Underline = Sk:CreateUnderline(_G.ObjectiveTrackerBlocksFrame.AchievementHeader, flat, true, height)
+	_G.ObjectiveTrackerBlocksFrame.CampaignQuestHeader.SLE_Underline = Sk:CreateUnderline(_G.ObjectiveTrackerBlocksFrame.CampaignQuestHeader, flat, true, height)
+	_G.ObjectiveTrackerBlocksFrame.ProfessionHeader.SLE_Underline = Sk:CreateUnderline(_G.ObjectiveTrackerBlocksFrame.ProfessionHeader, flat, true, height)
+	_G.ObjectiveTrackerBlocksFrame.QuestHeader.SLE_Underline = Sk:CreateUnderline(_G.ObjectiveTrackerBlocksFrame.QuestHeader, flat, true, height)
+	_G.ObjectiveTrackerBlocksFrame.ScenarioHeader.SLE_Underline = Sk:CreateUnderline(_G.ObjectiveTrackerBlocksFrame.ScenarioHeader, flat, true, height)
+	_G.BONUS_OBJECTIVE_TRACKER_MODULE.Header.SLE_Underline = Sk:CreateUnderline(_G.BONUS_OBJECTIVE_TRACKER_MODULE.Header, flat, true, height)
+	_G.WORLD_QUEST_TRACKER_MODULE.Header.SLE_Underline = Sk:CreateUnderline(_G.WORLD_QUEST_TRACKER_MODULE.Header, flat, true, height)
 
-		tinsert(underlines, _G["ObjectiveTrackerBlocksFrame"].CampaignQuestHeader.SLE_Underline)
-		tinsert(underlines, _G["ObjectiveTrackerBlocksFrame"].QuestHeader.SLE_Underline)
-		tinsert(underlines, _G["ObjectiveTrackerBlocksFrame"].AchievementHeader.SLE_Underline)
-		tinsert(underlines, _G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.SLE_Underline)
-		tinsert(underlines, _G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.SLE_Underline)
-		tinsert(underlines, _G["ObjectiveTrackerBlocksFrame"].ProfessionHeader.SLE_Underline)
-		tinsert(underlines, _G["WORLD_QUEST_TRACKER_MODULE"].Header.SLE_Underline)
+	tinsert(underlines, _G.ObjectiveTrackerBlocksFrame.CampaignQuestHeader.SLE_Underline)
+	tinsert(underlines, _G.ObjectiveTrackerBlocksFrame.QuestHeader.SLE_Underline)
+	tinsert(underlines, _G.ObjectiveTrackerBlocksFrame.AchievementHeader.SLE_Underline)
+	tinsert(underlines, _G.BONUS_OBJECTIVE_TRACKER_MODULE.Header.SLE_Underline)
+	tinsert(underlines, _G.ObjectiveTrackerBlocksFrame.ScenarioHeader.SLE_Underline)
+	tinsert(underlines, _G.ObjectiveTrackerBlocksFrame.ProfessionHeader.SLE_Underline)
+	tinsert(underlines, _G.WORLD_QUEST_TRACKER_MODULE.Header.SLE_Underline)
 
-		Sk:Update_ObjectiveTrackerUnderlinesVisibility()
-		Sk:Update_ObjectiveTrackerUnderlinesColor()
+	Sk:Update_ObjectiveTrackerUnderlinesVisibility()
+	Sk:Update_ObjectiveTrackerUnderlinesColor()
 
-		local MawBuffsBlock = ScenarioBlocksFrame.MawBuffsBlock
-		if MawBuffsBlock and E.private.sle.skins.objectiveTracker.torghastPowers.enable then
-			local numRegions = MawBuffsBlock.Container:GetNumRegions()
-			for i = 1, numRegions do
-				local region = select(i, MawBuffsBlock.Container:GetRegions())
-				if region and region.IsObjectType and region:IsObjectType('Texture') then
-					region:SetAlpha(0)
-				end
+	local MawBuffsBlock = ScenarioBlocksFrame.MawBuffsBlock
+	if MawBuffsBlock and E.private.sle.skins.objectiveTracker.torghastPowers.enable then
+		local numRegions = MawBuffsBlock.Container:GetNumRegions()
+		for i = 1, numRegions do
+			local region = select(i, MawBuffsBlock.Container:GetRegions())
+			if region and region.IsObjectType and region:IsObjectType('Texture') then
+				region:SetAlpha(0)
 			end
-			-- MawBuffsBlock:SetTemplate('Transparent')
-			if not MawBuffsBlock.SLE_Block then
-				MawBuffsBlock.SLE_Block = CreateFrame('Frame', 'MawBuffsBlock_SLE_Block', MawBuffsBlock.Container)
-				MawBuffsBlock.SLE_Block:ClearAllPoints()
-				MawBuffsBlock.SLE_Block:Point('TOPLEFT', MawBuffsBlock)
-				MawBuffsBlock.SLE_Block:Point('BOTTOMRIGHT', MawBuffsBlock)
-				MawBuffsBlock.SLE_Block:SetTemplate('Transparent')
-				MawBuffsBlock.SLE_Block:SetFrameStrata('BACKGROUND')
+		end
+		-- MawBuffsBlock:SetTemplate('Transparent')
+		if not MawBuffsBlock.SLE_Block then
+			MawBuffsBlock.SLE_Block = CreateFrame('Frame', 'MawBuffsBlock_SLE_Block', MawBuffsBlock.Container)
+			MawBuffsBlock.SLE_Block:ClearAllPoints()
+			MawBuffsBlock.SLE_Block:Point('TOPLEFT', MawBuffsBlock)
+			MawBuffsBlock.SLE_Block:Point('BOTTOMRIGHT', MawBuffsBlock)
+			MawBuffsBlock.SLE_Block:SetTemplate('Transparent')
+			MawBuffsBlock.SLE_Block:SetFrameStrata('BACKGROUND')
 
-				ENH:ProcessShadow(MawBuffsBlock.SLE_Block, nil, MawBuffsBlock.SLE_Block:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
-			end
-
-			MawBuffsBlock.Container.List:StripTextures()
-			MawBuffsBlock.Container.List:SetTemplate('Transparent')
-			ENH:ProcessShadow(MawBuffsBlock.Container.List, nil, MawBuffsBlock.Container.List:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
+			ENH:ProcessShadow(MawBuffsBlock.SLE_Block, nil, MawBuffsBlock.SLE_Block:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
 		end
 
-		-- SoD Raid
-		local MawBuffsBelowMinimapFrame = _G.MawBuffsBelowMinimapFrame
-		if MawBuffsBelowMinimapFrame and E.private.sle.skins.objectiveTracker.torghastPowers.enable then
-			local numRegions = MawBuffsBelowMinimapFrame.Container:GetNumRegions()
-			for i = 1, numRegions do
-				local region = select(i, MawBuffsBelowMinimapFrame.Container:GetRegions())
-				if region and region.IsObjectType and region:IsObjectType('Texture') then
-					region:SetAlpha(0)
-				end
-			end
-			-- MawBuffsBelowMinimapFrame:SetTemplate('Transparent')
-			if not MawBuffsBelowMinimapFrame.SLE_Block then
-				MawBuffsBelowMinimapFrame.SLE_Block = CreateFrame('Frame', 'MawBuffsBelowMinimapFrame_SLE_Block', MawBuffsBelowMinimapFrame.Container)
-				MawBuffsBelowMinimapFrame.SLE_Block:ClearAllPoints()
-				MawBuffsBelowMinimapFrame.SLE_Block:Point('TOPLEFT', MawBuffsBelowMinimapFrame)
-				MawBuffsBelowMinimapFrame.SLE_Block:Point('BOTTOMRIGHT', MawBuffsBelowMinimapFrame)
-				MawBuffsBelowMinimapFrame.SLE_Block:SetTemplate('Transparent')
-				MawBuffsBelowMinimapFrame.SLE_Block:SetFrameStrata('BACKGROUND')
+		MawBuffsBlock.Container.List:StripTextures()
+		MawBuffsBlock.Container.List:SetTemplate('Transparent')
+		ENH:ProcessShadow(MawBuffsBlock.Container.List, nil, MawBuffsBlock.Container.List:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
+	end
 
-				ENH:ProcessShadow(MawBuffsBelowMinimapFrame.SLE_Block, nil, MawBuffsBelowMinimapFrame.SLE_Block:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
+	-- SoD Raid
+	local MawBuffsBelowMinimapFrame = _G.MawBuffsBelowMinimapFrame
+	if MawBuffsBelowMinimapFrame and E.private.sle.skins.objectiveTracker.torghastPowers.enable then
+		local numRegions = MawBuffsBelowMinimapFrame.Container:GetNumRegions()
+		for i = 1, numRegions do
+			local region = select(i, MawBuffsBelowMinimapFrame.Container:GetRegions())
+			if region and region.IsObjectType and region:IsObjectType('Texture') then
+				region:SetAlpha(0)
 			end
-
-			MawBuffsBelowMinimapFrame.Container.List:StripTextures()
-			MawBuffsBelowMinimapFrame.Container.List:SetTemplate('Transparent')
-			ENH:ProcessShadow(MawBuffsBelowMinimapFrame.Container.List, nil, MawBuffsBelowMinimapFrame.Container.List:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
-			ENH:HandleObjectiveFrame()
 		end
+		-- MawBuffsBelowMinimapFrame:SetTemplate('Transparent')
+		if not MawBuffsBelowMinimapFrame.SLE_Block then
+			MawBuffsBelowMinimapFrame.SLE_Block = CreateFrame('Frame', 'MawBuffsBelowMinimapFrame_SLE_Block', MawBuffsBelowMinimapFrame.Container)
+			MawBuffsBelowMinimapFrame.SLE_Block:ClearAllPoints()
+			MawBuffsBelowMinimapFrame.SLE_Block:Point('TOPLEFT', MawBuffsBelowMinimapFrame)
+			MawBuffsBelowMinimapFrame.SLE_Block:Point('BOTTOMRIGHT', MawBuffsBelowMinimapFrame)
+			MawBuffsBelowMinimapFrame.SLE_Block:SetTemplate('Transparent')
+			MawBuffsBelowMinimapFrame.SLE_Block:SetFrameStrata('BACKGROUND')
+
+			ENH:ProcessShadow(MawBuffsBelowMinimapFrame.SLE_Block, nil, MawBuffsBelowMinimapFrame.SLE_Block:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
+		end
+
+		MawBuffsBelowMinimapFrame.Container.List:StripTextures()
+		MawBuffsBelowMinimapFrame.Container.List:SetTemplate('Transparent')
+		ENH:ProcessShadow(MawBuffsBelowMinimapFrame.Container.List, nil, MawBuffsBelowMinimapFrame.Container.List:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
+		ENH:HandleObjectiveFrame()
 	end
 end
 
-hooksecurefunc(S, "Initialize", ObjectiveReskin)
+hooksecurefunc(S, 'Initialize', ObjectiveReskin)
