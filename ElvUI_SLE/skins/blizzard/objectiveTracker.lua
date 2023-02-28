@@ -44,10 +44,9 @@ function Sk:Update_ObjectiveTrackerUnderlinesColor()
 end
 
 -- Objective Tracker Bar
-local function skinObjectiveBar(self, block, line)
+local function skinObjectiveBar(_, _, line)
 	local progressBar = line.ProgressBar
 	local bar = progressBar.Bar
-	local icon = bar.Icon
 	local flare = progressBar.FullBarFlare1
 
 
