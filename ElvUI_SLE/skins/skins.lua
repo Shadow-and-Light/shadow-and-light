@@ -57,22 +57,23 @@ local downButtons = {'ScrollDownButton', 'DownButton', 'ScrollDown', {'scrollDow
 local thumbButtons = {'ThumbTexture', 'thumbTexture', 'Thumb'}
 
 function Sk:CreateUnderline(frame, texture, shadow, height)
+	if frame.SL_Underline then return end
 	local line = CreateFrame('Frame', nil, frame, 'BackdropTemplate')
-	if line then
-		line:SetPoint('BOTTOM', frame, -1, 1)
-		line:SetSize(frame:GetWidth(), height or 1)
-		line.Texture = line:CreateTexture(nil, 'OVERLAY')
-		line.Texture:SetTexture(texture)
-		if shadow then
-			if shadow == 'backdrop' then
-				line:CreateShadow()
-			else
-				line:CreateBackdrop()
-			end
+	line:SetPoint('BOTTOM', frame, -1, 1)
+	line:SetSize(frame:GetWidth(), height or 1)
+	line.Texture = line:CreateTexture(nil, 'OVERLAY')
+	line.Texture:SetTexture(texture)
+	if shadow then
+		if shadow == 'backdrop' then
+			line:CreateShadow()
+		else
+			line:CreateBackdrop()
 		end
-		line.Texture:SetAllPoints(line)
 	end
-	return line
+	line.Texture:SetAllPoints(line)
+	frame.SL_Underline = line
+
+	return frame.SL_Underline
 end
 
 function Sk:Media()
@@ -128,7 +129,7 @@ function Sk:ConvertScrollBarToThin(frame, thumbY, thumbX, template, thinWidth)
 			S:HandleNextPrevButton(downButton, 'down')
 			downButton:SetFrameLevel(frameLevel + 2)
 		end
-		
+
 		if thumb and not thumb.backdrop then
 			thumb:SetTexture()
 			thumb:CreateBackdrop(nil, true, true, nil, nil, nil, nil, nil, frameLevel + 1)

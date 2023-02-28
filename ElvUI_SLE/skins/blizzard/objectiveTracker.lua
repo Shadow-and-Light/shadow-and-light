@@ -422,21 +422,21 @@ local function ObjectiveReskin()
 	--Doing Underlines
 	local flat = [[Interface\AddOns\ElvUI\Core\Media\Textures\Minimalist]]
 	local height = E.private.sle.skins.objectiveTracker.underlineHeight
-	_G.ObjectiveTrackerBlocksFrame.AchievementHeader.SLE_Underline = Sk:CreateUnderline(_G.ObjectiveTrackerBlocksFrame.AchievementHeader, flat, true, height)
-	_G.ObjectiveTrackerBlocksFrame.CampaignQuestHeader.SLE_Underline = Sk:CreateUnderline(_G.ObjectiveTrackerBlocksFrame.CampaignQuestHeader, flat, true, height)
-	_G.ObjectiveTrackerBlocksFrame.ProfessionHeader.SLE_Underline = Sk:CreateUnderline(_G.ObjectiveTrackerBlocksFrame.ProfessionHeader, flat, true, height)
-	_G.ObjectiveTrackerBlocksFrame.QuestHeader.SLE_Underline = Sk:CreateUnderline(_G.ObjectiveTrackerBlocksFrame.QuestHeader, flat, true, height)
-	_G.ObjectiveTrackerBlocksFrame.ScenarioHeader.SLE_Underline = Sk:CreateUnderline(_G.ObjectiveTrackerBlocksFrame.ScenarioHeader, flat, true, height)
-	_G.BONUS_OBJECTIVE_TRACKER_MODULE.Header.SLE_Underline = Sk:CreateUnderline(_G.BONUS_OBJECTIVE_TRACKER_MODULE.Header, flat, true, height)
-	_G.WORLD_QUEST_TRACKER_MODULE.Header.SLE_Underline = Sk:CreateUnderline(_G.WORLD_QUEST_TRACKER_MODULE.Header, flat, true, height)
-
-	tinsert(underlines, _G.ObjectiveTrackerBlocksFrame.CampaignQuestHeader.SLE_Underline)
-	tinsert(underlines, _G.ObjectiveTrackerBlocksFrame.QuestHeader.SLE_Underline)
-	tinsert(underlines, _G.ObjectiveTrackerBlocksFrame.AchievementHeader.SLE_Underline)
-	tinsert(underlines, _G.BONUS_OBJECTIVE_TRACKER_MODULE.Header.SLE_Underline)
-	tinsert(underlines, _G.ObjectiveTrackerBlocksFrame.ScenarioHeader.SLE_Underline)
-	tinsert(underlines, _G.ObjectiveTrackerBlocksFrame.ProfessionHeader.SLE_Underline)
-	tinsert(underlines, _G.WORLD_QUEST_TRACKER_MODULE.Header.SLE_Underline)
+	local ObjectiveTrackerBlocksFrame = _G.ObjectiveTrackerBlocksFrame
+	local underlineHeaders = {
+		'AchievementHeader', 'CampaignQuestHeader',
+		'ProfessionHeader', 'QuestHeader', 'ScenarioHeader',
+		'BONUS_OBJECTIVE_TRACKER_MODULE', 'WORLD_QUEST_TRACKER_MODULE'
+	}
+	local underline
+	for _, header in pairs(underlineHeaders) do
+		if ObjectiveTrackerBlocksFrame[header] then
+			underline = Sk:CreateUnderline(ObjectiveTrackerBlocksFrame[header], flat, true, height)
+		elseif _G[header] and _G[header].Header then
+			underline = Sk:CreateUnderline(_G[header].Header, flat, true, height)
+		end
+		if underline then tinsert(underlines, underline) end
+	end
 
 	Sk:Update_ObjectiveTrackerUnderlinesVisibility()
 	Sk:Update_ObjectiveTrackerUnderlinesColor()
