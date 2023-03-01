@@ -585,6 +585,20 @@ P["sle"] = {
 				outline = "",
 				size = 12,
 			},
+			objectiveTracker = {
+				scenarioStage = {
+					HeaderText = {
+						font = 'PT Sans Narrow',
+						fontOutline = 'OUTLINE',
+						fontSize = 16,
+					},
+					TimerText = {
+						font = 'PT Sans Narrow',
+						fontOutline = 'OUTLINE',
+						fontSize = 22,
+					},
+				},
+			},
 			questFontSuperHuge = {
 				font = "PT Sans Narrow",
 				size = 24,
