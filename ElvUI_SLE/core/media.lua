@@ -22,11 +22,11 @@ local Colors = {
 local ClassColor = RAID_CLASS_COLORS[E.myclass]
 
 local function ZoneTextPos()
-	_G["SubZoneTextString"]:ClearAllPoints()
-	if ( _G["PVPInfoTextString"]:GetText() == "" ) then
-		_G["SubZoneTextString"]:SetPoint("TOP", "ZoneTextString", "BOTTOM", 0, -E.db.sle.media.fonts.subzone.offset)
+	_G.SubZoneTextString:ClearAllPoints()
+	if ( _G.PVPInfoTextString:GetText() == '' ) then
+		_G.SubZoneTextString:SetPoint('TOP', 'ZoneTextString', 'BOTTOM', 0, -E.db.sle.media.fonts.subzone.offset)
 	else
-		_G["SubZoneTextString"]:SetPoint("TOP", "PVPInfoTextString", "BOTTOM", 0, -E.db.sle.media.fonts.subzone.offset)
+		_G.SubZoneTextString:SetPoint('TOP', 'PVPInfoTextString', 'BOTTOM', 0, -E.db.sle.media.fonts.subzone.offset)
 	end
 end
 
@@ -102,27 +102,27 @@ function M:TextShow()
 	local red, green, blue = unpack(Colors[c])
 
 	--Setting texts--
-	_G["ZoneTextString"]:SetText(M.Zones[z])
-	_G["PVPInfoTextString"]:SetText(M.PvPInfo[i])
-	_G["PVPArenaTextString"]:SetText(M.PVPArena[a])
-	_G["SubZoneTextString"]:SetText(M.Subzones[s])
+	_G.ZoneTextString:SetText(M.Zones[z])
+	_G.PVPInfoTextString:SetText(M.PvPInfo[i])
+	_G.PVPArenaTextString:SetText(M.PVPArena[a])
+	_G.SubZoneTextString:SetText(M.Subzones[s])
 
 	ZoneTextPos()--nil, true)
 
 	--Applying colors--
-	_G["ZoneTextString"]:SetTextColor(red, green, blue)
-	_G["PVPInfoTextString"]:SetTextColor(red, green, blue)
-	_G["PVPArenaTextString"]:SetTextColor(red, green, blue)
-	_G["SubZoneTextString"]:SetTextColor(red, green, blue)
+	_G.ZoneTextString:SetTextColor(red, green, blue)
+	_G.PVPInfoTextString:SetTextColor(red, green, blue)
+	_G.PVPArenaTextString:SetTextColor(red, green, blue)
+	_G.SubZoneTextString:SetTextColor(red, green, blue)
 
-	FadingFrame_Show(_G["ZoneTextFrame"])
-	FadingFrame_Show(_G["SubZoneTextFrame"])
+	FadingFrame_Show(_G.ZoneTextFrame)
+	FadingFrame_Show(_G.SubZoneTextFrame)
 end
 
 function M:Initialize()
 	if not SLE.initialized or not E.private.sle.media.enable then return end
-	hooksecurefunc(E, "UpdateBlizzardFonts", M.SetBlizzFonts)
-	hooksecurefunc("SetZoneText", ZoneTextPos)
+	hooksecurefunc(E, 'UpdateBlizzardFonts', M.SetBlizzFonts)
+	hooksecurefunc('SetZoneText', ZoneTextPos)
 	M.SetBlizzFonts()
 end
 

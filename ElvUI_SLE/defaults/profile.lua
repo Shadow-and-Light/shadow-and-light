@@ -552,24 +552,24 @@ P["sle"] = {
 		fonts = {
 			zone = {
 				font = "PT Sans Narrow",
-				size = 32,
 				outline = "OUTLINE",
+				size = 32,
 			},
 			subzone = {
 				font = "PT Sans Narrow",
-				size = 25,
 				outline = "OUTLINE",
+				size = 25,
 				offset = 0,
 			},
 			pvp = {
 				font = "PT Sans Narrow",
-				size = 22,
 				outline = "OUTLINE",
+				size = 22,
 			},
 			mail = {
 				font = "PT Sans Narrow",
-				size = 12,
 				outline = "",
+				size = 12,
 			},
 			gossip = {
 				font = "PT Sans Narrow",
@@ -577,13 +577,13 @@ P["sle"] = {
 			},
 			objective = {
 				font = "PT Sans Narrow",
-				size = 12,
 				outline = "",
+				size = 12,
 			},
 			objectiveHeader = {
 				font = "PT Sans Narrow",
-				size = 12,
 				outline = "",
+				size = 12,
 			},
 			questFontSuperHuge = {
 				font = "PT Sans Narrow",
