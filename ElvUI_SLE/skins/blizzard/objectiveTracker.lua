@@ -383,7 +383,7 @@ local function ObjectiveReskin()
 	if E.private.sle.skins.objectiveTracker.keyTimers.enable then hooksecurefunc('Scenario_ChallengeMode_UpdateTime', UpdateChallengeModeTime) end
 	hooksecurefunc('Scenario_ChallengeMode_SetUpAffixes', SkinAffixes)
 	hooksecurefunc(ScenarioStageBlock.WidgetContainer, 'CreateWidget', function(self, widgetID, widgetType, widgetTypeInfo, widgetInfo)
-		-- print(widgetID, widgetType, widgetTypeInfo, widgetInfo)
+		-- print(widgetID, widgetType, widgetTypeInfo, widgetInfo) --* User this to find the widgetID
 		local widgetFrame = self.widgetFrames[widgetID]
 
 		if skinnableWidgets[widgetID] then
