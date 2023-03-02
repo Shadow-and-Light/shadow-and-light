@@ -23,7 +23,7 @@ function SUF:Configure_PvPTimerText(frame)
 	local db = E.db.sle.unitframe.units[unit].pvpicontext.timer
 	local enable = frame:IsElementEnabled('PvPIndicator') and db.enable
 
-	PvPIndicator.SL_TimerText.value:SetFont(E.LSM:Fetch('font', db.font), db.fontSize, db.fontOutline)
+	PvPIndicator.SL_TimerText.value:FontTemplate(E.LSM:Fetch('font', db.font), db.fontSize, db.fontOutline)
 
 	PvPIndicator.SL_TimerText:ClearAllPoints()
 	PvPIndicator.SL_TimerText:Point('CENTER', PvPIndicator, db.anchorPoint, db.xOffset, db.yOffset)
@@ -52,7 +52,7 @@ function SUF:Configure_PvPLevelText(frame)
 	local db = E.db.sle.unitframe.units[unit].pvpicontext.level
 	local enable = frame:IsElementEnabled('PvPIndicator') and db.enable
 
-	PvPIndicator.SL_LevelText.value:SetFont(E.LSM:Fetch('font', db.font), db.fontSize, db.fontOutline)
+	PvPIndicator.SL_LevelText.value:FontTemplate(E.LSM:Fetch('font', db.font), db.fontSize, db.fontOutline)
 
 	PvPIndicator.SL_LevelText:ClearAllPoints()
 	PvPIndicator.SL_LevelText:Point('CENTER', PvPIndicator, db.anchorPoint, db.xOffset, db.yOffset)

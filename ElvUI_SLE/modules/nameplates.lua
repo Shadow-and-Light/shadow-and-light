@@ -16,7 +16,7 @@ function N:CreateThreatIndicator(nameplate)
 	nameplate.SLE_threatInfo = nameplate.Health:CreateFontString(nil, 'OVERLAY')
 	nameplate.SLE_threatInfo:SetPoint('BOTTOMLEFT', nameplate.Health, 'BOTTOMLEFT', E.db.sle.nameplates.threat.xoffset, E.db.sle.nameplates.threat.yoffset)
 	nameplate.SLE_threatInfo:SetJustifyH('LEFT')
-	nameplate.SLE_threatInfo:SetFont(E.LSM:Fetch('font', E.db.sle.nameplates.threat.font), E.db.sle.nameplates.threat.size, E.db.sle.nameplates.threat.fontOutline)
+	nameplate.SLE_threatInfo:FontTemplate(E.LSM:Fetch('font', E.db.sle.nameplates.threat.font), E.db.sle.nameplates.threat.size, E.db.sle.nameplates.threat.fontOutline)
 end
 
 hooksecurefunc(NP, 'ThreatIndicator_PostUpdate', function(threat, unit)
@@ -50,7 +50,7 @@ function N:CreateTargetCounter(nameplate)
 	nameplate.SLE_targetcount:SetPoint('BOTTOMRIGHT', nameplate.Health, 'BOTTOMRIGHT', E.db.sle.nameplates.targetcount.xoffset, E.db.sle.nameplates.targetcount.yoffset)
 	nameplate.SLE_targetcount:SetJustifyH('RIGHT')
 	nameplate.SLE_TargetedByCounter = 0
-	nameplate.SLE_targetcount:SetFont(E.LSM:Fetch('font', E.db.sle.nameplates.targetcount.font), E.db.sle.nameplates.targetcount.size, E.db.sle.nameplates.targetcount.fontOutline)
+	nameplate.SLE_targetcount:FontTemplate(E.LSM:Fetch('font', E.db.sle.nameplates.targetcount.font), E.db.sle.nameplates.targetcount.size, E.db.sle.nameplates.targetcount.fontOutline)
 	nameplate.SLE_targetcount:SetText()
 end
 
@@ -166,13 +166,13 @@ end
 function N:UpdatePlate(nameplate)
 	N.db = E.db.sle.nameplates
 	if nameplate.SLE_threatInfo then
-		nameplate.SLE_threatInfo:SetFont(E.LSM:Fetch('font', N.db.threat.font), N.db.threat.size, N.db.threat.fontOutline)
+		nameplate.SLE_threatInfo:FontTemplate(E.LSM:Fetch('font', N.db.threat.font), N.db.threat.size, N.db.threat.fontOutline)
 		nameplate.SLE_threatInfo:SetPoint('BOTTOMLEFT', nameplate.Health, 'BOTTOMLEFT', N.db.threat.xoffset, N.db.threat.yoffset)
 		if not N.db.threat.enable then nameplate.SLE_threatInfo:SetText('') end
 	end
 
 	if nameplate.SLE_targetcount then
-		nameplate.SLE_targetcount:SetFont(E.LSM:Fetch('font', N.db.targetcount.font), N.db.targetcount.size, N.db.targetcount.fontOutline)
+		nameplate.SLE_targetcount:FontTemplate(E.LSM:Fetch('font', N.db.targetcount.font), N.db.targetcount.size, N.db.targetcount.fontOutline)
 		nameplate.SLE_targetcount:SetPoint('BOTTOMRIGHT', nameplate.Health, 'BOTTOMRIGHT', N.db.targetcount.xoffset, N.db.targetcount.yoffset)
 		if N.db.targetcount.enable then N:UpdateCount(nil, 'player', true) else nameplate.SLE_targetcount:SetText(''); nameplate.SLE_TargetedByCounter = 0 end
 	end

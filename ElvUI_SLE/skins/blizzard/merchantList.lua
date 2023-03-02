@@ -629,13 +629,13 @@ local function Create_ListButton(frame, i)
 
 	local itemname = button:CreateFontString("$parentItemName", "ARTWORK")
 	button.itemname = itemname
-	itemname:SetFont(E.LSM:Fetch('font', E.db.sle.skins.merchant.list.nameFont), E.db.sle.skins.merchant.list.nameSize, E.db.sle.skins.merchant.list.nameOutline)
+	itemname:FontTemplate(E.LSM:Fetch('font', E.db.sle.skins.merchant.list.nameFont), E.db.sle.skins.merchant.list.nameSize, E.db.sle.skins.merchant.list.nameOutline)
 	itemname:SetPoint("TOPLEFT", icon, "TOPRIGHT", 4, -3)
 	itemname:SetJustifyH("LEFT")
 
 	local iteminfo = button:CreateFontString("$parentItemInfo", "ARTWORK")
 	button.iteminfo = iteminfo
-	iteminfo:SetFont(E.LSM:Fetch('font', E.db.sle.skins.merchant.list.subFont), E.db.sle.skins.merchant.list.subSize, E.db.sle.skins.merchant.list.subOutline)
+	iteminfo:FontTemplate(E.LSM:Fetch('font', E.db.sle.skins.merchant.list.subFont), E.db.sle.skins.merchant.list.subSize, E.db.sle.skins.merchant.list.subOutline)
 	iteminfo:SetPoint("BOTTOMLEFT", icon, "BOTTOMRIGHT", 4, -3)
 	iteminfo:SetJustifyH("LEFT")
 

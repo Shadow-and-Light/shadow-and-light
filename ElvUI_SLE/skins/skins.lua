@@ -81,8 +81,8 @@ function Sk:Media()
 		for i = 1, 10 do
 			local button = _G['SLE_ListMerchantFrame_Button'..i]
 			if not button then break end
-			button.itemname:SetFont(E.LSM:Fetch('font', E.db.sle.skins.merchant.list.nameFont), E.db.sle.skins.merchant.list.nameSize, E.db.sle.skins.merchant.list.nameOutline)
-			button.iteminfo:SetFont(E.LSM:Fetch('font', E.db.sle.skins.merchant.list.subFont), E.db.sle.skins.merchant.list.subSize, E.db.sle.skins.merchant.list.subOutline)
+			button.itemname:FontTemplate(E.LSM:Fetch('font', E.db.sle.skins.merchant.list.nameFont), E.db.sle.skins.merchant.list.nameSize, E.db.sle.skins.merchant.list.nameOutline)
+			button.iteminfo:FontTemplate(E.LSM:Fetch('font', E.db.sle.skins.merchant.list.subFont), E.db.sle.skins.merchant.list.subSize, E.db.sle.skins.merchant.list.subOutline)
 		end
 	end
 end

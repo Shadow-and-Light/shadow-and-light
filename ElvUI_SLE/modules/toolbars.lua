@@ -224,7 +224,7 @@ function Tools:CreateToolsButton(index, owner, buttonType, name, texture, allowD
 	button.icon:SetInside()
 
 	button.text = button:CreateFontString(nil, 'OVERLAY')
-	button.text:SetFont(E.media.normFont, 12, 'OUTLINE')
+	button.text:FontTemplate(E.media.normFont, 12, 'OUTLINE')
 	button.text:SetPoint('BOTTOMRIGHT', button, 1, 2)
 
 	--If this thing has a cooldown

@@ -58,7 +58,7 @@ function MM:UpdateCoords(elapsed)
 end
 
 function MM:CoordFont()
-	SLECoordsHolder.playerCoords:SetFont(E.LSM:Fetch('font', E.db.sle.minimap.coords.font), E.db.sle.minimap.coords.fontSize, E.db.sle.minimap.coords.fontOutline)
+	SLECoordsHolder.playerCoords:FontTemplate(E.LSM:Fetch('font', E.db.sle.minimap.coords.font), E.db.sle.minimap.coords.fontSize, E.db.sle.minimap.coords.fontOutline)
 end
 
 function MM:UpdateCoordinatesPosition()
