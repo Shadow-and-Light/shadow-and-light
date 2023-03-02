@@ -143,7 +143,7 @@ function DVB:PositionAndSizeBar()
 
 		if hotkeytext then
 			if hotkeytext == _G.RANGE_INDICATOR then
-				hotkey:SetFont(defaultFont, defaultFontSize, defaultFontOutline)
+				hotkey:FontTemplate(defaultFont, defaultFontSize, defaultFontOutline)
 				hotkey.SetVertexColor = nil
 			else
 				hotkey:FontTemplate(E.Libs.LSM:Fetch('font', db and db.hotkeyFont or AB.db.font), db and db.hotkeyFontSize or AB.db.fontSize, db and db.hotkeyFontOutline or AB.db.fontOutline)
