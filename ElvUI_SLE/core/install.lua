@@ -806,10 +806,10 @@ function PI:DarthSetupDF()
 		E.db["sle"]["media"]["fonts"]["gossip"]["font"] = "Expressway"
 		E.db["sle"]["media"]["fonts"]["mail"]["font"] = "Expressway"
 		E.db["sle"]["media"]["fonts"]["objective"]["font"] = "Expressway"
-		E.db["sle"]["media"]["fonts"]["objective"]["outline"] = "OUTLINE"
+		E.db["sle"]["media"]["fonts"]["objective"]["fontOutline"] = "OUTLINE"
 		E.db["sle"]["media"]["fonts"]["objectiveHeader"]["font"] = "Expressway"
-		E.db["sle"]["media"]["fonts"]["objectiveHeader"]["outline"] = "OUTLINE"
-		E.db["sle"]["media"]["fonts"]["objectiveHeader"]["size"] = 18
+		E.db["sle"]["media"]["fonts"]["objectiveHeader"]["fontOutline"] = "OUTLINE"
+		E.db["sle"]["media"]["fonts"]["objectiveHeader"]["fontSize"] = 18
 		E.db["sle"]["media"]["fonts"]["pvp"]["font"] = "RussoOne"
 		E.db["sle"]["media"]["fonts"]["questFontSuperHuge"]["font"] = "Expressway"
 		E.db["sle"]["media"]["fonts"]["subzone"]["font"] = "RussoOne"

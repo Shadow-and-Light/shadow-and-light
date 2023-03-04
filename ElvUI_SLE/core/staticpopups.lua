@@ -82,36 +82,36 @@ E.PopupDialogs['SLE_APPLY_FONT_WARNING'] = {
 	OnAccept = function()
 		-- local font = E.db.general.font
 		-- local fontSize = E.db.general.fontSize
-		local font = E.PopupDialogs['SLE_APPLY_FONT_WARNING'].allFont
-		local fontSize = E.PopupDialogs['SLE_APPLY_FONT_WARNING'].allSize
-		local fontOutline = E.PopupDialogs['SLE_APPLY_FONT_WARNING'].allOutline
+		local font = E.PopupDialogs['SLE_APPLY_FONT_WARNING'].font
+		local fontSize = E.PopupDialogs['SLE_APPLY_FONT_WARNING'].fontSize
+		local fontOutline = E.PopupDialogs['SLE_APPLY_FONT_WARNING'].fontOutline
 
 		E.db.sle.media.fonts.zone.font = font
-		E.db.sle.media.fonts.zone.outline = fontOutline
+		E.db.sle.media.fonts.zone.fontOutline = fontOutline
 
 		E.db.sle.media.fonts.subzone.font = font
-		E.db.sle.media.fonts.subzone.outline = fontOutline
+		E.db.sle.media.fonts.subzone.fontOutline = fontOutline
 
 		E.db.sle.media.fonts.pvp.font = font
-		E.db.sle.media.fonts.pvp.outline = fontOutline
+		E.db.sle.media.fonts.pvp.fontOutline = fontOutline
 
 		E.db.sle.media.fonts.mail.font = font
-		E.db.sle.media.fonts.mail.size = fontSize
-		E.db.sle.media.fonts.mail.outline = fontOutline
+		E.db.sle.media.fonts.mail.fontSize = fontSize
+		E.db.sle.media.fonts.mail.fontOutline = fontOutline
 
 		E.db.sle.media.fonts.gossip.font = font
-		E.db.sle.media.fonts.gossip.size = fontSize
+		E.db.sle.media.fonts.gossip.fontSize = fontSize
 
 		E.db.sle.media.fonts.objective.font = font
-		E.db.sle.media.fonts.objective.size = fontSize
-		E.db.sle.media.fonts.objective.outline = fontOutline
+		E.db.sle.media.fonts.objective.fontSize = fontSize
+		E.db.sle.media.fonts.objective.fontOutline = fontOutline
 
 		E.db.sle.media.fonts.objectiveHeader.font = font
-		E.db.sle.media.fonts.objectiveHeader.size = fontSize
-		E.db.sle.media.fonts.objectiveHeader.outline = fontOutline
+		E.db.sle.media.fonts.objectiveHeader.fontSize = fontSize
+		E.db.sle.media.fonts.objectiveHeader.fontOutline = fontOutline
 
 		E.db.sle.media.fonts.questFontSuperHuge.font = font
-		E.db.sle.media.fonts.questFontSuperHuge.outline = fontOutline
+		E.db.sle.media.fonts.questFontSuperHuge.fontOutline = fontOutline
 
 		E.db.sle.minimap.coords.font = font
 		E.db.sle.minimap.coords.fontSize = fontSize

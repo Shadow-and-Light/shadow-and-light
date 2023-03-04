@@ -29,23 +29,6 @@ local skinnableWidgets = {
 	[4324] = true,
 }
 
-local function ZoneTextPos()
-	_G.SubZoneTextString:ClearAllPoints()
-	if ( _G.PVPInfoTextString:GetText() == '' ) then
-		_G.SubZoneTextString:SetPoint('TOP', 'ZoneTextString', 'BOTTOM', 0, -E.db.sle.media.fonts.subzone.offset)
-	else
-		_G.SubZoneTextString:SetPoint('TOP', 'PVPInfoTextString', 'BOTTOM', 0, -E.db.sle.media.fonts.subzone.offset)
-	end
-end
-
-local function MakeFont(obj, font, size, style, r, g, b, sr, sg, sb, sox, soy)
-	obj:SetFont(font, size, style)
-	if sr and sg and sb then obj:SetShadowColor(sr, sg, sb) end
-	if sox and soy then obj:SetShadowOffset(sox, soy) end
-	if r and g and b then obj:SetTextColor(r, g, b)
-	elseif r then obj:SetAlpha(r) end
-end
-
 local fontFrames = {
 	ZoneTextString = 'zone', -- Zone Name
 	SubZoneTextString = 'subzone', -- SubZone Name
@@ -58,13 +41,63 @@ local fontFrames = {
 	QuestFont_Enormous = 'questFontSuperHuge', -- Not Sure Which One This Is
 }
 
+local objectiveFrames = {
+	ObjectiveTrackerBlocksFrame = { 'CampaignQuestHeader', 'QuestHeader', 'AchievementHeader', 'ScenarioHeader', 'ProfessionHeader' },
+	BONUS_OBJECTIVE_TRACKER_MODULE = 'Header',
+	WORLD_QUEST_TRACKER_MODULE = 'Header',
+}
+
+local function ZoneTextPos()
+	_G.SubZoneTextString:ClearAllPoints()
+	if ( _G.PVPInfoTextString:GetText() == '' ) then
+		_G.SubZoneTextString:SetPoint('TOP', 'ZoneTextString', 'BOTTOM', 0, -E.db.sle.media.fonts.subzone.offset)
+	else
+		_G.SubZoneTextString:SetPoint('TOP', 'PVPInfoTextString', 'BOTTOM', 0, -E.db.sle.media.fonts.subzone.offset)
+	end
+end
+
+local function MakeFont(obj, font, size, style, r, g, b, sr, sg, sb, sox, soy)
+	obj:FontTemplate(font, size, style)
+	if sr and sg and sb then obj:SetShadowColor(sr, sg, sb) end
+	if sox and soy then obj:SetShadowOffset(sox, soy) end
+	if r and g and b then obj:SetTextColor(r, g, b)
+	elseif r then obj:SetAlpha(r) end
+end
+
+local function SetObjectiveFrameFonts()
+	local db = E.db.sle.media.fonts
+	local COLOR
+
+	if E.db.sle.skins.objectiveTracker.classHeader then
+		COLOR = ClassColor
+	else
+		COLOR = E.db.sle.skins.objectiveTracker.colorHeader
+	end
+
+	for frame, children in pairs(objectiveFrames) do
+		if _G[frame] then
+			if type(children) == 'table' then
+				for _, child in pairs(children) do
+					if _G[frame][child] then
+						_G[frame][child].Text:FontTemplate(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.fontSize, db.objectiveHeader.fontOutline)
+						_G[frame][child].Text:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
+					end
+				end
+			else
+				_G[frame][children].Text:FontTemplate(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.fontSize, db.objectiveHeader.fontOutline)
+				_G[frame][children].Text:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
+			end
+		end
+	end
+end
+
 function M:SetBlizzFonts()
 	if not E.private.general.replaceBlizzFonts then return end
 	local db = E.db.sle.media.fonts
 
 	for frame, option in pairs(fontFrames) do
 		if _G[frame] then
-			_G[frame]:SetFont(E.LSM:Fetch('font', db[option].font), db[option].size, frame ~= 'QuestFont' and db[option].outline or '')
+			_G[frame]:FontTemplate(E.LSM:Fetch('font', db[option].font), db[option].fontSize, frame ~= 'QuestFont' and db[option].fontOutline or 'NONE')
 		end
 	end
 
@@ -84,23 +117,18 @@ function M:SetBlizzFonts()
 			if widgetFrames then
 				for widgetID, frame in pairs(widgetFrames) do
 					if skinnableWidgets[widgetID] and (frame and frame.HeaderText) then
-						frame.HeaderText:SetFont(E.LSM:Fetch('font', db.objectiveTracker.scenarioStage.HeaderText.font), db.objectiveTracker.scenarioStage.HeaderText.fontSize, db.objectiveTracker.scenarioStage.HeaderText.fontOutline)
+						frame.HeaderText:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.HeaderText.font), db.scenarioStage.HeaderText.fontSize, db.scenarioStage.HeaderText.fontOutline)
 						if frame.Timer and frame.Timer.Text then
-							frame.Timer.Text:SetFont(E.LSM:Fetch('font', db.objectiveTracker.scenarioStage.TimerText.font), db.objectiveTracker.scenarioStage.TimerText.fontSize, db.objectiveTracker.scenarioStage.TimerText.fontOutline)
+							frame.Timer.Text:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.TimerText.font), db.scenarioStage.TimerText.fontSize, db.scenarioStage.TimerText.fontOutline)
 						end
 					end
 				end
 			end
 
-			-- _G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-			_G.ScenarioStageBlock.Stage:SetFont(E.LSM:Fetch('font', db.objectiveTracker.scenarioStage.HeaderText.font), db.objectiveTracker.scenarioStage.HeaderText.fontSize, db.objectiveTracker.scenarioStage.HeaderText.fontOutline)
-			_G.ObjectiveTrackerBlocksFrame.CampaignQuestHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-			_G.ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-			_G.ObjectiveTrackerBlocksFrame.AchievementHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-			_G.ObjectiveTrackerBlocksFrame.ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-			_G.ObjectiveTrackerBlocksFrame.ProfessionHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-			_G.WORLD_QUEST_TRACKER_MODULE.Header.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-			_G.BONUS_OBJECTIVE_TRACKER_MODULE.Header.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
+			-- _G["ObjectiveTrackerFrame"].HeaderMenu.Title:FontTemplate(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.fontSize, db.objectiveHeader.fontOutline)
+			_G.ScenarioStageBlock.Stage:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.HeaderText.font), db.scenarioStage.HeaderText.fontSize, db.scenarioStage.HeaderText.fontOutline)
+
+			SetObjectiveFrameFonts()
 		end)
 		_G.ObjectiveTrackerFrame.SLEHookedFonts = true
 	end
@@ -109,36 +137,22 @@ function M:SetBlizzFonts()
 	if widgetFrames then
 		for widgetID, frame in pairs(widgetFrames) do
 			if skinnableWidgets[widgetID] and (frame and frame.HeaderText) then
-				frame.HeaderText:SetFont(E.LSM:Fetch('font', db.objectiveTracker.scenarioStage.HeaderText.font), db.objectiveTracker.scenarioStage.HeaderText.fontSize, db.objectiveTracker.scenarioStage.HeaderText.fontOutline)
+				frame.HeaderText:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.HeaderText.font), db.scenarioStage.HeaderText.fontSize, db.scenarioStage.HeaderText.fontOutline)
 				if frame.Timer and frame.Timer.Text then
-					frame.Timer.Text:SetFont(E.LSM:Fetch('font', db.objectiveTracker.scenarioStage.TimerText.font), db.objectiveTracker.scenarioStage.TimerText.fontSize, db.objectiveTracker.scenarioStage.TimerText.fontOutline)
+					frame.Timer.Text:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.TimerText.font), db.scenarioStage.TimerText.fontSize, db.scenarioStage.TimerText.fontOutline)
 				end
 			end
 		end
 	end
-	_G.ScenarioStageBlock.Stage:SetFont(E.LSM:Fetch('font', db.objectiveTracker.scenarioStage.HeaderText.font), db.objectiveTracker.scenarioStage.HeaderText.fontSize, db.objectiveTracker.scenarioStage.HeaderText.fontOutline)
+
+	SetObjectiveFrameFonts()
+	MakeFont(_G.ObjectiveFont, E.LSM:Fetch('font', db.objective.font), db.objective.fontSize, db.objective.fontOutline)
+
+	_G.ScenarioStageBlock.Stage:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.HeaderText.font), db.scenarioStage.HeaderText.fontSize, db.scenarioStage.HeaderText.fontOutline)
 	-- _G.ScenarioStageBlock.Stage:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
-
-	_G.ObjectiveTrackerFrame.HeaderMenu.Title:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-	_G.ObjectiveTrackerBlocksFrame.CampaignQuestHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-	_G.ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-	_G.ObjectiveTrackerBlocksFrame.AchievementHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-	_G.ObjectiveTrackerBlocksFrame.ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-	_G.ObjectiveTrackerBlocksFrame.ProfessionHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-	_G.BONUS_OBJECTIVE_TRACKER_MODULE.Header.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-	_G.WORLD_QUEST_TRACKER_MODULE.Header.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
+	_G.ObjectiveTrackerFrame.HeaderMenu.Title:FontTemplate(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.fontSize, db.objectiveHeader.fontOutline)
 	_G.ObjectiveTrackerFrame.HeaderMenu.Title:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
-	_G.ObjectiveTrackerBlocksFrame.CampaignQuestHeader.Text:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
-	_G.ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
-	_G.ObjectiveTrackerBlocksFrame.AchievementHeader.Text:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
-	_G.ObjectiveTrackerBlocksFrame.ScenarioHeader.Text:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
-	_G.ObjectiveTrackerBlocksFrame.ProfessionHeader.Text:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
-	_G.BONUS_OBJECTIVE_TRACKER_MODULE.Header.Text:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
-	_G.WORLD_QUEST_TRACKER_MODULE.Header.Text:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
-
-	MakeFont(_G.ObjectiveFont, E.LSM:Fetch('font', db.objective.font), db.objective.size, db.objective.outline)
-	if M.BonusObjectiveBarText then M.BonusObjectiveBarText:SetFont(E.LSM:Fetch('font', db.objective.font), db.objective.size, db.objective.outline) end
-
+	if M.BonusObjectiveBarText then M.BonusObjectiveBarText:FontTemplate(E.LSM:Fetch('font', db.objective.font), db.objective.fontSize, db.objective.fontOutline) end
 end
 
 function M:TextShow()

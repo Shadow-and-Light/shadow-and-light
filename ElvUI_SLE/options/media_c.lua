@@ -1,409 +1,90 @@
-local SLE, T, E, L = unpack(select(2, ...))
+local SLE, _, E, L = unpack(select(2, ...))
 local M = SLE.Media
+local ACH = E.Libs.ACH
+local C
 
-local allFont = 'PT Sans Narrow'
-local allSize = 12
-local allOutline = 'OUTLINE'
+local ApplyAllDefaults = {
+	font = 'PT Sans Narrow',
+	fontSize = 12,
+	fontOutline = 'OUTLINE'
+}
+
+local function getFont(info)
+	local db = info[#info-2] == 'scenarioStage' and E.db.sle.media.fonts[info[#info-2]][info[#info-1]][info[#info]] or E.db.sle.media.fonts[info[#info-1]][info[#info]]
+	return db
+end
+
+local function setFont(info, value)
+	if info[#info-2] == 'scenarioStage' then
+		E.db.sle.media.fonts[info[#info-2]][info[#info-1]][info[#info]] = value
+	else
+		E.db.sle.media.fonts[info[#info-1]][info[#info]] = value
+	end
+	E:UpdateMedia()
+end
+
+local function GetFontOptions(groupName, order, hideOutline)
+	local config = ACH:Group(groupName, nil, order, nil, function(info) return getFont(info) end, function(info, value) setFont(info, value) end, function() return not E.private.general.replaceBlizzFonts end)
+	config.guiInline = true
+
+	config.args.font = ACH:SharedMediaFont(L["Font"], nil, 1)
+	config.args.fontSize = ACH:Range(L["Font Size"], nil, 2, C.Values.FontSize)
+	config.args.fontOutline = ACH:FontFlags(L["Font Outline"], L["Set the font outline."], 3, nil, nil, nil, nil, function() return hideOutline and hideOutline or false end)
+	-- config.args.fontOutlineWarning = ACH:Description(L["|cffFF0000Warning: "], 4, nil, nil, nil, nil, nil, width, function() return not hideOutline and true or false end) --* Maybe add this again for gossip text but under advanced option selected?
+
+	return config
+end
+
+local function ApplyAll()
+	E.PopupDialogs["SLE_APPLY_FONT_WARNING"].font = ApplyAllDefaults.font
+	E.PopupDialogs["SLE_APPLY_FONT_WARNING"].fontSize = ApplyAllDefaults.fontSize
+	E.PopupDialogs["SLE_APPLY_FONT_WARNING"].fontOutline = ApplyAllDefaults.fontOutline
+	E:StaticPopup_Show("SLE_APPLY_FONT_WARNING")
+end
 
 local function configTable()
 	if not SLE.initialized then return end
-	local ACH = E.Libs.ACH
+	C = unpack(E.Config)
 
-	E.Options.args.sle.args.media = {
-		type = 'group',
-		name = L["Media"],
-		order = 20,
-		childGroups = 'tab',
-		args = {
-			enable = {
-				order = 1,
-				type = 'toggle',
-				name = L["Enable"],
-				get = function(info) return E.private.sle.media[info[#info]] end,
-				set = function(info, value) E.private.sle.media[info[#info]] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+	E.Options.args.sle.args.media = ACH:Group(L["Media"], nil, 20, 'tab', nil, nil)
+	local Media = E.Options.args.sle.args.media.args
+	Media.enable = ACH:Toggle(L["Enable"], nil, 1,nil, nil, nil, function(info) return E.private.sle.media[info[#info]] end, function(info, value) E.private.sle.media[info[#info]] = value E:StaticPopup_Show('PRIVATE_RL') end)
 
-			},
-			zonefonts = {
-				type = 'group',
-				name = L["Zone Text"],
-				order = 3,
-				disabled = function() return not E.private.sle.media.enable end,
-				args = {
-					intro = ACH:Spacer(1),
-					test = {
-						order = 2,
-						type = 'execute',
-						name = L["Test"],
-						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						func = function() M:TextShow() end,
-					},
-					zone = {
-						type = 'group',
-						name = L["Zone Text"],
-						order = 3,
-						guiInline = true,
-						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.sle.media.fonts.zone[info[#info]] end,
-						set = function(info, value) E.db.sle.media.fonts.zone[info[#info]] = value; E:UpdateMedia() end,
-						args = {
-							font = {
-								type = 'select', dialogControl = 'LSM30_Font',
-								order = 1,
-								name = L["Font"],
-								values = AceGUIWidgetLSMlists.font,
-							},
-							size = {
-								order = 2,
-								name = L["Font Size"],
-								type = 'range',
-								min = 6, max = 48, step = 1,
-							},
-							outline = {
-								order = 3,
-								name = L["Font Outline"],
-								type = 'select',
-								values = T.Values.FontFlags,
-							},
-						},
-					},
-					subzone = {
-						type = 'group',
-						name = L["Subzone Text"],
-						order = 4,
-						guiInline = true,
-						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.sle.media.fonts.subzone[info[#info]] end,
-						set = function(info, value) E.db.sle.media.fonts.subzone[info[#info]] = value; E:UpdateMedia() end,
-						args = {
-							font = {
-								type = 'select', dialogControl = 'LSM30_Font',
-								order = 1,
-								name = L["Font"],
-								values = AceGUIWidgetLSMlists.font,
-							},
-							size = {
-								order = 2,
-								name = L["Font Size"],
-								type = 'range',
-								min = 6, max = 48, step = 1,
-							},
-							outline = {
-								order = 3,
-								name = L["Font Outline"],
-								type = 'select',
-								values = T.Values.FontFlags,
-							},
-							offset = {
-								order = 5,
-								name = L["Offset"],
-								type = 'range',
-								min = 0, max = 30, step = 1,
-							},
-						},
-					},
-					pvpstatus = {
-						type = 'group',
-						name = L["PvP Status Text"],
-						order = 5,
-						guiInline = true,
-						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.sle.media.fonts.pvp[info[#info]] end,
-						set = function(info, value) E.db.sle.media.fonts.pvp[info[#info]] = value; E:UpdateMedia() end,
-						args = {
-							font = {
-								type = 'select', dialogControl = 'LSM30_Font',
-								order = 1,
-								name = L["Font"],
-								values = AceGUIWidgetLSMlists.font,
-							},
-							size = {
-								order = 2,
-								name = L["Font Size"],
-								type = 'range',
-								min = 6, max = 48, step = 1,
-							},
-							outline = {
-								order = 3,
-								name = L["Font Outline"],
-								type = 'select',
-								values = T.Values.FontFlags,
-							},
-						},
-					},
-				},
-			},
-			objectiveTracker = {
-				order = 4,
-				type = 'group',
-				name = L["Objective Tracker"],
-				disabled = function() return not E.private.sle.media.enable or not E.private.general.replaceBlizzFonts end,
-				get = function(info) return E.db.sle.media.fonts[info[#info-3]][info[#info-2]][info[#info-1]][info[#info]] end,
-				set = function(info, value) E.db.sle.media.fonts[info[#info-3]][info[#info-2]][info[#info-1]][info[#info]] = value E:UpdateMedia() end,
-				args = {
-					scenarioStage = {
-						type = 'group',
-						name = L["Scenario Stage Block"],
-						order = 1,
-						guiInline = true,
-						args = {
-							HeaderText = {
-								type = 'group',
-								name = L["Header"],
-								order = 3,
-								guiInline = true,
-								disabled = function() return not E.private.general.replaceBlizzFonts end,
-								args = {
-									font = {
-										type = 'select',
-										dialogControl = 'LSM30_Font',
-										order = 2,
-										name = L["Font"],
-										values = AceGUIWidgetLSMlists.font,
-									},
-									fontSize = {
-										order = 3,
-										name = L["Font Size"],
-										type = 'range',
-										min = 6, max = 24, step = 1,
-									},
-									fontOutline = {
-										order = 4,
-										name = L["Font Outline"],
-										type = 'select',
-										values = T.Values.FontFlags,
-									},
-								},
-							},
-							TimerText = {
-								type = 'group',
-								name = L["Timer"],
-								order = 3,
-								guiInline = true,
-								disabled = function() return not E.private.general.replaceBlizzFonts end,
-								args = {
-									font = {
-										type = 'select',
-										dialogControl = 'LSM30_Font',
-										order = 2,
-										name = L["Font"],
-										values = AceGUIWidgetLSMlists.font,
-									},
-									fontSize = {
-										order = 3,
-										name = L["Font Size"],
-										type = 'range',
-										min = 6, max = 24, step = 1,
-									},
-									fontOutline = {
-										order = 4,
-										name = L["Font Outline"],
-										type = 'select',
-										values = T.Values.FontFlags,
-									},
-								},
-							},
-						},
-					},
-					questHeader = {
-						type = 'group',
-						name = L["Objective Tracker Block Headers"],
-						order = 3,
-						guiInline = true,
-						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.sle.media.fonts.objectiveHeader[info[#info]] end,
-						set = function(info, value) E.db.sle.media.fonts.objectiveHeader[info[#info]] = value E:UpdateMedia() end,
-						args = {
-							desc = {
-								type = 'description',
-								name = L["The header text of each block/section of the objective tracker. For example, \"Campaign\" & \"Quests\" that break the tracker into a sections."],
-								order = 1,
-							},
-							font = {
-								type = 'select', dialogControl = 'LSM30_Font',
-								order = 2,
-								name = L["Font"],
-								values = AceGUIWidgetLSMlists.font,
-							},
-							size = {
-								order = 3,
-								name = L["Font Size"],
-								type = 'range',
-								min = 6, max = 20, step = 1,
-							},
-							outline = {
-								order = 4,
-								name = L["Font Outline"],
-								type = 'select',
-								values = T.Values.FontFlags,
-							},
-						},
-					},
-					questTracker = {
-						type = 'group',
-						name = L["Objective Tracker Text"],
-						order = 4,
-						guiInline = true,
-						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.sle.media.fonts.objective[info[#info]] end,
-						set = function(info, value) E.db.sle.media.fonts.objective[info[#info]] = value; E:UpdateMedia() end,
-						args = {
-							font = {
-								type = 'select', dialogControl = 'LSM30_Font',
-								order = 1,
-								name = L["Font"],
-								values = AceGUIWidgetLSMlists.font,
-							},
-							size = {
-								order = 2,
-								name = L["Font Size"],
-								type = 'range',
-								min = 6, max = 20, step = 1,
-							},
-							outline = {
-								order = 3,
-								name = L["Font Outline"],
-								type = 'select',
-								values = T.Values.FontFlags,
-							},
-						},
-					},
-				},
-			},
-			miscfonts = {
-				order = 5,
-				type = 'group',
-				name = L["Misc Texts"],
-				disabled = function() return not E.private.sle.media.enable end,
-				args = {
-					mail = {
-						type = 'group',
-						name = L["Mail Text"],
-						order = 1,
-						guiInline = true,
-						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.sle.media.fonts.mail[info[#info]] end,
-						set = function(info, value) E.db.sle.media.fonts.mail[info[#info]] = value; E:UpdateMedia() end,
-						args = {
-							font = {
-								type = 'select', dialogControl = 'LSM30_Font',
-								order = 1,
-								name = L["Font"],
-								values = AceGUIWidgetLSMlists.font,
-							},
-							size = {
-								order = 2,
-								name = L["Font Size"],
-								type = 'range',
-								min = 6, max = 22, step = 1,
-							},
-							outline = {
-								order = 3,
-								name = L["Font Outline"],
-								type = 'select',
-								values = T.Values.FontFlags,
-							},
-						},
-					},
-					gossip = {
-						type = 'group',
-						name = L["Gossip and Quest Frames Text"],
-						order = 2,
-						guiInline = true,
-						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.sle.media.fonts.gossip[info[#info]] end,
-						set = function(info, value) E.db.sle.media.fonts.gossip[info[#info]] = value; E:UpdateMedia() end,
-						args = {
-							font = {
-								type = 'select', dialogControl = 'LSM30_Font',
-								order = 1,
-								name = L["Font"],
-								values = AceGUIWidgetLSMlists.font,
-							},
-							size = {
-								order = 2,
-								name = L["Font Size"],
-								type = 'range',
-								min = 6, max = 20, step = 1,
-							},
-						},
-					},
-					questFontSuperHuge = {
-						type = 'group',
-						name = L["Banner Big Text"],
-						order = 5,
-						guiInline = true,
-						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.sle.media.fonts.questFontSuperHuge[info[#info]] end,
-						set = function(info, value) E.db.sle.media.fonts.questFontSuperHuge[info[#info]] = value; E:UpdateMedia() end,
-						args = {
-							font = {
-								type = 'select', dialogControl = 'LSM30_Font',
-								order = 1,
-								name = L["Font"],
-								values = AceGUIWidgetLSMlists.font,
-							},
-							size = {
-								order = 2,
-								name = L["Font Size"],
-								type = 'range',
-								min = 6, max = 48, step = 1,
-							},
-							outline = {
-								order = 3,
-								name = L["Font Outline"],
-								type = 'select',
-								values = T.Values.FontFlags,
-							},
-						},
-					},
-				},
-			},
-			applyAll = {
-				order = 60,
-				type = 'group',
-				name = L["Apply Font To All"],
-				disabled = function() return not E.private.sle.media.enable end,
-				args = {
-					font = {
-						type = 'select', dialogControl = 'LSM30_Font',
-						order = 1,
-						name = L["Font"],
-						values = AceGUIWidgetLSMlists.font,
-						get = function(_) return allFont end,
-						set = function(_, value) allFont = value end,
-					},
-					size = {
-						order = 2,
-						name = L["Font Size"],
-						type = 'range',
-						min = 6, max = 20, step = 1,
-						get = function(_) return allSize end,
-						set = function(_, value) allSize = value end,
-					},
-					outline = {
-						order = 3,
-						name = L["Font Outline"],
-						type = 'select',
-						get = function(_) return allOutline end,
-						set = function(_, value) allOutline = value end,
-						values = T.Values.FontFlags,
-					},
-					applyFontToAll = {
-						order = 4,
-						type = 'execute',
-						name = L["Apply Font To All"],
-						-- desc = L["Applies the font and font size settings throughout the entire user interface. Note: Some font size settings will be skipped due to them having a smaller font size by default."],
-						func = function()
-							E.PopupDialogs["SLE_APPLY_FONT_WARNING"].allFont = allFont
-							E.PopupDialogs["SLE_APPLY_FONT_WARNING"].allSize = allSize
-							E.PopupDialogs["SLE_APPLY_FONT_WARNING"].allOutline = allOutline
-							E:StaticPopup_Show("SLE_APPLY_FONT_WARNING")
-						end,
-					},
-				},
-			},
-		},
-	}
+	--* Zone Text Tab
+	local ZoneTexts = ACH:Group(L["Zone Text"], nil, 5, nil, nil, nil, function() return not E.private.sle.media.enable end)
+	Media.zone = ZoneTexts
+	ZoneTexts.args.spacer = ACH:Spacer(1, 'full')
+	ZoneTexts.args.test = ACH:Execute(L["Test"], nil, 2, function() M:TextShow() end, nil, nil, nil, nil, nil, function() return not E.private.general.replaceBlizzFonts end)
+	ZoneTexts.args.spacer2 = ACH:Spacer(3, 'full')
+	ZoneTexts.args.zone = GetFontOptions(L["Zone Text"], 4)
+	ZoneTexts.args.subzone = GetFontOptions(L["Subzone Text"], 5)
+	ZoneTexts.args.pvp = GetFontOptions(L["PvP Status Text"], 6)
+
+	--* Objective Tracker Tab
+	local ObjectiveTracker = ACH:Group(L["Objective Tracker"], nil, 10, nil, nil, nil, function() return not E.private.sle.media.enable or not E.private.general.replaceBlizzFonts end)
+	Media.objectiveTracker = ObjectiveTracker
+	ObjectiveTracker.args.objectiveHeader = GetFontOptions(L["Category Headers"], 1)
+	ObjectiveTracker.args.objectiveHeader.args.description = ACH:Description(format('%s%s|r', E:RGBToHex(1, 0.82, 0), L["The header text of each block/section of the objective tracker. For example, \"Campaign\" & \"Quests\" that break the tracker into a sections."]), 5)
+	ObjectiveTracker.args.objective = GetFontOptions(L["Tracker Entries"], 2)
+	ObjectiveTracker.args.scenarioStage = ACH:Group(L["Scenario Stage Block"], nil, 10, nil)
+	ObjectiveTracker.args.scenarioStage.guiInline = true
+	ObjectiveTracker.args.scenarioStage.args.HeaderText = GetFontOptions(L["Header"], 1)
+	ObjectiveTracker.args.scenarioStage.args.TimerText = GetFontOptions(L["Timer"], 2)
+
+	--* Misc Tab
+	local MiscTexts = ACH:Group(L["Misc Texts"], nil, 15, nil, nil, nil, function() return not E.private.sle.media.enable or not E.private.general.replaceBlizzFonts end)
+	Media.misc = MiscTexts
+	MiscTexts.args.mail = GetFontOptions(L["Mail Text"], 1)
+	MiscTexts.args.gossip = GetFontOptions(L["Gossip and Quest Frames Text"], 2, true)
+	MiscTexts.args.questFontSuperHuge = GetFontOptions(L["Banner Big Text"], 3)
+
+	--* Apply To All
+	local ApplyToAll = ACH:Group(L["Apply Font To All"], nil, 20, nil, function(info) return ApplyAllDefaults[info[#info]] end, function(info, value) ApplyAllDefaults[info[#info]] = value end, function() return not E.private.sle.media.enable or not E.private.general.replaceBlizzFonts end)
+	Media.applyAll = ApplyToAll
+	ApplyToAll.args.font = ACH:SharedMediaFont(L["Font"], nil, 1, nil, nil, nil)
+	ApplyToAll.args.fontSize = ACH:Range(L["Font Size"], nil, 2, C.Values.FontSize)
+	ApplyToAll.args.fontOutline = ACH:FontFlags(L["Font Outline"], L["Set the font outline."], 3)
+	ApplyToAll.args.apply = ACH:Execute(L["Apply Font To All"], nildesc, 4, function() ApplyAll() end)
 end
 
 tinsert(SLE.Configs, configTable)

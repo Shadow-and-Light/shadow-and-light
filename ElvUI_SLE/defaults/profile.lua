@@ -551,58 +551,57 @@ P["sle"] = {
 	media = {
 		fonts = {
 			zone = {
-				font = "PT Sans Narrow",
-				outline = "OUTLINE",
-				size = 32,
+				font = 'PT Sans Narrow',
+				fontSize = 32,
+				fontOutline = 'THICKOUTLINE',
 			},
 			subzone = {
-				font = "PT Sans Narrow",
-				outline = "OUTLINE",
-				size = 25,
+				font = 'PT Sans Narrow',
+				fontSize = 25,
+				fontOutline = 'OUTLINE',
 				offset = 0,
 			},
 			pvp = {
-				font = "PT Sans Narrow",
-				outline = "OUTLINE",
-				size = 22,
+				font = 'PT Sans Narrow',
+				fontSize = 22,
+				fontOutline = 'OUTLINE',
 			},
 			mail = {
-				font = "PT Sans Narrow",
-				outline = "",
-				size = 12,
+				font = 'PT Sans Narrow',
+				fontSize = 12,
+				fontOutline = 'NONE',
 			},
 			gossip = {
-				font = "PT Sans Narrow",
-				size = 12,
+				font = 'PT Sans Narrow',
+				fontSize = 12,
+				fontOutline = 'NONE', -- Should always be none
 			},
 			objective = {
-				font = "PT Sans Narrow",
-				outline = "",
-				size = 12,
+				font = 'PT Sans Narrow',
+				fontSize = 10,
+				fontOutline = 'OUTLINE',
 			},
 			objectiveHeader = {
-				font = "PT Sans Narrow",
-				outline = "",
-				size = 12,
-			},
-			objectiveTracker = {
-				scenarioStage = {
-					HeaderText = {
-						font = 'PT Sans Narrow',
-						fontOutline = 'OUTLINE',
-						fontSize = 16,
-					},
-					TimerText = {
-						font = 'PT Sans Narrow',
-						fontOutline = 'OUTLINE',
-						fontSize = 22,
-					},
-				},
+				font = 'PT Sans Narrow',
+				fontSize = 11,
+				fontOutline = 'THICKOUTLINE',
 			},
 			questFontSuperHuge = {
-				font = "PT Sans Narrow",
-				size = 24,
-				outline = "",
+				font = 'PT Sans Narrow',
+				fontSize = 24,
+				fontOutline = 'NONE',
+			},
+			scenarioStage = {
+				HeaderText = {
+					font = 'PT Sans Narrow',
+					fontSize = 16,
+					fontOutline = 'OUTLINE',
+				},
+				TimerText = {
+					font = 'PT Sans Narrow',
+					fontSize = 22,
+					fontOutline = 'OUTLINE',
+				},
 			},
 		},
 	},
