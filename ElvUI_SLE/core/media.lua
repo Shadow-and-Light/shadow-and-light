@@ -115,7 +115,8 @@ function M:SetBlizzFonts()
 		end
 	end
 
-	--Objective Frame
+	--* Objective Frame
+	-- Try to reduce addon conflicts when MerathilisUI addon is enabled as well as their option to alter the objective tracker is enabled
 	if SLE._Compatibility['ElvUI_MerathilisUI'] and E.db.mui.blizzard.objectiveTracker.enable then return end
 
 	local COLOR
@@ -132,7 +133,6 @@ function M:SetBlizzFonts()
 
 	SetObjectiveFrameFonts()
 	MakeFont(_G.ObjectiveFont, E.LSM:Fetch('font', db.objective.font), db.objective.fontSize, db.objective.fontOutline)
-
 
 	-- _G.ScenarioStageBlock.Stage:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
 	_G.ObjectiveTrackerFrame.HeaderMenu.Title:FontTemplate(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.fontSize, db.objectiveHeader.fontOutline)
