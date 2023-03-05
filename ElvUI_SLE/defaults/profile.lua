@@ -553,7 +553,7 @@ P["sle"] = {
 			zone = {
 				font = 'PT Sans Narrow',
 				fontSize = 32,
-				fontOutline = 'THICKOUTLINE',
+				fontOutline = 'NONE',
 			},
 			subzone = {
 				font = 'PT Sans Narrow',
@@ -584,7 +584,7 @@ P["sle"] = {
 			objectiveHeader = {
 				font = 'PT Sans Narrow',
 				fontSize = 11,
-				fontOutline = 'THICKOUTLINE',
+				fontOutline = 'NONE',
 			},
 			questFontSuperHuge = {
 				font = 'PT Sans Narrow',
