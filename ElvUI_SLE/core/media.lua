@@ -89,6 +89,20 @@ local function SetObjectiveFrameFonts()
 			end
 		end
 	end
+
+	local widgetFrames = _G.ScenarioStageBlock.WidgetContainer.widgetFrames
+	if widgetFrames then
+		for widgetID, frame in pairs(widgetFrames) do
+			if skinnableWidgets[widgetID] and (frame and frame.HeaderText) then
+				frame.HeaderText:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.HeaderText.font), db.scenarioStage.HeaderText.fontSize, db.scenarioStage.HeaderText.fontOutline)
+				if frame.Timer and frame.Timer.Text then
+					frame.Timer.Text:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.TimerText.font), db.scenarioStage.TimerText.fontSize, db.scenarioStage.TimerText.fontOutline)
+				end
+			end
+		end
+	end
+
+	_G.ScenarioStageBlock.Stage:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.HeaderText.font), db.scenarioStage.HeaderText.fontSize, db.scenarioStage.HeaderText.fontOutline)
 end
 
 function M:SetBlizzFonts()
@@ -112,43 +126,14 @@ function M:SetBlizzFonts()
 	end
 
 	if not _G.ObjectiveTrackerFrame.SLEHookedFonts then
-		hooksecurefunc('ObjectiveTracker_Update', function(reason, id)
-			local widgetFrames = _G.ScenarioStageBlock.WidgetContainer.widgetFrames
-			if widgetFrames then
-				for widgetID, frame in pairs(widgetFrames) do
-					if skinnableWidgets[widgetID] and (frame and frame.HeaderText) then
-						frame.HeaderText:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.HeaderText.font), db.scenarioStage.HeaderText.fontSize, db.scenarioStage.HeaderText.fontOutline)
-						if frame.Timer and frame.Timer.Text then
-							frame.Timer.Text:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.TimerText.font), db.scenarioStage.TimerText.fontSize, db.scenarioStage.TimerText.fontOutline)
-						end
-					end
-				end
-			end
-
-			-- _G["ObjectiveTrackerFrame"].HeaderMenu.Title:FontTemplate(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.fontSize, db.objectiveHeader.fontOutline)
-			_G.ScenarioStageBlock.Stage:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.HeaderText.font), db.scenarioStage.HeaderText.fontSize, db.scenarioStage.HeaderText.fontOutline)
-
-			SetObjectiveFrameFonts()
-		end)
+		hooksecurefunc('ObjectiveTracker_Update', SetObjectiveFrameFonts)
 		_G.ObjectiveTrackerFrame.SLEHookedFonts = true
-	end
-
-	local widgetFrames = _G.ScenarioStageBlock.WidgetContainer.widgetFrames
-	if widgetFrames then
-		for widgetID, frame in pairs(widgetFrames) do
-			if skinnableWidgets[widgetID] and (frame and frame.HeaderText) then
-				frame.HeaderText:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.HeaderText.font), db.scenarioStage.HeaderText.fontSize, db.scenarioStage.HeaderText.fontOutline)
-				if frame.Timer and frame.Timer.Text then
-					frame.Timer.Text:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.TimerText.font), db.scenarioStage.TimerText.fontSize, db.scenarioStage.TimerText.fontOutline)
-				end
-			end
-		end
 	end
 
 	SetObjectiveFrameFonts()
 	MakeFont(_G.ObjectiveFont, E.LSM:Fetch('font', db.objective.font), db.objective.fontSize, db.objective.fontOutline)
 
-	_G.ScenarioStageBlock.Stage:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.HeaderText.font), db.scenarioStage.HeaderText.fontSize, db.scenarioStage.HeaderText.fontOutline)
+
 	-- _G.ScenarioStageBlock.Stage:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
 	_G.ObjectiveTrackerFrame.HeaderMenu.Title:FontTemplate(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.fontSize, db.objectiveHeader.fontOutline)
 	_G.ObjectiveTrackerFrame.HeaderMenu.Title:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
