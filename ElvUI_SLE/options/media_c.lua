@@ -70,6 +70,7 @@ local function configTable()
 	ObjectiveTracker.args.scenarioStage.guiInline = true
 	ObjectiveTracker.args.scenarioStage.args.HeaderText = GetFontOptions(L["Header"], 1)
 	ObjectiveTracker.args.scenarioStage.args.TimerText = GetFontOptions(L["Timer"], 2)
+	ObjectiveTracker.args.example = ACH:Description(nil, 20, nilfontSize, [[Interface\AddOns\ElvUI_SLE\media\options\ObjectiveTracker]], nil, 256, 256, 256)
 
 	--* Misc Tab
 	local MiscTexts = ACH:Group(L["Misc Texts"], nil, 15, nil, nil, nil, function() return not E.private.sle.media.enable or not E.private.general.replaceBlizzFonts end)
