@@ -42,7 +42,7 @@ local fontFrames = {
 }
 
 local objectiveFrames = {
-	ObjectiveTrackerBlocksFrame = { 'CampaignQuestHeader', 'QuestHeader', 'AchievementHeader', 'ScenarioHeader', 'ProfessionHeader' },
+	ObjectiveTrackerBlocksFrame = { 'CampaignQuestHeader', 'QuestHeader', 'AchievementHeader', 'ScenarioHeader', 'ProfessionHeader', 'MonthlyActivitiesHeader' },
 	BONUS_OBJECTIVE_TRACKER_MODULE = 'Header',
 	WORLD_QUEST_TRACKER_MODULE = 'Header',
 }

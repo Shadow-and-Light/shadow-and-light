@@ -425,7 +425,7 @@ local function ObjectiveReskin()
 	local height = E.private.sle.skins.objectiveTracker.underlineHeight
 	local ObjectiveTrackerBlocksFrame = _G.ObjectiveTrackerBlocksFrame
 	local underlineHeaders = {
-		'AchievementHeader', 'CampaignQuestHeader',
+		'AchievementHeader', 'CampaignQuestHeader', 'MonthlyActivitiesHeader',
 		'ProfessionHeader', 'QuestHeader', 'ScenarioHeader',
 		'BONUS_OBJECTIVE_TRACKER_MODULE', 'WORLD_QUEST_TRACKER_MODULE'
 	}
