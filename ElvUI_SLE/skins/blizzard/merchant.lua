@@ -22,28 +22,30 @@ local searchBox
 local searching = ''
 
 local function SkinVendorItems(i)
-	local button = _G["MerchantItem"..i.."ItemButton"]
-	local icon = button.icon
-	local iconBorder = button.IconBorder
 	local item = _G["MerchantItem"..i]
+	item:Size(155, 45)
 	item:StripTextures(true)
-	item:CreateBackdrop()
+	item:CreateBackdrop('Transparent')
+	item.backdrop:Point('TOPLEFT', -3, 2)
+	item.backdrop:Point('BOTTOMRIGHT', 2, -3)
 
+	local slot = _G['MerchantItem'..i..'SlotTexture']
+	item.Name:Point('LEFT', slot, 'RIGHT', -5, 5)
+	item.Name:Size(110, 30)
+
+	local button = _G['MerchantItem'..i..'ItemButton']
 	button:StripTextures()
-	button:StyleButton(false)
-	button:CreateBackdrop()
+	button:StyleButton()
+	button:SetTemplate(nil, true)
+	button:Point('TOPLEFT', item, 'TOPLEFT', 4, -4)
 
-	button:Point("TOPLEFT", item, "TOPLEFT", 4, -4)
+	local icon = button.icon
 	icon:SetTexCoord(unpack(E.TexCoords))
-	icon:SetInside()
-	iconBorder:SetAlpha(0)
+	icon:ClearAllPoints()
+	icon:Point('TOPLEFT', 1, -1)
+	icon:Point('BOTTOMRIGHT', -1, 1)
 
-	 hooksecurefunc(iconBorder, 'SetVertexColor', function(self, r, g, b)
-		button.backdrop:SetBackdropBorderColor(r, g, b)
-	 end)
-	 hooksecurefunc(iconBorder, 'Hide', function(self)
-	 	button.backdrop:SetBackdropBorderColor(unpack(E.db.general.bordercolor))
-	 end)
+	S:HandleIconBorder(button.IconBorder)
 
 	_G['MerchantItem'..i..'MoneyFrame']:ClearAllPoints()
 	_G['MerchantItem'..i..'MoneyFrame']:Point('BOTTOMLEFT', button, 'BOTTOMRIGHT', 3, 0)
