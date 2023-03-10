@@ -22,7 +22,7 @@ local searchBox
 local searching = ''
 
 local function SkinVendorItems(i)
-	local item = _G["MerchantItem"..i]
+	local item = _G['MerchantItem'..i]
 	item:Size(155, 45)
 	item:StripTextures(true)
 	item:CreateBackdrop('Transparent')
@@ -66,18 +66,18 @@ local function UpdateButtonsPositions(isBuyBack)
 		searchBox:Show()
 	end
 	for i = 1, MERCHANT_ITEMS_PER_PAGE do
-		btn = _G["MerchantItem" .. i]
+		btn = _G['MerchantItem' .. i]
 		if (isBuyBack) then
 			if (i > BUYBACK_ITEMS_PER_PAGE) then
 				btn:Hide()
 			else
 				if (i == 1) then
-					btn:SetPoint("TOPLEFT", _G["MerchantFrame"], "TOPLEFT", 64, -105)
+					btn:SetPoint('TOPLEFT', _G.MerchantFrame, 'TOPLEFT', 64, -105)
 				else
 					if ((i % 3) == 1) then
-						btn:SetPoint("TOPLEFT", _G["MerchantItem" .. (i-3)], "BOTTOMLEFT", 0, vertSpacing)
+						btn:SetPoint('TOPLEFT', _G['MerchantItem'..(i - 3)], 'BOTTOMLEFT', 0, vertSpacing)
 					else
-						btn:SetPoint("TOPLEFT", _G["MerchantItem" .. (i-1)], "TOPRIGHT", horizSpacing, 0)
+						btn:SetPoint('TOPLEFT', _G['MerchantItem'..(i - 1)], 'TOPRIGHT', horizSpacing, 0)
 					end
 				end
 			end
@@ -85,15 +85,15 @@ local function UpdateButtonsPositions(isBuyBack)
 			btn:Show()
 			if ((i % ItemsPerSubpage) == 1) then
 				if (i == 1) then
-					btn:SetPoint("TOPLEFT", _G["MerchantFrame"], "TOPLEFT", 24, -70)
+					btn:SetPoint('TOPLEFT', _G.MerchantFrame, 'TOPLEFT', 24, -70)
 				else
-					btn:SetPoint("TOPLEFT", _G["MerchantItem" .. (i-(ItemsPerSubpage - 1))], "TOPRIGHT", 12, 0)
+					btn:SetPoint('TOPLEFT', _G['MerchantItem'..(i - (ItemsPerSubpage - 1))], 'TOPRIGHT', 12, 0)
 				end
 			else
 				if ((i % 2) == 1) then
-					btn:SetPoint("TOPLEFT", _G["MerchantItem" .. (i-2)], "BOTTOMLEFT", 0, vertSpacing)
+					btn:SetPoint('TOPLEFT', _G['MerchantItem'..(i - 2)], 'BOTTOMLEFT', 0, vertSpacing)
 				else
-					btn:SetPoint("TOPLEFT", _G["MerchantItem" .. (i-1)], "TOPRIGHT", horizSpacing, 0)
+					btn:SetPoint('TOPLEFT', _G['MerchantItem'..(i - 1)], 'TOPRIGHT', horizSpacing, 0)
 				end
 			end
 		end
@@ -103,7 +103,7 @@ end
 local function UpdateBuybackInfo()
 	if E.private.sle.skins.merchant.style == 'Default' then UpdateButtonsPositions(true) end
 	-- apply coloring
-	local btn, link, quality, r, g, b
+	local btn, link, quality, r, g, b, _
 	for i = 1, BUYBACK_ITEMS_PER_PAGE, 1 do
 		btn = _G['MerchantItem' .. i]
 		if (btn) then
@@ -113,7 +113,7 @@ local function UpdateBuybackInfo()
 				if quality then
 					r, g, b = GetItemQualityColor(quality)
 				else
-					r, g, b = 1,1,1
+					r, g, b = 1, 1, 1
 				end
 				_G['MerchantItem' .. i .. 'Name']:SetTextColor(r, g, b)
 			end
@@ -138,7 +138,7 @@ local function isKnown(link, itemType, itemSubType)
 	_G['SLE_Merchant_HiddenTooltip']:SetHyperlink(link)
 	upperLimit = isRecipe and _G['SLE_Merchant_HiddenTooltip']:NumLines() or 0
 
-	for i=2, _G['SLE_Merchant_HiddenTooltip']:NumLines() do
+	for i = 2, _G['SLE_Merchant_HiddenTooltip']:NumLines() do
 		if (isRecipe and (i <= 5 or i >= upperLimit - 3)) or isMount or not isRecipe then
 			local text = _G['SLE_Merchant_HiddenTooltipTextLeft'..i]
 			local r, g, b = text:GetTextColor()
@@ -177,12 +177,12 @@ local function UpdateMerchantInfo()
 
 	--Display shit
 	for i = 1, MERCHANT_ITEMS_PER_PAGE do
-		 local index = ((_G["MerchantFrame"].page - 1) * MERCHANT_ITEMS_PER_PAGE) + i
-		local itemButton = _G["MerchantItem" .. i .. "ItemButton"]
+		 local index = ((_G['MerchantFrame'].page - 1) * MERCHANT_ITEMS_PER_PAGE) + i
+		local itemButton = _G['MerchantItem'..i..'ItemButton']
 		itemButton.link = nil
-		local merchantButton = _G["MerchantItem" .. i]
-		local merchantMoney = _G["MerchantItem" .. i .. "MoneyFrame"]
-		local merchantAltCurrency = _G["MerchantItem" .. i .. "AltCurrencyFrame"]
+		local merchantButton = _G['MerchantItem'..i]
+		local merchantMoney = _G['MerchantItem'..i..'MoneyFrame']
+		local merchantAltCurrency = _G['MerchantItem'..i..'AltCurrencyFrame']
 		if (index <= visibleMerchantItems) then
 			name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost = GetMerchantItemInfo(indexes[index])
 			if (name ~= nil) then
@@ -303,55 +303,55 @@ local function RebuildMerchantFrame()
 	ItemsPerSubpage = MERCHANT_ITEMS_PER_PAGE
 	SubpagesPerPage = E.private.sle.skins.merchant.subpages
 	MERCHANT_ITEMS_PER_PAGE = SubpagesPerPage * 10 --Haven't seen this causing any taints so I asume it's ok
-	_G['MerchantFrame']:SetWidth(42 + (318 * SubpagesPerPage) + (12 * (SubpagesPerPage - 1)))
+	_G.MerchantFrame:SetWidth(42 + (318 * SubpagesPerPage) + (12 * (SubpagesPerPage - 1)))
 
 	for i = 1, MERCHANT_ITEMS_PER_PAGE do
-		if (not _G['MerchantItem' .. i]) then
-			CreateFrame('Frame', 'MerchantItem' .. i, _G['MerchantFrame'], 'MerchantItemTemplate')
+		if not _G['MerchantItem'.. i] then
+			CreateFrame('Frame', 'MerchantItem'..i, _G.MerchantFrame, 'MerchantItemTemplate')
 			SkinVendorItems(i)
 		end
 	end
 	 -- alter the position of the buyback item slot on the merchant tab
-	_G["MerchantBuyBackItem"]:ClearAllPoints()
-	_G["MerchantBuyBackItem"]:SetPoint("TOPLEFT", _G["MerchantItem10"], "BOTTOMLEFT", -14, -20)
+	_G.MerchantBuyBackItem:ClearAllPoints()
+	_G.MerchantBuyBackItem:SetPoint('TOPLEFT', _G.MerchantItem10, 'BOTTOMLEFT', -14, -20)
 
 	-- move the next/previous page buttons
-	_G["MerchantPrevPageButton"]:ClearAllPoints()
-	_G["MerchantPrevPageButton"]:SetPoint("CENTER", _G["MerchantFrame"], "BOTTOM", 50, 70)
-	_G["MerchantPageText"]:ClearAllPoints()
-	_G["MerchantPageText"]:SetPoint("BOTTOM", _G["MerchantFrame"], "BOTTOM", 160, 65)
-	_G["MerchantNextPageButton"]:ClearAllPoints()
-	_G["MerchantNextPageButton"]:SetPoint("CENTER", _G["MerchantFrame"], "BOTTOM", 270, 70)
+	_G.MerchantPrevPageButton:ClearAllPoints()
+	_G.MerchantPrevPageButton:SetPoint('CENTER', _G.MerchantFrame, 'BOTTOM', 50, 70)
+	_G.MerchantPageText:ClearAllPoints()
+	_G.MerchantPageText:SetPoint('BOTTOM', _G.MerchantFrame, 'BOTTOM', 160, 65)
+	_G.MerchantNextPageButton:ClearAllPoints()
+	_G.MerchantNextPageButton:SetPoint('CENTER', _G.MerchantFrame, 'BOTTOM', 270, 70)
 
 	-- currency insets
-	_G["MerchantExtraCurrencyInset"]:ClearAllPoints()
-	_G["MerchantExtraCurrencyInset"]:SetPoint("BOTTOMRIGHT", _G["MerchantMoneyInset"], "BOTTOMLEFT", 0, 0)
-	_G["MerchantExtraCurrencyInset"]:SetPoint("TOPLEFT", _G["MerchantMoneyInset"], "TOPLEFT", -165, 0)
-	_G["MerchantExtraCurrencyBg"]:ClearAllPoints()
-	_G["MerchantExtraCurrencyBg"]:SetPoint("TOPLEFT", _G["MerchantExtraCurrencyInset"], "TOPLEFT", 3, -2)
-	_G["MerchantExtraCurrencyBg"]:SetPoint("BOTTOMRIGHT", _G["MerchantExtraCurrencyInset"], "BOTTOMRIGHT", -3, 2)
+	_G.MerchantExtraCurrencyInset:ClearAllPoints()
+	_G.MerchantExtraCurrencyInset:SetPoint('BOTTOMRIGHT', _G.MerchantMoneyInset, 'BOTTOMLEFT', 0, 0)
+	_G.MerchantExtraCurrencyInset:SetPoint('TOPLEFT', _G.MerchantMoneyInset, 'TOPLEFT', -165, 0)
+	_G.MerchantExtraCurrencyBg:ClearAllPoints()
+	_G.MerchantExtraCurrencyBg:SetPoint('TOPLEFT', _G.MerchantExtraCurrencyInset, 'TOPLEFT', 3, -2)
+	_G.MerchantExtraCurrencyBg:SetPoint('BOTTOMRIGHT', _G.MerchantExtraCurrencyInset, 'BOTTOMRIGHT', -3, 2)
 
-	searchBox = CreateFrame("EditBox", "$parentSearchBox", _G["MerchantFrame"], "InputBoxTemplate")
-	searchBox:SetWidth(_G["MerchantItem1"]:GetWidth())
+	searchBox = CreateFrame('EditBox', '$parentSearchBox', _G.MerchantFrame, 'InputBoxTemplate')
+	searchBox:SetWidth(_G.MerchantItem1:GetWidth())
 	searchBox:SetHeight(24)
-	searchBox:SetPoint("BOTTOMLEFT", _G["MerchantItem1"], "TOPLEFT", 0, 9)
+	searchBox:SetPoint('BOTTOMLEFT', _G.MerchantItem1, 'TOPLEFT', 0, 9)
 	searchBox:SetAutoFocus(false)
 	searchBox:SetFontObject(ChatFontSmall)
-	searchBox:SetScript("OnTextChanged", function(self) searching = self:GetText():trim():lower(); UpdateMerchantInfo() end)
-	searchBox:SetScript("OnShow", function(self) self:SetText(SEARCH); searching = "" end)
-	searchBox:SetScript("OnEnterPressed", function(self)  self:ClearFocus() end)
-	searchBox:SetScript("OnEscapePressed", function(self)  self:ClearFocus(); self:SetText(SEARCH); searching = "" end)
-	searchBox:SetScript("OnEditFocusLost", function(self)
+	searchBox:SetScript('OnTextChanged', function(self) searching = self:GetText():trim():lower(); UpdateMerchantInfo() end)
+	searchBox:SetScript('OnShow', function(self) self:SetText(SEARCH); searching = '' end)
+	searchBox:SetScript('OnEnterPressed', function(self)  self:ClearFocus() end)
+	searchBox:SetScript('OnEscapePressed', function(self)  self:ClearFocus(); self:SetText(SEARCH); searching = '' end)
+	searchBox:SetScript('OnEditFocusLost', function(self)
 		self:HighlightText(0, 0)
-		if ( strtrim(self:GetText()) == "" ) then
+		if ( strtrim(self:GetText()) == '' ) then
 			self:SetText(SEARCH)
-			searching = ""
+			searching = ''
 		end
 	end)
-	searchBox:SetScript("OnEditFocusGained", function(self)
+	searchBox:SetScript('OnEditFocusGained', function(self)
 		self:HighlightText()
 		if ( self:GetText():trim():lower() == SEARCH:lower() ) then
-			self:SetText("")
+			self:SetText('')
 		end
 	end)
 	searchBox:SetText(SEARCH)
