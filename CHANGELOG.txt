@@ -1,6 +1,13 @@
-v4.60 1/24/22
+v4.61 ?/??/23
 
-• toc bump
-• fix replace enchant string
-• fixed an issue that new option isn't visible with advanced settings enabled for the character frame to add addition space on the right
-• fixed mouse over gem slot on inspect and character frame
+• Equipment Set Icon in bags fixed when having 2 of the same named item in the bag and only one is part of an equipment set
+• Add Azur Vault Port to the location panel
+• remove add width option for character panel
+• fixed keybind text on last button being wrong
+• help prevent issues with moving frames in combat by not letting them move
+• try to tidy up the instance indicator icon when doing a guild group
+• Objective Tracker: add options to change font text and timer text of the stage block section
+• Objective Tracker: add community feast so the our backdrop can be seen on the stage block
+• Objective Tracker: support professionheader text and add the underline
+• Objective Tracker: add MonthlyActivitiesHeader (tracking via Traveler's Log) text and underline support
+• fix merchant frame double wide skin
