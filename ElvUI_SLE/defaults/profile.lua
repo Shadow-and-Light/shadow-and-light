@@ -578,12 +578,12 @@ P["sle"] = {
 			},
 			objective = {
 				font = 'PT Sans Narrow',
-				fontSize = 10,
+				fontSize = 12,
 				fontOutline = 'OUTLINE',
 			},
 			objectiveHeader = {
 				font = 'PT Sans Narrow',
-				fontSize = 11,
+				fontSize = 12,
 				fontOutline = 'NONE',
 			},
 			questFontSuperHuge = {
