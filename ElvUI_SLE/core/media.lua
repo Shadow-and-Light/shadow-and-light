@@ -111,7 +111,13 @@ function M:SetBlizzFonts()
 
 	for frame, option in pairs(fontFrames) do
 		if _G[frame] then
-			_G[frame]:FontTemplate(E.LSM:Fetch('font', db[option].font), db[option].fontSize, frame ~= 'QuestFont' and db[option].fontOutline or 'NONE')
+			if frame == 'QuestFont' then
+				_G[frame]:FontTemplate(E.LSM:Fetch('font', db[option].font), db[option].fontSize, 'NONE')
+				_G[frame]:SetShadowOffset(0, 0)
+				_G[frame]:SetShadowColor(0, 0, 0, 0)
+			else
+				_G[frame]:FontTemplate(E.LSM:Fetch('font', db[option].font), db[option].fontSize, db[option].fontOutline)
+			end
 		end
 	end
 
