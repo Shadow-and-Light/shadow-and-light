@@ -4,48 +4,6 @@ local M = E.Misc
 local ACH = E.Libs.ACH
 local C
 
--- local statTable = {
--- 	--* Attributes
--- 	SPELL_STAT1_NAME = {
--- 		name = 'Strength',		-- Strength
--- 	},
--- 	SPELL_STAT2_NAME = {
--- 		name = 'Agility',		-- Agility
--- 	},
--- 	SPELL_STAT3_NAME = '',		-- Stamina
--- 	SPELL_STAT4_NAME = '',		-- Intellect
--- 	HEALTH = '',				-- Health
--- 	MANA = '',					-- Mana
--- 	RAGE = '',					-- Rage
--- 	FOCUS = '',					-- Focus
--- 	ENERGY = '',				-- Energy
--- 	FURY = '',					-- Fury
--- 	STAT_MOVEMENT_SPEED = '',	-- Movement Speed
--- 	--* Offense
--- 	DAMAGE = '',				-- Damage
--- 	STAT_ATTACK_POWER = '',		-- Attack Power
--- 	WEAPON_SPEED = '',			-- Attack Speed
--- 	STAT_SPELLPOWER = '',		-- Spell Power
--- 	MANA_REGEN = '',			-- Mana Regen
--- 	STAT_ENERGY_REGEN = '',		-- Energy Regen
--- 	STAT_FOCUS_REGEN = '',		-- Focus Regen
--- 	STAT_RUNE_REGEN = '',		-- Rune Speed
--- 	--* Enhancements
--- 	STAT_CRITICAL_STRIKE = '',	-- Critical Strike
--- 	STAT_HASTE = '',			-- Haste
--- 	STAT_MASTERY = '',			-- Mastery
--- 	STAT_VERSATILITY = '',		-- Versatility
--- 	STAT_LIFESTEAL = '',		-- Leech
--- 	STAT_SPEED = '',			-- Speed
--- 	--* Defense
--- 	STAT_ARMOR = '',			-- Armor
--- 	STAT_AVOIDANCE = '',		-- Avoidance
--- 	STAT_DODGE = '',			-- Dodge
--- 	STAT_PARRY = '',			-- Parry
--- 	STAT_BLOCK = '',			-- Block
--- 	STAT_STAGGER = '',			-- Stagger
--- }
-
 local function GetFontOptions(groupName, order, itemLevel)
 	local config = ACH:Group(groupName, nil, order, nil, function(info) return E.db.sle.armory.stats[info[#info-1]][info[#info]] end, function(info, value) E.db.sle.armory.stats[info[#info-1]][info[#info]] = value if itemLevel then SA:UpdateIlvlFont() else SA:PaperDollFrame_UpdateStats() end end)
 	config.guiInline = true
