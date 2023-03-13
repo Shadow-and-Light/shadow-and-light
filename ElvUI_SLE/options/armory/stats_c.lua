@@ -102,7 +102,9 @@ local function configTable()
 	local Attack = Stats.Attack.args
 	Attack.ATTACK_DAMAGE = ACH:Toggle(L["Damage"], nil, 1)
 	Attack.ATTACK_AP = ACH:Toggle(L["Attack Power"], nil, 2)
-	Attack.ATTACK_ATTACKSPEED = ACH:Toggle(L["Attack Speed"], nil, 3)
+	if GetLocale() ~= "ruRU" then
+		Attack.ATTACK_ATTACKSPEED = ACH:Toggle(L["Attack Speed"], nil, 3)
+	end
 	Attack.SPELLPOWER = ACH:Toggle(L["Spell Power"], nil, 4)
 	Attack.MANAREGEN = ACH:Toggle(L["Mana Regen"], nil, 5)
 	Attack.ENERGY_REGEN = ACH:Toggle(L["Energy Regen"], nil, 6)

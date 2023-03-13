@@ -35,12 +35,11 @@ function SA:BuildNewStats()
 			stats = {
 				[1] = { stat = 'ATTACK_DAMAGE', option = true, hideAt = 0 },
 				[2] = { stat = 'ATTACK_AP', option = true, hideAt = 0 },
-				[3] = { stat = 'ATTACK_ATTACKSPEED', option = true, hideAt = 0 },
-				[4] = { stat = 'SPELLPOWER', option = true, hideAt = 0 },
-				[5] = { stat = 'MANAREGEN', option = true, power = 'MANA' },
-				[6] = { stat = 'ENERGY_REGEN', option = true, power = 'ENERGY', hideAt = 0, roles = {'TANK', 'DAMAGER'},  classes = {'ROUGE', 'DRUID', 'MONK'} },
-				[7] = { stat = 'FOCUS_REGEN', option = true, power = 'FOCUS', hideAt = 0, classes = {'HUNTER'} },
-				[8] = { stat = 'RUNE_REGEN', option = true, power = 'RUNIC_POWER', hideAt = 0, classes = {'DEATHKNIGHT'} },
+				[3] = { stat = 'SPELLPOWER', option = true, hideAt = 0 },
+				[4] = { stat = 'MANAREGEN', option = true, power = 'MANA' },
+				[5] = { stat = 'ENERGY_REGEN', option = true, power = 'ENERGY', hideAt = 0, roles = {'TANK', 'DAMAGER'},  classes = {'ROUGE', 'DRUID', 'MONK'} },
+				[6] = { stat = 'FOCUS_REGEN', option = true, power = 'FOCUS', hideAt = 0, classes = {'HUNTER'} },
+				[7] = { stat = 'RUNE_REGEN', option = true, power = 'RUNIC_POWER', hideAt = 0, classes = {'DEATHKNIGHT'} },
 			},
 		},
 		[3] = {
@@ -65,6 +64,9 @@ function SA:BuildNewStats()
 			},
 		},
 	}
+	if GetLocale() ~= "ruRU" then
+		SA.AlteredPaperdollStats[2].stats[8] = { stat = 'ATTACK_ATTACKSPEED', option = true, hideAt = 0, numericValue = 0 }
+	end
 end
 
 function SA:CreateStatCategory(catName, text)
