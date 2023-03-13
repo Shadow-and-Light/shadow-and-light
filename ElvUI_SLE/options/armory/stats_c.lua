@@ -1,246 +1,173 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
 local SA = SLE.Armory_Stats
 local M = E.Misc
+local ACH = E.Libs.ACH
+local C
+
+-- local statTable = {
+-- 	--* Attributes
+-- 	SPELL_STAT1_NAME = {
+-- 		name = 'Strength',		-- Strength
+-- 	},
+-- 	SPELL_STAT2_NAME = {
+-- 		name = 'Agility',		-- Agility
+-- 	},
+-- 	SPELL_STAT3_NAME = '',		-- Stamina
+-- 	SPELL_STAT4_NAME = '',		-- Intellect
+-- 	HEALTH = '',				-- Health
+-- 	MANA = '',					-- Mana
+-- 	RAGE = '',					-- Rage
+-- 	FOCUS = '',					-- Focus
+-- 	ENERGY = '',				-- Energy
+-- 	FURY = '',					-- Fury
+-- 	STAT_MOVEMENT_SPEED = '',	-- Movement Speed
+-- 	--* Offense
+-- 	DAMAGE = '',				-- Damage
+-- 	STAT_ATTACK_POWER = '',		-- Attack Power
+-- 	WEAPON_SPEED = '',			-- Attack Speed
+-- 	STAT_SPELLPOWER = '',		-- Spell Power
+-- 	MANA_REGEN = '',			-- Mana Regen
+-- 	STAT_ENERGY_REGEN = '',		-- Energy Regen
+-- 	STAT_FOCUS_REGEN = '',		-- Focus Regen
+-- 	STAT_RUNE_REGEN = '',		-- Rune Speed
+-- 	--* Enhancements
+-- 	STAT_CRITICAL_STRIKE = '',	-- Critical Strike
+-- 	STAT_HASTE = '',			-- Haste
+-- 	STAT_MASTERY = '',			-- Mastery
+-- 	STAT_VERSATILITY = '',		-- Versatility
+-- 	STAT_LIFESTEAL = '',		-- Leech
+-- 	STAT_SPEED = '',			-- Speed
+-- 	--* Defense
+-- 	STAT_ARMOR = '',			-- Armor
+-- 	STAT_AVOIDANCE = '',		-- Avoidance
+-- 	STAT_DODGE = '',			-- Dodge
+-- 	STAT_PARRY = '',			-- Parry
+-- 	STAT_BLOCK = '',			-- Block
+-- 	STAT_STAGGER = '',			-- Stagger
+-- }
+
+local function GetFontOptions(groupName, order, itemLevel)
+	local config = ACH:Group(groupName, nil, order, nil, function(info) return E.db.sle.armory.stats[info[#info-1]][info[#info]] end, function(info, value) E.db.sle.armory.stats[info[#info-1]][info[#info]] = value if itemLevel then SA:UpdateIlvlFont() else SA:PaperDollFrame_UpdateStats() end end)
+	config.guiInline = true
+
+	config.args.font = ACH:SharedMediaFont(L["Font"], nil, 1)
+	config.args.fontSize = ACH:Range(L["Font Size"], nil, 2, C.Values.FontSize)
+	config.args.fontOutline = ACH:FontFlags(L["Font Outline"], L["Set the font outline."], 3, nil, nil, nil, nil, nil)
+
+	return config
+end
+
+local table = {}
+local function getReplacementTable()
+	wipe(table)
+	table[''] = L["None Selected"]
+
+	for label in pairs(E.db.sle.armory.stats.textReplacements) do
+		table[label] = _G[label]
+	end
+
+	return table
+end
+
+local function getStatName(stat)
+	local currentText = E.db.sle.armory.stats.textReplacements[stat]
+	local displayString = '%s%s %s|r'
+
+	local name = format(displayString, E:RGBToHex(1, 0.82, 0), (currentText and currentText ~= '') and L["Current Setting:"] or '', currentText and currentText or '')
+
+	return name
+end
+
+local function GetTextReplacements(label)
+	local config = E.Options.args.sle.args.modules.args.armory.args.stats.args.StringReplacements.args
+	if not label or label == '' then config.textReplacements = nil return end
+
+	config.textReplacements = ACH:Group(_G[label], nil, 10, nil, function(info) return E.db.sle.armory.stats[info[#info-1]][info[#info]] end, function(info, value) E.db.sle.armory.stats[info[#info-1]][info[#info]] = value PaperDollFrame_UpdateStats() end)
+	config.textReplacements.guiInline = true
+	config.textReplacements.args[label] = ACH:Input(function() return getStatName(label) end, nildesc, 5, nilmultiline, 'full', get, set, nildisabled, nilhidden, nilvalidate)
+	config.textReplacements.args[label].textChanged = function(text) print('text', text) end
+end
 
 local function configTable()
 	if not SLE.initialized then return end
+	C = unpack(E.Config)
+	local selectedString = ''
 
-	E.Options.args.sle.args.modules.args.armory.args.stats = {
-		type = 'group',
-		name = STAT_CATEGORY_ATTRIBUTES,
-		order = 30,
-		disabled = function() return SLE._Compatibility['DejaCharacterStats'] or not E.db.sle.armory.stats.enable end,
-		hidden = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.character end,
-		get = function(info) return E.db.sle.armory.stats[info[#info]] end,
-		set = function(info, value) E.db.sle.armory.stats[info[#info]] = value; PaperDollFrame_UpdateStats(); M:UpdateCharacterItemLevel() end,
-		args = {
-			OnlyPrimary = {
-				order = 1,
-				type = 'toggle',
-				name = L["Only Relevant Stats"],
-				desc = L["Show only those primary stats relevant to your spec."],
-			},
-			decimals = {
-				order = 2,
-				type = 'toggle',
-				name = L["Decimals"],
-				desc = L["Show stats with decimals."],
-			},
-			ItemLevel = {
-				order = 10,
-				type = 'group',
-				name = STAT_AVERAGE_ITEM_LEVEL,
-				guiInline = true,
-				args = {
-					IlvlFull = {
-						order = 1,
-						type = 'toggle',
-						name = L["Full Item Level"],
-						desc = L["Show both equipped and average item levels."],
-					},
-					IlvlColor = {
-						order = 2,
-						type = 'toggle',
-						name = L["Item Level Coloring"],
-						desc = L["Color code item levels values. Equipped will be gradient, average - selected color."],
-						disabled = function() return SLE._Compatibility['DejaCharacterStats'] or not E.db.sle.armory.stats.IlvlFull or not E.db.sle.armory.stats.enable end,
-					},
-					AverageColor = {
-						type = 'color',
-						order = 3,
-						name = L["Color of Average"],
-						desc = L["Sets the color of average item level."],
-						hasAlpha = false,
-						disabled = function() return SLE._Compatibility['DejaCharacterStats'] or not E.db.sle.armory.stats.IlvlFull or not E.db.sle.armory.stats.enable end,
-						get = function(info)
-							local t = E.db.sle.armory.stats[info[#info]]
-							local d = P.sle.armory.stats[info[#info]]
-							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-						end,
-						set = function(info, r, g, b, a)
-							E.db.sle.armory.stats[info[#info]] = {}
-							local t = E.db.sle.armory.stats[info[#info]]
-							t.r, t.g, t.b, t.a = r, g, b, a
-							M:UpdateCharacterItemLevel()
-							PaperDollFrame_UpdateStats()
-						end,
-					},
-				},
-			},
-			Fonts = {
-				type = 'group',
-				name = STAT_CATEGORY_ATTRIBUTES..': '..L["Fonts"],
-				guiInline = true,
-				order = 20,
-				args = {
-					IlvlFont = {
-						type = 'group',
-						name = STAT_AVERAGE_ITEM_LEVEL,
-						order = 1,
-						-- guiInline = true,
-						get = function(info) return E.db.sle.armory.stats.itemLevel[info[#info]] end,
-						set = function(info, value) E.db.sle.armory.stats.itemLevel[info[#info]] = value; SA:UpdateIlvlFont() end,
-						args = {
-							font = {
-								type = 'select', dialogControl = 'LSM30_Font',
-								name = L["Font"],
-								order = 1,
-								values = function()
-									return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
-								end,
-							},
-							size = {
-								type = 'range',
-								name = L["Font Size"],
-								order = 2,
-								min = 10, max = 22, step = 1,
-							},
-							outline = {
-								type = 'select',
-								name = L["Font Outline"],
-								order = 3,
-								values = T.Values.FontFlags,
-							},
-						},
-					},
-					statFonts = {
-						type = 'group',
-						name = STAT_CATEGORY_ATTRIBUTES,
-						order = 2,
-						-- guiInline = true,
-						get = function(info) return E.db.sle.armory.stats.statFonts[info[#info]] end,
-						set = function(info, value) E.db.sle.armory.stats.statFonts[info[#info]] = value; SA:PaperDollFrame_UpdateStats() end,
-						args = {
-							font = {
-								type = 'select', dialogControl = 'LSM30_Font',
-								name = L["Font"],
-								order = 1,
-								values = function()
-									return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
-								end,
-							},
-							size = {
-								type = 'range',
-								name = L["Font Size"],
-								order = 2,
-								min = 10, max = 22, step = 1,
-							},
-							outline = {
-								type = 'select',
-								name = L["Font Outline"],
-								order = 3,
-								values = T.Values.FontFlags,
-							},
-						},
-					},
-					catFonts = {
-						type = 'group',
-						name = L["Categories"],
-						order = 3,
-						-- guiInline = true,
-						get = function(info) return E.db.sle.armory.stats.catFonts[info[#info]] end,
-						set = function(info, value) E.db.sle.armory.stats.catFonts[info[#info]] = value; SA:PaperDollFrame_UpdateStats() end,
-						args = {
-							font = {
-								type = 'select', dialogControl = 'LSM30_Font',
-								name = L["Font"],
-								order = 1,
-								values = function()
-									return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
-								end,
-							},
-							size = {
-								type = 'range',
-								name = L["Font Size"],
-								order = 2,
-								min = 10, max = 22, step = 1,
-							},
-							outline = {
-								type = 'select',
-								name = L["Font Outline"],
-								order = 3,
-								values = T.Values.FontFlags,
-							},
-						},
-					},
-				},
-			},
-			Lists = {
-				order = 50,
-				type = 'group',
-				name = STAT_CATEGORY_ATTRIBUTES,
-				childGroups = 'tab',
-				guiInline = true,
-				get = function(info) return E.db.sle.armory.stats.List[info[#info]] end,
-				set = function(info, value) E.db.sle.armory.stats.List[info[#info]] = value; PaperDollFrame_UpdateStats() end,
-				args = {
-					Attributes = {
-						order = 10,
-						type = 'group',
-						name = STAT_CATEGORY_ATTRIBUTES,
-						args = {
-							HEALTH = {
-								order = 1,
-								type = 'toggle',
-								name = HEALTH,
-							},
-							POWER = {
-								order = 2,
-								type = 'toggle',
-								name = function()
-									local power = _G[select(2, UnitPowerType('player'))] or L["Power"]
-									return power
-								end,
+	E.Options.args.sle.args.modules.args.armory.args.stats = ACH:Group(L["Attributes"], nil, 30, 'tree', function(info) return E.db.sle.armory.stats[info[#info]] end, function(info, value) E.db.sle.armory.stats[info[#info]] = value PaperDollFrame_UpdateStats() M:UpdateCharacterItemLevel() end, function() return SLE._Compatibility['DejaCharacterStats'] or not E.db.sle.armory.stats.enable end, function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.character end)
+	local Stats = E.Options.args.sle.args.modules.args.armory.args.stats.args
 
-							},
-							ALTERNATEMANA = { order = 3,type = 'toggle',name = ALTERNATE_RESOURCE_TEXT,},
-							MOVESPEED = { order = 4,type = 'toggle',name = STAT_SPEED,},
-						},
-					},
-					Attack = {
-						order = 11,
-						type = 'group',
-						name = STAT_CATEGORY_ATTACK,
-						args = {
-							ATTACK_DAMAGE = { order = 1,type = 'toggle',name = DAMAGE,},
-							ATTACK_AP = { order = 2,type = 'toggle',name = ATTACK_POWER,},
-							ATTACK_ATTACKSPEED = { order = 3,type = 'toggle',name = ATTACK_SPEED,},
-							SPELLPOWER = { order = 4,type = 'toggle',name = STAT_SPELLPOWER,},
-							MANAREGEN = { order = 5,type = 'toggle',name = MANA_REGEN,},
-							ENERGY_REGEN = { order = 6,type = 'toggle',name = STAT_ENERGY_REGEN,},
-							RUNE_REGEN = { order = 7,type = 'toggle',name = STAT_RUNE_REGEN,},
-							FOCUS_REGEN = { order = 8,type = 'toggle',name = STAT_FOCUS_REGEN,},
-						},
-					},
-					Enhancements = {
-						order = 12,
-						type = 'group',
-						name = STAT_CATEGORY_ENHANCEMENTS,
-						args = {
-							CRITCHANCE = { order = 1,type = 'toggle',name = STAT_CRITICAL_STRIKE,},
-							HASTE = { order = 2,type = 'toggle',name = STAT_HASTE,},
-							MASTERY = { order = 3,type = 'toggle',name = STAT_MASTERY,},
-							VERSATILITY = { order = 4,type = 'toggle',name = STAT_VERSATILITY,},
-							LIFESTEAL = { order = 5,type = 'toggle',name = STAT_LIFESTEAL,},
-						},
-					},
-					Defence = {
-						order = 13,
-						type = 'group',
-						name = DEFENSE,
-						args = {
-							ARMOR = { order = 1,type = 'toggle',name = STAT_ARMOR,},
-							AVOIDANCE = { order = 2,type = 'toggle',name = STAT_AVOIDANCE,},
-							DODGE = { order = 3,type = 'toggle',name = STAT_DODGE,},
-							PARRY = { order = 4,type = 'toggle',name = STAT_PARRY,},
-							BLOCK = { order = 5,type = 'toggle',name = STAT_BLOCK,},
-							-- STAGGER = { order = 6,type = 'toggle',name = STAT_STAGGER,},
-						},
-					},
-				},
-			},
-		},
-	}
+	Stats.OnlyPrimary = ACH:Toggle(L["Only Relevant Stats"], L["Show only those primary stats relevant to your spec."], 1)
+	Stats.decimals = ACH:Toggle(L["Decimals"], L["Show stats with decimals."], 2)
+
+	--* Stat Label Settings (Spacer)
+	Stats.groupSpacer1 = ACH:Group('--- |cff00FF00'..L["Stat Label Settings"]..'|r ---', nil, 10, nil, get, set, true)
+
+	--* Stat Font Settings
+	Stats.Fonts = ACH:Group(L["Stat Font Settings"], nil, 11)
+	Stats.Fonts.args.statHeaders = GetFontOptions(L["Stat Categories"], 1)
+	Stats.Fonts.args.statLabels = GetFontOptions(L["Stat Labels & Value Text"], 2)
+
+	--* String Replacement
+	Stats.StringReplacements = ACH:Group(L["String Replacement"], nil, 14)
+	local StringReplacements = Stats.StringReplacements.args
+	StringReplacements.description = ACH:Description(format('%s%s|r', E:RGBToHex(1, 0.82, 0), L["If you found that some stat labels need to be shorten or abbreviated, select the label from the dropdown below and enter the string to be displayed instead."]), 1, 'medium', nil, nil, nil, nil, width)
+	StringReplacements.spacer = ACH:Spacer(2, 'full')
+	StringReplacements.labelSelect = ACH:Select(L["Select A Label"], nil, 5, getReplacementTable, nilconfirm, nilwidth, function(_) return selectedString end, function(_, value) selectedString = value GetTextReplacements(selectedString) end, nildisabled, nilhidden)
+	StringReplacements.labelSelect.sortByValue = true
+	GetTextReplacements(selectedString)
+
+	--* Stats Panel (Spacer)
+	Stats.groupSpacer2 = ACH:Group('--- |cff00FF00'..L["Stats Panel"]..'|r ---', nil, 15, nil, get, set, true)
+
+	--* Item Level
+	Stats.ItemLevel = ACH:Group(L["Item Level"], nil, 20)
+	local ItemLevel = Stats.ItemLevel.args
+	ItemLevel.IlvlFull = ACH:Toggle(L["Full Item Level"], L["Show both equipped and average item levels."], 1)
+	ItemLevel.IlvlColor = ACH:Toggle(L["Item Level Coloring"], L["Color code item levels values. Equipped will be gradient, average - selected color."], 2, nil, nil, nil, nilget, nilset, function() return SLE._Compatibility['DejaCharacterStats'] or not E.db.sle.armory.stats.IlvlFull or not E.db.sle.armory.stats.enable end)
+	ItemLevel.AverageColor = ACH:Color(L["Color of Average"], L["Sets the color of average item level."], 3, false, nil, function(info) local t = E.db.sle.armory.stats[info[#info]] local d = P.sle.armory.stats[info[#info]] return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a end, function(info, r, g, b, a) E.db.sle.armory.stats[info[#info]] = {} local t = E.db.sle.armory.stats[info[#info]] t.r, t.g, t.b, t.a = r, g, b, a M:UpdateCharacterItemLevel() PaperDollFrame_UpdateStats() end, function() return SLE._Compatibility['DejaCharacterStats'] or not E.db.sle.armory.stats.IlvlFull or not E.db.sle.armory.stats.enable end)
+	ItemLevel.spacer = ACH:Spacer(10, 'full')
+	ItemLevel.itemLevel = GetFontOptions(L["Font Group"], 11, true)
+	ItemLevel.gradient = ACH:Group(L["Gradient"], nil, 15, nil, function(info) return E.db.sle.armory.stats[info[#info-1]][info[#info]] end, function(info, value) E.db.sle.armory.stats[info[#info-1]][info[#info]] = value SA:UpdateIlvlFont() end)
+	ItemLevel.gradient.guiInline = true
+	ItemLevel.gradient.args.style = ACH:Select(L["Style"], nil, 2, { [''] = 'Disabled', blizzard = 'Blizzard', levelupbg = L["Level-Up Background"] })
+
+	--* Attributes
+	Stats.Attributes = ACH:Group(L["Attributes"], nil, 25, nil, function(info) return E.db.sle.armory.stats.List[info[#info]] end, function(info, value) E.db.sle.armory.stats.List[info[#info]] = value PaperDollFrame_UpdateStats() end)
+	local Attributes = Stats.Attributes.args
+	Attributes.HEALTH = ACH:Toggle(L["Health"], nil, 1)
+	Attributes.POWER = ACH:Toggle(function() local power = _G[select(2, UnitPowerType('player'))] or L["Power"] return power end, nil, 2)
+	Attributes.ALTERNATEMANA = ACH:Toggle(L["Alternate Resource"], nil, 3)
+	Attributes.MOVESPEED = ACH:Toggle(L["Speed"], nil, 4)
+
+	--* Attack
+	Stats.Attack = ACH:Group(L["Attack"], nil, 30, nil, function(info) return E.db.sle.armory.stats.List[info[#info]] end, function(info, value) E.db.sle.armory.stats.List[info[#info]] = value PaperDollFrame_UpdateStats() end)
+	local Attack = Stats.Attack.args
+	Attack.ATTACK_DAMAGE = ACH:Toggle(L["Damage"], nil, 1)
+	Attack.ATTACK_AP = ACH:Toggle(L["Attack Power"], nil, 2)
+	Attack.ATTACK_ATTACKSPEED = ACH:Toggle(L["Attack Speed"], nil, 3)
+	Attack.SPELLPOWER = ACH:Toggle(L["Spell Power"], nil, 4)
+	Attack.MANAREGEN = ACH:Toggle(L["Mana Regen"], nil, 5)
+	Attack.ENERGY_REGEN = ACH:Toggle(L["Energy Regen"], nil, 6)
+	Attack.RUNE_REGEN = ACH:Toggle(L["Rune Speed"], nil, 7)
+	Attack.FOCUS_REGEN = ACH:Toggle(L["Focus Regen"], nil, 8)
+
+	--* Enhancements
+	Stats.Enhancements = ACH:Group(L["Enhancements"], nil, 35, nil, function(info) return E.db.sle.armory.stats.List[info[#info]] end, function(info, value) E.db.sle.armory.stats.List[info[#info]] = value PaperDollFrame_UpdateStats() end)
+	local Enhancements = Stats.Enhancements.args
+	Enhancements.CRITCHANCE = ACH:Toggle(L["Critical Strike"], nil, 1)
+	Enhancements.HASTE = ACH:Toggle(L["Haste"], nil, 2)
+	Enhancements.MASTERY = ACH:Toggle(L["Mastery"], nil, 3)
+	Enhancements.VERSATILITY = ACH:Toggle(L["Versatility"], nil, 4)
+	Enhancements.LIFESTEAL = ACH:Toggle(L["Leech"], nil, 5)
+
+	--* Defense
+	Stats.Defense = ACH:Group(L["Defense"], nil, 40, nil, function(info) return E.db.sle.armory.stats.List[info[#info]] end, function(info, value) E.db.sle.armory.stats.List[info[#info]] = value PaperDollFrame_UpdateStats() end)
+	local Defense = Stats.Defense.args
+	Defense.ARMOR = ACH:Toggle(L["Armor"], nil, 1)
+	Defense.AVOIDANCE = ACH:Toggle(L["Avoidance"], nil, 2)
+	Defense.DODGE = ACH:Toggle(L["Dodge"], nil, 3)
+	Defense.PARRY = ACH:Toggle(L["Parry"], nil, 4)
+	Defense.BLOCK = ACH:Toggle(L["Block"], nil, 5)
 end
 
 tinsert(SLE.Configs, configTable)

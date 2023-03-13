@@ -173,16 +173,16 @@ E.PopupDialogs['SLE_APPLY_FONT_WARNING'] = {
 		E.db.sle.armory.character.enchant.fontStyle = fontOutline
 
 		E.db.sle.armory.stats.itemLevel.font = font
-		E.db.sle.armory.stats.itemLevel.size = fontSize
-		E.db.sle.armory.stats.itemLevel.outline = fontOutline
+		E.db.sle.armory.stats.itemLevel.fontSize = fontSize
+		E.db.sle.armory.stats.itemLevel.fontOutline = fontOutline
 
-		E.db.sle.armory.stats.statFonts.font = font
-		E.db.sle.armory.stats.statFonts.size = fontSize
-		E.db.sle.armory.stats.statFonts.outline = fontOutline
+		E.db.sle.armory.stats.statLabels.font = font
+		E.db.sle.armory.stats.statLabels.fontSize = fontSize
+		E.db.sle.armory.stats.statLabels.fontOutline = fontOutline
 
-		E.db.sle.armory.stats.catFonts.font = font
-		E.db.sle.armory.stats.catFonts.size = fontSize
-		E.db.sle.armory.stats.catFonts.outline = fontOutline
+		E.db.sle.armory.stats.statHeaders.font = font
+		E.db.sle.armory.stats.statHeaders.fontSize = fontSize
+		E.db.sle.armory.stats.statHeaders.fontOutline = fontOutline
 
 		E.db.sle.armory.inspect.ilvl.font = font
 		E.db.sle.armory.inspect.ilvl.fontSize = fontSize

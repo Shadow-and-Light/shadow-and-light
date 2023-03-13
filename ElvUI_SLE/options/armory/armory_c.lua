@@ -1,4 +1,5 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SA = SLE.Armory_Stats
 local M = E.Misc
 
 local _G = _G
@@ -52,7 +53,7 @@ local function configTable()
 				hidden = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.character end,
 				disabled = function() return (SLE._Compatibility['DejaCharacterStats'] or not E.private.skins.blizzard.enable) end,
 				get = function() return E.db.sle.armory.stats.enable end,
-				set = function(_, value) E.db.sle.armory.stats.enable = value; SLE.Armory_Stats:ToggleArmory() end
+				set = function(_, value) E.db.sle.armory.stats.enable = value; SA:ToggleFunctionHooks() SLE.Armory_Stats:ToggleArmory() end
 			},
 			GoToElv = {
 				order = 100,

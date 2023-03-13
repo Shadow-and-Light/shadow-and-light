@@ -153,24 +153,64 @@ P["sle"] = {
 		["stats"] = {
 			["enable"] = true,
 			["decimals"] = true,
-			["itemLevel"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 12,
-				["outline"] = "",
+			itemLevel = {
+				font = 'PT Sans Narrow',
+				fontSize = 12,
+				fontOutline = 'NONE',
 			},
 			["IlvlFull"] = true,
 			["IlvlColor"] = false,
 			["AverageColor"] = {r = 0, g = 1, b = .59},
 			["OnlyPrimary"] = true,
-			["statFonts"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 12,
-				["outline"] = "",
+			statHeaders = {
+				font = 'PT Sans Narrow',
+				fontSize = 12,
+				fontOutline = 'NONE',
 			},
-			["catFonts"] = {
-				["font"] = "PT Sans Narrow",
-				["size"] = 12,
-				["outline"] = "",
+			statLabels = {
+				font = 'PT Sans Narrow',
+				fontSize = 12,
+				fontOutline = 'NONE',
+			},
+			gradient = {
+				style = 'blizzard',
+			},
+			textReplacements = {			-- English Locale References
+				--* Attributes
+				SPELL_STAT1_NAME = '',		-- Strength
+				SPELL_STAT2_NAME = '',		-- Agility
+				SPELL_STAT3_NAME = '',		-- Stamina
+				SPELL_STAT4_NAME = '',		-- Intellect
+				HEALTH = '',				-- Health
+				MANA = '',					-- Mana
+				RAGE = '',					-- Rage
+				FOCUS = '',					-- Focus
+				ENERGY = '',				-- Energy
+				FURY = '',					-- Fury
+				STAT_MOVEMENT_SPEED = '',	-- Movement Speed
+				--* Attack
+				DAMAGE = '',				-- Damage
+				STAT_ATTACK_POWER = '',		-- Attack Power
+				WEAPON_SPEED = '',			-- Attack Speed
+				STAT_SPELLPOWER = '',		-- Spell Power
+				MANA_REGEN = '',			-- Mana Regen
+				STAT_ENERGY_REGEN = '',		-- Energy Regen
+				STAT_FOCUS_REGEN = '',		-- Focus Regen
+				STAT_RUNE_REGEN = '',		-- Rune Speed
+				--* Enhancements
+				STAT_CRITICAL_STRIKE = '',	-- Critical Strike
+				STAT_HASTE = '',			-- Haste
+				STAT_MASTERY = '',			-- Mastery
+				STAT_VERSATILITY = '',		-- Versatility
+				STAT_LIFESTEAL = '',		-- Leech
+				STAT_SPEED = '',			-- Speed
+				--* Defense
+				STAT_ARMOR = '',			-- Armor
+				STAT_AVOIDANCE = '',		-- Avoidance
+				STAT_DODGE = '',			-- Dodge
+				STAT_PARRY = '',			-- Parry
+				STAT_BLOCK = '',			-- Block
+				STAT_STAGGER = '',			-- Stagger
 			},
 			["List"] = {
 				--* Attributes

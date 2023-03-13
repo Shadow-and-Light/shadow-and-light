@@ -78,20 +78,48 @@ function SLE:DatabaseConversions()
 				end
 				if data.sle.armory.stats then
 					if data.sle.armory.stats.itemLevel then
-						if data.sle.armory.stats.itemLevel.outline and data.sle.armory.stats.itemLevel.outline == 'NONE' then
-							data.sle.armory.stats.itemLevel.outline = ''
+						if data.sle.armory.stats.itemLevel.size then
+							E.db.sle.armory.stats.itemLevel.fontSize = data.sle.armory.stats.itemLevel.size
+							data.sle.armory.stats.itemLevel.size = nil
 							profileChanged = true
 						end
-					end
-					if data.sle.armory.stats.statFonts then
-						if data.sle.armory.stats.statFonts.outline and data.sle.armory.stats.statFonts.outline == 'NONE' then
-							data.sle.armory.stats.statFonts.outline = ''
+						if data.sle.armory.stats.itemLevel.outline then
+							E.db.sle.armory.stats.itemLevel.fontOutline = data.sle.armory.stats.itemLevel.outline
+							data.sle.armory.stats.itemLevel.outline = nil
 							profileChanged = true
 						end
 					end
 					if data.sle.armory.stats.catFonts then
-						if data.sle.armory.stats.catFonts.outline and data.sle.armory.stats.catFonts.outline == 'NONE' then
-							data.sle.armory.stats.catFonts.outline = ''
+						if data.sle.armory.stats.catFonts.font then
+							E.db.sle.armory.stats.statHeaders.font = data.sle.armory.stats.catFonts.font
+							data.sle.armory.stats.catFonts.font = nil
+							profileChanged = true
+						end
+						if data.sle.armory.stats.catFonts.size then
+							E.db.sle.armory.stats.statHeaders.fontSize = data.sle.armory.stats.catFonts.size
+							data.sle.armory.stats.catFonts.size = nil
+							profileChanged = true
+						end
+						if data.sle.armory.stats.catFonts.outline then
+							E.db.sle.armory.stats.statHeaders.fontOutline = data.sle.armory.stats.catFonts.outline
+							data.sle.armory.stats.catFonts.outline = nil
+							profileChanged = true
+						end
+					end
+					if data.sle.armory.stats.statFonts then
+						if data.sle.armory.stats.statFonts.font then
+							E.db.sle.armory.stats.statLabels.font = data.sle.armory.stats.statFonts.font
+							data.sle.armory.stats.statFonts.font = nil
+							profileChanged = true
+						end
+						if data.sle.armory.stats.statFonts.size then
+							E.db.sle.armory.stats.statLabels.fontSize = data.sle.armory.stats.statFonts.size
+							data.sle.armory.stats.statFonts.size = nil
+							profileChanged = true
+						end
+						if data.sle.armory.stats.statFonts.outline then
+							E.db.sle.armory.stats.statLabels.fontOutline = data.sle.armory.stats.statFonts.outline
+							data.sle.armory.stats.statFonts.outline = nil
 							profileChanged = true
 						end
 					end
