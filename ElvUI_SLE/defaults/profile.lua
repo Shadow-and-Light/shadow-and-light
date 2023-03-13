@@ -173,12 +173,12 @@ P["sle"] = {
 				["outline"] = "",
 			},
 			["List"] = {
-				--General
+				--* Attributes
 				HEALTH = false,
 				POWER = false,
 				ALTERNATEMANA = false,
 				MOVESPEED = true,
-				--Attack
+				--* Attack
 				ATTACK_DAMAGE = true,
 				ATTACK_AP = false,
 				ATTACK_ATTACKSPEED = false,
@@ -187,13 +187,13 @@ P["sle"] = {
 				ENERGY_REGEN = false,
 				RUNE_REGEN = false,
 				FOCUS_REGEN = false,
-				--Enhancements
+				--* Enhancements
 				CRITCHANCE = true,
 				HASTE = true,
 				MASTERY = true,
 				VERSATILITY = true,
 				LIFESTEAL = true,
-				--Defense
+				--* Defense
 				ARMOR = true,
 				AVOIDANCE = true,
 				DODGE = true,
