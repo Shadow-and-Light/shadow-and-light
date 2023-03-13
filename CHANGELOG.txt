@@ -11,3 +11,5 @@ v4.61 ?/??/23
 • Objective Tracker: support professionheader text and add the underline
 • Objective Tracker: add MonthlyActivitiesHeader (tracking via Traveler's Log) text and underline support
 • fix merchant frame double wide skin
+• Armory: add gradient option for attributes section (Character Stats Panel)
+• Armory: Attributes (Chracter Stats Panel) label text can be altered to be shorter or whatever the user would like (Agi instead of Agility for example)
