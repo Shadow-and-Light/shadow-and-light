@@ -64,8 +64,8 @@ function SA:BuildNewStats()
 			},
 		},
 	}
-	if GetLocale() ~= "ruRU" then
-		SA.AlteredPaperdollStats[2].stats[8] = { stat = 'ATTACK_ATTACKSPEED', option = true, hideAt = 0, numericValue = 0 }
+	if GetLocale() ~= 'ruRU' then
+		SA.AlteredPaperdollStats[2].stats[8] = { stat = 'ATTACK_ATTACKSPEED', option = true, hideAt = 0 }
 	end
 end
 
@@ -853,7 +853,6 @@ local blizzFuncs = {
 	--* Attack
 	PaperDollFrame_SetDamage = PaperDollFrame_SetDamage,				-- Damage (DAMAGE)
 	PaperDollFrame_SetAttackPower = PaperDollFrame_SetAttackPower,		-- Attack Power (STAT_ATTACK_POWER)
-	PaperDollFrame_SetAttackSpeed = PaperDollFrame_SetAttackSpeed,		-- Attack Speed (WEAPON_SPEED)
 	PaperDollFrame_SetSpellPower = PaperDollFrame_SetSpellPower,		-- Spell Power (STAT_SPELLPOWER)
 	PaperDollFrame_SetManaRegen = PaperDollFrame_SetManaRegen,			-- Mana Regen (MANA_REGEN)
 	PaperDollFrame_SetEnergyRegen = PaperDollFrame_SetEnergyRegen,		-- Energy Regen (STAT_ENERGY_REGEN)
@@ -874,6 +873,10 @@ local blizzFuncs = {
 	PaperDollFrame_SetBlock = PaperDollFrame_SetBlock,					-- Block (STAT_BLOCK)
 	PaperDollFrame_SetStagger = PaperDollFrame_SetStagger,				-- Stagger (STAT_STAGGER)
 }
+
+if GetLocale() ~= 'ruRU' then
+	blizzFuncs['PaperDollFrame_SetAttackSpeed'] = PaperDollFrame_SetAttackSpeed		-- Attack Speed (WEAPON_SPEED)
+end
 
 function SA:ToggleFunctionHooks()
 	for k, v in pairs(blizzFuncs) do
