@@ -311,7 +311,7 @@ function CA:Enable()
 	_G.CharacterModelFrameBackgroundOverlay:SetPoint('BOTTOMRIGHT', _G.CharacterModelScene, 4, 0)
 
 	--Activating background
-	_G.PaperDollFrame.SLE_Armory_BG:Show()
+	if _G.PaperDollFrame.SLE_Armory_BG then _G.PaperDollFrame.SLE_Armory_BG:Show() end
 	CA:Update_BG()
 	CA:Update_ItemLevel()
 	CA:Update_Enchant()
