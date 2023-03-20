@@ -194,9 +194,8 @@ function SA:PaperDollFrame_UpdateStats()
 	statYOffset = 0
 
 	CharacterStatsPane.ItemLevelCategory:Show() --! Shouldnt need to call this
-	if not SLE._Compatibility['ElvUI_EltreumUI'] then
-		CharacterStatsPane.ItemLevelCategory.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.statHeaders.font), E.db.sle.armory.stats.statHeaders.fontSize, E.db.sle.armory.stats.statHeaders.fontOutline)
-	end
+	CharacterStatsPane.ItemLevelCategory.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.statHeaders.font), E.db.sle.armory.stats.statHeaders.fontSize, E.db.sle.armory.stats.statHeaders.fontOutline)
+	CharacterStatsPane.ItemLevelCategory.backdrop:SetHeight(E.db.sle.armory.stats.statHeaders.fontSize + 4)
 	CharacterStatsPane.ItemLevelFrame:Show()
 
 	local _, powerType = UnitPowerType('player')
@@ -225,10 +224,8 @@ function SA:PaperDollFrame_UpdateStats()
 
 	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
 		local catFrame = _G['CharacterStatsPane'][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame]
-
-		if not SLE._Compatibility['ElvUI_EltreumUI'] then
-			catFrame.Title:FontTemplate(E.LSM:Fetch('font', statHeaders.font), statHeaders.fontSize, statHeaders.fontOutline)
-		end
+		catFrame.Title:FontTemplate(E.LSM:Fetch('font', statHeaders.font), statHeaders.fontSize, statHeaders.fontOutline)
+		catFrame.Background:SetHeight(statHeaders.fontSize + 4)
 
 		local numStatInCat = 0
 
@@ -265,10 +262,9 @@ function SA:PaperDollFrame_UpdateStats()
 			if ( showStat ) then
 				statFrame.onEnterFunc = nil
 				PAPERDOLL_STATINFO[stat.stat].updateFunc(statFrame, 'player')
-				if not SLE._Compatibility['ElvUI_EltreumUI'] then
-					statFrame.Label:FontTemplate(E.LSM:Fetch('font', statLabels.font), statLabels.fontSize, statLabels.fontOutline)
-					statFrame.Value:FontTemplate(E.LSM:Fetch('font', statLabels.font), statLabels.fontSize, statLabels.fontOutline)
-				end
+				statFrame.Label:FontTemplate(E.LSM:Fetch('font', statLabels.font), statLabels.fontSize, statLabels.fontOutline)
+				statFrame.Value:FontTemplate(E.LSM:Fetch('font', statLabels.font), statLabels.fontSize, statLabels.fontOutline)
+
 				if ( not stat.hideAt or stat.hideAt ~= statFrame.numericValue ) then
 					if ( numStatInCat == 0 ) then
 						if ( lastAnchor ) then
@@ -283,11 +279,10 @@ function SA:PaperDollFrame_UpdateStats()
 						totalShown = totalShown + 1
 						numStatInCat = numStatInCat + 1
 						-- statFrame.Background:SetShown((numStatInCat % 2) == 0)
-						if not SLE._Compatibility['ElvUI_EltreumUI'] then
-							statFrame.Background:SetShown(false)
-							if statFrame.leftGrad then statFrame.leftGrad:Hide() end
-							if statFrame.rightGrad then statFrame.rightGrad:Hide() end
-						end
+						statFrame.Background:SetShown(false)
+						if statFrame.leftGrad then statFrame.leftGrad:Hide() end
+						if statFrame.rightGrad then statFrame.rightGrad:Hide() end
+
 						lastAnchor = statFrame
 					end
 					-- done with this stat frame, get the next one
@@ -322,13 +317,16 @@ function SA:UpdateIlvlFont()
 	local fontOutline = db.itemLevel.fontOutline
 	local gradient = db.gradient
 
-	if not SLE._Compatibility['ElvUI_EltreumUI'] then
-		_G.CharacterFrame.ItemLevelText:FontTemplate(font, fontSize, fontOutline)
-		ItemLevelFrame.Value:FontTemplate(font, fontSize, fontOutline)
-		ItemLevelFrame:SetHeight(fontSize)
-		ItemLevelFrame.Background:SetHeight(fontSize)
+	_G.CharacterFrame.ItemLevelText:FontTemplate(font, fontSize, fontOutline)
+	ItemLevelFrame.Value:FontTemplate(font, fontSize, fontOutline)
+	ItemLevelFrame:SetHeight(fontSize)
+	ItemLevelFrame.Background:SetHeight(fontSize)
+
+	if not E.db.general.itemLevel.displayCharacterInfo then
+		_G.CharacterFrame.ItemLevelText:SetText('')
 	end
 
+	if SLE._Compatibility['ElvUI_EltreumUI'] then return end
 	if gradient.style == 'levelupbg' then
 		if not ItemLevelFrame.bg then
 			ItemLevelFrame:LevelUpBG()
@@ -349,10 +347,6 @@ function SA:UpdateIlvlFont()
 	end
 	ItemLevelFrame.leftGrad:SetShown(gradient.style == 'blizzard')
 	ItemLevelFrame.rightGrad:SetShown(gradient.style == 'blizzard')
-
-	if not E.db.general.itemLevel.displayCharacterInfo then
-		_G.CharacterFrame.ItemLevelText:SetText('')
-	end
 end
 
 function SA:ToggleArmory()
