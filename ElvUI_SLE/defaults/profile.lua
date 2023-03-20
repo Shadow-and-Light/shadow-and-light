@@ -151,7 +151,6 @@ P["sle"] = {
 			},
 		},
 		["stats"] = {
-			["enable"] = true,
 			["decimals"] = true,
 			itemLevel = {
 				font = 'PT Sans Narrow',

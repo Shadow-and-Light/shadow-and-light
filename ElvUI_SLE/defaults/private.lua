@@ -5,6 +5,11 @@ V["skins"]["addons"] = {
 }
 
 V["sle"] = {
+	armory = {
+		stats = {
+			enable = true,
+		},
+	},
 	["equip"] = {
 		["enable"] = false,
 		["spam"] = false,

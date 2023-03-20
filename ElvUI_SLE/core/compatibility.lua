@@ -17,6 +17,7 @@ local _CompList = {
 	'TradeSkillMaster',
 	'WorldQuestTracker',
 	'oRA3',
+	'ElvUI_EltreumUI', --* Armory Stats
 }
 
 --Populate compatibility checks table

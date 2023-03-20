@@ -52,8 +52,8 @@ local function configTable()
 				desc = '',
 				hidden = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.character end,
 				disabled = function() return (SLE._Compatibility['DejaCharacterStats'] or not E.private.skins.blizzard.enable) end,
-				get = function() return E.db.sle.armory.stats.enable end,
-				set = function(_, value) E.db.sle.armory.stats.enable = value; SA:ToggleFunctionHooks() SLE.Armory_Stats:ToggleArmory() end
+				get = function() return E.private.sle.armory.stats.enable end,
+				set = function(_, value) E.private.sle.armory.stats.enable = value E:StaticPopup_Show('PRIVATE_RL') end
 			},
 			GoToElv = {
 				order = 100,

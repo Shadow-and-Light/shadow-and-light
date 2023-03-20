@@ -77,6 +77,11 @@ function SLE:DatabaseConversions()
 					end
 				end
 				if data.sle.armory.stats then
+					if data.sle.armory.stats.enable then
+						E.private.sle.armory.stats.enable = data.sle.armory.stats.enable
+						data.sle.armory.stats.enable = nil
+						profileChanged = true
+					end
 					if data.sle.armory.stats.itemLevel then
 						if data.sle.armory.stats.itemLevel.size then
 							E.db.sle.armory.stats.itemLevel.fontSize = data.sle.armory.stats.itemLevel.size
