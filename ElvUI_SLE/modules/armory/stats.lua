@@ -13,9 +13,23 @@ local GetCombatRatingBonus = GetCombatRatingBonus
 local totalShown = 0
 SA.OriginalPaperdollStats = E:CopyTable({}, PAPERDOLL_STATCATEGORIES)
 
+local function CreateStatCategory(catName, text)
+	local CharacterStatsPane = _G.CharacterStatsPane
+	if CharacterStatsPane[catName] then return end
+
+	CharacterStatsPane[catName] = CreateFrame('Frame', nil, CharacterStatsPane, 'CharacterStatFrameCategoryTemplate')
+	CharacterStatsPane[catName].Title:SetText(text)
+	CharacterStatsPane[catName]:StripTextures()
+	CharacterStatsPane[catName]:CreateBackdrop('Transparent')
+	CharacterStatsPane[catName].backdrop:ClearAllPoints()
+	CharacterStatsPane[catName].backdrop:SetPoint('CENTER')
+	CharacterStatsPane[catName].backdrop:SetWidth(150)
+	CharacterStatsPane[catName].backdrop:SetHeight(18)
+end
+
 function SA:BuildNewStats()
-	SA:CreateStatCategory('OffenseCategory', STAT_CATEGORY_ATTACK)
-	SA:CreateStatCategory('DefenseCategory', DEFENSE)
+	CreateStatCategory('OffenseCategory', STAT_CATEGORY_ATTACK)
+	CreateStatCategory('DefenseCategory', DEFENSE)
 
 	SA.AlteredPaperdollStats = {
 		[1] = {
@@ -70,31 +84,18 @@ function SA:BuildNewStats()
 	end
 end
 
-function SA:CreateStatCategory(catName, text)
-	if _G.CharacterStatsPane[catName] then return end
-
-	_G.CharacterStatsPane[catName] = CreateFrame('Frame', nil, _G.CharacterStatsPane, 'CharacterStatFrameCategoryTemplate')
-	_G.CharacterStatsPane[catName].Title:SetText(text)
-	_G.CharacterStatsPane[catName]:StripTextures()
-	_G.CharacterStatsPane[catName]:CreateBackdrop('Transparent')
-	_G.CharacterStatsPane[catName].backdrop:ClearAllPoints()
-	_G.CharacterStatsPane[catName].backdrop:SetPoint('CENTER')
-	_G.CharacterStatsPane[catName].backdrop:SetWidth(150)
-	_G.CharacterStatsPane[catName].backdrop:SetHeight(18)
-end
-
 function SA:BuildScrollBar() --Creating new scroll
 	--Scrollframe Parent Frame
-	SA.ScrollframeParentFrame = CreateFrame('Frame', 'SLE_Armory_ScrollParent', _G.CharacterFrameInsetRight)
-	SA.ScrollframeParentFrame:SetSize(198, 352)
-	SA.ScrollframeParentFrame:SetPoint('TOP', _G.CharacterFrameInsetRight, 'TOP', -4, -4)
+	local scrollFrameParent = CreateFrame('Frame', 'SL_Armory_ScrollParent', _G.CharacterFrameInsetRight)
+	scrollFrameParent:SetSize(198, 352)
+	scrollFrameParent:SetPoint('TOP', _G.CharacterFrameInsetRight, 'TOP', -4, -4)
 	--Scrollframe
-	SA.ScrollFrame = CreateFrame('ScrollFrame', 'SLE_Armory_Scroll', SA.ScrollframeParentFrame)
-	SA.ScrollFrame:SetPoint('TOP')
-	SA.ScrollFrame:SetSize(SA.ScrollframeParentFrame:GetSize())
+	local scrollFrame = CreateFrame('ScrollFrame', 'SL_Armory_ScrollFrame', scrollFrameParent)
+	scrollFrame:SetPoint('TOP')
+	scrollFrame:SetSize(scrollFrameParent:GetSize())
 
 	--Scrollbar
-	SA.Scrollbar = CreateFrame('Slider', nil, SA.ScrollFrame, 'UIPanelScrollBarTemplate')
+	SA.Scrollbar = CreateFrame('Slider', nil, scrollFrame, 'UIPanelScrollBarTemplate')
 	SA.Scrollbar:SetPoint('TOPLEFT', _G.CharacterFrameInsetRight, 'TOPRIGHT', -12, -20)
 	SA.Scrollbar:SetPoint('BOTTOMLEFT', _G.CharacterFrameInsetRight, 'BOTTOMRIGHT', -12, 18)
 	SA.Scrollbar:SetMinMaxValues(1, 2)
@@ -109,41 +110,42 @@ function SA:BuildScrollBar() --Creating new scroll
 	SLE.Skins:ConvertScrollBarToThin(SA.Scrollbar)
 	SA.Scrollbar:Hide()
 
-	SA.ScrollChild = CreateFrame('Frame', nil, SA.ScrollFrame)
-	SA.ScrollChild:SetSize(SA.ScrollFrame:GetSize())
-	SA.ScrollFrame:SetScrollChild(SA.ScrollChild)
+	SA.ScrollChild = CreateFrame('Frame', nil, scrollFrame)
+	SA.ScrollChild:SetSize(scrollFrame:GetSize())
+	scrollFrame:SetScrollChild(SA.ScrollChild)
 
+	local CharacterStatsPane = _G.CharacterStatsPane
 	CharacterStatsPane:ClearAllPoints()
 	CharacterStatsPane:SetParent(SA.ScrollChild)
 	CharacterStatsPane:SetSize(SA.ScrollChild:GetSize())
 	CharacterStatsPane:SetPoint('TOP', SA.ScrollChild, 'TOP', 0, 0)
 
 	CharacterStatsPane.ClassBackground:ClearAllPoints()
-	CharacterStatsPane.ClassBackground:SetParent( _G["CharacterFrameInsetRight"])
-	CharacterStatsPane.ClassBackground:SetPoint("CENTER")
+	CharacterStatsPane.ClassBackground:SetParent(_G.CharacterFrameInsetRight)
+	CharacterStatsPane.ClassBackground:SetPoint('CENTER')
 
 	-- Enable mousewheel scrolling
-	SA.ScrollFrame:EnableMouseWheel(true)
-	SA.ScrollFrame:SetScript('OnMouseWheel', function(_, delta)
+	scrollFrame:EnableMouseWheel(true)
+	scrollFrame:SetScript('OnMouseWheel', function(_, delta)
 		local cur_val = SA.Scrollbar:GetValue()
 
 		SA.Scrollbar:SetValue(cur_val - delta*totalShown) --This controls the speed of the scroll
 	end)
 
 	PaperDollSidebarTab1:HookScript('OnShow', function()
-		SA.ScrollframeParentFrame:Show()
+		scrollFrameParent:Show()
 	end)
 
 	PaperDollSidebarTab1:HookScript('OnClick', function()
-		SA.ScrollframeParentFrame:Show()
+		scrollFrameParent:Show()
 	end)
 
 	PaperDollSidebarTab2:HookScript('OnClick', function()
-		SA.ScrollframeParentFrame:Hide()
+		scrollFrameParent:Hide()
 	end)
 
 	PaperDollSidebarTab3:HookScript('OnClick', function()
-		SA.ScrollframeParentFrame:Hide()
+		scrollFrameParent:Hide()
 	end)
 end
 
@@ -167,6 +169,7 @@ end
 function SA:PaperDollFrame_UpdateStats()
 	totalShown = 0
 	local categoryYOffset, statYOffset = 0, 0
+	local CharacterStatsPane = _G.CharacterStatsPane
 
 	if E.db.sle.armory.stats.enable then
 		if E.db.sle.armory.stats.IlvlFull then
@@ -174,25 +177,25 @@ function SA:PaperDollFrame_UpdateStats()
 			if E.db.sle.armory.stats.IlvlColor then
 				local r, g, b = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
 				local avColor = E.db.sle.armory.stats.AverageColor
-				_G.CharacterStatsPane.ItemLevelFrame.Value:SetFormattedText('%s%.2f|r |cffffffff/|r %s%.2f|r', E:RGBToHex(r, g, b), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
+				CharacterStatsPane.ItemLevelFrame.Value:SetFormattedText('%s%.2f|r |cffffffff/|r %s%.2f|r', E:RGBToHex(r, g, b), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
 			else
-				_G.CharacterStatsPane.ItemLevelFrame.Value:SetFormattedText('%.2f / %.2f', equipped, total)
+				CharacterStatsPane.ItemLevelFrame.Value:SetFormattedText('%.2f / %.2f', equipped, total)
 			end
 		else
-			_G.CharacterStatsPane.ItemLevelFrame.Value:SetTextColor(GetItemLevelColor())
-			PaperDollFrame_SetItemLevel(_G.CharacterStatsPane.ItemLevelFrame, 'player')
+			CharacterStatsPane.ItemLevelFrame.Value:SetTextColor(GetItemLevelColor())
+			PaperDollFrame_SetItemLevel(CharacterStatsPane.ItemLevelFrame, 'player')
 		end
 
-		_G.CharacterStatsPane.ItemLevelCategory:SetPoint('TOP', _G.CharacterStatsPane, 'TOP', 0, 8)
-		_G.CharacterStatsPane.AttributesCategory:SetPoint('TOP', _G.CharacterStatsPane.ItemLevelFrame, 'BOTTOM', 0, 2)
+		CharacterStatsPane.ItemLevelCategory:SetPoint('TOP', CharacterStatsPane, 'TOP', 0, 8)
+		CharacterStatsPane.AttributesCategory:SetPoint('TOP', CharacterStatsPane.ItemLevelFrame, 'BOTTOM', 0, 2)
 
 		categoryYOffset = 8
 		statYOffset = 0
 	end
 
 	_G.CharacterStatsPane.ItemLevelCategory:Show()
-	_G.CharacterStatsPane.ItemLevelCategory.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statHeaders.font or E.db.general.itemLevel.itemLevelFont), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statHeaders.fontSize or (E.db.general.itemLevel.itemLevelFontSize or 12), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statHeaders.fontOutline or 'NONE')
-	_G.CharacterStatsPane.ItemLevelFrame:Show()
+	CharacterStatsPane.ItemLevelCategory.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statHeaders.font or E.db.general.itemLevel.itemLevelFont), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statHeaders.fontSize or (E.db.general.itemLevel.itemLevelFontSize or 12), E.db.sle.armory.stats.enable and E.db.sle.armory.stats.statHeaders.fontOutline or 'NONE')
+	CharacterStatsPane.ItemLevelFrame:Show()
 
 	local _, powerType = UnitPowerType('player')
 	local spec, role
@@ -201,10 +204,10 @@ function SA:PaperDollFrame_UpdateStats()
 		role = GetSpecializationRole(spec)
 	end
 
-	_G.CharacterStatsPane.statsFramePool:ReleaseAll()
+	CharacterStatsPane.statsFramePool:ReleaseAll()
 	-- we need a stat frame to first do the math to know if we need to show the stat frame
 	-- so effectively we'll always pre-allocate
-	local statFrame = _G.CharacterStatsPane.statsFramePool:Acquire()
+	local statFrame = CharacterStatsPane.statsFramePool:Acquire()
 
 	local lastAnchor
 	local statLabels = {
@@ -278,14 +281,14 @@ function SA:PaperDollFrame_UpdateStats()
 						lastAnchor = statFrame
 					end
 					-- done with this stat frame, get the next one
-					statFrame = _G.CharacterStatsPane.statsFramePool:Acquire()
+					statFrame = CharacterStatsPane.statsFramePool:Acquire()
 				end
 			end
 		end
 		catFrame:SetShown(numStatInCat > 0)
 	end
 	-- release the current stat frame
-	_G.CharacterStatsPane.statsFramePool:Release(statFrame)
+	CharacterStatsPane.statsFramePool:Release(statFrame)
 	if SA.Scrollbar then
 		if totalShown > 14 then
 			SA.Scrollbar:SetMinMaxValues(1, totalShown*Armory.Constants.Stats.ScrollStepMultiplier)
@@ -370,13 +373,14 @@ end
 --* Attributes
 --! Uses PaperDollFrame_SetStat (check for Str, Agi, Int, Sta)
 local function PaperDollFrame_SetStat(statFrame, unit, statIndex) --! Text Replaced Done
+	if not statIndex then return end -- just a precaution
 	if unit ~= 'player' then statFrame:Hide() return end
+
 	local label, isReplaced = GetLabelReplacement('SPELL_STAT'..statIndex..'_NAME')
 	if not isReplaced then return end
 
 	local _, effectiveStat, _, negBuff = UnitStat(unit, statIndex)
 	local effectiveStatDisplay = BreakUpLargeNumbers(effectiveStat)
-
 	if ( negBuff < 0 and not GetPVPGearStatRules() ) then
 		effectiveStatDisplay = RED_FONT_COLOR_CODE..effectiveStatDisplay..FONT_COLOR_CODE_CLOSE
 	end
@@ -399,11 +403,12 @@ local function PaperDollFrame_SetPower(statFrame, unit) --! Text Replaced Done (
 	if not unit then unit = 'player' end
 
 	local _, powerToken = UnitPowerType(unit)
-	local power = UnitPowerMax(unit) or 0
-	local powerText = BreakUpLargeNumbers(power)
 	if powerToken and _G[powerToken] then
 		local label, isReplaced = GetLabelReplacement(powerToken)
 		if not isReplaced then return end
+
+		local power = UnitPowerMax(unit) or 0
+		local powerText = BreakUpLargeNumbers(power)
 
 		PaperDollFrame_SetLabelAndText(statFrame, label, powerText, false, power)
 	end
