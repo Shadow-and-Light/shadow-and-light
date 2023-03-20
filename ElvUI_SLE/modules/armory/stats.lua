@@ -218,9 +218,9 @@ function SA:PaperDollFrame_UpdateStats()
 		fontOutline = E.db.sle.armory.stats.statLabels.fontOutline,
 	}
 	local statHeaders = {
-		font = E.db.sle.armory.stats.statLabels.font,
-		fontSize = E.db.sle.armory.stats.statLabels.fontSize,
-		fontOutline = E.db.sle.armory.stats.statLabels.fontOutline,
+		font = E.db.sle.armory.stats.statHeaders.font,
+		fontSize = E.db.sle.armory.stats.statHeaders.fontSize,
+		fontOutline = E.db.sle.armory.stats.statHeaders.fontOutline,
 	}
 
 	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
