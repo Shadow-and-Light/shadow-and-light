@@ -194,7 +194,9 @@ function SA:PaperDollFrame_UpdateStats()
 	statYOffset = 0
 
 	CharacterStatsPane.ItemLevelCategory:Show() --! Shouldnt need to call this
-	CharacterStatsPane.ItemLevelCategory.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.statHeaders.font), E.db.sle.armory.stats.statHeaders.fontSize, E.db.sle.armory.stats.statHeaders.fontOutline)
+	if not SLE._Compatibility['ElvUI_EltreumUI'] then
+		CharacterStatsPane.ItemLevelCategory.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.statHeaders.font), E.db.sle.armory.stats.statHeaders.fontSize, E.db.sle.armory.stats.statHeaders.fontOutline)
+	end
 	CharacterStatsPane.ItemLevelFrame:Show()
 
 	local _, powerType = UnitPowerType('player')
@@ -223,7 +225,11 @@ function SA:PaperDollFrame_UpdateStats()
 
 	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
 		local catFrame = _G['CharacterStatsPane'][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame]
-		catFrame.Title:FontTemplate(E.LSM:Fetch('font', statHeaders.font), statHeaders.fontSize, statHeaders.fontOutline)
+
+		if not SLE._Compatibility['ElvUI_EltreumUI'] then
+			catFrame.Title:FontTemplate(E.LSM:Fetch('font', statHeaders.font), statHeaders.fontSize, statHeaders.fontOutline)
+		end
+
 		local numStatInCat = 0
 
 		for statIndex = 1, #PAPERDOLL_STATCATEGORIES[catIndex].stats do
@@ -259,8 +265,10 @@ function SA:PaperDollFrame_UpdateStats()
 			if ( showStat ) then
 				statFrame.onEnterFunc = nil
 				PAPERDOLL_STATINFO[stat.stat].updateFunc(statFrame, 'player')
-				statFrame.Label:FontTemplate(E.LSM:Fetch('font', statLabels.font), statLabels.fontSize, statLabels.fontOutline)
-				statFrame.Value:FontTemplate(E.LSM:Fetch('font', statLabels.font), statLabels.fontSize, statLabels.fontOutline)
+				if not SLE._Compatibility['ElvUI_EltreumUI'] then
+					statFrame.Label:FontTemplate(E.LSM:Fetch('font', statLabels.font), statLabels.fontSize, statLabels.fontOutline)
+					statFrame.Value:FontTemplate(E.LSM:Fetch('font', statLabels.font), statLabels.fontSize, statLabels.fontOutline)
+				end
 				if ( not stat.hideAt or stat.hideAt ~= statFrame.numericValue ) then
 					if ( numStatInCat == 0 ) then
 						if ( lastAnchor ) then
@@ -275,9 +283,11 @@ function SA:PaperDollFrame_UpdateStats()
 						totalShown = totalShown + 1
 						numStatInCat = numStatInCat + 1
 						-- statFrame.Background:SetShown((numStatInCat % 2) == 0)
-						statFrame.Background:SetShown(false)
-						if statFrame.leftGrad then statFrame.leftGrad:Hide() end
-						if statFrame.rightGrad then statFrame.rightGrad:Hide() end
+						if not SLE._Compatibility['ElvUI_EltreumUI'] then
+							statFrame.Background:SetShown(false)
+							if statFrame.leftGrad then statFrame.leftGrad:Hide() end
+							if statFrame.rightGrad then statFrame.rightGrad:Hide() end
+						end
 						lastAnchor = statFrame
 					end
 					-- done with this stat frame, get the next one
@@ -290,7 +300,7 @@ function SA:PaperDollFrame_UpdateStats()
 	-- release the current stat frame
 	CharacterStatsPane.statsFramePool:Release(statFrame)
 	if SA.Scrollbar then
-		if totalShown > 14 then
+		if SLE._Compatibility['ElvUI_EltreumUI'] or totalShown > 14 then
 			SA.Scrollbar:SetMinMaxValues(1, totalShown*Armory.Constants.Stats.ScrollStepMultiplier)
 			SA.Scrollbar:Show()
 		else
@@ -304,18 +314,20 @@ end
 function SA:UpdateIlvlFont()
 	if not E.private.sle.armory.stats.enable then return end
 
+	local ItemLevelFrame = _G.CharacterStatsPane.ItemLevelFrame
+
 	local db = E.db.sle.armory.stats
 	local font = E.LSM:Fetch('font', db.itemLevel.font)
 	local fontSize = db.itemLevel.fontSize
 	local fontOutline = db.itemLevel.fontOutline
 	local gradient = db.gradient
 
-	_G.CharacterFrame.ItemLevelText:FontTemplate(font, fontSize, fontOutline)
-
-	local ItemLevelFrame = _G.CharacterStatsPane.ItemLevelFrame
-	ItemLevelFrame.Value:FontTemplate(font, fontSize, fontOutline)
-	ItemLevelFrame:SetHeight(fontSize)
-	ItemLevelFrame.Background:SetHeight(fontSize)
+	if not SLE._Compatibility['ElvUI_EltreumUI'] then
+		_G.CharacterFrame.ItemLevelText:FontTemplate(font, fontSize, fontOutline)
+		ItemLevelFrame.Value:FontTemplate(font, fontSize, fontOutline)
+		ItemLevelFrame:SetHeight(fontSize)
+		ItemLevelFrame.Background:SetHeight(fontSize)
+	end
 
 	if gradient.style == 'levelupbg' then
 		if not ItemLevelFrame.bg then
@@ -925,7 +937,7 @@ function SA:ToggleFunctionHooks()
 end
 
 function SA:LoadAndSetup()
-	if not E.private.sle.armory.stats.enable or SLE._Compatibility['DejaCharacterStats'] or SLE._Compatibility['ElvUI_EltreumUI'] then return end
+	if not E.private.sle.armory.stats.enable or SLE._Compatibility['DejaCharacterStats'] then return end
 
 	SA:ToggleFunctionHooks()
 	BuildScrollBar()
