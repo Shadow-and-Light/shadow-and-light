@@ -9,7 +9,8 @@ local format = format
 local GetAverageItemLevel, BreakUpLargeNumbers = GetAverageItemLevel, BreakUpLargeNumbers
 local UnitClass = UnitClass
 local GetCombatRatingBonus = GetCombatRatingBonus
-SA.totalShown = 0
+
+local totalShown = 0
 SA.OriginalPaperdollStats = E:CopyTable({}, PAPERDOLL_STATCATEGORIES)
 
 function SA:BuildNewStats()
@@ -102,7 +103,7 @@ function SA:BuildScrollBar() --Creating new scroll
 	SA.Scrollbar:SetValue(0)
 	SA.Scrollbar:SetWidth(8)
 	SA.Scrollbar:SetScript('OnValueChanged', function(frame, value)
-		local offset = value > 1 and frame:GetParent():GetVerticalScrollRange()/(SA.totalShown*Armory.Constants.Stats.ScrollStepMultiplier) or 1
+		local offset = value > 1 and frame:GetParent():GetVerticalScrollRange()/(totalShown*Armory.Constants.Stats.ScrollStepMultiplier) or 1
 		frame:GetParent():SetVerticalScroll(value*offset)
 	end)
 	SLE.Skins:ConvertScrollBarToThin(SA.Scrollbar)
@@ -126,7 +127,7 @@ function SA:BuildScrollBar() --Creating new scroll
 	SA.ScrollFrame:SetScript('OnMouseWheel', function(_, delta)
 		local cur_val = SA.Scrollbar:GetValue()
 
-		SA.Scrollbar:SetValue(cur_val - delta*SA.totalShown) --This controls the speed of the scroll
+		SA.Scrollbar:SetValue(cur_val - delta*totalShown) --This controls the speed of the scroll
 	end)
 
 	PaperDollSidebarTab1:HookScript('OnShow', function()
@@ -164,7 +165,7 @@ function SA:UpdateCharacterItemLevel(frame, which)
 end
 
 function SA:PaperDollFrame_UpdateStats()
-	SA.totalShown = 0
+	totalShown = 0
 	local categoryYOffset, statYOffset = 0, 0
 
 	if E.db.sle.armory.stats.enable then
@@ -268,7 +269,7 @@ function SA:PaperDollFrame_UpdateStats()
 						statFrame:SetPoint('TOP', lastAnchor, 'BOTTOM', 0, statYOffset)
 					end
 					if statFrame:IsShown() then
-						SA.totalShown = SA.totalShown + 1
+						totalShown = totalShown + 1
 						numStatInCat = numStatInCat + 1
 						-- statFrame.Background:SetShown((numStatInCat % 2) == 0)
 						statFrame.Background:SetShown(false)
@@ -286,8 +287,8 @@ function SA:PaperDollFrame_UpdateStats()
 	-- release the current stat frame
 	_G.CharacterStatsPane.statsFramePool:Release(statFrame)
 	if SA.Scrollbar then
-		if SA.totalShown > 14 then
-			SA.Scrollbar:SetMinMaxValues(1, SA.totalShown*Armory.Constants.Stats.ScrollStepMultiplier)
+		if totalShown > 14 then
+			SA.Scrollbar:SetMinMaxValues(1, totalShown*Armory.Constants.Stats.ScrollStepMultiplier)
 			SA.Scrollbar:Show()
 		else
 			SA.Scrollbar:SetMinMaxValues(1, 1)
