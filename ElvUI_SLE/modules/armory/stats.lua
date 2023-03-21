@@ -295,7 +295,7 @@ function SA:PaperDollFrame_UpdateStats()
 	-- release the current stat frame
 	CharacterStatsPane.statsFramePool:Release(statFrame)
 	if SA.Scrollbar then
-		if SLE._Compatibility['ElvUI_EltreumUI'] or totalShown > 14 then
+		if (SLE._Compatibility['ElvUI_EltreumUI'] and E.db.ElvUI_EltreumUI.skins.classicarmory) or totalShown > 14 then
 			SA.Scrollbar:SetMinMaxValues(1, totalShown*Armory.Constants.Stats.ScrollStepMultiplier)
 			SA.Scrollbar:Show()
 		else
@@ -319,14 +319,20 @@ function SA:UpdateIlvlFont()
 
 	_G.CharacterFrame.ItemLevelText:FontTemplate(font, fontSize, fontOutline)
 	ItemLevelFrame.Value:FontTemplate(font, fontSize, fontOutline)
-	ItemLevelFrame:SetHeight(fontSize)
-	ItemLevelFrame.Background:SetHeight(fontSize)
+	ItemLevelFrame:SetHeight(fontSize + 5)
+	ItemLevelFrame.Background:SetHeight(fontSize + 5)
+	ItemLevelFrame.Value:SetJustifyV('MIDDLE')
 
 	if not E.db.general.itemLevel.displayCharacterInfo then
 		_G.CharacterFrame.ItemLevelText:SetText('')
 	end
 
-	if SLE._Compatibility['ElvUI_EltreumUI'] then return end
+	if SLE._Compatibility['ElvUI_EltreumUI'] and E.db.ElvUI_EltreumUI.skins.classicarmory then
+		ItemLevelFrame.leftGrad:SetHeight(fontSize + 5)
+		ItemLevelFrame.rightGrad:SetHeight(fontSize + 5)
+		return
+	end
+
 	if gradient.style == 'levelupbg' then
 		if not ItemLevelFrame.bg then
 			ItemLevelFrame:LevelUpBG()
@@ -336,8 +342,8 @@ function SA:UpdateIlvlFont()
 		ItemLevelFrame.bg:Point('TOPLEFT', ItemLevelFrame, 0, 3)
 		ItemLevelFrame.bg:Point('BOTTOMRIGHT', ItemLevelFrame, 0, -2)
 	elseif gradient.style == 'blizzard' then
-		ItemLevelFrame.leftGrad:SetHeight(fontSize)
-		ItemLevelFrame.rightGrad:SetHeight(fontSize)
+		ItemLevelFrame.leftGrad:SetHeight(fontSize + 5)
+		ItemLevelFrame.rightGrad:SetHeight(fontSize + 5)
 	end
 
 	if ItemLevelFrame.bg then
