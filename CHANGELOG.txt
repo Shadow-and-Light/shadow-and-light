@@ -1,4 +1,4 @@
-v4.61 ?/??/23
+v4.61 3/28/23
 
 • Equipment Set Icon in bags fixed when having 2 of the same named item in the bag and only one is part of an equipment set
 • Add Azur Vault Port to the location panel
