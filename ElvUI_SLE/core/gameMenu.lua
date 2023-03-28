@@ -21,7 +21,7 @@ function SLE:BuildGameMenu()
 		},
 	}
 	if E.global.sle.advanced.gameMenu.reload then
-		tinsert(buttons, {name = 'GameMenuReloadUI', text = L["Reload UI"], func = function() ReloadUI() end})
+		tinsert(buttons, {name = 'GameMenuReloadUI', text = E.global.sle.advanced.gameMenu.reloadLabel ~= "" and E.global.sle.advanced.gameMenu.reloadLabel or L["Reload UI"], func = function() ReloadUI() end})
 	end
 	for i = 1, #buttons do
 		lib:AddMenuButton(buttons[i])

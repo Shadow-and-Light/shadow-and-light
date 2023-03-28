@@ -125,6 +125,7 @@ G["sle"] = {
 		["gameMenu"] = {
 			["enable"] = true,
 			["reload"] = false,
+			["reloadLabel"] = "",
 		},
 		["confirmed"] = false,
 		["cyrillics"] = {

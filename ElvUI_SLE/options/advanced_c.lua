@@ -76,11 +76,26 @@ local function configTable()
 						desc = L["Adds |cff9482c9Shadow & Light|r buttons to main game menu."],
 						disabled = false,
 					},
-					reload = {
-						order = 2,
-						type = 'toggle',
+					rlButton = {
+						type = 'group',
 						name = L["Reload UI"],
+						guiInline = true,
+						args = {
+							reload = {
+								order = 2,
+								type = 'toggle',
+								name = L["Enable"],
+							},
+							reloadLabel = {
+								order = 3,
+								name = L["Label"],
+								type = "input",
+								width = "half",
+								disabled = function() return not E.global.sle.advanced.gameMenu.enable or not E.global.sle.advanced.gameMenu.reload end,
+							},
+						},
 					},
+					
 				},
 			},
 			cyrillics = {
