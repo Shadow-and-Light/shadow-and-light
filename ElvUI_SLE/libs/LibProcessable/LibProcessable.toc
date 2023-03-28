@@ -1,6 +1,6 @@
-## Interface: 100002
+## Interface: 100005
 ## Author: p3lim
-## Version: 58
+## Version: 61
 ## Title: Lib: Processable
 ## Notes: Library that lets you easily check if you can process resources
 ## OptionalDeps: LibStub

@@ -1,8 +1,28 @@
 # Lib: Processable
 
-## [57](https://github.com/p3lim-wow/LibProcessable/tree/57) (2022-10-28)
-[Full Changelog](https://github.com/p3lim-wow/LibProcessable/commits/57) [Previous Releases](https://github.com/p3lim-wow/LibProcessable/releases)
+## [61](https://github.com/p3lim-wow/LibProcessable/tree/61) (2023-03-02)
+[Full Changelog](https://github.com/p3lim-wow/LibProcessable/commits/61) [Previous Releases](https://github.com/p3lim-wow/LibProcessable/releases)
 
+- Update MINOR  
+- Support disenchanting Sophic Amalgamation  
+- Add support for engineering scrapping  
+- Update crafting API notes  
+- Update Interface version (#57)  
+    Co-authored-by: p3lim <p3lim@users.noreply.github.com>  
+- Update license (#56)  
+    Co-authored-by: p3lim <p3lim@users.noreply.github.com>  
+- Update version  
+- Fix incorrect return  
+- Update version  
+- Add more disenchantable items  
+- Update version  
+- Add support for disenchanting profession equipment  
+    Fixes p3lim-wow/Molinari#81  
+- Add special disenchantable items in Dragonflight  
+    Fixes p3lim-wow/Molinari#80  
+- Update Interface version (#55)  
+    Co-authored-by: p3lim <p3lim@users.noreply.github.com>  
+- Fix lint errors  
 - Update version  
 - Update Interface version  
 - Fix missing rank info  
@@ -158,20 +178,3 @@
     so just add them all to be safe.  
     Also sorted the list.  
     Fixes p3lim-wow/Molinari#47  
-- Update version  
-- Fix indentation  
-- Update lockboxes and profession picks  
-- Update docs with notes  
-- Update version  
-- Update Interface version (again)  
-- Clean up pkgmeta  
-- Dump a diff before we try to push docs  
-- Update version  
-- Fix IsOpenable itemLink support  
-- Add engineering "lockpicks"  
-- Adjust for Shadowlands lockpick levels  
-    Some are still missing info for  
-- Update/add commends and generalize the lockpick functions  
-- Update docs workflow  
-- Update license (#34)  
-    Co-authored-by: p3lim <p3lim@users.noreply.github.com>  

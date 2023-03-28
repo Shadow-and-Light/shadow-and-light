@@ -60,7 +60,7 @@ Returns whether the player can mill the given item.
 
 **Notes**:
 * since Dragonflight it's required to use the tradeskill API to mill, e.g:
-    `C_TradeSkillUI.CraftRecipe(prospectingSkillID, numCasts, {})`
+    `C_TradeSkillUI.CraftSalvage(millingSpellID, numCasts, ItemLocation)`
 --]]
 function lib:IsMillable(itemID, ignoreMortar)
 	if type(itemID) == 'string' then
@@ -100,7 +100,7 @@ Returns whether the player can prospect the given item.
 
 **Notes**:
 * since Dragonflight it's required to use the tradeskill API to prospect, e.g:
-    `C_TradeSkillUI.CraftRecipe(prospectingSkillID, numCasts, {})`
+    `C_TradeSkillUI.CraftSalvage(prospectingSpellID, numCasts, ItemLocation)`
 --]]
 function lib:IsProspectable(itemID)
 	if type(itemID) == 'string' then
@@ -160,6 +160,35 @@ function lib:IsDisenchantable(item)
 					or (class == LE_ITEM_CLASS_ARMOR and subClass ~= LE_ITEM_ARMOR_COSMETIC)
 					or (class == LE_ITEM_CLASS_GEM and subClass == LE_ITEM_SUBCLASS_ARTIFACT)
 					or class == LE_ITEM_CLASS_PROFESSION))
+		end
+	end
+end
+
+--[[ LibProcessable:IsScrappable(_item_)
+Returns whether the player can scrap the given item.
+
+**Arguments:**
+* `item`: item ID or link
+
+**Return values:**
+* `isScrappable`: Whether or not the player can scrap the given item _(boolean)_
+* `scrappingSpellID`: SpellID that needs to be used to scrap the given item _(number|nil)_
+
+**Notes**:
+* it's required to use the tradeskill API to scrap items, e.g:
+    `C_TradeSkillUI.CraftSalvage(scrappingSpellID, numCasts, ItemLocation)`
+--]]
+function lib:IsScrappable(item)
+	local itemID = item
+	if type(itemID) == 'string' then
+		assert(string.match(itemID, 'item:(%d+):') or tonumber(itemID), 'item must be an item ID or item Link')
+		itemID = (tonumber(itemID)) or (GetItemInfoFromHyperlink(itemID))
+	end
+
+	if self:HasProfession(LE_PROFESSION_ENGINEERING) then
+		if data.scrappableItems[itemID] then
+			-- special items that can be scrapped
+			return true, data.professionSkills[LE_PROFESSION_ENGINEERING][LE_EXPANSION_DRAGONFLIGHT]
 		end
 	end
 end
@@ -343,7 +372,7 @@ end
 --[[ LibProcessable:HasProfession(_professionID_)
 Returns whether the player has the given profession.
 
-Here's a table with the profession ID for each profession.
+Here's a table with the profession ID for each profession.  
 Source: <https://wowpedia.fandom.com/wiki/TradeSkillLineID>
 
 | Profession Name | Profession ID |
@@ -506,14 +535,10 @@ data.ores = {
 	[187700] = {LE_EXPANSION_SHADOWLANDS, 1}, -- Progenium Ore
 
 	-- UNTESTED DRAGONFLIGHT ORES:
-	[189143] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Draconium Ore (Quality 1)
-	[188658] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Draconium Ore (Quality 2)
-	[190311] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Draconium Ore (Quality 3)
-	[194545] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Prismatic Ore --! Don't think this is prospectable
-	[190313] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Khaz'gorite Ore --! Don't think this is prospectable
-	[190395] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Serevite Ore (Quality 1)
-	[190396] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Serevite Ore (Quality 2)
-	[190394] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Serevite Ore (Quality 3)
+	[188658] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Draconium Ore
+	[194545] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Prismatic Ore
+	[190313] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Titaniclum Ore
+	[190394] = {LE_EXPANSION_DRAGONFLIGHT, 1}, -- Tyrivite Ore
 }
 
 data.herbs = {
@@ -719,6 +744,11 @@ data.enchantingItems = {
 	[201357] = true, -- Glimmer of Frost
 	[201359] = true, -- Glimmer of Earth
 	[201356] = true, -- Glimmer of Fire
+	[200479] = true, -- Sophic Amalgamation
+}
+
+data.scrappableItems = {
+	[198651] = true, -- Piece of Scrap
 }
 
 -- /run ChatFrame1:Clear(); for _,i in next,{C_TradeSkillUI.GetCategories()} do print(i, C_TradeSkillUI.GetCategoryInfo(i).name) end
@@ -1019,5 +1049,8 @@ data.professionSkills = {
 		[LE_EXPANSION_BATTLE_FOR_AZEROTH] = 382984,
 		[LE_EXPANSION_SHADOWLANDS] = 382982,
 		[LE_EXPANSION_DRAGONFLIGHT] = 382981,
-	}
+	},
+	[LE_PROFESSION_ENGINEERING] = {
+		[LE_EXPANSION_DRAGONFLIGHT] = 382374, -- Rummage Through Scrap
+	},
 }
