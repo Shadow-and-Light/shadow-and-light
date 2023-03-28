@@ -149,6 +149,7 @@ function PI:DarthSetupDF()
 		E.db["actionbar"]["bar6"]["macroFontSize"] = 15
 		E.db["actionbar"]["bar6"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["bar6"]["visibility"] = "[petbattle] hide; show"
+		E.db["actionbar"]["bar6"]["flyoutDirection"] = "LEFT"
 
 		E.db["actionbar"]["bar7"]["countFont"] = "Expressway"
 		E.db["actionbar"]["bar7"]["countFontSize"] = 15
@@ -870,7 +871,7 @@ function PI:DarthSetupDF()
 	end
 	--Movers
 	do
-		E.db["movers"]["AlertFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,23"
+		E.db["movers"]["AlertFrameMover"] = "TOPLEFT,UIParent,TOPLEFT,335,-144"
 		E.db["movers"]["AltPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,359"
 		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-300"
 		E.db["movers"]["AzeriteBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,153"
@@ -1004,6 +1005,7 @@ function PI:DarthSetupDF()
 	E.private['sle']['pvp']['KBbanner']['enable'] = true
 
 	E.global['general']['fadeMapWhenMoving'] = false
+	E.global["general"]["WorldMapCoordinates"]["position"] = "BOTTOMRIGHT"
 	E.global['general']['commandBarSetting'] = 'DISABLED'
 	E.global['sle']['advanced']['optionsLimits'] = true
 
@@ -1854,19 +1856,19 @@ function PI:DarthAddons()
 				["outgoing"] = {
 					["enableFontShadow"] = false,
 					["Width"] = 98,
-					["font"] = "Expressway",
-					["fontSize"] = 13,
-					["Y"] = -245,
-					["X"] = 641,
+					["font"] = "PT Sans Narrow",
+					["fontSize"] = 12,
+					["Y"] = -249,
+					["X"] = 560,
 					["Height"] = 177,
 				},
 				["critical"] = {
 					["enableFontShadow"] = false,
 					["Width"] = 130,
-					["font"] = "Expressway",
+					["font"] = "PT Sans Narrow",
 					["fontSize"] = 16,
-					["Y"] = -249,
-					["X"] = 757,
+					["Y"] = -252,
+					["X"] = 674,
 					["Height"] = 174,
 				},
 				["power"] = {
@@ -1878,16 +1880,17 @@ function PI:DarthAddons()
 					["font"] = "PT Sans Narrow",
 				},
 				["healing"] = {
-					["enableClassNames"] = false,
+					["enableFontShadow"] = false,
 					["enableOverHeal"] = false,
-					["Width"] = 100,
-					["font"] = "Expressway",
+					["Width"] = 115,
+					["font"] = "PT Sans Narrow",
 					["enableRealmNames"] = false,
-					["fontSize"] = 13,
+					["fontSize"] = 12,
 					["showFriendlyHealers"] = false,
-					["Y"] = 47,
-					["X"] = 395,
-					["Height"] = 156,
+					["insertText"] = "top",
+					["Y"] = 34,
+					["X"] = 375,
+					["Height"] = 157,
 					["names"] = {
 						["PLAYER"] = {
 							["nameType"] = 0,
@@ -1896,22 +1899,23 @@ function PI:DarthAddons()
 							["nameType"] = 0,
 						},
 					},
-					["enableFontShadow"] = false,
+					["enableClassNames"] = false,
 				},
 				["loot"] = {
 					["enableFontShadow"] = false,
 					["Width"] = 232,
-					["font"] = "Expressway",
-					["fontSize"] = 13,
-					["Y"] = -99,
-					["X"] = 707,
+					["font"] = "PT Sans Narrow",
+					["fontSize"] = 12,
+					["Y"] = -102,
+					["X"] = 627,
 					["Height"] = 115,
 				},
 				["damage"] = {
 					["enableFontShadow"] = false,
-					["Width"] = 120,
-					["font"] = "Expressway",
-					["fontSize"] = 13,
+					["Width"] = 115,
+					["fontJustify"] = "RIGHT",
+					["font"] = "PT Sans Narrow",
+					["fontSize"] = 12,
 					["names"] = {
 						["PLAYER"] = {
 							["nameType"] = 0,
@@ -1923,9 +1927,8 @@ function PI:DarthAddons()
 							["nameType"] = 0,
 						},
 					},
-					["insertText"] = "bottom",
-					["Y"] = 47,
-					["X"] = 507,
+					["Y"] = 35,
+					["X"] = 490,
 					["Height"] = 157,
 				},
 			},
@@ -1943,6 +1946,7 @@ local function SetupCVars(Author)
 	SetCVar("cameraSmoothStyle", "0")
 	SetCVar("autoLootDefault", "1")
 	SetCVar("UberTooltips", "1")
+	SetCVar("minimapTrackingShowAll", "1")
 
 	SetAutoDeclineGuildInvites(true)
 	C_Container.SetInsertItemsLeftToRight(false)
