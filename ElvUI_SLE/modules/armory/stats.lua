@@ -79,9 +79,9 @@ function SA:BuildNewStats()
 			},
 		},
 	}
-	if GetLocale() ~= 'ruRU' or GetLocale() ~= 'deDE' then
-		SA.AlteredPaperdollStats[2].stats[8] = { stat = 'ATTACK_ATTACKSPEED', option = true, hideAt = 0 }
-	end
+
+	if GetLocale() == 'ruRU' or GetLocale() == 'deDE' then return end
+	SA.AlteredPaperdollStats[2].stats[8] = { stat = 'ATTACK_ATTACKSPEED', option = true, hideAt = 0 }
 end
 
 local function BuildScrollBar() --Creating new scroll
@@ -912,11 +912,11 @@ local blizzFuncs = {
 	M = { UpdateCharacterItemLevel = SA.UpdateCharacterItemLevel, ToggleItemLevelInfo = SA.UpdateCharacterItemLevel, UpdateAverageString = SA.UpdateCharacterItemLevel},
 }
 
-if GetLocale() ~= 'ruRU' or GetLocale() ~= 'deDE' then
-	blizzFuncs['PaperDollFrame_SetAttackSpeed'] = PaperDollFrame_SetAttackSpeed		-- Attack Speed (WEAPON_SPEED)
-end
-
 function SA:ToggleFunctionHooks()
+	if (GetLocale() ~= 'ruRU' or GetLocale() ~= 'deDE') and not blizzFuncs['PaperDollFrame_SetAttackSpeed'] then
+		blizzFuncs['PaperDollFrame_SetAttackSpeed'] = PaperDollFrame_SetAttackSpeed		-- Attack Speed (WEAPON_SPEED)
+	end
+
 	for k, v in pairs(blizzFuncs) do
 		if type(v) == 'table' then
 			for method, handler in pairs(v) do
