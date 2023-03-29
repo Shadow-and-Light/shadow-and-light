@@ -1,15 +1,3 @@
-v4.61 3/28/23
+v4.62 3/29/23
 
-• Equipment Set Icon in bags fixed when having 2 of the same named item in the bag and only one is part of an equipment set
-• Add Azur Vault Port to the location panel
-• remove add width option for character panel
-• fixed keybind text on last button being wrong
-• help prevent issues with moving frames in combat by not letting them move
-• try to tidy up the instance indicator icon when doing a guild group
-• Objective Tracker: add options to change font text and timer text of the stage block section
-• Objective Tracker: add community feast so the our backdrop can be seen on the stage block
-• Objective Tracker: support professionheader text and add the underline
-• Objective Tracker: add MonthlyActivitiesHeader (tracking via Traveler's Log) text and underline support
-• fix merchant frame double wide skin
-• Armory: add gradient option for attributes section (Character Stats Panel)
-• Armory: Attributes (Chracter Stats Panel) label text can be altered to be shorter or whatever the user would like (Agi instead of Agility for example)
+• hotfix for german locale error
