@@ -18,6 +18,7 @@ local ignoredLocales = {
 	ruRU = true,
 	esES = true,
 	deDE = true,
+	frFR = true,
 }
 
 local function CreateStatCategory(catName, text)
