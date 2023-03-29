@@ -13,14 +13,6 @@ local GetCombatRatingBonus = GetCombatRatingBonus
 local totalShown = 0
 SA.OriginalPaperdollStats = E:CopyTable({}, PAPERDOLL_STATCATEGORIES)
 
---! The following locales have issues with BreakUpLargeNumbers when dealing with the AttackSpeed, so just skip it when these locales are used
-local ignoredLocales = {
-	ruRU = true,
-	esES = true,
-	deDE = true,
-	frFR = true,
-}
-
 local function CreateStatCategory(catName, text)
 	local CharacterStatsPane = _G.CharacterStatsPane
 	if CharacterStatsPane[catName] then return end
@@ -63,6 +55,7 @@ function SA:BuildNewStats()
 				[5] = { stat = 'ENERGY_REGEN', option = true, power = 'ENERGY', hideAt = 0, roles = {'TANK', 'DAMAGER'},  classes = {'ROUGE', 'DRUID', 'MONK'} },
 				[6] = { stat = 'FOCUS_REGEN', option = true, power = 'FOCUS', hideAt = 0, classes = {'HUNTER'} },
 				[7] = { stat = 'RUNE_REGEN', option = true, power = 'RUNIC_POWER', hideAt = 0, classes = {'DEATHKNIGHT'} },
+				[8] = { stat = 'ATTACK_ATTACKSPEED', option = true, hideAt = 0 },
 			},
 		},
 		[3] = {
@@ -87,9 +80,6 @@ function SA:BuildNewStats()
 			},
 		},
 	}
-
-	-- if ignoredLocales[GetLocale()] then return end
-	-- SA.AlteredPaperdollStats[2].stats[8] = { stat = 'ATTACK_ATTACKSPEED', option = true, hideAt = 0 }
 end
 
 local function BuildScrollBar() --Creating new scroll
@@ -589,14 +579,40 @@ local function PaperDollFrame_SetAttackPower(statFrame, unit) --! Text Replaced 
 	PaperDollFrame_SetLabelAndText(statFrame, label, valueText, false, value)
 end
 
+--Overwriting original function with some additions cause Blizzard can't figure out the unified way to return decimal values
+function PaperDollFrame_SetAttackSpeed(statFrame, unit)
+	local meleeHaste = GetMeleeHaste();
+	local speed, offhandSpeed = UnitAttackSpeed(unit);
+
+	local displaySpeed = format("%.2F", speed);
+	displaySpeed = gsub(displaySpeed,",", ".") --decimals fix
+	if ( offhandSpeed ) then
+		offhandSpeed = format("%.2F", offhandSpeed);
+		offhandSpeed = gsub(offhandSpeed,",", ".") --decimals fix
+	end
+	if ( offhandSpeed ) then
+		displaySpeed =  BreakUpLargeNumbers(displaySpeed).." / ".. offhandSpeed;
+	else
+		displaySpeed =  BreakUpLargeNumbers(displaySpeed);
+	end
+	PaperDollFrame_SetLabelAndText(statFrame, WEAPON_SPEED, displaySpeed, false, speed);
+
+	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, ATTACK_SPEED).." "..displaySpeed..FONT_COLOR_CODE_CLOSE;
+	statFrame.tooltip2 = format(STAT_ATTACK_SPEED_BASE_TOOLTIP, BreakUpLargeNumbers(meleeHaste));
+
+	statFrame:Show();
+end
+
 local function PaperDollFrame_SetAttackSpeed(statFrame, unit) --! Text Replaced Done
 	local label, isReplaced = GetLabelReplacement('WEAPON_SPEED')
 	if not isReplaced then return end
 
 	local speed, offhandSpeed = UnitAttackSpeed(unit)
 	local displaySpeed = format("%.2F", speed)
+	displaySpeed = gsub(displaySpeed,",", ".") --decimals fix
 	if ( offhandSpeed ) then
 		offhandSpeed = format("%.2F", offhandSpeed)
+		offhandSpeed = gsub(offhandSpeed,",", ".") --decimals fix
 	end
 	if ( offhandSpeed ) then
 		displaySpeed =  BreakUpLargeNumbers(displaySpeed).." / ".. offhandSpeed
@@ -895,6 +911,7 @@ local blizzFuncs = {
 	--* Attack
 	PaperDollFrame_SetDamage = PaperDollFrame_SetDamage,				-- Damage (DAMAGE)
 	PaperDollFrame_SetAttackPower = PaperDollFrame_SetAttackPower,		-- Attack Power (STAT_ATTACK_POWER)
+	PaperDollFrame_SetAttackSpeed = PaperDollFrame_SetAttackSpeed,		-- Attack Speed (WEAPON_SPEED)
 	PaperDollFrame_SetSpellPower = PaperDollFrame_SetSpellPower,		-- Spell Power (STAT_SPELLPOWER)
 	PaperDollFrame_SetManaRegen = PaperDollFrame_SetManaRegen,			-- Mana Regen (MANA_REGEN)
 	PaperDollFrame_SetEnergyRegen = PaperDollFrame_SetEnergyRegen,		-- Energy Regen (STAT_ENERGY_REGEN)
@@ -921,10 +938,6 @@ local blizzFuncs = {
 }
 
 function SA:ToggleFunctionHooks()
-	-- if ignoredLocales[GetLocale()] and not blizzFuncs['PaperDollFrame_SetAttackSpeed'] then
-		-- blizzFuncs['PaperDollFrame_SetAttackSpeed'] = PaperDollFrame_SetAttackSpeed		-- Attack Speed (WEAPON_SPEED)
-	-- end
-
 	for k, v in pairs(blizzFuncs) do
 		if type(v) == 'table' then
 			for method, handler in pairs(v) do
