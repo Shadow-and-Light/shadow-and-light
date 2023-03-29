@@ -79,7 +79,7 @@ function SA:BuildNewStats()
 			},
 		},
 	}
-	if GetLocale() ~= 'ruRU' then
+	if GetLocale() ~= 'ruRU' or GetLocale() ~= 'deDE' then
 		SA.AlteredPaperdollStats[2].stats[8] = { stat = 'ATTACK_ATTACKSPEED', option = true, hideAt = 0 }
 	end
 end
@@ -912,7 +912,7 @@ local blizzFuncs = {
 	M = { UpdateCharacterItemLevel = SA.UpdateCharacterItemLevel, ToggleItemLevelInfo = SA.UpdateCharacterItemLevel, UpdateAverageString = SA.UpdateCharacterItemLevel},
 }
 
-if GetLocale() ~= 'ruRU' then
+if GetLocale() ~= 'ruRU' or GetLocale() ~= 'deDE' then
 	blizzFuncs['PaperDollFrame_SetAttackSpeed'] = PaperDollFrame_SetAttackSpeed		-- Attack Speed (WEAPON_SPEED)
 end
 
