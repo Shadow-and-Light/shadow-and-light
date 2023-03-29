@@ -5,7 +5,7 @@ local M = E.Misc
 
 local _G = _G
 local math_min = math.min
-local format = format
+local format, gsub = format, gsub
 local GetAverageItemLevel, BreakUpLargeNumbers = GetAverageItemLevel, BreakUpLargeNumbers
 local UnitClass = UnitClass
 local GetCombatRatingBonus = GetCombatRatingBonus
