@@ -13,6 +13,13 @@ local GetCombatRatingBonus = GetCombatRatingBonus
 local totalShown = 0
 SA.OriginalPaperdollStats = E:CopyTable({}, PAPERDOLL_STATCATEGORIES)
 
+--! The following locales have issues with BreakUpLargeNumbers when dealing with the AttackSpeed, so just skip it when these locales are used
+local ignoredLocales = {
+	ruRU = true,
+	esES = true,
+	deDE = true,
+}
+
 local function CreateStatCategory(catName, text)
 	local CharacterStatsPane = _G.CharacterStatsPane
 	if CharacterStatsPane[catName] then return end
@@ -80,7 +87,7 @@ function SA:BuildNewStats()
 		},
 	}
 
-	if GetLocale() == 'ruRU' or GetLocale() == 'deDE' then return end
+	if ignoredLocales[GetLocale()] then return end
 	SA.AlteredPaperdollStats[2].stats[8] = { stat = 'ATTACK_ATTACKSPEED', option = true, hideAt = 0 }
 end
 
@@ -913,7 +920,7 @@ local blizzFuncs = {
 }
 
 function SA:ToggleFunctionHooks()
-	if (GetLocale() ~= 'ruRU' or GetLocale() ~= 'deDE') and not blizzFuncs['PaperDollFrame_SetAttackSpeed'] then
+	if ignoredLocales[GetLocale()] and not blizzFuncs['PaperDollFrame_SetAttackSpeed'] then
 		blizzFuncs['PaperDollFrame_SetAttackSpeed'] = PaperDollFrame_SetAttackSpeed		-- Attack Speed (WEAPON_SPEED)
 	end
 
