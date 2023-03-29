@@ -1163,7 +1163,7 @@ P["sle"] = {
 				size = 3,
 			},
 			petbar = {
-				backdrop = true,
+				backdrop = false,
 				buttons = false,
 				size = 3,
 			},
