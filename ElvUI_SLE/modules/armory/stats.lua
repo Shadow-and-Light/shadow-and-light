@@ -88,8 +88,8 @@ function SA:BuildNewStats()
 		},
 	}
 
-	if ignoredLocales[GetLocale()] then return end
-	SA.AlteredPaperdollStats[2].stats[8] = { stat = 'ATTACK_ATTACKSPEED', option = true, hideAt = 0 }
+	-- if ignoredLocales[GetLocale()] then return end
+	-- SA.AlteredPaperdollStats[2].stats[8] = { stat = 'ATTACK_ATTACKSPEED', option = true, hideAt = 0 }
 end
 
 local function BuildScrollBar() --Creating new scroll
@@ -921,9 +921,9 @@ local blizzFuncs = {
 }
 
 function SA:ToggleFunctionHooks()
-	if ignoredLocales[GetLocale()] and not blizzFuncs['PaperDollFrame_SetAttackSpeed'] then
-		blizzFuncs['PaperDollFrame_SetAttackSpeed'] = PaperDollFrame_SetAttackSpeed		-- Attack Speed (WEAPON_SPEED)
-	end
+	-- if ignoredLocales[GetLocale()] and not blizzFuncs['PaperDollFrame_SetAttackSpeed'] then
+		-- blizzFuncs['PaperDollFrame_SetAttackSpeed'] = PaperDollFrame_SetAttackSpeed		-- Attack Speed (WEAPON_SPEED)
+	-- end
 
 	for k, v in pairs(blizzFuncs) do
 		if type(v) == 'table' then
