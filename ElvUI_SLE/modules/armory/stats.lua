@@ -588,7 +588,7 @@ function PaperDollFrame_SetAttackSpeed(statFrame, unit)
 	displaySpeed = gsub(displaySpeed,",", ".") --decimals fix
 	if ( offhandSpeed ) then
 		offhandSpeed = format("%.2F", offhandSpeed);
-		offhandSpeed = gsub(offhandSpeed,",", ".") --decimals fix
+		--offhandSpeed = gsub(offhandSpeed,",", ".") --decimals fix
 	end
 	if ( offhandSpeed ) then
 		displaySpeed =  BreakUpLargeNumbers(displaySpeed).." / ".. offhandSpeed;
@@ -612,7 +612,7 @@ local function PaperDollFrame_SetAttackSpeed(statFrame, unit) --! Text Replaced 
 	displaySpeed = gsub(displaySpeed,",", ".") --decimals fix
 	if ( offhandSpeed ) then
 		offhandSpeed = format("%.2F", offhandSpeed)
-		offhandSpeed = gsub(offhandSpeed,",", ".") --decimals fix
+		--offhandSpeed = gsub(offhandSpeed,",", ".") --decimals fix
 	end
 	if ( offhandSpeed ) then
 		displaySpeed =  BreakUpLargeNumbers(displaySpeed).." / ".. offhandSpeed
