@@ -1,3 +1,3 @@
-v4.64 3/29/23
+v4.65 3/29/23
 
-• hotfix for french locale error
+• fix for various locale error in armory stats section
