@@ -544,7 +544,7 @@ local function PaperDollFrame_SetDamage(statFrame, unit) --! Text Replaced Done
 	PaperDollFrame_SetLabelAndText(statFrame, label, value, false, displayMax)
 end
 
-local function SLPaperDollFrame_SetAttackPower(statFrame, unit) --! Text Replaced Done
+local function PaperDollFrame_SetAttackPower(statFrame, unit) --! Text Replaced Done
 	local label, isReplaced = GetLabelReplacement('STAT_ATTACK_POWER')
 	if not isReplaced then return end
 
@@ -579,7 +579,7 @@ local function SLPaperDollFrame_SetAttackPower(statFrame, unit) --! Text Replace
 	PaperDollFrame_SetLabelAndText(statFrame, label, valueText, false, value)
 end
 
-local function SLPaperDollFrame_SetAttackSpeed(statFrame, unit)
+local function SLPaperDollFrame_SetAttackSpeed(statFrame, unit) --! Text Replaced Done
 	local label = GetLabelReplacement('WEAPON_SPEED')
 	local meleeHaste = GetMeleeHaste()
 	local speed, offhandSpeed = UnitAttackSpeed(unit)
@@ -587,8 +587,10 @@ local function SLPaperDollFrame_SetAttackSpeed(statFrame, unit)
 	if ( offhandSpeed ) then
 		offhandSpeed = format("%.2F", offhandSpeed)
 	end
+
+	displaySpeed = displaySpeed:gsub(',', '.')
+
 	if ( offhandSpeed ) then
-		displaySpeed = displaySpeed:gsub(',', '.')
 		displaySpeed =  BreakUpLargeNumbers(displaySpeed).." / ".. offhandSpeed
 	else
 		displaySpeed =  BreakUpLargeNumbers(displaySpeed)
@@ -889,7 +891,7 @@ local blizzFuncs = {
 	MovementSpeed_OnUpdate = MovementSpeed_OnUpdate,					-- Movement Speed (STAT_MOVEMENT_SPEED)
 	--* Attack
 	PaperDollFrame_SetDamage = PaperDollFrame_SetDamage,				-- Damage (DAMAGE)
-	-- PaperDollFrame_SetAttackPower = PaperDollFrame_SetAttackPower,		-- Attack Power (STAT_ATTACK_POWER)
+	PaperDollFrame_SetAttackPower = PaperDollFrame_SetAttackPower,		-- Attack Power (STAT_ATTACK_POWER)
 	PaperDollFrame_SetSpellPower = PaperDollFrame_SetSpellPower,		-- Spell Power (STAT_SPELLPOWER)
 	PaperDollFrame_SetManaRegen = PaperDollFrame_SetManaRegen,			-- Mana Regen (MANA_REGEN)
 	PaperDollFrame_SetEnergyRegen = PaperDollFrame_SetEnergyRegen,		-- Energy Regen (STAT_ENERGY_REGEN)
