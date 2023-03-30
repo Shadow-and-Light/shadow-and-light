@@ -5,7 +5,7 @@ local M = E.Misc
 
 local _G = _G
 local math_min = math.min
-local format, gsub = format, gsub
+local format = format
 local GetAverageItemLevel, BreakUpLargeNumbers = GetAverageItemLevel, BreakUpLargeNumbers
 local UnitClass = UnitClass
 local GetCombatRatingBonus = GetCombatRatingBonus
@@ -544,7 +544,7 @@ local function PaperDollFrame_SetDamage(statFrame, unit) --! Text Replaced Done
 	PaperDollFrame_SetLabelAndText(statFrame, label, value, false, displayMax)
 end
 
-local function PaperDollFrame_SetAttackPower(statFrame, unit) --! Text Replaced Done
+local function SLPaperDollFrame_SetAttackPower(statFrame, unit) --! Text Replaced Done
 	local label, isReplaced = GetLabelReplacement('STAT_ATTACK_POWER')
 	if not isReplaced then return end
 
@@ -579,48 +579,27 @@ local function PaperDollFrame_SetAttackPower(statFrame, unit) --! Text Replaced 
 	PaperDollFrame_SetLabelAndText(statFrame, label, valueText, false, value)
 end
 
---Overwriting original function with some additions cause Blizzard can't figure out the unified way to return decimal values
-function PaperDollFrame_SetAttackSpeed(statFrame, unit)
-	local meleeHaste = GetMeleeHaste();
-	local speed, offhandSpeed = UnitAttackSpeed(unit);
-
-	local displaySpeed = format("%.2F", speed);
-	displaySpeed = gsub(displaySpeed,",", ".") --decimals fix
-	if ( offhandSpeed ) then
-		offhandSpeed = format("%.2F", offhandSpeed);
-		--offhandSpeed = gsub(offhandSpeed,",", ".") --decimals fix
-	end
-	if ( offhandSpeed ) then
-		displaySpeed =  BreakUpLargeNumbers(displaySpeed).." / ".. offhandSpeed;
-	else
-		displaySpeed =  BreakUpLargeNumbers(displaySpeed);
-	end
-	PaperDollFrame_SetLabelAndText(statFrame, WEAPON_SPEED, displaySpeed, false, speed);
-
-	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, ATTACK_SPEED).." "..displaySpeed..FONT_COLOR_CODE_CLOSE;
-	statFrame.tooltip2 = format(STAT_ATTACK_SPEED_BASE_TOOLTIP, BreakUpLargeNumbers(meleeHaste));
-
-	statFrame:Show();
-end
-
-local function PaperDollFrame_SetAttackSpeed(statFrame, unit) --! Text Replaced Done
-	local label, isReplaced = GetLabelReplacement('WEAPON_SPEED')
-	if not isReplaced then return end
-
+local function SLPaperDollFrame_SetAttackSpeed(statFrame, unit)
+	local label = GetLabelReplacement('WEAPON_SPEED')
+	local meleeHaste = GetMeleeHaste()
 	local speed, offhandSpeed = UnitAttackSpeed(unit)
 	local displaySpeed = format("%.2F", speed)
-	displaySpeed = gsub(displaySpeed,",", ".") --decimals fix
 	if ( offhandSpeed ) then
 		offhandSpeed = format("%.2F", offhandSpeed)
-		--offhandSpeed = gsub(offhandSpeed,",", ".") --decimals fix
 	end
 	if ( offhandSpeed ) then
+		displaySpeed = displaySpeed:gsub(',', '.')
 		displaySpeed =  BreakUpLargeNumbers(displaySpeed).." / ".. offhandSpeed
 	else
 		displaySpeed =  BreakUpLargeNumbers(displaySpeed)
 	end
 
 	PaperDollFrame_SetLabelAndText(statFrame, label, displaySpeed, false, speed)
+
+	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..format(PAPERDOLLFRAME_TOOLTIP_FORMAT, ATTACK_SPEED).." "..displaySpeed..FONT_COLOR_CODE_CLOSE
+	statFrame.tooltip2 = format(STAT_ATTACK_SPEED_BASE_TOOLTIP, BreakUpLargeNumbers(meleeHaste))
+
+	statFrame:Show()
 end
 
 local function PaperDollFrame_SetSpellPower(statFrame, unit) --! Text Replaced Done
@@ -910,8 +889,7 @@ local blizzFuncs = {
 	MovementSpeed_OnUpdate = MovementSpeed_OnUpdate,					-- Movement Speed (STAT_MOVEMENT_SPEED)
 	--* Attack
 	PaperDollFrame_SetDamage = PaperDollFrame_SetDamage,				-- Damage (DAMAGE)
-	PaperDollFrame_SetAttackPower = PaperDollFrame_SetAttackPower,		-- Attack Power (STAT_ATTACK_POWER)
-	PaperDollFrame_SetAttackSpeed = PaperDollFrame_SetAttackSpeed,		-- Attack Speed (WEAPON_SPEED)
+	-- PaperDollFrame_SetAttackPower = PaperDollFrame_SetAttackPower,		-- Attack Power (STAT_ATTACK_POWER)
 	PaperDollFrame_SetSpellPower = PaperDollFrame_SetSpellPower,		-- Spell Power (STAT_SPELLPOWER)
 	PaperDollFrame_SetManaRegen = PaperDollFrame_SetManaRegen,			-- Mana Regen (MANA_REGEN)
 	PaperDollFrame_SetEnergyRegen = PaperDollFrame_SetEnergyRegen,		-- Energy Regen (STAT_ENERGY_REGEN)
@@ -938,6 +916,10 @@ local blizzFuncs = {
 }
 
 function SA:ToggleFunctionHooks()
+	if E.private.sle.armory.stats.enable then
+		PAPERDOLL_STATINFO['ATTACK_ATTACKSPEED'].updateFunc = function(statFrame, unit) SLPaperDollFrame_SetAttackSpeed(statFrame, unit); end
+	end
+
 	for k, v in pairs(blizzFuncs) do
 		if type(v) == 'table' then
 			for method, handler in pairs(v) do
