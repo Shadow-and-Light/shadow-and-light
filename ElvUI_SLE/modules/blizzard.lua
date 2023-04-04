@@ -40,6 +40,10 @@ B.Frames = {
 	SpellBookFrame = true,
 	SplashFrame = true,
 	StackSplitFrame = true,
+	StaticPopup1 = true,
+	StaticPopup2 = true,
+	StaticPopup3 = true,
+	StaticPopup4 = true,
 	TabardFrame = true,
 	TaxiFrame = true,
 	TimeManagerFrame = true,
@@ -53,6 +57,10 @@ B.TempOnly = {
 	BonusRollFrame = true,
 	BonusRollLootWonFrame = true,
 	BonusRollMoneyWonFrame = true,
+	StaticPopup1 = true,
+	StaticPopup2 = true,
+	StaticPopup3 = true,
+	StaticPopup4 = true,
 }
 
 --Blizz addons that load later
