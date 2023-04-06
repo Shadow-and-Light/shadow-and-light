@@ -5,6 +5,7 @@ local AddOnName, Engine = ...
 
 local _G = _G
 local format, tonumber = format, tonumber
+local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
 
 --GLOBALS: hooksecurefunc, LibStub, GetAddOnMetadata, CreateFrame, GetAddOnEnableState, BINDING_HEADER_SLE
 
