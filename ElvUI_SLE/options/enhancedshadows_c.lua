@@ -1,4 +1,4 @@
-﻿local SLE, _, E, L, _, P = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local ENH = SLE.EnhancedShadows
 local SUF = SLE.UnitFrames
 local DT = E.DataTexts

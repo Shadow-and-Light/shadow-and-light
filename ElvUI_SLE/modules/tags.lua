@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local RC = E.Libs.RangeCheck
 
 local strmatch, strjoin, strlower = strmatch, strjoin, strlower

@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local DT = E.DataTexts
 local LibQTip = LibStub('LibQTip-1.0')
 local DT_myrealm = gsub(E.myrealm,"[%s%-]","")

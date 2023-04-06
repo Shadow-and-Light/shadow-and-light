@@ -1,4 +1,4 @@
-local SLE, _, E = unpack(select(2, ...))
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 
 --GLOBALS: unpack, select, next, pairs, wipe, strlower, ElvDB, GetNumAddOns, GetAddOnInfo, DisableAddOn, EnableAddOn, SetCVar, ReloadUI
 local next, pairs, wipe = next, pairs, wipe

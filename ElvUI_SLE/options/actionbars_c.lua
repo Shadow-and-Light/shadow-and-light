@@ -1,4 +1,4 @@
-local SLE, _, E, L, V, P = unpack(select(2, ...))
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local AB = E.ActionBars
 local DVB = SLE.DedicatedVehicleBar
 

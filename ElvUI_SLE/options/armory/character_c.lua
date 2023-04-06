@@ -1,4 +1,4 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local Armory = SLE.Armory_Core
 local CA = SLE.Armory_Character
 local M = E.Misc

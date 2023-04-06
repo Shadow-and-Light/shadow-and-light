@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local SUF = SLE.UnitFrames
 local UF = E.UnitFrames
 

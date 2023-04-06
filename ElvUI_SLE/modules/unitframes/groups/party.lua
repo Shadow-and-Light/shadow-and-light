@@ -1,4 +1,4 @@
-local SLE, _, E = unpack(select(2, ...))
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local SUF = SLE.UnitFrames
 
 function SUF:Construct_PartyFrames()
@@ -7,7 +7,7 @@ function SUF:Construct_PartyFrames()
 		self.SL_DeathIndicator = SUF:Construct_DeathIndicator(self)
 		self.SL_OfflineIndicator = SUF:Construct_OfflineIndicator(self)
 	end
-	
+
 	if self.Castbar then
 		self.Castbar.slBarID = 'castbar'
 	end

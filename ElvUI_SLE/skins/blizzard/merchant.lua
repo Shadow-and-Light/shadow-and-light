@@ -1,7 +1,8 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local Sk = SLE.Skins
 local S = E.Skins
---GLOBALS: CreateFrame, MERCHANT_ITEMS_PER_PAGE, BUYBACK_ITEMS_PER_PAGE, hooksecurefunc, MERCHANT_PAGE_NUMBER, UIParent, ChatFontSmall
+
+-- GLOBALS: CreateFrame, MERCHANT_ITEMS_PER_PAGE, BUYBACK_ITEMS_PER_PAGE, hooksecurefunc, MERCHANT_PAGE_NUMBER, UIParent, ChatFontSmall
 local _G = _G
 local strtrim = strtrim
 local ItemsPerSubpage, SubpagesPerPage

@@ -1,7 +1,8 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local Gar = SLE.Garrison
-local _G = _G
 local B = LibStub("LibBabble-SubZone-3.0")
+
+local _G = _G
 local BL = B:GetLookupTable()
 local garrisonzones = { BL["Salvage Yard"], BL["Frostwall Mine"], BL["Lunarfall Excavation"]}
 local Tools = SLE.Toolbars

@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local Q = SLE.Quests
 local ObjectiveTracker_Expand, ObjectiveTracker_Collapse = ObjectiveTracker_Expand, ObjectiveTracker_Collapse
 local IsResting = IsResting

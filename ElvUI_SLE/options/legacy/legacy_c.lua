@@ -1,4 +1,5 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
+
 local LFG_LIST_LEGACY = LFG_LIST_LEGACY
 local function configTable()
 	if not SLE.initialized then return end

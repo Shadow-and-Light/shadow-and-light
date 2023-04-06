@@ -1,7 +1,7 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
+local mod = SLE.WarCampaign
 
 local _G = _G
-local mod = SLE.WarCampaign
 local clicked
 
 function mod:SHIPMENT_CRAFTER_INFO(event, success, shipmentCount, maxShipments, ownedShipments, plotID)

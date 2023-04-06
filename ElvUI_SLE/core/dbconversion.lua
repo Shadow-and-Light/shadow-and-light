@@ -1,4 +1,4 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 
 --GLOBALS: ElvDB, ElvPrivateDB
 local SLE_Test = false

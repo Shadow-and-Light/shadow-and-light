@@ -1,4 +1,4 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 
 --GLOBALS: unpack, NUM_BAG_SLOTS, IsAddOnLoaded, DEFAULT_CHAT_FRAME
 local _G = _G

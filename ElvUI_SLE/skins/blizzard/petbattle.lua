@@ -1,4 +1,4 @@
-local SLE, T, E, L = unpack(select(2, ...))
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local S = E.Skins
 
 --GLOBALS: CreateFrame

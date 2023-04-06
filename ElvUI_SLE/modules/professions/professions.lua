@@ -1,4 +1,4 @@
-local SLE, _, E = unpack(select(2, ...))
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local Pr = SLE.Professions
 
 --GLOBALS: unpack, select, LoadAddOn, IsAddOnLoaded

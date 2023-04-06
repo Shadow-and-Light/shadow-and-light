@@ -1,4 +1,4 @@
-﻿local SLE, _, E, L = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local DT = E.DataTexts
 
 --GLOBALS: unpack, select, tinsert, DURABILITY, MANA_REGEN

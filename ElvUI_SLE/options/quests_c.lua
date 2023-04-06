@@ -1,4 +1,4 @@
-﻿local SLE, _, E, L = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local Q = SLE.Quests
 
 local DEFAULT, MINIMIZE, HIDE = DEFAULT, MINIMIZE, HIDE

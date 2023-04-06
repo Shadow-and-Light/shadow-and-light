@@ -1,4 +1,4 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 
 local GARRISON_LOCATION_TOOLTIP = GARRISON_LOCATION_TOOLTIP
 local EXPANSION_NAME5 = EXPANSION_NAME5

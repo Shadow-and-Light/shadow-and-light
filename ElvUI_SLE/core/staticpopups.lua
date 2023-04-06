@@ -1,4 +1,5 @@
-local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
+
 local CLOSE = CLOSE
 local ACCEPT = ACCEPT
 local CANCEL = CANCEL

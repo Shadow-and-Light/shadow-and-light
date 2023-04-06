@@ -1,6 +1,6 @@
-﻿local SLE, _, E, L = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 
---GLOBALS: unpack, select
+-- GLOBALS: unpack, select
 local tinsert = tinsert
 
 L["SLE_CYR_COM_DESC"] = [[
@@ -95,7 +95,7 @@ local function configTable()
 							},
 						},
 					},
-					
+
 				},
 			},
 			cyrillics = {

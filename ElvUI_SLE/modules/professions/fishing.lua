@@ -1,4 +1,4 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local Pr = SLE.Professions
 local FL = LibStub("LibFishing-1.0-SLE") or LibStub("LibFishing-1.0")
 
@@ -97,7 +97,7 @@ end
 local function WF_OnMouseDown(...)
 	-- Only steal 'right clicks' (self is arg #1!)
 	local key = Pr.FishingKey
-	if not InCombatLockdown() then 
+	if not InCombatLockdown() then
 		if (key == "None" and FL:IsFishingReady(false)) or (key ~= "None" and _G["Is"..key.."KeyDown"]()) then
 			local button = select(2, ...)
 			if FL:CheckForDoubleClick(button) then
@@ -121,7 +121,7 @@ end
 
 local function WF_OnMouseUp(...)
 	-- Only steal 'right clicks' (self is arg #1!)
-	if not InCombatLockdown() then 
+	if not InCombatLockdown() then
 		local key = Pr.FishingKey
 		if (key == "None" and FL:IsFishingReady(false)) or (key ~= "None" and _G["Is"..key.."KeyDown"]()) then
 			local button = select(2, ...)
@@ -138,7 +138,7 @@ local function WF_OnMouseUp(...)
 			FL:ResetOverride()
 		end
 	end
-	
+
 	if ( SavedWFOnMouseUp ) then
 		SavedWFOnMouseUp(...)
 	end

@@ -1,8 +1,9 @@
-﻿local SLE, T, E, L, V, P, G = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local Sk = SLE.Skins
 local S = E.Skins
---GLOBALS: CreateFrame, hooksecurefunc, ChatFontSmall, UIParent, INVSLOT_FIRST_EQUIPPED, INVSLOT_LAST_EQUIPPED
---Rebuilding Merchant Frame as a scrollable list. Based on a code by Nils Ruesch (xMerchant addon)
+
+-- GLOBALS: CreateFrame, hooksecurefunc, ChatFontSmall, UIParent, INVSLOT_FIRST_EQUIPPED, INVSLOT_LAST_EQUIPPED
+-- Rebuilding Merchant Frame as a scrollable list. Based on a code by Nils Ruesch (xMerchant addon)
 local _G = _G
 local strtrim = strtrim
 local GetLocale = GetLocale

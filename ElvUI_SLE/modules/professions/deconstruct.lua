@@ -1,4 +1,4 @@
-﻿local SLE, _, E, L, _, _, _ = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local Pr = SLE.Professions
 local B = E.Bags
 local lib = LibStub('LibProcessable')

@@ -1,4 +1,4 @@
-﻿local SLE, _, E, L = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local LT = SLE.Loot
 
 --GLOBALS: unpack, select, _G, gsub, tinsert, ITEM_QUALITY2_DESC, ITEM_QUALITY3_DESC, ITEM_QUALITY4_DESC, GetMaxPlayerLevel, CHAT_MSG_BN_WHISPER, CHAT_MSG_WHISPER_INFORM

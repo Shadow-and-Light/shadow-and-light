@@ -1,4 +1,4 @@
-﻿local SLE, _, E, L, _, _, _ = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local DTP = SLE.Datatexts
 local DT = E.DataTexts
 

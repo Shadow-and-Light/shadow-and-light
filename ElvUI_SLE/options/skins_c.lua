@@ -1,4 +1,4 @@
-local SLE, T, E, L, V, P = unpack(select(2, ...))
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local Sk = SLE.Skins
 local B = SLE.Blizzard
 

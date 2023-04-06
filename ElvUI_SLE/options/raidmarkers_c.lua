@@ -1,4 +1,4 @@
-﻿local SLE, _, E, L = unpack(select(2, ...))
+﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local RM = SLE.RaidMarkers
 
 local SHIFT_KEY, CTRL_KEY, ALT_KEY = SHIFT_KEY, CTRL_KEY, ALT_KEY
