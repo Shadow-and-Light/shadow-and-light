@@ -561,6 +561,3 @@ end
 function lib:CustomStyleCoreButton(menu, name, text)
 end
 
-if not LibStub('LibElvUIPlugin-1.0').plugins[MAJOR] then
-	LibStub('LibElvUIPlugin-1.0'):RegisterPlugin(MAJOR, function() end, true)
-end

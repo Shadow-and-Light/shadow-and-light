@@ -114,8 +114,3 @@ _G["GameMenuFrame"]:HookScript("OnShow", function()
 		_G["GameMenuButtonLogout"]:SetPoint("TOP", _G["GameMenuButtonAddons"], "BOTTOMLEFT", _G["GameMenuFrame"]:GetWidth()/2 - 25.5, -29)
 	end
 end)
-
-
-if not LibStub("LibElvUIPlugin-1.0").plugins[MAJOR] then
-	LibStub("LibElvUIPlugin-1.0"):RegisterPlugin(MAJOR, function() end, true)
-end
