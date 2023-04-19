@@ -341,7 +341,9 @@ function CA:Disable()
 	_G.CharacterModelScene.BackgroundTopRight:Show()
 	_G.CharacterModelScene.BackgroundBotLeft:Show()
 	_G.CharacterModelScene.BackgroundBotRight:Show()
-	_G.CharacterModelScene.backdrop:Show()
+	if _G.CharacterModelScene.backdrop then
+		_G.CharacterModelScene.backdrop:Show()
+	end
 
 	CA:Update_Durability() --Required for elements update
 	for _, SlotName in pairs(Armory.Constants.GearList) do
