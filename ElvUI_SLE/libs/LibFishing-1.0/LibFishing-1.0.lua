@@ -1,4 +1,4 @@
-﻿--[[
+--[[
 Name: LibFishing-1.0
 Maintainers: Sutorix <sutorix@hotmail.com>
 Description: A library with fishing support routines used by Fishing Buddy, Fishing Ace and FB_Broker.
@@ -335,7 +335,7 @@ end
 -- Handle events we care about
 local canCreateFrame = false;
 
-local FISHLIBFRAMENAME="FishLibFrame";
+local FISHLIBFRAMENAME="FishLibFrame-SLE";
 local fishlibframe = getglobal(FISHLIBFRAMENAME);
 if ( not fishlibframe) then
 	fishlibframe = CreateFrame("Frame", FISHLIBFRAMENAME);
@@ -506,7 +506,7 @@ function FishLib:GetFishingActionBarID(force)
 end
 
 -- Secure action button
-local SABUTTONNAME = "LibFishingSAButton";
+local SABUTTONNAME = "LibFishingSAButton-SLE";
 
 function FishLib:ResetOverride()
 	local btn = self.sabutton;
