@@ -289,13 +289,41 @@ function DVB:UpdateButtonSettings()
 	-- end
 end
 
+local buttonDefaults = {
+	hideElements = {},
+	colors = {},
+	text = {
+		hotkey = { font = {}, color = {}, position = {} },
+		count = { font = {}, color = {}, position = {} },
+		macro = { font = {}, color = {}, position = {} },
+	},
+}
+
 function DVB:UpdateButtonConfig(barName)
 	local barDB = DVB.db[barName]
 	local bar = DVB.handledBars[barName]
 
-	if not bar.buttonConfig then bar.buttonConfig = { hideElements = {}, colors = {} } end
+	if not bar.buttonConfig then bar.buttonConfig = E:CopyTable({}, buttonDefaults) end
+	local text = bar.buttonConfig.text
 
+	do -- macro text
+		text.macro.font.font = E.Libs.LSM:Fetch('font', barDB and barDB.macroFont or AB.db.font)
+		text.macro.font.size = barDB and barDB.macroFontSize or AB.db.fontSize
+		text.macro.font.flags = barDB and barDB.macroFontOutline or AB.db.font
+		text.macro.position.anchor = barDB and barDB.macroTextPosition or 'BOTTOM'
+		text.macro.position.relAnchor = false
+		text.macro.position.offsetX = barDB and barDB.macroTextXOffset or 0
+		text.macro.position.offsetY = barDB and barDB.macroTextYOffset or 1
+		text.macro.justifyH = AB:GetTextJustify(text.macro.position.anchor)
+
+		local c = db and db.useMacroColor and db.macroColor or AB.db.fontColor
+		text.macro.color = { c.r, c.g, c.b }
+	end
+
+	-- bar.buttonConfig.hideElements.count = not barDB.counttext
+	bar.buttonConfig.hideElements.macro = not barDB.macrotext
 	bar.buttonConfig.hideElements.hotkey = not barDB.hotkeytext
+
 	bar.buttonConfig.showGrid = barDB.showGrid
 	bar.buttonConfig.clickOnDown = GetCVarBool('ActionButtonUseKeyDown')
 	bar.buttonConfig.outOfRangeColoring = (AB.db.useRangeColorText and 'hotkey') or 'button'

@@ -53,6 +53,20 @@ local function configTable()
 	SharedBarOptions.barGroup.args.strataAndLevel.args.frameStrata = ACH:Select(L["Frame Strata"], nil, 3, { BACKGROUND = 'BACKGROUND', LOW = 'LOW', MEDIUM = 'MEDIUM', HIGH = 'HIGH' })
 	SharedBarOptions.barGroup.args.strataAndLevel.args.frameLevel = ACH:Range(L["Frame Level"], nil, 4, { min = 1, max = 256, step = 1 })
 
+	SharedBarOptions.barGroup.args.macroTextGroup = ACH:Group(L["Macro Text"], nil, 40, nil, function(info) return E.db.sle.actionbar.vehicle[info[#info]] end, function(info, value) E.db.sle.actionbar.vehicle[info[#info]] = value; DVB:UpdateButtonSettings() end)
+	SharedBarOptions.barGroup.args.macroTextGroup.inline = true
+	SharedBarOptions.barGroup.args.macroTextGroup.args.macrotext = ACH:Toggle(L["Enable"], L["Display macro names on action buttons."], 0, nil, nil, nil, nil, nil, nil, false)
+	SharedBarOptions.barGroup.args.macroTextGroup.args.useMacroColor = ACH:Toggle(L["Custom Color"], nil, 1)
+	SharedBarOptions.barGroup.args.macroTextGroup.args.macroColor = ACH:Color('', nil, 2, nil, nil, getTextColor, setTextColor, function() return not E.db.sle.actionbar.vehicle.enable or not E.db.sle.actionbar.vehicle.macrotext end, function() return not E.db.sle.actionbar.vehicle.useMacroColor end)
+	SharedBarOptions.barGroup.args.macroTextGroup.args.spacer1 = ACH:Spacer(3, 'full')
+	SharedBarOptions.barGroup.args.macroTextGroup.args.macroTextPosition = ACH:Select(L["Position"], nil, 4, textAnchors, nil, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enable or (E.Masque and E.private.actionbar.masque.actionbars) end)
+	SharedBarOptions.barGroup.args.macroTextGroup.args.macroTextXOffset = ACH:Range(L["X-Offset"], nil, 5, { min = -24, max = 24, step = 1 }, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enable or (E.Masque and E.private.actionbar.masque.actionbars) end)
+	SharedBarOptions.barGroup.args.macroTextGroup.args.macroTextYOffset = ACH:Range(L["Y-Offset"], nil, 6, { min = -24, max = 24, step = 1 }, nil, nil, nil, function() return not E.db.sle.actionbar.vehicle.enable or (E.Masque and E.private.actionbar.masque.actionbars) end)
+	SharedBarOptions.barGroup.args.macroTextGroup.args.spacer2 = ACH:Spacer(7, 'full')
+	SharedBarOptions.barGroup.args.macroTextGroup.args.macroFont = ACH:SharedMediaFont(L["Font"], nil, 8)
+	SharedBarOptions.barGroup.args.macroTextGroup.args.macroFontOutline = ACH:FontFlags(L["Font Outline"], nil, 9)
+	SharedBarOptions.barGroup.args.macroTextGroup.args.macroFontSize = ACH:Range(L["Font Size"], nil, 10, C.Values.FontSize)
+
 	SharedBarOptions.barGroup.args.hotkeyTextGroup = ACH:Group(L["Keybind Text"], nil, 40, nil, function(info) return E.db.sle.actionbar.vehicle[info[#info]] end, function(info, value) E.db.sle.actionbar.vehicle[info[#info]] = value; DVB:UpdateButtonSettings() end)
 	SharedBarOptions.barGroup.args.hotkeyTextGroup.inline = true
 	SharedBarOptions.barGroup.args.hotkeyTextGroup.args.hotkeytext = ACH:Toggle(L["Enable"], L["Display bind names on action buttons."], 0, nil, nil, nil, nil, nil, nil, false)
