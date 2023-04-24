@@ -42,12 +42,7 @@ V["sle"] = {
 			["relureThreshold"] = 8,
 		},
 	},
-	["module"] = {
-		["blizzmove"] = {
-			["enable"] = true,
-			["remember"] = false,
-			["points"] = {},
-		},
+	module = {
 		shadows = {
 			enable = true,
 		},
