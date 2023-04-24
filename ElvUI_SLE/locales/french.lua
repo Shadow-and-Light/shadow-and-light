@@ -336,7 +336,6 @@ L["Minimize the Guild Datatext."] = "Minimise le texte d'information de la guild
 L["Minimum Roll Value"] = true
 L["Misc Texts"] = "Textes divers"
 L["Misc"] = "Divers"
-L["Missing scroll item for spellID %d. Please report this at the Shadow&Light Ticket Tracker."] = "Élément de défilement manquant pour le sortID %d. Veuillez le signaler au Shadow & Light Ticket Tracker."
 L["Mode"] = true
 L["Model Animation"] = "Modèle d'animation"
 L["Modifier Key"] = "Clé de modification"

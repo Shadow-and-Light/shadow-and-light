@@ -336,7 +336,6 @@ L["Minimize the Guild Datatext."] = true
 L["Minimum Roll Value"] = true
 L["Misc Texts"] = true
 L["Misc"] = true
-L["Missing scroll item for spellID %d. Please report this at the Shadow&Light Ticket Tracker."] = true
 L["Mode"] = true
 L["Model Animation"] = true
 L["Modifier Key"] = true

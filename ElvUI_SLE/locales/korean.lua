@@ -336,7 +336,6 @@ L["Minimize the Guild Datatext."] = "길드 정보문자를 최소화합니다."
 L["Minimum Roll Value"] = "주사위 최소값"
 L["Misc Texts"] = "기타 글자"
 L["Misc"] = "기타"
-L["Missing scroll item for spellID %d. Please report this at the Shadow&Light Ticket Tracker."] = true
 L["Mode"] = true
 L["Model Animation"] = "모델 움직임"
 L["Modifier Key"] = "보조 키"
