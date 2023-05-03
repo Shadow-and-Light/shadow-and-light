@@ -22,7 +22,7 @@ DVB.barDefaults = {
 	vehicle = {
 		page = 1,
 		bindButtons = 'ACTIONBUTTON',
-		conditions = format('[overridebar] %d; [vehicleui] %d; [possessbar] %d; [shapeshift] 13;', GetOverrideBarIndex(), GetVehicleBarIndex(), GetVehicleBarIndex()),
+		conditions = format('[vehicleui][possessbar] %d; [overridebar] %d; [shapeshift] %d;', GetVehicleBarIndex(), GetOverrideBarIndex(), GetTempShapeshiftBarIndex()),
 		position = 'BOTTOM,ElvUIParent,BOTTOM,0,34',
 	}
 }
@@ -170,7 +170,7 @@ function DVB:PositionAndSizeBar()
 	AB:HandleBackdropMultiplier(bar, backdropSpacing, buttonSpacing, db.widthMult, db.heightMult, anchorUp, anchorLeft, horizontal, lastShownButton, anchorRowButton)
 	AB:HandleBackdropMover(bar, backdropSpacing)
 
-	local page = format('[overridebar] %d; [vehicleui][possessbar] %d; [bonusbar:5] 11; [shapeshift] %d;', GetOverrideBarIndex(), GetVehicleBarIndex(), GetTempShapeshiftBarIndex())
+	local page = format('[vehicleui][possessbar] %d; [overridebar] %d; [bonusbar:5] 11; [shapeshift] %d;', GetVehicleBarIndex(), GetOverrideBarIndex(), GetTempShapeshiftBarIndex())
 	RegisterStateDriver(bar, 'page', page)
 
 	local visibility = format('[petbattle] hide; [vehicleui][overridebar][shapeshift][possessbar]%s show; hide', db.dragonRiding and '[bonusbar:5]' or '')
@@ -221,7 +221,7 @@ function DVB:CreateBar()
 
 	for i = 1, 7 do
 		local index = (i == 7) and 12 or i
-		local button = LAB:CreateButton(index, format(bar:GetName()..'Button%d', index), bar, nil)
+		local button = LAB:CreateButton(index, format(bar:GetName()..'Button%d', index), bar)
 		bar.buttons[i] = button
 		button:SetState(0, 'action', index)
 
