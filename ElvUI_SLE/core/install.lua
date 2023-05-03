@@ -880,7 +880,7 @@ function PI:DarthSetupDF()
 		E.db["movers"]["BossBannerMover"] = "TOP,ElvUIParent,TOP,0,-126"
 		E.db["movers"]["BossButton"] = "BOTTOM,UIParent,BOTTOM,0,508"
 		E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-301"
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,MMHolder,TOPLEFT,-7,-1"
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUI_MinimapHolder,TOPLEFT,-7,-1"
 		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,494"
 		E.db["movers"]["DTPanelDarth_Panel_1Mover"] = "BOTTOM,ElvUIParent,BOTTOM,0,0"
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-231,-116"
