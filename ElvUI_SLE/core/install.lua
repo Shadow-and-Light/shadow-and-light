@@ -871,7 +871,7 @@ function PI:DarthSetupDF()
 	end
 	--Movers
 	do
-		E.db["movers"]["AlertFrameMover"] = "TOPLEFT,UIParent,TOPLEFT,335,-144"
+		E.db["movers"]["AlertFrameMover"] = "TOPLEFT,UIParent,TOPLEFT,422,-145"
 		E.db["movers"]["AltPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,359"
 		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-300"
 		E.db["movers"]["AzeriteBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,153"
@@ -1007,6 +1007,8 @@ function PI:DarthSetupDF()
 	E.global['general']['fadeMapWhenMoving'] = false
 	E.global["general"]["WorldMapCoordinates"]["position"] = "BOTTOMRIGHT"
 	E.global['general']['commandBarSetting'] = 'DISABLED'
+	E.global["datatexts"]["settings"]["Currencies"]["displayedCurrency"] = "GOLD"
+	E.global["datatexts"]["settings"]["Talent/Loot Specialization"]["displayStyle"] = "SPEC"
 	E.global['sle']['advanced']['optionsLimits'] = true
 
 	if layout then
