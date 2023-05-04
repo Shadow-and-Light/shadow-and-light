@@ -533,6 +533,7 @@ L["Shows icons of items looted/created near respective messages in chat. Does no
 L["Shows the message in each chat frame containing frame's number."] = "Affiche le message dans chaque fenêtre où le numéro s'applique."
 L["Shows you which of docked chat tabs is currently selected."] = "Vous indique quel onglet du chat est actuellement sélectionné."
 L["Skinned Background"] = true
+L["SL_BLIZZMOVE_SUGGESTIONS_TEXT"] = true
 L["SLE_Advanced_Desc"] = "Les options suivantes permettent d'accéder à des paramètres supplémentaires dans différents modules.  Il est déconseillé aux nouveaux joueurs ou aux joueurs qui ne sont pas familiers avec les paramètres des addons."
 L["SLE_ADVANCED_POPUP_TEXT"] = "Jurez-vous que vous êtes un utilisateur expérimenté, que vous pouvez lire les infobulles pour les options et que vous ne crierez pas à l'aide si quelque chose tourne mal dans votre interface utilisateur avec ces options supplémentaires ? Si oui, vous êtes autorisé à continuer."
 L["SLE_Armory_Info"] = "L'armurerie est conçue pour fournir des informations standard sur les articles d'ElvUI d'une manière différente. Gardez à l'esprit que l'affichage des enchantements, des gemmes et des niveaux d'objets n'est disponible que lorsque l'option ElvUI correspondante est activée. Utilisez le bouton ci-dessous pour visiter la section de configuration de la fonctionnalité mentionnée."

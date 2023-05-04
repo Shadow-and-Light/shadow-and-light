@@ -533,6 +533,7 @@ L["Shows icons of items looted/created near respective messages in chat. Does no
 L["Shows the message in each chat frame containing frame's number."] = true
 L["Shows you which of docked chat tabs is currently selected."] = "어느 고정된 대화탭이 선택되었는지 표시합니다."
 L["Skinned Background"] = true
+L["SL_BLIZZMOVE_SUGGESTIONS_TEXT"] = true
 L["SLE_Advanced_Desc"] = "Following options provide access to additional customization settings in various modules.  Is not recommended to new players or people not experienced in addon's configuration."
 L["SLE_ADVANCED_POPUP_TEXT"] = "숙련된 사용자로서 툴팁을 제대로 읽을 수 있고,\n편의를 위한 추가적인 사항 때문에 UI가 폭파되더라도\n울면서 떼쓰지 않겠다고 맹세하십니까?\n\n동의하시면, 이 설정을 활성화하여 사용하실 수 있습니다."
 L["SLE_Armory_Info"] = "Armory is designed to provide standard ElvUI item info in a different way. Keep in mind that display of enchantments, gems and item levels is only available when corresponding ElvUI option is enabled. Use button below to visit mentioned feature's config section."

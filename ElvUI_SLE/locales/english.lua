@@ -533,6 +533,7 @@ L["Shows icons of items looted/created near respective messages in chat. Does no
 L["Shows the message in each chat frame containing frame's number."] = true
 L["Shows you which of docked chat tabs is currently selected."] = true
 L["Skinned Background"] = true
+L["SL_BLIZZMOVE_SUGGESTIONS_TEXT"] = "We have removed the ability to move blizzard frames from S&L.  We have found that DeModal and ProjectAzilroka are great alternatives for most people."
 L["SLE_Advanced_Desc"] = "Following options provide access to additional customization settings in various modules.  Is not recommended to new players or people not experienced in addon's configuration."
 L["SLE_ADVANCED_POPUP_TEXT"] = "Do you swear that you are an experienced user,\ncan read tooltips for options and will not cry for help if you\nhorribly break your UI by utilizing additional options?\n\nIf yes, you'll be allowed to enable this option."
 L["SLE_Armory_Info"] = "Armory is designed to provide standard ElvUI item info in a different way. Keep in mind that display of enchantments, gems and item levels is only available when corresponding ElvUI option is enabled. Use button below to visit mentioned feature's config section."

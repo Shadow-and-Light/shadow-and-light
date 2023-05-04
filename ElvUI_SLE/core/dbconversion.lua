@@ -17,6 +17,15 @@ local mediaFonts = {
 	'questFontSuperHuge',
 }
 
+--* BlizzMove Module Removed
+E.PopupDialogs['SL_BLIZZMOVE_SUGGESTIONS'] = {
+	text = L["SL_BLIZZMOVE_SUGGESTIONS_TEXT"],
+	button1 = OKAY,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = true,
+}
+
 --Convers all the things!
 function SLE:DatabaseConversions()
 	if ElvDB.SLE_DB_Ver == SLE.DBversion and not SLE_Test then return end --Only execute all this shit when current database is actually outdated.
@@ -243,53 +252,9 @@ function SLE:DatabaseConversions()
 			if data.sle then
 				if data.sle.module then
 					if data.sle.module.blizzmove then
-						if data.sle.module.blizzmove and type(data.sle.module.blizzmove) == 'boolean' then data.sle.module.blizzmove = V.sle.module.blizzmove; privateChanged = true; end --Ancient setting conversions
-						if not data.sle.module.blizzmove.points then data.sle.module.blizzmove.points = {} end
-						if not data.sle.pvpreadydialogreset then
-							data.sle.module.blizzmove.points['PVPReadyDialog'] = nil
-							data.sle.pvpreadydialogreset = true
-							privateChanged = true
-						end
-						if data.sle.module.blizzmove.points['CalendarViewEventFrame'] then
-							data.sle.module.blizzmove.points['CalendarViewEventFrame'] = nil
-							privateChanged = true
-						end
-						if data.sle.module.blizzmove.points['CalendarViewHolidayFrame'] then
-							data.sle.module.blizzmove.points['CalendarViewHolidayFrame'] = nil
-							privateChanged = true
-						end
-						--Remove these from saved variables so the script will not attempt to mess with them, cause they are not ment to be moved permanently
-						if data.sle.module.blizzmove.points['BonusRollFrame'] then
-							data.sle.module.blizzmove.points['BonusRollFrame'] = nil
-							privateChanged = true
-						end
-						if data.sle.module.blizzmove.points['BonusRollLootWonFrame'] then
-							data.sle.module.blizzmove.points['BonusRollLootWonFrame'] = nil
-							privateChanged = true
-						end
-						if data.sle.module.blizzmove.points['BonusRollMoneyWonFrame'] then
-							data.sle.module.blizzmove.points['BonusRollMoneyWonFrame'] = nil
-							privateChanged = true
-						end
-						--DF changes
-						for i = 1, 4 do
-							if data.sle.module.blizzmove.points['StaticPopup'..i] then
-								data.sle.module.blizzmove.points['StaticPopup'..i] = nil
-								privateChanged = true
-							end
-						end
-						if data.sle.module.blizzmove.points['AudioOptionsFrame'] then
-							data.sle.module.blizzmove.points['AudioOptionsFrame'] = nil
-							privateChanged = true
-						end
-						if data.sle.module.blizzmove.points['InterfaceOptionsFrame'] then
-							data.sle.module.blizzmove.points['InterfaceOptionsFrame'] = nil
-							privateChanged = true
-						end
-						if data.sle.module.blizzmove.points['VideoOptionsFrame'] then
-							data.sle.module.blizzmove.points['VideoOptionsFrame'] = nil
-							privateChanged = true
-						end
+						E:StaticPopup_Show('SL_BLIZZMOVE_SUGGESTIONS')
+						data.sle.module.blizzmove = nil
+						privateChanged = true
 					end
 					if data.sle.module.screensaver and type(data.sle.module.screensaver) == 'boolean' then
 						data.sle.module.screensaver = nil

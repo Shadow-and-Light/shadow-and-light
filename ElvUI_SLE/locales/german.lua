@@ -533,6 +533,7 @@ L["Shows icons of items looted/created near respective messages in chat. Does no
 L["Shows the message in each chat frame containing frame's number."] = "Zeigt die Nachricht in jeden Fenster wo die Nummer zutrifft."
 L["Shows you which of docked chat tabs is currently selected."] = "Zeigt dir, welcher Chat Tab gerade ausgewählt ist."
 L["Skinned Background"] = "Geskinnter Hintergrund"
+L["SL_BLIZZMOVE_SUGGESTIONS_TEXT"] = true
 L["SLE_Advanced_Desc"] = "Folgende Optionen erlauben den Zugriff auf zusätzliche Einstellungen in den verschiedensten Modulen.  Neuen Spielern oder Spielern die nicht vertraut mit Addon Einstellungen sind, wird nicht geraten diese zu nutzen."
 L["SLE_ADVANCED_POPUP_TEXT"] = "Schwörst du, dass du ein erfahrener Benutzer bist,\ndu kannst Tooltips für Optionen lesen und wirst nicht um Hilfe schreien wenn\nirgendetwas furchtbar schief mit deinem UI passiert mit diesen zusätzlichen Optionen?\n\nFalls ja, ist es erlaubt fortzufahren."
 L["SLE_Armory_Info"] = "Armory wurde entwickelt, um standardmäßige ElvUI-Gegenstandsinformationen auf andere Weise bereitzustellen. Denke daran, dass die Anzeige von Verzauberungen, Edelsteinen und Gegenstandsstufen nur verfügbar ist, wenn die entsprechende ElvUI Option aktiviert ist. Verwende die Schaltfläche unten, um den Konfigurationsabschnitt der erwähnten Funktion zu besuchen."
