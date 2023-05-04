@@ -12,6 +12,7 @@
 ## X-Curse-Project-ID: 39618
 ## X-Wago-ID: 7x61q261
 ## SavedVariables: SLE_ArmoryDB
+## IconTexture: Interface\AddOns\ElvUI_SLE\media\textures\chat\Logo
 
 libs\load_libs.xml
 locales\load_locales.xml
