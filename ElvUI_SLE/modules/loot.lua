@@ -290,6 +290,7 @@ function LT:Update()
 	LT:Toggle()
 	LT:AutoToggle()
 	LT:LootAlpha()
+	LT:LootScale()
 end
 
 --Add icons to loot merssages in chat. This is filter. It always allowes the message to be seen, just alters it if needed
