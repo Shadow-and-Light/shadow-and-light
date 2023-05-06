@@ -987,7 +987,6 @@ function PI:DarthSetupDF()
 	E.private["skins"]["blizzard"]["achievement"] = false
 	E.private["skins"]["blizzard"]["alertframes"] = false
 
-	E.private['sle']['module']['blizzmove']['remember'] = true
 	E.db['sle']['afk']['enable'] = true
 
 	E.private['sle']['uibuttons']['style'] = 'dropdown'
@@ -1789,7 +1788,6 @@ function PI:DarthSetupSL()
 	E.private['general']['glossTex'] = 'ElvUI Gloss'
 	E.private['general']['minimap']['hideClassHallReport'] = true
 
-	E.private['sle']['module']['blizzmove']['remember'] = true
 	E.db['sle']['afk']['enable'] = true
 
 	E.private['sle']['uibuttons']['style'] = 'dropdown'
@@ -2125,28 +2123,6 @@ SLE.installTable = {
 			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() E.db.sle.afk.enable = false end)
 			_G["PluginInstallFrame"].Option2:SetText(DISABLE)
 		end,
-		[6] = function()
-			_G["PluginInstallFrame"].SubTitle:SetText(L["Move Blizzard frames"])
-			_G["PluginInstallFrame"].Desc1:SetText(L["Allow some Blizzard frames to be moved around."])
-			_G["PluginInstallFrame"].Desc2:SetText(L["This option is bound to character and requires a UI reload to take effect."])
-			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
-
-			_G["PluginInstallFrame"].Option1:Show()
-			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function()
-				E.private.sle.module.blizzmove.enable = true
-				_G["PluginInstallStepComplete"].message = L["Move Blizzard frames"]..": |cff00FF00"..ENABLE.."|r"
-				_G["PluginInstallStepComplete"]:Show()
-			end)
-			_G["PluginInstallFrame"].Option1:SetText(ENABLE)
-
-			_G["PluginInstallFrame"].Option2:Show()
-			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function()
-				E.private.sle.module.blizzmove.enable = false
-				_G["PluginInstallStepComplete"].message = L["Move Blizzard frames"]..": |cffFF0000"..DISABLE.."|r"
-				_G["PluginInstallStepComplete"]:Show()
-			end)
-			_G["PluginInstallFrame"].Option2:SetText(DISABLE)
-		end,
 		-- [7] = function()
 		-- 	_G["PluginInstallFrame"].SubTitle:SetText(L["Raid Frame Power"])
 		-- 	_G["PluginInstallFrame"].Desc1:SetText(L["Show power bar for raid frames."])
@@ -2169,7 +2145,7 @@ SLE.installTable = {
 		-- 	end)
 		-- 	_G["PluginInstallFrame"].Option2:SetText(DISABLE)
 		-- end,
-		[7] = function()
+		[6] = function()
 			_G["PluginInstallFrame"].SubTitle:SetText(L["Installation Complete"])
 			_G["PluginInstallFrame"].Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
 			_G["PluginInstallFrame"].Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])
@@ -2185,9 +2161,8 @@ SLE.installTable = {
 		[3] = L["Author Presets"].." *",
 		[4] = L["Armory Mode"],
 		[5] = L["AFK Mode"],
-		[6] = L["Moving Frames"],
 		-- [7] = L["Raid Frame Power"],
-		[7] = L["Finished"],
+		[6] = L["Finished"],
 	},
 	["StepTitlesColorSelected"] = {.53,.53,.93},
 }
