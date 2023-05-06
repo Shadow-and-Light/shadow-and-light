@@ -268,6 +268,11 @@ function LT:LootAlpha()
 	_G['GroupLootHistoryFrame']:SetAlpha(LT.db.history.alpha or 1)
 end
 
+--Setting loot history scale
+function LT:LootScale()
+	_G['GroupLootHistoryFrame']:SetScale(LT.db.history.scale or 1)
+end
+
 --Hide loot history frame on exiting dungeon
 function LT:LootShow()
 	local instance = IsInInstance()

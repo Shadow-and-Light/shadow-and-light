@@ -565,6 +565,7 @@ P["sle"] = {
 		},
 		["history"] = {
 			["alpha"] = 1,
+			["scale"] = 1,
 			["autohide"] = false,
 		},
 		["looticons"] = {
