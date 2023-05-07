@@ -1,5 +1,6 @@
-v4.67 5/4/23
+v4.68 5/7/23
 
-• fix frame collisions with fishingbuddy
-• general fixes for 10.1.0
-• removed blizzmove module and recommend ProjectAzilroka or Demodal for the functionality
+• update darth's layout
+• added loot history scale
+• fix install error as we left the blizzmove module setup in the installer by mistake after it was removed
+• adjust armory character model to not be so zoomed in
