@@ -5,8 +5,8 @@ local _G = _G
 M.ViewportInitialized = false
 
 --Viewports
-function M:SetAllPoints(...)
-	if SLE._Compatibility['SunnArt'] or not M.ViewportInitialized or not E.private.sle.viewport.enable then return end
+function M:SetAllPoints()
+	if InCombatLockdown() or SLE._Compatibility['SunnArt'] or not M.ViewportInitialized or not E.private.sle.viewport.enable then return end
 	M:SetViewport()
 end
 
@@ -18,7 +18,7 @@ end
 end]]
 
 function M:SetViewport()
-	if SLE._Compatibility['SunnArt'] or not M.ViewportInitialized or not E.private.sle.viewport.enable then return end
+	if InCombatLockdown() or SLE._Compatibility['SunnArt'] or not M.ViewportInitialized or not E.private.sle.viewport.enable then return end
 	local scale = E.global.general.UIScale
 
 	_G.WorldFrame:ClearAllPoints()
@@ -52,8 +52,8 @@ function M:Initialize()
 	WorldFrame.SetAllPoints = M.SetAllPoints
 
 	-- Possible Fix for Cut Scene issues during a raid
-	CinematicFrame:SetScript("OnShow", nil)
-	CinematicFrame:SetScript("OnHide", nil)
+	CinematicFrame:SetScript('OnShow', nil)
+	CinematicFrame:SetScript('OnHide', nil)
 
 	M:SetViewport()
 	hooksecurefunc(E, 'PixelScaleChanged', M.SetViewport)
