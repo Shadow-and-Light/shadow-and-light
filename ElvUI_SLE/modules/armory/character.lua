@@ -307,8 +307,8 @@ function CA:Enable()
 	end
 
 	--Overlay resize to match new width
-	_G.CharacterModelFrameBackgroundOverlay:SetPoint('TOPLEFT', _G.CharacterModelScene, -4, 0)
-	_G.CharacterModelFrameBackgroundOverlay:SetPoint('BOTTOMRIGHT', _G.CharacterModelScene, 4, 0)
+	_G.CharacterModelFrameBackgroundOverlay:SetPoint('TOPLEFT', _G.PaperDollFrame.SLE_Armory_BG, -4, 0)
+	_G.CharacterModelFrameBackgroundOverlay:SetPoint('BOTTOMRIGHT', _G.PaperDollFrame.SLE_Armory_BG, 4, 0)
 
 	--Activating background
 	if _G.PaperDollFrame.SLE_Armory_BG then _G.PaperDollFrame.SLE_Armory_BG:Show() end
