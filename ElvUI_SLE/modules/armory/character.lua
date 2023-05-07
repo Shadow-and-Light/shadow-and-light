@@ -22,8 +22,9 @@ function CA:BuildLayout()
 	--<< Background >>--
 	if not _G.PaperDollFrame.SLE_Armory_BG then
 		_G.PaperDollFrame.SLE_Armory_BG = _G.PaperDollFrame:CreateTexture(nil, 'OVERLAY')
-		_G.PaperDollFrame.SLE_Armory_BG:Point('TOPLEFT', _G.CharacterModelScene, -4, 0)
-		_G.PaperDollFrame.SLE_Armory_BG:Point('BOTTOMRIGHT', _G.CharacterModelScene, 4, 0)
+		_G.PaperDollFrame.SLE_Armory_BG:Point('TOPLEFT', _G.CharacterHeadSlot, 0, 5)
+		_G.PaperDollFrame.SLE_Armory_BG:Point('RIGHT', _G.CharacterHandsSlot)
+		_G.PaperDollFrame.SLE_Armory_BG:Point('BOTTOM', _G.CharacterMainHandSlot)
 	end
 	_G.PaperDollFrame.SLE_Armory_BG:Hide()
 
@@ -286,9 +287,8 @@ function CA:Enable()
 
 	--Making model frame big enough
 	_G.CharacterModelScene:ClearAllPoints()
-	_G.CharacterModelScene:SetPoint('TOPLEFT', _G.CharacterHeadSlot, 0, 5)
-	_G.CharacterModelScene:SetPoint('RIGHT', _G.CharacterHandsSlot)
-	_G.CharacterModelScene:SetPoint('BOTTOM', _G.CharacterMainHandSlot)
+	_G.CharacterModelScene:SetPoint('TOP', _G.PaperDollFrame.SLE_Armory_BG, 0, 0)
+	_G.CharacterModelScene:SetPoint('BOTTOM', _G.PaperDollFrame.SLE_Armory_BG, 0, 0)
 
 	if _G.PaperDollFrame:IsShown() then --Setting up width for the main frame
 		_G.CharacterFrame:SetWidth(_G.CharacterFrame.Expanded and 650 or 444)
@@ -334,9 +334,6 @@ function CA:Disable()
 	_G.CharacterMainHandSlot:SetPoint('BOTTOMLEFT', _G.PaperDollItemsFrame, 'BOTTOMLEFT', 130, 16)
 
 	-- Model Frame
-	_G.CharacterModelScene:ClearAllPoints()
-	_G.CharacterModelScene:Size(231, 320)
-	_G.CharacterModelScene:SetPoint('TOPLEFT', _G.PaperDollFrame, 'TOPLEFT', 52, -66)
 	_G.CharacterModelScene.BackgroundTopLeft:Show()
 	_G.CharacterModelScene.BackgroundTopRight:Show()
 	_G.CharacterModelScene.BackgroundBotLeft:Show()
