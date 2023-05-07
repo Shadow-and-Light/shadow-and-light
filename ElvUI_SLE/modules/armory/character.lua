@@ -358,6 +358,9 @@ function CA:Disable()
 		if Slot.SLE_Durability then Slot.SLE_Durability:SetText('') end
 	end
 
+	_G.CharacterModelFrameBackgroundOverlay:SetPoint('TOPLEFT', _G.CharacterModelScene, 0, 0)
+	_G.CharacterModelFrameBackgroundOverlay:SetPoint('BOTTOMRIGHT', _G.CharacterModelScene, 0, 0)
+
 	if _G.PaperDollFrame.SLE_Armory_BG then _G.PaperDollFrame.SLE_Armory_BG:Hide() end
 end
 
