@@ -31,7 +31,6 @@ function B:Initialize()
 	B:SLTalkingHead()
 	hooksecurefunc(TalkingHeadFrame, 'PlayCurrent', function(frame)
 		if E.db.sle.skins.talkinghead.hide then
-			frame:Close()
 			frame:Hide()
 		end
 	end)
