@@ -245,6 +245,7 @@ local function PopulateRaidsTable()
 		SLE:GetMapInfo(1735, 'name'),
 		SLE:GetMapInfo(1998, 'name'),
 		SLE:GetMapInfo(2119, 'name'),
+		SLE:GetMapInfo(2166, 'name'),
 	}
 	RP.Raids['SHORT'] = {
 		L["RAID_EN"],
@@ -260,6 +261,7 @@ local function PopulateRaidsTable()
 		SLE:GetMapInfo(1735, 'name'),
 		'SoD',
 		'VotI',
+		'ATSC',
 	}
 end
 

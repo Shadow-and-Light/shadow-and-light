@@ -1373,6 +1373,7 @@ P["sle"] = {
 				nathria = false,
 				sod = false,
 				voti = true,
+				atsc = true,
 			},
 		},
 	},

@@ -85,6 +85,7 @@ local function configTable()
 							nathria = { order = -40, type = 'toggle', name = SLE:GetMapInfo(1735, 'name') },
 							sod = { order = -39, type = 'toggle', name = SLE:GetMapInfo(1998, 'name') },
 							voti = { order = -38, type = 'toggle', name = SLE:GetMapInfo(2119, 'name') },
+							atsc = { order = -37, type = 'toggle', name = SLE:GetMapInfo(2166, 'name') },
 						},
 					},
 				},
