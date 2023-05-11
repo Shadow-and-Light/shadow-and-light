@@ -2,7 +2,7 @@ local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local TT = E.Tooltip
 
 local _G = _G
-local TooltipDataType = Enum.TooltipDataType
+local TooltipDataProcessor = TooltipDataProcessor
 local iconPath = [[Interface\AddOns\ElvUI_SLE\media\textures\afk\factionlogo\blizzard\]]
 
 local function OnTooltipSetUnit(tt)
@@ -33,9 +33,9 @@ local function Init()
 	if not E.private.tooltip.enable then return end
 
 	if TooltipDataProcessor then
-		TooltipDataProcessor.AddTooltipPostCall(TooltipDataType.Unit, OnTooltipSetUnit)
+		TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetUnit)
 	else
-		SLE:SecureHookScript(GameTooltip, 'OnTooltipSetUnit', OnTooltipSetUnit)
+		SLE:SecureHookScript(_G.GameTooltip, 'OnTooltipSetUnit', OnTooltipSetUnit)
 	end
 
 	SLE:SetCompareItems()

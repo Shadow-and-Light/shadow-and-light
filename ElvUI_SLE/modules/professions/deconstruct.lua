@@ -198,18 +198,20 @@ function Pr:IsUnlockable(itemLink)
 	return false
 end
 
-function Pr:DeconstructParser(tt, data)
-	if not Pr.DeconstructMode then return end
-	local owner = tt:GetOwner()
+function Pr:DeconstructParser(data)
+	if not Pr.DeconstructMode or not data then return end
+	if (self ~= GameTooltip and self ~= _G.ShoppingTooltip1 and self ~= _G.ShoppingTooltip1) or self:IsForbidden() then return end
+
+	local owner = self:GetOwner()
 	local ownerName = owner and owner.GetName and owner:GetName()
 	if ownerName and (strfind(ownerName, 'ElvUI_Container') or strfind(ownerName, 'ElvUI_BankContainer')) then
-		local itemId = data.id
+		local itemId = data and data.id
 		if not itemId or itemId == '' then return end
 
 		local hyperlink
 		if data.guid then
 			hyperlink = C_Item.GetItemLinkByGUID(data.guid)
-		elseif tooltipData.hyperlink then
+		elseif data.hyperlink then
 			hyperlink = data.hyperlink;
 		end
 
@@ -338,15 +340,15 @@ function Pr:InitializeDeconstruct()
 	Pr:Construct_BagButton()
 	Pr:ConstructRealDecButton()
 
-	local function Hiding()
+	local function OnHide()
 		Pr.DeconstructMode = false
 		Pr.DeconstructButton:SetNormalTexture([[Interface\ICONS\INV_Rod_Cobalt]])
 		ActionButton_HideOverlayGlow(Pr.DeconstructButton)
 		Pr.DeconstructionReal:OnLeave()
 	end
 
-	_G.ElvUI_ContainerFrame:HookScript('OnHide', Hiding)
-	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tt, data) Pr:DeconstructParser(tt, data) end)
+	_G.ElvUI_ContainerFrame:HookScript('OnHide', OnHide)
+	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, Pr.DeconstructParser)
 
 	Pr:Blacklisting('DE')
 	Pr:Blacklisting('LOCK')
