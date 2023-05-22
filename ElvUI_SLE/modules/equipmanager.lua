@@ -120,6 +120,10 @@ EM.TagsTable = {
 		end
 		return passed
 	end,
+	['spell'] = function(spellID)
+		local isKnown = IsSpellKnown(spellID)
+		return isKnown
+	end,
 	--If in instanse. Optional arg [instance:type] - party, raid, scenario
 	['instance'] = function(dungeonType)
 		local inInstance, InstanceType = IsInInstance()
