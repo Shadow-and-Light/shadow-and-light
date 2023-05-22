@@ -350,7 +350,7 @@ end
 local equippedSets = {}
 
 --Equipping stuff
-function DelayedEquip()
+local function DelayedEquip()
 	--Figuring out the hell should be equipped
 	wipe(equippedSets)
 	local equipmentSetIDs = C_EquipmentSet.GetEquipmentSetIDs()
