@@ -10,6 +10,7 @@ local GetRealZoneText = GetRealZoneText
 local C_Calendar = C_Calendar
 local C_DateAndTime = C_DateAndTime
 local time = time
+local IsSpellKnown, GetSpellInfo = IsSpellKnown, GetSpellInfo
 
 EM.Conditions = {}
 EM.Processing = false
@@ -119,6 +120,17 @@ EM.TagsTable = {
 			if passed then break end
 		end
 		return passed
+	end,
+	['spell'] = function(idOrName)
+		local isNum = tonumber(idOrName)
+		local isKnown
+		if isNum then
+			return IsSpellKnown(idOrName)
+		else
+			local _, _, _, _, _, _, spellID = GetSpellInfo(idOrName)
+			return IsSpellKnown(spellID)
+		end
+		return false
 	end,
 	--If in instanse. Optional arg [instance:type] - party, raid, scenario
 	['instance'] = function(dungeonType)
@@ -338,24 +350,7 @@ end
 local equippedSets = {}
 
 --Equipping stuff
-local function Equip(event)
-	--If equip is in process or lock button is checked, then return
-	if EM.Processing or EM.lock then return end
-	--Only equip stuff on first load
-	if event == 'PLAYER_ENTERING_WORLD' then EM:UnregisterEvent(event) end
-	EM.Processing = true
-
-	--Usualy it takes around a second to equip everything
-	E:Delay(1, function() EM.Processing = false end)
-	--Don't try to equip in combat. it wouldn't work anyways
-	if InCombatLockdown() then
-		EM:RegisterEvent('PLAYER_REGEN_ENABLED', Equip)
-		return
-	end
-	if event == 'PLAYER_REGEN_ENABLED' then
-		EM:UnregisterEvent(event)
-	end
-
+local function DelayedEquip()
 	--Figuring out the hell should be equipped
 	wipe(equippedSets)
 	local equipmentSetIDs = C_EquipmentSet.GetEquipmentSetIDs()
@@ -382,7 +377,32 @@ local function Equip(event)
 			SLE:Print(format(L["SLE_EM_SET_NOT_EXIST"], trueSet), 'error')
 		end
 	end
+	
+	--Usualy it takes around a second to equip everything
+	E:Delay(1, function() EM.Processing = false end)
 end
+
+local function Equip(event, ...)
+	--If equip is in process or lock button is checked, then return
+	if EM.Processing or EM.lock then return end
+	--Only equip stuff on first load
+	if event == 'PLAYER_ENTERING_WORLD' then EM:UnregisterEvent(event) end
+	EM.Processing = true
+
+	--Don't try to equip in combat. it wouldn't work anyways
+	if InCombatLockdown() then
+		EM:RegisterEvent('PLAYER_REGEN_ENABLED', Equip)
+		return
+	end
+	if event == 'PLAYER_REGEN_ENABLED' then
+		EM:UnregisterEvent(event)
+	end
+	
+	--apparently new spel knows statuses are available a bit after the spec switch => a bit of a delay
+	E:Delay(1, DelayedEquip) 
+end
+
+
 
 --Creating a lock button. Prevents gear from auto equip
 function EM:CreateLock()
@@ -432,6 +452,8 @@ function EM:Initialize()
 	EM:RegisterEvent('PLAYER_ENTERING_WORLD', Equip)
 	EM:RegisterEvent('LOADING_SCREEN_DISABLED', Equip)
 	EM:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', Equip)
+	EM:RegisterEvent('SPELLS_CHANGED', Equip)
+	-- EM:RegisterEvent('PLAYER_TALENT_UPDATE', Equip)
 	EM:RegisterEvent('PLAYER_LEVEL_CHANGED', Equip)
 	EM:RegisterEvent('GROUP_ROSTER_UPDATE', Equip)
 	EM:RegisterEvent('PLAYER_FLAGS_CHANGED', Equip)
