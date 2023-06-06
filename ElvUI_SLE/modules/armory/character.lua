@@ -192,7 +192,7 @@ function CA:Update_BG()
 	elseif E.db.sle.armory.character.background.selectedBG == 'CUSTOM' then
 		_G.PaperDollFrame.SLE_Armory_BG:SetTexture(E.db.sle.armory.character.background.customTexture)
 	elseif E.db.sle.armory.character.background.selectedBG == 'CLASS' then
-		_G.PaperDollFrame.SLE_Armory_BG:SetTexture([[Interface\AddOns\ElvUI_SLE\media\textures\armory\]]..E.myclass)
+		_G.PaperDollFrame.SLE_Armory_BG:SetTexture([[Interface\DRESSUPFRAME\dressingroom]]..strlower(E.myclass))
 	elseif E.db.sle.armory.character.background.selectedBG == 'Covenant' then
 		local covenant = SLE.ArmoryConfigBackgroundValues.Covenants[C_Covenants.GetActiveCovenantID()]
 		local bgtexture = SLE:TextureExists([[Interface\AddOns\ElvUI_SLE\media\textures\armory\Cov_]]..covenant) and [[Interface\AddOns\ElvUI_SLE\media\textures\armory\Cov_]]..covenant or nil
