@@ -178,6 +178,9 @@ function Armory:UpdatePageInfo(frame, which)
 		Armory.CharacterPrimaryStat = select(6, GetSpecializationInfo(GetSpecialization(), nil, nil, nil, UnitSex('player')))
 	else
 		Armory.InspectPrimaryStat = Armory.Constants.SpecPrimaryStats[GetInspectSpecialization(unit)]
+		if _G.InspectPaperDollFrame.SLE_Armory_BG then
+			IA:Update_BG()
+		end
 	end
 
 	for _, SlotName in pairs(Armory.Constants.GearList) do
