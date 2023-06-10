@@ -6,11 +6,11 @@ Originally this project started as two personal edits of ElvUI by Darth Predator
 You'll find Shadow & Light options under it's own configuration category in ElvUI's config section by typing /ec
 
 [color="#3e8ac6"][b]Suggestions/Concerns:[/b][/color]
-[list][url=https://git.tukui.org/shadow-and-light/shadow-and-light/issues/new?issuable_template=Bug+Report]Ticket System[/url]
+[list][url=https://github.com/Shadow-and-Light/shadow-and-light/issues]Ticket System[/url]
 [/list]
 
 [color="#3e8ac6"][b]Download Locations:[/b][/color]
-[list][url=https://www.tukui.org/addons.php?id=38]Tukui[/url]
+[list][url=https://addons.wago.io/addons/shadow-and-light]Wago Addons[/url]
 [*][url=http://www.curse.com/addons/wow/shadow-and-light-edit]Curse[/url]
 [/list]
 
@@ -54,7 +54,7 @@ You'll find Shadow & Light options under it's own configuration category in ElvU
 Did we forget anyone? O_o
 
 [color="#ff0000"][b]Technical Support:[/b][/color]
-If you have any questions or concerns, we want to hear about it.  You are welcome to post it via the [url=https://git.tukui.org/shadow-and-light/shadow-and-light/issues/new?issuable_template=Bug+Report]Ticket System[/url]. 
+If you have any questions or concerns, we want to hear about it.  You are welcome to post it via the [url=https://github.com/Shadow-and-Light/shadow-and-light/issues]Ticket System[/url].
 
 Darth Predator and I will do our best to address everyone's concern.  We typically need some information from you other than the problem you are having.  Before posting, PLEASE, make sure you are running the latest version of Shadow & Light as well as ElvUI and that you <b>DISABLE ALL</b> addons except for those two and try to reproduce the issue.  It is important that you do that so we can narrow down what is causing the problem in the first place.
 s

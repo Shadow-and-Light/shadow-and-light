@@ -168,8 +168,8 @@ local function configTable()
 				args = {
 					desc = ACH:Description(L["LINK_DESC"], 1, 'medium'),
 					tukuilink = {
-						order = 2, type = 'input', width = 'full', name = 'TukUI.org',
-						get = function() return 'https://www.tukui.org/addons.php?id=38' end,
+						order = 2, type = 'input', width = 'full', name = 'Wago Addons',
+						get = function() return 'https://addons.wago.io/addons/shadow-and-light' end,
 					},
 					curselink= {
 						order = 3, type = 'input', width = 'full', name = 'Curseforge.com',

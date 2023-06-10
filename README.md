@@ -8,11 +8,11 @@
 
 **ElvUI Download Links:**
 
-[Tukui Website](https://www.tukui.org/download.php?ui=elvui "This link takes you to the Tukui.org website, you may download it here.")
+[Tukui Website](https://tukui.org/elvui "This link takes you to the Tukui.org website, you may download it here.")
 
 **S&L Download Links:**
 
-[Tukui Website](https://www.tukui.org/addons.php?id=38 "This link takes you to the Tukui.org website, you may download it here.")
+[Wago Addons](https://addons.wago.io/addons/shadow-and-light "This link takes you to the Wago Addons website, you may download it here.")
 
 [Curse Website](https://www.curseforge.com/wow/addons/elvui-shadow-light/ "This link takes you to the Curseforge.com website, you may download it here and help support the developers.")
 
