@@ -282,10 +282,13 @@ end
 function Armory:UpdateGemInfo(Slot, which)
 	local unit = which == 'Character' and 'player' or (_G.InspectFrame and _G.InspectFrame.unit)
 	if not unit then return end
+	local itemLink = Slot.itemLink
+
 	for i = 1, Armory.Constants.MaxGemSlots do
-		local GemLink
 		if not Slot['SLE_Gem'..i] then return end
-		if Slot.itemLink then
+
+		local gemLink, gemTexture
+		if itemLink then
 			if Slot.ID == 2 then
 				if not CA.HearthMilestonesCached then CA:FixFuckingBlizzardLogic() end
 				local window = strlower(which)
@@ -300,17 +303,24 @@ function Armory:UpdateGemInfo(Slot, which)
 					local GemID = C_AzeriteEssence.GetMilestoneEssence(Armory.Constants.EssenceMilestones[i]) --Blizz messed up milestones IDs so using a god damned cache table
 					if GemID then
 						local rank = C_AzeriteEssence.GetEssenceInfo(GemID).rank
-						GemLink = C_AzeriteEssence.GetEssenceHyperlink(GemID, rank)
+						gemLink = C_AzeriteEssence.GetEssenceHyperlink(GemID, rank)
 					end
 				end
-				if not GemLink then
-					GemLink = select(2, GetItemGem(Slot.itemLink, i))
+				if not gemLink then
+					gemLink = select(2, GetItemGem(itemLink, i))
 				end
 			else
-				GemLink = select(2, GetItemGem(Slot.itemLink, i))
+				local textureSlot = Slot['textureSlot'..i]
+				local textureID = textureSlot:GetTexture()
+
+				gemLink = select(2, GetItemGem(itemLink, i))
+				if gemLink then
+					gemTexture = select(10, GetItemInfo(gemLink))
+					gemLink = select(2, GetItemGem(itemLink, textureID == gemTexture and i or i + 1))
+				end
 			end
 		end
-		Slot['SLE_Gem'..i].Link = GemLink
+		Slot['SLE_Gem'..i].Link = gemLink
 	end
 end
 
