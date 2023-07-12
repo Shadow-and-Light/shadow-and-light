@@ -85,9 +85,9 @@ LP.Hearthstones = {
 }
 
 LP.PortItems = {
-	{110560, GARRISON_LOCATION_TOOLTIP}, --Garrison Hearthstone
+	{110560, nil, true}, --Garrison Hearthstone
 	{128353}, --Admiral's Compass
-	{140192, DUNGEON_FLOOR_DALARAN1}, --Dalaran Hearthstone
+	{140192, nil, true}, --Dalaran Hearthstone
 	{37863}, --Grim Guzzler
 	{52251}, --Jaina's Locket
 	{58487}, --Potion of Deepholm
