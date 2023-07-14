@@ -1,4 +1,4 @@
-﻿## Interface: 100100
+﻿## Interface: 100105
 ## Title: |cff1784d1ElvUI|r |cff9482c9Shadow & Light|r
 ## Author: Darth Predator, Repooc
 ## Version: 4.68
@@ -7,7 +7,7 @@
 ## RequiredDeps: ElvUI
 ## OptionalDeps: AddonSkins, BigWigs, Clique, Hermes, xCT+
 ## DefaultState: Enabled
-## X-ElvVersion: 13.30
+## X-ElvVersion: 13.38
 ## X-Curse-Project-ID: 39618
 ## X-Wago-ID: 7x61q261
 ## SavedVariables: SLE_ArmoryDB
