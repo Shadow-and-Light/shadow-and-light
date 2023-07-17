@@ -303,7 +303,7 @@ function Pr:ConstructRealDecButton()
 			frame:SetAlpha(1)
 			if _G.GameTooltip then _G.GameTooltip:Hide() end
 			LCG.AutoCastGlow_Stop(frame)
-			LCG.ButtonGlow_Stop(frame)
+			LCG.PixelGlow_Stop(frame)
 			ActionButton_HideOverlayGlow(frame)
 			frame:Hide()
 		end
