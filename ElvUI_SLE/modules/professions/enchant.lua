@@ -31,32 +31,3 @@ function Pr:UpdateButtonInfo(recipeInfo)
 	UpdateButtonText(recipeInfo)
 	button:SetShown(ShouldShowButton(recipeInfo))
 end
-
-function Pr:EnchantButton()
-	if not E.private.sle.professions.enchant.enchScroll then return end
-	button = CreateFrame('Button', 'SL_EnchantScrollButton', _G.ProfessionsFrame.CraftingPage.CreateAllButton, 'MagicButtonTemplate, BackdropTemplate')
-	button:Hide()
-	if E.private.skins.blizzard.tradeskill and E.private.skins.blizzard.enable then
-		S:HandleButton(button)
-		button:SetTemplate('Default', true)
-		button:ClearAllPoints()
-		button:SetPoint('TOPRIGHT', _G.ProfessionsFrame.CraftingPage.CreateAllButton, 'TOPLEFT', -1, 0)
-	else
-		button:SetPoint('TOPRIGHT', _G.ProfessionsFrame.CraftingPage.CreateAllButton, 'TOPLEFT')
-	end
-	button:SetMotionScriptsWhileDisabled(true)
-	button:SetScript('OnClick', function()
-		C_TradeSkillUI_CraftRecipe(_G.ProfessionsFrame.CraftingPage.SchematicForm:GetRecipeInfo().recipeID)
-		UseItemByName(38682)
-	end)
-	hooksecurefunc(_G.ProfessionsFrame.CraftingPage, 'Refresh', function(CraftingPage)
-		if not CraftingPage.SchematicForm or not CraftingPage.SchematicForm.currentRecipeInfo then return end
-		Pr:UpdateButtonInfo(CraftingPage.SchematicForm.currentRecipeInfo)
-	end)
-
-	Pr:RegisterEvent('ITEM_COUNT_CHANGED', function(_, itemID)
-		if not itemID or itemID ~= 38682 then return end
-		UpdateButtonText(_G.ProfessionsFrame.CraftingPage.SchematicForm.currentRecipeInfo)
-	end)
-	EventRegistry:RegisterCallback('ProfessionsRecipeListMixin.Event.OnRecipeSelected', Pr.UpdateButtonInfo)
-end

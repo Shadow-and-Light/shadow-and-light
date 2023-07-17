@@ -30,9 +30,6 @@ V["sle"] = {
 			["style"] = "BIG",
 			["buttonGlow"] = true,
 		},
-		["enchant"] = {
-			["enchScroll"] = false,
-		},
 		["fishing"] = {
 			["EasyCast"] = false,
 			["FromMount"] = false,

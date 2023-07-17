@@ -1792,8 +1792,6 @@ function PI:DarthSetupSL()
 
 	E.private['sle']['uibuttons']['style'] = 'dropdown'
 
-	E.private['sle']['professions']['enchant']['enchScroll'] = true
-
 	E.private['sle']['skins']['merchant']['enable'] = true
 	E.private['sle']['skins']['merchant']['style'] = 'List'
 

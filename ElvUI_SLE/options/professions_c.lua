@@ -19,7 +19,6 @@ local function configTable()
 	--* Enchanting
 	Professions.enchant = ACH:Group(L["Enchanting"], nil, 3)
 	local Enchant = Professions.enchant.args
-	Enchant.enchScroll = ACH:Toggle(L["Enchant Scroll Button"], L["Create a button for applying selected enchant on the scroll."], 3, nil, nil, nil, function(info) return E.private.sle.professions.enchant[info[#info]] end, function(info, value) E.private.sle.professions.enchant[info[#info]] = value E:StaticPopup_Show('PRIVATE_RL') end)
 	Enchant.desc = ACH:Description(L["Following options are global and will be applied to all characters on account."], 2)
 	Enchant.ignoreItems = ACH:Input(L["Deconstruction ignore"], L["Items listed here will be ignored in deconstruction mode. Add names or item links, entries must be separated by comma."], 3, true, 'full', function() return E.global.sle.DE.Blacklist end, function(_, value) E.global.sle.DE.Blacklist = value Pr:Blacklisting('DE') end, function() return not E.private.sle.professions.deconButton.enable end)
 	Enchant.IgnoreTabards = ACH:Toggle(L["Ignore tabards"], L["Deconstruction mode will ignore tabards."], 4, nil, nil, nil, function(info) return E.global.sle.DE[info[#info]] end, function(info, value) E.global.sle.DE[info[#info]] = value end, function() return not E.private.sle.professions.deconButton.enable end, function() return not E.global.sle.advanced.general end)

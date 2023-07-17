@@ -271,6 +271,12 @@ function SLE:DatabaseConversions()
 							privateChanged = true
 						end
 					end
+					if data.sle.professions.enchant then
+						if data.sle.professions.enchant.enchScroll then
+							data.sle.professions.enchant = nil
+							privateChanged = true
+						end
+					end
 				end
 				if privateChanged then
 					if CharacterNames == NONE then

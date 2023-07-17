@@ -124,7 +124,6 @@ L["Commands"] = true
 L["Converts specified keywords to links that automatically invite message's author to group."] = true
 L["Coordinates"] = true
 L["Coords Location"] = true
-L["Create a button for applying selected enchant on the scroll."] = true
 L["Create a button in character frame to allow temp blocking of auto set swap."] = true
 L["Create a button in your bag frame to switch to deconstruction mode allowing you to easily disenchant/mill/prospect and pick locks."] = true
 L["Creates a cosmetic line under objective headers."] = true
@@ -180,7 +179,6 @@ L["Enables a small arrow-like indicator on the item slot. Howering over this arr
 L["Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."] = true
 L["Enables timers for 2 & 3 chest times in M+"] = true
 L["Enabling mouse over will make ElvUI's raid utility show on mouse over instead of always showing."] = true
-L["Enchant Scroll Button"] = true
 L["Enchant String"] = true
 L["Enhanced Shadows"] = true
 L["Equipment conditions"] = true

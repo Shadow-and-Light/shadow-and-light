@@ -124,7 +124,6 @@ L["Commands"] = "Commandes"
 L["Converts specified keywords to links that automatically invite message's author to group."] = "Convertit des mots clés spécifiques en liens qui autorisent les invitations automatiques."
 L["Coordinates"] = "Coordonnées"
 L["Coords Location"] = true
-L["Create a button for applying selected enchant on the scroll."] = "Créez un bouton pour appliquer l'enchantement sélectionné sur le parchemin."
 L["Create a button in character frame to allow temp blocking of auto set swap."] = "Crée un bouton dans la fenêtre du personnage qui vous permet de désactiver le changement d'équipement."
 L["Create a button in your bag frame to switch to deconstruction mode allowing you to easily disenchant/mill/prospect and pick locks."] = "Créez un bouton dans le cadre de votre sac pour passer en mode déconstruction, ce qui vous permet de désenchanter/broyer/prospecter et de crocheter facilement les serrures."
 L["Creates a cosmetic line under objective headers."] = "Crée une ligne de cosmétiques sous des en-têtes objectifs."
@@ -180,7 +179,6 @@ L["Enables a small arrow-like indicator on the item slot. Howering over this arr
 L["Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."] = true
 L["Enables timers for 2 & 3 chest times in M+"] = true
 L["Enabling mouse over will make ElvUI's raid utility show on mouse over instead of always showing."] = "En activant le survol de la souris, l'utilitaire de raid d'ElvUI s'affichera au survol de la souris au lieu de toujours s'afficher."
-L["Enchant Scroll Button"] = "Bouton de défilement d'enchantement"
 L["Enchant String"] = "Chaîne d'enchantement"
 L["Enhanced Shadows"] = "Ombre étenduen"
 L["Equipment conditions"] = "Conditions d'équipement"

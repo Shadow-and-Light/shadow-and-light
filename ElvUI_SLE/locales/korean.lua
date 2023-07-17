@@ -124,7 +124,6 @@ L["Commands"] = "명령어"
 L["Converts specified keywords to links that automatically invite message's author to group."] = true
 L["Coordinates"] = "좌표"
 L["Coords Location"] = true
-L["Create a button for applying selected enchant on the scroll."] = true
 L["Create a button in character frame to allow temp blocking of auto set swap."] = true
 L["Create a button in your bag frame to switch to deconstruction mode allowing you to easily disenchant/mill/prospect and pick locks."] = "가방 프레임에 버튼을 만들어서 뽀각 모드로 전환할 수 있게 합니다. 뽀각 모드는 마력추출/제분/보석추출/자물쇠 따기를 손쉽게 합니다."
 L["Creates a cosmetic line under objective headers."] = true
@@ -180,7 +179,6 @@ L["Enables a small arrow-like indicator on the item slot. Howering over this arr
 L["Enables an indicator on equipment icons located in your bags to show if they are part of an equipment set."] = true
 L["Enables timers for 2 & 3 chest times in M+"] = true
 L["Enabling mouse over will make ElvUI's raid utility show on mouse over instead of always showing."] = "활성화하면 ElvUI 공격대 유틸리티가 항상 표시되는 대신 마우스 오버스에 표시됩니다."
-L["Enchant Scroll Button"] = true
 L["Enchant String"] = "마법 부여"
 L["Enhanced Shadows"] = "그림자 향상"
 L["Equipment conditions"] = true
