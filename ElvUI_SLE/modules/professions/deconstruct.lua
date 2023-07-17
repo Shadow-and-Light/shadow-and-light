@@ -302,10 +302,10 @@ function Pr:ConstructRealDecButton()
 			frame:ClearAllPoints()
 			frame:SetAlpha(1)
 			if _G.GameTooltip then _G.GameTooltip:Hide() end
-			frame:Hide()
 			LCG.AutoCastGlow_Stop(frame)
 			LCG.ButtonGlow_Stop(frame)
 			ActionButton_HideOverlayGlow(frame)
+			frame:Hide()
 		end
 	end
 
