@@ -270,6 +270,10 @@ LP.Spells = {
 		[39] = {text = GetSpellInfo(393283),icon = SLE:GetIconFromID('spell', 393283),secure = {buttonType = 'spell',ID = 393283}, UseTooltip = true},	-- Halls of Infusion (Path of the Titanic Reservoir)
 		[40] = {text = GetSpellInfo(393764),icon = SLE:GetIconFromID('spell', 393764),secure = {buttonType = 'spell',ID = 393764}, UseTooltip = true},	-- Halls of Valor (Path of Proven Worth)
 		[41] = {text = GetSpellInfo(393766),icon = SLE:GetIconFromID('spell', 393766),secure = {buttonType = 'spell',ID = 393766}, UseTooltip = true},	-- Court of Stars (Path of the Grand Magistrix)
+		[42] = {text = GetSpellInfo(410071),icon = SLE:GetIconFromID('spell', 410071),secure = {buttonType = 'spell',ID = 410071}, UseTooltip = true},  -- Freehold (Path of the Freebooter)
+        [43] = {text = GetSpellInfo(410074),icon = SLE:GetIconFromID('spell', 410074),secure = {buttonType = 'spell',ID = 410074}, UseTooltip = true},  -- Underrot (Path of the Festering Rot)
+        [44] = {text = GetSpellInfo(410078),icon = SLE:GetIconFromID('spell', 410078),secure = {buttonType = 'spell',ID = 410078}, UseTooltip = true},  -- Neltharion's Lair (Path of the Earth-Warder)
+        [45] = {text = GetSpellInfo(410080),icon = SLE:GetIconFromID('spell', 410080),secure = {buttonType = 'spell',ID = 410080}, UseTooltip = true},  -- The Vortex Pinacle (Path of Wind's Domain)
 	},
 }
 
