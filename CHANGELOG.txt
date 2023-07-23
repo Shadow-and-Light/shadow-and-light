@@ -1,6 +1,8 @@
-v4.68 5/7/23
+v4.69 ?/?/23
 
-• update darth's layout
-• added loot history scale
-• fix install error as we left the blizzmove module setup in the installer by mistake after it was removed
-• adjust armory character model to not be so zoomed in
+• fix an error during install regarding addonskins embed option
+• update raid progress tooltips
+• add spell check in equipment manager
+• Dalaran/Garrison Hearthstones are toys now
+• Enchant Scroll Button is no longer needed
+• Add Freehold, Underrot, Neltharion's Lair, and The Vortex Pinacle to the portals
