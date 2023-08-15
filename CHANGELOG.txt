@@ -1,4 +1,4 @@
-v4.69 ?/?/23
+v4.69 8/15/23
 
 • fix an error during install regarding addonskins embed option
 • update raid progress tooltips
