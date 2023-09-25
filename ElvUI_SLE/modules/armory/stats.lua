@@ -363,7 +363,7 @@ function SA:ToggleArmory()
 	_G.CharacterFrame.ItemLevelText:SetText('')
 
 	PaperDollFrame_UpdateStats()
-	M:UpdateCharacterItemLevel()
+	M:UpdateCharacterInfo()
 	if not E.db.general.itemLevel.displayCharacterInfo then
 		_G.CharacterFrame.ItemLevelText:SetText('')
 	end
