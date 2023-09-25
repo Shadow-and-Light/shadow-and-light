@@ -388,6 +388,8 @@ function DVB:Initialize()
 	DVB:CreateBar()
 	DVB:UpdateButtonSettings()
 
+	DVB:RegisterEvent('UPDATE_BINDINGS', DVB.UpdateButtonSettings)
+
 	--! Def need some testing as I don't see why or where this is needed atm
 	-- DVB.bar:Execute(DVB.bar:GetAttribute('_onstate-page'))
 
