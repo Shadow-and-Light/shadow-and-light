@@ -105,22 +105,8 @@ if SLE.elvV < 11 or (SLE.elvV < SLE.elvR) then
 end
 
 function SLE:UpdateMedia()
-	--Might be a better way, working though
-	local shadowColor = E.db.sle.shadows.shadowcolor
-	if E:CheckClassColor(shadowColor.r, shadowColor.g, shadowColor.b) then
-		shadowColor = E:ClassColor(E.myclass, true)
-		E.db.sle.shadows.shadowcolor.r = shadowColor.r
-		E.db.sle.shadows.shadowcolor.g = shadowColor.g
-		E.db.sle.shadows.shadowcolor.b = shadowColor.b
-	end
-
-	local iconColor = E.db.sle.bags.equipmentmanager.color
-	if E:CheckClassColor(iconColor.r, iconColor.g, iconColor.b) then
-		iconColor = E:ClassColor(E.myclass, true)
-		E.db.sle.bags.equipmentmanager.color.r = iconColor.r
-		E.db.sle.bags.equipmentmanager.color.g = iconColor.g
-		E.db.sle.bags.equipmentmanager.color.b = iconColor.b
-	end
+	E:UpdateClassColor(E.db.sle.shadows.shadowcolor)
+	E:UpdateClassColor(E.db.sle.bags.equipmentmanager.color)
 end
 
 function SLE:Initialize()
