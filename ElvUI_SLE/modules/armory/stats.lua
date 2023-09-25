@@ -914,7 +914,7 @@ local blizzFuncs = {
 	--* Update Stats
 	PaperDollFrame_UpdateStats = SA.PaperDollFrame_UpdateStats,
 	--* Avg Item Level
-	M = { UpdateCharacterItemLevel = SA.UpdateCharacterItemLevel, ToggleItemLevelInfo = SA.UpdateCharacterItemLevel, UpdateAverageString = SA.UpdateCharacterItemLevel},
+	M = { UpdateCharacterInfo = SA.UpdateCharacterItemLevel, ToggleItemLevelInfo = SA.UpdateCharacterItemLevel, UpdateAverageString = SA.UpdateCharacterItemLevel},
 }
 
 function SA:ToggleFunctionHooks()
