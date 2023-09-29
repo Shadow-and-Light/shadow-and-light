@@ -1,8 +1,4 @@
-v4.69 8/15/23
+v4.70 9/28/23
 
-• fix an error during install regarding addonskins embed option
-• update raid progress tooltips
-• add spell check in equipment manager
-• Dalaran/Garrison Hearthstones are toys now
-• Enchant Scroll Button is no longer needed
-• Add Freehold, Underrot, Neltharion's Lair, and The Vortex Pinacle to the portals
+• updates to accomadate elvui changes
+• fixed an issue with dedicated vehicle bar keybind text not showing when using "Tab Target Arena Fix" addon
