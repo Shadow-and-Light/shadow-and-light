@@ -528,6 +528,7 @@ end
 
 function Armory:Initialize()
 	if not Armory:CheckOptions() then return end
+	if not E.db.sle.armory.character.enable and not E.db.sle.armory.inspect.enable then return end
 
 	--May be usefull later
 	Armory.ScanTT = CreateFrame('GameTooltip', 'SLE_Armory_ScanTT', nil, 'GameTooltipTemplate')
