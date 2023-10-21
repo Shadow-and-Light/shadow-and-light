@@ -318,11 +318,11 @@ local function CreateUnitframesConfig()
 end
 
 local function configTable()
-	if not E.Options.args.modulecontrol then return end
+	if not E.Options.args.profiles.args.modulecopy then return end
 	local ACH = E.Libs.ACH
 	MC = E.ModuleCopy
 
-	E.Options.args.modulecontrol.args.modulecopy.args.sle = {
+	E.Options.args.profiles.args.modulecopy.args.sle = {
 		order = 30,
 		type = 'group',
 		name = SLE.Title,
