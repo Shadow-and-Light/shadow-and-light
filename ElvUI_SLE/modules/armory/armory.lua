@@ -168,7 +168,7 @@ end
 
 --Updates the frame
 function Armory:UpdatePageInfo(frame, which)
-	if not (frame or which) then return end
+	if not (frame and which) then return end
 	local window = strlower(which)
 	if not (E.db.sle.armory[window].enable or Armory:CheckOptions(which)) then return end
 
