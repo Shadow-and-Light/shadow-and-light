@@ -168,8 +168,9 @@ end
 
 --Updates the frame
 function Armory:UpdatePageInfo(frame, which)
-	if not (frame and which) then return end
-	if not Armory:CheckOptions(which) then return end
+	if not (frame or which) then return end
+	local window = strlower(which)
+	if not (E.db.sle.armory[window].enable or Armory:CheckOptions(which)) then return end
 
 	local window = strlower(which)
 	local unit = (which == 'Character' and 'player') or frame.unit
@@ -221,40 +222,36 @@ end
 
 --Updates ilvl and everything tied to the item somehow
 function Armory:UpdatePageStrings(_, iLevelDB, Slot, slotInfo, which)
-	if not Armory:CheckOptions(which) then return end
+	if not which then return end
+	local window = strlower(which) --to know which settings table to use
+	if not (E.db.sle.armory[window] or E.db.sle.armory[window].enable or Armory:CheckOptions(which)) then return end
 	Slot.itemLink = GetInventoryItemLink((which == 'Character' and 'player') or _G.InspectFrame.unit, Slot.ID)
 	if slotInfo.itemLevelColors then
-		local window = strlower(which) --to know which settings table to use
-		if E.db.sle.armory[window] and E.db.sle.armory[window].enable then --If settings table actually exists and armory for it is enabled
-			local iR, iG, iB = unpack(slotInfo.itemLevelColors)
-			if Slot.enchantText and not (slotInfo.enchantTextShort == nil or slotInfo.enchantText == nil) then Armory:ProcessEnchant(window, Slot, slotInfo.enchantText, slotInfo.enchantTextReal) end
-			if E.db.sle.armory[window].ilvl.colorType == 'QUALITY' then
-				if iR ~= nil then
-					Slot.iLvlText:SetTextColor(iR, iG, iB) --Business as usual
-				end
-			elseif E.db.sle.armory[window].ilvl.colorType == 'GRADIENT' then
-				local equippedIlvl = window == 'character' and select(2, GetAverageItemLevel()) or E:CalculateAverageItemLevel(iLevelDB, _G.InspectFrame.unit)
-				local diff
-				if slotInfo.iLvl and (equippedIlvl and type(equippedIlvl) ~= 'boolean') then
-					diff = slotInfo.iLvl - equippedIlvl
-				else
-					diff = 0
-				end
-				local aR, aG, aB
-				if diff >= 0 then
-					aR, aG, aB = 0,1,0
-				else
-					aR, aG, aB = E:ColorGradient(-(3/diff), 1, 0, 0, 1, 1, 0, 0, 1, 0)
-				end
-				Slot.iLvlText:SetTextColor(aR, aG, aB)
-			else
-				Slot.iLvlText:SetTextColor(1, 1, 1)
-			end
-		else
+		local iR, iG, iB = unpack(slotInfo.itemLevelColors)
+		if Slot.enchantText and not (slotInfo.enchantTextShort == nil or slotInfo.enchantText == nil) then Armory:ProcessEnchant(window, Slot, slotInfo.enchantText, slotInfo.enchantTextReal) end
+		if E.db.sle.armory[window].ilvl.colorType == 'QUALITY' then
 			if iR ~= nil then
-				Slot.iLvlText:SetTextColor(unpack(slotInfo.itemLevelColors))
+				Slot.iLvlText:SetTextColor(iR, iG, iB) --Business as usual
 			end
+		elseif E.db.sle.armory[window].ilvl.colorType == 'GRADIENT' then
+			local equippedIlvl = window == 'character' and select(2, GetAverageItemLevel()) or E:CalculateAverageItemLevel(iLevelDB, _G.InspectFrame.unit)
+			local diff
+			if slotInfo.iLvl and (equippedIlvl and type(equippedIlvl) ~= 'boolean') then
+				diff = slotInfo.iLvl - equippedIlvl
+			else
+				diff = 0
+			end
+			local aR, aG, aB
+			if diff >= 0 then
+				aR, aG, aB = 0,1,0
+			else
+				aR, aG, aB = E:ColorGradient(-(3/diff), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+			end
+			Slot.iLvlText:SetTextColor(aR, aG, aB)
+		else
+			Slot.iLvlText:SetTextColor(1, 1, 1)
 		end
+
 		--This block is separate cause disabling armory will not hide dem gradients otherwise
 		if Slot.SLE_Gradient then --First call for this function for inspect is before gradient is created. To avoid errors
 			if E.db.sle.armory[window].enable and E.db.sle.armory[window].gradient.enable and slotInfo.iLvl then
@@ -528,50 +525,54 @@ end
 
 function Armory:Initialize()
 	if not Armory:CheckOptions() then return end
-	if not E.db.sle.armory.character.enable and not E.db.sle.armory.inspect.enable then return end
 
 	--May be usefull later
 	Armory.ScanTT = CreateFrame('GameTooltip', 'SLE_Armory_ScanTT', nil, 'GameTooltipTemplate')
 	Armory.ScanTT:SetOwner(UIParent, 'ANCHOR_NONE')
+	SA = SLE.Armory_Stats
+	CA = SLE.Armory_Character
+	SA:LoadAndSetup()
+	-- if not E.db.sle.armory.character.enable and not E.db.sle.armory.inspect.enable then return end
 
 	hooksecurefunc(M, 'UpdatePageInfo', Armory.UpdatePageInfo)
-	hooksecurefunc(M, 'UpdatePageStrings', Armory.UpdatePageStrings)
-	hooksecurefunc(M, 'ToggleItemLevelInfo', Armory.ToggleItemLevelInfo)
-	hooksecurefunc(M, 'UpdateInspectPageFonts', Armory.UpdateSharedStringsFonts)
-	hooksecurefunc(M, 'CreateSlotStrings', Armory.CreateSlotStrings)
+	hooksecurefunc(M, 'UpdatePageStrings', Armory.UpdatePageStrings) --should be ok to call
+	hooksecurefunc(M, 'ToggleItemLevelInfo', Armory.ToggleItemLevelInfo) --! idk yet
+	hooksecurefunc(M, 'UpdateInspectPageFonts', Armory.UpdateSharedStringsFonts) --should be ok to call
+	hooksecurefunc(M, 'CreateSlotStrings', Armory.CreateSlotStrings) --should be ok to call
 
 	Armory:ToggleItemLevelInfo()
-	if Armory:CheckOptions('Character') then
-		CA = SLE.Armory_Character
-		SA = SLE.Armory_Stats
+	if E.db.sle.armory.character.enable and Armory:CheckOptions('Character') then
 		Armory:BuildFrameDefaultsCache('Character')
 		hooksecurefunc(M, 'UpdateCharacterInfo', Armory.UpdateCharacterInfo)
 		CA:LoadAndSetup()
-		SA:LoadAndSetup()
 		Armory:UpdateCharacterInfo()
 	end
 
-	if Armory:CheckOptions('Inspect') then
+	if E.db.sle.armory.inspect.enable and Armory:CheckOptions('Inspect') then
 		IA = SLE.Armory_Inspect
 		hooksecurefunc(M, 'UpdateInspectInfo', Armory.UpdateInspectInfo)
 		IA:PreSetup()
 	end
 
 	function Armory:ForUpdateAll()
-		SLE.Armory_Character:ToggleArmory()
-		M:UpdatePageInfo(_G.CharacterFrame, 'Character')
-		if not E.db.general.itemLevel.displayCharacterInfo then M:ClearPageInfo(_G.CharacterFrame, 'Character') end
+		if E.db.sle.armory.character.enable then
+			SLE.Armory_Character:ToggleArmory()
+			M:UpdatePageInfo(_G.CharacterFrame, 'Character')
+			if not E.db.general.itemLevel.displayCharacterInfo then M:ClearPageInfo(_G.CharacterFrame, 'Character') end
+		end
 
-		SLE.Armory_Inspect:ToggleArmory()
-		M:UpdatePageInfo(_G.InspectFrame, "Inspect") --Putting this under the elv's option check just breaks the shit out of the frame
-		if not E.db.general.itemLevel.displayInspectInfo then M:ClearPageInfo(_G.InspectFrame, 'Inspect') end --Clear the infos if those are actually not supposed to be shown.
+		if E.db.sle.armory.inspect.enable then
+			SLE.Armory_Inspect:ToggleArmory()
+			M:UpdatePageInfo(_G.InspectFrame, "Inspect") --Putting this under the elv's option check just breaks the shit out of the frame
+			if not E.db.general.itemLevel.displayInspectInfo then M:ClearPageInfo(_G.InspectFrame, 'Inspect') end --Clear the infos if those are actually not supposed to be shown.
+		end
 	end
 
 	_G.CharacterFrame:HookScript('OnShow', function()
-		if not E.db.general.itemLevel.displayCharacterInfo then
-			M:ClearPageInfo(_G.CharacterFrame, 'Character')
-			-- SLE:Print("Charcter Page Hook Done")
-		end
+		-- if not E.db.general.itemLevel.displayCharacterInfo then
+		-- 	M:ClearPageInfo(_G.CharacterFrame, 'Character')
+		-- 	-- SLE:Print("Charcter Page Hook Done")
+		-- end
 	end)
 
 	--Move Pawn buttons. Cause Pawn buttons happen to be overlapped by some shit
