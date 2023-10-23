@@ -131,7 +131,7 @@ function IA:BuildLayout()
 end
 
 function IA:Update_BG()
-	if not _G.InspectPaperDollFrame then return end
+	if not (_G.InspectPaperDollFrame or E.db.sle.armory.inspect.enable) then return end
 	if E.db.sle.armory.inspect.background.selectedBG == 'HIDE' then
 		_G.InspectPaperDollFrame.SLE_Armory_BG:SetTexture(nil)
 	elseif E.db.sle.armory.inspect.background.selectedBG == 'CUSTOM' then

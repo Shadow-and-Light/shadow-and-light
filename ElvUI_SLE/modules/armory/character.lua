@@ -187,6 +187,7 @@ end
 
 --<<<<<Updating settings>>>>>--
 function CA:Update_BG()
+	if not E.db.sle.armory.character.enable then return end
 	if E.db.sle.armory.character.background.selectedBG == 'HIDE' then
 		_G.PaperDollFrame.SLE_Armory_BG:SetTexture(nil)
 	elseif E.db.sle.armory.character.background.selectedBG == 'CUSTOM' then
