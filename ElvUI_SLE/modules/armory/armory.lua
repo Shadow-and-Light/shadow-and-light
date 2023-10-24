@@ -555,17 +555,17 @@ function Armory:Initialize()
 	end
 
 	function Armory:ForUpdateAll()
-		if E.db.sle.armory.character.enable then
-			SLE.Armory_Character:ToggleArmory()
-			M:UpdatePageInfo(_G.CharacterFrame, 'Character')
-			if not E.db.general.itemLevel.displayCharacterInfo then M:ClearPageInfo(_G.CharacterFrame, 'Character') end
-		end
+		-- if E.db.sle.armory.character.enable then
+		-- 	SLE.Armory_Character:ToggleArmory()
+		-- 	M:UpdatePageInfo(_G.CharacterFrame, 'Character')
+		-- 	if not E.db.general.itemLevel.displayCharacterInfo then M:ClearPageInfo(_G.CharacterFrame, 'Character') end
+		-- end
 
-		if E.db.sle.armory.inspect.enable then
-			SLE.Armory_Inspect:ToggleArmory()
-			M:UpdatePageInfo(_G.InspectFrame, "Inspect") --Putting this under the elv's option check just breaks the shit out of the frame
-			if not E.db.general.itemLevel.displayInspectInfo then M:ClearPageInfo(_G.InspectFrame, 'Inspect') end --Clear the infos if those are actually not supposed to be shown.
-		end
+		-- if E.db.sle.armory.inspect.enable then
+		-- 	SLE.Armory_Inspect:ToggleArmory()
+		-- 	M:UpdatePageInfo(_G.InspectFrame, "Inspect") --Putting this under the elv's option check just breaks the shit out of the frame
+		-- 	if not E.db.general.itemLevel.displayInspectInfo then M:ClearPageInfo(_G.InspectFrame, 'Inspect') end --Clear the infos if those are actually not supposed to be shown.
+		-- end
 	end
 
 	_G.CharacterFrame:HookScript('OnShow', function()
