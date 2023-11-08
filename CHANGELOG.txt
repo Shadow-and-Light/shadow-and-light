@@ -1,3 +1,4 @@
-v4.71 10/16/23
+v4.72 11/7/23
 
-• fixed config from erroring when trying to change some settings
+• update toc
+• fix some minor bugs, still a wip
