@@ -224,7 +224,8 @@ end
 function Armory:UpdatePageStrings(_, iLevelDB, Slot, slotInfo, which)
 	if not which then return end
 	local window = strlower(which) --to know which settings table to use
-	if not (E.db.sle.armory[window] or E.db.sle.armory[window].enable or Armory:CheckOptions(which)) then return end
+	if (not (E.db.sle.armory[window] and E.db.sle.armory[window].enable) and Armory:CheckOptions(which)) then return end
+
 	Slot.itemLink = GetInventoryItemLink((which == 'Character' and 'player') or _G.InspectFrame.unit, Slot.ID)
 	if slotInfo.itemLevelColors then
 		local iR, iG, iB = unpack(slotInfo.itemLevelColors)
