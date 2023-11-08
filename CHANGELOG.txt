@@ -1,4 +1,3 @@
-v4.72 11/7/23
+v4.73 11/8/23
 
-• update toc
-• fix some minor bugs, still a wip
+• fix bug when armory was disabled
