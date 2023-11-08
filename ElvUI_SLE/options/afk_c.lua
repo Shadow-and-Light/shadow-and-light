@@ -70,12 +70,7 @@ local function CreateDefaultTextsFont(i, title, group, inline)
 				dialogControl = 'LSM30_Font',
 				values = AceGUIWidgetLSMlists.font,
 			},
-			outline = {
-				order = 4,
-				name = L["Font Outline"],
-				type = 'select',
-				values = T.Values.FontFlags,
-			},
+			outline = ACH:FontFlags(L["Font Outline"], L["Set the font outline."], 4),
 			size = {
 				order = 5,
 				name = L["Font Size"],

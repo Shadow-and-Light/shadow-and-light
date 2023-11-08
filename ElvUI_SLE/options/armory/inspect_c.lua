@@ -66,12 +66,7 @@ local function configTable()
 						order = 21,
 						min = 6, max = 22, step = 1,
 					},
-					fontStyle = {
-						type = 'select',
-						name = L["Font Outline"],
-						order = 22,
-						values = T.Values.FontFlags,
-					},
+					fontStyle = ACH:FontFlags(L["Font Outline"], L["Set the font outline."], 22),
 				}
 			},
 			enchant = {
@@ -101,12 +96,7 @@ local function configTable()
 						order = 3,
 						values = function() return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {} end,
 					},
-					fontStyle = {
-						type = 'select',
-						name = L["Font Outline"],
-						order = 4,
-						values = T.Values.FontFlags,
-					},
+					fontStyle = ACH:FontFlags(L["Font Outline"], L["Set the font outline."], 4),
 					fontSize = {
 						type = 'range',
 						name = L["Font Size"],

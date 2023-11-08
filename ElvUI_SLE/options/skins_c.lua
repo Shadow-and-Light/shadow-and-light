@@ -300,12 +300,7 @@ local function configTable()
 								name = L["Item Name Size"],
 								min = 8, max = 32, step = 1,
 							},
-							nameOutline = {
-								order = 3,
-								type = 'select',
-								name = L["Item Name Outline"],
-								values = T.Values.FontFlags,
-							},
+							nameOutline = ACH:FontFlags(L["Item Name Outline"], L["Set the font outline."], 3),
 							subFont = {
 								order = 4,
 								type = 'select',
@@ -319,12 +314,7 @@ local function configTable()
 								name = L["Item Info Size"],
 								min = 8, max = 32, step = 1,
 							},
-							subOutline = {
-								order = 6,
-								type = 'select',
-								name = L["Item Info Outline"],
-								values = T.Values.FontFlags,
-							},
+							subOutline = ACH:FontFlags(L["Item Info Outline"], L["Set the font outline."], 6),
 						}
 					},
 				},

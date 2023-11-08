@@ -3,6 +3,7 @@ local MM = SLE.Minimap
 
 local function configTable()
 	if not SLE.initialized then return end
+	local ACH = E.Libs.ACH
 	E.Options.args.sle.args.modules.args.minimap.args.coords = {
 		type = "group",
 		name = L["Coordinates"],
@@ -94,17 +95,7 @@ local function configTable()
 						min = 6, max = 22, step = 1,
 						set = function(info, value) E.db.sle.minimap.coords[ info[#info] ] = value; MM:CoordFont() end,
 					},
-					fontOutline = {
-						order = 3,
-						name = L["Font Outline"],
-						type = "select",
-						values = {
-							["NONE"] = L["None"],
-							["OUTLINE"] = 'OUTLINE',
-							["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
-							["THICKOUTLINE"] = 'THICKOUTLINE',
-						},
-					},
+					fontOutline = ACH:FontFlags(L["Font Outline"], L["Set the font outline."], 3),
 					color = {
 						type = 'color',
 						order = 4,

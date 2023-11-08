@@ -38,13 +38,7 @@ local function configTable()
 						type = "range",
 						min = 4, max = 25, step = 1,
 					},
-					fontOutline = {
-						order = 6,
-						name = L["Font Outline"],
-						desc = L["Set the font outline."],
-						type = "select",
-						values = T.Values.FontFlags,
-					},
+					fontOutline = ACH:FontFlags(L["Font Outline"], L["Set the font outline."], 6),
 					xoffset = {
 						order = 7,
 						name = L["xOffset"],
@@ -85,13 +79,7 @@ local function configTable()
 						type = "range",
 						min = 4, max = 25, step = 1,
 					},
-					fontOutline = {
-						order = 6,
-						name = L["Font Outline"],
-						desc = L["Set the font outline."],
-						type = "select",
-						values = T.Values.FontFlags,
-					},
+					fontOutline = ACH:FontFlags(L["Font Outline"], L["Set the font outline."], 6),
 					xoffset = {
 						order = 7,
 						name = L["xOffset"],
