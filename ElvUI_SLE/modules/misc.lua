@@ -29,7 +29,6 @@ end
 function M:Initialize()
 	if not SLE.initialized then return end
 	M.db = E.db.sle.misc
-	E:CreateMover(_G.UIErrorsFrame, 'UIErrorsFrameMover', L["Error Frame"], nil, nil, nil, 'ALL,S&L,S&L MISC')
 
 	--Viewport
 	-- function CinematicFrame_CancelCinematic()

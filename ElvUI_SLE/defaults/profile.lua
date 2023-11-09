@@ -335,10 +335,6 @@ P["sle"] = {
 	--Blizzard
 	["blizzard"] = {
 		["rumouseover"] = false,
-		["errorframe"] = {
-			["height"] = 60,
-			["width"] = 512,
-		},
 		["vehicleSeatScale"] = 1,
 	},
 	--Chat
@@ -599,31 +595,10 @@ P["sle"] = {
 	--Media
 	media = {
 		fonts = {
-			zone = {
-				font = 'PT Sans Narrow',
-				fontSize = 32,
-				fontOutline = 'NONE',
-			},
-			subzone = {
-				font = 'PT Sans Narrow',
-				fontSize = 25,
-				fontOutline = 'OUTLINE',
-				offset = 0,
-			},
-			pvp = {
-				font = 'PT Sans Narrow',
-				fontSize = 22,
-				fontOutline = 'OUTLINE',
-			},
 			mail = {
 				font = 'PT Sans Narrow',
 				fontSize = 12,
 				fontOutline = 'NONE',
-			},
-			gossip = {
-				font = 'PT Sans Narrow',
-				fontSize = 12,
-				fontOutline = 'NONE', -- Should always be none
 			},
 			objective = {
 				font = 'PT Sans Narrow',

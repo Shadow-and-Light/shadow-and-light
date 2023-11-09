@@ -50,16 +50,6 @@ local function configTable()
 	local Media = E.Options.args.sle.args.media.args
 	Media.enable = ACH:Toggle(L["Enable"], nil, 1,nil, nil, nil, function(info) return E.private.sle.media[info[#info]] end, function(info, value) E.private.sle.media[info[#info]] = value E:StaticPopup_Show('PRIVATE_RL') end)
 
-	--* Zone Text Tab
-	local ZoneTexts = ACH:Group(L["Zone Text"], nil, 5, nil, nil, nil, function() return not E.private.sle.media.enable end)
-	Media.zone = ZoneTexts
-	ZoneTexts.args.spacer = ACH:Spacer(1, 'full')
-	ZoneTexts.args.test = ACH:Execute(L["Test"], nil, 2, function() M:TextShow() end, nil, nil, nil, nil, nil, function() return not E.private.general.replaceBlizzFonts end)
-	ZoneTexts.args.spacer2 = ACH:Spacer(3, 'full')
-	ZoneTexts.args.zone = GetFontOptions(L["Zone Text"], 4)
-	ZoneTexts.args.subzone = GetFontOptions(L["Subzone Text"], 5)
-	ZoneTexts.args.pvp = GetFontOptions(L["PvP Status Text"], 6)
-
 	--* Objective Tracker Tab
 	local ObjectiveTracker = ACH:Group(L["Objective Tracker"], nil, 10, nil, nil, nil, function() return not E.private.sle.media.enable or not E.private.general.replaceBlizzFonts end)
 	Media.objectiveTracker = ObjectiveTracker
@@ -76,7 +66,6 @@ local function configTable()
 	local MiscTexts = ACH:Group(L["Misc Texts"], nil, 15, nil, nil, nil, function() return not E.private.sle.media.enable or not E.private.general.replaceBlizzFonts end)
 	Media.misc = MiscTexts
 	MiscTexts.args.mail = GetFontOptions(L["Mail Text"], 1)
-	MiscTexts.args.gossip = GetFontOptions(L["Gossip and Quest Frames Text"], 2, true)
 	MiscTexts.args.questFontSuperHuge = GetFontOptions(L["Banner Big Text"], 3)
 
 	--* Apply To All

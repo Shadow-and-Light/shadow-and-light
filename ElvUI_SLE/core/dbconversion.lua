@@ -7,11 +7,7 @@ local ProfileNames = NONE
 local CharacterNames = NONE
 
 local mediaFonts = {
-	'zone',
-	'subzone',
-	'pvp',
 	'mail',
-	'gossip',
 	'objective',
 	'objectiveHeader',
 	'questFontSuperHuge',
