@@ -1,3 +1,3 @@
-v4.73 11/8/23
+v4.74 11/9/23
 
-• fix bug when armory was disabled
+• remove font options that ElvUI will be handling
