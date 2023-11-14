@@ -7,7 +7,7 @@ local _G = _G
 local format, tonumber = format, tonumber
 local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
 
---GLOBALS: hooksecurefunc, LibStub, GetAddOnMetadata, CreateFrame, GetAddOnEnableState, BINDING_HEADER_SLE
+--GLOBALS: hooksecurefunc, LibStub, GetAddOnMetadata, CreateFrame, BINDING_HEADER_SLE
 
 local SLE = LibStub('AceAddon-3.0'):NewAddon(AddOnName, 'AceConsole-3.0', 'AceEvent-3.0', 'AceTimer-3.0', 'AceHook-3.0')
 SLE.callbacks = SLE.callbacks or LibStub('CallbackHandler-1.0'):New(SLE)
