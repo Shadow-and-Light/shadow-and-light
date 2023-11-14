@@ -129,7 +129,7 @@ end
 --Creating buttons to populate dropdowns
 local function CreateDropdownButton(menu, core, name, text, tooltip1, tooltip2, click, addon, always)
 	if addon then --Check if addon specified as dependancy is enabled to load (not loaded cause it can start to load way after our code is executed)
-		local enabled = GetAddOnEnableState(menu.myname, addon)
+		local enabled = GetAddOnEnableState(addon, menu.myname)
 		if enabled == 0 then return end
 	end
 	if _G[menu:GetName()..'_Core_'..core..name] or not menu[core..'Table'] then return end
