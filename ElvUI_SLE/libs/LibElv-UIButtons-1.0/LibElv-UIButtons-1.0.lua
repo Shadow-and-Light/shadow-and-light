@@ -11,7 +11,8 @@ local _G = _G
 local pairs, type, tinsert = pairs, type, tinsert
 local UnitName = UnitName
 local GameTooltip = GameTooltip
-local GetAddOnEnableState = GetAddOnEnableState
+local C_AddOns_GetAddOnEnableState = C_AddOns and C_AddOns.GetAddOnEnableState
+local GetAddOnEnableState = GetAddOnEnableState -- eventually this will be on C_AddOns and args swap
 
 --Upon creation menu.db does not account for values missing in E.db = being default.
 --We are using this to fix it.
@@ -129,7 +130,7 @@ end
 --Creating buttons to populate dropdowns
 local function CreateDropdownButton(menu, core, name, text, tooltip1, tooltip2, click, addon, always)
 	if addon then --Check if addon specified as dependancy is enabled to load (not loaded cause it can start to load way after our code is executed)
-		local enabled = GetAddOnEnableState(addon, menu.myname)
+		local enabled = C_AddOns_GetAddOnEnableState and C_AddOns_GetAddOnEnableState(addon, E.myname) or GetAddOnEnableState(E.myname, addon)
 		if enabled == 0 then return end
 	end
 	if _G[menu:GetName()..'_Core_'..core..name] or not menu[core..'Table'] then return end
