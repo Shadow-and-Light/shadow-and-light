@@ -82,6 +82,8 @@ LP.Hearthstones = {
 	{184353, nil, true}, --Kyrian HS
 	{188952, nil, true}, --Dominated HS
 	{190237, nil, true}, -- Broker Translocation Matrix
+	{208704, nil, true}, -- Deepdweller's Earthen Hearthstone
+	{209035, nil, true}, -- Hearthstone of the Flame
 }
 
 LP.PortItems = {
