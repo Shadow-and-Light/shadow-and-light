@@ -185,15 +185,19 @@ function SA:PaperDollFrame_UpdateStats()
 		PaperDollFrame_SetItemLevel(CharacterStatsPane.ItemLevelFrame, 'player')
 	end
 
-	CharacterStatsPane.ItemLevelCategory:SetPoint('TOP', CharacterStatsPane, 'TOP', 0, 8)
+	local ItemLevelCategory = CharacterStatsPane.ItemLevelCategory
+	
+	ItemLevelCategory:SetPoint('TOP', CharacterStatsPane, 'TOP', 0, 8)
 	CharacterStatsPane.AttributesCategory:SetPoint('TOP', CharacterStatsPane.ItemLevelFrame, 'BOTTOM', 0, 2)
 
 	categoryYOffset = 8
 	statYOffset = 0
 
-	CharacterStatsPane.ItemLevelCategory:Show() --! Shouldnt need to call this
-	CharacterStatsPane.ItemLevelCategory.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.statHeaders.font), E.db.sle.armory.stats.statHeaders.fontSize, E.db.sle.armory.stats.statHeaders.fontOutline)
-	CharacterStatsPane.ItemLevelCategory.backdrop:SetHeight(E.db.sle.armory.stats.statHeaders.fontSize + 4)
+	ItemLevelCategory:Show() --! Shouldnt need to call this
+	ItemLevelCategory.Title:FontTemplate(E.LSM:Fetch('font', E.db.sle.armory.stats.statHeaders.font), E.db.sle.armory.stats.statHeaders.fontSize, E.db.sle.armory.stats.statHeaders.fontOutline)
+	if ItemLevelCategory.backdrop then
+		ItemLevelCategory.backdrop:SetHeight(E.db.sle.armory.stats.statHeaders.fontSize + 4)
+	end
 	CharacterStatsPane.ItemLevelFrame:Show()
 
 	local _, powerType = UnitPowerType('player')
