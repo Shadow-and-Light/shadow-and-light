@@ -2093,11 +2093,11 @@ SLE.installTable = {
 			_G["PluginInstallFrame"].Desc3:SetText(L["Importance: |cFF33FF33Low|r"])
 
 			_G["PluginInstallFrame"].Option1:Show()
-			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() E.db.sle.armory.character.enable = true; E.db.sle.armory.inspect.enable = true; SLE.Armory_Character:ToggleArmory(); SLE.Armory_Inspect:ToggleArmory() end)
+			_G["PluginInstallFrame"].Option1:SetScript('OnClick', function() E.db.sle.armory.character.enable = true E.db.sle.armory.inspect.enable = true end)
 			_G["PluginInstallFrame"].Option1:SetText(ENABLE)
 
 			_G["PluginInstallFrame"].Option2:Show()
-			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() E.db.sle.armory.character.enable = false; E.db.sle.armory.inspect.enable = false; SLE.Armory_Character:ToggleArmory(); SLE.Armory_Inspect:ToggleArmory() end)
+			_G["PluginInstallFrame"].Option2:SetScript('OnClick', function() E.db.sle.armory.character.enable = false E.db.sle.armory.inspect.enable = false end)
 			_G["PluginInstallFrame"].Option2:SetText(DISABLE)
 		end,
 		[5] = function()
