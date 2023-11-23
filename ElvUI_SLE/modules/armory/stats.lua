@@ -946,7 +946,7 @@ function SA:ToggleFunctionHooks()
 end
 
 function SA:LoadAndSetup()
-	if not E.private.sle.armory.stats.enable or SLE._Compatibility['DejaCharacterStats'] then return end
+	if not (E.private.sle.armory.stats.enable or E.private.skins.blizzard.character) or E.private. SLE._Compatibility['DejaCharacterStats'] then return end
 
 	SA:ToggleFunctionHooks()
 	BuildScrollBar()
