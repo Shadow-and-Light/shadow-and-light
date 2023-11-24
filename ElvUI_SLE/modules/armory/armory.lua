@@ -45,6 +45,7 @@ Armory.Constants.CanTransmogrify = {
 Armory.Constants.EnchantableSlots = {
 	['BackSlot'] = true,
 	['ChestSlot'] = true,
+	['WaistSlot'] = true,
 	['WristSlot'] = true,
 	['LegsSlot'] = true,
 	['Finger0Slot'] = true,
