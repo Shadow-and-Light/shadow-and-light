@@ -14,7 +14,6 @@
 	<Include file='datatexts\load_datatexts.xml'/>
 	<Script file='actionbars_c.lua'/>
 	<Script file='bags_c.lua'/>
-	<Script file='blizzard_c.lua'/>
 	<Script file='help_c.lua'/>
 	<Script file='media_c.lua'/>
 	<Script file='pvp_c.lua'/>
