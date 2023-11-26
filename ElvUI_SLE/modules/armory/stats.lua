@@ -343,7 +343,7 @@ function SA:UpdateIlvlFont()
 		ItemLevelFrame.bg:SetPoint('CENTER')
 		ItemLevelFrame.bg:Point('TOPLEFT', ItemLevelFrame, 0, 3)
 		ItemLevelFrame.bg:Point('BOTTOMRIGHT', ItemLevelFrame, 0, -2)
-	elseif gradient.style == 'blizzard' then
+	elseif gradient.style == 'blizzard' and (ItemLevelFrame.leftGrad or ItemLevelFrame.rightGrad) then
 		ItemLevelFrame.leftGrad:SetHeight(fontSize + 5)
 		ItemLevelFrame.rightGrad:SetHeight(fontSize + 5)
 	end
