@@ -5,11 +5,10 @@ local _G = _G
 local TooltipDataProcessor = TooltipDataProcessor
 local iconPath = [[Interface\AddOns\ElvUI_SLE\media\textures\afk\factionlogo\blizzard\]]
 
-local function OnTooltipSetUnit(tt)
-	if not SLE.initialized or not E.db.sle.tooltip.showFaction or not tt or not tt.GetUnit then return end
+local function OnTooltipSetUnit(_, tt, unit, isPlayerUnit)
+	if not SLE.initialized or not E.db.sle.tooltip.showFaction or not tt or not unit then return end
 
-	local unit = select(2, tt:GetUnit())
-	if UnitIsPlayer(unit) then
+	if isPlayerUnit then
 		local text = _G.GameTooltipTextLeft1:GetText()
 		local faction = UnitFactionGroup(unit) or 'Neutral'
 
@@ -32,12 +31,7 @@ end
 local function Init()
 	if not E.private.tooltip.enable then return end
 
-	if TooltipDataProcessor then
-		TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, OnTooltipSetUnit)
-	else
-		SLE:SecureHookScript(_G.GameTooltip, 'OnTooltipSetUnit', OnTooltipSetUnit)
-	end
-
+	SLE:SecureHook(TT, 'SetUnitText', OnTooltipSetUnit)
 	SLE:SetCompareItems()
 end
 hooksecurefunc(TT, 'Initialize', Init)
