@@ -353,8 +353,8 @@ function SA:UpdateIlvlFont()
 		ItemLevelFrame.lineBottom:SetShown(gradient.style == 'levelupbg')
 		ItemLevelFrame.bg:SetShown(gradient.style == 'levelupbg')
 	end
-	ItemLevelFrame.leftGrad:SetShown(gradient.style == 'blizzard')
-	ItemLevelFrame.rightGrad:SetShown(gradient.style == 'blizzard')
+	if ItemLevelFrame.leftGrad then ItemLevelFrame.leftGrad:SetShown(gradient.style == 'blizzard') end
+	if ItemLevelFrame.rightGrad then ItemLevelFrame.rightGrad:SetShown(gradient.style == 'blizzard') end
 end
 
 function SA:ToggleArmory()
