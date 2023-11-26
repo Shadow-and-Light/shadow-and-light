@@ -148,7 +148,7 @@ local function BuildScrollBar() --Creating new scroll
 end
 
 function SA:UpdateCharacterItemLevel(frame, which)
-	if not E.private.sle.armory.stats.enable or not frame or which ~= 'Character' then return end
+	if (not E.private.sle.armory.stats.enable or not E.private.skins.blizzard.character) or not frame or which ~= 'Character' then return end
 
 	SA:UpdateIlvlFont()
 	if not E.db.general.itemLevel.displayCharacterInfo then return end
@@ -166,7 +166,7 @@ end
 
 local categoryYOffset, statYOffset = 0, 0
 function SA:PaperDollFrame_UpdateStats()
-	if not E.private.sle.armory.stats.enable then return end
+	if (not E.private.sle.armory.stats.enable or not E.private.skins.blizzard.character) then return end
 
 	totalShown = 0
 	local CharacterStatsPane = _G.CharacterStatsPane
@@ -309,7 +309,7 @@ function SA:PaperDollFrame_UpdateStats()
 end
 
 function SA:UpdateIlvlFont()
-	if not E.private.sle.armory.stats.enable then return end
+	if (not E.private.sle.armory.stats.enable or not E.private.skins.blizzard.character) then return end
 
 	local ItemLevelFrame = _G.CharacterStatsPane.ItemLevelFrame
 
@@ -358,7 +358,7 @@ function SA:UpdateIlvlFont()
 end
 
 function SA:ToggleArmory()
-	if not E.private.sle.armory.stats.enable then return end
+	if (not E.private.sle.armory.stats.enable or not E.private.skins.blizzard.character) then return end
 	-- local isEnabled = E.private.sle.armory.stats.enable
 	PAPERDOLL_STATCATEGORIES = SA.AlteredPaperdollStats
 	_G.CharacterStatsPane.OffenseCategory:Show()
@@ -922,6 +922,7 @@ local blizzFuncs = {
 }
 
 function SA:ToggleFunctionHooks()
+	if (not E.private.sle.armory.stats.enable or not E.private.skins.blizzard.character) then return end
 	if E.private.sle.armory.stats.enable then
 		PAPERDOLL_STATINFO['ATTACK_ATTACKSPEED'].updateFunc = function(statFrame, unit) SLPaperDollFrame_SetAttackSpeed(statFrame, unit); end
 	end
@@ -946,7 +947,7 @@ function SA:ToggleFunctionHooks()
 end
 
 function SA:LoadAndSetup()
-	if not (E.private.sle.armory.stats.enable or E.private.skins.blizzard.character) or SLE._Compatibility['DejaCharacterStats'] then return end
+	if (not E.private.sle.armory.stats.enable or not E.private.skins.blizzard.character) or SLE._Compatibility['DejaCharacterStats'] then return end
 
 	SA:ToggleFunctionHooks()
 	BuildScrollBar()
