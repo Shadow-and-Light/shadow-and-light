@@ -1,0 +1,8 @@
+## Interface: 30403
+## LoadOnDemand: 1
+## Title: LibTourist Classic (WotLK) library
+## Notes: A library to provide information about zones and instances.
+## Author: Odica, contributor: Mishikal1
+## X-Category: Library
+
+lib.xml

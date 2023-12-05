@@ -1,190 +1,148 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
-local Pr = SLE.Professions
-local FL = LibStub("LibFishing-1.0-SLE") or LibStub("LibFishing-1.0")
+local Fishing = SLE.Fishing
+local FishLib = LibStub('LibFishing-1.0')
 
--- GLOBALS: hooksecurefunc, CreateFrame
-local _G = _G
-local format = format
-local GetTime = GetTime
+local IsFishingLoot = IsFishingLoot
+local GetNumLootItems = GetNumLootItems
 
-local SavedWFOnMouseDown
-local IsMounted = IsMounted
-local IsMouselooking = IsMouselooking
-local MouselookStop = MouselookStop
-local UnitChannelInfo = UnitChannelInfo
-local InCombatLockdown = InCombatLockdown
+local lastLure, castTime
+local castingLure = false
 
-local C_Container_GetItemCooldown = C_Container.GetItemCooldown
+local function HideAwayAll()
+	if not castTime then
+		castTime = Fishing:ScheduleRepeatingTimer('PostCastUpdate', 1)
+	end
+end
 
-function Pr:HijackFishingCheck()
-	if ( not Pr.AddingLure and not InCombatLockdown() and (not IsMounted() or E.private.sle.professions.fishing.FromMount) and
-	E.private.sle.professions.fishing.EasyCast and FL:IsFishingReady(E.private.sle.professions.fishing.IgnorePole)) then
+local key_actions = {
+	--* Try alt as an option maybe?
+	-- ['none'] = function(mouse) return mouse ~= 'right' end,
+	['shift'] = function(mouse) return IsShiftKeyDown() end,
+	['control'] = function(mouse) return IsControlKeyDown() end,
+	['alt'] = function(mouse) return IsAltKeyDown() end
+}
+
+local function CastingKeys()
+	local castKey = E.db.sle.professions.fishing.castKey
+	local mouseButton = E.db.sle.professions.fishing.mouseButton
+
+	if castKey and key_actions[castKey] then
+		return key_actions[castKey](mouseButton)
+	else
+		return false
+	end
+end
+
+local function HijackCheck()
+	if InCombatLockdown() then return end
+	
+	if CastingKeys() or FishLib:IsFishingReady() then
 		return true
 	end
 end
 
-local function HideAwayAll(self, button, down)
-	Pr.FishingUpdateFrame:Show()
-end
+local function SetupLure()
+	if not E.db.sle.professions.fishing.useLure or castingLure then return end
 
-function Pr:GetUpdateLure()
-	if E.private.sle.professions.fishing.UseLures then
-		-- only apply a lure if we're actually fishing with a "real" pole
-		if (FL:IsFishingPole()) then
-			-- Let's wait a bit so that the enchant can show up before we lure again
-			if ( Pr.LastLure and Pr.LastLure.time and ((Pr.LastLure.time - GetTime()) > 0) ) then
-				SLE:Print(format(L["SLE_Prof_Relure_Error"], Pr.LastLure.time - GetTime()))
-				return false
-			end
+	if FishLib:IsFishingPole() then
+		local pole, enchant = FishLib:GetPoleBonus()
+		local state, bestLure = FishLib:FindBestLure(enchant, 0, true)
+		if state and bestLure then
+			FishLib:InvokeLuring(bestLure.id)
+			castingLure = true
+			lastLure = bestLure
 
-			if ( Pr.LastLure ) then
-				Pr.LastLure.time = nil
-				Pr.LureState = 0
-			end
-
-			local skill, _, _, _ = FL:GetCurrentSkill()
-			if (skill > 0) then
-				local NextLure, NextState
-				local tempenchant = FL:GetPoleBonus()
-				local state, bestlure = FL:FindBestLure(tempenchant, Pr.LureState)
-				if ( state and bestlure and tempenchant == 0 ) then
-					NextState = state
-					NextLure = bestlure
-				else
-					NextLure = nil
-				end
-				local DoLure = NextLure
-
-				if ( DoLure and DoLure.id ) then
-					-- if the pole has an enchantment, we can assume it's got a lure on it (so far, anyway)
-					-- remove the main hand enchantment (since it's a fishing pole, we know what it is)
-					local startTime, duration, enable = C_Container_GetItemCooldown(DoLure.id)
-					if (startTime == 0) then
-						Pr.AddingLure = true
-						Pr.LastLure = DoLure
-						Pr.LureState = NextState
-						Pr.LastLure.time = GetTime() + E.private.sle.professions.fishing.relureThreshold
-						local id = DoLure.id
-						local name = DoLure.n
-						return true, id, name
-					elseif ( Pr.LastLure and not Pr.LastLure.time ) then
-						Pr.LastLure = nil
-						Pr.LastState = 0
-						Pr.AddingLure = false
-					end
-				end
-			end
+			return true
 		end
 	end
+
 	return false
 end
 
-function Pr:FishCasting()
-	-- put on a lure if we need to
-	local update, id, n = Pr:GetUpdateLure()
-	if (update and id) then
-		FL:InvokeLuring(id)
-	else
-		Pr.LastCastTime = GetTime()
+function Fishing:PostCastUpdate()
+	local stop = true
+	if InCombatLockdown() then return end
 
-		FL:InvokeFishing()
-	end
-	FL:OverrideClick(HideAwayAll)
-end
-
--- handle mouse up and mouse down in the WorldFrame so that we can steal the hardware events to implement 'Easy Cast'
--- Thanks to the Cosmos team for figuring this one out
-local function WF_OnMouseDown(...)
-	-- Only steal 'right clicks' (self is arg #1!)
-	local key = Pr.FishingKey
-	if not InCombatLockdown() then
-		if (key == "None" and FL:IsFishingReady(false)) or (key ~= "None" and _G["Is"..key.."KeyDown"]()) then
-			local button = select(2, ...)
-			if FL:CheckForDoubleClick(button) then
-				if Pr:HijackFishingCheck() then
-				 -- We're stealing the mouse-up event, make sure we exit MouseLook
-					if ( IsMouselooking() ) then
-						MouselookStop()
-					end
-					Pr:FishCasting()
-				end
-			end
+	if castingLure then
+		local spellName = UnitChannelInfo('player')
+		local _, lure = FishLib:GetPoleBonus()
+		if not spellName or (lure and lure == lastLure.b) then
+			castingLure = false
+			FishLib:UpdateLureInventory()
 		else
-			FL:ResetOverride()
+			stop = false
+		end
+	end
+	if stop and castTime then
+		Fishing:CancelTimer(castTime)
+		castTime = nil
+	end
+end
+
+function Fishing:ButtonOptions()
+	local ButtonOptions ={
+		right = 'RightButtonUp',
+		button4 = 'Button4Up',
+		button5 = 'Button5Up'
+	}
+	return ButtonOptions[E.db.sle.professions.fishing.mouseButton] or 'RightButtonUp'
+end
+
+function Fishing:GLOBAL_MOUSE_DOWN(...)
+	local button = select(2, ...)
+	
+	if FishLib:CheckForDoubleClick(button) and HijackCheck() then
+		if IsMouselooking() then MouselookStop() end
+
+		if not SetupLure() then
+			FishLib:InvokeFishing()
+		end
+
+		FishLib:OverrideClick(HideAwayAll)
+	end
+end
+
+function Fishing:LOOT_OPENED()
+	if not IsFishingLoot() then return end
+
+	if E.db.sle.professions.fishing.autoLoot and (GetCVar('autoLootDefault') ~= '1' ) then
+		for index = 1, GetNumLootItems(), 1 do
+			LootSlot(index)
 		end
 	end
 
-	if ( SavedWFOnMouseDown ) then
-		SavedWFOnMouseDown(...)
+	FishLib:ExtendDoubleClick()
+	LureState = 0
+end
+
+Fishing.EventsRegistered = {
+	GLOBAL_MOUSE_DOWN = false,
+	LOOT_OPENED = false,
+}
+
+function Fishing:ToggleOptions()
+	if E.db.sle.professions.fishing.easyCast and not Fishing.EventsRegistered['GLOBAL_MOUSE_DOWN'] then
+		Fishing:RegisterEvent('GLOBAL_MOUSE_DOWN')
+		Fishing.EventsRegistered['GLOBAL_MOUSE_DOWN'] = true
+	elseif not E.db.sle.professions.fishing.easyCast and Fishing.EventsRegistered['GLOBAL_MOUSE_DOWN'] then
+		Fishing:UnregisterEvent('GLOBAL_MOUSE_DOWN')
+		Fishing.EventsRegistered['GLOBAL_MOUSE_DOWN'] = false
+	end
+	
+	if E.db.sle.professions.fishing.autoLoot and not Fishing.EventsRegistered['LOOT_OPENED'] then
+		Fishing:RegisterEvent('LOOT_OPENED')
+		Fishing.EventsRegistered['LOOT_OPENED'] = true
+	elseif not E.db.sle.professions.fishing.autoLoot and Fishing.EventsRegistered['LOOT_OPENED'] then
+		Fishing:UnregisterEvent('LOOT_OPENED')
+		Fishing.EventsRegistered['LOOT_OPENED'] = false
 	end
 end
 
-local function WF_OnMouseUp(...)
-	-- Only steal 'right clicks' (self is arg #1!)
-	if not InCombatLockdown() then
-		local key = Pr.FishingKey
-		if (key == "None" and FL:IsFishingReady(false)) or (key ~= "None" and _G["Is"..key.."KeyDown"]()) then
-			local button = select(2, ...)
-			if FL:CheckForDoubleClick(button) then
-				if Pr:HijackFishingCheck() then
-				 -- We're stealing the mouse-up event, make sure we exit MouseLook
-					if ( IsMouselooking() ) then
-						MouselookStop()
-					end
-					Pr:FishCasting()
-				end
-			end
-		else
-			FL:ResetOverride()
-		end
-	end
+function Fishing:Initialize()
+	if not SLE.initialized then return end
 
-	if ( SavedWFOnMouseUp ) then
-		SavedWFOnMouseUp(...)
-	end
+	Fishing:ToggleOptions()
+	FishLib:CreateSAButton()
+	FishLib:SetSAMouseEvent(Fishing:ButtonOptions())
 end
-
-local function TrapWorldMouse()
-	if ( _G["WorldFrame"].OnMouseDown ) then
-		hooksecurefunc(_G["WorldFrame"], "OnMouseDown", WF_OnMouseDown)
-		hooksecurefunc(_G["WorldFrame"], "OnMouseUp", WF_OnMouseUp)
-	else
-		SavedWFOnMouseDown = T.SafeHookScript(_G["WorldFrame"], "OnMouseDown", WF_OnMouseDown)
-		SavedWFOnMouseUp = T.SafeHookScript(_G["WorldFrame"], "OnMouseUp", WF_OnMouseUp)
-	end
-end
-
-function Pr:FishingInitialize()
-	Pr.FishingKey = E.private.sle.professions.fishing.CastButton
-	Pr.AddingLure = false
-	Pr.LastLure = nil
-	Pr.LureState = 0
-	Pr.LastCastTime = nil
-	Pr.FishingUpdateFrame = CreateFrame("Frame", "SLE_FishingUpdateFrame", E.UIParent)
-	Pr.FishingUpdateFrame:SetScript("OnUpdate", function(self)
-		local stop = true
-		if ( not InCombatLockdown() ) then
-			FL:ResetOverride()
-			if ( Pr.AddingLure ) then
-				--  TODO:  Clean up as a bunch of unused variables
-				local sp, sub, txt, tex, st, et, trade, int = UnitChannelInfo("player")
-				local lure = FL:GetPoleBonus()
-				if ( not sp or not Pr.LastLure or (lure and lure == Pr.LastLure.b) ) then
-					Pr.AddingLure = false
-					FL:UpdateLureInventory()
-				else
-					stop = false
-				end
-			end
-			if ( stop ) then
-				Pr.FishingUpdateFrame:Hide()
-			end
-		end
-	end)
-	Pr.FishingUpdateFrame:Hide()
-
-	FL:GetPoleType()
-	FL:CreateSAButton()
-	FL:SetSAMouseEvent()
-	TrapWorldMouse()
-end
+SLE:RegisterModule('Fishing')

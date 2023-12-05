@@ -1,0 +1,12 @@
+tag a21c979e735dea3a03ee4e22682275f98fad9e7a WoW-3.4.3-release1
+Author:	Odica Jaedenar <odica.jaedenar@gmail.com>
+Date:	Sat Dec 2 13:55:10 2023 +0100
+
+Tagged as WoW-3.4.3-release1
+
+commit d2466189d6e525903766fcbe835f6575a6ee9ccd
+Author: Odica Jaedenar <odica.jaedenar@gmail.com>
+Date:   Sat Dec 2 13:54:01 2023 +0100
+
+    Updated version in TOC to 30403
+

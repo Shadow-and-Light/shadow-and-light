@@ -30,14 +30,6 @@ V["sle"] = {
 			["style"] = "BIG",
 			["buttonGlow"] = true,
 		},
-		["fishing"] = {
-			["EasyCast"] = false,
-			["FromMount"] = false,
-			["UseLures"] = true,
-			["IgnorePole"] = false,
-			["CastButton"] = "Shift",
-			["relureThreshold"] = 8,
-		},
 	},
 	module = {
 		shadows = {

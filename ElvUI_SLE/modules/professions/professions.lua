@@ -57,6 +57,5 @@ function Pr:Initialize()
 	self:RegisterEvent('CHAT_MSG_SKILL', 'UpdateSkills')
 
 	if E.private.sle.professions.deconButton.enable then Pr:InitializeDeconstruct() end
-	if E.private.sle.professions.fishing.EasyCast then Pr:FishingInitialize() end
 end
 SLE:RegisterModule('Professions')

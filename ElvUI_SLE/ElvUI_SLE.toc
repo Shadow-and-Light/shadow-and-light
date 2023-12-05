@@ -13,7 +13,9 @@
 ## SavedVariables: SLE_ArmoryDB
 ## IconTexture: Interface\AddOns\ElvUI_SLE\media\textures\chat\Logo
 
-libs\load_libs.xml
+Libraries\Retail\Load_Retail.xml
+Libraries\Core\Load_Core.xml
+
 locales\load_locales.xml
 media\load_media.xml
 core\load_core.xml

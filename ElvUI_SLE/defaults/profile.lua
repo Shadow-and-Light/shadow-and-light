@@ -728,6 +728,16 @@ P["sle"] = {
 		},
 		["visibleRange"] = 60,
 	},
+	professions = {
+		fishing = {
+			easyCast = false,
+			autoLoot = false,
+			castKey = 'shift',
+			fromMount = false,
+			mouseButton = 'right',
+			useLure = false,
+		},
+	},
 	--Quests
 	["quests"] = {
 		["visibility"] = {

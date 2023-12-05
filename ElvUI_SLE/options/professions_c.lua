@@ -1,5 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local Pr = SLE.Professions
+local Fishing = SLE.Fishing
 
 local function configTable()
 	if not SLE.initialized then return end
@@ -34,14 +35,14 @@ local function configTable()
 	LockPick.TradeOpen = ACH:Toggle(L["Unlock in trade"], L["Apply unlocking skills in trade window the same way as in deconstruction mode for bags."], 3, nil, nil, nil, function(info) return E.global.sle.LOCK[info[#info]] end, function(info, value) E.global.sle.LOCK[info[#info]] = value end, function() return not E.private.sle.professions.deconButton.enable end)
 
 	--* Fishing
-	Professions.fishing = ACH:Group(L["Fishing"], nil, 5, nil, function(info) return E.private.sle.professions.fishing[info[#info]] end, function(info, value) E.private.sle.professions.fishing[info[#info]] = value end)
+	Professions.fishing = ACH:Group(L["Fishing"], nil, 5, nil, function(info) return E.db.sle.professions.fishing[info[#info]] end, function(info, value) E.db.sle.professions.fishing[info[#info]] = value end)
 	local Fish = Professions.fishing.args
-	Fish.EasyCast = ACH:Toggle(L["Easy Cast"], L["Allow to fish with double right-click."], 1, nil, nil, nil, nil, function(info, value) E.private.sle.professions.fishing[info[#info]] = value E:StaticPopup_Show('PRIVATE_RL') end)
-	Fish.FromMount = ACH:Toggle(L["From Mount"], L["Start fishing even if you are mounted."], 2, nil, nil, nil, nil, nil, function(info) return not E.private.sle.professions.fishing[info[#info]] end)
-	Fish.UseLures = ACH:Toggle(L["Apply Lures"], L["Automatically apply lures."], 3, nil, nil, nil, nil, nil, function(info) return not E.private.sle.professions.fishing[info[#info]] end)
-	Fish.relureThreshold = ACH:Range(L["Re-lure Threshold"], L["Time after the previous attemp to apply a lure before the next attempt will occure."], 4, {min = 1, max = 15, step = 1}, nil, nil, nil, function() return not E.private.sle.professions.fishing.EasyCast or not E.private.sle.professions.fishing.UseLures end)
-	Fish.IgnorePole = ACH:Toggle(L["Ignore Poles"], L["If enabled will start fishing even if you don't have fishing pole equipped. Will not work if you have fish key set to \"None\"."], 5, nil, nil, nil, nil, nil, function() return not E.private.sle.professions.fishing.EasyCast or E.private.sle.professions.fishing.CastButton == 'None' end)
-	Fish.CastButton = ACH:Select(L["Fish Key"], L["Hold this button while clicking to allow fishing action."], 6, {Shift = SHIFT_KEY, Alt = ALT_KEY, Control = CTRL_KEY}, nil, nil, nil, function(info, value) E.private.sle.professions.fishing[info[#info]] = value E:StaticPopup_Show('PRIVATE_RL') end, function() return not E.private.sle.professions.fishing.EasyCast end)
+	Fish.easyCast = ACH:Toggle(L["Easy Cast"], L["Allow to fish with double right-click."], 1, nil, nil, nil, nil, function(info, value) E.db.sle.professions.fishing[info[#info]] = value Fishing:ToggleOptions() end)
+	Fish.fromMount = ACH:Toggle(L["While Mounted"], L["Start fishing even if you are mounted."], 2, nil, nil, nil, nil, function(info) return not E.db.sle.professions.fishing[info[#info]] end)
+	Fish.autoLoot = ACH:Toggle(L["Auto Loot"], L["This will turn on Auto Loot while fishing if it is not on already."], 3, nil, nil, nil, nil, function(info) return not E.db.sle.professions.fishing[info[#info]] end)
+	Fish.useLure = ACH:Toggle(L["Apply Lures"], L["Automatically apply lures."], 3, nil, nil, nil, nil, function(info) return not E.db.sle.professions.fishing[info[#info]] end)
+	Fish.castKey = ACH:Select(L["Cast Key"], L["Hold this button while clicking to allow fishing action."], 6, {shift = SHIFT_KEY, alt = ALT_KEY, control = CTRL_KEY}, nil, nil, nil, function(info, value) E.db.sle.professions.fishing[info[#info]] = value end, function() return not E.db.sle.professions.fishing.easyCast end)
+	Fish.mouseButton = ACH:Select(L["Mouse Button"], L["Double Click this mouse button to start fishing."], 6, {right = L["Right"], button4 = L["Button 4"], button5 = L["Button 5"]}, nil, nil, nil, function(info, value) E.db.sle.professions.fishing[info[#info]] = value end, function() return not E.db.sle.professions.fishing.easyCast end)
 end
 
 tinsert(SLE.Configs, configTable)
