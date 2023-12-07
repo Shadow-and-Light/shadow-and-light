@@ -213,6 +213,19 @@ RP.encounters = {
 			{ 18180, 18181, 18182, 18183, 18184, 18185, 18186, 18188, 18187 },
 		}
 	},
+	{ -- Amirdrassil, the Dream's Hope
+		option = 'atdh',
+		statIDs = {
+			--* Mythic
+			{ 19378, 19379, 19380, 19381, 19382, 19383, 19384, 19385, 19386 },
+			--* Heroic
+			{ 19369, 19370, 19371, 19372, 19373, 19374, 19375, 19376, 19377 },
+			--* Normal
+			{ 19360, 19361, 19362, 19363, 19364, 19365, 19366, 19367, 19368 },
+			--* LFR
+			{ 19348, 19352, 19353, 19354, 19355, 19356, 19357, 19358, 19359 },
+		}
+	},
 }
 RP.Raids = {}
 RP.modes = {
@@ -246,6 +259,7 @@ local function PopulateRaidsTable()
 		SLE:GetMapInfo(1998, 'name'),
 		SLE:GetMapInfo(2119, 'name'),
 		SLE:GetMapInfo(2166, 'name'),
+		SLE:GetMapInfo(2232, 'name'),
 	}
 	RP.Raids['SHORT'] = {
 		L["RAID_EN"],
@@ -262,6 +276,7 @@ local function PopulateRaidsTable()
 		'SoD',
 		'VotI',
 		'ATSC',
+		'ATDH',
 	}
 end
 
