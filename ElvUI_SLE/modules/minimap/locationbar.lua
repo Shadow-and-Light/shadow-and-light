@@ -345,6 +345,7 @@ function LP:OnClick(btn)
 end
 
 function LP:UpdateCoords(elapsed)
+	if not E.db.sle.minimap.locPanel.enable then return end
 	LP.elapsed = LP.elapsed + elapsed
 	if LP.elapsed < (LP.db.throttle or 0.2) then return end
 	if not LP.db.format then return end
