@@ -1,3 +1,8 @@
-v4.74 11/9/23
+v4.75 1/17/24
 
-• remove font options that ElvUI will be handling
+• Updated some uses of the wow api to reflect their changes
+• Added 2 hearthstones to the location bar (Deepweller's Earthen & Hearthstone of the Flame)
+• Fix some errors in the armory under certain conditions
+• Added waist check for armory
+• fixed a bug with in our tooltip option that places faction icon in the tooltip
+• Revamp the fishing module (options were reset and will need to be edited by you if you used it)
