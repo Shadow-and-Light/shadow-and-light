@@ -50,6 +50,9 @@ function PI:DarthSetupDF()
 
 		E.db["general"]["altPowerBar"]["statusBar"] = "WorldState Score"
 
+		E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.6
+		E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = -13
+		E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = -58
 		E.db["general"]["minimap"]["icons"]["mail"]["texture"] = "Mail0"
 		E.db["general"]["minimap"]["icons"]["mail"]["xOffset"] = 0
 		E.db["general"]["minimap"]["icons"]["mail"]["yOffset"] = 0
@@ -63,6 +66,16 @@ function PI:DarthSetupDF()
 		E.db["general"]["valuecolor"]["b"] = 0.15294117647059
 		E.db["general"]["valuecolor"]["g"] = 0.74901960784314
 		E.db["general"]["valuecolor"]["r"] = 0.23529411764706
+		
+		E.db["general"]["font"] = "Expressway"
+		E.db["general"]["fonts"]["objective"]["enable"] = true
+		E.db["general"]["fonts"]["pvpsubzone"]["enable"] = true
+		E.db["general"]["fonts"]["pvpzone"]["enable"] = true
+		E.db["general"]["fonts"]["talkingtext"]["enable"] = true
+		E.db["general"]["fonts"]["talkingtitle"]["enable"] = true
+		E.db["general"]["fonts"]["worldsubzone"]["enable"] = true
+		E.db["general"]["fonts"]["worldzone"]["enable"] = true
+		E.db["general"]["fonts"]["worldzone"]["size"] = 40
 
 		E.db["convertPages"] = true
 		E.db["cooldown"]["targetAura"] = false
@@ -77,7 +90,7 @@ function PI:DarthSetupDF()
 		E.db["actionbar"]["transparent"] = true
 		E.db["actionbar"]["useDrawSwipeOnCharges"] = true
 
-		E.db["actionbar"]["bar1"]["buttonSize"] = 44
+		E.db["actionbar"]["bar1"]["buttonSize"] = 45
 		E.db["actionbar"]["bar1"]["buttonSpacing"] = -1
 		E.db["actionbar"]["bar1"]["buttonsPerRow"] = 6
 		E.db["actionbar"]["bar1"]["countFont"] = "Expressway"
@@ -98,7 +111,7 @@ function PI:DarthSetupDF()
 		E.db["actionbar"]["bar2"]["macroFontSize"] = 15
 		E.db["actionbar"]["bar2"]["visibility"] = "[petbattle] hide; show"
 
-		E.db["actionbar"]["bar3"]["buttonSize"] = 38
+		E.db["actionbar"]["bar3"]["buttonSize"] = 40
 		E.db["actionbar"]["bar3"]["buttonSpacing"] = -1
 		E.db["actionbar"]["bar3"]["buttons"] = 12
 		E.db["actionbar"]["bar3"]["buttonsPerRow"] = 2
@@ -112,7 +125,7 @@ function PI:DarthSetupDF()
 		E.db["actionbar"]["bar3"]["visibility"] = "[petbattle] hide; show"
 
 		E.db["actionbar"]["bar4"]["backdrop"] = false
-		E.db["actionbar"]["bar4"]["buttonSize"] = 38
+		E.db["actionbar"]["bar4"]["buttonSize"] = 40
 		E.db["actionbar"]["bar4"]["buttonSpacing"] = -1
 		E.db["actionbar"]["bar4"]["buttonsPerRow"] = 2
 		E.db["actionbar"]["bar4"]["countFont"] = "Expressway"
@@ -245,10 +258,10 @@ function PI:DarthSetupDF()
 	end
 	--Bags
 	do
-		E.db["bags"]["bagSize"] = 32
-		E.db["bags"]["bagWidth"] = 474
-		E.db["bags"]["bankSize"] = 32
-		E.db["bags"]["bankWidth"] = 474
+		E.db["bags"]["bagSize"] = 31
+		E.db["bags"]["bagWidth"] = 553
+		E.db["bags"]["bankSize"] = 31
+		E.db["bags"]["bankWidth"] = 553
 		E.db["bags"]["clearSearchOnClose"] = true
 		E.db["bags"]["countFont"] = "Expressway"
 		E.db["bags"]["countFontOutline"] = "OUTLINE"
@@ -260,6 +273,7 @@ function PI:DarthSetupDF()
 		E.db["bags"]["junkIcon"] = true
 		E.db["bags"]["moneyFormat"] = "BLIZZARD2"
 		E.db["bags"]["scrapIcon"] = true
+		E.db["bags"]["spinner"]["size"] = 46
 		E.db["bags"]["split"]["bag5"] = true
 		E.db["bags"]["split"]["player"] = true
 		E.db["bags"]["transparent"] = true
@@ -272,7 +286,7 @@ function PI:DarthSetupDF()
 		E.db["chat"]["fadeChatToggles"] = false
 		E.db["chat"]["fontOutline"] = "OUTLINE"
 
-		E.db["chat"]["panelHeight"] = 227
+		E.db["chat"]["panelHeight"] = 236
 		E.db["chat"]["panelWidth"] = 475
 
 		E.db["chat"]["showHistory"]["EMOTE"] = false
@@ -296,16 +310,17 @@ function PI:DarthSetupDF()
 		E.db["databars"]["azerite"]["textFormat"] = "CURMAX"
 		E.db["databars"]["azerite"]["width"] = 547
 
-		E.db["databars"]["experience"]["height"] = 227
+		E.db["databars"]["experience"]["height"] = 235
 		E.db["databars"]["experience"]["orientation"] = "VERTICAL"
 		E.db["databars"]["experience"]["showQuestXP"] = false
 		E.db["databars"]["experience"]["width"] = 10
 
 		E.db["databars"]["honor"]["showBubbles"] = true
 		E.db["databars"]["honor"]["textFormat"] = "CURMAX"
-		E.db["databars"]["honor"]["width"] = 547
+		E.db["databars"]["honor"]["width"] = 546
+		
 		E.db["databars"]["reputation"]["enable"] = true
-		E.db["databars"]["reputation"]["height"] = 227
+		E.db["databars"]["reputation"]["height"] = 235
 		E.db["databars"]["reputation"]["orientation"] = "VERTICAL"
 		E.db["databars"]["reputation"]["width"] = 10
 
@@ -316,26 +331,12 @@ function PI:DarthSetupDF()
 	do
 		E.DataTexts:BuildPanelFrame('Darth_Panel_1')
 
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['panelTransparency'] = true
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['border'] = true
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['tooltipYOffset'] = 4
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['numPoints'] = 8
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['tooltipAnchor'] = 'ANCHOR_TOPLEFT'
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['frameLevel'] = 1
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['enable'] = true
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['frameStrata'] = 'LOW'
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['width'] = 1184
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['fonts']['enable'] = false
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['fonts']['font'] = 'PT Sans Narrow'
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['fonts']['fontSize'] = 12
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['fonts']['fontOutline'] = 'OUTLINE'
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['backdrop'] = true
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['name'] = 'Darth_Panel_1'
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['mouseover'] = false
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['height'] = 24
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['tooltipXOffset'] = -17
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['visibility'] = '[petbattle] hide;show'
-		E.global['datatexts']['customPanels']['Darth_Panel_1']['growth'] = 'HORIZONTAL'
+		E.global["datatexts"]["customPanels"]["Darth_Panel_1"]["enable"] = true
+		E.global["datatexts"]["customPanels"]["Darth_Panel_1"]["height"] = 23
+		E.global["datatexts"]["customPanels"]["Darth_Panel_1"]["name"] = "Darth_Panel_1"
+		E.global["datatexts"]["customPanels"]["Darth_Panel_1"]["numPoints"] = 8
+		E.global["datatexts"]["customPanels"]["Darth_Panel_1"]["panelTransparency"] = true
+		E.global["datatexts"]["customPanels"]["Darth_Panel_1"]["width"] = 1185
 
 		E.db["datatexts"]["font"] = "Expressway"
 		E.db["datatexts"]["fontOutline"] = "OUTLINE"
@@ -355,7 +356,8 @@ function PI:DarthSetupDF()
 		E.db["datatexts"]["panels"]["RightChatDataPanel"][3] = "Talent/Loot Specialization"
 		E.db["datatexts"]["panels"]["RightChatDataPanel"]["panelTransparency"] = true
 
-		E.global['datatexts']['settings']['Currencies']['displayedCurrency'] = 'GOLD'
+		E.global["datatexts"]["settings"]["Currencies"]["displayedCurrency"] = "GOLD"
+		E.global["datatexts"]["settings"]["Talent/Loot Specialization"]["displayStyle"] = "SPEC"
 
 		E.db['datatexts']['panels']['Darth_Panel_1'] = {
 			[1] = 'S&L Friends',
@@ -469,8 +471,6 @@ function PI:DarthSetupDF()
 		E.db["tooltip"]["headerFont"] = "Expressway"
 		E.db["tooltip"]["headerFontSize"] = 14
 		E.db["tooltip"]["healthBar"]["font"] = "Expressway"
-		E.db["tooltip"]["healthBar"]["fontSize"] = 12
-		E.db["tooltip"]["healthBar"]["height"] = 12
 		E.db["tooltip"]["itemCount"] = "NONE"
 		E.db["tooltip"]["mythicDataEnable"] = false
 		E.db["tooltip"]["showMount"] = false
@@ -520,7 +520,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["player"]["health"]["position"] = "TOPLEFT"
 		E.db["unitframe"]["units"]["player"]["health"]["text_format"] = "[healthcolor][health:current:shortvalue]||cffffffff [absorbs:sl-short]||r"
 		E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 0
-		E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = -14
+		E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = -16
 		E.db["unitframe"]["units"]["player"]["height"] = 18
 		E.db["unitframe"]["units"]["player"]["infoPanel"]["height"] = 14
 		E.db["unitframe"]["units"]["player"]["name"]["attachTextTo"] = "Frame"
@@ -587,7 +587,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["target"]["health"]["position"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["target"]["health"]["text_format"] = "[healthcolor][health:current:shortvalue]||cffffffff [absorbs:sl-short]||r"
 		E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = 0
-		E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = -14
+		E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = -16
 		E.db["unitframe"]["units"]["target"]["height"] = 18
 		E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 14
 		E.db["unitframe"]["units"]["target"]["name"]["attachTextTo"] = "Frame"
@@ -726,7 +726,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["raid1"]["resurrectIcon"]["attachTo"] = "BOTTOMRIGHT"
 		E.db["unitframe"]["units"]["raid1"]["roleIcon"]["attachTo"] = "InfoPanel"
 		E.db["unitframe"]["units"]["raid1"]["roleIcon"]["position"] = "TOPLEFT"
-		E.db["unitframe"]["units"]["raid1"]["roleIcon"]["size"] = 12
+		E.db["unitframe"]["units"]["raid1"]["roleIcon"]["size"] = 14
 		E.db["unitframe"]["units"]["raid1"]["roleIcon"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid1"]["roleIcon"]["yOffset"] = 4
 		E.db["unitframe"]["units"]["raid1"]["verticalSpacing"] = 4
@@ -806,7 +806,6 @@ function PI:DarthSetupDF()
 
 		E.db["sle"]["media"]["fonts"]["mail"]["font"] = "Expressway"
 		E.db["sle"]["media"]["fonts"]["objective"]["font"] = "Expressway"
-		E.db["sle"]["media"]["fonts"]["objective"]["fontOutline"] = "OUTLINE"
 		E.db["sle"]["media"]["fonts"]["objectiveHeader"]["font"] = "Expressway"
 		E.db["sle"]["media"]["fonts"]["objectiveHeader"]["fontOutline"] = "OUTLINE"
 		E.db["sle"]["media"]["fonts"]["objectiveHeader"]["fontSize"] = 18
@@ -867,73 +866,77 @@ function PI:DarthSetupDF()
 	end
 	--Movers
 	do
-		E.db["movers"]["AlertFrameMover"] = "TOPLEFT,UIParent,TOPLEFT,422,-145"
-		E.db["movers"]["AltPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,359"
+		E.db["movers"]["AddonCompartmentMover"] = "TOPRIGHT,UIParent,TOPRIGHT,-4,-247"
+		E.db["movers"]["AlertFrameMover"] = "TOPLEFT,UIParent,TOPLEFT,367,-141"
+		E.db["movers"]["AltPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,340"
 		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-300"
 		E.db["movers"]["AzeriteBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,153"
-		E.db["movers"]["BNETMover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-566,35"
-		E.db["movers"]["BelowMinimapContainerMover"] = "TOP,ElvUIParent,TOP,0,-97"
-		E.db["movers"]["BossBannerMover"] = "TOP,ElvUIParent,TOP,0,-126"
-		E.db["movers"]["BossButton"] = "BOTTOM,UIParent,BOTTOM,0,508"
+		E.db["movers"]["BNETMover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-566,28"
+		E.db["movers"]["BelowMinimapContainerMover"] = "TOP,ElvUIParent,TOP,0,-117"
+		E.db["movers"]["BossBannerMover"] = "TOP,ElvUIParent,TOP,0,-146"
+		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,386"
 		E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-301"
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUI_MinimapHolder,TOPLEFT,-7,-1"
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-239,-3"
 		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,494"
 		E.db["movers"]["DTPanelDarth_Panel_1Mover"] = "BOTTOM,ElvUIParent,BOTTOM,0,0"
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-231,-116"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-239,-116"
 		E.db["movers"]["DurabilityFrameMover"] = "BOTTOM,UIParent,BOTTOM,-332,265"
-		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,235"
+		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,230"
 		E.db["movers"]["ElvAB_10"] = "BOTTOM,ElvUI_Bar1,TOP,0,202"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,4"
-		E.db["movers"]["ElvAB_3"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,475,23"
-		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-474,23"
-		E.db["movers"]["ElvAB_5"] = "BOTTOM,UIParent,BOTTOM,202,235"
-		E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,-202,235"
+		E.db["movers"]["ElvAB_3"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,474,23"
+		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-475,23"
+		E.db["movers"]["ElvAB_5"] = "BOTTOM,ElvUIParent,BOTTOM,203,230"
+		E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,-202,230"
 		E.db["movers"]["ElvAB_7"] = "BOTTOM,ElvUI_Bar1,TOP,0,82"
 		E.db["movers"]["ElvAB_8"] = "BOTTOM,ElvUI_Bar1,TOP,0,122"
 		E.db["movers"]["ElvAB_9"] = "BOTTOM,ElvUI_Bar1,TOP,0,162"
 		E.db["movers"]["ElvNP_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,503"
 		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,526,-238"
-		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,415"
+		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,438"
 		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOM,UIParent,BOTTOM,-347,414"
-		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,248"
+		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,UIParent,BOTTOMLEFT,4,265"
 		E.db["movers"]["ElvUF_PetCastbarMover"] = "TOPLEFT,ElvUF_Pet,BOTTOMLEFT,0,-1"
 		E.db["movers"]["ElvUF_PetMover"] = "BOTTOM,ElvUIParent,BOTTOM,-186,415"
-		E.db["movers"]["ElvUF_PlayerAuraMover"] = "BOTTOM,ElvUIParent,BOTTOM,-216,556"
-		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,UIParent,BOTTOM,0,450"
-		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-226,470"
-		E.db["movers"]["ElvUF_Raid1Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,12,270"
+		E.db["movers"]["ElvUF_PlayerAuraMover"] = "BOTTOM,ElvUIParent,BOTTOM,-216,536"
+		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,455"
+		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-226,455"
+		E.db["movers"]["ElvUF_Raid1Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,265"
 		E.db["movers"]["ElvUF_Raid2Mover"] = "TOPLEFT,UIParent,TOPLEFT,497,-327"
 		E.db["movers"]["ElvUF_Raid3Mover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,4,482"
 		E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,4,737"
 		E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,518,-316"
-		E.db["movers"]["ElvUF_TargetAuraMover"] = "BOTTOM,ElvUIParent,BOTTOM,216,556"
-		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,UIParent,BOTTOM,1,470"
-		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,226,470"
+		E.db["movers"]["ElvUF_TargetAuraMover"] = "BOTTOM,ElvUIParent,BOTTOM,216,536"
+		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,474"
+		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,226,455"
 		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,186,415"
-		E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,249"
-		E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,0,249"
-		E.db["movers"]["EventToastMover"] = "TOP,ElvUIParent,TOP,0,-150"
-		E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,550,23"
+		E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,257"
+		E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,0,257"
+		E.db["movers"]["EventToastMover"] = "TOP,ElvUIParent,TOP,0,-165"
+		E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,552,23"
 		E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,368,0"
-		E.db["movers"]["HonorBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,226"
+		E.db["movers"]["HonorBarMover"] = "BOTTOM,UIParent,BOTTOM,1,220"
 		E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,0,0"
 		E.db["movers"]["LevelUpBossBannerMover"] = "TOP,ElvUIParent,TOP,0,-217"
 		E.db["movers"]["LootFrameMover"] = "TOPRIGHT,UIParent,TOPRIGHT,-531,-449"
-		E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,549"
+		E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,505"
 		E.db["movers"]["MawBuffsBelowMinimapMover"] = "TOP,Minimap,BOTTOM,0,-26"
 		E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-3"
 		E.db["movers"]["MirrorTimer1Mover"] = "TOP,ElvUIParent,TOP,0,-289"
 		E.db["movers"]["MirrorTimer2Mover"] = "TOP,MirrorTimer1,BOTTOM,0,0"
 		E.db["movers"]["MirrorTimer3Mover"] = "TOP,MirrorTimer2,BOTTOM,0,0"
 		E.db["movers"]["ObjectiveFrameMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,94,-10"
-		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,323"
+		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,319"
 		E.db["movers"]["PetBattleABMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,4"
 		E.db["movers"]["PetBattleStatusMover"] = "TOP,PetBattleFrame,TOP,0,0"
 		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-301,431"
-		E.db["movers"]["PowerBarContainerMover"] = "TOP,ElvUIParent,TOP,0,-76"
-		E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOM,ElvUIParent,BOTTOM,0,387"
+		E.db["movers"]["PowerBarContainerMover"] = "TOP,ElvUIParent,TOP,0,-96"
+		E.db["movers"]["PrivateAurasMover"] = "TOPRIGHT,ElvUI_MinimapHolder,BOTTOMLEFT,-10,-3"
+		E.db["movers"]["PrivateRaidWarningMover"] = "TOP,RaidBossEmoteFrame,TOP,0,0"
+		E.db["movers"]["QueueStatusMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-22,-246"
+		E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOM,ElvUIParent,BOTTOM,0,361"
 		E.db["movers"]["RaidUtility_Mover"] = "TOP,ElvUIParent,TOP,-400,1"
-		E.db["movers"]["ReputationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-550,23"
+		E.db["movers"]["ReputationBarMover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-553,23"
 		E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,-1"
 		E.db["movers"]["SLE_BG_1_Mover"] = "BOTTOM,ElvUIParent,BOTTOM,0,21"
 		E.db["movers"]["SLE_BG_2_Mover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOM,-257,21"
@@ -945,19 +948,20 @@ function PI:DarthSetupDF()
 		E.db["movers"]["SLE_GarrisonToolMover"] = "LEFT,ElvUIParent,LEFT,24,0"
 		E.db["movers"]["SLE_Location_Mover"] = "TOP,ElvUIParent,TOP,0,0"
 		E.db["movers"]["SLE_UIButtonsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-227,-174"
-		E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,-212,342"
+		E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,-212,334"
 		E.db["movers"]["SocialMenuMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-187"
 		E.db["movers"]["TalkingHeadFrameMover"] = "TOP,ElvUIParent,TOP,0,-20"
 		E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,258"
-		E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-42"
-		E.db["movers"]["TorghastChoiceToggle"] = "BOTTOM,ElvUIParent,BOTTOM,0,185"
+		E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,RightChatToggleButton,BOTTOMRIGHT,0,0"
+		E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-74"
+		E.db["movers"]["TorghastChoiceToggle"] = "BOTTOM,ElvUIParent,BOTTOM,0,166"
 		E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,267"
 		E.db["movers"]["TotemTrackerMover"] = "BOTTOM,UIParent,BOTTOM,-197,368"
 		E.db["movers"]["UIErrorsFrameMover"] = "TOP,ElvUIParent,TOP,0,-177"
 		E.db["movers"]["VOICECHAT"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,586,27"
-		E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,ElvUIParent,BOTTOM,147,346"
+		E.db["movers"]["VehicleLeaveButton"] = "BOTTOM,ElvUIParent,BOTTOM,148,334"
 		E.db["movers"]["VehicleSeatMover"] = "BOTTOMLEFT,UIParent,BOTTOMLEFT,575,253"
-		E.db["movers"]["ZoneAbility"] = "BOTTOM,ElvUIParent,BOTTOM,0,508"
+		E.db["movers"]["ZoneAbility"] = "BOTTOM,ElvUIParent,BOTTOM,0,386"
 	end
 
 	if IsAddOnLoaded('AddOnSkins') then
@@ -977,7 +981,6 @@ function PI:DarthSetupDF()
 
 	E.private['general']['normTex'] = 'ElvUI Gloss'
 	E.private['general']['glossTex'] = 'ElvUI Gloss'
-	E.private['general']['minimap']['hideClassHallReport'] = true
 	E.private["general"]["raidUtility"] = false
 
 	E.private["skins"]["blizzard"]["achievement"] = false
