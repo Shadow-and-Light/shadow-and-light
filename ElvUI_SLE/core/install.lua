@@ -742,6 +742,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["arena"]["health"]["xOffset"] = -2
 		E.db["unitframe"]["units"]["arena"]["height"] = 40
 		E.db["unitframe"]["units"]["arena"]["name"]["position"] = "TOPRIGHT"
+		E.db["unitframe"]["units"]["arena"]["name"]["text_format"] = "[faction:icon][classcolor][name:medium]"
 		E.db["unitframe"]["units"]["arena"]["power"]["attachTextTo"] = "Power"
 		E.db["unitframe"]["units"]["arena"]["power"]["text_format"] = "[powercolor][curpp]"
 		E.db["unitframe"]["units"]["arena"]["width"] = 180
@@ -869,13 +870,13 @@ function PI:DarthSetupDF()
 		E.db["movers"]["AddonCompartmentMover"] = "TOPRIGHT,UIParent,TOPRIGHT,-4,-247"
 		E.db["movers"]["AlertFrameMover"] = "TOPLEFT,UIParent,TOPLEFT,367,-141"
 		E.db["movers"]["AltPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,340"
-		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-300"
+		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,UIParent,TOPRIGHT,-49,-301"
 		E.db["movers"]["AzeriteBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,153"
 		E.db["movers"]["BNETMover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-566,28"
 		E.db["movers"]["BelowMinimapContainerMover"] = "TOP,ElvUIParent,TOP,0,-117"
 		E.db["movers"]["BossBannerMover"] = "TOP,ElvUIParent,TOP,0,-146"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,386"
-		E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-301"
+		E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,UIParent,TOPRIGHT,-49,-300"
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-239,-3"
 		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,494"
 		E.db["movers"]["DTPanelDarth_Panel_1Mover"] = "BOTTOM,ElvUIParent,BOTTOM,0,0"
@@ -899,7 +900,7 @@ function PI:DarthSetupDF()
 		E.db["movers"]["ElvUF_PetCastbarMover"] = "TOPLEFT,ElvUF_Pet,BOTTOMLEFT,0,-1"
 		E.db["movers"]["ElvUF_PetMover"] = "BOTTOM,ElvUIParent,BOTTOM,-186,415"
 		E.db["movers"]["ElvUF_PlayerAuraMover"] = "BOTTOM,ElvUIParent,BOTTOM,-216,540"
-		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,458"
+		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,455"
 		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-226,459"
 		E.db["movers"]["ElvUF_Raid1Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,4,265"
 		E.db["movers"]["ElvUF_Raid2Mover"] = "TOPLEFT,UIParent,TOPLEFT,497,-327"
@@ -952,7 +953,6 @@ function PI:DarthSetupDF()
 		E.db["movers"]["SocialMenuMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-187"
 		E.db["movers"]["TalkingHeadFrameMover"] = "TOP,ElvUIParent,TOP,0,-20"
 		E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,258"
-		E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,RightChatToggleButton,BOTTOMRIGHT,0,0"
 		E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-74"
 		E.db["movers"]["TorghastChoiceToggle"] = "BOTTOM,ElvUIParent,BOTTOM,0,166"
 		E.db["movers"]["TotemBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,267"
@@ -1876,13 +1876,14 @@ function PI:DarthAddons()
 					["enableFontShadow"] = false,
 					["enableOverHeal"] = false,
 					["Width"] = 115,
+					["fontJustify"] = "RIGHT",
 					["font"] = "PT Sans Narrow",
 					["enableRealmNames"] = false,
-					["fontSize"] = 12,
+					["fontSize"] = 13,
 					["showFriendlyHealers"] = false,
 					["insertText"] = "top",
-					["Y"] = 34,
-					["X"] = 375,
+					["Y"] = 28,
+					["X"] = 78,
 					["Height"] = 157,
 					["names"] = {
 						["PLAYER"] = {
@@ -1906,9 +1907,8 @@ function PI:DarthAddons()
 				["damage"] = {
 					["enableFontShadow"] = false,
 					["Width"] = 115,
-					["fontJustify"] = "RIGHT",
 					["font"] = "PT Sans Narrow",
-					["fontSize"] = 12,
+					["fontSize"] = 13,
 					["names"] = {
 						["PLAYER"] = {
 							["nameType"] = 0,
@@ -1920,8 +1920,8 @@ function PI:DarthAddons()
 							["nameType"] = 0,
 						},
 					},
-					["Y"] = 35,
-					["X"] = 490,
+					["Y"] = 29,
+					["X"] = -79,
 					["Height"] = 157,
 				},
 			},
