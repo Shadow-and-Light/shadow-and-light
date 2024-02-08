@@ -218,9 +218,12 @@ function PI:DarthSetupDF()
 		E.db["actionbar"]["stanceBar"]["hotkeytext"] = false
 		E.db["actionbar"]["stanceBar"]["style"] = "classic"
 
+		E.db["actionbar"]["extraActionButton"]["clean"] = true
 		E.db["actionbar"]["extraActionButton"]["hotkeyFont"] = "Expressway"
 		E.db["actionbar"]["extraActionButton"]["hotkeyFontSize"] = 15
 		E.db["actionbar"]["extraActionButton"]["scale"] = 0.9
+		
+		E.db["actionbar"]["zoneActionButton"]["clean"] = true
 
 		E.db["actionbar"]["vehicleExitButton"]["hotkeyFont"] = "Expressway"
 		E.db["actionbar"]["vehicleExitButton"]["hotkeyFontSize"] = 15
