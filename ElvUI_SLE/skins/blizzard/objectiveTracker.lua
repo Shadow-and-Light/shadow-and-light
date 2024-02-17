@@ -21,6 +21,7 @@ local skinnableWidgets = {
 	[2319] = true,
 	[3302] = true,
 	[4324] = true,
+	[4947] = true,
 }
 local Chest3_Mult = 0.6
 local Chest2_Mult = 0.8
