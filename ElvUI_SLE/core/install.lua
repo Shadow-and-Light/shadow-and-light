@@ -710,6 +710,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["party"]["roleIcon"]["position"] = "TOPLEFT"
 		E.db["unitframe"]["units"]["party"]["roleIcon"]["yOffset"] = 5
 		E.db["unitframe"]["units"]["party"]["width"] = 160
+		E.db["unitframe"]["units"]["party"]["classbar"]["enable"] = false
 
 		E.db["unitframe"]["units"]["raid1"]["growthDirection"] = "RIGHT_UP"
 		E.db["unitframe"]["units"]["raid1"]["health"]["position"] = "TOP"
@@ -875,7 +876,7 @@ function PI:DarthSetupDF()
 		E.db["movers"]["AltPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,340"
 		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,UIParent,TOPRIGHT,-49,-301"
 		E.db["movers"]["AzeriteBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,153"
-		E.db["movers"]["BNETMover"] = "BOTTOMRIGHT,UIParent,BOTTOMRIGHT,-566,28"
+		E.db["movers"]["BNETMover"] = "TOPRIGHT,UIParent,TOPRIGHT,-249,-175"
 		E.db["movers"]["BelowMinimapContainerMover"] = "TOP,ElvUIParent,TOP,0,-117"
 		E.db["movers"]["BossBannerMover"] = "TOP,ElvUIParent,TOP,0,-146"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,386"
