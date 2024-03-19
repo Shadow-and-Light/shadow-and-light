@@ -1,4 +1,5 @@
-﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
+﻿local unpack = unpack
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local DB = SLE.DataBars
 local EDB = E.DataBars
 
@@ -121,7 +122,11 @@ local function ReputationBar_Update()
 end
 
 function DB:PopulateRepPatterns()
-	local symbols = {'%.$','%(','%)','|3%-7%%%(%%s%%%)','%%s([^%%])','%+','%%d','%%.1f','%%.','%%(','%%)','(.-)','(.-)%1','%%+','(%%d-)','(%%d-)'}
+	--Simpy formatting here. Prob shouldn't touch
+	local symbols = {
+		'%.$',    '%(','%)',        '|3%-7%%%(%%s%%%)',        '%%s([^%%])',    '%+',        '%%d',        '%%.1f',
+		'%%.',    '%%(','%%)',    '(.-)',                    '(.-)%1',        '%%+',        '(%%d-)',    '([%%d.]-)'
+	}
 	local pattern
 	pattern = T.rgsub(FACTION_STANDING_INCREASED, unpack(symbols))
 	tinsert(DB.RepIncreaseStrings, pattern)
