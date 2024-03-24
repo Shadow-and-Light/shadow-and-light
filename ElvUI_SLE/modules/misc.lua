@@ -10,15 +10,13 @@ function M:SetAllPoints()
 	M:SetViewport()
 end
 
---[[function M:ClearAllPoints(force)
-	print("ClearAllPoints", force)
-	if force then
-		WorldFrame:ORClear()
+function M:SetViewport(event)
+	if InCombatLockdown() then
+		self:RegisterEvent("PLAYER_REGEN_ENABLED",  M.SetViewport)
+		return
 	end
-end]]
-
-function M:SetViewport()
-	if InCombatLockdown() or SLE._Compatibility['SunnArt'] or not M.ViewportInitialized or not E.private.sle.viewport.enable then return end
+	if event == "PLAYER_REGEN_ENABLED" then self:UnregisterEvent(event) end
+	if SLE._Compatibility['SunnArt'] or not M.ViewportInitialized or not E.private.sle.viewport.enable then return end
 	local scale = E.global.general.UIScale
 
 	_G.WorldFrame:ClearAllPoints()
