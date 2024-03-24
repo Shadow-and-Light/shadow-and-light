@@ -61,6 +61,9 @@ function M:Initialize()
 		M.db = E.db.sle.misc
 		M:SetViewport()
 	end
+
+	M:RegisterEvent("LOADING_SCREEN_DISABLED", M.SetViewport)
+	M:RegisterEvent("CINEMATIC_STOP", M.SetViewport)
 end
 
 SLE:RegisterModule(M:GetName())
