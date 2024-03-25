@@ -12,10 +12,10 @@ end
 
 function M:SetViewport(event)
 	if InCombatLockdown() then
-		self:RegisterEvent("PLAYER_REGEN_ENABLED",  M.SetViewport)
+		M:RegisterEvent("PLAYER_REGEN_ENABLED",  M.SetViewport)
 		return
 	end
-	if event == "PLAYER_REGEN_ENABLED" then self:UnregisterEvent(event) end
+	if event == "PLAYER_REGEN_ENABLED" then M:UnregisterEvent(event) end
 	if SLE._Compatibility['SunnArt'] or not M.ViewportInitialized or not E.private.sle.viewport.enable then return end
 	local scale = E.global.general.UIScale
 
@@ -52,7 +52,6 @@ function M:Initialize()
 	CinematicFrame:SetScript('OnShow', nil)
 	CinematicFrame:SetScript('OnHide', nil)
 
-	M:SetViewport()
 	hooksecurefunc(E, 'PixelScaleChanged', M.SetViewport)
 
 	function M:ForUpdateAll()
