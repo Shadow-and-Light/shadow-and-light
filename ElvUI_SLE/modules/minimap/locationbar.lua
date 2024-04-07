@@ -81,9 +81,11 @@ LP.Hearthstones = {
 	{180290, nil, true}, --Night Fae HS
 	{184353, nil, true}, --Kyrian HS
 	{188952, nil, true}, --Dominated HS
+	{190196, nil, true}, -- Enlightened Hearthstone
 	{190237, nil, true}, -- Broker Translocation Matrix
 	{208704, nil, true}, -- Deepdweller's Earthen Hearthstone
 	{209035, nil, true}, -- Hearthstone of the Flame
+	{212337, nil, true}, -- Stone of the Hearth (Hearthstone 10th Anniversary)
 }
 
 LP.PortItems = {
@@ -276,6 +278,12 @@ LP.Spells = {
         [43] = {text = GetSpellInfo(410074),icon = SLE:GetIconFromID('spell', 410074),secure = {buttonType = 'spell',ID = 410074}, UseTooltip = true},  -- Underrot (Path of the Festering Rot)
         [44] = {text = GetSpellInfo(410078),icon = SLE:GetIconFromID('spell', 410078),secure = {buttonType = 'spell',ID = 410078}, UseTooltip = true},  -- Neltharion's Lair (Path of the Earth-Warder)
         [45] = {text = GetSpellInfo(410080),icon = SLE:GetIconFromID('spell', 410080),secure = {buttonType = 'spell',ID = 410080}, UseTooltip = true},  -- The Vortex Pinacle (Path of Wind's Domain)
+		[46] = {text = GetSpellInfo(424142), icon = SLE.GetIconFromID('spell', 424142), secure = {buttonType = 'spell', ID = 424142}, UseTooltip = true}, -- Teleport to Throne of the Tides (Path of the Tidehunter)
+		[47] = {text = GetSpellInfo(424153), icon = SLE.GetIconFromID('spell', 424153), secure = {buttonType = 'spell', ID = 424153}, UseTooltip = true}, -- Teleport to Black Rock Hold (Path of Ancient Horrors)
+		[48] = {text = GetSpellInfo(424163), icon = SLE.GetIconFromID('spell', 424163), secure = {buttonType = 'spell', ID = 424163}, UseTooltip = true}, -- Teleport to Darkheart Thicket (Path of the Nightmare Lord)
+		[49] = {text = GetSpellInfo(424167), icon = SLE.GetIconFromID('spell', 424167), secure = {buttonType = 'spell', ID = 424167}, UseTooltip = true}, -- Teleport to Waycrest Manor (Path of Heart's Bane)
+		[50] = {text = GetSpellInfo(424187), icon = SLE.GetIconFromID('spell', 424187), secure = {buttonType = 'spell', ID = 424187}, UseTooltip = true}, -- Teleport to Atal'Dazar (Path of the Golden Tomb)
+		[51] = {text = GetSpellInfo(424197), icon = SLE.GetIconFromID('spell', 424197), secure = {buttonType = 'spell', ID = 424197}, UseTooltip = true}, -- Teleport to Dawn of the Infinite (Path of Twisted Time)
 	},
 }
 
