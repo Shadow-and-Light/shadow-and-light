@@ -123,113 +123,72 @@ SLE.region = false
 --Toonlists
 SLE.SpecialChatIcons = {
 	['EU'] = {
-		['DarkmoonFaire'] = {
-			['Shaylith'] = darth,
-			['Yandria'] = darth,
-			['Ardon'] = darth,
-			['Lelora'] = darth,
-			['Illia'] = darth,
-			['Jumahko'] = darth,
-			['Jilti'] = darth,
-			['Hweiru'] = darth,
-			['Maggas'] = darth,
-			['Faanna'] = darth,
-			['Naliss'] = darth,
-			['Ahkara'] = darth,
-		},
-		["TheSha'tar"] = {
-			['Lelora'] = darth,
-			['Alamira'] = darth,
-		},
-		['ВечнаяПесня'] = {
-			--Darth's toons
-			['Дартпредатор'] = darth,
-			['Алея'] = darth,
-			['Ваззули'] = darth,
-			['Сиаранна'] = darth,
-			['Джатон'] = darth,
-			['Фикстер'] = darth,
-			['Киландра'] = darth,
-			['Нарджо'] = darth,
-			['Келинира'] = darth,
-			['Крениг'] = darth,
-			['Мейжи'] = darth,
-			['Тисандри'] = darth,
-			['Мемри'] = darth,
-			--Darth's friends
-			['Леани'] = friend,
-			['Кайрия'] = friend,
-			['Дендрин'] = friend,
-			['Аргрут'] = friend,
-			--Da tester lol
-			['Харореанн'] = test,
-			['Нерререанн'] = test,
-			['Аргусил'] = orc
-		},
-		['Пиратскаябухта'] = {
-			['Брэгари'] = test
-		},
-		['Ревущийфьорд'] = {
-			['Рыжая'] = friend,
-			['Рыжа'] = friend,
-			['Шензо'] = classTable.hunter,
-			--Some people
-			['Маразм'] = classTable.shaman,
-			['Брэгар'] = test
-		},
-		['ЧерныйШрам'] = {
-			['Емалия'] = friend,
-		},
-        ['Blackrock'] = {
-			['Roxanne'] = blizzicon:format('ability_mage_glacialspike'), -- Annoying Feature requester
-		},
+		--Darth's toons
+		['Player-1925-05F494A6'] = darth, --Дартпредатор
+		['Player-1925-05F495A1'] = darth, --Алея
+		['Player-1925-068597D7'] = darth, --Келинира
+		['Player-1925-0F7CD263'] = darth, --Ночаки
+		['Player-1925-0F4558FA'] = darth, --Найлиа
+		['Player-1925-0F7CD041'] = darth, --Згук
+		['Player-1925-0F7CCFA3'] = darth, --Твеша
+		['Player-1925-0F7CD22E'] = darth, --Тамзун
+		['Player-1925-0F7E0123'] = darth, --Дурвальд
+		['Player-1925-0F455971'] = darth, --Юнва
+		['Player-1925-0F7CCFD9'] = darth, --Акуштабал
+		['Player-1925-0F7CD0E7'] = darth, --Кхиму
+		['Player-1925-0F7CD0B8'] = darth, --Эрелэйн
+		['Player-1925-05E1AB61'] = darth, --Мейжи
+		['Player-1925-0F7CD09C'] = darth, --Айтарин
+		['Player-1925-0F7CE7C1'] = darth, --Алайа
+		['Player-1925-0AD94DDC'] = darth, --Козгроб
+		['Player-1925-0F45592E'] = darth, --Тутумба
+		['Player-1925-0A737D2F'] = darth, --Авелена
+		['Player-1925-0F5E51F8'] = darth, --Акаара
+		['Player-1925-0A737D64'] = darth, --Болан
+		['Player-1925-05F4B46B'] = darth, --Ваззули
+		['Player-1925-06F2597E'] = darth, --Джатон
+		['Player-1925-05F494E5'] = darth, --Киландра
+		['Player-1925-06859B82'] = darth, --Крениг
+		['Player-1925-0A736FAF'] = darth, --Мемри
+		['Player-1925-0A737D9C'] = darth, --Миора
+		['Player-1925-06F2599E'] = darth, --Нарджо
+		['Player-1925-0F7CCF6D'] = darth, --Нонлари
+		['Player-1925-06A12E75'] = darth, --Сиаранна
+		['Player-1925-0986E52C'] = darth, --Тисандри
+		['Player-1925-06017C92'] = darth, --Фикстер
+		['Player-1925-0F5E51F7'] = darth, --Шалиин
+		['Player-1925-0F5E471A'] = darth, --Яндриа
+		
+		-- ['Фикстер-ВечнаяПесня'] = darth,
+		['Player-1925-06C8A78E'] = friend, --Кайрия-ВечнаяПесня
+		['Дендрин-ВечнаяПесня'] = friend,
+		['Аргрут-ВечнаяПесня'] = friend,
+		['Шензо-Ревущийфьорд'] = classTable.hunter,
+		['Маразм-Ревущийфьорд'] = classTable.shaman,
+		['Емалия-ЧерныйШрам'] = friend,
+		['Roxanne-Blackrock'] = blizzicon:format('ability_mage_glacialspike'), -- Annoying Feature requester
 	},
 	['US'] = {
-		['Andorhal'] = {
-			['Dapooc'] = repooc,
-			['Rovert'] = repooc,
-			['Sliceoflife'] = repooc,
-		},
-		['Illidan'] = {
-			--Darth's toon
-			['Darthpred'] = darth,
-			--Repooc's Toon
-			['Repooc'] = repooc,
-			['Desertdragon'] = gold,
-		},
-		['Spirestone'] = {
-			['Lapooc'] = test,
-			['Warpooc'] = repooc,
-			['Cursewordz'] = repooc,
-		},
-		['Stormrage'] = {
-			['Urgfelstorm'] = blizzicon:format('inv_misc_bomb_02'),	-- Urg & Repooc's Guild Mate
-			['Vaxum']		= goldicon,	-- Vax & Repooc's Guild Mate
-			['Lloosh']		= goldicon,	-- Lloosh & Repooc's Guild Mate
-			['Marshmeela']	= goldicon,	-- Lloosh & Repooc's Guild Mate
-			['Looshana']	= goldicon,	-- Lloosh & Repooc's Guild Mate
-			['Looshaina']	= goldicon, -- Lloosh & Repooc's Guild Mate
-			['Looshally']	= goldicon, -- Lloosh & Repooc's Guild Mate
-			['Looshella']	= goldicon, -- Lloosh & Repooc's Guild Mate
-		},
-		["Kel'Thuzad"] = {
-			['Daveedium'] = ttvicon, -- Twitch streamer I been doing HSire kills with
-		},
-		['WyrmrestAccord'] = {
-			['Dapooc'] = repooc,
-		},
-		['BleedingHollow'] = {
-			['Evolutious'] = sllogo, --Patreon (Evolutious in discord)
-			['Poocer'] = sllogo, --random toon of repooc
-		},
-	},
-	['CN'] = {},
-	['KR'] = {},
-	['TW'] = {},
-	['PTR'] = {
-		['Brill(EU)'] = {
-			['Дартпредатор'] = darth,
-			['Киландра'] = darth,
-		},
+		['Dapooc-Andorhal'] = repooc,
+		['Rovert-Andorhal'] = repooc,
+		['Sliceoflife-Andorhal'] = repooc,
+		['Darthpred-Illidan'] = darth,--Darth's toon
+		['Repooc-Illidan'] = repooc,
+		['Desertdragon-Illidan'] = gold,
+		['Lapooc-Spirestone'] = test,
+		['Warpooc-Spirestone'] = repooc,
+		['Cursewordz-Spirestone'] = repooc,
+		['Urgfelstorm-Stormrage'] = blizzicon:format('inv_misc_bomb_02'),	-- Urg & Repooc's Guild Mate
+		['Vaxum-Stormrage']	= goldicon,	-- Vax & Repooc's Guild Mate
+		['Lloosh-Stormrage'] = goldicon,	-- Lloosh & Repooc's Guild Mate
+		['Marshmeela-Stormrage'] = goldicon,	-- Lloosh & Repooc's Guild Mate
+		['Looshana-Stormrage'] = goldicon,	-- Lloosh & Repooc's Guild Mate
+		['Looshaina-Stormrage']	= goldicon, -- Lloosh & Repooc's Guild Mate
+		['Looshally-Stormrage']	= goldicon, -- Lloosh & Repooc's Guild Mate
+		['Looshella-Stormrage']	= goldicon, -- Lloosh & Repooc's Guild Mate
+		["Daveedium-Kel'Thuzad"] = ttvicon, -- Twitch streamer I been doing HSire kills with
+		['Dapooc-WyrmrestAccord'] = repooc,
+		['Evolutious-BleedingHollow'] = sllogo, --Patreon (Evolutious in discord)
+		['Poocer-BleedingHollow'] = sllogo, --random toon of repooc
 	},
 }

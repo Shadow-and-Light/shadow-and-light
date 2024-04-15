@@ -41,19 +41,13 @@ local function GetChatIcon(sender)
 		specialChatIcons = SLE.SpecialChatIcons[SLE.region]
 	end
 	local senderName, senderRealm, icon
-	if sender then
-		senderName, senderRealm = strsplit('-', sender)
-	else
-		senderName = E.myname
+	if not sender then icon = "" end
+	if specialChatIcons and specialChatIcons[sender] then
+		icon = specialChatIcons[sender]
 	end
-	senderRealm = senderRealm or C.PlayerRealm
-	senderRealm = gsub(senderRealm, ' ', '')
 
-	if specialChatIcons and specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
-		icon = specialChatIcons[senderRealm][senderName]
-	end
 	if IsInGuild() and E.db.sle.chat.guildmaster then
-		if senderName == C.GMName and senderRealm == C.GMRealm then icon = icon and (leader..icon) or leader end
+		if sender == C.GuildMaster then icon = icon and (leader..icon) or leader end
 	end
 
 	return icon
@@ -63,13 +57,9 @@ function C:GMCheck()
 	if GetNumGuildMembers() == 0 and IsInGuild() then E:Delay(2, C.GMCheck) return end
 	if not IsInGuild() then C.GuildMaster = ""; C.GMName = ''; C.GMRealm = ''; return end
 	for i = 1, GetNumGuildMembers() do
-		local name, _, rank = GetGuildRosterInfo(i)
-		if rank == 0 then C.GuildMaster = name break end
+		local name, rankName, rankIndex, level, classDisplayName, zone, publicNote, officerNote, isOnline, status, class, achievementPoints, achievementRank, isMobile, canSoR, repStanding, guid = GetGuildRosterInfo(i)
+		if rankIndex == 0 then C.GuildMaster = guid break end
 	end
-
-	if C.GuildMaster then C.GMName, C.GMRealm = strsplit('-', C.GuildMaster) end
-	C.GMRealm = C.GMRealm or C.PlayerRealm
-	C.GMRealm = gsub(C.GMRealm, ' ', '')
 end
 
 local function Roster(event, update)
