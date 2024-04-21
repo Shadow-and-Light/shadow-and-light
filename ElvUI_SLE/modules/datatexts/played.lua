@@ -4,7 +4,7 @@ local DT = E.DataTexts
 --GLOBALS: ElvDB
 local format = format
 local GetTime = GetTime
-local IsAddOnLoaded = IsAddOnLoaded
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local ChatFrame_TimeBreakDown = ChatFrame_TimeBreakDown
 local PlayedTimeFormatFull = '%d '..L["D"]..' %02d:%02d:%02d'
@@ -137,7 +137,7 @@ local OnEvent = function(self, event, ...)
 	end
 	if event == 'LOADING_SCREEN_DISABLED' then
 		self:UnregisterEvent(event)
-		if not IsAddOnLoaded('DataStore_Characters') and not eventRequesting then
+		if not C_AddOns_IsAddOnLoaded('DataStore_Characters') and not eventRequesting then
 			eventRequesting = true
 			RequestTimePlayed()
 		end

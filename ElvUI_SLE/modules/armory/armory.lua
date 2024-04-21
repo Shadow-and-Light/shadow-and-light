@@ -8,6 +8,8 @@ local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetApp
 local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
 local HandleModifiedItemClick = HandleModifiedItemClick
 local C_TransmogCollection_GetInspectItemTransmogInfoList = C_TransmogCollection.GetInspectItemTransmogInfoList
+local C_Item_GetItemGem = C_Item.GetItemGem
+local C_Item_GetItemInfo = C_Item.GetItemInfo
 local GetSpecialization, GetSpecializationInfo, GetInspectSpecialization = GetSpecialization, GetSpecializationInfo, GetInspectSpecialization
 local InCombatLockdown = InCombatLockdown
 local CA, IA, SA
@@ -258,7 +260,7 @@ function Armory:UpdatePageStrings(_, iLevelDB, Slot, slotInfo, which)
 		if Slot.SLE_Gradient then --First call for this function for inspect is before gradient is created. To avoid errors
 			if E.db.sle.armory[window].enable and E.db.sle.armory[window].gradient.enable and slotInfo.iLvl then
 				Slot.SLE_Gradient:Show()
-				if E.db.sle.armory[window].gradient.setArmor and select(16, GetItemInfo(Slot.itemLink)) then
+				if E.db.sle.armory[window].gradient.setArmor and select(16, C_Item_GetItemInfo(Slot.itemLink)) then
 					Slot.SLE_Gradient:SetVertexColor(unpack(E.db.sle.armory[window].gradient.setArmorColor))
 				elseif E.db.sle.armory[window].gradient.quality then
 					Slot.SLE_Gradient:SetVertexColor(unpack(slotInfo.itemLevelColors))
@@ -307,16 +309,16 @@ function Armory:UpdateGemInfo(Slot, which)
 					end
 				end
 				if not gemLink then
-					gemLink = select(2, GetItemGem(itemLink, i))
+					gemLink = select(2, C_Item_GetItemGem(itemLink, i))
 				end
 			else
 				local textureSlot = Slot['textureSlot'..i]
 				local textureID = textureSlot:GetTexture()
 
-				gemLink = select(2, GetItemGem(itemLink, i))
+				gemLink = select(2, C_Item_GetItemGem(itemLink, i))
 				if gemLink then
-					gemTexture = select(10, GetItemInfo(gemLink))
-					gemLink = select(2, GetItemGem(itemLink, textureID == gemTexture and i or i + 1))
+					gemTexture = select(10, C_Item_GetItemInfo(gemLink))
+					gemLink = select(2, C_Item_GetItemGem(itemLink, textureID == gemTexture and i or i + 1))
 				end
 			end
 		end
@@ -401,7 +403,7 @@ function Armory:Transmog_OnEnter()
 	_G.GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 
 	if self.isInspect then
-		local inspectLink = select(2, GetItemInfo(self.Link)) --In case the client actually decides to give us the info
+		local inspectLink = select(2, C_Item_GetItemInfo(self.Link)) --In case the client actually decides to give us the info
 		if inspectLink then
 			_G.GameTooltip:SetHyperlink(inspectLink)
 		else
@@ -420,7 +422,7 @@ function Armory:Transmog_OnLeave()
 end
 
 function Armory:Transmog_OnClick()
-	local _, ItemLink = GetItemInfo(self.Link)
+	local _, ItemLink = C_Item_GetItemInfo(self.Link)
 
 	if not IsShiftKeyDown() then
 		SetItemRef(ItemLink, ItemLink, 'LeftButton')
@@ -446,7 +448,7 @@ function Armory:CheckForMissing(which, Slot, iLvl, gems, enchant, primaryStat)
 	if not SlotName then return end --No slot?
 	local noChant, noGem = false, false
 	if iLvl and (Armory.Constants.EnchantableSlots[SlotName] == true or Armory.Constants.EnchantableSlots[SlotName] == primaryStat) and not enchant then --Item should be enchanted, but no string actually sent. This bastard is slacking
-		local classID, subclassID = select(12, GetItemInfo(Slot.itemLink))
+		local classID, subclassID = select(12, C_Item_GetItemInfo(Slot.itemLink))
 		if (classID == 4 and subclassID == 6) or (classID == 4 and subclassID == 0 and Slot.ID == 17) then --Shields are special
 			noChant = false
 		else
