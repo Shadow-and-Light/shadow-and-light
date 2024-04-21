@@ -31,7 +31,6 @@ function PI:DarthSetupDF()
 
 	--General
 	do
-
 		E.db["general"]["stickyFrames"] = false
 		E.db["general"]["talkingHeadFrameScale"] = 1
 		E.db["general"]["vehicleSeatIndicatorSize"] = 112

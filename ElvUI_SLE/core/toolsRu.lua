@@ -3,10 +3,14 @@
 local GetLocale = GetLocale
 
 --GLOBALS: SLASH_RELOADUI3, SLASH_FRAME2, SLASH_FRAMELIST2, SLASH_TEXLIST2
+--[[
+	This section that specifically targets issues for russial localization.
+	Poeple often forget to change languadge befor typing slash commands.
+]]
 
 function SLE:CyrCommands()
 	SLASH_RELOADUI3 = "/кд"
-
+	--TODO: Check for removed commands. Some were def cut over the years
 	E:RegisterChatCommand("шт", "DelayScriptCall") --in
 	E:RegisterChatCommand("ус", "ToggleOptions") --ec
 	E:RegisterChatCommand("удмгш", "ToggleOptions") --elvui

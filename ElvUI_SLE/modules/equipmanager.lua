@@ -265,7 +265,7 @@ function EM:TagsProcess(msg)
 	--Going trought conditions to build actual function calls into conditions table
 	for i = 1, #EM.Conditions do
 		local SetInfo = EM.Conditions[i]
-		if #SetInfo.options == 0 then --if number of options (tag/arg combos) is 0 this means that's the last "if everything else failed type of call.
+		if #SetInfo.options == 0 then --if number of options (tag/arg combos) is 0 this means that's the last "if everything else failed" type of call.
 			SetInfo.options[1] = {commands = {{condition = 'NoCondition', args = {}}}}
 		else
 			for index = 1, #SetInfo.options do
