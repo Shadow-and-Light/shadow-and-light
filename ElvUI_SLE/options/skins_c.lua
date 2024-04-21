@@ -2,7 +2,7 @@ local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local Sk = SLE.Skins
 local B = SLE.Blizzard
 
-local IsAddOnLoaded = IsAddOnLoaded
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
 local function configTable()
 	if not SLE.initialized then return end
@@ -359,7 +359,7 @@ local function configTable()
 		},
 	}
 
-	if IsAddOnLoaded('QuestGuru') then
+	if C_AddOns_IsAddOnLoaded('QuestGuru') then
 		E.Options.args.sle.args.skins.args.QuestGuru = {
 			order = 12,
 			type = 'group',

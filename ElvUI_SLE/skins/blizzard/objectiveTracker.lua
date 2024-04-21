@@ -6,7 +6,7 @@ local ENH = SLE.EnhancedShadows
 -- GLOBALS: C_Scenario, BonusObjectiveTrackerProgressBar_PlayFlareAnim, hooksecurefunc, CreateFrame
 local _G = _G
 
-local IsAddOnLoaded = IsAddOnLoaded
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local ScenarioStageBlock = ScenarioStageBlock
 local ScenarioProvingGroundsBlock = ScenarioProvingGroundsBlock
 local ScenarioProvingGroundsBlockAnim = ScenarioProvingGroundsBlockAnim
@@ -21,7 +21,6 @@ local skinnableWidgets = {
 	[2319] = true,
 	[3302] = true,
 	[4324] = true,
-	[4947] = true,
 }
 local Chest3_Mult = 0.6
 local Chest2_Mult = 0.8
@@ -349,7 +348,7 @@ local function SkinProvingGroundButtons()
 end
 
 local function ObjectiveReskin()
-	if not IsAddOnLoaded('Blizzard_ObjectiveTracker') then return end
+	if not C_AddOns_IsAddOnLoaded('Blizzard_ObjectiveTracker') then return end
 	if not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker or not E.private.sle.skins.objectiveTracker.enable then return end
 
 	-- Objective Tracker Bar

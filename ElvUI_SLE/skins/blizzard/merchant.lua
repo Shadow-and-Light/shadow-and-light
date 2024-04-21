@@ -18,7 +18,7 @@ local RETRIEVING_ITEM_INFO, MOUNT, ITEM_SPELL_KNOWN, SEARCH = RETRIEVING_ITEM_IN
 local MISCELLANEOUS = MISCELLANEOUS
 local MAX_MONEY_DISPLAY_WIDTH = 120
 
-local RECIPE = GetItemClassInfo(Enum.ItemClass.Recipe)
+local RECIPE = C_Item.GetItemClassInfo(Enum.ItemClass.Recipe)
 local searchBox
 local searching = ''
 
