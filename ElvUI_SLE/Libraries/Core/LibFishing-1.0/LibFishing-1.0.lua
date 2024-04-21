@@ -10,6 +10,12 @@ Licensed under a Creative Commons "Attribution Non-Commercial Share Alike" Licen
 -- 5.0.4 has a problem with a global "_" (see some for loops below)
 local _
 
+--Deprecated fixes
+local C_AddOns_GetNumAddOns = C_AddOns.GetNumAddOns
+local C_AddOns_GetAddOnMetadata = C_AddOns.GetAddOnMetadata
+local C_AddOns_GetAddOnInfo = C_AddOns.GetAddOnInfo
+local C_Item_GetItemCount = C_Item.GetItemCount
+
 local MAJOR_VERSION = "LibFishing-1.0"
 local MINOR_VERSION = 101109
 
@@ -622,7 +628,7 @@ function FishLib:UpdateLureInventory()
 	local b = 0;
 	for _,lure in ipairs(FISHINGLURES) do
 		local id = lure.id;
-		local count = GetItemCount(id);
+		local count = C_Item_GetItemCount(id);
 		-- does this lure have to be "worn"
 		if ( count > 0 ) then
 			local startTime, _, _ = C_Container.GetItemCooldown(id);
@@ -836,7 +842,7 @@ end
 function FishLib:FindBestHat()
     for _,hat in ipairs(FISHINGHATS) do
         local id = hat["id"]
-        if GetItemCount(id) > 0 and self:IsWorn(id) then
+        if C_Item_GetItemCount(id) > 0 and self:IsWorn(id) then
             local startTime, _, _ = C_Container.GetItemCooldown(id);
             if ( startTime == 0 ) then
                 return 1, hat;
@@ -2791,11 +2797,11 @@ local function LoadTranslation(source, lang, target, record)
 end
 
 function FishLib:AddonVersion(addon)
-    local addonCount = GetNumAddOns();
+    local addonCount = C_AddOns_GetNumAddOns();
     for addonIndex = 1, addonCount do
-        local name, title, notes, loadable, reason, security = GetAddOnInfo(addonIndex);
+        local name, title, notes, loadable, reason, security = C_AddOns_GetAddOnInfo(addonIndex);
         if name == addon then
-            return C_AddOns.GetAddOnMetadata(addonIndex, "Version");
+            return C_AddOns_GetAddOnMetadata(addonIndex, "Version");
         end
     end
 end
