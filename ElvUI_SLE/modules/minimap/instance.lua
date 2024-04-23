@@ -58,8 +58,7 @@ end
 function I:GuildEmblem()
 	-- table
 	local char = {}
-	-- check if Blizzard_GuildUI is loaded
-	-- if not IsAddOnLoaded("Blizzard_GuildUI") then LoadAddOn("Blizzard_GuildUI") end
+
 	if Guild then
 		char.guildTexCoord = {Guild.Emblem:GetTexCoord()}
 	else

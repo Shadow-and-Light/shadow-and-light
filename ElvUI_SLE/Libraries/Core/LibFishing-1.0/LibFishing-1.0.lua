@@ -14,6 +14,7 @@ local _
 local C_AddOns_GetNumAddOns = C_AddOns.GetNumAddOns
 local C_AddOns_GetAddOnMetadata = C_AddOns.GetAddOnMetadata
 local C_AddOns_GetAddOnInfo = C_AddOns.GetAddOnInfo
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local C_Item_GetItemCount = C_Item.GetItemCount
 
 local MAJOR_VERSION = "LibFishing-1.0"
@@ -333,7 +334,7 @@ function FishLib:GetTradeSkillData()
     end
     local btn = _G[SABUTTONNAME];
     if btn then
-        if (not IsAddOnLoaded(BlizzardTradeSkillUI)) then
+        if (not C_AddOns_IsAddOnLoaded(BlizzardTradeSkillUI)) then
             LoadAddOn(BlizzardTradeSkillUI);
         end
         btn.skillupdate:SetScript("OnUpdate", SkillInitialize);

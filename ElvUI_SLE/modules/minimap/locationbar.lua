@@ -6,7 +6,7 @@ local LP = SLE.LocationPanel
 
 local _G = _G
 local format = format
-local IsAddOnLoaded = IsAddOnLoaded
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local GetScreenHeight = GetScreenHeight
 local CreateFrame = CreateFrame
 local ToggleFrame = ToggleFrame
@@ -446,7 +446,7 @@ function LP:Template()
 end
 
 function LP:CheckForIncompatible()
-	if IsAddOnLoaded('ElvUI_LocLite') and E.db.sle.minimap.locPanel.enable then
+	if C_AddOns_IsAddOnLoaded('ElvUI_LocLite') and E.db.sle.minimap.locPanel.enable then
 		SLE:IncompatibleAddOn('ElvUI_LocLite', 'Location Panel', E.db.sle.minimap.locPanel.enable, 'enable')
 	end
 end

@@ -6,7 +6,7 @@ local TT = E.Tooltip
 local _G = _G
 local format = format
 local GetTime = GetTime
-local IsAddOnLoaded = IsAddOnLoaded
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local UnitExists, UnitGUID = UnitExists, UnitGUID
 local utf8sub = string.utf8sub
 local ClearAchievementComparisonUnit = ClearAchievementComparisonUnit
@@ -373,7 +373,7 @@ local function OnInspectInfo(self, tt, unit, numTries, r, g, b)
 			RP:UpdateProgression(guid)
 		else
 			ClearAchievementComparisonUnit()
-			if not self.loadedComparison and select(2, IsAddOnLoaded('Blizzard_AchievementUI')) then
+			if not self.loadedComparison and select(2, C_AddOns_IsAddOnLoaded('Blizzard_AchievementUI')) then
 				AchievementFrame_DisplayComparison(unit)
 				HideUIPanel(_G.AchievementFrame)
 				ClearAchievementComparisonUnit()

@@ -4,7 +4,6 @@ local M = E.Misc
 
 --GLOBALS: hooksecurefunc, ChatFrame_AddMessageEventFilter, ChatFrame_RemoveMessageEventFilter, UIParent
 local _G = _G
-local IsAddOnLoaded = IsAddOnLoaded
 local ConfirmLootSlot = ConfirmLootSlot
 local QUEUED_STATUS_UNKNOWN = QUEUED_STATUS_UNKNOWN
 local LOOT_ROLL_TYPE_GREED = LOOT_ROLL_TYPE_GREED

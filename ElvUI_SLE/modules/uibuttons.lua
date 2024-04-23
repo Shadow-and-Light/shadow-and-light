@@ -4,7 +4,7 @@ local lib = LibStub('LibElv-UIButtons-1.0')
 
 --GLOBALS: DBM, VEM, LibStub, Altoholic, AtlasLoot, xCT_Plus, Swatter, SlashCmdList
 local _G = _G
-local IsAddOnLoaded = IsAddOnLoaded
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local ADDONS, CUSTOM = ADDONS, CUSTOM
 local RandomRoll = RandomRoll
 local SendChatMessage = SendChatMessage
@@ -65,11 +65,11 @@ function UB:SetupBar(menu)
 		menu:CreateCoreButton('Reload', 'R', function() ReloadUI() end)
 		menu:CreateCoreButton('MoveUI', 'M', function(self) E:ToggleMoveMode() end)
 		menu:CreateCoreButton('Boss', 'B', function(self)
-			if IsAddOnLoaded('DBM-Core') then
+			if C_AddOns_IsAddOnLoaded('DBM-Core') then
 				DBM:LoadGUI()
-			elseif IsAddOnLoaded('VEM-Core') then
+			elseif C_AddOns_IsAddOnLoaded('VEM-Core') then
 				VEM:LoadGUI()
-			elseif IsAddOnLoaded('BigWigs') then
+			elseif C_AddOns_IsAddOnLoaded('BigWigs') then
 				LibStub('LibDataBroker-1.1'):GetDataObjectByName('BigWigs'):OnClick('RightButton')
 			end
 		end)

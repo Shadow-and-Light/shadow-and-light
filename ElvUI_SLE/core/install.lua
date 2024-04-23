@@ -4,7 +4,7 @@ local PI = E.PluginInstaller
 --GLOBALS: SkadaDB, Skada, xCTSavedDB, xCT_Plus, UIParent
 local _G = _G
 local format = format
-local IsAddOnLoaded = IsAddOnLoaded
+local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local ENABLE, DISABLE, NONE = ENABLE, DISABLE, NONE
 local ADDONS = ADDONS
 local SetCVar = SetCVar
@@ -967,7 +967,7 @@ function PI:DarthSetupDF()
 		E.db["movers"]["ZoneAbility"] = "BOTTOM,ElvUIParent,BOTTOM,0,386"
 	end
 
-	if IsAddOnLoaded('AddOnSkins') then
+	if C_AddOns_IsAddOnLoaded('AddOnSkins') then
 		local AS = unpack(_G['AddOnSkins']) or nil
 		if AS then
 			AS.db['Blizzard_AbilityButton'] = true
@@ -1767,7 +1767,7 @@ function PI:DarthSetupSL()
 		E.db["movers"]["ZoneAbility"] = "BOTTOM,ElvUIParent,BOTTOM,0,433"
 	end
 
-	if IsAddOnLoaded('AddOnSkins') then
+	if C_AddOns_IsAddOnLoaded('AddOnSkins') then
 		local AS = unpack(_G['AddOnSkins']) or nil
 		if AS then
 			AS.db['Blizzard_AbilityButton'] = true
@@ -1842,7 +1842,7 @@ function PI:DarthSetupSL()
 end
 
 function PI:DarthAddons()
-	if xCTSavedDB and IsAddOnLoaded('xCT+') then
+	if xCTSavedDB and C_AddOns_IsAddOnLoaded('xCT+') then
 		xCTSavedDB["profiles"]["S&L Darth"] = {
 			["frames"] = {
 				["general"] = {

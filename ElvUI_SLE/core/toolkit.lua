@@ -504,7 +504,7 @@ end
 
 --AF stuff
 function SLE:IsFoolsDay()
-	if strfind(date(), "04/01/") and not E.global.aprilFoolsSLE and not IsAddOnLoaded("ElvUI_SLE_Dev") then
+	if strfind(date(), "04/01/") and not E.global.aprilFoolsSLE and not C_AddOns.IsAddOnLoaded("ElvUI_SLE_Dev") then
 		return true
 	else
 		return false
