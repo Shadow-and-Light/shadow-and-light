@@ -392,6 +392,7 @@ local function Equip(event, ...)
 	--Don't try to equip in combat. it wouldn't work anyways
 	if InCombatLockdown() then
 		EM:RegisterEvent('PLAYER_REGEN_ENABLED', Equip)
+		EM.Processing = false
 		return
 	end
 	if event == 'PLAYER_REGEN_ENABLED' then
