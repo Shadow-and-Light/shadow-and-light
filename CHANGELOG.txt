@@ -1,10 +1,4 @@
-v4.76 5/07/24
+v4.77 5/07/24
 
-• Patch 10.2.7 version
-• Superbloom objectives should now be skinned
-• Fixed styling of reputation mesdsages when getting rep with bonus points (mostly MoP factions)
-• Fixed viewport not applying correctly after reload
-• Added 2 new hearthstone toys and dungeon portals to the localtion bar
-• Fixed equipment manager locking itself in an endless loop, preventing propper work
-• Backend: Replaced some deprecated fucntions with new variants
+• Fixed equipment manager errors for pvp tag
 
