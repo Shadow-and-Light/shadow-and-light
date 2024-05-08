@@ -1,8 +1,10 @@
-v4.75 1/17/24
+v4.76 5/07/24
 
-• Updated some uses of the wow api to reflect their changes
-• Added 2 hearthstones to the location bar (Deepweller's Earthen & Hearthstone of the Flame)
-• Fix some errors in the armory under certain conditions
-• Added waist check for armory
-• fixed a bug with in our tooltip option that places faction icon in the tooltip
-• Revamp the fishing module (options were reset and will need to be edited by you if you used it)
+• Patch 10.2.7 version
+• Superbloom objectives should now be skinned
+• Fixed styling of reputation mesdsages when getting rep with bonus points (mostly MoP factions)
+• Fixed viewport not applying correctly after reload
+• Added 2 new hearthstone toys and dungeon portals to the localtion bar
+• Fixed equipment manager locking itself in an endless loop, preventing propper work
+• Backend: Replaced some deprecated fucntions with new variants
+
