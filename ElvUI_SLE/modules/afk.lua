@@ -416,7 +416,7 @@ function S:AbortAFK()
 end
 
 function S:SetAFK(status)
-	if not S.db.enable or not E.db.general.afk then return end
+	if not E.db.sle.afk.enable or not E.db.general.afk then return end
 
 	if status then
 		MoveViewLeftStop() -- Stop ElvUI's Camera
