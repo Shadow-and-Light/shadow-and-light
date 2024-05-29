@@ -550,7 +550,9 @@ end
 
 local function PaperDollFrame_SetAttackPower(statFrame, unit) --! Text Replaced Done
 	local label, isReplaced = GetLabelReplacement('STAT_ATTACK_POWER')
-	if not isReplaced then return end
+	if not isReplaced then
+		label = STAT_ATTACK_POWER
+	end
 
 	local rangedWeapon = IsRangedWeapon()
 	local base, posBuff, negBuff = (rangedWeapon and UnitRangedAttackPower or UnitAttackPower)('player')
