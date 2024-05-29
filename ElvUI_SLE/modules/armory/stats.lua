@@ -186,7 +186,7 @@ function SA:PaperDollFrame_UpdateStats()
 	end
 
 	local ItemLevelCategory = CharacterStatsPane.ItemLevelCategory
-	
+
 	ItemLevelCategory:SetPoint('TOP', CharacterStatsPane, 'TOP', 0, 8)
 	CharacterStatsPane.AttributesCategory:SetPoint('TOP', CharacterStatsPane.ItemLevelFrame, 'BOTTOM', 0, 2)
 
@@ -552,35 +552,27 @@ local function PaperDollFrame_SetAttackPower(statFrame, unit) --! Text Replaced 
 	local label, isReplaced = GetLabelReplacement('STAT_ATTACK_POWER')
 	if not isReplaced then return end
 
-	local base, posBuff, negBuff, tag
 	local rangedWeapon = IsRangedWeapon()
+	local base, posBuff, negBuff = (rangedWeapon and UnitRangedAttackPower or UnitAttackPower)('player')
+	local totalAP = base + posBuff + negBuff
 
-	if ( rangedWeapon ) then
-		base, posBuff, negBuff = UnitRangedAttackPower(unit)
-		tag = RANGED_ATTACK_POWER
-	else
-		base, posBuff, negBuff = UnitAttackPower(unit)
-		tag = MELEE_ATTACK_POWER
-	end
+	statFrame.tooltip = strjoin(' ', rangedWeapon and RANGED_ATTACK_POWER or MELEE_ATTACK_POWER, totalAP)
+	statFrame.tooltip2 = format(rangedWeapon and RANGED_ATTACK_POWER_TOOLTIP or MELEE_ATTACK_POWER_TOOLTIP, BreakUpLargeNumbers(max(totalAP, 0) / ATTACK_POWER_MAGIC_NUMBER))
 
-	local value, valueText
-	if (GetOverrideAPBySpellPower() ~= nil) then
-		local holySchool = 2
-		-- Start at 2 to skip physical damage
-		local spellPower = GetSpellBonusDamage(holySchool)
-		for i=(holySchool+1), MAX_SPELL_SCHOOLS do
-			spellPower = min(spellPower, GetSpellBonusDamage(i))
+	if isHunter and ComputePetBonus then
+		local petAPBonus = ComputePetBonus('PET_BONUS_RAP_TO_AP', totalAP)
+		local petSpellDmgBonus = ComputePetBonus('PET_BONUS_RAP_TO_SPELLDMG', totalAP)
+
+		if petAPBonus > 0 then
+			statFrame.tooltip2 = strjoin('\n', statFrame.tooltip2, format(PET_BONUS_TOOLTIP_RANGED_ATTACK_POWER, petAPBonus))
 		end
-		spellPower = min(spellPower, GetSpellBonusHealing()) * GetOverrideAPBySpellPower()
 
-		value = spellPower
-		valueText = PaperDollFormatStat(tag, spellPower, 0, 0)
-	else
-		value = base
-		valueText = PaperDollFormatStat(tag, base, posBuff, negBuff)
+		if petSpellDmgBonus > 0 then
+			statFrame.tooltip2 = strjoin('\n', statFrame.tooltip2, format(PET_BONUS_TOOLTIP_SPELLDAMAGE, petSpellDmgBonus))
+		end
 	end
 
-	PaperDollFrame_SetLabelAndText(statFrame, label, valueText, false, value)
+	PaperDollFrame_SetLabelAndText(statFrame, label, totalAP, false, totalAP)
 end
 
 local function SLPaperDollFrame_SetAttackSpeed(statFrame, unit) --! Text Replaced Done
