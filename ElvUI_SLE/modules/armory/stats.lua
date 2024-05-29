@@ -558,7 +558,7 @@ local function PaperDollFrame_SetAttackPower(statFrame, unit) --! Text Replaced 
 	local base, posBuff, negBuff = (rangedWeapon and UnitRangedAttackPower or UnitAttackPower)('player')
 	local totalAP = base + posBuff + negBuff
 
-	statFrame.tooltip = strjoin(' ', rangedWeapon and RANGED_ATTACK_POWER or MELEE_ATTACK_POWER, totalAP)
+	statFrame.tooltip = strjoin(' ', rangedWeapon and RANGED_ATTACK_POWER or MELEE_ATTACK_POWER, BreakUpLargeNumbers(totalAP))
 	statFrame.tooltip2 = format(rangedWeapon and RANGED_ATTACK_POWER_TOOLTIP or MELEE_ATTACK_POWER_TOOLTIP, BreakUpLargeNumbers(max(totalAP, 0) / ATTACK_POWER_MAGIC_NUMBER))
 
 	if isHunter and ComputePetBonus then
@@ -574,7 +574,7 @@ local function PaperDollFrame_SetAttackPower(statFrame, unit) --! Text Replaced 
 		end
 	end
 
-	PaperDollFrame_SetLabelAndText(statFrame, label, totalAP, false, totalAP)
+	PaperDollFrame_SetLabelAndText(statFrame, label, BreakUpLargeNumbers(totalAP), false, totalAP)
 end
 
 local function SLPaperDollFrame_SetAttackSpeed(statFrame, unit) --! Text Replaced Done
