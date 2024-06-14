@@ -536,7 +536,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = "Power"
 		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 100
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 8
-		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[powercolor][curpp]"
+		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[powercolor][power:current:shortvalue]"
 		E.db["unitframe"]["units"]["player"]["power"]["xOffset"] = 2
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = -10
 		E.db["unitframe"]["units"]["player"]["pvp"]["text_format"] = ""
@@ -569,7 +569,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["target"]["buffs"]["attachTo"] = "DEBUFFS"
 		E.db["unitframe"]["units"]["target"]["buffs"]["growthX"] = "RIGHT"
 		E.db["unitframe"]["units"]["target"]["buffs"]["perrow"] = 7
-		E.db["unitframe"]["units"]["target"]["buffs"]["priority"] = "Blacklist,blockNoDuration,Personal,PlayerBuffs,Whitelist,nonPersonal"
+		E.db["unitframe"]["units"]["target"]["buffs"]["priority"] = "Blacklist,Whitelist,blockNoDuration,Personal,PlayerBuffs,nonPersonal"
 		E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = false
 		E.db["unitframe"]["units"]["target"]["castbar"]["iconAttachedTo"] = "Castbar"
 		E.db["unitframe"]["units"]["target"]["castbar"]["iconSize"] = 30
@@ -605,7 +605,6 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["target"]["power"]["attachTextTo"] = "Power"
 		E.db["unitframe"]["units"]["target"]["power"]["detachedWidth"] = 100
 		E.db["unitframe"]["units"]["target"]["power"]["height"] = 8
-		E.db["unitframe"]["units"]["target"]["power"]["text_format"] = "[powercolor][curpp]"
 		E.db["unitframe"]["units"]["target"]["power"]["yOffset"] = -10
 		E.db["unitframe"]["units"]["target"]["pvpIcon"]["anchorPoint"] = "RIGHT"
 		E.db["unitframe"]["units"]["target"]["pvpIcon"]["enable"] = true
@@ -702,6 +701,7 @@ function PI:DarthSetupDF()
 		E.db["unitframe"]["units"]["party"]["height"] = 30
 		E.db["unitframe"]["units"]["party"]["name"]["position"] = "RIGHT"
 		E.db["unitframe"]["units"]["party"]["name"]["yOffset"] = -3
+		E.db["unitframe"]["units"]["party"]["name"]["text_format"] = "[difficultycolor][smartlevel] [classcolor][name:medium]"
 		E.db["unitframe"]["units"]["party"]["power"]["text_format"] = ""
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["size"] = 22
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["xOffset"] = -49
