@@ -169,6 +169,7 @@ function SA:PaperDollFrame_UpdateStats()
 	if (not E.private.sle.armory.stats.enable or not E.private.skins.blizzard.character) then return end
 
 	totalShown = 0
+	local totalHeight = 0
 	local CharacterStatsPane = _G.CharacterStatsPane
 
 	if E.db.sle.armory.stats.IlvlFull then
@@ -223,6 +224,8 @@ function SA:PaperDollFrame_UpdateStats()
 		fontSize = E.db.sle.armory.stats.statHeaders.fontSize,
 		fontOutline = E.db.sle.armory.stats.statHeaders.fontOutline,
 	}
+	
+	totalHeight = 40 + CharacterStatsPane.ItemLevelFrame:GetHeight() - categoryYOffset --This changes depending on ilvl text size
 
 	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
 		local catFrame = _G['CharacterStatsPane'][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame]
@@ -293,11 +296,14 @@ function SA:PaperDollFrame_UpdateStats()
 			end
 		end
 		catFrame:SetShown(numStatInCat > 0)
+		if numStatInCat > 0 then
+			totalHeight = totalHeight + catFrame:GetHeight() - categoryYOffset + (statFrame:GetHeight() * numStatInCat) - 6 --6 is offset for every first stat in category
+		end
 	end
 	-- release the current stat frame
 	CharacterStatsPane.statsFramePool:Release(statFrame)
 	if SA.Scrollbar then
-		if (SLE._Compatibility['ElvUI_EltreumUI'] and E.db.ElvUI_EltreumUI.skins.classicarmory) or totalShown > 14 then
+		if (SLE._Compatibility['ElvUI_EltreumUI'] and E.db.ElvUI_EltreumUI.skins.classicarmory) or (totalHeight > (3 + CharacterStatsPane:GetHeight())) then --Show scrollbar if the total height of all the stats combined are more than panel height + a small offset of if Eltreum skins our skin
 			SA.Scrollbar:SetMinMaxValues(1, totalShown*Armory.Constants.Stats.ScrollStepMultiplier)
 			SA.Scrollbar:Show()
 		else
@@ -355,6 +361,8 @@ function SA:UpdateIlvlFont()
 	end
 	if ItemLevelFrame.leftGrad then ItemLevelFrame.leftGrad:SetShown(gradient.style == 'blizzard') end
 	if ItemLevelFrame.rightGrad then ItemLevelFrame.rightGrad:SetShown(gradient.style == 'blizzard') end
+	
+	SA:PaperDollFrame_UpdateStats()
 end
 
 function SA:ToggleArmory()
