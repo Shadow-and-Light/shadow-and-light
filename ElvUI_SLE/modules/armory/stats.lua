@@ -151,6 +151,7 @@ local displayString = ''
 function SA:UpdateCharacterItemLevel(frame, which)
 	if (not E.private.sle.armory.stats.enable or not E.db.sle.armory.stats.itemLevel.enable or not E.private.skins.blizzard.character) or not frame or which ~= 'Character' then return end
 	if not E.db.general.itemLevel.displayCharacterInfo then return end
+	if not _G.CharacterFrame:IsShown() then return end
 
 	SA:UpdateIlvlFont()
 
@@ -173,6 +174,7 @@ end
 local categoryYOffset, statYOffset = 0, 0
 function SA:PaperDollFrame_UpdateStats()
 	if (not E.private.sle.armory.stats.enable or not E.private.skins.blizzard.character) then return end
+	if not _G.CharacterFrame:IsShown() then return end
 
 	totalShown = 0
 	local totalHeight = 0
