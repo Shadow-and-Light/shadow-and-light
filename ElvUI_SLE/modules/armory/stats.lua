@@ -168,7 +168,6 @@ function SA:UpdateCharacterItemLevel(frame, which)
 		displayString = '%s%.2f|r'
 		frame.ItemLevelText:SetText(format(displayString, db.EquippedGradient and E:RGBToHex(r, g, b) or E:RGBToHex(EquippedColor.r, EquippedColor.g, EquippedColor.b), equipped))
 	end
-
 end
 
 local categoryYOffset, statYOffset = 0, 0
@@ -219,7 +218,7 @@ function SA:PaperDollFrame_UpdateStats()
 		fontSize = E.db.sle.armory.stats.statHeaders.fontSize,
 		fontOutline = E.db.sle.armory.stats.statHeaders.fontOutline,
 	}
-	
+
 	totalHeight = 40 + CharacterStatsPane.ItemLevelFrame:GetHeight() - categoryYOffset --This changes depending on ilvl text size
 
 	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
@@ -358,8 +357,6 @@ function SA:UpdateIlvlFont()
 		ItemLevelFrame.lineBottom:SetShown(gradient.style == 'levelupbg')
 		ItemLevelFrame.bg:SetShown(gradient.style == 'levelupbg')
 	end
-
-	SA:PaperDollFrame_UpdateStats()
 end
 
 function SA:ToggleArmory()
