@@ -78,16 +78,23 @@ local function configTable()
 	Stats.groupSpacer2 = ACH:Group('--- |cff00FF00'..L["Stats Panel"]..'|r ---', nil, 15, nil, get, set, true)
 
 	--* Item Level
-	Stats.ItemLevel = ACH:Group(L["Item Level"], nil, 20)
+	Stats.ItemLevel = ACH:Group(L["Item Level"], nil, 20, nil, function(info) return E.db.sle.armory.stats.itemLevel[info[#info]] end, function(info, value) E.db.sle.armory.stats.itemLevel[info[#info]] = value PaperDollFrame_UpdateStats() M:UpdateCharacterInfo() end, function(info) if info[#info] == 'ItemLevel' or info[#info] == 'enable' then return SLE._Compatibility['DejaCharacterStats'] or not E.private.sle.armory.stats.enable else return SLE._Compatibility['DejaCharacterStats'] or not E.db.sle.armory.stats.itemLevel.enable or not E.private.sle.armory.stats.enable end end)
 	local ItemLevel = Stats.ItemLevel.args
-	ItemLevel.IlvlFull = ACH:Toggle(L["Full Item Level"], L["Show both equipped and average item levels."], 1)
-	ItemLevel.IlvlColor = ACH:Toggle(L["Item Level Coloring"], L["Color code item levels values. Equipped will be gradient, average - selected color."], 2, nil, nil, nil, nilget, nilset, function() return SLE._Compatibility['DejaCharacterStats'] or not E.db.sle.armory.stats.IlvlFull or not E.private.sle.armory.stats.enable end)
-	ItemLevel.AverageColor = ACH:Color(L["Color of Average"], L["Sets the color of average item level."], 3, false, nil, function(info) local t = E.db.sle.armory.stats[info[#info]] local d = P.sle.armory.stats[info[#info]] return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a end, function(info, r, g, b, a) E.db.sle.armory.stats[info[#info]] = {} local t = E.db.sle.armory.stats[info[#info]] t.r, t.g, t.b, t.a = r, g, b, a M:UpdateCharacterInfo() PaperDollFrame_UpdateStats() end, function() return SLE._Compatibility['DejaCharacterStats'] or not E.db.sle.armory.stats.IlvlFull or not E.private.sle.armory.stats.enable end)
-	ItemLevel.spacer = ACH:Spacer(10, 'full')
-	ItemLevel.itemLevel = GetFontOptions(L["Font Group"], 11, true)
-	ItemLevel.gradient = ACH:Group(L["Gradient"], nil, 15, nil, function(info) return E.db.sle.armory.stats[info[#info-1]][info[#info]] end, function(info, value) E.db.sle.armory.stats[info[#info-1]][info[#info]] = value SA:UpdateIlvlFont() end)
+	ItemLevel.enable = ACH:Toggle(L["Enable"], nil, 0, nil, nil, nil, nil, function(info, value) E.db.sle.armory.stats.itemLevel[info[#info]] = value PaperDollFrame_UpdateStats() M:UpdateCharacterInfo() SA:UpdateIlvlFont() if not E.db.sle.armory.stats.itemLevel.enable then M:UpdateInspectPageFonts('Character') end end)
+	ItemLevel.spacer1 = ACH:Spacer(1, 'full')
+	ItemLevel.IlvlFull = ACH:Toggle(L["Full Item Level"], L["Show both equipped and average item levels."], 2)
+	ItemLevel.spacer2 = ACH:Spacer(10, 'full')
+	ItemLevel.itemLevel = GetFontOptions(L["Font Group"], 15, true)
+	ItemLevel.gradient = ACH:Group(L["Gradient"], nil, 20, nil, function(info) return E.db.sle.armory.stats.itemLevel[info[#info-1]][info[#info]] end, function(info, value) E.db.sle.armory.stats.itemLevel[info[#info-1]][info[#info]] = value SA:UpdateIlvlFont() end)
 	ItemLevel.gradient.guiInline = true
 	ItemLevel.gradient.args.style = ACH:Select(L["Style"], nil, 2, { [''] = 'Disabled', blizzard = 'Blizzard', levelupbg = L["Level-Up Background"] })
+
+	ItemLevel.color = ACH:Group(L["Text Color Group"], nil, 10, nil, function(info) return E.db.sle.armory.stats.itemLevel[info[#info]] end, function(info, value) E.db.sle.armory.stats.itemLevel[info[#info]] = value SA:UpdateIlvlFont() SA:UpdateCharacterItemLevel(_G.CharacterFrame, 'Character') end)
+	ItemLevel.color.guiInline = true
+	ItemLevel.color.args.EquippedGradient = ACH:Toggle(L["Gradient Equipped Color"], L["Colors the equipped item level text as a gradient value based on Average and Equipped gear."], 5, nil, nil, nil, nilget, nilset, function() return SLE._Compatibility['DejaCharacterStats'] or not E.db.sle.armory.stats.itemLevel.enable or not E.private.sle.armory.stats.enable end)
+	ItemLevel.color.args.EquippedColor = ACH:Color(L["Color of Equipped"], L["Sets the color of equipped item level."], 6, false, nil, function(info) local t = E.db.sle.armory.stats.itemLevel[info[#info]] local d = P.sle.armory.stats.itemLevel[info[#info]] return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a end, function(info, r, g, b, a) E.db.sle.armory.stats.itemLevel[info[#info]] = {} local t = E.db.sle.armory.stats.itemLevel[info[#info]] t.r, t.g, t.b, t.a = r, g, b, a M:UpdateCharacterInfo() PaperDollFrame_UpdateStats() end)
+	ItemLevel.color.args.spacer1 = ACH:Spacer(10, 'full')
+	ItemLevel.color.args.AverageColor = ACH:Color(L["Color of Average"], L["Sets the color of average item level."], 15, false, nil, function(info) local t = E.db.sle.armory.stats.itemLevel[info[#info]] local d = P.sle.armory.stats.itemLevel[info[#info]] return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a end, function(info, r, g, b, a) E.db.sle.armory.stats.itemLevel[info[#info]] = {} local t = E.db.sle.armory.stats.itemLevel[info[#info]] t.r, t.g, t.b, t.a = r, g, b, a M:UpdateCharacterInfo() PaperDollFrame_UpdateStats() end)
 
 	--* Attributes
 	Stats.Attributes = ACH:Group(L["Attributes"], nil, 25, nil, function(info) return E.db.sle.armory.stats.List[info[#info]] end, function(info, value) E.db.sle.armory.stats.List[info[#info]] = value PaperDollFrame_UpdateStats() end)

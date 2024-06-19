@@ -65,7 +65,7 @@ function PI:DarthSetupDF()
 		E.db["general"]["valuecolor"]["b"] = 0.15294117647059
 		E.db["general"]["valuecolor"]["g"] = 0.74901960784314
 		E.db["general"]["valuecolor"]["r"] = 0.23529411764706
-		
+
 		E.db["general"]["font"] = "Expressway"
 		E.db["general"]["fonts"]["objective"]["enable"] = true
 		E.db["general"]["fonts"]["pvpsubzone"]["enable"] = true
@@ -221,7 +221,7 @@ function PI:DarthSetupDF()
 		E.db["actionbar"]["extraActionButton"]["hotkeyFont"] = "Expressway"
 		E.db["actionbar"]["extraActionButton"]["hotkeyFontSize"] = 15
 		E.db["actionbar"]["extraActionButton"]["scale"] = 0.9
-		
+
 		E.db["actionbar"]["zoneActionButton"]["clean"] = true
 
 		E.db["actionbar"]["vehicleExitButton"]["hotkeyFont"] = "Expressway"
@@ -320,7 +320,7 @@ function PI:DarthSetupDF()
 		E.db["databars"]["honor"]["showBubbles"] = true
 		E.db["databars"]["honor"]["textFormat"] = "CURMAX"
 		E.db["databars"]["honor"]["width"] = 546
-		
+
 		E.db["databars"]["reputation"]["enable"] = true
 		E.db["databars"]["reputation"]["height"] = 235
 		E.db["databars"]["reputation"]["orientation"] = "VERTICAL"
@@ -779,7 +779,7 @@ function PI:DarthSetupDF()
 		E.db["sle"]["armory"]["character"]["gradient"]["quality"] = true
 		E.db["sle"]["armory"]["inspect"]["enable"] = true
 		E.db["sle"]["armory"]["inspect"]["gradient"]["quality"] = true
-		E.db["sle"]["armory"]["stats"]["IlvlColor"] = true
+		E.db["sle"]["armory"]["stats"]["itemLevel"]["AverageGradient"] = true
 		E.db["sle"]["armory"]["stats"]["List"]["ATTACK_AP"] = true
 
 		E.db["sle"]["blizzard"]["rumouseover"] = true
@@ -1623,7 +1623,7 @@ function PI:DarthSetupSL()
 		E.db['sle']['blizzard']['rumouseover'] = true
 
 		E.db['sle']['armory']['stats']['List']['ATTACK_AP'] = true
-		E.db['sle']['armory']['stats']['IlvlColor'] = true
+		E.db['sle']['armory']['stats']['itemLevel']['AverageGradient'] = true
 		E.db['sle']['armory']['character']['enable'] = true
 		E.db['sle']['armory']['character']['gradient']['quality'] = true
 		E.db['sle']['armory']['inspect']['enable'] = true

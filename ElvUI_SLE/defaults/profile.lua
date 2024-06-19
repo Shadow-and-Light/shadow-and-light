@@ -162,13 +162,20 @@ P["sle"] = {
 		["stats"] = {
 			["decimals"] = true,
 			itemLevel = {
+				enable = true,
+				IlvlFull = true,
 				font = 'PT Sans Narrow',
 				fontSize = 12,
 				fontOutline = 'NONE',
+				IlvlColor = false,
+				AverageGradient = false,
+				AverageColor = {r = 0, g = 1, b = .59},
+				EquippedGradient = false,
+				EquippedColor = {r = 0, g = 1, b = .59},
+				gradient = {
+					style = 'blizzard',
+				},
 			},
-			["IlvlFull"] = true,
-			["IlvlColor"] = false,
-			["AverageColor"] = {r = 0, g = 1, b = .59},
 			["OnlyPrimary"] = true,
 			statHeaders = {
 				font = 'PT Sans Narrow',
@@ -179,9 +186,6 @@ P["sle"] = {
 				font = 'PT Sans Narrow',
 				fontSize = 12,
 				fontOutline = 'NONE',
-			},
-			gradient = {
-				style = 'blizzard',
 			},
 			textReplacements = {			-- English Locale References
 				--* Attributes

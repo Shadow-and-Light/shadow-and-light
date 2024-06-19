@@ -147,21 +147,28 @@ local function BuildScrollBar() --Creating new scroll
 	end)
 end
 
+local displayString = ''
 function SA:UpdateCharacterItemLevel(frame, which)
-	if (not E.private.sle.armory.stats.enable or not E.private.skins.blizzard.character) or not frame or which ~= 'Character' then return end
+	if (not E.private.sle.armory.stats.enable or not E.db.sle.armory.stats.itemLevel.enable or not E.private.skins.blizzard.character) or not frame or which ~= 'Character' then return end
+	if not E.db.general.itemLevel.displayCharacterInfo then return end
 
 	SA:UpdateIlvlFont()
-	if not E.db.general.itemLevel.displayCharacterInfo then return end
+
 	local total, equipped = GetAverageItemLevel()
-	if E.db.sle.armory.stats.IlvlFull then
-		if E.db.sle.armory.stats.IlvlColor then
-			local r, g, b = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
-			local avColor = E.db.sle.armory.stats.AverageColor
-			frame.ItemLevelText:SetFormattedText('%s%.2f|r |cffffffff/|r %s%.2f|r', E:RGBToHex(r, g, b), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
-		else
-			frame.ItemLevelText:SetFormattedText('%.2f / %.2f', equipped, total)
-		end
+	local db = E.db.sle.armory.stats.itemLevel
+
+	local r, g, b = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+	local AverageColor = db.AverageColor
+	local EquippedColor = db.EquippedColor
+
+	if db.IlvlFull then
+		displayString = '%s%.2f|r |cffffffff/|r %s%.2f|r'
+		frame.ItemLevelText:SetText(format(displayString, db.EquippedGradient and E:RGBToHex(r, g, b) or E:RGBToHex(EquippedColor.r, EquippedColor.g, EquippedColor.b), equipped, E:RGBToHex(AverageColor.r, AverageColor.g, AverageColor.b), total))
+	else
+		displayString = '%s%.2f|r'
+		frame.ItemLevelText:SetText(format(displayString, db.EquippedGradient and E:RGBToHex(r, g, b) or E:RGBToHex(EquippedColor.r, EquippedColor.g, EquippedColor.b), equipped))
 	end
+
 end
 
 local categoryYOffset, statYOffset = 0, 0
@@ -172,19 +179,7 @@ function SA:PaperDollFrame_UpdateStats()
 	local totalHeight = 0
 	local CharacterStatsPane = _G.CharacterStatsPane
 
-	if E.db.sle.armory.stats.IlvlFull then
-		local total, equipped = GetAverageItemLevel()
-		if E.db.sle.armory.stats.IlvlColor then
-			local r, g, b = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
-			local avColor = E.db.sle.armory.stats.AverageColor
-			CharacterStatsPane.ItemLevelFrame.Value:SetFormattedText('%s%.2f|r |cffffffff/|r %s%.2f|r', E:RGBToHex(r, g, b), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
-		else
-			CharacterStatsPane.ItemLevelFrame.Value:SetFormattedText('%.2f / %.2f', equipped, total)
-		end
-	else
-		CharacterStatsPane.ItemLevelFrame.Value:SetTextColor(GetItemLevelColor())
-		PaperDollFrame_SetItemLevel(CharacterStatsPane.ItemLevelFrame, 'player')
-	end
+	SA:UpdateCharacterItemLevel(_G.CharacterFrame, 'Character')
 
 	local ItemLevelCategory = CharacterStatsPane.ItemLevelCategory
 
@@ -316,14 +311,18 @@ end
 
 function SA:UpdateIlvlFont()
 	if (not E.private.sle.armory.stats.enable or not E.private.skins.blizzard.character) then return end
+	local db = E.db.sle.armory.stats.itemLevel
+	local gradient = db.gradient
 
 	local ItemLevelFrame = _G.CharacterStatsPane.ItemLevelFrame
+	local showDefaultGrad = not db.enable or (db.enable and gradient.style == 'blizzard')
+	if ItemLevelFrame.leftGrad then ItemLevelFrame.leftGrad:SetShown(showDefaultGrad) end
+	if ItemLevelFrame.rightGrad then ItemLevelFrame.rightGrad:SetShown(showDefaultGrad) end
+	if not db.enable then return end
 
-	local db = E.db.sle.armory.stats
-	local font = E.LSM:Fetch('font', db.itemLevel.font)
-	local fontSize = db.itemLevel.fontSize
-	local fontOutline = db.itemLevel.fontOutline
-	local gradient = db.gradient
+	local font = E.LSM:Fetch('font', db.font)
+	local fontSize = db.fontSize
+	local fontOutline = db.fontOutline
 
 	_G.CharacterFrame.ItemLevelText:FontTemplate(font, fontSize, fontOutline)
 	ItemLevelFrame.Value:FontTemplate(font, fontSize, fontOutline)
@@ -359,9 +358,7 @@ function SA:UpdateIlvlFont()
 		ItemLevelFrame.lineBottom:SetShown(gradient.style == 'levelupbg')
 		ItemLevelFrame.bg:SetShown(gradient.style == 'levelupbg')
 	end
-	if ItemLevelFrame.leftGrad then ItemLevelFrame.leftGrad:SetShown(gradient.style == 'blizzard') end
-	if ItemLevelFrame.rightGrad then ItemLevelFrame.rightGrad:SetShown(gradient.style == 'blizzard') end
-	
+
 	SA:PaperDollFrame_UpdateStats()
 end
 
