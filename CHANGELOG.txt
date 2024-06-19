@@ -1,4 +1,4 @@
-v4.78 6/19/24
+v4.78 & 4.79 6/19/24
 
 • Fixed afk error
 • Fixed pvp auto release error
