@@ -158,16 +158,25 @@ function SA:UpdateCharacterItemLevel(frame, which)
 	local total, equipped = GetAverageItemLevel()
 	local db = E.db.sle.armory.stats.itemLevel
 
-	local r, g, b = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+	local r, g, b
+	if db.useBlizzColor then
+		r, g, b = GetItemLevelColor()
+	else
+		r, g, b = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+	end
+
 	local AverageColor = db.AverageColor
 	local EquippedColor = db.EquippedColor
 
+	local equipColorStr = (db.useBlizzColor or db.EquippedGradient) and E:RGBToHex(r, g, b) or E:RGBToHex(EquippedColor.r, EquippedColor.g, EquippedColor.b)
+	local avgColorStr = db.useBlizzColor and E:RGBToHex(r, g, b) or E:RGBToHex(AverageColor.r, AverageColor.g, AverageColor.b)
+
 	if db.IlvlFull then
 		displayString = '%s%.2f|r |cffffffff/|r %s%.2f|r'
-		frame.ItemLevelText:SetText(format(displayString, db.EquippedGradient and E:RGBToHex(r, g, b) or E:RGBToHex(EquippedColor.r, EquippedColor.g, EquippedColor.b), equipped, E:RGBToHex(AverageColor.r, AverageColor.g, AverageColor.b), total))
+		frame.ItemLevelText:SetText(format(displayString, equipColorStr, equipped, avgColorStr, total))
 	else
 		displayString = '%s%.2f|r'
-		frame.ItemLevelText:SetText(format(displayString, db.EquippedGradient and E:RGBToHex(r, g, b) or E:RGBToHex(EquippedColor.r, EquippedColor.g, EquippedColor.b), equipped))
+		frame.ItemLevelText:SetText(format(displayString, equipColorStr, equipped))
 	end
 end
 

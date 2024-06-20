@@ -172,6 +172,7 @@ P["sle"] = {
 				AverageColor = {r = 0, g = 1, b = .59},
 				EquippedGradient = false,
 				EquippedColor = {r = 0, g = 1, b = .59},
+				useBlizzColor = false,
 				gradient = {
 					style = 'blizzard',
 				},
