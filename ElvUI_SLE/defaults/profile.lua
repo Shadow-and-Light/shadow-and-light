@@ -168,11 +168,12 @@ P["sle"] = {
 				fontSize = 12,
 				fontOutline = 'NONE',
 				IlvlColor = false,
+				AverageBlizzColor = false,
 				AverageGradient = false,
 				AverageColor = {r = 0, g = 1, b = .59},
+				EquippedBlizzColor = false,
 				EquippedGradient = false,
 				EquippedColor = {r = 0, g = 1, b = .59},
-				useBlizzColor = false,
 				gradient = {
 					style = 'blizzard',
 				},
