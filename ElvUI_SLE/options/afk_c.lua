@@ -294,10 +294,10 @@ local function defaultGraphicsOptions(element, group, name, order)
 	if element == 'exPack' then
 		options.args.expansion ={
 			order = 2,
-			name = 'Expansion',
+			name = L["Expansion"],
 			type = 'select',
 			values = {
-				auto = 'Current Expansion',
+				auto = L["Current Expansion"],
 				classic = 'WoW Classic',
 				tbc = 'Burning Crusade',
 				wotlk = 'Wrath of the Lich King',
@@ -776,7 +776,7 @@ local function configTable()
 					afk = {
 						order = 1,
 						type = 'group',
-						name = 'AFK Message & Time',
+						name = L["AFK Message & Time"],
 						args = {
 							message = CreateDefaultTextsFont(1, L["Message"], 'SL_AFKMessage', true),
 							time = CreateDefaultTextsFont(1, L["Time"], 'SL_AFKTimePassed', true),
@@ -785,7 +785,7 @@ local function configTable()
 					datetime = {
 						order = 1,
 						type = 'group',
-						name = 'Date & Time',
+						name = L["Date & Time"],
 						args = {
 							date = CreateDefaultTextsFont(1, L["Date"], 'SL_Date', true),
 							time = CreateDefaultTextsFont(1, L["Time"], 'SL_Time', true),
