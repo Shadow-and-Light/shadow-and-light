@@ -1,13 +1,13 @@
-﻿## Interface: 100205
+﻿## Interface: 100207
 ## Title: |cff1784d1ElvUI|r |cff9482c9Shadow & Light|r
 ## Author: Darth Predator, Repooc
-## Version: 4.75
+## Version: 4.79
 ## Notes: Plugin-edit for |cff1784d1ElvUI|r adding additional features.
 ## Notes-ruRU: Плагин-редакция для |cff1784d1ElvUI|r, добавляющий новые функции.
 ## RequiredDeps: ElvUI
 ## OptionalDeps: AddonSkins, BigWigs, Clique, Hermes, xCT+
 ## DefaultState: Enabled
-## X-ElvVersion: 13.55
+## X-ElvVersion: 13.66
 ## X-Curse-Project-ID: 39618
 ## X-Wago-ID: 7x61q261
 ## SavedVariables: SLE_ArmoryDB

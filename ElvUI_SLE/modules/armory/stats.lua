@@ -147,46 +147,51 @@ local function BuildScrollBar() --Creating new scroll
 	end)
 end
 
+local displayString = ''
 function SA:UpdateCharacterItemLevel(frame, which)
-	if (not E.private.sle.armory.stats.enable or not E.private.skins.blizzard.character) or not frame or which ~= 'Character' then return end
+	if (not E.private.sle.armory.stats.enable or not E.db.sle.armory.stats.itemLevel.enable or not E.private.skins.blizzard.character) or not frame or which ~= 'Character' then return end
+	if not E.db.general.itemLevel.displayCharacterInfo then return end
+	if not _G.CharacterFrame:IsShown() then return end
 
 	SA:UpdateIlvlFont()
-	if not E.db.general.itemLevel.displayCharacterInfo then return end
+
 	local total, equipped = GetAverageItemLevel()
-	if E.db.sle.armory.stats.IlvlFull then
-		if E.db.sle.armory.stats.IlvlColor then
-			local r, g, b = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
-			local avColor = E.db.sle.armory.stats.AverageColor
-			frame.ItemLevelText:SetFormattedText('%s%.2f|r |cffffffff/|r %s%.2f|r', E:RGBToHex(r, g, b), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
-		else
-			frame.ItemLevelText:SetFormattedText('%.2f / %.2f', equipped, total)
-		end
+	local db = E.db.sle.armory.stats.itemLevel
+
+	local r, g, b
+	if db.EquippedBlizzColor then
+		r, g, b = GetItemLevelColor()
+	else
+		r, g, b = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+	end
+
+	local AverageColor = db.AverageColor
+	local EquippedColor = db.EquippedColor
+	local equipColorStr = (db.EquippedBlizzColor or db.EquippedGradient) and E:RGBToHex(r, g, b) or E:RGBToHex(EquippedColor.r, EquippedColor.g, EquippedColor.b)
+	local avgColorStr = (db.AverageBlizzColor and E:RGBToHex(GetItemLevelColor())) or E:RGBToHex(AverageColor.r, AverageColor.g, AverageColor.b)
+
+	if db.IlvlFull then
+		displayString = '%s%.2f|r |cffffffff/|r %s%.2f|r'
+		frame.ItemLevelText:SetText(format(displayString, equipColorStr, equipped, avgColorStr, total))
+	else
+		displayString = '%s%.2f|r'
+		frame.ItemLevelText:SetText(format(displayString, equipColorStr, equipped))
 	end
 end
 
 local categoryYOffset, statYOffset = 0, 0
 function SA:PaperDollFrame_UpdateStats()
 	if (not E.private.sle.armory.stats.enable or not E.private.skins.blizzard.character) then return end
+	if not _G.CharacterFrame:IsShown() then return end
 
 	totalShown = 0
+	local totalHeight = 0
 	local CharacterStatsPane = _G.CharacterStatsPane
 
-	if E.db.sle.armory.stats.IlvlFull then
-		local total, equipped = GetAverageItemLevel()
-		if E.db.sle.armory.stats.IlvlColor then
-			local r, g, b = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
-			local avColor = E.db.sle.armory.stats.AverageColor
-			CharacterStatsPane.ItemLevelFrame.Value:SetFormattedText('%s%.2f|r |cffffffff/|r %s%.2f|r', E:RGBToHex(r, g, b), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
-		else
-			CharacterStatsPane.ItemLevelFrame.Value:SetFormattedText('%.2f / %.2f', equipped, total)
-		end
-	else
-		CharacterStatsPane.ItemLevelFrame.Value:SetTextColor(GetItemLevelColor())
-		PaperDollFrame_SetItemLevel(CharacterStatsPane.ItemLevelFrame, 'player')
-	end
+	SA:UpdateCharacterItemLevel(_G.CharacterFrame, 'Character')
 
 	local ItemLevelCategory = CharacterStatsPane.ItemLevelCategory
-	
+
 	ItemLevelCategory:SetPoint('TOP', CharacterStatsPane, 'TOP', 0, 8)
 	CharacterStatsPane.AttributesCategory:SetPoint('TOP', CharacterStatsPane.ItemLevelFrame, 'BOTTOM', 0, 2)
 
@@ -223,6 +228,8 @@ function SA:PaperDollFrame_UpdateStats()
 		fontSize = E.db.sle.armory.stats.statHeaders.fontSize,
 		fontOutline = E.db.sle.armory.stats.statHeaders.fontOutline,
 	}
+
+	totalHeight = 40 + CharacterStatsPane.ItemLevelFrame:GetHeight() - categoryYOffset --This changes depending on ilvl text size
 
 	for catIndex = 1, #PAPERDOLL_STATCATEGORIES do
 		local catFrame = _G['CharacterStatsPane'][PAPERDOLL_STATCATEGORIES[catIndex].categoryFrame]
@@ -293,11 +300,14 @@ function SA:PaperDollFrame_UpdateStats()
 			end
 		end
 		catFrame:SetShown(numStatInCat > 0)
+		if numStatInCat > 0 then
+			totalHeight = totalHeight + catFrame:GetHeight() - categoryYOffset + (statFrame:GetHeight() * numStatInCat) - 6 --6 is offset for every first stat in category
+		end
 	end
 	-- release the current stat frame
 	CharacterStatsPane.statsFramePool:Release(statFrame)
 	if SA.Scrollbar then
-		if (SLE._Compatibility['ElvUI_EltreumUI'] and E.db.ElvUI_EltreumUI.skins.classicarmory) or totalShown > 14 then
+		if (SLE._Compatibility['ElvUI_EltreumUI'] and E.db.ElvUI_EltreumUI.skins.classicarmory) or (totalHeight > (3 + CharacterStatsPane:GetHeight())) then --Show scrollbar if the total height of all the stats combined are more than panel height + a small offset of if Eltreum skins our skin
 			SA.Scrollbar:SetMinMaxValues(1, totalShown*Armory.Constants.Stats.ScrollStepMultiplier)
 			SA.Scrollbar:Show()
 		else
@@ -310,14 +320,18 @@ end
 
 function SA:UpdateIlvlFont()
 	if (not E.private.sle.armory.stats.enable or not E.private.skins.blizzard.character) then return end
+	local db = E.db.sle.armory.stats.itemLevel
+	local gradient = db.gradient
 
 	local ItemLevelFrame = _G.CharacterStatsPane.ItemLevelFrame
+	local showDefaultGrad = not db.enable or (db.enable and gradient.style == 'blizzard')
+	if ItemLevelFrame.leftGrad then ItemLevelFrame.leftGrad:SetShown(showDefaultGrad) end
+	if ItemLevelFrame.rightGrad then ItemLevelFrame.rightGrad:SetShown(showDefaultGrad) end
+	if not db.enable then return end
 
-	local db = E.db.sle.armory.stats
-	local font = E.LSM:Fetch('font', db.itemLevel.font)
-	local fontSize = db.itemLevel.fontSize
-	local fontOutline = db.itemLevel.fontOutline
-	local gradient = db.gradient
+	local font = E.LSM:Fetch('font', db.font)
+	local fontSize = db.fontSize
+	local fontOutline = db.fontOutline
 
 	_G.CharacterFrame.ItemLevelText:FontTemplate(font, fontSize, fontOutline)
 	ItemLevelFrame.Value:FontTemplate(font, fontSize, fontOutline)
@@ -353,8 +367,6 @@ function SA:UpdateIlvlFont()
 		ItemLevelFrame.lineBottom:SetShown(gradient.style == 'levelupbg')
 		ItemLevelFrame.bg:SetShown(gradient.style == 'levelupbg')
 	end
-	if ItemLevelFrame.leftGrad then ItemLevelFrame.leftGrad:SetShown(gradient.style == 'blizzard') end
-	if ItemLevelFrame.rightGrad then ItemLevelFrame.rightGrad:SetShown(gradient.style == 'blizzard') end
 end
 
 function SA:ToggleArmory()
@@ -550,37 +562,31 @@ end
 
 local function PaperDollFrame_SetAttackPower(statFrame, unit) --! Text Replaced Done
 	local label, isReplaced = GetLabelReplacement('STAT_ATTACK_POWER')
-	if not isReplaced then return end
+	if not isReplaced then
+		label = STAT_ATTACK_POWER
+	end
 
-	local base, posBuff, negBuff, tag
 	local rangedWeapon = IsRangedWeapon()
+	local base, posBuff, negBuff = (rangedWeapon and UnitRangedAttackPower or UnitAttackPower)('player')
+	local totalAP = base + posBuff + negBuff
 
-	if ( rangedWeapon ) then
-		base, posBuff, negBuff = UnitRangedAttackPower(unit)
-		tag = RANGED_ATTACK_POWER
-	else
-		base, posBuff, negBuff = UnitAttackPower(unit)
-		tag = MELEE_ATTACK_POWER
-	end
+	statFrame.tooltip = strjoin(' ', rangedWeapon and RANGED_ATTACK_POWER or MELEE_ATTACK_POWER, BreakUpLargeNumbers(totalAP))
+	statFrame.tooltip2 = format(rangedWeapon and RANGED_ATTACK_POWER_TOOLTIP or MELEE_ATTACK_POWER_TOOLTIP, BreakUpLargeNumbers(max(totalAP, 0) / ATTACK_POWER_MAGIC_NUMBER))
 
-	local value, valueText
-	if (GetOverrideAPBySpellPower() ~= nil) then
-		local holySchool = 2
-		-- Start at 2 to skip physical damage
-		local spellPower = GetSpellBonusDamage(holySchool)
-		for i=(holySchool+1), MAX_SPELL_SCHOOLS do
-			spellPower = min(spellPower, GetSpellBonusDamage(i))
+	if isHunter and ComputePetBonus then
+		local petAPBonus = ComputePetBonus('PET_BONUS_RAP_TO_AP', totalAP)
+		local petSpellDmgBonus = ComputePetBonus('PET_BONUS_RAP_TO_SPELLDMG', totalAP)
+
+		if petAPBonus > 0 then
+			statFrame.tooltip2 = strjoin('\n', statFrame.tooltip2, format(PET_BONUS_TOOLTIP_RANGED_ATTACK_POWER, petAPBonus))
 		end
-		spellPower = min(spellPower, GetSpellBonusHealing()) * GetOverrideAPBySpellPower()
 
-		value = spellPower
-		valueText = PaperDollFormatStat(tag, spellPower, 0, 0)
-	else
-		value = base
-		valueText = PaperDollFormatStat(tag, base, posBuff, negBuff)
+		if petSpellDmgBonus > 0 then
+			statFrame.tooltip2 = strjoin('\n', statFrame.tooltip2, format(PET_BONUS_TOOLTIP_SPELLDAMAGE, petSpellDmgBonus))
+		end
 	end
 
-	PaperDollFrame_SetLabelAndText(statFrame, label, valueText, false, value)
+	PaperDollFrame_SetLabelAndText(statFrame, label, BreakUpLargeNumbers(totalAP), false, totalAP)
 end
 
 local function SLPaperDollFrame_SetAttackSpeed(statFrame, unit) --! Text Replaced Done

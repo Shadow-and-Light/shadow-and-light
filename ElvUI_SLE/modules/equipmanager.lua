@@ -11,6 +11,12 @@ local C_Calendar = C_Calendar
 local C_DateAndTime = C_DateAndTime
 local time = time
 local IsSpellKnown, GetSpellInfo = IsSpellKnown, GetSpellInfo
+local C_PvP_IsActiveBattlefield = C_PvP.IsActiveBattlefield
+local C_PvP_IsPVPMap = C_PvP.IsPVPMap
+local C_PvP_IsArena = C_PvP.IsArena
+local C_PvP_IsMatchConsideredArena = C_PvP.IsMatchConsideredArena
+local C_PvP_IsWarModeDesired = C_PvP.IsWarModeDesired
+local UnitIsPVP = UnitIsPVP
 
 EM.Conditions = {}
 EM.Processing = false
@@ -155,28 +161,27 @@ EM.TagsTable = {
 	end,
 	--If in pvp zone. [pvp:type] - pvp, arena
 	['pvp'] = function(pvpType)
-		local inInstance, InstanceType = IsInInstance()
-		if inInstance then
-			if pvpType and (InstanceType == 'pvp' or InstanceType == 'arena') then
-				if InstanceType == pvpType then
-					return true
+		if C_PvP_IsActiveBattlefield() then --IsActiveBattlefield returns true for both instanced pvp and for world pvp zones
+			if C_PvP_IsPVPMap() then --Seems to be true only for instanced pvp
+				if pvpType then
+					local instType = (C_PvP_IsArena() or C_PvP_IsMatchConsideredArena()) and 'arena' or 'pvp'
+					
+					if instType == pvpType then
+						return true
+					else
+						return false
+					end
 				else
-					return false
+					return true
 				end
 			else
-				if InstanceType == 'pvp' or InstanceType == 'arena' then
+				if UnitIsPVP("player") then
 					return true
 				else
 					return false
 				end
 			end
 		else
-			for i = 1, GetNumWorldPVPAreas() do
-				local _, localizedName, isActive, canQueue = GetWorldPVPAreaInfo(i)
-				if (GetRealZoneText() == localizedName and isActive) or (GetRealZoneText() == localizedName and canQueue) then
-					return true
-				end
-			end
 			return false
 		end
 	end,
@@ -199,7 +204,7 @@ EM.TagsTable = {
 		return true
 	end,
 	['warmode'] = function()
-		return C_PvP.IsWarModeDesired()
+		return C_PvP_IsWarModeDesired()
 	end,
 	['event'] = function(ids)
 		if not ids or ids == "" then
@@ -392,6 +397,7 @@ local function Equip(event, ...)
 	--Don't try to equip in combat. it wouldn't work anyways
 	if InCombatLockdown() then
 		EM:RegisterEvent('PLAYER_REGEN_ENABLED', Equip)
+		EM.Processing = false
 		return
 	end
 	if event == 'PLAYER_REGEN_ENABLED' then

@@ -82,11 +82,6 @@ function SLE:DatabaseConversions()
 					end
 				end
 				if data.sle.armory.stats then
-					if data.sle.armory.stats.enable then
-						E.private.sle.armory.stats.enable = data.sle.armory.stats.enable
-						data.sle.armory.stats.enable = nil
-						profileChanged = true
-					end
 					if data.sle.armory.stats.itemLevel then
 						if data.sle.armory.stats.itemLevel.size then
 							E.db.sle.armory.stats.itemLevel.fontSize = data.sle.armory.stats.itemLevel.size
@@ -132,6 +127,25 @@ function SLE:DatabaseConversions()
 							data.sle.armory.stats.statFonts.outline = nil
 							profileChanged = true
 						end
+					end
+					if data.sle.armory.stats.AverageColor and (data.sle.armory.stats.AverageColor.r or data.sle.armory.stats.AverageColor.g or data.sle.armory.stats.AverageColor.b) then
+						E:CopyTable(E.db.sle.armory.stats.itemLevel.AverageColor, data.sle.armory.stats.AverageColor)
+						data.sle.armory.stats.AverageColor = nil
+						profileChanged = true
+					end
+					if data.sle.armory.stats.IlvlColor then
+						data.sle.armory.stats.IlvlColor = nil
+						profileChanged = true
+					end
+					if data.sle.armory.stats.IlvlFull then
+						E.db.sle.armory.stats.itemLevel.IlvlFull = data.sle.armory.stats.IlvlFull
+						data.sle.armory.stats.IlvlFull = nil
+						profileChanged = true
+					end
+					if data.sle.armory.stats.gradient then
+						E.db.sle.armory.stats.itemLevel.gradient = data.sle.armory.stats.gradient
+						data.sle.armory.stats.gradient = nil
+						profileChanged = true
 					end
 				end
 			end

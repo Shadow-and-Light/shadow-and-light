@@ -1,8 +1,7 @@
-v4.75 1/17/24
+v4.78 & 4.79 6/19/24
 
-• Updated some uses of the wow api to reflect their changes
-• Added 2 hearthstones to the location bar (Deepweller's Earthen & Hearthstone of the Flame)
-• Fix some errors in the armory under certain conditions
-• Added waist check for armory
-• fixed a bug with in our tooltip option that places faction icon in the tooltip
-• Revamp the fishing module (options were reset and will need to be edited by you if you used it)
+• Fixed afk error
+• Fixed pvp auto release error
+• Fixed attack power on character armory stats
+• Added Draenei heritage armor quest hearthstone
+• Added/Tweaked Character Armory Average Item Level Options in the Stats section (Some adjustments may be needed after update to 4.78)

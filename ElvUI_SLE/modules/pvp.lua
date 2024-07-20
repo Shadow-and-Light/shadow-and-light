@@ -11,7 +11,6 @@ local bit_band = bit.band
 local CancelDuel = CancelDuel
 local StaticPopup_Hide = StaticPopup_Hide
 local COMBATLOG_OBJECT_TYPE_PLAYER = COMBATLOG_OBJECT_TYPE_PLAYER
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local TopBannerManager_Show = TopBannerManager_Show
 local BossBanner_BeginAnims = BossBanner_BeginAnims
 local PlaySound = PlaySound
@@ -19,6 +18,7 @@ local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local GetSortedSelfResurrectOptions = GetSortedSelfResurrectOptions
 local CancelPetPVPDuel = C_PetBattles.CancelPVPDuel
 local SOUNDKIT = SOUNDKIT
+local C_PvP_IsActiveBattlefield = C_PvP.IsActiveBattlefield
 
 local BG_Opponents = {}
 PvP.HonorStrings = {}
@@ -31,14 +31,8 @@ end
 function PvP:Dead()
 	local inInstance, instanceType = IsInInstance()
 	if not PvP.db.autorelease then return end --Option disabled = do jack shit
-	if (inInstance and instanceType == "pvp") then
+	if (inInstance and instanceType == 'pvp') or C_PvP_IsActiveBattlefield() then
 		PvP:Release()
-		return --To prevent the rest of the function from execution when not needed
-	end
-	-- auto resurrection for world PvP area...when active
-	for index = 1, GetNumWorldPVPAreas() do
-		local _, localizedName, isActive, canQueue = GetWorldPVPAreaInfo(index)
-		if (GetRealZoneText() == localizedName and isActive) or (GetRealZoneText() == localizedName and canQueue) then PvP:Release() end
 	end
 end
 
