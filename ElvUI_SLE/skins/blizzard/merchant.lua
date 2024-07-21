@@ -13,6 +13,7 @@ local GetMerchantItemInfo, GetMerchantItemLink = GetMerchantItemInfo, GetMerchan
 local SetItemButtonCount, SetItemButtonStock, SetItemButtonTexture = SetItemButtonCount, SetItemButtonStock, SetItemButtonTexture
 local SetItemButtonNameFrameVertexColor, SetItemButtonSlotVertexColor, SetItemButtonTextureVertexColor, SetItemButtonNormalTextureVertexColor = SetItemButtonNameFrameVertexColor, SetItemButtonSlotVertexColor, SetItemButtonTextureVertexColor, SetItemButtonNormalTextureVertexColor
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
+local C_Item_GetItemInfo = C_Item.GetItemInfo
 
 local RETRIEVING_ITEM_INFO, MOUNT, ITEM_SPELL_KNOWN, SEARCH = RETRIEVING_ITEM_INFO, MOUNT, ITEM_SPELL_KNOWN, SEARCH
 local MISCELLANEOUS = MISCELLANEOUS
@@ -110,7 +111,7 @@ local function UpdateBuybackInfo()
 		if (btn) then
 			link = GetBuybackItemLink(i)
 			if (link) then
-				_, _, quality = GetItemInfo(link)
+				_, _, quality = C_Item_GetItemInfo(link)
 				if quality then
 					r, g, b = GetItemQualityColor(quality)
 				else
