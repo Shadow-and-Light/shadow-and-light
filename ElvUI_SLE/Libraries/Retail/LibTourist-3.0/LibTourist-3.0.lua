@@ -9,7 +9,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibTourist-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Revision: 309 $"):match("(%d+)"))
+local MINOR_VERSION = 90000 + tonumber(("$Revision: 310 $"):match("(%d+)"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub") end
 local C_Map = C_Map
@@ -25,6 +25,7 @@ if oldLib then
 	end
 end
 
+local MAX_PLAYER_LEVEL = MAX_PLAYER_LEVEL or GetMaxLevelForPlayerExpansion()
 
 local HBD = LibStub("HereBeDragons-2.0")
 function Tourist:GetHBD() return HBD end
