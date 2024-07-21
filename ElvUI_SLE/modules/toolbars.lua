@@ -13,6 +13,7 @@ local DeleteCursorItem = DeleteCursorItem
 
 local C_Container_GetItemCooldown = C_Container.GetItemCooldown
 local C_Container_PickupContainerItem = C_Container.PickupContainerItem
+local C_Item_GetItemInfo = C_Item.GetItemInfo
 
 Tools.RegisteredAnchors = {}
 Tools.buttoncounts = {} --To kepp number of items
@@ -289,11 +290,11 @@ end
 local function RecreateAnchor(anchor)
 	for bar, data in pairs(anchor.Bars) do
 		for id, info in pairs(data.Items) do
-			if type(info) == 'number' and GetItemInfo(id) == nil then
+			if type(info) == 'number' and C_Item_GetItemInfo(id) == nil then
 				E:Delay(5, function() RecreateAnchor(anchor) end)
 				return
 			else
-				local itemName,_,_,_,_,_,_,_,_,itemIcon = GetItemInfo(id)
+				local itemName,_,_,_,_,_,_,_,_,itemIcon = C_Item_GetItemInfo(id)
 				data.Items[id] = { name = itemName, texture = itemIcon }
 			end
 		end

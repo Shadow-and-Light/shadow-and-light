@@ -7,10 +7,11 @@ local getmetatable, error, type, assert, random = getmetatable, error, type, ass
 local tremove, tinsert, tconcat, date = tremove, tinsert, table.concat, date
 local strjoin, strmatch, strsplit, strfind = strjoin, strmatch, strsplit, strfind
 local EnumerateFrames = EnumerateFrames
-local GetItemInfo = GetItemInfo
+local C_Item_GetItemInfo = C_Item.GetItemInfo
 
 local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
 local C_Container_GetContainerItemID = C_Container.GetContainerItemID
+local C_Spell_GetSpellInfo = C_Spell.GetSpellInfo
 
 T.Values = {
 	FontFlags = {
@@ -42,8 +43,7 @@ T.StringToUpper = function(str)
 end
 
 T.GetSpell = function(id)
-	local name = GetSpellInfo(id)
-	return name
+	return C_Spell_GetSpellInfo(btn.secure.ID).name
 end
 
 --Some of Simpy's herecy bullshit
@@ -90,10 +90,11 @@ end
 
 function SLE:GetIconFromID(idtype, id)
 	local path
+	local data
 	if idtype == 'item' then
-		path = select(10, GetItemInfo(id))
+		path = select(10, C_Item_GetItemInfo(id))
 	elseif idtype == 'spell' then
-		path = select(3, GetSpellInfo(id))
+		path = C_Spell_GetSpellInfo(id).iconID
 	elseif idtype == 'achiev' then
 		path = select(10, GetAchievementInfo(id))
 	end
@@ -369,7 +370,7 @@ function SLE:CreateMovableButtons(Order, Name, CanRemove, db, key)
 			moveItemFrom, moveItemTo = nil, nil
 		end,
 		stateSwitchGetText = function(info, TEXT)
-			local text = GetItemInfo(tonumber(TEXT))
+			local text = C_Item_GetItemInfo(tonumber(TEXT))
 			info.userdata.text = text
 			return text
 		end,

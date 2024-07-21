@@ -10,7 +10,8 @@ local GetRealZoneText = GetRealZoneText
 local C_Calendar = C_Calendar
 local C_DateAndTime = C_DateAndTime
 local time = time
-local IsSpellKnown, GetSpellInfo = IsSpellKnown, GetSpellInfo
+local IsSpellKnown = IsSpellKnown
+local C_Spell_GetSpellInfo = C_Spell.GetSpellInfo
 local C_PvP_IsActiveBattlefield = C_PvP.IsActiveBattlefield
 local C_PvP_IsPVPMap = C_PvP.IsPVPMap
 local C_PvP_IsArena = C_PvP.IsArena
@@ -120,7 +121,7 @@ EM.TagsTable = {
 				local entryInfo = C_Traits.GetEntryInfo(activeConfigID, entryID)
 				local definitionInfo = C_Traits.GetDefinitionInfo(entryInfo.definitionID)
 				local purchased = nodeInfo.ranksPurchased > 0
-				passed = purchased and (definitionInfo.spellID == tonumber(idOrName) or GetSpellInfo(definitionInfo.spellID) == idOrName)
+				passed = purchased and (definitionInfo.spellID == tonumber(idOrName) or C_Spell_GetSpellInfo(definitionInfo.spellID).spellID == idOrName)
 				if passed then break end
 			end
 			if passed then break end
@@ -133,8 +134,7 @@ EM.TagsTable = {
 		if isNum then
 			return IsSpellKnown(idOrName)
 		else
-			local _, _, _, _, _, _, spellID = GetSpellInfo(idOrName)
-			return IsSpellKnown(spellID)
+			return IsSpellKnown(C_Spell_GetSpellInfo(idOrName).spellID)
 		end
 		return false
 	end,
