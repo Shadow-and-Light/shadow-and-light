@@ -138,6 +138,8 @@ function C:Initialize()
 		end
 	end
 
+	SLE:GetRegion()
+	specialChatIcons = SLE.SpecialChatIcons[SLE.region]
 	-- hooksecurefunc(CH, "StyleChat", Style)
 	hooksecurefunc(E, 'UpdateMedia', ChatTextures)
 
