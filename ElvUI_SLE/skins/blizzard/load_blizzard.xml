@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file='character.lua'/>
 	<Script file='petbattle.lua'/>
-	<Script file='objectiveTracker.lua'/>
+	<!-- <Script file='objectiveTracker.lua'/> -->
 	<Script file='merchant.lua'/>
 	<Script file='merchantList.lua'/>
 </Ui>
