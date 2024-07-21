@@ -4,7 +4,7 @@ local Pr = SLE.Professions
 --GLOBALS: unpack, select, LoadAddOn, IsAddOnLoaded
 local _G = _G
 local IsSpellKnown = IsSpellKnown
-local C_Spell_GetSpellInfo = C_Spell.GetSpellInfo
+local C_Spell_GetSpellInfo = C_Spell and C_Spell.GetSpellInfo or GetSpellInfo
 local IsNPCCrafting = C_TradeSkillUI.IsNPCCrafting
 local IsTradeSkillGuild = C_TradeSkillUI.IsTradeSkillGuild
 local IsTradeSkillGuildMember = C_TradeSkillUI.IsTradeSkillGuildMember

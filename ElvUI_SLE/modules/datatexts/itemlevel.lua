@@ -9,7 +9,7 @@ local ITEM_LEVEL_ABBR = ITEM_LEVEL_ABBR
 local GMSURVEYRATING3 = GMSURVEYRATING3
 local TOTAL = TOTAL
 local displayString = ''
-local C_Item_GetItemInfo = C_Item.GetItemInfo
+local C_Item_GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
 
 local slots = {
 	[1] = { "HeadSlot", HEADSLOT, 1},

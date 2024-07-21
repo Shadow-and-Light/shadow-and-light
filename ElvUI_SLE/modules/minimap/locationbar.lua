@@ -21,10 +21,10 @@ local C_ToyBox = C_ToyBox
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local loc_panel
 local C_Garrison_IsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
-local C_Spell_GetSpellInfo = C_Spell.GetSpellInfo
-local C_Item_GetItemInfo = C_Item.GetItemInfo
-local C_Item_IsUsableItem = C_Item.IsUsableItem
-local C_PvP_GetZonePVPInfo = C_PvP.GetZonePVPInfo
+local C_Spell_GetSpellInfo = C_Spell and C_Spell.GetSpellInfo or GetSpellInfo
+local C_Item_GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
+local C_Item_IsUsableItem = C_Item and C_Item.IsUsableItem or IsUsableItem
+local C_PvP_GetZonePVPInfo = C_PvP and C_PvP.GetZonePVPInfo or GetZonePVPInfo
 
 local collectgarbage = collectgarbage
 
@@ -73,7 +73,7 @@ function LP:CreateSpellsEntry(id, entryType, useTooltip)
 		ID = id
 	}
 	entry.UseTooltip = useTooltip
-	
+
 	return entry
 end
 

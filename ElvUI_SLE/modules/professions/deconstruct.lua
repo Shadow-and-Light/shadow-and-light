@@ -15,8 +15,8 @@ local ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow, AutoCastShine_
 local C_Container_GetContainerItemLink = C_Container.GetContainerItemLink
 local C_Container_GetContainerItemInfo = C_Container.GetContainerItemInfo
 
-local C_Spell_GetSpellInfo = C_Spell.GetSpellInfo
-local C_Item_GetItemInfo = C_Item.GetItemInfo
+local C_Spell_GetSpellInfo = C_Spell and C_Spell.GetSpellInfo or GetSpellInfo
+local C_Item_GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
 
 Pr.DeconstructMode = false
 local relicItemTypeLocalized, relicItemSubTypeLocalized
