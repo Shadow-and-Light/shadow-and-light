@@ -6,7 +6,9 @@ local _G = _G
 local C_TradeSkillUI_CraftRecipe = C_TradeSkillUI.CraftRecipe
 local C_TradeSkillUI_IsTradeSkillGuild = C_TradeSkillUI.IsTradeSkillGuild
 local C_TradeSkillUI_IsTradeSkillLinked = C_TradeSkillUI.IsTradeSkillLinked
-local UseItemByName = UseItemByName
+
+local GetItemCount = C_Item and C_Item.GetItemCount or GetItemCount
+local UseItemByName = C_Item and C_Item.UseItemByName or UseItemByName
 
 local button
 
