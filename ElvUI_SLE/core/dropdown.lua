@@ -11,8 +11,8 @@ local GetTime = GetTime
 local CreateFrame = CreateFrame
 local ToggleFrame = ToggleFrame
 local GetCursorPosition = GetCursorPosition
-local C_Spell_GetSpellInfo = C_Spell.GetSpellInfo
-local C_Item_GetItemInfo = C_Item.GetItemInfo
+local C_Spell_GetSpellInfo = C_Spell and C_Spell.GetSpellInfo or GetSpellInfo
+local C_Item_GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: UIParent, UISpecialFrames
@@ -197,19 +197,14 @@ function SLE:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 	ToggleFrame(frame)
 end
 
-SLE.CooldownFuncs = {
-	GetItemCooldown = C_Item.GetItemCooldown,
-	GetSpellCooldown = C_Spell.GetSpellCooldown,
-}
-
 function DD:GetCooldown(CDtype, id)
 	local cd, formatID
 	local start, duration
 	-- local start, duration = _G['Get'..CDtype..'Cooldown'](id)
 	if CDtype == "Item" then
-		start, duration = SLE.CooldownFuncs['Get'..CDtype..'Cooldown'](id)
+		start, duration = C_Item_GetItemInfo(id)
 	elseif CDtype == "Spell" then
-		local data = SLE.CooldownFuncs['Get'..CDtype..'Cooldown'](id)
+		local data = C_Spell_GetSpellInfo(id)
 		start, duration = data.startTime, data.duration
 	end
 
