@@ -11,11 +11,12 @@ Licensed under a Creative Commons "Attribution Non-Commercial Share Alike" Licen
 local _
 
 --Deprecated fixes
-local C_AddOns_GetNumAddOns = C_AddOns.GetNumAddOns
-local C_AddOns_GetAddOnMetadata = C_AddOns.GetAddOnMetadata
-local C_AddOns_GetAddOnInfo = C_AddOns.GetAddOnInfo
-local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
-local C_Item_GetItemCount = C_Item.GetItemCount
+local C_AddOns_GetNumAddOns = C_AddOns and C_AddOns.GetNumAddOns or GetNumAddOns
+local C_AddOns_GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
+local C_AddOns_GetAddOnInfo = C_AddOns and C_AddOns.GetAddOnInfo or GetAddOnInfo
+local C_AddOns_IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded or IsAddOnLoaded
+local C_Item_GetItemCount = C_Item and C_Item.GetItemCount or GetItemCount
+local C_Item_GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
 
 local MAJOR_VERSION = "LibFishing-1.0"
 local MINOR_VERSION = 101109
