@@ -1,4 +1,4 @@
-local MAJOR, MINOR = 'LibProcessable', 61
+local MAJOR, MINOR = 'LibProcessable', 62
 assert(LibStub, MAJOR .. ' requires LibStub')
 
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
@@ -10,6 +10,7 @@ local data = {} -- private table for storing data without exposing it
 local professions = {} -- private table for storing cached profession info
 
 local CLASSIC = select(4, GetBuildInfo()) < 90000
+local GetItemCount = C_Item and C_Item.GetItemCount or GetItemCount
 
 -- upvalue constants with fallbacks
 local LE_ITEM_QUALITY_UNCOMMON = LE_ITEM_QUALITY_UNCOMMON or Enum.ItemQuality.Uncommon or 2
@@ -372,7 +373,7 @@ end
 --[[ LibProcessable:HasProfession(_professionID_)
 Returns whether the player has the given profession.
 
-Here's a table with the profession ID for each profession.  
+Here's a table with the profession ID for each profession.
 Source: <https://wowpedia.fandom.com/wiki/TradeSkillLineID>
 
 | Profession Name | Profession ID |
