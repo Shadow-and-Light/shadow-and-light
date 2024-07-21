@@ -7,13 +7,16 @@ local LCG = E.Libs.CustomGlow
 --GLOBALS: unpack, select, CreateFrame, VIDEO_OPTIONS_ENABLED, VIDEO_OPTIONS_DISABLED
 local _G = _G
 local format, strfind, strsplit, gsub, type, tostring = format, strfind, strsplit, gsub, type, tostring
-local GetItemInfo, GetTradeTargetItemLink = GetItemInfo, GetTradeTargetItemLink
+local GetTradeTargetItemLink = GetTradeTargetItemLink
 local InCombatLockdown = InCombatLockdown
 local LOCKED = LOCKED
 local ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow, AutoCastShine_AutoCastStart = ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow, AutoCastShine_AutoCastStart
 
 local C_Container_GetContainerItemLink = C_Container.GetContainerItemLink
 local C_Container_GetContainerItemInfo = C_Container.GetContainerItemInfo
+
+local C_Spell_GetSpellInfo = C_Spell.GetSpellInfo
+local C_Item_GetItemInfo = C_Item.GetItemInfo
 
 Pr.DeconstructMode = false
 local relicItemTypeLocalized, relicItemSubTypeLocalized
@@ -66,15 +69,15 @@ Pr.ItemTable = {
 	},
 }
 Pr.Keys = {
-	[GetSpellInfo(195809)] = true, -- jeweled lockpick
-	[GetSpellInfo(130100)] = true, -- Ghostly Skeleton Key
-	[GetSpellInfo(94574)] = true, -- Obsidium Skeleton Key
-	[GetSpellInfo(59403)] = true, -- Titanium Skeleton Key
-	[GetSpellInfo(59404)] = true, -- Colbat Skeleton Key
-	[GetSpellInfo(20709)] = true, -- Arcanite Skeleton Key
-	[GetSpellInfo(19651)] = true, -- Truesilver Skeleton Key
-	[GetSpellInfo(19649)] = true, -- Golden Skeleton Key
-	[GetSpellInfo(19646)] = true, -- Silver Skeleton Key
+	[C_Spell_GetSpellInfo(195809)] = true, -- jeweled lockpick
+	[C_Spell_GetSpellInfo(130100)] = true, -- Ghostly Skeleton Key
+	[C_Spell_GetSpellInfo(94574)] = true, -- Obsidium Skeleton Key
+	[C_Spell_GetSpellInfo(59403)] = true, -- Titanium Skeleton Key
+	[C_Spell_GetSpellInfo(59404)] = true, -- Colbat Skeleton Key
+	[C_Spell_GetSpellInfo(20709)] = true, -- Arcanite Skeleton Key
+	[C_Spell_GetSpellInfo(19651)] = true, -- Truesilver Skeleton Key
+	[C_Spell_GetSpellInfo(19649)] = true, -- Golden Skeleton Key
+	[C_Spell_GetSpellInfo(19646)] = true, -- Silver Skeleton Key
 }
 Pr.BlacklistDE = {}
 Pr.BlacklistLOCK = {}
@@ -97,7 +100,7 @@ function Pr:BuildBlacklistDE(...)
 	wipe(Pr.BlacklistDE)
 	for index = 1, select('#', ...) do
 		local name = select(index, ...)
-		local isLink = GetItemInfo(name)
+		local isLink = C_Item_GetItemInfo(name)
 		if isLink then
 			Pr.BlacklistDE[isLink] = true
 		end
@@ -108,7 +111,7 @@ function Pr:BuildBlacklistLOCK(...)
 	wipe(Pr.BlacklistLOCK)
 	for index = 1, select('#', ...) do
 		local name = select(index, ...)
-		local isLink = GetItemInfo(name)
+		local isLink = C_Item_GetItemInfo(name)
 		if isLink then
 			Pr.BlacklistLOCK[isLink] = true
 		end
@@ -327,11 +330,11 @@ end
 
 local function Get_ArtRelic()
 	local noItem = false
-	if select(2, GetItemInfo(132342)) == nil then noItem = true end
+	if select(2, C_Item_GetItemInfo(132342)) == nil then noItem = true end
 	if noItem then
 		E:Delay(5, Get_ArtRelic)
 	else
-		relicItemTypeLocalized, relicItemSubTypeLocalized = select(6, GetItemInfo(132342))
+		relicItemTypeLocalized, relicItemSubTypeLocalized = select(6, C_Item_GetItemInfo(132342))
 	end
 end
 

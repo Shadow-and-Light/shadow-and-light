@@ -3,7 +3,8 @@ local Pr = SLE.Professions
 
 --GLOBALS: unpack, select, LoadAddOn, IsAddOnLoaded
 local _G = _G
-local GetSpellInfo, IsSpellKnown = GetSpellInfo, IsSpellKnown
+local IsSpellKnown = IsSpellKnown
+local C_Spell_GetSpellInfo = C_Spell.GetSpellInfo
 local IsNPCCrafting = C_TradeSkillUI.IsNPCCrafting
 local IsTradeSkillGuild = C_TradeSkillUI.IsTradeSkillGuild
 local IsTradeSkillGuildMember = C_TradeSkillUI.IsTradeSkillGuildMember
@@ -31,10 +32,10 @@ function Pr:UpdateSkills(event)
 	if event ~= 'CHAT_MSG_SKILL' then
 		Pr.DEname, Pr.LOCKname, Pr.SMITHname = false, false, false
 
-		if(IsSpellKnown(13262)) then Pr.DEname = GetSpellInfo(13262) end -- Enchant
-		if(IsSpellKnown(1804)) then Pr.LOCKname = GetSpellInfo(1804) end -- Lockpicking
-		if(IsSpellKnown(25229)) then Pr.PROSPECTname = GetSpellInfo(25229) end -- Jewelcrating (Prospecting)
-		if(IsSpellKnown(45357)) then Pr.MILLname = GetSpellInfo(45357) end -- Inscription (Milling)
+		if(IsSpellKnown(13262)) then Pr.DEname = C_Spell_GetSpellInfo(13262) end -- Enchant
+		if(IsSpellKnown(1804)) then Pr.LOCKname = C_Spell_GetSpellInfo(1804) end -- Lockpicking
+		if(IsSpellKnown(25229)) then Pr.PROSPECTname = C_Spell_GetSpellInfo(25229) end -- Jewelcrating (Prospecting)
+		if(IsSpellKnown(45357)) then Pr.MILLname = C_Spell_GetSpellInfo(45357) end -- Inscription (Milling)
 	end
 end
 
