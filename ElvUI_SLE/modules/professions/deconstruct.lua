@@ -17,6 +17,7 @@ local C_Container_GetContainerItemInfo = C_Container.GetContainerItemInfo
 
 local C_Spell_GetSpellInfo = C_Spell and C_Spell.GetSpellInfo or GetSpellInfo
 local C_Item_GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
+local C_Item_GetItemCount = C_Item and C_Item.GetItemCount or GetItemCount
 
 Pr.DeconstructMode = false
 local relicItemTypeLocalized, relicItemSubTypeLocalized
@@ -84,7 +85,7 @@ Pr.BlacklistLOCK = {}
 
 local function HaveKey()
 	for key in pairs(Pr.Keys) do
-		if(GetItemCount(key) > 0) then
+		if(C_Item_GetItemCount(key) > 0) then
 			return key
 		end
 	end
