@@ -7,11 +7,11 @@ local getmetatable, error, type, assert, random = getmetatable, error, type, ass
 local tremove, tinsert, tconcat, date = tremove, tinsert, table.concat, date
 local strjoin, strmatch, strsplit, strfind = strjoin, strmatch, strsplit, strfind
 local EnumerateFrames = EnumerateFrames
-local C_Item_GetItemInfo = C_Item.GetItemInfo
 
 local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
 local C_Container_GetContainerItemID = C_Container.GetContainerItemID
-local C_Spell_GetSpellInfo = C_Spell.GetSpellInfo
+local C_Item_GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
+local C_Spell_GetSpellInfo = C_Spell and C_Spell.GetSpellInfo or GetSpellInfo
 
 T.Values = {
 	FontFlags = {
@@ -90,7 +90,6 @@ end
 
 function SLE:GetIconFromID(idtype, id)
 	local path
-	local data
 	if idtype == 'item' then
 		path = select(10, C_Item_GetItemInfo(id))
 	elseif idtype == 'spell' then
