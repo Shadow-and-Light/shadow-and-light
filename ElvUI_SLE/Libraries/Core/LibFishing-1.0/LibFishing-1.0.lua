@@ -1335,7 +1335,7 @@ function FishLib:GetItemInfoFields(link, ...)
 -- subtype, stackcount, equiploc, texture
     if (link) then
         link = self:ValidLink(link)
-        local iteminfo = {GetItemInfo(link)}
+        local iteminfo = {C_Item_GetItemInfo(link)}
         local results = {}
         for idx = 1, select('#', ...) do
             local sel_idx = select(idx, ...)
