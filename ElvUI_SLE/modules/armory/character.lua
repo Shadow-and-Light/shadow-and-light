@@ -157,11 +157,13 @@ function CA:BuildLayout()
 		end
 	end)
 
-	hooksecurefunc(PaperDollFrame, 'OnShow', function(a,b,c)
+	hooksecurefunc(CharacterFrame, 'UpdateSize', function(a,b,c)
 		if E.db.sle.armory.character.enable and _G.PaperDollFrame:IsShown() then
 			_G.CharacterFrame:SetWidth(650)
+			_G.CharacterFrame:SetHeight(444)
 		end
 	end)
+
 	hooksecurefunc('PaperDollFrame_SetLevel', function()
 		if E.db.sle.armory.character.enable then
 			_G.CharacterLevelText:SetText(_G.CharacterLevelText:GetText())
