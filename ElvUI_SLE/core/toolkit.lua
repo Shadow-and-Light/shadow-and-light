@@ -48,17 +48,12 @@ end
 
 --Some of Simpy's herecy bullshit
 T.rgsub = function(pattern, ...)
-	local z = select("#", ...)
-	local x = floor(z / 2)
-	local s
-	for i = 1, x do
-		z = select(i, ...)
-		if strmatch(pattern, z) then
-			s = select(i + x, ...)
-			pattern = gsub(pattern, z, s)
+	for i = 1, select('#', ...), 2 do
+		local v = select(i, ...)
+		if strmatch(pattern, v) then
+			return gsub(pattern, v, select(i + 1, ...), 1)
 		end
 	end
-	return pattern
 end
 
 T.SafeHookScript = function(frame, handlername, newscript)

@@ -91,8 +91,7 @@ end
 
 local AwardPattern
 function DB:PopulateHonorStrings()
-	local symbols = {'%(','%)','%.','([-+])','|4.-;','%%[sd]','%%%d%$[sd]','%%(','%%)','%%.','%%%1','.-','(.-)','(.-)'}
-
+	local symbols = {'%(','%%(','%)','%%)','%.','%%.','([-+])','%%%1','|4.-;','.-','%%[sd]','(.-)','%%%d%$[sd]','(.-)'}
 	local pattern
 	pattern = T.rgsub(COMBATLOG_HONORGAIN, unpack(symbols))
 	tinsert(DB.Honor.Strings, pattern)
