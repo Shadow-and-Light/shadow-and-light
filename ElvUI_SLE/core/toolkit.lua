@@ -54,6 +54,8 @@ T.rgsub = function(pattern, ...)
 			return gsub(pattern, v, select(i + 1, ...), 1)
 		end
 	end
+
+	return pattern
 end
 
 T.SafeHookScript = function(frame, handlername, newscript)
