@@ -10,6 +10,7 @@ local LOOT_ROLL_TYPE_GREED = LOOT_ROLL_TYPE_GREED
 local IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown = IsShiftKeyDown, IsControlKeyDown, IsAltKeyDown
 local SendChatMessage = SendChatMessage
 local RollOnLoot, ConfirmLootRoll, CloseLoot = RollOnLoot, ConfirmLootRoll, CloseLoot
+local C_Item_GetItemInfo = C_Item.GetItemInfo
 
 local check = false
 
@@ -98,7 +99,7 @@ function LT:PopulateTable(qualityPassed)
 
 			if quality >= qualityPassed then --If this is not a filthy grey (or whatever filtered quality is)
 				link = GetLootSlotLink(i)
-				ilvl = select(4, GetItemInfo(link)) or QUEUED_STATUS_UNKNOWN
+				ilvl = select(4, C_Item_GetItemInfo(link)) or QUEUED_STATUS_UNKNOWN
 
 				--Increasing how many items there were in da loot
 				LT.LootItems = LT.LootItems + 1
@@ -205,9 +206,9 @@ function LT:HandleRoll(event, id)
 
 	if LT.db.autoroll.bylevel then --If you are over selected level (Motly on leveling process, where you may need greens)
 		if IsEquippableItem(link) then --If equippable, then figure out if this is an upgrade for you
-			local _, _, _, ilvl, _, _, _, _, slot = GetItemInfo(link)
+			local _, _, _, ilvl, _, _, _, _, slot = C_Item_GetItemInfo(link)
 			local itemLink = GetInventoryItemLink('player', slot)
-			local matchItemLevel = itemLink and select(4, GetItemInfo(itemLink)) or 1
+			local matchItemLevel = itemLink and select(4, C_Item_GetItemInfo(itemLink)) or 1
 			if quality ~= 7 and matchItemLevel < ilvl then return end --If legendary or have higher ilvl than item you have in the same slot, don't roll
 		end
 	end

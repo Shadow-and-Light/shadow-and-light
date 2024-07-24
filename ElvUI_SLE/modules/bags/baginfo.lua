@@ -51,10 +51,9 @@ function B:UpdateSet(slot)
 	--* Start - Part of the workaround
 	local isInSet = false
 	local tooltipData  = C_TooltipInfo.GetBagItem(slot.BagID, slot.SlotID)
+
 	if slot.isEquipment and tooltipData then
-		TooltipUtil.SurfaceArgs(tooltipData)
 		for _, line in ipairs(tooltipData.lines) do
-			TooltipUtil.SurfaceArgs(line)
 			if (line and line.leftText) and strmatch(line.leftText, MATCH_EQUIPMENT_SETS) then
 				isInSet = true
 				break
@@ -107,6 +106,7 @@ end
 function BI:ConstructContainerButton(f, bagID, slotID)
 	if not f then return end
 	local bag = f.Bags[bagID]
+	if not bag then return end
 	local isReagent = bagID == REAGENTBANK_CONTAINER
 	local slotName = isReagent and ('ElvUIReagentBankFrameItem'..slotID) or (bag.name..'Slot'..slotID)
 	local slot = _G[slotName]

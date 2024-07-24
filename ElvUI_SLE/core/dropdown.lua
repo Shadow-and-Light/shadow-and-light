@@ -11,6 +11,8 @@ local GetTime = GetTime
 local CreateFrame = CreateFrame
 local ToggleFrame = ToggleFrame
 local GetCursorPosition = GetCursorPosition
+local C_Spell_GetSpellInfo = C_Spell and C_Spell.GetSpellInfo or GetSpellInfo
+local C_Item_GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: UIParent, UISpecialFrames
@@ -119,11 +121,10 @@ function SLE:DropdownList(list, frame, customWidth, justify)
 			btn.secure = list[i].secure
 			btn:SetAttribute('type', btn.secure.buttonType)
 			if btn.secure.buttonType == 'item' then
-				local name = GetItemInfo(btn.secure.ID)
+				local name = C_Item_GetItemInfo(btn.secure.ID)
 				btn:SetAttribute('item', name)
 			elseif btn.secure.buttonType == 'spell' then
-				local name = GetSpellInfo(btn.secure.ID)
-				btn:SetAttribute('spell', name)
+				btn:SetAttribute('spell', C_Spell_GetSpellInfo(btn.secure.ID).name)
 			elseif btn.secure.buttonType == 'macro' then
 				btn:SetAttribute('macrotext', btn.secure.ID)
 			else
@@ -198,7 +199,15 @@ end
 
 function DD:GetCooldown(CDtype, id)
 	local cd, formatID
-	local start, duration = _G['Get'..CDtype..'Cooldown'](id)
+	local start, duration
+	-- local start, duration = _G['Get'..CDtype..'Cooldown'](id)
+	if CDtype == "Item" then
+		start, duration = C_Item_GetItemInfo(id)
+	elseif CDtype == "Spell" then
+		local data = C_Spell_GetSpellInfo(id)
+		start, duration = data.startTime, data.duration
+	end
+
 	if start > 0 then
 		cd = duration - (GetTime() - start)
 		cd, formatID = E:GetTimeInfo(cd, 0)

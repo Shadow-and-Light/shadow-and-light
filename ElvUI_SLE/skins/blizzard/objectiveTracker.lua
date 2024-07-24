@@ -352,12 +352,12 @@ local function ObjectiveReskin()
 	if not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker or not E.private.sle.skins.objectiveTracker.enable then return end
 
 	-- Objective Tracker Bar
-	hooksecurefunc(_G.BONUS_OBJECTIVE_TRACKER_MODULE, 'AddProgressBar', skinObjectiveBar)
+	-- hooksecurefunc(_G.BONUS_OBJECTIVE_TRACKER_MODULE, 'AddProgressBar', skinObjectiveBar)
 	-- World Quests can be bonus objective type
-	hooksecurefunc(_G.WORLD_QUEST_TRACKER_MODULE, 'AddProgressBar', skinObjectiveBar)
+	-- hooksecurefunc(_G.WORLD_QUEST_TRACKER_MODULE, 'AddProgressBar', skinObjectiveBar)
 
 	-- ProgressBar in the ObjectiveTacker
-	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, 'AddProgressBar', function(self, block, line, questID)
+	--[[hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, 'AddProgressBar', function(self, block, line, questID)
 		local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line]
 		if progressBar and progressBar:IsShown() and not progressBar.skinned then
 			progressBar.Bar:StripTextures()
@@ -374,15 +374,15 @@ local function ObjectiveReskin()
 			progressBar.Bar.backdrop:SetPoint('BOTTOMRIGHT', progressBar.Bar, 1, -1)
 			progressBar.skinned = true
 		end
-	end)
+	end)]]
 	-- scenario
-	hooksecurefunc(_G.DEFAULT_OBJECTIVE_TRACKER_MODULE, 'AddTimerBar', SkinTimerBar)
-	hooksecurefunc(_G.SCENARIO_CONTENT_TRACKER_MODULE, 'Update', SkinScenarioButtons)
-	hooksecurefunc('ScenarioBlocksFrame_OnLoad', SkinScenarioButtons)
-	hooksecurefunc('Scenario_ChallengeMode_ShowBlock', SkinChallengeModeBlock)
-	if E.private.sle.skins.objectiveTracker.keyTimers.enable then hooksecurefunc('Scenario_ChallengeMode_UpdateTime', UpdateChallengeModeTime) end
-	hooksecurefunc('Scenario_ChallengeMode_SetUpAffixes', SkinAffixes)
-	hooksecurefunc(ScenarioStageBlock.WidgetContainer, 'CreateWidget', function(self, widgetID, widgetType, widgetTypeInfo, widgetInfo)
+	--hooksecurefunc(_G.DEFAULT_OBJECTIVE_TRACKER_MODULE, 'AddTimerBar', SkinTimerBar)
+	--hooksecurefunc(_G.SCENARIO_CONTENT_TRACKER_MODULE, 'Update', SkinScenarioButtons)
+	-- hooksecurefunc('ScenarioBlocksFrame_OnLoad', SkinScenarioButtons)
+	-- hooksecurefunc('Scenario_ChallengeMode_ShowBlock', SkinChallengeModeBlock)
+	-- if E.private.sle.skins.objectiveTracker.keyTimers.enable then hooksecurefunc('Scenario_ChallengeMode_UpdateTime', UpdateChallengeModeTime) end
+	-- hooksecurefunc('Scenario_ChallengeMode_SetUpAffixes', SkinAffixes)
+	--[[hooksecurefunc(ScenarioStageBlock.WidgetContainer, 'CreateWidget', function(self, widgetID, widgetType, widgetTypeInfo, widgetInfo)
 		-- print(widgetID, widgetType, widgetTypeInfo, widgetInfo) --* User this to find the widgetID
 		local widgetFrame = self.widgetFrames[widgetID]
 
@@ -396,9 +396,9 @@ local function ObjectiveReskin()
 				end
 			end
 		end
-	end)
+	end)]]
 	-- Another ProgressBar in the ObjectiveTracker counting as Scenario (e.g. Legion Pre-Event)
-	hooksecurefunc(SCENARIO_TRACKER_MODULE, 'AddProgressBar', function(self, block, line, criteriaIndex)
+	--[[hooksecurefunc(SCENARIO_TRACKER_MODULE, 'AddProgressBar', function(self, block, line, criteriaIndex)
 		local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line]
 		if progressBar and progressBar:IsShown() and not progressBar.skinned then
 			progressBar.Bar:StripTextures()
@@ -416,7 +416,7 @@ local function ObjectiveReskin()
 			progressBar.skinned = true
 			_G.ScenarioTrackerProgressBar_PlayFlareAnim = dummy
 		end
-	end)
+	end)]]
 	-- proving grounds
 	hooksecurefunc('Scenario_ProvingGrounds_ShowBlock', SkinProvingGroundButtons)
 

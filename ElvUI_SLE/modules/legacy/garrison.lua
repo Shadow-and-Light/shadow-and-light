@@ -18,6 +18,7 @@ local buildID = {
 	[207] = "Ship",
 }
 local C_Garrison = C_Garrison
+local C_Item_GetItemCount = C_Item and C_Item.GetItemCount or GetItemCount
 
 local GarTools = {
 	[1] = {
@@ -76,7 +77,7 @@ function Gar:CreateToolbars()
 	GarrisonAnchor.InventroyCheck = function()
 		local change = false
 		for _, button in ipairs(GarrisonAnchor.Bars["SLE_GarrisonToolbar1"].Buttons) do
-			button.items = GetItemCount(button.itemId)
+			button.items = C_Item_GetItemCount(button.itemId)
 			if not Tools.buttoncounts[button.itemId] then
 				Tools.buttoncounts[button.itemId] = button.items
 			end

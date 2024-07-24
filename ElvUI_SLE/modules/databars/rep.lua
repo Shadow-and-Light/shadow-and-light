@@ -123,10 +123,7 @@ end
 
 function DB:PopulateRepPatterns()
 	--Simpy formatting here. Prob shouldn't touch
-	local symbols = {
-		'%.$',    '%(','%)',        '|3%-7%%%(%%s%%%)',        '%%s([^%%])',    '%+',        '%%d',        '%%.1f',
-		'%%.',    '%%(','%%)',    '(.-)',                    '(.-)%1',        '%%+',        '(%%d-)',    '([%%d.]-)'
-	}
+	local symbols = {'%.$','%%.','%(','%)','%%(','%%)','|3%-7%%%(%%s%%%)','(.-)','%%s([^%%])','(.-)%1','%+','%%+','%%d','(%%d-)','%%.1f','([%%d.]-)'}
 	local pattern
 	--When rep increases
 	pattern = T.rgsub(FACTION_STANDING_INCREASED, unpack(symbols))

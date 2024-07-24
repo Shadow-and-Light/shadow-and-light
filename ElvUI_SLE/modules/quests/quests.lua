@@ -1,29 +1,30 @@
 local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local Q = SLE.Quests
-local ObjectiveTracker_Expand, ObjectiveTracker_Collapse = ObjectiveTracker_Expand, ObjectiveTracker_Collapse
+
 local IsResting = IsResting
+local C_Item_GetItemInfo = C_Item.GetItemInfo
 local _G = _G
 
-local HeaderMenuMinimizeButton = _G.ObjectiveTrackerFrame.HeaderMenu.MinimizeButton
-local QuestHeaderMinimizeButton = _G.ObjectiveTrackerBlocksFrame.QuestHeader.MinimizeButton
+local HeaderMenuMinimizeButton = _G.ObjectiveTrackerFrame.Header.MinimizeButton
+local QuestHeaderMinimizeButton = _G.QuestObjectiveTracker.Header.MinimizeButton
 local statedriver = {
 	FULL = function(frame)
-		ObjectiveTracker_Expand()
+		ObjectiveTrackerFrame:SetCollapsed(false)
 		if E.private.skins.blizzard.enable and E.private.skins.blizzard.objectiveTracker then HeaderMenuMinimizeButton.tex:SetTexture([[Interface\AddOns\ElvUI\Core\Media\Textures\MinusButton]]) end
-		if ObjectiveTrackerBlocksFrame.QuestHeader.module.collapsed then
-			ObjectiveTracker_MinimizeModuleButton_OnClick(QuestHeaderMinimizeButton)
-		end
+		-- if _G.QuestObjectiveTracker.Header.module.collapsed then
+		-- 	ObjectiveTracker_MinimizeModuleButton_OnClick(QuestHeaderMinimizeButton)
+		-- end
 		frame:Show()
 	end,
 	COLLAPSED = function(frame)
-		ObjectiveTracker_Collapse()
+		ObjectiveTrackerFrame:SetCollapsed(true)
 		if E.private.skins.blizzard.enable and E.private.skins.blizzard.objectiveTracker then HeaderMenuMinimizeButton.tex:SetTexture([[Interface\AddOns\ElvUI\Core\Media\Textures\PlusButton]]) end
 		frame:Show()
 	end,
 	COLLAPSED_QUESTS = function(frame)
-		if not ObjectiveTrackerBlocksFrame.QuestHeader.module.collapsed then
-			ObjectiveTracker_MinimizeModuleButton_OnClick(QuestHeaderMinimizeButton)
-		end
+		-- if not _G.QuestObjectiveTracker.Header.module.collapsed then
+		-- 	ObjectiveTracker_MinimizeModuleButton_OnClick(QuestHeaderMinimizeButton)
+		-- end
 		frame:Show()
 	end,
 	HIDE = function(frame)
@@ -110,7 +111,7 @@ function Q:QUEST_COMPLETE()
 	for index = 1, num do
 		local link = GetQuestItemLink('choice', index)
 		if link then
-			local price = select(11, GetItemInfo(link))
+			local price = select(11, C_Item_GetItemInfo(link))
 			if price and price > highest then
 				highest = price
 				choice = index

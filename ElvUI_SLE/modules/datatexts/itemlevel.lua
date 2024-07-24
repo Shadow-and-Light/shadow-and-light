@@ -9,6 +9,7 @@ local ITEM_LEVEL_ABBR = ITEM_LEVEL_ABBR
 local GMSURVEYRATING3 = GMSURVEYRATING3
 local TOTAL = TOTAL
 local displayString = ''
+local C_Item_GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
 
 local slots = {
 	[1] = { "HeadSlot", HEADSLOT, 1},
@@ -54,7 +55,7 @@ local function OnEnter(self)
 	for i in pairs(slots) do
 		local ItemLink = GetInventoryItemLink('player', i)
 		if ItemLink then
-			local ItemRarity = select(3, GetItemInfo(ItemLink))
+			local ItemRarity = select(3, C_Item_GetItemInfo(ItemLink))
 			local isArtifact = (ItemRarity == 6)
 			local itemLevel = GetDetailedItemLevelInfo(ItemLink)
 			if itemLevel and avgEquipItemLevel and not isArtifact then

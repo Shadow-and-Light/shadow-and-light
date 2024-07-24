@@ -29,6 +29,8 @@ local C_Container_GetContainerItemInfo = C_Container.GetContainerItemInfo
 local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
 local C_Container_GetContainerItemID = C_Container.GetContainerItemID
 
+local C_Item_GetItemInfo = C_Item.GetItemInfo
+
 local HIGHLIGHT_FONT_COLOR = HIGHLIGHT_FONT_COLOR
 local SEARCH = SEARCH
 local MAX_ITEM_COST = MAX_ITEM_COST
@@ -423,7 +425,7 @@ local function List_MerchantUpdate()
 			local iLevel
 			if ( link ) then
 				--API name, link, quality, iLevel, reqLevel, class, subclass, maxStack, equipSlot, texture, vendorPrice = GetItemInfo(itemID) or GetItemInfo("itemName") or GetItemInfo("itemLink")
-				_, _, itemRarity, iLevel, _, itemType, itemSubType, _, equipSlot = GetItemInfo(link)
+				_, _, itemRarity, iLevel, _, itemType, itemSubType, _, equipSlot = C_Item_GetItemInfo(link)
 				if itemRarity then
 					r, g, b = GetItemQualityColor(itemRarity)
 					button.itemname:SetTextColor(r, g, b)

@@ -4,7 +4,7 @@ local EDB = E.DataBars
 
 --GLOBALS: hooksecurefunc
 local format = format
-local MAX_PLAYER_LEVEL = MAX_PLAYER_LEVEL
+local MAX_PLAYER_LEVEL = MAX_PLAYER_LEVEL or GetMaxLevelForPlayerExpansion()
 local COMBATLOG_HONORGAIN, COMBATLOG_HONORGAIN_NO_RANK, COMBATLOG_HONORAWARD = COMBATLOG_HONORGAIN, COMBATLOG_HONORGAIN_NO_RANK, COMBATLOG_HONORAWARD
 local PVP_RANK_0_0 = PVP_RANK_0_0
 local UnitHonor, UnitHonorMax = UnitHonor, UnitHonorMax
@@ -91,8 +91,7 @@ end
 
 local AwardPattern
 function DB:PopulateHonorStrings()
-	local symbols = {'%(','%)','%.','([-+])','|4.-;','%%[sd]','%%%d%$[sd]','%%(','%%)','%%.','%%%1','.-','(.-)','(.-)'}
-
+	local symbols = {'%(','%%(','%)','%%)','%.','%%.','([-+])','%%%1','|4.-;','.-','%%[sd]','(.-)','%%%d%$[sd]','(.-)'}
 	local pattern
 	pattern = T.rgsub(COMBATLOG_HONORGAIN, unpack(symbols))
 	tinsert(DB.Honor.Strings, pattern)
