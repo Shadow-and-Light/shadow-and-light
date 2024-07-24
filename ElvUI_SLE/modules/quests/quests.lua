@@ -1,6 +1,6 @@
 local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local Q = SLE.Quests
-local ObjectiveTracker_Expand, ObjectiveTracker_Collapse = ObjectiveTracker_Expand, ObjectiveTracker_Collapse
+
 local IsResting = IsResting
 local C_Item_GetItemInfo = C_Item.GetItemInfo
 local _G = _G
@@ -11,9 +11,9 @@ local statedriver = {
 	FULL = function(frame)
 		ObjectiveTrackerFrame:SetCollapsed(false)
 		if E.private.skins.blizzard.enable and E.private.skins.blizzard.objectiveTracker then HeaderMenuMinimizeButton.tex:SetTexture([[Interface\AddOns\ElvUI\Core\Media\Textures\MinusButton]]) end
-		if _G.QuestObjectiveTracker.Header.module.collapsed then
-			ObjectiveTracker_MinimizeModuleButton_OnClick(QuestHeaderMinimizeButton)
-		end
+		-- if _G.QuestObjectiveTracker.Header.module.collapsed then
+		-- 	ObjectiveTracker_MinimizeModuleButton_OnClick(QuestHeaderMinimizeButton)
+		-- end
 		frame:Show()
 	end,
 	COLLAPSED = function(frame)
@@ -22,9 +22,9 @@ local statedriver = {
 		frame:Show()
 	end,
 	COLLAPSED_QUESTS = function(frame)
-		if not _G.QuestObjectiveTracker.Header.module.collapsed then
-			ObjectiveTracker_MinimizeModuleButton_OnClick(QuestHeaderMinimizeButton)
-		end
+		-- if not _G.QuestObjectiveTracker.Header.module.collapsed then
+		-- 	ObjectiveTracker_MinimizeModuleButton_OnClick(QuestHeaderMinimizeButton)
+		-- end
 		frame:Show()
 	end,
 	HIDE = function(frame)
