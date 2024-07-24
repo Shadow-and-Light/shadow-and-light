@@ -140,21 +140,28 @@ function CA:BuildLayout()
 	end
 
 	--<<<Hooking some shit!>>>--
-	hooksecurefunc(CharacterFrame,'Collapse', function()
-		if E.db.sle.armory.character.enable and _G.PaperDollFrame:IsShown() then _G.CharacterFrame:SetWidth(448) end
+	hooksecurefunc(CharacterFrame, 'Collapse', function()
+		if E.db.sle.armory.character.enable and _G.PaperDollFrame:IsShown() then
+			_G.CharacterFrame:SetWidth(448)
+		end
 	end)
 	hooksecurefunc(CharacterFrame, 'Expand', function()
 		if E.db.sle.armory.character.enable and _G.PaperDollFrame:IsShown() then
 			_G.CharacterFrame:SetWidth(650)
 		end
 	end)
-	hooksecurefunc(CharacterFrame, 'ShowSubFrame', function(frameName)
+	hooksecurefunc(CharacterFrame, 'ShowSubFrame', function(_, frameName)
 		if frameName == 'PaperDollFrame' or frameName == 'PetPaperDollFrame' then return end
 		if _G.CharacterFrame:GetWidth() > PANEL_DEFAULT_WIDTH + 1 then
 			_G.CharacterFrame:SetWidth(PANEL_DEFAULT_WIDTH)
 		end
 	end)
 
+	hooksecurefunc(PaperDollFrame, 'OnShow', function(a,b,c)
+		if E.db.sle.armory.character.enable and _G.PaperDollFrame:IsShown() then
+			_G.CharacterFrame:SetWidth(650)
+		end
+	end)
 	hooksecurefunc('PaperDollFrame_SetLevel', function()
 		if E.db.sle.armory.character.enable then
 			_G.CharacterLevelText:SetText(_G.CharacterLevelText:GetText())
