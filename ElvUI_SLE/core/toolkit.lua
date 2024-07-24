@@ -46,7 +46,7 @@ T.GetSpell = function(id)
 	return C_Spell_GetSpellInfo(btn.secure.ID).name
 end
 
---Some of Simpy's herecy bullshit
+--Some of Simpy's (and now Flamanis) herecy bullshit
 T.rgsub = function(pattern, ...)
 	for i = 1, select('#', ...), 2 do
 		local v = select(i, ...)
