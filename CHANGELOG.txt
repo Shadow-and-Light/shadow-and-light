@@ -1,7 +1,3 @@
-v4.78 & 4.79 6/19/24
+v4.80 6/19/24
 
-• Fixed afk error
-• Fixed pvp auto release error
-• Fixed attack power on character armory stats
-• Added Draenei heritage armor quest hearthstone
-• Added/Tweaked Character Armory Average Item Level Options in the Stats section (Some adjustments may be needed after update to 4.78)
+• PrePatch for 11.0.0 Release
