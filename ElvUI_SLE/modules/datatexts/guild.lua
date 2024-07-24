@@ -301,8 +301,12 @@ local eventHandlers = {
 		else
 			BuildGuildTable()
 			UpdateGuildMessage()
-			if GetMouseFocus() == self then
-				self:GetScript("OnEnter")(self, nil, true)
+			local mouseFrames = GetMouseFoci()
+			for k, v in pairs(mouseFrames) do
+				if v == self then
+					self:GetScript("OnEnter")(self, nil, true)
+					break
+				end
 			end
 		end
 	end,
