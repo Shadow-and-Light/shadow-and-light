@@ -24,13 +24,25 @@ local FACTION_STANDING_INCREASED_ACH_BONUS = FACTION_STANDING_INCREASED_ACH_BONU
 local FACTION_STANDING_DECREASED = FACTION_STANDING_DECREASED
 local FACTION_STANDING_DECREASED_GENERIC = FACTION_STANDING_DECREASED_GENERIC
 
+-- local FACTION_STANDING_CHANGED_ACCOUNT_WIDE = FACTION_STANDING_CHANGED_ACCOUNT_WIDE
+local REPUTATION_STATUS_BAR_LABEL_ACCOUNT_WIDE = REPUTATION_STATUS_BAR_LABEL_ACCOUNT_WIDE
+local FACTION_STANDING_INCREASED_ACCOUNT_WIDE = FACTION_STANDING_INCREASED_ACCOUNT_WIDE
+local FACTION_STANDING_INCREASED_GENERIC_ACCOUNT_WIDE = FACTION_STANDING_INCREASED_GENERIC_ACCOUNT_WIDE
+-- local FACTION_STANDING_INCREASED_BONUS = FACTION_STANDING_INCREASED_BONUS
+-- local FACTION_STANDING_INCREASED_DOUBLE_BONUS = FACTION_STANDING_INCREASED_DOUBLE_BONUS
+local FACTION_STANDING_INCREASED_ACH_BONUS_ACCOUNT_WIDE = FACTION_STANDING_INCREASED_ACH_BONUS_ACCOUNT_WIDE
+local FACTION_STANDING_DECREASED_ACCOUNT_WIDE = FACTION_STANDING_DECREASED_ACCOUNT_WIDE
+local FACTION_STANDING_DECREASED_GENERIC_ACCOUNT_WIDE = FACTION_STANDING_DECREASED_GENERIC_ACCOUNT_WIDE
+
 local a, b, c, d = '([%(%)%.%%%+%-%*%?%[%^%$])', '%%%1', '%%%%[ds]', '(.-)'
 local formatFactionStanding = function(str) return str:gsub(a, b):gsub(c, d) end
 local strMatchCombat = {}
 
 DB.RepChatFrames = {}
 DB.RepIncreaseStrings = {}
+DB.RepIncreaseStringsWarband = {}
 DB.RepDecreaseStrings = {}
+DB.RepDecreaseStringsWarband = {}
 DB.factionVars = {}
 DB.factions = 0
 DB.RepIncreaseStyles = {
@@ -123,7 +135,7 @@ end
 
 function DB:PopulateRepPatterns()
 	--Simpy formatting here. Prob shouldn't touch
-	local symbols = {'%.$','%%.','%(','%)','%%(','%%)','|3%-7%%%(%%s%%%)','(.-)','%%s([^%%])','(.-)%1','%+','%%+','%%d','(%%d-)','%%.1f','([%%d.]-)'}
+	local symbols = {'%.$','%%.','%(','%%(','%)','%%)','|3%-[71]%%%(%%s%%%)','(.-)','%%s([^%%])','(.-)%1','%+','%%+','%%d', '(%%d-)','%%.1f','([%%d.]-)'}
 	local pattern
 	--When rep increases
 	pattern = T.rgsub(FACTION_STANDING_INCREASED, unpack(symbols))
@@ -131,12 +143,24 @@ function DB:PopulateRepPatterns()
 
 	pattern = T.rgsub(FACTION_STANDING_INCREASED_ACH_BONUS, unpack(symbols))
 	tinsert(DB.RepIncreaseStrings, pattern)
+	
+	pattern = T.rgsub(FACTION_STANDING_INCREASED_ACCOUNT_WIDE, unpack(symbols))
+	tinsert(DB.RepIncreaseStringsWarband, pattern)
+	
+	pattern = T.rgsub(FACTION_STANDING_INCREASED_ACH_BONUS_ACCOUNT_WIDE, unpack(symbols))
+	tinsert(DB.RepIncreaseStringsWarband, pattern)
 	--When rep decreases
 	pattern = T.rgsub(FACTION_STANDING_DECREASED, unpack(symbols))
 	tinsert(DB.RepDecreaseStrings, pattern)
 
 	pattern = T.rgsub(FACTION_STANDING_DECREASED_GENERIC, unpack(symbols))
 	tinsert(DB.RepDecreaseStrings, pattern)
+	
+	pattern = T.rgsub(FACTION_STANDING_DECREASED_ACCOUNT_WIDE, unpack(symbols))
+	tinsert(DB.RepDecreaseStringsWarband, pattern)
+
+	pattern = T.rgsub(FACTION_STANDING_DECREASED_GENERIC_ACCOUNT_WIDE, unpack(symbols))
+	tinsert(DB.RepDecreaseStringsWarband, pattern)
 end
 
 local function sendMessage(chatWindowsCache, newMessage) --Sending message in chat. TODO: check if we can actually send messages in respective chats
@@ -171,7 +195,7 @@ function DB:FilterReputation(_, message, ...)
 	if DB.db.reputation and DB.db.reputation.chatfilter.enable then
 		local increase = DB['RepIncreaseStyles'][db.style.increase] or DB['RepIncreaseStyles']['STYLE1']
 		local decrease = DB['RepDecreaseStyles'][db.style.decrease] or DB['RepDecreaseStyles']['STYLE1']
-
+		--Characterr rep
 		for i in ipairs(DB.RepIncreaseStrings) do
 			faction, value = strmatch(message, DB.RepIncreaseStrings[i])
 			if faction then
@@ -186,6 +210,26 @@ function DB:FilterReputation(_, message, ...)
 			faction, value = strmatch(message, DB.RepDecreaseStrings[i])
 			if faction then
 				newMessage = format(decrease, db.iconsize, faction, value)
+				sendMessage(chatWindowsCache, newMessage)
+
+				return true
+			end
+		end
+		--Warband rep
+		for i in ipairs(DB.RepIncreaseStringsWarband) do
+			faction, value = strmatch(message, DB.RepIncreaseStringsWarband[i])
+			if faction then
+				newMessage = format(increase, db.iconsize, REPUTATION_STATUS_BAR_LABEL_ACCOUNT_WIDE.." "..faction, value)
+				sendMessage(chatWindowsCache, newMessage)
+
+				return true
+			end
+		end
+
+		for i in ipairs(DB.RepDecreaseStringsWarband) do
+			faction, value = strmatch(message, DB.RepDecreaseStringsWarband[i])
+			if faction then
+				newMessage = format(decrease, db.iconsize, REPUTATION_STATUS_BAR_LABEL_ACCOUNT_WIDE.." "..faction, value)
 				sendMessage(chatWindowsCache, newMessage)
 
 				return true
