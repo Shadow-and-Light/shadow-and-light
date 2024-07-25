@@ -469,32 +469,32 @@ local function ObjectiveReskin()
 	end
 
 	-- SoD Raid
-	local MawBuffsBelowMinimapFrame = _G.MawBuffsBelowMinimapFrame
-	if MawBuffsBelowMinimapFrame and E.private.sle.skins.objectiveTracker.torghastPowers.enable then
-		local numRegions = MawBuffsBelowMinimapFrame.Container:GetNumRegions()
-		for i = 1, numRegions do
-			local region = select(i, MawBuffsBelowMinimapFrame.Container:GetRegions())
-			if region and region.IsObjectType and region:IsObjectType('Texture') then
-				region:SetAlpha(0)
-			end
-		end
-		-- MawBuffsBelowMinimapFrame:SetTemplate('Transparent')
-		if not MawBuffsBelowMinimapFrame.SLE_Block then
-			MawBuffsBelowMinimapFrame.SLE_Block = CreateFrame('Frame', 'MawBuffsBelowMinimapFrame_SLE_Block', MawBuffsBelowMinimapFrame.Container)
-			MawBuffsBelowMinimapFrame.SLE_Block:ClearAllPoints()
-			MawBuffsBelowMinimapFrame.SLE_Block:Point('TOPLEFT', MawBuffsBelowMinimapFrame)
-			MawBuffsBelowMinimapFrame.SLE_Block:Point('BOTTOMRIGHT', MawBuffsBelowMinimapFrame)
-			MawBuffsBelowMinimapFrame.SLE_Block:SetTemplate('Transparent')
-			MawBuffsBelowMinimapFrame.SLE_Block:SetFrameStrata('BACKGROUND')
+	-- local MawBuffsBelowMinimapFrame = _G.MawBuffsBelowMinimapFrame
+	-- if MawBuffsBelowMinimapFrame and E.private.sle.skins.objectiveTracker.torghastPowers.enable then
+	-- 	local numRegions = MawBuffsBelowMinimapFrame.Container:GetNumRegions()
+	-- 	for i = 1, numRegions do
+	-- 		local region = select(i, MawBuffsBelowMinimapFrame.Container:GetRegions())
+	-- 		if region and region.IsObjectType and region:IsObjectType('Texture') then
+	-- 			region:SetAlpha(0)
+	-- 		end
+	-- 	end
+	-- 	-- MawBuffsBelowMinimapFrame:SetTemplate('Transparent')
+	-- 	if not MawBuffsBelowMinimapFrame.SLE_Block then
+	-- 		MawBuffsBelowMinimapFrame.SLE_Block = CreateFrame('Frame', 'MawBuffsBelowMinimapFrame_SLE_Block', MawBuffsBelowMinimapFrame.Container)
+	-- 		MawBuffsBelowMinimapFrame.SLE_Block:ClearAllPoints()
+	-- 		MawBuffsBelowMinimapFrame.SLE_Block:Point('TOPLEFT', MawBuffsBelowMinimapFrame)
+	-- 		MawBuffsBelowMinimapFrame.SLE_Block:Point('BOTTOMRIGHT', MawBuffsBelowMinimapFrame)
+	-- 		MawBuffsBelowMinimapFrame.SLE_Block:SetTemplate('Transparent')
+	-- 		MawBuffsBelowMinimapFrame.SLE_Block:SetFrameStrata('BACKGROUND')
 
-			ENH:ProcessShadow(MawBuffsBelowMinimapFrame.SLE_Block, nil, MawBuffsBelowMinimapFrame.SLE_Block:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
-		end
+	-- 		ENH:ProcessShadow(MawBuffsBelowMinimapFrame.SLE_Block, nil, MawBuffsBelowMinimapFrame.SLE_Block:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
+	-- 	end
 
-		MawBuffsBelowMinimapFrame.Container.List:StripTextures()
-		MawBuffsBelowMinimapFrame.Container.List:SetTemplate('Transparent')
-		ENH:ProcessShadow(MawBuffsBelowMinimapFrame.Container.List, nil, MawBuffsBelowMinimapFrame.Container.List:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
-		ENH:HandleObjectiveFrame()
-	end
+	-- 	MawBuffsBelowMinimapFrame.Container.List:StripTextures()
+	-- 	MawBuffsBelowMinimapFrame.Container.List:SetTemplate('Transparent')
+	-- 	ENH:ProcessShadow(MawBuffsBelowMinimapFrame.Container.List, nil, MawBuffsBelowMinimapFrame.Container.List:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
+	-- 	ENH:HandleObjectiveFrame()
+	-- end
 end
 
 hooksecurefunc(S, 'Initialize', ObjectiveReskin)
