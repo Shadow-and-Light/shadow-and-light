@@ -8,8 +8,8 @@ local _G = _G
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local ScenarioStageBlock = ScenarioStageBlock
-local ScenarioProvingGroundsBlock = ScenarioProvingGroundsBlock
-local ScenarioProvingGroundsBlockAnim = ScenarioProvingGroundsBlockAnim
+local ScenarioProvingGroundsBlock = ScenarioObjectiveTracker.ProvingGroundsBlock
+local ScenarioProvingGroundsBlockAnim = ScenarioProvingGroundsBlock.CountdownAnimFrame
 
 local classColor = RAID_CLASS_COLORS[E.myclass]
 local width = 190
@@ -418,21 +418,21 @@ local function ObjectiveReskin()
 		end
 	end)]]
 	-- proving grounds
-	hooksecurefunc('Scenario_ProvingGrounds_ShowBlock', SkinProvingGroundButtons)
+	hooksecurefunc(ScenarioObjectiveTracker.ProvingGroundsBlock, 'OnLoad', SkinProvingGroundButtons)
 
 	--Doing Underlines
 	local flat = [[Interface\AddOns\ElvUI\Core\Media\Textures\Minimalist]]
 	local height = E.private.sle.skins.objectiveTracker.underlineHeight
-	local ObjectiveTrackerBlocksFrame = _G.ObjectiveTrackerBlocksFrame
+	local ObjectiveTrackerFrame = _G.ObjectiveTrackerFrame
 	local underlineHeaders = {
-		'AchievementHeader', 'CampaignQuestHeader', 'MonthlyActivitiesHeader',
-		'ProfessionHeader', 'QuestHeader', 'ScenarioHeader',
-		'BONUS_OBJECTIVE_TRACKER_MODULE', 'WORLD_QUEST_TRACKER_MODULE'
+		'AchievementObjectiveTracker', 'CampaignQuestObjectiveTracker', 'MonthlyActivitiesObjectiveTracker',
+		'ProfessionsRecipeTracker', 'QuestObjectiveTracker', 'ScenarioObjectiveTracker',
+		'BonusObjectiveTracker', 'WorldQuestObjectiveTracker', 'Header'
 	}
 	local underline
 	for _, header in pairs(underlineHeaders) do
-		if ObjectiveTrackerBlocksFrame[header] then
-			underline = Sk:CreateUnderline(ObjectiveTrackerBlocksFrame[header], flat, true, height)
+		if ObjectiveTrackerFrame[header] then
+			underline = Sk:CreateUnderline(ObjectiveTrackerFrame[header], flat, true, height)
 		elseif _G[header] and _G[header].Header then
 			underline = Sk:CreateUnderline(_G[header].Header, flat, true, height)
 		end
@@ -442,7 +442,7 @@ local function ObjectiveReskin()
 	Sk:Update_ObjectiveTrackerUnderlinesVisibility()
 	Sk:Update_ObjectiveTrackerUnderlinesColor()
 
-	local MawBuffsBlock = ScenarioBlocksFrame.MawBuffsBlock
+	local MawBuffsBlock = ScenarioObjectiveTracker.MawBuffsBlock
 	if MawBuffsBlock and E.private.sle.skins.objectiveTracker.torghastPowers.enable then
 		local numRegions = MawBuffsBlock.Container:GetNumRegions()
 		for i = 1, numRegions do
