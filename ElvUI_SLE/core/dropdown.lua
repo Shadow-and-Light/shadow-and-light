@@ -202,7 +202,6 @@ end
 function DD:GetCooldown(CDtype, id)
 	local cd, formatID
 	local start, duration
-	print(CDtype, id)
 	-- local start, duration = _G['Get'..CDtype..'Cooldown'](id)
 	if CDtype == "Item" then
 		start, duration = C_Item_GetItemCooldown(id)
@@ -210,7 +209,6 @@ function DD:GetCooldown(CDtype, id)
 		local data = C_Spell_GetSpellCooldown(id)
 		start, duration = data.startTime, data.duration
 	end
-	print(start, duration)
 	if start ~= nil and start > 0 then
 		cd = duration - (GetTime() - start)
 		cd, formatID = E:GetTimeInfo(cd, 0)
