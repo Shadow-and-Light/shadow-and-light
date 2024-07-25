@@ -32,10 +32,10 @@ function Pr:UpdateSkills(event)
 	if event ~= 'CHAT_MSG_SKILL' then
 		Pr.DEname, Pr.LOCKname, Pr.SMITHname = false, false, false
 
-		if(IsSpellKnown(13262)) then Pr.DEname = C_Spell_GetSpellInfo(13262) end -- Enchant
-		if(IsSpellKnown(1804)) then Pr.LOCKname = C_Spell_GetSpellInfo(1804) end -- Lockpicking
-		if(IsSpellKnown(25229)) then Pr.PROSPECTname = C_Spell_GetSpellInfo(25229) end -- Jewelcrating (Prospecting)
-		if(IsSpellKnown(45357)) then Pr.MILLname = C_Spell_GetSpellInfo(45357) end -- Inscription (Milling)
+		if(IsSpellKnown(13262)) then Pr.DEname = C_Spell_GetSpellInfo(13262).name end -- Enchant
+		if(IsSpellKnown(1804)) then Pr.LOCKname = C_Spell_GetSpellInfo(1804).name end -- Lockpicking
+		if(IsSpellKnown(25229)) then Pr.PROSPECTname = C_Spell_GetSpellInfo(25229).name end -- Jewelcrating (Prospecting)
+		if(IsSpellKnown(45357)) then Pr.MILLname = C_Spell_GetSpellInfo(45357).name end -- Inscription (Milling)
 	end
 end
 
