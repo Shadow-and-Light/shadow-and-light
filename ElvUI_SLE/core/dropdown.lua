@@ -11,6 +11,8 @@ local GetTime = GetTime
 local CreateFrame = CreateFrame
 local ToggleFrame = ToggleFrame
 local GetCursorPosition = GetCursorPosition
+local C_Spell_GetSpellCooldown = C_Spell and C_Spell.GetSpellCooldown or GetSpellCooldown
+local C_Item_GetItemCooldown = C_Item and C_Item.GetItemCooldown or GetItemCooldown
 local C_Spell_GetSpellInfo = C_Spell and C_Spell.GetSpellInfo or GetSpellInfo
 local C_Item_GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
 
@@ -202,13 +204,12 @@ function DD:GetCooldown(CDtype, id)
 	local start, duration
 	-- local start, duration = _G['Get'..CDtype..'Cooldown'](id)
 	if CDtype == "Item" then
-		start, duration = C_Item_GetItemInfo(id)
+		start, duration = C_Item_GetItemCooldown(id)
 	elseif CDtype == "Spell" then
-		local data = C_Spell_GetSpellInfo(id)
+		local data = C_Spell_GetSpellCooldown(id)
 		start, duration = data.startTime, data.duration
 	end
-
-	if start > 0 then
+	if start ~= nil and start > 0 then
 		cd = duration - (GetTime() - start)
 		cd, formatID = E:GetTimeInfo(cd, 0)
 		cd = format(E.TimeFormats[formatID][3], cd)

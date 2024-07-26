@@ -8,8 +8,8 @@ local _G = _G
 
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local ScenarioStageBlock = ScenarioStageBlock
-local ScenarioProvingGroundsBlock = ScenarioProvingGroundsBlock
-local ScenarioProvingGroundsBlockAnim = ScenarioProvingGroundsBlockAnim
+local ScenarioProvingGroundsBlock = ScenarioObjectiveTracker.ProvingGroundsBlock
+local ScenarioProvingGroundsBlockAnim = ScenarioProvingGroundsBlock.CountdownAnimFrame
 
 local classColor = RAID_CLASS_COLORS[E.myclass]
 local width = 190
@@ -418,21 +418,21 @@ local function ObjectiveReskin()
 		end
 	end)]]
 	-- proving grounds
-	hooksecurefunc('Scenario_ProvingGrounds_ShowBlock', SkinProvingGroundButtons)
+	hooksecurefunc(ScenarioObjectiveTracker.ProvingGroundsBlock, 'OnLoad', SkinProvingGroundButtons)
 
 	--Doing Underlines
 	local flat = [[Interface\AddOns\ElvUI\Core\Media\Textures\Minimalist]]
 	local height = E.private.sle.skins.objectiveTracker.underlineHeight
-	local ObjectiveTrackerBlocksFrame = _G.ObjectiveTrackerBlocksFrame
+	local ObjectiveTrackerFrame = _G.ObjectiveTrackerFrame
 	local underlineHeaders = {
-		'AchievementHeader', 'CampaignQuestHeader', 'MonthlyActivitiesHeader',
-		'ProfessionHeader', 'QuestHeader', 'ScenarioHeader',
-		'BONUS_OBJECTIVE_TRACKER_MODULE', 'WORLD_QUEST_TRACKER_MODULE'
+		'AchievementObjectiveTracker', 'CampaignQuestObjectiveTracker', 'MonthlyActivitiesObjectiveTracker',
+		'ProfessionsRecipeTracker', 'QuestObjectiveTracker', 'ScenarioObjectiveTracker',
+		'BonusObjectiveTracker', 'WorldQuestObjectiveTracker', 'Header'
 	}
 	local underline
 	for _, header in pairs(underlineHeaders) do
-		if ObjectiveTrackerBlocksFrame[header] then
-			underline = Sk:CreateUnderline(ObjectiveTrackerBlocksFrame[header], flat, true, height)
+		if ObjectiveTrackerFrame[header] then
+			underline = Sk:CreateUnderline(ObjectiveTrackerFrame[header], flat, true, height)
 		elseif _G[header] and _G[header].Header then
 			underline = Sk:CreateUnderline(_G[header].Header, flat, true, height)
 		end
@@ -442,7 +442,7 @@ local function ObjectiveReskin()
 	Sk:Update_ObjectiveTrackerUnderlinesVisibility()
 	Sk:Update_ObjectiveTrackerUnderlinesColor()
 
-	local MawBuffsBlock = ScenarioBlocksFrame.MawBuffsBlock
+	local MawBuffsBlock = ScenarioObjectiveTracker.MawBuffsBlock
 	if MawBuffsBlock and E.private.sle.skins.objectiveTracker.torghastPowers.enable then
 		local numRegions = MawBuffsBlock.Container:GetNumRegions()
 		for i = 1, numRegions do
@@ -469,32 +469,32 @@ local function ObjectiveReskin()
 	end
 
 	-- SoD Raid
-	local MawBuffsBelowMinimapFrame = _G.MawBuffsBelowMinimapFrame
-	if MawBuffsBelowMinimapFrame and E.private.sle.skins.objectiveTracker.torghastPowers.enable then
-		local numRegions = MawBuffsBelowMinimapFrame.Container:GetNumRegions()
-		for i = 1, numRegions do
-			local region = select(i, MawBuffsBelowMinimapFrame.Container:GetRegions())
-			if region and region.IsObjectType and region:IsObjectType('Texture') then
-				region:SetAlpha(0)
-			end
-		end
-		-- MawBuffsBelowMinimapFrame:SetTemplate('Transparent')
-		if not MawBuffsBelowMinimapFrame.SLE_Block then
-			MawBuffsBelowMinimapFrame.SLE_Block = CreateFrame('Frame', 'MawBuffsBelowMinimapFrame_SLE_Block', MawBuffsBelowMinimapFrame.Container)
-			MawBuffsBelowMinimapFrame.SLE_Block:ClearAllPoints()
-			MawBuffsBelowMinimapFrame.SLE_Block:Point('TOPLEFT', MawBuffsBelowMinimapFrame)
-			MawBuffsBelowMinimapFrame.SLE_Block:Point('BOTTOMRIGHT', MawBuffsBelowMinimapFrame)
-			MawBuffsBelowMinimapFrame.SLE_Block:SetTemplate('Transparent')
-			MawBuffsBelowMinimapFrame.SLE_Block:SetFrameStrata('BACKGROUND')
+	-- local MawBuffsBelowMinimapFrame = _G.MawBuffsBelowMinimapFrame
+	-- if MawBuffsBelowMinimapFrame and E.private.sle.skins.objectiveTracker.torghastPowers.enable then
+	-- 	local numRegions = MawBuffsBelowMinimapFrame.Container:GetNumRegions()
+	-- 	for i = 1, numRegions do
+	-- 		local region = select(i, MawBuffsBelowMinimapFrame.Container:GetRegions())
+	-- 		if region and region.IsObjectType and region:IsObjectType('Texture') then
+	-- 			region:SetAlpha(0)
+	-- 		end
+	-- 	end
+	-- 	-- MawBuffsBelowMinimapFrame:SetTemplate('Transparent')
+	-- 	if not MawBuffsBelowMinimapFrame.SLE_Block then
+	-- 		MawBuffsBelowMinimapFrame.SLE_Block = CreateFrame('Frame', 'MawBuffsBelowMinimapFrame_SLE_Block', MawBuffsBelowMinimapFrame.Container)
+	-- 		MawBuffsBelowMinimapFrame.SLE_Block:ClearAllPoints()
+	-- 		MawBuffsBelowMinimapFrame.SLE_Block:Point('TOPLEFT', MawBuffsBelowMinimapFrame)
+	-- 		MawBuffsBelowMinimapFrame.SLE_Block:Point('BOTTOMRIGHT', MawBuffsBelowMinimapFrame)
+	-- 		MawBuffsBelowMinimapFrame.SLE_Block:SetTemplate('Transparent')
+	-- 		MawBuffsBelowMinimapFrame.SLE_Block:SetFrameStrata('BACKGROUND')
 
-			ENH:ProcessShadow(MawBuffsBelowMinimapFrame.SLE_Block, nil, MawBuffsBelowMinimapFrame.SLE_Block:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
-		end
+	-- 		ENH:ProcessShadow(MawBuffsBelowMinimapFrame.SLE_Block, nil, MawBuffsBelowMinimapFrame.SLE_Block:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
+	-- 	end
 
-		MawBuffsBelowMinimapFrame.Container.List:StripTextures()
-		MawBuffsBelowMinimapFrame.Container.List:SetTemplate('Transparent')
-		ENH:ProcessShadow(MawBuffsBelowMinimapFrame.Container.List, nil, MawBuffsBelowMinimapFrame.Container.List:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
-		ENH:HandleObjectiveFrame()
-	end
+	-- 	MawBuffsBelowMinimapFrame.Container.List:StripTextures()
+	-- 	MawBuffsBelowMinimapFrame.Container.List:SetTemplate('Transparent')
+	-- 	ENH:ProcessShadow(MawBuffsBelowMinimapFrame.Container.List, nil, MawBuffsBelowMinimapFrame.Container.List:GetFrameLevel(), E.db.sle.shadows.torghastPowers)
+	-- 	ENH:HandleObjectiveFrame()
+	-- end
 end
 
 hooksecurefunc(S, 'Initialize', ObjectiveReskin)
