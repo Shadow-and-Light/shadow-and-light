@@ -7,7 +7,7 @@ local sub = string.utf8sub
 local GetInstanceInfo, GetDifficultyInfo = GetInstanceInfo, GetDifficultyInfo
 local IsInGuild, IsInInstance = IsInGuild, IsInInstance
 local InstanceDifficulty = _G.MinimapCluster.InstanceDifficulty
-local Instance = InstanceDifficulty.Instance
+local Instance = MinimapCluster.InstanceDifficulty
 local ChallengeMode = InstanceDifficulty.ChallengeMode
 local Guild = InstanceDifficulty.Guild
 
