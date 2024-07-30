@@ -50,8 +50,9 @@ end
 T.rgsub = function(pattern, ...)
 	for i = 1, select('#', ...), 2 do
 		local v = select(i, ...)
-		if strmatch(pattern, v) then
-			pattern = gsub(pattern, v, select(i + 1, ...), 1)
+		local z = strmatch(pattern, v) and select(i + 1, ...)
+		if z then
+			pattern = gsub(pattern, v, z, 1)
 		end
 	end
 
