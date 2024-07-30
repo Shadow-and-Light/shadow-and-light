@@ -7,7 +7,6 @@ local sub = string.utf8sub
 local GetInstanceInfo, GetDifficultyInfo = GetInstanceInfo, GetDifficultyInfo
 local IsInGuild, IsInInstance = IsInGuild, IsInInstance
 local InstanceDifficulty = _G.MinimapCluster.InstanceDifficulty
-local Instance = InstanceDifficulty.Instance
 local ChallengeMode = InstanceDifficulty.ChallengeMode
 local Guild = InstanceDifficulty.Guild
 
@@ -118,7 +117,7 @@ function I:GenerateText(_, guild)
 			local logo = I:GuildEmblem()
 			I.frame.icon:SetText(logo)
 		end
-		Instance:Hide()
+		InstanceDifficulty:Hide()
 		ChallengeMode:Hide()
 		Guild:Hide()
 	end
@@ -131,7 +130,7 @@ function I:Initialize()
 	I.db = E.db.sle.minimap.instance
 	I:CreateText()
 
-	Instance:HookScript('OnShow', function(frame) if I.db.enable then frame:Hide() end end)
+	InstanceDifficulty:HookScript('OnShow', function(frame) if I.db.enable then frame:Hide() end end)
 	Guild:HookScript('OnShow', function(frame) if I.db.enable then frame:Hide() end end)
 	ChallengeMode:HookScript('OnShow', function(frame) if I.db.enable then frame:Hide() end end)
 

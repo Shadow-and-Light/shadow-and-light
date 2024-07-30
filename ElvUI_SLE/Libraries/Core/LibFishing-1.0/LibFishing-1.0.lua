@@ -17,6 +17,8 @@ local C_AddOns_GetAddOnInfo = C_AddOns and C_AddOns.GetAddOnInfo or GetAddOnInfo
 local C_AddOns_IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded or IsAddOnLoaded
 local C_Item_GetItemCount = C_Item and C_Item.GetItemCount or GetItemCount
 local C_Item_GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
+local GetSpellInfo = C_Spell.GetSpellInfo or GetSpellInfo
+local GetSpellLink = C_Spell.GetSpellLink or GetSpellLink
 
 local MAJOR_VERSION = "LibFishing-1.0"
 local MINOR_VERSION = 101109
@@ -197,10 +199,11 @@ function FishLib:GetFishingSpellInfo()
     local name, _, _, _, count, offset, _ = GetProfessionInfo(fishing);
     local id = nil;
     for i = 1, count do
-        local _, spellId = GetSpellLink(offset + i, "spell");
-        local spellName = GetSpellInfo(spellId);
-        if (spellName == name) then
-            id = spellId;
+		local itemLink = C_SpellBook.GetSpellBookItemLink(offset + i, Enum.SpellBookSpellBank.Player);
+		local info = C_Spell.GetSpellInfo(itemLink);
+
+        if info and info.name == name then
+            id = info.spellID;
             break;
         end
     end
@@ -2107,10 +2110,10 @@ end
     return framespec, n;
 end
 
-local function ClickHandled(self)
-	if ( self.postclick ) then
-		self.postclick();
-	end
+local function ClickHandled(self, mouse_button, down)
+    if ( self.postclick ) then
+        self.postclick(mouse_button, down);
+    end
 end
 
 local function BuffUpdate(self, elapsed)
