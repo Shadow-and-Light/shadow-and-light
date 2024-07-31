@@ -183,6 +183,8 @@ function RM:Initialize()
 	if not SLE.initialized then return end
 	RM.db = E.db.sle.raidmarkers
 
+	_G.BINDING_HEADER_SLE = '|cff9482c9Shadow & Light|r'
+
 	--Keybinds
 	RM:Make('SLE_RaidFlare1', '/clearworldmarker 1\n/worldmarker 1', 'Blue Flare')
 	RM:Make('SLE_RaidFlare2', '/clearworldmarker 2\n/worldmarker 2', 'Green Flare')

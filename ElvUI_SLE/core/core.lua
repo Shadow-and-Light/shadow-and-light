@@ -23,8 +23,6 @@ _G.ElvDB.ShadowLightAlpha = false
 _G.ElvDB.ShadowLightAlpha = true
 --@end-alpha@
 
-BINDING_HEADER_SLE = '|cff9482c9Shadow & Light|r'
-
 SLE.elvV = tonumber(E.version)
 SLE.elvR = tonumber(GetAddOnMetadata('ElvUI_SLE', 'X-ElvVersion'))
 
