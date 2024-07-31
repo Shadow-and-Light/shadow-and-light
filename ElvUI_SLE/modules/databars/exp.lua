@@ -102,7 +102,7 @@ end
 hooksecurefunc(EDB, 'ExperienceBar_Update', UpdateExperience)
 
 function DB:PopulateExpPatterns()
-	local symbols = {'%(','%%(','%)','%%)','%.','%%.','([-+])','%%%1','|4.-;','.-','%%[sd]','(.-)','%%%d%$[sd]','(.-)'}
+	local symbols = {'%(', '%%(', '%)', '%%)', '%.', '%%.', '([-+])', '%%%1', '|4.-;', '.-', '%%[sd]', '(.-)', '%%%d%$[sd]', '(.-)' }
 	local pattern
 
 	pattern = T.rgsub(COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED, unpack(symbols))
