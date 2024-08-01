@@ -48,15 +48,17 @@ end
 
 --Some of Simpy's (and now Flamanis) herecy bullshit
 T.rgsub = function(pattern, ...)
-	for i = 1, select('#', ...), 2 do
-		local v = select(i, ...)
-		if strmatch(pattern, v) then
-			pattern = gsub(pattern, v, select(i + 1, ...), 1)
-		end
-	end
+    for i = 1, select('#', ...), 2 do
+        local v, y = select(i, ...)
+        local z = strmatch(pattern, v) and y
+        if z then
+            pattern = gsub(pattern, v, z)
+        end
+    end
 
-	return pattern
+    return pattern
 end
+
 
 T.SafeHookScript = function(frame, handlername, newscript)
 	local oldValue = frame:GetScript(handlername)
