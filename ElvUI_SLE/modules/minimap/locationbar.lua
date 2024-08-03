@@ -715,7 +715,7 @@ function LP:PopulateDropdown(click)
 end
 
 function LP:GetProf()
-	LP.EngineerName = C_Spell_GetSpellInfo(4036)
+	LP.EngineerName = C_Spell_GetSpellInfo(4036).name
 	LP:CHAT_MSG_SKILL()
 end
 
