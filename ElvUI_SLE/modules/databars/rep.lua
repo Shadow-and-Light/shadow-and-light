@@ -78,56 +78,65 @@ local function ReputationBar_Update()
 	local bar = EDB.StatusBars.Reputation
 	if not bar.db.enable or bar:ShouldHide() then return end
 
-	local displayString, textFormat, label = '', EDB.db.reputation.textFormat
-	local name, reaction, minValue, maxValue, curValue, factionID = GetWatchedFactionInfo()
+	local data = E:GetWatchedFactionInfo()
+	local name, reaction, currentReactionThreshold, nextReactionThreshold, currentStanding, factionID = data.name, data.reaction, data.currentReactionThreshold, data.nextReactionThreshold, data.currentStanding, data.factionID
+	local displayString, textFormat, standing, rewardPending, _ = '', EDB.db.reputation.textFormat
+
+	if reaction == 0 then
+		reaction = 1
+	end
+
 	local info = E.Retail and factionID and GetFriendshipReputation(factionID)
 
-	if info and info.friendshipFactionID then
-		local isMajorFaction = factionID and C_Reputation_IsMajorFaction(factionID)
+	if info and info.friendshipFactionID and info.friendshipFactionID > 0 then
+		standing, currentReactionThreshold, nextReactionThreshold, currentStanding = info.reaction, info.reactionThreshold or 0, info.nextThreshold or huge, info.standing or 1
+	end
 
-		if info and info.friendshipFactionID > 0 then
-			label, minValue, maxValue, curValue = info.reaction, info.reactionThreshold or 0, info.nextThreshold or 1, info.standing or 1
-		elseif isMajorFaction then
-			local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
-			local renownColor = EDB.db.colors.factionColors[10]
-			local renownHex = E:RGBToHex(renownColor.r, renownColor.g, renownColor.b)
-
-			reaction, minValue, maxValue = 10, 0, majorFactionData.renownLevelThreshold
-			curValue = C_MajorFactions_HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
-			label = format('%s%s|r %s', renownHex, RENOWN_LEVEL_LABEL, majorFactionData.renownLevel)
-		end
-	elseif C_Reputation_IsFactionParagon(factionID) then
+	if not standing and factionID and C_Reputation_IsFactionParagon(factionID) then
 		local current, threshold
-		current, threshold = C_Reputation_GetFactionParagonInfo(factionID)
+		current, threshold, _, rewardPending = C_Reputation_GetFactionParagonInfo(factionID)
 
 		if current and threshold then
-			label, minValue, maxValue, curValue, reaction = L["Paragon"], 0, threshold, current % threshold, 9
+			standing, currentReactionThreshold, nextReactionThreshold, currentStanding, reaction = L["Paragon"], 0, threshold, current % threshold, 9
 		end
 	end
 
-	if not label then
-		label = _G['FACTION_STANDING_LABEL'..reaction] or UNKNOWN
+	if not standing and factionID and E.Retail and C_Reputation_IsMajorFaction(factionID) then
+		local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
+		local renownColor = DB.db.colors.factionColors[10]
+		local renownHex = E:RGBToHex(renownColor.r, renownColor.g, renownColor.b)
+
+		reaction, currentReactionThreshold, nextReactionThreshold = 10, 0, majorFactionData.renownLevelThreshold
+		currentStanding = C_MajorFactions_HasMaximumRenown(factionID) and majorFactionData.renownLevelThreshold or majorFactionData.renownReputationEarned or 0
+		standing = format('%s%s %s|r', renownHex, RENOWN_LEVEL_LABEL, majorFactionData.renownLevel)
 	end
 
-	bar:SetMinMaxValues(minValue, maxValue)
-	bar:SetValue(curValue)
+	if not standing then
+		standing = _G['FACTION_STANDING_LABEL'..reaction] or UNKNOWN
+	end
+	
+	local total = nextReactionThreshold == huge and 1 or nextReactionThreshold -- we need to correct the min/max of friendship factions to display the bar at 100%
 
-	local current, maximum, percent = GetValues(curValue, minValue, maxValue)
+	if name then
+		local current, maximum, percent, capped = GetValues(currentStanding, currentReactionThreshold, total)
 
-	if textFormat == 'PERCENT' then
-		displayString = format('%s: %d%% [%s]', name, percent, label)
-	elseif textFormat == 'CURMAX' then
-		displayString = format('%s: %s - %s [%s]', name, current, maximum, label)
-	elseif textFormat == 'CURPERC' then
-		displayString = format('%s: %s - %d%% [%s]', name, current, percent, label)
-	elseif textFormat == 'CUR' then
-		displayString = format('%s: %s [%s]', name, current, label)
-	elseif textFormat == 'REM' then
-		displayString = format('%s: %s [%s]', name, maximum - current, label)
-	elseif textFormat == 'CURREM' then
-		displayString = format('%s: %s - %s [%s]', name, current, maximum - current, label)
-	elseif textFormat == 'CURPERCREM' then
-		displayString = format('%s: %s - %d%% (%s) [%s]', name, current, percent, (maximum - current), label)
+		if capped and textFormat ~= 'NONE' then -- show only name and standing on exalted
+			displayString = format('%s: [%s]', name, standing)
+		elseif textFormat == 'PERCENT' then
+			displayString = format('%s: %d%% [%s]', name, percent, standing)
+		elseif textFormat == 'CURMAX' then
+			displayString = format('%s: %s - %s [%s]', name, current, maximum, standing)
+		elseif textFormat == 'CURPERC' then
+			displayString = format('%s: %s - %d%% [%s]', name, current, percent, standing)
+		elseif textFormat == 'CUR' then
+			displayString = format('%s: %s [%s]', name, current, standing)
+		elseif textFormat == 'REM' then
+			displayString = format('%s: %s [%s]', name, maximum - current, standing)
+		elseif textFormat == 'CURREM' then
+			displayString = format('%s: %s - %s [%s]', name, current, maximum - current, standing)
+		elseif textFormat == 'CURPERCREM' then
+			displayString = format('%s: %s - %d%% (%s) [%s]', name, current, percent, maximum - current, standing)
+		end
 	end
 
 	bar.text:SetText(displayString)
