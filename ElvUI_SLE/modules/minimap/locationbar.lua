@@ -126,6 +126,7 @@ LP.PortItems = {
 	{87548}, --Pandaria Arch
 	{180817}, --Cypher of Relocation
 	{151016}, --Fractured Necrolyte Skull
+	{211788, nil, true}, -- Tess's Peacebloom (Gilneas)
 }
 LP.EngineerItems = {
 	{18984, nil, true}, --Dimensional Ripper - Everlook
