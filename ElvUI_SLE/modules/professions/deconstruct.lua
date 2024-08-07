@@ -187,7 +187,7 @@ function Pr:IsUnlockable(itemLink)
 	if _G.TradeFrame:IsShown() then
 		workLink = GetTradeTargetItemLink(7)
 	else
-		local slot = GetMouseFocus()
+		local slot = GetMouseFoci()[1]
 		local bag = slot:GetParent():GetID()
 		local itemInfo = C_Container_GetContainerItemInfo(bag, slot:GetID())
 		workLink = itemInfo.hyperlink
