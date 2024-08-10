@@ -746,18 +746,6 @@ P["sle"] = {
 	},
 	--Quests
 	["quests"] = {
-		["visibility"] = {
-			["enable"] = false,
-			["bg"] = "COLLAPSED",
-			["arena"] = "COLLAPSED",
-			["dungeon"] = "FULL",
-			["raid"] = "COLLAPSED",
-			["scenario"] = "FULL",
-			["rested"] = "FULL",
-			["garrison"] = "FULL",
-			["orderhall"] = "FULL",
-			["combat"] = "NONE",
-		},
 		["autoReward"] = false,
 	},
 	--PvP

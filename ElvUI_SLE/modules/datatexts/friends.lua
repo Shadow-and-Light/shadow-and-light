@@ -384,9 +384,9 @@ local function OnEvent(self, event, message)
 	end
 
 	if event == 'MODIFIER_STATE_CHANGED' then
-		if not IsAltKeyDown() and GetMouseFocus() == self then
+		if not IsAltKeyDown() and GetMouseFoci()[1] == self then
 			OnEnter(self)
-		elseif IsAltKeyDown and GetMouseFocus() == self then
+		elseif IsAltKeyDown and GetMouseFoci()[1] == self then
 			tooltip:Hide()
 		end
 	end
