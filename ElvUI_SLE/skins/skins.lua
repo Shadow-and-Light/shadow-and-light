@@ -169,8 +169,6 @@ function Sk:Initialize()
 		end)
 	end
 	function Sk:ForUpdateAll()
-		Sk:Update_ObjectiveTrackerUnderlinesVisibility()
-		Sk:Update_ObjectiveTrackerUnderlinesColor()
 		Sk:Media()
 	end
 end
