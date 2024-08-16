@@ -156,7 +156,7 @@ function Sk:ConvertScrollBarToThin(frame, thumbY, thumbX, template, thinWidth)
 	end
 
 function Sk:Initialize()
-	local LQT = LibStub("LibQTip-1.0", true)
+	local LQT = LibStub('LibQTip-1.0', true)
 	if LQT then
 		hooksecurefunc(LQT, 'Acquire', function()
 			for _, Tooltip in LQT:IterateTooltips() do
@@ -169,8 +169,6 @@ function Sk:Initialize()
 		end)
 	end
 	function Sk:ForUpdateAll()
-		Sk:Update_ObjectiveTrackerUnderlinesVisibility()
-		Sk:Update_ObjectiveTrackerUnderlinesColor()
 		Sk:Media()
 	end
 end

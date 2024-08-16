@@ -106,6 +106,8 @@ end
 function SLE:UpdateMedia()
 	E:UpdateClassColor(E.db.sle.shadows.shadowcolor)
 	E:UpdateClassColor(E.db.sle.bags.equipmentmanager.color)
+	E:UpdateClassColor(E.db.sle.armory.stats.itemLevel.EquippedColor)
+	E:UpdateClassColor(E.db.sle.armory.stats.itemLevel.AverageColor)
 end
 
 function SLE:Initialize()

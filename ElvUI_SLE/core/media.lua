@@ -1,7 +1,6 @@
 ﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local M = SLE.Media
 
---GLOBALS: hooksecurefunc
 local _G = _G
 local random = random
 local FadingFrame_Show = FadingFrame_Show
@@ -11,23 +10,12 @@ M.PvPInfo = L["SLE_MEDIA_PVP"]
 M.Subzones = L["SLE_MEDIA_SUBZONES"]
 M.PVPArena = L["SLE_MEDIA_PVPARENA"]
 
-local ClassColor = RAID_CLASS_COLORS[E.myclass]
-
 local Colors = {
 	[1] = {0.41, 0.8, 0.94}, -- sanctuary
 	[2] = {1.0, 0.1, 0.1}, -- hostile
 	[3] = {0.1, 1.0, 0.1}, --friendly
 	[4] = {1.0, 0.7, 0}, --contested
 	[5] = {1.0, 0.9294, 0.7607}, --white
-}
-
-local skinnableWidgets = {
-	[1217] = true, --Alliance warfront BfA
-	[1329] = true, --Horde warfront BfA
-	[2319] = true,
-	[3302] = true,
-	[4324] = true,
-	[4947] = true,
 }
 
 local fontFrames = {
@@ -42,53 +30,6 @@ local fontFrames = {
 	QuestFont_Enormous = 'questFontSuperHuge', -- Not Sure Which One This Is
 }
 
-local objectiveFrames = {
-	ObjectiveTrackerBlocksFrame = { 'CampaignQuestHeader', 'QuestHeader', 'AchievementHeader', 'ScenarioHeader', 'ProfessionHeader', 'MonthlyActivitiesHeader' },
-	BONUS_OBJECTIVE_TRACKER_MODULE = 'Header',
-	WORLD_QUEST_TRACKER_MODULE = 'Header',
-}
-
-local function SetObjectiveFrameFonts()
-	local db = E.db.sle.media.fonts
-	local COLOR
-
-	if E.db.sle.skins.objectiveTracker.classHeader then
-		COLOR = ClassColor
-	else
-		COLOR = E.db.sle.skins.objectiveTracker.colorHeader
-	end
-
-	for frame, children in pairs(objectiveFrames) do
-		if _G[frame] then
-			if type(children) == 'table' then
-				for _, child in pairs(children) do
-					if _G[frame][child] then
-						_G[frame][child].Text:FontTemplate(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.fontSize, db.objectiveHeader.fontOutline)
-						_G[frame][child].Text:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
-					end
-				end
-			else
-				_G[frame][children].Text:FontTemplate(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.fontSize, db.objectiveHeader.fontOutline)
-				_G[frame][children].Text:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
-			end
-		end
-	end
-
-	-- local widgetFrames = _G.ScenarioStageBlock.WidgetContainer.widgetFrames
-	-- if widgetFrames then
-		-- for widgetID, frame in pairs(widgetFrames) do
-			-- if skinnableWidgets[widgetID] and (frame and frame.HeaderText) then
-				-- frame.HeaderText:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.HeaderText.font), db.scenarioStage.HeaderText.fontSize, db.scenarioStage.HeaderText.fontOutline)
-				-- if frame.Timer and frame.Timer.Text then
-					-- frame.Timer.Text:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.TimerText.font), db.scenarioStage.TimerText.fontSize, db.scenarioStage.TimerText.fontOutline)
-				-- end
-			-- end
-		-- end
-	-- end
-
-	-- _G.ScenarioStageBlock.Stage:FontTemplate(E.LSM:Fetch('font', db.scenarioStage.HeaderText.font), db.scenarioStage.HeaderText.fontSize, db.scenarioStage.HeaderText.fontOutline)
-end
-
 function M:SetBlizzFonts()
 	if not E.private.general.replaceBlizzFonts then return end
 	local db = E.db.sle.media.fonts
@@ -98,29 +39,6 @@ function M:SetBlizzFonts()
 			_G[frame]:FontTemplate(E.LSM:Fetch('font', db[option].font), db[option].fontSize, db[option].fontOutline)
 		end
 	end
-
-	--* Objective Frame
-	-- Try to reduce addon conflicts when MerathilisUI addon is enabled as well as their option to alter the objective tracker is enabled
-	if SLE._Compatibility['ElvUI_MerathilisUI'] and E.db.mui.blizzard.objectiveTracker.enable then return end
-
-	local COLOR
-	if E.db.sle.skins.objectiveTracker.classHeader then
-		COLOR = ClassColor
-	else
-		COLOR = E.db.sle.skins.objectiveTracker.colorHeader
-	end
-
-	-- if not _G.ObjectiveTrackerFrame.SLEHookedFonts then
-		-- hooksecurefunc('ObjectiveTracker_Update', SetObjectiveFrameFonts)
-		-- _G.ObjectiveTrackerFrame.SLEHookedFonts = true
-	-- end
-
-	SetObjectiveFrameFonts()
-
-	-- _G.ScenarioStageBlock.Stage:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
-	_G.ObjectiveTrackerFrame.Header.Text:FontTemplate(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.fontSize, db.objectiveHeader.fontOutline)
-	_G.ObjectiveTrackerFrame.Header.Text:SetTextColor(COLOR.r, COLOR.g, COLOR.b)
-	if M.BonusObjectiveBarText then M.BonusObjectiveBarText:FontTemplate(E.LSM:Fetch('font', db.objective.font), db.objective.fontSize, db.objective.fontOutline) end
 end
 
 function M:TextShow()
