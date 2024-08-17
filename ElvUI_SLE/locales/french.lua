@@ -27,7 +27,6 @@ L["Adds |cff9482c9Shadow & Light|r buttons to main game menu."] = "Ajouter un bo
 L["Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext."] = "Modifier l'info-bulle"
 L["Advanced Options"] = "Options avancées"
 L["AFK Message & Time"] = true
-L["AFK Message & Time"] = true
 L["AFK Mode in |cff9482c9Shadow & Light|r is additional settings/elements for standard |cff1784d1ElvUI|r AFK screen."] = "Le mode AFK dans |cff9482c9Shadow & Light|r permet des réglages/éléments supplémentaires pour le mode AFK standard de |cff1784d1ElvUI|r."
 L["Allow |cff9482c9Shadow & Light|r to change some of ElvUI's options limits."] = "Permet à |cff9482c9Shadow & Light|r de modifier les limites d'options de ElvUI."
 L["Allow Advanced Options"] = "Autoriser les options avancées"

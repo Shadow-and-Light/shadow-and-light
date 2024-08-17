@@ -27,7 +27,6 @@ L["Adds |cff9482c9Shadow & Light|r buttons to main game menu."] = "|cff9482c9Sha
 L["Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext."] = true
 L["Advanced Options"] = true
 L["AFK Message & Time"] = true
-L["AFK Message & Time"] = true
 L["AFK Mode in |cff9482c9Shadow & Light|r is additional settings/elements for standard |cff1784d1ElvUI|r AFK screen."] = "|cff9482c9Shadow & Light|r의 자리비움 모드는 |cff1784d1ElvUI|r의 자리비움 화면보다 추가적인 설정/요소를 제공합니다."
 L["Allow |cff9482c9Shadow & Light|r to change some of ElvUI's options limits."] = true
 L["Allow Advanced Options"] = true

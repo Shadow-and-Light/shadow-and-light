@@ -27,7 +27,6 @@ L["Adds |cff9482c9Shadow & Light|r buttons to main game menu."] = "Füge eine |c
 L["Adjust the tooltip autohide delay when mouse is no longer hovering of the datatext."] = "Passe die Verzögerung für das automatische Ausblenden des Tooltips an, wenn sich die Maus nicht mehr über dem Datatext befindet."
 L["Advanced Options"] = "Erweiterte Einstellungen"
 L["AFK Message & Time"] = "AFK Nachricht & Zeit"
-L["AFK Message & Time"] = "AFK Nachricht & Zeit"
 L["AFK Mode in |cff9482c9Shadow & Light|r is additional settings/elements for standard |cff1784d1ElvUI|r AFK screen."] = "Der AFK Modus in |cff9482c9Shadow & Light|r erlaubt zusätzliche Einstellungen/Elemente für den Standard |cff1784d1ElvUI|r AFK Mode."
 L["Allow |cff9482c9Shadow & Light|r to change some of ElvUI's options limits."] = "Erlaubt |cff9482c9Shadow & Light|r dass verändern von einigen ElvUI's Einstellungsbegrenzungen."
 L["Allow Advanced Options"] = "Erlaube erweiterte Optionen"
