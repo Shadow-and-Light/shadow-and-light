@@ -41,13 +41,13 @@ local function configTable()
 					fontOutline = ACH:FontFlags(L["Font Outline"], L["Set the font outline."], 6),
 					xoffset = {
 						order = 7,
-						name = L["xOffset"],
+						name = L["X-Offset"],
 						type = "range",
 						min = -200, max = 200, step = 1,
 					},
 					yoffset = {
 						order = 8,
-						name = L["yOffset"],
+						name = L["Y-Offset"],
 						type = "range",
 						min = -50, max = 50, step = 1,
 					},
@@ -82,13 +82,13 @@ local function configTable()
 					fontOutline = ACH:FontFlags(L["Font Outline"], L["Set the font outline."], 6),
 					xoffset = {
 						order = 7,
-						name = L["xOffset"],
+						name = L["X-Offset"],
 						type = "range",
 						min = -200, max = 200, step = 1,
 					},
 					yoffset = {
 						order = 8,
-						name = L["yOffset"],
+						name = L["Y-Offset"],
 						type = "range",
 						min = -50, max = 50, step = 1,
 					},
