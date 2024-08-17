@@ -730,12 +730,10 @@ L["We are sorry, but you can't do this now. Try again after the end of this comb
 L["Weekly:"] = "주간"
 L["Welcome to |cff9482c9Shadow & Light|r version %s!"] = "|cff9482c9Shadow & Light|r version %s에 오신걸 환영합니다."
 L["While Mounted"] = true
-L["While Mounted"] = true
 L["Will not show the tooltip while in combat."] = "전투 중인경우 툴팁을 표시하지 않습니다."
 L["X-Pack Logo Size"] = "확장팩 로고 크기"
 L["You Are Away From Keyboard for"] = "다음 시간 동안 자리를 비우고 계십니다. "
 L["You can now choose if you want to use one of the authors' set of options. This will change the positioning of some elements as well of other various options."] = "사용하기를 원한다면 저자가 만들어놓은 설정 묶음을 지금 선택하실 수 있습니다. 이는 잘 정리된 다양한 사항으로 몇몇 요소의 위치를 바꾸게 됩니다."
-L["You can't inspect while dead."] = "죽은 동안엔 살펴보기를 할 수 없습니다."
 L["You can't inspect while dead."] = "죽은 동안엔 살펴보기를 할 수 없습니다."
 L["You didn't select any instance to track."] = "추적할 인스턴스를 선택하지 않았습니다."
 L["You have got ElvUI Transparent Actionbar Backdrops and Shadow & Light both enabled at the same time. Select an addon to disable."] = "ElvUI Transparent Actionbar Backdrops와 Shadow & Light를 동시에 켜셨습니다. 하나를 꺼주시기 바랍니다."

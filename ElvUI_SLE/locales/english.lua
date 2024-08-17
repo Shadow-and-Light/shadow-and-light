@@ -730,12 +730,10 @@ L["We are sorry, but you can't do this now. Try again after the end of this comb
 L["Weekly:"] = true
 L["Welcome to |cff9482c9Shadow & Light|r version %s!"] = true
 L["While Mounted"] = true
-L["While Mounted"] = true
 L["Will not show the tooltip while in combat."] = true
 L["X-Pack Logo Size"] = true
 L["You Are Away From Keyboard for"] = true
 L["You can now choose if you want to use one of the authors' set of options. This will change the positioning of some elements as well of other various options."] = true
-L["You can't inspect while dead."] = true
 L["You can't inspect while dead."] = true
 L["You didn't select any instance to track."] = true
 L["You have got ElvUI Transparent Actionbar Backdrops and Shadow & Light both enabled at the same time. Select an addon to disable."] = true

@@ -730,12 +730,10 @@ L["We are sorry, but you can't do this now. Try again after the end of this comb
 L["Weekly:"] = "Hebdomadaire:"
 L["Welcome to |cff9482c9Shadow & Light|r version %s!"] = "Bienvenue sur |cff9482c9Shadow & Light|r version %s !"
 L["While Mounted"] = true
-L["While Mounted"] = true
 L["Will not show the tooltip while in combat."] = "Ne montre pas l'infobulle pendant le combat."
 L["X-Pack Logo Size"] = "Taille du logo X-Pack"
 L["You Are Away From Keyboard for"] = "Vous êtes loin du clavier pour"
 L["You can now choose if you want to use one of the authors' set of options. This will change the positioning of some elements as well of other various options."] = "Vous pouvez maintenant choisir si vous voulez utiliser l'une des options proposées par les auteurs. Cela modifiera le positionnement de certains éléments ainsi que d'autres options diverses."
-L["You can't inspect while dead."] = "On ne peut pas inspecter quand on est mort."
 L["You can't inspect while dead."] = "On ne peut pas inspecter quand on est mort."
 L["You didn't select any instance to track."] = "Vous n'avez sélectionné aucune instance à suivre."
 L["You have got ElvUI Transparent Actionbar Backdrops and Shadow & Light both enabled at the same time. Select an addon to disable."] = "Vous avez activé les fonds d'écran ElvUI Transparent Actionbar et Shadow & Light en même temps. Sélectionnez un module complémentaire à désactiver."

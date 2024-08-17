@@ -730,13 +730,11 @@ L["We are sorry, but you can't do this now. Try again after the end of this comb
 L["Weekly:"] = "За неделю:"
 L["Welcome to |cff9482c9Shadow & Light|r version %s!"] = "Добро пожаловать в |cff9482c9Shadow & Light|r версии %s!"
 L["While Mounted"] = true
-L["While Mounted"] = true
 L["Will not show the tooltip while in combat."] = "Не отображать подсказки инфо-текста в бою."
 L["X-Pack Logo Size"] = "Размер иконки дополнения"
 L["You Are Away From Keyboard for"] = "Вы отошли на"
 L["You can now choose if you want to use one of the authors' set of options. This will change the positioning of some elements as well of other various options."] = "Вы можете использовать набор настроек, используемый одним из представленных людей. Будут изменены положения элементов и другие настройки."
-L["You can't inspect while dead."] = "Вы не можете осматривать будучи трупом."
-L["You can't inspect while dead."] = "Мертвые не осматривают."
+L["You can't inspect while dead."] = true
 L["You didn't select any instance to track."] = "Вы не выбрали подземелья для отслеживания"
 L["You have got ElvUI Transparent Actionbar Backdrops and Shadow & Light both enabled at the same time. Select an addon to disable."] = "Одновременно активны ElvUI Transparent Actionbar Backdrops и Shadow & Light. Выберите что из них отключить."
 L["You have got Loot Confirm and Shadow & Light both enabled at the same time. Select an addon to disable."] = "Одновременно активны Loot Confirm и Shadow & Light. Выберите что из них отключить."
