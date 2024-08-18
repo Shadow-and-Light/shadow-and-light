@@ -36,6 +36,9 @@ V["sle"] = {
 			enable = true,
 		},
 	},
+	objectiveTracker = {
+		enable = true,
+	},
 	["pvp"] = {
 		["KBbanner"] = {
 			["enable"] = false,

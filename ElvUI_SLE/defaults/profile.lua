@@ -17,6 +17,51 @@ local sharedIndicatorOptions = {
 	custom = '',
 }
 
+local ObjectiveTrackerDefaults = {
+	header = {
+		text = {
+			enable = true,
+			font = 'PT Sans Narrow',
+			fontSize = 20,
+			fontOutline = 'SHADOWOUTLINE',
+			color = {r = 1, g = 0.81960791349411, b = 0},
+		},
+	},
+	headerText = {
+		text = {
+			enable = true,
+			font = 'PT Sans Narrow',
+			fontSize = 17,
+			fontOutline = 'SHADOWOUTLINE',
+			color = {r = 1, g = 0.81960791349411, b = 0},
+			useBlizzardHighlight = false,
+		},
+		icon = {
+			enable = true,
+			scale = 0.9,
+		},
+	},
+	entryText = {
+		text = {
+			enable = true,
+			font = 'PT Sans Narrow',
+			fontSize = 15,
+			fontOutline = 'SHADOWOUTLINE',
+			-- color = {r = 1, g = 0.81960791349411, b = 0},
+			-- color = {r = 0, g = 0, b = 0},
+		},
+	},
+	progressBar = {
+		text = {
+			enable = true,
+			font = 'PT Sans Narrow',
+			fontSize = 16,
+			fontOutline = 'SHADOWOUTLINE',
+			color = {r = 1, g = 1, b = 1},
+		},
+	},
+}
+
 P["sle"] = {
 	--Actionbar
 	actionbar = {
@@ -733,6 +778,62 @@ P["sle"] = {
 			["yoffset"] = 2,
 		},
 		["visibleRange"] = 60,
+	},
+	objectiveTracker = {
+		mainHeader = {
+			header = CopyTable(ObjectiveTrackerDefaults.header),
+		},
+		achievement = {
+			header = CopyTable(ObjectiveTrackerDefaults.header),
+			headerText = CopyTable(ObjectiveTrackerDefaults.headerText),
+			entryText = CopyTable(ObjectiveTrackerDefaults.entryText),
+		},
+		adventure = {
+			header = CopyTable(ObjectiveTrackerDefaults.header),
+			headerText = CopyTable(ObjectiveTrackerDefaults.headerText),
+			entryText = CopyTable(ObjectiveTrackerDefaults.entryText),
+		},
+		bonus = {
+			header = CopyTable(ObjectiveTrackerDefaults.header),
+			headerText = CopyTable(ObjectiveTrackerDefaults.headerText),
+			entryText = CopyTable(ObjectiveTrackerDefaults.entryText),
+		},
+		campaign = {
+			header = CopyTable(ObjectiveTrackerDefaults.header),
+			headerText = CopyTable(ObjectiveTrackerDefaults.headerText),
+			entryText = CopyTable(ObjectiveTrackerDefaults.entryText),
+		},
+		monthlyActivities = {
+			header = CopyTable(ObjectiveTrackerDefaults.header),
+			headerText = CopyTable(ObjectiveTrackerDefaults.headerText),
+			entryText = CopyTable(ObjectiveTrackerDefaults.entryText),
+		},
+		professionsReceipe = {
+			header = CopyTable(ObjectiveTrackerDefaults.header),
+			headerText = CopyTable(ObjectiveTrackerDefaults.headerText),
+			entryText = CopyTable(ObjectiveTrackerDefaults.entryText),
+		},
+		quest = {
+			header = CopyTable(ObjectiveTrackerDefaults.header),
+			headerText = CopyTable(ObjectiveTrackerDefaults.headerText),
+			entryText = CopyTable(ObjectiveTrackerDefaults.entryText),
+			progressBar = CopyTable(ObjectiveTrackerDefaults.progressBar),
+		},
+		scenario = {
+			header = CopyTable(ObjectiveTrackerDefaults.header),
+			headerText = CopyTable(ObjectiveTrackerDefaults.headerText),
+			entryText = CopyTable(ObjectiveTrackerDefaults.entryText),
+		},
+		uiWidgets = { -- Maybe
+			header = CopyTable(ObjectiveTrackerDefaults.header),
+			headerText = CopyTable(ObjectiveTrackerDefaults.headerText),
+			entryText = CopyTable(ObjectiveTrackerDefaults.entryText),
+		},
+		worldQuest = {
+			header = CopyTable(ObjectiveTrackerDefaults.header),
+			headerText = CopyTable(ObjectiveTrackerDefaults.headerText),
+			entryText = CopyTable(ObjectiveTrackerDefaults.entryText),
+		},
 	},
 	professions = {
 		fishing = {
@@ -1589,3 +1690,9 @@ P["sle"] = {
 		},
 	},
 }
+
+--* "All Objectives" Modifications
+P.sle.objectiveTracker.mainHeader.header.text.fontSize = 22
+
+--* Scenario Modifications
+P.sle.objectiveTracker.scenario.header.text.fontSize = 16

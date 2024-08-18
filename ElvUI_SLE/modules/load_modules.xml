@@ -17,6 +17,7 @@
 	<Include file='minimap\load_minimap.xml'/>
 	<Script file='misc.lua'/>
 	<Script file='nameplates.lua'/>
+	<Script file='objectivetracker.lua'/>
 	<Script file='pvp.lua'/>
 	<Include file='professions\load_professions.xml'/>
 	<Include file='quests\load_quests.xml'/>

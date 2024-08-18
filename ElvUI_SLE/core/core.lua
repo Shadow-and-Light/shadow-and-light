@@ -80,6 +80,7 @@ SLE.WarCampaign = SLE:NewModule('WarCampaign','AceHook-3.0', 'AceEvent-3.0')
 SLE.ElvConfig = SLE:NewModule('ElvConfig', 'AceEvent-3.0')
 SLE.RaidMarkers = SLE:NewModule('RaidMarkers', 'AceHook-3.0')
 SLE.Skins = SLE:NewModule('Skins')
+SLE.ObjectiveTracker = SLE:NewModule('ObjectiveTracker', 'AceHook-3.0')
 
 --A function to concentrate options from different modules to a single table used in plugin reg
 local function GetOptions()
