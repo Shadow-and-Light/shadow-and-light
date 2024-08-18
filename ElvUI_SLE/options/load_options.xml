@@ -30,4 +30,5 @@
 	<Script file='raidroleicons_c.lua'/>
 	<Script file='viewport_c.lua'/>
 	<Script file='modulecopy_c.lua'/>
+	<Script file='objectivetracker_c.lua'/>
 </Ui>
