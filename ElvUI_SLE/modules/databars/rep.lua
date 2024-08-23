@@ -114,7 +114,7 @@ local function ReputationBar_Update()
 	if not standing then
 		standing = _G['FACTION_STANDING_LABEL'..reaction] or UNKNOWN
 	end
-	
+
 	local total = nextReactionThreshold == huge and 1 or nextReactionThreshold -- we need to correct the min/max of friendship factions to display the bar at 100%
 
 	if name then
@@ -152,10 +152,10 @@ function DB:PopulateRepPatterns()
 
 	pattern = T.rgsub(FACTION_STANDING_INCREASED_ACH_BONUS, unpack(symbols))
 	tinsert(DB.RepIncreaseStrings, pattern)
-	
+
 	pattern = T.rgsub(FACTION_STANDING_INCREASED_ACCOUNT_WIDE, unpack(symbols))
 	tinsert(DB.RepIncreaseStringsWarband, pattern)
-	
+
 	pattern = T.rgsub(FACTION_STANDING_INCREASED_ACH_BONUS_ACCOUNT_WIDE, unpack(symbols))
 	tinsert(DB.RepIncreaseStringsWarband, pattern)
 	--When rep decreases
@@ -164,7 +164,7 @@ function DB:PopulateRepPatterns()
 
 	pattern = T.rgsub(FACTION_STANDING_DECREASED_GENERIC, unpack(symbols))
 	tinsert(DB.RepDecreaseStrings, pattern)
-	
+
 	pattern = T.rgsub(FACTION_STANDING_DECREASED_ACCOUNT_WIDE, unpack(symbols))
 	tinsert(DB.RepDecreaseStringsWarband, pattern)
 
