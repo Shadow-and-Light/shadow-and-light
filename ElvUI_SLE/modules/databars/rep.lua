@@ -103,7 +103,7 @@ local function ReputationBar_Update()
 
 	if not standing and factionID and E.Retail and C_Reputation_IsMajorFaction(factionID) then
 		local majorFactionData = C_MajorFactions_GetMajorFactionData(factionID)
-		local renownColor = DB.db.colors.factionColors[10]
+		local renownColor = EDB.db.colors.factionColors[10]
 		local renownHex = E:RGBToHex(renownColor.r, renownColor.g, renownColor.b)
 
 		reaction, currentReactionThreshold, nextReactionThreshold = 10, 0, majorFactionData.renownLevelThreshold
