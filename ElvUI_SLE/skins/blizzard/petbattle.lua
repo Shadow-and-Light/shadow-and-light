@@ -15,12 +15,22 @@ local function PetBattle()
 
 	frame.TopVersusText:ClearAllPoints()
 	frame.TopVersusText:SetPoint('CENTER', holder)
+
+	frame.ActiveAlly.Icon:ClearAllPoints()
 	frame.ActiveAlly.Icon:Point('BOTTOMLEFT', holder, 'BOTTOMLEFT', 0, 0)
+
+	frame.ActiveEnemy.Icon:ClearAllPoints()
 	frame.ActiveEnemy.Icon:Point('BOTTOMRIGHT', holder, 'BOTTOMRIGHT', 0, 0)
+
+	frame.AllyBuffFrame:ClearAllPoints()
 	frame.AllyBuffFrame:Point('TOPLEFT', frame.ActiveAlly.Icon, 'BOTTOMLEFT', 0, -5)
+
 	frame.AllyPadBuffFrame:ClearAllPoints()
 	frame.AllyPadBuffFrame:Point('TOPLEFT', frame.AllyBuffFrame, 'TOPRIGHT', 2, 0)
+
+	frame.EnemyBuffFrame:ClearAllPoints()
 	frame.EnemyBuffFrame:Point('TOPRIGHT', frame.ActiveEnemy.Icon, 'BOTTOMRIGHT', 0, -5)
+
 	frame.EnemyPadBuffFrame:ClearAllPoints()
 	frame.EnemyPadBuffFrame:Point('TOPRIGHT', frame.EnemyBuffFrame, 'TOPLEFT', -2, 0)
 

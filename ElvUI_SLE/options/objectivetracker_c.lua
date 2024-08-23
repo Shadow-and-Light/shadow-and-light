@@ -4,7 +4,7 @@ local module = SLE:GetModule('ObjectiveTracker')
 local ACH = E.Libs.ACH
 local C
 
-local Options = ACH:Group(L["Objective Tacker"], nil, 1, 'tab')
+local Options = ACH:Group(L["Objective Tracker"], nil, 1, 'tab')
 Options.args.enable = ACH:Toggle(L["Enable"], nil, 1, nil, nil, nil, function(info) return E.private.sle.objectiveTracker[info[#info]] end, function(info, value) E.private.sle.objectiveTracker[info[#info]] = value E:StaticPopup_Show('PRIVATE_RL') end)
 
 local getTextColor = function(info)
