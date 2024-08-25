@@ -186,6 +186,13 @@ function Armory:UpdatePageInfo(frame, which)
 		if _G.InspectPaperDollFrame.SLE_Armory_BG then
 			IA:Update_BG()
 		end
+
+		InspectFrame.TitleContainer:ClearAllPoints()
+		InspectFrame.TitleContainer:Point('TOPLEFT', InspectFrame, 'TOPLEFT', 24, -1)
+		InspectFrame.TitleContainer:Point('TOPRIGHT', InspectFrame, 'TOPRIGHT', -24, -1)
+
+		InspectPaperDollFrame.LevelTextWrapper:ClearAllPoints()
+		InspectPaperDollFrame.LevelTextWrapper:Point('TOP', InspectPaperDollFrame, 'TOP', 0, -22)
 	end
 
 	for _, SlotName in pairs(Armory.Constants.GearList) do
