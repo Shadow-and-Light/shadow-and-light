@@ -12,13 +12,16 @@ local IsLoggedIn = IsLoggedIn
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local C_WowTokenPublic_UpdateMarketPrice = C_WowTokenPublic.UpdateMarketPrice
 local C_WowTokenPublic_GetCurrentMarketPrice = C_WowTokenPublic.GetCurrentMarketPrice
-local C_Timer_NewTicker = C_Timer.NewTicker
 local C_Container_GetContainerItemLink = C_Container.GetContainerItemLink
 local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
 local C_Container_GetContainerItemInfo = C_Container.GetContainerItemInfo
 local C_Container_GetBagName = C_Container.GetBagName
 local C_Item_IsAnimaItemByID = C_Item.IsAnimaItemByID
+local C_Timer_NewTicker = C_Timer.NewTicker
 local GetItemSpell = GetItemSpell
+
+local FetchDepositedMoney = C_Bank and C_Bank.FetchDepositedMoney
+local WARBANDBANK_TYPE = (Enum.BankType and Enum.BankType.Account) or 2
 
 local BONUS_ROLL_REWARD_MONEY = BONUS_ROLL_REWARD_MONEY
 local MAX_WATCHED_TOKENS = MAX_WATCHED_TOKENS or 3
@@ -31,7 +34,7 @@ local resetInfoFormatter = strjoin('', '|cffaaaaaa', L["Reset Character Data: Ho
 
 local menuList, myGold = {}, {}
 local animaSpellID = { [347555] = 3, [345706] = 5, [336327] = 35, [336456] = 250 }
-local totalGold, totalHorde, totalAlliance = 0, 0, 0
+local warbandGold, totalGold, totalHorde, totalAlliance = 0, 0, 0, 0
 local iconString = '|T%s:16:16:0:0:64:64:4:60:4:60|t'
 DT.CurrencyList = { GOLD = BONUS_ROLL_REWARD_MONEY, BACKPACK = 'Backpack' }
 
@@ -46,22 +49,8 @@ end
 local function OnClick(self, btn)
 	if btn == 'RightButton' then
 		if IsShiftKeyDown() then
-			wipe(menuList)
-			tinsert(menuList, { text = 'Delete Character', isTitle = true, notCheckable = true })
-			for realm in pairs(ElvDB.serverID[E.serverID]) do
-				for name in pairs(ElvDB.gold[realm]) do
-					tinsert(menuList, {
-						text = format('%s - %s', name, realm),
-						notCheckable = true,
-						func = function()
-							deleteCharacter(self, realm, name)
-						end
-					})
-				end
-			end
-
 			E:SetEasyMenuAnchor(E.EasyMenu, self)
-			_G.EasyMenu(menuList, E.EasyMenu, nil, nil, nil, 'MENU')
+			E:ComplicatedMenu(menuList, E.EasyMenu, nil, nil, nil, 'MENU')
 		elseif IsControlKeyDown() then
 			Profit = 0
 			Spent = 0
@@ -124,7 +113,7 @@ local function updateGold(self, updateAll, goldChange)
 
 		local realmN = 1
 		for realm in pairs(ElvDB.serverID[E.serverID]) do
-			tinsert(menuList, realmN, { text = 'Delete All - '..realm, notCheckable = true, func = function() ElvDB.gold[realm] = {} DT:ForceUpdate_DataText('Gold') end })
+			tinsert(menuList, realmN, { text = 'Delete All - '..realm, notCheckable = true, func = function() ElvDB.gold[realm] = {} DT:ForceUpdate_DataText('S&L Currencies') end })
 			realmN = realmN + 1
 			for name in pairs(ElvDB.gold[realm]) do
 				local faction = ElvDB.faction[realm][name]
@@ -168,6 +157,10 @@ local function updateGold(self, updateAll, goldChange)
 	end
 end
 
+local function UpdateWarbandGold()
+	warbandGold = FetchDepositedMoney(WARBANDBANK_TYPE)
+end
+
 local function UpdateMarketPrice()
 	return C_WowTokenPublic_UpdateMarketPrice()
 end
@@ -175,9 +168,13 @@ end
 local function OnEvent(self, event)
 	if not IsLoggedIn() then return end
 
-	if E.Retail and not Ticker then
-		C_WowTokenPublic_UpdateMarketPrice()
-		Ticker = C_Timer_NewTicker(60, UpdateMarketPrice)
+	if E.Retail then
+		UpdateWarbandGold()
+
+		if not Ticker then
+			C_WowTokenPublic_UpdateMarketPrice()
+			Ticker = C_Timer_NewTicker(60, UpdateMarketPrice)
+		end
 	end
 
 	--prevent an error possibly from really old profiles
@@ -233,27 +230,6 @@ local function OnEvent(self, event)
 	end
 end
 
-local function getTotalAnima()
-	local total = 0
-
-	for i = 0, NUM_BAG_SLOTS do
-		local bagName = C_Container_GetBagName(i)
-		if bagName then
-			for slotID = 1, C_Container_GetContainerNumSlots(i) do
-				local link = C_Container_GetContainerItemLink(i, slotID)
-
-				if link and C_Item_IsAnimaItemByID(link) then
-					local itemInfo = C_Container_GetContainerItemInfo(i, slotID)
-					local _, spellID = GetItemSpell(link)
-					total = total + animaSpellID[spellID] * itemInfo.stackCount
-				end
-			end
-		end
-	end
-
-	return total
-end
-
 local function OnEnter()
 	DT.tooltip:ClearLines()
 
@@ -261,13 +237,12 @@ local function OnEnter()
 	local style = E.global.datatexts.settings.Gold.goldFormat or 'BLIZZARD'
 
 	DT.tooltip:AddLine(L["Session:"])
-
 	DT.tooltip:AddDoubleLine(L["Earned:"], E:FormatMoney(Profit, style, textOnly), 1, 1, 1, 1, 1, 1)
 	DT.tooltip:AddDoubleLine(L["Spent:"], E:FormatMoney(Spent, style, textOnly), 1, 1, 1, 1, 1, 1)
-	if Profit < Spent then
-		DT.tooltip:AddDoubleLine(L["Deficit:"], E:FormatMoney(Profit-Spent, style, textOnly), 1, 0, 0, 1, 1, 1)
-	elseif (Profit-Spent)>0 then
-		DT.tooltip:AddDoubleLine(L["Profit:"], E:FormatMoney(Profit-Spent, style, textOnly), 0, 1, 0, 1, 1, 1)
+
+	if Spent ~= 0 then
+		local gained = Profit > Spent
+		DT.tooltip:AddDoubleLine(gained and L["Profit:"] or L["Deficit:"], E:FormatMoney(Profit-Spent, style, textOnly), gained and 0 or 1, gained and 1 or 0, 0, 1, 1, 1)
 	end
 
 	DT.tooltip:AddLine(' ')
@@ -275,7 +250,20 @@ local function OnEnter()
 
 	sort(myGold, sortFunction)
 
-	for _, g in ipairs(myGold) do
+	local maxLimit = E.global.datatexts.settings.Gold.maxLimit
+
+	local total, limit = #myGold, maxLimit
+	local useLimit = limit > 0
+	for i, g in ipairs(myGold) do
+		if useLimit and i > limit then
+			local count = total - limit
+			if count > 1 then
+				DT.tooltip:AddLine(format('+%d %s', count, L["Hidden Characters"]), 0.75, 0.9, 1)
+			end
+
+			break
+		end
+
 		local nameLine = ''
 		if g.faction ~= '' and g.faction ~= 'Neutral' then
 			nameLine = format('|TInterface/FriendsFrame/PlusManz-%s:14|t ', g.faction)
@@ -323,12 +311,7 @@ local function OnEnter()
 	end
 
 	if E.Retail then
-		local anima = getTotalAnima()
-		if anima > 0 then
-			DT.tooltip:AddDoubleLine(L["Anima:"], anima, 0, .8, 1, 1, 1, 1)
-			DT.tooltip:AddLine(' ')
-		end
-
+		DT.tooltip:AddDoubleLine(L["Warband:"], E:FormatMoney(warbandGold or 0, style, textOnly), 1, 1, 1, 1, 1, 1)
 		DT.tooltip:AddLine(' ')
 		DT.tooltip:AddDoubleLine(L["WoW Token:"], E:FormatMoney(C_WowTokenPublic_GetCurrentMarketPrice() or 0, style, textOnly), 0, .8, 1, 1, 1, 1)
 	end
