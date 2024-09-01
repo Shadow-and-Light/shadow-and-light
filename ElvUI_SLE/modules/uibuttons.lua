@@ -29,8 +29,8 @@ function UB:ConfigSetup(menu)
 end
 
 function UB:AddonSetup(menu)
-	menu:CreateDropdownButton('Addon', 'Manager', ADDONS, L["AddOn Manager"], L["Click to toggle the AddOn Manager frame."],  function() 
-		if not _G.AddonList:IsShown() then ShowUIPanel(_G.AddonList) else HideUIPanel(_G.AddonList) end 
+	menu:CreateDropdownButton('Addon', 'Manager', ADDONS, L["AddOn Manager"], L["Click to toggle the AddOn Manager frame."],  function()
+		if not _G.AddonList:IsShown() then ShowUIPanel(_G.AddonList) else HideUIPanel(_G.AddonList) end
 	end, nil, true)
 
 	menu:CreateDropdownButton('Addon', 'DBM', L["Boss Mod"], L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], function() DBM:LoadGUI() end, 'DBM-Core')
