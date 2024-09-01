@@ -76,7 +76,7 @@ function UB:SetupBar(menu)
 				LibStub('LibDataBroker-1.1'):GetDataObjectByName('BigWigs'):OnClick('RightButton')
 			end
 		end)
-		menu:CreateCoreButton('Addon', 'A', function(self) _G['GameMenuButtonAddons']:Click() end)
+		menu:CreateCoreButton('Addon', 'A', function() if not E:AlertCombat() and not AddonList:IsShown() then ShowUIPanel(AddonList) else HideUIPanel(AddonList) end end)
 	else
 		menu:CreateCoreButton('Config', 'C')
 		UB:ConfigSetup(menu)
