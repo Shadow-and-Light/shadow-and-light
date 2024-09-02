@@ -101,6 +101,28 @@ function C:Combat(event)
 	end
 end
 
+function C:PetBattle(event)
+	if event == 'PET_BATTLE_OPENING_START' then
+		if E.db.sle.chat.petbattlehide == 'BOTH' or E.db.sle.chat.petbattlehide == 'RIGHT' then
+			RightChatPanel:Hide()
+			RightChatToggleButton:Hide()
+		end
+		if E.db.sle.chat.petbattlehide == 'BOTH' or E.db.sle.chat.petbattlehide == 'LEFT' then
+			LeftChatPanel:Hide()
+			LeftChatToggleButton:Hide()
+		end
+	elseif event == 'PET_BATTLE_CLOSE' then
+		if not RightChatPanel:IsShown() then
+			RightChatPanel:Show()
+			RightChatToggleButton:Show()
+		end
+		if not LeftChatPanel:IsShown() then
+			LeftChatPanel:Show()
+			LeftChatToggleButton:Show()
+		end
+	end
+end
+
 local function ChatTextures()
 	if not E.db['general'] or not E.private['general'] then return end --Prevent rare nil value errors
 	if not E.db.sle.chat or not E.db.sle.chat.textureAlpha or not E.db.sle.chat.textureAlpha.enable then return end --our option enable check
@@ -152,8 +174,12 @@ function C:Initialize()
 	C:InitLinks()
 
 	--Combat Hide
-	self:RegisterEvent('PLAYER_REGEN_ENABLED', 'Combat')
-	self:RegisterEvent('PLAYER_REGEN_DISABLED', 'Combat')
+	C:RegisterEvent('PLAYER_REGEN_ENABLED', 'Combat')
+	C:RegisterEvent('PLAYER_REGEN_DISABLED', 'Combat')
+
+	-- PetBattle Hide
+	C:RegisterEvent('PET_BATTLE_OPENING_START', 'PetBattle')
+	C:RegisterEvent('PET_BATTLE_CLOSE', 'PetBattle')
 
 	--Launching stuff so hooks can work
 	-- LO:ToggleChatPanels()

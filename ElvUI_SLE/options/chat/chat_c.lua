@@ -52,14 +52,26 @@ local function configTable()
 				get = function(info) return E.db.sle.chat.combathide end,
 				set = function(info, value)	E.db.sle.chat.combathide = value end,
 				values = {
-					["NONE"] = NONE,
-					["BOTH"] = L["Both"],
-					["LEFT"] = L["Left"],
-					["RIGHT"] = L["Right"],
+					NONE = NONE,
+					BOTH = L["Both"],
+					LEFT = L["Left"],
+					RIGHT = L["Right"],
+				}
+			},
+			petbattlehide = {
+				order = 10, type = 'select',
+				name = L["Hide In Pet Battle"],
+				get = function(info) return E.db.sle.chat.petbattlehide end,
+				set = function(info, value)	E.db.sle.chat.petbattlehide = value end,
+				values = {
+					NONE = NONE,
+					BOTH = L["Both"],
+					LEFT = L["Left"],
+					RIGHT = L["Right"],
 				}
 			},
 			setupDelay = {
-				order = 10,
+				order = 15,
 				type = "range",
 				name = L["Chat Setup Delay"],
 				desc = L["Manages the delay before S&L will execute hooks to ElvUI's chat positioning. Prevents some weird positioning issues."],

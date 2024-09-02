@@ -397,6 +397,7 @@ P["sle"] = {
 			["alpha"] = 0.5,
 		},
 		["combathide"] = "NONE",
+		petbattlehide = 'NONE',
 		["justify"] = {
 			["frame1"] = "LEFT",
 			["frame2"] = "LEFT",
