@@ -196,6 +196,7 @@ LP.Spells = {
 			[13] = LP:CreateSpellsEntry(281404, 'spell', true), -- TP:Dazar'alor
 			[14] = LP:CreateSpellsEntry(344587, 'spell', true), -- TP:Oribos
 			[15] = LP:CreateSpellsEntry(395277, 'spell', true), -- TP:Valdrakken
+			[16] = LP:CreateSpellsEntry(446540, 'spell', true), -- TP:Dornogal
 		},
 		Alliance = {
 			[1] = LP:CreateSpellsEntry(3561, 'spell', true), -- TP:Stormwind
@@ -213,6 +214,7 @@ LP.Spells = {
 			[13] = LP:CreateSpellsEntry(281403, 'spell', true), -- TP:Boralus
 			[14] = LP:CreateSpellsEntry(344587, 'spell', true), -- TP:Oribos
 			[15] = LP:CreateSpellsEntry(395277, 'spell', true), -- TP:Valdrakken
+			[16] = LP:CreateSpellsEntry(446540, 'spell', true), -- TP:Dornogal
 		},
 	},
 	portals = {
@@ -232,6 +234,7 @@ LP.Spells = {
 			[13] = LP:CreateSpellsEntry(281402, 'spell', true), -- P:Dazar'alor
 			[14] = LP:CreateSpellsEntry(344597, 'spell', true), -- P:Oribos
 			[15] = LP:CreateSpellsEntry(395289, 'spell', true), -- P:Valdrakken
+			[16] = LP:CreateSpellsEntry(446534, 'spell', true), -- P:Dornogal
 		},
 		Alliance = {
 			[1] = LP:CreateSpellsEntry(10059, 'spell', true), -- P:Stormwind
@@ -249,6 +252,7 @@ LP.Spells = {
 			[13] = LP:CreateSpellsEntry(281400, 'spell', true), -- P:Boralus
 			[14] = LP:CreateSpellsEntry(344597, 'spell', true), -- P:Oribos
 			[15] = LP:CreateSpellsEntry(395289, 'spell', true), -- P:Valdrakken
+			[16] = LP:CreateSpellsEntry(446534, 'spell', true), -- P:Dornogal
 		},
 	},
 	challenge = {
