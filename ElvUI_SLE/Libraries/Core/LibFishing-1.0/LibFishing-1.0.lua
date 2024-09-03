@@ -11,14 +11,14 @@ Licensed under a Creative Commons "Attribution Non-Commercial Share Alike" Licen
 local _
 
 --Deprecated fixes
-local C_AddOns_GetNumAddOns = C_AddOns and C_AddOns.GetNumAddOns or GetNumAddOns
-local C_AddOns_GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
-local C_AddOns_GetAddOnInfo = C_AddOns and C_AddOns.GetAddOnInfo or GetAddOnInfo
-local C_AddOns_IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded or IsAddOnLoaded
-local C_Item_GetItemCount = C_Item and C_Item.GetItemCount or GetItemCount
-local C_Item_GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
+local GetAddOnInfo = C_AddOns and C_AddOns.GetAddOnInfo or GetAddOnInfo
+local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
+local GetItemCount = C_Item and C_Item.GetItemCount or GetItemCount
+local GetItemInfo = C_Item and C_Item.GetItemInfo or GetItemInfo
+local GetNumAddOns = C_AddOns and C_AddOns.GetNumAddOns or GetNumAddOns
 local GetSpellInfo = C_Spell.GetSpellInfo or GetSpellInfo
 local GetSpellLink = C_Spell.GetSpellLink or GetSpellLink
+local IsAddOnLoaded = C_AddOns and C_AddOns.IsAddOnLoaded or IsAddOnLoaded
 
 local MAJOR_VERSION = "LibFishing-1.0"
 local MINOR_VERSION = 101109
@@ -200,7 +200,7 @@ function FishLib:GetFishingSpellInfo()
     local id = nil;
     for i = 1, count do
 		local itemLink = C_SpellBook.GetSpellBookItemLink(offset + i, Enum.SpellBookSpellBank.Player);
-		local info = C_Spell.GetSpellInfo(itemLink);
+		local info = GetSpellInfo(itemLink);
 
         if info and info.name == name then
             id = info.spellID;
@@ -338,7 +338,7 @@ function FishLib:GetTradeSkillData()
     end
     local btn = _G[SABUTTONNAME];
     if btn then
-        if (not C_AddOns_IsAddOnLoaded(BlizzardTradeSkillUI)) then
+        if (not IsAddOnLoaded(BlizzardTradeSkillUI)) then
             LoadAddOn(BlizzardTradeSkillUI);
         end
         btn.skillupdate:SetScript("OnUpdate", SkillInitialize);
@@ -633,7 +633,7 @@ function FishLib:UpdateLureInventory()
 	local b = 0;
 	for _,lure in ipairs(FISHINGLURES) do
 		local id = lure.id;
-		local count = C_Item_GetItemCount(id);
+		local count = GetItemCount(id);
 		-- does this lure have to be "worn"
 		if ( count > 0 ) then
 			local startTime, _, _ = C_Container.GetItemCooldown(id);
@@ -847,7 +847,7 @@ end
 function FishLib:FindBestHat()
     for _,hat in ipairs(FISHINGHATS) do
         local id = hat["id"]
-        if C_Item_GetItemCount(id) > 0 and self:IsWorn(id) then
+        if GetItemCount(id) > 0 and self:IsWorn(id) then
             local startTime, _, _ = C_Container.GetItemCooldown(id);
             if ( startTime == 0 ) then
                 return 1, hat;
@@ -1338,7 +1338,7 @@ function FishLib:GetItemInfoFields(link, ...)
 -- subtype, stackcount, equiploc, texture
     if (link) then
         link = self:ValidLink(link)
-        local iteminfo = {C_Item_GetItemInfo(link)}
+        local iteminfo = {GetItemInfo(link)}
         local results = {}
         for idx = 1, select('#', ...) do
             local sel_idx = select(idx, ...)
@@ -2802,11 +2802,11 @@ local function LoadTranslation(source, lang, target, record)
 end
 
 function FishLib:AddonVersion(addon)
-    local addonCount = C_AddOns_GetNumAddOns();
+    local addonCount = GetNumAddOns();
     for addonIndex = 1, addonCount do
-        local name, title, notes, loadable, reason, security = C_AddOns_GetAddOnInfo(addonIndex);
+        local name, title, notes, loadable, reason, security = GetAddOnInfo(addonIndex);
         if name == addon then
-            return C_AddOns_GetAddOnMetadata(addonIndex, "Version");
+            return GetAddOnMetadata(addonIndex, "Version");
         end
     end
 end
