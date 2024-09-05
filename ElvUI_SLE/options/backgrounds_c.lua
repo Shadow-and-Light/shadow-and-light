@@ -44,7 +44,7 @@ local function configTable()
 					type = "range",
 					name = L["Height"],
 					desc = L["Sets height of the frame"],
-					min = 20, max = screenHeight/2, step = 1,
+					min = 20, max = screenHeight, step = 1,
 					set = function(_, value) E.db.sle.backgrounds["bg"..i].height = value; BG:FramesSize(i) end,
 				},
 				spacer = ACH:Spacer(3),
