@@ -4,3 +4,6 @@ v4.81 7/26/24
 • get ride of some objective tracker errors and try to fix some styling (wip)
 • able to disenchant with deconstruction button now
 • fixed character frame not being the correct size
+• fix some LibFishing changes
+• fix GetMouseFocus errors
+• fix inspect frame name being off center
