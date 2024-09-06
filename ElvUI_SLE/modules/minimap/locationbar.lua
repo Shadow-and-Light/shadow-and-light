@@ -377,11 +377,11 @@ end
 
 function LP:UpdateCoords(elapsed)
 	if not E.db.sle.minimap.locPanel.enable then return end
-	LP.elapsed = LP.elapsed + elapsed
+	LP.elapsed = (LP.elapsed or 0) + elapsed
 	if LP.elapsed < (LP.db.throttle or 0.2) then return end
 	if not LP.db.format then return end
-	--Coords
 
+	--Coords
 	if E.MapInfo then
 		loc_panel.Xcoord.Text:SetText(format(LP.db.format, E.MapInfo.xText or 0))
 		loc_panel.Ycoord.Text:SetText(format(LP.db.format, E.MapInfo.yText or 0))
@@ -408,8 +408,8 @@ function LP:UpdateCoords(elapsed)
 	loc_panel.Ycoord.Text:SetTextColor(colorC.r, colorC.g, colorC.b)
 
 	--Location
-	local subZoneText = GetMinimapZoneText() or ''
-	local zoneText = GetRealZoneText() or UNKNOWN
+	local subZoneText = E.MapInfo.subZoneText or ''
+	local zoneText = E.MapInfo.zoneText or UNKNOWN
 	local displayLine
 	if LP.db.zoneText then
 		if (subZoneText ~= '') and (subZoneText ~= zoneText) then
@@ -420,6 +420,7 @@ function LP:UpdateCoords(elapsed)
 	else
 		displayLine = subZoneText
 	end
+
 	loc_panel.Text:SetText(displayLine)
 	if LP.db.autowidth then loc_panel:Width(loc_panel.Text:GetStringWidth() + 10) end
 
@@ -446,14 +447,17 @@ function LP:UpdateCoords(elapsed)
 end
 
 function LP:Resize()
+	local coordSize = LP.db.fontSize * 3
+	local panelHeight = LP.db.height
+
 	if LP.db.autowidth then
-		loc_panel:SetSize(loc_panel.Text:GetStringWidth() + 10, LP.db.height)
+		loc_panel:SetSize(loc_panel.Text:GetStringWidth() + 10, panelHeight)
 	else
-		loc_panel:SetSize(LP.db.width, LP.db.height)
+		loc_panel:SetSize(LP.db.width, panelHeight)
 	end
 	loc_panel.Text:Width(LP.db.width - 18)
-	loc_panel.Xcoord:SetSize(LP.db.fontSize * 3, LP.db.height)
-	loc_panel.Ycoord:SetSize(LP.db.fontSize * 3, LP.db.height)
+	loc_panel.Xcoord:SetSize(coordSize, panelHeight)
+	loc_panel.Ycoord:SetSize(coordSize, panelHeight)
 end
 
 function LP:Fonts()
