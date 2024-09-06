@@ -2,7 +2,7 @@
 local UB = SLE.UIButtons
 local lib = LibStub('LibElv-UIButtons-1.0')
 
---GLOBALS: DBM, VEM, LibStub, Altoholic, AtlasLoot, xCT_Plus, Swatter, SlashCmdList
+--GLOBALS: DBM, LibStub, Altoholic, AtlasLoot, xCT_Plus, Swatter, SlashCmdList
 local _G = _G
 local C_AddOns_IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 local ADDONS, CUSTOM = ADDONS, CUSTOM
@@ -34,7 +34,6 @@ function UB:AddonSetup(menu)
 	end, nil, true)
 
 	menu:CreateDropdownButton('Addon', 'DBM', L["Boss Mod"], L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], function() DBM:LoadGUI() end, 'DBM-Core')
-	menu:CreateDropdownButton('Addon', 'VEM', L["Boss Mod"], L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], function() VEM:LoadGUI() end, 'VEM-Core')
 	menu:CreateDropdownButton('Addon', 'BigWigs', L["Boss Mod"], L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], function() LibStub('LibDataBroker-1.1'):GetDataObjectByName('BigWigs'):OnClick('RightButton') end, 'BigWigs')
 	menu:CreateSeparator('Addon', 'First', 4, 2)
 	menu:CreateDropdownButton('Addon', 'Altoholic', 'Altoholic', nil, nil, function() AltoholicFrame:ToggleUI() end, 'Altoholic')
@@ -70,8 +69,6 @@ function UB:SetupBar(menu)
 		menu:CreateCoreButton('Boss', 'B', function()
 			if C_AddOns_IsAddOnLoaded('DBM-Core') then
 				DBM:LoadGUI()
-			elseif C_AddOns_IsAddOnLoaded('VEM-Core') then
-				VEM:LoadGUI()
 			elseif C_AddOns_IsAddOnLoaded('BigWigs') then
 				LibStub('LibDataBroker-1.1'):GetDataObjectByName('BigWigs'):OnClick('RightButton')
 			end
