@@ -47,14 +47,13 @@ Armory.Constants.CanTransmogrify = {
 Armory.Constants.EnchantableSlots = {
 	['BackSlot'] = true,
 	['ChestSlot'] = true,
-	['WaistSlot'] = true,
-	['WristSlot'] = true,
 	['LegsSlot'] = true,
+	['FeetSlot'] = true,
 	['Finger0Slot'] = true,
 	['Finger1Slot'] = true,
 	['MainHandSlot'] = true,
 	['SecondaryHandSlot'] = true,
-	['FeetSlot'] = true,
+	['WristSlot'] = true,
 }
 Armory.Constants.SpecPrimaryStats = {
 	[62] = 4,	-- Mage: Arcane
