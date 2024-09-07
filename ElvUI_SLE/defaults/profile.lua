@@ -20,7 +20,7 @@ local sharedIndicatorOptions = {
 local ObjectiveTrackerDefaults = {
 	header = {
 		text = {
-			enable = true,
+			enable = false,
 			font = 'PT Sans Narrow',
 			fontSize = 20,
 			fontOutline = 'SHADOWOUTLINE',
@@ -29,7 +29,7 @@ local ObjectiveTrackerDefaults = {
 	},
 	headerText = {
 		text = {
-			enable = true,
+			enable = false,
 			font = 'PT Sans Narrow',
 			fontSize = 17,
 			fontOutline = 'SHADOWOUTLINE',
@@ -43,7 +43,7 @@ local ObjectiveTrackerDefaults = {
 	},
 	entryText = {
 		text = {
-			enable = true,
+			enable = false,
 			font = 'PT Sans Narrow',
 			fontSize = 15,
 			fontOutline = 'SHADOWOUTLINE',
@@ -53,7 +53,7 @@ local ObjectiveTrackerDefaults = {
 	},
 	progressBar = {
 		text = {
-			enable = true,
+			enable = false,
 			font = 'PT Sans Narrow',
 			fontSize = 16,
 			fontOutline = 'SHADOWOUTLINE',
