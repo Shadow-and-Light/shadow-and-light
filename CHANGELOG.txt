@@ -1,4 +1,4 @@
-v4.81 7/26/24
+v4.82 9/5/24
 
 • fix some reputation in chat issues
 • get ride of some objective tracker errors and try to fix some styling (wip)
@@ -7,3 +7,8 @@ v4.81 7/26/24
 • fix some LibFishing changes
 • fix GetMouseFocus errors
 • fix inspect frame name being off center
+• add enable option for the coords on the location panel
+• increase background panels max height
+• add hide in pet battle option for chat frames
+• add dornogal portal/teleports
+• fix ui button errors
