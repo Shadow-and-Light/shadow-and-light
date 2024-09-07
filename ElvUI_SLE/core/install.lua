@@ -808,13 +808,6 @@ function PI:DarthSetupDF()
 		E.db["sle"]["loot"]["enable"] = true
 		E.db["sle"]["loot"]["history"]["autohide"] = true
 
-		E.db["sle"]["media"]["fonts"]["mail"]["font"] = "Expressway"
-		E.db["sle"]["media"]["fonts"]["objective"]["font"] = "Expressway"
-		E.db["sle"]["media"]["fonts"]["objectiveHeader"]["font"] = "Expressway"
-		E.db["sle"]["media"]["fonts"]["objectiveHeader"]["fontOutline"] = "OUTLINE"
-		E.db["sle"]["media"]["fonts"]["objectiveHeader"]["fontSize"] = 18
-		E.db["sle"]["media"]["fonts"]["questFontSuperHuge"]["font"] = "Expressway"
-
 		E.db["sle"]["minimap"]["instance"]["enable"] = true
 		E.db["sle"]["minimap"]["instance"]["fontSize"] = 14
 		E.db["sle"]["minimap"]["locPanel"]["enable"] = true

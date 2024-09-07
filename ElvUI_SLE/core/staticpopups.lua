@@ -87,21 +87,6 @@ E.PopupDialogs['SLE_APPLY_FONT_WARNING'] = {
 		local fontSize = E.PopupDialogs['SLE_APPLY_FONT_WARNING'].fontSize
 		local fontOutline = E.PopupDialogs['SLE_APPLY_FONT_WARNING'].fontOutline
 
-		E.db.sle.media.fonts.mail.font = font
-		E.db.sle.media.fonts.mail.fontSize = fontSize
-		E.db.sle.media.fonts.mail.fontOutline = fontOutline
-
-		E.db.sle.media.fonts.objective.font = font
-		E.db.sle.media.fonts.objective.fontSize = fontSize
-		E.db.sle.media.fonts.objective.fontOutline = fontOutline
-
-		E.db.sle.media.fonts.objectiveHeader.font = font
-		E.db.sle.media.fonts.objectiveHeader.fontSize = fontSize
-		E.db.sle.media.fonts.objectiveHeader.fontOutline = fontOutline
-
-		E.db.sle.media.fonts.questFontSuperHuge.font = font
-		E.db.sle.media.fonts.questFontSuperHuge.fontOutline = fontOutline
-
 		E.db.sle.minimap.coords.font = font
 		E.db.sle.minimap.coords.fontSize = fontSize
 		E.db.sle.minimap.coords.fontOutline = fontOutline

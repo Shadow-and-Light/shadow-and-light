@@ -644,43 +644,6 @@ P["sle"] = {
 			},
 		},
 	},
-	--Media
-	media = {
-		fonts = {
-			mail = {
-				font = 'PT Sans Narrow',
-				fontSize = 12,
-				fontOutline = 'NONE',
-			},
-			objective = {
-				font = 'PT Sans Narrow',
-				fontSize = 12,
-				fontOutline = 'OUTLINE',
-			},
-			objectiveHeader = {
-				font = 'PT Sans Narrow',
-				fontSize = 12,
-				fontOutline = 'NONE',
-			},
-			questFontSuperHuge = {
-				font = 'PT Sans Narrow',
-				fontSize = 24,
-				fontOutline = 'NONE',
-			},
-			scenarioStage = {
-				HeaderText = {
-					font = 'PT Sans Narrow',
-					fontSize = 16,
-					fontOutline = 'OUTLINE',
-				},
-				TimerText = {
-					font = 'PT Sans Narrow',
-					fontSize = 22,
-					fontOutline = 'OUTLINE',
-				},
-			},
-		},
-	},
 	--Minimap Module
 	["minimap"] = {
 		["combat"] = false,
