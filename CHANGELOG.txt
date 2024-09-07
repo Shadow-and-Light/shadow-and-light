@@ -1,4 +1,4 @@
-v4.83 ?/?/??
+v4.83 9/7/24
 
 • fix "Shadow" not applying to All Objectives upon reload/logging in
 • update the enchantable list for our Armory module
