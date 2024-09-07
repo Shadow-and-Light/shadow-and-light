@@ -4,8 +4,12 @@ local module = SLE:GetModule('ObjectiveTracker')
 local ACH = E.Libs.ACH
 local C
 
-local Options = ACH:Group(L["Objective Tracker"], nil, 1, 'tab')
-Options.args.enable = ACH:Toggle(L["Enable"], nil, 1, nil, nil, nil, function(info) return E.private.sle.objectiveTracker[info[#info]] end, function(info, value) E.private.sle.objectiveTracker[info[#info]] = value E:StaticPopup_Show('PRIVATE_RL') end)
+local ApplyAllDefaults = {
+	font = 'PT Sans Narrow',
+	fontSize = 12,
+	fontOutline = 'OUTLINE'
+}
+local currentSelection = {}
 
 local getTextColor = function(info)
 	local t = E.db.sle.objectiveTracker[info[#info-3]][info[#info-2]][info[#info-1]][info[#info]]
@@ -88,18 +92,53 @@ local function GetOptions_ObjectiveSections(dbKey, keyData)
 	return options
 end
 
+local function ApplyAll(option)
+	local db
+	for dbKey, keyData in pairs(P.sle.objectiveTracker) do
+
+		for element, data in next, keyData do
+			db = E.db.sle.objectiveTracker[dbKey][element].text
+			if db and db.enable then
+				if option == 'font' and db.font and data.text.font then db.font = currentSelection.font end
+				if option == 'fontSize' and db.fontSize and data.text.fontSize then db.fontSize = currentSelection.fontSize end
+				if option == 'fontOutline' and db.fontOutline and data.text.fontOutline then db.fontOutline = currentSelection.fontOutline end
+			end
+		end
+		module:UpdateFont(dbKey)
+	end
+	if option == 'font' then currentSelection.font = nil end
+	if option == 'fontSize' then currentSelection.fontSize = nil end
+	if option == 'fontOutline' then currentSelection.fontOutline = nil end
+end
+
 local function configTable()
 	C = unpack(E.Config)
+	local Options = ACH:Group(L["Objective Tracker"], nil, 1, 'tab')
 	E.Options.args.sle.args.modules.args.objectiveTracker = Options
-	local config = E.Options.args.sle.args.modules.args.objectiveTracker
+	Options.args.enable = ACH:Toggle(L["Enable"], nil, 1, nil, nil, nil, function(info) return E.private.sle.objectiveTracker[info[#info]] end, function(info, value) E.private.sle.objectiveTracker[info[#info]] = value E:StaticPopup_Show('PRIVATE_RL') end)
 
 	local SelectSection = ACH:Group(L["Objective Tracker Sections"], nil, 10, 'tree')
-	config.args.selectSection = SelectSection
-
+	Options.args.selectSection = SelectSection
 	for dbKey, keyData in pairs(P.sle.objectiveTracker) do
 		--* Creates Objective Section on the left side
 		SelectSection.args[dbKey] = GetOptions_ObjectiveSections(dbKey, keyData)
 	end
+
+	local ApplyToAll = ACH:Group(L["Apply To All"], nil, 99, nil, function(info) return currentSelection[info[#info]] or ApplyAllDefaults[info[#info]] end, function(info, value) currentSelection[info[#info]] = value end, function() return not E.private.general.replaceBlizzFonts end)
+	Options.args.applyToAll = ApplyToAll
+	--* Font Section
+	local FontGroup = ACH:Group(L["Font Group"], nil, 23, nil, nil, nil)
+	FontGroup.inline = true
+	ApplyToAll.args.fontGroup = FontGroup
+
+	FontGroup.args.font = ACH:SharedMediaFont(L["Font"], nil, 1)
+	FontGroup.args.applyFont = ACH:Execute(format(L["Apply %sFont|r To All"], '|cff00ff00'), nil, 2, function() ApplyAll('font') end)
+	FontGroup.args.spacer1 = ACH:Spacer(3, 'full')
+	FontGroup.args.fontSize = ACH:Range(L["Font Size"], nil, 5, C.Values.FontSize)
+	FontGroup.args.applyFontSize = ACH:Execute(format(L["Apply %sFont Size|r To All"], '|cff00ff00'), nil, 6, function() ApplyAll('fontSize') end)
+	FontGroup.args.spacer2 = ACH:Spacer(7, 'full')
+	FontGroup.args.fontOutline = ACH:FontFlags(L["Font Outline"], nil, 10)
+	FontGroup.args.applyFontOutline = ACH:Execute(format(L["Apply %sFont Outline|r To All"], '|cff00ff00'), nil, 11, function() ApplyAll('fontOutline') end)
 end
 
 tinsert(SLE.Configs, configTable)
