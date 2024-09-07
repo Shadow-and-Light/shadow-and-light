@@ -391,7 +391,7 @@ function LP:UpdateCoords(elapsed)
 	end
 	--Coords coloring
 	local colorC = {r = 1, g = 1, b = 1}
-	if LP.db.colorType_Coords == 'REACTION' then
+	if LP.db.coords.colorType == 'REACTION' then
 		local inInstance, _ = IsInInstance()
 		if inInstance then
 			colorC = {r = 1, g = 0.1, b = 0.1}
@@ -399,9 +399,9 @@ function LP:UpdateCoords(elapsed)
 			local pvpType = C_PvP_GetZonePVPInfo()
 			colorC = LP.ReactionColors[pvpType] or {r = 1, g = 1, b = 0}
 		end
-	elseif LP.db.colorType_Coords == 'CUSTOM' then
-		colorC = LP.db.customColor_Coords
-	elseif LP.db.colorType_Coords == 'CLASS' then
+	elseif LP.db.coords.colorType == 'CUSTOM' then
+		colorC = LP.db.coords.customColor
+	elseif LP.db.coords.colorType == 'CLASS' then
 		colorC = RAID_CLASS_COLORS[E.myclass]
 	end
 	loc_panel.Xcoord.Text:SetTextColor(colorC.r, colorC.g, colorC.b)
@@ -449,15 +449,21 @@ end
 function LP:Resize()
 	local coordSize = LP.db.fontSize * 3
 	local panelHeight = LP.db.height
+	local panelWidth = LP.db.width
 
 	if LP.db.autowidth then
-		loc_panel:SetSize(loc_panel.Text:GetStringWidth() + 10, panelHeight)
+		local stringWidth = loc_panel.Text:GetStringWidth() + 10
+		panelWidth = (stringWidth >= E.screenWidth and E.screenWidth) or stringWidth
+		loc_panel:SetSize(panelWidth, panelHeight)
 	else
-		loc_panel:SetSize(LP.db.width, panelHeight)
+		loc_panel:SetSize(panelWidth, panelHeight)
 	end
-	loc_panel.Text:Width(LP.db.width - 18)
+	loc_panel.Text:Width(panelWidth - 18)
 	loc_panel.Xcoord:SetSize(coordSize, panelHeight)
 	loc_panel.Ycoord:SetSize(coordSize, panelHeight)
+
+	loc_panel.Xcoord:SetShown(LP.db.coords.enable)
+	loc_panel.Ycoord:SetShown(LP.db.coords.enable)
 end
 
 function LP:Fonts()

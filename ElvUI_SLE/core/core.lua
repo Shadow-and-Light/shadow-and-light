@@ -13,7 +13,7 @@ local SLE = LibStub('AceAddon-3.0'):NewAddon(AddOnName, 'AceConsole-3.0', 'AceEv
 SLE.callbacks = SLE.callbacks or LibStub('CallbackHandler-1.0'):New(SLE)
 
 SLE.version = GetAddOnMetadata('ElvUI_SLE', 'Version')
-SLE.DBversion = '4.78'
+SLE.DBversion = '4.82'
 SLE.Title = format('|cff9482c9%s|r', 'Shadow & Light')
 SLE.WoW10 = select(4, GetBuildInfo()) >= 100000
 

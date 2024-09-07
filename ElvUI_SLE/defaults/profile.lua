@@ -718,6 +718,11 @@ P["sle"] = {
 		},
 		["locPanel"] = {
 			["enable"] = false,
+			coords = {
+				enable = true,
+				colorType = 'DEFAULT',
+				customColor = {r = 1, g = 1, b = 1 },
+			},
 			["autowidth"] = false,
 			["width"] = 200,
 			["height"] = 21,
@@ -730,9 +735,7 @@ P["sle"] = {
 			["format"] = "%.0f",
 			["zoneText"] = true,
 			["colorType"] = "REACTION",
-			["colorType_Coords"] = "DEFAULT",
 			["customColor"] = {r = 1, g = 1, b = 1 },
-			["customColor_Coords"] = {r = 1, g = 1, b = 1 },
 			["combathide"] = false,
 			["orderhallhide"] = false,
 			["portals"] = {

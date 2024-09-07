@@ -155,6 +155,16 @@ function SLE:DatabaseConversions()
 						data.sle.minimap.locPanel.fontOutline = ''
 						profileChanged = true
 					end
+					if data.sle.minimap.locPanel.colorType_Coords then
+						E:CopyTable(E.db.sle.minimap.locPanel.coords.colorType, data.sle.minimap.locPanel.colorType_Coords)
+						data.sle.minimap.locPanel.colorType_Coords = nil
+						profileChanged = true
+					end
+					if data.sle.minimap.locPanel.customColor_Coords then
+						E:CopyTable(E.db.sle.minimap.locPanel.coords.customColor, data.sle.minimap.locPanel.customColor_Coords)
+						data.sle.minimap.locPanel.customColor_Coords = nil
+						profileChanged = true
+					end
 					if data.sle.minimap.portals then
 						if type(data.sle.minimap.locPanel.portals.hsPrio) == 'table' then
 							data.sle.minimap.locPanel.portals.hsPrio = P.sle.minimap.locPanel.portals.hsPrio

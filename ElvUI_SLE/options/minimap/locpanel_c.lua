@@ -1,314 +1,73 @@
 local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local LP = SLE.LocationPanel
+local ACH = E.Libs.ACH
 
--- GLOBALS: AceGUIWidgetLSMlists
 local DEFAULT, CUSTOM, CLASS = DEFAULT, CUSTOM, CLASS
 local ceil = ceil
+local screenWidth = ceil(E.screenWidth)
 
 local function configTable()
 	if not SLE.initialized then return end
-	-- E.Options.args.sle.args.modules.args.minimap = {
-	-- 	type = "group",
-	-- 	name = MINIMAP_LABEL,
-	-- 	order = 1,
-	-- 	childGroups = 'tab',
-	-- 	args = {
-	-- 		header = ACH:Header(L["Minimap Options"], 1),
-	-- 		desc = ACH:Description(L["MINIMAP_DESC"], 2),
+	local C = unpack(E.Config)
 
-	local screenWidth = ceil(E.screenWidth)
-	E.Options.args.sle.args.modules.args.locPanel = {
-		type = "group",
-		name = L["Location Panel"],
-		order = 1,
-		childGroups = 'tab',
-		get = function(info) return E.db.sle.minimap.locPanel[ info[#info] ] end,
-		args = {
-			enable = {
-				type = "toggle",
-				name = L["Enable"],
-				order = 1,
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Toggle() end,
-			},
-			linkcoords = {
-				type = "toggle",
-				name = L["Link Position"],
-				desc = L["Allow pasting of your coordinates in chat editbox via holding shift and clicking on the location name."],
-				order = 2,
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value end,
-			},
-			template = {
-				order = 3,
-				name = L["Template"],
-				type = "select",
-				disabled = function() return not E.db.sle.minimap.locPanel.enable end,
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Template() end,
-				values = {
-					["Default"] = DEFAULT,
-					["Transparent"] = L["Transparent"],
-					["NoBackdrop"] = L["NoBackdrop"],
-				},
-			},
-			autowidth = {
-				type = "toggle",
-				name = L["Automatic Width"],
-				desc = L["Change width based on the zone name length."],
-				order = 4,
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Resize() end,
-			},
-			width = {
-				order = 5,
-				type = 'range',
-				name = L["Width"],
-				min = 100, max = screenWidth/2, step = 1,
-				disabled = function() return not E.db.sle.minimap.locPanel.enable or E.db.sle.minimap.locPanel.autowidth end,
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Resize() end,
-			},
-			height = {
-				order = 6,
-				type = 'range',
-				name = L["Height"],
-				min = 10, max = 50, step = 1,
-				disabled = function() return not E.db.sle.minimap.locPanel.enable end,
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Resize() end,
-			},
-			throttle = {
-				order = 7,
-				type = 'range',
-				name = L["Update Throttle"],
-				desc = L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."],
-				min = 0.1, max = 2, step = 0.1,
-				disabled = function() return not E.db.sle.minimap.locPanel.enable end,
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value end,
-			},
-			combathide = {
-				order = 8,
-				type = "toggle",
-				name = L["Hide In Combat"],
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value end,
-			},
-			orderhallhide = {
-				order = 9,
-				type = "toggle",
-				name = L["Hide In Class Hall"],
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Toggle() end,
-			},
-			location = {
-				order = 20,
-				type = "group",
-				name = L["Location"],
-				guiInline = true,
-				args = {
-					zoneText = {
-						type = "toggle",
-						name = L["Full Location"],
-						order = 1,
-						disabled = function() return not E.db.sle.minimap.locPanel.enable end,
-						set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value end,
-					},
-					colorType = {
-						order = 2,
-						name = L["Color Type"],
-						type = "select",
-						disabled = function() return not E.db.sle.minimap.locPanel.enable end,
-						set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value end,
-						values = {
-							["REACTION"] = L["Reaction"],
-							["DEFAULT"] = DEFAULT,
-							["CLASS"] = CLASS,
-							["CUSTOM"] = CUSTOM,
-						},
-					},
-					customColor = {
-						type = 'color',
-						order = 3,
-						name = L["Custom Color"],
-						disabled = function() return not E.db.sle.minimap.locPanel.enable or E.db.sle.minimap.locPanel.colorType ~= "CUSTOM" end,
-						get = function(info)
-							local t = E.db.sle.minimap.locPanel[ info[#info] ]
-							local d = P.sle.minimap.locPanel[info[#info]]
-							return t.r, t.g, t.b, d.r, d.g, d.b
-						end,
-						set = function(info, r, g, b)
-							E.db.sle.minimap.locPanel[ info[#info] ] = {}
-							local t = E.db.sle.minimap.locPanel[ info[#info] ]
-							t.r, t.g, t.b = r, g, b
-						end,
-					},
-				},
-			},
-			coordinates = {
-				order = 21,
-				type = "group",
-				name = L["Coordinates"],
-				guiInline = true,
-				args = {
-					format = {
-						order = 1,
-						name = L["Format"],
-						type = "select",
-						disabled = function() return not E.db.sle.minimap.locPanel.enable end,
-						set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value end,
-						values = {
-							["%.0f"] = DEFAULT,
-							["%.1f"] = "45.3",
-							["%.2f"] = "45.34",
-						},
-					},
-					colorType_Coords = {
-						order = 2,
-						name = L["Color Type"],
-						type = "select",
-						disabled = function() return not E.db.sle.minimap.locPanel.enable end,
-						set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value end,
-						values = {
-							["REACTION"] = L["Reaction"],
-							["DEFAULT"] = DEFAULT,
-							["CLASS"] = CLASS,
-							["CUSTOM"] = CUSTOM,
-						},
-					},
-					customColor_Coords = {
-						type = 'color',
-						order = 3,
-						name = L["Custom Color"],
-						disabled = function() return not E.db.sle.minimap.locPanel.enable or E.db.sle.minimap.locPanel.colorType_Coords ~= "CUSTOM" end,
-						get = function(info)
-							local t = E.db.sle.minimap.locPanel[ info[#info] ]
-							local d = P.sle.minimap.locPanel[info[#info]]
-							return t.r, t.g, t.b, d.r, d.g, d.b
-						end,
-						set = function(info, r, g, b)
-							E.db.sle.minimap.locPanel[ info[#info] ] = {}
-							local t = E.db.sle.minimap.locPanel[ info[#info] ]
-							t.r, t.g, t.b = r, g, b
-						end,
-					},
-				},
-			},
-			portals = {
-				order = 22,
-				type = "group",
-				name = L["Relocation Menu"],
-				guiInline = true,
-				disabled = function() return not E.db.sle.minimap.locPanel.enable end,
-				get = function(info) return E.db.sle.minimap.locPanel.portals[ info[#info] ] end,
-				set = function(info, value) E.db.sle.minimap.locPanel.portals[ info[#info] ] = value end,
-				args = {
-					enable = {
-						type = "toggle",
-						name = L["Enable"],
-						desc = L["Right click on the location panel will bring up a menu with available options for relocating your character (e.g. Hearthstones, Portals, etc)."],
-						order = 1,
-					},
-					customWidth = {
-						type = "toggle",
-						name = L["Custom Width"],
-						desc = L["By default menu's width will be equal to the location panel width. Checking this option will allow you to set own width."],
-						order = 2,
-					},
-					customWidthValue = {
-						order = 3,
-						name = L["Width"],
-						type = "range",
-						min = 100, max = screenWidth, step = 1,
-						disabled = function() return not E.db.sle.minimap.locPanel.portals.customWidth or not E.db.sle.minimap.locPanel.enable end,
-					},
-					justify = {
-						order = 4,
-						name = L["Justify Text"],
-						type = "select",
-						values = {
-							["LEFT"] = L["Left"],
-							["CENTER"] = L["Middle"],
-							["RIGHT"] = L["Right"],
-						},
-					},
-					cdFormat = {
-						order = 5,
-						name = L["CD format"],
-						type = "select",
-						values = {
-							["DEFAULT"] = [[(10m |TInterface\FriendsFrame\StatusIcon-Away:16|t)]],
-							["DEFAULT_ICONFIRST"] = [[( |TInterface\FriendsFrame\StatusIcon-Away:16|t10m)]],
-						},
-					},
-					HSplace = {
-						type = "toggle",
-						order = 10,
-						name = L["Hearthstone Location"],
-						desc = L["Show the name on location your Hearthstone is bound to."],
-					},
-					showHearthstones = {
-						type = "toggle",
-						order = 11,
-						name = L["Show hearthstones"],
-						desc = L["Show hearthstone type items in the list."],
-					},
-					hsProprity = SLE:CreateMovableButtons(22, L["HS Toys Order"], false, E.db.sle.minimap.locPanel.portals, "hsPrio"),
-					showToys = {
-						type = "toggle",
-						order = 20,
-						name = L["Show Toys"],
-						desc = L["Show toys in the list. This option will affect all other display options as well."],
-					},
-					showSpells = {
-						type = "toggle",
-						order = 30,
-						name = L["Show spells"],
-						desc = L["Show relocation spells in the list."],
-					},
-					showEngineer = {
-						type = "toggle",
-						order = 40,
-						name = L["Show engineer gadgets"],
-						desc = L["Show items used only by engineers when the profession is learned."],
-					},
-					ignoreMissingInfo = {
-						type = "toggle",
-						order = 100,
-						name = L["Ignore missing info"],
-						desc = L["SLE_LOCPANEL_IGNOREMISSINGINFO"],
-					},
-				},
-			},
-			fontGroup = {
-				order = 23,
-				type = "group",
-				name = L["Fonts"],
-				guiInline = true,
-				disabled = function() return not E.db.sle.minimap.locPanel.enable end,
-				get = function(info) return E.db.sle.minimap.locPanel[ info[#info] ] end,
-				set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Fonts() end,
-				args = {
-					font = {
-						type = "select", dialogControl = 'LSM30_Font',
-						order = 1,
-						name = L["Font"],
-						values = AceGUIWidgetLSMlists.font,
-					},
-					fontSize = {
-						order = 2,
-						name = L["Font Size"],
-						type = "range",
-						min = 6, max = 22, step = 1,
-						set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Fonts(); LP:Resize() end,
-					},
-					fontOutline = {
-						order = 3,
-						name = L["Font Outline"],
-						type = "select",
-						values = {
-							["NONE"] = L["None"],
-							["OUTLINE"] = 'OUTLINE',
-							["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
-							["THICKOUTLINE"] = 'THICKOUTLINE',
-						},
-					},
-				},
-			},
-		},
-	}
+	local Options = ACH:Group(L["Location Panel"], nil, 1, 'tab', function(info) return E.db.sle.minimap.locPanel[info[#info]] end, nil, function(info) if info[#info] == 'locPanel' then return false else return not E.db.sle.minimap.locPanel.enable end end)
+	E.Options.args.sle.args.modules.args.locPanel = Options
+
+	Options.args.enable = ACH:Toggle(L["Enable"], nil, 1, nil, nil, nil, nil, function(info, value) E.db.sle.minimap.locPanel[info[#info]] = value LP:Toggle() end, function() return false end)
+	Options.args.spacer1 = ACH:Spacer(2, 'full')
+	Options.args.combathide = ACH:Toggle(L["Hide In Combat"], nil, 3, nil, nil, nil, nil, function(info, value) E.db.sle.minimap.locPanel[info[#info]] = value end)
+	Options.args.orderhallhide = ACH:Toggle(L["Hide In Class Hall"], nil, 4, nil, nil, nil, nil, function(info, value) E.db.sle.minimap.locPanel[info[#info]] = value end)
+	Options.args.spacer2 = ACH:Spacer(6, 'full')
+	Options.args.template = ACH:Select(L["Template"], nil, 5, { Default = DEFAULT, Transparent = L["Transparent"], NoBackdrop = L["NoBackdrop"] }, nil, nil, nil, function(info, value) E.db.sle.minimap.locPanel[info[#info]] = value LP:Template() end, function() return not E.db.sle.minimap.locPanel.enable end)
+	Options.args.autowidth = ACH:Toggle(L["Automatic Width"], L["Change width based on the zone name length."], 7, nil, nil, nil, nil, function(info, value) E.db.sle.minimap.locPanel[info[#info]] = value LP:Resize() end)
+	Options.args.width = ACH:Range(L["Width"], nil, 8, {min = 100, max = screenWidth/2, step = 1}, nil, nil, function(info, value) E.db.sle.minimap.locPanel[info[#info]] = value LP:Resize() end, function() return not E.db.sle.minimap.locPanel.enable or E.db.sle.minimap.locPanel.autowidth end)
+	Options.args.height = ACH:Range(L["Height"], nil, 9, {min = 10, max = 50, step = 1}, nil, nil, function(info, value) E.db.sle.minimap.locPanel[info[#info]] = value LP:Resize() end)
+	Options.args.throttle = ACH:Range(L["Update Throttle"], L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."], 10, {min = 0.1, max = 2, step = 0.1}, nil, nil, function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value end)
+
+	--* Location Panel Section
+	local Location = ACH:Group(L["Location Panel"], nil, 20, 'tab')
+	Location.inline = true
+	Options.args.location = Location
+	Location.args.zoneText = ACH:Toggle(L["Full Location"], nil, 1, nil, nil, nil, nil, function(info, value) E.db.sle.minimap.locPanel[info[#info]] = value end, function() return not E.db.sle.minimap.locPanel.enable end)
+	Location.args.linkcoords = ACH:Toggle(L["Link Position"], L["Allow pasting of your coordinates in chat editbox via holding shift and clicking on the location name."], 2, nil, nil, nil, nil, function(info, value) E.db.sle.minimap.locPanel[info[#info]] = value end)
+	Location.args.colorType = ACH:Select(L["Color Type"], nil, 3, { REACTION = L["Reaction"], DEFAULT = DEFAULT, CLASS = CLASS, CUSTOM = CUSTOM }, nil, nil, nil, function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value end)
+	Location.args.customColor = ACH:Color(L["Custom Color"], nil, 4, nil, nil, function(info) local t = E.db.sle.minimap.locPanel[ info[#info] ] local d = P.sle.minimap.locPanel[info[#info]] return t.r, t.g, t.b, d.r, d.g, d.b end, function(info, r, g, b) E.db.sle.minimap.locPanel[info[#info]] = {} local t = E.db.sle.minimap.locPanel[info[#info]] t.r, t.g, t.b = r, g, b end, function() return not E.db.sle.minimap.locPanel.enable or E.db.sle.minimap.locPanel.colorType ~= 'CUSTOM' end)
+
+	--* Coords Section
+	local Coords = ACH:Group(L["Coordinates"], nil, 21, 'tab', nil, nil, function(info) return not E.db.sle.minimap.locPanel.enable or not E.db.sle.minimap.locPanel.coords.enable end)
+	Coords.inline = true
+	Options.args.coords = Coords
+	Coords.args.enable = ACH:Toggle(L["Enable"], nil, 1, nil, nil, nil, function(info) return E.db.sle.minimap.locPanel[info[#info-1]][info[#info]] end, function(info, value) E.db.sle.minimap.locPanel[info[#info-1]][info[#info]] = value LP:Resize() end, function() if E.db.sle.minimap.locPanel.enable then return false else return not E.db.sle.minimap.locPanel.enable end end)
+	Coords.args.spacer1 = ACH:Spacer(2, 'full')
+	Coords.args.format = ACH:Select(L["Format"], nil, 3, { ["%.0f"] = DEFAULT, ["%.1f"] = "45.3", ["%.2f"] = "45.34" }, nil, nil, nil, function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value end)
+	Coords.args.colorType = ACH:Select(L["Color Type"], nil, 4, { REACTION = L["Reaction"], DEFAULT = DEFAULT, CLASS = CLASS, CUSTOM = CUSTOM }, nil, nil, nil, function(info, value) E.db.sle.minimap.locPanel[info[#info-1]][info[#info]] = value end)
+	Coords.args.customColor = ACH:Color(L["Custom Color"], nil, 5, nil, nil, function(info) local t = E.db.sle.minimap.locPanel[info[#info-1]][info[#info]] local d = P.sle.minimap.locPanel[info[#info-1]][info[#info]] return t.r, t.g, t.b, d.r, d.g, d.b end, function(info, r, g, b) E.db.sle.minimap.locPanel[info[#info-1]][info[#info]] = {} local t = E.db.sle.minimap.locPanel[info[#info-1]][info[#info]] t.r, t.g, t.b = r, g, b end)
+
+	--* Portals Section
+	local Portals = ACH:Group(L["Relocation Menu"], nil, 22, nil, function(info) return E.db.sle.minimap.locPanel.portals[info[#info]] end, function(info, value) E.db.sle.minimap.locPanel.portals[info[#info]] = value end, function(info) return not E.db.sle.minimap.locPanel.enable or not E.db.sle.minimap.locPanel.portals.enable end)
+	Portals.inline = true
+	Options.args.portals = Portals
+	Portals.args.enable = ACH:Toggle(L["Enable"], L["Right click on the location panel will bring up a menu with available options for relocating your character (e.g. Hearthstones, Portals, etc)."], 1, nil, nil, nil, nil, nil, function() if E.db.sle.minimap.locPanel.enable then return false else return not E.db.sle.minimap.locPanel.enable end end)
+	Portals.args.spacer1 = ACH:Spacer(2, 'full')
+	Portals.args.customWidth = ACH:Toggle(L["Custom Width"], L["By default menu's width will be equal to the location panel width. Checking this option will allow you to set own width."], 3)
+	Portals.args.customWidthValue = ACH:Range(L["Width"], nil, 4, { min = 100, max = screenWidth, step = 1 }, nil, nil, nil, function() return not E.db.sle.minimap.locPanel.enable or not E.db.sle.minimap.locPanel.portals.enable or not E.db.sle.minimap.locPanel.portals.customWidth end)
+	Portals.args.justify = ACH:Select(L["Justify Text"], nil, 5, { LEFT = L["Left"], CENTER = L["Middle"], RIGHT = L["Right"] })
+	Portals.args.cdFormat = ACH:Select(L["Cooldown Format"], nil, 6, { DEFAULT = [[(10m |TInterface\FriendsFrame\StatusIcon-Away:16|t)]], DEFAULT_ICONFIRST = [[( |TInterface\FriendsFrame\StatusIcon-Away:16|t10m)]] })
+	Portals.args.HSplace = ACH:Toggle(L["Hearthstone Location"], L["Show the name on location your Hearthstone is bound to."], 7)
+	Portals.args.showHearthstones = ACH:Toggle(L["Show hearthstones"], L["Show hearthstone type items in the list."], 8)
+	Portals.args.hsProprity = SLE:CreateMovableButtons(22, L["HS Toys Order"], false, E.db.sle.minimap.locPanel.portals, "hsPrio")
+	Portals.args.showToys = ACH:Toggle(L["Show Toys"], L["Show toys in the list. This option will affect all other display options as well."], 20)
+	Portals.args.showSpells = ACH:Toggle(L["Show spells"], L["Show relocation spells in the list."], 21)
+	Portals.args.showEngineer = ACH:Toggle(L["Show engineer gadgets"], L["Show items used only by engineers when the profession is learned."], 22)
+	Portals.args.ignoreMissingInfo = ACH:Toggle(L["Ignore missing info"], L["SLE_LOCPANEL_IGNOREMISSINGINFO"], 23)
+
+	--* Font Section
+	local FontGroup = ACH:Group(L["Font Group"], nil, 23, nil, function(info) return E.db.sle.minimap.locPanel[info[#info]] end, function(info, value) E.db.sle.minimap.locPanel[info[#info]] = value LP:Fonts() end, function() return not E.db.sle.minimap.locPanel.enable end)
+	FontGroup.inline = true
+	Options.args.fontGroup = FontGroup
+	FontGroup.args.font = ACH:SharedMediaFont(L["Font"], nil, 1)
+	FontGroup.args.fontSize = ACH:Range(L["Font Size"], nil, 2, C.Values.FontSize)
+	FontGroup.args.fontOutline = ACH:FontFlags(L["Font Outline"], nil, 3)
 end
 
 tinsert(SLE.Configs, configTable)
