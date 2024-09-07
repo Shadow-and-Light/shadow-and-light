@@ -61,6 +61,10 @@ function module:UpdateFont(dbKey, updateHeader, updateHeaderText)
 	if updateHeader or updateAll then
 		if frame.Header and frame.Header.Text and db[dbKey].header.text.enable then
 			local text = db[dbKey].header.text
+			if text.fontOutline and text.fontOutline == 'SHADOW' then
+				frame.Header.Text:FontTemplate(E.LSM:Fetch('font', text.font), text.fontSize, '') --! Has to be called before setting outline to 'SHADOW' so it takes effect
+			end
+
 			frame.Header.Text:FontTemplate(E.LSM:Fetch('font', text.font), text.fontSize, text.fontOutline)
 			frame.Header.Text:SetTextColor(text.color.r, text.color.g, text.color.b)
 		end
