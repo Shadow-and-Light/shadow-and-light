@@ -1,7 +1,7 @@
 ﻿## Interface: 110002
 ## Title: |cff1784d1ElvUI|r |cff9482c9Shadow & Light|r
 ## Author: Darth Predator, Repooc
-## Version: 4.83
+## Version: 4.84
 ## Notes: Plugin-edit for |cff1784d1ElvUI|r adding additional features.
 ## Notes-ruRU: Плагин-редакция для |cff1784d1ElvUI|r, добавляющий новые функции.
 ## RequiredDeps: ElvUI
