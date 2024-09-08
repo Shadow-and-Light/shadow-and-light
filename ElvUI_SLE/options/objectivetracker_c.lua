@@ -124,21 +124,29 @@ local function configTable()
 		SelectSection.args[dbKey] = GetOptions_ObjectiveSections(dbKey, keyData)
 	end
 
+	--! Apply To All Section
 	local ApplyToAll = ACH:Group(L["Apply To All"], nil, 99, nil, function(info) return currentSelection[info[#info]] or ApplyAllDefaults[info[#info]] end, function(info, value) currentSelection[info[#info]] = value end, function() return not E.private.general.replaceBlizzFonts end)
 	Options.args.applyToAll = ApplyToAll
-	--* Font Section
-	local FontGroup = ACH:Group(L["Font Group"], nil, 23, nil, nil, nil)
-	FontGroup.inline = true
-	ApplyToAll.args.fontGroup = FontGroup
 
-	FontGroup.args.font = ACH:SharedMediaFont(L["Font"], nil, 1)
-	FontGroup.args.applyFont = ACH:Execute(format(L["Apply %sFont|r To All"], '|cff00ff00'), nil, 2, function() ApplyAll('font') end)
-	FontGroup.args.spacer1 = ACH:Spacer(3, 'full')
-	FontGroup.args.fontSize = ACH:Range(L["Font Size"], nil, 5, C.Values.FontSize)
-	FontGroup.args.applyFontSize = ACH:Execute(format(L["Apply %sFont Size|r To All"], '|cff00ff00'), nil, 6, function() ApplyAll('fontSize') end)
-	FontGroup.args.spacer2 = ACH:Spacer(7, 'full')
-	FontGroup.args.fontOutline = ACH:FontFlags(L["Font Outline"], nil, 10)
-	FontGroup.args.applyFontOutline = ACH:Execute(format(L["Apply %sFont Outline|r To All"], '|cff00ff00'), nil, 11, function() ApplyAll('fontOutline') end)
+	local Font = ACH:Group(L["Font"], nil, 1, nil, nil, nil)
+	Font.inline = true
+	ApplyToAll.args.font = Font
+	Font.args.font = ACH:SharedMediaFont('', nil, 1)
+	Font.args.applyFont = ACH:Execute(L["Apply To All"], nil, 2, function() ApplyAll('font') end)
+	ApplyToAll.args.spacer1 = ACH:Spacer(2, 'full')
+
+	local FontSize = ACH:Group(L["Font Size"], nil, 3, nil, nil, nil)
+	FontSize.inline = true
+	ApplyToAll.args.fontSize = FontSize
+	FontSize.args.fontSize = ACH:Range('', nil, 5, C.Values.FontSize)
+	FontSize.args.applyFontSize = ACH:Execute(L["Apply To All"], nil, 6, function() ApplyAll('fontSize') end)
+	ApplyToAll.args.spacer2 = ACH:Spacer(4, 'full')
+
+	local FontOutline = ACH:Group(L["Font Outline"], nil, 5, nil, nil, nil)
+	FontOutline.inline = true
+	ApplyToAll.args.fontOutline = FontOutline
+	FontOutline.args.fontOutline = ACH:FontFlags('', nil, 10)
+	FontOutline.args.applyFontOutline = ACH:Execute(L["Apply To All"], nil, 11, function() ApplyAll('fontOutline') end)
 end
 
 tinsert(SLE.Configs, configTable)

@@ -59,8 +59,8 @@ function module:UpdateFont(dbKey, updateHeader, updateHeaderText)
 	local frame = module.objectiveFrames[dbKey]
 
 	if updateHeader or updateAll then
-		if frame.Header and frame.Header.Text and db[dbKey].header.text.enable then
-			local text = db[dbKey].header.text
+		local text = db[dbKey].header.text
+		if frame.Header and frame.Header.Text and text.enable then
 			if text.fontOutline and text.fontOutline == 'SHADOW' then
 				frame.Header.Text:FontTemplate(E.LSM:Fetch('font', text.font), text.fontSize, '') --! Has to be called before setting outline to 'SHADOW' so it takes effect
 			end
@@ -246,9 +246,7 @@ function module:Initialize()
 
 	for dbKey, frame in pairs(module.objectiveFrames) do
 		module.objectiveFramesReversedKeyed[frame] = dbKey
-		if dbKey == 'mainHeader' or dbKey == 'scenario' then
-			module:UpdateFont(dbKey)
-		end
+		module:UpdateFont(dbKey)
 
 		if frame.GetProgressBar then
 			module:SecureHook(frame, 'GetProgressBar', GetProgressBar)
