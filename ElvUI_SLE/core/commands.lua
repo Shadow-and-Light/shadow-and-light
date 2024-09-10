@@ -1,20 +1,22 @@
 local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 
---GLOBALS: unpack, select, next, pairs, wipe, strlower, ElvDB, GetNumAddOns, GetAddOnInfo, DisableAddOn, EnableAddOn, SetCVar, ReloadUI
-local next, pairs, wipe = next, pairs, wipe
+local type, pairs, tonumber = type, pairs, tonumber
+local lower, wipe, next, print = strlower, wipe, next, print
+
+local ReloadUI = ReloadUI
 local strlower = strlower
-local C_AddOns_GetNumAddOns = C_AddOns and C_AddOns.GetNumAddOns or GetNumAddOns
-local C_AddOns_GetAddOnInfo = C_AddOns and C_AddOns.GetAddOnInfo or GetAddOnInfo
-local C_AddOns_DisableAddOn = C_AddOns.DisableAddOn or DisableAddOn
-local SetCVar, ReloadUI = SetCVar, ReloadUI
+local DisableAddOn = C_AddOns.DisableAddOn
+local EnableAddOn = C_AddOns.EnableAddOn
+local GetNumAddOns = C_AddOns.GetNumAddOns
+local GetAddOnInfo = C_AddOns.GetAddOnInfo
 
 function SLE:LuaError(msg)
 	local switch = strlower(msg)
 	if switch == 'on' or switch == '1' then
-		for i=1, C_AddOns_GetNumAddOns() do
-			local name = C_AddOns_GetAddOnInfo(i)
+		for i=1, GetNumAddOns() do
+			local name = GetAddOnInfo(i)
 			if (name ~= 'ElvUI' and name ~= 'ElvUI_Options' and name ~= 'ElvUI_Libraries' and name ~= 'ElvUI_SLE' and name ~= 'ElvUI_SLE_Dev') and E:IsAddOnEnabled(name) then
-				C_AddOns_DisableAddOn(name, E.myname)
+				DisableAddOn(name, E.myname)
 				ElvDB.SLErrorDisabledAddOns[name] = i
 			end
 		end
