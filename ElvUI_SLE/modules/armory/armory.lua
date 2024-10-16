@@ -368,7 +368,7 @@ function Armory:ProcessEnchant(which, Slot, enchantText, enchantTextReal)
 	if E.db.sle.armory.enchantString.replacement then
 		local profQuality = strmatch(enchantTextReal, '|A.-|a')
 		for _, enchData in pairs(SLE_ArmoryDB.EnchantString) do
-			if strict and enchantText == enchData.original then
+			if enchData.new and strict and enchantText == enchData.original then
 				text = enchData.new..' '..(showReal and profQuality or '')
 			elseif not strict and enchData.original and enchData.new then
 				text = gsub(text, E:EscapeString(enchData.original), enchData.new)
