@@ -87,21 +87,6 @@ function Sk:Media()
 	end
 end
 
-function Sk:UpdateObjectiveFrameLogos()
-	local db = E.private.sle.skins.objectiveTracker
-	Sk:UpdateAdditionalTexture(Sk.additionalTextures['ScenarioLogo'], SLE.ScenarioBlockLogos[db.skinnedTextureLogo] or db.customTextureLogo)
-	Sk:UpdateAdditionalTexture(Sk.additionalTextures['ChallengeModeLogo'], SLE.ScenarioBlockLogos[db.skinnedTextureLogo] or db.customTextureLogo)
-	if Sk.additionalTextures['WarfrontLogo'] then
-		Sk:UpdateAdditionalTexture(Sk.additionalTextures['WarfrontLogo'], SLE.ScenarioBlockLogos[db.skinnedTextureLogo] or db.customTextureLogo)
-	end
-end
-
-function Sk:UpdateAdditionalTexture(textureObject, newTexture)
-	if textureObject then
-		textureObject:SetTexture(newTexture)
-	end
-end
-
 function Sk:ConvertScrollBarToThin(frame, thumbY, thumbX, template, thinWidth)
 		assert(frame, 'doesnt exist!')
 
