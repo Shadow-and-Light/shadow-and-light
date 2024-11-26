@@ -7,7 +7,7 @@
 ## RequiredDeps: ElvUI
 ## OptionalDeps: AddonSkins, BigWigs, Clique, Hermes, xCT+
 ## DefaultState: Enabled
-## X-ElvVersion: 13.76
+## X-ElvVersion: 13.81
 ## X-Curse-Project-ID: 39618
 ## X-Wago-ID: 7x61q261
 ## SavedVariables: SLE_ArmoryDB
