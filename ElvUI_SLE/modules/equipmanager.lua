@@ -455,14 +455,14 @@ function EM:Initialize()
 	EM.db = E.private.sle.equip
 	if not SLE.initialized or not EM.db.enable then return end
 	EM.lock = false
-	EM:RegisterEvent('PLAYER_ENTERING_WORLD', Equip)
-	EM:RegisterEvent('LOADING_SCREEN_DISABLED', Equip)
-	EM:RegisterEvent('ACTIVE_TALENT_GROUP_CHANGED', Equip)
-	EM:RegisterEvent('SPELLS_CHANGED', Equip)
-	-- EM:RegisterEvent('PLAYER_TALENT_UPDATE', Equip)
-	EM:RegisterEvent('PLAYER_LEVEL_CHANGED', Equip)
-	EM:RegisterEvent('GROUP_ROSTER_UPDATE', Equip)
-	EM:RegisterEvent('PLAYER_FLAGS_CHANGED', Equip)
+
+	EM:RegisterNewEvent('PLAYER_ENTERING_WORLD')
+	EM:RegisterNewEvent('LOADING_SCREEN_DISABLED')
+	EM:RegisterNewEvent('ACTIVE_TALENT_GROUP_CHANGED')
+	EM:RegisterNewEvent('SPELLS_CHANGED')
+	EM:RegisterNewEvent('PLAYER_LEVEL_CHANGED')
+	EM:RegisterNewEvent('GROUP_ROSTER_UPDATE')
+	EM:RegisterNewEvent('PLAYER_FLAGS_CHANGED')
 
 	--Initial apply options
 	EM:TagsProcess(EM.db.conditions)
