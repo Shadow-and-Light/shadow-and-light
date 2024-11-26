@@ -165,7 +165,7 @@ EM.TagsTable = {
 			if C_PvP_IsPVPMap() then --Seems to be true only for instanced pvp
 				if pvpType then
 					local instType = (C_PvP_IsArena() or C_PvP_IsMatchConsideredArena()) and 'arena' or 'pvp'
-					
+
 					if instType == pvpType then
 						return true
 					else
@@ -382,7 +382,7 @@ local function DelayedEquip()
 			SLE:Print(format(L["SLE_EM_SET_NOT_EXIST"], trueSet), 'error')
 		end
 	end
-	
+
 	--Usualy it takes around a second to equip everything
 	E:Delay(1, function() EM.Processing = false end)
 end
@@ -403,9 +403,9 @@ local function Equip(event, ...)
 	if event == 'PLAYER_REGEN_ENABLED' then
 		EM:UnregisterEvent(event)
 	end
-	
+
 	--apparently new spel knows statuses are available a bit after the spec switch => a bit of a delay
-	E:Delay(1, DelayedEquip) 
+	E:Delay(1, DelayedEquip)
 end
 
 
