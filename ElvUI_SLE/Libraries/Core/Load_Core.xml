@@ -4,6 +4,7 @@
 	<Script file="LibQTip-1.0\LibQTip-1.0.lua"/>
 	<Include file="LibBabble-SubZone-3.0\lib.xml"/>
 	<Include file="LibFishing-1.0\lib.xml" />
+	<Script file="LibRangeCheck-3.0\LibRangeCheck-3.0.lua" />
 	<Script file="oUF_SLDeathIndicator\oUF_SLDeathIndicator.lua"/>
 	<Script file="oUF_SLOfflineIndicator\oUF_SLOfflineIndicator.lua"/>
 	<Include file="LibProcessable\LibProcessable.lua"/>

@@ -39,6 +39,8 @@ Engine[6] = P
 Engine[7] = G
 _G[AddOnName] = Engine
 
+E:AddLib('RangeCheck', 'LibRangeCheck-3.0-ElvUI')
+
 SLE.Dropdowns = SLE:NewModule('Dropdowns', 'AceEvent-3.0', 'AceHook-3.0')
 SLE.Media = SLE:NewModule('Media', 'AceHook-3.0')
 SLE.Actionbars = SLE:NewModule('Actionbars', 'AceHook-3.0', 'AceEvent-3.0')
