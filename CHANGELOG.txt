@@ -1,4 +1,4 @@
-v4.85 11/26/24
+v4.86 3/2/25
 
-• fix some issues with enchant text
-• removed old objectives skin section as it is being redone and no longer is functional at this time
+• add LibRangeCheck-3.0-ElvUI that was removed from it
+• bump toc
