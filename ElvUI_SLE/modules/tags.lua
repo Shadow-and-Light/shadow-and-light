@@ -115,9 +115,32 @@ for textFormat in pairs(E.GetFormattedTextStyles) do
 	end)
 end
 
+for _, vars in ipairs({'',':min',':max'}) do
+	E:AddTag(format('range%s', vars), 0.1, function(unit)
+		if UnitIsConnected(unit) and not UnitIsUnit(unit, 'player') then
+			local minRange, maxRange = RC:GetRange(unit, true)
+
+			if vars == ':min' then
+				if minRange then
+					return format('%d', minRange)
+				end
+			elseif vars == ':max' then
+				if maxRange then
+					return format('%d', maxRange)
+				end
+			elseif minRange or maxRange then
+				return format('%s - %s', minRange or '??', maxRange or '??')
+			end
+		end
+	end)
+end
+
 --*Add the tags to the ElvUI Options
 E:AddTagInfo('sl:pvptimer', 'S&L', L["SLE_Tag_sl-pvptimer"])
 E:AddTagInfo('sl:pvplevel', 'S&L', L["SLE_Tag_sl-pvplevel"])
 E:AddTagInfo('absorbs:sl-short', 'S&L', L["SLE_Tag_absorb-sl-short"])
 E:AddTagInfo('absorbs:sl-full', 'S&L', L["SLE_Tag_absorb-sl-full"])
 E:AddTagInfo('range:sl', 'S&L', L["SLE_Tag_range-sl"])
+E:AddTagInfo('range', 'S&L', L["Displays the range"])
+E:AddTagInfo('range:min', 'S&L', L["Displays the min range"])
+E:AddTagInfo('range:max', 'S&L', L["Displays the max range"])
