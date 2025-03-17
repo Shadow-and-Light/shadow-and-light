@@ -179,6 +179,9 @@ function SLE:DatabaseConversions()
 								profileChanged = true
 							end
 						end
+						if profileChanged then
+							data.sle.minimap.locPanel.portals.hsPrio = CurrentSettings
+						end
 					end
 				end
 				if data.sle.minimap.coords then
