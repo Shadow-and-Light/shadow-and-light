@@ -106,11 +106,6 @@ G["sle"] = {
 	["advanced"] = {
 		["general"] = false,
 		["optionsLimits"] = false,
-		["gameMenu"] = {
-			["enable"] = true,
-			["reload"] = false,
-			["reloadLabel"] = "",
-		},
 		["confirmed"] = false,
 		["cyrillics"] = {
 			["commands"] = false,

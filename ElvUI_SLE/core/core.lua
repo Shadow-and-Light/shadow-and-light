@@ -139,7 +139,6 @@ function SLE:Initialize()
 		end
 	end)
 
-	-- SLE:BuildGameMenu()
 	SLE:CyrillicsInit()
 	SLE:LoadCommands()
 

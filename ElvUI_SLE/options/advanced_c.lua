@@ -59,45 +59,6 @@ local function configTable()
 				disabled = function() return not E.global.sle.advanced.general end,
 				set = function(info, value) E.global.sle.advanced[info[#info]] = value; E:StaticPopup_Show('GLOBAL_RL') end,
 			},
-			gameMenu = {
-				order = 10,
-				type = 'group',
-				name = L["Game Menu Buttons"],
-				guiInline = true,
-				hidden = function() return not E.global.sle.advanced.general end,
-				disabled = function() return not E.global.sle.advanced.gameMenu.enable end,
-				get = function(info) return E.global.sle.advanced.gameMenu[info[#info]] end,
-				set = function(info, value) E.global.sle.advanced.gameMenu[info[#info]] = value; E:StaticPopup_Show('GLOBAL_RL') end,
-				args = {
-					enable = {
-						order = 1,
-						type = 'toggle',
-						name = L["Enable"],
-						desc = L["Adds |cff9482c9Shadow & Light|r buttons to main game menu."],
-						disabled = false,
-					},
-					rlButton = {
-						type = 'group',
-						name = L["Reload UI"],
-						guiInline = true,
-						args = {
-							reload = {
-								order = 2,
-								type = 'toggle',
-								name = L["Enable"],
-							},
-							reloadLabel = {
-								order = 3,
-								name = L["Label"],
-								type = "input",
-								width = "half",
-								disabled = function() return not E.global.sle.advanced.gameMenu.enable or not E.global.sle.advanced.gameMenu.reload end,
-							},
-						},
-					},
-
-				},
-			},
 			cyrillics = {
 				order = 20,
 				type = 'group',
