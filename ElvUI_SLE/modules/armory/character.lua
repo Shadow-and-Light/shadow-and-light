@@ -173,7 +173,7 @@ function CA:BuildLayout()
 			_G.CharacterFrameTitleText:SetParent(_G.CharacterFrame)
 			_G.CharacterLevelText:ClearAllPoints()
 			_G.CharacterLevelText:SetPoint('TOP', _G.CharacterFrameTitleText, 'BOTTOM', 0, 2)
-			_G.CharacterLevelText:SetParent(_G.CharacterFrame)
+			_G.CharacterLevelText:SetParent(_G.PaperDollFrame)
 		end
 	end)
 end
