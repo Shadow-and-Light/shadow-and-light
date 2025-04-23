@@ -1,3 +1,5 @@
-v4.87 3/2/25
+v4.88 4/23/25
 
-• add old elvui range tags back
+• add Timewalker's hearthstone to location panel
+• removed remnants of an old option that was removed last year
+• fix level on character from showing on other tabs
