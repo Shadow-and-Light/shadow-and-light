@@ -92,12 +92,9 @@ local function GetOptions()
 end
 
 function SLE:ConfigCats() --Additional mover groups
-	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, 'S&L')
-	E.ConfigModeLocalizedStrings['S&L'] = L["S&L: All"]
-	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, 'S&L BG')
-	E.ConfigModeLocalizedStrings['S&L BG'] = L["S&L: Backgrounds"]
-	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts)+1, 'S&L MISC')
-	E.ConfigModeLocalizedStrings['S&L MISC'] = L["S&L: Misc"]
+	E:ConfigMode_AddGroup('S&L', L["S&L: All"])
+	E:ConfigMode_AddGroup('S&L BG', L["S&L: Backgrounds"])
+	E:ConfigMode_AddGroup('S&L MISC', L["S&L: Misc"])
 end
 
 --ElvUI's version check
