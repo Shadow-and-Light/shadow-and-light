@@ -105,10 +105,8 @@ end
 
 function BI:ConstructContainerButton(f, bagID, slotID)
 	if not f then return end
-	local bag = f.Bags[bagID]
-	if not bag then return end
-	local isReagent = bagID == REAGENTBANK_CONTAINER
-	local slotName = isReagent and ('ElvUIReagentBankFrameItem'..slotID) or (bag.name..'Slot'..slotID)
+
+	local slotName = B:GetBagSlotInfo(f, bagID, slotID)
 	local slot = _G[slotName]
 	BI.db = E.db.sle.bags.equipmentmanager
 
