@@ -89,7 +89,7 @@ function RM:UpdateWorldMarkersAndTooltips()
 			local modifier = E.db.sle.raidmarkers.modifier or 'shift-'
 			button:SetAttribute(format('%stype1', modifier), 'macro')
 			button.modifier = modifier
-			button:SetAttribute(format('%smacrotext1', modifier), worldmarker == 0 and foramt('%s 0', CWM) or format('%s %d\n%s %d', CWM, worldmarker, WM, worldmarker))
+			button:SetAttribute(format('%smacrotext1', modifier), worldmarker == 0 and '/cwm 0' or format('/cwm %d\n/wm %d', worldmarker, worldmarker))
 
 			button:SetScript('OnEnter', function(self)
 				self:SetBackdropBorderColor(.7, .7, 0)
