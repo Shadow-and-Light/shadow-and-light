@@ -52,8 +52,6 @@ function SB:Initialize()
 	--This table is for initial update of a frame, cause applying transparent template breaks color borders
 	SB.InitialUpdates = {
 		Bank = false,
-		ReagentBank = false,
-		ReagentBankButton = false,
 	}
 
 	--Fix borders for bag frames
@@ -61,15 +59,6 @@ function SB:Initialize()
 		if not SB.InitialUpdates.Bank then --For bank, just update on first show
 			B:Layout(true)
 			SB.InitialUpdates.Bank = true
-		end
-		if not SB.InitialUpdates.ReagentBankButton then --For reagent bank, hook to toggle button and update layout when first clicked
-			_G.ElvUI_BankContainerFrame.reagentToggle:HookScript('OnClick', function()
-				if not SB.InitialUpdates.ReagentBank then
-					B:Layout(true)
-					SB.InitialUpdates.ReagentBank = true
-				end
-			end)
-			SB.InitialUpdates.ReagentBankButton = true
 		end
 	end)
 end
