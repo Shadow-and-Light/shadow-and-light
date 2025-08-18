@@ -292,7 +292,7 @@ local function configTable()
 						type = 'range',
 						name = L["Y-Offset"],
 						order = 8,
-						min = -22, max = 3, step = 1,
+						min = -22, max = 5, step = 1,
 					},
 				}
 			},
