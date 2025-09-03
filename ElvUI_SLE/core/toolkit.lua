@@ -367,13 +367,10 @@ function SLE:CreateMovableButtons(Order, Name, CanRemove, db, key)
 			SLE:MovableButtonSettings(db, key, moveItemTo, nil, moveItemFrom) --add it in the new spot
 			moveItemFrom, moveItemTo = nil, nil
 		end,
-		stateSwitchGetText = function(info, TEXT)
+		dragGetTitle = function(info, TEXT)
 			local text = C_Item_GetItemInfo(tonumber(TEXT))
 			info.userdata.text = text
 			return text
-		end,
-		stateSwitchOnClick = function(info)
-			SLE:MovableButtonSettings(db, key, moveItemFrom)
 		end,
 		values = function()
 			local str = db[key]
