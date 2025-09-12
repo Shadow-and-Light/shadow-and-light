@@ -109,24 +109,20 @@ EM.TagsTable = {
 		end
 	end,
 	--Talent selected. [talent:spell id|name]
-	['talent'] = function(idOrName)
-		local activeConfigID = C_ClassTalents.GetActiveConfigID()
-		local configInfo = C_Traits.GetConfigInfo(activeConfigID)
-		local treeID = configInfo.treeIDs[1]
-		local nodeIDs = C_Traits.GetTreeNodes(treeID)
-		local passed = false
-		for _, nodeID in next, nodeIDs do
-			local nodeInfo = C_Traits.GetNodeInfo(activeConfigID, nodeID)
-			for _, entryID in next, nodeInfo.entryIDs do
-				local entryInfo = C_Traits.GetEntryInfo(activeConfigID, entryID)
-				local definitionInfo = C_Traits.GetDefinitionInfo(entryInfo.definitionID)
-				local purchased = nodeInfo.ranksPurchased > 0
-				passed = purchased and (definitionInfo.spellID == tonumber(idOrName) or C_Spell_GetSpellInfo(definitionInfo.spellID).spellID == idOrName)
-				if passed then break end
-			end
-			if passed then break end
+	['talent'] = function(id)
+		if type(id) == 'number' then
+			return C_SpellBook.IsSpellInSpellBook(id, 0) or C_SpellBook.IsSpellInSpellBook(id, 1)
 		end
-		return passed
+		local spellData
+		if type(id) == 'string' then
+			spellData = C_Spell_GetSpellInfo(id)
+		end
+		if not spellData then return false end
+		if spellData.spellID then
+			return C_SpellBook.IsSpellInSpellBook(spellData.spellID, 0) or C_SpellBook.IsSpellInSpellBook(spellData.spellID, 1)
+		end
+
+		return false
 	end,
 	['spell'] = function(idOrName)
 		local isNum = tonumber(idOrName)
