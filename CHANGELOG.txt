@@ -1,3 +1,4 @@
-v4.91 8/6/25
+v4.92 9/26/25
 
-• fix raid markers
+• fix elvui compatibility
+• fix some equip mgr conditions
