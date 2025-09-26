@@ -265,7 +265,7 @@ end
 
 function Pr:Construct_BagButton()
 	Pr.DeconstructButton = CreateFrame('Button', 'SLE_DeconButton', _G.ElvUI_ContainerFrame, 'BackdropTemplate')
-	Pr.DeconstructButton:SetSize(16 + E.Border, 16 + E.Border)
+	Pr.DeconstructButton:Size(20)
 	Pr.DeconstructButton:SetTemplate()
 	Pr.DeconstructButton.ttText = L["Deconstruct Mode"]
 	Pr.DeconstructButton.ttText2 = format(L["Allow you to disenchant/mill/prospect/unlock items.\nClick to toggle.\nCurrent state: %s."], Pr:GetDeconMode())
