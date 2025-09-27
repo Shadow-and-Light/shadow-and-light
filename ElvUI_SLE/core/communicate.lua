@@ -9,6 +9,7 @@ local ID
 
 --Building user list for dev tool
 local function SendRecieve(_, event, prefix, message, channel, sender)
+	if not E then return end
 	if event == 'CHAT_MSG_ADDON' then
 		if prefix == 'SLE_DEV_REQ' then
 			message = 'wut?'
