@@ -1923,7 +1923,7 @@ function PI:DarthAddons()
 			},
 			["dbVersion"] = "4.7.2",
 		}
-		xCT_Plus.db:SetProfile("S&L Darth")
+		xCT_Plus.engine.db:SetProfile("S&L Darth")
 	end
 
 	_G["PluginInstallStepComplete"].message = L["Addons settings imported"]
