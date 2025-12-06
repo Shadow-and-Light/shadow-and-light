@@ -22,7 +22,7 @@ local UnitInRaid = UnitInRaid
 local C_FriendList_GetNumFriends = C_FriendList.GetNumFriends
 local C_FriendList_GetNumOnlineFriends = C_FriendList.GetNumOnlineFriends
 local C_FriendList_GetFriendInfoByIndex = C_FriendList.GetFriendInfoByIndex
-local ChatFrame_SendBNetTell = ChatFrame_SendBNetTell
+local ChatFrameUtil_SendBNetTell = ChatFrameUtil.SendBNetTell
 local InCombatLockdown = InCombatLockdown
 local C_BattleNet_GetFriendAccountInfo = C_BattleNet.GetFriendAccountInfo
 local C_BattleNet_GetFriendNumGameAccounts = C_BattleNet.GetFriendNumGameAccounts
@@ -342,7 +342,7 @@ local function Entry_OnMouseUp(self, info, button)
 		end
 
 		if i_type == "realid" then
-			ChatFrame_SendBNetTell(accountName)
+			ChatFrameUtil_SendBNetTell(accountName)
 		else
 			SetItemRef( "player:"..name, format("|Hplayer:%1$s|h[%1$s]|h",name), "LeftButton" )
 		end
