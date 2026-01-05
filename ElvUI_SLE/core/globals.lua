@@ -63,9 +63,9 @@ local classTable = {
 --Role icons
 SLE.rolePaths = {
 	['ElvUI'] = {
-		TANK = [[Interface\AddOns\ElvUI\Core\Media\Textures\Tank]],
-		HEALER = [[Interface\AddOns\ElvUI\Core\Media\Textures\Healer]],
-		DAMAGER = [[Interface\AddOns\ElvUI\Core\Media\Textures\DPS]]
+		TANK = [[Interface\AddOns\ElvUI\Game\Shared\Media\Textures\Tank]],
+		HEALER = [[Interface\AddOns\ElvUI\Game\Shared\Media\Textures\Healer]],
+		DAMAGER = [[Interface\AddOns\ElvUI\Game\Shared\Media\Textures\DPS]]
 	},
 	['SupervillainUI'] = {
 		TANK = [[Interface\AddOns\ElvUI_SLE\media\textures\role\svui-tank]],
