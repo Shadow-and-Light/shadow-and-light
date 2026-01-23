@@ -25,7 +25,7 @@ local function Cooldown_Options(_, timer, _, cooldown)
 
 	timer.threshold = db[unitframeType][auraType].threshold
 end
-hooksecurefunc(E, 'Cooldown_Options', Cooldown_Options)
+-- hooksecurefunc(E, 'Cooldown_Options', Cooldown_Options)
 
 function SUF:UpdateShadows()
 	if UnitAffectingCombat('player') then SUF:RegisterEvent('PLAYER_REGEN_ENABLED', SUF.UpdateShadows) return end
