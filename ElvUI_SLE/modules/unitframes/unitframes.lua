@@ -61,8 +61,8 @@ local function HookConstructUnitFrames()
 	hooksecurefunc(UF, 'Construct_UF', SUF.Construct_UF)
 	hooksecurefunc(UF, 'Construct_PartyFrames', SUF.Construct_PartyFrames)
 	hooksecurefunc(UF, 'Construct_RaidFrames', SUF.Construct_RaidFrames)
-	hooksecurefunc(UF, 'Construct_TankFrames', SUF.Construct_TankFrames)
-	hooksecurefunc(UF, 'Construct_AssistFrames', SUF.Construct_AssistFrames)
+	-- hooksecurefunc(UF, 'Construct_TankFrames', SUF.Construct_TankFrames)
+	-- hooksecurefunc(UF, 'Construct_AssistFrames', SUF.Construct_AssistFrames)
 end
 
 local function HookUpdateUnitFrames()
@@ -79,8 +79,8 @@ local function HookUpdateUnitFrames()
 	--* Group Units
 	hooksecurefunc(UF, "Update_PartyFrames", SUF.Update_PartyFrames)
 	hooksecurefunc(UF, "Update_RaidFrames", SUF.Update_RaidFrames)
-	hooksecurefunc(UF, "Update_TankFrames", SUF.Update_TankFrames)
-	hooksecurefunc(UF, "Update_AssistFrames", SUF.Update_AssistFrames)
+	-- hooksecurefunc(UF, "Update_TankFrames", SUF.Update_TankFrames)
+	-- hooksecurefunc(UF, "Update_AssistFrames", SUF.Update_AssistFrames)
 	hooksecurefunc(UF, "Update_ArenaFrames", SUF.Update_ArenaFrames)
 	hooksecurefunc(UF, 'Update_BossFrames', SUF.Update_BossFrames)
 end
