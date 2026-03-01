@@ -1,4 +1,4 @@
-﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local Sk = SLE.Skins
 local S = E.Skins
 
@@ -9,7 +9,31 @@ local ItemsPerSubpage, SubpagesPerPage
 local math_max, math_ceil = math.max, math.ceil
 local MerchantFrame_UpdateAltCurrency, MoneyFrame_Update = MerchantFrame_UpdateAltCurrency, MoneyFrame_Update
 local GetMerchantNumItems = GetMerchantNumItems
-local GetMerchantItemInfo, GetMerchantItemLink = GetMerchantItemInfo, GetMerchantItemLink
+local GetMerchantItemInfo = _G.GetMerchantItemInfo
+local GetMerchantItemLink = _G.GetMerchantItemLink
+
+-- Retail compatibility: GetMerchantItemInfo migrated to C_MerchantFrame.GetItemInfo
+if not GetMerchantItemInfo and C_MerchantFrame and C_MerchantFrame.GetItemInfo then
+	GetMerchantItemInfo = function(index)
+		local info = C_MerchantFrame.GetItemInfo(index)
+		if not info then return end
+
+		local texture = info.icon or info.iconFileID or info.iconTexture or info.texture or info.iconID
+		if not texture then
+			local itemID = info.itemID or (_G.GetMerchantItemID and _G.GetMerchantItemID(index))
+			if itemID and _G.GetItemIcon then texture = _G.GetItemIcon(itemID) end
+		end
+
+		local name = info.name
+		local price = info.price
+		local quantity = info.stackCount or info.quantity or info.stack
+		local numAvailable = info.numAvailable
+		local isPurchasable = info.isPurchasable
+		local isUsable = info.isUsable
+		local extendedCost = info.extendedCost or info.hasExtendedCost or info.isExtendedCost
+		return name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost
+	end
+end
 local SetItemButtonCount, SetItemButtonStock, SetItemButtonTexture = SetItemButtonCount, SetItemButtonStock, SetItemButtonTexture
 local SetItemButtonNameFrameVertexColor, SetItemButtonSlotVertexColor, SetItemButtonTextureVertexColor, SetItemButtonNormalTextureVertexColor = SetItemButtonNameFrameVertexColor, SetItemButtonSlotVertexColor, SetItemButtonTextureVertexColor, SetItemButtonNormalTextureVertexColor
 local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
@@ -186,9 +210,15 @@ local function UpdateMerchantInfo()
 		local merchantMoney = _G['MerchantItem'..i..'MoneyFrame']
 		local merchantAltCurrency = _G['MerchantItem'..i..'AltCurrencyFrame']
 		if (index <= visibleMerchantItems) then
-			name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost = GetMerchantItemInfo(indexes[index])
+			local itemIndex = indexes[index]
+			name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost = GetMerchantItemInfo(itemIndex)
+			-- Some vendors use item/currency costs; ensure extendedCost is detected even if GetMerchantItemInfo doesn't flag it
+			if not extendedCost and _G.GetMerchantItemCostInfo then
+				local costCount = _G.GetMerchantItemCostInfo(itemIndex)
+				if costCount and costCount > 0 then extendedCost = true end
+			end
 			if (name ~= nil) then
-				local canAfford = CanAffordMerchantItem(index)
+				local canAfford = CanAffordMerchantItem(itemIndex)
 				_G['MerchantItem'..i..'Name']:SetText(name)
 				SetItemButtonCount(itemButton, quantity)
 				SetItemButtonStock(itemButton, numAvailable)
@@ -198,9 +228,9 @@ local function UpdateMerchantInfo()
 					itemButton.price = nil
 					itemButton.extendedCost = true
 					itemButton.name = name
-					itemButton.link = GetMerchantItemLink(indexes[index])
+					itemButton.link = GetMerchantItemLink(itemIndex)
 					itemButton.texture = texture
-					MerchantFrame_UpdateAltCurrency(index, i, canAfford)
+					MerchantFrame_UpdateAltCurrency(itemIndex, i, canAfford)
 					merchantAltCurrency:ClearAllPoints()
 					merchantAltCurrency:SetPoint('BOTTOMLEFT', 'MerchantItem'..i..'NameFrame', 'BOTTOMLEFT', 0, 31)
 					merchantMoney:Hide()
@@ -209,9 +239,9 @@ local function UpdateMerchantInfo()
 					itemButton.price = price
 					itemButton.extendedCost = true
 					itemButton.name = name
-					itemButton.link = GetMerchantItemLink(indexes[index])
+					itemButton.link = GetMerchantItemLink(itemIndex)
 					itemButton.texture = texture
-					local altCurrencyWidth = MerchantFrame_UpdateAltCurrency(index, i, canAfford)
+					local altCurrencyWidth = MerchantFrame_UpdateAltCurrency(itemIndex, i, canAfford)
 					MoneyFrame_SetMaxDisplayWidth(merchantMoney, MAX_MONEY_DISPLAY_WIDTH - altCurrencyWidth)
 					MoneyFrame_Update(merchantMoney:GetName(), price)
 					local color
@@ -227,7 +257,7 @@ local function UpdateMerchantInfo()
 					itemButton.price = price
 					itemButton.extendedCost = nil
 					itemButton.name = name
-					itemButton.link = GetMerchantItemLink(indexes[index])
+					itemButton.link = GetMerchantItemLink(itemIndex)
 					itemButton.texture = texture
 					MoneyFrame_SetMaxDisplayWidth(merchantMoney, MAX_MONEY_DISPLAY_WIDTH)
 					MoneyFrame_Update(merchantMoney:GetName(), price)
@@ -242,14 +272,14 @@ local function UpdateMerchantInfo()
 
 				MerchantFrameItem_UpdateQuality(merchantButton, itemButton.link)
 
-				local merchantItemID = GetMerchantItemID(index)
+				local merchantItemID = GetMerchantItemID(itemIndex)
 				local isHeirloom = merchantItemID and C_Heirloom.IsItemHeirloom(merchantItemID)
 				local isKnownHeirloom = isHeirloom and C_Heirloom.PlayerHasHeirloom(merchantItemID)
 
 				itemButton.showNonrefundablePrompt = isHeirloom
 
 				itemButton.hasItem = true
-				itemButton:SetID(indexes[index])
+				itemButton:SetID(itemIndex)
 				itemButton:Show()
 
 				local tintRed = not isPurchasable or (not isUsable and not isHeirloom)
