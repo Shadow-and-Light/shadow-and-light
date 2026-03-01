@@ -1,4 +1,4 @@
-﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local PvP = SLE.PVP
 
 --GLOBALS: hooksecurefunc, CreateFrame
@@ -22,6 +22,16 @@ local C_PvP_IsActiveBattlefield = C_PvP.IsActiveBattlefield
 
 local BG_Opponents = {}
 PvP.HonorStrings = {}
+
+
+-- Prefer ElvUI event dispatcher to avoid AceEvent taint/protected RegisterEvent path
+local function RegisterEventSafe(obj, event, method)
+	if E and E.RegisterEventForObject then
+		E:RegisterEventForObject(obj, event, method)
+	elseif obj and obj.RegisterEvent then
+		obj:RegisterEvent(event, method)
+	end
+end
 
 function PvP:Release()
 	local resOptions = GetSortedSelfResurrectOptions()
@@ -81,15 +91,15 @@ function PvP:Initialize()
 	PvP.db = E.db.sle.pvp
 
 	--AutoRes event
-	self:RegisterEvent('PLAYER_DEAD', 'Dead')
+	RegisterEventSafe(self, 'PLAYER_DEAD', 'Dead')
 
 	if E.db.movers['PvPMover'] then
 		E.db.movers['TopCenterContainerMover'] = E.db.movers['PvPMover']
 		E.db.movers['PvPMover'] = nil
 	end
 
-	self:RegisterEvent('DUEL_REQUESTED', 'Duels')
-	self:RegisterEvent('PET_BATTLE_PVP_DUEL_REQUESTED', 'Duels')
+	RegisterEventSafe(self, 'DUEL_REQUESTED', 'Duels')
+	RegisterEventSafe(self, 'PET_BATTLE_PVP_DUEL_REQUESTED', 'Duels')
 
 	function PvP:ForUpdateAll()
 		PvP.db = E.db.sle.pvp
@@ -111,8 +121,8 @@ function PvP:Initialize()
 				end
 			end
 		end)
-		self:RegisterEvent('COMBAT_LOG_EVENT_UNFILTERED', 'LogParse')
-		self:RegisterEvent('UPDATE_BATTLEFIELD_SCORE', 'OpponentsTable')
+		RegisterEventSafe(self, 'COMBAT_LOG_EVENT_UNFILTERED', 'LogParse')
+		RegisterEventSafe(self, 'UPDATE_BATTLEFIELD_SCORE', 'OpponentsTable')
 	end
 end
 
