@@ -1,4 +1,4 @@
-﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local M = E.Minimap
 local MM, DD = SLE.Minimap, SLE.Dropdowns
 local LP = SLE.LocationPanel
@@ -105,6 +105,17 @@ LP.Hearthstones = {
 	{212337, nil, true}, -- Stone of the Hearth (Hearthstone 10th Anniversary)
 	{210455, nil, true}, -- Draenic Hologem
 	{193588, nil, true}, -- Timewalker's Hearthstone
+	{200630, nil, true}, -- Ohn'ir Windsage's Hearthstone
+	{208704, nil, true}, -- Deepdweller's Earthen Hearthstone
+	{209035, nil, true}, -- Hearthstone of the Flame
+	{228940, nil, true}, -- Notorious Thread's Hearthstone
+	{236687, nil, true}, -- Explosive Hearthstone
+	{245970, nil, true}, -- P.O.S.T. Master's Express Hearthstone
+	{246565, nil, true}, -- Cosmic Hearthstone
+--	{250411, nil, false}, -- Timerunner's Hearthstone
+	{257736, nil, true}, -- Lightcalled Hearthstone
+	{263933, nil, true}, -- Preyseeker's Hearthstone
+	{265100, nil, true}, -- Corewarden's Hearthstone
 }
 
 LP.PortItems = {
@@ -116,7 +127,7 @@ LP.PortItems = {
 	{58487}, --Potion of Deepholm
 	{43824, nil, true}, --The Schools of Arcane Magic - Mastery
 	{64457}, --The Last Relic of Argus
-	{141605}, --Flight Masters's Whistle
+	{141605, nil, true}, --Flight Masters's Whistle
 	{128502}, --Hunter's Seeking Crystal
 	{128503}, --Master Hunter's Seeking Crystal
 	{140324, nil, true}, --Mobile Telemancy Beacon
@@ -128,6 +139,8 @@ LP.PortItems = {
 	{180817}, --Cypher of Relocation
 	{151016}, --Fractured Necrolyte Skull
 	{211788, nil, true}, -- Tess's Peacebloom (Gilneas)
+	{230850, nil, true}, -- Delve-O-Bot 7001
+	{243056, nil, true}, -- Delver's Mana-Bound Ethergate
 }
 LP.EngineerItems = {
 	{18984, nil, true}, --Dimensional Ripper - Everlook
@@ -142,6 +155,8 @@ LP.EngineerItems = {
 	{168808, nil, true}, --Wormhole Generator: Zandalar
 	{172924, nil, true}, --Wormhole Generator: Shadowlands
 	{198156, nil, true}, -- Wyrmhole Generator (Dragonflight)
+	{221966, nil, true}, -- Wormhole Generator: Khaz Algar
+	{248485, nil, true}, -- Wormhole Generator: Quel'Thalas
 }
 LP.Spells = {
 	DEATHKNIGHT = {
@@ -178,6 +193,9 @@ LP.Spells = {
 			[1] = LP:CreateSpellsEntry(312370, 'spell', true), -- Make Camp
 			[2] = LP:CreateSpellsEntry(312372, 'spell', true), -- Return to Camp
 		},
+		Haranir = {
+			[1] = LP:CreateSpellsEntry(1238686, 'spell', true), -- Rootwalking
+		},
 	},
 
 	teleports = {
@@ -198,6 +216,7 @@ LP.Spells = {
 			[14] = LP:CreateSpellsEntry(344587, 'spell', true), -- TP:Oribos
 			[15] = LP:CreateSpellsEntry(395277, 'spell', true), -- TP:Valdrakken
 			[16] = LP:CreateSpellsEntry(446540, 'spell', true), -- TP:Dornogal
+			[17] = LP:CreateSpellsEntry(1259190, 'spell', true), -- TP:Silvermoon City
 		},
 		Alliance = {
 			[1] = LP:CreateSpellsEntry(3561, 'spell', true), -- TP:Stormwind
@@ -216,6 +235,7 @@ LP.Spells = {
 			[14] = LP:CreateSpellsEntry(344587, 'spell', true), -- TP:Oribos
 			[15] = LP:CreateSpellsEntry(395277, 'spell', true), -- TP:Valdrakken
 			[16] = LP:CreateSpellsEntry(446540, 'spell', true), -- TP:Dornogal
+			[17] = LP:CreateSpellsEntry(1259190, 'spell', true), -- TP:Silvermoon City
 		},
 	},
 	portals = {
@@ -236,6 +256,7 @@ LP.Spells = {
 			[14] = LP:CreateSpellsEntry(344597, 'spell', true), -- P:Oribos
 			[15] = LP:CreateSpellsEntry(395289, 'spell', true), -- P:Valdrakken
 			[16] = LP:CreateSpellsEntry(446534, 'spell', true), -- P:Dornogal
+			[17] = LP:CreateSpellsEntry(1259194, 'spell', true), -- P:Silvermoon City
 		},
 		Alliance = {
 			[1] = LP:CreateSpellsEntry(10059, 'spell', true), -- P:Stormwind
@@ -254,6 +275,7 @@ LP.Spells = {
 			[14] = LP:CreateSpellsEntry(344597, 'spell', true), -- P:Oribos
 			[15] = LP:CreateSpellsEntry(395289, 'spell', true), -- P:Valdrakken
 			[16] = LP:CreateSpellsEntry(446534, 'spell', true), -- P:Dornogal
+			[17] = LP:CreateSpellsEntry(1259194, 'spell', true), -- P:Silvermoon City
 		},
 	},
 	challenge = {
