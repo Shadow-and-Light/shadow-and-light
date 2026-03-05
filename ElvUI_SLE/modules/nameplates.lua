@@ -19,6 +19,15 @@ function N:CreateThreatIndicator(nameplate)
 	nameplate.SLE_threatInfo:FontTemplate(E.LSM:Fetch('font', E.db.sle.nameplates.threat.font), E.db.sle.nameplates.threat.size, E.db.sle.nameplates.threat.fontOutline)
 end
 
+local issecretvalue = _G.issecretvalue
+
+-- Retail 12.0+: Some API strings can be 'secret values'. Avoid comparing secret values on tainted paths.
+local function SafeUnitGUID(unit)
+	local guid = UnitGUID(unit)
+	if issecretvalue and issecretvalue(guid) then return nil end
+	return guid
+end
+
 hooksecurefunc(NP, 'ThreatIndicator_PostUpdate', function(threat, unit)
 	if not threat.__owner then return end
 	if threat.__owner.SLE_threatInfo then
@@ -27,7 +36,8 @@ hooksecurefunc(NP, 'ThreatIndicator_PostUpdate', function(threat, unit)
 		if E.db.sle.nameplates.threat.enable and threat.__owner.frameType == 'ENEMY_NPC' then
 			if not unit then
 				for i=1, 4 do
-					if threat.__owner.guid == UnitGUID(format('boss%d', i)) then
+					local bossGUID = SafeUnitGUID(format('boss%d', i))
+					if bossGUID and threat.__owner.guid == bossGUID then
 						unit = format('boss%d', i)
 						break
 					end
@@ -35,7 +45,8 @@ hooksecurefunc(NP, 'ThreatIndicator_PostUpdate', function(threat, unit)
 			end
 			if unit and not UnitIsPlayer(unit) and UnitCanAttack('player', unit) then
 				local status, percent = select(2, UnitDetailedThreatSituation('player', unit))
-				if (status) then
+				-- Retail 12.0+: status may be nil/invalid (or secret); guard before calling GetThreatStatusColor.
+				if status and type(status) == 'number' and not (issecretvalue and issecretvalue(status)) then
 					threat.__owner.SLE_threatInfo:SetFormattedText('%s%.0f%%|r', E:RGBToHex(GetThreatStatusColor(status)), percent or '')
 				end
 			end
@@ -76,10 +87,11 @@ function N:UpdateCount(event, unit, force)
 				for _, unitid in pairs(N.GroupMembers) do --For every unit in roster
 					if not UnitIsUnit(unitid, 'player') and plate.unit then
 						target = format('%starget', unitid) --Get group member's target
-						plate.guid = UnitGUID(plate.unit) --Find unit's guid
+						plate.guid = SafeUnitGUID(plate.unit) --Find unit's guid
 
 						if plate.guid and UnitExists(target) then --If target exists and plate actually has unit, then someone actually targets this plate
-							if UnitGUID(target) == plate.guid then
+							local tgtGUID = SafeUnitGUID(target)
+							if tgtGUID and tgtGUID == plate.guid then
 								plate.SLE_TargetedByCounter = plate.SLE_TargetedByCounter + 1
 							end
 						end
@@ -89,10 +101,11 @@ function N:UpdateCount(event, unit, force)
 
 			--If debug mode is set
 			if N.TestSoloTarget then
-				plate.guid = UnitGUID(plate.unit)
+				plate.guid = SafeUnitGUID(plate.unit)
 
 				if plate.guid and UnitExists('target') then
-					if UnitGUID('target') == plate.guid then
+					local tgtGUID = SafeUnitGUID('target')
+						if tgtGUID and tgtGUID == plate.guid then
 						plate.SLE_TargetedByCounter = plate.SLE_TargetedByCounter + 1
 					end
 				end

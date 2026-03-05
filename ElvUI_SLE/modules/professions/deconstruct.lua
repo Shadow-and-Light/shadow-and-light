@@ -1,4 +1,4 @@
-﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local Pr = SLE.Professions
 local B = E.Bags
 local lib = LibStub('LibProcessable')
@@ -10,7 +10,11 @@ local format, strfind, strsplit, gsub, type, tostring = format, strfind, strspli
 local GetTradeTargetItemLink = GetTradeTargetItemLink
 local InCombatLockdown = InCombatLockdown
 local LOCKED = LOCKED
-local ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow, AutoCastShine_AutoCastStart = ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow, AutoCastShine_AutoCastStart
+local ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow, AutoCastShine_AutoCastStart = _G.ActionButton_ShowOverlayGlow, _G.ActionButton_HideOverlayGlow, _G.AutoCastShine_AutoCastStart
+-- Retail builds may not expose these helpers as globals in all UI load orders; avoid nil-call errors.
+ActionButton_ShowOverlayGlow = ActionButton_ShowOverlayGlow or function() end
+ActionButton_HideOverlayGlow = ActionButton_HideOverlayGlow or function() end
+AutoCastShine_AutoCastStart = AutoCastShine_AutoCastStart or function() end
 
 local C_Container_GetContainerItemLink = C_Container.GetContainerItemLink
 local C_Container_GetContainerItemInfo = C_Container.GetContainerItemInfo

@@ -380,6 +380,9 @@ local function OnEvent(self, event, message)
 	-- when this is the case, we invalidate our buffered table and update the
 	-- datatext information
 	if event == 'CHAT_MSG_SYSTEM' then
+		-- Retail 12.0+: CHAT_MSG_SYSTEM message can be a 'secret value' (not safe for string ops on tainted paths).
+		if _G.issecretvalue and _G.issecretvalue(message) then return end
+		if type(message) ~= 'string' then return end
 		if not (strfind(message, friendOnline) or strfind(message, friendOffline)) then return end
 	end
 

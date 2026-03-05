@@ -1,4 +1,4 @@
-﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local Sk = SLE.Skins
 local S = E.Skins
 
@@ -12,7 +12,31 @@ local MerchantItemButton_OnClick = MerchantItemButton_OnClick
 local BuyMerchantItem = BuyMerchantItem
 local MerchantFrame_ConfirmExtendedItemCost = MerchantFrame_ConfirmExtendedItemCost
 local FauxScrollFrame_OnVerticalScroll = FauxScrollFrame_OnVerticalScroll
-local GetMerchantItemInfo, GetMerchantItemLink = GetMerchantItemInfo, GetMerchantItemLink
+local GetMerchantItemInfo = _G.GetMerchantItemInfo
+local GetMerchantItemLink = _G.GetMerchantItemLink
+
+-- Retail compatibility: GetMerchantItemInfo migrated to C_MerchantFrame.GetItemInfo
+if not GetMerchantItemInfo and C_MerchantFrame and C_MerchantFrame.GetItemInfo then
+	GetMerchantItemInfo = function(index)
+		local info = C_MerchantFrame.GetItemInfo(index)
+		if not info then return end
+
+		local texture = info.icon or info.iconFileID or info.iconTexture or info.texture or info.iconID
+		if not texture then
+			local itemID = info.itemID or (_G.GetMerchantItemID and _G.GetMerchantItemID(index))
+			if itemID and _G.GetItemIcon then texture = _G.GetItemIcon(itemID) end
+		end
+
+		local name = info.name
+		local price = info.price
+		local quantity = info.stackCount or info.quantity or info.stack
+		local numAvailable = info.numAvailable
+		local isPurchasable = info.isPurchasable
+		local isUsable = info.isUsable
+		local extendedCost = info.extendedCost or info.hasExtendedCost or info.isExtendedCost
+		return name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost
+	end
+end
 local GetMoney, GetCoinTextureString = GetMoney, GetCoinTextureString
 local GetMerchantItemCostInfo, GetMerchantItemCostItem = GetMerchantItemCostInfo, GetMerchantItemCostItem
 local FauxScrollFrame_GetOffset, FauxScrollFrame_Update = FauxScrollFrame_GetOffset, FauxScrollFrame_Update
