@@ -141,6 +141,7 @@ LP.PortItems = {
 	{211788, nil, true}, -- Tess's Peacebloom (Gilneas)
 	{230850, nil, true}, -- Delve-O-Bot 7001
 	{243056, nil, true}, -- Delver's Mana-Bound Ethergate
+	{253629, nil, true}, -- Personal Key to the Arcantina
 }
 LP.EngineerItems = {
 	{18984, nil, true}, --Dimensional Ripper - Everlook
