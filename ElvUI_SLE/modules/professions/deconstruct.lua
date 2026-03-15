@@ -10,7 +10,7 @@ local format, strfind, strsplit, gsub, type, tostring = format, strfind, strspli
 local GetTradeTargetItemLink = GetTradeTargetItemLink
 local InCombatLockdown = InCombatLockdown
 local LOCKED = LOCKED
-local ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow, AutoCastShine_AutoCastStart = ActionButton_ShowOverlayGlow, ActionButton_HideOverlayGlow, AutoCastShine_AutoCastStart
+local AutoCastShine_AutoCastStart = AutoCastShine_AutoCastStart
 
 local C_Container_GetContainerItemLink = C_Container.GetContainerItemLink
 local C_Container_GetContainerItemInfo = C_Container.GetContainerItemInfo
@@ -137,7 +137,7 @@ function Pr:ApplyDeconstruct(itemLink, itemId, spell, spellType, r, g, b, slot)
 		Pr.DeconstructionReal:Show()
 
 		if E.private.sle.professions.deconButton.style == 'BIG' then
-			ActionButton_ShowOverlayGlow(Pr.DeconstructionReal)
+			ActionButtonSpellAlertManager:ShowAlert(Pr.DeconstructionReal)
 		elseif E.private.sle.professions.deconButton.style == 'SMALL' then
 			AutoCastShine_AutoCastStart(Pr.DeconstructionReal, color, 5,nil,2)
 		end
@@ -148,7 +148,7 @@ function Pr:ApplyDeconstruct(itemLink, itemId, spell, spellType, r, g, b, slot)
 		Pr.DeconstructionReal:SetAllPoints(slot)
 		Pr.DeconstructionReal:Show()
 		if E.private.sle.professions.deconButton.style == 'BIG' then
-			ActionButton_ShowOverlayGlow(Pr.DeconstructionReal)
+			ActionButtonSpellAlertManager:ShowAlert(Pr.DeconstructionReal)
 		elseif E.private.sle.professions.deconButton.style == 'SMALL' then
 			-- AutoCastShine_AutoCastStart(Pr.DeconstructionReal, r, g, b)
 			LCG.AutoCastGlow_Start(Pr.DeconstructionReal, color, 5, nil, 2)
@@ -165,7 +165,7 @@ function Pr:ApplyDeconstruct(itemLink, itemId, spell, spellType, r, g, b, slot)
 		Pr.DeconstructionReal:Show()
 
 		if E.private.sle.professions.deconButton.style == 'BIG' then
-			ActionButton_ShowOverlayGlow(Pr.DeconstructionReal)
+			ActionButtonSpellAlertManager:ShowAlert(Pr.DeconstructionReal)
 		elseif E.private.sle.professions.deconButton.style == 'SMALL' then
 			-- AutoCastShine_AutoCastStart(Pr.DeconstructionReal, r, g, b)
 			LCG.AutoCastGlow_Start(Pr.DeconstructionReal, color, 5, nil, 2)
@@ -281,10 +281,10 @@ function Pr:Construct_BagButton()
 		Pr.DeconstructMode = not Pr.DeconstructMode
 		if Pr.DeconstructMode then
 			Pr.DeconstructButton:SetNormalTexture([[Interface\ICONS\INV_Rod_EnchantedCobalt]])
-			if E.private.sle.professions.deconButton.buttonGlow then ActionButton_ShowOverlayGlow(Pr.DeconstructButton) end
+			if E.private.sle.professions.deconButton.buttonGlow then ActionButtonSpellAlertManager:ShowAlert(Pr.DeconstructButton) end
 		else
 			Pr.DeconstructButton:SetNormalTexture([[Interface\ICONS\INV_Rod_Cobalt]])
-			ActionButton_HideOverlayGlow(Pr.DeconstructButton)
+			ActionButtonSpellAlertManager:HideAlert(Pr.DeconstructButton)
 		end
 		Pr.DeconstructButton.ttText2 = format(L["Allow you to disenchant/mill/prospect/unlock items.\nClick to toggle.\nCurrent state: %s."], Pr:GetDeconMode())
 		B.Tooltip_Show(frame)
@@ -309,7 +309,7 @@ function Pr:ConstructRealDecButton()
 			if _G.GameTooltip then _G.GameTooltip:Hide() end
 			LCG.AutoCastGlow_Stop(frame)
 			LCG.PixelGlow_Stop(frame)
-			ActionButton_HideOverlayGlow(frame)
+			ActionButtonSpellAlertManager:HideAlert(frame)
 			frame:Hide()
 		end
 	end
@@ -348,7 +348,7 @@ function Pr:InitializeDeconstruct()
 	local function OnHide()
 		Pr.DeconstructMode = false
 		Pr.DeconstructButton:SetNormalTexture([[Interface\ICONS\INV_Rod_Cobalt]])
-		ActionButton_HideOverlayGlow(Pr.DeconstructButton)
+		ActionButtonSpellAlertManager:HideAlert(Pr.DeconstructButton)
 		Pr.DeconstructionReal:OnLeave()
 	end
 
