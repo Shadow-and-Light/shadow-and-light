@@ -79,100 +79,101 @@ end
 
 --{ItemID, ButtonText, isToy}
 LP.Hearthstones = {
-	{6948}, --Hearthstone
-	{54452, nil, true}, --Etherial Portal
-	{64488, nil, true}, --The Innkeeper's Daughter
-	{93672, nil, true}, --Dark Portal
-	{142542, nil, true}, --Tome of Town Portal (Diablo Event)
-	{162973, nil, true}, --Winter HS
-	{163045, nil, true}, --Hallow HS
-	{165669, nil, true}, -- Lunar HS
-	{165670, nil, true}, -- Love HS
-	{165802, nil, true}, -- Noblegarden HS
-	{166746, nil, true}, -- Midsummer HS
-	{166747, nil, true}, -- Brewfest HS
-	{168907, nil, true}, --Holographic Digitalization Hearthstone
-	{172179, nil, true}, --Eternal Traveller
-	{183716, nil, true}, --Sinstone
-	{182773, nil, true}, --Necrolord HS
-	{180290, nil, true}, --Night Fae HS
-	{184353, nil, true}, --Kyrian HS
-	{188952, nil, true}, --Dominated HS
+	{6948}, -- Hearthstone
+	{54452, nil, true}, -- Ethereal Portal
+	{64488, nil, true}, -- The Innkeeper's Daughter
+	{93672, nil, true}, -- Dark Portal
+	{142542, nil, true}, -- Tome of Town Portal (Diablo 20th Anniversary Event)
+	{162973, nil, true}, -- Greatfather Winter's Hearthstone
+	{163045, nil, true}, -- Headless Horseman's Hearthstone
+	{165669, nil, true}, -- Lunar Elder's Hearthstone
+	{165670, nil, true}, -- Peddlefeet's Lovely Hearthstone
+	{165802, nil, true}, -- Noble Gardener's Hearthstone
+	{166746, nil, true}, -- Fire Eater's Hearthstone
+	{166747, nil, true}, -- Brewfest Reveler's Hearthstone
+	{168907, nil, true}, -- Holographic Digitalization Hearthstone
+	{172179, nil, true}, -- Eternal Traveler's Hearthstone
+	{180290, nil, true}, -- Night Fae Hearthstone
+	{182773, nil, true}, -- Necrolord Hearthstone
+	{183716, nil, true}, -- Venthyr Sinstone
+	{184353, nil, true}, -- Kyrian Hearthstone
+	{188952, nil, true}, -- Dominated Hearthstone
 	{190196, nil, true}, -- Enlightened Hearthstone
 	{190237, nil, true}, -- Broker Translocation Matrix
-	{208704, nil, true}, -- Deepdweller's Earthen Hearthstone
-	{209035, nil, true}, -- Hearthstone of the Flame
-	{212337, nil, true}, -- Stone of the Hearth (Hearthstone 10th Anniversary)
-	{210455, nil, true}, -- Draenic Hologem
 	{193588, nil, true}, -- Timewalker's Hearthstone
 	{200630, nil, true}, -- Ohn'ir Windsage's Hearthstone
 	{208704, nil, true}, -- Deepdweller's Earthen Hearthstone
 	{209035, nil, true}, -- Hearthstone of the Flame
+	{210455, nil, true}, -- Draenic Hologem
+	{212337, nil, true}, -- Stone of the Hearth (Hearthstone 10th Anniversary Event)
 	{228940, nil, true}, -- Notorious Thread's Hearthstone
+	{235016, nil, true}, -- Redeployment Module
 	{236687, nil, true}, -- Explosive Hearthstone
 	{245970, nil, true}, -- P.O.S.T. Master's Express Hearthstone
 	{246565, nil, true}, -- Cosmic Hearthstone
---	{250411, nil, false}, -- Timerunner's Hearthstone
+--	{250411}, -- Timerunner's Hearthstone (!Remix Event)
 	{257736, nil, true}, -- Lightcalled Hearthstone
+	{263489, nil, true}, -- Naaru's Enfold
 	{263933, nil, true}, -- Preyseeker's Hearthstone
 	{265100, nil, true}, -- Corewarden's Hearthstone
 }
-
 LP.PortItems = {
-	{110560, nil, true}, --Garrison Hearthstone
-	{128353}, --Admiral's Compass
-	{140192, nil, true}, --Dalaran Hearthstone
-	{37863}, --Grim Guzzler
-	{52251}, --Jaina's Locket
-	{58487}, --Potion of Deepholm
-	{43824, nil, true}, --The Schools of Arcane Magic - Mastery
-	{64457}, --The Last Relic of Argus
-	{141605, nil, true}, --Flight Masters's Whistle
-	{128502}, --Hunter's Seeking Crystal
-	{128503}, --Master Hunter's Seeking Crystal
-	{140324, nil, true}, --Mobile Telemancy Beacon
-	{129276}, --Beginner's Guide to Dimensional Rifting
-	{140493}, --Adept's Guide to Dimensional Rifting
-	{95567, nil, true}, --Kirin Tor beakon
-	{95568, nil, true}, --Sunreaver beakon
-	{87548}, --Pandaria Arch
-	{180817}, --Cypher of Relocation
-	{151016}, --Fractured Necrolyte Skull
+	{37863}, -- Direbrew's Remote (Grim Guzzler)
+	{43824, nil, true}, -- The Schools of Arcane Magic - Mastery (Dalaran - Broken Isles)
+	{52251}, -- Jaina's Locket (Dalaran - Northrend)
+	{58487}, -- Potion of Deepholm
+	{64457, nil, true}, -- The Last Relic of Argus (Random)
+	{87548}, -- Lorewalker's Lodestone (Random Pandaria Digsite)
+	{95567, nil, true}, -- Kirin Tor Beacon (!Isle of Thunder)
+	{95568, nil, true}, -- Sunreaver Beacon (!Isle of Thunder)
+	{110560, nil, true}, -- Garrison Hearthstone
+	{128353}, -- Admiral's Compass (Garrison Shipyard)
+	{128502}, -- Hunter's Seeking Crystal (!Tanaan Jungle)
+	{128503}, -- Master Hunter's Seeking Crystal (!Tanaan Jungle)
+	{129276}, -- Beginner's Guide to Dimensional Rifting
+	{140192, nil, true}, -- Dalaran Hearthstone (Dalaran - Broken Isles)
+	{140324, nil, true}, -- Mobile Telemancy Beacon (!Suramar)
+	{140493}, -- Adept's Guide to Dimensional Rifting
+	{141605, nil, true}, -- Flight Master's Whistle
+	{151016, nil, true}, -- Fractured Necrolyte Skull (Black Temple)
+	{180817}, -- Cypher of Relocation (!The Maw)
 	{211788, nil, true}, -- Tess's Peacebloom (Gilneas)
-	{230850, nil, true}, -- Delve-O-Bot 7001
-	{243056, nil, true}, -- Delver's Mana-Bound Ethergate
+	{230850, nil, true}, -- Delve-O-Bot 7001 (Random TWW Bountiful Delve)
+--	{234389}, -- Gallagio Loyalty Rewards Card: Silver (!Liberation of Undermine)
+	{243056, nil, true}, -- Delver's Mana-Bound Ethergate (Dornogal)
+--	{249699}, -- Shadowguard Translocator (!Manaforge Omega)
 	{253629, nil, true}, -- Personal Key to the Arcantina
 }
 LP.EngineerItems = {
-	{18984, nil, true}, --Dimensional Ripper - Everlook
-	{18986, nil, true}, --Ultrasafe Transporter: Gadgetzan
-	{30542, nil, true}, --Dimensional Ripper - Area 52
-	{30544, nil, true}, --Ultrasafe Transporter: Toshley's Station
-	{48933, nil, true}, --Wormhole Generator: Northrend
-	{87215, nil, true}, --Wormhole Generator: Pandaria
-	{112059, nil, true}, --Wormhole Centrifuge
-	{151652, nil, true}, --Wormhole Generator: Argus
-	{168807, nil, true}, --Wormhole Generator: Kul Tiras
-	{168808, nil, true}, --Wormhole Generator: Zandalar
-	{172924, nil, true}, --Wormhole Generator: Shadowlands
-	{198156, nil, true}, -- Wyrmhole Generator (Dragonflight)
+	{18984, nil, true}, -- Dimensional Ripper - Everlook
+	{18986, nil, true}, -- Ultrasafe Transporter: Gadgetzan
+	{30542, nil, true}, -- Dimensional Ripper - Area 52
+	{30544, nil, true}, -- Ultrasafe Transporter: Toshley's Station
+	{48933, nil, true}, -- Wormhole Generator: Northrend
+	{87215, nil, true}, -- Wormhole Generator: Pandaria
+	{112059, nil, true}, -- Wormhole Centrifuge (Draenor)
+	{151652, nil, true}, -- Wormhole Generator: Argus
+	{168807, nil, true}, -- Wormhole Generator: Kul Tiras
+	{168808, nil, true}, -- Wormhole Generator: Zandalar
+	{172924, nil, true}, -- Wormhole Generator: Shadowlands
+	{198156, nil, true}, -- Wyrmhole Generator: Dragon Isles
 	{221966, nil, true}, -- Wormhole Generator: Khaz Algar
 	{248485, nil, true}, -- Wormhole Generator: Quel'Thalas
 }
 LP.Spells = {
 	DEATHKNIGHT = {
-		[1] = LP:CreateSpellsEntry(50977, 'spell', true),
+		[1] = LP:CreateSpellsEntry(50977, 'spell', true), -- Death Gate
 	},
 	DEMONHUNTER = {},
 	DRUID = {
-		[1] = LP:CreateSpellsEntry(18960, 'spell', true), --Moonglade
-		[2] = LP:CreateSpellsEntry(147420, 'spell', true), --One With Nature
-		[3] = LP:CreateSpellsEntry(193753, 'spell', true), --Druid ClassHall
+		[1] = LP:CreateSpellsEntry(18960, 'spell', true), -- TP: Moonglade
+		[2] = LP:CreateSpellsEntry(147420, 'spell', true), -- One with Nature
+		[3] = LP:CreateSpellsEntry(193753, 'spell', true), -- Dreamwalk
 	},
 	EVOKER = {},
 	HUNTER = {},
 	MAGE = {
-		[1] = LP:CreateSpellsEntry(193759, 'spell', true), --Guardian place
+		[1] = LP:CreateSpellsEntry(193759, 'spell', true), -- TP: Hall of the Guardian
 	},
 	MONK = {
 		[1] = LP:CreateSpellsEntry(126892, 'spell', true), -- Zen Pilgrimage
@@ -182,13 +183,13 @@ LP.Spells = {
 	PRIEST = {},
 	ROGUE = {},
 	SHAMAN = {
-		[1] = LP:CreateSpellsEntry(556, 'spell', true),
+		[1] = LP:CreateSpellsEntry(556, 'spell', true), -- Astral Recall
 	},
 	WARLOCK = {},
 	WARRIOR = {},
 	racials = {
 		DarkIronDwarf = {
-			[1] = LP:CreateSpellsEntry(265225, 'spell', true), -- Mole Machine (Dark Iron Dwarfs)
+			[1] = LP:CreateSpellsEntry(265225, 'spell', true), -- Mole Machine
 		},
 		Vulpera = {
 			[1] = LP:CreateSpellsEntry(312370, 'spell', true), -- Make Camp
@@ -198,139 +199,160 @@ LP.Spells = {
 			[1] = LP:CreateSpellsEntry(1238686, 'spell', true), -- Rootwalking
 		},
 	},
-
 	teleports = {
 		Horde = {
-			[1] = LP:CreateSpellsEntry(3563, 'spell', true), -- TP:Undercity
-			[2] = LP:CreateSpellsEntry(3566, 'spell', true), -- TP:Thunder Bluff
-			[3] = LP:CreateSpellsEntry(3567, 'spell', true), -- TP:Orgrimmar
-			[4] = LP:CreateSpellsEntry(32272, 'spell', true), -- TP:Silvermoon
-			[5] = LP:CreateSpellsEntry(49358, 'spell', true), -- TP:Stonard
-			[6] = LP:CreateSpellsEntry(35715, 'spell', true), -- TP:Shattrath
-			[7] = LP:CreateSpellsEntry(53140, 'spell', true), -- TP:Dalaran - Northrend
-			[8] = LP:CreateSpellsEntry(88344, 'spell', true), -- TP:Tol Barad
-			[9] = LP:CreateSpellsEntry(132627, 'spell', true), -- TP:Vale of Eternal Blossoms
-			[10] = LP:CreateSpellsEntry(120145, 'spell', true), -- TP:Ancient Dalaran
-			[11] = LP:CreateSpellsEntry(176242, 'spell', true), -- TP:Warspear
-			[12] = LP:CreateSpellsEntry(224869, 'spell', true), -- TP:Dalaran - BI
-			[13] = LP:CreateSpellsEntry(281404, 'spell', true), -- TP:Dazar'alor
-			[14] = LP:CreateSpellsEntry(344587, 'spell', true), -- TP:Oribos
-			[15] = LP:CreateSpellsEntry(395277, 'spell', true), -- TP:Valdrakken
-			[16] = LP:CreateSpellsEntry(446540, 'spell', true), -- TP:Dornogal
-			[17] = LP:CreateSpellsEntry(1259190, 'spell', true), -- TP:Silvermoon City
+			[1] = LP:CreateSpellsEntry(3563, 'spell', true), -- TP: Undercity
+			[2] = LP:CreateSpellsEntry(3566, 'spell', true), -- TP: Thunder Bluff
+			[3] = LP:CreateSpellsEntry(3567, 'spell', true), -- TP: Orgrimmar
+			[4] = LP:CreateSpellsEntry(32272, 'spell', true), -- TP: Silvermoon
+			[5] = LP:CreateSpellsEntry(35715, 'spell', true), -- TP: Shattrath
+			[6] = LP:CreateSpellsEntry(49358, 'spell', true), -- TP: Stonard
+			[7] = LP:CreateSpellsEntry(53140, 'spell', true), -- TP: Dalaran - Northrend
+			[8] = LP:CreateSpellsEntry(88344, 'spell', true), -- TP: Tol Barad
+			[9] = LP:CreateSpellsEntry(120145, 'spell', true), -- TP: Ancient Dalaran
+			[10] = LP:CreateSpellsEntry(132627, 'spell', true), -- TP: Vale of Eternal Blossoms
+			[11] = LP:CreateSpellsEntry(176242, 'spell', true), -- TP: Warspear
+			[12] = LP:CreateSpellsEntry(224869, 'spell', true), -- TP: Dalaran - Broken Isles
+			[13] = LP:CreateSpellsEntry(281404, 'spell', true), -- TP: Dazar'alor
+			[14] = LP:CreateSpellsEntry(344587, 'spell', true), -- TP: Oribos
+			[15] = LP:CreateSpellsEntry(395277, 'spell', true), -- TP: Valdrakken
+			[16] = LP:CreateSpellsEntry(446540, 'spell', true), -- TP: Dornogal
+			[17] = LP:CreateSpellsEntry(1259190, 'spell', true), -- TP: Silvermoon City
 		},
 		Alliance = {
-			[1] = LP:CreateSpellsEntry(3561, 'spell', true), -- TP:Stormwind
-			[2] = LP:CreateSpellsEntry(3562, 'spell', true), -- TP:Ironforge
-			[3] = LP:CreateSpellsEntry(3565, 'spell', true), -- TP:Darnassus
-			[4] = LP:CreateSpellsEntry(32271, 'spell', true), -- TP:Exodar
-			[5] = LP:CreateSpellsEntry(49359, 'spell', true), -- TP:Theramore
-			[6] = LP:CreateSpellsEntry(33690, 'spell', true), -- TP:Shattrath
-			[7] = LP:CreateSpellsEntry(53140, 'spell', true), -- TP:Dalaran - Northrend
-			[8] = LP:CreateSpellsEntry(88342, 'spell', true), -- TP:Tol Barad
-			[9] = LP:CreateSpellsEntry(132621, 'spell', true), -- TP:Vale of Eternal Blossoms
-			[10] = LP:CreateSpellsEntry(120145, 'spell', true), -- TP:Ancient Dalaran
-			[11] = LP:CreateSpellsEntry(176248, 'spell', true), -- TP:StormShield
-			[12] = LP:CreateSpellsEntry(224869, 'spell', true), -- TP:Dalaran - BI
-			[13] = LP:CreateSpellsEntry(281403, 'spell', true), -- TP:Boralus
-			[14] = LP:CreateSpellsEntry(344587, 'spell', true), -- TP:Oribos
-			[15] = LP:CreateSpellsEntry(395277, 'spell', true), -- TP:Valdrakken
-			[16] = LP:CreateSpellsEntry(446540, 'spell', true), -- TP:Dornogal
-			[17] = LP:CreateSpellsEntry(1259190, 'spell', true), -- TP:Silvermoon City
+			[1] = LP:CreateSpellsEntry(3561, 'spell', true), -- TP: Stormwind
+			[2] = LP:CreateSpellsEntry(3562, 'spell', true), -- TP: Ironforge
+			[3] = LP:CreateSpellsEntry(3565, 'spell', true), -- TP: Darnassus
+			[4] = LP:CreateSpellsEntry(32271, 'spell', true), -- TP: Exodar
+			[5] = LP:CreateSpellsEntry(33690, 'spell', true), -- TP: Shattrath
+			[6] = LP:CreateSpellsEntry(49359, 'spell', true), -- TP: Theramore
+			[7] = LP:CreateSpellsEntry(53140, 'spell', true), -- TP: Dalaran - Northrend
+			[8] = LP:CreateSpellsEntry(88342, 'spell', true), -- TP: Tol Barad
+			[9] = LP:CreateSpellsEntry(120145, 'spell', true), -- TP: Ancient Dalaran
+			[10] = LP:CreateSpellsEntry(132621, 'spell', true), -- TP: Vale of Eternal Blossoms
+			[11] = LP:CreateSpellsEntry(176248, 'spell', true), -- TP: Stormshield
+			[12] = LP:CreateSpellsEntry(224869, 'spell', true), -- TP: Dalaran - Broken Isles
+			[13] = LP:CreateSpellsEntry(281403, 'spell', true), -- TP: Boralus
+			[14] = LP:CreateSpellsEntry(344587, 'spell', true), -- TP: Oribos
+			[15] = LP:CreateSpellsEntry(395277, 'spell', true), -- TP: Valdrakken
+			[16] = LP:CreateSpellsEntry(446540, 'spell', true), -- TP: Dornogal
+			[17] = LP:CreateSpellsEntry(1259190, 'spell', true), -- TP: Silvermoon City
 		},
 	},
 	portals = {
 		Horde = {
-			[1] = LP:CreateSpellsEntry(11418, 'spell', true), -- P:Undercity
-			[2] = LP:CreateSpellsEntry(11420, 'spell', true), -- P:Thunder Bluff
-			[3] = LP:CreateSpellsEntry(11417, 'spell', true), -- P:Orgrimmar
-			[4] = LP:CreateSpellsEntry(32267, 'spell', true), -- P:Silvermoon
-			[5] = LP:CreateSpellsEntry(49361, 'spell', true), -- P:Stonard
-			[6] = LP:CreateSpellsEntry(35717, 'spell', true), -- P:Shattrath
-			[7] = LP:CreateSpellsEntry(53142, 'spell', true), -- P:Dalaran - Northred
-			[8] = LP:CreateSpellsEntry(88346, 'spell', true), -- P:Tol Barad
-			[9] = LP:CreateSpellsEntry(120146, 'spell', true), -- P:Ancient Dalaran
-			[10] = LP:CreateSpellsEntry(132626, 'spell', true), -- P:Vale of Eternal Blossoms
-			[11] = LP:CreateSpellsEntry(176244, 'spell', true), -- P:Warspear
-			[12] = LP:CreateSpellsEntry(224871, 'spell', true), -- P:Dalaran - BI
-			[13] = LP:CreateSpellsEntry(281402, 'spell', true), -- P:Dazar'alor
-			[14] = LP:CreateSpellsEntry(344597, 'spell', true), -- P:Oribos
-			[15] = LP:CreateSpellsEntry(395289, 'spell', true), -- P:Valdrakken
-			[16] = LP:CreateSpellsEntry(446534, 'spell', true), -- P:Dornogal
-			[17] = LP:CreateSpellsEntry(1259194, 'spell', true), -- P:Silvermoon City
+			[1] = LP:CreateSpellsEntry(11417, 'spell', true), -- P: Orgrimmar
+			[2] = LP:CreateSpellsEntry(11418, 'spell', true), -- P: Undercity
+			[3] = LP:CreateSpellsEntry(11420, 'spell', true), -- P: Thunder Bluff
+			[4] = LP:CreateSpellsEntry(32267, 'spell', true), -- P: Silvermoon
+			[5] = LP:CreateSpellsEntry(35717, 'spell', true), -- P: Shattrath
+			[6] = LP:CreateSpellsEntry(49361, 'spell', true), -- P: Stonard
+			[7] = LP:CreateSpellsEntry(53142, 'spell', true), -- P: Dalaran - Northrend
+			[8] = LP:CreateSpellsEntry(88346, 'spell', true), -- P: Tol Barad
+			[9] = LP:CreateSpellsEntry(120146, 'spell', true), -- P: Ancient Dalaran
+			[10] = LP:CreateSpellsEntry(132626, 'spell', true), -- P: Vale of Eternal Blossoms
+			[11] = LP:CreateSpellsEntry(176244, 'spell', true), -- P: Warspear
+			[12] = LP:CreateSpellsEntry(224871, 'spell', true), -- P: Dalaran - Broken Isles
+			[13] = LP:CreateSpellsEntry(281402, 'spell', true), -- P: Dazar'alor
+			[14] = LP:CreateSpellsEntry(344597, 'spell', true), -- P: Oribos
+			[15] = LP:CreateSpellsEntry(395289, 'spell', true), -- P: Valdrakken
+			[16] = LP:CreateSpellsEntry(446534, 'spell', true), -- P: Dornogal
+			[17] = LP:CreateSpellsEntry(1259194, 'spell', true), -- P: Silvermoon City
 		},
 		Alliance = {
-			[1] = LP:CreateSpellsEntry(10059, 'spell', true), -- P:Stormwind
-			[2] = LP:CreateSpellsEntry(11416, 'spell', true), -- P:Ironforge
-			[3] = LP:CreateSpellsEntry(11419, 'spell', true), -- P:Darnassus
-			[4] = LP:CreateSpellsEntry(32266, 'spell', true), -- P:Exodar
-			[5] = LP:CreateSpellsEntry(49360, 'spell', true), -- P:Theramore
-			[6] = LP:CreateSpellsEntry(33691, 'spell', true), -- P:Shattrath
-			[7] = LP:CreateSpellsEntry(53142, 'spell', true), -- P:Dalaran - Northred
-			[8] = LP:CreateSpellsEntry(88345, 'spell', true), -- P:Tol Barad
-			[9] = LP:CreateSpellsEntry(120146, 'spell', true), -- P:Ancient Dalaran
-			[10] = LP:CreateSpellsEntry(132620, 'spell', true), -- P:Vale of Eternal Blossoms
-			[11] = LP:CreateSpellsEntry(176246, 'spell', true), -- P:StormShield
-			[12] = LP:CreateSpellsEntry(224871, 'spell', true), -- P:Dalaran - BI
-			[13] = LP:CreateSpellsEntry(281400, 'spell', true), -- P:Boralus
-			[14] = LP:CreateSpellsEntry(344597, 'spell', true), -- P:Oribos
-			[15] = LP:CreateSpellsEntry(395289, 'spell', true), -- P:Valdrakken
-			[16] = LP:CreateSpellsEntry(446534, 'spell', true), -- P:Dornogal
-			[17] = LP:CreateSpellsEntry(1259194, 'spell', true), -- P:Silvermoon City
+			[1] = LP:CreateSpellsEntry(10059, 'spell', true), -- P: Stormwind
+			[2] = LP:CreateSpellsEntry(11416, 'spell', true), -- P: Ironforge
+			[3] = LP:CreateSpellsEntry(11419, 'spell', true), -- P: Darnassus
+			[4] = LP:CreateSpellsEntry(32266, 'spell', true), -- P: Exodar
+			[5] = LP:CreateSpellsEntry(33691, 'spell', true), -- P: Shattrath
+			[6] = LP:CreateSpellsEntry(49360, 'spell', true), -- P: Theramore
+			[7] = LP:CreateSpellsEntry(53142, 'spell', true), -- P: Dalaran - Northrend
+			[8] = LP:CreateSpellsEntry(88345, 'spell', true), -- P: Tol Barad
+			[9] = LP:CreateSpellsEntry(120146, 'spell', true), -- P: Ancient Dalaran
+			[10] = LP:CreateSpellsEntry(132620, 'spell', true), -- P: Vale of Eternal Blossoms
+			[11] = LP:CreateSpellsEntry(176246, 'spell', true), -- P: Stormshield
+			[12] = LP:CreateSpellsEntry(224871, 'spell', true), -- P: Dalaran - Broken Isles
+			[13] = LP:CreateSpellsEntry(281400, 'spell', true), -- P: Boralus
+			[14] = LP:CreateSpellsEntry(344597, 'spell', true), -- P: Oribos
+			[15] = LP:CreateSpellsEntry(395289, 'spell', true), -- P: Valdrakken
+			[16] = LP:CreateSpellsEntry(446534, 'spell', true), -- P: Dornogal
+			[17] = LP:CreateSpellsEntry(1259194, 'spell', true), -- P: Silvermoon City
 		},
 	},
 	challenge = {
-		[1] = LP:CreateSpellsEntry(131204, 'spell', true), -- Temple of the Jade Serpent (Path of the Jade Serpent)
-		[2] = LP:CreateSpellsEntry(131205, 'spell', true), -- Stormstout Brewery (Path of the Stout Brew)
-		[3] = LP:CreateSpellsEntry(131206, 'spell', true), -- Shado-Pan Monastery (Path of the Shado-Pan)
-		[4] = LP:CreateSpellsEntry(131222, 'spell', true), -- Mogu'shan Palace (Path of the Mogu King)
-		[5] = LP:CreateSpellsEntry(131225, 'spell', true), -- Gate of the Setting Sun (Path of the Setting Sun)
-		[6] = LP:CreateSpellsEntry(131231, 'spell', true), -- Scarlet Halls (Path of the Scarlet Blade)
-		[7] = LP:CreateSpellsEntry(131229, 'spell', true), -- Scarlet Monastery (Path of the Scarlet Mitre)
-		[8] = LP:CreateSpellsEntry(131232, 'spell', true), -- Scholomance (Path of the Necromancer)
-		[9] = LP:CreateSpellsEntry(131228, 'spell', true), -- Siege of Niuzao (Path of the Black Ox)
-		[10] = LP:CreateSpellsEntry(159895, 'spell', true), -- Bloodmaul Slag Mines (Path of the Bloodmaul)
-		[11] = LP:CreateSpellsEntry(159902, 'spell', true), -- Upper Blackrock Spire (Path of the Burning Mountain)
-		[12] = LP:CreateSpellsEntry(159899, 'spell', true), -- Shadowmoon Burial Grounds (Path of the Crescent Moon)
-		[13] = LP:CreateSpellsEntry(159900, 'spell', true), -- Grimrail Depot (Path of the Dark Rail)
-		[14] = LP:CreateSpellsEntry(159896, 'spell', true), -- Iron Docks (Path of the Iron Prow)
-		[15] = LP:CreateSpellsEntry(159898, 'spell', true), -- Skyreach (Path of the Skies)
-		[16] = LP:CreateSpellsEntry(159901, 'spell', true), -- Everbloom (Path of the Verdant)
-		[17] = LP:CreateSpellsEntry(159897, 'spell', true), -- Auchindoun (Path of the Vigilant)
-		[18] = LP:CreateSpellsEntry(354468, 'spell', true), -- De Other Side (Path of the Scheming Loa)
-		[19] = LP:CreateSpellsEntry(354465, 'spell', true), -- Halls of Atonement (Path of the Sinful Soul)
-		[20] = LP:CreateSpellsEntry(354464, 'spell', true), -- Mists of Tirna Scithe (Path of the Misty Forest)
-		[21] = LP:CreateSpellsEntry(354463, 'spell', true), -- Plaguefall (Path of the Plagued)
-		[22] = LP:CreateSpellsEntry(354469, 'spell', true), -- Sanguine Depths (Path of the Stone Warden)
-		[23] = LP:CreateSpellsEntry(354466, 'spell', true), -- Spires of Ascension (Path of the Ascendant)
-		[24] = LP:CreateSpellsEntry(354462, 'spell', true), -- Necrotic Wake (Path of the Courageous)
-		[25] = LP:CreateSpellsEntry(354467, 'spell', true), -- Theater of Pain (Path of the Undefeated)
-		[26] = LP:CreateSpellsEntry(367416, 'spell', true), -- Tazavesh, the Veiled Market (Path of the Streetwise Merchant)
-		[27] = LP:CreateSpellsEntry(373274, 'spell', true), -- Mechagon (Path of the Scrappy Prince)
-		[28] = LP:CreateSpellsEntry(373262, 'spell', true), -- Karazhan (Path of the Fallen Guardian)
-		[29] = LP:CreateSpellsEntry(373190, 'spell', true), -- Castle Nathria (Path of the Sire)
-		[30] = LP:CreateSpellsEntry(373191, 'spell', true), -- Sanctum of Domination (Path of the Tormented Soul)
-		[31] = LP:CreateSpellsEntry(373192, 'spell', true), -- Sepulcher of the First Ones (Path of the First Ones)
-		[32] = LP:CreateSpellsEntry(393222, 'spell', true), -- Uldaman: Legacy of Tyr (Path of the Watcher's Legacy)
-		[33] = LP:CreateSpellsEntry(393256, 'spell', true), -- Ruby Life Pools (Path of the Clutch Defender)
-		[34] = LP:CreateSpellsEntry(393262, 'spell', true), -- The Nokhud Offensive (Path of the Windswept Plains)
-		[35] = LP:CreateSpellsEntry(393267, 'spell', true), -- Brackenhide (Path of the Rotting Woods)
-		[36] = LP:CreateSpellsEntry(393273, 'spell', true), -- Algeth'ar Academy (Path of the Draconic Diploma)
-		[37] = LP:CreateSpellsEntry(393276, 'spell', true), -- Neltharus (Path of the Obsidian Hoard)
-		[38] = LP:CreateSpellsEntry(393279, 'spell', true), -- Azur Vault (Path of Arcane Secrets)
-		[39] = LP:CreateSpellsEntry(393283, 'spell', true), -- Halls of Infusion (Path of the Titanic Reservoir)
-		[40] = LP:CreateSpellsEntry(393764, 'spell', true), -- Halls of Valor (Path of Proven Worth)
-		[41] = LP:CreateSpellsEntry(393766, 'spell', true), -- Court of Stars (Path of the Grand Magistrix)
-		[42] = LP:CreateSpellsEntry(410071, 'spell', true), -- Freehold (Path of the Freebooter)
-        [43] = LP:CreateSpellsEntry(410074, 'spell', true), -- Underrot (Path of the Festering Rot)
-        [44] = LP:CreateSpellsEntry(410078, 'spell', true), -- Neltharion's Lair (Path of the Earth-Warder)
-        [45] = LP:CreateSpellsEntry(410080, 'spell', true), -- The Vortex Pinacle (Path of Wind's Domain)
-		[46] = LP:CreateSpellsEntry(424142, 'spell', true), -- Teleport to Throne of the Tides (Path of the Tidehunter)
-		[47] = LP:CreateSpellsEntry(424153, 'spell', true), -- Teleport to Black Rock Hold (Path of Ancient Horrors)
-		[48] = LP:CreateSpellsEntry(424163, 'spell', true), -- Teleport to Darkheart Thicket (Path of the Nightmare Lord)
-		[49] = LP:CreateSpellsEntry(424167, 'spell', true), -- Teleport to Waycrest Manor (Path of Heart's Bane)
-		[50] = LP:CreateSpellsEntry(424187, 'spell', true), -- Teleport to Atal'Dazar (Path of the Golden Tomb)
-		[51] = LP:CreateSpellsEntry(424197, 'spell', true), -- Teleport to Dawn of the Infinite (Path of Twisted Time)
+		[1] = LP:CreateSpellsEntry(131204, 'spell', true), -- TP: Temple of the Jade Serpent
+		[2] = LP:CreateSpellsEntry(131205, 'spell', true), -- TP: Stormstout Brewery
+		[3] = LP:CreateSpellsEntry(131206, 'spell', true), -- TP: Shado-Pan Monastery
+		[4] = LP:CreateSpellsEntry(131222, 'spell', true), -- TP: Mogu'shan Palace
+		[5] = LP:CreateSpellsEntry(131225, 'spell', true), -- TP: Gate of the Setting Sun
+		[6] = LP:CreateSpellsEntry(131228, 'spell', true), -- TP: Siege of Niuzao
+		[7] = LP:CreateSpellsEntry(131229, 'spell', true), -- TP: Scarlet Monastery
+		[8] = LP:CreateSpellsEntry(131231, 'spell', true), -- TP: Scarlet Halls
+		[9] = LP:CreateSpellsEntry(131232, 'spell', true), -- TP: Scholomance
+		[10] = LP:CreateSpellsEntry(159895, 'spell', true), -- TP: Bloodmaul Slag Mines
+		[11] = LP:CreateSpellsEntry(159896, 'spell', true), -- TP: Iron Docks
+		[12] = LP:CreateSpellsEntry(159897, 'spell', true), -- TP: Auchindoun
+		[13] = LP:CreateSpellsEntry(159898, 'spell', true), -- TP: Skyreach
+		[14] = LP:CreateSpellsEntry(159899, 'spell', true), -- TP: Shadowmoon Burial Grounds
+		[15] = LP:CreateSpellsEntry(159900, 'spell', true), -- TP: Grimrail Depot
+		[16] = LP:CreateSpellsEntry(159901, 'spell', true), -- TP: The Everbloom
+		[17] = LP:CreateSpellsEntry(159902, 'spell', true), -- TP: Upper Blackrock Spire
+		[18] = LP:CreateSpellsEntry(354462, 'spell', true), -- TP: The Necrotic Wake
+		[19] = LP:CreateSpellsEntry(354463, 'spell', true), -- TP: Plaguefall
+		[20] = LP:CreateSpellsEntry(354464, 'spell', true), -- TP: Mists of Tirna Scithe
+		[21] = LP:CreateSpellsEntry(354465, 'spell', true), -- TP: Halls of Atonement
+		[22] = LP:CreateSpellsEntry(354466, 'spell', true), -- TP: Spires of Ascension
+		[23] = LP:CreateSpellsEntry(354467, 'spell', true), -- TP: Theater of Pain
+		[24] = LP:CreateSpellsEntry(354468, 'spell', true), -- TP: De Other Side
+		[25] = LP:CreateSpellsEntry(354469, 'spell', true), -- TP: Sanguine Depths
+		[26] = LP:CreateSpellsEntry(367416, 'spell', true), -- TP: Tazavesh, the Veiled Market
+		[27] = LP:CreateSpellsEntry(373190, 'spell', true), -- TP: Castle Nathria
+		[28] = LP:CreateSpellsEntry(373191, 'spell', true), -- TP: Sanctum of Domination
+		[29] = LP:CreateSpellsEntry(373192, 'spell', true), -- TP: Sepulcher of the First Ones
+		[30] = LP:CreateSpellsEntry(373262, 'spell', true), -- TP: Karazhan
+		[31] = LP:CreateSpellsEntry(373274, 'spell', true), -- TP: Operation: Mechagon
+		[32] = LP:CreateSpellsEntry(393222, 'spell', true), -- TP: Uldaman: Legacy of Tyr
+		[33] = LP:CreateSpellsEntry(393256, 'spell', true), -- TP: Ruby Life Pools
+		[34] = LP:CreateSpellsEntry(393262, 'spell', true), -- TP: The Nokhud Offensive
+		[35] = LP:CreateSpellsEntry(393267, 'spell', true), -- TP: Brackenhide Hollow
+		[36] = LP:CreateSpellsEntry(393273, 'spell', true), -- TP: Algeth'ar Academy
+		[37] = LP:CreateSpellsEntry(393276, 'spell', true), -- TP: Neltharus
+		[38] = LP:CreateSpellsEntry(393279, 'spell', true), -- TP: The Azure Vault
+		[39] = LP:CreateSpellsEntry(393283, 'spell', true), -- TP: Halls of Infusion
+		[40] = LP:CreateSpellsEntry(393764, 'spell', true), -- TP: Halls of Valor
+		[41] = LP:CreateSpellsEntry(393766, 'spell', true), -- TP: Court of Stars
+		[42] = LP:CreateSpellsEntry(410071, 'spell', true), -- TP: Freehold
+		[43] = LP:CreateSpellsEntry(410074, 'spell', true), -- TP: The Underrot
+		[44] = LP:CreateSpellsEntry(410078, 'spell', true), -- TP: Neltharion's Lair
+		[45] = LP:CreateSpellsEntry(410080, 'spell', true), -- TP: The Vortex Pinnacle
+		[46] = LP:CreateSpellsEntry(424142, 'spell', true), -- TP: Throne of the Tides
+		[47] = LP:CreateSpellsEntry(424153, 'spell', true), -- TP: Black Rook Hold
+		[48] = LP:CreateSpellsEntry(424163, 'spell', true), -- TP: Darkheart Thicket
+		[49] = LP:CreateSpellsEntry(424167, 'spell', true), -- TP: Waycrest Manor
+		[50] = LP:CreateSpellsEntry(424187, 'spell', true), -- TP: Atal'Dazar
+		[51] = LP:CreateSpellsEntry(424197, 'spell', true), -- TP: Dawn of the Infinite
+		[52] = LP:CreateSpellsEntry(432254, 'spell', true), -- TP: Vault of the Incarnates
+		[53] = LP:CreateSpellsEntry(432257, 'spell', true), -- TP: Aberrus, the Shadowed Crucible
+		[54] = LP:CreateSpellsEntry(432258, 'spell', true), -- TP: Amirdrassil, the Dream's Hope
+		[55] = LP:CreateSpellsEntry(445269, 'spell', true), -- TP: The Stonevault
+		[56] = LP:CreateSpellsEntry(445414, 'spell', true), -- TP: The Dawnbreaker
+		[57] = LP:CreateSpellsEntry(445416, 'spell', true), -- TP: City of Threads
+		[58] = LP:CreateSpellsEntry(445417, 'spell', true), -- TP: Ara-Kara, City of Echoes
+		[59] = LP:CreateSpellsEntry(445424, 'spell', true), -- TP: Grim Batol
+		[60] = LP:CreateSpellsEntry(445440, 'spell', true), -- TP: Cinderbrew Meadery
+		[61] = LP:CreateSpellsEntry(445441, 'spell', true), -- TP: Darkflame Cleft
+		[62] = LP:CreateSpellsEntry(445443, 'spell', true), -- TP: The Rookery
+		[63] = LP:CreateSpellsEntry(445444, 'spell', true), -- TP: Priory of the Sacred Flame
+		[64] = LP:CreateSpellsEntry(1216786, 'spell', true), -- TP: Operation: Floodgate
+		[65] = LP:CreateSpellsEntry(1226482, 'spell', true), -- TP: Liberation of Undermine
+		[66] = LP:CreateSpellsEntry(1237215, 'spell', true), -- TP: Eco-Dome Al'dani
+		[67] = LP:CreateSpellsEntry(1239155, 'spell', true), -- TP: Manaforge Omega
+		[68] = LP:CreateSpellsEntry(1254400, 'spell', true), -- TP: Windrunner Spire
+		[69] = LP:CreateSpellsEntry(1254551, 'spell', true), -- TP: Seat of the Triumvirate
+		[70] = LP:CreateSpellsEntry(1254555, 'spell', true), -- TP: Pit of Saron
+		[71] = LP:CreateSpellsEntry(1254559, 'spell', true), -- TP: Maisara Caverns
+		[72] = LP:CreateSpellsEntry(1254563, 'spell', true), -- TP: Nexus-Point Xenas
+		[73] = LP:CreateSpellsEntry(1254572, 'spell', true), -- TP: Magisters' Terrace
 	},
 }
 
