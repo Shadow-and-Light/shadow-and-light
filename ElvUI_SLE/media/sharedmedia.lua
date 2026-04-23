@@ -2,7 +2,7 @@ local LSM = LibStub('LibSharedMedia-3.0')
 
 if LSM == nil then return end
 
-LSM:Register('font', 'Accidental Presidency', [[Interface\AddOns\ElvUI_SLE\media\fonts\Accidental_Presidency.ttf]])
+LSM:Register('font', 'Accidental Presidency (Slug Fix)', [[Interface\AddOns\ElvUI_SLE\media\fonts\Accidental_Presidency.ttf]])
 LSM:Register('font', 'Buffet Script', [[Interface\AddOns\ElvUI_SLE\media\fonts\Buffet_Script.ttf]])
 LSM:Register('font', 'Doris PP', [[Interface\AddOns\ElvUI_SLE\media\fonts\DORISBR.TTF]])
 LSM:Register('font', 'Durandal Light', [[Interface\AddOns\ElvUI_SLE\media\fonts\Durandal_Light.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
