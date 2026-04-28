@@ -1,52 +1,53 @@
-﻿local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
-local Sk = SLE.Skins
+local SLE, T, E, L, V, P, G = unpack(ElvUI_SLE)
 local S = E.Skins
 
--- GLOBALS: CreateFrame, hooksecurefunc, ChatFontSmall, UIParent, INVSLOT_FIRST_EQUIPPED, INVSLOT_LAST_EQUIPPED
--- Rebuilding Merchant Frame as a scrollable list. Based on a code by Nils Ruesch (xMerchant addon)
 local _G = _G
-local strtrim = strtrim
+local CreateFrame = CreateFrame
 local GetLocale = GetLocale
+local GetMoney = GetMoney
+local GetItemInfo = GetItemInfo
+local GetMerchantNumItems = GetMerchantNumItems
+local GetMerchantItemInfo = GetMerchantItemInfo
+local GetMerchantItemLink = GetMerchantItemLink
+local GetMerchantItemID = GetMerchantItemID
+local GetMerchantItemCostInfo = GetMerchantItemCostInfo
+local GetMerchantItemCostItem = GetMerchantItemCostItem
+local GetCoinTextureString = GetCoinTextureString
+local CanAffordMerchantItem = CanAffordMerchantItem
 local HandleModifiedItemClick = HandleModifiedItemClick
-local MerchantItemButton_OnClick = MerchantItemButton_OnClick
 local BuyMerchantItem = BuyMerchantItem
 local MerchantFrame_ConfirmExtendedItemCost = MerchantFrame_ConfirmExtendedItemCost
-local FauxScrollFrame_OnVerticalScroll = FauxScrollFrame_OnVerticalScroll
-local GetMerchantItemInfo, GetMerchantItemLink = GetMerchantItemInfo, GetMerchantItemLink
-local GetMoney, GetCoinTextureString = GetMoney, GetCoinTextureString
-local GetMerchantItemCostInfo, GetMerchantItemCostItem = GetMerchantItemCostInfo, GetMerchantItemCostItem
-local FauxScrollFrame_GetOffset, FauxScrollFrame_Update = FauxScrollFrame_GetOffset, FauxScrollFrame_Update
-local GetMerchantNumItems = GetMerchantNumItems
-local IsModifiedClick = IsModifiedClick
-local MerchantItemButton_OnModifiedClick = MerchantItemButton_OnModifiedClick
+local MerchantItemButton_OnClick = MerchantItemButton_OnClick
 local MerchantItemButton_OnEnter = MerchantItemButton_OnEnter
-local ResetCursor, ShowInspectCursor = ResetCursor, ShowInspectCursor
+local MerchantItemButton_OnModifiedClick = MerchantItemButton_OnModifiedClick
+local FauxScrollFrame_OnVerticalScroll = FauxScrollFrame_OnVerticalScroll
+local FauxScrollFrame_GetOffset = FauxScrollFrame_GetOffset
+local FauxScrollFrame_Update = FauxScrollFrame_Update
+local IsModifiedClick = IsModifiedClick
+local ResetCursor = ResetCursor
+local ShowInspectCursor = ShowInspectCursor
+local tinsert = tinsert
+local unpack = unpack
+local wipe = wipe
 
-local C_CurrencyInfo_GetCurrencyListInfo = C_CurrencyInfo.GetCurrencyListInfo
-local C_CurrencyInfo_GetCurrencyListSize = C_CurrencyInfo.GetCurrencyListSize
+local C_MerchantFrame = C_MerchantFrame
+local C_Item = C_Item
+local C_Heirloom = C_Heirloom
 
-local C_Container_GetContainerItemInfo = C_Container.GetContainerItemInfo
-local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
-local C_Container_GetContainerItemID = C_Container.GetContainerItemID
-
-local C_Item_GetItemInfo = C_Item.GetItemInfo
-
-local HIGHLIGHT_FONT_COLOR = HIGHLIGHT_FONT_COLOR
 local SEARCH = SEARCH
 local MAX_ITEM_COST = MAX_ITEM_COST
 local RETRIEVING_ITEM_INFO = RETRIEVING_ITEM_INFO
 local ITEM_SPELL_KNOWN = ITEM_SPELL_KNOWN
-local NUM_BAG_SLOTS = NUM_BAG_SLOTS
-local MISCELLANEOUS, MOUNT = MISCELLANEOUS, MOUNT
+local MISCELLANEOUS = MISCELLANEOUS
+local MOUNT = MOUNT
 
-local RECIPE = C_Item.GetItemClassInfo(Enum.ItemClass.Recipe)
+local ITEM_ROWS = 10
+local ROW_HEIGHT = 29.4
 
-local currencies = {}
 local buttons = {}
-local searching = ""
-local errors = {}
-local knowns = {}
-local MerchantUpdating = false
+local searchText = ""
+local merchantUpdating = false
+local hiddenTooltipName = "SLE_Merchant_HiddenTooltip"
 
 local locale = {
 	enUS = {
@@ -121,504 +122,581 @@ local locale = {
 		REQUIRES = "需要(.+)",
 	},
 }
-local REQUIRES_LEVEL = locale[GetLocale()] and locale[GetLocale()].REQUIRES_LEVEL or ""
-local LEVEL = locale[GetLocale()] and locale[GetLocale()].LEVEL or ""
-local REQUIRES_REPUTATION = locale[GetLocale()] and locale[GetLocale()].REQUIRES_REPUTATION or ""
-local REQUIRES_REPUTATION_NAME = locale[GetLocale()] and locale[GetLocale()].REQUIRES_REPUTATION_NAME or ""
-local REQUIRES_SKILL = locale[GetLocale()] and locale[GetLocale()].REQUIRES_SKILL or ""
-local SKILL = "%1$s (%2$d)"
-local REQUIRES = locale[GetLocale()] and locale[GetLocale()].REQUIRES or ""
 
-local function Item_OnClick(self)
-	HandleModifiedItemClick(self.itemLink)
+local localeStrings = locale[GetLocale()] or {}
+local REQUIRES_LEVEL = localeStrings.REQUIRES_LEVEL or ""
+local LEVEL = localeStrings.LEVEL or ""
+local REQUIRES_REPUTATION = localeStrings.REQUIRES_REPUTATION or ""
+local REQUIRES_REPUTATION_NAME = localeStrings.REQUIRES_REPUTATION_NAME or ""
+local REQUIRES_SKILL = localeStrings.REQUIRES_SKILL or ""
+local REQUIRES = localeStrings.REQUIRES or ""
+local SKILL = "%1$s (%2$d)"
+local RECIPE = (C_Item and C_Item.GetItemClassInfo and Enum and Enum.ItemClass and C_Item.GetItemClassInfo(Enum.ItemClass.Recipe)) or _G["AUCTION_CATEGORY_RECIPES"] or "Recipe"
+
+local function GetItemInfoSafe(linkOrItemID)
+	if C_Item and C_Item.GetItemInfo then
+		return C_Item.GetItemInfo(linkOrItemID)
+	end
+	return GetItemInfo(linkOrItemID)
 end
 
-local function Item_OnEnter(self)
+local function GetQualityColor(quality)
+	local color = ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[quality]
+	if color then
+		return color.r or 1, color.g or 1, color.b or 1
+	end
+	if _G.GetItemQualityColor then
+		return _G.GetItemQualityColor(quality)
+	end
+	return 1, 1, 1
+end
+
+local function GetMerchantInfoModern(index)
+	if C_MerchantFrame and C_MerchantFrame.GetItemInfo then
+		local info = C_MerchantFrame.GetItemInfo(index)
+		if info then
+			return {
+				name = info.name,
+				texture = info.iconFileID or info.texture,
+				price = info.price or 0,
+				quantity = info.stackCount or info.quantity or 1,
+				numAvailable = info.numAvailable or -1,
+				isPurchasable = info.isPurchasable,
+				isUsable = info.isUsable,
+				extendedCost = info.hasExtendedCost or info.extendedCost,
+				itemID = info.itemID,
+				link = (C_MerchantFrame.GetItemLink and C_MerchantFrame.GetItemLink(index)) or nil,
+			}
+		end
+	end
+end
+
+local function GetMerchantInfoClassic(index)
+	if not GetMerchantItemInfo then
+		return nil
+	end
+
+	local name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost = GetMerchantItemInfo(index)
+	if not name and not texture and not price then
+		return nil
+	end
+
+	return {
+		name = name,
+		texture = texture,
+		price = price or 0,
+		quantity = quantity or 1,
+		numAvailable = numAvailable or -1,
+		isPurchasable = isPurchasable,
+		isUsable = isUsable,
+		extendedCost = extendedCost,
+		itemID = GetMerchantItemID and GetMerchantItemID(index) or nil,
+		link = GetMerchantItemLink and GetMerchantItemLink(index) or nil,
+	}
+end
+
+local function GetMerchantItemData(index)
+	return GetMerchantInfoModern(index) or GetMerchantInfoClassic(index)
+end
+
+local function GetMerchantCostItemData(index, costIndex)
+	if GetMerchantItemCostItem then
+		local texture, value, link = GetMerchantItemCostItem(index, costIndex)
+		if texture then
+			return texture, value, link
+		end
+	end
+
+	if C_MerchantFrame and C_MerchantFrame.GetItemCostInfo then
+		local info = C_MerchantFrame.GetItemCostInfo(index, costIndex)
+		if info then
+			return info.iconFileID or info.texture, info.amount or info.cost, info.itemLink or info.link
+		end
+	end
+end
+
+local function GetMerchantCostCount(index)
+	if GetMerchantItemCostInfo then
+		return GetMerchantItemCostInfo(index) or 0
+	end
+
+	if C_MerchantFrame and C_MerchantFrame.GetNumItemCosts then
+		return C_MerchantFrame.GetNumItemCosts(index) or 0
+	end
+
+	return 0
+end
+
+local function CanAffordMerchantItemSafe(index)
+	if CanAffordMerchantItem then
+		return CanAffordMerchantItem(index)
+	end
+
+	if C_MerchantFrame and C_MerchantFrame.CanAffordItem then
+		return C_MerchantFrame.CanAffordItem(index)
+	end
+
+	return true
+end
+
+local function SetButtonHighlight(button, r, g, b, show)
+	button.highlight:SetVertexColor(r, g, b, 0.5)
+	if show then
+		button.highlight:Show()
+	else
+		button.highlight:Hide()
+	end
+end
+
+local function AppendError(buffer, text)
+	if not text or text == "" then
+		return buffer
+	end
+	if buffer ~= "" then
+		return buffer .. ", " .. text
+	end
+	return text
+end
+
+local function GetMerchantRequirementText(link, itemType, itemSubType)
+	if not link then
+		return nil
+	end
+
+	local tooltip = _G[hiddenTooltipName]
+	if not tooltip then
+		return nil
+	end
+
+	local isRecipe = itemType == RECIPE
+	local isMount = itemType == MISCELLANEOUS and itemSubType == MOUNT
+	local errorText = ""
+
+	tooltip:SetOwner(UIParent, "ANCHOR_NONE")
+	tooltip:SetHyperlink(link)
+
+	local totalLines = tooltip:NumLines()
+	for lineIndex = 2, totalLines do
+		if (isRecipe and (lineIndex <= 5 or lineIndex >= totalLines - 3)) or isMount or not isRecipe then
+			local leftLine = _G[hiddenTooltipName .. "TextLeft" .. lineIndex]
+			if leftLine then
+				local r, g, b = leftLine:GetTextColor()
+				local text = leftLine:GetText()
+				if text and r >= 0.9 and g <= 0.2 and b <= 0.2 and text ~= RETRIEVING_ITEM_INFO then
+					local level = REQUIRES_LEVEL ~= "" and text:match(REQUIRES_LEVEL) or nil
+					local reputation, factionName = REQUIRES_REPUTATION ~= "" and string.match(text, REQUIRES_REPUTATION) or nil, nil
+					if REQUIRES_REPUTATION ~= "" then
+						reputation, factionName = string.match(text, REQUIRES_REPUTATION)
+					end
+					local skill, skillLevel = REQUIRES_SKILL ~= "" and text:match(REQUIRES_SKILL) or nil, nil
+					if REQUIRES_SKILL ~= "" then
+						skill, skillLevel = text:match(REQUIRES_SKILL)
+					end
+					local requires = REQUIRES ~= "" and text:match(REQUIRES) or nil
+					local known = text == ITEM_SPELL_KNOWN
+
+					if level then
+						errorText = AppendError(errorText, LEVEL:format(level))
+					end
+					if reputation then
+						if not factionName and REQUIRES_REPUTATION_NAME ~= "" then
+							factionName = text:match(REQUIRES_REPUTATION_NAME)
+						end
+						errorText = AppendError(errorText, factionName and (reputation .. " (" .. factionName .. ")") or reputation)
+					end
+					if skill and skillLevel then
+						errorText = AppendError(errorText, SKILL:format(skill, skillLevel))
+					end
+					if not level and not reputation and not skill and requires then
+						errorText = AppendError(errorText, requires)
+					end
+					if known then
+						errorText = AppendError(errorText, ITEM_SPELL_KNOWN)
+					end
+					if not level and not reputation and not skill and not requires and not known then
+						errorText = AppendError(errorText, text)
+					end
+				end
+			end
+
+			local rightLine = _G[hiddenTooltipName .. "TextRight" .. lineIndex]
+			if rightLine then
+				local r, g, b = rightLine:GetTextColor()
+				local text = rightLine:GetText()
+				if text and r >= 0.9 and g <= 0.2 and b <= 0.2 then
+					errorText = AppendError(errorText, text)
+				end
+			end
+		end
+	end
+
+	return errorText ~= "" and errorText or nil
+end
+
+local function AltCurrency_OnClick(self)
+	if self.itemLink then
+		HandleModifiedItemClick(self.itemLink)
+	end
+end
+
+local function AltCurrency_OnEnter(self)
 	local parent = self:GetParent()
-	if ( parent.isShown and not parent.hover ) then
+	if parent.isShown and not parent.hover then
 		parent.oldr, parent.oldg, parent.oldb, parent.olda = parent.highlight:GetVertexColor()
-		parent.highlight:SetVertexColor(parent.r, parent.g, parent.b, parent.olda)
-		parent.hover = 1
+		parent.highlight:SetVertexColor(parent.r or 1, parent.g or 1, parent.b or 1, parent.olda)
+		parent.hover = true
 	else
 		parent.highlight:Show()
 	end
 
-	_G["GameTooltip"]:SetOwner(self, "ANCHOR_RIGHT")
-	if self.itemLink then _G["GameTooltip"]:SetHyperlink(self.itemLink) end
-	if ( IsModifiedClick("DRESSUP") ) then
+	local tooltip = _G.GameTooltip
+	tooltip:SetOwner(self, "ANCHOR_RIGHT")
+	if self.itemLink then
+		tooltip:SetHyperlink(self.itemLink)
+	end
+
+	if IsModifiedClick("DRESSUP") then
 		ShowInspectCursor()
 	else
 		ResetCursor()
 	end
 end
 
-local function Item_OnLeave(self)
+local function AltCurrency_OnLeave(self)
 	local parent = self:GetParent()
-	if ( parent.isShown ) then
-		parent.highlight:SetVertexColor(parent.oldr, parent.oldg, parent.oldb, parent.olda)
+	if parent.isShown then
+		parent.highlight:SetVertexColor(parent.oldr or 1, parent.oldg or 1, parent.oldb or 1, parent.olda or 1)
 		parent.hover = nil
 	else
 		parent.highlight:Hide()
 	end
-	_G["GameTooltip"]:Hide()
+	_G.GameTooltip:Hide()
 	ResetCursor()
 end
 
-local function ListItem_OnClick(self, button)
-	if ( IsModifiedClick() ) then
+local function Row_OnClick(self, button)
+	if IsModifiedClick() then
 		MerchantItemButton_OnModifiedClick(self, button)
 	else
 		MerchantItemButton_OnClick(self, button)
 	end
 end
 
-local function ListItem_OnEnter(self)
-	if ( self.isShown and not self.hover ) then
+local function Row_OnEnter(self)
+	if self.isShown and not self.hover then
 		self.oldr, self.oldg, self.oldb, self.olda = self.highlight:GetVertexColor()
-		self.highlight:SetVertexColor(self.r, self.g, self.b, self.olda)
-		self.hover = 1
+		self.highlight:SetVertexColor(self.r or 1, self.g or 1, self.b or 1, self.olda)
+		self.hover = true
 	else
 		self.highlight:Show()
 	end
 	MerchantItemButton_OnEnter(self)
 end
 
-local function ListItem_OnLeave(self)
-	if ( self.isShown ) then
-		if (self.oldr) then
+local function Row_OnLeave(self)
+	if self.isShown then
+		if self.oldr then
 			self.highlight:SetVertexColor(self.oldr, self.oldg, self.oldb, self.olda)
 		end
 		self.hover = nil
 	else
 		self.highlight:Hide()
 	end
-	_G["GameTooltip"]:Hide()
+	_G.GameTooltip:Hide()
 	ResetCursor()
-	_G["MerchantFrame"].itemHover = nil
+	_G.MerchantFrame.itemHover = nil
 end
 
-local function ListItem_OnHide()
-	wipe(errors)
-	wipe(currencies)
+local function Row_OnHide()
+	merchantUpdating = false
 end
 
-local function List_GetError(link, itemType, itemSubType)
-	if ( not link ) then
-		return false
-	end
-
-	local id = link:match("item:(%d+)")
-
-	if ( errors[id] ) then
-		return errors[id]
-	end
-	local upperLimit
-	local isMount = false
-	local isRecipe = false
-	if itemType == RECIPE then
-		isRecipe = true
-	elseif itemType == MISCELLANEOUS and itemSubType == MOUNT then
-		isMount = true
-	end
-	local errormsg = ""
-
-	_G["SLE_Merchant_HiddenTooltip"]:SetOwner(UIParent, "ANCHOR_NONE")
-	_G["SLE_Merchant_HiddenTooltip"]:SetHyperlink(link)
-	upperLimit = isRecipe and _G["SLE_Merchant_HiddenTooltip"]:NumLines() or 0
-
-	for i=2, _G["SLE_Merchant_HiddenTooltip"]:NumLines() do
-		if (isRecipe and (i <= 5 or i >= upperLimit - 3)) or isMount or not isRecipe then
-			local text = _G["SLE_Merchant_HiddenTooltipTextLeft"..i]
-			local r, g, b = text:GetTextColor()
-			local gettext = text:GetText()
-			if ( gettext and r >= 0.9 and g <= 0.2 and b <= 0.2 and gettext ~= RETRIEVING_ITEM_INFO ) then
-				if ( errormsg ~= "" ) then
-					errormsg = errormsg..", "
-				end
-
-				local level = gettext:match(REQUIRES_LEVEL)
-				if ( level ) then
-					errormsg = errormsg..LEVEL:format(level)
-				end
-
-				local reputation, factionName = strmatch(gettext, REQUIRES_REPUTATION)
-				if ( reputation ) then
-					errormsg = errormsg..reputation
-					if not factionName then factionName = gettext:match(REQUIRES_REPUTATION_NAME) end
-					if ( factionName ) then
-							errormsg = errormsg.." ("..factionName..")"
-					end
-				end
-
-				local skill, slevel = gettext:match(REQUIRES_SKILL)
-				if ( skill and slevel ) then
-					errormsg = errormsg..SKILL:format(skill, slevel)
-				end
-
-				local requires = gettext:match(REQUIRES)
-				if ( not level and not reputation and not skill and requires ) then
-					errormsg = errormsg..requires
-				end
-
-				local known = gettext == ITEM_SPELL_KNOWN and true or false
-				if known then
-					errormsg = errormsg..ITEM_SPELL_KNOWN
-				end
-
-				if ( not level and not reputation and not skill and not requires and not known) then
-					if ( errormsg ~= "" ) then
-						errormsg = gettext..", "..errormsg
-					else
-						errormsg = errormsg..gettext
-					end
-				end
-			end
-			--  TODO: Come back to these later as they are declared 2 times in the same block
-			local text = _G["SLE_Merchant_HiddenTooltipTextRight"..i]
-			local r, g, b = text:GetTextColor()
-			local gettext = text:GetText()
-			if ( gettext and r >= 0.9 and g <= 0.2 and b <= 0.2 ) then
-				if ( errormsg ~= "" ) then
-					errormsg = errormsg..", "
-				end
-				errormsg = errormsg..gettext
-			end
-		end
-	end
-
-	if ( errormsg == "" ) then
-		return false
-	end
-
-	errors[id] = errormsg
-	return errormsg
-end
-
-local function List_AltCurrencyFrame_Update(item, texture, cost, canAfford)
-	if (canAfford == false) then
-		item.count:SetTextColor(1, 0, 0)
+local function UpdateAltCurrencyFrame(frame, texture, cost, canAfford)
+	if canAfford == false then
+		frame.count:SetTextColor(1, 0, 0)
 	else
-		item.count:SetTextColor(1, 1, 1)
+		frame.count:SetTextColor(1, 1, 1)
 	end
-
-	item.count:SetText(cost)
-	item.icon:SetTexture(texture)
-	item.count:SetPoint("RIGHT", item.icon, "LEFT", -2, 0)
-	-- item.icon:SetTexCoord(0, 1, 0, 1)
-	item.icon:SetTexCoord(unpack(E.TexCoords))
-
-	local iconWidth = 17
-	item.icon:SetWidth(iconWidth)
-	item.icon:SetHeight(iconWidth)
-	item:SetWidth(item.count:GetWidth() + iconWidth + 4)
-	item:SetHeight(item.count:GetHeight() + 4)
+	frame.count:SetText(cost)
+	frame.icon:SetTexture(texture)
+	frame.icon:SetTexCoord(unpack(E.TexCoords))
+	frame.icon:SetSize(17, 17)
+	frame.count:SetPoint("RIGHT", frame.icon, "LEFT", -2, 0)
+	frame:SetSize(frame.count:GetWidth() + 21, frame.count:GetHeight() + 4)
 end
 
-local function List_CurrencyUpdate()
-	wipe(currencies)
+local function UpdateAltCost(button, merchantIndex, canAfford)
+	local frames = {}
+	local costCount = GetMerchantCostCount(merchantIndex)
 
-	local limit = C_CurrencyInfo_GetCurrencyListSize()
+	if costCount > 0 then
+		for costIndex = 1, MAX_ITEM_COST do
+			local itemButton = button.item[costIndex]
+			local texture, amount, link = GetMerchantCostItemData(merchantIndex, costIndex)
+			itemButton.index = merchantIndex
+			itemButton.item = costIndex
+			itemButton.itemLink = link
 
-	for i=1, limit do
-		local name, isHeader, _, _, _, count, icon, maximum, hasWeeklyLimit, currentWeeklyAmount, _, itemID = C_CurrencyInfo_GetCurrencyListInfo(i)
-		if ( not isHeader and itemID ) then
-			currencies[tonumber(itemID)] = count
-			if ( not isHeader and itemID and tonumber(itemID) <= 9 ) then
-				currencies[name] = count
-			end
-		elseif ( not isHeader and not itemID ) then
-			currencies[name] = count
-		end
-	end
-
-	for i=INVSLOT_FIRST_EQUIPPED, INVSLOT_LAST_EQUIPPED, 1 do
-		local itemID = GetInventoryItemID("player", i)
-		if ( itemID ) then
-			currencies[tonumber(itemID)] = 1
-		end
-	end
-
-	for bagID=0, NUM_BAG_SLOTS, 1 do
-		local numSlots = C_Container_GetContainerNumSlots(bagID)
-		for slotID=1, numSlots, 1 do
-			local itemID = C_Container_GetContainerItemID(bagID, slotID)
-			if ( itemID ) then
-				local count = select(2, C_Container_GetContainerItemInfo(bagID, slotID))
-				itemID = tonumber(itemID)
-				local currency = currencies[itemID]
-				if ( currency ) then
-					currencies[itemID] = currency+count
-				else
-					currencies[itemID] = count
-				end
-			end
-		end
-	end
-end
-
---  TODO: Think the i is incorrect
-local function List_UpdateAltCurrency(button, index, i, canAfford)
-	local currency_frames = {}
-	local lastFrame
-	local itemCount = GetMerchantItemCostInfo(index)
-
-	if ( itemCount > 0 ) then
-		for i = 1, MAX_ITEM_COST do
-		-- for i = 1, 1 do
-			local itemTexture, itemValue, itemLink = GetMerchantItemCostItem(index, i)
-			local item = button.item[i]
-			item.index = index
-			item.item = i
-			item.itemLink = itemLink
-			List_AltCurrencyFrame_Update(item, itemTexture, itemValue, canAfford)
-
-			if ( not itemTexture ) then
-				item:Hide()
+			if texture then
+				UpdateAltCurrencyFrame(itemButton, texture, amount, canAfford)
+				itemButton:Show()
+				tinsert(frames, itemButton)
 			else
-				lastFrame = item
-				lastFrame._dbg_name = "item"..i
-				tinsert(currency_frames, item)
-				item:Show()
+				itemButton:Hide()
 			end
 		end
 	else
-		for i = 1, MAX_ITEM_COST do
-			button.item[i]:Hide()
+		for costIndex = 1, MAX_ITEM_COST do
+			button.item[costIndex]:Hide()
 		end
 	end
 
-	button.money._dbg_name = "money"
-	tinsert(currency_frames, button.money)
+	tinsert(frames, button.money)
 
-	lastFrame = nil
-	for i, frame in ipairs(currency_frames) do
-		if i == 1 then
+	local lastFrame
+	for frameIndex, frame in ipairs(frames) do
+		frame:ClearAllPoints()
+		if frameIndex == 1 then
 			frame:SetPoint("RIGHT", -2, 6)
 		else
-			if lastFrame then
-				frame:SetPoint("RIGHT", lastFrame, "LEFT", -2, 0)
-			else
-				frame:SetPoint("RIGHT", -2, 0)
-			end
+			frame:SetPoint("RIGHT", lastFrame, "LEFT", -2, 0)
 		end
 		lastFrame = frame
 	end
 end
 
-local function List_MerchantUpdate()
-	local self = _G["SLE_ListMerchantFrame"]
-	local numMerchantItems = GetMerchantNumItems()
+local function UpdateMerchantList()
+	local frame = _G.SLE_ListMerchantFrame
+	if not frame or not frame.scrollframe then
+		return
+	end
 
-	FauxScrollFrame_Update(self.scrollframe, numMerchantItems, 10, 29.4, nil, nil, nil, nil, nil, nil, 1)
-	for i=1, 10 do
-		local offset = i+FauxScrollFrame_GetOffset(self.scrollframe)
-		local button = buttons[i]
+	local totalItems = GetMerchantNumItems()
+	FauxScrollFrame_Update(frame.scrollframe, totalItems, ITEM_ROWS, ROW_HEIGHT, nil, nil, nil, nil, nil, nil, 1)
+
+	for rowIndex = 1, ITEM_ROWS do
+		local merchantIndex = rowIndex + FauxScrollFrame_GetOffset(frame.scrollframe)
+		local button = buttons[rowIndex]
 		button.hover = nil
-		if ( offset <= numMerchantItems ) then
-			--API name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost = GetMerchantItemInfo(index)
-			local name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost = GetMerchantItemInfo(offset)
-			local canAfford = CanAffordMerchantItem(offset)
-			local link = GetMerchantItemLink(offset)
-			local subtext = ""
-			local r, g, b = 0.5, 0.5, 0.5
-			local _, itemRarity, itemType, itemSubType, equipSlot
-			local iLevel
-			if ( link ) then
-				--API name, link, quality, iLevel, reqLevel, class, subclass, maxStack, equipSlot, texture, vendorPrice = GetItemInfo(itemID) or GetItemInfo("itemName") or GetItemInfo("itemLink")
-				_, _, itemRarity, iLevel, _, itemType, itemSubType, _, equipSlot = C_Item_GetItemInfo(link)
-				if itemRarity then
-					r, g, b = GetItemQualityColor(itemRarity)
+
+		if merchantIndex <= totalItems then
+			local merchantItem = GetMerchantItemData(merchantIndex)
+			if merchantItem then
+				local name = merchantItem.name
+				local texture = merchantItem.texture
+				local price = merchantItem.price or 0
+				local quantity = merchantItem.quantity or 1
+				local numAvailable = merchantItem.numAvailable or -1
+				local isPurchasable = merchantItem.isPurchasable
+				local isUsable = merchantItem.isUsable
+				local extendedCost = merchantItem.extendedCost
+				local link = merchantItem.link
+				local itemID = merchantItem.itemID
+				local canAfford = CanAffordMerchantItemSafe(merchantIndex)
+
+				local subtext = ""
+				local itemRarity, itemType, itemSubType, equipSlot, itemLevel
+				local r, g, b = 0.5, 0.5, 0.5
+
+				if link or itemID then
+					local _, _, quality, iLevel, _, className, subClassName, _, slotName = GetItemInfoSafe(link or itemID)
+					itemRarity = quality
+					itemLevel = iLevel
+					itemType = className
+					itemSubType = subClassName
+					equipSlot = slotName
+					r, g, b = GetQualityColor(itemRarity)
 					button.itemname:SetTextColor(r, g, b)
-				end
-				if itemSubType then
-					subtext = itemSubType:gsub("%(OBSOLETE%)", "")
-					if equipSlot and equipSlot ~= "" and equipSlot ~= "INVTYPE_TABARD" then
-						subtext = _G[equipSlot].." ("..iLevel..")"
-					elseif equipSlot and equipSlot == "INVTYPE_TABARD" then
-						subtext = _G[equipSlot]
+
+					if itemSubType then
+						subtext = itemSubType:gsub("%(OBSOLETE%)", "")
+						if equipSlot and equipSlot ~= "" and equipSlot ~= "INVTYPE_TABARD" then
+							subtext = (_G[equipSlot] or equipSlot) .. " (" .. (itemLevel or "?") .. ")"
+						elseif equipSlot == "INVTYPE_TABARD" then
+							subtext = _G[equipSlot] or equipSlot
+						end
 					end
-					button.iteminfo:SetText(subtext)
 				else
-					button.iteminfo:SetText("")
+					button.itemname:SetTextColor(1, 1, 1)
 				end
 
+				button.iteminfo:SetText(subtext)
+				button.itemname:SetText((numAvailable >= 0 and "|cffffffff[" .. numAvailable .. "]|r " or "") .. (quantity > 1 and "|cffffffff" .. quantity .. "x|r " or "") .. (name or "|cffff0000" .. RETRIEVING_ITEM_INFO))
+				button.icon:SetTexture(texture)
+				button.icon:SetTexCoord(unpack(E.TexCoords))
+
+				local qualityDesc = itemRarity and _G["ITEM_QUALITY" .. tostring(itemRarity) .. "_DESC"]
 				local alpha = 0.3
-				if ( searching == "" or searching == SEARCH:lower() or name:lower():match(searching)
-					or ( itemRarity and ( tostring(itemRarity):lower():match(searching) or _G["ITEM_QUALITY"..tostring(itemRarity).."_DESC"]:lower():match(searching) ) )
-					or ( itemType and itemType:lower():match(searching) )
-					or ( itemSubType and itemSubType:lower():match(searching) )
-					) then
+				if searchText == "" or searchText == SEARCH:lower() or (name and name:lower():match(searchText)) or (qualityDesc and qualityDesc:lower():match(searchText)) or (itemType and itemType:lower():match(searchText)) or (itemSubType and itemSubType:lower():match(searchText)) then
 					alpha = 1
 				end
 				button:SetAlpha(alpha)
-			else
-				button.iteminfo:SetText(subtext)
-			end
 
-			button.itemname:SetText((numAvailable >= 0 and "|cffffffff["..numAvailable.."]|r " or "")..(quantity > 1 and "|cffffffff"..quantity.."x|r " or "")..(name or "|cffff0000"..RETRIEVING_ITEM_INFO))
-			button.icon:SetTexture(texture)
-			button.icon:SetTexCoord(unpack(E.TexCoords))
-
-			List_UpdateAltCurrency(button, offset, i, canAfford)
-			if ( extendedCost and price <= 0 ) then
-				button.price = nil
-				button.extendedCost = true
-				button.money:SetText("")
-			elseif ( extendedCost and price > 0 ) then
-				button.price = price
-				button.extendedCost = true
-				button.money:SetText(GetCoinTextureString(price))
-			else
-				button.price = price
-				button.extendedCost = nil
-				button.money:SetText(GetCoinTextureString(price))
-			end
-
-			if ( GetMoney() > price ) then
-				button.money:SetTextColor(1, 1, 1)
-			else
-				button.money:SetTextColor(1, 0, 0)
-			end
-
-			local merchantItemID = GetMerchantItemID(offset)
-			local isHeirloom = merchantItemID and C_Heirloom.IsItemHeirloom(merchantItemID)
-			local isKnownHeirloom = isHeirloom and C_Heirloom.PlayerHasHeirloom(merchantItemID)
-			local tintRed = not isPurchasable or (not isUsable and not isHeirloom) -- or (canAfford == false)
-
-			if ( numAvailable == 0 or isKnownHeirloom ) then
-				button.highlight:SetVertexColor(0.5, 0.5, 0.5, 0.5)
-				button.highlight:Show()
-				button.isShown = 1
-			elseif tintRed then
-				button.highlight:SetVertexColor(1, 0.2, 0.2, 0.5)
-				button.highlight:Show()
-				button.isShown = 1
-
-				-- TODO: Check if this works as Darth had local errors but was alread declared
-				local errors = List_GetError(link, itemType, itemSubType)
-				if ( errors ) then
-					button.iteminfo:SetText("|cffd00000"..subtext.." - "..errors.."|r")
+				UpdateAltCost(button, merchantIndex, canAfford)
+				if extendedCost and price <= 0 then
+					button.price = nil
+					button.extendedCost = true
+					button.money:SetText("")
+				else
+					button.price = price
+					button.extendedCost = extendedCost or nil
+					button.money:SetText(GetCoinTextureString(price))
 				end
-			else
-				button.highlight:SetVertexColor(r, g, b, 0.5)
-				button.highlight:Hide()
-				button.isShown = nil
 
-				-- TODO: Check if this works as Darth had local errors but was alread declared
-				local errors = List_GetError(link, itemType, itemSubType)
-				if ( errors ) then
-					button.highlight:SetVertexColor(1, 0.2, 0.2, 0.5)
-					button.highlight:Show()
-					button.isShown = 1
-					button.iteminfo:SetText("|cffd00000"..subtext.." - "..errors.."|r")
+				if GetMoney() >= price then
+					button.money:SetTextColor(1, 1, 1)
+				else
+					button.money:SetTextColor(1, 0, 0)
 				end
-			end
 
-			button.r = r
-			button.g = g
-			button.b = b
-			button.link = GetMerchantItemLink(offset)
-			button.hasItem = true
-			button.texture = texture
-			button:SetID(offset)
-			button:Show()
+				local isHeirloom = itemID and C_Heirloom and C_Heirloom.IsItemHeirloom and C_Heirloom.IsItemHeirloom(itemID)
+				local isKnownHeirloom = isHeirloom and C_Heirloom and C_Heirloom.PlayerHasHeirloom and C_Heirloom.PlayerHasHeirloom(itemID)
+				local tintRed = not isPurchasable or (not isUsable and not isHeirloom)
+				local errorText = GetMerchantRequirementText(link, itemType, itemSubType)
+
+				if numAvailable == 0 or isKnownHeirloom then
+					SetButtonHighlight(button, 0.5, 0.5, 0.5, true)
+					button.isShown = true
+				elseif tintRed or errorText then
+					SetButtonHighlight(button, 1, 0.2, 0.2, true)
+					button.isShown = true
+					if errorText then
+						button.iteminfo:SetText("|cffd00000" .. subtext .. " - " .. errorText .. "|r")
+					end
+				else
+					SetButtonHighlight(button, r, g, b, false)
+					button.isShown = nil
+				end
+
+				button.r = r
+				button.g = g
+				button.b = b
+				button.link = link
+				button.hasItem = true
+				button.texture = texture
+				button:SetID(merchantIndex)
+				button:Show()
+			else
+				button.hasItem = nil
+				button:Hide()
+			end
 		else
-			button.price = nil
 			button.hasItem = nil
 			button:Hide()
 		end
-		if ( button.hasStackSplit == 1 ) then
-			_G["StackSplitFrame"]:Hide()
+
+		if button.hasStackSplit == 1 then
+			_G.StackSplitFrame:Hide()
 		end
 	end
 end
 
-local function ListSearch_OnTextChanged(self)
-	searching = self:GetText():trim():lower()
-	List_MerchantUpdate()
+local function Search_OnTextChanged(self)
+	searchText = self:GetText():trim():lower()
+	UpdateMerchantList()
 end
 
-local function ListSearch_OnShow(self)
+local function Search_OnShow(self)
 	self:SetText(SEARCH)
-	searching = ""
+	searchText = ""
 end
 
-local function ListSearch_OnEnterPressed(self)
+local function Search_OnEnterPressed(self)
 	self:ClearFocus()
 end
 
-local function ListSearch_OnEscapePressed(self)
+local function Search_OnEscapePressed(self)
 	self:ClearFocus()
 	self:SetText(SEARCH)
-	searching = ""
+	searchText = ""
 end
 
-local function ListSearch_OnEditFocusLost(self)
+local function Search_OnEditFocusLost(self)
 	self:HighlightText(0, 0)
-	if ( strtrim(self:GetText()) == "" ) then
+	if self:GetText():trim() == "" then
 		self:SetText(SEARCH)
-		searching = ""
+		searchText = ""
 	end
 end
 
-local function ListSearch_OnEditFocusGained(self)
+local function Search_OnEditFocusGained(self)
 	self:HighlightText()
-	if ( self:GetText():trim():lower() == SEARCH:lower() ) then
+	if self:GetText():trim():lower() == SEARCH:lower() then
 		self:SetText("")
 	end
 end
 
-local function ListStyle_Update()
-	if ( _G["MerchantFrame"].selectedTab == 1 ) then
-		for i=1, 12 do
-			_G["MerchantItem"..i]:Hide()
-		end
-		_G["SLE_ListMerchantFrame"]:Show()
-		-- List_CurrencyUpdate()
-		List_MerchantUpdate()
-	else
-		_G["SLE_ListMerchantFrame"]:Hide()
-		for i=1, 12 do
-			_G["MerchantItem"..i]:Show()
-		end
-		if ( _G["StackSplitFrame"]:IsShown() ) then
-			_G["StackSplitFrame"]:Hide()
-		end
-	end
-end
-
-local function OnVerticalScroll(self, offset)
-	FauxScrollFrame_OnVerticalScroll(self, offset, 29.4, List_MerchantUpdate)
-end
-
 local function SplitStack(button, split)
-	if ( button.extendedCost ) then
+	if button.extendedCost then
 		MerchantFrame_ConfirmExtendedItemCost(button, split)
-	elseif ( split > 0 ) then
+	elseif split > 0 then
 		BuyMerchantItem(button:GetID(), split)
 	end
 end
 
-local function Create_ListButton(frame, i)
-	local button = CreateFrame("Button", "SLE_ListMerchantFrame_Button"..i, frame)
-	button:SetWidth(frame:GetWidth())
-	button:SetHeight(29.4)
-	if ( i == 1 ) then
+local function OnVerticalScroll(self, offset)
+	FauxScrollFrame_OnVerticalScroll(self, offset, ROW_HEIGHT, UpdateMerchantList)
+end
+
+local function UpdateListVisibility()
+	if _G.MerchantFrame.selectedTab == 1 then
+		for index = 1, 12 do
+			_G["MerchantItem" .. index]:Hide()
+		end
+		_G.SLE_ListMerchantFrame:Show()
+		UpdateMerchantList()
+	else
+		_G.SLE_ListMerchantFrame:Hide()
+		for index = 1, 12 do
+			_G["MerchantItem" .. index]:Show()
+		end
+		if _G.StackSplitFrame:IsShown() then
+			_G.StackSplitFrame:Hide()
+		end
+	end
+end
+
+local function CreateAltCostButton(parent, index)
+	local button = CreateFrame("Button", "$parentItem" .. index, parent)
+	button:SetSize(17, 17)
+	button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	button:SetScript("OnClick", AltCurrency_OnClick)
+	button:SetScript("OnEnter", AltCurrency_OnEnter)
+	button:SetScript("OnLeave", AltCurrency_OnLeave)
+	button.hasItem = true
+	button.UpdateTooltip = AltCurrency_OnEnter
+
+	local icon = button:CreateTexture("$parentIcon", "BORDER")
+	button.icon = icon
+	icon:SetSize(17, 17)
+	icon:SetPoint("RIGHT")
+
+	local count = button:CreateFontString("$parentCount", "ARTWORK", "GameFontHighlight")
+	button.count = count
+	count:SetPoint("RIGHT", icon, "LEFT", -2, 0)
+
+	return button
+end
+
+local function CreateListRow(parent, index)
+	local button = CreateFrame("Button", "SLE_ListMerchantFrame_Button" .. index, parent)
+	button:SetSize(parent:GetWidth(), ROW_HEIGHT)
+	if index == 1 then
 		button:SetPoint("TOPLEFT", 0, -1)
 	else
-		button:SetPoint("TOP", buttons[i-1], "BOTTOM")
+		button:SetPoint("TOP", buttons[index - 1], "BOTTOM")
 	end
-	button:RegisterForClicks("LeftButtonUp","RightButtonUp")
+	button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	button:RegisterForDrag("LeftButton")
-	button.UpdateTooltip = ListItem_OnEnter
+	button.UpdateTooltip = Row_OnEnter
 	button.SplitStack = SplitStack
-	button:SetScript("OnClick", ListItem_OnClick)
+	button:SetScript("OnClick", Row_OnClick)
 	button:SetScript("OnDragStart", MerchantItemButton_OnClick)
-	button:SetScript("OnEnter", ListItem_OnEnter)
-	button:SetScript("OnLeave", ListItem_OnLeave)
-	button:SetScript("OnHide", ListItem_OnHide)
+	button:SetScript("OnEnter", Row_OnEnter)
+	button:SetScript("OnLeave", Row_OnLeave)
+	button:SetScript("OnHide", Row_OnHide)
 
-	local highlight = button:CreateTexture("$parentHighlight", "BACKGROUND") -- better highlight
+	local highlight = button:CreateTexture("$parentHighlight", "BACKGROUND")
 	button.highlight = highlight
 	highlight:SetAllPoints()
 	highlight:SetBlendMode("ADD")
@@ -627,105 +705,88 @@ local function Create_ListButton(frame, i)
 
 	local icon = button:CreateTexture("$parentIcon", "BORDER")
 	button.icon = icon
-	icon:SetWidth(25.4)
-	icon:SetHeight(25.4)
+	icon:SetSize(25.4, 25.4)
 	icon:SetPoint("LEFT", 2, 0)
 	icon:SetTexture("Interface\\Icons\\temp")
 
-	local itemname = button:CreateFontString("$parentItemName", "ARTWORK")
-	button.itemname = itemname
-	itemname:FontTemplate(E.LSM:Fetch('font', E.db.sle.skins.merchant.list.nameFont), E.db.sle.skins.merchant.list.nameSize, E.db.sle.skins.merchant.list.nameOutline)
-	itemname:SetPoint("TOPLEFT", icon, "TOPRIGHT", 4, -3)
-	itemname:SetJustifyH("LEFT")
+	local itemName = button:CreateFontString("$parentItemName", "ARTWORK")
+	button.itemname = itemName
+	itemName:FontTemplate(E.LSM:Fetch("font", E.db.sle.skins.merchant.list.nameFont), E.db.sle.skins.merchant.list.nameSize, E.db.sle.skins.merchant.list.nameOutline)
+	itemName:SetPoint("TOPLEFT", icon, "TOPRIGHT", 4, -3)
+	itemName:SetJustifyH("LEFT")
 
-	local iteminfo = button:CreateFontString("$parentItemInfo", "ARTWORK")
-	button.iteminfo = iteminfo
-	iteminfo:FontTemplate(E.LSM:Fetch('font', E.db.sle.skins.merchant.list.subFont), E.db.sle.skins.merchant.list.subSize, E.db.sle.skins.merchant.list.subOutline)
-	iteminfo:SetPoint("BOTTOMLEFT", icon, "BOTTOMRIGHT", 4, -3)
-	iteminfo:SetJustifyH("LEFT")
+	local itemInfo = button:CreateFontString("$parentItemInfo", "ARTWORK")
+	button.iteminfo = itemInfo
+	itemInfo:FontTemplate(E.LSM:Fetch("font", E.db.sle.skins.merchant.list.subFont), E.db.sle.skins.merchant.list.subSize, E.db.sle.skins.merchant.list.subOutline)
+	itemInfo:SetPoint("BOTTOMLEFT", icon, "BOTTOMRIGHT", 4, -3)
+	itemInfo:SetJustifyH("LEFT")
 
 	local money = button:CreateFontString("$parentMoney", "ARTWORK", "GameFontHighlight")
 	button.money = money
 	money:SetPoint("RIGHT", -2, 0)
 	money:SetJustifyH("RIGHT")
-	itemname:SetPoint("BOTTOMRIGHT", money, "LEFT", -2, 0)
-	iteminfo:SetPoint("TOPRIGHT", money, "LEFT", -2, 0)
+	itemName:SetPoint("BOTTOMRIGHT", money, "LEFT", -2, 0)
+	itemInfo:SetPoint("TOPRIGHT", money, "LEFT", -2, 0)
 
 	button.item = {}
-	for j=1, MAX_ITEM_COST do
-		local item = CreateFrame("Button", "$parentItem"..j, button)
-		button.item[j] = item
-		item:SetWidth(17)
-		item:SetHeight(17)
-		if ( j == 1 ) then
-			item:SetPoint("RIGHT", -2, 0)
+	for costIndex = 1, MAX_ITEM_COST do
+		button.item[costIndex] = CreateAltCostButton(button, costIndex)
+		if costIndex == 1 then
+			button.item[costIndex]:SetPoint("RIGHT", -2, 0)
 		else
-			item:SetPoint("RIGHT", button.item[j-1], "LEFT", -2, 0)
+			button.item[costIndex]:SetPoint("RIGHT", button.item[costIndex - 1], "LEFT", -2, 0)
 		end
-		item:RegisterForClicks("LeftButtonUp","RightButtonUp")
-		item:SetScript("OnClick", Item_OnClick)
-		item:SetScript("OnEnter", Item_OnEnter)
-		item:SetScript("OnLeave", Item_OnLeave)
-		item.hasItem = true
-		item.UpdateTooltip = Item_OnEnter
-
-		local icon = item:CreateTexture("$parentIcon", "BORDER")
-		item.icon = icon
-		icon:SetWidth(17)
-		icon:SetHeight(17)
-		icon:SetPoint("RIGHT")
-
-		local count = item:CreateFontString("$parentCount", "ARTWORK", "GameFontHighlight")
-		item.count = count
-		count:SetPoint("RIGHT", icon, "LEFT", -2, 0)
 	end
 
-	buttons[i] = button
+	buttons[index] = button
 end
 
 local function MerchantListSkinInit()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.merchant ~= true or E.private.sle.skins.merchant.enable ~= true then return end
 	if E.private.sle.skins.merchant.style ~= "List" then return end
-	local frame = CreateFrame("Frame", "SLE_ListMerchantFrame", _G["MerchantFrame"])
-	frame:SetWidth(331)
-	frame:SetHeight(294)
+
+	local frame = CreateFrame("Frame", "SLE_ListMerchantFrame", _G.MerchantFrame)
+	frame:SetSize(331, 294)
 	frame:SetPoint("TOPLEFT", 10, -65)
 
 	frame.scrollframe = CreateFrame("ScrollFrame", "SLE_ListMerchantScrollFrame", frame, "FauxScrollFrameTemplate")
-	frame.scrollframe:SetWidth(320)
-	frame.scrollframe:SetHeight(298)
-	frame.scrollframe:SetPoint("TOPLEFT", _G["MerchantFrame"], 22, -65)
+	frame.scrollframe:SetSize(320, 298)
+	frame.scrollframe:SetPoint("TOPLEFT", _G.MerchantFrame, 22, -65)
 	frame.scrollframe:SetScript("OnVerticalScroll", OnVerticalScroll)
 	frame.scrollframe:CreateBackdrop("Transparent")
-	S:HandleScrollBar(_G["SLE_ListMerchantScrollFrameScrollBar"])
+	S:HandleScrollBar(_G.SLE_ListMerchantScrollFrameScrollBar)
 
 	frame.search = CreateFrame("EditBox", "$parentSearch", frame, "InputBoxTemplate")
-	frame.search:SetWidth(92)
-	frame.search:SetHeight(24)
+	frame.search:SetSize(92, 24)
 	frame.search:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 50, 9)
 	frame.search:SetAutoFocus(false)
 	frame.search:SetFontObject(ChatFontSmall)
-	frame.search:SetScript("OnTextChanged", ListSearch_OnTextChanged)
-	frame.search:SetScript("OnShow", ListSearch_OnShow)
-	frame.search:SetScript("OnEnterPressed", ListSearch_OnEnterPressed)
-	frame.search:SetScript("OnEscapePressed", ListSearch_OnEscapePressed)
-	frame.search:SetScript("OnEditFocusLost", ListSearch_OnEditFocusLost)
-	frame.search:SetScript("OnEditFocusGained", ListSearch_OnEditFocusGained)
+	frame.search:SetScript("OnTextChanged", Search_OnTextChanged)
+	frame.search:SetScript("OnShow", Search_OnShow)
+	frame.search:SetScript("OnEnterPressed", Search_OnEnterPressed)
+	frame.search:SetScript("OnEscapePressed", Search_OnEscapePressed)
+	frame.search:SetScript("OnEditFocusLost", Search_OnEditFocusLost)
+	frame.search:SetScript("OnEditFocusGained", Search_OnEditFocusGained)
 	frame.search:SetText(SEARCH)
 	S:HandleEditBox(frame.search)
 
-	for i = 1, 10 do Create_ListButton(frame.scrollframe, i) end
-	_G["MerchantFrame"]:SetWidth(_G["MerchantFrame"]:GetWidth() + 26)
+	for index = 1, ITEM_ROWS do
+		CreateListRow(frame.scrollframe, index)
+	end
 
-	hooksecurefunc("MerchantFrame_Update", ListStyle_Update)
-	hooksecurefunc("MerchantFrame_OnHide", ListItem_OnHide)
+	_G.MerchantFrame:SetWidth(_G.MerchantFrame:GetWidth() + 26)
+
+	hooksecurefunc("MerchantFrame_Update", UpdateListVisibility)
+	hooksecurefunc("MerchantFrame_OnHide", function()
+		merchantUpdating = false
+	end)
 	hooksecurefunc("MerchantFrame_UpdateCurrencies", function()
 		for index = 1, 3 do
-			local tokenButton = _G["MerchantToken"..index]
+			local tokenButton = _G["MerchantToken" .. index]
 			if tokenButton and not tokenButton.SLE_ListMerchantStyled then
 				if tokenButton.Icon then
 					tokenButton.Icon:SetTexCoord(unpack(E.TexCoords))
-				else
+				elseif tokenButton.icon then
 					tokenButton.icon:SetTexCoord(unpack(E.TexCoords))
 				end
 				tokenButton.SLE_ListMerchantStyled = true
@@ -733,27 +794,31 @@ local function MerchantListSkinInit()
 		end
 	end)
 
-	_G["MerchantBuyBackItem"]:ClearAllPoints()
-	_G["MerchantBuyBackItem"]:SetPoint("TOPRIGHT", frame.scrollframe, "BOTTOMRIGHT", 17, -12)
-	local delete = { _G["MerchantNextPageButton"], _G["MerchantPrevPageButton"], _G["MerchantPageText"] }
-	for i = 1, #delete do
-		delete[i]:Hide()
-		delete[i].Show = function() end
+	_G.MerchantBuyBackItem:ClearAllPoints()
+	_G.MerchantBuyBackItem:SetPoint("TOPRIGHT", frame.scrollframe, "BOTTOMRIGHT", 17, -12)
+
+	for _, object in ipairs({ _G.MerchantNextPageButton, _G.MerchantPrevPageButton, _G.MerchantPageText }) do
+		object:Hide()
+		object.Show = function() end
 	end
+
 	frame:RegisterEvent("BAG_UPDATE")
-	frame:SetScript("OnEvent", function(self, event, ...)
-		if not self:IsShown() or MerchantUpdating then return end
-		MerchantUpdating = true
-		E:Delay(0.25, function()
-			-- List_CurrencyUpdate()
-			List_MerchantUpdate()
-			MerchantUpdating = false
+	frame:SetScript("OnEvent", function(self)
+		if not self:IsShown() or merchantUpdating then return end
+		merchantUpdating = true
+		E:Delay(0.15, function()
+			UpdateMerchantList()
+			merchantUpdating = false
 		end)
 	end)
+
 	if not locale[GetLocale()] then
-		SLE:Print("Your language is unavailable for selected merchant style. We would appretiate if you contact us and provide needed translations.", "warning")
+		SLE:Print("Your language is unavailable for selected merchant style. We would appreciate it if you contact us and provide needed translations.", "warning")
 	end
-	CreateFrame("GameTooltip", "SLE_Merchant_HiddenTooltip", UIParent, "GameTooltipTemplate")
+
+	if not _G[hiddenTooltipName] then
+		CreateFrame("GameTooltip", hiddenTooltipName, UIParent, "GameTooltipTemplate")
+	end
 end
 
 hooksecurefunc(S, "Initialize", MerchantListSkinInit)
