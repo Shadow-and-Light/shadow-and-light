@@ -3,9 +3,10 @@ local UnitIsConnected = UnitIsConnected
 
 local function Update(self)
 	local element = self.SL_OfflineIndicator
-	local unit = self.unit
-	local isOffline = not UnitIsConnected(unit)
+	local unit = self.__unit or self.unit
+	if not unit then return end
 
+	local isOffline = not UnitIsConnected(unit)
 	if element.PreUpdate then
 		element:PreUpdate()
 	end

@@ -89,6 +89,8 @@ function SUF:Initialize()
 	if not SLE.initialized or not E.private.unitframe.enable then return end
 
 	hooksecurefunc(UF, 'Configure_ClassBar', SUF.Configure_ClassBar)
+	hooksecurefunc(UF, 'Configure_AuraBars', SUF.Configure_AuraBars)
+
 	--* Construct Elements/Etc
 	HookConstructUnitFrames()
 

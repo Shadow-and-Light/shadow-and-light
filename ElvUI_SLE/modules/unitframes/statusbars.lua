@@ -11,6 +11,16 @@ function SUF:PostUpdateBar_AuraBars(a, statusBar, b, c, d, e, debuffType)
 	statusBar:SetStatusBarTexture(texture)
 end
 
+function SUF:Configure_AuraBars(frame)
+	if not E.Retail or not frame or not frame.AuraBars then return end
+
+	local db = E.db.sle.unitframe.statusbarTextures.aurabar
+	if not db.enable then return end
+
+	frame.AuraBars.statusbarTexture = E.LSM:Fetch('statusbar', db.texture)
+	E:Auras_UpdateButtons(frame.AuraBars)
+end
+
 function SUF:Update_StatusBars()
 	local db = E.db.sle.unitframe.statusbarTextures
 
