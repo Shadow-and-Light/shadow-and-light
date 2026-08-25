@@ -8,7 +8,9 @@ function SUF:Construct_FocusFrame(frame)
 
 	if frame.AuraBars then
 		frame.AuraBars.slBarID = 'aurabar'
-		hooksecurefunc(frame.AuraBars, 'PostUpdateBar', SUF.PostUpdateBar_AuraBars)
+		if type(frame.AuraBars.PostUpdateBar) == 'function' then
+			hooksecurefunc(frame.AuraBars, 'PostUpdateBar', SUF.PostUpdateBar_AuraBars)
+		end
 	end
 	if frame.Castbar then
 		frame.Castbar.slBarID = 'castbar'
