@@ -402,7 +402,7 @@ function OnEnter(self, _, noUpdate)
 
 		if not E.db.sle.dt.guild.minimize_gmotd then
 			line = tooltip:AddLine()
-			tooltip:SetCell(line, 1, "|cff00ff00"..GetGuildRosterMOTD().."|r", "LEFT", 0, nil, nil, nil, 100)
+			tooltip:SetCell(line, 1, "|cff00ff00"..(guildMotD or "").."|r", "LEFT", 0, nil, nil, nil, 100)
 		end
 
 		tooltip:AddLine(" ")
