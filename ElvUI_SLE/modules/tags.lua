@@ -78,26 +78,18 @@ local SPELL_POWER_MANA = Enum.PowerType.Mana
 -- 	end
 -- end)
 
-E:AddTag('sl:pvptimer', 1, function(unit,a,b)
-	if UnitIsPVPFreeForAll(unit) or UnitIsPVP(unit) then
-		if unit ~= 'player' then
-			return 'PvP'
-		end
-		local timer = GetPVPTimer()
-		if timer ~= 301000 and timer ~= -1 then
-			local mins = floor((timer / 1000) / 60)
-			local secs = floor((timer / 1000) - (mins * 60))
-			return ('%01.f:%02.f'):format(mins, secs)
-		else
-			return 'PvP'
+E:AddTag('sl:pvplevel', 'HONOR_LEVEL_UPDATE UNIT_FACTION', function(unit)
+	local freePVP = UnitIsPVPFreeForAll(unit)
+	local unitPVP = UnitIsPVP(unit)
+	if freePVP or (E:NotSecretValue(unitPVP) and unitPVP) then
+		local level = UnitHonorLevel(unit)
+		if level > 0 then
+			return level
 		end
 	else
 		return nil
 	end
-end)
-
-E:AddTag('sl:pvplevel', 'HONOR_LEVEL_UPDATE UNIT_FACTION', function(unit)
-	return (UnitIsPVP(unit) and UnitHonorLevel(unit) > 0) and UnitHonorLevel(unit) or nil
+	-- return (UnitIsPVP(unit) and UnitHonorLevel(unit) > 0) and UnitHonorLevel(unit) or nil
 end)
 
 for textFormat in pairs(E.GetFormattedTextStyles) do
@@ -136,7 +128,7 @@ end
 -- end
 
 --*Add the tags to the ElvUI Options
-E:AddTagInfo('sl:pvptimer', 'S&L', L["SLE_Tag_sl-pvptimer"])
+-- E:AddTagInfo('sl:pvptimer', 'S&L', L["SLE_Tag_sl-pvptimer"])
 E:AddTagInfo('sl:pvplevel', 'S&L', L["SLE_Tag_sl-pvplevel"])
 -- E:AddTagInfo('absorbs:sl-short', 'S&L', L["SLE_Tag_absorb-sl-short"])
 -- E:AddTagInfo('absorbs:sl-full', 'S&L', L["SLE_Tag_absorb-sl-full"])
