@@ -4,6 +4,7 @@ local FishLib = LibStub('LibFishing-1.0')
 
 local IsFishingLoot = IsFishingLoot
 local GetNumLootItems = GetNumLootItems
+local IsInInstance = IsInInstance
 
 local lastLure, castTime
 local castingLure = false
@@ -89,6 +90,7 @@ function Fishing:ButtonOptions()
 end
 
 function Fishing:GLOBAL_MOUSE_DOWN(...)
+	if IsInInstance() then return end
 	local button = select(2, ...)
 	
 	if FishLib:CheckForDoubleClick(button) and HijackCheck() then
@@ -103,6 +105,7 @@ function Fishing:GLOBAL_MOUSE_DOWN(...)
 end
 
 function Fishing:LOOT_OPENED()
+	if IsInInstance() then return end
 	if not IsFishingLoot() then return end
 
 	if E.db.sle.professions.fishing.autoLoot and (GetCVar('autoLootDefault') ~= '1' ) then
