@@ -10,7 +10,9 @@ local HandleModifiedItemClick = HandleModifiedItemClick
 local C_TransmogCollection_GetInspectItemTransmogInfoList = C_TransmogCollection.GetInspectItemTransmogInfoList
 local C_Item_GetItemGem = C_Item.GetItemGem
 local C_Item_GetItemInfo = C_Item.GetItemInfo
-local GetSpecialization, GetSpecializationInfo, GetInspectSpecialization = GetSpecialization, GetSpecializationInfo, GetInspectSpecialization
+local C_SpecializationInfo_GetSpecialization = C_SpecializationInfo.GetSpecialization
+local C_SpecializationInfo_GetSpecializationInfo = C_SpecializationInfo.GetSpecializationInfo
+local C_SpecializationInfo_GetInspectSpecialization = C_SpecializationInfo.GetInspectSpecialization
 local InCombatLockdown = InCombatLockdown
 local CA, IA, SA
 Armory.Constants = {}
@@ -181,9 +183,9 @@ function Armory:UpdatePageInfo(frame, which)
 
 	if which == 'Character' then
 		CA:Update_Durability()
-		Armory.CharacterPrimaryStat = select(6, GetSpecializationInfo(GetSpecialization(), nil, nil, nil, UnitSex('player')))
+		Armory.CharacterPrimaryStat = select(6, C_SpecializationInfo_GetSpecializationInfo(C_SpecializationInfo_GetSpecialization(), nil, nil, nil, UnitSex('player')))
 	else
-		Armory.InspectPrimaryStat = Armory.Constants.SpecPrimaryStats[GetInspectSpecialization(unit)]
+		Armory.InspectPrimaryStat = Armory.Constants.SpecPrimaryStats[C_SpecializationInfo_GetInspectSpecialization(unit)]
 		if _G.InspectPaperDollFrame.SLE_Armory_BG then
 			IA:Update_BG()
 		end
