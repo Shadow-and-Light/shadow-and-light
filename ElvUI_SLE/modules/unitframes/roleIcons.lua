@@ -15,7 +15,7 @@ function SUF:UpdateRoleIcon(event)
 		return
 	end
 
-	local role = UnitGroupRolesAssigned(self.unit)
+	local role = UnitGroupRolesAssigned(self.__unit)
 	if self.isForced and role == 'NONE' then
 		local rnd = random(1, 3)
 		role = rnd == 1 and 'TANK' or (rnd == 2 and 'HEALER' or (rnd == 3 and 'DAMAGER'))
@@ -23,7 +23,7 @@ function SUF:UpdateRoleIcon(event)
 
 	local shouldHide = ((event == 'PLAYER_REGEN_DISABLED' and db.combatHide and true) or false)
 
-	if (self.isForced or UnitIsConnected(self.unit)) and ((role == 'DAMAGER' and db.damager) or (role == 'HEALER' and db.healer) or (role == 'TANK' and db.tank)) then
+	if (self.isForced or UnitIsConnected(self.__unit)) and ((role == 'DAMAGER' and db.damager) or (role == 'HEALER' and db.healer) or (role == 'TANK' and db.tank)) then
 		lfdrole:SetTexture(SLE.rolePaths[sldb.icons][role])
 		if not shouldHide then
 			lfdrole:Show()
