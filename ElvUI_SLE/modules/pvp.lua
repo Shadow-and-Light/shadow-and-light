@@ -116,4 +116,4 @@ function PvP:Initialize()
 	end
 end
 
-SLE:RegisterModule(PvP:GetName())
+-- SLE:RegisterModule(PvP:GetName())
