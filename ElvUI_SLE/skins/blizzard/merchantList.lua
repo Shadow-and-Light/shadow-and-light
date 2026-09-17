@@ -30,6 +30,7 @@ local C_Container_GetContainerNumSlots = C_Container.GetContainerNumSlots
 local C_Container_GetContainerItemID = C_Container.GetContainerItemID
 
 local C_Item_GetItemInfo = C_Item.GetItemInfo
+local C_MerchantFrame_GetItemInfo = C_MerchantFrame.GetItemInfo
 
 local HIGHLIGHT_FONT_COLOR = HIGHLIGHT_FONT_COLOR
 local SEARCH = SEARCH
@@ -416,7 +417,8 @@ local function List_MerchantUpdate()
 		button.hover = nil
 		if ( offset <= numMerchantItems ) then
 			--API name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost = GetMerchantItemInfo(index)
-			local name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost = GetMerchantItemInfo(offset)
+			-- local name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost = C_MerchantFrame.GetItemInfo(offset)
+			local merchantItemInfo = C_MerchantFrame_GetItemInfo(offset)
 			local canAfford = CanAffordMerchantItem(offset)
 			local link = GetMerchantItemLink(offset)
 			local subtext = ""
@@ -443,7 +445,7 @@ local function List_MerchantUpdate()
 				end
 
 				local alpha = 0.3
-				if ( searching == "" or searching == SEARCH:lower() or name:lower():match(searching)
+				if ( searching == "" or searching == SEARCH:lower() or merchantItemInfo.name:lower():match(searching)
 					or ( itemRarity and ( tostring(itemRarity):lower():match(searching) or _G["ITEM_QUALITY"..tostring(itemRarity).."_DESC"]:lower():match(searching) ) )
 					or ( itemType and itemType:lower():match(searching) )
 					or ( itemSubType and itemSubType:lower():match(searching) )
@@ -455,26 +457,26 @@ local function List_MerchantUpdate()
 				button.iteminfo:SetText(subtext)
 			end
 
-			button.itemname:SetText((numAvailable >= 0 and "|cffffffff["..numAvailable.."]|r " or "")..(quantity > 1 and "|cffffffff"..quantity.."x|r " or "")..(name or "|cffff0000"..RETRIEVING_ITEM_INFO))
-			button.icon:SetTexture(texture)
+			button.itemname:SetText((merchantItemInfo.numAvailable >= 0 and "|cffffffff["..merchantItemInfo.numAvailable.."]|r " or "")..(merchantItemInfo.stackCount > 1 and "|cffffffff"..merchantItemInfo.stackCount.."x|r " or "")..(merchantItemInfo.name or "|cffff0000"..RETRIEVING_ITEM_INFO))
+			button.icon:SetTexture(merchantItemInfo.texture)
 			button.icon:SetTexCoord(unpack(E.TexCoords))
 
 			List_UpdateAltCurrency(button, offset, i, canAfford)
-			if ( extendedCost and price <= 0 ) then
+			if ( merchantItemInfo.hasExtendedCost and merchantItemInfo.price <= 0 ) then
 				button.price = nil
-				button.extendedCost = true
+				button.hasExtendedCost = true
 				button.money:SetText("")
-			elseif ( extendedCost and price > 0 ) then
-				button.price = price
-				button.extendedCost = true
-				button.money:SetText(GetCoinTextureString(price))
+			elseif ( merchantItemInfo.hasExtendedCost and merchantItemInfo.price > 0 ) then
+				button.price = merchantItemInfo.price
+				button.hasExtendedCost = true
+				button.money:SetText(GetCoinTextureString(merchantItemInfo.price))
 			else
-				button.price = price
-				button.extendedCost = nil
-				button.money:SetText(GetCoinTextureString(price))
+				button.price = merchantItemInfo.price
+				button.hasExtendedCost = nil
+				button.money:SetText(GetCoinTextureString(merchantItemInfo.price))
 			end
 
-			if ( GetMoney() > price ) then
+			if ( GetMoney() > merchantItemInfo.price ) then
 				button.money:SetTextColor(1, 1, 1)
 			else
 				button.money:SetTextColor(1, 0, 0)
@@ -483,9 +485,9 @@ local function List_MerchantUpdate()
 			local merchantItemID = GetMerchantItemID(offset)
 			local isHeirloom = merchantItemID and C_Heirloom.IsItemHeirloom(merchantItemID)
 			local isKnownHeirloom = isHeirloom and C_Heirloom.PlayerHasHeirloom(merchantItemID)
-			local tintRed = not isPurchasable or (not isUsable and not isHeirloom) -- or (canAfford == false)
+			local tintRed = not merchantItemInfo.isPurchasable or (not merchantItemInfo.isUsable and not isHeirloom) -- or (canAfford == false)
 
-			if ( numAvailable == 0 or isKnownHeirloom ) then
+			if ( merchantItemInfo.numAvailable == 0 or isKnownHeirloom ) then
 				button.highlight:SetVertexColor(0.5, 0.5, 0.5, 0.5)
 				button.highlight:Show()
 				button.isShown = 1
@@ -519,7 +521,7 @@ local function List_MerchantUpdate()
 			button.b = b
 			button.link = GetMerchantItemLink(offset)
 			button.hasItem = true
-			button.texture = texture
+			button.texture = merchantItemInfo.texture
 			button:SetID(offset)
 			button:Show()
 		else
@@ -592,7 +594,7 @@ local function OnVerticalScroll(self, offset)
 end
 
 local function SplitStack(button, split)
-	if ( button.extendedCost ) then
+	if ( button.hasExtendedCost ) then
 		MerchantFrame_ConfirmExtendedItemCost(button, split)
 	elseif ( split > 0 ) then
 		BuyMerchantItem(button:GetID(), split)
