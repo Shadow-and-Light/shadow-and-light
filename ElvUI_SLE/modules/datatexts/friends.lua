@@ -379,15 +379,17 @@ local function OnEvent(self, event, message)
 	-- special handler to detect friend coming online or going offline
 	-- when this is the case, we invalidate our buffered table and update the
 	-- datatext information
-	if event == 'CHAT_MSG_SYSTEM' then
-		if not (strfind(message, friendOnline) or strfind(message, friendOffline)) then return end
-	end
+	if E:NotSecretValue(event) then
+		if event == 'CHAT_MSG_SYSTEM' then
+			if not (strfind(message, friendOnline) or strfind(message, friendOffline)) then return end
+		end
 
-	if event == 'MODIFIER_STATE_CHANGED' then
-		if not IsAltKeyDown() and GetMouseFoci()[1] == self then
-			OnEnter(self)
-		elseif IsAltKeyDown and GetMouseFoci()[1] == self then
-			tooltip:Hide()
+		if event == 'MODIFIER_STATE_CHANGED' then
+			if not IsAltKeyDown() and GetMouseFoci()[1] == self then
+				OnEnter(self)
+			elseif IsAltKeyDown and GetMouseFoci()[1] == self then
+				tooltip:Hide()
+			end
 		end
 	end
 
