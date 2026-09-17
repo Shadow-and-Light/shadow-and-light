@@ -14,7 +14,7 @@ function SUF:Construct_PvPTimerText(frame)
 	PvPIndicator.SL_TimerText.value:Point('CENTER')
 	PvPIndicator.SL_TimerText.value:SetText('')
 
-	frame:Tag(PvPIndicator.SL_TimerText.value, '[sl:pvptimer]')
+	frame:Tag(PvPIndicator.SL_TimerText.value, '[pvptimer]')
 end
 
 function SUF:Configure_PvPTimerText(frame)
