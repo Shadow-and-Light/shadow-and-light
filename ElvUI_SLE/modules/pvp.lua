@@ -111,7 +111,11 @@ function PvP:Initialize()
 				end
 			end
 		end)
-		self:RegisterEvent('COMBAT_LOG_EVENT_UNFILTERED', 'LogParse')
+		-- COMBAT_LOG_EVENT_UNFILTERED is forbidden to addons from Retail 12.0. The
+		-- kill banner cannot work without it, but the rest of the module must load
+		if tonumber(E.wowtoc) < 120000 then
+			self:RegisterEvent('COMBAT_LOG_EVENT_UNFILTERED', 'LogParse')
+		end
 		self:RegisterEvent('UPDATE_BATTLEFIELD_SCORE', 'OpponentsTable')
 	end
 end
