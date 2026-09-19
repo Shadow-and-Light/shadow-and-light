@@ -179,7 +179,10 @@ function Armory:UpdatePageInfo(frame, which)
 	if not (E.db.sle.armory[window].enable or Armory:CheckOptions(which)) then return end
 
 	local window = strlower(which)
-	local unit = (which == 'Character' and 'player') or frame.unit
+	-- the inspect frame fires this update before its own unit token is set, and
+	-- GetInspectSpecialization(nil) throws and aborts the rest of the page
+	local unit = (which == 'Character' and 'player') or frame.unit or (_G.InspectFrame and _G.InspectFrame.unit)
+	if not unit then return end
 
 	if which == 'Character' then
 		CA:Update_Durability()
