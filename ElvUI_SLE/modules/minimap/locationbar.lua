@@ -500,14 +500,16 @@ end
 function LP:PopulateItems()
 	local noItem = false
 
+	-- an entry the server never answered for is rewritten as UNKNOWN and keeps no
+	-- item id, so every lookup here has to tolerate a missing one
 	for _, data in pairs(LP.Hearthstones) do
-		if select(2, C_Item_GetItemInfo(data[1])) == nil then noItem = true end
+		if data[1] and select(2, C_Item_GetItemInfo(data[1])) == nil then noItem = true end
 	end
 	for _, data in pairs(LP.PortItems) do
-		if select(2, C_Item_GetItemInfo(data[1])) == nil then noItem = true end
+		if data[1] and select(2, C_Item_GetItemInfo(data[1])) == nil then noItem = true end
 	end
 	for _, data in pairs(LP.EngineerItems) do
-		if select(2, C_Item_GetItemInfo(data[1])) == nil then noItem = true end
+		if data[1] and select(2, C_Item_GetItemInfo(data[1])) == nil then noItem = true end
 	end
 
 	if noItem and LP.ListBuildAttempts < 15 then
@@ -519,25 +521,25 @@ function LP:PopulateItems()
 		LP.ListBuildAttempts = 0
 		for index, data in pairs(LP.Hearthstones) do
 			local id, name, toy = data[1], data[2], data[3]
-			if select(2, C_Item_GetItemInfo(id)) then
+			if id and select(2, C_Item_GetItemInfo(id)) then
 				LP.Hearthstones[index] = {text = name or C_Item_GetItemInfo(id), icon = SLE:GetIconFromID('item', id),secure = {buttonType = 'item',ID = id, isToy = toy}, UseTooltip = true,}
-			else
-				LP.EngineerItems[index] = { text = UNKNOWN }
+			elseif id then
+				LP.Hearthstones[index] = { text = UNKNOWN }
 			end
 		end
 		for index, data in pairs(LP.PortItems) do
 			local id, name, toy = data[1], data[2], data[3]
-			if select(2, C_Item_GetItemInfo(id)) then
+			if id and select(2, C_Item_GetItemInfo(id)) then
 				LP.PortItems[index] = {text = name or C_Item_GetItemInfo(id), icon = SLE:GetIconFromID('item', id),secure = {buttonType = 'item',ID = id, isToy = toy}, UseTooltip = true,}
-			else
-				LP.EngineerItems[index] = { text = UNKNOWN }
+			elseif id then
+				LP.PortItems[index] = { text = UNKNOWN }
 			end
 		end
 		for index, data in pairs(LP.EngineerItems) do
 			local id, name, toy = data[1], data[2], data[3]
-			if select(2, C_Item_GetItemInfo(id)) then
+			if id and select(2, C_Item_GetItemInfo(id)) then
 				LP.EngineerItems[index] = { text = name or C_Item_GetItemInfo(id), icon = SLE:GetIconFromID('item', id),secure = {buttonType = 'item',ID = id, isToy = toy}, UseTooltip = true,}
-			else
+			elseif id then
 				LP.EngineerItems[index] = { text = UNKNOWN }
 			end
 		end
