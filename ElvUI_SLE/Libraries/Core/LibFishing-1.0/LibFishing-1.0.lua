@@ -1608,8 +1608,14 @@ end
 function FishLib:OnFishingBobber()
    if ( GameTooltip:IsVisible() and GameTooltip:GetAlpha() == 1 ) then
         local text = GameTooltipTextLeft1:GetText() or self:GetLastTooltipText();
+        local bobber = self:GetBobberName();
+        -- the tooltip hands back a secret string while fishing, and string.find
+        -- converts its arguments, which is forbidden on one
+        if ( issecretvalue and (issecretvalue(text) or issecretvalue(bobber)) ) then
+            return false;
+        end
         -- let a partial match work (for translations)
-        return ( text and string.find(text, self:GetBobberName() ) );
+        return ( text and string.find(text, bobber) );
     end
 end
 
